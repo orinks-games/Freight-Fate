@@ -17251,6 +17251,13 @@ msgstr ""
 msgid "Account achievements"
 msgstr "Osiągnięcia konta"
 
+msgid ""
+"Double tap opens a category. Inside one, double tap repeats the achievement "
+"and a flick down with two fingers returns to the categories. From the "
+"categories, it returns to Online. Achievements earned in any career on this "
+"installation."
+msgstr ""
+
 #. placeholders: {ids}, {listed_count}
 msgid "Summary: {ids} of {listed_count} earned across every career"
 msgstr ""
@@ -17336,6 +17343,14 @@ msgstr ""
 msgid "Left and Right change the order of this category only."
 msgstr ""
 
+msgid ""
+"Flick up or down to change the order of the categories and the achievements "
+"in each one."
+msgstr ""
+
+msgid "Flick up or down to change the order of this category only."
+msgstr ""
+
 msgid "All assists: the truck steers. Recommended for your first drives."
 msgstr "Wszyscy asystenci: ciężarówka kieruje. Zalecane na pierwsze jazdy."
 
@@ -17389,6 +17404,10 @@ msgstr ""
 msgid "Enter chooses. Escape keeps what you have."
 msgstr "Enter wybiera. Escape zostawia to, co masz."
 
+msgid ""
+"Double tap chooses. Flick down with two fingers to keep what you have."
+msgstr ""
+
 msgid "Driving assistance"
 msgstr "Asystenci jazdy"
 
@@ -17433,6 +17452,11 @@ msgstr "Gotowe za {remaining} {remaining:sekundę|sekundy|sekund}."
 msgid "Enter selects, Escape goes back. Control stops the current speech."
 msgstr "Enter wybiera, Escape cofa. Control zatrzymuje bieżącą mowę."
 
+msgid ""
+"Flick right or left to move and double tap to choose. Flick down with two "
+"fingers to go back."
+msgstr ""
+
 msgid "Menu"
 msgstr "Menu"
 
@@ -17459,6 +17483,11 @@ msgid ""
 msgstr ""
 "Strzałki w górę i w dół czytają po jednym wierszu, Enter go powtarza, "
 "Escape cofa."
+
+msgid ""
+"Flick right or left to read a line at a time, and double tap to repeat it. "
+"Flick down with two fingers to go back."
+msgstr ""
 
 msgid "Your carrier has ended your employment"
 msgstr "Przewoźnik zakończył twoje zatrudnienie"
@@ -17797,6 +17826,17 @@ msgstr ""
 "twoich odmów, które odnawiają się przy następnym awansie. F1 to szczegóły. "
 "Escape wraca."
 
+msgid ""
+"Double tap accepts. Flick up with two fingers for job details, and tap with "
+"three fingers for the market."
+msgstr ""
+
+msgid ""
+"Assigned load. Double tap accepts. Declining costs reputation and uses one "
+"of your declines, which refill at your next promotion. Flick up with two "
+"fingers for details."
+msgstr ""
+
 #. placeholders: {SENIOR_LOAD_CHOICE_LEVEL}
 msgid "until level {SENIOR_LOAD_CHOICE_LEVEL}"
 msgstr "do poziomu {SENIOR_LOAD_CHOICE_LEVEL}"
@@ -18037,6 +18077,17 @@ msgstr "Przy czasie pracy tej zmiany wymaga dodatkowego odpoczynku."
 
 #. placeholders: {summary}
 msgid ""
+"Needs an extra rest on this shift's hours. {summary} Double tap again to "
+"accept."
+msgstr ""
+
+#. placeholders: {summary}
+#. one sentence of a longer line
+msgid "{summary} Double tap again to accept."
+msgstr ""
+
+#. placeholders: {summary}
+msgid ""
 "Needs an extra rest on this shift's hours. {summary} Enter again to accept."
 msgstr ""
 "Przy czasie pracy tej zmiany wymaga dodatkowego odpoczynku. {summary} Enter "
@@ -18245,6 +18296,12 @@ msgstr ""
 "Enter powtarza wiersz albo przyjmuje zlecenie na pozycji Przyjmij to "
 "zlecenie. Escape wraca do tablicy zleceń."
 
+msgid ""
+"Flick right or left to review the lines, and up or down with three fingers "
+"to jump to the ends. Double tap repeats a line, or accepts on Accept this "
+"dispatch. Flick down with two fingers to return to the dispatch board."
+msgstr ""
+
 msgid "Job details"
 msgstr "Szczegóły zlecenia"
 
@@ -18326,6 +18383,9 @@ msgstr "Szczegóły zlecenia. {current}"
 msgid "Enter repeats this line."
 msgstr "Enter powtarza ten wiersz."
 
+msgid "Double tap repeats this line."
+msgstr ""
+
 #. placeholders: {locked}
 msgid "Cannot accept this dispatch: {locked}"
 msgstr "Nie można przyjąć tego zlecenia: {locked}"
@@ -18362,6 +18422,9 @@ msgstr "Zamknij tę karierę"
 
 msgid "Enter confirms, Escape keeps the career."
 msgstr "Enter zatwierdza, Escape zachowuje karierę."
+
+msgid "Double tap confirms. Flick down with two fingers to keep the career."
+msgstr ""
 
 msgid "Still closing out. One moment."
 msgstr "Wciąż trwa zamykanie. Chwileczkę."
@@ -18479,6 +18542,12 @@ msgstr ""
 "i bez zapłaty, kosztuje paliwo i czas pracy kierowcy. Escape wraca do "
 "terminala."
 
+msgid ""
+"Drive empty to a nearby city for its dispatch board. No load and no pay, "
+"costs fuel and hours of service. Flick down with two fingers to return to "
+"the terminal."
+msgstr ""
+
 msgid "No route to that city."
 msgstr "Brak trasy do tego miasta."
 
@@ -18513,6 +18582,10 @@ msgstr "Spłać, ile jesteś winien"
 
 msgid "Your own cash toward the balance. Escape backs out."
 msgstr "Twoja gotówka na poczet zaległości. Escape wycofuje."
+
+msgid ""
+"Your own cash toward the balance. Flick down with two fingers to back out."
+msgstr ""
 
 #. placeholders: {amount}
 msgid "Pay it all: {amount}"
@@ -18650,6 +18723,9 @@ msgstr "Obchód zakończony, {f} {f:minuta|minuty|minut}."
 
 #. placeholders: {f}, {join}
 msgid "Walk-around done, {f} minutes. {join}"
+msgstr ""
+
+msgid "Already rested. Double tap again to sleep anyway."
 msgstr ""
 
 msgid "Already rested. Enter again to sleep anyway."
@@ -19047,6 +19123,11 @@ msgstr ""
 "Enter powtarza wiersz albo wykupuje ciężarówkę, gdy spełniasz warunki. "
 "Escape wraca do terminala."
 
+msgid ""
+"Double tap repeats a line, or buys in when qualified. Flick down with two "
+"fingers to return to the terminal."
+msgstr ""
+
 #. placeholders: {status_label}
 msgid "Current status: {status_label}"
 msgstr "Obecny status: {status_label}"
@@ -19285,6 +19366,9 @@ msgstr "Ścieżka kierowcy-właściciela zablokowana"
 msgid "The remaining requirements."
 msgstr "Pozostałe wymagania."
 
+msgid "Go back to company driving: double tap again to confirm"
+msgstr ""
+
 msgid "Go back to company driving: press Enter again to confirm"
 msgstr ""
 "Wróć do pracy na etacie: naciśnij Enter jeszcze raz, żeby potwierdzić"
@@ -19383,6 +19467,12 @@ msgid ""
 msgstr ""
 "Ulepszenia obejmują każdy twój ciągnik. Enter kupuje następny poziom, F1 to "
 "szczegóły. Escape wraca do warsztatu."
+
+msgid ""
+"Upgrades apply to every tractor you own. Double tap buys the next tier, and "
+"a flick up with two fingers gives details. Flick down with two fingers to "
+"return to the garage."
+msgstr ""
 
 msgid ""
 "Upgrades unlock with the owner-operator buy-in, from level 18 under "
@@ -19597,6 +19687,12 @@ msgstr ""
 "własność. Escape wraca do warsztatu."
 
 msgid ""
+"Owner-operators start with the dry van program and add specialty programs. "
+"Own authority buys trailers outright. Flick down with two fingers to return "
+"to the garage."
+msgstr ""
+
+msgid ""
 "Trailer programs unlock with the owner-operator buy-in, from level 18 under "
 "Business status. The carrier provides trailers."
 msgstr ""
@@ -19732,6 +19828,11 @@ msgid ""
 msgstr ""
 "Enter rezerwuje kurs. Kursy zajmują czas gry, a sprawdzenie przeszłości "
 "trwa, gdy jedziesz. Escape wraca do terminalu."
+
+msgid ""
+"Double tap books a course. Courses take game time, and a background check "
+"runs while you drive. Flick down with two fingers to return to the terminal."
+msgstr ""
 
 #. placeholders: {label}, {grouped}, {grouped2}
 msgid "The {label} course costs {grouped} dollars and you have {grouped2}."
@@ -19877,6 +19978,10 @@ msgid "What another carrier needs before it hires you away."
 msgstr "Czego wymaga inny przewoźnik, zanim cię podkupi."
 
 #. placeholders: {carrier_name}
+msgid "Move to {carrier_name}: double tap again to confirm"
+msgstr ""
+
+#. placeholders: {carrier_name}
 msgid "Move to {carrier_name}: press Enter again to confirm"
 msgstr ""
 "Przejdź do {carrier_name}: naciśnij Enter jeszcze raz, żeby potwierdzić"
@@ -19884,6 +19989,15 @@ msgstr ""
 #. placeholders: {label}
 msgid "Move to {label}"
 msgstr "Przejdź do {label}"
+
+#. placeholders: {carrier_name}, {menu_summary}
+msgid "{carrier_name}. {menu_summary} Double tap again to move."
+msgstr ""
+
+#. placeholders: {menu_summary}
+#. one sentence of a longer line
+msgid "{menu_summary} Double tap again to move."
+msgstr ""
 
 #. placeholders: {carrier_name}, {menu_summary}
 msgid "{carrier_name}. {menu_summary} Press Enter again to move."
@@ -20474,6 +20588,11 @@ msgstr ""
 "Zgłoś się, a potem załaduj ładunek przy zatrzymanej ciężarówce. Escape "
 "powtarza stan odbioru."
 
+msgid ""
+"Check in, then load cargo with the truck stopped. A flick down with two "
+"fingers repeats the pickup status."
+msgstr ""
+
 msgid "the posted limit when the open road begins"
 msgstr "ograniczenie obowiązujące, gdy zacznie się otwarta droga"
 
@@ -20904,6 +21023,11 @@ msgstr "Planowanie trasy"
 msgid "W reads the weather along a route. Enter starts the drive."
 msgstr "W czyta pogodę na trasie. Enter rozpoczyna jazdę."
 
+msgid ""
+"Tap with three fingers for the weather along a route. Double tap starts the "
+"drive."
+msgstr ""
+
 msgid "passing no major cities"
 msgstr "bez większych miast po drodze"
 
@@ -20979,6 +21103,14 @@ msgstr "Przez {join}. W podaje pogodę."
 #. one sentence of a longer line
 msgid "W for weather."
 msgstr "W podaje pogodę."
+
+#. one sentence of a longer line
+msgid "Tap with three fingers for weather."
+msgstr ""
+
+#. placeholders: {join}
+msgid "Via {join}. Tap with three fingers for weather."
+msgstr ""
 
 #. placeholders: {name}
 msgid "Depart with {name} driving, and ride along"
@@ -21132,6 +21264,9 @@ msgstr "Otwórz tę karierę, żeby wybrać, którą kopię zachować"
 
 msgid "Enter opens restore choices for this career."
 msgstr "Enter otwiera opcje przywracania tej kariery."
+
+msgid "Double tap opens restore choices for this career."
+msgstr ""
 
 msgid "Hear how cloud backup works"
 msgstr "Posłuchaj, jak działa kopia zapasowa w chmurze"
@@ -22767,10 +22902,10 @@ msgid ""
 msgstr ""
 
 msgid ""
-"Two-finger swipe down pauses, two-finger swipe up is this help, two-finger "
-"swipes left and right review messages, and three-finger swipes left and "
-"right tune the radio. A three-finger tap lists every driving command, "
-"Status menu first. Flick to one and double tap to run it. "
+"A two-finger flick down pauses, a two-finger flick up is this help, "
+"two-finger flicks left and right review messages, and three-finger flicks "
+"left and right tune the radio. A three-finger tap lists every driving "
+"command, Status menu first. Flick to one and double tap to run it. "
 msgstr ""
 
 msgid ""
@@ -24593,6 +24728,10 @@ msgstr "Zadzwoń do dyspozytora"
 
 msgid "Choose what you need to report. Escape hangs up."
 msgstr "Wybierz, co chcesz zgłosić. Escape rozłącza."
+
+msgid ""
+"Choose what you need to report. Flick down with two fingers to hang up."
+msgstr ""
 
 #. placeholders: {message}
 msgid "Dispatch: {message}"
@@ -27709,6 +27848,11 @@ msgstr ""
 msgid "Delivery complete"
 msgstr "Dostawa zakończona"
 
+msgid ""
+"Flick right or left to review the summary. Double tap repeats the line. "
+"Flick down with two fingers to continue."
+msgstr ""
+
 msgid "Repositioned"
 msgstr "Przejazd zakończony"
 
@@ -28322,6 +28466,11 @@ msgstr "Page Up"
 msgid "Driving commands"
 msgstr "Polecenia jazdy"
 
+msgid ""
+"Flick right or left to pick a command. Double tap runs it and returns to "
+"driving. Flick down with two fingers to return without one."
+msgstr ""
+
 #. placeholders: {spoken}
 msgid "On the keyboard: {spoken}."
 msgstr "Na klawiaturze: {spoken}."
@@ -28356,6 +28505,11 @@ msgstr ""
 
 msgid "Destination facility"
 msgstr "Zakład docelowy"
+
+msgid ""
+"Flick right or left to move and double tap to choose. Dock and deliver "
+"completes the job."
+msgstr ""
 
 msgid "Drop the loaded trailer"
 msgstr "Odstaw załadowaną naczepę"
@@ -28673,6 +28827,10 @@ msgid "Enter opens details, distance, estimated arrival, and stop planning."
 msgstr ""
 "Enter otwiera szczegóły, dystans, szacowany przyjazd i planowanie postoju."
 
+msgid ""
+"Double tap opens details, distance, estimated arrival, and stop planning."
+msgstr ""
+
 #. placeholders: {planned}
 msgid "Cancel planned stop at {planned}"
 msgstr "Anuluj zaplanowany postój: {planned}"
@@ -28809,6 +28967,9 @@ msgstr "favorites"
 msgid "Your saved stations. Enter on one tunes it."
 msgstr "Twoje zapisane stacje. Enter na jednej z nich ją nastawia."
 
+msgid "Your saved stations. Double tap one to tune it."
+msgstr ""
+
 msgid "Back to the status screens."
 msgstr "Powrót do ekranów stanu."
 
@@ -28818,6 +28979,11 @@ msgid ""
 msgstr ""
 
 msgid "Plan a stop"
+msgstr ""
+
+msgid ""
+"Flick right or left to choose what the stop is for, and double tap to plan "
+"it. Flick down with two fingers to go back to driving."
 msgstr ""
 
 msgid "Hairpin"
@@ -29330,6 +29496,11 @@ msgstr "teraz nastawiona"
 msgid "Enter on a station tunes it. Escape returns to Driver apps."
 msgstr "Enter na stacji ją nastawia. Escape wraca do Aplikacji kierowcy."
 
+msgid ""
+"Double tap a station to tune it. Flick down with two fingers to return to "
+"Driver apps."
+msgstr ""
+
 msgid "Favorites: the safety fallback is always on the dial"
 msgstr "Ulubione: stacja awaryjna jest zawsze na skali"
 
@@ -29344,12 +29515,18 @@ msgstr "Zapisz {display_name} w ulubionych"
 msgid "Now playing on the tuned station. Enter asks again."
 msgstr "Teraz gra na nastawionej stacji. Enter pyta ponownie."
 
+msgid "Now playing on the tuned station. Double tap asks again."
+msgstr ""
+
 #. placeholders: {else}, {tuned}
 msgid "Radio: {else}, tuned to {tuned}"
 msgstr "Radio: {else}, nastawione na {tuned}"
 
 msgid "Enter switches the radio on or off."
 msgstr "Enter włącza lub wyłącza radio."
+
+msgid "Double tap switches the radio on or off."
+msgstr ""
 
 msgid "Saves or removes the tuned station in favorites."
 msgstr "Zapisuje lub usuwa nastawioną stację z ulubionych."
@@ -29387,6 +29564,9 @@ msgstr "range"
 
 msgid "Every station that comes in here. Enter on one tunes it."
 msgstr "Każda stacja, którą tu słychać. Enter na jednej z nich ją nastawia."
+
+msgid "Every station that comes in here. Double tap one to tune it."
+msgstr ""
 
 msgid "Suggest a station"
 msgstr "Zaproponuj stację"
@@ -29434,6 +29614,9 @@ msgstr "{display_name} jest tu poza zasięgiem."
 
 msgid "Enter tunes this station."
 msgstr "Enter nastawia tę stację."
+
+msgid "Double tap tunes this station."
+msgstr ""
 
 #. one sentence of a longer line
 msgid "Next page."
@@ -29561,6 +29744,9 @@ msgid "Enter lists this category. Stations in range list first."
 msgstr ""
 "Enter wyświetla tę kategorię. Stacje w zasięgu są na początku listy."
 
+msgid "Double tap lists this category. Stations in range list first."
+msgstr ""
+
 msgid "Suggesting a station needs Online services on, in the Online menu."
 msgstr "Proponowanie stacji wymaga włączenia usług online w menu Online."
 
@@ -29634,6 +29820,20 @@ msgstr "Opcjonalne, na przykład 101,5 albo 1090. Enter pomija."
 
 msgid "Optional, like classic country. Enter skips."
 msgstr "Opcjonalne, na przykład classic country. Enter pomija."
+
+msgid ""
+"The direct link to the audio stream, not the station's web page. "
+"streamurl.link finds one."
+msgstr ""
+
+msgid "Optional. Double tap skips."
+msgstr ""
+
+msgid "Optional, like 101.5 or 1090. Double tap skips."
+msgstr ""
+
+msgid "Optional, like classic country. Double tap skips."
+msgstr ""
 
 #. placeholders: {typed}
 msgid " Filled in: {typed}."
@@ -30102,6 +30302,10 @@ msgstr "Enter wybiera. Escape wraca na drogę."
 
 msgid "Parking full"
 msgstr "Parking pełny"
+
+msgid ""
+"Double tap to choose. Flick down with two fingers to return to the road."
+msgstr ""
 
 msgid " The fuel island is open."
 msgstr " Stanowisko tankowania jest otwarte."
@@ -31224,6 +31428,10 @@ msgstr "Wracasz do: {terminal}, żeby przeczekać zawieszenie."
 msgid "Enter or Escape pulls back onto the highway."
 msgstr "Enter lub Escape i wracasz na autostradę."
 
+msgid ""
+"Double tap or flick down with two fingers to pull back onto the highway."
+msgstr ""
+
 #. one sentence of a longer line
 msgid "The trooper lets it go with a warning."
 msgstr ""
@@ -31371,6 +31579,9 @@ msgstr "Enter lub Escape wraca do terminala."
 msgid "CDL disqualified for life"
 msgstr "Dożywotni zakaz prowadzenia na CDL"
 
+msgid "Double tap or flick down with two fingers to return to the terminal."
+msgstr ""
+
 #. placeholders: {tail}
 msgid "You pull onto the shoulder and stop.{tail}"
 msgstr "Zjeżdżasz na pobocze i się zatrzymujesz.{tail}"
@@ -31380,6 +31591,10 @@ msgstr "Enter lub Escape i jedziesz dalej z terminala."
 
 msgid "Felony stop"
 msgstr "Zatrzymanie za przestępstwo"
+
+msgid ""
+"Double tap or flick down with two fingers to continue from the terminal."
+msgstr ""
 
 msgid "Ran from a traffic stop"
 msgstr "Ucieczka przed kontrolą drogową"
@@ -31765,6 +31980,11 @@ msgstr ""
 "Lekcje odbywają się na drodze ćwiczebnej, gdzie nic się nie liczy: żadnych "
 "pieniędzy, zużycia ani godzin. Escape wraca do terminala."
 
+msgid ""
+"Lessons run on a practice road where nothing counts: no money, no wear, no "
+"hours. Flick down with two fingers to return to the terminal."
+msgstr ""
+
 msgid "Leave the school."
 msgstr "Opuść szkołę."
 
@@ -31824,6 +32044,12 @@ msgstr ""
 "Strzałki w górę i w dół przeglądają kolejne wiersze. Home i End przeskakują "
 "na pierwszy i ostatni. Enter powtarza wiersz albo uruchamia przycisk. "
 "Escape wraca do mapy."
+
+msgid ""
+"Flick right or left to review each line, and up or down with three fingers "
+"to jump to the first and last. Double tap repeats a line or activates a "
+"button. Flick down with two fingers to return to the map."
+msgstr ""
 
 msgid "Stop details"
 msgstr "Szczegóły postoju"
@@ -31893,6 +32119,10 @@ msgstr "Wróć do ekranu mapy."
 msgid "Stop details."
 msgstr "Szczegóły postoju."
 
+#. placeholders: {STOP_DETAIL_TOUCH_HELP}, {current}
+msgid "Stop details. {STOP_DETAIL_TOUCH_HELP} {current}"
+msgstr ""
+
 #. placeholders: {STOP_DETAIL_INTRO_HELP}, {current}
 msgid "Stop details. {STOP_DETAIL_INTRO_HELP} {current}"
 msgstr "Szczegóły postoju. {STOP_DETAIL_INTRO_HELP} {current}"
@@ -31906,6 +32136,11 @@ msgstr ""
 
 msgid "Move planned stop?"
 msgstr "Przenieść zaplanowany postój?"
+
+msgid ""
+"Flick right or left to move and double tap to choose. Flick down with two "
+"fingers to keep your current planned stop."
+msgstr ""
 
 #. placeholders: {name}
 msgid "Planned stop moved to {name}."
@@ -33807,6 +34042,12 @@ msgstr ""
 "Strzałki w górę i w dół wybierają grupę dźwięków, Enter ją otwiera, Escape "
 "wraca. W grupie Enter odtwarza dźwięk, a F1 go objaśnia."
 
+msgid ""
+"Flick right or left to choose a group of sounds, and double tap to open it. "
+"Inside a group, double tap plays a sound and a flick up with two fingers "
+"explains it."
+msgstr ""
+
 #. placeholders: {join}
 msgid "Starting with {join}."
 msgstr "Na początek: {join}."
@@ -33824,14 +34065,31 @@ msgstr ""
 "dźwięku albo powrót zatrzymuje dźwięk, który trwa. Krótki dźwięk kończy się "
 "sam."
 
+msgid ""
+"Flick right or left to choose a sound. Double tap plays it, and a flick up "
+"with two fingers explains it and when you hear it. Moving to another sound "
+"or going back stops a sound that keeps running. A short sound finishes on "
+"its own."
+msgstr ""
+
 #. one sentence of a longer line
-msgid "F1 still explains it."
-msgstr "F1 i tak go objaśnia."
+msgid "A flick up with two fingers still explains it."
+msgstr ""
 
 #. placeholders: {name}
 #. one sentence of a longer line
 msgid "{name} is not in this copy of the game."
 msgstr "{name} nie ma w tej kopii gry."
+
+#. placeholders: {name}
+msgid ""
+"{name} is not in this copy of the game. A flick up with two fingers still "
+"explains it."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "F1 still explains it."
+msgstr "F1 i tak go objaśnia."
 
 #. placeholders: {name}
 msgid "{name} is not in this copy of the game. F1 still explains it."
@@ -34202,6 +34460,11 @@ msgstr ""
 "Strzałki w górę i w dół wybierają karierę, Enter otwiera resetowanie i "
 "usuwanie, Escape cofa."
 
+msgid ""
+"Flick right or left to pick a career, and double tap to open reset and "
+"delete. Flick down with two fingers to go back."
+msgstr ""
+
 #. one sentence of a longer line
 msgid "Delete removes the save."
 msgstr "Usunięcie kasuje zapis."
@@ -34226,6 +34489,10 @@ msgid ""
 msgstr ""
 "Enter proponuje usunięcie tego zapisu. Nadal działa we Freight Fate 1.8."
 
+msgid ""
+"Double tap offers to delete this save. It still works in Freight Fate 1.8."
+msgstr ""
+
 msgid "reset"
 msgstr "resetowanie"
 
@@ -34237,6 +34504,11 @@ msgstr "Działania na karierze"
 
 msgid "Reset and delete both ask for confirmation. Escape goes back."
 msgstr "Reset i usunięcie wymagają potwierdzenia. Escape cofa."
+
+msgid ""
+"Reset and delete both ask for confirmation. Flick down with two fingers to "
+"go back."
+msgstr ""
 
 #. placeholders: {career_summary}
 #. one sentence of a longer line
@@ -34809,6 +35081,12 @@ msgid ""
 msgstr ""
 "Strzałki w górę i w dół wybierają ustawienie. Strzałka w prawo lub Enter "
 "zmienia je do przodu, strzałka w lewo do tyłu. Escape cofa."
+
+msgid ""
+"Flick right or left to pick a setting. Flick up or double tap to change it "
+"forward, and flick down to change it back. Flick down with two fingers to "
+"go back."
+msgstr ""
 
 msgid ""
 "This row used to offer Realistic, and yours was set to it. That setting is "
@@ -36404,6 +36682,11 @@ msgstr ""
 msgid "Gesture"
 msgstr "Gest"
 
+msgid ""
+"Flick right or left to pick a gesture, then double tap it to choose the "
+"command it runs while driving. Flick down with two fingers to leave."
+msgstr ""
+
 msgid "Every touch gesture is back to its default."
 msgstr "Wszystkie gesty dotykowe przywrócono do domyślnych."
 
@@ -36447,6 +36730,11 @@ msgid ""
 msgstr ""
 "Przesuwaj w górę i w dół, żeby wybrać polecenie, i potwierdź, żeby "
 "przypisać je do gestu. Cofnięcie zachowuje obecne."
+
+msgid ""
+"Flick right or left to pick a command and double tap to put it on the "
+"gesture. Flick down with two fingers to keep the one it has."
+msgstr ""
 
 #. placeholders: {gesture_name}, {label}
 msgid "{gesture_name} now runs {label}."
@@ -36512,9 +36800,8 @@ msgstr "Ćwiczenie nazywa każdy gest bez ruszania ciężarówką."
 msgid "Skip and start driving"
 msgstr "Pomiń i zacznij jazdę"
 
-msgid "Swipe down with two fingers twice within two seconds to leave."
+msgid "Flick down with two fingers twice within two seconds to leave."
 msgstr ""
-"Przesuń dwoma palcami w dół dwa razy w ciągu dwóch sekund, żeby wyjść."
 
 msgid "Escape twice within two seconds to leave."
 msgstr "Escape dwa razy w ciągu dwóch sekund, żeby wyjść."
@@ -36573,26 +36860,29 @@ msgstr "Muśnięcie w prawo"
 msgid "Two-finger tap"
 msgstr "Stuknięcie dwoma palcami"
 
-msgid "Magic tap"
-msgstr "Magiczne stuknięcie"
+msgid "Two-finger flick up"
+msgstr ""
 
-msgid "Two-finger swipe up"
-msgstr "Przesunięcie dwoma palcami w górę"
+msgid "Two-finger flick left"
+msgstr ""
 
-msgid "Two-finger swipe left"
-msgstr "Przesunięcie dwoma palcami w lewo"
-
-msgid "Two-finger swipe right"
-msgstr "Przesunięcie dwoma palcami w prawo"
+msgid "Two-finger flick right"
+msgstr ""
 
 msgid "Three-finger tap"
 msgstr "Stuknięcie trzema palcami"
 
-msgid "Three-finger swipe left"
-msgstr "Przesunięcie trzema palcami w lewo"
+msgid "Three-finger flick up"
+msgstr ""
 
-msgid "Three-finger swipe right"
-msgstr "Przesunięcie trzema palcami w prawo"
+msgid "Three-finger flick down"
+msgstr ""
+
+msgid "Three-finger flick left"
+msgstr ""
+
+msgid "Three-finger flick right"
+msgstr ""
 
 msgid "Take an exit, pull over or confirm arrival"
 msgstr ""
@@ -36642,6 +36932,11 @@ msgstr ""
 "nową ciężarówkę i od pierwszego dnia płacisz koszty działalności. Enter "
 "wybiera, Escape cofa."
 
+msgid ""
+"Company starts use assigned carrier equipment. The carrier pays costs from "
+"day one. Double tap to choose."
+msgstr ""
+
 msgid "Career start."
 msgstr "Start kariery."
 
@@ -36654,6 +36949,11 @@ msgid ""
 msgstr ""
 "Strzałki w górę i w dół, Home i End albo wpisana litera wybierają region. "
 "Enter otwiera jego miasta, Escape cofa."
+
+msgid ""
+"Flick right or left, or up or down with three fingers, to pick a region. "
+"Double tap opens its cities."
+msgstr ""
 
 #. placeholders: {carrier_name}
 msgid "Home region for your {carrier_name} career."
@@ -36684,6 +36984,11 @@ msgid ""
 msgstr ""
 "Strzałki w górę i w dół, Home i End albo wpisana litera wybierają miasto. "
 "Enter potwierdza bazę macierzystą, Escape cofa."
+
+msgid ""
+"Flick right or left, or up or down with three fingers, to pick a city. "
+"Double tap confirms your home terminal."
+msgstr ""
 
 #. one sentence of a longer line
 msgid "Escape goes back to change it."
@@ -39225,6 +39530,12 @@ msgid "Page {page} of {HELP_PAGES}: {title}."
 msgstr "Strona {page} z {HELP_PAGES}: {title}."
 
 msgid ""
+"Flick up for the next page and down for the previous one. Flick right or "
+"left to read one line at a time. Double tap reads the whole page, a tap "
+"with two fingers stops speech, and a flick down with two fingers goes back."
+msgstr ""
+
+msgid ""
 "D-pad Left and Right change pages, Up and Down read one line at a time. A "
 "reads the whole page, Back stops speech, and B goes back."
 msgstr ""
@@ -40377,6 +40688,9 @@ msgstr "Plik zapisu zmieniony poza grą"
 msgid "Enter continues to your career."
 msgstr "Enter przechodzi do twojej kariery."
 
+msgid "Double tap to continue to your career."
+msgstr ""
+
 #. one sentence of a longer line
 msgid ""
 "This save was changed outside the game, or copied from another computer, so "
@@ -40416,6 +40730,11 @@ msgid ""
 msgstr ""
 "Tej kariery nie da się kontynuować w wersji 1.9. Escape wraca do listy "
 "karier."
+
+msgid ""
+"This career cannot continue in version 1.9. Flick down with two fingers to "
+"go back to the career list."
+msgstr ""
 
 #. one sentence of a longer line
 msgid ""
@@ -40557,13 +40876,9 @@ msgstr "Pozostałe zaczynają zatankowane i czyste."
 
 msgid ""
 "Type with the on-screen keyboard, then double tap. Flick left or right to "
-"review the letters, swipe up or down with three fingers to jump to the "
-"start or end, and swipe down with two fingers to cancel."
+"review the letters, flick up or down with three fingers to jump to the "
+"start or end, and flick down with two fingers to cancel."
 msgstr ""
-"Pisz na klawiaturze ekranowej, potem stuknij dwukrotnie. Muśnij w lewo lub "
-"w prawo, żeby przejrzeć litery, przesuń trzema palcami w górę lub w dół, "
-"żeby przeskoczyć na początek lub koniec, i przesuń dwoma palcami w dół, "
-"żeby anulować."
 
 msgid "Text"
 msgstr "Tekst"
@@ -40741,11 +41056,12 @@ msgstr "Nie podano opisu zmian."
 
 #. one sentence of a longer line
 msgid ""
-"Up and Down arrows read line by line, Enter reads everything, Escape goes "
-"back."
+"Double tap reads everything, and a flick down with two fingers goes back."
 msgstr ""
-"Strzałki w górę i w dół czytają wiersz po wierszu, Enter czyta wszystko, "
-"Escape cofa."
+
+#. one sentence of a longer line
+msgid "Flick right or left to read line by line."
+msgstr ""
 
 #. placeholders: {title}
 #. one sentence of a longer line
@@ -40754,16 +41070,31 @@ msgstr "Co nowego w {title}."
 
 #. placeholders: {title}, {notes}
 msgid ""
-"What's new in {title}. {notes} lines. Up and Down arrows read line by line, "
-"Enter reads everything, Escape goes back."
+"What's new in {title}. {notes} lines. Flick right or left to read line by "
+"line. Double tap reads everything, and a flick down with two fingers goes "
+"back."
 msgstr ""
-"Co nowego w {title}. {notes} {notes:wiersz|wiersze|wierszy}. Strzałki w "
-"górę i w dół czytają wiersz po wierszu, Enter czyta wszystko, Escape cofa."
 
 #. placeholders: {notes}
 #. one sentence of a longer line
 msgid "{notes} lines."
 msgstr "{notes} {notes:wiersz|wiersze|wierszy}."
+
+#. one sentence of a longer line
+msgid ""
+"Up and Down arrows read line by line, Enter reads everything, Escape goes "
+"back."
+msgstr ""
+"Strzałki w górę i w dół czytają wiersz po wierszu, Enter czyta wszystko, "
+"Escape cofa."
+
+#. placeholders: {title}, {notes}
+msgid ""
+"What's new in {title}. {notes} lines. Up and Down arrows read line by line, "
+"Enter reads everything, Escape goes back."
+msgstr ""
+"Co nowego w {title}. {notes} {notes:wiersz|wiersze|wierszy}. Strzałki w "
+"górę i w dół czytają wiersz po wierszu, Enter czyta wszystko, Escape cofa."
 
 #. placeholders: {title}
 msgid "What's new in {title}"
@@ -40860,10 +41191,24 @@ msgstr ""
 "Nowa wersja jest zapisana w {dest}. Zainstaluj ją samodzielnie, a potem "
 "uruchom grę ponownie."
 
+#. one sentence of a longer line
+msgid "A flick down with two fingers cancels."
+msgstr ""
+
 #. placeholders: {title}, {size}
 #. one sentence of a longer line
 msgid "Downloading {title}{size}."
 msgstr "Pobieranie: {title}{size}."
+
+#. placeholders: {title}, {size}
+msgid ""
+"Downloading {title}{size}. The game restarts when the download finishes. A "
+"flick down with two fingers cancels."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "The game restarts when the download finishes."
+msgstr "Gra uruchomi się ponownie po zakończeniu pobierania."
 
 #. placeholders: {title}, {size}
 msgid ""
@@ -40876,10 +41221,6 @@ msgstr ""
 #. one sentence of a longer line
 msgid "Escape cancels."
 msgstr "Escape anuluje."
-
-#. one sentence of a longer line
-msgid "The game restarts when the download finishes."
-msgstr "Gra uruchomi się ponownie po zakończeniu pobierania."
 
 msgid "update-download"
 msgstr "update-download"
@@ -42205,6 +42546,38 @@ msgstr ""
 #. The last sentence of the sleep preview, when nothing comes before it.
 msgid "Select again to sleep."
 msgstr ""
+
+#~ msgid "Swipe down with two fingers twice within two seconds to leave."
+#~ msgstr ""
+#~ "Przesuń dwoma palcami w dół dwa razy w ciągu dwóch sekund, żeby wyjść."
+
+#~ msgid "Magic tap"
+#~ msgstr "Magiczne stuknięcie"
+
+#~ msgid "Two-finger swipe up"
+#~ msgstr "Przesunięcie dwoma palcami w górę"
+
+#~ msgid "Two-finger swipe left"
+#~ msgstr "Przesunięcie dwoma palcami w lewo"
+
+#~ msgid "Two-finger swipe right"
+#~ msgstr "Przesunięcie dwoma palcami w prawo"
+
+#~ msgid "Three-finger swipe left"
+#~ msgstr "Przesunięcie trzema palcami w lewo"
+
+#~ msgid "Three-finger swipe right"
+#~ msgstr "Przesunięcie trzema palcami w prawo"
+
+#~ msgid ""
+#~ "Type with the on-screen keyboard, then double tap. Flick left or right to "
+#~ "review the letters, swipe up or down with three fingers to jump to the "
+#~ "start or end, and swipe down with two fingers to cancel."
+#~ msgstr ""
+#~ "Pisz na klawiaturze ekranowej, potem stuknij dwukrotnie. Muśnij w lewo lub "
+#~ "w prawo, żeby przejrzeć litery, przesuń trzema palcami w górę lub w dół, "
+#~ "żeby przeskoczyć na początek lub koniec, i przesuń dwoma palcami w dół, "
+#~ "żeby anulować."
 
 #~ msgid "the exit command from the three-finger tap list"
 #~ msgstr "polecenie wyjścia z listy stuknięcia trzema palcami"

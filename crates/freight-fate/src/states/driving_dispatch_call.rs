@@ -40,7 +40,10 @@ impl DispatchCallState {
     pub fn new(driving: DriveRef) -> Self {
         Self {
             menu: MenuCore::new("Call dispatch")
-                .with_intro_help("Choose what you need to report. Escape hangs up."),
+                .with_intro_help("Choose what you need to report. Escape hangs up.")
+                .with_touch_help(
+                    "Choose what you need to report. Flick down with two fingers to hang up.",
+                ),
             driving,
         }
     }

@@ -38,7 +38,11 @@ impl FacilityArrivalState {
         FacilityArrivalState {
             menu: MenuCore::new("Destination facility")
                 .with_open_sound(Some("facility/dock_gate"))
-                .with_intro_help(FACILITY_INTRO_HELP),
+                .with_intro_help(FACILITY_INTRO_HELP)
+                .with_touch_help(
+                    "Flick right or left to move and double tap to choose. Dock and deliver \
+                     completes the job.",
+                ),
             driving: DriveRef::active(ctx),
         }
     }
@@ -48,7 +52,11 @@ impl FacilityArrivalState {
         FacilityArrivalState {
             menu: MenuCore::new("Destination facility")
                 .with_open_sound(Some("facility/dock_gate"))
-                .with_intro_help(FACILITY_INTRO_HELP),
+                .with_intro_help(FACILITY_INTRO_HELP)
+                .with_touch_help(
+                    "Flick right or left to move and double tap to choose. Dock and deliver \
+                     completes the job.",
+                ),
             driving,
         }
     }

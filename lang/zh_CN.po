@@ -15650,6 +15650,13 @@ msgstr ""
 msgid "Account achievements"
 msgstr "账户成就"
 
+msgid ""
+"Double tap opens a category. Inside one, double tap repeats the achievement "
+"and a flick down with two fingers returns to the categories. From the "
+"categories, it returns to Online. Achievements earned in any career on this "
+"installation."
+msgstr ""
+
 #. placeholders: {ids}, {listed_count}
 msgid "Summary: {ids} of {listed_count} earned across every career"
 msgstr "汇总：所有职业生涯共获得{ids}个成就，共{listed_count}个"
@@ -15730,6 +15737,14 @@ msgstr ""
 msgid "Left and Right change the order of this category only."
 msgstr ""
 
+msgid ""
+"Flick up or down to change the order of the categories and the achievements "
+"in each one."
+msgstr ""
+
+msgid "Flick up or down to change the order of this category only."
+msgstr ""
+
 msgid "All assists: the truck steers. Recommended for your first drives."
 msgstr "全部辅助：卡车替你转向。推荐在最初几次驾驶时使用。"
 
@@ -15777,6 +15792,10 @@ msgstr "只有现代卡车的安全系统，别的都没有。每个弯道、街
 msgid "Enter chooses. Escape keeps what you have."
 msgstr "Enter选择。Escape保留现有设置。"
 
+msgid ""
+"Double tap chooses. Flick down with two fingers to keep what you have."
+msgstr ""
+
 msgid "Driving assistance"
 msgstr "驾驶辅助"
 
@@ -15817,6 +15836,11 @@ msgstr "{remaining}秒后就绪。"
 msgid "Enter selects, Escape goes back. Control stops the current speech."
 msgstr "Enter选择，Escape返回。Control停止当前语音。"
 
+msgid ""
+"Flick right or left to move and double tap to choose. Flick down with two "
+"fingers to go back."
+msgstr ""
+
 msgid "Menu"
 msgstr "菜单"
 
@@ -15841,6 +15865,11 @@ msgstr "返回上一个菜单。"
 msgid ""
 "Up and Down read a line at a time, Enter repeats it, Escape goes back."
 msgstr "Up和Down一次读一行，Enter重复，Escape返回。"
+
+msgid ""
+"Flick right or left to read a line at a time, and double tap to repeat it. "
+"Flick down with two fingers to go back."
+msgstr ""
 
 msgid "Your carrier has ended your employment"
 msgstr "你的承运商已经解雇了你"
@@ -16155,6 +16184,17 @@ msgid ""
 "goes back."
 msgstr "指派的货物。按 Enter 接受。拒绝会损失声誉，并用掉一次拒绝机会，拒绝机会在下次晋升时恢复。F1 查看详情。Escape 返回。"
 
+msgid ""
+"Double tap accepts. Flick up with two fingers for job details, and tap with "
+"three fingers for the market."
+msgstr ""
+
+msgid ""
+"Assigned load. Double tap accepts. Declining costs reputation and uses one "
+"of your declines, which refill at your next promotion. Flick up with two "
+"fingers for details."
+msgstr ""
+
 #. placeholders: {SENIOR_LOAD_CHOICE_LEVEL}
 msgid "until level {SENIOR_LOAD_CHOICE_LEVEL}"
 msgstr "直到{SENIOR_LOAD_CHOICE_LEVEL}级"
@@ -16362,6 +16402,17 @@ msgstr "本轮班时间需要额外休息。"
 
 #. placeholders: {summary}
 msgid ""
+"Needs an extra rest on this shift's hours. {summary} Double tap again to "
+"accept."
+msgstr ""
+
+#. placeholders: {summary}
+#. one sentence of a longer line
+msgid "{summary} Double tap again to accept."
+msgstr ""
+
+#. placeholders: {summary}
+msgid ""
 "Needs an extra rest on this shift's hours. {summary} Enter again to accept."
 msgstr "按本次轮班的工时计算，需要额外休息。{summary}再次按Enter接受。"
 
@@ -16540,6 +16591,12 @@ msgid ""
 "board."
 msgstr "Up和Down查看各行，Home和End跳到两头。Enter重复一行，在“接受这个调度任务”上则是接受。Escape回到调度板。"
 
+msgid ""
+"Flick right or left to review the lines, and up or down with three fingers "
+"to jump to the ends. Double tap repeats a line, or accepts on Accept this "
+"dispatch. Flick down with two fingers to return to the dispatch board."
+msgstr ""
+
 msgid "Job details"
 msgstr "任务详情"
 
@@ -16618,6 +16675,9 @@ msgstr "任务详情。{current}"
 msgid "Enter repeats this line."
 msgstr "Enter重复这一行。"
 
+msgid "Double tap repeats this line."
+msgstr ""
+
 #. placeholders: {locked}
 msgid "Cannot accept this dispatch: {locked}"
 msgstr "无法接受这个调度任务：{locked}"
@@ -16652,6 +16712,9 @@ msgstr "结束这段职业生涯"
 
 msgid "Enter confirms, Escape keeps the career."
 msgstr "Enter确认，Escape保留这段职业生涯。"
+
+msgid "Double tap confirms. Flick down with two fingers to keep the career."
+msgstr ""
 
 msgid "Still closing out. One moment."
 msgstr "还在结束中，请稍等。"
@@ -16752,6 +16815,12 @@ msgid ""
 "costs fuel and hours of service. Escape returns to the terminal."
 msgstr "空车开到附近城市，去看那里的调度板。没有货物也没有报酬，要花燃油和驾驶工时。Escape回到场站。"
 
+msgid ""
+"Drive empty to a nearby city for its dispatch board. No load and no pay, "
+"costs fuel and hours of service. Flick down with two fingers to return to "
+"the terminal."
+msgstr ""
+
 msgid "No route to that city."
 msgstr "没有通往那个城市的路线。"
 
@@ -16784,6 +16853,10 @@ msgstr "偿还你欠的钱"
 
 msgid "Your own cash toward the balance. Escape backs out."
 msgstr "用你自己的现金偿还欠款。Escape退出。"
+
+msgid ""
+"Your own cash toward the balance. Flick down with two fingers to back out."
+msgstr ""
 
 #. placeholders: {amount}
 msgid "Pay it all: {amount}"
@@ -16915,6 +16988,9 @@ msgstr "绕车检查完成，{f}分钟。"
 
 #. placeholders: {f}, {join}
 msgid "Walk-around done, {f} minutes. {join}"
+msgstr ""
+
+msgid "Already rested. Double tap again to sleep anyway."
 msgstr ""
 
 msgid "Already rested. Enter again to sleep anyway."
@@ -17272,6 +17348,11 @@ msgid ""
 "terminal."
 msgstr "Enter重复一行，符合条件时则是买断。Escape回到场站。"
 
+msgid ""
+"Double tap repeats a line, or buys in when qualified. Flick down with two "
+"fingers to return to the terminal."
+msgstr ""
+
 #. placeholders: {status_label}
 msgid "Current status: {status_label}"
 msgstr "当前状况：{status_label}"
@@ -17480,6 +17561,9 @@ msgstr "车主司机路线未解锁"
 msgid "The remaining requirements."
 msgstr "剩下的要求。"
 
+msgid "Go back to company driving: double tap again to confirm"
+msgstr ""
+
 msgid "Go back to company driving: press Enter again to confirm"
 msgstr "回去当公司司机：再按一次Enter确认"
 
@@ -17561,6 +17645,12 @@ msgid ""
 "Upgrades apply to every tractor you own. Enter buys the next tier, F1 is "
 "details. Escape returns to the garage."
 msgstr "升级适用于你拥有的每辆牵引车。按 Enter 购买下一级，F1 查看详情。Escape 返回车库。"
+
+msgid ""
+"Upgrades apply to every tractor you own. Double tap buys the next tier, and "
+"a flick up with two fingers gives details. Flick down with two fingers to "
+"return to the garage."
+msgstr ""
 
 msgid ""
 "Upgrades unlock with the owner-operator buy-in, from level 18 under "
@@ -17740,6 +17830,12 @@ msgid ""
 msgstr "车主司机从厢式挂车计划起步，再加入特种挂车计划。拥有自有运营资质后可以直接购买挂车。Escape回到修理厂。"
 
 msgid ""
+"Owner-operators start with the dry van program and add specialty programs. "
+"Own authority buys trailers outright. Flick down with two fingers to return "
+"to the garage."
+msgstr ""
+
+msgid ""
 "Trailer programs unlock with the owner-operator buy-in, from level 18 under "
 "Business status. The carrier provides trailers."
 msgstr "挂车计划在车主司机买断后解锁，从18级起在经营状况里办理。挂车由承运商提供。"
@@ -17850,6 +17946,11 @@ msgid ""
 "Enter books a course. Courses take game time, and a background check runs "
 "while you drive. Escape returns to the terminal."
 msgstr "按 Enter 预订课程。课程会花费游戏时间，开车期间会进行背景调查。Escape 返回车场。"
+
+msgid ""
+"Double tap books a course. Courses take game time, and a background check "
+"runs while you drive. Flick down with two fingers to return to the terminal."
+msgstr ""
 
 #. placeholders: {label}, {grouped}, {grouped2}
 msgid "The {label} course costs {grouped} dollars and you have {grouped2}."
@@ -17973,12 +18074,25 @@ msgid "What another carrier needs before it hires you away."
 msgstr "另一家承运商挖你过去之前需要什么。"
 
 #. placeholders: {carrier_name}
+msgid "Move to {carrier_name}: double tap again to confirm"
+msgstr ""
+
+#. placeholders: {carrier_name}
 msgid "Move to {carrier_name}: press Enter again to confirm"
 msgstr "换到{carrier_name}：再按一次Enter确认"
 
 #. placeholders: {label}
 msgid "Move to {label}"
 msgstr "换到{label}"
+
+#. placeholders: {carrier_name}, {menu_summary}
+msgid "{carrier_name}. {menu_summary} Double tap again to move."
+msgstr ""
+
+#. placeholders: {menu_summary}
+#. one sentence of a longer line
+msgid "{menu_summary} Double tap again to move."
+msgstr ""
 
 #. placeholders: {carrier_name}, {menu_summary}
 msgid "{carrier_name}. {menu_summary} Press Enter again to move."
@@ -18456,6 +18570,11 @@ msgid ""
 "status."
 msgstr "先报到，然后在卡车停稳时装货。Escape重复提货状态。"
 
+msgid ""
+"Check in, then load cargo with the truck stopped. A flick down with two "
+"fingers repeats the pickup status."
+msgstr ""
+
 msgid "the posted limit when the open road begins"
 msgstr "开阔道路开始时的标示限速"
 
@@ -18858,6 +18977,11 @@ msgstr "路线规划"
 msgid "W reads the weather along a route. Enter starts the drive."
 msgstr "W读出路线沿途的天气。Enter开始驾驶。"
 
+msgid ""
+"Tap with three fingers for the weather along a route. Double tap starts the "
+"drive."
+msgstr ""
+
 msgid "passing no major cities"
 msgstr "不经过任何大城市"
 
@@ -18931,6 +19055,14 @@ msgstr "途经{join}。按W查看天气。"
 #. one sentence of a longer line
 msgid "W for weather."
 msgstr "按W查看天气。"
+
+#. one sentence of a longer line
+msgid "Tap with three fingers for weather."
+msgstr ""
+
+#. placeholders: {join}
+msgid "Via {join}. Tap with three fingers for weather."
+msgstr ""
 
 #. placeholders: {name}
 msgid "Depart with {name} driving, and ride along"
@@ -19068,6 +19200,9 @@ msgstr "打开这段职业生涯，选择要保留哪一份副本"
 
 msgid "Enter opens restore choices for this career."
 msgstr "Enter打开这段职业生涯的恢复选项。"
+
+msgid "Double tap opens restore choices for this career."
+msgstr ""
 
 msgid "Hear how cloud backup works"
 msgstr "了解云备份是怎么运作的"
@@ -20465,10 +20600,10 @@ msgid ""
 msgstr ""
 
 msgid ""
-"Two-finger swipe down pauses, two-finger swipe up is this help, two-finger "
-"swipes left and right review messages, and three-finger swipes left and "
-"right tune the radio. A three-finger tap lists every driving command, "
-"Status menu first. Flick to one and double tap to run it. "
+"A two-finger flick down pauses, a two-finger flick up is this help, "
+"two-finger flicks left and right review messages, and three-finger flicks "
+"left and right tune the radio. A three-finger tap lists every driving "
+"command, Status menu first. Flick to one and double tap to run it. "
 msgstr ""
 
 msgid ""
@@ -22145,6 +22280,10 @@ msgstr "呼叫调度"
 
 msgid "Choose what you need to report. Escape hangs up."
 msgstr "选择你要报告的情况。Escape挂断。"
+
+msgid ""
+"Choose what you need to report. Flick down with two fingers to hang up."
+msgstr ""
 
 #. placeholders: {message}
 msgid "Dispatch: {message}"
@@ -25062,6 +25201,11 @@ msgstr "Up和Down浏览摘要。Enter重复这一行。Escape继续。"
 msgid "Delivery complete"
 msgstr "送货完成"
 
+msgid ""
+"Flick right or left to review the summary. Double tap repeats the line. "
+"Flick down with two fingers to continue."
+msgstr ""
+
 msgid "Repositioned"
 msgstr "调车完成"
 
@@ -25610,6 +25754,11 @@ msgstr "Page Up"
 msgid "Driving commands"
 msgstr "驾驶命令"
 
+msgid ""
+"Flick right or left to pick a command. Double tap runs it and returns to "
+"driving. Flick down with two fingers to return without one."
+msgstr ""
+
 #. placeholders: {spoken}
 msgid "On the keyboard: {spoken}."
 msgstr "键盘：{spoken}。"
@@ -25642,6 +25791,11 @@ msgstr "方向键浏览，Enter选择。“靠装卸口交付”完成这个任�
 
 msgid "Destination facility"
 msgstr "目的地厂区"
+
+msgid ""
+"Flick right or left to move and double tap to choose. Dock and deliver "
+"completes the job."
+msgstr ""
 
 msgid "Drop the loaded trailer"
 msgstr "甩下满载的挂车"
@@ -25929,6 +26083,10 @@ msgstr "预计过路费，由承运商支付：{grouped}美元。"
 msgid "Enter opens details, distance, estimated arrival, and stop planning."
 msgstr "Enter打开详情、距离、预计到达时间和停靠规划。"
 
+msgid ""
+"Double tap opens details, distance, estimated arrival, and stop planning."
+msgstr ""
+
 #. placeholders: {planned}
 msgid "Cancel planned stop at {planned}"
 msgstr "取消在{planned}的计划停靠"
@@ -26052,6 +26210,9 @@ msgstr "favorites"
 msgid "Your saved stations. Enter on one tunes it."
 msgstr "你存下的电台。在一个电台上按Enter调到它。"
 
+msgid "Your saved stations. Double tap one to tune it."
+msgstr ""
+
 msgid "Back to the status screens."
 msgstr "返回状态界面。"
 
@@ -26061,6 +26222,11 @@ msgid ""
 msgstr ""
 
 msgid "Plan a stop"
+msgstr ""
+
+msgid ""
+"Flick right or left to choose what the stop is for, and double tap to plan "
+"it. Flick down with two fingers to go back to driving."
 msgstr ""
 
 msgid "Hairpin"
@@ -26523,6 +26689,11 @@ msgstr "正在收听"
 msgid "Enter on a station tunes it. Escape returns to Driver apps."
 msgstr "在电台上按Enter调到它。Escape返回司机应用。"
 
+msgid ""
+"Double tap a station to tune it. Flick down with two fingers to return to "
+"Driver apps."
+msgstr ""
+
 msgid "Favorites: the safety fallback is always on the dial"
 msgstr "收藏：安全备用电台始终在频段上"
 
@@ -26537,12 +26708,18 @@ msgstr "把{display_name}存为收藏"
 msgid "Now playing on the tuned station. Enter asks again."
 msgstr "调到的电台正在播放的内容。Enter再问一次。"
 
+msgid "Now playing on the tuned station. Double tap asks again."
+msgstr ""
+
 #. placeholders: {else}, {tuned}
 msgid "Radio: {else}, tuned to {tuned}"
 msgstr "收音机：{else}，调到{tuned}"
 
 msgid "Enter switches the radio on or off."
 msgstr "Enter打开或关闭收音机。"
+
+msgid "Double tap switches the radio on or off."
+msgstr ""
 
 msgid "Saves or removes the tuned station in favorites."
 msgstr "把调到的电台存入收藏或从收藏中移除。"
@@ -26576,6 +26753,9 @@ msgstr "range"
 
 msgid "Every station that comes in here. Enter on one tunes it."
 msgstr "这里能收到的所有电台。在一个电台上按Enter调到它。"
+
+msgid "Every station that comes in here. Double tap one to tune it."
+msgstr ""
 
 msgid "Suggest a station"
 msgstr "推荐电台"
@@ -26621,6 +26801,9 @@ msgstr "这里收不到{display_name}。"
 
 msgid "Enter tunes this station."
 msgstr "Enter调到这个电台。"
+
+msgid "Double tap tunes this station."
+msgstr ""
 
 #. one sentence of a longer line
 msgid "Next page."
@@ -26739,6 +26922,9 @@ msgstr "频段上的所有电台。范围内的电台排在前面。"
 msgid "Enter lists this category. Stations in range list first."
 msgstr "Enter列出这个类别。范围内的电台排在前面。"
 
+msgid "Double tap lists this category. Stations in range list first."
+msgstr ""
+
 msgid "Suggesting a station needs Online services on, in the Online menu."
 msgstr "推荐电台需要在“在线”菜单里打开在线服务。"
 
@@ -26808,6 +26994,20 @@ msgstr "可选，比如101.5或1090。Enter跳过。"
 
 msgid "Optional, like classic country. Enter skips."
 msgstr "可选，比如经典乡村。Enter跳过。"
+
+msgid ""
+"The direct link to the audio stream, not the station's web page. "
+"streamurl.link finds one."
+msgstr ""
+
+msgid "Optional. Double tap skips."
+msgstr ""
+
+msgid "Optional, like 101.5 or 1090. Double tap skips."
+msgstr ""
+
+msgid "Optional, like classic country. Double tap skips."
+msgstr ""
 
 #. placeholders: {typed}
 msgid " Filled in: {typed}."
@@ -27217,6 +27417,10 @@ msgstr "Enter选择。Escape回到路上。"
 
 msgid "Parking full"
 msgstr "停车位已满"
+
+msgid ""
+"Double tap to choose. Flick down with two fingers to return to the road."
+msgstr ""
 
 msgid " The fuel island is open."
 msgstr " 加油岛开着。"
@@ -28206,6 +28410,10 @@ msgstr "你被放回{terminal}，等待暂扣期结束。"
 msgid "Enter or Escape pulls back onto the highway."
 msgstr "Enter或Escape开回公路上。"
 
+msgid ""
+"Double tap or flick down with two fingers to pull back onto the highway."
+msgstr ""
+
 #. one sentence of a longer line
 msgid "The trooper lets it go with a warning."
 msgstr ""
@@ -28339,6 +28547,9 @@ msgstr "Enter或Escape回到场站。"
 msgid "CDL disqualified for life"
 msgstr "CDL被终身取消资格"
 
+msgid "Double tap or flick down with two fingers to return to the terminal."
+msgstr ""
+
 #. placeholders: {tail}
 msgid "You pull onto the shoulder and stop.{tail}"
 msgstr "你开到路肩上停下。{tail}"
@@ -28348,6 +28559,10 @@ msgstr "Enter或Escape从场站继续。"
 
 msgid "Felony stop"
 msgstr "重罪拦停"
+
+msgid ""
+"Double tap or flick down with two fingers to continue from the terminal."
+msgstr ""
 
 msgid "Ran from a traffic stop"
 msgstr "逃避交通拦停"
@@ -28684,6 +28899,11 @@ msgid ""
 "hours. Escape returns to the terminal."
 msgstr "课程在一条练习道路上进行，什么都不计：不花钱，没有磨损，不算工时。Escape回到场站。"
 
+msgid ""
+"Lessons run on a practice road where nothing counts: no money, no wear, no "
+"hours. Flick down with two fingers to return to the terminal."
+msgstr ""
+
 msgid "Leave the school."
 msgstr "离开驾校。"
 
@@ -28740,6 +28960,12 @@ msgid ""
 "Up and down arrows review each line. Home and End jump to the first and "
 "last. Enter repeats a line or activates a button. Escape returns to the map."
 msgstr "Up和Down方向键逐行查看。Home和End跳到第一行和最后一行。Enter重复一行或激活按钮。Escape返回地图。"
+
+msgid ""
+"Flick right or left to review each line, and up or down with three fingers "
+"to jump to the first and last. Double tap repeats a line or activates a "
+"button. Flick down with two fingers to return to the map."
+msgstr ""
 
 msgid "Stop details"
 msgstr "停靠点详情"
@@ -28807,6 +29033,10 @@ msgstr "返回地图界面。"
 msgid "Stop details."
 msgstr "停靠点详情。"
 
+#. placeholders: {STOP_DETAIL_TOUCH_HELP}, {current}
+msgid "Stop details. {STOP_DETAIL_TOUCH_HELP} {current}"
+msgstr ""
+
 #. placeholders: {STOP_DETAIL_INTRO_HELP}, {current}
 msgid "Stop details. {STOP_DETAIL_INTRO_HELP} {current}"
 msgstr "停靠点详情。{STOP_DETAIL_INTRO_HELP}{current}"
@@ -28818,6 +29048,11 @@ msgstr "用Up和Down方向键浏览，Enter选择。Escape保留你当前的计�
 
 msgid "Move planned stop?"
 msgstr "更改计划停靠点？"
+
+msgid ""
+"Flick right or left to move and double tap to choose. Flick down with two "
+"fingers to keep your current planned stop."
+msgstr ""
 
 #. placeholders: {name}
 msgid "Planned stop moved to {name}."
@@ -30570,6 +30805,12 @@ msgid ""
 "Inside a group, Enter plays a sound and F1 explains it."
 msgstr "Up和Down选择一组声音，Enter打开，Escape返回。在一组里面，Enter播放声音，F1解释它。"
 
+msgid ""
+"Flick right or left to choose a group of sounds, and double tap to open it. "
+"Inside a group, double tap plays a sound and a flick up with two fingers "
+"explains it."
+msgstr ""
+
 #. placeholders: {join}
 msgid "Starting with {join}."
 msgstr "从{join}开始。"
@@ -30585,14 +30826,31 @@ msgstr ""
 "Up和Down选择一个声音，Enter播放，F1解释它以及什么时候会听到。Escape返回。换到另一个声音或返回，会停止仍在持续的声音。短声音会自己播完"
 "。"
 
+msgid ""
+"Flick right or left to choose a sound. Double tap plays it, and a flick up "
+"with two fingers explains it and when you hear it. Moving to another sound "
+"or going back stops a sound that keeps running. A short sound finishes on "
+"its own."
+msgstr ""
+
 #. one sentence of a longer line
-msgid "F1 still explains it."
-msgstr "F1仍然可以解释它。"
+msgid "A flick up with two fingers still explains it."
+msgstr ""
 
 #. placeholders: {name}
 #. one sentence of a longer line
 msgid "{name} is not in this copy of the game."
 msgstr "{name}不在这份游戏副本里。"
+
+#. placeholders: {name}
+msgid ""
+"{name} is not in this copy of the game. A flick up with two fingers still "
+"explains it."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "F1 still explains it."
+msgstr "F1仍然可以解释它。"
 
 #. placeholders: {name}
 msgid "{name} is not in this copy of the game. F1 still explains it."
@@ -30932,6 +31190,11 @@ msgid ""
 "Up and Down pick a career, Enter opens reset and delete, Escape goes back."
 msgstr "Up和Down选择职业生涯，Enter打开重置和删除，Escape返回。"
 
+msgid ""
+"Flick right or left to pick a career, and double tap to open reset and "
+"delete. Flick down with two fingers to go back."
+msgstr ""
+
 #. one sentence of a longer line
 msgid "Delete removes the save."
 msgstr "删除会移除存档。"
@@ -30954,6 +31217,10 @@ msgid ""
 "Enter offers to delete this save. It still works in Freight Fate 1.8."
 msgstr "按Enter可以删除这个存档。它在Freight Fate 1.8中仍然能用。"
 
+msgid ""
+"Double tap offers to delete this save. It still works in Freight Fate 1.8."
+msgstr ""
+
 msgid "reset"
 msgstr "重置"
 
@@ -30965,6 +31232,11 @@ msgstr "职业生涯操作"
 
 msgid "Reset and delete both ask for confirmation. Escape goes back."
 msgstr "重置和删除都会请你确认。Escape返回。"
+
+msgid ""
+"Reset and delete both ask for confirmation. Flick down with two fingers to "
+"go back."
+msgstr ""
 
 #. placeholders: {career_summary}
 #. one sentence of a longer line
@@ -31468,6 +31740,12 @@ msgid ""
 "Up and Down pick a setting. Right arrow or Enter changes it forward, Left "
 "arrow backward. Escape goes back."
 msgstr "Up和Down选择设置。Right方向键或Enter向前更改，Left方向键向后更改。Escape返回。"
+
+msgid ""
+"Flick right or left to pick a setting. Flick up or double tap to change it "
+"forward, and flick down to change it back. Flick down with two fingers to "
+"go back."
+msgstr ""
 
 msgid ""
 "This row used to offer Realistic, and yours was set to it. That setting is "
@@ -32831,6 +33109,11 @@ msgstr "上下移动选择一个手势，然后确认，选择它在驾驶时执
 msgid "Gesture"
 msgstr "手势"
 
+msgid ""
+"Flick right or left to pick a gesture, then double tap it to choose the "
+"command it runs while driving. Flick down with two fingers to leave."
+msgstr ""
+
 msgid "Every touch gesture is back to its default."
 msgstr "所有触摸手势都已恢复默认。"
 
@@ -32868,6 +33151,11 @@ msgid ""
 "Move up and down to pick a command and confirm to put it on the gesture. "
 "Going back keeps the one it has."
 msgstr "上下移动选择一个命令，确认后把它放到这个手势上。返回会保留原来的命令。"
+
+msgid ""
+"Flick right or left to pick a command and double tap to put it on the "
+"gesture. Flick down with two fingers to keep the one it has."
+msgstr ""
 
 #. placeholders: {gesture_name}, {label}
 msgid "{gesture_name} now runs {label}."
@@ -32929,8 +33217,8 @@ msgstr "练习会说出每个手势，但不会让卡车移动。"
 msgid "Skip and start driving"
 msgstr "跳过，开始驾驶"
 
-msgid "Swipe down with two fingers twice within two seconds to leave."
-msgstr "在两秒内用两根手指向下滑动两次即可离开。"
+msgid "Flick down with two fingers twice within two seconds to leave."
+msgstr ""
 
 msgid "Escape twice within two seconds to leave."
 msgstr "在两秒内按两次Escape即可离开。"
@@ -32986,26 +33274,29 @@ msgstr "向右轻扫"
 msgid "Two-finger tap"
 msgstr "双指轻点"
 
-msgid "Magic tap"
-msgstr "Magic tap"
+msgid "Two-finger flick up"
+msgstr ""
 
-msgid "Two-finger swipe up"
-msgstr "双指向上滑动"
+msgid "Two-finger flick left"
+msgstr ""
 
-msgid "Two-finger swipe left"
-msgstr "双指向左滑动"
-
-msgid "Two-finger swipe right"
-msgstr "双指向右滑动"
+msgid "Two-finger flick right"
+msgstr ""
 
 msgid "Three-finger tap"
 msgstr "三指轻点"
 
-msgid "Three-finger swipe left"
-msgstr "三指向左滑动"
+msgid "Three-finger flick up"
+msgstr ""
 
-msgid "Three-finger swipe right"
-msgstr "三指向右滑动"
+msgid "Three-finger flick down"
+msgstr ""
+
+msgid "Three-finger flick left"
+msgstr ""
+
+msgid "Three-finger flick right"
+msgstr ""
 
 msgid "Take an exit, pull over or confirm arrival"
 msgstr ""
@@ -33052,6 +33343,11 @@ msgstr ""
 "公司司机起步使用承运商分配的设备。承运商负责燃油、维修、保险和挂车支持。车主司机起步风险更高：你拥有一辆全新的卡车，从第一天起就要支付经营成本。Ente"
 "r选择，Escape返回。"
 
+msgid ""
+"Company starts use assigned carrier equipment. The carrier pays costs from "
+"day one. Double tap to choose."
+msgstr ""
+
 msgid "Career start."
 msgstr "职业生涯起步。"
 
@@ -33062,6 +33358,11 @@ msgid ""
 "Up and Down, Home and End, or a typed letter pick a region. Enter opens its "
 "cities, Escape goes back."
 msgstr "用Up和Down、Home和End，或输入一个字母来选择地区。Enter打开该地区的城市，Escape返回。"
+
+msgid ""
+"Flick right or left, or up or down with three fingers, to pick a region. "
+"Double tap opens its cities."
+msgstr ""
 
 #. placeholders: {carrier_name}
 msgid "Home region for your {carrier_name} career."
@@ -33090,6 +33391,11 @@ msgid ""
 "Up and Down, Home and End, or a typed letter pick a city. Enter confirms "
 "your home terminal, Escape goes back."
 msgstr "用Up和Down、Home和End，或输入一个字母来选择城市。Enter确认你的基地，Escape返回。"
+
+msgid ""
+"Flick right or left, or up or down with three fingers, to pick a city. "
+"Double tap confirms your home terminal."
+msgstr ""
 
 #. one sentence of a longer line
 msgid "Escape goes back to change it."
@@ -35083,6 +35389,12 @@ msgid "Page {page} of {HELP_PAGES}: {title}."
 msgstr "第{page}页，共{HELP_PAGES}页：{title}。"
 
 msgid ""
+"Flick up for the next page and down for the previous one. Flick right or "
+"left to read one line at a time. Double tap reads the whole page, a tap "
+"with two fingers stops speech, and a flick down with two fingers goes back."
+msgstr ""
+
+msgid ""
 "D-pad Left and Right change pages, Up and Down read one line at a time. A "
 "reads the whole page, Back stops speech, and B goes back."
 msgstr "D-pad的Left和Right翻页，Up和Down一次读一行。A朗读整页，Back停止朗读，B返回。"
@@ -36104,6 +36416,9 @@ msgstr "存档文件在游戏外被改动"
 msgid "Enter continues to your career."
 msgstr "按Enter继续你的职业生涯。"
 
+msgid "Double tap to continue to your career."
+msgstr ""
+
 #. one sentence of a longer line
 msgid ""
 "This save was changed outside the game, or copied from another computer, so "
@@ -36135,6 +36450,11 @@ msgid ""
 "This career cannot continue in version 1.9. Escape goes back to the career "
 "list."
 msgstr "这段职业生涯无法在1.9版本中继续。按Escape返回职业生涯列表。"
+
+msgid ""
+"This career cannot continue in version 1.9. Flick down with two fingers to "
+"go back to the career list."
+msgstr ""
 
 #. one sentence of a longer line
 msgid ""
@@ -36256,9 +36576,9 @@ msgstr "你的其他卡车加满了油，状态全新。"
 
 msgid ""
 "Type with the on-screen keyboard, then double tap. Flick left or right to "
-"review the letters, swipe up or down with three fingers to jump to the "
-"start or end, and swipe down with two fingers to cancel."
-msgstr "用屏幕键盘输入，然后双击。向左或向右轻扫来查看字母，用三根手指向上或向下滑动跳到开头或结尾，用两根手指向下滑动取消。"
+"review the letters, flick up or down with three fingers to jump to the "
+"start or end, and flick down with two fingers to cancel."
+msgstr ""
 
 msgid "Text"
 msgstr "文本"
@@ -36422,9 +36742,12 @@ msgstr "没有提供更新说明。"
 
 #. one sentence of a longer line
 msgid ""
-"Up and Down arrows read line by line, Enter reads everything, Escape goes "
-"back."
-msgstr "Up和Down方向键逐行朗读，Enter朗读全部，Escape返回。"
+"Double tap reads everything, and a flick down with two fingers goes back."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Flick right or left to read line by line."
+msgstr ""
 
 #. placeholders: {title}
 #. one sentence of a longer line
@@ -36433,14 +36756,27 @@ msgstr "{title}的更新内容。"
 
 #. placeholders: {title}, {notes}
 msgid ""
-"What's new in {title}. {notes} lines. Up and Down arrows read line by line, "
-"Enter reads everything, Escape goes back."
-msgstr "{title}的更新内容。共{notes}行。Up和Down方向键逐行朗读，Enter朗读全部，Escape返回。"
+"What's new in {title}. {notes} lines. Flick right or left to read line by "
+"line. Double tap reads everything, and a flick down with two fingers goes "
+"back."
+msgstr ""
 
 #. placeholders: {notes}
 #. one sentence of a longer line
 msgid "{notes} lines."
 msgstr "共{notes}行。"
+
+#. one sentence of a longer line
+msgid ""
+"Up and Down arrows read line by line, Enter reads everything, Escape goes "
+"back."
+msgstr "Up和Down方向键逐行朗读，Enter朗读全部，Escape返回。"
+
+#. placeholders: {title}, {notes}
+msgid ""
+"What's new in {title}. {notes} lines. Up and Down arrows read line by line, "
+"Enter reads everything, Escape goes back."
+msgstr "{title}的更新内容。共{notes}行。Up和Down方向键逐行朗读，Enter朗读全部，Escape返回。"
 
 #. placeholders: {title}
 msgid "What's new in {title}"
@@ -36523,10 +36859,24 @@ msgid ""
 "game."
 msgstr ""
 
+#. one sentence of a longer line
+msgid "A flick down with two fingers cancels."
+msgstr ""
+
 #. placeholders: {title}, {size}
 #. one sentence of a longer line
 msgid "Downloading {title}{size}."
 msgstr "正在下载{title}{size}。"
+
+#. placeholders: {title}, {size}
+msgid ""
+"Downloading {title}{size}. The game restarts when the download finishes. A "
+"flick down with two fingers cancels."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "The game restarts when the download finishes."
+msgstr "下载完成后游戏会重启。"
 
 #. placeholders: {title}, {size}
 msgid ""
@@ -36537,10 +36887,6 @@ msgstr "正在下载{title}{size}。下载完成后游戏会重启。按Escape�
 #. one sentence of a longer line
 msgid "Escape cancels."
 msgstr "按Escape取消。"
-
-#. one sentence of a longer line
-msgid "The game restarts when the download finishes."
-msgstr "下载完成后游戏会重启。"
 
 msgid "update-download"
 msgstr "update-download"
@@ -37801,6 +38147,33 @@ msgstr ""
 #. The last sentence of the sleep preview, when nothing comes before it.
 msgid "Select again to sleep."
 msgstr ""
+
+#~ msgid "Swipe down with two fingers twice within two seconds to leave."
+#~ msgstr "在两秒内用两根手指向下滑动两次即可离开。"
+
+#~ msgid "Magic tap"
+#~ msgstr "Magic tap"
+
+#~ msgid "Two-finger swipe up"
+#~ msgstr "双指向上滑动"
+
+#~ msgid "Two-finger swipe left"
+#~ msgstr "双指向左滑动"
+
+#~ msgid "Two-finger swipe right"
+#~ msgstr "双指向右滑动"
+
+#~ msgid "Three-finger swipe left"
+#~ msgstr "三指向左滑动"
+
+#~ msgid "Three-finger swipe right"
+#~ msgstr "三指向右滑动"
+
+#~ msgid ""
+#~ "Type with the on-screen keyboard, then double tap. Flick left or right to "
+#~ "review the letters, swipe up or down with three fingers to jump to the "
+#~ "start or end, and swipe down with two fingers to cancel."
+#~ msgstr "用屏幕键盘输入，然后双击。向左或向右轻扫来查看字母，用三根手指向上或向下滑动跳到开头或结尾，用两根手指向下滑动取消。"
 
 #~ msgid "the exit command from the three-finger tap list"
 #~ msgstr "三指轻点列表中的退出命令"

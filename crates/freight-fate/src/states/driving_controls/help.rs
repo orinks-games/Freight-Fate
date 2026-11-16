@@ -522,8 +522,8 @@ impl DrivingState {
             }
         }
         text.push_str(
-            "Two-finger swipe down pauses, two-finger swipe up is this help, two-finger \
-             swipes left and right review messages, and three-finger swipes left and right \
+            "A two-finger flick down pauses, a two-finger flick up is this help, two-finger \
+             flicks left and right review messages, and three-finger flicks left and right \
              tune the radio. A three-finger tap lists every driving command, Status menu \
              first. Flick to one and double tap to run it. ",
         );

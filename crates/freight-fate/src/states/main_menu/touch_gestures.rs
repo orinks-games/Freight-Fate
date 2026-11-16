@@ -35,7 +35,12 @@ pub struct TouchGesturesState {
 impl TouchGesturesState {
     pub fn new() -> Self {
         Self {
-            menu: MenuCore::new("Touch gestures").with_intro_help(GESTURES_HELP),
+            menu: MenuCore::new("Touch gestures")
+                .with_intro_help(GESTURES_HELP)
+                .with_touch_help(
+                    "Flick right or left to pick a gesture, then double tap it to choose the \
+                     command it runs while driving. Flick down with two fingers to leave.",
+                ),
         }
     }
 
@@ -140,7 +145,11 @@ impl TouchCommandPickerState {
     pub fn new(ctx: &GameContext, gesture: Gesture) -> Self {
         let mut menu = MenuCore::new(gesture_name(gesture)).with_intro_help(
             "Move up and down to pick a command and confirm to put it on the gesture. Going back keeps the one it has.",
-        );
+        )
+.with_touch_help(
+"Flick right or left to pick a command and double tap to put it on the \
+ gesture. Flick down with two fingers to keep the one it has.",
+);
         let current = ctx.bindings.touch_command(gesture);
         menu.index = TouchCommand::all()
             .position(|command| Some(command) == current)

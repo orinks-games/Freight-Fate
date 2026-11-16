@@ -15791,6 +15791,13 @@ msgstr ""
 msgid "Account achievements"
 msgstr "アカウントの実績"
 
+msgid ""
+"Double tap opens a category. Inside one, double tap repeats the achievement "
+"and a flick down with two fingers returns to the categories. From the "
+"categories, it returns to Online. Achievements earned in any career on this "
+"installation."
+msgstr ""
+
 #. placeholders: {ids}, {listed_count}
 msgid "Summary: {ids} of {listed_count} earned across every career"
 msgstr "概要：すべてのキャリアで{listed_count}件中{ids}件を獲得"
@@ -15872,6 +15879,14 @@ msgstr ""
 msgid "Left and Right change the order of this category only."
 msgstr ""
 
+msgid ""
+"Flick up or down to change the order of the categories and the achievements "
+"in each one."
+msgstr ""
+
+msgid "Flick up or down to change the order of this category only."
+msgstr ""
+
 msgid "All assists: the truck steers. Recommended for your first drives."
 msgstr "すべてのアシスト：トラックが操舵します。最初の数回の運転におすすめです。"
 
@@ -15920,6 +15935,10 @@ msgstr "現代のトラックの安全装置だけで、それ以上はありま
 msgid "Enter chooses. Escape keeps what you have."
 msgstr "Enter で選びます。 Escape で今の設定のままにします。"
 
+msgid ""
+"Double tap chooses. Flick down with two fingers to keep what you have."
+msgstr ""
+
 msgid "Driving assistance"
 msgstr "運転アシスト"
 
@@ -15960,6 +15979,11 @@ msgstr "あと{remaining}秒で準備ができます。"
 msgid "Enter selects, Escape goes back. Control stops the current speech."
 msgstr "Enter で選び、 Escape で戻ります。 Control で今の読み上げを止めます。"
 
+msgid ""
+"Flick right or left to move and double tap to choose. Flick down with two "
+"fingers to go back."
+msgstr ""
+
 msgid "Menu"
 msgstr "メニュー"
 
@@ -15984,6 +16008,11 @@ msgstr "前のメニューに戻ります。"
 msgid ""
 "Up and Down read a line at a time, Enter repeats it, Escape goes back."
 msgstr "上下の矢印キーで1行ずつ読み、 Enter で繰り返し、 Escape で戻ります。"
+
+msgid ""
+"Flick right or left to read a line at a time, and double tap to repeat it. "
+"Flick down with two fingers to go back."
+msgstr ""
 
 msgid "Your carrier has ended your employment"
 msgstr "運送会社に雇用を打ち切られました"
@@ -16300,6 +16329,17 @@ msgstr ""
 "割り当ての貨物です。Enterで受けます。断ると評判が下がり、断れる回数を1回使います。断れる回数は次の昇進で戻ります。F1で詳細。Escapeで戻りま"
 "す。"
 
+msgid ""
+"Double tap accepts. Flick up with two fingers for job details, and tap with "
+"three fingers for the market."
+msgstr ""
+
+msgid ""
+"Assigned load. Double tap accepts. Declining costs reputation and uses one "
+"of your declines, which refill at your next promotion. Flick up with two "
+"fingers for details."
+msgstr ""
+
 #. placeholders: {SENIOR_LOAD_CHOICE_LEVEL}
 msgid "until level {SENIOR_LOAD_CHOICE_LEVEL}"
 msgstr "レベル{SENIOR_LOAD_CHOICE_LEVEL}まで"
@@ -16512,6 +16552,17 @@ msgstr "この勤務の運転時間だと、追加の休息が必要です。"
 
 #. placeholders: {summary}
 msgid ""
+"Needs an extra rest on this shift's hours. {summary} Double tap again to "
+"accept."
+msgstr ""
+
+#. placeholders: {summary}
+#. one sentence of a longer line
+msgid "{summary} Double tap again to accept."
+msgstr ""
+
+#. placeholders: {summary}
+msgid ""
 "Needs an extra rest on this shift's hours. {summary} Enter again to accept."
 msgstr "この勤務の運転時間だと、追加の休息が必要です。{summary}もう一度Enterを押すと受けます。"
 
@@ -16692,6 +16743,12 @@ msgstr ""
 "上下の矢印キーで行を確認し、 Home と End で最初と最後に移ります。 Enter で行を繰り返し、「この配車を受ける」では受けます。 "
 "Escape で配車ボードに戻ります。"
 
+msgid ""
+"Flick right or left to review the lines, and up or down with three fingers "
+"to jump to the ends. Double tap repeats a line, or accepts on Accept this "
+"dispatch. Flick down with two fingers to return to the dispatch board."
+msgstr ""
+
 msgid "Job details"
 msgstr "依頼の詳細"
 
@@ -16770,6 +16827,9 @@ msgstr "依頼の詳細。{current}"
 msgid "Enter repeats this line."
 msgstr "Enter でこの行を繰り返します。"
 
+msgid "Double tap repeats this line."
+msgstr ""
+
 #. placeholders: {locked}
 msgid "Cannot accept this dispatch: {locked}"
 msgstr "この配車は受けられません：{locked}"
@@ -16804,6 +16864,9 @@ msgstr "このキャリアを閉じる"
 
 msgid "Enter confirms, Escape keeps the career."
 msgstr "Enter で確定、 Escape でキャリアを残します。"
+
+msgid "Double tap confirms. Flick down with two fingers to keep the career."
+msgstr ""
 
 msgid "Still closing out. One moment."
 msgstr "まだ閉じている途中です。少しお待ちください。"
@@ -16906,6 +16969,12 @@ msgid ""
 "costs fuel and hours of service. Escape returns to the terminal."
 msgstr "配車ボードを見に、近くの都市まで空荷で走ります。積荷も報酬もなく、燃料と運転時間を使います。 Escape でターミナルに戻ります。"
 
+msgid ""
+"Drive empty to a nearby city for its dispatch board. No load and no pay, "
+"costs fuel and hours of service. Flick down with two fingers to return to "
+"the terminal."
+msgstr ""
+
 msgid "No route to that city."
 msgstr "その都市へのルートがありません。"
 
@@ -16938,6 +17007,10 @@ msgstr "借りている額を返済する"
 
 msgid "Your own cash toward the balance. Escape backs out."
 msgstr "手持ちのお金で残高を返します。 Escape で戻ります。"
+
+msgid ""
+"Your own cash toward the balance. Flick down with two fingers to back out."
+msgstr ""
 
 #. placeholders: {amount}
 msgid "Pay it all: {amount}"
@@ -17070,6 +17143,9 @@ msgstr "点検が終わりました。{f}分です。"
 
 #. placeholders: {f}, {join}
 msgid "Walk-around done, {f} minutes. {join}"
+msgstr ""
+
+msgid "Already rested. Double tap again to sleep anyway."
 msgstr ""
 
 msgid "Already rested. Enter again to sleep anyway."
@@ -17429,6 +17505,11 @@ msgid ""
 "terminal."
 msgstr "Enter で行を繰り返し、条件を満たしていれば買い取ります。 Escape でターミナルに戻ります。"
 
+msgid ""
+"Double tap repeats a line, or buys in when qualified. Flick down with two "
+"fingers to return to the terminal."
+msgstr ""
+
 #. placeholders: {status_label}
 msgid "Current status: {status_label}"
 msgstr "現在の状況：{status_label}"
@@ -17642,6 +17723,9 @@ msgstr "オーナードライバーへの道はロックされています"
 msgid "The remaining requirements."
 msgstr "残りの条件。"
 
+msgid "Go back to company driving: double tap again to confirm"
+msgstr ""
+
 msgid "Go back to company driving: press Enter again to confirm"
 msgstr "社員ドライバーに戻る：確定するにはもう一度 Enter を押してください"
 
@@ -17724,6 +17808,12 @@ msgid ""
 "Upgrades apply to every tractor you own. Enter buys the next tier, F1 is "
 "details. Escape returns to the garage."
 msgstr "改造は所有するすべてのトラクターに適用されます。Enterで次の段階を購入、F1で詳細。Escapeでガレージに戻ります。"
+
+msgid ""
+"Upgrades apply to every tractor you own. Double tap buys the next tier, and "
+"a flick up with two fingers gives details. Flick down with two fingers to "
+"return to the garage."
+msgstr ""
 
 msgid ""
 "Upgrades unlock with the owner-operator buy-in, from level 18 under "
@@ -17906,6 +17996,12 @@ msgstr ""
 "でガレージに戻ります。"
 
 msgid ""
+"Owner-operators start with the dry van program and add specialty programs. "
+"Own authority buys trailers outright. Flick down with two fingers to return "
+"to the garage."
+msgstr ""
+
+msgid ""
 "Trailer programs unlock with the owner-operator buy-in, from level 18 under "
 "Business status. The carrier provides trailers."
 msgstr "トレーラープログラムは、レベル18から事業状況で選べるオーナードライバーの買い取りで解放されます。トレーラーは運送会社が提供します。"
@@ -18018,6 +18114,11 @@ msgid ""
 "Enter books a course. Courses take game time, and a background check runs "
 "while you drive. Escape returns to the terminal."
 msgstr "Enterで講習を予約します。講習にはゲーム内の時間がかかり、運転中に経歴の確認が進みます。Escapeでターミナルに戻ります。"
+
+msgid ""
+"Double tap books a course. Courses take game time, and a background check "
+"runs while you drive. Flick down with two fingers to return to the terminal."
+msgstr ""
 
 #. placeholders: {label}, {grouped}, {grouped2}
 msgid "The {label} course costs {grouped} dollars and you have {grouped2}."
@@ -18143,12 +18244,25 @@ msgid "What another carrier needs before it hires you away."
 msgstr "別の運送会社が引き抜いて雇う前に必要なもの。"
 
 #. placeholders: {carrier_name}
+msgid "Move to {carrier_name}: double tap again to confirm"
+msgstr ""
+
+#. placeholders: {carrier_name}
 msgid "Move to {carrier_name}: press Enter again to confirm"
 msgstr "{carrier_name}に移る：確定するにはもう一度 Enter を押してください"
 
 #. placeholders: {label}
 msgid "Move to {label}"
 msgstr "{label}に移る"
+
+#. placeholders: {carrier_name}, {menu_summary}
+msgid "{carrier_name}. {menu_summary} Double tap again to move."
+msgstr ""
+
+#. placeholders: {menu_summary}
+#. one sentence of a longer line
+msgid "{menu_summary} Double tap again to move."
+msgstr ""
 
 #. placeholders: {carrier_name}, {menu_summary}
 msgid "{carrier_name}. {menu_summary} Press Enter again to move."
@@ -18632,6 +18746,11 @@ msgid ""
 "status."
 msgstr "受付をしてから、トラックを停めた状態で積荷を積み込みます。 Escape で積み込みの状況を繰り返します。"
 
+msgid ""
+"Check in, then load cargo with the truck stopped. A flick down with two "
+"fingers repeats the pickup status."
+msgstr ""
+
 msgid "the posted limit when the open road begins"
 msgstr "一般道路に出たときの制限速度"
 
@@ -19034,6 +19153,11 @@ msgstr "ルート計画"
 msgid "W reads the weather along a route. Enter starts the drive."
 msgstr "W でルート沿いの天気を読みます。 Enter で運転を始めます。"
 
+msgid ""
+"Tap with three fingers for the weather along a route. Double tap starts the "
+"drive."
+msgstr ""
+
 msgid "passing no major cities"
 msgstr "大きな都市を通らない"
 
@@ -19107,6 +19231,14 @@ msgstr "{join}経由。 W で天気。"
 #. one sentence of a longer line
 msgid "W for weather."
 msgstr "W で天気。"
+
+#. one sentence of a longer line
+msgid "Tap with three fingers for weather."
+msgstr ""
+
+#. placeholders: {join}
+msgid "Via {join}. Tap with three fingers for weather."
+msgstr ""
 
 #. placeholders: {name}
 msgid "Depart with {name} driving, and ride along"
@@ -19245,6 +19377,9 @@ msgstr "このキャリアを開いて、どちらのコピーを残すか選ぶ
 
 msgid "Enter opens restore choices for this career."
 msgstr "Enter でこのキャリアの復元の選択肢を開きます。"
+
+msgid "Double tap opens restore choices for this career."
+msgstr ""
 
 msgid "Hear how cloud backup works"
 msgstr "クラウドバックアップのしくみを聞く"
@@ -20666,10 +20801,10 @@ msgid ""
 msgstr ""
 
 msgid ""
-"Two-finger swipe down pauses, two-finger swipe up is this help, two-finger "
-"swipes left and right review messages, and three-finger swipes left and "
-"right tune the radio. A three-finger tap lists every driving command, "
-"Status menu first. Flick to one and double tap to run it. "
+"A two-finger flick down pauses, a two-finger flick up is this help, "
+"two-finger flicks left and right review messages, and three-finger flicks "
+"left and right tune the radio. A three-finger tap lists every driving "
+"command, Status menu first. Flick to one and double tap to run it. "
 msgstr ""
 
 msgid ""
@@ -22358,6 +22493,10 @@ msgstr "配車係に連絡"
 
 msgid "Choose what you need to report. Escape hangs up."
 msgstr "報告する内容を選んでください。Escape で電話を切ります。"
+
+msgid ""
+"Choose what you need to report. Flick down with two fingers to hang up."
+msgstr ""
 
 #. placeholders: {message}
 msgid "Dispatch: {message}"
@@ -25293,6 +25432,11 @@ msgstr "上下の矢印キーで概要を確認します。Enter で行を繰り
 msgid "Delivery complete"
 msgstr "配達完了"
 
+msgid ""
+"Flick right or left to review the summary. Double tap repeats the line. "
+"Flick down with two fingers to continue."
+msgstr ""
+
 msgid "Repositioned"
 msgstr "回送完了"
 
@@ -25846,6 +25990,11 @@ msgstr "Page Up"
 msgid "Driving commands"
 msgstr "運転の操作"
 
+msgid ""
+"Flick right or left to pick a command. Double tap runs it and returns to "
+"driving. Flick down with two fingers to return without one."
+msgstr ""
+
 #. placeholders: {spoken}
 msgid "On the keyboard: {spoken}."
 msgstr "キーボードでは{spoken}。"
@@ -25878,6 +26027,11 @@ msgstr "矢印キーで移動し、Enter で選びます。「荷降ろし場に
 
 msgid "Destination facility"
 msgstr "目的地の施設"
+
+msgid ""
+"Flick right or left to move and double tap to choose. Dock and deliver "
+"completes the job."
+msgstr ""
 
 msgid "Drop the loaded trailer"
 msgstr "積んだトレーラーを切り離す"
@@ -26166,6 +26320,10 @@ msgstr "通行料の見込み、運送会社負担：{grouped}ドル。"
 msgid "Enter opens details, distance, estimated arrival, and stop planning."
 msgstr "Enter で詳細、距離、到着予定、停車の計画を開きます。"
 
+msgid ""
+"Double tap opens details, distance, estimated arrival, and stop planning."
+msgstr ""
+
 #. placeholders: {planned}
 msgid "Cancel planned stop at {planned}"
 msgstr "{planned}での計画した停車を取り消す"
@@ -26291,6 +26449,9 @@ msgstr "favorites"
 msgid "Your saved stations. Enter on one tunes it."
 msgstr "保存した局です。Enter で選局します。"
 
+msgid "Your saved stations. Double tap one to tune it."
+msgstr ""
+
 msgid "Back to the status screens."
 msgstr "ステータス画面に戻ります。"
 
@@ -26300,6 +26461,11 @@ msgid ""
 msgstr ""
 
 msgid "Plan a stop"
+msgstr ""
+
+msgid ""
+"Flick right or left to choose what the stop is for, and double tap to plan "
+"it. Flick down with two fingers to go back to driving."
 msgstr ""
 
 msgid "Hairpin"
@@ -26765,6 +26931,11 @@ msgstr "選局中"
 msgid "Enter on a station tunes it. Escape returns to Driver apps."
 msgstr "局で Enter を押すと選局します。Escape でドライバーアプリに戻ります。"
 
+msgid ""
+"Double tap a station to tune it. Flick down with two fingers to return to "
+"Driver apps."
+msgstr ""
+
 msgid "Favorites: the safety fallback is always on the dial"
 msgstr "お気に入り：安全な予備の局は常に選べます"
 
@@ -26779,12 +26950,18 @@ msgstr "{display_name}をお気に入りに保存"
 msgid "Now playing on the tuned station. Enter asks again."
 msgstr "選局中の局で流れている曲です。Enter でもう一度確認します。"
 
+msgid "Now playing on the tuned station. Double tap asks again."
+msgstr ""
+
 #. placeholders: {else}, {tuned}
 msgid "Radio: {else}, tuned to {tuned}"
 msgstr "ラジオ：{else}、{tuned}を選局中"
 
 msgid "Enter switches the radio on or off."
 msgstr "Enter でラジオをオンまたはオフにします。"
+
+msgid "Double tap switches the radio on or off."
+msgstr ""
 
 msgid "Saves or removes the tuned station in favorites."
 msgstr "選局中の局をお気に入りに保存、または外します。"
@@ -26818,6 +26995,9 @@ msgstr "range"
 
 msgid "Every station that comes in here. Enter on one tunes it."
 msgstr "ここで受信できるすべての局です。Enter で選局します。"
+
+msgid "Every station that comes in here. Double tap one to tune it."
+msgstr ""
 
 msgid "Suggest a station"
 msgstr "局を提案"
@@ -26863,6 +27043,9 @@ msgstr "ここでは{display_name}を受信できません。"
 
 msgid "Enter tunes this station."
 msgstr "Enter でこの局を選局します。"
+
+msgid "Double tap tunes this station."
+msgstr ""
 
 #. one sentence of a longer line
 msgid "Next page."
@@ -26982,6 +27165,9 @@ msgstr "ダイヤルのすべての局です。受信できる局が先に並び
 msgid "Enter lists this category. Stations in range list first."
 msgstr "Enter でこのカテゴリーの局を一覧にします。受信できる局が先に並びます。"
 
+msgid "Double tap lists this category. Stations in range list first."
+msgstr ""
+
 msgid "Suggesting a station needs Online services on, in the Online menu."
 msgstr "局の提案には、オンラインメニューでオンラインサービスをオンにする必要があります。"
 
@@ -27052,6 +27238,20 @@ msgstr "任意です。101.5 や 1090 のように入力します。Enter で飛
 
 msgid "Optional, like classic country. Enter skips."
 msgstr "任意です。クラシックカントリーのように入力します。Enter で飛ばします。"
+
+msgid ""
+"The direct link to the audio stream, not the station's web page. "
+"streamurl.link finds one."
+msgstr ""
+
+msgid "Optional. Double tap skips."
+msgstr ""
+
+msgid "Optional, like 101.5 or 1090. Double tap skips."
+msgstr ""
+
+msgid "Optional, like classic country. Double tap skips."
+msgstr ""
 
 #. placeholders: {typed}
 msgid " Filled in: {typed}."
@@ -27466,6 +27666,10 @@ msgstr "Enter で選びます。Escape で道路に戻ります。"
 
 msgid "Parking full"
 msgstr "駐車場が満車"
+
+msgid ""
+"Double tap to choose. Flick down with two fingers to return to the road."
+msgstr ""
 
 msgid " The fuel island is open."
 msgstr " 給油レーンは使えます。"
@@ -28472,6 +28676,10 @@ msgstr "{terminal}に戻されて、停止期間が終わるのを待ちます�
 msgid "Enter or Escape pulls back onto the highway."
 msgstr "Enter か Escape で高速道路に戻ります。"
 
+msgid ""
+"Double tap or flick down with two fingers to pull back onto the highway."
+msgstr ""
+
 #. one sentence of a longer line
 msgid "The trooper lets it go with a warning."
 msgstr ""
@@ -28606,6 +28814,9 @@ msgstr "Enter か Escape でターミナルに戻ります。"
 msgid "CDL disqualified for life"
 msgstr "CDLは永久に失格"
 
+msgid "Double tap or flick down with two fingers to return to the terminal."
+msgstr ""
+
 #. placeholders: {tail}
 msgid "You pull onto the shoulder and stop.{tail}"
 msgstr "路肩に寄せて停車しました。{tail}"
@@ -28615,6 +28826,10 @@ msgstr "Enter か Escape でターミナルから続けます。"
 
 msgid "Felony stop"
 msgstr "重罪による停車"
+
+msgid ""
+"Double tap or flick down with two fingers to continue from the terminal."
+msgstr ""
 
 msgid "Ran from a traffic stop"
 msgstr "交通取り締まりから逃走"
@@ -28957,6 +29172,11 @@ msgid ""
 "hours. Escape returns to the terminal."
 msgstr "レッスンは何も影響しない練習コースで行います。お金も、摩耗も、運転時間もありません。Escape でターミナルに戻ります。"
 
+msgid ""
+"Lessons run on a practice road where nothing counts: no money, no wear, no "
+"hours. Flick down with two fingers to return to the terminal."
+msgstr ""
+
 msgid "Leave the school."
 msgstr "教習所を出ます。"
 
@@ -29015,6 +29235,12 @@ msgid ""
 msgstr ""
 "上下の矢印キーで各行を確認します。Home と End で最初と最後に移ります。Enter で行を繰り返すか、ボタンを実行します。Escape "
 "でマップに戻ります。"
+
+msgid ""
+"Flick right or left to review each line, and up or down with three fingers "
+"to jump to the first and last. Double tap repeats a line or activates a "
+"button. Flick down with two fingers to return to the map."
+msgstr ""
 
 msgid "Stop details"
 msgstr "停車地の詳細"
@@ -29082,6 +29308,10 @@ msgstr "マップ画面に戻ります。"
 msgid "Stop details."
 msgstr "停車地の詳細。"
 
+#. placeholders: {STOP_DETAIL_TOUCH_HELP}, {current}
+msgid "Stop details. {STOP_DETAIL_TOUCH_HELP} {current}"
+msgstr ""
+
 #. placeholders: {STOP_DETAIL_INTRO_HELP}, {current}
 msgid "Stop details. {STOP_DETAIL_INTRO_HELP} {current}"
 msgstr "停車地の詳細。{STOP_DETAIL_INTRO_HELP}{current}"
@@ -29093,6 +29323,11 @@ msgstr "上下の矢印キーで移動し、Enter で選びます。Escape で�
 
 msgid "Move planned stop?"
 msgstr "計画した停車地を移しますか？"
+
+msgid ""
+"Flick right or left to move and double tap to choose. Flick down with two "
+"fingers to keep your current planned stop."
+msgstr ""
 
 #. placeholders: {name}
 msgid "Planned stop moved to {name}."
@@ -30863,6 +31098,12 @@ msgstr ""
 "上下の矢印キーで音のグループを選び、Enter で開きます。Escape で戻ります。グループの中では Enter で音を鳴らし、F1 "
 "で説明を聞けます。"
 
+msgid ""
+"Flick right or left to choose a group of sounds, and double tap to open it. "
+"Inside a group, double tap plays a sound and a flick up with two fingers "
+"explains it."
+msgstr ""
+
 #. placeholders: {join}
 msgid "Starting with {join}."
 msgstr "まずは{join}から。"
@@ -30878,14 +31119,31 @@ msgstr ""
 "上下の矢印キーで音を選び、Enter で鳴らします。F1 で説明と、いつ聞こえるかを聞けます。Escape "
 "で戻ります。別の音に移るか戻ると、鳴り続ける音は止まります。短い音は、そのまま最後まで鳴ります。"
 
+msgid ""
+"Flick right or left to choose a sound. Double tap plays it, and a flick up "
+"with two fingers explains it and when you hear it. Moving to another sound "
+"or going back stops a sound that keeps running. A short sound finishes on "
+"its own."
+msgstr ""
+
 #. one sentence of a longer line
-msgid "F1 still explains it."
-msgstr "F1 で説明は聞けます。"
+msgid "A flick up with two fingers still explains it."
+msgstr ""
 
 #. placeholders: {name}
 #. one sentence of a longer line
 msgid "{name} is not in this copy of the game."
 msgstr "{name}は、このゲームのコピーには入っていません。"
+
+#. placeholders: {name}
+msgid ""
+"{name} is not in this copy of the game. A flick up with two fingers still "
+"explains it."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "F1 still explains it."
+msgstr "F1 で説明は聞けます。"
 
 #. placeholders: {name}
 msgid "{name} is not in this copy of the game. F1 still explains it."
@@ -31226,6 +31484,11 @@ msgid ""
 "Up and Down pick a career, Enter opens reset and delete, Escape goes back."
 msgstr "上下でキャリアを選び、Enter でリセットと削除を開き、Escape で戻ります。"
 
+msgid ""
+"Flick right or left to pick a career, and double tap to open reset and "
+"delete. Flick down with two fingers to go back."
+msgstr ""
+
 #. one sentence of a longer line
 msgid "Delete removes the save."
 msgstr "削除はセーブを消します。"
@@ -31248,6 +31511,10 @@ msgid ""
 "Enter offers to delete this save. It still works in Freight Fate 1.8."
 msgstr "Enter でこのセーブの削除を選べます。Freight Fate 1.8では今も使えます。"
 
+msgid ""
+"Double tap offers to delete this save. It still works in Freight Fate 1.8."
+msgstr ""
+
 msgid "reset"
 msgstr "リセット"
 
@@ -31259,6 +31526,11 @@ msgstr "キャリアの操作"
 
 msgid "Reset and delete both ask for confirmation. Escape goes back."
 msgstr "リセットも削除も確認があります。Escape で戻ります。"
+
+msgid ""
+"Reset and delete both ask for confirmation. Flick down with two fingers to "
+"go back."
+msgstr ""
 
 #. placeholders: {career_summary}
 #. one sentence of a longer line
@@ -31772,6 +32044,12 @@ msgid ""
 "Up and Down pick a setting. Right arrow or Enter changes it forward, Left "
 "arrow backward. Escape goes back."
 msgstr "上下で設定を選びます。右矢印か Enter で次の値に、左矢印で前の値に変えます。Escape で戻ります。"
+
+msgid ""
+"Flick right or left to pick a setting. Flick up or double tap to change it "
+"forward, and flick down to change it back. Flick down with two fingers to "
+"go back."
+msgstr ""
 
 msgid ""
 "This row used to offer Realistic, and yours was set to it. That setting is "
@@ -33165,6 +33443,11 @@ msgstr "上下に移動してジェスチャーを選び、確定すると、運
 msgid "Gesture"
 msgstr "ジェスチャー"
 
+msgid ""
+"Flick right or left to pick a gesture, then double tap it to choose the "
+"command it runs while driving. Flick down with two fingers to leave."
+msgstr ""
+
 msgid "Every touch gesture is back to its default."
 msgstr "すべてのタッチジェスチャーを既定に戻しました。"
 
@@ -33202,6 +33485,11 @@ msgid ""
 "Move up and down to pick a command and confirm to put it on the gesture. "
 "Going back keeps the one it has."
 msgstr "上下に移動して操作を選び、確定するとジェスチャーに割り当てます。戻ると今の操作のままです。"
+
+msgid ""
+"Flick right or left to pick a command and double tap to put it on the "
+"gesture. Flick down with two fingers to keep the one it has."
+msgstr ""
 
 #. placeholders: {gesture_name}, {label}
 msgid "{gesture_name} now runs {label}."
@@ -33264,8 +33552,8 @@ msgstr "練習では、トラックを動かさずに各ジェスチャーの名
 msgid "Skip and start driving"
 msgstr "飛ばして運転を始める"
 
-msgid "Swipe down with two fingers twice within two seconds to leave."
-msgstr "抜けるには、2秒以内に2本指で2回下にスワイプしてください。"
+msgid "Flick down with two fingers twice within two seconds to leave."
+msgstr ""
 
 msgid "Escape twice within two seconds to leave."
 msgstr "抜けるには、2秒以内に Escape を2回押してください。"
@@ -33323,26 +33611,29 @@ msgstr "右にフリック"
 msgid "Two-finger tap"
 msgstr "2本指でタップ"
 
-msgid "Magic tap"
-msgstr "マジックタップ"
+msgid "Two-finger flick up"
+msgstr ""
 
-msgid "Two-finger swipe up"
-msgstr "2本指で上にスワイプ"
+msgid "Two-finger flick left"
+msgstr ""
 
-msgid "Two-finger swipe left"
-msgstr "2本指で左にスワイプ"
-
-msgid "Two-finger swipe right"
-msgstr "2本指で右にスワイプ"
+msgid "Two-finger flick right"
+msgstr ""
 
 msgid "Three-finger tap"
 msgstr "3本指でタップ"
 
-msgid "Three-finger swipe left"
-msgstr "3本指で左にスワイプ"
+msgid "Three-finger flick up"
+msgstr ""
 
-msgid "Three-finger swipe right"
-msgstr "3本指で右にスワイプ"
+msgid "Three-finger flick down"
+msgstr ""
+
+msgid "Three-finger flick left"
+msgstr ""
+
+msgid "Three-finger flick right"
+msgstr ""
 
 msgid "Take an exit, pull over or confirm arrival"
 msgstr ""
@@ -33389,6 +33680,11 @@ msgstr ""
 "社員ドライバーでの開始では、運送会社の割り当て装備を使います。燃料、修理、保険、トレーラーの支援は運送会社が払います。オーナードライバーでの開始はリスク"
 "が高く、新品のトラックを所有し、初日から事業の費用を払います。Enter で選び、Escape で戻ります。"
 
+msgid ""
+"Company starts use assigned carrier equipment. The carrier pays costs from "
+"day one. Double tap to choose."
+msgstr ""
+
 msgid "Career start."
 msgstr "キャリアの始め方。"
 
@@ -33399,6 +33695,11 @@ msgid ""
 "Up and Down, Home and End, or a typed letter pick a region. Enter opens its "
 "cities, Escape goes back."
 msgstr "上下、Home と End、または文字の入力で地域を選びます。Enter でその地域の都市を開き、Escape で戻ります。"
+
+msgid ""
+"Flick right or left, or up or down with three fingers, to pick a region. "
+"Double tap opens its cities."
+msgstr ""
 
 #. placeholders: {carrier_name}
 msgid "Home region for your {carrier_name} career."
@@ -33427,6 +33728,11 @@ msgid ""
 "Up and Down, Home and End, or a typed letter pick a city. Enter confirms "
 "your home terminal, Escape goes back."
 msgstr "上下、Home と End、または文字の入力で都市を選びます。Enter で本拠地を確定し、Escape で戻ります。"
+
+msgid ""
+"Flick right or left, or up or down with three fingers, to pick a city. "
+"Double tap confirms your home terminal."
+msgstr ""
 
 #. one sentence of a longer line
 msgid "Escape goes back to change it."
@@ -35565,6 +35871,12 @@ msgid "Page {page} of {HELP_PAGES}: {title}."
 msgstr "{HELP_PAGES}ページ中{page}ページ目：{title}。"
 
 msgid ""
+"Flick up for the next page and down for the previous one. Flick right or "
+"left to read one line at a time. Double tap reads the whole page, a tap "
+"with two fingers stops speech, and a flick down with two fingers goes back."
+msgstr ""
+
+msgid ""
 "D-pad Left and Right change pages, Up and Down read one line at a time. A "
 "reads the whole page, Back stops speech, and B goes back."
 msgstr "D-pad の左右でページを変え、上下で1行ずつ読みます。A でページ全体を読み、Back で読み上げを止め、B で戻ります。"
@@ -36616,6 +36928,9 @@ msgstr "セーブファイルがゲームの外で変更されました"
 msgid "Enter continues to your career."
 msgstr "Enter でキャリアに進みます。"
 
+msgid "Double tap to continue to your career."
+msgstr ""
+
 #. one sentence of a longer line
 msgid ""
 "This save was changed outside the game, or copied from another computer, so "
@@ -36647,6 +36962,11 @@ msgid ""
 "This career cannot continue in version 1.9. Escape goes back to the career "
 "list."
 msgstr "このキャリアはバージョン1.9では続けられません。Escape でキャリアの一覧に戻ります。"
+
+msgid ""
+"This career cannot continue in version 1.9. Flick down with two fingers to "
+"go back to the career list."
+msgstr ""
 
 #. one sentence of a longer line
 msgid ""
@@ -36772,11 +37092,9 @@ msgstr "他のトラックは満タンできれいな状態から始まります
 
 msgid ""
 "Type with the on-screen keyboard, then double tap. Flick left or right to "
-"review the letters, swipe up or down with three fingers to jump to the "
-"start or end, and swipe down with two fingers to cancel."
+"review the letters, flick up or down with three fingers to jump to the "
+"start or end, and flick down with two fingers to cancel."
 msgstr ""
-"画面のキーボードで入力してから、ダブルタップしてください。左右にフリックすると文字を確認し、3本指で上か下にスワイプすると最初か最後に移り、2本指で下に"
-"スワイプすると取り消します。"
 
 msgid "Text"
 msgstr "テキスト"
@@ -36945,9 +37263,12 @@ msgstr "変更点の説明はありませんでした。"
 
 #. one sentence of a longer line
 msgid ""
-"Up and Down arrows read line by line, Enter reads everything, Escape goes "
-"back."
-msgstr "上下の矢印キーで1行ずつ読み、Enter ですべて読み、Escape で戻ります。"
+"Double tap reads everything, and a flick down with two fingers goes back."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Flick right or left to read line by line."
+msgstr ""
 
 #. placeholders: {title}
 #. one sentence of a longer line
@@ -36956,14 +37277,27 @@ msgstr "{title}の新機能。"
 
 #. placeholders: {title}, {notes}
 msgid ""
-"What's new in {title}. {notes} lines. Up and Down arrows read line by line, "
-"Enter reads everything, Escape goes back."
-msgstr "{title}の新機能。{notes}行。上下の矢印キーで1行ずつ読み、Enter ですべて読み、Escape で戻ります。"
+"What's new in {title}. {notes} lines. Flick right or left to read line by "
+"line. Double tap reads everything, and a flick down with two fingers goes "
+"back."
+msgstr ""
 
 #. placeholders: {notes}
 #. one sentence of a longer line
 msgid "{notes} lines."
 msgstr "{notes}行。"
+
+#. one sentence of a longer line
+msgid ""
+"Up and Down arrows read line by line, Enter reads everything, Escape goes "
+"back."
+msgstr "上下の矢印キーで1行ずつ読み、Enter ですべて読み、Escape で戻ります。"
+
+#. placeholders: {title}, {notes}
+msgid ""
+"What's new in {title}. {notes} lines. Up and Down arrows read line by line, "
+"Enter reads everything, Escape goes back."
+msgstr "{title}の新機能。{notes}行。上下の矢印キーで1行ずつ読み、Enter ですべて読み、Escape で戻ります。"
 
 #. placeholders: {title}
 msgid "What's new in {title}"
@@ -37047,10 +37381,24 @@ msgid ""
 "game."
 msgstr "新しいバージョンは{dest}に保存されています。自分でインストールしてから、ゲームを再起動してください。"
 
+#. one sentence of a longer line
+msgid "A flick down with two fingers cancels."
+msgstr ""
+
 #. placeholders: {title}, {size}
 #. one sentence of a longer line
 msgid "Downloading {title}{size}."
 msgstr "{title}{size}をダウンロードしています。"
+
+#. placeholders: {title}, {size}
+msgid ""
+"Downloading {title}{size}. The game restarts when the download finishes. A "
+"flick down with two fingers cancels."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "The game restarts when the download finishes."
+msgstr "ダウンロードが終わるとゲームが再起動します。"
 
 #. placeholders: {title}, {size}
 msgid ""
@@ -37061,10 +37409,6 @@ msgstr "{title}{size}をダウンロードしています。ダウンロード�
 #. one sentence of a longer line
 msgid "Escape cancels."
 msgstr "Escape で取り消します。"
-
-#. one sentence of a longer line
-msgid "The game restarts when the download finishes."
-msgstr "ダウンロードが終わるとゲームが再起動します。"
 
 msgid "update-download"
 msgstr "update-download"
@@ -38336,6 +38680,35 @@ msgstr ""
 #. The last sentence of the sleep preview, when nothing comes before it.
 msgid "Select again to sleep."
 msgstr ""
+
+#~ msgid "Swipe down with two fingers twice within two seconds to leave."
+#~ msgstr "抜けるには、2秒以内に2本指で2回下にスワイプしてください。"
+
+#~ msgid "Magic tap"
+#~ msgstr "マジックタップ"
+
+#~ msgid "Two-finger swipe up"
+#~ msgstr "2本指で上にスワイプ"
+
+#~ msgid "Two-finger swipe left"
+#~ msgstr "2本指で左にスワイプ"
+
+#~ msgid "Two-finger swipe right"
+#~ msgstr "2本指で右にスワイプ"
+
+#~ msgid "Three-finger swipe left"
+#~ msgstr "3本指で左にスワイプ"
+
+#~ msgid "Three-finger swipe right"
+#~ msgstr "3本指で右にスワイプ"
+
+#~ msgid ""
+#~ "Type with the on-screen keyboard, then double tap. Flick left or right to "
+#~ "review the letters, swipe up or down with three fingers to jump to the "
+#~ "start or end, and swipe down with two fingers to cancel."
+#~ msgstr ""
+#~ "画面のキーボードで入力してから、ダブルタップしてください。左右にフリックすると文字を確認し、3本指で上か下にスワイプすると最初か最後に移り、2本指で下に"
+#~ "スワイプすると取り消します。"
 
 #~ msgid "the exit command from the three-finger tap list"
 #~ msgstr "3本指タップの一覧にある終了コマンド"

@@ -42,7 +42,10 @@ impl CloseOutCareerState {
         Self {
             menu: MenuCore::new("Close out this career")
                 .with_open_sound(Some("ui/error"))
-                .with_intro_help("Enter confirms, Escape keeps the career."),
+                .with_intro_help("Enter confirms, Escape keeps the career.")
+                .with_touch_help(
+                    "Double tap confirms. Flick down with two fingers to keep the career.",
+                ),
             name: p.name.clone(),
             path: p.path(),
             outcome: Mailbox::new(),

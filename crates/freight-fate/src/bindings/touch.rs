@@ -96,13 +96,13 @@ const SLOTS: &[(Gesture, &str, &str, TouchCommand)] = &[
     (
         Gesture::ThreeFingerSwipeUp,
         "three_finger_swipe_up",
-        "Three-finger swipe up",
+        "Three-finger flick up",
         run(Action::Route),
     ),
     (
         Gesture::ThreeFingerSwipeDown,
         "three_finger_swipe_down",
-        "Three-finger swipe down",
+        "Three-finger flick down",
         run(Action::Upcoming),
     ),
     (
@@ -229,8 +229,8 @@ pub fn touch_gesture_noun(gesture: Gesture) -> Option<String> {
         Gesture::SwipeUp => plain("a flick up"),
         Gesture::SwipeDown => plain("a flick down"),
         Gesture::MagicTap => plain("a two-finger double tap"),
-        Gesture::ThreeFingerSwipeUp => plain("a three-finger swipe up"),
-        Gesture::ThreeFingerSwipeDown => plain("a three-finger swipe down"),
+        Gesture::ThreeFingerSwipeUp => plain("a three-finger flick up"),
+        Gesture::ThreeFingerSwipeDown => plain("a three-finger flick down"),
         Gesture::UpperHoldTap => held("gas", "tap"),
         Gesture::UpperHoldDoubleTap => held("gas", "double tap"),
         Gesture::UpperHoldSwipeUp => held("gas", "flick up"),

@@ -30,7 +30,11 @@ pub struct ParkingFullState {
 impl ParkingFullState {
     pub fn new(ctx: &GameContext, stop: RoadStop) -> Self {
         ParkingFullState {
-            menu: MenuCore::new("Parking full").with_intro_help(PARKING_FULL_INTRO_HELP),
+            menu: MenuCore::new("Parking full")
+                .with_intro_help(PARKING_FULL_INTRO_HELP)
+                .with_touch_help(
+                    "Double tap to choose. Flick down with two fingers to return to the road.",
+                ),
             driving: DriveRef::active(ctx),
             stop,
         }
@@ -39,7 +43,11 @@ impl ParkingFullState {
     /// The same screen over a drive the caller already shares (tests).
     pub fn with_drive(driving: DriveRef, stop: RoadStop) -> Self {
         ParkingFullState {
-            menu: MenuCore::new("Parking full").with_intro_help(PARKING_FULL_INTRO_HELP),
+            menu: MenuCore::new("Parking full")
+                .with_intro_help(PARKING_FULL_INTRO_HELP)
+                .with_touch_help(
+                    "Double tap to choose. Flick down with two fingers to return to the road.",
+                ),
             driving,
             stop,
         }

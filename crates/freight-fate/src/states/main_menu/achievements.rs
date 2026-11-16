@@ -11,7 +11,8 @@ use crate::app::GameContext;
 use crate::impl_state_for_menu;
 use crate::states::achievement_sort::{
     category_sort, chosen_sort, sorted_achievements, sorted_categories, step_category_sort,
-    step_chosen_sort, SortOverrides, CATEGORIES_SORT_HELP, CATEGORY_SORT_HELP,
+    step_chosen_sort, SortOverrides, CATEGORIES_SORT_HELP, CATEGORIES_SORT_TOUCH_HELP,
+    CATEGORY_SORT_HELP, CATEGORY_SORT_TOUCH_HELP,
 };
 use crate::states::base::{Key, Label, Menu, MenuCore, MenuItem};
 use crate::states::main_menu::loadable_saves;
@@ -194,6 +195,7 @@ impl Menu for AchievementsState {
             |s: &mut Self, ctx| s.step_sort(ctx, 1),
         )
         .help(CATEGORIES_SORT_HELP)
+        .touch_help(CATEGORIES_SORT_TOUCH_HELP)
         .select_sound(None)];
         for row in sorted_categories(chosen_sort(ctx), &earned) {
             let c: &'static AchievementCategory = row.category;
@@ -327,6 +329,7 @@ impl Menu for AchievementCategoryState {
             |s: &mut Self, ctx| s.step_sort(ctx, 1),
         )
         .help(CATEGORY_SORT_HELP)
+        .touch_help(CATEGORY_SORT_TOUCH_HELP)
         .select_sound(None)];
         for achievement in sorted_achievements(sort, &self.achs, &earned) {
             let unlocked = earned.contains_key(achievement.id);

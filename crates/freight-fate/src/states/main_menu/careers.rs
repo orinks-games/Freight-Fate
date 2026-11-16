@@ -106,9 +106,14 @@ pub struct ManageCareersState {
 impl ManageCareersState {
     pub fn new() -> Self {
         Self {
-            menu: MenuCore::new("Manage careers").with_intro_help(
-                "Up and Down pick a career, Enter opens reset and delete, Escape goes back.",
-            ),
+            menu: MenuCore::new("Manage careers")
+                .with_intro_help(
+                    "Up and Down pick a career, Enter opens reset and delete, Escape goes back.",
+                )
+                .with_touch_help(
+                    "Flick right or left to pick a career, and double tap to open reset and \
+                     delete. Flick down with two fingers to go back.",
+                ),
         }
     }
 }
@@ -157,7 +162,10 @@ impl Menu for ManageCareersState {
                         ctx.push_state(ConfirmCareerActionState::delete_legacy(path.clone(), &name))
                     },
                 )
-                .help("Enter offers to delete this save. It still works in Freight Fate 1.8."),
+                .help("Enter offers to delete this save. It still works in Freight Fate 1.8.")
+                .touch_help(
+                    "Double tap offers to delete this save. It still works in Freight Fate 1.8.",
+                ),
             );
         }
         items.push(MenuItem::new("Back", |s: &mut Self, ctx| s.go_back(ctx)));
@@ -194,7 +202,11 @@ impl CareerActionsState {
     pub fn new(path: PathBuf, profile: Profile) -> Self {
         Self {
             menu: MenuCore::new("Career actions")
-                .with_intro_help("Reset and delete both ask for confirmation. Escape goes back."),
+                .with_intro_help("Reset and delete both ask for confirmation. Escape goes back.")
+                .with_touch_help(
+                    "Reset and delete both ask for confirmation. Flick down with two fingers to \
+                     go back.",
+                ),
             path,
             profile,
         }

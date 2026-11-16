@@ -24,7 +24,12 @@ impl BobtailDestState {
             menu: MenuCore::new("Drive to a nearby city without a trailer").with_intro_help(
                 "Drive empty to a nearby city for its dispatch board. No load and no pay, costs \
                  fuel and hours of service. Escape returns to the terminal.",
-            ),
+            )
+.with_touch_help(
+"Drive empty to a nearby city for its dispatch board. No load and no pay, \
+ costs fuel and hours of service. Flick down with two fingers to return to \
+ the terminal.",
+),
             cities,
         }
     }
@@ -131,7 +136,10 @@ impl PayDebtState {
     pub fn new() -> Self {
         PayDebtState {
             menu: MenuCore::new("Pay down what you owe")
-                .with_intro_help("Your own cash toward the balance. Escape backs out."),
+                .with_intro_help("Your own cash toward the balance. Escape backs out.")
+                .with_touch_help(
+                    "Your own cash toward the balance. Flick down with two fingers to back out.",
+                ),
         }
     }
 

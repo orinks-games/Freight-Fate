@@ -112,7 +112,7 @@ impl State for TouchPracticeState {
     fn enter(&mut self, ctx: &mut GameContext) {
         // The core rule first: every gesture below is an example of it.
         let leave = if ctx.controller.device() == ff_core::input_hints::TOUCH {
-            "Swipe down with two fingers twice within two seconds to leave."
+            "Flick down with two fingers twice within two seconds to leave."
         } else {
             "Escape twice within two seconds to leave."
         };
@@ -171,15 +171,15 @@ fn fixed_name(gesture: Gesture) -> &'static str {
         Gesture::SwipeLeft => "Flick left",
         Gesture::SwipeRight => "Flick right",
         Gesture::TwoFingerTap => "Two-finger tap",
-        Gesture::MagicTap => "Magic tap",
-        Gesture::TwoFingerSwipeUp => "Two-finger swipe up",
-        Gesture::TwoFingerSwipeLeft => "Two-finger swipe left",
-        Gesture::TwoFingerSwipeRight => "Two-finger swipe right",
+        Gesture::MagicTap => "Two-finger double tap",
+        Gesture::TwoFingerSwipeUp => "Two-finger flick up",
+        Gesture::TwoFingerSwipeLeft => "Two-finger flick left",
+        Gesture::TwoFingerSwipeRight => "Two-finger flick right",
         Gesture::ThreeFingerTap => "Three-finger tap",
-        Gesture::ThreeFingerSwipeUp => "Three-finger swipe up",
-        Gesture::ThreeFingerSwipeDown => "Three-finger swipe down",
-        Gesture::ThreeFingerSwipeLeft => "Three-finger swipe left",
-        Gesture::ThreeFingerSwipeRight => "Three-finger swipe right",
+        Gesture::ThreeFingerSwipeUp => "Three-finger flick up",
+        Gesture::ThreeFingerSwipeDown => "Three-finger flick down",
+        Gesture::ThreeFingerSwipeLeft => "Three-finger flick left",
+        Gesture::ThreeFingerSwipeRight => "Three-finger flick right",
         _ => "Gesture",
     }
 }

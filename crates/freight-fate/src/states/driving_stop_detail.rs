@@ -19,6 +19,11 @@ const STOP_DETAIL_INTRO_HELP: &str =
     "Up and down arrows review each line. Home and End jump to the first and last. Enter repeats \
      a line or activates a button. Escape returns to the map.";
 
+const STOP_DETAIL_TOUCH_HELP: &str =
+    "Flick right or left to review each line, and up or down with three fingers to jump to the \
+     first and last. Double tap repeats a line or activates a button. Flick down with two \
+     fingers to return to the map.";
+
 /// Full details for one upcoming route stop, opened from the Map screen.
 ///
 /// Mirrors the dispatch board's job details view: each fact is its own menu
@@ -32,7 +37,9 @@ pub struct StopDetailState {
 impl StopDetailState {
     pub fn new(driving: DriveRef, stop: RoadStop) -> Self {
         StopDetailState {
-            menu: MenuCore::new("Stop details").with_intro_help(STOP_DETAIL_INTRO_HELP),
+            menu: MenuCore::new("Stop details")
+                .with_intro_help(STOP_DETAIL_INTRO_HELP)
+                .with_touch_help(STOP_DETAIL_TOUCH_HELP),
             driving,
             stop,
         }
@@ -161,6 +168,7 @@ impl Menu for StopDetailState {
                     ctx.say(&spoken)
                 })
                 .help("Enter repeats this line.")
+                .touch_help("Double tap repeats this line.")
             })
             .collect();
         let stop = self.stop.clone();
@@ -205,13 +213,17 @@ impl Menu for StopDetailState {
 
     fn announce_entry(&mut self, ctx: &mut GameContext) {
         let current = self.current_text(ctx);
-        ctx.say(&format!("Stop details. {STOP_DETAIL_INTRO_HELP} {current}"));
+        if ctx.touch_hints() {
+            ctx.say(&format!("Stop details. {STOP_DETAIL_TOUCH_HELP} {current}"));
+        } else {
+            ctx.say(&format!("Stop details. {STOP_DETAIL_INTRO_HELP} {current}"));
+        }
     }
 
     fn current_help(&self, ctx: &GameContext) -> String {
         let core = self.menu();
         let base = if core.items.is_empty() {
-            core.intro_help.clone()
+            core.intro(ctx)
         } else {
             let item = &core.items[core.index];
             let help = item.help_text(self, ctx);
@@ -221,7 +233,11 @@ impl Menu for StopDetailState {
                 help
             }
         };
-        format!("{STOP_DETAIL_INTRO_HELP} {base}")
+        if ctx.touch_hints() {
+            format!("{STOP_DETAIL_TOUCH_HELP} {base}")
+        } else {
+            format!("{STOP_DETAIL_INTRO_HELP} {base}")
+        }
     }
 }
 
@@ -244,7 +260,12 @@ const MOVE_PLAN_INTRO_HELP: &str = "Use up and down arrows to navigate, Enter to
 impl ConfirmMovePlanState {
     pub fn new(driving: DriveRef, stop: RoadStop) -> Self {
         ConfirmMovePlanState {
-            menu: MenuCore::new("Move planned stop?").with_intro_help(MOVE_PLAN_INTRO_HELP),
+            menu: MenuCore::new("Move planned stop?")
+                .with_intro_help(MOVE_PLAN_INTRO_HELP)
+                .with_touch_help(
+                    "Flick right or left to move and double tap to choose. Flick down with two \
+                     fingers to keep your current planned stop.",
+                ),
             driving,
             stop,
         }

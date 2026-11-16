@@ -16949,6 +16949,13 @@ msgstr ""
 msgid "Account achievements"
 msgstr "Hesap başarımları"
 
+msgid ""
+"Double tap opens a category. Inside one, double tap repeats the achievement "
+"and a flick down with two fingers returns to the categories. From the "
+"categories, it returns to Online. Achievements earned in any career on this "
+"installation."
+msgstr ""
+
 #. placeholders: {ids}, {listed_count}
 msgid "Summary: {ids} of {listed_count} earned across every career"
 msgstr "Özet: bütün kariyerlerde {listed_count} başarımdan {ids} kazanıldı"
@@ -17035,6 +17042,14 @@ msgstr ""
 msgid "Left and Right change the order of this category only."
 msgstr ""
 
+msgid ""
+"Flick up or down to change the order of the categories and the achievements "
+"in each one."
+msgstr ""
+
+msgid "Flick up or down to change the order of this category only."
+msgstr ""
+
 msgid "All assists: the truck steers. Recommended for your first drives."
 msgstr ""
 "Tüm yardımlar: direksiyonu tır kullanır. İlk sürüşleriniz için önerilir."
@@ -17090,6 +17105,10 @@ msgstr ""
 msgid "Enter chooses. Escape keeps what you have."
 msgstr "Enter seçer. Escape mevcut ayarı korur."
 
+msgid ""
+"Double tap chooses. Flick down with two fingers to keep what you have."
+msgstr ""
+
 msgid "Driving assistance"
 msgstr "Sürüş yardımı"
 
@@ -17132,6 +17151,11 @@ msgstr "{remaining} saniye içinde hazır."
 msgid "Enter selects, Escape goes back. Control stops the current speech."
 msgstr "Enter seçer, Escape geri döner. Control o anki konuşmayı durdurur."
 
+msgid ""
+"Flick right or left to move and double tap to choose. Flick down with two "
+"fingers to go back."
+msgstr ""
+
 msgid "Menu"
 msgstr "Menü"
 
@@ -17157,6 +17181,11 @@ msgid ""
 "Up and Down read a line at a time, Enter repeats it, Escape goes back."
 msgstr ""
 "Yukarı ve Aşağı satır satır okur, Enter tekrarlar, Escape geri döner."
+
+msgid ""
+"Flick right or left to read a line at a time, and double tap to repeat it. "
+"Flick down with two fingers to go back."
+msgstr ""
 
 msgid "Your carrier has ended your employment"
 msgstr "Taşıyıcı firmanız işinize son verdi"
@@ -17494,6 +17523,17 @@ msgstr ""
 "terfinizde yenilenen ret haklarınızdan birini kullanır. F1 ayrıntıları "
 "verir. Escape geri döner."
 
+msgid ""
+"Double tap accepts. Flick up with two fingers for job details, and tap with "
+"three fingers for the market."
+msgstr ""
+
+msgid ""
+"Assigned load. Double tap accepts. Declining costs reputation and uses one "
+"of your declines, which refill at your next promotion. Flick up with two "
+"fingers for details."
+msgstr ""
+
 #. placeholders: {SENIOR_LOAD_CHOICE_LEVEL}
 msgid "until level {SENIOR_LOAD_CHOICE_LEVEL}"
 msgstr "seviye {SENIOR_LOAD_CHOICE_LEVEL} olana kadar"
@@ -17726,6 +17766,17 @@ msgstr "Bu vardiyanın süreleriyle fazladan bir dinlenme gerekiyor."
 
 #. placeholders: {summary}
 msgid ""
+"Needs an extra rest on this shift's hours. {summary} Double tap again to "
+"accept."
+msgstr ""
+
+#. placeholders: {summary}
+#. one sentence of a longer line
+msgid "{summary} Double tap again to accept."
+msgstr ""
+
+#. placeholders: {summary}
+msgid ""
 "Needs an extra rest on this shift's hours. {summary} Enter again to accept."
 msgstr ""
 "Bu vardiyanın süreleriyle fazladan bir dinlenme gerekiyor. {summary} Kabul "
@@ -17934,6 +17985,12 @@ msgstr ""
 "bir satırı tekrarlar, Bu işi kabul et satırında ise kabul eder. Escape iş "
 "panosuna döner."
 
+msgid ""
+"Flick right or left to review the lines, and up or down with three fingers "
+"to jump to the ends. Double tap repeats a line, or accepts on Accept this "
+"dispatch. Flick down with two fingers to return to the dispatch board."
+msgstr ""
+
 msgid "Job details"
 msgstr "İş ayrıntıları"
 
@@ -18013,6 +18070,9 @@ msgstr "İş ayrıntıları. {current}"
 msgid "Enter repeats this line."
 msgstr "Enter bu satırı tekrarlar."
 
+msgid "Double tap repeats this line."
+msgstr ""
+
 #. placeholders: {locked}
 msgid "Cannot accept this dispatch: {locked}"
 msgstr "Bu iş kabul edilemez: {locked}"
@@ -18049,6 +18109,9 @@ msgstr "Bu kariyeri kapat"
 
 msgid "Enter confirms, Escape keeps the career."
 msgstr "Enter onaylar, Escape kariyeri korur."
+
+msgid "Double tap confirms. Flick down with two fingers to keep the career."
+msgstr ""
 
 msgid "Still closing out. One moment."
 msgstr "Hâlâ kapatılıyor. Bir dakika."
@@ -18162,6 +18225,12 @@ msgstr ""
 "İş panosu için yakındaki bir şehre dorsesiz gidin. Yük yok, ücret yok; "
 "yakıt ve sürüş süresi harcar. Escape terminale döner."
 
+msgid ""
+"Drive empty to a nearby city for its dispatch board. No load and no pay, "
+"costs fuel and hours of service. Flick down with two fingers to return to "
+"the terminal."
+msgstr ""
+
 msgid "No route to that city."
 msgstr "O şehre rota yok."
 
@@ -18197,6 +18266,10 @@ msgstr "Borcunuzu ödeyin"
 
 msgid "Your own cash toward the balance. Escape backs out."
 msgstr "Kendi nakitinizle borca ödeme. Escape vazgeçer."
+
+msgid ""
+"Your own cash toward the balance. Flick down with two fingers to back out."
+msgstr ""
 
 #. placeholders: {amount}
 msgid "Pay it all: {amount}"
@@ -18332,6 +18405,9 @@ msgstr "Tur bitti, {f} dakika."
 
 #. placeholders: {f}, {join}
 msgid "Walk-around done, {f} minutes. {join}"
+msgstr ""
+
+msgid "Already rested. Double tap again to sleep anyway."
 msgstr ""
 
 msgid "Already rested. Enter again to sleep anyway."
@@ -18722,6 +18798,11 @@ msgstr ""
 "Enter bir satırı tekrarlar ya da şartları sağladığınızda satın alır. Escape "
 "terminale döner."
 
+msgid ""
+"Double tap repeats a line, or buys in when qualified. Flick down with two "
+"fingers to return to the terminal."
+msgstr ""
+
 #. placeholders: {status_label}
 msgid "Current status: {status_label}"
 msgstr "Şu anki durum: {status_label}"
@@ -18949,6 +19030,9 @@ msgstr "Kendi tırının sahibi şoför yolu kilitli"
 msgid "The remaining requirements."
 msgstr "Kalan koşullar."
 
+msgid "Go back to company driving: double tap again to confirm"
+msgstr ""
+
 msgid "Go back to company driving: press Enter again to confirm"
 msgstr "Firma şoförlüğüne dön: onaylamak için yeniden Enter'a basın"
 
@@ -19042,6 +19126,12 @@ msgid ""
 msgstr ""
 "Yükseltmeler sahip olduğunuz her çekiciye uygulanır. Enter sonraki kademeyi "
 "satın alır, F1 ayrıntıları verir. Escape garaja döner."
+
+msgid ""
+"Upgrades apply to every tractor you own. Double tap buys the next tier, and "
+"a flick up with two fingers gives details. Flick down with two fingers to "
+"return to the garage."
+msgstr ""
 
 msgid ""
 "Upgrades unlock with the owner-operator buy-in, from level 18 under "
@@ -19241,6 +19331,12 @@ msgstr ""
 "Escape garaja döner."
 
 msgid ""
+"Owner-operators start with the dry van program and add specialty programs. "
+"Own authority buys trailers outright. Flick down with two fingers to return "
+"to the garage."
+msgstr ""
+
+msgid ""
 "Trailer programs unlock with the owner-operator buy-in, from level 18 under "
 "Business status. The carrier provides trailers."
 msgstr ""
@@ -19367,6 +19463,11 @@ msgid ""
 msgstr ""
 "Enter bir kurs rezerve eder. Kurslar oyun süresi alır ve siz sürerken bir "
 "geçmiş kontrolü yürür. Escape terminale döner."
+
+msgid ""
+"Double tap books a course. Courses take game time, and a background check "
+"runs while you drive. Flick down with two fingers to return to the terminal."
+msgstr ""
 
 #. placeholders: {label}, {grouped}, {grouped2}
 msgid "The {label} course costs {grouped} dollars and you have {grouped2}."
@@ -19498,12 +19599,25 @@ msgid "What another carrier needs before it hires you away."
 msgstr "Başka bir taşıyıcı firmanın sizi işe alması için gerekenler."
 
 #. placeholders: {carrier_name}
+msgid "Move to {carrier_name}: double tap again to confirm"
+msgstr ""
+
+#. placeholders: {carrier_name}
 msgid "Move to {carrier_name}: press Enter again to confirm"
 msgstr "{carrier_name} firmasına geç: onaylamak için Enter'a yeniden basın"
 
 #. placeholders: {label}
 msgid "Move to {label}"
 msgstr "Şuraya geç: {label}"
+
+#. placeholders: {carrier_name}, {menu_summary}
+msgid "{carrier_name}. {menu_summary} Double tap again to move."
+msgstr ""
+
+#. placeholders: {menu_summary}
+#. one sentence of a longer line
+msgid "{menu_summary} Double tap again to move."
+msgstr ""
 
 #. placeholders: {carrier_name}, {menu_summary}
 msgid "{carrier_name}. {menu_summary} Press Enter again to move."
@@ -20031,6 +20145,11 @@ msgstr ""
 "Kayıt yaptırın, sonra tır dururken yükü alın. Escape yükleme durumunu "
 "tekrarlar."
 
+msgid ""
+"Check in, then load cargo with the truck stopped. A flick down with two "
+"fingers repeats the pickup status."
+msgstr ""
+
 msgid "the posted limit when the open road begins"
 msgstr "açık yol başlayınca levhadaki hız sınırı"
 
@@ -20455,6 +20574,11 @@ msgstr "Güzergâh planlama"
 msgid "W reads the weather along a route. Enter starts the drive."
 msgstr "W bir güzergâh boyunca havayı okur. Enter sürüşü başlatır."
 
+msgid ""
+"Tap with three fingers for the weather along a route. Double tap starts the "
+"drive."
+msgstr ""
+
 msgid "passing no major cities"
 msgstr "büyük şehirlerden geçmiyor"
 
@@ -20531,6 +20655,14 @@ msgstr "Geçtiği yerler: {join}. Hava durumu için W."
 #. one sentence of a longer line
 msgid "W for weather."
 msgstr "Hava durumu için W."
+
+#. one sentence of a longer line
+msgid "Tap with three fingers for weather."
+msgstr ""
+
+#. placeholders: {join}
+msgid "Via {join}. Tap with three fingers for weather."
+msgstr ""
 
 #. placeholders: {name}
 msgid "Depart with {name} driving, and ride along"
@@ -20680,6 +20812,9 @@ msgstr "Hangi kopyanın kalacağını seçmek için bu kariyeri açın"
 
 msgid "Enter opens restore choices for this career."
 msgstr "Enter bu kariyerin geri yükleme seçeneklerini açar."
+
+msgid "Double tap opens restore choices for this career."
+msgstr ""
 
 msgid "Hear how cloud backup works"
 msgstr "Bulut yedeğinin nasıl çalıştığını dinle"
@@ -22273,10 +22408,10 @@ msgid ""
 msgstr ""
 
 msgid ""
-"Two-finger swipe down pauses, two-finger swipe up is this help, two-finger "
-"swipes left and right review messages, and three-finger swipes left and "
-"right tune the radio. A three-finger tap lists every driving command, "
-"Status menu first. Flick to one and double tap to run it. "
+"A two-finger flick down pauses, a two-finger flick up is this help, "
+"two-finger flicks left and right review messages, and three-finger flicks "
+"left and right tune the radio. A three-finger tap lists every driving "
+"command, Status menu first. Flick to one and double tap to run it. "
 msgstr ""
 
 msgid ""
@@ -24045,6 +24180,10 @@ msgstr "Sevkiyatı ara"
 
 msgid "Choose what you need to report. Escape hangs up."
 msgstr "Ne bildireceğinizi seçin. Escape telefonu kapatır."
+
+msgid ""
+"Choose what you need to report. Flick down with two fingers to hang up."
+msgstr ""
 
 #. placeholders: {message}
 msgid "Dispatch: {message}"
@@ -27111,6 +27250,11 @@ msgstr ""
 msgid "Delivery complete"
 msgstr "Teslimat tamamlandı"
 
+msgid ""
+"Flick right or left to review the summary. Double tap repeats the line. "
+"Flick down with two fingers to continue."
+msgstr ""
+
 msgid "Repositioned"
 msgstr "Yer değiştirildi"
 
@@ -27693,6 +27837,11 @@ msgstr "Page Up"
 msgid "Driving commands"
 msgstr "Sürüş komutları"
 
+msgid ""
+"Flick right or left to pick a command. Double tap runs it and returns to "
+"driving. Flick down with two fingers to return without one."
+msgstr ""
+
 #. placeholders: {spoken}
 msgid "On the keyboard: {spoken}."
 msgstr "Klavyede: {spoken}."
@@ -27726,6 +27875,11 @@ msgstr ""
 
 msgid "Destination facility"
 msgstr "Varış tesisi"
+
+msgid ""
+"Flick right or left to move and double tap to choose. Dock and deliver "
+"completes the job."
+msgstr ""
 
 msgid "Drop the loaded trailer"
 msgstr "Yüklü dorseyi bırak"
@@ -28028,6 +28182,10 @@ msgid "Enter opens details, distance, estimated arrival, and stop planning."
 msgstr ""
 "Enter ayrıntıları, mesafeyi, tahmini varışı ve mola planlamasını açar."
 
+msgid ""
+"Double tap opens details, distance, estimated arrival, and stop planning."
+msgstr ""
+
 #. placeholders: {planned}
 msgid "Cancel planned stop at {planned}"
 msgstr "Planlanan molayı iptal et: {planned}"
@@ -28169,6 +28327,9 @@ msgstr ""
 msgid "Your saved stations. Enter on one tunes it."
 msgstr "Kayıtlı istasyonlarınız. Birinde Enter'a basınca o istasyona geçer."
 
+msgid "Your saved stations. Double tap one to tune it."
+msgstr ""
+
 msgid "Back to the status screens."
 msgstr "Durum ekranlarına geri dön."
 
@@ -28178,6 +28339,11 @@ msgid ""
 msgstr ""
 
 msgid "Plan a stop"
+msgstr ""
+
+msgid ""
+"Flick right or left to choose what the stop is for, and double tap to plan "
+"it. Flick down with two fingers to go back to driving."
 msgstr ""
 
 msgid "Hairpin"
@@ -28686,6 +28852,11 @@ msgstr "şu an açık"
 msgid "Enter on a station tunes it. Escape returns to Driver apps."
 msgstr "Bir istasyonda Enter ona geçer. Escape Şoför uygulamalarına döner."
 
+msgid ""
+"Double tap a station to tune it. Flick down with two fingers to return to "
+"Driver apps."
+msgstr ""
+
 msgid "Favorites: the safety fallback is always on the dial"
 msgstr "Favoriler: güvenli yedek istasyon her zaman listede"
 
@@ -28700,12 +28871,18 @@ msgstr "{display_name} istasyonunu favorilere kaydet"
 msgid "Now playing on the tuned station. Enter asks again."
 msgstr "Açık istasyonda şu an çalan. Enter yeniden sorar."
 
+msgid "Now playing on the tuned station. Double tap asks again."
+msgstr ""
+
 #. placeholders: {else}, {tuned}
 msgid "Radio: {else}, tuned to {tuned}"
 msgstr "Radyo: {else}, açık istasyon: {tuned}"
 
 msgid "Enter switches the radio on or off."
 msgstr "Enter radyoyu açar ya da kapatır."
+
+msgid "Double tap switches the radio on or off."
+msgstr ""
 
 msgid "Saves or removes the tuned station in favorites."
 msgstr "Açık istasyonu favorilere kaydeder ya da çıkarır."
@@ -28743,6 +28920,9 @@ msgstr ""
 
 msgid "Every station that comes in here. Enter on one tunes it."
 msgstr "Burada çeken her istasyon. Birinde Enter ona geçer."
+
+msgid "Every station that comes in here. Double tap one to tune it."
+msgstr ""
 
 msgid "Suggest a station"
 msgstr "İstasyon öner"
@@ -28790,6 +28970,9 @@ msgstr "{display_name} burada çekmiyor."
 
 msgid "Enter tunes this station."
 msgstr "Enter bu istasyona geçer."
+
+msgid "Double tap tunes this station."
+msgstr ""
 
 #. one sentence of a longer line
 msgid "Next page."
@@ -28912,6 +29095,9 @@ msgstr "Listedeki her istasyon. Çeken istasyonlar önce listelenir."
 msgid "Enter lists this category. Stations in range list first."
 msgstr "Enter bu kategoriyi listeler. Çeken istasyonlar önce listelenir."
 
+msgid "Double tap lists this category. Stations in range list first."
+msgstr ""
+
 msgid "Suggesting a station needs Online services on, in the Online menu."
 msgstr ""
 "İstasyon önermek için Çevrim içi menüsünde çevrim içi hizmetlerin açık "
@@ -28987,6 +29173,20 @@ msgstr "İsteğe bağlı, örneğin 101.5 ya da 1090. Enter atlar."
 
 msgid "Optional, like classic country. Enter skips."
 msgstr "İsteğe bağlı, örneğin klasik country. Enter atlar."
+
+msgid ""
+"The direct link to the audio stream, not the station's web page. "
+"streamurl.link finds one."
+msgstr ""
+
+msgid "Optional. Double tap skips."
+msgstr ""
+
+msgid "Optional, like 101.5 or 1090. Double tap skips."
+msgstr ""
+
+msgid "Optional, like classic country. Double tap skips."
+msgstr ""
 
 #. placeholders: {typed}
 msgid " Filled in: {typed}."
@@ -29429,6 +29629,10 @@ msgstr "Enter seçer. Escape yola döner."
 
 msgid "Parking full"
 msgstr "Park yeri dolu"
+
+msgid ""
+"Double tap to choose. Flick down with two fingers to return to the road."
+msgstr ""
 
 msgid " The fuel island is open."
 msgstr " Yakıt adası açık."
@@ -30490,6 +30694,10 @@ msgstr "Askı süresini beklemek için gideceğiniz yer: {terminal}."
 msgid "Enter or Escape pulls back onto the highway."
 msgstr "Enter ya da Escape ile otoyola geri çıkarsınız."
 
+msgid ""
+"Double tap or flick down with two fingers to pull back onto the highway."
+msgstr ""
+
 #. one sentence of a longer line
 msgid "The trooper lets it go with a warning."
 msgstr ""
@@ -30635,6 +30843,9 @@ msgstr "Enter ya da Escape ile terminale dönersiniz."
 msgid "CDL disqualified for life"
 msgstr "CDL ömür boyu iptal"
 
+msgid "Double tap or flick down with two fingers to return to the terminal."
+msgstr ""
+
 #. placeholders: {tail}
 msgid "You pull onto the shoulder and stop.{tail}"
 msgstr "Banket üzerine çekip duruyorsunuz.{tail}"
@@ -30644,6 +30855,10 @@ msgstr "Enter ya da Escape ile terminalden devam edersiniz."
 
 msgid "Felony stop"
 msgstr "Ağır suç durdurması"
+
+msgid ""
+"Double tap or flick down with two fingers to continue from the terminal."
+msgstr ""
 
 msgid "Ran from a traffic stop"
 msgstr "Trafik durdurmasından kaçtı"
@@ -31020,6 +31235,11 @@ msgstr ""
 "Dersler hiçbir şeyin sayılmadığı bir alıştırma yolunda yapılır: para yok, "
 "aşınma yok, süre yok. Escape terminale döner."
 
+msgid ""
+"Lessons run on a practice road where nothing counts: no money, no wear, no "
+"hours. Flick down with two fingers to return to the terminal."
+msgstr ""
+
 msgid "Leave the school."
 msgstr "Kurstan ayrıl."
 
@@ -31079,6 +31299,12 @@ msgstr ""
 "Yukarı ve aşağı oklar satırları tek tek okur. Home ve End ilk ve son satıra "
 "atlar. Enter bir satırı tekrarlar ya da bir düğmeyi çalıştırır. Escape "
 "haritaya döner."
+
+msgid ""
+"Flick right or left to review each line, and up or down with three fingers "
+"to jump to the first and last. Double tap repeats a line or activates a "
+"button. Flick down with two fingers to return to the map."
+msgstr ""
 
 msgid "Stop details"
 msgstr "Mola yeri ayrıntıları"
@@ -31146,6 +31372,10 @@ msgstr "Harita ekranına dön."
 msgid "Stop details."
 msgstr "Mola yeri ayrıntıları."
 
+#. placeholders: {STOP_DETAIL_TOUCH_HELP}, {current}
+msgid "Stop details. {STOP_DETAIL_TOUCH_HELP} {current}"
+msgstr ""
+
 #. placeholders: {STOP_DETAIL_INTRO_HELP}, {current}
 msgid "Stop details. {STOP_DETAIL_INTRO_HELP} {current}"
 msgstr "Mola yeri ayrıntıları. {STOP_DETAIL_INTRO_HELP} {current}"
@@ -31159,6 +31389,11 @@ msgstr ""
 
 msgid "Move planned stop?"
 msgstr "Planlanan mola yeri taşınsın mı?"
+
+msgid ""
+"Flick right or left to move and double tap to choose. Flick down with two "
+"fingers to keep your current planned stop."
+msgstr ""
 
 #. placeholders: {name}
 msgid "Planned stop moved to {name}."
@@ -33055,6 +33290,12 @@ msgstr ""
 "Yukarı ve Aşağı bir ses grubu seçer, Enter açar, Escape geri döner. Bir "
 "grubun içinde Enter bir sesi çalar, F1 onu açıklar."
 
+msgid ""
+"Flick right or left to choose a group of sounds, and double tap to open it. "
+"Inside a group, double tap plays a sound and a flick up with two fingers "
+"explains it."
+msgstr ""
+
 #. placeholders: {join}
 msgid "Starting with {join}."
 msgstr "İlk sesler: {join}."
@@ -33071,14 +33312,31 @@ msgstr ""
 "açıklar. Escape geri döner. Başka bir sese geçmek ya da geri dönmek, "
 "çalmaya devam eden bir sesi durdurur. Kısa bir ses kendiliğinden biter."
 
+msgid ""
+"Flick right or left to choose a sound. Double tap plays it, and a flick up "
+"with two fingers explains it and when you hear it. Moving to another sound "
+"or going back stops a sound that keeps running. A short sound finishes on "
+"its own."
+msgstr ""
+
 #. one sentence of a longer line
-msgid "F1 still explains it."
-msgstr "F1 yine de açıklar."
+msgid "A flick up with two fingers still explains it."
+msgstr ""
 
 #. placeholders: {name}
 #. one sentence of a longer line
 msgid "{name} is not in this copy of the game."
 msgstr "{name} oyunun bu kopyasında yok."
+
+#. placeholders: {name}
+msgid ""
+"{name} is not in this copy of the game. A flick up with two fingers still "
+"explains it."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "F1 still explains it."
+msgstr "F1 yine de açıklar."
 
 #. placeholders: {name}
 msgid "{name} is not in this copy of the game. F1 still explains it."
@@ -33445,6 +33703,11 @@ msgstr ""
 "Yukarı ve Aşağı kariyer seçer, Enter sıfırlama ve silmeyi açar, Escape geri "
 "döner."
 
+msgid ""
+"Flick right or left to pick a career, and double tap to open reset and "
+"delete. Flick down with two fingers to go back."
+msgstr ""
+
 #. one sentence of a longer line
 msgid "Delete removes the save."
 msgstr "Silme kaydı kaldırır."
@@ -33469,6 +33732,10 @@ msgid ""
 msgstr ""
 "Enter bu kaydı silmeyi önerir. Kayıt Freight Fate 1.8'de hâlâ çalışır."
 
+msgid ""
+"Double tap offers to delete this save. It still works in Freight Fate 1.8."
+msgstr ""
+
 msgid "reset"
 msgstr "sıfırlama"
 
@@ -33480,6 +33747,11 @@ msgstr "Kariyer işlemleri"
 
 msgid "Reset and delete both ask for confirmation. Escape goes back."
 msgstr "Sıfırlama da silme de onay ister. Escape geri döner."
+
+msgid ""
+"Reset and delete both ask for confirmation. Flick down with two fingers to "
+"go back."
+msgstr ""
 
 #. placeholders: {career_summary}
 #. one sentence of a longer line
@@ -34044,6 +34316,12 @@ msgid ""
 msgstr ""
 "Yukarı ve Aşağı bir ayar seçer. Sağ ok ya da Enter ileri, Sol ok geri "
 "değiştirir. Escape geri döner."
+
+msgid ""
+"Flick right or left to pick a setting. Flick up or double tap to change it "
+"forward, and flick down to change it back. Flick down with two fingers to "
+"go back."
+msgstr ""
 
 msgid ""
 "This row used to offer Realistic, and yours was set to it. That setting is "
@@ -35630,6 +35908,11 @@ msgstr ""
 msgid "Gesture"
 msgstr "Hareket"
 
+msgid ""
+"Flick right or left to pick a gesture, then double tap it to choose the "
+"command it runs while driving. Flick down with two fingers to leave."
+msgstr ""
+
 msgid "Every touch gesture is back to its default."
 msgstr "Tüm dokunma hareketleri varsayılana döndü."
 
@@ -35670,6 +35953,11 @@ msgid ""
 msgstr ""
 "Bir komut seçmek için yukarı ve aşağı gidin, harekete atamak için "
 "onaylayın. Geri gitmek mevcut olanı korur."
+
+msgid ""
+"Flick right or left to pick a command and double tap to put it on the "
+"gesture. Flick down with two fingers to keep the one it has."
+msgstr ""
 
 #. placeholders: {gesture_name}, {label}
 msgid "{gesture_name} now runs {label}."
@@ -35734,8 +36022,8 @@ msgstr "Alıştırma, tırı hareket ettirmeden her hareketi söyler."
 msgid "Skip and start driving"
 msgstr "Geç ve sürmeye başla"
 
-msgid "Swipe down with two fingers twice within two seconds to leave."
-msgstr "Çıkmak için iki saniye içinde iki kez iki parmakla aşağı kaydırın."
+msgid "Flick down with two fingers twice within two seconds to leave."
+msgstr ""
 
 msgid "Escape twice within two seconds to leave."
 msgstr "Çıkmak için iki saniye içinde iki kez Escape."
@@ -35794,26 +36082,29 @@ msgstr "Sağa fiske"
 msgid "Two-finger tap"
 msgstr "İki parmakla dokunma"
 
-msgid "Magic tap"
-msgstr "Sihirli dokunuş"
+msgid "Two-finger flick up"
+msgstr ""
 
-msgid "Two-finger swipe up"
-msgstr "İki parmakla yukarı kaydırma"
+msgid "Two-finger flick left"
+msgstr ""
 
-msgid "Two-finger swipe left"
-msgstr "İki parmakla sola kaydırma"
-
-msgid "Two-finger swipe right"
-msgstr "İki parmakla sağa kaydırma"
+msgid "Two-finger flick right"
+msgstr ""
 
 msgid "Three-finger tap"
 msgstr "Üç parmakla dokunma"
 
-msgid "Three-finger swipe left"
-msgstr "Üç parmakla sola kaydırma"
+msgid "Three-finger flick up"
+msgstr ""
 
-msgid "Three-finger swipe right"
-msgstr "Üç parmakla sağa kaydırma"
+msgid "Three-finger flick down"
+msgstr ""
+
+msgid "Three-finger flick left"
+msgstr ""
+
+msgid "Three-finger flick right"
+msgstr ""
 
 msgid "Take an exit, pull over or confirm arrival"
 msgstr ""
@@ -35862,6 +36153,11 @@ msgstr ""
 "sahibi şoför başlangıcı daha risklidir: yepyeni bir tırınız olur ve işletme "
 "masraflarını ilk günden ödersiniz. Enter seçer, Escape geri döner."
 
+msgid ""
+"Company starts use assigned carrier equipment. The carrier pays costs from "
+"day one. Double tap to choose."
+msgstr ""
+
 msgid "Career start."
 msgstr "Kariyer başlangıcı."
 
@@ -35874,6 +36170,11 @@ msgid ""
 msgstr ""
 "Yukarı ve Aşağı, Home ve End ya da bir harf yazmak bölge seçer. Enter "
 "şehirlerini açar, Escape geri döner."
+
+msgid ""
+"Flick right or left, or up or down with three fingers, to pick a region. "
+"Double tap opens its cities."
+msgstr ""
 
 #. placeholders: {carrier_name}
 msgid "Home region for your {carrier_name} career."
@@ -35904,6 +36205,11 @@ msgid ""
 msgstr ""
 "Yukarı ve Aşağı, Home ve End ya da bir harf yazmak şehir seçer. Enter ana "
 "terminalinizi onaylar, Escape geri döner."
+
+msgid ""
+"Flick right or left, or up or down with three fingers, to pick a city. "
+"Double tap confirms your home terminal."
+msgstr ""
 
 #. one sentence of a longer line
 msgid "Escape goes back to change it."
@@ -38389,6 +38695,12 @@ msgid "Page {page} of {HELP_PAGES}: {title}."
 msgstr "Sayfa {page} / {HELP_PAGES}: {title}."
 
 msgid ""
+"Flick up for the next page and down for the previous one. Flick right or "
+"left to read one line at a time. Double tap reads the whole page, a tap "
+"with two fingers stops speech, and a flick down with two fingers goes back."
+msgstr ""
+
+msgid ""
 "D-pad Left and Right change pages, Up and Down read one line at a time. A "
 "reads the whole page, Back stops speech, and B goes back."
 msgstr ""
@@ -39526,6 +39838,9 @@ msgstr "Kayıt dosyası oyun dışında değiştirildi"
 msgid "Enter continues to your career."
 msgstr "Enter kariyerinize devam eder."
 
+msgid "Double tap to continue to your career."
+msgstr ""
+
 #. one sentence of a longer line
 msgid ""
 "This save was changed outside the game, or copied from another computer, so "
@@ -39564,6 +39879,11 @@ msgid ""
 "list."
 msgstr ""
 "Bu kariyer 1.9 sürümünde devam edemez. Escape kariyer listesine döner."
+
+msgid ""
+"This career cannot continue in version 1.9. Flick down with two fingers to "
+"go back to the career list."
+msgstr ""
 
 #. one sentence of a longer line
 msgid ""
@@ -39705,12 +40025,9 @@ msgstr "Diğer tırlarınız yakıtı dolu ve temiz başlıyor."
 
 msgid ""
 "Type with the on-screen keyboard, then double tap. Flick left or right to "
-"review the letters, swipe up or down with three fingers to jump to the "
-"start or end, and swipe down with two fingers to cancel."
+"review the letters, flick up or down with three fingers to jump to the "
+"start or end, and flick down with two fingers to cancel."
 msgstr ""
-"Ekran klavyesiyle yazın, sonra çift dokunun. Harfleri gözden geçirmek için "
-"sola ya da sağa fiske atın, başa ya da sona atlamak için üç parmakla yukarı "
-"ya da aşağı kaydırın, iptal etmek için iki parmakla aşağı kaydırın."
 
 msgid "Text"
 msgstr "Metin"
@@ -39887,11 +40204,12 @@ msgstr "Değişiklik notu verilmedi."
 
 #. one sentence of a longer line
 msgid ""
-"Up and Down arrows read line by line, Enter reads everything, Escape goes "
-"back."
+"Double tap reads everything, and a flick down with two fingers goes back."
 msgstr ""
-"Yukarı ve Aşağı oklar satır satır okur, Enter hepsini okur, Escape geri "
-"döner."
+
+#. one sentence of a longer line
+msgid "Flick right or left to read line by line."
+msgstr ""
 
 #. placeholders: {title}
 #. one sentence of a longer line
@@ -39900,16 +40218,31 @@ msgstr "Yenilikler: {title}."
 
 #. placeholders: {title}, {notes}
 msgid ""
-"What's new in {title}. {notes} lines. Up and Down arrows read line by line, "
-"Enter reads everything, Escape goes back."
+"What's new in {title}. {notes} lines. Flick right or left to read line by "
+"line. Double tap reads everything, and a flick down with two fingers goes "
+"back."
 msgstr ""
-"Yenilikler: {title}. {notes} satır. Yukarı ve Aşağı oklar satır satır okur, "
-"Enter hepsini okur, Escape geri döner."
 
 #. placeholders: {notes}
 #. one sentence of a longer line
 msgid "{notes} lines."
 msgstr "{notes} satır."
+
+#. one sentence of a longer line
+msgid ""
+"Up and Down arrows read line by line, Enter reads everything, Escape goes "
+"back."
+msgstr ""
+"Yukarı ve Aşağı oklar satır satır okur, Enter hepsini okur, Escape geri "
+"döner."
+
+#. placeholders: {title}, {notes}
+msgid ""
+"What's new in {title}. {notes} lines. Up and Down arrows read line by line, "
+"Enter reads everything, Escape goes back."
+msgstr ""
+"Yenilikler: {title}. {notes} satır. Yukarı ve Aşağı oklar satır satır okur, "
+"Enter hepsini okur, Escape geri döner."
 
 #. placeholders: {title}
 msgid "What's new in {title}"
@@ -39998,10 +40331,24 @@ msgstr ""
 "Yeni sürüm şuraya kaydedildi: {dest}. Kendiniz kurun, sonra oyunu yeniden "
 "başlatın."
 
+#. one sentence of a longer line
+msgid "A flick down with two fingers cancels."
+msgstr ""
+
 #. placeholders: {title}, {size}
 #. one sentence of a longer line
 msgid "Downloading {title}{size}."
 msgstr "İndiriliyor: {title}{size}."
+
+#. placeholders: {title}, {size}
+msgid ""
+"Downloading {title}{size}. The game restarts when the download finishes. A "
+"flick down with two fingers cancels."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "The game restarts when the download finishes."
+msgstr "İndirme bitince oyun yeniden başlar."
 
 #. placeholders: {title}, {size}
 msgid ""
@@ -40014,10 +40361,6 @@ msgstr ""
 #. one sentence of a longer line
 msgid "Escape cancels."
 msgstr "Escape iptal eder."
-
-#. one sentence of a longer line
-msgid "The game restarts when the download finishes."
-msgstr "İndirme bitince oyun yeniden başlar."
 
 msgid "update-download"
 msgstr ""
@@ -41332,6 +41675,36 @@ msgstr ""
 #. The last sentence of the sleep preview, when nothing comes before it.
 msgid "Select again to sleep."
 msgstr ""
+
+#~ msgid "Swipe down with two fingers twice within two seconds to leave."
+#~ msgstr "Çıkmak için iki saniye içinde iki kez iki parmakla aşağı kaydırın."
+
+#~ msgid "Magic tap"
+#~ msgstr "Sihirli dokunuş"
+
+#~ msgid "Two-finger swipe up"
+#~ msgstr "İki parmakla yukarı kaydırma"
+
+#~ msgid "Two-finger swipe left"
+#~ msgstr "İki parmakla sola kaydırma"
+
+#~ msgid "Two-finger swipe right"
+#~ msgstr "İki parmakla sağa kaydırma"
+
+#~ msgid "Three-finger swipe left"
+#~ msgstr "Üç parmakla sola kaydırma"
+
+#~ msgid "Three-finger swipe right"
+#~ msgstr "Üç parmakla sağa kaydırma"
+
+#~ msgid ""
+#~ "Type with the on-screen keyboard, then double tap. Flick left or right to "
+#~ "review the letters, swipe up or down with three fingers to jump to the "
+#~ "start or end, and swipe down with two fingers to cancel."
+#~ msgstr ""
+#~ "Ekran klavyesiyle yazın, sonra çift dokunun. Harfleri gözden geçirmek için "
+#~ "sola ya da sağa fiske atın, başa ya da sona atlamak için üç parmakla yukarı "
+#~ "ya da aşağı kaydırın, iptal etmek için iki parmakla aşağı kaydırın."
 
 #~ msgid "the exit command from the three-finger tap list"
 #~ msgstr "üç parmakla dokunma listesindeki çıkış komutu"

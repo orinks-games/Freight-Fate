@@ -5,8 +5,8 @@ SDL2's UIKit backend, and speech goes through Prism, which talks to VoiceOver
 when it is running and to the system voice (AVSpeech) when it is not. The
 screen is one full-screen touch area. Each screen has a touch mode (a menu,
 a name field, the wheel, or Practice gestures) that decides what a gesture
-does there: in menus its gestures are the same key presses the desktop game
-reads, at the wheel they run driving commands directly, and game controllers
+does there: menus move the way VoiceOver does and their gestures press the
+keys the desktop game reads, at the wheel they run driving commands directly, and game controllers
 work exactly as they do on the desktop. The wheel is any drive, a Driving
 School lesson included.
 
@@ -24,22 +24,35 @@ iOS 17 and later): once VoiceOver focus lands on it (it does at launch), your
 gestures go straight to the game. VoiceOver's own standard actions are also
 answered.
 
-Outside the drive, and for the gestures the drive leaves fixed:
+In menus, and the readers and prompts outside the drive:
 
-| Gesture | Key |
-|---|---|
-| Tap | Comma (repeat the last line) |
-| Double tap, or VoiceOver double tap | Enter |
-| Flick up / down | Up / Down |
-| Flick left / right | Left / Right |
-| Two-finger tap | Stop speech, on every screen (Control) |
-| Two-finger swipe up | F1 (help) |
-| Two-finger swipe down | Escape |
-| Two-finger swipe left / right | Comma / Period |
-| VoiceOver magic tap (two-finger double tap) | Space |
-| Three-finger swipe up / down | Home / End |
-| Three-finger swipe left / right | Page Up / Page Down |
-| Three-finger tap | In a menu, Tab: what the screen can tell you, such as the job board's market summary or a download's progress. In a name field, F2: read the name back. While driving, F2: the list of every driving command |
+| Gesture | Does | Key |
+|---|---|---|
+| Flick right / left | Next / previous row or line | Down / Up |
+| Flick up / down | Raise / lower the value on the row, or the next / previous page in How to play | Right / Left |
+| Swipe and hold, or the deep swipe | The flick in that direction, once | as the flick |
+| Tap | Read the focused row or line again | none |
+| Double tap, or VoiceOver double tap | Choose | Enter |
+| VoiceOver swipe up / down (direct touch off) | Previous / next row | Up / Down |
+| Two-finger tap | Stop speech, on every screen | Control |
+| Two-finger double tap (magic tap) | Resume from the pause menu; nothing in other menus | none |
+| Two-finger flick up | Help | F1 |
+| Two-finger flick down, or two-finger scrub | Back | Escape |
+| Two-finger flick left / right | Previous / next message | Comma / Period |
+| Three-finger flick up / down | Top / bottom of the list | Home / End |
+| Three-finger flick left / right | Previous / next page | Page Up / Page Down |
+| Three-finger tap | What the screen can tell you: the job board's market summary, the weather along a route on the route picker, a download's progress | Tab |
+
+In a name field the flicks keep the keys they had: flick left and right
+review the letters, flick up and down are Up and Down, a three-finger tap
+reads the name back (F2), and three-finger flicks up and down jump to the
+start or end. A tap, a two-finger double tap and the two-finger flicks left
+and right do nothing there, so they never type a comma, a space or a full
+stop into the name.
+
+With no hardware keyboard, menu help names gestures. A menu with no help of
+its own says "Flick right or left to move and double tap to choose. Flick
+down with two fingers to go back."
 
 The on-screen keyboard rises by itself when a name field opens and goes away
 when it closes; the old three-finger double tap is gone.
@@ -84,18 +97,17 @@ Other driving gestures:
 | Gesture | Default command |
 |---|---|
 | Tap | Speed |
-| Magic tap (two-finger double tap) | Pause |
-| Three-finger swipe up | Route and location |
-| Three-finger swipe down | Road ahead |
-| Three-finger hold | Horn until you lift |
+| Two-finger double tap (magic tap) | Pause |
+| Three-finger flick up | Route and location |
+| Three-finger flick down | Road ahead |
 
 The tap, flick up and down, second-finger and multi-finger slots can be moved
 to any other command in Settings, Gameplay, Controls, Touch gestures, the way
-keyboard keys and controller buttons can. Two-finger swipe down pauses,
-two-finger swipe up is help, two-finger swipes left and right review messages,
-and three-finger swipes left and right tune the radio. Everything else is on
-the driving command list: a three-finger tap opens it, swipe to a command, and
-double tap runs it. The Status menu is its first row, so a three-finger tap
+keyboard keys and controller buttons can. A two-finger flick down or scrub
+pauses, a two-finger flick up is help, two-finger flicks left and right review
+messages, and three-finger flicks left and right tune the radio. Everything
+else is on the driving command list: a three-finger tap opens it, flick to a
+command, and double tap runs it. The Status menu is its first row, so a three-finger tap
 and then a double tap opens it.
 
 So to set cruise: swipe up and hold until you reach 20 miles per hour, tap
@@ -117,10 +129,13 @@ With no hardware keyboard connected, help, hints and prompts name gestures,
 never keys. The game follows GameController keyboard connect and disconnect
 notifications.
 
-Because the game screen takes touches directly, VoiceOver's scrub (two-finger
-Z) reads there as a two-finger swipe; use a two-finger swipe down to go back.
-VoiceOver's adjustable swipes (up and down with VoiceOver focus on the game)
-also send Up and Down.
+The game recognises the two-finger scrub itself (two or more quick reversals
+of sideways direction within about a second, decided when the fingers lift),
+so it goes back with direct touch on as well as off. Because of that, the
+two-finger flicks left and right arrive when the fingers lift rather than
+mid-stroke. VoiceOver's adjustable swipes (up and down with VoiceOver focus on
+the game and direct touch off) move through a menu's rows, since they are then
+the only way through a list.
 
 ## Controllers
 
@@ -190,7 +205,7 @@ frameworks it and SDL2 need, plus clang's iOS runtime for `@available` checks.
   `Library/Application Support/FreightFate`.
 - The game does not update itself on iOS; the App Store or TestFlight does,
   so Settings has no Updates category. The main menu has no Quit (iOS closes
-  apps, they do not quit themselves), and a two-finger swipe down there does
+  apps, they do not quit themselves), and a two-finger flick down there does
   nothing. Settings also leaves out Problem reports (the log is in the
   sandbox, out of reach) and the braille-only Output row (it needs NVDA or
   JAWS).
@@ -214,11 +229,14 @@ frameworks it and SDL2 need, plus clang's iOS runtime for `@available` checks.
 - Hold one finger still for half a second to straighten. A plain tap must still be Speed.
 - Double tap when an exit is called (the exit signal arms), when a trooper's lights come on (the truck signals for the shoulder), and stopped at a facility gate (it opens). With nothing called, it says there is no exit to signal for.
 - Two-finger tap during a long line in a menu and at the wheel: the line stops, and the menu or drive stays where it was.
-- Three-finger tap at the wheel, then double tap: the Status menu opens. On the job board, a three-finger tap reads the market summary.
+- In a menu, flick right and left move through the rows and flick up and down change a value (a volume row in Settings). A tap reads the row again; tapping twice in a row does not step through messages.
+- A two-finger double tap on the main menu does nothing; on the pause menu it resumes the drive.
+- The two-finger scrub goes back, with direct touch on and off. Two-finger flicks left and right still review messages, and a slow two-finger flick is not taken for a scrub.
+- Three-finger tap at the wheel, then double tap: the Status menu opens. On the job board, a three-finger tap reads the market summary; on the route picker, the weather along the route.
 - Deep swipe down while moving for the emergency brake; stopped, it says "Parking brake set", and gas then says "Parking brake released".
 - Turn two fingers right to start the engine and left to stop it while stopped; at speed the turn left does nothing. Hold two fingers for the horn, then turn them and confirm the horn stops.
 - While holding gas: second-finger tap sets cruise, flicks up and down shift in manual and do nothing in automatic, side flicks change lanes, side holds steer.
 - In a Driving School lesson: the deep swipe while moving is the emergency brake, the still hold straightens, and gas releases the parking brake, as in a delivery.
 - With no hardware keyboard, no help, hint or field prompt names a key; connect one and keys come back.
-- Verify magic tap pauses, the scrub escapes, the three-finger double tap does nothing, and the haptics switch changes feedback.
-- Enter Practice gestures, verify the double two-finger swipe down exits, and verify the first-drive practice offer appears once.
+- Verify magic tap pauses, a three-finger hold does nothing, the three-finger double tap does nothing, and the haptics switch changes feedback.
+- Enter Practice gestures, verify a two-finger flick down twice exits, and verify the first-drive practice offer appears once.

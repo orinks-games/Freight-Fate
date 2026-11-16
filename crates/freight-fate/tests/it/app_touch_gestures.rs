@@ -184,6 +184,9 @@ fn magic_tap_pauses_the_drive() {
     let mut input = TouchInput::new();
     touch(&mut harness, &mut input, Gesture::MagicTap);
     assert!(harness.state_is::<PauseMenuState>());
+    // The pause menu answers it by resuming.
+    touch(&mut harness, &mut input, Gesture::MagicTap);
+    assert!(harness.state_is::<DrivingState>());
 }
 
 #[test]
@@ -367,27 +370,21 @@ fn off_the_road_a_gesture_is_still_its_key() {
     harness.app.push_state(TouchGesturesState::new());
     harness.clear_speech();
     let mut input = TouchInput::new();
-    // Magic tap is Space on a menu, not the pause menu.
+    // Magic tap reaches the menu as itself, and presses no key there.
     let events = input.handle(Gesture::MagicTap).events;
     assert_eq!(events, vec![InputEvent::Gesture(Gesture::MagicTap)]);
-    let keys = Gesture::MagicTap.key_events();
-    assert!(matches!(
-        keys.first(),
-        Some(InputEvent::KeyDown {
-            key: Key::Space,
-            mods: Mods::NONE,
-            ..
-        })
-    ));
     let first = harness.focused_label();
-    touch(&mut harness, &mut input, Gesture::SwipeDown);
+    touch(&mut harness, &mut input, Gesture::MagicTap);
+    assert!(harness.state_is::<TouchGesturesState>());
+    assert_eq!(harness.focused_label(), first);
+    touch(&mut harness, &mut input, Gesture::SwipeRight);
     assert!(harness.state_is::<TouchGesturesState>());
     assert_ne!(
         harness.focused_label(),
         first,
-        "swipe down is Down on a menu"
+        "flick right is Down on a menu"
     );
-    touch(&mut harness, &mut input, Gesture::SwipeUp);
+    touch(&mut harness, &mut input, Gesture::SwipeLeft);
     assert_eq!(harness.focused_label(), first);
 }
 

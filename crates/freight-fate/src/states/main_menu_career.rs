@@ -35,12 +35,17 @@ pub struct CareerStartState {
 impl CareerStartState {
     pub fn new(driver_name: &str) -> Self {
         Self {
-            menu: MenuCore::new("Career start").with_intro_help(
-                "Company starts use assigned carrier equipment. The carrier pays \
+            menu: MenuCore::new("Career start")
+                .with_intro_help(
+                    "Company starts use assigned carrier equipment. The carrier pays \
                  fuel, repairs, insurance, and trailer support. The owner-operator \
                  start is higher risk: you own a brand-new truck and pay business \
                  costs from day one. Enter selects, Escape goes back.",
-            ),
+                )
+                .with_touch_help(
+                    "Company starts use assigned carrier equipment. The carrier pays costs from \
+                     day one. Double tap to choose.",
+                ),
             driver_name: driver_name.to_string(),
         }
     }
@@ -129,10 +134,15 @@ impl HomeTerminalState {
             .cities
             .get(&default_city)
             .map(|c| c.region.clone());
-        let mut menu = MenuCore::new("Home region").with_intro_help(
-            "Up and Down, Home and End, or a typed letter pick a region. \
+        let mut menu = MenuCore::new("Home region")
+            .with_intro_help(
+                "Up and Down, Home and End, or a typed letter pick a region. \
              Enter opens its cities, Escape goes back.",
-        );
+            )
+            .with_touch_help(
+                "Flick right or left, or up or down with three fingers, to pick a region. \
+                 Double tap opens its cities.",
+            );
         if let Some(index) = default.and_then(|d| regions.iter().position(|r| *r == d)) {
             menu.index = index;
         }
@@ -225,10 +235,15 @@ impl HomeCityState {
         let cities: Vec<String> = city_names.to_vec();
         let option = start_option(Some(start_key));
         let option_default = ctx.world.resolve_city_key(option.default_city);
-        let mut menu = MenuCore::new("Home terminal").with_intro_help(
-            "Up and Down, Home and End, or a typed letter pick a city. Enter \
+        let mut menu = MenuCore::new("Home terminal")
+            .with_intro_help(
+                "Up and Down, Home and End, or a typed letter pick a city. Enter \
              confirms your home terminal, Escape goes back.",
-        );
+            )
+            .with_touch_help(
+                "Flick right or left, or up or down with three fingers, to pick a city. \
+                 Double tap confirms your home terminal.",
+            );
         if let Some(index) = cities.iter().position(|c| *c == option_default) {
             menu.index = index;
         } else if let Some(index) = cities.iter().position(|c| c == DEFAULT_CITY) {
