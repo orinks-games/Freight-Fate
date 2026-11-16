@@ -199,9 +199,13 @@ static const int FF_FLICK_EXTENSIONS = 3;
 // The two-finger scrub (VoiceOver's "go back", a quick z): the fingers'
 // sideways travel has to turn back at least FF_SCRUB_REVERSALS times, each
 // leg at least FF_SCRUB_LEG_POINTS long, all within FF_SCRUB_SECONDS of the
-// first touch. It is decided when the fingers lift.
+// first touch. A turn counts only once the fingers have come back
+// FF_SCRUB_TURN_POINTS from the leg's furthest point, so a rebound or a
+// wobble as the fingers lift is not a turn. It is decided when the fingers
+// lift.
 static const int FF_SCRUB_REVERSALS = 2;
 static const CGFloat FF_SCRUB_LEG_POINTS = 20.0;
+static const CGFloat FF_SCRUB_TURN_POINTS = 8.0;
 static const NSTimeInterval FF_SCRUB_SECONDS = 1.0;
 
 void ff_touch_set_tuning(double flick_points, double flick_ms, double deep_factor,
@@ -537,8 +541,8 @@ static FFDirection ff_direction(CGFloat dx, CGFloat dy) {
 @end
 
 // The two-finger scrub. It watches the midpoint of two touches, counts each
-// time its sideways travel turns back after a leg of FF_SCRUB_LEG_POINTS,
-// and decides when the fingers lift: FF_SCRUB_REVERSALS turns within
+// time its sideways travel comes back FF_SCRUB_TURN_POINTS from the end of
+// a leg of FF_SCRUB_LEG_POINTS, and decides when the fingers lift: FF_SCRUB_REVERSALS turns within
 // FF_SCRUB_SECONDS is a scrub, anything else fails. The two-finger flicks
 // left and right wait for it to fail, so a plain flick still arrives, at
 // the lift. A third finger fails it at once.
@@ -549,8 +553,8 @@ static FFDirection ff_direction(CGFloat dx, CGFloat dy) {
 @implementation FFScrubRecognizer {
     NSMutableSet<UITouch *> *_touches;
     NSTimeInterval _began;
-    CGFloat _lastX;
     CGFloat _legStart;
+    CGFloat _extreme;
     int _sign;
     int _reversals;
     BOOL _tracking;
@@ -580,8 +584,8 @@ static FFDirection ff_direction(CGFloat dx, CGFloat dy) {
     }
     if (_touches.count == 2) {
         _began = event.timestamp;
-        _lastX = [self midpointX];
-        _legStart = _lastX;
+        _legStart = [self midpointX];
+        _extreme = _legStart;
         _sign = 0;
         _reversals = 0;
         _tracking = YES;
@@ -593,18 +597,25 @@ static FFDirection ff_direction(CGFloat dx, CGFloat dy) {
         return;
     }
     CGFloat x = [self midpointX];
-    int sign = x > _lastX ? 1 : (x < _lastX ? -1 : 0);
-    if (sign != 0 && sign != _sign) {
-        // A turn counts once the leg before it was long enough.
-        if (_sign != 0 && fabs(_lastX - _legStart) >= FF_SCRUB_LEG_POINTS) {
+    if (_sign == 0) {
+        // The first movement sets the direction of the first leg.
+        _sign = x > _legStart ? 1 : (x < _legStart ? -1 : 0);
+        _extreme = x;
+        return;
+    }
+    if (_sign * (x - _extreme) > 0) {
+        // Still going the leg's way: the leg reaches further.
+        _extreme = x;
+    } else if (_sign * (_extreme - x) >= FF_SCRUB_TURN_POINTS) {
+        // A real turn. It counts when the leg that ended was long enough,
+        // and the next leg starts where this one turned.
+        if (fabs(_extreme - _legStart) >= FF_SCRUB_LEG_POINTS) {
             _reversals++;
         }
-        if (_sign == 0 || fabs(_lastX - _legStart) >= FF_SCRUB_LEG_POINTS) {
-            _legStart = _lastX;
-        }
-        _sign = sign;
+        _legStart = _extreme;
+        _extreme = x;
+        _sign = -_sign;
     }
-    _lastX = x;
 }
 
 - (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
