@@ -18615,12 +18615,12 @@ msgstr ""
 msgid "Two-finger double tap"
 msgstr ""
 
-#: crates/freight-fate/src/bindings/touch.rs
-msgid "Three-finger swipe up"
+#: crates/freight-fate/src/bindings/touch.rs crates/freight-fate/src/states/main_menu/touch_practice.rs
+msgid "Three-finger flick up"
 msgstr ""
 
-#: crates/freight-fate/src/bindings/touch.rs
-msgid "Three-finger swipe down"
+#: crates/freight-fate/src/bindings/touch.rs crates/freight-fate/src/states/main_menu/touch_practice.rs
+msgid "Three-finger flick down"
 msgstr ""
 
 #: crates/freight-fate/src/bindings/touch.rs
@@ -18693,11 +18693,11 @@ msgid "a two-finger double tap"
 msgstr ""
 
 #: crates/freight-fate/src/bindings/touch.rs
-msgid "a three-finger swipe up"
+msgid "a three-finger flick up"
 msgstr ""
 
 #: crates/freight-fate/src/bindings/touch.rs
-msgid "a three-finger swipe down"
+msgid "a three-finger flick down"
 msgstr ""
 
 #: crates/freight-fate/src/bindings/touch.rs
@@ -41262,14 +41262,6 @@ msgid "Three-finger tap"
 msgstr ""
 
 #: crates/freight-fate/src/states/main_menu/touch_practice.rs
-msgid "Three-finger flick up"
-msgstr ""
-
-#: crates/freight-fate/src/states/main_menu/touch_practice.rs
-msgid "Three-finger flick down"
-msgstr ""
-
-#: crates/freight-fate/src/states/main_menu/touch_practice.rs
 msgid "Three-finger flick left"
 msgstr ""
 
@@ -41335,8 +41327,10 @@ msgstr ""
 
 #: crates/freight-fate/src/states/main_menu_career.rs
 msgid ""
-"Company starts use assigned carrier equipment. The carrier pays costs from "
-"day one. Double tap to choose."
+"Company starts use assigned carrier equipment. The carrier pays fuel, "
+"repairs, insurance, and trailer support. The owner-operator start is higher "
+"risk: you own a brand-new truck and pay business costs from day one. Double "
+"tap to choose."
 msgstr ""
 
 #: crates/freight-fate/src/states/main_menu_career.rs

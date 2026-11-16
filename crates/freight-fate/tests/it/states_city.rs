@@ -480,7 +480,10 @@ fn a_three_finger_tap_on_the_route_picker_reads_the_weather() {
     app.dispatch_gesture(freight_fate::touch::Gesture::ThreeFingerTap);
     let lines = app.main_lines();
     assert_eq!(lines.len(), 1, "{lines:?}");
-    assert!(lines[0].starts_with("Forecast along the route."), "{lines:?}");
+    assert!(
+        lines[0].starts_with("Forecast along the route."),
+        "{lines:?}"
+    );
 }
 
 #[test]

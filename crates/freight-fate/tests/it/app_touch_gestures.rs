@@ -7,7 +7,7 @@ use ff_core::sim::weather::WeatherKind;
 
 use freight_fate::bindings::{Action, Chord, TouchCommand};
 use freight_fate::playtest::harness::{PlaytestHarness, StartDelivery};
-use freight_fate::states::base::{InputEvent, Key, Mods};
+use freight_fate::states::base::{InputEvent, Key};
 use freight_fate::states::driving::DrivingState;
 use freight_fate::states::driving_menu_states::DrivingCommandsState;
 use freight_fate::states::driving_pause_states::PauseMenuState;

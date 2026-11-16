@@ -167,7 +167,10 @@ fn the_settings_help_says_flick_on_touch() {
     let mut app = on_touch();
     let screen = SettingsCategoryState::new("audio");
     let touch = with_menu(&app, &screen);
-    assert!(touch.starts_with("Flick right or left to pick a setting."), "{touch}");
+    assert!(
+        touch.starts_with("Flick right or left to pick a setting."),
+        "{touch}"
+    );
     app.dispatch_gesture(Gesture::KeyboardConnected);
     key(&mut app, Key::Space);
     let keys = with_menu(&app, &screen);
@@ -187,7 +190,11 @@ fn how_to_play_names_gestures_and_a_tap_reads_the_line() {
     assert!(!opening.contains("Escape"), "{opening}");
 
     app.dispatch_gesture(Gesture::SwipeUp);
-    assert!(last_line(&app).starts_with("Page 2 of"), "{}", last_line(&app));
+    assert!(
+        last_line(&app).starts_with("Page 2 of"),
+        "{}",
+        last_line(&app)
+    );
     app.dispatch_gesture(Gesture::SwipeRight);
     let line = last_line(&app);
     app.clear_speech();

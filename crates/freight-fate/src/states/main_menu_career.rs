@@ -43,8 +43,10 @@ impl CareerStartState {
                  costs from day one. Enter selects, Escape goes back.",
                 )
                 .with_touch_help(
-                    "Company starts use assigned carrier equipment. The carrier pays costs from \
-                     day one. Double tap to choose.",
+                    "Company starts use assigned carrier equipment. The carrier pays fuel, \
+                     repairs, insurance, and trailer support. The owner-operator start is higher \
+                     risk: you own a brand-new truck and pay business costs from day one. Double \
+                     tap to choose.",
                 ),
             driver_name: driver_name.to_string(),
         }
