@@ -1511,8 +1511,18 @@ Everything found before 2026-09-25 moved to
       (`MenuCore::with_touch_help`, `MenuItem::touch_help`), picked when
       spoken. The scrub and the message flicks after it are untested on a
       phone.
-- [ ] (Found along the way) iPhone gesture plan steps 3 and 4: the driving
-      menu regrouped and a manual clutch gesture, and the stroke recogniser
+- [x] iOS driving command list in groups and a touch clutch, step 3 of the
+      iPhone gesture plan (2026-11-16): F2, the controller's Driving commands
+      row and the three-finger tap open the same eleven-row list in a fixed
+      order, Status menu first, with seven groups that open in place and
+      return to their own row. Radio volume and Radio category change in
+      place. A manual shift asked for by touch works the clutch itself
+      (`ff_core::sim::touch_clutch::TouchClutch`, reported by `status`), and
+      the touch engine start after a stall in gear takes neutral first.
+      Nothing was tried on a phone.
+- [ ] (Found along the way) iPhone gesture plan steps 4 and 5: touch
+      sentences for the wheel prompts that say "Press {gesture}", the parking
+      brake prompts and the brake-hold slot trim; then the stroke recogniser
       moved into `ff-core` with the deep swipe threshold measured on a phone.
 - [ ] (Found along the way) Cleanup: menu intro help is spoken only when a
       menu has no rows, and on job and stop details, which lead with it. The

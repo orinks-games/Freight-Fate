@@ -252,29 +252,39 @@ impl KeyBindings {
     /// the first gesture it is on, else the fixed pedal and steering
     /// gestures, else its row on the driving command list.
     pub fn touch_noun(&self, action: Action) -> String {
+        self.touch_gesture_for(action)
+            .unwrap_or_else(|| format!("{} from the three-finger tap list", action.label()))
+    }
+
+    /// The gesture that runs `action` at the wheel, as a noun; `None` when
+    /// only the driving command list has it.
+    pub fn touch_gesture_for(&self, action: Action) -> Option<String> {
         if action == Action::Engine {
-            return "a two-finger turn to the right".to_string();
+            return Some("a two-finger turn to the right".to_string());
         }
         let on_gesture = SLOTS
             .iter()
             .map(|(gesture, ..)| *gesture)
             .find(|gesture| self.touch_command(*gesture) == Some(TouchCommand::Action(action)))
             .and_then(touch_gesture_noun);
-        if let Some(noun) = on_gesture {
-            return noun;
+        if on_gesture.is_some() {
+            return on_gesture;
         }
-        match action {
-            Action::Accelerate => "a swipe up and hold".to_string(),
-            Action::Brake => "a swipe down and hold".to_string(),
-            Action::EmergencyBrake => "a deep swipe down".to_string(),
-            Action::Horn => "a two-finger hold".to_string(),
-            Action::SteerLeft => "a flick left".to_string(),
-            Action::SteerRight => "a flick right".to_string(),
-            Action::Straighten => "a still hold for half a second".to_string(),
-            Action::TakeExit => "a double tap".to_string(),
-            Action::Status => "a three-finger tap then a double tap".to_string(),
-            other => format!("{} from the three-finger tap list", other.label()),
-        }
+        Some(
+            match action {
+                Action::Accelerate => "a swipe up and hold",
+                Action::Brake => "a swipe down and hold",
+                Action::EmergencyBrake => "a deep swipe down",
+                Action::Horn => "a two-finger hold",
+                Action::SteerLeft => "a flick left",
+                Action::SteerRight => "a flick right",
+                Action::Straighten => "a still hold for half a second",
+                Action::TakeExit => "a double tap",
+                Action::Status => "a three-finger tap then a double tap",
+                _ => return None,
+            }
+            .to_string(),
+        )
     }
 
     /// The touch phrase for a `control_hint` action id; `None` leaves the

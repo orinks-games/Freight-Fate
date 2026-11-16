@@ -6,6 +6,8 @@
 
 - **Job details and the departure line say how much night driving a run has,** as in "About 4 hours of night driving."
 - **A drowsy driver can call dispatch to move the appointment,** giving up the on-time bonus. The row is Too tired to drive safely.
+- **The driving command list can change radio volume and category.**
+- **On iPhone, a manual truck works its own clutch.** Hold a pedal and flick up or down with a second finger to shift.
 
 ### Changed
 
@@ -26,6 +28,7 @@
 - **On iPhone, help and prompts in menus name gestures in place of keys.**
 - **On iPhone, the horn is the two-finger hold only.** The three-finger hold is gone.
 - **The route picker reads the weather along a route with Tab,** or a three-finger tap on iPhone.
+- **The driving command list is now in groups.** Status menu comes first, then short lists for speed, the road, the truck, gears, radio and hours.
 
 ### Fixed
 

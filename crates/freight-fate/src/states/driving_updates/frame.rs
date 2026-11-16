@@ -1,6 +1,7 @@
 //! The frame loop itself (`DrivingUpdateMixin.update`), the safety-call
 //! re-speak, and the retarder transcript trace.
 
+use ff_core::sim::touch_clutch::TouchClutchEvent;
 use ff_core::speech_pacing::SpeechCategory;
 
 use crate::speech::EventPriority;
@@ -465,6 +466,19 @@ impl DrivingState {
         if pad_on {
             clutch_val = clutch_val.max(ctx.controller.clutch());
         }
+        // A shift asked for by touch holds the clutch for itself. A keyboard
+        // or controller taking over, the automatic, or the co-driver lets it
+        // out.
+        let touch_clutch_event = if self.trip.truck.transmission.automatic
+            || self.co_driver_driving()
+            || !ctx.touch_hints()
+        {
+            TouchClutchEvent::Cancel
+        } else {
+            TouchClutchEvent::Tick { dt }
+        };
+        self.touch_clutch = self.touch_clutch.next(touch_clutch_event);
+        clutch_val = clutch_val.max(self.touch_clutch.pedal());
         self.trip.truck.transmission.clutch = if !self.trip.truck.transmission.automatic {
             clutch_val
         } else {
@@ -552,8 +566,11 @@ impl DrivingState {
                 // clutch instead (2026-09-28).
                 let hints = self.driving_hints(ctx);
                 let pad = ctx.controller.device() == ff_core::input_hints::CONTROLLER;
+                // On touch the restart takes neutral itself, and a shift
+                // works its own clutch.
+                let touch = ctx.touch_hints();
                 let text = if !hints {
-                    if tr.automatic || tr.in_neutral() {
+                    if tr.automatic || tr.in_neutral() || touch {
                         "Engine stalled.".to_string()
                     } else if pad {
                         "Engine stalled. Hold the clutch, restart, and shift down to first \
@@ -569,6 +586,10 @@ impl DrivingState {
                         "Engine stalled. Press {} to restart.",
                         ctx.control_hint("engine")
                     )
+                } else if touch {
+                    "Engine stalled. Turn two fingers right to restart, then hold a pedal and \
+                     flick up with a second finger for first gear."
+                        .to_string()
                 } else if pad {
                     format!(
                         "Engine stalled. Hold {}, press {} to restart, and shift down to first \

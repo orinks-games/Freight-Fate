@@ -14668,6 +14668,14 @@ msgstr ""
 msgid "{base} in {days_ahead} days"
 msgstr ""
 
+#: crates/ff-core/src/sim/touch_clutch.rs
+msgid "out"
+msgstr ""
+
+#: crates/ff-core/src/sim/touch_clutch.rs
+msgid "shifting"
+msgstr ""
+
 #: crates/ff-core/src/sim/traffic_manager.rs
 msgid "minivan"
 msgstr ""
@@ -18724,6 +18732,11 @@ msgstr ""
 msgid "flick right"
 msgstr ""
 
+#. placeholders: {label}
+#: crates/freight-fate/src/bindings/touch.rs
+msgid "{label} from the three-finger tap list"
+msgstr ""
+
 #: crates/freight-fate/src/bindings/touch.rs
 msgid "a swipe up and hold"
 msgstr ""
@@ -18742,11 +18755,6 @@ msgstr ""
 
 #: crates/freight-fate/src/bindings/touch.rs
 msgid "a three-finger tap then a double tap"
-msgstr ""
-
-#. placeholders: {label}
-#: crates/freight-fate/src/bindings/touch.rs
-msgid "{label} from the three-finger tap list"
 msgstr ""
 
 #. placeholders: {touch_noun}, {touch_noun2}
@@ -25686,10 +25694,17 @@ msgstr ""
 
 #: crates/freight-fate/src/states/driving_controls/help.rs
 msgid ""
+"In a manual, hold a pedal and flick up or down with a second finger to "
+"shift. The flick works the clutch. "
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_controls/help.rs
+msgid ""
 "A two-finger flick down pauses, a two-finger flick up is this help, "
 "two-finger flicks left and right review messages, and three-finger flicks "
-"left and right tune the radio. A three-finger tap lists every driving "
-"command, Status menu first. Flick to one and double tap to run it. "
+"left and right tune the radio. A three-finger tap lists the driving "
+"commands in groups, Status menu first. Flick to one and double tap to run "
+"it or open its group. "
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_controls/help.rs
@@ -26119,7 +26134,7 @@ msgstr ""
 msgid "Event voice stopped."
 msgstr ""
 
-#: crates/freight-fate/src/states/driving_controls/keys.rs
+#: crates/freight-fate/src/states/driving_controls/keys.rs crates/freight-fate/src/states/driving_controls/vehicle.rs
 msgid "Neutral."
 msgstr ""
 
@@ -32034,18 +32049,65 @@ msgstr ""
 msgid "Page Up"
 msgstr ""
 
+#: crates/freight-fate/src/states/driving_menu_states/commands.rs
+msgid "a three-finger flick right"
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_menu_states/commands.rs
+msgid "a three-finger flick left"
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_menu_states/commands.rs
+msgid "a two-finger flick up"
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_menu_states/commands.rs
+msgid ""
+"Left and Right change it. On the keyboard: Shift Page Down and Shift Page "
+"Up."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_menu_states/commands.rs
+msgid ""
+"Left and Right change it. On the keyboard: Control Page Up and Control Page "
+"Down."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_menu_states/commands.rs
+msgid "Speed and cruise"
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_menu_states/commands.rs
+msgid "Road and stops"
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_menu_states/commands.rs
+msgid "Where am I"
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_menu_states/commands.rs
+msgid "Truck"
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_menu_states/commands.rs
+msgid "Gears and engine brake"
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_menu_states/commands.rs
+msgid "Radio and CB"
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_menu_states/commands.rs
+msgid "Hours and clock"
+msgstr ""
+
 #: crates/freight-fate/src/states/driving_menu_states/commands.rs crates/freight-fate/src/states/driving_menu_states/status.rs
 msgid "Driving commands"
 msgstr ""
 
-#. placeholders: {spoken}
+#. placeholders: {noun}
 #: crates/freight-fate/src/states/driving_menu_states/commands.rs
-msgid "On the keyboard: {spoken}."
-msgstr ""
-
-#. placeholders: {pad_spoken}
-#: crates/freight-fate/src/states/driving_menu_states/commands.rs
-msgid " On the controller: {pad_spoken}."
+msgid "At the wheel: {noun}."
 msgstr ""
 
 #. placeholders: {key_name}
@@ -32059,6 +32121,35 @@ msgstr ""
 
 #: crates/freight-fate/src/states/driving_menu_states/commands.rs
 msgid "Close the list without running a command."
+msgstr ""
+
+#. placeholders: {spoken}
+#: crates/freight-fate/src/states/driving_menu_states/commands.rs
+msgid "On the keyboard: {spoken}."
+msgstr ""
+
+#. placeholders: {pad_spoken}
+#: crates/freight-fate/src/states/driving_menu_states/commands.rs
+msgid " On the controller: {pad_spoken}."
+msgstr ""
+
+#. placeholders: {pad_spoken}, {pad_spoken2}
+#: crates/freight-fate/src/states/driving_menu_states/commands.rs
+msgid " On the controller: {pad_spoken} and {pad_spoken2}."
+msgstr ""
+
+#. placeholders: {pct}
+#: crates/freight-fate/src/states/driving_menu_states/commands.rs
+msgid "Radio volume: {pct} percent"
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_menu_states/commands.rs
+msgid "Radio category"
+msgstr ""
+
+#. placeholders: {name}
+#: crates/freight-fate/src/states/driving_menu_states/commands.rs
+msgid "Radio category: {name}"
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_menu_states/commands.rs crates/freight-fate/src/states/driving_menu_states/status.rs crates/freight-fate/src/states/driving_menu_states/stop_purpose.rs
@@ -37486,6 +37577,12 @@ msgstr ""
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/driving_updates/frame.rs
 msgid "Press {control_hint} to restart."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_updates/frame.rs
+msgid ""
+"Engine stalled. Turn two fingers right to restart, then hold a pedal and "
+"flick up with a second finger for first gear."
 msgstr ""
 
 #. placeholders: {control_hint}, {control_hint2}, {control_name}

@@ -75,7 +75,7 @@ impl DrivingState {
                         "Engine already off."
                     });
                 } else {
-                    self.toggle_engine(ctx);
+                    self.touch_toggle_engine(ctx);
                 }
                 return true;
             }

@@ -86,7 +86,7 @@ A second finger while holding a pedal:
 | Gesture | Default command |
 |---|---|
 | While holding gas, tap | Automatic speed control: adaptive cruise, or the speed keeper in low-speed zones |
-| While holding a pedal, flick up / down | Shift up / down in manual; nothing in automatic |
+| While holding a pedal, flick up / down | Shift up / down in manual, working the clutch for you; nothing in automatic |
 | While holding a pedal, flick left / right | Change one lane |
 | While holding a pedal, swipe left / right and hold | Steer until you lift (lane keeping off or partial) |
 | While holding brake, tap | Parking brake |
@@ -108,7 +108,34 @@ pauses, a two-finger flick up is help, two-finger flicks left and right review
 messages, and three-finger flicks left and right tune the radio. Everything
 else is on the driving command list: a three-finger tap opens it, flick to a
 command, and double tap runs it. The Status menu is its first row, so a three-finger tap
-and then a double tap opens it.
+and then a double tap opens it. The list is the same on every device and always
+opens on its first row:
+
+| Row | Opens or runs |
+|---|---|
+| Status menu | Runs |
+| Speed and cruise | Speed, Posted speed limit, Safe speed, Cruise, Resume the last cruise speed, Raise and Lower the cruise target |
+| Road and stops | Road ahead, Route and location, Rest stop, Signal for the exit or a pull-over, Weather, Grade, Lane position, Lane locator, Repeat the last announcement |
+| Where am I | The state, road, town, direction and county |
+| Truck | Engine on or off, Parking brake, Fuel, Driver window down or up, Fan speed, Heat or air conditioning |
+| Gears and engine brake | Shift up and down, Neutral, Reverse, Automatic or manual shifting, Engine brake, Automatic engine brake on or off, Engine brake stages 1 to 3 |
+| Radio and CB | Radio on or off, Next and Previous radio station, Radio volume, Radio category, Save the station as a favorite, Radio status, What the radio is playing, Repeat the last CB chatter |
+| Hours and clock | Clock, Time at the wheel, When the break is due, What ends this shift |
+| Copy the last spoken text | Runs |
+| Driving help | Runs |
+| Back to driving | Closes the list |
+
+Double tap opens a group; a command in it closes the list and runs. A
+two-finger flick down from a group returns to its row in the top list. Radio
+volume and Radio category change in place: flick up to raise or step forward,
+flick down to lower or step back, and the list stays open.
+
+In a manual truck, a second-finger flick up or down (or Shift up or Shift down
+from the list) presses the clutch, takes the gear and lets the clutch out
+again after the time an automatic takes to shift, so a shift never grinds.
+After a stall in a tall gear, the two-finger turn right takes neutral first,
+says "Neutral.", and starts the engine; then hold a pedal and flick up for
+first.
 
 So to set cruise: swipe up and hold until you reach 20 miles per hour, tap
 with a second finger, and lift.
@@ -232,10 +259,11 @@ frameworks it and SDL2 need, plus clang's iOS runtime for `@available` checks.
 - In a menu, flick right and left move through the rows and flick up and down change a value (a volume row in Settings). A tap reads the row again; tapping twice in a row does not step through messages.
 - A two-finger double tap on the main menu does nothing; on the pause menu it resumes the drive.
 - The two-finger scrub goes back, with direct touch on and off. Two-finger flicks left and right still review messages, and a slow two-finger flick is not taken for a scrub.
-- Three-finger tap at the wheel, then double tap: the Status menu opens. On the job board, a three-finger tap reads the market summary; on the route picker, the weather along the route.
+- Three-finger tap at the wheel, then double tap: the Status menu opens. In the list, double tap a group, flick through it, and two-finger flick down: the list is back on that group's row. On Radio volume, flick up twice: the volume rises twice and the list stays open. On the job board, a three-finger tap reads the market summary; on the route picker, the weather along the route.
 - Deep swipe down while moving for the emergency brake; stopped, it says "Parking brake set", and gas then says "Parking brake released".
 - Turn two fingers right to start the engine and left to stop it while stopped; at speed the turn left does nothing. Hold two fingers for the horn, then turn them and confirm the horn stops.
 - While holding gas: second-finger tap sets cruise, flicks up and down shift in manual and do nothing in automatic, side flicks change lanes, side holds steer.
+- In a manual truck (Automatic or manual shifting, in Gears and engine brake): pull away with a brake hold and a second-finger flick up for first, then shift up through several gears on the gas with no grinding. Stall it in a tall gear, turn two fingers right, hear "Neutral.", and flick up for first.
 - In a Driving School lesson: the deep swipe while moving is the emergency brake, the still hold straightens, and gas releases the parking brake, as in a delivery.
 - With no hardware keyboard, no help, hint or field prompt names a key; connect one and keys come back.
 - Verify magic tap pauses, a three-finger hold does nothing, the three-finger double tap does nothing, and the haptics switch changes feedback.
