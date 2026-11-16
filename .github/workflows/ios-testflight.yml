@@ -1,26 +1,37 @@
 # Build, sign and upload Freight Fate to TestFlight.
 #
-# Manual only. Dispatch it from dev, after the changes you want to test have
-# merged, with
+# Two starts:
+#
+# * Every push to dev builds and uploads, for the Internal group only. It
+#   runs next to the desktop snapshot (build-career-1.9.yml), so the phone
+#   build keeps up with the other platforms. A push build never goes to the
+#   external Friends group. Pushes that touch only files the app does not
+#   ship (the roadmap, agent notes, other workflows) are skipped.
+# * A manual dispatch, for a verification run, a build of another branch, or
+#   a build for Friends:
 #
 #     gh workflow run ios-testflight.yml -R orinks-games/Freight-Fate --ref dev
 #
-# By default a run is a verification run: it proves the key, certificate,
+# By default a dispatch is a verification run: it proves the key, certificate,
 # bundle id, profile, build and signing, and uploads nothing to TestFlight.
 # Add -f upload=true for a real upload.
 #
 # Testers: the Internal group gets every uploaded build by itself. With
-# testers=friends (the default) a real upload is also added to the external
-# Friends group and submitted to Apple's beta review; Friends get it once Apple
-# approves it. testers=internal stops at the Internal group. whats_new is the
-# "What to Test" note testers read; leave it empty for the branch and commit.
+# testers=friends (the dispatch default) a real upload is also added to the
+# external Friends group and submitted to Apple's beta review; Friends get it
+# once Apple approves it. testers=internal stops at the Internal group, and a
+# push build is always internal. whats_new is the "What to Test" note testers
+# read; leave it empty for the branch, commit and commit subject.
 #
 # The log and the TestFlight build notes show the exact commit that was built.
-# Any other branch needs allow_other_ref set, so a build from unmerged work is
-# always deliberate.
+# Any branch other than dev needs allow_other_ref set, so a build from
+# unmerged work is always deliberate.
 #
-# It never runs from a push, a tag or a pull request, and it makes no tag and
-# no release. One-time setup and failure messages: docs/ios-testflight.md.
+# It never runs from a tag or a pull request, and it makes no tag and no
+# release. One-time setup and failure messages: docs/ios-testflight.md.
+#
+# Uploads run one at a time (see concurrency below), so two runs never ask
+# App Store Connect for a build number at the same moment.
 #
 # Every run signs with the same stored Apple Distribution certificate and key
 # (IOS_DISTRIBUTION_P12_BASE64, IOS_DISTRIBUTION_P12_PASSWORD) in a throwaway
@@ -44,6 +55,21 @@ permissions:
   contents: read
 
 on:
+  push:
+    branches: [dev]
+    # Skip a push whose every file stays out of the app. CHANGELOG.md and
+    # docs/ are bundled (the in-game changelog and manual), so they count.
+    paths:
+      - "**"
+      - "!ROADMAP.md"
+      - "!AGENTS.md"
+      - "!CLAUDE.md"
+      - "!CONTRIBUTING.md"
+      - "!RUTH-CATALOG.md"
+      - "!.claude/**"
+      - "!.githooks/**"
+      - "!.github/**"
+      - ".github/workflows/ios-testflight.yml"
   workflow_dispatch:
     inputs:
       build_number:
@@ -73,8 +99,15 @@ on:
         required: false
         type: string
 
+# Every run that uploads (each push build, and a dispatch with upload=true)
+# shares one group. A run in flight is never cancelled: stopping one mid
+# upload can leave a half-processed build in TestFlight. GitHub keeps at most
+# one run waiting in the group and drops an older waiting run for a newer
+# one, so a burst of merges builds the first commit and then the newest, not
+# every commit in between. A verification dispatch uploads nothing, so it
+# runs in its own group and never waits on or replaces a push build.
 concurrency:
-  group: ios-testflight
+  group: ${{ (github.event_name == 'push' || inputs.upload) && 'ios-testflight-upload' || format('ios-testflight-verify-{0}', github.run_id) }}
   cancel-in-progress: false
 
 jobs:
@@ -90,6 +123,10 @@ jobs:
       # The bundled SDL2 source declares a cmake_minimum_required older than
       # CMake 4 accepts.
       CMAKE_POLICY_VERSION_MINIMUM: "3.5"
+      # What this run does. A push has no inputs: it always uploads, and only
+      # for the Internal group.
+      UPLOAD: ${{ github.event_name == 'push' && 'true' || inputs.upload }}
+      TESTERS: ${{ github.event_name == 'push' && 'internal' || inputs.testers }}
     steps:
       - uses: actions/checkout@v6
 
@@ -105,6 +142,28 @@ jobs:
             echo "::error::This run is on '${GITHUB_REF_NAME}', not dev. Dispatch it from dev once the changes are merged, or set allow_other_ref to build this branch on purpose."
             exit 1
           fi
+          echo "Started by ${GITHUB_EVENT_NAME}: upload=${UPLOAD}, testers=${TESTERS}"
+          echo "Started by \`${GITHUB_EVENT_NAME}\`: upload \`${UPLOAD}\`, testers \`${TESTERS}\`" >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Write the What to Test note
+        shell: bash
+        env:
+          WHATS_NEW_INPUT: ${{ inputs.whats_new }}
+        run: |
+          set -euo pipefail
+          if [ -n "$WHATS_NEW_INPUT" ]; then
+            notes="$WHATS_NEW_INPUT"
+          else
+            # The branch, the short commit and its subject line.
+            subject="$(git log -1 --format=%s "$GITHUB_SHA")"
+            notes="Built from ${GITHUB_REF_NAME} at ${GITHUB_SHA:0:12}: ${subject}"
+          fi
+          delimiter="EOF_$(uuidgen)"
+          {
+            echo "WHATS_NEW<<$delimiter"
+            echo "$notes"
+            echo "$delimiter"
+          } >> "$GITHUB_ENV"
 
       - name: Install the pinned Rust toolchain and the iOS target
         run: |
@@ -270,7 +329,7 @@ jobs:
       - name: Keep the signed build for one day (verification run)
         # The ipa holds the open-source game binary and the public profile, no
         # key or password, so a one-day artifact is safe for a public repo.
-        if: ${{ inputs.upload != true }}
+        if: ${{ env.UPLOAD != 'true' }}
         uses: actions/upload-artifact@v7
         with:
           name: FreightFate-verification-ipa
@@ -281,8 +340,6 @@ jobs:
       - name: Say whether anything was uploaded
         if: always()
         shell: bash
-        env:
-          UPLOAD: ${{ inputs.upload }}
         run: |
           if [ "$UPLOAD" = "true" ]; then
             echo "### Upload requested: the signed build is sent to TestFlight by the next step. If this run failed before then, nothing was uploaded." >> "$GITHUB_STEP_SUMMARY"
@@ -292,7 +349,7 @@ jobs:
           fi
 
       - name: Upload to TestFlight
-        if: ${{ inputs.upload == true }}
+        if: ${{ env.UPLOAD == 'true' }}
         uses: apple-actions/upload-testflight-build@155ea93be9ee6d5186c71f660a612f5eddb14510 # v5
         with:
           app-path: build/ios/FreightFate.ipa
@@ -306,10 +363,10 @@ jobs:
           # set a value that is already set and fail with HTTP 409.
           wait-for-processing: "true"
           # Shown to testers as "What to Test".
-          release-notes: ${{ inputs.whats_new != '' && inputs.whats_new || format('Built from {0} at {1}', github.ref_name, github.sha) }}
+          release-notes: ${{ env.WHATS_NEW }}
 
       - name: Send the build to the Friends group
-        if: ${{ inputs.upload == true && inputs.testers == 'friends' }}
+        if: ${{ env.UPLOAD == 'true' && env.TESTERS == 'friends' && github.event_name != 'push' }}
         shell: bash
         env:
           ASC_KEY_ID: ${{ secrets.ASC_KEY_ID }}
