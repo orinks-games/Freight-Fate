@@ -907,6 +907,12 @@ impl DrivingState {
             } else {
                 sound
             };
+            // Spacing decides WHEN the line goes, not how long it will wait
+            // once it does. Without its priority it went to the voice as
+            // chatter, and chatter queued behind a billboard is dropped as
+            // stale: a truck stop inside a work zone was never announced,
+            // its notice lost behind a billboard and the lane ending call
+            // (agent drive, I-71 at Seville, 2026-11-16).
             self.speak_ambient_event(
                 ctx,
                 message,
@@ -914,7 +920,13 @@ impl DrivingState {
                     .sound(sound)
                     .category(category)
                     .key(key)
-                    .render(render),
+                    .priority(priority)
+                    .render(render)
+                    .stop_at(
+                        (kind == TripEventKind::StopAhead)
+                            .then(|| event.data.stop.as_ref().map(|stop| stop.at_mi))
+                            .flatten(),
+                    ),
             );
             return;
         }

@@ -300,6 +300,27 @@ pub const FACILITY_GATE_MAX_SHARE: f64 = 0.35;
 pub const DESTINATION_LOCAL_APPROACH_MI: f64 = 1.0;
 pub const DESTINATION_APPROACH_TRUSTED_MAX_MI: f64 = FACILITY_APPROACH_TRUSTED_MAX_MI;
 
+// -- Where an exit is taken from ---------------------------------------------
+// The driving state takes every exit from the right lane; these are the miles
+// around a stop where that lane has to be open (`Trip::exit_windows`).
+/// Spoken distance anchors for an armed exit; a signal-on announcement miles
+/// out gets buried under canyon pacenotes without them.
+pub const EXIT_COUNTDOWN_MILESTONES_MI: [f64; 3] = [2.0, 1.0, 0.5];
+/// How far out lane keeping on full starts moving to the right lane for an
+/// exit it is taking: the countdown's first anchor, where a manual driver is
+/// asked for the same lane.
+pub const EXIT_KEEP_RIGHT_MI: f64 = EXIT_COUNTDOWN_MILESTONES_MI[0];
+/// Generous gore-window grace after the exit marker.
+pub const EXIT_COMMIT_WINDOW_MI: f64 = 0.4;
+/// A real interchange counts as the destination exit only inside this final
+/// approach window. Routes that finish on rural highways carry no baked
+/// interchanges, and without the floor the scan crowned the last labeled exit
+/// anywhere on the route -- one playtest got its "destination exit" on I-39 in
+/// Wisconsin, 1,158 miles from the Montana receiver, and taking it settled the
+/// load from there (transcripts, 2026-07-16). Past the window the synthetic
+/// end-of-route exit takes over.
+pub const DESTINATION_EXIT_SCAN_WINDOW_MI: f64 = 25.0;
+
 // -- How a loaded truck sheds speed for something ahead ----------------------
 pub const APPROACH_DECEL_MPS2: f64 = 0.4;
 pub const APPROACH_REACTION_S: f64 = 6.0;

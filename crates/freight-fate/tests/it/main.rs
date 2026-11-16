@@ -138,6 +138,7 @@ mod states_driving_events_chains;
 mod states_driving_exit_assist_cases;
 mod states_driving_exit_assist_matrix;
 mod states_driving_exit_countdown_hold;
+mod states_driving_exit_in_work_zone;
 mod states_driving_exit_lane;
 mod states_driving_exit_windows;
 mod states_driving_exits;

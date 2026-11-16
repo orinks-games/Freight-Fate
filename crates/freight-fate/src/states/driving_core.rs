@@ -484,6 +484,11 @@ pub struct PendingAmbient {
     /// miles" was performed with two left and the building in sight (Brandon,
     /// 2026-08-20). Returning None means the moment passed; drop, not speak.
     pub render: Option<AmbientRender>,
+    /// The mile of the stop a stop notice names: once spoken late, the line
+    /// is still true only while the exit is ahead (see [`Ambient::stop_at`]).
+    ///
+    /// [`Ambient::stop_at`]: crate::states::driving_events::ambient::Ambient::stop_at
+    pub stop_at: Option<f64>,
 }
 
 /// The re-render hook of a [`PendingAmbient`]: given the drive as it is at
@@ -521,6 +526,7 @@ impl PendingAmbient {
             key: None,
             priority: None,
             render: None,
+            stop_at: None,
         }
     }
 }
