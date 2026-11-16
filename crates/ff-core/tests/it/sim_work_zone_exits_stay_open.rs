@@ -37,10 +37,13 @@ fn right() -> Option<String> {
     Some("right".to_string())
 }
 
+/// A work zone as (taper start, zone start, zone end, closed side).
+type Drawn = (f64, f64, f64, Option<&'static str>);
+
 #[test]
 fn keep_exits_open_transition_table() {
     // (case, zone (taper start, start, end, side), stop mile, sides after)
-    let cases: [(&str, (f64, f64, f64, Option<&str>), f64, Option<String>); 8] = [
+    let cases: [(&str, Drawn, f64, Option<String>); 8] = [
         (
             "right closure over a stop",
             (19.0, 20.0, 26.0, Some("right")),
@@ -94,9 +97,11 @@ fn keep_exits_open_transition_table() {
         assert_eq!(sides(&zones), vec![want.clone(), want.clone()], "{case}");
         let flipped = side == Some("right") && want == left();
         assert_eq!(moved, usize::from(flipped), "{case}");
-        // The closed lane follows the side (right is lane 0).
+        // The closed lane follows the side: right is lane 0, left the far
+        // lane (lane 1 on a two-lane road before the lane count is known).
+        let lane = want.as_deref().map(|side| i64::from(side == "left"));
         for zone in &zones {
-            assert_eq!(zone.closed_lane.is_some(), want.is_some(), "{case}");
+            assert_eq!(zone.closed_lane, lane, "{case}");
         }
     }
 }

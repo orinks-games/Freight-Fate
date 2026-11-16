@@ -63,23 +63,31 @@ pub fn keep_exits_open(zones: &mut [Zone], windows: &[(f64, f64)]) -> usize {
             continue;
         }
         for k in std::iter::once(i).chain(taper) {
-            zones[k] = zones[k].clone().with_closed_side(Some("left"));
+            move_closure_left(&mut zones[k]);
         }
         moved += 1;
     }
     // A taper whose zone was dropped (`drop_work_zones_near` judges each
     // zone on its own) still closes a lane on its own short stretch.
-    for j in 0..zones.len() {
-        if zones[j].reason == "construction merge"
+    for (j, zone) in zones.iter_mut().enumerate() {
+        if zone.reason == "construction merge"
             && !paired_tapers.contains(&j)
-            && zones[j].closed_side.as_deref() == Some("right")
-            && covers_an_exit(zones[j].start_mi, zones[j].end_mi)
+            && zone.closed_side.as_deref() == Some("right")
+            && covers_an_exit(zone.start_mi, zone.end_mi)
         {
-            zones[j] = zones[j].clone().with_closed_side(Some("left"));
+            move_closure_left(zone);
             moved += 1;
         }
     }
     moved
+}
+
+/// The closure on the left: the side, and the lane derived from it, which
+/// `with_closed_side` keeps when one is already set.
+fn move_closure_left(zone: &mut Zone) {
+    let mut moved = zone.clone();
+    moved.closed_lane = None;
+    *zone = moved.with_closed_side(Some("left"));
 }
 
 impl Trip {
