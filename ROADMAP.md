@@ -60,7 +60,7 @@ bookmarks usable.
 - [x] (Found along the way) Speed limits flip-flopped where the map has no posting (owner's Kenosha to Traverse City drive, 2026-11-04: 60, 70, 55 on the Tri-State in Lake County inside two minutes). An untagged stretch longer than four miles fell back to the open-road number, and 263 of them sat between two lower postings. Fixed 2026-11-05: a gap takes at most the higher posting around it when both are 55 or more, or both are 45 or more and the gap is at most 10 miles. Calibrated on the October profile itself: on tagged road between two postings of 55 or more, the stretch between was posted higher than both for most of its length 0.1% of the time over 5 miles and 1.9% over 40; with a 45 or 50 at one end, 5.1% over 10 miles and 13.4% over 40. A gap leaving a town limit under 45 still reads the open-road number. The state truck caps (California 55, Oregon 55, Arizona 65 and the rest) now bind in gaps and on legs with no profile; they used to apply to postings only.
 - [x] (Found along the way) Kenosha and Milwaukee to Chicago leave I-94 just past the state line and run about 25 miles down US-41 (Skokie Highway, with signals) to Lake Cook Road, while the game still calls the road I-94; checked against OpenStreetMap 2026-11-05. The 55, 45, 55 and 50 heard there are US-41's real limits. Re-route both legs onto the Tri-State and re-read their limits, then check which other legs leave their named interstate the same way (the limit-artifact screen's off-route verdicts are a start). Fixed 2026-11-05: both legs re-routed with `cargo tools reroute-leg` and rebuilt with `reroute-enrich` and the layer builders, from the OpenStreetMap planet of 2026-10-26; they now ride I-94 (the Tri-State, then the Edens and the Kennedy) into Chicago. The other legs that leave their named road are listed in the route audit of 2026-11-05.
 - [ ] (Found along the way) Toll events on the Tri-State: Kenosha and Milwaukee to Chicago now ride the Illinois Tollway and carry no toll events. Curate the plazas and truck rates.
-- [ ] (Found along the way) Dispatch detours around work zones, as a dispatcher would (owner, 2026-11-05). The router has no work-zone data and the game's zones are made during the drive, so this belongs at dispatch, against the game's own zone list.
+- [ ] (Found along the way) Dispatch detours around work zones, as a dispatcher would (owner, 2026-11-05). The router has no work-zone data and the game's zones are made during the drive, so this belongs at dispatch, against the game's own zone list. A player asked for the same thing on 2026-11-16, after a closed right lane cost them the only truck stop before their break ([November 16](#november-16-exits-inside-a-work-zone-release-gate)).
 - [ ] (Found along the way) Road Ranger Chicago dropped off Kenosha and Milwaukee to Chicago: it is 3.9 miles off the new route into downtown, past the 3-mile rule. Those legs end with no fuel stop near Chicago; find one on the Edens or the Kennedy.
 - [x] More traffic variety (owner, 2026-11-04: "we only have like three or four traffic items"): the freeway drew only car, box truck, semi and service vehicle, each with one loop. It now draws thirteen kinds (`FREEWAY_CLASSES`), adding SUV, pickup, minivan, sports car, motorcycle, RV, bus, tanker and car hauler, with the light, box truck and tractor-trailer shares unchanged, and the car, semi, pickup, SUV and motorcycle have two or three takes each, kept per vehicle. Thirteen new loops rendered with genny 0.2.0 (`sound-test/traffic_variety.json`). A tanker and a car hauler share the semi's governor and climb; the rest are ungoverned, as before. Waiting on the owner's listening pass.
 - [ ] (Found along the way) An RV and a coach bus run at car speed and climb like one: neither has a governor band or climb numbers yet. Give them one with the realistic-traffic speed work.
@@ -4001,6 +4001,31 @@ with everything off):
 - Three "Found along the way" items above: the keeper trailing a posted
   drop, silent damage, the rural 70 posted on a boulevard.
 
+### November 16 exits inside a work zone (Release gate)
+
+A player's problem report (2026-11-16, a tester snapshot): they signaled for
+a truck stop inside a work zone, the right lane was closed, the truck could
+not get back into it, and it drove past the only stop before their break was
+due. Every exit is taken from the right lane, and the zone's side was drawn
+without looking at the stops, so a right closure over a stop's exit made that
+stop unreachable. On dev's data a sample of 210 trips (42 routes, 5 seeds)
+placed 605 lane closures, and 86 of them closed the right lane over an exit.
+
+Fixed 2026-11-16: once a run's work zones are placed, simulated and reported
+alike, a right closure whose taper or zone covers an exit (from 2 miles before
+it to 0.4 past) closes the left lane instead. Every stop counts, scales and
+rest areas included, and so does the destination exit. Only the side changes,
+after every seeded draw, so nothing else on the route moves, and a resumed
+drive gets the same answer because it rebuilds the trip from its seed. The
+same sample now has no right closure over an exit
+(`sim_work_zone_exits_stay_open`).
+
+- [ ] (Found along the way) A stop inside a work zone can go unannounced:
+      on Cleveland to Dothan (seed 4), two agent drives never heard the
+      5-mile notice for Pilot Travel Center Seville, while the lane ending,
+      merge and zone calls played around it. Stop notices wait behind route
+      speech and are dropped once stale; check whether that is what lost it.
+
 ### November 14 the road to 1.9.7 and the 2.0 beta (Found along the way)
 
 The owner asked on 2026-11-14 for a clear path to 1.9.7, with
@@ -4035,6 +4060,9 @@ On dev since 1.9.6:
 
 Release gate for 1.9.7:
 
+- [x] A work zone's closed right lane no longer covers an exit
+      (player problem report, 2026-11-16;
+      [November 16](#november-16-exits-inside-a-work-zone-release-gate)).
 - [x] Sound comes back after the sound device drops (Hearken PR 69, then
       game PR 626, both merged 2026-11-14). A player reported 1.9.6 going
       silent with a Bluetooth headset. Driven in the cloud with the sound

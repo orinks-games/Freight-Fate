@@ -7,6 +7,7 @@ use crate::sim::trip_models::*;
 use crate::sim::trip_route_helpers::zone_key;
 use crate::speech_text::SpokenMessage;
 
+use super::destination_exit::scan_destination_exit;
 use super::Trip;
 
 /// Keep only the simulated work zones clear of `spans`, by the open-road rule.
@@ -23,6 +24,62 @@ fn drop_work_zones_near(zones: &mut Vec<Zone>, spans: &[(f64, f64)]) {
             zone.start_mi < end + ZONE_MIN_GAP_MI && zone.end_mi > start - ZONE_MIN_GAP_MI
         })
     });
+}
+
+/// Move every right lane closure that would cover an exit to the left side,
+/// and say how many work zones moved.
+///
+/// Every exit is taken from the right lane, and a closed right lane refuses
+/// the move back into it, so a right closure over a stop's exit makes that
+/// stop unreachable: a player signaled for the only truck stop left before
+/// their break was due and drove past it (problem report, 2026-11-16). Crews
+/// keep exits open; the game cannot open a gap in a closure, so the closure
+/// changes sides instead.
+///
+/// `windows` are the stretches each exit needs the right lane for
+/// ([`Trip::exit_windows`]). A work zone's footprint runs from the start of
+/// its merge taper to its end, and the taper and its zone always change
+/// sides together. Only the side changes, after every draw, so no seeded
+/// value on the route moves; and the left side needs no new lane check, since
+/// the whole span was proven multilane before any side was kept.
+pub fn keep_exits_open(zones: &mut [Zone], windows: &[(f64, f64)]) -> usize {
+    let covers_an_exit =
+        |start: f64, end: f64| windows.iter().any(|(from, to)| start < *to && end > *from);
+    let mut moved = 0;
+    let mut paired_tapers: Vec<usize> = Vec::new();
+    for i in 0..zones.len() {
+        if zones[i].reason != "construction" {
+            continue;
+        }
+        let taper = (0..zones.len()).find(|&j| {
+            zones[j].reason == "construction merge" && zones[j].end_mi == zones[i].start_mi
+        });
+        paired_tapers.extend(taper);
+        if zones[i].closed_side.as_deref() != Some("right") {
+            continue;
+        }
+        let start = taper.map_or(zones[i].start_mi, |j| zones[j].start_mi);
+        if !covers_an_exit(start, zones[i].end_mi) {
+            continue;
+        }
+        for k in std::iter::once(i).chain(taper) {
+            zones[k] = zones[k].clone().with_closed_side(Some("left"));
+        }
+        moved += 1;
+    }
+    // A taper whose zone was dropped (`drop_work_zones_near` judges each
+    // zone on its own) still closes a lane on its own short stretch.
+    for j in 0..zones.len() {
+        if zones[j].reason == "construction merge"
+            && !paired_tapers.contains(&j)
+            && zones[j].closed_side.as_deref() == Some("right")
+            && covers_an_exit(zones[j].start_mi, zones[j].end_mi)
+        {
+            zones[j] = zones[j].clone().with_closed_side(Some("left"));
+            moved += 1;
+        }
+    }
+    moved
 }
 
 impl Trip {
@@ -101,6 +158,8 @@ impl Trip {
             drop_work_zones_near(&mut zones, &real_spans);
             zones.extend(real_construction);
         }
+        // Simulated and reported zones alike: a closure never covers an exit.
+        keep_exits_open(&mut zones, &self.exit_windows());
         // Already claimed above, so nothing drawn here can be sitting in one.
         zones.extend(congestion);
         zones.extend(self.facility_speed_zones());
@@ -110,6 +169,30 @@ impl Trip {
                 .expect("finite mileposts")
         });
         zones
+    }
+
+    /// The stretch of road each exit on this run needs the right lane for:
+    /// from where the driver is asked to move right ([`EXIT_KEEP_RIGHT_MI`]
+    /// before the exit) to the end of the gore window
+    /// ([`EXIT_COMMIT_WINDOW_MI`] past it), measured from the same `at_mi`
+    /// the driving state's exit checks use.
+    ///
+    /// Every placed stop counts: truck stops, travel centers, fuel stations,
+    /// rest areas, service plazas, truck parking and scales are all taken by
+    /// signaling for the exit. So does the destination exit, which the drive
+    /// finds the same way ([`scan_destination_exit`]), or the synthetic one
+    /// the drive falls back to near the end of the route.
+    pub fn exit_windows(&self) -> Vec<(f64, f64)> {
+        let destination = scan_destination_exit(self.world, self, true).map_or(
+            (self.total_miles() - DESTINATION_LOCAL_APPROACH_MI).max(0.0),
+            |(at_mi, _, _)| at_mi,
+        );
+        self.stops
+            .iter()
+            .map(|stop| stop.at_mi)
+            .chain(std::iter::once(destination))
+            .map(|at| (at - EXIT_KEEP_RIGHT_MI, at + EXIT_COMMIT_WINDOW_MI))
+            .collect()
     }
 
     /// (two-way AADT, per-direction lanes) at a route mile: the baked HPMS

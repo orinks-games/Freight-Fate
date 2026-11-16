@@ -29,6 +29,7 @@ use crate::sim::vehicle::TruckState;
 use crate::sim::weather::WeatherSystem;
 use crate::units::{distance_unit, spoken_distance, spoken_gap, to_distance};
 
+pub mod destination_exit;
 mod exit_ramps;
 mod limits;
 mod lookups;
@@ -37,6 +38,7 @@ mod placement;
 mod streets;
 mod update;
 mod zones;
+pub use zones::keep_exits_open;
 
 pub use lookups::LaneRun;
 pub use streets::{

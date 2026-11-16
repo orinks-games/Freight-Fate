@@ -29,6 +29,7 @@
 - **Smoke, Smoke, Smoke is earned only for brakes you heat yourself.** Brakes a co-driver left hot no longer earn it when you take the wheel ([issue 520](https://github.com/orinks-games/Freight-Fate/issues/520)).
 - **A no engine brake zone you were told about now says when it ends.** You hear "End of no engine brake zone." on the way out ([issue 520](https://github.com/orinks-games/Freight-Fate/issues/520)).
 - **Take the wheel back now warns that your rest will start over.** Your ten hours must be unbroken ([issue 520](https://github.com/orinks-games/Freight-Fate/issues/520)).
+- **Work zones no longer close the right lane at an exit.** Near a truck stop, rest area or scale, roadwork closes the left lane.
 
 ## 1.9.6 - 2026-11-13
 
