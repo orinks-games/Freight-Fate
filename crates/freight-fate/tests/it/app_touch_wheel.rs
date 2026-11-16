@@ -369,6 +369,63 @@ fn three_finger_tap_then_double_tap_opens_the_status_menu() {
 }
 
 #[test]
+fn in_the_list_a_flick_up_raises_radio_volume_and_a_two_finger_flick_down_leaves_the_group() {
+    let mut harness = a_drive("Touch List Groups");
+    harness.app.ctx.settings.radio_volume = 0.5;
+    harness.app.dispatch_gesture(Gesture::KeyboardDisconnected);
+    harness.app.dispatch_gesture(Gesture::ThreeFingerTap);
+    while harness.focused_label().as_deref() != Some("Radio and CB") {
+        harness.app.dispatch_gesture(Gesture::SwipeRight);
+    }
+    harness.app.dispatch_gesture(Gesture::DoubleTap);
+    while !harness
+        .focused_label()
+        .is_some_and(|label| label.starts_with("Radio volume"))
+    {
+        harness.app.dispatch_gesture(Gesture::SwipeRight);
+    }
+    harness.app.dispatch_gesture(Gesture::SwipeUp);
+    harness.app.dispatch_gesture(Gesture::SwipeUp);
+    assert!(harness.state_is::<DrivingCommandsState>());
+    assert!(harness.app.ctx.settings.radio_volume > 0.5);
+    harness.app.dispatch_gesture(Gesture::TwoFingerSwipeDown);
+    assert!(harness.state_is::<DrivingCommandsState>());
+    assert_eq!(harness.focused_label().as_deref(), Some("Radio and CB"));
+    harness.app.dispatch_gesture(Gesture::TwoFingerSwipeDown);
+    assert!(harness.state_is::<DrivingState>());
+}
+
+#[test]
+fn on_touch_a_row_names_its_gesture_or_has_no_help_of_its_own() {
+    let mut harness = a_drive("Touch List Help");
+    harness.app.dispatch_gesture(Gesture::KeyboardDisconnected);
+    harness.app.dispatch_gesture(Gesture::ThreeFingerTap);
+    harness.clear_speech();
+    harness.app.dispatch_gesture(Gesture::TwoFingerSwipeUp);
+    assert_eq!(
+        harness.transcript().last().map(String::as_str),
+        Some("Status menu.")
+    );
+    while harness.focused_label().as_deref() != Some("Speed and cruise") {
+        harness.app.dispatch_gesture(Gesture::SwipeRight);
+    }
+    harness.app.dispatch_gesture(Gesture::DoubleTap);
+    harness.clear_speech();
+    harness.app.dispatch_gesture(Gesture::TwoFingerSwipeUp);
+    assert_eq!(
+        harness.transcript().last().map(String::as_str),
+        Some("At the wheel: a tap.")
+    );
+    harness.app.dispatch_gesture(Gesture::SwipeRight);
+    harness.clear_speech();
+    harness.app.dispatch_gesture(Gesture::TwoFingerSwipeUp);
+    assert_eq!(
+        harness.transcript().last().map(String::as_str),
+        Some("Posted speed limit.")
+    );
+}
+
+#[test]
 fn three_finger_tap_in_a_name_field_reads_it_back() {
     let mut harness = PlaytestHarness::new();
     let mut field = TextEntryState::new("Name", "Name", |_, _| {});

@@ -13033,6 +13033,12 @@ msgstr "{base} mañana"
 msgid "{base} in {days_ahead} days"
 msgstr "{base} dentro de {days_ahead} días"
 
+msgid "out"
+msgstr ""
+
+msgid "shifting"
+msgstr ""
+
 msgid "minivan"
 msgstr "monovolumen"
 
@@ -16512,6 +16518,10 @@ msgstr "deslizamiento a la izquierda"
 msgid "flick right"
 msgstr "deslizamiento a la derecha"
 
+#. placeholders: {label}
+msgid "{label} from the three-finger tap list"
+msgstr "{label} de la lista del toque con tres dedos"
+
 msgid "a swipe up and hold"
 msgstr "un deslizamiento hacia arriba manteniendo"
 
@@ -16526,10 +16536,6 @@ msgstr "mantener quieto medio segundo"
 
 msgid "a three-finger tap then a double tap"
 msgstr ""
-
-#. placeholders: {label}
-msgid "{label} from the three-finger tap list"
-msgstr "{label} de la lista del toque con tres dedos"
 
 #. placeholders: {touch_noun}, {touch_noun2}
 msgid "{touch_noun} and {touch_noun2}"
@@ -22916,10 +22922,16 @@ msgid ""
 msgstr ""
 
 msgid ""
+"In a manual, hold a pedal and flick up or down with a second finger to "
+"shift. The flick works the clutch. "
+msgstr ""
+
+msgid ""
 "A two-finger flick down pauses, a two-finger flick up is this help, "
 "two-finger flicks left and right review messages, and three-finger flicks "
-"left and right tune the radio. A three-finger tap lists every driving "
-"command, Status menu first. Flick to one and double tap to run it. "
+"left and right tune the radio. A three-finger tap lists the driving "
+"commands in groups, Status menu first. Flick to one and double tap to run "
+"it or open its group. "
 msgstr ""
 
 msgid ""
@@ -28430,16 +28442,52 @@ msgstr "Page Down"
 msgid "Page Up"
 msgstr "Page Up"
 
+msgid "a three-finger flick right"
+msgstr ""
+
+msgid "a three-finger flick left"
+msgstr ""
+
+msgid "a two-finger flick up"
+msgstr ""
+
+msgid ""
+"Left and Right change it. On the keyboard: Shift Page Down and Shift Page "
+"Up."
+msgstr ""
+
+msgid ""
+"Left and Right change it. On the keyboard: Control Page Up and Control Page "
+"Down."
+msgstr ""
+
+msgid "Speed and cruise"
+msgstr ""
+
+msgid "Road and stops"
+msgstr ""
+
+msgid "Where am I"
+msgstr ""
+
+msgid "Truck"
+msgstr ""
+
+msgid "Gears and engine brake"
+msgstr ""
+
+msgid "Radio and CB"
+msgstr ""
+
+msgid "Hours and clock"
+msgstr ""
+
 msgid "Driving commands"
 msgstr "Órdenes de conducción"
 
-#. placeholders: {spoken}
-msgid "On the keyboard: {spoken}."
-msgstr "En el teclado: {spoken}."
-
-#. placeholders: {pad_spoken}
-msgid " On the controller: {pad_spoken}."
-msgstr " En el mando: {pad_spoken}."
+#. placeholders: {noun}
+msgid "At the wheel: {noun}."
+msgstr ""
 
 #. placeholders: {key_name}
 msgid "On the keyboard: {key_name}."
@@ -28450,6 +28498,32 @@ msgstr "Volver a la conducción"
 
 msgid "Close the list without running a command."
 msgstr "Cierra la lista sin ejecutar ninguna orden."
+
+#. placeholders: {spoken}
+msgid "On the keyboard: {spoken}."
+msgstr "En el teclado: {spoken}."
+
+#. placeholders: {pad_spoken}
+msgid " On the controller: {pad_spoken}."
+msgstr " En el mando: {pad_spoken}."
+
+#. placeholders: {pad_spoken}, {pad_spoken2}
+msgid " On the controller: {pad_spoken} and {pad_spoken2}."
+msgstr ""
+
+#. placeholders: {pct}
+msgid "Radio volume: {pct} percent"
+msgstr ""
+
+msgid "Radio category"
+msgstr ""
+
+#. placeholders: {name}
+msgid "Radio category: {name}"
+msgstr ""
+
+msgid "Flick up or down to change it."
+msgstr ""
 
 msgid "Back to driving."
 msgstr "De vuelta a la conducción."
@@ -33356,6 +33430,11 @@ msgstr "Motor calado. Pulsa {control_hint} para volver a arrancar."
 #. one sentence of a longer line
 msgid "Press {control_hint} to restart."
 msgstr "Pulsa {control_hint} para volver a arrancar."
+
+msgid ""
+"Engine stalled. Turn two fingers right to restart, then hold a pedal and "
+"flick up with a second finger for first gear."
+msgstr ""
 
 #. placeholders: {control_hint}, {control_hint2}, {control_name}
 msgid ""

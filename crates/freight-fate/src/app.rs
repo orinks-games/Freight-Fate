@@ -256,6 +256,8 @@ pub struct DrivingObservation {
     pub jake_zone: &'static str,
     /// What a double tap at the wheel answers right now.
     pub road_offer: crate::touch::RoadOffer,
+    /// The clutch a touch shift works in a manual truck.
+    pub touch_clutch: ff_core::sim::touch_clutch::TouchClutch,
 }
 
 /// The only capability a windowed input policy receives for one frame.
@@ -850,6 +852,7 @@ impl App {
             gate: drive.arrival_gate_query_text(&self.ctx).map(|_| drive.gate),
             jake_zone: drive.jake_zone_notice.key(),
             road_offer: drive.road_offer(&self.ctx),
+            touch_clutch: drive.touch_clutch,
         })
     }
 

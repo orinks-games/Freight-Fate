@@ -210,8 +210,10 @@ fn tools_list() -> Value {
              open), and jake_zone (what the driver has heard about the no \
              engine brake zone ahead or under the truck: untold, heads_up, \
              inside_untold or inside_told), touch_mode (menu, field, wheel or \
-             practice: how a gesture is read on this screen) and road_offer (what a \
-             double tap answers: none, exit, pull_over or arrival). Off the wheel the \
+             practice: how a gesture is read on this screen), road_offer (what a \
+             double tap answers: none, exit, pull_over or arrival) and touch_clutch \
+             (out or shifting: the clutch a touch shift works in a manual truck). \
+             Off the wheel the \
              STATE line carries touch_mode alone.",
             json!({}),
             &[],

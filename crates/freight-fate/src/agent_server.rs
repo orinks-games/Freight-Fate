@@ -261,14 +261,16 @@ fn fatigue_state_line(o: &crate::app::DrivingObservation, mode: crate::touch::To
         .map_or(String::new(), |gate| format!("; gate {}", gate.key()));
     format!(
         "STATE: alertness {}; nod {} ({timer:.2} {unit}); nod_misses {}; lift_owed {lift}; \
-         rest_call {rest_call}; runaway {}{gate}; jake_zone {}; touch_mode {}; road_offer {}.",
+         rest_call {rest_call}; runaway {}{gate}; jake_zone {}; touch_mode {}; road_offer {}; \
+         touch_clutch {}.",
         o.alertness.key(),
         o.nod.key(),
         o.nod.misses,
         o.runaway.key(),
         o.jake_zone,
         mode.key(),
-        o.road_offer.key()
+        o.road_offer.key(),
+        o.touch_clutch.name()
     )
 }
 

@@ -521,11 +521,17 @@ impl DrivingState {
                 text.push_str(&format!("{name}: {}. ", command.label()));
             }
         }
+        if !self.trip.truck.transmission.automatic {
+            text.push_str(
+                "In a manual, hold a pedal and flick up or down with a second finger to \
+                 shift. The flick works the clutch. ",
+            );
+        }
         text.push_str(
             "A two-finger flick down pauses, a two-finger flick up is this help, two-finger \
              flicks left and right review messages, and three-finger flicks left and right \
-             tune the radio. A three-finger tap lists every driving command, Status menu \
-             first. Flick to one and double tap to run it. ",
+             tune the radio. A three-finger tap lists the driving commands in groups, Status \
+             menu first. Flick to one and double tap to run it or open its group. ",
         );
         text.push_str(&self.objective_help(ctx));
         text.push_str("Gestures can be moved in Settings, Gameplay, Controls, Touch gestures.");

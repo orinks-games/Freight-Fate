@@ -28,6 +28,7 @@ pub mod season;
 pub mod stimulant;
 pub mod surge;
 pub mod timezones;
+pub mod touch_clutch;
 pub mod traffic_manager;
 pub mod transmission;
 pub mod trip;

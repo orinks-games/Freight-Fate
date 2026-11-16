@@ -413,6 +413,7 @@ impl DrivingState {
             jake_citation_latched: false,
             jake_zone_grace_used: HashSet::new(),
             jake_zone_notice: Default::default(),
+            touch_clutch: Default::default(),
             pull_over: None,
             pull_over_start_mi: 0.0,
             pull_over_signaled: false,
