@@ -5,6 +5,7 @@ use crate::app::GameContext;
 use crate::bindings::Action;
 use crate::states::base::{InputEvent, Key, State};
 use crate::states::main_menu::ShortcutDevice;
+use crate::touch::Gesture;
 
 /// Control names in the page text are `{{id}}` placeholders (`{{engine}}`,
 /// `{{pad:fuel}}`, `{{key:horn}}`) resolved at render time against the
@@ -411,6 +412,7 @@ impl Default for HelpState {
 impl State for HelpState {
     fn enter(&mut self, ctx: &mut GameContext) {
         let controls = match ctx.controller.device() {
+            ff_core::input_hints::TOUCH => "Flick right or left to read one line at a time. Flick up for the next page and down for the previous one. Double tap reads the whole page, and a flick down with two fingers goes back.",
             ff_core::input_hints::CONTROLLER => "D-pad Left and Right change pages, Up and Down read one line at a time. A reads the whole page, Back stops speech, and B goes back.",
             _ => "Left and Right arrows or Page Up and Page Down change pages. Up and Down read one line at a time. Enter or Space reads the whole page, either Control or F1 stops speech, and Escape goes back.",
         };
@@ -453,6 +455,19 @@ impl State for HelpState {
             }
             _ => {}
         }
+    }
+
+    /// A tap reads the current line again.
+    fn handle_gesture(&mut self, ctx: &mut GameContext, gesture: Gesture) -> bool {
+        if gesture != Gesture::Tap {
+            return false;
+        }
+        let (_, lines) = help_page(ctx, self.page);
+        match usize::try_from(self.line).ok().and_then(|i| lines.get(i)) {
+            Some(line) => ctx.say(line),
+            None => ctx.say(&self.page_title()),
+        }
+        true
     }
 
     fn lines(&self, ctx: &GameContext) -> Vec<String> {

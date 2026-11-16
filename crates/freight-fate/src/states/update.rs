@@ -16,6 +16,7 @@ use ff_core::settings::Settings;
 use crate::app::{version, GameContext, Say};
 use crate::impl_state_for_menu;
 use crate::states::base::{InputEvent, Key, Menu, MenuCore, MenuItem, State};
+use crate::touch::Gesture;
 use crate::updater::{self, DownloadError, Install, Phase, Staged, UpdateInfo};
 
 /// Background release check; poll [`UpdateChecker::is_done`] from the main
@@ -318,12 +319,35 @@ impl WhatsNewState {
 
 impl State for WhatsNewState {
     fn enter(&mut self, ctx: &mut GameContext) {
+        if ctx.touch_hints() {
+            ctx.say(&format!(
+                "What's new in {}. {} lines. Flick right or left to read line by line. Double \
+                 tap reads everything, and a flick down with two fingers goes back.",
+                self.info.title,
+                self.notes.len()
+            ));
+            return;
+        }
         ctx.say(&format!(
             "What's new in {}. {} lines. Up and Down arrows read line \
              by line, Enter reads everything, Escape goes back.",
             self.info.title,
             self.notes.len()
         ));
+    }
+
+    /// A tap reads the current line again.
+    fn handle_gesture(&mut self, ctx: &mut GameContext, gesture: Gesture) -> bool {
+        if gesture != Gesture::Tap {
+            return false;
+        }
+        if let Some(line) = usize::try_from(self.line)
+            .ok()
+            .and_then(|i| self.notes.get(i))
+        {
+            ctx.say(line);
+        }
+        true
     }
 
     fn handle_event(&mut self, ctx: &mut GameContext, event: &InputEvent) {
@@ -785,11 +809,19 @@ impl State for UpdateDownloadState {
         let size = megabytes(&self.info)
             .map(|mb| format!(", {mb}"))
             .unwrap_or_default();
-        ctx.say(&format!(
-            "Downloading {}{size}. The game restarts when the download \
-             finishes. Escape cancels.",
-            self.info.title
-        ));
+        if ctx.touch_hints() {
+            ctx.say(&format!(
+                "Downloading {}{size}. The game restarts when the download \
+                 finishes. Flick down with two fingers to cancel.",
+                self.info.title
+            ));
+        } else {
+            ctx.say(&format!(
+                "Downloading {}{size}. The game restarts when the download \
+                 finishes. Escape cancels.",
+                self.info.title
+            ));
+        }
         self.started = true;
         let info = self.info.clone();
         let install = self.install.clone();

@@ -74,6 +74,10 @@ const JOB_DETAIL_INTRO_HELP: &str =
     "Up and down review the lines, Home and End jump to the ends. Enter repeats a line, or \
      accepts on Accept this dispatch. Escape returns to the dispatch board.";
 
+const JOB_DETAIL_TOUCH_HELP: &str =
+    "Flick right or left to review the lines, and flick up or down with three fingers to jump to \
+     the ends. Flick down with two fingers to return to the dispatch board.";
+
 pub struct JobDetailState {
     menu: MenuCore<Self>,
     /// The board this job came from, for `Accept this dispatch`.
@@ -86,7 +90,9 @@ impl JobDetailState {
     /// `job_index` is the job's position on its board.
     pub fn new(board: SharedState, job: Job, job_index: usize) -> Self {
         JobDetailState {
-            menu: MenuCore::new("Job details").with_intro_help(JOB_DETAIL_INTRO_HELP),
+            menu: MenuCore::new("Job details")
+                .with_intro_help(JOB_DETAIL_INTRO_HELP)
+                .with_touch_help(JOB_DETAIL_TOUCH_HELP),
             board,
             job,
             job_index,
@@ -214,6 +220,12 @@ impl Menu for JobDetailState {
     }
 
     fn current_help(&self, ctx: &GameContext) -> String {
+        if ctx.touch_hints() {
+            return format!(
+                "{JOB_DETAIL_TOUCH_HELP} {}",
+                base_menu_current_help(self, ctx)
+            );
+        }
         format!(
             "{JOB_DETAIL_INTRO_HELP} {}",
             base_menu_current_help(self, ctx)
@@ -229,13 +241,20 @@ impl Menu for JobDetailState {
             .map(|line| {
                 // The pay line's help says what the listed amount is, which
                 // the board's entry line no longer explains.
-                let help = if !self.job.bobtail && line.starts_with(&pay_line) {
+                let pay = !self.job.bobtail && line.starts_with(&pay_line);
+                let help = if pay {
                     pay_basis_note(&status)
                 } else {
                     "Enter repeats this line."
                 };
                 let spoken = line.clone();
-                MenuItem::new(line, move |_s: &mut Self, ctx| ctx.say(&spoken)).help(help)
+                let item =
+                    MenuItem::new(line, move |_s: &mut Self, ctx| ctx.say(&spoken)).help(help);
+                if pay {
+                    item
+                } else {
+                    item.touch_help("Double tap repeats this line.")
+                }
             })
             .collect();
         let locked = locked_reason(profile(ctx), &self.job);

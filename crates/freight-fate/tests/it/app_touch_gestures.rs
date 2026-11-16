@@ -7,7 +7,7 @@ use ff_core::sim::weather::WeatherKind;
 
 use freight_fate::bindings::{Action, Chord, TouchCommand};
 use freight_fate::playtest::harness::{PlaytestHarness, StartDelivery};
-use freight_fate::states::base::{InputEvent, Key, Mods};
+use freight_fate::states::base::{InputEvent, Key};
 use freight_fate::states::driving::DrivingState;
 use freight_fate::states::driving_menu_states::DrivingCommandsState;
 use freight_fate::states::driving_pause_states::PauseMenuState;
@@ -184,6 +184,9 @@ fn magic_tap_pauses_the_drive() {
     let mut input = TouchInput::new();
     touch(&mut harness, &mut input, Gesture::MagicTap);
     assert!(harness.state_is::<PauseMenuState>());
+    // The pause menu answers it by resuming.
+    touch(&mut harness, &mut input, Gesture::MagicTap);
+    assert!(harness.state_is::<DrivingState>());
 }
 
 #[test]
@@ -306,7 +309,6 @@ fn gas_hold_swipe_left_changes_lanes_with_full_lane_keeping() {
 fn single_gestures_run_their_default_commands() {
     for (gesture, action) in [
         (Gesture::Tap, Action::Speed),
-        (Gesture::TwoFingerTap, Action::Status),
         (Gesture::ThreeFingerSwipeUp, Action::Route),
     ] {
         let (expected, _) = by_key("Touch Single Key", |h| rolling(h, 30.0), action, |_| ());
@@ -368,27 +370,21 @@ fn off_the_road_a_gesture_is_still_its_key() {
     harness.app.push_state(TouchGesturesState::new());
     harness.clear_speech();
     let mut input = TouchInput::new();
-    // Magic tap is Space on a menu, not the pause menu.
+    // Magic tap reaches the menu as itself, and presses no key there.
     let events = input.handle(Gesture::MagicTap).events;
     assert_eq!(events, vec![InputEvent::Gesture(Gesture::MagicTap)]);
-    let keys = Gesture::MagicTap.key_events();
-    assert!(matches!(
-        keys.first(),
-        Some(InputEvent::KeyDown {
-            key: Key::Space,
-            mods: Mods::NONE,
-            ..
-        })
-    ));
     let first = harness.focused_label();
-    touch(&mut harness, &mut input, Gesture::SwipeDown);
+    touch(&mut harness, &mut input, Gesture::MagicTap);
+    assert!(harness.state_is::<TouchGesturesState>());
+    assert_eq!(harness.focused_label(), first);
+    touch(&mut harness, &mut input, Gesture::SwipeRight);
     assert!(harness.state_is::<TouchGesturesState>());
     assert_ne!(
         harness.focused_label(),
         first,
-        "swipe down is Down on a menu"
+        "flick right is Down on a menu"
     );
-    touch(&mut harness, &mut input, Gesture::SwipeUp);
+    touch(&mut harness, &mut input, Gesture::SwipeLeft);
     assert_eq!(harness.focused_label(), first);
 }
 
@@ -562,7 +558,7 @@ fn a_still_hold_straightens_the_wheel_until_it_lifts() {
 }
 
 #[test]
-fn a_second_finger_shift_flick_in_automatic_says_the_gear() {
+fn a_second_finger_shift_flick_in_automatic_does_nothing_and_says_nothing() {
     let mut harness = a_drive("Touch Automatic Gear");
     rolling(&mut harness, 30.0);
     harness.with_drive(|drive, _| drive.trip.truck.transmission.automatic = true);
@@ -570,18 +566,15 @@ fn a_second_finger_shift_flick_in_automatic_says_the_gear() {
     let mut input = TouchInput::new();
     touch(&mut harness, &mut input, Gesture::HoldUpperBegan);
     harness.clear_speech();
-    touch(&mut harness, &mut input, Gesture::UpperHoldSwipeUp);
-    assert!(said(&harness, "automatic"), "{:?}", harness.transcript());
+    for gesture in [Gesture::UpperHoldSwipeUp, Gesture::UpperHoldSwipeDown] {
+        touch(&mut harness, &mut input, gesture);
+    }
+    assert!(
+        harness.transcript().is_empty(),
+        "{:?}",
+        harness.transcript()
+    );
     assert_eq!(harness.with_drive(|drive, _| drive.gear_text()), before);
-}
-
-#[test]
-fn cruise_flicks_resume_and_set_with_cruise_off() {
-    let mut harness = a_drive("Touch Cruise Flicks");
-    rolling(&mut harness, 45.0);
-    assert!(!speed_control_on(&mut harness));
-    harness.app.dispatch_gesture(Gesture::SwipeDown);
-    assert!(speed_control_on(&mut harness), "{:?}", harness.transcript());
 }
 
 #[test]

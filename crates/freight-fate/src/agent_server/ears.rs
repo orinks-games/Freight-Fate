@@ -100,13 +100,27 @@ impl SpeechSink for TeeSpeech {
             .push(format!("[spoken:event]{cut} {text}"));
         self.inner.say_event(text, interrupt);
     }
+    // A stop is heard as the line cutting off, so the ears note it: the
+    // touch two-finger tap and Control have nothing else to show.
     fn stop_main(&mut self) {
+        self.ears
+            .borrow_mut()
+            .lines
+            .push("[speech stopped] main".to_string());
         self.inner.stop_main();
     }
     fn stop_event(&mut self) {
+        self.ears
+            .borrow_mut()
+            .lines
+            .push("[speech stopped] event".to_string());
         self.inner.stop_event();
     }
     fn stop(&mut self) {
+        self.ears
+            .borrow_mut()
+            .lines
+            .push("[speech stopped] both".to_string());
         self.inner.stop();
     }
     fn poll(&mut self, dt: f64) {

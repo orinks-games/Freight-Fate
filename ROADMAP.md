@@ -1486,6 +1486,57 @@ Everything found before 2026-09-25 moved to
       Settings, Gameplay, Controls, Touch gestures: a second finger while holding a
       pedal (cruise, shifts, parking brake, engine), plus tap for speed,
       swipes for the cruise target, magic tap to pause (2026-09-29).
+- [x] iOS wheel fixes, step 1 of the iPhone gesture plan (2026-11-16):
+      every screen reports a touch mode (`TouchMode` in `ff-core`) and one
+      route table maps each gesture per mode, so a Driving School lesson is
+      the wheel too. With cruise off, flick up turns cruise on and flick
+      down does nothing; a two-finger turn left stops the engine only under
+      `touch_parking_brake_mph`; double tap answers the road (`RoadOffer`:
+      exit, pull-over, arrival); two-finger tap stops speech everywhere and
+      the Status menu is the first row of the three-finger tap list; exit
+      prompts on touch say "Double tap to signal", and the exit hint follows
+      the device mid-drive. The agent server's
+      `gesture` tool sends gestures by name, and `status` reports the touch
+      mode and road offer. Nothing was tried on a phone.
+- [x] iOS menus like VoiceOver, step 2 of the iPhone gesture plan
+      (2026-11-16): in a menu, flick right and left move and flick up and
+      down change a value (VoiceOver's adjustable swipes still move, for
+      direct touch off); a tap reads the focused row again; the two-finger
+      double tap resumes from the pause menu and does nothing in other menus
+      or name fields; a tap, magic tap and the message flicks no longer type
+      into a name field; a three-finger tap reads the route picker's weather;
+      the three-finger hold is gone; the touch surface recognises the
+      two-finger scrub itself, and the message flicks wait for it to fail.
+      Menu help, row help and prompts that named keys have touch sentences
+      (`MenuCore::with_touch_help`, `MenuItem::touch_help`), picked when
+      spoken. The scrub and the message flicks after it are untested on a
+      phone.
+- [x] iOS driving command list in groups and a touch clutch, step 3 of the
+      iPhone gesture plan (2026-11-16): F2, the controller's Driving commands
+      row and the three-finger tap open the same eleven-row list in a fixed
+      order, Status menu first, with seven groups that open in place and
+      return to their own row. Radio volume and Radio category change in
+      place. A manual shift asked for by touch works the clutch itself
+      (`ff_core::sim::touch_clutch::TouchClutch`, reported by `status`), and
+      the touch engine start after a stall in gear takes neutral first.
+      Nothing was tried on a phone.
+- [ ] (Found along the way) iPhone gesture plan steps 4 and 5: touch
+      sentences for the wheel prompts that say "Press {gesture}", the parking
+      brake prompts and the brake-hold slot trim; then the stroke recogniser
+      moved into `ff-core` with the deep swipe threshold measured on a phone.
+- [ ] (Found along the way) Cleanup: menu intro help is spoken only when a
+      menu has no rows, and on job and stop details, which lead with it. The
+      help key and gesture keep reading the row's own help. The keyboard
+      intro strings that are never spoken can be deleted; touch ones were
+      added only where they are heard.
+- [ ] (Found along the way) Keys on menu screens no gesture reaches: the
+      message category jumps ([ and ]), the first and last message (Control
+      Comma and Period), copying the message in review (Control C), and
+      first-letter jumps.
+- [ ] (Found along the way) Touch prompt rewrite: the parking brake prompts
+      name the brake-hold tap, though gas already releases the brake and a
+      deep swipe at a stop sets it. Once the prompts say so, the brake-hold
+      tap and double tap can default to nothing.
 - [ ] (Found along the way) The iOS second-finger gestures (hold a pedal,
       then tap, double tap or swipe with another finger) need a pass on real
       hardware: the Simulator's touch replay lifts both fingers together, so

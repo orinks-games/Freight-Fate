@@ -103,9 +103,12 @@ impl DrivingState {
     pub fn refresh_exit_hint(&mut self, ctx: &mut GameContext) {
         self.trip.exit_hint = if self.instruction_retired(ctx, "take_exit") {
             String::new()
+        } else if ctx.touch_hints() {
+            ff_core::speech_text::TOUCH_EXIT_HINT.to_string()
         } else {
             ctx.control_hint("take_exit")
         };
+        self.exit_hint_device = ctx.controller.device();
     }
 
     /// `_engine_entry_instruction()`.

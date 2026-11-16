@@ -421,7 +421,8 @@ impl Menu for CloudBackupState {
                     MenuItem::new(bits.join(". "), move |s: &mut Self, ctx| {
                         s.open_slot(ctx, &entry)
                     })
-                    .help("Enter opens restore choices for this career."),
+                    .help("Enter opens restore choices for this career.")
+                    .touch_help("Double tap opens restore choices for this career."),
                 );
             }
         }

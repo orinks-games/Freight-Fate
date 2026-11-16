@@ -146,6 +146,7 @@ impl DrivingState {
     pub(crate) fn run_key_action(&mut self, ctx: &mut GameContext, action: Action) {
         let automatic = self.trip.truck.transmission.automatic;
         match action {
+            Action::Engine if ctx.touch_hints() => self.touch_toggle_engine(ctx),
             Action::Engine => self.toggle_engine(ctx),
             Action::Neutral => {
                 if automatic {

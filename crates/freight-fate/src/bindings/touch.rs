@@ -2,11 +2,13 @@
 //!
 //! A gesture here is a slot holding one command, the way a pad button holds
 //! one action, so a direct gesture replaces the trip through the command
-//! list. The gestures that are not slots keep their keys at the wheel: the
-//! pedal holds, the steering swipes, double tap for Enter, two-finger swipes
-//! for pause, help and message review, the three-finger radio dial, the
-//! command list and the on-screen keyboard. The settings file stores only
-//! the slots the player changed (`tap=fuel;magic_tap=none`).
+//! list. The gestures that are not slots keep their meaning at the wheel:
+//! the pedal holds, the steering swipes, double tap for whatever the road is
+//! asking, two-finger tap to stop speech, two-finger swipes for pause, help
+//! and message review, the three-finger radio dial, the command list and the
+//! on-screen keyboard. The settings file stores only the slots the player
+//! changed (`tap=fuel;magic_tap=none`); an entry for a gesture that is no
+//! longer a slot is ignored on load.
 
 use std::collections::HashMap;
 
@@ -86,12 +88,6 @@ const SLOTS: &[(Gesture, &str, &str, TouchCommand)] = &[
         run(Action::CruiseDown),
     ),
     (
-        Gesture::TwoFingerTap,
-        "two_finger_tap",
-        "Two-finger tap",
-        run(Action::Status),
-    ),
-    (
         Gesture::MagicTap,
         "magic_tap",
         "Two-finger double tap",
@@ -100,13 +96,13 @@ const SLOTS: &[(Gesture, &str, &str, TouchCommand)] = &[
     (
         Gesture::ThreeFingerSwipeUp,
         "three_finger_swipe_up",
-        "Three-finger swipe up",
+        "Three-finger flick up",
         run(Action::Route),
     ),
     (
         Gesture::ThreeFingerSwipeDown,
         "three_finger_swipe_down",
-        "Three-finger swipe down",
+        "Three-finger flick down",
         run(Action::Upcoming),
     ),
     (
@@ -232,10 +228,9 @@ pub fn touch_gesture_noun(gesture: Gesture) -> Option<String> {
         Gesture::Tap => plain("a tap"),
         Gesture::SwipeUp => plain("a flick up"),
         Gesture::SwipeDown => plain("a flick down"),
-        Gesture::TwoFingerTap => plain("a two-finger tap"),
         Gesture::MagicTap => plain("a two-finger double tap"),
-        Gesture::ThreeFingerSwipeUp => plain("a three-finger swipe up"),
-        Gesture::ThreeFingerSwipeDown => plain("a three-finger swipe down"),
+        Gesture::ThreeFingerSwipeUp => plain("a three-finger flick up"),
+        Gesture::ThreeFingerSwipeDown => plain("a three-finger flick down"),
         Gesture::UpperHoldTap => held("gas", "tap"),
         Gesture::UpperHoldDoubleTap => held("gas", "double tap"),
         Gesture::UpperHoldSwipeUp => held("gas", "flick up"),
@@ -257,28 +252,39 @@ impl KeyBindings {
     /// the first gesture it is on, else the fixed pedal and steering
     /// gestures, else its row on the driving command list.
     pub fn touch_noun(&self, action: Action) -> String {
+        self.touch_gesture_for(action)
+            .unwrap_or_else(|| format!("{} from the three-finger tap list", action.label()))
+    }
+
+    /// The gesture that runs `action` at the wheel, as a noun; `None` when
+    /// only the driving command list has it.
+    pub fn touch_gesture_for(&self, action: Action) -> Option<String> {
         if action == Action::Engine {
-            return "a two-finger turn to the right".to_string();
+            return Some("a two-finger turn to the right".to_string());
         }
         let on_gesture = SLOTS
             .iter()
             .map(|(gesture, ..)| *gesture)
             .find(|gesture| self.touch_command(*gesture) == Some(TouchCommand::Action(action)))
             .and_then(touch_gesture_noun);
-        if let Some(noun) = on_gesture {
-            return noun;
+        if on_gesture.is_some() {
+            return on_gesture;
         }
-        match action {
-            Action::Accelerate => "a swipe up and hold".to_string(),
-            Action::Brake => "a swipe down and hold".to_string(),
-            Action::EmergencyBrake => "a deep swipe down".to_string(),
-            Action::Horn => "a two-finger hold".to_string(),
-            Action::SteerLeft => "a flick left".to_string(),
-            Action::SteerRight => "a flick right".to_string(),
-            Action::Straighten => "a still hold for half a second".to_string(),
-            Action::TakeExit => "the exit command from the three-finger tap list".to_string(),
-            other => format!("{} from the three-finger tap list", other.label()),
-        }
+        Some(
+            match action {
+                Action::Accelerate => "a swipe up and hold",
+                Action::Brake => "a swipe down and hold",
+                Action::EmergencyBrake => "a deep swipe down",
+                Action::Horn => "a two-finger hold",
+                Action::SteerLeft => "a flick left",
+                Action::SteerRight => "a flick right",
+                Action::Straighten => "a still hold for half a second",
+                Action::TakeExit => "a double tap",
+                Action::Status => "a three-finger tap then a double tap",
+                _ => return None,
+            }
+            .to_string(),
+        )
     }
 
     /// The touch phrase for a `control_hint` action id; `None` leaves the
@@ -350,7 +356,11 @@ mod tests {
         assert_eq!(b.hint_touch_phrase("accelerate"), None);
         assert_eq!(
             b.hint_touch_phrase("take_exit").as_deref(),
-            Some("the exit command from the three-finger tap list")
+            Some("a double tap")
+        );
+        assert_eq!(
+            b.hint_touch_phrase("status_menu").as_deref(),
+            Some("a three-finger tap then a double tap")
         );
         assert_eq!(
             b.touch_noun(Action::Rest),
@@ -386,7 +396,6 @@ mod tests {
         assert_eq!(on(Gesture::MagicTap), Some(TouchCommand::Pause));
         assert_eq!(on(Gesture::Tap), Some(run(Action::Speed)));
         assert_eq!(on(Gesture::SwipeUp), Some(run(Action::CruiseUp)));
-        assert_eq!(on(Gesture::TwoFingerTap), Some(run(Action::Status)));
     }
 
     #[test]
@@ -394,6 +403,7 @@ mod tests {
         let b = KeyBindings::default();
         for gesture in [
             Gesture::DoubleTap,
+            Gesture::TwoFingerTap,
             Gesture::SwipeLeft,
             Gesture::SwipeRight,
             Gesture::TwoFingerSwipeDown,
@@ -457,10 +467,9 @@ mod tests {
             b.touch_command(Gesture::SwipeUp),
             Some(run(Action::CruiseUp))
         );
-        assert_eq!(
-            b.touch_command(Gesture::TwoFingerTap),
-            Some(run(Action::Fuel))
-        );
+        // Two-finger tap stops speech now; its old slot entry is dropped.
+        assert_eq!(b.touch_command(Gesture::TwoFingerTap), None);
+        assert!(b.is_default());
     }
 
     #[test]
