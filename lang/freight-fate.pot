@@ -7197,7 +7197,7 @@ msgstr ""
 msgid "a two-finger turn to the right"
 msgstr ""
 
-#: crates/ff-core/src/input_hints.rs crates/freight-fate/src/bindings/touch.rs
+#: crates/ff-core/src/input_hints.rs crates/ff-core/src/speech_text.rs crates/freight-fate/src/bindings/touch.rs
 msgid "a double tap"
 msgstr ""
 
@@ -17469,6 +17469,24 @@ msgstr ""
 msgid "No truck parking."
 msgstr ""
 
+#: crates/ff-core/src/speech_text.rs
+msgid "Double tap to signal for the exit."
+msgstr ""
+
+#. placeholders: {exit_hint}
+#: crates/ff-core/src/speech_text.rs
+msgid "Press {exit_hint} to signal for the exit."
+msgstr ""
+
+#: crates/ff-core/src/speech_text.rs
+msgid "Double tap to signal."
+msgstr ""
+
+#. placeholders: {exit_hint}
+#: crates/ff-core/src/speech_text.rs
+msgid "Press {exit_hint} to signal."
+msgstr ""
+
 #. placeholders: {exit_label}
 #: crates/ff-core/src/speech_text.rs crates/freight-fate/src/states/driving_events/stops.rs
 msgid " at {exit_label}"
@@ -17487,14 +17505,14 @@ msgstr ""
 msgid "No fuel."
 msgstr ""
 
-#. placeholders: {exit_hint}
+#. placeholders: {terse}
 #: crates/ff-core/src/speech_text.rs
-msgid "Press {exit_hint} to signal for the exit."
+msgid "{terse} No fuel."
 msgstr ""
 
 #. placeholders: {terse}
 #: crates/ff-core/src/speech_text.rs
-msgid "{terse} No fuel."
+msgid "{terse} Double tap to signal."
 msgstr ""
 
 #. placeholders: {terse}, {exit_hint}
@@ -18723,7 +18741,7 @@ msgid "a still hold for half a second"
 msgstr ""
 
 #: crates/freight-fate/src/bindings/touch.rs
-msgid "the first row of the three-finger tap list"
+msgid "a three-finger tap then a double tap"
 msgstr ""
 
 #. placeholders: {label}
@@ -25562,21 +25580,19 @@ msgstr ""
 #: crates/freight-fate/src/states/driving_controls/help.rs
 msgid ""
 "Hold one finger still for half a second to straighten the wheel. With "
-"cruise off, flick up to turn it on at the last speed you set, or at this "
-"speed the first time. Double tap takes an exit or pulls over when the road "
-"calls for one, and confirms arrival at the gate. Two-finger tap stops "
-"speech. Turn two fingers right like a key to start the engine, and left to "
-"stop it once the truck is stopped. Hold two fingers for the horn. Turning "
-"them cancels it. While holding a pedal, a second finger's flicks and holds "
-"work the same way. "
+"cruise off, flick up to turn it on. Double tap to take an exit, pull over, "
+"or confirm arrival at a gate. Tap with two fingers to stop speech. Turn two "
+"fingers right like a key to start the engine, and left to stop it once the "
+"truck has stopped. Hold two fingers for the horn. While holding a pedal, a "
+"second finger's flicks and holds work the same way. "
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_controls/help.rs
 msgid ""
 "Two-finger swipe down pauses, two-finger swipe up is this help, two-finger "
 "swipes left and right review messages, and three-finger swipes left and "
-"right tune the radio. A three-finger tap lists every driving command, with "
-"Status first: swipe to one and double tap to run it. "
+"right tune the radio. A three-finger tap lists every driving command, "
+"Status menu first. Flick to one and double tap to run it. "
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_controls/help.rs
@@ -28497,6 +28513,10 @@ msgstr ""
 msgid "Destination exit ahead again. Signal for it."
 msgstr ""
 
+#: crates/freight-fate/src/states/driving_events/arrival.rs
+msgid "Destination exit ahead again. Double tap to signal."
+msgstr ""
+
 #. placeholders: {control_hint}
 #: crates/freight-fate/src/states/driving_events/arrival.rs
 msgid "Destination exit ahead again. Press {control_hint} to signal."
@@ -28515,6 +28535,12 @@ msgstr ""
 #: crates/freight-fate/src/states/driving_events/arrival.rs
 msgid ""
 "You turned around, and the destination exit is ahead again. Signal for it."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_events/arrival.rs
+msgid ""
+"You turned around, and the destination exit is ahead again. Double tap to "
+"signal for it."
 msgstr ""
 
 #. placeholders: {control_hint}
@@ -29442,6 +29468,21 @@ msgstr ""
 msgid "No route exit to signal for yet."
 msgstr ""
 
+#. placeholders: {stays}
+#: crates/freight-fate/src/states/driving_events/exits.rs
+msgid "Signal stays {stays}."
+msgstr ""
+
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_events/exits.rs
+msgid "Double tap again to cancel the exit."
+msgstr ""
+
+#. placeholders: {stays}
+#: crates/freight-fate/src/states/driving_events/exits.rs
+msgid "Signal stays {stays}. Double tap again to cancel the exit."
+msgstr ""
+
 #. placeholders: {control_hint}
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/driving_events/exits.rs
@@ -29451,11 +29492,6 @@ msgstr ""
 #. placeholders: {stays}, {control_hint}
 #: crates/freight-fate/src/states/driving_events/exits.rs
 msgid "Signal stays {stays}. Press {control_hint} again to cancel the exit."
-msgstr ""
-
-#. placeholders: {stays}
-#: crates/freight-fate/src/states/driving_events/exits.rs
-msgid "Signal stays {stays}."
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_events/exits.rs
@@ -29546,11 +29582,6 @@ msgstr ""
 
 #: crates/freight-fate/src/states/driving_events/exits.rs
 msgid "Signal for it."
-msgstr ""
-
-#. placeholders: {exit_hint}
-#: crates/freight-fate/src/states/driving_events/exits.rs
-msgid "Press {exit_hint} to signal."
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_events/gate_stop.rs
@@ -30226,18 +30257,13 @@ msgstr ""
 msgid "Fuel range only {range_text}."
 msgstr ""
 
-#. placeholders: {hint}
-#: crates/freight-fate/src/states/driving_events/stop_plan.rs
-msgid " Press {hint} to signal for the exit."
-msgstr ""
-
-#. placeholders: {hint}
-#: crates/freight-fate/src/states/driving_events/stop_plan.rs
-msgid " Press {hint} to signal."
+#: crates/freight-fate/src/states/driving_events/stops.rs
+msgid "Rest-stop planning unavailable during a police stop."
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_events/stops.rs
-msgid "Rest-stop planning unavailable during a police stop."
+msgid ""
+"Resolve the police stop first. Double tap to signal the trooper stop."
 msgstr ""
 
 #. placeholders: {exit_hint}
@@ -40758,7 +40784,7 @@ msgid "Two-finger turn right: start the engine."
 msgstr ""
 
 #: crates/freight-fate/src/states/main_menu/touch_practice.rs
-msgid "Two-finger turn left: stop the engine, once the truck is stopped."
+msgid "Two-finger turn left: stop the engine when the truck is stopped."
 msgstr ""
 
 #: crates/freight-fate/src/states/main_menu/touch_practice.rs

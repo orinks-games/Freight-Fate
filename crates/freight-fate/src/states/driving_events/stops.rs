@@ -39,7 +39,9 @@ impl DrivingState {
         let exit_hint = ctx.control_hint("take_exit");
         if self.pull_over.is_some() {
             self.set_status("Rest-stop planning unavailable during a police stop.");
-            let message = if self.driving_hints(ctx) {
+            let message = if self.driving_hints(ctx) && ctx.touch_hints() {
+                "Resolve the police stop first. Double tap to signal the trooper stop.".to_string()
+            } else if self.driving_hints(ctx) {
                 format!(
                     "Resolve the police stop first. Press {exit_hint} to signal the trooper stop."
                 )

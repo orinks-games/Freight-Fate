@@ -248,6 +248,8 @@ impl DrivingState {
                 "Destination exit ahead again.".to_string()
             } else if !self.driving_hints(ctx) {
                 "Destination exit ahead again. Signal for it.".to_string()
+            } else if ctx.touch_hints() {
+                "Destination exit ahead again. Double tap to signal.".to_string()
             } else {
                 format!(
                     "Destination exit ahead again. Press {} to signal.",
@@ -264,6 +266,10 @@ impl DrivingState {
             "You turned around, and the destination exit is ahead again.".to_string()
         } else if !self.driving_hints(ctx) {
             "You turned around, and the destination exit is ahead again. Signal for it.".to_string()
+        } else if ctx.touch_hints() {
+            "You turned around, and the destination exit is ahead again. Double tap to signal \
+             for it."
+                .to_string()
         } else {
             format!(
                 "You turned around, and the destination exit is ahead again. Press {} to signal \

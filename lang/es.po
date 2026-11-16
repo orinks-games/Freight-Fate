@@ -15487,6 +15487,20 @@ msgstr "Aparcamiento sin verificar."
 msgid "No truck parking."
 msgstr "Sin aparcamiento para camiones."
 
+msgid "Double tap to signal for the exit."
+msgstr ""
+
+#. placeholders: {exit_hint}
+msgid "Press {exit_hint} to signal for the exit."
+msgstr "Pulsa {exit_hint} para señalizar la salida."
+
+msgid "Double tap to signal."
+msgstr ""
+
+#. placeholders: {exit_hint}
+msgid "Press {exit_hint} to signal."
+msgstr "Pulsa {exit_hint} para señalizar."
+
 #. placeholders: {exit_label}
 msgid " at {exit_label}"
 msgstr " en {exit_label}"
@@ -15501,12 +15515,12 @@ msgstr ""
 msgid "No fuel."
 msgstr ""
 
-#. placeholders: {exit_hint}
-msgid "Press {exit_hint} to signal for the exit."
-msgstr "Pulsa {exit_hint} para señalizar la salida."
-
 #. placeholders: {terse}
 msgid "{terse} No fuel."
+msgstr ""
+
+#. placeholders: {terse}
+msgid "{terse} Double tap to signal."
 msgstr ""
 
 #. placeholders: {terse}, {exit_hint}
@@ -16510,7 +16524,7 @@ msgstr "un deslizamiento a la derecha"
 msgid "a still hold for half a second"
 msgstr "mantener quieto medio segundo"
 
-msgid "the first row of the three-finger tap list"
+msgid "a three-finger tap then a double tap"
 msgstr ""
 
 #. placeholders: {label}
@@ -22815,20 +22829,18 @@ msgstr ""
 
 msgid ""
 "Hold one finger still for half a second to straighten the wheel. With "
-"cruise off, flick up to turn it on at the last speed you set, or at this "
-"speed the first time. Double tap takes an exit or pulls over when the road "
-"calls for one, and confirms arrival at the gate. Two-finger tap stops "
-"speech. Turn two fingers right like a key to start the engine, and left to "
-"stop it once the truck is stopped. Hold two fingers for the horn. Turning "
-"them cancels it. While holding a pedal, a second finger's flicks and holds "
-"work the same way. "
+"cruise off, flick up to turn it on. Double tap to take an exit, pull over, "
+"or confirm arrival at a gate. Tap with two fingers to stop speech. Turn two "
+"fingers right like a key to start the engine, and left to stop it once the "
+"truck has stopped. Hold two fingers for the horn. While holding a pedal, a "
+"second finger's flicks and holds work the same way. "
 msgstr ""
 
 msgid ""
 "Two-finger swipe down pauses, two-finger swipe up is this help, two-finger "
 "swipes left and right review messages, and three-finger swipes left and "
-"right tune the radio. A three-finger tap lists every driving command, with "
-"Status first: swipe to one and double tap to run it. "
+"right tune the radio. A three-finger tap lists every driving command, "
+"Status menu first. Flick to one and double tap to run it. "
 msgstr ""
 
 msgid ""
@@ -25437,6 +25449,9 @@ msgstr "La salida de destino vuelve a estar delante."
 msgid "Destination exit ahead again. Signal for it."
 msgstr "La salida de destino vuelve a estar delante. Señalízala."
 
+msgid "Destination exit ahead again. Double tap to signal."
+msgstr ""
+
 #. placeholders: {control_hint}
 msgid "Destination exit ahead again. Press {control_hint} to signal."
 msgstr ""
@@ -25455,6 +25470,11 @@ msgid ""
 "You turned around, and the destination exit is ahead again. Signal for it."
 msgstr ""
 "Diste la vuelta y la salida de destino vuelve a estar delante. Señalízala."
+
+msgid ""
+"You turned around, and the destination exit is ahead again. Double tap to "
+"signal for it."
+msgstr ""
 
 #. placeholders: {control_hint}
 #. one sentence of a longer line
@@ -26227,6 +26247,18 @@ msgstr "Ya estás en la rampa de salida."
 msgid "No route exit to signal for yet."
 msgstr "Todavía no hay ninguna salida de la ruta que señalizar."
 
+#. placeholders: {stays}
+msgid "Signal stays {stays}."
+msgstr "El intermitente sigue {stays}."
+
+#. one sentence of a longer line
+msgid "Double tap again to cancel the exit."
+msgstr ""
+
+#. placeholders: {stays}
+msgid "Signal stays {stays}. Double tap again to cancel the exit."
+msgstr ""
+
 #. placeholders: {control_hint}
 #. one sentence of a longer line
 msgid "Press {control_hint} again to cancel the exit."
@@ -26237,10 +26269,6 @@ msgid "Signal stays {stays}. Press {control_hint} again to cancel the exit."
 msgstr ""
 "El intermitente sigue {stays}. Pulsa {control_hint} otra vez para cancelar "
 "la salida."
-
-#. placeholders: {stays}
-msgid "Signal stays {stays}."
-msgstr "El intermitente sigue {stays}."
 
 msgid "Signal canceled."
 msgstr "Intermitente cancelado."
@@ -26311,10 +26339,6 @@ msgstr "Reduciendo.{lane_text}"
 
 msgid "Signal for it."
 msgstr "Señalízala."
-
-#. placeholders: {exit_hint}
-msgid "Press {exit_hint} to signal."
-msgstr "Pulsa {exit_hint} para señalizar."
 
 msgid "Set the parking brake to check in."
 msgstr ""
@@ -26885,17 +26909,13 @@ msgstr "{name2} también está más adelante."
 msgid "Fuel range only {range_text}."
 msgstr "Autonomía de solo {range_text}."
 
-#. placeholders: {hint}
-msgid " Press {hint} to signal for the exit."
-msgstr ""
-
-#. placeholders: {hint}
-msgid " Press {hint} to signal."
-msgstr ""
-
 msgid "Rest-stop planning unavailable during a police stop."
 msgstr ""
 "No puedes planificar paradas de descanso durante un control policial."
+
+msgid ""
+"Resolve the police stop first. Double tap to signal the trooper stop."
+msgstr ""
 
 #. placeholders: {exit_hint}
 #. one sentence of a longer line
@@ -36514,7 +36534,7 @@ msgstr "Mantener con dos dedos: bocina."
 msgid "Two-finger turn right: start the engine."
 msgstr "Girar dos dedos a la derecha: arrancar el motor."
 
-msgid "Two-finger turn left: stop the engine, once the truck is stopped."
+msgid "Two-finger turn left: stop the engine when the truck is stopped."
 msgstr ""
 
 msgid "Second finger, hold left: steer left."

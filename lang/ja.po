@@ -13990,6 +13990,20 @@ msgstr "駐車場は未確認です。"
 msgid "No truck parking."
 msgstr "トラックの駐車場はありません。"
 
+msgid "Double tap to signal for the exit."
+msgstr ""
+
+#. placeholders: {exit_hint}
+msgid "Press {exit_hint} to signal for the exit."
+msgstr "{exit_hint}を押すと、出口へのウインカーを出します。"
+
+msgid "Double tap to signal."
+msgstr ""
+
+#. placeholders: {exit_hint}
+msgid "Press {exit_hint} to signal."
+msgstr "{exit_hint}でウインカーを出します。"
+
 #. placeholders: {exit_label}
 msgid " at {exit_label}"
 msgstr " 、{exit_label}"
@@ -14004,12 +14018,12 @@ msgstr ""
 msgid "No fuel."
 msgstr ""
 
-#. placeholders: {exit_hint}
-msgid "Press {exit_hint} to signal for the exit."
-msgstr "{exit_hint}を押すと、出口へのウインカーを出します。"
-
 #. placeholders: {terse}
 msgid "{terse} No fuel."
+msgstr ""
+
+#. placeholders: {terse}
+msgid "{terse} Double tap to signal."
 msgstr ""
 
 #. placeholders: {terse}, {exit_hint}
@@ -14979,7 +14993,7 @@ msgstr "右にフリック"
 msgid "a still hold for half a second"
 msgstr "動かさずに半秒長押し"
 
-msgid "the first row of the three-finger tap list"
+msgid "a three-finger tap then a double tap"
 msgstr ""
 
 #. placeholders: {label}
@@ -20644,20 +20658,18 @@ msgstr "左右にフリックすると車線を変え、左右にスワイプし
 
 msgid ""
 "Hold one finger still for half a second to straighten the wheel. With "
-"cruise off, flick up to turn it on at the last speed you set, or at this "
-"speed the first time. Double tap takes an exit or pulls over when the road "
-"calls for one, and confirms arrival at the gate. Two-finger tap stops "
-"speech. Turn two fingers right like a key to start the engine, and left to "
-"stop it once the truck is stopped. Hold two fingers for the horn. Turning "
-"them cancels it. While holding a pedal, a second finger's flicks and holds "
-"work the same way. "
+"cruise off, flick up to turn it on. Double tap to take an exit, pull over, "
+"or confirm arrival at a gate. Tap with two fingers to stop speech. Turn two "
+"fingers right like a key to start the engine, and left to stop it once the "
+"truck has stopped. Hold two fingers for the horn. While holding a pedal, a "
+"second finger's flicks and holds work the same way. "
 msgstr ""
 
 msgid ""
 "Two-finger swipe down pauses, two-finger swipe up is this help, two-finger "
 "swipes left and right review messages, and three-finger swipes left and "
-"right tune the radio. A three-finger tap lists every driving command, with "
-"Status first: swipe to one and double tap to run it. "
+"right tune the radio. A three-finger tap lists every driving command, "
+"Status menu first. Flick to one and double tap to run it. "
 msgstr ""
 
 msgid ""
@@ -23079,6 +23091,9 @@ msgstr "目的地の出口がまた前方にあります。"
 msgid "Destination exit ahead again. Signal for it."
 msgstr ""
 
+msgid "Destination exit ahead again. Double tap to signal."
+msgstr ""
+
 #. placeholders: {control_hint}
 msgid "Destination exit ahead again. Press {control_hint} to signal."
 msgstr "目的地の出口がまた前方にあります。{control_hint}でウインカーを出してください。"
@@ -23093,6 +23108,11 @@ msgstr "折り返したので、目的地の出口がまた前方にあります
 
 msgid ""
 "You turned around, and the destination exit is ahead again. Signal for it."
+msgstr ""
+
+msgid ""
+"You turned around, and the destination exit is ahead again. Double tap to "
+"signal for it."
 msgstr ""
 
 #. placeholders: {control_hint}
@@ -23834,6 +23854,18 @@ msgstr "もう出口ランプにいます。"
 msgid "No route exit to signal for yet."
 msgstr "まだウインカーを出すルートの出口はありません。"
 
+#. placeholders: {stays}
+msgid "Signal stays {stays}."
+msgstr "ウインカーは{stays}のままです。"
+
+#. one sentence of a longer line
+msgid "Double tap again to cancel the exit."
+msgstr ""
+
+#. placeholders: {stays}
+msgid "Signal stays {stays}. Double tap again to cancel the exit."
+msgstr ""
+
 #. placeholders: {control_hint}
 #. one sentence of a longer line
 msgid "Press {control_hint} again to cancel the exit."
@@ -23842,10 +23874,6 @@ msgstr "もう一度{control_hint}を押すと出口を取り消します。"
 #. placeholders: {stays}, {control_hint}
 msgid "Signal stays {stays}. Press {control_hint} again to cancel the exit."
 msgstr "ウインカーは{stays}のままです。もう一度{control_hint}を押すと出口を取り消します。"
-
-#. placeholders: {stays}
-msgid "Signal stays {stays}."
-msgstr "ウインカーは{stays}のままです。"
 
 msgid "Signal canceled."
 msgstr "ウインカーを取り消しました。"
@@ -23916,10 +23944,6 @@ msgstr "減速します。{lane_text}"
 
 msgid "Signal for it."
 msgstr "ウインカーを出してください。"
-
-#. placeholders: {exit_hint}
-msgid "Press {exit_hint} to signal."
-msgstr "{exit_hint}でウインカーを出します。"
 
 msgid "Set the parking brake to check in."
 msgstr ""
@@ -24457,16 +24481,12 @@ msgstr "{name2}もこの先にあります。"
 msgid "Fuel range only {range_text}."
 msgstr ""
 
-#. placeholders: {hint}
-msgid " Press {hint} to signal for the exit."
-msgstr ""
-
-#. placeholders: {hint}
-msgid " Press {hint} to signal."
-msgstr ""
-
 msgid "Rest-stop planning unavailable during a police stop."
 msgstr "警察の停車中は、休憩の停車地を計画できません。"
+
+msgid ""
+"Resolve the police stop first. Double tap to signal the trooper stop."
+msgstr ""
 
 #. placeholders: {exit_hint}
 #. one sentence of a longer line
@@ -33214,7 +33234,7 @@ msgstr "2本指で長押し：クラクション。"
 msgid "Two-finger turn right: start the engine."
 msgstr "2本指で右に回す：エンジンをかけます。"
 
-msgid "Two-finger turn left: stop the engine, once the truck is stopped."
+msgid "Two-finger turn left: stop the engine when the truck is stopped."
 msgstr ""
 
 msgid "Second finger, hold left: steer left."

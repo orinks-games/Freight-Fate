@@ -5,13 +5,14 @@
 
 use ff_core::sim::weather::WeatherKind;
 
-use freight_fate::bindings::{Action, TouchCommand};
+use freight_fate::bindings::Action;
 use freight_fate::playtest::harness::{PlaytestHarness, StartDelivery};
 use freight_fate::states::base::{InputEvent, Key};
 use freight_fate::states::driving::DrivingState;
 use freight_fate::states::driving_core::{DRIVE_PHASE_DELIVERY, PULL_OVER_LIGHTS};
 use freight_fate::states::driving_menu_states::{DrivingCommandsState, DrivingStatusState};
 use freight_fate::states::driving_school::{DrivingSchoolState, SchoolDrivingState};
+use freight_fate::states::driving_team::TeamMode;
 use freight_fate::states::text_entry::TextEntryState;
 use freight_fate::touch::{Gesture, RoadOffer, TouchInput, TouchMode};
 
@@ -192,6 +193,26 @@ fn double_tap_takes_a_called_exit_as_the_exit_key_does() {
 }
 
 #[test]
+fn double_tap_on_the_co_drivers_truck_does_nothing_as_the_exit_key_does() {
+    let mut harness = a_drive("Touch Exit Co-Driver");
+    harness.with_drive(|drive, ctx| {
+        let first = drive.trip.stops.first().map(|stop| stop.at_mi);
+        let first = first.expect("the assigned route carries en-route stops");
+        drive.trip.position_mi = (first - 0.5).max(0.0);
+        drive.hand_wheel_to_co_driver(ctx, TeamMode::RideAlong);
+        drive.trip.truck.start_engine();
+        drive.trip.truck.parking_brake = false;
+        drive.trip.truck.velocity_mps = 50.0 / MPH_PER_MPS;
+    });
+    assert!(harness.read_drive(|drive| drive.co_driver_driving()));
+    harness.clear_speech();
+    let mut input = TouchInput::new();
+    touch(&mut harness, &mut input, Gesture::DoubleTap);
+    assert!(!harness.with_drive(|drive, _| drive.exit_signal_on));
+    assert_eq!(harness.transcript(), Vec::<String>::new());
+}
+
+#[test]
 fn double_tap_signals_for_a_trooper() {
     let mut harness = a_drive("Touch Pull Over");
     rolling(&mut harness, 50.0);
@@ -236,7 +257,70 @@ fn touch_prompts_name_the_double_tap_for_the_exit() {
     assert_eq!(harness.app.ctx.control_hint("take_exit"), "a double tap");
     assert_eq!(
         harness.app.ctx.control_hint("status_menu"),
-        "the first row of the three-finger tap list"
+        "a three-finger tap then a double tap"
+    );
+}
+
+#[test]
+fn a_touch_drive_hears_double_tap_in_the_exit_callout_and_a_keyboard_brings_keys_back() {
+    let mut harness = a_drive("Touch Exit Callout");
+    rolling(&mut harness, 55.0);
+    harness.with_drive(|drive, _| {
+        let first = drive.trip.stops.first().map(|stop| stop.at_mi);
+        let first = first.expect("the assigned route carries en-route stops");
+        drive.trip.position_mi = (first - 1.2).max(0.0);
+    });
+    harness.app.dispatch_gesture(Gesture::KeyboardDisconnected);
+    harness.app.dispatch_gesture(Gesture::Tap);
+    harness.advance_frame_clock();
+    harness.app.frame(1.0 / 60.0);
+    assert_eq!(
+        harness.read_drive(|drive| drive.trip.exit_hint.clone()),
+        ff_core::speech_text::TOUCH_EXIT_HINT
+    );
+    harness.clear_speech();
+    let mut heard = false;
+    for _ in 0..60 * 90 {
+        harness.advance_frame_clock();
+        harness.app.frame(1.0 / 60.0);
+        if harness
+            .transcript()
+            .iter()
+            .any(|line| line.contains("to signal for the exit."))
+        {
+            heard = true;
+            break;
+        }
+    }
+    let said = harness.transcript().join("\n");
+    assert!(heard, "{said}");
+    assert!(
+        said.contains(" Double tap to signal for the exit."),
+        "{said}"
+    );
+    assert!(!said.contains("Press a double tap"), "{said}");
+    // A key on a hardware keyboard: the next frame names keys again.
+    harness.app.dispatch_gesture(Gesture::KeyboardConnected);
+    let chord = Action::Speed.default_chords()[0];
+    harness.key(InputEvent::KeyDown {
+        key: chord.key,
+        mods: chord.mods,
+        text: None,
+        repeat: false,
+    });
+    assert_ne!(
+        harness.app.ctx.controller.device(),
+        ff_core::input_hints::TOUCH
+    );
+    harness.advance_frame_clock();
+    harness.app.frame(1.0 / 60.0);
+    assert_eq!(
+        harness.read_drive(|drive| drive.trip.exit_hint.clone()),
+        harness.app.ctx.control_hint("take_exit")
+    );
+    assert_ne!(
+        harness.read_drive(|drive| drive.trip.exit_hint.clone()),
+        ff_core::speech_text::TOUCH_EXIT_HINT
     );
 }
 
@@ -369,29 +453,4 @@ fn in_a_lesson_gas_releases_the_parking_brake_first() {
         .truck
         .parking_brake));
     assert!(harness.app.ctx.input.physically_down(Key::Up));
-}
-
-// -- the brake-hold defaults --------------------------------------------------------
-
-#[test]
-fn the_brake_hold_tap_and_double_tap_do_nothing_by_default() {
-    let mut harness = a_drive("Touch Brake Hold Defaults");
-    rolling(&mut harness, 0.0);
-    harness.with_drive(|drive, _| drive.trip.truck.parking_brake = false);
-    let mut input = TouchInput::new();
-    touch(&mut harness, &mut input, Gesture::HoldLowerBegan);
-    for gesture in [Gesture::LowerHoldTap, Gesture::LowerHoldDoubleTap] {
-        assert_eq!(
-            harness.app.ctx.bindings.touch_command(gesture),
-            Some(TouchCommand::Nothing)
-        );
-        touch(&mut harness, &mut input, gesture);
-    }
-    assert!(harness.with_drive(|drive, _| drive.trip.truck.engine_on));
-    assert!(!harness.with_drive(|drive, _| drive.trip.truck.parking_brake));
-    assert!(
-        harness.transcript().is_empty(),
-        "{:?}",
-        harness.transcript()
-    );
 }

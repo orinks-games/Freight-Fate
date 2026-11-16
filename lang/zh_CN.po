@@ -13848,6 +13848,20 @@ msgstr "停车位未核实。"
 msgid "No truck parking."
 msgstr "没有卡车停车位。"
 
+msgid "Double tap to signal for the exit."
+msgstr ""
+
+#. placeholders: {exit_hint}
+msgid "Press {exit_hint} to signal for the exit."
+msgstr "按{exit_hint}为出口打转向灯。"
+
+msgid "Double tap to signal."
+msgstr ""
+
+#. placeholders: {exit_hint}
+msgid "Press {exit_hint} to signal."
+msgstr "按{exit_hint}打转向灯。"
+
 #. placeholders: {exit_label}
 msgid " at {exit_label}"
 msgstr "，位于{exit_label}"
@@ -13862,12 +13876,12 @@ msgstr ""
 msgid "No fuel."
 msgstr ""
 
-#. placeholders: {exit_hint}
-msgid "Press {exit_hint} to signal for the exit."
-msgstr "按{exit_hint}为出口打转向灯。"
-
 #. placeholders: {terse}
 msgid "{terse} No fuel."
+msgstr ""
+
+#. placeholders: {terse}
+msgid "{terse} Double tap to signal."
 msgstr ""
 
 #. placeholders: {terse}, {exit_hint}
@@ -14829,7 +14843,7 @@ msgstr "向右轻扫"
 msgid "a still hold for half a second"
 msgstr "静止按住半秒"
 
-msgid "the first row of the three-finger tap list"
+msgid "a three-finger tap then a double tap"
 msgstr ""
 
 #. placeholders: {label}
@@ -20443,20 +20457,18 @@ msgstr "向左或向右轻扫来换道，或者向左或向右滑动并按住来
 
 msgid ""
 "Hold one finger still for half a second to straighten the wheel. With "
-"cruise off, flick up to turn it on at the last speed you set, or at this "
-"speed the first time. Double tap takes an exit or pulls over when the road "
-"calls for one, and confirms arrival at the gate. Two-finger tap stops "
-"speech. Turn two fingers right like a key to start the engine, and left to "
-"stop it once the truck is stopped. Hold two fingers for the horn. Turning "
-"them cancels it. While holding a pedal, a second finger's flicks and holds "
-"work the same way. "
+"cruise off, flick up to turn it on. Double tap to take an exit, pull over, "
+"or confirm arrival at a gate. Tap with two fingers to stop speech. Turn two "
+"fingers right like a key to start the engine, and left to stop it once the "
+"truck has stopped. Hold two fingers for the horn. While holding a pedal, a "
+"second finger's flicks and holds work the same way. "
 msgstr ""
 
 msgid ""
 "Two-finger swipe down pauses, two-finger swipe up is this help, two-finger "
 "swipes left and right review messages, and three-finger swipes left and "
-"right tune the radio. A three-finger tap lists every driving command, with "
-"Status first: swipe to one and double tap to run it. "
+"right tune the radio. A three-finger tap lists every driving command, "
+"Status menu first. Flick to one and double tap to run it. "
 msgstr ""
 
 msgid ""
@@ -22855,6 +22867,9 @@ msgstr "再次从前面的目的地出口出去。"
 msgid "Destination exit ahead again. Signal for it."
 msgstr ""
 
+msgid "Destination exit ahead again. Double tap to signal."
+msgstr ""
+
 #. placeholders: {control_hint}
 msgid "Destination exit ahead again. Press {control_hint} to signal."
 msgstr "再次从前面的目的地出口出去。按 {control_hint} 发出信号。"
@@ -22869,6 +22884,11 @@ msgstr "转身，目的地出口又在前方。"
 
 msgid ""
 "You turned around, and the destination exit is ahead again. Signal for it."
+msgstr ""
+
+msgid ""
+"You turned around, and the destination exit is ahead again. Double tap to "
+"signal for it."
 msgstr ""
 
 #. placeholders: {control_hint}
@@ -23607,6 +23627,18 @@ msgstr "已经在出口匝道上了。"
 msgid "No route exit to signal for yet."
 msgstr "还没有路线出口可以打转向灯。"
 
+#. placeholders: {stays}
+msgid "Signal stays {stays}."
+msgstr "转向灯保持{stays}。"
+
+#. one sentence of a longer line
+msgid "Double tap again to cancel the exit."
+msgstr ""
+
+#. placeholders: {stays}
+msgid "Signal stays {stays}. Double tap again to cancel the exit."
+msgstr ""
+
 #. placeholders: {control_hint}
 #. one sentence of a longer line
 msgid "Press {control_hint} again to cancel the exit."
@@ -23615,10 +23647,6 @@ msgstr "再按{control_hint}取消驶出。"
 #. placeholders: {stays}, {control_hint}
 msgid "Signal stays {stays}. Press {control_hint} again to cancel the exit."
 msgstr "转向灯保持{stays}。再按{control_hint}取消驶出。"
-
-#. placeholders: {stays}
-msgid "Signal stays {stays}."
-msgstr "转向灯保持{stays}。"
 
 msgid "Signal canceled."
 msgstr "转向灯已取消。"
@@ -23689,10 +23717,6 @@ msgstr "减速.{lane_text}"
 
 msgid "Signal for it."
 msgstr "为它打转向灯。"
-
-#. placeholders: {exit_hint}
-msgid "Press {exit_hint} to signal."
-msgstr "按{exit_hint}打转向灯。"
 
 msgid "Set the parking brake to check in."
 msgstr ""
@@ -24229,16 +24253,12 @@ msgstr "前方还有{name2}。"
 msgid "Fuel range only {range_text}."
 msgstr ""
 
-#. placeholders: {hint}
-msgid " Press {hint} to signal for the exit."
-msgstr ""
-
-#. placeholders: {hint}
-msgid " Press {hint} to signal."
-msgstr ""
-
 msgid "Rest-stop planning unavailable during a police stop."
 msgstr "警察拦停期间无法规划休息停靠点。"
+
+msgid ""
+"Resolve the police stop first. Double tap to signal the trooper stop."
+msgstr ""
 
 #. placeholders: {exit_hint}
 #. one sentence of a longer line
@@ -32880,7 +32900,7 @@ msgstr "双指按住：喇叭。"
 msgid "Two-finger turn right: start the engine."
 msgstr "双指向右旋转：启动发动机。"
 
-msgid "Two-finger turn left: stop the engine, once the truck is stopped."
+msgid "Two-finger turn left: stop the engine when the truck is stopped."
 msgstr ""
 
 msgid "Second finger, hold left: steer left."

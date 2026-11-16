@@ -125,24 +125,6 @@ fn the_cruise_tap_below_the_minimum_answers_as_the_key_does() {
     assert_eq!(speed_control_on(&mut harness), engaged);
 }
 
-/// The brake-hold tap and double tap default to nothing; a player can put
-/// the parking brake and the engine back on them.
-fn moved_to_brake_hold(harness: &mut PlaytestHarness) {
-    let bindings = &mut harness.app.ctx.bindings;
-    assert_eq!(
-        bindings.touch_command(Gesture::LowerHoldTap),
-        Some(TouchCommand::Nothing)
-    );
-    bindings.set_touch_command(
-        Gesture::LowerHoldTap,
-        TouchCommand::Action(Action::ParkingBrake),
-    );
-    bindings.set_touch_command(
-        Gesture::LowerHoldDoubleTap,
-        TouchCommand::Action(Action::Engine),
-    );
-}
-
 #[test]
 fn a_second_finger_on_the_brake_runs_the_parking_brake_and_the_engine() {
     let parked = |h: &mut PlaytestHarness| {
@@ -156,7 +138,6 @@ fn a_second_finger_on_the_brake_runs_the_parking_brake_and_the_engine() {
     });
     let mut harness = a_drive("Touch Engine");
     parked(&mut harness);
-    moved_to_brake_hold(&mut harness);
     let mut input = TouchInput::new();
     touch(&mut harness, &mut input, Gesture::HoldLowerBegan);
     assert!(harness.app.ctx.input.physically_down(Key::Down));
@@ -186,7 +167,6 @@ fn a_second_finger_on_the_brake_runs_the_parking_brake_and_the_engine() {
     });
     let mut harness = a_drive("Touch Brake");
     parked(&mut harness);
-    moved_to_brake_hold(&mut harness);
     let mut input = TouchInput::new();
     touch(&mut harness, &mut input, Gesture::HoldLowerBegan);
     touch(&mut harness, &mut input, Gesture::LowerHoldTap);
@@ -419,7 +399,7 @@ fn the_touch_gestures_screen_moves_a_gesture_and_saves_it() {
     for wanted in [
         "Tap: Speed",
         "Gas hold, tap with a second finger: Cruise",
-        "Brake hold, double tap with a second finger: Nothing",
+        "Brake hold, double tap with a second finger: Engine on or off",
         "Two-finger double tap: Pause",
         "Reset every touch gesture to its default",
     ] {

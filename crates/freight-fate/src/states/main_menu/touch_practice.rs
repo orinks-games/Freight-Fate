@@ -31,7 +31,7 @@ impl TouchPracticeState {
             Gesture::HornHoldBegan => "Two-finger hold: horn.".to_string(),
             Gesture::RotateRight => "Two-finger turn right: start the engine.".to_string(),
             Gesture::RotateLeft => {
-                "Two-finger turn left: stop the engine, once the truck is stopped.".to_string()
+                "Two-finger turn left: stop the engine when the truck is stopped.".to_string()
             }
             Gesture::SecondSteerLeftBegan => "Second finger, hold left: steer left.".to_string(),
             Gesture::SecondSteerRightBegan => "Second finger, hold right: steer right.".to_string(),

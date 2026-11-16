@@ -76,8 +76,8 @@ A second finger while holding a pedal:
 | While holding a pedal, flick up / down | Shift up / down in manual; nothing in automatic |
 | While holding a pedal, flick left / right | Change one lane |
 | While holding a pedal, swipe left / right and hold | Steer until you lift (lane keeping off or partial) |
-| While holding brake, tap | Nothing (assignable) |
-| While holding brake, double tap | Nothing (assignable) |
+| While holding brake, tap | Parking brake |
+| While holding brake, double tap | Engine on or off |
 
 Other driving gestures:
 
@@ -195,7 +195,7 @@ frameworks it and SDL2 need, plus clang's iOS runtime for `@available` checks.
   sandbox, out of reach) and the braille-only Output row (it needs NVDA or
   JAWS).
 - Spoken prompts name the gesture for a control ("press a two-finger turn
-  to the right", "press a double tap to take it"), or its row on the
+  to the right", "double tap to signal for the exit"), or its row on the
   three-finger tap command list when no gesture runs it. Pressing a
   key on a hardware keyboard, or a controller button, switches them back to
   key or button names until the screen is touched again.
@@ -217,7 +217,7 @@ frameworks it and SDL2 need, plus clang's iOS runtime for `@available` checks.
 - Three-finger tap at the wheel, then double tap: the Status menu opens. On the job board, a three-finger tap reads the market summary.
 - Deep swipe down while moving for the emergency brake; stopped, it says "Parking brake set", and gas then says "Parking brake released".
 - Turn two fingers right to start the engine and left to stop it while stopped; at speed the turn left does nothing. Hold two fingers for the horn, then turn them and confirm the horn stops.
-- While holding gas: second-finger tap sets cruise, flicks up and down shift in manual and do nothing in automatic, side flicks change lanes, side holds steer. While holding brake, a second-finger tap or double tap does nothing unless assigned in Touch gestures.
+- While holding gas: second-finger tap sets cruise, flicks up and down shift in manual and do nothing in automatic, side flicks change lanes, side holds steer.
 - In a Driving School lesson: the deep swipe while moving is the emergency brake, the still hold straightens, and gas releases the parking brake, as in a delivery.
 - With no hardware keyboard, no help, hint or field prompt names a key; connect one and keys come back.
 - Verify magic tap pauses, the scrub escapes, the three-finger double tap does nothing, and the haptics switch changes feedback.

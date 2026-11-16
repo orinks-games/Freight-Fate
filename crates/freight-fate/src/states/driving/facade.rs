@@ -58,6 +58,10 @@ impl DrivingState {
         // (review finding, 2026-09-19).
         self.curve_servo = None;
         self.trip.curve_shed_active = false;
+        // The exit hint names the control in hand, which a new road does
+        // not change; a fresh trip would say the keyboard's X.
+        let mut trip = trip;
+        trip.exit_hint = self.trip.exit_hint.clone();
         std::mem::replace(&mut self.trip, trip)
     }
 }

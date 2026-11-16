@@ -1084,6 +1084,8 @@ pub struct DrivingState {
 
     // ---- driving.py: lifecycle -----------------------------------------------------------
     pub entered_once: bool,
+    /// The input device `trip.exit_hint` was chosen for.
+    pub exit_hint_device: &'static str,
     /// The co-driver for this load, once one has been paired.
     pub team: Option<crate::states::driving_team::TeamDrive>,
     /// A team departure chosen at the shipper: the co-driver takes the

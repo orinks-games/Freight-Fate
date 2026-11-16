@@ -16,11 +16,10 @@
 - **An inspection or traffic stop at severe fatigue ends in a ten-hour out-of-service order.**
 - **Five-by-Two now takes a full 10 hours asleep at a stop.** A split rest, or finishing a reset that a break started, no longer earns it.
 - **German now covers the lines added since October.** Co-driver, fatigue, stop planning and problem report lines no longer switch to English.
-- **On iPhone, double tap takes an exit or pulls over when the road calls for one.** At a facility gate it still confirms arrival.
+- **On iPhone, double tap takes an exit, pulls over for a trooper, or confirms arrival at a gate.**
 - **On iPhone, a two-finger tap stops speech on every screen.** The Status menu is now the first row of the three-finger tap list.
-- **On iPhone, a flick up with cruise off turns cruise on, and a flick down does nothing.**
+- **On iPhone, a flick up turns cruise on, and a flick down with cruise off does nothing.** A short brake swipe can no longer set cruise.
 - **On iPhone, a two-finger turn left stops the engine only when the truck is stopped.**
-- **On iPhone, the brake-hold tap and double tap now do nothing unless you assign them.** In automatic, shift flicks say nothing.
 
 ### Fixed
 
@@ -37,7 +36,6 @@
 - **Take the wheel back now warns that your rest will start over.** Your ten hours must be unbroken ([issue 520](https://github.com/orinks-games/Freight-Fate/issues/520)).
 - **Work zones no longer close the right lane at an exit.** Near a truck stop, rest area or scale, roadwork closes the left lane.
 - **Stop notices are no longer lost when the voice is busy.** A truck stop's 5-mile call waits its turn behind billboards and roadwork calls.
-- **Driving School lessons on iPhone now take the deep swipe, the still hold and gas as a delivery does.** A deep swipe while moving holds the emergency brake.
 
 ## 1.9.6 - 2026-11-13
 

@@ -753,6 +753,7 @@ impl DrivingState {
             liquid_settled_said: false,
             liquid_settle_timer_s: 0.0,
             entered_once: false,
+            exit_hint_device: "",
             team: None,
             pending_team: None,
             truck_limit_state_named: None,

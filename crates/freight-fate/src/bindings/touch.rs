@@ -145,13 +145,13 @@ const SLOTS: &[(Gesture, &str, &str, TouchCommand)] = &[
         Gesture::LowerHoldTap,
         "bottom_hold_tap",
         "Brake hold, tap with a second finger",
-        TouchCommand::Nothing,
+        run(Action::ParkingBrake),
     ),
     (
         Gesture::LowerHoldDoubleTap,
         "bottom_hold_double_tap",
         "Brake hold, double tap with a second finger",
-        TouchCommand::Nothing,
+        run(Action::Engine),
     ),
     (
         Gesture::LowerHoldSwipeUp,
@@ -272,7 +272,7 @@ impl KeyBindings {
             Action::SteerRight => "a flick right".to_string(),
             Action::Straighten => "a still hold for half a second".to_string(),
             Action::TakeExit => "a double tap".to_string(),
-            Action::Status => "the first row of the three-finger tap list".to_string(),
+            Action::Status => "a three-finger tap then a double tap".to_string(),
             other => format!("{} from the three-finger tap list", other.label()),
         }
     }
@@ -350,7 +350,7 @@ mod tests {
         );
         assert_eq!(
             b.hint_touch_phrase("status_menu").as_deref(),
-            Some("the first row of the three-finger tap list")
+            Some("a three-finger tap then a double tap")
         );
         assert_eq!(
             b.touch_noun(Action::Rest),
@@ -368,8 +368,8 @@ mod tests {
         let b = KeyBindings::default();
         let on = |g| b.touch_command(g);
         assert_eq!(on(Gesture::UpperHoldTap), Some(run(Action::Cruise)));
-        assert_eq!(on(Gesture::LowerHoldTap), Some(TouchCommand::Nothing));
-        assert_eq!(on(Gesture::LowerHoldDoubleTap), Some(TouchCommand::Nothing));
+        assert_eq!(on(Gesture::LowerHoldTap), Some(run(Action::ParkingBrake)));
+        assert_eq!(on(Gesture::LowerHoldDoubleTap), Some(run(Action::Engine)));
         assert_eq!(on(Gesture::UpperHoldSwipeUp), Some(run(Action::ShiftUp)));
         assert_eq!(
             on(Gesture::UpperHoldSwipeDown),

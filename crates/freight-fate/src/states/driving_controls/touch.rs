@@ -89,8 +89,9 @@ impl DrivingState {
             }
             Gesture::DoubleTap => {
                 match self.road_offer(ctx) {
-                    // The co-driver's truck: the gate is theirs to stop at.
-                    RoadOffer::Arrival if self.co_driver_driving() => {}
+                    // The co-driver's truck: the exits and the gate are
+                    // theirs, as the exit key is.
+                    _ if self.co_driver_driving() => {}
                     RoadOffer::Arrival => self.confirm_facility_arrival(ctx),
                     RoadOffer::Exit | RoadOffer::PullOver | RoadOffer::None => {
                         self.run_key_action(ctx, Action::TakeExit)

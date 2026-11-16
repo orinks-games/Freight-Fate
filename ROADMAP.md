@@ -1493,8 +1493,9 @@ Everything found before 2026-09-25 moved to
       down does nothing; a two-finger turn left stops the engine only under
       `touch_parking_brake_mph`; double tap answers the road (`RoadOffer`:
       exit, pull-over, arrival); two-finger tap stops speech everywhere and
-      the Status menu is the first row of the three-finger tap list; the
-      brake-hold tap and double tap default to nothing. The agent server's
+      the Status menu is the first row of the three-finger tap list; exit
+      prompts on touch say "Double tap to signal", and the exit hint follows
+      the device mid-drive. The agent server's
       `gesture` tool sends gestures by name, and `status` reports the touch
       mode and road offer. Nothing was tried on a phone.
 - [ ] (Found along the way) iPhone gesture plan steps 2 to 4: menus that
@@ -1502,11 +1503,10 @@ Everything found before 2026-09-25 moved to
       tap, three-finger tap), the driving menu regrouped and a manual clutch
       gesture, and the stroke recogniser moved into `ff-core` with the deep
       swipe threshold measured on a phone.
-- [ ] (Found along the way) With the brake-hold tap off by default, a touch
-      player's parking brake prompts ("press ... to release the parking
-      brake", the gate's "Set the parking brake") name the Parking brake row
-      of the three-finger tap list. Gas already releases the brake and a
-      deep swipe at a stop sets it; the prompts could say so instead.
+- [ ] (Found along the way) Touch prompt rewrite: the parking brake prompts
+      name the brake-hold tap, though gas already releases the brake and a
+      deep swipe at a stop sets it. Once the prompts say so, the brake-hold
+      tap and double tap can default to nothing.
 - [ ] (Found along the way) The iOS second-finger gestures (hold a pedal,
       then tap, double tap or swipe with another finger) need a pass on real
       hardware: the Simulator's touch replay lifts both fingers together, so
