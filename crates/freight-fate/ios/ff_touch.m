@@ -196,6 +196,13 @@ static const CGFloat FF_TAP_SLOP = 16.0;
 // moving at least this fraction of ff_flick_points per half window.
 static const CGFloat FF_FLICK_MOVING_FRACTION = 0.4;
 static const int FF_FLICK_EXTENSIONS = 3;
+// The two-finger scrub (VoiceOver's "go back", a quick z): the fingers'
+// sideways travel has to turn back at least FF_SCRUB_REVERSALS times, each
+// leg at least FF_SCRUB_LEG_POINTS long, all within FF_SCRUB_SECONDS of the
+// first touch. It is decided when the fingers lift.
+static const int FF_SCRUB_REVERSALS = 2;
+static const CGFloat FF_SCRUB_LEG_POINTS = 20.0;
+static const NSTimeInterval FF_SCRUB_SECONDS = 1.0;
 
 void ff_touch_set_tuning(double flick_points, double flick_ms, double deep_factor,
                          double still_ms, double rotate_degrees) {
@@ -529,6 +536,106 @@ static FFDirection ff_direction(CGFloat dx, CGFloat dy) {
 
 @end
 
+// The two-finger scrub. It watches the midpoint of two touches, counts each
+// time its sideways travel turns back after a leg of FF_SCRUB_LEG_POINTS,
+// and decides when the fingers lift: FF_SCRUB_REVERSALS turns within
+// FF_SCRUB_SECONDS is a scrub, anything else fails. The two-finger flicks
+// left and right wait for it to fail, so a plain flick still arrives, at
+// the lift. A third finger fails it at once.
+
+@interface FFScrubRecognizer : UIGestureRecognizer
+@end
+
+@implementation FFScrubRecognizer {
+    NSMutableSet<UITouch *> *_touches;
+    NSTimeInterval _began;
+    CGFloat _lastX;
+    CGFloat _legStart;
+    int _sign;
+    int _reversals;
+    BOOL _tracking;
+}
+
+- (instancetype)initWithTarget:(id)target action:(SEL)action {
+    self = [super initWithTarget:target action:action];
+    if (self) {
+        _touches = [NSMutableSet set];
+    }
+    return self;
+}
+
+- (CGFloat)midpointX {
+    CGFloat sum = 0;
+    for (UITouch *touch in _touches) {
+        sum += [touch locationInView:self.view].x;
+    }
+    return _touches.count ? sum / _touches.count : 0;
+}
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    [_touches unionSet:touches];
+    if (_touches.count > 2) {
+        self.state = UIGestureRecognizerStateFailed;
+        return;
+    }
+    if (_touches.count == 2) {
+        _began = event.timestamp;
+        _lastX = [self midpointX];
+        _legStart = _lastX;
+        _sign = 0;
+        _reversals = 0;
+        _tracking = YES;
+    }
+}
+
+- (void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    if (!_tracking) {
+        return;
+    }
+    CGFloat x = [self midpointX];
+    int sign = x > _lastX ? 1 : (x < _lastX ? -1 : 0);
+    if (sign != 0 && sign != _sign) {
+        // A turn counts once the leg before it was long enough.
+        if (_sign != 0 && fabs(_lastX - _legStart) >= FF_SCRUB_LEG_POINTS) {
+            _reversals++;
+        }
+        if (_sign == 0 || fabs(_lastX - _legStart) >= FF_SCRUB_LEG_POINTS) {
+            _legStart = _lastX;
+        }
+        _sign = sign;
+    }
+    _lastX = x;
+}
+
+- (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    [self finish:touches event:event];
+}
+
+- (void)touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    self.state = UIGestureRecognizerStateFailed;
+}
+
+- (void)finish:(NSSet<UITouch *> *)touches event:(UIEvent *)event {
+    BOOL scrub = _tracking && _reversals >= FF_SCRUB_REVERSALS &&
+                 event.timestamp - _began <= FF_SCRUB_SECONDS;
+    [_touches minusSet:touches];
+    if (scrub) {
+        self.state = UIGestureRecognizerStateRecognized;
+    } else if (_touches.count == 0 || !_tracking) {
+        self.state = UIGestureRecognizerStateFailed;
+    }
+}
+
+- (void)reset {
+    [super reset];
+    [_touches removeAllObjects];
+    _tracking = NO;
+    _sign = 0;
+    _reversals = 0;
+}
+
+@end
+
 @interface FFTouchView : UIView <UIGestureRecognizerDelegate>
 @end
 
@@ -599,12 +706,18 @@ static FFDirection ff_direction(CGFloat dx, CGFloat dy) {
         {3, UISwipeGestureRecognizerDirectionLeft, FF_THREE_FINGER_SWIPE_LEFT},
         {3, UISwipeGestureRecognizerDirectionRight, FF_THREE_FINGER_SWIPE_RIGHT},
     };
+    FFScrubRecognizer *scrub = [[FFScrubRecognizer alloc] initWithTarget:self action:@selector(scrubbed:)];
+    [self addGestureRecognizer:scrub];
     for (size_t i = 0; i < sizeof(swipes) / sizeof(swipes[0]); i++) {
         UISwipeGestureRecognizer *swipe =
             [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swiped:)];
         swipe.numberOfTouchesRequired = swipes[i].touches;
         swipe.direction = swipes[i].direction;
         [swipe setValue:@(swipes[i].code) forKey:@"ffCode"];
+        // The message flicks wait for the scrub to fail, at the lift.
+        if (swipes[i].code == FF_TWO_FINGER_SWIPE_LEFT || swipes[i].code == FF_TWO_FINGER_SWIPE_RIGHT) {
+            [swipe requireGestureRecognizerToFail:scrub];
+        }
         [self addGestureRecognizer:swipe];
     }
 
@@ -615,7 +728,6 @@ static FFDirection ff_direction(CGFloat dx, CGFloat dy) {
 
     _twoHold = [self addHoldWithTouches:2 code:FF_HORN_HOLD_BEGAN];
     _twoHold.delegate = self;
-    [self addHoldWithTouches:3 code:FF_HORN_HOLD_BEGAN];
     _rotation = [[UIRotationGestureRecognizer alloc] initWithTarget:self action:@selector(rotated:)];
     _rotation.delegate = self;
     [self addGestureRecognizer:_rotation];
@@ -704,6 +816,12 @@ static FFDirection ff_direction(CGFloat dx, CGFloat dy) {
 - (void)tapped:(UITapGestureRecognizer *)tap {
     if (tap.state == UIGestureRecognizerStateEnded) {
         ff_emit([[tap valueForKey:@"ffCode"] intValue]);
+    }
+}
+
+- (void)scrubbed:(FFScrubRecognizer *)scrub {
+    if (scrub.state == UIGestureRecognizerStateRecognized) {
+        ff_emit(FF_ESCAPE);
     }
 }
 
