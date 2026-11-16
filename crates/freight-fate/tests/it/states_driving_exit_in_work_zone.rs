@@ -7,8 +7,10 @@
 
 use ff_core::sim::trip::keep_exits_open;
 use ff_core::sim::trip_models::{RoadStop, Zone};
+use ff_core::speech_text::SpokenMessage;
 use freight_fate::playtest::harness::{PlaytestHarness, StartDelivery};
 use freight_fate::states::base::{Key, Mods};
+use freight_fate::states::driving_events::ambient::Ambient;
 
 use crate::transcript_cruise_support::{bench_road, MPS_PER_MPH};
 
@@ -153,5 +155,45 @@ fn a_right_closure_over_the_stop_was_the_miss() {
         !drive_until(&mut harness, took_the_exit),
         "took the exit through a closed right lane\n{}",
         harness.transcript_text()
+    );
+}
+
+#[test]
+fn a_stop_notice_behind_chatter_is_still_heard() {
+    // Agent drive, I-71 at Seville (2026-11-16): the 5-mile notice for the
+    // truck stop inside the zone came due while a billboard was being read.
+    // It waited out the spacing between roadside lines, then went to the
+    // voice as chatter and was dropped as stale behind the billboard. It is
+    // the only call that names a stop the driver may need.
+    let mut harness = rig("full", true);
+    harness.with_drive(|d, _| {
+        d.trip.position_mi = STOP_MI - 6.0;
+        d.trip.announced_stops.clear();
+    });
+    assert!(drive_until(&mut harness, |h| h
+        .read_drive(|d| d.trip.position_mi > STOP_MI - 5.1)));
+    harness.clear_speech();
+    harness.with_drive(|d, ctx| {
+        d.speak_ambient_event(
+            ctx,
+            SpokenMessage::new(
+                "Billboard: a long one, read out word by word while the truck rolls \
+                 on toward the work zone and the truck stop past the taper, long \
+                 enough that anything queued behind it waits well past three seconds.",
+            ),
+            Ambient::new(),
+        );
+    });
+    assert!(drive_until(&mut harness, |h| h
+        .read_drive(|d| d.trip.position_mi > STOP_MI - 4.0)));
+    let lines = heard(&harness);
+    assert!(lines[0].starts_with("Billboard"), "{lines:?}");
+    let notice = "Prairie Travel Center at exit 42 in 5 miles";
+    let said = lines.iter().filter(|line| line.contains(notice)).count();
+    // Once, though the pacer may hand the line back after a cut.
+    assert_eq!(
+        said.saturating_sub(harness.app.ctx.handed_back_count(notice)),
+        1,
+        "{lines:?}"
     );
 }

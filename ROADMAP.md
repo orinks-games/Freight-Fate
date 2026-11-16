@@ -4020,11 +4020,17 @@ drive gets the same answer because it rebuilds the trip from its seed. The
 same sample now has no right closure over an exit
 (`sim_work_zone_exits_stay_open`).
 
-- [ ] (Found along the way) A stop inside a work zone can go unannounced:
-      on Cleveland to Dothan (seed 4), two agent drives never heard the
-      5-mile notice for Pilot Travel Center Seville, while the lane ending,
-      merge and zone calls played around it. Stop notices wait behind route
-      speech and are dropped once stale; check whether that is what lost it.
+- [x] (Found along the way) A truck stop's 5-mile call could go unheard
+      when the voice was busy: on Cleveland to Dothan (seed 4), three agent
+      drives never heard "Pilot Travel Center Seville at exit 209A-B in 5
+      miles", one of them with no exit signaled, so a driver could not plan
+      the stop. Fixed 2026-11-16, and driven again: the call now plays after
+      the billboard that was being read, before the construction call. The
+      mechanism: a stop notice waits for the spacing between roadside lines,
+      and that path dropped the notice's priority, so it reached the voice as
+      chatter and was thrown away as stale. It now keeps its priority, and,
+      like a stop notice that never waited, it is spoken only while the exit
+      is ahead and, when it asks for the signal, only while the signal is off.
 
 ### November 14 the road to 1.9.7 and the 2.0 beta (Found along the way)
 
