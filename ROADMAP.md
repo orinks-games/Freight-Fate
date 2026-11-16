@@ -1468,7 +1468,7 @@ Everything found before 2026-09-25 moved to
       through Prism's VoiceOver backend, controllers through SDL, touch and
       VoiceOver gestures as key presses, and F2 or a three-finger tap for a
       spoken list of driving commands. `tools/build_ios.py` packages it;
-      `docs/ios.md` has the gestures (2026-09-29).
+      `docs/ios/README.md` has the gestures (2026-09-29).
 - [x] iOS 27 launch: the app declares a scene lifecycle and puts SDL2's
       windows on its window scene, since iOS 27 stops an app built with its
       SDK at launch without one (2026-10-22). Moving to SDL3, which has

@@ -61,7 +61,7 @@ const COMMANDS: &[(&str, &str, Command)] = &[
     (
         "ios-signing",
         "find the TestFlight signing profile and manage uploads (App Store Connect)",
-        release::ios_signing::main,
+        release::ios::signing::main,
     ),
     (
         "update-manifests",

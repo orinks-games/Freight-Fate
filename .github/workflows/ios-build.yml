@@ -33,6 +33,7 @@ on:
       - "crates/freight-fate/build.rs"
       - "crates/freight-fate/src/touch.rs"
       - "crates/freight-fate/src/app/sdl_shell.rs"
+      - "crates/freight-fate/src/app/sdl_shell/ios.rs"
       - "crates/freight-fate/Cargo.toml"
       - "Cargo.toml"
       - "Cargo.lock"
