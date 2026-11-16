@@ -26,6 +26,9 @@
 - **On iPhone, a tap reads the current row again, and a two-finger scrub goes back.**
 - **On iPhone, a two-finger double tap no longer chooses a menu row.** It pauses the drive and resumes it from the pause menu.
 - **On iPhone, help and prompts in menus name gestures in place of keys.**
+- **On iPhone, the truck's prompts name gestures in full sentences,** such as "Turn two fingers right to restart."
+- **On iPhone, startup coaching no longer sends you to find the parking brake.** Swipe up and hold releases it and drives.
+- **On iPhone, a second-finger tap or double tap while braking now does nothing unless you assign it.**
 - **On iPhone, the horn is the two-finger hold only.** The three-finger hold is gone.
 - **The route picker reads the weather along a route with Tab,** or a three-finger tap on iPhone.
 - **The driving command list is now in groups.** Status menu comes first, then short lists for speed, the road, the truck, gears, radio and hours.

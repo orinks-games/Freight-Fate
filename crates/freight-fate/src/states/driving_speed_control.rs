@@ -187,6 +187,11 @@ impl DrivingState {
             return;
         }
         let Some(target) = self.resume_target_mph else {
+            // With cruise off, a flick up sets it at this speed.
+            if ctx.touch_hints() {
+                ctx.say("No remembered cruise speed yet. Flick up to set one.");
+                return;
+            }
             let key = ctx.control_name(crate::bindings::Action::Cruise);
             ctx.say(&format!("No remembered cruise speed yet. {key} sets one."));
             return;

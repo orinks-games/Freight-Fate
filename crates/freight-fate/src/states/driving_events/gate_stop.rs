@@ -79,12 +79,18 @@ impl DrivingState {
 
     /// Stopped at the gate with the brake off for the rest delay: say once
     /// what is missing, naming the control while it is still being taught.
-    pub(crate) fn say_gate_brake_line(&mut self, ctx: &mut GameContext, pickup: bool) {
+    pub fn say_gate_brake_line(&mut self, ctx: &mut GameContext, pickup: bool) {
         let message = if self.instruction_retired(ctx, "parking_brake") {
             if pickup {
                 "Set the parking brake to check in.".to_string()
             } else {
                 "Set the parking brake to dock.".to_string()
+            }
+        } else if ctx.touch_hints() {
+            if pickup {
+                "Set the parking brake to check in. Swipe down deep.".to_string()
+            } else {
+                "Set the parking brake to dock. Swipe down deep.".to_string()
             }
         } else {
             let key = ctx.control_hint("parking_brake");

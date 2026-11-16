@@ -552,7 +552,12 @@ impl DrivingState {
                 observation.detail
             );
             let detail = &observation.detail;
-            let lights_message = if self.driving_hints(ctx) {
+            let lights_message = if self.driving_hints(ctx) && ctx.touch_hints() {
+                format!(
+                    "Lights and siren behind you. A trooper on this {reason} saw {detail} and \
+                     wants a look at the truck. Double tap to signal, then stop on the shoulder."
+                )
+            } else if self.driving_hints(ctx) {
                 format!(
                     "Lights and siren behind you. A trooper on this {reason} saw {detail} and \
                      wants a look at the truck. Signal with {} and stop on the shoulder.",
@@ -578,7 +583,12 @@ impl DrivingState {
         }
         let (summary, fine, return_message) = self.observed_stop_terms(observation);
         let what = &observation.what;
-        let lights_message = if self.driving_hints(ctx) {
+        let lights_message = if self.driving_hints(ctx) && ctx.touch_hints() {
+            format!(
+                "Lights and siren behind you. A trooper on this {reason} saw {what}. Double tap \
+                 to signal, then stop on the shoulder."
+            )
+        } else if self.driving_hints(ctx) {
             format!(
                 "Lights and siren behind you. A trooper on this {reason} saw {what}. Signal with \
                  {} and stop on the shoulder.",

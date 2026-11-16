@@ -581,6 +581,8 @@ impl DrivingState {
                          first gear."
                             .to_string()
                     }
+                } else if (tr.automatic || tr.in_neutral()) && touch {
+                    "Engine stalled. Turn two fingers right to restart.".to_string()
                 } else if tr.automatic || tr.in_neutral() {
                     format!(
                         "Engine stalled. Press {} to restart.",

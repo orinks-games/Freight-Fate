@@ -89,8 +89,8 @@ A second finger while holding a pedal:
 | While holding a pedal, flick up / down | Shift up / down in manual, working the clutch for you; nothing in automatic |
 | While holding a pedal, flick left / right | Change one lane |
 | While holding a pedal, swipe left / right and hold | Steer until you lift (lane keeping off or partial) |
-| While holding brake, tap | Parking brake |
-| While holding brake, double tap | Engine on or off |
+| While holding brake, tap | Nothing; assign a command in Touch gestures |
+| While holding brake, double tap | Nothing; assign a command in Touch gestures |
 
 Other driving gestures:
 
