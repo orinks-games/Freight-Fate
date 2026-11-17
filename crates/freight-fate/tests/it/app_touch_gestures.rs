@@ -126,31 +126,53 @@ fn the_cruise_tap_below_the_minimum_answers_as_the_key_does() {
 }
 
 #[test]
-fn a_second_finger_on_the_brake_runs_the_parking_brake_and_the_engine() {
+fn a_second_finger_on_the_brake_does_nothing_until_assigned() {
     let parked = |h: &mut PlaytestHarness| {
         h.with_drive(|drive, _| {
             drive.trip.truck.velocity_mps = 0.0;
         });
         h.clear_speech();
     };
+    // The defaults: the brake-hold tap and double tap are free.
+    let mut harness = a_drive("Touch Brake Free");
+    parked(&mut harness);
+    let mut input = TouchInput::new();
+    touch(&mut harness, &mut input, Gesture::HoldLowerBegan);
+    let before = harness.with_drive(|d, _| (d.trip.truck.engine_on, d.trip.truck.parking_brake));
+    touch(&mut harness, &mut input, Gesture::LowerHoldDoubleTap);
+    touch(&mut harness, &mut input, Gesture::LowerHoldTap);
+    let after = harness.with_drive(|d, _| (d.trip.truck.engine_on, d.trip.truck.parking_brake));
+    assert_eq!(before, after);
+    assert!(
+        harness.transcript().is_empty(),
+        "{:#?}",
+        harness.transcript()
+    );
+    drop(harness);
+
     let (expected, engine_by_key) = by_key("Touch Engine Key", parked, Action::Engine, |h| {
         h.with_drive(|d, _| d.trip.truck.engine_on)
     });
     let mut harness = a_drive("Touch Engine");
     parked(&mut harness);
+    harness.app.ctx.bindings.set_touch_command(
+        Gesture::LowerHoldDoubleTap,
+        TouchCommand::Action(Action::Engine),
+    );
     let mut input = TouchInput::new();
     touch(&mut harness, &mut input, Gesture::HoldLowerBegan);
     assert!(harness.app.ctx.input.physically_down(Key::Down));
     let engine_before = harness.with_drive(|d, _| d.trip.truck.engine_on);
     touch(&mut harness, &mut input, Gesture::LowerHoldDoubleTap);
-    // Same answer as the key, with the parking brake named as its gesture.
+    // Same answer as the key, with gas named as what releases the brake.
     let expected: Vec<String> = expected
         .iter()
         .map(|line| {
             line.replace(
-                "P releases",
-                "a second-finger tap while holding brake releases",
+                "P releases the parking brake.",
+                "swipe up and hold to release the parking brake and drive.",
             )
+            .replace("Air ready. swipe up", "Air ready. Swipe up")
         })
         .collect();
     assert_eq!(harness.transcript(), expected);
@@ -167,6 +189,10 @@ fn a_second_finger_on_the_brake_runs_the_parking_brake_and_the_engine() {
     });
     let mut harness = a_drive("Touch Brake");
     parked(&mut harness);
+    harness.app.ctx.bindings.set_touch_command(
+        Gesture::LowerHoldTap,
+        TouchCommand::Action(Action::ParkingBrake),
+    );
     let mut input = TouchInput::new();
     touch(&mut harness, &mut input, Gesture::HoldLowerBegan);
     touch(&mut harness, &mut input, Gesture::LowerHoldTap);
@@ -396,7 +422,7 @@ fn the_touch_gestures_screen_moves_a_gesture_and_saves_it() {
     for wanted in [
         "Tap: Speed",
         "Gas hold, tap with a second finger: Cruise",
-        "Brake hold, double tap with a second finger: Engine on or off",
+        "Brake hold, double tap with a second finger: Nothing",
         "Two-finger double tap: Pause",
         "Reset every touch gesture to its default",
     ] {
@@ -637,5 +663,91 @@ fn a_cruise_flick_presses_no_pedal() {
             !harness.app.ctx.input.physically_down(Key::Down),
             "{gesture:?}"
         );
+    }
+}
+
+#[test]
+fn practice_reads_the_length_of_a_swipe_down_and_a_deep_swipe() {
+    let mut harness = PlaytestHarness::new();
+    harness.app.push_state(TouchPracticeState::new());
+    let mut input = TouchInput::new();
+
+    touch(&mut harness, &mut input, Gesture::HoldLowerBegan);
+    harness.clear_speech();
+    // The phone reports the length just before the lift.
+    touch(&mut harness, &mut input, Gesture::Travel(64));
+    touch(&mut harness, &mut input, Gesture::HoldEnded);
+    assert_eq!(
+        harness.transcript(),
+        vec!["Length 64. The deep swipe starts at 90."]
+    );
+
+    touch(&mut harness, &mut input, Gesture::HoldLowerBegan);
+    touch(&mut harness, &mut input, Gesture::DeepSwipeDownBegan);
+    harness.clear_speech();
+    touch(&mut harness, &mut input, Gesture::Travel(112));
+    touch(&mut harness, &mut input, Gesture::HoldEnded);
+    assert_eq!(harness.transcript(), vec!["Deep swipe. Length 112."]);
+
+    // A swipe up has no length that changes what it does.
+    touch(&mut harness, &mut input, Gesture::HoldUpperBegan);
+    harness.clear_speech();
+    touch(&mut harness, &mut input, Gesture::Travel(70));
+    touch(&mut harness, &mut input, Gesture::HoldEnded);
+    assert!(
+        harness.transcript().is_empty(),
+        "{:?}",
+        harness.transcript()
+    );
+}
+
+#[test]
+fn the_deep_swipe_row_steps_clamps_and_tunes_the_touch_surface() {
+    let mut harness = PlaytestHarness::new();
+    harness.app.push_state(TouchGesturesState::new());
+    let mut input = TouchInput::new();
+    while harness.focused_label().as_deref() != Some("Deep swipe starts at: 90") {
+        touch(&mut harness, &mut input, Gesture::SwipeRight);
+        assert!(harness.state_is::<TouchGesturesState>());
+    }
+    harness.clear_speech();
+    // Flick up raises it and the row reads itself again.
+    touch(&mut harness, &mut input, Gesture::SwipeUp);
+    let heard = harness.transcript();
+    assert!(
+        heard.len() == 1 && heard[0].starts_with("Deep swipe starts at: 100."),
+        "{heard:?}"
+    );
+    let tuning = freight_fate::app::sdl_shell::last_touch_tuning().expect("tuned");
+    assert!((tuning[0] * tuning[2] - 100.0).abs() < 1e-9, "{tuning:?}");
+
+    for _ in 0..15 {
+        touch(&mut harness, &mut input, Gesture::SwipeDown);
+    }
+    assert_eq!(
+        harness.focused_label().as_deref(),
+        Some("Deep swipe starts at: 60")
+    );
+    right(&mut harness);
+    assert_eq!(
+        harness.focused_label().as_deref(),
+        Some("Deep swipe starts at: 70")
+    );
+    for _ in 0..15 {
+        right(&mut harness);
+    }
+    assert_eq!(
+        harness.focused_label().as_deref(),
+        Some("Deep swipe starts at: 180")
+    );
+    assert_eq!(harness.app.ctx.settings.touch_deep_swipe_factor, 6.0);
+    let tuning = freight_fate::app::sdl_shell::last_touch_tuning().expect("tuned");
+    assert_eq!(tuning[2], 6.0);
+}
+
+/// Right arrow on a screen with no drive under it.
+fn right(harness: &mut PlaytestHarness) {
+    for event in freight_fate::touch::key_press(Key::Right) {
+        harness.app.handle_event(&event);
     }
 }

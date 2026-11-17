@@ -6503,14 +6503,14 @@ msgstr "xác nhận"
 msgid "a two-finger tap"
 msgstr "chạm hai ngón"
 
-msgid "a two-finger swipe down"
-msgstr "vuốt hai ngón xuống"
+msgid "a two-finger flick down"
+msgstr ""
 
 msgid "pause"
 msgstr "tạm dừng"
 
-msgid "a two-finger swipe up"
-msgstr "vuốt hai ngón lên"
+msgid "a two-finger flick up"
+msgstr ""
 
 msgid "help"
 msgstr "trợ giúp"
@@ -15743,6 +15743,9 @@ msgid ""
 "deliveries, {grouped} dollars, {business_status}."
 msgstr ""
 
+msgid " Touch gestures is open over the terminal; listen for it."
+msgstr ""
+
 msgid " The terminal menu is open; listen for it."
 msgstr ""
 
@@ -15872,6 +15875,14 @@ msgstr ""
 
 msgid "screen"
 msgstr "màn hình"
+
+#. placeholders: {group}, {label}
+msgid "Tap with three fingers and open {group} for {label}"
+msgstr ""
+
+#. placeholders: {label}
+msgid "Tap with three fingers for {label}"
+msgstr ""
 
 msgid "system"
 msgstr ""
@@ -16477,6 +16488,78 @@ msgstr "vuốt nhanh sang trái"
 
 msgid "flick right"
 msgstr "vuốt nhanh sang phải"
+
+msgid "Double tap with two fingers"
+msgstr ""
+
+msgid "Flick up with three fingers"
+msgstr ""
+
+msgid "Flick down with three fingers"
+msgstr ""
+
+msgid "Hold gas and tap with a second finger"
+msgstr ""
+
+msgid "Hold gas and double tap with a second finger"
+msgstr ""
+
+msgid "Hold gas and flick up with a second finger"
+msgstr ""
+
+msgid "Hold gas and flick down with a second finger"
+msgstr ""
+
+msgid "Hold gas and flick left with a second finger"
+msgstr ""
+
+msgid "Hold gas and flick right with a second finger"
+msgstr ""
+
+msgid "Hold the brake and tap with a second finger"
+msgstr ""
+
+msgid "Hold the brake and double tap with a second finger"
+msgstr ""
+
+msgid "Hold the brake and flick up with a second finger"
+msgstr ""
+
+msgid "Hold the brake and flick down with a second finger"
+msgstr ""
+
+msgid "Hold the brake and flick left with a second finger"
+msgstr ""
+
+msgid "Hold the brake and flick right with a second finger"
+msgstr ""
+
+msgid "Turn two fingers right"
+msgstr ""
+
+msgid "Swipe up and hold"
+msgstr ""
+
+msgid "Swipe down and hold"
+msgstr ""
+
+msgid "Swipe down deep and hold"
+msgstr ""
+
+msgid "Hold two fingers"
+msgstr ""
+
+msgid "Flick left"
+msgstr "Hất sang trái"
+
+msgid "Flick right"
+msgstr "Hất sang phải"
+
+msgid "Double tap"
+msgstr "Chạm hai lần"
+
+msgid "Tap with three fingers, then double tap"
+msgstr ""
 
 #. placeholders: {label}
 msgid "{label} from the three-finger tap list"
@@ -21824,6 +21907,9 @@ msgid "Cloud backup is still working. Stay here for the result."
 msgstr ""
 "Sao lưu đám mây vẫn đang xử lý. Hãy ở lại màn hình này để nghe kết quả."
 
+msgid "Turn two fingers right to start the engine."
+msgstr ""
+
 #. placeholders: {control_hint}
 msgid "Press {control_hint} to start the engine."
 msgstr "Nhấn {control_hint} để đề nổ máy."
@@ -21859,6 +21945,15 @@ msgstr "Động cơ đang nổ cầm chừng."
 msgid "Cruise paused. "
 msgstr "Ga tự động đang tạm dừng. "
 
+#. placeholders: {touch_instruction}
+msgid "Cruise paused. {touch_instruction} to cancel it. "
+msgstr ""
+
+#. placeholders: {touch_instruction}
+#. one sentence of a longer line
+msgid "{touch_instruction} to cancel it."
+msgstr ""
+
 #. placeholders: {control_hint}
 msgid "Cruise paused. {control_hint} cancels it. "
 msgstr "Ga tự động đang tạm dừng. {control_hint} để hủy. "
@@ -21867,6 +21962,10 @@ msgstr "Ga tự động đang tạm dừng. {control_hint} để hủy. "
 #. one sentence of a longer line
 msgid "{control_hint} cancels it."
 msgstr "{control_hint} để hủy."
+
+msgid ""
+"At air ready, swipe up and hold to release the parking brake and drive."
+msgstr ""
 
 #. placeholders: {control_hint}
 msgid "At air ready, {control_hint} releases the parking brake."
@@ -22756,7 +22855,8 @@ msgstr ""
 
 msgid ""
 "In a manual, hold a pedal and flick up or down with a second finger to "
-"shift. The flick works the clutch. "
+"shift. The flick works the clutch. Slowing in a tall gear takes neutral, "
+"and a flick up from neutral takes the gear that fits your speed. "
 msgstr ""
 
 msgid ""
@@ -23317,6 +23417,15 @@ msgstr "Động cơ đang nổ sẵn rồi."
 msgid "Engine already off."
 msgstr "Động cơ đã tắt sẵn rồi."
 
+msgid "Double tap to check in."
+msgstr ""
+
+msgid "Double tap to pull in."
+msgstr ""
+
+msgid "Neutral. Hold a pedal and flick up with a second finger for a gear."
+msgstr ""
+
 msgid "Release the accelerator before turning the jake on."
 msgstr "Nhả chân ga trước khi bật phanh động cơ."
 
@@ -23392,6 +23501,23 @@ msgstr "Khí nén đã đủ."
 #. placeholders: {psi}
 msgid "Air {psi} psi."
 msgstr "Khí nén {psi} PSI."
+
+msgid "Air ready. Swipe up and hold to drive."
+msgstr ""
+
+msgid "Air ready. Swipe up and hold to release the parking brake and drive."
+msgstr ""
+
+#. placeholders: {psi}
+msgid ""
+"Air {psi} psi. At 100 psi, swipe up and hold to release the parking brake "
+"and drive."
+msgstr ""
+
+#. one sentence of a longer line
+msgid ""
+"At 100 psi, swipe up and hold to release the parking brake and drive."
+msgstr ""
 
 #. placeholders: {brake_hint}
 msgid "Air ready. {brake_hint} releases the parking brake."
@@ -23481,10 +23607,6 @@ msgstr ""
 "{message} Cú va đập hộp số làm hại hệ truyền động, hư hỏng {damage} phần "
 "trăm."
 
-#. one sentence of a longer line
-msgid "Grinding gears!"
-msgstr "Kẹt nghiến bánh răng số!"
-
 #. placeholders: {control_hint}
 msgid "Grinding gears! Hold {control_hint} to press the clutch first."
 msgstr "Kẹt nghiến bánh răng số! Giữ {control_hint} để đạp côn trước."
@@ -23493,6 +23615,9 @@ msgstr "Kẹt nghiến bánh răng số! Giữ {control_hint} để đạp côn 
 #. one sentence of a longer line
 msgid "Hold {control_hint} to press the clutch first."
 msgstr "Giữ {control_hint} để đạp côn trước."
+
+msgid "Grinding gears!"
+msgstr "Kẹt nghiến bánh răng số!"
 
 msgid "Grinding gears! Clutch in first."
 msgstr "Kẹt nghiến bánh răng số! Phải đạp côn trước."
@@ -23508,6 +23633,9 @@ msgstr "dịch vụ niêm yết: {join_phrase}"
 msgid "services not listed"
 msgstr "chưa rõ dịch vụ"
 
+msgid "Your first run. Turn two fingers right to start the engine."
+msgstr ""
+
 #. one sentence of a longer line
 msgid "Your first run."
 msgstr "Chuyến chạy đầu tiên của bạn."
@@ -23515,6 +23643,11 @@ msgstr "Chuyến chạy đầu tiên của bạn."
 #. placeholders: {control_hint}
 msgid "Your first run. Press {control_hint} to start the engine."
 msgstr "Chuyến chạy đầu tiên của bạn. Nhấn {control_hint} để đề nổ máy."
+
+msgid ""
+"At air ready, swipe up and hold to release the parking brake, then flick up "
+"with a second finger for first gear."
+msgstr ""
 
 #. placeholders: {control_hint}, {control_hint2}
 msgid ""
@@ -23545,6 +23678,9 @@ msgstr "Đã nhả phanh đỗ. Giữ {control_hint} để tăng ga."
 msgid "Parking brake released. Shift into first gear."
 msgstr "Đã nhả phanh đỗ. Hãy vào số một."
 
+msgid "In gear. Swipe up and hold to accelerate."
+msgstr ""
+
 #. one sentence of a longer line
 msgid "In gear."
 msgstr "Đã vào số."
@@ -23558,8 +23694,33 @@ msgid "Brake hard at a hazard warning."
 msgstr "Khi có cảnh báo chướng ngại vật hãy phanh gấp."
 
 #. one sentence of a longer line
+msgid "Flick up with two fingers for all the controls."
+msgstr ""
+
+#. one sentence of a longer line
 msgid "Rolling."
 msgstr "Xe đã lăn bánh."
+
+#. placeholders: {touch_instruction}
+msgid ""
+"Rolling. {touch_instruction} for your speed. Tap with three fingers, then "
+"double tap, for a full report. Flick up with two fingers for all the "
+"controls. Brake hard at a hazard warning. Swipe down deep and hold to stop "
+"fast."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Swipe down deep and hold to stop fast."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Tap with three fingers, then double tap, for a full report."
+msgstr ""
+
+#. placeholders: {touch_instruction}
+#. one sentence of a longer line
+msgid "{touch_instruction} for your speed."
+msgstr ""
 
 #. placeholders: {control_hint}, {control_hint2}, {control_hint3}, {control_hint4}
 msgid ""
@@ -23585,9 +23746,17 @@ msgstr ""
 "Nhấn {control_hint} xem tốc độ, {control_hint2} xem báo cáo đầy đủ, "
 "{control_hint3} xem mọi phím điều khiển."
 
+msgid "Reminder: turn two fingers right to start the engine."
+msgstr ""
+
 #. placeholders: {control_hint}
 msgid "Reminder: press {control_hint} to start the engine."
 msgstr "Nhắc bạn: nhấn {control_hint} để đề nổ máy."
+
+msgid ""
+"Reminder: air is ready. Swipe up and hold to release the parking brake and "
+"drive."
+msgstr ""
 
 #. placeholders: {control_hint}
 #. one sentence of a longer line
@@ -23603,6 +23772,11 @@ msgid ""
 "Reminder: air is ready. Press {control_hint} to release the parking brake."
 msgstr "Nhắc bạn: khí nén đã đủ. Nhấn {control_hint} để nhả phanh đỗ."
 
+msgid ""
+"Reminder: wait for air pressure to reach 100 psi, then swipe up and hold to "
+"release the parking brake and drive."
+msgstr ""
+
 #. placeholders: {control_hint}
 msgid ""
 "Reminder: wait for air pressure to reach 100 psi, then press {control_hint} "
@@ -23610,6 +23784,10 @@ msgid ""
 msgstr ""
 "Nhắc bạn: đợi áp suất khí đạt 100 PSI rồi nhấn {control_hint} để nhả phanh "
 "đỗ."
+
+msgid ""
+"Reminder: hold a pedal and flick up with a second finger for first gear."
+msgstr ""
 
 #. placeholders: {control_hint}, {control_hint2}
 msgid ""
@@ -24294,6 +24472,9 @@ msgstr ""
 #. placeholders: {control_hint}
 msgid "Press {control_hint} to restart the engine."
 msgstr "Nhấn {control_hint} để đề nổ lại máy."
+
+msgid "Turn two fingers right to restart the engine."
+msgstr ""
 
 #. placeholders: {spare}
 msgid "You are in the {spare}"
@@ -25087,6 +25268,11 @@ msgstr ""
 "Kiểm tra an toàn lưu động định kỳ, Cấp 3: kiểm tra bằng lái, giấy khám sức "
 "khỏe lái xe, nhật ký lái xe và giấy tờ lô hàng.{blitz}"
 
+msgid ""
+"Lights behind you for a routine inspection. Double tap to signal, then stop "
+"on the shoulder."
+msgstr ""
+
 #. one sentence of a longer line
 msgid "Lights behind you for a routine inspection."
 msgstr "Có đèn cảnh sát phía sau yêu cầu dừng kiểm tra định kỳ."
@@ -25185,8 +25371,18 @@ msgid ""
 msgstr "Cảnh sát tuần tra tại {reason} thấy {detail} và muốn kiểm tra xe."
 
 #. one sentence of a longer line
+msgid "Double tap to signal, then stop on the shoulder."
+msgstr ""
+
+#. one sentence of a longer line
 msgid "Lights and siren behind you."
 msgstr "Có đèn và còi cảnh sát phía sau."
+
+#. placeholders: {reason}, {detail}
+msgid ""
+"Lights and siren behind you. A trooper on this {reason} saw {detail} and "
+"wants a look at the truck. Double tap to signal, then stop on the shoulder."
+msgstr ""
 
 #. placeholders: {reason}, {detail}, {control_hint}
 msgid ""
@@ -25214,6 +25410,12 @@ msgstr "Bật xi-nhan rồi dừng hẳn xe ở lề đường."
 #. one sentence of a longer line
 msgid "A trooper on this {reason} saw {what}."
 msgstr "Cảnh sát tuần tra tại {reason} đã phát hiện {what}."
+
+#. placeholders: {reason}, {what}
+msgid ""
+"Lights and siren behind you. A trooper on this {reason} saw {what}. Double "
+"tap to signal, then stop on the shoulder."
+msgstr ""
 
 #. placeholders: {reason}, {what}, {control_hint}
 msgid ""
@@ -25424,6 +25626,9 @@ msgstr "Đã lỡ lối ra điểm giao tới {facility}."
 #. placeholders: {facility}, {reroute_text}
 msgid "Missed the destination exit for {facility}. {reroute_text}"
 msgstr "Đã lỡ lối ra điểm giao tới {facility}. {reroute_text}"
+
+msgid "Holding at the entrance. Double tap to continue."
+msgstr ""
 
 #. placeholders: {control_hint}
 msgid "Holding at the entrance. Press {control_hint} to continue."
@@ -26268,6 +26473,12 @@ msgstr ""
 msgid "Set the parking brake to dock."
 msgstr ""
 
+msgid "Swipe down deep to set the parking brake and check in."
+msgstr ""
+
+msgid "Swipe down deep to set the parking brake and dock."
+msgstr ""
+
 #. placeholders: {key}
 #. one sentence of a longer line
 msgid "Press {key}."
@@ -26851,6 +27062,15 @@ msgstr "Giải quyết việc dừng xe với cảnh sát trước đã."
 msgid "On the ramp for {name}."
 msgstr "Đang trên đường dẫn vào {name}."
 
+#. placeholders: {name}
+msgid ""
+"On the ramp for {name}. Stop at the scale, then double tap to check in."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Stop at the scale, then double tap to check in."
+msgstr ""
+
 #. placeholders: {name}, {rest_hint}
 msgid ""
 "On the ramp for {name}. Stop at the scale, then press {rest_hint} to check "
@@ -27018,6 +27238,11 @@ msgstr "Đình chỉ lưu hành {oos_phrase}."
 #. placeholders: {oos_phrase}, {evidence_text}
 msgid "Out of service {oos_phrase}. Citation: {evidence_text}."
 msgstr "Đình chỉ lưu hành {oos_phrase}. Biên bản phạt: {evidence_text}."
+
+msgid ""
+"Lights and siren behind you for a log check. Double tap to signal, then "
+"stop on the shoulder."
+msgstr ""
 
 #. one sentence of a longer line
 msgid "Lights and siren behind you for a log check."
@@ -27216,6 +27441,9 @@ msgstr "Đã chạy lố qua {place}. Nơi đó lại ở phía trước rồi."
 msgid "It is ahead again."
 msgstr "Nơi đó lại ở phía trước rồi."
 
+msgid " Swipe down and hold to brake well before it."
+msgstr ""
+
 #. placeholders: {control_hint}
 msgid " Brake with {control_hint} well before it."
 msgstr " Nhớ phanh bằng {control_hint} từ sớm trước khi tới nơi."
@@ -27283,6 +27511,9 @@ msgstr ""
 #. one sentence of a longer line
 msgid "You turned around, and the gate is ahead again."
 msgstr "Bạn đã quay đầu lại, và cổng lại ở phía trước."
+
+msgid " Swipe down and hold to brake well before the gate."
+msgstr ""
 
 #. placeholders: {control_hint}
 msgid " Brake with {control_hint} well before the gate."
@@ -27624,6 +27855,9 @@ msgstr "Ghi chú tuyến ELD: không có cảnh báo dừng nghỉ bắt buộc.
 #. placeholders: {context}
 msgid "ELD route note: {context}"
 msgstr "Ghi chú tuyến ELD: {context}"
+
+msgid "ELD commands: tap with three fingers and open Hours and clock."
+msgstr ""
 
 #. placeholders: {control_name}, {control_name2}, {control_name3}
 msgid ""
@@ -28262,9 +28496,6 @@ msgstr ""
 msgid "a three-finger flick left"
 msgstr ""
 
-msgid "a two-finger flick up"
-msgstr ""
-
 msgid ""
 "Left and Right change it. On the keyboard: Shift Page Down and Shift Page "
 "Up."
@@ -28797,6 +29028,13 @@ msgstr "Vị trí bắt sóng ước tính của xe: {f}, {f2}."
 
 msgid "Receivable stations:"
 msgstr "Các đài bắt được sóng:"
+
+msgid "Plus 1 more station, listed in the Radio app under Driver apps."
+msgstr ""
+
+#. placeholders: {n}
+msgid "Plus {n} more stations, listed in the Radio app under Driver apps."
+msgstr ""
 
 msgid "Favorites saved:"
 msgstr "Đài yêu thích đã lưu:"
@@ -31506,6 +31744,11 @@ msgstr ""
 "giờ lái quy định được đặt lại nếu đang bật chế độ kiểm soát. Có thể bị phạt "
 "và hư hỏng nhẹ. Hạn giao hàng vẫn tiếp tục trôi. {current}"
 
+msgid ""
+"Shoulder sleep canceled. Back on the road. Parking brake set. Swipe up and "
+"hold to release it and drive."
+msgstr ""
+
 #. one sentence of a longer line
 msgid "Back on the road."
 msgstr "Trở lại đường chạy."
@@ -31744,9 +31987,21 @@ msgstr "Rời trường tập lái."
 msgid "Cruise is already on."
 msgstr "Ga tự động đang bật sẵn rồi."
 
+msgid "No remembered cruise speed yet. Flick up to set one."
+msgstr ""
+
 #. one sentence of a longer line
 msgid "No remembered cruise speed yet."
 msgstr "Chưa có tốc độ ga tự động nào được lưu."
+
+#. placeholders: {touch_instruction}
+msgid "No remembered cruise speed yet. {touch_instruction} to set one."
+msgstr ""
+
+#. placeholders: {touch_instruction}
+#. one sentence of a longer line
+msgid "{touch_instruction} to set one."
+msgstr ""
 
 #. placeholders: {key}
 msgid "No remembered cruise speed yet. {key} sets one."
@@ -32520,6 +32775,9 @@ msgstr "Đang chờ đủ áp suất hơi trước khi xe lăn bánh được."
 msgid "Air pressure {psi} psi."
 msgstr "Áp suất hơi {psi} PSI."
 
+msgid "Parking brake set. Swipe up and hold to release it and drive."
+msgstr ""
+
 #. placeholders: {brake_hint}
 msgid "Parking brake set. Press {brake_hint} to release it."
 msgstr "Phanh đỗ đang kéo. Nhấn {brake_hint} để nhả."
@@ -32998,6 +33256,12 @@ msgstr ""
 msgid "{speed} in a {zone} zone."
 msgstr "{speed} trong khu vực {zone}."
 
+#. placeholders: {speed}, {zone}
+msgid ""
+"Lights and siren behind you. {speed} in a {zone} zone. Double tap to "
+"signal, then stop on the shoulder."
+msgstr ""
+
 #. placeholders: {speed}, {zone}, {control_hint}
 msgid ""
 "Lights and siren behind you. {speed} in a {zone} zone. Signal with "
@@ -33049,6 +33313,11 @@ msgstr "Rẽ vào {name}."
 msgid "Red light. Pull in to {name}."
 msgstr "Đèn đỏ trạm cân. Rẽ vào {name}."
 
+msgid ""
+"Scale bypass enforcement. Lights and siren behind you. Double tap to "
+"signal, then stop on the shoulder."
+msgstr ""
+
 #. one sentence of a longer line
 msgid "Scale bypass enforcement."
 msgstr "Xử phạt lỗi chạy lố qua trạm cân."
@@ -33089,6 +33358,11 @@ msgid ""
 msgstr ""
 "Cảnh sát tuần tra ở khu vực {reason} thấy xe bạn hư hỏng rõ rệt ở mức "
 "{damage_pct} phần trăm và yêu cầu kiểm tra an toàn lưu động."
+
+msgid ""
+"Unsafe equipment stop. Lights and siren behind you. Double tap to signal, "
+"then stop on the shoulder."
+msgstr ""
 
 #. one sentence of a longer line
 msgid "Unsafe equipment stop."
@@ -33216,6 +33490,9 @@ msgid ""
 "gear."
 msgstr "Chết máy. Về số mo, đề nổ lại rồi đạp côn và vào số một."
 
+msgid "Engine stalled. Turn two fingers right to restart."
+msgstr ""
+
 #. placeholders: {control_hint}
 msgid "Engine stalled. Press {control_hint} to restart."
 msgstr "Chết máy. Nhấn {control_hint} để đề nổ lại."
@@ -33266,6 +33543,14 @@ msgstr ""
 
 msgid "Pick your gear before it starts."
 msgstr "Chọn sẵn số phù hợp trước khi vào dốc."
+
+#. one sentence of a longer line
+msgid "Set the jake."
+msgstr ""
+
+#. placeholders: {touch_instruction}
+msgid "Set the jake. {touch_instruction}."
+msgstr ""
 
 #. placeholders: {control_hint}
 msgid "Set the jake with {control_hint}."
@@ -33746,6 +34031,10 @@ msgid ""
 msgstr ""
 "Đã bật xi-nhan nhưng xe vẫn đang chạy khi có đèn hiệu phía sau. Hãy tấp vào "
 "lề dừng hẳn xe."
+
+msgid ""
+"Failure-to-stop warning. Double tap to signal, then stop on the shoulder."
+msgstr ""
 
 #. one sentence of a longer line
 msgid "Failure-to-stop warning."
@@ -36456,6 +36745,24 @@ msgstr ""
 msgid "Gesture"
 msgstr "Cử chỉ"
 
+msgid ""
+"How far a swipe down travels before it becomes the emergency brake, or the "
+"parking brake when stopped. Practice gestures reads the length of each "
+"swipe down. Flick up or down to change it."
+msgstr ""
+
+msgid ""
+"How far a swipe down travels before it becomes the emergency brake, or the "
+"parking brake when stopped. Practice gestures reads the length of each "
+"swipe down. D-pad Right or Left changes it."
+msgstr ""
+
+msgid ""
+"How far a swipe down travels before it becomes the emergency brake, or the "
+"parking brake when stopped. Practice gestures reads the length of each "
+"swipe down. Right or Left arrow changes it."
+msgstr ""
+
 msgid "Every touch gesture is back to its default."
 msgstr "Mọi cử chỉ cảm ứng đã được khôi phục về mặc định."
 
@@ -36467,6 +36774,10 @@ msgstr "Đã tắt rung phản hồi cảm ứng."
 
 msgid "Confirm, then choose the command this gesture runs while driving."
 msgstr "Xác nhận, rồi chọn lệnh mà cử chỉ này thực hiện khi lái xe."
+
+#. placeholders: {touch_deep_swipe_points}
+msgid "Deep swipe starts at: {touch_deep_swipe_points}"
+msgstr ""
 
 msgid "Practice gestures"
 msgstr "Luyện tập cử chỉ"
@@ -36500,6 +36811,28 @@ msgstr ""
 #. placeholders: {gesture_name}, {label}
 msgid "{gesture_name} now runs {label}."
 msgstr "{gesture_name} hiện chạy lệnh {label}."
+
+#. one sentence of a longer line
+msgid "Deep swipe."
+msgstr ""
+
+#. placeholders: {points}
+msgid "Deep swipe. Length {points}."
+msgstr ""
+
+#. placeholders: {points}
+#. one sentence of a longer line
+msgid "Length {points}."
+msgstr ""
+
+#. placeholders: {points}, {touch_deep_swipe_points}
+msgid "Length {points}. The deep swipe starts at {touch_deep_swipe_points}."
+msgstr ""
+
+#. placeholders: {touch_deep_swipe_points}
+#. one sentence of a longer line
+msgid "The deep swipe starts at {touch_deep_swipe_points}."
+msgstr ""
 
 msgid "Swipe up and hold: gas. Lift to coast."
 msgstr "Vuốt lên và giữ: đạp ga. Nhấc tay để thả trôi."
@@ -36604,20 +36937,11 @@ msgstr "Thoát chế độ luyện tập cử chỉ."
 msgid "Again to leave practice."
 msgstr "Làm lại lần nữa để thoát luyện tập."
 
-msgid "Double tap"
-msgstr "Chạm hai lần"
-
 msgid "Swipe up"
 msgstr "Vuốt lên"
 
 msgid "Swipe down"
 msgstr "Vuốt xuống"
-
-msgid "Flick left"
-msgstr "Hất sang trái"
-
-msgid "Flick right"
-msgstr "Hất sang phải"
 
 msgid "Two-finger tap"
 msgstr "Chạm hai ngón"
@@ -42266,6 +42590,12 @@ msgstr ""
 #. The last sentence of the sleep preview, when nothing comes before it.
 msgid "Select again to sleep."
 msgstr ""
+
+#~ msgid "a two-finger swipe down"
+#~ msgstr "vuốt hai ngón xuống"
+
+#~ msgid "a two-finger swipe up"
+#~ msgstr "vuốt hai ngón lên"
 
 #~ msgid "Three-finger swipe up"
 #~ msgstr "Vuốt ba ngón lên"

@@ -700,7 +700,12 @@ impl DrivingState {
             }
             self.exit_right_hold_s = 0.0;
         }
-        if self.exit_right_taps >= 2 && self.lane.exit_lane_open && !self.exit_tap_hint_said {
+        // On touch a side flick is a whole lane, so there is no hold to teach.
+        if self.exit_right_taps >= 2
+            && self.lane.exit_lane_open
+            && !self.exit_tap_hint_said
+            && !ctx.touch_hints()
+        {
             self.exit_tap_hint_said = true;
             let text = format!("Hold {} to steer in.", ctx.control_name(Action::SteerRight));
             self.say_plain(ctx, text);

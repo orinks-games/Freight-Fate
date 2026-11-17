@@ -720,6 +720,12 @@ impl DrivingState {
             ctx.control_hint("engine")
         );
         let message = self.without_key_hint(ctx, message, &restart);
+        let message = self.with_touch_sentence(
+            ctx,
+            message,
+            &restart,
+            "Turn two fingers right to restart the engine.",
+        );
         ctx.say_event_with(message, SayEvent::new().category(SpeechCategory::Safety));
     }
 
@@ -846,6 +852,12 @@ impl DrivingState {
             ctx.control_hint("engine")
         );
         let message = self.without_key_hint(ctx, message, &restart);
+        let message = self.with_touch_sentence(
+            ctx,
+            message,
+            &restart,
+            "Turn two fingers right to restart the engine.",
+        );
         ctx.say_event_with(message, SayEvent::new().category(SpeechCategory::Safety));
     }
 

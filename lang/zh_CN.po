@@ -5713,14 +5713,14 @@ msgstr "确认"
 msgid "a two-finger tap"
 msgstr "双指轻点"
 
-msgid "a two-finger swipe down"
-msgstr "双指向下滑动"
+msgid "a two-finger flick down"
+msgstr ""
 
 msgid "pause"
 msgstr "暂停"
 
-msgid "a two-finger swipe up"
-msgstr "双指向上滑动"
+msgid "a two-finger flick up"
+msgstr ""
 
 msgid "help"
 msgstr "帮助"
@@ -14122,6 +14122,9 @@ msgstr ""
 "场景已布置：{name}，位于{the_city}基地，{level}级，送货{deliveries}次，{grouped}美元，{business_s"
 "tatus}。"
 
+msgid " Touch gestures is open over the terminal; listen for it."
+msgstr ""
+
 msgid " The terminal menu is open; listen for it."
 msgstr " 场站菜单已打开，注意听。"
 
@@ -14247,6 +14250,14 @@ msgid "smoke checks"
 msgstr "smoke checks"
 
 msgid "screen"
+msgstr ""
+
+#. placeholders: {group}, {label}
+msgid "Tap with three fingers and open {group} for {label}"
+msgstr ""
+
+#. placeholders: {label}
+msgid "Tap with three fingers for {label}"
 msgstr ""
 
 msgid "system"
@@ -14836,6 +14847,78 @@ msgstr "向左轻扫"
 
 msgid "flick right"
 msgstr "向右轻扫"
+
+msgid "Double tap with two fingers"
+msgstr ""
+
+msgid "Flick up with three fingers"
+msgstr ""
+
+msgid "Flick down with three fingers"
+msgstr ""
+
+msgid "Hold gas and tap with a second finger"
+msgstr ""
+
+msgid "Hold gas and double tap with a second finger"
+msgstr ""
+
+msgid "Hold gas and flick up with a second finger"
+msgstr ""
+
+msgid "Hold gas and flick down with a second finger"
+msgstr ""
+
+msgid "Hold gas and flick left with a second finger"
+msgstr ""
+
+msgid "Hold gas and flick right with a second finger"
+msgstr ""
+
+msgid "Hold the brake and tap with a second finger"
+msgstr ""
+
+msgid "Hold the brake and double tap with a second finger"
+msgstr ""
+
+msgid "Hold the brake and flick up with a second finger"
+msgstr ""
+
+msgid "Hold the brake and flick down with a second finger"
+msgstr ""
+
+msgid "Hold the brake and flick left with a second finger"
+msgstr ""
+
+msgid "Hold the brake and flick right with a second finger"
+msgstr ""
+
+msgid "Turn two fingers right"
+msgstr ""
+
+msgid "Swipe up and hold"
+msgstr ""
+
+msgid "Swipe down and hold"
+msgstr ""
+
+msgid "Swipe down deep and hold"
+msgstr ""
+
+msgid "Hold two fingers"
+msgstr ""
+
+msgid "Flick left"
+msgstr "向左轻扫"
+
+msgid "Flick right"
+msgstr "向右轻扫"
+
+msgid "Double tap"
+msgstr "双击"
+
+msgid "Tap with three fingers, then double tap"
+msgstr ""
 
 #. placeholders: {label}
 msgid "{label} from the three-finger tap list"
@@ -19739,6 +19822,9 @@ msgstr "从你的orinks.net账户中删除这段职业生涯保留的所有云�
 msgid "Cloud backup is still working. Stay here for the result."
 msgstr "云备份还在处理中。留在这里等结果。"
 
+msgid "Turn two fingers right to start the engine."
+msgstr ""
+
 #. placeholders: {control_hint}
 msgid "Press {control_hint} to start the engine."
 msgstr "按{control_hint}启动发动机。"
@@ -19774,6 +19860,15 @@ msgstr "发动机怠速中。"
 msgid "Cruise paused. "
 msgstr "巡航已暂停。 "
 
+#. placeholders: {touch_instruction}
+msgid "Cruise paused. {touch_instruction} to cancel it. "
+msgstr ""
+
+#. placeholders: {touch_instruction}
+#. one sentence of a longer line
+msgid "{touch_instruction} to cancel it."
+msgstr ""
+
 #. placeholders: {control_hint}
 msgid "Cruise paused. {control_hint} cancels it. "
 msgstr "巡航已暂停。{control_hint}可取消。 "
@@ -19782,6 +19877,10 @@ msgstr "巡航已暂停。{control_hint}可取消。 "
 #. one sentence of a longer line
 msgid "{control_hint} cancels it."
 msgstr "{control_hint} 取消它。"
+
+msgid ""
+"At air ready, swipe up and hold to release the parking brake and drive."
+msgstr ""
 
 #. placeholders: {control_hint}
 msgid "At air ready, {control_hint} releases the parking brake."
@@ -20551,7 +20650,8 @@ msgstr ""
 
 msgid ""
 "In a manual, hold a pedal and flick up or down with a second finger to "
-"shift. The flick works the clutch. "
+"shift. The flick works the clutch. Slowing in a tall gear takes neutral, "
+"and a flick up from neutral takes the gear that fits your speed. "
 msgstr ""
 
 msgid ""
@@ -21102,6 +21202,15 @@ msgstr "发动机已经在运转了。"
 msgid "Engine already off."
 msgstr "发动机已经关闭了。"
 
+msgid "Double tap to check in."
+msgstr ""
+
+msgid "Double tap to pull in."
+msgstr ""
+
+msgid "Neutral. Hold a pedal and flick up with a second finger for a gear."
+msgstr ""
+
 msgid "Release the accelerator before turning the jake on."
 msgstr "打开发动机制动之前先松开油门。"
 
@@ -21175,6 +21284,23 @@ msgstr "气压就绪。"
 #. placeholders: {psi}
 msgid "Air {psi} psi."
 msgstr "气压{psi} psi。"
+
+msgid "Air ready. Swipe up and hold to drive."
+msgstr ""
+
+msgid "Air ready. Swipe up and hold to release the parking brake and drive."
+msgstr ""
+
+#. placeholders: {psi}
+msgid ""
+"Air {psi} psi. At 100 psi, swipe up and hold to release the parking brake "
+"and drive."
+msgstr ""
+
+#. one sentence of a longer line
+msgid ""
+"At 100 psi, swipe up and hold to release the parking brake and drive."
+msgstr ""
 
 #. placeholders: {brake_hint}
 msgid "Air ready. {brake_hint} releases the parking brake."
@@ -21258,10 +21384,6 @@ msgid ""
 "{message} That crash of gears cost the driveline, damage {damage} percent."
 msgstr "{message}那一下打齿伤到了传动系统，损伤百分之{damage}。"
 
-#. one sentence of a longer line
-msgid "Grinding gears!"
-msgstr "打齿了！"
-
 #. placeholders: {control_hint}
 msgid "Grinding gears! Hold {control_hint} to press the clutch first."
 msgstr "打齿了！先按住{control_hint}踩下离合。"
@@ -21270,6 +21392,9 @@ msgstr "打齿了！先按住{control_hint}踩下离合。"
 #. one sentence of a longer line
 msgid "Hold {control_hint} to press the clutch first."
 msgstr "先按住{control_hint}踩下离合。"
+
+msgid "Grinding gears!"
+msgstr "打齿了！"
 
 msgid "Grinding gears! Clutch in first."
 msgstr ""
@@ -21285,6 +21410,9 @@ msgstr "列出的服务：{join_phrase}"
 msgid "services not listed"
 msgstr "未列出服务"
 
+msgid "Your first run. Turn two fingers right to start the engine."
+msgstr ""
+
 #. one sentence of a longer line
 msgid "Your first run."
 msgstr "你的第一趟行程。"
@@ -21292,6 +21420,11 @@ msgstr "你的第一趟行程。"
 #. placeholders: {control_hint}
 msgid "Your first run. Press {control_hint} to start the engine."
 msgstr "你的第一趟行程。按{control_hint}启动发动机。"
+
+msgid ""
+"At air ready, swipe up and hold to release the parking brake, then flick up "
+"with a second finger for first gear."
+msgstr ""
 
 #. placeholders: {control_hint}, {control_hint2}
 msgid ""
@@ -21319,6 +21452,9 @@ msgstr "驻车制动已松开。按住{control_hint}加速。"
 msgid "Parking brake released. Shift into first gear."
 msgstr "驻车制动已松开。挂上一档。"
 
+msgid "In gear. Swipe up and hold to accelerate."
+msgstr ""
+
 #. one sentence of a longer line
 msgid "In gear."
 msgstr "已挂档。"
@@ -21332,8 +21468,33 @@ msgid "Brake hard at a hazard warning."
 msgstr "听到危险警告时用力刹车。"
 
 #. one sentence of a longer line
+msgid "Flick up with two fingers for all the controls."
+msgstr ""
+
+#. one sentence of a longer line
 msgid "Rolling."
 msgstr "开起来了。"
+
+#. placeholders: {touch_instruction}
+msgid ""
+"Rolling. {touch_instruction} for your speed. Tap with three fingers, then "
+"double tap, for a full report. Flick up with two fingers for all the "
+"controls. Brake hard at a hazard warning. Swipe down deep and hold to stop "
+"fast."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Swipe down deep and hold to stop fast."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Tap with three fingers, then double tap, for a full report."
+msgstr ""
+
+#. placeholders: {touch_instruction}
+#. one sentence of a longer line
+msgid "{touch_instruction} for your speed."
+msgstr ""
 
 #. placeholders: {control_hint}, {control_hint2}, {control_hint3}, {control_hint4}
 msgid ""
@@ -21356,9 +21517,17 @@ msgid ""
 "{control_hint3} for all the controls."
 msgstr "{control_hint}听车速，{control_hint2}听完整报告，{control_hint3}听所有操作。"
 
+msgid "Reminder: turn two fingers right to start the engine."
+msgstr ""
+
 #. placeholders: {control_hint}
 msgid "Reminder: press {control_hint} to start the engine."
 msgstr "提醒：按{control_hint}启动发动机。"
+
+msgid ""
+"Reminder: air is ready. Swipe up and hold to release the parking brake and "
+"drive."
+msgstr ""
 
 #. placeholders: {control_hint}
 #. one sentence of a longer line
@@ -21374,11 +21543,20 @@ msgid ""
 "Reminder: air is ready. Press {control_hint} to release the parking brake."
 msgstr "提醒：气压已就绪。按{control_hint}松开驻车制动。"
 
+msgid ""
+"Reminder: wait for air pressure to reach 100 psi, then swipe up and hold to "
+"release the parking brake and drive."
+msgstr ""
+
 #. placeholders: {control_hint}
 msgid ""
 "Reminder: wait for air pressure to reach 100 psi, then press {control_hint} "
 "to release the parking brake."
 msgstr "提醒：等气压升到100 psi，然后按{control_hint}松开驻车制动。"
+
+msgid ""
+"Reminder: hold a pedal and flick up with a second finger for first gear."
+msgstr ""
 
 #. placeholders: {control_hint}, {control_hint2}
 msgid ""
@@ -21999,6 +22177,9 @@ msgstr ""
 #. placeholders: {control_hint}
 msgid "Press {control_hint} to restart the engine."
 msgstr "按{control_hint}重新启动发动机。"
+
+msgid "Turn two fingers right to restart the engine."
+msgstr ""
 
 #. placeholders: {spare}
 msgid "You are in the {spare}"
@@ -22704,6 +22885,11 @@ msgid ""
 "the load's paperwork.{blitz}"
 msgstr "例行3级路检：检查驾照、医疗卡、行车日志和货物单据。{blitz}"
 
+msgid ""
+"Lights behind you for a routine inspection. Double tap to signal, then stop "
+"on the shoulder."
+msgstr ""
+
 #. one sentence of a longer line
 msgid "Lights behind you for a routine inspection."
 msgstr "后面有警灯，要做例行检查。"
@@ -22791,8 +22977,18 @@ msgid ""
 msgstr "这段{reason}上的一位州警看到了{detail}，想检查一下卡车。"
 
 #. one sentence of a longer line
+msgid "Double tap to signal, then stop on the shoulder."
+msgstr ""
+
+#. one sentence of a longer line
 msgid "Lights and siren behind you."
 msgstr "后面有警灯和警笛。"
+
+#. placeholders: {reason}, {detail}
+msgid ""
+"Lights and siren behind you. A trooper on this {reason} saw {detail} and "
+"wants a look at the truck. Double tap to signal, then stop on the shoulder."
+msgstr ""
 
 #. placeholders: {reason}, {detail}, {control_hint}
 msgid ""
@@ -22816,6 +23012,12 @@ msgstr "发出信号并停在路肩上。"
 #. one sentence of a longer line
 msgid "A trooper on this {reason} saw {what}."
 msgstr "这段{reason}上的一位州警看到了{what}。"
+
+#. placeholders: {reason}, {what}
+msgid ""
+"Lights and siren behind you. A trooper on this {reason} saw {what}. Double "
+"tap to signal, then stop on the shoulder."
+msgstr ""
 
 #. placeholders: {reason}, {what}, {control_hint}
 msgid ""
@@ -23004,6 +23206,9 @@ msgstr "错过了 {facility} 的目的地出口。"
 #. placeholders: {facility}, {reroute_text}
 msgid "Missed the destination exit for {facility}. {reroute_text}"
 msgstr "错过了 {facility} 的目的地出口。{reroute_text}"
+
+msgid "Holding at the entrance. Double tap to continue."
+msgstr ""
 
 #. placeholders: {control_hint}
 msgid "Holding at the entrance. Press {control_hint} to continue."
@@ -23815,6 +24020,12 @@ msgstr ""
 msgid "Set the parking brake to dock."
 msgstr ""
 
+msgid "Swipe down deep to set the parking brake and check in."
+msgstr ""
+
+msgid "Swipe down deep to set the parking brake and dock."
+msgstr ""
+
 #. placeholders: {key}
 #. one sentence of a longer line
 msgid "Press {key}."
@@ -24369,6 +24580,15 @@ msgstr "先处理完警察拦停。"
 msgid "On the ramp for {name}."
 msgstr "在去{name}的匝道上。"
 
+#. placeholders: {name}
+msgid ""
+"On the ramp for {name}. Stop at the scale, then double tap to check in."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Stop at the scale, then double tap to check in."
+msgstr ""
+
 #. placeholders: {name}, {rest_hint}
 msgid ""
 "On the ramp for {name}. Stop at the scale, then press {rest_hint} to check "
@@ -24528,6 +24748,11 @@ msgstr "停驶{oos_phrase}。"
 #. placeholders: {oos_phrase}, {evidence_text}
 msgid "Out of service {oos_phrase}. Citation: {evidence_text}."
 msgstr "停驶{oos_phrase}。违规：{evidence_text}。"
+
+msgid ""
+"Lights and siren behind you for a log check. Double tap to signal, then "
+"stop on the shoulder."
+msgstr ""
 
 #. one sentence of a longer line
 msgid "Lights and siren behind you for a log check."
@@ -24719,6 +24944,9 @@ msgstr "开车经过{place}。又领先了。"
 msgid "It is ahead again."
 msgstr "又领先了。"
 
+msgid " Swipe down and hold to brake well before it."
+msgstr ""
+
 #. placeholders: {control_hint}
 msgid " Brake with {control_hint} well before it."
 msgstr " 提前用{control_hint}刹车。"
@@ -24784,6 +25012,9 @@ msgstr "错过了 {destination_facility_text} 的登机口，入口太快了。�
 #. one sentence of a longer line
 msgid "You turned around, and the gate is ahead again."
 msgstr "你转身，门又在前面。"
+
+msgid " Swipe down and hold to brake well before the gate."
+msgstr ""
 
 #. placeholders: {control_hint}
 msgid " Brake with {control_hint} well before the gate."
@@ -25114,6 +25345,9 @@ msgstr "ELD路线提示：没有合法停车警告。"
 #. placeholders: {context}
 msgid "ELD route note: {context}"
 msgstr "ELD路线提示：{context}"
+
+msgid "ELD commands: tap with three fingers and open Hours and clock."
+msgstr ""
 
 #. placeholders: {control_name}, {control_name2}, {control_name3}
 msgid ""
@@ -25704,9 +25938,6 @@ msgstr ""
 msgid "a three-finger flick left"
 msgstr ""
 
-msgid "a two-finger flick up"
-msgstr ""
-
 msgid ""
 "Left and Right change it. On the keyboard: Shift Page Down and Shift Page "
 "Up."
@@ -26199,6 +26430,13 @@ msgstr "卡车收音机的大致位置：{f}，{f2}。"
 
 msgid "Receivable stations:"
 msgstr "可接收的电台："
+
+msgid "Plus 1 more station, listed in the Radio app under Driver apps."
+msgstr ""
+
+#. placeholders: {n}
+msgid "Plus {n} more stations, listed in the Radio app under Driver apps."
+msgstr ""
 
 msgid "Favorites saved:"
 msgstr "已保存的收藏夹："
@@ -28662,6 +28900,11 @@ msgstr ""
 "{title}。{reason}紧急在路肩睡觉：休息质量差，共10小时。若强制执行驾驶工时，则会重置计时。可能收到罚单并遭受轻微损坏。截止时间仍在倒计时"
 "。{current}"
 
+msgid ""
+"Shoulder sleep canceled. Back on the road. Parking brake set. Swipe up and "
+"hold to release it and drive."
+msgstr ""
+
 #. one sentence of a longer line
 msgid "Back on the road."
 msgstr "回到路上了。"
@@ -28879,9 +29122,21 @@ msgstr "离开驾校。"
 msgid "Cruise is already on."
 msgstr "巡航已经开启。"
 
+msgid "No remembered cruise speed yet. Flick up to set one."
+msgstr ""
+
 #. one sentence of a longer line
 msgid "No remembered cruise speed yet."
 msgstr "还没有记住的巡航速度。"
+
+#. placeholders: {touch_instruction}
+msgid "No remembered cruise speed yet. {touch_instruction} to set one."
+msgstr ""
+
+#. placeholders: {touch_instruction}
+#. one sentence of a longer line
+msgid "{touch_instruction} to set one."
+msgstr ""
 
 #. placeholders: {key}
 msgid "No remembered cruise speed yet. {key} sets one."
@@ -29600,6 +29855,9 @@ msgstr "正在等气压，卡车才能开动。"
 msgid "Air pressure {psi} psi."
 msgstr "气压{psi} psi。"
 
+msgid "Parking brake set. Swipe up and hold to release it and drive."
+msgstr ""
+
 #. placeholders: {brake_hint}
 msgid "Parking brake set. Press {brake_hint} to release it."
 msgstr "驻车制动已拉上。按{brake_hint}松开。"
@@ -30013,6 +30271,12 @@ msgstr "你身后有灯光和警报器。{speed} 位于 {zone} 区域中。发�
 msgid "{speed} in a {zone} zone."
 msgstr "{speed} 位于 {zone} 区域中。"
 
+#. placeholders: {speed}, {zone}
+msgid ""
+"Lights and siren behind you. {speed} in a {zone} zone. Double tap to "
+"signal, then stop on the shoulder."
+msgstr ""
+
 #. placeholders: {speed}, {zone}, {control_hint}
 msgid ""
 "Lights and siren behind you. {speed} in a {zone} zone. Signal with "
@@ -30064,6 +30328,11 @@ msgstr "驶入{name}。"
 msgid "Red light. Pull in to {name}."
 msgstr "红灯。驶入{name}。"
 
+msgid ""
+"Scale bypass enforcement. Lights and siren behind you. Double tap to "
+"signal, then stop on the shoulder."
+msgstr ""
+
 #. one sentence of a longer line
 msgid "Scale bypass enforcement."
 msgstr "绕过称重站执法。"
@@ -30096,6 +30365,11 @@ msgid ""
 "A trooper in this {reason} saw visible truck damage at {damage_pct} percent "
 "and ordered a roadside safety inspection."
 msgstr "这段{reason}上的一位州警看到卡车有明显损坏，损坏百分之{damage_pct}，下令做路边安全检查。"
+
+msgid ""
+"Unsafe equipment stop. Lights and siren behind you. Double tap to signal, "
+"then stop on the shoulder."
+msgstr ""
 
 #. one sentence of a longer line
 msgid "Unsafe equipment stop."
@@ -30209,6 +30483,9 @@ msgid ""
 "gear."
 msgstr ""
 
+msgid "Engine stalled. Turn two fingers right to restart."
+msgstr ""
+
 #. placeholders: {control_hint}
 msgid "Engine stalled. Press {control_hint} to restart."
 msgstr "发动机熄火了。按{control_hint}重新启动。"
@@ -30257,6 +30534,14 @@ msgstr ""
 
 msgid "Pick your gear before it starts."
 msgstr "在开始之前选好挡位。"
+
+#. one sentence of a longer line
+msgid "Set the jake."
+msgstr ""
+
+#. placeholders: {touch_instruction}
+msgid "Set the jake. {touch_instruction}."
+msgstr ""
 
 #. placeholders: {control_hint}
 msgid "Set the jake with {control_hint}."
@@ -30702,6 +30987,10 @@ msgstr "马上减速，否则你就是在逃避警察。"
 msgid ""
 "Signaled, but still moving with lights behind you. Stop on the shoulder."
 msgstr "打了转向灯，但后面有警灯时你还在行驶。停到路肩上。"
+
+msgid ""
+"Failure-to-stop warning. Double tap to signal, then stop on the shoulder."
+msgstr ""
 
 #. one sentence of a longer line
 msgid "Failure-to-stop warning."
@@ -33049,6 +33338,24 @@ msgstr "上下移动选择一个手势，然后确认，选择它在驾驶时执
 msgid "Gesture"
 msgstr "手势"
 
+msgid ""
+"How far a swipe down travels before it becomes the emergency brake, or the "
+"parking brake when stopped. Practice gestures reads the length of each "
+"swipe down. Flick up or down to change it."
+msgstr ""
+
+msgid ""
+"How far a swipe down travels before it becomes the emergency brake, or the "
+"parking brake when stopped. Practice gestures reads the length of each "
+"swipe down. D-pad Right or Left changes it."
+msgstr ""
+
+msgid ""
+"How far a swipe down travels before it becomes the emergency brake, or the "
+"parking brake when stopped. Practice gestures reads the length of each "
+"swipe down. Right or Left arrow changes it."
+msgstr ""
+
 msgid "Every touch gesture is back to its default."
 msgstr "所有触摸手势都已恢复默认。"
 
@@ -33060,6 +33367,10 @@ msgstr "触摸震动反馈已禁用。"
 
 msgid "Confirm, then choose the command this gesture runs while driving."
 msgstr "确认，然后选择这个手势在驾驶时执行的命令。"
+
+#. placeholders: {touch_deep_swipe_points}
+msgid "Deep swipe starts at: {touch_deep_swipe_points}"
+msgstr ""
 
 msgid "Practice gestures"
 msgstr "练习手势"
@@ -33090,6 +33401,28 @@ msgstr "上下移动选择一个命令，确认后把它放到这个手势上。
 #. placeholders: {gesture_name}, {label}
 msgid "{gesture_name} now runs {label}."
 msgstr "{gesture_name}现在执行{label}。"
+
+#. one sentence of a longer line
+msgid "Deep swipe."
+msgstr ""
+
+#. placeholders: {points}
+msgid "Deep swipe. Length {points}."
+msgstr ""
+
+#. placeholders: {points}
+#. one sentence of a longer line
+msgid "Length {points}."
+msgstr ""
+
+#. placeholders: {points}, {touch_deep_swipe_points}
+msgid "Length {points}. The deep swipe starts at {touch_deep_swipe_points}."
+msgstr ""
+
+#. placeholders: {touch_deep_swipe_points}
+#. one sentence of a longer line
+msgid "The deep swipe starts at {touch_deep_swipe_points}."
+msgstr ""
 
 msgid "Swipe up and hold: gas. Lift to coast."
 msgstr "向上滑动并按住：油门。抬起手指就滑行。"
@@ -33186,20 +33519,11 @@ msgstr "正在离开手势练习。"
 msgid "Again to leave practice."
 msgstr "再来一次即可离开练习。"
 
-msgid "Double tap"
-msgstr "双击"
-
 msgid "Swipe up"
 msgstr "向上滑动"
 
 msgid "Swipe down"
 msgstr "向下滑动"
-
-msgid "Flick left"
-msgstr "向左轻扫"
-
-msgid "Flick right"
-msgstr "向右轻扫"
 
 msgid "Two-finger tap"
 msgstr "双指轻点"
@@ -38048,6 +38372,12 @@ msgstr ""
 #. The last sentence of the sleep preview, when nothing comes before it.
 msgid "Select again to sleep."
 msgstr ""
+
+#~ msgid "a two-finger swipe down"
+#~ msgstr "双指向下滑动"
+
+#~ msgid "a two-finger swipe up"
+#~ msgstr "双指向上滑动"
 
 #~ msgid "Three-finger swipe up"
 #~ msgstr "三指上滑"

@@ -234,6 +234,20 @@ impl DrivingState {
             }
             return format!("Air {psi:.0} psi.");
         }
+        // On touch, gas releases the parking brake and drives.
+        if ctx.touch_hints() {
+            if !self.trip.truck.parking_brake {
+                return "Air ready. Swipe up and hold to drive.".to_string();
+            }
+            if self.trip.truck.air_ready() {
+                return "Air ready. Swipe up and hold to release the parking brake and drive."
+                    .to_string();
+            }
+            return format!(
+                "Air {psi:.0} psi. At 100 psi, swipe up and hold to release the parking brake \
+                 and drive."
+            );
+        }
         let brake_hint = ctx.control_hint("parking_brake");
         if self.trip.truck.parking_brake {
             if self.trip.truck.air_ready() {
@@ -346,8 +360,8 @@ impl DrivingState {
             gear == REVERSE && self.trip.truck.speed_mph() > REVERSE_ENGAGE_MAX_MPH;
         let by_touch = ctx.touch_hints() && !self.trip.truck.transmission.automatic;
         let before = (self.touch_clutch, self.trip.truck.transmission.clutch);
+        let from = self.trip.truck.transmission.gear;
         if by_touch {
-            let from = self.trip.truck.transmission.gear;
             self.touch_clutch = self
                 .touch_clutch
                 .next(TouchClutchEvent::Shift { from, to: gear });
@@ -365,6 +379,10 @@ impl DrivingState {
             ctx.audio
                 .play_bank("vehicle/shift_auto", "vehicle/gear_shift");
             self.manual_engage_clunk_pending = true;
+            if by_touch && from == NEUTRAL && gear >= 1 {
+                // Retires the gear sentence in the touch neutral line.
+                self.note_instruction_demonstrated(ctx, super::touch::TOUCH_GEAR_FROM_NEUTRAL);
+            }
             ctx.say(&result.message);
             if let Some(tutorial) = self.tutorial.as_mut() {
                 tutorial.on_gear_engaged(ctx);
@@ -378,11 +396,14 @@ impl DrivingState {
             ));
         } else if result.grind {
             ctx.audio.play("vehicle/gear_grind");
-            if self.driving_hints(ctx) {
+            // A touch shift works its own clutch: there is no step to name.
+            if self.driving_hints(ctx) && !ctx.touch_hints() {
                 ctx.say(&format!(
                     "Grinding gears! Hold {} to press the clutch first.",
                     ctx.control_hint("clutch")
                 ));
+            } else if ctx.touch_hints() {
+                ctx.say("Grinding gears!");
             } else {
                 ctx.say("Grinding gears! Clutch in first.");
             }

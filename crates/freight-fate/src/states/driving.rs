@@ -531,6 +531,10 @@ pub struct DrivingState {
     pub exit_right_hold_s: f64,
     pub exit_right_taps: i64,
     pub exit_tap_hint_said: bool,
+    /// The touch line for the stop the truck is waiting at was spoken.
+    /// Cleared when the double tap stops offering the stop, so it is said
+    /// once per stop, at a standstill.
+    pub stop_offer_line_said: bool,
     /// `set[float]` of the `EXIT_COUNTDOWN_MILESTONES_MI` already spoken.
     pub exit_countdown_said: Vec<f64>,
     pub ramp_mi: Option<f64>, // ramp distance left, once taken

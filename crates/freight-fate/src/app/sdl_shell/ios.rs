@@ -6,6 +6,7 @@ extern "C" {
     fn ff_touch_install(window: *mut std::ffi::c_void) -> i32;
     fn ff_touch_next() -> i32;
     fn ff_touch_set_haptics(enabled: i32);
+    fn ff_touch_set_report_travel(enabled: i32);
     fn ff_touch_set_tuning(
         flick_points: f64,
         flick_ms: f64,
@@ -18,6 +19,12 @@ extern "C" {
 pub(crate) fn set_touch_haptics(enabled: bool) {
     // SAFETY: the UIKit shim accepts an integer flag on the app thread.
     unsafe { ff_touch_set_haptics(i32::from(enabled)) };
+}
+
+/// Tell the gesture surface whether to report how far each hold travelled.
+pub(super) fn set_report_travel(enabled: bool) {
+    // SAFETY: the UIKit shim stores an integer flag on the app thread.
+    unsafe { ff_touch_set_report_travel(i32::from(enabled)) };
 }
 
 /// Hand the gesture thresholds in the settings to the native recognizers.

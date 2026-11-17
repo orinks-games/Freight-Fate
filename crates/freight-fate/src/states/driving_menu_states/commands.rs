@@ -156,6 +156,18 @@ const TOP: &[Entry] = &[
     Entry::Back,
 ];
 
+/// The group of the driving command list that holds `action`, by its
+/// spoken name; `None` for a top-level row or a command the list lacks.
+pub fn command_group_label(action: Action) -> Option<&'static str> {
+    TOP.iter().find_map(|entry| match entry {
+        Open(group) => group
+            .entries()
+            .contains(&Run(action))
+            .then(|| group.label()),
+        _ => None,
+    })
+}
+
 impl Group {
     fn label(self) -> &'static str {
         match self {

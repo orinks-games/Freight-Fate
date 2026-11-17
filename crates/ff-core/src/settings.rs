@@ -40,6 +40,8 @@ impl From<ScoreDisplay> for Value {
 mod assists;
 mod migrate;
 pub mod paths;
+pub use touch::{DEEP_SWIPE_MAX_POINTS, DEEP_SWIPE_MIN_POINTS, DEEP_SWIPE_STEP_POINTS};
+mod touch;
 mod units;
 pub use assists::AssistStash;
 #[cfg(test)]

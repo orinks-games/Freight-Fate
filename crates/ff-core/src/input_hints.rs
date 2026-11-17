@@ -33,8 +33,8 @@ pub const TOUCH_HINTS: &[(&str, &str)] = &[
     ("engine", "a two-finger turn to the right"),
     ("confirm", "a double tap"),
     ("stop_event_voice", "a two-finger tap"),
-    ("pause", "a two-finger swipe down"),
-    ("help", "a two-finger swipe up"),
+    ("pause", "a two-finger flick down"),
+    ("help", "a two-finger flick up"),
 ];
 
 /// action -> (keyboard phrase, controller phrase)

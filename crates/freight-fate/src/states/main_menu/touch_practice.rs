@@ -10,11 +10,31 @@ use crate::touch::Gesture;
 
 pub struct TouchPracticeState {
     last_escape: Option<Instant>,
+    /// The swipe down being held, so its length can be read as it lifts.
+    swipe_down: Option<Gesture>,
 }
 
 impl TouchPracticeState {
     pub fn new() -> Self {
-        Self { last_escape: None }
+        Self {
+            last_escape: None,
+            swipe_down: None,
+        }
+    }
+
+    /// The length of a swipe down as it lifts, and where the deep swipe
+    /// starts. Other holds have no length that changes what they do.
+    fn say_length(&mut self, ctx: &mut GameContext, points: u16) {
+        let text = match self.swipe_down.take() {
+            Some(Gesture::DeepSwipeDownBegan) => format!("Deep swipe. Length {points}."),
+            Some(_) => format!(
+                "Length {points}. The deep swipe starts at {}.",
+                ctx.settings.touch_deep_swipe_points()
+            ),
+            None => return,
+        };
+        // Queued: a quick hold and lift must not cut off the hold's name.
+        ctx.say_with(text, Say::queued());
     }
 
     fn say_gesture(&self, ctx: &mut GameContext, gesture: Gesture) {
@@ -38,7 +58,8 @@ impl TouchPracticeState {
             Gesture::HoldEnded
             | Gesture::SecondSteerEnded
             | Gesture::KeyboardConnected
-            | Gesture::KeyboardDisconnected => return,
+            | Gesture::KeyboardDisconnected
+            | Gesture::Travel(_) => return,
             other => match ctx.bindings.touch_command(other) {
                 Some(command) => format!(
                     "{}: {}.",
@@ -152,8 +173,20 @@ impl State for TouchPracticeState {
                 self.last_escape = Some(now);
                 ctx.say("Again to leave practice.");
             }
+        } else if let Gesture::Travel(points) = gesture {
+            self.say_length(ctx, points);
         } else {
             self.last_escape = None;
+            self.swipe_down = match gesture {
+                Gesture::HoldLowerBegan | Gesture::DeepSwipeDownBegan => Some(gesture),
+                Gesture::HoldUpperBegan
+                | Gesture::HoldLeftBegan
+                | Gesture::HoldRightBegan
+                | Gesture::StillHoldBegan
+                | Gesture::HornHoldBegan => None,
+                // A second finger's gesture during the hold keeps it.
+                _ => self.swipe_down,
+            };
             self.say_gesture(ctx, gesture);
         }
         true

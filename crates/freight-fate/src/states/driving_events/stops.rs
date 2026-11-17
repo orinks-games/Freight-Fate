@@ -77,7 +77,9 @@ impl DrivingState {
                 .as_ref()
                 .expect("checked above")
                 .spoken_name();
-            let message = if self.driving_hints(ctx) {
+            let message = if self.driving_hints(ctx) && ctx.touch_hints() {
+                format!("On the ramp for {name}. Stop at the scale, then double tap to check in.")
+            } else if self.driving_hints(ctx) {
                 format!(
                     "On the ramp for {name}. Stop at the scale, then press {rest_hint} to check \
                      in."

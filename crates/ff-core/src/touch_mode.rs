@@ -61,6 +61,9 @@ pub enum RoadOffer {
     PullOver,
     /// The trip has ended at a facility gate, which is waiting to open.
     Arrival,
+    /// Stopped on a stop's ramp, at its end or on a scale: a double tap
+    /// opens the stop or checks in, as the rest stop command does.
+    Stop,
 }
 
 /// The facts [`RoadOffer::from_road`] reads, as the drive keeps them.
@@ -72,17 +75,23 @@ pub struct RoadFacts {
     pub pull_over: bool,
     /// An exit or stop the take-exit control would act on.
     pub exit_in_window: bool,
+    /// Stopped on a stop's ramp where the rest stop command opens the stop
+    /// or checks in at the scale.
+    pub stop_waiting: bool,
 }
 
 impl RoadOffer {
     /// What the road is asking for. The gate outranks a trooper, which
-    /// outranks an exit: a trip that has ended has no exit left to take, and
-    /// a pull-over is the exit control's first answer anyway.
+    /// outranks a stop the truck is waiting at, which outranks an exit: a
+    /// trip that has ended has no exit left to take, and a pull-over is the
+    /// exit control's first answer anyway.
     pub fn from_road(facts: RoadFacts) -> RoadOffer {
         if facts.gate_asking {
             RoadOffer::Arrival
         } else if facts.pull_over {
             RoadOffer::PullOver
+        } else if facts.stop_waiting {
+            RoadOffer::Stop
         } else if facts.exit_in_window {
             RoadOffer::Exit
         } else {
@@ -97,6 +106,7 @@ impl RoadOffer {
             RoadOffer::Exit => "exit",
             RoadOffer::PullOver => "pull_over",
             RoadOffer::Arrival => "arrival",
+            RoadOffer::Stop => "stop",
         }
     }
 }
@@ -107,25 +117,44 @@ mod tests {
 
     #[test]
     fn every_combination_of_facts_has_one_offer() {
-        // (gate, pull-over, exit) -> offer
-        let table = [
-            ((false, false, false), RoadOffer::None),
-            ((false, false, true), RoadOffer::Exit),
-            ((false, true, false), RoadOffer::PullOver),
-            ((false, true, true), RoadOffer::PullOver),
-            ((true, false, false), RoadOffer::Arrival),
-            ((true, false, true), RoadOffer::Arrival),
-            ((true, true, false), RoadOffer::Arrival),
-            ((true, true, true), RoadOffer::Arrival),
-        ];
-        for ((gate_asking, pull_over, exit_in_window), offer) in table {
+        // The first fact that holds, in the order gate, pull-over, stop,
+        // exit, decides; with none, nothing is asking.
+        for bits in 0..16u8 {
             let facts = RoadFacts {
-                gate_asking,
-                pull_over,
-                exit_in_window,
+                gate_asking: bits & 8 != 0,
+                pull_over: bits & 4 != 0,
+                stop_waiting: bits & 2 != 0,
+                exit_in_window: bits & 1 != 0,
             };
-            assert_eq!(RoadOffer::from_road(facts), offer, "{facts:?}");
+            let expected = if facts.gate_asking {
+                RoadOffer::Arrival
+            } else if facts.pull_over {
+                RoadOffer::PullOver
+            } else if facts.stop_waiting {
+                RoadOffer::Stop
+            } else if facts.exit_in_window {
+                RoadOffer::Exit
+            } else {
+                RoadOffer::None
+            };
+            assert_eq!(RoadOffer::from_road(facts), expected, "{facts:?}");
         }
+        // The table the order was chosen by.
+        let stop_only = RoadFacts {
+            stop_waiting: true,
+            ..RoadFacts::default()
+        };
+        assert_eq!(RoadOffer::from_road(stop_only), RoadOffer::Stop);
+        let stop_and_exit = RoadFacts {
+            exit_in_window: true,
+            ..stop_only
+        };
+        assert_eq!(RoadOffer::from_road(stop_and_exit), RoadOffer::Stop);
+        let trooper = RoadFacts {
+            pull_over: true,
+            ..stop_only
+        };
+        assert_eq!(RoadOffer::from_road(trooper), RoadOffer::PullOver);
     }
 
     #[test]
@@ -135,5 +164,16 @@ mod tests {
         assert_eq!(modes.len(), TouchMode::ALL.len());
         assert_eq!(TouchMode::default(), TouchMode::Menu);
         assert_eq!(RoadOffer::default().key(), "none");
+        let offers = [
+            RoadOffer::None,
+            RoadOffer::Exit,
+            RoadOffer::PullOver,
+            RoadOffer::Arrival,
+            RoadOffer::Stop,
+        ];
+        let mut keys: Vec<&str> = offers.iter().map(|o| o.key()).collect();
+        keys.sort_unstable();
+        keys.dedup();
+        assert_eq!(keys.len(), offers.len());
     }
 }

@@ -187,6 +187,22 @@ impl DrivingState {
             return;
         }
         let Some(target) = self.resume_target_mph else {
+            // With cruise off, a flick up sets it at this speed, while flick
+            // up is still on Raise the cruise target.
+            if ctx.touch_hints() {
+                use crate::bindings::{Action, TouchCommand};
+                let flick = ctx.bindings.touch_command(crate::touch::Gesture::SwipeUp)
+                    == Some(TouchCommand::Action(Action::CruiseUp));
+                if flick {
+                    ctx.say("No remembered cruise speed yet. Flick up to set one.");
+                } else {
+                    ctx.say(&format!(
+                        "No remembered cruise speed yet. {} to set one.",
+                        ctx.touch_instruction(Action::Cruise)
+                    ));
+                }
+                return;
+            }
             let key = ctx.control_name(crate::bindings::Action::Cruise);
             ctx.say(&format!("No remembered cruise speed yet. {key} sets one."));
             return;

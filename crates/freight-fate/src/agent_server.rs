@@ -155,6 +155,9 @@ pub enum Command {
     Gesture {
         gesture: crate::touch::Gesture,
         seconds: Option<f64>,
+        /// How far the finger travelled, in points, sent as it lifts the
+        /// way the phone does while Practice gestures is open.
+        length: Option<u16>,
     },
     /// Run until a line carrying `text` is heard, or a menu opens, or the
     /// clock runs out -- whichever first. Replies with what was heard.
@@ -367,8 +370,9 @@ pub struct AgentPolicy {
     /// The touch screen's translator, holding whatever a gesture hold keeps
     /// down, the way `ios/ff_touch.m` feeds it.
     touch: crate::touch::TouchInput,
-    /// A timed `gesture` hold: what lifts it, and the real seconds left.
-    gesture_lift: Option<(crate::touch::Gesture, f64)>,
+    /// A timed `gesture` hold: what lifts it, the real seconds left, and
+    /// the length it reports as it lifts.
+    gesture_lift: Option<(crate::touch::Gesture, f64, Option<u16>)>,
     /// Key events scripted frame by frame, front first. A tap is two
     /// frames -- down, then up -- because the held-key tracker reads a
     /// press and release inside ONE frame as a screen reader's re-injected
@@ -741,8 +745,12 @@ impl AgentPolicy {
                     self.wait_until(seconds + PEDAL_SETTLE_SECONDS, Until::Elapsed, false, reply);
                     break;
                 }
-                Command::Gesture { gesture, seconds } => {
-                    if self.send_gesture(gesture, seconds, reply) {
+                Command::Gesture {
+                    gesture,
+                    seconds,
+                    length,
+                } => {
+                    if self.send_gesture(gesture, seconds, length, reply) {
                         break;
                     }
                 }

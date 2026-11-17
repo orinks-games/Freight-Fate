@@ -1520,10 +1520,34 @@ Everything found before 2026-09-25 moved to
       (`ff_core::sim::touch_clutch::TouchClutch`, reported by `status`), and
       the touch engine start after a stall in gear takes neutral first.
       Nothing was tried on a phone.
-- [ ] (Found along the way) iPhone gesture plan steps 4 and 5: touch
-      sentences for the wheel prompts that say "Press {gesture}", the parking
-      brake prompts and the brake-hold slot trim; then the stroke recogniser
-      moved into `ff-core` with the deep swipe threshold measured on a phone.
+- [x] iOS prompts at the wheel, step 4 of the iPhone gesture plan
+      (2026-11-16): every driving, rest and stop prompt that named a control
+      has its own touch sentence ("Turn two fingers right to restart.",
+      "Double tap to signal, then stop on the shoulder."), picked when the
+      line is built; the parking brake prompts say gas releases it; a
+      command with no gesture is named by its group on the three-finger tap
+      list (`GameContext::touch_instruction`). The brake-hold tap and double
+      tap default to Nothing. Driving School lessons and the How to play
+      pages keep their wording. Nothing was tried on a phone.
+- [x] iOS manual drops to neutral, step 5 of the iPhone gesture plan
+      (2026-11-17): on touch, where a manual in fourth or taller would lug
+      toward a stall, the gearbox takes neutral, brake or no brake
+      (`TruckState::lug_to_neutral`, `TouchClutch::Neutral` in `status`),
+      and says "Neutral." with the gear sentence until three touch shifts
+      out of neutral retire it; a touch flick up from neutral takes the
+      lowest gear the road speed does not over-rev. Keyboard and controller
+      manuals still stall at the lift and take first. Nothing was tried on a
+      phone.
+- [x] iOS swipe length, step 6 of the iPhone gesture plan (2026-11-17):
+      while Practice gestures is open, the touch surface reports how far
+      each one-finger hold travelled as it lifts, and practice reads a swipe
+      down's length with where the deep swipe starts ("Length 64. The deep
+      swipe starts at 90.", "Deep swipe. Length 112."). Touch gestures has a
+      "Deep swipe starts at" row, 60 to 180 points in tens; the settings
+      file keeps `touch_deep_swipe_factor`. Nothing was tried on a phone.
+- [ ] (Found along the way) iPhone gesture plan step 7: the stroke
+      recogniser moved into `ff-core`, and the default deep swipe set from
+      lengths measured on a phone.
 - [ ] (Found along the way) Cleanup: menu intro help is spoken only when a
       menu has no rows, and on job and stop details, which lead with it. The
       help key and gesture keep reading the row's own help. The keyboard
@@ -4114,6 +4138,11 @@ On dev since 1.9.6:
       rose, on the way back, whatever the lane-departure warning; the chain snap and the forced stop asleep
       say it too; runaway damage starts above 90, clear of cruise's top
       set point of 85, and a runaway speaks when it starts and ends.
+- [x] The Tab radio screen lists every Freight Fate station, Channel 3000
+      included, and the stations in range (owner, 2026-11-17). It read the
+      first 16 receivable stations, and the Freight Fate group is 20, so it
+      never reached a local station. The streams that play everywhere are
+      one count line pointing to the Radio app.
 
 Release gate for 1.9.7:
 
