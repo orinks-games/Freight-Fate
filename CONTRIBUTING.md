@@ -107,6 +107,20 @@ and `benches/`), plus `CHANGELOG.md`, `README.md`, `pyproject.toml`,
   tooling) can skip the entry by putting `[skip changelog]` or
   `changelog: none` in every commit message of the pull request.
 
+## Skipping a platform's build
+
+Each push to dev builds the desktop snapshot and an iPhone TestFlight build.
+A change that only affects one side can skip the other with a tag in every
+commit message and in the pull request title (the merge commit carries the
+title):
+
+- `[skip desktop]`: an iPhone-only change. No desktop snapshot is built.
+- `[skip ios]`: a desktop-only change. No TestFlight build is made.
+
+A push builds everything as soon as one of its commits lacks the tag. The
+desktop snapshot ships Windows, macOS and Linux together, so there is no tag
+for skipping one of them.
+
 ## Pull request notes
 
 In your PR body, briefly say:
