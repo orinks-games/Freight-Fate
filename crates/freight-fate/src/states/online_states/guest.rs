@@ -5,13 +5,14 @@
 use ff_core::models::profile::{data_dir, data_dir_if_allowed};
 
 use super::{
-    load_identity, menu_default_go_back, online_transport, run_worker, save_identity, Mailbox,
+    load_identity, online_transport, run_worker, save_identity, Mailbox,
     PROFILE_SHARING_CONSENT_VERSION,
 };
 use crate::app::GameContext;
 use crate::impl_state_for_menu;
 use crate::online_guest::{self, GuestCreate, GuestRecord, GuestRename};
 use crate::online_presence::{self, OnlineIdentity};
+use crate::states::base::default_go_back;
 use crate::states::base::{Label, Menu, MenuCore, MenuItem};
 
 pub const GUEST_DISCLOSURE: &str = "As a guest you go on the orinks.net drivers board under a \
@@ -221,7 +222,7 @@ impl Menu for GuestSetupState {
 
     fn go_back(&mut self, ctx: &mut GameContext) {
         match self.phase {
-            GuestPhase::Idle => menu_default_go_back(self, ctx),
+            GuestPhase::Idle => default_go_back(self, ctx),
             // The request is already out; leaving now would lose the guest
             // it makes, or strand Profile sharing half set.
             _ => ctx.say("Still working. Stay here for the result."),
@@ -337,7 +338,7 @@ impl Menu for GuestNameState {
             ctx.say("Still asking. Stay here for the new name.");
             return;
         }
-        menu_default_go_back(self, ctx);
+        default_go_back(self, ctx);
     }
 }
 
