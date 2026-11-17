@@ -861,7 +861,7 @@ fn test_a_playlist_that_leaves_the_dial_for_want_of_yt_dlp_names_it() {
             youtube_note.as_deref(),
             Some(
                 "My Playlist needs yt-dlp for its YouTube links, and it is not \
-                 installed; it is off the dial for the rest of this session."
+                 installed. It is off the dial for the rest of this session."
             )
         );
     }

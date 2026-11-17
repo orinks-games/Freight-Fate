@@ -43,6 +43,8 @@ const SKIP_CALLS: &[&str] = &[
     "args", "header", "query", "pointer", "target",
     // SDL hints (sdl2::hint::set) are configuration values, never spoken.
     "set",
+    // A damage hit's cause goes to the log only.
+    "add_damage_from",
 ];
 
 const FORMAT_MACROS: &[&str] = &["format", "write", "writeln", "format_args"];

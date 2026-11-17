@@ -70,6 +70,8 @@ pub struct MenuItem<S> {
     pub label: Label<S>,
     pub action: MenuAction<S>,
     pub help: Label<S>,
+    /// What the help says on a touch screen, when [`Self::help`] names keys.
+    pub touch_help: Option<Label<S>>,
     /// The click played when this item is activated. `None` for items whose
     /// action plays its own confirmation sound, so the two do not stack.
     pub select_sound: Option<String>,
@@ -81,6 +83,7 @@ impl<S> Clone for MenuItem<S> {
             label: self.label.clone(),
             action: Rc::clone(&self.action),
             help: self.help.clone(),
+            touch_help: self.touch_help.clone(),
             select_sound: self.select_sound.clone(),
         }
     }
@@ -96,6 +99,7 @@ impl<S: 'static> MenuItem<S> {
             label: label.into(),
             action: Rc::new(action),
             help: Label::Text(String::new()),
+            touch_help: None,
             select_sound: Some("ui/menu_select".to_string()),
         }
     }
@@ -110,6 +114,12 @@ impl<S: 'static> MenuItem<S> {
         self
     }
 
+    /// The help on a touch screen, for a row whose [`Self::help`] names keys.
+    pub fn touch_help(mut self, help: impl Into<Label<S>>) -> Self {
+        self.touch_help = Some(help.into());
+        self
+    }
+
     /// `select_sound=None` / another key.
     pub fn select_sound(mut self, key: Option<&str>) -> Self {
         self.select_sound = key.map(str::to_string);
@@ -120,8 +130,13 @@ impl<S: 'static> MenuItem<S> {
         self.label.text(state, ctx)
     }
 
+    /// The row's help for the device in use, picked as it is spoken: an
+    /// iPad player can connect a keyboard mid-session.
     pub fn help_text(&self, state: &S, ctx: &GameContext) -> String {
-        self.help.text(state, ctx)
+        match &self.touch_help {
+            Some(touch) if ctx.touch_hints() => touch.text(state, ctx),
+            _ => self.help.text(state, ctx),
+        }
     }
 }
 
@@ -131,6 +146,10 @@ impl<S: 'static> MenuItem<S> {
 pub struct MenuCore<S> {
     pub title: String,
     pub intro_help: String,
+    /// What the intro help says on a touch screen. `None` uses
+    /// [`TOUCH_INTRO_HELP`], which serves every menu whose help only says how
+    /// to move, choose and go back.
+    pub touch_help: Option<String>,
     /// `None` plays nothing on entry.
     pub open_sound_key: Option<String>,
     pub items: Vec<MenuItem<S>>,
@@ -140,11 +159,17 @@ pub struct MenuCore<S> {
 pub const DEFAULT_INTRO_HELP: &str =
     "Enter selects, Escape goes back. Control stops the current speech.";
 
+/// The intro help on a touch screen, for a menu with no touch help of its
+/// own.
+pub const TOUCH_INTRO_HELP: &str =
+    "Flick right or left to move and double tap to choose. Flick down with two fingers to go back.";
+
 impl<S> MenuCore<S> {
     pub fn new(title: &str) -> Self {
         Self {
             title: title.to_string(),
             intro_help: DEFAULT_INTRO_HELP.to_string(),
+            touch_help: None,
             open_sound_key: Some("ui/menu_open".to_string()),
             items: Vec::new(),
             index: 0,
@@ -154,6 +179,24 @@ impl<S> MenuCore<S> {
     pub fn with_intro_help(mut self, help: &str) -> Self {
         self.intro_help = help.to_string();
         self
+    }
+
+    /// The intro help on a touch screen, where the keyboard help says
+    /// something particular to this screen.
+    pub fn with_touch_help(mut self, help: &str) -> Self {
+        self.touch_help = Some(help.to_string());
+        self
+    }
+
+    /// The intro help for the device in use, picked as it is spoken.
+    pub fn intro(&self, ctx: &GameContext) -> String {
+        if ctx.touch_hints() {
+            return self
+                .touch_help
+                .clone()
+                .unwrap_or_else(|| TOUCH_INTRO_HELP.to_string());
+        }
+        self.intro_help.clone()
     }
 
     pub fn with_open_sound(mut self, key: Option<&str>) -> Self {
@@ -213,14 +256,7 @@ pub trait Menu: Sized + 'static {
     }
 
     fn enter(&mut self, ctx: &mut GameContext) {
-        let items = self.build_items(ctx);
-        let core = self.menu_mut();
-        core.items = items;
-        core.clamp_index();
-        if let Some(key) = self.menu().open_sound_key.clone() {
-            ctx.audio.play(&key);
-        }
-        self.announce_entry(ctx);
+        default_enter(self, ctx)
     }
 
     fn exit(&mut self, _ctx: &mut GameContext) {}
@@ -271,37 +307,14 @@ pub trait Menu: Sized + 'static {
     }
 
     fn handle_event(&mut self, ctx: &mut GameContext, event: &InputEvent) {
-        let Some((key, _mods, text)) = event.key_down() else {
-            return;
-        };
-        if event.key_repeat() && self.held_key_moves_nothing(key) {
-            return;
-        }
-        if self.handle_extra_key(ctx, key) {
-            return;
-        }
-        match key {
-            Key::Down => self.move_by(ctx, 1),
-            Key::Up => self.move_by(ctx, -1),
-            Key::Home => self.jump(ctx, 0),
-            Key::End => {
-                let last = self.menu().items.len().saturating_sub(1);
-                self.jump(ctx, last);
-            }
-            Key::Return | Key::Space | Key::KpEnter => self.activate(ctx),
-            Key::Escape => self.go_back(ctx),
-            Key::F1 => {
-                let help = self.current_help(ctx);
-                ctx.say(&help);
-            }
-            Key::LCtrl | Key::RCtrl => ctx.stop_speech(),
-            _ => {
-                if let Some(ch) = text.filter(|ch| ch.is_alphanumeric()) {
-                    let lower: String = ch.to_lowercase().collect();
-                    self.first_letter_input(ctx, &lower, event.key_repeat());
-                }
-            }
-        }
+        default_handle_event(self, ctx, event)
+    }
+
+    /// A touch gesture the menu answers itself: a tap reads the focused row
+    /// again, the way VoiceOver's does. The pause menu also takes the
+    /// two-finger double tap, which no other menu answers.
+    fn handle_gesture(&mut self, ctx: &mut GameContext, gesture: crate::touch::Gesture) -> bool {
+        default_handle_gesture(self, ctx, gesture)
     }
 
     fn handle_controller(&mut self, ctx: &mut GameContext, event: &InputEvent) {
@@ -343,10 +356,7 @@ pub trait Menu: Sized + 'static {
     }
 
     fn announce_entry(&mut self, ctx: &mut GameContext) {
-        let title = end_sentence(&self.menu().title);
-        ctx.say(&title);
-        let current = self.current_text(ctx);
-        ctx.say_with(current, Say::queued().review(false));
+        default_announce_entry(self, ctx)
     }
 
     fn refresh(&mut self, ctx: &mut GameContext, keep_index: bool) {
@@ -385,7 +395,7 @@ pub trait Menu: Sized + 'static {
     fn current_help(&self, ctx: &GameContext) -> String {
         let core = self.menu();
         if core.items.is_empty() {
-            return core.intro_help.clone();
+            return core.intro(ctx);
         }
         let item = &core.items[core.index];
         let help = item.help_text(self, ctx);
@@ -451,8 +461,7 @@ pub trait Menu: Sized + 'static {
     }
 
     fn go_back(&mut self, ctx: &mut GameContext) {
-        ctx.audio.play("ui/menu_back");
-        ctx.pop_state();
+        default_go_back(self, ctx)
     }
 
     /// Change the current option (D-pad left/right). No-op unless the menu
@@ -525,6 +534,13 @@ macro_rules! impl_state_for_menu {
                 event: &$crate::states::base::InputEvent,
             ) {
                 <Self as $crate::states::base::Menu>::handle_controller(self, ctx, event)
+            }
+            fn handle_gesture(
+                &mut self,
+                ctx: &mut $crate::app::GameContext,
+                gesture: $crate::touch::Gesture,
+            ) -> bool {
+                <Self as $crate::states::base::Menu>::handle_gesture(self, ctx, gesture)
             }
             fn on_controller_disconnect(&mut self, ctx: &mut $crate::app::GameContext) {
                 <Self as $crate::states::base::Menu>::on_controller_disconnect(self, ctx)
@@ -612,9 +628,15 @@ impl SimpleMenuState {
                 .help("Return to the previous menu."),
         );
         let mut screen = Self::new(title, rows);
-        screen.menu = screen.menu.with_intro_help(
-            "Up and Down read a line at a time, Enter repeats it, Escape goes back.",
-        );
+        screen.menu = screen
+            .menu
+            .with_intro_help(
+                "Up and Down read a line at a time, Enter repeats it, Escape goes back.",
+            )
+            .with_touch_help(
+                "Flick right or left to read a line at a time, and double tap to repeat it. \
+                 Flick down with two fingers to go back.",
+            );
         screen
     }
 }
@@ -634,3 +656,81 @@ impl Menu for SimpleMenuState {
 }
 
 impl_state_for_menu!(SimpleMenuState);
+
+/// The provided [`Menu::enter`]: build the rows, keep the cursor in range,
+/// play the open sound and announce. An overriding screen calls this to
+/// fall through.
+pub fn default_enter<S: Menu>(menu: &mut S, ctx: &mut GameContext) {
+    let items = menu.build_items(ctx);
+    let core = menu.menu_mut();
+    core.items = items;
+    core.clamp_index();
+    if let Some(key) = menu.menu().open_sound_key.clone() {
+        ctx.audio.play(&key);
+    }
+    menu.announce_entry(ctx);
+}
+
+/// The provided [`Menu::handle_event`], for an override that handles a key
+/// or two and falls through for the rest. Screens used to keep their own
+/// copies, which missed the held-key guard and [`Menu::handle_extra_key`].
+pub fn default_handle_event<S: Menu>(menu: &mut S, ctx: &mut GameContext, event: &InputEvent) {
+    let Some((key, _mods, text)) = event.key_down() else {
+        return;
+    };
+    if event.key_repeat() && menu.held_key_moves_nothing(key) {
+        return;
+    }
+    if menu.handle_extra_key(ctx, key) {
+        return;
+    }
+    match key {
+        Key::Down => menu.move_by(ctx, 1),
+        Key::Up => menu.move_by(ctx, -1),
+        Key::Home => menu.jump(ctx, 0),
+        Key::End => {
+            let last = menu.menu().items.len().saturating_sub(1);
+            menu.jump(ctx, last);
+        }
+        Key::Return | Key::Space | Key::KpEnter => menu.activate(ctx),
+        Key::Escape => menu.go_back(ctx),
+        Key::F1 => {
+            let help = menu.current_help(ctx);
+            ctx.say(&help);
+        }
+        Key::LCtrl | Key::RCtrl => ctx.stop_speech(),
+        _ => {
+            if let Some(ch) = text.filter(|ch| ch.is_alphanumeric()) {
+                let lower: String = ch.to_lowercase().collect();
+                menu.first_letter_input(ctx, &lower, event.key_repeat());
+            }
+        }
+    }
+}
+
+/// The provided [`Menu::handle_gesture`]: a tap reads the focused row.
+pub fn default_handle_gesture<S: Menu>(
+    menu: &mut S,
+    ctx: &mut GameContext,
+    gesture: crate::touch::Gesture,
+) -> bool {
+    if gesture != crate::touch::Gesture::Tap {
+        return false;
+    }
+    menu.speak_current(ctx);
+    true
+}
+
+/// The provided [`Menu::announce_entry`]: the title, then the current row.
+pub fn default_announce_entry<S: Menu>(menu: &mut S, ctx: &mut GameContext) {
+    let title = end_sentence(&menu.menu().title);
+    ctx.say(&title);
+    let current = menu.current_text(ctx);
+    ctx.say_with(current, Say::queued().review(false));
+}
+
+/// The provided [`Menu::go_back`]: the back sound, and pop the screen.
+pub fn default_go_back<S: Menu>(_menu: &mut S, ctx: &mut GameContext) {
+    ctx.audio.play("ui/menu_back");
+    ctx.pop_state();
+}

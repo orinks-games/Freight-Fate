@@ -17,10 +17,8 @@ use std::time::{SystemTime, UNIX_EPOCH};
 
 use ff_core::models::profile::data_dir;
 
-use crate::app::GameContext;
 use crate::net::SharedTransport;
 use crate::online_presence::{default_transport, IdentityStore, OnlineIdentity};
-use crate::states::base::{InputEvent, Key, Menu};
 
 // -- the worker mailbox ---------------------------------------------------------------
 
@@ -192,62 +190,4 @@ pub fn wall_time() -> f64 {
         .duration_since(UNIX_EPOCH)
         .map(|d| d.as_secs_f64())
         .unwrap_or(0.0)
-}
-
-// -- the Menu defaults a screen overrides around ------------------------------------------
-//
-// A Rust trait method has no `super()`: a screen that overrides `enter`,
-// `go_back` or `handle_event` to add one step cannot then call the provided
-// body. These are that body, copied from `states::base::menu`, so the
-// screens here add their step and delegate.
-// TODO(lead): belongs in states::base::menu as `Menu::default_enter` /
-// `default_go_back` / `default_handle_event` every overriding screen can reach.
-
-/// The provided `Menu::enter`: build the rows, clamp the cursor, play the
-/// open sound, announce.
-pub fn menu_default_enter<M: Menu>(menu: &mut M, ctx: &mut GameContext) {
-    let items = menu.build_items(ctx);
-    let core = menu.menu_mut();
-    core.items = items;
-    core.index = core.index.min(core.items.len().saturating_sub(1));
-    if let Some(key) = menu.menu().open_sound_key.clone() {
-        ctx.audio.play(&key);
-    }
-    menu.announce_entry(ctx);
-}
-
-/// The provided `Menu::go_back`: the back sound, then pop.
-pub fn menu_default_go_back<M: Menu>(_menu: &mut M, ctx: &mut GameContext) {
-    ctx.audio.play("ui/menu_back");
-    ctx.pop_state();
-}
-
-/// The provided `Menu::handle_event`: arrows, Home/End, Enter, Escape, F1,
-/// the Control stop, first-letter jump.
-pub fn menu_default_handle_event<M: Menu>(menu: &mut M, ctx: &mut GameContext, event: &InputEvent) {
-    let Some((key, _mods, text)) = event.key_down() else {
-        return;
-    };
-    match key {
-        Key::Down => menu.move_by(ctx, 1),
-        Key::Up => menu.move_by(ctx, -1),
-        Key::Home => menu.jump(ctx, 0),
-        Key::End => {
-            let last = menu.menu().items.len().saturating_sub(1);
-            menu.jump(ctx, last);
-        }
-        Key::Return | Key::Space | Key::KpEnter => menu.activate(ctx),
-        Key::Escape => menu.go_back(ctx),
-        Key::F1 => {
-            let help = menu.current_help(ctx);
-            ctx.say(&help);
-        }
-        Key::LCtrl | Key::RCtrl => ctx.stop_speech(),
-        _ => {
-            if let Some(ch) = text.filter(|ch| ch.is_alphanumeric()) {
-                let lower: String = ch.to_lowercase().collect();
-                menu.first_letter_input(ctx, &lower, event.key_repeat());
-            }
-        }
-    }
 }

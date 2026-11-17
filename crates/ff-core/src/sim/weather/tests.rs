@@ -1958,7 +1958,7 @@ fn test_facility_gate_warns_before_final_low_speed_zone() {
     assert!(
         warnings
             .iter()
-            .any(|w| w == "In 2 miles, facility gate ahead. Speed limit 15."),
+            .any(|w| w == "In 2 miles, facility gate. Speed limit 15."),
         "{warnings:?}"
     );
 }
@@ -1992,7 +1992,7 @@ fn test_zone_entry_is_worded_apart_from_its_advance_warning() {
         .next()
         .expect("the gate warning");
     // Two miles out: a heads-up, and the gate limit is not in force yet.
-    assert_eq!(warning, "In 2 miles, facility gate ahead. Speed limit 15.");
+    assert_eq!(warning, "In 2 miles, facility gate. Speed limit 15.");
     let pos = trip.position_mi;
     assert_ne!(trip.speed_limit_at(pos).0, 15.0);
 
@@ -2401,11 +2401,23 @@ fn test_traffic_pressure_marks_exit_and_construction_context() {
         .traffic_pressures
         .iter()
         .any(|p| p.kind == "exit" && p.direction == "right"));
-    if trip.zones.iter().any(|z| z.reason == "construction merge") {
+    // Traffic merges away from the coned-off lane: left of a right closure,
+    // right of a left one (a closure over an exit is always a left one).
+    for taper in trip
+        .zones
+        .iter()
+        .filter(|z| z.reason == "construction merge")
+    {
+        let away = match taper.closed_side.as_deref() {
+            Some("left") => "right",
+            _ => "left",
+        };
         assert!(trip
             .traffic_pressures
             .iter()
-            .any(|p| p.kind == "construction_merge" && p.direction == "left"));
+            .any(|p| p.kind == "construction_merge"
+                && p.start_mi == taper.start_mi
+                && p.direction == away));
     }
 }
 
@@ -2520,7 +2532,7 @@ fn test_npc_traffic_cue_and_status_are_reviewable() {
         .collect();
     assert_eq!(npc_cues.len(), 1);
     assert!(npc_cues[0].text().contains("Merging vehicle"));
-    assert!(npc_cues[0].text().contains("ahead."));
+    assert!(npc_cues[0].text().ends_with("miles."));
     let status = trip.npc_traffic_status();
     assert_eq!(
         status,
@@ -2559,7 +2571,7 @@ fn test_metric_toggle_updates_npc_traffic_cue_units() {
         })
         .expect("the merge cue");
     assert!(
-        npc_cue.text().contains("1.3 kilometers ahead"),
+        npc_cue.text().contains("1.3 kilometers."),
         "{}",
         npc_cue.text()
     );
@@ -3011,7 +3023,7 @@ fn test_gps_traffic_cue_deduplicates() {
     let second = trip.update(0.0);
     assert_eq!(
         gps_messages(&first),
-        vec!["Traffic slowing ahead in 2 miles; traffic queue ahead at 45 miles per hour."]
+        vec!["Traffic slowing in 2 miles, traffic queue ahead at 45 miles per hour."]
     );
     assert!(gps_events(&second).is_empty());
 }
@@ -3048,7 +3060,7 @@ fn test_toll_cues_and_charges_deduplicate() {
     let repeat = trip.update(0.0);
     assert_eq!(
         gps_messages(&advance),
-        vec!["ticket system toll point ahead, New Jersey Turnpike ticket entry. Toll about 18 dollars."]
+        vec!["ticket system toll point, New Jersey Turnpike ticket entry. Toll about 18 dollars."]
     );
     assert!(gps_events(&repeat).is_empty());
 
@@ -3079,12 +3091,12 @@ fn test_zero_amount_toll_entry_marker_does_not_record_expense() {
     use crate::sim::trip_models::TripEventKind;
 
     let mut trip = make_trip_on("Philadelphia", "Pittsburgh", seeded(2));
-    trip.position_mi = 16.1;
+    trip.position_mi = 16.3;
     assert_eq!(
         gps_messages(&trip.update(0.0)),
-        vec!["ticket system toll point ahead, Pennsylvania Turnpike eastern ticket entry."]
+        vec!["ticket system toll point, Pennsylvania Turnpike eastern ticket entry."]
     );
-    trip.position_mi = 18.0;
+    trip.position_mi = 18.2;
     let entry = trip.update(0.0);
     // Nothing is charged at a ticket entry, and the cue ahead named it.
     assert!(
@@ -3297,17 +3309,9 @@ fn test_trip_requests_first_cell_weather_at_construction() {
     assert!(*lat != 0.0 || *lon != 0.0);
 }
 
-#[test]
-#[ignore = "wrong crate: ff-core cannot see the game crate, so this case belongs in crates/freight-fate/tests/ -- needs App and states::city"]
-fn test_city_menu_warms_the_weather_provider() {
-    // TODO(port): port once the Rust App and states::city is available.
-}
-
-#[test]
-#[ignore = "wrong crate: ff-core cannot see the game crate, so this case belongs in crates/freight-fate/tests/ -- needs App"]
-fn test_live_data_providers_ignore_the_online_services_master_switch() {
-    // TODO(port): port once the Rust App is available.
-}
+// The terminal warming the provider and the providers ignoring the online
+// services switch need the game's context; they live in the game crate's
+// tests/it/states_readouts.rs.
 
 #[test]
 fn test_weather_is_asked_again_at_a_state_line() {

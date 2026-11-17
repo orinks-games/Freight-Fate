@@ -705,7 +705,7 @@ fn test_weigh_station_warning_is_spoken_before_bypass() {
 
     let notices: Vec<String> = spoken(&app)
         .into_iter()
-        .filter(|line| line.contains("Open weigh station ahead"))
+        .filter(|line| line.contains("Open weigh station in"))
         .collect();
     assert_eq!(notices.len(), 1, "{notices:#?}");
     // The notice names no key: "Press T" at speed plans a sleep stop, which
@@ -728,6 +728,39 @@ fn test_weigh_station_warning_is_spoken_before_bypass() {
         "{keys:#?}"
     );
     assert!(!keys.iter().any(|key| key == "events/inspection_warning"));
+}
+
+#[test]
+fn test_quiet_speech_leaves_the_weigh_station_notice_to_its_earcon() {
+    // Owner, 2026-11-12: a call with its own sound is the sound alone on
+    // the quiet rungs. The reminder nearer the scale still names it.
+    for rung in ["quiet", "urgent_only"] {
+        let mut app = TestApp::new();
+        app.ctx.settings.driving_speech = rung.to_string();
+        let mut drive = a_drive(&mut app, None);
+        let log = app.record_audio();
+        let stop = a_scale(10.0);
+        drive.trip.stops = vec![stop.clone()];
+        drive.trip.posts.push(open_scale_post(&stop));
+        drive.trip.position_mi = 8.2;
+        drive.trip.truck.velocity_mps = mph_to_mps(45.0);
+        app.clear_speech();
+
+        drive.check_weigh_station_enforcement(&mut app.ctx, 8.0);
+        drive.check_weigh_station_enforcement(&mut app.ctx, 8.1);
+
+        let said = spoken(&app);
+        assert!(
+            !said.iter().any(|line| line.contains("Open weigh station")),
+            "{rung}: {said:#?}"
+        );
+        assert!(
+            played(&log)
+                .iter()
+                .any(|key| key == "events/weigh_station_warning"),
+            "{rung}"
+        );
+    }
 }
 
 #[test]
@@ -1047,14 +1080,17 @@ fn test_f1_help_names_non_speed_enforcement_pullovers() {
         .last()
         .unwrap_or_else(|| panic!("F1 said nothing at all"));
     assert!(
-        last.contains("X also signals a pull-over when a trooper signals you to pull over"),
+        last.contains("When a trooper signals you to pull over for speeding"),
         "{last}"
     );
     assert!(
         last.contains("a scale bypass, or unsafe equipment"),
         "{last}"
     );
-    assert!(last.contains("signal, then brake to a stop"), "{last}");
+    assert!(
+        last.contains("X signals the pull-over. Then brake to a stop."),
+        "{last}"
+    );
 }
 
 // -- the compliance tracker -------------------------------------------------------------

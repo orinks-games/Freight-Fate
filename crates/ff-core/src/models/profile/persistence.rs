@@ -138,6 +138,8 @@ impl Profile {
     /// legacy twin of the same career.
     pub fn list_saves() -> Vec<PathBuf> {
         let dir = profiles_dir();
+        // Before the listing: a career an older release set aside is a career.
+        sealed::restore_set_aside(&dir);
         let mut found: IndexMap<String, PathBuf> = IndexMap::new();
         let entries: Vec<PathBuf> = std::fs::read_dir(&dir)
             .map(|rd| rd.flatten().map(|e| e.path()).collect())

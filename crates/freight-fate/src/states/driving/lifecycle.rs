@@ -51,8 +51,52 @@ impl DrivingState {
         format!("{} from {start} to {end}", leg.highway)
     }
 
-    /// `_instruction_retired(action)` (research doc R7).
+    /// Whether driving lines may name a key (the Driving hints setting).
+    pub fn driving_hints(&self, ctx: &GameContext) -> bool {
+        ctx.settings.driving_hints
+    }
+
+    /// `message` without the sentence `hint` when Driving hints is off: the
+    /// key a long line ends on ("Press E to restart the engine."), dropped
+    /// without a second copy of the line.
+    pub fn without_key_hint(&self, ctx: &GameContext, message: String, hint: &str) -> String {
+        if self.driving_hints(ctx) {
+            return message;
+        }
+        let spaced = format!(" {hint}");
+        if message.contains(&spaced) {
+            return message.replacen(&spaced, "", 1);
+        }
+        match message.strip_prefix(hint) {
+            Some(rest) => rest.trim_start().to_string(),
+            None => message,
+        }
+    }
+
+    /// On touch, `message` with the keyboard sentence `keyboard` ("Press E to
+    /// restart the engine.") swapped for the touch one; otherwise unchanged.
+    /// The rest of the line is the keyboard template's, so its sentences keep
+    /// their translations.
+    pub fn with_touch_sentence(
+        &self,
+        ctx: &GameContext,
+        message: String,
+        keyboard: &str,
+        touch: &str,
+    ) -> String {
+        if ctx.touch_hints() && message.contains(keyboard) {
+            message.replacen(keyboard, touch, 1)
+        } else {
+            message
+        }
+    }
+
+    /// `_instruction_retired(action)` (research doc R7). Always retired with
+    /// Driving hints off.
     pub fn instruction_retired(&self, ctx: &mut GameContext, action: &str) -> bool {
+        if !self.driving_hints(ctx) {
+            return true;
+        }
         let binding = ctx.control_hint(action);
         let Some(profile) = ctx.profile.as_mut() else {
             return false;
@@ -77,9 +121,12 @@ impl DrivingState {
     pub fn refresh_exit_hint(&mut self, ctx: &mut GameContext) {
         self.trip.exit_hint = if self.instruction_retired(ctx, "take_exit") {
             String::new()
+        } else if ctx.touch_hints() {
+            ff_core::speech_text::TOUCH_EXIT_HINT.to_string()
         } else {
             ctx.control_hint("take_exit")
         };
+        self.exit_hint_device = ctx.controller.device();
     }
 
     /// `_engine_entry_instruction()`.
@@ -92,6 +139,9 @@ impl DrivingState {
         // the control on demand (research doc R7). A remapped key re-arms it.
         if self.instruction_retired(ctx, "engine") {
             return "Engine off.".to_string();
+        }
+        if ctx.touch_hints() {
+            return "Turn two fingers right to start the engine.".to_string();
         }
         format!("Press {} to start the engine.", ctx.control_hint("engine"))
     }
@@ -107,6 +157,12 @@ impl DrivingState {
         if self.instruction_retired(ctx, "cruise_set") {
             return "Cruise paused. ".to_string();
         }
+        if ctx.touch_hints() {
+            return format!(
+                "Cruise paused. {} to cancel it. ",
+                ctx.touch_instruction(crate::bindings::Action::Cruise)
+            );
+        }
         format!(
             "Cruise paused. {} cancels it. ",
             ctx.control_hint("cruise_set")
@@ -118,6 +174,10 @@ impl DrivingState {
     pub fn parking_brake_hint_tail(&self, ctx: &mut GameContext) -> String {
         if self.instruction_retired(ctx, "parking_brake") {
             return String::new();
+        }
+        if ctx.touch_hints() {
+            return "At air ready, swipe up and hold to release the parking brake and drive."
+                .to_string();
         }
         format!(
             "At air ready, {} releases the parking brake.",

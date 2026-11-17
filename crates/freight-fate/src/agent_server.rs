@@ -76,6 +76,7 @@ const CRUISE_REPLY_FRAMES: u32 = 30;
 const MAX_CRUISE_TAPS: i64 = 60;
 
 mod ears;
+mod gestures;
 mod holder;
 mod lifeline;
 mod protocol;
@@ -149,6 +150,15 @@ pub enum Command {
         key: KeySpec,
         seconds: f64,
     },
+    /// A touch gesture by name, through the same translator and dispatch
+    /// the iPhone screen uses. A hold with `seconds` is lifted by the loop.
+    Gesture {
+        gesture: crate::touch::Gesture,
+        seconds: Option<f64>,
+        /// How far the finger travelled, in points, sent as it lifts the
+        /// way the phone does while Practice gestures is open.
+        length: Option<u16>,
+    },
     /// Run until a line carrying `text` is heard, or a menu opens, or the
     /// clock runs out -- whichever first. Replies with what was heard.
     WaitFor {
@@ -185,6 +195,14 @@ pub enum Command {
     Listen,
     Menu,
     Observe,
+    /// Fire a catalog hazard on the live drive by name (`Trip::stage_hazard`),
+    /// so each kind can be driven on purpose.
+    Hazard {
+        name: String,
+    },
+    /// Open a nod-off's reaction window on the live drive
+    /// (`PlayerInputFrame::stage_nod`).
+    Nod,
     /// The hit is discovered on the serve thread (world data only) so the
     /// game loop never blocks on a search; the loop only builds the drive.
     StageHit {
@@ -227,7 +245,36 @@ struct Waiting {
     /// wait_for drove past "Exit lane opening. Steer right into it." and
     /// missed the exit (agent drive, Dallas, 2026-09-25).
     reports_timeout: bool,
+    /// True for `status`: the reply ends with the fatigue machines' state.
+    fatigue_state: bool,
     reply: Reply,
+}
+
+/// The fatigue machines as `status` reports them, by their field names.
+fn fatigue_state_line(o: &crate::app::DrivingObservation, mode: crate::touch::TouchMode) -> String {
+    let (timer, unit) = o.nod.timer();
+    let lift = match o.lift_owed {
+        Some((amount, due_in_h)) => format!("{amount:.1} due in {due_in_h:.2} h"),
+        None => "none".to_string(),
+    };
+    let rest_call = o.rest_call.map_or("none", |state| state.key());
+    // The facility gate's stop, only while the trip has ended at a gate.
+    let gate = o
+        .gate
+        .map_or(String::new(), |gate| format!("; gate {}", gate.key()));
+    format!(
+        "STATE: alertness {}; nod {} ({timer:.2} {unit}); nod_misses {}; lift_owed {lift}; \
+         rest_call {rest_call}; runaway {}{gate}; jake_zone {}; touch_mode {}; road_offer {}; \
+         touch_clutch {}.",
+        o.alertness.key(),
+        o.nod.key(),
+        o.nod.misses,
+        o.runaway.key(),
+        o.jake_zone,
+        mode.key(),
+        o.road_offer.key(),
+        o.touch_clutch.name()
+    )
 }
 
 enum CruiseStage {
@@ -320,6 +367,12 @@ pub struct AgentPolicy {
     timed_hold: Option<(Key, f64)>,
     /// A `cruise` call in progress across frames.
     cruise_plan: Option<CruisePlan>,
+    /// The touch screen's translator, holding whatever a gesture hold keeps
+    /// down, the way `ios/ff_touch.m` feeds it.
+    touch: crate::touch::TouchInput,
+    /// A timed `gesture` hold: what lifts it, the real seconds left, and
+    /// the length it reports as it lifts.
+    gesture_lift: Option<(crate::touch::Gesture, f64, Option<u16>)>,
     /// Key events scripted frame by frame, front first. A tap is two
     /// frames -- down, then up -- because the held-key tracker reads a
     /// press and release inside ONE frame as a screen reader's re-injected
@@ -372,6 +425,7 @@ impl AgentPolicy {
             until,
             scanned: 0,
             reports_timeout,
+            fatigue_state: false,
             reply,
         });
     }
@@ -510,12 +564,14 @@ impl AgentPolicy {
                     mods: Mods::NONE,
                 });
             }
+            self.release_touch(input);
             self.quit = true;
             return false;
         }
         for key in &self.held {
             input.assert_held(*key);
         }
+        self.advance_touch(input, dt);
         if let Some((key, remaining)) = self.timed_hold.take() {
             let remaining = remaining - dt;
             if remaining > 0.0 {
@@ -567,6 +623,14 @@ impl AgentPolicy {
                 } else {
                     "\n(the clock ran out before that arrived)"
                 });
+            }
+            if waiting.fatigue_state {
+                text.push('\n');
+                let mode = input.touch_mode();
+                match input.driving_observation() {
+                    Some(o) => text.push_str(&fatigue_state_line(&o, mode)),
+                    None => text.push_str(&format!("STATE: touch_mode {}.", mode.key())),
+                }
             }
             let _ = waiting.reply.send(Ok(text));
         }
@@ -681,6 +745,15 @@ impl AgentPolicy {
                     self.wait_until(seconds + PEDAL_SETTLE_SECONDS, Until::Elapsed, false, reply);
                     break;
                 }
+                Command::Gesture {
+                    gesture,
+                    seconds,
+                    length,
+                } => {
+                    if self.send_gesture(gesture, seconds, length, reply) {
+                        break;
+                    }
+                }
                 Command::WaitFor {
                     text,
                     menu,
@@ -758,6 +831,9 @@ impl AgentPolicy {
                         self.tap(key, text, Mods::NONE);
                     }
                     self.wait_until(STATUS_SETTLE_SECONDS, Until::Elapsed, false, reply);
+                    if let Some(waiting) = self.waiting.as_mut() {
+                        waiting.fatigue_state = true;
+                    }
                     break;
                 }
                 Command::Listen => {
@@ -785,7 +861,7 @@ impl AgentPolicy {
                             "INSPECTOR (ground truth, not ears): mile {:.2}. Speed {:.0} mph, \
                              limit {}. Air ready: {}. Parking brake: {}. Speed control armed: \
                              {}. Keeper: {}. Cruise: {}. Hazard active: {}. Pull-over active: \
-                             {}. Off pavement: {}. Truck damage: {:.0}%. Cargo damage: {:.0}%.",
+                             {}. Off pavement: {}. Truck damage: {:.0}%. Cargo damage: {:.0}%. {}",
                             o.position_mi,
                             o.speed_mph,
                             o.speed_limit_mph
@@ -793,8 +869,10 @@ impl AgentPolicy {
                             o.air_ready,
                             o.parking_brake,
                             o.speed_control_armed,
-                            o.keeper_mph
-                                .map_or("off".to_string(), |mph| format!("holding {mph:.0}")),
+                            o.keeper_mph.map_or("off".to_string(), |mph| format!(
+                                "holding {mph:.0}, following traffic: {}",
+                                o.keeper_following
+                            )),
                             o.cruise_set_mph
                                 .map_or("off".to_string(), |mph| format!("set {mph:.0}")),
                             o.hazard_active,
@@ -802,11 +880,18 @@ impl AgentPolicy {
                             o.off_pavement,
                             o.truck_damage_pct,
                             o.cargo_damage_pct,
+                            fatigue_state_line(&o, input.touch_mode()),
                         ),
                         None => {
                             "INSPECTOR: not at the wheel (a menu or stop screen is up).".to_string()
                         }
                     }));
+                }
+                Command::Hazard { name } => {
+                    let _ = reply.send(input.stage_hazard(&name));
+                }
+                Command::Nod => {
+                    let _ = reply.send(input.stage_nod());
                 }
                 Command::StageHit {
                     hit,
@@ -850,6 +935,7 @@ impl AgentPolicy {
         }
         let working = self.waiting.is_some()
             || self.timed_hold.is_some()
+            || self.gesture_lift.is_some()
             || self.cruise_plan.is_some()
             || !self.scripted.is_empty();
         if self.lockstep && !working {
@@ -893,6 +979,8 @@ pub fn policy_with_lifeline(
         held: Vec::new(),
         timed_hold: None,
         cruise_plan: None,
+        touch: crate::touch::TouchInput::new(),
+        gesture_lift: None,
         scripted: std::collections::VecDeque::new(),
         lockstep: false,
         quit: false,

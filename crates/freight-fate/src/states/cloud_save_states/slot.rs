@@ -2,6 +2,7 @@
 //! choice, and delete (the `CloudSlotState` half of
 //! `freight_fate/states/cloud_save_states.py`, split out for length).
 
+use crate::states::base::default_go_back;
 use std::path::PathBuf;
 
 use ff_core::models::profile::{find_save_path, is_pre_1_9_save, LoadError, Profile};
@@ -15,7 +16,7 @@ use crate::cloud_saves::{
 use crate::impl_state_for_menu;
 use crate::states::base::{Label, Menu, MenuCore, MenuItem};
 use crate::states::city::BACKUP_RESULT_WAIT_S;
-use crate::states::online_states::{load_identity, menu_default_go_back, run_worker, Mailbox};
+use crate::states::online_states::{load_identity, run_worker, Mailbox};
 
 use super::{
     backed_up_text, created_at_ms, install_restored_profile, is_legacy_snapshot, local_summary_for,
@@ -173,7 +174,7 @@ impl CloudSlotState {
         if let Some(summary) = summary {
             bits.push(format!("The cloud copy is {summary}."));
         }
-        bits.push("The choices below pick which copy to keep.".to_string());
+        bits.push("Choose which copy to keep.".to_string());
         bits.join(" ")
     }
 
@@ -501,7 +502,7 @@ impl CloudSlotState {
                     "The cloud copy changed on another computer. Nothing was changed.".to_string();
                 ctx.say(
                     "The cloud copy changed on another computer, so nothing was \
-                     changed. Choose which copy to keep from the rows below.",
+                     changed. Choose which copy to keep.",
                 );
             }
             "auth" => {
@@ -787,8 +788,8 @@ impl Menu for CloudSlotState {
                             s.start_backup_now(ctx)
                         })
                         .help(
-                            "Sends this computer's save to your orinks.net account now and \
-                             says the result. Nothing on this computer changes.",
+                            "Sends this computer's save to your orinks.net account now. \
+                             Nothing on this computer changes.",
                         ),
                     );
                 }
@@ -905,7 +906,7 @@ impl Menu for CloudSlotState {
             ctx.say("Cloud backup is still working. Stay here for the result.");
             return;
         }
-        menu_default_go_back(self, ctx);
+        default_go_back(self, ctx);
     }
 }
 

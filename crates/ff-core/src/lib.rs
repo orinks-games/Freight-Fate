@@ -12,6 +12,7 @@ pub mod pyrandom;
 
 // Top-level modules of the Python package.
 pub mod achievements;
+pub mod ambient_bed;
 pub mod assets_pack;
 pub mod audio_fades;
 pub mod audio_loops;
@@ -38,6 +39,7 @@ pub mod sound_catalog;
 pub mod speech_pacing;
 pub mod speech_text;
 pub mod spoken_advice;
+pub mod touch_mode;
 pub mod units;
 pub mod wav;
 

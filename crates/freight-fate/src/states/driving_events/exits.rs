@@ -112,13 +112,17 @@ impl DrivingState {
             if ahead <= EXIT_CANCEL_GUARD_MI && !self.exit_cancel_armed {
                 self.exit_cancel_armed = true;
                 let stays = if self.exit_blinker_on() { "on" } else { "set" };
-                self.say_plain(
-                    ctx,
+                let message = if !self.driving_hints(ctx) {
+                    format!("Signal stays {stays}.")
+                } else if ctx.touch_hints() {
+                    format!("Signal stays {stays}. Double tap again to cancel the exit.")
+                } else {
                     format!(
                         "Signal stays {stays}. Press {} again to cancel the exit.",
                         ctx.control_hint("take_exit")
-                    ),
-                );
+                    )
+                };
+                self.say_plain(ctx, message);
                 return;
             }
             let was_blinking = self.exit_blinker_on();
@@ -696,7 +700,12 @@ impl DrivingState {
             }
             self.exit_right_hold_s = 0.0;
         }
-        if self.exit_right_taps >= 2 && self.lane.exit_lane_open && !self.exit_tap_hint_said {
+        // On touch a side flick is a whole lane, so there is no hold to teach.
+        if self.exit_right_taps >= 2
+            && self.lane.exit_lane_open
+            && !self.exit_tap_hint_said
+            && !ctx.touch_hints()
+        {
             self.exit_tap_hint_said = true;
             let text = format!("Hold {} to steer in.", ctx.control_name(Action::SteerRight));
             self.say_plain(ctx, text);
@@ -910,7 +919,7 @@ impl DrivingState {
         if self.trip.exit_hint.is_empty() {
             return "Signal for it.".to_string();
         }
-        format!("Press {} to signal.", self.trip.exit_hint)
+        ff_core::speech_text::signal_sentence(&self.trip.exit_hint)
     }
 
     pub fn exit_intent_ready(&self, ctx: &GameContext, stop: &RoadStop) -> bool {

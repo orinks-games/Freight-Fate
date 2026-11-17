@@ -14,6 +14,7 @@ use ff_core::data::world_models::{CorridorDetail, Landmark, Leg, Route, RouteChe
 use ff_core::models::jobs::{Job, CARGO_CATALOG};
 use ff_core::models::profile::Profile;
 use ff_core::settings::Settings;
+use ff_core::sim::alertness::Nod;
 use ff_core::sim::trip::{Trip, TripOptions};
 use ff_core::sim::trip_models::TripEventKind;
 use ff_core::sim::weather::{WeatherKind, WeatherSystem};
@@ -750,7 +751,7 @@ fn test_a_microsleep_never_reads_as_a_missed_turn() {
     let mut app = TestApp::new();
     let mut d = a_drive(&mut app);
     a_street_chain(&mut d);
-    d.microsleep_deadline = Some(3.0);
+    d.nod.nod = Nod::Nodding { left_s: 3.0 };
     at_turn(&mut d, &mut app, 0.6, 45.0);
     assert_eq!(d.turn_miss_count, 0);
 }

@@ -15,12 +15,12 @@ use crate::app::GameContext;
 use crate::impl_state_for_menu;
 use crate::online_presence::setup_page_url;
 use crate::states::account_achievements::AccountAchievementsState;
+use crate::states::base::default_handle_event;
 use crate::states::base::{InputEvent, Key, Label, Menu, MenuCore, MenuItem};
 use crate::states::cloud_save_states::{CloudBackupConsentState, CloudBackupState};
 use crate::states::online_states::{
-    current_guest, load_identity, menu_default_handle_event, open_url, DriverDirectoryState,
-    DriverProfileState, DriversOnlineState, GuestNameState, GuestSetupState, OnlineSetupState,
-    ProfileSharingSyncState,
+    current_guest, load_identity, open_url, DriverDirectoryState, DriverProfileState,
+    DriversOnlineState, GuestNameState, GuestSetupState, OnlineSetupState, ProfileSharingSyncState,
 };
 
 pub struct OnlineHubState {
@@ -38,11 +38,11 @@ impl Default for OnlineHubState {
 impl OnlineHubState {
     pub const TITLE: &'static str = "Online";
     pub const INTRO_HELP: &'static str =
-        "Enter opens an item or changes a setting forward, Right also forward, Left \
-         backward. Escape goes back. Drivers on duty, the Driver directory, the duty \
+        "Enter opens an item or changes a setting to its next value. Right also moves it \
+         forward, Left backward. Escape goes back. Drivers on duty, the Driver directory, the duty \
          notices, and Account achievements work without connecting. Drive online as a guest \
-         puts you on the board with no account. The rest waits for an orinks.net account, \
-         and everything you share can be turned off again.";
+         puts you on the board with no account. The rest needs an orinks.net account. \
+         Everything you share can be turned off again.";
 
     /// `OnlineHubState(ctx)`.
     pub fn new(_ctx: &mut GameContext) -> Self {
@@ -292,9 +292,9 @@ impl OnlineHubState {
         // hear to override the name.
         format!(
             "Open this to choose which copy to keep. A career here changed on \
-             another computer, and it is not backing up at all until you \
+             another computer, and it is not backing up until you \
              pick. Choosing this computer's save keeps what you have played \
-             and sends it up; nothing is overwritten until you choose. {base}"
+             and sends it up. Nothing is overwritten until you choose. {base}"
         )
     }
 
@@ -354,9 +354,9 @@ impl Menu for OnlineHubState {
                 |s: &mut Self, ctx| s.toggle_duty_notifications(ctx, 1),
             )
             .help(
-                "Says when another driver goes on or off duty, like Road Star is on duty, \
-                 anywhere in the game. Checks the public drivers list about once a minute, \
-                 needs no account, and shares nothing about you.",
+                "A line like Road Star is on duty, heard anywhere in the game. It checks the \
+                 public drivers list about once a minute, needs no account, and shares \
+                 nothing about you.",
             ),
             MenuItem::new("Account achievements", |s: &mut Self, ctx| {
                 s.account_achievements(ctx)
@@ -401,8 +401,8 @@ impl Menu for OnlineHubState {
             )
             .help(
                 "Connects the game to your orinks.net account, which turns Profile sharing on \
-                 and starts backing your careers up. Both are single items on this menu. \
-                 Driver name and signed-in computers are on Open my driver setup page below.",
+                 and starts backing your careers up. Each has its own item on this menu. \
+                 Driver name and signed-in computers are on Open my driver setup page.",
             ),
             // Always here, so the rows below keep their places (adjust_row).
             MenuItem::new(Label::dynamic(|_: &Self, _| Self::guest_label()), |s: &mut Self, ctx| {
@@ -512,7 +512,7 @@ impl Menu for OnlineHubState {
         match event.key_down() {
             Some((Key::Right, _, _)) => self.adjust_row(ctx, 1),
             Some((Key::Left, _, _)) => self.adjust_row(ctx, -1),
-            _ => menu_default_handle_event(self, ctx, event),
+            _ => default_handle_event(self, ctx, event),
         }
     }
 

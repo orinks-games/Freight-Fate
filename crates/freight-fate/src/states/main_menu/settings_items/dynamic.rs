@@ -66,7 +66,7 @@ impl SettingsCategoryState {
         let mut items = vec![row(
             dyn_label(|s| format!("Driving assistance preset: {}", assist_preset_label(s))),
             adjust(|s, ctx, d| s.cycle_assist_preset(ctx, d)),
-            "Realistic is modern truck safety support. Balanced adds partial lane keeping, a firmer hand on descents, and stopping at your destination. All assists turns on every assist and sets lane keeping to full: the truck holds the lane, a tap changes lanes, and your destination exit is taken for you. Changing one assist makes this Custom. You still choose routes and handle yards and docks. Presets never change pacing, hours rules, transmission, weather, or hazards.",
+            "Realistic turns on every assist except facility stopping assistance, sets descent speed control to Light, and leaves lane keeping off. Balanced adds partial lane keeping, Standard descent speed control, and facility stopping assistance. All assists turns on every assist, sets descent speed control to Strong, and sets lane keeping to full: the truck holds the lane, a tap changes lanes, and your destination exit is taken for you. Changing one assist makes this Custom. You still choose routes and handle yards and docks. Presets never change pacing, hours rules, transmission, weather, or hazards.",
         )];
         for (field, label, help_text) in DRIVING_ASSIST_SPECS {
             items.push(row(
@@ -79,22 +79,18 @@ impl SettingsCategoryState {
             dyn_label(|s| format!("Lane keeping: {}", lane_keeping_label(s))),
             adjust(|s, ctx, d| s.cycle_lane_keeping(ctx, d)),
             |s| {
-                "How much of the steering the truck does. Full holds the \
-                 lane, moves out of a lane a work zone closes, and takes your \
-                 exits and open weigh stations without a signal, including \
-                 the destination exit. A tap of {{steer_left}} or \
-                 {{steer_right}} changes lanes. Partial steers through bends \
-                 with a gentle drift and generous help; lane changes and \
-                 speed are yours. Off drifts like a real truck; bends are \
-                 yours unless curve assistance is on, and every exit needs a \
-                 signal and the exit lane. On partial or off, {lean}. Road \
-                 noise tells you where you sit in the lane, and the edge \
-                 tells you when you leave it: a stutter on the edge of the \
-                 rumble strip, a buzz fully on it, gravel off the pavement. \
-                 Steering guide and Lane guide sound, under \
-                 Audio, change which way to steer and what leans. \
-                 Realistic sets this off, Balanced partial, All assists \
-                 full."
+                "How much of the steering the truck does. Full holds the lane, leaves a \
+                 lane that a work zone closes, and takes your exits and open weigh \
+                 stations without a signal, including the destination exit. On full, a tap \
+                 of {{steer_left}} or {{steer_right}} changes lanes. Partial follows bends \
+                 but lets the truck drift, and lane changes and speed are yours. Off \
+                 drifts like a real truck. Bends are yours unless curve assistance is on, \
+                 and every exit needs a signal and the exit lane. On partial or off, \
+                 {lean}. Road noise sits where you are in the lane. At the lane's edge you \
+                 hear a stutter as a tire touches the rumble strip, a buzz when it is \
+                 fully on it, and gravel off the pavement. The Steering guide and Lane \
+                 guide sound rows, under Audio, change which way to steer and what leans. \
+                 Realistic sets this off, Balanced partial, All assists full."
                     .replace("{lean}", &steering_lean_text(s))
             },
         ));

@@ -108,7 +108,7 @@ impl Menu for ShoulderSleepConfirmationState {
                     s.sleep(ctx)
                 })
                 .help(
-                    "Poor rest at the chain control. Resets hours of service; the deadline \
+                    "Poor rest at the chain control. Resets hours of service. The deadline \
                      keeps running.",
                 ),
             ];
@@ -142,7 +142,7 @@ impl Menu for ShoulderSleepConfirmationState {
         }
         ctx.say(&format!(
             "{title}. {reason} Emergency shoulder sleep: 10 hours of poor rest, hours of \
-             service reset if enforced. Ticket and light damage possible; the deadline keeps running. {current}"
+             service reset if enforced. Ticket and light damage possible. The deadline keeps running. {current}"
         ));
     }
 
@@ -154,14 +154,20 @@ impl Menu for ShoulderSleepConfirmationState {
         }
         ctx.audio.play("ui/menu_back");
         ctx.pop_state();
-        let hint = ctx.control_hint("parking_brake");
-        ctx.say_with(
+        let message = if ctx.settings.driving_hints && ctx.touch_hints() {
+            "Shoulder sleep canceled. Back on the road. Parking brake set. Swipe up and hold to \
+             release it and drive."
+                .to_string()
+        } else if ctx.settings.driving_hints {
+            let hint = ctx.control_hint("parking_brake");
             format!(
                 "Shoulder sleep canceled. Back on the road. Parking brake set, {hint} releases \
                  it."
-            ),
-            Say::new(),
-        );
+            )
+        } else {
+            "Shoulder sleep canceled. Back on the road. Parking brake set.".to_string()
+        };
+        ctx.say_with(message, Say::new());
     }
 }
 

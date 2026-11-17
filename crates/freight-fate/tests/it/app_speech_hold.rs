@@ -112,7 +112,7 @@ fn test_a_route_line_whose_moment_passed_is_dropped() {
     let clock = rig(&mut app);
     talking(&mut app);
     app.ctx.say_event_with(
-        "Construction zone ahead, cruise easing to 55.",
+        "Construction zone, cruise easing to 55.",
         SayEvent::queued().priority(EventPriority::Important),
     );
     for _ in 0..18 {
@@ -149,7 +149,7 @@ fn test_chatter_is_held_not_dropped_by_the_estimate() {
     let mut app = TestApp::new();
     let clock = rig(&mut app);
     app.ctx.say_event_with(
-        "Open weigh station ahead in two miles. Have your paperwork ready.",
+        "Open weigh station in two miles. Have your paperwork ready.",
         SayEvent::queued(),
     );
     frame(&mut app, true);

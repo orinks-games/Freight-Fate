@@ -70,14 +70,14 @@ impl Trip {
         }
         if zone.reason == "heavy traffic" && zone.aadt.is_some() {
             return format!(
-                "In {}, {} ahead. Traffic slowing to {}.",
+                "In {}, {}. Traffic slowing to {}.",
                 self.ahead_text(ahead),
                 self.congestion_phrase(),
                 self.speed_value(zone.limit_mph)
             );
         }
         format!(
-            "In {}, {} ahead. Speed limit {}.",
+            "In {}, {}. Speed limit {}.",
             self.ahead_text(ahead),
             zone.reason,
             self.speed_value(zone.limit_mph)
@@ -145,7 +145,7 @@ impl Trip {
             ("construction merge", Some(keep)) => {
                 Some(format!("Reduced speed. Merge {keep}. Limit {limit}."))
             }
-            ("construction merge", None) => Some(format!("Flagger ahead. Limit {limit}.")),
+            ("construction merge", None) => Some(format!("Flagger. Limit {limit}.")),
             ("construction", Some(keep)) => Some(format!("Work zone. Keep {keep}. Limit {limit}.")),
             ("construction", None) => Some(format!("Work zone. Limit {limit}.")),
             _ => None,

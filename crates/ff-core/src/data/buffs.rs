@@ -52,9 +52,24 @@ pub struct Buff {
     pub actions: Vec<String>,
     /// free after fueling this visit (showers)
     pub free_with_fuel: bool,
+    /// coffee and energy drinks: the instant lift is a loan, owed back when
+    /// the buff wears off (`sim::stimulant`)
+    pub stimulant: bool,
     pub help: String,
     pub purchased: String,
     pub worn_off: String,
+}
+
+impl Buff {
+    /// The line spoken as a timed buff wears off on the road: its own
+    /// `worn_off`, or "The energy drink has worn off." from its label.
+    pub fn worn_off_line(&self) -> String {
+        if self.worn_off.is_empty() {
+            format!("The {} has worn off.", self.label.to_lowercase())
+        } else {
+            self.worn_off.clone()
+        }
+    }
 }
 
 #[derive(Deserialize)]
@@ -76,6 +91,8 @@ struct RawBuff {
     actions: Vec<String>,
     #[serde(default)]
     free_with_fuel: bool,
+    #[serde(default)]
+    stimulant: bool,
     #[serde(default)]
     help: String,
     #[serde(default)]
@@ -104,6 +121,7 @@ pub fn parse_catalog(text: &str) -> Result<IndexMap<String, Buff>, DataError> {
             brands: entry.brands,
             actions: entry.actions,
             free_with_fuel: entry.free_with_fuel,
+            stimulant: entry.stimulant,
             help: entry.help,
             purchased: entry.purchased,
             worn_off: entry.worn_off,
@@ -133,6 +151,11 @@ pub fn parse_catalog(text: &str) -> Result<IndexMap<String, Buff>, DataError> {
         if buff.brands.is_empty() && buff.actions.is_empty() {
             return Err(DataError::value(format!(
                 "buff {buff_id}: no availability (brands or actions)"
+            )));
+        }
+        if buff.stimulant && buff.group != "fatigue" {
+            return Err(DataError::value(format!(
+                "buff {buff_id}: only fatigue buffs can be stimulants"
             )));
         }
         if buff.help.is_empty() || buff.purchased.is_empty() {
@@ -286,6 +309,21 @@ mod tests {
         assert!(coffee.duration_game_h < energy.duration_game_h);
         assert!(energy.duration_game_h < meal.duration_game_h);
         assert!(water.duration_game_h <= coffee.duration_game_h);
+    }
+
+    #[test]
+    fn coffee_and_energy_drinks_are_the_stimulants() {
+        let stimulants: std::collections::BTreeSet<&str> = buff_catalog()
+            .values()
+            .filter(|buff| buff.stimulant)
+            .map(|buff| buff.id.as_str())
+            .collect();
+        assert_eq!(
+            stimulants,
+            ["energy_drink", "wall_drug_five_cent_coffee"]
+                .into_iter()
+                .collect()
+        );
     }
 
     #[test]

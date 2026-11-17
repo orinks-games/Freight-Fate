@@ -14,9 +14,13 @@
 //! A blind player cannot see the sign, so the spoken cue is the sign: the zone
 //! announces itself ahead when the retarder is on, a violation warns with a
 //! grace window before any money moves, and the citation names the amount and
-//! the reason.
+//! the reason. A driver who heard about a zone hears once when it ends, so
+//! they know the retarder is legal again; a zone they were never told about
+//! (the retarder was off coming in) stays quiet both ways. What was said is
+//! `ff_core::sim::jake_zone::ZoneNotice`.
 
 use ff_core::pyfmt::fmt_grouped;
+use ff_core::sim::jake_zone::{ZoneCue, ZoneEvent};
 use ff_core::sim::vehicle::{AMBIENT_C, BRAKE_COOL_BASE_PER_S, BRAKE_COOL_SPEED_PER_S};
 use ff_core::speech_pacing::SpeechCategory;
 
@@ -62,13 +66,13 @@ impl DrivingState {
         let city = self.trip.engine_brake_ban_at(self.trip.position_mi);
         match &city {
             Some(city) => {
+                self.move_zone_notice(ctx, ZoneEvent::Inside { city: city.clone() });
                 // A real driver flips engine-brake mode off at the town line;
                 // the assists do the same before any driver-fault question is
                 // asked.
-                let city = city.clone();
-                self.release_assist_jake_in_zone(ctx, &city);
+                self.release_assist_jake_in_zone(ctx);
             }
-            None => self.assist_zone_cue_key = None,
+            None => self.move_zone_notice(ctx, ZoneEvent::Outside),
         }
         // The switch alone is not the offense; the bark is. The vehicle already
         // knows whether the retarder is genuinely retarding (stage selected,
@@ -89,11 +93,17 @@ impl DrivingState {
             return;
         };
         if !driver_owns_jake || self.jake_zone_exempt() {
-            self.jake_violation_deadline_s = None;
             if !self.trip.truck.engine_brake() {
                 // The engagement is over; a fresh one can earn a fresh citation.
+                self.jake_violation_deadline_s = None;
                 self.jake_citation_latched = false;
             }
+            // With the switch still on, a pause in the bark -- a touch of the
+            // throttle, a gear change, a stretch of downgrade -- holds the
+            // grace clock rather than ending it. Clearing it here used to spend
+            // the town's one warning on a downshift: the next bark found the
+            // grace used and cited on the spot, seconds after the warning
+            // (issue 531).
             return;
         }
         if self.jake_citation_latched {
@@ -358,7 +368,7 @@ impl DrivingState {
     /// zone, only when a retarder audibly stops -- the note cutting out with
     /// no explanation is the confusing part -- and never in terse speech,
     /// which skips advisory-class cues (no money is at risk here).
-    pub fn release_assist_jake_in_zone(&mut self, ctx: &mut GameContext, city: &str) {
+    pub fn release_assist_jake_in_zone(&mut self, ctx: &mut GameContext) {
         let cruise_owns = self.cruise_jake_stage > 0;
         if (!cruise_owns && !self.curve_assist_jake) || !self.trip.truck.engine_brake() {
             return;
@@ -371,11 +381,28 @@ impl DrivingState {
             self.cruise_jake_stage = 0;
         }
         self.curve_assist_jake = false;
-        if self.assist_zone_cue_key.as_deref() == Some(city) || self.terse_speech(ctx) {
-            return;
+        self.move_zone_notice(ctx, ZoneEvent::AssistReleased);
+    }
+
+    /// Move the zone notice, and speak the line its transition names.
+    fn move_zone_notice(&mut self, ctx: &mut GameContext, event: ZoneEvent) {
+        let terse = self.terse_speech(ctx);
+        let (notice, cue) = std::mem::take(&mut self.jake_zone_notice).next(event, terse);
+        self.jake_zone_notice = notice;
+        match cue {
+            Some(ZoneCue::AssistReleased) => self.speak_assist_zone_cue(ctx),
+            Some(ZoneCue::Ends) => self.speak_jake_zone_end(ctx),
+            // The heads-up needs the distance and town, so its caller speaks it.
+            Some(ZoneCue::HeadsUp) | None => {}
         }
-        self.assist_zone_cue_key = Some(city.to_string());
-        let spoken = ctx.world.spoken_city(city, Some(false));
+    }
+
+    /// "No engine brake zone, {city}.": an assist let go of the retarder.
+    fn speak_assist_zone_cue(&mut self, ctx: &mut GameContext) {
+        let Some(city) = self.trip.engine_brake_ban_at(self.trip.position_mi) else {
+            return;
+        };
+        let spoken = ctx.world.spoken_city(&city, Some(false));
         let message = format!("No engine brake zone, {spoken}.");
         ctx.play_event_cue(Some(SpeechCategory::Confirmation), "ui/notify", 0.6, 0.0);
         // ROUTE, not the ambient default: an assist silently switching how it
@@ -408,17 +435,19 @@ impl DrivingState {
     /// advisory -- the in-zone warning still comes before any fine, so a terse
     /// driver risks nothing but a later cue.
     pub fn maybe_warn_jake_zone_ahead(&mut self, ctx: &mut GameContext, driver_owns_jake: bool) {
-        if !driver_owns_jake || self.terse_speech(ctx) {
+        if !driver_owns_jake {
             return;
         }
         let Some((start_mi, city)) = self.trip.next_engine_brake_ban(JAKE_ZONE_WARN_MI) else {
             return;
         };
-        let key = format!("{start_mi:.1}");
-        if self.jake_zone_warned_key.as_deref() == Some(key.as_str()) {
+        let terse = self.terse_speech(ctx);
+        let (notice, cue) = std::mem::take(&mut self.jake_zone_notice)
+            .next(ZoneEvent::Approaching { start_mi }, terse);
+        self.jake_zone_notice = notice;
+        if cue != Some(ZoneCue::HeadsUp) {
             return;
         }
-        self.jake_zone_warned_key = Some(key);
         let distance = ctx
             .settings
             .distance_text(start_mi - self.trip.position_mi, false);
@@ -432,8 +461,21 @@ impl DrivingState {
         );
     }
 
+    /// The zone the driver heard about is over: the retarder is legal again.
+    /// Same sound, priority and category as the heads-up before it.
+    fn speak_jake_zone_end(&mut self, ctx: &mut GameContext) {
+        ctx.audio.play_with("ui/notify", 0.6, 0.0);
+        ctx.say_event_with(
+            "End of no engine brake zone.",
+            SayEvent::queued()
+                .priority(EventPriority::Important)
+                .category(SpeechCategory::Navigation),
+        );
+    }
+
     /// The warning that always precedes the first fine -- the audio sign.
     pub fn speak_jake_zone_warning(&mut self, ctx: &mut GameContext) {
+        self.move_zone_notice(ctx, ZoneEvent::Warned);
         ctx.audio.play("ui/warning");
         ctx.controller.rumble.alert();
         ctx.say_event_with(

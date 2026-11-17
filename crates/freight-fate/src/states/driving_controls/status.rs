@@ -79,7 +79,11 @@ impl DrivingState {
                 "Progress: {} percent there",
                 self.journey_progress_percent()
             ),
-            format!("Route: {progress}"),
+            // At the gate the route is over: the row says so, as R does.
+            match self.arrival_gate_query_text(ctx) {
+                Some(gate) => format!("Route: You have arrived. {gate}"),
+                None => format!("Route: {progress}"),
+            },
             self.career_status_line(ctx),
             format!(
                 "Fuel: {:.0} percent",
@@ -105,10 +109,7 @@ impl DrivingState {
             lines.insert(1, capitalize_first(&self.keeper_holding_text(ctx, false)));
             lines.insert(2, format!("Cruise speed: {}", self.open_road_target(ctx)));
         } else if self.speed_control_armed {
-            lines.insert(
-                1,
-                "Cruise paused; resumes when the truck is rolling".to_string(),
-            );
+            lines.insert(1, "Cruise paused until the truck is rolling".to_string());
             lines.insert(2, format!("Cruise speed: {}", self.open_road_target(ctx)));
         }
         let truck = &self.trip.truck;
@@ -164,8 +165,9 @@ impl DrivingState {
         }
         if !ctx.settings.renders_terse() {
             let fatigue = profile_of(ctx).fatigue;
-            if fatigue >= hos::FATIGUE_DROWSY {
-                lines.push(format!("Fatigue: {fatigue:.0} percent"));
+            // From Worn up the band rides with the number.
+            if let Some(band) = self.alertness.readout_word() {
+                lines.push(format!("Fatigue: {fatigue:.0} percent, {band}"));
             }
             let mode = ctx.settings.hos_mode.clone();
             let summary = hos_of(ctx).summary(&mode);

@@ -128,8 +128,49 @@ pub struct HazardDef {
     /// Assumed, not measured; the move-over figure follows the state laws'
     /// "slow to 20 under", taken from a 60 mph road.
     pub brake_to_mph: Option<f64>,
+    /// Debris a truck takes rather than stops for (owner, 2026-11-09, after
+    /// automatic braking took the truck from 65 to a near stop on I-43 for a
+    /// strip of tire tread): `Small` is driven over at any speed, `Big` is
+    /// taken at `BIG_DEBRIS_TAKE_MPH` or under with no damage and struck
+    /// above it. `None` is a hard object: the near stop, and the full
+    /// collision when the deadline lapses.
+    pub debris: Option<DebrisClass>,
+    /// Truck damage, in percent, for striking this debris at 65 mph. Small
+    /// debris rolls for it (`SMALL_DEBRIS_STRIKE_ODDS`); big debris scales it
+    /// down with speed to nothing at the take-at speed. Assumed, not
+    /// measured: a road gator tears an air line or a mud flap, a ladder at
+    /// highway speed goes under the bumper and into the tanks.
+    pub strike_pct: f64,
     pub name: &'static str,
 }
+
+/// How a thing in the lane is taken when the truck does not go around it.
+/// See `HazardDef::debris`.
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum DebrisClass {
+    /// Tire tread, loose junk: driven over, with a thump and a roll for
+    /// minor damage. Nothing brakes for it.
+    Small,
+    /// A ladder, lumber, a mattress: taken at `BIG_DEBRIS_TAKE_MPH` or under
+    /// for free, struck above it for damage that grows with speed.
+    Big,
+}
+
+/// The speed big debris is taken at with no damage, and what braking alone
+/// aims for when no lane is open. A truck driver eases off for a ladder and
+/// straddles it; stopping a loaded rig on an interstate for one is the worse
+/// risk (owner, 2026-11-09). Assumed, not measured.
+pub const BIG_DEBRIS_TAKE_MPH: f64 = 30.0;
+
+/// Seconds ahead small debris is called: time for a lane change with room
+/// to spare, since nothing brakes for it.
+pub const SMALL_DEBRIS_CALL_S: f64 = 8.0;
+
+/// Small debris driven over at `SMALL_DEBRIS_STRIKE_MIN_MPH` or more rolls
+/// this often for its `strike_pct`. Assumed: a reason to move over without
+/// making the thump a punishment.
+pub const SMALL_DEBRIS_STRIKE_ODDS: f64 = 0.25;
+pub const SMALL_DEBRIS_STRIKE_MIN_MPH: f64 = 55.0;
 
 /// An animal is braked for firmly in the lane, never swerved for: the
 /// standard truck-driver training for a deer (owner, 2026-10-19). Braking a
@@ -148,7 +189,29 @@ const fn hz(text: &'static str, weight: f64, name: &'static str) -> HazardDef {
         animal: false,
         in_lane: false,
         brake_to_mph: None,
+        debris: None,
+        strike_pct: 0.0,
         name,
+    }
+}
+
+/// A catalog row for debris: in the lane, taken rather than stopped for.
+const fn debris(
+    text: &'static str,
+    weight: f64,
+    name: &'static str,
+    class: DebrisClass,
+    strike_pct: f64,
+) -> HazardDef {
+    HazardDef {
+        in_lane: true,
+        debris: Some(class),
+        strike_pct,
+        brake_to_mph: match class {
+            DebrisClass::Small => None,
+            DebrisClass::Big => Some(BIG_DEBRIS_TAKE_MPH),
+        },
+        ..hz(text, weight, name)
     }
 }
 
@@ -170,41 +233,60 @@ const DEER_REGIONS: &[&str] = &[
 pub static HAZARDS: &[HazardDef] = &[
     // Nationwide staples. Named debris, not "debris": a driver clearing a lane
     // blind needs to know WHAT is in it (Brandon, 2026-08-20). The split's
-    // weights sum to the 1.2 the one generic entry carried.
-    HazardDef {
-        in_lane: true,
-        ..hz(
-            "a ladder fallen from a truck in the lane",
-            0.25,
-            "the ladder",
-        )
-    },
-    HazardDef {
-        in_lane: true,
-        ..hz("loose lumber dropped across the lane", 0.25, "the lumber")
-    },
-    HazardDef {
-        brake_to_mph: Some(35.0),
-        in_lane: true,
-        ..hz("a mattress lying in the lane", 0.2, "the mattress")
-    },
-    HazardDef {
-        in_lane: true,
-        ..hz("spilled cargo boxes across the lane", 0.2, "the boxes")
-    },
-    HazardDef {
-        brake_to_mph: Some(35.0),
-        in_lane: true,
-        ..hz("a shredded truck tarp in the lane", 0.15, "the tarp")
-    },
-    HazardDef {
-        in_lane: true,
-        ..hz("debris on the road", 0.15, "the debris")
-    },
-    HazardDef {
-        in_lane: true,
-        ..hz("retread debris from a blown tire", 1.0, "the tire debris")
-    },
+    // weights sum to the 1.2 the one generic entry carried. Big debris is
+    // taken at 30; the ladder and the lumber cost the most at speed, the
+    // soft things half as much.
+    debris(
+        "a ladder fallen from a truck in the lane",
+        0.25,
+        "the ladder",
+        DebrisClass::Big,
+        8.0,
+    ),
+    debris(
+        "loose lumber dropped across the lane",
+        0.25,
+        "the lumber",
+        DebrisClass::Big,
+        8.0,
+    ),
+    debris(
+        "a mattress lying in the lane",
+        0.2,
+        "the mattress",
+        DebrisClass::Big,
+        4.0,
+    ),
+    debris(
+        "spilled cargo boxes across the lane",
+        0.2,
+        "the boxes",
+        DebrisClass::Big,
+        4.0,
+    ),
+    debris(
+        "a shredded truck tarp in the lane",
+        0.15,
+        "the tarp",
+        DebrisClass::Big,
+        4.0,
+    ),
+    // Small debris: driven over. Tread is the most common clear-day draw
+    // with the stopped vehicle, so this is the hazard players meet most.
+    debris(
+        "debris on the road",
+        0.15,
+        "the debris",
+        DebrisClass::Small,
+        2.0,
+    ),
+    debris(
+        "retread debris from a blown tire",
+        1.0,
+        "the tire debris",
+        DebrisClass::Small,
+        2.0,
+    ),
     // The move-over law in action: shift a lane away from the shoulder.
     HazardDef {
         brake_to_mph: Some(40.0),
@@ -219,7 +301,7 @@ pub static HAZARDS: &[HazardDef] = &[
     // 2026-08-20): a slow vehicle in the flow is the traffic bubble's job.
     HazardDef {
         in_lane: true,
-        ..hz("a sudden lane closure ahead", 0.8, "the lane closure")
+        ..hz("a sudden lane closure", 0.8, "the lane closure")
     },
     hz(
         "stopped traffic around a fender bender",
@@ -319,7 +401,7 @@ pub static HAZARDS: &[HazardDef] = &[
     HazardDef {
         weather: Some(&[WeatherKind::Ice]),
         in_lane: true,
-        ..hz("a car spun out on the glaze ahead", 1.1, "the spun-out car")
+        ..hz("a car spun out on the glaze", 1.1, "the spun-out car")
     },
     // Dense fog only.
     HazardDef {
@@ -342,11 +424,15 @@ pub static HAZARDS: &[HazardDef] = &[
         ..hz("a dust storm dropping visibility", 0.9, "the dust storm")
     },
     HazardDef {
-        brake_to_mph: Some(45.0),
         weather: Some(&[WeatherKind::Wind]),
         regions: Some(&["desert_southwest", "great_basin", "southern_plains"]),
-        in_lane: true,
-        ..hz("tumbleweeds piling in your lane", 0.5, "the tumbleweeds")
+        ..debris(
+            "tumbleweeds piling in your lane",
+            0.5,
+            "the tumbleweeds",
+            DebrisClass::Big,
+            2.0,
+        )
     },
     // Mountain terrain only.
     HazardDef {
@@ -365,11 +451,7 @@ pub static HAZARDS: &[HazardDef] = &[
     HazardDef {
         terrain: Some(&["mountain"]),
         brake_to_mph: Some(40.0),
-        ..hz(
-            "a runaway truck on the grade ahead",
-            0.8,
-            "the runaway truck",
-        )
+        ..hz("a runaway truck on the grade", 0.8, "the runaway truck")
     },
 ];
 
@@ -386,6 +468,36 @@ pub fn hazard_brake_to_mph(text: &str) -> Option<f64> {
         .iter()
         .find(|h| h.text == text)
         .and_then(|h| h.brake_to_mph)
+}
+
+/// How this hazard is taken when the truck does not go around it; `None`
+/// for a hard object. See `HazardDef::debris`.
+pub fn hazard_debris(text: &str) -> Option<DebrisClass> {
+    HAZARDS
+        .iter()
+        .find(|h| h.text == text)
+        .and_then(|h| h.debris)
+}
+
+/// Truck damage, in percent, for striking this hazard at 65 mph (see
+/// `HazardDef::strike_pct`); zero for anything that is not debris.
+pub fn hazard_strike_pct(text: &str) -> f64 {
+    HAZARDS
+        .iter()
+        .find(|h| h.text == text)
+        .map_or(0.0, |h| h.strike_pct)
+}
+
+/// The catalog row a name or text picks out, forgiving case and a leading
+/// "the": "tire debris", "the tire debris" and the row's own text all find
+/// the retread row. For staging a hazard on purpose.
+pub fn hazard_by_name(name: &str) -> Option<&'static HazardDef> {
+    let wanted = name.trim().to_ascii_lowercase();
+    let wanted = wanted.strip_prefix("the ").unwrap_or(&wanted);
+    HAZARDS.iter().find(|h| {
+        let short = h.name.strip_prefix("the ").unwrap_or(h.name);
+        short.eq_ignore_ascii_case(wanted) || h.text.eq_ignore_ascii_case(wanted)
+    })
 }
 
 /// Whether this hazard is an animal on the road.

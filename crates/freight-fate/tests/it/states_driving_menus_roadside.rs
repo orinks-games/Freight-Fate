@@ -316,7 +316,7 @@ fn test_an_out_of_service_order_passes_the_ten_hours_on_the_shoulder() {
     assert!(
         state
             .outcome_text()
-            .contains("You are rested, and the delivery deadline kept counting."),
+            .contains("The order is served, and the delivery deadline kept counting."),
         "{}",
         state.outcome_text()
     );
@@ -468,8 +468,7 @@ fn test_a_run_off_that_suspends_the_cdl_ends_the_drive() {
     };
     with_drive(&drive, |d| d.trip.truck.velocity_mps = 27.0);
     drive_and_ctx(&drive, &mut app, |d, ctx| {
-        d.microsleep_misses = 0;
-        d.microsleep_drift_off_road(ctx);
+        d.microsleep_drift_off_road(ctx, false);
     });
     {
         let p = app.ctx.profile.as_ref().expect("a career");
@@ -502,8 +501,7 @@ fn test_a_run_off_that_leaves_the_cdl_clear_drives_on() {
     let mut app = TestApp::new();
     let drive = a_drive(&mut app);
     drive_and_ctx(&drive, &mut app, |d, ctx| {
-        d.microsleep_misses = 0;
-        d.microsleep_drift_off_road(ctx);
+        d.microsleep_drift_off_road(ctx, false);
     });
     assert!(top_is::<DrivingState>(&app));
 }

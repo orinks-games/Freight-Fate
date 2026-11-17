@@ -9,7 +9,7 @@ use ff_core::pyrandom::PyRandom;
 use ff_core::settings::short_distance_text_for;
 use ff_core::sim::trip_models::RoadStop;
 use ff_core::speech_pacing::SpeechCategory;
-use ff_core::speech_text::overspeed_nag;
+use ff_core::speech_text::{overspeed_nag, SpokenMessage};
 
 use crate::app::{GameContext, SayEvent};
 use crate::states::driving::DrivingState;
@@ -208,6 +208,11 @@ impl DrivingState {
         let zone = ctx.settings.speed_text(limit);
         let message = if self.instruction_retired(ctx, "take_exit") {
             format!("Lights and siren behind you. {speed} in a {zone} zone. Signal and stop on the shoulder.")
+        } else if ctx.touch_hints() {
+            format!(
+                "Lights and siren behind you. {speed} in a {zone} zone. Double tap to signal, \
+                 then stop on the shoulder."
+            )
         } else {
             format!(
                 "Lights and siren behind you. {speed} in a {zone} zone. Signal with {} and stop on \
@@ -274,7 +279,7 @@ impl DrivingState {
             // otherwise bump it stale (automation-handoff sweep, 2026-08-20,
             // the deferred 2026-08-15 audit).
             ctx.say_event_with(
-                "Exit approach canceled; plan it again after the stop.",
+                "Exit approach canceled. Plan it again after the stop.",
                 SayEvent::queued()
                     .priority(EventPriority::Important)
                     .category(SpeechCategory::Confirmation),
@@ -405,9 +410,17 @@ impl DrivingState {
                     // (playtest, 2026-08-20). The bypass judgment never
                     // needed it -- taking the scale's exit is what counts --
                     // and the ramp glide owns the slowing.
-                    format!(
-                        "Open weigh station ahead in {announced}, {}. {instruction}",
-                        stop.name
+                    // The weigh station earcon is the notice; standard speech
+                    // adds the distance, the name and the instruction, and
+                    // the quiet rungs leave it to the earcon (owner,
+                    // 2026-11-12). The reminder nearer the scale names it
+                    // and the exit at every rung.
+                    SpokenMessage::with_terse(
+                        format!(
+                            "Open weigh station in {announced}, {}. {instruction}",
+                            stop.name
+                        ),
+                        "",
                     ),
                     SayEvent::queued()
                         .priority(EventPriority::Important)
@@ -677,11 +690,21 @@ impl DrivingState {
         if rng.random() >= WEIGH_STATION_BYPASS_CATCH_CHANCE {
             return;
         }
-        let lights_message = format!(
-            "Scale bypass enforcement. Lights and siren behind you. Signal with {} and stop on \
-             the shoulder.",
-            ctx.control_hint("take_exit")
-        );
+        let lights_message = if self.driving_hints(ctx) && ctx.touch_hints() {
+            "Scale bypass enforcement. Lights and siren behind you. Double tap to signal, then \
+             stop on the shoulder."
+                .to_string()
+        } else if self.driving_hints(ctx) {
+            format!(
+                "Scale bypass enforcement. Lights and siren behind you. Signal with {} and stop \
+                 on the shoulder.",
+                ctx.control_hint("take_exit")
+            )
+        } else {
+            "Scale bypass enforcement. Lights and siren behind you. Signal and stop on the \
+             shoulder."
+                .to_string()
+        };
         self.begin_enforcement_pull_over(
             ctx,
             "weigh_station_bypass",
@@ -724,11 +747,21 @@ impl DrivingState {
              roadside safety inspection.",
             self.trip.truck.damage_pct
         );
-        let lights_message = format!(
-            "Unsafe equipment stop. Lights and siren behind you. Signal with {} and stop on the \
-             shoulder.",
-            ctx.control_hint("take_exit")
-        );
+        let lights_message = if self.driving_hints(ctx) && ctx.touch_hints() {
+            "Unsafe equipment stop. Lights and siren behind you. Double tap to signal, then stop \
+             on the shoulder."
+                .to_string()
+        } else if self.driving_hints(ctx) {
+            format!(
+                "Unsafe equipment stop. Lights and siren behind you. Signal with {} and stop on \
+                 the shoulder.",
+                ctx.control_hint("take_exit")
+            )
+        } else {
+            "Unsafe equipment stop. Lights and siren behind you. Signal and stop on the \
+             shoulder."
+                .to_string()
+        };
         self.begin_enforcement_pull_over(
             ctx,
             "unsafe_damage",

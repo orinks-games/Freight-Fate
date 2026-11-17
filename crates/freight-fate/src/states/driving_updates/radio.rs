@@ -810,7 +810,15 @@ impl DrivingState {
         if speed >= 88.0 {
             ctx.award_driving_achievement("eighty_eight_mph");
         }
-        if self.trip.truck.brake_temp_c >= self.trip.truck.brake_fade_onset_c() {
+        // The drums have to cross into fade under the player. Heat a
+        // co-driver's shift or a resumed save left behind earns nothing
+        // until the drums cool below fade with the player at the wheel.
+        let at_fade = self.trip.truck.brake_temp_c >= self.trip.truck.brake_fade_onset_c();
+        if ctx.co_driver_away {
+            self.brake_smoke_armed = false;
+        } else if !at_fade {
+            self.brake_smoke_armed = true;
+        } else if self.brake_smoke_armed {
             ctx.award_driving_achievement("brake_smoke");
         }
         // Two miles of real downgrade held on the engine alone. The service
@@ -1106,7 +1114,7 @@ impl DrivingState {
         }
         if !ctx.audio.music_playing() {
             return format!(
-                "{} is still connecting; nothing is playing yet.",
+                "{} is still connecting. Nothing is playing yet.",
                 station.display_name()
             );
         }

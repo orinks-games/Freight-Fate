@@ -185,8 +185,8 @@ pub const START_OPTIONS: [CareerStartOption; 5] = [
         menu_summary: "Balanced company-driver start with steady wages, normal training \
                        support, and assigned carrier equipment.",
         help_text: "A balanced company-driver path. The carrier assigns and maintains \
-                    the tractor, pays fuel and routine repairs, and offers steady wage \
-                    math without a sharp specialty.",
+                    the tractor, pays fuel and routine repairs, and pays steady wages \
+                    with no specialty.",
         default_city: "Chicago",
         company_pay: Some(NORTHSTAR_PAY),
         ..DEFAULTS
@@ -249,7 +249,7 @@ pub const START_OPTIONS: [CareerStartOption; 5] = [
         carrier_name: "Summit Value Logistics",
         mode: START_MODE_COMPANY,
         menu_summary: "Higher percentage and on-time bonus for careful freight, with a \
-                       smaller wage floor and more long-haul/high-value lanes.",
+                       smaller wage floor and more long-haul and high-value lanes.",
         help_text: "A performance-sensitive company start. Good on-time runs pay \
                     better, but the guaranteed floor is smaller. Dispatch leans \
                     toward longer and higher-value lanes. The carrier still supplies \
@@ -343,7 +343,7 @@ pub fn pay_plan_for_key(key: Option<&str>) -> CompanyPayPlan {
 /// What `apply_start_option` writes on a freshly created or reset `Profile`.
 /// Each method is one attribute assignment or method call the Python made,
 /// so `Profile` implements this by delegating to its own fields.
-// TODO(lead): implement for models::profile::Profile (wave 2).
+// Implemented for `Profile` in `profile/traits.rs`.
 pub trait StartProfile {
     fn set_carrier_key(&mut self, key: &str);
     fn set_start_mode(&mut self, mode: &str);

@@ -260,7 +260,7 @@ fn drift_off_the_pavement(harness: &mut PlaytestHarness) {
             drive.truck_mut().velocity_mps = 20.0;
             drive.lane.offset = MAX_OFFSET;
             drive.update_lane(ctx, DT);
-            drive.road_position_band.is_some()
+            drive.off_pavement_said.is_some()
         });
         if fired {
             return;
@@ -281,7 +281,13 @@ fn test_terse_lane_departure_omits_recovery_instruction() {
         .last()
         .cloned()
         .expect("going off the pavement speaks");
-    assert_eq!(last, ("Off the road on the right!".to_string(), true));
+    assert_eq!(
+        last,
+        (
+            "Off the road on the right! Damage 1 percent.".to_string(),
+            true
+        )
+    );
 }
 
 #[test]
@@ -295,7 +301,13 @@ fn test_lane_departure_warning_flushes_event_voice() {
         .last()
         .cloned()
         .expect("going off the pavement speaks");
-    assert_eq!(last, ("Off the road on the right!".to_string(), true));
+    assert_eq!(
+        last,
+        (
+            "Off the road on the right! Damage 1 percent.".to_string(),
+            true
+        )
+    );
 }
 
 // -- the pull-over --------------------------------------------------------------------
@@ -491,4 +503,97 @@ fn test_exit_speed_assist_does_not_pump_on_a_downgrade() {
     assert!(ahead > 0.0, "the bench ran past its exit");
     assert!(braked > 0.0, "the assist never held the grade");
     assert!(rises < 2.0, "the pedal rose {rises:.2} full applications");
+}
+
+/// The speed keeper in a 30 mph zone with `car_mph` traffic half a mile up
+/// the truck's lane, two minutes on the All assists preset. Returns the
+/// pedal's total rise in full applications, the lowest gauge reading, and
+/// the speed at the end.
+fn keeper_behind_a_slower_car(name: &str, car_mph: f64) -> (f64, f64, f64) {
+    use crate::transcript_cruise_support::{bench_road_segments, BENCH_MILES, START_MI};
+    use ff_core::sim::traffic_manager::TrafficVehicle;
+    use ff_core::sim::trip_models::Zone;
+
+    let mut harness = a_drive(name);
+    assert!(harness
+        .app
+        .ctx
+        .settings
+        .apply_driving_assistance_preset("all"));
+    harness.app.ctx.settings.speed_keeper = true;
+    harness.with_drive(move |d, _| {
+        bench_road_segments(d, &[(0.0, 70.0)], &[(0.0, BENCH_MILES, 0.0)], 4.0);
+        d.trip.zones = vec![Zone::new(
+            START_MI - 0.5,
+            START_MI + 20.0,
+            30.0,
+            "facility access road",
+        )];
+        d.trip.position_mi = START_MI;
+        d.truck_mut().transmission.automatic = true;
+        d.truck_mut().cargo_kg = 12_700.0;
+        d.truck_mut().start_engine();
+        d.truck_mut().set_air_ready(false);
+        d.truck_mut().velocity_mps = 30.0 / MPH_PER_MPS;
+        d.truck_mut().transmission.gear = 6;
+        let mut car = TrafficVehicle::new(
+            "slow-car",
+            START_MI + 0.5,
+            car_mph,
+            car_mph,
+            0,
+            "cruising",
+            "car",
+        );
+        car.lane = d.lane.lane;
+        d.trip.traffic_manager.vehicles.push(car);
+    });
+    harness
+        .with_drive(|d, ctx| d.engage_keeper(ctx, 30.0, "facility access road", Some(30.0), false));
+    let (mut rises, mut last_brake, mut min_psi) = (0.0, 0.0, f64::MAX);
+    for _ in 0..(60 * 120) {
+        frame(&mut harness);
+        let (psi, brake, keeper) = harness.read_drive(|d| {
+            (
+                d.truck().air_pressure_psi(),
+                d.truck().brake,
+                d.keeper_mph.is_some(),
+            )
+        });
+        assert!(keeper, "the keeper let go of the zone");
+        rises += (brake - last_brake).max(0.0);
+        last_brake = brake;
+        min_psi = min_psi.min(psi);
+    }
+    let speed = harness.read_drive(|d| d.truck().speed_mph());
+    (rises, min_psi, speed)
+}
+
+#[test]
+fn test_the_speed_keeper_follows_a_slower_car_on_one_application() {
+    // Issue 520, a 1.9.5 log at Waco: the keeper held 30 through a work zone
+    // behind a car doing 21, and the spring brakes came on from low air twice
+    // in two minutes. The keeper matched the car only while the gap was
+    // inside a window priced from the truck's speed now, so its own brake
+    // shrank the window back past the car: let go, throttle up, brake again,
+    // 34 applications and 125 psi to 40 in fifteen seconds on this bench.
+    // Highway work zones are cruise's now, but the keeper still runs
+    // streets, approaches and merges, where a slow car is just as common.
+    let (rises, min_psi, speed) = keeper_behind_a_slower_car("Keeper Follow", 21.0);
+    assert!(rises < 1.0, "the pedal rose {rises:.2} full applications");
+    assert!(min_psi > 115.0, "the tanks fell to {min_psi:.1} psi");
+    assert!(
+        (speed - 21.0).abs() < 1.5,
+        "the truck ended at {speed:.1} mph"
+    );
+}
+
+#[test]
+fn test_the_speed_keeper_stops_for_a_stopped_car_without_draining_the_air() {
+    // The same cycle braking for a stopped car: every release and re-press on
+    // the way down was charged, and the bench reached 41 psi before the stop.
+    let (rises, min_psi, speed) = keeper_behind_a_slower_car("Keeper Queue", 0.0);
+    assert!(rises < 1.0, "the pedal rose {rises:.2} full applications");
+    assert!(min_psi > 110.0, "the tanks fell to {min_psi:.1} psi");
+    assert!(speed < 0.5, "the truck ended at {speed:.1} mph");
 }

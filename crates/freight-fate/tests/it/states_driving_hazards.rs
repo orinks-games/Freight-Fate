@@ -166,8 +166,8 @@ fn test_trip_event_sounds_use_contextual_cues() {
         "toll:0:12.0:Ohio Turnpike",
         "toll",
         1.0,
-        "toll road ahead: Ohio Turnpike",
-        "E-ZPass toll point ahead, Ohio Turnpike westbound settlement.",
+        "Ohio Turnpike",
+        "E-ZPass toll point, Ohio Turnpike westbound settlement.",
     );
     assert_eq!(route_event_sound(&cue_event(toll_ahead)), None);
     let left_turn = NavigationCue::new(

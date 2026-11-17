@@ -123,7 +123,7 @@ impl HosStopAdvice {
                 },
             ),
             None => format!(
-                "No {action} stop left before your hours limit, {minutes:.0} minutes remaining. Stop soon; a shoulder rest can draw a ticket.",
+                "No {action} stop left before your hours limit, {minutes:.0} minutes remaining. Stop soon. A shoulder rest can draw a ticket.",
                 action = self.action, minutes = self.remaining_min.max(0.0),
             ),
         }
@@ -138,6 +138,35 @@ impl HosStopAdvice {
             name = stop.spoken_name(),
         ))
     }
+}
+
+/// Minutes to the nearest stop ahead with parking where the driver can
+/// sleep, estimated the way [`plan_hos_stop`] estimates its stops; `None`
+/// when the route knows of none. Used for a rest call's moved appointment.
+pub fn nearest_sleep_stop_travel_min(request: &StopPlanningRoute<'_>) -> Option<f64> {
+    let stop = request
+        .stops
+        .iter()
+        .filter(|stop| {
+            stop.at_mi >= request.position_mi
+                && stop.at_mi <= request.route.miles()
+                && stop.parking != "none"
+                && stop.accessible_to(request.bobtail)
+                && stop.actions.iter().any(|a| a == "sleep")
+        })
+        .min_by(|a, b| a.at_mi.total_cmp(&b.at_mi))?;
+    let ceilings = curve_ceilings(request.route);
+    Some(
+        route_drive_hours_between(
+            request.route,
+            request.position_mi,
+            stop.at_mi,
+            request.world,
+            &ceilings,
+        ) * 60.0
+            + request.local_drive_min.max(0.0)
+            + STOP_ACCESS_MIN,
+    )
 }
 
 /// Last compatible stop whose estimated arrival leaves a five-minute margin.
@@ -273,6 +302,37 @@ mod tests {
         let mut stop = RoadStop::new("Rest", at_mi, "travel_center");
         stop.actions = vec![action.into()];
         stop
+    }
+
+    #[test]
+    fn nearest_sleep_stop_is_the_first_one_ahead_with_parking() {
+        let route = long_route();
+        let mut no_parking = rest(20.0, "sleep");
+        no_parking.parking = "none".into();
+        let stops = vec![
+            rest(5.0, "sleep"),
+            no_parking,
+            rest(30.0, "break"),
+            rest(60.0, "sleep"),
+            rest(40.0, "sleep"),
+        ];
+        let request = StopPlanningRoute {
+            route: &route,
+            stops: &stops,
+            position_mi: 10.0,
+            bobtail: false,
+            local_drive_min: 0.0,
+            world: None,
+        };
+        let want = route_drive_hours_between(&route, 10.0, 40.0, None, &curve_ceilings(&route))
+            * 60.0
+            + STOP_ACCESS_MIN;
+        assert_eq!(nearest_sleep_stop_travel_min(&request), Some(want));
+        let none = StopPlanningRoute {
+            stops: &[],
+            ..request
+        };
+        assert_eq!(nearest_sleep_stop_travel_min(&none), None);
     }
 
     #[test]

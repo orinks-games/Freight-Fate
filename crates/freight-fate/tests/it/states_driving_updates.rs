@@ -18,6 +18,7 @@ use ff_core::data::curves::RouteCurve;
 use ff_core::data::world::get_world;
 use ff_core::models::jobs::{Job, CARGO_CATALOG};
 use ff_core::models::profile::Profile;
+use ff_core::sim::alertness::Nod;
 use ff_core::sim::enforcement_observe::OBSERVE_HOLD_MI;
 use ff_core::sim::hos;
 use ff_core::sim::lane::LANE_WIDTH;
@@ -341,16 +342,16 @@ fn test_microsleeps_only_strike_when_severely_fatigued_and_moving() {
     for _ in 0..200 {
         d.accrue_microsleep(&mut app.ctx, 1.0, true, 30.0);
     }
-    assert!(d.microsleep_deadline.is_none());
+    assert!(!d.nod.demands_driver());
     for _ in 0..200 {
         d.accrue_microsleep(&mut app.ctx, 1.0, false, 95.0);
     }
-    assert!(d.microsleep_deadline.is_none());
+    assert!(!d.nod.demands_driver());
     // Severely fatigued and rolling: a nod eventually comes.
     let mut fired = false;
     for _ in 0..200 {
         d.accrue_microsleep(&mut app.ctx, 1.0, true, 90.0);
-        if d.microsleep_deadline.is_some() {
+        if d.nod.demands_driver() {
             fired = true;
             break;
         }
@@ -365,12 +366,12 @@ fn test_reacting_to_a_microsleep_avoids_damage() {
     d.trip.truck.velocity_mps = 30.0;
     let before = d.trip.truck.damage_pct;
     d.begin_microsleep(&mut app.ctx);
-    assert!(d.microsleep_deadline.is_some());
+    assert!(d.nod.demands_driver());
     app.ctx.input.press(Key::Down, Mods::NONE); // brake = staying awake
     d.update_microsleep(&mut app.ctx, 0.1);
-    assert!(d.microsleep_deadline.is_none());
+    assert!(!d.nod.demands_driver());
     assert_eq!(d.trip.truck.damage_pct, before);
-    assert!(d.microsleep_cooldown_gm > 0.0);
+    assert!(matches!(d.nod.nod, Nod::Recovering { left_gm } if left_gm > 0.0));
 }
 
 #[test]
@@ -383,14 +384,14 @@ fn test_ignoring_a_microsleep_drifts_off_the_road() {
     d.begin_microsleep(&mut app.ctx);
     for _ in 0..60 {
         d.update_microsleep(&mut app.ctx, 0.1);
-        if d.microsleep_deadline.is_none() {
+        if !d.nod.demands_driver() {
             break;
         }
     }
     assert!(d.trip.truck.damage_pct > before);
     // scrubbed wandering onto the shoulder
     assert!(d.trip.truck.speed_mph() < speed_before);
-    assert_eq!(d.microsleep_misses, 1);
+    assert_eq!(d.nod.misses, 1);
 }
 
 #[test]
@@ -399,11 +400,11 @@ fn test_three_missed_microsleeps_force_a_stop() {
     let mut d = a_drive(&mut app);
     for _ in 0..3 {
         d.trip.truck.velocity_mps = 30.0;
-        d.microsleep_cooldown_gm = 0.0;
+        d.nod.nod = Nod::default();
         d.begin_microsleep(&mut app.ctx);
         for _ in 0..60 {
             d.update_microsleep(&mut app.ctx, 0.1);
-            if d.microsleep_deadline.is_none() {
+            if !d.nod.demands_driver() {
                 break;
             }
         }
@@ -442,12 +443,9 @@ fn test_a_controller_driver_can_wake_from_a_microsleep() {
         pad_at(&mut app, axis, value);
         let before = d.trip.truck.damage_pct;
         d.begin_microsleep(&mut app.ctx);
-        assert!(d.microsleep_deadline.is_some());
+        assert!(d.nod.demands_driver());
         d.update_microsleep(&mut app.ctx, 0.1);
-        assert!(
-            d.microsleep_deadline.is_none(),
-            "the pad reaction must count"
-        );
+        assert!(!d.nod.demands_driver(), "the pad reaction must count");
         assert_eq!(d.trip.truck.damage_pct, before);
     }
 }
@@ -462,52 +460,97 @@ fn test_an_idle_pad_is_not_a_microsleep_reaction() {
     d.begin_microsleep(&mut app.ctx);
     for _ in 0..60 {
         d.update_microsleep(&mut app.ctx, 0.1);
-        if d.microsleep_deadline.is_none() {
+        if !d.nod.demands_driver() {
             break;
         }
     }
-    assert_eq!(d.microsleep_misses, 1);
+    assert_eq!(d.nod.misses, 1);
 }
 
 // -- off pavement (test_off_pavement_transitions.py) ----------------------------------
 
-#[test]
-fn test_off_pavement_speaks_on_entry_worsening_and_recovery() {
-    let mut app = TestApp::new();
-    let mut d = a_drive(&mut app);
-    // Python stubbed `say_event` outright; here the real pacer would treat
-    // the second, identical "Off the road" line as a repeat inside its own
-    // window. Step the clock between lines so what is asserted is the
-    // TRANSITION rule rather than the pacer's repeat guard.
+/// A drive off the right-hand edge with the pacer's repeat guard stepped
+/// past, so what is asserted is the edge rule, not the guard.
+fn off_the_right_edge(app: &mut TestApp) -> DrivingState {
+    let mut d = a_drive(app);
     app.ctx.event_pacer = hearken::speech::EventSpeechPacer::with_clock(
         freight_fate::app::FF_PACER,
         stepping_clock(30.0),
     );
     d.lane.lane = 0;
-    d.trip.truck.velocity_mps = 13.0; // ~29 mph, below the "fast" band
-    app.clear_speech();
-
-    // Entry: the truck goes off the pavement.
+    d.trip.truck.velocity_mps = 13.0;
     d.lane.offset = 1.35;
-    d.announce_off_pavement(&mut app.ctx);
-    assert_eq!(app.event_lines().len(), 1);
+    app.clear_speech();
+    d
+}
 
-    // Steady, no worse: the continuous cue carries it, speech stays silent.
+fn charge(d: &mut DrivingState, app: &mut TestApp) {
+    d.trip
+        .truck
+        .add_damage_from(1.0, true, "leaving the pavement");
     d.announce_off_pavement(&mut app.ctx);
-    d.announce_off_pavement(&mut app.ctx);
-    assert_eq!(app.event_lines().len(), 1);
+}
 
-    // Worse: deeper off the road speaks again.
-    d.lane.offset = 1.48;
-    d.announce_off_pavement(&mut app.ctx);
-    assert_eq!(app.event_lines().len(), 2);
+#[test]
+fn test_leaving_the_pavement_speaks_at_its_edges_with_the_damage() {
+    // The first charge says the place and the damage; the charges after it
+    // are the rumble alone; coming back says the damage they added (issue
+    // 533).
+    let mut app = TestApp::new();
+    let mut d = off_the_right_edge(&mut app);
+    for _ in 0..3 {
+        charge(&mut d, &mut app);
+    }
+    assert_eq!(
+        app.event_lines(),
+        vec!["Off the road on the right! Damage 1 percent.".to_string()]
+    );
 
-    // Back on the pavement is a transition too, spoken once.
     d.lane.offset = 0.0;
-    d.road_position_band = Some(1);
-    // The recovery line lives in the update path; assert the condition the
-    // else-if turns on so the transition fires exactly when the truck is back.
     assert!(!d.off_pavement());
+    d.announce_back_on_pavement(&mut app.ctx);
+    assert_eq!(
+        app.event_lines().last().map(String::as_str),
+        Some("Back on the pavement. Damage 3 percent.")
+    );
+    assert!(d.off_pavement_said.is_none());
+}
+
+#[test]
+fn test_back_on_the_pavement_is_plain_when_nothing_was_added_since() {
+    let mut app = TestApp::new();
+    let mut d = off_the_right_edge(&mut app);
+    charge(&mut d, &mut app);
+    d.lane.offset = 0.0;
+    d.announce_back_on_pavement(&mut app.ctx);
+    assert_eq!(
+        app.event_lines(),
+        vec![
+            "Off the road on the right! Damage 1 percent.".to_string(),
+            "Back on the pavement.".to_string(),
+        ]
+    );
+}
+
+#[test]
+fn test_a_new_place_off_the_pavement_speaks_once() {
+    // One departure that crosses to the other edge of a one-lane road is
+    // news: its place line speaks once, with the damage, and is quiet after
+    // that like the first.
+    let mut app = TestApp::new();
+    let mut d = off_the_right_edge(&mut app);
+    d.lane.lane_count = 1;
+    charge(&mut d, &mut app);
+    d.lane.offset = -1.35;
+    charge(&mut d, &mut app);
+    charge(&mut d, &mut app);
+    let lines = app.event_lines();
+    assert_eq!(lines.len(), 2, "{lines:?}");
+    assert_eq!(lines[0], "Off the road on the right! Damage 1 percent.");
+    assert!(
+        !lines[1].contains("on the right") && lines[1].ends_with("! Damage 2 percent."),
+        "{lines:?}"
+    );
 }
 
 #[path = "states_driving_cue_lifecycle.rs"]

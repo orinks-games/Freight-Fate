@@ -1,14 +1,30 @@
 # Freight Fate on TestFlight
 
-A manual GitHub Actions workflow builds the iOS game, signs it and uploads it
-to TestFlight for internal testers and, by default, the external Friends
-group. The workflow file is
-.github/workflows/ios-testflight.yml. It never runs by itself: no push, tag or
-pull request starts it, and it makes no tag and no release.
+A GitHub Actions workflow builds the iOS game, signs it and uploads it to
+TestFlight. The workflow file is .github/workflows/ios-testflight.yml. It
+makes no tag and no release, and no tag or pull request starts it.
 
-## Run it
+## Every push to dev
 
-Dispatch it from dev. The upload input decides what the run does:
+Each push to dev builds, signs and uploads a build for the Internal group, next
+to the desktop snapshot. A push build never goes to the Friends group. Its
+"What to Test" note is the branch, the commit and the commit subject.
+
+Uploads run one at a time. A run in flight is never cancelled, and GitHub keeps
+only the newest waiting run, so a burst of merges builds the first commit and
+then the latest one. A push that changes only files the app does not ship (the
+roadmap, agent notes, other workflows) builds nothing.
+A push whose every commit says `[skip ios]` (a desktop-only change) builds
+nothing either. For a merged pull request, put the tag in its title, since the
+merge commit carries the title.
+
+The build number is the next one after the highest already in TestFlight, so
+push builds and dispatched builds never reuse a number.
+
+## Run it by hand
+
+Dispatch it from dev for a verification run, a build for Friends, or a build
+of another branch. The upload input decides what the run does:
 
 - upload off (the default): a verification run. It checks the key, the stored
   certificate and its profile, then builds and signs the app. It uploads nothing
@@ -61,7 +77,7 @@ summary, and sends them to TestFlight as the build's release notes.
   use the same bundle id.
 - Version (CFBundleShortVersionString): the project version (package-version
   under [workspace.metadata.release] in the root Cargo.toml) cut to three
-  numbers, so 1.9.6.dev0 is 1.9.6. To ship a new version, change it there; the
+  numbers, so 1.9.7.dev0 is 1.9.7. To ship a new version, change it there; the
   run refuses a version lower than one TestFlight already has.
 - Build number (CFBundleVersion): the run asks App Store Connect for the highest
   number it has for the app and uses max(that, run number) + 1, so it continues

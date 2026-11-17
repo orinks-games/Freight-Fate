@@ -12,6 +12,7 @@ use std::rc::Rc;
 use ff_core::data::world::{get_world, World};
 use ff_core::models::jobs::{Job, CARGO_CATALOG};
 use ff_core::models::profile::Profile;
+use ff_core::sim::arrival_gate::GateStop;
 use ff_core::sim::surge::LiquidLoad;
 use ff_core::sim::trip_models::FACILITY_GATE_LIMIT_MPH;
 use ff_core::sim::vehicle::TruckState;
@@ -291,7 +292,7 @@ fn test_the_speed_keeper_hands_off_at_the_gate_instead_of_missing_it() {
     assert_eq!(d.gate_miss_count, 0);
     assert!(d.keeper_mph.is_none(), "the gate hands the pedals back");
     assert!(d.gate_grace_s > 0.0, "with a reaction window of its own");
-    let line = last_with(&app, "Destination ahead");
+    let line = last_with(&app, "Destination");
     assert!(line.contains("Cruise off"), "{line}");
     // Inside that window the next frame is still an arrival.
     d.handle_arrival_gate(&mut app.ctx);
@@ -325,7 +326,7 @@ fn test_slowing_on_the_warning_earns_a_fresh_window_at_the_gate() {
     assert!(d.trip.finished, "first contact is never a miss");
     assert_eq!(d.gate_miss_count, 0);
     assert!(d.gate_grace_s > 0.0);
-    assert!(!lines_with(&app, "Destination ahead").is_empty());
+    assert!(!lines_with(&app, "Destination").is_empty());
 }
 
 #[test]
@@ -396,7 +397,7 @@ fn test_the_gate_stop_line_retires_the_ahead_line() {
     );
     d.trip.truck.velocity_mps = 2.0 / 2.23694;
     d.handle_arrival_gate(&mut app.ctx);
-    assert!(d.arrival_full_stop_said);
+    assert!(d.gate.stop_prompted());
     assert!(live::gate_stop_prompted(), "and now it is not");
 }
 
@@ -409,7 +410,7 @@ fn test_slow_crossing_arrives_normally() {
     d.handle_arrival_gate(&mut app.ctx);
     assert!(d.trip.finished);
     assert_eq!(d.gate_miss_count, 0);
-    assert!(!lines_with(&app, "Destination ahead").is_empty());
+    assert!(!lines_with(&app, "Destination").is_empty());
     d.trip.truck.velocity_mps = 0.3 / 2.23694;
     d.handle_arrival_gate(&mut app.ctx);
     assert!(d.arrival_menu_open);
@@ -478,7 +479,7 @@ fn test_no_instant_miss_inside_the_reaction_window() {
     d.handle_arrival_gate(&mut app.ctx);
     assert!(d.trip.finished); // still inside the reaction window
     assert_eq!(d.gate_miss_count, 0);
-    assert!(!lines_with(&app, "Destination ahead").is_empty());
+    assert!(!lines_with(&app, "Destination").is_empty());
     d.check_gate_approach_warning(&mut app.ctx, grace + 1.0); // the window expires
     d.handle_arrival_gate(&mut app.ctx);
     assert!(!d.trip.finished);
@@ -496,7 +497,7 @@ fn test_first_gate_contact_without_a_warning_still_gets_a_window() {
     d.handle_arrival_gate(&mut app.ctx);
     assert!(d.trip.finished);
     assert_eq!(d.gate_miss_count, 0);
-    assert!(!lines_with(&app, "Destination ahead").is_empty());
+    assert!(!lines_with(&app, "Destination").is_empty());
     assert!(d.gate_speed_warned);
     assert!(d.gate_grace_s > 0.0);
 }
@@ -549,12 +550,10 @@ fn test_miss_resets_the_gate_latches() {
     let mut app = TestApp::new();
     let mut d = a_drive(&mut app);
     at_gate(&mut d, 70.0, true);
-    d.arrival_stop_said = true;
-    d.arrival_full_stop_said = true;
+    d.gate = GateStop::Rolling { crept: true };
     d.gate_reminder_s = 5.0;
     d.handle_arrival_gate(&mut app.ctx);
-    assert!(!d.arrival_stop_said);
-    assert!(!d.arrival_full_stop_said);
+    assert_eq!(d.gate, GateStop::Arriving);
     assert_eq!(d.gate_reminder_s, 0.0);
     assert!(!d.gate_speed_warned); // the next approach warns fresh
 }
@@ -822,7 +821,6 @@ fn test_manual_delivery_stop_names_parking_and_facility_controls() {
     app.ctx.settings.destination_approach_assist = false;
     app.clear_speech();
     at_gate(&mut d, 0.2, false);
-    d.arrival_full_stop_said = false;
     d.trip.truck.parking_brake = false;
 
     d.handle_arrival_gate(&mut app.ctx);
@@ -1190,16 +1188,16 @@ fn test_the_pickup_gate_asks_for_a_complete_stop_then_a_check_in() {
     d.trip.truck.engine_on = true;
     d.trip.truck.velocity_mps = 20.0 / 2.23694;
     d.handle_pickup_gate(&mut app.ctx);
-    let said = last_with(&app, "Pickup ahead: ");
+    let said = last_with(&app, "Pickup: ");
     assert!(said.contains("Stop at the gate"));
-    assert!(d.arrival_stop_said);
+    assert!(d.gate.told_to_stop());
 
     // Creeping in: the gate asks for the check-in rather than repeating.
     d.trip.truck.velocity_mps = 2.0 / 2.23694;
     d.handle_pickup_gate(&mut app.ctx);
     let said = last_with(&app, "Stop and set the parking brake.");
     assert!(said.starts_with("At "));
-    assert!(d.arrival_full_stop_said);
+    assert!(d.gate.stop_prompted());
 }
 
 #[test]

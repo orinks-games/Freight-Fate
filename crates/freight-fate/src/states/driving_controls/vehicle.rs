@@ -7,6 +7,8 @@ use crate::app::{GameContext, Say};
 use crate::bindings::Action;
 use crate::states::driving::DrivingState;
 use crate::states::driving_core::*;
+use ff_core::sim::touch_clutch::TouchClutchEvent;
+use ff_core::sim::transmission::NEUTRAL;
 
 impl DrivingState {
     /// `_toggle_engine_brake()`.
@@ -68,7 +70,7 @@ impl DrivingState {
             let stage = 1.max(self.trip.truck.engine_brake_stage);
             self.jake_selected_stage = stage;
             ctx.say(&format!(
-                "Automatic jake off; holding stage {}.",
+                "Automatic jake off. Holding stage {}.",
                 jake_stage_word(stage)
             ));
             return;
@@ -131,6 +133,30 @@ impl DrivingState {
 
     /// `_toggle_engine()`: E.
     pub fn toggle_engine(&mut self, ctx: &mut GameContext) {
+        self.toggle_engine_with(ctx, Say::new());
+    }
+
+    /// The engine start a touch player asks for. A stalled manual with a
+    /// gear in restarts there with the clutch out and stalls again, and a
+    /// phone has no clutch to hold, so it takes neutral first (neutral needs
+    /// no clutch) and the start line waits for "Neutral.".
+    pub fn touch_toggle_engine(&mut self, ctx: &mut GameContext) {
+        let truck = &self.trip.truck;
+        let tr = &truck.transmission;
+        let in_gear = !truck.engine_on && truck.stalled && !tr.automatic && !tr.in_neutral();
+        if !in_gear || ctx.audio.engine_starting() {
+            self.toggle_engine(ctx);
+            return;
+        }
+        if self.trip.truck.transmission.request_gear(NEUTRAL).ok {
+            ctx.audio
+                .play_bank("vehicle/shift_auto", "vehicle/gear_shift");
+            ctx.say("Neutral.");
+        }
+        self.toggle_engine_with(ctx, Say::queued());
+    }
+
+    fn toggle_engine_with(&mut self, ctx: &mut GameContext, start_line: Say) {
         if ctx.audio.engine_starting() {
             // Ignition still in progress; ignore mashed presses so the crank,
             // shutdown, and loop sounds cannot stack on top of each other.
@@ -180,7 +206,7 @@ impl DrivingState {
             let instruction = self.air_start_instruction(ctx);
             ctx.say_with(
                 format!("Engine running. {instruction}"),
-                Say::new().category(SpeechCategory::Confirmation),
+                start_line.category(SpeechCategory::Confirmation),
             );
             if let Some(tutorial) = self.tutorial.as_mut() {
                 tutorial.on_engine_started(ctx);
@@ -207,6 +233,20 @@ impl DrivingState {
                 return "Air ready.".to_string();
             }
             return format!("Air {psi:.0} psi.");
+        }
+        // On touch, gas releases the parking brake and drives.
+        if ctx.touch_hints() {
+            if !self.trip.truck.parking_brake {
+                return "Air ready. Swipe up and hold to drive.".to_string();
+            }
+            if self.trip.truck.air_ready() {
+                return "Air ready. Swipe up and hold to release the parking brake and drive."
+                    .to_string();
+            }
+            return format!(
+                "Air {psi:.0} psi. At 100 psi, swipe up and hold to release the parking brake \
+                 and drive."
+            );
         }
         let brake_hint = ctx.control_hint("parking_brake");
         if self.trip.truck.parking_brake {
@@ -311,10 +351,27 @@ impl DrivingState {
     /// Through the truck, not the gearbox: the speed-dependent guards (a
     /// reverse selection while rolling forward) need road speed, which the
     /// transmission has no way to know.
+    ///
+    /// On a touch screen the shift works the clutch itself
+    /// ([`ff_core::sim::touch_clutch::TouchClutch`]): pressed for the shift, out again after the time
+    /// an automatic's shift interrupts torque.
     pub fn manual_shift(&mut self, ctx: &mut GameContext, gear: i32) {
         let rolling_reverse =
             gear == REVERSE && self.trip.truck.speed_mph() > REVERSE_ENGAGE_MAX_MPH;
+        let by_touch = ctx.touch_hints() && !self.trip.truck.transmission.automatic;
+        let before = (self.touch_clutch, self.trip.truck.transmission.clutch);
+        let from = self.trip.truck.transmission.gear;
+        if by_touch {
+            self.touch_clutch = self
+                .touch_clutch
+                .next(TouchClutchEvent::Shift { from, to: gear });
+            let tr = &mut self.trip.truck.transmission;
+            tr.clutch = tr.clutch.max(self.touch_clutch.pedal());
+        }
         let result = self.trip.truck.request_gear(gear);
+        if by_touch && !result.ok {
+            (self.touch_clutch, self.trip.truck.transmission.clutch) = before;
+        }
         if result.ok {
             // The lever: kachunk. The second half -- the gear taking as the
             // clutch comes back in -- is played by update_audio when it
@@ -322,6 +379,10 @@ impl DrivingState {
             ctx.audio
                 .play_bank("vehicle/shift_auto", "vehicle/gear_shift");
             self.manual_engage_clunk_pending = true;
+            if by_touch && from == NEUTRAL && gear >= 1 {
+                // Retires the gear sentence in the touch neutral line.
+                self.note_instruction_demonstrated(ctx, super::touch::TOUCH_GEAR_FROM_NEUTRAL);
+            }
             ctx.say(&result.message);
             if let Some(tutorial) = self.tutorial.as_mut() {
                 tutorial.on_gear_engaged(ctx);
@@ -335,10 +396,17 @@ impl DrivingState {
             ));
         } else if result.grind {
             ctx.audio.play("vehicle/gear_grind");
-            ctx.say(&format!(
-                "Grinding gears! Hold {} to press the clutch first.",
-                ctx.control_hint("clutch")
-            ));
+            // A touch shift works its own clutch: there is no step to name.
+            if self.driving_hints(ctx) && !ctx.touch_hints() {
+                ctx.say(&format!(
+                    "Grinding gears! Hold {} to press the clutch first.",
+                    ctx.control_hint("clutch")
+                ));
+            } else if ctx.touch_hints() {
+                ctx.say("Grinding gears!");
+            } else {
+                ctx.say("Grinding gears! Clutch in first.");
+            }
         } else {
             ctx.say(&result.message);
         }

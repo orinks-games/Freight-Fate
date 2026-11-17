@@ -10,14 +10,14 @@ use crate::discord_presence::PresenceState;
 use crate::impl_state_for_menu;
 use crate::online_presence::PAUSED_ACTIVITY;
 use crate::states::base::{
-    end_sentence, InputEvent, Label, Menu, MenuCore, MenuItem, SimpleMenuState,
+    default_handle_gesture, end_sentence, InputEvent, Label, Menu, MenuCore, MenuItem,
+    SimpleMenuState,
 };
 use crate::states::city::CityMenuState;
 use crate::states::driving::DrivingState;
 use crate::states::driving_core::{
-    advance_rest_clock, clock_text, deadline_text, hos_mut_of, is_night,
-    player_pays_operating_costs, profile_mut_of, profile_of, road_repair_cost,
-    secure_truck_for_stopped_menu, CHAIN_INSTALL_MIN, CHAIN_INSTALL_NIGHT_MULT, CHAIN_REMOVE_MIN,
+    advance_on_duty_clock, clock_text, deadline_text, is_night, player_pays_operating_costs,
+    profile_mut_of, profile_of, road_repair_cost, secure_truck_for_stopped_menu, CHAIN_REMOVE_MIN,
     CHAIN_REPAIR_MIN, CHAIN_SAFE_MPH, CHAIN_SLAP_WARN_PCT, CHAIN_TIGHTEN_MIN, DRIVE_PHASE_PICKUP,
     FIELD_REPAIR_DAMAGE_PCT, MECHANIC_CALLOUT_FEE, MECHANIC_WAIT_MIN,
 };
@@ -30,6 +30,7 @@ use crate::states::main_menu::{
     SettingsState, CAREER_ACHIEVEMENTS_HELP,
 };
 use crate::states::online_states::DriversOnlineState;
+use crate::touch::Gesture;
 
 /// Discard unsaved driver state before returning to the title.
 ///
@@ -178,7 +179,7 @@ impl PauseMenuState {
                 MenuItem::new(
                     format!(
                         "Tighten chains: about {} minutes",
-                        fmt_f(CHAIN_TIGHTEN_MIN, 0)
+                        fmt_f(d.hand_work_min(ctx, CHAIN_TIGHTEN_MIN), 0)
                     ),
                     |s: &mut Self, ctx| s.tighten_chains(ctx),
                 )
@@ -194,7 +195,7 @@ impl PauseMenuState {
                 MenuItem::new(
                     format!(
                         "Repair the broken chain: about {} minutes",
-                        fmt_f(CHAIN_REPAIR_MIN, 0)
+                        fmt_f(d.hand_work_min(ctx, CHAIN_REPAIR_MIN), 0)
                     ),
                     |s: &mut Self, ctx| s.repair_chain(ctx),
                 )
@@ -209,7 +210,7 @@ impl PauseMenuState {
                 MenuItem::new(
                     format!(
                         "Remove snow chains: about {} minutes",
-                        fmt_f(CHAIN_REMOVE_MIN, 0)
+                        fmt_f(d.hand_work_min(ctx, CHAIN_REMOVE_MIN), 0)
                     ),
                     |s: &mut Self, ctx| s.remove_chains(ctx),
                 )
@@ -230,7 +231,7 @@ impl PauseMenuState {
                 || d.trip.chain_law_level() > 0)
         {
             items.push(
-                MenuItem::new(install_chains_label(d), |s: &mut Self, ctx| {
+                MenuItem::new(install_chains_label(d, ctx), |s: &mut Self, ctx| {
                     s.install_chains(ctx)
                 })
                 .help(Label::dynamic(|_s: &Self, ctx| {
@@ -308,7 +309,7 @@ impl PauseMenuState {
             items.insert(
                 settings_index,
                 MenuItem::new(
-                    "Sleep at the chain control (10 hours)",
+                    "Sleep at the chain control, 10 hours",
                     |s: &mut Self, ctx| s.sleep_at_chain_checkpoint(ctx),
                 )
                 .help(
@@ -651,8 +652,7 @@ pub fn perform_roadside_mechanic(d: &mut DrivingState, ctx: &mut GameContext) ->
     }
     let money = profile_of(ctx).money();
     d.trip.truck.damage_pct = FIELD_REPAIR_DAMAGE_PCT;
-    advance_rest_clock(d, ctx, MECHANIC_WAIT_MIN, None, "");
-    hos_mut_of(ctx).on_duty(MECHANIC_WAIT_MIN);
+    advance_on_duty_clock(d, ctx, MECHANIC_WAIT_MIN, None, "");
     ctx.audio.play("ui/notify");
     let billing = if carrier_paid {
         "on the carrier breakdown account".to_string()
@@ -681,9 +681,9 @@ pub fn mechanic_label(d: &DrivingState) -> String {
     format!("Call a roadside mechanic: {} dollars", fmt_grouped(cost, 0))
 }
 
-fn install_chains_label(d: &DrivingState) -> String {
+fn install_chains_label(d: &DrivingState, ctx: &GameContext) -> String {
     let night = is_night(d.trip.local_hour());
-    let minutes = CHAIN_INSTALL_MIN * if night { CHAIN_INSTALL_NIGHT_MULT } else { 1.0 };
+    let minutes = d.chain_install_min(ctx);
     let when = if night { " in the dark" } else { "" };
     format!(
         "Install snow chains{when}: about {} minutes",
@@ -695,6 +695,9 @@ fn install_chains_label(d: &DrivingState) -> String {
 /// how far along, the hours, and the air.
 pub fn trip_status_lines(d: &DrivingState, ctx: &GameContext) -> Vec<String> {
     let hours_used = d.trip.game_minutes / 60.0;
+    // Ended at a gate, the progress row says what the gate is waiting for.
+    let gate = d.arrival_gate_query_text(ctx);
+    let arrived = gate.map(|gate| format!("You have arrived. {gate}"));
     if d.phase == DRIVE_PHASE_PICKUP {
         return vec![
             format!("Driving to pickup at {}.", d.pickup_facility_text(ctx)),
@@ -704,7 +707,7 @@ pub fn trip_status_lines(d: &DrivingState, ctx: &GameContext) -> Vec<String> {
                 d.job.cargo.label,
                 d.job.spoken_destination()
             ),
-            d.pickup_progress_summary(ctx),
+            arrived.unwrap_or_else(|| d.pickup_progress_summary(ctx)),
             format!("{} used.", duration_text(hours_used)),
             format!("{}.", d.air_status_text(false)),
         ];
@@ -716,7 +719,7 @@ pub fn trip_status_lines(d: &DrivingState, ctx: &GameContext) -> Vec<String> {
             d.job.cargo.label,
             d.job.spoken_destination()
         ),
-        d.trip.progress_summary(ctx.settings.imperial_units),
+        arrived.unwrap_or_else(|| d.trip.progress_summary(ctx.settings.imperial_units)),
         format!(
             "{} used of {}.",
             duration_text(hours_used),
@@ -809,9 +812,8 @@ impl Menu for PauseMenuState {
                 return;
             }
         }
-        // A trait default cannot be called from its own override, so the
-        // fall-through is spelled out (`city::base_menu_handle_event` exists
-        // for the key half for the same reason).
+        // The controller half of the fall-through, spelled out:
+        // `states::base::default_handle_event` covers only keys.
         match ctx.controller.menu_action(event) {
             Some(ControllerAction::MenuDown) => self.move_by(ctx, 1),
             Some(ControllerAction::MenuUp) => self.move_by(ctx, -1),
@@ -829,6 +831,15 @@ impl Menu for PauseMenuState {
 
     fn go_back(&mut self, ctx: &mut GameContext) {
         self.resume(ctx);
+    }
+
+    /// The two-finger double tap pauses and resumes, as Start does.
+    fn handle_gesture(&mut self, ctx: &mut GameContext, gesture: Gesture) -> bool {
+        if gesture == Gesture::MagicTap {
+            self.resume(ctx);
+            return true;
+        }
+        default_handle_gesture(self, ctx, gesture)
     }
 }
 

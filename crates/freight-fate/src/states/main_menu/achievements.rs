@@ -2,8 +2,8 @@
 //! badges (the `Achievement*State` classes of `main_menu.py`).
 
 use ff_core::achievements::{
-    career_order, earned_ids, entry_text, Achievement, AchievementCategory, AchievementProfile,
-    ACHIEVEMENTS,
+    career_order, earned_ids, entry_text, listed_total, Achievement, AchievementCategory,
+    AchievementProfile,
 };
 use ff_core::models::profile::Profile;
 
@@ -11,7 +11,8 @@ use crate::app::GameContext;
 use crate::impl_state_for_menu;
 use crate::states::achievement_sort::{
     category_sort, chosen_sort, sorted_achievements, sorted_categories, step_category_sort,
-    step_chosen_sort, SortOverrides, CATEGORIES_SORT_HELP, CATEGORY_SORT_HELP,
+    step_chosen_sort, SortOverrides, CATEGORIES_SORT_HELP, CATEGORIES_SORT_TOUCH_HELP,
+    CATEGORY_SORT_HELP, CATEGORY_SORT_TOUCH_HELP,
 };
 use crate::states::base::{Key, Label, Menu, MenuCore, MenuItem};
 use crate::states::main_menu::loadable_saves;
@@ -29,6 +30,13 @@ pub fn open_career_achievements(ctx: &mut GameContext) {
 
 fn earned_count(profile: &Profile) -> usize {
     earned_ids(profile as &dyn AchievementProfile).len()
+}
+
+/// How many badges this career's menus list: retired ones count only once
+/// earned.
+fn listed_count(profile: &Profile) -> usize {
+    let earned = earned_ids(profile as &dyn AchievementProfile);
+    listed_total(|id| earned.contains(id))
 }
 
 pub struct AchievementCareerState {
@@ -74,7 +82,7 @@ impl Menu for AchievementCareerState {
         let mut items = Vec::new();
         for (_path, profile) in loadable_saves() {
             let earned = earned_count(&profile);
-            let total = ACHIEVEMENTS.len();
+            let total = listed_count(&profile);
             let name = profile.name.clone();
             items.push(
                 MenuItem::new(
@@ -118,7 +126,7 @@ impl AchievementsState {
         format!(
             "Summary: {} of {} earned",
             earned_count(&self.profile),
-            ACHIEVEMENTS.len()
+            listed_count(&self.profile)
         )
     }
 
@@ -127,7 +135,7 @@ impl AchievementsState {
             "{} has earned {} of {} achievements.",
             self.profile.name,
             earned_count(&self.profile),
-            ACHIEVEMENTS.len()
+            listed_count(&self.profile)
         ));
     }
 
@@ -155,7 +163,7 @@ impl Menu for AchievementsState {
             "Achievements for {}. {} of {} earned. {}",
             self.profile.name,
             earned_count(&self.profile),
-            ACHIEVEMENTS.len(),
+            listed_count(&self.profile),
             self.current_text(ctx)
         );
         ctx.say(&text);
@@ -187,6 +195,7 @@ impl Menu for AchievementsState {
             |s: &mut Self, ctx| s.step_sort(ctx, 1),
         )
         .help(CATEGORIES_SORT_HELP)
+        .touch_help(CATEGORIES_SORT_TOUCH_HELP)
         .select_sound(None)];
         for row in sorted_categories(chosen_sort(ctx), &earned) {
             let c: &'static AchievementCategory = row.category;
@@ -320,12 +329,13 @@ impl Menu for AchievementCategoryState {
             |s: &mut Self, ctx| s.step_sort(ctx, 1),
         )
         .help(CATEGORY_SORT_HELP)
+        .touch_help(CATEGORY_SORT_TOUCH_HELP)
         .select_sound(None)];
         for achievement in sorted_achievements(sort, &self.achs, &earned) {
             let unlocked = earned.contains_key(achievement.id);
             let (name, description) = entry_text(achievement, unlocked);
             let (label, help_text) = if unlocked {
-                (format!("Earned: {name} - {description}"), description)
+                (format!("Earned: {name}. {description}"), description)
             } else if achievement.hidden {
                 (format!("Locked: {name}"), description)
             } else {

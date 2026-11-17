@@ -40,7 +40,7 @@ fn test_event_speech_ducks_the_mix_and_the_frame_after_silence_restores_it() {
     let (audio, clock) = rig(&mut app);
 
     app.ctx
-        .say_event_with("Open weigh station ahead in two miles.", SayEvent::queued());
+        .say_event_with("Open weigh station in two miles.", SayEvent::queued());
     assert_eq!(audio.borrow().ducks, vec![SPEECH_DUCK_LEVEL]);
 
     // Voice still speaking: the per-frame check leaves the duck alone.
@@ -65,7 +65,7 @@ fn test_the_setting_turns_the_duck_off() {
     app.ctx.settings.duck_audio_for_speech = false;
 
     app.ctx
-        .say_event_with("Open weigh station ahead in two miles.", SayEvent::queued());
+        .say_event_with("Open weigh station in two miles.", SayEvent::queued());
 
     assert!(audio.borrow().ducks.is_empty());
     app.shutdown();
@@ -99,7 +99,7 @@ fn test_a_line_the_rung_silences_leaves_the_mix_alone() {
         app.ctx.settings.driving_speech = rung.to_string();
 
         app.ctx.say_event_with(
-            "Traffic ahead, slowing.",
+            "Traffic slowing.",
             SayEvent::queued().category(SpeechCategory::Traffic),
         );
 
@@ -164,7 +164,7 @@ fn test_a_voice_that_reports_silence_restores_the_mix_before_the_estimate() {
     let mut app = TestApp::new();
     let (audio, clock) = rig(&mut app);
     app.ctx.say_event_with(
-        "Open weigh station ahead in two miles. Have your paperwork ready.",
+        "Open weigh station in two miles. Have your paperwork ready.",
         SayEvent::queued(),
     );
     clock.advance(1.0);

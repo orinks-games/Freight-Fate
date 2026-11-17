@@ -1,6 +1,7 @@
 //! The dispatch board and its per-job detail reader (`JobBoardState`,
 //! `JobDetailState`).
 
+use crate::states::base::default_handle_event;
 use std::collections::HashSet;
 
 use serde_json::Value;
@@ -39,9 +40,9 @@ use crate::impl_state_for_menu;
 use crate::meaningful_play::MeaningfulPlayReason;
 use crate::states::base::{InputEvent, Key, Menu, MenuCore, MenuItem};
 use crate::states::city::{
-    base_menu_handle_event, first_dispatch_done, held_load, home_terminal, launch_driving, profile,
-    profile_mut, sleeps_needed, DrivingLaunch, LaunchAnnouncement, DRIVE_PHASE_DELIVERY,
-    DRIVE_PHASE_PICKUP, PICKUP_CHECK_IN_MIN, PICKUP_LOADING_MIN,
+    first_dispatch_done, held_load, home_terminal, launch_driving, profile, profile_mut,
+    sleeps_needed, DrivingLaunch, LaunchAnnouncement, DRIVE_PHASE_DELIVERY, DRIVE_PHASE_PICKUP,
+    PICKUP_CHECK_IN_MIN, PICKUP_LOADING_MIN,
 };
 use crate::states::city_pickup::warm_route_feeds;
 use crate::states::city_pickup::{
@@ -61,6 +62,13 @@ pub const JOB_BOARD_INTRO_HELP: &str =
 const ASSIGNED_INTRO_HELP: &str =
     "Assigned load. Enter accepts. Declining costs reputation and uses one of your declines, \
      which refill at your next promotion. F1 is details. Escape goes back.";
+
+const JOB_BOARD_TOUCH_HELP: &str = "Double tap accepts. Flick up with two fingers for job \
+     details, and tap with three fingers for the market.";
+
+const ASSIGNED_TOUCH_HELP: &str =
+    "Assigned load. Double tap accepts. Declining costs reputation and uses one of your \
+     declines, which refill at your next promotion. Flick up with two fingers for details.";
 
 /// How long dispatch keeps assigning loads: a new hire waits for level 8, but
 /// a driver at level 8 or above is only here because standing slipped.
@@ -203,7 +211,7 @@ pub(super) fn pay_basis_note(status: &str) -> &'static str {
         "Listed pay is the full rate for the load. Trailer program needs are listed on \
          each job."
     } else {
-        "Listed pay is what the carrier earns; you are paid wages from it. Routing is \
+        "Listed pay is what the carrier earns. You are paid wages from it. Routing is \
          assigned until you run your own truck."
     }
 }
@@ -333,7 +341,9 @@ pub struct JobBoardState {
 impl JobBoardState {
     pub fn new(ctx: &GameContext, jobs: Vec<Job>) -> Self {
         let mut state = JobBoardState {
-            menu: MenuCore::new("Dispatch board").with_intro_help(JOB_BOARD_INTRO_HELP),
+            menu: MenuCore::new("Dispatch board")
+                .with_intro_help(JOB_BOARD_INTRO_HELP)
+                .with_touch_help(JOB_BOARD_TOUCH_HELP),
             jobs,
             confirm_risky_job: None,
             confirm_chain_job: None,
@@ -345,6 +355,7 @@ impl JobBoardState {
         }
         if state.assigned_mode() {
             state.menu.intro_help = ASSIGNED_INTRO_HELP.to_string();
+            state.menu.touch_help = Some(ASSIGNED_TOUCH_HELP.to_string());
         } else if let Some(held) = held_load::held_index(profile(ctx)) {
             // The load the driver went to sleep for is where they left it.
             state.menu.index = held.min(state.jobs.len().saturating_sub(1));
@@ -428,7 +439,7 @@ impl JobBoardState {
                     |s: &mut Self, ctx| s.decline_assignment(ctx),
                 )
                 .help(
-                    "Dispatch picks another load. Costs reputation and one decline; declines \
+                    "Dispatch picks another load. Costs reputation and one decline. Declines \
                      refill at your next promotion.",
                 ),
             );
@@ -734,6 +745,12 @@ impl JobBoardState {
     /// budget their own sleeps into the deadline, so a rested driver is
     /// never warned just because the run is long.
     fn job_exceeds_current_hos(&self, ctx: &GameContext, job: &Job) -> bool {
+        // A team load is booked for two drivers: the co-driver can take the
+        // first shift while this driver rests, so hours already spent today
+        // never cost it an extra rest (issue 590).
+        if job.team {
+            return false;
+        }
         let p = profile(ctx);
         let Some((drive_limit, duty_limit, _break_after)) = limits(&ctx.settings.hos_mode) else {
             return false;
@@ -853,9 +870,15 @@ impl JobBoardState {
             ctx.save_profile();
             ctx.audio.play("ui/warning");
             let summary = profile(ctx).hos.hours_summary(&ctx.settings.hos_mode);
-            ctx.say(&format!(
-                "Needs an extra rest on this shift's hours. {summary} Enter again to accept."
-            ));
+            if ctx.touch_hints() {
+                ctx.say(&format!(
+                    "Needs an extra rest on this shift's hours. {summary} Double tap again to accept."
+                ));
+            } else {
+                ctx.say(&format!(
+                    "Needs an extra rest on this shift's hours. {summary} Enter again to accept."
+                ));
+            }
             return;
         }
         if self.confirm_chain_job != Some(index) {
@@ -1186,7 +1209,7 @@ impl Menu for JobBoardState {
                 return;
             }
         }
-        base_menu_handle_event(self, ctx, event);
+        default_handle_event(self, ctx, event);
     }
 }
 

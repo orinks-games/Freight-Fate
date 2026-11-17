@@ -29,10 +29,11 @@ pub fn linux_archive_suffix(machine: &str) -> Result<&'static str> {
     }
 }
 
-/// A Career 1.9 tester snapshot or a stable tag from v1.9.0 on. Their Apple
-/// Silicon archive is named `-macos-arm64`; a 1.8 stable keeps `-macos`.
+/// A Career 1.9 tester snapshot, an alpha build (`alpha-<timestamp>`, cut
+/// from 1.9 onward) or a stable tag from v1.9.0 on. Their Apple Silicon
+/// archive is named `-macos-arm64`; a 1.8 stable keeps `-macos`.
 pub fn is_career_19_label(label: &str) -> bool {
-    if label.starts_with("1.9-tester-") {
+    if label.starts_with("1.9-tester-") || label.starts_with("alpha-") {
         return true;
     }
     let re = regex::Regex::new(r"^v?(\d+)\.(\d+)\.").expect("valid regex");
@@ -327,6 +328,7 @@ mod tests {
     #[test]
     fn labels_and_suffixes() {
         assert!(is_career_19_label("1.9-tester-20261001"));
+        assert!(is_career_19_label("alpha-20261108173950"));
         assert!(is_career_19_label("v1.9.4"));
         assert!(is_career_19_label("2.0.0"));
         assert!(!is_career_19_label("v1.8.8"));

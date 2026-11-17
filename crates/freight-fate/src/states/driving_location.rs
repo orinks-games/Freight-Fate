@@ -209,8 +209,21 @@ impl DrivingState {
 
     /// `_local_route_city()`: the city a street route runs inside, or the
     /// run's destination.
+    ///
+    /// A street chain's route lists its own city at every stop, so either end
+    /// answers. Off the destination exit it does not: the highway trip stays
+    /// live on the ramp, and for the whole approach when facility streets are
+    /// off, and its first city is where the run began. Alt+1 and Alt+3 named
+    /// the city the driver had left, a few hundred feet from the gate (issue
+    /// 552).
     pub fn local_route_city(&self) -> String {
-        self.trip.route.cities.first().cloned().unwrap_or_default()
+        let cities = &self.trip.route.cities;
+        let city = if self.destination_exit_taken {
+            cities.last()
+        } else {
+            cities.first()
+        };
+        city.cloned().unwrap_or_default()
     }
 
     /// `_on_local_streets()`: whether the truck is on a street chain rather

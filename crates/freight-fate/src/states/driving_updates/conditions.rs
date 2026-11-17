@@ -607,8 +607,14 @@ impl DrivingState {
         if self.trip.truck.chains_just_snapped {
             self.trip.truck.chains_just_snapped = false;
             self.chain_assist_snapped = true;
+            // The snap is a damage charge, so the line ends with the truck's
+            // damage the way a collision's does (issue 533). The warning
+            // stays its own literal so its translations still match it.
+            let snapped =
+                "A tire chain broke and is flailing. Slow down and pull over to check it.";
+            let damage = self.trip.truck.damage_pct;
             ctx.say_event_with(
-                "A tire chain broke and is flailing. Slow down and pull over to check it.",
+                format!("{snapped} Damage {damage:.0} percent."),
                 SayEvent::new().category(SpeechCategory::Safety),
             );
         }
@@ -892,14 +898,13 @@ impl DrivingState {
                     ff_core::sim::hos::duration_text(waited / 60.0)
                 ));
             }
-            advance_rest_clock(
+            advance_on_duty_clock(
                 self,
                 ctx,
                 CHAIN_WAIT_STEP_MIN,
                 Some("on_duty_not_driving"),
                 "chain control",
             );
-            hos_mut_of(ctx).on_duty(CHAIN_WAIT_STEP_MIN);
             waited += CHAIN_WAIT_STEP_MIN;
             // The sky is re-polled by `advance_rest_clock` (live weather
             // included); the warnings need asking again here, since they are

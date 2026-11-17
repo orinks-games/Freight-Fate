@@ -18,6 +18,7 @@ use ff_core::models::solvency::{apply_return_to_company_driving, company_return_
 use ff_core::models::trailers::{TrailerType, DEFAULT_TRAILER_PROGRAMS, TRAILER_CATALOG};
 use ff_core::models::trucks::{TruckModel, Upgrade, TRUCK_CATALOG, UPGRADE_CATALOG};
 use ff_core::pyfmt::{fmt_f, fmt_grouped};
+use ff_core::sim::alertness::Alertness;
 use ff_core::sim::driving_modes::tuning_for_time_scale;
 use ff_core::sim::hos;
 use ff_core::sim::timezones::to_local;
@@ -353,7 +354,7 @@ impl Menu for BusinessStatusState {
                         })
                         .help(
                             "Keep the carrier's tractor and wages. The reminders about the \
-                             buy-in stop; the buy-in itself stays open here.",
+                             buy-in stop. The buy-in itself stays open here.",
                         ),
                     );
                 }
@@ -369,8 +370,10 @@ impl Menu for BusinessStatusState {
         } else {
             items.push(
                 MenuItem::new(
-                    Label::dynamic(|s: &Self, _ctx| {
-                        if s.return_armed {
+                    Label::dynamic(|s: &Self, ctx| {
+                        if s.return_armed && ctx.touch_hints() {
+                            "Go back to company driving: double tap again to confirm".to_string()
+                        } else if s.return_armed {
                             "Go back to company driving: press Enter again to confirm".to_string()
                         } else {
                             "Go back to company driving".to_string()
@@ -1208,12 +1211,12 @@ impl EndorsementCourseState {
 /// no speech category of its own: it is appended to the course completion
 /// line, so it is heard wherever that line is.
 pub fn course_fatigue_cue(fatigue: f64) -> Option<&'static str> {
-    if fatigue >= hos::FATIGUE_SEVERE {
-        Some("You're dangerously drowsy after the course. Sleep before you drive.")
-    } else if fatigue >= hos::FATIGUE_DROWSY {
-        Some("You're drowsy after the course. Sleep before you drive.")
-    } else {
-        None
+    match Alertness::from_fatigue(fatigue) {
+        Alertness::Severe => {
+            Some("You're dangerously drowsy after the course. Sleep before you drive.")
+        }
+        Alertness::Drowsy => Some("You're drowsy after the course. Sleep before you drive."),
+        Alertness::Rested | Alertness::Worn => None,
     }
 }
 

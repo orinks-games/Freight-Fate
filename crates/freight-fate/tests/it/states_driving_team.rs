@@ -212,7 +212,7 @@ fn team_ready() -> PlaytestHarness {
 }
 
 #[test]
-fn the_pause_menu_offers_a_co_driver_only_when_the_load_needs_a_sleep() {
+fn the_pause_menu_offers_a_co_driver_only_on_a_load_that_left_with_one() {
     let mut harness = team_ready();
     harness.press_key(Key::Escape, None);
     let fresh = harness.menu_labels();
@@ -221,7 +221,8 @@ fn the_pause_menu_offers_a_co_driver_only_when_the_load_needs_a_sleep() {
         "a load one shift covers offers no co-driver: {fresh:?}"
     );
     harness.key(InputEvent::key(Key::Escape));
-    // Most of a shift already driven: the rest of the load needs a sleep.
+    // Most of a shift already driven: the rest of the load needs a sleep,
+    // but nobody joins the truck on the road.
     harness
         .app
         .ctx
@@ -230,6 +231,15 @@ fn the_pause_menu_offers_a_co_driver_only_when_the_load_needs_a_sleep() {
         .expect("a career")
         .hos
         .drive(600.0);
+    harness.press_key(Key::Escape, None);
+    let rows = harness.menu_labels();
+    assert!(
+        !rows.iter().any(|row| row.starts_with("Hand the wheel")),
+        "a co-driver joined on the road: {rows:?}"
+    );
+    harness.key(InputEvent::key(Key::Escape));
+    // A co-driver who left the dock with the load is offered.
+    harness.with_drive(|d, ctx| d.ensure_team(ctx));
     harness.press_key(Key::Escape, None);
     let rows = harness.menu_labels();
     assert!(

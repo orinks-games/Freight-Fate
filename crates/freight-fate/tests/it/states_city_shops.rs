@@ -542,7 +542,7 @@ fn test_upgrade_f1_help_explains_player_benefits() {
     assert!(aero.contains("same tank last longer"));
     let tank = &help_by_label["long-range tank"];
     assert!(tank.contains("fifty gallons"));
-    assert!(tank.contains("carry more fuel"));
+    assert!(tank.contains("carries more fuel"));
     assert!(tank.contains("more distance between fuel stops"));
     let brakes = &help_by_label["reinforced brakes"];
     assert!(brakes.contains("emergency stops"));

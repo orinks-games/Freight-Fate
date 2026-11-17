@@ -1,14 +1,11 @@
 # Contributing to Freight Fate
 
-Thanks for helping make Freight Fate better. This project is audio-first and
-accessibility-first, so contributions should keep blind and low-vision players
-at the center of every change.
+Thanks for helping make Freight Fate better.
 
 ## Contributions by release line
 
-Freight Fate 1.9 is in development on `feat/career-1.9`, with preview
-snapshots available for testing. The 1.8 line is in maintenance and accepts
-bug fixes only.
+Work lands on `dev`, and tester snapshots are built from it. Stable releases
+come from `main`. The 1.8 line gets no further releases.
 
 For a new feature, open an issue first so maintainers can agree on its scope
 and release line. Check [the roadmap](ROADMAP.md) for the work planned for
@@ -109,6 +106,20 @@ and `benches/`), plus `CHANGELOG.md`, `README.md`, `pyproject.toml`,
 - A change with nothing player-facing in it (internal refactors, CI, tests,
   tooling) can skip the entry by putting `[skip changelog]` or
   `changelog: none` in every commit message of the pull request.
+
+## Skipping a platform's build
+
+Each push to dev builds the desktop snapshot and an iPhone TestFlight build.
+A change that only affects one side can skip the other with a tag in every
+commit message and in the pull request title (the merge commit carries the
+title):
+
+- `[skip desktop]`: an iPhone-only change. No desktop snapshot is built.
+- `[skip ios]`: a desktop-only change. No TestFlight build is made.
+
+A push builds everything as soon as one of its commits lacks the tag. The
+desktop snapshot ships Windows, macOS and Linux together, so there is no tag
+for skipping one of them.
 
 ## Pull request notes
 

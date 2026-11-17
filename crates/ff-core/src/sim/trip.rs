@@ -29,6 +29,7 @@ use crate::sim::vehicle::TruckState;
 use crate::sim::weather::WeatherSystem;
 use crate::units::{distance_unit, spoken_distance, spoken_gap, to_distance};
 
+pub mod destination_exit;
 mod exit_ramps;
 mod limits;
 mod lookups;
@@ -37,6 +38,7 @@ mod placement;
 mod streets;
 mod update;
 mod zones;
+pub use zones::keep_exits_open;
 
 pub use lookups::LaneRun;
 pub use streets::{
@@ -101,7 +103,7 @@ pub const LIMIT_REASON_LOOKAHEAD_MI: f64 = 1.5;
 /// The only RoadStop types that actually cause a lower posting.
 pub fn limit_reason_by_stop_type(stop_type: &str) -> Option<&'static str> {
     match stop_type {
-        "weigh_station" => Some(" for the weigh station ahead"),
+        "weigh_station" => Some(" for the weigh station"),
         _ => None,
     }
 }
@@ -387,6 +389,9 @@ pub struct Trip {
     /// Posts that have already entered the lead window.
     pub heads_up_seen: HashSet<String>,
     pub hazard_check_mi: f64,
+    /// A catalog hazard asked for by name (`stage_hazard`), fired on the
+    /// next rolling update in place of the road's own draw.
+    pub staged_hazard: Option<&'static str>,
     pub inspection_check_mi: f64,
     pub conditions_check_mi: f64,
     pub traffic_warning_mi: f64,
@@ -538,6 +543,7 @@ impl Trip {
             cb_calls_made: 0,
             heads_up_seen: HashSet::new(),
             hazard_check_mi: 5.0,
+            staged_hazard: None,
             inspection_check_mi: 10.0,
             conditions_check_mi: CONDITIONS_CHECK_MI,
             traffic_warning_mi: 1.0,

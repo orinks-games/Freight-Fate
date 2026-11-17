@@ -83,6 +83,39 @@ fn last_main(harness: &PlaytestHarness) -> String {
     harness.app.main_lines().last().cloned().unwrap_or_default()
 }
 
+#[test]
+fn test_the_radio_screen_lists_channel_3000_with_the_freight_fate_stations() {
+    // Owner, 2026-11-17: the screen read the first 16 receivable stations,
+    // and the Freight Fate group alone is 20, so Channel 3000 never made it.
+    let mut harness = a_drive("Radio Screen");
+    harness.app.ctx.settings.radio_streamer_safe = false;
+    harness.with_drive(|drive, _| drive.set_channel3000_on_dial(true));
+    let lines = screen_lines(&mut harness, "radio");
+    let heading = lines
+        .iter()
+        .position(|l| l == "Receivable stations:")
+        .unwrap_or_else(|| panic!("{lines:#?}"));
+    let listed = &lines[heading + 1..];
+    assert!(
+        listed.iter().any(|l| l.starts_with("Channel 3000:")),
+        "{lines:#?}"
+    );
+    for call_sign in ["WHWX", "WNAH", "WSOZ"] {
+        assert!(
+            listed.iter().any(|l| l.contains(call_sign)),
+            "{call_sign} missing: {lines:#?}"
+        );
+    }
+    // The streams in range everywhere are one count, not thousands of rows.
+    assert!(
+        listed
+            .iter()
+            .any(|l| l.starts_with("Plus ")
+                && l.ends_with("listed in the Radio app under Driver apps.")),
+        "{lines:#?}"
+    );
+}
+
 // -- the air help and the status screens -------------------------------------------------
 
 #[test]
@@ -542,7 +575,7 @@ fn test_the_speed_readout_names_the_slow_car_setting_the_keepers_number() {
     harness.with_drive(|drive, ctx| drive.speak_speed(ctx));
     let said = last_main(&harness);
     assert!(
-        said.contains("Cruise holding 51 for the traffic ahead, set 58"),
+        said.contains("Cruise holding 51 for the traffic, set 58"),
         "{said}"
     );
     assert!(!said.contains("holding 58,"), "{said}");
@@ -556,5 +589,5 @@ fn test_the_speed_readout_names_the_slow_car_setting_the_keepers_number() {
     harness.with_drive(|drive, ctx| drive.speak_speed(ctx));
     let said = last_main(&harness);
     assert!(said.contains("Cruise holding 58."), "{said}");
-    assert!(!said.contains("for the traffic ahead"), "{said}");
+    assert!(!said.contains("for the traffic"), "{said}");
 }

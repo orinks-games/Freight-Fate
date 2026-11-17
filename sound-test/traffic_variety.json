@@ -1,0 +1,846 @@
+{
+  "_about": "More traffic sounds (2026-11-04): extra loops for the freeway mix, in the same shape as traffic_sounds.json (one steady mono loop per vehicle at road speed, panned and pitched by the game). Second and third takes of the commonest classes, so two cars in a row rarely sound alike, and loops for the classes added to the freeway: SUV, minivan, sports car, RV, tanker and car hauler. Render with genny 0.2.0 (github.com/ogomez92/genny, f23f439): genny render sound-test/traffic_variety.json, then the same ffmpeg EQ as the first set (equalizer=f=1200:t=o:w=2:g=12,equalizer=f=300:t=o:w=1.5:g=-3), each level-matched to the shipped loop it sits beside (cars to car_loop, trucks to semi_loop and so on), and encoded to Ogg Vorbis at -q:a 5. The RV and car hauler carry a faint square-gated rattle for the body and the deck chains.",
+  "out_dir": "build/sound-test/traffic_variety",
+  "normalize": -3,
+  "loop": 0.4,
+  "sounds": [
+    {
+      "out": "car_loop_2.wav",
+      "duration": 4.0,
+      "layers": [
+        {
+          "type": "sfx",
+          "kind": "noise",
+          "gain": 0.9,
+          "params": {
+            "dur": 4.4,
+            "color": "pink",
+            "attack": 0.05
+          },
+          "fx": [
+            {
+              "type": "bandpass",
+              "center": 640,
+              "q": 0.52
+            }
+          ]
+        },
+        {
+          "type": "sfx",
+          "kind": "noise",
+          "gain": 0.5,
+          "params": {
+            "dur": 4.4,
+            "color": "brown",
+            "attack": 0.05
+          },
+          "fx": [
+            {
+              "type": "lowpass",
+              "cutoff": 520
+            }
+          ]
+        },
+        {
+          "type": "sfx",
+          "kind": "car_engine",
+          "gain": 0.35,
+          "params": {
+            "rpm": 2600,
+            "cylinders": 4,
+            "load": 0.3,
+            "rough": 0.08,
+            "pipe": 0.0035,
+            "seed": 31,
+            "dur": 4.4
+          }
+        }
+      ],
+      "fx": [
+        {
+          "type": "lowpass",
+          "cutoff": 3300
+        },
+        {
+          "type": "mono"
+        }
+      ]
+    },
+    {
+      "out": "car_loop_3.wav",
+      "duration": 4.0,
+      "layers": [
+        {
+          "type": "sfx",
+          "kind": "noise",
+          "gain": 0.9,
+          "params": {
+            "dur": 4.4,
+            "color": "pink",
+            "attack": 0.05
+          },
+          "fx": [
+            {
+              "type": "bandpass",
+              "center": 560,
+              "q": 0.5
+            }
+          ]
+        },
+        {
+          "type": "sfx",
+          "kind": "noise",
+          "gain": 0.55,
+          "params": {
+            "dur": 4.4,
+            "color": "brown",
+            "attack": 0.05
+          },
+          "fx": [
+            {
+              "type": "lowpass",
+              "cutoff": 480
+            }
+          ]
+        },
+        {
+          "type": "sfx",
+          "kind": "car_engine",
+          "gain": 0.4,
+          "params": {
+            "rpm": 2000,
+            "cylinders": 6,
+            "load": 0.35,
+            "rough": 0.1,
+            "pipe": 0.005,
+            "seed": 37,
+            "dur": 4.4
+          }
+        }
+      ],
+      "fx": [
+        {
+          "type": "lowpass",
+          "cutoff": 3100
+        },
+        {
+          "type": "mono"
+        }
+      ]
+    },
+    {
+      "out": "suv_loop.wav",
+      "duration": 4.0,
+      "layers": [
+        {
+          "type": "sfx",
+          "kind": "noise",
+          "gain": 0.9,
+          "params": {
+            "dur": 4.4,
+            "color": "pink",
+            "attack": 0.05
+          },
+          "fx": [
+            {
+              "type": "bandpass",
+              "center": 520,
+              "q": 0.5
+            }
+          ]
+        },
+        {
+          "type": "sfx",
+          "kind": "noise",
+          "gain": 0.6,
+          "params": {
+            "dur": 4.4,
+            "color": "brown",
+            "attack": 0.05
+          },
+          "fx": [
+            {
+              "type": "lowpass",
+              "cutoff": 470
+            }
+          ]
+        },
+        {
+          "type": "sfx",
+          "kind": "car_engine",
+          "gain": 0.4,
+          "params": {
+            "rpm": 2100,
+            "cylinders": 6,
+            "load": 0.4,
+            "rough": 0.12,
+            "pipe": 0.0055,
+            "seed": 41,
+            "dur": 4.4
+          }
+        }
+      ],
+      "fx": [
+        {
+          "type": "lowpass",
+          "cutoff": 3000
+        },
+        {
+          "type": "mono"
+        }
+      ]
+    },
+    {
+      "out": "suv_loop_2.wav",
+      "duration": 4.0,
+      "layers": [
+        {
+          "type": "sfx",
+          "kind": "noise",
+          "gain": 0.9,
+          "params": {
+            "dur": 4.4,
+            "color": "pink",
+            "attack": 0.05
+          },
+          "fx": [
+            {
+              "type": "bandpass",
+              "center": 540,
+              "q": 0.5
+            }
+          ]
+        },
+        {
+          "type": "sfx",
+          "kind": "noise",
+          "gain": 0.6,
+          "params": {
+            "dur": 4.4,
+            "color": "brown",
+            "attack": 0.05
+          },
+          "fx": [
+            {
+              "type": "lowpass",
+              "cutoff": 460
+            }
+          ]
+        },
+        {
+          "type": "sfx",
+          "kind": "car_engine",
+          "gain": 0.38,
+          "params": {
+            "rpm": 2400,
+            "cylinders": 4,
+            "load": 0.45,
+            "rough": 0.12,
+            "pipe": 0.0045,
+            "seed": 43,
+            "dur": 4.4
+          }
+        }
+      ],
+      "fx": [
+        {
+          "type": "lowpass",
+          "cutoff": 3100
+        },
+        {
+          "type": "mono"
+        }
+      ]
+    },
+    {
+      "out": "minivan_loop.wav",
+      "duration": 4.0,
+      "layers": [
+        {
+          "type": "sfx",
+          "kind": "noise",
+          "gain": 0.9,
+          "params": {
+            "dur": 4.4,
+            "color": "pink",
+            "attack": 0.05
+          },
+          "fx": [
+            {
+              "type": "bandpass",
+              "center": 560,
+              "q": 0.5
+            }
+          ]
+        },
+        {
+          "type": "sfx",
+          "kind": "noise",
+          "gain": 0.55,
+          "params": {
+            "dur": 4.4,
+            "color": "brown",
+            "attack": 0.05
+          },
+          "fx": [
+            {
+              "type": "lowpass",
+              "cutoff": 480
+            }
+          ]
+        },
+        {
+          "type": "sfx",
+          "kind": "car_engine",
+          "gain": 0.3,
+          "params": {
+            "rpm": 2200,
+            "cylinders": 6,
+            "load": 0.35,
+            "rough": 0.08,
+            "pipe": 0.005,
+            "seed": 47,
+            "dur": 4.4
+          }
+        }
+      ],
+      "fx": [
+        {
+          "type": "lowpass",
+          "cutoff": 3000
+        },
+        {
+          "type": "mono"
+        }
+      ]
+    },
+    {
+      "out": "sports_car_loop.wav",
+      "duration": 4.0,
+      "layers": [
+        {
+          "type": "sfx",
+          "kind": "noise",
+          "gain": 0.8,
+          "params": {
+            "dur": 4.4,
+            "color": "pink",
+            "attack": 0.05
+          },
+          "fx": [
+            {
+              "type": "bandpass",
+              "center": 700,
+              "q": 0.55
+            }
+          ]
+        },
+        {
+          "type": "sfx",
+          "kind": "noise",
+          "gain": 0.45,
+          "params": {
+            "dur": 4.4,
+            "color": "brown",
+            "attack": 0.05
+          },
+          "fx": [
+            {
+              "type": "lowpass",
+              "cutoff": 520
+            }
+          ]
+        },
+        {
+          "type": "sfx",
+          "kind": "car_engine",
+          "gain": 0.6,
+          "params": {
+            "rpm": 3200,
+            "cylinders": 8,
+            "load": 0.55,
+            "rough": 0.1,
+            "pipe": 0.0045,
+            "bright": 0.25,
+            "seed": 53,
+            "dur": 4.4
+          }
+        }
+      ],
+      "fx": [
+        {
+          "type": "lowpass",
+          "cutoff": 3600
+        },
+        {
+          "type": "mono"
+        }
+      ]
+    },
+    {
+      "out": "pickup_loop_2.wav",
+      "duration": 4.0,
+      "layers": [
+        {
+          "type": "sfx",
+          "kind": "noise",
+          "gain": 0.9,
+          "params": {
+            "dur": 4.4,
+            "color": "pink",
+            "attack": 0.05
+          },
+          "fx": [
+            {
+              "type": "bandpass",
+              "center": 470,
+              "q": 0.48
+            }
+          ]
+        },
+        {
+          "type": "sfx",
+          "kind": "noise",
+          "gain": 0.65,
+          "params": {
+            "dur": 4.4,
+            "color": "brown",
+            "attack": 0.05
+          },
+          "fx": [
+            {
+              "type": "lowpass",
+              "cutoff": 440
+            }
+          ]
+        },
+        {
+          "type": "sfx",
+          "kind": "car_engine",
+          "gain": 0.5,
+          "params": {
+            "rpm": 1700,
+            "cylinders": 6,
+            "load": 0.45,
+            "rough": 0.3,
+            "pipe": 0.007,
+            "seed": 59,
+            "dur": 4.4
+          }
+        }
+      ],
+      "fx": [
+        {
+          "type": "lowpass",
+          "cutoff": 2900
+        },
+        {
+          "type": "mono"
+        }
+      ]
+    },
+    {
+      "out": "rv_loop.wav",
+      "duration": 4.0,
+      "layers": [
+        {
+          "type": "sfx",
+          "kind": "noise",
+          "gain": 0.9,
+          "params": {
+            "dur": 4.4,
+            "color": "pink",
+            "attack": 0.05
+          },
+          "fx": [
+            {
+              "type": "bandpass",
+              "center": 380,
+              "q": 0.46
+            }
+          ]
+        },
+        {
+          "type": "sfx",
+          "kind": "noise",
+          "gain": 0.95,
+          "params": {
+            "dur": 4.4,
+            "color": "brown",
+            "attack": 0.05
+          },
+          "fx": [
+            {
+              "type": "lowpass",
+              "cutoff": 360
+            }
+          ]
+        },
+        {
+          "type": "sfx",
+          "kind": "car_engine",
+          "gain": 0.5,
+          "params": {
+            "rpm": 1600,
+            "cylinders": 6,
+            "load": 0.5,
+            "rough": 0.2,
+            "pipe": 0.009,
+            "seed": 79,
+            "dur": 4.4
+          }
+        },
+        {
+          "type": "sfx",
+          "kind": "noise",
+          "gain": 0.08,
+          "params": {
+            "dur": 4.4,
+            "color": "white",
+            "attack": 0.05
+          },
+          "fx": [
+            {
+              "type": "bandpass",
+              "center": 1800,
+              "q": 1.2
+            },
+            {
+              "type": "tremolo",
+              "rate": 3.5,
+              "depth": 0.7,
+              "shape": "square"
+            }
+          ]
+        }
+      ],
+      "fx": [
+        {
+          "type": "lowpass",
+          "cutoff": 2500
+        },
+        {
+          "type": "mono"
+        }
+      ]
+    },
+    {
+      "out": "semi_loop_2.wav",
+      "duration": 4.0,
+      "layers": [
+        {
+          "type": "sfx",
+          "kind": "noise",
+          "gain": 0.9,
+          "params": {
+            "dur": 4.4,
+            "color": "pink",
+            "attack": 0.05
+          },
+          "fx": [
+            {
+              "type": "bandpass",
+              "center": 340,
+              "q": 0.42
+            }
+          ]
+        },
+        {
+          "type": "sfx",
+          "kind": "noise",
+          "gain": 1.0,
+          "params": {
+            "dur": 4.4,
+            "color": "brown",
+            "attack": 0.05
+          },
+          "fx": [
+            {
+              "type": "lowpass",
+              "cutoff": 330
+            }
+          ]
+        },
+        {
+          "type": "sfx",
+          "kind": "car_engine",
+          "gain": 0.6,
+          "params": {
+            "rpm": 1450,
+            "cylinders": 6,
+            "load": 0.55,
+            "rough": 0.3,
+            "pipe": 0.012,
+            "seed": 61,
+            "dur": 4.4
+          }
+        }
+      ],
+      "fx": [
+        {
+          "type": "lowpass",
+          "cutoff": 2200
+        },
+        {
+          "type": "mono"
+        }
+      ]
+    },
+    {
+      "out": "semi_loop_3.wav",
+      "duration": 4.0,
+      "layers": [
+        {
+          "type": "sfx",
+          "kind": "noise",
+          "gain": 0.9,
+          "params": {
+            "dur": 4.4,
+            "color": "pink",
+            "attack": 0.05
+          },
+          "fx": [
+            {
+              "type": "bandpass",
+              "center": 315,
+              "q": 0.42
+            }
+          ]
+        },
+        {
+          "type": "sfx",
+          "kind": "noise",
+          "gain": 1.0,
+          "params": {
+            "dur": 4.4,
+            "color": "brown",
+            "attack": 0.05
+          },
+          "fx": [
+            {
+              "type": "lowpass",
+              "cutoff": 310
+            }
+          ]
+        },
+        {
+          "type": "sfx",
+          "kind": "car_engine",
+          "gain": 0.6,
+          "params": {
+            "rpm": 1250,
+            "cylinders": 6,
+            "load": 0.6,
+            "rough": 0.2,
+            "pipe": 0.01,
+            "seed": 67,
+            "dur": 4.4
+          }
+        }
+      ],
+      "fx": [
+        {
+          "type": "lowpass",
+          "cutoff": 2200
+        },
+        {
+          "type": "mono"
+        }
+      ]
+    },
+    {
+      "out": "tanker_loop.wav",
+      "duration": 4.0,
+      "layers": [
+        {
+          "type": "sfx",
+          "kind": "noise",
+          "gain": 0.9,
+          "params": {
+            "dur": 4.4,
+            "color": "pink",
+            "attack": 0.05
+          },
+          "fx": [
+            {
+              "type": "bandpass",
+              "center": 300,
+              "q": 0.4
+            }
+          ]
+        },
+        {
+          "type": "sfx",
+          "kind": "noise",
+          "gain": 1.0,
+          "params": {
+            "dur": 4.4,
+            "color": "brown",
+            "attack": 0.05
+          },
+          "fx": [
+            {
+              "type": "lowpass",
+              "cutoff": 300
+            }
+          ]
+        },
+        {
+          "type": "sfx",
+          "kind": "car_engine",
+          "gain": 0.6,
+          "params": {
+            "rpm": 1400,
+            "cylinders": 6,
+            "load": 0.6,
+            "rough": 0.22,
+            "pipe": 0.011,
+            "seed": 71,
+            "dur": 4.4
+          }
+        }
+      ],
+      "fx": [
+        {
+          "type": "lowpass",
+          "cutoff": 2100
+        },
+        {
+          "type": "mono"
+        }
+      ]
+    },
+    {
+      "out": "car_hauler_loop.wav",
+      "duration": 4.0,
+      "layers": [
+        {
+          "type": "sfx",
+          "kind": "noise",
+          "gain": 0.9,
+          "params": {
+            "dur": 4.4,
+            "color": "pink",
+            "attack": 0.05
+          },
+          "fx": [
+            {
+              "type": "bandpass",
+              "center": 330,
+              "q": 0.42
+            }
+          ]
+        },
+        {
+          "type": "sfx",
+          "kind": "noise",
+          "gain": 1.0,
+          "params": {
+            "dur": 4.4,
+            "color": "brown",
+            "attack": 0.05
+          },
+          "fx": [
+            {
+              "type": "lowpass",
+              "cutoff": 320
+            }
+          ]
+        },
+        {
+          "type": "sfx",
+          "kind": "car_engine",
+          "gain": 0.55,
+          "params": {
+            "rpm": 1400,
+            "cylinders": 6,
+            "load": 0.55,
+            "rough": 0.25,
+            "pipe": 0.011,
+            "seed": 83,
+            "dur": 4.4
+          }
+        },
+        {
+          "type": "sfx",
+          "kind": "noise",
+          "gain": 0.14,
+          "params": {
+            "dur": 4.4,
+            "color": "white",
+            "attack": 0.05
+          },
+          "fx": [
+            {
+              "type": "bandpass",
+              "center": 1800,
+              "q": 1.2
+            },
+            {
+              "type": "tremolo",
+              "rate": 7.0,
+              "depth": 0.7,
+              "shape": "square"
+            }
+          ]
+        }
+      ],
+      "fx": [
+        {
+          "type": "lowpass",
+          "cutoff": 2800
+        },
+        {
+          "type": "mono"
+        }
+      ]
+    },
+    {
+      "out": "motorcycle_loop_2.wav",
+      "duration": 4.0,
+      "layers": [
+        {
+          "type": "sfx",
+          "kind": "noise",
+          "gain": 0.4,
+          "params": {
+            "dur": 4.4,
+            "color": "pink",
+            "attack": 0.05
+          },
+          "fx": [
+            {
+              "type": "bandpass",
+              "center": 640,
+              "q": 0.55
+            }
+          ]
+        },
+        {
+          "type": "sfx",
+          "kind": "car_engine",
+          "gain": 0.9,
+          "params": {
+            "rpm": 2600,
+            "cylinders": 2,
+            "load": 0.5,
+            "rough": 0.4,
+            "pipe": 0.008,
+            "bright": 0.1,
+            "seed": 73,
+            "dur": 4.4
+          }
+        }
+      ],
+      "fx": [
+        {
+          "type": "lowpass",
+          "cutoff": 3000
+        },
+        {
+          "type": "mono"
+        }
+      ]
+    }
+  ]
+}

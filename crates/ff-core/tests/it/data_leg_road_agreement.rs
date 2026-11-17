@@ -617,9 +617,11 @@ fn river_callouts_sit_on_the_crossing() {
             }
             let source = text(landmark, "source").unwrap_or_default();
             assert!(
-                source.starts_with("derived ")
-                    && source.contains("tools/place_river_crossings.py")
-                    && source.contains("at the crossing of OSM "),
+                source.starts_with("derived")
+                    && ((source.contains("tools/place_river_crossings.py")
+                        && source.contains("at the crossing of OSM "))
+                        // cargo tools osm-landmarks, which replaced it
+                        || source.contains("placed at the crossing of the road with it")),
                 "{id}: {} lacks place_river_crossings provenance: {source}",
                 text(landmark, "name").unwrap_or_default()
             );

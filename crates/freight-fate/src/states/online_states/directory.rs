@@ -10,6 +10,7 @@
 //! its own. Enter on a driver opens the same profile screen the drivers list
 //! does.
 
+use crate::states::base::default_enter;
 use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::Arc;
 
@@ -21,7 +22,7 @@ use crate::online_presence;
 use crate::states::base::{Menu, MenuCore, MenuItem};
 
 use super::profile::DriverProfileState;
-use super::support::{menu_default_enter, online_transport, run_worker, wall_time, Mailbox};
+use super::support::{online_transport, run_worker, wall_time, Mailbox};
 
 /// "Last on duty 3 days ago", from a server epoch-milliseconds stamp.
 pub fn last_on_duty_text(last_on_duty_ms: f64) -> String {
@@ -225,7 +226,7 @@ impl Menu for DriverDirectoryState {
         if !self.started {
             self.start_fetch();
         }
-        menu_default_enter(self, ctx);
+        default_enter(self, ctx);
     }
 
     fn build_items(&mut self, _ctx: &mut GameContext) -> Vec<MenuItem<Self>> {

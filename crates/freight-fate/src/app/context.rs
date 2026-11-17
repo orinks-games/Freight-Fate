@@ -152,6 +152,11 @@ pub struct GameContext {
     /// True while a playtest-lever scenario runs unsaved (see
     /// `playtest_levers::apply_continue_levers`); `save_profile` honors it.
     pub playtest_sandbox: bool,
+    /// The last run ended without quitting and the main menu has not asked
+    /// about it yet (`problem_reports::take_crash_offer`, read once when the
+    /// app is built). The menu clears it when it asks, or when the player
+    /// turned the question off.
+    pub crash_offer_pending: bool,
     /// Seed for the next dispatch board; `None` in the shipped game, where
     /// the board rolls from OS entropy. The test app sets it so that which
     /// load dispatch assigns -- and whether it is staged in the home yard,
@@ -245,6 +250,10 @@ pub struct GameContext {
     // -- the state stack ----------------------------------------------------------------
     stack: Vec<StackEntry>,
     deferred: Vec<Deferred>,
+
+    // -- the ambient bed (see `app::ambient`) ------------------------------------------
+    pub(super) ambient_bed: ff_core::ambient_bed::AmbientBed,
+    pub(super) ambient_claims: u64,
 }
 
 /// Everything [`GameContext::new`] takes.
@@ -282,6 +291,7 @@ impl GameContext {
             achievement_notice: String::new(),
             achievement_notice_timer: 0.0,
             playtest_sandbox: false,
+            crash_offer_pending: crate::problem_reports::take_crash_offer(),
             dispatch_board_seed: None,
             school_sandbox: false,
             school_real_profile: None,
@@ -317,6 +327,8 @@ impl GameContext {
             truck_parking: None,
             stack: Vec::new(),
             deferred: Vec::new(),
+            ambient_bed: Default::default(),
+            ambient_claims: 0,
         }
     }
 
@@ -844,6 +856,39 @@ impl GameContext {
             self.bindings.touch_noun(action)
         } else {
             self.bindings.spoken(action)
+        }
+    }
+
+    /// Whether spoken hints name touch gestures: the screen was touched
+    /// last, with no hardware keyboard or controller since.
+    pub fn touch_hints(&self) -> bool {
+        self.controller.device() == ff_core::input_hints::TOUCH
+    }
+
+    /// How a touch player runs `action` at the wheel, as an instruction that
+    /// opens a sentence: "Turn two fingers right", "Tap", or, for a command
+    /// with no gesture, "Tap with three fingers and open Road and stops for
+    /// Rest stop".
+    pub fn touch_instruction(&self, action: crate::bindings::Action) -> String {
+        if let Some(gesture) = self.bindings.touch_instruction(action) {
+            return gesture.to_string();
+        }
+        match crate::states::driving_menu_states::command_group_label(action) {
+            Some(group) => format!(
+                "Tap with three fingers and open {group} for {}",
+                action.label()
+            ),
+            None => format!("Tap with three fingers for {}", action.label()),
+        }
+    }
+
+    /// [`Self::touch_instruction`] for the middle of a sentence.
+    pub fn touch_instruction_mid(&self, action: crate::bindings::Action) -> String {
+        let text = self.touch_instruction(action);
+        let mut chars = text.chars();
+        match chars.next() {
+            Some(first) => first.to_lowercase().chain(chars).collect(),
+            None => text,
         }
     }
 

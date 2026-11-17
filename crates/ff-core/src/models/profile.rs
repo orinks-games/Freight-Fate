@@ -45,6 +45,7 @@ use crate::models::start_options::{DEFAULT_START_KEY, START_MODE_COMPANY};
 use crate::models::trailers::{normalized_trailer_programs, DEFAULT_TRAILER_PROGRAMS};
 use crate::models::trucks::{build_truck_specs, NO_UPGRADES};
 use crate::sim::hos::{DutyLog, HosClock};
+use crate::sim::stimulant::Loan;
 use crate::sim::vehicle::{TruckSpecs, TruckState};
 
 pub mod condition;
@@ -55,6 +56,7 @@ pub mod plausibility;
 pub mod sealed;
 pub mod serialize;
 pub mod signing;
+mod stimulant;
 mod traits;
 
 #[cfg(test)]
@@ -929,7 +931,7 @@ impl Profile {
         let expired: Vec<Value> = self
             .active_buffs
             .iter()
-            .filter(|b| now_h >= json_f64(b.get("expires_h"), 0.0))
+            .filter(|b| !Loan::is_entry(b) && now_h >= json_f64(b.get("expires_h"), 0.0))
             .cloned()
             .collect();
         if !expired.is_empty() {

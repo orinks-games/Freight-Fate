@@ -66,7 +66,7 @@ fn deleting_a_backed_up_career_can_remove_its_cloud_backups_too() {
     assert!(app
         .main_lines()
         .join(" ")
-        .contains("choose whether they go too"));
+        .contains("Choose whether they go too"));
     assert_eq!(
         labels::<ConfirmCareerActionState>(&app),
         [

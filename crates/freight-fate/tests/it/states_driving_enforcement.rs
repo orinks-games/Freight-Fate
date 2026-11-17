@@ -700,7 +700,7 @@ fn test_scale_notice_lookahead_sample_covers_the_real_sentence() {
     // The spoken lead is sized from a sample; it must not undershoot the real
     // wording with a long stop name.
     let real = concat!(
-        "Open weigh station ahead in two miles, Northbound Platte River ",
+        "Open weigh station in two miles, Northbound Platte River ",
         "Port of Entry. All trucks must pull in."
     );
     assert!(
@@ -757,7 +757,7 @@ fn test_the_scale_notice_expires_once_the_distance_it_names_is_wrong() {
     let notices = |app: &TestApp| {
         app.event_lines()
             .into_iter()
-            .filter(|line| line.starts_with("Open weigh station ahead in "))
+            .filter(|line| line.starts_with("Open weigh station in "))
             .collect::<Vec<_>>()
     };
 
@@ -774,7 +774,7 @@ fn test_the_scale_notice_expires_once_the_distance_it_names_is_wrong() {
 
         drive.check_weigh_station_enforcement(&mut app.ctx, 7.8);
         assert_eq!(notices(&app).len(), 1, "{:?}", app.event_lines());
-        assert!(notices(&app)[0].starts_with("Open weigh station ahead in 2.0 miles"));
+        assert!(notices(&app)[0].starts_with("Open weigh station in 2.0 miles"));
         app.ctx.say_event(CUTTER);
         assert_eq!(
             notices(&app).len(),

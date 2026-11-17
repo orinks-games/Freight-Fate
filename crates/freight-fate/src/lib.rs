@@ -21,6 +21,7 @@ pub mod online_guest;
 pub mod online_journal;
 pub mod online_presence;
 pub mod playtest;
+pub mod problem_reports;
 pub mod single_instance;
 pub mod speech;
 pub mod states;

@@ -40,6 +40,8 @@ impl From<ScoreDisplay> for Value {
 mod assists;
 mod migrate;
 pub mod paths;
+pub use touch::{DEEP_SWIPE_MAX_POINTS, DEEP_SWIPE_MIN_POINTS, DEEP_SWIPE_STEP_POINTS};
+mod touch;
 mod units;
 pub use assists::AssistStash;
 #[cfg(test)]
@@ -745,6 +747,14 @@ settings_fields! {
     /// The order the achievements screens list categories and badges in
     /// (`AchievementSort::key`); anything unknown reads as earned first.
     achievement_sort: String = "earned" => str_plain,
+    /// Whether driving lines name the key for the next step ("Press X to
+    /// signal for the exit", "Press E to restart"). Off drops those
+    /// sentences everywhere on the road, not only once a hint has retired
+    /// (owner, 2026-10-25). Driving school and the first run still teach.
+    driving_hints: bool = true => bool_strict,
+    /// Whether the main menu offers to send a problem report after a run
+    /// that ended without quitting (a crash, a kill, a power cut).
+    crash_report_offer: bool = true => bool_strict,
 }
 
 impl Settings {

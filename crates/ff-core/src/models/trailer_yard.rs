@@ -232,7 +232,7 @@ pub fn preloaded_trailer<J: JobView + ?Sized>(job: &J) -> Option<TrailerUnit> {
 /// What `owns_the_trailer` reads off a `Profile`: the two methods the Python
 /// probed with `getattr(profile, ..., lambda: ...)`. Both default to the
 /// "company driver" answer.
-// TODO(lead): implement for models::profile::Profile (both exist there).
+// Implemented for `Profile` in `profile/traits.rs`.
 pub trait TrailerOwner {
     /// `profile.owns_equipment()`.
     fn owns_equipment(&self) -> bool {
@@ -434,7 +434,7 @@ pub const CARRIER_PAID: &str = "carrier_paid";
 
 /// Detention as a settlement line: the fields of `settlement.SettlementCharge`,
 /// which `models::settlement` turns into its own record.
-// TODO(lead): add `From<DetentionCharge> for SettlementCharge` in settlement.
+// `settlement.rs` has `From<DetentionCharge> for SettlementCharge`.
 #[derive(Debug, Clone, PartialEq)]
 pub struct DetentionCharge {
     pub key: &'static str,

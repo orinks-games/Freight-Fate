@@ -605,7 +605,7 @@ fn test_speed_keeper_eases_for_a_lower_posted_limit_and_says_so() {
     assert!(
         lines
             .iter()
-            .any(|e| e == "Posted limit lower; cruise easing to 15 miles per hour."),
+            .any(|e| e == "Posted limit lower, cruise easing to 15 miles per hour."),
         "{lines:#?}"
     );
     assert!(harness.read_drive(|d| d.truck().speed_mph()) <= 15.0 + KEEPER_SNUB_OVER_MPH);
@@ -628,7 +628,7 @@ fn test_speed_keeper_eases_for_a_lower_posted_limit_and_says_so() {
     assert!(harness.read_drive(|d| d.trip.limit_drop_preannounced.contains(&15.0)));
 }
 
-/// Agent drive A (2026-09-24): "Posted limit lower; cruise easing to
+/// Agent drive A (2026-09-24): "Posted limit lower, cruise easing to
 /// 15" said again while the truck was building speed from 9. A truck under
 /// the number is not being eased, so nothing is said.
 #[test]

@@ -12,6 +12,15 @@
 # Current CMake releases reject bundled SDL2's older policy declaration on
 # macOS. Keep explicit contributor overrides authoritative.
 CMAKE_POLICY_VERSION_MINIMUM = { value = "3.5", force = false }
+# The bundled SDL2 (2.26, from sdl2-sys) passes a node proxy to
+# `pw_node_enum_params`, which PipeWire 1.4 and later declare with a typed
+# `struct pw_node *`. GCC 14 makes that mismatch an error, so Linux builds on
+# a current Arch or Fedora stopped at SDL's PipeWire backend (issue 501). The
+# game never opens SDL's audio (sound is Hearken's), and the pointer is the
+# same object either way, so the mismatch is let through as a warning.
+# Setting either variable yourself replaces this; keep the flag if you do.
+CFLAGS_x86_64_unknown_linux_gnu = { value = "-Wno-error=incompatible-pointer-types", force = false }
+CFLAGS_aarch64_unknown_linux_gnu = { value = "-Wno-error=incompatible-pointer-types", force = false }
 
 [build]
 jobs = 12

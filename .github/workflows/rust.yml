@@ -16,8 +16,8 @@
 #                  well under a minute, on GitHub's hosted runners (free for this
 #                  public repository).
 #   clippy_windows cargo clippy on windows-2025 via rust-setup (cache-key
-#                  clippy). The snapshot workflow skips Windows clippy so
-#                  Release stays fast.
+#                  clippy, with sccache). The snapshot workflow skips
+#                  Windows clippy so Release stays fast.
 
 name: Rust
 
@@ -121,7 +121,9 @@ jobs:
       - uses: Swatinem/rust-cache@d1527c8f67ef9af357290475d4af4b0fab8f12e0 # v2
         with:
           shared-key: tools-light
-          save-if: ${{ github.event_name != 'pull_request' }}
+          # Main and dev only: an entry saved anywhere else is seen by no
+          # later run and only crowds the 10 GB cache budget.
+          save-if: ${{ github.ref == 'refs/heads/main' || github.ref == 'refs/heads/dev' }}
 
       - name: Build the tooling (no world feature)
         run: cargo build -p ff-tools --no-default-features --locked
@@ -151,7 +153,8 @@ jobs:
     # Windows-only clippy for PR CI and the watched push branches. The
     # snapshot workflow skips Windows clippy so Release is not held up; this
     # job owns that platform instead. Reuses rust-setup (windows-deps,
-    # Defender exclusions, sccache, rust-cache with cache-key clippy).
+    # Defender exclusions, rust-cache with cache-key clippy) and turns on
+    # sccache, which rechecks an unchanged ff-core from its cache.
     name: clippy (Windows)
     runs-on: windows-2025
     timeout-minutes: 60
@@ -167,6 +170,7 @@ jobs:
         uses: ./.github/actions/rust-setup
         with:
           cache-key: clippy
+          sccache: "true"
 
       - name: Lint Rust targets
         run: cargo clippy --all-targets --locked -- -D warnings

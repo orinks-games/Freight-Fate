@@ -409,3 +409,46 @@ fn a_real_time_snapshot_restores_the_spoken_calendar_hour() {
         app.ctx.profile.as_ref().unwrap().calendar_game_hours() + resumed.trip.game_minutes / 60.0;
     assert!((spoken_calendar - (departure_calendar + 3.0)).abs() < 1e-9);
 }
+
+/// Terse speech says only the zone at a time zone line; normal speech keeps
+/// the clock. Ported from `test_timezones.py`.
+#[test]
+fn test_terse_speech_says_only_the_zone() {
+    let mut app = TestApp::new();
+    let world = get_world();
+    app.ctx.profile = Some(Profile::named_in("Zones", "Atlanta"));
+    let job = make_reposition_job(world, "Atlanta", "Dallas", false, None)
+        .expect("Atlanta to Dallas is supported");
+    let route = world
+        .shortest_route("Atlanta", "Dallas", None, false)
+        .expect("the world routes")
+        .expect("Atlanta to Dallas has a route");
+    let mut drive = DrivingState::new(
+        &mut app.ctx,
+        job,
+        route,
+        Some(0),
+        DRIVE_PHASE_DELIVERY,
+        Some(12.0),
+    );
+    let crossing = *drive
+        .trip
+        .timezone_crossings
+        .first()
+        .expect("the route crosses a timezone");
+    drive.trip.events.clear();
+    drive.trip.position_mi = crossing.at_mi + 1.0;
+    drive.trip.check_timezone();
+    let event = drive
+        .trip
+        .events
+        .iter()
+        .find(|e| e.kind == ff_core::sim::trip_models::TripEventKind::TimezoneCrossing)
+        .expect("the crossing is announced");
+    assert_eq!(
+        timezone_crossing_message(event, true),
+        format!("{}.", crossing.to_zone.name)
+    );
+    assert_eq!(timezone_crossing_message(event, false), event.text());
+    assert!(event.text().contains("It is now"), "{}", event.text());
+}

@@ -366,10 +366,8 @@ pub const LAST_CHANCE_CARRIER_NAME: &str = "Great Lakes Training Transport";
 /// The Python read these with `getattr(profile, ..., default)`; every method
 /// here is that read, with the same default where one existed. Mutation lives
 /// on `solvency::SolvencyProfile`.
-// TODO(lead): implement for models::profile::Profile. The three catalogue /
-// fleet hooks stand in for models::trucks::TRUCK_CATALOG and
-// models::carrier_fleet::equipment_hold_clause until those land; replace the
-// trait calls with the real functions then.
+// Implemented for `Profile` in `profile/traits.rs`, where the catalogue and
+// fleet hooks call `models::trucks` and `models::carrier_fleet`.
 pub trait StandingProfile {
     /// `profile.career.reputation`.
     fn career_reputation(&self) -> f64;
@@ -402,11 +400,9 @@ pub trait StandingProfile {
     /// `profile.truck`: the owner-operator's tractor, or the assignment key.
     fn truck(&self) -> &str;
     /// `TRUCK_CATALOG.get(key).price`, 0.0 for an unknown key.
-    // TODO(lead): wire to models::trucks::TRUCK_CATALOG.
     fn truck_catalog_price(&self, key: &str) -> f64;
     /// `carrier_fleet.equipment_hold_clause(profile)`: the clause saying the
     /// yard is holding a truck back, or `""`.
-    // TODO(lead): wire to models::carrier_fleet::equipment_hold_clause.
     fn equipment_hold_clause(&self) -> String {
         String::new()
     }
@@ -963,7 +959,7 @@ pub fn record_consequence_text<P: StandingProfile + ?Sized>(profile: &P) -> Stri
     if record_past_termination_floor(record, game_hours) {
         if profile.carrier_key() == LAST_CHANCE_CARRIER_KEY {
             return format!(
-                "The carrier's insurer will not carry a record like that; {} keeps you on, on \
+                "The carrier's insurer will not carry a record like that. {} keeps you on, on \
                  probation, until {}.",
                 LAST_CHANCE_CARRIER_NAME,
                 record_clears_text(profile, |citations, serious| {
@@ -1074,7 +1070,7 @@ pub fn standing_way_back<P: StandingProfile + ?Sized>(profile: &P) -> String {
         let record = record_of(profile);
         return format!(
             "Your driving record is what is holding it: {}. The carrier's review keeps it \
-             there until {}; keep the record clean until then.",
+             there until {}. Keep the record clean until then.",
             record_window_phrase(record, profile.game_hours()),
             record_review_clears_text(profile)
         );

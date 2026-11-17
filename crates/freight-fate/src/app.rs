@@ -34,10 +34,10 @@ use crate::states::base::{InputEvent, Key, Mods, State};
 use crate::states::driving::DrivingState;
 use crate::states::main_menu::{
     opens_input_practice, opens_input_practice_pad, ConfirmQuitState, InputPracticeState,
-    TouchPracticeState,
 };
 use crate::touch::Gesture;
 
+mod ambient;
 pub mod boot_timing;
 mod co_driver;
 pub mod context;
@@ -237,6 +237,27 @@ pub struct DrivingObservation {
     pub cruise_set_mph: Option<f64>,
     /// The speed keeper's hold, when it has the zone.
     pub keeper_mph: Option<f64>,
+    /// Whether the keeper is matching a slower vehicle ahead.
+    pub keeper_following: bool,
+    /// The fatigue band the road last cued.
+    pub alertness: ff_core::sim::alertness::Alertness,
+    /// The nod-off machine: where it stands, its timer and the misses.
+    pub nod: ff_core::sim::alertness::NodState,
+    /// In a runaway or not.
+    pub runaway: ff_core::sim::runaway::Runaway,
+    /// A coffee or drink's lift owed back, and the game hours until it is.
+    pub lift_owed: Option<(f64, f64)>,
+    /// This load's rest call to dispatch; `None` with no load on.
+    pub rest_call: Option<ff_core::sim::fatigue_costs::RestCall>,
+    /// The stop at the facility gate, while the trip has ended at one.
+    pub gate: Option<ff_core::sim::arrival_gate::GateStop>,
+    /// What the driver has been told about the no engine brake zone ahead
+    /// or under the truck.
+    pub jake_zone: &'static str,
+    /// What a double tap at the wheel answers right now.
+    pub road_offer: crate::touch::RoadOffer,
+    /// The clutch a touch shift works in a manual truck.
+    pub touch_clutch: ff_core::sim::touch_clutch::TouchClutch,
 }
 
 /// The only capability a windowed input policy receives for one frame.
@@ -255,6 +276,11 @@ fn staged_road_handoff(description: &str, start_mi: f64) -> String {
 impl PlayerInputFrame<'_> {
     pub fn driving_observation(&self) -> Option<DrivingObservation> {
         self.app.driving_observation()
+    }
+
+    /// How a touch gesture is read on the screen on top.
+    pub fn touch_mode(&self) -> crate::touch::TouchMode {
+        self.app.touch_mode()
     }
 
     /// The player's own shortcut table, for a tool call that names a
@@ -361,6 +387,55 @@ impl PlayerInputFrame<'_> {
     /// terminal on it, whatever screen was up. Scenario staging like
     /// `stage_road_hit`: it swaps the whole screen stack for a fresh
     /// terminal, so the board, garage and clock read the new career.
+    /// The agent server's `hazard` tool: fire a catalog hazard by name on
+    /// the drive under way. The event lands through the normal route-event
+    /// path on the next frame, so the call, the assists and the outcome are
+    /// exactly a drawn hazard's.
+    pub fn stage_hazard(&mut self, name: &str) -> Result<String, String> {
+        let state = self
+            .app
+            .state()
+            .ok_or_else(|| "not at the wheel: no screen is up".to_string())?;
+        let mut state = state.borrow_mut();
+        let drive = state
+            .as_any_mut()
+            .downcast_mut::<crate::states::driving::DrivingState>()
+            .ok_or_else(|| "not at the wheel (a menu or stop screen is up)".to_string())?;
+        if drive.ramp_mi.is_some() {
+            return Err("on a ramp or a facility road, where hazards pass you by".to_string());
+        }
+        let staged = drive.trip.stage_hazard(name)?;
+        Ok(format!(
+            "Staged {staged} at mile {:.2}; it fires on the next rolling frame, so listen \
+             for the call.",
+            drive.trip.position_mi
+        ))
+    }
+
+    /// The agent server's `nod` tool: open a nod-off's reaction window on
+    /// the drive under way, on its next rolling frame, with the warning,
+    /// the reaction check and the outcome a counted nod has.
+    pub fn stage_nod(&mut self) -> Result<String, String> {
+        let state = self
+            .app
+            .state()
+            .ok_or_else(|| "not at the wheel: no screen is up".to_string())?;
+        let mut state = state.borrow_mut();
+        let drive = state
+            .as_any_mut()
+            .downcast_mut::<crate::states::driving::DrivingState>()
+            .ok_or_else(|| "not at the wheel (a menu or stop screen is up)".to_string())?;
+        if drive.co_driver_driving() {
+            return Err("the co-driver has the wheel".to_string());
+        }
+        drive.nod_staged = true;
+        Ok(format!(
+            "Staged a nod at mile {:.2}, {} missed in a row so far; it opens on the next \
+             rolling frame, so listen for the warning.",
+            drive.trip.position_mi, drive.nod.misses
+        ))
+    }
+
     pub fn stage_scenario(
         &mut self,
         scenario: &crate::playtest::scenario::Scenario,
@@ -402,7 +477,14 @@ impl PlayerInputFrame<'_> {
             text.push(' ');
             text.push_str(&notes.join(" "));
         }
-        text.push_str(" The terminal menu is open; listen for it.");
+        if scenario.touch_gestures {
+            self.app
+                .push_state(crate::states::main_menu::TouchGesturesState::new());
+            self.app.ctx.run_deferred();
+            text.push_str(" Touch gestures is open over the terminal; listen for it.");
+        } else {
+            text.push_str(" The terminal menu is open; listen for it.");
+        }
         Ok(text)
     }
 
@@ -570,7 +652,8 @@ impl App {
             settings.controller_enabled,
             std::env::var_os(crate::controller::NO_CONTROLLER_ENV).as_deref(),
         );
-        let controller = match &shell {
+        let detection = Instant::now();
+        let mut controller = match &shell {
             Some(shell) => ControllerManager::new(
                 pads_allowed,
                 settings.haptics_enabled,
@@ -578,6 +661,7 @@ impl App {
             ),
             None => ControllerManager::detached(pads_allowed, settings.haptics_enabled),
         };
+        crate::controller::sdl::redo_a_stalled_detection(&mut controller, detection.elapsed());
         boot_timing::mark("controller");
         let clipboard: Box<dyn Clipboard> = match &shell {
             Some(shell) => Box::new(shell.clipboard()),
@@ -731,9 +815,14 @@ impl App {
     fn driving_observation(&self) -> Option<DrivingObservation> {
         let state = self.state()?;
         let state = state.borrow();
-        let drive = state
-            .as_any()
-            .downcast_ref::<crate::states::driving::DrivingState>()?;
+        // A Driving School lesson is a drive in a wrapper.
+        let any = state.as_any();
+        let drive = any
+            .downcast_ref::<crate::states::driving::DrivingState>()
+            .or_else(|| {
+                any.downcast_ref::<crate::states::driving_school::SchoolDrivingState>()
+                    .map(crate::states::driving_school::SchoolDrivingState::drive)
+            })?;
         Some(DrivingObservation {
             position_mi: drive.trip.position_mi,
             air_ready: drive.trip.truck.air_ready(),
@@ -752,6 +841,25 @@ impl App {
             speed_limit_mph: drive.enforced_limit_prev,
             cruise_set_mph: drive.cruise_mph,
             keeper_mph: drive.keeper_mph,
+            keeper_following: drive.keeper_follow.following(),
+            alertness: drive.alertness,
+            nod: drive.nod,
+            runaway: drive.runaway,
+            lift_owed: self
+                .ctx
+                .profile
+                .as_ref()
+                .and_then(|p| match p.stimulant_loan() {
+                    ff_core::sim::stimulant::Loan::Open { amount, due_h, .. } => {
+                        Some((amount, due_h - drive.absolute_game_hour(&self.ctx, None)))
+                    }
+                    ff_core::sim::stimulant::Loan::Clear => None,
+                }),
+            rest_call: drive.rest_call_state(),
+            gate: drive.arrival_gate_query_text(&self.ctx).map(|_| drive.gate),
+            jake_zone: drive.jake_zone_notice.key(),
+            road_offer: drive.road_offer(&self.ctx),
+            touch_clutch: drive.touch_clutch,
         })
     }
 
@@ -883,104 +991,110 @@ impl App {
     }
 
     /// Hand a touch gesture to the active state, or press its key when the
-    /// state leaves it to the keyboard table.
+    /// state leaves it to the keyboard table. What happens is chosen by the
+    /// screen's touch mode alone ([`crate::touch::route`]).
     ///
     /// Spoken hints follow: from here on they name gestures, until a key or
     /// a controller button is pressed.
     pub fn dispatch_gesture(&mut self, gesture: Gesture) {
-        if matches!(
-            gesture,
-            Gesture::KeyboardConnected | Gesture::KeyboardDisconnected
-        ) {
+        use crate::touch::Route;
+        let mode = self.touch_mode();
+        let route = crate::touch::route(mode, gesture);
+        if route == Route::Keyboard {
             self.ctx.controller.hardware_keyboard = gesture == Gesture::KeyboardConnected;
             return;
         }
         self.ctx.controller.note_touch();
-        if self
-            .ctx
-            .state()
-            .is_some_and(|state| state.borrow().as_any().is::<TouchPracticeState>())
-        {
-            let state = self
-                .ctx
-                .state()
-                .expect("the touch practice state is still on top");
-            let taken = state.borrow_mut().handle_gesture(&mut self.ctx, gesture);
-            self.ctx.run_deferred();
-            if taken {
-                return;
+        match route {
+            Route::Keyboard | Route::Nothing => {}
+            Route::Practice => {
+                self.state_takes_gesture(gesture);
             }
-        }
-        let driving = self
-            .ctx
-            .state()
-            .is_some_and(|state| state.borrow().as_any().is::<DrivingState>());
-        // Gas may release the parking brake first, and a deep swipe at a stop
-        // is the parking brake: the drive answers those before any key.
-        if driving
-            && matches!(
-                gesture,
-                Gesture::HoldUpperBegan | Gesture::DeepSwipeDownBegan
-            )
-        {
-            let state = self.ctx.state().expect("the drive is still on top");
-            let taken = state.borrow_mut().handle_gesture(&mut self.ctx, gesture);
-            self.ctx.run_deferred();
-            if taken {
-                return;
-            }
-        }
-        // Full lane keeping leaves the lanes to the flicks alone.
-        if driving && gesture.steers() && self.ctx.settings.lane_is_automated() {
-            self.ctx
-                .say("Lane keeping is on full. Flick left or right to change lanes.");
-            return;
-        }
-        if let Some(action) = match gesture {
-            Gesture::EmergencyBrakeHoldBegan => Some(crate::bindings::Action::EmergencyBrake),
-            Gesture::DeepSwipeDownBegan if driving => Some(crate::bindings::Action::EmergencyBrake),
-            Gesture::HornHoldBegan => Some(crate::bindings::Action::Horn),
-            Gesture::StillHoldBegan if driving => Some(crate::bindings::Action::Straighten),
-            _ => None,
-        } {
-            if let Some(previous) = self.touch_bound_hold.take() {
-                self.handle_event(&InputEvent::KeyUp {
-                    key: previous.key,
-                    mods: previous.mods,
-                });
-            }
-            if let Some(chord) = self.ctx.bindings.chords(action).into_iter().next() {
-                self.touch_bound_hold = Some(chord);
-                self.handle_event(&InputEvent::KeyDown {
-                    key: chord.key,
-                    mods: chord.mods,
-                    text: None,
-                    repeat: false,
-                });
-            }
-            return;
-        }
-        if gesture == Gesture::HoldEnded {
-            if let Some(chord) = self.touch_bound_hold.take() {
-                self.handle_event(&InputEvent::KeyUp {
-                    key: chord.key,
-                    mods: chord.mods,
-                });
-                return;
-            }
-        }
-        let events = if gesture.held_key().is_some() {
-            gesture.hold_events()
-        } else {
-            if let Some(state) = self.ctx.state() {
-                let taken = state.borrow_mut().handle_gesture(&mut self.ctx, gesture);
-                self.ctx.run_deferred();
-                if taken {
-                    return;
+            Route::StopSpeech => self.ctx.stop_speech(),
+            Route::Key(key) => self.press_touch_keys(crate::touch::key_press(key)),
+            Route::Screen(key) => {
+                if !self.state_takes_gesture(gesture) {
+                    if let Some(key) = key {
+                        self.press_touch_keys(crate::touch::key_press(key));
+                    }
                 }
             }
-            gesture.key_events()
+            Route::HoldKey(_) => self.press_touch_keys(gesture.hold_events()),
+            // Full lane keeping leaves the lanes to the flicks alone.
+            Route::Steer(_) if self.ctx.settings.lane_is_automated() => {
+                self.ctx
+                    .say("Lane keeping is on full. Flick left or right to change lanes.");
+            }
+            Route::Steer(_) => self.press_touch_keys(gesture.hold_events()),
+            // Gas may release the parking brake first: the drive answers
+            // before the key goes down.
+            Route::DriveThenHoldKey(_) => {
+                if !self.state_takes_gesture(gesture) {
+                    self.press_touch_keys(gesture.hold_events());
+                }
+            }
+            // A deep swipe at a stop is the parking brake; moving, it holds
+            // the emergency brake.
+            Route::DriveThenBoundHold(action) => {
+                if !self.state_takes_gesture(gesture) {
+                    self.hold_touch_binding(action);
+                }
+            }
+            Route::BoundHold(action) => self.hold_touch_binding(action),
+            Route::Lift => {
+                if let Some(chord) = self.touch_bound_hold.take() {
+                    self.handle_event(&InputEvent::KeyUp {
+                        key: chord.key,
+                        mods: chord.mods,
+                    });
+                } else {
+                    self.state_takes_gesture(gesture);
+                }
+            }
+        }
+    }
+
+    /// The touch mode of the screen on top; a menu when there is none.
+    pub fn touch_mode(&self) -> crate::touch::TouchMode {
+        self.ctx
+            .state()
+            .map_or(crate::touch::TouchMode::Menu, |state| {
+                state.borrow().touch_mode()
+            })
+    }
+
+    /// Offer `gesture` to the screen on top; `true` when it took it.
+    fn state_takes_gesture(&mut self, gesture: Gesture) -> bool {
+        let Some(state) = self.ctx.state() else {
+            return false;
         };
+        let taken = state.borrow_mut().handle_gesture(&mut self.ctx, gesture);
+        self.ctx.run_deferred();
+        taken
+    }
+
+    /// Hold the chord the player has `action` on, letting go of any other
+    /// bound hold first, until the finger lifts.
+    fn hold_touch_binding(&mut self, action: crate::bindings::Action) {
+        if let Some(previous) = self.touch_bound_hold.take() {
+            self.handle_event(&InputEvent::KeyUp {
+                key: previous.key,
+                mods: previous.mods,
+            });
+        }
+        if let Some(chord) = self.ctx.bindings.chords(action).into_iter().next() {
+            self.touch_bound_hold = Some(chord);
+            self.handle_event(&InputEvent::KeyDown {
+                key: chord.key,
+                mods: chord.mods,
+                text: None,
+                repeat: false,
+            });
+        }
+    }
+
+    /// Key events a gesture stands for, marked as the screen's.
+    fn press_touch_keys(&mut self, events: Vec<InputEvent>) {
         self.ctx.controller.touch_keys = true;
         for event in events {
             self.handle_event(&event);
@@ -1308,6 +1422,10 @@ impl App {
                 .is_ok_and(|state| state.captures_text_input())
         });
         shell.set_text_field(open);
+        let practice = self.touch_mode() == crate::touch::TouchMode::Practice;
+        if let Some(shell) = self.shell.as_mut() {
+            shell.set_report_travel(practice);
+        }
     }
 
     /// Main loop. `max_frames` runs that many frames then exits cleanly;
@@ -1583,7 +1701,11 @@ pub fn main_with(options: CliOptions) -> i32 {
     // Before anything is read from the game folder: an update stopped
     // part-way is put back first (the main menu says so).
     crate::updater::note_interrupted_update();
+    // The crash marker: set now, cleared on the way out, so a run that
+    // ends any other way is offered as a report next time.
+    crate::problem_reports::begin_session(&ff_core::settings::data_dir());
     let code = run_game(&options);
+    crate::problem_reports::end_session();
     guard.release();
     boot_timing::mark("quit: done");
     code

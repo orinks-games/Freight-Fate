@@ -38,7 +38,9 @@ use crate::touch::Gesture;
 mod menu;
 
 pub use menu::{
-    DynamicLabel, Label, Menu, MenuAction, MenuCore, MenuItem, SimpleMenuState, DEFAULT_INTRO_HELP,
+    default_announce_entry, default_enter, default_go_back, default_handle_event,
+    default_handle_gesture, DynamicLabel, Label, Menu, MenuAction, MenuCore, MenuItem,
+    SimpleMenuState, DEFAULT_INTRO_HELP, TOUCH_INTRO_HELP,
 };
 
 // -- spoken helpers ---------------------------------------------------------------
@@ -231,6 +233,12 @@ pub trait State: AsAny {
     fn exit(&mut self, _ctx: &mut GameContext) {}
 
     fn handle_event(&mut self, _ctx: &mut GameContext, _event: &InputEvent) {}
+
+    /// What kind of screen a touch gesture lands on, which is all the app
+    /// reads to route it (`crate::touch::route`). Most screens are menus.
+    fn touch_mode(&self) -> crate::touch::TouchMode {
+        crate::touch::TouchMode::Menu
+    }
 
     /// A touch gesture this screen answers itself. `false` (every screen but
     /// the drive) has the app press the gesture's key instead.
@@ -631,6 +639,15 @@ impl State for TimedMessageState {
         ) {
             ctx.say(&self.status);
         }
+    }
+
+    /// A tap reads the status again, as Enter does.
+    fn handle_gesture(&mut self, ctx: &mut GameContext, gesture: Gesture) -> bool {
+        if gesture != Gesture::Tap {
+            return false;
+        }
+        ctx.say(&self.status);
+        true
     }
 
     fn update(&mut self, ctx: &mut GameContext, dt: f64) {

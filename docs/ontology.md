@@ -164,6 +164,7 @@ time is a view, via `Trip.local_hour`.
 | States | `State` and subclasses | `states/` |
 | Playtest levers | -- | `playtest_levers.py` |
 | Keyboard shortcuts and controller buttons | `Action`, `Chord`, `PadChord`, `KeyBindings` | `bindings.rs` (game crate) |
+| Problem report (spoken "report"; the row is "Report a problem", the file is "the game log") | `Report`, `Session` (Hearken's `hearken-report`) | `problem_reports.rs`, `states/problem_report.rs` (game crate) |
 
 ### Roadside colour
 
@@ -230,6 +231,9 @@ from the words, and synonyms cost them a re-read.
 | The haul contract | job | gig, run, assignment | `Job` |
 | A driving control moved to another key | keyboard shortcut (the screen), the key it is on ("Engine on or off: E") | binding, mapping, keybind, hotkey | `bindings::Action`, `KeyBindings` |
 | The same on the pad | controller button; right bumper plus «button» for the second layer | modified button, layer two, chord | `bindings::PadChord` |
+| The list of every one-shot driving command by name, F2 or a three-finger tap at the wheel | driving commands (the screen title); "the three-finger tap list" in a touch prompt | command menu, action list, quick menu | `DrivingCommandsState` |
+| One of the fixed groups in the driving commands, in this order after "Status menu" | Speed and cruise; Road and stops; Where am I; Truck; Gears and engine brake; Radio and CB; Hours and clock | category, section, submenu, folder | `driving_menu_states::commands::Group` |
+| The clutch a touch shift presses and lets out by itself in a manual truck | (never spoken: the player hears the gear, then its clunk as it takes) | auto clutch, clutch assist, smart clutch | `ff_core::sim::touch_clutch::TouchClutch` |
 | The screen where every key or button names its driving command and runs nothing | key and button practice; the menu row is "Practice keys and buttons"; a press answers "«key»: «command»." | keyboard tester, input test, learn mode, key describer | `InputPracticeState` |
 | An officer letting a driver below level 10 off a minor violation, with no fine and nothing on the record | warning ("gives you a warning", "lets you go with a warning") | rookie pass, grace, free ticket | `enforcement::new_driver_warned`, `DrivingState::new_driver_warning` |
 | One booked citation or violation with its reason | citation / serious violation / major offense / safety incident, then day, clock, reason, fine, place | ticket entry, infraction, offense record, strike | `enforcement::RecordEntry`, `DrivingRecord.entries` |
@@ -267,8 +271,10 @@ from the words, and synonyms cost them a re-read.
 | Where a road narrows: a lane ends and traffic merges | lane ending ("Lane ending, a quarter mile. Merge left.") | taper, gore, lane drop, squeeze | `Trip::traffic_pressure_message` (`construction_merge`) |
 | The truck driving without a load to a pickup or a new city | driving empty; without a trailer when the trailer is dropped | deadhead, bobtail (flavor text such as billboards and Big Buck's may keep them) | `Job.bobtail`, `deadhead_approach` |
 | A load's full pay before costs and wages | pay for the load | gross, carrier gross, direct gross, gross revenue | `business::pay_label` |
+| One vehicle in the traffic, by kind, as the traffic calls name it ("Merging SUV, 0.4 miles.", "Slow tanker 0.3 miles ahead") | car, SUV, pickup, minivan, sports car, motorcycle, RV, bus, box truck, semi, tanker, car hauler, service vehicle, state trooper; with "an" before SUV and RV | sedan, truck (on its own it is the player's), tractor-trailer, 18-wheeler, big rig, motorhome, camper, coach, fuel truck | `FREEWAY_CLASSES`, `rig_class`, `TrafficVehicle::vehicle_class`, `vehicle_takes_an` |
 | Room cruise leaves to the vehicle ahead | following gap, always with its seconds ("close, two and a half seconds") | following distance, headway, gap on its own (bare "gap" is the lane row below, and the two are different things) | `settings.acc_following_gap`, `ACC_GAP_CHOICES` |
 | Room to move into the next lane over | the lane is open ("right lane open"); held by somebody, it is blocked ("right lane blocked by a semi"); at a hazard call the same words name the lane a dodge can go ("Left lane open.", "Either lane open.", "No lane open."; on a road three wide, the neighbour by the L key's name for it, "Middle lane open.") | clear (that is what the truck is clear OF -- the vehicle passed), safe, free, gap, "open lane on the left" | `Trip::open_side_at`, `Trip::lane_blocker_at`, `states/driving_lane_gap.rs` |
+| Debris the truck takes rather than stops for (owner, 2026-11-09). Small debris, tire tread and loose junk, is called as a heads-up with the lane answer and driven over: "Tire debris. Left lane open." Big debris, a ladder, lumber, a mattress, boxes, a tarp, tumbleweeds, keeps the hazard call and is taken at 30 or under with no damage. Rockfall, a spun-out car and a stopped vehicle are hard objects and keep the stop | tire debris, debris, the thing's own noun ("the ladder"); "taken at 30" | tread, carcass, road gator, obstacle, "nearly stop" (the retired hint line) | `HazardDef::debris`, `DebrisClass`, `small_debris_body`, `small_debris_call`, `DrivingState::debris_outcome` |
 | Lane keeping on full moving into the open lane around a slow vehicle the hazard call named, and back to the right lane once it is behind | passing ("Passing on the left.", "In the left lane, passing the slow car.") | overtaking, going around, swerving (the driver's own dodge), dodge | `DrivingState::pass_for_hazard`, `update_pass_return`, `passing_hazard_call` |
 | Incidents reported ahead | delays, road reports | traffic (unqualified) | `RealTrafficProvider` |
 | A parking space at a stop | parking | slot, spot | `TruckParkingLocation` |
@@ -296,7 +302,7 @@ from the words, and synonyms cost them a re-read.
 | The in-game time of day (truck-local with a named zone in accelerated modes; computer-anchored and spoken as "local game time" in Real time) | clock | local time, game time | `Trip.local_hour`, `clock_text` |
 | When the load is due | deadline | due time, drop time (the appointment is the named hour) | `Job.deadline_game_h` |
 | The retarder | engine brake; "jake" in short control feedback ("Jake on, stage two") | retarder | `TruckState.engine_brake_stage` |
-| A stretch of road where a town bans the engine brake | no engine brake zone | jake brake zone, engine brake restriction, quiet zone | `Trip.engine_brake_ban_at` |
+| A stretch of road where a town bans the engine brake | no engine brake zone ("End of no engine brake zone." when one the driver heard about ends) | jake brake zone, engine brake restriction, quiet zone | `Trip.engine_brake_ban_at`, `jake_zone::ZoneNotice` |
 | The speed this truck, at its weight, can hold a steep downgrade at without overheating its brakes ("Descent control holding 45 miles per hour." / D: "Safe speed 45 miles per hour for the grade.") | the number descent control holds; "safe speed ... for the grade" on D | weight-specific speed, grade speed, runaway speed, descent speed | `TruckState::safe_descent_mph`, `DrivingState::descent_safe_mph` |
 | A posted height restriction on the corridor | low bridge | low clearance, height limit, clearance restriction | `RouteRestriction.kind_label` |
 | A posted weight restriction on the corridor | weight limit | max weight, tonnage limit, weight restriction | `RouteRestriction.kind_label` |
@@ -320,7 +326,7 @@ from the words, and synonyms cost them a re-read.
 | What the truck does after a street turn taken too fast: drives on, circles one block, and comes out on the street it missed, with the time charged | around the block ("Going around the block.") | safe turnaround (that is the highway loop-back), loop, reroute | `handle_missed_turn`, `TURN_MISS_LOOP_MIN` |
 | The give-way control at a ramp terminal: slow for the gap, stop only if the road is not clear | yield ("Yield at ramp end", "Through the yield in a gap") | give way (the OSM tag, not a spoken word), yield sign as the noun in short cues | `_ramp_control == "yield"`, `YIELD_ROLL_MPH` |
 | The circular terminal a ramp can end at, played by yield rules against circulating traffic | roundabout | traffic circle, rotary, circle | `_ramp_control == "roundabout"` |
-| A signal OSM maps at an intersection on a facility's streets, played by the ramp terminal's rules (off in 1.9, `STREET_CONTROLS_IN_PLAY`) | traffic light ("Traffic light ahead. Light red.") | signal, stoplight, street light, ramp light | `driving_events/street_controls.rs`, `street_control_kind == "signal"` |
+| A signal OSM maps at an intersection on a facility's streets, played by the ramp terminal's rules (off in 1.9, `STREET_CONTROLS_IN_PLAY`) | traffic light ("Light red.") | signal, stoplight, street light, ramp light | `driving_events/street_controls.rs`, `street_control_kind == "signal"` |
 | A public street between a ramp and a facility's or road stop's driveway, each at its own posted limit. Spoken by its own name, from the turn-by-turn, or not at all: a street is not a zone ("Speed limit 55.", "Cruise holding 40 miles per hour.") | the street's name | facility access road, access road, access road zone, facility access road zone (the zone reasons `STREET_ZONE` and `STOP_STREET_ZONE`, never spoken) | `spoken_zone`, `is_street_zone_reason`, `Trip::street_zones` |
 | A stop sign every approach to the intersection stops at: the truck's turn comes after its own stop, with no gap to wait for | all-way stop ("All-way stop ahead.") | four-way stop, 4-way, multiway stop | `street_control_kind == "all_way_stop"` |
 | Where a facility's streets leave the public road for its own service or private way (the manual's word; the drive names the turn onto it) | driveway | entrance, property line, gate (that is the check-in stop at the end of the yard) | `Driveway`, `Trip::driveway_mi`, `Leg::local_yard` |
@@ -370,8 +376,16 @@ from the words, and synonyms cost them a re-read.
 | What a lifetime disqualification does to the career: the driving stops, the save stays readable | the career is over; "Career ended" on the public profile | game over, permadeath, deleted, wiped | `enforcement.career_ended`, `careerEnded` |
 | The player's own removal of an ended career's save and cloud backups | close out this career | delete career (that is the title-menu action for any career), wipe, purge | `CloseOutCareerState` |
 | An offense heavy enough to disqualify a CDL outright | major offense | felony (as the game's own noun), big one | `DrivingRecord.record_major_offense` |
+| The fatigue band below 40: nothing to hear | Rested | fresh, awake, alert | `Alertness::Rested` |
+| The fatigue band from 40 to 60, entered with one quiet yawn | Worn ("Fatigue: 45 percent, worn" in the readouts) | tired, weary, sleepy | `Alertness::Worn` |
+| The fatigue band from 60 to 80, entered with "Getting drowsy." | Drowsy | sleepy, tired, fatigued | `Alertness::Drowsy` |
+| The fatigue band from 80 up, where the nod-offs begin | Severe | exhausted, dangerously tired, critical | `Alertness::Severe` |
+| The hours of a run that fall between 9 PM and 5 AM local, leaving now and driving straight through | night driving ("About 4 hours of night driving.") | night hours, overnight time, dark hours | `hos::night_driving_line` |
+| What a coffee or energy drink takes off fatigue at once, owed back when it wears off | lift | boost, loan, credit | `sim::stimulant::Loan` |
 | Running off the road asleep | fatigue event | microsleep (that is the warning, not the event), nod-off | `DrivingRecord.record_fatigue_event` |
 | How far dispatch will work with you right now | dispatch trust | standing, rep level, tier | `enforcement.standing_band` |
+| Calling dispatch while drowsy or severe on a load to move the appointment for a night's sleep, once per load, at the price of the on-time bonus | rest call (the dispatch call's row reads "Too tired to drive safely") | sleep call, fatigue call, tired call, extension | `sim::fatigue_costs::RestCall` |
+| What a load pays with no on-time bonus, after a rest call | base rate | flat rate, reduced pay, no-bonus rate | `sim::fatigue_costs::RestCall::Used` |
 | Everything the driver is behind by, cash and balance together | debt; "what you owe" in a sentence | negative balance, in the red, in the hole, arrears | `solvency.debt_owed` |
 | Charges a settlement could not cover, carried to the next one | balance owed | tab, IOU, outstanding fines, arrears | `Profile.fines_owed` |
 | The figure debt is not allowed to pass | ceiling | limit, cap, threshold, max | `solvency.debt_ceiling` |
@@ -443,7 +457,8 @@ from the words, and synonyms cost them a re-read.
 | The ramp signal going red | Red light | ramp red, stop signal | `events/ramp_light_red` |
 | Something in the truck's path that needs a real reaction now | Hazard warning | obstacle warning, danger cue | `events/hazard_warning` |
 | The hazard now behind the truck | Hazard clear | hazard passed, all clear | `events/hazard_clear` |
-| The truck striking a hazard it did not clear (the failure half of the dodge outcome pair) | Collision | crash, impact, hit | `vehicle/collision` |
+| The truck striking a hazard it did not clear (the failure half of the dodge outcome pair), and big debris taken above 30 ("Collision with the ladder. Damage 5 percent.") | Collision | crash, impact, hit | `vehicle/collision` |
+| Small debris going under the wheels: the whole outcome when nothing broke, followed by the collision line when the roll cost damage | Debris thump (the road seam sound, louder) | bump, run over | `vehicle/road_joint` in `debris_outcome` |
 | Roadwork ahead: the posted limit drops and a lane may close | Construction zone | work zone, roadwork cue | `events/construction_zone` |
 | A National Weather Service warning active on the road, spoken with the Service's own product name after it ("Weather alert: High Wind Warning, gusts to 60 miles per hour") | Weather alert | weather warning (as the noun), advisory, watch, bulletin, NWS alert | `sim/real_weather_alerts.rs`, `DrivingState::sync_weather_alerts`, on with the `real_weather` setting |
 | The traffic ahead coming down in speed | Traffic slowing | slowdown cue, brake lights ahead | `events/traffic_slowing` |

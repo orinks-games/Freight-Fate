@@ -1046,7 +1046,7 @@ impl PlaytestHarness {
                     drive.truck_mut().velocity_mps = 0.0;
                     drive.truck_mut().set_parking_brake();
                     drive.handle_arrival_gate(ctx);
-                    drive.arrival_full_stop_said
+                    drive.gate.is_holding()
                 });
                 if full_stop {
                     self.press_key(Key::Return, None);

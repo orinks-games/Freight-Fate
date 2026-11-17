@@ -16,8 +16,12 @@ use crate::states::driving_menu_states::DriveRef;
 pub const FALLBACK_MPH: f64 = 55.0;
 
 const STOP_DETAIL_INTRO_HELP: &str =
-    "Up and down arrows review each line; Home and End jump to the first and last. Enter repeats \
+    "Up and down arrows review each line. Home and End jump to the first and last. Enter repeats \
      a line or activates a button. Escape returns to the map.";
+
+const STOP_DETAIL_TOUCH_HELP: &str =
+    "Flick right or left to review each line, and flick up or down with three fingers to jump to \
+     the first and last. Flick down with two fingers to return to the map.";
 
 /// Full details for one upcoming route stop, opened from the Map screen.
 ///
@@ -32,7 +36,9 @@ pub struct StopDetailState {
 impl StopDetailState {
     pub fn new(driving: DriveRef, stop: RoadStop) -> Self {
         StopDetailState {
-            menu: MenuCore::new("Stop details").with_intro_help(STOP_DETAIL_INTRO_HELP),
+            menu: MenuCore::new("Stop details")
+                .with_intro_help(STOP_DETAIL_INTRO_HELP)
+                .with_touch_help(STOP_DETAIL_TOUCH_HELP),
             driving,
             stop,
         }
@@ -161,6 +167,7 @@ impl Menu for StopDetailState {
                     ctx.say(&spoken)
                 })
                 .help("Enter repeats this line.")
+                .touch_help("Double tap repeats this line.")
             })
             .collect();
         let stop = self.stop.clone();
@@ -182,7 +189,7 @@ impl Menu for StopDetailState {
             );
         } else {
             let move_note = if planned.is_some() {
-                " A planned stop already exists; you confirm moving it here."
+                " Your current planned stop moves here after you confirm."
             } else {
                 ""
             };
@@ -191,9 +198,7 @@ impl Menu for StopDetailState {
                     format!("Plan to stop at {}", self.stop.name),
                     |s: &mut Self, ctx| s.plan(ctx),
                 )
-                .help(format!(
-                    "Plans this stop; announcements call it your planned stop.{move_note}"
-                ))
+                .help(format!("Makes this your planned stop.{move_note}"))
                 // `plan` (or the move confirmation) plays its own chime.
                 .select_sound(None),
             );
@@ -207,13 +212,17 @@ impl Menu for StopDetailState {
 
     fn announce_entry(&mut self, ctx: &mut GameContext) {
         let current = self.current_text(ctx);
-        ctx.say(&format!("Stop details. {STOP_DETAIL_INTRO_HELP} {current}"));
+        if ctx.touch_hints() {
+            ctx.say(&format!("Stop details. {STOP_DETAIL_TOUCH_HELP} {current}"));
+        } else {
+            ctx.say(&format!("Stop details. {STOP_DETAIL_INTRO_HELP} {current}"));
+        }
     }
 
     fn current_help(&self, ctx: &GameContext) -> String {
         let core = self.menu();
         let base = if core.items.is_empty() {
-            core.intro_help.clone()
+            core.intro(ctx)
         } else {
             let item = &core.items[core.index];
             let help = item.help_text(self, ctx);
@@ -223,7 +232,11 @@ impl Menu for StopDetailState {
                 help
             }
         };
-        format!("{STOP_DETAIL_INTRO_HELP} {base}")
+        if ctx.touch_hints() {
+            format!("{STOP_DETAIL_TOUCH_HELP} {base}")
+        } else {
+            format!("{STOP_DETAIL_INTRO_HELP} {base}")
+        }
     }
 }
 

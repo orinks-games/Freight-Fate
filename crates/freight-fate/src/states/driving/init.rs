@@ -273,7 +273,13 @@ impl DrivingState {
         let air_ready = trip.truck.air_ready();
         let air_low_warning = trip.truck.air_low_warning();
         let spring_brakes_active = trip.truck.spring_brakes_active();
-        let status_text = format!("Press {} to start the engine.", ctx.control_hint("engine"));
+        let status_text = if ctx.settings.driving_hints && ctx.touch_hints() {
+            "Turn two fingers right to start the engine.".to_string()
+        } else if ctx.settings.driving_hints {
+            format!("Press {} to start the engine.", ctx.control_hint("engine"))
+        } else {
+            "Engine off.".to_string()
+        };
 
         let cab = ff_core::sim::cab::CabState::for_outside(trip.weather.temperature_c());
 
@@ -345,17 +351,15 @@ impl DrivingState {
             hos_plan_hint_pending: None,
             enforcement_events: HashSet::new(),
             out_of_service_count: 0,
-            drowsy_said: false,
-            severe_said: false,
+            alertness: Alertness::Rested,
             fatigue_cue_gm: 0.0,
-            microsleep_deadline: None,
-            microsleep_gm: 0.0,
-            microsleep_cooldown_gm: 0.0,
-            microsleep_misses: 0,
+            nod: NodState::default(),
+            runaway: Default::default(),
+            nod_staged: false,
+            rest_call: RestCall::Available,
             hazard_deadline: None,
             hazard_names: Vec::new(),
             horn_scare_tried: false,
-            hazard_slow_hint_said: false,
             automatic_braking_announced: false,
             automatic_braking_escalated: false,
             aeb_brake: 0.0,
@@ -410,8 +414,8 @@ impl DrivingState {
             jake_violation_deadline_s: None,
             jake_citation_latched: false,
             jake_zone_grace_used: HashSet::new(),
-            jake_zone_warned_key: None,
-            assist_zone_cue_key: None,
+            jake_zone_notice: Default::default(),
+            touch_clutch: Default::default(),
             pull_over: None,
             pull_over_start_mi: 0.0,
             pull_over_signaled: false,
@@ -493,6 +497,7 @@ impl DrivingState {
             exit_right_hold_s: 0.0,
             exit_right_taps: 0,
             exit_tap_hint_said: false,
+            stop_offer_line_said: false,
             exit_countdown_said: Vec::new(),
             ramp_mi: None,
             ramp_layout: None,
@@ -576,6 +581,7 @@ impl DrivingState {
             written_up: HashSet::new(),
             nice_speed_mi: 0.0,
             double_nickel_mi: 0.0,
+            brake_smoke_armed: false,
             jake_descent_mi: 0.0,
             radio_states_station: String::new(),
             radio_states_held: HashSet::new(),
@@ -622,14 +628,14 @@ impl DrivingState {
             keeper_held_reason: String::new(),
             keeper_snub: 0.0,
             keeper_corner_braking: false,
+            keeper_follow: Default::default(),
             keeper_snub_target_mph: 0.0,
             keeper_droop_s: 0.0,
             keeper_droop_said: false,
             keeper_droop_cue_s: 0.0,
             keeper_overrun_s: 0.0,
             keeper_overrun_said: false,
-            arrival_stop_said: false,
-            arrival_full_stop_said: false,
+            gate: Default::default(),
             arrival_menu_open: false,
             gate_reminder_s: 0.0,
             gate_speed_warned: false,
@@ -691,6 +697,8 @@ impl DrivingState {
             hazard_animal: false,
             hazard_arm_mi: 0.0,
             hazard_brake_to_mph: None,
+            hazard_debris: None,
+            hazard_strike_pct: 0.0,
             hazard_lead_mph: None,
             hazard_lane: 0,
             left_lane_s: 0.0,
@@ -718,7 +726,7 @@ impl DrivingState {
             curve_run: None,
             cross_repeat_s: 0.0,
             sideswipe_cooldown_s: 0.0,
-            road_position_band: None,
+            off_pavement_said: None,
             reverse_cue_active: false,
             air_cue_active: false,
             jake_cue_key: None,
@@ -749,6 +757,7 @@ impl DrivingState {
             liquid_settled_said: false,
             liquid_settle_timer_s: 0.0,
             entered_once: false,
+            exit_hint_device: "",
             team: None,
             pending_team: None,
             truck_limit_state_named: None,

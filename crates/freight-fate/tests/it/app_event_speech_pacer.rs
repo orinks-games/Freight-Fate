@@ -20,7 +20,7 @@ now 13 percent. Check your mirrors before moving over.";
 const CHATTER: &str = "Rain easing off, roads still wet."; // ~2.4s estimated
 const STOP_LINE: &str = "Planned stop, Iowa 80 Truckstop at Exit 284 in five miles.";
 const HAZARD: &str = "Hazard! Stopped traffic ahead.";
-const SCALE_LINE: &str = "Open weigh station ahead in two miles. All trucks must pull in.";
+const SCALE_LINE: &str = "Open weigh station in two miles. All trucks must pull in.";
 const INFO_REPLY: &str = "Fifty five miles per hour.";
 
 fn long_line() -> String {
