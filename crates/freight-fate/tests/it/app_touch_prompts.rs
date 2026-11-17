@@ -277,7 +277,6 @@ fn stopped_at_a_stops_ramp_end_a_double_tap_opens_it() {
         harness.with_drive(|drive, ctx| drive.road_offer(ctx)),
         RoadOffer::Stop
     );
-    harness.with_drive(|drive, ctx| drive.update_touch_stop_offer(ctx));
     frames(&mut harness, 0.2);
     let said = touch_worded(&harness);
     assert!(said.contains("Double tap to pull in."), "{said}");
@@ -297,7 +296,6 @@ fn stopped_on_a_scale_the_line_is_check_in() {
         harness.with_drive(|drive, ctx| drive.road_offer(ctx)),
         RoadOffer::Stop
     );
-    harness.with_drive(|drive, ctx| drive.update_touch_stop_offer(ctx));
     frames(&mut harness, 0.2);
     let said = touch_worded(&harness);
     assert!(said.contains("Double tap to check in."), "{said}");
@@ -322,4 +320,17 @@ fn rolling_past_a_stop_or_stopped_on_the_highway_is_not_a_stop_offer() {
         harness.with_drive(|drive, ctx| drive.road_offer(ctx)),
         RoadOffer::Stop
     );
+}
+
+#[test]
+fn braking_to_a_stop_on_the_ramp_speaks_the_pull_in_line() {
+    let mut harness = a_touch_drive("Touch Stop Offer Brake", true);
+    stopped_on_a_ramp(&mut harness, None);
+    harness.with_drive(|drive, _| drive.trip.truck.velocity_mps = 5.0 / MPH_PER_MPS);
+    harness.app.dispatch_gesture(Gesture::HoldLowerBegan);
+    frames(&mut harness, 4.0);
+    harness.app.dispatch_gesture(Gesture::HoldEnded);
+    frames(&mut harness, 0.5);
+    let said = harness.transcript().join("\n");
+    assert!(said.contains("Double tap to pull in."), "{said}");
 }
