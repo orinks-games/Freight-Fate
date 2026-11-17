@@ -10,7 +10,9 @@ name: Freight Fate builds
 # the newer commit; the snapshot a tester sees is always the newest dev that
 # passed. A push whose commits add no curated changelog entry and carry no
 # `nightly: build` marker stops in Prepare, so a docs-only merge costs a few
-# minutes of one Linux runner and nothing more.
+# minutes of one Linux runner and nothing more. So does one whose every
+# commit since the newest snapshot says `[skip desktop]` (an iPhone-only
+# change); see .github/scripts/skip-tag.sh.
 #
 # The schedule is the fallback. A scheduled run executes the copy of this
 # file on the DEFAULT branch (main), whatever the checked-out code is, so
@@ -254,6 +256,15 @@ jobs:
           LAST_TAG=$(git tag --list "1.9-tester-*" --sort=-version:refname | head -1)
           if [ -z "$LAST_TAG" ]; then
             echo "should_build=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          # "[skip desktop]" on every commit since the newest snapshot (an
+          # iPhone-only change) skips the build, on a push and on the
+          # fallback alike. One commit without it builds everything since.
+          if bash .github/scripts/skip-tag.sh "[skip desktop]" "$LAST_TAG" HEAD; then
+            echo "should_build=false" >> "$GITHUB_OUTPUT"
+            echo "### Skipped: every commit since $LAST_TAG says [skip desktop]" >> "$GITHUB_STEP_SUMMARY"
             exit 0
           fi
 
