@@ -63,6 +63,13 @@ const ASSIGNED_INTRO_HELP: &str =
     "Assigned load. Enter accepts. Declining costs reputation and uses one of your declines, \
      which refill at your next promotion. F1 is details. Escape goes back.";
 
+const JOB_BOARD_TOUCH_HELP: &str = "Double tap accepts. Flick up with two fingers for job \
+     details, and tap with three fingers for the market.";
+
+const ASSIGNED_TOUCH_HELP: &str =
+    "Assigned load. Double tap accepts. Declining costs reputation and uses one of your \
+     declines, which refill at your next promotion. Flick up with two fingers for details.";
+
 /// How long dispatch keeps assigning loads: a new hire waits for level 8, but
 /// a driver at level 8 or above is only here because standing slipped.
 fn assignment_ends(p: &Profile) -> String {
@@ -334,7 +341,9 @@ pub struct JobBoardState {
 impl JobBoardState {
     pub fn new(ctx: &GameContext, jobs: Vec<Job>) -> Self {
         let mut state = JobBoardState {
-            menu: MenuCore::new("Dispatch board").with_intro_help(JOB_BOARD_INTRO_HELP),
+            menu: MenuCore::new("Dispatch board")
+                .with_intro_help(JOB_BOARD_INTRO_HELP)
+                .with_touch_help(JOB_BOARD_TOUCH_HELP),
             jobs,
             confirm_risky_job: None,
             confirm_chain_job: None,
@@ -346,6 +355,7 @@ impl JobBoardState {
         }
         if state.assigned_mode() {
             state.menu.intro_help = ASSIGNED_INTRO_HELP.to_string();
+            state.menu.touch_help = Some(ASSIGNED_TOUCH_HELP.to_string());
         } else if let Some(held) = held_load::held_index(profile(ctx)) {
             // The load the driver went to sleep for is where they left it.
             state.menu.index = held.min(state.jobs.len().saturating_sub(1));
@@ -860,9 +870,15 @@ impl JobBoardState {
             ctx.save_profile();
             ctx.audio.play("ui/warning");
             let summary = profile(ctx).hos.hours_summary(&ctx.settings.hos_mode);
-            ctx.say(&format!(
-                "Needs an extra rest on this shift's hours. {summary} Enter again to accept."
-            ));
+            if ctx.touch_hints() {
+                ctx.say(&format!(
+                    "Needs an extra rest on this shift's hours. {summary} Double tap again to accept."
+                ));
+            } else {
+                ctx.say(&format!(
+                    "Needs an extra rest on this shift's hours. {summary} Enter again to accept."
+                ));
+            }
             return;
         }
         if self.confirm_chain_job != Some(index) {

@@ -2401,11 +2401,23 @@ fn test_traffic_pressure_marks_exit_and_construction_context() {
         .traffic_pressures
         .iter()
         .any(|p| p.kind == "exit" && p.direction == "right"));
-    if trip.zones.iter().any(|z| z.reason == "construction merge") {
+    // Traffic merges away from the coned-off lane: left of a right closure,
+    // right of a left one (a closure over an exit is always a left one).
+    for taper in trip
+        .zones
+        .iter()
+        .filter(|z| z.reason == "construction merge")
+    {
+        let away = match taper.closed_side.as_deref() {
+            Some("left") => "right",
+            _ => "left",
+        };
         assert!(trip
             .traffic_pressures
             .iter()
-            .any(|p| p.kind == "construction_merge" && p.direction == "left"));
+            .any(|p| p.kind == "construction_merge"
+                && p.start_mi == taper.start_mi
+                && p.direction == away));
     }
 }
 

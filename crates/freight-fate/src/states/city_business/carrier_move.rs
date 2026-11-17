@@ -35,8 +35,13 @@ impl BusinessStatusState {
             .map(|option| {
                 let key = option.key;
                 MenuItem::new(
-                    Label::dynamic(move |s: &Self, _ctx| {
-                        if s.move_armed == Some(key) {
+                    Label::dynamic(move |s: &Self, ctx| {
+                        if s.move_armed == Some(key) && ctx.touch_hints() {
+                            format!(
+                                "Move to {}: double tap again to confirm",
+                                option.carrier_name
+                            )
+                        } else if s.move_armed == Some(key) {
                             format!(
                                 "Move to {}: press Enter again to confirm",
                                 option.carrier_name
@@ -56,10 +61,17 @@ impl BusinessStatusState {
         self.return_armed = false;
         if self.move_armed != Some(option.key) {
             self.move_armed = Some(option.key);
-            ctx.say(&format!(
-                "{}. {} Press Enter again to move.",
-                option.carrier_name, option.menu_summary
-            ));
+            if ctx.touch_hints() {
+                ctx.say(&format!(
+                    "{}. {} Double tap again to move.",
+                    option.carrier_name, option.menu_summary
+                ));
+            } else {
+                ctx.say(&format!(
+                    "{}. {} Press Enter again to move.",
+                    option.carrier_name, option.menu_summary
+                ));
+            }
             self.refresh(ctx, true);
             return;
         }

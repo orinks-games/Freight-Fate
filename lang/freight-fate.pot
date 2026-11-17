@@ -6993,7 +6993,7 @@ msgstr ""
 msgid "{py_capitalize}, signed {value_text}."
 msgstr ""
 
-#: crates/ff-core/src/data/world_models/interchange.rs crates/ff-core/src/sim/trip_road_events.rs
+#: crates/ff-core/src/data/world_models/interchange.rs crates/ff-core/src/sim/trip_road_events.rs crates/ff-core/src/touch_mode.rs
 msgid "exit"
 msgstr ""
 
@@ -7197,7 +7197,7 @@ msgstr ""
 msgid "a two-finger turn to the right"
 msgstr ""
 
-#: crates/ff-core/src/input_hints.rs
+#: crates/ff-core/src/input_hints.rs crates/ff-core/src/speech_text.rs crates/freight-fate/src/bindings/touch.rs
 msgid "a double tap"
 msgstr ""
 
@@ -7206,15 +7206,19 @@ msgid "confirm"
 msgstr ""
 
 #: crates/ff-core/src/input_hints.rs
-msgid "a two-finger swipe down"
+msgid "a two-finger tap"
+msgstr ""
+
+#: crates/ff-core/src/input_hints.rs
+msgid "a two-finger flick down"
 msgstr ""
 
 #: crates/ff-core/src/input_hints.rs crates/freight-fate/src/bindings/touch.rs crates/freight-fate/src/states/main_menu/touch_practice.rs
 msgid "pause"
 msgstr ""
 
-#: crates/ff-core/src/input_hints.rs
-msgid "a two-finger swipe up"
+#: crates/ff-core/src/input_hints.rs crates/freight-fate/src/states/driving_menu_states/commands.rs
+msgid "a two-finger flick up"
 msgstr ""
 
 #: crates/ff-core/src/input_hints.rs crates/freight-fate/src/states/driving_controls/help.rs crates/freight-fate/src/states/driving_core.rs crates/freight-fate/src/states/main_menu/input_practice.rs
@@ -7277,7 +7281,7 @@ msgstr ""
 msgid "the X button"
 msgstr ""
 
-#: crates/ff-core/src/input_hints.rs crates/ff-core/src/sim/transmission.rs crates/freight-fate/src/bindings.rs crates/freight-fate/src/states/driving_controls/status.rs
+#: crates/ff-core/src/input_hints.rs crates/ff-core/src/sim/touch_clutch.rs crates/ff-core/src/sim/transmission.rs crates/freight-fate/src/bindings.rs
 msgid "neutral"
 msgstr ""
 
@@ -7301,7 +7305,7 @@ msgstr ""
 msgid "D-pad down"
 msgstr ""
 
-#: crates/ff-core/src/input_hints.rs crates/freight-fate/src/bindings.rs crates/freight-fate/src/states/driving_events/stops.rs
+#: crates/ff-core/src/input_hints.rs crates/freight-fate/src/bindings.rs crates/freight-fate/src/states/driving_controls/touch.rs crates/freight-fate/src/states/driving_events/stops.rs
 msgid "rest"
 msgstr ""
 
@@ -14664,6 +14668,14 @@ msgstr ""
 msgid "{base} in {days_ahead} days"
 msgstr ""
 
+#: crates/ff-core/src/sim/touch_clutch.rs
+msgid "out"
+msgstr ""
+
+#: crates/ff-core/src/sim/touch_clutch.rs
+msgid "shifting"
+msgstr ""
+
 #: crates/ff-core/src/sim/traffic_manager.rs
 msgid "minivan"
 msgstr ""
@@ -17465,6 +17477,24 @@ msgstr ""
 msgid "No truck parking."
 msgstr ""
 
+#: crates/ff-core/src/speech_text.rs
+msgid "Double tap to signal for the exit."
+msgstr ""
+
+#. placeholders: {exit_hint}
+#: crates/ff-core/src/speech_text.rs
+msgid "Press {exit_hint} to signal for the exit."
+msgstr ""
+
+#: crates/ff-core/src/speech_text.rs
+msgid "Double tap to signal."
+msgstr ""
+
+#. placeholders: {exit_hint}
+#: crates/ff-core/src/speech_text.rs
+msgid "Press {exit_hint} to signal."
+msgstr ""
+
 #. placeholders: {exit_label}
 #: crates/ff-core/src/speech_text.rs crates/freight-fate/src/states/driving_events/stops.rs
 msgid " at {exit_label}"
@@ -17483,14 +17513,14 @@ msgstr ""
 msgid "No fuel."
 msgstr ""
 
-#. placeholders: {exit_hint}
+#. placeholders: {terse}
 #: crates/ff-core/src/speech_text.rs
-msgid "Press {exit_hint} to signal for the exit."
+msgid "{terse} No fuel."
 msgstr ""
 
 #. placeholders: {terse}
 #: crates/ff-core/src/speech_text.rs
-msgid "{terse} No fuel."
+msgid "{terse} Double tap to signal."
 msgstr ""
 
 #. placeholders: {terse}, {exit_hint}
@@ -17634,6 +17664,26 @@ msgstr ""
 msgid "Passing "
 msgstr ""
 
+#: crates/ff-core/src/touch_mode.rs crates/freight-fate/src/states/city/terminal.rs crates/freight-fate/src/states/city_pickup.rs crates/freight-fate/src/states/driving_menu_states/facility_arrival.rs
+msgid "menu"
+msgstr ""
+
+#: crates/ff-core/src/touch_mode.rs
+msgid "field"
+msgstr ""
+
+#: crates/ff-core/src/touch_mode.rs
+msgid "wheel"
+msgstr ""
+
+#: crates/ff-core/src/touch_mode.rs
+msgid "practice"
+msgstr ""
+
+#: crates/ff-core/src/touch_mode.rs
+msgid "arrival"
+msgstr ""
+
 #: crates/ff-core/src/units.rs
 msgid "miles"
 msgstr ""
@@ -17756,6 +17806,10 @@ msgstr ""
 msgid ""
 "Scenario staged: {name} at {the_city} terminal, level {level}, {deliveries} "
 "deliveries, {grouped} dollars, {business_status}."
+msgstr ""
+
+#: crates/freight-fate/src/app.rs
+msgid " Touch gestures is open over the terminal; listen for it."
 msgstr ""
 
 #: crates/freight-fate/src/app.rs
@@ -17923,6 +17977,16 @@ msgstr ""
 
 #: crates/freight-fate/src/app/co_driver.rs crates/freight-fate/src/states/driving_team/overlay.rs
 msgid "screen"
+msgstr ""
+
+#. placeholders: {group}, {label}
+#: crates/freight-fate/src/app/context.rs
+msgid "Tap with three fingers and open {group} for {label}"
+msgstr ""
+
+#. placeholders: {label}
+#: crates/freight-fate/src/app/context.rs
+msgid "Tap with three fingers for {label}"
 msgstr ""
 
 #: crates/freight-fate/src/app/crash_log.rs crates/freight-fate/src/app/win_keys.rs crates/freight-fate/src/online_activation.rs
@@ -18557,7 +18621,7 @@ msgstr ""
 msgid "Tap"
 msgstr ""
 
-#: crates/freight-fate/src/bindings/touch.rs
+#: crates/freight-fate/src/bindings/touch.rs crates/freight-fate/src/touch.rs
 msgid "tap"
 msgstr ""
 
@@ -18570,19 +18634,15 @@ msgid "Flick down"
 msgstr ""
 
 #: crates/freight-fate/src/bindings/touch.rs crates/freight-fate/src/states/main_menu/touch_practice.rs
-msgid "Two-finger tap"
-msgstr ""
-
-#: crates/freight-fate/src/bindings/touch.rs
 msgid "Two-finger double tap"
 msgstr ""
 
 #: crates/freight-fate/src/bindings/touch.rs crates/freight-fate/src/states/main_menu/touch_practice.rs
-msgid "Three-finger swipe up"
+msgid "Three-finger flick up"
 msgstr ""
 
 #: crates/freight-fate/src/bindings/touch.rs crates/freight-fate/src/states/main_menu/touch_practice.rs
-msgid "Three-finger swipe down"
+msgid "Three-finger flick down"
 msgstr ""
 
 #: crates/freight-fate/src/bindings/touch.rs
@@ -18651,19 +18711,15 @@ msgid "a flick down"
 msgstr ""
 
 #: crates/freight-fate/src/bindings/touch.rs
-msgid "a two-finger tap"
-msgstr ""
-
-#: crates/freight-fate/src/bindings/touch.rs
 msgid "a two-finger double tap"
 msgstr ""
 
 #: crates/freight-fate/src/bindings/touch.rs
-msgid "a three-finger swipe up"
+msgid "a three-finger flick up"
 msgstr ""
 
 #: crates/freight-fate/src/bindings/touch.rs
-msgid "a three-finger swipe down"
+msgid "a three-finger flick down"
 msgstr ""
 
 #: crates/freight-fate/src/bindings/touch.rs
@@ -18691,6 +18747,107 @@ msgid "flick right"
 msgstr ""
 
 #: crates/freight-fate/src/bindings/touch.rs
+msgid "Double tap with two fingers"
+msgstr ""
+
+#: crates/freight-fate/src/bindings/touch.rs
+msgid "Flick up with three fingers"
+msgstr ""
+
+#: crates/freight-fate/src/bindings/touch.rs
+msgid "Flick down with three fingers"
+msgstr ""
+
+#: crates/freight-fate/src/bindings/touch.rs
+msgid "Hold gas and tap with a second finger"
+msgstr ""
+
+#: crates/freight-fate/src/bindings/touch.rs
+msgid "Hold gas and double tap with a second finger"
+msgstr ""
+
+#: crates/freight-fate/src/bindings/touch.rs
+msgid "Hold gas and flick up with a second finger"
+msgstr ""
+
+#: crates/freight-fate/src/bindings/touch.rs
+msgid "Hold gas and flick down with a second finger"
+msgstr ""
+
+#: crates/freight-fate/src/bindings/touch.rs
+msgid "Hold gas and flick left with a second finger"
+msgstr ""
+
+#: crates/freight-fate/src/bindings/touch.rs
+msgid "Hold gas and flick right with a second finger"
+msgstr ""
+
+#: crates/freight-fate/src/bindings/touch.rs
+msgid "Hold the brake and tap with a second finger"
+msgstr ""
+
+#: crates/freight-fate/src/bindings/touch.rs
+msgid "Hold the brake and double tap with a second finger"
+msgstr ""
+
+#: crates/freight-fate/src/bindings/touch.rs
+msgid "Hold the brake and flick up with a second finger"
+msgstr ""
+
+#: crates/freight-fate/src/bindings/touch.rs
+msgid "Hold the brake and flick down with a second finger"
+msgstr ""
+
+#: crates/freight-fate/src/bindings/touch.rs
+msgid "Hold the brake and flick left with a second finger"
+msgstr ""
+
+#: crates/freight-fate/src/bindings/touch.rs
+msgid "Hold the brake and flick right with a second finger"
+msgstr ""
+
+#: crates/freight-fate/src/bindings/touch.rs
+msgid "Turn two fingers right"
+msgstr ""
+
+#: crates/freight-fate/src/bindings/touch.rs
+msgid "Swipe up and hold"
+msgstr ""
+
+#: crates/freight-fate/src/bindings/touch.rs
+msgid "Swipe down and hold"
+msgstr ""
+
+#: crates/freight-fate/src/bindings/touch.rs
+msgid "Swipe down deep and hold"
+msgstr ""
+
+#: crates/freight-fate/src/bindings/touch.rs
+msgid "Hold two fingers"
+msgstr ""
+
+#: crates/freight-fate/src/bindings/touch.rs crates/freight-fate/src/states/main_menu/touch_practice.rs
+msgid "Flick left"
+msgstr ""
+
+#: crates/freight-fate/src/bindings/touch.rs crates/freight-fate/src/states/main_menu/touch_practice.rs
+msgid "Flick right"
+msgstr ""
+
+#: crates/freight-fate/src/bindings/touch.rs crates/freight-fate/src/states/main_menu/touch_practice.rs
+msgid "Double tap"
+msgstr ""
+
+#: crates/freight-fate/src/bindings/touch.rs
+msgid "Tap with three fingers, then double tap"
+msgstr ""
+
+#. placeholders: {label}
+#: crates/freight-fate/src/bindings/touch.rs
+msgid "{label} from the three-finger tap list"
+msgstr ""
+
+#: crates/freight-fate/src/bindings/touch.rs
 msgid "a swipe up and hold"
 msgstr ""
 
@@ -18707,12 +18864,7 @@ msgid "a still hold for half a second"
 msgstr ""
 
 #: crates/freight-fate/src/bindings/touch.rs
-msgid "the exit command from the three-finger tap list"
-msgstr ""
-
-#. placeholders: {label}
-#: crates/freight-fate/src/bindings/touch.rs
-msgid "{label} from the three-finger tap list"
+msgid "a three-finger tap then a double tap"
 msgstr ""
 
 #. placeholders: {touch_noun}, {touch_noun2}
@@ -19542,6 +19694,10 @@ msgstr ""
 msgid "ready"
 msgstr ""
 
+#: crates/freight-fate/src/online_guest.rs
+msgid "token"
+msgstr ""
+
 #: crates/freight-fate/src/online_journal.rs
 msgid "online-journal"
 msgstr ""
@@ -19701,6 +19857,16 @@ msgstr ""
 msgid "Left and Right change the order of this category only."
 msgstr ""
 
+#: crates/freight-fate/src/states/achievement_sort.rs
+msgid ""
+"Flick up or down to change the order of the categories and the achievements "
+"in each one."
+msgstr ""
+
+#: crates/freight-fate/src/states/achievement_sort.rs
+msgid "Flick up or down to change the order of this category only."
+msgstr ""
+
 #: crates/freight-fate/src/states/assist_picker.rs
 msgid "All assists: the truck steers. Recommended for your first drives."
 msgstr ""
@@ -19811,6 +19977,12 @@ msgid "Enter selects, Escape goes back. Control stops the current speech."
 msgstr ""
 
 #: crates/freight-fate/src/states/base/menu.rs
+msgid ""
+"Flick right or left to move and double tap to choose. Flick down with two "
+"fingers to go back."
+msgstr ""
+
+#: crates/freight-fate/src/states/base/menu.rs
 msgid "Menu"
 msgstr ""
 
@@ -19840,6 +20012,12 @@ msgstr ""
 #: crates/freight-fate/src/states/base/menu.rs
 msgid ""
 "Up and Down read a line at a time, Enter repeats it, Escape goes back."
+msgstr ""
+
+#: crates/freight-fate/src/states/base/menu.rs
+msgid ""
+"Flick right or left to read a line at a time, and double tap to repeat it. "
+"Flick down with two fingers to go back."
 msgstr ""
 
 #: crates/freight-fate/src/states/career_setback.rs
@@ -20235,6 +20413,19 @@ msgid ""
 "goes back."
 msgstr ""
 
+#: crates/freight-fate/src/states/city/board.rs
+msgid ""
+"Double tap accepts. Flick up with two fingers for job details, and tap with "
+"three fingers for the market."
+msgstr ""
+
+#: crates/freight-fate/src/states/city/board.rs
+msgid ""
+"Assigned load. Double tap accepts. Declining costs reputation and uses one "
+"of your declines, which refill at your next promotion. Flick up with two "
+"fingers for details."
+msgstr ""
+
 #. placeholders: {SENIOR_LOAD_CHOICE_LEVEL}
 #: crates/freight-fate/src/states/city/board.rs
 msgid "until level {SENIOR_LOAD_CHOICE_LEVEL}"
@@ -20492,6 +20683,19 @@ msgstr ""
 #. placeholders: {summary}
 #: crates/freight-fate/src/states/city/board.rs
 msgid ""
+"Needs an extra rest on this shift's hours. {summary} Double tap again to "
+"accept."
+msgstr ""
+
+#. placeholders: {summary}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/city/board.rs
+msgid "{summary} Double tap again to accept."
+msgstr ""
+
+#. placeholders: {summary}
+#: crates/freight-fate/src/states/city/board.rs
+msgid ""
 "Needs an extra rest on this shift's hours. {summary} Enter again to accept."
 msgstr ""
 
@@ -20707,6 +20911,13 @@ msgid ""
 msgstr ""
 
 #: crates/freight-fate/src/states/city/board/details.rs
+msgid ""
+"Flick right or left to review the lines, and flick up or down with three "
+"fingers to jump to the ends. Flick down with two fingers to return to the "
+"dispatch board."
+msgstr ""
+
+#: crates/freight-fate/src/states/city/board/details.rs
 msgid "Job details"
 msgstr ""
 
@@ -20803,6 +21014,10 @@ msgstr ""
 
 #: crates/freight-fate/src/states/city/board/details.rs crates/freight-fate/src/states/driving_stop_detail.rs
 msgid "Enter repeats this line."
+msgstr ""
+
+#: crates/freight-fate/src/states/city/board/details.rs crates/freight-fate/src/states/driving_stop_detail.rs
+msgid "Double tap repeats this line."
 msgstr ""
 
 #. placeholders: {locked}
@@ -21177,6 +21392,10 @@ msgid "Walk-around done, {f} minutes. {join}"
 msgstr ""
 
 #: crates/freight-fate/src/states/city/terminal.rs
+msgid "Already rested. Double tap again to sleep anyway."
+msgstr ""
+
+#: crates/freight-fate/src/states/city/terminal.rs
 msgid "Already rested. Enter again to sleep anyway."
 msgstr ""
 
@@ -21266,10 +21485,6 @@ msgstr ""
 
 #: crates/freight-fate/src/states/city/terminal.rs
 msgid "Progress saved."
-msgstr ""
-
-#: crates/freight-fate/src/states/city/terminal.rs crates/freight-fate/src/states/city_pickup.rs crates/freight-fate/src/states/driving_menu_states/facility_arrival.rs crates/freight-fate/src/states/main_menu/home.rs
-msgid "menu"
 msgstr ""
 
 #. placeholders: {city}
@@ -21871,6 +22086,10 @@ msgstr ""
 
 #: crates/freight-fate/src/states/city_business.rs
 msgid "The remaining requirements."
+msgstr ""
+
+#: crates/freight-fate/src/states/city_business.rs
+msgid "Go back to company driving: double tap again to confirm"
 msgstr ""
 
 #: crates/freight-fate/src/states/city_business.rs
@@ -22481,12 +22700,28 @@ msgstr ""
 
 #. placeholders: {carrier_name}
 #: crates/freight-fate/src/states/city_business/carrier_move.rs
+msgid "Move to {carrier_name}: double tap again to confirm"
+msgstr ""
+
+#. placeholders: {carrier_name}
+#: crates/freight-fate/src/states/city_business/carrier_move.rs
 msgid "Move to {carrier_name}: press Enter again to confirm"
 msgstr ""
 
 #. placeholders: {label}
 #: crates/freight-fate/src/states/city_business/carrier_move.rs
 msgid "Move to {label}"
+msgstr ""
+
+#. placeholders: {carrier_name}, {menu_summary}
+#: crates/freight-fate/src/states/city_business/carrier_move.rs
+msgid "{carrier_name}. {menu_summary} Double tap again to move."
+msgstr ""
+
+#. placeholders: {menu_summary}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/city_business/carrier_move.rs
+msgid "{menu_summary} Double tap again to move."
 msgstr ""
 
 #. placeholders: {carrier_name}, {menu_summary}
@@ -23675,6 +23910,16 @@ msgstr ""
 msgid "W for weather."
 msgstr ""
 
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/city_pickup.rs
+msgid "Tap with three fingers for weather."
+msgstr ""
+
+#. placeholders: {join}
+#: crates/freight-fate/src/states/city_pickup.rs
+msgid "Via {join}. Tap with three fingers for weather."
+msgstr ""
+
 #. placeholders: {name}
 #: crates/freight-fate/src/states/city_pickup_team.rs
 msgid "Depart with {name} driving, and ride along"
@@ -23839,6 +24084,10 @@ msgstr ""
 
 #: crates/freight-fate/src/states/cloud_save_states.rs
 msgid "Enter opens restore choices for this career."
+msgstr ""
+
+#: crates/freight-fate/src/states/cloud_save_states.rs
+msgid "Double tap opens restore choices for this career."
 msgstr ""
 
 #: crates/freight-fate/src/states/cloud_save_states.rs
@@ -24574,6 +24823,10 @@ msgstr ""
 msgid "Cloud backup is still working. Stay here for the result."
 msgstr ""
 
+#: crates/freight-fate/src/states/driving/init.rs crates/freight-fate/src/states/driving/lifecycle.rs crates/freight-fate/src/states/driving_rest_states/parking_full.rs
+msgid "Turn two fingers right to start the engine."
+msgstr ""
+
 #. placeholders: {control_hint}
 #: crates/freight-fate/src/states/driving/init.rs crates/freight-fate/src/states/driving/lifecycle.rs
 msgid "Press {control_hint} to start the engine."
@@ -24619,6 +24872,17 @@ msgstr ""
 msgid "Cruise paused. "
 msgstr ""
 
+#. placeholders: {touch_instruction}
+#: crates/freight-fate/src/states/driving/lifecycle.rs
+msgid "Cruise paused. {touch_instruction} to cancel it. "
+msgstr ""
+
+#. placeholders: {touch_instruction}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving/lifecycle.rs
+msgid "{touch_instruction} to cancel it."
+msgstr ""
+
 #. placeholders: {control_hint}
 #: crates/freight-fate/src/states/driving/lifecycle.rs
 msgid "Cruise paused. {control_hint} cancels it. "
@@ -24628,6 +24892,11 @@ msgstr ""
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/driving/lifecycle.rs
 msgid "{control_hint} cancels it."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving/lifecycle.rs crates/freight-fate/src/states/driving_core.rs
+msgid ""
+"At air ready, swipe up and hold to release the parking brake and drive."
 msgstr ""
 
 #. placeholders: {control_hint}
@@ -25546,19 +25815,27 @@ msgstr ""
 #: crates/freight-fate/src/states/driving_controls/help.rs
 msgid ""
 "Hold one finger still for half a second to straighten the wheel. With "
-"cruise off, flick up to resume the last speed and flick down to set the "
-"current speed. Turn two fingers right like a key to start the engine, left "
-"to stop it. Hold two fingers for the horn. Turning them cancels it. While "
-"holding a pedal, a second finger's flicks and holds work the same way, and "
-"in automatic its shift flicks say the gear. "
+"cruise off, flick up to turn it on. Double tap to take an exit, pull over, "
+"or confirm arrival at a gate. Tap with two fingers to stop speech. Turn two "
+"fingers right like a key to start the engine, and left to stop it once the "
+"truck has stopped. Hold two fingers for the horn. While holding a pedal, a "
+"second finger's flicks and holds work the same way. "
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_controls/help.rs
 msgid ""
-"Two-finger swipe down pauses, two-finger swipe up is this help, two-finger "
-"swipes left and right review messages, and three-finger swipes left and "
-"right tune the radio. A three-finger tap lists every driving command: swipe "
-"to one and double tap to run it. "
+"In a manual, hold a pedal and flick up or down with a second finger to "
+"shift. The flick works the clutch. Slowing in a tall gear takes neutral, "
+"and a flick up from neutral takes the gear that fits your speed. "
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_controls/help.rs
+msgid ""
+"A two-finger flick down pauses, a two-finger flick up is this help, "
+"two-finger flicks left and right review messages, and three-finger flicks "
+"left and right tune the radio. A three-finger tap lists the driving "
+"commands in groups, Status menu first. Flick to one and double tap to run "
+"it or open its group. "
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_controls/help.rs
@@ -25988,7 +26265,7 @@ msgstr ""
 msgid "Event voice stopped."
 msgstr ""
 
-#: crates/freight-fate/src/states/driving_controls/keys.rs
+#: crates/freight-fate/src/states/driving_controls/keys.rs crates/freight-fate/src/states/driving_controls/touch.rs crates/freight-fate/src/states/driving_controls/vehicle.rs
 msgid "Neutral."
 msgstr ""
 
@@ -26244,9 +26521,16 @@ msgstr ""
 msgid "Engine already off."
 msgstr ""
 
-#. placeholders: {gear}
 #: crates/freight-fate/src/states/driving_controls/touch.rs
-msgid "{gear}, automatic."
+msgid "Double tap to check in."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_controls/touch.rs
+msgid "Double tap to pull in."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_controls/touch.rs
+msgid "Neutral. Hold a pedal and flick up with a second finger for a gear."
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_controls/vehicle.rs
@@ -26343,6 +26627,27 @@ msgstr ""
 msgid "Air {psi} psi."
 msgstr ""
 
+#: crates/freight-fate/src/states/driving_controls/vehicle.rs
+msgid "Air ready. Swipe up and hold to drive."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_controls/vehicle.rs crates/freight-fate/src/states/driving_updates/air.rs
+msgid "Air ready. Swipe up and hold to release the parking brake and drive."
+msgstr ""
+
+#. placeholders: {psi}
+#: crates/freight-fate/src/states/driving_controls/vehicle.rs
+msgid ""
+"Air {psi} psi. At 100 psi, swipe up and hold to release the parking brake "
+"and drive."
+msgstr ""
+
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_controls/vehicle.rs
+msgid ""
+"At 100 psi, swipe up and hold to release the parking brake and drive."
+msgstr ""
+
 #. placeholders: {brake_hint}
 #: crates/freight-fate/src/states/driving_controls/vehicle.rs
 msgid "Air ready. {brake_hint} releases the parking brake."
@@ -26376,7 +26681,7 @@ msgstr ""
 msgid "Hold {control_hint} to drive."
 msgstr ""
 
-#: crates/freight-fate/src/states/driving_controls/vehicle.rs
+#: crates/freight-fate/src/states/driving_controls/vehicle.rs crates/freight-fate/src/states/driving_core.rs
 msgid "Parking brake released."
 msgstr ""
 
@@ -26444,11 +26749,6 @@ msgid ""
 "{message} That crash of gears cost the driveline, damage {damage} percent."
 msgstr ""
 
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/driving_controls/vehicle.rs
-msgid "Grinding gears!"
-msgstr ""
-
 #. placeholders: {control_hint}
 #: crates/freight-fate/src/states/driving_controls/vehicle.rs
 msgid "Grinding gears! Hold {control_hint} to press the clutch first."
@@ -26458,6 +26758,10 @@ msgstr ""
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/driving_controls/vehicle.rs
 msgid "Hold {control_hint} to press the clutch first."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_controls/vehicle.rs
+msgid "Grinding gears!"
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_controls/vehicle.rs
@@ -26478,6 +26782,10 @@ msgstr ""
 msgid "services not listed"
 msgstr ""
 
+#: crates/freight-fate/src/states/driving_core.rs
+msgid "Your first run. Turn two fingers right to start the engine."
+msgstr ""
+
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/driving_core.rs
 msgid "Your first run."
@@ -26486,6 +26794,12 @@ msgstr ""
 #. placeholders: {control_hint}
 #: crates/freight-fate/src/states/driving_core.rs
 msgid "Your first run. Press {control_hint} to start the engine."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_core.rs
+msgid ""
+"At air ready, swipe up and hold to release the parking brake, then flick up "
+"with a second finger for first gear."
 msgstr ""
 
 #. placeholders: {control_hint}, {control_hint2}
@@ -26518,6 +26832,10 @@ msgstr ""
 msgid "Parking brake released. Shift into first gear."
 msgstr ""
 
+#: crates/freight-fate/src/states/driving_core.rs
+msgid "In gear. Swipe up and hold to accelerate."
+msgstr ""
+
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/driving_core.rs
 msgid "In gear."
@@ -26535,7 +26853,37 @@ msgstr ""
 
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/driving_core.rs
+msgid "Flick up with two fingers for all the controls."
+msgstr ""
+
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_core.rs
 msgid "Rolling."
+msgstr ""
+
+#. placeholders: {touch_instruction}
+#: crates/freight-fate/src/states/driving_core.rs
+msgid ""
+"Rolling. {touch_instruction} for your speed. Tap with three fingers, then "
+"double tap, for a full report. Flick up with two fingers for all the "
+"controls. Brake hard at a hazard warning. Swipe down deep and hold to stop "
+"fast."
+msgstr ""
+
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_core.rs
+msgid "Swipe down deep and hold to stop fast."
+msgstr ""
+
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_core.rs
+msgid "Tap with three fingers, then double tap, for a full report."
+msgstr ""
+
+#. placeholders: {touch_instruction}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_core.rs
+msgid "{touch_instruction} for your speed."
 msgstr ""
 
 #. placeholders: {control_hint}, {control_hint2}, {control_hint3}, {control_hint4}
@@ -26560,9 +26908,19 @@ msgid ""
 "{control_hint3} for all the controls."
 msgstr ""
 
+#: crates/freight-fate/src/states/driving_core.rs
+msgid "Reminder: turn two fingers right to start the engine."
+msgstr ""
+
 #. placeholders: {control_hint}
 #: crates/freight-fate/src/states/driving_core.rs crates/freight-fate/src/states/driving_school.rs
 msgid "Reminder: press {control_hint} to start the engine."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_core.rs
+msgid ""
+"Reminder: air is ready. Swipe up and hold to release the parking brake and "
+"drive."
 msgstr ""
 
 #. placeholders: {control_hint}
@@ -26582,11 +26940,22 @@ msgid ""
 "Reminder: air is ready. Press {control_hint} to release the parking brake."
 msgstr ""
 
+#: crates/freight-fate/src/states/driving_core.rs
+msgid ""
+"Reminder: wait for air pressure to reach 100 psi, then swipe up and hold to "
+"release the parking brake and drive."
+msgstr ""
+
 #. placeholders: {control_hint}
 #: crates/freight-fate/src/states/driving_core.rs
 msgid ""
 "Reminder: wait for air pressure to reach 100 psi, then press {control_hint} "
 "to release the parking brake."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_core.rs
+msgid ""
+"Reminder: hold a pedal and flick up with a second finger for first gear."
 msgstr ""
 
 #. placeholders: {control_hint}, {control_hint2}
@@ -27313,6 +27682,10 @@ msgstr ""
 #. placeholders: {control_hint}
 #: crates/freight-fate/src/states/driving_damage.rs
 msgid "Press {control_hint} to restart the engine."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_damage.rs crates/freight-fate/src/states/driving_events/arrival.rs
+msgid "Turn two fingers right to restart the engine."
 msgstr ""
 
 #. placeholders: {spare}
@@ -28171,6 +28544,12 @@ msgid ""
 "the load's paperwork.{blitz}"
 msgstr ""
 
+#: crates/freight-fate/src/states/driving_enforcement/inspections.rs
+msgid ""
+"Lights behind you for a routine inspection. Double tap to signal, then stop "
+"on the shoulder."
+msgstr ""
+
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/driving_enforcement/inspections.rs
 msgid "Lights behind you for a routine inspection."
@@ -28279,7 +28658,19 @@ msgstr ""
 
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/driving_enforcement/watch.rs
+msgid "Double tap to signal, then stop on the shoulder."
+msgstr ""
+
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_enforcement/watch.rs
 msgid "Lights and siren behind you."
+msgstr ""
+
+#. placeholders: {reason}, {detail}
+#: crates/freight-fate/src/states/driving_enforcement/watch.rs
+msgid ""
+"Lights and siren behind you. A trooper on this {reason} saw {detail} and "
+"wants a look at the truck. Double tap to signal, then stop on the shoulder."
 msgstr ""
 
 #. placeholders: {reason}, {detail}, {control_hint}
@@ -28306,6 +28697,13 @@ msgstr ""
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/driving_enforcement/watch.rs
 msgid "A trooper on this {reason} saw {what}."
+msgstr ""
+
+#. placeholders: {reason}, {what}
+#: crates/freight-fate/src/states/driving_enforcement/watch.rs
+msgid ""
+"Lights and siren behind you. A trooper on this {reason} saw {what}. Double "
+"tap to signal, then stop on the shoulder."
 msgstr ""
 
 #. placeholders: {reason}, {what}, {control_hint}
@@ -28484,6 +28882,10 @@ msgstr ""
 msgid "Destination exit ahead again. Signal for it."
 msgstr ""
 
+#: crates/freight-fate/src/states/driving_events/arrival.rs
+msgid "Destination exit ahead again. Double tap to signal."
+msgstr ""
+
 #. placeholders: {control_hint}
 #: crates/freight-fate/src/states/driving_events/arrival.rs
 msgid "Destination exit ahead again. Press {control_hint} to signal."
@@ -28502,6 +28904,12 @@ msgstr ""
 #: crates/freight-fate/src/states/driving_events/arrival.rs
 msgid ""
 "You turned around, and the destination exit is ahead again. Signal for it."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_events/arrival.rs
+msgid ""
+"You turned around, and the destination exit is ahead again. Double tap to "
+"signal for it."
 msgstr ""
 
 #. placeholders: {control_hint}
@@ -28530,6 +28938,10 @@ msgstr ""
 #. placeholders: {facility}, {reroute_text}
 #: crates/freight-fate/src/states/driving_events/arrival.rs
 msgid "Missed the destination exit for {facility}. {reroute_text}"
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_events/arrival.rs
+msgid "Holding at the entrance. Double tap to continue."
 msgstr ""
 
 #. placeholders: {control_hint}
@@ -29429,6 +29841,21 @@ msgstr ""
 msgid "No route exit to signal for yet."
 msgstr ""
 
+#. placeholders: {stays}
+#: crates/freight-fate/src/states/driving_events/exits.rs
+msgid "Signal stays {stays}."
+msgstr ""
+
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_events/exits.rs
+msgid "Double tap again to cancel the exit."
+msgstr ""
+
+#. placeholders: {stays}
+#: crates/freight-fate/src/states/driving_events/exits.rs
+msgid "Signal stays {stays}. Double tap again to cancel the exit."
+msgstr ""
+
 #. placeholders: {control_hint}
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/driving_events/exits.rs
@@ -29438,11 +29865,6 @@ msgstr ""
 #. placeholders: {stays}, {control_hint}
 #: crates/freight-fate/src/states/driving_events/exits.rs
 msgid "Signal stays {stays}. Press {control_hint} again to cancel the exit."
-msgstr ""
-
-#. placeholders: {stays}
-#: crates/freight-fate/src/states/driving_events/exits.rs
-msgid "Signal stays {stays}."
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_events/exits.rs
@@ -29535,17 +29957,20 @@ msgstr ""
 msgid "Signal for it."
 msgstr ""
 
-#. placeholders: {exit_hint}
-#: crates/freight-fate/src/states/driving_events/exits.rs
-msgid "Press {exit_hint} to signal."
-msgstr ""
-
 #: crates/freight-fate/src/states/driving_events/gate_stop.rs
 msgid "Set the parking brake to check in."
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_events/gate_stop.rs
 msgid "Set the parking brake to dock."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_events/gate_stop.rs
+msgid "Swipe down deep to set the parking brake and check in."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_events/gate_stop.rs
+msgid "Swipe down deep to set the parking brake and dock."
 msgstr ""
 
 #. placeholders: {key}
@@ -30213,18 +30638,13 @@ msgstr ""
 msgid "Fuel range only {range_text}."
 msgstr ""
 
-#. placeholders: {hint}
-#: crates/freight-fate/src/states/driving_events/stop_plan.rs
-msgid " Press {hint} to signal for the exit."
-msgstr ""
-
-#. placeholders: {hint}
-#: crates/freight-fate/src/states/driving_events/stop_plan.rs
-msgid " Press {hint} to signal."
+#: crates/freight-fate/src/states/driving_events/stops.rs
+msgid "Rest-stop planning unavailable during a police stop."
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_events/stops.rs
-msgid "Rest-stop planning unavailable during a police stop."
+msgid ""
+"Resolve the police stop first. Double tap to signal the trooper stop."
 msgstr ""
 
 #. placeholders: {exit_hint}
@@ -30247,6 +30667,17 @@ msgstr ""
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/driving_events/stops.rs
 msgid "On the ramp for {name}."
+msgstr ""
+
+#. placeholders: {name}
+#: crates/freight-fate/src/states/driving_events/stops.rs
+msgid ""
+"On the ramp for {name}. Stop at the scale, then double tap to check in."
+msgstr ""
+
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_events/stops.rs
+msgid "Stop at the scale, then double tap to check in."
 msgstr ""
 
 #. placeholders: {name}, {rest_hint}
@@ -30450,6 +30881,12 @@ msgstr ""
 #. placeholders: {oos_phrase}, {evidence_text}
 #: crates/freight-fate/src/states/driving_events/trip_events.rs
 msgid "Out of service {oos_phrase}. Citation: {evidence_text}."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_events/trip_events.rs
+msgid ""
+"Lights and siren behind you for a log check. Double tap to signal, then "
+"stop on the shoulder."
 msgstr ""
 
 #. one sentence of a longer line
@@ -30693,6 +31130,10 @@ msgstr ""
 msgid "It is ahead again."
 msgstr ""
 
+#: crates/freight-fate/src/states/driving_events/update_exit.rs
+msgid " Swipe down and hold to brake well before it."
+msgstr ""
+
 #. placeholders: {control_hint}
 #: crates/freight-fate/src/states/driving_events/update_exit.rs
 msgid " Brake with {control_hint} well before it."
@@ -30772,6 +31213,10 @@ msgstr ""
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/driving_facility_gate.rs
 msgid "You turned around, and the gate is ahead again."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_facility_gate.rs
+msgid " Swipe down and hold to brake well before the gate."
 msgstr ""
 
 #. placeholders: {control_hint}
@@ -31194,6 +31639,10 @@ msgstr ""
 #. placeholders: {context}
 #: crates/freight-fate/src/states/driving_menu_states/apps.rs
 msgid "ELD route note: {context}"
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_menu_states/apps.rs
+msgid "ELD commands: tap with three fingers and open Hours and clock."
 msgstr ""
 
 #. placeholders: {control_name}, {control_name2}, {control_name3}
@@ -31898,18 +32347,61 @@ msgstr ""
 msgid "Page Up"
 msgstr ""
 
+#: crates/freight-fate/src/states/driving_menu_states/commands.rs
+msgid "a three-finger flick right"
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_menu_states/commands.rs
+msgid "a three-finger flick left"
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_menu_states/commands.rs
+msgid ""
+"Left and Right change it. On the keyboard: Shift Page Down and Shift Page "
+"Up."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_menu_states/commands.rs
+msgid ""
+"Left and Right change it. On the keyboard: Control Page Up and Control Page "
+"Down."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_menu_states/commands.rs
+msgid "Speed and cruise"
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_menu_states/commands.rs
+msgid "Road and stops"
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_menu_states/commands.rs
+msgid "Where am I"
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_menu_states/commands.rs
+msgid "Truck"
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_menu_states/commands.rs
+msgid "Gears and engine brake"
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_menu_states/commands.rs
+msgid "Radio and CB"
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_menu_states/commands.rs
+msgid "Hours and clock"
+msgstr ""
+
 #: crates/freight-fate/src/states/driving_menu_states/commands.rs crates/freight-fate/src/states/driving_menu_states/status.rs
 msgid "Driving commands"
 msgstr ""
 
-#. placeholders: {spoken}
+#. placeholders: {noun}
 #: crates/freight-fate/src/states/driving_menu_states/commands.rs
-msgid "On the keyboard: {spoken}."
-msgstr ""
-
-#. placeholders: {pad_spoken}
-#: crates/freight-fate/src/states/driving_menu_states/commands.rs
-msgid " On the controller: {pad_spoken}."
+msgid "At the wheel: {noun}."
 msgstr ""
 
 #. placeholders: {key_name}
@@ -31923,6 +32415,39 @@ msgstr ""
 
 #: crates/freight-fate/src/states/driving_menu_states/commands.rs
 msgid "Close the list without running a command."
+msgstr ""
+
+#. placeholders: {spoken}
+#: crates/freight-fate/src/states/driving_menu_states/commands.rs
+msgid "On the keyboard: {spoken}."
+msgstr ""
+
+#. placeholders: {pad_spoken}
+#: crates/freight-fate/src/states/driving_menu_states/commands.rs
+msgid " On the controller: {pad_spoken}."
+msgstr ""
+
+#. placeholders: {pad_spoken}, {pad_spoken2}
+#: crates/freight-fate/src/states/driving_menu_states/commands.rs
+msgid " On the controller: {pad_spoken} and {pad_spoken2}."
+msgstr ""
+
+#. placeholders: {pct}
+#: crates/freight-fate/src/states/driving_menu_states/commands.rs
+msgid "Radio volume: {pct} percent"
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_menu_states/commands.rs
+msgid "Radio category"
+msgstr ""
+
+#. placeholders: {name}
+#: crates/freight-fate/src/states/driving_menu_states/commands.rs
+msgid "Radio category: {name}"
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_menu_states/commands.rs
+msgid "Flick up or down to change it."
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_menu_states/commands.rs crates/freight-fate/src/states/driving_menu_states/status.rs crates/freight-fate/src/states/driving_menu_states/stop_purpose.rs
@@ -32303,6 +32828,11 @@ msgstr ""
 msgid "Enter opens details, distance, estimated arrival, and stop planning."
 msgstr ""
 
+#: crates/freight-fate/src/states/driving_menu_states/status.rs
+msgid ""
+"Double tap opens details, distance, estimated arrival, and stop planning."
+msgstr ""
+
 #. placeholders: {planned}
 #: crates/freight-fate/src/states/driving_menu_states/status.rs
 msgid "Cancel planned stop at {planned}"
@@ -32437,6 +32967,15 @@ msgid "Receivable stations:"
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_menu_states/status.rs
+msgid "Plus 1 more station, listed in the Radio app under Driver apps."
+msgstr ""
+
+#. placeholders: {n}
+#: crates/freight-fate/src/states/driving_menu_states/status.rs
+msgid "Plus {n} more stations, listed in the Radio app under Driver apps."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_menu_states/status.rs
 msgid "Favorites saved:"
 msgstr ""
 
@@ -32446,6 +32985,10 @@ msgstr ""
 
 #: crates/freight-fate/src/states/driving_menu_states/status.rs crates/freight-fate/src/states/driving_radio_app.rs
 msgid "Your saved stations. Enter on one tunes it."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_menu_states/status.rs crates/freight-fate/src/states/driving_radio_app.rs
+msgid "Your saved stations. Double tap one to tune it."
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_menu_states/status.rs
@@ -33053,6 +33596,10 @@ msgstr ""
 msgid "Now playing on the tuned station. Enter asks again."
 msgstr ""
 
+#: crates/freight-fate/src/states/driving_radio_app.rs
+msgid "Now playing on the tuned station. Double tap asks again."
+msgstr ""
+
 #. placeholders: {else}, {tuned}
 #: crates/freight-fate/src/states/driving_radio_app.rs
 msgid "Radio: {else}, tuned to {tuned}"
@@ -33060,6 +33607,10 @@ msgstr ""
 
 #: crates/freight-fate/src/states/driving_radio_app.rs
 msgid "Enter switches the radio on or off."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_radio_app.rs
+msgid "Double tap switches the radio on or off."
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_radio_app.rs
@@ -33102,6 +33653,10 @@ msgstr ""
 
 #: crates/freight-fate/src/states/driving_radio_app.rs
 msgid "Every station that comes in here. Enter on one tunes it."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_radio_app.rs
+msgid "Every station that comes in here. Double tap one to tune it."
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_radio_app.rs crates/freight-fate/src/states/driving_radio_suggest.rs
@@ -33160,6 +33715,10 @@ msgstr ""
 
 #: crates/freight-fate/src/states/driving_radio_app.rs
 msgid "Enter tunes this station."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_radio_app.rs
+msgid "Double tap tunes this station."
 msgstr ""
 
 #. one sentence of a longer line
@@ -33308,6 +33867,10 @@ msgstr ""
 msgid "Enter lists this category. Stations in range list first."
 msgstr ""
 
+#: crates/freight-fate/src/states/driving_radio_app.rs
+msgid "Double tap lists this category. Stations in range list first."
+msgstr ""
+
 #: crates/freight-fate/src/states/driving_radio_suggest.rs
 msgid "Suggesting a station needs Online services on, in the Online menu."
 msgstr ""
@@ -33398,6 +33961,24 @@ msgstr ""
 
 #: crates/freight-fate/src/states/driving_radio_suggest.rs
 msgid "Optional, like classic country. Enter skips."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_radio_suggest.rs
+msgid ""
+"The direct link to the audio stream, not the station's web page. "
+"streamurl.link finds one."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_radio_suggest.rs
+msgid "Optional. Double tap skips."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_radio_suggest.rs
+msgid "Optional, like 101.5 or 1090. Double tap skips."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_radio_suggest.rs
+msgid "Optional, like classic country. Double tap skips."
 msgstr ""
 
 #. placeholders: {typed}
@@ -35330,7 +35911,7 @@ msgstr ""
 msgid "Sleep at the chain control"
 msgstr ""
 
-#: crates/freight-fate/src/states/driving_rest_states/shoulder.rs crates/freight-fate/src/states/online_states.rs
+#: crates/freight-fate/src/states/driving_rest_states/shoulder.rs crates/freight-fate/src/states/online_states/guest.rs crates/freight-fate/src/states/online_states.rs
 msgid "Cancel"
 msgstr ""
 
@@ -35399,6 +35980,12 @@ msgid ""
 "{title}. {reason} Emergency shoulder sleep: 10 hours of poor rest, hours of "
 "service reset if enforced. Ticket and light damage possible. The deadline "
 "keeps running. {current}"
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_rest_states/shoulder.rs
+msgid ""
+"Shoulder sleep canceled. Back on the road. Parking brake set. Swipe up and "
+"hold to release it and drive."
 msgstr ""
 
 #. one sentence of a longer line
@@ -35660,9 +36247,24 @@ msgstr ""
 msgid "Cruise is already on."
 msgstr ""
 
+#: crates/freight-fate/src/states/driving_speed_control.rs
+msgid "No remembered cruise speed yet. Flick up to set one."
+msgstr ""
+
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/driving_speed_control.rs
 msgid "No remembered cruise speed yet."
+msgstr ""
+
+#. placeholders: {touch_instruction}
+#: crates/freight-fate/src/states/driving_speed_control.rs
+msgid "No remembered cruise speed yet. {touch_instruction} to set one."
+msgstr ""
+
+#. placeholders: {touch_instruction}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_speed_control.rs
+msgid "{touch_instruction} to set one."
 msgstr ""
 
 #. placeholders: {key}
@@ -35722,6 +36324,13 @@ msgstr ""
 msgid ""
 "Up and down arrows review each line. Home and End jump to the first and "
 "last. Enter repeats a line or activates a button. Escape returns to the map."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_stop_detail.rs
+msgid ""
+"Flick right or left to review each line, and flick up or down with three "
+"fingers to jump to the first and last. Flick down with two fingers to "
+"return to the map."
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_stop_detail.rs
@@ -35806,6 +36415,11 @@ msgstr ""
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/driving_stop_detail.rs
 msgid "Stop details."
+msgstr ""
+
+#. placeholders: {STOP_DETAIL_TOUCH_HELP}, {current}
+#: crates/freight-fate/src/states/driving_stop_detail.rs
+msgid "Stop details. {STOP_DETAIL_TOUCH_HELP} {current}"
 msgstr ""
 
 #. placeholders: {STOP_DETAIL_INTRO_HELP}, {current}
@@ -36545,6 +37159,10 @@ msgstr ""
 msgid "Air pressure {psi} psi."
 msgstr ""
 
+#: crates/freight-fate/src/states/driving_updates/air.rs
+msgid "Parking brake set. Swipe up and hold to release it and drive."
+msgstr ""
+
 #. placeholders: {brake_hint}
 #: crates/freight-fate/src/states/driving_updates/air.rs
 msgid "Parking brake set. Press {brake_hint} to release it."
@@ -37045,6 +37663,13 @@ msgstr ""
 msgid "{speed} in a {zone} zone."
 msgstr ""
 
+#. placeholders: {speed}, {zone}
+#: crates/freight-fate/src/states/driving_updates/enforcement.rs
+msgid ""
+"Lights and siren behind you. {speed} in a {zone} zone. Double tap to "
+"signal, then stop on the shoulder."
+msgstr ""
+
 #. placeholders: {speed}, {zone}, {control_hint}
 #: crates/freight-fate/src/states/driving_updates/enforcement.rs
 msgid ""
@@ -37106,6 +37731,12 @@ msgstr ""
 msgid "Red light. Pull in to {name}."
 msgstr ""
 
+#: crates/freight-fate/src/states/driving_updates/enforcement.rs
+msgid ""
+"Scale bypass enforcement. Lights and siren behind you. Double tap to "
+"signal, then stop on the shoulder."
+msgstr ""
+
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/driving_updates/enforcement.rs
 msgid "Scale bypass enforcement."
@@ -37144,6 +37775,12 @@ msgstr ""
 msgid ""
 "A trooper in this {reason} saw visible truck damage at {damage_pct} percent "
 "and ordered a roadside safety inspection."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_updates/enforcement.rs
+msgid ""
+"Unsafe equipment stop. Lights and siren behind you. Double tap to signal, "
+"then stop on the shoulder."
 msgstr ""
 
 #. one sentence of a longer line
@@ -37282,6 +37919,10 @@ msgid ""
 "gear."
 msgstr ""
 
+#: crates/freight-fate/src/states/driving_updates/frame.rs
+msgid "Engine stalled. Turn two fingers right to restart."
+msgstr ""
+
 #. placeholders: {control_hint}
 #: crates/freight-fate/src/states/driving_updates/frame.rs
 msgid "Engine stalled. Press {control_hint} to restart."
@@ -37291,6 +37932,12 @@ msgstr ""
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/driving_updates/frame.rs
 msgid "Press {control_hint} to restart."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_updates/frame.rs
+msgid ""
+"Engine stalled. Turn two fingers right to restart, then hold a pedal and "
+"flick up with a second finger for first gear."
 msgstr ""
 
 #. placeholders: {control_hint}, {control_hint2}, {control_name}
@@ -37325,6 +37972,16 @@ msgstr ""
 
 #: crates/freight-fate/src/states/driving_updates/hazards.rs
 msgid "Pick your gear before it starts."
+msgstr ""
+
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_updates/hazards.rs
+msgid "Set the jake."
+msgstr ""
+
+#. placeholders: {touch_instruction}
+#: crates/freight-fate/src/states/driving_updates/hazards.rs
+msgid "Set the jake. {touch_instruction}."
 msgstr ""
 
 #. placeholders: {control_hint}
@@ -37875,6 +38532,11 @@ msgid ""
 "Signaled, but still moving with lights behind you. Stop on the shoulder."
 msgstr ""
 
+#: crates/freight-fate/src/states/driving_updates/stops.rs
+msgid ""
+"Failure-to-stop warning. Double tap to signal, then stop on the shoulder."
+msgstr ""
+
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/driving_updates/stops.rs
 msgid "Failure-to-stop warning."
@@ -37980,13 +38642,25 @@ msgstr ""
 
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/learn_sounds.rs
-msgid "F1 still explains it."
+msgid "A flick up with two fingers still explains it."
 msgstr ""
 
 #. placeholders: {name}
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/learn_sounds.rs
 msgid "{name} is not in this copy of the game."
+msgstr ""
+
+#. placeholders: {name}
+#: crates/freight-fate/src/states/learn_sounds.rs
+msgid ""
+"{name} is not in this copy of the game. A flick up with two fingers still "
+"explains it."
+msgstr ""
+
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/learn_sounds.rs
+msgid "F1 still explains it."
 msgstr ""
 
 #. placeholders: {name}
@@ -38426,6 +39100,11 @@ msgstr ""
 #: crates/freight-fate/src/states/main_menu/careers.rs
 msgid ""
 "Enter offers to delete this save. It still works in Freight Fate 1.8."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu/careers.rs
+msgid ""
+"Double tap offers to delete this save. It still works in Freight Fate 1.8."
 msgstr ""
 
 #: crates/freight-fate/src/states/main_menu/careers.rs
@@ -40655,6 +41334,27 @@ msgid "Gesture"
 msgstr ""
 
 #: crates/freight-fate/src/states/main_menu/touch_gestures.rs
+msgid ""
+"How far a swipe down travels before it becomes the emergency brake, or the "
+"parking brake when stopped. Practice gestures reads the length of each "
+"swipe down. Flick up or down to change it."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu/touch_gestures.rs
+msgid ""
+"How far a swipe down travels before it becomes the emergency brake, or the "
+"parking brake when stopped. Practice gestures reads the length of each "
+"swipe down. D-pad Right or Left changes it."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu/touch_gestures.rs
+msgid ""
+"How far a swipe down travels before it becomes the emergency brake, or the "
+"parking brake when stopped. Practice gestures reads the length of each "
+"swipe down. Right or Left arrow changes it."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu/touch_gestures.rs
 msgid "Every touch gesture is back to its default."
 msgstr ""
 
@@ -40668,6 +41368,11 @@ msgstr ""
 
 #: crates/freight-fate/src/states/main_menu/touch_gestures.rs
 msgid "Confirm, then choose the command this gesture runs while driving."
+msgstr ""
+
+#. placeholders: {touch_deep_swipe_points}
+#: crates/freight-fate/src/states/main_menu/touch_gestures.rs
+msgid "Deep swipe starts at: {touch_deep_swipe_points}"
 msgstr ""
 
 #: crates/freight-fate/src/states/main_menu/touch_gestures.rs crates/freight-fate/src/states/main_menu/touch_practice.rs
@@ -40708,6 +41413,33 @@ msgstr ""
 msgid "{gesture_name} now runs {label}."
 msgstr ""
 
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/main_menu/touch_practice.rs
+msgid "Deep swipe."
+msgstr ""
+
+#. placeholders: {points}
+#: crates/freight-fate/src/states/main_menu/touch_practice.rs
+msgid "Deep swipe. Length {points}."
+msgstr ""
+
+#. placeholders: {points}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/main_menu/touch_practice.rs
+msgid "Length {points}."
+msgstr ""
+
+#. placeholders: {points}, {touch_deep_swipe_points}
+#: crates/freight-fate/src/states/main_menu/touch_practice.rs
+msgid "Length {points}. The deep swipe starts at {touch_deep_swipe_points}."
+msgstr ""
+
+#. placeholders: {touch_deep_swipe_points}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/main_menu/touch_practice.rs
+msgid "The deep swipe starts at {touch_deep_swipe_points}."
+msgstr ""
+
 #: crates/freight-fate/src/states/main_menu/touch_practice.rs
 msgid "Swipe up and hold: gas. Lift to coast."
 msgstr ""
@@ -40745,7 +41477,7 @@ msgid "Two-finger turn right: start the engine."
 msgstr ""
 
 #: crates/freight-fate/src/states/main_menu/touch_practice.rs
-msgid "Two-finger turn left: stop the engine."
+msgid "Two-finger turn left: stop the engine when the truck is stopped."
 msgstr ""
 
 #: crates/freight-fate/src/states/main_menu/touch_practice.rs
@@ -40782,7 +41514,7 @@ msgid "Skip and start driving"
 msgstr ""
 
 #: crates/freight-fate/src/states/main_menu/touch_practice.rs
-msgid "Swipe down with two fingers twice within two seconds to leave."
+msgid "Flick down with two fingers twice within two seconds to leave."
 msgstr ""
 
 #: crates/freight-fate/src/states/main_menu/touch_practice.rs
@@ -40831,10 +41563,6 @@ msgid "Again to leave practice."
 msgstr ""
 
 #: crates/freight-fate/src/states/main_menu/touch_practice.rs
-msgid "Double tap"
-msgstr ""
-
-#: crates/freight-fate/src/states/main_menu/touch_practice.rs
 msgid "Swipe up"
 msgstr ""
 
@@ -40843,27 +41571,19 @@ msgid "Swipe down"
 msgstr ""
 
 #: crates/freight-fate/src/states/main_menu/touch_practice.rs
-msgid "Flick left"
+msgid "Two-finger tap"
 msgstr ""
 
 #: crates/freight-fate/src/states/main_menu/touch_practice.rs
-msgid "Flick right"
+msgid "Two-finger flick up"
 msgstr ""
 
 #: crates/freight-fate/src/states/main_menu/touch_practice.rs
-msgid "Magic tap"
+msgid "Two-finger flick left"
 msgstr ""
 
 #: crates/freight-fate/src/states/main_menu/touch_practice.rs
-msgid "Two-finger swipe up"
-msgstr ""
-
-#: crates/freight-fate/src/states/main_menu/touch_practice.rs
-msgid "Two-finger swipe left"
-msgstr ""
-
-#: crates/freight-fate/src/states/main_menu/touch_practice.rs
-msgid "Two-finger swipe right"
+msgid "Two-finger flick right"
 msgstr ""
 
 #: crates/freight-fate/src/states/main_menu/touch_practice.rs
@@ -40871,15 +41591,19 @@ msgid "Three-finger tap"
 msgstr ""
 
 #: crates/freight-fate/src/states/main_menu/touch_practice.rs
-msgid "Three-finger swipe left"
+msgid "Three-finger flick left"
 msgstr ""
 
 #: crates/freight-fate/src/states/main_menu/touch_practice.rs
-msgid "Three-finger swipe right"
+msgid "Three-finger flick right"
 msgstr ""
 
 #: crates/freight-fate/src/states/main_menu/touch_practice.rs
-msgid "Confirm"
+msgid "Take an exit, pull over or confirm arrival"
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu/touch_practice.rs
+msgid "Stop speech"
 msgstr ""
 
 #: crates/freight-fate/src/states/main_menu/touch_practice.rs
@@ -43213,6 +43937,13 @@ msgstr ""
 
 #: crates/freight-fate/src/states/main_menu_help.rs
 msgid ""
+"Flick right or left to read one line at a time. Flick up for the next page "
+"and down for the previous one. Double tap reads the whole page, and a flick "
+"down with two fingers goes back."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu_help.rs
+msgid ""
 "D-pad Left and Right change pages, Up and Down read one line at a time. A "
 "reads the whole page, Back stops speech, and B goes back."
 msgstr ""
@@ -43244,14 +43975,38 @@ msgid ""
 "Enter opens an item or changes a setting to its next value. Right also "
 "moves it forward, Left backward. Escape goes back. Drivers on duty, the "
 "Driver directory, the duty notices, and Account achievements work without "
-"connecting. The rest needs an orinks.net account. Everything you share can "
-"be turned off again."
+"connecting. Drive online as a guest puts you on the board with no account. "
+"The rest needs an orinks.net account. Everything you share can be turned "
+"off again."
+msgstr ""
+
+#: crates/freight-fate/src/states/online_hub.rs
+msgid ""
+"Your profile needs an orinks.net account. Choose Connect an orinks.net "
+"account first."
 msgstr ""
 
 #: crates/freight-fate/src/states/online_hub.rs
 msgid ""
 "Your profile needs your orinks.net account. Choose Set up orinks.net "
 "account first."
+msgstr ""
+
+#: crates/freight-fate/src/states/online_hub.rs
+msgid "Your orinks.net account is connected, so there's no guest driver."
+msgstr ""
+
+#. placeholders: {display_name}
+#: crates/freight-fate/src/states/online_hub.rs
+msgid "Guest name: {display_name}"
+msgstr ""
+
+#: crates/freight-fate/src/states/online_hub.rs
+msgid "Guest driver: off, account connected"
+msgstr ""
+
+#: crates/freight-fate/src/states/online_hub.rs crates/freight-fate/src/states/online_states/guest.rs
+msgid "Drive online as a guest"
 msgstr ""
 
 #: crates/freight-fate/src/states/online_hub.rs
@@ -43284,6 +44039,12 @@ msgstr ""
 #. placeholders: {clipboard_note}
 #: crates/freight-fate/src/states/online_hub.rs
 msgid "Opening your driver setup page in your browser.{clipboard_note}"
+msgstr ""
+
+#: crates/freight-fate/src/states/online_hub.rs
+msgid ""
+"Cloud backup needs an orinks.net account. Choose Connect an orinks.net "
+"account."
 msgstr ""
 
 #: crates/freight-fate/src/states/online_hub.rs
@@ -43418,6 +44179,10 @@ msgid ""
 msgstr ""
 
 #: crates/freight-fate/src/states/online_hub.rs
+msgid "Connect an orinks.net account"
+msgstr ""
+
+#: crates/freight-fate/src/states/online_hub.rs
 msgid "orinks.net account: connected"
 msgstr ""
 
@@ -43430,6 +44195,16 @@ msgid ""
 "Connects the game to your orinks.net account, which turns Profile sharing "
 "on and starts backing your careers up. Each has its own item on this menu. "
 "Driver name and signed-in computers are on Open my driver setup page."
+msgstr ""
+
+#: crates/freight-fate/src/states/online_hub.rs
+msgid "Hear your guest name or ask orinks.net for a new one."
+msgstr ""
+
+#: crates/freight-fate/src/states/online_hub.rs
+msgid ""
+"Puts you on the drivers board under a name orinks.net picks, with no "
+"account. A profile and cloud backup need an account."
 msgstr ""
 
 #: crates/freight-fate/src/states/online_hub.rs
@@ -43729,26 +44504,23 @@ msgstr ""
 msgid "your driver"
 msgstr ""
 
-#. placeholders: {display}
-#. one sentence of a longer line
 #: crates/freight-fate/src/states/online_states.rs
-msgid "Connected to orinks.net as {display}."
+msgid " Your guest driver is this account now."
 msgstr ""
 
-#. placeholders: {display}
+#. placeholders: {display}, {guest_note}
+#. one sentence of a longer line
 #: crates/freight-fate/src/states/online_states.rs
 msgid ""
-"Connected to orinks.net as {display}. Your careers now back up to that "
-"account. Turning Profile sharing on."
+"Connected to orinks.net as {display}.{guest_note} Your careers now back up "
+"to that account."
 msgstr ""
 
-#. one sentence of a longer line
+#. placeholders: {display}, {guest_note}
 #: crates/freight-fate/src/states/online_states.rs
-msgid "Your careers now back up to that account."
-msgstr ""
-
-#: crates/freight-fate/src/states/online_states.rs
-msgid "profile-sharing"
+msgid ""
+"Connected to orinks.net as {display}.{guest_note} Your careers now back up "
+"to that account. Turning Profile sharing on."
 msgstr ""
 
 #: crates/freight-fate/src/states/online_states.rs
@@ -43787,10 +44559,6 @@ msgid "Puts the activation code on the clipboard."
 msgstr ""
 
 #: crates/freight-fate/src/states/online_states.rs
-msgid "Hear what gets shared"
-msgstr ""
-
-#: crates/freight-fate/src/states/online_states.rs
 msgid "Leave without connecting this account."
 msgstr ""
 
@@ -43826,10 +44594,6 @@ msgstr ""
 
 #: crates/freight-fate/src/states/online_states.rs
 msgid "Still waiting."
-msgstr ""
-
-#: crates/freight-fate/src/states/online_states.rs
-msgid "Could not reach orinks.net. Try again."
 msgstr ""
 
 #: crates/freight-fate/src/states/online_states.rs
@@ -43935,6 +44699,11 @@ msgstr ""
 msgid "No drivers are on duty right now"
 msgstr ""
 
+#. placeholders: {name}
+#: crates/freight-fate/src/states/online_states/board.rs
+msgid "{name}, guest"
+msgstr ""
+
 #: crates/freight-fate/src/states/online_states/board.rs crates/freight-fate/src/states/online_states/directory.rs crates/freight-fate/src/states/online_states/profile.rs
 msgid "activity"
 msgstr ""
@@ -43945,6 +44714,10 @@ msgstr ""
 
 #: crates/freight-fate/src/states/online_states/board.rs
 msgid "went off duty"
+msgstr ""
+
+#: crates/freight-fate/src/states/online_states/board.rs
+msgid "A guest driver, with no orinks.net account and no profile."
 msgstr ""
 
 #: crates/freight-fate/src/states/online_states/board.rs crates/freight-fate/src/states/online_states/directory.rs
@@ -44086,6 +44859,148 @@ msgstr ""
 #. placeholders: {n}
 #: crates/freight-fate/src/states/online_states/directory.rs
 msgid "{n} on duty"
+msgstr ""
+
+#: crates/freight-fate/src/states/online_states/guest.rs
+msgid ""
+"As a guest you go on the orinks.net drivers board under a name orinks.net "
+"picks, like Copper Fox 12, with no account. This turns Profile sharing on, "
+"so your guest name and on-duty activity show publicly on the board. A "
+"driver profile, road journal, achievements and cloud backup need an "
+"account. Profile sharing on the Online menu turns sharing off."
+msgstr ""
+
+#: crates/freight-fate/src/states/online_states/guest.rs
+msgid "Go online as a guest"
+msgstr ""
+
+#: crates/freight-fate/src/states/online_states/guest.rs
+msgid "Asking orinks.net for a guest name"
+msgstr ""
+
+#: crates/freight-fate/src/states/online_states/guest.rs
+msgid "Turning Profile sharing on"
+msgstr ""
+
+#: crates/freight-fate/src/states/online_states/guest.rs
+msgid "Still working. Stay here for the result."
+msgstr ""
+
+#: crates/freight-fate/src/states/online_states/guest.rs
+msgid "Asking orinks.net for a guest name."
+msgstr ""
+
+#: crates/freight-fate/src/states/online_states/guest.rs
+msgid "online-guest"
+msgstr ""
+
+#: crates/freight-fate/src/states/online_states/guest.rs
+msgid "orinks.net is busy. Try again in a minute."
+msgstr ""
+
+#: crates/freight-fate/src/states/online_states/guest.rs crates/freight-fate/src/states/online_states.rs
+msgid "Could not reach orinks.net. Try again."
+msgstr ""
+
+#: crates/freight-fate/src/states/online_states/guest.rs
+msgid ""
+"This computer could not save the guest driver. Nothing was changed. Check "
+"your password store, then try again."
+msgstr ""
+
+#: crates/freight-fate/src/states/online_states/guest.rs crates/freight-fate/src/states/online_states.rs
+msgid "profile-sharing"
+msgstr ""
+
+#. placeholders: {name}
+#: crates/freight-fate/src/states/online_states/guest.rs
+msgid "You're {name} on the drivers board."
+msgstr ""
+
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/online_states/guest.rs
+msgid "Profile sharing on the Online menu tries again."
+msgstr ""
+
+#. placeholders: {name}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/online_states/guest.rs
+msgid ""
+"You're {name}, but orinks.net could not turn Profile sharing on, so nothing "
+"is public yet."
+msgstr ""
+
+#. placeholders: {name}
+#: crates/freight-fate/src/states/online_states/guest.rs
+msgid ""
+"You're {name}, but orinks.net could not turn Profile sharing on, so nothing "
+"is public yet. Profile sharing on the Online menu tries again."
+msgstr ""
+
+#: crates/freight-fate/src/states/online_states/guest.rs
+msgid "Gets a guest name from orinks.net and turns Profile sharing on."
+msgstr ""
+
+#: crates/freight-fate/src/states/online_states/guest.rs crates/freight-fate/src/states/online_states.rs
+msgid "Hear what gets shared"
+msgstr ""
+
+#: crates/freight-fate/src/states/online_states/guest.rs
+msgid "Guest name"
+msgstr ""
+
+#: crates/freight-fate/src/states/online_states/guest.rs
+msgid "Still asking."
+msgstr ""
+
+#: crates/freight-fate/src/states/online_states/guest.rs
+msgid "This computer isn't driving as a guest."
+msgstr ""
+
+#: crates/freight-fate/src/states/online_states/guest.rs
+msgid "guest-rename"
+msgstr ""
+
+#: crates/freight-fate/src/states/online_states/guest.rs
+msgid "Asking for a new name"
+msgstr ""
+
+#: crates/freight-fate/src/states/online_states/guest.rs
+msgid "Ask for a new name"
+msgstr ""
+
+#: crates/freight-fate/src/states/online_states/guest.rs
+msgid "orinks.net picks another name at random. Ask again for another."
+msgstr ""
+
+#. placeholders: {name}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/online_states/guest.rs
+msgid "You're {name}."
+msgstr ""
+
+#. placeholders: {TITLE}, {name}, {current}
+#: crates/freight-fate/src/states/online_states/guest.rs
+msgid "{TITLE}. You're {name}. {current}"
+msgstr ""
+
+#. placeholders: {name}
+#: crates/freight-fate/src/states/online_states/guest.rs
+msgid "You're {name} now."
+msgstr ""
+
+#: crates/freight-fate/src/states/online_states/guest.rs
+msgid "That's a lot of names. Try again in a minute."
+msgstr ""
+
+#: crates/freight-fate/src/states/online_states/guest.rs
+msgid ""
+"orinks.net no longer has this guest. Connect an orinks.net account from the "
+"Online menu."
+msgstr ""
+
+#: crates/freight-fate/src/states/online_states/guest.rs
+msgid "Still asking. Stay here for the new name."
 msgstr ""
 
 #: crates/freight-fate/src/states/online_states/profile.rs
@@ -44621,8 +45536,8 @@ msgstr ""
 #: crates/freight-fate/src/states/text_entry.rs
 msgid ""
 "Type with the on-screen keyboard, then double tap. Flick left or right to "
-"review the letters, swipe up or down with three fingers to jump to the "
-"start or end, and swipe down with two fingers to cancel."
+"review the letters, flick up or down with three fingers to jump to the "
+"start or end, and flick down with two fingers to cancel."
 msgstr ""
 
 #: crates/freight-fate/src/states/text_entry.rs
@@ -44826,8 +45741,12 @@ msgstr ""
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/update.rs
 msgid ""
-"Up and Down arrows read line by line, Enter reads everything, Escape goes "
-"back."
+"Double tap reads everything, and a flick down with two fingers goes back."
+msgstr ""
+
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/update.rs
+msgid "Flick right or left to read line by line."
 msgstr ""
 
 #. placeholders: {title}
@@ -44839,14 +45758,29 @@ msgstr ""
 #. placeholders: {title}, {notes}
 #: crates/freight-fate/src/states/update.rs
 msgid ""
-"What's new in {title}. {notes} lines. Up and Down arrows read line by line, "
-"Enter reads everything, Escape goes back."
+"What's new in {title}. {notes} lines. Flick right or left to read line by "
+"line. Double tap reads everything, and a flick down with two fingers goes "
+"back."
 msgstr ""
 
 #. placeholders: {notes}
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/update.rs
 msgid "{notes} lines."
+msgstr ""
+
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/update.rs
+msgid ""
+"Up and Down arrows read line by line, Enter reads everything, Escape goes "
+"back."
+msgstr ""
+
+#. placeholders: {title}, {notes}
+#: crates/freight-fate/src/states/update.rs
+msgid ""
+"What's new in {title}. {notes} lines. Up and Down arrows read line by line, "
+"Enter reads everything, Escape goes back."
 msgstr ""
 
 #. placeholders: {title}
@@ -44959,17 +45893,29 @@ msgstr ""
 #: crates/freight-fate/src/states/update.rs
 msgid ""
 "Downloading {title}{size}. The game restarts when the download finishes. "
+"Flick down with two fingers to cancel."
+msgstr ""
+
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/update.rs
+msgid "Flick down with two fingers to cancel."
+msgstr ""
+
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/update.rs
+msgid "The game restarts when the download finishes."
+msgstr ""
+
+#. placeholders: {title}, {size}
+#: crates/freight-fate/src/states/update.rs
+msgid ""
+"Downloading {title}{size}. The game restarts when the download finishes. "
 "Escape cancels."
 msgstr ""
 
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/update.rs
 msgid "Escape cancels."
-msgstr ""
-
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/update.rs
-msgid "The game restarts when the download finishes."
 msgstr ""
 
 #: crates/freight-fate/src/states/update.rs
@@ -45034,6 +45980,10 @@ msgstr ""
 
 #: crates/freight-fate/src/states/update.rs
 msgid "Escape cancels, Tab reads progress."
+msgstr ""
+
+#: crates/freight-fate/src/touch.rs
+msgid "lift"
 msgstr ""
 
 #. placeholders: {lane_assist}
@@ -46574,4 +47524,25 @@ msgstr ""
 
 #: lang/extra.pot
 msgid "Debris."
+msgstr ""
+
+#. The title of the screen when the license is pulled at the roadside,
+#. built from the record's status word.
+#: lang/extra.pot
+msgid "CDL suspended"
+msgstr ""
+
+#: lang/extra.pot
+msgid "CDL disqualified"
+msgstr ""
+
+#. One sentence of the sleep preview, when the stop's effect and legal
+#. notes are both empty.
+#: lang/extra.pot
+msgid "Fatigue {f} to {f2}."
+msgstr ""
+
+#. The last sentence of the sleep preview, when nothing comes before it.
+#: lang/extra.pot
+msgid "Select again to sleep."
 msgstr ""

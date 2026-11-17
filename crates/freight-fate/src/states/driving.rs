@@ -356,6 +356,9 @@ pub struct DrivingState {
     /// What the driver has been told about the no engine brake zone ahead
     /// or under the truck on this pass.
     pub jake_zone_notice: ff_core::sim::jake_zone::ZoneNotice,
+    /// The clutch a touch shift works in a manual truck: a phone has no
+    /// Shift key to hold.
+    pub touch_clutch: ff_core::sim::touch_clutch::TouchClutch,
     /// `None` | `PULL_OVER_LIGHTS` | `PULL_OVER_STOPPING`.
     pub pull_over: Option<String>,
     pub pull_over_start_mi: f64,
@@ -528,6 +531,10 @@ pub struct DrivingState {
     pub exit_right_hold_s: f64,
     pub exit_right_taps: i64,
     pub exit_tap_hint_said: bool,
+    /// The touch line for the stop the truck is waiting at was spoken.
+    /// Cleared when the double tap stops offering the stop, so it is said
+    /// once per stop, at a standstill.
+    pub stop_offer_line_said: bool,
     /// `set[float]` of the `EXIT_COUNTDOWN_MILESTONES_MI` already spoken.
     pub exit_countdown_said: Vec<f64>,
     pub ramp_mi: Option<f64>, // ramp distance left, once taken
@@ -1084,6 +1091,8 @@ pub struct DrivingState {
 
     // ---- driving.py: lifecycle -----------------------------------------------------------
     pub entered_once: bool,
+    /// The input device `trip.exit_hint` was chosen for.
+    pub exit_hint_device: &'static str,
     /// The co-driver for this load, once one has been paired.
     pub team: Option<crate::states::driving_team::TeamDrive>,
     /// A team departure chosen at the shipper: the co-driver takes the

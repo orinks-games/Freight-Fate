@@ -273,7 +273,9 @@ impl DrivingState {
         let air_ready = trip.truck.air_ready();
         let air_low_warning = trip.truck.air_low_warning();
         let spring_brakes_active = trip.truck.spring_brakes_active();
-        let status_text = if ctx.settings.driving_hints {
+        let status_text = if ctx.settings.driving_hints && ctx.touch_hints() {
+            "Turn two fingers right to start the engine.".to_string()
+        } else if ctx.settings.driving_hints {
             format!("Press {} to start the engine.", ctx.control_hint("engine"))
         } else {
             "Engine off.".to_string()
@@ -413,6 +415,7 @@ impl DrivingState {
             jake_citation_latched: false,
             jake_zone_grace_used: HashSet::new(),
             jake_zone_notice: Default::default(),
+            touch_clutch: Default::default(),
             pull_over: None,
             pull_over_start_mi: 0.0,
             pull_over_signaled: false,
@@ -494,6 +497,7 @@ impl DrivingState {
             exit_right_hold_s: 0.0,
             exit_right_taps: 0,
             exit_tap_hint_said: false,
+            stop_offer_line_said: false,
             exit_countdown_said: Vec::new(),
             ramp_mi: None,
             ramp_layout: None,
@@ -753,6 +757,7 @@ impl DrivingState {
             liquid_settled_said: false,
             liquid_settle_timer_s: 0.0,
             entered_once: false,
+            exit_hint_device: "",
             team: None,
             pending_team: None,
             truck_limit_state_named: None,

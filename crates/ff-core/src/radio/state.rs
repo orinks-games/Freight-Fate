@@ -526,14 +526,28 @@ impl RadioState {
         dial_category_name(dial_group(station))
     }
 
+    /// The Tab radio screen's station list: one line for every station the
+    /// truck hears from the dial's local groups -- the Freight Fate stations,
+    /// the driver's playlists, saved favorites and terrestrial stations in
+    /// range, plus the safety fallback -- in dial order, and how many more
+    /// receivable stations (web, satellite and the rest, thousands of them,
+    /// in range everywhere) the list leaves to the Radio app.
+    ///
+    /// It used to be the first 16 receivable stations. Once the Freight Fate
+    /// group grew past 16, that cut Channel 3000 and the last few regional
+    /// stations, and never reached a single station in range (owner,
+    /// 2026-11-17).
     pub fn station_list_lines(
         &mut self,
-        limit: usize,
         distance_text: Option<&dyn Fn(f64) -> String>,
-    ) -> Vec<String> {
+    ) -> (Vec<String>, usize) {
         let current_id = self.current_station().id;
+        let (local, elsewhere): (Vec<RadioReception>, Vec<RadioReception>) = self
+            .receivable_stations()
+            .into_iter()
+            .partition(|r| r.fallback || self.group(&r.station) <= TERRESTRIAL_GROUP);
         let mut lines = Vec::new();
-        for reception in self.receivable_stations().into_iter().take(limit) {
+        for reception in local {
             let station = &reception.station;
             let selected = if station.id == current_id {
                 "current, "
@@ -556,7 +570,7 @@ impl RadioState {
                 station.source
             ));
         }
-        lines
+        (lines, elsewhere.len())
     }
 
     pub fn current_station(&mut self) -> RadioStation {

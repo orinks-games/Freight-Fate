@@ -22,8 +22,8 @@ pub const MAX_LEN: usize = 24;
 /// A field's controls in gestures, for a touch player with no hardware
 /// keyboard to name keys on. The on-screen keyboard rises with the field.
 pub const TOUCH_FIELD_HELP: &str = "Type with the on-screen keyboard, then double tap. \
-    Flick left or right to review the letters, swipe up or down with three fingers to jump \
-    to the start or end, and swipe down with two fingers to cancel.";
+    Flick left or right to review the letters, flick up or down with three fingers to jump \
+    to the start or end, and flick down with two fingers to cancel.";
 
 /// Whether a field prompt should name gestures rather than keys.
 pub fn touch_prompt(ctx: &GameContext) -> bool {
@@ -316,6 +316,9 @@ macro_rules! impl_state_for_text_entry {
             }
             fn captures_text_input(&self) -> bool {
                 <Self as $crate::states::text_entry::TextEntry>::captures_text_input(self)
+            }
+            fn touch_mode(&self) -> $crate::touch::TouchMode {
+                $crate::touch::TouchMode::Field
             }
         }
     };

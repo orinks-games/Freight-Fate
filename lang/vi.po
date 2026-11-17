@@ -6500,14 +6500,17 @@ msgstr "chạm đúp"
 msgid "confirm"
 msgstr "xác nhận"
 
-msgid "a two-finger swipe down"
-msgstr "vuốt hai ngón xuống"
+msgid "a two-finger tap"
+msgstr "chạm hai ngón"
+
+msgid "a two-finger flick down"
+msgstr ""
 
 msgid "pause"
 msgstr "tạm dừng"
 
-msgid "a two-finger swipe up"
-msgstr "vuốt hai ngón lên"
+msgid "a two-finger flick up"
+msgstr ""
 
 msgid "help"
 msgstr "trợ giúp"
@@ -13027,6 +13030,12 @@ msgstr "{base} ngày mai"
 msgid "{base} in {days_ahead} days"
 msgstr "{base} sau {days_ahead} ngày nữa"
 
+msgid "out"
+msgstr ""
+
+msgid "shifting"
+msgstr ""
+
 msgid "minivan"
 msgstr "xe minivan"
 
@@ -15465,6 +15474,20 @@ msgstr "Chỗ đỗ chưa xác minh."
 msgid "No truck parking."
 msgstr "Không có chỗ đỗ xe tải."
 
+msgid "Double tap to signal for the exit."
+msgstr ""
+
+#. placeholders: {exit_hint}
+msgid "Press {exit_hint} to signal for the exit."
+msgstr "Nhấn {exit_hint} để bật xi-nhan lối ra."
+
+msgid "Double tap to signal."
+msgstr ""
+
+#. placeholders: {exit_hint}
+msgid "Press {exit_hint} to signal."
+msgstr "Nhấn {exit_hint} để bật xi-nhan."
+
 #. placeholders: {exit_label}
 msgid " at {exit_label}"
 msgstr " tại {exit_label}"
@@ -15479,13 +15502,13 @@ msgstr "Có dầu."
 msgid "No fuel."
 msgstr "Không có dầu."
 
-#. placeholders: {exit_hint}
-msgid "Press {exit_hint} to signal for the exit."
-msgstr "Nhấn {exit_hint} để bật xi-nhan lối ra."
-
 #. placeholders: {terse}
 msgid "{terse} No fuel."
 msgstr "{terse} Không có dầu."
+
+#. placeholders: {terse}
+msgid "{terse} Double tap to signal."
+msgstr ""
 
 #. placeholders: {terse}, {exit_hint}
 msgid "{terse} Press {exit_hint} to signal."
@@ -15604,6 +15627,21 @@ msgstr "Đang vào "
 msgid "Passing "
 msgstr "Đang đi qua "
 
+msgid "menu"
+msgstr "trình đơn"
+
+msgid "field"
+msgstr ""
+
+msgid "wheel"
+msgstr ""
+
+msgid "practice"
+msgstr ""
+
+msgid "arrival"
+msgstr ""
+
 msgid "miles"
 msgstr "dặm"
 
@@ -15703,6 +15741,9 @@ msgstr ""
 msgid ""
 "Scenario staged: {name} at {the_city} terminal, level {level}, {deliveries} "
 "deliveries, {grouped} dollars, {business_status}."
+msgstr ""
+
+msgid " Touch gestures is open over the terminal; listen for it."
 msgstr ""
 
 msgid " The terminal menu is open; listen for it."
@@ -15834,6 +15875,14 @@ msgstr ""
 
 msgid "screen"
 msgstr "màn hình"
+
+#. placeholders: {group}, {label}
+msgid "Tap with three fingers and open {group} for {label}"
+msgstr ""
+
+#. placeholders: {label}
+msgid "Tap with three fingers for {label}"
+msgstr ""
 
 msgid "system"
 msgstr ""
@@ -16355,17 +16404,14 @@ msgstr "Vuốt nhanh lên"
 msgid "Flick down"
 msgstr "Vuốt nhanh xuống"
 
-msgid "Two-finger tap"
-msgstr "Chạm hai ngón"
-
 msgid "Two-finger double tap"
 msgstr "Chạm đúp hai ngón"
 
-msgid "Three-finger swipe up"
-msgstr "Vuốt ba ngón lên"
+msgid "Three-finger flick up"
+msgstr ""
 
-msgid "Three-finger swipe down"
-msgstr "Vuốt ba ngón xuống"
+msgid "Three-finger flick down"
+msgstr ""
 
 msgid "Gas hold, tap with a second finger"
 msgstr "Giữ ga, chạm bằng ngón thứ hai"
@@ -16416,17 +16462,14 @@ msgstr "vuốt nhanh lên"
 msgid "a flick down"
 msgstr "vuốt nhanh xuống"
 
-msgid "a two-finger tap"
-msgstr "chạm hai ngón"
-
 msgid "a two-finger double tap"
 msgstr "chạm đúp hai ngón"
 
-msgid "a three-finger swipe up"
-msgstr "vuốt ba ngón lên"
+msgid "a three-finger flick up"
+msgstr ""
 
-msgid "a three-finger swipe down"
-msgstr "vuốt ba ngón xuống"
+msgid "a three-finger flick down"
+msgstr ""
 
 msgid "gas"
 msgstr "ga"
@@ -16446,6 +16489,82 @@ msgstr "vuốt nhanh sang trái"
 msgid "flick right"
 msgstr "vuốt nhanh sang phải"
 
+msgid "Double tap with two fingers"
+msgstr ""
+
+msgid "Flick up with three fingers"
+msgstr ""
+
+msgid "Flick down with three fingers"
+msgstr ""
+
+msgid "Hold gas and tap with a second finger"
+msgstr ""
+
+msgid "Hold gas and double tap with a second finger"
+msgstr ""
+
+msgid "Hold gas and flick up with a second finger"
+msgstr ""
+
+msgid "Hold gas and flick down with a second finger"
+msgstr ""
+
+msgid "Hold gas and flick left with a second finger"
+msgstr ""
+
+msgid "Hold gas and flick right with a second finger"
+msgstr ""
+
+msgid "Hold the brake and tap with a second finger"
+msgstr ""
+
+msgid "Hold the brake and double tap with a second finger"
+msgstr ""
+
+msgid "Hold the brake and flick up with a second finger"
+msgstr ""
+
+msgid "Hold the brake and flick down with a second finger"
+msgstr ""
+
+msgid "Hold the brake and flick left with a second finger"
+msgstr ""
+
+msgid "Hold the brake and flick right with a second finger"
+msgstr ""
+
+msgid "Turn two fingers right"
+msgstr ""
+
+msgid "Swipe up and hold"
+msgstr ""
+
+msgid "Swipe down and hold"
+msgstr ""
+
+msgid "Swipe down deep and hold"
+msgstr ""
+
+msgid "Hold two fingers"
+msgstr ""
+
+msgid "Flick left"
+msgstr "Hất sang trái"
+
+msgid "Flick right"
+msgstr "Hất sang phải"
+
+msgid "Double tap"
+msgstr "Chạm hai lần"
+
+msgid "Tap with three fingers, then double tap"
+msgstr ""
+
+#. placeholders: {label}
+msgid "{label} from the three-finger tap list"
+msgstr "{label} trong danh sách chạm ba ngón"
+
 msgid "a swipe up and hold"
 msgstr "vuốt lên rồi giữ yên"
 
@@ -16458,12 +16577,8 @@ msgstr "vuốt nhanh sang phải"
 msgid "a still hold for half a second"
 msgstr "giữ yên trong nửa giây"
 
-msgid "the exit command from the three-finger tap list"
-msgstr "lệnh lối ra trong danh sách chạm ba ngón"
-
-#. placeholders: {label}
-msgid "{label} from the three-finger tap list"
-msgstr "{label} trong danh sách chạm ba ngón"
+msgid "a three-finger tap then a double tap"
+msgstr ""
 
 #. placeholders: {touch_noun}, {touch_noun2}
 msgid "{touch_noun} and {touch_noun2}"
@@ -17196,6 +17311,9 @@ msgstr ""
 msgid "ready"
 msgstr ""
 
+msgid "token"
+msgstr ""
+
 msgid "online-journal"
 msgstr ""
 
@@ -17334,6 +17452,14 @@ msgstr ""
 msgid "Left and Right change the order of this category only."
 msgstr "Phím Trái và Phải chỉ đổi thứ tự của riêng nhóm này."
 
+msgid ""
+"Flick up or down to change the order of the categories and the achievements "
+"in each one."
+msgstr ""
+
+msgid "Flick up or down to change the order of this category only."
+msgstr ""
+
 msgid "All assists: the truck steers. Recommended for your first drives."
 msgstr ""
 "Hỗ trợ toàn phần: xe tự lái. Khuyên dùng cho những chuyến chạy đầu tiên."
@@ -17438,6 +17564,11 @@ msgstr ""
 "Nhấn Enter để chọn, Escape để quay lại. Nhấn Control để ngắt giọng đọc đang "
 "phát."
 
+msgid ""
+"Flick right or left to move and double tap to choose. Flick down with two "
+"fingers to go back."
+msgstr ""
+
 msgid "Menu"
 msgstr "Menu"
 
@@ -17463,6 +17594,11 @@ msgid ""
 "Up and Down read a line at a time, Enter repeats it, Escape goes back."
 msgstr ""
 "Phím Lên và Xuống đọc từng dòng, Enter đọc lại dòng đó, Escape quay lại."
+
+msgid ""
+"Flick right or left to read a line at a time, and double tap to repeat it. "
+"Flick down with two fingers to go back."
+msgstr ""
 
 msgid "Your carrier has ended your employment"
 msgstr "Hãng vận tải đã chấm dứt hợp đồng với bạn"
@@ -17802,6 +17938,17 @@ msgstr ""
 "chối, số lượt được cấp lại khi bạn thăng cấp tiếp theo. F1 xem chi tiết. "
 "Escape để quay lại."
 
+msgid ""
+"Double tap accepts. Flick up with two fingers for job details, and tap with "
+"three fingers for the market."
+msgstr ""
+
+msgid ""
+"Assigned load. Double tap accepts. Declining costs reputation and uses one "
+"of your declines, which refill at your next promotion. Flick up with two "
+"fingers for details."
+msgstr ""
+
 #. placeholders: {SENIOR_LOAD_CHOICE_LEVEL}
 msgid "until level {SENIOR_LOAD_CHOICE_LEVEL}"
 msgstr "cho đến cấp {SENIOR_LOAD_CHOICE_LEVEL}"
@@ -18038,6 +18185,17 @@ msgstr "Cần nghỉ thêm theo số giờ của ca này."
 
 #. placeholders: {summary}
 msgid ""
+"Needs an extra rest on this shift's hours. {summary} Double tap again to "
+"accept."
+msgstr ""
+
+#. placeholders: {summary}
+#. one sentence of a longer line
+msgid "{summary} Double tap again to accept."
+msgstr ""
+
+#. placeholders: {summary}
+msgid ""
 "Needs an extra rest on this shift's hours. {summary} Enter again to accept."
 msgstr ""
 "Cần nghỉ thêm theo số giờ của ca này. {summary} Nhấn Enter lần nữa để nhận."
@@ -18252,6 +18410,12 @@ msgstr ""
 "Enter để nghe lại dòng, hoặc nhận đơn tại mục Nhận đơn hàng này. Escape "
 "quay về bảng đơn hàng."
 
+msgid ""
+"Flick right or left to review the lines, and flick up or down with three "
+"fingers to jump to the ends. Flick down with two fingers to return to the "
+"dispatch board."
+msgstr ""
+
 msgid "Job details"
 msgstr "Chi tiết đơn hàng"
 
@@ -18330,6 +18494,9 @@ msgstr "Chi tiết đơn hàng. {current}"
 
 msgid "Enter repeats this line."
 msgstr "Enter để nghe lại dòng này."
+
+msgid "Double tap repeats this line."
+msgstr ""
 
 #. placeholders: {locked}
 msgid "Cannot accept this dispatch: {locked}"
@@ -18660,6 +18827,9 @@ msgstr "Kiểm tra quanh xe xong, mất {f} phút."
 msgid "Walk-around done, {f} minutes. {join}"
 msgstr "Kiểm tra quanh xe xong, mất {f} phút. {join}"
 
+msgid "Already rested. Double tap again to sleep anyway."
+msgstr ""
+
 msgid "Already rested. Enter again to sleep anyway."
 msgstr "Bạn đã nghỉ đủ giấc rồi. Nhấn Enter lần nữa nếu vẫn muốn ngủ."
 
@@ -18740,9 +18910,6 @@ msgstr "Quá trình sao lưu sẽ tiếp tục thử lại ở chế độ nền
 
 msgid "Progress saved."
 msgstr "Đã lưu tiến trình."
-
-msgid "menu"
-msgstr "trình đơn"
 
 #. placeholders: {city}
 msgid "{city} service area"
@@ -19288,6 +19455,9 @@ msgstr "Lộ trình tài xế chủ xe đang bị khóa"
 
 msgid "The remaining requirements."
 msgstr "Các điều kiện còn thiếu."
+
+msgid "Go back to company driving: double tap again to confirm"
+msgstr ""
 
 msgid "Go back to company driving: press Enter again to confirm"
 msgstr "Quay lại làm tài xế hãng: nhấn Enter lần nữa để xác nhận"
@@ -19850,12 +20020,25 @@ msgstr ""
 "Những điều kiện mà hãng vận tải khác yêu cầu trước khi nhận bạn về chạy."
 
 #. placeholders: {carrier_name}
+msgid "Move to {carrier_name}: double tap again to confirm"
+msgstr ""
+
+#. placeholders: {carrier_name}
 msgid "Move to {carrier_name}: press Enter again to confirm"
 msgstr "Chuyển sang {carrier_name}: nhấn Enter lần nữa để xác nhận"
 
 #. placeholders: {label}
 msgid "Move to {label}"
 msgstr "Chuyển sang {label}"
+
+#. placeholders: {carrier_name}, {menu_summary}
+msgid "{carrier_name}. {menu_summary} Double tap again to move."
+msgstr ""
+
+#. placeholders: {menu_summary}
+#. one sentence of a longer line
+msgid "{menu_summary} Double tap again to move."
+msgstr ""
 
 #. placeholders: {carrier_name}, {menu_summary}
 msgid "{carrier_name}. {menu_summary} Press Enter again to move."
@@ -20893,6 +21076,14 @@ msgstr "Đi qua {join}. Nhấn W để nghe thời tiết."
 msgid "W for weather."
 msgstr "Nhấn W để nghe thời tiết."
 
+#. one sentence of a longer line
+msgid "Tap with three fingers for weather."
+msgstr ""
+
+#. placeholders: {join}
+msgid "Via {join}. Tap with three fingers for weather."
+msgstr ""
+
 #. placeholders: {name}
 msgid "Depart with {name} driving, and ride along"
 msgstr "Khởi hành với {name} cầm lái, còn bạn ngồi kèm theo xe"
@@ -21045,6 +21236,9 @@ msgstr "Mở hồ sơ sự nghiệp này để chọn giữ bản nào"
 
 msgid "Enter opens restore choices for this career."
 msgstr "Nhấn Enter để mở các lựa chọn khôi phục cho hồ sơ sự nghiệp này."
+
+msgid "Double tap opens restore choices for this career."
+msgstr ""
 
 msgid "Hear how cloud backup works"
 msgstr "Nghe giải thích về sao lưu đám mây"
@@ -21713,6 +21907,9 @@ msgid "Cloud backup is still working. Stay here for the result."
 msgstr ""
 "Sao lưu đám mây vẫn đang xử lý. Hãy ở lại màn hình này để nghe kết quả."
 
+msgid "Turn two fingers right to start the engine."
+msgstr ""
+
 #. placeholders: {control_hint}
 msgid "Press {control_hint} to start the engine."
 msgstr "Nhấn {control_hint} để đề nổ máy."
@@ -21748,6 +21945,15 @@ msgstr "Động cơ đang nổ cầm chừng."
 msgid "Cruise paused. "
 msgstr "Ga tự động đang tạm dừng. "
 
+#. placeholders: {touch_instruction}
+msgid "Cruise paused. {touch_instruction} to cancel it. "
+msgstr ""
+
+#. placeholders: {touch_instruction}
+#. one sentence of a longer line
+msgid "{touch_instruction} to cancel it."
+msgstr ""
+
 #. placeholders: {control_hint}
 msgid "Cruise paused. {control_hint} cancels it. "
 msgstr "Ga tự động đang tạm dừng. {control_hint} để hủy. "
@@ -21756,6 +21962,10 @@ msgstr "Ga tự động đang tạm dừng. {control_hint} để hủy. "
 #. one sentence of a longer line
 msgid "{control_hint} cancels it."
 msgstr "{control_hint} để hủy."
+
+msgid ""
+"At air ready, swipe up and hold to release the parking brake and drive."
+msgstr ""
 
 #. placeholders: {control_hint}
 msgid "At air ready, {control_hint} releases the parking brake."
@@ -22636,30 +22846,26 @@ msgstr ""
 
 msgid ""
 "Hold one finger still for half a second to straighten the wheel. With "
-"cruise off, flick up to resume the last speed and flick down to set the "
-"current speed. Turn two fingers right like a key to start the engine, left "
-"to stop it. Hold two fingers for the horn. Turning them cancels it. While "
-"holding a pedal, a second finger's flicks and holds work the same way, and "
-"in automatic its shift flicks say the gear. "
+"cruise off, flick up to turn it on. Double tap to take an exit, pull over, "
+"or confirm arrival at a gate. Tap with two fingers to stop speech. Turn two "
+"fingers right like a key to start the engine, and left to stop it once the "
+"truck has stopped. Hold two fingers for the horn. While holding a pedal, a "
+"second finger's flicks and holds work the same way. "
 msgstr ""
-"Giữ yên một ngón tay trong nửa giây để trả thẳng lái. Khi ga tự động đang "
-"tắt, gạt lên để khôi phục tốc độ trước đó và gạt xuống để đặt tốc độ hiện "
-"tại. Xoay hai ngón tay sang phải như vặn chìa khóa để đề nổ máy, xoay trái "
-"để tắt máy. Chạm giữ hai ngón tay để bấm còi. Xoay tay để ngắt còi. Khi "
-"đang giữ chân ga hoặc phanh, các thao tác gạt và giữ của ngón thứ hai vẫn "
-"hoạt động như thường, và ở số tự động thao tác gạt chuyển số sẽ đọc tên số "
-"đang chạy. "
 
 msgid ""
-"Two-finger swipe down pauses, two-finger swipe up is this help, two-finger "
-"swipes left and right review messages, and three-finger swipes left and "
-"right tune the radio. A three-finger tap lists every driving command: swipe "
-"to one and double tap to run it. "
+"In a manual, hold a pedal and flick up or down with a second finger to "
+"shift. The flick works the clutch. Slowing in a tall gear takes neutral, "
+"and a flick up from neutral takes the gear that fits your speed. "
 msgstr ""
-"Vuốt hai ngón xuống để tạm dừng, vuốt hai ngón lên để mở hướng dẫn này, "
-"vuốt hai ngón sang trái hoặc phải để xem lại tin nhắn, và vuốt ba ngón sang "
-"trái hoặc phải để dò đài radio. Chạm ba ngón để liệt kê mọi lệnh lái xe: "
-"vuốt tới lệnh cần dùng rồi chạm đúp để chạy. "
+
+msgid ""
+"A two-finger flick down pauses, a two-finger flick up is this help, "
+"two-finger flicks left and right review messages, and three-finger flicks "
+"left and right tune the radio. A three-finger tap lists the driving "
+"commands in groups, Status menu first. Flick to one and double tap to run "
+"it or open its group. "
+msgstr ""
 
 msgid ""
 "Gestures can be moved in Settings, Gameplay, Controls, Touch gestures."
@@ -23211,9 +23417,14 @@ msgstr "Động cơ đang nổ sẵn rồi."
 msgid "Engine already off."
 msgstr "Động cơ đã tắt sẵn rồi."
 
-#. placeholders: {gear}
-msgid "{gear}, automatic."
-msgstr "{gear}, số tự động."
+msgid "Double tap to check in."
+msgstr ""
+
+msgid "Double tap to pull in."
+msgstr ""
+
+msgid "Neutral. Hold a pedal and flick up with a second finger for a gear."
+msgstr ""
 
 msgid "Release the accelerator before turning the jake on."
 msgstr "Nhả chân ga trước khi bật phanh động cơ."
@@ -23290,6 +23501,23 @@ msgstr "Khí nén đã đủ."
 #. placeholders: {psi}
 msgid "Air {psi} psi."
 msgstr "Khí nén {psi} PSI."
+
+msgid "Air ready. Swipe up and hold to drive."
+msgstr ""
+
+msgid "Air ready. Swipe up and hold to release the parking brake and drive."
+msgstr ""
+
+#. placeholders: {psi}
+msgid ""
+"Air {psi} psi. At 100 psi, swipe up and hold to release the parking brake "
+"and drive."
+msgstr ""
+
+#. one sentence of a longer line
+msgid ""
+"At 100 psi, swipe up and hold to release the parking brake and drive."
+msgstr ""
 
 #. placeholders: {brake_hint}
 msgid "Air ready. {brake_hint} releases the parking brake."
@@ -23379,10 +23607,6 @@ msgstr ""
 "{message} Cú va đập hộp số làm hại hệ truyền động, hư hỏng {damage} phần "
 "trăm."
 
-#. one sentence of a longer line
-msgid "Grinding gears!"
-msgstr "Kẹt nghiến bánh răng số!"
-
 #. placeholders: {control_hint}
 msgid "Grinding gears! Hold {control_hint} to press the clutch first."
 msgstr "Kẹt nghiến bánh răng số! Giữ {control_hint} để đạp côn trước."
@@ -23391,6 +23615,9 @@ msgstr "Kẹt nghiến bánh răng số! Giữ {control_hint} để đạp côn 
 #. one sentence of a longer line
 msgid "Hold {control_hint} to press the clutch first."
 msgstr "Giữ {control_hint} để đạp côn trước."
+
+msgid "Grinding gears!"
+msgstr "Kẹt nghiến bánh răng số!"
 
 msgid "Grinding gears! Clutch in first."
 msgstr "Kẹt nghiến bánh răng số! Phải đạp côn trước."
@@ -23406,6 +23633,9 @@ msgstr "dịch vụ niêm yết: {join_phrase}"
 msgid "services not listed"
 msgstr "chưa rõ dịch vụ"
 
+msgid "Your first run. Turn two fingers right to start the engine."
+msgstr ""
+
 #. one sentence of a longer line
 msgid "Your first run."
 msgstr "Chuyến chạy đầu tiên của bạn."
@@ -23413,6 +23643,11 @@ msgstr "Chuyến chạy đầu tiên của bạn."
 #. placeholders: {control_hint}
 msgid "Your first run. Press {control_hint} to start the engine."
 msgstr "Chuyến chạy đầu tiên của bạn. Nhấn {control_hint} để đề nổ máy."
+
+msgid ""
+"At air ready, swipe up and hold to release the parking brake, then flick up "
+"with a second finger for first gear."
+msgstr ""
 
 #. placeholders: {control_hint}, {control_hint2}
 msgid ""
@@ -23443,6 +23678,9 @@ msgstr "Đã nhả phanh đỗ. Giữ {control_hint} để tăng ga."
 msgid "Parking brake released. Shift into first gear."
 msgstr "Đã nhả phanh đỗ. Hãy vào số một."
 
+msgid "In gear. Swipe up and hold to accelerate."
+msgstr ""
+
 #. one sentence of a longer line
 msgid "In gear."
 msgstr "Đã vào số."
@@ -23456,8 +23694,33 @@ msgid "Brake hard at a hazard warning."
 msgstr "Khi có cảnh báo chướng ngại vật hãy phanh gấp."
 
 #. one sentence of a longer line
+msgid "Flick up with two fingers for all the controls."
+msgstr ""
+
+#. one sentence of a longer line
 msgid "Rolling."
 msgstr "Xe đã lăn bánh."
+
+#. placeholders: {touch_instruction}
+msgid ""
+"Rolling. {touch_instruction} for your speed. Tap with three fingers, then "
+"double tap, for a full report. Flick up with two fingers for all the "
+"controls. Brake hard at a hazard warning. Swipe down deep and hold to stop "
+"fast."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Swipe down deep and hold to stop fast."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Tap with three fingers, then double tap, for a full report."
+msgstr ""
+
+#. placeholders: {touch_instruction}
+#. one sentence of a longer line
+msgid "{touch_instruction} for your speed."
+msgstr ""
 
 #. placeholders: {control_hint}, {control_hint2}, {control_hint3}, {control_hint4}
 msgid ""
@@ -23483,9 +23746,17 @@ msgstr ""
 "Nhấn {control_hint} xem tốc độ, {control_hint2} xem báo cáo đầy đủ, "
 "{control_hint3} xem mọi phím điều khiển."
 
+msgid "Reminder: turn two fingers right to start the engine."
+msgstr ""
+
 #. placeholders: {control_hint}
 msgid "Reminder: press {control_hint} to start the engine."
 msgstr "Nhắc bạn: nhấn {control_hint} để đề nổ máy."
+
+msgid ""
+"Reminder: air is ready. Swipe up and hold to release the parking brake and "
+"drive."
+msgstr ""
 
 #. placeholders: {control_hint}
 #. one sentence of a longer line
@@ -23501,6 +23772,11 @@ msgid ""
 "Reminder: air is ready. Press {control_hint} to release the parking brake."
 msgstr "Nhắc bạn: khí nén đã đủ. Nhấn {control_hint} để nhả phanh đỗ."
 
+msgid ""
+"Reminder: wait for air pressure to reach 100 psi, then swipe up and hold to "
+"release the parking brake and drive."
+msgstr ""
+
 #. placeholders: {control_hint}
 msgid ""
 "Reminder: wait for air pressure to reach 100 psi, then press {control_hint} "
@@ -23508,6 +23784,10 @@ msgid ""
 msgstr ""
 "Nhắc bạn: đợi áp suất khí đạt 100 PSI rồi nhấn {control_hint} để nhả phanh "
 "đỗ."
+
+msgid ""
+"Reminder: hold a pedal and flick up with a second finger for first gear."
+msgstr ""
 
 #. placeholders: {control_hint}, {control_hint2}
 msgid ""
@@ -24192,6 +24472,9 @@ msgstr ""
 #. placeholders: {control_hint}
 msgid "Press {control_hint} to restart the engine."
 msgstr "Nhấn {control_hint} để đề nổ lại máy."
+
+msgid "Turn two fingers right to restart the engine."
+msgstr ""
 
 #. placeholders: {spare}
 msgid "You are in the {spare}"
@@ -24985,6 +25268,11 @@ msgstr ""
 "Kiểm tra an toàn lưu động định kỳ, Cấp 3: kiểm tra bằng lái, giấy khám sức "
 "khỏe lái xe, nhật ký lái xe và giấy tờ lô hàng.{blitz}"
 
+msgid ""
+"Lights behind you for a routine inspection. Double tap to signal, then stop "
+"on the shoulder."
+msgstr ""
+
 #. one sentence of a longer line
 msgid "Lights behind you for a routine inspection."
 msgstr "Có đèn cảnh sát phía sau yêu cầu dừng kiểm tra định kỳ."
@@ -25083,8 +25371,18 @@ msgid ""
 msgstr "Cảnh sát tuần tra tại {reason} thấy {detail} và muốn kiểm tra xe."
 
 #. one sentence of a longer line
+msgid "Double tap to signal, then stop on the shoulder."
+msgstr ""
+
+#. one sentence of a longer line
 msgid "Lights and siren behind you."
 msgstr "Có đèn và còi cảnh sát phía sau."
+
+#. placeholders: {reason}, {detail}
+msgid ""
+"Lights and siren behind you. A trooper on this {reason} saw {detail} and "
+"wants a look at the truck. Double tap to signal, then stop on the shoulder."
+msgstr ""
 
 #. placeholders: {reason}, {detail}, {control_hint}
 msgid ""
@@ -25112,6 +25410,12 @@ msgstr "Bật xi-nhan rồi dừng hẳn xe ở lề đường."
 #. one sentence of a longer line
 msgid "A trooper on this {reason} saw {what}."
 msgstr "Cảnh sát tuần tra tại {reason} đã phát hiện {what}."
+
+#. placeholders: {reason}, {what}
+msgid ""
+"Lights and siren behind you. A trooper on this {reason} saw {what}. Double "
+"tap to signal, then stop on the shoulder."
+msgstr ""
 
 #. placeholders: {reason}, {what}, {control_hint}
 msgid ""
@@ -25272,6 +25576,9 @@ msgstr "Lối ra điểm giao lại ở phía trước."
 msgid "Destination exit ahead again. Signal for it."
 msgstr "Lối ra điểm giao lại ở phía trước. Hãy bật xi-nhan."
 
+msgid "Destination exit ahead again. Double tap to signal."
+msgstr ""
+
 #. placeholders: {control_hint}
 msgid "Destination exit ahead again. Press {control_hint} to signal."
 msgstr ""
@@ -25289,6 +25596,11 @@ msgid ""
 "You turned around, and the destination exit is ahead again. Signal for it."
 msgstr ""
 "Bạn đã quay đầu xe, và lối ra điểm giao lại ở phía trước. Hãy bật xi-nhan."
+
+msgid ""
+"You turned around, and the destination exit is ahead again. Double tap to "
+"signal for it."
+msgstr ""
 
 #. placeholders: {control_hint}
 #. one sentence of a longer line
@@ -25314,6 +25626,9 @@ msgstr "Đã lỡ lối ra điểm giao tới {facility}."
 #. placeholders: {facility}, {reroute_text}
 msgid "Missed the destination exit for {facility}. {reroute_text}"
 msgstr "Đã lỡ lối ra điểm giao tới {facility}. {reroute_text}"
+
+msgid "Holding at the entrance. Double tap to continue."
+msgstr ""
 
 #. placeholders: {control_hint}
 msgid "Holding at the entrance. Press {control_hint} to continue."
@@ -26060,6 +26375,18 @@ msgstr "Đã ở trên đường dẫn ra."
 msgid "No route exit to signal for yet."
 msgstr "Chưa có lối ra nào trên tuyến để bật xi-nhan."
 
+#. placeholders: {stays}
+msgid "Signal stays {stays}."
+msgstr "Xi-nhan vẫn đang {stays}."
+
+#. one sentence of a longer line
+msgid "Double tap again to cancel the exit."
+msgstr ""
+
+#. placeholders: {stays}
+msgid "Signal stays {stays}. Double tap again to cancel the exit."
+msgstr ""
+
 #. placeholders: {control_hint}
 #. one sentence of a longer line
 msgid "Press {control_hint} again to cancel the exit."
@@ -26069,10 +26396,6 @@ msgstr "Nhấn {control_hint} lần nữa để hủy lối ra."
 msgid "Signal stays {stays}. Press {control_hint} again to cancel the exit."
 msgstr ""
 "Xi-nhan vẫn đang {stays}. Nhấn {control_hint} lần nữa để hủy lối ra."
-
-#. placeholders: {stays}
-msgid "Signal stays {stays}."
-msgstr "Xi-nhan vẫn đang {stays}."
 
 msgid "Signal canceled."
 msgstr "Đã hủy xi-nhan."
@@ -26144,14 +26467,16 @@ msgstr "Đang giảm tốc.{lane_text}"
 msgid "Signal for it."
 msgstr "Hãy bật xi-nhan."
 
-#. placeholders: {exit_hint}
-msgid "Press {exit_hint} to signal."
-msgstr "Nhấn {exit_hint} để bật xi-nhan."
-
 msgid "Set the parking brake to check in."
 msgstr ""
 
 msgid "Set the parking brake to dock."
+msgstr ""
+
+msgid "Swipe down deep to set the parking brake and check in."
+msgstr ""
+
+msgid "Swipe down deep to set the parking brake and dock."
 msgstr ""
 
 #. placeholders: {key}
@@ -26710,16 +27035,12 @@ msgstr "Phía trước cũng có {name2}."
 msgid "Fuel range only {range_text}."
 msgstr "Tầm chạy còn lại chỉ {range_text}."
 
-#. placeholders: {hint}
-msgid " Press {hint} to signal for the exit."
-msgstr " Nhấn {hint} để bật xi-nhan lối ra."
-
-#. placeholders: {hint}
-msgid " Press {hint} to signal."
-msgstr " Nhấn {hint} để bật xi-nhan."
-
 msgid "Rest-stop planning unavailable during a police stop."
 msgstr "Không thể lên lịch điểm dừng khi đang bị cảnh sát yêu cầu dừng xe."
+
+msgid ""
+"Resolve the police stop first. Double tap to signal the trooper stop."
+msgstr ""
 
 #. placeholders: {exit_hint}
 #. one sentence of a longer line
@@ -26740,6 +27061,15 @@ msgstr "Giải quyết việc dừng xe với cảnh sát trước đã."
 #. one sentence of a longer line
 msgid "On the ramp for {name}."
 msgstr "Đang trên đường dẫn vào {name}."
+
+#. placeholders: {name}
+msgid ""
+"On the ramp for {name}. Stop at the scale, then double tap to check in."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Stop at the scale, then double tap to check in."
+msgstr ""
 
 #. placeholders: {name}, {rest_hint}
 msgid ""
@@ -26908,6 +27238,11 @@ msgstr "Đình chỉ lưu hành {oos_phrase}."
 #. placeholders: {oos_phrase}, {evidence_text}
 msgid "Out of service {oos_phrase}. Citation: {evidence_text}."
 msgstr "Đình chỉ lưu hành {oos_phrase}. Biên bản phạt: {evidence_text}."
+
+msgid ""
+"Lights and siren behind you for a log check. Double tap to signal, then "
+"stop on the shoulder."
+msgstr ""
 
 #. one sentence of a longer line
 msgid "Lights and siren behind you for a log check."
@@ -27106,6 +27441,9 @@ msgstr "Đã chạy lố qua {place}. Nơi đó lại ở phía trước rồi."
 msgid "It is ahead again."
 msgstr "Nơi đó lại ở phía trước rồi."
 
+msgid " Swipe down and hold to brake well before it."
+msgstr ""
+
 #. placeholders: {control_hint}
 msgid " Brake with {control_hint} well before it."
 msgstr " Nhớ phanh bằng {control_hint} từ sớm trước khi tới nơi."
@@ -27173,6 +27511,9 @@ msgstr ""
 #. one sentence of a longer line
 msgid "You turned around, and the gate is ahead again."
 msgstr "Bạn đã quay đầu lại, và cổng lại ở phía trước."
+
+msgid " Swipe down and hold to brake well before the gate."
+msgstr ""
 
 #. placeholders: {control_hint}
 msgid " Brake with {control_hint} well before the gate."
@@ -27514,6 +27855,9 @@ msgstr "Ghi chú tuyến ELD: không có cảnh báo dừng nghỉ bắt buộc.
 #. placeholders: {context}
 msgid "ELD route note: {context}"
 msgstr "Ghi chú tuyến ELD: {context}"
+
+msgid "ELD commands: tap with three fingers and open Hours and clock."
+msgstr ""
 
 #. placeholders: {control_name}, {control_name2}, {control_name3}
 msgid ""
@@ -28146,16 +28490,49 @@ msgstr "Page Down"
 msgid "Page Up"
 msgstr "Page Up"
 
+msgid "a three-finger flick right"
+msgstr ""
+
+msgid "a three-finger flick left"
+msgstr ""
+
+msgid ""
+"Left and Right change it. On the keyboard: Shift Page Down and Shift Page "
+"Up."
+msgstr ""
+
+msgid ""
+"Left and Right change it. On the keyboard: Control Page Up and Control Page "
+"Down."
+msgstr ""
+
+msgid "Speed and cruise"
+msgstr ""
+
+msgid "Road and stops"
+msgstr ""
+
+msgid "Where am I"
+msgstr ""
+
+msgid "Truck"
+msgstr ""
+
+msgid "Gears and engine brake"
+msgstr ""
+
+msgid "Radio and CB"
+msgstr ""
+
+msgid "Hours and clock"
+msgstr ""
+
 msgid "Driving commands"
 msgstr "Lệnh lái xe"
 
-#. placeholders: {spoken}
-msgid "On the keyboard: {spoken}."
-msgstr "Trên bàn phím: {spoken}."
-
-#. placeholders: {pad_spoken}
-msgid " On the controller: {pad_spoken}."
-msgstr " Trên tay cầm: {pad_spoken}."
+#. placeholders: {noun}
+msgid "At the wheel: {noun}."
+msgstr ""
 
 #. placeholders: {key_name}
 msgid "On the keyboard: {key_name}."
@@ -28166,6 +28543,32 @@ msgstr "Quay lại lái xe"
 
 msgid "Close the list without running a command."
 msgstr "Đóng danh sách mà không chạy lệnh nào."
+
+#. placeholders: {spoken}
+msgid "On the keyboard: {spoken}."
+msgstr "Trên bàn phím: {spoken}."
+
+#. placeholders: {pad_spoken}
+msgid " On the controller: {pad_spoken}."
+msgstr " Trên tay cầm: {pad_spoken}."
+
+#. placeholders: {pad_spoken}, {pad_spoken2}
+msgid " On the controller: {pad_spoken} and {pad_spoken2}."
+msgstr ""
+
+#. placeholders: {pct}
+msgid "Radio volume: {pct} percent"
+msgstr ""
+
+msgid "Radio category"
+msgstr ""
+
+#. placeholders: {name}
+msgid "Radio category: {name}"
+msgstr ""
+
+msgid "Flick up or down to change it."
+msgstr ""
 
 msgid "Back to driving."
 msgstr "Quay lại lái xe."
@@ -28491,6 +28894,10 @@ msgid "Enter opens details, distance, estimated arrival, and stop planning."
 msgstr ""
 "Enter để mở chi tiết, khoảng cách, giờ đến dự kiến và lên kế hoạch dừng xe."
 
+msgid ""
+"Double tap opens details, distance, estimated arrival, and stop planning."
+msgstr ""
+
 #. placeholders: {planned}
 msgid "Cancel planned stop at {planned}"
 msgstr "Hủy điểm dừng dự kiến tại {planned}"
@@ -28622,6 +29029,13 @@ msgstr "Vị trí bắt sóng ước tính của xe: {f}, {f2}."
 msgid "Receivable stations:"
 msgstr "Các đài bắt được sóng:"
 
+msgid "Plus 1 more station, listed in the Radio app under Driver apps."
+msgstr ""
+
+#. placeholders: {n}
+msgid "Plus {n} more stations, listed in the Radio app under Driver apps."
+msgstr ""
+
 msgid "Favorites saved:"
 msgstr "Đài yêu thích đã lưu:"
 
@@ -28630,6 +29044,9 @@ msgstr "mục yêu thích"
 
 msgid "Your saved stations. Enter on one tunes it."
 msgstr "Các đài bạn đã lưu. Nhấn Enter vào một đài để mở nghe."
+
+msgid "Your saved stations. Double tap one to tune it."
+msgstr ""
 
 msgid "Back to the status screens."
 msgstr "Quay lại các màn hình trạng thái."
@@ -29167,12 +29584,18 @@ msgstr "Lưu {display_name} vào mục yêu thích"
 msgid "Now playing on the tuned station. Enter asks again."
 msgstr "Thông tin bài đang phát trên đài hiện tại. Nhấn Enter để hỏi lại."
 
+msgid "Now playing on the tuned station. Double tap asks again."
+msgstr ""
+
 #. placeholders: {else}, {tuned}
 msgid "Radio: {else}, tuned to {tuned}"
 msgstr "Radio: {else}, đang mở đài {tuned}"
 
 msgid "Enter switches the radio on or off."
 msgstr "Nhấn Enter để bật hoặc tắt radio."
+
+msgid "Double tap switches the radio on or off."
+msgstr ""
 
 msgid "Saves or removes the tuned station in favorites."
 msgstr "Lưu hoặc xóa đài đang nghe khỏi mục yêu thích."
@@ -29210,6 +29633,9 @@ msgstr "phạm vi"
 
 msgid "Every station that comes in here. Enter on one tunes it."
 msgstr "Mọi đài bắt được sóng tại đây. Nhấn Enter vào một đài để nghe."
+
+msgid "Every station that comes in here. Double tap one to tune it."
+msgstr ""
 
 msgid "Suggest a station"
 msgstr "Đề xuất đài mới"
@@ -29257,6 +29683,9 @@ msgstr "{display_name} đang ngoài vùng phủ sóng tại đây."
 
 msgid "Enter tunes this station."
 msgstr "Nhấn Enter để mở đài này."
+
+msgid "Double tap tunes this station."
+msgstr ""
 
 #. one sentence of a longer line
 msgid "Next page."
@@ -29382,6 +29811,9 @@ msgid "Enter lists this category. Stations in range list first."
 msgstr ""
 "Nhấn Enter để xem danh sách nhóm này. Các đài bắt được sóng xếp lên trước."
 
+msgid "Double tap lists this category. Stations in range list first."
+msgstr ""
+
 msgid "Suggesting a station needs Online services on, in the Online menu."
 msgstr ""
 "Để đề xuất đài radio, cần bật Dịch vụ trực tuyến trong menu Trực tuyến."
@@ -29456,6 +29888,20 @@ msgstr "Không bắt buộc, ví dụ 101.5 hoặc 1090. Nhấn Enter để bỏ
 
 msgid "Optional, like classic country. Enter skips."
 msgstr "Không bắt buộc, ví dụ nhạc đồng quê cổ điển. Nhấn Enter để bỏ qua."
+
+msgid ""
+"The direct link to the audio stream, not the station's web page. "
+"streamurl.link finds one."
+msgstr ""
+
+msgid "Optional. Double tap skips."
+msgstr ""
+
+msgid "Optional, like 101.5 or 1090. Double tap skips."
+msgstr ""
+
+msgid "Optional, like classic country. Double tap skips."
+msgstr ""
 
 #. placeholders: {typed}
 msgid " Filled in: {typed}."
@@ -31298,6 +31744,11 @@ msgstr ""
 "giờ lái quy định được đặt lại nếu đang bật chế độ kiểm soát. Có thể bị phạt "
 "và hư hỏng nhẹ. Hạn giao hàng vẫn tiếp tục trôi. {current}"
 
+msgid ""
+"Shoulder sleep canceled. Back on the road. Parking brake set. Swipe up and "
+"hold to release it and drive."
+msgstr ""
+
 #. one sentence of a longer line
 msgid "Back on the road."
 msgstr "Trở lại đường chạy."
@@ -31536,9 +31987,21 @@ msgstr "Rời trường tập lái."
 msgid "Cruise is already on."
 msgstr "Ga tự động đang bật sẵn rồi."
 
+msgid "No remembered cruise speed yet. Flick up to set one."
+msgstr ""
+
 #. one sentence of a longer line
 msgid "No remembered cruise speed yet."
 msgstr "Chưa có tốc độ ga tự động nào được lưu."
+
+#. placeholders: {touch_instruction}
+msgid "No remembered cruise speed yet. {touch_instruction} to set one."
+msgstr ""
+
+#. placeholders: {touch_instruction}
+#. one sentence of a longer line
+msgid "{touch_instruction} to set one."
+msgstr ""
 
 #. placeholders: {key}
 msgid "No remembered cruise speed yet. {key} sets one."
@@ -31588,6 +32051,12 @@ msgid ""
 msgstr ""
 "Dùng mũi tên lên xuống để xem từng dòng. Home và End để nhảy tới dòng đầu "
 "và cuối. Enter để đọc lại dòng hoặc nhấn nút. Escape để quay về bản đồ."
+
+msgid ""
+"Flick right or left to review each line, and flick up or down with three "
+"fingers to jump to the first and last. Flick down with two fingers to "
+"return to the map."
+msgstr ""
 
 msgid "Stop details"
 msgstr "Chi tiết điểm dừng"
@@ -31655,6 +32124,10 @@ msgstr "Quay lại màn hình bản đồ."
 #. one sentence of a longer line
 msgid "Stop details."
 msgstr "Chi tiết điểm dừng."
+
+#. placeholders: {STOP_DETAIL_TOUCH_HELP}, {current}
+msgid "Stop details. {STOP_DETAIL_TOUCH_HELP} {current}"
+msgstr ""
 
 #. placeholders: {STOP_DETAIL_INTRO_HELP}, {current}
 msgid "Stop details. {STOP_DETAIL_INTRO_HELP} {current}"
@@ -32302,6 +32775,9 @@ msgstr "Đang chờ đủ áp suất hơi trước khi xe lăn bánh được."
 msgid "Air pressure {psi} psi."
 msgstr "Áp suất hơi {psi} PSI."
 
+msgid "Parking brake set. Swipe up and hold to release it and drive."
+msgstr ""
+
 #. placeholders: {brake_hint}
 msgid "Parking brake set. Press {brake_hint} to release it."
 msgstr "Phanh đỗ đang kéo. Nhấn {brake_hint} để nhả."
@@ -32780,6 +33256,12 @@ msgstr ""
 msgid "{speed} in a {zone} zone."
 msgstr "{speed} trong khu vực {zone}."
 
+#. placeholders: {speed}, {zone}
+msgid ""
+"Lights and siren behind you. {speed} in a {zone} zone. Double tap to "
+"signal, then stop on the shoulder."
+msgstr ""
+
 #. placeholders: {speed}, {zone}, {control_hint}
 msgid ""
 "Lights and siren behind you. {speed} in a {zone} zone. Signal with "
@@ -32831,6 +33313,11 @@ msgstr "Rẽ vào {name}."
 msgid "Red light. Pull in to {name}."
 msgstr "Đèn đỏ trạm cân. Rẽ vào {name}."
 
+msgid ""
+"Scale bypass enforcement. Lights and siren behind you. Double tap to "
+"signal, then stop on the shoulder."
+msgstr ""
+
 #. one sentence of a longer line
 msgid "Scale bypass enforcement."
 msgstr "Xử phạt lỗi chạy lố qua trạm cân."
@@ -32871,6 +33358,11 @@ msgid ""
 msgstr ""
 "Cảnh sát tuần tra ở khu vực {reason} thấy xe bạn hư hỏng rõ rệt ở mức "
 "{damage_pct} phần trăm và yêu cầu kiểm tra an toàn lưu động."
+
+msgid ""
+"Unsafe equipment stop. Lights and siren behind you. Double tap to signal, "
+"then stop on the shoulder."
+msgstr ""
 
 #. one sentence of a longer line
 msgid "Unsafe equipment stop."
@@ -32998,6 +33490,9 @@ msgid ""
 "gear."
 msgstr "Chết máy. Về số mo, đề nổ lại rồi đạp côn và vào số một."
 
+msgid "Engine stalled. Turn two fingers right to restart."
+msgstr ""
+
 #. placeholders: {control_hint}
 msgid "Engine stalled. Press {control_hint} to restart."
 msgstr "Chết máy. Nhấn {control_hint} để đề nổ lại."
@@ -33006,6 +33501,11 @@ msgstr "Chết máy. Nhấn {control_hint} để đề nổ lại."
 #. one sentence of a longer line
 msgid "Press {control_hint} to restart."
 msgstr "Nhấn {control_hint} để đề nổ lại."
+
+msgid ""
+"Engine stalled. Turn two fingers right to restart, then hold a pedal and "
+"flick up with a second finger for first gear."
+msgstr ""
 
 #. placeholders: {control_hint}, {control_hint2}, {control_name}
 msgid ""
@@ -33043,6 +33543,14 @@ msgstr ""
 
 msgid "Pick your gear before it starts."
 msgstr "Chọn sẵn số phù hợp trước khi vào dốc."
+
+#. one sentence of a longer line
+msgid "Set the jake."
+msgstr ""
+
+#. placeholders: {touch_instruction}
+msgid "Set the jake. {touch_instruction}."
+msgstr ""
 
 #. placeholders: {control_hint}
 msgid "Set the jake with {control_hint}."
@@ -33524,6 +34032,10 @@ msgstr ""
 "Đã bật xi-nhan nhưng xe vẫn đang chạy khi có đèn hiệu phía sau. Hãy tấp vào "
 "lề dừng hẳn xe."
 
+msgid ""
+"Failure-to-stop warning. Double tap to signal, then stop on the shoulder."
+msgstr ""
+
 #. one sentence of a longer line
 msgid "Failure-to-stop warning."
 msgstr "Cảnh báo lỗi không dừng xe theo hiệu lệnh."
@@ -33627,13 +34139,23 @@ msgstr ""
 "tục. Âm thanh ngắn sẽ tự phát hết rồi dừng."
 
 #. one sentence of a longer line
-msgid "F1 still explains it."
-msgstr "Nhấn F1 vẫn nghe được giải thích."
+msgid "A flick up with two fingers still explains it."
+msgstr ""
 
 #. placeholders: {name}
 #. one sentence of a longer line
 msgid "{name} is not in this copy of the game."
 msgstr "{name} không có trong bản game này."
+
+#. placeholders: {name}
+msgid ""
+"{name} is not in this copy of the game. A flick up with two fingers still "
+"explains it."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "F1 still explains it."
+msgstr "Nhấn F1 vẫn nghe được giải thích."
 
 #. placeholders: {name}
 msgid "{name} is not in this copy of the game. F1 still explains it."
@@ -34032,6 +34554,10 @@ msgid ""
 msgstr ""
 "Nhấn Enter để chọn xóa bản lưu này. Bản lưu vẫn hoạt động trong Freight "
 "Fate 1.8."
+
+msgid ""
+"Double tap offers to delete this save. It still works in Freight Fate 1.8."
+msgstr ""
 
 msgid "reset"
 msgstr "đặt lại"
@@ -36219,6 +36745,24 @@ msgstr ""
 msgid "Gesture"
 msgstr "Cử chỉ"
 
+msgid ""
+"How far a swipe down travels before it becomes the emergency brake, or the "
+"parking brake when stopped. Practice gestures reads the length of each "
+"swipe down. Flick up or down to change it."
+msgstr ""
+
+msgid ""
+"How far a swipe down travels before it becomes the emergency brake, or the "
+"parking brake when stopped. Practice gestures reads the length of each "
+"swipe down. D-pad Right or Left changes it."
+msgstr ""
+
+msgid ""
+"How far a swipe down travels before it becomes the emergency brake, or the "
+"parking brake when stopped. Practice gestures reads the length of each "
+"swipe down. Right or Left arrow changes it."
+msgstr ""
+
 msgid "Every touch gesture is back to its default."
 msgstr "Mọi cử chỉ cảm ứng đã được khôi phục về mặc định."
 
@@ -36230,6 +36774,10 @@ msgstr "Đã tắt rung phản hồi cảm ứng."
 
 msgid "Confirm, then choose the command this gesture runs while driving."
 msgstr "Xác nhận, rồi chọn lệnh mà cử chỉ này thực hiện khi lái xe."
+
+#. placeholders: {touch_deep_swipe_points}
+msgid "Deep swipe starts at: {touch_deep_swipe_points}"
+msgstr ""
 
 msgid "Practice gestures"
 msgstr "Luyện tập cử chỉ"
@@ -36264,6 +36812,28 @@ msgstr ""
 msgid "{gesture_name} now runs {label}."
 msgstr "{gesture_name} hiện chạy lệnh {label}."
 
+#. one sentence of a longer line
+msgid "Deep swipe."
+msgstr ""
+
+#. placeholders: {points}
+msgid "Deep swipe. Length {points}."
+msgstr ""
+
+#. placeholders: {points}
+#. one sentence of a longer line
+msgid "Length {points}."
+msgstr ""
+
+#. placeholders: {points}, {touch_deep_swipe_points}
+msgid "Length {points}. The deep swipe starts at {touch_deep_swipe_points}."
+msgstr ""
+
+#. placeholders: {touch_deep_swipe_points}
+#. one sentence of a longer line
+msgid "The deep swipe starts at {touch_deep_swipe_points}."
+msgstr ""
+
 msgid "Swipe up and hold: gas. Lift to coast."
 msgstr "Vuốt lên và giữ: đạp ga. Nhấc tay để thả trôi."
 
@@ -36292,8 +36862,8 @@ msgstr "Chạm giữ hai ngón: bấm còi."
 msgid "Two-finger turn right: start the engine."
 msgstr "Xoay hai ngón sang phải: đề máy."
 
-msgid "Two-finger turn left: stop the engine."
-msgstr "Xoay hai ngón sang trái: tắt máy."
+msgid "Two-finger turn left: stop the engine when the truck is stopped."
+msgstr ""
 
 msgid "Second finger, hold left: steer left."
 msgstr "Ngón thứ hai, giữ bên trái: đánh lái sang trái."
@@ -36325,8 +36895,8 @@ msgstr "Chế độ luyện tập sẽ đọc tên từng cử chỉ mà không 
 msgid "Skip and start driving"
 msgstr "Bỏ qua và bắt đầu lái"
 
-msgid "Swipe down with two fingers twice within two seconds to leave."
-msgstr "Vuốt xuống bằng hai ngón hai lần trong vòng hai giây để thoát."
+msgid "Flick down with two fingers twice within two seconds to leave."
+msgstr ""
 
 msgid "Escape twice within two seconds to leave."
 msgstr "Nhấn Escape hai lần trong vòng hai giây để thoát."
@@ -36367,44 +36937,38 @@ msgstr "Thoát chế độ luyện tập cử chỉ."
 msgid "Again to leave practice."
 msgstr "Làm lại lần nữa để thoát luyện tập."
 
-msgid "Double tap"
-msgstr "Chạm hai lần"
-
 msgid "Swipe up"
 msgstr "Vuốt lên"
 
 msgid "Swipe down"
 msgstr "Vuốt xuống"
 
-msgid "Flick left"
-msgstr "Hất sang trái"
+msgid "Two-finger tap"
+msgstr "Chạm hai ngón"
 
-msgid "Flick right"
-msgstr "Hất sang phải"
+msgid "Two-finger flick up"
+msgstr ""
 
-msgid "Magic tap"
-msgstr "Chạm hai ngón hai lần (Magic tap)"
+msgid "Two-finger flick left"
+msgstr ""
 
-msgid "Two-finger swipe up"
-msgstr "Vuốt lên bằng hai ngón"
-
-msgid "Two-finger swipe left"
-msgstr "Vuốt trái bằng hai ngón"
-
-msgid "Two-finger swipe right"
-msgstr "Vuốt phải bằng hai ngón"
+msgid "Two-finger flick right"
+msgstr ""
 
 msgid "Three-finger tap"
 msgstr "Chạm ba ngón"
 
-msgid "Three-finger swipe left"
-msgstr "Vuốt trái bằng ba ngón"
+msgid "Three-finger flick left"
+msgstr ""
 
-msgid "Three-finger swipe right"
-msgstr "Vuốt phải bằng ba ngón"
+msgid "Three-finger flick right"
+msgstr ""
 
-msgid "Confirm"
-msgstr "Xác nhận"
+msgid "Take an exit, pull over or confirm arrival"
+msgstr ""
+
+msgid "Stop speech"
+msgstr ""
 
 msgid "Change lanes left"
 msgstr "Chuyển làn sang trái"
@@ -39042,6 +39606,12 @@ msgid "Page {page} of {HELP_PAGES}: {title}."
 msgstr "Trang {page} trên {HELP_PAGES}: {title}."
 
 msgid ""
+"Flick right or left to read one line at a time. Flick up for the next page "
+"and down for the previous one. Double tap reads the whole page, and a flick "
+"down with two fingers goes back."
+msgstr ""
+
+msgid ""
 "D-pad Left and Right change pages, Up and Down read one line at a time. A "
 "reads the whole page, Back stops speech, and B goes back."
 msgstr ""
@@ -39073,14 +39643,15 @@ msgid ""
 "Enter opens an item or changes a setting to its next value. Right also "
 "moves it forward, Left backward. Escape goes back. Drivers on duty, the "
 "Driver directory, the duty notices, and Account achievements work without "
-"connecting. The rest needs an orinks.net account. Everything you share can "
-"be turned off again."
+"connecting. Drive online as a guest puts you on the board with no account. "
+"The rest needs an orinks.net account. Everything you share can be turned "
+"off again."
 msgstr ""
-"Nhấn Enter để mở mục hoặc chuyển cài đặt sang giá trị kế tiếp. Phím Phải "
-"cũng chuyển tới, phím Trái lùi lại. Nhấn Escape để quay lại. Tài xế đang "
-"chạy, Danh bạ tài xế, thông báo lên xuống ca và Thành tích tài khoản hoạt "
-"động không cần kết nối. Các mục còn lại cần tài khoản orinks.net. Mọi thứ "
-"bạn chia sẻ đều tắt lại được bất cứ lúc nào."
+
+msgid ""
+"Your profile needs an orinks.net account. Choose Connect an orinks.net "
+"account first."
+msgstr ""
 
 msgid ""
 "Your profile needs your orinks.net account. Choose Set up orinks.net "
@@ -39088,6 +39659,19 @@ msgid ""
 msgstr ""
 "Hồ sơ của bạn cần có tài khoản orinks.net. Hãy chọn Thiết lập tài khoản "
 "orinks.net trước."
+
+msgid "Your orinks.net account is connected, so there's no guest driver."
+msgstr ""
+
+#. placeholders: {display_name}
+msgid "Guest name: {display_name}"
+msgstr ""
+
+msgid "Guest driver: off, account connected"
+msgstr ""
+
+msgid "Drive online as a guest"
+msgstr ""
 
 msgid "The browser could not be opened. The address is on your clipboard."
 msgstr "Không mở được trình duyệt. Địa chỉ đã được chép vào khay nhớ tạm."
@@ -39117,6 +39701,11 @@ msgstr " Địa chỉ cũng đã được chép vào khay nhớ tạm."
 #. placeholders: {clipboard_note}
 msgid "Opening your driver setup page in your browser.{clipboard_note}"
 msgstr "Đang mở trang thiết lập tài xế trên trình duyệt.{clipboard_note}"
+
+msgid ""
+"Cloud backup needs an orinks.net account. Choose Connect an orinks.net "
+"account."
+msgstr ""
 
 msgid ""
 "Cloud backup needs your orinks.net account. Choose Set up orinks.net "
@@ -39255,6 +39844,9 @@ msgstr ""
 "trạng thái Discord mà không làm mất cài đặt của từng mục. Thời tiết, giao "
 "thông và bãi đỗ trực tiếp có nút bật tắt riêng trong Cài đặt."
 
+msgid "Connect an orinks.net account"
+msgstr ""
+
 msgid "orinks.net account: connected"
 msgstr "Tài khoản orinks.net: đã kết nối"
 
@@ -39270,6 +39862,14 @@ msgstr ""
 "sơ và bắt đầu sao lưu các sự nghiệp của bạn. Mỗi tính năng có một mục riêng "
 "trong menu này. Tên tài xế và các máy tính đã đăng nhập nằm ở mục Mở trang "
 "thiết lập tài xế."
+
+msgid "Hear your guest name or ask orinks.net for a new one."
+msgstr ""
+
+msgid ""
+"Puts you on the drivers board under a name orinks.net picks, with no "
+"account. A profile and cloud backup need an account."
+msgstr ""
 
 msgid "Open my driver setup page"
 msgstr "Mở trang thiết lập tài xế"
@@ -39574,24 +40174,20 @@ msgstr ""
 msgid "your driver"
 msgstr "tài xế của bạn"
 
-#. placeholders: {display}
-#. one sentence of a longer line
-msgid "Connected to orinks.net as {display}."
-msgstr "Đã kết nối với orinks.net dưới tên {display}."
-
-#. placeholders: {display}
-msgid ""
-"Connected to orinks.net as {display}. Your careers now back up to that "
-"account. Turning Profile sharing on."
+msgid " Your guest driver is this account now."
 msgstr ""
-"Đã kết nối với orinks.net dưới tên {display}. Các sự nghiệp của bạn hiện đã "
-"sao lưu lên tài khoản đó. Đang bật Chia sẻ hồ sơ."
 
+#. placeholders: {display}, {guest_note}
 #. one sentence of a longer line
-msgid "Your careers now back up to that account."
-msgstr "Các sự nghiệp của bạn hiện đã sao lưu lên tài khoản đó."
+msgid ""
+"Connected to orinks.net as {display}.{guest_note} Your careers now back up "
+"to that account."
+msgstr ""
 
-msgid "profile-sharing"
+#. placeholders: {display}, {guest_note}
+msgid ""
+"Connected to orinks.net as {display}.{guest_note} Your careers now back up "
+"to that account. Turning Profile sharing on."
 msgstr ""
 
 msgid ""
@@ -39630,9 +40226,6 @@ msgstr "Sao chép mã kích hoạt"
 msgid "Puts the activation code on the clipboard."
 msgstr "Chép mã kích hoạt vào khay nhớ tạm."
 
-msgid "Hear what gets shared"
-msgstr "Nghe thông tin nào được chia sẻ"
-
 msgid "Leave without connecting this account."
 msgstr "Rời khỏi mà không kết nối tài khoản này."
 
@@ -39668,9 +40261,6 @@ msgstr "Đã quay lại Freight Fate. {current}"
 
 msgid "Still waiting."
 msgstr "Vẫn đang chờ."
-
-msgid "Could not reach orinks.net. Try again."
-msgstr "Không thể kết nối tới orinks.net. Hãy thử lại."
 
 msgid ""
 "Your activation code expired. Choose Set up this computer with orinks.net "
@@ -39772,6 +40362,10 @@ msgstr ""
 msgid "No drivers are on duty right now"
 msgstr "Hiện không có tài xế nào đang chạy"
 
+#. placeholders: {name}
+msgid "{name}, guest"
+msgstr ""
+
 msgid "activity"
 msgstr "hoạt động"
 
@@ -39780,6 +40374,9 @@ msgstr "chi tiết"
 
 msgid "went off duty"
 msgstr "đã nghỉ ca"
+
+msgid "A guest driver, with no orinks.net account and no profile."
+msgstr ""
 
 msgid "Opens this driver's public profile."
 msgstr "Mở hồ sơ công khai của tài xế này."
@@ -39890,6 +40487,118 @@ msgstr "không có ai đang chạy"
 #. placeholders: {n}
 msgid "{n} on duty"
 msgstr "{n} người đang chạy"
+
+msgid ""
+"As a guest you go on the orinks.net drivers board under a name orinks.net "
+"picks, like Copper Fox 12, with no account. This turns Profile sharing on, "
+"so your guest name and on-duty activity show publicly on the board. A "
+"driver profile, road journal, achievements and cloud backup need an "
+"account. Profile sharing on the Online menu turns sharing off."
+msgstr ""
+
+msgid "Go online as a guest"
+msgstr ""
+
+msgid "Asking orinks.net for a guest name"
+msgstr ""
+
+msgid "Turning Profile sharing on"
+msgstr ""
+
+msgid "Still working. Stay here for the result."
+msgstr ""
+
+msgid "Asking orinks.net for a guest name."
+msgstr ""
+
+msgid "online-guest"
+msgstr ""
+
+msgid "orinks.net is busy. Try again in a minute."
+msgstr ""
+
+msgid "Could not reach orinks.net. Try again."
+msgstr "Không thể kết nối tới orinks.net. Hãy thử lại."
+
+msgid ""
+"This computer could not save the guest driver. Nothing was changed. Check "
+"your password store, then try again."
+msgstr ""
+
+msgid "profile-sharing"
+msgstr ""
+
+#. placeholders: {name}
+msgid "You're {name} on the drivers board."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Profile sharing on the Online menu tries again."
+msgstr ""
+
+#. placeholders: {name}
+#. one sentence of a longer line
+msgid ""
+"You're {name}, but orinks.net could not turn Profile sharing on, so nothing "
+"is public yet."
+msgstr ""
+
+#. placeholders: {name}
+msgid ""
+"You're {name}, but orinks.net could not turn Profile sharing on, so nothing "
+"is public yet. Profile sharing on the Online menu tries again."
+msgstr ""
+
+msgid "Gets a guest name from orinks.net and turns Profile sharing on."
+msgstr ""
+
+msgid "Hear what gets shared"
+msgstr "Nghe thông tin nào được chia sẻ"
+
+msgid "Guest name"
+msgstr ""
+
+msgid "Still asking."
+msgstr ""
+
+msgid "This computer isn't driving as a guest."
+msgstr ""
+
+msgid "guest-rename"
+msgstr ""
+
+msgid "Asking for a new name"
+msgstr ""
+
+msgid "Ask for a new name"
+msgstr ""
+
+msgid "orinks.net picks another name at random. Ask again for another."
+msgstr ""
+
+#. placeholders: {name}
+#. one sentence of a longer line
+msgid "You're {name}."
+msgstr ""
+
+#. placeholders: {TITLE}, {name}, {current}
+msgid "{TITLE}. You're {name}. {current}"
+msgstr ""
+
+#. placeholders: {name}
+msgid "You're {name} now."
+msgstr ""
+
+msgid "That's a lot of names. Try again in a minute."
+msgstr ""
+
+msgid ""
+"orinks.net no longer has this guest. Connect an orinks.net account from the "
+"Online menu."
+msgstr ""
+
+msgid "Still asking. Stay here for the new name."
+msgstr ""
 
 msgid "out-of-service order"
 msgstr "lệnh đình chỉ lưu hành"
@@ -40366,12 +41075,9 @@ msgstr "Các xe khác bắt đầu với bình dầu đầy và sạch sẽ như
 
 msgid ""
 "Type with the on-screen keyboard, then double tap. Flick left or right to "
-"review the letters, swipe up or down with three fingers to jump to the "
-"start or end, and swipe down with two fingers to cancel."
+"review the letters, flick up or down with three fingers to jump to the "
+"start or end, and flick down with two fingers to cancel."
 msgstr ""
-"Nhập bằng bàn phím trên màn hình, rồi chạm đúp. Vuốt nhanh sang trái hoặc "
-"phải để kiểm tra từng chữ cái, vuốt ba ngón tay lên hoặc xuống để nhảy về "
-"đầu hoặc cuối, và vuốt hai ngón tay xuống để hủy."
 
 msgid "Text"
 msgstr "Văn bản"
@@ -40549,11 +41255,12 @@ msgstr "Không có ghi chú thay đổi nào được cung cấp."
 
 #. one sentence of a longer line
 msgid ""
-"Up and Down arrows read line by line, Enter reads everything, Escape goes "
-"back."
+"Double tap reads everything, and a flick down with two fingers goes back."
 msgstr ""
-"Mũi tên lên và xuống để đọc từng dòng, Enter để đọc tất cả, Escape để quay "
-"lại."
+
+#. one sentence of a longer line
+msgid "Flick right or left to read line by line."
+msgstr ""
 
 #. placeholders: {title}
 #. one sentence of a longer line
@@ -40562,16 +41269,31 @@ msgstr "Có gì mới trong {title}."
 
 #. placeholders: {title}, {notes}
 msgid ""
-"What's new in {title}. {notes} lines. Up and Down arrows read line by line, "
-"Enter reads everything, Escape goes back."
+"What's new in {title}. {notes} lines. Flick right or left to read line by "
+"line. Double tap reads everything, and a flick down with two fingers goes "
+"back."
 msgstr ""
-"Có gì mới trong {title}. {notes} dòng. Mũi tên lên và xuống để đọc từng "
-"dòng, Enter để đọc tất cả, Escape để quay lại."
 
 #. placeholders: {notes}
 #. one sentence of a longer line
 msgid "{notes} lines."
 msgstr "{notes} dòng."
+
+#. one sentence of a longer line
+msgid ""
+"Up and Down arrows read line by line, Enter reads everything, Escape goes "
+"back."
+msgstr ""
+"Mũi tên lên và xuống để đọc từng dòng, Enter để đọc tất cả, Escape để quay "
+"lại."
+
+#. placeholders: {title}, {notes}
+msgid ""
+"What's new in {title}. {notes} lines. Up and Down arrows read line by line, "
+"Enter reads everything, Escape goes back."
+msgstr ""
+"Có gì mới trong {title}. {notes} dòng. Mũi tên lên và xuống để đọc từng "
+"dòng, Enter để đọc tất cả, Escape để quay lại."
 
 #. placeholders: {title}
 msgid "What's new in {title}"
@@ -40673,6 +41395,20 @@ msgstr "Đang tải {title}{size}."
 #. placeholders: {title}, {size}
 msgid ""
 "Downloading {title}{size}. The game restarts when the download finishes. "
+"Flick down with two fingers to cancel."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Flick down with two fingers to cancel."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "The game restarts when the download finishes."
+msgstr "Trò chơi sẽ khởi động lại sau khi tải xong."
+
+#. placeholders: {title}, {size}
+msgid ""
+"Downloading {title}{size}. The game restarts when the download finishes. "
 "Escape cancels."
 msgstr ""
 "Đang tải {title}{size}. Trò chơi sẽ khởi động lại sau khi tải xong. Nhấn "
@@ -40681,10 +41417,6 @@ msgstr ""
 #. one sentence of a longer line
 msgid "Escape cancels."
 msgstr "Nhấn Escape để hủy."
-
-#. one sentence of a longer line
-msgid "The game restarts when the download finishes."
-msgstr "Trò chơi sẽ khởi động lại sau khi tải xong."
 
 msgid "update-download"
 msgstr ""
@@ -40737,6 +41469,9 @@ msgstr "Đang tải {title}"
 
 msgid "Escape cancels, Tab reads progress."
 msgstr "Escape để hủy, Tab để nghe tiến độ."
+
+msgid "lift"
+msgstr ""
 
 #. placeholders: {lane_assist}
 msgid "Middle lane  ·  lane keeping {lane_assist}"
@@ -41977,6 +42712,142 @@ msgstr "Mảnh lốp vỡ."
 
 msgid "Debris."
 msgstr "Mảnh vỡ trên đường."
+
+#. The title of the screen when the license is pulled at the roadside,
+#. built from the record's status word.
+msgid "CDL suspended"
+msgstr ""
+
+msgid "CDL disqualified"
+msgstr ""
+
+#. One sentence of the sleep preview, when the stop's effect and legal
+#. notes are both empty.
+msgid "Fatigue {f} to {f2}."
+msgstr ""
+
+#. The last sentence of the sleep preview, when nothing comes before it.
+msgid "Select again to sleep."
+msgstr ""
+
+#~ msgid ""
+#~ "Enter opens an item or changes a setting to its next value. Right also "
+#~ "moves it forward, Left backward. Escape goes back. Drivers on duty, the "
+#~ "Driver directory, the duty notices, and Account achievements work without "
+#~ "connecting. The rest needs an orinks.net account. Everything you share can "
+#~ "be turned off again."
+#~ msgstr ""
+#~ "Nhấn Enter để mở mục hoặc chuyển cài đặt sang giá trị kế tiếp. Phím Phải "
+#~ "cũng chuyển tới, phím Trái lùi lại. Nhấn Escape để quay lại. Tài xế đang "
+#~ "chạy, Danh bạ tài xế, thông báo lên xuống ca và Thành tích tài khoản hoạt "
+#~ "động không cần kết nối. Các mục còn lại cần tài khoản orinks.net. Mọi thứ "
+#~ "bạn chia sẻ đều tắt lại được bất cứ lúc nào."
+
+#~ msgid "Connected to orinks.net as {display}."
+#~ msgstr "Đã kết nối với orinks.net dưới tên {display}."
+
+#~ msgid ""
+#~ "Connected to orinks.net as {display}. Your careers now back up to that "
+#~ "account. Turning Profile sharing on."
+#~ msgstr ""
+#~ "Đã kết nối với orinks.net dưới tên {display}. Các sự nghiệp của bạn hiện đã "
+#~ "sao lưu lên tài khoản đó. Đang bật Chia sẻ hồ sơ."
+
+#~ msgid "Your careers now back up to that account."
+#~ msgstr "Các sự nghiệp của bạn hiện đã sao lưu lên tài khoản đó."
+
+#~ msgid "a two-finger swipe down"
+#~ msgstr "vuốt hai ngón xuống"
+
+#~ msgid "a two-finger swipe up"
+#~ msgstr "vuốt hai ngón lên"
+
+#~ msgid "Three-finger swipe up"
+#~ msgstr "Vuốt ba ngón lên"
+
+#~ msgid "Three-finger swipe down"
+#~ msgstr "Vuốt ba ngón xuống"
+
+#~ msgid "a three-finger swipe up"
+#~ msgstr "vuốt ba ngón lên"
+
+#~ msgid "a three-finger swipe down"
+#~ msgstr "vuốt ba ngón xuống"
+
+#~ msgid "Swipe down with two fingers twice within two seconds to leave."
+#~ msgstr "Vuốt xuống bằng hai ngón hai lần trong vòng hai giây để thoát."
+
+#~ msgid "Magic tap"
+#~ msgstr "Chạm hai ngón hai lần (Magic tap)"
+
+#~ msgid "Two-finger swipe up"
+#~ msgstr "Vuốt lên bằng hai ngón"
+
+#~ msgid "Two-finger swipe left"
+#~ msgstr "Vuốt trái bằng hai ngón"
+
+#~ msgid "Two-finger swipe right"
+#~ msgstr "Vuốt phải bằng hai ngón"
+
+#~ msgid "Three-finger swipe left"
+#~ msgstr "Vuốt trái bằng ba ngón"
+
+#~ msgid "Three-finger swipe right"
+#~ msgstr "Vuốt phải bằng ba ngón"
+
+#~ msgid ""
+#~ "Type with the on-screen keyboard, then double tap. Flick left or right to "
+#~ "review the letters, swipe up or down with three fingers to jump to the "
+#~ "start or end, and swipe down with two fingers to cancel."
+#~ msgstr ""
+#~ "Nhập bằng bàn phím trên màn hình, rồi chạm đúp. Vuốt nhanh sang trái hoặc "
+#~ "phải để kiểm tra từng chữ cái, vuốt ba ngón tay lên hoặc xuống để nhảy về "
+#~ "đầu hoặc cuối, và vuốt hai ngón tay xuống để hủy."
+
+#~ msgid " Press {hint} to signal for the exit."
+#~ msgstr " Nhấn {hint} để bật xi-nhan lối ra."
+
+#~ msgid " Press {hint} to signal."
+#~ msgstr " Nhấn {hint} để bật xi-nhan."
+
+#~ msgid "the exit command from the three-finger tap list"
+#~ msgstr "lệnh lối ra trong danh sách chạm ba ngón"
+
+#~ msgid ""
+#~ "Hold one finger still for half a second to straighten the wheel. With "
+#~ "cruise off, flick up to resume the last speed and flick down to set the "
+#~ "current speed. Turn two fingers right like a key to start the engine, left "
+#~ "to stop it. Hold two fingers for the horn. Turning them cancels it. While "
+#~ "holding a pedal, a second finger's flicks and holds work the same way, and "
+#~ "in automatic its shift flicks say the gear. "
+#~ msgstr ""
+#~ "Giữ yên một ngón tay trong nửa giây để trả thẳng lái. Khi ga tự động đang "
+#~ "tắt, gạt lên để khôi phục tốc độ trước đó và gạt xuống để đặt tốc độ hiện "
+#~ "tại. Xoay hai ngón tay sang phải như vặn chìa khóa để đề nổ máy, xoay trái "
+#~ "để tắt máy. Chạm giữ hai ngón tay để bấm còi. Xoay tay để ngắt còi. Khi "
+#~ "đang giữ chân ga hoặc phanh, các thao tác gạt và giữ của ngón thứ hai vẫn "
+#~ "hoạt động như thường, và ở số tự động thao tác gạt chuyển số sẽ đọc tên số "
+#~ "đang chạy. "
+
+#~ msgid ""
+#~ "Two-finger swipe down pauses, two-finger swipe up is this help, two-finger "
+#~ "swipes left and right review messages, and three-finger swipes left and "
+#~ "right tune the radio. A three-finger tap lists every driving command: swipe "
+#~ "to one and double tap to run it. "
+#~ msgstr ""
+#~ "Vuốt hai ngón xuống để tạm dừng, vuốt hai ngón lên để mở hướng dẫn này, "
+#~ "vuốt hai ngón sang trái hoặc phải để xem lại tin nhắn, và vuốt ba ngón sang "
+#~ "trái hoặc phải để dò đài radio. Chạm ba ngón để liệt kê mọi lệnh lái xe: "
+#~ "vuốt tới lệnh cần dùng rồi chạm đúp để chạy. "
+
+#~ msgid "{gear}, automatic."
+#~ msgstr "{gear}, số tự động."
+
+#~ msgid "Two-finger turn left: stop the engine."
+#~ msgstr "Xoay hai ngón sang trái: tắt máy."
+
+#~ msgid "Confirm"
+#~ msgstr "Xác nhận"
 
 #~ msgid "Ten hours in the sleeper, and your hours are reset."
 #~ msgstr ""

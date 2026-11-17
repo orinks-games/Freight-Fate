@@ -637,6 +637,15 @@ pub struct TruckState {
     pub speed_cap_mph: Option<f64>,
 
     pub stalled: bool,
+    /// A touch driver's manual: where the engine would lug in a tall gear,
+    /// the gearbox takes neutral instead, brake or no brake
+    /// ([`crate::sim::touch_clutch`]). The driving layer sets it every frame;
+    /// a keyboard or controller manual leaves it off and still stalls at the
+    /// lift.
+    pub lug_to_neutral: bool,
+    /// Set by the step that took that neutral, for the driving layer to
+    /// answer once ([`Self::take_lug_neutral`]).
+    pub took_lug_neutral: bool,
     /// Driver-latched parked high idle (fast-idle/PTO mode, on the cruise
     /// buttons like a real electronic truck). None = off. Not persisted:
     /// a real ECM drops fast idle at the key cycle.
@@ -711,6 +720,8 @@ impl TruckState {
             liquid: None,
             speed_cap_mph: None,
             stalled: false,
+            lug_to_neutral: false,
+            took_lug_neutral: false,
             high_idle_rpm: None,
             last_service_air_application: 0.0,
             descent_gear_hold: false,
@@ -949,6 +960,17 @@ impl TruckState {
         }
         let wheel_rps = self.velocity_mps.abs() / (2.0 * PI * self.specs.wheel_radius_m);
         wheel_rps * 60.0 * ratio.abs()
+    }
+
+    /// The lowest forward gear the road speed does not drive past the
+    /// governor: first when stopped. A touch shift up from neutral asks for
+    /// it, so a driver who slowed in a tall gear and took neutral pulls on
+    /// again without over-revving first gear.
+    pub fn lowest_gear_for_road_speed(&self) -> i32 {
+        let top = self.transmission.num_gears();
+        (1..=top)
+            .find(|&g| self.coupled_rpm(Some(g)) <= self.specs.max_rpm)
+            .unwrap_or(top)
     }
 
     // -- convenience ---------------------------------------------------------------

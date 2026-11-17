@@ -171,7 +171,13 @@ impl ParkingFullState {
                 ctx.control_hint("engine")
             );
             let starts = format!("{} starts the engine.", ctx.control_hint("engine"));
-            d.without_key_hint(ctx, text, &starts)
+            let text = d.without_key_hint(ctx, text, &starts);
+            d.with_touch_sentence(
+                ctx,
+                text,
+                &starts,
+                "Turn two fingers right to start the engine.",
+            )
         }) else {
             return;
         };

@@ -191,6 +191,12 @@ impl DrivingState {
         );
         let restart = format!("Press {engine} to restart the engine.");
         let message = self.without_key_hint(ctx, message, &restart);
+        let message = self.with_touch_sentence(
+            ctx,
+            message,
+            &restart,
+            "Turn two fingers right to restart the engine.",
+        );
         ctx.say_event_with(message, opts);
     }
 
@@ -248,6 +254,8 @@ impl DrivingState {
                 "Destination exit ahead again.".to_string()
             } else if !self.driving_hints(ctx) {
                 "Destination exit ahead again. Signal for it.".to_string()
+            } else if ctx.touch_hints() {
+                "Destination exit ahead again. Double tap to signal.".to_string()
             } else {
                 format!(
                     "Destination exit ahead again. Press {} to signal.",
@@ -264,6 +272,10 @@ impl DrivingState {
             "You turned around, and the destination exit is ahead again.".to_string()
         } else if !self.driving_hints(ctx) {
             "You turned around, and the destination exit is ahead again. Signal for it.".to_string()
+        } else if ctx.touch_hints() {
+            "You turned around, and the destination exit is ahead again. Double tap to signal \
+             for it."
+                .to_string()
         } else {
             format!(
                 "You turned around, and the destination exit is ahead again. Press {} to signal \
@@ -343,7 +355,9 @@ impl DrivingState {
             self.refresh_live_facts();
             let mut opts = SayEvent::new().valid(|| !live::arrival_menu_open());
             opts.category = Some(SpeechCategory::Navigation);
-            let message = if self.driving_hints(ctx) {
+            let message = if self.driving_hints(ctx) && ctx.touch_hints() {
+                "Holding at the entrance. Double tap to continue.".to_string()
+            } else if self.driving_hints(ctx) {
                 format!(
                     "Holding at the entrance. Press {} to continue.",
                     ctx.control_hint("confirm")

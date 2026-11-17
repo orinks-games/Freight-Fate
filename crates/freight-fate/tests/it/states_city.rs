@@ -407,7 +407,7 @@ fn touch_practice_offer_practice_and_skip_leave_the_driver_in_the_right_state() 
     assert!(is::<DrivingState>(&app));
     app.push_state(TouchPracticeOfferState::new());
 
-    app.dispatch_gesture(freight_fate::touch::Gesture::SwipeDown);
+    app.dispatch_gesture(freight_fate::touch::Gesture::SwipeRight);
     app.dispatch_gesture(freight_fate::touch::Gesture::DoubleTap);
     assert!(is::<DrivingState>(&app));
 }
@@ -460,6 +460,30 @@ fn test_owner_operator_departure_keeps_route_choice() {
         .main_lines()
         .iter()
         .any(|line| line.contains("Route planning to")));
+}
+
+#[test]
+fn a_three_finger_tap_on_the_route_picker_reads_the_weather() {
+    let mut app = TestApp::new();
+    new_hire(&mut app, "Touch Router");
+    {
+        let p = profile_mut(&mut app);
+        p.business_status = LEASED_OWNER_OPERATOR.to_string();
+        p.owned_trucks = vec!["rig".to_string()];
+    }
+    let pickup = loaded_pickup(&app, job(92.0));
+    app.push_state(pickup);
+    key(&mut app, Key::Return); // depart
+    assert!(is::<RouteSelectState>(&app));
+    // Each reading draws its own weather, so compare what kind of line it is.
+    app.clear_speech();
+    app.dispatch_gesture(freight_fate::touch::Gesture::ThreeFingerTap);
+    let lines = app.main_lines();
+    assert_eq!(lines.len(), 1, "{lines:?}");
+    assert!(
+        lines[0].starts_with("Forecast along the route."),
+        "{lines:?}"
+    );
 }
 
 #[test]

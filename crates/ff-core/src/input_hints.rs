@@ -21,7 +21,7 @@ pub const TOUCH: &str = "touch";
 
 /// action -> touch phrase, for the controls that are fixed gestures (the
 /// pedal holds, the deep swipe, the key turn, double tap, the two-finger
-/// swipes). A flick is one step; a swipe and hold is continuous. Every other touch
+/// tap and swipes). A flick is one step; a swipe and hold is continuous. Every other touch
 /// phrase comes from the player's touch bindings or the driving command
 /// list, in `freight-fate`'s bindings.
 pub const TOUCH_HINTS: &[(&str, &str)] = &[
@@ -32,8 +32,9 @@ pub const TOUCH_HINTS: &[(&str, &str)] = &[
     ("horn", "a two-finger hold"),
     ("engine", "a two-finger turn to the right"),
     ("confirm", "a double tap"),
-    ("pause", "a two-finger swipe down"),
-    ("help", "a two-finger swipe up"),
+    ("stop_event_voice", "a two-finger tap"),
+    ("pause", "a two-finger flick down"),
+    ("help", "a two-finger flick up"),
 ];
 
 /// action -> (keyboard phrase, controller phrase)
@@ -126,6 +127,7 @@ mod tests {
         assert_eq!(control_hint("teleport", KEYBOARD), "teleport");
         assert_eq!(control_hint("accelerate", TOUCH), "a swipe up");
         assert_eq!(control_hint("take_exit", TOUCH), "X");
+        assert_eq!(control_hint("stop_event_voice", TOUCH), "a two-finger tap");
         assert_eq!(control_hint("teleport", CONTROLLER), "teleport");
     }
 
