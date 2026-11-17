@@ -595,10 +595,14 @@ impl Tutorial {
 
 impl Instructor for Tutorial {
     fn begin(&mut self, ctx: &mut GameContext) {
-        let text = format!(
-            "Your first run. Press {} to start the engine.",
-            ctx.control_hint("engine")
-        );
+        let text = if ctx.touch_hints() {
+            "Your first run. Turn two fingers right to start the engine.".to_string()
+        } else {
+            format!(
+                "Your first run. Press {} to start the engine.",
+                ctx.control_hint("engine")
+            )
+        };
         ctx.say_with(text, Say::queued());
     }
 
@@ -607,7 +611,16 @@ impl Instructor for Tutorial {
             self.stage = 1;
             self.timer = 0.0;
             self.hinted = false;
-            let text = if ctx.settings.automatic_transmission {
+            // On touch, gas releases the parking brake and drives, and a
+            // shift works its own clutch.
+            let text = if ctx.touch_hints() && ctx.settings.automatic_transmission {
+                "At air ready, swipe up and hold to release the parking brake and drive."
+                    .to_string()
+            } else if ctx.touch_hints() {
+                "At air ready, swipe up and hold to release the parking brake, then flick up with \
+                 a second finger for first gear."
+                    .to_string()
+            } else if ctx.settings.automatic_transmission {
                 format!(
                     "At air ready, press {} to release the parking brake, then hold {} to \
                      accelerate.",
@@ -632,10 +645,15 @@ impl Instructor for Tutorial {
             self.stage = 2;
             self.timer = 0.0;
             self.hinted = false;
-            let text = format!(
-                "Parking brake released. Hold {} to accelerate.",
-                ctx.control_hint("accelerate")
-            );
+            // On touch the gas that released it is already held.
+            let text = if ctx.touch_hints() {
+                "Parking brake released.".to_string()
+            } else {
+                format!(
+                    "Parking brake released. Hold {} to accelerate.",
+                    ctx.control_hint("accelerate")
+                )
+            };
             ctx.say_with(text, Say::queued());
             true
         } else if self.stage == 1 {
@@ -656,10 +674,14 @@ impl Instructor for Tutorial {
             self.stage = 2;
             self.timer = 0.0;
             self.hinted = false;
-            let text = format!(
-                "In gear. Hold {} to accelerate.",
-                ctx.control_hint("accelerate")
-            );
+            let text = if ctx.touch_hints() {
+                "In gear. Swipe up and hold to accelerate.".to_string()
+            } else {
+                format!(
+                    "In gear. Hold {} to accelerate.",
+                    ctx.control_hint("accelerate")
+                )
+            };
             ctx.say_with(text, Say::queued());
         }
     }
@@ -668,24 +690,39 @@ impl Instructor for Tutorial {
         self.timer += dt;
         if self.stage == 2 && truck.speed_mph() > 20.0 {
             self.stage = 3;
-            let text = format!(
+            let text = if ctx.touch_hints() {
+                format!(
+                    "Rolling. {} for your speed. Tap with three fingers, then double tap, for a \
+                     full report. Flick up with two fingers for all the controls. Brake hard at \
+                     a hazard warning. Swipe down deep and hold to stop fast.",
+                    ctx.touch_instruction(crate::bindings::Action::Speed)
+                )
+            } else {
+                format!(
                 "Rolling. {} for your speed, {} for a full report, {} for all the controls. Brake \
                  hard at a hazard warning. {} stops fast.",
                 ctx.control_hint("speed"),
                 ctx.control_hint("status_menu"),
                 ctx.control_hint("help"),
                 ctx.control_hint("emergency_brake")
-            );
+            )
+            };
             ctx.say_with(text, Say::queued());
             profile_mut_of(ctx).tutorial_done = true;
             ctx.save_profile();
         } else if (self.stage == 0 || self.stage == 1) && self.timer > 25.0 && !self.hinted {
             self.hinted = true;
-            let text = if self.stage == 0 {
+            let touch = ctx.touch_hints();
+            let text = if self.stage == 0 && touch {
+                "Reminder: turn two fingers right to start the engine.".to_string()
+            } else if self.stage == 0 {
                 format!(
                     "Reminder: press {} to start the engine.",
                     ctx.control_hint("engine")
                 )
+            } else if truck.parking_brake && truck.air_ready() && touch {
+                "Reminder: air is ready. Swipe up and hold to release the parking brake and drive."
+                    .to_string()
             } else if truck.parking_brake && truck.air_ready() {
                 // The timer does not know the compressor finished: "wait for
                 // air" right after "Air ready" contradicted the truck (agent
@@ -694,12 +731,19 @@ impl Instructor for Tutorial {
                     "Reminder: air is ready. Press {} to release the parking brake.",
                     ctx.control_hint("parking_brake")
                 )
+            } else if truck.parking_brake && touch {
+                "Reminder: wait for air pressure to reach 100 psi, then swipe up and hold to \
+                 release the parking brake and drive."
+                    .to_string()
             } else if truck.parking_brake {
                 format!(
                     "Reminder: wait for air pressure to reach 100 psi, then press {} to release \
                      the parking brake.",
                     ctx.control_hint("parking_brake")
                 )
+            } else if touch {
+                "Reminder: hold a pedal and flick up with a second finger for first gear."
+                    .to_string()
             } else {
                 format!(
                     "Reminder: hold {}, select {}, then release the clutch.",

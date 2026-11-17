@@ -274,7 +274,8 @@ fn tools_list() -> Value {
              brake_wear_pct (0 to 100, what a roadside inspection reads), citations and \
              out_of_service_events (counts on the record, dated now; with damage they set the \
              safety band that decides who is pulled into the inspection lane), \
-             rested (true takes a full sleep), fatigue (0 to 100, set after rested; \
+             rested (true takes a full sleep), first_run (true teaches the first-run \
+             walkthrough on the next drive), fatigue (0 to 100, set after rested; \
              the next drive starts in that band and gives its cue), hos_driving_min, hos_duty_min and \
              hos_since_break_min (sandbox HOS counters in game minutes), clear_load (true drops a load in \
              progress first), market_seed and board_seed (the dispatch board rolls \
@@ -301,6 +302,7 @@ fn tools_list() -> Value {
                 "citations": {"type": "integer"},
                 "out_of_service_events": {"type": "integer"},
                 "rested": {"type": "boolean"},
+                "first_run": {"type": "boolean"},
                 "fatigue": {"type": "number", "description": "0 to 100; 40 worn, 60 drowsy, 80 severe"},
                 "hos_driving_min": {"type": "number"},
                 "hos_duty_min": {"type": "number"},

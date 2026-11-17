@@ -50,6 +50,7 @@ mod app_state_stack;
 mod app_touch_clutch;
 mod app_touch_gestures;
 mod app_touch_menus;
+mod app_touch_prompts;
 mod app_touch_wheel;
 mod audio_backends;
 mod audio_hearken;

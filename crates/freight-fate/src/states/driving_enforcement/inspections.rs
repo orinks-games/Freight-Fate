@@ -278,7 +278,11 @@ impl DrivingState {
             "Routine roadside inspection, Level 3: license, medical card, logbook and the \
              load's paperwork.{blitz}"
         );
-        let lights = if self.driving_hints(ctx) {
+        let lights = if self.driving_hints(ctx) && ctx.touch_hints() {
+            "Lights behind you for a routine inspection. Double tap to signal, then stop on the \
+             shoulder."
+                .to_string()
+        } else if self.driving_hints(ctx) {
             format!(
                 "Lights behind you for a routine inspection. Signal with {} and stop on the \
                  shoulder.",
