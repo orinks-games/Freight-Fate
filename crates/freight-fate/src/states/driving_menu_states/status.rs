@@ -512,7 +512,20 @@ impl DrivingStatusScreenState {
                     ..Settings::default()
                 };
                 let distance_text = |miles: f64| units.distance_text(miles, false);
-                lines.extend(d.radio.station_list_lines(16, Some(&distance_text)));
+                let (stations, more) = d.radio.station_list_lines(Some(&distance_text));
+                lines.extend(stations);
+                // The streams in range everywhere run to thousands: count
+                // them, and name where they are listed.
+                match more {
+                    0 => {}
+                    1 => lines.push(
+                        "Plus 1 more station, listed in the Radio app under Driver apps."
+                            .to_string(),
+                    ),
+                    n => lines.push(format!(
+                        "Plus {n} more stations, listed in the Radio app under Driver apps."
+                    )),
+                }
                 lines
             })
             .unwrap_or_default()

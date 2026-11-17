@@ -4114,6 +4114,11 @@ On dev since 1.9.6:
       rose, on the way back, whatever the lane-departure warning; the chain snap and the forced stop asleep
       say it too; runaway damage starts above 90, clear of cruise's top
       set point of 85, and a runaway speaks when it starts and ends.
+- [x] The Tab radio screen lists every Freight Fate station, Channel 3000
+      included, and the stations in range (owner, 2026-11-17). It read the
+      first 16 receivable stations, and the Freight Fate group is 20, so it
+      never reached a local station. The streams that play everywhere are
+      one count line pointing to the Radio app.
 
 Release gate for 1.9.7:
 
