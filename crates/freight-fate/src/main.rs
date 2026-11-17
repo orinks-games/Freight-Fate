@@ -24,6 +24,7 @@
 //!   on THIS machine, which of them can speak right now, and which one the
 //!   game would choose. There is no allowlist in the game, so a reader the
 //!   maintainers cannot install is answered by its own user running this.
+//!   `--names-only` lists what Prism registered without opening any of it.
 //! * `--break-scenario NAME` / `--break-battery` `[--transcript]` -- run one
 //!   scenario, or all of them, and print the verdict table.
 //! * `--key-probe [--seconds N]` -- measure what the keyboard delivers to the
@@ -210,7 +211,7 @@ fn run(args: &[String]) -> i32 {
         return list_break_scenarios();
     }
     if args.iter().any(|a| a == "--list-speech-backends") {
-        return list_speech_backends();
+        return list_speech_backends(has(args, "--names-only"));
     }
     if let Some(name) = flag_value(args, "--break-scenario") {
         return run_break(&[name], has(args, "--transcript"));
@@ -344,6 +345,7 @@ const KNOWN_SWITCHES: &[&str] = &[
     "--min-drop",
     "--min-pct",
     "--min-run",
+    "--names-only",
     "--no-careers",
     "--no-cruise",
     "--no-sandbox",
@@ -401,6 +403,7 @@ Drive tools:
                                     owner's account; --dir/--reset/--print
   --list-break-scenarios            name every adversarial scenario
   --list-speech-backends            name every screen reader and voice found
+                                    (--names-only lists them without opening any)
   --break-scenario NAME             run one, --transcript to hear it
   --break-battery                   run them all and print the verdicts
   --agent-server                    the real game with an MCP server on stdio,
@@ -477,7 +480,11 @@ fn list_break_scenarios() -> i32 {
 /// that is precisely what nobody here can confirm, because none of those
 /// readers can be installed on this machine. This switch moves the question
 /// to somebody who has one: run it, read the table, send it back.
-fn list_speech_backends() -> i32 {
+///
+/// `names_only` lists the registry without opening anything. The snapshot
+/// build uses it: GitHub's Windows runner has no audio device, and opening
+/// OneCore there with Prism 0.1.6 aborts the process.
+fn list_speech_backends(names_only: bool) -> i32 {
     use freight_fate::speech::{narrator_running, usable, PrismRegistry, VoiceRegistry};
 
     let registry = match PrismRegistry::new() {
@@ -487,15 +494,23 @@ fn list_speech_backends() -> i32 {
             return 1;
         }
     };
-    println!(
-        "{:<20} {:>8}  {:<10} NOTE",
-        "BACKEND", "PRIORITY", "CAN SPEAK"
-    );
+    if names_only {
+        println!("{:<20} {:>8}", "BACKEND", "PRIORITY");
+    } else {
+        println!(
+            "{:<20} {:>8}  {:<10} NOTE",
+            "BACKEND", "PRIORITY", "CAN SPEAK"
+        );
+    }
     for index in 0..registry.backend_count() {
         let Some(id) = registry.id_at(index) else {
             continue;
         };
         let name = registry.name_of(id).unwrap_or_else(|| id.to_string());
+        if names_only {
+            println!("{name:<20} {:>8}", registry.priority_of(id));
+            continue;
+        }
         // The name goes out before the backend is opened, so a backend that
         // takes the process down with it is named on the last line.
         print!("{name:<20}");
@@ -532,6 +547,9 @@ fn list_speech_backends() -> i32 {
             if speaks { "yes" } else { "no" },
             note
         );
+    }
+    if names_only {
+        return 0;
     }
     let chosen = freight_fate::speech::pick_backend(&registry, None).map(|backend| backend.name());
     match chosen {
