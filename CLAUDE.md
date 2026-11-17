@@ -156,6 +156,9 @@ from commit subjects. CI fails any PR that changes user-facing paths
   rationale, mechanism and sub-cases go instead.
 - Nothing player-facing (refactors, CI, tests, tooling): put
   `[skip changelog]` or `changelog: none` in every commit message.
+- Platform-only changes: `[skip desktop]` (iPhone only) or `[skip ios]`
+  (desktop only) in every commit message and the PR title skips that side's
+  push build. See `CONTRIBUTING.md`.
 
 ## Roadmap upkeep
 

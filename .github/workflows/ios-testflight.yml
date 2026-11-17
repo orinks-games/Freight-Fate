@@ -6,7 +6,8 @@
 #   runs next to the desktop snapshot (build-career-1.9.yml), so the phone
 #   build keeps up with the other platforms. A push build never goes to the
 #   external Friends group. Pushes that touch only files the app does not
-#   ship (the roadmap, agent notes, other workflows) are skipped.
+#   ship (the roadmap, agent notes, other workflows) are skipped, and so is
+#   a push whose every commit says "[skip ios]" (a desktop-only change).
 # * A manual dispatch, for a verification run, a build of another branch, or
 #   a build for Friends:
 #
@@ -70,6 +71,7 @@ on:
       - "!.githooks/**"
       - "!.github/**"
       - ".github/workflows/ios-testflight.yml"
+      - ".github/scripts/**"
   workflow_dispatch:
     inputs:
       build_number:
@@ -99,20 +101,52 @@ on:
         required: false
         type: string
 
-# Every run that uploads (each push build, and a dispatch with upload=true)
-# shares one group. A run in flight is never cancelled: stopping one mid
-# upload can leave a half-processed build in TestFlight. GitHub keeps at most
-# one run waiting in the group and drops an older waiting run for a newer
-# one, so a burst of merges builds the first commit and then the newest, not
-# every commit in between. A verification dispatch uploads nothing, so it
-# runs in its own group and never waits on or replaces a push build.
-concurrency:
-  group: ${{ (github.event_name == 'push' || inputs.upload) && 'ios-testflight-upload' || format('ios-testflight-verify-{0}', github.run_id) }}
-  cancel-in-progress: false
-
 jobs:
+  decide:
+    # A push whose every commit says "[skip ios]" builds nothing; see
+    # .github/scripts/skip-tag.sh for what counts as every commit. A
+    # dispatch always builds.
+    name: Decide whether to build
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    outputs:
+      build: ${{ steps.tag.outputs.build }}
+    steps:
+      - uses: actions/checkout@v6
+        if: github.event_name == 'push'
+        with:
+          fetch-depth: 0
+          filter: blob:none
+          sparse-checkout: .github/scripts
+      - id: tag
+        shell: bash
+        env:
+          BEFORE: ${{ github.event.before }}
+        run: |
+          if [ "$GITHUB_EVENT_NAME" = "push" ] \
+              && .github/scripts/skip-tag.sh "[skip ios]" "$BEFORE" "$GITHUB_SHA"; then
+            echo "build=false" >> "$GITHUB_OUTPUT"
+            echo "### Skipped: every commit in this push says [skip ios]" >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "build=true" >> "$GITHUB_OUTPUT"
+          fi
+
   testflight:
     name: Build, sign and (optionally) upload to TestFlight
+    needs: decide
+    if: needs.decide.outputs.build == 'true'
+    # Every run that uploads (each push build, and a dispatch with
+    # upload=true) shares one group. A run in flight is never cancelled:
+    # stopping one mid upload can leave a half-processed build in TestFlight.
+    # GitHub keeps at most one run waiting in the group and drops an older
+    # waiting run for a newer one, so a burst of merges builds the first
+    # commit and then the newest, not every commit in between. The group is
+    # on this job, not the workflow, so a push skipped by "[skip ios]" never
+    # replaces a waiting build. A verification dispatch uploads nothing, so
+    # it runs in its own group and never waits on or replaces a push build.
+    concurrency:
+      group: ${{ (github.event_name == 'push' || inputs.upload) && 'ios-testflight-upload' || format('ios-testflight-verify-{0}', github.run_id) }}
+      cancel-in-progress: false
     runs-on: macos-26
     timeout-minutes: 90
     env:

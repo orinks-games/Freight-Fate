@@ -14,6 +14,9 @@ Uploads run one at a time. A run in flight is never cancelled, and GitHub keeps
 only the newest waiting run, so a burst of merges builds the first commit and
 then the latest one. A push that changes only files the app does not ship (the
 roadmap, agent notes, other workflows) builds nothing.
+A push whose every commit says `[skip ios]` (a desktop-only change) builds
+nothing either. For a merged pull request, put the tag in its title, since the
+merge commit carries the title.
 
 The build number is the next one after the highest already in TestFlight, so
 push builds and dispatched builds never reuse a number.
