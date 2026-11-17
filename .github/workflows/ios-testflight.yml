@@ -29,7 +29,7 @@
 # unmerged work is always deliberate.
 #
 # It never runs from a tag or a pull request, and it makes no tag and no
-# release. One-time setup and failure messages: docs/ios-testflight.md.
+# release. One-time setup and failure messages: docs/ios/testflight.md.
 #
 # Uploads run one at a time (see concurrency below), so two runs never ask
 # App Store Connect for a build number at the same moment.
@@ -235,7 +235,7 @@ jobs:
           for name in ASC_KEY_ID ASC_ISSUER_ID ASC_KEY_P8_BASE64 APPLE_TEAM_ID \
             IOS_DISTRIBUTION_P12_BASE64 IOS_DISTRIBUTION_P12_PASSWORD; do
             if [ -z "${!name}" ]; then
-              echo "::error::The repository secret $name is empty or missing. See docs/ios-testflight.md."
+              echo "::error::The repository secret $name is empty or missing. See docs/ios/testflight.md."
               exit 1
             fi
           done
@@ -281,7 +281,7 @@ jobs:
           if ! security import "$p12" -k "$keychain" -f pkcs12 \
               -P "$IOS_DISTRIBUTION_P12_PASSWORD" -T /usr/bin/codesign; then
             rm -f "$p12"
-            echo "::error::The keychain refused IOS_DISTRIBUTION_P12_BASE64. Check its password secret, and that the .p12 was written with openssl pkcs12 -export -legacy (see docs/ios-testflight.md)."
+            echo "::error::The keychain refused IOS_DISTRIBUTION_P12_BASE64. Check its password secret, and that the .p12 was written with openssl pkcs12 -export -legacy (see docs/ios/testflight.md)."
             exit 1
           fi
           rm -f "$p12"
