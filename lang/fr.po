@@ -23810,6 +23810,12 @@ msgstr "Moteur déjà en marche."
 msgid "Engine already off."
 msgstr "Moteur déjà éteint."
 
+msgid "Double tap to check in."
+msgstr ""
+
+msgid "Double tap to pull in."
+msgstr ""
+
 msgid "Release the accelerator before turning the jake on."
 msgstr "Relâchez l'accélérateur avant d'activer le frein moteur."
 
@@ -24034,8 +24040,8 @@ msgstr ""
 "Votre premier trajet. Appuyez sur {control_hint} pour démarrer le moteur."
 
 msgid ""
-"At air ready, swipe up and hold to release the parking brake, then hold a "
-"pedal and flick up with a second finger for first gear."
+"At air ready, swipe up and hold to release the parking brake, then flick up "
+"with a second finger for first gear."
 msgstr ""
 
 #. placeholders: {control_hint}, {control_hint2}
@@ -24085,13 +24091,17 @@ msgid "Brake hard at a hazard warning."
 msgstr "Freinez fort à une alerte de danger."
 
 #. one sentence of a longer line
+msgid "Flick up with two fingers for all the controls."
+msgstr ""
+
+#. one sentence of a longer line
 msgid "Rolling."
 msgstr "En route."
 
 #. placeholders: {touch_instruction}
 msgid ""
-"Rolling. {touch_instruction} for your speed, tap with three fingers then "
-"double tap for a full report, flick up with two fingers for all the "
+"Rolling. {touch_instruction} for your speed. Tap with three fingers, then "
+"double tap, for a full report. Flick up with two fingers for all the "
 "controls. Brake hard at a hazard warning. Swipe down deep and hold to stop "
 "fast."
 msgstr ""
@@ -24100,11 +24110,13 @@ msgstr ""
 msgid "Swipe down deep and hold to stop fast."
 msgstr ""
 
+#. one sentence of a longer line
+msgid "Tap with three fingers, then double tap, for a full report."
+msgstr ""
+
 #. placeholders: {touch_instruction}
 #. one sentence of a longer line
-msgid ""
-"{touch_instruction} for your speed, tap with three fingers then double tap "
-"for a full report, flick up with two fingers for all the controls."
+msgid "{touch_instruction} for your speed."
 msgstr ""
 
 #. placeholders: {control_hint}, {control_hint2}, {control_hint3}, {control_hint4}
@@ -26867,10 +26879,10 @@ msgstr ""
 msgid "Set the parking brake to dock."
 msgstr ""
 
-msgid "Set the parking brake to check in. Swipe down deep."
+msgid "Swipe down deep to set the parking brake and check in."
 msgstr ""
 
-msgid "Set the parking brake to dock. Swipe down deep."
+msgid "Swipe down deep to set the parking brake and dock."
 msgstr ""
 
 #. placeholders: {key}
@@ -27458,14 +27470,13 @@ msgstr "Réglez d'abord le contrôle de police."
 msgid "On the ramp for {name}."
 msgstr "Sur la bretelle de {name}."
 
-#. placeholders: {name}, {touch_instruction}
+#. placeholders: {name}
 msgid ""
-"On the ramp for {name}. Stop at the scale, then check in. "
-"{touch_instruction}."
+"On the ramp for {name}. Stop at the scale, then double tap to check in."
 msgstr ""
 
 #. one sentence of a longer line
-msgid "Stop at the scale, then check in."
+msgid "Stop at the scale, then double tap to check in."
 msgstr ""
 
 #. placeholders: {name}, {rest_hint}
@@ -27484,6 +27495,10 @@ msgstr ""
 
 #. placeholders: {name}
 msgid "On the ramp for {name}. Stop at the scale, then check in."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Stop at the scale, then check in."
 msgstr ""
 
 msgid "Emergency shoulder sleep is not available here. Use a route stop."
@@ -32452,6 +32467,15 @@ msgstr ""
 #. one sentence of a longer line
 msgid "No remembered cruise speed yet."
 msgstr "Pas encore de vitesse de régulateur mémorisée."
+
+#. placeholders: {touch_instruction}
+msgid "No remembered cruise speed yet. {touch_instruction} to set one."
+msgstr ""
+
+#. placeholders: {touch_instruction}
+#. one sentence of a longer line
+msgid "{touch_instruction} to set one."
+msgstr ""
 
 #. placeholders: {key}
 msgid "No remembered cruise speed yet. {key} sets one."

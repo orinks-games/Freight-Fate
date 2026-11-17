@@ -531,6 +531,9 @@ pub struct DrivingState {
     pub exit_right_hold_s: f64,
     pub exit_right_taps: i64,
     pub exit_tap_hint_said: bool,
+    /// What a double tap answered last frame, so the touch line for a stop
+    /// the truck is waiting at is spoken once, as the offer begins.
+    pub last_road_offer: crate::touch::RoadOffer,
     /// `set[float]` of the `EXIT_COUNTDOWN_MILESTONES_MI` already spoken.
     pub exit_countdown_said: Vec<f64>,
     pub ramp_mi: Option<f64>, // ramp distance left, once taken

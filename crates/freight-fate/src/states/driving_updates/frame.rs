@@ -680,6 +680,7 @@ impl DrivingState {
             self.update_ramp_light(ctx, 0.0);
         }
         self.update_departure_ramp(ctx, moved_mi);
+        self.update_touch_stop_offer(ctx);
         self.bound_departure_merge_recovery(moved_mi, dt);
         // Every clock pin is settled for the frame by here.
         self.trace_clock_override(dt);

@@ -7,8 +7,9 @@ use ff_core::input_hints::HINTS;
 use ff_core::sim::weather::WeatherKind;
 
 use freight_fate::playtest::harness::{PlaytestHarness, StartDelivery};
+use freight_fate::states::driving::DrivingState;
 use freight_fate::states::driving_core::{Instructor, Tutorial, PULL_OVER_LIGHTS};
-use freight_fate::touch::Gesture;
+use freight_fate::touch::{Gesture, RoadOffer};
 
 const MPH_PER_MPS: f64 = 2.236_936_292_054_402;
 
@@ -113,8 +114,8 @@ fn the_first_run_in_an_automatic_coaches_gestures() {
         "Reminder: turn two fingers right to start the engine.",
         "At air ready, swipe up and hold to release the parking brake and drive.",
         "Parking brake released.",
-        "Rolling. Tap for your speed, tap with three fingers then double tap for a full report, \
-         flick up with two fingers for all the controls. Brake hard at a hazard warning. Swipe \
+        "Rolling. Tap for your speed. Tap with three fingers, then double tap, for a full report. \
+         Flick up with two fingers for all the controls. Brake hard at a hazard warning. Swipe \
          down deep and hold to stop fast.",
     ] {
         assert!(said.contains(line), "{line:?} not in:\n{said}");
@@ -125,8 +126,8 @@ fn the_first_run_in_an_automatic_coaches_gestures() {
 fn the_first_run_in_a_manual_coaches_the_second_finger_for_first() {
     let said = first_run(false);
     for line in [
-        "At air ready, swipe up and hold to release the parking brake, then hold a pedal and \
-         flick up with a second finger for first gear.",
+        "At air ready, swipe up and hold to release the parking brake, then flick up with a \
+         second finger for first gear.",
         "Parking brake released. Shift into first gear.",
         "Reminder: hold a pedal and flick up with a second finger for first gear.",
         "In gear. Swipe up and hold to accelerate.",
@@ -187,7 +188,7 @@ fn the_gate_names_the_deep_swipe_for_the_parking_brake() {
     frames(&mut harness, 0.5);
     let said = touch_worded(&harness);
     assert!(
-        said.contains("Set the parking brake to dock. Swipe down deep."),
+        said.contains("Swipe down deep to set the parking brake and dock."),
         "{said}"
     );
 }
@@ -242,4 +243,83 @@ fn a_keyboard_brings_the_keyboard_lines_back() {
     assert!(!harness.app.ctx.touch_hints());
     let line = harness.with_drive(|drive, ctx| drive.engine_entry_instruction(ctx));
     assert_eq!(line, "Press E to start the engine.");
+}
+
+/// Stopped on `stop_type`'s ramp: the first route stop of that type, or the
+/// first stop retyped, with the truck on it at a standstill.
+fn stopped_on_a_ramp(harness: &mut PlaytestHarness, stop_type: Option<&str>) {
+    harness.with_drive(|drive, _| {
+        drive.trip.truck.start_engine();
+        drive.trip.truck.parking_brake = false;
+        drive.trip.truck.velocity_mps = 0.0;
+        let mut stop = drive
+            .trip
+            .stops
+            .iter()
+            .find(|s| s.stop_type != "weigh_station")
+            .cloned()
+            .expect("the route has a stop");
+        if let Some(kind) = stop_type {
+            stop.stop_type = kind.to_string();
+        }
+        drive.trip.position_mi = stop.at_mi;
+        drive.ramp_stop = Some(stop);
+        drive.ramp_mi = Some(0.05);
+    });
+    harness.clear_speech();
+}
+
+#[test]
+fn stopped_at_a_stops_ramp_end_a_double_tap_opens_it() {
+    let mut harness = a_touch_drive("Touch Stop Offer", true);
+    stopped_on_a_ramp(&mut harness, None);
+    assert_eq!(
+        harness.with_drive(|drive, ctx| drive.road_offer(ctx)),
+        RoadOffer::Stop
+    );
+    harness.with_drive(|drive, ctx| drive.update_touch_stop_offer(ctx));
+    frames(&mut harness, 0.2);
+    let said = touch_worded(&harness);
+    assert!(said.contains("Double tap to pull in."), "{said}");
+    harness.app.dispatch_gesture(Gesture::DoubleTap);
+    assert!(
+        !harness.state_is::<DrivingState>(),
+        "{:#?}",
+        harness.transcript()
+    );
+}
+
+#[test]
+fn stopped_on_a_scale_the_line_is_check_in() {
+    let mut harness = a_touch_drive("Touch Scale Offer", true);
+    stopped_on_a_ramp(&mut harness, Some("weigh_station"));
+    assert_eq!(
+        harness.with_drive(|drive, ctx| drive.road_offer(ctx)),
+        RoadOffer::Stop
+    );
+    harness.with_drive(|drive, ctx| drive.update_touch_stop_offer(ctx));
+    frames(&mut harness, 0.2);
+    let said = touch_worded(&harness);
+    assert!(said.contains("Double tap to check in."), "{said}");
+}
+
+#[test]
+fn rolling_past_a_stop_or_stopped_on_the_highway_is_not_a_stop_offer() {
+    let mut harness = a_touch_drive("Touch No Stop Offer", true);
+    stopped_on_a_ramp(&mut harness, None);
+    harness.with_drive(|drive, _| drive.trip.truck.velocity_mps = 30.0 / MPH_PER_MPS);
+    assert_ne!(
+        harness.with_drive(|drive, ctx| drive.road_offer(ctx)),
+        RoadOffer::Stop
+    );
+    // Stopped beside a stop with no ramp under the truck.
+    harness.with_drive(|drive, _| {
+        drive.trip.truck.velocity_mps = 0.0;
+        drive.ramp_stop = None;
+        drive.ramp_mi = None;
+    });
+    assert_ne!(
+        harness.with_drive(|drive, ctx| drive.road_offer(ctx)),
+        RoadOffer::Stop
+    );
 }

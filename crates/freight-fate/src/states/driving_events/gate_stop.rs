@@ -88,9 +88,9 @@ impl DrivingState {
             }
         } else if ctx.touch_hints() {
             if pickup {
-                "Set the parking brake to check in. Swipe down deep.".to_string()
+                "Swipe down deep to set the parking brake and check in.".to_string()
             } else {
-                "Set the parking brake to dock. Swipe down deep.".to_string()
+                "Swipe down deep to set the parking brake and dock.".to_string()
             }
         } else {
             let key = ctx.control_hint("parking_brake");

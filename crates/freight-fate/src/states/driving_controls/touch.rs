@@ -93,6 +93,7 @@ impl DrivingState {
                     // theirs, as the exit key is.
                     _ if self.co_driver_driving() => {}
                     RoadOffer::Arrival => self.confirm_facility_arrival(ctx),
+                    RoadOffer::Stop => self.run_key_action(ctx, Action::Rest),
                     RoadOffer::Exit | RoadOffer::PullOver | RoadOffer::None => {
                         self.run_key_action(ctx, Action::TakeExit)
                     }
@@ -160,7 +161,45 @@ impl DrivingState {
         RoadOffer::from_road(RoadFacts {
             gate_asking: self.arrival_gate_query_text(ctx).is_some(),
             pull_over: self.pull_over.is_some(),
+            stop_waiting: self.stop_waiting().is_some(),
             exit_in_window,
         })
+    }
+
+    /// Stopped on a stop's ramp, where the rest stop command opens the
+    /// stop (`try_rest_stop`'s stopped branch: docking speed, a stop within
+    /// a mile and a half) or checks in at the scale. `Some(true)` for a
+    /// scale. A truck stopped on the highway near a stop is not waiting at
+    /// it: the rest stop command would open it too, but nothing asked.
+    pub fn stop_waiting(&self) -> Option<bool> {
+        let ramp = self.ramp_stop.as_ref()?;
+        if self.pull_over.is_some()
+            || self.trip.truck.speed_mph() > crate::states::driving_core::DOCKING_MAX_MPH
+        {
+            return None;
+        }
+        self.trip.nearest_stop_within(1.5)?;
+        Some(ramp.stop_type == "weigh_station")
+    }
+
+    /// On touch, the one line when a double tap starts to mean the stop
+    /// the truck is waiting at, until the rest instruction retires.
+    pub fn update_touch_stop_offer(&mut self, ctx: &mut GameContext) {
+        let offer = self.road_offer(ctx);
+        let became_stop = offer == RoadOffer::Stop && self.last_road_offer != RoadOffer::Stop;
+        self.last_road_offer = offer;
+        if !became_stop || !ctx.touch_hints() || self.instruction_retired(ctx, "rest") {
+            return;
+        }
+        let line = if self.stop_waiting() == Some(true) {
+            "Double tap to check in."
+        } else {
+            "Double tap to pull in."
+        };
+        ctx.say_event_with(
+            line,
+            crate::app::SayEvent::queued()
+                .category(ff_core::speech_pacing::SpeechCategory::Navigation),
+        );
     }
 }

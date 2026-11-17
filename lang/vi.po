@@ -23413,6 +23413,12 @@ msgstr "Động cơ đang nổ sẵn rồi."
 msgid "Engine already off."
 msgstr "Động cơ đã tắt sẵn rồi."
 
+msgid "Double tap to check in."
+msgstr ""
+
+msgid "Double tap to pull in."
+msgstr ""
+
 msgid "Release the accelerator before turning the jake on."
 msgstr "Nhả chân ga trước khi bật phanh động cơ."
 
@@ -23632,8 +23638,8 @@ msgid "Your first run. Press {control_hint} to start the engine."
 msgstr "Chuyến chạy đầu tiên của bạn. Nhấn {control_hint} để đề nổ máy."
 
 msgid ""
-"At air ready, swipe up and hold to release the parking brake, then hold a "
-"pedal and flick up with a second finger for first gear."
+"At air ready, swipe up and hold to release the parking brake, then flick up "
+"with a second finger for first gear."
 msgstr ""
 
 #. placeholders: {control_hint}, {control_hint2}
@@ -23681,13 +23687,17 @@ msgid "Brake hard at a hazard warning."
 msgstr "Khi có cảnh báo chướng ngại vật hãy phanh gấp."
 
 #. one sentence of a longer line
+msgid "Flick up with two fingers for all the controls."
+msgstr ""
+
+#. one sentence of a longer line
 msgid "Rolling."
 msgstr "Xe đã lăn bánh."
 
 #. placeholders: {touch_instruction}
 msgid ""
-"Rolling. {touch_instruction} for your speed, tap with three fingers then "
-"double tap for a full report, flick up with two fingers for all the "
+"Rolling. {touch_instruction} for your speed. Tap with three fingers, then "
+"double tap, for a full report. Flick up with two fingers for all the "
 "controls. Brake hard at a hazard warning. Swipe down deep and hold to stop "
 "fast."
 msgstr ""
@@ -23696,11 +23706,13 @@ msgstr ""
 msgid "Swipe down deep and hold to stop fast."
 msgstr ""
 
+#. one sentence of a longer line
+msgid "Tap with three fingers, then double tap, for a full report."
+msgstr ""
+
 #. placeholders: {touch_instruction}
 #. one sentence of a longer line
-msgid ""
-"{touch_instruction} for your speed, tap with three fingers then double tap "
-"for a full report, flick up with two fingers for all the controls."
+msgid "{touch_instruction} for your speed."
 msgstr ""
 
 #. placeholders: {control_hint}, {control_hint2}, {control_hint3}, {control_hint4}
@@ -26454,10 +26466,10 @@ msgstr ""
 msgid "Set the parking brake to dock."
 msgstr ""
 
-msgid "Set the parking brake to check in. Swipe down deep."
+msgid "Swipe down deep to set the parking brake and check in."
 msgstr ""
 
-msgid "Set the parking brake to dock. Swipe down deep."
+msgid "Swipe down deep to set the parking brake and dock."
 msgstr ""
 
 #. placeholders: {key}
@@ -27043,15 +27055,14 @@ msgstr "Giải quyết việc dừng xe với cảnh sát trước đã."
 msgid "On the ramp for {name}."
 msgstr "Đang trên đường dẫn vào {name}."
 
-#. placeholders: {name}, {touch_instruction}
+#. placeholders: {name}
 msgid ""
-"On the ramp for {name}. Stop at the scale, then check in. "
-"{touch_instruction}."
+"On the ramp for {name}. Stop at the scale, then double tap to check in."
 msgstr ""
 
 #. one sentence of a longer line
-msgid "Stop at the scale, then check in."
-msgstr "Dừng tại trạm cân, rồi trình diện kiểm tra."
+msgid "Stop at the scale, then double tap to check in."
+msgstr ""
 
 #. placeholders: {name}, {rest_hint}
 msgid ""
@@ -27070,6 +27081,10 @@ msgstr "Dừng tại trạm cân, rồi nhấn {rest_hint} để trình diện k
 msgid "On the ramp for {name}. Stop at the scale, then check in."
 msgstr ""
 "Đang trên đường dẫn vào {name}. Dừng tại trạm cân, rồi trình diện kiểm tra."
+
+#. one sentence of a longer line
+msgid "Stop at the scale, then check in."
+msgstr "Dừng tại trạm cân, rồi trình diện kiểm tra."
 
 msgid "Emergency shoulder sleep is not available here. Use a route stop."
 msgstr ""
@@ -31964,6 +31979,15 @@ msgstr ""
 #. one sentence of a longer line
 msgid "No remembered cruise speed yet."
 msgstr "Chưa có tốc độ ga tự động nào được lưu."
+
+#. placeholders: {touch_instruction}
+msgid "No remembered cruise speed yet. {touch_instruction} to set one."
+msgstr ""
+
+#. placeholders: {touch_instruction}
+#. one sentence of a longer line
+msgid "{touch_instruction} to set one."
+msgstr ""
 
 #. placeholders: {key}
 msgid "No remembered cruise speed yet. {key} sets one."

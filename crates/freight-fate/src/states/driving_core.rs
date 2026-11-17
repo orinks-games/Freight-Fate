@@ -617,8 +617,8 @@ impl Instructor for Tutorial {
                 "At air ready, swipe up and hold to release the parking brake and drive."
                     .to_string()
             } else if ctx.touch_hints() {
-                "At air ready, swipe up and hold to release the parking brake, then hold a pedal \
-                 and flick up with a second finger for first gear."
+                "At air ready, swipe up and hold to release the parking brake, then flick up with \
+                 a second finger for first gear."
                     .to_string()
             } else if ctx.settings.automatic_transmission {
                 format!(
@@ -692,8 +692,8 @@ impl Instructor for Tutorial {
             self.stage = 3;
             let text = if ctx.touch_hints() {
                 format!(
-                    "Rolling. {} for your speed, tap with three fingers then double tap for a \
-                     full report, flick up with two fingers for all the controls. Brake hard at \
+                    "Rolling. {} for your speed. Tap with three fingers, then double tap, for a \
+                     full report. Flick up with two fingers for all the controls. Brake hard at \
                      a hazard warning. Swipe down deep and hold to stop fast.",
                     ctx.touch_instruction(crate::bindings::Action::Speed)
                 )

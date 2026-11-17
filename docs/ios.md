@@ -70,7 +70,7 @@ One finger:
 | Flick left / right | Change one lane |
 | Flick up / down | Cruise off: flick up turns cruise on, at the remembered speed or else the current one; flick down does nothing. Cruise on: raise / lower the target |
 | Hold still for half a second | Straighten the wheel until you lift |
-| Double tap | Whatever the road is asking: take a called exit or stop (arm, confirm or cancel the exit signal), pull over for a trooper, or confirm arrival at a facility gate. With nothing asking, it says there is no exit to signal for, as X does |
+| Double tap | Whatever the road is asking: confirm arrival at a facility gate, pull over for a trooper, open the stop the truck is stopped at on its ramp (check in at a scale), or take a called exit or stop (arm, confirm or cancel the exit signal). With nothing asking, it says there is no exit to signal for, as X does |
 
 Two fingers:
 
@@ -236,9 +236,10 @@ frameworks it and SDL2 need, plus clang's iOS runtime for `@available` checks.
   nothing. Settings also leaves out Problem reports (the log is in the
   sandbox, out of reach) and the braille-only Output row (it needs NVDA or
   JAWS).
-- Spoken prompts name the gesture for a control ("press a two-finger turn
-  to the right", "double tap to signal for the exit"), or its row on the
-  three-finger tap command list when no gesture runs it. Pressing a
+- Spoken prompts name the gesture for a control in a sentence of their own
+  ("Turn two fingers right to restart.", "Double tap to signal for the
+  exit."), or its group on the three-finger tap command list when no
+  gesture runs it. Pressing a
   key on a hardware keyboard, or a controller button, switches them back to
   key or button names until the screen is touched again.
 - Game audio in the Simulator has not been checked since Hearken replaced
@@ -254,7 +255,7 @@ frameworks it and SDL2 need, plus clang's iOS runtime for `@available` checks.
 - Flick up with cruise off: the first time it sets the current speed, after that it resumes the last one. Flick down with cruise off does nothing and says nothing; a short brake swipe must not set cruise. With cruise on, flicks raise and lower the target. Flick left and right for one lane each.
 - With lane keeping off and partial, swipe left or right and hold to steer; on full, the hold says to flick and flicks still change lanes.
 - Hold one finger still for half a second to straighten. A plain tap must still be Speed.
-- Double tap when an exit is called (the exit signal arms), when a trooper's lights come on (the truck signals for the shoulder), and stopped at a facility gate (it opens). With nothing called, it says there is no exit to signal for.
+- Double tap when an exit is called (the exit signal arms), when a trooper's lights come on (the truck signals for the shoulder), stopped at a facility gate (it opens), and stopped at the end of a stop's ramp ("Double tap to pull in." and the stop opens) or on a scale ("Double tap to check in."). With nothing called, it says there is no exit to signal for.
 - Two-finger tap during a long line in a menu and at the wheel: the line stops, and the menu or drive stays where it was.
 - In a menu, flick right and left move through the rows and flick up and down change a value (a volume row in Settings). A tap reads the row again; tapping twice in a row does not step through messages.
 - A two-finger double tap on the main menu does nothing; on the pause menu it resumes the drive.
