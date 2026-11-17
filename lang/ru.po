@@ -15613,6 +15613,9 @@ msgstr ""
 "доставок: {deliveries}, {grouped} {grouped:доллар|доллара|долларов}, "
 "{business_status}."
 
+msgid " Touch gestures is open over the terminal; listen for it."
+msgstr ""
+
 msgid " The terminal menu is open; listen for it."
 msgstr " Меню терминала открыто; слушайте его."
 
@@ -37062,6 +37065,24 @@ msgstr ""
 msgid "Gesture"
 msgstr "Жест"
 
+msgid ""
+"How far a swipe down travels before it becomes the emergency brake, or the "
+"parking brake when stopped. Practice gestures reads the length of each "
+"swipe. Flick up or down to change it."
+msgstr ""
+
+msgid ""
+"How far a swipe down on the iPhone travels before it becomes the emergency "
+"brake, or the parking brake when stopped. Practice gestures reads the "
+"length of each swipe. D-pad Right or Left changes it."
+msgstr ""
+
+msgid ""
+"How far a swipe down on the iPhone travels before it becomes the emergency "
+"brake, or the parking brake when stopped. Practice gestures reads the "
+"length of each swipe. Right or Left arrow changes it."
+msgstr ""
+
 msgid "Every touch gesture is back to its default."
 msgstr "Все жесты касания возвращены по умолчанию."
 
@@ -37074,6 +37095,10 @@ msgstr "Тактильный отклик выключен."
 msgid "Confirm, then choose the command this gesture runs while driving."
 msgstr ""
 "Подтвердите, затем выберите команду, которую этот жест выполняет за рулём."
+
+#. placeholders: {touch_deep_swipe_points}
+msgid "Deep swipe starts at: {touch_deep_swipe_points}"
+msgstr ""
 
 msgid "Practice gestures"
 msgstr "Тренировка жестов"
@@ -37108,6 +37133,28 @@ msgstr ""
 #. placeholders: {gesture_name}, {label}
 msgid "{gesture_name} now runs {label}."
 msgstr "{gesture_name} теперь выполняет: {label}."
+
+#. one sentence of a longer line
+msgid "Deep swipe."
+msgstr ""
+
+#. placeholders: {points}
+msgid "Deep swipe. Length {points}."
+msgstr ""
+
+#. placeholders: {points}
+#. one sentence of a longer line
+msgid "Length {points}."
+msgstr ""
+
+#. placeholders: {points}, {touch_deep_swipe_points}
+msgid "Length {points}. The deep swipe starts at {touch_deep_swipe_points}."
+msgstr ""
+
+#. placeholders: {touch_deep_swipe_points}
+#. one sentence of a longer line
+msgid "The deep swipe starts at {touch_deep_swipe_points}."
+msgstr ""
 
 msgid "Swipe up and hold: gas. Lift to coast."
 msgstr "Провести вверх и держать: газ. Отпустите, чтобы катиться накатом."

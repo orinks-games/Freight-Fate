@@ -8,7 +8,7 @@
 use crate::app::GameContext;
 use crate::bindings::{touch_gesture_name, touch_slots, TouchCommand};
 use crate::impl_state_for_menu;
-use crate::states::base::{Label, Menu, MenuCore, MenuItem};
+use crate::states::base::{Key, Label, Menu, MenuCore, MenuItem};
 use crate::touch::Gesture;
 
 use super::settings::save_settings;
@@ -28,15 +28,53 @@ fn gesture_name(gesture: Gesture) -> &'static str {
     touch_gesture_name(gesture).unwrap_or("Gesture")
 }
 
+/// The deep swipe row's help, in each input's own words.
+fn deep_swipe_help(ctx: &GameContext) -> &'static str {
+    match ctx.controller.device() {
+        ff_core::input_hints::TOUCH => {
+            "How far a swipe down travels before it becomes the emergency brake, or the \
+             parking brake when stopped. Practice gestures reads the length of each swipe. \
+             Flick up or down to change it."
+        }
+        ff_core::input_hints::CONTROLLER => {
+            "How far a swipe down on the iPhone travels before it becomes the emergency \
+             brake, or the parking brake when stopped. Practice gestures reads the length \
+             of each swipe. D-pad Right or Left changes it."
+        }
+        _ => {
+            "How far a swipe down on the iPhone travels before it becomes the emergency \
+             brake, or the parking brake when stopped. Practice gestures reads the length \
+             of each swipe. Right or Left arrow changes it."
+        }
+    }
+}
+
 pub struct TouchGesturesState {
     menu: MenuCore<Self>,
+    /// Where the deep swipe row sits, the one row Left and Right change.
+    deep_swipe_row: usize,
 }
 
 impl TouchGesturesState {
     pub fn new() -> Self {
         Self {
             menu: MenuCore::new("Touch gestures").with_intro_help(GESTURES_HELP),
+            deep_swipe_row: usize::MAX,
         }
+    }
+
+    /// Move where the deep swipe starts one step, hand it to the touch
+    /// surface, save, and read the row again.
+    fn step_deep_swipe(&mut self, ctx: &mut GameContext, direction: i64) {
+        ctx.settings.step_touch_deep_swipe(direction.signum());
+        crate::app::sdl_shell::set_touch_tuning(&ctx.settings);
+        save_settings(&ctx.settings);
+        ctx.audio.play("ui/menu_select");
+        self.speak_current(ctx);
+    }
+
+    fn on_deep_swipe_row(&self) -> bool {
+        self.menu.index == self.deep_swipe_row
     }
 
     fn reset_all(&mut self, ctx: &mut GameContext) {
@@ -88,6 +126,21 @@ impl Menu for TouchGesturesState {
                 .help("Confirm, then choose the command this gesture runs while driving.")
             })
             .collect();
+        self.deep_swipe_row = items.len();
+        items.push(
+            MenuItem::new(
+                Label::dynamic(|_s: &Self, ctx| {
+                    format!(
+                        "Deep swipe starts at: {}",
+                        ctx.settings.touch_deep_swipe_points()
+                    )
+                }),
+                |s: &mut Self, ctx| s.step_deep_swipe(ctx, 1),
+            )
+            .help(Label::dynamic(|_s: &Self, ctx| {
+                deep_swipe_help(ctx).to_string()
+            })),
+        );
         items.push(
             MenuItem::new("Practice gestures", |_s: &mut Self, ctx| {
                 ctx.push_state(TouchPracticeState::new());
@@ -119,6 +172,26 @@ impl Menu for TouchGesturesState {
         );
         items.push(MenuItem::new("Back", |s: &mut Self, ctx| s.go_back(ctx)));
         items
+    }
+
+    /// Right and Left change the deep swipe row; a flick up or down on
+    /// touch arrives as the same keys.
+    fn handle_extra_key(&mut self, ctx: &mut GameContext, key: Key) -> bool {
+        if !self.on_deep_swipe_row() {
+            return false;
+        }
+        match key {
+            Key::Right => self.step_deep_swipe(ctx, 1),
+            Key::Left => self.step_deep_swipe(ctx, -1),
+            _ => return false,
+        }
+        true
+    }
+
+    fn adjust(&mut self, ctx: &mut GameContext, direction: i64) {
+        if self.on_deep_swipe_row() {
+            self.step_deep_swipe(ctx, direction);
+        }
     }
 
     fn go_back(&mut self, ctx: &mut GameContext) {

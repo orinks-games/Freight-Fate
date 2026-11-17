@@ -151,10 +151,13 @@ fn tools_list() -> Value {
              hold stays down until \
              lift, or give seconds and the game lifts it, as pedal does. A deep swipe \
              grows out of a brake hold, so send brake_hold first, then deep_swipe. \
-             status reports the touch mode and, at the wheel, what a double tap answers.",
+             status reports the touch mode and, at the wheel, what a double tap answers. \
+             length (points) on a timed one-finger hold, a deep_swipe or a lift sends \
+             how far the finger travelled as it lifts, which Practice gestures reads.",
             json!({
                 "name": {"type": "string"},
                 "seconds": {"type": "number", "description": "for a hold: real seconds before the game lifts it, 0.05 to 30"},
+                "length": {"type": "integer", "description": "for a one-finger hold, deep_swipe or lift: points travelled, sent as the finger lifts"},
             }),
             &["name"],
         ),
@@ -277,7 +280,8 @@ fn tools_list() -> Value {
              out_of_service_events (counts on the record, dated now; with damage they set the \
              safety band that decides who is pulled into the inspection lane), \
              rested (true takes a full sleep), first_run (true teaches the first-run \
-             walkthrough on the next drive), fatigue (0 to 100, set after rested; \
+             walkthrough on the next drive), touch_gestures (true opens the iPhone \
+             Touch gestures settings screen over the terminal), fatigue (0 to 100, set after rested; \
              the next drive starts in that band and gives its cue), hos_driving_min, hos_duty_min and \
              hos_since_break_min (sandbox HOS counters in game minutes), clear_load (true drops a load in \
              progress first), market_seed and board_seed (the dispatch board rolls \
@@ -305,6 +309,7 @@ fn tools_list() -> Value {
                 "out_of_service_events": {"type": "integer"},
                 "rested": {"type": "boolean"},
                 "first_run": {"type": "boolean"},
+                "touch_gestures": {"type": "boolean"},
                 "fatigue": {"type": "number", "description": "0 to 100; 40 worn, 60 drowsy, 80 severe"},
                 "hos_driving_min": {"type": "number"},
                 "hos_duty_min": {"type": "number"},
@@ -619,7 +624,22 @@ pub fn build_command(name: &str, args: &Map<String, Value>) -> Result<Command, S
                     _ => return Err("seconds must be a positive number".to_string()),
                 },
             };
-            Ok(Command::Gesture { gesture, seconds })
+            let length = match args.get("length") {
+                None | Some(Value::Null) => None,
+                Some(value) => match value.as_u64() {
+                    Some(points) => Some(
+                        u16::try_from(points)
+                            .unwrap_or(u16::MAX)
+                            .min(crate::touch::MAX_TRAVEL_POINTS),
+                    ),
+                    None => return Err("length must be a whole number of points".to_string()),
+                },
+            };
+            Ok(Command::Gesture {
+                gesture,
+                seconds,
+                length,
+            })
         }
         "wait_for" => {
             let seconds = args.get("seconds").and_then(Value::as_f64).unwrap_or(0.0);

@@ -14267,6 +14267,9 @@ msgstr ""
 "シナリオ準備完了：{name}、{the_city}のターミナル、レベル{level}、配達{deliveries}件、{grouped}ドル、{bus"
 "iness_status}。"
 
+msgid " Touch gestures is open over the terminal; listen for it."
+msgstr ""
+
 msgid " The terminal menu is open; listen for it."
 msgstr " ターミナルのメニューが開いています。読み上げを聞いてください。"
 
@@ -33662,6 +33665,24 @@ msgstr "上下に移動してジェスチャーを選び、確定すると、運
 msgid "Gesture"
 msgstr "ジェスチャー"
 
+msgid ""
+"How far a swipe down travels before it becomes the emergency brake, or the "
+"parking brake when stopped. Practice gestures reads the length of each "
+"swipe. Flick up or down to change it."
+msgstr ""
+
+msgid ""
+"How far a swipe down on the iPhone travels before it becomes the emergency "
+"brake, or the parking brake when stopped. Practice gestures reads the "
+"length of each swipe. D-pad Right or Left changes it."
+msgstr ""
+
+msgid ""
+"How far a swipe down on the iPhone travels before it becomes the emergency "
+"brake, or the parking brake when stopped. Practice gestures reads the "
+"length of each swipe. Right or Left arrow changes it."
+msgstr ""
+
 msgid "Every touch gesture is back to its default."
 msgstr "すべてのタッチジェスチャーを既定に戻しました。"
 
@@ -33673,6 +33694,10 @@ msgstr "タッチの振動を無効にしました。"
 
 msgid "Confirm, then choose the command this gesture runs while driving."
 msgstr "確定してから、このジェスチャーで運転中に実行する操作を選びます。"
+
+#. placeholders: {touch_deep_swipe_points}
+msgid "Deep swipe starts at: {touch_deep_swipe_points}"
+msgstr ""
 
 msgid "Practice gestures"
 msgstr "ジェスチャーの練習"
@@ -33703,6 +33728,28 @@ msgstr "上下に移動して操作を選び、確定するとジェスチャー
 #. placeholders: {gesture_name}, {label}
 msgid "{gesture_name} now runs {label}."
 msgstr "{gesture_name}で{label}を実行するようになりました。"
+
+#. one sentence of a longer line
+msgid "Deep swipe."
+msgstr ""
+
+#. placeholders: {points}
+msgid "Deep swipe. Length {points}."
+msgstr ""
+
+#. placeholders: {points}
+#. one sentence of a longer line
+msgid "Length {points}."
+msgstr ""
+
+#. placeholders: {points}, {touch_deep_swipe_points}
+msgid "Length {points}. The deep swipe starts at {touch_deep_swipe_points}."
+msgstr ""
+
+#. placeholders: {touch_deep_swipe_points}
+#. one sentence of a longer line
+msgid "The deep swipe starts at {touch_deep_swipe_points}."
+msgstr ""
 
 msgid "Swipe up and hold: gas. Lift to coast."
 msgstr "上にスワイプして長押し：アクセル。指を離すと惰性で走ります。"

@@ -58,6 +58,9 @@ pub struct Scenario {
     pub rested: bool,
     /// The first-run walkthrough taught again on the next drive.
     pub first_run: bool,
+    /// Open Touch gestures over the terminal: the iPhone and iPad settings
+    /// screen, which a desktop build's Controls list leaves out.
+    pub touch_gestures: bool,
     /// The fatigue number, 0 to 100, set after `rested`.
     pub fatigue: Option<f64>,
     /// Sandbox HOS counters for a near-limit road start. These are staged
@@ -216,6 +219,10 @@ impl Scenario {
             rested: args.get("rested").and_then(Value::as_bool).unwrap_or(false),
             first_run: args
                 .get("first_run")
+                .and_then(Value::as_bool)
+                .unwrap_or(false),
+            touch_gestures: args
+                .get("touch_gestures")
                 .and_then(Value::as_bool)
                 .unwrap_or(false),
             fatigue: number(args, "fatigue")?,

@@ -17809,6 +17809,10 @@ msgid ""
 msgstr ""
 
 #: crates/freight-fate/src/app.rs
+msgid " Touch gestures is open over the terminal; listen for it."
+msgstr ""
+
+#: crates/freight-fate/src/app.rs
 msgid " The terminal menu is open; listen for it."
 msgstr ""
 
@@ -41321,6 +41325,27 @@ msgid "Gesture"
 msgstr ""
 
 #: crates/freight-fate/src/states/main_menu/touch_gestures.rs
+msgid ""
+"How far a swipe down travels before it becomes the emergency brake, or the "
+"parking brake when stopped. Practice gestures reads the length of each "
+"swipe. Flick up or down to change it."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu/touch_gestures.rs
+msgid ""
+"How far a swipe down on the iPhone travels before it becomes the emergency "
+"brake, or the parking brake when stopped. Practice gestures reads the "
+"length of each swipe. D-pad Right or Left changes it."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu/touch_gestures.rs
+msgid ""
+"How far a swipe down on the iPhone travels before it becomes the emergency "
+"brake, or the parking brake when stopped. Practice gestures reads the "
+"length of each swipe. Right or Left arrow changes it."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu/touch_gestures.rs
 msgid "Every touch gesture is back to its default."
 msgstr ""
 
@@ -41334,6 +41359,11 @@ msgstr ""
 
 #: crates/freight-fate/src/states/main_menu/touch_gestures.rs
 msgid "Confirm, then choose the command this gesture runs while driving."
+msgstr ""
+
+#. placeholders: {touch_deep_swipe_points}
+#: crates/freight-fate/src/states/main_menu/touch_gestures.rs
+msgid "Deep swipe starts at: {touch_deep_swipe_points}"
 msgstr ""
 
 #: crates/freight-fate/src/states/main_menu/touch_gestures.rs crates/freight-fate/src/states/main_menu/touch_practice.rs
@@ -41372,6 +41402,33 @@ msgstr ""
 #. placeholders: {gesture_name}, {label}
 #: crates/freight-fate/src/states/main_menu/touch_gestures.rs
 msgid "{gesture_name} now runs {label}."
+msgstr ""
+
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/main_menu/touch_practice.rs
+msgid "Deep swipe."
+msgstr ""
+
+#. placeholders: {points}
+#: crates/freight-fate/src/states/main_menu/touch_practice.rs
+msgid "Deep swipe. Length {points}."
+msgstr ""
+
+#. placeholders: {points}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/main_menu/touch_practice.rs
+msgid "Length {points}."
+msgstr ""
+
+#. placeholders: {points}, {touch_deep_swipe_points}
+#: crates/freight-fate/src/states/main_menu/touch_practice.rs
+msgid "Length {points}. The deep swipe starts at {touch_deep_swipe_points}."
+msgstr ""
+
+#. placeholders: {touch_deep_swipe_points}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/main_menu/touch_practice.rs
+msgid "The deep swipe starts at {touch_deep_swipe_points}."
 msgstr ""
 
 #: crates/freight-fate/src/states/main_menu/touch_practice.rs
