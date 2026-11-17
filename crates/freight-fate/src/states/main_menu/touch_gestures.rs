@@ -33,18 +33,18 @@ fn deep_swipe_help(ctx: &GameContext) -> &'static str {
     match ctx.controller.device() {
         ff_core::input_hints::TOUCH => {
             "How far a swipe down travels before it becomes the emergency brake, or the \
-             parking brake when stopped. Practice gestures reads the length of each swipe. \
-             Flick up or down to change it."
+             parking brake when stopped. Practice gestures reads the length of each swipe \
+             down. Flick up or down to change it."
         }
         ff_core::input_hints::CONTROLLER => {
-            "How far a swipe down on the iPhone travels before it becomes the emergency \
+            "How far a swipe down travels before it becomes the emergency \
              brake, or the parking brake when stopped. Practice gestures reads the length \
-             of each swipe. D-pad Right or Left changes it."
+             of each swipe down. D-pad Right or Left changes it."
         }
         _ => {
-            "How far a swipe down on the iPhone travels before it becomes the emergency \
+            "How far a swipe down travels before it becomes the emergency \
              brake, or the parking brake when stopped. Practice gestures reads the length \
-             of each swipe. Right or Left arrow changes it."
+             of each swipe down. Right or Left arrow changes it."
         }
     }
 }
