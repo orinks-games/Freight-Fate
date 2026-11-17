@@ -17,6 +17,7 @@ pub mod jaws_script;
 pub mod meaningful_play;
 pub mod net;
 pub mod online_activation;
+pub mod online_guest;
 pub mod online_journal;
 pub mod online_presence;
 pub mod playtest;

@@ -76,6 +76,7 @@ mod l10n_spanish_listen;
 mod net;
 mod network_guard;
 mod online_activation;
+mod online_guest;
 mod online_journal;
 mod online_presence;
 mod online_profile_switch;

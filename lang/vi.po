@@ -17314,6 +17314,9 @@ msgstr ""
 msgid "ready"
 msgstr ""
 
+msgid "token"
+msgstr ""
+
 msgid "online-journal"
 msgstr ""
 
@@ -39643,14 +39646,15 @@ msgid ""
 "Enter opens an item or changes a setting to its next value. Right also "
 "moves it forward, Left backward. Escape goes back. Drivers on duty, the "
 "Driver directory, the duty notices, and Account achievements work without "
-"connecting. The rest needs an orinks.net account. Everything you share can "
-"be turned off again."
+"connecting. Drive online as a guest puts you on the board with no account. "
+"The rest needs an orinks.net account. Everything you share can be turned "
+"off again."
 msgstr ""
-"Nhấn Enter để mở mục hoặc chuyển cài đặt sang giá trị kế tiếp. Phím Phải "
-"cũng chuyển tới, phím Trái lùi lại. Nhấn Escape để quay lại. Tài xế đang "
-"chạy, Danh bạ tài xế, thông báo lên xuống ca và Thành tích tài khoản hoạt "
-"động không cần kết nối. Các mục còn lại cần tài khoản orinks.net. Mọi thứ "
-"bạn chia sẻ đều tắt lại được bất cứ lúc nào."
+
+msgid ""
+"Your profile needs an orinks.net account. Choose Connect an orinks.net "
+"account first."
+msgstr ""
 
 msgid ""
 "Your profile needs your orinks.net account. Choose Set up orinks.net "
@@ -39658,6 +39662,19 @@ msgid ""
 msgstr ""
 "Hồ sơ của bạn cần có tài khoản orinks.net. Hãy chọn Thiết lập tài khoản "
 "orinks.net trước."
+
+msgid "Your orinks.net account is connected, so there's no guest driver."
+msgstr ""
+
+#. placeholders: {display_name}
+msgid "Guest name: {display_name}"
+msgstr ""
+
+msgid "Guest driver: off, account connected"
+msgstr ""
+
+msgid "Drive online as a guest"
+msgstr ""
 
 msgid "The browser could not be opened. The address is on your clipboard."
 msgstr "Không mở được trình duyệt. Địa chỉ đã được chép vào khay nhớ tạm."
@@ -39687,6 +39704,11 @@ msgstr " Địa chỉ cũng đã được chép vào khay nhớ tạm."
 #. placeholders: {clipboard_note}
 msgid "Opening your driver setup page in your browser.{clipboard_note}"
 msgstr "Đang mở trang thiết lập tài xế trên trình duyệt.{clipboard_note}"
+
+msgid ""
+"Cloud backup needs an orinks.net account. Choose Connect an orinks.net "
+"account."
+msgstr ""
 
 msgid ""
 "Cloud backup needs your orinks.net account. Choose Set up orinks.net "
@@ -39825,6 +39847,9 @@ msgstr ""
 "trạng thái Discord mà không làm mất cài đặt của từng mục. Thời tiết, giao "
 "thông và bãi đỗ trực tiếp có nút bật tắt riêng trong Cài đặt."
 
+msgid "Connect an orinks.net account"
+msgstr ""
+
 msgid "orinks.net account: connected"
 msgstr "Tài khoản orinks.net: đã kết nối"
 
@@ -39840,6 +39865,14 @@ msgstr ""
 "sơ và bắt đầu sao lưu các sự nghiệp của bạn. Mỗi tính năng có một mục riêng "
 "trong menu này. Tên tài xế và các máy tính đã đăng nhập nằm ở mục Mở trang "
 "thiết lập tài xế."
+
+msgid "Hear your guest name or ask orinks.net for a new one."
+msgstr ""
+
+msgid ""
+"Puts you on the drivers board under a name orinks.net picks, with no "
+"account. A profile and cloud backup need an account."
+msgstr ""
 
 msgid "Open my driver setup page"
 msgstr "Mở trang thiết lập tài xế"
@@ -40144,24 +40177,20 @@ msgstr ""
 msgid "your driver"
 msgstr "tài xế của bạn"
 
-#. placeholders: {display}
-#. one sentence of a longer line
-msgid "Connected to orinks.net as {display}."
-msgstr "Đã kết nối với orinks.net dưới tên {display}."
-
-#. placeholders: {display}
-msgid ""
-"Connected to orinks.net as {display}. Your careers now back up to that "
-"account. Turning Profile sharing on."
+msgid " Your guest driver is this account now."
 msgstr ""
-"Đã kết nối với orinks.net dưới tên {display}. Các sự nghiệp của bạn hiện đã "
-"sao lưu lên tài khoản đó. Đang bật Chia sẻ hồ sơ."
 
+#. placeholders: {display}, {guest_note}
 #. one sentence of a longer line
-msgid "Your careers now back up to that account."
-msgstr "Các sự nghiệp của bạn hiện đã sao lưu lên tài khoản đó."
+msgid ""
+"Connected to orinks.net as {display}.{guest_note} Your careers now back up "
+"to that account."
+msgstr ""
 
-msgid "profile-sharing"
+#. placeholders: {display}, {guest_note}
+msgid ""
+"Connected to orinks.net as {display}.{guest_note} Your careers now back up "
+"to that account. Turning Profile sharing on."
 msgstr ""
 
 msgid ""
@@ -40200,9 +40229,6 @@ msgstr "Sao chép mã kích hoạt"
 msgid "Puts the activation code on the clipboard."
 msgstr "Chép mã kích hoạt vào khay nhớ tạm."
 
-msgid "Hear what gets shared"
-msgstr "Nghe thông tin nào được chia sẻ"
-
 msgid "Leave without connecting this account."
 msgstr "Rời khỏi mà không kết nối tài khoản này."
 
@@ -40238,9 +40264,6 @@ msgstr "Đã quay lại Freight Fate. {current}"
 
 msgid "Still waiting."
 msgstr "Vẫn đang chờ."
-
-msgid "Could not reach orinks.net. Try again."
-msgstr "Không thể kết nối tới orinks.net. Hãy thử lại."
 
 msgid ""
 "Your activation code expired. Choose Set up this computer with orinks.net "
@@ -40342,6 +40365,10 @@ msgstr ""
 msgid "No drivers are on duty right now"
 msgstr "Hiện không có tài xế nào đang chạy"
 
+#. placeholders: {name}
+msgid "{name}, guest"
+msgstr ""
+
 msgid "activity"
 msgstr "hoạt động"
 
@@ -40350,6 +40377,9 @@ msgstr "chi tiết"
 
 msgid "went off duty"
 msgstr "đã nghỉ ca"
+
+msgid "A guest driver, with no orinks.net account and no profile."
+msgstr ""
 
 msgid "Opens this driver's public profile."
 msgstr "Mở hồ sơ công khai của tài xế này."
@@ -40460,6 +40490,118 @@ msgstr "không có ai đang chạy"
 #. placeholders: {n}
 msgid "{n} on duty"
 msgstr "{n} người đang chạy"
+
+msgid ""
+"As a guest you go on the orinks.net drivers board under a name orinks.net "
+"picks, like Copper Fox 12, with no account. This turns Profile sharing on, "
+"so your guest name and on-duty activity show publicly on the board. A "
+"driver profile, road journal, achievements and cloud backup need an "
+"account. Profile sharing on the Online menu turns sharing off."
+msgstr ""
+
+msgid "Go online as a guest"
+msgstr ""
+
+msgid "Asking orinks.net for a guest name"
+msgstr ""
+
+msgid "Turning Profile sharing on"
+msgstr ""
+
+msgid "Still working. Stay here for the result."
+msgstr ""
+
+msgid "Asking orinks.net for a guest name."
+msgstr ""
+
+msgid "online-guest"
+msgstr ""
+
+msgid "orinks.net is busy. Try again in a minute."
+msgstr ""
+
+msgid "Could not reach orinks.net. Try again."
+msgstr "Không thể kết nối tới orinks.net. Hãy thử lại."
+
+msgid ""
+"This computer could not save the guest driver. Nothing was changed. Check "
+"your password store, then try again."
+msgstr ""
+
+msgid "profile-sharing"
+msgstr ""
+
+#. placeholders: {name}
+msgid "You're {name} on the drivers board."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Profile sharing on the Online menu tries again."
+msgstr ""
+
+#. placeholders: {name}
+#. one sentence of a longer line
+msgid ""
+"You're {name}, but orinks.net could not turn Profile sharing on, so nothing "
+"is public yet."
+msgstr ""
+
+#. placeholders: {name}
+msgid ""
+"You're {name}, but orinks.net could not turn Profile sharing on, so nothing "
+"is public yet. Profile sharing on the Online menu tries again."
+msgstr ""
+
+msgid "Gets a guest name from orinks.net and turns Profile sharing on."
+msgstr ""
+
+msgid "Hear what gets shared"
+msgstr "Nghe thông tin nào được chia sẻ"
+
+msgid "Guest name"
+msgstr ""
+
+msgid "Still asking."
+msgstr ""
+
+msgid "This computer isn't driving as a guest."
+msgstr ""
+
+msgid "guest-rename"
+msgstr ""
+
+msgid "Asking for a new name"
+msgstr ""
+
+msgid "Ask for a new name"
+msgstr ""
+
+msgid "orinks.net picks another name at random. Ask again for another."
+msgstr ""
+
+#. placeholders: {name}
+#. one sentence of a longer line
+msgid "You're {name}."
+msgstr ""
+
+#. placeholders: {TITLE}, {name}, {current}
+msgid "{TITLE}. You're {name}. {current}"
+msgstr ""
+
+#. placeholders: {name}
+msgid "You're {name} now."
+msgstr ""
+
+msgid "That's a lot of names. Try again in a minute."
+msgstr ""
+
+msgid ""
+"orinks.net no longer has this guest. Connect an orinks.net account from the "
+"Online menu."
+msgstr ""
+
+msgid "Still asking. Stay here for the new name."
+msgstr ""
 
 msgid "out-of-service order"
 msgstr "lệnh đình chỉ lưu hành"
@@ -42590,6 +42732,32 @@ msgstr ""
 #. The last sentence of the sleep preview, when nothing comes before it.
 msgid "Select again to sleep."
 msgstr ""
+
+#~ msgid ""
+#~ "Enter opens an item or changes a setting to its next value. Right also "
+#~ "moves it forward, Left backward. Escape goes back. Drivers on duty, the "
+#~ "Driver directory, the duty notices, and Account achievements work without "
+#~ "connecting. The rest needs an orinks.net account. Everything you share can "
+#~ "be turned off again."
+#~ msgstr ""
+#~ "Nhấn Enter để mở mục hoặc chuyển cài đặt sang giá trị kế tiếp. Phím Phải "
+#~ "cũng chuyển tới, phím Trái lùi lại. Nhấn Escape để quay lại. Tài xế đang "
+#~ "chạy, Danh bạ tài xế, thông báo lên xuống ca và Thành tích tài khoản hoạt "
+#~ "động không cần kết nối. Các mục còn lại cần tài khoản orinks.net. Mọi thứ "
+#~ "bạn chia sẻ đều tắt lại được bất cứ lúc nào."
+
+#~ msgid "Connected to orinks.net as {display}."
+#~ msgstr "Đã kết nối với orinks.net dưới tên {display}."
+
+#~ msgid ""
+#~ "Connected to orinks.net as {display}. Your careers now back up to that "
+#~ "account. Turning Profile sharing on."
+#~ msgstr ""
+#~ "Đã kết nối với orinks.net dưới tên {display}. Các sự nghiệp của bạn hiện đã "
+#~ "sao lưu lên tài khoản đó. Đang bật Chia sẻ hồ sơ."
+
+#~ msgid "Your careers now back up to that account."
+#~ msgstr "Các sự nghiệp của bạn hiện đã sao lưu lên tài khoản đó."
 
 #~ msgid "a two-finger swipe down"
 #~ msgstr "vuốt hai ngón xuống"
