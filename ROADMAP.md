@@ -1520,10 +1520,18 @@ Everything found before 2026-09-25 moved to
       (`ff_core::sim::touch_clutch::TouchClutch`, reported by `status`), and
       the touch engine start after a stall in gear takes neutral first.
       Nothing was tried on a phone.
-- [ ] (Found along the way) iPhone gesture plan steps 4 and 5: touch
-      sentences for the wheel prompts that say "Press {gesture}", the parking
-      brake prompts and the brake-hold slot trim; then the stroke recogniser
-      moved into `ff-core` with the deep swipe threshold measured on a phone.
+- [x] iOS prompts at the wheel, step 4 of the iPhone gesture plan
+      (2026-11-16): every driving, rest and stop prompt that named a control
+      has its own touch sentence ("Turn two fingers right to restart.",
+      "Double tap to signal, then stop on the shoulder."), picked when the
+      line is built; the parking brake prompts say gas releases it; a
+      command with no gesture is named by its group on the three-finger tap
+      list (`GameContext::touch_instruction`). The brake-hold tap and double
+      tap default to Nothing. Driving School lessons and the How to play
+      pages keep their wording. Nothing was tried on a phone.
+- [ ] (Found along the way) iPhone gesture plan step 5: the stroke
+      recogniser moved into `ff-core` with the deep swipe threshold measured
+      on a phone.
 - [ ] (Found along the way) Cleanup: menu intro help is spoken only when a
       menu has no rows, and on job and stop details, which lead with it. The
       help key and gesture keep reading the row's own help. The keyboard

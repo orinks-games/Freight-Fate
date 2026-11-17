@@ -5717,14 +5717,14 @@ msgstr "決定"
 msgid "a two-finger tap"
 msgstr "2本指でタップ"
 
-msgid "a two-finger swipe down"
-msgstr "2本指で下にスワイプ"
+msgid "a two-finger flick down"
+msgstr ""
 
 msgid "pause"
 msgstr "一時停止"
 
-msgid "a two-finger swipe up"
-msgstr "2本指で上にスワイプ"
+msgid "a two-finger flick up"
+msgstr ""
 
 msgid "help"
 msgstr "ヘルプ"
@@ -14394,6 +14394,14 @@ msgstr "smokeチェック"
 msgid "screen"
 msgstr "screen"
 
+#. placeholders: {group}, {label}
+msgid "Tap with three fingers and open {group} for {label}"
+msgstr ""
+
+#. placeholders: {label}
+msgid "Tap with three fingers for {label}"
+msgstr ""
+
 msgid "system"
 msgstr "system"
 
@@ -14986,6 +14994,78 @@ msgstr "左にフリック"
 
 msgid "flick right"
 msgstr "右にフリック"
+
+msgid "Double tap with two fingers"
+msgstr ""
+
+msgid "Flick up with three fingers"
+msgstr ""
+
+msgid "Flick down with three fingers"
+msgstr ""
+
+msgid "Hold gas and tap with a second finger"
+msgstr ""
+
+msgid "Hold gas and double tap with a second finger"
+msgstr ""
+
+msgid "Hold gas and flick up with a second finger"
+msgstr ""
+
+msgid "Hold gas and flick down with a second finger"
+msgstr ""
+
+msgid "Hold gas and flick left with a second finger"
+msgstr ""
+
+msgid "Hold gas and flick right with a second finger"
+msgstr ""
+
+msgid "Hold the brake and tap with a second finger"
+msgstr ""
+
+msgid "Hold the brake and double tap with a second finger"
+msgstr ""
+
+msgid "Hold the brake and flick up with a second finger"
+msgstr ""
+
+msgid "Hold the brake and flick down with a second finger"
+msgstr ""
+
+msgid "Hold the brake and flick left with a second finger"
+msgstr ""
+
+msgid "Hold the brake and flick right with a second finger"
+msgstr ""
+
+msgid "Turn two fingers right"
+msgstr ""
+
+msgid "Swipe up and hold"
+msgstr ""
+
+msgid "Swipe down and hold"
+msgstr ""
+
+msgid "Swipe down deep and hold"
+msgstr ""
+
+msgid "Hold two fingers"
+msgstr ""
+
+msgid "Flick left"
+msgstr "左にフリック"
+
+msgid "Flick right"
+msgstr "右にフリック"
+
+msgid "Double tap"
+msgstr "ダブルタップ"
+
+msgid "Tap with three fingers, then double tap"
+msgstr ""
 
 #. placeholders: {label}
 msgid "{label} from the three-finger tap list"
@@ -19934,6 +20014,9 @@ msgstr ""
 msgid "Cloud backup is still working. Stay here for the result."
 msgstr "クラウドバックアップはまだ処理中です。結果が出るまでここにいてください。"
 
+msgid "Turn two fingers right to start the engine."
+msgstr ""
+
 #. placeholders: {control_hint}
 msgid "Press {control_hint} to start the engine."
 msgstr "{control_hint}でエンジンをかけます。"
@@ -19969,6 +20052,15 @@ msgstr "エンジンはアイドリング中です。"
 msgid "Cruise paused. "
 msgstr "クルーズ一時停止。 "
 
+#. placeholders: {touch_instruction}
+msgid "Cruise paused. {touch_instruction} to cancel it. "
+msgstr ""
+
+#. placeholders: {touch_instruction}
+#. one sentence of a longer line
+msgid "{touch_instruction} to cancel it."
+msgstr ""
+
 #. placeholders: {control_hint}
 msgid "Cruise paused. {control_hint} cancels it. "
 msgstr "クルーズ一時停止。{control_hint}で解除します。 "
@@ -19977,6 +20069,10 @@ msgstr "クルーズ一時停止。{control_hint}で解除します。 "
 #. one sentence of a longer line
 msgid "{control_hint} cancels it."
 msgstr "{control_hint}で取り消します。"
+
+msgid ""
+"At air ready, swipe up and hold to release the parking brake and drive."
+msgstr ""
 
 #. placeholders: {control_hint}
 msgid "At air ready, {control_hint} releases the parking brake."
@@ -21304,6 +21400,12 @@ msgstr "エンジンはもうかかっています。"
 msgid "Engine already off."
 msgstr "エンジンはもう止まっています。"
 
+msgid "Double tap to check in."
+msgstr ""
+
+msgid "Double tap to pull in."
+msgstr ""
+
 msgid "Release the accelerator before turning the jake on."
 msgstr "エンジンブレーキをオンにする前に、アクセルを離してください。"
 
@@ -21377,6 +21479,23 @@ msgstr "エア準備完了。"
 #. placeholders: {psi}
 msgid "Air {psi} psi."
 msgstr "エア圧{psi} psi。"
+
+msgid "Air ready. Swipe up and hold to drive."
+msgstr ""
+
+msgid "Air ready. Swipe up and hold to release the parking brake and drive."
+msgstr ""
+
+#. placeholders: {psi}
+msgid ""
+"Air {psi} psi. At 100 psi, swipe up and hold to release the parking brake "
+"and drive."
+msgstr ""
+
+#. one sentence of a longer line
+msgid ""
+"At 100 psi, swipe up and hold to release the parking brake and drive."
+msgstr ""
 
 #. placeholders: {brake_hint}
 msgid "Air ready. {brake_hint} releases the parking brake."
@@ -21460,10 +21579,6 @@ msgid ""
 "{message} That crash of gears cost the driveline, damage {damage} percent."
 msgstr "{message}ギアのぶつかりで駆動系が傷みました。損傷{damage}パーセント。"
 
-#. one sentence of a longer line
-msgid "Grinding gears!"
-msgstr "ギアが鳴っています！"
-
 #. placeholders: {control_hint}
 msgid "Grinding gears! Hold {control_hint} to press the clutch first."
 msgstr "ギアが鳴っています！先に{control_hint}を押し続けてクラッチを踏んでください。"
@@ -21472,6 +21587,9 @@ msgstr "ギアが鳴っています！先に{control_hint}を押し続けてク�
 #. one sentence of a longer line
 msgid "Hold {control_hint} to press the clutch first."
 msgstr "先に{control_hint}を押し続けてクラッチを踏んでください。"
+
+msgid "Grinding gears!"
+msgstr "ギアが鳴っています！"
 
 msgid "Grinding gears! Clutch in first."
 msgstr ""
@@ -21487,6 +21605,9 @@ msgstr "掲載のサービス：{join_phrase}"
 msgid "services not listed"
 msgstr "サービスの掲載なし"
 
+msgid "Your first run. Turn two fingers right to start the engine."
+msgstr ""
+
 #. one sentence of a longer line
 msgid "Your first run."
 msgstr "最初の運行です。"
@@ -21494,6 +21615,11 @@ msgstr "最初の運行です。"
 #. placeholders: {control_hint}
 msgid "Your first run. Press {control_hint} to start the engine."
 msgstr "最初の運行です。{control_hint}でエンジンをかけます。"
+
+msgid ""
+"At air ready, swipe up and hold to release the parking brake, then flick up "
+"with a second finger for first gear."
+msgstr ""
 
 #. placeholders: {control_hint}, {control_hint2}
 msgid ""
@@ -21522,6 +21648,9 @@ msgstr "駐車ブレーキを解除しました。{control_hint}を押し続け�
 msgid "Parking brake released. Shift into first gear."
 msgstr "駐車ブレーキを解除しました。1速に入れてください。"
 
+msgid "In gear. Swipe up and hold to accelerate."
+msgstr ""
+
 #. one sentence of a longer line
 msgid "In gear."
 msgstr "ギアが入りました。"
@@ -21535,8 +21664,33 @@ msgid "Brake hard at a hazard warning."
 msgstr "危険の警告では強くブレーキをかけてください。"
 
 #. one sentence of a longer line
+msgid "Flick up with two fingers for all the controls."
+msgstr ""
+
+#. one sentence of a longer line
 msgid "Rolling."
 msgstr "走り出しました。"
+
+#. placeholders: {touch_instruction}
+msgid ""
+"Rolling. {touch_instruction} for your speed. Tap with three fingers, then "
+"double tap, for a full report. Flick up with two fingers for all the "
+"controls. Brake hard at a hazard warning. Swipe down deep and hold to stop "
+"fast."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Swipe down deep and hold to stop fast."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Tap with three fingers, then double tap, for a full report."
+msgstr ""
+
+#. placeholders: {touch_instruction}
+#. one sentence of a longer line
+msgid "{touch_instruction} for your speed."
+msgstr ""
 
 #. placeholders: {control_hint}, {control_hint2}, {control_hint3}, {control_hint4}
 msgid ""
@@ -21560,9 +21714,17 @@ msgid ""
 msgstr ""
 "{control_hint}で速度、{control_hint2}で詳しい報告、{control_hint3}ですべての操作を聞けます。"
 
+msgid "Reminder: turn two fingers right to start the engine."
+msgstr ""
+
 #. placeholders: {control_hint}
 msgid "Reminder: press {control_hint} to start the engine."
 msgstr "お知らせ：{control_hint}でエンジンをかけます。"
+
+msgid ""
+"Reminder: air is ready. Swipe up and hold to release the parking brake and "
+"drive."
+msgstr ""
 
 #. placeholders: {control_hint}
 #. one sentence of a longer line
@@ -21578,11 +21740,20 @@ msgid ""
 "Reminder: air is ready. Press {control_hint} to release the parking brake."
 msgstr "お知らせ：エアの準備ができています。{control_hint}で駐車ブレーキを解除します。"
 
+msgid ""
+"Reminder: wait for air pressure to reach 100 psi, then swipe up and hold to "
+"release the parking brake and drive."
+msgstr ""
+
 #. placeholders: {control_hint}
 msgid ""
 "Reminder: wait for air pressure to reach 100 psi, then press {control_hint} "
 "to release the parking brake."
 msgstr "お知らせ：エア圧が100 psiになるのを待ってから、{control_hint}で駐車ブレーキを解除してください。"
+
+msgid ""
+"Reminder: hold a pedal and flick up with a second finger for first gear."
+msgstr ""
 
 #. placeholders: {control_hint}, {control_hint2}
 msgid ""
@@ -22208,6 +22379,9 @@ msgstr ""
 #. placeholders: {control_hint}
 msgid "Press {control_hint} to restart the engine."
 msgstr "{control_hint}でエンジンを再始動してください。"
+
+msgid "Turn two fingers right to restart the engine."
+msgstr ""
 
 #. placeholders: {spare}
 msgid "You are in the {spare}"
@@ -22924,6 +23098,11 @@ msgid ""
 "the load's paperwork.{blitz}"
 msgstr "定例の路上検査、レベル3です。免許、医療カード、運転日誌、積荷の書類を確認します。{blitz}"
 
+msgid ""
+"Lights behind you for a routine inspection. Double tap to signal, then stop "
+"on the shoulder."
+msgstr ""
+
 #. one sentence of a longer line
 msgid "Lights behind you for a routine inspection."
 msgstr "後ろでパトカーのライトが点きました。定例の検査です。"
@@ -23012,8 +23191,18 @@ msgid ""
 msgstr "この{reason}の州警察官が{detail}に気づき、トラックを確認したがっています。"
 
 #. one sentence of a longer line
+msgid "Double tap to signal, then stop on the shoulder."
+msgstr ""
+
+#. one sentence of a longer line
 msgid "Lights and siren behind you."
 msgstr "後ろでパトカーのライトとサイレンです。"
+
+#. placeholders: {reason}, {detail}
+msgid ""
+"Lights and siren behind you. A trooper on this {reason} saw {detail} and "
+"wants a look at the truck. Double tap to signal, then stop on the shoulder."
+msgstr ""
 
 #. placeholders: {reason}, {detail}, {control_hint}
 msgid ""
@@ -23038,6 +23227,12 @@ msgstr "ウインカーを出して、路肩に停まってください。"
 #. one sentence of a longer line
 msgid "A trooper on this {reason} saw {what}."
 msgstr "この{reason}の州警察官が{what}を見ました。"
+
+#. placeholders: {reason}, {what}
+msgid ""
+"Lights and siren behind you. A trooper on this {reason} saw {what}. Double "
+"tap to signal, then stop on the shoulder."
+msgstr ""
 
 #. placeholders: {reason}, {what}, {control_hint}
 msgid ""
@@ -23228,6 +23423,9 @@ msgstr "{facility}への目的地の出口を通り過ぎました。"
 #. placeholders: {facility}, {reroute_text}
 msgid "Missed the destination exit for {facility}. {reroute_text}"
 msgstr "{facility}への目的地の出口を通り過ぎました。{reroute_text}"
+
+msgid "Holding at the entrance. Double tap to continue."
+msgstr ""
 
 #. placeholders: {control_hint}
 msgid "Holding at the entrance. Press {control_hint} to continue."
@@ -24042,6 +24240,12 @@ msgstr ""
 msgid "Set the parking brake to dock."
 msgstr ""
 
+msgid "Swipe down deep to set the parking brake and check in."
+msgstr ""
+
+msgid "Swipe down deep to set the parking brake and dock."
+msgstr ""
+
 #. placeholders: {key}
 #. one sentence of a longer line
 msgid "Press {key}."
@@ -24597,6 +24801,15 @@ msgstr "先に警察の停車指示に対応してください。"
 msgid "On the ramp for {name}."
 msgstr "{name}へのランプに入りました。"
 
+#. placeholders: {name}
+msgid ""
+"On the ramp for {name}. Stop at the scale, then double tap to check in."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Stop at the scale, then double tap to check in."
+msgstr ""
+
 #. placeholders: {name}, {rest_hint}
 msgid ""
 "On the ramp for {name}. Stop at the scale, then press {rest_hint} to check "
@@ -24756,6 +24969,11 @@ msgstr "運行停止{oos_phrase}。"
 #. placeholders: {oos_phrase}, {evidence_text}
 msgid "Out of service {oos_phrase}. Citation: {evidence_text}."
 msgstr "運行停止{oos_phrase}。違反：{evidence_text}。"
+
+msgid ""
+"Lights and siren behind you for a log check. Double tap to signal, then "
+"stop on the shoulder."
+msgstr ""
 
 #. one sentence of a longer line
 msgid "Lights and siren behind you for a log check."
@@ -24947,6 +25165,9 @@ msgstr "{place}を通り過ぎました。また前方にあります。"
 msgid "It is ahead again."
 msgstr "また前方にあります。"
 
+msgid " Swipe down and hold to brake well before it."
+msgstr ""
+
 #. placeholders: {control_hint}
 msgid " Brake with {control_hint} well before it."
 msgstr " かなり手前から{control_hint}でブレーキをかけてください。"
@@ -25014,6 +25235,9 @@ msgstr ""
 #. one sentence of a longer line
 msgid "You turned around, and the gate is ahead again."
 msgstr "折り返したので、ゲートがまた前方にあります。"
+
+msgid " Swipe down and hold to brake well before the gate."
+msgstr ""
 
 #. placeholders: {control_hint}
 msgid " Brake with {control_hint} well before the gate."
@@ -25344,6 +25568,9 @@ msgstr "ELDのルートメモ：法的な停車の警告はありません。"
 #. placeholders: {context}
 msgid "ELD route note: {context}"
 msgstr "ELDのルートメモ：{context}"
+
+msgid "ELD commands: tap with three fingers and open Hours and clock."
+msgstr ""
 
 #. placeholders: {control_name}, {control_name2}, {control_name3}
 msgid ""
@@ -25938,9 +26165,6 @@ msgid "a three-finger flick right"
 msgstr ""
 
 msgid "a three-finger flick left"
-msgstr ""
-
-msgid "a two-finger flick up"
 msgstr ""
 
 msgid ""
@@ -28931,6 +29155,11 @@ msgstr ""
 "{title}。{reason}路肩での緊急の睡眠：10時間の浅い休息です。規制が適用されていれば、運転時間規制はリセットされます。違反切符や軽い損傷の"
 "恐れがあります。期限は進み続けます。{current}"
 
+msgid ""
+"Shoulder sleep canceled. Back on the road. Parking brake set. Swipe up and "
+"hold to release it and drive."
+msgstr ""
+
 #. one sentence of a longer line
 msgid "Back on the road."
 msgstr "道路に戻りました。"
@@ -29152,9 +29381,21 @@ msgstr "教習所を出ます。"
 msgid "Cruise is already on."
 msgstr "クルーズはすでにオンです。"
 
+msgid "No remembered cruise speed yet. Flick up to set one."
+msgstr ""
+
 #. one sentence of a longer line
 msgid "No remembered cruise speed yet."
 msgstr "まだ記憶されたクルーズ速度はありません。"
+
+#. placeholders: {touch_instruction}
+msgid "No remembered cruise speed yet. {touch_instruction} to set one."
+msgstr ""
+
+#. placeholders: {touch_instruction}
+#. one sentence of a longer line
+msgid "{touch_instruction} to set one."
+msgstr ""
 
 #. placeholders: {key}
 msgid "No remembered cruise speed yet. {key} sets one."
@@ -29876,6 +30117,9 @@ msgstr "トラックが動けるようになるまで、エア圧が上がるの
 msgid "Air pressure {psi} psi."
 msgstr "エア圧{psi} psi。"
 
+msgid "Parking brake set. Swipe up and hold to release it and drive."
+msgstr ""
+
 #. placeholders: {brake_hint}
 msgid "Parking brake set. Press {brake_hint} to release it."
 msgstr "駐車ブレーキがかかっています。{brake_hint}で解除します。"
@@ -30299,6 +30543,12 @@ msgstr "後ろでパトカーのライトとサイレンです。制限{zone}の
 msgid "{speed} in a {zone} zone."
 msgstr "制限{zone}の区間で{speed}。"
 
+#. placeholders: {speed}, {zone}
+msgid ""
+"Lights and siren behind you. {speed} in a {zone} zone. Double tap to "
+"signal, then stop on the shoulder."
+msgstr ""
+
 #. placeholders: {speed}, {zone}, {control_hint}
 msgid ""
 "Lights and siren behind you. {speed} in a {zone} zone. Signal with "
@@ -30349,6 +30599,11 @@ msgstr "{name}に入ってください。"
 msgid "Red light. Pull in to {name}."
 msgstr "赤信号。{name}に入ってください。"
 
+msgid ""
+"Scale bypass enforcement. Lights and siren behind you. Double tap to "
+"signal, then stop on the shoulder."
+msgstr ""
+
 #. one sentence of a longer line
 msgid "Scale bypass enforcement."
 msgstr "計量所の素通りの取り締まりです。"
@@ -30382,6 +30637,11 @@ msgid ""
 "A trooper in this {reason} saw visible truck damage at {damage_pct} percent "
 "and ordered a roadside safety inspection."
 msgstr "この{reason}の州警察官が、損傷{damage_pct}パーセントの目に見える車両損傷に気づき、路肩での安全点検を命じました。"
+
+msgid ""
+"Unsafe equipment stop. Lights and siren behind you. Double tap to signal, "
+"then stop on the shoulder."
+msgstr ""
 
 #. one sentence of a longer line
 msgid "Unsafe equipment stop."
@@ -30496,6 +30756,9 @@ msgid ""
 "gear."
 msgstr ""
 
+msgid "Engine stalled. Turn two fingers right to restart."
+msgstr ""
+
 #. placeholders: {control_hint}
 msgid "Engine stalled. Press {control_hint} to restart."
 msgstr "エンストしました。{control_hint}で再始動します。"
@@ -30546,6 +30809,14 @@ msgstr ""
 
 msgid "Pick your gear before it starts."
 msgstr "始まる前にギアを選んでください。"
+
+#. one sentence of a longer line
+msgid "Set the jake."
+msgstr ""
+
+#. placeholders: {touch_instruction}
+msgid "Set the jake. {touch_instruction}."
+msgstr ""
 
 #. placeholders: {control_hint}
 msgid "Set the jake with {control_hint}."
@@ -30993,6 +31264,10 @@ msgstr "今すぐ減速しないと、警察から逃げていることになり
 msgid ""
 "Signaled, but still moving with lights behind you. Stop on the shoulder."
 msgstr "ウインカーは出しましたが、後ろにパトカーがいるのにまだ動いています。路肩に停まってください。"
+
+msgid ""
+"Failure-to-stop warning. Double tap to signal, then stop on the shoulder."
+msgstr ""
 
 #. one sentence of a longer line
 msgid "Failure-to-stop warning."
@@ -33523,20 +33798,11 @@ msgstr "ジェスチャーの練習を終わります。"
 msgid "Again to leave practice."
 msgstr "もう一度で練習を終わります。"
 
-msgid "Double tap"
-msgstr "ダブルタップ"
-
 msgid "Swipe up"
 msgstr "上にスワイプ"
 
 msgid "Swipe down"
 msgstr "下にスワイプ"
-
-msgid "Flick left"
-msgstr "左にフリック"
-
-msgid "Flick right"
-msgstr "右にフリック"
 
 msgid "Two-finger tap"
 msgstr "2本指でタップ"
@@ -38581,6 +38847,12 @@ msgstr ""
 #. The last sentence of the sleep preview, when nothing comes before it.
 msgid "Select again to sleep."
 msgstr ""
+
+#~ msgid "a two-finger swipe down"
+#~ msgstr "2本指で下にスワイプ"
+
+#~ msgid "a two-finger swipe up"
+#~ msgstr "2本指で上にスワイプ"
 
 #~ msgid "Three-finger swipe up"
 #~ msgstr "3本指で上にスワイプ"

@@ -56,6 +56,8 @@ pub struct Scenario {
     pub out_of_service_events: Option<i64>,
     /// A full sleep taken: hours of service and fatigue reset.
     pub rested: bool,
+    /// The first-run walkthrough taught again on the next drive.
+    pub first_run: bool,
     /// The fatigue number, 0 to 100, set after `rested`.
     pub fatigue: Option<f64>,
     /// Sandbox HOS counters for a near-limit road start. These are staged
@@ -212,6 +214,10 @@ impl Scenario {
             citations: integer(args, "citations")?,
             out_of_service_events: integer(args, "out_of_service_events")?,
             rested: args.get("rested").and_then(Value::as_bool).unwrap_or(false),
+            first_run: args
+                .get("first_run")
+                .and_then(Value::as_bool)
+                .unwrap_or(false),
             fatigue: number(args, "fatigue")?,
             hos_driving_min: number(args, "hos_driving_min")?,
             hos_duty_min: number(args, "hos_duty_min")?,
@@ -370,6 +376,10 @@ pub fn apply(ctx: &mut GameContext, scenario: &Scenario) -> Result<Vec<String>, 
             p.out_of_service_events = count;
             p.driving_record.out_of_service_times = vec![p.game_hours; count.max(0) as usize];
             notes.push(format!("Out-of-service events: {count}."));
+        }
+        if scenario.first_run {
+            p.tutorial_done = false;
+            notes.push("The next drive teaches the first run.".to_string());
         }
         if scenario.rested {
             p.hos.sleep();

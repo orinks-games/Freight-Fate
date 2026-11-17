@@ -347,7 +347,9 @@ impl DrivingState {
         if self.gate_miss_count >= 2 {
             // The identical core line keeps the flow predictable by ear; a
             // repeat miss earns help, not scolding.
-            if self.driving_hints(ctx) {
+            if self.driving_hints(ctx) && ctx.touch_hints() {
+                message += " Swipe down and hold to brake well before the gate.";
+            } else if self.driving_hints(ctx) {
                 message += &format!(
                     " Brake with {} well before the gate.",
                     ctx.control_hint("brake")

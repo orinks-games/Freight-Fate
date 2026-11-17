@@ -860,6 +860,33 @@ impl GameContext {
         self.controller.device() == ff_core::input_hints::TOUCH
     }
 
+    /// How a touch player runs `action` at the wheel, as an instruction that
+    /// opens a sentence: "Turn two fingers right", "Tap", or, for a command
+    /// with no gesture, "Tap with three fingers and open Road and stops for
+    /// Rest stop".
+    pub fn touch_instruction(&self, action: crate::bindings::Action) -> String {
+        if let Some(gesture) = self.bindings.touch_instruction(action) {
+            return gesture.to_string();
+        }
+        match crate::states::driving_menu_states::command_group_label(action) {
+            Some(group) => format!(
+                "Tap with three fingers and open {group} for {}",
+                action.label()
+            ),
+            None => format!("Tap with three fingers for {}", action.label()),
+        }
+    }
+
+    /// [`Self::touch_instruction`] for the middle of a sentence.
+    pub fn touch_instruction_mid(&self, action: crate::bindings::Action) -> String {
+        let text = self.touch_instruction(action);
+        let mut chars = text.chars();
+        match chars.next() {
+            Some(first) => first.to_lowercase().chain(chars).collect(),
+            None => text,
+        }
+    }
+
     /// Name a control for a spoken prompt, following the active device and
     /// whatever key or button the player has it on.
     pub fn control_hint(&self, action: &str) -> String {

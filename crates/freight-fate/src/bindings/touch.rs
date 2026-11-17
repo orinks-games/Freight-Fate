@@ -145,13 +145,13 @@ const SLOTS: &[(Gesture, &str, &str, TouchCommand)] = &[
         Gesture::LowerHoldTap,
         "bottom_hold_tap",
         "Brake hold, tap with a second finger",
-        run(Action::ParkingBrake),
+        TouchCommand::Nothing,
     ),
     (
         Gesture::LowerHoldDoubleTap,
         "bottom_hold_double_tap",
         "Brake hold, double tap with a second finger",
-        run(Action::Engine),
+        TouchCommand::Nothing,
     ),
     (
         Gesture::LowerHoldSwipeUp,
@@ -247,7 +247,61 @@ pub fn touch_gesture_noun(gesture: Gesture) -> Option<String> {
     }
 }
 
+/// A slot gesture as an instruction that opens a sentence ("Tap", "Hold
+/// gas and tap with a second finger"); `None` for a fixed one.
+pub fn touch_gesture_instruction(gesture: Gesture) -> Option<&'static str> {
+    Some(match gesture {
+        Gesture::Tap => "Tap",
+        Gesture::SwipeUp => "Flick up",
+        Gesture::SwipeDown => "Flick down",
+        Gesture::MagicTap => "Double tap with two fingers",
+        Gesture::ThreeFingerSwipeUp => "Flick up with three fingers",
+        Gesture::ThreeFingerSwipeDown => "Flick down with three fingers",
+        Gesture::UpperHoldTap => "Hold gas and tap with a second finger",
+        Gesture::UpperHoldDoubleTap => "Hold gas and double tap with a second finger",
+        Gesture::UpperHoldSwipeUp => "Hold gas and flick up with a second finger",
+        Gesture::UpperHoldSwipeDown => "Hold gas and flick down with a second finger",
+        Gesture::UpperHoldSwipeLeft => "Hold gas and flick left with a second finger",
+        Gesture::UpperHoldSwipeRight => "Hold gas and flick right with a second finger",
+        Gesture::LowerHoldTap => "Hold the brake and tap with a second finger",
+        Gesture::LowerHoldDoubleTap => "Hold the brake and double tap with a second finger",
+        Gesture::LowerHoldSwipeUp => "Hold the brake and flick up with a second finger",
+        Gesture::LowerHoldSwipeDown => "Hold the brake and flick down with a second finger",
+        Gesture::LowerHoldSwipeLeft => "Hold the brake and flick left with a second finger",
+        Gesture::LowerHoldSwipeRight => "Hold the brake and flick right with a second finger",
+        _ => return None,
+    })
+}
+
 impl KeyBindings {
+    /// How a touch player runs `action`, as an instruction that opens a
+    /// sentence: the first slot gesture it is on, else its fixed gesture;
+    /// `None` when only the driving command list has it.
+    pub fn touch_instruction(&self, action: Action) -> Option<&'static str> {
+        if action == Action::Engine {
+            return Some("Turn two fingers right");
+        }
+        let on_gesture = SLOTS
+            .iter()
+            .map(|(gesture, ..)| *gesture)
+            .find(|gesture| self.touch_command(*gesture) == Some(TouchCommand::Action(action)))
+            .and_then(touch_gesture_instruction);
+        if on_gesture.is_some() {
+            return on_gesture;
+        }
+        Some(match action {
+            Action::Accelerate => "Swipe up and hold",
+            Action::Brake => "Swipe down and hold",
+            Action::EmergencyBrake => "Swipe down deep and hold",
+            Action::Horn => "Hold two fingers",
+            Action::SteerLeft => "Flick left",
+            Action::SteerRight => "Flick right",
+            Action::TakeExit => "Double tap",
+            Action::Status => "Tap with three fingers, then double tap",
+            _ => return None,
+        })
+    }
+
     /// How a touch player runs `action`, as a noun for a spoken prompt:
     /// the first gesture it is on, else the fixed pedal and steering
     /// gestures, else its row on the driving command list.
@@ -378,8 +432,9 @@ mod tests {
         let b = KeyBindings::default();
         let on = |g| b.touch_command(g);
         assert_eq!(on(Gesture::UpperHoldTap), Some(run(Action::Cruise)));
-        assert_eq!(on(Gesture::LowerHoldTap), Some(run(Action::ParkingBrake)));
-        assert_eq!(on(Gesture::LowerHoldDoubleTap), Some(run(Action::Engine)));
+        assert_eq!(on(Gesture::LowerHoldTap), Some(TouchCommand::Nothing));
+        assert_eq!(on(Gesture::LowerHoldDoubleTap), Some(TouchCommand::Nothing));
+        assert_eq!(on(Gesture::UpperHoldDoubleTap), Some(TouchCommand::Nothing));
         assert_eq!(on(Gesture::UpperHoldSwipeUp), Some(run(Action::ShiftUp)));
         assert_eq!(
             on(Gesture::UpperHoldSwipeDown),
