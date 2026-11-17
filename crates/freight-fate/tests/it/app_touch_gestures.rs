@@ -665,3 +665,89 @@ fn a_cruise_flick_presses_no_pedal() {
         );
     }
 }
+
+#[test]
+fn practice_reads_the_length_of_a_swipe_down_and_a_deep_swipe() {
+    let mut harness = PlaytestHarness::new();
+    harness.app.push_state(TouchPracticeState::new());
+    let mut input = TouchInput::new();
+
+    touch(&mut harness, &mut input, Gesture::HoldLowerBegan);
+    harness.clear_speech();
+    // The phone reports the length just before the lift.
+    touch(&mut harness, &mut input, Gesture::Travel(64));
+    touch(&mut harness, &mut input, Gesture::HoldEnded);
+    assert_eq!(
+        harness.transcript(),
+        vec!["Length 64. The deep swipe starts at 90."]
+    );
+
+    touch(&mut harness, &mut input, Gesture::HoldLowerBegan);
+    touch(&mut harness, &mut input, Gesture::DeepSwipeDownBegan);
+    harness.clear_speech();
+    touch(&mut harness, &mut input, Gesture::Travel(112));
+    touch(&mut harness, &mut input, Gesture::HoldEnded);
+    assert_eq!(harness.transcript(), vec!["Deep swipe. Length 112."]);
+
+    // A swipe up has no length that changes what it does.
+    touch(&mut harness, &mut input, Gesture::HoldUpperBegan);
+    harness.clear_speech();
+    touch(&mut harness, &mut input, Gesture::Travel(70));
+    touch(&mut harness, &mut input, Gesture::HoldEnded);
+    assert!(
+        harness.transcript().is_empty(),
+        "{:?}",
+        harness.transcript()
+    );
+}
+
+#[test]
+fn the_deep_swipe_row_steps_clamps_and_tunes_the_touch_surface() {
+    let mut harness = PlaytestHarness::new();
+    harness.app.push_state(TouchGesturesState::new());
+    let mut input = TouchInput::new();
+    while harness.focused_label().as_deref() != Some("Deep swipe starts at: 90") {
+        touch(&mut harness, &mut input, Gesture::SwipeRight);
+        assert!(harness.state_is::<TouchGesturesState>());
+    }
+    harness.clear_speech();
+    // Flick up raises it and the row reads itself again.
+    touch(&mut harness, &mut input, Gesture::SwipeUp);
+    let heard = harness.transcript();
+    assert!(
+        heard.len() == 1 && heard[0].starts_with("Deep swipe starts at: 100."),
+        "{heard:?}"
+    );
+    let tuning = freight_fate::app::sdl_shell::last_touch_tuning().expect("tuned");
+    assert!((tuning[0] * tuning[2] - 100.0).abs() < 1e-9, "{tuning:?}");
+
+    for _ in 0..15 {
+        touch(&mut harness, &mut input, Gesture::SwipeDown);
+    }
+    assert_eq!(
+        harness.focused_label().as_deref(),
+        Some("Deep swipe starts at: 60")
+    );
+    right(&mut harness);
+    assert_eq!(
+        harness.focused_label().as_deref(),
+        Some("Deep swipe starts at: 70")
+    );
+    for _ in 0..15 {
+        right(&mut harness);
+    }
+    assert_eq!(
+        harness.focused_label().as_deref(),
+        Some("Deep swipe starts at: 180")
+    );
+    assert_eq!(harness.app.ctx.settings.touch_deep_swipe_factor, 6.0);
+    let tuning = freight_fate::app::sdl_shell::last_touch_tuning().expect("tuned");
+    assert_eq!(tuning[2], 6.0);
+}
+
+/// Right arrow on a screen with no drive under it.
+fn right(harness: &mut PlaytestHarness) {
+    for event in freight_fate::touch::key_press(Key::Right) {
+        harness.app.handle_event(&event);
+    }
+}

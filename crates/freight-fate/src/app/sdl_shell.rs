@@ -105,6 +105,8 @@ pub struct SdlShell {
     keyboard_shown: bool,
     #[cfg(target_os = "ios")]
     text_field_open: bool,
+    #[cfg(target_os = "ios")]
+    report_travel: bool,
 }
 
 #[cfg(target_os = "windows")]
@@ -262,6 +264,8 @@ impl SdlShell {
             keyboard_shown: false,
             #[cfg(target_os = "ios")]
             text_field_open: false,
+            #[cfg(target_os = "ios")]
+            report_travel: false,
         })
     }
 
@@ -381,6 +385,21 @@ impl SdlShell {
     #[cfg(not(target_os = "ios"))]
     pub fn set_text_field(&mut self, _open: bool) {}
 
+    /// Follow the active screen: Practice gestures hears how far each hold
+    /// travelled, and no other screen gets the lengths.
+    #[cfg(target_os = "ios")]
+    pub fn set_report_travel(&mut self, on: bool) {
+        if on != self.report_travel {
+            self.report_travel = on;
+            // SAFETY: the UIKit shim stores an integer flag on the app thread.
+            unsafe { ff_touch_set_report_travel(i32::from(on)) };
+        }
+    }
+
+    /// Only the iPhone and iPad touch surface measures swipes.
+    #[cfg(not(target_os = "ios"))]
+    pub fn set_report_travel(&mut self, _on: bool) {}
+
     /// Append this frame's gestures to the SDL events. A
     /// lost focus (the app leaving the foreground) lets go of a held pedal.
     #[cfg(target_os = "ios")]
@@ -411,6 +430,7 @@ extern "C" {
     fn ff_touch_install(window: *mut std::ffi::c_void) -> i32;
     fn ff_touch_next() -> i32;
     fn ff_touch_set_haptics(enabled: i32);
+    fn ff_touch_set_report_travel(enabled: i32);
     fn ff_touch_set_tuning(
         flick_points: f64,
         flick_ms: f64,
@@ -444,8 +464,34 @@ pub(crate) fn set_touch_tuning(settings: &ff_core::settings::Settings) {
     };
 }
 
+/// Off iOS there is no touch surface; the last tuning is kept so a test can
+/// see what the phone would have been handed.
 #[cfg(not(target_os = "ios"))]
-pub(crate) fn set_touch_tuning(_settings: &ff_core::settings::Settings) {}
+pub(crate) fn set_touch_tuning(settings: &ff_core::settings::Settings) {
+    let tuning = [
+        settings.touch_flick_points,
+        settings.touch_flick_ms,
+        settings.touch_deep_swipe_factor,
+        settings.touch_still_hold_ms,
+        settings.touch_rotate_degrees,
+    ];
+    LAST_TOUCH_TUNING.with(|last| last.set(Some(tuning)));
+}
+
+// Per thread, so tests building their own games side by side never see
+// each other's tuning.
+#[cfg(not(target_os = "ios"))]
+thread_local! {
+    static LAST_TOUCH_TUNING: std::cell::Cell<Option<[f64; 5]>> = const { std::cell::Cell::new(None) };
+}
+
+/// The five numbers the last [`set_touch_tuning`] call would have handed
+/// `ff_touch_set_tuning`: flick points, flick ms, deep swipe factor, still
+/// hold ms and rotate degrees, on this thread.
+#[cfg(not(target_os = "ios"))]
+pub fn last_touch_tuning() -> Option<[f64; 5]> {
+    LAST_TOUCH_TUNING.with(std::cell::Cell::get)
+}
 
 /// Lay the gesture surface (`ios/ff_touch.m`) over SDL's view.
 #[cfg(target_os = "ios")]

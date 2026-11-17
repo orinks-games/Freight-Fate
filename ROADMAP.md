@@ -1538,9 +1538,16 @@ Everything found before 2026-09-25 moved to
       lowest gear the road speed does not over-rev. Keyboard and controller
       manuals still stall at the lift and take first. Nothing was tried on a
       phone.
-- [ ] (Found along the way) iPhone gesture plan step 6: the stroke
-      recogniser moved into `ff-core` with the deep swipe threshold measured
-      on a phone.
+- [x] iOS swipe length, step 6 of the iPhone gesture plan (2026-11-17):
+      while Practice gestures is open, the touch surface reports how far
+      each one-finger hold travelled as it lifts, and practice reads a swipe
+      down's length with where the deep swipe starts ("Length 64. The deep
+      swipe starts at 90.", "Deep swipe. Length 112."). Touch gestures has a
+      "Deep swipe starts at" row, 60 to 180 points in tens; the settings
+      file keeps `touch_deep_swipe_factor`. Nothing was tried on a phone.
+- [ ] (Found along the way) iPhone gesture plan step 7: the stroke
+      recogniser moved into `ff-core`, and the default deep swipe set from
+      lengths measured on a phone.
 - [ ] (Found along the way) Cleanup: menu intro help is spoken only when a
       menu has no rows, and on job and stop details, which lead with it. The
       help key and gesture keep reading the row's own help. The keyboard

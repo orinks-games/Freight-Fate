@@ -477,7 +477,14 @@ impl PlayerInputFrame<'_> {
             text.push(' ');
             text.push_str(&notes.join(" "));
         }
-        text.push_str(" The terminal menu is open; listen for it.");
+        if scenario.touch_gestures {
+            self.app
+                .push_state(crate::states::main_menu::TouchGesturesState::new());
+            self.app.ctx.run_deferred();
+            text.push_str(" Touch gestures is open over the terminal; listen for it.");
+        } else {
+            text.push_str(" The terminal menu is open; listen for it.");
+        }
         Ok(text)
     }
 
@@ -1415,6 +1422,10 @@ impl App {
                 .is_ok_and(|state| state.captures_text_input())
         });
         shell.set_text_field(open);
+        let practice = self.touch_mode() == crate::touch::TouchMode::Practice;
+        if let Some(shell) = self.shell.as_mut() {
+            shell.set_report_travel(practice);
+        }
     }
 
     /// Main loop. `max_frames` runs that many frames then exits cleanly;

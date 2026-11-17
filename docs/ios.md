@@ -149,6 +149,10 @@ with a second finger, and lift.
 The thresholds are settings (`touch_flick_points` 30, `touch_flick_ms` 150,
 `touch_deep_swipe_factor` 3, `touch_still_hold_ms` 500,
 `touch_rotate_degrees` 30, `touch_parking_brake_mph` 1) in the settings file.
+The deep swipe starts at the flick distance times the factor, 90 points by
+default. The "Deep swipe starts at" row on the Touch gestures screen sets it
+from 60 to 180 points in steps of 10 (flick up or down on the row); it
+stores the factor, so a hand-edited file keeps working.
 
 Each action has a haptic: a tick for a flick or tap, a bump when a hold starts
 or ends, a warning for the deep swipe, and a success tap for the engine key.
@@ -156,7 +160,10 @@ The Touch gestures settings switch turns them off.
 
 Before your first drive after touching the screen, the game offers Practice
 gestures. It teaches the core rule first, then names each gesture without
-moving the truck; either answer is remembered.
+moving the truck; either answer is remembered. When a swipe down and hold
+lifts, practice reads how far it travelled and where the deep swipe starts
+("Length 64. The deep swipe starts at 90."); a deep swipe reads its own
+length ("Deep swipe. Length 112."). Only practice gets the lengths.
 
 With no hardware keyboard connected, help, hints and prompts name gestures,
 never keys. The game follows GameController keyboard connect and disconnect
@@ -275,3 +282,5 @@ frameworks it and SDL2 need, plus clang's iOS runtime for `@available` checks.
 - With no hardware keyboard, no help, hint or field prompt names a key; connect one and keys come back.
 - Verify magic tap pauses, a three-finger hold does nothing, the three-finger double tap does nothing, and the haptics switch changes feedback.
 - Enter Practice gestures, verify a two-finger flick down twice exits, and verify the first-drive practice offer appears once.
+- In Practice gestures, swipe down and hold, then lift: hear the length and where the deep swipe starts. Carry a swipe into the deep swipe and lift: hear "Deep swipe." with its length. Try an ordinary brake swipe several times and note the lengths.
+- On Touch gestures, flick up and down on "Deep swipe starts at": it moves in tens between 60 and 180, and a swipe in practice then needs that length to become the deep swipe.
