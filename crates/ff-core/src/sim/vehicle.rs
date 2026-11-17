@@ -962,6 +962,17 @@ impl TruckState {
         wheel_rps * 60.0 * ratio.abs()
     }
 
+    /// The lowest forward gear the road speed does not drive past the
+    /// governor: first when stopped. A touch shift up from neutral asks for
+    /// it, so a driver who slowed in a tall gear and took neutral pulls on
+    /// again without over-revving first gear.
+    pub fn lowest_gear_for_road_speed(&self) -> i32 {
+        let top = self.transmission.num_gears();
+        (1..=top)
+            .find(|&g| self.coupled_rpm(Some(g)) <= self.specs.max_rpm)
+            .unwrap_or(top)
+    }
+
     // -- convenience ---------------------------------------------------------------
 
     pub fn speed_mph(&self) -> f64 {

@@ -151,7 +151,7 @@ fn a_tall_gear_at_a_stop_takes_neutral_and_names_the_flick() {
     frames(&mut harness, 1.0);
     let said = touch_worded(&harness);
     assert!(
-        said.contains("Neutral. Hold a pedal and flick up with a second finger for first gear."),
+        said.contains("Neutral. Hold a pedal and flick up with a second finger for a gear."),
         "{said}"
     );
     assert!(!said.contains("Engine stalled"), "{said}");

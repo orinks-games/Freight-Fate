@@ -25821,8 +25821,8 @@ msgstr ""
 #: crates/freight-fate/src/states/driving_controls/help.rs
 msgid ""
 "In a manual, hold a pedal and flick up or down with a second finger to "
-"shift. The flick works the clutch, and slowing in a tall gear takes "
-"neutral. "
+"shift. The flick works the clutch. Slowing in a tall gear takes neutral, "
+"and a flick up from neutral takes the gear that fits your speed. "
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_controls/help.rs
@@ -26526,8 +26526,7 @@ msgid "Double tap to pull in."
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_controls/touch.rs
-msgid ""
-"Neutral. Hold a pedal and flick up with a second finger for first gear."
+msgid "Neutral. Hold a pedal and flick up with a second finger for a gear."
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_controls/vehicle.rs

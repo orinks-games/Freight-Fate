@@ -168,8 +168,7 @@ fn a_touch_restart_after_a_stall_in_fifth_takes_neutral_then_first() {
     assert!(!heard(&harness, "Grinding"), "{:?}", harness.transcript());
 }
 
-const NEUTRAL_LINE: &str =
-    "Neutral. Hold a pedal and flick up with a second finger for first gear.";
+const NEUTRAL_LINE: &str = "Neutral. Hold a pedal and flick up with a second finger for a gear.";
 
 fn neutral_lines(harness: &PlaytestHarness) -> usize {
     harness
@@ -327,9 +326,9 @@ fn a_touch_automatic_never_hears_the_neutral() {
     assert_eq!(clutch(&harness).0, TouchClutch::Out);
 }
 
-/// Three touch shifts from neutral into first retire the instruction.
+/// Three touch shifts out of neutral retire the instruction.
 #[test]
-fn the_neutral_line_drops_its_instruction_after_three_first_gears() {
+fn the_neutral_line_drops_its_instruction_after_three_shifts_out_of_neutral() {
     let mut harness = a_manual_truck("Touch Neutral Retire", true);
     for _ in 0..3 {
         harness.app.dispatch_gesture(Gesture::LowerHoldSwipeUp);
@@ -346,4 +345,48 @@ fn the_neutral_line_drops_its_instruction_after_three_first_gears() {
         "{said:?}"
     );
     assert!(!heard(&harness, NEUTRAL_LINE), "{said:?}");
+}
+
+fn governed(harness: &PlaytestHarness) -> (f64, f64) {
+    harness.read_drive(|drive| {
+        let truck = &drive.trip.truck;
+        (truck.coupled_rpm(None), truck.specs.max_rpm)
+    })
+}
+
+/// Slowed to 10 in tenth, the truck is in neutral; a touch flick up takes
+/// the gear that fits the road speed, not first.
+#[test]
+fn a_touch_flick_up_from_neutral_while_rolling_takes_a_gear_that_fits() {
+    let mut harness = a_manual_truck("Touch Neutral Rolling Gear", true);
+    rolling(&mut harness, 0, 10.0);
+    harness.app.dispatch_gesture(Gesture::LowerHoldSwipeUp);
+    let gear = gear(&harness);
+    assert!(gear > 1, "took gear {gear}");
+    let (rpm, max) = governed(&harness);
+    assert!(rpm <= max, "gear {gear} at {rpm:.0} rpm over {max:.0}");
+    let lower = harness.read_drive(|drive| drive.trip.truck.coupled_rpm(Some(gear - 1)));
+    assert!(lower > max, "gear {} would also fit", gear - 1);
+    assert!(!heard(&harness, "Grinding"), "{:?}", harness.transcript());
+}
+
+#[test]
+fn a_touch_flick_up_from_neutral_when_stopped_takes_first() {
+    let mut harness = a_manual_truck("Touch Neutral Stopped Gear", true);
+    harness.app.dispatch_gesture(Gesture::LowerHoldSwipeUp);
+    assert_eq!(gear(&harness), 1);
+}
+
+#[test]
+fn a_keyboard_shift_up_from_neutral_while_rolling_still_takes_first() {
+    let mut harness = a_manual_truck("Keyboard Neutral Rolling Gear", false);
+    rolling(&mut harness, 0, 10.0);
+    harness
+        .app
+        .ctx
+        .input
+        .press(Key::LShift, freight_fate::states::base::Mods::NONE);
+    frames(&mut harness, 1.0 / 60.0);
+    harness.key(key_event(Key::W, Some('w')));
+    assert_eq!(gear(&harness), 1);
 }

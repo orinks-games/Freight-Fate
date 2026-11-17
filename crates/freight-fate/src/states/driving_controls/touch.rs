@@ -244,15 +244,15 @@ impl DrivingState {
         self.touch_clutch = self.touch_clutch.next(TouchClutchEvent::Lug);
         ctx.audio
             .play_bank("vehicle/shift_auto", "vehicle/gear_shift");
-        let text = if self.instruction_retired(ctx, TOUCH_FIRST_GEAR) {
+        let text = if self.instruction_retired(ctx, TOUCH_GEAR_FROM_NEUTRAL) {
             "Neutral."
         } else {
-            "Neutral. Hold a pedal and flick up with a second finger for first gear."
+            "Neutral. Hold a pedal and flick up with a second finger for a gear."
         };
         ctx.say_event_with(text, SayEvent::new().category(SpeechCategory::Safety));
     }
 }
 
 /// The instruction the touch neutral line carries, retired after three
-/// touch shifts from neutral into first.
-pub const TOUCH_FIRST_GEAR: &str = "gear_first";
+/// touch shifts from neutral into a gear.
+pub const TOUCH_GEAR_FROM_NEUTRAL: &str = "gear_from_neutral";

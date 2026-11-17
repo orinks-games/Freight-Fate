@@ -169,7 +169,12 @@ impl DrivingState {
                     return;
                 }
                 let tr = &self.trip.truck.transmission;
-                if tr.in_reverse() || tr.in_neutral() {
+                if tr.in_neutral() && ctx.touch_hints() {
+                    // Touch only: the gear that fits the road speed, so a
+                    // truck that took neutral rolling pulls on again.
+                    let gear = self.trip.truck.lowest_gear_for_road_speed();
+                    self.manual_shift(ctx, gear);
+                } else if tr.in_reverse() || tr.in_neutral() {
                     self.manual_shift(ctx, 1);
                 } else if tr.gear < 10 {
                     let next = tr.gear + 1;

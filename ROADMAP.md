@@ -1533,9 +1533,11 @@ Everything found before 2026-09-25 moved to
       (2026-11-17): on touch, where a manual in fourth or taller would lug
       toward a stall, the gearbox takes neutral, brake or no brake
       (`TruckState::lug_to_neutral`, `TouchClutch::Neutral` in `status`),
-      and says "Neutral." with the first-gear sentence until three touch
-      shifts into first retire it. Keyboard and controller manuals still
-      stall at the lift. Nothing was tried on a phone.
+      and says "Neutral." with the gear sentence until three touch shifts
+      out of neutral retire it; a touch flick up from neutral takes the
+      lowest gear the road speed does not over-rev. Keyboard and controller
+      manuals still stall at the lift and take first. Nothing was tried on a
+      phone.
 - [ ] (Found along the way) iPhone gesture plan step 6: the stroke
       recogniser moved into `ff-core` with the deep swipe threshold measured
       on a phone.
