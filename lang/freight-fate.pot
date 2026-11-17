@@ -7281,7 +7281,7 @@ msgstr ""
 msgid "the X button"
 msgstr ""
 
-#: crates/ff-core/src/input_hints.rs crates/ff-core/src/sim/transmission.rs crates/freight-fate/src/bindings.rs crates/freight-fate/src/states/driving_controls/status.rs
+#: crates/ff-core/src/input_hints.rs crates/ff-core/src/sim/touch_clutch.rs crates/ff-core/src/sim/transmission.rs crates/freight-fate/src/bindings.rs
 msgid "neutral"
 msgstr ""
 
@@ -25821,7 +25821,8 @@ msgstr ""
 #: crates/freight-fate/src/states/driving_controls/help.rs
 msgid ""
 "In a manual, hold a pedal and flick up or down with a second finger to "
-"shift. The flick works the clutch. "
+"shift. The flick works the clutch, and slowing in a tall gear takes "
+"neutral. "
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_controls/help.rs
@@ -26260,7 +26261,7 @@ msgstr ""
 msgid "Event voice stopped."
 msgstr ""
 
-#: crates/freight-fate/src/states/driving_controls/keys.rs crates/freight-fate/src/states/driving_controls/vehicle.rs
+#: crates/freight-fate/src/states/driving_controls/keys.rs crates/freight-fate/src/states/driving_controls/touch.rs crates/freight-fate/src/states/driving_controls/vehicle.rs
 msgid "Neutral."
 msgstr ""
 
@@ -26522,6 +26523,11 @@ msgstr ""
 
 #: crates/freight-fate/src/states/driving_controls/touch.rs
 msgid "Double tap to pull in."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_controls/touch.rs
+msgid ""
+"Neutral. Hold a pedal and flick up with a second finger for first gear."
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_controls/vehicle.rs

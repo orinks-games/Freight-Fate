@@ -1529,7 +1529,14 @@ Everything found before 2026-09-25 moved to
       list (`GameContext::touch_instruction`). The brake-hold tap and double
       tap default to Nothing. Driving School lessons and the How to play
       pages keep their wording. Nothing was tried on a phone.
-- [ ] (Found along the way) iPhone gesture plan step 5: the stroke
+- [x] iOS manual drops to neutral, step 5 of the iPhone gesture plan
+      (2026-11-17): on touch, where a manual in fourth or taller would lug
+      toward a stall, the gearbox takes neutral, brake or no brake
+      (`TruckState::lug_to_neutral`, `TouchClutch::Neutral` in `status`),
+      and says "Neutral." with the first-gear sentence until three touch
+      shifts into first retire it. Keyboard and controller manuals still
+      stall at the lift. Nothing was tried on a phone.
+- [ ] (Found along the way) iPhone gesture plan step 6: the stroke
       recogniser moved into `ff-core` with the deep swipe threshold measured
       on a phone.
 - [ ] (Found along the way) Cleanup: menu intro help is spoken only when a

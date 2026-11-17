@@ -637,6 +637,15 @@ pub struct TruckState {
     pub speed_cap_mph: Option<f64>,
 
     pub stalled: bool,
+    /// A touch driver's manual: where the engine would lug in a tall gear,
+    /// the gearbox takes neutral instead, brake or no brake
+    /// ([`crate::sim::touch_clutch`]). The driving layer sets it every frame;
+    /// a keyboard or controller manual leaves it off and still stalls at the
+    /// lift.
+    pub lug_to_neutral: bool,
+    /// Set by the step that took that neutral, for the driving layer to
+    /// answer once ([`Self::take_lug_neutral`]).
+    pub took_lug_neutral: bool,
     /// Driver-latched parked high idle (fast-idle/PTO mode, on the cruise
     /// buttons like a real electronic truck). None = off. Not persisted:
     /// a real ECM drops fast idle at the key cycle.
@@ -711,6 +720,8 @@ impl TruckState {
             liquid: None,
             speed_cap_mph: None,
             stalled: false,
+            lug_to_neutral: false,
+            took_lug_neutral: false,
             high_idle_rpm: None,
             last_service_air_application: 0.0,
             descent_gear_hold: false,

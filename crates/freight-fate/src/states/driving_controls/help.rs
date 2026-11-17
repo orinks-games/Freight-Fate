@@ -524,7 +524,8 @@ impl DrivingState {
         if !self.trip.truck.transmission.automatic {
             text.push_str(
                 "In a manual, hold a pedal and flick up or down with a second finger to \
-                 shift. The flick works the clutch. ",
+                 shift. The flick works the clutch, and slowing in a tall gear takes \
+                 neutral. ",
             );
         }
         text.push_str(

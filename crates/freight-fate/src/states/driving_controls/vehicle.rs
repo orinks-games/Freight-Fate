@@ -360,8 +360,8 @@ impl DrivingState {
             gear == REVERSE && self.trip.truck.speed_mph() > REVERSE_ENGAGE_MAX_MPH;
         let by_touch = ctx.touch_hints() && !self.trip.truck.transmission.automatic;
         let before = (self.touch_clutch, self.trip.truck.transmission.clutch);
+        let from = self.trip.truck.transmission.gear;
         if by_touch {
-            let from = self.trip.truck.transmission.gear;
             self.touch_clutch = self
                 .touch_clutch
                 .next(TouchClutchEvent::Shift { from, to: gear });
@@ -379,6 +379,10 @@ impl DrivingState {
             ctx.audio
                 .play_bank("vehicle/shift_auto", "vehicle/gear_shift");
             self.manual_engage_clunk_pending = true;
+            if by_touch && from == NEUTRAL && gear == 1 {
+                // Retires the first-gear sentence in the touch neutral line.
+                self.note_instruction_demonstrated(ctx, super::touch::TOUCH_FIRST_GEAR);
+            }
             ctx.say(&result.message);
             if let Some(tutorial) = self.tutorial.as_mut() {
                 tutorial.on_gear_engaged(ctx);
