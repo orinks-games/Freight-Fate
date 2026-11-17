@@ -5,6 +5,10 @@
 
 use ff_core::sim::enforcement_observe::OBSERVE_LEEWAY_MPH;
 use ff_core::sim::hos;
+pub use ff_core::sim::trip_models::{
+    DESTINATION_EXIT_SCAN_WINDOW_MI, EXIT_COMMIT_WINDOW_MI, EXIT_COUNTDOWN_MILESTONES_MI,
+    EXIT_KEEP_RIGHT_MI,
+};
 use ff_core::sim::trip_models::{
     DESTINATION_LOCAL_APPROACH_MI, RAMP_MAX_MPH as TRIP_RAMP_MAX_MPH, SCALE_BYPASS_MPH,
 };
@@ -175,16 +179,12 @@ pub const EXIT_WINDOW_MAX_MI: f64 = 20.0;
 // Keep the exact announced destination exit available for the same real-time
 // budget even if coasting or automatic braking shrinks the dynamic window.
 pub const DESTINATION_EXIT_RESPONSE_GRACE_S: f64 = EXIT_WARNING_REAL_S;
-// Spoken distance anchors for an armed exit; a signal-on announcement miles
-// out gets buried under canyon pacenotes without them.
-pub const EXIT_COUNTDOWN_MILESTONES_MI: [f64; 3] = [2.0, 1.0, 0.5];
 // Roadside chatter (billboards, landmarks) stays quiet inside this distance of
 // an exit being taken: the countdown's last two calls and the gore's take line
 // are the only things the driver needs to hear there. The countdown's own
 // one-mile mark, so it is not a new number.
 pub const EXIT_APPROACH_QUIET_MI: f64 = EXIT_COUNTDOWN_MILESTONES_MI[1];
 // The pacenote cue tone leans hard toward the curve's side of the field.
-pub const EXIT_COMMIT_WINDOW_MI: f64 = 0.4; // generous gore-window grace after the marker
 /// Where the exit lane opens: the length of its taper ahead of the gore, in
 /// miles. DERIVED: a parallel deceleration lane's taper runs 15:1 to 25:1
 /// (AASHTO Green Book 2018, 10.9.6.6.2), so 180 to 300 feet to reach a 12-foot
@@ -197,10 +197,6 @@ pub const EXIT_TAPER_MI: f64 = 300.0 / 5280.0;
 /// (MUTCD 11th ed. 2E.23, 1/2 mi). X commits to the exit wherever it is
 /// pressed; this is only when the blinker runs.
 pub const EXIT_BLINKER_MI: f64 = EXIT_COUNTDOWN_MILESTONES_MI[2];
-/// How far out lane keeping on full starts moving to the right lane for an
-/// exit it is taking: the countdown's first anchor, where a manual driver is
-/// asked for the same lane.
-pub const EXIT_KEEP_RIGHT_MI: f64 = EXIT_COUNTDOWN_MILESTONES_MI[0];
 pub const EXIT_CANCEL_GUARD_MI: f64 = 1.0; // inside this, X keeps the signal; a second press cancels
 pub const EXIT_TAP_HOLD_S: f64 = 0.35; // a Right press this short is a tap, not held steering
 pub const AEB_BUDGET_MARGIN: f64 = 1.2; // emergency braking leads the physics budget by this factor
@@ -461,14 +457,6 @@ pub const RAMP_ARRIVAL_GRACE_MIN_S: f64 = 8.0;
 // road the arrival zones assume behind it when the facility has no usable
 // record of its own -- one road, described once (``sim.trip_models``).
 pub const DESTINATION_EXIT_BEFORE_END_MI: f64 = DESTINATION_LOCAL_APPROACH_MI;
-// A real interchange counts as the destination exit only inside this final
-// approach window. Routes that finish on rural highways carry no baked
-// interchanges, and without the floor the scan crowned the last labeled exit
-// anywhere on the route -- one playtest got its "destination exit" on I-39 in
-// Wisconsin, 1,158 miles from the Montana receiver, and taking it settled the
-// load from there (transcripts, 2026-07-16). Past the window the synthetic
-// end-of-route exit takes over.
-pub const DESTINATION_EXIT_SCAN_WINDOW_MI: f64 = 25.0;
 pub const UNLOADING_MIN: f64 = 45.0; // receiver dock work before settlement
 pub const UNLOADING_WAIT_S: f64 = 1.5;
 

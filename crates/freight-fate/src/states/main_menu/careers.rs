@@ -157,7 +157,10 @@ impl Menu for ManageCareersState {
                         ctx.push_state(ConfirmCareerActionState::delete_legacy(path.clone(), &name))
                     },
                 )
-                .help("Enter offers to delete this save. It still works in Freight Fate 1.8."),
+                .help("Enter offers to delete this save. It still works in Freight Fate 1.8.")
+                .touch_help(
+                    "Double tap offers to delete this save. It still works in Freight Fate 1.8.",
+                ),
             );
         }
         items.push(MenuItem::new("Back", |s: &mut Self, ctx| s.go_back(ctx)));

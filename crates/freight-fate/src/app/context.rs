@@ -854,6 +854,12 @@ impl GameContext {
         }
     }
 
+    /// Whether spoken hints name touch gestures: the screen was touched
+    /// last, with no hardware keyboard or controller since.
+    pub fn touch_hints(&self) -> bool {
+        self.controller.device() == ff_core::input_hints::TOUCH
+    }
+
     /// Name a control for a spoken prompt, following the active device and
     /// whatever key or button the player has it on.
     pub fn control_hint(&self, action: &str) -> String {

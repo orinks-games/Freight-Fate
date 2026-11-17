@@ -231,6 +231,8 @@ pub struct DrivingState {
     pub fatigue_cue_gm: f64, // game minutes since the last drowsy cue
     /// The nod-off severe fatigue brings on: its count, window and misses.
     pub nod: NodState,
+    /// Past the runaway speed or not, and the two lines its edges speak.
+    pub runaway: ff_core::sim::runaway::Runaway,
     /// A nod a play tester asked for (or a trip saved mid-nod), opened on
     /// the next rolling frame.
     pub nod_staged: bool,
@@ -351,8 +353,12 @@ pub struct DrivingState {
     // Zones whose one warning has already been spent this trip; a second
     // engagement in the same town is cited without a fresh grace window.
     pub jake_zone_grace_used: HashSet<String>,
-    pub jake_zone_warned_key: Option<String>, // approach callout latch
-    pub assist_zone_cue_key: Option<String>,  // once-per-zone assist-release cue
+    /// What the driver has been told about the no engine brake zone ahead
+    /// or under the truck on this pass.
+    pub jake_zone_notice: ff_core::sim::jake_zone::ZoneNotice,
+    /// The clutch a touch shift works in a manual truck: a phone has no
+    /// Shift key to hold.
+    pub touch_clutch: ff_core::sim::touch_clutch::TouchClutch,
     /// `None` | `PULL_OVER_LIGHTS` | `PULL_OVER_STOPPING`.
     pub pull_over: Option<String>,
     pub pull_over_start_mi: f64,
@@ -688,7 +694,10 @@ pub struct DrivingState {
     pub written_up: HashSet<String>,
     pub nice_speed_mi: f64,    // distance held at a very particular speed
     pub double_nickel_mi: f64, // and at the limit Congress retired in 1995
-    pub jake_descent_mi: f64,  // downgrade held on the engine alone
+    /// The drums were below fade with the player driving, so crossing into
+    /// fade now is the player's own doing and earns the brake smoke badge.
+    pub brake_smoke_armed: bool,
+    pub jake_descent_mi: f64,         // downgrade held on the engine alone
     pub radio_states_station: String, // station the state tally belongs to
     pub radio_states_held: HashSet<String>,
     pub cruise_descent_mph: Option<f64>, // interactive descent ceiling, while it lasts
@@ -1027,11 +1036,12 @@ pub struct DrivingState {
     pub curve_run: Option<CurveRun>, // the bend underway, and how it is going
     pub cross_repeat_s: f64,   // rapid re-crossings keep only the quiet thump
     pub sideswipe_cooldown_s: f64, // one contact, however many crossings
-    // Off-pavement is a standing condition: the panned edge-rumble loop
-    // carries "where am I right now", and speech fires only at transitions
-    // -- left the pavement, worse, back on it (research doc R12). None means
-    // on the pavement; otherwise the last-spoken severity band.
-    pub road_position_band: Option<i32>,
+    // Off-pavement is a standing condition with a line at each edge: the
+    // first charge says the place and the damage, later charges are the
+    // rumble alone, and "Back on the pavement." closes it with the damage if
+    // it rose (research doc R12, issue 533). Holds the place line last spoken
+    // and the damage it said, from the first charge until the truck is back.
+    pub off_pavement_said: Option<(String, f64)>,
     pub reverse_cue_active: bool,
     pub air_cue_active: bool, // compressor fill loop below governor release
     pub jake_cue_key: Option<String>, // jake growl loop currently playing
@@ -1077,6 +1087,8 @@ pub struct DrivingState {
 
     // ---- driving.py: lifecycle -----------------------------------------------------------
     pub entered_once: bool,
+    /// The input device `trip.exit_hint` was chosen for.
+    pub exit_hint_device: &'static str,
     /// The co-driver for this load, once one has been paired.
     pub team: Option<crate::states::driving_team::TeamDrive>,
     /// A team departure chosen at the shipper: the co-driver takes the

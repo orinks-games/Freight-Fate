@@ -231,6 +231,9 @@ from the words, and synonyms cost them a re-read.
 | The haul contract | job | gig, run, assignment | `Job` |
 | A driving control moved to another key | keyboard shortcut (the screen), the key it is on ("Engine on or off: E") | binding, mapping, keybind, hotkey | `bindings::Action`, `KeyBindings` |
 | The same on the pad | controller button; right bumper plus «button» for the second layer | modified button, layer two, chord | `bindings::PadChord` |
+| The list of every one-shot driving command by name, F2 or a three-finger tap at the wheel | driving commands (the screen title); "the three-finger tap list" in a touch prompt | command menu, action list, quick menu | `DrivingCommandsState` |
+| One of the fixed groups in the driving commands, in this order after "Status menu" | Speed and cruise; Road and stops; Where am I; Truck; Gears and engine brake; Radio and CB; Hours and clock | category, section, submenu, folder | `driving_menu_states::commands::Group` |
+| The clutch a touch shift presses and lets out by itself in a manual truck | (never spoken: the player hears the gear, then its clunk as it takes) | auto clutch, clutch assist, smart clutch | `ff_core::sim::touch_clutch::TouchClutch` |
 | The screen where every key or button names its driving command and runs nothing | key and button practice; the menu row is "Practice keys and buttons"; a press answers "«key»: «command»." | keyboard tester, input test, learn mode, key describer | `InputPracticeState` |
 | An officer letting a driver below level 10 off a minor violation, with no fine and nothing on the record | warning ("gives you a warning", "lets you go with a warning") | rookie pass, grace, free ticket | `enforcement::new_driver_warned`, `DrivingState::new_driver_warning` |
 | One booked citation or violation with its reason | citation / serious violation / major offense / safety incident, then day, clock, reason, fine, place | ticket entry, infraction, offense record, strike | `enforcement::RecordEntry`, `DrivingRecord.entries` |
@@ -299,7 +302,7 @@ from the words, and synonyms cost them a re-read.
 | The in-game time of day (truck-local with a named zone in accelerated modes; computer-anchored and spoken as "local game time" in Real time) | clock | local time, game time | `Trip.local_hour`, `clock_text` |
 | When the load is due | deadline | due time, drop time (the appointment is the named hour) | `Job.deadline_game_h` |
 | The retarder | engine brake; "jake" in short control feedback ("Jake on, stage two") | retarder | `TruckState.engine_brake_stage` |
-| A stretch of road where a town bans the engine brake | no engine brake zone | jake brake zone, engine brake restriction, quiet zone | `Trip.engine_brake_ban_at` |
+| A stretch of road where a town bans the engine brake | no engine brake zone ("End of no engine brake zone." when one the driver heard about ends) | jake brake zone, engine brake restriction, quiet zone | `Trip.engine_brake_ban_at`, `jake_zone::ZoneNotice` |
 | The speed this truck, at its weight, can hold a steep downgrade at without overheating its brakes ("Descent control holding 45 miles per hour." / D: "Safe speed 45 miles per hour for the grade.") | the number descent control holds; "safe speed ... for the grade" on D | weight-specific speed, grade speed, runaway speed, descent speed | `TruckState::safe_descent_mph`, `DrivingState::descent_safe_mph` |
 | A posted height restriction on the corridor | low bridge | low clearance, height limit, clearance restriction | `RouteRestriction.kind_label` |
 | A posted weight restriction on the corridor | weight limit | max weight, tonnage limit, weight restriction | `RouteRestriction.kind_label` |

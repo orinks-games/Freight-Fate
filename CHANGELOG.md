@@ -6,6 +6,7 @@
 
 - **Job details and the departure line say how much night driving a run has,** as in "About 4 hours of night driving."
 - **A drowsy driver can call dispatch to move the appointment,** giving up the on-time bonus. The row is Too tired to drive safely.
+- **The driving command list can change radio volume and category.**
 
 ### Changed
 
@@ -15,6 +16,9 @@
 - **Work at stops takes longer as fatigue rises.** Fueling, the walk-around, chain work and pulling in run slower from worn up.
 - **An inspection or traffic stop at severe fatigue ends in a ten-hour out-of-service order.**
 - **Five-by-Two now takes a full 10 hours asleep at a stop.** A split rest, or finishing a reset that a break started, no longer earns it.
+- **German now covers the lines added since October.** Co-driver, fatigue, stop planning and problem report lines no longer switch to English.
+- **The route picker reads the weather along a route with Tab.**
+- **The driving command list is now in groups.** Status menu comes first, then short lists for speed, the road, the truck, gears, radio and hours.
 
 ### Fixed
 
@@ -22,6 +26,15 @@
 - **Enter accepts a facility arrival from a full stop with Facility stopping assistance off.** A stopped truck is told to set the parking brake.
 - **Game sound comes back when a Bluetooth headset drops out or the sound device stops responding.** It returns within a few seconds, without a restart.
 - **The built-in voice keeps speaking after a Bluetooth headset connects or disconnects.** In 1.9.6 it could go silent until a restart.
+- **Cruise at 85 no longer damages the truck on a downgrade.** Runaway damage now starts above 90 miles per hour ([issue 533](https://github.com/orinks-games/Freight-Fate/issues/533)).
+- **A runaway is now spoken.** You hear "Runaway!" when damage starts, and the truck's damage once it is back under control ([issue 533](https://github.com/orinks-games/Freight-Fate/issues/533)).
+- **Leaving the pavement always plays the rumble strip and says the truck's damage, even with Lane-departure warning off.** Coming back on says any damage added while you were off ([issue 533](https://github.com/orinks-games/Freight-Fate/issues/533)).
+- **A broken tire chain and drifting onto the shoulder asleep now say the truck's damage** ([issue 533](https://github.com/orinks-games/Freight-Fate/issues/533)).
+- **Smoke, Smoke, Smoke is earned only for brakes you heat yourself.** Brakes a co-driver left hot no longer earn it when you take the wheel ([issue 520](https://github.com/orinks-games/Freight-Fate/issues/520)).
+- **A no engine brake zone you were told about now says when it ends.** You hear "End of no engine brake zone." on the way out ([issue 520](https://github.com/orinks-games/Freight-Fate/issues/520)).
+- **Take the wheel back now warns that your rest will start over.** Your ten hours must be unbroken ([issue 520](https://github.com/orinks-games/Freight-Fate/issues/520)).
+- **Work zones no longer close the right lane at an exit.** Near a truck stop, rest area or scale, roadwork closes the left lane.
+- **Stop notices are no longer lost when the voice is busy.** A truck stop's 5-mile call waits its turn behind billboards and roadwork calls.
 
 ## 1.9.6 - 2026-11-13
 

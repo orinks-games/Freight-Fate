@@ -12,9 +12,10 @@
 //!   `GradeSegment` over the whole leg; the loop still writes `t.grade` by
 //!   hand each frame exactly as Python did.
 
+use ff_core::sim::vehicle::RUNAWAY_SPEED_MPH;
 use freight_fate::playtest::harness::PlaytestHarness;
 use freight_fate::states::driving_core::{
-    ACC_LIMIT_OFFSET_MPH, CRUISE_BRAKE_OVER_MPH, DESCENT_SAFE_MAX_MPH, MPH_PER_MPS,
+    ACC_LIMIT_OFFSET_MPH, CRUISE_BRAKE_OVER_MPH, CRUISE_MAX_MPH, DESCENT_SAFE_MAX_MPH, MPH_PER_MPS,
     PCC_CREST_SAG_MPH,
 };
 
@@ -67,6 +68,31 @@ fn test_cruise_does_not_run_away_down_a_grade() {
                 stages.iter().filter(|s| **s > 0).count()
             );
         }
+    }
+}
+
+#[test]
+fn test_cruise_at_its_highest_set_point_never_costs_runaway_damage() {
+    // The runaway threshold used to be 85, the highest cruise set point, so
+    // every downgrade held at 85 trickled damage with nothing said (issue
+    // 533). The threshold stays clear of the set point plus the overshoot
+    // cruise allows before it brakes.
+    const { assert!(RUNAWAY_SPEED_MPH > CRUISE_MAX_MPH + CRUISE_BRAKE_OVER_MPH) };
+    for grade in [-0.02, -0.04, -0.06] {
+        let (harness, speeds, _) = grade_hold(
+            "Ceiling",
+            grade,
+            GradeHold {
+                set_mph: CRUISE_MAX_MPH,
+                ..GradeHold::default()
+            },
+        );
+        assert!(
+            max_of(&speeds) < RUNAWAY_SPEED_MPH,
+            "{grade} {}",
+            max_of(&speeds)
+        );
+        assert_eq!(harness.read_drive(|d| d.truck().damage_pct), 0.0, "{grade}");
     }
 }
 

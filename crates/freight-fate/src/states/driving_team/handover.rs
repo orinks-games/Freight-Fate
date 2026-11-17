@@ -180,10 +180,17 @@ impl PauseMenuState {
         d: &DrivingState,
     ) -> Vec<MenuItem<PauseMenuState>> {
         if d.co_driver_driving() {
-            let help = match d.co_driver_clock_clause(ctx) {
+            let mut help = match d.co_driver_clock_clause(ctx) {
                 Some(status) => format!("{status} Wakes you and gives you the wheel."),
                 None => "Wakes you and gives you the wheel.".to_string(),
             };
+            // Driving zeroes the unbroken rest, so a rest cut short is lost
+            // (issue 520).
+            if d.player_rest_left_min(ctx)
+                .is_some_and(|left| left > 0.0 && left < ff_core::sim::hos::SLEEP_MIN)
+            {
+                help.push_str(" Your 10-hour rest starts over.");
+            }
             return vec![MenuItem::new("Take the wheel back", |s: &mut Self, ctx| {
                 s.take_the_wheel_back(ctx)
             })

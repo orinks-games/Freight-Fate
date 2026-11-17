@@ -157,9 +157,68 @@ fn the_pause_menu_reads_the_rest_in_the_take_the_wheel_back_help() {
         help.as_deref(),
         Some(
             "Rest: 1 hour of 10 hours. Dan hands back in about 9 hours. Wakes you and gives you the \
-             wheel."
+             wheel. Your 10-hour rest starts over."
         )
     );
+}
+
+fn take_the_wheel_back_help(harness: &mut PlaytestHarness) -> Option<String> {
+    harness.press_key(Key::Escape, None);
+    let help = harness.with_state::<freight_fate::states::driving_pause_states::PauseMenuState, _>(
+        |pause, ctx| {
+            use freight_fate::states::base::Menu;
+            let items = pause.build_items(ctx);
+            items
+                .iter()
+                .find(|item| item.label.text(pause, ctx) == "Take the wheel back")
+                .map(|item| item.help.text(pause, ctx))
+        },
+    );
+    harness.press_key(Key::Escape, None);
+    help
+}
+
+#[test]
+fn a_rest_cut_short_starts_over_and_the_help_says_so() {
+    // Issue 520: the wheel taken back 3.8 hours into the rest, five minutes
+    // of driving, and the rest read 1 minute of 10 hours.
+    let mut harness = quiet_drive("Team Rest Cut Short");
+    hand_over_after(&mut harness, 300.0, TeamMode::RideAlong);
+    player_sleeper(&mut harness, 228.0);
+    let help = take_the_wheel_back_help(&mut harness).expect("the row is offered");
+    assert!(help.ends_with(" Your 10-hour rest starts over."), "{help}");
+
+    harness.with_drive(|d, ctx| {
+        d.take_wheel_back(ctx);
+    });
+    let hos = &mut harness.app.ctx.profile.as_mut().expect("a career").hos;
+    assert_eq!(co_driver::rested_min(hos), 228.0);
+    hos.drive(5.0);
+    assert_eq!(
+        co_driver::rested_min(hos),
+        0.0,
+        "driving ends the unbroken rest, so it starts over"
+    );
+}
+
+#[test]
+fn the_rest_starts_over_line_is_left_out_once_the_rest_is_in() {
+    let mut harness = quiet_drive("Team Rest In");
+    hand_over_after(&mut harness, 300.0, TeamMode::RideAlong);
+    player_sleeper(&mut harness, 600.0);
+    let help = take_the_wheel_back_help(&mut harness).expect("the row is offered");
+    assert!(!help.contains("starts over"), "{help}");
+}
+
+#[test]
+fn the_rest_starts_over_line_is_left_out_with_hours_off() {
+    let mut harness = quiet_drive("Team Rest Hours Off");
+    hand_over_after(&mut harness, 300.0, TeamMode::RideAlong);
+    player_sleeper(&mut harness, 60.0);
+    harness.app.ctx.settings.hos_mode = "off".to_string();
+    if let Some(help) = take_the_wheel_back_help(&mut harness) {
+        assert!(!help.contains("starts over"), "{help}");
+    }
 }
 
 #[test]

@@ -55,11 +55,12 @@ bookmarks usable.
 - [x] Report a problem sends the game log ahead to orinks.net and opens the report form in the browser (owner, 2026-11-12: the in-game text box was "not great for entering text", and players asked to attach the log by hand rarely did). The row on the main menu posts `game.log` and `game.prev.log` to the site, which answers with a one-time page where the player writes what happened, adds an email address for a reply and unticks a log they would rather keep; the site emails the report. A run that never quit (a crash, a kill, a power cut) leaves a marker, and the next main menu asks once: Report it, Not now, or Stop asking after crashes (Settings, Problem reports has the switch). When orinks.net cannot be reached, or the browser will not open, the GitHub bug-report page opens as before with the line saying where the log is. Built on Hearken's problem-report crate; Wicket's gets the same through Hearken's own screens.
 - [x] Debris is taken, not stopped for (owner, 2026-11-09, after automatic braking took the truck from 65 to a near stop on I-43 for a strip of tire tread with the left lane held: "should I or the assists even brake for them?"). The catalog now says how each thing in the lane is taken. Small debris (tire debris, loose debris) is a heads-up with the road cue tone, "Tire debris. Left lane open.", about 8 seconds out: full lane keeping moves over, nothing brakes, cruise stays on, and with no lane open the truck drives over it with a thump and, at 55 or more, a 1 in 4 seeded roll for 1 to 2 percent damage. Big debris (ladder, lumber, mattress, boxes, tarp, tumbleweeds) keeps the hazard call; with no lane open automatic braking eases to 30 and the thing is taken for free at 30 or under, or struck above it for damage growing to the catalog's figure at 65 (8 for the ladder and lumber, 4 for the soft things), with the truck still rolling and cruise still armed. Rockfall, a spun-out car, the stopped vehicle, closures, traffic and crash scenes are unchanged. "It is still in your lane. Nearly stop." is gone in every case. Every debris strike speaks its damage (issue 533 reported damage with no line saying why). The agent server's new `hazard` tool fires any catalog hazard by name on the live drive, so each class can be driven instead of waited for.
 - [x] (Found along the way) A truck stopped at a facility gate could not dock with Facility stopping assistance off unless the parking brake was set (first player problem report, 2026-11-13, Fort Worth Cross-Dock: "I arrived at my destination, pressed enter but could not dock"). Enter did nothing there, though the manual says it accepts the arrival; the one line that names the parking brake was cut 4.5 seconds later by the "Still at" reminder; and a stopped truck heard nothing more. Fixed 2026-11-14: Enter or controller A accepts the arrival from a full stop at a delivery or pickup gate, a truck at rest with the brake off hears "Set the parking brake to dock" once per stop after 3 seconds of quiet (counted from the end of the stop line since the recorded drive of 2026-11-14, where a truck that stopped under that line heard the brake named twice back to back), the reminder waits its 10 seconds after the line that names the brake, and the speed limit key, the route key, the status screen and the pause menu's Trip status say what the gate is waiting for. The gate's stop is one state enum (`ff_core::sim::arrival_gate`), and the agent server's `status` reports it.
+- [x] (Found along the way) Three things left from issue 520 (2026-11-14). The brake fade badge went to the player 26 ms after they took the wheel back on drums the co-driver had heated; it is now earned only when the drums cross into fade with the player driving. A driver who switched the engine brake off for a town could not tell when the zone ended; a zone the driver was told about now says "End of no engine brake zone." on the way out, and what the driver has heard about a zone is one state enum (`ff_core::sim::jake_zone`) that the agent server's `status` reports. Taking the wheel back before a 10-hour rest is in starts the rest over, as the rule says it must be unbroken; the Take the wheel back help now says so.
 - [ ] (Found along the way) The dock at the end of an exit ramp, with Facility streets off, still opens on a full stop without going through the gate's state enum. Move it onto the enum so both arrivals share one rule.
 - [x] (Found along the way) Speed limits flip-flopped where the map has no posting (owner's Kenosha to Traverse City drive, 2026-11-04: 60, 70, 55 on the Tri-State in Lake County inside two minutes). An untagged stretch longer than four miles fell back to the open-road number, and 263 of them sat between two lower postings. Fixed 2026-11-05: a gap takes at most the higher posting around it when both are 55 or more, or both are 45 or more and the gap is at most 10 miles. Calibrated on the October profile itself: on tagged road between two postings of 55 or more, the stretch between was posted higher than both for most of its length 0.1% of the time over 5 miles and 1.9% over 40; with a 45 or 50 at one end, 5.1% over 10 miles and 13.4% over 40. A gap leaving a town limit under 45 still reads the open-road number. The state truck caps (California 55, Oregon 55, Arizona 65 and the rest) now bind in gaps and on legs with no profile; they used to apply to postings only.
 - [x] (Found along the way) Kenosha and Milwaukee to Chicago leave I-94 just past the state line and run about 25 miles down US-41 (Skokie Highway, with signals) to Lake Cook Road, while the game still calls the road I-94; checked against OpenStreetMap 2026-11-05. The 55, 45, 55 and 50 heard there are US-41's real limits. Re-route both legs onto the Tri-State and re-read their limits, then check which other legs leave their named interstate the same way (the limit-artifact screen's off-route verdicts are a start). Fixed 2026-11-05: both legs re-routed with `cargo tools reroute-leg` and rebuilt with `reroute-enrich` and the layer builders, from the OpenStreetMap planet of 2026-10-26; they now ride I-94 (the Tri-State, then the Edens and the Kennedy) into Chicago. The other legs that leave their named road are listed in the route audit of 2026-11-05.
 - [ ] (Found along the way) Toll events on the Tri-State: Kenosha and Milwaukee to Chicago now ride the Illinois Tollway and carry no toll events. Curate the plazas and truck rates.
-- [ ] (Found along the way) Dispatch detours around work zones, as a dispatcher would (owner, 2026-11-05). The router has no work-zone data and the game's zones are made during the drive, so this belongs at dispatch, against the game's own zone list.
+- [ ] (Found along the way) Dispatch detours around work zones, as a dispatcher would (owner, 2026-11-05). The router has no work-zone data and the game's zones are made during the drive, so this belongs at dispatch, against the game's own zone list. A player asked for the same thing on 2026-11-16, after a closed right lane cost them the only truck stop before their break ([November 16](#november-16-exits-inside-a-work-zone-release-gate)).
 - [ ] (Found along the way) Road Ranger Chicago dropped off Kenosha and Milwaukee to Chicago: it is 3.9 miles off the new route into downtown, past the 3-mile rule. Those legs end with no fuel stop near Chicago; find one on the Edens or the Kennedy.
 - [x] More traffic variety (owner, 2026-11-04: "we only have like three or four traffic items"): the freeway drew only car, box truck, semi and service vehicle, each with one loop. It now draws thirteen kinds (`FREEWAY_CLASSES`), adding SUV, pickup, minivan, sports car, motorcycle, RV, bus, tanker and car hauler, with the light, box truck and tractor-trailer shares unchanged, and the car, semi, pickup, SUV and motorcycle have two or three takes each, kept per vehicle. Thirteen new loops rendered with genny 0.2.0 (`sound-test/traffic_variety.json`). A tanker and a car hauler share the semi's governor and climb; the rest are ungoverned, as before. Waiting on the owner's listening pass.
 - [ ] (Found along the way) An RV and a coach bus run at car speed and climb like one: neither has a governor band or climb numbers yet. Give them one with the realistic-traffic speed work.
@@ -1485,6 +1486,57 @@ Everything found before 2026-09-25 moved to
       Settings, Gameplay, Controls, Touch gestures: a second finger while holding a
       pedal (cruise, shifts, parking brake, engine), plus tap for speed,
       swipes for the cruise target, magic tap to pause (2026-09-29).
+- [x] iOS wheel fixes, step 1 of the iPhone gesture plan (2026-11-16):
+      every screen reports a touch mode (`TouchMode` in `ff-core`) and one
+      route table maps each gesture per mode, so a Driving School lesson is
+      the wheel too. With cruise off, flick up turns cruise on and flick
+      down does nothing; a two-finger turn left stops the engine only under
+      `touch_parking_brake_mph`; double tap answers the road (`RoadOffer`:
+      exit, pull-over, arrival); two-finger tap stops speech everywhere and
+      the Status menu is the first row of the three-finger tap list; exit
+      prompts on touch say "Double tap to signal", and the exit hint follows
+      the device mid-drive. The agent server's
+      `gesture` tool sends gestures by name, and `status` reports the touch
+      mode and road offer. Nothing was tried on a phone.
+- [x] iOS menus like VoiceOver, step 2 of the iPhone gesture plan
+      (2026-11-16): in a menu, flick right and left move and flick up and
+      down change a value (VoiceOver's adjustable swipes still move, for
+      direct touch off); a tap reads the focused row again; the two-finger
+      double tap resumes from the pause menu and does nothing in other menus
+      or name fields; a tap, magic tap and the message flicks no longer type
+      into a name field; a three-finger tap reads the route picker's weather;
+      the three-finger hold is gone; the touch surface recognises the
+      two-finger scrub itself, and the message flicks wait for it to fail.
+      Menu help, row help and prompts that named keys have touch sentences
+      (`MenuCore::with_touch_help`, `MenuItem::touch_help`), picked when
+      spoken. The scrub and the message flicks after it are untested on a
+      phone.
+- [x] iOS driving command list in groups and a touch clutch, step 3 of the
+      iPhone gesture plan (2026-11-16): F2, the controller's Driving commands
+      row and the three-finger tap open the same eleven-row list in a fixed
+      order, Status menu first, with seven groups that open in place and
+      return to their own row. Radio volume and Radio category change in
+      place. A manual shift asked for by touch works the clutch itself
+      (`ff_core::sim::touch_clutch::TouchClutch`, reported by `status`), and
+      the touch engine start after a stall in gear takes neutral first.
+      Nothing was tried on a phone.
+- [ ] (Found along the way) iPhone gesture plan steps 4 and 5: touch
+      sentences for the wheel prompts that say "Press {gesture}", the parking
+      brake prompts and the brake-hold slot trim; then the stroke recogniser
+      moved into `ff-core` with the deep swipe threshold measured on a phone.
+- [ ] (Found along the way) Cleanup: menu intro help is spoken only when a
+      menu has no rows, and on job and stop details, which lead with it. The
+      help key and gesture keep reading the row's own help. The keyboard
+      intro strings that are never spoken can be deleted; touch ones were
+      added only where they are heard.
+- [ ] (Found along the way) Keys on menu screens no gesture reaches: the
+      message category jumps ([ and ]), the first and last message (Control
+      Comma and Period), copying the message in review (Control C), and
+      first-letter jumps.
+- [ ] (Found along the way) Touch prompt rewrite: the parking brake prompts
+      name the brake-hold tap, though gas already releases the brake and a
+      deep swipe at a stop sets it. Once the prompts say so, the brake-hold
+      tap and double tap can default to nothing.
 - [ ] (Found along the way) The iOS second-finger gestures (hold a pedal,
       then tap, double tap or swipe with another finger) need a pass on real
       hardware: the Simulator's touch replay lifts both fingers together, so
@@ -4000,6 +4052,37 @@ with everything off):
 - Three "Found along the way" items above: the keeper trailing a posted
   drop, silent damage, the rural 70 posted on a boulevard.
 
+### November 16 exits inside a work zone (Release gate)
+
+A player's problem report (2026-11-16, a tester snapshot): they signaled for
+a truck stop inside a work zone, the right lane was closed, the truck could
+not get back into it, and it drove past the only stop before their break was
+due. Every exit is taken from the right lane, and the zone's side was drawn
+without looking at the stops, so a right closure over a stop's exit made that
+stop unreachable. On dev's data a sample of 210 trips (42 routes, 5 seeds)
+placed 605 lane closures, and 86 of them closed the right lane over an exit.
+
+Fixed 2026-11-16: once a run's work zones are placed, simulated and reported
+alike, a right closure whose taper or zone covers an exit (from 2 miles before
+it to 0.4 past) closes the left lane instead. Every stop counts, scales and
+rest areas included, and so does the destination exit. Only the side changes,
+after every seeded draw, so nothing else on the route moves, and a resumed
+drive gets the same answer because it rebuilds the trip from its seed. The
+same sample now has no right closure over an exit
+(`sim_work_zone_exits_stay_open`).
+
+- [x] (Found along the way) A truck stop's 5-mile call could go unheard
+      when the voice was busy: on Cleveland to Dothan (seed 4), three agent
+      drives never heard "Pilot Travel Center Seville at exit 209A-B in 5
+      miles", one of them with no exit signaled, so a driver could not plan
+      the stop. Fixed 2026-11-16, and driven again: the call now plays after
+      the billboard that was being read, before the construction call. The
+      mechanism: a stop notice waits for the spacing between roadside lines,
+      and that path dropped the notice's priority, so it reached the voice as
+      chatter and was thrown away as stale. It now keeps its priority, and,
+      like a stop notice that never waited, it is spoken only while the exit
+      is ahead and, when it asks for the signal, only while the signal is off.
+
 ### November 14 the road to 1.9.7 and the 2.0 beta (Found along the way)
 
 The owner asked on 2026-11-14 for a clear path to 1.9.7, with
@@ -4026,9 +4109,17 @@ On dev since 1.9.6:
 - [x] Enter accepts a facility arrival from a full stop, and the gate
       names the parking brake (PRs 627 and 628).
 - [x] Five-by-Two takes a full 10 hours asleep (PR 630).
+- [x] No damage goes unspoken (issue 533): leaving the pavement always
+      plays the rumble strip and says the damage on the way off and, if it
+      rose, on the way back, whatever the lane-departure warning; the chain snap and the forced stop asleep
+      say it too; runaway damage starts above 90, clear of cruise's top
+      set point of 85, and a runaway speaks when it starts and ends.
 
 Release gate for 1.9.7:
 
+- [x] A work zone's closed right lane no longer covers an exit
+      (player problem report, 2026-11-16;
+      [November 16](#november-16-exits-inside-a-work-zone-release-gate)).
 - [x] Sound comes back after the sound device drops (Hearken PR 69, then
       game PR 626, both merged 2026-11-14). A player reported 1.9.6 going
       silent with a Bluetooth headset. Driven in the cloud with the sound
