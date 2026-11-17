@@ -138,7 +138,8 @@ fn the_first_run_in_a_manual_coaches_the_second_finger_for_first() {
 }
 
 #[test]
-fn a_stall_names_the_turn_and_the_flick() {
+fn a_tall_gear_at_a_stop_takes_neutral_and_names_the_flick() {
+    // Where a keyboard manual stalls, a touch one takes neutral.
     let mut harness = a_touch_drive("Touch Stall", false);
     harness.with_drive(|drive, _| {
         drive.trip.truck.start_engine();
@@ -150,9 +151,10 @@ fn a_stall_names_the_turn_and_the_flick() {
     frames(&mut harness, 1.0);
     let said = touch_worded(&harness);
     assert!(
-        said.contains("Engine stalled. Turn two fingers right"),
+        said.contains("Neutral. Hold a pedal and flick up with a second finger for a gear."),
         "{said}"
     );
+    assert!(!said.contains("Engine stalled"), "{said}");
 }
 
 #[test]

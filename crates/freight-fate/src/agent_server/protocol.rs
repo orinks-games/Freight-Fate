@@ -212,7 +212,9 @@ fn tools_list() -> Value {
              inside_untold or inside_told), touch_mode (menu, field, wheel or \
              practice: how a gesture is read on this screen), road_offer (what a \
              double tap answers: none, exit, pull_over or arrival) and touch_clutch \
-             (out or shifting: the clutch a touch shift works in a manual truck). \
+             (out, shifting, or neutral once it has taken neutral for an engine \
+             lugging in a tall gear: the clutch a touch shift works in a manual \
+             truck). \
              Off the wheel the \
              STATE line carries touch_mode alone.",
             json!({}),

@@ -4,11 +4,13 @@
 //! one engine start or stop. A double tap answers whatever the road is
 //! asking for ([`RoadOffer`]).
 
-use crate::app::GameContext;
+use crate::app::{GameContext, SayEvent};
 use crate::bindings::{Action, TouchCommand};
 use crate::states::driving::DrivingState;
 use crate::states::driving_updates::live;
 use crate::touch::{Gesture, RoadOffer};
+use ff_core::sim::touch_clutch::TouchClutchEvent;
+use ff_core::speech_pacing::SpeechCategory;
 use ff_core::touch_mode::RoadFacts;
 
 /// At or under this, the truck has come to rest for the stop's touch line.
@@ -223,4 +225,34 @@ impl DrivingState {
                 .valid(live::stop_offer_open),
         );
     }
+
+    /// A manual on touch takes neutral the moment the engine would lug in a
+    /// tall gear, brake or no brake, where a keyboard driver's stalls at the
+    /// lift. Before the truck updates: arm it for this frame.
+    pub fn arm_touch_neutral(&mut self, ctx: &GameContext) {
+        let driver = ctx.touch_hints() && !self.co_driver_driving();
+        let truck = &mut self.trip.truck;
+        truck.lug_to_neutral = driver && !truck.transmission.automatic;
+    }
+
+    /// After the truck updates: answer a neutral it took, once
+    /// ([`ff_core::sim::touch_clutch::TouchClutch`]).
+    pub fn answer_touch_neutral(&mut self, ctx: &mut GameContext) {
+        if !self.trip.truck.take_lug_neutral() {
+            return;
+        }
+        self.touch_clutch = self.touch_clutch.next(TouchClutchEvent::Lug);
+        ctx.audio
+            .play_bank("vehicle/shift_auto", "vehicle/gear_shift");
+        let text = if self.instruction_retired(ctx, TOUCH_GEAR_FROM_NEUTRAL) {
+            "Neutral."
+        } else {
+            "Neutral. Hold a pedal and flick up with a second finger for a gear."
+        };
+        ctx.say_event_with(text, SayEvent::new().category(SpeechCategory::Safety));
+    }
 }
+
+/// The instruction the touch neutral line carries, retired after three
+/// touch shifts from neutral into a gear.
+pub const TOUCH_GEAR_FROM_NEUTRAL: &str = "gear_from_neutral";

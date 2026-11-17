@@ -133,9 +133,15 @@ flick down to lower or step back, and the list stays open.
 In a manual truck, a second-finger flick up or down (or Shift up or Shift down
 from the list) presses the clutch, takes the gear and lets the clutch out
 again after the time an automatic takes to shift, so a shift never grinds.
-After a stall in a tall gear, the two-finger turn right takes neutral first,
-says "Neutral.", and starts the engine; then hold a pedal and flick up for
-first.
+Slowing in fourth or taller, the truck takes neutral where a keyboard
+driver's engine would stall once the brake lets go, brake held or not, and
+says "Neutral. Hold a pedal and flick up with a second finger for a gear."
+(just "Neutral." once you have shifted out of neutral by touch three times).
+A flick up from neutral takes the lowest gear your speed does not over-rev:
+first when stopped, a taller one while rolling. A keyboard or controller
+still takes first. After a stall in a tall gear, the two-finger turn right takes neutral
+first, says "Neutral.", and starts the engine; then hold a pedal and flick up
+for first.
 
 So to set cruise: swipe up and hold until you reach 20 miles per hour, tap
 with a second finger, and lift.
@@ -264,7 +270,7 @@ frameworks it and SDL2 need, plus clang's iOS runtime for `@available` checks.
 - Deep swipe down while moving for the emergency brake; stopped, it says "Parking brake set", and gas then says "Parking brake released".
 - Turn two fingers right to start the engine and left to stop it while stopped; at speed the turn left does nothing. Hold two fingers for the horn, then turn them and confirm the horn stops.
 - While holding gas: second-finger tap sets cruise, flicks up and down shift in manual and do nothing in automatic, side flicks change lanes, side holds steer.
-- In a manual truck (Automatic or manual shifting, in Gears and engine brake): pull away with a brake hold and a second-finger flick up for first, then shift up through several gears on the gas with no grinding. Stall it in a tall gear, turn two fingers right, hear "Neutral.", and flick up for first.
+- In a manual truck (Automatic or manual shifting, in Gears and engine brake): pull away with a brake hold and a second-finger flick up for first, then shift up through several gears on the gas with no grinding. Brake to a stop in tenth: hear "Neutral." with the gear sentence on the way down, lift, and the engine keeps running; hold a pedal and flick up for first. Slow to about 10 miles per hour in tenth, hear "Neutral.", and flick up while rolling: a gear that fits the speed goes in, not first.
 - In a Driving School lesson: the deep swipe while moving is the emergency brake, the still hold straightens, and gas releases the parking brake, as in a delivery.
 - With no hardware keyboard, no help, hint or field prompt names a key; connect one and keys come back.
 - Verify magic tap pauses, a three-finger hold does nothing, the three-finger double tap does nothing, and the haptics switch changes feedback.

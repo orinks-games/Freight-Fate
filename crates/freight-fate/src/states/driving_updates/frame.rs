@@ -540,11 +540,13 @@ impl DrivingState {
             }
         }
 
+        self.arm_touch_neutral(ctx);
         let was_on = self.trip.truck.engine_on;
         let was_air_ready = self.trip.truck.air_ready();
         let was_low_air = self.trip.truck.air_low_warning();
         let was_spring_brake = self.trip.truck.spring_brakes_active();
         self.trip.truck.update(dt);
+        self.answer_touch_neutral(ctx);
         self.update_air_brake_announcements(
             ctx,
             was_on,
@@ -567,7 +569,9 @@ impl DrivingState {
                 let hints = self.driving_hints(ctx);
                 let pad = ctx.controller.device() == ff_core::input_hints::CONTROLLER;
                 // On touch the restart takes neutral itself, and a shift
-                // works its own clutch.
+                // works its own clutch. The road no longer stalls a touch
+                // manual in a tall gear (`answer_touch_neutral`); the touch
+                // lines stay for a stall from anything else.
                 let touch = ctx.touch_hints();
                 let text = if !hints {
                     if tr.automatic || tr.in_neutral() || touch {
