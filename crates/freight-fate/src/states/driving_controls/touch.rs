@@ -7,8 +7,12 @@
 use crate::app::GameContext;
 use crate::bindings::{Action, TouchCommand};
 use crate::states::driving::DrivingState;
+use crate::states::driving_updates::live;
 use crate::touch::{Gesture, RoadOffer};
 use ff_core::touch_mode::RoadFacts;
+
+/// At or under this, the truck has come to rest for the stop's touch line.
+const STOP_LINE_STANDSTILL_MPH: f64 = 0.05;
 
 impl DrivingState {
     /// `true` when `gesture` is a driving slot and ran (or deliberately did
@@ -93,7 +97,11 @@ impl DrivingState {
                     // theirs, as the exit key is.
                     _ if self.co_driver_driving() => {}
                     RoadOffer::Arrival => self.confirm_facility_arrival(ctx),
-                    RoadOffer::Stop => self.run_key_action(ctx, Action::Rest),
+                    RoadOffer::Stop => {
+                        live::set_stop_offer_open(false);
+                        self.run_key_action(ctx, Action::Rest);
+                        self.note_instruction_demonstrated(ctx, "rest");
+                    }
                     RoadOffer::Exit | RoadOffer::PullOver | RoadOffer::None => {
                         self.run_key_action(ctx, Action::TakeExit)
                     }
@@ -185,12 +193,23 @@ impl DrivingState {
     /// On touch, the one line when a double tap starts to mean the stop
     /// the truck is waiting at, until the rest instruction retires.
     pub fn update_touch_stop_offer(&mut self, ctx: &mut GameContext) {
-        let offer = self.road_offer(ctx);
-        let became_stop = offer == RoadOffer::Stop && self.last_road_offer != RoadOffer::Stop;
-        self.last_road_offer = offer;
-        if !became_stop || !ctx.touch_hints() || self.instruction_retired(ctx, "rest") {
+        if self.road_offer(ctx) != RoadOffer::Stop {
+            self.stop_offer_line_said = false;
+            live::set_stop_offer_open(false);
             return;
         }
+        // The offer begins at docking speed, but the line waits for a
+        // standstill: rolling the last few feet, the ramp callout is often
+        // still speaking and a queued line behind it can be dropped.
+        if self.stop_offer_line_said
+            || self.trip.truck.speed_mph() > STOP_LINE_STANDSTILL_MPH
+            || !ctx.touch_hints()
+            || self.instruction_retired(ctx, "rest")
+        {
+            return;
+        }
+        self.stop_offer_line_said = true;
+        live::set_stop_offer_open(true);
         let line = if self.stop_waiting() == Some(true) {
             "Double tap to check in."
         } else {
@@ -199,7 +218,9 @@ impl DrivingState {
         ctx.say_event_with(
             line,
             crate::app::SayEvent::queued()
-                .category(ff_core::speech_pacing::SpeechCategory::Navigation),
+                .priority(crate::speech::EventPriority::Important)
+                .category(ff_core::speech_pacing::SpeechCategory::Navigation)
+                .valid(live::stop_offer_open),
         );
     }
 }

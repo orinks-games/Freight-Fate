@@ -334,3 +334,66 @@ fn braking_to_a_stop_on_the_ramp_speaks_the_pull_in_line() {
     let said = harness.transcript().join("\n");
     assert!(said.contains("Double tap to pull in."), "{said}");
 }
+
+#[test]
+fn the_pull_in_line_waits_for_a_standstill_and_is_said_once_per_stop() {
+    let mut harness = a_touch_drive("Touch Stop Offer Standstill", true);
+    stopped_on_a_ramp(&mut harness, None);
+    // Creeping at docking speed: the double tap already answers the stop,
+    // but the line waits.
+    harness.with_drive(|drive, ctx| {
+        drive.trip.truck.velocity_mps = 0.3 / MPH_PER_MPS;
+        assert_eq!(drive.road_offer(ctx), RoadOffer::Stop);
+        drive.update_touch_stop_offer(ctx);
+    });
+    assert!(
+        harness.transcript().is_empty(),
+        "{:#?}",
+        harness.transcript()
+    );
+    harness.with_drive(|drive, ctx| {
+        drive.trip.truck.velocity_mps = 0.0;
+        drive.update_touch_stop_offer(ctx);
+        drive.update_touch_stop_offer(ctx);
+    });
+    frames(&mut harness, 0.5);
+    let said = harness.transcript_text();
+    assert_eq!(said.matches("Double tap to pull in.").count(), 1, "{said}");
+}
+
+#[test]
+fn three_double_taps_at_a_stop_retire_the_pull_in_line() {
+    let mut harness = a_touch_drive("Touch Stop Offer Retire", true);
+    for round in 0..3 {
+        stopped_on_a_ramp(&mut harness, None);
+        frames(&mut harness, 0.2);
+        let said = harness.transcript_text();
+        assert!(
+            said.contains("Double tap to pull in."),
+            "round {round}: {said}"
+        );
+        harness.app.dispatch_gesture(Gesture::DoubleTap);
+        assert!(!harness.state_is::<DrivingState>(), "round {round}");
+        harness.select_menu_item("Back to the road");
+        // Long enough for the event channel to settle after the menu.
+        frames(&mut harness, 3.0);
+        // Cut by the stop's own menu, the line is not handed back over it.
+        let said = harness.transcript_text();
+        assert_eq!(
+            said.matches("Double tap to pull in.").count(),
+            1,
+            "round {round}: {said}"
+        );
+        harness.expect_state::<DrivingState>("back at the wheel after the stop");
+        // Leaving the stop clears the offer, as pulling back out would.
+        harness.with_drive(|drive, ctx| {
+            drive.ramp_stop = None;
+            drive.ramp_mi = None;
+            drive.update_touch_stop_offer(ctx);
+        });
+    }
+    stopped_on_a_ramp(&mut harness, None);
+    frames(&mut harness, 0.2);
+    let said = harness.transcript_text();
+    assert!(!said.contains("Double tap to pull in."), "{said}");
+}

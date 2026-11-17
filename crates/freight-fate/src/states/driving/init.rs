@@ -497,7 +497,7 @@ impl DrivingState {
             exit_right_hold_s: 0.0,
             exit_right_taps: 0,
             exit_tap_hint_said: false,
-            last_road_offer: crate::touch::RoadOffer::None,
+            stop_offer_line_said: false,
             exit_countdown_said: Vec::new(),
             ramp_mi: None,
             ramp_layout: None,
