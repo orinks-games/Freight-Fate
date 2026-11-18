@@ -5,7 +5,7 @@ use ff_core::cloud_resume::{decide, CheckState, Decision, Event};
 use ff_core::models::profile::{is_pre_1_9_save, Profile};
 
 use super::*;
-use crate::states::cloud_save_states::{created_at_ms, install_restored_profile};
+use crate::states::cloud_save_states::install_restored_profile;
 
 #[derive(Default)]
 pub(super) struct Resume {
@@ -196,9 +196,10 @@ impl CloudSaves {
                             &hash,
                             &identity.driver_id,
                         );
-                        if let Some(modified) = created_at_ms(entry)
-                            .and_then(|ms| Duration::try_from_secs_f64(ms / 1000.0).ok())
-                            .and_then(|elapsed| UNIX_EPOCH.checked_add(elapsed))
+                        if let Some(modified) = json_int(entry.get("createdAt"))
+                            .or_else(|| entry.get("createdAt")?.as_str()?.parse().ok())
+                            .and_then(|ms| u64::try_from(ms).ok())
+                            .and_then(|ms| UNIX_EPOCH.checked_add(Duration::from_millis(ms)))
                             .filter(|time| *time <= SystemTime::now())
                         {
                             if let Ok(file) =
