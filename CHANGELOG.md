@@ -24,6 +24,8 @@
 
 ### Fixed
 
+- **Closing the game from the iOS app switcher no longer triggers a crash prompt.** Settings, Problem reports can turn prompts back on.
+
 - **The Speech settings rows now update as soon as you change a voice.** Before, they changed only after leaving the menu.
 - **Cruise no longer pumps the brakes behind a slower car on streets and approaches.** It slows once and follows, so low air no longer sets the spring brakes.
 - **Enter accepts a facility arrival from a full stop with Facility stopping assistance off.** A stopped truck is told to set the parking brake.

@@ -993,6 +993,16 @@ int32_t ff_touch_install(void *window) {
 static UIWindowScene *ff_scene;
 static NSPointerArray *ff_unplaced_windows;
 
+void ff_observe_app_lifecycle(void (*foreground_changed)(int32_t)) {
+    NSNotificationCenter *center = NSNotificationCenter.defaultCenter;
+    [center addObserverForName:UIApplicationDidEnterBackgroundNotification object:nil queue:nil
+                    usingBlock:^(__unused NSNotification *note) { foreground_changed(0); }];
+    [center addObserverForName:UIApplicationWillTerminateNotification object:nil queue:nil
+                    usingBlock:^(__unused NSNotification *note) { foreground_changed(0); }];
+    [center addObserverForName:UIApplicationWillEnterForegroundNotification object:nil queue:nil
+                    usingBlock:^(__unused NSNotification *note) { foreground_changed(1); }];
+}
+
 static void ff_place_window(UIWindow *window) {
     if (window.windowScene) {
         return;
