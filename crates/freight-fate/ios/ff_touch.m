@@ -980,6 +980,15 @@ int32_t ff_touch_install(void *window) {
     return 1;
 }
 
+double ff_phone_safe_top_fraction(void *window) {
+    UIWindow *ui_window = (__bridge UIWindow *)window;
+    CGFloat height = CGRectGetHeight(ui_window.bounds);
+    if (ui_window.traitCollection.userInterfaceIdiom != UIUserInterfaceIdiomPhone || height <= 0) {
+        return 0;
+    }
+    return ui_window.safeAreaInsets.top / height;
+}
+
 // The scene lifecycle. iOS 27 refuses to launch an app built against its SDK
 // without one (an Info.plist UIApplicationSceneManifest naming a scene
 // delegate), and SDL2 predates scenes: it makes its windows with
