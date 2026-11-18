@@ -24,6 +24,7 @@
 
 ### Fixed
 
+- **Touch driving help now uses available translations for full blocks of instructions.**
 - **The Speech settings rows now update as soon as you change a voice.** Before, they changed only after leaving the menu.
 - **Cruise no longer pumps the brakes behind a slower car on streets and approaches.** It slows once and follows, so low air no longer sets the spring brakes.
 - **Enter accepts a facility arrival from a full stop with Facility stopping assistance off.** A stopped truck is told to set the parking brake.
