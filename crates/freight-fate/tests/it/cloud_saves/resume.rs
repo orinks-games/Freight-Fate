@@ -17,7 +17,9 @@ fn tracked(app: &mut TestApp, transport: SharedTransport) -> (CloudSaves, PathBu
     });
     let local = Profile::load(&path).unwrap();
     let (_, hash) = cloud_content(&Value::Object(local.to_dict()));
-    service.sync_state().record_synced("Road Star", 1, &hash);
+    service
+        .sync_state()
+        .record_synced_for_driver("Road Star", 1, &hash, &identity().driver_id);
     app.ctx.services.cloud = service.clone();
     (service, path)
 }
@@ -81,6 +83,36 @@ fn clean_newer_cloud_is_verified_installed_and_continued() {
     // The menu action must read the replacement, not the profile scanned before the check.
     Menu::handle_event(&mut menu, &mut app.ctx, &InputEvent::key(Key::Return));
     assert_eq!(app.ctx.profile.as_ref().unwrap().money(), 77000.0);
+}
+
+#[test]
+fn another_account_and_legacy_sync_records_are_not_tracked() {
+    for legacy in [false, true] {
+        let mut app = TestApp::new();
+        let transport =
+            FakeTransport::replying(json!({"saves": [{"saveName": "Road Star", "revision": 2}]}));
+        let (service, path) = tracked(&mut app, transport.clone());
+        if legacy {
+            let slot = service.sync_state().slot("Road Star");
+            service
+                .sync_state()
+                .record_synced("Road Star", 1, slot["hash"].as_str().unwrap());
+        } else {
+            service.set_identity(Some(OnlineIdentity::new("another-driver", "another-token")));
+        }
+        let before = fs::read(&path).unwrap();
+        service.check_resume(true);
+        assert_eq!(
+            service.resume_state(),
+            CheckState::Done {
+                pulled: 0,
+                conflicts: 0
+            }
+        );
+        assert_eq!(transport.request_count(), 1);
+        assert_eq!(fs::read(path).unwrap(), before);
+        assert!(service.conflicts().is_empty());
+    }
 }
 
 #[test]

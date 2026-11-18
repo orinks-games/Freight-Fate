@@ -622,13 +622,14 @@ impl CloudSaves {
             self.inner.transport.as_ref(),
         );
         if truthy(result.get("ok")) {
-            self.inner.sync_state.record_synced(
+            self.inner.sync_state.record_synced_for_driver(
                 name,
                 json_int(result.get("revision")).unwrap_or(0),
                 result
                     .get("contentHash")
                     .and_then(Value::as_str)
                     .unwrap_or(""),
+                &identity.driver_id,
             );
             self.inner.sync_state.clear_conflict(name);
             self.inner.note_absolved(name, &result);
@@ -1006,13 +1007,14 @@ copy no longer exists; restarting the slot fresh"
         );
         if truthy(result.get("ok")) {
             let revision = json_int(result.get("revision")).unwrap_or(0);
-            self.sync_state.record_synced(
+            self.sync_state.record_synced_for_driver(
                 name,
                 revision,
                 result
                     .get("contentHash")
                     .and_then(Value::as_str)
                     .unwrap_or(""),
+                &identity.driver_id,
             );
             self.done_with(name, &snapshot);
             self.note_absolved(name, &result);

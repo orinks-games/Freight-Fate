@@ -124,7 +124,10 @@ impl CloudSaves {
                 let slot = self.sync_state().slot(&name);
                 let (_, hash) = cloud_content(&Value::Object(profile.to_dict()));
                 decide(
-                    json_int(slot.get("revision")),
+                    (slot.get("driverId").and_then(Value::as_str)
+                        == Some(identity.driver_id.as_str()))
+                    .then(|| json_int(slot.get("revision")))
+                    .flatten(),
                     slot.get("hash").and_then(Value::as_str) != Some(hash.as_str()),
                     remote,
                 )
@@ -151,6 +154,10 @@ impl CloudSaves {
                     return Err("backup does not match requested career".into());
                 }
                 let _transfer = self.inner.transfer.write().unwrap();
+                let account = self.inner.identity.lock().unwrap();
+                if account.as_ref().map(|id| &id.driver_id) != Some(&identity.driver_id) {
+                    break;
+                }
                 let current = Profile::load(&path).map_err(|error| error.to_string())?;
                 decision = decision_for(&current);
                 if matches!(decision, Decision::PullCloud { .. })
@@ -168,6 +175,13 @@ impl CloudSaves {
                         self.inner.public_keys.as_ref(),
                     )
                     .map_err(|error| error.to_string())?;
+                    let (_, hash) = cloud_content(&payload["profile"]);
+                    self.sync_state().record_synced_for_driver(
+                        &name,
+                        revision,
+                        &hash,
+                        &identity.driver_id,
+                    );
                     self.inner.state.lock().unwrap().pending.remove(&name);
                     pulled += 1;
                     self.inner
@@ -180,6 +194,10 @@ impl CloudSaves {
             }
             if decision == Decision::Conflict {
                 let _transfer = self.inner.transfer.write().unwrap();
+                let account = self.inner.identity.lock().unwrap();
+                if account.as_ref().map(|id| &id.driver_id) != Some(&identity.driver_id) {
+                    break;
+                }
                 let current = Profile::load(&path).map_err(|error| error.to_string())?;
                 if decision_for(&current) != Decision::Conflict
                     || self.resume_state() != CheckState::Checking

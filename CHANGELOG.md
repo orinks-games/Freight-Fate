@@ -29,6 +29,8 @@
 
 ### Fixed
 
+- **Cloud resume leaves other accounts' careers alone.** Older backups without an account match need a manual restore first.
+
 - **Touch driving help now uses available translations for full blocks of instructions.**
 - **Closing the game from the iOS app switcher no longer triggers a crash prompt.** Settings, Problem reports can turn prompts back on.
 - **The Speech settings rows now update as soon as you change a voice.** Before, they changed only after leaving the menu.
