@@ -189,6 +189,10 @@ mod tests {
                 assert_eq!(err.line, "2.0");
                 assert_eq!(err.path.as_deref(), Some(path.as_path()));
                 assert!(crate::models::profile::newer_career_file(&path).is_some());
+                let other_case =
+                    path.with_file_name(path.file_name().unwrap().to_string_lossy().to_uppercase());
+                assert_ne!(other_case, path);
+                assert!(crate::models::profile::newer_career_file(&other_case).is_some());
                 assert!(Profile::list_saves().contains(&path));
                 assert_eq!(std::fs::read(&path).unwrap(), before);
                 assert_eq!(
