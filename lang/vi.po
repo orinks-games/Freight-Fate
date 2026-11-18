@@ -15678,6 +15678,12 @@ msgstr ""
 msgid "You take the wheel {start_mi} miles up the road."
 msgstr ""
 
+msgid "automatic"
+msgstr "số tự động"
+
+msgid "main voice"
+msgstr "giọng chính"
+
 #. one sentence of a longer line
 msgid "Do not press keys yourself meanwhile: they would be measured too."
 msgstr ""
@@ -21988,9 +21994,6 @@ msgstr "áp suất hơi đã đủ"
 #. placeholders: {air_pressure_psi}
 msgid "air {air_pressure_psi} psi"
 msgstr "áp suất hơi {air_pressure_psi} PSI"
-
-msgid "automatic"
-msgstr "số tự động"
 
 msgid "manual"
 msgstr "số sàn"
@@ -35259,15 +35262,6 @@ msgstr "nhỏ hơn"
 msgid "louder"
 msgstr "to hơn"
 
-msgid "main voice"
-msgstr "giọng chính"
-
-msgid "Windows OneCore"
-msgstr "Windows OneCore"
-
-msgid "built-in voice"
-msgstr "giọng đọc tích hợp"
-
 msgid "braille only"
 msgstr "chỉ chữ nổi braille"
 
@@ -35759,6 +35753,16 @@ msgstr ""
 "chỉ báo ở lần sao lưu đầu tiên của từng hồ sơ sau khi mở game. Không bao "
 "giờ sẽ giữ im lặng. Dù chọn thế nào việc sao lưu vẫn chạy ngầm, và nếu sao "
 "lưu bị từ chối thì hệ thống luôn đọc báo."
+
+#. placeholders: {main_voice_label}
+msgid "Main voice: {main_voice_label}"
+msgstr ""
+
+msgid ""
+"The voice that reads menus and readouts. Automatic uses your screen reader "
+"when one is running, and a system voice when none is. A screen reader is "
+"listed only while it is running."
+msgstr ""
 
 #. placeholders: {event_voice_label}
 msgid "Driving event voice: {event_voice_label}"
@@ -36736,6 +36740,19 @@ msgstr "Đặt lại toàn bộ nút tay cầm về mặc định"
 
 msgid "Puts every control on this screen back where it started."
 msgstr "Đưa mọi phím điều khiển trên màn hình này về trạng thái ban đầu."
+
+msgid "Windows OneCore"
+msgstr "Windows OneCore"
+
+msgid "built-in voice"
+msgstr "giọng đọc tích hợp"
+
+msgid "Narrator"
+msgstr ""
+
+#. placeholders: {name}
+msgid "{name}, unavailable"
+msgstr ""
 
 msgid ""
 "Move up and down to pick a gesture, then confirm it to choose the command "

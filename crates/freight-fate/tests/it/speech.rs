@@ -434,11 +434,10 @@ fn test_select_event_backend_switches_and_clears() {
     assert_eq!(s.event_backend_name(), "OneCore");
     s.select_event_backend(None); // back to the main voice
     assert_eq!(s.event_backend_name(), "none");
-    // Asking for the main voice by name is not a real separate option, so the
-    // preference falls back to the best available one (None is how you pick
-    // the main voice for events).
+    // Asking for the main voice by name shares the main voice: the player
+    // chose that voice for both.
     s.select_event_backend(Some("NVDA"));
-    assert_eq!(s.event_backend_name(), "OneCore");
+    assert_eq!(s.event_backend_name(), "none");
 }
 
 #[test]

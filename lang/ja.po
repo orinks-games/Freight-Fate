@@ -14195,6 +14195,12 @@ msgstr "準備完了：{description}。{start_mi}マイル先からハンドル�
 msgid "You take the wheel {start_mi} miles up the road."
 msgstr "{start_mi}マイル先からハンドルを握ります。"
 
+msgid "automatic"
+msgstr "自動"
+
+msgid "main voice"
+msgstr "メインの声"
+
 #. one sentence of a longer line
 msgid "Do not press keys yourself meanwhile: they would be measured too."
 msgstr "その間は自分でキーを押さないでください。それも計測されてしまいます。"
@@ -20048,9 +20054,6 @@ msgstr "エア準備完了"
 #. placeholders: {air_pressure_psi}
 msgid "air {air_pressure_psi} psi"
 msgstr "エア{air_pressure_psi} psi"
-
-msgid "automatic"
-msgstr "自動"
 
 msgid "manual"
 msgstr "手動"
@@ -32346,15 +32349,6 @@ msgstr "小さく"
 msgid "louder"
 msgstr "大きく"
 
-msgid "main voice"
-msgstr "メインの声"
-
-msgid "Windows OneCore"
-msgstr "Windows OneCore"
-
-msgid "built-in voice"
-msgstr ""
-
 msgid "braille only"
 msgstr "点字のみ"
 
@@ -32780,6 +32774,16 @@ msgstr ""
 "キャリアがorinks.netのアカウントにバックアップされたことを、どのくらいの頻度で聞くかです。毎回では、保存のたびに知らせます。セッションごとに1"
 "回では、ゲームを起動してから各キャリアの最初のバックアップで知らせます。しないでは、知らせません。どの設定でもバックアップは続き、断られたバックアップは"
 "必ず読み上げます。"
+
+#. placeholders: {main_voice_label}
+msgid "Main voice: {main_voice_label}"
+msgstr ""
+
+msgid ""
+"The voice that reads menus and readouts. Automatic uses your screen reader "
+"when one is running, and a system voice when none is. A screen reader is "
+"listed only while it is running."
+msgstr ""
 
 #. placeholders: {event_voice_label}
 msgid "Driving event voice: {event_voice_label}"
@@ -33615,6 +33619,19 @@ msgstr "すべてのコントローラーのボタンを既定に戻す"
 
 msgid "Puts every control on this screen back where it started."
 msgstr "この画面のすべての操作を最初の状態に戻します。"
+
+msgid "Windows OneCore"
+msgstr "Windows OneCore"
+
+msgid "built-in voice"
+msgstr ""
+
+msgid "Narrator"
+msgstr ""
+
+#. placeholders: {name}
+msgid "{name}, unavailable"
+msgstr ""
 
 msgid ""
 "Move up and down to pick a gesture, then confirm it to choose the command "

@@ -210,6 +210,7 @@ mod states_driving_valid_gates;
 mod states_driving_vehicle_access;
 mod states_learn_sounds;
 mod states_main_menu;
+mod states_main_menu_main_voice;
 mod states_main_menu_settings;
 mod states_manage_careers;
 mod states_online_hub;

@@ -15283,6 +15283,12 @@ msgstr ""
 msgid "You take the wheel {start_mi} miles up the road."
 msgstr "Direksiyona yolun {start_mi} mil ilerisinde geçiyorsunuz."
 
+msgid "automatic"
+msgstr "otomatik"
+
+msgid "main voice"
+msgstr "ana ses"
+
 #. one sentence of a longer line
 msgid "Do not press keys yourself meanwhile: they would be measured too."
 msgstr "Bu sırada siz tuşlara basmayın: onlar da ölçülür."
@@ -21521,9 +21527,6 @@ msgstr "hava hazır"
 #. placeholders: {air_pressure_psi}
 msgid "air {air_pressure_psi} psi"
 msgstr "hava {air_pressure_psi} psi"
-
-msgid "automatic"
-msgstr "otomatik"
 
 msgid "manual"
 msgstr "manuel"
@@ -34602,15 +34605,6 @@ msgstr "daha sessiz"
 msgid "louder"
 msgstr "daha yüksek"
 
-msgid "main voice"
-msgstr "ana ses"
-
-msgid "Windows OneCore"
-msgstr ""
-
-msgid "built-in voice"
-msgstr ""
-
 msgid "braille only"
 msgstr "yalnızca braille"
 
@@ -35101,6 +35095,16 @@ msgstr ""
 "Her seferinde, her kayıttan sonra. Oturumda bir kez, oyun başladıktan sonra "
 "her kariyerin ilk yedeğinde. Hiçbir zaman, sessiz tutar. Yedekleme her "
 "durumda sürer ve reddedilen bir yedek her zaman söylenir."
+
+#. placeholders: {main_voice_label}
+msgid "Main voice: {main_voice_label}"
+msgstr ""
+
+msgid ""
+"The voice that reads menus and readouts. Automatic uses your screen reader "
+"when one is running, and a system voice when none is. A screen reader is "
+"listed only while it is running."
+msgstr ""
 
 #. placeholders: {event_voice_label}
 msgid "Driving event voice: {event_voice_label}"
@@ -36057,6 +36061,19 @@ msgstr "Tüm oyun kumandası düğmelerini varsayılana sıfırla"
 
 msgid "Puts every control on this screen back where it started."
 msgstr "Bu ekrandaki her kontrolü başlangıçtaki yerine döndürür."
+
+msgid "Windows OneCore"
+msgstr ""
+
+msgid "built-in voice"
+msgstr ""
+
+msgid "Narrator"
+msgstr ""
+
+#. placeholders: {name}
+msgid "{name}, unavailable"
+msgstr ""
 
 msgid ""
 "Move up and down to pick a gesture, then confirm it to choose the command "

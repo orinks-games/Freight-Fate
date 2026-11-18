@@ -631,6 +631,10 @@ impl AgentPolicy {
                     Some(o) => text.push_str(&fatigue_state_line(&o, mode)),
                     None => text.push_str(&format!("STATE: touch_mode {}.", mode.key())),
                 }
+                let (choice, main, event) = input.speech_state();
+                text.push_str(&format!(
+                    "\nSPEECH: main_backend {choice}; main {main}; event {event}."
+                ));
             }
             let _ = waiting.reply.send(Ok(text));
         }

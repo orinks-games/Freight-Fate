@@ -219,7 +219,10 @@ fn tools_list() -> Value {
              lugging in a tall gear: the clutch a touch shift works in a manual \
              truck). \
              Off the wheel the \
-             STATE line carries touch_mode alone.",
+             STATE line carries touch_mode alone. A SPEECH line follows it \
+             everywhere: main_backend (the saved Main voice choice, automatic \
+             when none), main (the voice bound now) and event (the event \
+             voice bound now, or main voice when events share it).",
             json!({}),
             &[],
         ),

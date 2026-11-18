@@ -15,6 +15,7 @@ use ff_core::speech_pacing::DRIVING_SPEECH_MODES;
 
 use super::settings::{save_settings, SettingsCategoryState};
 use super::settings_items::assist_flag;
+use super::speech_voices::{event_voice_step, main_voice_step};
 use crate::app::{language, version, GameContext, Say};
 use crate::audio::VolumeUpdate;
 use crate::bindings::Action;
@@ -147,17 +148,6 @@ pub(super) fn cue_loudness_label(s: &Settings) -> &'static str {
         "subtle" => "quieter",
         "prominent" => "louder",
         _ => "standard",
-    }
-}
-
-pub(super) fn event_voice_label(s: &Settings) -> String {
-    if !s.sapi_events {
-        return "main voice".to_string();
-    }
-    match s.event_backend.as_str() {
-        "OneCore" => "Windows OneCore".to_string(),
-        crate::speech::BUILTIN_BACKEND => "built-in voice".to_string(),
-        other => other.to_string(),
     }
 }
 
@@ -613,18 +603,24 @@ impl SettingsCategoryState {
         self.announce(ctx);
     }
 
+    pub(super) fn cycle_main_voice(&mut self, ctx: &mut GameContext, d: i64) {
+        // Automatic, then every voice that can speak right now. The choice
+        // is saved as it is and never rewritten when that voice goes away.
+        let options = ctx.speech.main_backend_options();
+        ctx.settings.main_backend =
+            main_voice_step(&ctx.settings.main_backend, &options, d).unwrap_or_default();
+        save_settings(&ctx.settings);
+        ctx.apply_speech();
+        // Queued behind the switch, so the new voice speaks it.
+        self.announce(ctx);
+    }
+
     pub(super) fn cycle_event_voice(&mut self, ctx: &mut GameContext, d: i64) {
         // None = the main voice; the rest are the available separate voices.
-        let mut options: Vec<Option<String>> = vec![None];
-        options.extend(ctx.speech.event_backend_options().into_iter().map(Some));
-        let current = if ctx.settings.sapi_events {
-            Some(ctx.settings.event_backend.clone())
-        } else {
-            None
-        };
-        let i = options.iter().position(|o| *o == current).unwrap_or(0) as i64;
-        let choice = options[(i + d).rem_euclid(options.len() as i64) as usize].clone();
-        match choice {
+        // An event voice naming the main voice already is the main voice.
+        let options = ctx.speech.event_backend_options();
+        let main_name = ctx.speech.backend_name();
+        match event_voice_step(&ctx.settings, &main_name, &options, d) {
             None => ctx.settings.sapi_events = false,
             Some(backend) => {
                 ctx.settings.sapi_events = true;
