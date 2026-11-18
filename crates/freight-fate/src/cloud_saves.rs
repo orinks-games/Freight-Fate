@@ -39,7 +39,7 @@ use std::fmt;
 use std::io::Read;
 use std::path::PathBuf;
 use std::sync::atomic::{AtomicBool, Ordering};
-use std::sync::{Arc, Mutex};
+use std::sync::{Arc, Mutex, RwLock};
 use std::thread::{self, JoinHandle};
 use std::time::Duration;
 
@@ -127,6 +127,8 @@ pub use wording::*;
 use api::reason_of;
 use sync_state::{json_int, slot_conflict};
 
+mod resume;
+
 /// orinks.net answered but refused this machine's driver credentials.
 ///
 /// Returned (never swallowed into a generic `None`) so the Cloud backup
@@ -157,6 +159,8 @@ const AUTH_ANNOUNCED_KEY: &str = "*auth*";
 /// identity-less, real-network, threaded service; the app fills in the
 /// identity, the setting and the data directory.
 pub struct CloudSavesOptions {
+    /// Override verification keys for an injected cloud transport.
+    pub public_keys: Option<PublicKeys>,
     pub enabled: bool,
     pub identity: Option<OnlineIdentity>,
     pub debounce_s: f64,
@@ -204,6 +208,7 @@ impl BackupAnnouncements {
 impl Default for CloudSavesOptions {
     fn default() -> Self {
         Self {
+            public_keys: None,
             enabled: false,
             identity: None,
             debounce_s: DEBOUNCE_S,
@@ -259,6 +264,9 @@ struct State {
 }
 
 struct Inner {
+    public_keys: Option<PublicKeys>,
+    resume: Mutex<resume::Resume>,
+    transfer: RwLock<()>,
     identity: Mutex<Option<OnlineIdentity>>,
     enabled: AtomicBool,
     debounce: f64,
@@ -302,6 +310,9 @@ impl CloudSaves {
             .unwrap_or_else(|| Arc::new(SyncState::new(&options.data_dir)));
         Self {
             inner: Arc::new(Inner {
+                public_keys: options.public_keys,
+                resume: Mutex::new(resume::Resume::default()),
+                transfer: RwLock::new(()),
                 identity: Mutex::new(options.identity),
                 enabled: AtomicBool::new(enabled),
                 debounce: options.debounce_s.max(0.0),
@@ -525,6 +536,7 @@ impl CloudSaves {
 
     /// Flush the pending upload briefly and stop the worker. Never raises.
     pub fn shutdown(&self) {
+        self.configure_resume(false);
         self.inner.stop_worker();
         if !self.enabled() {
             return;
@@ -919,6 +931,17 @@ revision {} is waiting in the Cloud backup menu",
     }
 
     fn upload_slot(&self, name: &str, pending: Pending) {
+        let _transfer = self.transfer.read().unwrap();
+        if !self
+            .state
+            .lock()
+            .unwrap()
+            .pending
+            .get(name)
+            .is_some_and(|current| Arc::ptr_eq(&current.snapshot, &pending.snapshot))
+        {
+            return;
+        }
         let Pending {
             snapshot,
             meaningful_play,

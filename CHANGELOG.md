@@ -49,6 +49,7 @@
 - **Hooking or breaking a set of doubles adds time on duty,** and the walk-around takes 25 minutes instead of 15.
 - **The rear trailer of a set of doubles can whip on a hard swerve at 40 miles per hour and up.** You hear it when it starts. Reverse is refused with doubles hooked.
 - **The ELD now tracks your 70-hour, 8-day work cycle.** When a day of cycle hours is left the status line says so, and a 34-hour rest starts a fresh week.
+- **Cloud resume can pick up careers where you left off on another device.** Turn it on under Online after restoring each career once.
 - **Job details and the departure line say how much night driving a run has,** as in "About 4 hours of night driving."
 - **A drowsy driver can call dispatch to move the appointment,** giving up the on-time bonus. The row is Too tired to drive safely.
 - **The driving command list can change radio volume and category.**

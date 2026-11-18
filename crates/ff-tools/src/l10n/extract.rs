@@ -4,6 +4,7 @@
 //! ```text
 //! cargo tools l10n-extract           # rewrite lang/*.pot and *.po
 //! cargo tools l10n-extract --check   # fail if they are stale
+//! cargo tools l10n-extract --template-only # leave language catalogs untouched
 //! ```
 //!
 //! The template, `lang/freight-fate.pot`, lists every line the game can
@@ -452,14 +453,17 @@ pub fn main(argv: &[String]) -> Result<i32> {
         argv,
         &Spec {
             values: &[],
-            flags: &["check"],
+            flags: &["check", "template-only"],
         },
     )
-    .map_err(|e| format!("{e}\nusage: l10n-extract [--check]"))?;
+    .map_err(|e| format!("{e}\nusage: l10n-extract [--check] [--template-only]"))?;
     let root = util::repo_root();
     let files = render_all()?;
     let stale: Vec<&(PathBuf, String)> = files
         .iter()
+        .filter(|(path, _)| {
+            !args.flag("template-only") || path.extension().is_some_and(|ext| ext == "pot")
+        })
         .filter(|(path, text)| util::read_text_lf(path).as_ref() != Some(text))
         .collect();
     if args.flag("check") {
