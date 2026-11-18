@@ -376,8 +376,10 @@ impl Menu for BusinessStatusState {
         } else {
             items.push(
                 MenuItem::new(
-                    Label::dynamic(|s: &Self, _ctx| {
-                        if s.return_armed {
+                    Label::dynamic(|s: &Self, ctx| {
+                        if s.return_armed && ctx.touch_hints() {
+                            "Go back to company driving: double tap again to confirm".to_string()
+                        } else if s.return_armed {
                             "Go back to company driving: press Enter again to confirm".to_string()
                         } else {
                             "Go back to company driving".to_string()

@@ -19,6 +19,8 @@ Page Up, F1 and the rest) and place names stay in English.
 | truck | Lkw | Masculine. Screen readers say it letter by letter, as drivers do. |
 | your assigned truck | dein zugewiesener Lkw | |
 | fleet | Flotte | Feminine. |
+| co-driver | Beifahrer | Masculine. The second driver on a team load, who takes turns at the wheel. |
+| team load | Teamladung | Feminine. A load you share with a co-driver. |
 | trailer | Auflieger | Masculine. Avoid "Anhänger", a different kind of trailer. |
 | tank trailer | Tankauflieger | Masculine. |
 | leg | Abschnitt | Masculine. |
@@ -45,6 +47,8 @@ Page Up, F1 and the rest) and place names stay in English.
 | hours of service | Lenk- und Ruhezeiten | Plural. |
 | driving time left | verbleibende Lenkzeit | |
 | at the wheel | am Steuer | |
+| fatigue | Müdigkeit | Feminine. Spoken with its percent. |
+| rested, worn, drowsy, severe | ausgeruht, abgenutzt, schläfrig, übermüdet | Fatigue bands. "abgenutzt" is shared with the truck condition "worn", which uses the same English word. |
 | duty window | Schichtfenster | Neuter. The 14-hour clock. |
 | break | Pause | Feminine. Avoid "Ruhezeit", which is rest. |
 | clock | Uhrzeit | Feminine. The in-game time of day. |

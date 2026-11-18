@@ -10,7 +10,9 @@ name: Freight Fate builds
 # the newer commit; the snapshot a tester sees is always the newest dev that
 # passed. A push whose commits add no curated changelog entry and carry no
 # `nightly: build` marker stops in Prepare, so a docs-only merge costs a few
-# minutes of one Linux runner and nothing more.
+# minutes of one Linux runner and nothing more. So does one whose every
+# commit since the newest snapshot says `[skip desktop]` (an iPhone-only
+# change); see .github/scripts/skip-tag.sh.
 #
 # The schedule is the fallback. A scheduled run executes the copy of this
 # file on the DEFAULT branch (main), whatever the checked-out code is, so
@@ -257,6 +259,15 @@ jobs:
             exit 0
           fi
 
+          # "[skip desktop]" on every commit since the newest snapshot (an
+          # iPhone-only change) skips the build, on a push and on the
+          # fallback alike. One commit without it builds everything since.
+          if bash .github/scripts/skip-tag.sh "[skip desktop]" "$LAST_TAG" HEAD; then
+            echo "should_build=false" >> "$GITHUB_OUTPUT"
+            echo "### Skipped: every commit since $LAST_TAG says [skip desktop]" >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+
           gh release view "$LAST_TAG" --json body -q .body > previous-notes.md || true
           : > latest-stable-notes.md
           LATEST_STABLE_TAG=$(gh api "repos/${GITHUB_REPOSITORY}/releases" \
@@ -490,9 +501,11 @@ jobs:
         # Every job here runs muted, so a Prism linked without its backends
         # would still pass every test and boot. The listing does not speak;
         # it names each backend Prism registered, reachable or not.
+        # --names-only opens none of them: this runner has no audio device,
+        # and opening OneCore there with Prism 0.1.6 aborts the process.
         shell: bash
         run: |
-          ./target/release/freightfate.exe --list-speech-backends | tee speech-backends.txt
+          ./target/release/freightfate.exe --list-speech-backends --names-only | tee speech-backends.txt
           grep -q "^SAPI " speech-backends.txt
 
       - uses: actions/upload-artifact@v7

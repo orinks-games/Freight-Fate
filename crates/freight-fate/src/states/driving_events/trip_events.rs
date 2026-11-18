@@ -862,7 +862,6 @@ impl DrivingState {
                     // name is resolved here (`name_facility` records the
                     // mention) rather than at delivery.
                     let typed_name = self.trip.name_facility(&stop.name, &stop.spoken_name());
-                    let exit_hint = self.trip.exit_hint.clone();
                     render = Some(std::rc::Rc::new(
                         move |drive: &DrivingState, ctx: &GameContext| {
                             let ahead = stop.at_mi - drive.trip.position_mi;
@@ -897,7 +896,9 @@ impl DrivingState {
                                 {
                                     ""
                                 } else {
-                                    &exit_hint
+                                    // The control in hand when the line is
+                                    // spoken, not when it queued.
+                                    &drive.trip.exit_hint
                                 },
                                 fuel: stop.fuel_callout(),
                                 open,
@@ -921,6 +922,12 @@ impl DrivingState {
             } else {
                 sound
             };
+            // Spacing decides WHEN the line goes, not how long it will wait
+            // once it does. Without its priority it went to the voice as
+            // chatter, and chatter queued behind a billboard is dropped as
+            // stale: a truck stop inside a work zone was never announced,
+            // its notice lost behind a billboard and the lane ending call
+            // (agent drive, I-71 at Seville, 2026-11-16).
             self.speak_ambient_event(
                 ctx,
                 message,
@@ -928,7 +935,13 @@ impl DrivingState {
                     .sound(sound)
                     .category(category)
                     .key(key)
-                    .render(render),
+                    .priority(priority)
+                    .render(render)
+                    .stop_at(
+                        (kind == TripEventKind::StopAhead)
+                            .then(|| event.data.stop.as_ref().map(|stop| stop.at_mi))
+                            .flatten(),
+                    ),
             );
             return;
         }
@@ -1538,7 +1551,11 @@ impl DrivingState {
             // was is the lights line's, and the scale's "wave you in" said
             // shoulder and weigh station in one breath (owner, 2026-11-04).
             let summary = format!("Out of service {oos_phrase}. Citation: {evidence_text}.");
-            let lights = if self.driving_hints(ctx) {
+            let lights = if self.driving_hints(ctx) && ctx.touch_hints() {
+                "Lights and siren behind you for a log check. Double tap to signal, then stop on \
+                 the shoulder."
+                    .to_string()
+            } else if self.driving_hints(ctx) {
                 format!(
                     "Lights and siren behind you for a log check. Signal with {} and stop on \
                      the shoulder.",

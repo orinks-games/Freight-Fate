@@ -100,12 +100,13 @@ fn the_struct_carries_the_persisted_fields_in_python_order() {
     // lane_centering_assist was retired for 1.9, and the three Mastodon
     // sharing fields on 2026-10-15; visual_display (2026-10-15) and
     // radio_cab_speakers (2026-10-18), achievement_sort (2026-10-28) and
-    // driving_hints (2026-11-08) and crash_report_offer (2026-11-13).
-    assert_eq!(Settings::FIELD_NAMES.len(), 102);
+    // driving_hints (2026-11-08) and crash_report_offer (2026-11-13), and
+    // main_backend (2026-11-17).
+    assert_eq!(Settings::FIELD_NAMES.len(), 103);
     assert_eq!(Settings::FIELD_NAMES[0], "online_services");
-    assert_eq!(Settings::FIELD_NAMES[82], "settings_layout_notice_from");
+    assert_eq!(Settings::FIELD_NAMES[83], "settings_layout_notice_from");
     let pairs = Settings::default().ordered_values();
-    assert_eq!(pairs.len(), 102);
+    assert_eq!(pairs.len(), 103);
     for ((name, _), field) in pairs.iter().zip(Settings::FIELD_NAMES) {
         assert_eq!(name, field);
     }
@@ -147,7 +148,7 @@ fn the_defaults_match_the_python_dataclass() {
         "chatter_rivers": true, "chatter_passes": true, "chatter_museums": true,
         "chatter_billboards": true, "place_callouts": "sparse",
         "announce_menu_position": true, "backup_announcements": "every",
-        "sapi_events": true, "event_backend": "SAPI", "braille_only": false,
+        "main_backend": "", "sapi_events": true, "event_backend": "SAPI", "braille_only": false,
         "speech_rate": 0.5, "speech_pitch": 0.5, "speech_volume": 1.0, "speech_voice": "",
         "update_channel": "", "update_mirror_enabled": false,
         "update_mirror_prefix": "", "skipped_update": "", "discord_presence": true,
@@ -170,7 +171,7 @@ fn the_defaults_match_the_python_dataclass() {
     let Value::Object(expected) = expected else {
         unreachable!()
     };
-    assert_eq!(expected.len(), 102);
+    assert_eq!(expected.len(), 103);
     for (name, value) in s.ordered_values() {
         assert_eq!(Some(&value), expected.get(name), "{name}");
     }
@@ -1194,6 +1195,26 @@ fn test_one_alpha_day_village_bool_migrates() {
         assert_eq!(Settings::load().place_callouts, "sparse");
         write_settings_file(r#"{"chatter_villages": false, "place_callouts": "all"}"#);
         assert_eq!(Settings::load().place_callouts, "all");
+    });
+}
+
+#[test]
+fn test_main_backend_round_trips_and_junk_is_automatic() {
+    // The player's main voice choice. A missing key is automatic, a name is
+    // kept even when this machine lacks it, and a non-string is automatic.
+    with_data_dir(|_| {
+        write_settings_file(r#"{}"#);
+        assert_eq!(Settings::load().main_backend, "");
+        write_settings_file(r#"{"main_backend": "Genny"}"#);
+        assert_eq!(Settings::load().main_backend, "Genny");
+        write_settings_file(r#"{"main_backend": "JAWS"}"#);
+        let mut s = Settings::load();
+        assert_eq!(s.main_backend, "JAWS");
+        s.main_backend = "OneCore".to_string();
+        s.save().unwrap();
+        assert_eq!(Settings::load().main_backend, "OneCore");
+        write_settings_file(r#"{"main_backend": 3}"#);
+        assert_eq!(Settings::load().main_backend, "");
     });
 }
 

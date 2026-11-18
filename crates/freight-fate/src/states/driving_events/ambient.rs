@@ -11,6 +11,7 @@ use ff_core::speech_text::SpokenMessage;
 use crate::app::{GameContext, SayEvent};
 use crate::states::driving::DrivingState;
 use crate::states::driving_core::{AmbientRender, PendingAmbient};
+use crate::states::driving_updates::live;
 
 use super::{AMBIENT_QUEUE_MAX, AMBIENT_QUEUE_MAX_AGE_S};
 
@@ -23,6 +24,7 @@ pub struct Ambient {
     pub key: Option<String>,
     pub priority: Option<EventPriority>,
     pub render: Option<AmbientRender>,
+    pub stop_at: Option<f64>,
 }
 
 impl Ambient {
@@ -62,6 +64,16 @@ impl Ambient {
 
     pub fn render(mut self, render: Option<AmbientRender>) -> Self {
         self.render = render;
+        self
+    }
+
+    /// A stop notice: the mile of the stop it names. Kept to its priority, a
+    /// notice can wait behind other road lines, so it is spoken only while
+    /// the exit is still ahead and, when it asks for the signal, only while
+    /// the signal is off (the same rule as a stop notice that never waited
+    /// for spacing).
+    pub fn stop_at(mut self, stop_at: Option<f64>) -> Self {
+        self.stop_at = stop_at;
         self
     }
 }
@@ -119,6 +131,7 @@ impl DrivingState {
             key,
             priority,
             render,
+            stop_at,
         } = opts;
         if log {
             // The drain call below passes log=False so a line that does
@@ -169,6 +182,7 @@ impl DrivingState {
             pending.key = key;
             pending.priority = priority;
             pending.render = render;
+            pending.stop_at = stop_at;
             self.pending_ambient_events.push_back(pending);
             while self.pending_ambient_events.len() > AMBIENT_QUEUE_MAX {
                 self.pending_ambient_events.pop_front();
@@ -183,6 +197,13 @@ impl DrivingState {
         opts.review = false;
         opts.category = category;
         opts.priority = priority;
+        if let Some(stop_at) = stop_at {
+            let asks_for_signal = message.normal.contains("to signal");
+            self.refresh_live_facts();
+            opts = opts.valid(move || {
+                live::position_mi() < stop_at && !(asks_for_signal && live::exit_signal_on())
+            });
+        }
         ctx.say_event_with(message, opts);
         self.ambient_event_cooldown_s =
             tuning_for_time_scale(self.trip.time_scale).ambient_spacing_s;
@@ -233,7 +254,8 @@ impl DrivingState {
             .sound(pending.sound.as_deref())
             .log(false)
             .category(pending.category)
-            .key(pending.key.clone());
+            .key(pending.key.clone())
+            .stop_at(pending.stop_at);
         if let Some(priority) = pending.priority {
             opts = opts.priority(priority);
         }

@@ -159,6 +159,19 @@ impl Question {
         }
     }
 
+    /// [`Self::hint`] on a touch screen, where a double tap skips.
+    fn touch_hint(self) -> &'static str {
+        match self {
+            Question::StreamUrl => {
+                "The direct link to the audio stream, not the station's web page. streamurl.link finds one."
+            }
+            Question::City => "Optional. Double tap skips.",
+            Question::Frequency => "Optional, like 101.5 or 1090. Double tap skips.",
+            Question::Genre => "Optional, like classic country. Double tap skips.",
+            other => other.hint(),
+        }
+    }
+
     fn required(self) -> bool {
         matches!(
             self,
@@ -283,13 +296,18 @@ impl StationSuggestionEntryState {
         self.entry.set_text(&previous);
     }
 
-    fn prompt(&self) -> String {
+    fn prompt(&self, ctx: &GameContext) -> String {
         let question = self.question();
         let typed = self.entry.text();
         let mut text = format!("{}.", question.heading());
-        if !question.hint().is_empty() {
+        let hint = if crate::states::text_entry::touch_prompt(ctx) {
+            question.touch_hint()
+        } else {
+            question.hint()
+        };
+        if !hint.is_empty() {
             text.push(' ');
-            text.push_str(question.hint());
+            text.push_str(hint);
         }
         if !typed.is_empty() {
             text.push_str(&format!(" Filled in: {typed}."));
@@ -350,7 +368,7 @@ impl StationSuggestionEntryState {
         match back_to {
             Some(step) => {
                 self.load_step(step);
-                ctx.say(&format!("{} {}", outcome.message, self.prompt()));
+                ctx.say(&format!("{} {}", outcome.message, self.prompt(ctx)));
             }
             None => {
                 ctx.say(&outcome.message);
@@ -373,7 +391,7 @@ impl TextEntry for StationSuggestionEntryState {
         if crate::states::text_entry::touch_prompt(ctx) {
             ctx.say(&format!(
                 "{} {}",
-                self.prompt(),
+                self.prompt(ctx),
                 crate::states::text_entry::TOUCH_FIELD_HELP
             ));
             return;
@@ -381,7 +399,7 @@ impl TextEntry for StationSuggestionEntryState {
         ctx.say(&format!(
             "{} Type each answer, then Enter. Left and Right review the letters, Escape \
              cancels.",
-            self.prompt()
+            self.prompt(ctx)
         ));
     }
 
@@ -419,7 +437,7 @@ impl TextEntry for StationSuggestionEntryState {
         if self.step + 1 < questions(&self.suggestion.kind).len() {
             ctx.audio.play("ui/menu_select");
             self.load_step(self.step + 1);
-            let prompt = self.prompt();
+            let prompt = self.prompt(ctx);
             ctx.say(&prompt);
             return;
         }

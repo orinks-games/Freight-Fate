@@ -330,9 +330,11 @@ fn test_the_engine_leans_to_the_inside_of_a_ramp_curve_the_truck_runs_wide_on() 
 }
 
 #[test]
-fn test_leaving_the_pavement_costs_the_truck_with_the_warning_off() {
-    // The lane-departure warning governs the sound and the line, never the
-    // physics: with it off the shoulder still costs the truck.
+fn test_leaving_the_pavement_costs_the_truck_and_says_so_with_the_warning_off() {
+    // The lane-departure warning governs the drift cues before the edge,
+    // never the edge itself: with it off the shoulder still costs the truck,
+    // and the charge is still heard with the damage it left (issue 533, an
+    // All assists run that ended 1 percent worse with nothing said).
     let mut harness = PlaytestHarness::new();
     harness.start_delivery(StartDelivery::named("Shoulder"));
     harness.app.ctx.settings.lane_keeping = "off".to_string();
@@ -364,5 +366,10 @@ fn test_leaving_the_pavement_costs_the_truck_with_the_warning_off() {
     let damage = harness.read_drive(|d| d.truck().damage_pct);
     assert!(damage > damage_before, "the shoulder cost nothing");
     let text = harness.transcript_text();
-    assert!(!text.contains("Off the road"), "{text}");
+    // One line at the edge, then the rumble alone for the charges after it.
+    assert_eq!(
+        text.matches("Off the road on the right! Damage ").count(),
+        1,
+        "{text}"
+    );
 }

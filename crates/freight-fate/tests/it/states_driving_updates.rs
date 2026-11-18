@@ -469,43 +469,88 @@ fn test_an_idle_pad_is_not_a_microsleep_reaction() {
 
 // -- off pavement (test_off_pavement_transitions.py) ----------------------------------
 
-#[test]
-fn test_off_pavement_speaks_on_entry_worsening_and_recovery() {
-    let mut app = TestApp::new();
-    let mut d = a_drive(&mut app);
-    // Python stubbed `say_event` outright; here the real pacer would treat
-    // the second, identical "Off the road" line as a repeat inside its own
-    // window. Step the clock between lines so what is asserted is the
-    // TRANSITION rule rather than the pacer's repeat guard.
+/// A drive off the right-hand edge with the pacer's repeat guard stepped
+/// past, so what is asserted is the edge rule, not the guard.
+fn off_the_right_edge(app: &mut TestApp) -> DrivingState {
+    let mut d = a_drive(app);
     app.ctx.event_pacer = hearken::speech::EventSpeechPacer::with_clock(
         freight_fate::app::FF_PACER,
         stepping_clock(30.0),
     );
     d.lane.lane = 0;
-    d.trip.truck.velocity_mps = 13.0; // ~29 mph, below the "fast" band
-    app.clear_speech();
-
-    // Entry: the truck goes off the pavement.
+    d.trip.truck.velocity_mps = 13.0;
     d.lane.offset = 1.35;
-    d.announce_off_pavement(&mut app.ctx);
-    assert_eq!(app.event_lines().len(), 1);
+    app.clear_speech();
+    d
+}
 
-    // Steady, no worse: the continuous cue carries it, speech stays silent.
+fn charge(d: &mut DrivingState, app: &mut TestApp) {
+    d.trip
+        .truck
+        .add_damage_from(1.0, true, "leaving the pavement");
     d.announce_off_pavement(&mut app.ctx);
-    d.announce_off_pavement(&mut app.ctx);
-    assert_eq!(app.event_lines().len(), 1);
+}
 
-    // Worse: deeper off the road speaks again.
-    d.lane.offset = 1.48;
-    d.announce_off_pavement(&mut app.ctx);
-    assert_eq!(app.event_lines().len(), 2);
+#[test]
+fn test_leaving_the_pavement_speaks_at_its_edges_with_the_damage() {
+    // The first charge says the place and the damage; the charges after it
+    // are the rumble alone; coming back says the damage they added (issue
+    // 533).
+    let mut app = TestApp::new();
+    let mut d = off_the_right_edge(&mut app);
+    for _ in 0..3 {
+        charge(&mut d, &mut app);
+    }
+    assert_eq!(
+        app.event_lines(),
+        vec!["Off the road on the right! Damage 1 percent.".to_string()]
+    );
 
-    // Back on the pavement is a transition too, spoken once.
     d.lane.offset = 0.0;
-    d.road_position_band = Some(1);
-    // The recovery line lives in the update path; assert the condition the
-    // else-if turns on so the transition fires exactly when the truck is back.
     assert!(!d.off_pavement());
+    d.announce_back_on_pavement(&mut app.ctx);
+    assert_eq!(
+        app.event_lines().last().map(String::as_str),
+        Some("Back on the pavement. Damage 3 percent.")
+    );
+    assert!(d.off_pavement_said.is_none());
+}
+
+#[test]
+fn test_back_on_the_pavement_is_plain_when_nothing_was_added_since() {
+    let mut app = TestApp::new();
+    let mut d = off_the_right_edge(&mut app);
+    charge(&mut d, &mut app);
+    d.lane.offset = 0.0;
+    d.announce_back_on_pavement(&mut app.ctx);
+    assert_eq!(
+        app.event_lines(),
+        vec![
+            "Off the road on the right! Damage 1 percent.".to_string(),
+            "Back on the pavement.".to_string(),
+        ]
+    );
+}
+
+#[test]
+fn test_a_new_place_off_the_pavement_speaks_once() {
+    // One departure that crosses to the other edge of a one-lane road is
+    // news: its place line speaks once, with the damage, and is quiet after
+    // that like the first.
+    let mut app = TestApp::new();
+    let mut d = off_the_right_edge(&mut app);
+    d.lane.lane_count = 1;
+    charge(&mut d, &mut app);
+    d.lane.offset = -1.35;
+    charge(&mut d, &mut app);
+    charge(&mut d, &mut app);
+    let lines = app.event_lines();
+    assert_eq!(lines.len(), 2, "{lines:?}");
+    assert_eq!(lines[0], "Off the road on the right! Damage 1 percent.");
+    assert!(
+        !lines[1].contains("on the right") && lines[1].ends_with("! Damage 2 percent."),
+        "{lines:?}"
+    );
 }
 
 #[path = "states_driving_cue_lifecycle.rs"]

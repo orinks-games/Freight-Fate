@@ -47,6 +47,7 @@ mod settings;
 mod settings_actions;
 mod settings_items;
 mod shortcuts;
+mod speech_voices;
 mod touch_gestures;
 mod touch_practice;
 

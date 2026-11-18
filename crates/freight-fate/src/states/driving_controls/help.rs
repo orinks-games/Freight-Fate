@@ -510,11 +510,11 @@ impl DrivingState {
         });
         text.push_str(
             "Hold one finger still for half a second to straighten the wheel. With cruise \
-             off, flick up to resume the last speed and flick down to set the current speed. \
-             Turn two fingers right like a key to start the engine, left to stop it. Hold two \
-             fingers for the horn. Turning them cancels it. While holding a pedal, a second \
-             finger's flicks and holds work the same way, and in automatic its shift flicks \
-             say the gear. ",
+             off, flick up to turn it on. Double tap to take an exit, pull over, or confirm \
+             arrival at a gate. Tap with two fingers to stop speech. Turn two fingers right \
+             like a key to start the engine, and left to stop it once the truck has stopped. \
+             Hold two fingers for the horn. While holding a pedal, a second finger's flicks \
+             and holds work the same way. ",
         );
         for gesture in crate::bindings::touch_slots() {
             let (Some(name), Some(command)) = (
@@ -527,11 +527,18 @@ impl DrivingState {
                 text.push_str(&format!("{name}: {}. ", command.label()));
             }
         }
+        if !self.trip.truck.transmission.automatic {
+            text.push_str(
+                "In a manual, hold a pedal and flick up or down with a second finger to \
+                 shift. The flick works the clutch. Slowing in a tall gear takes neutral, \
+                 and a flick up from neutral takes the gear that fits your speed. ",
+            );
+        }
         text.push_str(
-            "Two-finger swipe down pauses, two-finger swipe up is this help, two-finger \
-             swipes left and right review messages, and three-finger swipes left and right \
-             tune the radio. A three-finger tap lists every driving command: swipe to one \
-             and double tap to run it. ",
+            "A two-finger flick down pauses, a two-finger flick up is this help, two-finger \
+             flicks left and right review messages, and three-finger flicks left and right \
+             tune the radio. A three-finger tap lists the driving commands in groups, Status \
+             menu first. Flick to one and double tap to run it or open its group. ",
         );
         text.push_str(&self.objective_help(ctx));
         text.push_str("Gestures can be moved in Settings, Gameplay, Controls, Touch gestures.");

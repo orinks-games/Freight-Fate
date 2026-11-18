@@ -4,7 +4,10 @@
 //! are built in `settings_items`; the toggles they drive are in
 //! `settings_actions`.
 
-use crate::states::base::{default_announce_entry, default_handle_event};
+use crate::states::base::{
+    default_announce_entry, default_handle_controller, default_handle_event, default_handle_gesture,
+};
+use crate::touch::Gesture;
 use std::rc::Rc;
 
 use ff_core::settings::{lane_keeping_to_legacy, Settings};
@@ -13,6 +16,8 @@ use crate::app::{active_log_path, GameContext, Say};
 use crate::impl_state_for_menu;
 use crate::states::base::{InputEvent, Key, Menu, MenuCore, MenuItem};
 use crate::states::online_hub::OnlineHubState;
+
+use super::speech_voices::{rows_signature, RowsAction, RowsEvent, RowsSignature, RowsWait};
 
 /// Top-level settings: a category picker that opens per-category submenus.
 ///
@@ -255,6 +260,10 @@ pub(super) type Adjust = Rc<dyn Fn(&mut SettingsCategoryState, &mut GameContext,
 pub struct SettingsCategoryState {
     menu: MenuCore<Self>,
     pub category: String,
+    /// Speech only: a voice row change waiting for the speech worker.
+    rows_wait: RowsWait,
+    /// Speech only: what decided the rows at the last rebuild.
+    rows_signature: Option<RowsSignature>,
 }
 
 impl SettingsCategoryState {
@@ -281,6 +290,8 @@ impl SettingsCategoryState {
                  Left arrow backward. Escape goes back.",
             ),
             category: category.to_string(),
+            rows_wait: RowsWait::Idle,
+            rows_signature: None,
         }
     }
 
@@ -374,6 +385,58 @@ impl SettingsCategoryState {
         self.speak_current(ctx);
     }
 
+    /// A Main voice or Driving event voice change: save and click now, and
+    /// rebuild and speak the row once the speech sink has caught up with
+    /// the switch, so the rows below belong to the new voice.
+    pub(super) fn announce_voice_change(&mut self, ctx: &mut GameContext) {
+        save_settings(&ctx.settings);
+        ctx.audio.play("ui/menu_select");
+        let settled = ctx.speech.settled();
+        self.step_rows_wait(ctx, RowsEvent::VoiceChanged { settled });
+    }
+
+    /// The one place [`RowsWait`] moves.
+    fn step_rows_wait(&mut self, ctx: &mut GameContext, event: RowsEvent) {
+        let (next, action) = self.rows_wait.next(event);
+        self.rows_wait = next;
+        match action {
+            RowsAction::Nothing => {}
+            RowsAction::Speak => {
+                self.refresh(ctx, true);
+                self.speak_current(ctx);
+            }
+            RowsAction::Rebuild => self.refresh(ctx, true),
+        }
+    }
+
+    /// Speech rows that changed from outside (a screen reader started or
+    /// closed): rebuilt in place, silently, keeping the focused row. Only a
+    /// focused row that went away is spoken, on the row the cursor lands on.
+    fn follow_outside_voice_change(&mut self, ctx: &mut GameContext) {
+        if self.category != "speech" || self.rows_wait != RowsWait::Idle {
+            return;
+        }
+        if self.rows_signature == Some(rows_signature(ctx.speech.as_ref())) {
+            return;
+        }
+        let focused = self
+            .menu
+            .items
+            .get(self.menu.index)
+            .map(|item| item.help_text(self, ctx));
+        self.refresh(ctx, true);
+        let found = focused.and_then(|help| {
+            self.menu
+                .items
+                .iter()
+                .position(|item| item.help_text(self, ctx) == help)
+        });
+        match found {
+            Some(index) => self.menu.index = index,
+            None => self.speak_current(ctx),
+        }
+    }
+
     pub(super) fn announce_speech_preview(&mut self, ctx: &mut GameContext, setting: &str) {
         self.refresh(ctx, true);
         save_settings(&ctx.settings);
@@ -443,15 +506,43 @@ impl Menu for SettingsCategoryState {
     }
 
     fn build_items(&mut self, ctx: &mut GameContext) -> Vec<MenuItem<Self>> {
+        if self.category == "speech" {
+            self.rows_signature = Some(rows_signature(ctx.speech.as_ref()));
+        }
         self.category_items(ctx)
     }
 
+    fn update(&mut self, ctx: &mut GameContext, dt: f64) {
+        ctx.update_music_rotation(dt);
+        if self.rows_wait != RowsWait::Idle {
+            let settled = ctx.speech.settled();
+            self.step_rows_wait(ctx, RowsEvent::Frame { dt, settled });
+            return;
+        }
+        self.follow_outside_voice_change(ctx);
+    }
+
     fn handle_event(&mut self, ctx: &mut GameContext, event: &InputEvent) {
+        if event.key_down().is_some() {
+            self.step_rows_wait(ctx, RowsEvent::OtherInput);
+        }
         match event.key_down() {
             Some((Key::Right, _, _)) => self.adjust_by(ctx, 1),
             Some((Key::Left, _, _)) => self.adjust_by(ctx, -1),
             _ => default_handle_event(self, ctx, event),
         }
+    }
+
+    fn handle_controller(&mut self, ctx: &mut GameContext, event: &InputEvent) {
+        if matches!(event, InputEvent::ControllerButtonDown { .. }) {
+            self.step_rows_wait(ctx, RowsEvent::OtherInput);
+        }
+        default_handle_controller(self, ctx, event);
+    }
+
+    fn handle_gesture(&mut self, ctx: &mut GameContext, gesture: Gesture) -> bool {
+        self.step_rows_wait(ctx, RowsEvent::OtherInput);
+        default_handle_gesture(self, ctx, gesture)
     }
 
     /// D-pad left/right on a controller maps to the same per-item adjust.

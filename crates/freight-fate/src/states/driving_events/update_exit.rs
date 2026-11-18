@@ -730,7 +730,9 @@ impl DrivingState {
         if self.ramp_terminal_miss_count >= 2 {
             // The identical core line keeps the flow predictable by ear; a
             // repeat miss earns help, not scolding.
-            if self.driving_hints(ctx) {
+            if self.driving_hints(ctx) && ctx.touch_hints() {
+                message.push_str(" Swipe down and hold to brake well before it.");
+            } else if self.driving_hints(ctx) {
                 message.push_str(&format!(
                     " Brake with {} well before it.",
                     ctx.control_hint("brake")

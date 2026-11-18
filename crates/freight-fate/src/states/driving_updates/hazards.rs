@@ -339,6 +339,12 @@ impl DrivingState {
                 "Pick your gear before it starts.".to_string()
             };
         }
+        if ctx.touch_hints() {
+            return format!(
+                "Set the jake. {}.",
+                ctx.touch_instruction(crate::bindings::Action::EngineBrake)
+            );
+        }
         format!("Set the jake with {}.", ctx.control_hint("engine_brake"))
     }
 

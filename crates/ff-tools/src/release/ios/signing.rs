@@ -83,7 +83,7 @@ API).";
 
 const STORED_CERT_HELP: &str = "Make a new Apple Distribution certificate from the same private \
 key and store it again as IOS_DISTRIBUTION_P12_BASE64 and IOS_DISTRIBUTION_P12_PASSWORD \
-(docs/ios-testflight.md).";
+(docs/ios/testflight.md).";
 
 fn missing_app_help(bundle: &str) -> String {
     format!(
@@ -506,7 +506,7 @@ fn next_build_number(
                     "TestFlight already has version {short}, which is higher than this \
                      build's {short_version}. Apple refuses an upload to a closed version. \
                      Raise the version in the root Cargo.toml first (see \
-                     docs/ios-testflight.md)."
+                     docs/ios/testflight.md)."
                 )));
             }
         }
@@ -715,8 +715,8 @@ fn next_build(args: &Args, bundle_id: &str) -> Result<()> {
     let run_number: u64 = args
         .number("run-number", 0)
         .map_err(|e| SigningError::new(e.0))?;
-    let version = super::project_version().map_err(SigningError::new)?;
-    let short_version = super::ios::store_version(&version);
+    let version = crate::release::project_version().map_err(SigningError::new)?;
+    let short_version = super::store_version(&version);
     let api = connect()?;
     let builds = (|| {
         let app_id = find_app_id(&api, bundle_id)?
@@ -735,7 +735,7 @@ fn next_build(args: &Args, bundle_id: &str) -> Result<()> {
 }
 
 fn run_command(command: &str, args: &Args) -> Result<()> {
-    let bundle_id = args.string("bundle-id", super::ios::BUNDLE_ID);
+    let bundle_id = args.string("bundle-id", super::BUNDLE_ID);
     let out = PathBuf::from(args.string("out", "build/ios-signing"));
     match command {
         "prepare" => prepare(args, &bundle_id, &out),

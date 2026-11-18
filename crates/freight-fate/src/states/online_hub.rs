@@ -19,8 +19,8 @@ use crate::states::base::default_handle_event;
 use crate::states::base::{InputEvent, Key, Label, Menu, MenuCore, MenuItem};
 use crate::states::cloud_save_states::{CloudBackupConsentState, CloudBackupState};
 use crate::states::online_states::{
-    load_identity, open_url, DriverDirectoryState, DriverProfileState, DriversOnlineState,
-    OnlineSetupState, ProfileSharingSyncState,
+    current_guest, load_identity, open_url, DriverDirectoryState, DriverProfileState,
+    DriversOnlineState, GuestNameState, GuestSetupState, OnlineSetupState, ProfileSharingSyncState,
 };
 
 pub struct OnlineHubState {
@@ -40,8 +40,9 @@ impl OnlineHubState {
     pub const INTRO_HELP: &'static str =
         "Enter opens an item or changes a setting to its next value. Right also moves it \
          forward, Left backward. Escape goes back. Drivers on duty, the Driver directory, the duty \
-         notices, and Account achievements work without connecting. The rest needs an \
-         orinks.net account. Everything you share can be turned off again.";
+         notices, and Account achievements work without connecting. Drive online as a guest \
+         puts you on the board with no account. The rest needs an orinks.net account. \
+         Everything you share can be turned off again.";
 
     /// `OnlineHubState(ctx)`.
     pub fn new(_ctx: &mut GameContext) -> Self {
@@ -66,9 +67,9 @@ impl OnlineHubState {
         match self.menu.index {
             2 => self.toggle_duty_notifications(ctx, direction),
             5 => self.toggle_online_services(ctx, direction),
-            8 => self.toggle_online_presence(ctx, direction),
-            9 => self.toggle_cloud_saves(ctx, direction),
-            11 => self.toggle_discord_presence(ctx, direction),
+            9 => self.toggle_online_presence(ctx, direction),
+            10 => self.toggle_cloud_saves(ctx, direction),
+            12 => self.toggle_discord_presence(ctx, direction),
             _ => {}
         }
     }
@@ -106,6 +107,13 @@ impl OnlineHubState {
     /// The player's own public profile, through the same screen a driver on
     /// the drivers list opens: what other players hear about them.
     fn your_profile(&mut self, ctx: &mut GameContext) {
+        if current_guest().is_some() {
+            ctx.say(
+                "Your profile needs an orinks.net account. Choose Connect an orinks.net account \
+                 first.",
+            );
+            return;
+        }
         let Some(identity) = load_identity() else {
             ctx.say(
                 "Your profile needs your orinks.net account. Choose Set up orinks.net account \
@@ -134,6 +142,28 @@ impl OnlineHubState {
         ctx.apply_duty_notifications();
         ctx.apply_cloud_saves();
         self.announce(ctx);
+    }
+
+    /// No driver yet: go online as a guest. A guest: hear and change the
+    /// guest name. An account: nothing to do here.
+    fn guest_row(&mut self, ctx: &mut GameContext) {
+        if current_guest().is_some() {
+            let names = GuestNameState::new(ctx);
+            ctx.push_state(names);
+        } else if load_identity().is_some() {
+            ctx.say("Your orinks.net account is connected, so there's no guest driver.");
+        } else {
+            let guest = GuestSetupState::new(ctx);
+            ctx.push_state(guest);
+        }
+    }
+
+    fn guest_label() -> String {
+        match current_guest() {
+            Some(guest) => format!("Guest name: {}", guest.display_name),
+            None if load_identity().is_some() => "Guest driver: off, account connected".to_string(),
+            None => "Drive online as a guest".to_string(),
+        }
     }
 
     fn online_account_setup(&mut self, ctx: &mut GameContext) {
@@ -191,6 +221,12 @@ impl OnlineHubState {
     }
 
     fn toggle_cloud_saves(&mut self, ctx: &mut GameContext, _direction: i64) {
+        if current_guest().is_some() {
+            ctx.say(
+                "Cloud backup needs an orinks.net account. Choose Connect an orinks.net account.",
+            );
+            return;
+        }
         if load_identity().is_none() {
             // Cloud backup rides the same account credentials as the board;
             // without them the setting would be inert, so point at the setup
@@ -263,6 +299,12 @@ impl OnlineHubState {
     }
 
     fn cloud_backup_menu(&mut self, ctx: &mut GameContext) {
+        if current_guest().is_some() {
+            ctx.say(
+                "Cloud backup needs an orinks.net account. Choose Connect an orinks.net account.",
+            );
+            return;
+        }
         let backup = CloudBackupState::new(ctx);
         ctx.push_state(backup);
     }
@@ -347,7 +389,9 @@ impl Menu for OnlineHubState {
             ),
             MenuItem::new(
                 Label::dynamic(|_: &Self, _| {
-                    if load_identity().is_some() {
+                    if current_guest().is_some() {
+                        "Connect an orinks.net account".to_string()
+                    } else if load_identity().is_some() {
                         "orinks.net account: connected".to_string()
                     } else {
                         "Set up orinks.net account".to_string()
@@ -360,6 +404,19 @@ impl Menu for OnlineHubState {
                  and starts backing your careers up. Each has its own item on this menu. \
                  Driver name and signed-in computers are on Open my driver setup page.",
             ),
+            // Always here, so the rows below keep their places (adjust_row).
+            MenuItem::new(Label::dynamic(|_: &Self, _| Self::guest_label()), |s: &mut Self, ctx| {
+                s.guest_row(ctx)
+            })
+            .help(Label::dynamic(|_: &Self, _| {
+                if current_guest().is_some() {
+                    "Hear your guest name or ask orinks.net for a new one.".to_string()
+                } else {
+                    "Puts you on the drivers board under a name orinks.net picks, with no \
+                     account. A profile and cloud backup need an account."
+                        .to_string()
+                }
+            })),
             // Deliberately its own row rather than a job the account row does
             // once connected: that row is also the way back in when
             // orinks.net stops accepting this computer, which is exactly when

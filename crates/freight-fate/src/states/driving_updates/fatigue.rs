@@ -374,6 +374,11 @@ impl DrivingState {
             self.trip.truck.brake = 1.0;
             ctx.audio.play_with("vehicle/tire_screech", 0.9, 0.0);
             let out_of_service = self.fatigue_out_of_service(ctx);
+            // The shoulder cost the truck, so say what it is at now, as the
+            // nod-off line below does (issue 533). It leads the standing
+            // part, so the line's own template and translations are kept.
+            let damage = self.trip.truck.damage_pct;
+            let standing = format!("Damage {damage:.0} percent. {standing}");
             ctx.say_event_with(
                 format!(
                     "You cannot stay awake. You drift onto the shoulder and jolt awake on the \

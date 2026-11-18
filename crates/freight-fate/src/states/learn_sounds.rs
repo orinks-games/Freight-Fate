@@ -155,6 +155,13 @@ impl LearnSoundCategoryState {
             let audio = DemoAudioBridge::new(ctx.audio.as_mut());
             self.demo.can_play(&audio, entry)
         };
+        if !playable && ctx.touch_hints() {
+            ctx.say(&format!(
+                "{} is not in this copy of the game. A flick up with two fingers still explains it.",
+                entry.name
+            ));
+            return;
+        }
         if !playable {
             ctx.say(&format!(
                 "{} is not in this copy of the game. F1 still explains it.",

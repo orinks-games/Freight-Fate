@@ -520,7 +520,7 @@ On open road at twenty miles per hour or above, K starts adaptive cruise. On str
 
 Plus and Minus move the cruise target outward to the next multiple of five: from 32, Plus selects 35, then 40. On a controller, hold the right bumper and press D-pad right or left. Hold Control to adjust one mile per hour at a time. Space tells you which mode is active, its target, and whether conditions are holding you below it. Braking cancels the control; Shift+K resumes. A pickup pauses the session through loading and saving, then resumes it after departure.
 
-J switches on the engine brake, and 1, 2, or 3 selects two, four, or six cylinders while it's enabled. On a controller, the right stick click switches it on, and the right bumper with the right stick click steps to the next stage. A lower gear and higher RPM give it more braking effect. Alt+J chooses automatic stage management or manual selection. Listen for town noise restrictions: the game warns before fining you for using it, with exceptions for downhill grades and emergencies.
+J switches on the engine brake, and 1, 2, or 3 selects two, four, or six cylinders while it's enabled. On a controller, the right stick click switches it on, and the right bumper with the right stick click steps to the next stage. A lower gear and higher RPM give it more braking effect. Alt+J chooses automatic stage management or manual selection. Listen for town noise restrictions: the game warns before fining you for using it, with exceptions for downhill grades and emergencies. If you heard about a zone, "End of no engine brake zone." tells you when the engine brake is legal again.
 
 ## Truck damage and being out of service
 
@@ -535,6 +535,8 @@ Service the truck before wear stops the trip. Worn tires lose grip, worn brakes 
 | Past 90 percent | **Out of service.** The truck may not be driven. It can still crawl clear of a live lane, because leaving a stricken truck stopped in traffic is worse, but the run does not continue under its own power. |
 
 The damage readout names a band as well as a percentage. An out-of-service truck can still crawl clear of traffic, but it needs roadside help before the trip can continue.
+
+When something damages the truck on the road, a spoken line says what happened and the damage, as in "Off the road on the right! Damage 1 percent." Off the pavement, each further hit is the rumble strip alone, and "Back on the pavement. Damage 3 percent." gives the total once you are back. Above 90 miles per hour the truck is in a runaway and takes damage every second. You hear "Runaway! The truck is taking damage." when it starts, and "Back under control." with the damage once you are a few miles per hour under 90.
 
 Owners pay for roadside repairs and lose several hours; they still need further garage repair afterward. Company drivers get carrier-paid service and a yard spare. Preventable equipment trouble can also affect their record and dispatch trust.
 
@@ -748,7 +750,7 @@ The co-driver uses every assist, fuels when the tank runs low, crosses the open 
 - at the receiver's gate, so you can dock and deliver;
 - when the truck takes damage, or something else needs your decision.
 
-To drive again sooner, pause and choose Take the wheel back.
+To drive again sooner, pause and choose Take the wheel back. Your ten hours must be unbroken, so driving before they are in starts your rest over.
 
 **Who they are.** Once you have run a team load, Career stats has a Co-drivers list: everyone you have teamed with, how many loads you ran together, and a line or two about them. The Driver status screen reads the same story for the co-driver on your current load. Nothing reads it to you unless you open it.
 
@@ -786,7 +788,7 @@ Use a readout hotkey for a quick check of fuel or time left. Press Tab, or the r
 | Route | Review your progress on the current route. |
 | Driver | Driver name, money, load, objective, truck fuel and damage, transmission, fatigue, hours, and deadline. |
 | Map | Route cities, highways, progress, next guidance, upcoming stops, map points, and toll exposure. |
-| Radio | Current station, stream-safety state, approximate reception position, and currently receivable stations. |
+| Radio | Current station, stream-safety state, approximate reception position, and the stations you can tune here: every Freight Fate station, your playlists and favorites, and stations in range, with a count of the rest, which the Radio app lists. |
 | Driver apps | A tablet-style app menu for Radio, Navigation, Weather, Traffic, Truck stops, Road chatter, and ELD. |
 | Driving commands | Every driving command by name. Choose one to run it and return to the road. This is how a controller reaches the commands with no button of their own. |
 
@@ -988,6 +990,7 @@ Driving speech controls how much the game announces automatically. Standard incl
 | Place callouts | How much the GPS says about places along the road. Sparse, the default, speaks only the town names that explain a speed limit change, like Entering Strawberry right before its 35. All adds the towns the route passes through or skirts. Off silences place names entirely. Speed limit announcements themselves are never affected, and no tier ever reads out every place on the map. |
 | Menu position announcements | When on, menus say the position, like 3 of 10, after each option. Turn off to hear only the option. |
 | Say when a career is backed up | How often you hear that a career is backed up to your orinks.net account: every time, the default, once a session, or never. Backups keep going either way, and a refused backup is always spoken. |
+| Main voice | The voice that reads menus and readouts. Automatic, the default, uses your screen reader when one is running and a system voice when none is. You can pick any voice that can speak right now instead: a running screen reader, SAPI, Windows OneCore or the built-in voice. Narrator is listed while it is running; it cannot be cut off, so quick menu browsing falls behind. When Driving event voice names the same voice, road events go through the main voice. |
 | Driving event voice | Routes road events through the main voice or a separate software voice when available. |
 | Output | Speech and braille is the default: you'll hear the game's messages and, with NVDA or JAWS, receive them on your braille display too. Choose Braille only to play without speech. Menus, readouts, and road events all go to the display, including messages normally spoken by the driving event voice. Braille only requires NVDA or JAWS; with another voice source, the game keeps speaking and explains why. If your screen reader closes during a drive, speech returns until it is running again. |
 | JAWS arrow keys | Appears only when JAWS is your screen reader. JAWS reads each arrow key with its own script, which waits for the screen to change, so menus answer slowly and held arrows lag. Faster adds a small script for this game to your JAWS settings, in your own user folder, so the arrows answer at once. Default removes it. The game touches only its own two files there, and leaves alone any script of the same name that it did not write. Restart JAWS if nothing changes. With JAWS, tapping another key while you hold an arrow keeps the hold for a moment, but the truck can still stop accelerating after a few seconds, so tap the arrow again to keep going. |
