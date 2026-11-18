@@ -23,8 +23,8 @@ use freight_fate::states::main_menu::{
 };
 use freight_fate::states::save_notice::{
     driving_record_notice, DrivingRecordNoticeState, LegacyCareerNoticeState,
-    SaveMigrationNoticeState, SaveModifiedNoticeState, TurnpikeProgramNoticeState,
-    SAVE_MIGRATION_NOTICE, TURNPIKE_PROGRAM_NOTICE,
+    NewerCareerNoticeState, SaveMigrationNoticeState, SaveModifiedNoticeState,
+    TurnpikeProgramNoticeState, SAVE_MIGRATION_NOTICE, TURNPIKE_PROGRAM_NOTICE,
 };
 use freight_fate::updater;
 
@@ -191,6 +191,82 @@ fn test_a_second_close_request_is_obeyed_without_argument() {
 }
 
 // -- tests/test_legacy_career_gate.py (the career menus) ----------------------------
+
+fn write_newer_save(name: &str) -> std::path::PathBuf {
+    let path = Profile::named(name).save().unwrap();
+    let mut data = read_save(&path);
+    data.insert("created_line".into(), serde_json::json!("2.0"));
+    write_packed(&path, &data);
+    path
+}
+
+#[test]
+fn test_newer_career_stays_listed_and_notice_leaves_it_untouched() {
+    let mut app = TestApp::new();
+    let path = write_newer_save("Future Driver");
+    let before = std::fs::read(&path).unwrap();
+    app.push_state(MainMenuState::new());
+    assert!(labels::<MainMenuState>(&app)
+        .iter()
+        .any(|label| label == "Choose career"));
+    assert!(app
+        .main_lines()
+        .iter()
+        .any(|line| line.contains("need a newer version")));
+    assert!(main_menu::last_invalid_saves().is_empty());
+    app.push_state(LoadDriverState::new());
+    assert_eq!(
+        labels::<LoadDriverState>(&app)[0],
+        "Future Driver: career from Freight Fate 2.0"
+    );
+    app.clear_speech();
+    key(&mut app, Key::Return);
+    assert!(is::<NewerCareerNoticeState>(&app));
+    assert!(app.main_lines().iter().any(|text| text.contains(
+        "Future Driver was made in Freight Fate 2.0. This version cannot continue it. Nothing was lost: the save is untouched and still works in Freight Fate 2.0."
+    )));
+    assert_eq!(
+        labels::<NewerCareerNoticeState>(&app),
+        vec!["Start a new career", "Back to the career list"]
+    );
+    key(&mut app, Key::Escape);
+    assert!(is::<LoadDriverState>(&app));
+    key(&mut app, Key::Return);
+    key(&mut app, Key::Return);
+    assert!(is::<NameEntryState>(&app));
+    assert!(app.ctx.profile.is_none());
+    assert_eq!(std::fs::read(&path).unwrap(), before);
+    app.push_state(ManageCareersState::new());
+    assert_eq!(
+        labels::<ManageCareersState>(&app)[0],
+        "Future Driver: career from Freight Fate 2.0"
+    );
+    key(&mut app, Key::Return);
+    assert!(is::<NewerCareerNoticeState>(&app));
+    assert_eq!(std::fs::read(&path).unwrap(), before);
+}
+
+#[test]
+fn test_new_career_will_not_overwrite_a_same_named_newer_save() {
+    let mut app = TestApp::new();
+    let path = write_newer_save("Future Driver");
+    let before = std::fs::read(&path).unwrap();
+    let picker = CareerStartState::new(&app.ctx, "Future Driver", DEFAULT_CITY);
+    app.push_state(picker);
+    app.clear_speech();
+    key(&mut app, Key::Return);
+    assert!(app
+        .main_lines()
+        .iter()
+        .any(|text| text.contains("different driver name")));
+    assert!(app
+        .main_lines()
+        .iter()
+        .any(|text| text.contains("Freight Fate 2.0")));
+    assert!(app.ctx.profile.is_none());
+    assert!(is::<CareerStartState>(&app));
+    assert_eq!(std::fs::read(&path).unwrap(), before);
+}
 
 #[test]
 fn test_legacy_career_stays_listed_and_opens_the_notice() {

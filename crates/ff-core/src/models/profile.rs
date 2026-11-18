@@ -299,6 +299,14 @@ pub struct LegacyCareerError {
     pub path: Option<PathBuf>,
 }
 
+#[derive(Debug, Clone, PartialEq, Eq, thiserror::Error)]
+#[error("{name}: career created on the newer {line} line")]
+pub struct NewerCareerError {
+    pub name: String,
+    pub path: Option<PathBuf>,
+    pub line: String,
+}
+
 /// Why `Profile::load` refused a file.
 #[derive(Debug, thiserror::Error)]
 pub enum LoadError {
@@ -306,6 +314,8 @@ pub enum LoadError {
     Integrity(#[from] ProfileIntegrityError),
     #[error(transparent)]
     LegacyCareer(#[from] LegacyCareerError),
+    #[error(transparent)]
+    NewerCareer(#[from] NewerCareerError),
     #[error(transparent)]
     Io(#[from] std::io::Error),
 }
@@ -327,6 +337,36 @@ pub fn is_pre_1_9_save(data: &Map<String, Value>) -> bool {
         }
         _ => true,
     }
+}
+
+pub fn newer_career_line(data: &Map<String, Value>) -> Option<&str> {
+    fn release_line(line: &str) -> Option<(u64, u64)> {
+        let (major, minor) = line.split_once('.')?;
+        if major.is_empty()
+            || minor.is_empty()
+            || !major.bytes().all(|c| c.is_ascii_digit())
+            || !minor.bytes().all(|c| c.is_ascii_digit())
+        {
+            return None;
+        }
+        Some((major.parse().ok()?, minor.parse().ok()?))
+    }
+    let line = data.get("created_line")?.as_str()?;
+    (release_line(line)? > release_line(CREATED_LINE)?).then_some(line)
+}
+
+pub fn newer_career_file(path: &Path) -> Option<NewerCareerError> {
+    let (raw, _) = sealed::read(path).ok()?;
+    let (data, _) = decode_save_bytes(&raw).ok()?;
+    Some(NewerCareerError {
+        name: data
+            .get("name")
+            .filter(|v| py_truthy(v))
+            .map(py_str)
+            .unwrap_or_else(|| "Driver".to_string()),
+        path: Some(path.to_path_buf()),
+        line: newer_career_line(&data)?.to_string(),
+    })
 }
 
 /// Whether an on-disk save was created before the 1.9 line.

@@ -18,6 +18,7 @@ use crate::net::{NetError, Transport};
 use crate::online_presence::{base_url, py_str, truthy, OnlineIdentity};
 use ff_core::cloud_save_integrity::{verify_cloud_revision_with, CloudSaveIntegrityError};
 use ff_core::models::career::level_for_xp;
+use ff_core::models::profile::newer_career_line;
 use ff_core::pyfmt::fmt_grouped;
 
 fn saves_url() -> String {
@@ -393,6 +394,10 @@ pub fn download_save(
 pub enum RestoreError {
     /// `LegacyCareerError(name)`: a career from the 1.8 line does not restore here.
     LegacyCareer(String),
+    NewerCareer {
+        name: String,
+        line: String,
+    },
     /// The revision failed the server-signature check.
     Integrity(CloudSaveIntegrityError),
     /// The caller's writer could not install the file.
@@ -407,6 +412,9 @@ impl fmt::Display for RestoreError {
                     f,
                     "{name} was created by an earlier version of Freight Fate"
                 )
+            }
+            RestoreError::NewerCareer { name, line } => {
+                write!(f, "{name}: career created on the newer {line} line")
             }
             RestoreError::Integrity(e) => write!(f, "{}", e.message),
             RestoreError::Write(e) => f.write_str(e),
@@ -441,6 +449,17 @@ pub fn restore_to_disk(
     keys: Option<&PublicKeys>,
 ) -> Result<PathBuf, RestoreError> {
     let profile_dict = payload.get("profile").cloned().unwrap_or(Value::Null);
+    if let Some(line) = profile_dict.as_object().and_then(newer_career_line) {
+        return Err(RestoreError::NewerCareer {
+            name: profile_dict
+                .get("name")
+                .and_then(Value::as_str)
+                .filter(|name| !name.is_empty())
+                .unwrap_or("Driver")
+                .to_string(),
+            line: line.to_string(),
+        });
+    }
     // Careers created before the 1.9 line do not restore here, for the same
     // reason the load gate refuses their local files: 1.9 starts everyone
     // fresh. Checked before anything touches disk; the cloud copy stays in

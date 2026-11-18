@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### Compatibility
+
+- **Careers from newer Freight Fate versions stay untouched.** Local saves and cloud backups explain which version can continue them.
+
 ### Added
 
 - **Live cattle are a new freight class from level 5.** Haul feeder calves from sale barns to feed yards, and fed cattle to beef plants, on a livestock trailer.

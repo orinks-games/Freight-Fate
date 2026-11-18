@@ -167,6 +167,38 @@ mod tests {
         KeyGuard
     }
     #[test]
+    fn a_sealed_newer_career_is_refused_without_rewriting_or_setting_it_aside() {
+        crate::models::profile::tests::with_data_dir(|_| {
+            let _key = sealing();
+            let p = Profile::named("Future Driver");
+            let mut data = p.to_dict();
+            data.insert("created_line".into(), serde_json::json!("2.0"));
+            data.insert("_signature".into(), serde_json::json!("invalid"));
+            let path = p.path();
+            write(&path, &encode_save_bytes(&data)).unwrap();
+            let before = std::fs::read(&path).unwrap();
+            assert!(before.starts_with(b"HKSL"));
+            let count = std::fs::read_dir(path.parent().unwrap()).unwrap().count();
+            for frozen in [false, true] {
+                let Err(crate::models::profile::LoadError::NewerCareer(err)) =
+                    Profile::load_with(&path, frozen)
+                else {
+                    panic!("expected a newer-career refusal");
+                };
+                assert_eq!(err.name, "Future Driver");
+                assert_eq!(err.line, "2.0");
+                assert_eq!(err.path.as_deref(), Some(path.as_path()));
+                assert!(crate::models::profile::newer_career_file(&path).is_some());
+                assert!(Profile::list_saves().contains(&path));
+                assert_eq!(std::fs::read(&path).unwrap(), before);
+                assert_eq!(
+                    std::fs::read_dir(path.parent().unwrap()).unwrap().count(),
+                    count
+                );
+            }
+        });
+    }
+    #[test]
     fn sealed_profile_round_trip_preserves_board_payload_and_integrity() {
         crate::models::profile::tests::with_data_dir(|_| {
             let _key = sealing();

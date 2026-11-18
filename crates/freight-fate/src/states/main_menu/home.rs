@@ -175,6 +175,9 @@ impl Menu for MainMenuState {
                  Fate. They are listed under Choose career. ",
             );
         }
+        if loadable_saves().is_empty() && !newer_saves().is_empty() {
+            warning.push_str("Some saved careers need a newer version of Freight Fate. They are listed under Choose career. ");
+        }
         let text = format!(
             "Freight Fate {}. {warning}",
             updater::spoken_version(version())
@@ -196,7 +199,7 @@ impl Menu for MainMenuState {
                 .help(format!("Load the newest save for {}.", latest_profile.name)),
             );
         }
-        if !saves.is_empty() || !legacy_saves().is_empty() {
+        if !saves.is_empty() || !legacy_saves().is_empty() || !newer_saves().is_empty() {
             // Careers from earlier versions cannot continue, but they still
             // belong on the list: even with nothing loadable, Choose career is
             // where a player finds them and hears what happened.
@@ -207,7 +210,7 @@ impl Menu for MainMenuState {
                 .help("Any saved career, not only the newest."),
             );
         }
-        if !saves.is_empty() || !legacy_saves().is_empty() {
+        if !saves.is_empty() || !legacy_saves().is_empty() || !newer_saves().is_empty() {
             items.push(
                 MenuItem::new("Manage careers", |_s: &mut Self, ctx| {
                     ctx.push_state(ManageCareersState::new())
