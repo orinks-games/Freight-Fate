@@ -355,7 +355,33 @@ pub fn newer_career_line(data: &Map<String, Value>) -> Option<&str> {
     (release_line(line)? > release_line(CREATED_LINE)?).then_some(line)
 }
 
+/// `path` with the file name as it is spelled on disk. A sealed save is bound
+/// to its exact file name, so on a case-insensitive drive a differently
+/// capitalized path opens the file but fails the seal.
+fn with_on_disk_casing(path: &Path) -> PathBuf {
+    let (Some(parent), Some(wanted)) = (path.parent(), path.file_name()) else {
+        return path.to_path_buf();
+    };
+    let Ok(entries) = std::fs::read_dir(parent) else {
+        return path.to_path_buf();
+    };
+    let mut fallback = None;
+    for entry in entries.flatten() {
+        let name = entry.file_name();
+        if name == wanted {
+            return path.to_path_buf();
+        }
+        if fallback.is_none()
+            && name.to_string_lossy().to_lowercase() == wanted.to_string_lossy().to_lowercase()
+        {
+            fallback = Some(parent.join(name));
+        }
+    }
+    fallback.unwrap_or_else(|| path.to_path_buf())
+}
+
 pub fn newer_career_file(path: &Path) -> Option<NewerCareerError> {
+    let path = &with_on_disk_casing(path);
     let (raw, _) = sealed::read(path).ok()?;
     let (data, _) = decode_save_bytes(&raw).ok()?;
     Some(NewerCareerError {
@@ -375,7 +401,7 @@ pub fn newer_career_file(path: &Path) -> Option<NewerCareerError> {
 /// own terms. Used by the new-career flow so starting over with the same
 /// driver name can never overwrite a career an earlier build still owns.
 pub fn is_pre_1_9_save_file(path: &Path) -> bool {
-    let Ok((raw, _)) = sealed::read(path) else {
+    let Ok((raw, _)) = sealed::read(&with_on_disk_casing(path)) else {
         return false;
     };
     match decode_save_bytes(&raw) {
