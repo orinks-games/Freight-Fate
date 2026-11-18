@@ -5,6 +5,7 @@ use crate::states_main_menu_support::*;
 use crate::states_online_support::{identity, install_cloud, install_identity};
 use ff_core::models::profile::{save_path_for, Profile};
 use freight_fate::app::testing::TestApp;
+use freight_fate::cloud_saves::{cloud_slot_name, url_quote};
 use freight_fate::net::testing::FakeTransport;
 use freight_fate::states::base::{Key, Menu};
 use freight_fate::states::main_menu::{
@@ -48,7 +49,7 @@ fn backed_up_career_on_the_delete_screen(
     Profile::named_in("Doomed", "Denver").save().unwrap();
     install_cloud(app, transport.clone(), true)
         .sync_state()
-        .record_synced("Doomed", 3, "hash");
+        .record_synced(&cloud_slot_name("Doomed"), 3, "hash");
     app.push_state(MainMenuState::new());
     select::<MainMenuState>(app, "Manage careers");
     key(app, Key::Return);
@@ -63,6 +64,10 @@ fn deleting_a_backed_up_career_can_remove_its_cloud_backups_too() {
     let _guard = install_identity(&app, Some(&identity()));
     let transport = FakeTransport::replying(json!({"ok": true}));
     backed_up_career_on_the_delete_screen(&mut app, &transport);
+    app.ctx
+        .cloud_saves_service()
+        .sync_state()
+        .record_synced("Doomed", 19, "1.9-hash");
     assert!(app
         .main_lines()
         .join(" ")
@@ -86,7 +91,14 @@ fn deleting_a_backed_up_career_can_remove_its_cloud_backups_too() {
         .filter(|r| r.method.as_deref() == Some("DELETE"))
         .collect();
     assert_eq!(deletes.len(), 1);
-    assert!(deletes[0].url.contains("saveName=Doomed"));
+    assert!(deletes[0].url.ends_with(&format!(
+        "saveName={}",
+        url_quote(&cloud_slot_name("Doomed"))
+    )));
+    assert_eq!(
+        app.ctx.cloud_saves_service().sync_state().slot("Doomed")["revision"],
+        19
+    );
     assert!(!save_path_for("Doomed").exists());
     assert!(is::<MainMenuState>(&app));
     let said = app.main_lines().join(" ");
@@ -99,7 +111,7 @@ fn deleting_a_backed_up_career_can_remove_its_cloud_backups_too() {
         .ctx
         .cloud_saves_service()
         .sync_state()
-        .slot("Doomed")
+        .slot(&cloud_slot_name("Doomed"))
         .is_empty());
 }
 
@@ -121,7 +133,7 @@ fn deleting_from_this_computer_only_keeps_the_backups_and_frees_the_name() {
         .ctx
         .cloud_saves_service()
         .sync_state()
-        .slot("Doomed")
+        .slot(&cloud_slot_name("Doomed"))
         .is_empty());
 }
 

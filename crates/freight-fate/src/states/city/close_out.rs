@@ -66,7 +66,7 @@ impl CloseOutCareerState {
         };
         self.busy = true;
         ctx.say("Removing the cloud backups.");
-        let save_name = self.name.clone();
+        let save_name = cloud_saves::cloud_slot_name(&self.name);
         let outcome = self.outcome.clone();
         let service = ctx.cloud_saves_service().clone();
         run_worker(self.threaded, "close-out-career", move || {

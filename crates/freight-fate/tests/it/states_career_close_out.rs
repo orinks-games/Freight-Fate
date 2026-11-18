@@ -150,3 +150,40 @@ fn test_a_disqualified_driver_cannot_buy_into_owner_operator() {
         "{reasons:?}"
     );
 }
+
+#[test]
+fn closing_out_deletes_only_this_release_backup() {
+    use crate::states_online_support::{identity, install_cloud, install_identity};
+    use freight_fate::cloud_saves::{cloud_slot_name, url_quote};
+    use freight_fate::net::testing::FakeTransport;
+    use serde_json::json;
+
+    let mut app = TestApp::new();
+    ended_career(&mut app);
+    profile(&app).save().unwrap();
+    let _guard = install_identity(&app, Some(&identity()));
+    let transport = FakeTransport::replying(json!({"ok": true}));
+    let service = install_cloud(&mut app, transport.clone(), true);
+    service.sync_state().record_synced("Dale", 19, "1.9-hash");
+    service
+        .sync_state()
+        .record_synced(&cloud_slot_name("Dale"), 2, "2.0-hash");
+    let city = CityMenuState::new(&app.ctx, false);
+    app.push_state(city);
+    activate::<CityMenuState>(&mut app, "Close out this career");
+    with_state_mut::<CloseOutCareerState, _>(&mut app, |s, _| s.threaded = false);
+    activate::<CloseOutCareerState>(&mut app, "Yes, close out Dale");
+    with_state_mut::<CloseOutCareerState, _>(&mut app, |s, ctx| Menu::update(s, ctx, 0.0));
+    app.ctx.run_deferred();
+    let requests = transport.requests();
+    assert_eq!(requests.len(), 1);
+    assert_eq!(requests[0].method.as_deref(), Some("DELETE"));
+    assert!(requests[0]
+        .url
+        .ends_with(&format!("saveName={}", url_quote(&cloud_slot_name("Dale")))));
+    assert_eq!(service.sync_state().slot("Dale")["revision"], 19);
+    assert!(service
+        .sync_state()
+        .slot(&cloud_slot_name("Dale"))
+        .is_empty());
+}
