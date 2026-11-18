@@ -16507,11 +16507,26 @@ msgstr "без изменений"
 msgid "Latest backup accepted and server-verified."
 msgstr "Последняя резервная копия принята и проверена сервером."
 
-msgid "slots"
-msgstr "slots"
+msgid "cloud-resume"
+msgstr ""
+
+msgid "not connected"
+msgstr ""
+
+msgid "site unreachable"
+msgstr ""
+
+msgid "backup unavailable"
+msgstr ""
+
+msgid "backup does not match requested career"
+msgstr ""
 
 msgid "revision"
 msgstr "revision"
+
+msgid "slots"
+msgstr "slots"
 
 msgid "hash"
 msgstr "hash"
@@ -16755,6 +16770,28 @@ msgstr "{name}: резервная копия сохранена."
 #. placeholders: {name}
 msgid "{name} is backed up again."
 msgstr "{name}: резервная копия снова сохранена."
+
+msgid "Checking careers on your other devices. Try Continue shortly."
+msgstr ""
+
+#. placeholders: {name}
+msgid "Picked up {name} where you left off on another device."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Open Cloud backup to choose which copy to keep."
+msgstr ""
+
+#. placeholders: {name}
+#. one sentence of a longer line
+msgid "{name} changed on another device."
+msgstr ""
+
+#. placeholders: {name}
+msgid ""
+"{name} changed on another device. Open Cloud backup to choose which copy to "
+"keep."
+msgstr ""
 
 msgid "accepted"
 msgstr "accepted"
@@ -40255,6 +40292,15 @@ msgstr ""
 "Показывает в Discord общую активность, например езду или отдых, но никогда "
 "не сохранения и не личные данные. Нужен запущенный Discord, профиль "
 "водителя не нужен."
+
+#. placeholders: {on_off}
+msgid "Resume careers from other devices: {on_off}"
+msgstr ""
+
+msgid ""
+"Checks for newer progress when you return to the main menu. Restore each "
+"career here once first; conflicting saves need your choice in Cloud backup."
+msgstr ""
 
 msgid "Connect to orinks.net"
 msgstr "Подключение к orinks.net"

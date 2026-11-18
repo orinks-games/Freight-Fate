@@ -16629,10 +16629,25 @@ msgstr "không thay đổi"
 msgid "Latest backup accepted and server-verified."
 msgstr "Bản sao lưu mới nhất đã được máy chủ tiếp nhận và xác thực."
 
-msgid "slots"
+msgid "cloud-resume"
+msgstr ""
+
+msgid "not connected"
+msgstr ""
+
+msgid "site unreachable"
+msgstr ""
+
+msgid "backup unavailable"
+msgstr ""
+
+msgid "backup does not match requested career"
 msgstr ""
 
 msgid "revision"
+msgstr ""
+
+msgid "slots"
 msgstr ""
 
 msgid "hash"
@@ -16878,6 +16893,28 @@ msgstr "Đã sao lưu {name}."
 #. placeholders: {name}
 msgid "{name} is backed up again."
 msgstr "Đã sao lưu lại {name}."
+
+msgid "Checking careers on your other devices. Try Continue shortly."
+msgstr ""
+
+#. placeholders: {name}
+msgid "Picked up {name} where you left off on another device."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Open Cloud backup to choose which copy to keep."
+msgstr ""
+
+#. placeholders: {name}
+#. one sentence of a longer line
+msgid "{name} changed on another device."
+msgstr ""
+
+#. placeholders: {name}
+msgid ""
+"{name} changed on another device. Open Cloud backup to choose which copy to "
+"keep."
+msgstr ""
 
 msgid "accepted"
 msgstr ""
@@ -40000,6 +40037,15 @@ msgstr ""
 "Hiển thị hoạt động chung trên Discord như đang lái xe hoặc đang nghỉ, không "
 "bao giờ lộ bản lưu hay thông tin cá nhân. Chỉ cần Discord đang chạy, không "
 "cần hồ sơ tài xế."
+
+#. placeholders: {on_off}
+msgid "Resume careers from other devices: {on_off}"
+msgstr ""
+
+msgid ""
+"Checks for newer progress when you return to the main menu. Restore each "
+"career here once first; conflicting saves need your choice in Cloud backup."
+msgstr ""
 
 msgid "Connect to orinks.net"
 msgstr "Kết nối tới orinks.net"

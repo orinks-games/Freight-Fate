@@ -650,7 +650,7 @@ impl MainMenuState {
 
     fn continue_latest(&mut self, ctx: &mut GameContext) {
         if ctx.cloud_saves_service().resume_pending() {
-            ctx.say("Checking careers on your other devices. Try Continue shortly.");
+            ctx.say(crate::cloud_saves::RESUME_CHECKING);
             return;
         }
         let saves = loadable_saves();
