@@ -40,6 +40,7 @@
 - **Stop notices are no longer lost when the voice is busy.** A truck stop's 5-mile call waits its turn behind billboards and roadwork calls.
 - **The Tab radio screen lists every Freight Fate station and the stations in range.** It used to stop after 16, before reaching any local station.
 - **The game no longer closes while the Windows SAPI voice is reading driving events.** SAPI now hands its speech to the game to play.
+- **Vietnamese no longer switches to English for turn directions, speed limit changes and the prompt to start the engine.** Thanks to Đào Đức Trung ([@Daoductrung](https://github.com/Daoductrung), [PR 625](https://github.com/orinks-games/Freight-Fate/pull/625)).
 
 ## 1.9.6 - 2026-11-13
 
