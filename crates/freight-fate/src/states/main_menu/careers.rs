@@ -328,6 +328,10 @@ impl ConfirmCareerActionState {
     }
 
     fn reset(&mut self, ctx: &mut GameContext) {
+        if ctx.cloud_saves_service().resume_pending() {
+            ctx.say(crate::cloud_saves::RESUME_CHECKING);
+            return;
+        }
         let Some(old) = &self.profile else {
             return;
         };
@@ -362,6 +366,10 @@ impl ConfirmCareerActionState {
     /// Delete the save here; with `with_cloud`, ask orinks.net to remove its
     /// backups first, so the player hears one outcome that covers both.
     fn delete(&mut self, ctx: &mut GameContext, with_cloud: bool) {
+        if ctx.cloud_saves_service().resume_pending() {
+            ctx.say(crate::cloud_saves::RESUME_CHECKING);
+            return;
+        }
         if self.busy {
             ctx.say("Still deleting. One moment.");
             return;

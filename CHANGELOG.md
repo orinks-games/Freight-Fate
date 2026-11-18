@@ -29,6 +29,8 @@
 
 ### Fixed
 
+- **Resetting or deleting a career waits for cloud resume to finish.** The career stays untouched while the check runs.
+
 - **One unavailable cloud career no longer stops other careers from resuming.**
 
 - **Continue picks the latest career resumed from another device.**
