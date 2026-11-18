@@ -20583,11 +20583,6 @@ msgstr ""
 msgid "{touch_noun} and {touch_noun2}"
 msgstr ""
 
-#. placeholders: {release}
-#: crates/freight-fate/src/cloud_saves.rs
-msgid " (Career {release})"
-msgstr ""
-
 #. placeholders: {e}
 #: crates/freight-fate/src/cloud_saves.rs
 msgid "cloud save content is not a gzipped profile: {e}"
@@ -20636,6 +20631,11 @@ msgstr ""
 
 #: crates/freight-fate/src/cloud_saves.rs
 msgid "Latest backup accepted and server-verified."
+msgstr ""
+
+#. placeholders: {release}
+#: crates/freight-fate/src/cloud_saves/slot_name.rs
+msgid " (Career {release})"
 msgstr ""
 
 #: crates/freight-fate/src/cloud_saves/sync_state.rs

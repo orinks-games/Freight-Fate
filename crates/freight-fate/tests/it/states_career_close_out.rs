@@ -2,14 +2,18 @@
 //! keeps the data, and only the player's own close-out removes it.
 
 use crate::states_city_support::*;
+use crate::states_online_support::{identity, install_cloud, install_identity};
 use ff_core::models::business::owner_operator_eligibility;
 use ff_core::models::enforcement::{self, SETBACK_DISQUALIFICATION};
 use freight_fate::app::testing::TestApp;
+use freight_fate::cloud_saves::{cloud_slot_name, url_quote};
+use freight_fate::net::testing::FakeTransport;
 use freight_fate::states::base::Menu;
 use freight_fate::states::career_setback::CareerSetbackNoticeState;
 use freight_fate::states::city::{CityMenuState, CloseOutCareerState};
 use freight_fate::states::driving_rest_states::{major_offense_text, suspension_text};
 use freight_fate::states::main_menu::MainMenuState;
+use serde_json::json;
 
 const DAY: f64 = 24.0;
 
@@ -153,11 +157,6 @@ fn test_a_disqualified_driver_cannot_buy_into_owner_operator() {
 
 #[test]
 fn closing_out_deletes_only_this_release_backup() {
-    use crate::states_online_support::{identity, install_cloud, install_identity};
-    use freight_fate::cloud_saves::{cloud_slot_name, url_quote};
-    use freight_fate::net::testing::FakeTransport;
-    use serde_json::json;
-
     let mut app = TestApp::new();
     ended_career(&mut app);
     profile(&app).save().unwrap();

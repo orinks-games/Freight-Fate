@@ -50,7 +50,7 @@ use crate::net::{wait_seconds, Event, SharedTransport};
 use crate::online_presence::{
     default_transport, join_with_timeout, py_str, truthy, OnlineIdentity,
 };
-use ff_core::models::profile::{Profile, CREATED_LINE, LEGACY_SAVE_SUFFIX, SAVE_SUFFIX};
+use ff_core::models::profile::{Profile, LEGACY_SAVE_SUFFIX, SAVE_SUFFIX};
 use ff_core::sim::real_traffic::{wall_clock, Clock};
 
 // A save burst (delivery, achievement, rest) writes the file several times in
@@ -94,29 +94,6 @@ pub fn save_slot_name(profile_name: &str) -> String {
     }
 }
 
-fn cloud_slot_suffix(line: &str) -> Option<String> {
-    let (major, minor) = line.split_once('.')?;
-    let release = (major.parse::<u64>().ok()?, minor.parse::<u64>().ok()?);
-    (release > (1, 9)).then(|| format!(" (Career {})", release.0))
-}
-
-/// The remote backup key, isolated from careers on earlier release lines.
-pub fn cloud_slot_name(profile_name: &str) -> String {
-    let name = save_slot_name(profile_name);
-    match cloud_slot_suffix(CREATED_LINE) {
-        Some(suffix) => format!("{name}{suffix}"),
-        None => name,
-    }
-}
-
-/// The local career stem represented by this line's remote key or a 1.9 key.
-pub fn local_name_for_slot(slot: &str) -> &str {
-    match cloud_slot_suffix(CREATED_LINE) {
-        Some(suffix) => slot.strip_suffix(&suffix).unwrap_or(slot),
-        None => slot,
-    }
-}
-
 /// Decode downloaded content back to a profile dict. Errors when the bytes
 /// are not a gzipped profile object.
 pub fn profile_dict_from_content(content: &[u8]) -> Result<Value, String> {
@@ -136,6 +113,7 @@ pub fn profile_dict_from_content(content: &[u8]) -> Result<Value, String> {
 }
 
 mod api;
+mod slot_name;
 mod sync_state;
 mod wording;
 
@@ -143,6 +121,7 @@ pub use api::{
     backup_summary, delete_save, download_save, list_saves, restore_to_disk, set_public_save,
     upload_save, url_quote, DownloadError, RestoreError, RestoreHooks, SavesList,
 };
+pub use slot_name::{cloud_slot_name, local_name_for_slot};
 pub use sync_state::SyncState;
 pub use wording::*;
 
@@ -1102,28 +1081,6 @@ has; restarting the slot fresh"
                 .saves
                 .iter()
                 .any(|entry| entry.get("saveName").and_then(Value::as_str) == Some(name)),
-        }
-    }
-}
-
-#[cfg(test)]
-mod tests {
-    use super::cloud_slot_suffix;
-
-    #[test]
-    fn cloud_suffix_follows_the_numeric_release_line() {
-        for (line, expected) in [
-            ("1.8", None),
-            ("1.9", None),
-            ("1.10", Some(" (Career 1)")),
-            ("2.0", Some(" (Career 2)")),
-            ("20.0", Some(" (Career 20)")),
-            ("", None),
-            ("future", None),
-            ("2.x", None),
-            ("2.0.1", None),
-        ] {
-            assert_eq!(cloud_slot_suffix(line).as_deref(), expected, "{line}");
         }
     }
 }
