@@ -8,6 +8,7 @@
 
 ### Added
 
+- **Cloud resume can pick up careers where you left off on another device.** Turn it on under Online after restoring each career once.
 - **Job details and the departure line say how much night driving a run has,** as in "About 4 hours of night driving."
 - **A drowsy driver can call dispatch to move the appointment,** giving up the on-time bonus. The row is Too tired to drive safely.
 - **The driving command list can change radio volume and category.**

@@ -633,6 +633,10 @@ impl AgentPolicy {
                 }
                 let (choice, main, event) = input.speech_state();
                 text.push_str(&format!(
+                    "\nCLOUD RESUME: {:?}.",
+                    input.cloud_resume_state()
+                ));
+                text.push_str(&format!(
                     "\nSPEECH: main_backend {choice}; main {main}; event {event}."
                 ));
             }

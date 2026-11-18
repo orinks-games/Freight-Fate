@@ -649,6 +649,10 @@ impl MainMenuState {
     }
 
     fn continue_latest(&mut self, ctx: &mut GameContext) {
+        if ctx.cloud_saves_service().resume_pending() {
+            ctx.say("Checking careers on your other devices. Try Continue shortly.");
+            return;
+        }
         let saves = loadable_saves();
         let Some((_, latest)) = saves.into_iter().next() else {
             ctx.say("No saved careers found.");

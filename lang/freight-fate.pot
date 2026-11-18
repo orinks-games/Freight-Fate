@@ -10475,7 +10475,7 @@ msgstr ""
 msgid "kind"
 msgstr ""
 
-#: crates/ff-core/src/models/exchange.rs crates/freight-fate/src/states/online_states/profile.rs
+#: crates/ff-core/src/models/exchange.rs crates/freight-fate/src/cloud_saves/resume.rs crates/freight-fate/src/states/online_states/profile.rs
 msgid "summary"
 msgstr ""
 
@@ -18930,12 +18930,55 @@ msgstr ""
 msgid "Latest backup accepted and server-verified."
 msgstr ""
 
-#: crates/freight-fate/src/cloud_saves/sync_state.rs
-msgid "slots"
+#: crates/freight-fate/src/cloud_saves/resume.rs
+msgid "cloud-resume"
+msgstr ""
+
+#: crates/freight-fate/src/cloud_saves/resume.rs
+msgid "not connected"
+msgstr ""
+
+#: crates/freight-fate/src/cloud_saves/resume.rs
+msgid "site unreachable"
+msgstr ""
+
+#: crates/freight-fate/src/cloud_saves/resume.rs
+msgid "backup unavailable"
+msgstr ""
+
+#: crates/freight-fate/src/cloud_saves/resume.rs
+msgid "backup does not match requested career"
+msgstr ""
+
+#. placeholders: {name}
+#: crates/freight-fate/src/cloud_saves/resume.rs
+msgid "Picked up {name} where you left off on another device."
+msgstr ""
+
+#: crates/freight-fate/src/cloud_saves/resume.rs crates/freight-fate/src/cloud_saves/sync_state.rs
+msgid "revision"
+msgstr ""
+
+#. one sentence of a longer line
+#: crates/freight-fate/src/cloud_saves/resume.rs
+msgid "Open Cloud backup to choose which copy to keep."
+msgstr ""
+
+#. placeholders: {name}
+#. one sentence of a longer line
+#: crates/freight-fate/src/cloud_saves/resume.rs
+msgid "{name} changed on another device."
+msgstr ""
+
+#. placeholders: {name}
+#: crates/freight-fate/src/cloud_saves/resume.rs
+msgid ""
+"{name} changed on another device. Open Cloud backup to choose which copy to "
+"keep."
 msgstr ""
 
 #: crates/freight-fate/src/cloud_saves/sync_state.rs
-msgid "revision"
+msgid "slots"
 msgstr ""
 
 #: crates/freight-fate/src/cloud_saves/sync_state.rs
@@ -39078,6 +39121,10 @@ msgstr ""
 msgid "Up and Down pick a career, Enter loads it, Escape goes back."
 msgstr ""
 
+#: crates/freight-fate/src/states/main_menu/careers.rs crates/freight-fate/src/states/main_menu.rs
+msgid "Checking careers on your other devices. Try Continue shortly."
+msgstr ""
+
 #. placeholders: {name}
 #: crates/freight-fate/src/states/main_menu/careers.rs crates/freight-fate/src/states/main_menu.rs
 msgid "Welcome back, {name}."
@@ -44346,6 +44393,17 @@ msgstr ""
 msgid ""
 "Shows broad activity in Discord, like driving or resting, never saves or "
 "personal details. Needs Discord running, no driver profile needed."
+msgstr ""
+
+#. placeholders: {on_off}
+#: crates/freight-fate/src/states/online_hub.rs
+msgid "Resume careers from other devices: {on_off}"
+msgstr ""
+
+#: crates/freight-fate/src/states/online_hub.rs
+msgid ""
+"Checks for newer progress when you return to the main menu. Restore each "
+"career here once first; conflicting saves need your choice in Cloud backup."
 msgstr ""
 
 #: crates/freight-fate/src/states/online_offer.rs

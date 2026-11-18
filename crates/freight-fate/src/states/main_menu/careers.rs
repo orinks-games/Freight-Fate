@@ -36,7 +36,18 @@ impl LoadDriverState {
         ctx.push_state(LegacyCareerNoticeState::new(&legacy.name));
     }
 
-    fn pick(&mut self, ctx: &mut GameContext, profile: &Profile) {
+    fn pick(&mut self, ctx: &mut GameContext, path: &std::path::Path) {
+        if ctx.cloud_saves_service().resume_pending() {
+            ctx.say("Checking careers on your other devices. Try Continue shortly.");
+            return;
+        }
+        let profile = match Profile::load(path) {
+            Ok(profile) => profile,
+            Err(error) => {
+                ctx.say(&error.to_string());
+                return;
+            }
+        };
         ctx.profile = Some(profile.clone());
         let lever_notes = apply_continue_levers(ctx);
         ctx.say(&format!("Welcome back, {}.", profile.name));
@@ -70,9 +81,8 @@ impl Menu for LoadDriverState {
         for (path, profile) in loadable_saves() {
             let label = career_summary(ctx, &path, &profile, true);
             let help = format!("Load {}, {}.", profile.name, career_location(ctx, &profile));
-            items.push(
-                MenuItem::new(label, move |s: &mut Self, ctx| s.pick(ctx, &profile)).help(help),
-            );
+            items
+                .push(MenuItem::new(label, move |s: &mut Self, ctx| s.pick(ctx, &path)).help(help));
         }
         // Careers the 1.9 load gate refused stay on the list with a spoken
         // label -- silently dropping them reads as data loss. Picking one
