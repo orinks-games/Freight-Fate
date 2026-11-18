@@ -111,7 +111,7 @@ impl CloudSaves {
                     continue;
                 }
             };
-            let name = save_slot_name(&profile.name);
+            let name = cloud_slot_name(&profile.name);
             if path != profile.path() {
                 log::debug!("Cloud resume skipped renamed local file {}", path.display());
                 continue;

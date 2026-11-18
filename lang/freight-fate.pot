@@ -20633,11 +20633,6 @@ msgstr ""
 msgid "Latest backup accepted and server-verified."
 msgstr ""
 
-#. placeholders: {release}
-#: crates/freight-fate/src/cloud_saves/slot_name.rs
-msgid " (Career {release})"
-msgstr ""
-
 #: crates/freight-fate/src/cloud_saves/resume.rs
 msgid "cloud-resume"
 msgstr ""
@@ -20660,6 +20655,11 @@ msgstr ""
 
 #: crates/freight-fate/src/cloud_saves/resume.rs crates/freight-fate/src/cloud_saves/sync_state.rs
 msgid "revision"
+msgstr ""
+
+#. placeholders: {release}
+#: crates/freight-fate/src/cloud_saves/slot_name.rs
+msgid " (Career {release})"
 msgstr ""
 
 #: crates/freight-fate/src/cloud_saves/sync_state.rs

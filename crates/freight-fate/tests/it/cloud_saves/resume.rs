@@ -17,7 +17,9 @@ fn tracked(app: &mut TestApp, transport: SharedTransport) -> (CloudSaves, PathBu
     });
     let local = Profile::load(&path).unwrap();
     let (_, hash) = cloud_content(&Value::Object(local.to_dict()));
-    service.sync_state().record_synced("Road Star", 1, &hash);
+    service
+        .sync_state()
+        .record_synced(&cloud_slot_name("Road Star"), 1, &hash);
     app.ctx.services.cloud = service.clone();
     (service, path)
 }
@@ -26,12 +28,17 @@ fn newer() -> SharedTransport {
     Arc::new(ClosureTransport(
         |url: &str, _: Option<&Value>, _: &[(String, String)], _: Option<&str>| {
             if url.contains("saveName=") {
+                assert!(url.contains(&url_quote(&cloud_slot_name("Road Star"))));
                 let (profile, signature) = money77_profile();
-                Ok(make_cloud_reply(&profile, signature, 2))
+                let mut reply = make_cloud_reply(&profile, signature, 2);
+                reply["saveName"] = json!(cloud_slot_name("Road Star"));
+                Ok(reply)
             } else {
-                Ok(
-                    json!({"saves": [{"saveName": "Road Star", "revision": 2, "createdAt": 123, "summary": "Road Star, level 1, 77,000 dollars"}]}),
-                )
+                Ok(json!({"saves": [
+                    {"saveName": "Road Star", "revision": 99},
+                    {"saveName": "Road Star (Career 3)", "revision": 100},
+                    {"saveName": cloud_slot_name("Road Star"), "revision": 2, "createdAt": 123, "summary": "Road Star, level 1, 77,000 dollars"}
+                ]}))
             }
         },
     ))
@@ -65,8 +72,12 @@ fn clean_newer_cloud_is_verified_installed_and_continued() {
         }
     );
     assert_eq!(Profile::load(&path).unwrap().money(), 77000.0);
+    assert_eq!(Profile::load(&path).unwrap().created_line, "2.0");
     assert!(path.with_extension("ffsave.bak").exists());
-    assert_eq!(service.sync_state().slot("Road Star")["revision"], json!(2));
+    assert_eq!(
+        service.sync_state().slot(&cloud_slot_name("Road Star"))["revision"],
+        json!(2)
+    );
     assert!(app
         .main_lines()
         .iter()
@@ -81,6 +92,54 @@ fn clean_newer_cloud_is_verified_installed_and_continued() {
     // The menu action must read the replacement, not the profile scanned before the check.
     Menu::handle_event(&mut menu, &mut app.ctx, &InputEvent::key(Key::Return));
     assert_eq!(app.ctx.profile.as_ref().unwrap().money(), 77000.0);
+}
+
+#[test]
+fn resume_only_tracks_this_lines_release_qualified_slot() {
+    assert_eq!(cloud_slot_name("Road Star"), "Road Star (Career 2)");
+    for other_slot in ["Road Star", "Road Star (Career 3)"] {
+        let mut app = TestApp::new();
+        let transport = FakeTransport::replying(json!({"saves": [
+            {"saveName": other_slot, "revision": 99}
+        ]}));
+        let (service, path) = tracked(&mut app, transport.clone());
+        let before = fs::read(&path).unwrap();
+        service.check_resume(true);
+        assert_eq!(
+            service.resume_state(),
+            CheckState::Done {
+                pulled: 0,
+                conflicts: 0
+            }
+        );
+        assert_eq!(transport.request_count(), 1);
+        assert_eq!(fs::read(&path).unwrap(), before);
+        assert!(service.conflicts().is_empty());
+    }
+
+    let mut app = TestApp::new();
+    let transport = FakeTransport::replying(json!({"saves": [
+        {"saveName": cloud_slot_name("Road Star"), "revision": 2}
+    ]}));
+    let (service, path) = tracked(&mut app, transport.clone());
+    let hash = service.sync_state().slot(&cloud_slot_name("Road Star"))["hash"]
+        .as_str()
+        .unwrap()
+        .to_string();
+    service.sync_state().forget(&cloud_slot_name("Road Star"));
+    service.sync_state().record_synced("Road Star", 1, &hash);
+    let before = fs::read(&path).unwrap();
+    service.check_resume(true);
+    assert_eq!(
+        service.resume_state(),
+        CheckState::Done {
+            pulled: 0,
+            conflicts: 0
+        }
+    );
+    assert_eq!(transport.request_count(), 1);
+    assert_eq!(fs::read(&path).unwrap(), before);
+    assert_eq!(service.sync_state().slot("Road Star")["revision"], json!(1));
 }
 
 #[test]
@@ -99,7 +158,10 @@ fn dirty_local_records_the_existing_conflict_choice() {
         }
     );
     assert_eq!(Profile::load(&path).unwrap().money(), 12345.0);
-    assert_eq!(service.conflicts()["Road Star"]["latestRevision"], json!(2));
+    assert_eq!(
+        service.conflicts()[&cloud_slot_name("Road Star")]["latestRevision"],
+        json!(2)
+    );
     assert_eq!(
         service.take_resume_lines(),
         ["Road Star changed on another device. Open Cloud backup to choose which copy to keep."]
@@ -110,12 +172,12 @@ fn dirty_local_records_the_existing_conflict_choice() {
 fn same_revision_empty_cloud_and_untracked_careers_stay_local() {
     for (reply, tracked_slot) in [
         (
-            json!({"saves": [{"saveName": "Road Star", "revision": 1}]}),
+            json!({"saves": [{"saveName": cloud_slot_name("Road Star"), "revision": 1}]}),
             true,
         ),
         (json!({"saves": []}), true),
         (
-            json!({"saves": [{"saveName": "Road Star", "revision": 2}]}),
+            json!({"saves": [{"saveName": cloud_slot_name("Road Star"), "revision": 2}]}),
             false,
         ),
     ] {
@@ -123,7 +185,7 @@ fn same_revision_empty_cloud_and_untracked_careers_stay_local() {
         let transport = FakeTransport::replying(reply);
         let (service, path) = tracked(&mut app, transport.clone());
         if !tracked_slot {
-            service.sync_state().forget("Road Star");
+            service.sync_state().forget(&cloud_slot_name("Road Star"));
         }
         let before = fs::read(&path).unwrap();
         service.check_resume(true);
@@ -147,7 +209,7 @@ fn auth_network_and_bad_signature_leave_disk_and_sync_untouched() {
             if url.contains("saveName=") {
                 Ok(json!({"content": "broken"}))
             } else {
-                Ok(json!({"saves": [{"saveName": "Road Star", "revision": 2}]}))
+                Ok(json!({"saves": [{"saveName": cloud_slot_name("Road Star"), "revision": 2}]}))
             }
         },
     ));
@@ -160,11 +222,14 @@ fn auth_network_and_bad_signature_leave_disk_and_sync_untouched() {
         let mut app = TestApp::new();
         let (service, path) = tracked(&mut app, transport);
         let before = fs::read(&path).unwrap();
-        let sync = service.sync_state().slot("Road Star");
+        let sync = service.sync_state().slot(&cloud_slot_name("Road Star"));
         service.check_resume(true);
         assert_eq!(service.resume_state(), CheckState::Failed);
         assert_eq!(fs::read(path).unwrap(), before);
-        assert_eq!(service.sync_state().slot("Road Star"), sync);
+        assert_eq!(
+            service.sync_state().slot(&cloud_slot_name("Road Star")),
+            sync
+        );
         assert!(service.take_resume_lines().is_empty());
     }
 }

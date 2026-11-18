@@ -47,7 +47,6 @@ bookmarks usable.
 
 ## 1.9 in flight (ships from `dev` and `main`)
 
-- [x] Opt-in cloud resume (owner request): main-menu checks pick up clean, tracked careers from another device; changed local copies use the existing Cloud backup conflict choice. Off by default.
 - [x] Guest drivers (built 2026-11-07, merged to dev 2026-11-17): Drive online as a guest on the Online menu gets a word-list name from orinks.net and turns Profile sharing on; Guest name asks for a new one; guests are on the board only, so a profile, road journal, achievements and cloud backup stay account-only. An account with no driver yet takes the guest over when it connects. Needs the orinks.net guest routes live on the production site.
 - [x] Main voice (built 2026-11-17, owner request): Settings, Speech has a Main voice row above Driving event voice. Automatic stays the default; the player can pick any voice that can speak right now (a running screen reader, SAPI, Windows OneCore, Narrator while it runs, the built-in voice). The choice is saved as is and never rewritten: while the chosen voice cannot speak, the automatic pick speaks and the row says the voice is unavailable, and the health check binds it when it returns. When Driving event voice names the main voice, events go through the main voice and the event row reads "main voice"; the saved event voice is kept, so moving the main voice away brings the separate voice back. Hearken PR 74 (`main_backend_options`, the Narrator gate, the shared event voice).
 - [ ] (Found along the way) The Speech voice row sets one installed voice for whichever bound voice lists voices first (the main voice, then the event voice), so the event voice's own installed voice cannot be chosen when both have lists, and a voice does not remember its own installed voice when the main voice changes.
@@ -4323,6 +4322,8 @@ town at 15 to 23 mph. Design: the doc "Realistic traffic pass: design"
 <a id="20-planned-featcareer-20----the-working-week-and-home"></a>
 
 ## 2.0 in progress (`feat/career-2.0`) -- the working week and home
+
+- [x] Opt-in cloud resume: main-menu checks pick up clean, tracked careers from this release line's cloud slots; changed local copies use Cloud backup's conflict choice. Off by default; 1.9 backups stay separate.
 
 There is no separate 1.10 release: the working-week-and-home slate that
 was planned under that number is the opening slice of 2.0, on the
