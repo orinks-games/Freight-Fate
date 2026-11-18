@@ -29,6 +29,8 @@
 
 ### Fixed
 
+- **One unavailable cloud career no longer stops other careers from resuming.**
+
 - **Continue picks the latest career resumed from another device.**
 
 - **Cloud resume leaves other accounts' careers alone.** Older backups without an account match need a manual restore first.
