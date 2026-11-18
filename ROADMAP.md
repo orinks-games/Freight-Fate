@@ -1580,8 +1580,15 @@ Everything found before 2026-09-25 moved to
       now compiles a corrected copy (`crates/freight-fate-android/sdl`).
       SDL 2.26 cannot rumble a Bluetooth controller on Android, so the game
       rumbles it through Android's VibratorManager, on every connected
-      controller with motors. Over USB, Android also takes a DualSense for a
-      headset and plays the game's speech through its vibration motors.
+      controller with motors.
+- [ ] (Found along the way) Android: on a USB cable, Android takes a
+      DualSense for a headset and plays the game's speech through it, which
+      its motors give back as a buzz under every line; Bluetooth avoids it.
+      `TextToSpeech.speak()` has no output device to set. A fix could
+      synthesize each line to a file and play it through an `AudioTrack`
+      with a preferred device other than the controller, only while one is
+      plugged in, re-picking on hot-plug (suggested in review of PR 672).
+      It costs a synthesis delay before each line while the cable is in.
 - [ ] (Found along the way) Android: Settings has no Problem reports
       category. The iPhone has one now; Android keeps it off until a
       report has been sent from a phone and the log screen suits a log in

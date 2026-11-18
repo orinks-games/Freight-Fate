@@ -165,8 +165,8 @@ const OLDEST_NDK: u64 = 28;
 fn check_ndk_release(ndk: &Path) -> Result<()> {
     let properties = std::fs::read_to_string(ndk.join("source.properties"))
         .map_err(|e| format!("{} is not an NDK: {e}", ndk.display()))?;
-    let major = ndk_major(&properties)
-        .ok_or_else(|| format!("{} gives no NDK release", ndk.display()))?;
+    let major =
+        ndk_major(&properties).ok_or_else(|| format!("{} gives no NDK release", ndk.display()))?;
     if major < OLDEST_NDK {
         return Err(format!(
             "NDK r{major} at {} links libraries that phones with 16 KB pages cannot load; \
