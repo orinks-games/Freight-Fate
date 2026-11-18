@@ -36,6 +36,7 @@
 - **The driver name field shows touch gestures when you play by touch.**
 - **Game sound comes back when a Bluetooth headset drops out or the sound device stops responding.** It returns within a few seconds, without a restart.
 - **The built-in voice keeps speaking after a Bluetooth headset connects or disconnects.** In 1.9.6 it could go silent until a restart.
+- **Menu and prompt headings stay below the iPhone status bar.**
 - **Cruise at 85 no longer damages the truck on a downgrade.** Runaway damage now starts above 90 miles per hour ([issue 533](https://github.com/orinks-games/Freight-Fate/issues/533)).
 - **A runaway is now spoken.** You hear "Runaway!" when damage starts, and the truck's damage once it is back under control ([issue 533](https://github.com/orinks-games/Freight-Fate/issues/533)).
 - **Leaving the pavement always plays the rumble strip and says the truck's damage, even with Lane-departure warning off.** Coming back on says any damage added while you were off ([issue 533](https://github.com/orinks-games/Freight-Fate/issues/533)).
