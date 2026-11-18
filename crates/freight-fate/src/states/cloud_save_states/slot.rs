@@ -258,6 +258,9 @@ impl CloudSlotState {
                 // version); restore_to_disk checked the downloaded profile
                 // itself and refused before touching disk.
                 Err(RestoreError::LegacyCareer(_)) => outcome.post("legacy_refused".to_string()),
+                Err(RestoreError::NewerCareer { line, .. }) => {
+                    outcome.post(format!("newer_refused:{line}"))
+                }
                 Err(_) => outcome.post("restore_failed".to_string()),
                 Ok(path) => {
                     restored_slot.post(path);
@@ -376,6 +379,12 @@ impl CloudSlotState {
         };
         let profile_dict = match loaded {
             Ok(profile) => Value::Object(profile.to_dict()),
+            Err(Some(LoadError::NewerCareer(err))) => {
+                ctx.say(&crate::states::save_notice::newer_career_notice(
+                    &err.name, &err.line,
+                ));
+                return;
+            }
             Err(Some(LoadError::LegacyCareer(_))) => {
                 ctx.say(
                     "This computer's save is from an earlier version of Freight Fate and \
@@ -445,6 +454,12 @@ impl CloudSlotState {
         };
         let profile = match loaded {
             Ok(profile) => profile,
+            Err(Some(LoadError::NewerCareer(err))) => {
+                ctx.say(&crate::states::save_notice::newer_career_notice(
+                    &err.name, &err.line,
+                ));
+                return;
+            }
             Err(Some(LoadError::LegacyCareer(_))) => {
                 ctx.say(
                     "This computer's save is from an earlier version of Freight Fate and \
@@ -681,6 +696,14 @@ impl CloudSlotState {
                     "Backup is from an earlier version. Nothing was restored.".to_string();
                 ctx.say(&format!(
                     "{LEGACY_BACKUP_NOTICE} Your local save was not touched."
+                ));
+            }
+            tag if tag.starts_with("newer_refused:") => {
+                let line = tag.trim_start_matches("newer_refused:");
+                self.status = "Backup needs a newer version. Nothing was restored.".to_string();
+                ctx.say(&format!(
+                    "This career was made in Freight Fate {line}. This version cannot restore it. \
+                     Your local save and the cloud backup are untouched."
                 ));
             }
             "auth_failed" => {

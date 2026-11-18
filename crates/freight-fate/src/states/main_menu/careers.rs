@@ -14,11 +14,11 @@ use crate::cloud_saves::{self, AUTH_HELP};
 use crate::impl_state_for_menu;
 use crate::states::base::{Menu, MenuCore, MenuItem};
 use crate::states::main_menu::{
-    career_location, career_summary, legacy_saves, loadable_saves, pending_notice_state,
-    world_entry_state, MainMenuState,
+    career_location, career_summary, legacy_saves, loadable_saves, newer_saves,
+    pending_notice_state, world_entry_state, MainMenuState,
 };
 use crate::states::online_states::{load_identity, run_worker, Mailbox};
-use crate::states::save_notice::LegacyCareerNoticeState;
+use crate::states::save_notice::{LegacyCareerNoticeState, NewerCareerNoticeState};
 
 pub struct LoadDriverState {
     menu: MenuCore<Self>,
@@ -92,6 +92,14 @@ impl Menu for LoadDriverState {
                 ),
             );
         }
+        for newer in newer_saves() {
+            items.push(MenuItem::new(
+                format!("{}: career from Freight Fate {}", newer.name, newer.line),
+                move |_s: &mut Self, ctx| {
+                    ctx.push_state(NewerCareerNoticeState::new(&newer.name, &newer.line));
+                },
+            ).help("This career needs a newer version. Choose it for details. The save is not touched."));
+        }
         items.push(MenuItem::new("Back", |s: &mut Self, ctx| s.go_back(ctx)));
         items
     }
@@ -162,6 +170,14 @@ impl Menu for ManageCareersState {
                     "Double tap offers to delete this save. It still works in Freight Fate 1.8.",
                 ),
             );
+        }
+        for newer in newer_saves() {
+            items.push(MenuItem::new(
+                format!("{}: career from Freight Fate {}", newer.name, newer.line),
+                move |_s: &mut Self, ctx| {
+                    ctx.push_state(NewerCareerNoticeState::new(&newer.name, &newer.line));
+                },
+            ).help("This career needs a newer version. Choose it for details. The save is not touched."));
         }
         items.push(MenuItem::new("Back", |s: &mut Self, ctx| s.go_back(ctx)));
         items

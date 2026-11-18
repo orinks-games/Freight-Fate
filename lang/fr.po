@@ -22074,6 +22074,28 @@ msgstr ""
 msgid "{LEGACY_BACKUP_NOTICE} Your local save was not touched."
 msgstr "{LEGACY_BACKUP_NOTICE} Votre sauvegarde locale n'a pas été touchée."
 
+msgid "Backup needs a newer version. Nothing was restored."
+msgstr ""
+
+#. placeholders: {line}
+#. one sentence of a longer line
+msgid "This career was made in Freight Fate {line}."
+msgstr ""
+
+#. placeholders: {line}
+msgid ""
+"This career was made in Freight Fate {line}. This version cannot restore "
+"it. Your local save and the cloud backup are untouched."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "This version cannot restore it."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Your local save and the cloud backup are untouched."
+msgstr ""
+
 msgid "Reconnect needed. Nothing was restored."
 msgstr "Reconnexion nécessaire. Rien n'a été restauré."
 
@@ -34909,6 +34931,15 @@ msgstr ""
 "Cette carrière ne peut pas continuer en version 1.9. Enter explique "
 "pourquoi et propose une nouvelle carrière. La sauvegarde n'est pas modifiée."
 
+#. placeholders: {name}, {line}
+msgid "{name}: career from Freight Fate {line}"
+msgstr ""
+
+msgid ""
+"This career needs a newer version. Choose it for details. The save is not "
+"touched."
+msgstr ""
+
 msgid "Manage careers"
 msgstr "Gérer les carrières"
 
@@ -35209,6 +35240,11 @@ msgid ""
 msgstr ""
 "Vos carrières sauvegardées viennent d'une ancienne version de Freight Fate. "
 "Elles sont dans Choisir une carrière. "
+
+msgid ""
+"Some saved careers need a newer version of Freight Fate. They are listed "
+"under Choose career. "
+msgstr ""
 
 #. placeholders: {version}
 #. one sentence of a longer line
@@ -37504,6 +37540,18 @@ msgid ""
 msgstr ""
 "Cette sauvegarde reste telle quelle, donc cette carrière a besoin d'un "
 "autre nom de chauffeur."
+
+#. placeholders: {name}, {line}
+#. one sentence of a longer line
+msgid "There is already a career named {name} from Freight Fate {line}."
+msgstr ""
+
+#. placeholders: {name}, {line}
+msgid ""
+"There is already a career named {name} from Freight Fate {line}. That save "
+"stays as it is, so this career needs a different driver name. Escape goes "
+"back to change it."
+msgstr ""
 
 #. placeholders: {name}
 #. one sentence of a longer line
@@ -41486,6 +41534,38 @@ msgstr "Retour à la liste des carrières"
 
 msgid "Back to the saved careers, nothing changed."
 msgstr "Retour aux carrières sauvegardées, rien n'a changé."
+
+#. placeholders: {line}
+#. one sentence of a longer line
+msgid ""
+"Nothing was lost: the save is untouched and still works in Freight Fate "
+"{line}."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "This version cannot continue it."
+msgstr ""
+
+#. placeholders: {name}, {line}
+#. one sentence of a longer line
+msgid "{name} was made in Freight Fate {line}."
+msgstr ""
+
+#. placeholders: {name}, {line}
+msgid ""
+"{name} was made in Freight Fate {line}. This version cannot continue it. "
+"Nothing was lost: the save is untouched and still works in Freight Fate "
+"{line}."
+msgstr ""
+
+msgid "Career from a newer version"
+msgstr ""
+
+msgid "Escape goes back to the career list."
+msgstr ""
+
+msgid "Start fresh with a different driver name."
+msgstr ""
 
 msgid "Your driving record"
 msgstr "Votre dossier de conduite"
