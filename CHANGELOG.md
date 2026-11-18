@@ -29,6 +29,8 @@
 
 ### Fixed
 
+- **Picking up an older cloud career no longer moves it ahead of a more recently played local career.** Continue keeps their last-played order.
+
 - **An untouched resumed career stays ready for the next pickup.** Save upgrades no longer cause a false cloud conflict.
 
 - **Resetting or deleting a career waits for cloud resume to finish.** The career stays untouched while the check runs.
