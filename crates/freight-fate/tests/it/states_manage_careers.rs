@@ -137,6 +137,51 @@ fn deleting_from_this_computer_only_keeps_the_backups_and_frees_the_name() {
         .is_empty());
 }
 
+#[test]
+fn legacy_deletion_uses_only_the_plain_backup_and_never_the_current_release_slot() {
+    for legacy_backed_up in [true, false] {
+        let mut app = TestApp::new();
+        let _guard = install_identity(&app, Some(&identity()));
+        let path = write_1_8_save("Old Timer");
+        let transport = FakeTransport::replying(json!({"ok": true}));
+        let service = install_cloud(&mut app, transport.clone(), true);
+        let current = cloud_slot_name("Old Timer");
+        service.sync_state().record_synced(&current, 20, "2.0-hash");
+        if legacy_backed_up {
+            service
+                .sync_state()
+                .record_synced("Old Timer", 18, "1.8-hash");
+        }
+        app.push_state(MainMenuState::new());
+        select::<MainMenuState>(&mut app, "Manage careers");
+        key(&mut app, Key::Return);
+        assert!(is::<ConfirmCareerActionState>(&app));
+        let rows = labels::<ConfirmCareerActionState>(&app);
+        assert_eq!(
+            rows.iter().any(|r| r.contains("and its cloud backups")),
+            legacy_backed_up,
+            "{rows:?}"
+        );
+        with_state_mut::<ConfirmCareerActionState, _>(&mut app, |s, _| s.threaded = false);
+        key(&mut app, Key::Return);
+        if legacy_backed_up {
+            with_state_mut::<ConfirmCareerActionState, _>(&mut app, |s, ctx| {
+                Menu::update(s, ctx, 0.0)
+            });
+            app.ctx.run_deferred();
+        }
+        let requests = transport.requests();
+        assert_eq!(requests.len(), usize::from(legacy_backed_up));
+        if legacy_backed_up {
+            assert_eq!(requests[0].method.as_deref(), Some("DELETE"));
+            assert!(requests[0].url.ends_with("saveName=Old%20Timer"));
+        }
+        assert_eq!(service.sync_state().slot(&current)["revision"], 20);
+        assert!(service.sync_state().slot("Old Timer").is_empty());
+        assert!(!path.exists());
+    }
+}
+
 /// Jerry, 2026-09-21: a career said it was deleted and stayed. The save's
 /// file name need not match the career name (a copied or renamed file), and
 /// the delete aimed at the file the name implies instead of the one loaded.
