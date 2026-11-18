@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### Compatibility
+
+- **Careers from newer Freight Fate versions stay untouched.** Local saves and cloud backups explain which version can continue them.
+
 ### Added
 
 - **Job details and the departure line say how much night driving a run has,** as in "About 4 hours of night driving."
