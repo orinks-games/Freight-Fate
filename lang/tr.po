@@ -16281,11 +16281,26 @@ msgstr "değişmedi"
 msgid "Latest backup accepted and server-verified."
 msgstr "Son yedek kabul edildi ve sunucu tarafından doğrulandı."
 
-msgid "slots"
-msgstr "yuvalar"
+msgid "cloud-resume"
+msgstr "buluttan devam"
+
+msgid "not connected"
+msgstr "bağlı değil"
+
+msgid "site unreachable"
+msgstr "siteye ulaşılamıyor"
+
+msgid "backup unavailable"
+msgstr "yedeğe ulaşılamıyor"
+
+msgid "backup does not match requested career"
+msgstr "yedek, istenen kariyerle eşleşmiyor"
 
 msgid "revision"
 msgstr "sürüm numarası"
+
+msgid "slots"
+msgstr "yuvalar"
 
 msgid "hash"
 msgstr "sağlama değeri"
@@ -16521,6 +16536,34 @@ msgstr "{name} yedeklendi."
 #. placeholders: {name}
 msgid "{name} is backed up again."
 msgstr "{name} yeniden yedeklendi."
+
+msgid "Checking careers on your other devices. Try Continue shortly."
+msgstr ""
+"Diğer cihazlarınızdaki kariyerler denetleniyor. Birazdan Devam seçeneğini "
+"yeniden deneyin."
+
+#. placeholders: {name}
+msgid "Picked up {name} where you left off on another device."
+msgstr ""
+"Kariyer: {name}. Başka bir cihazda kaldığınız yerden devam ediyorsunuz."
+
+#. one sentence of a longer line
+msgid "Open Cloud backup to choose which copy to keep."
+msgstr ""
+"Hangi kopyayı saklayacağınızı seçmek için Bulut yedeği menüsünü açın."
+
+#. placeholders: {name}
+#. one sentence of a longer line
+msgid "{name} changed on another device."
+msgstr "{name} kariyeri başka bir cihazda değişti."
+
+#. placeholders: {name}
+msgid ""
+"{name} changed on another device. Open Cloud backup to choose which copy to "
+"keep."
+msgstr ""
+"{name} kariyeri başka bir cihazda değişti. Hangi kopyayı saklayacağınızı "
+"seçmek için Bulut yedeği menüsünü açın."
 
 msgid "accepted"
 msgstr "kabul edildi"
@@ -21179,6 +21222,9 @@ msgstr "Yedek indiriliyor."
 msgid "cloud-saves-restore"
 msgstr "bulut kaydını geri yükle"
 
+msgid "profile"
+msgstr "profile"
+
 msgid "restored"
 msgstr "geri yüklendi"
 
@@ -21476,6 +21522,30 @@ msgstr "Yedek eski bir sürümden. Hiçbir şey geri yüklenmedi."
 #. placeholders: {LEGACY_BACKUP_NOTICE}
 msgid "{LEGACY_BACKUP_NOTICE} Your local save was not touched."
 msgstr "{LEGACY_BACKUP_NOTICE} Yerel kaydınıza dokunulmadı."
+
+msgid "Backup needs a newer version. Nothing was restored."
+msgstr "Yedek daha yeni bir sürüm gerektiriyor. Hiçbir şey geri yüklenmedi."
+
+#. placeholders: {line}
+#. one sentence of a longer line
+msgid "This career was made in Freight Fate {line}."
+msgstr "Bu kariyer Freight Fate {line} sürümünde oluşturuldu."
+
+#. placeholders: {line}
+msgid ""
+"This career was made in Freight Fate {line}. This version cannot restore "
+"it. Your local save and the cloud backup are untouched."
+msgstr ""
+"Bu kariyer Freight Fate {line} sürümünde oluşturuldu. Bu sürümde geri "
+"yükleyemezsiniz. Yerel kaydınız ve bulut yedeğiniz değişmedi."
+
+#. one sentence of a longer line
+msgid "This version cannot restore it."
+msgstr "Bu sürümde geri yükleyemezsiniz."
+
+#. one sentence of a longer line
+msgid "Your local save and the cloud backup are untouched."
+msgstr "Yerel kaydınız ve bulut yedeğiniz değişmedi."
 
 msgid "Reconnect needed. Nothing was restored."
 msgstr "Yeniden bağlanmanız gerekiyor. Hiçbir şey geri yüklenmedi."
@@ -34227,6 +34297,17 @@ msgstr ""
 "Bu kariyer 1.9 sürümünde devam edemez. Enter nedenini açıklar ve yeni bir "
 "kariyer önerir. Kayda dokunulmaz."
 
+#. placeholders: {name}, {line}
+msgid "{name}: career from Freight Fate {line}"
+msgstr "{name}: Freight Fate {line} sürümünden kariyer"
+
+msgid ""
+"This career needs a newer version. Choose it for details. The save is not "
+"touched."
+msgstr ""
+"Bu kariyer daha yeni bir sürüm gerektiriyor. Ayrıntılar için kariyeri "
+"seçin. Kayda dokunulmadı."
+
 msgid "Manage careers"
 msgstr "Kariyerleri yönet"
 
@@ -34520,6 +34601,13 @@ msgid ""
 msgstr ""
 "Kayıtlı kariyerleriniz Freight Fate'in eski bir sürümünden. Kariyer seç "
 "altında listeleniyor. "
+
+msgid ""
+"Some saved careers need a newer version of Freight Fate. They are listed "
+"under Choose career. "
+msgstr ""
+"Bazı kayıtlı kariyerler Freight Fate'in daha yeni bir sürümünü "
+"gerektiriyor. Bunları Kariyer seç menüsünde bulabilirsiniz. "
 
 #. placeholders: {version}
 #. one sentence of a longer line
@@ -36788,6 +36876,21 @@ msgid ""
 msgstr ""
 "O kayıt olduğu gibi kalır, bu yüzden bu kariyer için farklı bir şoför adı "
 "gerekir."
+
+#. placeholders: {name}, {line}
+#. one sentence of a longer line
+msgid "There is already a career named {name} from Freight Fate {line}."
+msgstr "Freight Fate {line} sürümünden {name} adlı bir kariyer zaten var."
+
+#. placeholders: {name}, {line}
+msgid ""
+"There is already a career named {name} from Freight Fate {line}. That save "
+"stays as it is, so this career needs a different driver name. Escape goes "
+"back to change it."
+msgstr ""
+"Freight Fate {line} sürümünden {name} adlı bir kariyer zaten var. O kayıt "
+"değişmeyecek. Bu kariyer için farklı bir şoför adı seçin. Adı değiştirmek "
+"için Escape tuşuyla geri dönün."
 
 #. placeholders: {name}
 #. one sentence of a longer line
@@ -39640,6 +39743,18 @@ msgstr ""
 "kayıtları ya da kişisel bilgileri değil. Discord'un çalışması gerekir, "
 "şoför profili gerekmez."
 
+#. placeholders: {on_off}
+msgid "Resume careers from other devices: {on_off}"
+msgstr "Diğer cihazlardaki kariyerlere devam: {on_off}"
+
+msgid ""
+"Checks for newer progress when you return to the main menu. Restore each "
+"career here once first; conflicting saves need your choice in Cloud backup."
+msgstr ""
+"Ana menüye döndüğünüzde başka bir cihazda daha ileri gidip gitmediğinizi "
+"denetler. Önce her kariyeri burada bir kez geri yükleyin. Kayıtlar "
+"çakışırsa Bulut yedeği menüsünden hangi kopyayı saklayacağınızı seçin."
+
 msgid "Connect to orinks.net"
 msgstr "orinks.net'e bağlan"
 
@@ -40720,6 +40835,43 @@ msgstr "Kariyer listesine dön"
 
 msgid "Back to the saved careers, nothing changed."
 msgstr "Kayıtlı kariyerlere dönün, hiçbir şey değişmedi."
+
+#. placeholders: {line}
+#. one sentence of a longer line
+msgid ""
+"Nothing was lost: the save is untouched and still works in Freight Fate "
+"{line}."
+msgstr ""
+"Hiçbir şey kaybolmadı. Kayıt değişmedi ve Freight Fate {line} sürümünde "
+"hâlâ çalışıyor."
+
+#. one sentence of a longer line
+msgid "This version cannot continue it."
+msgstr "Bu sürümde kariyere devam edemezsiniz."
+
+#. placeholders: {name}, {line}
+#. one sentence of a longer line
+msgid "{name} was made in Freight Fate {line}."
+msgstr "{name} kariyeri Freight Fate {line} sürümünde oluşturuldu."
+
+#. placeholders: {name}, {line}
+msgid ""
+"{name} was made in Freight Fate {line}. This version cannot continue it. "
+"Nothing was lost: the save is untouched and still works in Freight Fate "
+"{line}."
+msgstr ""
+"{name} kariyeri Freight Fate {line} sürümünde oluşturuldu. Bu sürümde "
+"kariyere devam edemezsiniz. Hiçbir şey kaybolmadı. Kayıt değişmedi ve "
+"Freight Fate {line} sürümünde hâlâ çalışıyor."
+
+msgid "Career from a newer version"
+msgstr "Daha yeni bir sürümden kariyer"
+
+msgid "Escape goes back to the career list."
+msgstr "Kariyer listesine dönmek için Escape tuşuna basın."
+
+msgid "Start fresh with a different driver name."
+msgstr "Farklı bir şoför adıyla baştan başlayın."
 
 msgid "Your driving record"
 msgstr "Sürüş siciliniz"

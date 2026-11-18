@@ -189,7 +189,15 @@ pub fn brand(p: &mut Painter, text: &mut Text, w: f32, h: f32) {
 
 /// A screen's panel: title, any text above the rows, the rows with the
 /// focused one lit, and a line saying how to move.
-pub fn panel(p: &mut Painter, text: &mut Text, panel: &Panel, w: f32, h: f32, place: Placement) {
+pub fn panel(
+    p: &mut Painter,
+    text: &mut Text,
+    panel: &Panel,
+    w: f32,
+    h: f32,
+    place: Placement,
+    safe_top: f32,
+) {
     p.set_layer(Layer::Hud);
     let u = unit_of(w, h);
     let pw = (w * 0.48).clamp(320.0 * u, 560.0 * u).min(w - 32.0 * u);
@@ -198,7 +206,7 @@ pub fn panel(p: &mut Painter, text: &mut Text, panel: &Panel, w: f32, h: f32, pl
         Placement::Left => margin,
         Placement::Right => w - pw - margin,
     };
-    let top = margin;
+    let top = margin.max(safe_top);
     let bottom_room = 88.0 * u; // captions sit below the panel
     let max_h = h - top - bottom_room;
     let pad = 20.0 * u;

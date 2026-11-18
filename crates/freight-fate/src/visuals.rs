@@ -75,8 +75,8 @@ pub struct Visuals {
     /// the curves the truck drives through.
     drift_heading: f32,
     last_position_ft: Option<f64>,
-    /// The language changed since the last frame: draw it again.
-    relabel: bool,
+    panel_safe_top: f32,
+    needs_redraw: bool,
 }
 
 impl Default for Visuals {
@@ -98,13 +98,20 @@ impl Visuals {
             last_size: (0, 0),
             drift_heading: 4.7,
             last_position_ft: None,
-            relabel: false,
+            panel_safe_top: 0.0,
+            needs_redraw: false,
         }
     }
 
     /// Draw the display's own labels in `translator`'s language.
     pub fn set_translator(&mut self, translator: &Arc<Translator>) {
-        self.relabel |= self.text.set_translator(translator);
+        self.needs_redraw |= self.text.set_translator(translator);
+    }
+
+    #[cfg(any(target_os = "ios", test))]
+    pub(crate) fn set_panel_safe_top(&mut self, top: f32) {
+        self.needs_redraw |= self.panel_safe_top != top;
+        self.panel_safe_top = top;
     }
 
     /// Build this frame's geometry for a `size` pixel canvas. Returns false
@@ -114,7 +121,7 @@ impl Visuals {
         let now = Instant::now();
         let added = self.captions.sync(log, now);
         let fading = self.captions.tick(now);
-        let force = force || std::mem::take(&mut self.relabel);
+        let force = std::mem::take(&mut self.needs_redraw) || force;
         let unchanged = !force
             && !added
             && !fading
@@ -154,7 +161,15 @@ impl Visuals {
                 );
                 if let Some(panel) = overlay {
                     screens::scrim(p, w, h, Placement::Right, 1.0);
-                    screens::panel(p, &mut self.text, panel, w, h, Placement::Right);
+                    screens::panel(
+                        p,
+                        &mut self.text,
+                        panel,
+                        w,
+                        h,
+                        Placement::Right,
+                        self.panel_safe_top,
+                    );
                 }
             }
             Screen::Panel(panel) => {
@@ -173,7 +188,15 @@ impl Visuals {
                 );
                 screens::scrim(p, w, h, Placement::Left, 1.0);
                 screens::brand(p, &mut self.text, w, h);
-                screens::panel(p, &mut self.text, panel, w, h, Placement::Left);
+                screens::panel(
+                    p,
+                    &mut self.text,
+                    panel,
+                    w,
+                    h,
+                    Placement::Left,
+                    self.panel_safe_top,
+                );
             }
         }
         // Captions clear the dashboard whenever the road is on screen.
@@ -325,6 +348,22 @@ fn draw_drive(
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn a_safe_area_change_redraws_an_unchanged_menu() {
+        let mut visuals = Visuals::new();
+        let log = MessageLog::new();
+        let scene = Scene {
+            screen: Screen::Panel(Panel::from_lines(&["Freight Fate".to_string()]).unwrap()),
+            achievement: None,
+        };
+        let size = (1206, 2622);
+        assert!(visuals.build(scene.clone(), &log, size, false));
+        visuals.set_panel_safe_top(186.0);
+        assert!(visuals.build(scene.clone(), &log, size, false));
+        visuals.set_panel_safe_top(186.0);
+        assert!(!visuals.build(scene, &log, size, false));
+    }
 
     #[test]
     fn the_title_backdrop_and_a_menu_build_one_frame_then_nothing_until_a_change() {

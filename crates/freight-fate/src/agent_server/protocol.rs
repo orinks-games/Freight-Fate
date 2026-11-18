@@ -201,7 +201,8 @@ fn tools_list() -> Value {
             "status",
             "The wheel's readouts in one call -- speed, speed limit, grade, what is \
              coming up, route status, the clock, fuel -- pressed as a player would \
-             and returned together with anything else heard meanwhile. At the wheel \
+             and returned together with anything else heard meanwhile. Also reports \
+             CLOUD RESUME: Off, Idle, Checking, Cancelling, Done with counts, or Failed. At the wheel \
              it ends with one STATE line, not spoken: alertness (the fatigue band: \
              rested, worn, drowsy or severe), nod (awake, nodding or recovering, \
              with its timer), nod_misses (missed nods in a row toward the forced \

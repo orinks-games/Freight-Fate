@@ -247,6 +247,31 @@ fn a_known_passage_inside_a_longer_line_translates_whole() {
 }
 
 #[test]
+fn joined_help_passages_with_trailing_spaces_translate_whole() {
+    let catalog = Catalog::from_po(
+        "es",
+        r#"
+msgid "Swipe up to accelerate. Lift to coast. "
+msgstr "Desliza hacia arriba para acelerar. Levanta el dedo para ir por inercia. "
+
+msgid "Tap twice to exit. Hold to sound the horn. "
+msgstr "Toca dos veces para salir. Mantén pulsado para tocar la bocina. "
+
+msgid "Press F1 for help."
+msgstr "Pulsa F1 para obtener ayuda."
+"#,
+    )
+    .expect("parses");
+    let tr = Translator::new(catalog);
+    assert_eq!(
+        tr.translate(
+            "Swipe up to accelerate. Lift to coast. Tap twice to exit. Hold to sound the horn. Press F1 for help.",
+        ),
+        "Desliza hacia arriba para acelerar. Levanta el dedo para ir por inercia. Toca dos veces para salir. Mantén pulsado para tocar la bocina. Pulsa F1 para obtener ayuda."
+    );
+}
+
+#[test]
 fn a_captured_number_takes_the_languages_separators() {
     use super::plural::localize_number;
     assert_eq!(localize_number("de", "25,000").as_deref(), Some("25.000"));

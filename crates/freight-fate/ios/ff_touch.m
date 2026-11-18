@@ -980,6 +980,15 @@ int32_t ff_touch_install(void *window) {
     return 1;
 }
 
+double ff_phone_safe_top_fraction(void *window) {
+    UIWindow *ui_window = (__bridge UIWindow *)window;
+    CGFloat height = CGRectGetHeight(ui_window.bounds);
+    if (ui_window.traitCollection.userInterfaceIdiom != UIUserInterfaceIdiomPhone || height <= 0) {
+        return 0;
+    }
+    return ui_window.safeAreaInsets.top / height;
+}
+
 // The scene lifecycle. iOS 27 refuses to launch an app built against its SDK
 // without one (an Info.plist UIApplicationSceneManifest naming a scene
 // delegate), and SDL2 predates scenes: it makes its windows with
@@ -992,6 +1001,16 @@ int32_t ff_touch_install(void *window) {
 
 static UIWindowScene *ff_scene;
 static NSPointerArray *ff_unplaced_windows;
+
+void ff_observe_app_lifecycle(void (*foreground_changed)(int32_t)) {
+    NSNotificationCenter *center = NSNotificationCenter.defaultCenter;
+    [center addObserverForName:UIApplicationDidEnterBackgroundNotification object:nil queue:nil
+                    usingBlock:^(__unused NSNotification *note) { foreground_changed(0); }];
+    [center addObserverForName:UIApplicationWillTerminateNotification object:nil queue:nil
+                    usingBlock:^(__unused NSNotification *note) { foreground_changed(0); }];
+    [center addObserverForName:UIApplicationWillEnterForegroundNotification object:nil queue:nil
+                    usingBlock:^(__unused NSNotification *note) { foreground_changed(1); }];
+}
 
 static void ff_place_window(UIWindow *window) {
     if (window.windowScene) {
