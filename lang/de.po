@@ -1875,19 +1875,19 @@ msgid "Crosby, Stills, Nash & Young - Teach Your Children"
 msgstr "Crosby, Stills, Nash & Young - Teach Your Children"
 
 msgid "earned"
-msgstr ""
+msgstr "verdient"
 
 msgid "newest"
-msgstr ""
+msgstr "neueste"
 
 msgid "locked"
-msgstr ""
+msgstr "gesperrt"
 
 msgid "name"
 msgstr "name"
 
 msgid "original"
-msgstr ""
+msgstr "ursprünglich"
 
 msgid "Earned first"
 msgstr "Verdiente zuerst"
@@ -4490,7 +4490,7 @@ msgstr "Buff {buff_id}: keine Verfügbarkeit (Marken oder Aktionen)"
 
 #. placeholders: {buff_id}
 msgid "buff {buff_id}: only fatigue buffs can be stimulants"
-msgstr ""
+msgstr "Buff {buff_id}: Nur Müdigkeits-Buffs können Aufputschmittel sein"
 
 #. placeholders: {buff_id}
 msgid "buff {buff_id}: help and purchased speech are required"
@@ -6519,13 +6519,13 @@ msgid "a two-finger tap"
 msgstr "ein Tippen mit zwei Fingern"
 
 msgid "a two-finger flick down"
-msgstr ""
+msgstr "ein Wischen mit zwei Fingern nach unten"
 
 msgid "pause"
 msgstr "Pause"
 
 msgid "a two-finger flick up"
-msgstr ""
+msgstr "ein Wischen mit zwei Fingern nach oben"
 
 msgid "help"
 msgstr "Hilfe"
@@ -11808,37 +11808,37 @@ msgid "severe"
 msgstr "übermüdet"
 
 msgid "awake"
-msgstr ""
+msgstr "wach"
 
 msgid "nodding"
-msgstr ""
+msgstr "einnickend"
 
 msgid "recovering"
-msgstr ""
+msgstr "in Erholung"
 
 msgid "game minutes counted"
-msgstr ""
+msgstr "gezählte Spielminuten"
 
 msgid "seconds left"
-msgstr ""
+msgstr "verbleibende Sekunden"
 
 msgid "game minutes left"
-msgstr ""
+msgstr "verbleibende Spielminuten"
 
 msgid "misses"
-msgstr ""
+msgstr "verpasst"
 
 msgid "arriving"
-msgstr ""
+msgstr "ankommend"
 
 msgid "rolling"
-msgstr ""
+msgstr "in Fahrt"
 
 msgid "creeping"
-msgstr ""
+msgstr "kriechend"
 
 msgid "stopped"
-msgstr ""
+msgstr "angehalten"
 
 msgid "holding"
 msgstr "holding"
@@ -12034,7 +12034,7 @@ msgid "available"
 msgstr "available"
 
 msgid "used"
-msgstr ""
+msgstr "verbraucht"
 
 msgid "on duty, not driving"
 msgstr "im Dienst, nicht am Steuer"
@@ -12394,7 +12394,7 @@ msgid "Hours of service: {phrase} until {due}."
 msgstr "Lenk- und Ruhezeiten: noch {phrase}, bis {due}."
 
 msgid "untold"
-msgstr ""
+msgstr "noch nicht angesagt"
 
 msgid "single"
 msgstr "einspurig"
@@ -12579,14 +12579,14 @@ msgstr "Die Beobachtung hat keine Eigenschaften"
 
 #. placeholders: {message}
 msgid "points lookup: {message}"
-msgstr ""
+msgstr "Koordinatenabfrage: {message}"
 
 msgid "point has no observationStations"
 msgstr "Der Punkt hat keine observationStations"
 
 #. placeholders: {message}
 msgid "station list: {message}"
-msgstr ""
+msgstr "Stationsliste: {message}"
 
 #. placeholders: {lat}, {lon}
 msgid "no observation stations near {lat},{lon}"
@@ -12597,21 +12597,23 @@ msgstr "keine Station hat geantwortet"
 
 #. placeholders: {join}
 msgid "every station failed: {join}"
-msgstr ""
+msgstr "alle Stationen fehlgeschlagen: {join}"
 
 msgid "Clear"
-msgstr ""
+msgstr "Klar"
 
 msgid ""
 "The server answered with error 403. (GET api.weather.gov/points/1,2: "
 "Forbidden)"
 msgstr ""
+"Der Server antwortete mit Fehler 403. (GET api.weather.gov/points/1,2: "
+"Forbidden)"
 
 msgid "properties"
-msgstr ""
+msgstr "Eigenschaften"
 
 msgid "no POST on the NWS API"
-msgstr ""
+msgstr "kein POST über die NWS-API"
 
 msgid "(?i)gusts?\\s+(?:up\\s+to|to|of|as high as)\\s+(\\d{2,3})\\s*mph"
 msgstr "(?i)gusts?\\s+(?:up\\s+to|to|of|as high as)\\s+(\\d{2,3})\\s*mph"
@@ -13104,10 +13106,10 @@ msgid "{base} in {days_ahead} days"
 msgstr "{base} in {days_ahead} Tagen"
 
 msgid "out"
-msgstr ""
+msgstr "eingekuppelt"
 
 msgid "shifting"
-msgstr ""
+msgstr "Schaltvorgang"
 
 msgid "minivan"
 msgstr "Van"
@@ -14130,7 +14132,7 @@ msgstr "{crossing}Du passierst {city}, {city_state}."
 
 #. placeholders: {name}, {join}
 msgid "no hazard called {name}; the names are {join}"
-msgstr ""
+msgstr "keine Gefahr namens {name}; die Namen sind {join}"
 
 msgid "Brake now!"
 msgstr "Jetzt bremsen!"
@@ -15556,14 +15558,14 @@ msgid "No truck parking."
 msgstr "Kein Lkw-Parkplatz."
 
 msgid "Double tap to signal for the exit."
-msgstr ""
+msgstr "Tippe doppelt, um für die Ausfahrt zu blinken."
 
 #. placeholders: {exit_hint}
 msgid "Press {exit_hint} to signal for the exit."
 msgstr "Drück {exit_hint}, um zur Ausfahrt zu blinken."
 
 msgid "Double tap to signal."
-msgstr ""
+msgstr "Tippe doppelt, um zu blinken."
 
 #. placeholders: {exit_hint}
 msgid "Press {exit_hint} to signal."
@@ -15589,7 +15591,7 @@ msgstr "{terse} Kein Kraftstoff."
 
 #. placeholders: {terse}
 msgid "{terse} Double tap to signal."
-msgstr ""
+msgstr "{terse} Tippe doppelt, um zu blinken."
 
 #. placeholders: {terse}, {exit_hint}
 msgid "{terse} Press {exit_hint} to signal."
@@ -15712,16 +15714,16 @@ msgid "menu"
 msgstr "menu"
 
 msgid "field"
-msgstr ""
+msgstr "Eingabefeld"
 
 msgid "wheel"
-msgstr ""
+msgstr "am Steuer"
 
 msgid "practice"
-msgstr ""
+msgstr "Übung"
 
 msgid "arrival"
-msgstr ""
+msgstr "Ankunft"
 
 msgid "miles"
 msgstr "Meilen"
@@ -15818,28 +15820,34 @@ msgstr ""
 "an der Tür abgefangen."
 
 msgid "not at the wheel: no screen is up"
-msgstr ""
+msgstr "nicht am Steuer: Kein Bildschirm ist geöffnet"
 
 msgid "not at the wheel (a menu or stop screen is up)"
-msgstr ""
+msgstr "nicht am Steuer (ein Menü oder Haltepunktbildschirm ist geöffnet)"
 
 msgid "on a ramp or a facility road, where hazards pass you by"
 msgstr ""
+"auf einer Rampe oder einer Werksstraße, wo Gefahren an dir vorbeiziehen"
 
 #. placeholders: {staged}, {position_mi}
 msgid ""
 "Staged {staged} at mile {position_mi}; it fires on the next rolling frame, "
 "so listen for the call."
 msgstr ""
+"{staged} bei Meile {position_mi} vorbereitet; wird im nächsten Frame "
+"während der Fahrt ausgelöst. Achte auf die Ansage."
 
 msgid "the co-driver has the wheel"
-msgstr ""
+msgstr "der Beifahrer ist am Steuer"
 
 #. placeholders: {position_mi}, {misses}
 msgid ""
 "Staged a nod at mile {position_mi}, {misses} missed in a row so far; it "
 "opens on the next rolling frame, so listen for the warning."
 msgstr ""
+"Einnicken bei Meile {position_mi} vorbereitet, bisher {misses} Mal in Folge "
+"verpasst; beginnt im nächsten Frame während der Fahrt. Achte auf die "
+"Warnung."
 
 #. placeholders: {name}, {the_city}, {level}, {deliveries}, {grouped}, {business_status}
 msgid ""
@@ -15852,6 +15860,7 @@ msgstr ""
 
 msgid " Touch gestures is open over the terminal; listen for it."
 msgstr ""
+" Touch-Gesten ist über dem Depotmenü geöffnet; achte auf die Ansage."
 
 msgid " The terminal menu is open; listen for it."
 msgstr " Das Depotmenü ist offen; hör darauf."
@@ -15987,11 +15996,11 @@ msgstr "Bildschirm"
 
 #. placeholders: {group}, {label}
 msgid "Tap with three fingers and open {group} for {label}"
-msgstr ""
+msgstr "Tippe mit drei Fingern und öffne {group} für {label}"
 
 #. placeholders: {label}
 msgid "Tap with three fingers for {label}"
-msgstr ""
+msgstr "Tippe mit drei Fingern für {label}"
 
 msgid "system"
 msgstr "system"
@@ -16518,10 +16527,10 @@ msgid "Two-finger double tap"
 msgstr "Mit zwei Fingern doppelt tippen"
 
 msgid "Three-finger flick up"
-msgstr ""
+msgstr "Mit drei Fingern nach oben wischen"
 
 msgid "Three-finger flick down"
-msgstr ""
+msgstr "Mit drei Fingern nach unten wischen"
 
 msgid "Gas hold, tap with a second finger"
 msgstr "Gas halten, mit einem zweiten Finger tippen"
@@ -16576,10 +16585,10 @@ msgid "a two-finger double tap"
 msgstr "ein doppeltes Tippen mit zwei Fingern"
 
 msgid "a three-finger flick up"
-msgstr ""
+msgstr "ein Wischen mit drei Fingern nach oben"
 
 msgid "a three-finger flick down"
-msgstr ""
+msgstr "ein Wischen mit drei Fingern nach unten"
 
 msgid "gas"
 msgstr "Gas"
@@ -16600,64 +16609,64 @@ msgid "flick right"
 msgstr "Wischen nach rechts"
 
 msgid "Double tap with two fingers"
-msgstr ""
+msgstr "Mit zwei Fingern doppelt tippen"
 
 msgid "Flick up with three fingers"
-msgstr ""
+msgstr "Wische mit drei Fingern nach oben"
 
 msgid "Flick down with three fingers"
-msgstr ""
+msgstr "Wische mit drei Fingern nach unten"
 
 msgid "Hold gas and tap with a second finger"
-msgstr ""
+msgstr "Halte Gas und tippe mit einem zweiten Finger"
 
 msgid "Hold gas and double tap with a second finger"
-msgstr ""
+msgstr "Halte Gas und tippe mit einem zweiten Finger doppelt"
 
 msgid "Hold gas and flick up with a second finger"
-msgstr ""
+msgstr "Halte Gas und wische mit einem zweiten Finger nach oben"
 
 msgid "Hold gas and flick down with a second finger"
-msgstr ""
+msgstr "Halte Gas und wische mit einem zweiten Finger nach unten"
 
 msgid "Hold gas and flick left with a second finger"
-msgstr ""
+msgstr "Halte Gas und wische mit einem zweiten Finger nach links"
 
 msgid "Hold gas and flick right with a second finger"
-msgstr ""
+msgstr "Halte Gas und wische mit einem zweiten Finger nach rechts"
 
 msgid "Hold the brake and tap with a second finger"
-msgstr ""
+msgstr "Halte die Bremse und tippe mit einem zweiten Finger"
 
 msgid "Hold the brake and double tap with a second finger"
-msgstr ""
+msgstr "Halte die Bremse und tippe mit einem zweiten Finger doppelt"
 
 msgid "Hold the brake and flick up with a second finger"
-msgstr ""
+msgstr "Halte die Bremse und wische mit einem zweiten Finger nach oben"
 
 msgid "Hold the brake and flick down with a second finger"
-msgstr ""
+msgstr "Halte die Bremse und wische mit einem zweiten Finger nach unten"
 
 msgid "Hold the brake and flick left with a second finger"
-msgstr ""
+msgstr "Halte die Bremse und wische mit einem zweiten Finger nach links"
 
 msgid "Hold the brake and flick right with a second finger"
-msgstr ""
+msgstr "Halte die Bremse und wische mit einem zweiten Finger nach rechts"
 
 msgid "Turn two fingers right"
-msgstr ""
+msgstr "Drehe zwei Finger nach rechts"
 
 msgid "Swipe up and hold"
-msgstr ""
+msgstr "Wische nach oben und halte"
 
 msgid "Swipe down and hold"
-msgstr ""
+msgstr "Wische nach unten und halte"
 
 msgid "Swipe down deep and hold"
-msgstr ""
+msgstr "Wische tief nach unten und halte"
 
 msgid "Hold two fingers"
-msgstr ""
+msgstr "Halte zwei Finger gedrückt"
 
 msgid "Flick left"
 msgstr "Nach links wischen"
@@ -16669,7 +16678,7 @@ msgid "Double tap"
 msgstr "Doppeltippen"
 
 msgid "Tap with three fingers, then double tap"
-msgstr ""
+msgstr "Tippe mit drei Fingern, dann doppelt"
 
 #. placeholders: {label}
 msgid "{label} from the three-finger tap list"
@@ -16688,7 +16697,7 @@ msgid "a still hold for half a second"
 msgstr "ein ruhiges Halten für eine halbe Sekunde"
 
 msgid "a three-finger tap then a double tap"
-msgstr ""
+msgstr "ein Tippen mit drei Fingern, dann ein Doppeltippen"
 
 #. placeholders: {touch_noun}, {touch_noun2}
 msgid "{touch_noun} and {touch_noun2}"
@@ -17324,6 +17333,86 @@ msgid ""
 "                                    it speaks its findings and writes a log\n"
 "  --log PATH                        session log for the watcher"
 msgstr ""
+"freightfate -- Freight Fate\n"
+"\n"
+"  freightfate                       spielen\n"
+"  freightfate --smoke               starten, fünf Frames rendern, beenden "
+"(CI-Prüfung)\n"
+"  freightfate --headless            kein Fenster, keine Sprachausgabe\n"
+"  freightfate --controller-diagnostics\n"
+"                                    Controller-Ereignisse beider Ebenen "
+"protokollieren\n"
+"\n"
+"Fahrwerkzeuge:\n"
+"  --playtest-road --find FEATURE    an einem Straßenmerkmal oder "
+"Ausfahrtstor starten\n"
+"                                    (downgrade, upgrade, zone, limit-drop,\n"
+"                                    stop, scale, curve, interchange, toll,\n"
+"                                    chain-law, destination, departure, "
+"all); all durchsucht alle\n"
+"                                    startbaren Straßenarten und die "
+"aktuelle Weltinstanz.\n"
+"                                    Destination ist\n"
+"                                    die Lieferausfahrt am Ende der\n"
+"                                    Strecke; departure durchsucht "
+"standardmäßig einige Strecken\n"
+"                                    nach beladenen Werksausfahrten. Nutze\n"
+"                                    --routes all für eine vollständige "
+"Bestandsaufnahme;\n"
+"                                    jedes Ergebnis gibt einen direkten "
+"--facility-Start aus,\n"
+"                                    der die Welt nicht erneut durchsucht. "
+"Zustandsübergänge,\n"
+"                                    die einen laufenden Spielverlauf "
+"brauchen, sind nicht als Straßenstart verfügbar;\n"
+"                                    --from/--to/--seed/--scan und\n"
+"                                    die Assistenzschalter verfeinern die "
+"Suche\n"
+"  --ai                               bei einem gewählten Straßenszenario "
+"getaktete\n"
+"                                    Spielersteuerung im echten Fenster "
+"nutzen; laufende\n"
+"                                    Spielansagen werden ins Terminal "
+"übertragen\n"
+"  --playtest-sandbox [--launch]     ein Datenverzeichnis ohne Zugriff auf "
+"das\n"
+"                                    Konto des Besitzers; "
+"--dir/--reset/--print\n"
+"  --list-break-scenarios            alle Belastungsszenarien auflisten\n"
+"  --list-speech-backends            alle gefundenen Screenreader und "
+"Stimmen auflisten\n"
+"                                    (--names-only listet sie auf, ohne sie "
+"zu öffnen)\n"
+"  --break-scenario NAME             eines ausführen, --transcript zum "
+"Anhören\n"
+"  --break-battery                   alle ausführen und Ergebnisse ausgeben\n"
+"  --agent-server                    das echte Spiel mit einem MCP-Server "
+"über stdio,\n"
+"                                    damit ein KI-Agent spielen kann (in "
+"einer Sandbox;\n"
+"                                    --reset für eine neue Sandbox; ergänze\n"
+"                                    --find FEATURE [--from CITY] [--to "
+"CITY]\n"
+"                                    zum direkten Start in eine vorbereitete "
+"Fahrt;\n"
+"                                    --operator-keys hält das Fenster offen "
+"und\n"
+"                                    lässt die Tastatur des Bedieners zu, um\n"
+"                                    neben dem Agenten zu spielen; --staging "
+"nutzt ein\n"
+"                                    eigenes Verzeichnis und einen eigenen "
+"Fahrer auf der\n"
+"                                    Testseite, Cloud-Sicherung "
+"eingeschaltet)\n"
+"  --key-probe [--seconds N]         anzeigen, was deine Tastatur an das "
+"Spiel sendet,\n"
+"                                    für einen Screenreader, der gehaltene "
+"Tasten erneut sendet\n"
+"                                    (JAWS): halte jede Pfeiltaste einige "
+"Sekunden;\n"
+"                                    Ergebnisse werden gesprochen und "
+"protokolliert\n"
+"  --log PATH                        Sitzungsprotokoll für den Beobachter"
 
 msgid "not running here"
 msgstr "läuft hier nicht"
@@ -17434,7 +17523,7 @@ msgid "ready"
 msgstr "ready"
 
 msgid "token"
-msgstr ""
+msgstr "Token"
 
 msgid "online-journal"
 msgstr "online-journal"
@@ -17461,17 +17550,17 @@ msgid "Freight Fate"
 msgstr "Freight Fate"
 
 msgid "game"
-msgstr ""
+msgstr "Spiel"
 
 #. placeholders: {e}
 msgid "The report could not be packed: {e}."
 msgstr "Der Bericht konnte nicht gepackt werden: {e}."
 
 msgid "Content-Encoding"
-msgstr ""
+msgstr "Content-Encoding"
 
 msgid "gzip"
-msgstr ""
+msgstr "gzip"
 
 msgid ""
 "Enter opens a category. Inside one, Enter repeats the achievement and "
@@ -17577,9 +17666,13 @@ msgid ""
 "Flick up or down to change the order of the categories and the achievements "
 "in each one."
 msgstr ""
+"Wische nach oben oder unten, um die Reihenfolge der Kategorien und der "
+"Erfolge darin zu ändern."
 
 msgid "Flick up or down to change the order of this category only."
 msgstr ""
+"Wische nach oben oder unten, um nur die Reihenfolge dieser Kategorie zu "
+"ändern."
 
 msgid "All assists: the truck steers. Recommended for your first drives."
 msgstr "Alle Fahrhilfen: Der Lkw lenkt. Empfohlen für deine ersten Fahrten."
@@ -17688,6 +17781,8 @@ msgid ""
 "Flick right or left to move and double tap to choose. Flick down with two "
 "fingers to go back."
 msgstr ""
+"Wische nach rechts oder links zum Navigieren und tippe doppelt zum "
+"Auswählen. Wische mit zwei Fingern nach unten, um zurückzugehen."
 
 msgid "Menu"
 msgstr "Menü"
@@ -17720,6 +17815,8 @@ msgid ""
 "Flick right or left to read a line at a time, and double tap to repeat it. "
 "Flick down with two fingers to go back."
 msgstr ""
+"Wische nach rechts oder links, um zeilenweise zu lesen, und tippe doppelt "
+"zum Wiederholen. Wische mit zwei Fingern nach unten, um zurückzugehen."
 
 msgid "Your carrier has ended your employment"
 msgstr "Deine Spedition hat dein Arbeitsverhältnis beendet"
@@ -18065,12 +18162,17 @@ msgid ""
 "Double tap accepts. Flick up with two fingers for job details, and tap with "
 "three fingers for the market."
 msgstr ""
+"Doppeltippen nimmt an. Wische mit zwei Fingern nach oben für "
+"Auftragsdetails und tippe mit drei Fingern für den Markt."
 
 msgid ""
 "Assigned load. Double tap accepts. Declining costs reputation and uses one "
 "of your declines, which refill at your next promotion. Flick up with two "
 "fingers for details."
 msgstr ""
+"Zugewiesene Ladung. Doppeltippen nimmt an. Ablehnen kostet Ruf und "
+"verbraucht eine deiner Ablehnungen, die bei deiner nächsten Beförderung "
+"aufgefüllt werden. Wische mit zwei Fingern nach oben für Details."
 
 #. placeholders: {SENIOR_LOAD_CHOICE_LEVEL}
 msgid "until level {SENIOR_LOAD_CHOICE_LEVEL}"
@@ -18318,11 +18420,13 @@ msgid ""
 "Needs an extra rest on this shift's hours. {summary} Double tap again to "
 "accept."
 msgstr ""
+"Braucht bei den verbleibenden Stunden dieser Schicht eine zusätzliche "
+"Ruhezeit. {summary} Tippe zum Annehmen noch einmal doppelt."
 
 #. placeholders: {summary}
 #. one sentence of a longer line
 msgid "{summary} Double tap again to accept."
-msgstr ""
+msgstr "{summary} Tippe zum Annehmen noch einmal doppelt."
 
 #. placeholders: {summary}
 msgid ""
@@ -18547,6 +18651,9 @@ msgid ""
 "fingers to jump to the ends. Flick down with two fingers to return to the "
 "dispatch board."
 msgstr ""
+"Wische nach rechts oder links, um die Zeilen durchzugehen, und mit drei "
+"Fingern nach oben oder unten, um zum Anfang oder Ende zu springen. Wische "
+"mit zwei Fingern nach unten, um zur Auftragsbörse zurückzukehren."
 
 msgid "Job details"
 msgstr "Auftragsdetails"
@@ -18628,7 +18735,7 @@ msgid "Enter repeats this line."
 msgstr "Enter wiederholt diese Zeile."
 
 msgid "Double tap repeats this line."
-msgstr ""
+msgstr "Doppeltippen wiederholt diese Zeile."
 
 #. placeholders: {locked}
 msgid "Cannot accept this dispatch: {locked}"
@@ -18960,6 +19067,7 @@ msgstr "Rundgang fertig, {f} Minuten. {join}"
 
 msgid "Already rested. Double tap again to sleep anyway."
 msgstr ""
+"Schon ausgeruht. Tippe noch einmal doppelt, um trotzdem zu schlafen."
 
 msgid "Already rested. Enter again to sleep anyway."
 msgstr "Schon ausgeruht. Noch einmal Enter, um trotzdem zu schlafen."
@@ -19597,6 +19705,7 @@ msgstr "Die restlichen Voraussetzungen."
 
 msgid "Go back to company driving: double tap again to confirm"
 msgstr ""
+"Zurück als angestellter Fahrer: Tippe zum Bestätigen noch einmal doppelt"
 
 msgid "Go back to company driving: press Enter again to confirm"
 msgstr ""
@@ -20164,6 +20273,7 @@ msgstr "Was eine andere Spedition braucht, bevor sie dich abwirbt."
 #. placeholders: {carrier_name}
 msgid "Move to {carrier_name}: double tap again to confirm"
 msgstr ""
+"Zu {carrier_name} wechseln: Tippe zum Bestätigen noch einmal doppelt"
 
 #. placeholders: {carrier_name}
 msgid "Move to {carrier_name}: press Enter again to confirm"
@@ -20177,11 +20287,12 @@ msgstr "Zu {label} wechseln"
 #. placeholders: {carrier_name}, {menu_summary}
 msgid "{carrier_name}. {menu_summary} Double tap again to move."
 msgstr ""
+"{carrier_name}. {menu_summary} Tippe zum Wechseln noch einmal doppelt."
 
 #. placeholders: {menu_summary}
 #. one sentence of a longer line
 msgid "{menu_summary} Double tap again to move."
-msgstr ""
+msgstr "{menu_summary} Tippe zum Wechseln noch einmal doppelt."
 
 #. placeholders: {carrier_name}, {menu_summary}
 msgid "{carrier_name}. {menu_summary} Press Enter again to move."
@@ -21229,11 +21340,11 @@ msgstr "W für das Wetter."
 
 #. one sentence of a longer line
 msgid "Tap with three fingers for weather."
-msgstr ""
+msgstr "Tippe mit drei Fingern für das Wetter."
 
 #. placeholders: {join}
 msgid "Via {join}. Tap with three fingers for weather."
-msgstr ""
+msgstr "Über {join}. Tippe mit drei Fingern für das Wetter."
 
 #. placeholders: {name}
 msgid "Depart with {name} driving, and ride along"
@@ -21392,6 +21503,7 @@ msgstr "Enter öffnet die Wiederherstellungsoptionen für diese Karriere."
 
 msgid "Double tap opens restore choices for this career."
 msgstr ""
+"Doppeltippen öffnet die Wiederherstellungsoptionen für diese Karriere."
 
 msgid "Hear how cloud backup works"
 msgstr "Hören, wie die Cloud-Sicherung funktioniert"
@@ -22100,7 +22212,7 @@ msgid "Cloud backup is still working. Stay here for the result."
 msgstr "Die Cloud-Sicherung arbeitet noch. Bleib hier für das Ergebnis."
 
 msgid "Turn two fingers right to start the engine."
-msgstr ""
+msgstr "Drehe zwei Finger nach rechts, um den Motor zu starten."
 
 #. placeholders: {control_hint}
 msgid "Press {control_hint} to start the engine."
@@ -22139,12 +22251,12 @@ msgstr "Tempomat pausiert. "
 
 #. placeholders: {touch_instruction}
 msgid "Cruise paused. {touch_instruction} to cancel it. "
-msgstr ""
+msgstr "Tempomat pausiert. {touch_instruction} zum Ausschalten. "
 
 #. placeholders: {touch_instruction}
 #. one sentence of a longer line
 msgid "{touch_instruction} to cancel it."
-msgstr ""
+msgstr "{touch_instruction} zum Ausschalten."
 
 #. placeholders: {control_hint}
 msgid "Cruise paused. {control_hint} cancels it. "
@@ -22158,6 +22270,8 @@ msgstr "{control_hint} bricht sie ab."
 msgid ""
 "At air ready, swipe up and hold to release the parking brake and drive."
 msgstr ""
+"Sobald der Luftdruck bereit ist, wische nach oben und halte, um die "
+"Feststellbremse zu lösen und loszufahren."
 
 #. placeholders: {control_hint}
 msgid "At air ready, {control_hint} releases the parking brake."
@@ -22245,10 +22359,10 @@ msgid "It is {now}."
 msgstr "Es ist {now}."
 
 msgid "alertness"
-msgstr ""
+msgstr "Wachheit"
 
 msgid "nod"
-msgstr ""
+msgstr "Einnicken"
 
 msgid "local game time"
 msgstr "örtliche Spielzeit"
@@ -23061,12 +23175,26 @@ msgid ""
 "truck has stopped. Hold two fingers for the horn. While holding a pedal, a "
 "second finger's flicks and holds work the same way. "
 msgstr ""
+"Halte einen Finger eine halbe Sekunde still, um das Lenkrad "
+"geradezustellen. Ist der Tempomat aus, wische nach oben, um ihn "
+"einzuschalten. Tippe doppelt, um eine Ausfahrt zu nehmen, rechts "
+"ranzufahren oder die Ankunft an einem Tor zu bestätigen. Tippe mit zwei "
+"Fingern, um die Sprachausgabe zu stoppen. Drehe zwei Finger wie einen "
+"Schlüssel nach rechts, um den Motor zu starten, und nach links, um ihn bei "
+"stehendem Lkw abzustellen. Halte zwei Finger gedrückt für die Hupe. Während "
+"du ein Pedal hältst, funktionieren Wischen und Halten mit einem zweiten "
+"Finger genauso. "
 
 msgid ""
 "In a manual, hold a pedal and flick up or down with a second finger to "
 "shift. The flick works the clutch. Slowing in a tall gear takes neutral, "
 "and a flick up from neutral takes the gear that fits your speed. "
 msgstr ""
+"Bei einem Schaltgetriebe hältst du ein Pedal und wischst mit einem zweiten "
+"Finger nach oben oder unten zum Schalten. Das Wischen betätigt die "
+"Kupplung. Beim Verlangsamen in einem hohen Gang wird in den Leerlauf "
+"geschaltet. Wischen nach oben aus dem Leerlauf wählt den zur "
+"Geschwindigkeit passenden Gang. "
 
 msgid ""
 "A two-finger flick down pauses, a two-finger flick up is this help, "
@@ -23075,6 +23203,11 @@ msgid ""
 "commands in groups, Status menu first. Flick to one and double tap to run "
 "it or open its group. "
 msgstr ""
+"Wischen mit zwei Fingern nach unten pausiert, nach oben öffnet diese Hilfe, "
+"nach links und rechts geht Nachrichten durch. Wischen mit drei Fingern nach "
+"links und rechts stellt das Radio ein. Tippen mit drei Fingern listet die "
+"Fahrbefehle in Gruppen auf, zuerst das Statusmenü. Wische zu einem Befehl "
+"und tippe doppelt, um ihn auszuführen oder seine Gruppe zu öffnen. "
 
 msgid ""
 "Gestures can be moved in Settings, Gameplay, Controls, Touch gestures."
@@ -23628,13 +23761,15 @@ msgid "Engine already off."
 msgstr "Motor ist schon aus."
 
 msgid "Double tap to check in."
-msgstr ""
+msgstr "Tippe zum Anmelden doppelt."
 
 msgid "Double tap to pull in."
-msgstr ""
+msgstr "Tippe doppelt, um hineinzufahren."
 
 msgid "Neutral. Hold a pedal and flick up with a second finger for a gear."
 msgstr ""
+"Leerlauf. Halte ein Pedal und wische mit einem zweiten Finger nach oben, um "
+"einen Gang einzulegen."
 
 msgid "Release the accelerator before turning the jake on."
 msgstr "Geh vom Gas, bevor du die Motorbremse einschaltest."
@@ -23713,21 +23848,27 @@ msgid "Air {psi} psi."
 msgstr "Luftdruck {psi} psi."
 
 msgid "Air ready. Swipe up and hold to drive."
-msgstr ""
+msgstr "Luftdruck bereit. Wische nach oben und halte, um loszufahren."
 
 msgid "Air ready. Swipe up and hold to release the parking brake and drive."
 msgstr ""
+"Luftdruck bereit. Wische nach oben und halte, um die Feststellbremse zu "
+"lösen und loszufahren."
 
 #. placeholders: {psi}
 msgid ""
 "Air {psi} psi. At 100 psi, swipe up and hold to release the parking brake "
 "and drive."
 msgstr ""
+"Luftdruck {psi} psi. Wische bei 100 psi nach oben und halte, um die "
+"Feststellbremse zu lösen und loszufahren."
 
 #. one sentence of a longer line
 msgid ""
 "At 100 psi, swipe up and hold to release the parking brake and drive."
 msgstr ""
+"Wische bei 100 psi nach oben und halte, um die Feststellbremse zu lösen und "
+"loszufahren."
 
 #. placeholders: {brake_hint}
 msgid "Air ready. {brake_hint} releases the parking brake."
@@ -23848,6 +23989,7 @@ msgstr "Leistungen nicht angegeben"
 
 msgid "Your first run. Turn two fingers right to start the engine."
 msgstr ""
+"Deine erste Fahrt. Drehe zwei Finger nach rechts, um den Motor zu starten."
 
 #. one sentence of a longer line
 msgid "Your first run."
@@ -23861,6 +24003,9 @@ msgid ""
 "At air ready, swipe up and hold to release the parking brake, then flick up "
 "with a second finger for first gear."
 msgstr ""
+"Sobald der Luftdruck bereit ist, wische nach oben und halte, um die "
+"Feststellbremse zu lösen. Wische dann mit einem zweiten Finger nach oben "
+"für den ersten Gang."
 
 #. placeholders: {control_hint}, {control_hint2}
 msgid ""
@@ -23893,7 +24038,7 @@ msgid "Parking brake released. Shift into first gear."
 msgstr "Feststellbremse gelöst. Leg den ersten Gang ein."
 
 msgid "In gear. Swipe up and hold to accelerate."
-msgstr ""
+msgstr "Gang eingelegt. Wische nach oben und halte, um Gas zu geben."
 
 #. one sentence of a longer line
 msgid "In gear."
@@ -23909,7 +24054,7 @@ msgstr "Brems bei einer Gefahrenwarnung hart."
 
 #. one sentence of a longer line
 msgid "Flick up with two fingers for all the controls."
-msgstr ""
+msgstr "Wische mit zwei Fingern nach oben für alle Bedienelemente."
 
 #. one sentence of a longer line
 msgid "Rolling."
@@ -23922,19 +24067,24 @@ msgid ""
 "controls. Brake hard at a hazard warning. Swipe down deep and hold to stop "
 "fast."
 msgstr ""
+"In Fahrt. {touch_instruction} für deine Geschwindigkeit. Tippe mit drei "
+"Fingern, dann doppelt, für einen vollständigen Bericht. Wische mit zwei "
+"Fingern nach oben für alle Bedienelemente. Bremse bei einer Gefahrenwarnung "
+"kräftig. Wische tief nach unten und halte, um schnell anzuhalten."
 
 #. one sentence of a longer line
 msgid "Swipe down deep and hold to stop fast."
-msgstr ""
+msgstr "Wische tief nach unten und halte, um schnell anzuhalten."
 
 #. one sentence of a longer line
 msgid "Tap with three fingers, then double tap, for a full report."
 msgstr ""
+"Tippe mit drei Fingern, dann doppelt, für einen vollständigen Bericht."
 
 #. placeholders: {touch_instruction}
 #. one sentence of a longer line
 msgid "{touch_instruction} for your speed."
-msgstr ""
+msgstr "{touch_instruction} für deine Geschwindigkeit."
 
 #. placeholders: {control_hint}, {control_hint2}, {control_hint3}, {control_hint4}
 msgid ""
@@ -23962,6 +24112,7 @@ msgstr ""
 
 msgid "Reminder: turn two fingers right to start the engine."
 msgstr ""
+"Zur Erinnerung: Drehe zwei Finger nach rechts, um den Motor zu starten."
 
 #. placeholders: {control_hint}
 msgid "Reminder: press {control_hint} to start the engine."
@@ -23971,6 +24122,8 @@ msgid ""
 "Reminder: air is ready. Swipe up and hold to release the parking brake and "
 "drive."
 msgstr ""
+"Zur Erinnerung: Luftdruck bereit. Wische nach oben und halte, um die "
+"Feststellbremse zu lösen und loszufahren."
 
 #. placeholders: {control_hint}
 #. one sentence of a longer line
@@ -23992,6 +24145,8 @@ msgid ""
 "Reminder: wait for air pressure to reach 100 psi, then swipe up and hold to "
 "release the parking brake and drive."
 msgstr ""
+"Zur Erinnerung: Warte, bis der Luftdruck 100 psi erreicht. Wische dann nach "
+"oben und halte, um die Feststellbremse zu lösen und loszufahren."
 
 #. placeholders: {control_hint}
 msgid ""
@@ -24004,6 +24159,8 @@ msgstr ""
 msgid ""
 "Reminder: hold a pedal and flick up with a second finger for first gear."
 msgstr ""
+"Zur Erinnerung: Halte ein Pedal und wische mit einem zweiten Finger nach "
+"oben für den ersten Gang."
 
 #. placeholders: {control_hint}, {control_hint2}
 msgid ""
@@ -24705,7 +24862,7 @@ msgid "Press {control_hint} to restart the engine."
 msgstr "Drück {control_hint}, um den Motor neu zu starten."
 
 msgid "Turn two fingers right to restart the engine."
-msgstr ""
+msgstr "Drehe zwei Finger nach rechts, um den Motor neu zu starten."
 
 #. placeholders: {spare}
 msgid "You are in the {spare}"
@@ -25511,6 +25668,8 @@ msgid ""
 "Lights behind you for a routine inspection. Double tap to signal, then stop "
 "on the shoulder."
 msgstr ""
+"Blaulicht hinter dir für eine Routinekontrolle. Tippe doppelt, um zu "
+"blinken, und halte dann auf dem Standstreifen."
 
 #. one sentence of a longer line
 msgid "Lights behind you for a routine inspection."
@@ -25612,7 +25771,7 @@ msgstr ""
 
 #. one sentence of a longer line
 msgid "Double tap to signal, then stop on the shoulder."
-msgstr ""
+msgstr "Tippe doppelt, um zu blinken, und halte dann auf dem Standstreifen."
 
 #. one sentence of a longer line
 msgid "Lights and siren behind you."
@@ -25623,6 +25782,9 @@ msgid ""
 "Lights and siren behind you. A trooper on this {reason} saw {detail} and "
 "wants a look at the truck. Double tap to signal, then stop on the shoulder."
 msgstr ""
+"Blaulicht und Sirene hinter dir. Ein Polizist hat bei dieser {reason} "
+"{detail} gesehen und will sich den Lkw ansehen. Tippe doppelt, um zu "
+"blinken, und halte dann auf dem Standstreifen."
 
 #. placeholders: {reason}, {detail}, {control_hint}
 msgid ""
@@ -25657,6 +25819,9 @@ msgid ""
 "Lights and siren behind you. A trooper on this {reason} saw {what}. Double "
 "tap to signal, then stop on the shoulder."
 msgstr ""
+"Blaulicht und Sirene hinter dir. Ein Polizist hat bei dieser {reason} "
+"{what} gesehen. Tippe doppelt, um zu blinken, und halte dann auf dem "
+"Standstreifen."
 
 #. placeholders: {reason}, {what}, {control_hint}
 msgid ""
@@ -25822,7 +25987,7 @@ msgid "Destination exit ahead again. Signal for it."
 msgstr "Zielausfahrt liegt wieder vor dir. Blink dafür."
 
 msgid "Destination exit ahead again. Double tap to signal."
-msgstr ""
+msgstr "Zielausfahrt wieder voraus. Tippe doppelt, um zu blinken."
 
 #. placeholders: {control_hint}
 msgid "Destination exit ahead again. Press {control_hint} to signal."
@@ -25846,6 +26011,8 @@ msgid ""
 "You turned around, and the destination exit is ahead again. Double tap to "
 "signal for it."
 msgstr ""
+"Du hast gewendet, und die Zielausfahrt liegt wieder vor dir. Tippe doppelt, "
+"um dafür zu blinken."
 
 #. placeholders: {control_hint}
 #. one sentence of a longer line
@@ -25873,7 +26040,7 @@ msgid "Missed the destination exit for {facility}. {reroute_text}"
 msgstr "Zielausfahrt für {facility} verpasst. {reroute_text}"
 
 msgid "Holding at the entrance. Double tap to continue."
-msgstr ""
+msgstr "Warten an der Einfahrt. Tippe doppelt zum Weiterfahren."
 
 #. placeholders: {control_hint}
 msgid "Holding at the entrance. Press {control_hint} to continue."
@@ -26627,11 +26794,13 @@ msgstr "Blinker bleibt {stays}."
 
 #. one sentence of a longer line
 msgid "Double tap again to cancel the exit."
-msgstr ""
+msgstr "Tippe noch einmal doppelt, um die Ausfahrt abzubrechen."
 
 #. placeholders: {stays}
 msgid "Signal stays {stays}. Double tap again to cancel the exit."
 msgstr ""
+"Blinker bleibt {stays}. Tippe noch einmal doppelt, um die Ausfahrt "
+"abzubrechen."
 
 #. placeholders: {control_hint}
 #. one sentence of a longer line
@@ -26722,9 +26891,12 @@ msgstr "Zieh die Feststellbremse an, um anzudocken."
 
 msgid "Swipe down deep to set the parking brake and check in."
 msgstr ""
+"Wische tief nach unten, um die Feststellbremse anzuziehen und dich "
+"anzumelden."
 
 msgid "Swipe down deep to set the parking brake and dock."
 msgstr ""
+"Wische tief nach unten, um die Feststellbremse anzuziehen und anzudocken."
 
 #. placeholders: {key}
 #. one sentence of a longer line
@@ -27286,6 +27458,8 @@ msgstr "Während einer Polizeikontrolle ist keine Pausenplanung möglich."
 msgid ""
 "Resolve the police stop first. Double tap to signal the trooper stop."
 msgstr ""
+"Erledige zuerst die Polizeikontrolle. Tippe doppelt, um für den Polizeihalt "
+"zu blinken."
 
 #. placeholders: {exit_hint}
 #. one sentence of a longer line
@@ -27311,10 +27485,12 @@ msgstr "Auf der Ausfahrt zu {name}."
 msgid ""
 "On the ramp for {name}. Stop at the scale, then double tap to check in."
 msgstr ""
+"Auf der Rampe zu {name}. Halte an der Waage und tippe dann zum Anmelden "
+"doppelt."
 
 #. one sentence of a longer line
 msgid "Stop at the scale, then double tap to check in."
-msgstr ""
+msgstr "Halte an der Waage und tippe dann zum Anmelden doppelt."
 
 #. placeholders: {name}, {rest_hint}
 msgid ""
@@ -27487,6 +27663,8 @@ msgid ""
 "Lights and siren behind you for a log check. Double tap to signal, then "
 "stop on the shoulder."
 msgstr ""
+"Blaulicht und Sirene hinter dir für eine Fahrtenbuchkontrolle. Tippe "
+"doppelt, um zu blinken, und halte dann auf dem Standstreifen."
 
 #. one sentence of a longer line
 msgid "Lights and siren behind you for a log check."
@@ -27685,7 +27863,7 @@ msgid "It is ahead again."
 msgstr "Es liegt wieder vor dir."
 
 msgid " Swipe down and hold to brake well before it."
-msgstr ""
+msgstr " Wische nach unten und halte, um rechtzeitig davor zu bremsen."
 
 #. placeholders: {control_hint}
 msgid " Brake with {control_hint} well before it."
@@ -27758,6 +27936,7 @@ msgstr "Du hast gewendet, und das Tor liegt wieder vor dir."
 
 msgid " Swipe down and hold to brake well before the gate."
 msgstr ""
+" Wische nach unten und halte, um rechtzeitig vor dem Tor zu bremsen."
 
 #. placeholders: {control_hint}
 msgid " Brake with {control_hint} well before the gate."
@@ -28101,7 +28280,7 @@ msgid "ELD route note: {context}"
 msgstr "ELD-Routenhinweis: {context}"
 
 msgid "ELD commands: tap with three fingers and open Hours and clock."
-msgstr ""
+msgstr "ELD-Befehle: Tippe mit drei Fingern und öffne Stunden und Uhrzeit."
 
 #. placeholders: {control_name}, {control_name2}, {control_name3}
 msgid ""
@@ -28736,48 +28915,52 @@ msgid "Page Up"
 msgstr "Page Up"
 
 msgid "a three-finger flick right"
-msgstr ""
+msgstr "ein Wischen mit drei Fingern nach rechts"
 
 msgid "a three-finger flick left"
-msgstr ""
+msgstr "ein Wischen mit drei Fingern nach links"
 
 msgid ""
 "Left and Right change it. On the keyboard: Shift Page Down and Shift Page "
 "Up."
 msgstr ""
+"Left und Right ändern es. Auf der Tastatur: Shift Page Down und Shift Page "
+"Up."
 
 msgid ""
 "Left and Right change it. On the keyboard: Control Page Up and Control Page "
 "Down."
 msgstr ""
+"Left und Right ändern es. Auf der Tastatur: Control Page Up und Control "
+"Page Down."
 
 msgid "Speed and cruise"
-msgstr ""
+msgstr "Geschwindigkeit und Tempomat"
 
 msgid "Road and stops"
-msgstr ""
+msgstr "Straße und Haltepunkte"
 
 msgid "Where am I"
-msgstr ""
+msgstr "Wo bin ich"
 
 msgid "Truck"
-msgstr ""
+msgstr "Lkw"
 
 msgid "Gears and engine brake"
-msgstr ""
+msgstr "Gänge und Motorbremse"
 
 msgid "Radio and CB"
-msgstr ""
+msgstr "Radio und CB-Funk"
 
 msgid "Hours and clock"
-msgstr ""
+msgstr "Stunden und Uhrzeit"
 
 msgid "Driving commands"
 msgstr "Fahrbefehle"
 
 #. placeholders: {noun}
 msgid "At the wheel: {noun}."
-msgstr ""
+msgstr "Am Steuer: {noun}."
 
 #. placeholders: {key_name}
 msgid "On the keyboard: {key_name}."
@@ -28799,21 +28982,21 @@ msgstr " Auf dem Controller: {pad_spoken}."
 
 #. placeholders: {pad_spoken}, {pad_spoken2}
 msgid " On the controller: {pad_spoken} and {pad_spoken2}."
-msgstr ""
+msgstr " Auf dem Controller: {pad_spoken} und {pad_spoken2}."
 
 #. placeholders: {pct}
 msgid "Radio volume: {pct} percent"
-msgstr ""
+msgstr "Radiolautstärke: {pct} Prozent"
 
 msgid "Radio category"
-msgstr ""
+msgstr "Radiokategorie"
 
 #. placeholders: {name}
 msgid "Radio category: {name}"
-msgstr ""
+msgstr "Radiokategorie: {name}"
 
 msgid "Flick up or down to change it."
-msgstr ""
+msgstr "Wische zum Ändern nach oben oder unten."
 
 msgid "Back to driving."
 msgstr "Zurück zum Fahren."
@@ -29142,6 +29325,8 @@ msgstr ""
 msgid ""
 "Double tap opens details, distance, estimated arrival, and stop planning."
 msgstr ""
+"Doppeltippen öffnet Details, Entfernung, geschätzte Ankunft und "
+"Haltepunktplanung."
 
 #. placeholders: {planned}
 msgid "Cancel planned stop at {planned}"
@@ -29275,10 +29460,12 @@ msgstr "Empfangbare Sender:"
 
 msgid "Plus 1 more station, listed in the Radio app under Driver apps."
 msgstr ""
+"Plus 1 weiterer Sender, aufgelistet in der Radio-App unter Fahrer-Apps."
 
 #. placeholders: {n}
 msgid "Plus {n} more stations, listed in the Radio app under Driver apps."
 msgstr ""
+"Plus {n} weitere Sender, aufgelistet in der Radio-App unter Fahrer-Apps."
 
 msgid "Favorites saved:"
 msgstr "Gespeicherte Favoriten:"
@@ -29291,6 +29478,7 @@ msgstr "Deine gespeicherten Sender. Enter auf einem stellt ihn ein."
 
 msgid "Your saved stations. Double tap one to tune it."
 msgstr ""
+"Deine gespeicherten Sender. Tippe einen doppelt an, um ihn einzustellen."
 
 msgid "Back to the status screens."
 msgstr "Zurück zu den Statusbildschirmen."
@@ -29839,6 +30027,7 @@ msgstr "Läuft gerade auf dem eingestellten Sender. Enter fragt noch mal."
 
 msgid "Now playing on the tuned station. Double tap asks again."
 msgstr ""
+"Das läuft gerade auf dem eingestellten Sender. Doppeltippen fragt erneut ab."
 
 #. placeholders: {else}, {tuned}
 msgid "Radio: {else}, tuned to {tuned}"
@@ -29848,7 +30037,7 @@ msgid "Enter switches the radio on or off."
 msgstr "Enter schaltet das Radio ein oder aus."
 
 msgid "Double tap switches the radio on or off."
-msgstr ""
+msgstr "Doppeltippen schaltet das Radio ein oder aus."
 
 msgid "Saves or removes the tuned station in favorites."
 msgstr ""
@@ -29890,6 +30079,8 @@ msgstr "Jeder Sender, der hier reinkommt. Enter auf einem stellt ihn ein."
 
 msgid "Every station that comes in here. Double tap one to tune it."
 msgstr ""
+"Alle Sender, die du hier empfängst. Tippe einen doppelt an, um ihn "
+"einzustellen."
 
 msgid "Suggest a station"
 msgstr "Sender vorschlagen"
@@ -29939,7 +30130,7 @@ msgid "Enter tunes this station."
 msgstr "Enter stellt diesen Sender ein."
 
 msgid "Double tap tunes this station."
-msgstr ""
+msgstr "Doppeltippen stellt diesen Sender ein."
 
 #. one sentence of a longer line
 msgid "Next page."
@@ -30066,6 +30257,7 @@ msgstr "Enter listet diese Kategorie auf. Sender in Reichweite stehen vorn."
 
 msgid "Double tap lists this category. Stations in range list first."
 msgstr ""
+"Doppeltippen listet diese Kategorie auf. Sender in Reichweite stehen zuerst."
 
 msgid "Suggesting a station needs Online services on, in the Online menu."
 msgstr ""
@@ -30149,15 +30341,17 @@ msgid ""
 "The direct link to the audio stream, not the station's web page. "
 "streamurl.link finds one."
 msgstr ""
+"Der direkte Link zum Audiostream, nicht die Webseite des Senders. "
+"streamurl.link findet einen."
 
 msgid "Optional. Double tap skips."
-msgstr ""
+msgstr "Optional. Doppeltippen überspringt."
 
 msgid "Optional, like 101.5 or 1090. Double tap skips."
-msgstr ""
+msgstr "Optional, etwa 101.5 oder 1090. Doppeltippen überspringt."
 
 msgid "Optional, like classic country. Double tap skips."
-msgstr ""
+msgstr "Optional, etwa klassischer Country. Doppeltippen überspringt."
 
 #. placeholders: {typed}
 msgid " Filled in: {typed}."
@@ -32082,6 +32276,9 @@ msgid ""
 "Shoulder sleep canceled. Back on the road. Parking brake set. Swipe up and "
 "hold to release it and drive."
 msgstr ""
+"Schlafen auf dem Standstreifen abgebrochen. Zurück auf der Straße. "
+"Feststellbremse angezogen. Wische nach oben und halte, um sie zu lösen und "
+"loszufahren."
 
 #. one sentence of a longer line
 msgid "Back on the road."
@@ -32329,6 +32526,8 @@ msgstr "Der Tempomat ist schon an."
 
 msgid "No remembered cruise speed yet. Flick up to set one."
 msgstr ""
+"Noch keine Tempomatgeschwindigkeit gespeichert. Wische nach oben, um eine "
+"festzulegen."
 
 #. one sentence of a longer line
 msgid "No remembered cruise speed yet."
@@ -32337,11 +32536,13 @@ msgstr "Noch keine gespeicherte Tempomatgeschwindigkeit."
 #. placeholders: {touch_instruction}
 msgid "No remembered cruise speed yet. {touch_instruction} to set one."
 msgstr ""
+"Noch keine Tempomatgeschwindigkeit gespeichert. {touch_instruction}, um "
+"eine festzulegen."
 
 #. placeholders: {touch_instruction}
 #. one sentence of a longer line
 msgid "{touch_instruction} to set one."
-msgstr ""
+msgstr "{touch_instruction}, um eine festzulegen."
 
 #. placeholders: {key}
 msgid "No remembered cruise speed yet. {key} sets one."
@@ -32399,6 +32600,9 @@ msgid ""
 "fingers to jump to the first and last. Flick down with two fingers to "
 "return to the map."
 msgstr ""
+"Wische nach rechts oder links, um jede Zeile durchzugehen, und mit drei "
+"Fingern nach oben oder unten, um zur ersten oder letzten zu springen. "
+"Wische mit zwei Fingern nach unten, um zur Karte zurückzukehren."
 
 msgid "Stop details"
 msgstr "Details zum Haltepunkt"
@@ -32468,7 +32672,7 @@ msgstr "Details zum Haltepunkt."
 
 #. placeholders: {STOP_DETAIL_TOUCH_HELP}, {current}
 msgid "Stop details. {STOP_DETAIL_TOUCH_HELP} {current}"
-msgstr ""
+msgstr "Haltepunktdetails. {STOP_DETAIL_TOUCH_HELP} {current}"
 
 #. placeholders: {STOP_DETAIL_INTRO_HELP}, {current}
 msgid "Stop details. {STOP_DETAIL_INTRO_HELP} {current}"
@@ -32525,19 +32729,19 @@ msgstr ""
 "{target} verlegen, {ahead} voraus? {current}"
 
 msgid "reason"
-msgstr ""
+msgstr "Grund"
 
 msgid "classmate"
-msgstr ""
+msgstr "Klassenkamerad"
 
 msgid "hire"
-msgstr ""
+msgstr "Einstellung"
 
 msgid "meridian"
-msgstr ""
+msgstr "Meridian"
 
 msgid "trainer"
-msgstr ""
+msgstr "Ausbilder"
 
 #. placeholders: {name}
 msgid "{name} has the truck at the receiver's gate."
@@ -32899,7 +33103,7 @@ msgid "Refuel"
 msgstr "Tanken"
 
 msgid "last lot"
-msgstr ""
+msgstr "letzter Parkplatz"
 
 msgid "shift"
 msgstr "Schicht"
@@ -33008,7 +33212,7 @@ msgid "{name} took a 30-minute break on the shoulder."
 msgstr "{name} hat auf dem Seitenstreifen eine 30-minütige Pause gemacht."
 
 msgid "slept on"
-msgstr ""
+msgstr "weitergeschlafen"
 
 #. placeholders: {name}, {gallons}, {place}
 msgid ""
@@ -33061,7 +33265,7 @@ msgstr ""
 "{name} wurde bei {place} zu einer Kontrolle herausgewunken. {outcome}"
 
 msgid "advice"
-msgstr ""
+msgstr "Rat"
 
 msgid "the next street"
 msgstr "die nächste Straße"
@@ -33125,6 +33329,8 @@ msgstr "Luftdruck {psi} psi."
 
 msgid "Parking brake set. Swipe up and hold to release it and drive."
 msgstr ""
+"Feststellbremse angezogen. Wische nach oben und halte, um sie zu lösen und "
+"loszufahren."
 
 #. placeholders: {brake_hint}
 msgid "Parking brake set. Press {brake_hint} to release it."
@@ -33610,6 +33816,8 @@ msgid ""
 "Lights and siren behind you. {speed} in a {zone} zone. Double tap to "
 "signal, then stop on the shoulder."
 msgstr ""
+"Blaulicht und Sirene hinter dir. {speed} in einer {zone}-Zone. Tippe "
+"doppelt, um zu blinken, und halte dann auf dem Standstreifen."
 
 #. placeholders: {speed}, {zone}, {control_hint}
 msgid ""
@@ -33668,6 +33876,8 @@ msgid ""
 "Scale bypass enforcement. Lights and siren behind you. Double tap to "
 "signal, then stop on the shoulder."
 msgstr ""
+"Kontrolle wegen umfahrener Wiegestation. Blaulicht und Sirene hinter dir. "
+"Tippe doppelt, um zu blinken, und halte dann auf dem Standstreifen."
 
 #. one sentence of a longer line
 msgid "Scale bypass enforcement."
@@ -33715,6 +33925,8 @@ msgid ""
 "Unsafe equipment stop. Lights and siren behind you. Double tap to signal, "
 "then stop on the shoulder."
 msgstr ""
+"Kontrolle wegen unsicherer Ausrüstung. Blaulicht und Sirene hinter dir. "
+"Tippe doppelt, um zu blinken, und halte dann auf dem Standstreifen."
 
 #. one sentence of a longer line
 msgid "Unsafe equipment stop."
@@ -33846,7 +34058,7 @@ msgstr ""
 "Kupplung und leg den ersten Gang ein."
 
 msgid "Engine stalled. Turn two fingers right to restart."
-msgstr ""
+msgstr "Motor abgewürgt. Drehe zwei Finger nach rechts zum Neustarten."
 
 #. placeholders: {control_hint}
 msgid "Engine stalled. Press {control_hint} to restart."
@@ -33861,6 +34073,8 @@ msgid ""
 "Engine stalled. Turn two fingers right to restart, then hold a pedal and "
 "flick up with a second finger for first gear."
 msgstr ""
+"Motor abgewürgt. Drehe zwei Finger nach rechts zum Neustarten. Halte dann "
+"ein Pedal und wische mit einem zweiten Finger nach oben für den ersten Gang."
 
 #. placeholders: {control_hint}, {control_hint2}, {control_name}
 msgid ""
@@ -33904,11 +34118,11 @@ msgstr "Wähl deinen Gang, bevor es losgeht."
 
 #. one sentence of a longer line
 msgid "Set the jake."
-msgstr ""
+msgstr "Stell die Motorbremse ein."
 
 #. placeholders: {touch_instruction}
 msgid "Set the jake. {touch_instruction}."
-msgstr ""
+msgstr "Stell die Motorbremse ein. {touch_instruction}."
 
 #. placeholders: {control_hint}
 msgid "Set the jake with {control_hint}."
@@ -34401,6 +34615,8 @@ msgstr ""
 msgid ""
 "Failure-to-stop warning. Double tap to signal, then stop on the shoulder."
 msgstr ""
+"Warnung wegen Nichtanhaltens. Tippe doppelt, um zu blinken, und halte dann "
+"auf dem Standstreifen."
 
 #. one sentence of a longer line
 msgid "Failure-to-stop warning."
@@ -34509,7 +34725,7 @@ msgstr ""
 
 #. one sentence of a longer line
 msgid "A flick up with two fingers still explains it."
-msgstr ""
+msgstr "Wischen mit zwei Fingern nach oben erklärt es weiterhin."
 
 #. placeholders: {name}
 #. one sentence of a longer line
@@ -34521,6 +34737,8 @@ msgid ""
 "{name} is not in this copy of the game. A flick up with two fingers still "
 "explains it."
 msgstr ""
+"{name} ist in dieser Spielversion nicht enthalten. Wischen mit zwei Fingern "
+"nach oben erklärt es weiterhin."
 
 #. one sentence of a longer line
 msgid "F1 still explains it."
@@ -34931,6 +35149,8 @@ msgstr ""
 msgid ""
 "Double tap offers to delete this save. It still works in Freight Fate 1.8."
 msgstr ""
+"Doppeltippen bietet an, diesen Spielstand zu löschen. Er funktioniert noch "
+"in Freight Fate 1.8."
 
 msgid "reset"
 msgstr "Zurücksetzen"
@@ -36151,13 +36371,16 @@ msgstr ""
 
 #. placeholders: {main_voice_label}
 msgid "Main voice: {main_voice_label}"
-msgstr ""
+msgstr "Hauptstimme: {main_voice_label}"
 
 msgid ""
 "The voice that reads menus and readouts. Automatic uses your screen reader "
 "when one is running, and a system voice when none is. A screen reader is "
 "listed only while it is running."
 msgstr ""
+"Die Stimme für Menüs und Anzeigen. Automatisch nutzt deinen Screenreader, "
+"wenn einer läuft, sonst eine Systemstimme. Ein Screenreader wird nur "
+"aufgeführt, solange er läuft."
 
 #. placeholders: {event_voice_label}
 msgid "Driving event voice: {event_voice_label}"
@@ -37154,11 +37377,11 @@ msgid "built-in voice"
 msgstr "eingebaute Stimme"
 
 msgid "Narrator"
-msgstr ""
+msgstr "Sprachausgabe"
 
 #. placeholders: {name}
 msgid "{name}, unavailable"
-msgstr ""
+msgstr "{name}, nicht verfügbar"
 
 msgid ""
 "Move up and down to pick a gesture, then confirm it to choose the command "
@@ -37176,18 +37399,27 @@ msgid ""
 "parking brake when stopped. Practice gestures reads the length of each "
 "swipe down. Flick up or down to change it."
 msgstr ""
+"Wie weit du nach unten wischen musst, bevor die Notbremse oder im Stand die "
+"Feststellbremse greift. Gesten üben liest die Länge jedes Wischens nach "
+"unten vor. Wische zum Ändern nach oben oder unten."
 
 msgid ""
 "How far a swipe down travels before it becomes the emergency brake, or the "
 "parking brake when stopped. Practice gestures reads the length of each "
 "swipe down. D-pad Right or Left changes it."
 msgstr ""
+"Wie weit du nach unten wischen musst, bevor die Notbremse oder im Stand die "
+"Feststellbremse greift. Gesten üben liest die Länge jedes Wischens nach "
+"unten vor. D-pad Right oder Left ändert es."
 
 msgid ""
 "How far a swipe down travels before it becomes the emergency brake, or the "
 "parking brake when stopped. Practice gestures reads the length of each "
 "swipe down. Right or Left arrow changes it."
 msgstr ""
+"Wie weit du nach unten wischen musst, bevor die Notbremse oder im Stand die "
+"Feststellbremse greift. Gesten üben liest die Länge jedes Wischens nach "
+"unten vor. Die Pfeiltaste Right oder Left ändert es."
 
 msgid "Every touch gesture is back to its default."
 msgstr "Alle Touch-Gesten sind wieder auf Standard."
@@ -37204,7 +37436,7 @@ msgstr ""
 
 #. placeholders: {touch_deep_swipe_points}
 msgid "Deep swipe starts at: {touch_deep_swipe_points}"
-msgstr ""
+msgstr "Tiefes Wischen beginnt bei: {touch_deep_swipe_points}"
 
 msgid "Practice gestures"
 msgstr "Gesten üben"
@@ -37244,25 +37476,26 @@ msgstr "{gesture_name} führt jetzt {label} aus."
 
 #. one sentence of a longer line
 msgid "Deep swipe."
-msgstr ""
+msgstr "Tiefes Wischen."
 
 #. placeholders: {points}
 msgid "Deep swipe. Length {points}."
-msgstr ""
+msgstr "Tiefes Wischen. Länge {points}."
 
 #. placeholders: {points}
 #. one sentence of a longer line
 msgid "Length {points}."
-msgstr ""
+msgstr "Länge {points}."
 
 #. placeholders: {points}, {touch_deep_swipe_points}
 msgid "Length {points}. The deep swipe starts at {touch_deep_swipe_points}."
 msgstr ""
+"Länge {points}. Tiefes Wischen beginnt bei {touch_deep_swipe_points}."
 
 #. placeholders: {touch_deep_swipe_points}
 #. one sentence of a longer line
 msgid "The deep swipe starts at {touch_deep_swipe_points}."
-msgstr ""
+msgstr "Tiefes Wischen beginnt bei {touch_deep_swipe_points}."
 
 msgid "Swipe up and hold: gas. Lift to coast."
 msgstr "Nach oben wischen und halten: Gas. Loslassen zum Rollen."
@@ -37294,6 +37527,7 @@ msgstr "Mit zwei Fingern nach rechts drehen: Motor starten."
 
 msgid "Two-finger turn left: stop the engine when the truck is stopped."
 msgstr ""
+"Drehung mit zwei Fingern nach links: Motor bei stehendem Lkw abstellen."
 
 msgid "Second finger, hold left: steer left."
 msgstr "Zweiter Finger, links halten: nach links lenken."
@@ -37325,6 +37559,8 @@ msgstr "Überspringen und losfahren"
 
 msgid "Flick down with two fingers twice within two seconds to leave."
 msgstr ""
+"Wische innerhalb von zwei Sekunden zweimal mit zwei Fingern nach unten, um "
+"zu verlassen."
 
 msgid "Escape twice within two seconds to leave."
 msgstr "Zweimal Escape innerhalb von zwei Sekunden, um zu verlassen."
@@ -37376,28 +37612,28 @@ msgid "Two-finger tap"
 msgstr "Mit zwei Fingern tippen"
 
 msgid "Two-finger flick up"
-msgstr ""
+msgstr "Mit zwei Fingern nach oben wischen"
 
 msgid "Two-finger flick left"
-msgstr ""
+msgstr "Mit zwei Fingern nach links wischen"
 
 msgid "Two-finger flick right"
-msgstr ""
+msgstr "Mit zwei Fingern nach rechts wischen"
 
 msgid "Three-finger tap"
 msgstr "Mit drei Fingern tippen"
 
 msgid "Three-finger flick left"
-msgstr ""
+msgstr "Mit drei Fingern nach links wischen"
 
 msgid "Three-finger flick right"
-msgstr ""
+msgstr "Mit drei Fingern nach rechts wischen"
 
 msgid "Take an exit, pull over or confirm arrival"
-msgstr ""
+msgstr "Eine Ausfahrt nehmen, rechts ranfahren oder Ankunft bestätigen"
 
 msgid "Stop speech"
-msgstr ""
+msgstr "Sprachausgabe stoppen"
 
 msgid "Change lanes left"
 msgstr "Spur nach links wechseln"
@@ -40094,6 +40330,9 @@ msgid ""
 "and down for the previous one. Double tap reads the whole page, and a flick "
 "down with two fingers goes back."
 msgstr ""
+"Wische nach rechts oder links, um zeilenweise zu lesen. Wische nach oben "
+"für die nächste Seite und nach unten für die vorherige. Doppeltippen liest "
+"die ganze Seite, und Wischen mit zwei Fingern nach unten geht zurück."
 
 msgid ""
 "D-pad Left and Right change pages, Up and Down read one line at a time. A "
@@ -40133,11 +40372,19 @@ msgid ""
 "The rest needs an orinks.net account. Everything you share can be turned "
 "off again."
 msgstr ""
+"Enter öffnet einen Eintrag oder schaltet eine Einstellung zum nächsten "
+"Wert. Right schaltet ebenfalls vorwärts, Left rückwärts. Escape geht "
+"zurück. Fahrer im Dienst, das Fahrerverzeichnis, die Dienstmeldungen und "
+"Kontoerfolge funktionieren ohne Verbindung. Online als Gast fahren bringt "
+"dich ohne Konto auf die Fahrerliste. Der Rest braucht ein orinks.net-Konto. "
+"Alles, was du teilst, lässt sich wieder ausschalten."
 
 msgid ""
 "Your profile needs an orinks.net account. Choose Connect an orinks.net "
 "account first."
 msgstr ""
+"Dein Profil braucht ein orinks.net-Konto. Wähle zuerst Ein orinks.net-Konto "
+"verbinden."
 
 msgid ""
 "Your profile needs your orinks.net account. Choose Set up orinks.net "
@@ -40148,16 +40395,17 @@ msgstr ""
 
 msgid "Your orinks.net account is connected, so there's no guest driver."
 msgstr ""
+"Dein orinks.net-Konto ist verbunden, deshalb gibt es keinen Gastfahrer."
 
 #. placeholders: {display_name}
 msgid "Guest name: {display_name}"
-msgstr ""
+msgstr "Gastname: {display_name}"
 
 msgid "Guest driver: off, account connected"
-msgstr ""
+msgstr "Gastfahrer: aus, Konto verbunden"
 
 msgid "Drive online as a guest"
-msgstr ""
+msgstr "Online als Gast fahren"
 
 msgid "The browser could not be opened. The address is on your clipboard."
 msgstr ""
@@ -40196,6 +40444,8 @@ msgid ""
 "Cloud backup needs an orinks.net account. Choose Connect an orinks.net "
 "account."
 msgstr ""
+"Die Cloud-Sicherung braucht ein orinks.net-Konto. Wähle Ein "
+"orinks.net-Konto verbinden."
 
 msgid ""
 "Cloud backup needs your orinks.net account. Choose Set up orinks.net "
@@ -40340,7 +40590,7 @@ msgstr ""
 "Live-Verkehr und Live-Parkplätze haben eigene Schalter unter Einstellungen."
 
 msgid "Connect an orinks.net account"
-msgstr ""
+msgstr "Ein orinks.net-Konto verbinden"
 
 msgid "orinks.net account: connected"
 msgstr "orinks.net-Konto: verbunden"
@@ -40359,12 +40609,14 @@ msgstr ""
 "Computer findest du unter Meine Fahrer-Einrichtungsseite öffnen."
 
 msgid "Hear your guest name or ask orinks.net for a new one."
-msgstr ""
+msgstr "Höre deinen Gastnamen oder bitte orinks.net um einen neuen."
 
 msgid ""
 "Puts you on the drivers board under a name orinks.net picks, with no "
 "account. A profile and cloud backup need an account."
 msgstr ""
+"Bringt dich ohne Konto unter einem von orinks.net gewählten Namen auf die "
+"Fahrerliste. Ein Profil und die Cloud-Sicherung brauchen ein Konto."
 
 msgid "Open my driver setup page"
 msgstr "Meine Fahrer-Einrichtungsseite öffnen"
@@ -40681,7 +40933,7 @@ msgid "your driver"
 msgstr "dein Fahrer"
 
 msgid " Your guest driver is this account now."
-msgstr ""
+msgstr " Dein Gastfahrer ist jetzt dieses Konto."
 
 #. placeholders: {display}, {guest_note}
 #. one sentence of a longer line
@@ -40689,12 +40941,16 @@ msgid ""
 "Connected to orinks.net as {display}.{guest_note} Your careers now back up "
 "to that account."
 msgstr ""
+"Mit orinks.net als {display} verbunden.{guest_note} Deine Karrieren werden "
+"jetzt in diesem Konto gesichert."
 
 #. placeholders: {display}, {guest_note}
 msgid ""
 "Connected to orinks.net as {display}.{guest_note} Your careers now back up "
 "to that account. Turning Profile sharing on."
 msgstr ""
+"Mit orinks.net als {display} verbunden.{guest_note} Deine Karrieren werden "
+"jetzt in diesem Konto gesichert. Profilfreigabe wird eingeschaltet."
 
 msgid ""
 "Profile sharing is on. Your driver profile fills in as you drive. Profile "
@@ -40871,7 +41127,7 @@ msgstr "Gerade ist kein Fahrer im Dienst"
 
 #. placeholders: {name}
 msgid "{name}, guest"
-msgstr ""
+msgstr "{name}, Gast"
 
 msgid "activity"
 msgstr "activity"
@@ -40883,7 +41139,7 @@ msgid "went off duty"
 msgstr "hat den Dienst beendet"
 
 msgid "A guest driver, with no orinks.net account and no profile."
-msgstr ""
+msgstr "Ein Gastfahrer ohne orinks.net-Konto und ohne Profil."
 
 msgid "Opens this driver's public profile."
 msgstr "Öffnet das öffentliche Profil dieses Fahrers."
@@ -41002,27 +41258,33 @@ msgid ""
 "driver profile, road journal, achievements and cloud backup need an "
 "account. Profile sharing on the Online menu turns sharing off."
 msgstr ""
+"Als Gast erscheinst du ohne Konto auf der orinks.net-Fahrerliste unter "
+"einem von orinks.net gewählten Namen, etwa Copper Fox 12. Das schaltet die "
+"Profilfreigabe ein. Dein Gastname und deine Aktivität im Dienst sind damit "
+"öffentlich auf der Liste sichtbar. Ein Fahrerprofil, Fahrtenbuch, Erfolge "
+"und Cloud-Sicherung brauchen ein Konto. Mit Profilfreigabe im Online-Menü "
+"schaltest du das Teilen aus."
 
 msgid "Go online as a guest"
-msgstr ""
+msgstr "Als Gast online gehen"
 
 msgid "Asking orinks.net for a guest name"
-msgstr ""
+msgstr "Gastname wird bei orinks.net angefragt"
 
 msgid "Turning Profile sharing on"
-msgstr ""
+msgstr "Profilfreigabe wird eingeschaltet"
 
 msgid "Still working. Stay here for the result."
-msgstr ""
+msgstr "Noch in Arbeit. Bleib hier für das Ergebnis."
 
 msgid "Asking orinks.net for a guest name."
-msgstr ""
+msgstr "Gastname wird bei orinks.net angefragt."
 
 msgid "online-guest"
-msgstr ""
+msgstr "online-guest"
 
 msgid "orinks.net is busy. Try again in a minute."
-msgstr ""
+msgstr "orinks.net ist beschäftigt. Versuch es in einer Minute noch einmal."
 
 msgid "Could not reach orinks.net. Try again."
 msgstr "orinks.net war nicht erreichbar. Versuch es noch einmal."
@@ -41031,17 +41293,19 @@ msgid ""
 "This computer could not save the guest driver. Nothing was changed. Check "
 "your password store, then try again."
 msgstr ""
+"Dieser Computer konnte den Gastfahrer nicht speichern. Nichts wurde "
+"geändert. Prüfe deinen Passwortspeicher und versuch es dann noch einmal."
 
 msgid "profile-sharing"
 msgstr "profile-sharing"
 
 #. placeholders: {name}
 msgid "You're {name} on the drivers board."
-msgstr ""
+msgstr "Du bist {name} auf der Fahrerliste."
 
 #. one sentence of a longer line
 msgid "Profile sharing on the Online menu tries again."
-msgstr ""
+msgstr "Mit Profilfreigabe im Online-Menü versuchst du es erneut."
 
 #. placeholders: {name}
 #. one sentence of a longer line
@@ -41049,63 +41313,73 @@ msgid ""
 "You're {name}, but orinks.net could not turn Profile sharing on, so nothing "
 "is public yet."
 msgstr ""
+"Du bist {name}, aber orinks.net konnte die Profilfreigabe nicht "
+"einschalten. Noch ist also nichts öffentlich."
 
 #. placeholders: {name}
 msgid ""
 "You're {name}, but orinks.net could not turn Profile sharing on, so nothing "
 "is public yet. Profile sharing on the Online menu tries again."
 msgstr ""
+"Du bist {name}, aber orinks.net konnte die Profilfreigabe nicht "
+"einschalten. Noch ist also nichts öffentlich. Mit Profilfreigabe im "
+"Online-Menü versuchst du es erneut."
 
 msgid "Gets a guest name from orinks.net and turns Profile sharing on."
 msgstr ""
+"Holt einen Gastnamen von orinks.net und schaltet die Profilfreigabe ein."
 
 msgid "Hear what gets shared"
 msgstr "Hören, was geteilt wird"
 
 msgid "Guest name"
-msgstr ""
+msgstr "Gastname"
 
 msgid "Still asking."
-msgstr ""
+msgstr "Anfrage läuft noch."
 
 msgid "This computer isn't driving as a guest."
-msgstr ""
+msgstr "Dieser Computer fährt nicht als Gast."
 
 msgid "guest-rename"
-msgstr ""
+msgstr "guest-rename"
 
 msgid "Asking for a new name"
-msgstr ""
+msgstr "Neuer Name wird angefragt"
 
 msgid "Ask for a new name"
-msgstr ""
+msgstr "Neuen Namen anfragen"
 
 msgid "orinks.net picks another name at random. Ask again for another."
 msgstr ""
+"orinks.net wählt zufällig einen anderen Namen. Frag erneut für einen "
+"weiteren."
 
 #. placeholders: {name}
 #. one sentence of a longer line
 msgid "You're {name}."
-msgstr ""
+msgstr "Du bist {name}."
 
 #. placeholders: {TITLE}, {name}, {current}
 msgid "{TITLE}. You're {name}. {current}"
-msgstr ""
+msgstr "{TITLE}. Du bist {name}. {current}"
 
 #. placeholders: {name}
 msgid "You're {name} now."
-msgstr ""
+msgstr "Du bist jetzt {name}."
 
 msgid "That's a lot of names. Try again in a minute."
-msgstr ""
+msgstr "Das sind viele Namen. Versuch es in einer Minute noch einmal."
 
 msgid ""
 "orinks.net no longer has this guest. Connect an orinks.net account from the "
 "Online menu."
 msgstr ""
+"orinks.net kennt diesen Gast nicht mehr. Verbinde im Online-Menü ein "
+"orinks.net-Konto."
 
 msgid "Still asking. Stay here for the new name."
-msgstr ""
+msgstr "Anfrage läuft noch. Bleib hier für den neuen Namen."
 
 msgid "out-of-service order"
 msgstr "Stilllegungsanordnung"
@@ -41333,7 +41607,7 @@ msgid "The report could not be prepared."
 msgstr "Der Bericht konnte nicht vorbereitet werden."
 
 msgid "problem-report"
-msgstr ""
+msgstr "problem-report"
 
 #. one sentence of a longer line
 msgid "Could not open a web browser."
@@ -41608,6 +41882,10 @@ msgid ""
 "review the letters, flick up or down with three fingers to jump to the "
 "start or end, and flick down with two fingers to cancel."
 msgstr ""
+"Schreib mit der Bildschirmtastatur und tippe dann doppelt. Wische nach "
+"links oder rechts, um die Buchstaben durchzugehen, mit drei Fingern nach "
+"oben oder unten, um zum Anfang oder Ende zu springen, und mit zwei Fingern "
+"nach unten zum Abbrechen."
 
 msgid "Text"
 msgstr "Text"
@@ -41789,10 +42067,12 @@ msgstr "Es wurden keine Änderungsnotizen mitgeliefert."
 msgid ""
 "Double tap reads everything, and a flick down with two fingers goes back."
 msgstr ""
+"Doppeltippen liest alles, und Wischen mit zwei Fingern nach unten geht "
+"zurück."
 
 #. one sentence of a longer line
 msgid "Flick right or left to read line by line."
-msgstr ""
+msgstr "Wische nach rechts oder links, um Zeile für Zeile zu lesen."
 
 #. placeholders: {title}
 #. one sentence of a longer line
@@ -41805,6 +42085,9 @@ msgid ""
 "line. Double tap reads everything, and a flick down with two fingers goes "
 "back."
 msgstr ""
+"Neues in {title}. {notes} Zeilen. Wische nach rechts oder links, um Zeile "
+"für Zeile zu lesen. Doppeltippen liest alles, und Wischen mit zwei Fingern "
+"nach unten geht zurück."
 
 #. placeholders: {notes}
 #. one sentence of a longer line
@@ -41929,10 +42212,12 @@ msgid ""
 "Downloading {title}{size}. The game restarts when the download finishes. "
 "Flick down with two fingers to cancel."
 msgstr ""
+"{title}{size} wird heruntergeladen. Das Spiel startet nach dem Download "
+"neu. Wische mit zwei Fingern nach unten zum Abbrechen."
 
 #. one sentence of a longer line
 msgid "Flick down with two fingers to cancel."
-msgstr ""
+msgstr "Wische mit zwei Fingern nach unten zum Abbrechen."
 
 #. one sentence of a longer line
 msgid "The game restarts when the download finishes."
@@ -42011,7 +42296,7 @@ msgid "Escape cancels, Tab reads progress."
 msgstr "Escape bricht ab, Tab liest den Fortschritt vor."
 
 msgid "lift"
-msgstr ""
+msgstr "Loslassen"
 
 #. placeholders: {lane_assist}
 msgid "Middle lane  ·  lane keeping {lane_assist}"
