@@ -1,6 +1,6 @@
 use super::*;
 use ff_core::cloud_resume::CheckState;
-use freight_fate::states::main_menu::MainMenuState;
+use freight_fate::states::main_menu::{CareerAction, ConfirmCareerActionState, MainMenuState};
 use std::time::Duration;
 
 fn tracked(app: &mut TestApp, transport: SharedTransport) -> (CloudSaves, PathBuf) {
@@ -58,6 +58,59 @@ fn off_by_default_never_lists() {
     Menu::enter(&mut menu, &mut app.ctx);
     assert_eq!(service.resume_state(), CheckState::Off);
     assert_eq!(transport.request_count(), 0);
+}
+
+#[test]
+fn delete_and_reset_wait_for_pending_resume() {
+    let mut app = TestApp::new();
+    let profile = Profile::named("Road Star");
+    let path = profile.save().unwrap();
+    let before = fs::read(&path).unwrap();
+    let (started_tx, started_rx) = std::sync::mpsc::channel();
+    let (release_tx, release_rx) = std::sync::mpsc::channel();
+    let release_rx = Mutex::new(release_rx);
+    let service = CloudSaves::new(CloudSavesOptions {
+        enabled: true,
+        identity: Some(identity()),
+        transport: Arc::new(ClosureTransport(
+            move |_: &str, _: Option<&Value>, _: &[(String, String)], _: Option<&str>| {
+                started_tx.send(()).unwrap();
+                release_rx
+                    .lock()
+                    .unwrap()
+                    .recv_timeout(Duration::from_secs(5))
+                    .unwrap();
+                Ok(json!({"saves": []}))
+            },
+        )),
+        threaded: true,
+        data_dir: ff_core::models::profile::data_dir(),
+        ..Default::default()
+    });
+    app.ctx.services.cloud = service.clone();
+    service.check_resume(true);
+    started_rx.recv_timeout(Duration::from_secs(5)).unwrap();
+    for action in [CareerAction::Delete, CareerAction::Reset] {
+        let mut confirmation = ConfirmCareerActionState::new(path.clone(), profile.clone(), action);
+        Menu::enter(&mut confirmation, &mut app.ctx);
+        app.clear_speech();
+        Menu::handle_event(
+            &mut confirmation,
+            &mut app.ctx,
+            &InputEvent::key(Key::Return),
+        );
+        assert_eq!(fs::read(&path).unwrap(), before);
+        assert!(app
+            .main_lines()
+            .iter()
+            .any(|line| line == freight_fate::cloud_saves::RESUME_CHECKING));
+    }
+    release_tx.send(()).unwrap();
+    let deadline = std::time::Instant::now() + Duration::from_secs(5);
+    while service.resume_pending() && std::time::Instant::now() < deadline {
+        std::thread::sleep(Duration::from_millis(1));
+    }
+    assert!(!service.resume_pending());
 }
 
 #[test]
