@@ -234,12 +234,11 @@ pub(crate) fn accepted_outcome(result: &serde_json::Map<String, serde_json::Valu
         return "accepted".to_string();
     };
     let local_name = super::local_name_for_slot(raw_name);
-    let safe_name = super::save_slot_name(raw_name);
-    if raw_name != safe_name || local_name.chars().count() > 64 {
+    if local_name != super::save_slot_name(local_name) || local_name.chars().count() > 64 {
         log::warn!("Ignored malformed cloud eviction save name");
         return "accepted".to_string();
     }
-    format!("accepted:evicted:{safe_name}")
+    format!("accepted:evicted:{raw_name}")
 }
 
 /// The exact line used after the server removes an old cloud career.

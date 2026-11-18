@@ -97,7 +97,7 @@ pub fn save_slot_name(profile_name: &str) -> String {
 fn cloud_slot_suffix(line: &str) -> Option<String> {
     let (major, minor) = line.split_once('.')?;
     let release = (major.parse::<u64>().ok()?, minor.parse::<u64>().ok()?);
-    (release > (1, 9)).then(|| format!(" - Career {}", release.0))
+    (release > (1, 9)).then(|| format!(" (Career {})", release.0))
 }
 
 /// The remote backup key, isolated from careers on earlier release lines.
@@ -1115,9 +1115,9 @@ mod tests {
         for (line, expected) in [
             ("1.8", None),
             ("1.9", None),
-            ("1.10", Some(" - Career 1")),
-            ("2.0", Some(" - Career 2")),
-            ("20.0", Some(" - Career 20")),
+            ("1.10", Some(" (Career 1)")),
+            ("2.0", Some(" (Career 2)")),
+            ("20.0", Some(" (Career 20)")),
             ("", None),
             ("future", None),
             ("2.x", None),

@@ -169,7 +169,7 @@ fn test_new_2_0_career_upload_carries_its_release_line() {
     service.queue_backup(&p.name, Value::Object(p.to_dict()));
     drain(&service, &clock);
     assert_eq!(transport.posts().len(), 1);
-    assert_eq!(transport.posts()[0]["saveName"], "New Driver - Career 2");
+    assert_eq!(transport.posts()[0]["saveName"], "New Driver (Career 2)");
     let bytes = base64::engine::general_purpose::STANDARD
         .decode(transport.posts()[0]["content"].as_str().unwrap())
         .unwrap();
@@ -212,19 +212,27 @@ fn test_slot_name_matches_local_file_stem() {
 fn test_cloud_slot_name_and_local_name() {
     for name in ["Road Star", "Road * Star?", "  ", "Night-Owl_2", "Café"] {
         let slot = cloud_slot_name(name);
-        assert_eq!(slot, format!("{} - Career 2", save_slot_name(name)));
-        assert_eq!(save_slot_name(&slot), slot);
+        assert_eq!(slot, format!("{} (Career 2)", save_slot_name(name)));
+        assert_ne!(save_slot_name(&slot), slot);
         assert_eq!(local_name_for_slot(&slot), save_slot_name(name));
     }
     assert_eq!(local_name_for_slot("Road Star"), "Road Star");
     assert_eq!(local_name_for_slot(""), "");
     assert_eq!(
-        local_name_for_slot("Road Star - Career 3"),
-        "Road Star - Career 3"
+        local_name_for_slot("Road Star (Career 3)"),
+        "Road Star (Career 3)"
     );
     assert_eq!(
-        local_name_for_slot("Road Star - Career 2 extra"),
-        "Road Star - Career 2 extra"
+        local_name_for_slot("Road Star (Career 2) extra"),
+        "Road Star (Career 2) extra"
+    );
+    assert_eq!(
+        local_name_for_slot("Road Star - Career 2"),
+        "Road Star - Career 2"
+    );
+    assert_ne!(
+        cloud_slot_name("Road Star"),
+        save_slot_name("Road Star - Career 2")
     );
 }
 
@@ -360,7 +368,7 @@ fn test_debounce_holds_then_uploads_once() {
         format!("{}/api/freight-fate/saves", base_url())
     );
     assert_eq!(payload["driverId"], identity().driver_id);
-    assert_eq!(payload["saveName"], "Road Star - Career 2");
+    assert_eq!(payload["saveName"], "Road Star (Career 2)");
     assert_eq!(payload["parentRevision"], Value::Null);
     assert_eq!(payload["saveVersion"], 7);
     assert_eq!(
@@ -959,7 +967,7 @@ fn test_every_profile_save_queues_a_backup() {
 
     let posts = transport.posts();
     assert_eq!(posts.len(), 1, "{posts:?}");
-    assert_eq!(posts[0]["saveName"], json!("Road Star - Career 2"));
+    assert_eq!(posts[0]["saveName"], json!("Road Star (Career 2)"));
 }
 
 #[test]
@@ -2687,6 +2695,36 @@ fn test_eviction_accepts_a_current_line_suffix_without_relaxing_the_local_limit(
             .unwrap();
         assert_eq!(
             outcome,
+            if accepted {
+                format!("accepted:evicted:{key}")
+            } else {
+                "accepted".to_string()
+            }
+        );
+    }
+}
+
+#[test]
+fn eviction_parentheses_must_be_exactly_the_current_release_suffix() {
+    for (key, accepted) in [
+        ("Old Road (Career 2)", true),
+        ("Old Road - Career 2", true),
+        ("Old Road (Career 3)", false),
+        ("Old Road (Career 2) extra", false),
+        ("Old (Road) (Career 2)", false),
+        ("Old Road (Career 2) (Career 2)", false),
+        (" (Career 2)", false),
+    ] {
+        let transport =
+            FakeTransport::replying(json!({"ok": true, "revision": 1, "evictedSaveName": key}));
+        let service = make_service(&transport, &ManualClock::new());
+        let token = service
+            .backup_now("Road Star", profile("Road Star", 5000.0))
+            .unwrap();
+        assert_eq!(
+            service
+                .outcome_for(&cloud_slot_name("Road Star"), token)
+                .unwrap(),
             if accepted {
                 format!("accepted:evicted:{key}")
             } else {

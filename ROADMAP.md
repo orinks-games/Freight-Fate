@@ -5181,7 +5181,8 @@ one-channel rule is in [October 26](#october-26-the-road-to-the-20-nightlies-fou
       parked facility, home terminal, home city, turnpike notice; 20
       carrier labels). Testers move from 1.9.6 to 2.0 on the channel.
 - [x] (Found along the way) 2.0 cloud slots use a release-specific career
-      suffix. Same-name 1.9 backups keep their own revisions and conflicts;
+      suffix, such as `Road Star (Career 2)`, which 1.9 names cannot produce.
+      Same-name 1.9 backups keep their own revisions and conflicts;
       both slots remain available for explicit restore into the local career.
 - [ ] The orinks.net profile export accepts the new fields and labels, on
       the dev preview with the agent staging driver first.

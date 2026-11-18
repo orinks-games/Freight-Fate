@@ -70,7 +70,8 @@ fn test_same_name_release_backups_have_distinct_labels_and_remote_keys() {
     let current = cloud_slot_name("Road Star");
     let transport = FakeTransport::replying(json!({"saves": [
         {"saveName": "Road Star", "revision": 73},
-        {"saveName": current, "revision": 2}
+        {"saveName": current, "revision": 2},
+        {"saveName": "Road Star - Career 2", "revision": 19}
     ]}));
     install_cloud(&mut app, transport, true);
     let mut state = CloudBackupState::new(&mut app.ctx);
@@ -80,9 +81,12 @@ fn test_same_name_release_backups_have_distinct_labels_and_remote_keys() {
     let texts = labels::<CloudBackupState>(&state, &app.ctx);
     let careers: Vec<_> = texts
         .iter()
-        .filter(|t| t.starts_with("Road Star"))
+        .filter(|t| t.starts_with("Road Star."))
         .collect();
     assert_eq!(careers.len(), 2, "{texts:?}");
+    assert!(texts
+        .iter()
+        .any(|t| t.starts_with("Road Star - Career 2.") && !t.contains("1.9 backup")));
     let old_label = careers.iter().find(|t| t.contains("1.9 backup")).unwrap();
     let new_label = careers.iter().find(|t| !t.contains("1.9 backup")).unwrap();
     assert!(!new_label.contains("Career 2"), "{new_label}");
