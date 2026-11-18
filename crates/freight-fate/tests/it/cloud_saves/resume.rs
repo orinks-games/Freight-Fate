@@ -1,6 +1,7 @@
 use super::*;
 use ff_core::cloud_resume::CheckState;
 use freight_fate::states::main_menu::MainMenuState;
+use std::time::Duration;
 
 fn tracked(app: &mut TestApp, transport: SharedTransport) -> (CloudSaves, PathBuf) {
     let mut profile = Profile::named("Road Star");
@@ -170,6 +171,70 @@ fn another_account_and_legacy_sync_records_are_not_tracked() {
         assert_eq!(fs::read(path).unwrap(), before);
         assert!(service.conflicts().is_empty());
     }
+}
+
+#[test]
+fn continue_uses_the_most_recent_remote_career_after_multiple_pickups() {
+    let mut app = TestApp::new();
+    let transport = Arc::new(ClosureTransport(
+        |url: &str, _: Option<&Value>, _: &[(String, String)], _: Option<&str>| {
+            for (name, signature) in [
+                ("Recent Driver", "2jyPu1Pi2yhN76JT9IwBiR5a2VGDWaB94dc8479ebuVdJPCWbJyAmDquw2TKlVelm7aVuXg/4/Os24oAGKCqAw=="),
+                ("Older Driver", "4aasPJ7yxa67rGo6PTUrTt2UDa6vK0aEVoiLfJ8YvNazfTscn6fupDiJfo3hAfya3XYPHGWMybpZeWSHXSBGBA=="),
+            ] {
+                if url.contains("saveName=") && url.contains(&url_quote(&cloud_slot_name(name))) {
+                    let profile = json!({"name": name, "money": 77000.0, "version": 7});
+                    let mut reply = make_cloud_reply(&profile, signature, 2);
+                    reply["saveName"] = json!(cloud_slot_name(name));
+                    return Ok(reply);
+                }
+            }
+            Ok(json!({"saves": [
+                {"saveName": cloud_slot_name("Recent Driver"), "revision": 2, "createdAt": 200},
+                {"saveName": cloud_slot_name("Older Driver"), "revision": 2, "createdAt": 100}
+            ]}))
+        },
+    ));
+    let (service, _) = tracked(&mut app, transport);
+    for (name, local_time) in [("Recent Driver", 200), ("Older Driver", 100)] {
+        let profile = Profile::named(name);
+        let path = profile.save().unwrap();
+        let local = Profile::load(&path).unwrap();
+        let (_, hash) = cloud_content(&Value::Object(local.to_dict()));
+        service.sync_state().record_synced_for_driver(
+            &cloud_slot_name(name),
+            1,
+            &hash,
+            &identity().driver_id,
+        );
+        fs::File::open(&path)
+            .unwrap()
+            .set_times(
+                fs::FileTimes::new()
+                    .set_modified(std::time::UNIX_EPOCH + Duration::from_secs(local_time)),
+            )
+            .unwrap();
+    }
+    app.ctx.settings.cloud_resume = true;
+    let mut menu = MainMenuState::new();
+    Menu::enter(&mut menu, &mut app.ctx);
+    Menu::update(&mut menu, &mut app.ctx, 0.0);
+    assert_eq!(
+        service.resume_state(),
+        CheckState::Done {
+            pulled: 2,
+            conflicts: 0
+        }
+    );
+    let continue_row = menu
+        .menu()
+        .items
+        .iter()
+        .position(|item| item.text(&menu, &app.ctx).starts_with("Continue"))
+        .unwrap();
+    menu.menu_mut().index = continue_row;
+    Menu::handle_event(&mut menu, &mut app.ctx, &InputEvent::key(Key::Return));
+    assert_eq!(app.ctx.profile.as_ref().unwrap().name, "Recent Driver");
 }
 
 #[test]
