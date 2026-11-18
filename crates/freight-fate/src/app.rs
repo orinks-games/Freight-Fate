@@ -274,6 +274,10 @@ fn staged_road_handoff(description: &str, start_mi: f64) -> String {
 }
 
 impl PlayerInputFrame<'_> {
+    pub fn cloud_resume_state(&self) -> ff_core::cloud_resume::CheckState {
+        self.app.ctx.cloud_saves_service().resume_state()
+    }
+
     pub fn driving_observation(&self) -> Option<DrivingObservation> {
         self.app.driving_observation()
     }
