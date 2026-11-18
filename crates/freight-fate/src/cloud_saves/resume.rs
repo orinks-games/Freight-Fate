@@ -100,17 +100,26 @@ impl CloudSaves {
             .collect();
         let mut pulled = 0;
         let mut conflicts = 0;
-        for path in Profile::list_saves() {
+        let mut careers: Vec<_> = Profile::list_saves()
+            .into_iter()
+            .filter_map(|path| match Profile::load(&path) {
+                Ok(profile) => Some((path, profile)),
+                Err(error) => {
+                    log::debug!("Cloud resume skipped {}: {error}", path.display());
+                    None
+                }
+            })
+            .collect();
+        careers.sort_by_key(|(_, profile)| {
+            latest
+                .get(save_slot_name(&profile.name).as_str())
+                .and_then(|entry| json_int(entry.get("createdAt")))
+                .unwrap_or(0)
+        });
+        for (path, profile) in careers {
             if !self.enabled() || self.resume_state() != CheckState::Checking {
                 break;
             }
-            let profile = match Profile::load(&path) {
-                Ok(profile) => profile,
-                Err(error) => {
-                    log::debug!("Cloud resume skipped {}: {error}", path.display());
-                    continue;
-                }
-            };
             let name = save_slot_name(&profile.name);
             if path != profile.path() {
                 log::debug!("Cloud resume skipped renamed local file {}", path.display());

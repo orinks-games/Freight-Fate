@@ -29,6 +29,8 @@
 
 ### Fixed
 
+- **Continue picks the latest career resumed from another device.**
+
 - **Cloud resume leaves other accounts' careers alone.** Older backups without an account match need a manual restore first.
 
 - **Touch driving help now uses available translations for full blocks of instructions.**
