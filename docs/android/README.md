@@ -76,7 +76,9 @@ The APK is built on Windows, macOS or Linux without Gradle. You need:
   and `cargo install cargo-ndk`;
 - the Android SDK (`ANDROID_HOME`) with the `android-36` platform, a
   build-tools release and the platform tools (`adb`);
-- an Android NDK (`ANDROID_NDK_HOME`, or the newest one under the SDK);
+- an Android NDK, r28 or newer (`ANDROID_NDK_HOME`, or the newest one
+  under the SDK). Older ones link libraries that phones with 16 KB memory
+  pages cannot load, and the build checks every library it packs for that;
 - JDK 17 (`JAVA_HOME`, or `javac` on the path);
 - CMake 3.24 or newer and Ninja.
 
@@ -133,7 +135,8 @@ of `crates/ff-tools/src/release/android.rs`. In short:
   on the desktop, so closing mid-drive, or Android ending the game while it
   is in the background, loses the drive back to its last stop.
 - The sign-in for orinks.net is kept in a file only the game can read,
-  because Android has no keyring the game can use.
+  because Android has no keyring the game can use. That file is left out
+  when Android copies the game's storage to a new phone, which links again.
 - Only 64-bit ARM phones are built for so far.
 
 ## Manual test checklist

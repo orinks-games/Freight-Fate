@@ -29,6 +29,7 @@ import java.nio.charset.*;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.EnumSet;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
@@ -517,7 +518,8 @@ public class AndroidTextToSpeechBackend extends TextToSpeechBackend implements A
     } catch (RuntimeException e) {
       engines = List.of();
     }
-    addVoices(voices, currentEngine, engineLabel(engines, currentEngine), current);
+    final List<Set<String>> listed = new ArrayList<>();
+    addVoices(voices, currentEngine, engineLabel(engines, currentEngine), current, listed);
     final var ctx = PrismContext.get();
     if (ctx == null) return voices;
     final List<EngineInfo> others = new ArrayList<>();
@@ -533,7 +535,7 @@ public class AndroidTextToSpeechBackend extends TextToSpeechBackend implements A
       final TextToSpeech probe = connections.get(i).await(deadline);
       if (probe == null) continue;
       try {
-        addVoices(voices, engine.name, engineLabel(engines, engine.name), probe);
+        addVoices(voices, engine.name, engineLabel(engines, engine.name), probe, listed);
       } finally {
         shutdownEngine(probe);
       }
@@ -541,8 +543,18 @@ public class AndroidTextToSpeechBackend extends TextToSpeechBackend implements A
     return voices;
   }
 
+  /**
+   * Adds {@code engine}'s voices under {@code label}, unless they are the very voices of an engine
+   * already in {@code listed}. An engine that cannot be bound is silently replaced by the phone's
+   * preferred engine (the public constructor falls back), which would list the preferred engine's
+   * voices a second time under the wrong engine's name; no two real engines offer the same voices.
+   */
   private static void addVoices(
-      List<VoiceEntry> voices, String enginePackage, String label, TextToSpeech engine) {
+      List<VoiceEntry> voices,
+      String enginePackage,
+      String label,
+      TextToSpeech engine,
+      List<Set<String>> listed) {
     final Set<Voice> engineVoices;
     try {
       engineVoices = engine.getVoices();
@@ -550,6 +562,10 @@ public class AndroidTextToSpeechBackend extends TextToSpeechBackend implements A
       return;
     }
     if (engineVoices == null) return;
+    final Set<String> names = new HashSet<>();
+    for (final Voice voice : engineVoices) names.add(voice.getName());
+    if (listed.contains(names)) return;
+    listed.add(names);
     final List<Voice> sorted = new ArrayList<>(engineVoices);
     // Grouped by language, so a long list can be browsed engine, then language, then voice: each
     // name is "engine: language: voice", the language named in the phone's own language.

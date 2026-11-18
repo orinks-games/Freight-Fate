@@ -42,6 +42,8 @@ use std::process::Command;
 use crate::cli::{Args, Spec};
 use crate::util::{self, Result};
 
+mod elf;
+
 /// The application id, kept the same as the iOS bundle id.
 const APP_ID: &str = "net.orinks.freightfate";
 const ACTIVITY: &str = "net.orinks.freightfate/.FreightFateActivity";
@@ -89,6 +91,7 @@ impl Toolchain {
             None => newest_child(&sdk.join("ndk"))
                 .ok_or("No NDK found: install one with sdkmanager, or set ANDROID_NDK_HOME.")?,
         };
+        check_ndk_release(&ndk)?;
         let build_tools = newest_child(&sdk.join("build-tools"))
             .ok_or("No build-tools found in the Android SDK: install them with sdkmanager.")?;
         let android_jar = sdk
@@ -151,6 +154,36 @@ impl Toolchain {
             Err(format!("The NDK has no {}", lib.display()))
         }
     }
+}
+
+/// The oldest NDK whose linker aligns libraries to 16 KB pages by default.
+const OLDEST_NDK: u64 = 28;
+
+/// Refuse an NDK older than r28, read from its `source.properties`
+/// (`Pkg.Revision = 29.0.14206865`). The libraries are checked after the
+/// build as well; this names the cause before a long build.
+fn check_ndk_release(ndk: &Path) -> Result<()> {
+    let properties = std::fs::read_to_string(ndk.join("source.properties"))
+        .map_err(|e| format!("{} is not an NDK: {e}", ndk.display()))?;
+    let major = ndk_major(&properties)
+        .ok_or_else(|| format!("{} gives no NDK release", ndk.display()))?;
+    if major < OLDEST_NDK {
+        return Err(format!(
+            "NDK r{major} at {} links libraries that phones with 16 KB pages cannot load; \
+             install NDK r{OLDEST_NDK} or newer",
+            ndk.display()
+        ));
+    }
+    Ok(())
+}
+
+fn ndk_major(properties: &str) -> Option<u64> {
+    properties.lines().find_map(|line| {
+        let (key, value) = line.split_once('=')?;
+        (key.trim() == "Pkg.Revision")
+            .then(|| value.trim().split('.').next()?.parse().ok())
+            .flatten()
+    })
 }
 
 /// The last entry of `dir` in version order (`36.1.0` after `36.0.0`).
@@ -256,6 +289,11 @@ fn native_libraries(tools: &Toolchain, profile_dir: &Path, abi: &str) -> Result<
         libs.push(lib);
     }
     libs.push(tools.libcxx_shared(triple(abi)?)?);
+    for lib in &libs {
+        let bytes = std::fs::read(lib).map_err(|e| format!("{}: {e}", lib.display()))?;
+        let name = lib.file_name().unwrap_or_default().to_string_lossy();
+        elf::check_page_alignment(&name, &bytes)?;
+    }
     Ok(libs)
 }
 
@@ -505,6 +543,11 @@ fn link_resources(
         .join("AppIcon.appiconset")
         .join("AppIcon-1024.png");
     util::copy_file(&icon, &res.join("mipmap-xxxhdpi").join("ic_launcher.png"))?;
+    // The crate's own resources: the data extraction rules.
+    let own = util::repo_root().join(CRATE_DIR).join("res");
+    for file in util::walk_files(&own) {
+        util::copy_file(&file, &res.join(util::rel(&file, &own)))?;
+    }
     let compiled = work.join("res.zip");
     util::run(
         Command::new(tools.tool("aapt2"))
@@ -725,5 +768,13 @@ mod tests {
     fn only_tested_abis_are_accepted() {
         assert_eq!(triple("arm64-v8a"), Ok("aarch64-linux-android"));
         assert!(triple("armeabi-v7a").is_err());
+    }
+
+    #[test]
+    fn the_ndk_release_comes_from_its_revision() {
+        let r29 = "Pkg.Desc = Android NDK\nPkg.Revision = 29.0.14206865\nPkg.ReleaseName = r29\n";
+        assert_eq!(ndk_major(r29), Some(29));
+        assert_eq!(ndk_major("Pkg.Revision=27.1.12297006"), Some(27));
+        assert_eq!(ndk_major("Pkg.Desc = Android NDK"), None);
     }
 }
