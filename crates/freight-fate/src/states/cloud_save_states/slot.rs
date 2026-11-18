@@ -10,8 +10,8 @@ use serde_json::{Map, Value};
 
 use crate::app::{GameContext, SharedState};
 use crate::cloud_saves::{
-    self, eviction_status, rejection_status, save_slot_name, DownloadError, RestoreError,
-    RestoreHooks, AUTH_HELP,
+    self, cloud_slot_name, eviction_status, local_name_for_slot, rejection_status, DownloadError,
+    RestoreError, RestoreHooks, AUTH_HELP,
 };
 use crate::impl_state_for_menu;
 use crate::states::base::{Label, Menu, MenuCore, MenuItem};
@@ -325,7 +325,7 @@ impl CloudSlotState {
     }
 
     fn has_local_save(&self) -> bool {
-        find_save_path(&self.save_name).is_some()
+        find_save_path(local_name_for_slot(&self.save_name)).is_some()
     }
 
     /// This computer's copy in the same shape the cloud copy is described.
@@ -373,7 +373,7 @@ impl CloudSlotState {
             Self::say_busy(ctx);
             return;
         }
-        let loaded = match find_save_path(&self.save_name) {
+        let loaded = match find_save_path(local_name_for_slot(&self.save_name)) {
             None => Err(None),
             Some(path) => Profile::load(&path).map_err(Some),
         };
@@ -448,7 +448,7 @@ impl CloudSlotState {
             ctx.say(&service.status());
             return;
         }
-        let loaded = match find_save_path(&self.save_name) {
+        let loaded = match find_save_path(local_name_for_slot(&self.save_name)) {
             None => Err(None),
             Some(path) => Profile::load(&path).map_err(Some),
         };
@@ -478,7 +478,7 @@ impl CloudSlotState {
             return;
         };
         self.busy = true;
-        self.backup_watch = Some((save_slot_name(&profile.name), token, BACKUP_RESULT_WAIT_S));
+        self.backup_watch = Some((cloud_slot_name(&profile.name), token, BACKUP_RESULT_WAIT_S));
         self.status = "Backing up this career.".to_string();
         self.refresh(ctx, true);
         ctx.say("Backing up this career.");
@@ -548,7 +548,7 @@ impl CloudSlotState {
         let Some(profile) = &ctx.profile else {
             return;
         };
-        if save_slot_name(&profile.name) != self.save_name {
+        if cloud_slot_name(&profile.name) != cloud_slot_name(local_name_for_slot(&self.save_name)) {
             return;
         }
         ctx.profile = Profile::load(&profile.path()).ok();
@@ -934,3 +934,41 @@ impl Menu for CloudSlotState {
 }
 
 impl_state_for_menu!(CloudSlotState);
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::app::testing::TestApp;
+
+    #[test]
+    fn either_release_slot_reloads_the_active_local_career() {
+        for key in ["Road Star".to_string(), cloud_slot_name("Road Star")] {
+            let mut app = TestApp::new();
+            let mut profile = Profile::named("Road Star");
+            profile.set_money(5000.0);
+            profile.save().unwrap();
+            app.ctx.profile = Some(profile.clone());
+            profile.set_money(77000.0);
+            profile.save().unwrap();
+            let mut slot = CloudSlotState::new(&mut app.ctx, &key, vec![], None, None);
+
+            slot.reload_active_profile(&mut app.ctx);
+
+            assert_eq!(app.ctx.profile.as_ref().unwrap().name, "Road Star");
+            assert_eq!(app.ctx.profile.as_ref().unwrap().money(), 77000.0);
+        }
+    }
+
+    #[test]
+    fn a_different_slot_does_not_replace_the_active_career() {
+        let mut app = TestApp::new();
+        app.ctx.profile = Some(Profile::named("Someone Else"));
+        let key = cloud_slot_name("Road Star");
+        let mut slot = CloudSlotState::new(&mut app.ctx, &key, vec![], None, None);
+        slot.reload_active_profile(&mut app.ctx);
+        assert_eq!(app.ctx.profile.as_ref().unwrap().name, "Someone Else");
+        app.ctx.profile = None;
+        slot.reload_active_profile(&mut app.ctx);
+        assert!(app.ctx.profile.is_none());
+    }
+}

@@ -20633,6 +20633,11 @@ msgstr ""
 msgid "Latest backup accepted and server-verified."
 msgstr ""
 
+#. placeholders: {release}
+#: crates/freight-fate/src/cloud_saves/slot_name.rs
+msgid " (Career {release})"
+msgstr ""
+
 #: crates/freight-fate/src/cloud_saves/sync_state.rs
 msgid "slots"
 msgstr ""
@@ -26119,6 +26124,10 @@ msgstr ""
 #: crates/freight-fate/src/states/cloud_save_states.rs
 msgid ""
 "Backups appear here after the game saves with cloud backup turned on."
+msgstr ""
+
+#: crates/freight-fate/src/states/cloud_save_states.rs
+msgid "1.9 backup"
 msgstr ""
 
 #: crates/freight-fate/src/states/cloud_save_states.rs

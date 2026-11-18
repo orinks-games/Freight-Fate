@@ -7,6 +7,7 @@ use ff_core::models::jobs::{make_reposition_job, Job, JobBoard, OfferOptions};
 use ff_core::models::profile::Profile;
 
 use freight_fate::app::testing::TestApp;
+use freight_fate::cloud_saves::cloud_slot_name;
 use freight_fate::meaningful_play::{MeaningfulPlayReason, MeaningfulPlayTracker};
 use freight_fate::states::city::{BusinessStatusState, CityMenuState, GarageState, JobBoardState};
 use freight_fate::states::city_pickup::{start_loaded_drive, LoadedDriveOptions};
@@ -49,7 +50,7 @@ fn pending_reason(app: &TestApp) -> Option<MeaningfulPlayReason> {
     app.ctx
         .cloud_saves_service()
         .meaningful_play_tracker()
-        .for_upload(name)
+        .for_upload(&cloud_slot_name(name))
         .map(|stamp| stamp.reason)
 }
 
@@ -68,7 +69,7 @@ fn loading_browsing_and_unchanged_save_do_not_mark_a_public_switch() {
         .ctx
         .cloud_saves_service()
         .meaningful_play_tracker()
-        .for_upload("Road Star")
+        .for_upload(&cloud_slot_name("Road Star"))
         .is_none());
 }
 
@@ -108,7 +109,7 @@ fn changed_save_marks_only_after_persistent_content_changes() {
         .ctx
         .cloud_saves_service()
         .meaningful_play_tracker()
-        .for_upload("Road Star")
+        .for_upload(&cloud_slot_name("Road Star"))
         .expect("persistent gameplay change should mark the save");
     assert_eq!(stamp.reason, MeaningfulPlayReason::ChangedSave);
 }

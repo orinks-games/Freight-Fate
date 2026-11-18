@@ -24,12 +24,12 @@ use serde_json::{json, Map, Value};
 
 use ff_core::models::profile::{set_save_listener, Profile};
 use freight_fate::cloud_saves::{
-    backup_status, backup_summary, classify_upload_failure, cloud_content, conflict_status,
-    delete_save, download_save, list_saves, profile_dict_from_content, recovery_status,
-    rejection_status, restore_to_disk, save_slot_name, set_public_save, upload_save, url_quote,
-    BackupAnnouncements, CloudAuthError, CloudSaves, CloudSavesOptions, DownloadError, PublicKeys,
-    RestoreError, RestoreHooks, SavesList, SyncState, AUTH_HELP, AUTH_PAUSED_STATUS, DEBOUNCE_S,
-    RETRY_INTERVAL_S,
+    backup_status, backup_summary, classify_upload_failure, cloud_content, cloud_slot_name,
+    conflict_status, delete_save, download_save, list_saves, local_name_for_slot,
+    profile_dict_from_content, recovery_status, rejection_status, restore_to_disk, save_slot_name,
+    set_public_save, upload_save, url_quote, BackupAnnouncements, CloudAuthError, CloudSaves,
+    CloudSavesOptions, DownloadError, PublicKeys, RestoreError, RestoreHooks, SavesList, SyncState,
+    AUTH_HELP, AUTH_PAUSED_STATUS, DEBOUNCE_S, RETRY_INTERVAL_S,
 };
 use freight_fate::meaningful_play::MeaningfulPlayReason;
 use freight_fate::net::testing::{ClosureTransport, FakeTransport, ManualClock};
@@ -149,7 +149,11 @@ fn drain(service: &CloudSaves, clock: &Arc<ManualClock>) {
 }
 
 fn revision_of(service: &CloudSaves, name: &str) -> Option<i64> {
-    service.sync_state().slot(name).get("revision")?.as_i64()
+    service
+        .sync_state()
+        .slot(&cloud_slot_name(name))
+        .get("revision")?
+        .as_i64()
 }
 
 // -- content form ---------------------------------------------------------------
@@ -165,6 +169,7 @@ fn test_new_2_0_career_upload_carries_its_release_line() {
     service.queue_backup(&p.name, Value::Object(p.to_dict()));
     drain(&service, &clock);
     assert_eq!(transport.posts().len(), 1);
+    assert_eq!(transport.posts()[0]["saveName"], "New Driver (Career 2)");
     let bytes = base64::engine::general_purpose::STANDARD
         .decode(transport.posts()[0]["content"].as_str().unwrap())
         .unwrap();
@@ -201,6 +206,79 @@ fn test_slot_name_matches_local_file_stem() {
     assert_eq!(save_slot_name("Road * Star?"), "Road _ Star_");
     assert_eq!(save_slot_name("  "), "Driver");
     assert_eq!(save_slot_name("Night-Owl_2"), "Night-Owl_2");
+}
+
+#[test]
+fn test_cloud_slot_name_and_local_name() {
+    for name in ["Road Star", "Road * Star?", "  ", "Night-Owl_2", "Café"] {
+        let slot = cloud_slot_name(name);
+        assert_eq!(slot, format!("{} (Career 2)", save_slot_name(name)));
+        assert_ne!(save_slot_name(&slot), slot);
+        assert_eq!(local_name_for_slot(&slot), save_slot_name(name));
+    }
+    assert_eq!(local_name_for_slot("Road Star"), "Road Star");
+    assert_eq!(local_name_for_slot(""), "");
+    assert_eq!(
+        local_name_for_slot("Road Star (Career 3)"),
+        "Road Star (Career 3)"
+    );
+    assert_eq!(
+        local_name_for_slot("Road Star (Career 2) extra"),
+        "Road Star (Career 2) extra"
+    );
+    assert_eq!(
+        local_name_for_slot("Road Star - Career 2"),
+        "Road Star - Career 2"
+    );
+    assert_ne!(
+        cloud_slot_name("Road Star"),
+        save_slot_name("Road Star - Career 2")
+    );
+}
+
+#[test]
+fn test_same_name_1_9_conflict_and_revision_do_not_cross_into_2_0() {
+    let posts = Arc::new(Mutex::new(Vec::new()));
+    let recorded = Arc::clone(&posts);
+    let transport: SharedTransport = Arc::new(ClosureTransport(
+        move |_url: &str,
+              payload: Option<&Value>,
+              _headers: &[(String, String)],
+              _method: Option<&str>| {
+            let payload = payload.expect("only uploads should reach this transport");
+            if payload["saveName"] == "Road Star" {
+                return Err(conflict_error(Some(74)));
+            }
+            let mut posts = recorded.lock().unwrap();
+            posts.push(payload.clone());
+            Ok(json!({"ok": true, "revision": posts.len()}))
+        },
+    ));
+    let clock = ManualClock::new();
+    let service = make_service_with(transport, &clock, true, Some(identity()));
+    let legacy = "Road Star";
+    let current = cloud_slot_name(legacy);
+    service.sync_state().record_synced(legacy, 73, "1.9-hash");
+    service
+        .sync_state()
+        .record_conflict(legacy, &conflict_map(Some(74)));
+    let legacy_before = service.sync_state().slot(legacy);
+
+    service.queue_backup(legacy, profile(legacy, 5000.0));
+    drain(&service, &clock);
+    service.queue_backup(legacy, profile(legacy, 6000.0));
+    drain(&service, &clock);
+
+    let posts = posts.lock().unwrap();
+    assert_eq!(posts.len(), 2);
+    assert_eq!(posts[0]["saveName"], current);
+    assert_eq!(posts[0]["parentRevision"], Value::Null);
+    assert_eq!(posts[1]["saveName"], current);
+    assert_eq!(posts[1]["parentRevision"], 1);
+    assert_eq!(service.sync_state().slot(legacy), legacy_before);
+    assert_eq!(service.sync_state().slot(&current)["revision"], 2);
+    assert!(service.conflicts().contains_key(legacy));
+    assert!(!service.conflicts().contains_key(&current));
 }
 
 #[test]
@@ -290,7 +368,7 @@ fn test_debounce_holds_then_uploads_once() {
         format!("{}/api/freight-fate/saves", base_url())
     );
     assert_eq!(payload["driverId"], identity().driver_id);
-    assert_eq!(payload["saveName"], "Road Star");
+    assert_eq!(payload["saveName"], "Road Star (Career 2)");
     assert_eq!(payload["parentRevision"], Value::Null);
     assert_eq!(payload["saveVersion"], 7);
     assert_eq!(
@@ -366,9 +444,10 @@ fn test_meaningful_play_stamp_is_identical_across_network_retry_then_clears() {
     transport.set_error(Some(NetError::other("OSError", "no network")));
     let clock = ManualClock::new();
     let service = make_service(&transport, &clock);
-    service
-        .meaningful_play_tracker()
-        .mark("Road Star", MeaningfulPlayReason::JobAccepted);
+    service.meaningful_play_tracker().mark(
+        &cloud_slot_name("Road Star"),
+        MeaningfulPlayReason::JobAccepted,
+    );
 
     service.queue_backup("Road Star", profile("Road Star", 5000.0));
     drain(&service, &clock);
@@ -380,7 +459,7 @@ fn test_meaningful_play_stamp_is_identical_across_network_retry_then_clears() {
     assert!(first["occurredAt"].as_i64().is_some());
     assert!(service
         .meaningful_play_tracker()
-        .for_upload("Road Star")
+        .for_upload(&cloud_slot_name("Road Star"))
         .is_some());
 
     transport.set_error(None);
@@ -390,7 +469,7 @@ fn test_meaningful_play_stamp_is_identical_across_network_retry_then_clears() {
     assert_eq!(transport.posts()[1]["meaningfulPlay"], first);
     assert!(service
         .meaningful_play_tracker()
-        .for_upload("Road Star")
+        .for_upload(&cloud_slot_name("Road Star"))
         .is_none());
 }
 
@@ -425,9 +504,10 @@ fn test_accepted_older_upload_cannot_clear_newer_meaningful_save() {
                 if *count == 1 {
                     let service = service_slot.lock().unwrap().clone().unwrap();
                     drop(count);
-                    service
-                        .meaningful_play_tracker()
-                        .mark("Road Star", MeaningfulPlayReason::BusinessChanged);
+                    service.meaningful_play_tracker().mark(
+                        &cloud_slot_name("Road Star"),
+                        MeaningfulPlayReason::BusinessChanged,
+                    );
                     service.queue_backup("Road Star", profile("Road Star", 6000.0));
                 }
                 Ok(json!({"ok": true, "revision": revision}))
@@ -436,16 +516,17 @@ fn test_accepted_older_upload_cannot_clear_newer_meaningful_save() {
     };
     let service = make_service_with(transport, &clock, true, Some(identity()));
     *service_slot.lock().unwrap() = Some(service.service.clone());
-    service
-        .meaningful_play_tracker()
-        .mark("Road Star", MeaningfulPlayReason::JobAccepted);
+    service.meaningful_play_tracker().mark(
+        &cloud_slot_name("Road Star"),
+        MeaningfulPlayReason::JobAccepted,
+    );
 
     service.queue_backup("Road Star", profile("Road Star", 5000.0));
     drain(&service, &clock);
 
     let newer = service
         .meaningful_play_tracker()
-        .for_upload("Road Star")
+        .for_upload(&cloud_slot_name("Road Star"))
         .expect("the newer event must survive the older acceptance");
     assert_eq!(newer.reason, MeaningfulPlayReason::BusinessChanged);
 
@@ -453,7 +534,7 @@ fn test_accepted_older_upload_cannot_clear_newer_meaningful_save() {
     service.pump(false);
     assert!(service
         .meaningful_play_tracker()
-        .for_upload("Road Star")
+        .for_upload(&cloud_slot_name("Road Star"))
         .is_none());
 }
 
@@ -466,9 +547,10 @@ fn test_conflict_and_auth_refusal_keep_meaningful_intent() {
         let transport = FakeTransport::failing(error);
         let clock = ManualClock::new();
         let service = make_service_with(transport, &clock, true, Some(identity()));
-        service
-            .meaningful_play_tracker()
-            .mark("Road Star", MeaningfulPlayReason::DeliveryCompleted);
+        service.meaningful_play_tracker().mark(
+            &cloud_slot_name("Road Star"),
+            MeaningfulPlayReason::DeliveryCompleted,
+        );
 
         service.queue_backup("Road Star", profile("Road Star", 5000.0));
         drain(&service, &clock);
@@ -476,7 +558,7 @@ fn test_conflict_and_auth_refusal_keep_meaningful_intent() {
         assert_eq!(
             service
                 .meaningful_play_tracker()
-                .for_upload("Road Star")
+                .for_upload(&cloud_slot_name("Road Star"))
                 .map(|stamp| stamp.reason),
             Some(MeaningfulPlayReason::DeliveryCompleted)
         );
@@ -497,7 +579,7 @@ fn test_conflict_marks_the_slot_and_stops_backups() {
     assert_eq!(transport.posts().len(), 1);
 
     let conflicts = service.conflicts();
-    let conflict = &conflicts["Road Star"];
+    let conflict = &conflicts[&cloud_slot_name("Road Star")];
     assert_eq!(conflict["latestRevision"], 5);
     assert!(conflict["latestSummary"]
         .as_str()
@@ -525,7 +607,7 @@ fn test_empty_cloud_conflict_restarts_the_slot_instead_of_sticking() {
     // This machine remembers a revision the server no longer has.
     service
         .sync_state()
-        .record_synced("Road Star", 7, "stale-hash");
+        .record_synced(&cloud_slot_name("Road Star"), 7, "stale-hash");
 
     service.queue_backup("Road Star", profile("Road Star", 5000.0));
     drain(&service, &clock);
@@ -558,10 +640,10 @@ fn test_recorded_empty_cloud_conflict_heals_on_the_next_backup() {
     let service = make_service(&transport, &clock);
     service
         .sync_state()
-        .record_synced("Road Star", 7, "stale-hash");
+        .record_synced(&cloud_slot_name("Road Star"), 7, "stale-hash");
     service
         .sync_state()
-        .record_conflict("Road Star", &conflict_map(None));
+        .record_conflict(&cloud_slot_name("Road Star"), &conflict_map(None));
 
     service.queue_backup("Road Star", profile("Road Star", 5000.0));
     drain(&service, &clock);
@@ -632,11 +714,13 @@ fn test_stale_recorded_conflict_heals_when_the_cloud_slot_is_gone() {
     let service = make_service_with(transport.clone(), &clock, true, Some(identity()));
     service
         .sync_state()
-        .record_synced("Road Star", 7, "stale-hash");
+        .record_synced(&cloud_slot_name("Road Star"), 7, "stale-hash");
     let mut latest = conflict_map(Some(40));
     latest.insert("latestCreatedAt".to_string(), json!(1_700_000_000_000i64));
     latest.insert("latestSummary".to_string(), json!("level 18"));
-    service.sync_state().record_conflict("Road Star", &latest);
+    service
+        .sync_state()
+        .record_conflict(&cloud_slot_name("Road Star"), &latest);
 
     service.queue_backup("Road Star", profile("Road Star", 5000.0));
     drain(&service, &clock);
@@ -649,24 +733,26 @@ fn test_stale_recorded_conflict_heals_when_the_cloud_slot_is_gone() {
 #[test]
 fn test_recorded_conflict_with_a_live_cloud_copy_still_blocks() {
     let transport = RoutedTransport::new(
-        json!({"ok": true, "saves": [{"saveName": "Road Star", "revision": 40}]}),
+        json!({"ok": true, "saves": [{"saveName": cloud_slot_name("Road Star"), "revision": 40}]}),
         None,
     );
     let clock = ManualClock::new();
     let service = make_service_with(transport.clone(), &clock, true, Some(identity()));
     service
         .sync_state()
-        .record_synced("Road Star", 7, "stale-hash");
+        .record_synced(&cloud_slot_name("Road Star"), 7, "stale-hash");
     service
         .sync_state()
-        .record_conflict("Road Star", &conflict_map(Some(40)));
+        .record_conflict(&cloud_slot_name("Road Star"), &conflict_map(Some(40)));
 
     service.queue_backup("Road Star", profile("Road Star", 5000.0));
     drain(&service, &clock);
     // The other machine's newer save is still at stake: nothing uploads and
     // the conflict stays for the player to resolve.
     assert!(transport.posts().is_empty());
-    assert!(service.conflicts().contains_key("Road Star"));
+    assert!(service
+        .conflicts()
+        .contains_key(&cloud_slot_name("Road Star")));
 }
 
 #[test]
@@ -676,12 +762,14 @@ fn test_conflict_recheck_that_cannot_reach_the_cloud_keeps_the_guard() {
     let service = make_service_with(transport.clone(), &clock, true, Some(identity()));
     service
         .sync_state()
-        .record_conflict("Road Star", &conflict_map(Some(40)));
+        .record_conflict(&cloud_slot_name("Road Star"), &conflict_map(Some(40)));
 
     service.queue_backup("Road Star", profile("Road Star", 5000.0));
     drain(&service, &clock);
     assert!(transport.posts().is_empty());
-    assert!(service.conflicts().contains_key("Road Star"));
+    assert!(service
+        .conflicts()
+        .contains_key(&cloud_slot_name("Road Star")));
 }
 
 #[test]
@@ -701,12 +789,14 @@ fn test_keep_mine_overwrites_the_cloud_and_clears_the_conflict() {
 
     service.queue_backup("Road Star", profile("Road Star", 5000.0));
     drain(&service, &clock);
-    assert!(service.conflicts().contains_key("Road Star"));
+    assert!(service
+        .conflicts()
+        .contains_key(&cloud_slot_name("Road Star")));
 
     transport.set_error(None);
     transport.set_reply(Some(json!({"ok": true, "revision": 6})));
     assert_eq!(
-        service.resolve_keep_mine("Road Star", &profile("Road Star", 5000.0)),
+        service.resolve_keep_mine(&cloud_slot_name("Road Star"), &profile("Road Star", 5000.0)),
         "ok"
     );
     // The upload named the server's latest revision as parent: a plain
@@ -877,7 +967,7 @@ fn test_every_profile_save_queues_a_backup() {
 
     let posts = transport.posts();
     assert_eq!(posts.len(), 1, "{posts:?}");
-    assert_eq!(posts[0]["saveName"], json!("Road Star"));
+    assert_eq!(posts[0]["saveName"], json!("Road Star (Career 2)"));
 }
 
 #[test]
@@ -1091,6 +1181,36 @@ fn test_restore_verifies_then_writes_a_locally_signed_save() {
     // The restored revision is the next upload's parent, so continuing this
     // career does not immediately conflict with the copy just downloaded.
     assert_eq!(sync_state.slot("Road Star")["revision"], 4);
+}
+
+#[test]
+fn test_either_release_slot_installs_under_the_profiles_name() {
+    let _app = TestApp::new();
+    let (dict, sig) = money77_profile();
+    let hooks = RestoreHooks {
+        is_legacy: &is_pre_1_9_save,
+        write: &install_restored_profile,
+    };
+    let dir = tempfile::tempdir().unwrap();
+    let sync_state = SyncState::new(dir.path());
+    let mut previous_path = None;
+    for key in ["Road Star".to_string(), cloud_slot_name("Road Star")] {
+        let mut reply = make_cloud_reply(&dict, sig, 4);
+        reply["saveName"] = json!(key);
+        let payload = download(reply).unwrap().unwrap();
+        let path =
+            restore_to_disk(&payload, Some(&sync_state), &hooks, Some(&test_keys())).unwrap();
+        assert_eq!(path, ff_core::models::profile::save_path_for("Road Star"));
+        let loaded = Profile::load(&path).unwrap();
+        assert_eq!(loaded.name, "Road Star");
+        assert_eq!(sync_state.slot(&key)["revision"], 4);
+        if let Some(previous) = &previous_path {
+            assert_eq!(&path, previous);
+            assert!(path.with_extension("ffsave.bak").exists());
+        }
+        previous_path = Some(path);
+    }
+    assert_eq!(sync_state.slots().len(), 2);
 }
 
 #[test]
@@ -2068,7 +2188,9 @@ fn test_backup_now_skips_the_debounce() {
     // No debounce wait: the attempt went out inside the call.
     assert_eq!(transport.posts().len(), 1);
     assert_eq!(
-        service.outcome_for("Road Star", token).as_deref(),
+        service
+            .outcome_for(&cloud_slot_name("Road Star"), token)
+            .as_deref(),
         Some("accepted")
     );
     assert_eq!(revision_of(&service, "Road Star"), Some(1));
@@ -2095,7 +2217,9 @@ fn test_backup_now_bypasses_the_transient_retry_backoff() {
         .unwrap();
     assert_eq!(transport.posts().len(), 2);
     assert_eq!(
-        service.outcome_for("Road Star", token).as_deref(),
+        service
+            .outcome_for(&cloud_slot_name("Road Star"), token)
+            .as_deref(),
         Some("accepted")
     );
 }
@@ -2114,7 +2238,9 @@ fn test_backup_now_reports_content_already_on_the_server() {
 
     assert_eq!(transport.posts().len(), 1); // the content-hash skip still holds
     assert_eq!(
-        service.outcome_for("Road Star", token).as_deref(),
+        service
+            .outcome_for(&cloud_slot_name("Road Star"), token)
+            .as_deref(),
         Some("unchanged")
     );
 }
@@ -2129,7 +2255,9 @@ fn test_backup_now_reports_a_rejection_with_its_reason() {
         .unwrap();
 
     assert_eq!(
-        service.outcome_for("Road Star", token).as_deref(),
+        service
+            .outcome_for(&cloud_slot_name("Road Star"), token)
+            .as_deref(),
         Some("rejected:invalid_achievement")
     );
 }
@@ -2146,7 +2274,9 @@ fn test_backup_now_reports_the_auth_family() {
         .unwrap();
 
     assert_eq!(
-        service.outcome_for("Road Star", token).as_deref(),
+        service
+            .outcome_for(&cloud_slot_name("Road Star"), token)
+            .as_deref(),
         Some("auth")
     );
 }
@@ -2163,7 +2293,9 @@ fn test_backup_now_reports_network_trouble_and_keeps_retrying() {
         .unwrap();
 
     assert_eq!(
-        service.outcome_for("Road Star", token).as_deref(),
+        service
+            .outcome_for(&cloud_slot_name("Road Star"), token)
+            .as_deref(),
         Some("network")
     );
     // The snapshot stays queued for the background retry cadence.
@@ -2183,10 +2315,14 @@ fn test_backup_now_records_a_fresh_conflict() {
         .unwrap();
 
     assert_eq!(
-        service.outcome_for("Road Star", token).as_deref(),
+        service
+            .outcome_for(&cloud_slot_name("Road Star"), token)
+            .as_deref(),
         Some("conflict")
     );
-    assert!(service.conflicts().contains_key("Road Star"));
+    assert!(service
+        .conflicts()
+        .contains_key(&cloud_slot_name("Road Star")));
 }
 
 #[test]
@@ -2194,7 +2330,7 @@ fn test_backup_now_respects_a_recorded_conflict() {
     // The conflict guard is unchanged: a live cloud copy still blocks the
     // upload -- but the manual attempt reports it instead of staying silent.
     let transport = RoutedTransport::new(
-        json!({"ok": true, "saves": [{"saveName": "Road Star", "revision": 40}]}),
+        json!({"ok": true, "saves": [{"saveName": cloud_slot_name("Road Star"), "revision": 40}]}),
         None,
     );
     let service = make_service_with(
@@ -2205,7 +2341,7 @@ fn test_backup_now_respects_a_recorded_conflict() {
     );
     service
         .sync_state()
-        .record_conflict("Road Star", &conflict_map(Some(40)));
+        .record_conflict(&cloud_slot_name("Road Star"), &conflict_map(Some(40)));
 
     let token = service
         .backup_now("Road Star", profile("Road Star", 5000.0))
@@ -2213,7 +2349,9 @@ fn test_backup_now_respects_a_recorded_conflict() {
 
     assert!(transport.posts().is_empty());
     assert_eq!(
-        service.outcome_for("Road Star", token).as_deref(),
+        service
+            .outcome_for(&cloud_slot_name("Road Star"), token)
+            .as_deref(),
         Some("conflict")
     );
 }
@@ -2238,11 +2376,15 @@ fn test_outcome_for_ignores_results_from_an_earlier_attempt() {
         .backup_now("Road Star", profile("Road Star", 5000.0))
         .unwrap();
     assert_eq!(
-        service.outcome_for("Road Star", token).as_deref(),
+        service
+            .outcome_for(&cloud_slot_name("Road Star"), token)
+            .as_deref(),
         Some("accepted")
     );
     // A later attempt's poller never hears the old result.
-    assert!(service.outcome_for("Road Star", token + 1).is_none());
+    assert!(service
+        .outcome_for(&cloud_slot_name("Road Star"), token + 1)
+        .is_none());
 }
 
 #[test]
@@ -2298,7 +2440,9 @@ fn test_an_upload_in_flight_when_save_is_pressed_keeps_its_own_verdict() {
                                            // background token no watch ever matches.
     let token = tokens.lock().unwrap()[0];
     assert_eq!(
-        service.outcome_for("Road Star", token).as_deref(),
+        service
+            .outcome_for(&cloud_slot_name("Road Star"), token)
+            .as_deref(),
         Some("accepted")
     );
 }
@@ -2536,6 +2680,61 @@ fn test_an_untrusted_evicted_name_is_not_spoken() {
 }
 
 #[test]
+fn test_eviction_accepts_a_current_line_suffix_without_relaxing_the_local_limit() {
+    for (local_len, accepted) in [(64, true), (65, false)] {
+        let key = cloud_slot_name(&"N".repeat(local_len));
+        let transport = FakeTransport::replying(json!({
+            "ok": true, "revision": 1, "evictedSaveName": key
+        }));
+        let service = make_service(&transport, &ManualClock::new());
+        let token = service
+            .backup_now("Road Star", profile("Road Star", 5000.0))
+            .unwrap();
+        let outcome = service
+            .outcome_for(&cloud_slot_name("Road Star"), token)
+            .unwrap();
+        assert_eq!(
+            outcome,
+            if accepted {
+                format!("accepted:evicted:{key}")
+            } else {
+                "accepted".to_string()
+            }
+        );
+    }
+}
+
+#[test]
+fn eviction_parentheses_must_be_exactly_the_current_release_suffix() {
+    for (key, accepted) in [
+        ("Old Road (Career 2)", true),
+        ("Old Road - Career 2", true),
+        ("Old Road (Career 3)", false),
+        ("Old Road (Career 2) extra", false),
+        ("Old (Road) (Career 2)", false),
+        ("Old Road (Career 2) (Career 2)", false),
+        (" (Career 2)", false),
+    ] {
+        let transport =
+            FakeTransport::replying(json!({"ok": true, "revision": 1, "evictedSaveName": key}));
+        let service = make_service(&transport, &ManualClock::new());
+        let token = service
+            .backup_now("Road Star", profile("Road Star", 5000.0))
+            .unwrap();
+        assert_eq!(
+            service
+                .outcome_for(&cloud_slot_name("Road Star"), token)
+                .unwrap(),
+            if accepted {
+                format!("accepted:evicted:{key}")
+            } else {
+                "accepted".to_string()
+            }
+        );
+    }
+}
+
+#[test]
 fn test_a_manual_backup_carries_the_exact_eviction_outcome() {
     let transport = FakeTransport::replying(json!({
         "ok": true,
@@ -2549,7 +2748,9 @@ fn test_a_manual_backup_carries_the_exact_eviction_outcome() {
         .unwrap();
 
     assert_eq!(
-        service.outcome_for("Road Star", token).as_deref(),
+        service
+            .outcome_for(&cloud_slot_name("Road Star"), token)
+            .as_deref(),
         Some("accepted:evicted:Old Road")
     );
     assert!(service.take_announcements().is_empty());
@@ -2566,7 +2767,9 @@ fn test_a_manual_backup_stays_silent_so_the_menu_watch_can_speak() {
         .backup_now("Road Star", profile("Road Star", 5000.0))
         .unwrap();
     assert_eq!(
-        service.outcome_for("Road Star", token).as_deref(),
+        service
+            .outcome_for(&cloud_slot_name("Road Star"), token)
+            .as_deref(),
         Some("accepted")
     );
     assert!(service.take_announcements().is_empty());
@@ -2689,7 +2892,9 @@ fn test_manual_refusal_never_reaches_the_global_channel() {
         .unwrap();
 
     assert_eq!(
-        service.outcome_for("Road Star", token).as_deref(),
+        service
+            .outcome_for(&cloud_slot_name("Road Star"), token)
+            .as_deref(),
         Some("rejected:invalid_achievement")
     );
     assert!(service.take_announcements().is_empty());
@@ -2714,7 +2919,9 @@ fn test_manual_success_after_a_spoken_refusal_recovers_silently_and_rearms() {
         .backup_now("Road Star", profile("Road Star", 5001.0))
         .unwrap();
     assert_eq!(
-        service.outcome_for("Road Star", token).as_deref(),
+        service
+            .outcome_for(&cloud_slot_name("Road Star"), token)
+            .as_deref(),
         Some("accepted")
     );
     assert!(service.take_announcements().is_empty());
@@ -2739,7 +2946,9 @@ fn test_manual_refusal_seeds_the_dedupe_for_the_background_channel() {
         .backup_now("Road Star", profile("Road Star", 5000.0))
         .unwrap();
     assert_eq!(
-        service.outcome_for("Road Star", token).as_deref(),
+        service
+            .outcome_for(&cloud_slot_name("Road Star"), token)
+            .as_deref(),
         Some("conflict")
     );
     assert!(service.take_announcements().is_empty()); // the menu watch owns this one
@@ -3091,10 +3300,13 @@ fn test_a_conflict_for_a_deleted_career_is_forgotten_at_startup() {
     let transport = Arc::new(FakeTransport::new());
     let clock = ManualClock::new();
     let service = make_service(&transport, &clock);
-    service
-        .sync_state()
-        .record_conflict("testing the limit", &conflict_map(Some(40)));
-    assert!(service.conflicts().contains_key("testing the limit"));
+    service.sync_state().record_conflict(
+        &cloud_slot_name("testing the limit"),
+        &conflict_map(Some(40)),
+    );
+    assert!(service
+        .conflicts()
+        .contains_key(&cloud_slot_name("testing the limit")));
 
     service.start();
 
@@ -3104,7 +3316,10 @@ fn test_a_conflict_for_a_deleted_career_is_forgotten_at_startup() {
     );
     // Forgotten, not merely hidden: a row left behind would attach itself to
     // the next career started under the same name.
-    assert!(service.sync_state().slot("testing the limit").is_empty());
+    assert!(service
+        .sync_state()
+        .slot(&cloud_slot_name("testing the limit"))
+        .is_empty());
     service.shutdown();
 }
 
@@ -3123,12 +3338,14 @@ fn test_a_conflict_for_a_career_still_on_disk_survives_startup() {
     let service = make_service(&transport, &clock);
     service
         .sync_state()
-        .record_conflict("Road Star", &conflict_map(Some(40)));
+        .record_conflict(&cloud_slot_name("Road Star"), &conflict_map(Some(40)));
 
     service.start();
 
     assert!(
-        service.conflicts().contains_key("Road Star"),
+        service
+            .conflicts()
+            .contains_key(&cloud_slot_name("Road Star")),
         "the player still has this career; the choice is real and must stay"
     );
     service.shutdown();

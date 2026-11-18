@@ -4,6 +4,9 @@
 
 ### Compatibility
 
+- **2.0 backup names cannot collide with 1.9 career names.** They use a separate ending, such as Road Star (Career 2).
+- **Deleting a career removes only its own version's cloud backup.** Closing out a 2.0 career also leaves older backups safe.
+- **2.0 careers have their own cloud backups.** A 1.9 career with the same name keeps its own backup.
 - **Recoverable set-aside 1.9 careers now carry over to 2.0.** Their original files stay untouched.
 - **Imported careers keep their last-played order.** Continue selects the most recently played 1.9 career after copying it into 2.0.
 - **1.9 cloud backups restored in 2.0 now become 2.0 careers.** Later backups identify the version needed to continue them.

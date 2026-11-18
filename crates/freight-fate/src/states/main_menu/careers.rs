@@ -315,8 +315,16 @@ impl ConfirmCareerActionState {
             && !ctx
                 .cloud_saves_service()
                 .sync_state()
-                .slot(&self.name)
+                .slot(&self.cloud_save_name())
                 .is_empty()
+    }
+
+    fn cloud_save_name(&self) -> String {
+        if self.profile.is_none() {
+            cloud_saves::save_slot_name(&self.name)
+        } else {
+            cloud_saves::cloud_slot_name(&self.name)
+        }
     }
 
     fn reset(&mut self, ctx: &mut GameContext) {
@@ -396,7 +404,7 @@ impl ConfirmCareerActionState {
         };
         self.busy = true;
         ctx.say("Removing the cloud backups.");
-        let save_name = self.name.clone();
+        let save_name = self.cloud_save_name();
         let outcome = self.outcome.clone();
         let transport = ctx.cloud_saves_service().transport().clone();
         run_worker(self.threaded, "career-delete-cloud", move || {
@@ -426,7 +434,9 @@ impl ConfirmCareerActionState {
         // means a new career with the same name meets those backups as a
         // choice, instead of quietly uploading over them as their next
         // revision.
-        ctx.cloud_saves_service().sync_state().forget(&name);
+        ctx.cloud_saves_service()
+            .sync_state()
+            .forget(&self.cloud_save_name());
         if ctx.profile.as_ref().is_some_and(|p| p.name == name) {
             ctx.profile = None;
         }

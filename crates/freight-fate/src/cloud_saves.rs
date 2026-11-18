@@ -69,13 +69,11 @@ const WORKER_TICK_S: f64 = 60.0;
 
 pub use ff_core::models::profile::origin::{cloud_content, SIGNATURE_FIELDS};
 
-/// Raw ed25519 public keys by key id (the shape
-/// `ff_core::cloud_save_integrity::public_keys()` returns); `None` in the
-/// calls below means the shipped table.
+/// Raw ed25519 public keys by key id (`ff_core::cloud_save_integrity::public_keys`).
+/// Passing `None` to the API calls below means the shipped table.
 pub type PublicKeys = BTreeMap<String, Vec<u8>>;
 
-/// The cloud slot for a profile: the same sanitized stem as its file name
-/// (Profile.path), so slot and local file always pair up.
+/// The sanitized local file stem for a profile.
 pub fn save_slot_name(profile_name: &str) -> String {
     let safe: String = profile_name
         .chars()
@@ -114,6 +112,7 @@ pub fn profile_dict_from_content(content: &[u8]) -> Result<Value, String> {
 }
 
 mod api;
+mod slot_name;
 mod sync_state;
 mod wording;
 
@@ -121,6 +120,7 @@ pub use api::{
     backup_summary, delete_save, download_save, list_saves, restore_to_disk, set_public_save,
     upload_save, url_quote, DownloadError, RestoreError, RestoreHooks, SavesList,
 };
+pub use slot_name::{cloud_slot_name, local_name_for_slot};
 pub use sync_state::SyncState;
 pub use wording::*;
 
@@ -348,7 +348,7 @@ impl CloudSaves {
     pub fn mark_meaningful_play(&self, profile_name: &str, reason: MeaningfulPlayReason) {
         self.inner
             .meaningful_play
-            .mark(&save_slot_name(profile_name), reason);
+            .mark(&cloud_slot_name(profile_name), reason);
     }
 
     /// The transport this service uploads through (the menus' worker threads
@@ -415,7 +415,7 @@ impl CloudSaves {
         if !self.enabled() {
             return;
         }
-        let name = save_slot_name(profile_name);
+        let name = cloud_slot_name(profile_name);
         let meaningful_play = self.inner.meaningful_play.for_upload(&name);
         {
             let mut st = self.inner.state.lock().unwrap();
@@ -454,7 +454,7 @@ impl CloudSaves {
         if !self.enabled() {
             return None;
         }
-        let name = save_slot_name(profile_name);
+        let name = cloud_slot_name(profile_name);
         let meaningful_play = self.inner.meaningful_play.for_upload(&name);
         let token = {
             let mut st = self.inner.state.lock().unwrap();
@@ -684,7 +684,7 @@ impl Inner {
             })
             .collect();
         for (name, entry) in self.sync_state.slots() {
-            if slot_conflict(&entry).is_none() || on_disk.contains(&name) {
+            if slot_conflict(&entry).is_none() || on_disk.contains(local_name_for_slot(&name)) {
                 continue;
             }
             log::info!(

@@ -718,7 +718,7 @@ impl GameContext {
         }
         if let Some(profile) = &self.profile {
             let save_name = profile.name.clone();
-            let slot_name = crate::cloud_saves::save_slot_name(&save_name);
+            let slot_name = crate::cloud_saves::cloud_slot_name(&save_name);
             let already_marked = self
                 .services
                 .cloud
