@@ -233,6 +233,59 @@ fn another_account_and_legacy_sync_records_are_not_tracked() {
 }
 
 #[test]
+fn normalized_resume_stays_clean_for_the_next_revision() {
+    let mut app = TestApp::new();
+    let revision = Arc::new(std::sync::atomic::AtomicI64::new(2));
+    let remote_revision = revision.clone();
+    let transport = Arc::new(ClosureTransport(
+        move |url: &str, _: Option<&Value>, _: &[(String, String)], _: Option<&str>| {
+            let revision = remote_revision.load(std::sync::atomic::Ordering::SeqCst);
+            if url.contains("saveName=") {
+                let (profile, signature) = money77_profile();
+                let mut reply = make_cloud_reply(&profile, signature, revision);
+                reply["saveName"] = json!(save_slot_name("Road Star"));
+                Ok(reply)
+            } else {
+                Ok(
+                    json!({"saves": [{"saveName": save_slot_name("Road Star"), "revision": revision}]}),
+                )
+            }
+        },
+    ));
+    let (service, path) = tracked(&mut app, transport);
+    service.check_resume(true);
+    assert_eq!(
+        service.resume_state(),
+        CheckState::Done {
+            pulled: 1,
+            conflicts: 0
+        }
+    );
+    let installed = Profile::load(&path).unwrap();
+    let (_, installed_hash) = cloud_content(&Value::Object(installed.to_dict()));
+    let (_, downloaded_hash) = cloud_content(&money77_profile().0);
+    assert_ne!(installed_hash, downloaded_hash);
+    assert_eq!(
+        service.sync_state().slot(&save_slot_name("Road Star"))["hash"],
+        installed_hash
+    );
+    revision.store(3, std::sync::atomic::Ordering::SeqCst);
+    service.check_resume(true);
+    assert_eq!(
+        service.resume_state(),
+        CheckState::Done {
+            pulled: 1,
+            conflicts: 0
+        }
+    );
+    assert_eq!(
+        service.sync_state().slot(&save_slot_name("Road Star"))["revision"],
+        3
+    );
+    assert!(service.conflicts().is_empty());
+}
+
+#[test]
 fn continue_uses_the_most_recent_remote_career_after_multiple_pickups() {
     let mut app = TestApp::new();
     let transport = Arc::new(ClosureTransport(

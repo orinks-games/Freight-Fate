@@ -176,7 +176,7 @@ impl CloudSaves {
                     {
                         let is_legacy =
                             |value: &Value| value.as_object().is_none_or(is_pre_1_9_save);
-                        restore_to_disk(
+                        let installed_path = restore_to_disk(
                             &payload,
                             Some(self.sync_state()),
                             &RestoreHooks {
@@ -186,7 +186,9 @@ impl CloudSaves {
                             self.inner.public_keys.as_ref(),
                         )
                         .map_err(|error| error.to_string())?;
-                        let (_, hash) = cloud_content(&payload["profile"]);
+                        let installed =
+                            Profile::load(&installed_path).map_err(|error| error.to_string())?;
+                        let (_, hash) = cloud_content(&Value::Object(installed.to_dict()));
                         self.sync_state().record_synced_for_driver(
                             &name,
                             revision,
