@@ -21,6 +21,7 @@
 - **German now covers the lines added since October.** Co-driver, fatigue, stop planning and problem report lines no longer switch to English.
 - **The route picker reads the weather along a route with Tab.**
 - **The driving command list is now in groups.** Status menu comes first, then short lists for speed, the road, the truck, gears, radio and hours.
+- **Spanish now covers the new touch controls, co-driver calls, and the rest of the latest menus and driving prompts.**
 
 ### Fixed
 
