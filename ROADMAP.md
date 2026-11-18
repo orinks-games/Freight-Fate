@@ -1573,13 +1573,19 @@ Everything found before 2026-09-25 moved to
       normal) and lists every installed engine's voices. Drop the copy once
       Prism does both; the build refuses a Prism whose file has changed.
 - [ ] (Found along the way) Android controllers (a DualSense Edge, 2026-11-18):
-      menus and driving work over USB and Bluetooth, with no rumble.
+      menus, driving and rumble work over USB and Bluetooth.
       SDL 2.26's HIDAPI manager registered its receivers without the
       exported flag and asked for USB permission with an implicit mutable
       PendingIntent, both refused by Android 14, so HIDAPI was off; the game
       now compiles a corrected copy (`crates/freight-fate-android/sdl`).
-      Over USB, Android also takes a DualSense for a headset and plays the
-      game's speech through its vibration motors.
+      SDL 2.26 cannot rumble a Bluetooth controller on Android, so the game
+      rumbles it through Android's VibratorManager, on every connected
+      controller with motors. Over USB, Android also takes a DualSense for a
+      headset and plays the game's speech through its vibration motors.
+- [ ] (Found along the way) Android: Settings has no Problem reports
+      category. The iPhone has one now; Android keeps it off until a
+      report has been sent from a phone and the log screen suits a log in
+      the app's private storage.
 - [ ] (Found along the way) Android: a drive in progress is lost back to
       its last stop when Android ends the game in the background, which it
       does without warning. Consider saving the drive as the game leaves
@@ -4264,9 +4270,9 @@ What stands between the 1.9.7 tag and 2.0 on the beta channel, on top of
       job and can start before the 1.9.7 tag, with a small second sync
       after it. The November text rewrite (PRs 607 to 614) has to reach
       the lines only 2.0 has.
-- [ ] Sealed saves, which the October save plan predates: 2.0 opens a
-      sealed 1.9.7 career and copies it forward, and 1.9.7 refuses a 2.0
-      career, local or cloud, without setting it aside for good.
+- [ ] Sealed saves: 2.0 opens a sealed 1.9.7 career and copies it forward.
+  - [x] 1.9.7 refuses a career from a newer release line, local or cloud,
+        without changing it or setting it aside. The career stays listed.
 - [ ] One alpha build from the synced branch before the merge. The
       snapshot workflow already builds `feat/career-2.0` on the alpha
       channel by hand, and no alpha has been published yet, so nobody
@@ -4392,8 +4398,8 @@ one-channel rule is in [October 26](#october-26-the-road-to-the-20-nightlies-fou
       `1.9-tester-*` name and the release notes carry a 2.0 preview
       heading. The downloads page groups by the prerelease flag and needs
       no new row, only the alpha label.
-- [ ] Saves: a 1.9 career copies forward on the first 2.0 start, and
-      stable 1.9 refuses a 2.0 cloud save cleanly (new fields:
+- [ ] Saves: a 1.9 career copies forward on the first 2.0 start.
+      The 1.9.7 local and cloud newer-career refusal is done (new fields:
       parked facility, home terminal, home city, turnpike notice; 20
       carrier labels). Testers move from 1.9.6 to 2.0 on the channel.
 - [ ] The orinks.net profile export accepts the new fields and labels, on

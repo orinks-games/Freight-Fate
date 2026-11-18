@@ -1737,6 +1737,8 @@ pub fn main_with(options: CliOptions) -> i32 {
     // The crash marker: set now, cleared on the way out, so a run that
     // ends any other way is offered as a report next time.
     crate::problem_reports::begin_session(&ff_core::settings::data_dir());
+    #[cfg(target_os = "ios")]
+    crate::problem_reports::observe_app_lifecycle();
     let code = run_game(&options);
     crate::problem_reports::end_session();
     guard.release();

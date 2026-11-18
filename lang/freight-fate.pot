@@ -24706,6 +24706,33 @@ msgid "{LEGACY_BACKUP_NOTICE} Your local save was not touched."
 msgstr ""
 
 #: crates/freight-fate/src/states/cloud_save_states/slot.rs
+msgid "Backup needs a newer version. Nothing was restored."
+msgstr ""
+
+#. placeholders: {line}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/cloud_save_states/slot.rs
+msgid "This career was made in Freight Fate {line}."
+msgstr ""
+
+#. placeholders: {line}
+#: crates/freight-fate/src/states/cloud_save_states/slot.rs
+msgid ""
+"This career was made in Freight Fate {line}. This version cannot restore "
+"it. Your local save and the cloud backup are untouched."
+msgstr ""
+
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/cloud_save_states/slot.rs
+msgid "This version cannot restore it."
+msgstr ""
+
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/cloud_save_states/slot.rs
+msgid "Your local save and the cloud backup are untouched."
+msgstr ""
+
+#: crates/freight-fate/src/states/cloud_save_states/slot.rs
 msgid "Reconnect needed. Nothing was restored."
 msgstr ""
 
@@ -39072,6 +39099,17 @@ msgid ""
 "career. The save is not touched."
 msgstr ""
 
+#. placeholders: {name}, {line}
+#: crates/freight-fate/src/states/main_menu/careers.rs
+msgid "{name}: career from Freight Fate {line}"
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu/careers.rs
+msgid ""
+"This career needs a newer version. Choose it for details. The save is not "
+"touched."
+msgstr ""
+
 #: crates/freight-fate/src/states/main_menu/careers.rs crates/freight-fate/src/states/main_menu/home.rs
 msgid "Manage careers"
 msgstr ""
@@ -39373,6 +39411,12 @@ msgstr ""
 msgid ""
 "Your saved careers are from an earlier version of Freight Fate. They are "
 "listed under Choose career. "
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu/home.rs
+msgid ""
+"Some saved careers need a newer version of Freight Fate. They are listed "
+"under Choose career. "
 msgstr ""
 
 #. placeholders: {version}
@@ -41773,6 +41817,20 @@ msgstr ""
 #: crates/freight-fate/src/states/main_menu_career.rs
 msgid ""
 "That save stays as it is, so this career needs a different driver name."
+msgstr ""
+
+#. placeholders: {name}, {line}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/main_menu_career.rs
+msgid "There is already a career named {name} from Freight Fate {line}."
+msgstr ""
+
+#. placeholders: {name}, {line}
+#: crates/freight-fate/src/states/main_menu_career.rs
+msgid ""
+"There is already a career named {name} from Freight Fate {line}. That save "
+"stays as it is, so this career needs a different driver name. Escape goes "
+"back to change it."
 msgstr ""
 
 #. placeholders: {name}
@@ -45505,6 +45563,45 @@ msgstr ""
 
 #: crates/freight-fate/src/states/save_notice.rs
 msgid "Back to the saved careers, nothing changed."
+msgstr ""
+
+#. placeholders: {line}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/save_notice.rs
+msgid ""
+"Nothing was lost: the save is untouched and still works in Freight Fate "
+"{line}."
+msgstr ""
+
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/save_notice.rs
+msgid "This version cannot continue it."
+msgstr ""
+
+#. placeholders: {name}, {line}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/save_notice.rs
+msgid "{name} was made in Freight Fate {line}."
+msgstr ""
+
+#. placeholders: {name}, {line}
+#: crates/freight-fate/src/states/save_notice.rs
+msgid ""
+"{name} was made in Freight Fate {line}. This version cannot continue it. "
+"Nothing was lost: the save is untouched and still works in Freight Fate "
+"{line}."
+msgstr ""
+
+#: crates/freight-fate/src/states/save_notice.rs
+msgid "Career from a newer version"
+msgstr ""
+
+#: crates/freight-fate/src/states/save_notice.rs
+msgid "Escape goes back to the career list."
+msgstr ""
+
+#: crates/freight-fate/src/states/save_notice.rs
+msgid "Start fresh with a different driver name."
 msgstr ""
 
 #: crates/freight-fate/src/states/save_notice.rs

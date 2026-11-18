@@ -41,11 +41,6 @@ impl SettingsState {
         ("Problem reports", "reports"),
     ];
 
-    /// Categories with nothing to do on a phone or tablet: the App Store,
-    /// TestFlight or the installed APK's source does the updating, and the
-    /// log sits in the app's private storage where the player cannot open it.
-    const HIDDEN_ON_TOUCH_SCREEN: [&'static str; 2] = ["updates", "reports"];
-
     pub fn new() -> Self {
         Self {
             menu: MenuCore::new("Settings")
@@ -85,7 +80,10 @@ impl Menu for SettingsState {
     fn build_items(&mut self, _ctx: &mut GameContext) -> Vec<MenuItem<Self>> {
         let mut items: Vec<MenuItem<Self>> = Self::CATEGORIES
             .iter()
-            .filter(|(_, key)| !Self::HIDDEN_ON_TOUCH_SCREEN.contains(key) || !cfg!(touch_screen))
+            // Android has not had a problem report sent from it yet, and its log
+            // sits in the app's private storage, so it keeps the category off
+            // until a report is tried there. Updates are off by self_updates.
+            .filter(|(_, key)| *key != "reports" || !cfg!(target_os = "android"))
             // AG Now updates the game itself, so the update channel and the
             // manual check have nothing to do there either.
             .filter(|(_, key)| *key != "updates" || crate::updater::self_updates())
@@ -579,7 +577,7 @@ impl Menu for SettingsCategoryState {
             let marker = if i == core.index { "> " } else { "  " };
             out.push(format!("{marker}{}", item.text(self, ctx)));
         }
-        if self.category == "reports" {
+        if self.category == "reports" && !cfg!(target_os = "ios") {
             out.push(String::new());
             out.extend(self.log_location_lines());
         }

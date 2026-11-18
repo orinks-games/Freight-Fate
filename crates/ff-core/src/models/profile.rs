@@ -295,6 +295,14 @@ pub struct LegacyCareerError {
     pub path: Option<PathBuf>,
 }
 
+#[derive(Debug, Clone, PartialEq, Eq, thiserror::Error)]
+#[error("{name}: career created on the newer {line} line")]
+pub struct NewerCareerError {
+    pub name: String,
+    pub path: Option<PathBuf>,
+    pub line: String,
+}
+
 /// Why `Profile::load` refused a file.
 #[derive(Debug, thiserror::Error)]
 pub enum LoadError {
@@ -302,6 +310,8 @@ pub enum LoadError {
     Integrity(#[from] ProfileIntegrityError),
     #[error(transparent)]
     LegacyCareer(#[from] LegacyCareerError),
+    #[error(transparent)]
+    NewerCareer(#[from] NewerCareerError),
     #[error(transparent)]
     Io(#[from] std::io::Error),
 }
@@ -325,13 +335,69 @@ pub fn is_pre_1_9_save(data: &Map<String, Value>) -> bool {
     }
 }
 
+pub fn newer_career_line(data: &Map<String, Value>) -> Option<&str> {
+    fn release_line(line: &str) -> Option<(u64, u64)> {
+        let (major, minor) = line.split_once('.')?;
+        if major.is_empty()
+            || minor.is_empty()
+            || !major.bytes().all(|c| c.is_ascii_digit())
+            || !minor.bytes().all(|c| c.is_ascii_digit())
+        {
+            return None;
+        }
+        Some((major.parse().ok()?, minor.parse().ok()?))
+    }
+    let line = data.get("created_line")?.as_str()?;
+    (release_line(line)? > release_line(CREATED_LINE)?).then_some(line)
+}
+
+/// `path` with the file name as it is spelled on disk. A sealed save is bound
+/// to its exact file name, so on a case-insensitive drive a differently
+/// capitalized path opens the file but fails the seal.
+fn with_on_disk_casing(path: &Path) -> PathBuf {
+    let (Some(parent), Some(wanted)) = (path.parent(), path.file_name()) else {
+        return path.to_path_buf();
+    };
+    let Ok(entries) = std::fs::read_dir(parent) else {
+        return path.to_path_buf();
+    };
+    let mut fallback = None;
+    for entry in entries.flatten() {
+        let name = entry.file_name();
+        if name == wanted {
+            return path.to_path_buf();
+        }
+        if fallback.is_none()
+            && name.to_string_lossy().to_lowercase() == wanted.to_string_lossy().to_lowercase()
+        {
+            fallback = Some(parent.join(name));
+        }
+    }
+    fallback.unwrap_or_else(|| path.to_path_buf())
+}
+
+pub fn newer_career_file(path: &Path) -> Option<NewerCareerError> {
+    let path = &with_on_disk_casing(path);
+    let (raw, _) = sealed::read(path).ok()?;
+    let (data, _) = decode_save_bytes(&raw).ok()?;
+    Some(NewerCareerError {
+        name: data
+            .get("name")
+            .filter(|v| py_truthy(v))
+            .map(py_str)
+            .unwrap_or_else(|| "Driver".to_string()),
+        path: Some(path.to_path_buf()),
+        line: newer_career_line(&data)?.to_string(),
+    })
+}
+
 /// Whether an on-disk save was created before the 1.9 line.
 ///
 /// Unreadable files are not legacy saves -- they fail the load gate on their
 /// own terms. Used by the new-career flow so starting over with the same
 /// driver name can never overwrite a career an earlier build still owns.
 pub fn is_pre_1_9_save_file(path: &Path) -> bool {
-    let Ok((raw, _)) = sealed::read(path) else {
+    let Ok((raw, _)) = sealed::read(&with_on_disk_casing(path)) else {
         return false;
     };
     match decode_save_bytes(&raw) {
