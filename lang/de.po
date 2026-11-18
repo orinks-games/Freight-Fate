@@ -18020,10 +18020,6 @@ msgstr ""
 msgid "{touch_noun} and {touch_noun2}"
 msgstr "{touch_noun} und {touch_noun2}"
 
-#. placeholders: {release}
-msgid " (Career {release})"
-msgstr ""
-
 #. placeholders: {e}
 msgid "cloud save content is not a gzipped profile: {e}"
 msgstr "Cloud-Spielstand ist kein gzip-komprimiertes Profil: {e}"
@@ -18063,6 +18059,10 @@ msgstr "unverändert"
 
 msgid "Latest backup accepted and server-verified."
 msgstr "Letzte Sicherung angenommen und vom Server geprüft."
+
+#. placeholders: {release}
+msgid " (Career {release})"
+msgstr ""
 
 msgid "slots"
 msgstr "slots"

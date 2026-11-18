@@ -16287,10 +16287,6 @@ msgstr ""
 msgid "{touch_noun} and {touch_noun2}"
 msgstr "{touch_noun}和{touch_noun2}"
 
-#. placeholders: {release}
-msgid " (Career {release})"
-msgstr ""
-
 #. placeholders: {e}
 msgid "cloud save content is not a gzipped profile: {e}"
 msgstr "云存档内容不是gzip压缩的档案：{e}"
@@ -16328,6 +16324,10 @@ msgstr "不变"
 
 msgid "Latest backup accepted and server-verified."
 msgstr "最新备份已被接受，并经过服务器验证。"
+
+#. placeholders: {release}
+msgid " (Career {release})"
+msgstr ""
 
 msgid "slots"
 msgstr "slots"

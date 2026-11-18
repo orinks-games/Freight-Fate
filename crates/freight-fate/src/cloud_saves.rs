@@ -69,9 +69,8 @@ const WORKER_TICK_S: f64 = 60.0;
 
 pub use ff_core::models::profile::origin::{cloud_content, SIGNATURE_FIELDS};
 
-/// Raw ed25519 public keys by key id (the shape
-/// `ff_core::cloud_save_integrity::public_keys()` returns); `None` in the
-/// calls below means the shipped table.
+/// Raw ed25519 public keys by key id (`ff_core::cloud_save_integrity::public_keys`).
+/// Passing `None` to the API calls below means the shipped table.
 pub type PublicKeys = BTreeMap<String, Vec<u8>>;
 
 /// The sanitized local file stem for a profile.
