@@ -20658,31 +20658,8 @@ msgstr ""
 msgid "backup does not match requested career"
 msgstr ""
 
-#. placeholders: {name}
-#: crates/freight-fate/src/cloud_saves/resume.rs
-msgid "Picked up {name} where you left off on another device."
-msgstr ""
-
 #: crates/freight-fate/src/cloud_saves/resume.rs crates/freight-fate/src/cloud_saves/sync_state.rs
 msgid "revision"
-msgstr ""
-
-#. one sentence of a longer line
-#: crates/freight-fate/src/cloud_saves/resume.rs
-msgid "Open Cloud backup to choose which copy to keep."
-msgstr ""
-
-#. placeholders: {name}
-#. one sentence of a longer line
-#: crates/freight-fate/src/cloud_saves/resume.rs
-msgid "{name} changed on another device."
-msgstr ""
-
-#. placeholders: {name}
-#: crates/freight-fate/src/cloud_saves/resume.rs
-msgid ""
-"{name} changed on another device. Open Cloud backup to choose which copy to "
-"keep."
 msgstr ""
 
 #: crates/freight-fate/src/cloud_saves/sync_state.rs
@@ -20912,6 +20889,33 @@ msgstr ""
 #. placeholders: {name}
 #: crates/freight-fate/src/cloud_saves/wording.rs
 msgid "{name} is backed up again."
+msgstr ""
+
+#: crates/freight-fate/src/cloud_saves/wording.rs
+msgid "Checking careers on your other devices. Try Continue shortly."
+msgstr ""
+
+#. placeholders: {name}
+#: crates/freight-fate/src/cloud_saves/wording.rs
+msgid "Picked up {name} where you left off on another device."
+msgstr ""
+
+#. one sentence of a longer line
+#: crates/freight-fate/src/cloud_saves/wording.rs
+msgid "Open Cloud backup to choose which copy to keep."
+msgstr ""
+
+#. placeholders: {name}
+#. one sentence of a longer line
+#: crates/freight-fate/src/cloud_saves/wording.rs
+msgid "{name} changed on another device."
+msgstr ""
+
+#. placeholders: {name}
+#: crates/freight-fate/src/cloud_saves/wording.rs
+msgid ""
+"{name} changed on another device. Open Cloud backup to choose which copy to "
+"keep."
 msgstr ""
 
 #: crates/freight-fate/src/cloud_saves/wording.rs
@@ -41602,10 +41606,6 @@ msgstr ""
 
 #: crates/freight-fate/src/states/main_menu/careers.rs
 msgid "Up and Down pick a career, Enter loads it, Escape goes back."
-msgstr ""
-
-#: crates/freight-fate/src/states/main_menu/careers.rs crates/freight-fate/src/states/main_menu.rs
-msgid "Checking careers on your other devices. Try Continue shortly."
 msgstr ""
 
 #. placeholders: {name}

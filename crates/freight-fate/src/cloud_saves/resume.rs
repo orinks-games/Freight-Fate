@@ -170,10 +170,12 @@ impl CloudSaves {
                     .map_err(|error| error.to_string())?;
                     self.inner.state.lock().unwrap().pending.remove(&name);
                     pulled += 1;
-                    self.inner.resume.lock().unwrap().lines.push(format!(
-                        "Picked up {} where you left off on another device.",
-                        profile.name
-                    ));
+                    self.inner
+                        .resume
+                        .lock()
+                        .unwrap()
+                        .lines
+                        .push(resume_status(&profile.name));
                 }
             }
             if decision == Decision::Conflict {
@@ -197,10 +199,12 @@ impl CloudSaves {
                 }
                 self.sync_state().record_conflict(&name, &latest);
                 conflicts += 1;
-                self.inner.resume.lock().unwrap().lines.push(format!(
-                    "{} changed on another device. Open Cloud backup to choose which copy to keep.",
-                    profile.name
-                ));
+                self.inner
+                    .resume
+                    .lock()
+                    .unwrap()
+                    .lines
+                    .push(resume_conflict_status(&profile.name));
             }
         }
         Ok((pulled, conflicts))

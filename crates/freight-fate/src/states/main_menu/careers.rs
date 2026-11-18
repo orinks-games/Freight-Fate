@@ -40,7 +40,7 @@ impl LoadDriverState {
 
     fn pick(&mut self, ctx: &mut GameContext, path: &std::path::Path) {
         if ctx.cloud_saves_service().resume_pending() {
-            ctx.say("Checking careers on your other devices. Try Continue shortly.");
+            ctx.say(crate::cloud_saves::RESUME_CHECKING);
             return;
         }
         let profile = match Profile::load(path) {

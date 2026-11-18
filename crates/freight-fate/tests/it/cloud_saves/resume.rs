@@ -211,3 +211,108 @@ fn scenario_can_set_cloud_resume() {
     .unwrap();
     assert_eq!(scenario.settings["cloud_resume"], json!(true));
 }
+
+#[test]
+fn conditional_resume_row_keeps_left_and_right_on_the_right_toggle() {
+    for backup in [false, true] {
+        for key in [Key::Left, Key::Right] {
+            let mut app = TestApp::new();
+            app.ctx.settings.cloud_saves = backup;
+            app.ctx.settings.discord_presence = false;
+            let mut hub = OnlineHubState::new(&mut app.ctx);
+            Menu::enter(&mut hub, &mut app.ctx);
+            let resume = hub
+                .menu()
+                .items
+                .iter()
+                .position(|item| item.text(&hub, &app.ctx).starts_with("Resume careers"));
+            assert_eq!(resume.is_some(), backup);
+            let discord = hub
+                .menu()
+                .items
+                .iter()
+                .position(|item| item.text(&hub, &app.ctx).starts_with("Discord presence:"))
+                .unwrap();
+            hub.menu_mut().index = discord;
+            Menu::handle_event(&mut hub, &mut app.ctx, &InputEvent::key(key));
+            assert!(app.ctx.settings.discord_presence);
+            assert!(!app.ctx.settings.cloud_resume);
+            assert_eq!(app.ctx.settings.cloud_saves, backup);
+            if let Some(index) = resume {
+                hub.menu_mut().index = index;
+                Menu::handle_event(&mut hub, &mut app.ctx, &InputEvent::key(key));
+                assert!(app.ctx.settings.cloud_resume);
+                assert!(app.ctx.settings.discord_presence);
+                assert!(app.ctx.settings.cloud_saves);
+            }
+        }
+    }
+}
+
+#[test]
+fn resume_lines_and_online_row_translate_when_spoken() {
+    use ff_core::l10n::{Catalog, Translator};
+
+    let catalog = Catalog::from_po("es", r#"
+msgid "Picked up {name} where you left off on another device."
+msgstr "PICKED {name}."
+
+msgid "{name} changed on another device. Open Cloud backup to choose which copy to keep."
+msgstr "CONFLICT {name}."
+
+msgid "Checking careers on your other devices. Try Continue shortly."
+msgstr "CHECKING."
+
+msgid "Resume careers from other devices: {on_off}"
+msgstr "RESUME {on_off}"
+
+msgid "on"
+msgstr "ENABLED"
+
+msgid "Checks for newer progress when you return to the main menu. Restore each career here once first; conflicting saves need your choice in Cloud backup."
+msgstr "RESUME HELP."
+"#).unwrap();
+    let translator = Arc::new(Translator::new(catalog));
+    for dirty in [false, true] {
+        let mut app = TestApp::new();
+        let (service, path) = tracked(&mut app, newer());
+        if dirty {
+            let mut profile = Profile::load(&path).unwrap();
+            profile.set_money(12345.0);
+            profile.save().unwrap();
+        }
+        service.check_resume(true);
+        app.ctx.translator = translator.clone();
+        let mut menu = MainMenuState::new();
+        Menu::update(&mut menu, &mut app.ctx, 0.0);
+        let expected = if dirty {
+            "CONFLICT Road Star."
+        } else {
+            "PICKED Road Star."
+        };
+        assert!(app.main_lines().iter().any(|line| line == expected));
+    }
+    let mut app = TestApp::new();
+    app.ctx.translator = translator;
+    app.ctx.say(freight_fate::cloud_saves::RESUME_CHECKING);
+    assert!(app.main_lines().iter().any(|line| line == "CHECKING."));
+    app.ctx.settings.cloud_saves = true;
+    app.ctx.settings.cloud_resume = true;
+    let mut hub = OnlineHubState::new(&mut app.ctx);
+    Menu::enter(&mut hub, &mut app.ctx);
+    let index = hub
+        .menu()
+        .items
+        .iter()
+        .position(|item| item.text(&hub, &app.ctx).starts_with("Resume careers"))
+        .unwrap();
+    hub.menu_mut().index = index;
+    Menu::speak_current(&mut hub, &mut app.ctx);
+    let help = Menu::current_help(&hub, &app.ctx);
+    app.ctx.say(&help);
+    assert!(app
+        .main_lines()
+        .iter()
+        .any(|line| line.starts_with("RESUME ENABLED")));
+    assert!(app.main_lines().iter().any(|line| line == "RESUME HELP."));
+}
