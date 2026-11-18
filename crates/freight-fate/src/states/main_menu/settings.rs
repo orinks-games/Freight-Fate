@@ -573,7 +573,7 @@ impl Menu for SettingsCategoryState {
             let marker = if i == core.index { "> " } else { "  " };
             out.push(format!("{marker}{}", item.text(self, ctx)));
         }
-        if self.category == "reports" {
+        if self.category == "reports" && !cfg!(target_os = "ios") {
             out.push(String::new());
             out.extend(self.log_location_lines());
         }
