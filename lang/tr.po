@@ -17568,14 +17568,29 @@ msgstr ""
 msgid "Latest backup accepted and server-verified."
 msgstr "Son yedek kabul edildi ve sunucu tarafından doğrulandı."
 
+msgid "cloud-resume"
+msgstr ""
+
+msgid "not connected"
+msgstr ""
+
+msgid "site unreachable"
+msgstr ""
+
+msgid "backup unavailable"
+msgstr ""
+
+msgid "backup does not match requested career"
+msgstr ""
+
+msgid "revision"
+msgstr ""
+
 #. placeholders: {release}
 msgid " (Career {release})"
 msgstr ""
 
 msgid "slots"
-msgstr ""
-
-msgid "revision"
 msgstr ""
 
 msgid "hash"
@@ -17812,6 +17827,28 @@ msgstr "{name} yedeklendi."
 #. placeholders: {name}
 msgid "{name} is backed up again."
 msgstr "{name} yeniden yedeklendi."
+
+msgid "Checking careers on your other devices. Try Continue shortly."
+msgstr ""
+
+#. placeholders: {name}
+msgid "Picked up {name} where you left off on another device."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Open Cloud backup to choose which copy to keep."
+msgstr ""
+
+#. placeholders: {name}
+#. one sentence of a longer line
+msgid "{name} changed on another device."
+msgstr ""
+
+#. placeholders: {name}
+msgid ""
+"{name} changed on another device. Open Cloud backup to choose which copy to "
+"keep."
+msgstr ""
 
 msgid "accepted"
 msgstr ""
@@ -22618,6 +22655,9 @@ msgid "Downloading the backup."
 msgstr "Yedek indiriliyor."
 
 msgid "cloud-saves-restore"
+msgstr ""
+
+msgid "profile"
 msgstr ""
 
 msgid "restored"
@@ -41157,6 +41197,15 @@ msgstr ""
 "Discord'da sürüş ya da dinlenme gibi genel etkinliği gösterir, asla "
 "kayıtları ya da kişisel bilgileri değil. Discord'un çalışması gerekir, "
 "şoför profili gerekmez."
+
+#. placeholders: {on_off}
+msgid "Resume careers from other devices: {on_off}"
+msgstr ""
+
+msgid ""
+"Checks for newer progress when you return to the main menu. Restore each "
+"career here once first; conflicting saves need your choice in Cloud backup."
+msgstr ""
 
 msgid "Connect to orinks.net"
 msgstr "orinks.net'e bağlan"

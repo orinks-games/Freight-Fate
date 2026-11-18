@@ -226,6 +226,16 @@ pub fn recovery_status(name: &str) -> String {
     format!("{name} is backed up again.")
 }
 
+pub const RESUME_CHECKING: &str = "Checking careers on your other devices. Try Continue shortly.";
+
+pub fn resume_status(name: &str) -> String {
+    format!("Picked up {name} where you left off on another device.")
+}
+
+pub fn resume_conflict_status(name: &str) -> String {
+    format!("{name} changed on another device. Open Cloud backup to choose which copy to keep.")
+}
+
 pub(crate) fn accepted_outcome(result: &serde_json::Map<String, serde_json::Value>) -> String {
     let Some(raw_name) = result
         .get("evictedSaveName")

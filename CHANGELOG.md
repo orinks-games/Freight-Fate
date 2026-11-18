@@ -49,6 +49,7 @@
 - **Hooking or breaking a set of doubles adds time on duty,** and the walk-around takes 25 minutes instead of 15.
 - **The rear trailer of a set of doubles can whip on a hard swerve at 40 miles per hour and up.** You hear it when it starts. Reverse is refused with doubles hooked.
 - **The ELD now tracks your 70-hour, 8-day work cycle.** When a day of cycle hours is left the status line says so, and a 34-hour rest starts a fresh week.
+- **Cloud resume can pick up careers where you left off on another device.** Turn it on under Online after restoring each career once.
 - **Job details and the departure line say how much night driving a run has,** as in "About 4 hours of night driving."
 - **A drowsy driver can call dispatch to move the appointment,** giving up the on-time bonus. The row is Too tired to drive safely.
 - **The driving command list can change radio volume and category.**
@@ -81,6 +82,17 @@
 
 ### Fixed
 
+- **Picking up an older cloud career no longer moves it ahead of a more recently played local career.** Continue keeps their last-played order.
+
+- **An untouched resumed career stays ready for the next pickup.** Save upgrades no longer cause a false cloud conflict.
+
+- **Resetting or deleting a career waits for cloud resume to finish.** The career stays untouched while the check runs.
+
+- **One unavailable cloud career no longer stops other careers from resuming.**
+
+- **Continue picks the latest career resumed from another device.**
+
+- **Cloud resume leaves other accounts' careers alone.** Older backups without an account match need a manual restore first.
 - **Moving up from the training fleet now only offers carriers that hire where you live.** Your truck waits at the new carrier's terminal.
 - **A translated game no longer leaves half a line in English** on the dispatch board or in any line naming a carrier's terminal.
 - **Dispatch calls now read cargo damage, hours and distance cleanly,** and no longer call a sound load damaged.

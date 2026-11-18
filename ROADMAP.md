@@ -4323,6 +4323,8 @@ town at 15 to 23 mph. Design: the doc "Realistic traffic pass: design"
 
 ## 2.0 in progress (`feat/career-2.0`) -- the working week and home
 
+- [x] Opt-in cloud resume: main-menu checks pick up clean, tracked careers from this release line's cloud slots; changed local copies use Cloud backup's conflict choice. Off by default; 1.9 backups stay separate.
+
 There is no separate 1.10 release: the working-week-and-home slate that
 was planned under that number is the opening slice of 2.0, on the
 `feat/career-2.0` branch. The ELD and home-terminal foundations are built;

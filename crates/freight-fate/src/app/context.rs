@@ -803,6 +803,9 @@ impl GameContext {
         self.services.cloud.set_enabled(enabled);
         self.services
             .cloud
+            .configure_resume(self.settings.cloud_resume);
+        self.services
+            .cloud
             .set_backup_announcements(BackupAnnouncements::from_setting(
                 &self.settings.backup_announcements,
             ));
