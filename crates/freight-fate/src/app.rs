@@ -274,6 +274,10 @@ fn staged_road_handoff(description: &str, start_mi: f64) -> String {
 }
 
 impl PlayerInputFrame<'_> {
+    pub fn cloud_resume_state(&self) -> ff_core::cloud_resume::CheckState {
+        self.app.ctx.cloud_saves_service().resume_state()
+    }
+
     pub fn driving_observation(&self) -> Option<DrivingObservation> {
         self.app.driving_observation()
     }
@@ -1721,6 +1725,8 @@ pub fn main_with(options: CliOptions) -> i32 {
     // The crash marker: set now, cleared on the way out, so a run that
     // ends any other way is offered as a report next time.
     crate::problem_reports::begin_session(&ff_core::settings::data_dir());
+    #[cfg(target_os = "ios")]
+    crate::problem_reports::observe_app_lifecycle();
     let code = run_game(&options);
     crate::problem_reports::end_session();
     guard.release();
