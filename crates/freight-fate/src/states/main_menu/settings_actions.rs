@@ -611,8 +611,9 @@ impl SettingsCategoryState {
             main_voice_step(&ctx.settings.main_backend, &options, d).unwrap_or_default();
         save_settings(&ctx.settings);
         ctx.apply_speech();
-        // Queued behind the switch, so the new voice speaks it.
-        self.announce(ctx);
+        // Spoken once the switch has run, so the new voice speaks it and
+        // the rows below are the new voice's.
+        self.announce_voice_change(ctx);
     }
 
     pub(super) fn cycle_event_voice(&mut self, ctx: &mut GameContext, d: i64) {
@@ -629,7 +630,7 @@ impl SettingsCategoryState {
         }
         save_settings(&ctx.settings);
         ctx.apply_speech();
-        self.announce(ctx);
+        self.announce_voice_change(ctx);
     }
 
     pub(super) fn toggle_braille_only(&mut self, ctx: &mut GameContext, _d: i64) {

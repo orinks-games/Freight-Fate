@@ -14,6 +14,8 @@ use crate::impl_state_for_menu;
 use crate::states::base::{InputEvent, Key, Menu, MenuCore, MenuItem};
 use crate::states::online_hub::OnlineHubState;
 
+use super::speech_voices::{rows_signature, RowsEvent, RowsSignature, RowsWait};
+
 /// Top-level settings: a category picker that opens per-category submenus.
 ///
 /// A tabbed multi-page layout reads poorly without a screen to show the
@@ -255,6 +257,10 @@ pub(super) type Adjust = Rc<dyn Fn(&mut SettingsCategoryState, &mut GameContext,
 pub struct SettingsCategoryState {
     menu: MenuCore<Self>,
     pub category: String,
+    /// Speech only: a voice row change waiting for the speech worker.
+    rows_wait: RowsWait,
+    /// Speech only: what decided the rows at the last rebuild.
+    rows_signature: Option<RowsSignature>,
 }
 
 impl SettingsCategoryState {
@@ -281,6 +287,8 @@ impl SettingsCategoryState {
                  Left arrow backward. Escape goes back.",
             ),
             category: category.to_string(),
+            rows_wait: RowsWait::Idle,
+            rows_signature: None,
         }
     }
 
@@ -374,6 +382,54 @@ impl SettingsCategoryState {
         self.speak_current(ctx);
     }
 
+    /// A Main voice or Driving event voice change: save and click now, and
+    /// rebuild and speak the row once the speech sink has caught up with
+    /// the switch, so the rows below belong to the new voice.
+    pub(super) fn announce_voice_change(&mut self, ctx: &mut GameContext) {
+        save_settings(&ctx.settings);
+        ctx.audio.play("ui/menu_select");
+        let settled = ctx.speech.settled();
+        self.step_rows_wait(ctx, RowsEvent::VoiceChanged { settled });
+    }
+
+    /// The one place [`RowsWait`] moves.
+    fn step_rows_wait(&mut self, ctx: &mut GameContext, event: RowsEvent) {
+        let (next, speak) = self.rows_wait.next(event);
+        self.rows_wait = next;
+        if speak {
+            self.refresh(ctx, true);
+            self.speak_current(ctx);
+        }
+    }
+
+    /// Speech rows that changed from outside (a screen reader started or
+    /// closed): rebuilt in place, silently, keeping the focused row. Only a
+    /// focused row that went away is spoken, on the row the cursor lands on.
+    fn follow_outside_voice_change(&mut self, ctx: &mut GameContext) {
+        if self.category != "speech" || self.rows_wait != RowsWait::Idle {
+            return;
+        }
+        if self.rows_signature == Some(rows_signature(ctx.speech.as_ref())) {
+            return;
+        }
+        let focused = self
+            .menu
+            .items
+            .get(self.menu.index)
+            .map(|item| item.help_text(self, ctx));
+        self.refresh(ctx, true);
+        let found = focused.and_then(|help| {
+            self.menu
+                .items
+                .iter()
+                .position(|item| item.help_text(self, ctx) == help)
+        });
+        match found {
+            Some(index) => self.menu.index = index,
+            None => self.speak_current(ctx),
+        }
+    }
+
     pub(super) fn announce_speech_preview(&mut self, ctx: &mut GameContext, setting: &str) {
         self.refresh(ctx, true);
         save_settings(&ctx.settings);
@@ -443,7 +499,20 @@ impl Menu for SettingsCategoryState {
     }
 
     fn build_items(&mut self, ctx: &mut GameContext) -> Vec<MenuItem<Self>> {
+        if self.category == "speech" {
+            self.rows_signature = Some(rows_signature(ctx.speech.as_ref()));
+        }
         self.category_items(ctx)
+    }
+
+    fn update(&mut self, ctx: &mut GameContext, dt: f64) {
+        ctx.update_music_rotation(dt);
+        if self.rows_wait != RowsWait::Idle {
+            let settled = ctx.speech.settled();
+            self.step_rows_wait(ctx, RowsEvent::Frame { dt, settled });
+            return;
+        }
+        self.follow_outside_voice_change(ctx);
     }
 
     fn handle_event(&mut self, ctx: &mut GameContext, event: &InputEvent) {

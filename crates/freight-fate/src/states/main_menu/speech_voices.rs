@@ -7,7 +7,7 @@
 
 use ff_core::settings::Settings;
 
-use crate::speech::BUILTIN_BACKEND;
+use crate::speech::{SpeechSink, BUILTIN_BACKEND};
 
 /// A voice's spoken name from its registry name.
 pub(super) fn spoken_voice_name(registry: &str) -> String {
@@ -90,6 +90,76 @@ pub(super) fn speech_voice_label(saved: &str, voices: &[String]) -> String {
         saved.to_string()
     } else {
         "default".to_string()
+    }
+}
+
+/// How long a voice row change waits for the speech worker before the rows
+/// are rebuilt and the changed row is spoken anyway.
+pub(super) const ROWS_WAIT_S: f64 = 0.3;
+
+/// The Speech rows after a Main voice or Driving event voice change.
+///
+/// The threaded sink answers from what it published before the switch ran,
+/// so rebuilding at once would show the old voice's rows. The changed row
+/// is held until the sink has caught up, or [`ROWS_WAIT_S`] has passed.
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub(super) enum RowsWait {
+    Idle,
+    Waiting { left_s: f64 },
+}
+
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub(super) enum RowsEvent {
+    /// A voice row changed; `settled` is the sink's answer right after.
+    VoiceChanged { settled: bool },
+    /// A frame passed.
+    Frame { dt: f64, settled: bool },
+}
+
+impl RowsWait {
+    /// The next state, and whether to rebuild the rows and speak the
+    /// changed row now.
+    pub(super) fn next(self, event: RowsEvent) -> (Self, bool) {
+        match (self, event) {
+            (_, RowsEvent::VoiceChanged { settled: true }) => (Self::Idle, true),
+            (_, RowsEvent::VoiceChanged { settled: false }) => (
+                Self::Waiting {
+                    left_s: ROWS_WAIT_S,
+                },
+                false,
+            ),
+            (Self::Idle, RowsEvent::Frame { .. }) => (Self::Idle, false),
+            (Self::Waiting { left_s }, RowsEvent::Frame { dt, settled }) => {
+                let left_s = left_s - dt;
+                if settled || left_s <= 0.0 {
+                    (Self::Idle, true)
+                } else {
+                    (Self::Waiting { left_s }, false)
+                }
+            }
+        }
+    }
+}
+
+/// What decides which Speech rows exist: the main voice's three controls,
+/// whether a bound voice lists installed voices, and whether the main voice
+/// is JAWS (the arrow keys row).
+#[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
+pub(super) struct RowsSignature {
+    rate: bool,
+    pitch: bool,
+    volume: bool,
+    voices: bool,
+    jaws: bool,
+}
+
+pub(super) fn rows_signature(speech: &dyn SpeechSink) -> RowsSignature {
+    RowsSignature {
+        rate: speech.supports_rate(),
+        pitch: speech.supports_pitch(),
+        volume: speech.supports_volume(),
+        voices: !speech.voice_names().is_empty(),
+        jaws: speech.backend_name().eq_ignore_ascii_case("jaws"),
     }
 }
 
@@ -197,6 +267,84 @@ mod tests {
             (events(true, "SAPI"), "SAPI", -1, some("SAPI")),
         ] {
             assert_eq!(event_voice_step(&s, main, &options, d), next);
+        }
+    }
+
+    #[test]
+    fn rows_wait_transitions() {
+        use RowsEvent::{Frame, VoiceChanged};
+        let waiting = |left_s: f64| RowsWait::Waiting { left_s };
+        for (state, event, next) in [
+            // A sink that is caught up at once: speak now.
+            (
+                RowsWait::Idle,
+                VoiceChanged { settled: true },
+                (RowsWait::Idle, true),
+            ),
+            (
+                RowsWait::Idle,
+                VoiceChanged { settled: false },
+                (waiting(0.3), false),
+            ),
+            // Another press while waiting starts the wait over.
+            (
+                waiting(0.1),
+                VoiceChanged { settled: false },
+                (waiting(0.3), false),
+            ),
+            (
+                waiting(0.1),
+                VoiceChanged { settled: true },
+                (RowsWait::Idle, true),
+            ),
+            (
+                waiting(0.3),
+                Frame {
+                    dt: 0.1,
+                    settled: false,
+                },
+                (waiting(0.2), false),
+            ),
+            (
+                waiting(0.3),
+                Frame {
+                    dt: 0.1,
+                    settled: true,
+                },
+                (RowsWait::Idle, true),
+            ),
+            // The deadline passes with the sink still behind: speak anyway.
+            (
+                waiting(0.05),
+                Frame {
+                    dt: 0.1,
+                    settled: false,
+                },
+                (RowsWait::Idle, true),
+            ),
+            (
+                RowsWait::Idle,
+                Frame {
+                    dt: 0.1,
+                    settled: false,
+                },
+                (RowsWait::Idle, false),
+            ),
+            (
+                RowsWait::Idle,
+                Frame {
+                    dt: 0.1,
+                    settled: true,
+                },
+                (RowsWait::Idle, false),
+            ),
+        ] {
+            let (got, speak) = state.next(event);
+            let got = match got {
+                RowsWait::Waiting { left_s } => waiting((left_s * 1000.0).round() / 1000.0),
+                idle => idle,
+            };
+            assert_eq!((got, speak), next, "{state:?} {event:?}");
         }
     }
 

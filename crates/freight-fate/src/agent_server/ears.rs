@@ -162,6 +162,9 @@ impl SpeechSink for TeeSpeech {
     fn main_backend_options(&self) -> Vec<String> {
         self.inner.main_backend_options()
     }
+    fn settled(&self) -> bool {
+        self.inner.settled()
+    }
     fn select_main_backend(&mut self, name: Option<&str>) {
         self.inner.select_main_backend(name);
     }
