@@ -94,12 +94,35 @@ fn starts_sealed(path: &Path) -> bool {
 /// no career holds that name and the file opens there; anything else stays
 /// exactly where it is. Returns how many came back.
 pub fn restore_set_aside(dir: &Path) -> usize {
+    let mut restored = 0;
+    for (career, aside) in set_aside_candidates(dir) {
+        let home = dir.join(&career);
+        if let Err(e) = std::fs::rename(&aside, &home) {
+            log::warn!("Could not bring back {}: {e}", aside.display());
+            continue;
+        }
+        // The seal covers the file's name, so it can only be judged in place.
+        let opens = read(&home).is_ok_and(|(bytes, _)| super::decode_save_bytes(&bytes).is_ok());
+        if opens {
+            log::info!(
+                "Brought back {career}, which an older version had set aside as {}",
+                aside.display()
+            );
+            restored += 1;
+        } else if let Err(e) = std::fs::rename(&home, &aside) {
+            log::warn!("Could not put {} back aside: {e}", home.display());
+        }
+    }
+    restored
+}
+
+pub(super) fn set_aside_candidates(dir: &Path) -> Vec<(String, PathBuf)> {
     if !vault(&dir.join("career")).is_sealing() {
         // A build without the key could not open one, so it moves nothing.
-        return 0;
+        return Vec::new();
     }
     let Ok(entries) = std::fs::read_dir(dir) else {
-        return 0;
+        return Vec::new();
     };
     // The newest set-aside copy of each career file name.
     let mut newest: HashMap<String, (SystemTime, PathBuf)> = HashMap::new();
@@ -125,26 +148,10 @@ pub fn restore_set_aside(dir: &Path) -> usize {
             newest.insert(career.to_string(), (modified, aside));
         }
     }
-    let mut restored = 0;
-    for (career, (_, aside)) in newest {
-        let home = dir.join(&career);
-        if let Err(e) = std::fs::rename(&aside, &home) {
-            log::warn!("Could not bring back {}: {e}", aside.display());
-            continue;
-        }
-        // The seal covers the file's name, so it can only be judged in place.
-        let opens = read(&home).is_ok_and(|(bytes, _)| super::decode_save_bytes(&bytes).is_ok());
-        if opens {
-            log::info!(
-                "Brought back {career}, which an older version had set aside as {}",
-                aside.display()
-            );
-            restored += 1;
-        } else if let Err(e) = std::fs::rename(&home, &aside) {
-            log::warn!("Could not put {} back aside: {e}", home.display());
-        }
-    }
-    restored
+    newest
+        .into_iter()
+        .map(|(career, (_, aside))| (career, aside))
+        .collect()
 }
 
 #[cfg(test)]
@@ -165,6 +172,238 @@ mod tests {
     fn sealing() -> KeyGuard {
         TEST_KEY.with(|k| *k.borrow_mut() = Some(hearken_seal::Key::from_bytes([37; 32])));
         KeyGuard
+    }
+
+    fn old_sealed(name: &str, spent: f64) -> (PathBuf, Profile) {
+        let mut profile = Profile::named(name);
+        profile.created_line = "1.9".into();
+        profile.spend(spent);
+        let dir = super::super::data_dir().join("profiles");
+        std::fs::create_dir_all(&dir).unwrap();
+        let path = dir.join(format!("{name}.ffsave"));
+        write(&path, &encode_save_bytes(&profile.to_dict())).unwrap();
+        (path, profile)
+    }
+
+    #[test]
+    fn recoverable_set_aside_copies_the_newest_without_changing_the_sources() {
+        use crate::models::profile::{copy_forward_1_9_careers, find_save_path};
+        crate::models::profile::tests::with_data_dir(|root| {
+            let _key = sealing();
+            let (home, _) = old_sealed("Recovered", 123.0);
+            let first = home.with_extension("ffsave.invalid");
+            std::fs::rename(&home, &first).unwrap();
+            let (_, expected) = old_sealed("Recovered", 456.0);
+            let newest = home.with_extension("ffsave.invalid2");
+            std::fs::rename(&home, &newest).unwrap();
+            std::fs::File::options()
+                .write(true)
+                .open(&first)
+                .unwrap()
+                .set_modified(SystemTime::UNIX_EPOCH + std::time::Duration::from_secs(100))
+                .unwrap();
+            let original_names = [&first, &newest];
+            let before: Vec<_> = original_names
+                .iter()
+                .map(|p| std::fs::read(p).unwrap())
+                .collect();
+            let witness = root.join("profiles/.freight-fate-sealed");
+            let witness_before = std::fs::read(&witness).unwrap();
+            assert_eq!(copy_forward_1_9_careers().unwrap(), 1);
+            let imported = find_save_path("Recovered").unwrap();
+            let loaded = Profile::load(&imported).unwrap();
+            assert_eq!(loaded.created_line, "2.0");
+            assert_eq!(loaded.money(), expected.money());
+            assert_eq!(
+                imported.metadata().unwrap().modified().unwrap(),
+                newest.metadata().unwrap().modified().unwrap()
+            );
+            assert_eq!(copy_forward_1_9_careers().unwrap(), 0);
+            loaded.delete();
+            assert_eq!(copy_forward_1_9_careers().unwrap(), 0);
+            for (path, bytes) in original_names.into_iter().zip(before) {
+                assert_eq!(std::fs::read(path).unwrap(), bytes);
+            }
+            assert!(!home.exists());
+            assert_eq!(std::fs::read(&witness).unwrap(), witness_before);
+            assert_eq!(std::fs::read_dir(root.join("profiles")).unwrap().count(), 3);
+        });
+    }
+
+    #[test]
+    fn set_aside_files_that_would_not_recover_are_not_copied() {
+        use crate::models::profile::{copy_forward_1_9_careers, find_save_path};
+        for case in [
+            "Plain",
+            "Tampered",
+            "WrongName",
+            "Undecodable",
+            "NoKey",
+            "BadSuffix",
+            "NewestBad",
+        ] {
+            crate::models::profile::tests::with_data_dir(|root| {
+                let _key = sealing();
+                let (home, profile) = old_sealed(case, 123.0);
+                let aside = if case == "WrongName" {
+                    home.with_file_name("Other.ffsave.invalid")
+                } else if case == "BadSuffix" {
+                    home.with_extension("ffsave.invalidx")
+                } else {
+                    home.with_extension("ffsave.invalid")
+                };
+                std::fs::rename(&home, &aside).unwrap();
+                match case {
+                    "Plain" => {
+                        std::fs::write(&aside, encode_save_bytes(&profile.to_dict())).unwrap()
+                    }
+                    "Tampered" => {
+                        let mut bytes = std::fs::read(&aside).unwrap();
+                        *bytes.last_mut().unwrap() ^= 1;
+                        std::fs::write(&aside, bytes).unwrap();
+                    }
+                    "Undecodable" => {
+                        write(&home, b"not a save").unwrap();
+                        std::fs::rename(&home, &aside).unwrap();
+                    }
+                    "NoKey" => TEST_KEY.with(|k| *k.borrow_mut() = None),
+                    "NewestBad" => {
+                        std::fs::File::options()
+                            .write(true)
+                            .open(&aside)
+                            .unwrap()
+                            .set_modified(
+                                SystemTime::UNIX_EPOCH + std::time::Duration::from_secs(100),
+                            )
+                            .unwrap();
+                        let bad = home.with_extension("ffsave.invalid1");
+                        std::fs::write(bad, b"HKSLbroken").unwrap();
+                    }
+                    _ => {}
+                }
+                let originals: Vec<_> = std::fs::read_dir(root.join("profiles"))
+                    .unwrap()
+                    .map(|entry| {
+                        let path = entry.unwrap().path();
+                        let bytes = std::fs::read(&path).unwrap();
+                        (path, bytes)
+                    })
+                    .collect();
+                assert_eq!(copy_forward_1_9_careers().unwrap(), 0, "{case}");
+                assert!(find_save_path(case).is_none(), "{case}");
+                assert!(!home.exists(), "{case}");
+                for (path, bytes) in originals {
+                    assert_eq!(std::fs::read(path).unwrap(), bytes, "{case}");
+                }
+            });
+        }
+    }
+
+    #[test]
+    fn normal_career_takes_precedence_over_a_set_aside_copy() {
+        use crate::models::profile::{copy_forward_1_9_careers, find_save_path};
+        crate::models::profile::tests::with_data_dir(|_| {
+            let _key = sealing();
+            let (home, _) = old_sealed("Normal", 123.0);
+            let aside = home.with_extension("ffsave.invalid");
+            std::fs::rename(&home, &aside).unwrap();
+            let (_, expected) = old_sealed("Normal", 456.0);
+            let before = std::fs::read(&aside).unwrap();
+            let normal_before = std::fs::read(&home).unwrap();
+            assert_eq!(copy_forward_1_9_careers().unwrap(), 1);
+            let loaded = Profile::load(&find_save_path("Normal").unwrap()).unwrap();
+            assert_eq!(loaded.money(), expected.money());
+            assert_eq!(std::fs::read(&aside).unwrap(), before);
+            assert_eq!(std::fs::read(&home).unwrap(), normal_before);
+        });
+    }
+
+    #[test]
+    fn sealed_1_9_7_copies_forward_once_and_the_original_still_verifies() {
+        use crate::models::profile::{
+            copy_forward_1_9_careers, find_save_path, is_signature_valid, SAVE_VERSION,
+        };
+        crate::models::profile::tests::with_data_dir(|root| {
+            let _key = sealing();
+            let mut original = Profile::named("Old Driver");
+            original.created_line = "1.9".into();
+            original.spend(321.0);
+            original.achievements = vec!["first_delivery".into()];
+            let data = original.to_dict();
+            assert_eq!(SAVE_VERSION, 11);
+            assert_eq!(data["version"], 11);
+            let dir = root.join("profiles");
+            std::fs::create_dir_all(&dir).unwrap();
+            let old = dir.join("Old Driver.ffsave");
+            write(&old, &encode_save_bytes(&data)).unwrap();
+            let before = std::fs::read(&old).unwrap();
+            let witness = std::fs::read(dir.join(".freight-fate-sealed")).unwrap();
+            assert!(before.starts_with(b"HKSL"));
+            assert_eq!(copy_forward_1_9_careers().unwrap(), 1);
+            let new = find_save_path("Old Driver").unwrap();
+            assert_eq!(new, root.join("2.0/profiles/Old Driver.ffsave"));
+            let bytes = std::fs::read(&new).unwrap();
+            assert!(bytes.starts_with(b"HKSL"));
+            assert!(new.parent().unwrap().join(".freight-fate-sealed").exists());
+            let mut loaded = Profile::load(&new).unwrap();
+            assert_eq!(loaded.created_line, "2.0");
+            assert_eq!(loaded.money(), original.money());
+            assert_eq!(loaded.achievements, original.achievements);
+            loaded.spend(50.0);
+            loaded.save().unwrap();
+            let newer = std::fs::read(&new).unwrap();
+            assert_eq!(copy_forward_1_9_careers().unwrap(), 0);
+            assert_eq!(std::fs::read(&new).unwrap(), newer);
+            loaded.delete();
+            assert_eq!(copy_forward_1_9_careers().unwrap(), 0);
+            assert!(find_save_path("Old Driver").is_none());
+            assert_eq!(std::fs::read(&old).unwrap(), before);
+            assert_eq!(
+                std::fs::read(dir.join(".freight-fate-sealed")).unwrap(),
+                witness
+            );
+            let (raw, _) = read(&old).unwrap();
+            let (untouched, _) = decode_save_bytes(&raw).unwrap();
+            assert_eq!(untouched["created_line"], "1.9");
+            assert!(is_signature_valid(&untouched));
+            assert_eq!(untouched, data);
+        });
+    }
+    #[test]
+    fn a_sealed_newer_career_is_refused_without_rewriting_or_setting_it_aside() {
+        crate::models::profile::tests::with_data_dir(|_| {
+            let _key = sealing();
+            let p = Profile::named("Future Driver");
+            let mut data = p.to_dict();
+            data.insert("created_line".into(), serde_json::json!("2.1"));
+            data.insert("_signature".into(), serde_json::json!("invalid"));
+            let path = p.path();
+            write(&path, &encode_save_bytes(&data)).unwrap();
+            let before = std::fs::read(&path).unwrap();
+            assert!(before.starts_with(b"HKSL"));
+            let count = std::fs::read_dir(path.parent().unwrap()).unwrap().count();
+            for frozen in [false, true] {
+                let Err(crate::models::profile::LoadError::NewerCareer(err)) =
+                    Profile::load_with(&path, frozen)
+                else {
+                    panic!("expected a newer-career refusal");
+                };
+                assert_eq!(err.name, "Future Driver");
+                assert_eq!(err.line, "2.1");
+                assert_eq!(err.path.as_deref(), Some(path.as_path()));
+                assert!(crate::models::profile::newer_career_file(&path).is_some());
+                let other_case =
+                    path.with_file_name(path.file_name().unwrap().to_string_lossy().to_uppercase());
+                assert_ne!(other_case, path);
+                assert!(crate::models::profile::newer_career_file(&other_case).is_some());
+                assert!(Profile::list_saves().contains(&path));
+                assert_eq!(std::fs::read(&path).unwrap(), before);
+                assert_eq!(
+                    std::fs::read_dir(path.parent().unwrap()).unwrap().count(),
+                    count
+                );
+            }
+        });
     }
     #[test]
     fn sealed_profile_round_trip_preserves_board_payload_and_integrity() {

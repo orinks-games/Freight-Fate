@@ -398,9 +398,16 @@ pub fn data_dir_if_allowed() -> Option<PathBuf> {
     Some(data_dir_in(&roots, &LEGACY_CHECKED))
 }
 
-/// `data_dir()/profiles`, created.
+/// Bookkeeping shared by this release line's careers, under the shared root.
+pub fn career_data_dir() -> PathBuf {
+    let dir = data_dir().join(super::CREATED_LINE);
+    let _ = std::fs::create_dir_all(&dir);
+    dir
+}
+
+/// The running release line's career folder, created.
 pub fn profiles_dir() -> PathBuf {
-    let dir = data_dir().join("profiles");
+    let dir = career_data_dir().join("profiles");
     let _ = std::fs::create_dir_all(&dir);
     dir
 }

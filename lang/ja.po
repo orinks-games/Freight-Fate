@@ -9576,6 +9576,9 @@ msgstr ""
 "{target}\n"
 "この案内ファイルは削除してかまいません。"
 
+msgid "The source career's integrity could not be verified."
+msgstr ""
+
 msgid "The career has no valid file name."
 msgstr ""
 
@@ -21477,6 +21480,28 @@ msgstr "バックアップは以前のバージョンのものです。何も復
 #. placeholders: {LEGACY_BACKUP_NOTICE}
 msgid "{LEGACY_BACKUP_NOTICE} Your local save was not touched."
 msgstr "{LEGACY_BACKUP_NOTICE}このコンピューターのセーブには触れていません。"
+
+msgid "Backup needs a newer version. Nothing was restored."
+msgstr ""
+
+#. placeholders: {line}
+#. one sentence of a longer line
+msgid "This career was made in Freight Fate {line}."
+msgstr ""
+
+#. placeholders: {line}
+msgid ""
+"This career was made in Freight Fate {line}. This version cannot restore "
+"it. Your local save and the cloud backup are untouched."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "This version cannot restore it."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Your local save and the cloud backup are untouched."
+msgstr ""
 
 msgid "Reconnect needed. Nothing was restored."
 msgstr "再接続が必要です。何も復元していません。"
@@ -33602,6 +33627,15 @@ msgid ""
 "career. The save is not touched."
 msgstr "このキャリアはバージョン1.9では続けられません。Enter で理由の説明と新しいキャリアの案内を聞けます。セーブには手を加えません。"
 
+#. placeholders: {name}, {line}
+msgid "{name}: career from Freight Fate {line}"
+msgstr ""
+
+msgid ""
+"This career needs a newer version. Choose it for details. The save is not "
+"touched."
+msgstr ""
+
 msgid "Manage careers"
 msgstr "キャリアの管理"
 
@@ -33860,6 +33894,11 @@ msgid ""
 "Your saved careers are from an earlier version of Freight Fate. They are "
 "listed under Choose career. "
 msgstr "保存されたキャリアは以前のバージョンの Freight Fate のものです。「キャリアを選ぶ」に載っています。 "
+
+msgid ""
+"Some saved careers need a newer version of Freight Fate. They are listed "
+"under Choose career. "
+msgstr ""
 
 #. placeholders: {version}
 #. one sentence of a longer line
@@ -35830,6 +35869,18 @@ msgstr "Escape で戻って変えられます。"
 msgid ""
 "That save stays as it is, so this career needs a different driver name."
 msgstr "そのセーブはそのまま残すので、このキャリアには別のドライバー名が必要です。"
+
+#. placeholders: {name}, {line}
+#. one sentence of a longer line
+msgid "There is already a career named {name} from Freight Fate {line}."
+msgstr ""
+
+#. placeholders: {name}, {line}
+msgid ""
+"There is already a career named {name} from Freight Fate {line}. That save "
+"stays as it is, so this career needs a different driver name. Escape goes "
+"back to change it."
+msgstr ""
 
 #. placeholders: {name}
 #. one sentence of a longer line
@@ -39292,6 +39343,38 @@ msgstr "キャリアの一覧に戻る"
 
 msgid "Back to the saved careers, nothing changed."
 msgstr "保存したキャリアに戻ります。何も変わっていません。"
+
+#. placeholders: {line}
+#. one sentence of a longer line
+msgid ""
+"Nothing was lost: the save is untouched and still works in Freight Fate "
+"{line}."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "This version cannot continue it."
+msgstr ""
+
+#. placeholders: {name}, {line}
+#. one sentence of a longer line
+msgid "{name} was made in Freight Fate {line}."
+msgstr ""
+
+#. placeholders: {name}, {line}
+msgid ""
+"{name} was made in Freight Fate {line}. This version cannot continue it. "
+"Nothing was lost: the save is untouched and still works in Freight Fate "
+"{line}."
+msgstr ""
+
+msgid "Career from a newer version"
+msgstr ""
+
+msgid "Escape goes back to the career list."
+msgstr ""
+
+msgid "Start fresh with a different driver name."
+msgstr ""
 
 #. one sentence of a longer line
 msgid ""

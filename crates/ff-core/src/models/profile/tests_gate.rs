@@ -72,6 +72,106 @@ fn dict(value: Value) -> Map<String, Value> {
 }
 
 #[test]
+fn test_newer_release_line_comparison() {
+    for (line, newer) in [
+        ("1.8", false),
+        ("1.9", false),
+        ("1.10", false),
+        ("2.0", false),
+        ("2.1", true),
+        ("10.0", true),
+        ("0.99", false),
+        ("01.09", false),
+        ("2", false),
+        ("2.0.0", false),
+        ("v2.0", false),
+        ("2.-1", false),
+        ("+2.0", false),
+        ("2.", false),
+        (".0", false),
+        (" 2.0", false),
+        ("", false),
+        ("999999999999999999999999.0", false),
+    ] {
+        let data = dict(json!({"created_line": line}));
+        assert_eq!(newer_career_line(&data).is_some(), newer, "{line}");
+    }
+    for data in [
+        json!({}),
+        json!({"created_line": null}),
+        json!({"created_line": 2}),
+    ] {
+        assert_eq!(newer_career_line(&dict(data)), None);
+    }
+}
+
+#[test]
+fn test_older_release_line_comparison() {
+    for (line, older) in [
+        ("1.9", true),
+        ("1.10", true),
+        ("2.0", false),
+        ("2.1", false),
+        ("2.0.0", false),
+        ("v1.9", false),
+        ("", false),
+    ] {
+        assert_eq!(
+            older_career_line(&dict(json!({"created_line": line}))).is_some(),
+            older,
+            "{line}"
+        );
+    }
+    for value in [
+        json!({}),
+        json!({"created_line": null}),
+        json!({"created_line": 1.9}),
+    ] {
+        assert!(older_career_line(&dict(value)).is_none());
+    }
+}
+
+#[test]
+fn test_newer_career_refuses_before_signature_checks_or_migration() {
+    with_data_dir(|_| {
+        for packed in [false, true] {
+            let mut data = Profile::named("Future Driver").to_dict();
+            data.insert("created_line".into(), json!("2.1"));
+            data.insert("version".into(), json!(3));
+            data.insert("_signature".into(), json!("invalid"));
+            let path = save_path_for("Future Driver");
+            let path = if packed {
+                path
+            } else {
+                path.with_extension("json")
+            };
+            if packed {
+                write_packed(&path, &data);
+            } else {
+                write_text(&path, &data);
+            }
+            let before = std::fs::read(&path).unwrap();
+            let files = || std::fs::read_dir(path.parent().unwrap()).unwrap().count();
+            let count = files();
+            for frozen in [false, true] {
+                let Err(LoadError::NewerCareer(err)) = Profile::load_with(&path, frozen) else {
+                    panic!("expected a newer-career refusal");
+                };
+                assert_eq!(err.name, "Future Driver");
+                assert_eq!(err.path.as_deref(), Some(path.as_path()));
+                assert_eq!(err.line, "2.1");
+                assert_eq!(std::fs::read(&path).unwrap(), before);
+                assert_eq!(files(), count);
+                assert_eq!(newer_career_file(&path), Some(err));
+            }
+            assert!(Profile::list_saves().contains(&path));
+            assert_eq!(std::fs::read(&path).unwrap(), before);
+            std::fs::remove_file(path).unwrap();
+        }
+    });
+}
+
+#[test]
 fn test_marker_decides_when_present() {
     assert!(is_pre_1_9_save(&dict(json!({"version": 5}))));
     assert!(is_pre_1_9_save(&dict(json!({"version": 4}))));
@@ -90,12 +190,12 @@ fn test_new_saves_carry_the_created_on_marker() {
     with_data_dir(|_| {
         let path = Profile::named("Fresh Start").save().unwrap();
         let data = read_save(&path);
-        assert_eq!(data["created_line"], json!("1.9"));
+        assert_eq!(data["created_line"], json!("2.0"));
         // The marker is signed like every other field; a clean reload needs no
         // rewrite and keeps the marker.
         let loaded = load(&path);
         assert!(!loaded.needs_migration_resave);
-        assert_eq!(loaded.created_line, "1.9");
+        assert_eq!(loaded.created_line, "2.0");
     });
 }
 
@@ -140,11 +240,11 @@ fn test_pre_marker_1_9_save_loads_and_is_stamped() {
         let path = write_pre_marker_1_9_save("Tester");
         let loaded = load(&path);
         assert_eq!(loaded.name, "Tester");
-        assert_eq!(loaded.created_line, "1.9");
+        assert_eq!(loaded.created_line, "2.0");
         // The load stamped the marker into the rewritten save, so the version
         // threshold backfill is only ever consulted once per career.
         let on_disk = read_save(&path);
-        assert_eq!(on_disk["created_line"], json!("1.9"));
+        assert_eq!(on_disk["created_line"], json!("2.0"));
         assert!(!load(&path).needs_migration_resave);
     });
 }

@@ -279,7 +279,7 @@ mod tests {
             );
             // The rewrite also stamps the created-on marker, so this career never
             // needs the save-version backfill test again.
-            assert_eq!(on_disk["created_line"], "1.9");
+            assert_eq!(on_disk["created_line"], "2.0");
             // The rewritten save loads cleanly, is validly signed, and migrates no more.
             let again = Profile::load(&path).unwrap();
             assert!(!again.needs_migration_resave);
