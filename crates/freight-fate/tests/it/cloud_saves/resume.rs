@@ -18,9 +18,12 @@ fn tracked(app: &mut TestApp, transport: SharedTransport) -> (CloudSaves, PathBu
     });
     let local = Profile::load(&path).unwrap();
     let (_, hash) = cloud_content(&Value::Object(local.to_dict()));
-    service
-        .sync_state()
-        .record_synced_for_driver(&cloud_slot_name("Road Star"), 1, &hash, &identity().driver_id);
+    service.sync_state().record_synced_for_driver(
+        &cloud_slot_name("Road Star"),
+        1,
+        &hash,
+        &identity().driver_id,
+    );
     app.ctx.services.cloud = service.clone();
     (service, path)
 }
@@ -147,14 +150,17 @@ fn resume_only_tracks_this_lines_release_qualified_slot() {
 fn another_account_and_legacy_sync_records_are_not_tracked() {
     for legacy in [false, true] {
         let mut app = TestApp::new();
-        let transport =
-            FakeTransport::replying(json!({"saves": [{"saveName": cloud_slot_name("Road Star"), "revision": 2}]}));
+        let transport = FakeTransport::replying(
+            json!({"saves": [{"saveName": cloud_slot_name("Road Star"), "revision": 2}]}),
+        );
         let (service, path) = tracked(&mut app, transport.clone());
         if legacy {
             let slot = service.sync_state().slot(&cloud_slot_name("Road Star"));
-            service
-                .sync_state()
-                .record_synced(&cloud_slot_name("Road Star"), 1, slot["hash"].as_str().unwrap());
+            service.sync_state().record_synced(
+                &cloud_slot_name("Road Star"),
+                1,
+                slot["hash"].as_str().unwrap(),
+            );
         } else {
             service.set_identity(Some(OnlineIdentity::new("another-driver", "another-token")));
         }
@@ -238,6 +244,63 @@ fn continue_uses_the_most_recent_remote_career_after_multiple_pickups() {
 }
 
 #[test]
+fn unsupported_backup_does_not_stop_a_compatible_career_resuming() {
+    let mut app = TestApp::new();
+    let transport = Arc::new(ClosureTransport(
+        |url: &str, _: Option<&Value>, _: &[(String, String)], _: Option<&str>| {
+            if url.contains("saveName=") {
+                if url.contains(&url_quote(&cloud_slot_name("Unsupported Driver"))) {
+                    let profile = json!({"name": "Unsupported Driver", "money": 77000.0, "version": 7, "created_line": "99.0"});
+                    let mut reply = make_cloud_reply(&profile, "e+6E6dmvfZHmSUtWaTrao0wPxHOSMdS18/eVVsR9dCNuZmfHQmnoXYxL8FkntU4AiTIilL13ep4HO3BVr69KCw==", 2);
+                    reply["saveName"] = json!(cloud_slot_name("Unsupported Driver"));
+                    return Ok(reply);
+                }
+                let (profile, signature) = money77_profile();
+                let mut reply = make_cloud_reply(&profile, signature, 2);
+                reply["saveName"] = json!(cloud_slot_name("Road Star"));
+                return Ok(reply);
+            }
+            Ok(json!({"saves": [
+                {"saveName": cloud_slot_name("Unsupported Driver"), "revision": 2, "createdAt": 100},
+                {"saveName": cloud_slot_name("Road Star"), "revision": 2, "createdAt": 200}
+            ]}))
+        },
+    ));
+    let (service, path) = tracked(&mut app, transport);
+    let unsupported = Profile::named("Unsupported Driver");
+    let unsupported_path = unsupported.save().unwrap();
+    let unsupported = Profile::load(&unsupported_path).unwrap();
+    let (_, hash) = cloud_content(&Value::Object(unsupported.to_dict()));
+    service.sync_state().record_synced_for_driver(
+        &cloud_slot_name("Unsupported Driver"),
+        1,
+        &hash,
+        &identity().driver_id,
+    );
+    let before = fs::read(&unsupported_path).unwrap();
+    service.check_resume(true);
+    assert_eq!(
+        service.resume_state(),
+        CheckState::Done {
+            pulled: 1,
+            conflicts: 0
+        }
+    );
+    assert_eq!(fs::read(unsupported_path).unwrap(), before);
+    assert_eq!(
+        service
+            .sync_state()
+            .slot(&cloud_slot_name("Unsupported Driver"))["revision"],
+        json!(1)
+    );
+    assert_eq!(Profile::load(&path).unwrap().money(), 77000.0);
+    assert_eq!(
+        service.take_resume_lines(),
+        ["Picked up Road Star where you left off on another device."]
+    );
+}
+
+#[test]
 fn dirty_local_records_the_existing_conflict_choice() {
     let mut app = TestApp::new();
     let (service, path) = tracked(&mut app, newer());
@@ -308,18 +371,30 @@ fn auth_network_and_bad_signature_leave_disk_and_sync_untouched() {
             }
         },
     ));
-    let transports: Vec<SharedTransport> = vec![
-        FakeTransport::failing(NetError::http(401)),
-        FakeTransport::failing(NetError::Connection("offline".into())),
-        bad_download,
+    let transports: Vec<(SharedTransport, CheckState)> = vec![
+        (
+            FakeTransport::failing(NetError::http(401)),
+            CheckState::Failed,
+        ),
+        (
+            FakeTransport::failing(NetError::Connection("offline".into())),
+            CheckState::Failed,
+        ),
+        (
+            bad_download,
+            CheckState::Done {
+                pulled: 0,
+                conflicts: 0,
+            },
+        ),
     ];
-    for transport in transports {
+    for (transport, expected) in transports {
         let mut app = TestApp::new();
         let (service, path) = tracked(&mut app, transport);
         let before = fs::read(&path).unwrap();
         let sync = service.sync_state().slot(&cloud_slot_name("Road Star"));
         service.check_resume(true);
-        assert_eq!(service.resume_state(), CheckState::Failed);
+        assert_eq!(service.resume_state(), expected);
         assert_eq!(fs::read(path).unwrap(), before);
         assert_eq!(
             service.sync_state().slot(&cloud_slot_name("Road Star")),

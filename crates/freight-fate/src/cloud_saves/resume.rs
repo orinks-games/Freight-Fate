@@ -120,118 +120,125 @@ impl CloudSaves {
             if !self.enabled() || self.resume_state() != CheckState::Checking {
                 break;
             }
-            let name = cloud_slot_name(&profile.name);
-            if path != profile.path() {
-                log::debug!("Cloud resume skipped renamed local file {}", path.display());
-                continue;
-            }
-            let Some(entry) = latest.get(name.as_str()) else {
-                continue;
-            };
-            let remote = json_int(entry.get("revision"));
-            let decision_for = |profile: &Profile| {
-                let slot = self.sync_state().slot(&name);
-                let (_, hash) = cloud_content(&Value::Object(profile.to_dict()));
-                decide(
-                    (slot.get("driverId").and_then(Value::as_str)
-                        == Some(identity.driver_id.as_str()))
-                    .then(|| json_int(slot.get("revision")))
-                    .flatten(),
-                    slot.get("hash").and_then(Value::as_str) != Some(hash.as_str()),
-                    remote,
-                )
-            };
-            let mut decision = decision_for(&profile);
-            if let Decision::PullCloud { revision } = decision {
-                let payload = download_save(
-                    &identity,
-                    &name,
-                    Some(revision),
-                    self.transport().as_ref(),
-                    self.inner.public_keys.as_ref(),
-                )
-                .map_err(|error| error.to_string())?
-                .ok_or("backup unavailable")?;
-                if payload.get("saveName").and_then(Value::as_str) != Some(name.as_str())
-                    || json_int(payload.get("revision")) != Some(revision)
-                    || payload
-                        .get("profile")
-                        .and_then(|p| p.get("name"))
-                        .and_then(Value::as_str)
-                        != Some(profile.name.as_str())
-                {
-                    return Err("backup does not match requested career".into());
+            let result = (|| -> Result<(), String> {
+                let name = cloud_slot_name(&profile.name);
+                if path != profile.path() {
+                    log::debug!("Cloud resume skipped renamed local file {}", path.display());
+                    return Ok(());
                 }
-                let _transfer = self.inner.transfer.write().unwrap();
-                let account = self.inner.identity.lock().unwrap();
-                if account.as_ref().map(|id| &id.driver_id) != Some(&identity.driver_id) {
-                    break;
-                }
-                let current = Profile::load(&path).map_err(|error| error.to_string())?;
-                decision = decision_for(&current);
-                if matches!(decision, Decision::PullCloud { .. })
-                    && self.enabled()
-                    && self.resume_state() == CheckState::Checking
-                {
-                    let is_legacy = |value: &Value| value.as_object().is_none_or(is_pre_1_9_save);
-                    restore_to_disk(
-                        &payload,
-                        Some(self.sync_state()),
-                        &RestoreHooks {
-                            is_legacy: &is_legacy,
-                            write: &install_restored_profile,
-                        },
+                let Some(entry) = latest.get(name.as_str()) else {
+                    return Ok(());
+                };
+                let remote = json_int(entry.get("revision"));
+                let decision_for = |profile: &Profile| {
+                    let slot = self.sync_state().slot(&name);
+                    let (_, hash) = cloud_content(&Value::Object(profile.to_dict()));
+                    decide(
+                        (slot.get("driverId").and_then(Value::as_str)
+                            == Some(identity.driver_id.as_str()))
+                        .then(|| json_int(slot.get("revision")))
+                        .flatten(),
+                        slot.get("hash").and_then(Value::as_str) != Some(hash.as_str()),
+                        remote,
+                    )
+                };
+                let mut decision = decision_for(&profile);
+                if let Decision::PullCloud { revision } = decision {
+                    let payload = download_save(
+                        &identity,
+                        &name,
+                        Some(revision),
+                        self.transport().as_ref(),
                         self.inner.public_keys.as_ref(),
                     )
-                    .map_err(|error| error.to_string())?;
-                    let (_, hash) = cloud_content(&payload["profile"]);
-                    self.sync_state().record_synced_for_driver(
-                        &name,
-                        revision,
-                        &hash,
-                        &identity.driver_id,
-                    );
-                    self.inner.state.lock().unwrap().pending.remove(&name);
-                    pulled += 1;
+                    .map_err(|error| error.to_string())?
+                    .ok_or("backup unavailable")?;
+                    if payload.get("saveName").and_then(Value::as_str) != Some(name.as_str())
+                        || json_int(payload.get("revision")) != Some(revision)
+                        || payload
+                            .get("profile")
+                            .and_then(|p| p.get("name"))
+                            .and_then(Value::as_str)
+                            != Some(profile.name.as_str())
+                    {
+                        return Err("backup does not match requested career".into());
+                    }
+                    let _transfer = self.inner.transfer.write().unwrap();
+                    let account = self.inner.identity.lock().unwrap();
+                    if account.as_ref().map(|id| &id.driver_id) != Some(&identity.driver_id) {
+                        return Ok(());
+                    }
+                    let current = Profile::load(&path).map_err(|error| error.to_string())?;
+                    decision = decision_for(&current);
+                    if matches!(decision, Decision::PullCloud { .. })
+                        && self.enabled()
+                        && self.resume_state() == CheckState::Checking
+                    {
+                        let is_legacy =
+                            |value: &Value| value.as_object().is_none_or(is_pre_1_9_save);
+                        restore_to_disk(
+                            &payload,
+                            Some(self.sync_state()),
+                            &RestoreHooks {
+                                is_legacy: &is_legacy,
+                                write: &install_restored_profile,
+                            },
+                            self.inner.public_keys.as_ref(),
+                        )
+                        .map_err(|error| error.to_string())?;
+                        let (_, hash) = cloud_content(&payload["profile"]);
+                        self.sync_state().record_synced_for_driver(
+                            &name,
+                            revision,
+                            &hash,
+                            &identity.driver_id,
+                        );
+                        self.inner.state.lock().unwrap().pending.remove(&name);
+                        pulled += 1;
+                        self.inner
+                            .resume
+                            .lock()
+                            .unwrap()
+                            .lines
+                            .push(resume_status(&profile.name));
+                    }
+                }
+                if decision == Decision::Conflict {
+                    let _transfer = self.inner.transfer.write().unwrap();
+                    let account = self.inner.identity.lock().unwrap();
+                    if account.as_ref().map(|id| &id.driver_id) != Some(&identity.driver_id) {
+                        return Ok(());
+                    }
+                    let current = Profile::load(&path).map_err(|error| error.to_string())?;
+                    if decision_for(&current) != Decision::Conflict
+                        || self.resume_state() != CheckState::Checking
+                    {
+                        return Ok(());
+                    }
+                    let mut latest = Map::new();
+                    for (target, source) in [
+                        ("latestRevision", "revision"),
+                        ("latestCreatedAt", "createdAt"),
+                        ("latestSummary", "summary"),
+                    ] {
+                        latest.insert(
+                            target.into(),
+                            entry.get(source).cloned().unwrap_or(Value::Null),
+                        );
+                    }
+                    self.sync_state().record_conflict(&name, &latest);
+                    conflicts += 1;
                     self.inner
                         .resume
                         .lock()
                         .unwrap()
                         .lines
-                        .push(resume_status(&profile.name));
+                        .push(resume_conflict_status(&profile.name));
                 }
-            }
-            if decision == Decision::Conflict {
-                let _transfer = self.inner.transfer.write().unwrap();
-                let account = self.inner.identity.lock().unwrap();
-                if account.as_ref().map(|id| &id.driver_id) != Some(&identity.driver_id) {
-                    break;
-                }
-                let current = Profile::load(&path).map_err(|error| error.to_string())?;
-                if decision_for(&current) != Decision::Conflict
-                    || self.resume_state() != CheckState::Checking
-                {
-                    continue;
-                }
-                let mut latest = Map::new();
-                for (target, source) in [
-                    ("latestRevision", "revision"),
-                    ("latestCreatedAt", "createdAt"),
-                    ("latestSummary", "summary"),
-                ] {
-                    latest.insert(
-                        target.into(),
-                        entry.get(source).cloned().unwrap_or(Value::Null),
-                    );
-                }
-                self.sync_state().record_conflict(&name, &latest);
-                conflicts += 1;
-                self.inner
-                    .resume
-                    .lock()
-                    .unwrap()
-                    .lines
-                    .push(resume_conflict_status(&profile.name));
+                Ok(())
+            })();
+            if let Err(error) = result {
+                log::warn!("Cloud resume skipped {}: {error}", profile.name);
             }
         }
         Ok((pulled, conflicts))
