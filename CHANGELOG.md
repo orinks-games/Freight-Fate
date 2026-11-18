@@ -4,6 +4,7 @@
 
 ### Compatibility
 
+- **1.9 cloud backups restored in 2.0 now become 2.0 careers.** Later backups identify the version needed to continue them.
 - **1.9 careers carry over on your first 2.0 start.** Your original copy stays playable in 1.9.
 - **Careers from newer Freight Fate versions stay untouched.** Local saves and cloud backups explain which version can continue them.
 

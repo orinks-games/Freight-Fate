@@ -343,19 +343,26 @@ pub fn is_pre_1_9_save(data: &Map<String, Value>) -> bool {
 }
 
 pub fn newer_career_line(data: &Map<String, Value>) -> Option<&str> {
-    fn release_line(line: &str) -> Option<(u64, u64)> {
-        let (major, minor) = line.split_once('.')?;
-        if major.is_empty()
-            || minor.is_empty()
-            || !major.bytes().all(|c| c.is_ascii_digit())
-            || !minor.bytes().all(|c| c.is_ascii_digit())
-        {
-            return None;
-        }
-        Some((major.parse().ok()?, minor.parse().ok()?))
-    }
     let line = data.get("created_line")?.as_str()?;
     (release_line(line)? > release_line(CREATED_LINE)?).then_some(line)
+}
+
+/// The explicit release line when it predates this build's line.
+pub fn older_career_line(data: &Map<String, Value>) -> Option<&str> {
+    let line = data.get("created_line")?.as_str()?;
+    (release_line(line)? < release_line(CREATED_LINE)?).then_some(line)
+}
+
+fn release_line(line: &str) -> Option<(u64, u64)> {
+    let (major, minor) = line.split_once('.')?;
+    if major.is_empty()
+        || minor.is_empty()
+        || !major.bytes().all(|c| c.is_ascii_digit())
+        || !minor.bytes().all(|c| c.is_ascii_digit())
+    {
+        return None;
+    }
+    Some((major.parse().ok()?, minor.parse().ok()?))
 }
 
 /// `path` with the file name as it is spelled on disk. A sealed save is bound

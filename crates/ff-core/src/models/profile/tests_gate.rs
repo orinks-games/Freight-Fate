@@ -106,6 +106,32 @@ fn test_newer_release_line_comparison() {
 }
 
 #[test]
+fn test_older_release_line_comparison() {
+    for (line, older) in [
+        ("1.9", true),
+        ("1.10", true),
+        ("2.0", false),
+        ("2.1", false),
+        ("2.0.0", false),
+        ("v1.9", false),
+        ("", false),
+    ] {
+        assert_eq!(
+            older_career_line(&dict(json!({"created_line": line}))).is_some(),
+            older,
+            "{line}"
+        );
+    }
+    for value in [
+        json!({}),
+        json!({"created_line": null}),
+        json!({"created_line": 1.9}),
+    ] {
+        assert!(older_career_line(&dict(value)).is_none());
+    }
+}
+
+#[test]
 fn test_newer_career_refuses_before_signature_checks_or_migration() {
     with_data_dir(|_| {
         for packed in [false, true] {

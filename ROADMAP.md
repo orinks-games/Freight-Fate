@@ -5174,6 +5174,7 @@ one-channel rule is in [October 26](#october-26-the-road-to-the-20-nightlies-fou
 - [x] Saves: a signed 1.9 career copies forward on the first 2.0 start,
       keeping its progress and leaving the original untouched. Deleting the
       2.0 copy does not bring it back on the next start.
+      Restored 1.9 cloud backups are stamped 2.0 before they are written.
       The 1.9.7 local and cloud newer-career refusal is done (new fields:
       parked facility, home terminal, home city, turnpike notice; 20
       carrier labels). Testers move from 1.9.6 to 2.0 on the channel.

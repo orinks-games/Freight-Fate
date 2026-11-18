@@ -42,8 +42,8 @@ use freight_fate::app::{share, GameContext, SharedState};
 use freight_fate::states::base::{InputEvent, Key, Menu, State};
 use freight_fate::states::city::{CityMenuState, BACKUP_RESULT_WAIT_S};
 use freight_fate::states::cloud_save_states::{
-    CloudBackupConsentState, CloudBackupState, CloudSlotState, ConfirmDeleteCloudState,
-    CLOUD_DISCLOSURE, LEGACY_BACKUP_NOTICE,
+    install_restored_profile, CloudBackupConsentState, CloudBackupState, CloudSlotState,
+    ConfirmDeleteCloudState, CLOUD_DISCLOSURE, LEGACY_BACKUP_NOTICE,
 };
 use freight_fate::states::online_hub::OnlineHubState;
 use freight_fate::states::online_states::set_identity_store_override;
@@ -1981,6 +1981,41 @@ fn test_current_line_backup_without_marker_still_restores() {
     let path = restore(&writer, &payload, Some(&SyncState::new(dir.path()))).unwrap();
     let restored: Value = serde_json::from_str(&fs::read_to_string(&path).unwrap()).unwrap();
     assert_eq!(restored["money"], 77_000.0);
+}
+
+#[test]
+fn test_1_9_restore_and_its_next_upload_are_stamped_2_0() {
+    let _app = TestApp::new();
+    let dict = json!({"created_line": "1.9", "money": 77000, "name": "Road Star", "version": 7});
+    let signature =
+        "Z1+q4+f49sJHhRPfYX9IAz0HeZmB8icB7rP911Ax+Re+ZZp/ZQ/LQQRoE2aYy2LYCL/UkSjf6t62h3gISymjCg==";
+    let payload = download(make_cloud_reply(&dict, signature, 3))
+        .unwrap()
+        .unwrap();
+    let before = payload.clone();
+    let hooks = RestoreHooks {
+        is_legacy: &is_pre_1_9_save,
+        write: &install_restored_profile,
+    };
+    let path = restore_to_disk(&payload, None, &hooks, Some(&test_keys())).unwrap();
+    let (raw, _) = ff_core::models::profile::sealed::read(&path).unwrap();
+    let (disk, _) = ff_core::models::profile::decode_save_bytes(&raw).unwrap();
+    assert_eq!(disk["created_line"], "2.0");
+    assert_eq!(payload, before);
+    let loaded = Profile::load(&path).unwrap();
+    let transport = FakeTransport::revisions();
+    let clock = ManualClock::new();
+    let service = make_service(&transport, &clock);
+    service.queue_backup(&loaded.name, Value::Object(loaded.to_dict()));
+    drain(&service, &clock);
+    assert_eq!(transport.posts().len(), 1);
+    let bytes = base64::engine::general_purpose::STANDARD
+        .decode(transport.posts()[0]["content"].as_str().unwrap())
+        .unwrap();
+    assert_eq!(
+        profile_dict_from_content(&bytes).unwrap()["created_line"],
+        "2.0"
+    );
 }
 
 #[test]
