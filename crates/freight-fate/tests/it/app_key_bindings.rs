@@ -412,6 +412,8 @@ fn test_command_list_names_a_controller_radio_binding() {
     force_controller(&mut app);
     let drive = a_drive(&mut app);
     app.push_state(DrivingCommandsState::with_drive(drive_ref(&drive)));
+    move_to::<DrivingCommandsState>(&mut app, "Radio and CB");
+    key(&mut app, Key::Return);
     move_to::<DrivingCommandsState>(&mut app, "Radio on or off");
     let help = current_help::<DrivingCommandsState>(&app);
     assert!(

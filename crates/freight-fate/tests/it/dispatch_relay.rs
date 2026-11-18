@@ -4,6 +4,7 @@
 //! and a save on the way rebuilds the same road.
 
 use ff_core::models::jobs::{route_drive_hours, Job};
+use ff_core::models::market::Market;
 use ff_core::sim::timezones::{appointment_text, city_zone, EASTERN};
 
 use freight_fate::app::testing::TestApp;
@@ -17,16 +18,19 @@ use freight_fate::states::driving::DrivingState;
 
 use crate::states_city_support::*;
 
+/// The freight market both tests run on. A new career's market seed is
+/// random, and about one seed in two thousand leaves none of these towns a
+/// relay that fits the rookie deadhead rule; the scheduled snapshot of
+/// 2026-11-09 drew one. Pinned, the board is the same on every run.
+const MARKET_SEED: i64 = 12345;
+
 /// A company driver one delivery in, parked in `city`, and the load
 /// dispatch relays onto an empty board there.
 fn relayed_load(app: &mut TestApp, city: &str) -> Option<Job> {
     career(app, "Relay Driver", city);
-    app.ctx
-        .profile
-        .as_mut()
-        .expect("a career")
-        .career
-        .deliveries = 1;
+    let p = app.ctx.profile.as_mut().expect("a career");
+    p.career.deliveries = 1;
+    p.market = Market::with_seed(MARKET_SEED);
     let key = dispatch_cache_key(profile(app));
     relay_load_for_board(&app.ctx, &key, &[])
 }
@@ -34,14 +38,7 @@ fn relayed_load(app: &mut TestApp, city: &str) -> Option<Job> {
 #[test]
 fn test_accepting_a_relayed_load_drives_the_deadhead_and_the_approach_as_one_pickup() {
     let mut app = TestApp::new();
-    let mut job = None;
-    for city in ["Sherman", "Topeka", "Cheyenne", "Amarillo", "Bismarck"] {
-        job = relayed_load(&mut app, city);
-        if job.is_some() {
-            break;
-        }
-    }
-    let job = job.expect("one of the small towns relays a load off an empty board");
+    let job = relayed_load(&mut app, "Sherman").expect("Sherman relays a load off an empty board");
     let world = app.ctx.world;
     let here = world.resolve_city_key(&profile(&app).current_city);
     let origin = world.resolve_city_key(&job.origin);
@@ -91,10 +88,7 @@ fn test_accepting_a_relayed_load_drives_the_deadhead_and_the_approach_as_one_pic
 #[test]
 fn test_a_relayed_loads_appointment_counts_from_the_loaded_departure() {
     let mut app = TestApp::new();
-    let job = ["Sherman", "Topeka", "Cheyenne", "Amarillo", "Bismarck"]
-        .into_iter()
-        .find_map(|city| relayed_load(&mut app, city))
-        .expect("one of the small towns relays a load off an empty board");
+    let job = relayed_load(&mut app, "Sherman").expect("Sherman relays a load off an empty board");
     let world = app.ctx.world;
     let here = world.resolve_city_key(&profile(&app).current_city);
     let origin = world.resolve_city_key(&job.origin);

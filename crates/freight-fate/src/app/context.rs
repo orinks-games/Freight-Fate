@@ -819,7 +819,12 @@ impl GameContext {
         self.services.online.set_identity(identity.clone());
         self.services.duty.set_identity(identity.as_ref());
         self.services.cloud.set_identity(identity.clone());
-        self.services.journal.set_identity(identity);
+        // A guest's journal and achievements are never sent: no profile.
+        let journal = match ff_core::models::profile::data_dir_if_allowed() {
+            Some(dir) => crate::online_guest::profile_identity(identity, &dir),
+            None => identity,
+        };
+        self.services.journal.set_identity(journal);
     }
 
     /// Reflect the controller setting (e.g. after a settings change).
@@ -851,6 +856,39 @@ impl GameContext {
             self.bindings.touch_noun(action)
         } else {
             self.bindings.spoken(action)
+        }
+    }
+
+    /// Whether spoken hints name touch gestures: the screen was touched
+    /// last, with no hardware keyboard or controller since.
+    pub fn touch_hints(&self) -> bool {
+        self.controller.device() == ff_core::input_hints::TOUCH
+    }
+
+    /// How a touch player runs `action` at the wheel, as an instruction that
+    /// opens a sentence: "Turn two fingers right", "Tap", or, for a command
+    /// with no gesture, "Tap with three fingers and open Road and stops for
+    /// Rest stop".
+    pub fn touch_instruction(&self, action: crate::bindings::Action) -> String {
+        if let Some(gesture) = self.bindings.touch_instruction(action) {
+            return gesture.to_string();
+        }
+        match crate::states::driving_menu_states::command_group_label(action) {
+            Some(group) => format!(
+                "Tap with three fingers and open {group} for {}",
+                action.label()
+            ),
+            None => format!("Tap with three fingers for {}", action.label()),
+        }
+    }
+
+    /// [`Self::touch_instruction`] for the middle of a sentence.
+    pub fn touch_instruction_mid(&self, action: crate::bindings::Action) -> String {
+        let text = self.touch_instruction(action);
+        let mut chars = text.chars();
+        match chars.next() {
+            Some(first) => first.to_lowercase().chain(chars).collect(),
+            None => text,
         }
     }
 

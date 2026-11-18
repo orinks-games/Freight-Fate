@@ -12,10 +12,11 @@ use ff_core::settings::Settings;
 use super::settings::{Adjust, SettingsCategoryState};
 use super::settings_actions::{
     acc_gap_label, assist_preset_label, backup_announcements_label, cue_loudness_label,
-    descent_level_label, event_voice_label, hos_label, lane_keeping_label, language_label,
-    output_label, pace_label, score_display_label, update_channel,
+    descent_level_label, hos_label, lane_keeping_label, language_label, output_label, pace_label,
+    score_display_label, update_channel,
 };
 use super::shortcuts::{ShortcutDevice, ShortcutsState};
+use super::speech_voices::{event_voice_label, main_voice_label, speech_voice_label};
 use super::touch_gestures::TouchGesturesState;
 use crate::app::GameContext;
 use crate::states::base::{Label, Menu, MenuItem};
@@ -354,7 +355,28 @@ impl SettingsCategoryState {
                        way, and a refused backup is always spoken.",
             },
             SpeechSpec {
-                label: dyn_label(|s| format!("Driving event voice: {}", event_voice_label(s))),
+                label: Label::dynamic(|_s, ctx| {
+                    let options = ctx.speech.main_backend_options();
+                    format!(
+                        "Main voice: {}",
+                        main_voice_label(&ctx.settings.main_backend, &options)
+                    )
+                }),
+                action: adjust(|s, ctx, d| s.cycle_main_voice(ctx, d)),
+                help: "The voice that reads menus and readouts. Automatic uses \
+                       your screen reader when one is running, and a system \
+                       voice when none is. A screen reader is listed only while \
+                       it is running.",
+            },
+            SpeechSpec {
+                label: Label::dynamic(|_s, ctx| {
+                    let main_name = ctx.speech.backend_name();
+                    let options = ctx.speech.event_backend_options();
+                    format!(
+                        "Driving event voice: {}",
+                        event_voice_label(&ctx.settings, &main_name, &options)
+                    )
+                }),
                 action: adjust(|s, ctx, d| s.cycle_event_voice(ctx, d)),
                 help: if cfg!(target_os = "ios") {
                     "Road events through the main voice or a separate system \
@@ -424,12 +446,9 @@ impl SettingsCategoryState {
         }
         if !speech.voice_names().is_empty() {
             specs.push(SpeechSpec {
-                label: dyn_label(|s| {
-                    let voice = if s.speech_voice.is_empty() {
-                        "default"
-                    } else {
-                        s.speech_voice.as_str()
-                    };
+                label: Label::dynamic(|_s, ctx| {
+                    let voices = ctx.speech.voice_names();
+                    let voice = speech_voice_label(&ctx.settings.speech_voice, &voices);
                     format!("Speech voice: {voice}")
                 }),
                 action: adjust(|s, ctx, d| s.cycle_voice(ctx, d)),

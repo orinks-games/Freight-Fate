@@ -1617,7 +1617,11 @@ impl Menu for RouteSelectState {
             }
             items.push(
                 MenuItem::new(label, move |s: &mut Self, ctx| s.start(ctx, i))
-                    .help(format!("Via {}. W for weather.", vias.join(", "))),
+                    .help(format!("Via {}. W for weather.", vias.join(", ")))
+                    .touch_help(format!(
+                        "Via {}. Tap with three fingers for weather.",
+                        vias.join(", ")
+                    )),
             );
         }
         let back_label = self.opts.back_label.clone();
@@ -1629,7 +1633,8 @@ impl Menu for RouteSelectState {
 
     fn handle_event(&mut self, ctx: &mut GameContext, event: &InputEvent) {
         if let Some((key, _, _)) = event.key_down() {
-            if key == Key::W && self.menu.index < self.routes.len() {
+            // Tab as well, so a three-finger tap reaches the forecast.
+            if matches!(key, Key::W | Key::Tab) && self.menu.index < self.routes.len() {
                 let index = self.menu.index;
                 self.speak_forecast(ctx, index);
                 return;

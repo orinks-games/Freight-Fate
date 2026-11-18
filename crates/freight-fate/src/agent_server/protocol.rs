@@ -137,6 +137,31 @@ fn tools_list() -> Value {
             &["key", "seconds"],
         ),
         tool(
+            "gesture",
+            "Send an iPhone touch gesture by name, through the same translator and \
+             dispatch the touch screen uses, then reply with what was heard. Names: tap, \
+             double_tap, flick_up/down/left/right, two_finger_tap, two_finger_double_tap, \
+             two_finger_scrub, two_finger_flick_up/down/left/right, two_finger_hold, \
+             two_finger_turn_right/left, three_finger_tap, three_finger_flick_up/down/\
+             left/right, gas_hold, brake_hold, steer_left_hold, steer_right_hold, \
+             deep_swipe, still_hold, lift, gas_hold_tap, gas_hold_double_tap, \
+             gas_hold_flick_up/down/left/right, the same six for brake_hold_, \
+             second_finger_steer_left/right, second_finger_lift, and keyboard_disconnected \
+             (spoken hints then name gestures, as on a phone) or keyboard_connected. A \
+             hold stays down until \
+             lift, or give seconds and the game lifts it, as pedal does. A deep swipe \
+             grows out of a brake hold, so send brake_hold first, then deep_swipe. \
+             status reports the touch mode and, at the wheel, what a double tap answers. \
+             length (points) on a timed one-finger hold, a deep_swipe or a lift sends \
+             how far the finger travelled as it lifts, which Practice gestures reads.",
+            json!({
+                "name": {"type": "string"},
+                "seconds": {"type": "number", "description": "for a hold: real seconds before the game lifts it, 0.05 to 30"},
+                "length": {"type": "integer", "description": "for a one-finger hold, deep_swipe or lift: points travelled, sent as the finger lifts"},
+            }),
+            &["name"],
+        ),
+        tool(
             "wait_for",
             "Let the game run until something arrives: a spoken line or sound whose \
              text contains `text` (case-insensitive), or a menu on screen when `menu` \
@@ -185,7 +210,19 @@ fn tools_list() -> Value {
              available, used, or none with no load on) and, while the trip has \
              ended at a facility gate, gate (arriving, rolling, \
              rolling_after_creep, creeping, stopped, stopped_told, holding or \
-             open).",
+             open), and jake_zone (what the driver has heard about the no \
+             engine brake zone ahead or under the truck: untold, heads_up, \
+             inside_untold or inside_told), touch_mode (menu, field, wheel or \
+             practice: how a gesture is read on this screen), road_offer (what a \
+             double tap answers: none, exit, pull_over or arrival) and touch_clutch \
+             (out, shifting, or neutral once it has taken neutral for an engine \
+             lugging in a tall gear: the clutch a touch shift works in a manual \
+             truck). \
+             Off the wheel the \
+             STATE line carries touch_mode alone. A SPEECH line follows it \
+             everywhere: main_backend (the saved Main voice choice, automatic \
+             when none), main (the voice bound now) and event (the event \
+             voice bound now, or main voice when events share it).",
             json!({}),
             &[],
         ),
@@ -255,7 +292,9 @@ fn tools_list() -> Value {
              brake_wear_pct (0 to 100, what a roadside inspection reads), citations and \
              out_of_service_events (counts on the record, dated now; with damage they set the \
              safety band that decides who is pulled into the inspection lane), \
-             rested (true takes a full sleep), fatigue (0 to 100, set after rested; \
+             rested (true takes a full sleep), first_run (true teaches the first-run \
+             walkthrough on the next drive), touch_gestures (true opens the iPhone \
+             Touch gestures settings screen over the terminal), fatigue (0 to 100, set after rested; \
              the next drive starts in that band and gives its cue), hos_driving_min, hos_duty_min and \
              hos_since_break_min (sandbox HOS counters in game minutes), clear_load (true drops a load in \
              progress first), market_seed and board_seed (the dispatch board rolls \
@@ -282,6 +321,8 @@ fn tools_list() -> Value {
                 "citations": {"type": "integer"},
                 "out_of_service_events": {"type": "integer"},
                 "rested": {"type": "boolean"},
+                "first_run": {"type": "boolean"},
+                "touch_gestures": {"type": "boolean"},
                 "fatigue": {"type": "number", "description": "0 to 100; 40 worn, 60 drowsy, 80 severe"},
                 "hos_driving_min": {"type": "number"},
                 "hos_duty_min": {"type": "number"},
@@ -573,6 +614,45 @@ pub fn build_command(name: &str, args: &Map<String, Value>) -> Result<Command, S
                 return Err("pedal needs a positive number of seconds".to_string());
             }
             Ok(Command::Pedal { key, seconds })
+        }
+        "gesture" => {
+            let name = args
+                .get("name")
+                .and_then(Value::as_str)
+                .unwrap_or("")
+                .trim()
+                .to_ascii_lowercase();
+            let gesture = crate::touch::Gesture::from_name(&name).ok_or_else(|| {
+                format!(
+                    "{name:?} is not a gesture this server knows. The names are: {}.",
+                    crate::touch::Gesture::names()
+                        .collect::<Vec<_>>()
+                        .join(", ")
+                )
+            })?;
+            let seconds = match args.get("seconds") {
+                None | Some(Value::Null) => None,
+                Some(value) => match value.as_f64() {
+                    Some(seconds) if seconds > 0.0 => Some(seconds),
+                    _ => return Err("seconds must be a positive number".to_string()),
+                },
+            };
+            let length = match args.get("length") {
+                None | Some(Value::Null) => None,
+                Some(value) => match value.as_u64() {
+                    Some(points) => Some(
+                        u16::try_from(points)
+                            .unwrap_or(u16::MAX)
+                            .min(crate::touch::MAX_TRAVEL_POINTS),
+                    ),
+                    None => return Err("length must be a whole number of points".to_string()),
+                },
+            };
+            Ok(Command::Gesture {
+                gesture,
+                seconds,
+                length,
+            })
         }
         "wait_for" => {
             let seconds = args.get("seconds").and_then(Value::as_f64).unwrap_or(0.0);

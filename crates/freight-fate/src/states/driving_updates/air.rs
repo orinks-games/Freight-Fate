@@ -57,7 +57,9 @@ impl DrivingState {
                 opts(live::LOCKOUT_AIR),
             );
         } else if self.trip.truck.parking_brake {
-            let status = if self.driving_hints(ctx) {
+            let status = if self.driving_hints(ctx) && ctx.touch_hints() {
+                "Parking brake set. Swipe up and hold to release it and drive.".to_string()
+            } else if self.driving_hints(ctx) {
                 let brake_hint = ctx.control_hint("parking_brake");
                 format!("Parking brake set. Press {brake_hint} to release it.")
             } else {
@@ -148,7 +150,9 @@ impl DrivingState {
             // re-announce it.
             self.air_ready_said = true;
             ctx.audio.play_with("vehicle/air_dryer_purge", 0.65, 0.0);
-            let status = if self.driving_hints(ctx) {
+            let status = if self.driving_hints(ctx) && ctx.touch_hints() {
+                "Air ready. Swipe up and hold to release the parking brake and drive.".to_string()
+            } else if self.driving_hints(ctx) {
                 let brake_hint = ctx.control_hint("parking_brake");
                 format!("Air ready. Press {brake_hint} to release the parking brake.")
             } else {

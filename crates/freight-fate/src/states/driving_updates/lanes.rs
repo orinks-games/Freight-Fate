@@ -445,30 +445,21 @@ impl DrivingState {
         self.rear_trailer_whip(ctx, dt);
         if off_road_event {
             // The shoulder costs the truck whether or not anything warns about
-            // it: the warning setting governs the sound and the line, never
-            // the physics. It used to return first, so with the warning off
-            // leaving the road was free, and the rest of this frame's lane
-            // work (a lane change in progress, a merge) was skipped with it
-            // (agent drive, 2026-09-24).
+            // it, and a charge is never silent: the rumble and the line play
+            // whatever the lane-departure warning says. That setting governs
+            // the drift cues before the edge, not the edge itself. With it off
+            // (the All assists preset's full lane keeping), a run's damage
+            // was added with nothing said (issue 533).
             self.trip
                 .truck
                 .add_damage_from(1.0, true, "leaving the pavement");
-            if ctx.settings.lane_departure_warning {
-                let pan = self.lane_pan();
-                ctx.audio.play_with("vehicle/rumble_strip", 1.0, pan);
-                self.announce_off_pavement(ctx);
-            }
-        } else if self.road_position_band.is_some() && !self.off_pavement() {
+            let pan = self.lane_pan();
+            ctx.audio.play_with("vehicle/rumble_strip", 1.0, pan);
+            self.announce_off_pavement(ctx);
+        } else if self.off_pavement_said.is_some() && !self.off_pavement() {
             // Back on the pavement: the standing condition ended, so its one
-            // transition line speaks and the band resets (research doc R12).
-            self.road_position_band = None;
-            // Quiet speaks the recovery; Urgent only omits routine status.
-            ctx.say_event_with(
-                "Back on the pavement.",
-                SayEvent::queued()
-                    .review(true)
-                    .category(SpeechCategory::Status),
-            );
+            // transition line speaks (research doc R12).
+            self.announce_back_on_pavement(ctx);
         }
         self.cross_repeat_s = (self.cross_repeat_s - dt).max(0.0);
         self.sideswipe_cooldown_s = (self.sideswipe_cooldown_s - dt).max(0.0);

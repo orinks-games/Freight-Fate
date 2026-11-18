@@ -28,6 +28,7 @@
 //!   the session-log trace of the clock's real-time pins.
 //! * [`conditions`] -- hot brakes, the destination approach assist, traction
 //!   states and the chain law.
+//! * [`runaway`] -- the two lines at the edges of a runaway.
 //!
 //! [`pending`] is this task's TEMPORARY stub surface: every method
 //! `driving_updates.py` called on a mixin that has not been ported yet. Each
@@ -51,6 +52,7 @@ pub mod pending;
 pub mod radio;
 pub mod radio_channel3000;
 pub mod radio_synth;
+pub mod runaway;
 pub mod stops;
 
 use std::cell::Cell;
@@ -277,6 +279,7 @@ pub mod live {
         static HAZARD_ACTIVE: Cell<bool> = const { Cell::new(false) };
         static ARRIVAL_MENU_OPEN: Cell<bool> = const { Cell::new(false) };
         static GATE_STOP_PROMPTED: Cell<bool> = const { Cell::new(false) };
+        static STOP_OFFER_OPEN: Cell<bool> = const { Cell::new(false) };
         static ON_RAMP: Cell<bool> = const { Cell::new(false) };
         static POSTED_LIMIT_MPH: Cell<f64> = const { Cell::new(0.0) };
         static RAMP_HOLDING: Cell<bool> = const { Cell::new(false) };
@@ -427,6 +430,19 @@ pub mod live {
 
     pub fn gate_stop_prompted() -> bool {
         GATE_STOP_PROMPTED.with(|cell| cell.get())
+    }
+
+    /// Whether the touch line for the stop the truck is waiting at still
+    /// holds: false once the double tap has opened the stop or the truck
+    /// has left it, so a cut copy handed back over the stop's own menu is
+    /// dropped. Stamped where it moves; the drive stops ticking under the
+    /// stop menu.
+    pub fn set_stop_offer_open(value: bool) {
+        STOP_OFFER_OPEN.with(|cell| cell.set(value));
+    }
+
+    pub fn stop_offer_open() -> bool {
+        STOP_OFFER_OPEN.with(|cell| cell.get())
     }
 }
 

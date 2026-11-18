@@ -10,11 +10,31 @@ use crate::touch::Gesture;
 
 pub struct TouchPracticeState {
     last_escape: Option<Instant>,
+    /// The swipe down being held, so its length can be read as it lifts.
+    swipe_down: Option<Gesture>,
 }
 
 impl TouchPracticeState {
     pub fn new() -> Self {
-        Self { last_escape: None }
+        Self {
+            last_escape: None,
+            swipe_down: None,
+        }
+    }
+
+    /// The length of a swipe down as it lifts, and where the deep swipe
+    /// starts. Other holds have no length that changes what they do.
+    fn say_length(&mut self, ctx: &mut GameContext, points: u16) {
+        let text = match self.swipe_down.take() {
+            Some(Gesture::DeepSwipeDownBegan) => format!("Deep swipe. Length {points}."),
+            Some(_) => format!(
+                "Length {points}. The deep swipe starts at {}.",
+                ctx.settings.touch_deep_swipe_points()
+            ),
+            None => return,
+        };
+        // Queued: a quick hold and lift must not cut off the hold's name.
+        ctx.say_with(text, Say::queued());
     }
 
     fn say_gesture(&self, ctx: &mut GameContext, gesture: Gesture) {
@@ -30,13 +50,16 @@ impl TouchPracticeState {
             Gesture::EmergencyBrakeHoldBegan => "Emergency brake.".to_string(),
             Gesture::HornHoldBegan => "Two-finger hold: horn.".to_string(),
             Gesture::RotateRight => "Two-finger turn right: start the engine.".to_string(),
-            Gesture::RotateLeft => "Two-finger turn left: stop the engine.".to_string(),
+            Gesture::RotateLeft => {
+                "Two-finger turn left: stop the engine when the truck is stopped.".to_string()
+            }
             Gesture::SecondSteerLeftBegan => "Second finger, hold left: steer left.".to_string(),
             Gesture::SecondSteerRightBegan => "Second finger, hold right: steer right.".to_string(),
             Gesture::HoldEnded
             | Gesture::SecondSteerEnded
             | Gesture::KeyboardConnected
-            | Gesture::KeyboardDisconnected => return,
+            | Gesture::KeyboardDisconnected
+            | Gesture::Travel(_) => return,
             other => match ctx.bindings.touch_command(other) {
                 Some(command) => format!(
                     "{}: {}.",
@@ -110,7 +133,7 @@ impl State for TouchPracticeState {
     fn enter(&mut self, ctx: &mut GameContext) {
         // The core rule first: every gesture below is an example of it.
         let leave = if ctx.controller.device() == ff_core::input_hints::TOUCH {
-            "Swipe down with two fingers twice within two seconds to leave."
+            "Flick down with two fingers twice within two seconds to leave."
         } else {
             "Escape twice within two seconds to leave."
         };
@@ -133,6 +156,10 @@ impl State for TouchPracticeState {
         }
     }
 
+    fn touch_mode(&self) -> crate::touch::TouchMode {
+        crate::touch::TouchMode::Practice
+    }
+
     fn handle_gesture(&mut self, ctx: &mut GameContext, gesture: Gesture) -> bool {
         if matches!(gesture, Gesture::Escape | Gesture::TwoFingerSwipeDown) {
             let now = Instant::now();
@@ -146,8 +173,20 @@ impl State for TouchPracticeState {
                 self.last_escape = Some(now);
                 ctx.say("Again to leave practice.");
             }
+        } else if let Gesture::Travel(points) = gesture {
+            self.say_length(ctx, points);
         } else {
             self.last_escape = None;
+            self.swipe_down = match gesture {
+                Gesture::HoldLowerBegan | Gesture::DeepSwipeDownBegan => Some(gesture),
+                Gesture::HoldUpperBegan
+                | Gesture::HoldLeftBegan
+                | Gesture::HoldRightBegan
+                | Gesture::StillHoldBegan
+                | Gesture::HornHoldBegan => None,
+                // A second finger's gesture during the hold keeps it.
+                _ => self.swipe_down,
+            };
             self.say_gesture(ctx, gesture);
         }
         true
@@ -165,15 +204,15 @@ fn fixed_name(gesture: Gesture) -> &'static str {
         Gesture::SwipeLeft => "Flick left",
         Gesture::SwipeRight => "Flick right",
         Gesture::TwoFingerTap => "Two-finger tap",
-        Gesture::MagicTap => "Magic tap",
-        Gesture::TwoFingerSwipeUp => "Two-finger swipe up",
-        Gesture::TwoFingerSwipeLeft => "Two-finger swipe left",
-        Gesture::TwoFingerSwipeRight => "Two-finger swipe right",
+        Gesture::MagicTap => "Two-finger double tap",
+        Gesture::TwoFingerSwipeUp => "Two-finger flick up",
+        Gesture::TwoFingerSwipeLeft => "Two-finger flick left",
+        Gesture::TwoFingerSwipeRight => "Two-finger flick right",
         Gesture::ThreeFingerTap => "Three-finger tap",
-        Gesture::ThreeFingerSwipeUp => "Three-finger swipe up",
-        Gesture::ThreeFingerSwipeDown => "Three-finger swipe down",
-        Gesture::ThreeFingerSwipeLeft => "Three-finger swipe left",
-        Gesture::ThreeFingerSwipeRight => "Three-finger swipe right",
+        Gesture::ThreeFingerSwipeUp => "Three-finger flick up",
+        Gesture::ThreeFingerSwipeDown => "Three-finger flick down",
+        Gesture::ThreeFingerSwipeLeft => "Three-finger flick left",
+        Gesture::ThreeFingerSwipeRight => "Three-finger flick right",
         _ => "Gesture",
     }
 }
@@ -192,7 +231,8 @@ fn fixed_binding(ctx: &GameContext, gesture: Gesture) -> String {
 /// What a gesture that cannot be moved does, in the touch help's words.
 fn fixed_command(gesture: Gesture) -> &'static str {
     match gesture {
-        Gesture::DoubleTap | Gesture::Activate => "Confirm",
+        Gesture::DoubleTap | Gesture::Activate => "Take an exit, pull over or confirm arrival",
+        Gesture::TwoFingerTap => "Stop speech",
         Gesture::SwipeLeft => "Change lanes left",
         Gesture::SwipeRight => "Change lanes right",
         Gesture::Increment => "Move up",

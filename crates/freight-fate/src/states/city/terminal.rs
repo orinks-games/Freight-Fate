@@ -367,7 +367,11 @@ impl CityMenuState {
         if fully_rested(profile(ctx)) && !self.confirm_sleep_rested {
             self.confirm_sleep_rested = true;
             ctx.audio.play("ui/warning");
-            ctx.say("Already rested. Enter again to sleep anyway.");
+            if ctx.touch_hints() {
+                ctx.say("Already rested. Double tap again to sleep anyway.");
+            } else {
+                ctx.say("Already rested. Enter again to sleep anyway.");
+            }
             return;
         }
         self.confirm_sleep_rested = false;

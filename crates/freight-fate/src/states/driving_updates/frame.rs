@@ -1,6 +1,7 @@
 //! The frame loop itself (`DrivingUpdateMixin.update`), the safety-call
 //! re-speak, and the retarder transcript trace.
 
+use ff_core::sim::touch_clutch::TouchClutchEvent;
 use ff_core::speech_pacing::SpeechCategory;
 
 use crate::speech::EventPriority;
@@ -111,6 +112,11 @@ impl DrivingState {
         // no-op here and stays only because every `State::update` owes it.
         ctx.update_music_rotation(dt);
         self.refresh_live_facts();
+        // A keyboard or controller picked up, or put down, mid-drive: the
+        // exit prompts name the control in hand now.
+        if self.exit_hint_device != ctx.controller.device() {
+            self.refresh_exit_hint(ctx);
+        }
         self.trace_engine_brake();
         // The curve call prices a bend by who holds the lane in it.
         self.trip.lane_steers = Self::lane_steers(ctx);
@@ -460,6 +466,19 @@ impl DrivingState {
         if pad_on {
             clutch_val = clutch_val.max(ctx.controller.clutch());
         }
+        // A shift asked for by touch holds the clutch for itself. A keyboard
+        // or controller taking over, the automatic, or the co-driver lets it
+        // out.
+        let touch_clutch_event = if self.trip.truck.transmission.automatic
+            || self.co_driver_driving()
+            || !ctx.touch_hints()
+        {
+            TouchClutchEvent::Cancel
+        } else {
+            TouchClutchEvent::Tick { dt }
+        };
+        self.touch_clutch = self.touch_clutch.next(touch_clutch_event);
+        clutch_val = clutch_val.max(self.touch_clutch.pedal());
         self.trip.truck.transmission.clutch = if !self.trip.truck.transmission.automatic {
             clutch_val
         } else {
@@ -521,11 +540,13 @@ impl DrivingState {
             }
         }
 
+        self.arm_touch_neutral(ctx);
         let was_on = self.trip.truck.engine_on;
         let was_air_ready = self.trip.truck.air_ready();
         let was_low_air = self.trip.truck.air_low_warning();
         let was_spring_brake = self.trip.truck.spring_brakes_active();
         self.trip.truck.update(dt);
+        self.answer_touch_neutral(ctx);
         self.update_air_brake_announcements(
             ctx,
             was_on,
@@ -547,8 +568,13 @@ impl DrivingState {
                 // clutch instead (2026-09-28).
                 let hints = self.driving_hints(ctx);
                 let pad = ctx.controller.device() == ff_core::input_hints::CONTROLLER;
+                // On touch the restart takes neutral itself, and a shift
+                // works its own clutch. The road no longer stalls a touch
+                // manual in a tall gear (`answer_touch_neutral`); the touch
+                // lines stay for a stall from anything else.
+                let touch = ctx.touch_hints();
                 let text = if !hints {
-                    if tr.automatic || tr.in_neutral() {
+                    if tr.automatic || tr.in_neutral() || touch {
                         "Engine stalled.".to_string()
                     } else if pad {
                         "Engine stalled. Hold the clutch, restart, and shift down to first \
@@ -559,11 +585,17 @@ impl DrivingState {
                          first gear."
                             .to_string()
                     }
+                } else if (tr.automatic || tr.in_neutral()) && touch {
+                    "Engine stalled. Turn two fingers right to restart.".to_string()
                 } else if tr.automatic || tr.in_neutral() {
                     format!(
                         "Engine stalled. Press {} to restart.",
                         ctx.control_hint("engine")
                     )
+                } else if touch {
+                    "Engine stalled. Turn two fingers right to restart, then hold a pedal and \
+                     flick up with a second finger for first gear."
+                        .to_string()
                 } else if pad {
                     format!(
                         "Engine stalled. Hold {}, press {} to restart, and shift down to first \
@@ -656,6 +688,7 @@ impl DrivingState {
             self.update_ramp_light(ctx, 0.0);
         }
         self.update_departure_ramp(ctx, moved_mi);
+        self.update_touch_stop_offer(ctx);
         self.bound_departure_merge_recovery(moved_mi, dt);
         // Every clock pin is settled for the frame by here.
         self.trace_clock_override(dt);
@@ -701,6 +734,7 @@ impl DrivingState {
         self.update_pull_over(ctx, dt, braking || emergency);
         self.update_brake_heat_cue(ctx, dt);
         self.update_traction_cues(ctx);
+        self.update_runaway(ctx);
         self.update_chain_reminder(ctx);
         self.update_chain_law(ctx);
         self.update_chain_checkpoint_hold(ctx);

@@ -28,7 +28,6 @@
 pub mod appimage;
 mod archive;
 pub mod ios;
-pub mod ios_signing;
 mod macos;
 mod packs;
 pub mod plist;

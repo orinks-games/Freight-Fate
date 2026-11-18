@@ -6820,14 +6820,17 @@ msgstr "un doppio tocco"
 msgid "confirm"
 msgstr "conferma"
 
-msgid "a two-finger swipe down"
-msgstr "uno scorrimento verso il basso con due dita"
+msgid "a two-finger tap"
+msgstr "un tocco con due dita"
+
+msgid "a two-finger flick down"
+msgstr ""
 
 msgid "pause"
 msgstr "pausa"
 
-msgid "a two-finger swipe up"
-msgstr "uno scorrimento verso l'alto con due dita"
+msgid "a two-finger flick up"
+msgstr ""
 
 msgid "help"
 msgstr "aiuto"
@@ -13401,6 +13404,9 @@ msgstr ""
 msgid "Hours of service: {phrase} until {due}."
 msgstr "Ore di servizio: tra {phrase}, {due}."
 
+msgid "untold"
+msgstr ""
+
 msgid "single"
 msgstr "unica"
 
@@ -14231,6 +14237,12 @@ msgstr "{base} domani"
 #. placeholders: {base}, {days_ahead}
 msgid "{base} in {days_ahead} days"
 msgstr "{base} tra {days_ahead} giorni"
+
+msgid "out"
+msgstr ""
+
+msgid "shifting"
+msgstr ""
 
 msgid "minivan"
 msgstr "monovolume"
@@ -16797,6 +16809,20 @@ msgstr "Parcheggio non verificato."
 msgid "No truck parking."
 msgstr "Nessun parcheggio per camion."
 
+msgid "Double tap to signal for the exit."
+msgstr ""
+
+#. placeholders: {exit_hint}
+msgid "Press {exit_hint} to signal for the exit."
+msgstr "Premi {exit_hint} per mettere la freccia per l'uscita."
+
+msgid "Double tap to signal."
+msgstr ""
+
+#. placeholders: {exit_hint}
+msgid "Press {exit_hint} to signal."
+msgstr "Premi {exit_hint} per mettere la freccia."
+
 #. placeholders: {exit_label}
 msgid " at {exit_label}"
 msgstr " a {exit_label}"
@@ -16811,12 +16837,12 @@ msgstr ""
 msgid "No fuel."
 msgstr ""
 
-#. placeholders: {exit_hint}
-msgid "Press {exit_hint} to signal for the exit."
-msgstr "Premi {exit_hint} per mettere la freccia per l'uscita."
-
 #. placeholders: {terse}
 msgid "{terse} No fuel."
+msgstr ""
+
+#. placeholders: {terse}
+msgid "{terse} Double tap to signal."
 msgstr ""
 
 #. placeholders: {terse}, {exit_hint}
@@ -16937,6 +16963,21 @@ msgstr "Entri in "
 msgid "Passing "
 msgstr "Passi da "
 
+msgid "menu"
+msgstr "menu"
+
+msgid "field"
+msgstr ""
+
+msgid "wheel"
+msgstr ""
+
+msgid "practice"
+msgstr ""
+
+msgid "arrival"
+msgstr ""
+
 msgid "miles"
 msgstr "miglia"
 
@@ -16975,6 +17016,12 @@ msgstr ""
 #. one sentence of a longer line
 msgid "You take the wheel {start_mi} miles up the road."
 msgstr "Prendi il volante {start_mi} miglia più avanti."
+
+msgid "automatic"
+msgstr "automatico"
+
+msgid "main voice"
+msgstr "voce principale"
 
 #. one sentence of a longer line
 msgid "Do not press keys yourself meanwhile: they would be measured too."
@@ -17057,6 +17104,9 @@ msgstr ""
 "Scenario preparato: {name} alla sede di {the_city}, livello {level}, "
 "{deliveries} {deliveries:consegna|consegne}, {grouped} dollari, "
 "{business_status}."
+
+msgid " Touch gestures is open over the terminal; listen for it."
+msgstr ""
 
 msgid " The terminal menu is open; listen for it."
 msgstr " Il menu della sede è aperto; ascoltalo."
@@ -17189,6 +17239,14 @@ msgstr "controlli smoke"
 
 msgid "screen"
 msgstr "screen"
+
+#. placeholders: {group}, {label}
+msgid "Tap with three fingers and open {group} for {label}"
+msgstr ""
+
+#. placeholders: {label}
+msgid "Tap with three fingers for {label}"
+msgstr ""
 
 msgid "system"
 msgstr "system"
@@ -17719,17 +17777,14 @@ msgstr "Scorrimento in su"
 msgid "Flick down"
 msgstr "Scorrimento in giù"
 
-msgid "Two-finger tap"
-msgstr "Tocco con due dita"
-
 msgid "Two-finger double tap"
 msgstr "Doppio tocco con due dita"
 
-msgid "Three-finger swipe up"
-msgstr "Scorrimento in su con tre dita"
+msgid "Three-finger flick up"
+msgstr ""
 
-msgid "Three-finger swipe down"
-msgstr "Scorrimento in giù con tre dita"
+msgid "Three-finger flick down"
+msgstr ""
 
 msgid "Gas hold, tap with a second finger"
 msgstr "Acceleratore premuto, tocco con un secondo dito"
@@ -17780,17 +17835,14 @@ msgstr "uno scorrimento in su"
 msgid "a flick down"
 msgstr "uno scorrimento in giù"
 
-msgid "a two-finger tap"
-msgstr "un tocco con due dita"
-
 msgid "a two-finger double tap"
 msgstr "un doppio tocco con due dita"
 
-msgid "a three-finger swipe up"
-msgstr "uno scorrimento in su con tre dita"
+msgid "a three-finger flick up"
+msgstr ""
 
-msgid "a three-finger swipe down"
-msgstr "uno scorrimento in giù con tre dita"
+msgid "a three-finger flick down"
+msgstr ""
 
 msgid "gas"
 msgstr "accelerare"
@@ -17810,6 +17862,82 @@ msgstr "uno scorrimento a sinistra"
 msgid "flick right"
 msgstr "uno scorrimento a destra"
 
+msgid "Double tap with two fingers"
+msgstr ""
+
+msgid "Flick up with three fingers"
+msgstr ""
+
+msgid "Flick down with three fingers"
+msgstr ""
+
+msgid "Hold gas and tap with a second finger"
+msgstr ""
+
+msgid "Hold gas and double tap with a second finger"
+msgstr ""
+
+msgid "Hold gas and flick up with a second finger"
+msgstr ""
+
+msgid "Hold gas and flick down with a second finger"
+msgstr ""
+
+msgid "Hold gas and flick left with a second finger"
+msgstr ""
+
+msgid "Hold gas and flick right with a second finger"
+msgstr ""
+
+msgid "Hold the brake and tap with a second finger"
+msgstr ""
+
+msgid "Hold the brake and double tap with a second finger"
+msgstr ""
+
+msgid "Hold the brake and flick up with a second finger"
+msgstr ""
+
+msgid "Hold the brake and flick down with a second finger"
+msgstr ""
+
+msgid "Hold the brake and flick left with a second finger"
+msgstr ""
+
+msgid "Hold the brake and flick right with a second finger"
+msgstr ""
+
+msgid "Turn two fingers right"
+msgstr ""
+
+msgid "Swipe up and hold"
+msgstr ""
+
+msgid "Swipe down and hold"
+msgstr ""
+
+msgid "Swipe down deep and hold"
+msgstr ""
+
+msgid "Hold two fingers"
+msgstr ""
+
+msgid "Flick left"
+msgstr "Scorrimento a sinistra"
+
+msgid "Flick right"
+msgstr "Scorrimento a destra"
+
+msgid "Double tap"
+msgstr "Doppio tocco"
+
+msgid "Tap with three fingers, then double tap"
+msgstr ""
+
+#. placeholders: {label}
+msgid "{label} from the three-finger tap list"
+msgstr "{label} dall'elenco del tocco con tre dita"
+
 msgid "a swipe up and hold"
 msgstr "uno scorrimento in su tenendo premuto"
 
@@ -17822,12 +17950,8 @@ msgstr "uno scorrimento a destra"
 msgid "a still hold for half a second"
 msgstr "una pressione ferma di mezzo secondo"
 
-msgid "the exit command from the three-finger tap list"
-msgstr "il comando di uscita dall'elenco del tocco con tre dita"
-
-#. placeholders: {label}
-msgid "{label} from the three-finger tap list"
-msgstr "{label} dall'elenco del tocco con tre dita"
+msgid "a three-finger tap then a double tap"
+msgstr ""
 
 #. placeholders: {touch_noun}, {touch_noun2}
 msgid "{touch_noun} and {touch_noun2}"
@@ -18436,6 +18560,8 @@ msgid ""
 "  --list-break-scenarios            name every adversarial scenario\n"
 "  --list-speech-backends            name every screen reader and voice "
 "found\n"
+"                                    (--names-only lists them without "
+"opening any)\n"
 "  --break-scenario NAME             run one, --transcript to hear it\n"
 "  --break-battery                   run them all and print the verdicts\n"
 "  --agent-server                    the real game with an MCP server on "
@@ -18460,89 +18586,6 @@ msgid ""
 "                                    it speaks its findings and writes a log\n"
 "  --log PATH                        session log for the watcher"
 msgstr ""
-"freightfate -- Freight Fate\n"
-"\n"
-"  freightfate                       gioca\n"
-"  freightfate --smoke               avvia, disegna cinque fotogrammi, esce "
-"(controllo CI)\n"
-"  freightfate --headless            niente finestra, niente voce\n"
-"  freightfate --controller-diagnostics\n"
-"                                    registra gli eventi del controller, "
-"entrambi i livelli\n"
-"\n"
-"Strumenti di guida:\n"
-"  --playtest-road --find FEATURE    parte da un elemento stradale o da un "
-"cancello di partenza\n"
-"                                    (downgrade, upgrade, zone, limit-drop,\n"
-"                                    stop, scale, curve, interchange, toll,\n"
-"                                    chain-law, destination, departure, "
-"all); all esamina ogni\n"
-"                                    famiglia stradale avviabile e ogni "
-"istanza attuale del mondo.\n"
-"                                    Destination è\n"
-"                                    la rampa d'uscita della consegna alla "
-"fine del\n"
-"                                    percorso; departure esamina di base un "
-"piccolo campione di percorsi\n"
-"                                    per le uscite dalle strutture caricate. "
-"Usa\n"
-"                                    --routes all per un inventario "
-"completo;\n"
-"                                    ogni risultato stampa un avvio diretto "
-"con --facility\n"
-"                                    che non riesamina il mondo. Le\n"
-"                                    transizioni di stato che richiedono una "
-"storia reale del giocatore non si avviano su strada;\n"
-"                                    --from/--to/--seed/--scan e\n"
-"                                    gli interruttori delle assistenze "
-"affinano la ricerca\n"
-"  --ai                               con uno scenario stradale scelto, usa "
-"comandi\n"
-"                                    del giocatore cadenzati nella finestra "
-"reale; la voce\n"
-"                                    per il giocatore viene trasmessa dal "
-"vivo al terminale\n"
-"  --playtest-sandbox [--launch]     una cartella dati che non può "
-"raggiungere\n"
-"                                    l'account del proprietario; "
-"--dir/--reset/--print\n"
-"  --list-break-scenarios            elenca ogni scenario avverso\n"
-"  --list-speech-backends            elenca ogni screen reader e ogni voce "
-"trovati\n"
-"  --break-scenario NAME             ne esegue uno, --transcript per "
-"sentirlo\n"
-"  --break-battery                   li esegue tutti e stampa i verdetti\n"
-"  --agent-server                    il gioco vero con un server MCP su "
-"stdio,\n"
-"                                    così un agente IA può giocarci (in "
-"sandbox;\n"
-"                                    --reset per una sandbox nuova; aggiungi\n"
-"                                    --find FEATURE [--from CITY] [--to "
-"CITY]\n"
-"                                    per partire subito con un viaggio "
-"preparato;\n"
-"                                    --operator-keys tiene la finestra "
-"aperta e\n"
-"                                    fa entrare la tastiera dell'operatore, "
-"per giocare\n"
-"                                    insieme all'agente; --staging usa la "
-"sua\n"
-"                                    cartella e il suo autista sul\n"
-"                                    sito di staging, con il backup nel "
-"cloud attivo)\n"
-"  --key-probe [--seconds N]         mostra cosa la tua tastiera manda al "
-"gioco,\n"
-"                                    per uno screen reader che rimanda i "
-"tasti tenuti premuti\n"
-"                                    (JAWS): tieni premuto ogni tasto "
-"freccia per qualche secondo;\n"
-"                                    annuncia i risultati e scrive un "
-"registro\n"
-"  --log PATH                        registro della sessione per "
-"l'osservatore"
-
-msgid "chosen"
-msgstr "scelto"
 
 msgid "not running here"
 msgstr "non in esecuzione qui"
@@ -18651,6 +18694,9 @@ msgstr "retry"
 
 msgid "ready"
 msgstr "ready"
+
+msgid "token"
+msgstr ""
 
 msgid "online-journal"
 msgstr "online-journal"
@@ -18788,6 +18834,14 @@ msgstr ""
 msgid "Left and Right change the order of this category only."
 msgstr ""
 
+msgid ""
+"Flick up or down to change the order of the categories and the achievements "
+"in each one."
+msgstr ""
+
+msgid "Flick up or down to change the order of this category only."
+msgstr ""
+
 msgid "All assists: the truck steers. Recommended for your first drives."
 msgstr ""
 "Tutte le assistenze: il camion sterza. Consigliato per i primi viaggi."
@@ -18886,6 +18940,11 @@ msgid "Enter selects, Escape goes back. Control stops the current speech."
 msgstr ""
 "Enter seleziona, Escape torna indietro. Control ferma la voce in corso."
 
+msgid ""
+"Flick right or left to move and double tap to choose. Flick down with two "
+"fingers to go back."
+msgstr ""
+
 msgid "Menu"
 msgstr "Menu"
 
@@ -18912,6 +18971,11 @@ msgid ""
 msgstr ""
 "Su e Giù leggono una riga alla volta, Enter la ripete, Escape torna "
 "indietro."
+
+msgid ""
+"Flick right or left to read a line at a time, and double tap to repeat it. "
+"Flick down with two fingers to go back."
+msgstr ""
 
 msgid "Your carrier has ended your employment"
 msgstr "La ditta ha concluso il tuo rapporto di lavoro"
@@ -19257,6 +19321,17 @@ msgstr ""
 "tuoi rifiuti, che si ricaricano alla prossima promozione. F1 mostra i "
 "dettagli. Escape torna indietro."
 
+msgid ""
+"Double tap accepts. Flick up with two fingers for job details, and tap with "
+"three fingers for the market."
+msgstr ""
+
+msgid ""
+"Assigned load. Double tap accepts. Declining costs reputation and uses one "
+"of your declines, which refill at your next promotion. Flick up with two "
+"fingers for details."
+msgstr ""
+
 #. placeholders: {SENIOR_LOAD_CHOICE_LEVEL}
 msgid "until level {SENIOR_LOAD_CHOICE_LEVEL}"
 msgstr "fino al livello {SENIOR_LOAD_CHOICE_LEVEL}"
@@ -19492,6 +19567,17 @@ msgstr "Con le ore di questo turno serve un riposo in più."
 
 #. placeholders: {summary}
 msgid ""
+"Needs an extra rest on this shift's hours. {summary} Double tap again to "
+"accept."
+msgstr ""
+
+#. placeholders: {summary}
+#. one sentence of a longer line
+msgid "{summary} Double tap again to accept."
+msgstr ""
+
+#. placeholders: {summary}
+msgid ""
 "Needs an extra rest on this shift's hours. {summary} Enter again to accept."
 msgstr ""
 "Con le ore di questo turno serve un riposo in più. {summary} Premi di nuovo "
@@ -19707,6 +19793,12 @@ msgstr ""
 "una riga, oppure accetta su Accetta questo incarico. Escape torna alla "
 "bacheca degli incarichi."
 
+msgid ""
+"Flick right or left to review the lines, and flick up or down with three "
+"fingers to jump to the ends. Flick down with two fingers to return to the "
+"dispatch board."
+msgstr ""
+
 msgid "Job details"
 msgstr "Dettagli dell'incarico"
 
@@ -19790,6 +19882,9 @@ msgstr "Dettagli dell'incarico. {current}"
 
 msgid "Enter repeats this line."
 msgstr "Enter ripete questa riga."
+
+msgid "Double tap repeats this line."
+msgstr ""
 
 #. placeholders: {locked}
 msgid "Cannot accept this dispatch: {locked}"
@@ -20205,6 +20300,9 @@ msgstr "Giro di controllo fatto, {f} minuti."
 msgid "Walk-around done, {f} minutes. {join}"
 msgstr ""
 
+msgid "Already rested. Double tap again to sleep anyway."
+msgstr ""
+
 msgid "Already rested. Enter again to sleep anyway."
 msgstr "Sei già riposato. Premi di nuovo Enter per dormire comunque."
 
@@ -20304,9 +20402,6 @@ msgstr "Il backup continuerà a riprovare in background."
 
 msgid "Progress saved."
 msgstr "Progressi salvati."
-
-msgid "menu"
-msgstr "menu"
 
 #. placeholders: {city}
 msgid "{city} service area"
@@ -20896,6 +20991,9 @@ msgstr "Percorso da padroncino bloccato"
 msgid "The remaining requirements."
 msgstr "I requisiti che mancano."
 
+msgid "Go back to company driving: double tap again to confirm"
+msgstr ""
+
 msgid "Go back to company driving: press Enter again to confirm"
 msgstr ""
 "Torna a fare l'autista dipendente: premi di nuovo Enter per confermare"
@@ -21480,12 +21578,25 @@ msgid "What another carrier needs before it hires you away."
 msgstr "Cosa vuole un'altra ditta prima di assumerti."
 
 #. placeholders: {carrier_name}
+msgid "Move to {carrier_name}: double tap again to confirm"
+msgstr ""
+
+#. placeholders: {carrier_name}
 msgid "Move to {carrier_name}: press Enter again to confirm"
 msgstr "Passa a {carrier_name}: premi di nuovo Enter per confermare"
 
 #. placeholders: {label}
 msgid "Move to {label}"
 msgstr "Passa a {label}"
+
+#. placeholders: {carrier_name}, {menu_summary}
+msgid "{carrier_name}. {menu_summary} Double tap again to move."
+msgstr ""
+
+#. placeholders: {menu_summary}
+#. one sentence of a longer line
+msgid "{menu_summary} Double tap again to move."
+msgstr ""
 
 #. placeholders: {carrier_name}, {menu_summary}
 msgid "{carrier_name}. {menu_summary} Press Enter again to move."
@@ -22604,6 +22715,14 @@ msgstr "Passando per {join}. W per il meteo."
 msgid "W for weather."
 msgstr "W per il meteo."
 
+#. one sentence of a longer line
+msgid "Tap with three fingers for weather."
+msgstr ""
+
+#. placeholders: {join}
+msgid "Via {join}. Tap with three fingers for weather."
+msgstr ""
+
 msgid " Health papers are in the cab."
 msgstr ""
 
@@ -22783,6 +22902,9 @@ msgstr "Apri questa carriera per scegliere quale copia tenere"
 
 msgid "Enter opens restore choices for this career."
 msgstr "Enter apre le scelte di ripristino per questa carriera."
+
+msgid "Double tap opens restore choices for this career."
+msgstr ""
 
 msgid "Hear how cloud backup works"
 msgstr "Ascolta come funziona il backup nel cloud"
@@ -23480,6 +23602,9 @@ msgstr ""
 msgid "Cloud backup is still working. Stay here for the result."
 msgstr "Il backup nel cloud è ancora in corso. Resta qui per il risultato."
 
+msgid "Turn two fingers right to start the engine."
+msgstr ""
+
 #. placeholders: {control_hint}
 msgid "Press {control_hint} to start the engine."
 msgstr "Premi {control_hint} per accendere il motore."
@@ -23512,6 +23637,15 @@ msgstr "Motore al minimo."
 msgid "Cruise paused. "
 msgstr "Cruise control in pausa. "
 
+#. placeholders: {touch_instruction}
+msgid "Cruise paused. {touch_instruction} to cancel it. "
+msgstr ""
+
+#. placeholders: {touch_instruction}
+#. one sentence of a longer line
+msgid "{touch_instruction} to cancel it."
+msgstr ""
+
 #. placeholders: {control_hint}
 msgid "Cruise paused. {control_hint} cancels it. "
 msgstr "Cruise control in pausa. {control_hint} lo annulla. "
@@ -23520,6 +23654,10 @@ msgstr "Cruise control in pausa. {control_hint} lo annulla. "
 #. one sentence of a longer line
 msgid "{control_hint} cancels it."
 msgstr "{control_hint} lo annulla."
+
+msgid ""
+"At air ready, swipe up and hold to release the parking brake and drive."
+msgstr ""
 
 #. placeholders: {control_hint}
 msgid "At air ready, {control_hint} releases the parking brake."
@@ -23541,9 +23679,6 @@ msgstr "aria pronta"
 #. placeholders: {air_pressure_psi}
 msgid "air {air_pressure_psi} psi"
 msgstr "aria {air_pressure_psi} psi"
-
-msgid "automatic"
-msgstr "automatico"
 
 msgid "manual"
 msgstr "manuale"
@@ -24541,31 +24676,26 @@ msgstr ""
 
 msgid ""
 "Hold one finger still for half a second to straighten the wheel. With "
-"cruise off, flick up to resume the last speed and flick down to set the "
-"current speed. Turn two fingers right like a key to start the engine, left "
-"to stop it. Hold two fingers for the horn. Turning them cancels it. While "
-"holding a pedal, a second finger's flicks and holds work the same way, and "
-"in automatic its shift flicks say the gear. "
+"cruise off, flick up to turn it on. Double tap to take an exit, pull over, "
+"or confirm arrival at a gate. Tap with two fingers to stop speech. Turn two "
+"fingers right like a key to start the engine, and left to stop it once the "
+"truck has stopped. Hold two fingers for the horn. While holding a pedal, a "
+"second finger's flicks and holds work the same way. "
 msgstr ""
-"Tieni un dito fermo per mezzo secondo per raddrizzare il volante. Con il "
-"cruise spento, scorri rapidamente in su per riprendere l'ultima velocità e "
-"in giù per impostare la velocità attuale. Ruota due dita verso destra come "
-"una chiave per accendere il motore, verso sinistra per spegnerlo. Tieni due "
-"dita per il clacson. Ruotarle lo annulla. Mentre tieni premuto un pedale, "
-"gli scorrimenti rapidi e le pressioni di un secondo dito funzionano allo "
-"stesso modo, e in automatico i suoi scorrimenti di cambio dicono la marcia. "
 
 msgid ""
-"Two-finger swipe down pauses, two-finger swipe up is this help, two-finger "
-"swipes left and right review messages, and three-finger swipes left and "
-"right tune the radio. A three-finger tap lists every driving command: swipe "
-"to one and double tap to run it. "
+"In a manual, hold a pedal and flick up or down with a second finger to "
+"shift. The flick works the clutch. Slowing in a tall gear takes neutral, "
+"and a flick up from neutral takes the gear that fits your speed. "
 msgstr ""
-"Scorrere in giù con due dita mette in pausa, scorrere in su con due dita è "
-"questo aiuto, scorrere a sinistra e a destra con due dita scorre i "
-"messaggi, e scorrere a sinistra e a destra con tre dita sintonizza la "
-"radio. Un tocco con tre dita elenca tutti i comandi di guida: scorri fino a "
-"uno e fai doppio tocco per eseguirlo. "
+
+msgid ""
+"A two-finger flick down pauses, a two-finger flick up is this help, "
+"two-finger flicks left and right review messages, and three-finger flicks "
+"left and right tune the radio. A three-finger tap lists the driving "
+"commands in groups, Status menu first. Flick to one and double tap to run "
+"it or open its group. "
+msgstr ""
 
 msgid ""
 "Gestures can be moved in Settings, Gameplay, Controls, Touch gestures."
@@ -25134,9 +25264,14 @@ msgstr "Il motore è già acceso."
 msgid "Engine already off."
 msgstr "Il motore è già spento."
 
-#. placeholders: {gear}
-msgid "{gear}, automatic."
-msgstr "{gear}, automatico."
+msgid "Double tap to check in."
+msgstr ""
+
+msgid "Double tap to pull in."
+msgstr ""
+
+msgid "Neutral. Hold a pedal and flick up with a second finger for a gear."
+msgstr ""
 
 msgid "Release the accelerator before turning the jake on."
 msgstr "Rilascia l'acceleratore prima di inserire il freno motore."
@@ -25213,6 +25348,23 @@ msgstr "Aria pronta."
 #. placeholders: {psi}
 msgid "Air {psi} psi."
 msgstr "Aria {psi} psi."
+
+msgid "Air ready. Swipe up and hold to drive."
+msgstr ""
+
+msgid "Air ready. Swipe up and hold to release the parking brake and drive."
+msgstr ""
+
+#. placeholders: {psi}
+msgid ""
+"Air {psi} psi. At 100 psi, swipe up and hold to release the parking brake "
+"and drive."
+msgstr ""
+
+#. one sentence of a longer line
+msgid ""
+"At 100 psi, swipe up and hold to release the parking brake and drive."
+msgstr ""
 
 #. placeholders: {brake_hint}
 msgid "Air ready. {brake_hint} releases the parking brake."
@@ -25306,10 +25458,6 @@ msgstr ""
 "{message} Quella grattata di marce è costata alla trasmissione, danni "
 "{damage} per cento."
 
-#. one sentence of a longer line
-msgid "Grinding gears!"
-msgstr "Marce grattate!"
-
 #. placeholders: {control_hint}
 msgid "Grinding gears! Hold {control_hint} to press the clutch first."
 msgstr ""
@@ -25319,6 +25467,9 @@ msgstr ""
 #. one sentence of a longer line
 msgid "Hold {control_hint} to press the clutch first."
 msgstr "Tieni premuto {control_hint} per premere prima la frizione."
+
+msgid "Grinding gears!"
+msgstr "Marce grattate!"
 
 msgid "Grinding gears! Clutch in first."
 msgstr ""
@@ -25361,6 +25512,9 @@ msgstr "servizi indicati: {join_phrase}"
 msgid "services not listed"
 msgstr "servizi non indicati"
 
+msgid "Your first run. Turn two fingers right to start the engine."
+msgstr ""
+
 #. one sentence of a longer line
 msgid "Your first run."
 msgstr "Il tuo primo viaggio."
@@ -25368,6 +25522,11 @@ msgstr "Il tuo primo viaggio."
 #. placeholders: {control_hint}
 msgid "Your first run. Press {control_hint} to start the engine."
 msgstr "Il tuo primo viaggio. Premi {control_hint} per accendere il motore."
+
+msgid ""
+"At air ready, swipe up and hold to release the parking brake, then flick up "
+"with a second finger for first gear."
+msgstr ""
 
 #. placeholders: {control_hint}, {control_hint2}
 msgid ""
@@ -25401,6 +25560,9 @@ msgstr ""
 msgid "Parking brake released. Shift into first gear."
 msgstr "Freno di stazionamento rilasciato. Metti la prima."
 
+msgid "In gear. Swipe up and hold to accelerate."
+msgstr ""
+
 #. one sentence of a longer line
 msgid "In gear."
 msgstr "Marcia inserita."
@@ -25414,8 +25576,33 @@ msgid "Brake hard at a hazard warning."
 msgstr "Frena forte a un avviso di pericolo."
 
 #. one sentence of a longer line
+msgid "Flick up with two fingers for all the controls."
+msgstr ""
+
+#. one sentence of a longer line
 msgid "Rolling."
 msgstr "In marcia."
+
+#. placeholders: {touch_instruction}
+msgid ""
+"Rolling. {touch_instruction} for your speed. Tap with three fingers, then "
+"double tap, for a full report. Flick up with two fingers for all the "
+"controls. Brake hard at a hazard warning. Swipe down deep and hold to stop "
+"fast."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Swipe down deep and hold to stop fast."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Tap with three fingers, then double tap, for a full report."
+msgstr ""
+
+#. placeholders: {touch_instruction}
+#. one sentence of a longer line
+msgid "{touch_instruction} for your speed."
+msgstr ""
 
 #. placeholders: {control_hint}, {control_hint2}, {control_hint3}, {control_hint4}
 msgid ""
@@ -25441,9 +25628,17 @@ msgstr ""
 "{control_hint} per la tua velocità, {control_hint2} per un rapporto "
 "completo, {control_hint3} per tutti i comandi."
 
+msgid "Reminder: turn two fingers right to start the engine."
+msgstr ""
+
 #. placeholders: {control_hint}
 msgid "Reminder: press {control_hint} to start the engine."
 msgstr "Promemoria: premi {control_hint} per accendere il motore."
+
+msgid ""
+"Reminder: air is ready. Swipe up and hold to release the parking brake and "
+"drive."
+msgstr ""
 
 #. placeholders: {control_hint}
 #. one sentence of a longer line
@@ -25461,6 +25656,11 @@ msgstr ""
 "Promemoria: l'aria è pronta. Premi {control_hint} per rilasciare il freno "
 "di stazionamento."
 
+msgid ""
+"Reminder: wait for air pressure to reach 100 psi, then swipe up and hold to "
+"release the parking brake and drive."
+msgstr ""
+
 #. placeholders: {control_hint}
 msgid ""
 "Reminder: wait for air pressure to reach 100 psi, then press {control_hint} "
@@ -25468,6 +25668,10 @@ msgid ""
 msgstr ""
 "Promemoria: aspetta che la pressione dell'aria arrivi a 100 psi, poi premi "
 "{control_hint} per rilasciare il freno di stazionamento."
+
+msgid ""
+"Reminder: hold a pedal and flick up with a second finger for first gear."
+msgstr ""
 
 #. placeholders: {control_hint}, {control_hint2}
 msgid ""
@@ -26166,6 +26370,9 @@ msgstr ""
 #. placeholders: {control_hint}
 msgid "Press {control_hint} to restart the engine."
 msgstr "Premi {control_hint} per riavviare il motore."
+
+msgid "Turn two fingers right to restart the engine."
+msgstr ""
 
 #. placeholders: {spare}
 msgid "You are in the {spare}"
@@ -26938,6 +27145,11 @@ msgstr ""
 "Controllo su strada di routine, livello 3: patente, certificato medico, "
 "registro di guida e documenti del carico.{blitz}"
 
+msgid ""
+"Lights behind you for a routine inspection. Double tap to signal, then stop "
+"on the shoulder."
+msgstr ""
+
 #. one sentence of a longer line
 msgid "Lights behind you for a routine inspection."
 msgstr "Lampeggianti dietro di te per un controllo di routine."
@@ -27037,8 +27249,18 @@ msgstr ""
 "camion."
 
 #. one sentence of a longer line
+msgid "Double tap to signal, then stop on the shoulder."
+msgstr ""
+
+#. one sentence of a longer line
 msgid "Lights and siren behind you."
 msgstr "Lampeggianti e sirena dietro di te."
+
+#. placeholders: {reason}, {detail}
+msgid ""
+"Lights and siren behind you. A trooper on this {reason} saw {detail} and "
+"wants a look at the truck. Double tap to signal, then stop on the shoulder."
+msgstr ""
 
 #. placeholders: {reason}, {detail}, {control_hint}
 msgid ""
@@ -27064,6 +27286,12 @@ msgstr "Metti la freccia e fermati sulla corsia d'emergenza."
 #. one sentence of a longer line
 msgid "A trooper on this {reason} saw {what}."
 msgstr "Un agente su questo {reason} ha visto {what}."
+
+#. placeholders: {reason}, {what}
+msgid ""
+"Lights and siren behind you. A trooper on this {reason} saw {what}. Double "
+"tap to signal, then stop on the shoulder."
+msgstr ""
 
 #. placeholders: {reason}, {what}, {control_hint}
 msgid ""
@@ -27141,6 +27369,9 @@ msgstr "Zona di divieto del freno motore, {spoken}."
 msgid "No engine brake zone in {distance}, coming into {spoken}."
 msgstr ""
 "Zona di divieto del freno motore fra {distance}, entrando a {spoken}."
+
+msgid "End of no engine brake zone."
+msgstr ""
 
 msgid "No engine brake zone. Switch it off."
 msgstr "Zona di divieto del freno motore. Spegnilo."
@@ -27220,6 +27451,9 @@ msgstr "L'uscita di destinazione è di nuovo davanti."
 msgid "Destination exit ahead again. Signal for it."
 msgstr ""
 
+msgid "Destination exit ahead again. Double tap to signal."
+msgstr ""
+
 #. placeholders: {control_hint}
 msgid "Destination exit ahead again. Press {control_hint} to signal."
 msgstr ""
@@ -27237,6 +27471,11 @@ msgstr ""
 
 msgid ""
 "You turned around, and the destination exit is ahead again. Signal for it."
+msgstr ""
+
+msgid ""
+"You turned around, and the destination exit is ahead again. Double tap to "
+"signal for it."
 msgstr ""
 
 #. placeholders: {control_hint}
@@ -27263,6 +27502,9 @@ msgstr "Hai mancato l'uscita di destinazione per {facility}."
 #. placeholders: {facility}, {reroute_text}
 msgid "Missed the destination exit for {facility}. {reroute_text}"
 msgstr "Hai mancato l'uscita di destinazione per {facility}. {reroute_text}"
+
+msgid "Holding at the entrance. Double tap to continue."
+msgstr ""
 
 #. placeholders: {control_hint}
 msgid "Holding at the entrance. Press {control_hint} to continue."
@@ -28009,6 +28251,18 @@ msgstr "Sei già sulla rampa d'uscita."
 msgid "No route exit to signal for yet."
 msgstr "Ancora nessuna uscita del percorso per cui mettere la freccia."
 
+#. placeholders: {stays}
+msgid "Signal stays {stays}."
+msgstr "La freccia resta {stays}."
+
+#. one sentence of a longer line
+msgid "Double tap again to cancel the exit."
+msgstr ""
+
+#. placeholders: {stays}
+msgid "Signal stays {stays}. Double tap again to cancel the exit."
+msgstr ""
+
 #. placeholders: {control_hint}
 #. one sentence of a longer line
 msgid "Press {control_hint} again to cancel the exit."
@@ -28019,10 +28273,6 @@ msgid "Signal stays {stays}. Press {control_hint} again to cancel the exit."
 msgstr ""
 "La freccia resta {stays}. Premi di nuovo {control_hint} per annullare "
 "l'uscita."
-
-#. placeholders: {stays}
-msgid "Signal stays {stays}."
-msgstr "La freccia resta {stays}."
 
 msgid "Signal canceled."
 msgstr "Freccia annullata."
@@ -28094,14 +28344,16 @@ msgstr "Rallento.{lane_text}"
 msgid "Signal for it."
 msgstr "Metti la freccia."
 
-#. placeholders: {exit_hint}
-msgid "Press {exit_hint} to signal."
-msgstr "Premi {exit_hint} per mettere la freccia."
-
 msgid "Set the parking brake to check in."
 msgstr ""
 
 msgid "Set the parking brake to dock."
+msgstr ""
+
+msgid "Swipe down deep to set the parking brake and check in."
+msgstr ""
+
+msgid "Swipe down deep to set the parking brake and dock."
 msgstr ""
 
 #. placeholders: {key}
@@ -28658,17 +28910,13 @@ msgstr "Più avanti c'è anche {name2}."
 msgid "Fuel range only {range_text}."
 msgstr ""
 
-#. placeholders: {hint}
-msgid " Press {hint} to signal for the exit."
-msgstr ""
-
-#. placeholders: {hint}
-msgid " Press {hint} to signal."
-msgstr ""
-
 msgid "Rest-stop planning unavailable during a police stop."
 msgstr ""
 "Pianificazione delle soste non disponibile durante un fermo della polizia."
+
+msgid ""
+"Resolve the police stop first. Double tap to signal the trooper stop."
+msgstr ""
 
 #. placeholders: {exit_hint}
 #. one sentence of a longer line
@@ -28689,6 +28937,15 @@ msgstr "Prima chiudi il fermo della polizia."
 #. one sentence of a longer line
 msgid "On the ramp for {name}."
 msgstr "Sulla rampa per {name}."
+
+#. placeholders: {name}
+msgid ""
+"On the ramp for {name}. Stop at the scale, then double tap to check in."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Stop at the scale, then double tap to check in."
+msgstr ""
 
 #. placeholders: {name}, {rest_hint}
 msgid ""
@@ -28858,6 +29115,11 @@ msgstr "Fuori servizio {oos_phrase}."
 #. placeholders: {oos_phrase}, {evidence_text}
 msgid "Out of service {oos_phrase}. Citation: {evidence_text}."
 msgstr "Fuori servizio {oos_phrase}. Infrazione: {evidence_text}."
+
+msgid ""
+"Lights and siren behind you for a log check. Double tap to signal, then "
+"stop on the shoulder."
+msgstr ""
 
 #. one sentence of a longer line
 msgid "Lights and siren behind you for a log check."
@@ -29054,6 +29316,9 @@ msgstr "Hai superato {place}. È di nuovo davanti."
 msgid "It is ahead again."
 msgstr "È di nuovo davanti."
 
+msgid " Swipe down and hold to brake well before it."
+msgstr ""
+
 #. placeholders: {control_hint}
 msgid " Brake with {control_hint} well before it."
 msgstr " Frena con {control_hint} con largo anticipo."
@@ -29124,6 +29389,9 @@ msgstr ""
 #. one sentence of a longer line
 msgid "You turned around, and the gate is ahead again."
 msgstr "Hai fatto inversione, e il cancello è di nuovo davanti."
+
+msgid " Swipe down and hold to brake well before the gate."
+msgstr ""
 
 #. placeholders: {control_hint}
 msgid " Brake with {control_hint} well before the gate."
@@ -29562,6 +29830,9 @@ msgstr "Nota ELD sul percorso: nessun avviso di sosta obbligatoria."
 #. placeholders: {context}
 msgid "ELD route note: {context}"
 msgstr "Nota ELD sul percorso: {context}"
+
+msgid "ELD commands: tap with three fingers and open Hours and clock."
+msgstr ""
 
 #. placeholders: {control_name}, {control_name2}, {control_name3}
 msgid ""
@@ -30181,16 +30452,49 @@ msgstr "Page Down"
 msgid "Page Up"
 msgstr "Page Up"
 
+msgid "a three-finger flick right"
+msgstr ""
+
+msgid "a three-finger flick left"
+msgstr ""
+
+msgid ""
+"Left and Right change it. On the keyboard: Shift Page Down and Shift Page "
+"Up."
+msgstr ""
+
+msgid ""
+"Left and Right change it. On the keyboard: Control Page Up and Control Page "
+"Down."
+msgstr ""
+
+msgid "Speed and cruise"
+msgstr ""
+
+msgid "Road and stops"
+msgstr ""
+
+msgid "Where am I"
+msgstr ""
+
+msgid "Truck"
+msgstr ""
+
+msgid "Gears and engine brake"
+msgstr ""
+
+msgid "Radio and CB"
+msgstr ""
+
+msgid "Hours and clock"
+msgstr ""
+
 msgid "Driving commands"
 msgstr "Comandi di guida"
 
-#. placeholders: {spoken}
-msgid "On the keyboard: {spoken}."
-msgstr "Da tastiera: {spoken}."
-
-#. placeholders: {pad_spoken}
-msgid " On the controller: {pad_spoken}."
-msgstr " Dal controller: {pad_spoken}."
+#. placeholders: {noun}
+msgid "At the wheel: {noun}."
+msgstr ""
 
 #. placeholders: {key_name}
 msgid "On the keyboard: {key_name}."
@@ -30201,6 +30505,32 @@ msgstr "Torna alla guida"
 
 msgid "Close the list without running a command."
 msgstr "Chiude l'elenco senza eseguire un comando."
+
+#. placeholders: {spoken}
+msgid "On the keyboard: {spoken}."
+msgstr "Da tastiera: {spoken}."
+
+#. placeholders: {pad_spoken}
+msgid " On the controller: {pad_spoken}."
+msgstr " Dal controller: {pad_spoken}."
+
+#. placeholders: {pad_spoken}, {pad_spoken2}
+msgid " On the controller: {pad_spoken} and {pad_spoken2}."
+msgstr ""
+
+#. placeholders: {pct}
+msgid "Radio volume: {pct} percent"
+msgstr ""
+
+msgid "Radio category"
+msgstr ""
+
+#. placeholders: {name}
+msgid "Radio category: {name}"
+msgstr ""
+
+msgid "Flick up or down to change it."
+msgstr ""
 
 msgid "Back to driving."
 msgstr "Torna alla guida."
@@ -30521,6 +30851,10 @@ msgid "Enter opens details, distance, estimated arrival, and stop planning."
 msgstr ""
 "Enter apre dettagli, distanza, arrivo stimato e pianificazione della sosta."
 
+msgid ""
+"Double tap opens details, distance, estimated arrival, and stop planning."
+msgstr ""
+
 #. placeholders: {planned}
 msgid "Cancel planned stop at {planned}"
 msgstr "Annulla la sosta pianificata a {planned}"
@@ -30651,6 +30985,13 @@ msgstr "Posizione approssimativa della radio del camion: {f}, {f2}."
 msgid "Receivable stations:"
 msgstr "Stazioni ricevibili:"
 
+msgid "Plus 1 more station, listed in the Radio app under Driver apps."
+msgstr ""
+
+#. placeholders: {n}
+msgid "Plus {n} more stations, listed in the Radio app under Driver apps."
+msgstr ""
+
 msgid "Favorites saved:"
 msgstr "Preferite salvate:"
 
@@ -30659,6 +31000,9 @@ msgstr "favorites"
 
 msgid "Your saved stations. Enter on one tunes it."
 msgstr "Le tue stazioni salvate. Enter su una la sintonizza."
+
+msgid "Your saved stations. Double tap one to tune it."
+msgstr ""
 
 msgid "Back to the status screens."
 msgstr "Torna alle schermate di stato."
@@ -31205,12 +31549,18 @@ msgstr "Salva {display_name} tra i preferiti"
 msgid "Now playing on the tuned station. Enter asks again."
 msgstr "In onda sulla stazione sintonizzata. Enter lo richiede di nuovo."
 
+msgid "Now playing on the tuned station. Double tap asks again."
+msgstr ""
+
 #. placeholders: {else}, {tuned}
 msgid "Radio: {else}, tuned to {tuned}"
 msgstr "Radio: {else}, sintonizzata su {tuned}"
 
 msgid "Enter switches the radio on or off."
 msgstr "Enter accende o spegne la radio."
+
+msgid "Double tap switches the radio on or off."
+msgstr ""
 
 msgid "Saves or removes the tuned station in favorites."
 msgstr "Salva o toglie dai preferiti la stazione sintonizzata."
@@ -31248,6 +31598,9 @@ msgstr "range"
 
 msgid "Every station that comes in here. Enter on one tunes it."
 msgstr "Tutte le stazioni che si ricevono qui. Enter su una la sintonizza."
+
+msgid "Every station that comes in here. Double tap one to tune it."
+msgstr ""
 
 msgid "Suggest a station"
 msgstr "Suggerisci una stazione"
@@ -31295,6 +31648,9 @@ msgstr "{display_name} qui è fuori portata."
 
 msgid "Enter tunes this station."
 msgstr "Enter sintonizza questa stazione."
+
+msgid "Double tap tunes this station."
+msgstr ""
 
 #. one sentence of a longer line
 msgid "Next page."
@@ -31422,6 +31778,9 @@ msgid "Enter lists this category. Stations in range list first."
 msgstr ""
 "Enter elenca questa categoria. Le stazioni in portata vengono prima."
 
+msgid "Double tap lists this category. Stations in range list first."
+msgstr ""
+
 msgid "Suggesting a station needs Online services on, in the Online menu."
 msgstr ""
 "Per suggerire una stazione servono i servizi online attivi, nel menu Online."
@@ -31498,6 +31857,20 @@ msgstr "Facoltativo, per esempio 101,5 o 1090. Enter salta."
 
 msgid "Optional, like classic country. Enter skips."
 msgstr "Facoltativo, per esempio country classico. Enter salta."
+
+msgid ""
+"The direct link to the audio stream, not the station's web page. "
+"streamurl.link finds one."
+msgstr ""
+
+msgid "Optional. Double tap skips."
+msgstr ""
+
+msgid "Optional, like 101.5 or 1090. Double tap skips."
+msgstr ""
+
+msgid "Optional, like classic country. Double tap skips."
+msgstr ""
 
 #. placeholders: {typed}
 msgid " Filled in: {typed}."
@@ -33454,6 +33827,11 @@ msgstr ""
 "riposo scarso, ore di servizio azzerate se il controllo è attivo. Possibili "
 "multa e danni lievi. La scadenza continua a correre. {current}"
 
+msgid ""
+"Shoulder sleep canceled. Back on the road. Parking brake set. Swipe up and "
+"hold to release it and drive."
+msgstr ""
+
 #. one sentence of a longer line
 msgid "Back on the road."
 msgstr "Di nuovo in strada."
@@ -33699,9 +34077,21 @@ msgstr "Esci dalla scuola."
 msgid "Cruise is already on."
 msgstr "Il cruise control è già attivo."
 
+msgid "No remembered cruise speed yet. Flick up to set one."
+msgstr ""
+
 #. one sentence of a longer line
 msgid "No remembered cruise speed yet."
 msgstr "Nessuna velocità di crociera memorizzata."
+
+#. placeholders: {touch_instruction}
+msgid "No remembered cruise speed yet. {touch_instruction} to set one."
+msgstr ""
+
+#. placeholders: {touch_instruction}
+#. one sentence of a longer line
+msgid "{touch_instruction} to set one."
+msgstr ""
 
 #. placeholders: {key}
 msgid "No remembered cruise speed yet. {key} sets one."
@@ -33752,6 +34142,12 @@ msgstr ""
 "Le frecce su e giù scorrono le righe. Home ed End saltano alla prima e "
 "all'ultima. Enter ripete una riga o attiva un pulsante. Escape torna alla "
 "mappa."
+
+msgid ""
+"Flick right or left to review each line, and flick up or down with three "
+"fingers to jump to the first and last. Flick down with two fingers to "
+"return to the map."
+msgstr ""
 
 msgid "Stop details"
 msgstr "Dettagli della sosta"
@@ -33818,6 +34214,10 @@ msgstr "Torna alla schermata della mappa."
 #. one sentence of a longer line
 msgid "Stop details."
 msgstr "Dettagli della sosta."
+
+#. placeholders: {STOP_DETAIL_TOUCH_HELP}, {current}
+msgid "Stop details. {STOP_DETAIL_TOUCH_HELP} {current}"
+msgstr ""
 
 #. placeholders: {STOP_DETAIL_INTRO_HELP}, {current}
 msgid "Stop details. {STOP_DETAIL_INTRO_HELP} {current}"
@@ -34159,6 +34559,9 @@ msgstr ""
 msgid "Wakes you and gives you the wheel."
 msgstr "Ti sveglia e ti ridà il volante."
 
+msgid " Your 10-hour rest starts over."
+msgstr ""
+
 msgid "Take the wheel back"
 msgstr "Riprendi il volante"
 
@@ -34421,6 +34824,9 @@ msgstr ""
 msgid "Air pressure {psi} psi."
 msgstr "Pressione dell'aria {psi} psi."
 
+msgid "Parking brake set. Swipe up and hold to release it and drive."
+msgstr ""
+
 #. placeholders: {brake_hint}
 msgid "Parking brake set. Press {brake_hint} to release it."
 msgstr "Freno di stazionamento inserito. Premi {brake_hint} per toglierlo."
@@ -34509,6 +34915,10 @@ msgid ""
 "A tire chain broke and is flailing. Slow down and pull over to check it."
 msgstr ""
 "Una catena si è rotta e sta sbattendo. Rallenta e accosta per controllarla."
+
+#. placeholders: {snapped}, {damage}
+msgid "{snapped} Damage {damage} percent."
+msgstr ""
 
 msgid "A chain is slapping the fender. Stop soon and tighten it."
 msgstr "Una catena sbatte sul parafango. Fermati presto e tendila."
@@ -34853,6 +35263,17 @@ msgstr "Oltre la linea di mezzeria, nella corsia opposta!"
 msgid "Off the pavement, into the median on the left!"
 msgstr "Fuori dall'asfalto, nello spartitraffico a sinistra!"
 
+#. placeholders: {place}, {damage}
+msgid "{place} Damage {damage} percent."
+msgstr ""
+
+#. placeholders: {damage}
+msgid "Back on the pavement. Damage {damage} percent."
+msgstr ""
+
+msgid "Back on the pavement."
+msgstr "Di nuovo sull'asfalto."
+
 msgid "Caught the edge."
 msgstr "Hai preso il bordo."
 
@@ -34886,6 +35307,12 @@ msgstr ""
 #. one sentence of a longer line
 msgid "{speed} in a {zone} zone."
 msgstr "{speed} in una zona a {zone}."
+
+#. placeholders: {speed}, {zone}
+msgid ""
+"Lights and siren behind you. {speed} in a {zone} zone. Double tap to "
+"signal, then stop on the shoulder."
+msgstr ""
 
 #. placeholders: {speed}, {zone}, {control_hint}
 msgid ""
@@ -34941,6 +35368,11 @@ msgstr "Entra in {name}."
 msgid "Red light. Pull in to {name}."
 msgstr "Semaforo rosso. Entra in {name}."
 
+msgid ""
+"Scale bypass enforcement. Lights and siren behind you. Double tap to "
+"signal, then stop on the shoulder."
+msgstr ""
+
 #. one sentence of a longer line
 msgid "Scale bypass enforcement."
 msgstr "Controllo per pesa saltata."
@@ -34979,6 +35411,11 @@ msgid ""
 msgstr ""
 "Un agente in questo {reason} ha visto danni evidenti al camion, al "
 "{damage_pct} percento, e ha ordinato un controllo di sicurezza su strada."
+
+msgid ""
+"Unsafe equipment stop. Lights and siren behind you. Double tap to signal, "
+"then stop on the shoulder."
+msgstr ""
 
 #. one sentence of a longer line
 msgid "Unsafe equipment stop."
@@ -35041,6 +35478,10 @@ msgstr "Ti stai addormentando. Sterza o frena subito!"
 
 msgid "You caught it."
 msgstr "L'hai ripreso."
+
+#. placeholders: {damage}, {standing}
+msgid "Damage {damage} percent. {standing}"
+msgstr ""
 
 #. one sentence of a longer line
 msgid "You cannot stay awake."
@@ -35120,6 +35561,9 @@ msgid ""
 "gear."
 msgstr ""
 
+msgid "Engine stalled. Turn two fingers right to restart."
+msgstr ""
+
 #. placeholders: {control_hint}
 msgid "Engine stalled. Press {control_hint} to restart."
 msgstr "Motore spento di colpo. Premi {control_hint} per riavviare."
@@ -35128,6 +35572,11 @@ msgstr "Motore spento di colpo. Premi {control_hint} per riavviare."
 #. one sentence of a longer line
 msgid "Press {control_hint} to restart."
 msgstr "Premi {control_hint} per riavviare."
+
+msgid ""
+"Engine stalled. Turn two fingers right to restart, then hold a pedal and "
+"flick up with a second finger for first gear."
+msgstr ""
 
 #. placeholders: {control_hint}, {control_hint2}, {control_name}
 msgid ""
@@ -35167,6 +35616,14 @@ msgstr ""
 
 msgid "Pick your gear before it starts."
 msgstr "Scegli la marcia prima che inizi."
+
+#. one sentence of a longer line
+msgid "Set the jake."
+msgstr ""
+
+#. placeholders: {touch_instruction}
+msgid "Set the jake. {touch_instruction}."
+msgstr ""
 
 #. placeholders: {control_hint}
 msgid "Set the jake with {control_hint}."
@@ -35244,9 +35701,6 @@ msgstr "Rallento per la curva."
 
 msgid "Ramp assistance released."
 msgstr "Assistenza in rampa rilasciata."
-
-msgid "Back on the pavement."
-msgstr "Di nuovo sull'asfalto."
 
 #. placeholders: {lane_name}
 #. one sentence of a longer line
@@ -35598,6 +36052,17 @@ msgstr "In onda su {name}."
 msgid "Now playing on {name}: {title}{stop}"
 msgstr "In onda su {name}: {title}{stop}"
 
+msgid "Runaway! The truck is taking damage."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Back under control."
+msgstr ""
+
+#. placeholders: {damage}
+msgid "Back under control. Damage {damage} percent."
+msgstr ""
+
 msgid ""
 "A second major offense disqualifies your CDL for life, and this career will "
 "not drive again."
@@ -35630,6 +36095,10 @@ msgid ""
 msgstr ""
 "Hai messo la freccia, ma ti muovi ancora con i lampeggianti dietro. Fermati "
 "sulla corsia d'emergenza."
+
+msgid ""
+"Failure-to-stop warning. Double tap to signal, then stop on the shoulder."
+msgstr ""
 
 #. one sentence of a longer line
 msgid "Failure-to-stop warning."
@@ -35733,13 +36202,23 @@ msgstr ""
 "indietro ferma un suono che continua. Un suono breve finisce da solo."
 
 #. one sentence of a longer line
-msgid "F1 still explains it."
-msgstr "F1 lo spiega comunque."
+msgid "A flick up with two fingers still explains it."
+msgstr ""
 
 #. placeholders: {name}
 #. one sentence of a longer line
 msgid "{name} is not in this copy of the game."
 msgstr "{name} non è in questa copia del gioco."
+
+#. placeholders: {name}
+msgid ""
+"{name} is not in this copy of the game. A flick up with two fingers still "
+"explains it."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "F1 still explains it."
+msgstr "F1 lo spiega comunque."
 
 #. placeholders: {name}
 msgid "{name} is not in this copy of the game. F1 still explains it."
@@ -36058,6 +36537,10 @@ msgid ""
 msgstr ""
 "Enter propone di eliminare questo salvataggio. Funziona ancora in Freight "
 "Fate 1.8."
+
+msgid ""
+"Double tap offers to delete this save. It still works in Freight Fate 1.8."
+msgstr ""
 
 msgid "reset"
 msgstr "reimpostazione"
@@ -36765,15 +37248,6 @@ msgstr "più piano"
 msgid "louder"
 msgstr "più forte"
 
-msgid "main voice"
-msgstr "voce principale"
-
-msgid "Windows OneCore"
-msgstr "Windows OneCore"
-
-msgid "built-in voice"
-msgstr ""
-
 msgid "braille only"
 msgstr "solo braille"
 
@@ -37269,6 +37743,16 @@ msgstr ""
 "sessione, il primo backup di ogni carriera dopo l'avvio del gioco. Mai lo "
 "tiene in silenzio. I backup continuano in ogni caso, e un backup rifiutato "
 "viene sempre annunciato."
+
+#. placeholders: {main_voice_label}
+msgid "Main voice: {main_voice_label}"
+msgstr ""
+
+msgid ""
+"The voice that reads menus and readouts. Automatic uses your screen reader "
+"when one is running, and a system voice when none is. A screen reader is "
+"listed only while it is running."
+msgstr ""
 
 #. placeholders: {event_voice_label}
 msgid "Driving event voice: {event_voice_label}"
@@ -38234,6 +38718,19 @@ msgstr "Riporta tutti i pulsanti del controller a quelli predefiniti"
 msgid "Puts every control on this screen back where it started."
 msgstr "Rimette ogni comando di questa schermata dov'era all'inizio."
 
+msgid "Windows OneCore"
+msgstr "Windows OneCore"
+
+msgid "built-in voice"
+msgstr ""
+
+msgid "Narrator"
+msgstr ""
+
+#. placeholders: {name}
+msgid "{name}, unavailable"
+msgstr ""
+
 msgid ""
 "Move up and down to pick a gesture, then confirm it to choose the command "
 "it runs while driving. Go back to leave."
@@ -38243,6 +38740,24 @@ msgstr ""
 
 msgid "Gesture"
 msgstr "Gesto"
+
+msgid ""
+"How far a swipe down travels before it becomes the emergency brake, or the "
+"parking brake when stopped. Practice gestures reads the length of each "
+"swipe down. Flick up or down to change it."
+msgstr ""
+
+msgid ""
+"How far a swipe down travels before it becomes the emergency brake, or the "
+"parking brake when stopped. Practice gestures reads the length of each "
+"swipe down. D-pad Right or Left changes it."
+msgstr ""
+
+msgid ""
+"How far a swipe down travels before it becomes the emergency brake, or the "
+"parking brake when stopped. Practice gestures reads the length of each "
+"swipe down. Right or Left arrow changes it."
+msgstr ""
 
 msgid "Every touch gesture is back to its default."
 msgstr "Tutti i gesti touch sono tornati a quelli predefiniti."
@@ -38256,6 +38771,10 @@ msgstr "Vibrazione touch disattivata."
 msgid "Confirm, then choose the command this gesture runs while driving."
 msgstr ""
 "Conferma, poi scegli il comando che questo gesto esegue durante la guida."
+
+#. placeholders: {touch_deep_swipe_points}
+msgid "Deep swipe starts at: {touch_deep_swipe_points}"
+msgstr ""
 
 msgid "Practice gestures"
 msgstr "Esercitati con i gesti"
@@ -38292,6 +38811,28 @@ msgstr ""
 msgid "{gesture_name} now runs {label}."
 msgstr "{gesture_name} ora esegue {label}."
 
+#. one sentence of a longer line
+msgid "Deep swipe."
+msgstr ""
+
+#. placeholders: {points}
+msgid "Deep swipe. Length {points}."
+msgstr ""
+
+#. placeholders: {points}
+#. one sentence of a longer line
+msgid "Length {points}."
+msgstr ""
+
+#. placeholders: {points}, {touch_deep_swipe_points}
+msgid "Length {points}. The deep swipe starts at {touch_deep_swipe_points}."
+msgstr ""
+
+#. placeholders: {touch_deep_swipe_points}
+#. one sentence of a longer line
+msgid "The deep swipe starts at {touch_deep_swipe_points}."
+msgstr ""
+
 msgid "Swipe up and hold: gas. Lift to coast."
 msgstr "Scorri in su e tieni: acceleratore. Solleva per andare per inerzia."
 
@@ -38321,8 +38862,8 @@ msgstr "Tieni premuto con due dita: clacson."
 msgid "Two-finger turn right: start the engine."
 msgstr "Rotazione a destra con due dita: avvia il motore."
 
-msgid "Two-finger turn left: stop the engine."
-msgstr "Rotazione a sinistra con due dita: spegne il motore."
+msgid "Two-finger turn left: stop the engine when the truck is stopped."
+msgstr ""
 
 msgid "Second finger, hold left: steer left."
 msgstr "Secondo dito, tieni a sinistra: sterza a sinistra."
@@ -38352,8 +38893,8 @@ msgstr "L'esercizio nomina ogni gesto senza muovere il camion."
 msgid "Skip and start driving"
 msgstr "Salta e inizia a guidare"
 
-msgid "Swipe down with two fingers twice within two seconds to leave."
-msgstr "Scorri in giù con due dita due volte entro due secondi per uscire."
+msgid "Flick down with two fingers twice within two seconds to leave."
+msgstr ""
 
 msgid "Escape twice within two seconds to leave."
 msgstr "Escape due volte entro due secondi per uscire."
@@ -38394,44 +38935,38 @@ msgstr "Uscita dall'esercizio con i gesti."
 msgid "Again to leave practice."
 msgstr "Ancora una volta per uscire dall'esercizio."
 
-msgid "Double tap"
-msgstr "Doppio tocco"
-
 msgid "Swipe up"
 msgstr "Scorrimento in su"
 
 msgid "Swipe down"
 msgstr "Scorrimento in giù"
 
-msgid "Flick left"
-msgstr "Scorrimento a sinistra"
+msgid "Two-finger tap"
+msgstr "Tocco con due dita"
 
-msgid "Flick right"
-msgstr "Scorrimento a destra"
+msgid "Two-finger flick up"
+msgstr ""
 
-msgid "Magic tap"
-msgstr "Magic tap"
+msgid "Two-finger flick left"
+msgstr ""
 
-msgid "Two-finger swipe up"
-msgstr "Scorrimento in su con due dita"
-
-msgid "Two-finger swipe left"
-msgstr "Scorrimento a sinistra con due dita"
-
-msgid "Two-finger swipe right"
-msgstr "Scorrimento a destra con due dita"
+msgid "Two-finger flick right"
+msgstr ""
 
 msgid "Three-finger tap"
 msgstr "Tocco con tre dita"
 
-msgid "Three-finger swipe left"
-msgstr "Scorrimento a sinistra con tre dita"
+msgid "Three-finger flick left"
+msgstr ""
 
-msgid "Three-finger swipe right"
-msgstr "Scorrimento a destra con tre dita"
+msgid "Three-finger flick right"
+msgstr ""
 
-msgid "Confirm"
-msgstr "Conferma"
+msgid "Take an exit, pull over or confirm arrival"
+msgstr ""
+
+msgid "Stop speech"
+msgstr ""
 
 msgid "Change lanes left"
 msgstr "Cambia corsia a sinistra"
@@ -41094,6 +41629,12 @@ msgid "Page {page} of {HELP_PAGES}: {title}."
 msgstr "Pagina {page} di {HELP_PAGES}: {title}."
 
 msgid ""
+"Flick right or left to read one line at a time. Flick up for the next page "
+"and down for the previous one. Double tap reads the whole page, and a flick "
+"down with two fingers goes back."
+msgstr ""
+
+msgid ""
 "D-pad Left and Right change pages, Up and Down read one line at a time. A "
 "reads the whole page, Back stops speech, and B goes back."
 msgstr ""
@@ -41125,14 +41666,15 @@ msgid ""
 "Enter opens an item or changes a setting to its next value. Right also "
 "moves it forward, Left backward. Escape goes back. Drivers on duty, the "
 "Driver directory, the duty notices, and Account achievements work without "
-"connecting. The rest needs an orinks.net account. Everything you share can "
-"be turned off again."
+"connecting. Drive online as a guest puts you on the board with no account. "
+"The rest needs an orinks.net account. Everything you share can be turned "
+"off again."
 msgstr ""
-"Enter apre una voce o cambia un'impostazione in avanti. Anche destra la "
-"cambia in avanti, sinistra all'indietro. Escape torna indietro. Autisti in "
-"servizio, l'Elenco degli autisti, gli avvisi di servizio e gli Obiettivi "
-"dell'account funzionano senza collegarti. Il resto richiede un account "
-"orinks.net. Tutto quello che condividi si può spegnere di nuovo."
+
+msgid ""
+"Your profile needs an orinks.net account. Choose Connect an orinks.net "
+"account first."
+msgstr ""
 
 msgid ""
 "Your profile needs your orinks.net account. Choose Set up orinks.net "
@@ -41140,6 +41682,19 @@ msgid ""
 msgstr ""
 "Il tuo profilo richiede il tuo account orinks.net. Prima scegli Configura "
 "l'account orinks.net."
+
+msgid "Your orinks.net account is connected, so there's no guest driver."
+msgstr ""
+
+#. placeholders: {display_name}
+msgid "Guest name: {display_name}"
+msgstr ""
+
+msgid "Guest driver: off, account connected"
+msgstr ""
+
+msgid "Drive online as a guest"
+msgstr ""
 
 msgid "The browser could not be opened. The address is on your clipboard."
 msgstr ""
@@ -41173,6 +41728,11 @@ msgid "Opening your driver setup page in your browser.{clipboard_note}"
 msgstr ""
 "Apro nel browser la pagina di configurazione del tuo "
 "autista.{clipboard_note}"
+
+msgid ""
+"Cloud backup needs an orinks.net account. Choose Connect an orinks.net "
+"account."
+msgstr ""
 
 msgid ""
 "Cloud backup needs your orinks.net account. Choose Set up orinks.net "
@@ -41315,6 +41875,9 @@ msgstr ""
 "perderne le impostazioni. Meteo, traffico e parcheggi in diretta hanno i "
 "loro interruttori in Impostazioni."
 
+msgid "Connect an orinks.net account"
+msgstr ""
+
 msgid "orinks.net account: connected"
 msgstr "Account orinks.net: collegato"
 
@@ -41330,6 +41893,14 @@ msgstr ""
 "profilo e inizia a fare il backup delle tue carriere. Ognuno ha una sua "
 "voce in questo menu. Nome dell'autista e computer collegati sono in Apri la "
 "pagina di configurazione del mio autista."
+
+msgid "Hear your guest name or ask orinks.net for a new one."
+msgstr ""
+
+msgid ""
+"Puts you on the drivers board under a name orinks.net picks, with no "
+"account. A profile and cloud backup need an account."
+msgstr ""
 
 msgid "Open my driver setup page"
 msgstr "Apri la pagina di configurazione del mio autista"
@@ -41645,25 +42216,21 @@ msgstr ""
 msgid "your driver"
 msgstr "il tuo autista"
 
-#. placeholders: {display}
-#. one sentence of a longer line
-msgid "Connected to orinks.net as {display}."
-msgstr "Collegato a orinks.net come {display}."
-
-#. placeholders: {display}
-msgid ""
-"Connected to orinks.net as {display}. Your careers now back up to that "
-"account. Turning Profile sharing on."
+msgid " Your guest driver is this account now."
 msgstr ""
-"Collegato a orinks.net come {display}. Ora le tue carriere fanno il backup "
-"su quell'account. Sto attivando la Condivisione del profilo."
 
+#. placeholders: {display}, {guest_note}
 #. one sentence of a longer line
-msgid "Your careers now back up to that account."
-msgstr "Ora le tue carriere fanno il backup su quell'account."
+msgid ""
+"Connected to orinks.net as {display}.{guest_note} Your careers now back up "
+"to that account."
+msgstr ""
 
-msgid "profile-sharing"
-msgstr "profile-sharing"
+#. placeholders: {display}, {guest_note}
+msgid ""
+"Connected to orinks.net as {display}.{guest_note} Your careers now back up "
+"to that account. Turning Profile sharing on."
+msgstr ""
 
 msgid ""
 "Profile sharing is on. Your driver profile fills in as you drive. Profile "
@@ -41701,9 +42268,6 @@ msgstr "Copia il mio codice di attivazione"
 msgid "Puts the activation code on the clipboard."
 msgstr "Mette il codice di attivazione negli appunti."
 
-msgid "Hear what gets shared"
-msgstr "Ascolta cosa viene condiviso"
-
 msgid "Leave without connecting this account."
 msgstr "Esci senza collegare questo account."
 
@@ -41739,9 +42303,6 @@ msgstr "Di nuovo in Freight Fate. {current}"
 
 msgid "Still waiting."
 msgstr "Ancora in attesa."
-
-msgid "Could not reach orinks.net. Try again."
-msgstr "Impossibile raggiungere orinks.net. Riprova."
 
 msgid ""
 "Your activation code expired. Choose Set up this computer with orinks.net "
@@ -41848,6 +42409,10 @@ msgstr ""
 msgid "No drivers are on duty right now"
 msgstr "Nessun autista è in servizio adesso"
 
+#. placeholders: {name}
+msgid "{name}, guest"
+msgstr ""
+
 msgid "activity"
 msgstr "activity"
 
@@ -41856,6 +42421,9 @@ msgstr "detail"
 
 msgid "went off duty"
 msgstr "è uscito dal servizio"
+
+msgid "A guest driver, with no orinks.net account and no profile."
+msgstr ""
 
 msgid "Opens this driver's public profile."
 msgstr "Apre il profilo pubblico di questo autista."
@@ -41966,6 +42534,118 @@ msgstr "nessuno in servizio"
 #. placeholders: {n}
 msgid "{n} on duty"
 msgstr "{n} in servizio"
+
+msgid ""
+"As a guest you go on the orinks.net drivers board under a name orinks.net "
+"picks, like Copper Fox 12, with no account. This turns Profile sharing on, "
+"so your guest name and on-duty activity show publicly on the board. A "
+"driver profile, road journal, achievements and cloud backup need an "
+"account. Profile sharing on the Online menu turns sharing off."
+msgstr ""
+
+msgid "Go online as a guest"
+msgstr ""
+
+msgid "Asking orinks.net for a guest name"
+msgstr ""
+
+msgid "Turning Profile sharing on"
+msgstr ""
+
+msgid "Still working. Stay here for the result."
+msgstr ""
+
+msgid "Asking orinks.net for a guest name."
+msgstr ""
+
+msgid "online-guest"
+msgstr ""
+
+msgid "orinks.net is busy. Try again in a minute."
+msgstr ""
+
+msgid "Could not reach orinks.net. Try again."
+msgstr "Impossibile raggiungere orinks.net. Riprova."
+
+msgid ""
+"This computer could not save the guest driver. Nothing was changed. Check "
+"your password store, then try again."
+msgstr ""
+
+msgid "profile-sharing"
+msgstr "profile-sharing"
+
+#. placeholders: {name}
+msgid "You're {name} on the drivers board."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Profile sharing on the Online menu tries again."
+msgstr ""
+
+#. placeholders: {name}
+#. one sentence of a longer line
+msgid ""
+"You're {name}, but orinks.net could not turn Profile sharing on, so nothing "
+"is public yet."
+msgstr ""
+
+#. placeholders: {name}
+msgid ""
+"You're {name}, but orinks.net could not turn Profile sharing on, so nothing "
+"is public yet. Profile sharing on the Online menu tries again."
+msgstr ""
+
+msgid "Gets a guest name from orinks.net and turns Profile sharing on."
+msgstr ""
+
+msgid "Hear what gets shared"
+msgstr "Ascolta cosa viene condiviso"
+
+msgid "Guest name"
+msgstr ""
+
+msgid "Still asking."
+msgstr ""
+
+msgid "This computer isn't driving as a guest."
+msgstr ""
+
+msgid "guest-rename"
+msgstr ""
+
+msgid "Asking for a new name"
+msgstr ""
+
+msgid "Ask for a new name"
+msgstr ""
+
+msgid "orinks.net picks another name at random. Ask again for another."
+msgstr ""
+
+#. placeholders: {name}
+#. one sentence of a longer line
+msgid "You're {name}."
+msgstr ""
+
+#. placeholders: {TITLE}, {name}, {current}
+msgid "{TITLE}. You're {name}. {current}"
+msgstr ""
+
+#. placeholders: {name}
+msgid "You're {name} now."
+msgstr ""
+
+msgid "That's a lot of names. Try again in a minute."
+msgstr ""
+
+msgid ""
+"orinks.net no longer has this guest. Connect an orinks.net account from the "
+"Online menu."
+msgstr ""
+
+msgid "Still asking. Stay here for the new name."
+msgstr ""
 
 msgid "out-of-service order"
 msgstr "ordine di fuori servizio"
@@ -42412,12 +43092,9 @@ msgstr ""
 
 msgid ""
 "Type with the on-screen keyboard, then double tap. Flick left or right to "
-"review the letters, swipe up or down with three fingers to jump to the "
-"start or end, and swipe down with two fingers to cancel."
+"review the letters, flick up or down with three fingers to jump to the "
+"start or end, and flick down with two fingers to cancel."
 msgstr ""
-"Scrivi con la tastiera su schermo, poi tocca due volte. Scorri a sinistra o "
-"a destra per rivedere le lettere, scorri in su o in giù con tre dita per "
-"saltare all'inizio o alla fine, e scorri in giù con due dita per annullare."
 
 msgid "Text"
 msgstr "Testo"
@@ -42595,11 +43272,12 @@ msgstr "Non sono state fornite note sulle modifiche."
 
 #. one sentence of a longer line
 msgid ""
-"Up and Down arrows read line by line, Enter reads everything, Escape goes "
-"back."
+"Double tap reads everything, and a flick down with two fingers goes back."
 msgstr ""
-"Le frecce su e giù leggono riga per riga, Enter legge tutto, Escape torna "
-"indietro."
+
+#. one sentence of a longer line
+msgid "Flick right or left to read line by line."
+msgstr ""
 
 #. placeholders: {title}
 #. one sentence of a longer line
@@ -42608,16 +43286,31 @@ msgstr "Novità di {title}."
 
 #. placeholders: {title}, {notes}
 msgid ""
-"What's new in {title}. {notes} lines. Up and Down arrows read line by line, "
-"Enter reads everything, Escape goes back."
+"What's new in {title}. {notes} lines. Flick right or left to read line by "
+"line. Double tap reads everything, and a flick down with two fingers goes "
+"back."
 msgstr ""
-"Novità di {title}. {notes} {notes:riga|righe}. Le frecce su e giù leggono "
-"riga per riga, Enter legge tutto, Escape torna indietro."
 
 #. placeholders: {notes}
 #. one sentence of a longer line
 msgid "{notes} lines."
 msgstr "{notes} {notes:riga|righe}."
+
+#. one sentence of a longer line
+msgid ""
+"Up and Down arrows read line by line, Enter reads everything, Escape goes "
+"back."
+msgstr ""
+"Le frecce su e giù leggono riga per riga, Enter legge tutto, Escape torna "
+"indietro."
+
+#. placeholders: {title}, {notes}
+msgid ""
+"What's new in {title}. {notes} lines. Up and Down arrows read line by line, "
+"Enter reads everything, Escape goes back."
+msgstr ""
+"Novità di {title}. {notes} {notes:riga|righe}. Le frecce su e giù leggono "
+"riga per riga, Enter legge tutto, Escape torna indietro."
 
 #. placeholders: {title}
 msgid "What's new in {title}"
@@ -42716,6 +43409,20 @@ msgstr "Download di {title}{size}."
 #. placeholders: {title}, {size}
 msgid ""
 "Downloading {title}{size}. The game restarts when the download finishes. "
+"Flick down with two fingers to cancel."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Flick down with two fingers to cancel."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "The game restarts when the download finishes."
+msgstr "Il gioco si riavvia quando il download finisce."
+
+#. placeholders: {title}, {size}
+msgid ""
+"Downloading {title}{size}. The game restarts when the download finishes. "
 "Escape cancels."
 msgstr ""
 "Download di {title}{size}. Il gioco si riavvia quando il download finisce. "
@@ -42724,10 +43431,6 @@ msgstr ""
 #. one sentence of a longer line
 msgid "Escape cancels."
 msgstr "Escape annulla."
-
-#. one sentence of a longer line
-msgid "The game restarts when the download finishes."
-msgstr "Il gioco si riavvia quando il download finisce."
 
 msgid "update-download"
 msgstr "update-download"
@@ -42786,6 +43489,9 @@ msgstr "Download di {title}"
 
 msgid "Escape cancels, Tab reads progress."
 msgstr "Escape annulla, Tab legge l'avanzamento."
+
+msgid "lift"
+msgstr ""
 
 #. placeholders: {lane_assist}
 msgid "Middle lane  ·  lane keeping {lane_assist}"
@@ -44068,6 +44774,355 @@ msgstr "Pezzi di pneumatico."
 msgid "Debris."
 msgstr "Detriti."
 
+#. The title of the screen when the license is pulled at the roadside,
+#. built from the record's status word.
+msgid "CDL suspended"
+msgstr ""
+
+msgid "CDL disqualified"
+msgstr ""
+
+#. One sentence of the sleep preview, when the stop's effect and legal
+#. notes are both empty.
+msgid "Fatigue {f} to {f2}."
+msgstr ""
+
+#. The last sentence of the sleep preview, when nothing comes before it.
+msgid "Select again to sleep."
+msgstr ""
+
+#~ msgid "a two-finger swipe down"
+#~ msgstr "uno scorrimento verso il basso con due dita"
+
+#~ msgid "a two-finger swipe up"
+#~ msgstr "uno scorrimento verso l'alto con due dita"
+
+#~ msgid "Three-finger swipe up"
+#~ msgstr "Scorrimento in su con tre dita"
+
+#~ msgid "Three-finger swipe down"
+#~ msgstr "Scorrimento in giù con tre dita"
+
+#~ msgid "a three-finger swipe up"
+#~ msgstr "uno scorrimento in su con tre dita"
+
+#~ msgid "a three-finger swipe down"
+#~ msgstr "uno scorrimento in giù con tre dita"
+
+#~ msgid "the exit command from the three-finger tap list"
+#~ msgstr "il comando di uscita dall'elenco del tocco con tre dita"
+
+#~ msgid ""
+#~ "freightfate -- Freight Fate\n"
+#~ "\n"
+#~ "  freightfate                       play\n"
+#~ "  freightfate --smoke               boot, render five frames, exit (CI "
+#~ "check)\n"
+#~ "  freightfate --headless            no window, no speech\n"
+#~ "  freightfate --controller-diagnostics\n"
+#~ "                                    log controller events, both layers\n"
+#~ "\n"
+#~ "Drive tools:\n"
+#~ "  --playtest-road --find FEATURE    start at a road feature or departure "
+#~ "gate\n"
+#~ "                                    (downgrade, upgrade, zone, limit-drop,\n"
+#~ "                                    stop, scale, curve, interchange, toll,\n"
+#~ "                                    chain-law, destination, departure, "
+#~ "all); all scans every\n"
+#~ "                                    launchable road family and current "
+#~ "world instance.\n"
+#~ "                                    Destination is\n"
+#~ "                                    the delivery off-ramp at the end of the\n"
+#~ "                                    route; departure scans a small route "
+#~ "sample\n"
+#~ "                                    for loaded facility exits by default. "
+#~ "Use\n"
+#~ "                                    --routes all for an exhaustive "
+#~ "inventory;\n"
+#~ "                                    each result prints a direct --facility "
+#~ "launch\n"
+#~ "                                    that does not rescan the world. State\n"
+#~ "                                    transitions requiring a live player "
+#~ "history are not road-launchable;\n"
+#~ "                                    --from/--to/--seed/--scan and\n"
+#~ "                                    the assist switches refine the search\n"
+#~ "  --ai                               with a selected road scenario, use "
+#~ "paced\n"
+#~ "                                    player controls in the real window; "
+#~ "live\n"
+#~ "                                    player-facing speech streams to the "
+#~ "terminal\n"
+#~ "  --playtest-sandbox [--launch]     a data directory that cannot reach the\n"
+#~ "                                    owner's account; --dir/--reset/--print\n"
+#~ "  --list-break-scenarios            name every adversarial scenario\n"
+#~ "  --list-speech-backends            name every screen reader and voice "
+#~ "found\n"
+#~ "  --break-scenario NAME             run one, --transcript to hear it\n"
+#~ "  --break-battery                   run them all and print the verdicts\n"
+#~ "  --agent-server                    the real game with an MCP server on "
+#~ "stdio,\n"
+#~ "                                    so an AI agent can play it (sandboxed;\n"
+#~ "                                    --reset for a fresh sandbox; add\n"
+#~ "                                    --find FEATURE [--from CITY] [--to "
+#~ "CITY]\n"
+#~ "                                    to boot straight into a staged drive;\n"
+#~ "                                    --operator-keys keeps the window up and\n"
+#~ "                                    lets the operator's keyboard in, to "
+#~ "play\n"
+#~ "                                    alongside the agent; --staging uses its\n"
+#~ "                                    own directory and its own driver on the\n"
+#~ "                                    staging site, cloud backup on)\n"
+#~ "  --key-probe [--seconds N]         show what your keyboard delivers to the "
+#~ "game,\n"
+#~ "                                    for a screen reader that re-sends held "
+#~ "keys\n"
+#~ "                                    (JAWS): hold each arrow key for a few "
+#~ "seconds;\n"
+#~ "                                    it speaks its findings and writes a log\n"
+#~ "  --log PATH                        session log for the watcher"
+#~ msgstr ""
+#~ "freightfate -- Freight Fate\n"
+#~ "\n"
+#~ "  freightfate                       gioca\n"
+#~ "  freightfate --smoke               avvia, disegna cinque fotogrammi, esce "
+#~ "(controllo CI)\n"
+#~ "  freightfate --headless            niente finestra, niente voce\n"
+#~ "  freightfate --controller-diagnostics\n"
+#~ "                                    registra gli eventi del controller, "
+#~ "entrambi i livelli\n"
+#~ "\n"
+#~ "Strumenti di guida:\n"
+#~ "  --playtest-road --find FEATURE    parte da un elemento stradale o da un "
+#~ "cancello di partenza\n"
+#~ "                                    (downgrade, upgrade, zone, limit-drop,\n"
+#~ "                                    stop, scale, curve, interchange, toll,\n"
+#~ "                                    chain-law, destination, departure, "
+#~ "all); all esamina ogni\n"
+#~ "                                    famiglia stradale avviabile e ogni "
+#~ "istanza attuale del mondo.\n"
+#~ "                                    Destination è\n"
+#~ "                                    la rampa d'uscita della consegna alla "
+#~ "fine del\n"
+#~ "                                    percorso; departure esamina di base un "
+#~ "piccolo campione di percorsi\n"
+#~ "                                    per le uscite dalle strutture caricate. "
+#~ "Usa\n"
+#~ "                                    --routes all per un inventario "
+#~ "completo;\n"
+#~ "                                    ogni risultato stampa un avvio diretto "
+#~ "con --facility\n"
+#~ "                                    che non riesamina il mondo. Le\n"
+#~ "                                    transizioni di stato che richiedono una "
+#~ "storia reale del giocatore non si avviano su strada;\n"
+#~ "                                    --from/--to/--seed/--scan e\n"
+#~ "                                    gli interruttori delle assistenze "
+#~ "affinano la ricerca\n"
+#~ "  --ai                               con uno scenario stradale scelto, usa "
+#~ "comandi\n"
+#~ "                                    del giocatore cadenzati nella finestra "
+#~ "reale; la voce\n"
+#~ "                                    per il giocatore viene trasmessa dal "
+#~ "vivo al terminale\n"
+#~ "  --playtest-sandbox [--launch]     una cartella dati che non può "
+#~ "raggiungere\n"
+#~ "                                    l'account del proprietario; "
+#~ "--dir/--reset/--print\n"
+#~ "  --list-break-scenarios            elenca ogni scenario avverso\n"
+#~ "  --list-speech-backends            elenca ogni screen reader e ogni voce "
+#~ "trovati\n"
+#~ "  --break-scenario NAME             ne esegue uno, --transcript per "
+#~ "sentirlo\n"
+#~ "  --break-battery                   li esegue tutti e stampa i verdetti\n"
+#~ "  --agent-server                    il gioco vero con un server MCP su "
+#~ "stdio,\n"
+#~ "                                    così un agente IA può giocarci (in "
+#~ "sandbox;\n"
+#~ "                                    --reset per una sandbox nuova; aggiungi\n"
+#~ "                                    --find FEATURE [--from CITY] [--to "
+#~ "CITY]\n"
+#~ "                                    per partire subito con un viaggio "
+#~ "preparato;\n"
+#~ "                                    --operator-keys tiene la finestra "
+#~ "aperta e\n"
+#~ "                                    fa entrare la tastiera dell'operatore, "
+#~ "per giocare\n"
+#~ "                                    insieme all'agente; --staging usa la "
+#~ "sua\n"
+#~ "                                    cartella e il suo autista sul\n"
+#~ "                                    sito di staging, con il backup nel "
+#~ "cloud attivo)\n"
+#~ "  --key-probe [--seconds N]         mostra cosa la tua tastiera manda al "
+#~ "gioco,\n"
+#~ "                                    per uno screen reader che rimanda i "
+#~ "tasti tenuti premuti\n"
+#~ "                                    (JAWS): tieni premuto ogni tasto "
+#~ "freccia per qualche secondo;\n"
+#~ "                                    annuncia i risultati e scrive un "
+#~ "registro\n"
+#~ "  --log PATH                        registro della sessione per "
+#~ "l'osservatore"
+
+#~ msgid "chosen"
+#~ msgstr "scelto"
+
+#~ msgid ""
+#~ "Hold one finger still for half a second to straighten the wheel. With "
+#~ "cruise off, flick up to resume the last speed and flick down to set the "
+#~ "current speed. Turn two fingers right like a key to start the engine, left "
+#~ "to stop it. Hold two fingers for the horn. Turning them cancels it. While "
+#~ "holding a pedal, a second finger's flicks and holds work the same way, and "
+#~ "in automatic its shift flicks say the gear. "
+#~ msgstr ""
+#~ "Tieni un dito fermo per mezzo secondo per raddrizzare il volante. Con il "
+#~ "cruise spento, scorri rapidamente in su per riprendere l'ultima velocità e "
+#~ "in giù per impostare la velocità attuale. Ruota due dita verso destra come "
+#~ "una chiave per accendere il motore, verso sinistra per spegnerlo. Tieni due "
+#~ "dita per il clacson. Ruotarle lo annulla. Mentre tieni premuto un pedale, "
+#~ "gli scorrimenti rapidi e le pressioni di un secondo dito funzionano allo "
+#~ "stesso modo, e in automatico i suoi scorrimenti di cambio dicono la marcia. "
+
+#~ msgid ""
+#~ "Two-finger swipe down pauses, two-finger swipe up is this help, two-finger "
+#~ "swipes left and right review messages, and three-finger swipes left and "
+#~ "right tune the radio. A three-finger tap lists every driving command: swipe "
+#~ "to one and double tap to run it. "
+#~ msgstr ""
+#~ "Scorrere in giù con due dita mette in pausa, scorrere in su con due dita è "
+#~ "questo aiuto, scorrere a sinistra e a destra con due dita scorre i "
+#~ "messaggi, e scorrere a sinistra e a destra con tre dita sintonizza la "
+#~ "radio. Un tocco con tre dita elenca tutti i comandi di guida: scorri fino a "
+#~ "uno e fai doppio tocco per eseguirlo. "
+
+#~ msgid "{gear}, automatic."
+#~ msgstr "{gear}, automatico."
+
+#~ msgid "Two-finger turn left: stop the engine."
+#~ msgstr "Rotazione a sinistra con due dita: spegne il motore."
+
+#~ msgid "Swipe down with two fingers twice within two seconds to leave."
+#~ msgstr "Scorri in giù con due dita due volte entro due secondi per uscire."
+
+#~ msgid "Magic tap"
+#~ msgstr "Magic tap"
+
+#~ msgid "Two-finger swipe up"
+#~ msgstr "Scorrimento in su con due dita"
+
+#~ msgid "Two-finger swipe left"
+#~ msgstr "Scorrimento a sinistra con due dita"
+
+#~ msgid "Two-finger swipe right"
+#~ msgstr "Scorrimento a destra con due dita"
+
+#~ msgid "Three-finger swipe left"
+#~ msgstr "Scorrimento a sinistra con tre dita"
+
+#~ msgid "Three-finger swipe right"
+#~ msgstr "Scorrimento a destra con tre dita"
+
+#~ msgid "Confirm"
+#~ msgstr "Conferma"
+
+#~ msgid ""
+#~ "Enter opens an item or changes a setting to its next value. Right also "
+#~ "moves it forward, Left backward. Escape goes back. Drivers on duty, the "
+#~ "Driver directory, the duty notices, and Account achievements work without "
+#~ "connecting. The rest needs an orinks.net account. Everything you share can "
+#~ "be turned off again."
+#~ msgstr ""
+#~ "Enter apre una voce o cambia un'impostazione in avanti. Anche destra la "
+#~ "cambia in avanti, sinistra all'indietro. Escape torna indietro. Autisti in "
+#~ "servizio, l'Elenco degli autisti, gli avvisi di servizio e gli Obiettivi "
+#~ "dell'account funzionano senza collegarti. Il resto richiede un account "
+#~ "orinks.net. Tutto quello che condividi si può spegnere di nuovo."
+
+#~ msgid "Connected to orinks.net as {display}."
+#~ msgstr "Collegato a orinks.net come {display}."
+
+#~ msgid ""
+#~ "Connected to orinks.net as {display}. Your careers now back up to that "
+#~ "account. Turning Profile sharing on."
+#~ msgstr ""
+#~ "Collegato a orinks.net come {display}. Ora le tue carriere fanno il backup "
+#~ "su quell'account. Sto attivando la Condivisione del profilo."
+
+#~ msgid "Your careers now back up to that account."
+#~ msgstr "Ora le tue carriere fanno il backup su quell'account."
+
+#~ msgid ""
+#~ "Type with the on-screen keyboard, then double tap. Flick left or right to "
+#~ "review the letters, swipe up or down with three fingers to jump to the "
+#~ "start or end, and swipe down with two fingers to cancel."
+#~ msgstr ""
+#~ "Scrivi con la tastiera su schermo, poi tocca due volte. Scorri a sinistra o "
+#~ "a destra per rivedere le lettere, scorri in su o in giù con tre dita per "
+#~ "saltare all'inizio o alla fine, e scorri in giù con due dita per annullare."
+
+#~ msgid "{name} Company Yard"
+#~ msgstr "Piazzale aziendale di {name}"
+
+#~ msgid ""
+#~ "Your level, record, and home terminal come with you, and the next load runs "
+#~ "on their pay and their tractor."
+#~ msgstr ""
+#~ "Livello, registro e sede vengono con te, e il prossimo carico va con la "
+#~ "loro paga e la loro motrice."
+
+#~ msgid ""
+#~ "{carrier_name} hires you away from {former}. Your level, record, and home "
+#~ "terminal come with you, and the next load runs on their pay and their "
+#~ "tractor."
+#~ msgstr ""
+#~ "{carrier_name} ti porta via da {former}. Livello, registro e sede vengono "
+#~ "con te, e il prossimo carico va con la loro paga e la loro motrice."
+
+#~ msgid ""
+#~ "The carrier's insurer will not carry a record like that. "
+#~ "{LAST_CHANCE_CARRIER_NAME} keeps you on, on probation, until "
+#~ "{record_clears_text}."
+#~ msgstr ""
+#~ "L'assicuratore dell'azienda non copre uno storico così. "
+#~ "{LAST_CHANCE_CARRIER_NAME} ti tiene, in prova, fino a {record_clears_text}."
+
+#~ msgid ""
+#~ "{LAST_CHANCE_CARRIER_NAME} keeps you on, on probation, until "
+#~ "{record_clears_text}."
+#~ msgstr ""
+#~ "{LAST_CHANCE_CARRIER_NAME} ti tiene, in prova, fino a {record_clears_text}."
+
+#~ msgid ""
+#~ "Your CDL is suspended, so the yard holds your seat until it clears {clears}."
+#~ msgstr ""
+#~ "La tua CDL è sospesa, quindi il piazzale ti tiene il posto finché non si "
+#~ "risolve {clears}."
+
+#~ msgid ""
+#~ "You cannot drive, not even without a trailer, while your CDL is {verb}."
+#~ msgstr ""
+#~ "Non puoi guidare, nemmeno senza rimorchio, finché la tua CDL è {verb}."
+
+#~ msgid ""
+#~ "You cannot drive, not even without a trailer, while your CDL is {verb}. The "
+#~ "{noun} ends {clears_text}."
+#~ msgstr ""
+#~ "Non puoi guidare, nemmeno senza rimorchio, finché la tua CDL è {verb}. La "
+#~ "{noun} termina {clears_text}."
+
+#~ msgid "turnpike doubles freight"
+#~ msgstr "carichi su doppio rimorchio lungo per turnpike"
+
+#~ msgid "{answer}, but you are {shift_over}. {RESET_ADVICE}"
+#~ msgstr "{answer}, ma sei {shift_over}. {RESET_ADVICE}"
+
+#~ msgid "{name} in {the_city} service area"
+#~ msgstr "{name} nell'area di servizio di {the_city}"
+
+#~ msgid ""
+#~ "{prefix}First-day briefing: leased to {carrier_name}, parked at {location}."
+#~ msgstr ""
+#~ "{prefix}Istruzioni del primo giorno: convenzionato con {carrier_name}, "
+#~ "parcheggiato a {location}."
+
 #~ msgid ""
 #~ "You own a new truck with a full tank and {grouped} dollars of working "
 #~ "capital."
@@ -44085,6 +45140,9 @@ msgstr "Detriti."
 #~ msgid "{prefix}First-day briefing: welcome aboard {carrier_name}."
 #~ msgstr "{prefix}Istruzioni del primo giorno: benvenuto in {carrier_name}."
 
+#~ msgid "Your assigned truck is parked at {location}."
+#~ msgstr "Il tuo camion assegnato è parcheggiato a {location}."
+
 #~ msgid "The carrier covers fuel, repairs, insurance, and trailer support."
 #~ msgstr ""
 #~ "La ditta copre carburante, riparazioni, assicurazione e supporto per i "
@@ -44097,51 +45155,6 @@ msgstr "Detriti."
 #~ "Da nuovo assunto, la centrale ti assegna carico e percorso, e rifiutare un "
 #~ "incarico finisce nel tuo stato di servizio."
 
-#~ msgid "Fuel, repairs, wear, trailers, and reserves come from your cash."
-#~ msgstr ""
-#~ "Carburante, riparazioni, usura, rimorchi e riserve escono dai tuoi soldi."
-
-#~ msgid "New truck, {grouped} dollars working capital."
-#~ msgstr "Camion nuovo, {grouped} dollari di capitale circolante."
-
-#~ msgid "Next: dispatch board."
-#~ msgstr "Prossimo: la bacheca degli incarichi."
-
-#~ msgid "A refusal goes on your record."
-#~ msgstr "Un rifiuto finisce nel tuo registro."
-
-#~ msgid "Assigned loads."
-#~ msgstr "Carichi assegnati."
-
-#~ msgid "Dispatch: {summary}."
-#~ msgstr "Centrale: {summary}."
-
-#~ msgid ""
-#~ "The carrier's insurer will not carry a record like that. "
-#~ "{LAST_CHANCE_CARRIER_NAME} keeps you on, on probation, until "
-#~ "{record_clears_text}."
-#~ msgstr ""
-#~ "L'assicuratore dell'azienda non copre uno storico così. "
-#~ "{LAST_CHANCE_CARRIER_NAME} ti tiene, in prova, fino a {record_clears_text}."
-
-#~ msgid ""
-#~ "{LAST_CHANCE_CARRIER_NAME} keeps you on, on probation, until "
-#~ "{record_clears_text}."
-#~ msgstr ""
-#~ "{LAST_CHANCE_CARRIER_NAME} ti tiene, in prova, fino a {record_clears_text}."
-
-#~ msgid ""
-#~ "You cannot drive, not even without a trailer, while your CDL is {verb}."
-#~ msgstr ""
-#~ "Non puoi guidare, nemmeno senza rimorchio, finché la tua CDL è {verb}."
-
-#~ msgid ""
-#~ "You cannot drive, not even without a trailer, while your CDL is {verb}. The "
-#~ "{noun} ends {clears_text}."
-#~ msgstr ""
-#~ "Non puoi guidare, nemmeno senza rimorchio, finché la tua CDL è {verb}. La "
-#~ "{noun} termina {clears_text}."
-
 #~ msgid ""
 #~ "Dispatch assigned this load. Accepting starts the empty drive from your "
 #~ "terminal to the pickup. After pickup, Route planning lists rest, fuel, "
@@ -44151,8 +45164,143 @@ msgstr "Detriti."
 #~ "dal tuo terminal al ritiro. Dopo il ritiro, Pianificazione del percorso "
 #~ "elenca soste, carburante, pedaggi, meteo e restrizioni."
 
+#~ msgid "{f} tons of {label} to {destination}, {distance_text}"
+#~ msgstr "{f} tonnellate di {label} per {destination}, {distance_text}"
+
+#~ msgid "Cargo: {label}."
+#~ msgstr "Carico: {label}."
+
+#~ msgid "CDL suspension"
+#~ msgstr "Sospensione della CDL"
+
+#~ msgid "Suspension served, CDL clear."
+#~ msgstr "Sospensione scontata, CDL in regola."
+
+#~ msgid "Suspension served, CDL clear. It is {clock_text}, {time_of_day}."
+#~ msgstr ""
+#~ "Sospensione scontata, CDL in regola. Sono le {clock_text}, {time_of_day}."
+
+#~ msgid ""
+#~ "You now drive for {LAST_CHANCE_CARRIER_NAME}: lower pay, shorter freight."
+#~ msgstr ""
+#~ "Ora guidi per {LAST_CHANCE_CARRIER_NAME}: paga più bassa, carichi più corti."
+
+#~ msgid ""
+#~ "{former} ended your employment over your safety record. You now drive for "
+#~ "{LAST_CHANCE_CARRIER_NAME}: lower pay, shorter freight. Your money, levels "
+#~ "and belongings stay."
+#~ msgstr ""
+#~ "{former} ha chiuso il tuo rapporto di lavoro per il tuo profilo di "
+#~ "sicurezza. Ora guidi per {LAST_CHANCE_CARRIER_NAME}: paga più bassa, "
+#~ "carichi più corti. I tuoi soldi, livelli e beni restano."
+
+#~ msgid "Wait out the CDL suspension"
+#~ msgstr "Aspetta la fine della sospensione della CDL"
+
+#~ msgid ""
+#~ "Sits out the suspension in one go. The clock jumps to the day it clears, "
+#~ "money, truck, and record untouched."
+#~ msgstr ""
+#~ "Sconta la sospensione tutta in una volta. L'orologio salta al giorno in cui "
+#~ "finisce, con soldi, camion e registro intatti."
+
+#~ msgid ""
+#~ "Company drivers bill the carrier, owner-operators pay the regional diesel "
+#~ "price."
+#~ msgstr ""
+#~ "Gli autisti dipendenti addebitano alla ditta, i padroncini pagano il prezzo "
+#~ "regionale del gasolio."
+
+#~ msgid "Checked in."
+#~ msgstr "Ti sei presentato."
+
+#~ msgid "Checked in. Load on {map} in the drop yard."
+#~ msgstr "Ti sei presentato. Il carico è su {map} nel piazzale di scambio."
+
+#~ msgid "Checked in. Dock assigned."
+#~ msgstr "Ti sei presentato. Banchina assegnata."
+
+#~ msgid ""
+#~ "Dropping your empty at {facility} and hooking {map}, loaded with {f} tons "
+#~ "of {label}."
+#~ msgstr ""
+#~ "Sganci il tuo rimorchio vuoto presso {facility} e agganci {map}, carico di "
+#~ "{f} tonnellate di {label}."
+
+#~ msgid "Loading {f} tons of {label} at {facility}."
+#~ msgstr "Carico di {f} tonnellate di {label} presso {facility}."
+
+#~ msgid ""
+#~ "Pickup {facility}: {state}. {f} tons of {label} for "
+#~ "{destination_facility_text}. {speed_text}. {engine}. Air {f2} psi, "
+#~ "{brake}.{speed_control_pause_text}"
+#~ msgstr ""
+#~ "Ritiro presso {facility}: {state}. {f} tonnellate di {label} per "
+#~ "{destination_facility_text}. {speed_text}. {engine}. Aria {f2} psi, "
+#~ "{brake}.{speed_control_pause_text}"
+
+#~ msgid "{f} tons of {label} for {destination_facility_text}."
+#~ msgstr "{f} tonnellate di {label} per {destination_facility_text}."
+
+#~ msgid "Pickup canceled. Returned to {name}."
+#~ msgstr "Ritiro annullato. Sei tornato a {name}."
+
+#~ msgid "Returned to {name}."
+#~ msgstr "Sei tornato a {name}."
+
+#~ msgid "{label} for {destination}"
+#~ msgstr "{label} per {destination}"
+
+#~ msgid "Cargo: {f} tons of {label}"
+#~ msgstr "Carico: {f} tonnellate di {label}"
+
+#~ msgid ""
+#~ "Resuming {drive_name}: {weight_tons} tons of {label} to {destination}."
+#~ msgstr ""
+#~ "Riprendi {drive_name}: {weight_tons} tonnellate di {label} per "
+#~ "{destination}."
+
+#~ msgid ""
+#~ "Resuming {drive_name}: {weight_tons} tons of {label} to {destination}. "
+#~ "{progress} {hours_used} of {deadline_game_h} hours. {now}. {transmission} "
+#~ "{report_lead}. {speed_control}{engine} {brake}"
+#~ msgstr ""
+#~ "Riprendi {drive_name}: {weight_tons} tonnellate di {label} per "
+#~ "{destination}. {progress} {hours_used} ore su {deadline_game_h}. {now}. "
+#~ "{transmission} {report_lead}. {speed_control}{engine} {brake}"
+
 #~ msgid "{engine} starts or stops the engine, and {fuel} reads fuel."
 #~ msgstr "{engine} avvia o spegne il motore, e {fuel} legge il carburante."
+
+#~ msgid ""
+#~ "{game_minutes} hours used of a {deadline_game_h} hour delivery window."
+#~ msgstr ""
+#~ "{game_minutes} ore usate su una finestra di consegna di {deadline_game_h} "
+#~ "ore."
+
+#~ msgid "{remaining_miles} miles remain."
+#~ msgstr "Restano {remaining_miles} miglia."
+
+#~ msgid "Cargo condition is {cargo_damage_pct} percent."
+#~ msgstr "Lo stato del carico è al {cargo_damage_pct} percento."
+
+#~ msgid "I have the freight report as {words}, {condition} percent."
+#~ msgstr "Ho il rapporto sulla merce: {words}, {condition} percento."
+
+#~ msgid ""
+#~ "I have the freight report as {words}, {condition} percent. Slow the "
+#~ "handling down and avoid any hard stop or sharp bend you can safely avoid."
+#~ msgstr ""
+#~ "Ho il rapporto sulla merce: {words}, {condition} percento. Guida con più "
+#~ "dolcezza ed evita ogni frenata brusca o curva stretta che puoi evitare in "
+#~ "sicurezza."
+
+#~ msgid ""
+#~ "Slow the handling down and avoid any hard stop or sharp bend you can safely "
+#~ "avoid."
+#~ msgstr ""
+#~ "Guida con più dolcezza ed evita ogni frenata brusca o curva stretta che "
+#~ "puoi evitare in sicurezza."
 
 #~ msgid ""
 #~ "Drove without a trailer to {destination} in {f} hours. It is {clock_text}. "
@@ -44162,6 +45310,16 @@ msgstr "Detriti."
 #~ "Guidato senza rimorchio fino a {destination} in {f} ore. Sono le "
 #~ "{clock_text}. {pay_clause}Parcheggiato a {name}. Bacheca degli incarichi di "
 #~ "{destination2} disponibile. Carburante al {f2} percento."
+
+#~ msgid "{pay_clause}Parked at {name}."
+#~ msgstr "{pay_clause}Parcheggiato a {name}."
+
+#~ msgid ""
+#~ "Delivered {f} tons of {label} to {destination} in {f2} hours, "
+#~ "{else}.{receiver_service_clause} {clock_text}."
+#~ msgstr ""
+#~ "Consegnate {f} tonnellate di {label} a {destination} in {f2} ore, "
+#~ "{else}.{receiver_service_clause} {clock_text}."
 
 #~ msgid ""
 #~ "Delivered {f} tons of {label} to {destination} in {f2} hours, "
@@ -44188,6 +45346,54 @@ msgstr "Detriti."
 #~ msgstr "Parcheggiato a {name} a {city}."
 
 #~ msgid ""
+#~ "Dropping the loaded trailer at {facility}, {f} tons of {cargo_label}. "
+#~ "Hooking an empty."
+#~ msgstr ""
+#~ "Sganci il rimorchio carico a {facility}, {f} tonnellate di {cargo_label}. "
+#~ "Agganci uno vuoto."
+
+#~ msgid "Hooking an empty."
+#~ msgstr "Agganci uno vuoto."
+
+#~ msgid "Docked at {facility}. Unloading {f} tons of {cargo_label}."
+#~ msgstr ""
+#~ "Attraccato a {facility}. Scarico di {f} tonnellate di {cargo_label}."
+
+#~ msgid "Unloading {f} tons of {cargo_label}."
+#~ msgstr "Scarico di {f} tonnellate di {cargo_label}."
+
+#~ msgid ""
+#~ "At {facility}. {f} tons of {label}. Speed {speed_text}. {else}. Stop, then "
+#~ "{finish}."
+#~ msgstr ""
+#~ "Sei a {facility}. {f} tonnellate di {label}. Velocità {speed_text}. {else}. "
+#~ "Fermati, poi {finish}."
+
+#~ msgid "{f} tons of {label}."
+#~ msgstr "{f} tonnellate di {label}."
+
+#~ msgid "At {facility}. {current}"
+#~ msgstr "Sei a {facility}. {current}"
+
+#~ msgid ""
+#~ "Load: {f} tons of {label}, gross {f2} tons, freight {cargo_status_clause}"
+#~ msgstr ""
+#~ "Carico: {f} tonnellate di {label}, lordo {f2} tonnellate, merce "
+#~ "{cargo_status_clause}"
+
+#~ msgid "{f} tons of {label} are assigned for {destination}."
+#~ msgstr "{f} tonnellate di {label} sono assegnate per {destination}."
+
+#~ msgid "Hauling {f} tons of {label} to {destination}."
+#~ msgstr "Trasporti {f} tonnellate di {label} a {destination}."
+
+#~ msgid ""
+#~ "Driving jobs are off the dispatch board until it clears, {clears_text}."
+#~ msgstr ""
+#~ "Gli incarichi di guida spariscono dalla bacheca degli incarichi finché non "
+#~ "si risolve, {clears_text}."
+
+#~ msgid ""
 #~ "Your CDL is {verb} for {left}. Driving jobs are off the dispatch board "
 #~ "until it clears, {clears_text}. Your money and your truck are safe. Rest, "
 #~ "repairs, and the garage are still open."
@@ -44196,6 +45402,142 @@ msgstr "Detriti."
 #~ "bacheca degli incarichi finché non si risolve, {clears_text}. I tuoi soldi "
 #~ "e il tuo camion sono al sicuro. Riposo, riparazioni e officina restano "
 #~ "disponibili."
+
+#~ msgid "Return to terminal"
+#~ msgstr "Torna alla sede"
+
+#~ msgid ""
+#~ "License pulled, so the truck stays put. Dispatch takes the load back."
+#~ msgstr ""
+#~ "Patente ritirata, quindi il camion resta qui. La centrale si riprende il "
+#~ "carico."
+
+#~ msgid "Dispatch takes the {label} load back and reassigns it"
+#~ msgstr "La centrale si riprende il carico di {label} e lo riassegna"
+
+#~ msgid "the terminal"
+#~ msgstr "la sede"
+
+#~ msgid ""
+#~ " The license is gone for good, so the truck stays here. {load}, and a "
+#~ "relief driver takes the truck in. You are released to {terminal}."
+#~ msgstr ""
+#~ " La patente è persa per sempre, quindi il camion resta qui. {load}, e un "
+#~ "autista sostituto riporta indietro il camion. Vieni rimandato verso "
+#~ "{terminal}."
+
+#~ msgid "The license is gone for good, so the truck stays here."
+#~ msgstr "La patente è persa per sempre, quindi il camion resta qui."
+
+#~ msgid "You are released to {terminal}."
+#~ msgstr "Vieni rimandato verso {terminal}."
+
+#~ msgid "{load}, and a relief driver takes the truck in."
+#~ msgstr "{load}, e un autista sostituto riporta indietro il camion."
+
+#~ msgid ""
+#~ " The license is pulled as of now, so the truck stays here. {load}, and a "
+#~ "relief driver takes the truck in. You are released to {terminal} to wait "
+#~ "the suspension out."
+#~ msgstr ""
+#~ " La patente è ritirata da adesso, quindi il camion resta qui. {load}, e un "
+#~ "autista sostituto riporta indietro il camion. Vieni rimandato verso "
+#~ "{terminal} ad aspettare la fine della sospensione."
+
+#~ msgid "The license is pulled as of now, so the truck stays here."
+#~ msgstr "La patente è ritirata da adesso, quindi il camion resta qui."
+
+#~ msgid "You are released to {terminal} to wait the suspension out."
+#~ msgstr ""
+#~ "Vieni rimandato verso {terminal} ad aspettare la fine della sospensione."
+
+#~ msgid "Enter or Escape returns to the terminal."
+#~ msgstr "Enter o Escape tornano alla sede."
+
+#~ msgid "Enter or Escape continues from the terminal."
+#~ msgstr "Enter o Escape continuano dalla sede."
+
+#~ msgid "felony failure-to-stop enforcement"
+#~ msgstr "intervento per mancata fermata, reato grave"
+
+#~ msgid "Dispatch cancels the {label} load."
+#~ msgstr "La centrale annulla il carico di {label}."
+
+#~ msgid "Dispatch cancels the {label} load. No pay for this run."
+#~ msgstr ""
+#~ "La centrale annulla il carico di {label}. Nessuna paga per questo viaggio."
+
+#~ msgid ""
+#~ "Felony failure-to-stop fine: {grouped} dollars, paid on the spot, with a "
+#~ "major reputation hit.{construction_zone_fine_clause} Spike strips added {f} "
+#~ "percent truck damage, processing took {f2} hours."
+#~ msgstr ""
+#~ "Multa per mancata fermata, reato grave: {grouped} dollari, pagata sul "
+#~ "posto, con un pesante colpo alla "
+#~ "reputazione.{construction_zone_fine_clause} Le strisce chiodate hanno "
+#~ "aggiunto il {f} percento di danni al camion, le pratiche hanno richiesto "
+#~ "{f2} ore."
+
+#~ msgid ""
+#~ "Troopers laid spike strips across the lane after you kept driving with "
+#~ "lights and siren behind you. Felony failure-to-stop fine: {grouped} "
+#~ "dollars, paid on the spot, with a major reputation "
+#~ "hit.{construction_zone_fine_clause} Spike strips added {f} percent truck "
+#~ "damage, processing took {f2} hours. {load_text} You are released back to "
+#~ "{terminal}."
+#~ msgstr ""
+#~ "Gli agenti hanno steso strisce chiodate sulla corsia dopo che hai "
+#~ "continuato a guidare con lampeggianti e sirena dietro di te. Multa per "
+#~ "mancata fermata, reato grave: {grouped} dollari, pagata sul posto, con un "
+#~ "pesante colpo alla reputazione.{construction_zone_fine_clause} Le strisce "
+#~ "chiodate hanno aggiunto il {f} percento di danni al camion, le pratiche "
+#~ "hanno richiesto {f2} ore. {load_text} Vieni rimandato verso {terminal}."
+
+#~ msgid "{load_text} You are released back to {terminal}."
+#~ msgstr "{load_text} Vieni rimandato verso {terminal}."
+
+#~ msgid "Continue from the city terminal."
+#~ msgstr "Continua dalla sede in città."
+
+#~ msgid "{terminal} in {the_city} service area"
+#~ msgstr "{terminal}, area di servizio di {the_city}"
+
+#~ msgid "Fuel, repairs, wear, trailers, and reserves come from your cash."
+#~ msgstr ""
+#~ "Carburante, riparazioni, usura, rimorchi e riserve escono dai tuoi soldi."
+
+#~ msgid "New truck, {grouped} dollars working capital."
+#~ msgstr "Camion nuovo, {grouped} dollari di capitale circolante."
+
+#~ msgid "Next: dispatch board."
+#~ msgstr "Prossimo: la bacheca degli incarichi."
+
+#~ msgid "{prefix}First-day briefing: leased to {carrier_name} at {location}."
+#~ msgstr ""
+#~ "{prefix}Istruzioni del primo giorno: convenzionato con {carrier_name} a "
+#~ "{location}."
+
+#~ msgid ""
+#~ "{prefix}First-day briefing: leased to {carrier_name} at {location}. New "
+#~ "truck, {grouped} dollars working capital. Fuel, repairs, wear, trailers, "
+#~ "and reserves come from your cash. Next: dispatch board."
+#~ msgstr ""
+#~ "{prefix}Istruzioni del primo giorno: convenzionato con {carrier_name} a "
+#~ "{location}. Camion nuovo, {grouped} dollari di capitale circolante. "
+#~ "Carburante, riparazioni, usura, rimorchi e riserve escono dai tuoi soldi. "
+#~ "Prossimo: la bacheca degli incarichi."
+
+#~ msgid "A refusal goes on your record."
+#~ msgstr "Un rifiuto finisce nel tuo registro."
+
+#~ msgid "Assigned loads."
+#~ msgstr "Carichi assegnati."
+
+#~ msgid "Dispatch: {summary}."
+#~ msgstr "Centrale: {summary}."
+
+#~ msgid "Truck at {location}."
+#~ msgstr "Camion a {location}."
 
 #~ msgid ""
 #~ "{prefix}First-day briefing: {carrier_name}. Truck at {location}. Carrier "
@@ -44208,6 +45550,16 @@ msgstr "Detriti."
 #~ "Prossimo: la bacheca degli incarichi."
 
 #~ msgid ""
+#~ "Your saved run cannot go on: dispatch cancels it, and a relief driver "
+#~ "brings the truck back."
+#~ msgstr ""
+#~ "Il tuo viaggio salvato non può continuare: la centrale lo annulla, e un "
+#~ "autista sostituto riporta indietro il camion."
+
+#~ msgid "in {current_city}"
+#~ msgstr "a {current_city}"
+
+#~ msgid ""
 #~ "Company starts use assigned carrier equipment. The carrier pays fuel, "
 #~ "repairs, insurance, and trailer support. The owner-operator start is higher "
 #~ "risk: you own a brand-new truck and pay business costs from day one. Enter "
@@ -44218,6 +45570,38 @@ msgstr "Detriti."
 #~ "L'inizio da padroncino è più rischioso: possiedi un camion nuovo di zecca e "
 #~ "paghi i costi d'impresa dal primo giorno. Enter seleziona, Escape torna "
 #~ "indietro."
+
+#~ msgid ""
+#~ "Up and Down, Home and End, or a typed letter pick a region. Enter opens its "
+#~ "cities, Escape goes back."
+#~ msgstr ""
+#~ "Su e giù, Home ed End, o una lettera digitata scelgono una regione. Enter "
+#~ "apre le sue città, Escape torna indietro."
+
+#~ msgid "Home region for your {carrier_name} career."
+#~ msgstr "Regione di partenza per la tua carriera con {carrier_name}."
+
+#~ msgid "{place}, 1 city."
+#~ msgstr "{place}, 1 città."
+
+#~ msgid "{place}, {count} cities."
+#~ msgstr "{place}, {count} città."
+
+#~ msgid "Home terminal"
+#~ msgstr "Sede"
+
+#~ msgid ""
+#~ "Up and Down, Home and End, or a typed letter pick a city. Enter confirms "
+#~ "your home terminal, Escape goes back."
+#~ msgstr ""
+#~ "Su e giù, Home ed End, o una lettera digitata scelgono una città. Enter "
+#~ "conferma la tua sede, Escape torna indietro."
+
+#~ msgid "{region} terminals."
+#~ msgstr "Sedi di {region}."
+
+#~ msgid "Start at {terminal_name} in {place}."
+#~ msgstr "Parti da {terminal_name} a {place}."
 
 #~ msgid ""
 #~ "Freight Fate now keeps a driving record for your career: citations, serious "
@@ -44233,6 +45617,9 @@ msgstr "Detriti."
 #~ "maggiore che la revoca per un anno. La reputazione decide anche quante "
 #~ "merci ti mostra la centrale e quanta scelta hai. Non è stato azzerato né "
 #~ "tolto niente. {standing} {trust} {current_text}"
+
+#~ msgid "Save file updated."
+#~ msgstr "File di salvataggio aggiornato."
 
 #~ msgid ""
 #~ "Save file updated. This career was converted from an older version: every "
@@ -44250,6 +45637,19 @@ msgstr "Detriti."
 
 #~ msgid "The truck you were driving keeps its condition."
 #~ msgstr "Il camion che stavi guidando mantiene le sue condizioni."
+
+#~ msgid "The updated save no longer opens in older versions of the game."
+#~ msgstr ""
+#~ "Il salvataggio aggiornato non si apre più nelle versioni precedenti del "
+#~ "gioco."
+
+#~ msgid ""
+#~ "This career was converted from an older version: every truck you own now "
+#~ "keeps its own fuel, damage, tire wear, and road grime."
+#~ msgstr ""
+#~ "Questa carriera è stata convertita da una versione precedente: ogni camion "
+#~ "che possiedi ora tiene il suo carburante, i suoi danni, l'usura delle gomme "
+#~ "e lo sporco della strada."
 
 #~ msgid "Your other trucks start fueled and fresh."
 #~ msgstr "Gli altri tuoi camion partono col pieno e puliti."
@@ -59094,412 +60494,15 @@ msgstr "Detriti."
 #~ msgid "{py_capitalize}. {grouped} dollars.{cdl}{record}"
 #~ msgstr "{py_capitalize}. {grouped} dollari.{cdl}{record}"
 
-#~ msgid ""
-#~ "Your level, record, and home terminal come with you, and the next load runs "
-#~ "on their pay and their tractor."
+#~ msgid "no driving yet"
+#~ msgstr "ancora nessuna guida"
+
+#~ msgid "{driven} driving"
+#~ msgstr "{driven} di guida"
+
+#~ msgid "At the wheel so far: {spent}, {duration_text} on duty this shift"
 #~ msgstr ""
-#~ "Livello, registro e sede vengono con te, e il prossimo carico va con la "
-#~ "loro paga e la loro motrice."
+#~ "Al volante finora: {spent}, {duration_text} in servizio in questo turno"
 
-#~ msgid ""
-#~ "{carrier_name} hires you away from {former}. Your level, record, and home "
-#~ "terminal come with you, and the next load runs on their pay and their "
-#~ "tractor."
-#~ msgstr ""
-#~ "{carrier_name} ti porta via da {former}. Livello, registro e sede vengono "
-#~ "con te, e il prossimo carico va con la loro paga e la loro motrice."
-
-#~ msgid "{name} Company Yard"
-#~ msgstr "Piazzale aziendale di {name}"
-
-#~ msgid ""
-#~ "Your CDL is suspended, so the yard holds your seat until it clears {clears}."
-#~ msgstr ""
-#~ "La tua CDL è sospesa, quindi il piazzale ti tiene il posto finché non si "
-#~ "risolve {clears}."
-
-#~ msgid "turnpike doubles freight"
-#~ msgstr "carichi su doppio rimorchio lungo per turnpike"
-
-#~ msgid "{answer}, but you are {shift_over}. {RESET_ADVICE}"
-#~ msgstr "{answer}, ma sei {shift_over}. {RESET_ADVICE}"
-
-#~ msgid "{name} in {the_city} service area"
-#~ msgstr "{name} nell'area di servizio di {the_city}"
-
-#~ msgid ""
-#~ "{prefix}First-day briefing: leased to {carrier_name}, parked at {location}."
-#~ msgstr ""
-#~ "{prefix}Istruzioni del primo giorno: convenzionato con {carrier_name}, "
-#~ "parcheggiato a {location}."
-
-#~ msgid "Your assigned truck is parked at {location}."
-#~ msgstr "Il tuo camion assegnato è parcheggiato a {location}."
-
-#~ msgid "{f} tons of {label} to {destination}, {distance_text}"
-#~ msgstr "{f} tonnellate di {label} per {destination}, {distance_text}"
-
-#~ msgid "Cargo: {label}."
-#~ msgstr "Carico: {label}."
-
-#~ msgid "CDL suspension"
-#~ msgstr "Sospensione della CDL"
-
-#~ msgid "Suspension served, CDL clear."
-#~ msgstr "Sospensione scontata, CDL in regola."
-
-#~ msgid "Suspension served, CDL clear. It is {clock_text}, {time_of_day}."
-#~ msgstr ""
-#~ "Sospensione scontata, CDL in regola. Sono le {clock_text}, {time_of_day}."
-
-#~ msgid ""
-#~ "You now drive for {LAST_CHANCE_CARRIER_NAME}: lower pay, shorter freight."
-#~ msgstr ""
-#~ "Ora guidi per {LAST_CHANCE_CARRIER_NAME}: paga più bassa, carichi più corti."
-
-#~ msgid ""
-#~ "{former} ended your employment over your safety record. You now drive for "
-#~ "{LAST_CHANCE_CARRIER_NAME}: lower pay, shorter freight. Your money, levels "
-#~ "and belongings stay."
-#~ msgstr ""
-#~ "{former} ha chiuso il tuo rapporto di lavoro per il tuo profilo di "
-#~ "sicurezza. Ora guidi per {LAST_CHANCE_CARRIER_NAME}: paga più bassa, "
-#~ "carichi più corti. I tuoi soldi, livelli e beni restano."
-
-#~ msgid "Wait out the CDL suspension"
-#~ msgstr "Aspetta la fine della sospensione della CDL"
-
-#~ msgid ""
-#~ "Sits out the suspension in one go. The clock jumps to the day it clears, "
-#~ "money, truck, and record untouched."
-#~ msgstr ""
-#~ "Sconta la sospensione tutta in una volta. L'orologio salta al giorno in cui "
-#~ "finisce, con soldi, camion e registro intatti."
-
-#~ msgid ""
-#~ "Company drivers bill the carrier, owner-operators pay the regional diesel "
-#~ "price."
-#~ msgstr ""
-#~ "Gli autisti dipendenti addebitano alla ditta, i padroncini pagano il prezzo "
-#~ "regionale del gasolio."
-
-#~ msgid "Checked in."
-#~ msgstr "Ti sei presentato."
-
-#~ msgid "Checked in. Load on {map} in the drop yard."
-#~ msgstr "Ti sei presentato. Il carico è su {map} nel piazzale di scambio."
-
-#~ msgid "Checked in. Dock assigned."
-#~ msgstr "Ti sei presentato. Banchina assegnata."
-
-#~ msgid ""
-#~ "Dropping your empty at {facility} and hooking {map}, loaded with {f} tons "
-#~ "of {label}."
-#~ msgstr ""
-#~ "Sganci il tuo rimorchio vuoto presso {facility} e agganci {map}, carico di "
-#~ "{f} tonnellate di {label}."
-
-#~ msgid "Loading {f} tons of {label} at {facility}."
-#~ msgstr "Carico di {f} tonnellate di {label} presso {facility}."
-
-#~ msgid ""
-#~ "Pickup {facility}: {state}. {f} tons of {label} for "
-#~ "{destination_facility_text}. {speed_text}. {engine}. Air {f2} psi, "
-#~ "{brake}.{speed_control_pause_text}"
-#~ msgstr ""
-#~ "Ritiro presso {facility}: {state}. {f} tonnellate di {label} per "
-#~ "{destination_facility_text}. {speed_text}. {engine}. Aria {f2} psi, "
-#~ "{brake}.{speed_control_pause_text}"
-
-#~ msgid "{f} tons of {label} for {destination_facility_text}."
-#~ msgstr "{f} tonnellate di {label} per {destination_facility_text}."
-
-#~ msgid "Pickup canceled. Returned to {name}."
-#~ msgstr "Ritiro annullato. Sei tornato a {name}."
-
-#~ msgid "Returned to {name}."
-#~ msgstr "Sei tornato a {name}."
-
-#~ msgid "{label} for {destination}"
-#~ msgstr "{label} per {destination}"
-
-#~ msgid "Cargo: {f} tons of {label}"
-#~ msgstr "Carico: {f} tonnellate di {label}"
-
-#~ msgid ""
-#~ "Resuming {drive_name}: {weight_tons} tons of {label} to {destination}."
-#~ msgstr ""
-#~ "Riprendi {drive_name}: {weight_tons} tonnellate di {label} per "
-#~ "{destination}."
-
-#~ msgid ""
-#~ "Resuming {drive_name}: {weight_tons} tons of {label} to {destination}. "
-#~ "{progress} {hours_used} of {deadline_game_h} hours. {now}. {transmission} "
-#~ "{report_lead}. {speed_control}{engine} {brake}"
-#~ msgstr ""
-#~ "Riprendi {drive_name}: {weight_tons} tonnellate di {label} per "
-#~ "{destination}. {progress} {hours_used} ore su {deadline_game_h}. {now}. "
-#~ "{transmission} {report_lead}. {speed_control}{engine} {brake}"
-
-#~ msgid ""
-#~ "{game_minutes} hours used of a {deadline_game_h} hour delivery window."
-#~ msgstr ""
-#~ "{game_minutes} ore usate su una finestra di consegna di {deadline_game_h} "
-#~ "ore."
-
-#~ msgid "{remaining_miles} miles remain."
-#~ msgstr "Restano {remaining_miles} miglia."
-
-#~ msgid "Cargo condition is {cargo_damage_pct} percent."
-#~ msgstr "Lo stato del carico è al {cargo_damage_pct} percento."
-
-#~ msgid "I have the freight report as {words}, {condition} percent."
-#~ msgstr "Ho il rapporto sulla merce: {words}, {condition} percento."
-
-#~ msgid ""
-#~ "I have the freight report as {words}, {condition} percent. Slow the "
-#~ "handling down and avoid any hard stop or sharp bend you can safely avoid."
-#~ msgstr ""
-#~ "Ho il rapporto sulla merce: {words}, {condition} percento. Guida con più "
-#~ "dolcezza ed evita ogni frenata brusca o curva stretta che puoi evitare in "
-#~ "sicurezza."
-
-#~ msgid ""
-#~ "Slow the handling down and avoid any hard stop or sharp bend you can safely "
-#~ "avoid."
-#~ msgstr ""
-#~ "Guida con più dolcezza ed evita ogni frenata brusca o curva stretta che "
-#~ "puoi evitare in sicurezza."
-
-#~ msgid "{pay_clause}Parked at {name}."
-#~ msgstr "{pay_clause}Parcheggiato a {name}."
-
-#~ msgid ""
-#~ "Delivered {f} tons of {label} to {destination} in {f2} hours, "
-#~ "{else}.{receiver_service_clause} {clock_text}."
-#~ msgstr ""
-#~ "Consegnate {f} tonnellate di {label} a {destination} in {f2} ore, "
-#~ "{else}.{receiver_service_clause} {clock_text}."
-
-#~ msgid "At {facility}. {current}"
-#~ msgstr "Sei a {facility}. {current}"
-
-#~ msgid ""
-#~ "Dropping the loaded trailer at {facility}, {f} tons of {cargo_label}. "
-#~ "Hooking an empty."
-#~ msgstr ""
-#~ "Sganci il rimorchio carico a {facility}, {f} tonnellate di {cargo_label}. "
-#~ "Agganci uno vuoto."
-
-#~ msgid "Hooking an empty."
-#~ msgstr "Agganci uno vuoto."
-
-#~ msgid "Docked at {facility}. Unloading {f} tons of {cargo_label}."
-#~ msgstr ""
-#~ "Attraccato a {facility}. Scarico di {f} tonnellate di {cargo_label}."
-
-#~ msgid "Unloading {f} tons of {cargo_label}."
-#~ msgstr "Scarico di {f} tonnellate di {cargo_label}."
-
-#~ msgid ""
-#~ "At {facility}. {f} tons of {label}. Speed {speed_text}. {else}. Stop, then "
-#~ "{finish}."
-#~ msgstr ""
-#~ "Sei a {facility}. {f} tonnellate di {label}. Velocità {speed_text}. {else}. "
-#~ "Fermati, poi {finish}."
-
-#~ msgid "{f} tons of {label}."
-#~ msgstr "{f} tonnellate di {label}."
-
-#~ msgid ""
-#~ "Load: {f} tons of {label}, gross {f2} tons, freight {cargo_status_clause}"
-#~ msgstr ""
-#~ "Carico: {f} tonnellate di {label}, lordo {f2} tonnellate, merce "
-#~ "{cargo_status_clause}"
-
-#~ msgid "{f} tons of {label} are assigned for {destination}."
-#~ msgstr "{f} tonnellate di {label} sono assegnate per {destination}."
-
-#~ msgid "Hauling {f} tons of {label} to {destination}."
-#~ msgstr "Trasporti {f} tonnellate di {label} a {destination}."
-
-#~ msgid ""
-#~ "Driving jobs are off the dispatch board until it clears, {clears_text}."
-#~ msgstr ""
-#~ "Gli incarichi di guida spariscono dalla bacheca degli incarichi finché non "
-#~ "si risolve, {clears_text}."
-
-#~ msgid "Return to terminal"
-#~ msgstr "Torna alla sede"
-
-#~ msgid ""
-#~ "License pulled, so the truck stays put. Dispatch takes the load back."
-#~ msgstr ""
-#~ "Patente ritirata, quindi il camion resta qui. La centrale si riprende il "
-#~ "carico."
-
-#~ msgid "Dispatch takes the {label} load back and reassigns it"
-#~ msgstr "La centrale si riprende il carico di {label} e lo riassegna"
-
-#~ msgid "the terminal"
-#~ msgstr "la sede"
-
-#~ msgid ""
-#~ " The license is gone for good, so the truck stays here. {load}, and a "
-#~ "relief driver takes the truck in. You are released to {terminal}."
-#~ msgstr ""
-#~ " La patente è persa per sempre, quindi il camion resta qui. {load}, e un "
-#~ "autista sostituto riporta indietro il camion. Vieni rimandato verso "
-#~ "{terminal}."
-
-#~ msgid "The license is gone for good, so the truck stays here."
-#~ msgstr "La patente è persa per sempre, quindi il camion resta qui."
-
-#~ msgid "You are released to {terminal}."
-#~ msgstr "Vieni rimandato verso {terminal}."
-
-#~ msgid "{load}, and a relief driver takes the truck in."
-#~ msgstr "{load}, e un autista sostituto riporta indietro il camion."
-
-#~ msgid ""
-#~ " The license is pulled as of now, so the truck stays here. {load}, and a "
-#~ "relief driver takes the truck in. You are released to {terminal} to wait "
-#~ "the suspension out."
-#~ msgstr ""
-#~ " La patente è ritirata da adesso, quindi il camion resta qui. {load}, e un "
-#~ "autista sostituto riporta indietro il camion. Vieni rimandato verso "
-#~ "{terminal} ad aspettare la fine della sospensione."
-
-#~ msgid "The license is pulled as of now, so the truck stays here."
-#~ msgstr "La patente è ritirata da adesso, quindi il camion resta qui."
-
-#~ msgid "You are released to {terminal} to wait the suspension out."
-#~ msgstr ""
-#~ "Vieni rimandato verso {terminal} ad aspettare la fine della sospensione."
-
-#~ msgid "Enter or Escape returns to the terminal."
-#~ msgstr "Enter o Escape tornano alla sede."
-
-#~ msgid "Enter or Escape continues from the terminal."
-#~ msgstr "Enter o Escape continuano dalla sede."
-
-#~ msgid "felony failure-to-stop enforcement"
-#~ msgstr "intervento per mancata fermata, reato grave"
-
-#~ msgid "Dispatch cancels the {label} load."
-#~ msgstr "La centrale annulla il carico di {label}."
-
-#~ msgid "Dispatch cancels the {label} load. No pay for this run."
-#~ msgstr ""
-#~ "La centrale annulla il carico di {label}. Nessuna paga per questo viaggio."
-
-#~ msgid ""
-#~ "Felony failure-to-stop fine: {grouped} dollars, paid on the spot, with a "
-#~ "major reputation hit.{construction_zone_fine_clause} Spike strips added {f} "
-#~ "percent truck damage, processing took {f2} hours."
-#~ msgstr ""
-#~ "Multa per mancata fermata, reato grave: {grouped} dollari, pagata sul "
-#~ "posto, con un pesante colpo alla "
-#~ "reputazione.{construction_zone_fine_clause} Le strisce chiodate hanno "
-#~ "aggiunto il {f} percento di danni al camion, le pratiche hanno richiesto "
-#~ "{f2} ore."
-
-#~ msgid ""
-#~ "Troopers laid spike strips across the lane after you kept driving with "
-#~ "lights and siren behind you. Felony failure-to-stop fine: {grouped} "
-#~ "dollars, paid on the spot, with a major reputation "
-#~ "hit.{construction_zone_fine_clause} Spike strips added {f} percent truck "
-#~ "damage, processing took {f2} hours. {load_text} You are released back to "
-#~ "{terminal}."
-#~ msgstr ""
-#~ "Gli agenti hanno steso strisce chiodate sulla corsia dopo che hai "
-#~ "continuato a guidare con lampeggianti e sirena dietro di te. Multa per "
-#~ "mancata fermata, reato grave: {grouped} dollari, pagata sul posto, con un "
-#~ "pesante colpo alla reputazione.{construction_zone_fine_clause} Le strisce "
-#~ "chiodate hanno aggiunto il {f} percento di danni al camion, le pratiche "
-#~ "hanno richiesto {f2} ore. {load_text} Vieni rimandato verso {terminal}."
-
-#~ msgid "{load_text} You are released back to {terminal}."
-#~ msgstr "{load_text} Vieni rimandato verso {terminal}."
-
-#~ msgid "Continue from the city terminal."
-#~ msgstr "Continua dalla sede in città."
-
-#~ msgid "{terminal} in {the_city} service area"
-#~ msgstr "{terminal}, area di servizio di {the_city}"
-
-#~ msgid "{prefix}First-day briefing: leased to {carrier_name} at {location}."
-#~ msgstr ""
-#~ "{prefix}Istruzioni del primo giorno: convenzionato con {carrier_name} a "
-#~ "{location}."
-
-#~ msgid ""
-#~ "{prefix}First-day briefing: leased to {carrier_name} at {location}. New "
-#~ "truck, {grouped} dollars working capital. Fuel, repairs, wear, trailers, "
-#~ "and reserves come from your cash. Next: dispatch board."
-#~ msgstr ""
-#~ "{prefix}Istruzioni del primo giorno: convenzionato con {carrier_name} a "
-#~ "{location}. Camion nuovo, {grouped} dollari di capitale circolante. "
-#~ "Carburante, riparazioni, usura, rimorchi e riserve escono dai tuoi soldi. "
-#~ "Prossimo: la bacheca degli incarichi."
-
-#~ msgid "Truck at {location}."
-#~ msgstr "Camion a {location}."
-
-#~ msgid ""
-#~ "Your saved run cannot go on: dispatch cancels it, and a relief driver "
-#~ "brings the truck back."
-#~ msgstr ""
-#~ "Il tuo viaggio salvato non può continuare: la centrale lo annulla, e un "
-#~ "autista sostituto riporta indietro il camion."
-
-#~ msgid "in {current_city}"
-#~ msgstr "a {current_city}"
-
-#~ msgid ""
-#~ "Up and Down, Home and End, or a typed letter pick a region. Enter opens its "
-#~ "cities, Escape goes back."
-#~ msgstr ""
-#~ "Su e giù, Home ed End, o una lettera digitata scelgono una regione. Enter "
-#~ "apre le sue città, Escape torna indietro."
-
-#~ msgid "Home region for your {carrier_name} career."
-#~ msgstr "Regione di partenza per la tua carriera con {carrier_name}."
-
-#~ msgid "{place}, 1 city."
-#~ msgstr "{place}, 1 città."
-
-#~ msgid "{place}, {count} cities."
-#~ msgstr "{place}, {count} città."
-
-#~ msgid "Home terminal"
-#~ msgstr "Sede"
-
-#~ msgid ""
-#~ "Up and Down, Home and End, or a typed letter pick a city. Enter confirms "
-#~ "your home terminal, Escape goes back."
-#~ msgstr ""
-#~ "Su e giù, Home ed End, o una lettera digitata scelgono una città. Enter "
-#~ "conferma la tua sede, Escape torna indietro."
-
-#~ msgid "{region} terminals."
-#~ msgstr "Sedi di {region}."
-
-#~ msgid "Start at {terminal_name} in {place}."
-#~ msgstr "Parti da {terminal_name} a {place}."
-
-#~ msgid "Save file updated."
-#~ msgstr "File di salvataggio aggiornato."
-
-#~ msgid "The updated save no longer opens in older versions of the game."
-#~ msgstr ""
-#~ "Il salvataggio aggiornato non si apre più nelle versioni precedenti del "
-#~ "gioco."
-
-#~ msgid ""
-#~ "This career was converted from an older version: every truck you own now "
-#~ "keeps its own fuel, damage, tire wear, and road grime."
-#~ msgstr ""
-#~ "Questa carriera è stata convertita da una versione precedente: ogni camion "
-#~ "che possiedi ora tiene il suo carburante, i suoi danni, l'usura delle gomme "
-#~ "e lo sporco della strada."
+#~ msgid "type"
+#~ msgstr "type"

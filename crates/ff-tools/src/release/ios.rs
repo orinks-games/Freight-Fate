@@ -34,6 +34,8 @@
 use std::path::{Path, PathBuf};
 use std::process::{Command, Stdio};
 
+pub mod signing;
+
 use super::plist::{self, Plist};
 use crate::cli::{Args, Spec};
 use crate::util::{self, Result};

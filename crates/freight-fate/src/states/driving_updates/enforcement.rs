@@ -208,6 +208,11 @@ impl DrivingState {
         let zone = ctx.settings.speed_text(limit);
         let message = if self.instruction_retired(ctx, "take_exit") {
             format!("Lights and siren behind you. {speed} in a {zone} zone. Signal and stop on the shoulder.")
+        } else if ctx.touch_hints() {
+            format!(
+                "Lights and siren behind you. {speed} in a {zone} zone. Double tap to signal, \
+                 then stop on the shoulder."
+            )
         } else {
             format!(
                 "Lights and siren behind you. {speed} in a {zone} zone. Signal with {} and stop on \
@@ -686,7 +691,11 @@ impl DrivingState {
         if rng.random() >= WEIGH_STATION_BYPASS_CATCH_CHANCE {
             return;
         }
-        let lights_message = if self.driving_hints(ctx) {
+        let lights_message = if self.driving_hints(ctx) && ctx.touch_hints() {
+            "Scale bypass enforcement. Lights and siren behind you. Double tap to signal, then \
+             stop on the shoulder."
+                .to_string()
+        } else if self.driving_hints(ctx) {
             format!(
                 "Scale bypass enforcement. Lights and siren behind you. Signal with {} and stop \
                  on the shoulder.",
@@ -739,7 +748,11 @@ impl DrivingState {
              roadside safety inspection.",
             self.trip.truck.damage_pct
         );
-        let lights_message = if self.driving_hints(ctx) {
+        let lights_message = if self.driving_hints(ctx) && ctx.touch_hints() {
+            "Unsafe equipment stop. Lights and siren behind you. Double tap to signal, then stop \
+             on the shoulder."
+                .to_string()
+        } else if self.driving_hints(ctx) {
             format!(
                 "Unsafe equipment stop. Lights and siren behind you. Signal with {} and stop on \
                  the shoulder.",

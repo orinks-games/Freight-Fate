@@ -40,6 +40,9 @@
 - **The ELD now tracks your 70-hour, 8-day work cycle.** When a day of cycle hours is left the status line says so, and a 34-hour rest starts a fresh week.
 - **Job details and the departure line say how much night driving a run has,** as in "About 4 hours of night driving."
 - **A drowsy driver can call dispatch to move the appointment,** giving up the on-time bonus. The row is Too tired to drive safely.
+- **The driving command list can change radio volume and category.**
+- **Settings, Speech now has a Main voice row.** Pick your screen reader, SAPI, Windows OneCore or the built-in voice, or keep automatic.
+- **Drive online as a guest, with no orinks.net account.** You show on the drivers board under a name orinks.net picks, like Copper Fox 12.
 
 ### Changed
 
@@ -61,6 +64,9 @@
 - **Work at stops takes longer as fatigue rises.** Fueling, the walk-around, chain work and pulling in run slower from worn up.
 - **An inspection or traffic stop at severe fatigue ends in a ten-hour out-of-service order.**
 - **Five-by-Two now takes a full 10 hours asleep at a stop.** A split rest, or finishing a reset that a break started, no longer earns it.
+- **German now covers the lines added since October.** Co-driver, fatigue, stop planning and problem report lines no longer switch to English.
+- **The route picker reads the weather along a route with Tab.**
+- **The driving command list is now in groups.** Status menu comes first, then short lists for speed, the road, the truck, gears, radio and hours.
 
 ### Fixed
 
@@ -70,7 +76,23 @@
 - **The Alaska Highway border crossing now has its real name, the Alcan port.** Heading into Canada, you pass the Beaver Creek border post.
 - **Save notices now show their text on screen,** not only their title and OK.
 - **Training classes now leave you tired, at about half the rate of driving.**
+- **The Speech settings rows now update as soon as you change a voice.** Before, they changed only after leaving the menu.
+- **Cruise no longer pumps the brakes behind a slower car on streets and approaches.** It slows once and follows, so low air no longer sets the spring brakes.
 - **Enter accepts a facility arrival from a full stop with Facility stopping assistance off.** A stopped truck is told to set the parking brake.
+- **Game sound comes back when a Bluetooth headset drops out or the sound device stops responding.** It returns within a few seconds, without a restart.
+- **The built-in voice keeps speaking after a Bluetooth headset connects or disconnects.** In 1.9.6 it could go silent until a restart.
+- **Cruise at 85 no longer damages the truck on a downgrade.** Runaway damage now starts above 90 miles per hour ([issue 533](https://github.com/orinks-games/Freight-Fate/issues/533)).
+- **A runaway is now spoken.** You hear "Runaway!" when damage starts, and the truck's damage once it is back under control ([issue 533](https://github.com/orinks-games/Freight-Fate/issues/533)).
+- **Leaving the pavement always plays the rumble strip and says the truck's damage, even with Lane-departure warning off.** Coming back on says any damage added while you were off ([issue 533](https://github.com/orinks-games/Freight-Fate/issues/533)).
+- **A broken tire chain and drifting onto the shoulder asleep now say the truck's damage** ([issue 533](https://github.com/orinks-games/Freight-Fate/issues/533)).
+- **Smoke, Smoke, Smoke is earned only for brakes you heat yourself.** Brakes a co-driver left hot no longer earn it when you take the wheel ([issue 520](https://github.com/orinks-games/Freight-Fate/issues/520)).
+- **A no engine brake zone you were told about now says when it ends.** You hear "End of no engine brake zone." on the way out ([issue 520](https://github.com/orinks-games/Freight-Fate/issues/520)).
+- **Take the wheel back now warns that your rest will start over.** Your ten hours must be unbroken ([issue 520](https://github.com/orinks-games/Freight-Fate/issues/520)).
+- **Work zones no longer close the right lane at an exit.** Near a truck stop, rest area or scale, roadwork closes the left lane.
+- **Stop notices are no longer lost when the voice is busy.** A truck stop's 5-mile call waits its turn behind billboards and roadwork calls.
+- **The Tab radio screen lists every Freight Fate station and the stations in range.** It used to stop after 16, before reaching any local station.
+- **The game no longer closes while the Windows SAPI voice is reading driving events.** SAPI now hands its speech to the game to play.
+- **Vietnamese no longer switches to English for turn directions, speed limit changes and the prompt to start the engine.** Thanks to Đào Đức Trung ([@Daoductrung](https://github.com/Daoductrung), [PR 625](https://github.com/orinks-games/Freight-Fate/pull/625)).
 
 ## 1.9.6 - 2026-11-13
 

@@ -527,6 +527,9 @@ impl Settings {
         if !UPDATE_CHANNELS.contains(&s.update_channel.as_str()) {
             s.update_channel = String::new();
         }
+        if s.main_backend == coerce::JUNK {
+            s.main_backend = String::new();
+        }
         if s.event_backend.is_empty() || s.event_backend == coerce::JUNK {
             s.event_backend = "SAPI".to_string();
         }

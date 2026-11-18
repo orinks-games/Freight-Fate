@@ -2,6 +2,7 @@
 //! keeper, and the keeper's own snubs.
 
 use ff_core::pyfmt::round_py;
+use ff_core::sim::keeper_follow::FollowEvent;
 use ff_core::sim::trip::is_highway_zone_reason;
 use ff_core::speech_pacing::SpeechCategory;
 use ff_core::speech_text::SpokenMessage;
@@ -536,21 +537,34 @@ impl DrivingState {
             _ => {}
         }
         let context = self.trip.traffic_context();
+        let follow = match context.as_ref() {
+            None => FollowEvent::NoLead,
+            Some(context) => {
+                let scale = self.trip.effective_time_scale();
+                let ease_mi = self.keeper_ease_mi(context.lead.speed_mph, scale);
+                FollowEvent::Lead {
+                    key: &context.lead.key,
+                    slower: context.lead.speed_mph < target_mph,
+                    // Once there is a reason to shed for it, on the keeper's
+                    // own ease law. Matching a slower vehicle the moment it is
+                    // visible meant matching one two and a half miles off (the
+                    // traffic bubble's whole reach), so a car doing 35 in a 45
+                    // work zone put the truck at 35 from the far end of the
+                    // zone with nothing said. The stopped-queue case still
+                    // lands here: a standstill lead prices out at zero, and
+                    // the gap to it is inside anybody's window.
+                    in_window: context.gap_mi <= ease_mi,
+                }
+            }
+        };
+        // The window only STARTS the follow. It is priced from the truck's
+        // speed now, so it shrank back past the car the moment the snub took
+        // a few miles an hour off, and the keeper let go, throttled up and
+        // braked again: a fresh application every cycle, and the spring
+        // brakes behind a car doing 21 in a work zone (issue 520).
+        self.keeper_follow = self.keeper_follow.next(follow);
         if let Some(context) = context.as_ref() {
-            let scale = self.trip.effective_time_scale();
-            let ease_mi = self.keeper_ease_mi(context.lead.speed_mph, scale);
-            if context.gap_seconds() <= KEEPER_GAP_SECONDS
-                || (context.lead.speed_mph < target_mph
-                    // Once there is a reason to shed for it, on the keeper's own
-                    // ease law. Matching a slower vehicle the moment it is visible
-                    // meant matching one two and a half miles off (the traffic
-                    // bubble's whole reach), so a car doing 35 in a 45 work zone
-                    // put the truck at 35 from the far end of the zone with
-                    // nothing said. The stopped-queue case still lands here: a
-                    // standstill lead prices out at zero, and the gap to it is
-                    // inside anybody's window.
-                    && context.gap_mi <= ease_mi)
-            {
+            if self.keeper_follow.following() || context.gap_seconds() <= KEEPER_GAP_SECONDS {
                 // Creep along with the queue, all the way down to a stop, and roll
                 // again when it moves -- gates and work zones are queue country.
                 target_mph = target_mph.min(context.lead.speed_mph);
