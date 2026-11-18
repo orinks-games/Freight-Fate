@@ -197,6 +197,19 @@ public class FreightFateActivity extends SDLActivity {
         vibrator.vibrate(VibrationEffect.createPredefined(effect));
     }
 
+    private PadRumble padRumble;
+
+    /**
+     * Rumble a controller SDL cannot rumble itself: both motors, 0 to 255,
+     * for durationMs; 0 and 0 stops them. See {@link PadRumble}.
+     */
+    public synchronized void padRumble(int low, int high, int durationMs) {
+        if (padRumble == null) {
+            padRumble = new PadRumble(this);
+        }
+        padRumble.rumble(low, high, durationMs);
+    }
+
     /** This install's build stamp and the time the APK was installed. */
     private byte[] installStamp(AssetManager assets)
             throws IOException, PackageManager.NameNotFoundException {

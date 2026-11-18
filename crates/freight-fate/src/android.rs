@@ -169,6 +169,37 @@ pub fn haptic(kind: i32) {
     }
 }
 
+/// Rumble a controller through Android, for one SDL cannot rumble (a
+/// controller on Bluetooth): both motors 0 to 65535 for `duration_ms`, as
+/// SDL takes them; 0 and 0 stops them. The activity plays it on its own
+/// thread, so this returns at once.
+pub fn pad_rumble(low: u16, high: u16, duration_ms: u32) {
+    let (Some(vm), Some(activity)) = (VM.get(), ACTIVITY.get()) else {
+        return;
+    };
+    let level = |motor: u16| i32::from(motor >> 8);
+    let result = vm.attach_current_thread(|env| -> jni::errors::Result<()> {
+        env.call_method(
+            activity.as_obj(),
+            jni_str!("padRumble"),
+            jni_sig!((low: jint, high: jint, duration_ms: jint) -> void),
+            &[
+                jni::JValue::Int(level(low)),
+                jni::JValue::Int(level(high)),
+                jni::JValue::Int(i32::try_from(duration_ms).unwrap_or(i32::MAX)),
+            ],
+        )?;
+        Ok(())
+    });
+    // Sent every frame while a rumble plays: one line says it is failing.
+    static LOGGED: std::sync::atomic::AtomicBool = std::sync::atomic::AtomicBool::new(false);
+    if let Err(err) = result {
+        if !LOGGED.swap(true, std::sync::atomic::Ordering::Relaxed) {
+            log::warn!("Controller rumble failed: {err}");
+        }
+    }
+}
+
 /// Call a `boolean name()` method on the activity; `false` when the activity
 /// cannot be reached.
 fn call_bool(name: &'static jni::strings::JNIStr) -> bool {

@@ -59,6 +59,15 @@ Any controller Android supports is read through SDL2's GameController
 backend, with the same bindings, rumble and controller settings as the
 desktop.
 
+- On a USB cable, SDL rumbles a PlayStation, Xbox or Switch controller
+  itself. Android also takes a DualSense on a cable for a headset and plays
+  the phone's sound through it, which the controller's motors give back as
+  a buzz under every spoken line. Bluetooth avoids that.
+- Over Bluetooth, SDL 2.26 cannot rumble a controller, so the game asks
+  Android to. Android gives no way to tell which of its controllers is the
+  one SDL opened, so the rumble plays on every connected controller that has
+  motors.
+
 ## Building
 
 The APK is built on Windows, macOS or Linux without Gradle. You need:
