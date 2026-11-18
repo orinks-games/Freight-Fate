@@ -172,3 +172,24 @@ fn a_voice_that_comes_or_goes_from_outside_changes_the_rows_in_place() {
     assert!(landed <= pitch);
     assert_eq!(app.main_lines(), [spoken_row(&app)]);
 }
+
+#[test]
+fn moving_on_before_the_switch_settles_speaks_only_the_new_row() {
+    let mut app = lagged_speech_menu();
+    move_to::<Cat>(&mut app, "Main voice");
+    app.speech_mut().stage_profile(with_onecore());
+    app.clear_speech();
+    key(&mut app, Key::Left);
+    // Down inside the wait: that row is spoken, the Main voice row is not.
+    key(&mut app, Key::Down);
+    app.tick(FRAME);
+    app.speech_mut().step_worker();
+    app.tick(FRAME);
+    app.tick(0.5);
+    let heard = app.main_lines();
+    assert_eq!(heard.len(), 1, "{heard:?}");
+    assert!(heard[0].starts_with("Driving event voice"), "{heard:?}");
+    assert!(current_label::<Cat>(&app).starts_with("Driving event voice"));
+    // The rows are the new voice's.
+    assert_eq!(control_rows(&app), [true; 4]);
+}

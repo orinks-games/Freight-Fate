@@ -114,27 +114,42 @@ pub(super) enum RowsEvent {
     VoiceChanged { settled: bool },
     /// A frame passed.
     Frame { dt: f64, settled: bool },
+    /// Any other key, button or gesture: the player has moved on, so the
+    /// changed row is no longer theirs to hear.
+    OtherInput,
+}
+
+/// What a [`RowsWait`] transition asks of the menu.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub(super) enum RowsAction {
+    Nothing,
+    /// Rebuild the rows and speak the changed row.
+    Speak,
+    /// Rebuild the rows silently.
+    Rebuild,
 }
 
 impl RowsWait {
-    /// The next state, and whether to rebuild the rows and speak the
-    /// changed row now.
-    pub(super) fn next(self, event: RowsEvent) -> (Self, bool) {
+    /// The next state, and what the menu does now.
+    pub(super) fn next(self, event: RowsEvent) -> (Self, RowsAction) {
         match (self, event) {
-            (_, RowsEvent::VoiceChanged { settled: true }) => (Self::Idle, true),
+            (_, RowsEvent::VoiceChanged { settled: true }) => (Self::Idle, RowsAction::Speak),
             (_, RowsEvent::VoiceChanged { settled: false }) => (
                 Self::Waiting {
                     left_s: ROWS_WAIT_S,
                 },
-                false,
+                RowsAction::Nothing,
             ),
-            (Self::Idle, RowsEvent::Frame { .. }) => (Self::Idle, false),
+            (Self::Idle, RowsEvent::Frame { .. } | RowsEvent::OtherInput) => {
+                (Self::Idle, RowsAction::Nothing)
+            }
+            (Self::Waiting { .. }, RowsEvent::OtherInput) => (Self::Idle, RowsAction::Rebuild),
             (Self::Waiting { left_s }, RowsEvent::Frame { dt, settled }) => {
                 let left_s = left_s - dt;
                 if settled || left_s <= 0.0 {
-                    (Self::Idle, true)
+                    (Self::Idle, RowsAction::Speak)
                 } else {
-                    (Self::Waiting { left_s }, false)
+                    (Self::Waiting { left_s }, RowsAction::Nothing)
                 }
             }
         }
@@ -272,38 +287,32 @@ mod tests {
 
     #[test]
     fn rows_wait_transitions() {
-        use RowsEvent::{Frame, VoiceChanged};
+        use RowsAction::{Nothing, Rebuild, Speak};
+        use RowsEvent::{Frame, OtherInput, VoiceChanged};
+        let idle = RowsWait::Idle;
         let waiting = |left_s: f64| RowsWait::Waiting { left_s };
         for (state, event, next) in [
             // A sink that is caught up at once: speak now.
+            (idle, VoiceChanged { settled: true }, (idle, Speak)),
             (
-                RowsWait::Idle,
-                VoiceChanged { settled: true },
-                (RowsWait::Idle, true),
-            ),
-            (
-                RowsWait::Idle,
+                idle,
                 VoiceChanged { settled: false },
-                (waiting(0.3), false),
+                (waiting(0.3), Nothing),
             ),
             // Another press while waiting starts the wait over.
             (
                 waiting(0.1),
                 VoiceChanged { settled: false },
-                (waiting(0.3), false),
+                (waiting(0.3), Nothing),
             ),
-            (
-                waiting(0.1),
-                VoiceChanged { settled: true },
-                (RowsWait::Idle, true),
-            ),
+            (waiting(0.1), VoiceChanged { settled: true }, (idle, Speak)),
             (
                 waiting(0.3),
                 Frame {
                     dt: 0.1,
                     settled: false,
                 },
-                (waiting(0.2), false),
+                (waiting(0.2), Nothing),
             ),
             (
                 waiting(0.3),
@@ -311,7 +320,7 @@ mod tests {
                     dt: 0.1,
                     settled: true,
                 },
-                (RowsWait::Idle, true),
+                (idle, Speak),
             ),
             // The deadline passes with the sink still behind: speak anyway.
             (
@@ -320,31 +329,34 @@ mod tests {
                     dt: 0.1,
                     settled: false,
                 },
-                (RowsWait::Idle, true),
+                (idle, Speak),
             ),
+            // The player moved on: rebuild, and leave the speaking to them.
+            (waiting(0.2), OtherInput, (idle, Rebuild)),
+            (idle, OtherInput, (idle, Nothing)),
             (
-                RowsWait::Idle,
+                idle,
                 Frame {
                     dt: 0.1,
                     settled: false,
                 },
-                (RowsWait::Idle, false),
+                (idle, Nothing),
             ),
             (
-                RowsWait::Idle,
+                idle,
                 Frame {
                     dt: 0.1,
                     settled: true,
                 },
-                (RowsWait::Idle, false),
+                (idle, Nothing),
             ),
         ] {
-            let (got, speak) = state.next(event);
+            let (got, action) = state.next(event);
             let got = match got {
                 RowsWait::Waiting { left_s } => waiting((left_s * 1000.0).round() / 1000.0),
                 idle => idle,
             };
-            assert_eq!((got, speak), next, "{state:?} {event:?}");
+            assert_eq!((got, action), next, "{state:?} {event:?}");
         }
     }
 

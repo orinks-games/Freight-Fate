@@ -4,7 +4,10 @@
 //! are built in `settings_items`; the toggles they drive are in
 //! `settings_actions`.
 
-use crate::states::base::{default_announce_entry, default_handle_event};
+use crate::states::base::{
+    default_announce_entry, default_handle_controller, default_handle_event, default_handle_gesture,
+};
+use crate::touch::Gesture;
 use std::rc::Rc;
 
 use ff_core::settings::{lane_keeping_to_legacy, Settings};
@@ -14,7 +17,7 @@ use crate::impl_state_for_menu;
 use crate::states::base::{InputEvent, Key, Menu, MenuCore, MenuItem};
 use crate::states::online_hub::OnlineHubState;
 
-use super::speech_voices::{rows_signature, RowsEvent, RowsSignature, RowsWait};
+use super::speech_voices::{rows_signature, RowsAction, RowsEvent, RowsSignature, RowsWait};
 
 /// Top-level settings: a category picker that opens per-category submenus.
 ///
@@ -394,11 +397,15 @@ impl SettingsCategoryState {
 
     /// The one place [`RowsWait`] moves.
     fn step_rows_wait(&mut self, ctx: &mut GameContext, event: RowsEvent) {
-        let (next, speak) = self.rows_wait.next(event);
+        let (next, action) = self.rows_wait.next(event);
         self.rows_wait = next;
-        if speak {
-            self.refresh(ctx, true);
-            self.speak_current(ctx);
+        match action {
+            RowsAction::Nothing => {}
+            RowsAction::Speak => {
+                self.refresh(ctx, true);
+                self.speak_current(ctx);
+            }
+            RowsAction::Rebuild => self.refresh(ctx, true),
         }
     }
 
@@ -516,11 +523,26 @@ impl Menu for SettingsCategoryState {
     }
 
     fn handle_event(&mut self, ctx: &mut GameContext, event: &InputEvent) {
+        if event.key_down().is_some() {
+            self.step_rows_wait(ctx, RowsEvent::OtherInput);
+        }
         match event.key_down() {
             Some((Key::Right, _, _)) => self.adjust_by(ctx, 1),
             Some((Key::Left, _, _)) => self.adjust_by(ctx, -1),
             _ => default_handle_event(self, ctx, event),
         }
+    }
+
+    fn handle_controller(&mut self, ctx: &mut GameContext, event: &InputEvent) {
+        if matches!(event, InputEvent::ControllerButtonDown { .. }) {
+            self.step_rows_wait(ctx, RowsEvent::OtherInput);
+        }
+        default_handle_controller(self, ctx, event);
+    }
+
+    fn handle_gesture(&mut self, ctx: &mut GameContext, gesture: Gesture) -> bool {
+        self.step_rows_wait(ctx, RowsEvent::OtherInput);
+        default_handle_gesture(self, ctx, gesture)
     }
 
     /// D-pad left/right on a controller maps to the same per-item adjust.
