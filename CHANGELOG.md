@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### Compatibility
+
+- **Careers from newer Freight Fate versions stay untouched.** Local saves and cloud backups explain which version can continue them.
+
 ### Added
 
 - **Job details and the departure line say how much night driving a run has,** as in "About 4 hours of night driving."
@@ -24,13 +28,13 @@
 
 ### Fixed
 
-- **Menu and prompt headings stay below the iPhone status bar.**
-
+- **Touch driving help now uses available translations for full blocks of instructions.**
 - **The Speech settings rows now update as soon as you change a voice.** Before, they changed only after leaving the menu.
 - **Cruise no longer pumps the brakes behind a slower car on streets and approaches.** It slows once and follows, so low air no longer sets the spring brakes.
 - **Enter accepts a facility arrival from a full stop with Facility stopping assistance off.** A stopped truck is told to set the parking brake.
 - **Game sound comes back when a Bluetooth headset drops out or the sound device stops responding.** It returns within a few seconds, without a restart.
 - **The built-in voice keeps speaking after a Bluetooth headset connects or disconnects.** In 1.9.6 it could go silent until a restart.
+- **Menu and prompt headings stay below the iPhone status bar.**
 - **Cruise at 85 no longer damages the truck on a downgrade.** Runaway damage now starts above 90 miles per hour ([issue 533](https://github.com/orinks-games/Freight-Fate/issues/533)).
 - **A runaway is now spoken.** You hear "Runaway!" when damage starts, and the truck's damage once it is back under control ([issue 533](https://github.com/orinks-games/Freight-Fate/issues/533)).
 - **Leaving the pavement always plays the rumble strip and says the truck's damage, even with Lane-departure warning off.** Coming back on says any damage added while you were off ([issue 533](https://github.com/orinks-games/Freight-Fate/issues/533)).
