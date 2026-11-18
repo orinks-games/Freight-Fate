@@ -82,6 +82,7 @@
 
 ### Fixed
 
+- **Cloud resume leaves other accounts' careers alone.** Older backups without an account match need a manual restore first.
 - **Moving up from the training fleet now only offers carriers that hire where you live.** Your truck waits at the new carrier's terminal.
 - **A translated game no longer leaves half a line in English** on the dispatch board or in any line naming a carrier's terminal.
 - **Dispatch calls now read cargo damage, hours and distance cleanly,** and no longer call a sound load damaged.

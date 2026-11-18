@@ -263,6 +263,15 @@ impl CloudSlotState {
                 }
                 Err(_) => outcome.post("restore_failed".to_string()),
                 Ok(path) => {
+                    if let Some(revision) = payload.get("revision").and_then(Value::as_i64) {
+                        let (_, hash) = cloud_saves::cloud_content(&payload["profile"]);
+                        service.sync_state().record_synced_for_driver(
+                            &save_name,
+                            revision,
+                            &hash,
+                            &identity.driver_id,
+                        );
+                    }
                     restored_slot.post(path);
                     outcome.post("restored".to_string());
                 }
