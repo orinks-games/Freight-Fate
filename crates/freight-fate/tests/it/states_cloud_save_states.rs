@@ -9,6 +9,7 @@
 use crate::states_online_support::*;
 use freight_fate::app::testing::TestApp;
 use freight_fate::app::{share, SharedState};
+use freight_fate::cloud_saves::cloud_slot_name;
 use freight_fate::net::testing::FakeTransport;
 use freight_fate::net::NetError;
 use freight_fate::states::base::{Key, State};
@@ -60,6 +61,68 @@ fn test_the_list_says_which_career_is_public() {
     assert!(!texts
         .iter()
         .any(|t| t.contains("Road Star") && t.contains("your public career")));
+}
+
+#[test]
+fn test_same_name_release_backups_have_distinct_labels_and_remote_keys() {
+    let mut app = TestApp::new();
+    let _guard = install_identity(&app, Some(&identity()));
+    let current = cloud_slot_name("Road Star");
+    let transport = FakeTransport::replying(json!({"saves": [
+        {"saveName": "Road Star", "revision": 73},
+        {"saveName": current, "revision": 2}
+    ]}));
+    install_cloud(&mut app, transport, true);
+    let mut state = CloudBackupState::new(&mut app.ctx);
+    state.threaded = false;
+    let state = push(&mut app, state);
+    with_state::<CloudBackupState, _>(&state, |s| s.update(&mut app.ctx, 0.0));
+    let texts = labels::<CloudBackupState>(&state, &app.ctx);
+    let careers: Vec<_> = texts
+        .iter()
+        .filter(|t| t.starts_with("Road Star"))
+        .collect();
+    assert_eq!(careers.len(), 2, "{texts:?}");
+    let old_label = careers.iter().find(|t| t.contains("1.9 backup")).unwrap();
+    let new_label = careers.iter().find(|t| !t.contains("1.9 backup")).unwrap();
+    assert!(!new_label.contains("Career 2"), "{new_label}");
+    move_to::<CloudBackupState>(&mut app, &state, old_label);
+    press(&mut app, Key::Return);
+    let slot = app.state().unwrap();
+    assert_eq!(
+        with_state::<CloudSlotState, _>(&slot, |s| s.save_name.clone()),
+        "Road Star"
+    );
+    press(&mut app, Key::Escape);
+    move_to::<CloudBackupState>(&mut app, &state, new_label);
+    press(&mut app, Key::Return);
+    let slot = app.state().unwrap();
+    assert_eq!(
+        with_state::<CloudSlotState, _>(&slot, |s| s.save_name.clone()),
+        current
+    );
+}
+
+#[test]
+fn test_suffixed_slot_finds_and_uploads_the_plain_local_career() {
+    let mut app = TestApp::new();
+    let _guard = install_identity(&app, Some(&identity()));
+    let transport = FakeTransport::revisions();
+    install_cloud(&mut app, transport.clone(), true);
+    ff_core::models::profile::Profile::named("Road Star")
+        .save()
+        .unwrap();
+    let key = cloud_slot_name("Road Star");
+    let state = CloudSlotState::new(&mut app.ctx, &key, vec![a_revision()], None, None);
+    let slot = push(&mut app, state);
+
+    move_to::<CloudSlotState>(&mut app, &slot, "Back up this career now");
+    press(&mut app, Key::Return);
+    settle(&mut app, &slot);
+
+    assert_eq!(transport.posts().len(), 1);
+    assert_eq!(transport.posts()[0]["saveName"], key);
+    assert!(said(&app).contains("Backed up. The cloud copy now matches this computer's save."));
 }
 
 #[test]

@@ -50,7 +50,7 @@ use crate::net::{wait_seconds, Event, SharedTransport};
 use crate::online_presence::{
     default_transport, join_with_timeout, py_str, truthy, OnlineIdentity,
 };
-use ff_core::models::profile::{Profile, LEGACY_SAVE_SUFFIX, SAVE_SUFFIX};
+use ff_core::models::profile::{Profile, CREATED_LINE, LEGACY_SAVE_SUFFIX, SAVE_SUFFIX};
 use ff_core::sim::real_traffic::{wall_clock, Clock};
 
 // A save burst (delivery, achievement, rest) writes the file several times in
@@ -74,8 +74,7 @@ pub use ff_core::models::profile::origin::{cloud_content, SIGNATURE_FIELDS};
 /// calls below means the shipped table.
 pub type PublicKeys = BTreeMap<String, Vec<u8>>;
 
-/// The cloud slot for a profile: the same sanitized stem as its file name
-/// (Profile.path), so slot and local file always pair up.
+/// The sanitized local file stem for a profile.
 pub fn save_slot_name(profile_name: &str) -> String {
     let safe: String = profile_name
         .chars()
@@ -92,6 +91,29 @@ pub fn save_slot_name(profile_name: &str) -> String {
         "Driver".to_string()
     } else {
         safe.to_string()
+    }
+}
+
+fn cloud_slot_suffix(line: &str) -> Option<String> {
+    let (major, minor) = line.split_once('.')?;
+    let release = (major.parse::<u64>().ok()?, minor.parse::<u64>().ok()?);
+    (release > (1, 9)).then(|| format!(" - Career {}", release.0))
+}
+
+/// The remote backup key, isolated from careers on earlier release lines.
+pub fn cloud_slot_name(profile_name: &str) -> String {
+    let name = save_slot_name(profile_name);
+    match cloud_slot_suffix(CREATED_LINE) {
+        Some(suffix) => format!("{name}{suffix}"),
+        None => name,
+    }
+}
+
+/// The local career stem represented by this line's remote key or a 1.9 key.
+pub fn local_name_for_slot(slot: &str) -> &str {
+    match cloud_slot_suffix(CREATED_LINE) {
+        Some(suffix) => slot.strip_suffix(&suffix).unwrap_or(slot),
+        None => slot,
     }
 }
 
@@ -348,7 +370,7 @@ impl CloudSaves {
     pub fn mark_meaningful_play(&self, profile_name: &str, reason: MeaningfulPlayReason) {
         self.inner
             .meaningful_play
-            .mark(&save_slot_name(profile_name), reason);
+            .mark(&cloud_slot_name(profile_name), reason);
     }
 
     /// The transport this service uploads through (the menus' worker threads
@@ -415,7 +437,7 @@ impl CloudSaves {
         if !self.enabled() {
             return;
         }
-        let name = save_slot_name(profile_name);
+        let name = cloud_slot_name(profile_name);
         let meaningful_play = self.inner.meaningful_play.for_upload(&name);
         {
             let mut st = self.inner.state.lock().unwrap();
@@ -454,7 +476,7 @@ impl CloudSaves {
         if !self.enabled() {
             return None;
         }
-        let name = save_slot_name(profile_name);
+        let name = cloud_slot_name(profile_name);
         let meaningful_play = self.inner.meaningful_play.for_upload(&name);
         let token = {
             let mut st = self.inner.state.lock().unwrap();
@@ -684,7 +706,7 @@ impl Inner {
             })
             .collect();
         for (name, entry) in self.sync_state.slots() {
-            if slot_conflict(&entry).is_none() || on_disk.contains(&name) {
+            if slot_conflict(&entry).is_none() || on_disk.contains(local_name_for_slot(&name)) {
                 continue;
             }
             log::info!(
@@ -1080,6 +1102,28 @@ has; restarting the slot fresh"
                 .saves
                 .iter()
                 .any(|entry| entry.get("saveName").and_then(Value::as_str) == Some(name)),
+        }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::cloud_slot_suffix;
+
+    #[test]
+    fn cloud_suffix_follows_the_numeric_release_line() {
+        for (line, expected) in [
+            ("1.8", None),
+            ("1.9", None),
+            ("1.10", Some(" - Career 1")),
+            ("2.0", Some(" - Career 2")),
+            ("20.0", Some(" - Career 20")),
+            ("", None),
+            ("future", None),
+            ("2.x", None),
+            ("2.0.1", None),
+        ] {
+            assert_eq!(cloud_slot_suffix(line).as_deref(), expected, "{line}");
         }
     }
 }

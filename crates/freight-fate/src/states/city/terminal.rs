@@ -22,7 +22,7 @@ use ff_core::sim::timezones::{city_zone, to_local, TimeZone, EASTERN};
 
 use crate::app::{GameContext, Say};
 use crate::cloud_saves::{
-    conflict_status, eviction_status, rejection_status, save_slot_name, AUTH_PAUSED_STATUS,
+    cloud_slot_name, conflict_status, eviction_status, rejection_status, AUTH_PAUSED_STATUS,
 };
 use crate::discord_presence::PresenceState;
 use crate::impl_state_for_menu;
@@ -622,7 +622,7 @@ impl CityMenuState {
             let p = profile(ctx);
             let token = cloud.backup_now(&p.name, serde_json::Value::Object(p.to_dict()));
             if let Some(token) = token {
-                self.backup_watch = Some((save_slot_name(&p.name), token, BACKUP_RESULT_WAIT_S));
+                self.backup_watch = Some((cloud_slot_name(&p.name), token, BACKUP_RESULT_WAIT_S));
                 ctx.say("Game saved. Backing up.");
                 return;
             }

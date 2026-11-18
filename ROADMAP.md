@@ -5180,9 +5180,9 @@ one-channel rule is in [October 26](#october-26-the-road-to-the-20-nightlies-fou
       The 1.9.7 local and cloud newer-career refusal is done (new fields:
       parked facility, home terminal, home city, turnpike notice; 20
       carrier labels). Testers move from 1.9.6 to 2.0 on the channel.
-- [ ] (Found along the way) Cloud slots are named by career, not release
-      line. A same-name 1.9 and 2.0 career shares a remote slot; the local
-      ledgers are separate, but alternating uploads can replace its backup.
+- [x] (Found along the way) 2.0 cloud slots use a release-specific career
+      suffix. Same-name 1.9 backups keep their own revisions and conflicts;
+      both slots remain available for explicit restore into the local career.
 - [ ] The orinks.net profile export accepts the new fields and labels, on
       the dev preview with the agent staging driver first.
 - [ ] Curate the branch's ~110 unreleased changelog lines; the manual's

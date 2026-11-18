@@ -18,7 +18,10 @@ use ff_core::pyfmt::round_py_int;
 use serde_json::Value;
 
 use crate::app::GameContext;
-use crate::cloud_saves::{self, backup_summary, save_slot_name, SavesList, AUTH_HELP};
+use crate::cloud_saves::{
+    self, backup_summary, cloud_slot_name, local_name_for_slot, save_slot_name, SavesList,
+    AUTH_HELP,
+};
 use crate::impl_state_for_menu;
 use crate::states::base::{Menu, MenuCore, MenuItem};
 use crate::states::online_states::{load_identity, run_worker, wall_time, Mailbox};
@@ -69,7 +72,7 @@ backups of each career are kept.";
 /// save that will not load costs a sentence, never the screen that resolves
 /// the conflict.
 pub fn local_summary_for(save_name: &str) -> String {
-    let Some(path) = find_save_path(save_name) else {
+    let Some(path) = find_save_path(local_name_for_slot(save_name)) else {
         return String::new();
     };
     match Profile::load(&path) {
@@ -123,7 +126,7 @@ pub fn backed_up_text(created_at_ms: Option<f64>) -> String {
 /// it as `.ffsave.bak` and putting it back if installation fails. A
 /// leftover plain-JSON save for the career is moved aside so only one live
 /// copy remains.
-// It stays in the game crate because the slot name is
+// It stays in the game crate because the local file stem is
 // `cloud_saves::save_slot_name`.
 pub fn install_restored_profile(profile: &Value) -> Result<PathBuf, String> {
     let Value::Object(map) = profile else {
@@ -390,17 +393,25 @@ impl Menu for CloudBackupState {
             );
         } else {
             let conflicts = service.conflicts();
-            for entry in slots {
-                let name = save_name_of(&entry).to_string();
-                let mut bits = vec![name.clone()];
+            for entry in &slots {
+                let name = save_name_of(entry).to_string();
+                let mut bits = vec![local_name_for_slot(&name).to_string()];
+                if local_name_for_slot(&name) == name
+                    && cloud_slot_name(&name) != name
+                    && slots
+                        .iter()
+                        .any(|e| save_name_of(e) == cloud_slot_name(&name))
+                {
+                    bits.push("1.9 backup".to_string());
+                }
                 if self.public_save.as_deref() == Some(name.as_str()) {
                     bits.push("your public career".to_string());
                 }
-                if let Some(summary) = summary_of(&entry) {
+                if let Some(summary) = summary_of(entry) {
                     bits.push(summary.to_string());
                 }
-                bits.push(backed_up_text(created_at_ms(&entry)));
-                if is_legacy_snapshot(&entry) {
+                bits.push(backed_up_text(created_at_ms(entry)));
+                if is_legacy_snapshot(entry) {
                     bits.push("from an earlier version of Freight Fate".to_string());
                 }
                 if conflicts.contains_key(&name) {
@@ -417,6 +428,7 @@ impl Menu for CloudBackupState {
                     }
                     bits.push("Open this career to choose which copy to keep".to_string());
                 }
+                let entry = entry.clone();
                 items.push(
                     MenuItem::new(bits.join(". "), move |s: &mut Self, ctx| {
                         s.open_slot(ctx, &entry)

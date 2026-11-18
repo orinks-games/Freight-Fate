@@ -20583,6 +20583,11 @@ msgstr ""
 msgid "{touch_noun} and {touch_noun2}"
 msgstr ""
 
+#. placeholders: {release}
+#: crates/freight-fate/src/cloud_saves.rs
+msgid " - Career {release}"
+msgstr ""
+
 #. placeholders: {e}
 #: crates/freight-fate/src/cloud_saves.rs
 msgid "cloud save content is not a gzipped profile: {e}"
@@ -26119,6 +26124,10 @@ msgstr ""
 #: crates/freight-fate/src/states/cloud_save_states.rs
 msgid ""
 "Backups appear here after the game saves with cloud backup turned on."
+msgstr ""
+
+#: crates/freight-fate/src/states/cloud_save_states.rs
+msgid "1.9 backup"
 msgstr ""
 
 #: crates/freight-fate/src/states/cloud_save_states.rs

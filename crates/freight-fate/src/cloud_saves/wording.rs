@@ -131,6 +131,7 @@ pub const SERVER_FAULT_REJECTION_REASONS: &[&str] = &["signing_unavailable"];
 /// (`CloudSaves::resolve_keep_mine`, via `cloud_save_states`) so both speak
 /// the same story for the same reason code.
 pub fn rejection_status(name: &str, reason: Option<&str>) -> String {
+    let name = super::local_name_for_slot(name);
     let reason = reason.unwrap_or("");
     if reason == "review_declined" {
         return format!(
@@ -194,6 +195,7 @@ computer's sign-in. Reconnect from the Online menu.";
 /// result (states/city.py) and the background queue's spoken announcement
 /// so a conflict is always told the same way.
 pub fn conflict_status(name: &str) -> String {
+    let name = super::local_name_for_slot(name);
     format!(
         "{name} needs attention: the cloud copy changed on another \
 computer. Open Restore a cloud backup on the Online menu \
@@ -210,6 +212,7 @@ to choose which copy to keep."
 /// the Save game line, the recovery line, the Cloud backup menu -- so this
 /// adds a moment to say it, not a new noun to learn.
 pub fn backup_status(name: &str) -> String {
+    let name = super::local_name_for_slot(name);
     format!("{name} is backed up.")
 }
 
@@ -219,6 +222,7 @@ pub fn backup_status(name: &str) -> String {
 /// the refusal the driver already heard; an ordinary success uses
 /// [`backup_status`].
 pub fn recovery_status(name: &str) -> String {
+    let name = super::local_name_for_slot(name);
     format!("{name} is backed up again.")
 }
 
@@ -229,8 +233,9 @@ pub(crate) fn accepted_outcome(result: &serde_json::Map<String, serde_json::Valu
     else {
         return "accepted".to_string();
     };
+    let local_name = super::local_name_for_slot(raw_name);
     let safe_name = super::save_slot_name(raw_name);
-    if raw_name != safe_name || safe_name.chars().count() > 64 {
+    if raw_name != safe_name || local_name.chars().count() > 64 {
         log::warn!("Ignored malformed cloud eviction save name");
         return "accepted".to_string();
     }
@@ -239,6 +244,7 @@ pub(crate) fn accepted_outcome(result: &serde_json::Map<String, serde_json::Valu
 
 /// The exact line used after the server removes an old cloud career.
 pub fn eviction_status(name: &str) -> String {
+    let name = super::local_name_for_slot(name);
     format!(
         "Cloud backup removed {name}, the least recently played cloud career. Your local career was not deleted."
     )

@@ -11,8 +11,8 @@ use ff_core::models::profile::origin::{forget_origin, origin_for, record_origin}
 use ff_core::models::profile::Profile;
 use freight_fate::app::testing::TestApp;
 use freight_fate::cloud_saves::{
-    classify_upload_failure, rejection_status, save_slot_name, upload_save, CloudSaves,
-    CloudSavesOptions, DEBOUNCE_S, RETRY_INTERVAL_S,
+    classify_upload_failure, rejection_status, upload_save, CloudSaves, CloudSavesOptions,
+    DEBOUNCE_S, RETRY_INTERVAL_S,
 };
 use freight_fate::net::testing::{FakeTransport, ManualClock};
 use freight_fate::net::NetError;
@@ -130,8 +130,7 @@ fn an_accepted_review_clears_the_loaded_careers_mark_silently() {
     let clock = ManualClock::new();
     let (service, _dir) = service(&transport, &clock);
     app.ctx.services.cloud = service.clone();
-    let slot = save_slot_name("Road Star");
-    service.queue_backup(&slot, profile("Road Star", 5000.0));
+    service.queue_backup("Road Star", profile("Road Star", 5000.0));
     service.queue_backup("Someone Else", profile("Someone Else", 1.0));
     drain(&service, &clock);
     service.take_announcements(); // the ordinary all-clears

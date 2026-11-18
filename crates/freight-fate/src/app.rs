@@ -1297,7 +1297,7 @@ impl App {
                 .ctx
                 .profile
                 .as_mut()
-                .filter(|p| crate::cloud_saves::save_slot_name(&p.name) == name)
+                .filter(|p| crate::cloud_saves::cloud_slot_name(&p.name) == name)
             {
                 profile.absolve();
                 self.ctx.save_profile();

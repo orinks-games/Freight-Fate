@@ -4,6 +4,7 @@
 
 ### Compatibility
 
+- **2.0 careers have their own cloud backups.** A 1.9 career with the same name keeps its own backup.
 - **Recoverable set-aside 1.9 careers now carry over to 2.0.** Their original files stay untouched.
 - **Imported careers keep their last-played order.** Continue selects the most recently played 1.9 career after copying it into 2.0.
 - **1.9 cloud backups restored in 2.0 now become 2.0 careers.** Later backups identify the version needed to continue them.
