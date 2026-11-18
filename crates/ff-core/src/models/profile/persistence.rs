@@ -35,13 +35,23 @@ impl Profile {
     /// `Profile.load(path)` with `is_frozen()` pinned (the skip-signing flag
     /// is honored only from source).
     pub fn load_with(path: &Path, frozen: bool) -> Result<Profile, LoadError> {
+        Self::load_with_persistence(path, frozen, true)
+    }
+
+    pub(super) fn load_with_persistence(
+        path: &Path,
+        frozen: bool,
+        persist: bool,
+    ) -> Result<Profile, LoadError> {
         let (raw, needs_sealing) = sealed::read(path)?;
         let (data, packed) = match decode_save_bytes(&raw) {
             Ok(decoded) => decoded,
             Err(err) => {
                 // Unreadable beyond repair: move it aside so the picker's spoken
                 // warning stays truthful and the file is not re-tried every visit.
-                let _ = signing::quarantine(path);
+                if persist {
+                    let _ = signing::quarantine(path);
+                }
                 return Err(err.into());
             }
         };
@@ -114,7 +124,13 @@ impl Profile {
             );
             tampered = true;
         }
-        if tampered || resign {
+        if !persist && (tampered || resign || !signed) {
+            return Err(ProfileIntegrityError(
+                "The source career's integrity could not be verified.".into(),
+            )
+            .into());
+        }
+        if persist && (tampered || resign) {
             // Only a copy from another computer (a good file whose signature
             // this data directory cannot check) records where it came from:
             // the raw dict, before migration or marking, is what the other
@@ -134,12 +150,13 @@ impl Profile {
             profile.integrity_modified = true;
             profile.integrity_notice_pending = true;
         }
-        if profile.needs_migration_resave
-            || resign
-            || !signed
-            || tampered
-            || !packed
-            || needs_sealing
+        if persist
+            && (profile.needs_migration_resave
+                || resign
+                || !signed
+                || tampered
+                || !packed
+                || needs_sealing)
         {
             profile.save()?;
         }

@@ -31,6 +31,37 @@ use freight_fate::updater;
 // -- tests/test_main_menu_save_scan.py ------------------------------------------
 
 #[test]
+fn test_startup_copies_1_9_careers_before_the_menu_and_isolates_cloud_bookkeeping() {
+    use ff_core::models::profile::{data_dir, encode_save_bytes, find_save_path};
+    use freight_fate::app::testing::{DataDirGuard, TempDir};
+    use freight_fate::app::App;
+    use freight_fate::speech::CaptureSpeech;
+
+    set_headless_env();
+    let dir = TempDir::new("ff-copy-startup");
+    let _guard = DataDirGuard::pin(dir.path().join("data"));
+    let mut original = Profile::named("Carry On");
+    original.created_line = "1.9".into();
+    let source = data_dir().join("profiles");
+    std::fs::create_dir_all(&source).unwrap();
+    let path = source.join("Carry On.ffsave");
+    let before = encode_save_bytes(&original.to_dict());
+    std::fs::write(&path, &before).unwrap();
+    std::fs::write(data_dir().join("cloud_saves.json"), b"1.9 ledger").unwrap();
+    let mut app = App::new_headless(Box::new(CaptureSpeech::new()));
+    app.push_state(MainMenuState::new());
+    let copied = find_save_path("Carry On").unwrap();
+    assert!(copied.starts_with(data_dir().join("2.0/profiles")));
+    assert_eq!(main_menu::loadable_saves().len(), 1);
+    assert_eq!(Profile::load(&copied).unwrap().created_line, "2.0");
+    assert_eq!(std::fs::read(path).unwrap(), before);
+    assert_eq!(
+        std::fs::read(data_dir().join("cloud_saves.json")).unwrap(),
+        b"1.9 ledger"
+    );
+}
+
+#[test]
 fn test_main_menu_enter_scans_saves_once() {
     let mut app = TestApp::new();
     Profile::named_in("Road Star", "Denver").save().unwrap();
@@ -195,7 +226,7 @@ fn test_a_second_close_request_is_obeyed_without_argument() {
 fn write_newer_save(name: &str) -> std::path::PathBuf {
     let path = Profile::named(name).save().unwrap();
     let mut data = read_save(&path);
-    data.insert("created_line".into(), serde_json::json!("2.0"));
+    data.insert("created_line".into(), serde_json::json!("2.1"));
     write_packed(&path, &data);
     path
 }
@@ -217,13 +248,13 @@ fn test_newer_career_stays_listed_and_notice_leaves_it_untouched() {
     app.push_state(LoadDriverState::new());
     assert_eq!(
         labels::<LoadDriverState>(&app)[0],
-        "Future Driver: career from Freight Fate 2.0"
+        "Future Driver: career from Freight Fate 2.1"
     );
     app.clear_speech();
     key(&mut app, Key::Return);
     assert!(is::<NewerCareerNoticeState>(&app));
     assert!(app.main_lines().iter().any(|text| text.contains(
-        "Future Driver was made in Freight Fate 2.0. This version cannot continue it. Nothing was lost: the save is untouched and still works in Freight Fate 2.0."
+        "Future Driver was made in Freight Fate 2.1. This version cannot continue it. Nothing was lost: the save is untouched and still works in Freight Fate 2.1."
     )));
     assert_eq!(
         labels::<NewerCareerNoticeState>(&app),
@@ -239,7 +270,7 @@ fn test_newer_career_stays_listed_and_notice_leaves_it_untouched() {
     app.push_state(ManageCareersState::new());
     assert_eq!(
         labels::<ManageCareersState>(&app)[0],
-        "Future Driver: career from Freight Fate 2.0"
+        "Future Driver: career from Freight Fate 2.1"
     );
     key(&mut app, Key::Return);
     assert!(is::<NewerCareerNoticeState>(&app));
@@ -262,7 +293,7 @@ fn test_new_career_will_not_overwrite_a_same_named_newer_save() {
     assert!(app
         .main_lines()
         .iter()
-        .any(|text| text.contains("Freight Fate 2.0")));
+        .any(|text| text.contains("Freight Fate 2.1")));
     assert!(app.ctx.profile.is_none());
     assert!(is::<CareerStartState>(&app));
     assert_eq!(std::fs::read(&path).unwrap(), before);

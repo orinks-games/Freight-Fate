@@ -155,6 +155,24 @@ fn revision_of(service: &CloudSaves, name: &str) -> Option<i64> {
 // -- content form ---------------------------------------------------------------
 
 #[test]
+fn test_new_2_0_career_upload_carries_its_release_line() {
+    let _app = TestApp::new();
+    let transport = FakeTransport::revisions();
+    let clock = ManualClock::new();
+    let service = make_service(&transport, &clock);
+    let p = Profile::named("New Driver");
+    assert_eq!(p.created_line, "2.0");
+    service.queue_backup(&p.name, Value::Object(p.to_dict()));
+    drain(&service, &clock);
+    assert_eq!(transport.posts().len(), 1);
+    let bytes = base64::engine::general_purpose::STANDARD
+        .decode(transport.posts()[0]["content"].as_str().unwrap())
+        .unwrap();
+    let uploaded = profile_dict_from_content(&bytes).unwrap();
+    assert_eq!(uploaded["created_line"], "2.0");
+}
+
+#[test]
 fn test_cloud_content_is_portable_and_round_trips() {
     let d = profile("Road Star", 12_345.0);
     assert!(d.get("_signature").is_some());
@@ -1846,7 +1864,7 @@ fn test_newer_cloud_restore_refuses_without_touching_disk_or_sync_state() {
     let before = fs::read(&path).unwrap();
     let (dict, sig) = money77_profile();
     let mut payload = download(make_cloud_reply(&dict, sig, 3)).unwrap().unwrap();
-    payload["profile"]["created_line"] = json!("2.0");
+    payload["profile"]["created_line"] = json!("2.1");
     let cloud_before = payload.clone();
     let sync_state = SyncState::new(dir.path());
     sync_state.record_synced("Road Star", 2, "previous hash");
@@ -1857,7 +1875,7 @@ fn test_newer_cloud_restore_refuses_without_touching_disk_or_sync_state() {
         restore(&writer, &payload, Some(&sync_state)),
         Err(RestoreError::NewerCareer {
             name: "Road Star".to_string(),
-            line: "2.0".to_string(),
+            line: "2.1".to_string(),
         })
     );
     assert_eq!(payload, cloud_before);
@@ -1887,7 +1905,7 @@ fn test_newer_cloud_refusal_is_spoken_and_preserves_local_save() {
     let p = ff_core::models::profile::Profile::named("Future Driver");
     let path = p.save().unwrap();
     let mut dict = p.to_dict();
-    dict.insert("created_line".into(), json!("2.0"));
+    dict.insert("created_line".into(), json!("2.1"));
     fs::write(&path, ff_core::models::profile::encode_save_bytes(&dict)).unwrap();
     let before = fs::read(&path).unwrap();
     let mut slot = CloudSlotState::new(&mut app.ctx, "Future Driver", vec![], None, None);
@@ -1901,20 +1919,20 @@ fn test_newer_cloud_refusal_is_spoken_and_preserves_local_save() {
         assert!(app
             .main_lines()
             .iter()
-            .any(|line| line.contains("was made in Freight Fate 2.0")));
+            .any(|line| line.contains("was made in Freight Fate 2.1")));
         assert_eq!(fs::read(&path).unwrap(), before);
         assert!(!slot.busy);
     }
     assert!(transport.posts().is_empty());
     slot.busy = true;
-    slot.outcome.post("newer_refused:2.0".to_string());
+    slot.outcome.post("newer_refused:2.1".to_string());
     let slot = push(&mut app, slot);
     app.clear_speech();
     with_state::<CloudSlotState, _>(&slot, |s| State::update(s, &mut app.ctx, 0.0));
     assert!(app
         .main_lines()
         .iter()
-        .any(|line| line.contains("This career was made in Freight Fate 2.0")));
+        .any(|line| line.contains("This career was made in Freight Fate 2.1")));
     assert!(app
         .main_lines()
         .iter()

@@ -11,6 +11,7 @@
 
 use std::path::{Path, PathBuf};
 
+use ff_core::models::profile::CREATED_LINE;
 use serde_json::{json, Value};
 
 use freight_fate::app::testing::{env_lock, EnvGuard, TempDir};
@@ -61,7 +62,7 @@ fn sandbox_env() -> SandboxEnv {
 /// A stand-in for the owner's `saves/`: settings, careers, identity.
 fn fake_real_saves(root: &Path) -> PathBuf {
     let source = root.join("saves");
-    std::fs::create_dir_all(source.join("profiles")).unwrap();
+    std::fs::create_dir_all(source.join(CREATED_LINE).join("profiles")).unwrap();
     write(
         &source.join("settings.json"),
         &json!({"cloud_saves": true, "online_presence": true, "master_volume": 0.5}).to_string(),
@@ -76,9 +77,18 @@ fn fake_real_saves(root: &Path) -> PathBuf {
         &source.join("cloud_saves.json"),
         &json!({"slots": {}}).to_string(),
     );
-    write(&source.join("profiles").join("Playtest.ffsave"), "career");
     write(
-        &source.join("profiles").join("Old.json.bak"),
+        &source
+            .join(CREATED_LINE)
+            .join("profiles")
+            .join("Playtest.ffsave"),
+        "career",
+    );
+    write(
+        &source
+            .join(CREATED_LINE)
+            .join("profiles")
+            .join("Old.json.bak"),
         "not a career",
     );
     source
@@ -106,10 +116,18 @@ fn test_seeding_carries_careers_but_never_the_identity() {
 
     sandbox::prepare(&sandbox, false, true, &source).unwrap();
 
-    assert!(sandbox.join("profiles").join("Playtest.ffsave").is_file());
+    assert!(sandbox
+        .join(CREATED_LINE)
+        .join("profiles")
+        .join("Playtest.ffsave")
+        .is_file());
     // The stale `.json.bak` leftovers are not careers the game loads, so a
     // sandbox does not want them cluttering its career list either.
-    assert!(!sandbox.join("profiles").join("Old.json.bak").exists());
+    assert!(!sandbox
+        .join(CREATED_LINE)
+        .join("profiles")
+        .join("Old.json.bak")
+        .exists());
     assert!(!sandbox.join("online.json").exists());
     assert!(!sandbox.join("online.token").exists());
     assert!(!sandbox.join("cloud_saves.json").exists());
@@ -133,7 +151,7 @@ fn test_the_staging_session_takes_no_identity_and_talks_only_to_staging() {
     assert!(!staging.join("online.json").exists());
     assert!(!staging.join("online.token").exists());
     assert!(!staging.join("cloud_saves.json").exists());
-    assert!(!staging.join("profiles").exists());
+    assert!(!staging.join(CREATED_LINE).join("profiles").exists());
     assert_eq!(
         read_settings(&staging.join("settings.json"))["cloud_saves"],
         true
@@ -226,7 +244,7 @@ fn test_no_careers_leaves_the_sandbox_empty() {
 
     sandbox::prepare(&sandbox, false, false, &source).unwrap();
 
-    assert!(!sandbox.join("profiles").exists());
+    assert!(!sandbox.join(CREATED_LINE).join("profiles").exists());
 }
 
 /// The audit is the guard, so it has to fail on a sandbox somebody signed in

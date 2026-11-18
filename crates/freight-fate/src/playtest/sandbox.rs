@@ -28,6 +28,7 @@ use std::path::{Path, PathBuf};
 
 use serde_json::{Map, Value};
 
+use ff_core::models::profile::CREATED_LINE;
 use ff_core::settings::{game_root, DATA_DIR_ENV};
 
 /// `saves-playtest` beside the game.
@@ -195,11 +196,11 @@ pub fn force_live_settings(sandbox: &Path) {
 
 /// Copy the real careers in as throwaways. Returns how many landed.
 pub fn seed_careers(sandbox: &Path, source: &Path) -> usize {
-    let src = source.join("profiles");
+    let src = source.join(CREATED_LINE).join("profiles");
     let Ok(entries) = std::fs::read_dir(&src) else {
         return 0;
     };
-    let dest = sandbox.join("profiles");
+    let dest = sandbox.join(CREATED_LINE).join("profiles");
     if std::fs::create_dir_all(&dest).is_err() {
         return 0;
     }
@@ -241,7 +242,7 @@ pub fn prepare(sandbox: &Path, reset: bool, careers: bool, source: &Path) -> std
         seed_settings(sandbox, source);
     }
     force_live_settings(sandbox);
-    if careers && !sandbox.join("profiles").exists() {
+    if careers && !sandbox.join(CREATED_LINE).join("profiles").exists() {
         seed_careers(sandbox, source);
     }
     point_online_at(OFFLINE_URL);
@@ -361,7 +362,7 @@ fn walk(dir: &Path, out: &mut Vec<PathBuf>) {
 
 /// What a prepared sandbox holds, in one block, for the session log.
 pub fn describe(sandbox: &Path) -> String {
-    let profiles = sandbox.join("profiles");
+    let profiles = sandbox.join(CREATED_LINE).join("profiles");
     let mut careers: Vec<String> = std::fs::read_dir(&profiles)
         .into_iter()
         .flatten()

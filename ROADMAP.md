@@ -4255,7 +4255,8 @@ What stands between the 1.9.7 tag and 2.0 on the beta channel, on top of
         `ci.yml`, which dev deleted on 2026-11-04 and the sync deletes
         too. The owner changes the required checks in the repository
         settings.
-- [ ] Sealed saves: 2.0 opens a sealed 1.9.7 career and copies it forward.
+- [x] Sealed saves: 2.0 opens a sealed 1.9.7 career and copies it forward
+      into `2.0/profiles`, leaving the 1.9 original playable and unchanged.
   - [x] 1.9.7 refuses a career from a newer release line, local or cloud,
         without changing it or setting it aside. The career stays listed.
 - [ ] One alpha build from the synced branch before the merge. The
@@ -5170,10 +5171,15 @@ one-channel rule is in [October 26](#october-26-the-road-to-the-20-nightlies-fou
       `1.9-tester-*` name and the release notes carry a 2.0 preview
       heading. The downloads page groups by the prerelease flag and needs
       no new row, only the alpha label.
-- [ ] Saves: a 1.9 career copies forward on the first 2.0 start.
+- [x] Saves: a signed 1.9 career copies forward on the first 2.0 start,
+      keeping its progress and leaving the original untouched. Deleting the
+      2.0 copy does not bring it back on the next start.
       The 1.9.7 local and cloud newer-career refusal is done (new fields:
       parked facility, home terminal, home city, turnpike notice; 20
       carrier labels). Testers move from 1.9.6 to 2.0 on the channel.
+- [ ] (Found along the way) Cloud slots are named by career, not release
+      line. A same-name 1.9 and 2.0 career shares a remote slot; the local
+      ledgers are separate, but alternating uploads can replace its backup.
 - [ ] The orinks.net profile export accepts the new fields and labels, on
       the dev preview with the agent staging driver first.
 - [ ] Curate the branch's ~110 unreleased changelog lines; the manual's

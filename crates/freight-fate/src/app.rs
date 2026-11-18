@@ -608,6 +608,9 @@ impl App {
         // Every GameContext is built here, so this one call covers drives too.
         crate::audio::classic_music::register();
         let settings = Settings::load();
+        if let Err(e) = profile_module::copy_forward_1_9_careers() {
+            log::warn!("Could not carry 1.9 careers forward: {e}");
+        }
         sdl_shell::set_touch_haptics(settings.touch_haptics);
         sdl_shell::set_touch_tuning(&settings);
         boot_timing::mark("settings");
@@ -662,7 +665,7 @@ impl App {
         let cloud = CloudSaves::new(CloudSavesOptions {
             enabled: settings.cloud_saves,
             identity: identity.clone(),
-            data_dir: data_dir.clone(),
+            data_dir: profile_module::career_data_dir(),
             backup_announcements: BackupAnnouncements::from_setting(&settings.backup_announcements),
             ..Default::default()
         });

@@ -5,7 +5,7 @@
 //! records the cloud-content hash of the file exactly as it arrived, so the
 //! cloud backup can name the backup it is a copy of. Anything that could be
 //! an edit afterwards forgets it. The record lives in
-//! `data_dir()/integrity_origins.json` as `{"<career name>": "<hash>"}`.
+//! `career_data_dir()/integrity_origins.json` as `{"<career name>": "<hash>"}`.
 
 use std::io::Write;
 use std::path::PathBuf;
@@ -51,7 +51,11 @@ pub fn cloud_content(profile_dict: &Value) -> (Vec<u8>, String) {
 }
 
 fn origins_path() -> Option<PathBuf> {
-    data_dir_if_allowed().map(|dir| dir.join(ORIGINS_FILE))
+    data_dir_if_allowed().map(|dir| {
+        let dir = dir.join(super::CREATED_LINE);
+        let _ = std::fs::create_dir_all(&dir);
+        dir.join(ORIGINS_FILE)
+    })
 }
 
 fn read_origins(path: &PathBuf) -> Map<String, Value> {
@@ -95,6 +99,17 @@ pub fn origin_for(name: &str) -> Option<String> {
         .get(name)
         .and_then(Value::as_str)
         .map(str::to_string)
+}
+
+pub(super) fn copy_from_1_9(name: &str) {
+    let path = super::data_dir().join(ORIGINS_FILE);
+    let hash = read_origins(&path)
+        .get(name)
+        .and_then(Value::as_str)
+        .map(str::to_string);
+    if let Some(hash) = hash {
+        record_origin(name, &hash);
+    }
 }
 
 /// Drop career `name`'s record; a no-op when it has none.

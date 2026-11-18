@@ -59,6 +59,7 @@ pub mod signing;
 mod stimulant;
 mod traits;
 
+mod copy_forward;
 #[cfg(test)]
 pub(crate) mod tests;
 #[cfg(test)]
@@ -73,8 +74,10 @@ mod tests_portable;
 mod tests_python_fixture;
 
 pub use condition::{fresh_condition, truck_tank_gal, CONDITION_FIELDS};
+pub use copy_forward::copy_forward_1_9_careers;
 pub use paths::{
-    data_dir, data_dir_if_allowed, game_root, profiles_dir, save_root, SaveRoots, DATA_DIR_ENV,
+    career_data_dir, data_dir, data_dir_if_allowed, game_root, profiles_dir, save_root, SaveRoots,
+    DATA_DIR_ENV,
 };
 pub use signing::{
     decode_save_bytes, encode_save_bytes, is_signature_valid, signature_for,
@@ -96,7 +99,7 @@ pub const SAVE_VERSION: i64 = 11;
 // careers from earlier lines do not carry over (owner ruling, 2026-08-08):
 // the load gate turns them away without touching the file, which stays
 // playable by the 1.8 builds that wrote it.
-pub const CREATED_LINE: &str = "1.9";
+pub const CREATED_LINE: &str = "2.0";
 
 // The first save version only 1.9 builds ever wrote. The 1.8 line (dev and
 // every stable release) stops at SAVE_VERSION 5; versions 6 and up were

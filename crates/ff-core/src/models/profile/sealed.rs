@@ -167,12 +167,63 @@ mod tests {
         KeyGuard
     }
     #[test]
+    fn sealed_1_9_7_copies_forward_once_and_the_original_still_verifies() {
+        use crate::models::profile::{
+            copy_forward_1_9_careers, find_save_path, is_signature_valid, SAVE_VERSION,
+        };
+        crate::models::profile::tests::with_data_dir(|root| {
+            let _key = sealing();
+            let mut original = Profile::named("Old Driver");
+            original.created_line = "1.9".into();
+            original.spend(321.0);
+            original.achievements = vec!["first_delivery".into()];
+            let data = original.to_dict();
+            assert_eq!(SAVE_VERSION, 11);
+            assert_eq!(data["version"], 11);
+            let dir = root.join("profiles");
+            std::fs::create_dir_all(&dir).unwrap();
+            let old = dir.join("Old Driver.ffsave");
+            write(&old, &encode_save_bytes(&data)).unwrap();
+            let before = std::fs::read(&old).unwrap();
+            let witness = std::fs::read(dir.join(".freight-fate-sealed")).unwrap();
+            assert!(before.starts_with(b"HKSL"));
+            assert_eq!(copy_forward_1_9_careers().unwrap(), 1);
+            let new = find_save_path("Old Driver").unwrap();
+            assert_eq!(new, root.join("2.0/profiles/Old Driver.ffsave"));
+            let bytes = std::fs::read(&new).unwrap();
+            assert!(bytes.starts_with(b"HKSL"));
+            assert!(new.parent().unwrap().join(".freight-fate-sealed").exists());
+            let mut loaded = Profile::load(&new).unwrap();
+            assert_eq!(loaded.created_line, "2.0");
+            assert_eq!(loaded.money(), original.money());
+            assert_eq!(loaded.achievements, original.achievements);
+            loaded.spend(50.0);
+            loaded.save().unwrap();
+            let newer = std::fs::read(&new).unwrap();
+            assert_eq!(copy_forward_1_9_careers().unwrap(), 0);
+            assert_eq!(std::fs::read(&new).unwrap(), newer);
+            loaded.delete();
+            assert_eq!(copy_forward_1_9_careers().unwrap(), 0);
+            assert!(find_save_path("Old Driver").is_none());
+            assert_eq!(std::fs::read(&old).unwrap(), before);
+            assert_eq!(
+                std::fs::read(dir.join(".freight-fate-sealed")).unwrap(),
+                witness
+            );
+            let (raw, _) = read(&old).unwrap();
+            let (untouched, _) = decode_save_bytes(&raw).unwrap();
+            assert_eq!(untouched["created_line"], "1.9");
+            assert!(is_signature_valid(&untouched));
+            assert_eq!(untouched, data);
+        });
+    }
+    #[test]
     fn a_sealed_newer_career_is_refused_without_rewriting_or_setting_it_aside() {
         crate::models::profile::tests::with_data_dir(|_| {
             let _key = sealing();
             let p = Profile::named("Future Driver");
             let mut data = p.to_dict();
-            data.insert("created_line".into(), serde_json::json!("2.0"));
+            data.insert("created_line".into(), serde_json::json!("2.1"));
             data.insert("_signature".into(), serde_json::json!("invalid"));
             let path = p.path();
             write(&path, &encode_save_bytes(&data)).unwrap();
@@ -186,7 +237,7 @@ mod tests {
                     panic!("expected a newer-career refusal");
                 };
                 assert_eq!(err.name, "Future Driver");
-                assert_eq!(err.line, "2.0");
+                assert_eq!(err.line, "2.1");
                 assert_eq!(err.path.as_deref(), Some(path.as_path()));
                 assert!(crate::models::profile::newer_career_file(&path).is_some());
                 let other_case =

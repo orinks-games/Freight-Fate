@@ -282,7 +282,13 @@ fn test_save_survives_unwritable_game_dir() {
         let previous = crate::settings::paths::set_thread_data_dir(Some(fallback.clone()));
         let saved = Profile::named("Ryan").save().unwrap();
         crate::settings::paths::set_thread_data_dir(previous);
-        assert_eq!(saved, legacy.join("profiles").join("Ryan.ffsave"));
+        assert_eq!(
+            saved,
+            legacy
+                .join(CREATED_LINE)
+                .join("profiles")
+                .join("Ryan.ffsave")
+        );
         assert!(saved.is_file());
     });
 }
