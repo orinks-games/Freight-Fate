@@ -286,8 +286,12 @@ impl GameContext {
     /// `text` in the player's language. Everything `say` and `say_event`
     /// speak already passes through here; a line that reaches the speech
     /// sink or message review another way calls it itself.
+    ///
+    /// The bumper names follow the Second layer bumper row first, so a line
+    /// names the bumper the player holds (see `controller::bumpers`).
     pub fn tr(&self, text: &str) -> String {
-        self.translator.translate(text).into_owned()
+        let text = crate::controller::bumpers::swap_words(text, self.settings.left_bumper_layer);
+        self.translator.translate(&text).into_owned()
     }
 }
 

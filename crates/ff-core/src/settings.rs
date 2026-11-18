@@ -760,6 +760,10 @@ settings_fields! {
     /// Whether the main menu offers to send a problem report after a run
     /// that ended without quitting (a crash, a kill, a power cut).
     crash_report_offer: bool = true => bool_strict,
+    /// The left bumper is the controller's second layer and the right one
+    /// the clutch, instead of the other way round (the Settings > Controls
+    /// row "Second layer bumper").
+    left_bumper_layer: bool = false => bool_strict,
 }
 
 impl Settings {

@@ -370,6 +370,8 @@ These are the default keyboard controls, with the default controller button besi
 
 To hear what a key does without pressing it on the road, press Shift F1 for [key and button practice](#practice-keys-and-buttons).
 
+This manual names the bumpers as they are by default. The Second layer bumper setting under Settings, Gameplay, Controls swaps them, and the game then names the one you hold.
+
 A control marked Driving commands has no controller button. Hold the right bumper and press Start to open Driving status, then choose Driving commands and pick it from the list. The list runs it and returns you to the road.
 
 | Key | Controller | Action |
@@ -935,6 +937,7 @@ This is where you change units, transmission, and eligible shortcuts. Open Keybo
 | Transmission | Switch between automatic and manual transmission. |
 | Controller | Accept controller input alongside the keyboard. The keyboard always stays active. While it is on, it names the controller the game is using. |
 | Haptics | Use controller vibration for hazards, hard braking, rumble strips, and road seams. |
+| Second layer bumper | Which bumper you hold for the second layer of controller buttons: right, the default, or left. The other bumper is the clutch. On left, every right bumper control in this manual is on the left bumper, and the clutch is on the right; the game names them that way too. |
 | Visual display | On by default: the game window draws the road, the dashboard, menus, and captions of what the game says. Off keeps the window dark and saves battery. Speech and sound are the same either way. |
 | Keyboard shortcuts | Choose the control you want to change and press Enter, then press your preferred key, with Shift, Control, or Alt held if you want a chord. A key another control already has is refused by name; Escape keeps the current key. The pause key, Enter, F1, F2, the Control keys that stop the voice, plus and minus, the radio dial keys, and the message review keys stay fixed. Choose the reset option to restore every default shortcut. |
 | Controller buttons | Choose the controller action you want to change and press Enter, then press your preferred button, with the right bumper held for the second layer. Press its current button to keep the assignment. Start, Back, the bumpers, the triggers, and the sticks stay fixed. |

@@ -1551,6 +1551,16 @@ Everything found before 2026-09-25 moved to
       swipe starts at 90.", "Deep swipe. Length 112."). Touch gestures has a
       "Deep swipe starts at" row, 60 to 180 points in tens; the settings
       file keeps `touch_deep_swipe_factor`. Nothing was tried on a phone.
+- [x] Second layer bumper (2026-11-18, a player's request): Settings,
+      Gameplay, Controls swaps the bumpers, so the left bumper holds the
+      second layer and the right bumper is the clutch. The pad's presses
+      are swapped as they arrive and the words "right bumper" and "left
+      bumper" in every spoken line as it is translated
+      (`controller::bumpers`), so bindings, help and prompts follow with no
+      second copy of any text.
+- [ ] (Found along the way) With Second layer bumper on left, a spoken
+      line that names a bumper no longer matches its translation and is
+      spoken in English.
 - [ ] (Found along the way) iPhone gesture plan step 7: the stroke
       recogniser moved into `ff-core`, and the default deep swipe set from
       lengths measured on a phone.

@@ -1391,6 +1391,10 @@ impl App {
             },
             None => Vec::new(),
         };
+        // The pad's own presses, not the queued ones (the agent server and
+        // tests press the game's buttons, which are already the roles).
+        events =
+            crate::controller::bumpers::swap_buttons(events, self.ctx.settings.left_bumper_layer);
         if self.operator_keys_ignored {
             events = without_operator_keys(events);
         }

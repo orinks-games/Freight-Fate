@@ -40777,6 +40777,17 @@ msgid ""
 "seams. Needs a controller connected."
 msgstr ""
 
+#. placeholders: {else}
+#: crates/freight-fate/src/states/main_menu/settings_items.rs
+msgid "Second layer bumper: {else}"
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu/settings_items.rs
+msgid ""
+"Which bumper you hold for the second layer of controller buttons. The other "
+"bumper is the clutch."
+msgstr ""
+
 #. placeholders: {on_off}
 #: crates/freight-fate/src/states/main_menu/settings_items.rs
 msgid "Visual display: {on_off}"
