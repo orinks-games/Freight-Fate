@@ -15622,7 +15622,7 @@ msgstr ""
 msgid "Chain law{where_}, {rule}.{pullout}"
 msgstr ""
 
-#: crates/ff-core/src/sim/trip_models.rs crates/freight-fate/src/states/main_menu/settings_items.rs
+#: crates/ff-core/src/sim/trip_models.rs crates/freight-fate/src/states/main_menu/settings_items.rs crates/freight-fate/src/states/main_menu/speech_voices.rs
 msgid "default"
 msgstr ""
 
@@ -17729,6 +17729,14 @@ msgstr ""
 msgid "You take the wheel {start_mi} miles up the road."
 msgstr ""
 
+#: crates/freight-fate/src/app.rs crates/freight-fate/src/states/driving/lifecycle.rs crates/freight-fate/src/states/driving_menu_states/status.rs crates/freight-fate/src/states/driving_updates/frame.rs
+msgid "automatic"
+msgstr ""
+
+#: crates/freight-fate/src/app.rs crates/freight-fate/src/states/main_menu/speech_voices.rs
+msgid "main voice"
+msgstr ""
+
 #. one sentence of a longer line
 #: crates/freight-fate/src/app.rs
 msgid "Do not press keys yourself meanwhile: they would be measured too."
@@ -17880,7 +17888,7 @@ msgid ""
 "reconnect your controller."
 msgstr ""
 
-#: crates/freight-fate/src/app.rs crates/freight-fate/src/states/main_menu/settings_items.rs
+#: crates/freight-fate/src/app.rs crates/freight-fate/src/states/main_menu/settings_items.rs crates/freight-fate/src/states/main_menu/speech_voices.rs
 msgid "jaws"
 msgstr ""
 
@@ -24925,10 +24933,6 @@ msgstr ""
 #. placeholders: {air_pressure_psi}
 #: crates/freight-fate/src/states/driving/lifecycle.rs
 msgid "air {air_pressure_psi} psi"
-msgstr ""
-
-#: crates/freight-fate/src/states/driving/lifecycle.rs crates/freight-fate/src/states/driving_menu_states/status.rs crates/freight-fate/src/states/driving_updates/frame.rs crates/freight-fate/src/states/main_menu/settings_items.rs
-msgid "automatic"
 msgstr ""
 
 #: crates/freight-fate/src/states/driving/lifecycle.rs crates/freight-fate/src/states/driving_menu_states/status.rs crates/freight-fate/src/states/driving_updates/frame.rs crates/freight-fate/src/states/main_menu/settings_items.rs
@@ -39886,18 +39890,6 @@ msgid "louder"
 msgstr ""
 
 #: crates/freight-fate/src/states/main_menu/settings_actions.rs
-msgid "main voice"
-msgstr ""
-
-#: crates/freight-fate/src/states/main_menu/settings_actions.rs
-msgid "Windows OneCore"
-msgstr ""
-
-#: crates/freight-fate/src/states/main_menu/settings_actions.rs
-msgid "built-in voice"
-msgstr ""
-
-#: crates/freight-fate/src/states/main_menu/settings_actions.rs
 msgid "braille only"
 msgstr ""
 
@@ -40383,6 +40375,18 @@ msgid ""
 "Every time, after each save. Once a session, the first backup of each "
 "career after the game starts. Never keeps it quiet. Backups keep going "
 "either way, and a refused backup is always spoken."
+msgstr ""
+
+#. placeholders: {main_voice_label}
+#: crates/freight-fate/src/states/main_menu/settings_items.rs
+msgid "Main voice: {main_voice_label}"
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu/settings_items.rs
+msgid ""
+"The voice that reads menus and readouts. Automatic uses your screen reader "
+"when one is running, and a system voice when none is. A screen reader is "
+"listed only while it is running."
 msgstr ""
 
 #. placeholders: {event_voice_label}
@@ -41323,6 +41327,23 @@ msgstr ""
 
 #: crates/freight-fate/src/states/main_menu/shortcuts.rs
 msgid "Puts every control on this screen back where it started."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu/speech_voices.rs
+msgid "Windows OneCore"
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu/speech_voices.rs
+msgid "built-in voice"
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu/speech_voices.rs
+msgid "Narrator"
+msgstr ""
+
+#. placeholders: {name}
+#: crates/freight-fate/src/states/main_menu/speech_voices.rs
+msgid "{name}, unavailable"
 msgstr ""
 
 #: crates/freight-fate/src/states/main_menu/touch_gestures.rs

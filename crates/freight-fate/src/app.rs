@@ -283,6 +283,23 @@ impl PlayerInputFrame<'_> {
         self.app.touch_mode()
     }
 
+    /// The voices as `status` reports them: the saved main voice choice
+    /// ("automatic" when empty), the bound main voice, and the bound event
+    /// voice ("main voice" when events share it).
+    pub fn speech_state(&self) -> (String, String, String) {
+        let ctx = &self.app.ctx;
+        let choice = match ctx.settings.main_backend.as_str() {
+            "" => "automatic".to_string(),
+            name => name.to_string(),
+        };
+        let event = if ctx.speech.has_separate_event_voice() {
+            ctx.speech.event_backend_name()
+        } else {
+            "main voice".to_string()
+        };
+        (choice, ctx.speech.backend_name(), event)
+    }
+
     /// The player's own shortcut table, for a tool call that names a
     /// control rather than a key.
     pub fn bindings(&self) -> &crate::bindings::KeyBindings {

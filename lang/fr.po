@@ -15838,6 +15838,12 @@ msgstr ""
 msgid "You take the wheel {start_mi} miles up the road."
 msgstr "Vous prenez le volant {start_mi} miles plus loin sur la route."
 
+msgid "automatic"
+msgstr "automatique"
+
+msgid "main voice"
+msgstr "voix principale"
+
 #. one sentence of a longer line
 msgid "Do not press keys yourself meanwhile: they would be measured too."
 msgstr ""
@@ -22277,9 +22283,6 @@ msgstr "air prêt"
 #. placeholders: {air_pressure_psi}
 msgid "air {air_pressure_psi} psi"
 msgstr "air {air_pressure_psi} psi"
-
-msgid "automatic"
-msgstr "automatique"
 
 msgid "manual"
 msgstr "manuelle"
@@ -35656,15 +35659,6 @@ msgstr "plus discret"
 msgid "louder"
 msgstr "plus marqué"
 
-msgid "main voice"
-msgstr "voix principale"
-
-msgid "Windows OneCore"
-msgstr "Windows OneCore"
-
-msgid "built-in voice"
-msgstr ""
-
 msgid "braille only"
 msgstr "braille seulement"
 
@@ -36172,6 +36166,16 @@ msgstr ""
 "session, la première sauvegarde de chaque carrière après le lancement du "
 "jeu. Jamais garde le silence. Les sauvegardes continuent dans tous les cas, "
 "et une sauvegarde refusée est toujours annoncée."
+
+#. placeholders: {main_voice_label}
+msgid "Main voice: {main_voice_label}"
+msgstr ""
+
+msgid ""
+"The voice that reads menus and readouts. Automatic uses your screen reader "
+"when one is running, and a system voice when none is. A screen reader is "
+"listed only while it is running."
+msgstr ""
 
 #. placeholders: {event_voice_label}
 msgid "Driving event voice: {event_voice_label}"
@@ -37147,6 +37151,19 @@ msgstr "Remettre tous les boutons de manette par défaut"
 
 msgid "Puts every control on this screen back where it started."
 msgstr "Remet chaque commande de cet écran à sa place d'origine."
+
+msgid "Windows OneCore"
+msgstr "Windows OneCore"
+
+msgid "built-in voice"
+msgstr ""
+
+msgid "Narrator"
+msgstr ""
+
+#. placeholders: {name}
+msgid "{name}, unavailable"
+msgstr ""
 
 msgid ""
 "Move up and down to pick a gesture, then confirm it to choose the command "

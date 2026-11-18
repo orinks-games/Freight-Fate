@@ -15701,6 +15701,12 @@ msgstr ""
 msgid "You take the wheel {start_mi} miles up the road."
 msgstr "Tomas el volante {start_mi} millas más adelante."
 
+msgid "automatic"
+msgstr "automático"
+
+msgid "main voice"
+msgstr "voz principal"
+
 #. one sentence of a longer line
 msgid "Do not press keys yourself meanwhile: they would be measured too."
 msgstr "No pulses teclas tú mientras tanto: también se medirían."
@@ -22072,9 +22078,6 @@ msgstr "aire listo"
 #. placeholders: {air_pressure_psi}
 msgid "air {air_pressure_psi} psi"
 msgstr "aire a {air_pressure_psi} psi"
-
-msgid "automatic"
-msgstr "automático"
 
 msgid "manual"
 msgstr "manual"
@@ -35397,15 +35400,6 @@ msgstr "más bajo"
 msgid "louder"
 msgstr "más alto"
 
-msgid "main voice"
-msgstr "voz principal"
-
-msgid "Windows OneCore"
-msgstr "Windows OneCore"
-
-msgid "built-in voice"
-msgstr ""
-
 msgid "braille only"
 msgstr "solo braille"
 
@@ -35908,6 +35902,16 @@ msgstr ""
 "sesión, la primera copia de cada carrera después de iniciar el juego. "
 "Nunca, lo deja en silencio. Las copias de seguridad continúan igual, y una "
 "copia rechazada siempre se anuncia."
+
+#. placeholders: {main_voice_label}
+msgid "Main voice: {main_voice_label}"
+msgstr ""
+
+msgid ""
+"The voice that reads menus and readouts. Automatic uses your screen reader "
+"when one is running, and a system voice when none is. A screen reader is "
+"listed only while it is running."
+msgstr ""
 
 #. placeholders: {event_voice_label}
 msgid "Driving event voice: {event_voice_label}"
@@ -36886,6 +36890,19 @@ msgstr "Restablecer todos los botones del mando a su valor predeterminado"
 msgid "Puts every control on this screen back where it started."
 msgstr ""
 "Devuelve todos los controles de esta pantalla a como estaban al principio."
+
+msgid "Windows OneCore"
+msgstr "Windows OneCore"
+
+msgid "built-in voice"
+msgstr ""
+
+msgid "Narrator"
+msgstr ""
+
+#. placeholders: {name}
+msgid "{name}, unavailable"
+msgstr ""
 
 msgid ""
 "Move up and down to pick a gesture, then confirm it to choose the command "

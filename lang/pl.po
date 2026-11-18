@@ -15555,6 +15555,12 @@ msgstr ""
 msgid "You take the wheel {start_mi} miles up the road."
 msgstr "Przejmujesz kierownicę {start_mi} {start_mi:milę|mile|mil} dalej."
 
+msgid "automatic"
+msgstr "automatyczna"
+
+msgid "main voice"
+msgstr "główny głos"
+
 #. one sentence of a longer line
 msgid "Do not press keys yourself meanwhile: they would be measured too."
 msgstr ""
@@ -21990,9 +21996,6 @@ msgstr "powietrze gotowe"
 #. placeholders: {air_pressure_psi}
 msgid "air {air_pressure_psi} psi"
 msgstr "powietrze {air_pressure_psi} psi"
-
-msgid "automatic"
-msgstr "automatyczna"
 
 msgid "manual"
 msgstr "ręczna"
@@ -35363,15 +35366,6 @@ msgstr "ciszej"
 msgid "louder"
 msgstr "głośniej"
 
-msgid "main voice"
-msgstr "główny głos"
-
-msgid "Windows OneCore"
-msgstr "Windows OneCore"
-
-msgid "built-in voice"
-msgstr ""
-
 msgid "braille only"
 msgstr "tylko brajl"
 
@@ -35867,6 +35861,16 @@ msgstr ""
 "pierwszej kopii każdej kariery po uruchomieniu gry. Nigdy: bez komunikatu. "
 "Kopie zapasowe powstają tak czy inaczej, a odrzucona kopia jest zawsze "
 "ogłaszana."
+
+#. placeholders: {main_voice_label}
+msgid "Main voice: {main_voice_label}"
+msgstr ""
+
+msgid ""
+"The voice that reads menus and readouts. Automatic uses your screen reader "
+"when one is running, and a system voice when none is. A screen reader is "
+"listed only while it is running."
+msgstr ""
 
 #. placeholders: {event_voice_label}
 msgid "Driving event voice: {event_voice_label}"
@@ -36825,6 +36829,19 @@ msgstr "Przywróć wszystkie przyciski kontrolera do domyślnych"
 msgid "Puts every control on this screen back where it started."
 msgstr ""
 "Przywraca każde polecenie na tym ekranie do ustawienia początkowego."
+
+msgid "Windows OneCore"
+msgstr "Windows OneCore"
+
+msgid "built-in voice"
+msgstr ""
+
+msgid "Narrator"
+msgstr ""
+
+#. placeholders: {name}
+msgid "{name}, unavailable"
+msgstr ""
 
 msgid ""
 "Move up and down to pick a gesture, then confirm it to choose the command "

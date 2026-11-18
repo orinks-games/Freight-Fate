@@ -15533,6 +15533,12 @@ msgstr ""
 "Вы садитесь за руль через {start_mi} {start_mi:милю|мили|миль} дальше по "
 "дороге."
 
+msgid "automatic"
+msgstr "автоматическая"
+
+msgid "main voice"
+msgstr "основной голос"
+
 #. one sentence of a longer line
 msgid "Do not press keys yourself meanwhile: they would be measured too."
 msgstr "Тем временем сами клавиши не нажимайте: их тоже измерят."
@@ -22019,9 +22025,6 @@ msgid "air {air_pressure_psi} psi"
 msgstr ""
 "воздух {air_pressure_psi} {air_pressure_psi:фунт|фунта|фунтов} на "
 "квадратный дюйм"
-
-msgid "automatic"
-msgstr "автоматическая"
 
 msgid "manual"
 msgstr "manual"
@@ -35522,15 +35525,6 @@ msgstr "тише"
 msgid "louder"
 msgstr "громче"
 
-msgid "main voice"
-msgstr "основной голос"
-
-msgid "Windows OneCore"
-msgstr "Windows OneCore"
-
-msgid "built-in voice"
-msgstr ""
-
 msgid "braille only"
 msgstr "только брайль"
 
@@ -36026,6 +36020,16 @@ msgstr ""
 "«Каждый раз»: после каждого сохранения. «Раз за сеанс»: первое копирование "
 "каждой карьеры после запуска игры. «Никогда»: молча. Копирование идёт в "
 "любом случае, а об отказе в копировании игра сообщает всегда."
+
+#. placeholders: {main_voice_label}
+msgid "Main voice: {main_voice_label}"
+msgstr ""
+
+msgid ""
+"The voice that reads menus and readouts. Automatic uses your screen reader "
+"when one is running, and a system voice when none is. A screen reader is "
+"listed only while it is running."
+msgstr ""
 
 #. placeholders: {event_voice_label}
 msgid "Driving event voice: {event_voice_label}"
@@ -36989,6 +36993,19 @@ msgstr "Вернуть все кнопки геймпада по умолчан�
 msgid "Puts every control on this screen back where it started."
 msgstr ""
 "Возвращает каждое действие на этом экране туда, где оно было изначально."
+
+msgid "Windows OneCore"
+msgstr "Windows OneCore"
+
+msgid "built-in voice"
+msgstr ""
+
+msgid "Narrator"
+msgstr ""
+
+#. placeholders: {name}
+msgid "{name}, unavailable"
+msgstr ""
 
 msgid ""
 "Move up and down to pick a gesture, then confirm it to choose the command "

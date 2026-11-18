@@ -26,6 +26,11 @@
 //! * prefers `output` (speech + braille) and falls back to `speak`; with
 //!   the braille-only setting on it sends every line, driving events
 //!   included, to the main voice's `braille` instead and speaks nothing,
+//! * lets the player choose the main voice in Settings, Speech (the
+//!   `main_backend` setting, empty for automatic): the chosen voice is tried
+//!   first on every health check and the automatic pick speaks while it
+//!   cannot, so a screen reader started after the game is taken up when it
+//!   appears,
 //! * can be disabled with the `FREIGHT_FATE_NO_SPEECH=1` environment variable
 //!   (used by the headless test suite and CI), and forced to a specific backend
 //!   with `FREIGHT_FATE_SPEECH_BACKEND=<name>` (for example `SAPI`).
@@ -125,12 +130,27 @@ pub fn env() -> SpeechEnv {
 /// back into SAPI in memory and then on disk at the quit-time save
 /// (MariahL, 2026-09-02). The fallback mirrors `select_event_backend`: a
 /// preference missing from a non-empty option list becomes the first option.
+///
+/// Since the Main voice row (2026-11-17), the event voice can also name the
+/// voice that is the main voice, and then events go through the main voice.
+/// Such a name is on this machine, so it is kept: the setting is replaced
+/// only when the name is in neither `event_backend_options` (which leaves
+/// out the bound main voice) nor `main_backend_options` (which lists every
+/// voice that can speak). Together the two lists do not depend on which
+/// voice is bound, so a stale snapshot cannot cause a wrong rewrite. The
+/// main voice choice itself is never rewritten.
 pub fn apply_speech_settings(sink: &mut dyn SpeechSink, settings: &mut Settings) {
+    let main = (!settings.main_backend.is_empty()).then(|| settings.main_backend.clone());
+    sink.select_main_backend(main.as_deref());
     let preference = settings.sapi_events.then(|| settings.event_backend.clone());
     sink.select_event_backend(preference.as_deref());
     if settings.sapi_events {
         let options = sink.event_backend_options();
-        if !options.is_empty() && !options.contains(&settings.event_backend) {
+        let on_machine = options.contains(&settings.event_backend)
+            || sink
+                .main_backend_options()
+                .contains(&settings.event_backend);
+        if !options.is_empty() && !on_machine {
             log::info!(
                 "Event speech backend {} is not on this machine; using {}",
                 settings.event_backend,

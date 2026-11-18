@@ -15763,6 +15763,12 @@ msgid "You take the wheel {start_mi} miles up the road."
 msgstr ""
 "Du übernimmst das Steuer {start_mi} Meilen weiter die Straße hinauf."
 
+msgid "automatic"
+msgstr "Automatik"
+
+msgid "main voice"
+msgstr "Hauptstimme"
+
 #. one sentence of a longer line
 msgid "Do not press keys yourself meanwhile: they would be measured too."
 msgstr ""
@@ -22173,9 +22179,6 @@ msgstr "Luftdruck bereit"
 #. placeholders: {air_pressure_psi}
 msgid "air {air_pressure_psi} psi"
 msgstr "Luftdruck {air_pressure_psi} psi"
-
-msgid "automatic"
-msgstr "Automatik"
 
 msgid "manual"
 msgstr "manuell"
@@ -35646,15 +35649,6 @@ msgstr "leiser"
 msgid "louder"
 msgstr "lauter"
 
-msgid "main voice"
-msgstr "Hauptstimme"
-
-msgid "Windows OneCore"
-msgstr "Windows OneCore"
-
-msgid "built-in voice"
-msgstr "eingebaute Stimme"
-
 msgid "braille only"
 msgstr "nur Braille"
 
@@ -36154,6 +36148,16 @@ msgstr ""
 "Sicherung jeder Karriere nach dem Spielstart. Nie: bleibt still. Die "
 "Sicherungen laufen so oder so weiter, und eine abgelehnte Sicherung wird "
 "immer angesagt."
+
+#. placeholders: {main_voice_label}
+msgid "Main voice: {main_voice_label}"
+msgstr ""
+
+msgid ""
+"The voice that reads menus and readouts. Automatic uses your screen reader "
+"when one is running, and a system voice when none is. A screen reader is "
+"listed only while it is running."
+msgstr ""
 
 #. placeholders: {event_voice_label}
 msgid "Driving event voice: {event_voice_label}"
@@ -37142,6 +37146,19 @@ msgid "Puts every control on this screen back where it started."
 msgstr ""
 "Setzt jede Steuerung auf diesem Bildschirm dorthin zurück, wo sie "
 "angefangen hat."
+
+msgid "Windows OneCore"
+msgstr "Windows OneCore"
+
+msgid "built-in voice"
+msgstr "eingebaute Stimme"
+
+msgid "Narrator"
+msgstr ""
+
+#. placeholders: {name}
+msgid "{name}, unavailable"
+msgstr ""
 
 msgid ""
 "Move up and down to pick a gesture, then confirm it to choose the command "

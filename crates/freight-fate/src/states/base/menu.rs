@@ -318,19 +318,7 @@ pub trait Menu: Sized + 'static {
     }
 
     fn handle_controller(&mut self, ctx: &mut GameContext, event: &InputEvent) {
-        match ctx.controller.menu_action(event) {
-            Some(ControllerAction::MenuDown) => self.move_by(ctx, 1),
-            Some(ControllerAction::MenuUp) => self.move_by(ctx, -1),
-            Some(ControllerAction::AdjustRight) => self.adjust(ctx, 1),
-            Some(ControllerAction::AdjustLeft) => self.adjust(ctx, -1),
-            Some(ControllerAction::Confirm) => self.activate(ctx),
-            Some(ControllerAction::Back) => self.go_back(ctx),
-            Some(ControllerAction::Help) => {
-                let help = self.current_help(ctx);
-                ctx.say(&help);
-            }
-            None => {}
-        }
+        default_handle_controller(self, ctx, event)
     }
 
     fn lines(&self, ctx: &GameContext) -> Vec<String> {
@@ -705,6 +693,24 @@ pub fn default_handle_event<S: Menu>(menu: &mut S, ctx: &mut GameContext, event:
                 menu.first_letter_input(ctx, &lower, event.key_repeat());
             }
         }
+    }
+}
+
+/// The controller half of a menu's input: the D-pad moves and adjusts, A
+/// confirms, B goes back, and the help button reads the row's help.
+pub fn default_handle_controller<S: Menu>(menu: &mut S, ctx: &mut GameContext, event: &InputEvent) {
+    match ctx.controller.menu_action(event) {
+        Some(ControllerAction::MenuDown) => menu.move_by(ctx, 1),
+        Some(ControllerAction::MenuUp) => menu.move_by(ctx, -1),
+        Some(ControllerAction::AdjustRight) => menu.adjust(ctx, 1),
+        Some(ControllerAction::AdjustLeft) => menu.adjust(ctx, -1),
+        Some(ControllerAction::Confirm) => menu.activate(ctx),
+        Some(ControllerAction::Back) => menu.go_back(ctx),
+        Some(ControllerAction::Help) => {
+            let help = menu.current_help(ctx);
+            ctx.say(&help);
+        }
+        None => {}
     }
 }
 

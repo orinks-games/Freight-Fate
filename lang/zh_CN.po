@@ -14053,6 +14053,12 @@ msgstr "已布置：{description}。你会在前方{start_mi}英里处接手驾�
 msgid "You take the wheel {start_mi} miles up the road."
 msgstr "你会在前方{start_mi}英里处接手驾驶。"
 
+msgid "automatic"
+msgstr "自动"
+
+msgid "main voice"
+msgstr "主语音"
+
 #. one sentence of a longer line
 msgid "Do not press keys yourself meanwhile: they would be measured too."
 msgstr "这期间你自己不要按键：那些按键也会被测量进去。"
@@ -19836,9 +19842,6 @@ msgstr "气压就绪"
 #. placeholders: {air_pressure_psi}
 msgid "air {air_pressure_psi} psi"
 msgstr "气压{air_pressure_psi} psi"
-
-msgid "automatic"
-msgstr "自动"
 
 msgid "manual"
 msgstr "手动"
@@ -32023,15 +32026,6 @@ msgstr "更安静"
 msgid "louder"
 msgstr "更响"
 
-msgid "main voice"
-msgstr "主语音"
-
-msgid "Windows OneCore"
-msgstr "Windows OneCore"
-
-msgid "built-in voice"
-msgstr ""
-
 msgid "braille only"
 msgstr "仅盲文"
 
@@ -32451,6 +32445,16 @@ msgid ""
 msgstr ""
 "多久听到一次职业生涯已备份到你的orinks.net账户。每次：每次存档之后。每次游戏一次：游戏启动后每段职业生涯的第一次备份。从不：保持安静。无论怎样"
 "备份都会继续，备份被拒绝时总会播报。"
+
+#. placeholders: {main_voice_label}
+msgid "Main voice: {main_voice_label}"
+msgstr ""
+
+msgid ""
+"The voice that reads menus and readouts. Automatic uses your screen reader "
+"when one is running, and a system voice when none is. A screen reader is "
+"listed only while it is running."
+msgstr ""
 
 #. placeholders: {event_voice_label}
 msgid "Driving event voice: {event_voice_label}"
@@ -33264,6 +33268,19 @@ msgstr "把所有手柄按键恢复默认"
 
 msgid "Puts every control on this screen back where it started."
 msgstr "把这个界面上的每个控制项都恢复到最初的位置。"
+
+msgid "Windows OneCore"
+msgstr "Windows OneCore"
+
+msgid "built-in voice"
+msgstr ""
+
+msgid "Narrator"
+msgstr ""
+
+#. placeholders: {name}
+msgid "{name}, unavailable"
+msgstr ""
 
 msgid ""
 "Move up and down to pick a gesture, then confirm it to choose the command "

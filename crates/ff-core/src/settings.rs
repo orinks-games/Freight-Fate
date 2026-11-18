@@ -610,6 +610,11 @@ settings_fields! {
     /// how often "<career> is backed up." is spoken after a background
     /// cloud backup: "every" upload, "once" per career per session, "off"
     backup_announcements: String = "every" => str_checked,
+    /// The main voice the player chose, by registry name ("SAPI",
+    /// "OneCore", "NVDA", "Genny" for the built-in voice, "UIA" for
+    /// Narrator); "" picks automatically. Never rewritten when the chosen
+    /// voice cannot speak right now: the automatic pick speaks meanwhile.
+    main_backend: String = "" => str_checked,
     /// driving events on a separate voice
     sapi_events: bool = true => bool_truthy,
     /// which voice that is (e.g. SAPI/OneCore)

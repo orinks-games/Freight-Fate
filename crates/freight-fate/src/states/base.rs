@@ -38,9 +38,9 @@ use crate::touch::Gesture;
 mod menu;
 
 pub use menu::{
-    default_announce_entry, default_enter, default_go_back, default_handle_event,
-    default_handle_gesture, DynamicLabel, Label, Menu, MenuAction, MenuCore, MenuItem,
-    SimpleMenuState, DEFAULT_INTRO_HELP, TOUCH_INTRO_HELP,
+    default_announce_entry, default_enter, default_go_back, default_handle_controller,
+    default_handle_event, default_handle_gesture, DynamicLabel, Label, Menu, MenuAction, MenuCore,
+    MenuItem, SimpleMenuState, DEFAULT_INTRO_HELP, TOUCH_INTRO_HELP,
 };
 
 // -- spoken helpers ---------------------------------------------------------------
