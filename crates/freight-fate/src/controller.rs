@@ -38,12 +38,8 @@ use std::time::{Duration, Instant};
 use ff_core::input_hints::{control_hint, CONTROLLER, KEYBOARD, TOUCH};
 
 /// The device hints name before the player touches anything: the screen on
-/// iPhone and iPad, the keyboard everywhere else.
-const DEFAULT_DEVICE: &str = if cfg!(target_os = "ios") {
-    TOUCH
-} else {
-    KEYBOARD
-};
+/// a phone or tablet, the keyboard everywhere else.
+const DEFAULT_DEVICE: &str = if cfg!(touch_screen) { TOUCH } else { KEYBOARD };
 use ff_core::rumble::{RumbleEngine, RumbleSink};
 
 use crate::states::base::InputEvent;
@@ -373,7 +369,7 @@ impl ControllerManager {
         let mut manager = Self {
             slot: Rc::clone(&slot),
             active_device: DEFAULT_DEVICE,
-            hardware_keyboard: !cfg!(target_os = "ios"),
+            hardware_keyboard: !cfg!(touch_screen),
             touch_keys: false,
             instance_id: None,
             name: String::new(),

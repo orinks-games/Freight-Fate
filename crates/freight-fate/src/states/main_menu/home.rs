@@ -272,8 +272,9 @@ impl Menu for MainMenuState {
                  attached.",
             ),
         );
-        // An iPhone app is never quit from inside; the system closes it.
-        if !cfg!(target_os = "ios") {
+        // A phone or tablet app is never quit from inside; the system
+        // closes it.
+        if !cfg!(touch_screen) {
             items.push(
                 MenuItem::new("Quit", |_s: &mut Self, ctx| ctx.quit()).help("Exit the game."),
             );
@@ -282,7 +283,7 @@ impl Menu for MainMenuState {
     }
 
     fn go_back(&mut self, ctx: &mut GameContext) {
-        if cfg!(target_os = "ios") {
+        if cfg!(touch_screen) {
             return;
         }
         ctx.audio.play("ui/menu_back");

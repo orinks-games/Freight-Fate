@@ -87,7 +87,11 @@ pub fn configure_logging() {
     let log_path: Option<PathBuf> = match explicit {
         Some(path) => Some(PathBuf::from(path)),
         None if packaged => Some(packaged_log_path(
-            cfg!(any(target_os = "macos", target_os = "ios")),
+            cfg!(any(
+                target_os = "macos",
+                target_os = "ios",
+                target_os = "android"
+            )),
             &ff_core::settings::game_root(),
             &ff_core::models::profile::data_dir(),
         )),

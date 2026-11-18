@@ -1,0 +1,27 @@
+[package]
+name = "freight-fate-android"
+description = "Freight Fate's Android library: the libmain.so SDL's activity loads"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+authors.workspace = true
+publish = false
+
+# SDL's Android activity loads `libmain.so` and calls its `SDL_main`, so the
+# game ships on Android as a shared library rather than an executable.
+# Everywhere else the crate is empty (see src/lib.rs).
+[lib]
+name = "main"
+path = "src/lib.rs"
+crate-type = ["cdylib"]
+
+[lints]
+workspace = true
+
+[target.'cfg(target_os = "android")'.dependencies]
+freight-fate = { path = "../freight-fate", default-features = false, features = ["visuals"] }
+ff-core = { path = "../ff-core" }
+jni.workspace = true
+log.workspace = true

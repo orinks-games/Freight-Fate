@@ -1553,7 +1553,48 @@ Everything found before 2026-09-25 moved to
       file keeps `touch_deep_swipe_factor`. Nothing was tried on a phone.
 - [ ] (Found along the way) iPhone gesture plan step 7: the stroke
       recogniser moved into `ff-core`, and the default deep swipe set from
-      lengths measured on a phone.
+      lengths measured on a phone. Android's recogniser
+      (`freight-fate/src/touch/recognizer.rs`) is already a Rust port of
+      `ff_touch.m` over raw finger events, tested on the desktop, and could
+      be the one both phones share.
+- [x] Freight Fate builds for Android phones, Android 14 or newer
+      (2026-11-18): the same Rust game under SDL2's Android backend, speech
+      through Prism's Android text to speech, and the iPhone's gestures
+      recognised from SDL's finger events with the same settings and
+      haptics. `cargo tools build-android` packages a signed APK without
+      Gradle; `docs/android/README.md` has the rest. TalkBack has to be
+      suspended while playing (Android has no direct touch), and the game says
+      so through TalkBack. Settings, Speech browses voices by engine, then
+      language, then voice. Played on one phone: menus, speech, sound and
+      music, a delivery, cloud restore and the orinks.net link.
+- [ ] (Found along the way) Android: the game compiles its own copy of
+      Prism's Android text to speech voice, which centres rate and pitch on
+      the voice's normal values (Prism 0.1.6's 50% pitch spoke at 2.1 times
+      normal) and lists every installed engine's voices. Drop the copy once
+      Prism does both; the build refuses a Prism whose file has changed.
+- [ ] (Found along the way) Android: controllers are untried on a phone.
+      SDL 2.26's HIDAPI registers its USB receiver without
+      `RECEIVER_EXPORTED`, which Android 14 refuses with an exception in the
+      log, so a PlayStation pad's rumble may need a newer SDL.
+- [ ] (Found along the way) Android: a drive in progress is lost back to
+      its last stop when Android ends the game in the background, which it
+      does without warning. Consider saving the drive as the game leaves
+      the foreground.
+- [ ] (Found along the way) Android: the TalkBack reminder is English only;
+      it is sent from the activity, outside the game's translations.
+- [ ] (Found along the way) Android: strokes that start at a screen edge
+      can be taken by the system's back and home gestures. The activity
+      could exclude the side edges (`setSystemGestureExclusionRects`); the
+      home gesture cannot be excluded.
+- [ ] (Found along the way) Android: the orinks.net sign-in is an
+      owner-only file in the app's private storage, since the `keyring`
+      crate has no Android backend (its in-memory fallback forgot the
+      sign-in at every launch). Android Keystore encryption would be
+      stronger. HTTPS checks certificates against the bundled WebPKI roots,
+      not the phone's store, because the platform verifier needs extra
+      Android setup.
+- [ ] (Found along the way) Android: only 64-bit ARM is built; 32-bit
+      phones and x86 Chromebooks are untried.
 - [ ] (Found along the way) Cleanup: menu intro help is spoken only when a
       menu has no rows, and on job and stop details, which lead with it. The
       help key and gesture keep reading the row's own help. The keyboard

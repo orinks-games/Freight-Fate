@@ -3,6 +3,7 @@
 //! `_speech_control_specs`, `_driving_assist_specs` in `main_menu.py`).
 
 mod dynamic;
+mod voice_groups;
 
 use std::rc::Rc;
 
@@ -16,7 +17,9 @@ use super::settings_actions::{
     score_display_label, update_channel,
 };
 use super::shortcuts::{ShortcutDevice, ShortcutsState};
-use super::speech_voices::{event_voice_label, main_voice_label, speech_voice_label};
+use super::speech_voices::{
+    event_voice_label, main_voice_label, speech_voice_label, EVENT_VOICE_HELP,
+};
 use super::touch_gestures::TouchGesturesState;
 use crate::app::GameContext;
 use crate::states::base::{Label, Menu, MenuItem};
@@ -354,7 +357,12 @@ impl SettingsCategoryState {
                        starts. Never keeps it quiet. Backups keep going either \
                        way, and a refused backup is always spoken.",
             },
-            SpeechSpec {
+        ];
+        // Android always speaks through its text to speech voice: the game's
+        // gestures need TalkBack paused, and a paused TalkBack says nothing,
+        // so there is no other main voice to offer.
+        if !cfg!(target_os = "android") {
+            specs.push(SpeechSpec {
                 label: Label::dynamic(|_s, ctx| {
                     let options = ctx.speech.main_backend_options();
                     format!(
@@ -367,34 +375,23 @@ impl SettingsCategoryState {
                        your screen reader when one is running, and a system \
                        voice when none is. A screen reader is listed only while \
                        it is running.",
-            },
-            SpeechSpec {
-                label: Label::dynamic(|_s, ctx| {
-                    let main_name = ctx.speech.backend_name();
-                    let options = ctx.speech.event_backend_options();
-                    format!(
-                        "Driving event voice: {}",
-                        event_voice_label(&ctx.settings, &main_name, &options)
-                    )
-                }),
-                action: adjust(|s, ctx, d| s.cycle_event_voice(ctx, d)),
-                help: if cfg!(target_os = "ios") {
-                    "Road events through the main voice or a separate system \
-                     voice that VoiceOver cannot cut off. The rate, pitch, \
-                     volume, and voice rows below appear only when the voice \
-                     supports them. With VoiceOver running, set those in \
-                     VoiceOver."
-                } else {
-                    "Road events through the main voice or a separate SAPI or \
-                     OneCore voice a screen reader cannot cut off. The rate, \
-                     pitch, volume, and voice rows below appear only when the \
-                     voice supports them. With a screen reader running, set \
-                     those in the screen reader."
-                },
-            },
-        ];
-        // Braille only needs NVDA or JAWS, which iPhone and iPad do not have.
-        if !cfg!(target_os = "ios") {
+            });
+        }
+        specs.push(SpeechSpec {
+            label: Label::dynamic(|_s, ctx| {
+                let main_name = ctx.speech.backend_name();
+                let options = ctx.speech.event_backend_options();
+                format!(
+                    "Driving event voice: {}",
+                    event_voice_label(&ctx.settings, &main_name, &options)
+                )
+            }),
+            action: adjust(|s, ctx, d| s.cycle_event_voice(ctx, d)),
+            help: EVENT_VOICE_HELP,
+        });
+        // Braille only needs NVDA or JAWS, which phones and tablets do not
+        // have.
+        if !cfg!(touch_screen) {
             specs.push(SpeechSpec {
                 label: dyn_label(|s| format!("Output: {}", output_label(s))),
                 action: adjust(|s, ctx, d| s.toggle_braille_only(ctx, d)),
@@ -444,7 +441,12 @@ impl SettingsCategoryState {
                 help: "Loudness of the game's voice, separate from sound volume.",
             });
         }
-        if !speech.voice_names().is_empty() {
+        let voices = speech.voice_names();
+        // Android lists every engine's voices; there they are browsed by
+        // engine and language first.
+        if cfg!(target_os = "android") && voice_groups::grouped(&voices) {
+            specs.extend(voice_groups::specs());
+        } else if !voices.is_empty() {
             specs.push(SpeechSpec {
                 label: Label::dynamic(|_s, ctx| {
                     let voices = ctx.speech.voice_names();
@@ -784,7 +786,7 @@ impl SettingsCategoryState {
                 // numbers arrive in.
             ]
             .into_iter()
-            .chain(cfg!(target_os = "ios").then(touch_gestures_row))
+            .chain(cfg!(touch_screen).then(touch_gestures_row))
             .chain([back_row()])
             .collect(),
             "audio" => self.audio_items(),

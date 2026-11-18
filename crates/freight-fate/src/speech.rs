@@ -114,6 +114,29 @@ pub fn env() -> SpeechEnv {
     SpeechEnv::with_prefix("FREIGHT_FATE")
 }
 
+/// The game's speech: Prism built on its own worker thread.
+///
+/// On Android the worker first attaches itself to the Java VM, which
+/// Prism's Android voices require of a thread the runtime did not start.
+pub fn spawn_worker() -> ThreadedSpeech {
+    #[cfg(not(target_os = "android"))]
+    {
+        ThreadedSpeech::spawn(env())
+    }
+    #[cfg(target_os = "android")]
+    {
+        let env = env();
+        ThreadedSpeech::spawn_with(move |after_wedge| {
+            crate::android::attach_current_thread();
+            if after_wedge {
+                Box::new(Speech::new_after_wedge(&env))
+            } else {
+                Box::new(Speech::new(&env))
+            }
+        })
+    }
+}
+
 /// `GameContext.apply_speech`: reflect the speech settings on the sink.
 ///
 /// Selects the event voice the player chose (or the main voice when

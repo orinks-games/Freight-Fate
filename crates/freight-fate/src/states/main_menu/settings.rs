@@ -41,10 +41,10 @@ impl SettingsState {
         ("Problem reports", "reports"),
     ];
 
-    /// Categories with nothing to do on iPhone and iPad: TestFlight and the
-    /// App Store do the updating, and the log sits where the player cannot
-    /// open it.
-    const HIDDEN_ON_IOS: [&'static str; 2] = ["updates", "reports"];
+    /// Categories with nothing to do on a phone or tablet: the App Store,
+    /// TestFlight or the installed APK's source does the updating, and the
+    /// log sits in the app's private storage where the player cannot open it.
+    const HIDDEN_ON_TOUCH_SCREEN: [&'static str; 2] = ["updates", "reports"];
 
     pub fn new() -> Self {
         Self {
@@ -85,7 +85,7 @@ impl Menu for SettingsState {
     fn build_items(&mut self, _ctx: &mut GameContext) -> Vec<MenuItem<Self>> {
         let mut items: Vec<MenuItem<Self>> = Self::CATEGORIES
             .iter()
-            .filter(|(_, key)| !Self::HIDDEN_ON_IOS.contains(key) || !cfg!(target_os = "ios"))
+            .filter(|(_, key)| !Self::HIDDEN_ON_TOUCH_SCREEN.contains(key) || !cfg!(touch_screen))
             // AG Now updates the game itself, so the update channel and the
             // manual check have nothing to do there either.
             .filter(|(_, key)| *key != "updates" || crate::updater::self_updates())

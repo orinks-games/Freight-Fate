@@ -38,6 +38,8 @@ use crate::states::main_menu::{
 use crate::touch::Gesture;
 
 mod ambient;
+#[cfg(target_os = "android")]
+mod android_touch;
 pub mod boot_timing;
 mod co_driver;
 pub mod context;
@@ -79,7 +81,7 @@ pub fn version() -> &'static str {
 
 /// `package_version` from the `build_info.json` next to the executable.
 fn baked_version() -> Option<String> {
-    let exe = std::env::current_exe().ok()?;
+    let exe = ff_core::settings::paths::game_executable().ok()?;
     let resource_dir =
         ff_core::data::data_resources::resource_dir_for_executable(&exe, cfg!(target_os = "macos"));
     let info = std::fs::read_to_string(resource_dir.join("build_info.json")).ok()?;
@@ -563,8 +565,7 @@ impl App {
         // Prism on its own worker thread: a wedged screen-reader or SAPI
         // call costs sentences, never the drive (a synchronous call here
         // froze the whole game at an I-77 merge -- Shane, 2026-08-30).
-        let speech: Box<dyn SpeechSink> =
-            Box::new(crate::speech::ThreadedSpeech::spawn(crate::speech::env()));
+        let speech: Box<dyn SpeechSink> = Box::new(crate::speech::spawn_worker());
         boot_timing::mark("speech");
         // Deferred: the output-device open runs on a worker thread, so a
         // machine where the probe hangs boots reading input instead of deaf.
@@ -1131,7 +1132,22 @@ impl App {
     /// confirmation the player cannot get past would be a worse bug than the
     /// one it fixes -- if speech has dropped, or the dialog is somehow
     /// unreachable, Alt+F4 twice always closes the game.
+    ///
+    /// A phone or tablet never asks. There the close request is the system
+    /// ending the app (Android's activity being destroyed, from the app
+    /// switcher or for memory), which no answer can refuse, and SDL's
+    /// activity waits on the game's thread until it returns: a question here
+    /// froze the app until Android offered to close it, and the next start
+    /// then offered a crash report. The run is marked as ended cleanly at
+    /// once, before the shutdown: Android's launcher kills the process well
+    /// under a second after closing it from the app switcher, so a shutdown
+    /// slowed by a save or a cloud backup would otherwise read as a crash.
     pub fn handle_close_request(&mut self) {
+        if cfg!(touch_screen) {
+            crate::problem_reports::end_session();
+            self.ctx.running = false;
+            return;
+        }
         let already_asking = self
             .ctx
             .state()
