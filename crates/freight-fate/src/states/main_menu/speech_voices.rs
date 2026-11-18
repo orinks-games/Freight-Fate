@@ -55,9 +55,7 @@ pub(super) fn main_voice_step(saved: &str, options: &[String], d: i64) -> Option
 /// the separate voices this machine offers (nothing but the main voice can
 /// speak).
 pub(super) fn events_share_main(s: &Settings, main_name: &str, options: &[String]) -> bool {
-    !s.sapi_events
-        || s.event_backend == main_name
-        || !options.iter().any(|option| *option == s.event_backend)
+    !s.sapi_events || s.event_backend == main_name || !options.contains(&s.event_backend)
 }
 
 /// The value of the Driving event voice row. `options` is the separate
@@ -80,8 +78,7 @@ pub(super) fn event_voice_step(
 ) -> Option<String> {
     let mut stops: Vec<Option<&str>> = vec![None];
     stops.extend(options.iter().map(|option| Some(option.as_str())));
-    let current =
-        (!events_share_main(s, main_name, options)).then_some(s.event_backend.as_str());
+    let current = (!events_share_main(s, main_name, options)).then_some(s.event_backend.as_str());
     let i = stops.iter().position(|stop| *stop == current).unwrap_or(0) as i64;
     stops[(i + d).rem_euclid(stops.len() as i64) as usize].map(str::to_string)
 }

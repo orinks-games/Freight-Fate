@@ -12,8 +12,8 @@ use ff_core::settings::Settings;
 use super::settings::{Adjust, SettingsCategoryState};
 use super::settings_actions::{
     acc_gap_label, assist_preset_label, backup_announcements_label, cue_loudness_label,
-    descent_level_label, hos_label, lane_keeping_label, language_label,
-    output_label, pace_label, score_display_label, update_channel,
+    descent_level_label, hos_label, lane_keeping_label, language_label, output_label, pace_label,
+    score_display_label, update_channel,
 };
 use super::shortcuts::{ShortcutDevice, ShortcutsState};
 use super::speech_voices::{event_voice_label, main_voice_label, speech_voice_label};

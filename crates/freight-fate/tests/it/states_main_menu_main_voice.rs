@@ -108,7 +108,10 @@ fn the_event_row_reads_main_voice_when_both_name_one_voice() {
     let mut app = TestApp::with_speech(CaptureSpeech::full_voice());
     assert_eq!(app.ctx.settings.event_backend, "SAPI");
     speech_settings(&mut app);
-    assert_eq!(row(&app, "Driving event voice"), "Driving event voice: SAPI");
+    assert_eq!(
+        row(&app, "Driving event voice"),
+        "Driving event voice: SAPI"
+    );
     move_to::<Cat>(&mut app, "Main voice");
     for _ in 0..3 {
         key(&mut app, Key::Right);
@@ -127,7 +130,10 @@ fn the_event_row_reads_main_voice_when_both_name_one_voice() {
     key(&mut app, Key::Right);
     key(&mut app, Key::Right);
     assert_eq!(current_label::<Cat>(&app), "Main voice: automatic");
-    assert_eq!(row(&app, "Driving event voice"), "Driving event voice: SAPI");
+    assert_eq!(
+        row(&app, "Driving event voice"),
+        "Driving event voice: SAPI"
+    );
 }
 
 #[test]
