@@ -501,9 +501,11 @@ jobs:
         # Every job here runs muted, so a Prism linked without its backends
         # would still pass every test and boot. The listing does not speak;
         # it names each backend Prism registered, reachable or not.
+        # --names-only opens none of them: this runner has no audio device,
+        # and opening OneCore there with Prism 0.1.6 aborts the process.
         shell: bash
         run: |
-          ./target/release/freightfate.exe --list-speech-backends | tee speech-backends.txt
+          ./target/release/freightfate.exe --list-speech-backends --names-only | tee speech-backends.txt
           grep -q "^SAPI " speech-backends.txt
 
       - uses: actions/upload-artifact@v7
