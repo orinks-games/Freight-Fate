@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### Compatibility
+
+- **Careers from newer Freight Fate versions stay untouched.** Local saves and cloud backups explain which version can continue them.
+
 ### Added
 
 - **Job details and the departure line say how much night driving a run has,** as in "About 4 hours of night driving."
@@ -24,8 +28,8 @@
 
 ### Fixed
 
+- **Touch driving help now uses available translations for full blocks of instructions.**
 - **Closing the game from the iOS app switcher no longer triggers a crash prompt.** Settings, Problem reports can turn prompts back on.
-
 - **The Speech settings rows now update as soon as you change a voice.** Before, they changed only after leaving the menu.
 - **Cruise no longer pumps the brakes behind a slower car on streets and approaches.** It slows once and follows, so low air no longer sets the spring brakes.
 - **Enter accepts a facility arrival from a full stop with Facility stopping assistance off.** A stopped truck is told to set the parking brake.

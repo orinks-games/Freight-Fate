@@ -4,7 +4,9 @@
 use std::collections::BTreeMap;
 
 use ff_core::data::regions::region_label;
-use ff_core::models::profile::{find_save_path, is_pre_1_9_save_file, Profile, DEFAULT_CITY};
+use ff_core::models::profile::{
+    find_save_path, is_pre_1_9_save_file, newer_career_file, Profile, DEFAULT_CITY,
+};
 use ff_core::models::start_options::{all_start_options, apply_start_option, start_option};
 
 use crate::app::{GameContext, Say};
@@ -250,6 +252,16 @@ impl HomeCityState {
         // the legacy notice just promised that save stays safe on disk for
         // 1.8, and this is the only path that could break the promise.
         if let Some(same_name) = find_save_path(&name) {
+            if let Some(newer) = newer_career_file(&same_name) {
+                ctx.audio.play("ui/error");
+                ctx.say(&format!(
+                    "There is already a career named {name} from Freight Fate {}. \
+                     That save stays as it is, so this career needs a different driver name. \
+                     Escape goes back to change it.",
+                    newer.line
+                ));
+                return;
+            }
             if is_pre_1_9_save_file(&same_name) {
                 ctx.audio.play("ui/error");
                 ctx.say(&format!(
