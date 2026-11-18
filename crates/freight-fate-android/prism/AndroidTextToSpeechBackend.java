@@ -2,7 +2,7 @@
 //
 // Freight Fate's modified copy of Prism 0.1.6's Android text to speech
 // backend (github.com/ethindp/prism), compiled into the APK in place of
-// Prism's own (see PRISM_OVERRIDES in crates/ff-tools/src/release/android.rs).
+// Prism's own (see JAVA_OVERRIDES in crates/ff-tools/src/release/android.rs).
 // Changes from Prism: the rate and pitch scales are centred on Android's
 // normal 1.0; the voice list holds every installed engine's voices, named
 // "engine: language: voice"; and choosing another engine's voice moves

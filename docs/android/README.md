@@ -97,11 +97,17 @@ of `crates/ff-tools/src/release/android.rs`. In short:
 - The activity, `FreightFateActivity`, subclasses SDL's activity. It unpacks
   the game files into the app's storage and answers the game's few questions
   about the phone (TalkBack, haptics, screen density, a keyboard).
-- The game compiles its own copy of Prism's Android text to speech voice,
-  `crates/freight-fate-android/prism/`, in place of Prism's. That copy
-  centres rate and pitch on the voice's normal values and lists every
-  engine's voices. The build stops if Prism's own file changes, so a new
-  Prism is checked against the copy before it ships.
+- The game compiles its own copies of two library files in place of the
+  library's:
+  - Prism's Android text to speech voice (`crates/freight-fate-android/prism/`),
+    which centres rate and pitch on the voice's normal values and lists every
+    engine's voices;
+  - SDL's HIDAPI device manager (`crates/freight-fate-android/sdl/`), which
+    Android 14 otherwise refuses at startup, leaving PlayStation controllers
+    without rumble.
+
+  The build stops if either library's own file changes, so a new SDL or Prism
+  is checked against the copy before it ships.
 
 ## Platform notes
 

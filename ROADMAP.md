@@ -1572,10 +1572,14 @@ Everything found before 2026-09-25 moved to
       the voice's normal values (Prism 0.1.6's 50% pitch spoke at 2.1 times
       normal) and lists every installed engine's voices. Drop the copy once
       Prism does both; the build refuses a Prism whose file has changed.
-- [ ] (Found along the way) Android: controllers are untried on a phone.
-      SDL 2.26's HIDAPI registers its USB receiver without
-      `RECEIVER_EXPORTED`, which Android 14 refuses with an exception in the
-      log, so a PlayStation pad's rumble may need a newer SDL.
+- [ ] (Found along the way) Android controllers (a DualSense Edge, 2026-11-18):
+      menus and driving work over USB and Bluetooth, with no rumble.
+      SDL 2.26's HIDAPI manager registered its receivers without the
+      exported flag and asked for USB permission with an implicit mutable
+      PendingIntent, both refused by Android 14, so HIDAPI was off; the game
+      now compiles a corrected copy (`crates/freight-fate-android/sdl`).
+      Over USB, Android also takes a DualSense for a headset and plays the
+      game's speech through its vibration motors.
 - [ ] (Found along the way) Android: a drive in progress is lost back to
       its last stop when Android ends the game in the background, which it
       does without warning. Consider saving the drive as the game leaves

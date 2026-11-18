@@ -12,7 +12,7 @@
 //!   uncompressed and page-aligned so Android maps them in place;
 //! * `classes.dex`: SDL's Java activity, Prism's Android voices (with the
 //!   djinni support classes they use; the text to speech voice is the
-//!   game's corrected copy, see [`PRISM_OVERRIDES`]) and
+//!   game's corrected copy, see [`JAVA_OVERRIDES`]) and
 //!   `FreightFateActivity`;
 //! * `assets/game/`: the desktop release layout (baked world, data files,
 //!   loose sounds, the sound and music packs, `build_info.json`), which the
@@ -317,17 +317,12 @@ fn package_source(name: &str, cargo_config: Option<&str>) -> Result<PathBuf> {
 }
 
 fn java_sources(cargo_config: Option<&str>) -> Result<Vec<PathBuf>> {
-    let sdl = package_source("sdl2-sys", cargo_config)?
-        .join("SDL")
-        .join("android-project")
-        .join("app")
-        .join("src")
-        .join("main")
-        .join("java");
-    let prism = package_source("prism-sys", cargo_config)?.join("prism");
-    let (overridden, overrides) = prism_overrides(&prism)?;
+    let sdl_crate = package_source("sdl2-sys", cargo_config)?;
+    let prism_crate = package_source("prism-sys", cargo_config)?;
+    let (overridden, overrides) = java_overrides(&sdl_crate, &prism_crate)?;
+    let prism = prism_crate.join("prism");
     let roots = [
-        sdl,
+        sdl_crate.join(SDL_JAVA),
         prism.join("source").join("backends").join("android"),
         prism
             .join("third_party")
@@ -352,47 +347,88 @@ fn java_sources(cargo_config: Option<&str>) -> Result<Vec<PathBuf>> {
     Ok(sources)
 }
 
-/// Prism's Android files the game compiles its own copy of, from
-/// `crates/freight-fate-android/prism/`: each Prism path (under `prism/`)
-/// with the SHA-256 of the Prism file the copy was made from.
-///
-/// The text to speech voice is the one copy. Prism 0.1.6 centres the rate
-/// and pitch scales on 3.05 and 2.125 rather than Android's normal 1.0, so
-/// the game's 50% pitch spoke like a chipmunk; and it reaches only the
-/// phone's preferred engine. The copy fixes the centre, lists every
-/// installed engine's voices named "engine: language: voice", and moves to
-/// another engine when one of its voices is chosen. It stays until Prism
-/// itself does both.
-const PRISM_OVERRIDES: &[(&str, &str)] = &[(
-    "source/backends/android/AndroidTextToSpeechBackend.java",
-    "71a123b679702801030e47ba26e2fe8cf71179700824aec825b8df6107be6dc0",
-)];
+/// SDL's Android Java, under the sdl2-sys crate.
+const SDL_JAVA: &str = "SDL/android-project/app/src/main/java";
 
-/// The Prism sources to leave out, and the game's copies to compile in their
-/// place. Refuses when Prism's file is not the one a copy was made from: a
-/// new Prism needs its changes carried into the copy (or the copy dropped)
-/// before it ships.
-fn prism_overrides(prism: &Path) -> Result<(Vec<PathBuf>, Vec<PathBuf>)> {
-    let dir = util::repo_root().join(CRATE_DIR).join("prism");
+/// Where a library's file comes from.
+#[derive(Clone, Copy)]
+enum Library {
+    Sdl,
+    Prism,
+}
+
+/// One library file the game compiles its own copy of, from
+/// `crates/freight-fate-android/<folder>/`.
+struct JavaOverride {
+    library: Library,
+    /// The library's file, under its crate's folder.
+    path: &'static str,
+    /// The SHA-256 of the library file the copy was made from.
+    made_from: &'static str,
+    /// The folder of the copy, under the Android crate.
+    folder: &'static str,
+}
+
+/// The library files the game compiles its own copies of.
+///
+/// - Prism's text to speech voice. Prism 0.1.6 centres the rate and pitch
+///   scales on 3.05 and 2.125 rather than Android's normal 1.0, so the
+///   game's 50% pitch spoke like a chipmunk; and it reaches only the phone's
+///   preferred engine. The copy fixes the centre, lists every installed
+///   engine's voices named "engine: language: voice", and moves to another
+///   engine when one of its voices is chosen. It stays until Prism itself
+///   does both.
+/// - SDL 2.26's HIDAPI device manager. Android 14 refuses its broadcast
+///   receivers (registered without the exported flag) and its USB
+///   permission request (a mutable PendingIntent with an implicit Intent),
+///   which left HIDAPI off, and with it PlayStation controller rumble. The
+///   copy makes the two changes later SDL releases made. It stays until
+///   sdl2-sys bundles an SDL with them.
+const JAVA_OVERRIDES: &[JavaOverride] = &[
+    JavaOverride {
+        library: Library::Prism,
+        path: "prism/source/backends/android/AndroidTextToSpeechBackend.java",
+        made_from: "71a123b679702801030e47ba26e2fe8cf71179700824aec825b8df6107be6dc0",
+        folder: "prism",
+    },
+    JavaOverride {
+        library: Library::Sdl,
+        path: "SDL/android-project/app/src/main/java/org/libsdl/app/HIDDeviceManager.java",
+        made_from: "0b571eb0a49fb3a01505b5066b2e8d7aafa257cf1fa5393fca42a22bc5960cda",
+        folder: "sdl",
+    },
+];
+
+/// The library sources to leave out, and the game's copies to compile in
+/// their place. Refuses when a library's file is not the one its copy was
+/// made from: a new SDL or Prism needs its changes carried into the copy
+/// (or the copy dropped) before it ships.
+fn java_overrides(sdl: &Path, prism: &Path) -> Result<(Vec<PathBuf>, Vec<PathBuf>)> {
+    let crate_dir = util::repo_root().join(CRATE_DIR);
     let mut overridden = Vec::new();
     let mut copies = Vec::new();
-    for (path, made_from) in PRISM_OVERRIDES {
-        let original = prism.join(path);
+    for item in JAVA_OVERRIDES {
+        let root = match item.library {
+            Library::Sdl => sdl,
+            Library::Prism => prism,
+        };
+        let original = root.join(item.path);
         let found = util::file_sha256(&original)?;
-        if found != *made_from {
+        if found != item.made_from {
             return Err(format!(
-                "Prism's {} is not the one the copy in {}/prism was made from (SHA-256 {found}); \
-                 carry its changes into the copy, or drop the copy if Prism \
-                 now has the fixes, then update PRISM_OVERRIDES",
+                "{} is not the file the copy in {}/{} was made from (SHA-256 {found}); \
+                 carry its changes into the copy, or drop the copy if the library \
+                 now has the fixes, then update JAVA_OVERRIDES",
                 original.display(),
-                CRATE_DIR
+                CRATE_DIR,
+                item.folder
             ));
         }
-        let name = Path::new(path)
+        let name = Path::new(item.path)
             .file_name()
-            .ok_or_else(|| format!("no file name in {path}"))?;
+            .ok_or_else(|| format!("no file name in {}", item.path))?;
         overridden.push(original);
-        copies.push(dir.join(name));
+        copies.push(crate_dir.join(item.folder).join(name));
     }
     Ok((overridden, copies))
 }
