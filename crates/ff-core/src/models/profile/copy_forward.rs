@@ -29,6 +29,11 @@ pub fn copy_forward_1_9_careers() -> io::Result<usize> {
         None => return Ok(0),
     };
     let mut candidates = indexmap::IndexMap::new();
+    for (career, path) in sealed::set_aside_candidates(&source) {
+        if let Some(stem) = career.strip_suffix(SAVE_SUFFIX) {
+            candidates.insert(stem.to_string(), (path, Some(career)));
+        }
+    }
     let paths: Vec<_> = entries.flatten().map(|e| e.path()).collect();
     for suffix in [LEGACY_SAVE_SUFFIX, SAVE_SUFFIX] {
         for path in &paths {
@@ -37,15 +42,32 @@ pub fn copy_forward_1_9_careers() -> io::Result<usize> {
                 .and_then(|n| n.to_str())
                 .and_then(|n| n.strip_suffix(suffix))
             {
-                candidates.insert(stem.to_string(), path.clone());
+                candidates.insert(stem.to_string(), (path.clone(), None));
             }
         }
     }
     let mut count = 0;
-    for (stem, path) in &candidates {
+    for (stem, (source_path, restored_name)) in &candidates {
         if copied.contains(stem) {
             continue;
         }
+        let staging = if restored_name.is_some() {
+            std::fs::create_dir_all(career_data_dir())?;
+            Some(tempfile::tempdir_in(career_data_dir())?)
+        } else {
+            None
+        };
+        let staged_path = match (&staging, restored_name) {
+            (Some(dir), Some(name)) => {
+                let path = dir.path().join(name);
+                if std::fs::copy(source_path, &path).is_err() {
+                    continue;
+                }
+                path
+            }
+            _ => source_path.clone(),
+        };
+        let path = &staged_path;
         let Ok((raw, _)) = sealed::read(path) else {
             continue;
         };
@@ -73,7 +95,7 @@ pub fn copy_forward_1_9_careers() -> io::Result<usize> {
             continue;
         }
         if find_save_path(name).is_none() {
-            let modified = path.metadata()?.modified()?;
+            let modified = source_path.metadata()?.modified()?;
             let mut profile = match Profile::load_with_persistence(path, true, false) {
                 Ok(profile) if profile.created_line == "1.9" && profile.name == name => profile,
                 _ => continue,
