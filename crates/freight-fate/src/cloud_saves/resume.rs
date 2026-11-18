@@ -1,10 +1,11 @@
 use std::collections::HashSet;
+use std::time::{SystemTime, UNIX_EPOCH};
 
 use ff_core::cloud_resume::{decide, CheckState, Decision, Event};
 use ff_core::models::profile::{is_pre_1_9_save, Profile};
 
 use super::*;
-use crate::states::cloud_save_states::install_restored_profile;
+use crate::states::cloud_save_states::{created_at_ms, install_restored_profile};
 
 #[derive(Default)]
 pub(super) struct Resume {
@@ -195,6 +196,17 @@ impl CloudSaves {
                             &hash,
                             &identity.driver_id,
                         );
+                        if let Some(modified) = created_at_ms(entry)
+                            .and_then(|ms| Duration::try_from_secs_f64(ms / 1000.0).ok())
+                            .and_then(|elapsed| UNIX_EPOCH.checked_add(elapsed))
+                            .filter(|time| *time <= SystemTime::now())
+                        {
+                            if let Ok(file) =
+                                std::fs::File::options().write(true).open(&installed_path)
+                            {
+                                let _ = file.set_modified(modified);
+                            }
+                        }
                         self.inner.state.lock().unwrap().pending.remove(&name);
                         pulled += 1;
                         self.inner

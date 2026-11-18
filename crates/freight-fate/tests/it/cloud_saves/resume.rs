@@ -243,11 +243,11 @@ fn normalized_resume_stays_clean_for_the_next_revision() {
             if url.contains("saveName=") {
                 let (profile, signature) = money77_profile();
                 let mut reply = make_cloud_reply(&profile, signature, revision);
-                reply["saveName"] = json!(save_slot_name("Road Star"));
+                reply["saveName"] = json!(cloud_slot_name("Road Star"));
                 Ok(reply)
             } else {
                 Ok(
-                    json!({"saves": [{"saveName": save_slot_name("Road Star"), "revision": revision}]}),
+                    json!({"saves": [{"saveName": cloud_slot_name("Road Star"), "revision": revision}]}),
                 )
             }
         },
@@ -266,7 +266,7 @@ fn normalized_resume_stays_clean_for_the_next_revision() {
     let (_, downloaded_hash) = cloud_content(&money77_profile().0);
     assert_ne!(installed_hash, downloaded_hash);
     assert_eq!(
-        service.sync_state().slot(&save_slot_name("Road Star"))["hash"],
+        service.sync_state().slot(&cloud_slot_name("Road Star"))["hash"],
         installed_hash
     );
     revision.store(3, std::sync::atomic::Ordering::SeqCst);
@@ -279,7 +279,7 @@ fn normalized_resume_stays_clean_for_the_next_revision() {
         }
     );
     assert_eq!(
-        service.sync_state().slot(&save_slot_name("Road Star"))["revision"],
+        service.sync_state().slot(&cloud_slot_name("Road Star"))["revision"],
         3
     );
     assert!(service.conflicts().is_empty());
@@ -307,7 +307,8 @@ fn continue_uses_the_most_recent_remote_career_after_multiple_pickups() {
             ]}))
         },
     ));
-    let (service, _) = tracked(&mut app, transport);
+    let (service, unlisted_path) = tracked(&mut app, transport);
+    fs::remove_file(unlisted_path).unwrap();
     for (name, local_time) in [("Recent Driver", 200), ("Older Driver", 100)] {
         let profile = Profile::named(name);
         let path = profile.save().unwrap();
@@ -347,6 +348,84 @@ fn continue_uses_the_most_recent_remote_career_after_multiple_pickups() {
     menu.menu_mut().index = continue_row;
     Menu::handle_event(&mut menu, &mut app.ctx, &InputEvent::key(Key::Return));
     assert_eq!(app.ctx.profile.as_ref().unwrap().name, "Recent Driver");
+}
+
+#[test]
+fn older_pickup_preserves_continue_order_and_invalid_times_are_ignored() {
+    for (created_at, valid) in [
+        (json!(1_700_000_000_000i64), true),
+        (json!("1700000000000"), true),
+        (Value::Null, false),
+        (json!("invalid"), false),
+        (json!(9_000_000_000_000i64), false),
+    ] {
+        let mut app = TestApp::new();
+        let transport = Arc::new(ClosureTransport(
+            move |url: &str, _: Option<&Value>, _: &[(String, String)], _: Option<&str>| {
+                if url.contains("saveName=") {
+                    let (profile, signature) = money77_profile();
+                    let mut reply = make_cloud_reply(&profile, signature, 2);
+                    reply["saveName"] = json!(cloud_slot_name("Road Star"));
+                    Ok(reply)
+                } else {
+                    Ok(json!({"saves": [
+                        {"saveName": cloud_slot_name("Road Star"), "revision": 2, "createdAt": created_at},
+                        {"saveName": cloud_slot_name("Recent local"), "revision": 1}
+                    ]}))
+                }
+            },
+        ));
+        let (service, path) = tracked(&mut app, transport);
+        let recent = Profile::named("Recent local");
+        let recent_path = recent.save().unwrap();
+        let recent = Profile::load(&recent_path).unwrap();
+        let (_, hash) = cloud_content(&Value::Object(recent.to_dict()));
+        service.sync_state().record_synced_for_driver(
+            &cloud_slot_name("Recent local"),
+            1,
+            &hash,
+            &identity().driver_id,
+        );
+        fs::File::options()
+            .write(true)
+            .open(&recent_path)
+            .unwrap()
+            .set_modified(std::time::UNIX_EPOCH + Duration::from_millis(1_700_100_000_000))
+            .unwrap();
+        let before = std::time::SystemTime::now();
+        app.ctx.settings.cloud_resume = true;
+        let mut menu = MainMenuState::new();
+        Menu::enter(&mut menu, &mut app.ctx);
+        Menu::update(&mut menu, &mut app.ctx, 0.0);
+        assert_eq!(
+            service.resume_state(),
+            CheckState::Done {
+                pulled: 1,
+                conflicts: 0
+            }
+        );
+        let modified = fs::metadata(path).unwrap().modified().unwrap();
+        if valid {
+            assert_eq!(
+                modified,
+                std::time::UNIX_EPOCH + Duration::from_millis(1_700_000_000_000)
+            );
+        } else {
+            assert!(modified >= before - Duration::from_secs(1));
+        }
+        let continue_row = menu
+            .menu()
+            .items
+            .iter()
+            .position(|item| item.text(&menu, &app.ctx).starts_with("Continue"))
+            .unwrap();
+        menu.menu_mut().index = continue_row;
+        Menu::handle_event(&mut menu, &mut app.ctx, &InputEvent::key(Key::Return));
+        assert_eq!(
+            app.ctx.profile.as_ref().unwrap().name,
+            if valid { "Recent local" } else { "Road Star" }
+        );
+    }
 }
 
 #[test]
