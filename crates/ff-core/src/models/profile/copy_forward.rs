@@ -73,12 +73,17 @@ pub fn copy_forward_1_9_careers() -> io::Result<usize> {
             continue;
         }
         if find_save_path(name).is_none() {
+            let modified = path.metadata()?.modified()?;
             let mut profile = match Profile::load_with_persistence(path, true, false) {
                 Ok(profile) if profile.created_line == "1.9" && profile.name == name => profile,
                 _ => continue,
             };
             profile.created_line = CREATED_LINE.to_string();
-            profile.save()?;
+            let copied_path = profile.save()?;
+            std::fs::OpenOptions::new()
+                .write(true)
+                .open(copied_path)?
+                .set_modified(modified)?;
             origin::copy_from_1_9(&profile.name);
             count += 1;
         }
@@ -270,6 +275,39 @@ mod tests {
             origin::forget_origin("Arrived");
             assert!(origin::origin_for("Arrived").is_none());
             assert_eq!(std::fs::read(old_record).unwrap(), bytes);
+        });
+    }
+
+    #[test]
+    fn imported_careers_keep_source_recency_for_continue() {
+        with_data_dir(|_| {
+            let (recent, _) = old_save("Recent", false);
+            let (older, _) = old_save("Older", false);
+            let recent_time = std::time::UNIX_EPOCH + std::time::Duration::from_secs(1_700_000_000);
+            let older_time = recent_time - std::time::Duration::from_secs(3600);
+            for (path, time) in [(&recent, recent_time), (&older, older_time)] {
+                std::fs::OpenOptions::new()
+                    .write(true)
+                    .open(path)
+                    .unwrap()
+                    .set_modified(time)
+                    .unwrap();
+            }
+            assert_eq!(copy_forward_1_9_careers().unwrap(), 2);
+            let recent_copy = save_path_for("Recent");
+            let older_copy = save_path_for("Older");
+            assert_eq!(
+                Profile::list_saves(),
+                [recent_copy.clone(), older_copy.clone()]
+            );
+            for (source, copy) in [(&recent, &recent_copy), (&older, &older_copy)] {
+                assert_eq!(
+                    source.metadata().unwrap().modified().unwrap(),
+                    copy.metadata().unwrap().modified().unwrap()
+                );
+                Profile::load(copy).unwrap();
+            }
+            assert_eq!(Profile::list_saves(), [recent_copy, older_copy]);
         });
     }
 }
