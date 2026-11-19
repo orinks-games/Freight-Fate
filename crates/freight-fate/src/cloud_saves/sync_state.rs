@@ -95,11 +95,34 @@ impl SyncState {
     }
 
     pub fn record_synced(&self, name: &str, revision: i64, content_hash: &str) {
+        self.record_synced_with_driver(name, revision, content_hash, None);
+    }
+
+    pub fn record_synced_for_driver(
+        &self,
+        name: &str,
+        revision: i64,
+        content_hash: &str,
+        driver_id: &str,
+    ) {
+        self.record_synced_with_driver(name, revision, content_hash, Some(driver_id));
+    }
+
+    fn record_synced_with_driver(
+        &self,
+        name: &str,
+        revision: i64,
+        content_hash: &str,
+        driver_id: Option<&str>,
+    ) {
         let mut inner = self.inner.lock().unwrap();
         self.ensure_loaded(&mut inner);
         let mut entry = Map::new();
         entry.insert("revision".to_string(), Value::from(revision));
         entry.insert("hash".to_string(), Value::from(content_hash));
+        if let Some(driver_id) = driver_id {
+            entry.insert("driverId".to_string(), Value::from(driver_id));
+        }
         inner.slots.insert(name.to_string(), entry);
         self.persist(&inner);
     }

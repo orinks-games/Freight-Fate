@@ -166,18 +166,22 @@ pub trait TextEntry: Sized + 'static {
         }
     }
 
-    fn lines(&self, _ctx: &GameContext) -> Vec<String> {
+    fn lines(&self, ctx: &GameContext) -> Vec<String> {
         let field = self.entry();
         let before: String = field.name[..field.cursor].iter().collect();
         let after: String = field.name[field.cursor..].iter().collect();
+        let help = if touch_prompt(ctx) {
+            TOUCH_FIELD_HELP
+        } else {
+            "Left and right arrows review letters, Home and End jump to the \
+             ends. Enter to confirm, Escape to cancel, F2 to hear the whole text, \
+             Control V to paste."
+        };
         vec![
             field.heading.clone(),
             String::new(),
             format!("{}: {before}|{after}", field.field_label),
-            "Left and right arrows review letters, Home and End jump to the \
-             ends. Enter to confirm, Escape to cancel, F2 to hear the whole text, \
-             Control V to paste."
-                .to_string(),
+            help.to_string(),
         ]
     }
 
