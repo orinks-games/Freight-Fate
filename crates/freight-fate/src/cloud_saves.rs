@@ -114,6 +114,7 @@ pub fn profile_dict_from_content(content: &[u8]) -> Result<Value, String> {
 }
 
 mod api;
+mod manual;
 mod sync_state;
 mod wording;
 
@@ -984,13 +985,16 @@ copy no longer exists; restarting the slot fresh"
         }
         let (_, content_hash) = cloud_content(&snapshot);
         if slot.get("hash").and_then(Value::as_str) == Some(content_hash.as_str()) {
-            self.done_with(name, &snapshot);
-            self.note_outcome(name, token, "unchanged");
-            // The cloud already holds this save -- a resolved conflict or a
-            // menu restore got the slot current, so an announced refusal is
-            // over even though no upload ran here.
-            self.announce_success(name, token, false);
-            return;
+            if token != 0 {
+                if self.finish_cached_manual_backup(name, &snapshot, token, &mut slot) {
+                    return;
+                }
+            } else {
+                self.done_with(name, &snapshot);
+                self.note_outcome(name, token, "unchanged");
+                self.announce_success(name, token, false);
+                return;
+            }
         }
         let identity = match self.identity.lock().unwrap().clone() {
             Some(id) => id,

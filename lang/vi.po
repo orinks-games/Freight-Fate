@@ -16749,11 +16749,20 @@ msgstr "bản đồng bộ gần nhất số {revision}"
 msgid "no revision synced yet"
 msgstr "chưa đồng bộ bản nào"
 
+msgid "Latest backup accepted and server-verified."
+msgstr "Bản sao lưu mới nhất đã được máy chủ tiếp nhận và xác thực."
+
+msgid "auth"
+msgstr "auth"
+
+msgid "network"
+msgstr "network"
+
 msgid "unchanged"
 msgstr "không thay đổi"
 
-msgid "Latest backup accepted and server-verified."
-msgstr "Bản sao lưu mới nhất đã được máy chủ tiếp nhận và xác thực."
+msgid "conflict"
+msgstr "conflict"
 
 msgid "cloud-resume"
 msgstr "cloud-resume"
@@ -16779,9 +16788,6 @@ msgstr "slots"
 msgid "hash"
 msgstr "hash"
 
-msgid "conflict"
-msgstr "conflict"
-
 msgid ""
 "orinks.net no longer accepts this computer's sign-in. Usually this computer "
 "was signed out from the computer list on your driver setup page. To connect "
@@ -16800,12 +16806,6 @@ msgstr ""
 
 msgid "unauthorized"
 msgstr "unauthorized"
-
-msgid "network"
-msgstr "network"
-
-msgid "auth"
-msgstr "auth"
 
 #. one sentence of a longer line
 msgid "This career no longer backs up to your orinks.net account."
@@ -21846,15 +21846,10 @@ msgstr ""
 msgid "The cloud copy now matches this computer's save."
 msgstr "Bản trên đám mây hiện đã khớp với bản lưu trên máy này."
 
-msgid "The cloud copy changed on another computer. Nothing was changed."
-msgstr "Bản trên đám mây đã thay đổi từ máy khác. Chưa có gì bị thay đổi."
-
 msgid ""
-"The cloud copy changed on another computer, so nothing was changed. Choose "
-"which copy to keep."
+"The cloud has a newer copy of this career. Nothing was changed. Choose "
+"Restore the latest backup to use it."
 msgstr ""
-"Bản trên đám mây đã thay đổi từ máy khác nên chưa có gì bị thay đổi. Hãy "
-"chọn giữ bản nào."
 
 msgid "Reconnect needed. Nothing was changed."
 msgstr "Cần kết nối lại. Chưa có gì bị thay đổi."
@@ -43367,6 +43362,16 @@ msgstr "Mệt mỏi từ {f} còn {f2}."
 #. The last sentence of the sleep preview, when nothing comes before it.
 msgid "Select again to sleep."
 msgstr "Chọn lần nữa để ngủ."
+
+#~ msgid "The cloud copy changed on another computer. Nothing was changed."
+#~ msgstr "Bản trên đám mây đã thay đổi từ máy khác. Chưa có gì bị thay đổi."
+
+#~ msgid ""
+#~ "The cloud copy changed on another computer, so nothing was changed. Choose "
+#~ "which copy to keep."
+#~ msgstr ""
+#~ "Bản trên đám mây đã thay đổi từ máy khác nên chưa có gì bị thay đổi. Hãy "
+#~ "chọn giữ bản nào."
 
 #~ msgid ""
 #~ "Enter opens an item or changes a setting to its next value. Right also "

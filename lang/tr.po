@@ -16236,11 +16236,20 @@ msgstr "son eşitlenen sürüm {revision}"
 msgid "no revision synced yet"
 msgstr "henüz eşitlenen sürüm yok"
 
+msgid "Latest backup accepted and server-verified."
+msgstr "Son yedek kabul edildi ve sunucu tarafından doğrulandı."
+
+msgid "auth"
+msgstr ""
+
+msgid "network"
+msgstr ""
+
 msgid "unchanged"
 msgstr ""
 
-msgid "Latest backup accepted and server-verified."
-msgstr "Son yedek kabul edildi ve sunucu tarafından doğrulandı."
+msgid "conflict"
+msgstr ""
 
 msgid "cloud-resume"
 msgstr ""
@@ -16266,9 +16275,6 @@ msgstr ""
 msgid "hash"
 msgstr ""
 
-msgid "conflict"
-msgstr ""
-
 msgid ""
 "orinks.net no longer accepts this computer's sign-in. Usually this computer "
 "was signed out from the computer list on your driver setup page. To connect "
@@ -16285,12 +16291,6 @@ msgstr ""
 "silinmiştir. Yeni bir hesap açın ve aynı şekilde bağlayın."
 
 msgid "unauthorized"
-msgstr ""
-
-msgid "network"
-msgstr ""
-
-msgid "auth"
 msgstr ""
 
 #. one sentence of a longer line
@@ -21158,16 +21158,10 @@ msgstr ""
 msgid "The cloud copy now matches this computer's save."
 msgstr "Bulut kopyası artık bu bilgisayardaki kayıtla aynı."
 
-msgid "The cloud copy changed on another computer. Nothing was changed."
-msgstr ""
-"Bulut kopyası başka bir bilgisayarda değişti. Hiçbir şey değiştirilmedi."
-
 msgid ""
-"The cloud copy changed on another computer, so nothing was changed. Choose "
-"which copy to keep."
+"The cloud has a newer copy of this career. Nothing was changed. Choose "
+"Restore the latest backup to use it."
 msgstr ""
-"Bulut kopyası başka bir bilgisayarda değişti, bu yüzden hiçbir şey "
-"değiştirilmedi. Hangi kopyanın kalacağını seçin."
 
 msgid "Reconnect needed. Nothing was changed."
 msgstr "Yeniden bağlanmanız gerekiyor. Hiçbir şey değiştirilmedi."
@@ -42139,6 +42133,17 @@ msgstr ""
 #. The last sentence of the sleep preview, when nothing comes before it.
 msgid "Select again to sleep."
 msgstr ""
+
+#~ msgid "The cloud copy changed on another computer. Nothing was changed."
+#~ msgstr ""
+#~ "Bulut kopyası başka bir bilgisayarda değişti. Hiçbir şey değiştirilmedi."
+
+#~ msgid ""
+#~ "The cloud copy changed on another computer, so nothing was changed. Choose "
+#~ "which copy to keep."
+#~ msgstr ""
+#~ "Bulut kopyası başka bir bilgisayarda değişti, bu yüzden hiçbir şey "
+#~ "değiştirilmedi. Hangi kopyanın kalacağını seçin."
 
 #~ msgid ""
 #~ "freightfate -- Freight Fate\n"

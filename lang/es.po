@@ -16757,11 +16757,20 @@ msgstr "última revisión sincronizada {revision}"
 msgid "no revision synced yet"
 msgstr "aún no se ha sincronizado ninguna revisión"
 
+msgid "Latest backup accepted and server-verified."
+msgstr "Última copia de seguridad aceptada y verificada por el servidor."
+
+msgid "auth"
+msgstr "auth"
+
+msgid "network"
+msgstr "network"
+
 msgid "unchanged"
 msgstr "sin cambios"
 
-msgid "Latest backup accepted and server-verified."
-msgstr "Última copia de seguridad aceptada y verificada por el servidor."
+msgid "conflict"
+msgstr "conflict"
 
 msgid "cloud-resume"
 msgstr "cloud-resume"
@@ -16787,9 +16796,6 @@ msgstr "slots"
 msgid "hash"
 msgstr "hash"
 
-msgid "conflict"
-msgstr "conflict"
-
 msgid ""
 "orinks.net no longer accepts this computer's sign-in. Usually this computer "
 "was signed out from the computer list on your driver setup page. To connect "
@@ -16808,12 +16814,6 @@ msgstr ""
 
 msgid "unauthorized"
 msgstr "unauthorized"
-
-msgid "network"
-msgstr "network"
-
-msgid "auth"
-msgstr "auth"
 
 #. one sentence of a longer line
 msgid "This career no longer backs up to your orinks.net account."
@@ -21919,15 +21919,10 @@ msgid "The cloud copy now matches this computer's save."
 msgstr ""
 "La copia en la nube ahora coincide con la partida de este ordenador."
 
-msgid "The cloud copy changed on another computer. Nothing was changed."
-msgstr "La copia en la nube cambió en otro ordenador. No se cambió nada."
-
 msgid ""
-"The cloud copy changed on another computer, so nothing was changed. Choose "
-"which copy to keep."
+"The cloud has a newer copy of this career. Nothing was changed. Choose "
+"Restore the latest backup to use it."
 msgstr ""
-"La copia en la nube cambió en otro ordenador, así que no se cambió nada. "
-"Elige qué copia conservar."
 
 msgid "Reconnect needed. Nothing was changed."
 msgstr "Hay que volver a conectar. No se cambió nada."
@@ -43770,6 +43765,16 @@ msgstr "Fatiga: de {f} a {f2}."
 #. The last sentence of the sleep preview, when nothing comes before it.
 msgid "Select again to sleep."
 msgstr "Vuelve a elegir esta opción para dormir."
+
+#~ msgid "The cloud copy changed on another computer. Nothing was changed."
+#~ msgstr "La copia en la nube cambió en otro ordenador. No se cambió nada."
+
+#~ msgid ""
+#~ "The cloud copy changed on another computer, so nothing was changed. Choose "
+#~ "which copy to keep."
+#~ msgstr ""
+#~ "La copia en la nube cambió en otro ordenador, así que no se cambió nada. "
+#~ "Elige qué copia conservar."
 
 #~ msgid ""
 #~ "freightfate -- Freight Fate\n"

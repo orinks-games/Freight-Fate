@@ -14984,11 +14984,20 @@ msgstr "最后同步的版本{revision}"
 msgid "no revision synced yet"
 msgstr "还没有同步过任何版本"
 
+msgid "Latest backup accepted and server-verified."
+msgstr "最新备份已被接受，并经过服务器验证。"
+
+msgid "auth"
+msgstr "auth"
+
+msgid "network"
+msgstr "network"
+
 msgid "unchanged"
 msgstr "不变"
 
-msgid "Latest backup accepted and server-verified."
-msgstr "最新备份已被接受，并经过服务器验证。"
+msgid "conflict"
+msgstr "conflict"
 
 msgid "cloud-resume"
 msgstr "云端续玩"
@@ -15014,9 +15023,6 @@ msgstr "slots"
 msgid "hash"
 msgstr "hash"
 
-msgid "conflict"
-msgstr "conflict"
-
 msgid ""
 "orinks.net no longer accepts this computer's sign-in. Usually this computer "
 "was signed out from the computer list on your driver setup page. To connect "
@@ -15031,12 +15037,6 @@ msgstr ""
 
 msgid "unauthorized"
 msgstr "unauthorized"
-
-msgid "network"
-msgstr "network"
-
-msgid "auth"
-msgstr "auth"
 
 #. one sentence of a longer line
 msgid "This career no longer backs up to your orinks.net account."
@@ -19575,13 +19575,10 @@ msgstr "已备份。云端副本现在和这台电脑上的存档一致了。{ev
 msgid "The cloud copy now matches this computer's save."
 msgstr "云端副本现在和这台电脑上的存档一致了。"
 
-msgid "The cloud copy changed on another computer. Nothing was changed."
-msgstr "云端副本在另一台电脑上被改动了。什么都没有改变。"
-
 msgid ""
-"The cloud copy changed on another computer, so nothing was changed. Choose "
-"which copy to keep."
-msgstr "云端副本在另一台电脑上被改动了，所以什么都没有改变。请选择保留哪一份副本。"
+"The cloud has a newer copy of this career. Nothing was changed. Choose "
+"Restore the latest backup to use it."
+msgstr ""
 
 msgid "Reconnect needed. Nothing was changed."
 msgstr "需要重新连接。什么都没有改变。"
@@ -38706,6 +38703,14 @@ msgstr "疲劳从{f}变为{f2}。"
 #. The last sentence of the sleep preview, when nothing comes before it.
 msgid "Select again to sleep."
 msgstr "再次选择以睡觉。"
+
+#~ msgid "The cloud copy changed on another computer. Nothing was changed."
+#~ msgstr "云端副本在另一台电脑上被改动了。什么都没有改变。"
+
+#~ msgid ""
+#~ "The cloud copy changed on another computer, so nothing was changed. Choose "
+#~ "which copy to keep."
+#~ msgstr "云端副本在另一台电脑上被改动了，所以什么都没有改变。请选择保留哪一份副本。"
 
 #~ msgid ""
 #~ "freightfate -- Freight Fate\n"

@@ -18923,11 +18923,23 @@ msgid "no revision synced yet"
 msgstr ""
 
 #: crates/freight-fate/src/cloud_saves.rs
+msgid "Latest backup accepted and server-verified."
+msgstr ""
+
+#: crates/freight-fate/src/cloud_saves/manual.rs crates/freight-fate/src/cloud_saves/wording.rs crates/freight-fate/src/cloud_saves.rs
+msgid "auth"
+msgstr ""
+
+#: crates/freight-fate/src/cloud_saves/manual.rs crates/freight-fate/src/cloud_saves/wording.rs crates/freight-fate/src/cloud_saves.rs crates/freight-fate/src/states/city/terminal.rs
+msgid "network"
+msgstr ""
+
+#: crates/freight-fate/src/cloud_saves/manual.rs crates/freight-fate/src/cloud_saves.rs
 msgid "unchanged"
 msgstr ""
 
-#: crates/freight-fate/src/cloud_saves.rs
-msgid "Latest backup accepted and server-verified."
+#: crates/freight-fate/src/cloud_saves/manual.rs crates/freight-fate/src/cloud_saves/sync_state.rs crates/freight-fate/src/cloud_saves.rs
+msgid "conflict"
 msgstr ""
 
 #: crates/freight-fate/src/cloud_saves/resume.rs
@@ -18962,10 +18974,6 @@ msgstr ""
 msgid "hash"
 msgstr ""
 
-#: crates/freight-fate/src/cloud_saves/sync_state.rs crates/freight-fate/src/cloud_saves.rs
-msgid "conflict"
-msgstr ""
-
 #: crates/freight-fate/src/cloud_saves/wording.rs
 msgid ""
 "orinks.net no longer accepts this computer's sign-in. Usually this computer "
@@ -18978,14 +18986,6 @@ msgstr ""
 
 #: crates/freight-fate/src/cloud_saves/wording.rs
 msgid "unauthorized"
-msgstr ""
-
-#: crates/freight-fate/src/cloud_saves/wording.rs crates/freight-fate/src/cloud_saves.rs crates/freight-fate/src/states/city/terminal.rs crates/freight-fate/src/states/cloud_save_states/slot.rs
-msgid "network"
-msgstr ""
-
-#: crates/freight-fate/src/cloud_saves/wording.rs crates/freight-fate/src/cloud_saves.rs
-msgid "auth"
 msgstr ""
 
 #. one sentence of a longer line
@@ -24529,13 +24529,9 @@ msgid "The cloud copy now matches this computer's save."
 msgstr ""
 
 #: crates/freight-fate/src/states/cloud_save_states/slot.rs
-msgid "The cloud copy changed on another computer. Nothing was changed."
-msgstr ""
-
-#: crates/freight-fate/src/states/cloud_save_states/slot.rs
 msgid ""
-"The cloud copy changed on another computer, so nothing was changed. Choose "
-"which copy to keep."
+"The cloud has a newer copy of this career. Nothing was changed. Choose "
+"Restore the latest backup to use it."
 msgstr ""
 
 #: crates/freight-fate/src/states/cloud_save_states/slot.rs

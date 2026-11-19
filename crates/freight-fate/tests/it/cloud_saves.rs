@@ -48,6 +48,7 @@ use freight_fate::states::cloud_save_states::{
 use freight_fate::states::online_hub::OnlineHubState;
 use freight_fate::states::online_states::set_identity_store_override;
 
+mod manual_freshness;
 mod resume;
 
 const TEST_KEY_ID: &str = "test-key";
@@ -2057,11 +2058,16 @@ fn test_backup_now_reports_content_already_on_the_server() {
     service.queue_backup("Road Star", profile("Road Star", 5000.0));
     drain(&service, &clock);
 
+    transport.set_reply(Some(json!({
+        "saves": [{"saveName": "Road Star", "revision": 1}]
+    })));
+
     let token = service
         .backup_now("Road Star", profile("Road Star", 5000.0))
         .unwrap(); // nothing changed since
 
     assert_eq!(transport.posts().len(), 1); // the content-hash skip still holds
+    assert_eq!(transport.request_count(), 2); // upload, then a fresh cloud revision check
     assert_eq!(
         service.outcome_for("Road Star", token).as_deref(),
         Some("unchanged")
@@ -2836,6 +2842,10 @@ fn test_terminal_save_says_when_the_latest_save_is_already_backed_up() {
     let mut menu = make_terminal_menu(&mut app, (*service).clone());
     menu.save(&mut app.ctx);
     State::update(&mut menu, &mut app.ctx, 0.0);
+
+    transport.set_reply(Some(json!({
+        "saves": [{"saveName": "Road Star", "revision": 1}]
+    })));
 
     app.clear_speech();
     menu.save(&mut app.ctx);

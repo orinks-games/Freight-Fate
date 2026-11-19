@@ -522,12 +522,10 @@ impl CloudSlotState {
                 ctx.say("Already backed up. The cloud copy matches this computer's save.");
             }
             "conflict" => {
-                self.status =
-                    "The cloud copy changed on another computer. Nothing was changed.".to_string();
-                ctx.say(
-                    "The cloud copy changed on another computer, so nothing was \
-                     changed. Choose which copy to keep.",
-                );
+                let message = "The cloud has a newer copy of this career. Nothing was changed. \
+                               Choose Restore the latest backup to use it.";
+                self.status = message.to_string();
+                ctx.say(message);
             }
             "auth" => {
                 self.status = "Reconnect needed. Nothing was changed.".to_string();
