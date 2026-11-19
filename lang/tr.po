@@ -16268,18 +16268,20 @@ msgstr "Bulut yedeği kapalı. Bu bilgisayardaki kayıtlar yedeklenmiyor."
 msgid "ok"
 msgstr "tamam"
 
-#. placeholders: {revision}
-msgid "last synced revision {revision}"
-msgstr "son eşitlenen sürüm {revision}"
+msgid "stale"
+msgstr ""
 
-msgid "no revision synced yet"
-msgstr "henüz eşitlenen sürüm yok"
+msgid "conflict"
+msgstr "çakışma"
+
+msgid "auth"
+msgstr "kimlik doğrulama"
+
+msgid "network"
+msgstr "ağ"
 
 msgid "unchanged"
 msgstr "değişmedi"
-
-msgid "Latest backup accepted and server-verified."
-msgstr "Son yedek kabul edildi ve sunucu tarafından doğrulandı."
 
 msgid "cloud-resume"
 msgstr "buluttan devam"
@@ -16305,8 +16307,10 @@ msgstr "yuvalar"
 msgid "hash"
 msgstr "sağlama değeri"
 
-msgid "conflict"
-msgstr "çakışma"
+msgid ""
+"The cloud has a newer copy of this career. Nothing was changed. Choose Use "
+"the cloud copy on this computer to pick it up."
+msgstr ""
 
 msgid ""
 "orinks.net no longer accepts this computer's sign-in. Usually this computer "
@@ -16325,12 +16329,6 @@ msgstr ""
 
 msgid "unauthorized"
 msgstr "yetkisiz"
-
-msgid "network"
-msgstr "ağ"
-
-msgid "auth"
-msgstr "kimlik doğrulama"
 
 #. one sentence of a longer line
 msgid "This career no longer backs up to your orinks.net account."
@@ -16585,6 +16583,16 @@ msgstr ""
 #. one sentence of a longer line
 msgid "Your local career was not deleted."
 msgstr "Bilgisayarınızdaki kariyer silinmedi."
+
+#. placeholders: {revision}
+msgid "last synced revision {revision}"
+msgstr "son eşitlenen sürüm {revision}"
+
+msgid "no revision synced yet"
+msgstr "henüz eşitlenen sürüm yok"
+
+msgid "Latest backup accepted and server-verified."
+msgstr "Son yedek kabul edildi ve sunucu tarafından doğrulandı."
 
 msgid "community-stations"
 msgstr "topluluk istasyonları"
@@ -18658,21 +18666,6 @@ msgstr ""
 "{LAST_CHANCE_CARRIER_NAME} için sürüyorsunuz: daha düşük ücret, daha kısa "
 "yükler. Paranız, seviyeleriniz ve eşyalarınız sizde kalır."
 
-msgid "Game saved. Backing up."
-msgstr "Oyun kaydedildi. Yedekleniyor."
-
-msgid "Game saved."
-msgstr "Oyun kaydedildi."
-
-msgid "Backed up to the cloud."
-msgstr "Buluta yedeklendi."
-
-msgid "Already backed up. The cloud copy matches this computer's save."
-msgstr "Zaten yedeklendi. Bulut kopyası bu bilgisayardaki kayıtla aynı."
-
-msgid "The backup will keep retrying in the background."
-msgstr "Yedekleme arka planda yeniden denemeye devam edecek."
-
 msgid "Progress saved."
 msgstr "İlerleme kaydedildi."
 
@@ -18869,6 +18862,21 @@ msgstr ""
 msgid ""
 "Your own cash toward the balance you owe. Cash never goes below zero."
 msgstr "Borcunuza kendi nakitinizle ödeme. Nakit asla sıfırın altına inmez."
+
+msgid "Game saved. Backing up."
+msgstr "Oyun kaydedildi. Yedekleniyor."
+
+msgid "Game saved."
+msgstr "Oyun kaydedildi."
+
+msgid "Backed up to the cloud."
+msgstr "Buluta yedeklendi."
+
+msgid "Already backed up. The cloud copy matches this computer's save."
+msgstr "Zaten yedeklendi. Bulut kopyası bu bilgisayardaki kayıtla aynı."
+
+msgid "The backup will keep retrying in the background."
+msgstr "Yedekleme arka planda yeniden denemeye devam edecek."
 
 msgid ""
 "Until level 9, dispatch matches a spare to each load, and each spare keeps "

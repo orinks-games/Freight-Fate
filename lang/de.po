@@ -16730,18 +16730,20 @@ msgstr ""
 msgid "ok"
 msgstr "ok"
 
-#. placeholders: {revision}
-msgid "last synced revision {revision}"
-msgstr "zuletzt abgeglichene Revision {revision}"
+msgid "stale"
+msgstr ""
 
-msgid "no revision synced yet"
-msgstr "noch keine Revision abgeglichen"
+msgid "conflict"
+msgstr "conflict"
+
+msgid "auth"
+msgstr "auth"
+
+msgid "network"
+msgstr "network"
 
 msgid "unchanged"
 msgstr "unverändert"
-
-msgid "Latest backup accepted and server-verified."
-msgstr "Letzte Sicherung angenommen und vom Server geprüft."
 
 msgid "cloud-resume"
 msgstr "cloud-resume"
@@ -16767,8 +16769,10 @@ msgstr "slots"
 msgid "hash"
 msgstr "hash"
 
-msgid "conflict"
-msgstr "conflict"
+msgid ""
+"The cloud has a newer copy of this career. Nothing was changed. Choose Use "
+"the cloud copy on this computer to pick it up."
+msgstr ""
 
 msgid ""
 "orinks.net no longer accepts this computer's sign-in. Usually this computer "
@@ -16788,12 +16792,6 @@ msgstr ""
 
 msgid "unauthorized"
 msgstr "unauthorized"
-
-msgid "network"
-msgstr "network"
-
-msgid "auth"
-msgstr "auth"
 
 #. one sentence of a longer line
 msgid "This career no longer backs up to your orinks.net account."
@@ -17061,6 +17059,16 @@ msgstr ""
 #. one sentence of a longer line
 msgid "Your local career was not deleted."
 msgstr "Deine Karriere auf diesem Computer wurde nicht gelöscht."
+
+#. placeholders: {revision}
+msgid "last synced revision {revision}"
+msgstr "zuletzt abgeglichene Revision {revision}"
+
+msgid "no revision synced yet"
+msgstr "noch keine Revision abgeglichen"
+
+msgid "Latest backup accepted and server-verified."
+msgstr "Letzte Sicherung angenommen und vom Server geprüft."
 
 msgid "community-stations"
 msgstr "community-stations"
@@ -19174,23 +19182,6 @@ msgstr ""
 "Du fährst jetzt für {LAST_CHANCE_CARRIER_NAME}: weniger Lohn, kürzere "
 "Fracht. Dein Geld, deine Level und dein Besitz bleiben."
 
-msgid "Game saved. Backing up."
-msgstr "Spiel gespeichert. Wird gesichert."
-
-msgid "Game saved."
-msgstr "Spiel gespeichert."
-
-msgid "Backed up to the cloud."
-msgstr "In der Cloud gesichert."
-
-msgid "Already backed up. The cloud copy matches this computer's save."
-msgstr ""
-"Schon gesichert. Die Cloud-Kopie stimmt mit dem Spielstand auf diesem "
-"Computer überein."
-
-msgid "The backup will keep retrying in the background."
-msgstr "Die Sicherung versucht es im Hintergrund weiter."
-
 msgid "Progress saved."
 msgstr "Fortschritt gespeichert."
 
@@ -19390,6 +19381,23 @@ msgid ""
 "Your own cash toward the balance you owe. Cash never goes below zero."
 msgstr ""
 "Dein eigenes Geld für den offenen Betrag. Dein Geld fällt nie unter null."
+
+msgid "Game saved. Backing up."
+msgstr "Spiel gespeichert. Wird gesichert."
+
+msgid "Game saved."
+msgstr "Spiel gespeichert."
+
+msgid "Backed up to the cloud."
+msgstr "In der Cloud gesichert."
+
+msgid "Already backed up. The cloud copy matches this computer's save."
+msgstr ""
+"Schon gesichert. Die Cloud-Kopie stimmt mit dem Spielstand auf diesem "
+"Computer überein."
+
+msgid "The backup will keep retrying in the background."
+msgstr "Die Sicherung versucht es im Hintergrund weiter."
 
 msgid ""
 "Until level 9, dispatch matches a spare to each load, and each spare keeps "
