@@ -14991,19 +14991,19 @@ msgid "Latest backup accepted and server-verified."
 msgstr "最新备份已被接受，并经过服务器验证。"
 
 msgid "cloud-resume"
-msgstr ""
+msgstr "云端续玩"
 
 msgid "not connected"
-msgstr ""
+msgstr "未连接"
 
 msgid "site unreachable"
-msgstr ""
+msgstr "无法连接网站"
 
 msgid "backup unavailable"
-msgstr ""
+msgstr "备份不可用"
 
 msgid "backup does not match requested career"
-msgstr ""
+msgstr "备份与请求的生涯不匹配"
 
 msgid "revision"
 msgstr "revision"
@@ -15213,26 +15213,26 @@ msgid "{name} is backed up again."
 msgstr "{name}已重新备份。"
 
 msgid "Checking careers on your other devices. Try Continue shortly."
-msgstr ""
+msgstr "正在检查你其他设备上的生涯。稍后再试“继续”。"
 
 #. placeholders: {name}
 msgid "Picked up {name} where you left off on another device."
-msgstr ""
+msgstr "已接续{name}在另一台设备上的进度。"
 
 #. one sentence of a longer line
 msgid "Open Cloud backup to choose which copy to keep."
-msgstr ""
+msgstr "打开“云备份”，选择保留哪个副本。"
 
 #. placeholders: {name}
 #. one sentence of a longer line
 msgid "{name} changed on another device."
-msgstr ""
+msgstr "{name}在另一台设备上有了更改。"
 
 #. placeholders: {name}
 msgid ""
 "{name} changed on another device. Open Cloud backup to choose which copy to "
 "keep."
-msgstr ""
+msgstr "{name}在另一台设备上有了更改。打开“云备份”，选择保留哪个副本。"
 
 msgid "accepted"
 msgstr "accepted"
@@ -19491,7 +19491,7 @@ msgid "cloud-saves-restore"
 msgstr "cloud-saves-restore"
 
 msgid "profile"
-msgstr ""
+msgstr "生涯资料"
 
 msgid "restored"
 msgstr "restored"
@@ -19758,26 +19758,26 @@ msgid "{LEGACY_BACKUP_NOTICE} Your local save was not touched."
 msgstr "{LEGACY_BACKUP_NOTICE}你的本地存档没有受影响。"
 
 msgid "Backup needs a newer version. Nothing was restored."
-msgstr ""
+msgstr "备份需要更新的版本。未恢复任何内容。"
 
 #. placeholders: {line}
 #. one sentence of a longer line
 msgid "This career was made in Freight Fate {line}."
-msgstr ""
+msgstr "此生涯由Freight Fate {line}创建。"
 
 #. placeholders: {line}
 msgid ""
 "This career was made in Freight Fate {line}. This version cannot restore "
 "it. Your local save and the cloud backup are untouched."
-msgstr ""
+msgstr "此生涯由Freight Fate {line}创建。当前版本无法恢复此生涯。你的本地存档和云端备份均未改动。"
 
 #. one sentence of a longer line
 msgid "This version cannot restore it."
-msgstr ""
+msgstr "当前版本无法恢复此生涯。"
 
 #. one sentence of a longer line
 msgid "Your local save and the cloud backup are untouched."
-msgstr ""
+msgstr "你的本地存档和云端备份均未改动。"
 
 msgid "Reconnect needed. Nothing was restored."
 msgstr "需要重新连接。没有恢复任何内容。"
@@ -31495,12 +31495,12 @@ msgstr "这段职业生涯无法在1.9版本中继续。按Enter听说明并开�
 
 #. placeholders: {name}, {line}
 msgid "{name}: career from Freight Fate {line}"
-msgstr ""
+msgstr "{name}：来自Freight Fate {line}的生涯"
 
 msgid ""
 "This career needs a newer version. Choose it for details. The save is not "
 "touched."
-msgstr ""
+msgstr "此生涯需要更新的版本。选择它可听取详情。存档不会改动。"
 
 msgid "Manage careers"
 msgstr "管理职业生涯"
@@ -31755,7 +31755,7 @@ msgstr "你保存的职业生涯来自更早版本的Freight Fate。它们列在
 msgid ""
 "Some saved careers need a newer version of Freight Fate. They are listed "
 "under Choose career. "
-msgstr ""
+msgstr "部分生涯存档需要更新的Freight Fate版本。它们列在“选择职业生涯”中。 "
 
 #. placeholders: {version}
 #. one sentence of a longer line
@@ -33736,7 +33736,7 @@ msgstr "那个存档会保持原样，所以这段职业生涯需要换一个司
 #. placeholders: {name}, {line}
 #. one sentence of a longer line
 msgid "There is already a career named {name} from Freight Fate {line}."
-msgstr ""
+msgstr "已有来自Freight Fate {line}、名为{name}的生涯。"
 
 #. placeholders: {name}, {line}
 msgid ""
@@ -33744,6 +33744,7 @@ msgid ""
 "stays as it is, so this career needs a different driver name. Escape goes "
 "back to change it."
 msgstr ""
+"已有来自Freight Fate {line}、名为{name}的生涯。该存档会保持原样，所以此生涯需要换个司机名字。按Escape返回更改。"
 
 #. placeholders: {name}
 #. one sentence of a longer line
@@ -36025,12 +36026,12 @@ msgstr "在Discord里显示大致的活动，比如驾驶中或休息中，绝�
 
 #. placeholders: {on_off}
 msgid "Resume careers from other devices: {on_off}"
-msgstr ""
+msgstr "接续其他设备上的生涯：{on_off}"
 
 msgid ""
 "Checks for newer progress when you return to the main menu. Restore each "
 "career here once first; conflicting saves need your choice in Cloud backup."
-msgstr ""
+msgstr "返回主菜单时检查是否有更新的进度。请先在这里为每个生涯恢复一次备份；存档冲突时，需要你在“云备份”中选择。"
 
 msgid "Connect to orinks.net"
 msgstr "连接到orinks.net"
@@ -36997,16 +36998,16 @@ msgstr "返回已保存的职业生涯，没有任何更改。"
 msgid ""
 "Nothing was lost: the save is untouched and still works in Freight Fate "
 "{line}."
-msgstr ""
+msgstr "没有丢失任何内容：存档未改动，仍可在Freight Fate {line}中使用。"
 
 #. one sentence of a longer line
 msgid "This version cannot continue it."
-msgstr ""
+msgstr "当前版本无法继续此生涯。"
 
 #. placeholders: {name}, {line}
 #. one sentence of a longer line
 msgid "{name} was made in Freight Fate {line}."
-msgstr ""
+msgstr "{name}由Freight Fate {line}创建。"
 
 #. placeholders: {name}, {line}
 msgid ""
@@ -37014,15 +37015,17 @@ msgid ""
 "Nothing was lost: the save is untouched and still works in Freight Fate "
 "{line}."
 msgstr ""
+"{name}由Freight Fate {line}创建。当前版本无法继续此生涯。没有丢失任何内容：存档未改动，仍可在Freight Fate "
+"{line}中使用。"
 
 msgid "Career from a newer version"
-msgstr ""
+msgstr "来自更新版本的生涯"
 
 msgid "Escape goes back to the career list."
-msgstr ""
+msgstr "Escape返回生涯列表。"
 
 msgid "Start fresh with a different driver name."
-msgstr ""
+msgstr "换个司机名字，重新开始。"
 
 msgid "Your driving record"
 msgstr "你的驾驶记录"
