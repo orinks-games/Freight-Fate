@@ -48,6 +48,8 @@ use freight_fate::states::cloud_save_states::{
 use freight_fate::states::online_hub::OnlineHubState;
 use freight_fate::states::online_states::set_identity_store_override;
 
+mod resume;
+
 const TEST_KEY_ID: &str = "test-key";
 const TEST_PUBLIC_KEY_HEX: &str =
     "ea4a6c63e29c520abef5507b132ec5f9954776aebebe7b92421eea691446d22c";
@@ -1836,6 +1838,91 @@ fn test_backup_menu_says_off_and_offers_the_opt_in() {
 }
 
 // -- the 1.9 cutover gate (careers from the 1.8 line do not restore here) --------
+
+#[test]
+fn test_newer_cloud_restore_refuses_without_touching_disk_or_sync_state() {
+    let dir = tempfile::tempdir().unwrap();
+    let writer = DiskWriter::new(dir.path());
+    let local = json!({"name": "Road Star", "money": 5.0, "version": 7});
+    let path = writer.write(&local).unwrap();
+    let before = fs::read(&path).unwrap();
+    let (dict, sig) = money77_profile();
+    let mut payload = download(make_cloud_reply(&dict, sig, 3)).unwrap().unwrap();
+    payload["profile"]["created_line"] = json!("2.0");
+    let cloud_before = payload.clone();
+    let sync_state = SyncState::new(dir.path());
+    sync_state.record_synced("Road Star", 2, "previous hash");
+    let sync_before = fs::read(sync_state.path()).unwrap();
+    let slots_before = sync_state.slots();
+    let files_before = fs::read_dir(dir.path()).unwrap().count();
+    assert_eq!(
+        restore(&writer, &payload, Some(&sync_state)),
+        Err(RestoreError::NewerCareer {
+            name: "Road Star".to_string(),
+            line: "2.0".to_string(),
+        })
+    );
+    assert_eq!(payload, cloud_before);
+    assert_eq!(fs::read(&path).unwrap(), before);
+    assert_eq!(fs::read(sync_state.path()).unwrap(), sync_before);
+    assert_eq!(sync_state.slots(), slots_before);
+    assert_eq!(fs::read_dir(dir.path()).unwrap().count(), files_before);
+    assert_eq!(writer.written.lock().unwrap().len(), 1);
+    assert!(!path.with_extension("ffsave.bak").exists());
+    fs::remove_file(&path).unwrap();
+    let empty_state = SyncState::new(&dir.path().join("empty"));
+    assert!(matches!(
+        restore(&writer, &payload, Some(&empty_state)),
+        Err(RestoreError::NewerCareer { .. })
+    ));
+    assert!(!path.exists());
+    assert!(!empty_state.path().exists());
+    assert!(empty_state.slots().is_empty());
+}
+
+#[test]
+fn test_newer_cloud_refusal_is_spoken_and_preserves_local_save() {
+    let mut app = TestApp::new();
+    let _identity = save_identity(&app);
+    let transport = FakeTransport::revisions();
+    install_cloud(&mut app, transport.clone(), true);
+    let p = ff_core::models::profile::Profile::named("Future Driver");
+    let path = p.save().unwrap();
+    let mut dict = p.to_dict();
+    dict.insert("created_line".into(), json!("2.0"));
+    fs::write(&path, ff_core::models::profile::encode_save_bytes(&dict)).unwrap();
+    let before = fs::read(&path).unwrap();
+    let mut slot = CloudSlotState::new(&mut app.ctx, "Future Driver", vec![], None, None);
+    for backup in [false, true] {
+        app.clear_speech();
+        if backup {
+            slot.start_backup_now(&mut app.ctx);
+        } else {
+            slot.start_keep_mine(&mut app.ctx);
+        }
+        assert!(app
+            .main_lines()
+            .iter()
+            .any(|line| line.contains("was made in Freight Fate 2.0")));
+        assert_eq!(fs::read(&path).unwrap(), before);
+        assert!(!slot.busy);
+    }
+    assert!(transport.posts().is_empty());
+    slot.busy = true;
+    slot.outcome.post("newer_refused:2.0".to_string());
+    let slot = push(&mut app, slot);
+    app.clear_speech();
+    with_state::<CloudSlotState, _>(&slot, |s| State::update(s, &mut app.ctx, 0.0));
+    assert!(app
+        .main_lines()
+        .iter()
+        .any(|line| line.contains("This career was made in Freight Fate 2.0")));
+    assert!(app
+        .main_lines()
+        .iter()
+        .any(|line| line.contains("local save and the cloud backup are untouched")));
+    assert_eq!(fs::read(&path).unwrap(), before);
+}
 
 #[test]
 fn test_legacy_cloud_restore_refuses_without_touching_anything() {
