@@ -15143,19 +15143,19 @@ msgid "Latest backup accepted and server-verified."
 msgstr "最新のバックアップが受け付けられ、サーバーで確認されました。"
 
 msgid "cloud-resume"
-msgstr ""
+msgstr "cloud-resume"
 
 msgid "not connected"
-msgstr ""
+msgstr "未接続"
 
 msgid "site unreachable"
-msgstr ""
+msgstr "サイトにつながりません"
 
 msgid "backup unavailable"
-msgstr ""
+msgstr "バックアップを使えません"
 
 msgid "backup does not match requested career"
-msgstr ""
+msgstr "バックアップが指定のキャリアと一致しません"
 
 msgid "revision"
 msgstr "revision"
@@ -15372,26 +15372,26 @@ msgid "{name} is backed up again."
 msgstr "{name}は再びバックアップ済みです。"
 
 msgid "Checking careers on your other devices. Try Continue shortly."
-msgstr ""
+msgstr "ほかの端末のキャリアを確認しています。少ししてから「続ける」を試してください。"
 
 #. placeholders: {name}
 msgid "Picked up {name} where you left off on another device."
-msgstr ""
+msgstr "ほかの端末で中断したところから{name}を再開しました。"
 
 #. one sentence of a longer line
 msgid "Open Cloud backup to choose which copy to keep."
-msgstr ""
+msgstr "「クラウドバックアップ」を開いて、どちらを残すか選んでください。"
 
 #. placeholders: {name}
 #. one sentence of a longer line
 msgid "{name} changed on another device."
-msgstr ""
+msgstr "{name}はほかの端末で変更されました。"
 
 #. placeholders: {name}
 msgid ""
 "{name} changed on another device. Open Cloud backup to choose which copy to "
 "keep."
-msgstr ""
+msgstr "{name}はほかの端末で変更されました。「クラウドバックアップ」を開いて、どちらを残すか選んでください。"
 
 msgid "accepted"
 msgstr "accepted"
@@ -19697,7 +19697,7 @@ msgid "cloud-saves-restore"
 msgstr "cloud-saves-restore"
 
 msgid "profile"
-msgstr ""
+msgstr "profile"
 
 msgid "restored"
 msgstr "restored"
@@ -19971,26 +19971,28 @@ msgid "{LEGACY_BACKUP_NOTICE} Your local save was not touched."
 msgstr "{LEGACY_BACKUP_NOTICE}このコンピューターのセーブには触れていません。"
 
 msgid "Backup needs a newer version. Nothing was restored."
-msgstr ""
+msgstr "バックアップには新しいバージョンが必要です。何も復元されていません。"
 
 #. placeholders: {line}
 #. one sentence of a longer line
 msgid "This career was made in Freight Fate {line}."
-msgstr ""
+msgstr "このキャリアはFreight Fate {line}で作られました。"
 
 #. placeholders: {line}
 msgid ""
 "This career was made in Freight Fate {line}. This version cannot restore "
 "it. Your local save and the cloud backup are untouched."
 msgstr ""
+"このキャリアはFreight Fate "
+"{line}で作られました。このバージョンでは復元できません。ローカルのセーブもクラウドバックアップもそのままです。"
 
 #. one sentence of a longer line
 msgid "This version cannot restore it."
-msgstr ""
+msgstr "このバージョンでは復元できません。"
 
 #. one sentence of a longer line
 msgid "Your local save and the cloud backup are untouched."
-msgstr ""
+msgstr "ローカルのセーブもクラウドバックアップもそのままです。"
 
 msgid "Reconnect needed. Nothing was restored."
 msgstr "再接続が必要です。何も復元していません。"
@@ -31836,12 +31838,12 @@ msgstr "このキャリアはバージョン1.9では続けられません。Ent
 
 #. placeholders: {name}, {line}
 msgid "{name}: career from Freight Fate {line}"
-msgstr ""
+msgstr "{name}：Freight Fate {line}のキャリア"
 
 msgid ""
 "This career needs a newer version. Choose it for details. The save is not "
 "touched."
-msgstr ""
+msgstr "このキャリアには新しいバージョンが必要です。選ぶと詳しく聞けます。セーブには手を加えません。"
 
 msgid "Manage careers"
 msgstr "キャリアの管理"
@@ -32105,7 +32107,7 @@ msgstr "保存されたキャリアは以前のバージョンの Freight Fate �
 msgid ""
 "Some saved careers need a newer version of Freight Fate. They are listed "
 "under Choose career. "
-msgstr ""
+msgstr "保存されたキャリアの中に、新しいバージョンのFreight Fateが必要なものがあります。「キャリアを選ぶ」に並んでいます。"
 
 #. placeholders: {version}
 #. one sentence of a longer line
@@ -34138,7 +34140,7 @@ msgstr "そのセーブはそのまま残すので、このキャリアには別
 #. placeholders: {name}, {line}
 #. one sentence of a longer line
 msgid "There is already a career named {name} from Freight Fate {line}."
-msgstr ""
+msgstr "Freight Fate {line}の{name}というキャリアがすでにあります。"
 
 #. placeholders: {name}, {line}
 msgid ""
@@ -34146,6 +34148,9 @@ msgid ""
 "stays as it is, so this career needs a different driver name. Escape goes "
 "back to change it."
 msgstr ""
+"Freight Fate "
+"{line}の{name}というキャリアがすでにあります。そのセーブはそのまま残すので、このキャリアには別のドライバー名が必要です。Escape "
+"で戻って変更します。"
 
 #. placeholders: {name}
 #. one sentence of a longer line
@@ -36591,12 +36596,14 @@ msgstr ""
 
 #. placeholders: {on_off}
 msgid "Resume careers from other devices: {on_off}"
-msgstr ""
+msgstr "ほかの端末のキャリアを再開する：{on_off}"
 
 msgid ""
 "Checks for newer progress when you return to the main menu. Restore each "
 "career here once first; conflicting saves need your choice in Cloud backup."
 msgstr ""
+"メインメニューに戻ったときに、より新しい進行状況を確認します。各キャリアは先に一度ここで復元してください。食い違うセーブは「クラウドバックアップ」で選ぶ"
+"必要があります。"
 
 msgid "Connect to orinks.net"
 msgstr "orinks.netにつなぐ"
@@ -37593,16 +37600,16 @@ msgstr "保存したキャリアに戻ります。何も変わっていません
 msgid ""
 "Nothing was lost: the save is untouched and still works in Freight Fate "
 "{line}."
-msgstr ""
+msgstr "何も失われていません。セーブはそのままで、Freight Fate {line}では引き続き使えます。"
 
 #. one sentence of a longer line
 msgid "This version cannot continue it."
-msgstr ""
+msgstr "このバージョンでは続けられません。"
 
 #. placeholders: {name}, {line}
 #. one sentence of a longer line
 msgid "{name} was made in Freight Fate {line}."
-msgstr ""
+msgstr "{name}はFreight Fate {line}で作られました。"
 
 #. placeholders: {name}, {line}
 msgid ""
@@ -37610,15 +37617,18 @@ msgid ""
 "Nothing was lost: the save is untouched and still works in Freight Fate "
 "{line}."
 msgstr ""
+"{name}はFreight Fate "
+"{line}で作られました。このバージョンでは続けられません。何も失われていません。セーブはそのままで、Freight Fate "
+"{line}では引き続き使えます。"
 
 msgid "Career from a newer version"
-msgstr ""
+msgstr "新しいバージョンのキャリア"
 
 msgid "Escape goes back to the career list."
-msgstr ""
+msgstr "Escape でキャリアの一覧に戻ります。"
 
 msgid "Start fresh with a different driver name."
-msgstr ""
+msgstr "別のドライバー名で新しく始めます。"
 
 msgid "Your driving record"
 msgstr "運転記録"
