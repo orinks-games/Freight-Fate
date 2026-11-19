@@ -271,6 +271,59 @@ fn is_proper_name_hole(name: &str) -> bool {
         .any(|word| PROPER_NAME_HOLES.iter().any(|part| word.starts_with(part)))
 }
 
+fn is_version_hole(template: &Template, name: &str) -> bool {
+    name.eq_ignore_ascii_case("version")
+        || name.eq_ignore_ascii_case("format_version")
+        || (name == "line"
+            && template.segs.windows(2).any(|pair| {
+                matches!(pair, [Seg::Lit(before), Seg::Hole(hole)]
+                    if hole == name && before.ends_with("Freight Fate "))
+            }))
+}
+
+fn is_career_name_hole(template: &Template, name: &str) -> bool {
+    match name {
+        "driver_name" | "career_name" | "save_name" => true,
+        // Existing catalogs also use {name} for both careers and translatable
+        // labels. Identify the career frames without changing their PO keys.
+        "name" => [
+            "Continue X:",
+            "X: level ",
+            "Welcome back, X.",
+            "Load X,",
+            "Load the newest save for X.",
+            "Manage X.",
+            "X: career from ",
+            "X was made in Freight Fate ",
+            "There is already a career named X from ",
+            "Loaded over existing driver named X.",
+            "X could not be opened.",
+            "X reset.",
+            "X could not be deleted.",
+            "X deleted",
+            "X closed out.",
+            "Close out X.",
+            "Confirm X for X.",
+            "Yes, reset X",
+            "Yes, delete X",
+            "Achievements for X",
+            "X: X of X earned",
+            "X has earned X of X achievements.",
+            "Current career: X",
+            "X. No career shared yet.",
+            "X: backup ",
+            "X needs attention: the cloud copy ",
+            "X is backed up",
+            "Picked up X where you left off ",
+            "X changed on another device.",
+            "Cloud backup removed X,",
+        ]
+        .iter()
+        .any(|prefix| template.filled.starts_with(prefix)),
+        _ => false,
+    }
+}
+
 /// How deep a line is split and its captures translated in turn.
 // A drive-start line nests that deep: the line, its objective, the trip
 // progress inside it, and the distance inside that.
@@ -504,12 +557,14 @@ impl Translator {
         }
         let mut missed = Vec::new();
         let mut memo = Memo::new();
+        let mut verbatim = Verbatim::new(line);
         let out = match split_position_cue(line) {
             Some((row, position, count)) => {
                 let row = Pass {
                     catalog,
                     missed: &mut missed,
                     memo: &mut memo,
+                    verbatim: &mut verbatim,
                 }
                 .line(row, 0)
                 .unwrap_or_else(|| row.to_string());
@@ -521,18 +576,19 @@ impl Translator {
                 catalog,
                 missed: &mut missed,
                 memo: &mut memo,
+                verbatim: &mut verbatim,
             }
             .line(line, 0)
             .map(|out| {
                 if starts_lowercase(line) {
                     out
                 } else {
-                    capitalize_first_letter(&out)
+                    verbatim.capitalize_first_letter(&out)
                 }
             })
             .unwrap_or_else(|| line.to_string()),
         };
-        let out = contract_articles(&catalog.language, out);
+        let out = verbatim.restore(contract_articles(&catalog.language, out));
         if let Some(log) = &self.misses {
             log.lock().record(&missed);
         }
@@ -574,10 +630,71 @@ impl MissLog {
 
 /// One translation of one line: the catalog, and the pieces nothing
 /// translated.
-struct Pass<'c, 'm> {
+struct Pass<'c, 'm, 's> {
     catalog: &'c Catalog,
     missed: &'m mut Vec<String>,
     memo: &'m mut Memo,
+    verbatim: &'m mut Verbatim<'s>,
+}
+
+/// Keep player names out of sentence capitalization and article contraction.
+/// The memoized pieces share these tokens until the whole line is rendered.
+struct Verbatim<'s> {
+    source: &'s str,
+    marker: Option<char>,
+    values: Vec<String>,
+}
+
+impl<'s> Verbatim<'s> {
+    fn new(source: &'s str) -> Self {
+        Self {
+            source,
+            marker: None,
+            values: Vec::new(),
+        }
+    }
+
+    fn push(&mut self, out: &mut String, value: &str) {
+        use std::fmt::Write as _;
+        let marker = self
+            .marker
+            .or_else(|| ('\u{f0000}'..='\u{ffffd}').find(|&marker| !self.source.contains(marker)));
+        let Some(marker) = marker else {
+            out.push_str(value);
+            return;
+        };
+        self.marker = Some(marker);
+        let _ = write!(out, "{marker}{}{marker}", self.values.len());
+        self.values.push(value.to_owned());
+    }
+
+    fn restore(self, out: String) -> String {
+        let Some(marker) = self.marker else {
+            return out;
+        };
+        let mut rest = out.as_str();
+        let mut restored = String::new();
+        while let Some((before, after)) = rest.split_once(marker) {
+            restored.push_str(before);
+            let capture = after.split_once(marker).and_then(|(id, tail)| {
+                let index = id.parse::<usize>().ok()?;
+                Some((self.values.get(index)?, tail))
+            });
+            if let Some((value, tail)) = capture {
+                restored.push_str(value);
+                rest = tail;
+            } else {
+                restored.push(marker);
+                rest = after;
+            }
+        }
+        restored.push_str(rest);
+        restored
+    }
+
+    fn capitalize_first_letter(&self, text: &str) -> String {
+        capitalize_first_letter(text, self.marker)
+    }
 }
 
 /// Every piece already worked out in one line's translation, by its text,
@@ -587,7 +704,7 @@ struct Pass<'c, 'm> {
 /// millions of times: minutes on the game thread before this.
 type Memo = HashMap<(String, usize, bool), (Option<String>, Vec<String>)>;
 
-impl Pass<'_, '_> {
+impl Pass<'_, '_, '_> {
     /// A whole line or one of its pieces. `None` when nothing in it was
     /// translated; the piece is then recorded as missed.
     fn line(&mut self, text: &str, depth: usize) -> Option<String> {
@@ -719,6 +836,7 @@ impl Pass<'_, '_> {
                         catalog: self.catalog,
                         missed: &mut missed,
                         memo: &mut *self.memo,
+                        verbatim: &mut *self.verbatim,
                     };
                     // A sentence is a line of its own; only clauses go deeper.
                     let deeper = if clauses { depth + 1 } else { depth };
@@ -728,7 +846,7 @@ impl Pass<'_, '_> {
                     if clauses || starts_lowercase(piece) {
                         out
                     } else {
-                        out.map(|out| capitalize_first_letter(&out))
+                        out.map(|out| inner.verbatim.capitalize_first_letter(&out))
                     }
                 };
                 any |= translated.is_some();
@@ -768,6 +886,7 @@ impl Pass<'_, '_> {
                 catalog: self.catalog,
                 missed: &mut missed,
                 memo: &mut *self.memo,
+                verbatim: &mut *self.verbatim,
             };
             let Some(head_out) = inner.piece(head, depth + 1, false) else {
                 continue;
@@ -775,12 +894,12 @@ impl Pass<'_, '_> {
             let Some(rest_out) = inner.piece(rest, depth + 1, has_sentence_break(rest)) else {
                 continue;
             };
-            self.missed.extend(missed);
             let rest_out = if starts_lowercase(rest) {
                 rest_out
             } else {
-                capitalize_first_letter(&rest_out)
+                inner.verbatim.capitalize_first_letter(&rest_out)
             };
+            self.missed.extend(missed);
             let sep = if head_out.ends_with(char::is_whitespace) || ends_full_width(&head_out) {
                 ""
             } else {
@@ -987,10 +1106,21 @@ impl Pass<'_, '_> {
                 Part::Lit(text) => out.push_str(text),
                 Part::Hole(name) => {
                     let raw = captures.get(name.as_str()).copied().unwrap_or_default();
-                    // A number is said the language's way whatever its hole
-                    // is called: "{take_home}" reads as a home city by its
-                    // name, and kept "6,576" as is, which German and Polish
-                    // hear as six point five.
+                    if is_version_hole(template, name) {
+                        out.push_str(raw);
+                        continue;
+                    }
+                    if is_career_name_hole(template, name) {
+                        let spoken = if raw == "Driver" {
+                            self.catalog.exact.get(raw).map_or(raw, String::as_str)
+                        } else {
+                            raw
+                        };
+                        self.verbatim.push(&mut out, spoken);
+                        continue;
+                    }
+                    // A quantity is said the language's way even if its
+                    // hole looks like a name, such as "{take_home}".
                     if let Some(number) = plural::localize_number(&self.catalog.language, raw) {
                         out.push_str(&number);
                         continue;
@@ -1022,6 +1152,7 @@ impl Pass<'_, '_> {
                             catalog: self.catalog,
                             missed: &mut ignored,
                             memo: &mut *self.memo,
+                            verbatim: &mut *self.verbatim,
                         }
                         .piece(raw, depth + 1, has_sentence_break(raw));
                         // A measure ("2 miles") or a name kept as is is
@@ -1037,7 +1168,7 @@ impl Pass<'_, '_> {
                                 if !starts_lowercase(raw)
                                     && out.trim_end().ends_with(['.', '!', '?']) =>
                             {
-                                Some(capitalize_first_letter(&text))
+                                Some(self.verbatim.capitalize_first_letter(&text))
                             }
                             other => other,
                         };
@@ -1085,8 +1216,11 @@ fn starts_lowercase(text: &str) -> bool {
 
 /// `text` with its first letter (after any digits or marks) capitalized:
 /// "451 millas" stays, "quedan 451 millas" becomes "Quedan 451 millas".
-fn capitalize_first_letter(text: &str) -> String {
-    let Some((at, first)) = text.char_indices().find(|(_, c)| c.is_alphanumeric()) else {
+fn capitalize_first_letter(text: &str, verbatim_marker: Option<char>) -> String {
+    let Some((at, first)) = text
+        .char_indices()
+        .find(|&(_, c)| c.is_alphanumeric() || Some(c) == verbatim_marker)
+    else {
         return text.to_string();
     };
     if !first.is_lowercase() {

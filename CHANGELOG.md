@@ -29,6 +29,8 @@
 
 ### Fixed
 
+- **Career notices keep version numbers as written and no longer translate custom driver names.**
+
 - **Picking up an older cloud career no longer moves it ahead of a more recently played local career.** Continue keeps their last-played order.
 
 - **An untouched resumed career stays ready for the next pickup.** Save upgrades no longer cause a false cloud conflict.
