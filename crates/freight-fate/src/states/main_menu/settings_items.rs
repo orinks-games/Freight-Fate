@@ -489,6 +489,7 @@ impl SettingsCategoryState {
                 adjust(|s, ctx, d| s.toggle_transmission(ctx, d)),
                 adjust(|s, ctx, d| s.toggle_controller(ctx, d)),
                 adjust(|s, ctx, d| s.toggle_haptics(ctx, d)),
+                adjust(|s, ctx, d| s.toggle_left_bumper_layer(ctx, d)),
                 #[cfg(feature = "visuals")]
                 adjust(|s, ctx, d| s.toggle_visual_display(ctx, d)),
                 adjust(|s, ctx, d| s.toggle_menu_accelerator_keys(ctx, d)),
@@ -743,6 +744,17 @@ impl SettingsCategoryState {
                     "Controller rumble for hazards, hard braking, the rumble \
                      strip, and road seams. Needs a controller connected.",
                 ),
+                row(
+                    dyn_label(|s| {
+                        format!(
+                            "Second layer bumper: {}",
+                            if s.left_bumper_layer { "left" } else { "right" }
+                        )
+                    }),
+                    adjust(|s, ctx, d| s.toggle_left_bumper_layer(ctx, d)),
+                    "Which bumper you hold for the second layer of controller \
+                     buttons. The other bumper is the clutch.",
+                ),
                 // A build without the visual display has nothing to turn off.
                 #[cfg(feature = "visuals")]
                 row(
@@ -776,10 +788,16 @@ impl SettingsCategoryState {
                         ctx.push_state(ShortcutsState::new(ShortcutDevice::Controller))
                     },
                 )
-                .help(
-                    "Move any driving control to another pad button, plain or with \
-                     the right bumper held.",
-                ),
+                .help(Label::dynamic(|_s, ctx| {
+                    if ctx.settings.left_bumper_layer {
+                        "Move any driving control to another pad button, plain or with \
+                         the left bumper held."
+                    } else {
+                        "Move any driving control to another pad button, plain or with \
+                         the right bumper held."
+                    }
+                    .to_string()
+                })),
                 // The speed keeper moved to Driving assistance: it holds a speed
                 // for you, which is what every other row on that screen does.
                 // Controls is the keyboard, the controller, and the units the

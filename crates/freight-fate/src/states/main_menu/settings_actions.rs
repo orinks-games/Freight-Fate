@@ -536,6 +536,11 @@ impl SettingsCategoryState {
         self.announce(ctx);
     }
 
+    pub(super) fn toggle_left_bumper_layer(&mut self, ctx: &mut GameContext, _d: i64) {
+        ctx.settings.left_bumper_layer = !ctx.settings.left_bumper_layer;
+        self.announce(ctx);
+    }
+
     pub(super) fn toggle_haptics(&mut self, ctx: &mut GameContext, _d: i64) {
         ctx.settings.haptics_enabled = !ctx.settings.haptics_enabled;
         ctx.apply_haptics();

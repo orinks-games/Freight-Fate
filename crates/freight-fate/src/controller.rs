@@ -44,6 +44,7 @@ use ff_core::rumble::{RumbleEngine, RumbleSink};
 
 use crate::states::base::InputEvent;
 
+pub mod bumpers;
 pub mod diagnostics;
 pub mod fakes;
 pub mod sdl;

@@ -4,6 +4,8 @@
 
 ### Compatibility
 
+- **Freight Fate now requires iOS or iPadOS 15 or later.**
+
 - **Careers from newer Freight Fate versions stay untouched.** Local saves and cloud backups explain which version can continue them.
 
 ### Added
@@ -13,21 +15,38 @@
 - **A drowsy driver can call dispatch to move the appointment,** giving up the on-time bonus. The row is Too tired to drive safely.
 - **The driving command list can change radio volume and category.**
 - **Settings, Speech now has a Main voice row.** Pick your screen reader, SAPI, Windows OneCore or the built-in voice, or keep automatic.
+- **The controller's second layer can move to the left bumper.** The Second layer bumper row in Controls swaps the bumpers, and prompts name the one you hold.
 - **Drive online as a guest, with no orinks.net account.** You show on the drivers board under a name orinks.net picks, like Copper Fox 12.
 
 ### Changed
 
+- **The Simplified Chinese translation covers the whole game again.** Lines added since the last update no longer fall back to English.
 - **On-duty time now tires you a little.** Fueling, docks, inspections and waiting at the wheel build it at a third of the driving rate.
 - **Sleep now takes off 8 points of fatigue an hour.** Ten hours clears 80, so going to bed exhausted leaves some.
 - **Coffee and energy drinks now wear off and take their lift back.** A second one before then adds no lift.
 - **Work at stops takes longer as fatigue rises.** Fueling, the walk-around, chain work and pulling in run slower from worn up.
 - **An inspection or traffic stop at severe fatigue ends in a ten-hour out-of-service order.**
 - **Five-by-Two now takes a full 10 hours asleep at a stop.** A split rest, or finishing a reset that a break started, no longer earns it.
+- **Russian now covers the whole game, cloud resume included.** No line switches to English any more.
 - **German now covers the lines added since October.** Co-driver, fatigue, stop planning and problem report lines no longer switch to English.
+- **Vietnamese now covers every line.** Fatigue, touch, radio, guest driver and problem report lines no longer switch to English.
 - **The route picker reads the weather along a route with Tab.**
 - **The driving command list is now in groups.** Status menu comes first, then short lists for speed, the road, the truck, gears, radio and hours.
+- **Spanish now covers the new touch controls, co-driver calls, and the rest of the latest menus and driving prompts.**
 
 ### Fixed
+
+- **Windows shutdown, restart or sign-out with the game open no longer causes a crash prompt on the next launch.**
+- **Manual cloud backup now warns about newer cloud progress.** Choose Use the cloud copy on this computer to pick it up.
+
+- **On iPhone and iPad, pressing Up or Down once moves one menu row.**
+
+- **A second energy drink no longer promises another lift while the first stimulant lasts.**
+- **Terminal fueling now takes longer when you are tired, matching roadside fueling.**
+
+- **The cloud restore prompt only warns about replacing a career when this device already has a copy.**
+
+- **Career notices keep version numbers as written and no longer translate custom driver names.**
 
 - **Picking up an older cloud career no longer moves it ahead of a more recently played local career.** Continue keeps their last-played order.
 

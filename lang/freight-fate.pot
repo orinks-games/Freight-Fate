@@ -18913,21 +18913,24 @@ msgstr ""
 msgid "ok"
 msgstr ""
 
-#. placeholders: {revision}
-#: crates/freight-fate/src/cloud_saves.rs
-msgid "last synced revision {revision}"
+#: crates/freight-fate/src/cloud_saves/manual.rs
+msgid "stale"
 msgstr ""
 
-#: crates/freight-fate/src/cloud_saves.rs
-msgid "no revision synced yet"
+#: crates/freight-fate/src/cloud_saves/manual.rs crates/freight-fate/src/cloud_saves/sync_state.rs crates/freight-fate/src/cloud_saves/worker.rs crates/freight-fate/src/cloud_saves.rs
+msgid "conflict"
 msgstr ""
 
-#: crates/freight-fate/src/cloud_saves.rs
+#: crates/freight-fate/src/cloud_saves/manual.rs crates/freight-fate/src/cloud_saves/wording.rs crates/freight-fate/src/cloud_saves/worker.rs
+msgid "auth"
+msgstr ""
+
+#: crates/freight-fate/src/cloud_saves/manual.rs crates/freight-fate/src/cloud_saves/wording.rs crates/freight-fate/src/cloud_saves/worker.rs crates/freight-fate/src/cloud_saves.rs
+msgid "network"
+msgstr ""
+
+#: crates/freight-fate/src/cloud_saves/manual.rs crates/freight-fate/src/cloud_saves/worker.rs
 msgid "unchanged"
-msgstr ""
-
-#: crates/freight-fate/src/cloud_saves.rs
-msgid "Latest backup accepted and server-verified."
 msgstr ""
 
 #: crates/freight-fate/src/cloud_saves/resume.rs
@@ -18962,8 +18965,10 @@ msgstr ""
 msgid "hash"
 msgstr ""
 
-#: crates/freight-fate/src/cloud_saves/sync_state.rs crates/freight-fate/src/cloud_saves.rs
-msgid "conflict"
+#: crates/freight-fate/src/cloud_saves/wording.rs
+msgid ""
+"The cloud has a newer copy of this career. Nothing was changed. Choose Use "
+"the cloud copy on this computer to pick it up."
 msgstr ""
 
 #: crates/freight-fate/src/cloud_saves/wording.rs
@@ -18978,14 +18983,6 @@ msgstr ""
 
 #: crates/freight-fate/src/cloud_saves/wording.rs
 msgid "unauthorized"
-msgstr ""
-
-#: crates/freight-fate/src/cloud_saves/wording.rs crates/freight-fate/src/cloud_saves.rs crates/freight-fate/src/states/city/terminal.rs crates/freight-fate/src/states/cloud_save_states/slot.rs
-msgid "network"
-msgstr ""
-
-#: crates/freight-fate/src/cloud_saves/wording.rs crates/freight-fate/src/cloud_saves.rs
-msgid "auth"
 msgstr ""
 
 #. one sentence of a longer line
@@ -19230,6 +19227,19 @@ msgstr ""
 #. one sentence of a longer line
 #: crates/freight-fate/src/cloud_saves/wording.rs
 msgid "Your local career was not deleted."
+msgstr ""
+
+#. placeholders: {revision}
+#: crates/freight-fate/src/cloud_saves/worker.rs
+msgid "last synced revision {revision}"
+msgstr ""
+
+#: crates/freight-fate/src/cloud_saves/worker.rs
+msgid "no revision synced yet"
+msgstr ""
+
+#: crates/freight-fate/src/cloud_saves/worker.rs
+msgid "Latest backup accepted and server-verified."
 msgstr ""
 
 #: crates/freight-fate/src/community_stations.rs
@@ -21521,26 +21531,6 @@ msgid ""
 msgstr ""
 
 #: crates/freight-fate/src/states/city/terminal.rs
-msgid "Game saved. Backing up."
-msgstr ""
-
-#: crates/freight-fate/src/states/city/terminal.rs
-msgid "Game saved."
-msgstr ""
-
-#: crates/freight-fate/src/states/city/terminal.rs
-msgid "Backed up to the cloud."
-msgstr ""
-
-#: crates/freight-fate/src/states/city/terminal.rs crates/freight-fate/src/states/cloud_save_states/slot.rs
-msgid "Already backed up. The cloud copy matches this computer's save."
-msgstr ""
-
-#: crates/freight-fate/src/states/city/terminal.rs
-msgid "The backup will keep retrying in the background."
-msgstr ""
-
-#: crates/freight-fate/src/states/city/terminal.rs
 msgid "Progress saved."
 msgstr ""
 
@@ -21747,6 +21737,26 @@ msgstr ""
 #: crates/freight-fate/src/states/city/terminal.rs
 msgid ""
 "Your own cash toward the balance you owe. Cash never goes below zero."
+msgstr ""
+
+#: crates/freight-fate/src/states/city/terminal/backup.rs
+msgid "Game saved. Backing up."
+msgstr ""
+
+#: crates/freight-fate/src/states/city/terminal/backup.rs
+msgid "Game saved."
+msgstr ""
+
+#: crates/freight-fate/src/states/city/terminal/backup.rs
+msgid "Backed up to the cloud."
+msgstr ""
+
+#: crates/freight-fate/src/states/city/terminal/backup.rs crates/freight-fate/src/states/cloud_save_states/slot.rs
+msgid "Already backed up. The cloud copy matches this computer's save."
+msgstr ""
+
+#: crates/freight-fate/src/states/city/terminal/backup.rs
+msgid "The backup will keep retrying in the background."
 msgstr ""
 
 #: crates/freight-fate/src/states/city/truck_status.rs
@@ -22849,52 +22859,6 @@ msgstr ""
 msgid "Repair {f} percent damage for {grouped} dollars"
 msgstr ""
 
-#: crates/freight-fate/src/states/city_garage.rs crates/freight-fate/src/states/driving_rest_states/fuel_pump.rs
-msgid "The tank is already full."
-msgstr ""
-
-#. placeholders: {f}
-#: crates/freight-fate/src/states/city_garage.rs
-msgid "Tank filled, {f} minutes."
-msgstr ""
-
-#: crates/freight-fate/src/states/city_garage.rs
-msgid "terminal fuel"
-msgstr ""
-
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/city_garage.rs
-msgid "Tank filled."
-msgstr ""
-
-#. placeholders: {grouped}, {grouped2}
-#: crates/freight-fate/src/states/city_garage.rs
-msgid "Tank filled. {grouped} dollars. You have {grouped2} dollars left."
-msgstr ""
-
-#. placeholders: {grouped}
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/city_garage.rs
-msgid "{grouped} dollars."
-msgstr ""
-
-#: crates/freight-fate/src/states/city_garage.rs
-msgid "Not enough money for one gallon of fuel."
-msgstr ""
-
-#. placeholders: {f}, {grouped}
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/city_garage.rs
-msgid "Partial fuel: added {f} gallons for {grouped} dollars."
-msgstr ""
-
-#. placeholders: {f}, {grouped}, {grouped2}
-#: crates/freight-fate/src/states/city_garage.rs
-msgid ""
-"Partial fuel: added {f} gallons for {grouped} dollars. You have {grouped2} "
-"dollars left."
-msgstr ""
-
 #: crates/freight-fate/src/states/city_garage.rs
 msgid "Nothing to repair."
 msgstr ""
@@ -23329,6 +23293,52 @@ msgstr ""
 
 #: crates/freight-fate/src/states/city_garage.rs
 msgid "Add specialty trailer programs. Own authority buys trailers."
+msgstr ""
+
+#: crates/freight-fate/src/states/city_garage/fuel.rs crates/freight-fate/src/states/driving_rest_states/fuel_pump.rs
+msgid "The tank is already full."
+msgstr ""
+
+#. placeholders: {f}
+#: crates/freight-fate/src/states/city_garage/fuel.rs
+msgid "Tank filled, {f} minutes."
+msgstr ""
+
+#: crates/freight-fate/src/states/city_garage/fuel.rs
+msgid "terminal fuel"
+msgstr ""
+
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/city_garage/fuel.rs
+msgid "Tank filled."
+msgstr ""
+
+#. placeholders: {grouped}, {grouped2}
+#: crates/freight-fate/src/states/city_garage/fuel.rs
+msgid "Tank filled. {grouped} dollars. You have {grouped2} dollars left."
+msgstr ""
+
+#. placeholders: {grouped}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/city_garage/fuel.rs
+msgid "{grouped} dollars."
+msgstr ""
+
+#: crates/freight-fate/src/states/city_garage/fuel.rs
+msgid "Not enough money for one gallon of fuel."
+msgstr ""
+
+#. placeholders: {f}, {grouped}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/city_garage/fuel.rs
+msgid "Partial fuel: added {f} gallons for {grouped} dollars."
+msgstr ""
+
+#. placeholders: {f}, {grouped}, {grouped2}
+#: crates/freight-fate/src/states/city_garage/fuel.rs
+msgid ""
+"Partial fuel: added {f} gallons for {grouped} dollars. You have {grouped2} "
+"dollars left."
 msgstr ""
 
 #: crates/freight-fate/src/states/city_pickup.rs
@@ -24221,6 +24231,26 @@ msgstr ""
 msgid "The replaced save is kept as a fallback file."
 msgstr ""
 
+#. placeholders: {summary}
+#: crates/freight-fate/src/states/cloud_save_states.rs
+msgid " It is {summary}."
+msgstr ""
+
+#. placeholders: {save_name}, {backed_up_text}, {summary}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/cloud_save_states.rs
+msgid ""
+"Restore the backup of {save_name}, {backed_up_text}?{summary} This backup "
+"will be installed on this device."
+msgstr ""
+
+#. placeholders: {save_name}, {backed_up_text}, {summary}, {current}
+#: crates/freight-fate/src/states/cloud_save_states.rs
+msgid ""
+"Restore the backup of {save_name}, {backed_up_text}?{summary} This backup "
+"will be installed on this device. {current}"
+msgstr ""
+
 #: crates/freight-fate/src/states/cloud_save_states.rs
 msgid "No, cancel and change nothing"
 msgstr ""
@@ -24230,6 +24260,10 @@ msgid ""
 "Goes back without downloading. This computer's save stays as it is. To send "
 "this computer's save up instead, choose Keep this computer's save and back "
 "it up."
+msgstr ""
+
+#: crates/freight-fate/src/states/cloud_save_states.rs
+msgid "Goes back without downloading."
 msgstr ""
 
 #: crates/freight-fate/src/states/cloud_save_states.rs
@@ -25725,6 +25759,10 @@ msgstr ""
 #: crates/freight-fate/src/states/driving_controls/help.rs
 msgid ""
 "With lane keeping on full, pushing it left or right changes one lane."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_controls/help.rs
+msgid "Hold the right bumper for the clutch."
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_controls/help.rs
@@ -35417,6 +35455,10 @@ msgstr ""
 msgid "{purchased} {billing} It is {clock_text}. {deadline_text}"
 msgstr ""
 
+#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
+msgid "No lift while the last stimulant lasts."
+msgstr ""
+
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
 msgid "Pull back onto the highway."
@@ -40812,6 +40854,17 @@ msgid ""
 "seams. Needs a controller connected."
 msgstr ""
 
+#. placeholders: {else}
+#: crates/freight-fate/src/states/main_menu/settings_items.rs
+msgid "Second layer bumper: {else}"
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu/settings_items.rs
+msgid ""
+"Which bumper you hold for the second layer of controller buttons. The other "
+"bumper is the clutch."
+msgstr ""
+
 #. placeholders: {on_off}
 #: crates/freight-fate/src/states/main_menu/settings_items.rs
 msgid "Visual display: {on_off}"
@@ -40848,6 +40901,12 @@ msgstr ""
 
 #: crates/freight-fate/src/states/main_menu/settings_items.rs crates/freight-fate/src/states/main_menu/shortcuts.rs
 msgid "Controller buttons"
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu/settings_items.rs
+msgid ""
+"Move any driving control to another pad button, plain or with the left "
+"bumper held."
 msgstr ""
 
 #: crates/freight-fate/src/states/main_menu/settings_items.rs
@@ -41356,6 +41415,27 @@ msgstr ""
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/main_menu/shortcuts.rs
 msgid ""
+"Press the new button for {label}, with the left bumper held for the second "
+"layer."
+msgstr ""
+
+#. placeholders: {label}, {current}
+#: crates/freight-fate/src/states/main_menu/shortcuts.rs
+msgid ""
+"Press the new button for {label}, with the left bumper held for the second "
+"layer. Press {current} again to keep it."
+msgstr ""
+
+#. placeholders: {current}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/main_menu/shortcuts.rs
+msgid "Press {current} again to keep it."
+msgstr ""
+
+#. placeholders: {label}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/main_menu/shortcuts.rs
+msgid ""
 "Press the new button for {label}, with the right bumper held for the second "
 "layer."
 msgstr ""
@@ -41365,12 +41445,6 @@ msgstr ""
 msgid ""
 "Press the new button for {label}, with the right bumper held for the second "
 "layer. Press {current} again to keep it."
-msgstr ""
-
-#. placeholders: {current}
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/main_menu/shortcuts.rs
-msgid "Press {current} again to keep it."
 msgstr ""
 
 #. placeholders: {label}, {now}
@@ -41419,6 +41493,12 @@ msgstr ""
 msgid ""
 "Enter, then press the key you want for this control. Escape keeps the one "
 "it has."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu/shortcuts.rs
+msgid ""
+"Enter, then press the button you want for this control, with the left "
+"bumper held for the second layer."
 msgstr ""
 
 #: crates/freight-fate/src/states/main_menu/shortcuts.rs
@@ -47765,4 +47845,58 @@ msgstr ""
 #. The last sentence of the sleep preview, when nothing comes before it.
 #: lang/extra.pot
 msgid "Select again to sleep."
+msgstr ""
+
+#. The controller lines with the bumpers swapped, for a player who holds the
+#. left bumper for the second layer (Settings, Controls, Second layer bumper).
+#. The game swaps the words in its own help pages and control names
+#. (crates/freight-fate/src/controller/bumpers.rs).
+#. placeholders: {short}
+#: lang/extra.pot
+msgid "left bumper plus {short}"
+msgstr ""
+
+#: lang/extra.pot
+msgid "the right bumper is the clutch"
+msgstr ""
+
+#: lang/extra.pot
+msgid "the left bumper is the second layer"
+msgstr ""
+
+#: lang/extra.pot
+msgid ""
+"For manual clutch, hold either Shift key on a keyboard or right bumper on a "
+"controller."
+msgstr ""
+
+#. placeholders: {control_shift_up}, {control_shift_down}, {control_neutral}, {control_reverse}
+#: lang/extra.pot
+msgid ""
+"For manual clutch, hold either Shift key on a keyboard or right bumper on a "
+"controller. Then {control_shift_up} shifts up, {control_shift_down} down, "
+"{control_neutral} selects neutral, and {control_reverse} selects reverse."
+msgstr ""
+
+#: lang/extra.pot
+msgid "Hold right bumper for manual clutch."
+msgstr ""
+
+#. placeholders: {pad_shift_up}, {pad_shift_down}, {pad_cruise}, {pad_speed}
+#: lang/extra.pot
+msgid ""
+"Hold right bumper for manual clutch. {pad_shift_up} shifts up and "
+"{pad_shift_down} down, past first into neutral and then reverse. "
+"{pad_cruise} starts speed control. {pad_speed} reads speed."
+msgstr ""
+
+#: lang/extra.pot
+msgid "Hold the left bumper for a second layer of buttons."
+msgstr ""
+
+#. placeholders: {pad_engine}, {pad_fuel}, {pad_speed_limit}
+#: lang/extra.pot
+msgid ""
+"Hold the left bumper for a second layer of buttons. {pad_engine} controls "
+"the engine, {pad_fuel} reads fuel, and {pad_speed_limit} reads the limit."
 msgstr ""

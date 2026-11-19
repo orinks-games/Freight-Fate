@@ -261,6 +261,7 @@ fn gameplay_subcategory_rows(category: &str) -> &'static [&'static str] {
             "Transmission",
             "Controller",
             "Haptics",
+            "Second layer bumper",
             #[cfg(feature = "visuals")]
             "Visual display",
             "Letters run menu items",

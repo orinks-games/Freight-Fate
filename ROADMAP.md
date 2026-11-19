@@ -46,6 +46,7 @@ bookmarks usable.
 
 ## 1.9 in flight (`feat/career-1.9`)
 
+- [x] Manual cloud backup checks the current cloud revision before saying copies match; a stale local copy leaves the newer cloud career untouched and explains how to restore it.
 - [x] Opt-in cloud resume (owner request): main-menu checks pick up clean, tracked careers from another device; changed local copies use the existing Cloud backup conflict choice. Off by default.
 - [x] Guest drivers (built 2026-11-07, merged to dev 2026-11-17): Drive online as a guest on the Online menu gets a word-list name from orinks.net and turns Profile sharing on; Guest name asks for a new one; guests are on the board only, so a profile, road journal, achievements and cloud backup stay account-only. An account with no driver yet takes the guest over when it connects. Needs the orinks.net guest routes live on the production site.
 - [x] Main voice (built 2026-11-17, owner request): Settings, Speech has a Main voice row above Driving event voice. Automatic stays the default; the player can pick any voice that can speak right now (a running screen reader, SAPI, Windows OneCore, Narrator while it runs, the built-in voice). The choice is saved as is and never rewritten: while the chosen voice cannot speak, the automatic pick speaks and the row says the voice is unavailable, and the health check binds it when it returns. When Driving event voice names the main voice, events go through the main voice and the event row reads "main voice"; the saved event voice is kept, so moving the main voice away brings the separate voice back. Hearken PR 74 (`main_backend_options`, the Narrator gate, the shared event voice).
@@ -796,6 +797,7 @@ into the release gate. Details stay in the linked dated sections, marked
 Everything found before 2026-09-25 moved to
 [2.0](#found-along-the-way-in-19-moved-to-20) that day.
 
+- [x] (Found along the way) Confirmed Windows shutdown, restart and sign-out clear the crash marker with a 500 ms cleanup wait. Queries and cancelled session ends keep it. The window callback does not save careers or wait for cloud services; saves remain at normal checkpoints.
 - [x] (Found along the way) Fatigue bands and the nod-off are state
       machines saved with the trip: a quiet first yawn at 40, the band in
       the readouts, no repeated drowsy line after a small lift
@@ -1552,6 +1554,18 @@ Everything found before 2026-09-25 moved to
       swipe starts at 90.", "Deep swipe. Length 112."). Touch gestures has a
       "Deep swipe starts at" row, 60 to 180 points in tens; the settings
       file keeps `touch_deep_swipe_factor`. Nothing was tried on a phone.
+- [x] Second layer bumper (2026-11-18, a player's request): Settings,
+      Gameplay, Controls swaps the bumpers, so the left bumper holds the
+      second layer and the right bumper is the clutch. The pad's presses
+      are swapped as they arrive, each keeping its role until released, and
+      the game's own control names and fixed instructions name the swapped
+      bumpers (`controller::bumpers`); finished lines, and the names in
+      them, are never rewritten. With the default layout every line keeps
+      its translation.
+- [ ] (Found along the way) Translate the swapped bumper lines: with
+      Second layer bumper on left, the instructions that name a bumper are
+      new catalog entries (some in `lang/extra.pot`), spoken in English
+      until each language translates them.
 - [ ] (Found along the way) iPhone gesture plan step 7: the stroke
       recogniser moved into `ff-core`, and the default deep swipe set from
       lengths measured on a phone. Android's recogniser
@@ -4008,6 +4022,9 @@ and 7.
       figure; the fuel row's help now reads its minutes. Docks, mechanics,
       shops, officers, scale wave-throughs and buying a chain set keep
       their times.
+- [x] (Found along the way) Owner listening fixes: repeated energy drinks
+      explain that there is no additional lift; terminal fueling uses the
+      same fatigue slowdown as roadside fueling, including partial fills.
 - [x] (Found along the way) An officer can see it (part 6): the scale's
       inspection lane, a roadside inspection or log check, and a traffic
       stop at severe end in the fatigue out-of-service order after the
