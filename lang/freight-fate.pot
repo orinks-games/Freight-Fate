@@ -26280,6 +26280,26 @@ msgstr ""
 msgid "The replaced save is kept as a fallback file."
 msgstr ""
 
+#. placeholders: {summary}
+#: crates/freight-fate/src/states/cloud_save_states.rs
+msgid " It is {summary}."
+msgstr ""
+
+#. placeholders: {save_name}, {backed_up_text}, {summary}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/cloud_save_states.rs
+msgid ""
+"Restore the backup of {save_name}, {backed_up_text}?{summary} This backup "
+"will be installed on this device."
+msgstr ""
+
+#. placeholders: {save_name}, {backed_up_text}, {summary}, {current}
+#: crates/freight-fate/src/states/cloud_save_states.rs
+msgid ""
+"Restore the backup of {save_name}, {backed_up_text}?{summary} This backup "
+"will be installed on this device. {current}"
+msgstr ""
+
 #: crates/freight-fate/src/states/cloud_save_states.rs
 msgid "No, cancel and change nothing"
 msgstr ""
@@ -26289,6 +26309,10 @@ msgid ""
 "Goes back without downloading. This computer's save stays as it is. To send "
 "this computer's save up instead, choose Keep this computer's save and back "
 "it up."
+msgstr ""
+
+#: crates/freight-fate/src/states/cloud_save_states.rs
+msgid "Goes back without downloading."
 msgstr ""
 
 #: crates/freight-fate/src/states/cloud_save_states.rs

@@ -22922,6 +22922,23 @@ msgstr ""
 msgid "The replaced save is kept as a fallback file."
 msgstr "O jogo salvo substituído fica guardado como arquivo de reserva."
 
+#. placeholders: {summary}
+msgid " It is {summary}."
+msgstr ""
+
+#. placeholders: {save_name}, {backed_up_text}, {summary}
+#. one sentence of a longer line
+msgid ""
+"Restore the backup of {save_name}, {backed_up_text}?{summary} This backup "
+"will be installed on this device."
+msgstr ""
+
+#. placeholders: {save_name}, {backed_up_text}, {summary}, {current}
+msgid ""
+"Restore the backup of {save_name}, {backed_up_text}?{summary} This backup "
+"will be installed on this device. {current}"
+msgstr ""
+
 msgid "No, cancel and change nothing"
 msgstr "Não, cancelar e não mudar nada"
 
@@ -22933,6 +22950,9 @@ msgstr ""
 "Volta sem baixar nada. O jogo salvo deste computador fica como está. Para "
 "enviar o jogo salvo deste computador no lugar, escolha Manter o jogo salvo "
 "deste computador e fazer backup."
+
+msgid "Goes back without downloading."
+msgstr ""
 
 msgid "Yes, restore this backup"
 msgstr "Sim, restaurar este backup"

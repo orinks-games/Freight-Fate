@@ -23017,6 +23017,23 @@ msgstr ""
 msgid "The replaced save is kept as a fallback file."
 msgstr "Il salvataggio sostituito viene conservato come file di riserva."
 
+#. placeholders: {summary}
+msgid " It is {summary}."
+msgstr ""
+
+#. placeholders: {save_name}, {backed_up_text}, {summary}
+#. one sentence of a longer line
+msgid ""
+"Restore the backup of {save_name}, {backed_up_text}?{summary} This backup "
+"will be installed on this device."
+msgstr ""
+
+#. placeholders: {save_name}, {backed_up_text}, {summary}, {current}
+msgid ""
+"Restore the backup of {save_name}, {backed_up_text}?{summary} This backup "
+"will be installed on this device. {current}"
+msgstr ""
+
 msgid "No, cancel and change nothing"
 msgstr "No, annulla e non cambiare niente"
 
@@ -23028,6 +23045,9 @@ msgstr ""
 "Torna indietro senza scaricare. Il salvataggio di questo computer resta "
 "com'è. Per caricare invece il salvataggio di questo computer, scegli Tieni "
 "il salvataggio di questo computer e fanne il backup."
+
+msgid "Goes back without downloading."
+msgstr ""
 
 msgid "Yes, restore this backup"
 msgstr "Sì, ripristina questo backup"

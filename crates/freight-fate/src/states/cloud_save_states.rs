@@ -491,11 +491,12 @@ impl_state_for_menu!(CloudBackupState);
 
 // -- ConfirmRestoreState ------------------------------------------------------------------------
 
-/// One spoken yes/no gate before a restore overwrites a local save.
+/// One spoken yes/no gate before restoring a backup.
 pub struct ConfirmRestoreState {
     pub menu: MenuCore<Self>,
     slot: SlotHandle,
     entry: Value,
+    replaces_local: bool,
 }
 
 impl ConfirmRestoreState {
@@ -503,10 +504,12 @@ impl ConfirmRestoreState {
 
     /// `ConfirmRestoreState(ctx, slot_state, entry)`.
     pub fn new(_ctx: &mut GameContext, slot: SlotHandle, entry: Value) -> Self {
+        let replaces_local = find_save_path(&slot.save_name).is_some();
         Self {
             menu: MenuCore::new(Self::TITLE),
             slot,
             entry,
+            replaces_local,
         }
     }
 
@@ -528,39 +531,49 @@ impl Menu for ConfirmRestoreState {
     }
 
     fn announce_entry(&mut self, ctx: &mut GameContext) {
-        let summary = match summary_of(&self.entry) {
-            Some(summary) => format!(" It is {summary},"),
-            None => String::new(),
-        };
         let current = self.current_text(ctx);
-        ctx.say(&format!(
-            "Restore the backup of {}, \
-             {}?{summary} replacing \
-             this computer's save for that career. The replaced save is kept \
-             as a fallback file. {current}",
-            self.slot.save_name,
-            backed_up_text(created_at_ms(&self.entry))
-        ));
+        if self.replaces_local {
+            let summary = match summary_of(&self.entry) {
+                Some(summary) => format!(" It is {summary},"),
+                None => String::new(),
+            };
+            ctx.say(&format!(
+                "Restore the backup of {}, \
+                 {}?{summary} replacing \
+                 this computer's save for that career. The replaced save is kept \
+                 as a fallback file. {current}",
+                self.slot.save_name,
+                backed_up_text(created_at_ms(&self.entry))
+            ));
+        } else {
+            let summary = summary_of(&self.entry)
+                .map_or_else(String::new, |summary| format!(" It is {summary}."));
+            ctx.say(&format!(
+                "Restore the backup of {}, \
+                 {}?{summary} This backup will be installed on this device. {current}",
+                self.slot.save_name,
+                backed_up_text(created_at_ms(&self.entry))
+            ));
+        }
     }
 
     fn build_items(&mut self, _ctx: &mut GameContext) -> Vec<MenuItem<Self>> {
-        vec![
-            MenuItem::new(
-                // NOT "No, keep this computer's save". That is word for word
-                // what the conflict screen's real action is called ("Keep
-                // this computer's save and back it up"), so a player who
-                // wants exactly that hears it here, presses it, and gets
-                // nothing -- the owner did it on his own career while
-                // testing, and it is the likeliest reason Brandon got no
-                // further either (2026-08-15). A cancel says it cancels.
-                "No, cancel and change nothing",
-                |s: &mut Self, ctx| s.go_back(ctx),
-            )
-            .help(
+        // This cancels the restore, not the conflict screen's action to
+        // keep and upload the local save.
+        let cancel = MenuItem::new("No, cancel and change nothing", |s: &mut Self, ctx| {
+            s.go_back(ctx)
+        });
+        let cancel = if self.replaces_local {
+            cancel.help(
                 "Goes back without downloading. This computer's save stays as it is. To send \
                  this computer's save up instead, choose Keep this computer's save and back \
                  it up.",
-            ),
+            )
+        } else {
+            cancel.help("Goes back without downloading.")
+        };
+        vec![
+            cancel,
             MenuItem::new("Yes, restore this backup", |s: &mut Self, ctx| s.yes(ctx)),
         ]
     }
