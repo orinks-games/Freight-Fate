@@ -21573,6 +21573,23 @@ msgstr ""
 msgid "The replaced save is kept as a fallback file."
 msgstr "Bản lưu bị thay thế sẽ được giữ lại làm tệp dự phòng."
 
+#. placeholders: {summary}
+msgid " It is {summary}."
+msgstr ""
+
+#. placeholders: {save_name}, {backed_up_text}, {summary}
+#. one sentence of a longer line
+msgid ""
+"Restore the backup of {save_name}, {backed_up_text}?{summary} This backup "
+"will be installed on this device."
+msgstr ""
+
+#. placeholders: {save_name}, {backed_up_text}, {summary}, {current}
+msgid ""
+"Restore the backup of {save_name}, {backed_up_text}?{summary} This backup "
+"will be installed on this device. {current}"
+msgstr ""
+
 msgid "No, cancel and change nothing"
 msgstr "Không, hủy và giữ nguyên mọi thứ"
 
@@ -21583,6 +21600,9 @@ msgid ""
 msgstr ""
 "Quay lại mà không tải về. Bản lưu trên máy này vẫn giữ nguyên. Nếu muốn đẩy "
 "bản trên máy này lên đám mây, hãy chọn Giữ bản lưu trên máy này và sao lưu."
+
+msgid "Goes back without downloading."
+msgstr ""
 
 msgid "Yes, restore this backup"
 msgstr "Có, khôi phục bản sao lưu này"
