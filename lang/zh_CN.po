@@ -19276,6 +19276,23 @@ msgstr ""
 msgid "The replaced save is kept as a fallback file."
 msgstr "被替换的存档会保留为一个后备文件。"
 
+#. placeholders: {summary}
+msgid " It is {summary}."
+msgstr ""
+
+#. placeholders: {save_name}, {backed_up_text}, {summary}
+#. one sentence of a longer line
+msgid ""
+"Restore the backup of {save_name}, {backed_up_text}?{summary} This backup "
+"will be installed on this device."
+msgstr ""
+
+#. placeholders: {save_name}, {backed_up_text}, {summary}, {current}
+msgid ""
+"Restore the backup of {save_name}, {backed_up_text}?{summary} This backup "
+"will be installed on this device. {current}"
+msgstr ""
+
 msgid "No, cancel and change nothing"
 msgstr "不，取消，什么都不改"
 
@@ -19284,6 +19301,9 @@ msgid ""
 "this computer's save up instead, choose Keep this computer's save and back "
 "it up."
 msgstr "不下载，直接返回。这台电脑上的存档保持原样。如果想把这台电脑上的存档上传上去，请选择“保留这台电脑上的存档并备份”。"
+
+msgid "Goes back without downloading."
+msgstr ""
 
 msgid "Yes, restore this backup"
 msgstr "是的，恢复这个备份"
