@@ -45,6 +45,18 @@ impl Profile {
                 return Err(err.into());
             }
         };
+        if let Some(line) = newer_career_line(&data) {
+            return Err(NewerCareerError {
+                name: data
+                    .get("name")
+                    .filter(|v| py_truthy(v))
+                    .map(py_str)
+                    .unwrap_or_else(|| "Driver".to_string()),
+                path: Some(path.to_path_buf()),
+                line: line.to_string(),
+            }
+            .into());
+        }
         if is_pre_1_9_save(&data) {
             // A career from the 1.8 line or earlier. 1.9 starts everyone fresh
             // (the rebalanced arc cannot absorb old-scale careers), so refuse
