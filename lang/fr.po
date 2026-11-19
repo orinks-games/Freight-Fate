@@ -16881,19 +16881,19 @@ msgid "Latest backup accepted and server-verified."
 msgstr "Dernière sauvegarde acceptée et vérifiée par le serveur."
 
 msgid "cloud-resume"
-msgstr ""
+msgstr "cloud-resume"
 
 msgid "not connected"
-msgstr ""
+msgstr "not connected"
 
 msgid "site unreachable"
-msgstr ""
+msgstr "site unreachable"
 
 msgid "backup unavailable"
-msgstr ""
+msgstr "backup unavailable"
 
 msgid "backup does not match requested career"
-msgstr ""
+msgstr "backup does not match requested career"
 
 msgid "revision"
 msgstr "revision"
@@ -17147,25 +17147,31 @@ msgstr "{name} est de nouveau sauvegardée."
 
 msgid "Checking careers on your other devices. Try Continue shortly."
 msgstr ""
+"Vérification des carrières sur vos autres appareils. Réessayez Continuer "
+"dans un instant."
 
 #. placeholders: {name}
 msgid "Picked up {name} where you left off on another device."
 msgstr ""
+"Reprise de la carrière {name} là où vous l'aviez laissée sur un autre "
+"appareil."
 
 #. one sentence of a longer line
 msgid "Open Cloud backup to choose which copy to keep."
-msgstr ""
+msgstr "Ouvrez Sauvegarde cloud pour choisir la copie à conserver."
 
 #. placeholders: {name}
 #. one sentence of a longer line
 msgid "{name} changed on another device."
-msgstr ""
+msgstr "La carrière {name} a été modifiée sur un autre appareil."
 
 #. placeholders: {name}
 msgid ""
 "{name} changed on another device. Open Cloud backup to choose which copy to "
 "keep."
 msgstr ""
+"La carrière {name} a été modifiée sur un autre appareil. Ouvrez Sauvegarde "
+"cloud pour choisir la copie à conserver."
 
 msgid "accepted"
 msgstr "accepted"
@@ -21974,7 +21980,7 @@ msgid "cloud-saves-restore"
 msgstr "cloud-saves-restore"
 
 msgid "profile"
-msgstr ""
+msgstr "profile"
 
 msgid "restored"
 msgstr "restored"
@@ -22296,25 +22302,29 @@ msgstr "{LEGACY_BACKUP_NOTICE} Votre sauvegarde locale n'a pas été touchée."
 
 msgid "Backup needs a newer version. Nothing was restored."
 msgstr ""
+"Cette sauvegarde nécessite une version plus récente. Rien n'a été restauré."
 
 #. placeholders: {line}
 #. one sentence of a longer line
 msgid "This career was made in Freight Fate {line}."
-msgstr ""
+msgstr "Cette carrière a été créée dans Freight Fate {line}."
 
 #. placeholders: {line}
 msgid ""
 "This career was made in Freight Fate {line}. This version cannot restore "
 "it. Your local save and the cloud backup are untouched."
 msgstr ""
+"Cette carrière a été créée dans Freight Fate {line}. Cette version ne peut "
+"pas la restaurer. Votre sauvegarde locale et la sauvegarde cloud sont "
+"intactes."
 
 #. one sentence of a longer line
 msgid "This version cannot restore it."
-msgstr ""
+msgstr "Cette version ne peut pas la restaurer."
 
 #. one sentence of a longer line
 msgid "Your local save and the cloud backup are untouched."
-msgstr ""
+msgstr "Votre sauvegarde locale et la sauvegarde cloud sont intactes."
 
 msgid "Reconnect needed. Nothing was restored."
 msgstr "Reconnexion nécessaire. Rien n'a été restauré."
@@ -35431,12 +35441,14 @@ msgstr ""
 
 #. placeholders: {name}, {line}
 msgid "{name}: career from Freight Fate {line}"
-msgstr ""
+msgstr "{name} : carrière de Freight Fate {line}"
 
 msgid ""
 "This career needs a newer version. Choose it for details. The save is not "
 "touched."
 msgstr ""
+"Cette carrière nécessite une version plus récente. Choisissez-la pour plus "
+"de détails. La sauvegarde n'est pas modifiée."
 
 msgid "Manage careers"
 msgstr "Gérer les carrières"
@@ -35745,6 +35757,8 @@ msgid ""
 "Some saved careers need a newer version of Freight Fate. They are listed "
 "under Choose career. "
 msgstr ""
+"Certaines carrières sauvegardées nécessitent une version plus récente de "
+"Freight Fate. Elles figurent dans Choisir une carrière. "
 
 #. placeholders: {version}
 #. one sentence of a longer line
@@ -38096,6 +38110,7 @@ msgstr ""
 #. one sentence of a longer line
 msgid "There is already a career named {name} from Freight Fate {line}."
 msgstr ""
+"Il existe déjà une carrière nommée {name} provenant de Freight Fate {line}."
 
 #. placeholders: {name}, {line}
 msgid ""
@@ -38103,6 +38118,9 @@ msgid ""
 "stays as it is, so this career needs a different driver name. Escape goes "
 "back to change it."
 msgstr ""
+"Il existe déjà une carrière nommée {name} provenant de Freight Fate {line}. "
+"Cette sauvegarde reste telle quelle, donc cette carrière a besoin d'un "
+"autre nom de chauffeur. Escape pour revenir le modifier."
 
 #. placeholders: {name}
 #. one sentence of a longer line
@@ -41084,12 +41102,15 @@ msgstr ""
 
 #. placeholders: {on_off}
 msgid "Resume careers from other devices: {on_off}"
-msgstr ""
+msgstr "Reprendre les carrières d'autres appareils : {on_off}"
 
 msgid ""
 "Checks for newer progress when you return to the main menu. Restore each "
 "career here once first; conflicting saves need your choice in Cloud backup."
 msgstr ""
+"Recherche une progression plus récente quand vous revenez au menu "
+"principal. Restaurez d'abord chaque carrière ici une fois ; en cas de "
+"conflit entre sauvegardes, choisissez dans Sauvegarde cloud."
 
 msgid "Connect to orinks.net"
 msgstr "Se connecter à orinks.net"
@@ -42199,15 +42220,17 @@ msgid ""
 "Nothing was lost: the save is untouched and still works in Freight Fate "
 "{line}."
 msgstr ""
+"Rien n'a été perdu : la sauvegarde est intacte et fonctionne toujours dans "
+"Freight Fate {line}."
 
 #. one sentence of a longer line
 msgid "This version cannot continue it."
-msgstr ""
+msgstr "Cette version ne peut pas la poursuivre."
 
 #. placeholders: {name}, {line}
 #. one sentence of a longer line
 msgid "{name} was made in Freight Fate {line}."
-msgstr ""
+msgstr "La carrière {name} a été créée dans Freight Fate {line}."
 
 #. placeholders: {name}, {line}
 msgid ""
@@ -42215,15 +42238,18 @@ msgid ""
 "Nothing was lost: the save is untouched and still works in Freight Fate "
 "{line}."
 msgstr ""
+"La carrière {name} a été créée dans Freight Fate {line}. Cette version ne "
+"peut pas la poursuivre. Rien n'a été perdu : la sauvegarde est intacte et "
+"fonctionne toujours dans Freight Fate {line}."
 
 msgid "Career from a newer version"
-msgstr ""
+msgstr "Carrière d'une version plus récente"
 
 msgid "Escape goes back to the career list."
-msgstr ""
+msgstr "Escape pour revenir à la liste des carrières."
 
 msgid "Start fresh with a different driver name."
-msgstr ""
+msgstr "Recommencer avec un autre nom de chauffeur."
 
 msgid "Your driving record"
 msgstr "Votre dossier de conduite"
