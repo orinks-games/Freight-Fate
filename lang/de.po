@@ -21612,6 +21612,27 @@ msgstr ""
 msgid "The replaced save is kept as a fallback file."
 msgstr "Der ersetzte Spielstand wird als Ersatzdatei aufbewahrt."
 
+#. placeholders: {summary}
+msgid " It is {summary}."
+msgstr " Sie ist {summary}."
+
+#. placeholders: {save_name}, {backed_up_text}, {summary}
+#. one sentence of a longer line
+msgid ""
+"Restore the backup of {save_name}, {backed_up_text}?{summary} This backup "
+"will be installed on this device."
+msgstr ""
+"Die Sicherung von {save_name} wiederherstellen, {backed_up_text}?{summary} "
+"Diese Sicherung wird auf diesem Gerät installiert."
+
+#. placeholders: {save_name}, {backed_up_text}, {summary}, {current}
+msgid ""
+"Restore the backup of {save_name}, {backed_up_text}?{summary} This backup "
+"will be installed on this device. {current}"
+msgstr ""
+"Die Sicherung von {save_name} wiederherstellen, {backed_up_text}?{summary} "
+"Diese Sicherung wird auf diesem Gerät installiert. {current}"
+
 msgid "No, cancel and change nothing"
 msgstr "Nein, abbrechen und nichts ändern"
 
@@ -21623,6 +21644,9 @@ msgstr ""
 "Geht zurück, ohne herunterzuladen. Der Spielstand auf diesem Computer "
 "bleibt, wie er ist. Um stattdessen den Spielstand dieses Computers "
 "hochzuladen, wähl Spielstand dieses Computers behalten und sichern."
+
+msgid "Goes back without downloading."
+msgstr "Geht zurück, ohne herunterzuladen."
 
 msgid "Yes, restore this backup"
 msgstr "Ja, diese Sicherung wiederherstellen"
