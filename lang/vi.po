@@ -16629,10 +16629,25 @@ msgstr "không thay đổi"
 msgid "Latest backup accepted and server-verified."
 msgstr "Bản sao lưu mới nhất đã được máy chủ tiếp nhận và xác thực."
 
-msgid "slots"
+msgid "cloud-resume"
+msgstr ""
+
+msgid "not connected"
+msgstr ""
+
+msgid "site unreachable"
+msgstr ""
+
+msgid "backup unavailable"
+msgstr ""
+
+msgid "backup does not match requested career"
 msgstr ""
 
 msgid "revision"
+msgstr ""
+
+msgid "slots"
 msgstr ""
 
 msgid "hash"
@@ -16878,6 +16893,28 @@ msgstr "Đã sao lưu {name}."
 #. placeholders: {name}
 msgid "{name} is backed up again."
 msgstr "Đã sao lưu lại {name}."
+
+msgid "Checking careers on your other devices. Try Continue shortly."
+msgstr ""
+
+#. placeholders: {name}
+msgid "Picked up {name} where you left off on another device."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Open Cloud backup to choose which copy to keep."
+msgstr ""
+
+#. placeholders: {name}
+#. one sentence of a longer line
+msgid "{name} changed on another device."
+msgstr ""
+
+#. placeholders: {name}
+msgid ""
+"{name} changed on another device. Open Cloud backup to choose which copy to "
+"keep."
+msgstr ""
 
 msgid "accepted"
 msgstr ""
@@ -21488,6 +21525,9 @@ msgstr "Đang tải bản sao lưu."
 msgid "cloud-saves-restore"
 msgstr ""
 
+msgid "profile"
+msgstr ""
+
 msgid "restored"
 msgstr "đã khôi phục"
 
@@ -21792,6 +21832,28 @@ msgstr "Bản sao lưu thuộc phiên bản cũ hơn. Chưa khôi phục gì."
 #. placeholders: {LEGACY_BACKUP_NOTICE}
 msgid "{LEGACY_BACKUP_NOTICE} Your local save was not touched."
 msgstr "{LEGACY_BACKUP_NOTICE} Bản lưu trên máy không bị đụng tới."
+
+msgid "Backup needs a newer version. Nothing was restored."
+msgstr ""
+
+#. placeholders: {line}
+#. one sentence of a longer line
+msgid "This career was made in Freight Fate {line}."
+msgstr ""
+
+#. placeholders: {line}
+msgid ""
+"This career was made in Freight Fate {line}. This version cannot restore "
+"it. Your local save and the cloud backup are untouched."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "This version cannot restore it."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Your local save and the cloud backup are untouched."
+msgstr ""
 
 msgid "Reconnect needed. Nothing was restored."
 msgstr "Cần kết nối lại. Chưa khôi phục gì."
@@ -34527,6 +34589,15 @@ msgstr ""
 "Sự nghiệp này không thể tiếp tục trong phiên bản 1.9. Nhấn Enter để xem "
 "giải thích và tạo sự nghiệp mới. Bản lưu cũ vẫn được giữ nguyên."
 
+#. placeholders: {name}, {line}
+msgid "{name}: career from Freight Fate {line}"
+msgstr ""
+
+msgid ""
+"This career needs a newer version. Choose it for details. The save is not "
+"touched."
+msgstr ""
+
 msgid "Manage careers"
 msgstr "Quản lý sự nghiệp"
 
@@ -34817,6 +34888,11 @@ msgid ""
 msgstr ""
 "Các sự nghiệp đã lưu của bạn thuộc phiên bản Freight Fate cũ hơn. Chúng "
 "được liệt kê trong mục Chọn sự nghiệp. "
+
+msgid ""
+"Some saved careers need a newer version of Freight Fate. They are listed "
+"under Choose career. "
+msgstr ""
 
 #. placeholders: {version}
 #. one sentence of a longer line
@@ -37082,6 +37158,18 @@ msgid ""
 "That save stays as it is, so this career needs a different driver name."
 msgstr ""
 "Bản lưu đó vẫn được giữ nguyên, nên sự nghiệp này cần một tên tài xế khác."
+
+#. placeholders: {name}, {line}
+#. one sentence of a longer line
+msgid "There is already a career named {name} from Freight Fate {line}."
+msgstr ""
+
+#. placeholders: {name}, {line}
+msgid ""
+"There is already a career named {name} from Freight Fate {line}. That save "
+"stays as it is, so this career needs a different driver name. Escape goes "
+"back to change it."
+msgstr ""
 
 #. placeholders: {name}
 #. one sentence of a longer line
@@ -39953,6 +40041,15 @@ msgstr ""
 "bao giờ lộ bản lưu hay thông tin cá nhân. Chỉ cần Discord đang chạy, không "
 "cần hồ sơ tài xế."
 
+#. placeholders: {on_off}
+msgid "Resume careers from other devices: {on_off}"
+msgstr ""
+
+msgid ""
+"Checks for newer progress when you return to the main menu. Restore each "
+"career here once first; conflicting saves need your choice in Cloud backup."
+msgstr ""
+
 msgid "Connect to orinks.net"
 msgstr "Kết nối tới orinks.net"
 
@@ -40994,6 +41091,38 @@ msgstr "Quay lại danh sách sự nghiệp"
 
 msgid "Back to the saved careers, nothing changed."
 msgstr "Quay lại danh sách các sự nghiệp đã lưu, không có gì thay đổi."
+
+#. placeholders: {line}
+#. one sentence of a longer line
+msgid ""
+"Nothing was lost: the save is untouched and still works in Freight Fate "
+"{line}."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "This version cannot continue it."
+msgstr ""
+
+#. placeholders: {name}, {line}
+#. one sentence of a longer line
+msgid "{name} was made in Freight Fate {line}."
+msgstr ""
+
+#. placeholders: {name}, {line}
+msgid ""
+"{name} was made in Freight Fate {line}. This version cannot continue it. "
+"Nothing was lost: the save is untouched and still works in Freight Fate "
+"{line}."
+msgstr ""
+
+msgid "Career from a newer version"
+msgstr ""
+
+msgid "Escape goes back to the career list."
+msgstr ""
+
+msgid "Start fresh with a different driver name."
+msgstr ""
 
 msgid "Your driving record"
 msgstr "Hồ sơ vi phạm của bạn"

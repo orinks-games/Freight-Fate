@@ -19,6 +19,7 @@ pub mod audio_loops;
 pub mod cab_filter;
 pub mod cab_sounds;
 pub mod channel3000;
+pub mod cloud_resume;
 pub mod cloud_save_integrity;
 pub mod engine_audio;
 pub mod input_hints;

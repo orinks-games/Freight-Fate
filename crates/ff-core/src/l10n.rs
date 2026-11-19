@@ -282,7 +282,7 @@ const CACHE_LIMIT: usize = 8192;
 pub struct Catalog {
     language: String,
     exact: HashMap<String, String>,
-    /// The multi-sentence exact entries, found inside longer lines.
+    /// The trimmed multi-sentence exact entries, found inside longer lines.
     embedded: Option<AhoCorasick>,
     embedded_keys: Vec<String>,
     templates: TemplateSet,
@@ -387,9 +387,11 @@ impl Catalog {
         for (key, value) in trimmed {
             exact.entry(key).or_insert(value);
         }
+        // Match the passage, not its separator: the longest match would eat
+        // trailing whitespace and then fail the following word-boundary check.
         let mut embedded_keys: Vec<String> = exact
             .keys()
-            .filter(|key| has_sentence_break(key))
+            .filter(|key| key.trim() == key.as_str() && has_sentence_break(key))
             .cloned()
             .collect();
         embedded_keys.sort();
