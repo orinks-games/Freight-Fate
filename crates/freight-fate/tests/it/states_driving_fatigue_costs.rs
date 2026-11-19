@@ -241,6 +241,19 @@ fn an_unaffordable_energy_drink_does_not_change_fatigue_or_open_a_loan() {
 }
 
 #[test]
+fn a_first_energy_drink_at_zero_fatigue_keeps_its_purchase_line() {
+    let mut harness = a_drive("Rested Drink");
+    set_fatigue(&mut harness, 0.0);
+    at_a_stop(&mut harness);
+    harness.clear_speech();
+    harness.select_menu_item_starting("Energy drink");
+    assert!(approx(fatigue(&harness), 0.0));
+    let said = harness.app.speech().lines().join(" ");
+    assert!(said.contains("You down the energy drink."), "{said}");
+    assert!(!said.contains("No lift"), "{said}");
+}
+
+#[test]
 fn a_second_energy_drink_explains_that_it_adds_no_lift() {
     let mut harness = a_drive("Second Drink");
     set_fatigue(&mut harness, 50.0);

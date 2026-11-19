@@ -1174,7 +1174,7 @@ impl RestStopState {
             profile_mut_of(ctx).spend(price);
         }
         let Some(text) = self.driving.clone().with(ctx, |d, ctx| {
-            let mut no_lift = false;
+            let no_lift = buff.stimulant && profile_of(ctx).stimulant_loan().is_open();
             if rig_buff {
                 d.rig_buffs.insert(
                     buff.group.clone(),
@@ -1197,12 +1197,12 @@ impl RestStopState {
                 if buff.stimulant {
                     // The lift is a loan due as the drink wears off; its
                     // own worn-off line marks the payback.
-                    no_lift = profile_mut_of(ctx).take_stimulant(
+                    profile_mut_of(ctx).take_stimulant(
                         buff.fatigue_instant,
                         now_h,
                         buff.duration_game_h,
                         &buff.worn_off_line(),
-                    ) <= 0.0;
+                    );
                 } else if buff.fatigue_instant > 0.0 {
                     let p = profile_mut_of(ctx);
                     p.fatigue = (p.fatigue - buff.fatigue_instant).max(0.0);
