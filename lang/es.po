@@ -23019,6 +23019,23 @@ msgstr ""
 msgid "The replaced save is kept as a fallback file."
 msgstr "La partida sustituida se guarda como archivo de respaldo."
 
+#. placeholders: {summary}
+msgid " It is {summary}."
+msgstr ""
+
+#. placeholders: {save_name}, {backed_up_text}, {summary}
+#. one sentence of a longer line
+msgid ""
+"Restore the backup of {save_name}, {backed_up_text}?{summary} This backup "
+"will be installed on this device."
+msgstr ""
+
+#. placeholders: {save_name}, {backed_up_text}, {summary}, {current}
+msgid ""
+"Restore the backup of {save_name}, {backed_up_text}?{summary} This backup "
+"will be installed on this device. {current}"
+msgstr ""
+
 msgid "No, cancel and change nothing"
 msgstr "No, cancelar sin cambiar nada"
 
@@ -23030,6 +23047,9 @@ msgstr ""
 "Vuelve sin descargar. La partida de este ordenador se queda tal como está. "
 "Para subir en su lugar la partida de este ordenador, elige Conservar la "
 "partida de este ordenador y hacer copia."
+
+msgid "Goes back without downloading."
+msgstr ""
 
 msgid "Yes, restore this backup"
 msgstr "Sí, restaurar esta copia de seguridad"

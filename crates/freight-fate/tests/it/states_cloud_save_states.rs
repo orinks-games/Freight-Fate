@@ -457,13 +457,7 @@ fn test_no_cancel_row_is_named_after_a_real_action() {
 #[test]
 fn test_the_restore_cancel_points_back_at_the_upload_choice() {
     let mut app = TestApp::new();
-    let slot = share(CloudSlotState::new(
-        &mut app.ctx,
-        "armstrong45",
-        vec![a_revision()],
-        None,
-        None,
-    ));
+    let (slot, _guard) = slot_with_local_save(&mut app, "armstrong45", FakeTransport::revisions());
     let mut state = ConfirmRestoreState::new(
         &mut app.ctx,
         SlotHandle::new(slot, "armstrong45"),
@@ -474,6 +468,59 @@ fn test_the_restore_cancel_points_back_at_the_upload_choice() {
         .find(|(t, _)| t.starts_with("No"))
         .unwrap();
     assert!(help.contains("Keep this computer's save and back it up"));
+}
+
+#[test]
+fn test_restore_confirmation_describes_whether_a_local_save_is_replaced() {
+    for has_local_save in [false, true] {
+        let mut app = TestApp::new();
+        let name = "Restore Confirm";
+        if has_local_save {
+            ff_core::models::profile::Profile::named(name)
+                .save()
+                .unwrap();
+        }
+        let entry = json!({
+            "revision": 4,
+            "createdAt": wall_time() * 1000.0,
+            "summary": "level 7"
+        });
+        let cloud_name = cloud_slot_name(name);
+        assert_ne!(cloud_name, name);
+        let slot = CloudSlotState::new(&mut app.ctx, &cloud_name, vec![entry], None, None);
+        let slot = push(&mut app, slot);
+        move_to::<CloudSlotState>(&mut app, &slot, "Restore the latest backup");
+        app.clear_speech();
+        press(&mut app, Key::Return);
+        let confirm = app.state().unwrap();
+        assert!(is_state::<ConfirmRestoreState>(&confirm));
+        let said = app.main_lines().join(" ");
+        assert!(
+            said.contains("Restore the backup of Restore Confirm"),
+            "{said}"
+        );
+        assert_eq!(
+            said.contains("replacing this computer's save"),
+            has_local_save,
+            "{said}"
+        );
+        assert_eq!(
+            said.contains("as a fallback file"),
+            has_local_save,
+            "{said}"
+        );
+        assert_eq!(
+            said.contains("installed on this device"),
+            !has_local_save,
+            "{said}"
+        );
+        let help = &helps::<ConfirmRestoreState>(&confirm, &app.ctx)[0];
+        if has_local_save {
+            assert!(help.contains("Keep this computer's save and back it up"));
+        } else {
+            assert_eq!(help, "Goes back without downloading.");
+        }
+    }
 }
 
 /// Restoring a career deleted from this computer replaces nothing, so the

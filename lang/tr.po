@@ -22479,6 +22479,23 @@ msgstr ""
 msgid "The replaced save is kept as a fallback file."
 msgstr "Değiştirilen kayıt yedek dosya olarak saklanır."
 
+#. placeholders: {summary}
+msgid " It is {summary}."
+msgstr ""
+
+#. placeholders: {save_name}, {backed_up_text}, {summary}
+#. one sentence of a longer line
+msgid ""
+"Restore the backup of {save_name}, {backed_up_text}?{summary} This backup "
+"will be installed on this device."
+msgstr ""
+
+#. placeholders: {save_name}, {backed_up_text}, {summary}, {current}
+msgid ""
+"Restore the backup of {save_name}, {backed_up_text}?{summary} This backup "
+"will be installed on this device. {current}"
+msgstr ""
+
 msgid "No, cancel and change nothing"
 msgstr "Hayır, iptal et, hiçbir şeyi değiştirme"
 
@@ -22490,6 +22507,9 @@ msgstr ""
 "İndirmeden geri döner. Bu bilgisayardaki kayıt olduğu gibi kalır. Bunun "
 "yerine bu bilgisayardaki kaydı yüklemek için, Bu bilgisayardaki kaydı tut "
 "ve yedekle seçeneğini seçin."
+
+msgid "Goes back without downloading."
+msgstr ""
 
 msgid "Yes, restore this backup"
 msgstr "Evet, bu yedeği geri yükle"
