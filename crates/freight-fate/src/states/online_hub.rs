@@ -69,7 +69,10 @@ impl OnlineHubState {
             5 => self.toggle_online_services(ctx, direction),
             9 => self.toggle_online_presence(ctx, direction),
             10 => self.toggle_cloud_saves(ctx, direction),
-            12 => self.toggle_discord_presence(ctx, direction),
+            11 if ctx.settings.cloud_saves => self.toggle_cloud_resume(ctx),
+            index if index == 12 + usize::from(ctx.settings.cloud_saves) => {
+                self.toggle_discord_presence(ctx, direction)
+            }
             _ => {}
         }
     }
@@ -250,6 +253,12 @@ impl OnlineHubState {
         self.announce(ctx);
     }
 
+    fn toggle_cloud_resume(&mut self, ctx: &mut GameContext) {
+        ctx.settings.cloud_resume = !ctx.settings.cloud_resume;
+        ctx.apply_cloud_saves();
+        self.announce(ctx);
+    }
+
     /// Careers whose backups are stopped until a copy is chosen.
     ///
     /// Never fails: this feeds a menu label that is spoken on every pass
@@ -325,8 +334,8 @@ impl Menu for OnlineHubState {
         &mut self.menu
     }
 
-    fn build_items(&mut self, _ctx: &mut GameContext) -> Vec<MenuItem<Self>> {
-        vec![
+    fn build_items(&mut self, ctx: &mut GameContext) -> Vec<MenuItem<Self>> {
+        let mut items = vec![
             MenuItem::new("Drivers on duty", |s: &mut Self, ctx| s.drivers_board(ctx)).help(
                 "Who is hauling right now on orinks.net. Viewing the list shares nothing \
                  about you.",
@@ -505,7 +514,14 @@ impl Menu for OnlineHubState {
                  personal details. Needs Discord running, no driver profile needed.",
             ),
             MenuItem::new("Back", |s: &mut Self, ctx| s.go_back(ctx)),
-        ]
+        ];
+        if ctx.settings.cloud_saves {
+            items.insert(11, MenuItem::new(
+                Label::dynamic(|_: &Self, ctx| format!("Resume careers from other devices: {}", Self::on_off(ctx.settings.cloud_resume))),
+                |s: &mut Self, ctx| s.toggle_cloud_resume(ctx),
+            ).help("Checks for newer progress when you return to the main menu. Restore each career here once first; conflicting saves need your choice in Cloud backup."));
+        }
+        items
     }
 
     fn handle_event(&mut self, ctx: &mut GameContext, event: &InputEvent) {

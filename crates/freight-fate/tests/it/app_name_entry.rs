@@ -16,6 +16,8 @@
 use freight_fate::app::testing::TestApp;
 use freight_fate::states::base::{InputEvent, Key, Menu};
 use freight_fate::states::main_menu::{MainMenuState, NameEntryState};
+use freight_fate::states::text_entry::TOUCH_FIELD_HELP;
+use freight_fate::touch::Gesture;
 
 fn key_event(key: Key) -> InputEvent {
     InputEvent::key(key)
@@ -74,6 +76,23 @@ fn cursor(app: &TestApp) -> usize {
 
 fn spoken(app: &TestApp) -> Vec<String> {
     app.main_lines()
+}
+
+#[test]
+fn visible_name_help_follows_touch_and_hardware_keys() {
+    let mut app = TestApp::new();
+    app.dispatch_gesture(Gesture::KeyboardDisconnected);
+    app.push_state(NameEntryState::new());
+    assert!(app.main_lines().join(" ").contains(TOUCH_FIELD_HELP));
+    assert_eq!(app.visible_lines().last().unwrap(), TOUCH_FIELD_HELP);
+
+    app.dispatch_gesture(Gesture::KeyboardConnected);
+    app.handle_event(&key_event(Key::Left));
+    assert!(app.visible_lines().last().unwrap().contains("Control V"));
+
+    app.dispatch_gesture(Gesture::Tap);
+    assert_eq!(app.visible_lines().last().unwrap(), TOUCH_FIELD_HELP);
+    app.shutdown();
 }
 
 #[test]

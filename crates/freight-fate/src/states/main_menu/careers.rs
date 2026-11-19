@@ -14,11 +14,11 @@ use crate::cloud_saves::{self, AUTH_HELP};
 use crate::impl_state_for_menu;
 use crate::states::base::{Menu, MenuCore, MenuItem};
 use crate::states::main_menu::{
-    career_location, career_summary, legacy_saves, loadable_saves, pending_notice_state,
-    world_entry_state, MainMenuState,
+    career_location, career_summary, legacy_saves, loadable_saves, newer_saves,
+    pending_notice_state, world_entry_state, MainMenuState,
 };
 use crate::states::online_states::{load_identity, run_worker, Mailbox};
-use crate::states::save_notice::LegacyCareerNoticeState;
+use crate::states::save_notice::{LegacyCareerNoticeState, NewerCareerNoticeState};
 
 pub struct LoadDriverState {
     menu: MenuCore<Self>,
@@ -36,7 +36,18 @@ impl LoadDriverState {
         ctx.push_state(LegacyCareerNoticeState::new(&legacy.name));
     }
 
-    fn pick(&mut self, ctx: &mut GameContext, profile: &Profile) {
+    fn pick(&mut self, ctx: &mut GameContext, path: &std::path::Path) {
+        if ctx.cloud_saves_service().resume_pending() {
+            ctx.say(crate::cloud_saves::RESUME_CHECKING);
+            return;
+        }
+        let profile = match Profile::load(path) {
+            Ok(profile) => profile,
+            Err(error) => {
+                ctx.say(&error.to_string());
+                return;
+            }
+        };
         ctx.profile = Some(profile.clone());
         let lever_notes = apply_continue_levers(ctx);
         ctx.say(&format!("Welcome back, {}.", profile.name));
@@ -70,9 +81,8 @@ impl Menu for LoadDriverState {
         for (path, profile) in loadable_saves() {
             let label = career_summary(ctx, &path, &profile, true);
             let help = format!("Load {}, {}.", profile.name, career_location(ctx, &profile));
-            items.push(
-                MenuItem::new(label, move |s: &mut Self, ctx| s.pick(ctx, &profile)).help(help),
-            );
+            items
+                .push(MenuItem::new(label, move |s: &mut Self, ctx| s.pick(ctx, &path)).help(help));
         }
         // Careers the 1.9 load gate refused stay on the list with a spoken
         // label -- silently dropping them reads as data loss. Picking one
@@ -91,6 +101,14 @@ impl Menu for LoadDriverState {
                      explains and offers a new career. The save is not touched.",
                 ),
             );
+        }
+        for newer in newer_saves() {
+            items.push(MenuItem::new(
+                format!("{}: career from Freight Fate {}", newer.name, newer.line),
+                move |_s: &mut Self, ctx| {
+                    ctx.push_state(NewerCareerNoticeState::new(&newer.name, &newer.line));
+                },
+            ).help("This career needs a newer version. Choose it for details. The save is not touched."));
         }
         items.push(MenuItem::new("Back", |s: &mut Self, ctx| s.go_back(ctx)));
         items
@@ -162,6 +180,14 @@ impl Menu for ManageCareersState {
                     "Double tap offers to delete this save. It still works in Freight Fate 1.8.",
                 ),
             );
+        }
+        for newer in newer_saves() {
+            items.push(MenuItem::new(
+                format!("{}: career from Freight Fate {}", newer.name, newer.line),
+                move |_s: &mut Self, ctx| {
+                    ctx.push_state(NewerCareerNoticeState::new(&newer.name, &newer.line));
+                },
+            ).help("This career needs a newer version. Choose it for details. The save is not touched."));
         }
         items.push(MenuItem::new("Back", |s: &mut Self, ctx| s.go_back(ctx)));
         items
@@ -302,6 +328,10 @@ impl ConfirmCareerActionState {
     }
 
     fn reset(&mut self, ctx: &mut GameContext) {
+        if ctx.cloud_saves_service().resume_pending() {
+            ctx.say(crate::cloud_saves::RESUME_CHECKING);
+            return;
+        }
         let Some(old) = &self.profile else {
             return;
         };
@@ -336,6 +366,10 @@ impl ConfirmCareerActionState {
     /// Delete the save here; with `with_cloud`, ask orinks.net to remove its
     /// backups first, so the player hears one outcome that covers both.
     fn delete(&mut self, ctx: &mut GameContext, with_cloud: bool) {
+        if ctx.cloud_saves_service().resume_pending() {
+            ctx.say(crate::cloud_saves::RESUME_CHECKING);
+            return;
+        }
         if self.busy {
             ctx.say("Still deleting. One moment.");
             return;
