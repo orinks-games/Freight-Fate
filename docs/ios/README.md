@@ -246,9 +246,10 @@ frameworks it and SDL2 need, plus clang's iOS runtime for `@available` checks.
 - The game does not update itself on iOS; the App Store or TestFlight does,
   so Settings has no Updates category. The main menu has no Quit (iOS closes
   apps, they do not quit themselves), and a two-finger flick down there does
-  nothing. Settings also leaves out Problem reports (the log is in the
-  sandbox, out of reach) and the braille-only Output row (it needs NVDA or
-  JAWS).
+  nothing. Backgrounding the app clears the crash marker; returning to the
+  app starts tracking again. Settings, Problem reports lets you turn crash
+  prompts back on. The log-location row is left out because the log is in the
+  sandbox, and the braille-only Output row needs NVDA or JAWS.
 - Spoken prompts name the gesture for a control in a sentence of their own
   ("Turn two fingers right to restart.", "Double tap to signal for the
   exit."), or its group on the three-finger tap command list when no
