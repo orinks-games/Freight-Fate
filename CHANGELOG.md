@@ -23,6 +23,7 @@
 - **Work at stops takes longer as fatigue rises.** Fueling, the walk-around, chain work and pulling in run slower from worn up.
 - **An inspection or traffic stop at severe fatigue ends in a ten-hour out-of-service order.**
 - **Five-by-Two now takes a full 10 hours asleep at a stop.** A split rest, or finishing a reset that a break started, no longer earns it.
+- **Russian now covers the whole game, cloud resume included.** No line switches to English any more.
 - **German now covers the lines added since October.** Co-driver, fatigue, stop planning and problem report lines no longer switch to English.
 - **The route picker reads the weather along a route with Tab.**
 - **The driving command list is now in groups.** Status menu comes first, then short lists for speed, the road, the truck, gears, radio and hours.
