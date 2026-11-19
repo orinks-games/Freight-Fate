@@ -21636,7 +21636,7 @@ msgstr "La partida sustituida se guarda como archivo de respaldo."
 
 #. placeholders: {summary}
 msgid " It is {summary}."
-msgstr ""
+msgstr " Es {summary}."
 
 #. placeholders: {save_name}, {backed_up_text}, {summary}
 #. one sentence of a longer line
@@ -21644,12 +21644,16 @@ msgid ""
 "Restore the backup of {save_name}, {backed_up_text}?{summary} This backup "
 "will be installed on this device."
 msgstr ""
+"¿Restaurar la copia de seguridad de {save_name}, {backed_up_text}?{summary} "
+"Esta copia de seguridad se instalará en este dispositivo."
 
 #. placeholders: {save_name}, {backed_up_text}, {summary}, {current}
 msgid ""
 "Restore the backup of {save_name}, {backed_up_text}?{summary} This backup "
 "will be installed on this device. {current}"
 msgstr ""
+"¿Restaurar la copia de seguridad de {save_name}, {backed_up_text}?{summary} "
+"Esta copia de seguridad se instalará en este dispositivo. {current}"
 
 msgid "No, cancel and change nothing"
 msgstr "No, cancelar sin cambiar nada"
@@ -21664,7 +21668,7 @@ msgstr ""
 "partida de este ordenador y hacer copia."
 
 msgid "Goes back without downloading."
-msgstr ""
+msgstr "Vuelve sin descargar."
 
 msgid "Yes, restore this backup"
 msgstr "Sí, restaurar esta copia de seguridad"
