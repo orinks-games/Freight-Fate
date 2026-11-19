@@ -101,12 +101,13 @@ fn the_struct_carries_the_persisted_fields_in_python_order() {
     // sharing fields on 2026-10-15; visual_display (2026-10-15) and
     // radio_cab_speakers (2026-10-18), achievement_sort (2026-10-28) and
     // driving_hints (2026-11-08) and crash_report_offer (2026-11-13), and
-    // main_backend (2026-11-17), and left_bumper_layer (2026-11-18).
-    assert_eq!(Settings::FIELD_NAMES.len(), 104);
+    // main_backend (2026-11-17), cloud_resume, and left_bumper_layer
+    // (2026-11-18).
+    assert_eq!(Settings::FIELD_NAMES.len(), 105);
     assert_eq!(Settings::FIELD_NAMES[0], "online_services");
-    assert_eq!(Settings::FIELD_NAMES[83], "settings_layout_notice_from");
+    assert_eq!(Settings::FIELD_NAMES[84], "settings_layout_notice_from");
     let pairs = Settings::default().ordered_values();
-    assert_eq!(pairs.len(), 104);
+    assert_eq!(pairs.len(), 105);
     for ((name, _), field) in pairs.iter().zip(Settings::FIELD_NAMES) {
         assert_eq!(name, field);
     }
@@ -154,7 +155,7 @@ fn the_defaults_match_the_python_dataclass() {
         "update_mirror_prefix": "", "skipped_update": "", "discord_presence": true,
         "online_presence": false, "duty_notifications": false,
         "profile_sharing_consent_version": 0,
-        "profile_sharing_pending_off": false, "cloud_saves": false,
+        "profile_sharing_pending_off": false, "cloud_saves": false, "cloud_resume": false,
         "controller_enabled": true, "menu_accelerator_keys": false, "haptics_enabled": true, "online_offer_seen": false,
         "settings_version": 3, "settings_layout_notice_from": -1,
         "key_bindings": "", "pad_bindings": "", "touch_bindings": "",
@@ -171,7 +172,7 @@ fn the_defaults_match_the_python_dataclass() {
     let Value::Object(expected) = expected else {
         unreachable!()
     };
-    assert_eq!(expected.len(), 104);
+    assert_eq!(expected.len(), 105);
     for (name, value) in s.ordered_values() {
         assert_eq!(Some(&value), expected.get(name), "{name}");
     }

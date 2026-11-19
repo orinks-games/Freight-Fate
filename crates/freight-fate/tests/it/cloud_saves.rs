@@ -48,6 +48,8 @@ use freight_fate::states::cloud_save_states::{
 use freight_fate::states::online_hub::OnlineHubState;
 use freight_fate::states::online_states::set_identity_store_override;
 
+mod resume;
+
 const TEST_KEY_ID: &str = "test-key";
 const TEST_PUBLIC_KEY_HEX: &str =
     "ea4a6c63e29c520abef5507b132ec5f9954776aebebe7b92421eea691446d22c";

@@ -16672,11 +16672,26 @@ msgstr "sin cambios"
 msgid "Latest backup accepted and server-verified."
 msgstr "Última copia de seguridad aceptada y verificada por el servidor."
 
-msgid "slots"
-msgstr "slots"
+msgid "cloud-resume"
+msgstr ""
+
+msgid "not connected"
+msgstr ""
+
+msgid "site unreachable"
+msgstr ""
+
+msgid "backup unavailable"
+msgstr ""
+
+msgid "backup does not match requested career"
+msgstr ""
 
 msgid "revision"
 msgstr "revision"
+
+msgid "slots"
+msgstr "slots"
 
 msgid "hash"
 msgstr "hash"
@@ -16921,6 +16936,28 @@ msgstr "{name} tiene copia de seguridad."
 #. placeholders: {name}
 msgid "{name} is backed up again."
 msgstr "{name} vuelve a tener copia de seguridad."
+
+msgid "Checking careers on your other devices. Try Continue shortly."
+msgstr ""
+
+#. placeholders: {name}
+msgid "Picked up {name} where you left off on another device."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Open Cloud backup to choose which copy to keep."
+msgstr ""
+
+#. placeholders: {name}
+#. one sentence of a longer line
+msgid "{name} changed on another device."
+msgstr ""
+
+#. placeholders: {name}
+msgid ""
+"{name} changed on another device. Open Cloud backup to choose which copy to "
+"keep."
+msgstr ""
 
 msgid "accepted"
 msgstr "accepted"
@@ -21562,6 +21599,9 @@ msgstr "Descargando la copia de seguridad."
 
 msgid "cloud-saves-restore"
 msgstr "cloud-saves-restore"
+
+msgid "profile"
+msgstr ""
 
 msgid "restored"
 msgstr "restored"
@@ -40200,6 +40240,15 @@ msgstr ""
 "Muestra la actividad general en Discord, como conducir o descansar, nunca "
 "partidas ni datos personales. Necesita Discord abierto; no hace falta "
 "perfil de conductor."
+
+#. placeholders: {on_off}
+msgid "Resume careers from other devices: {on_off}"
+msgstr ""
+
+msgid ""
+"Checks for newer progress when you return to the main menu. Restore each "
+"career here once first; conflicting saves need your choice in Cloud backup."
+msgstr ""
 
 msgid "Connect to orinks.net"
 msgstr "Conectar con orinks.net"
