@@ -213,6 +213,72 @@ fn a_coffee_wearing_off_during_sleep_is_paid_back_first_and_silently() {
 }
 
 #[test]
+fn an_unaffordable_energy_drink_does_not_change_fatigue_or_open_a_loan() {
+    let mut harness = a_drive("Unaffordable Drink");
+    set_fatigue(&mut harness, 50.0);
+    harness
+        .app
+        .ctx
+        .profile
+        .as_mut()
+        .expect("a career")
+        .set_money(0.0);
+    at_a_stop(&mut harness);
+    harness.clear_speech();
+    harness.select_menu_item_starting("Energy drink");
+    assert!(approx(fatigue(&harness), 50.0));
+    assert!(!harness
+        .app
+        .ctx
+        .profile
+        .as_ref()
+        .expect("a career")
+        .stimulant_loan()
+        .is_open());
+    let said = harness.app.speech().lines().join(" ");
+    assert!(said.contains("you have 0 dollars"), "{said}");
+    assert!(!said.contains("No lift"), "{said}");
+}
+
+#[test]
+fn a_first_energy_drink_at_zero_fatigue_keeps_its_purchase_line() {
+    let mut harness = a_drive("Rested Drink");
+    set_fatigue(&mut harness, 0.0);
+    at_a_stop(&mut harness);
+    harness.clear_speech();
+    harness.select_menu_item_starting("Energy drink");
+    assert!(approx(fatigue(&harness), 0.0));
+    let said = harness.app.speech().lines().join(" ");
+    assert!(said.contains("You down the energy drink."), "{said}");
+    assert!(!said.contains("No lift"), "{said}");
+}
+
+#[test]
+fn a_second_energy_drink_explains_that_it_adds_no_lift() {
+    let mut harness = a_drive("Second Drink");
+    set_fatigue(&mut harness, 50.0);
+    at_a_stop(&mut harness);
+    harness.clear_speech();
+    harness.select_menu_item_starting("Energy drink");
+    assert!(approx(fatigue(&harness), 47.0));
+    assert!(harness
+        .app
+        .speech()
+        .lines()
+        .join(" ")
+        .contains("You feel a little sharper"));
+    harness.clear_speech();
+    harness.select_menu_item_starting("Energy drink");
+    assert!(approx(fatigue(&harness), 47.0));
+    let said = harness.app.speech().lines().join(" ");
+    assert!(
+        said.contains("No lift while the last stimulant lasts."),
+        "{said}"
+    );
+    assert!(!said.contains("You feel a little sharper"), "{said}");
+}
+
+#[test]
 fn an_energy_drink_wearing_off_speaks_one_line_and_takes_its_lift_back() {
     let mut harness = a_drive("Drink Loan");
     harness

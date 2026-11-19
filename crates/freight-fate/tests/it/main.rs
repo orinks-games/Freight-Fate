@@ -99,6 +99,7 @@ mod states_career_close_out;
 mod states_carrier_move;
 mod states_chain_assist;
 mod states_city;
+mod states_city_garage;
 mod states_city_hos;
 mod states_city_pickup;
 mod states_city_route_planning;

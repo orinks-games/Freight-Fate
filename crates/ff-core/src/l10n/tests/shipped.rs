@@ -382,3 +382,11 @@ fn shipped_vietnamese_translates_reported_turn_and_limit_issues() {
         "Giới hạn tốc độ giảm xuống 40 km/h trước đoạn dốc xuống."
     );
 }
+
+#[test]
+fn shipped_russian_keeps_clock_lines_off_the_backup_summary() {
+    let po = include_str!("../../../../../lang/ru.po");
+    let tr = Translator::new(Catalog::from_po("ru", po).expect("lang/ru.po parses"));
+    assert_eq!(tr.translate("It is 9:00."), "Сейчас 9:00.");
+    assert_eq!(tr.translate("It is night."), "Сейчас ночь.");
+}

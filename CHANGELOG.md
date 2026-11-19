@@ -4,6 +4,8 @@
 
 ### Compatibility
 
+- **Freight Fate now requires iOS or iPadOS 15 or later.**
+
 - **Careers from newer Freight Fate versions stay untouched.** Local saves and cloud backups explain which version can continue them.
 
 ### Added
@@ -17,12 +19,14 @@
 
 ### Changed
 
+- **The Simplified Chinese translation covers the whole game again.** Lines added since the last update no longer fall back to English.
 - **On-duty time now tires you a little.** Fueling, docks, inspections and waiting at the wheel build it at a third of the driving rate.
 - **Sleep now takes off 8 points of fatigue an hour.** Ten hours clears 80, so going to bed exhausted leaves some.
 - **Coffee and energy drinks now wear off and take their lift back.** A second one before then adds no lift.
 - **Work at stops takes longer as fatigue rises.** Fueling, the walk-around, chain work and pulling in run slower from worn up.
 - **An inspection or traffic stop at severe fatigue ends in a ten-hour out-of-service order.**
 - **Five-by-Two now takes a full 10 hours asleep at a stop.** A split rest, or finishing a reset that a break started, no longer earns it.
+- **Russian now covers the whole game, cloud resume included.** No line switches to English any more.
 - **German now covers the lines added since October.** Co-driver, fatigue, stop planning and problem report lines no longer switch to English.
 - **Vietnamese now covers every line.** Fatigue, touch, radio, guest driver and problem report lines no longer switch to English.
 - **The route picker reads the weather along a route with Tab.**
@@ -30,6 +34,9 @@
 - **Spanish now covers the new touch controls, co-driver calls, and the rest of the latest menus and driving prompts.**
 
 ### Fixed
+
+- **A second energy drink no longer promises another lift while the first stimulant lasts.**
+- **Terminal fueling now takes longer when you are tired, matching roadside fueling.**
 
 - **The cloud restore prompt only warns about replacing a career when this device already has a copy.**
 
