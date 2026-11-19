@@ -36,6 +36,8 @@
 
 ### Fixed
 
+- **A controller button name that starts a sentence now starts with a capital letter.** For example, "Air ready. Right bumper plus Y releases the parking brake."
+
 - **Windows shutdown, restart or sign-out with the game open no longer causes a crash prompt on the next launch.**
 - **Manual cloud backup now warns about newer cloud progress.** Choose Use the cloud copy on this computer to pick it up.
 

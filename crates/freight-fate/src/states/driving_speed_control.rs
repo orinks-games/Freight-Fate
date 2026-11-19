@@ -203,7 +203,9 @@ impl DrivingState {
                 }
                 return;
             }
-            let key = ctx.control_name(crate::bindings::Action::Cruise);
+            let key = ff_core::speech_text::sentence_start(
+                &ctx.control_name(crate::bindings::Action::Cruise),
+            );
             ctx.say(&format!("No remembered cruise speed yet. {key} sets one."));
             return;
         };
