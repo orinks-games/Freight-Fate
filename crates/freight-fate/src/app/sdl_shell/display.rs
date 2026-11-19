@@ -138,6 +138,8 @@ impl SdlShell {
         let force = std::mem::take(&mut self.redraw);
         let visuals = self.visuals.get_or_insert_with(Visuals::new);
         visuals.set_translator(translator);
+        #[cfg(target_os = "ios")]
+        visuals.set_panel_safe_top(super::ios::phone_safe_top(self.canvas.window(), size.1));
         if !visuals.build(scene, log, size, force) {
             return;
         }

@@ -16650,11 +16650,26 @@ msgstr "sem alteração"
 msgid "Latest backup accepted and server-verified."
 msgstr "Último backup aceito e verificado pelo servidor."
 
-msgid "slots"
-msgstr "slots"
+msgid "cloud-resume"
+msgstr ""
+
+msgid "not connected"
+msgstr ""
+
+msgid "site unreachable"
+msgstr ""
+
+msgid "backup unavailable"
+msgstr ""
+
+msgid "backup does not match requested career"
+msgstr ""
 
 msgid "revision"
 msgstr "revision"
+
+msgid "slots"
+msgstr "slots"
 
 msgid "hash"
 msgstr "hash"
@@ -16894,6 +16909,28 @@ msgstr "{name} está com backup."
 #. placeholders: {name}
 msgid "{name} is backed up again."
 msgstr "{name} está com backup de novo."
+
+msgid "Checking careers on your other devices. Try Continue shortly."
+msgstr ""
+
+#. placeholders: {name}
+msgid "Picked up {name} where you left off on another device."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Open Cloud backup to choose which copy to keep."
+msgstr ""
+
+#. placeholders: {name}
+#. one sentence of a longer line
+msgid "{name} changed on another device."
+msgstr ""
+
+#. placeholders: {name}
+msgid ""
+"{name} changed on another device. Open Cloud backup to choose which copy to "
+"keep."
+msgstr ""
 
 msgid "accepted"
 msgstr "aceito"
@@ -21640,6 +21677,9 @@ msgstr "Baixando o backup."
 msgid "cloud-saves-restore"
 msgstr "cloud-saves-restore"
 
+msgid "profile"
+msgstr ""
+
 msgid "restored"
 msgstr "restaurado"
 
@@ -21948,6 +21988,28 @@ msgstr "O backup é de uma versão anterior. Nada foi restaurado."
 #. placeholders: {LEGACY_BACKUP_NOTICE}
 msgid "{LEGACY_BACKUP_NOTICE} Your local save was not touched."
 msgstr "{LEGACY_BACKUP_NOTICE} Seu jogo salvo local não foi mexido."
+
+msgid "Backup needs a newer version. Nothing was restored."
+msgstr ""
+
+#. placeholders: {line}
+#. one sentence of a longer line
+msgid "This career was made in Freight Fate {line}."
+msgstr ""
+
+#. placeholders: {line}
+msgid ""
+"This career was made in Freight Fate {line}. This version cannot restore "
+"it. Your local save and the cloud backup are untouched."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "This version cannot restore it."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Your local save and the cloud backup are untouched."
+msgstr ""
 
 msgid "Reconnect needed. Nothing was restored."
 msgstr "É preciso reconectar. Nada foi restaurado."
@@ -34882,6 +34944,15 @@ msgstr ""
 "Esta carreira não pode continuar na versão 1.9. Enter explica e oferece uma "
 "nova carreira. O jogo salvo não é alterado."
 
+#. placeholders: {name}, {line}
+msgid "{name}: career from Freight Fate {line}"
+msgstr ""
+
+msgid ""
+"This career needs a newer version. Choose it for details. The save is not "
+"touched."
+msgstr ""
+
 msgid "Manage careers"
 msgstr "Gerenciar carreiras"
 
@@ -35177,6 +35248,11 @@ msgid ""
 msgstr ""
 "Suas carreiras salvas são de uma versão anterior do Freight Fate. Elas "
 "estão listadas em Escolher carreira. "
+
+msgid ""
+"Some saved careers need a newer version of Freight Fate. They are listed "
+"under Choose career. "
+msgstr ""
 
 #. placeholders: {version}
 #. one sentence of a longer line
@@ -37477,6 +37553,18 @@ msgid ""
 msgstr ""
 "Esse jogo salvo continua como está, então esta carreira precisa de outro "
 "nome de motorista."
+
+#. placeholders: {name}, {line}
+#. one sentence of a longer line
+msgid "There is already a career named {name} from Freight Fate {line}."
+msgstr ""
+
+#. placeholders: {name}, {line}
+msgid ""
+"There is already a career named {name} from Freight Fate {line}. That save "
+"stays as it is, so this career needs a different driver name. Escape goes "
+"back to change it."
+msgstr ""
 
 #. placeholders: {name}
 #. one sentence of a longer line
@@ -40396,6 +40484,15 @@ msgstr ""
 "jogos salvos nem dados pessoais. Precisa do Discord rodando, sem precisar "
 "de perfil de motorista."
 
+#. placeholders: {on_off}
+msgid "Resume careers from other devices: {on_off}"
+msgstr ""
+
+msgid ""
+"Checks for newer progress when you return to the main menu. Restore each "
+"career here once first; conflicting saves need your choice in Cloud backup."
+msgstr ""
+
 msgid "Connect to orinks.net"
 msgstr "Conectar ao orinks.net"
 
@@ -41485,6 +41582,38 @@ msgstr "Voltar à lista de carreiras"
 
 msgid "Back to the saved careers, nothing changed."
 msgstr "Voltar às carreiras salvas, nada mudou."
+
+#. placeholders: {line}
+#. one sentence of a longer line
+msgid ""
+"Nothing was lost: the save is untouched and still works in Freight Fate "
+"{line}."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "This version cannot continue it."
+msgstr ""
+
+#. placeholders: {name}, {line}
+#. one sentence of a longer line
+msgid "{name} was made in Freight Fate {line}."
+msgstr ""
+
+#. placeholders: {name}, {line}
+msgid ""
+"{name} was made in Freight Fate {line}. This version cannot continue it. "
+"Nothing was lost: the save is untouched and still works in Freight Fate "
+"{line}."
+msgstr ""
+
+msgid "Career from a newer version"
+msgstr ""
+
+msgid "Escape goes back to the career list."
+msgstr ""
+
+msgid "Start fresh with a different driver name."
+msgstr ""
 
 msgid "Your driving record"
 msgstr "Seu histórico de direção"
