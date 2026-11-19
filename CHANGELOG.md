@@ -84,6 +84,8 @@
 
 ### Fixed
 
+- **On iPhone and iPad, pressing Up or Down once moves one menu row.**
+
 - **The cloud restore prompt only warns about replacing a career when this device already has a copy.**
 
 - **Picking up an older cloud career no longer moves it ahead of a more recently played local career.** Continue keeps their last-played order.
