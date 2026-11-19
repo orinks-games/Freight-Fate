@@ -797,6 +797,7 @@ into the release gate. Details stay in the linked dated sections, marked
 Everything found before 2026-09-25 moved to
 [2.0](#found-along-the-way-in-19-moved-to-20) that day.
 
+- [x] (Found along the way) Confirmed Windows shutdown, restart and sign-out clear the crash marker with a 500 ms cleanup wait. Queries and cancelled session ends keep it. The window callback does not save careers or wait for cloud services; saves remain at normal checkpoints.
 - [x] (Found along the way) Fatigue bands and the nod-off are state
       machines saved with the trip: a quiet first yawn at 40, the band in
       the readouts, no repeated drowsy line after a small lift

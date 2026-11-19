@@ -1136,6 +1136,8 @@ impl App {
     /// one it fixes -- if speech has dropped, or the dialog is somehow
     /// unreachable, Alt+F4 twice always closes the game.
     pub fn handle_close_request(&mut self) {
+        #[cfg(windows)]
+        log::info!("Window close requested");
         let already_asking = self
             .ctx
             .state()

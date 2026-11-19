@@ -6,6 +6,9 @@ use std::cell::Cell;
 use std::sync::OnceLock;
 
 #[cfg(windows)]
+use ff_core::session_end::{SessionAction, SessionEvent, WindowsSession};
+
+#[cfg(windows)]
 use windows_sys::Win32::Foundation::{HWND, LPARAM, LRESULT, WPARAM};
 #[cfg(windows)]
 use windows_sys::Win32::UI::Input::KeyboardAndMouse::{
@@ -13,8 +16,8 @@ use windows_sys::Win32::UI::Input::KeyboardAndMouse::{
 };
 #[cfg(windows)]
 use windows_sys::Win32::UI::WindowsAndMessaging::{
-    CallWindowProcW, DefWindowProcW, SetWindowLongPtrW, GWLP_WNDPROC, WM_CHAR, WM_KEYDOWN,
-    WM_KEYUP, WM_SYSKEYDOWN, WM_SYSKEYUP, WNDPROC,
+    CallWindowProcW, DefWindowProcW, SetWindowLongPtrW, GWLP_WNDPROC, WM_CHAR, WM_ENDSESSION,
+    WM_KEYDOWN, WM_KEYUP, WM_QUERYENDSESSION, WM_SYSKEYDOWN, WM_SYSKEYUP, WNDPROC,
 };
 
 const SCAN_CODE_MASK: u64 = 0xff << 16;
@@ -53,6 +56,7 @@ static PREVIOUS_WNDPROC: OnceLock<WNDPROC> = OnceLock::new();
 
 #[cfg(windows)]
 thread_local! {
+    static SESSION: Cell<WindowsSession> = const { Cell::new(WindowsSession::Running) };
     static PACKET_CHAR_PENDING: Cell<bool> = const { Cell::new(false) };
     static PACKET_KEY_TO_RELEASE: Cell<Option<(u32, u32)>> = const { Cell::new(None) };
 }
@@ -95,6 +99,34 @@ unsafe extern "system" fn window_proc(
     wparam: WPARAM,
     lparam: LPARAM,
 ) -> LRESULT {
+    let session_event = match message {
+        WM_QUERYENDSESSION => Some(SessionEvent::Query),
+        WM_ENDSESSION => Some(SessionEvent::End(wparam != 0)),
+        _ => None,
+    };
+    if let Some(event) = session_event {
+        let action = SESSION.with(|session| {
+            let (next, action) = session.get().next(event);
+            session.set(next);
+            action
+        });
+        match action {
+            SessionAction::Allow => {
+                log::info!("Windows asked to end the session; allowing it");
+                return 1;
+            }
+            SessionAction::Cancel => log::info!("Windows cancelled ending the session"),
+            SessionAction::End => {
+                log::info!("Windows is ending the session; quitting");
+                log::logger().flush();
+                // Window messages can re-enter SDL while a state is borrowed.
+                // Only the marker is safe here: no career, settings or services.
+                crate::problem_reports::end_session_bounded();
+            }
+            SessionAction::None => {}
+        }
+        return 0;
+    }
     let packet_key = wparam == usize::from(VK_PACKET);
     match message {
         WM_KEYDOWN | WM_SYSKEYDOWN if packet_key => {
