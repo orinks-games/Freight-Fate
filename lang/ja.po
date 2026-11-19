@@ -18356,43 +18356,6 @@ msgstr "修理：損傷{f}パーセント"
 msgid "Repair {f} percent damage for {grouped} dollars"
 msgstr "損傷{f}パーセントを{grouped}ドルで修理"
 
-msgid "The tank is already full."
-msgstr "すでに満タンです。"
-
-#. placeholders: {f}
-msgid "Tank filled, {f} minutes."
-msgstr "満タンになりました。{f}分です。"
-
-msgid "terminal fuel"
-msgstr "ターミナルでの給油"
-
-#. one sentence of a longer line
-msgid "Tank filled."
-msgstr "満タンにしました。"
-
-#. placeholders: {grouped}, {grouped2}
-msgid "Tank filled. {grouped} dollars. You have {grouped2} dollars left."
-msgstr "満タンにしました。{grouped}ドル。残りは{grouped2}ドルです。"
-
-#. placeholders: {grouped}
-#. one sentence of a longer line
-msgid "{grouped} dollars."
-msgstr "{grouped}ドル。"
-
-msgid "Not enough money for one gallon of fuel."
-msgstr "燃料1ガロン分のお金もありません。"
-
-#. placeholders: {f}, {grouped}
-#. one sentence of a longer line
-msgid "Partial fuel: added {f} gallons for {grouped} dollars."
-msgstr "一部給油：{f}ガロンを{grouped}ドルで入れました。"
-
-#. placeholders: {f}, {grouped}, {grouped2}
-msgid ""
-"Partial fuel: added {f} gallons for {grouped} dollars. You have {grouped2} "
-"dollars left."
-msgstr "一部給油：{f}ガロンを{grouped}ドルで入れました。残りは{grouped2}ドルです。"
-
 msgid "Nothing to repair."
 msgstr "修理するところはありません。"
 
@@ -18748,6 +18711,43 @@ msgstr "トレーラープログラム"
 
 msgid "Add specialty trailer programs. Own authority buys trailers."
 msgstr "特殊トレーラープログラムを追加します。独自の運送許可があればトレーラーを買えます。"
+
+msgid "The tank is already full."
+msgstr "すでに満タンです。"
+
+#. placeholders: {f}
+msgid "Tank filled, {f} minutes."
+msgstr "満タンになりました。{f}分です。"
+
+msgid "terminal fuel"
+msgstr "ターミナルでの給油"
+
+#. one sentence of a longer line
+msgid "Tank filled."
+msgstr "満タンにしました。"
+
+#. placeholders: {grouped}, {grouped2}
+msgid "Tank filled. {grouped} dollars. You have {grouped2} dollars left."
+msgstr "満タンにしました。{grouped}ドル。残りは{grouped2}ドルです。"
+
+#. placeholders: {grouped}
+#. one sentence of a longer line
+msgid "{grouped} dollars."
+msgstr "{grouped}ドル。"
+
+msgid "Not enough money for one gallon of fuel."
+msgstr "燃料1ガロン分のお金もありません。"
+
+#. placeholders: {f}, {grouped}
+#. one sentence of a longer line
+msgid "Partial fuel: added {f} gallons for {grouped} dollars."
+msgstr "一部給油：{f}ガロンを{grouped}ドルで入れました。"
+
+#. placeholders: {f}, {grouped}, {grouped2}
+msgid ""
+"Partial fuel: added {f} gallons for {grouped} dollars. You have {grouped2} "
+"dollars left."
+msgstr "一部給油：{f}ガロンを{grouped}ドルで入れました。残りは{grouped2}ドルです。"
 
 msgid "loaded"
 msgstr "積載"

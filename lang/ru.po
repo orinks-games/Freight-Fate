@@ -20082,52 +20082,6 @@ msgstr ""
 "Отремонтировать повреждения {f} {f:процент|процента|процентов} за {grouped} "
 "{grouped:доллар|доллара|долларов}"
 
-msgid "The tank is already full."
-msgstr "Бак уже полон."
-
-#. placeholders: {f}
-msgid "Tank filled, {f} minutes."
-msgstr "Бак заполнен, {f} {f:минута|минуты|минут}."
-
-msgid "terminal fuel"
-msgstr "заправка в терминале"
-
-#. one sentence of a longer line
-msgid "Tank filled."
-msgstr "Бак заправлен."
-
-#. placeholders: {grouped}, {grouped2}
-msgid "Tank filled. {grouped} dollars. You have {grouped2} dollars left."
-msgstr ""
-"Бак заправлен. {grouped} {grouped:доллар|доллара|долларов}. У вас "
-"{grouped2:остался|осталось|осталось} {grouped2} "
-"{grouped2:доллар|доллара|долларов}."
-
-#. placeholders: {grouped}
-#. one sentence of a longer line
-msgid "{grouped} dollars."
-msgstr "{grouped} {grouped:доллар|доллара|долларов}."
-
-msgid "Not enough money for one gallon of fuel."
-msgstr "Не хватает денег даже на один галлон топлива."
-
-#. placeholders: {f}, {grouped}
-#. one sentence of a longer line
-msgid "Partial fuel: added {f} gallons for {grouped} dollars."
-msgstr ""
-"Частичная заправка: залито {f} {f:галлон|галлона|галлонов} за {grouped} "
-"{grouped:доллар|доллара|долларов}."
-
-#. placeholders: {f}, {grouped}, {grouped2}
-msgid ""
-"Partial fuel: added {f} gallons for {grouped} dollars. You have {grouped2} "
-"dollars left."
-msgstr ""
-"Частичная заправка: залито {f} {f:галлон|галлона|галлонов} за {grouped} "
-"{grouped:доллар|доллара|долларов}. У вас "
-"{grouped2:остался|осталось|осталось} {grouped2} "
-"{grouped2:доллар|доллара|долларов}."
-
 msgid "Nothing to repair."
 msgstr "Ремонтировать нечего."
 
@@ -20587,6 +20541,52 @@ msgid "Add specialty trailer programs. Own authority buys trailers."
 msgstr ""
 "Добавьте программы специализированных прицепов. Самостоятельный перевозчик "
 "покупает прицепы."
+
+msgid "The tank is already full."
+msgstr "Бак уже полон."
+
+#. placeholders: {f}
+msgid "Tank filled, {f} minutes."
+msgstr "Бак заполнен, {f} {f:минута|минуты|минут}."
+
+msgid "terminal fuel"
+msgstr "заправка в терминале"
+
+#. one sentence of a longer line
+msgid "Tank filled."
+msgstr "Бак заправлен."
+
+#. placeholders: {grouped}, {grouped2}
+msgid "Tank filled. {grouped} dollars. You have {grouped2} dollars left."
+msgstr ""
+"Бак заправлен. {grouped} {grouped:доллар|доллара|долларов}. У вас "
+"{grouped2:остался|осталось|осталось} {grouped2} "
+"{grouped2:доллар|доллара|долларов}."
+
+#. placeholders: {grouped}
+#. one sentence of a longer line
+msgid "{grouped} dollars."
+msgstr "{grouped} {grouped:доллар|доллара|долларов}."
+
+msgid "Not enough money for one gallon of fuel."
+msgstr "Не хватает денег даже на один галлон топлива."
+
+#. placeholders: {f}, {grouped}
+#. one sentence of a longer line
+msgid "Partial fuel: added {f} gallons for {grouped} dollars."
+msgstr ""
+"Частичная заправка: залито {f} {f:галлон|галлона|галлонов} за {grouped} "
+"{grouped:доллар|доллара|долларов}."
+
+#. placeholders: {f}, {grouped}, {grouped2}
+msgid ""
+"Partial fuel: added {f} gallons for {grouped} dollars. You have {grouped2} "
+"dollars left."
+msgstr ""
+"Частичная заправка: залито {f} {f:галлон|галлона|галлонов} за {grouped} "
+"{grouped:доллар|доллара|долларов}. У вас "
+"{grouped2:остался|осталось|осталось} {grouped2} "
+"{grouped2:доллар|доллара|долларов}."
 
 msgid "loaded"
 msgstr "с грузом"
@@ -31502,7 +31502,8 @@ msgid "{purchased} {billing} It is {clock_text}. {deadline_text}"
 msgstr "{purchased} {billing} Сейчас {clock_text}. {deadline_text}"
 
 msgid "No lift while the last stimulant lasts."
-msgstr "Дополнительного облегчения нет, пока действует предыдущий стимулятор."
+msgstr ""
+"Дополнительного облегчения нет, пока действует предыдущий стимулятор."
 
 #. one sentence of a longer line
 msgid "Pull back onto the highway."

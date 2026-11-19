@@ -20238,50 +20238,6 @@ msgid "Repair {f} percent damage for {grouped} dollars"
 msgstr ""
 "Napraw uszkodzenia {f} procent za {grouped} {grouped:dolar|dolary|dolarów}"
 
-msgid "The tank is already full."
-msgstr "Bak jest już pełny."
-
-#. placeholders: {f}
-msgid "Tank filled, {f} minutes."
-msgstr "Bak pełny, {f} {f:minuta|minuty|minut}."
-
-msgid "terminal fuel"
-msgstr "tankowanie w terminalu"
-
-#. one sentence of a longer line
-msgid "Tank filled."
-msgstr "Bak zatankowany."
-
-#. placeholders: {grouped}, {grouped2}
-msgid "Tank filled. {grouped} dollars. You have {grouped2} dollars left."
-msgstr ""
-"Bak zatankowany. {grouped} {grouped:dolar|dolary|dolarów}. Zostaje ci "
-"{grouped2} {grouped2:dolar|dolary|dolarów}."
-
-#. placeholders: {grouped}
-#. one sentence of a longer line
-msgid "{grouped} dollars."
-msgstr "{grouped} {grouped:dolar|dolary|dolarów}."
-
-msgid "Not enough money for one gallon of fuel."
-msgstr "Za mało pieniędzy nawet na jeden galon paliwa."
-
-#. placeholders: {f}, {grouped}
-#. one sentence of a longer line
-msgid "Partial fuel: added {f} gallons for {grouped} dollars."
-msgstr ""
-"Częściowe tankowanie: dolano {f} {f:galon|galony|galonów} za {grouped} "
-"{grouped:dolar|dolary|dolarów}."
-
-#. placeholders: {f}, {grouped}, {grouped2}
-msgid ""
-"Partial fuel: added {f} gallons for {grouped} dollars. You have {grouped2} "
-"dollars left."
-msgstr ""
-"Częściowe tankowanie: dolano {f} {f:galon|galony|galonów} za {grouped} "
-"{grouped:dolar|dolary|dolarów}. Zostaje ci {grouped2} "
-"{grouped2:dolar|dolary|dolarów}."
-
 msgid "Nothing to repair."
 msgstr "Nie ma czego naprawiać."
 
@@ -20724,6 +20680,50 @@ msgid "Add specialty trailer programs. Own authority buys trailers."
 msgstr ""
 "Dodaj programy naczep specjalistycznych. Z własną licencją przewozową "
 "kupujesz naczepy."
+
+msgid "The tank is already full."
+msgstr "Bak jest już pełny."
+
+#. placeholders: {f}
+msgid "Tank filled, {f} minutes."
+msgstr "Bak pełny, {f} {f:minuta|minuty|minut}."
+
+msgid "terminal fuel"
+msgstr "tankowanie w terminalu"
+
+#. one sentence of a longer line
+msgid "Tank filled."
+msgstr "Bak zatankowany."
+
+#. placeholders: {grouped}, {grouped2}
+msgid "Tank filled. {grouped} dollars. You have {grouped2} dollars left."
+msgstr ""
+"Bak zatankowany. {grouped} {grouped:dolar|dolary|dolarów}. Zostaje ci "
+"{grouped2} {grouped2:dolar|dolary|dolarów}."
+
+#. placeholders: {grouped}
+#. one sentence of a longer line
+msgid "{grouped} dollars."
+msgstr "{grouped} {grouped:dolar|dolary|dolarów}."
+
+msgid "Not enough money for one gallon of fuel."
+msgstr "Za mało pieniędzy nawet na jeden galon paliwa."
+
+#. placeholders: {f}, {grouped}
+#. one sentence of a longer line
+msgid "Partial fuel: added {f} gallons for {grouped} dollars."
+msgstr ""
+"Częściowe tankowanie: dolano {f} {f:galon|galony|galonów} za {grouped} "
+"{grouped:dolar|dolary|dolarów}."
+
+#. placeholders: {f}, {grouped}, {grouped2}
+msgid ""
+"Partial fuel: added {f} gallons for {grouped} dollars. You have {grouped2} "
+"dollars left."
+msgstr ""
+"Częściowe tankowanie: dolano {f} {f:galon|galony|galonów} za {grouped} "
+"{grouped:dolar|dolary|dolarów}. Zostaje ci {grouped2} "
+"{grouped2:dolar|dolary|dolarów}."
 
 msgid "loaded"
 msgstr "z ładunkiem"
