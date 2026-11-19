@@ -35,6 +35,8 @@
 
 ### Fixed
 
+- **On iPhone and iPad, pressing Up or Down once moves one menu row.**
+
 - **A second energy drink no longer promises another lift while the first stimulant lasts.**
 - **Terminal fueling now takes longer when you are tired, matching roadside fueling.**
 
