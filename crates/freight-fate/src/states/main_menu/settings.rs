@@ -80,6 +80,10 @@ impl Menu for SettingsState {
     fn build_items(&mut self, _ctx: &mut GameContext) -> Vec<MenuItem<Self>> {
         let mut items: Vec<MenuItem<Self>> = Self::CATEGORIES
             .iter()
+            // Android has not had a problem report sent from it yet, and its log
+            // sits in the app's private storage, so it keeps the category off
+            // until a report is tried there. Updates are off by self_updates.
+            .filter(|(_, key)| *key != "reports" || !cfg!(target_os = "android"))
             // AG Now updates the game itself, so the update channel and the
             // manual check have nothing to do there either.
             .filter(|(_, key)| *key != "updates" || crate::updater::self_updates())

@@ -313,8 +313,11 @@ pub static HELP_PAGES: &[(&str, &[&str])] = &[
 /// player and device. A placeholder that names nothing the table knows is
 /// left as written, so a typo reads aloud in a test instead of vanishing.
 pub fn render_help_line(ctx: &GameContext, template: &str) -> String {
+    // The page's own bumper words follow the Second layer bumper row before
+    // any name is filled in; the swapped lines are in lang/extra.pot.
+    let template = ctx.bumper_words(template);
     let mut out = String::with_capacity(template.len());
-    let mut rest = template;
+    let mut rest: &str = &template;
     while let Some(start) = rest.find("{{") {
         let Some(len) = rest[start..].find("}}") else {
             break;
@@ -328,7 +331,7 @@ pub fn render_help_line(ctx: &GameContext, template: &str) -> String {
         };
         let name = match Action::from_id(id) {
             Some(action) => match device {
-                Some(ShortcutDevice::Controller) => ctx.bindings.pad_spoken(action),
+                Some(ShortcutDevice::Controller) => ctx.pad_name(action),
                 Some(ShortcutDevice::Keyboard) => ctx.bindings.spoken(action),
                 None => ctx.control_name(action),
             },

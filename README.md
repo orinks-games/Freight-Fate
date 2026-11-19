@@ -172,6 +172,7 @@ development packages the nightly Career 1.9 workflow installs; on Ubuntu 22.04 t
 from source, so do not install Homebrew's `sdl2`.
 
 For iPhone and iPad builds and the touch gestures, see `docs/ios/README.md`.
+For Android builds, TalkBack and the voice rows, see `docs/android/README.md`.
 
 ### Advanced maintainer overrides
 

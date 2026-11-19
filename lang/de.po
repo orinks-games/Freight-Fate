@@ -23093,6 +23093,9 @@ msgid ""
 msgstr ""
 "Bei voller Spurhaltung wechselt ein Druck nach links oder rechts eine Spur."
 
+msgid "Hold the right bumper for the clutch."
+msgstr ""
+
 msgid "Hold the left bumper for the clutch."
 msgstr "Halte die linke Schultertaste für die Kupplung."
 
@@ -36512,29 +36515,6 @@ msgstr ""
 msgid "Driving event voice: {event_voice_label}"
 msgstr "Stimme für Fahrereignisse: {event_voice_label}"
 
-msgid ""
-"Road events through the main voice or a separate system voice that "
-"VoiceOver cannot cut off. The rate, pitch, volume, and voice rows below "
-"appear only when the voice supports them. With VoiceOver running, set those "
-"in VoiceOver."
-msgstr ""
-"Straßenereignisse über die Hauptstimme oder eine eigene Systemstimme, die "
-"VoiceOver nicht unterbrechen kann. Die Zeilen für Tempo, Tonhöhe, "
-"Lautstärke und Stimme darunter erscheinen nur, wenn die Stimme sie "
-"unterstützt. Läuft VoiceOver, stell sie in VoiceOver ein."
-
-msgid ""
-"Road events through the main voice or a separate SAPI or OneCore voice a "
-"screen reader cannot cut off. The rate, pitch, volume, and voice rows below "
-"appear only when the voice supports them. With a screen reader running, set "
-"those in the screen reader."
-msgstr ""
-"Straßenereignisse über die Hauptstimme oder eine eigene SAPI- oder "
-"OneCore-Stimme, die ein Screenreader nicht unterbrechen kann. Die Zeilen "
-"für Tempo, Tonhöhe, Lautstärke und Stimme darunter erscheinen nur, wenn die "
-"Stimme sie unterstützt. Läuft ein Screenreader, stell sie im Screenreader "
-"ein."
-
 #. placeholders: {output_label}
 msgid "Output: {output_label}"
 msgstr "Ausgabe: {output_label}"
@@ -36876,6 +36856,15 @@ msgstr ""
 "Controller-Vibration bei Gefahren, harten Bremsungen, dem Rüttelstreifen "
 "und Fahrbahnfugen. Braucht einen verbundenen Controller."
 
+#. placeholders: {else}
+msgid "Second layer bumper: {else}"
+msgstr ""
+
+msgid ""
+"Which bumper you hold for the second layer of controller buttons. The other "
+"bumper is the clutch."
+msgstr ""
+
 #. placeholders: {on_off}
 msgid "Visual display: {on_off}"
 msgstr "Bildschirmanzeige: {on_off}"
@@ -36916,6 +36905,11 @@ msgstr ""
 
 msgid "Controller buttons"
 msgstr "Controllertasten"
+
+msgid ""
+"Move any driving control to another pad button, plain or with the left "
+"bumper held."
+msgstr ""
 
 msgid ""
 "Move any driving control to another pad button, plain or with the right "
@@ -37384,6 +37378,31 @@ msgstr ""
 "Abstand, egal was du wählst. Alle drei bleiben unter einem Bußgeld für zu "
 "dichtes Auffahren. Die Voreinstellung oben ändert ihn nie."
 
+#. placeholders: {engine_label}
+msgid "Voice engine: {engine_label}"
+msgstr ""
+
+msgid ""
+"Which text to speech engine on your phone the game speaks with. Changing it "
+"picks one of its voices, in the same language when it has one."
+msgstr ""
+
+#. placeholders: {language_label}
+msgid "Voice language: {language_label}"
+msgstr ""
+
+msgid ""
+"Which of the engine's languages the Speech voice row offers voices in. "
+"Changing it picks the first voice in that language."
+msgstr ""
+
+#. placeholders: {voice_label}
+msgid "Speech voice: {voice_label}"
+msgstr ""
+
+msgid "Which voice of that engine and language the game speaks with."
+msgstr ""
+
 msgid ""
 "Up and Down pick a control, Enter then a key press moves it, Escape goes "
 "back."
@@ -37415,6 +37434,24 @@ msgstr "Drück die neue Taste für {label}. Escape behält {current}."
 #. placeholders: {label}
 #. one sentence of a longer line
 msgid ""
+"Press the new button for {label}, with the left bumper held for the second "
+"layer."
+msgstr ""
+
+#. placeholders: {label}, {current}
+msgid ""
+"Press the new button for {label}, with the left bumper held for the second "
+"layer. Press {current} again to keep it."
+msgstr ""
+
+#. placeholders: {current}
+#. one sentence of a longer line
+msgid "Press {current} again to keep it."
+msgstr "Drück {current} noch einmal, um sie zu behalten."
+
+#. placeholders: {label}
+#. one sentence of a longer line
+msgid ""
 "Press the new button for {label}, with the right bumper held for the second "
 "layer."
 msgstr ""
@@ -37428,11 +37465,6 @@ msgid ""
 msgstr ""
 "Drück die neue Controllertaste für {label}, mit gehaltenem right bumper für "
 "die zweite Ebene. Drück {current} noch einmal, um sie zu behalten."
-
-#. placeholders: {current}
-#. one sentence of a longer line
-msgid "Press {current} again to keep it."
-msgstr "Drück {current} noch einmal, um sie zu behalten."
 
 #. placeholders: {label}, {now}
 msgid "{label} is now {now}."
@@ -37479,6 +37511,11 @@ msgstr ""
 "behält die bisherige."
 
 msgid ""
+"Enter, then press the button you want for this control, with the left "
+"bumper held for the second layer."
+msgstr ""
+
+msgid ""
 "Enter, then press the button you want for this control, with the right "
 "bumper held for the second layer."
 msgstr ""
@@ -37508,6 +37545,35 @@ msgstr "Sprachausgabe"
 #. placeholders: {name}
 msgid "{name}, unavailable"
 msgstr "{name}, nicht verfügbar"
+
+msgid ""
+"Road events through the main voice or a separate system voice that "
+"VoiceOver cannot cut off. The rate, pitch, volume, and voice rows below "
+"appear only when the voice supports them. With VoiceOver running, set those "
+"in VoiceOver."
+msgstr ""
+"Straßenereignisse über die Hauptstimme oder eine eigene Systemstimme, die "
+"VoiceOver nicht unterbrechen kann. Die Zeilen für Tempo, Tonhöhe, "
+"Lautstärke und Stimme darunter erscheinen nur, wenn die Stimme sie "
+"unterstützt. Läuft VoiceOver, stell sie in VoiceOver ein."
+
+msgid ""
+"Road events through the main voice or a second text to speech voice, so a "
+"menu line never cuts off a road event. The rate, pitch, volume, and voice "
+"rows below appear only when the voice supports them."
+msgstr ""
+
+msgid ""
+"Road events through the main voice or a separate SAPI or OneCore voice a "
+"screen reader cannot cut off. The rate, pitch, volume, and voice rows below "
+"appear only when the voice supports them. With a screen reader running, set "
+"those in the screen reader."
+msgstr ""
+"Straßenereignisse über die Hauptstimme oder eine eigene SAPI- oder "
+"OneCore-Stimme, die ein Screenreader nicht unterbrechen kann. Die Zeilen "
+"für Tempo, Tonhöhe, Lautstärke und Stimme darunter erscheinen nur, wenn die "
+"Stimme sie unterstützt. Läuft ein Screenreader, stell sie im Screenreader "
+"ein."
 
 msgid ""
 "Move up and down to pick a gesture, then confirm it to choose the command "
@@ -43766,6 +43832,51 @@ msgstr "Müdigkeit {f} auf {f2}."
 #. The last sentence of the sleep preview, when nothing comes before it.
 msgid "Select again to sleep."
 msgstr "Wähl noch einmal, um zu schlafen."
+
+#. The controller lines with the bumpers swapped, for a player who holds the
+#. left bumper for the second layer (Settings, Controls, Second layer bumper).
+#. The game swaps the words in its own help pages and control names
+#. (crates/freight-fate/src/controller/bumpers.rs).
+#. placeholders: {short}
+msgid "left bumper plus {short}"
+msgstr ""
+
+msgid "the right bumper is the clutch"
+msgstr ""
+
+msgid "the left bumper is the second layer"
+msgstr ""
+
+msgid ""
+"For manual clutch, hold either Shift key on a keyboard or right bumper on a "
+"controller."
+msgstr ""
+
+#. placeholders: {control_shift_up}, {control_shift_down}, {control_neutral}, {control_reverse}
+msgid ""
+"For manual clutch, hold either Shift key on a keyboard or right bumper on a "
+"controller. Then {control_shift_up} shifts up, {control_shift_down} down, "
+"{control_neutral} selects neutral, and {control_reverse} selects reverse."
+msgstr ""
+
+msgid "Hold right bumper for manual clutch."
+msgstr ""
+
+#. placeholders: {pad_shift_up}, {pad_shift_down}, {pad_cruise}, {pad_speed}
+msgid ""
+"Hold right bumper for manual clutch. {pad_shift_up} shifts up and "
+"{pad_shift_down} down, past first into neutral and then reverse. "
+"{pad_cruise} starts speed control. {pad_speed} reads speed."
+msgstr ""
+
+msgid "Hold the left bumper for a second layer of buttons."
+msgstr ""
+
+#. placeholders: {pad_engine}, {pad_fuel}, {pad_speed_limit}
+msgid ""
+"Hold the left bumper for a second layer of buttons. {pad_engine} controls "
+"the engine, {pad_fuel} reads fuel, and {pad_speed_limit} reads the limit."
+msgstr ""
 
 #~ msgid ""
 #~ "freightfate -- Freight Fate\n"

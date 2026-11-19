@@ -755,6 +755,8 @@ impl Menu for ConfirmQuitState {
                 s.go_back(ctx)
             }),
             MenuItem::new("Yes, quit Freight Fate", |_s: &mut Self, ctx| {
+                #[cfg(windows)]
+                log::info!("Quit confirmed");
                 // The close button is the one exit that skips the terminal's
                 // own save, so it saves the way Escape there does. Nowhere
                 // else has anything to write: a drive saves only at a stop,

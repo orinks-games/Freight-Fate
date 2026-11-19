@@ -233,7 +233,7 @@ fn notify_save_listener(profile: &Profile) {
 /// stamps). A `cargo run` binary in `target/` has none and stays a source
 /// checkout.
 pub fn is_frozen() -> bool {
-    std::env::current_exe()
+    crate::settings::paths::game_executable()
         .ok()
         .map(|exe| {
             crate::data::data_resources::resource_dir_for_executable(
@@ -265,7 +265,7 @@ pub fn baked_version_beside(executable: &Path) -> Option<String> {
 
 /// `freight_fate._baked_version()` for the running executable.
 pub fn baked_version() -> Option<String> {
-    baked_version_beside(&std::env::current_exe().ok()?)
+    baked_version_beside(&crate::settings::paths::game_executable().ok()?)
 }
 
 /// `freight_fate.__version__`: the baked version in a packaged build, else the

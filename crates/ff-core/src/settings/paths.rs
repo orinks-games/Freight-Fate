@@ -182,6 +182,58 @@ fn home_dir() -> PathBuf {
     std::env::home_dir().unwrap_or_else(|| PathBuf::from("."))
 }
 
+/// Android: the app's private files folder (`Context.getFilesDir()`), set
+/// once by the Android entry point before anything asks for a path.
+#[cfg(target_os = "android")]
+static ANDROID_FILES_DIR: std::sync::OnceLock<PathBuf> = std::sync::OnceLock::new();
+
+/// Record the Android app's private files folder. The game's own files are
+/// unpacked from the APK into its `game` folder, and saves, settings and
+/// logs live in its `FreightFate` folder, apart from them, so replacing the
+/// game files after an update never touches a career. A second call is
+/// ignored: the folder cannot move while the process runs.
+#[cfg(target_os = "android")]
+pub fn set_android_files_dir(dir: PathBuf) {
+    let _ = ANDROID_FILES_DIR.set(dir);
+}
+
+/// The folder the Android entry point recorded, or the working directory
+/// before it has (which only a test could reach).
+#[cfg(target_os = "android")]
+fn android_files_dir() -> PathBuf {
+    ANDROID_FILES_DIR
+        .get()
+        .cloned()
+        .unwrap_or_else(|| PathBuf::from("."))
+}
+
+/// Where the Android build's game files are unpacked: `<files>/game`, laid
+/// out as a desktop release folder is (`freight_fate/data`, the packs,
+/// `build_info.json`).
+#[cfg(target_os = "android")]
+pub fn android_game_dir() -> PathBuf {
+    android_files_dir().join("game")
+}
+
+/// The running game's executable, for the code that finds the game's files
+/// beside it.
+///
+/// Everywhere but Android this is [`std::env::current_exe`]. An Android app
+/// is a library loaded into the system's `app_process`, so the real
+/// executable says nothing about where the game lives; there this names a
+/// `FreightFate` file in [`android_game_dir`] that is never run, so every
+/// "beside the executable" lookup lands in the unpacked game folder.
+pub fn game_executable() -> std::io::Result<PathBuf> {
+    #[cfg(target_os = "android")]
+    {
+        Ok(android_game_dir().join("FreightFate"))
+    }
+    #[cfg(not(target_os = "android"))]
+    {
+        std::env::current_exe()
+    }
+}
+
 /// The standard per-user save location on macOS (and in the iOS sandbox).
 fn macos_data_dir() -> PathBuf {
     home_dir()
@@ -198,6 +250,15 @@ pub fn legacy_data_dir() -> PathBuf {
     if cfg!(any(target_os = "macos", target_os = "ios")) {
         return macos_data_dir();
     }
+    #[cfg(target_os = "android")]
+    return android_files_dir().join("FreightFate");
+    #[cfg(not(target_os = "android"))]
+    legacy_desktop_data_dir()
+}
+
+/// [`legacy_data_dir`] on Windows and Linux.
+#[cfg(not(target_os = "android"))]
+fn legacy_desktop_data_dir() -> PathBuf {
     let base = if cfg!(windows) {
         std::env::var_os("APPDATA")
             .map(PathBuf::from)
@@ -254,6 +315,11 @@ pub fn save_root() -> PathBuf {
     if cfg!(any(target_os = "macos", target_os = "ios")) {
         return macos_data_dir();
     }
+    // Android keeps saves apart from the unpacked game files, which an
+    // update replaces wholesale.
+    if cfg!(target_os = "android") {
+        return legacy_data_dir();
+    }
     let root = game_root();
     if is_writable_dir(&root) {
         return root.join("saves");
@@ -273,7 +339,7 @@ pub fn save_root() -> PathBuf {
 
 /// The directory of the running executable, resolved.
 fn executable_dir() -> Option<PathBuf> {
-    let exe = std::env::current_exe().ok()?;
+    let exe = game_executable().ok()?;
     // Absolute, but not canonical: `canonicalize` on Windows yields a
     // verbatim `\?\` path, which then leaks into every save path and log
     // line built on it.

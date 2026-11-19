@@ -4,6 +4,8 @@
 pub mod account_achievements;
 #[cfg(feature = "agent-server")]
 pub mod agent_server;
+#[cfg(target_os = "android")]
+pub mod android;
 pub mod app;
 pub mod audio;
 pub mod bindings;

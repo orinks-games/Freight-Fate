@@ -15,6 +15,7 @@
 - **A drowsy driver can call dispatch to move the appointment,** giving up the on-time bonus. The row is Too tired to drive safely.
 - **The driving command list can change radio volume and category.**
 - **Settings, Speech now has a Main voice row.** Pick your screen reader, SAPI, Windows OneCore or the built-in voice, or keep automatic.
+- **The controller's second layer can move to the left bumper.** The Second layer bumper row in Controls swaps the bumpers, and prompts name the one you hold.
 - **Drive online as a guest, with no orinks.net account.** You show on the drivers board under a name orinks.net picks, like Copper Fox 12.
 
 ### Changed
@@ -37,6 +38,7 @@
 
 - **A controller button name that starts a sentence now starts with a capital letter.** For example, "Air ready. Right bumper plus Y releases the parking brake."
 
+- **Windows shutdown, restart or sign-out with the game open no longer causes a crash prompt on the next launch.**
 - **Manual cloud backup now warns about newer cloud progress.** Choose Use the cloud copy on this computer to pick it up.
 
 - **On iPhone and iPad, pressing Up or Down once moves one menu row.**

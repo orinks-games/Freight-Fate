@@ -1,6 +1,12 @@
 //! Home menu presentation and safe automatic update offers.
 use super::*;
 
+fn quit(ctx: &mut GameContext) {
+    #[cfg(windows)]
+    log::info!("Menu quit requested");
+    ctx.quit();
+}
+
 impl Menu for MainMenuState {
     fn menu(&self) -> &MenuCore<Self> {
         &self.menu
@@ -287,17 +293,17 @@ impl Menu for MainMenuState {
                  attached.",
             ),
         );
-        // An iPhone app is never quit from inside; the system closes it.
-        if !cfg!(target_os = "ios") {
-            items.push(
-                MenuItem::new("Quit", |_s: &mut Self, ctx| ctx.quit()).help("Exit the game."),
-            );
+        // A phone or tablet app is never quit from inside; the system
+        // closes it.
+        if !cfg!(touch_screen) {
+            items
+                .push(MenuItem::new("Quit", |_s: &mut Self, ctx| quit(ctx)).help("Exit the game."));
         }
         items
     }
 
     fn go_back(&mut self, ctx: &mut GameContext) {
-        if cfg!(target_os = "ios") {
+        if cfg!(touch_screen) {
             return;
         }
         ctx.audio.play("ui/menu_back");

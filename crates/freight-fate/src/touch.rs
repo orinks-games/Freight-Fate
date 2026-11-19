@@ -13,6 +13,8 @@
 //! binding, gets the key a keyboard player would press. Nothing here touches
 //! UIKit, so the whole mapping is tested on every platform.
 
+pub mod recognizer;
+
 use crate::bindings::Action;
 use crate::states::base::{InputEvent, Key, Mods};
 pub use ff_core::touch_mode::{RoadOffer, TouchMode};
