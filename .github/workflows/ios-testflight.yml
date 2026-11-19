@@ -204,6 +204,12 @@ jobs:
           rustup show
           rustup target add aarch64-apple-ios
 
+      - name: Cache cargo registry and target directory
+        uses: Swatinem/rust-cache@d1527c8f67ef9af357290475d4af4b0fab8f12e0 # v2
+        with:
+          shared-key: ios-testflight
+          cache-on-failure: true
+
       - name: Build the release tooling
         shell: bash
         run: |
@@ -214,12 +220,6 @@ jobs:
           bundle_id="$(target/debug/ff-tools build-ios --bundle-id)"
           echo "BUNDLE_ID=$bundle_id" >> "$GITHUB_ENV"
           echo "Bundle id: $bundle_id"
-
-      - name: Cache cargo registry and target directory
-        uses: Swatinem/rust-cache@d1527c8f67ef9af357290475d4af4b0fab8f12e0 # v2
-        with:
-          shared-key: ios-testflight
-          cache-on-failure: true
 
       - name: Write the App Store Connect key
         shell: bash
