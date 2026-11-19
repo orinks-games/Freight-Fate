@@ -8,6 +8,7 @@
 
 ### Added
 
+- **Cloud resume can pick up careers where you left off on another device.** Turn it on under Online after restoring each career once.
 - **Job details and the departure line say how much night driving a run has,** as in "About 4 hours of night driving."
 - **A drowsy driver can call dispatch to move the appointment,** giving up the on-time bonus. The row is Too tired to drive safely.
 - **The driving command list can change radio volume and category.**
@@ -27,6 +28,18 @@
 - **The driving command list is now in groups.** Status menu comes first, then short lists for speed, the road, the truck, gears, radio and hours.
 
 ### Fixed
+
+- **Picking up an older cloud career no longer moves it ahead of a more recently played local career.** Continue keeps their last-played order.
+
+- **An untouched resumed career stays ready for the next pickup.** Save upgrades no longer cause a false cloud conflict.
+
+- **Resetting or deleting a career waits for cloud resume to finish.** The career stays untouched while the check runs.
+
+- **One unavailable cloud career no longer stops other careers from resuming.**
+
+- **Continue picks the latest career resumed from another device.**
+
+- **Cloud resume leaves other accounts' careers alone.** Older backups without an account match need a manual restore first.
 
 - **Touch driving help now uses available translations for full blocks of instructions.**
 - **Closing the game from the iOS app switcher no longer triggers a crash prompt.** Settings, Problem reports can turn prompts back on.

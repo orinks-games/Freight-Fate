@@ -11,6 +11,8 @@ impl Menu for MainMenuState {
     }
 
     fn enter(&mut self, ctx: &mut GameContext) {
+        ctx.cloud_saves_service()
+            .check_resume(ctx.online_enabled(ctx.settings.cloud_resume));
         let (sequence, ambience) = reuse_loadable_saves_scan(|| {
             // The base `Menu::enter`: rebuild the rows, play the open sound,
             // announce.
@@ -63,6 +65,16 @@ impl Menu for MainMenuState {
     }
 
     fn update(&mut self, ctx: &mut GameContext, dt: f64) {
+        let lines = ctx.cloud_saves_service().take_resume_lines();
+        if !lines.is_empty() {
+            if let Some(profile) = &ctx.profile {
+                ctx.profile = Profile::load(&profile.path()).ok();
+            }
+            self.refresh(ctx, true);
+            for line in lines {
+                ctx.say(&line);
+            }
+        }
         ctx.update_music_rotation(dt);
         // The last run never quit: ask once, before the update prompt can
         // land on top of the question.

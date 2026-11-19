@@ -14987,11 +14987,26 @@ msgstr "不变"
 msgid "Latest backup accepted and server-verified."
 msgstr "最新备份已被接受，并经过服务器验证。"
 
-msgid "slots"
-msgstr "slots"
+msgid "cloud-resume"
+msgstr ""
+
+msgid "not connected"
+msgstr ""
+
+msgid "site unreachable"
+msgstr ""
+
+msgid "backup unavailable"
+msgstr ""
+
+msgid "backup does not match requested career"
+msgstr ""
 
 msgid "revision"
 msgstr "revision"
+
+msgid "slots"
+msgstr "slots"
 
 msgid "hash"
 msgstr "hash"
@@ -15193,6 +15208,28 @@ msgstr "{name}已备份。"
 #. placeholders: {name}
 msgid "{name} is backed up again."
 msgstr "{name}已重新备份。"
+
+msgid "Checking careers on your other devices. Try Continue shortly."
+msgstr ""
+
+#. placeholders: {name}
+msgid "Picked up {name} where you left off on another device."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Open Cloud backup to choose which copy to keep."
+msgstr ""
+
+#. placeholders: {name}
+#. one sentence of a longer line
+msgid "{name} changed on another device."
+msgstr ""
+
+#. placeholders: {name}
+msgid ""
+"{name} changed on another device. Open Cloud backup to choose which copy to "
+"keep."
+msgstr ""
 
 msgid "accepted"
 msgstr "accepted"
@@ -19396,6 +19433,9 @@ msgstr "正在下载备份。"
 
 msgid "cloud-saves-restore"
 msgstr "cloud-saves-restore"
+
+msgid "profile"
+msgstr ""
 
 msgid "restored"
 msgstr "restored"
@@ -35937,6 +35977,15 @@ msgid ""
 "Shows broad activity in Discord, like driving or resting, never saves or "
 "personal details. Needs Discord running, no driver profile needed."
 msgstr "在Discord里显示大致的活动，比如驾驶中或休息中，绝不显示存档或个人信息。需要Discord正在运行，不需要司机主页。"
+
+#. placeholders: {on_off}
+msgid "Resume careers from other devices: {on_off}"
+msgstr ""
+
+msgid ""
+"Checks for newer progress when you return to the main menu. Restore each "
+"career here once first; conflicting saves need your choice in Cloud backup."
+msgstr ""
 
 msgid "Connect to orinks.net"
 msgstr "连接到orinks.net"
