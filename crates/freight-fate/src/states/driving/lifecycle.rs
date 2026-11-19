@@ -163,10 +163,8 @@ impl DrivingState {
                 ctx.touch_instruction(crate::bindings::Action::Cruise)
             );
         }
-        format!(
-            "Cruise paused. {} cancels it. ",
-            ctx.control_hint("cruise_set")
-        )
+        let control_hint = ff_core::speech_text::sentence_start(&ctx.control_hint("cruise_set"));
+        format!("Cruise paused. {control_hint} cancels it. ")
     }
 
     /// The parking-brake pointer at the end of the resume line, retired once

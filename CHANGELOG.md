@@ -35,6 +35,8 @@
 
 ### Fixed
 
+- **A controller button name that starts a sentence now starts with a capital letter.** For example, "Air ready. Right bumper plus Y releases the parking brake."
+
 - **Manual cloud backup now warns about newer cloud progress.** Choose Use the cloud copy on this computer to pick it up.
 
 - **On iPhone and iPad, pressing Up or Down once moves one menu row.**

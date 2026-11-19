@@ -162,15 +162,16 @@ impl ParkingFullState {
                 p.active_trip = Some(snapshot);
             }
             let money = profile_of(ctx).money();
+            let control_hint = ff_core::speech_text::sentence_start(&ctx.control_hint("engine"));
             let text = format!(
                 "{engine_off}Motel, {} dollars, 10 hours. {}. Driving and duty clocks reset. \
                  {} dollars. {} starts the engine.",
                 fmt_grouped(MOTEL_COST, 0),
                 clock_text(d.trip.local_hour()),
                 fmt_grouped(money, 0),
-                ctx.control_hint("engine")
+                control_hint
             );
-            let starts = format!("{} starts the engine.", ctx.control_hint("engine"));
+            let starts = format!("{control_hint} starts the engine.");
             let text = d.without_key_hint(ctx, text, &starts);
             d.with_touch_sentence(
                 ctx,

@@ -251,6 +251,7 @@ impl DrivingState {
         let brake_hint = ctx.control_hint("parking_brake");
         if self.trip.truck.parking_brake {
             if self.trip.truck.air_ready() {
+                let brake_hint = ff_core::speech_text::sentence_start(&brake_hint);
                 return format!("Air ready. {brake_hint} releases the parking brake.");
             }
             return format!(
