@@ -1174,6 +1174,7 @@ impl RestStopState {
             profile_mut_of(ctx).spend(price);
         }
         let Some(text) = self.driving.clone().with(ctx, |d, ctx| {
+            let no_lift = buff.stimulant && profile_of(ctx).stimulant_loan().is_open();
             if rig_buff {
                 d.rig_buffs.insert(
                     buff.group.clone(),
@@ -1249,7 +1250,11 @@ impl RestStopState {
             };
             format!(
                 "{} {billing} It is {}. {}",
-                buff.purchased,
+                if no_lift {
+                    "No lift while the last stimulant lasts."
+                } else {
+                    &buff.purchased
+                },
                 clock_text(d.trip.local_hour()),
                 deadline_text(d, ctx)
             )

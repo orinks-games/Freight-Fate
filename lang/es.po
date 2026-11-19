@@ -20405,45 +20405,6 @@ msgstr "Reparar: {f} por ciento de daños"
 msgid "Repair {f} percent damage for {grouped} dollars"
 msgstr "Reparar {f} por ciento de daños por {grouped} dólares"
 
-msgid "The tank is already full."
-msgstr "El depósito ya está lleno."
-
-#. placeholders: {f}
-msgid "Tank filled, {f} minutes."
-msgstr "Depósito lleno, {f} minutos."
-
-msgid "terminal fuel"
-msgstr "terminal fuel"
-
-#. one sentence of a longer line
-msgid "Tank filled."
-msgstr "Depósito lleno."
-
-#. placeholders: {grouped}, {grouped2}
-msgid "Tank filled. {grouped} dollars. You have {grouped2} dollars left."
-msgstr "Depósito lleno. {grouped} dólares. Te quedan {grouped2} dólares."
-
-#. placeholders: {grouped}
-#. one sentence of a longer line
-msgid "{grouped} dollars."
-msgstr "{grouped} dólares."
-
-msgid "Not enough money for one gallon of fuel."
-msgstr "No tienes suficiente dinero para un galón de combustible."
-
-#. placeholders: {f}, {grouped}
-#. one sentence of a longer line
-msgid "Partial fuel: added {f} gallons for {grouped} dollars."
-msgstr "Repostaje parcial: añadidos {f} galones por {grouped} dólares."
-
-#. placeholders: {f}, {grouped}, {grouped2}
-msgid ""
-"Partial fuel: added {f} gallons for {grouped} dollars. You have {grouped2} "
-"dollars left."
-msgstr ""
-"Repostaje parcial: añadidos {f} galones por {grouped} dólares. Te quedan "
-"{grouped2} dólares."
-
 msgid "Nothing to repair."
 msgstr "No hay nada que reparar."
 
@@ -20863,6 +20824,45 @@ msgid "Add specialty trailer programs. Own authority buys trailers."
 msgstr ""
 "Añade programas de remolques especiales. Con autorización propia se compran "
 "remolques."
+
+msgid "The tank is already full."
+msgstr "El depósito ya está lleno."
+
+#. placeholders: {f}
+msgid "Tank filled, {f} minutes."
+msgstr "Depósito lleno, {f} minutos."
+
+msgid "terminal fuel"
+msgstr "terminal fuel"
+
+#. one sentence of a longer line
+msgid "Tank filled."
+msgstr "Depósito lleno."
+
+#. placeholders: {grouped}, {grouped2}
+msgid "Tank filled. {grouped} dollars. You have {grouped2} dollars left."
+msgstr "Depósito lleno. {grouped} dólares. Te quedan {grouped2} dólares."
+
+#. placeholders: {grouped}
+#. one sentence of a longer line
+msgid "{grouped} dollars."
+msgstr "{grouped} dólares."
+
+msgid "Not enough money for one gallon of fuel."
+msgstr "No tienes suficiente dinero para un galón de combustible."
+
+#. placeholders: {f}, {grouped}
+#. one sentence of a longer line
+msgid "Partial fuel: added {f} gallons for {grouped} dollars."
+msgstr "Repostaje parcial: añadidos {f} galones por {grouped} dólares."
+
+#. placeholders: {f}, {grouped}, {grouped2}
+msgid ""
+"Partial fuel: added {f} gallons for {grouped} dollars. You have {grouped2} "
+"dollars left."
+msgstr ""
+"Repostaje parcial: añadidos {f} galones por {grouped} dólares. Te quedan "
+"{grouped2} dólares."
 
 msgid "loaded"
 msgstr "cargado"
@@ -31756,6 +31756,9 @@ msgstr "{purchased} {billing} Son las {clock_text}."
 #. placeholders: {purchased}, {billing}, {clock_text}, {deadline_text}
 msgid "{purchased} {billing} It is {clock_text}. {deadline_text}"
 msgstr "{purchased} {billing} Son las {clock_text}. {deadline_text}"
+
+msgid "No lift while the last stimulant lasts."
+msgstr "No hay otro alivio mientras dure el último estimulante."
 
 #. one sentence of a longer line
 msgid "Pull back onto the highway."

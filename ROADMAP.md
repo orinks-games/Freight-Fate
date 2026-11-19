@@ -3947,6 +3947,9 @@ and 7.
       figure; the fuel row's help now reads its minutes. Docks, mechanics,
       shops, officers, scale wave-throughs and buying a chain set keep
       their times.
+- [x] (Found along the way) Owner listening fixes: repeated energy drinks
+      explain that there is no additional lift; terminal fueling uses the
+      same fatigue slowdown as roadside fueling, including partial fills.
 - [x] (Found along the way) An officer can see it (part 6): the scale's
       inspection lane, a roadside inspection or log check, and a traffic
       stop at severe end in the fatigue out-of-service order after the
