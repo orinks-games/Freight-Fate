@@ -19534,7 +19534,7 @@ msgstr "置き換えられたセーブは予備のファイルとして残りま
 
 #. placeholders: {summary}
 msgid " It is {summary}."
-msgstr ""
+msgstr "{summary}です。"
 
 #. placeholders: {save_name}, {backed_up_text}, {summary}
 #. one sentence of a longer line
@@ -19542,12 +19542,15 @@ msgid ""
 "Restore the backup of {save_name}, {backed_up_text}?{summary} This backup "
 "will be installed on this device."
 msgstr ""
+"{backed_up_text}の{save_name}のバックアップを復元しますか？{summary}このバックアップがこの端末に入ります。"
 
 #. placeholders: {save_name}, {backed_up_text}, {summary}, {current}
 msgid ""
 "Restore the backup of {save_name}, {backed_up_text}?{summary} This backup "
 "will be installed on this device. {current}"
 msgstr ""
+"{backed_up_text}の{save_name}のバックアップを復元しますか？{summary}このバックアップがこの端末に入ります。{curr"
+"ent}"
 
 msgid "No, cancel and change nothing"
 msgstr "いいえ、取り消して何も変えない"
@@ -19561,7 +19564,7 @@ msgstr ""
 "クアップ」を選んでください。"
 
 msgid "Goes back without downloading."
-msgstr ""
+msgstr "ダウンロードせずに戻ります。"
 
 msgid "Yes, restore this backup"
 msgstr "はい、このバックアップを復元する"
