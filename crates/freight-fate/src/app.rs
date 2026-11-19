@@ -187,6 +187,9 @@ pub struct App {
     // join the SDL batch in `frame`, so they retain the normal held-key,
     // controller, speech and state-dispatch behavior.
     queued_player_input: Vec<InputEvent>,
+    /// The role each held pad bumper was pressed as, under the Second layer
+    /// bumper row (see `controller::bumpers`).
+    bumper_roles: crate::controller::bumpers::BumperRoles,
     /// Agent sessions: the operator's keyboard never reaches the game. The
     /// window is minimized at launch, and still the owner's typing in the
     /// next window arrived as Space readouts and an S limit report mid-run
@@ -726,6 +729,7 @@ impl App {
             clock: FrameClock::new(true),
             initial_state: None,
             queued_player_input: Vec::new(),
+            bumper_roles: Default::default(),
             operator_keys_ignored: false,
             world_held: false,
             key_probe: None,
@@ -1397,6 +1401,11 @@ impl App {
             },
             None => Vec::new(),
         };
+        // The pad's own presses, not the queued ones (the agent server and
+        // tests press the game's buttons, which are already the roles).
+        events = self
+            .bumper_roles
+            .map(events, self.ctx.settings.left_bumper_layer);
         if self.operator_keys_ignored {
             events = without_operator_keys(events);
         }

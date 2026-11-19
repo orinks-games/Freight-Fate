@@ -233,9 +233,9 @@ pub fn describe_button(
 ) -> Option<String> {
     let chord = PadChord { button, modified };
     let name = if modified {
-        capitalized(&chord.spoken())
+        capitalized(&ctx.bumper_words(&chord.spoken()))
     } else {
-        capitalized(pad_button_short_name(button))
+        capitalized(&ctx.bumper_words(pad_button_short_name(button)))
     };
     let fixed = match button {
         ControllerButton::Guide => return None,

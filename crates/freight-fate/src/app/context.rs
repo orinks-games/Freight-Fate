@@ -854,7 +854,7 @@ impl GameContext {
     pub fn control_name(&self, action: crate::bindings::Action) -> String {
         let device = self.controller.device();
         if device == ff_core::input_hints::CONTROLLER && action.on_pad() {
-            self.bindings.pad_spoken(action)
+            self.pad_name(action)
         } else if device == ff_core::input_hints::TOUCH {
             self.bindings.touch_noun(action)
         } else {
@@ -906,7 +906,12 @@ impl GameContext {
         } else {
             self.bindings.hint_key_phrase(action)
         };
-        moved.unwrap_or_else(|| self.controller.hint(action))
+        let phrase = moved.unwrap_or_else(|| self.controller.hint(action));
+        if device == ff_core::input_hints::CONTROLLER {
+            self.bumper_words(&phrase).into_owned()
+        } else {
+            phrase
+        }
     }
 
     pub fn apply_speech(&mut self) {

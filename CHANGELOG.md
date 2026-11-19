@@ -15,6 +15,7 @@
 - **A drowsy driver can call dispatch to move the appointment,** giving up the on-time bonus. The row is Too tired to drive safely.
 - **The driving command list can change radio volume and category.**
 - **Settings, Speech now has a Main voice row.** Pick your screen reader, SAPI, Windows OneCore or the built-in voice, or keep automatic.
+- **The controller's second layer can move to the left bumper.** The Second layer bumper row in Controls swaps the bumpers, and prompts name the one you hold.
 - **Drive online as a guest, with no orinks.net account.** You show on the drivers board under a name orinks.net picks, like Copper Fox 12.
 
 ### Changed
