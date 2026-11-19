@@ -35,7 +35,7 @@
 
 ### Fixed
 
-- **Manual cloud backup now warns when another computer has newer progress.** Choose Restore the latest backup to pick it up.
+- **Manual cloud backup now warns about newer cloud progress.** Choose Use the cloud copy on this computer to pick it up.
 
 - **A second energy drink no longer promises another lift while the first stimulant lasts.**
 - **Terminal fueling now takes longer when you are tired, matching roadside fueling.**

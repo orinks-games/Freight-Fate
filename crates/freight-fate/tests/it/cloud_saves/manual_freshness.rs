@@ -181,7 +181,7 @@ fn the_manual_menu_distinguishes_stale_copies_from_two_sided_conflicts() {
 
         let lines = app.main_lines();
         let expected = if stale {
-            "The cloud has a newer copy of this career. Nothing was changed. Choose Restore the latest backup to use it."
+            "The cloud has a newer copy of this career. Nothing was changed. Choose Use the cloud copy on this computer to pick it up."
         } else {
             "The cloud copy changed on another computer, so nothing was changed. Choose which copy to keep."
         };
@@ -201,6 +201,19 @@ fn the_manual_menu_distinguishes_stale_copies_from_two_sided_conflicts() {
         if stale {
             assert_eq!(status, expected);
             assert_eq!(service.status(), expected);
+            let labels = menu_labels::<CloudSlotState>(&slot, &app.ctx);
+            assert!(
+                labels
+                    .iter()
+                    .any(|label| label.starts_with("Use the cloud copy on this computer")),
+                "{labels:?}"
+            );
+            assert!(
+                !labels
+                    .iter()
+                    .any(|label| label.starts_with("Restore the latest backup")),
+                "{labels:?}"
+            );
         } else {
             assert_eq!(
                 status,
@@ -210,7 +223,7 @@ fn the_manual_menu_distinguishes_stale_copies_from_two_sided_conflicts() {
             assert!(
                 !lines
                     .iter()
-                    .any(|line| line.contains("Choose Restore the latest backup")),
+                    .any(|line| line.contains("Choose Use the cloud copy on this computer")),
                 "{lines:?}"
             );
         }

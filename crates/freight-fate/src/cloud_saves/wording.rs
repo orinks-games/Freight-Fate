@@ -5,7 +5,7 @@
 
 pub const STALE_BACKUP_STATUS: &str =
     "The cloud has a newer copy of this career. Nothing was changed. \
-                                     Choose Restore the latest backup to use it.";
+     Choose Use the cloud copy on this computer to pick it up.";
 
 // The spoken guidance for CloudAuthError, shared by every cloud menu so the
 // player always hears the same recovery path. orinks.net issues one token
