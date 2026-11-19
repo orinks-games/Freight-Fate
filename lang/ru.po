@@ -21517,7 +21517,7 @@ msgstr "Заменённое сохранение останется как за
 
 #. placeholders: {summary}
 msgid " It is {summary}."
-msgstr ""
+msgstr " Это {summary}."
 
 #. placeholders: {save_name}, {backed_up_text}, {summary}
 #. one sentence of a longer line
@@ -21525,12 +21525,16 @@ msgid ""
 "Restore the backup of {save_name}, {backed_up_text}?{summary} This backup "
 "will be installed on this device."
 msgstr ""
+"Восстановить копию {save_name}, {backed_up_text}?{summary} Эта копия будет "
+"установлена на это устройство."
 
 #. placeholders: {save_name}, {backed_up_text}, {summary}, {current}
 msgid ""
 "Restore the backup of {save_name}, {backed_up_text}?{summary} This backup "
 "will be installed on this device. {current}"
 msgstr ""
+"Восстановить копию {save_name}, {backed_up_text}?{summary} Эта копия будет "
+"установлена на это устройство. {current}"
 
 msgid "No, cancel and change nothing"
 msgstr "Нет, отменить и ничего не менять"
@@ -21545,7 +21549,7 @@ msgstr ""
 "выберите «Оставить сохранение этого компьютера и скопировать его»."
 
 msgid "Goes back without downloading."
-msgstr ""
+msgstr "Возвращает назад без скачивания."
 
 msgid "Yes, restore this backup"
 msgstr "Да, восстановить эту копию"
