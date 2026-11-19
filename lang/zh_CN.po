@@ -19334,20 +19334,20 @@ msgstr "被替换的存档会保留为一个后备文件。"
 
 #. placeholders: {summary}
 msgid " It is {summary}."
-msgstr ""
+msgstr " 它是{summary}。"
 
 #. placeholders: {save_name}, {backed_up_text}, {summary}
 #. one sentence of a longer line
 msgid ""
 "Restore the backup of {save_name}, {backed_up_text}?{summary} This backup "
 "will be installed on this device."
-msgstr ""
+msgstr "恢复{save_name}的备份（{backed_up_text}）吗？{summary}此备份将安装到这台设备上。"
 
 #. placeholders: {save_name}, {backed_up_text}, {summary}, {current}
 msgid ""
 "Restore the backup of {save_name}, {backed_up_text}?{summary} This backup "
 "will be installed on this device. {current}"
-msgstr ""
+msgstr "恢复{save_name}的备份（{backed_up_text}）吗？{summary}此备份将安装到这台设备上。{current}"
 
 msgid "No, cancel and change nothing"
 msgstr "不，取消，什么都不改"
@@ -19359,7 +19359,7 @@ msgid ""
 msgstr "不下载，直接返回。这台电脑上的存档保持原样。如果想把这台电脑上的存档上传上去，请选择“保留这台电脑上的存档并备份”。"
 
 msgid "Goes back without downloading."
-msgstr ""
+msgstr "不下载，直接返回。"
 
 msgid "Yes, restore this backup"
 msgstr "是的，恢复这个备份"
