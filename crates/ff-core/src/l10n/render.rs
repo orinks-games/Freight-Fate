@@ -590,6 +590,17 @@ impl Pass<'_, '_, '_> {
         // hole: "It is {tod}." must not match "It is 9:00. Fuel is low.",
         // which the sentence splitter translates whole.
         let (template, captures) = self.catalog.templates.best_match(core, |template, caps| {
+            // Let the stopped form of a menu row reapply its sentence mark
+            // after translating. Here "Yes, reset Driver." must capture
+            // the default name "Driver", not a custom name "Driver.".
+            if matches!(template.segs.last(), Some(Seg::Hole(name))
+                if is_career_name_hole(template, name))
+                && core
+                    .strip_suffix('.')
+                    .is_some_and(|bare| !bare.ends_with(['.', ':', ',', ';']))
+            {
+                return false;
+            }
             // "{place}{state} on {highway}" has few letters of its own, but
             // its holes are names: it matches when what fills them reads as
             // names ("Groton", ", South Dakota", "US-12"), never words a loose

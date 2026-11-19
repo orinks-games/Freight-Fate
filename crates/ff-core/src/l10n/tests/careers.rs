@@ -51,6 +51,9 @@ msgstr "С возвращением, {name}."
 msgid "Driver: {driver_name}"
 msgstr "Водитель: {driver_name}"
 
+msgid "Yes, reset {name}"
+msgstr "Да, сбросить {name}"
+
 msgid "Locked: {name}"
 msgstr "Закрыто: {name}"
 "#,
@@ -65,6 +68,8 @@ msgstr "Закрыто: {name}"
     );
     assert_eq!(tr.translate("Driver: May"), "Водитель: May");
     assert_eq!(tr.translate("Driver: Driver"), "Водитель: Водитель");
+    assert_eq!(tr.translate("Yes, reset May."), "Да, сбросить May.");
+    assert_eq!(tr.translate("Yes, reset Driver."), "Да, сбросить Водитель.");
     assert_eq!(tr.translate("Locked: May"), "Закрыто: май");
 }
 
