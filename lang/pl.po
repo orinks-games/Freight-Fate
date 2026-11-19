@@ -21500,6 +21500,27 @@ msgstr ""
 msgid "The replaced save is kept as a fallback file."
 msgstr "Zastąpiony zapis zostanie zachowany jako plik awaryjny."
 
+#. placeholders: {summary}
+msgid " It is {summary}."
+msgstr " Ta kopia to: {summary}."
+
+#. placeholders: {save_name}, {backed_up_text}, {summary}
+#. one sentence of a longer line
+msgid ""
+"Restore the backup of {save_name}, {backed_up_text}?{summary} This backup "
+"will be installed on this device."
+msgstr ""
+"Przywrócić kopię zapasową kariery {save_name}, {backed_up_text}?{summary} "
+"Ta kopia zapasowa zostanie zainstalowana na tym urządzeniu."
+
+#. placeholders: {save_name}, {backed_up_text}, {summary}, {current}
+msgid ""
+"Restore the backup of {save_name}, {backed_up_text}?{summary} This backup "
+"will be installed on this device. {current}"
+msgstr ""
+"Przywrócić kopię zapasową kariery {save_name}, {backed_up_text}?{summary} "
+"Ta kopia zapasowa zostanie zainstalowana na tym urządzeniu. {current}"
+
 msgid "No, cancel and change nothing"
 msgstr "Nie, anuluj i niczego nie zmieniaj"
 
@@ -21511,6 +21532,9 @@ msgstr ""
 "Wraca bez pobierania. Zapis na tym komputerze zostaje bez zmian. Aby "
 "zamiast tego wysłać zapis z tego komputera, wybierz Zachowaj zapis z tego "
 "komputera i zrób jego kopię."
+
+msgid "Goes back without downloading."
+msgstr "Wraca bez pobierania."
 
 msgid "Yes, restore this backup"
 msgstr "Tak, przywróć tę kopię zapasową"
