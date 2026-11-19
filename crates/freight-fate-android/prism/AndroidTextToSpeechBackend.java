@@ -5,8 +5,9 @@
 // Prism's own (see JAVA_OVERRIDES in crates/ff-tools/src/release/android.rs).
 // Changes from Prism: the rate and pitch scales are centred on Android's
 // normal 1.0; the voice list holds every installed engine's voices, named
-// "engine: language: voice"; and choosing another engine's voice moves
-// speech to that engine.
+// "engine: language: voice"; choosing another engine's voice moves
+// speech to that engine; and while a game controller's own audio output is
+// connected, speech plays through SpeechRoute, out of its haptic motors.
 package com.github.ethindp.prism;
 
 import android.content.Context;
@@ -21,6 +22,7 @@ import android.system.ErrnoException;
 import android.system.Os;
 import android.system.OsConstants;
 import com.snapchat.djinni.Outcome;
+import net.orinks.freightfate.SpeechRoute;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -59,6 +61,8 @@ public class AndroidTextToSpeechBackend extends TextToSpeechBackend implements A
   private List<VoiceEntry> voiceList;
   private ConcurrentHashMap<String, Consumer<Integer>> pendingUtterances =
       new ConcurrentHashMap<>();
+  // Keeps speech out of a controller's haptic motors; set before the first engine is configured.
+  private volatile SpeechRoute route;
 
   @Override
   public String getName() {
@@ -138,6 +142,7 @@ public class AndroidTextToSpeechBackend extends TextToSpeechBackend implements A
       return Outcome.fromError(BackendError.BACKEND_NOT_AVAILABLE);
     }
     TtsKeepAlive.start(ctx);
+    if (route == null) route = new SpeechRoute(ctx, speechAttributes(), () -> this.tts);
     final TextToSpeech candidate = new EngineConnection(ctx, null).await(initializationDeadline());
     if (candidate == null) {
       return Outcome.fromError(BackendError.BACKEND_NOT_AVAILABLE);
@@ -166,19 +171,29 @@ public class AndroidTextToSpeechBackend extends TextToSpeechBackend implements A
   private void configureEngine(TextToSpeech engine, float rate, float pitch) {
     engine.setPitch(pitch);
     engine.setSpeechRate(rate);
-    final AudioAttributes audioAttributes =
-        new AudioAttributes.Builder()
-            .setUsage(AudioAttributes.USAGE_ASSISTANCE_ACCESSIBILITY)
-            .setContentType(AudioAttributes.CONTENT_TYPE_SPEECH)
-            .build();
-    engine.setAudioAttributes(audioAttributes);
+    engine.setAudioAttributes(speechAttributes());
     engine.setOnUtteranceProgressListener(
         new UtteranceProgressListener() {
           @Override
           public void onStart(String utteranceId) {}
 
           @Override
+          public void onBeginSynthesis(
+              String utteranceId, int sampleRateInHz, int audioFormat, int channelCount) {
+            final SpeechRoute r = route;
+            if (r != null) r.onBegin(utteranceId, sampleRateInHz, audioFormat, channelCount);
+          }
+
+          @Override
+          public void onAudioAvailable(String utteranceId, byte[] audio) {
+            final SpeechRoute r = route;
+            if (r != null) r.onAudio(utteranceId, audio);
+          }
+
+          @Override
           public void onDone(String utteranceId) {
+            final SpeechRoute r = route;
+            if (r != null && r.onEnd(utteranceId)) return;
             final Consumer<Integer> callback = pendingUtterances.get(utteranceId);
             if (callback != null) {
               callback.accept(TextToSpeech.SUCCESS);
@@ -187,12 +202,27 @@ public class AndroidTextToSpeechBackend extends TextToSpeechBackend implements A
 
           @Override
           public void onError(String utteranceId) {
+            final SpeechRoute r = route;
+            if (r != null && r.onEnd(utteranceId)) return;
             final Consumer<Integer> callback = pendingUtterances.get(utteranceId);
             if (callback != null) {
               callback.accept(TextToSpeech.ERROR);
             }
           }
+
+          @Override
+          public void onStop(String utteranceId, boolean interrupted) {
+            final SpeechRoute r = route;
+            if (r != null) r.onEnd(utteranceId);
+          }
         });
+  }
+
+  private static AudioAttributes speechAttributes() {
+    return new AudioAttributes.Builder()
+        .setUsage(AudioAttributes.USAGE_ASSISTANCE_ACCESSIBILITY)
+        .setContentType(AudioAttributes.CONTENT_TYPE_SPEECH)
+        .build();
   }
 
   @Override
@@ -210,6 +240,29 @@ public class AndroidTextToSpeechBackend extends TextToSpeechBackend implements A
       return Outcome.fromError(BackendError.INTERNAL_BACKEND_ERROR);
     }
     out.flip();
+    // A controller's own audio is connected: the line plays on it through the route, kept out
+    // of its haptic motors.
+    final SpeechRoute r = route;
+    if (r != null) {
+      final SpeechRoute.Target output = r.pickOutput();
+      if (output == null) {
+        if (interrupt) r.cancel();
+      } else {
+        if (interrupt) {
+          r.cancel();
+          tts.stop();
+        }
+        if (out.remaining() >= TextToSpeech.getMaxSpeechInputLength()) {
+          for (var segment :
+              TextChunker.split(out, out.remaining(), TextToSpeech.getMaxSpeechInputLength())) {
+            r.enqueue(segment.toString(), ttsVolume, output);
+          }
+        } else {
+          r.enqueue(out.toString(), ttsVolume, output);
+        }
+        return Outcome.fromResult(new Unit());
+      }
+    }
     Bundle params = new Bundle();
     params.putFloat(TextToSpeech.Engine.KEY_PARAM_VOLUME, ttsVolume);
     if (out.remaining() >= TextToSpeech.getMaxSpeechInputLength()) {
@@ -365,12 +418,15 @@ public class AndroidTextToSpeechBackend extends TextToSpeechBackend implements A
   @Override
   public Outcome<Boolean, BackendError> isSpeaking() {
     if (!isTTSInitialized) return Outcome.fromError(BackendError.NOT_INITIALIZED);
-    return Outcome.fromResult(tts.isSpeaking());
+    final SpeechRoute r = route;
+    return Outcome.fromResult((r != null && r.busy()) || tts.isSpeaking());
   }
 
   @Override
   public Outcome<Unit, BackendError> stop() {
     if (!isTTSInitialized) return Outcome.fromError(BackendError.NOT_INITIALIZED);
+    final SpeechRoute r = route;
+    if (r != null) r.cancel();
     if (tts.stop() != TextToSpeech.SUCCESS)
       return Outcome.fromError(BackendError.INTERNAL_BACKEND_ERROR);
     pendingUtterances.clear();
@@ -492,6 +548,8 @@ public class AndroidTextToSpeechBackend extends TextToSpeechBackend implements A
       voiceList = null;
       decoder = null;
     }
+    final SpeechRoute r = route;
+    if (r != null) r.cancel();
     shutdownEngine(engine);
     pendingUtterances.clear();
   }

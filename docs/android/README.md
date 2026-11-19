@@ -60,9 +60,11 @@ backend, with the same bindings, rumble and controller settings as the
 desktop.
 
 - On a USB cable, SDL rumbles a PlayStation, Xbox or Switch controller
-  itself. Android also takes a DualSense on a cable for a headset and plays
-  the phone's sound through it, which the controller's motors give back as
-  a buzz under every spoken line. Bluetooth avoids that.
+  itself. A DualSense on a cable is also a sound card, and Android plays
+  all of the phone's sound through it, so headphones go in the controller.
+  Its last two channels drive the motors, so the game plays speech on the
+  headphone channels only; otherwise Android copies the voice into all
+  four and the motors buzz under every spoken line.
 - Over Bluetooth, SDL 2.26 cannot rumble a controller, so the game asks
   Android to. Android gives no way to tell which of its controllers is the
   one SDL opened, so the rumble plays on every connected controller that has
@@ -111,8 +113,9 @@ of `crates/ff-tools/src/release/android.rs`. In short:
 - The game compiles its own copies of two library files in place of the
   library's:
   - Prism's Android text to speech voice (`crates/freight-fate-android/prism/`),
-    which centres rate and pitch on the voice's normal values and lists every
-    engine's voices;
+    which centres rate and pitch on the voice's normal values, lists every
+    engine's voices, and, while a controller's sound output is connected,
+    hands each line to `SpeechRoute` to play on its headphone channels;
   - SDL's HIDAPI device manager (`crates/freight-fate-android/sdl/`), which
     Android 14 otherwise refuses at startup, leaving PlayStation controllers
     without rumble.

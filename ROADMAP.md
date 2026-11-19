@@ -1582,14 +1582,17 @@ Everything found before 2026-09-25 moved to
       SDL 2.26 cannot rumble a Bluetooth controller on Android, so the game
       rumbles it through Android's VibratorManager, on every connected
       controller with motors.
-- [ ] (Found along the way) Android: on a USB cable, Android takes a
-      DualSense for a headset and plays the game's speech through it, which
-      its motors give back as a buzz under every line; Bluetooth avoids it.
-      `TextToSpeech.speak()` has no output device to set. A fix could
-      synthesize each line to a file and play it through an `AudioTrack`
-      with a preferred device other than the controller, only while one is
-      plugged in, re-picking on hot-plug (suggested in review of PR 672).
-      It costs a synthesis delay before each line while the cable is in.
+- [x] (Found along the way) Android: a DualSense on a USB cable is also a
+      four-channel sound card (headphones on the first two, the haptic
+      motors on the last two), and Android copied mono speech into all
+      four, so the motors buzzed under every line. While a controller's
+      sound output is connected, each line is now synthesized and streamed
+      to an `AudioTrack` on the controller, the voice in the front pair and
+      silence in the motor pair (`SpeechRoute`, from the file-and-AudioTrack
+      idea in review of PR 672). Stereo game sound never reached the
+      motors. Played on a Pixel 10 Pro with a DualSense Edge, 2026-11-18:
+      a whole trip on the cable with no buzz; where each line played is
+      logged to `logs/speech-route.log`.
 - [ ] (Found along the way) Android: Settings has no Problem reports
       category. The iPhone has one now; Android keeps it off until a
       report has been sent from a phone and the log screen suits a log in
