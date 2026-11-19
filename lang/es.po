@@ -16750,16 +16750,6 @@ msgstr ""
 msgid "ok"
 msgstr "ok"
 
-#. placeholders: {revision}
-msgid "last synced revision {revision}"
-msgstr "última revisión sincronizada {revision}"
-
-msgid "no revision synced yet"
-msgstr "aún no se ha sincronizado ninguna revisión"
-
-msgid "Latest backup accepted and server-verified."
-msgstr "Última copia de seguridad aceptada y verificada por el servidor."
-
 msgid "stale"
 msgstr ""
 
@@ -17084,6 +17074,16 @@ msgstr ""
 #. one sentence of a longer line
 msgid "Your local career was not deleted."
 msgstr "Tu carrera local no se borró."
+
+#. placeholders: {revision}
+msgid "last synced revision {revision}"
+msgstr "última revisión sincronizada {revision}"
+
+msgid "no revision synced yet"
+msgstr "aún no se ha sincronizado ninguna revisión"
+
+msgid "Latest backup accepted and server-verified."
+msgstr "Última copia de seguridad aceptada y verificada por el servidor."
 
 msgid "community-stations"
 msgstr "community-stations"
@@ -19186,23 +19186,6 @@ msgstr ""
 "{LAST_CHANCE_CARRIER_NAME}: menos sueldo y viajes más cortos. Tu dinero, "
 "tus niveles y tus pertenencias se quedan."
 
-msgid "Game saved. Backing up."
-msgstr "Partida guardada. Haciendo copia de seguridad."
-
-msgid "Game saved."
-msgstr "Partida guardada."
-
-msgid "Backed up to the cloud."
-msgstr "Copia de seguridad hecha en la nube."
-
-msgid "Already backed up. The cloud copy matches this computer's save."
-msgstr ""
-"Ya tiene copia de seguridad. La copia en la nube coincide con la partida de "
-"este ordenador."
-
-msgid "The backup will keep retrying in the background."
-msgstr "La copia de seguridad seguirá reintentándose en segundo plano."
-
 msgid "Progress saved."
 msgstr "Progreso guardado."
 
@@ -19405,6 +19388,23 @@ msgid ""
 "Your own cash toward the balance you owe. Cash never goes below zero."
 msgstr ""
 "Tu propio dinero para el saldo que debes. El dinero nunca baja de cero."
+
+msgid "Game saved. Backing up."
+msgstr "Partida guardada. Haciendo copia de seguridad."
+
+msgid "Game saved."
+msgstr "Partida guardada."
+
+msgid "Backed up to the cloud."
+msgstr "Copia de seguridad hecha en la nube."
+
+msgid "Already backed up. The cloud copy matches this computer's save."
+msgstr ""
+"Ya tiene copia de seguridad. La copia en la nube coincide con la partida de "
+"este ordenador."
+
+msgid "The backup will keep retrying in the background."
+msgstr "La copia de seguridad seguirá reintentándose en segundo plano."
 
 msgid ""
 "Until level 9, dispatch matches a spare to each load, and each spare keeps "

@@ -16707,16 +16707,6 @@ msgstr ""
 msgid "ok"
 msgstr "ok"
 
-#. placeholders: {revision}
-msgid "last synced revision {revision}"
-msgstr "ultima revisione sincronizzata {revision}"
-
-msgid "no revision synced yet"
-msgstr "nessuna revisione ancora sincronizzata"
-
-msgid "Latest backup accepted and server-verified."
-msgstr "Ultimo backup accettato e verificato dal server."
-
 msgid "stale"
 msgstr ""
 
@@ -17041,6 +17031,16 @@ msgstr ""
 #. one sentence of a longer line
 msgid "Your local career was not deleted."
 msgstr "La tua carriera locale non è stata eliminata."
+
+#. placeholders: {revision}
+msgid "last synced revision {revision}"
+msgstr "ultima revisione sincronizzata {revision}"
+
+msgid "no revision synced yet"
+msgstr "nessuna revisione ancora sincronizzata"
+
+msgid "Latest backup accepted and server-verified."
+msgstr "Ultimo backup accettato e verificato dal server."
 
 msgid "community-stations"
 msgstr "community-stations"
@@ -19158,23 +19158,6 @@ msgstr ""
 "sicurezza. Ora guidi per {LAST_CHANCE_CARRIER_NAME}: paga più bassa, "
 "carichi più corti. I tuoi soldi, livelli e beni restano."
 
-msgid "Game saved. Backing up."
-msgstr "Partita salvata. Backup in corso."
-
-msgid "Game saved."
-msgstr "Partita salvata."
-
-msgid "Backed up to the cloud."
-msgstr "Backup nel cloud fatto."
-
-msgid "Already backed up. The cloud copy matches this computer's save."
-msgstr ""
-"Backup già fatto. La copia nel cloud corrisponde al salvataggio di questo "
-"computer."
-
-msgid "The backup will keep retrying in the background."
-msgstr "Il backup continuerà a riprovare in background."
-
 msgid "Progress saved."
 msgstr "Progressi salvati."
 
@@ -19374,6 +19357,23 @@ msgid ""
 msgstr ""
 "I tuoi contanti per ridurre il debito. I contanti non scendono mai sotto "
 "zero."
+
+msgid "Game saved. Backing up."
+msgstr "Partita salvata. Backup in corso."
+
+msgid "Game saved."
+msgstr "Partita salvata."
+
+msgid "Backed up to the cloud."
+msgstr "Backup nel cloud fatto."
+
+msgid "Already backed up. The cloud copy matches this computer's save."
+msgstr ""
+"Backup già fatto. La copia nel cloud corrisponde al salvataggio di questo "
+"computer."
+
+msgid "The backup will keep retrying in the background."
+msgstr "Il backup continuerà a riprovare in background."
 
 msgid ""
 "Until level 9, dispatch matches a spare to each load, and each spare keeps "

@@ -16742,16 +16742,6 @@ msgstr ""
 msgid "ok"
 msgstr "ok"
 
-#. placeholders: {revision}
-msgid "last synced revision {revision}"
-msgstr "bản đồng bộ gần nhất số {revision}"
-
-msgid "no revision synced yet"
-msgstr "chưa đồng bộ bản nào"
-
-msgid "Latest backup accepted and server-verified."
-msgstr "Bản sao lưu mới nhất đã được máy chủ tiếp nhận và xác thực."
-
 msgid "stale"
 msgstr ""
 
@@ -17074,6 +17064,16 @@ msgstr ""
 #. one sentence of a longer line
 msgid "Your local career was not deleted."
 msgstr "Bản lưu trên máy của bạn không bị xóa."
+
+#. placeholders: {revision}
+msgid "last synced revision {revision}"
+msgstr "bản đồng bộ gần nhất số {revision}"
+
+msgid "no revision synced yet"
+msgstr "chưa đồng bộ bản nào"
+
+msgid "Latest backup accepted and server-verified."
+msgstr "Bản sao lưu mới nhất đã được máy chủ tiếp nhận và xác thực."
 
 msgid "community-stations"
 msgstr "community-stations"
@@ -19163,22 +19163,6 @@ msgstr ""
 "chuyển sang chạy cho {LAST_CHANCE_CARRIER_NAME}: lương thấp hơn, tuyến hàng "
 "ngắn hơn. Tiền bạc, cấp độ và tài sản của bạn vẫn được giữ nguyên."
 
-msgid "Game saved. Backing up."
-msgstr "Đã lưu game. Đang sao lưu."
-
-msgid "Game saved."
-msgstr "Đã lưu game."
-
-msgid "Backed up to the cloud."
-msgstr "Đã sao lưu lên đám mây."
-
-msgid "Already backed up. The cloud copy matches this computer's save."
-msgstr ""
-"Đã sao lưu trước đó. Bản trên đám mây khớp với bản lưu trên máy tính này."
-
-msgid "The backup will keep retrying in the background."
-msgstr "Quá trình sao lưu sẽ tiếp tục thử lại ở chế độ nền."
-
 msgid "Progress saved."
 msgstr "Đã lưu tiến trình."
 
@@ -19380,6 +19364,22 @@ msgid ""
 "Your own cash toward the balance you owe. Cash never goes below zero."
 msgstr ""
 "Dùng tiền mặt của bạn trả bớt khoản nợ. Tiền mặt không bao giờ bị âm."
+
+msgid "Game saved. Backing up."
+msgstr "Đã lưu game. Đang sao lưu."
+
+msgid "Game saved."
+msgstr "Đã lưu game."
+
+msgid "Backed up to the cloud."
+msgstr "Đã sao lưu lên đám mây."
+
+msgid "Already backed up. The cloud copy matches this computer's save."
+msgstr ""
+"Đã sao lưu trước đó. Bản trên đám mây khớp với bản lưu trên máy tính này."
+
+msgid "The backup will keep retrying in the background."
+msgstr "Quá trình sao lưu sẽ tiếp tục thử lại ở chế độ nền."
 
 msgid ""
 "Until level 9, dispatch matches a spare to each load, and each spare keeps "

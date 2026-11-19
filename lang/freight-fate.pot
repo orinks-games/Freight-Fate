@@ -18913,36 +18913,23 @@ msgstr ""
 msgid "ok"
 msgstr ""
 
-#. placeholders: {revision}
-#: crates/freight-fate/src/cloud_saves.rs
-msgid "last synced revision {revision}"
-msgstr ""
-
-#: crates/freight-fate/src/cloud_saves.rs
-msgid "no revision synced yet"
-msgstr ""
-
-#: crates/freight-fate/src/cloud_saves.rs
-msgid "Latest backup accepted and server-verified."
-msgstr ""
-
 #: crates/freight-fate/src/cloud_saves/manual.rs
 msgid "stale"
 msgstr ""
 
-#: crates/freight-fate/src/cloud_saves/manual.rs crates/freight-fate/src/cloud_saves/sync_state.rs crates/freight-fate/src/cloud_saves.rs
+#: crates/freight-fate/src/cloud_saves/manual.rs crates/freight-fate/src/cloud_saves/sync_state.rs crates/freight-fate/src/cloud_saves/worker.rs crates/freight-fate/src/cloud_saves.rs
 msgid "conflict"
 msgstr ""
 
-#: crates/freight-fate/src/cloud_saves/manual.rs crates/freight-fate/src/cloud_saves/wording.rs crates/freight-fate/src/cloud_saves.rs
+#: crates/freight-fate/src/cloud_saves/manual.rs crates/freight-fate/src/cloud_saves/wording.rs crates/freight-fate/src/cloud_saves/worker.rs
 msgid "auth"
 msgstr ""
 
-#: crates/freight-fate/src/cloud_saves/manual.rs crates/freight-fate/src/cloud_saves/wording.rs crates/freight-fate/src/cloud_saves.rs crates/freight-fate/src/states/city/terminal.rs
+#: crates/freight-fate/src/cloud_saves/manual.rs crates/freight-fate/src/cloud_saves/wording.rs crates/freight-fate/src/cloud_saves/worker.rs crates/freight-fate/src/cloud_saves.rs
 msgid "network"
 msgstr ""
 
-#: crates/freight-fate/src/cloud_saves/manual.rs crates/freight-fate/src/cloud_saves.rs
+#: crates/freight-fate/src/cloud_saves/manual.rs crates/freight-fate/src/cloud_saves/worker.rs
 msgid "unchanged"
 msgstr ""
 
@@ -19240,6 +19227,19 @@ msgstr ""
 #. one sentence of a longer line
 #: crates/freight-fate/src/cloud_saves/wording.rs
 msgid "Your local career was not deleted."
+msgstr ""
+
+#. placeholders: {revision}
+#: crates/freight-fate/src/cloud_saves/worker.rs
+msgid "last synced revision {revision}"
+msgstr ""
+
+#: crates/freight-fate/src/cloud_saves/worker.rs
+msgid "no revision synced yet"
+msgstr ""
+
+#: crates/freight-fate/src/cloud_saves/worker.rs
+msgid "Latest backup accepted and server-verified."
 msgstr ""
 
 #: crates/freight-fate/src/community_stations.rs
@@ -21531,26 +21531,6 @@ msgid ""
 msgstr ""
 
 #: crates/freight-fate/src/states/city/terminal.rs
-msgid "Game saved. Backing up."
-msgstr ""
-
-#: crates/freight-fate/src/states/city/terminal.rs
-msgid "Game saved."
-msgstr ""
-
-#: crates/freight-fate/src/states/city/terminal.rs
-msgid "Backed up to the cloud."
-msgstr ""
-
-#: crates/freight-fate/src/states/city/terminal.rs crates/freight-fate/src/states/cloud_save_states/slot.rs
-msgid "Already backed up. The cloud copy matches this computer's save."
-msgstr ""
-
-#: crates/freight-fate/src/states/city/terminal.rs
-msgid "The backup will keep retrying in the background."
-msgstr ""
-
-#: crates/freight-fate/src/states/city/terminal.rs
 msgid "Progress saved."
 msgstr ""
 
@@ -21757,6 +21737,26 @@ msgstr ""
 #: crates/freight-fate/src/states/city/terminal.rs
 msgid ""
 "Your own cash toward the balance you owe. Cash never goes below zero."
+msgstr ""
+
+#: crates/freight-fate/src/states/city/terminal/backup.rs
+msgid "Game saved. Backing up."
+msgstr ""
+
+#: crates/freight-fate/src/states/city/terminal/backup.rs
+msgid "Game saved."
+msgstr ""
+
+#: crates/freight-fate/src/states/city/terminal/backup.rs
+msgid "Backed up to the cloud."
+msgstr ""
+
+#: crates/freight-fate/src/states/city/terminal/backup.rs crates/freight-fate/src/states/cloud_save_states/slot.rs
+msgid "Already backed up. The cloud copy matches this computer's save."
+msgstr ""
+
+#: crates/freight-fate/src/states/city/terminal/backup.rs
+msgid "The backup will keep retrying in the background."
 msgstr ""
 
 #: crates/freight-fate/src/states/city/truck_status.rs

@@ -15129,16 +15129,6 @@ msgstr "クラウドバックアップはオフです。このコンピュータ
 msgid "ok"
 msgstr "ok"
 
-#. placeholders: {revision}
-msgid "last synced revision {revision}"
-msgstr "最後に同期したリビジョンは{revision}"
-
-msgid "no revision synced yet"
-msgstr "まだ同期したリビジョンはありません"
-
-msgid "Latest backup accepted and server-verified."
-msgstr "最新のバックアップが受け付けられ、サーバーで確認されました。"
-
 msgid "stale"
 msgstr ""
 
@@ -15419,6 +15409,16 @@ msgstr ""
 #. one sentence of a longer line
 msgid "Your local career was not deleted."
 msgstr "このコンピューターのキャリアは削除されていません。"
+
+#. placeholders: {revision}
+msgid "last synced revision {revision}"
+msgstr "最後に同期したリビジョンは{revision}"
+
+msgid "no revision synced yet"
+msgstr "まだ同期したリビジョンはありません"
+
+msgid "Latest backup accepted and server-verified."
+msgstr "最新のバックアップが受け付けられ、サーバーで確認されました。"
 
 msgid "community-stations"
 msgstr "community-stations"
@@ -17333,21 +17333,6 @@ msgstr ""
 "安全評価を理由に、{former}に雇用を打ち切られました。これからは{LAST_CHANCE_CARRIER_NAME}で運転します。報酬は低く、貨物"
 "の距離は短めです。お金、レベル、持ち物はそのままです。"
 
-msgid "Game saved. Backing up."
-msgstr "ゲームを保存しました。バックアップ中です。"
-
-msgid "Game saved."
-msgstr "ゲームを保存しました。"
-
-msgid "Backed up to the cloud."
-msgstr "クラウドにバックアップしました。"
-
-msgid "Already backed up. The cloud copy matches this computer's save."
-msgstr "すでにバックアップ済みです。クラウドのコピーはこのコンピューターのセーブと同じです。"
-
-msgid "The backup will keep retrying in the background."
-msgstr "バックアップはバックグラウンドで再試行を続けます。"
-
 msgid "Progress saved."
 msgstr "進行状況を保存しました。"
 
@@ -17515,6 +17500,21 @@ msgstr "次の積荷に対する前払いで、次の配達の精算から返済
 msgid ""
 "Your own cash toward the balance you owe. Cash never goes below zero."
 msgstr "手持ちのお金で、借りている残高を返します。手持ちがゼロを下回ることはありません。"
+
+msgid "Game saved. Backing up."
+msgstr "ゲームを保存しました。バックアップ中です。"
+
+msgid "Game saved."
+msgstr "ゲームを保存しました。"
+
+msgid "Backed up to the cloud."
+msgstr "クラウドにバックアップしました。"
+
+msgid "Already backed up. The cloud copy matches this computer's save."
+msgstr "すでにバックアップ済みです。クラウドのコピーはこのコンピューターのセーブと同じです。"
+
+msgid "The backup will keep retrying in the background."
+msgstr "バックアップはバックグラウンドで再試行を続けます。"
 
 msgid ""
 "Until level 9, dispatch matches a spare to each load, and each spare keeps "
