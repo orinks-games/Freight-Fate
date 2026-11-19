@@ -21505,7 +21505,7 @@ msgstr "O jogo salvo substituído fica guardado como arquivo de reserva."
 
 #. placeholders: {summary}
 msgid " It is {summary}."
-msgstr ""
+msgstr " Ele é {summary}."
 
 #. placeholders: {save_name}, {backed_up_text}, {summary}
 #. one sentence of a longer line
@@ -21513,12 +21513,16 @@ msgid ""
 "Restore the backup of {save_name}, {backed_up_text}?{summary} This backup "
 "will be installed on this device."
 msgstr ""
+"Restaurar o backup de {save_name}, {backed_up_text}?{summary} Este backup "
+"será instalado neste dispositivo."
 
 #. placeholders: {save_name}, {backed_up_text}, {summary}, {current}
 msgid ""
 "Restore the backup of {save_name}, {backed_up_text}?{summary} This backup "
 "will be installed on this device. {current}"
 msgstr ""
+"Restaurar o backup de {save_name}, {backed_up_text}?{summary} Este backup "
+"será instalado neste dispositivo. {current}"
 
 msgid "No, cancel and change nothing"
 msgstr "Não, cancelar e não mudar nada"
@@ -21533,7 +21537,7 @@ msgstr ""
 "deste computador e fazer backup."
 
 msgid "Goes back without downloading."
-msgstr ""
+msgstr "Volta sem baixar nada."
 
 msgid "Yes, restore this backup"
 msgstr "Sim, restaurar este backup"
