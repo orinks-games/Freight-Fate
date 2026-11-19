@@ -33,6 +33,9 @@
 
 ### Fixed
 
+- **A second energy drink no longer promises another lift while the first stimulant lasts.**
+- **Terminal fueling now takes longer when you are tired, matching roadside fueling.**
+
 - **The cloud restore prompt only warns about replacing a career when this device already has a copy.**
 
 - **Career notices keep version numbers as written and no longer translate custom driver names.**
