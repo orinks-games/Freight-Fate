@@ -22849,52 +22849,6 @@ msgstr ""
 msgid "Repair {f} percent damage for {grouped} dollars"
 msgstr ""
 
-#: crates/freight-fate/src/states/city_garage.rs crates/freight-fate/src/states/driving_rest_states/fuel_pump.rs
-msgid "The tank is already full."
-msgstr ""
-
-#. placeholders: {f}
-#: crates/freight-fate/src/states/city_garage.rs
-msgid "Tank filled, {f} minutes."
-msgstr ""
-
-#: crates/freight-fate/src/states/city_garage.rs
-msgid "terminal fuel"
-msgstr ""
-
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/city_garage.rs
-msgid "Tank filled."
-msgstr ""
-
-#. placeholders: {grouped}, {grouped2}
-#: crates/freight-fate/src/states/city_garage.rs
-msgid "Tank filled. {grouped} dollars. You have {grouped2} dollars left."
-msgstr ""
-
-#. placeholders: {grouped}
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/city_garage.rs
-msgid "{grouped} dollars."
-msgstr ""
-
-#: crates/freight-fate/src/states/city_garage.rs
-msgid "Not enough money for one gallon of fuel."
-msgstr ""
-
-#. placeholders: {f}, {grouped}
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/city_garage.rs
-msgid "Partial fuel: added {f} gallons for {grouped} dollars."
-msgstr ""
-
-#. placeholders: {f}, {grouped}, {grouped2}
-#: crates/freight-fate/src/states/city_garage.rs
-msgid ""
-"Partial fuel: added {f} gallons for {grouped} dollars. You have {grouped2} "
-"dollars left."
-msgstr ""
-
 #: crates/freight-fate/src/states/city_garage.rs
 msgid "Nothing to repair."
 msgstr ""
@@ -23329,6 +23283,52 @@ msgstr ""
 
 #: crates/freight-fate/src/states/city_garage.rs
 msgid "Add specialty trailer programs. Own authority buys trailers."
+msgstr ""
+
+#: crates/freight-fate/src/states/city_garage/fuel.rs crates/freight-fate/src/states/driving_rest_states/fuel_pump.rs
+msgid "The tank is already full."
+msgstr ""
+
+#. placeholders: {f}
+#: crates/freight-fate/src/states/city_garage/fuel.rs
+msgid "Tank filled, {f} minutes."
+msgstr ""
+
+#: crates/freight-fate/src/states/city_garage/fuel.rs
+msgid "terminal fuel"
+msgstr ""
+
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/city_garage/fuel.rs
+msgid "Tank filled."
+msgstr ""
+
+#. placeholders: {grouped}, {grouped2}
+#: crates/freight-fate/src/states/city_garage/fuel.rs
+msgid "Tank filled. {grouped} dollars. You have {grouped2} dollars left."
+msgstr ""
+
+#. placeholders: {grouped}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/city_garage/fuel.rs
+msgid "{grouped} dollars."
+msgstr ""
+
+#: crates/freight-fate/src/states/city_garage/fuel.rs
+msgid "Not enough money for one gallon of fuel."
+msgstr ""
+
+#. placeholders: {f}, {grouped}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/city_garage/fuel.rs
+msgid "Partial fuel: added {f} gallons for {grouped} dollars."
+msgstr ""
+
+#. placeholders: {f}, {grouped}, {grouped2}
+#: crates/freight-fate/src/states/city_garage/fuel.rs
+msgid ""
+"Partial fuel: added {f} gallons for {grouped} dollars. You have {grouped2} "
+"dollars left."
 msgstr ""
 
 #: crates/freight-fate/src/states/city_pickup.rs
