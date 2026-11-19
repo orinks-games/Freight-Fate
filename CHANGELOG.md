@@ -4,6 +4,8 @@
 
 ### Compatibility
 
+- **Freight Fate now requires iOS or iPadOS 15 or later.**
+
 - **2.0 backup names cannot collide with 1.9 career names.** They use a separate ending, such as Road Star (Career 2).
 - **Deleting a career removes only its own version's cloud backup.** Closing out a 2.0 career also leaves older backups safe.
 - **2.0 careers have their own cloud backups.** A 1.9 career with the same name keeps its own backup.
