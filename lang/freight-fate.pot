@@ -15622,7 +15622,7 @@ msgstr ""
 msgid "Chain law{where_}, {rule}.{pullout}"
 msgstr ""
 
-#: crates/ff-core/src/sim/trip_models.rs crates/freight-fate/src/states/main_menu/settings_items.rs crates/freight-fate/src/states/main_menu/speech_voices.rs
+#: crates/ff-core/src/sim/trip_models.rs crates/freight-fate/src/states/main_menu/settings_items/voice_groups.rs crates/freight-fate/src/states/main_menu/settings_items.rs crates/freight-fate/src/states/main_menu/speech_voices.rs
 msgid "default"
 msgstr ""
 
@@ -40531,22 +40531,6 @@ msgstr ""
 msgid "Driving event voice: {event_voice_label}"
 msgstr ""
 
-#: crates/freight-fate/src/states/main_menu/settings_items.rs
-msgid ""
-"Road events through the main voice or a separate system voice that "
-"VoiceOver cannot cut off. The rate, pitch, volume, and voice rows below "
-"appear only when the voice supports them. With VoiceOver running, set those "
-"in VoiceOver."
-msgstr ""
-
-#: crates/freight-fate/src/states/main_menu/settings_items.rs
-msgid ""
-"Road events through the main voice or a separate SAPI or OneCore voice a "
-"screen reader cannot cut off. The rate, pitch, volume, and voice rows below "
-"appear only when the voice supports them. With a screen reader running, set "
-"those in the screen reader."
-msgstr ""
-
 #. placeholders: {output_label}
 #: crates/freight-fate/src/states/main_menu/settings_items.rs
 msgid "Output: {output_label}"
@@ -41367,6 +41351,37 @@ msgid ""
 "The preset above never changes it."
 msgstr ""
 
+#. placeholders: {engine_label}
+#: crates/freight-fate/src/states/main_menu/settings_items/voice_groups.rs
+msgid "Voice engine: {engine_label}"
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu/settings_items/voice_groups.rs
+msgid ""
+"Which text to speech engine on your phone the game speaks with. Changing it "
+"picks one of its voices, in the same language when it has one."
+msgstr ""
+
+#. placeholders: {language_label}
+#: crates/freight-fate/src/states/main_menu/settings_items/voice_groups.rs
+msgid "Voice language: {language_label}"
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu/settings_items/voice_groups.rs
+msgid ""
+"Which of the engine's languages the Speech voice row offers voices in. "
+"Changing it picks the first voice in that language."
+msgstr ""
+
+#. placeholders: {voice_label}
+#: crates/freight-fate/src/states/main_menu/settings_items/voice_groups.rs
+msgid "Speech voice: {voice_label}"
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu/settings_items/voice_groups.rs
+msgid "Which voice of that engine and language the game speaks with."
+msgstr ""
+
 #: crates/freight-fate/src/states/main_menu/shortcuts.rs
 msgid ""
 "Up and Down pick a control, Enter then a key press moves it, Escape goes "
@@ -41519,6 +41534,29 @@ msgstr ""
 #. placeholders: {name}
 #: crates/freight-fate/src/states/main_menu/speech_voices.rs
 msgid "{name}, unavailable"
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu/speech_voices.rs
+msgid ""
+"Road events through the main voice or a separate system voice that "
+"VoiceOver cannot cut off. The rate, pitch, volume, and voice rows below "
+"appear only when the voice supports them. With VoiceOver running, set those "
+"in VoiceOver."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu/speech_voices.rs
+msgid ""
+"Road events through the main voice or a second text to speech voice, so a "
+"menu line never cuts off a road event. The rate, pitch, volume, and voice "
+"rows below appear only when the voice supports them."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu/speech_voices.rs
+msgid ""
+"Road events through the main voice or a separate SAPI or OneCore voice a "
+"screen reader cannot cut off. The rate, pitch, volume, and voice rows below "
+"appear only when the voice supports them. With a screen reader running, set "
+"those in the screen reader."
 msgstr ""
 
 #: crates/freight-fate/src/states/main_menu/touch_gestures.rs

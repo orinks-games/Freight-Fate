@@ -25,6 +25,7 @@
 //! is notarized and stapled before it is archived; without them it is
 //! ad-hoc signed for local use.
 
+pub mod android;
 pub mod appimage;
 mod archive;
 pub mod ios;

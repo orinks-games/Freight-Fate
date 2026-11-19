@@ -36513,28 +36513,6 @@ msgstr ""
 msgid "Driving event voice: {event_voice_label}"
 msgstr "Voz de los avisos de conducción: {event_voice_label}"
 
-msgid ""
-"Road events through the main voice or a separate system voice that "
-"VoiceOver cannot cut off. The rate, pitch, volume, and voice rows below "
-"appear only when the voice supports them. With VoiceOver running, set those "
-"in VoiceOver."
-msgstr ""
-"Avisos de carretera con la voz principal o con una voz del sistema aparte "
-"que VoiceOver no puede cortar. Las filas de velocidad, tono, volumen y voz "
-"de abajo solo aparecen cuando la voz las admite. Con VoiceOver en marcha, "
-"ajústalas en VoiceOver."
-
-msgid ""
-"Road events through the main voice or a separate SAPI or OneCore voice a "
-"screen reader cannot cut off. The rate, pitch, volume, and voice rows below "
-"appear only when the voice supports them. With a screen reader running, set "
-"those in the screen reader."
-msgstr ""
-"Avisos de carretera con la voz principal o con una voz SAPI u OneCore "
-"aparte que un lector de pantalla no puede cortar. Las filas de velocidad, "
-"tono, volumen y voz de abajo solo aparecen cuando la voz las admite. Con un "
-"lector de pantalla en marcha, ajústalas en el lector de pantalla."
-
 #. placeholders: {output_label}
 msgid "Output: {output_label}"
 msgstr "Salida: {output_label}"
@@ -37404,6 +37382,31 @@ msgstr ""
 "distancia elijas lo que elijas. Las tres evitan una multa por seguir "
 "demasiado cerca. El ajuste predefinido de arriba nunca la cambia."
 
+#. placeholders: {engine_label}
+msgid "Voice engine: {engine_label}"
+msgstr ""
+
+msgid ""
+"Which text to speech engine on your phone the game speaks with. Changing it "
+"picks one of its voices, in the same language when it has one."
+msgstr ""
+
+#. placeholders: {language_label}
+msgid "Voice language: {language_label}"
+msgstr ""
+
+msgid ""
+"Which of the engine's languages the Speech voice row offers voices in. "
+"Changing it picks the first voice in that language."
+msgstr ""
+
+#. placeholders: {voice_label}
+msgid "Speech voice: {voice_label}"
+msgstr ""
+
+msgid "Which voice of that engine and language the game speaks with."
+msgstr ""
+
 msgid ""
 "Up and Down pick a control, Enter then a key press moves it, Escape goes "
 "back."
@@ -37543,6 +37546,34 @@ msgstr "Narrador"
 #. placeholders: {name}
 msgid "{name}, unavailable"
 msgstr "{name}, no disponible"
+
+msgid ""
+"Road events through the main voice or a separate system voice that "
+"VoiceOver cannot cut off. The rate, pitch, volume, and voice rows below "
+"appear only when the voice supports them. With VoiceOver running, set those "
+"in VoiceOver."
+msgstr ""
+"Avisos de carretera con la voz principal o con una voz del sistema aparte "
+"que VoiceOver no puede cortar. Las filas de velocidad, tono, volumen y voz "
+"de abajo solo aparecen cuando la voz las admite. Con VoiceOver en marcha, "
+"ajústalas en VoiceOver."
+
+msgid ""
+"Road events through the main voice or a second text to speech voice, so a "
+"menu line never cuts off a road event. The rate, pitch, volume, and voice "
+"rows below appear only when the voice supports them."
+msgstr ""
+
+msgid ""
+"Road events through the main voice or a separate SAPI or OneCore voice a "
+"screen reader cannot cut off. The rate, pitch, volume, and voice rows below "
+"appear only when the voice supports them. With a screen reader running, set "
+"those in the screen reader."
+msgstr ""
+"Avisos de carretera con la voz principal o con una voz SAPI u OneCore "
+"aparte que un lector de pantalla no puede cortar. Las filas de velocidad, "
+"tono, volumen y voz de abajo solo aparecen cuando la voz las admite. Con un "
+"lector de pantalla en marcha, ajústalas en el lector de pantalla."
 
 msgid ""
 "Move up and down to pick a gesture, then confirm it to choose the command "

@@ -105,13 +105,17 @@ pub struct SdlShell {
     geometry_failed: bool,
     #[cfg(target_os = "windows")]
     window_handle: Option<isize>,
-    #[cfg(target_os = "ios")]
+    #[cfg(touch_screen)]
     touch: crate::touch::TouchInput,
-    #[cfg(target_os = "ios")]
+    /// SDL's finger events through the gesture recognizer (iOS recognizes
+    /// natively instead).
+    #[cfg(target_os = "android")]
+    android_touch: super::android_touch::AndroidTouch,
+    #[cfg(touch_screen)]
     keyboard_shown: bool,
-    #[cfg(target_os = "ios")]
+    #[cfg(touch_screen)]
     text_field_open: bool,
-    #[cfg(target_os = "ios")]
+    #[cfg(touch_screen)]
     report_travel: bool,
 }
 
@@ -175,14 +179,22 @@ fn release_at_process_exit<T>(resource: T) {
 impl SdlShell {
     /// `pygame.init()` + `set_caption` + `set_mode(WINDOW_SIZE)`.
     pub fn new(title: &str) -> Result<Self, String> {
-        // SDL on iOS offers the accelerometer as a joystick by default; the
-        // game has no use for a tilt stick among its controllers.
-        #[cfg(target_os = "ios")]
+        // SDL on a phone offers the accelerometer as a joystick by default;
+        // the game has no use for a tilt stick among its controllers.
+        #[cfg(touch_screen)]
         sdl2::hint::set("SDL_ACCELEROMETER_AS_JOYSTICK", "0");
+        // Android: fingers are read as fingers, never as a mouse, and the
+        // back gesture reaches the game (it goes back) instead of closing it.
+        #[cfg(target_os = "android")]
+        {
+            sdl2::hint::set("SDL_TOUCH_MOUSE_EVENTS", "0");
+            sdl2::hint::set("SDL_ANDROID_TRAP_BACK_BUTTON", "1");
+        }
         // SDL locks a window wider than tall to landscape; the screen is one
         // touch surface, so follow however the player holds the device and
-        // keep swipe directions matching their hand.
-        #[cfg(target_os = "ios")]
+        // keep swipe directions matching their hand. (Android reads the
+        // same hint.)
+        #[cfg(touch_screen)]
         sdl2::hint::set(
             "SDL_IOS_ORIENTATIONS",
             "Portrait PortraitUpsideDown LandscapeLeft LandscapeRight",
@@ -237,7 +249,7 @@ impl SdlShell {
         // input running for TextInput events. On iOS starting text input
         // raises the on-screen keyboard, so there it waits for the player's
         // three-finger double tap; a hardware keyboard types regardless.
-        #[cfg(not(target_os = "ios"))]
+        #[cfg(not(touch_screen))]
         video.text_input().start();
         #[cfg(target_os = "ios")]
         install_touch_surface(canvas.window());
@@ -264,13 +276,15 @@ impl SdlShell {
             geometry_failed: false,
             #[cfg(target_os = "windows")]
             window_handle,
-            #[cfg(target_os = "ios")]
+            #[cfg(touch_screen)]
             touch: crate::touch::TouchInput::new(),
-            #[cfg(target_os = "ios")]
+            #[cfg(target_os = "android")]
+            android_touch: super::android_touch::AndroidTouch::new(),
+            #[cfg(touch_screen)]
             keyboard_shown: false,
-            #[cfg(target_os = "ios")]
+            #[cfg(touch_screen)]
             text_field_open: false,
-            #[cfg(target_os = "ios")]
+            #[cfg(touch_screen)]
             report_travel: false,
         })
     }
@@ -362,16 +376,24 @@ impl SdlShell {
                 self.note_window_event(win_event);
             }
         }
-        #[cfg(not(target_os = "ios"))]
+        #[cfg(not(touch_screen))]
         let events = translate_events(raw);
         #[cfg(target_os = "ios")]
         let events = self.with_touch(translate_events(raw));
+        #[cfg(target_os = "android")]
+        let events = {
+            let window = self.canvas.window().size();
+            let now_ms = self.sdl.timer().map(|timer| timer.ticks()).unwrap_or(0);
+            let events = translate_events(raw.clone());
+            self.android_touch
+                .feed(&raw, window, now_ms, &mut self.touch, events)
+        };
         Some(events)
     }
 
     /// Follow the active screen: raise the on-screen keyboard when a text
     /// field opens and lower it when the field goes away.
-    #[cfg(target_os = "ios")]
+    #[cfg(touch_screen)]
     pub fn set_text_field(&mut self, open: bool) {
         if open == self.text_field_open {
             return;
@@ -387,22 +409,25 @@ impl SdlShell {
         }
     }
 
-    /// Text input always runs off iOS; there is no keyboard to raise.
-    #[cfg(not(target_os = "ios"))]
+    /// Text input always runs off a phone; there is no keyboard to raise.
+    #[cfg(not(touch_screen))]
     pub fn set_text_field(&mut self, _open: bool) {}
 
     /// Follow the active screen: Practice gestures hears how far each hold
     /// travelled, and no other screen gets the lengths.
-    #[cfg(target_os = "ios")]
+    #[cfg(touch_screen)]
     pub fn set_report_travel(&mut self, on: bool) {
         if on != self.report_travel {
             self.report_travel = on;
+            #[cfg(target_os = "ios")]
             ios::set_report_travel(on);
+            #[cfg(target_os = "android")]
+            self.android_touch.set_report_travel(on);
         }
     }
 
-    /// Only the iPhone and iPad touch surface measures swipes.
-    #[cfg(not(target_os = "ios"))]
+    /// Only a phone or tablet's touch surface measures swipes.
+    #[cfg(not(touch_screen))]
     pub fn set_report_travel(&mut self, _on: bool) {}
 
     /// Append this frame's gestures to the SDL events. A
@@ -430,13 +455,20 @@ impl SdlShell {
     }
 }
 
-#[cfg(not(target_os = "ios"))]
+#[cfg(target_os = "android")]
+pub(crate) fn set_touch_haptics(enabled: bool) {
+    super::android_touch::set_haptics(enabled);
+}
+
+#[cfg(not(touch_screen))]
 pub(crate) fn set_touch_haptics(_enabled: bool) {}
 
-/// Off iOS there is no touch surface; the last tuning is kept so a test can
-/// see what the phone would have been handed.
+/// Off iOS the last tuning is kept so a test can see what the phone would
+/// have been handed; on Android it also goes to the gesture recognizer.
 #[cfg(not(target_os = "ios"))]
 pub(crate) fn set_touch_tuning(settings: &ff_core::settings::Settings) {
+    #[cfg(target_os = "android")]
+    super::android_touch::set_tuning(settings);
     let tuning = [
         settings.touch_flick_points,
         settings.touch_flick_ms,

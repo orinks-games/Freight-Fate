@@ -32635,24 +32635,6 @@ msgstr "朗读菜单和读数的语音。“自动”在屏幕阅读器运行时
 msgid "Driving event voice: {event_voice_label}"
 msgstr "驾驶事件语音：{event_voice_label}"
 
-msgid ""
-"Road events through the main voice or a separate system voice that "
-"VoiceOver cannot cut off. The rate, pitch, volume, and voice rows below "
-"appear only when the voice supports them. With VoiceOver running, set those "
-"in VoiceOver."
-msgstr ""
-"道路事件用主语音，或用VoiceOver无法打断的单独系统语音播报。下面的语速、音调、音量和语音几行，只在该语音支持时出现。VoiceOver运行时，请"
-"在VoiceOver里设置。"
-
-msgid ""
-"Road events through the main voice or a separate SAPI or OneCore voice a "
-"screen reader cannot cut off. The rate, pitch, volume, and voice rows below "
-"appear only when the voice supports them. With a screen reader running, set "
-"those in the screen reader."
-msgstr ""
-"道路事件用主语音，或用屏幕阅读器无法打断的单独SAPI或OneCore语音播报。下面的语速、音调、音量和语音几行，只在该语音支持时出现。屏幕阅读器运行时"
-"，请在屏幕阅读器里设置。"
-
 #. placeholders: {output_label}
 msgid "Output: {output_label}"
 msgstr "输出：{output_label}"
@@ -33364,6 +33346,31 @@ msgid ""
 "The preset above never changes it."
 msgstr "巡航与前车保持的空间。近为两秒半，正常为三秒，远为三秒半。无论选哪个，天气都会拉大车距。三种都不会被罚跟车过近。上方的预设从不改变它。"
 
+#. placeholders: {engine_label}
+msgid "Voice engine: {engine_label}"
+msgstr ""
+
+msgid ""
+"Which text to speech engine on your phone the game speaks with. Changing it "
+"picks one of its voices, in the same language when it has one."
+msgstr ""
+
+#. placeholders: {language_label}
+msgid "Voice language: {language_label}"
+msgstr ""
+
+msgid ""
+"Which of the engine's languages the Speech voice row offers voices in. "
+"Changing it picks the first voice in that language."
+msgstr ""
+
+#. placeholders: {voice_label}
+msgid "Speech voice: {voice_label}"
+msgstr ""
+
+msgid "Which voice of that engine and language the game speaks with."
+msgstr ""
+
 msgid ""
 "Up and Down pick a control, Enter then a key press moves it, Escape goes "
 "back."
@@ -33489,6 +33496,30 @@ msgstr "讲述人"
 #. placeholders: {name}
 msgid "{name}, unavailable"
 msgstr "{name}，不可用"
+
+msgid ""
+"Road events through the main voice or a separate system voice that "
+"VoiceOver cannot cut off. The rate, pitch, volume, and voice rows below "
+"appear only when the voice supports them. With VoiceOver running, set those "
+"in VoiceOver."
+msgstr ""
+"道路事件用主语音，或用VoiceOver无法打断的单独系统语音播报。下面的语速、音调、音量和语音几行，只在该语音支持时出现。VoiceOver运行时，请"
+"在VoiceOver里设置。"
+
+msgid ""
+"Road events through the main voice or a second text to speech voice, so a "
+"menu line never cuts off a road event. The rate, pitch, volume, and voice "
+"rows below appear only when the voice supports them."
+msgstr ""
+
+msgid ""
+"Road events through the main voice or a separate SAPI or OneCore voice a "
+"screen reader cannot cut off. The rate, pitch, volume, and voice rows below "
+"appear only when the voice supports them. With a screen reader running, set "
+"those in the screen reader."
+msgstr ""
+"道路事件用主语音，或用屏幕阅读器无法打断的单独SAPI或OneCore语音播报。下面的语速、音调、音量和语音几行，只在该语音支持时出现。屏幕阅读器运行时"
+"，请在屏幕阅读器里设置。"
 
 msgid ""
 "Move up and down to pick a gesture, then confirm it to choose the command "

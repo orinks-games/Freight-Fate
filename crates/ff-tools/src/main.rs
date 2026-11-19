@@ -54,6 +54,11 @@ const COMMANDS: &[(&str, &str, Command)] = &[
         release::appimage::main,
     ),
     (
+        "build-android",
+        "build the Android app (a signed .apk; --install and --launch over USB)",
+        release::android::main,
+    ),
+    (
         "build-ios",
         "build the iPhone and iPad app (Simulator, device or TestFlight .ipa)",
         release::ios::main,

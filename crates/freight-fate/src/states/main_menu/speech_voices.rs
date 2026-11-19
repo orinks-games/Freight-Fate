@@ -83,6 +83,26 @@ pub(super) fn event_voice_step(
     stops[(i + d).rem_euclid(stops.len() as i64) as usize].map(str::to_string)
 }
 
+/// The Driving event voice row's help, which names each platform's voices.
+pub(super) const EVENT_VOICE_HELP: &str = if cfg!(target_os = "ios") {
+    "Road events through the main voice or a separate system \
+     voice that VoiceOver cannot cut off. The rate, pitch, \
+     volume, and voice rows below appear only when the voice \
+     supports them. With VoiceOver running, set those in \
+     VoiceOver."
+} else if cfg!(target_os = "android") {
+    "Road events through the main voice or a second text to \
+     speech voice, so a menu line never cuts off a road event. \
+     The rate, pitch, volume, and voice rows below appear only \
+     when the voice supports them."
+} else {
+    "Road events through the main voice or a separate SAPI or \
+     OneCore voice a screen reader cannot cut off. The rate, \
+     pitch, volume, and voice rows below appear only when the \
+     voice supports them. With a screen reader running, set \
+     those in the screen reader."
+};
+
 /// The value of the Speech voice row: the saved installed voice when the
 /// bound voice lists it, otherwise "default".
 pub(super) fn speech_voice_label(saved: &str, voices: &[String]) -> String {
