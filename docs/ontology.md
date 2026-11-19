@@ -230,7 +230,7 @@ from the words, and synonyms cost them a re-read.
 | --- | --- | --- | --- |
 | The haul contract | job | gig, run, assignment | `Job` |
 | A driving control moved to another key | keyboard shortcut (the screen), the key it is on ("Engine on or off: E") | binding, mapping, keybind, hotkey | `bindings::Action`, `KeyBindings` |
-| The same on the pad | controller button; right bumper plus «button» for the second layer (left bumper plus «button» with Second layer bumper on left, which swaps every spoken bumper name) | modified button, layer two, chord | `bindings::PadChord`, `controller::bumpers` |
+| The same on the pad | controller button; right bumper plus «button» for the second layer (left bumper plus «button» with Second layer bumper on left, which swaps the bumper in every control name and instruction) | modified button, layer two, chord | `bindings::PadChord`, `controller::bumpers` |
 | The list of every one-shot driving command by name, F2 or a three-finger tap at the wheel | driving commands (the screen title); "the three-finger tap list" in a touch prompt | command menu, action list, quick menu | `DrivingCommandsState` |
 | One of the fixed groups in the driving commands, in this order after "Status menu" | Speed and cruise; Road and stops; Where am I; Truck; Gears and engine brake; Radio and CB; Hours and clock | category, section, submenu, folder | `driving_menu_states::commands::Group` |
 | The clutch a touch shift presses and lets out by itself in a manual truck | (never spoken: the player hears the gear, then its clunk as it takes) | auto clutch, clutch assist, smart clutch | `ff_core::sim::touch_clutch::TouchClutch` |

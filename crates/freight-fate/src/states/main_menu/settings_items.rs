@@ -786,10 +786,16 @@ impl SettingsCategoryState {
                         ctx.push_state(ShortcutsState::new(ShortcutDevice::Controller))
                     },
                 )
-                .help(
-                    "Move any driving control to another pad button, plain or with \
-                     the right bumper held.",
-                ),
+                .help(Label::dynamic(|_s, ctx| {
+                    if ctx.settings.left_bumper_layer {
+                        "Move any driving control to another pad button, plain or with \
+                         the left bumper held."
+                    } else {
+                        "Move any driving control to another pad button, plain or with \
+                         the right bumper held."
+                    }
+                    .to_string()
+                })),
                 // The speed keeper moved to Driving assistance: it holds a speed
                 // for you, which is what every other row on that screen does.
                 // Controls is the keyboard, the controller, and the units the

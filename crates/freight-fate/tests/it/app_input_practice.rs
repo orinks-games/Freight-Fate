@@ -134,6 +134,23 @@ fn with_the_left_bumper_layer_the_bumper_held_is_the_one_named() {
 }
 
 #[test]
+fn with_the_left_bumper_layer_a_name_keeps_its_own_words() {
+    // Only the game's control names and instructions swap; a finished line
+    // is spoken as it was built, so a driver called "Right bumper" keeps
+    // the name.
+    let mut harness = a_drive("Right Bumper");
+    harness.app.ctx.settings.left_bumper_layer = true;
+    assert_eq!(
+        harness.app.ctx.tr("Welcome back, Right bumper."),
+        "Welcome back, Right bumper."
+    );
+    assert_eq!(
+        harness.app.ctx.bumper_words("Right bumper plus X"),
+        "Left bumper plus X"
+    );
+}
+
+#[test]
 fn pad_buttons_are_named_on_both_layers() {
     let mut harness = a_drive("Practice Pad");
     pad(&mut harness);
