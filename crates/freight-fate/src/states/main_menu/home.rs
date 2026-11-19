@@ -290,7 +290,12 @@ impl Menu for MainMenuState {
         // An iPhone app is never quit from inside; the system closes it.
         if !cfg!(target_os = "ios") {
             items.push(
-                MenuItem::new("Quit", |_s: &mut Self, ctx| ctx.quit()).help("Exit the game."),
+                MenuItem::new("Quit", |_s: &mut Self, ctx| {
+                    #[cfg(windows)]
+                    log::info!("Menu quit requested");
+                    ctx.quit()
+                })
+                .help("Exit the game."),
             );
         }
         items

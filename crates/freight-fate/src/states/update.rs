@@ -907,6 +907,8 @@ impl State for UpdateDownloadState {
             return;
         }
         ctx.say("Installing the update. The game closes and restarts by itself.");
+        #[cfg(windows)]
+        log::info!("Update restart requested");
         ctx.quit();
     }
 
