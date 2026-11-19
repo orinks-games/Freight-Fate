@@ -11,6 +11,8 @@ impl Menu for MainMenuState {
     }
 
     fn enter(&mut self, ctx: &mut GameContext) {
+        ctx.cloud_saves_service()
+            .check_resume(ctx.online_enabled(ctx.settings.cloud_resume));
         let (sequence, ambience) = reuse_loadable_saves_scan(|| {
             // The base `Menu::enter`: rebuild the rows, play the open sound,
             // announce.
@@ -63,6 +65,16 @@ impl Menu for MainMenuState {
     }
 
     fn update(&mut self, ctx: &mut GameContext, dt: f64) {
+        let lines = ctx.cloud_saves_service().take_resume_lines();
+        if !lines.is_empty() {
+            if let Some(profile) = &ctx.profile {
+                ctx.profile = Profile::load(&profile.path()).ok();
+            }
+            self.refresh(ctx, true);
+            for line in lines {
+                ctx.say(&line);
+            }
+        }
         ctx.update_music_rotation(dt);
         // The last run never quit: ask once, before the update prompt can
         // land on top of the question.
@@ -175,6 +187,9 @@ impl Menu for MainMenuState {
                  Fate. They are listed under Choose career. ",
             );
         }
+        if loadable_saves().is_empty() && !newer_saves().is_empty() {
+            warning.push_str("Some saved careers need a newer version of Freight Fate. They are listed under Choose career. ");
+        }
         let text = format!(
             "Freight Fate {}. {warning}",
             updater::spoken_version(version())
@@ -196,7 +211,7 @@ impl Menu for MainMenuState {
                 .help(format!("Load the newest save for {}.", latest_profile.name)),
             );
         }
-        if !saves.is_empty() || !legacy_saves().is_empty() {
+        if !saves.is_empty() || !legacy_saves().is_empty() || !newer_saves().is_empty() {
             // Careers from earlier versions cannot continue, but they still
             // belong on the list: even with nothing loadable, Choose career is
             // where a player finds them and hears what happened.
@@ -207,7 +222,7 @@ impl Menu for MainMenuState {
                 .help("Any saved career, not only the newest."),
             );
         }
-        if !saves.is_empty() || !legacy_saves().is_empty() {
+        if !saves.is_empty() || !legacy_saves().is_empty() || !newer_saves().is_empty() {
             items.push(
                 MenuItem::new("Manage careers", |_s: &mut Self, ctx| {
                     ctx.push_state(ManageCareersState::new())

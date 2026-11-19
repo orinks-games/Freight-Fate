@@ -669,6 +669,7 @@ settings_fields! {
     /// two only make sense together -- and the Online menu turns it off
     /// again on its own.
     cloud_saves: bool = false => bool_strict,
+    cloud_resume: bool = false => bool_strict,
     /// accept game-controller input alongside the keyboard
     controller_enabled: bool = true => bool_strict,
     /// Immediately activate a menu entry when its initial is unique.
