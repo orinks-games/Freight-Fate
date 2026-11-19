@@ -21575,7 +21575,7 @@ msgstr "Bản lưu bị thay thế sẽ được giữ lại làm tệp dự ph�
 
 #. placeholders: {summary}
 msgid " It is {summary}."
-msgstr ""
+msgstr " Bản này là {summary}."
 
 #. placeholders: {save_name}, {backed_up_text}, {summary}
 #. one sentence of a longer line
@@ -21583,12 +21583,16 @@ msgid ""
 "Restore the backup of {save_name}, {backed_up_text}?{summary} This backup "
 "will be installed on this device."
 msgstr ""
+"Khôi phục bản sao lưu của {save_name}, {backed_up_text}?{summary} Bản sao "
+"lưu này sẽ được cài lên thiết bị này."
 
 #. placeholders: {save_name}, {backed_up_text}, {summary}, {current}
 msgid ""
 "Restore the backup of {save_name}, {backed_up_text}?{summary} This backup "
 "will be installed on this device. {current}"
 msgstr ""
+"Khôi phục bản sao lưu của {save_name}, {backed_up_text}?{summary} Bản sao "
+"lưu này sẽ được cài lên thiết bị này. {current}"
 
 msgid "No, cancel and change nothing"
 msgstr "Không, hủy và giữ nguyên mọi thứ"
@@ -21602,7 +21606,7 @@ msgstr ""
 "bản trên máy này lên đám mây, hãy chọn Giữ bản lưu trên máy này và sao lưu."
 
 msgid "Goes back without downloading."
-msgstr ""
+msgstr "Quay lại mà không tải về."
 
 msgid "Yes, restore this backup"
 msgstr "Có, khôi phục bản sao lưu này"
