@@ -265,11 +265,17 @@ mod tests {
         end_session();
         resume_session(dir.path());
         resume_session(dir.path());
+        // Windows refuses reads of the range a running session holds locked.
+        #[cfg(not(windows))]
         assert_eq!(
             fs::read_to_string(dir.path().join(SESSION_MARKER)).unwrap(),
             "running"
         );
         assert!(!take_crash_offer(), "returning to the app is not a launch");
         end_session();
+        assert_eq!(
+            fs::read_to_string(dir.path().join(SESSION_MARKER)).unwrap(),
+            ""
+        );
     }
 }
