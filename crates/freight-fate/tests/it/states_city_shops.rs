@@ -317,6 +317,69 @@ fn test_company_driver_gets_carrier_chains_but_carrier_rubber() {
 // -- tests/test_smoke.py: the garage ---------------------------------------------------
 
 #[test]
+fn terminal_fueling_refusals_do_not_advance_tired_work_time() {
+    for full in [true, false] {
+        let mut app = TestApp::new();
+        career(&mut app, "No Fuel Work", "Chicago");
+        {
+            let p = profile_mut(&mut app);
+            p.business_status = LEASED_OWNER_OPERATOR.to_string();
+            p.fatigue = 85.0;
+            p.set_money(0.0);
+            let gallons = if full {
+                p.truck_specs().fuel_tank_gal
+            } else {
+                0.0
+            };
+            p.set_truck_fuel_gal(gallons);
+        }
+        let start = profile(&app).game_hours;
+        let duty = profile(&app).hos.duty_min;
+        app.push_state(GarageState::new());
+        with_state_mut::<GarageState, _>(&mut app, |g, ctx| g.refuel(ctx));
+        approx(profile(&app).game_hours, start);
+        approx(profile(&app).hos.duty_min, duty);
+        approx(profile(&app).fatigue, 85.0);
+    }
+}
+
+#[test]
+fn terminal_fueling_uses_fatigue_minutes_for_carrier_full_and_partial_fuel() {
+    for (business, money) in [
+        (COMPANY_DRIVER, 5_000.0),
+        (LEASED_OWNER_OPERATOR, 5_000.0),
+        (LEASED_OWNER_OPERATOR, 100.0),
+    ] {
+        for (fatigue, scale, minutes) in [
+            (0.0, 20.0, 20.0),
+            (40.0, 20.0, 22.0),
+            (64.0, 20.0, 25.0),
+            (85.0, 20.0, 30.0),
+            (40.0, 10.0, 21.0),
+        ] {
+            let mut app = TestApp::new();
+            career(&mut app, "Tired Fuel", "Chicago");
+            app.ctx.settings.time_scale = scale;
+            {
+                let p = profile_mut(&mut app);
+                p.business_status = business.to_string();
+                p.fatigue = fatigue;
+                p.set_money(money);
+                p.set_truck_fuel_gal(0.0);
+            }
+            let start = profile(&app).game_hours;
+            let duty = profile(&app).hos.duty_min;
+            app.push_state(GarageState::new());
+            with_state_mut::<GarageState, _>(&mut app, |g, ctx| g.refuel(ctx));
+            approx((profile(&app).game_hours - start) * 60.0, minutes);
+            approx(profile(&app).hos.duty_min - duty, minutes);
+            assert!(profile(&app).fatigue > fatigue);
+            assert!(profile(&app).truck_fuel_gal() > 0.0);
+        }
+    }
+}
+
+#[test]
 fn test_garage_offers_partial_fuel_and_repairs_when_cash_is_short() {
     let mut app = TestApp::new();
     career(&mut app, "Partial Garage", "Chicago");

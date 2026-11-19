@@ -14,6 +14,7 @@ use crate::meaningful_play::MeaningfulPlayReason;
 use crate::states::base::{Label, Menu, MenuCore, MenuItem};
 use crate::states::city::{profile, profile_mut};
 use crate::states::city_business::{TrailerProgramState, TruckShopState, UpgradeShopState};
+use crate::states::driving_core::town_hand_work_min;
 
 pub const TERMINAL_FUEL_MIN: f64 = 20.0;
 pub const TERMINAL_REPAIR_MIN: f64 = 60.0;
@@ -192,22 +193,20 @@ impl GarageState {
             ctx.say("The tank is already full.");
             return;
         }
+        let minutes = town_hand_work_min(ctx, TERMINAL_FUEL_MIN);
         if !player_pays_operating_costs(&profile(ctx).business_status) {
             let (start, end) = {
                 let p = profile_mut(ctx);
                 p.set_truck_fuel_gal(tank);
                 let start = p.game_hours;
-                p.game_hours += TERMINAL_FUEL_MIN / 60.0;
-                p.hos.on_duty(TERMINAL_FUEL_MIN);
+                p.game_hours += minutes / 60.0;
+                p.hos.on_duty(minutes);
                 (start, p.game_hours)
             };
             crate::states::city::city_on_duty_fatigue(ctx, start, end);
             ctx.save_profile();
             ctx.audio.play("vehicle/fuel_pump");
-            ctx.say(&format!(
-                "Tank filled, {} minutes.",
-                fmt_f(TERMINAL_FUEL_MIN, 0)
-            ));
+            ctx.say(&format!("Tank filled, {} minutes.", fmt_f(minutes, 0)));
             ctx.award_achievement("route_refuel");
             self.refresh(ctx, true);
             return;
@@ -222,11 +221,11 @@ impl GarageState {
             p.spend(cost);
             p.set_truck_fuel_gal(tank);
             let start = p.game_hours;
-            p.game_hours += TERMINAL_FUEL_MIN / 60.0;
+            p.game_hours += minutes / 60.0;
             (start, p.game_hours, p.money())
         };
         record_terminal_duty(ctx, start, end, "terminal fuel");
-        profile_mut(ctx).hos.on_duty(TERMINAL_FUEL_MIN);
+        profile_mut(ctx).hos.on_duty(minutes);
         ctx.save_profile();
         ctx.audio.play("vehicle/fuel_pump");
         ctx.say(&format!(
@@ -252,17 +251,18 @@ impl GarageState {
             return;
         }
         let cost = ctx.economy.fuel_cost(&region, gallons);
+        let minutes = town_hand_work_min(ctx, TERMINAL_FUEL_MIN);
         let (start, end, money) = {
             let p = profile_mut(ctx);
             p.spend(cost);
             let fuel = tank.min(p.truck_fuel_gal() + gallons);
             p.set_truck_fuel_gal(fuel);
             let start = p.game_hours;
-            p.game_hours += TERMINAL_FUEL_MIN / 60.0;
+            p.game_hours += minutes / 60.0;
             (start, p.game_hours, p.money())
         };
         record_terminal_duty(ctx, start, end, "terminal fuel");
-        profile_mut(ctx).hos.on_duty(TERMINAL_FUEL_MIN);
+        profile_mut(ctx).hos.on_duty(minutes);
         ctx.save_profile();
         ctx.audio.play("vehicle/fuel_pump");
         ctx.say(&format!(
