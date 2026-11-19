@@ -16239,6 +16239,12 @@ msgstr "henüz eşitlenen sürüm yok"
 msgid "Latest backup accepted and server-verified."
 msgstr "Son yedek kabul edildi ve sunucu tarafından doğrulandı."
 
+msgid "stale"
+msgstr ""
+
+msgid "conflict"
+msgstr ""
+
 msgid "auth"
 msgstr ""
 
@@ -16246,9 +16252,6 @@ msgid "network"
 msgstr ""
 
 msgid "unchanged"
-msgstr ""
-
-msgid "conflict"
 msgstr ""
 
 msgid "cloud-resume"
@@ -16273,6 +16276,11 @@ msgid "slots"
 msgstr ""
 
 msgid "hash"
+msgstr ""
+
+msgid ""
+"The cloud has a newer copy of this career. Nothing was changed. Choose "
+"Restore the latest backup to use it."
 msgstr ""
 
 msgid ""
@@ -21158,10 +21166,16 @@ msgstr ""
 msgid "The cloud copy now matches this computer's save."
 msgstr "Bulut kopyası artık bu bilgisayardaki kayıtla aynı."
 
-msgid ""
-"The cloud has a newer copy of this career. Nothing was changed. Choose "
-"Restore the latest backup to use it."
+msgid "The cloud copy changed on another computer. Nothing was changed."
 msgstr ""
+"Bulut kopyası başka bir bilgisayarda değişti. Hiçbir şey değiştirilmedi."
+
+msgid ""
+"The cloud copy changed on another computer, so nothing was changed. Choose "
+"which copy to keep."
+msgstr ""
+"Bulut kopyası başka bir bilgisayarda değişti, bu yüzden hiçbir şey "
+"değiştirilmedi. Hangi kopyanın kalacağını seçin."
 
 msgid "Reconnect needed. Nothing was changed."
 msgstr "Yeniden bağlanmanız gerekiyor. Hiçbir şey değiştirilmedi."
@@ -42133,17 +42147,6 @@ msgstr ""
 #. The last sentence of the sleep preview, when nothing comes before it.
 msgid "Select again to sleep."
 msgstr ""
-
-#~ msgid "The cloud copy changed on another computer. Nothing was changed."
-#~ msgstr ""
-#~ "Bulut kopyası başka bir bilgisayarda değişti. Hiçbir şey değiştirilmedi."
-
-#~ msgid ""
-#~ "The cloud copy changed on another computer, so nothing was changed. Choose "
-#~ "which copy to keep."
-#~ msgstr ""
-#~ "Bulut kopyası başka bir bilgisayarda değişti, bu yüzden hiçbir şey "
-#~ "değiştirilmedi. Hangi kopyanın kalacağını seçin."
 
 #~ msgid ""
 #~ "freightfate -- Freight Fate\n"

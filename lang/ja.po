@@ -15139,6 +15139,12 @@ msgstr "まだ同期したリビジョンはありません"
 msgid "Latest backup accepted and server-verified."
 msgstr "最新のバックアップが受け付けられ、サーバーで確認されました。"
 
+msgid "stale"
+msgstr ""
+
+msgid "conflict"
+msgstr "conflict"
+
 msgid "auth"
 msgstr "auth"
 
@@ -15147,9 +15153,6 @@ msgstr "network"
 
 msgid "unchanged"
 msgstr "変更なし"
-
-msgid "conflict"
-msgstr "conflict"
 
 msgid "cloud-resume"
 msgstr "cloud-resume"
@@ -15174,6 +15177,11 @@ msgstr "slots"
 
 msgid "hash"
 msgstr "hash"
+
+msgid ""
+"The cloud has a newer copy of this career. Nothing was changed. Choose "
+"Restore the latest backup to use it."
+msgstr ""
 
 msgid ""
 "orinks.net no longer accepts this computer's sign-in. Usually this computer "
@@ -19785,10 +19793,13 @@ msgstr "バックアップしました。クラウドのコピーがこのコン
 msgid "The cloud copy now matches this computer's save."
 msgstr "クラウドのコピーがこのコンピューターのセーブと同じになりました。"
 
+msgid "The cloud copy changed on another computer. Nothing was changed."
+msgstr "別のコンピューターでクラウドのコピーが変わりました。何も変更していません。"
+
 msgid ""
-"The cloud has a newer copy of this career. Nothing was changed. Choose "
-"Restore the latest backup to use it."
-msgstr ""
+"The cloud copy changed on another computer, so nothing was changed. Choose "
+"which copy to keep."
+msgstr "別のコンピューターでクラウドのコピーが変わったので、何も変更していません。どちらのコピーを残すか選んでください。"
 
 msgid "Reconnect needed. Nothing was changed."
 msgstr "再接続が必要です。何も変更していません。"
@@ -39333,14 +39344,6 @@ msgstr "疲労{f}から{f2}へ。"
 #. The last sentence of the sleep preview, when nothing comes before it.
 msgid "Select again to sleep."
 msgstr "もう一度選ぶと眠ります。"
-
-#~ msgid "The cloud copy changed on another computer. Nothing was changed."
-#~ msgstr "別のコンピューターでクラウドのコピーが変わりました。何も変更していません。"
-
-#~ msgid ""
-#~ "The cloud copy changed on another computer, so nothing was changed. Choose "
-#~ "which copy to keep."
-#~ msgstr "別のコンピューターでクラウドのコピーが変わったので、何も変更していません。どちらのコピーを残すか選んでください。"
 
 #~ msgid ""
 #~ "freightfate -- Freight Fate\n"

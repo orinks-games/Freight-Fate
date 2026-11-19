@@ -11,7 +11,7 @@ use serde_json::{Map, Value};
 use crate::app::{GameContext, SharedState};
 use crate::cloud_saves::{
     self, eviction_status, rejection_status, save_slot_name, DownloadError, RestoreError,
-    RestoreHooks, AUTH_HELP,
+    RestoreHooks, AUTH_HELP, STALE_BACKUP_STATUS,
 };
 use crate::impl_state_for_menu;
 use crate::states::base::{Label, Menu, MenuCore, MenuItem};
@@ -521,11 +521,17 @@ impl CloudSlotState {
                     "Already backed up. The cloud copy matches this computer's save.".to_string();
                 ctx.say("Already backed up. The cloud copy matches this computer's save.");
             }
+            "stale" => {
+                self.status = STALE_BACKUP_STATUS.to_string();
+                ctx.say(STALE_BACKUP_STATUS);
+            }
             "conflict" => {
-                let message = "The cloud has a newer copy of this career. Nothing was changed. \
-                               Choose Restore the latest backup to use it.";
-                self.status = message.to_string();
-                ctx.say(message);
+                self.status =
+                    "The cloud copy changed on another computer. Nothing was changed.".to_string();
+                ctx.say(
+                    "The cloud copy changed on another computer, so nothing was \
+                     changed. Choose which copy to keep.",
+                );
             }
             "auth" => {
                 self.status = "Reconnect needed. Nothing was changed.".to_string();

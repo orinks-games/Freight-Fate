@@ -16752,6 +16752,12 @@ msgstr "chưa đồng bộ bản nào"
 msgid "Latest backup accepted and server-verified."
 msgstr "Bản sao lưu mới nhất đã được máy chủ tiếp nhận và xác thực."
 
+msgid "stale"
+msgstr ""
+
+msgid "conflict"
+msgstr "conflict"
+
 msgid "auth"
 msgstr "auth"
 
@@ -16760,9 +16766,6 @@ msgstr "network"
 
 msgid "unchanged"
 msgstr "không thay đổi"
-
-msgid "conflict"
-msgstr "conflict"
 
 msgid "cloud-resume"
 msgstr "cloud-resume"
@@ -16787,6 +16790,11 @@ msgstr "slots"
 
 msgid "hash"
 msgstr "hash"
+
+msgid ""
+"The cloud has a newer copy of this career. Nothing was changed. Choose "
+"Restore the latest backup to use it."
+msgstr ""
 
 msgid ""
 "orinks.net no longer accepts this computer's sign-in. Usually this computer "
@@ -21846,10 +21854,15 @@ msgstr ""
 msgid "The cloud copy now matches this computer's save."
 msgstr "Bản trên đám mây hiện đã khớp với bản lưu trên máy này."
 
+msgid "The cloud copy changed on another computer. Nothing was changed."
+msgstr "Bản trên đám mây đã thay đổi từ máy khác. Chưa có gì bị thay đổi."
+
 msgid ""
-"The cloud has a newer copy of this career. Nothing was changed. Choose "
-"Restore the latest backup to use it."
+"The cloud copy changed on another computer, so nothing was changed. Choose "
+"which copy to keep."
 msgstr ""
+"Bản trên đám mây đã thay đổi từ máy khác nên chưa có gì bị thay đổi. Hãy "
+"chọn giữ bản nào."
 
 msgid "Reconnect needed. Nothing was changed."
 msgstr "Cần kết nối lại. Chưa có gì bị thay đổi."
@@ -43362,16 +43375,6 @@ msgstr "Mệt mỏi từ {f} còn {f2}."
 #. The last sentence of the sleep preview, when nothing comes before it.
 msgid "Select again to sleep."
 msgstr "Chọn lần nữa để ngủ."
-
-#~ msgid "The cloud copy changed on another computer. Nothing was changed."
-#~ msgstr "Bản trên đám mây đã thay đổi từ máy khác. Chưa có gì bị thay đổi."
-
-#~ msgid ""
-#~ "The cloud copy changed on another computer, so nothing was changed. Choose "
-#~ "which copy to keep."
-#~ msgstr ""
-#~ "Bản trên đám mây đã thay đổi từ máy khác nên chưa có gì bị thay đổi. Hãy "
-#~ "chọn giữ bản nào."
 
 #~ msgid ""
 #~ "Enter opens an item or changes a setting to its next value. Right also "

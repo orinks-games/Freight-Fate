@@ -501,7 +501,8 @@ impl CloudSaves {
     ///
     /// Outcomes: `"accepted"`, `"unchanged"` (the cloud already holds
     /// this exact content), `"conflict"` (recorded for the Cloud backup
-    /// menu), `"auth"`, `"network"` (still retrying in the background),
+    /// menu), `"stale"` (unchanged local copy, newer cloud revision),
+    /// `"auth"`, `"network"` (still retrying in the background),
     /// or `"rejected:<reason>"`.
     pub fn outcome_for(&self, name: &str, token: i64) -> Option<String> {
         let st = self.inner.state.lock().unwrap();
@@ -951,6 +952,7 @@ revision {} is waiting in the Cloud backup menu",
             ..
         } = pending;
         let mut slot = self.sync_state.slot(name);
+        let (_, content_hash) = cloud_content(&snapshot);
         match slot_conflict(&slot) {
             Some(conflict) if json_int(conflict.get("latestRevision")).is_none() => {
                 // Recorded by an older build against an empty cloud slot (wiped
@@ -960,7 +962,7 @@ revision {} is waiting in the Cloud backup menu",
                 self.sync_state.forget(name);
                 slot = Map::new();
             }
-            Some(_) => {
+            Some(conflict) => {
                 // A known conflict names a real cloud revision -- but that copy
                 // may have vanished since it was recorded (deployment reset, or
                 // the slot deleted from another machine), and then there is
@@ -970,8 +972,20 @@ revision {} is waiting in the Cloud backup menu",
                     // menu. Drop the snapshot -- the local file is still the
                     // source of truth for "keep mine".
                     self.done_with(name, &snapshot);
-                    self.note_outcome(name, token, "conflict");
-                    self.announce_refusal(name, token, "conflict", &conflict_status(name));
+                    let outcome = manual::backup_conflict_outcome(
+                        &slot,
+                        &content_hash,
+                        json_int(conflict.get("latestRevision")),
+                        token,
+                    );
+                    self.note_outcome(name, token, outcome);
+                    let message = if outcome == "stale" {
+                        STALE_BACKUP_STATUS.to_string()
+                    } else {
+                        conflict_status(name)
+                    };
+                    self.set_status(&message);
+                    self.announce_refusal(name, token, outcome, &message);
                     return;
                 }
                 log::info!(
@@ -983,10 +997,15 @@ copy no longer exists; restarting the slot fresh"
             }
             None => {}
         }
-        let (_, content_hash) = cloud_content(&snapshot);
         if slot.get("hash").and_then(Value::as_str) == Some(content_hash.as_str()) {
             if token != 0 {
-                if self.finish_cached_manual_backup(name, &snapshot, token, &mut slot) {
+                if self.finish_cached_manual_backup(
+                    name,
+                    &snapshot,
+                    token,
+                    &content_hash,
+                    &mut slot,
+                ) {
                     return;
                 }
             } else {
@@ -998,7 +1017,10 @@ copy no longer exists; restarting the slot fresh"
         }
         let identity = match self.identity.lock().unwrap().clone() {
             Some(id) => id,
-            None => return,
+            None => {
+                self.finish_auth_backup(name, &snapshot, token);
+                return;
+            }
         };
         let result = upload_save(
             &identity,
@@ -1053,6 +1075,7 @@ has; restarting the slot fresh"
             self.sync_state.record_conflict(name, &result);
             self.done_with(name, &snapshot);
             self.note_outcome(name, token, "conflict");
+            self.set_status(&conflict_status(name));
             self.announce_refusal(name, token, "conflict", &conflict_status(name));
             log::warn!(
                 "Cloud backup of {name} skipped: the cloud copy is newer (revision {})",

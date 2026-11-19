@@ -21,6 +21,7 @@ use ff_core::sim::timezones::{city_zone, to_local, TimeZone, EASTERN};
 use crate::app::{GameContext, Say};
 use crate::cloud_saves::{
     conflict_status, eviction_status, rejection_status, save_slot_name, AUTH_PAUSED_STATUS,
+    STALE_BACKUP_STATUS,
 };
 use crate::discord_presence::PresenceState;
 use crate::impl_state_for_menu;
@@ -592,6 +593,9 @@ impl CityMenuState {
         }
         if outcome == "conflict" {
             return conflict_status(name);
+        }
+        if outcome == "stale" {
+            return STALE_BACKUP_STATUS.to_string();
         }
         if outcome == "auth" {
             return AUTH_PAUSED_STATUS.to_string();

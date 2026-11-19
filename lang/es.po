@@ -16760,6 +16760,12 @@ msgstr "aún no se ha sincronizado ninguna revisión"
 msgid "Latest backup accepted and server-verified."
 msgstr "Última copia de seguridad aceptada y verificada por el servidor."
 
+msgid "stale"
+msgstr ""
+
+msgid "conflict"
+msgstr "conflict"
+
 msgid "auth"
 msgstr "auth"
 
@@ -16768,9 +16774,6 @@ msgstr "network"
 
 msgid "unchanged"
 msgstr "sin cambios"
-
-msgid "conflict"
-msgstr "conflict"
 
 msgid "cloud-resume"
 msgstr "cloud-resume"
@@ -16795,6 +16798,11 @@ msgstr "slots"
 
 msgid "hash"
 msgstr "hash"
+
+msgid ""
+"The cloud has a newer copy of this career. Nothing was changed. Choose "
+"Restore the latest backup to use it."
+msgstr ""
 
 msgid ""
 "orinks.net no longer accepts this computer's sign-in. Usually this computer "
@@ -21919,10 +21927,15 @@ msgid "The cloud copy now matches this computer's save."
 msgstr ""
 "La copia en la nube ahora coincide con la partida de este ordenador."
 
+msgid "The cloud copy changed on another computer. Nothing was changed."
+msgstr "La copia en la nube cambió en otro ordenador. No se cambió nada."
+
 msgid ""
-"The cloud has a newer copy of this career. Nothing was changed. Choose "
-"Restore the latest backup to use it."
+"The cloud copy changed on another computer, so nothing was changed. Choose "
+"which copy to keep."
 msgstr ""
+"La copia en la nube cambió en otro ordenador, así que no se cambió nada. "
+"Elige qué copia conservar."
 
 msgid "Reconnect needed. Nothing was changed."
 msgstr "Hay que volver a conectar. No se cambió nada."
@@ -43765,16 +43778,6 @@ msgstr "Fatiga: de {f} a {f2}."
 #. The last sentence of the sleep preview, when nothing comes before it.
 msgid "Select again to sleep."
 msgstr "Vuelve a elegir esta opción para dormir."
-
-#~ msgid "The cloud copy changed on another computer. Nothing was changed."
-#~ msgstr "La copia en la nube cambió en otro ordenador. No se cambió nada."
-
-#~ msgid ""
-#~ "The cloud copy changed on another computer, so nothing was changed. Choose "
-#~ "which copy to keep."
-#~ msgstr ""
-#~ "La copia en la nube cambió en otro ordenador, así que no se cambió nada. "
-#~ "Elige qué copia conservar."
 
 #~ msgid ""
 #~ "freightfate -- Freight Fate\n"

@@ -16567,6 +16567,12 @@ msgstr "nie zsynchronizowano jeszcze żadnej wersji"
 msgid "Latest backup accepted and server-verified."
 msgstr "Najnowsza kopia zapasowa przyjęta i zweryfikowana przez serwer."
 
+msgid "stale"
+msgstr ""
+
+msgid "conflict"
+msgstr "conflict"
+
 msgid "auth"
 msgstr "auth"
 
@@ -16575,9 +16581,6 @@ msgstr "network"
 
 msgid "unchanged"
 msgstr "bez zmian"
-
-msgid "conflict"
-msgstr "conflict"
 
 msgid "cloud-resume"
 msgstr "wznawianie-z-chmury"
@@ -16602,6 +16605,11 @@ msgstr "slots"
 
 msgid "hash"
 msgstr "hash"
+
+msgid ""
+"The cloud has a newer copy of this career. Nothing was changed. Choose "
+"Restore the latest backup to use it."
+msgstr ""
 
 msgid ""
 "orinks.net no longer accepts this computer's sign-in. Usually this computer "
@@ -21780,10 +21788,16 @@ msgstr ""
 msgid "The cloud copy now matches this computer's save."
 msgstr "Kopia w chmurze zgadza się teraz z zapisem na tym komputerze."
 
-msgid ""
-"The cloud has a newer copy of this career. Nothing was changed. Choose "
-"Restore the latest backup to use it."
+msgid "The cloud copy changed on another computer. Nothing was changed."
 msgstr ""
+"Kopia w chmurze zmieniła się na innym komputerze. Niczego nie zmieniono."
+
+msgid ""
+"The cloud copy changed on another computer, so nothing was changed. Choose "
+"which copy to keep."
+msgstr ""
+"Kopia w chmurze zmieniła się na innym komputerze, więc niczego nie "
+"zmieniono. Wybierz, którą kopię zachować."
 
 msgid "Reconnect needed. Nothing was changed."
 msgstr "Wymagane ponowne połączenie. Niczego nie zmieniono."
@@ -43585,17 +43599,6 @@ msgstr "Zmęczenie z {f} do {f2}."
 #. The last sentence of the sleep preview, when nothing comes before it.
 msgid "Select again to sleep."
 msgstr "Wybierz ponownie, aby spać."
-
-#~ msgid "The cloud copy changed on another computer. Nothing was changed."
-#~ msgstr ""
-#~ "Kopia w chmurze zmieniła się na innym komputerze. Niczego nie zmieniono."
-
-#~ msgid ""
-#~ "The cloud copy changed on another computer, so nothing was changed. Choose "
-#~ "which copy to keep."
-#~ msgstr ""
-#~ "Kopia w chmurze zmieniła się na innym komputerze, więc niczego nie "
-#~ "zmieniono. Wybierz, którą kopię zachować."
 
 #~ msgid ""
 #~ "freightfate -- Freight Fate\n"

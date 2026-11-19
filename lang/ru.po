@@ -16541,6 +16541,12 @@ msgstr "ни одна ревизия ещё не синхронизирован�
 msgid "Latest backup accepted and server-verified."
 msgstr "Последняя резервная копия принята и проверена сервером."
 
+msgid "stale"
+msgstr ""
+
+msgid "conflict"
+msgstr "conflict"
+
 msgid "auth"
 msgstr "auth"
 
@@ -16549,9 +16555,6 @@ msgstr "network"
 
 msgid "unchanged"
 msgstr "без изменений"
-
-msgid "conflict"
-msgstr "conflict"
 
 msgid "cloud-resume"
 msgstr "cloud-resume"
@@ -16576,6 +16579,11 @@ msgstr "slots"
 
 msgid "hash"
 msgstr "hash"
+
+msgid ""
+"The cloud has a newer copy of this career. Nothing was changed. Choose "
+"Restore the latest backup to use it."
+msgstr ""
 
 msgid ""
 "orinks.net no longer accepts this computer's sign-in. Usually this computer "
@@ -21797,10 +21805,15 @@ msgstr ""
 msgid "The cloud copy now matches this computer's save."
 msgstr "Теперь копия в облаке совпадает с сохранением на этом компьютере."
 
+msgid "The cloud copy changed on another computer. Nothing was changed."
+msgstr "Копия в облаке изменилась на другом компьютере. Ничего не изменено."
+
 msgid ""
-"The cloud has a newer copy of this career. Nothing was changed. Choose "
-"Restore the latest backup to use it."
+"The cloud copy changed on another computer, so nothing was changed. Choose "
+"which copy to keep."
 msgstr ""
+"Копия в облаке изменилась на другом компьютере, поэтому ничего не изменено. "
+"Выберите, какую копию оставить."
 
 msgid "Reconnect needed. Nothing was changed."
 msgstr "Нужно подключиться снова. Ничего не изменено."
@@ -43732,16 +43745,6 @@ msgstr "Усталость с {f} до {f2}."
 #. The last sentence of the sleep preview, when nothing comes before it.
 msgid "Select again to sleep."
 msgstr "Выберите ещё раз, чтобы лечь спать."
-
-#~ msgid "The cloud copy changed on another computer. Nothing was changed."
-#~ msgstr "Копия в облаке изменилась на другом компьютере. Ничего не изменено."
-
-#~ msgid ""
-#~ "The cloud copy changed on another computer, so nothing was changed. Choose "
-#~ "which copy to keep."
-#~ msgstr ""
-#~ "Копия в облаке изменилась на другом компьютере, поэтому ничего не изменено. "
-#~ "Выберите, какую копию оставить."
 
 #~ msgid ""
 #~ "freightfate -- Freight Fate\n"
