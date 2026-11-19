@@ -174,20 +174,29 @@ pub fn end_session() {
 #[cfg(windows)]
 pub(crate) fn end_session_bounded() {
     if let Err(reason) = finish_session(&SESSION, std::time::Duration::from_millis(500)) {
-        log::warn!("Windows session end: {reason}");
+        log::warn!("Windows session end: {reason:?}");
         log::logger().flush();
     }
+}
+
+#[cfg(any(windows, test))]
+#[derive(Debug, PartialEq, Eq)]
+enum SessionEndError {
+    MarkerBusy,
+    WorkerStartFailed,
+    TimeBudgetExceeded,
+    WorkerStopped,
 }
 
 #[cfg(any(windows, test))]
 fn finish_session(
     session: &Mutex<Option<Session>>,
     budget: std::time::Duration,
-) -> Result<(), &'static str> {
+) -> Result<(), SessionEndError> {
     let session = match session.try_lock() {
         Ok(mut guard) => guard.take(),
         Err(std::sync::TryLockError::Poisoned(err)) => err.into_inner().take(),
-        Err(std::sync::TryLockError::WouldBlock) => return Err("session marker is busy"),
+        Err(std::sync::TryLockError::WouldBlock) => return Err(SessionEndError::MarkerBusy),
     };
     let Some(session) = session else {
         return Ok(());
@@ -199,22 +208,17 @@ fn finish_session(
 fn finish_with_budget(
     finish: impl FnOnce() + Send + 'static,
     budget: std::time::Duration,
-) -> Result<(), &'static str> {
+) -> Result<(), SessionEndError> {
     let (done, result) = std::sync::mpsc::sync_channel(1);
     std::thread::Builder::new()
-        .name("session-end".to_string())
         .spawn(move || {
             finish();
             let _ = done.send(());
         })
-        .map_err(|_| "could not start session marker cleanup")?;
+        .map_err(|_| SessionEndError::WorkerStartFailed)?;
     result.recv_timeout(budget).map_err(|error| match error {
-        std::sync::mpsc::RecvTimeoutError::Timeout => {
-            "session marker cleanup exceeded its time budget"
-        }
-        std::sync::mpsc::RecvTimeoutError::Disconnected => {
-            "session marker cleanup stopped unexpectedly"
-        }
+        std::sync::mpsc::RecvTimeoutError::Timeout => SessionEndError::TimeBudgetExceeded,
+        std::sync::mpsc::RecvTimeoutError::Disconnected => SessionEndError::WorkerStopped,
     })
 }
 
@@ -275,7 +279,7 @@ mod tests {
         let _held = session.lock().unwrap();
         assert_eq!(
             finish_session(&session, std::time::Duration::from_secs(5)),
-            Err("session marker is busy")
+            Err(SessionEndError::MarkerBusy)
         );
     }
 
@@ -291,7 +295,7 @@ mod tests {
                 },
                 std::time::Duration::from_millis(10)
             ),
-            Err("session marker cleanup exceeded its time budget")
+            Err(SessionEndError::TimeBudgetExceeded)
         );
         release.send(()).unwrap();
         finished
