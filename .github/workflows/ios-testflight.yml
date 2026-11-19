@@ -47,7 +47,7 @@
 # A re-run of the same run would ask again and get the next number, but a
 # fresh dispatch is cleaner.
 #
-# Standard macos-26 runner only: this repo is public, so it costs nothing,
+# Standard xcode-27 runner only: this repo is public, so it costs nothing,
 # and a larger runner would be billed.
 
 name: iOS TestFlight
@@ -147,7 +147,7 @@ jobs:
     concurrency:
       group: ${{ (github.event_name == 'push' || inputs.upload) && 'ios-testflight-upload' || format('ios-testflight-verify-{0}', github.run_id) }}
       cancel-in-progress: false
-    runs-on: macos-26
+    runs-on: xcode-27
     timeout-minutes: 90
     env:
       CARGO_TERM_COLOR: always
@@ -198,6 +198,37 @@ jobs:
             echo "$notes"
             echo "$delimiter"
           } >> "$GITHUB_ENV"
+
+      - name: Select Xcode 27 or later and verify the iOS SDK
+        shell: bash
+        run: |
+          set -euo pipefail
+          candidates="$(
+            for app in /Applications/Xcode*.app; do
+              developer_dir="$app/Contents/Developer"
+              [ -x "$developer_dir/usr/bin/xcodebuild" ] || continue
+              version="$(plutil -extract CFBundleShortVersionString raw -o - "$app/Contents/Info.plist")" || continue
+              if [[ "$version" =~ ^([0-9]+)\.([0-9]+)(\.([0-9]+))?$ ]] && [ "${BASH_REMATCH[1]}" -ge 27 ]; then
+                printf '%s.%s.%s\t%s\n' "${BASH_REMATCH[1]}" "${BASH_REMATCH[2]}" "${BASH_REMATCH[4]:-0}" "$developer_dir"
+              fi
+            done | sort -t . -k1,1n -k2,2n -k3,3n
+          )"
+          if [ -z "$candidates" ]; then
+            echo "::error::No Xcode 27 or later found in /Applications. Use a runner image with Xcode 27 and the iOS 27 SDK or later."
+            exit 1
+          fi
+          selected="$(printf '%s\n' "$candidates" | tail -n 1)"
+          export DEVELOPER_DIR="${selected#*$'\t'}"
+          echo "Selected Xcode: $DEVELOPER_DIR"
+          xcodebuild -version
+          if ! sdk_version="$(xcrun --sdk iphoneos --show-sdk-version)" \
+              || ! [[ "$sdk_version" =~ ^[0-9]+(\.[0-9]+)*$ ]] \
+              || [ "${sdk_version%%.*}" -lt 27 ]; then
+            echo "::error::The selected Xcode must provide the iOS 27 SDK or later (found: ${sdk_version:-none})."
+            exit 1
+          fi
+          echo "iOS SDK: $sdk_version"
+          echo "DEVELOPER_DIR=$DEVELOPER_DIR" >> "$GITHUB_ENV"
 
       - name: Install the pinned Rust toolchain and the iOS target
         run: |
