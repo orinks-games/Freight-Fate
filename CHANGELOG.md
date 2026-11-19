@@ -4,6 +4,8 @@
 
 ### Compatibility
 
+- **Freight Fate now requires iOS or iPadOS 15 or later.**
+
 - **Careers from newer Freight Fate versions stay untouched.** Local saves and cloud backups explain which version can continue them.
 
 ### Added
