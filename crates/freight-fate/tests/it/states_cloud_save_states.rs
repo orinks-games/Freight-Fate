@@ -485,7 +485,9 @@ fn test_restore_confirmation_describes_whether_a_local_save_is_replaced() {
             "createdAt": wall_time() * 1000.0,
             "summary": "level 7"
         });
-        let slot = CloudSlotState::new(&mut app.ctx, name, vec![entry], None, None);
+        let cloud_name = cloud_slot_name(name);
+        assert_ne!(cloud_name, name);
+        let slot = CloudSlotState::new(&mut app.ctx, &cloud_name, vec![entry], None, None);
         let slot = push(&mut app, slot);
         move_to::<CloudSlotState>(&mut app, &slot, "Restore the latest backup");
         app.clear_speech();
@@ -512,11 +514,11 @@ fn test_restore_confirmation_describes_whether_a_local_save_is_replaced() {
             !has_local_save,
             "{said}"
         );
-        if !has_local_save {
-            assert_eq!(
-                helps::<ConfirmRestoreState>(&confirm, &app.ctx)[0],
-                "Goes back without downloading."
-            );
+        let help = &helps::<ConfirmRestoreState>(&confirm, &app.ctx)[0];
+        if has_local_save {
+            assert!(help.contains("Keep this computer's save and back it up"));
+        } else {
+            assert_eq!(help, "Goes back without downloading.");
         }
     }
 }

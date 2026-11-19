@@ -504,7 +504,7 @@ impl ConfirmRestoreState {
 
     /// `ConfirmRestoreState(ctx, slot_state, entry)`.
     pub fn new(_ctx: &mut GameContext, slot: SlotHandle, entry: Value) -> Self {
-        let replaces_local = find_save_path(&slot.save_name).is_some();
+        let replaces_local = find_save_path(local_name_for_slot(&slot.save_name)).is_some();
         Self {
             menu: MenuCore::new(Self::TITLE),
             slot,
