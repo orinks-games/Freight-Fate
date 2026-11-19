@@ -11,7 +11,7 @@ use serde_json::{Map, Value};
 use crate::app::{GameContext, SharedState};
 use crate::cloud_saves::{
     self, eviction_status, rejection_status, save_slot_name, DownloadError, RestoreError,
-    RestoreHooks, AUTH_HELP,
+    RestoreHooks, AUTH_HELP, STALE_BACKUP_STATUS,
 };
 use crate::impl_state_for_menu;
 use crate::states::base::{Label, Menu, MenuCore, MenuItem};
@@ -520,6 +520,10 @@ impl CloudSlotState {
                 self.status =
                     "Already backed up. The cloud copy matches this computer's save.".to_string();
                 ctx.say("Already backed up. The cloud copy matches this computer's save.");
+            }
+            "stale" => {
+                self.status = STALE_BACKUP_STATUS.to_string();
+                ctx.say(STALE_BACKUP_STATUS);
             }
             "conflict" => {
                 self.status =

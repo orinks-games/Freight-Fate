@@ -36,6 +36,8 @@
 ### Fixed
 
 - **Windows shutdown, restart or sign-out with the game open no longer causes a crash prompt on the next launch.**
+- **Manual cloud backup now warns about newer cloud progress.** Choose Use the cloud copy on this computer to pick it up.
+
 - **On iPhone and iPad, pressing Up or Down once moves one menu row.**
 
 - **A second energy drink no longer promises another lift while the first stimulant lasts.**
