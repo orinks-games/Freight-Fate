@@ -3,6 +3,7 @@
 //! `build.rs`) that install it, hand it settings and drain its gesture queue.
 
 extern "C" {
+    fn ff_use_hardware_vertical_arrows(window: *mut std::ffi::c_void);
     fn ff_touch_install(window: *mut std::ffi::c_void) -> i32;
     fn ff_touch_next() -> i32;
     fn ff_touch_set_haptics(enabled: i32);
@@ -41,7 +42,7 @@ pub(crate) fn set_touch_tuning(settings: &ff_core::settings::Settings) {
     };
 }
 
-/// Lay the gesture surface (`ios/ff_touch.m`) over SDL's view.
+/// Set up the keyboard path and lay the gesture surface over SDL's view.
 pub(super) fn install_touch_surface(window: &sdl2::video::Window) {
     use raw_window_handle::{HasWindowHandle, RawWindowHandle};
 
@@ -55,7 +56,11 @@ pub(super) fn install_touch_surface(window: &sdl2::video::Window) {
     };
     // SAFETY: the pointer is SDL's live UIWindow, and this runs on the main
     // thread, where SDL created it.
-    if unsafe { ff_touch_install(ui_window) } == 0 {
+    let installed = unsafe {
+        ff_use_hardware_vertical_arrows(ui_window);
+        ff_touch_install(ui_window)
+    };
+    if installed == 0 {
         log::warn!("touch: the gesture surface could not be installed");
     }
 }

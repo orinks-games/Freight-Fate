@@ -955,38 +955,6 @@ static void ff_defer_screen_edges(UIViewController *controller) {
     [controller setNeedsUpdateOfScreenEdgesDeferringSystemGestures];
 }
 
-// SDL's UIKit key commands synthesize another arrow press independently of
-// its hardware keyboard path (GCKeyboard or the view's UIPress callbacks).
-static void ff_use_hardware_vertical_arrows(UIViewController *controller) {
-    if (!controller) {
-        return;
-    }
-    Class cls = object_getClass(controller);
-    SEL selector = @selector(keyCommands);
-    Method method = class_getInstanceMethod(cls, selector);
-    if (!method) {
-        return;
-    }
-    static dispatch_once_t once;
-    dispatch_once(&once, ^{
-        NSArray<UIKeyCommand *> *(*original)(id, SEL) =
-            (NSArray<UIKeyCommand *> *(*)(id, SEL))method_getImplementation(method);
-        IMP filtered = imp_implementationWithBlock(^NSArray<UIKeyCommand *> *(id receiver) {
-            NSArray<UIKeyCommand *> *commands = original(receiver, selector);
-            NSMutableArray<UIKeyCommand *> *kept = [NSMutableArray arrayWithCapacity:commands.count];
-            for (UIKeyCommand *command in commands) {
-                BOOL vertical = [command.input isEqualToString:UIKeyInputUpArrow] ||
-                                [command.input isEqualToString:UIKeyInputDownArrow];
-                if (!vertical || command.modifierFlags != 0) {
-                    [kept addObject:command];
-                }
-            }
-            return kept;
-        });
-        class_replaceMethod(cls, selector, filtered, method_getTypeEncoding(method));
-    });
-}
-
 // Lay the touch surface over SDL's view. `window` is the UIWindow SDL made
 // (what its window-manager info reports); a UIView is accepted as well.
 // Returns 1 when the surface is in place.
@@ -1005,11 +973,9 @@ int32_t ff_touch_install(void *window) {
     if (!host) {
         return 0;
     }
-    UIViewController *controller = host.window.rootViewController;
-    ff_use_hardware_vertical_arrows(controller);
     FFTouchView *surface = [[FFTouchView alloc] initWithFrame:host.bounds];
     [host addSubview:surface];
-    ff_defer_screen_edges(controller);
+    ff_defer_screen_edges(host.window.rootViewController);
     UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, surface);
     return 1;
 }
