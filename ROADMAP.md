@@ -4181,6 +4181,11 @@ Fix on review (2026-11-20): the game carries a patched copy of prism-sys
 voices, falling back to the old call if the device cannot be named. When the
 named device is unplugged, or the default changes, the next line opens the
 new default. The copy goes when a prism-sys release names the device itself.
+Proven on the owner's PC (2026-11-20) with a probe that lists which device
+holds the program's sound while it speaks. With the default device and the
+default communications device set to different devices, both voices played
+on the communications device before the patch and on the default device after
+it.
 
 ### November 16 exits inside a work zone (Release gate)
 

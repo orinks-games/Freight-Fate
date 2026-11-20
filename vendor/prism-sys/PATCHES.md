@@ -11,10 +11,15 @@ upstream (`prism/LICENSES`).
 A player with several sound devices on Windows 11 heard SAPI and OneCore
 speech through their TV while the game's own sound and the built-in voice
 played on the default device. Both backends open "the default" with the
-Speech stream category and no device named, and Windows did not resolve that
-to the console default. The patch names the console default device. Each
+Speech stream category and no device named, and Windows plays such a stream
+on the default communications device: a probe on a PC with the two defaults
+set apart found both voices' sound session there before the patch and on the
+console default after it (2026-11-20). The patch names the console default device. Each
 falls back to the unpatched call, with one warning in the log, if the device
 cannot be named.
+
+Both changed files are wrapped whole in `#ifdef _WIN32`, so Linux, macOS,
+iOS and Android compile the same Prism sources as the crates.io package.
 
 ## Changes against 0.1.6
 
