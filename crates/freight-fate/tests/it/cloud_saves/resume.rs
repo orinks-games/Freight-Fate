@@ -257,12 +257,12 @@ fn continue_uses_the_most_recent_remote_career_after_multiple_pickups() {
             &hash,
             &identity().driver_id,
         );
-        fs::File::open(&path)
+        // Windows refuses to change a file's times through a read-only handle.
+        fs::File::options()
+            .write(true)
+            .open(&path)
             .unwrap()
-            .set_times(
-                fs::FileTimes::new()
-                    .set_modified(std::time::UNIX_EPOCH + Duration::from_secs(local_time)),
-            )
+            .set_modified(std::time::UNIX_EPOCH + Duration::from_secs(local_time))
             .unwrap();
     }
     app.ctx.settings.cloud_resume = true;

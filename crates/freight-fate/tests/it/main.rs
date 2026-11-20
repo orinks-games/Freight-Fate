@@ -172,6 +172,7 @@ mod states_driving_menus_rest;
 mod states_driving_menus_roadside;
 mod states_driving_menus_tablet;
 mod states_driving_multilane_speech;
+mod states_driving_outside_ambience;
 mod states_driving_pace;
 mod states_driving_passing;
 mod states_driving_place_keys_arrival;

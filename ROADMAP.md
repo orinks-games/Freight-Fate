@@ -50,6 +50,11 @@ bookmarks usable.
 - [x] Opt-in cloud resume (owner request): main-menu checks pick up clean, tracked careers from another device; changed local copies use the existing Cloud backup conflict choice. Off by default.
 - [x] Guest drivers (built 2026-11-07, merged to dev 2026-11-17): Drive online as a guest on the Online menu gets a word-list name from orinks.net and turns Profile sharing on; Guest name asks for a new one; guests are on the board only, so a profile, road journal, achievements and cloud backup stay account-only. An account with no driver yet takes the guest over when it connects. Needs the orinks.net guest routes live on the production site.
 - [x] Main voice (built 2026-11-17, owner request): Settings, Speech has a Main voice row above Driving event voice. Automatic stays the default; the player can pick any voice that can speak right now (a running screen reader, SAPI, Windows OneCore, Narrator while it runs, the built-in voice). The choice is saved as is and never rewritten: while the chosen voice cannot speak, the automatic pick speaks and the row says the voice is unavailable, and the health check binds it when it returns. When Driving event voice names the main voice, events go through the main voice and the event row reads "main voice"; the saved event voice is kept, so moving the main voice away brings the separate voice back. Hearken PR 74 (`main_backend_options`, the Narrator gate, the shared event voice).
+- [x] Outside ambience (built 2026-11-19, player request relayed by Orinks 2026-11-19): insects at dusk and night on warm nights (one recording; a second night's recording, alternating night by night, was dropped by Orinks's ear on 2026-11-20), birds at dawn and by day from freezing up, and a river under the truck at each OSM river crossing, held 6 real seconds past it. Heavy rain, storms, snow and ice are quiet. Each bed plays a clear copy on the driver's side and a muffled copy centred, crossfaded by the driver window's glass; the window, the scene and the water are state machines in `ff_core::sim::cab` and `sim::outside`. Replaces the old `ambient/night` bed. Sounds from OpenGameArt (CC0 and CC BY), prepared by `sound-test/outside_ambience.sh`.
+- [ ] (Found along the way) Outside ambience levels are first guesses for Orinks's ear: the beds' levels, the insects' window-up level at highway speed (about 4 dB over the road and engine at 65 mph in the 2 to 4 kHz band; Orinks heard it through the glass in a recording), and the river's level.
+- [x] Road seams (built 2026-11-19, Orinks asked the same evening): a two-part thump on jointed stretches, the steer axle and then the drive tandem a wheelbase (5.2 m, assumed) behind, so the gap widens as the truck slows; jointed and smooth stretches alternate (invented texture, `ff_core::sim::road_texture::RoadSurface`, drawn from the drive's road texture seed). Each end of a river bridge is a heavier joint under all three axles. Sounds are pitched cuts of the in-repo seam thump (`sound-test/road_seams.sh`).
+- [ ] (Found along the way) Road seam levels (`SEAM_LEVEL`, `BRIDGE_JOINT_LEVEL`) are first guesses for Orinks's ear, and a recorded seam would replace the synthesized one if one turns up under a usable license. Wiring the pavement layer's real surface type and bridges in place of the invented stretches waits on that layer.
+- [ ] (Found along the way) The 0 and 10 degree lines for birds and insects are assumptions, not sourced; regional and seasonal bird variety, lakes and the passenger window are not covered.
 - [ ] (Found along the way) The Speech voice row sets one installed voice for whichever bound voice lists voices first (the main voice, then the event voice), so the event voice's own installed voice cannot be chosen when both have lists, and a voice does not remember its own installed voice when the main voice changes.
 - [ ] (Found along the way) Hearken's own settings screen still offers only a built-in voice toggle, not the full main voice choice.
 - [ ] (Found along the way) The agent server's `status` tool presses the readout keys, and inside a settings menu those keys change rows: one drive of 2026-11-18 changed the event voice and the language that way.
@@ -4172,6 +4177,27 @@ with everything off):
 - Three "Found along the way" items above: the keeper trailing a posted
   drop, silent damage, the rural 70 posted on a boulevard.
 
+### November 20 speech on the wrong sound device (Release gate)
+
+A player's problem report (2026-11-20, a tester snapshot, Windows 11 with
+several sound devices): SAPI and Windows OneCore voices came out of their TV,
+while game sound, NVDA and the built-in voice played on the default device.
+Prism 0.1.6, on dev since 2026-11-18 and not in 1.9.6, plays those two voices
+itself, SAPI through XAudio2 and OneCore through an AudioGraph, and opens
+"the default" with no device named. Game sound and the built-in voice open
+the console default by name.
+
+Fix on review (2026-11-20): the game carries a patched copy of prism-sys
+0.1.6 under `vendor/prism-sys` that names the console default device for both
+voices, falling back to the old call if the device cannot be named. When the
+named device is unplugged, or the default changes, the next line opens the
+new default. The copy goes when a prism-sys release names the device itself.
+Proven on the owner's PC (2026-11-20) with a probe that lists which device
+holds the program's sound while it speaks. With the default device and the
+default communications device set to different devices, both voices played
+on the communications device before the patch and on the default device after
+it.
+
 ### November 20 pavement and structures from HPMS (Found along the way)
 
 The road seams planned for the outside ambience made up their jointed and
@@ -4294,6 +4320,9 @@ Release gate for 1.9.7:
       service killed twice. No one has run it with a real headset on
       Windows; the owner has none to test with and merged it for players
       to confirm.
+- [ ] SAPI and OneCore speech play on the default sound device again
+      (player problem report, 2026-11-20;
+      [November 20](#november-20-speech-on-the-wrong-sound-device-release-gate)).
 - [ ] The Windows Defender detection a player reported on 2026-11-14.
       The Windows build is not code signed. Before the tag, the release
       candidate's Windows files are scanned and come back clean, or the
