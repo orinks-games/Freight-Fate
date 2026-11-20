@@ -1,0 +1,214 @@
+// SPDX-License-Identifier: MPL-2.0
+
+#ifdef _WIN32
+#if defined(__x86_64) || defined(__x86_64__) || defined(__amd64__) ||          \
+    defined(__amd64) || defined(_M_X64) || defined(_M_IX86) ||                 \
+    defined(__i386__)
+#include "../backend.h"
+#include "../backend_catalog.h"
+#include "../logging.h"
+#include "../optional_library.h"
+#include <array>
+#include <atomic>
+#include <optional>
+#include <raw/zdsr.h>
+#include <simdutf.h>
+#include <string_view>
+#include <tchar.h>
+#include <tlhelp32.h>
+#include <windows.h>
+
+namespace {
+#if defined(_M_X64) || defined(__x86_64__)
+constexpr const TCHAR *zdsr_dll = _T("ZDSRAPI_x64.dll");
+constexpr InstallLocation zdsr_install{
+    .subkey = _T("SOFTWARE\\WOW6432Node\\zhiduo\\zdsr"), .value = _T("path")};
+#else
+constexpr const TCHAR *zdsr_dll = _T("ZDSRAPI.dll");
+constexpr InstallLocation zdsr_install{.subkey = _T("SOFTWARE\\zhiduo\\zdsr"),
+                                       .value = _T("path")};
+#endif
+
+struct Zdsr {
+  SharedLibrary library;
+  decltype(&::InitTTS) InitTTS = nullptr;
+  decltype(&::Speak) Speak = nullptr;
+  decltype(&::GetSpeakState) GetSpeakState = nullptr;
+  decltype(&::StopSpeak) StopSpeak = nullptr;
+  decltype(&::Braille) Braille = nullptr;
+};
+
+std::optional<Zdsr> load_zdsr() {
+  static const LogSource log{"ZDSR"};
+  Zdsr api{.library = open_optional_library(zdsr_dll, &zdsr_install)};
+  if (!api.library) {
+    log.debug(_T("{} could not be loaded"), zdsr_dll);
+    return std::nullopt;
+  }
+  const SharedLibrary &library = api.library;
+  const bool complete = library.bind(api.InitTTS, "InitTTS") &&
+                        library.bind(api.Speak, "Speak") &&
+                        library.bind(api.GetSpeakState, "GetSpeakState") &&
+                        library.bind(api.StopSpeak, "StopSpeak");
+  if (!complete) {
+    log.debug(_T("{} is missing a function prism needs"), zdsr_dll);
+    return std::nullopt;
+  }
+  (void)library.bind(api.Braille, "Braille");
+  return api;
+}
+
+const Zdsr *zdsr() {
+  static const std::optional<Zdsr> api = load_zdsr();
+  return api ? &*api : nullptr;
+}
+
+[[nodiscard]] BackendError map_speak_result(int result) noexcept {
+  switch (result) {
+  case 1: // version mismatch
+  case 2: // ZDSR is not running or not authorized
+  case 9: // independent channel is not ready yet
+    return BackendError::BackendNotAvailable;
+  default:
+    return BackendError::InternalBackendError;
+  }
+}
+} // namespace
+
+class ZdsrBackend final : public TextToSpeechBackend {
+private:
+  std::atomic_flag initialized;
+  std::atomic_flag braille_supported;
+  const Zdsr *api = nullptr;
+
+  [[nodiscard]] BackendResult<bool> query_speaking() const {
+    switch (api->GetSpeakState()) {
+    case 3:
+      return true;
+    case 4:
+    case 9: // independent channel is not ready yet; nothing is speaking
+      return false;
+    case 1:
+    case 2:
+      return std::unexpected(BackendError::BackendNotAvailable);
+    case 8:
+      return std::unexpected(BackendError::InternalBackendError);
+    default:
+      return std::unexpected(BackendError::Unknown);
+    }
+  }
+
+public:
+  ~ZdsrBackend() override = default;
+
+  [[nodiscard]] std::string_view get_name() const override { return "ZDSR"; }
+
+  [[nodiscard]] std::bitset<64> get_features() const override {
+    using namespace BackendFeature;
+    std::bitset<64> features;
+    // ZDSRMain.exe is the reader and ZDSRDaemon.exe is the daemon it runs;
+    // both must be running for ZDSR to be usable.
+    constexpr auto zdsr_processes = std::to_array<std::wstring_view>(
+        {_T("ZDSRMain.exe"), _T("ZDSRDaemon.exe")});
+    std::bitset<zdsr_processes.size()> found;
+    HANDLE snapshot = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
+    if (snapshot != INVALID_HANDLE_VALUE) {
+      PROCESSENTRY32 entry{};
+      entry.dwSize = sizeof(entry);
+      if (Process32First(snapshot, &entry)) {
+        do {
+          const std::wstring_view name{entry.szExeFile};
+          if (const auto it = std::ranges::find(zdsr_processes, name);
+              it != zdsr_processes.end())
+            found.set(static_cast<std::size_t>(it - zdsr_processes.begin()));
+        } while (Process32Next(snapshot, &entry));
+      }
+      CloseHandle(snapshot);
+    }
+    if (found.all())
+      features |= IS_SUPPORTED_AT_RUNTIME;
+    features |= SUPPORTS_SPEAK | SUPPORTS_OUTPUT | SUPPORTS_IS_SPEAKING |
+                SUPPORTS_STOP;
+    if (braille_supported.test(std::memory_order_acquire))
+      features |= SUPPORTS_BRAILLE;
+    return features |= IS_SCREEN_READER;
+  }
+
+  BackendResult<> initialize() override {
+    if (initialized.test(std::memory_order_acquire))
+      return std::unexpected(BackendError::AlreadyInitialized);
+    api = zdsr();
+    if (api == nullptr)
+      return std::unexpected(BackendError::BackendNotAvailable);
+    if (const auto res = api->InitTTS(0, nullptr, TRUE); res > 0)
+      return std::unexpected(BackendError::BackendNotAvailable);
+    if (const auto state = query_speaking(); !state)
+      return std::unexpected(state.error());
+    if (api->Braille != nullptr)
+      braille_supported.test_and_set(std::memory_order_acq_rel);
+    initialized.test_and_set(std::memory_order_release);
+    return {};
+  }
+
+  BackendResult<> speak(std::string_view text, bool interrupt) override {
+    if (!initialized.test(std::memory_order_acquire))
+      return std::unexpected(BackendError::NotInitialized);
+    const auto len = simdutf::utf16_length_from_utf8(text.data(), text.size());
+    std::wstring wstr;
+    wstr.resize(len);
+    if (const auto res = simdutf::convert_valid_utf8_to_utf16(
+            text.data(), text.size(),
+            reinterpret_cast<char16_t *>(wstr.data()));
+        res == 0)
+      return std::unexpected(BackendError::InvalidUtf8);
+    if (const auto res = api->Speak(wstr.c_str(), static_cast<BOOL>(interrupt));
+        res > 0)
+      return std::unexpected(map_speak_result(res));
+    return {};
+  }
+
+  BackendResult<> braille(std::string_view text) override {
+    if (!initialized.test(std::memory_order_acquire))
+      return std::unexpected(BackendError::NotInitialized);
+    if (!braille_supported.test(std::memory_order_acquire))
+      return std::unexpected(BackendError::NotImplemented);
+    const auto len = simdutf::utf16_length_from_utf8(text.data(), text.size());
+    std::wstring wstr;
+    wstr.resize(len);
+    if (const auto res = simdutf::convert_valid_utf8_to_utf16(
+            text.data(), text.size(),
+            reinterpret_cast<char16_t *>(wstr.data()));
+        res == 0)
+      return std::unexpected(BackendError::InvalidUtf8);
+    if (const auto res = api->Braille(wstr.c_str(), FALSE); res > 0)
+      return std::unexpected(BackendError::InternalBackendError);
+    return {};
+  }
+
+  BackendResult<> output(std::string_view text, bool interrupt) override {
+    if (const auto res = speak(text, interrupt); !res)
+      return res;
+    if (!braille_supported.test(std::memory_order_acquire))
+      return {};
+    if (const auto res = braille(text); !res)
+      return res;
+    return {};
+  }
+
+  BackendResult<> stop() override {
+    if (!initialized.test(std::memory_order_acquire))
+      return std::unexpected(BackendError::NotInitialized);
+    api->StopSpeak();
+    return {};
+  }
+
+  BackendResult<bool> is_speaking() override {
+    if (!initialized.test(std::memory_order_acquire))
+      return std::unexpected(BackendError::NotInitialized);
+    return query_speaking();
+  }
+};
+
+REGISTER_BACKEND_WITH_ID(ZdsrBackend, Backends::ZDSR, "ZDSR", 101);
+#endif
+#endif
