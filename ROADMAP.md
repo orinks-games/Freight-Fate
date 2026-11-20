@@ -79,6 +79,12 @@ bookmarks usable.
 - [ ] (Found along the way) Six Florida legs named I-95 ride Florida's Turnpike for about 13 miles (West Palm Beach, Port St. Lucie, Coral Springs and Jacksonville to Miami and Palm Bay). The route is a reasonable truck choice; the label is what is wrong. Name the road the legs drive, or split the highway name where they change roads.
 - [ ] (Found along the way) A whole-map run of the new layer builders (2026-11-05, dry run) would change most legs: lane counts and landmarks mostly by their source notes, villages by about 160 places, and low clearances from 118 legs to 543, mostly real posted bridges under 16 feet in the Northeast. Decide whether to apply it, and listen to a few of the new clearance calls first.
 - [ ] (Found along the way) The terrain class reads at most 800 HPMS sections per leg, so a long leg is judged on whichever 800 the server returns first: Harrisburg to Pittsburgh across the Alleghenies reads level. Count every section in the leg's own corridor instead.
+- [x] (Found along the way) What the road is made of, and where it leaves the ground, is on the map (2026-11-20; the owner asked whether pavement data could make the planned road seams accurate). `cargo tools hpms-pavement` reads FHWA HPMS surface type and bridges, tunnels and causeways along every leg's archived road, each way; nothing in the game uses it yet. Coverage and method: [November 20](#november-20-pavement-and-structures-from-hpms-found-along-the-way).
+- [ ] (Found along the way) Wire the pavement layer into the road seams once the ambience branch merges: where a leg has a reading, seams on jointed concrete, softer ones on asphalt over jointed concrete, bridge joints at each structure's ends; the made-up stretches only where a leg has no reading.
+- [ ] (Found along the way) The Allegheny Mountain Tunnel on the Pennsylvania Turnpike has no structure row in HPMS 2020 (Blue Mountain, Kittatinny and Tuscarora do), so the pavement layer has no tunnel there.
+- [ ] (Found along the way) HPMS reports bridge-sized culverts as bridges, so the pavement layer's bridges include some culverts. The National Bridge Inventory could tell them apart.
+- [ ] (Found along the way) Harrisburg to Pittsburgh still leaves the Turnpike for US-30 between about miles 87 and 100, near Bedford, after the re-route of 2026-11-05. HPMS has no surface for that stretch of US-30.
+- [ ] (Found along the way) California 99 near Bakersfield (miles 25 to 28 of Bakersfield to Los Angeles) has HPMS sections with no surface type, so the pavement layer is silent there.
 - [x] (Found along the way) Towns that no longer exist (owner, 2026-11-09: "Knife River, Montana"). The town checkpoints were named from the USGS place list, which keeps retired census names at the spot of the town that replaced them: Knife River was the 2010 census name for Savage, and the drive said both at mile 65.6 of Williston to Glendive. Fixed 2026-11-09: all 3,002 town checkpoints were checked against the 2024 Census place list and the USGS list, and the 12,017 village nodes against current OpenStreetMap. Knife River and Ore'q (a former Yurok village at Orick) are gone, West Side Highway (a road) is Lexington, Washington, Picnic Point-North Lynnwood (split for 2020) is North Lynnwood, Lysander New Community (deleted from OpenStreetMap) is gone, and three doubled Lacy Lakeview calls and four doubled Tri City calls are one each. `osm-villages` now refuses nodes tagged abandoned, disused, a ghost town or population 0, and treats a hyphen as a space when it checks a name is already spoken.
 - [ ] (Found along the way) Village landmarks still name places that are not towns: about 150 civil townships ("Brownstown Charter Township", "Pennsauken Township"), golf and retirement communities ("Herons Glen Golf and Country Club", "Shell Point Retirement Community") and planned-community neighbourhoods in The Woodlands. Decide whether a township is spoken, and drop the clubs.
 - [ ] (Found along the way) Landmarks name some protected areas a driver would not recognise as a place ("Grand Calumet River Area of Concern", "Business and Government Historic District"). OpenStreetMap's protect_class separates nature areas (1 to 6) from cultural and resource ones; filter on it.
@@ -4165,6 +4171,49 @@ with everything off):
   departure cannot be staged through `start_at` today.
 - Three "Found along the way" items above: the keeper trailing a posted
   drop, silent damage, the rural 70 posted on a boulevard.
+
+### November 20 pavement and structures from HPMS (Found along the way)
+
+The road seams planned for the outside ambience made up their jointed and
+smooth stretches and put bridge joints at river crossings, because the map
+had no pavement or bridge data. `cargo tools hpms-pavement` now writes
+`corridor.pavement` on each leg from FHWA HPMS (the same national layer as
+`hpms-traffic` and `hpms-terrain`): runs of like surface (`asphalt`,
+`jointed_plain_concrete`, `asphalt_over_jointed_concrete` and the rest of
+the Field Manual's Item 49 codes, by name), mean roughness and faulting where
+HPMS has them, and bridges, tunnels and causeways (Item 4), each marked for
+the directions it holds. ff-core parses it (`data::pavement`), bakes it
+(container format 11), and `Leg::pavement` resolves a spot by direction.
+
+How it reads a leg: every mainline row near the archived road (functional
+systems 1 to 5) is projected onto it and must run along it, so crossing roads
+drop out; where rows overlap, the highest class nearest the road wins, which
+keeps Texas frontage roads off I-35. Bins of 0.005 mile, each way, merge into
+runs. Nothing caps how many rows a leg reads.
+
+Provenance: the class and the structure are read; the mileage is derived (the
+projection), and so are roughness and faulting means. Where the leg drives
+the non-inventory side of a divided road that HPMS reads nothing of, the
+inventory side's reading within 250 m is applied to it and marked
+`inventory_side`: that is an assumption, and the layer's meta and the
+builder's printout count it apart. Each structure keeps HPMS's own length
+(`hpms_mi`, read) beside its derived ends, and the load flags one whose span
+disagrees by more than 0.05 mile, without changing it. Load screens drop a
+run off its leg or ending before it starts, a structure longer than any of
+its kind on the map (bridge 25 mi, tunnel 3, causeway 25), and two miles of
+runs each under 0.2 mile (two carriageways interleaved).
+
+Coverage (whole map, 2026-11-20): all 1,285 legs carry the layer. The
+surface is read on 91.3% of 140,698 leg miles (mean of the two directions),
+0.9% of those assumed from the inventory carriageway; the rest is left
+empty. 58,930 surface runs and 81,066 structures (80,942 bridges, 113
+tunnels, 11 causeways). The load screens drop none; 2,275 structures (2.8%)
+are flagged for a span off their HPMS length. Each tree grew about 10 MB.
+
+Five-leg dry run, gaps and oddities:
+`/mnt/project-files/ambience/pavement-dry-run.md` in the project files. After
+a `reroute-leg`, re-read the leg with `hpms-pavement --only from:to --write`;
+the reroute drops the layer and says so.
 
 ### November 16 exits inside a work zone (Release gate)
 

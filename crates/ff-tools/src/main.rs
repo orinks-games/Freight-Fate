@@ -206,6 +206,12 @@ const COMMANDS: &[(&str, &str, Command)] = &[
     ),
     #[cfg(feature = "world")]
     (
+        "hpms-pavement",
+        "re-read every leg's surface type, bridges and tunnels from FHWA HPMS",
+        world::layers::hpms::pavement::main,
+    ),
+    #[cfg(feature = "world")]
+    (
         "reroute-leg",
         "put a leg on the road a loaded truck takes, from the Valhalla truck router",
         world::reroute::leg_main,
