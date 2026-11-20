@@ -179,6 +179,10 @@ pub struct RoadOptions {
     pub verbosity: Option<String>,
     pub weather: Option<String>,
     pub hour: Option<f64>,
+    /// Days after the career's own day the staged drive is on, 0 for the
+    /// same day. With `hour` it picks which night it is (the outside beds
+    /// alternate night by night).
+    pub day: i64,
     pub log: Option<String>,
     pub sandbox: bool,
     /// A staffed enforcement unit planted ahead of the staged start: the
@@ -223,6 +227,7 @@ impl Default for RoadOptions {
             verbosity: None,
             weather: None,
             hour: None,
+            day: 0,
             log: None,
             unit: None,
             sandbox: true,
@@ -1191,6 +1196,12 @@ fn feature_lead_mi(trip: &Trip, hit: &Hit, opts: &RoadOptions) -> f64 {
 }
 
 /// A `DrivingState` already rolling at the feature, set up as asked.
+/// The career clock for a drive staged at `start_hour`, `day` days after
+/// the career's day at `career_hours`.
+pub fn staged_career_hours(career_hours: f64, start_hour: f64, day: i64) -> f64 {
+    (career_hours / 24.0).floor() * 24.0 + day as f64 * 24.0 + start_hour
+}
+
 pub fn build_driving(ctx: &mut GameContext, hit: &Hit, opts: &RoadOptions) -> (DrivingState, f64) {
     let departure = hit.origin_location.is_some();
     // Settings first: DrivingState reads the gearbox and the assist choices
@@ -1369,6 +1380,18 @@ pub fn build_driving(ctx: &mut GameContext, hit: &Hit, opts: &RoadOptions) -> (D
         DRIVE_PHASE_DELIVERY,
         Some(opts.hour.unwrap_or(9.0)),
     );
+    // The career clock moved to the staged hour on its own day (plus `day`),
+    // so everything the drive reads from the calendar -- which night it is,
+    // among others -- follows the hour it was staged at. Left as it was, a
+    // staged hour more than half a day from the career's clock rounded to
+    // the day before, and every staged night was the same night.
+    if let Some(career) = driving.trip.career_hours {
+        driving.trip.career_hours = Some(staged_career_hours(
+            career,
+            driving.trip.start_hour,
+            opts.day,
+        ));
+    }
 
     let lead_mi = opts
         .lead
