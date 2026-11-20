@@ -23,3 +23,9 @@ data/radio_imported.json text eol=lf
 # would make the fixture disagree with the file it is pinning.
 crates/ff-core/tests/profile_integrity_invariants.json text eol=lf
 tools/linux_smoke.sh text eol=lf
+
+# vendor/prism-sys is the crates.io package as published, plus the patches
+# PATCHES.md lists, and the Android build checks the Prism files it
+# replaces against their published SHA-256. A CRLF checkout changes those
+# bytes, so the check refused every Windows build of the Android app.
+vendor/prism-sys/** -text
