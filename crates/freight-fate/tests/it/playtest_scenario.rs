@@ -5,7 +5,6 @@ use serde_json::{json, Map, Value};
 
 use ff_core::models::business_constants::{COMPANY_DRIVER, LEASED_OWNER_OPERATOR};
 use ff_core::models::profile::Profile;
-use ff_core::sim::outside::{local_absolute_hours, night_number, scene_bed, OutsideScene};
 
 use freight_fate::app::testing::TestApp;
 use freight_fate::playtest::road::{build_driving, find_feature, RoadOptions};
@@ -211,18 +210,18 @@ fn road_staging_keeps_the_sandbox_driver_hours_and_fatigue() {
 }
 
 #[test]
-fn road_staging_follows_the_staged_hour_and_day_to_either_night() {
+fn road_staging_moves_the_career_clock_to_the_staged_hour() {
     // A staged drive's clock was its own hour while the career clock stayed
-    // where the scenario left it, so a night staged more than half a day
-    // from it rounded to the day before and every staged night was night C
-    // (2026-11-20). The career clock now moves to the staged hour, and `day`
-    // steps to the next night.
+    // where the scenario left it, so what the drive read from the calendar
+    // could be a day off (2026-11-20). The career clock now moves to the
+    // staged hour on its own day.
     let mut app = TestApp::new();
     apply(
         &mut app.ctx,
         &scenario(json!({"city": "Buffalo", "rested": true, "hour": 6})),
     )
     .unwrap();
+    let career = app.ctx.profile.as_ref().unwrap().game_hours;
     let pairs = vec![("Buffalo".to_string(), "Albany".to_string())];
     let base = RoadOptions {
         feature: "stop".to_string(),
@@ -233,28 +232,20 @@ fn road_staging_follows_the_staged_hour_and_day_to_either_night() {
         .into_iter()
         .next()
         .expect("a stop on the test corridor");
-    let mut nights = Vec::new();
-    for day in [0, 1, 2] {
+    for hour in [2.0, 13.0, 23.0] {
         let opts = RoadOptions {
             feature: "stop".to_string(),
             trip_seed: Some(7),
-            hour: Some(23.0),
-            day,
+            hour: Some(hour),
             ..Default::default()
         };
         let (drive, _) = build_driving(&mut app.ctx, &hit, &opts);
-        let hours = local_absolute_hours(&drive.trip);
-        assert!(
-            (hours.rem_euclid(24.0) - drive.trip.local_hour()).abs() < 1e-6,
-            "the calendar agrees with the clock: {hours}"
+        let staged = drive.trip.career_hours.expect("a career clock");
+        assert_eq!(staged.rem_euclid(24.0), drive.trip.start_hour, "{hour}");
+        assert_eq!(
+            (staged / 24.0).floor(),
+            (career / 24.0).floor(),
+            "the career's own day at {hour}"
         );
-        nights.push(night_number(hours));
     }
-    assert_eq!(nights[1], nights[0] + 1, "{nights:?}");
-    assert_eq!(nights[2], nights[0] + 2, "{nights:?}");
-    assert_ne!(
-        scene_bed(OutsideScene::Insects, nights[0] as f64 * 24.0 + 23.0),
-        scene_bed(OutsideScene::Insects, nights[1] as f64 * 24.0 + 23.0),
-        "one day on is the other night's insects"
-    );
 }

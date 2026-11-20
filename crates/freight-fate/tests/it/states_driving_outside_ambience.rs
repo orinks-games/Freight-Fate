@@ -87,7 +87,7 @@ fn test_a_warm_night_with_the_window_up_plays_the_muffled_insects_only() {
     assert_eq!(drive.outside.scene, OutsideScene::Insects);
     let sealed = on(&log, CH_NATURE_SEALED).expect("the muffled bed plays");
     let open = on(&log, CH_NATURE_OPEN).expect("the clear copy runs beside it");
-    assert!(sealed.key.starts_with("ambient/insects_") && sealed.key.ends_with("_sealed"));
+    assert!(sealed.key == "ambient/insects_sealed");
     assert_eq!(open.key, sealed.key.trim_end_matches("_sealed"));
     assert!(sealed.volume > 0.5, "{sealed:?}");
     assert_eq!(open.volume, 0.0, "nothing clear through a closed window");
@@ -156,10 +156,7 @@ fn test_day_plays_birds_and_dusk_swaps_them_for_insects() {
         "still fading"
     );
     run(&mut drive, &mut app, 3.0);
-    assert!(on(&log, CH_NATURE_SEALED)
-        .unwrap()
-        .key
-        .starts_with("ambient/insects_"));
+    assert!(on(&log, CH_NATURE_SEALED).unwrap().key == "ambient/insects_sealed");
 }
 
 #[test]
@@ -230,8 +227,8 @@ fn test_leaving_the_drive_stops_all_four_outside_loops() {
         return;
     };
     for (ch, key) in CH_OUTSIDE.iter().zip([
-        "ambient/insects_1_sealed",
-        "ambient/insects_1",
+        "ambient/insects_sealed",
+        "ambient/insects",
         "ambient/river_sealed",
         "ambient/river",
     ]) {

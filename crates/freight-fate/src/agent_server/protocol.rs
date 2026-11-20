@@ -270,7 +270,6 @@ fn tools_list() -> Value {
                 "unit": {"type": "string", "description": "plant a staffed enforcement unit ahead of the start: one of median_crossover, roving_patrol, work_zone_post, scale_apron_post, fixed_scale, urban_unit, cmv_unit, chain_control"},
                 "unit_ahead_mi": {"type": "number", "description": "how far up the road the planted unit sits, default 3"},
                 "hour": {"type": "number", "description": "the drive's clock at the start, 0 to 24, default 9"},
-                "day": {"type": "integer", "description": "days after the career's day the drive is on, 0 to 30, default 0; one day on is the other night's insects"},
             }),
             &["feature"],
         ),
@@ -753,15 +752,8 @@ pub fn build_command(name: &str, args: &Map<String, Value>) -> Result<Command, S
                 }
                 hour => hour,
             };
-            let day = match args.get("day").and_then(Value::as_i64) {
-                Some(d) if !(0..=30).contains(&d) => {
-                    return Err("day must be from 0 to 30".to_string())
-                }
-                day => day.unwrap_or(0),
-            };
             let (hit, mut opts, found, picked) =
                 discover(&feature, origin, destination, seed, pick, unit)?;
-            opts.day = day;
             // The drive's clock at the start: 9 AM unless asked (the outside
             // beds, night driving).
             if hour.is_some() {

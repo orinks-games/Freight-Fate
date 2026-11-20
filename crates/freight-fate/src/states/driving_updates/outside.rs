@@ -8,9 +8,9 @@
 //! crossfade of two aligned recordings.
 
 use ff_core::sim::outside::{
-    bed_mix, local_absolute_hours, near_river, road_mask, road_mask_to, scene_bed, Bed, BedFader,
-    DayPhase, OutsideConditions, OutsideScene, Water, WaterEvent, NATURE_LEVEL, RIVER,
-    SCENE_FADE_S, WATER_FADE_IN_S, WATER_FADE_OUT_S, WATER_LEVEL,
+    bed_mix, near_river, road_mask, road_mask_to, scene_bed, Bed, BedFader, DayPhase,
+    OutsideConditions, OutsideScene, Water, WaterEvent, NATURE_LEVEL, RIVER, SCENE_FADE_S,
+    WATER_FADE_IN_S, WATER_FADE_OUT_S, WATER_LEVEL,
 };
 
 use crate::app::GameContext;
@@ -67,7 +67,7 @@ impl DrivingState {
         };
         let o = &mut self.outside;
         o.scene = o.scene.next(now);
-        let want = scene_bed(o.scene, local_absolute_hours(&self.trip));
+        let want = scene_bed(o.scene);
         o.nature = o.nature.next(want, dt, SCENE_FADE_S, SCENE_FADE_S);
         o.water = o.water.next(WaterEvent::Tick {
             dt_real_s: dt,

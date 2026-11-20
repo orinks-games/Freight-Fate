@@ -907,7 +907,6 @@ fn road_options(args: &[String]) -> road::RoadOptions {
         verbosity: flag_value(args, "--verbosity"),
         weather: flag_value(args, "--weather"),
         hour: flag_f64(args, "--hour"),
-        day: 0,
         log: flag_value(args, "--log"),
         sandbox: !has(args, "--no-sandbox"),
         unit: None,

@@ -18,7 +18,6 @@
 //! by where the glass is (`sim::cab::Window`).
 
 use crate::sim::hos;
-use crate::sim::trip::Trip;
 use crate::sim::weather::WeatherKind;
 
 /// The part of the day, as `hos::time_of_day` names it.
@@ -116,36 +115,14 @@ impl OutsideScene {
     }
 }
 
-/// The bed a scene plays. The insects alternate night by night: one night
-/// keeps one recording, chosen by the local calendar day the night began on,
-/// so the evening and the small hours after midnight are the same night.
-pub fn scene_bed(scene: OutsideScene, local_absolute_hours: f64) -> Option<Bed> {
+/// The bed a scene plays. One insect chorus every night (Orinks,
+/// 2026-11-20).
+pub fn scene_bed(scene: OutsideScene) -> Option<Bed> {
     match scene {
         OutsideScene::Quiet => None,
         OutsideScene::Birds => Some(BIRDS),
-        OutsideScene::Insects => Some(if night_number(local_absolute_hours) % 2 == 0 {
-            INSECTS_1
-        } else {
-            INSECTS_2
-        }),
+        OutsideScene::Insects => Some(INSECTS),
     }
-}
-
-/// The local clock where the truck is, counted in hours from the career's
-/// first midnight rather than wrapped at 24, so [`night_number`] can tell one
-/// night from the next. A trip with no career clock counts from its own
-/// first midnight.
-pub fn local_absolute_hours(trip: &Trip) -> f64 {
-    let days = trip.career_hours.map_or(0.0, |hours| {
-        ((hours - trip.start_hour) / 24.0).round() * 24.0
-    });
-    days + trip.start_hour + trip.game_minutes / 60.0 + trip.current_timezone().offset_h
-}
-
-/// Which night it is: the day count of the evening it began on. A night
-/// runs from noon to noon, so 2 AM belongs to the evening before.
-pub fn night_number(local_absolute_hours: f64) -> i64 {
-    ((local_absolute_hours - 12.0) / 24.0).floor() as i64
 }
 
 /// One outside bed: the clear recording and its muffled (window up) twin,
@@ -168,16 +145,10 @@ pub const ROAD_FLOOR: f64 = 0.5;
 /// The insects' muffled copy at speed. Orinks's ear sets it.
 pub const INSECTS_SEALED_ROAD_FLOOR: f64 = 0.8;
 
-pub const INSECTS_1: Bed = Bed {
-    name: "insects_1",
-    open: "ambient/insects_1",
-    sealed: "ambient/insects_1_sealed",
-    sealed_road_floor: INSECTS_SEALED_ROAD_FLOOR,
-};
-pub const INSECTS_2: Bed = Bed {
-    name: "insects_2",
-    open: "ambient/insects_2",
-    sealed: "ambient/insects_2_sealed",
+pub const INSECTS: Bed = Bed {
+    name: "insects",
+    open: "ambient/insects",
+    sealed: "ambient/insects_sealed",
     sealed_road_floor: INSECTS_SEALED_ROAD_FLOOR,
 };
 pub const BIRDS: Bed = Bed {

@@ -41,15 +41,15 @@ mod tests {
     #[test]
     fn a_level_is_heard_once_per_step_and_only_on_the_outside_beds() {
         let mut levels = BedLevels::default();
-        let key = "ambient/insects_1";
+        let key = "ambient/insects";
         assert_eq!(
             levels.heard(CH_NATURE_OPEN, key, 0.0).as_deref(),
-            Some("[bed] ambient/insects_1 level 0.0")
+            Some("[bed] ambient/insects level 0.0")
         );
         assert_eq!(levels.heard(CH_NATURE_OPEN, key, 0.02), None);
         assert_eq!(
             levels.heard(CH_NATURE_OPEN, key, 0.81).as_deref(),
-            Some("[bed] ambient/insects_1 level 0.8")
+            Some("[bed] ambient/insects level 0.8")
         );
         assert_eq!(levels.heard(CH_ROAD, "vehicle/road", 0.5), None);
         levels.stopped(CH_NATURE_OPEN);

@@ -179,10 +179,6 @@ pub struct RoadOptions {
     pub verbosity: Option<String>,
     pub weather: Option<String>,
     pub hour: Option<f64>,
-    /// Days after the career's own day the staged drive is on, 0 for the
-    /// same day. With `hour` it picks which night it is (the outside beds
-    /// alternate night by night).
-    pub day: i64,
     pub log: Option<String>,
     pub sandbox: bool,
     /// A staffed enforcement unit planted ahead of the staged start: the
@@ -227,7 +223,6 @@ impl Default for RoadOptions {
             verbosity: None,
             weather: None,
             hour: None,
-            day: 0,
             log: None,
             unit: None,
             sandbox: true,
@@ -1195,10 +1190,10 @@ fn feature_lead_mi(trip: &Trip, hit: &Hit, opts: &RoadOptions) -> f64 {
     }
 }
 
-/// The career clock for a drive staged at `start_hour`, `day` days after
-/// the career's day at `career_hours`.
-pub fn staged_career_hours(career_hours: f64, start_hour: f64, day: i64) -> f64 {
-    (career_hours / 24.0).floor() * 24.0 + day as f64 * 24.0 + start_hour
+/// The career clock for a drive staged at `start_hour` on the career's day
+/// at `career_hours`.
+pub fn staged_career_hours(career_hours: f64, start_hour: f64) -> f64 {
+    (career_hours / 24.0).floor() * 24.0 + start_hour
 }
 
 /// A `DrivingState` already rolling at the feature, set up as asked.
@@ -1380,17 +1375,11 @@ pub fn build_driving(ctx: &mut GameContext, hit: &Hit, opts: &RoadOptions) -> (D
         DRIVE_PHASE_DELIVERY,
         Some(opts.hour.unwrap_or(9.0)),
     );
-    // The career clock moved to the staged hour on its own day (plus `day`),
-    // so everything the drive reads from the calendar -- which night it is,
-    // among others -- follows the hour it was staged at. Left as it was, a
-    // staged hour more than half a day from the career's clock rounded to
-    // the day before, and every staged night was the same night.
+    // The career clock moved to the staged hour on its own day, so what the
+    // drive reads from the calendar follows the hour it was staged at. Left
+    // as it was, the two clocks disagreed by up to a day.
     if let Some(career) = driving.trip.career_hours {
-        driving.trip.career_hours = Some(staged_career_hours(
-            career,
-            driving.trip.start_hour,
-            opts.day,
-        ));
+        driving.trip.career_hours = Some(staged_career_hours(career, driving.trip.start_hour));
     }
 
     let lead_mi = opts

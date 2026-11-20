@@ -69,27 +69,15 @@ fn the_phase_follows_the_clock() {
 }
 
 #[test]
-fn one_night_keeps_one_insect_bed_and_the_next_night_has_the_other() {
-    let evening = 24.0 * 10.0 + 20.0;
-    let small_hours = evening + 7.0;
-    let next_evening = evening + 24.0;
-    let tonight = scene_bed(OutsideScene::Insects, evening);
-    assert_eq!(tonight, scene_bed(OutsideScene::Insects, small_hours));
-    let tomorrow = scene_bed(OutsideScene::Insects, next_evening);
-    assert_ne!(tonight, tomorrow);
-    assert!([Some(INSECTS_1), Some(INSECTS_2)].contains(&tonight));
-    assert!([Some(INSECTS_1), Some(INSECTS_2)].contains(&tomorrow));
-    assert_eq!(scene_bed(OutsideScene::Birds, evening), Some(BIRDS));
-    assert_eq!(scene_bed(OutsideScene::Quiet, evening), None);
-    // Negative clocks (a zone west of the reference just after midnight)
-    // still pick a night.
-    assert_eq!(night_number(3.0), -1);
-    assert_eq!(night_number(-5.0), -1);
+fn each_scene_plays_its_bed() {
+    assert_eq!(scene_bed(OutsideScene::Insects), Some(INSECTS));
+    assert_eq!(scene_bed(OutsideScene::Birds), Some(BIRDS));
+    assert_eq!(scene_bed(OutsideScene::Quiet), None);
 }
 
 #[test]
 fn every_bed_has_a_sealed_twin_by_name() {
-    for bed in [INSECTS_1, INSECTS_2, BIRDS, RIVER] {
+    for bed in [INSECTS, BIRDS, RIVER] {
         assert_eq!(bed.sealed, format!("{}_sealed", bed.open));
         assert!(bed.open.starts_with("ambient/"));
     }
@@ -185,9 +173,7 @@ fn the_mix_follows_the_glass_and_the_road() {
 
 #[test]
 fn the_closed_window_keeps_more_of_the_insects_at_speed_than_of_the_birds() {
-    for bed in [INSECTS_1, INSECTS_2] {
-        assert!(bed.sealed_road_floor > ROAD_FLOOR);
-    }
+    const { assert!(INSECTS.sealed_road_floor > ROAD_FLOOR) };
     assert_eq!(BIRDS.sealed_road_floor, ROAD_FLOOR);
 }
 
@@ -199,13 +185,13 @@ fn the_fader_fades_one_bed_out_before_the_next_comes_in() {
     let f = f.next(Some(BIRDS), 3.0, 3.0, 3.0);
     assert_eq!(f.level, 1.0);
     // Night falls: the birds fade out first, the insects wait for them.
-    let f = f.next(Some(INSECTS_1), 1.5, 3.0, 3.0);
+    let f = f.next(Some(INSECTS), 1.5, 3.0, 3.0);
     assert_eq!(f.bed, Some(BIRDS));
     assert!((f.level - 0.5).abs() < 1e-9);
-    let f = f.next(Some(INSECTS_1), 1.5, 3.0, 3.0);
+    let f = f.next(Some(INSECTS), 1.5, 3.0, 3.0);
     assert_eq!(f, BedFader::default());
-    let f = f.next(Some(INSECTS_1), 0.3, 3.0, 3.0);
-    assert_eq!(f.bed, Some(INSECTS_1));
+    let f = f.next(Some(INSECTS), 0.3, 3.0, 3.0);
+    assert_eq!(f.bed, Some(INSECTS));
     // Quiet: fade out and let go.
     let f = f.next(None, 3.0, 3.0, 3.0);
     assert_eq!(f, BedFader::default());
