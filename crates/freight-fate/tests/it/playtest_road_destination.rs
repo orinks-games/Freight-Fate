@@ -60,7 +60,7 @@ fn destination_is_one_of_the_named_features() {
     assert!(FEATURES.contains(&"destination"));
     // The count is the list's own guard: a feature added to `find_feature`
     // and forgotten here is a feature no operator can discover.
-    assert_eq!(FEATURES.len(), 12);
+    assert_eq!(FEATURES.len(), 13);
 }
 
 #[test]

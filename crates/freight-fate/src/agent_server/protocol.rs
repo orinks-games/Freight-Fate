@@ -256,7 +256,7 @@ fn tools_list() -> Value {
             "Skip the menus: stage a drive at a discovered road feature and take the \
              wheel right there -- the same finder --playtest-road --find uses. \
              feature must be one of: downgrade, upgrade, zone, limit-drop, stop, \
-             scale, curve, interchange, toll, chain-law, destination, departure. \
+             scale, curve, interchange, toll, chain-law, destination, departure, river. \
              Same seed, same road. pick chooses among multiple matches (1-based). \
              unit plants a staffed enforcement unit unit_ahead_mi up the road (default \
              3) so an encounter can be staged on purpose; the road's own seeded posts \
@@ -269,6 +269,7 @@ fn tools_list() -> Value {
                 "pick": {"type": "integer", "description": "1-based match index, default 1"},
                 "unit": {"type": "string", "description": "plant a staffed enforcement unit ahead of the start: one of median_crossover, roving_patrol, work_zone_post, scale_apron_post, fixed_scale, urban_unit, cmv_unit, chain_control"},
                 "unit_ahead_mi": {"type": "number", "description": "how far up the road the planted unit sits, default 3"},
+                "hour": {"type": "number", "description": "the drive's clock at the start, 0 to 24, default 9"},
             }),
             &["feature"],
         ),
@@ -292,8 +293,9 @@ fn tools_list() -> Value {
              from them), came_from (the city the truck delivered from to get here, \
              so the next board is shaped by where it came from), settings (an \
              object of setting name to value, for this \
-             session), and name (the career created when none is loaded; default \
-             Playtest). Nothing is refused for being unreasonable: this is the \
+             session), window (up or down: every drive from here on starts with \
+             the driver window there), and name (the career created when none is \
+             loaded; default Playtest). Nothing is refused for being unreasonable: this is the \
              audited sandbox. Listen afterwards for the terminal.",
             json!({
                 "name": {"type": "string"},
@@ -306,6 +308,7 @@ fn tools_list() -> Value {
                 "endorsements": {"type": "array", "items": {"type": "string"}},
                 "hour": {"type": "number"},
                 "fuel_pct": {"type": "number"},
+                "window": {"type": "string", "enum": ["up", "down"]},
                 "damage_pct": {"type": "number"},
                 "tire_wear_pct": {"type": "number"},
                 "brake_wear_pct": {"type": "number"},
@@ -741,8 +744,19 @@ pub fn build_command(name: &str, args: &Map<String, Value>) -> Result<Command, S
                     Some((kind, ahead))
                 }
             };
-            let (hit, opts, found, picked) =
+            let hour = match args.get("hour").and_then(Value::as_f64) {
+                Some(h) if !(0.0..24.0).contains(&h) => {
+                    return Err("hour must be from 0 up to 24".to_string())
+                }
+                hour => hour,
+            };
+            let (hit, mut opts, found, picked) =
                 discover(&feature, origin, destination, seed, pick, unit)?;
+            // The drive's clock at the start: 9 AM unless asked (the outside
+            // beds, night driving).
+            if hour.is_some() {
+                opts.hour = hour;
+            }
             Ok(Command::StageHit {
                 hit: Box::new(hit),
                 found,

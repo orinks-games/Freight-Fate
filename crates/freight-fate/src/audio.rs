@@ -82,6 +82,20 @@ pub const CH_TRAFFIC_SOUNDS: [u32; 3] = [21, 22, 23];
 pub const CH_TRAFFIC_BED: u32 = 24; // the freeway's distant traffic, by its real presence
 pub const CH_CAB_WIND: u32 = 25; // air rushing past the open driver window, by road speed
 pub const CH_CAB_FAN: u32 = 26; // the cab blower at the fan speed the driver chose
+                                // The outside beds (`ff_core::sim::outside`): each is two aligned copies, the
+                                // muffled one centred and the clear one on the driver's side, crossfaded by
+                                // the driver's glass.
+pub const CH_NATURE_SEALED: u32 = 27; // birds or insects through the closed window
+pub const CH_NATURE_OPEN: u32 = 28; // the same bed through the open window
+pub const CH_WATER_SEALED: u32 = 29; // a river under the truck, window closed
+pub const CH_WATER_OPEN: u32 = 30; // the same river, window open
+/// The four outside bed slots, sealed and open for nature then water.
+pub const CH_OUTSIDE: [u32; 4] = [
+    CH_NATURE_SEALED,
+    CH_NATURE_OPEN,
+    CH_WATER_SEALED,
+    CH_WATER_OPEN,
+];
 
 // Everything above must be inside the reservation. set_reserved(n) protects
 // channels 0..n-1 from find_channel, and this sat at 14 while CH_RADIO_FX,
@@ -94,7 +108,7 @@ pub const NUM_CHANNELS: u32 = 32;
 // (CH_LANE_GUIDE landed at 20 after RESERVED was set to CH_SURGE + 1 = 20; the
 // reservation only ever mattered to the pygame mixer, so the value is kept as
 // the Python module had it.)
-const _: () = assert!(CH_CAB_FAN < NUM_CHANNELS);
+const _: () = assert!(CH_WATER_OPEN < NUM_CHANNELS);
 
 /// A held alert tone is a dead man's switch. Its owner re-asserts it every
 /// frame through `hold_alert`, and it stops on its own the moment that stops

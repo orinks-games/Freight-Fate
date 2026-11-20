@@ -13,6 +13,7 @@ pub mod keeper_follow;
 pub mod lane;
 pub mod lane_guidance;
 pub mod limit_gaps;
+pub mod outside;
 pub mod pedal_latch;
 pub mod real_fuel_price;
 pub mod real_traffic;

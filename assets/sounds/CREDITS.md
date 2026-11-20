@@ -3,8 +3,10 @@
 Sound effects in this directory come from a few sources, documented per file in
 the tables below: original effects created for Freight Fate (no third-party
 recordings or samples), weather and road loops produced with ElevenLabs sound
-effects tooling, and driving sounds cut from
-commercially licensed sample libraries (see "Licensed Driving Sounds" below).
+effects tooling, driving sounds cut from
+commercially licensed sample libraries (see "Licensed Driving Sounds" below),
+and the outside beds (insects, birds, river), which are OpenGameArt
+recordings under CC0 or CC BY, credited per file below.
 A number of in-cab cues were shared by Darren Duff early in the project; he
 holds no license for that material (owner ruling 2026-07-22), so every Duff
 row below is scheduled for replacement, not attribution -- most are already
@@ -120,7 +122,14 @@ not distributed in this repository.
 | Main menu, company driver by day | `ambient/menu_dispatch_office.ogg` | ElevenLabs-generated trucking dispatch office ambience loop |
 | Truck stop by day | `ambient/truck_stop.ogg` | ElevenLabs-generated daytime truck-stop lot ambience loop |
 | Warehouse interior | `ambient/warehouse.ogg` | ElevenLabs-generated warehouse dock interior ambience loop |
-| Night driving | `ambient/night.ogg` | In-cab night ambience loop, shared by Darren Duff |
+| Insects at night, first night | `ambient/insects_1.ogg` | "Crickets Ambient Noise - loopable" by Wolfgang_, CC0 1.0 (https://opengameart.org/content/crickets-ambient-noise-loopable); looped and levelled by `sound-test/outside_ambience.sh` |
+| Insects at night, first night, window up | `ambient/insects_1_sealed.ogg` | The same recording, low-cut, filtered to sound through a closed cab window and raised in level, by `sound-test/outside_ambience.sh` |
+| Insects at night, second night | `ambient/insects_2.ogg` | "Forest Night" from "JC Sounds - Nature Ambient Pack Vol 1" by JC Sounds (https://opengameart.org/content/jc-sounds-nature-ambient-pack-vol-1), licensed CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/); trimmed, looped and levelled by `sound-test/outside_ambience.sh` |
+| Insects at night, second night, window up | `ambient/insects_2_sealed.ogg` | The same JC Sounds recording under CC BY 4.0, also low-cut, filtered to sound through a closed cab window and raised in level |
+| Birds by day | `ambient/birds_day.ogg` | Birds recording from "Park ambiences" by Thimras, CC0 1.0 (https://opengameart.org/content/park-ambiences); trimmed to 45 seconds, high-passed at 250 Hz, looped and levelled by `sound-test/outside_ambience.sh` |
+| Birds by day, window up | `ambient/birds_day_sealed.ogg` | The same recording, filtered to sound through a closed cab window |
+| River under a bridge | `ambient/river.ogg` | "Stream Sounds" (stream1) by kurt (https://opengameart.org/content/stream-sounds), licensed CC BY 3.0 (https://creativecommons.org/licenses/by/3.0/); looped and levelled by `sound-test/outside_ambience.sh` |
+| River under a bridge, window up | `ambient/river_sealed.ogg` | The same kurt recording under CC BY 3.0, also filtered to sound through a closed cab window |
 
 ## Music
 

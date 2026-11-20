@@ -263,6 +263,15 @@ pub struct DrivingObservation {
     pub road_offer: crate::touch::RoadOffer,
     /// The clutch a touch shift works in a manual truck.
     pub touch_clutch: ff_core::sim::touch_clutch::TouchClutch,
+    /// The driver window's state machine.
+    pub window: ff_core::sim::cab::Window,
+    /// What is alive outside, and the bed playing for it ("none" if quiet).
+    pub outside: ff_core::sim::outside::OutsideScene,
+    pub outside_bed: &'static str,
+    /// The temperature the scene was last judged on; `None` with seasons off.
+    pub outside_temperature_c: Option<f64>,
+    /// Over a river or away from one.
+    pub water: ff_core::sim::outside::Water,
 }
 
 /// The only capability a windowed input policy receives for one frame.
@@ -886,6 +895,11 @@ impl App {
             jake_zone: drive.jake_zone_notice.key(),
             road_offer: drive.road_offer(&self.ctx),
             touch_clutch: drive.touch_clutch,
+            window: drive.cab.window(),
+            outside: drive.outside.scene,
+            outside_bed: drive.outside.nature.bed.map_or("none", |bed| bed.name),
+            outside_temperature_c: drive.outside.temperature_c(),
+            water: drive.outside.water,
         })
     }
 

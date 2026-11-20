@@ -1030,6 +1030,8 @@ pub struct DrivingState {
     pub lane_locator_timer: f64,
     /// The driver window and the climate controls: pure ambience, not saved.
     pub cab: ff_core::sim::cab::CabState,
+    /// The beds outside the truck: birds, insects, a river under it.
+    pub outside: crate::states::driving_updates::outside::OutsideAudio,
     // The same tock, summoned by the steering itself rather than by I:
     // while a lane move is underway it runs on its own and ends with the
     // signal cancelling. See _update_steering_lane_cue.

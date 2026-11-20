@@ -35,6 +35,7 @@ mod limits;
 mod lookups;
 mod place_time;
 mod placement;
+mod rivers;
 mod streets;
 mod update;
 mod zones;

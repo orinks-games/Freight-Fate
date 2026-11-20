@@ -281,7 +281,10 @@ impl DrivingState {
             "Engine off.".to_string()
         };
 
-        let cab = ff_core::sim::cab::CabState::for_outside(trip.weather.temperature_c());
+        let mut cab = ff_core::sim::cab::CabState::for_outside(trip.weather.temperature_c());
+        if let Some(down) = ctx.playtest_window_down {
+            cab.set_window(down);
+        }
 
         DrivingState {
             job,
@@ -719,6 +722,7 @@ impl DrivingState {
             lane_locator_on: false,
             lane_locator_timer: 0.0,
             cab,
+            outside: Default::default(),
             steer_cue_active: false,
             exit_blinker_active: false,
             steer_cue_timer: 0.0,

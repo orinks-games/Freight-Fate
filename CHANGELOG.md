@@ -17,6 +17,7 @@
 - **Settings, Speech now has a Main voice row.** Pick your screen reader, SAPI, Windows OneCore or the built-in voice, or keep automatic.
 - **The controller's second layer can move to the left bumper.** The Second layer bumper row in Controls swaps the bumpers, and prompts name the one you hold.
 - **Drive online as a guest, with no orinks.net account.** You show on the drivers board under a name orinks.net picks, like Copper Fox 12.
+- **Birds by day, insects at night and rivers under bridges now sound outside the truck.** Lower the driver window to hear them clearly.
 
 ### Changed
 

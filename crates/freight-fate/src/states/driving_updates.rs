@@ -47,6 +47,7 @@ pub mod frame;
 pub mod hazards;
 pub mod lanes;
 pub mod live_sources;
+pub mod outside;
 pub mod pacing;
 pub mod pending;
 pub mod radio;

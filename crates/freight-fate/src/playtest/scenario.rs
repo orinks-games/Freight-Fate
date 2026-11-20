@@ -78,6 +78,9 @@ pub struct Scenario {
     pub came_from: Option<String>,
     /// Settings by field name, applied to this session.
     pub settings: Map<String, Value>,
+    /// The driver window every drive from here on starts with: `Some(true)`
+    /// all the way down, `Some(false)` up.
+    pub window_down: Option<bool>,
 }
 
 fn number(args: &Map<String, Value>, key: &str) -> Result<Option<f64>, String> {
@@ -141,6 +144,12 @@ impl Scenario {
                 }
             }
         }
+        let window_down = match text(args, "window")?.as_deref() {
+            None => None,
+            Some("down") => Some(true),
+            Some("up") => Some(false),
+            Some(other) => return Err(format!("window must be up or down, not {other}")),
+        };
         let settings = match args.get("settings") {
             None | Some(Value::Null) => Map::new(),
             Some(Value::Object(map)) => map.clone(),
@@ -237,6 +246,7 @@ impl Scenario {
             board_seed: integer(args, "board_seed")?,
             came_from: text(args, "came_from")?,
             settings,
+            window_down,
         })
     }
 
@@ -433,6 +443,14 @@ pub fn apply(ctx: &mut GameContext, scenario: &Scenario) -> Result<Vec<String>, 
                 Alertness::from_fatigue(fatigue).key()
             ));
         }
+    }
+    if let Some(down) = scenario.window_down {
+        ctx.playtest_window_down = Some(down);
+        notes.push(if down {
+            "Drives start with the driver window down.".to_string()
+        } else {
+            "Drives start with the driver window up.".to_string()
+        });
     }
     if let Some(seed) = scenario.board_seed {
         ctx.dispatch_board_seed = Some(seed);

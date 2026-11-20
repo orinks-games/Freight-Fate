@@ -199,6 +199,7 @@ impl DrivingState {
     pub fn update_audio(&mut self, ctx: &mut GameContext, dt: f64) {
         self.sync_radio_power(ctx);
         self.update_cab_audio(ctx, dt);
+        self.update_outside_audio(ctx, dt);
         // The engine's pan is the STEERING GUIDE now, owned by
         // `update_lane_guidance_audio`, and is deliberately not touched here.
         // It used to carry the truck's lane position; that readout moved to
@@ -448,12 +449,11 @@ impl DrivingState {
             // each frame, it stops on its own once steered back off.
             ctx.controller.rumble.rumble_strip(rumble);
         }
+        // The outside beds have their own channels (`update_outside_audio`).
+        // The shared ambient bed is still let go every frame, so a rest
+        // stop's or a facility's bed ends when the drive resumes.
+        ctx.set_ambient(None);
         let night = is_night(self.trip.local_hour());
-        if night {
-            ctx.set_ambient(Some("ambient/night"));
-        } else {
-            ctx.set_ambient(None);
-        }
         // Before the dial check: the stations are on the air whether or not
         // this cab is listening, which is what lets a re-tune pick a station
         // up where it got to.

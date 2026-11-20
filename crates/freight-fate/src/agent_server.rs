@@ -75,6 +75,7 @@ const CRUISE_REPLY_FRAMES: u32 = 30;
 /// minus); no target is ever this far from what K captured.
 const MAX_CRUISE_TAPS: i64 = 60;
 
+mod bed_levels;
 mod ears;
 mod gestures;
 mod holder;
@@ -265,7 +266,7 @@ fn fatigue_state_line(o: &crate::app::DrivingObservation, mode: crate::touch::To
     format!(
         "STATE: alertness {}; nod {} ({timer:.2} {unit}); nod_misses {}; lift_owed {lift}; \
          rest_call {rest_call}; runaway {}{gate}; jake_zone {}; touch_mode {}; road_offer {}; \
-         touch_clutch {}.",
+         touch_clutch {}; window {}; outside {} ({}, {}); water {}.",
         o.alertness.key(),
         o.nod.key(),
         o.nod.misses,
@@ -273,7 +274,13 @@ fn fatigue_state_line(o: &crate::app::DrivingObservation, mode: crate::touch::To
         o.jake_zone,
         mode.key(),
         o.road_offer.key(),
-        o.touch_clutch.name()
+        o.touch_clutch.name(),
+        o.window.name(),
+        o.outside.name(),
+        o.outside_bed,
+        o.outside_temperature_c
+            .map_or("seasons off".to_string(), |t| format!("{t:.1} C")),
+        o.water.name()
     )
 }
 
