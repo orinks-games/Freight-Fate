@@ -36,6 +36,8 @@
 
 ### Fixed
 
+- **SAPI and Windows OneCore voices play on your default sound device again.** With several devices connected, they could come out of another one, such as a TV.
+
 - **A controller button name that starts a sentence now starts with a capital letter.** For example, "Air ready. Right bumper plus Y releases the parking brake."
 
 - **Windows shutdown, restart or sign-out with the game open no longer causes a crash prompt on the next launch.**

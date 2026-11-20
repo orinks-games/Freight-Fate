@@ -1,0 +1,235 @@
+// SPDX-License-Identifier: MPL-2.0
+
+#pragma once
+#include <atomic>
+#include <bitset>
+#include <cstddef>
+#include <cstdint>
+#include <expected>
+#include <functional>
+#include <mutex>
+#include <string>
+#include <string_view>
+#ifdef __ANDROID__
+#include <jni.h>
+#endif
+#if defined(_WIN32) && !defined(PRISM_CONSOLE)
+#include <objbase.h>
+#include <windows.h>
+#endif
+
+enum class BackendError : std::uint8_t {
+  Ok = 0,
+  NotInitialized,
+  InvalidParam,
+  NotImplemented,
+  NoVoices,
+  VoiceNotFound,
+  SpeakFailure,
+  MemoryFailure,
+  RangeOutOfBounds,
+  InternalBackendError,
+  NotSpeaking,
+  NotPaused,
+  AlreadyPaused,
+  InvalidUtf8,
+  InvalidOperation,
+  AlreadyInitialized,
+  BackendNotAvailable,
+  Unknown,
+  InvalidAudioFormat,
+  InternalBackendLimitExceeded,
+  BackendEnteredUndefinedState,
+  LibraryLoadFailed,
+  LibraryInvalid,
+  IncompatibleAbi,
+};
+
+template <typename T = void>
+using BackendResult = std::expected<T, BackendError>;
+
+namespace BackendFeature {
+inline constexpr auto IS_SUPPORTED_AT_RUNTIME = (1ULL << 0);
+inline constexpr auto SUPPORTS_SPEAK = (1ULL << 2);
+inline constexpr auto SUPPORTS_SPEAK_TO_MEMORY = (1ULL << 3);
+inline constexpr auto SUPPORTS_BRAILLE = (1ULL << 4);
+inline constexpr auto SUPPORTS_OUTPUT = (1ULL << 5);
+inline constexpr auto SUPPORTS_IS_SPEAKING = (1ULL << 6);
+inline constexpr auto SUPPORTS_STOP = (1ULL << 7);
+inline constexpr auto SUPPORTS_PAUSE = (1ULL << 8);
+inline constexpr auto SUPPORTS_RESUME = (1ULL << 9);
+inline constexpr auto SUPPORTS_SET_VOLUME = (1ULL << 10);
+inline constexpr auto SUPPORTS_GET_VOLUME = (1ULL << 11);
+inline constexpr auto SUPPORTS_SET_RATE = (1ULL << 12);
+inline constexpr auto SUPPORTS_GET_RATE = (1ULL << 13);
+inline constexpr auto SUPPORTS_SET_PITCH = (1ULL << 14);
+inline constexpr auto SUPPORTS_GET_PITCH = (1ULL << 15);
+inline constexpr auto SUPPORTS_REFRESH_VOICES = (1ULL << 16);
+inline constexpr auto SUPPORTS_COUNT_VOICES = (1ULL << 17);
+inline constexpr auto SUPPORTS_GET_VOICE_NAME = (1ULL << 18);
+inline constexpr auto SUPPORTS_GET_VOICE_LANGUAGE = (1ULL << 19);
+inline constexpr auto SUPPORTS_GET_VOICE = (1ULL << 20);
+inline constexpr auto SUPPORTS_SET_VOICE = (1ULL << 21);
+inline constexpr auto SUPPORTS_GET_CHANNELS = (1ULL << 22);
+inline constexpr auto SUPPORTS_GET_SAMPLE_RATE = (1ULL << 23);
+inline constexpr auto SUPPORTS_GET_BIT_DEPTH = (1ULL << 24);
+inline constexpr auto PERFORMS_SILENCE_TRIMMING_ON_SPEAK = (1ULL << 25);
+inline constexpr auto PERFORMS_SILENCE_TRIMMING_ON_SPEAK_TO_MEMORY =
+    (1ULL << 26);
+inline constexpr auto SUPPORTS_SPEAK_SSML = (1ULL << 27);
+inline constexpr auto SUPPORTS_SPEAK_TO_MEMORY_SSML = (1ULL << 28);
+inline constexpr auto IS_SCREEN_READER = (1ULL << 56);
+inline constexpr auto IS_SPEECH_ENGINE = (1ULL << 57);
+inline constexpr auto REQUIRES_EXPLICIT_SELECTION = (1ULL << 58);
+inline constexpr auto KNOWN =
+    IS_SUPPORTED_AT_RUNTIME | SUPPORTS_SPEAK | SUPPORTS_SPEAK_TO_MEMORY |
+    SUPPORTS_BRAILLE | SUPPORTS_OUTPUT | SUPPORTS_IS_SPEAKING | SUPPORTS_STOP |
+    SUPPORTS_PAUSE | SUPPORTS_RESUME | SUPPORTS_SET_VOLUME |
+    SUPPORTS_GET_VOLUME | SUPPORTS_SET_RATE | SUPPORTS_GET_RATE |
+    SUPPORTS_SET_PITCH | SUPPORTS_GET_PITCH | SUPPORTS_REFRESH_VOICES |
+    SUPPORTS_COUNT_VOICES | SUPPORTS_GET_VOICE_NAME |
+    SUPPORTS_GET_VOICE_LANGUAGE | SUPPORTS_GET_VOICE | SUPPORTS_SET_VOICE |
+    SUPPORTS_GET_CHANNELS | SUPPORTS_GET_SAMPLE_RATE | SUPPORTS_GET_BIT_DEPTH |
+    PERFORMS_SILENCE_TRIMMING_ON_SPEAK |
+    PERFORMS_SILENCE_TRIMMING_ON_SPEAK_TO_MEMORY | IS_SCREEN_READER |
+    IS_SPEECH_ENGINE | REQUIRES_EXPLICIT_SELECTION;
+static_assert((KNOWN & SUPPORTS_SPEAK_SSML) == 0);
+static_assert((KNOWN & SUPPORTS_SPEAK_TO_MEMORY_SSML) == 0);
+static_assert((KNOWN & (1ULL << 1)) == 0, "bit 1 has never been assigned");
+} // namespace BackendFeature
+
+class TextToSpeechBackend {
+private:
+  std::mutex initialization_mtx;
+  std::atomic_flag initialized_for_cache;
+
+public:
+  using AudioCallback = std::function<void(void *, const float *, std::size_t,
+                                           std::size_t, std::size_t)>;
+  static constexpr bool requires_explicit_selection = false;
+  virtual ~TextToSpeechBackend() = default;
+  BackendResult<> initialize_tracked() {
+    std::scoped_lock lock(initialization_mtx);
+    const auto result = initialize();
+    if (result || result.error() == BackendError::AlreadyInitialized)
+      initialized_for_cache.test_and_set(std::memory_order_release);
+    return result;
+  }
+  [[nodiscard]] bool ensure_initialized() {
+    std::scoped_lock lock(initialization_mtx);
+    if (initialized_for_cache.test(std::memory_order_relaxed))
+      return true;
+    const auto result = initialize();
+    if (!result && result.error() != BackendError::AlreadyInitialized)
+      return false;
+    initialized_for_cache.test_and_set(std::memory_order_release);
+    return true;
+  }
+  [[nodiscard]] bool is_initialized_for_cache() const noexcept {
+    return initialized_for_cache.test(std::memory_order_acquire);
+  }
+  [[nodiscard]] virtual std::string_view get_name() const = 0;
+  [[nodiscard]] virtual std::bitset<64> get_features() const = 0;
+  virtual BackendResult<> initialize() {
+    return std::unexpected(BackendError::NotImplemented);
+  }
+  virtual BackendResult<> speak([[maybe_unused]] std::string_view text,
+                                [[maybe_unused]] bool interrupt) {
+    return std::unexpected(BackendError::NotImplemented);
+  }
+  virtual BackendResult<>
+  speak_to_memory([[maybe_unused]] std::string_view text,
+                  // NOLINTNEXTLINE(performance-unnecessary-value-param)
+                  [[maybe_unused]] AudioCallback callback,
+                  [[maybe_unused]] void *userdata) {
+    return std::unexpected(BackendError::NotImplemented);
+  }
+  virtual BackendResult<> braille([[maybe_unused]] std::string_view text) {
+    return std::unexpected(BackendError::NotImplemented);
+  }
+  virtual BackendResult<> output([[maybe_unused]] std::string_view text,
+                                 [[maybe_unused]] bool interrupt) {
+    return std::unexpected(BackendError::NotImplemented);
+  }
+  virtual BackendResult<bool> is_speaking() {
+    return std::unexpected(BackendError::NotImplemented);
+  }
+  virtual BackendResult<> stop() {
+    return std::unexpected(BackendError::NotImplemented);
+  }
+  virtual BackendResult<> pause() {
+    return std::unexpected(BackendError::NotImplemented);
+  }
+  virtual BackendResult<> resume() {
+    return std::unexpected(BackendError::NotImplemented);
+  }
+  virtual BackendResult<> set_volume([[maybe_unused]] float volume) {
+    return std::unexpected(BackendError::NotImplemented);
+  }
+  virtual BackendResult<float> get_volume() {
+    return std::unexpected(BackendError::NotImplemented);
+  }
+  virtual BackendResult<> set_rate([[maybe_unused]] float rate) {
+    return std::unexpected(BackendError::NotImplemented);
+  }
+  virtual BackendResult<float> get_rate() {
+    return std::unexpected(BackendError::NotImplemented);
+  }
+  virtual BackendResult<> set_pitch([[maybe_unused]] float pitch) {
+    return std::unexpected(BackendError::NotImplemented);
+  }
+  virtual BackendResult<float> get_pitch() {
+    return std::unexpected(BackendError::NotImplemented);
+  }
+  virtual BackendResult<> refresh_voices() {
+    return std::unexpected(BackendError::NotImplemented);
+  }
+  virtual BackendResult<std::size_t> count_voices() {
+    return std::unexpected(BackendError::NotImplemented);
+  }
+  virtual BackendResult<std::string>
+  get_voice_name([[maybe_unused]] std::size_t id) {
+    return std::unexpected(BackendError::NotImplemented);
+  }
+  virtual BackendResult<std::string>
+  get_voice_language([[maybe_unused]] std::size_t id) {
+    return std::unexpected(BackendError::NotImplemented);
+  }
+  virtual BackendResult<> set_voice([[maybe_unused]] std::size_t id) {
+    return std::unexpected(BackendError::NotImplemented);
+  }
+  virtual BackendResult<std::size_t> get_voice() {
+    return std::unexpected(BackendError::NotImplemented);
+  }
+  virtual BackendResult<std::size_t> get_channels() {
+    return std::unexpected(BackendError::NotImplemented);
+  }
+  virtual BackendResult<std::size_t> get_sample_rate() {
+    return std::unexpected(BackendError::NotImplemented);
+  }
+  virtual BackendResult<std::size_t> get_bit_depth() {
+    return std::unexpected(BackendError::NotImplemented);
+  }
+};
+
+#if defined(_WIN32) && !defined(PRISM_CONSOLE)
+class ComTextToSpeechBackend : public TextToSpeechBackend {
+private:
+  CO_MTA_USAGE_COOKIE mta_cookie{};
+  bool mta_usage_retained = false;
+
+public:
+  ComTextToSpeechBackend() noexcept {
+    mta_usage_retained = SUCCEEDED(CoIncrementMTAUsage(&mta_cookie));
+  }
+
+  ComTextToSpeechBackend(const ComTextToSpeechBackend &) = delete;
+  ComTextToSpeechBackend &operator=(const ComTextToSpeechBackend &) = delete;
+  ComTextToSpeechBackend(ComTextToSpeechBackend &&) = delete;
+  ComTextToSpeechBackend &operator=(ComTextToSpeechBackend &&) = delete;
+  ~ComTextToSpeechBackend() override {
+    if (mta_usage_retained)
+      (void)CoDecrementMTAUsage(mta_cookie);
+  }
+};
+#endif

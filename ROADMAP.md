@@ -4166,6 +4166,22 @@ with everything off):
 - Three "Found along the way" items above: the keeper trailing a posted
   drop, silent damage, the rural 70 posted on a boulevard.
 
+### November 20 speech on the wrong sound device (Release gate)
+
+A player's problem report (2026-11-20, a tester snapshot, Windows 11 with
+several sound devices): SAPI and Windows OneCore voices came out of their TV,
+while game sound, NVDA and the built-in voice played on the default device.
+Prism 0.1.6, on dev since 2026-11-18 and not in 1.9.6, plays those two voices
+itself, SAPI through XAudio2 and OneCore through an AudioGraph, and opens
+"the default" with no device named. Game sound and the built-in voice open
+the console default by name.
+
+Fix on review (2026-11-20): the game carries a patched copy of prism-sys
+0.1.6 under `vendor/prism-sys` that names the console default device for both
+voices, falling back to the old call if the device cannot be named. When the
+named device is unplugged, or the default changes, the next line opens the
+new default. The copy goes when a prism-sys release names the device itself.
+
 ### November 16 exits inside a work zone (Release gate)
 
 A player's problem report (2026-11-16, a tester snapshot): they signaled for
@@ -4245,6 +4261,9 @@ Release gate for 1.9.7:
       service killed twice. No one has run it with a real headset on
       Windows; the owner has none to test with and merged it for players
       to confirm.
+- [ ] SAPI and OneCore speech play on the default sound device again
+      (player problem report, 2026-11-20;
+      [November 20](#november-20-speech-on-the-wrong-sound-device-release-gate)).
 - [ ] The Windows Defender detection a player reported on 2026-11-14.
       The Windows build is not code signed. Before the tag, the release
       candidate's Windows files are scanned and come back clean, or the
