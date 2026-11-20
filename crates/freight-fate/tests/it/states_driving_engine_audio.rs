@@ -23,6 +23,7 @@
 use std::cell::RefCell;
 use std::rc::Rc;
 
+use ff_core::sim::road_texture::{axle_gap_s, RoadSurface, AXLE_GAP_M};
 use ff_core::sim::transmission::REVERSE;
 use ff_core::sim::weather::WeatherKind;
 
@@ -31,6 +32,7 @@ use freight_fate::audio::{
 };
 use freight_fate::playtest::harness::{PlaytestHarness, StartDelivery};
 use freight_fate::states::driving_core::shut_down_engine;
+use freight_fate::states::driving_updates::road_texture::SEAM_LEVEL;
 use freight_fate::states::driving_updates::{
     JAKE_RATE_MAX, SHIFT_END_CLUNK_VOLUME, SHIFT_LOAD_CAP,
 };
@@ -843,20 +845,23 @@ fn test_road_joint_thumps_use_physical_distance_at_every_pace() {
     // re-pinned to 20 m/s at the top of each frame, which is the same
     // arrangement without a fake. The rumble severity Python also read is
     // unreachable -- `RumbleEngine`'s one-shot queue is private -- but it is
-    // the same number the thump's own volume carries (`0.015 * severity`),
-    // so the assertion below pins it there.
+    // the same number the thump's own volume carries (`SEAM_LEVEL *
+    // severity`), so the assertion below pins it there. The surface is held
+    // jointed: on a smooth stretch there are no seams at all.
     for time_scale in [10.0, 20.0, 40.0] {
         let (mut harness, log) = a_drive(&format!("Joints {time_scale}"));
         harness.app.ctx.settings.time_scale = time_scale;
         harness.with_drive(move |drive, _| {
             drive.road_joint_accumulator_m = 0.0;
             drive.next_joint_distance_m = 15.0;
+            drive.road_texture.surface = RoadSurface::held(true);
             drive.trip.time_scale = time_scale;
             drive.trip.set_patrols(Vec::new());
             drive.trip.posts.clear();
             drive.truck_mut().start_engine();
         });
         log.borrow_mut().played.clear();
+        log.borrow_mut().banks.clear();
 
         for _ in 0..30 {
             harness.advance_clock(1.0 / 60.0);
@@ -879,10 +884,16 @@ fn test_road_joint_thumps_use_physical_distance_at_every_pace() {
                 drive.update_audio(ctx, 1.0 / 60.0);
             });
         }
+        // The steer axle is on the seam; the drives are 5.2 m behind it.
         let thumps = joint_plays(&log);
         assert_eq!(thumps.len(), 1, "{thumps:#?}");
-        // 0.015 * (20 / 30): the severity the rumble is given, in the volume.
-        assert!((thumps[0] - 0.01).abs() < 1e-5, "{}", thumps[0]);
+        assert_eq!(thumps[0].0, "vehicle/seam_steer");
+        // SEAM_LEVEL * (20 / 30): the severity the rumble is given, in the volume.
+        assert!(
+            (thumps[0].1 - SEAM_LEVEL * 20.0 / 30.0).abs() < 1e-5,
+            "{}",
+            thumps[0].1
+        );
         assert!(
             (harness.read_drive(|d| d.road_joint_accumulator_m) - 5.0).abs() < 1e-3,
             "{}",
@@ -893,14 +904,75 @@ fn test_road_joint_thumps_use_physical_distance_at_every_pace() {
     }
 }
 
-/// The volumes every road-joint thump played at.
-fn joint_plays(log: &Log) -> Vec<f64> {
+/// Every seam or bridge joint bank played, and its volume.
+fn joint_plays(log: &Log) -> Vec<(String, f64)> {
     log.borrow()
-        .played
+        .banks
         .iter()
-        .filter(|(key, _)| key == "vehicle/road_joint")
-        .map(|(_, volume)| *volume)
+        .filter(|(key, _)| key.starts_with("vehicle/seam_") || key == "vehicle/bridge_joint")
+        .cloned()
         .collect()
+}
+
+#[test]
+fn test_a_seam_is_two_thumps_a_wheelbase_apart_at_every_speed() {
+    for speed in [29.0, 15.6] {
+        let (mut harness, log) = a_drive(&format!("Seam pair {speed}"));
+        harness.with_drive(|drive, _| {
+            drive.road_joint_accumulator_m = 0.0;
+            drive.next_joint_distance_m = 15.0;
+            drive.road_texture.surface = RoadSurface::held(true);
+            drive.trip.set_patrols(Vec::new());
+            drive.trip.posts.clear();
+            drive.truck_mut().start_engine();
+        });
+        log.borrow_mut().banks.clear();
+        let frame = 1.0 / 240.0;
+        let mut steer_at = None;
+        let mut drive_at = None;
+        for i in 0..((15.0 + AXLE_GAP_M + 1.0) / speed / frame) as usize {
+            harness.advance_clock(frame);
+            harness.with_drive(|drive, ctx| {
+                drive.truck_mut().velocity_mps = speed;
+                drive.update_audio(ctx, frame);
+            });
+            for (key, _) in joint_plays(&log) {
+                let t = i as f64 * frame;
+                match key.as_str() {
+                    "vehicle/seam_steer" => steer_at = steer_at.or(Some(t)),
+                    "vehicle/seam_drive" => drive_at = drive_at.or(Some(t)),
+                    _ => {}
+                }
+            }
+            log.borrow_mut().banks.clear();
+        }
+        let gap = drive_at.expect("the drives") - steer_at.expect("the steer axle");
+        assert!(
+            (gap - axle_gap_s(speed)).abs() < 2.0 * frame,
+            "{speed} m/s: {gap} s, wanted {}",
+            axle_gap_s(speed)
+        );
+    }
+}
+
+#[test]
+fn test_a_smooth_stretch_has_no_seams() {
+    let (mut harness, log) = a_drive("Smooth");
+    harness.with_drive(|drive, _| {
+        drive.road_texture.surface = RoadSurface::held(false);
+        drive.trip.set_patrols(Vec::new());
+        drive.trip.posts.clear();
+        drive.truck_mut().start_engine();
+    });
+    log.borrow_mut().banks.clear();
+    for _ in 0..600 {
+        harness.advance_clock(1.0 / 60.0);
+        harness.with_drive(|drive, ctx| {
+            drive.truck_mut().velocity_mps = 29.0;
+            drive.update_audio(ctx, 1.0 / 60.0);
+        });
+    }
+    assert!(joint_plays(&log).is_empty(), "{:#?}", joint_plays(&log));
 }
 
 #[test]

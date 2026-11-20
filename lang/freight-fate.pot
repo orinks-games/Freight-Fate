@@ -12873,7 +12873,7 @@ msgstr ""
 msgid "wilderness"
 msgstr ""
 
-#: crates/ff-core/src/settings.rs
+#: crates/ff-core/src/settings.rs crates/ff-core/src/sim/outside.rs
 msgid "river"
 msgstr ""
 
@@ -13061,6 +13061,22 @@ msgstr ""
 
 #: crates/ff-core/src/sim/arrival_gate.rs crates/freight-fate/src/states/driving_events/cruise_loop.rs
 msgid "holding"
+msgstr ""
+
+#: crates/ff-core/src/sim/cab.rs crates/freight-fate/src/app/key_probe.rs crates/freight-fate/src/controller/diagnostics.rs
+msgid "up"
+msgstr ""
+
+#: crates/ff-core/src/sim/cab.rs
+msgid "lowering"
+msgstr ""
+
+#: crates/ff-core/src/sim/cab.rs crates/freight-fate/src/app/key_probe.rs crates/freight-fate/src/controller/diagnostics.rs
+msgid "down"
+msgstr ""
+
+#: crates/ff-core/src/sim/cab.rs
+msgid "raising"
 msgstr ""
 
 #: crates/ff-core/src/sim/cab.rs
@@ -13822,6 +13838,26 @@ msgstr ""
 msgid "shoulder"
 msgstr ""
 
+#: crates/ff-core/src/sim/outside.rs crates/ff-core/src/speech_pacing.rs
+msgid "quiet"
+msgstr ""
+
+#: crates/ff-core/src/sim/outside.rs
+msgid "birds"
+msgstr ""
+
+#: crates/ff-core/src/sim/outside.rs
+msgid "insects"
+msgstr ""
+
+#: crates/ff-core/src/sim/outside.rs
+msgid "away"
+msgstr ""
+
+#: crates/ff-core/src/sim/outside.rs crates/freight-fate/src/states/driving_rest_states/fuel_pump.rs
+msgid "over"
+msgstr ""
+
 #: crates/ff-core/src/sim/pedal_latch.rs
 msgid "latched"
 msgstr ""
@@ -14250,6 +14286,14 @@ msgstr ""
 #. placeholders: {join}
 #: crates/ff-core/src/sim/real_weather_alerts.rs
 msgid "Weather: {join}."
+msgstr ""
+
+#: crates/ff-core/src/sim/road_texture.rs
+msgid "smooth"
+msgstr ""
+
+#: crates/ff-core/src/sim/road_texture.rs
+msgid "jointed"
 msgstr ""
 
 #: crates/ff-core/src/sim/roadside_inspection.rs
@@ -17303,7 +17347,19 @@ msgid "Plays under a spoken line that already explains it."
 msgstr ""
 
 #: crates/ff-core/src/sound_catalog.rs
+msgid "A small debris strike under the wheels."
+msgstr ""
+
+#: crates/ff-core/src/sound_catalog.rs
 msgid "Pavement seams: texture, not a decision."
+msgstr ""
+
+#: crates/ff-core/src/sound_catalog.rs
+msgid "As the steer axle's seam."
+msgstr ""
+
+#: crates/ff-core/src/sound_catalog.rs
+msgid "The joint at a bridge end: texture, not a decision."
 msgstr ""
 
 #: crates/ff-core/src/sound_catalog.rs
@@ -17406,10 +17462,6 @@ msgstr ""
 
 #: crates/ff-core/src/speech_pacing.rs
 msgid "silent"
-msgstr ""
-
-#: crates/ff-core/src/speech_pacing.rs
-msgid "quiet"
 msgstr ""
 
 #. placeholders: {city}
@@ -18036,14 +18088,6 @@ msgstr ""
 
 #: crates/freight-fate/src/app/key_probe.rs
 msgid " [same frame]"
-msgstr ""
-
-#: crates/freight-fate/src/app/key_probe.rs crates/freight-fate/src/controller/diagnostics.rs
-msgid "down"
-msgstr ""
-
-#: crates/freight-fate/src/app/key_probe.rs crates/freight-fate/src/controller/diagnostics.rs
-msgid "up"
 msgstr ""
 
 #: crates/freight-fate/src/app/key_probe.rs
@@ -19561,7 +19605,7 @@ msgid ""
 "                                    (downgrade, upgrade, zone, limit-drop,\n"
 "                                    stop, scale, curve, interchange, toll,\n"
 "                                    chain-law, destination, departure, "
-"all); all scans every\n"
+"river, all); all scans every\n"
 "                                    launchable road family and current "
 "world instance.\n"
 "                                    Destination is\n"
@@ -34390,10 +34434,6 @@ msgstr ""
 
 #: crates/freight-fate/src/states/driving_rest_states.rs
 msgid "waves you through"
-msgstr ""
-
-#: crates/freight-fate/src/states/driving_rest_states/fuel_pump.rs
-msgid "over"
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_rest_states/fuel_pump.rs

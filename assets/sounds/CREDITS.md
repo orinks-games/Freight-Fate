@@ -3,8 +3,10 @@
 Sound effects in this directory come from a few sources, documented per file in
 the tables below: original effects created for Freight Fate (no third-party
 recordings or samples), weather and road loops produced with ElevenLabs sound
-effects tooling, and driving sounds cut from
-commercially licensed sample libraries (see "Licensed Driving Sounds" below).
+effects tooling, driving sounds cut from
+commercially licensed sample libraries (see "Licensed Driving Sounds" below),
+and the outside beds (insects, birds, river), which are OpenGameArt
+recordings under CC0 or CC BY, credited per file below.
 A number of in-cab cues were shared by Darren Duff early in the project; he
 holds no license for that material (owner ruling 2026-07-22), so every Duff
 row below is scheduled for replacement, not attribution -- most are already
@@ -47,7 +49,9 @@ current idle, start, and shutdown cues.
 | Air dryer purge | `vehicle/air_dryer_purge.ogg` | ElevenLabs-generated compressor cut-out purge, played when air pressure is ready |
 | Low air buzzer | `vehicle/low_air_buzzer.ogg` | ElevenLabs-generated low-air-pressure / spring-brake warning buzzer |
 | Highway road bed | `vehicle/road.ogg` | ElevenLabs-generated in-cab road ambience; raised 6 dB on 2026-10-08, when it sat about 15 dB under the engine |
-| Road seam thump | `vehicle/road_joint.ogg` | Short low thump synthesized in-repo for routine road texture |
+| Road seam thump | `vehicle/road_joint.ogg` | Short low thump synthesized in-repo; the fallback for the seam banks, and the small debris strike |
+| Road seams, steer and drive axles | `vehicle/seam_steer_01.ogg` to `_04`, `vehicle/seam_drive_01.ogg` to `_04` | Pitched cuts of the in-repo seam thump, the drive cuts lower and duller, made by `sound-test/road_seams.sh` |
+| Bridge end joint | `vehicle/bridge_joint_01.ogg` to `_03` | The in-repo seam thump pitched down with a second strike, made by `sound-test/road_seams.sh` |
 | Car pass-by | `traffic/car_pass.ogg` | ElevenLabs-generated nearby passenger-car pass-by cue |
 | Box truck pass-by | `traffic/box_truck_pass.ogg` | ElevenLabs-generated nearby medium-truck pass-by cue |
 | Semi pass-by | `traffic/semi_pass.ogg` | ElevenLabs-generated nearby tractor-trailer pass-by cue |
@@ -120,7 +124,12 @@ not distributed in this repository.
 | Main menu, company driver by day | `ambient/menu_dispatch_office.ogg` | ElevenLabs-generated trucking dispatch office ambience loop |
 | Truck stop by day | `ambient/truck_stop.ogg` | ElevenLabs-generated daytime truck-stop lot ambience loop |
 | Warehouse interior | `ambient/warehouse.ogg` | ElevenLabs-generated warehouse dock interior ambience loop |
-| Night driving | `ambient/night.ogg` | In-cab night ambience loop, shared by Darren Duff |
+| Insects at night | `ambient/insects.ogg` | "Crickets Ambient Noise - loopable" by Wolfgang_, CC0 1.0 (https://opengameart.org/content/crickets-ambient-noise-loopable); looped and levelled by `sound-test/outside_ambience.sh` |
+| Insects at night, window up | `ambient/insects_sealed.ogg` | The same recording, low-cut, filtered to sound through a closed cab window and raised in level, by `sound-test/outside_ambience.sh` |
+| Birds by day | `ambient/birds_day.ogg` | Birds recording from "Park ambiences" by Thimras, CC0 1.0 (https://opengameart.org/content/park-ambiences); trimmed to 45 seconds, high-passed at 250 Hz, looped and levelled by `sound-test/outside_ambience.sh` |
+| Birds by day, window up | `ambient/birds_day_sealed.ogg` | The same recording, filtered to sound through a closed cab window |
+| River under a bridge | `ambient/river.ogg` | "Stream Sounds" (stream1) by kurt (https://opengameart.org/content/stream-sounds), licensed CC BY 3.0 (https://creativecommons.org/licenses/by/3.0/); looped and levelled by `sound-test/outside_ambience.sh` |
+| River under a bridge, window up | `ambient/river_sealed.ogg` | The same kurt recording under CC BY 3.0, also filtered to sound through a closed cab window |
 
 ## Music
 

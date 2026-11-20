@@ -384,7 +384,7 @@ Drive tools:
   --playtest-road --find FEATURE    start at a road feature or departure gate
                                     (downgrade, upgrade, zone, limit-drop,
                                     stop, scale, curve, interchange, toll,
-                                    chain-law, destination, departure, all); all scans every
+                                    chain-law, destination, departure, river, all); all scans every
                                     launchable road family and current world instance.
                                     Destination is
                                     the delivery off-ramp at the end of the
