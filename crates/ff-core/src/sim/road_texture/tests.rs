@@ -188,3 +188,40 @@ fn test_the_axle_gap_stretches_as_the_truck_slows() {
     assert!((at_65 - 0.179).abs() < 0.001, "{at_65}");
     assert!((at_35 - 0.333).abs() < 0.001, "{at_35}");
 }
+
+#[test]
+fn test_slab_spaced_seams_interleave_and_every_hit_lands_in_order() {
+    // At the slab spacing the drives of one seam land after the steer axle
+    // has reached the next: steer, steer, drive, steer, drive...
+    let spacing = (SEAM_SPACING_M.0 + SEAM_SPACING_M.1) / 2.0;
+    const { assert!(SEAM_SPACING_M.1 < AXLE_GAP_M) };
+    for speed in [15.6, 29.0] {
+        let step = speed / 240.0;
+        let mut hits = AxleHits::default();
+        let mut at = 0.0;
+        let mut next_seam = 0.0;
+        let mut steer_at: Vec<f64> = Vec::new();
+        let mut drive_at: Vec<f64> = Vec::new();
+        let mut order: Vec<Axle> = Vec::new();
+        while at < 60.0 {
+            for h in hits.travel(step) {
+                order.push(h.axle);
+                drive_at.push(at);
+            }
+            at += step;
+            if at >= next_seam && next_seam < 40.0 {
+                order.push(hits.cross(Crossing::Seam, 1.0).axle);
+                steer_at.push(at);
+                next_seam += spacing;
+            }
+        }
+        assert_eq!(steer_at.len(), drive_at.len(), "every seam's drives land");
+        assert_eq!(&order[..3], [Axle::Steer, Axle::Steer, Axle::Drive]);
+        for (s, d) in steer_at.iter().zip(&drive_at) {
+            assert!(
+                (d - s - AXLE_GAP_M).abs() <= step * 1.01,
+                "{speed}: {s} -> {d}"
+            );
+        }
+    }
+}

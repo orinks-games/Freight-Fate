@@ -23,12 +23,14 @@ pub const JOINTED_M: (f64, f64) = (400.0, 1_500.0);
 pub const SMOOTH_M: (f64, f64) = (800.0, 3_000.0);
 /// Metres between two seams on a jointed stretch.
 ///
-/// Assumed for the ear, not a slab length: Orinks approved it by ear
-/// (2026-11-19). US practice puts jointed plain concrete panels at about
-/// 15 feet (4.6 m), and many states cap them there (FHWA Technical Advisory
-/// T 5040.30, "Concrete Pavement Joints", January 2019, question 6a), which
-/// at highway speed is six seams a second.
-pub const SEAM_SPACING_M: (f64, f64) = (14.0, 18.0);
+/// The 4.6 m centre is read: US practice puts jointed plain concrete panels
+/// at about 15 feet, and many states cap them there (FHWA Technical
+/// Advisory T 5040.30, "Concrete Pavement Joints", January 2019, question
+/// 6a). The spread of 0.2 m either way is assumed, so the ticks do not land
+/// with machine regularity. At highway speed that is about six seams a
+/// second. Orinks chose it by ear from a recording on 2026-11-20, over the
+/// 14 to 18 m the seams first had.
+pub const SEAM_SPACING_M: (f64, f64) = (4.4, 4.8);
 /// Below this speed no new seam is heard.
 pub const SEAM_MIN_SPEED_MPS: f64 = 5.0;
 /// Steer axle to the drive tandem: an assumed tractor wheelbase, not a

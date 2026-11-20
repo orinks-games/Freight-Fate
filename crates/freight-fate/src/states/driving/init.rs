@@ -268,7 +268,10 @@ impl DrivingState {
             .collect();
 
         let mut road_texture_rng = seeded_rng(seed_arg, 0x5EA7);
-        let next_joint_distance_m = road_texture_rng.uniform(14.0, 18.0);
+        let next_joint_distance_m = road_texture_rng.uniform(
+            ff_core::sim::road_texture::SEAM_SPACING_M.0,
+            ff_core::sim::road_texture::SEAM_SPACING_M.1,
+        );
         // Drawn even when a scenario holds the surface, so the seams' spacing
         // replays the same either way.
         let mut road_surface = RoadSurface::first(

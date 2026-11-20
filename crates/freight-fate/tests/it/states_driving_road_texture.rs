@@ -306,3 +306,47 @@ fn test_no_hit_ever_asks_for_more_than_one() {
         }
     }
 }
+
+#[test]
+fn test_seam_rumble_pulses_stay_apart_at_slab_spacing() {
+    use ff_core::sim::road_texture::{AxleHits, SEAM_SPACING_M};
+    use freight_fate::states::driving_updates::road_texture::{seam_rumbles, SEAM_RUMBLE_GAP_S};
+    // Twelve hits a second at highway speed; the pad pulses only on steer
+    // hits, never closer together than the gap.
+    let speed = HIGHWAY_MPS;
+    let mut hits = AxleHits::default();
+    let mut since = f64::INFINITY;
+    let mut pulses: Vec<f64> = Vec::new();
+    let mut seams = 0;
+    let mut to_next = 0.0;
+    for frame in 0..(10.0 / FRAME) as usize {
+        let t = frame as f64 * FRAME;
+        let metres = speed * FRAME;
+        let mut landed = hits.travel(metres);
+        to_next -= metres;
+        if to_next <= 0.0 {
+            to_next += (SEAM_SPACING_M.0 + SEAM_SPACING_M.1) / 2.0;
+            landed.push(hits.cross(Crossing::Seam, 1.0));
+            seams += 1;
+        }
+        since += FRAME;
+        for hit in landed {
+            if seam_rumbles(hit, since) {
+                pulses.push(t);
+                since = 0.0;
+            }
+        }
+    }
+    assert!(seams > 60, "{seams}");
+    assert!(pulses
+        .windows(2)
+        .all(|w| w[1] - w[0] >= SEAM_RUMBLE_GAP_S - 1e-9));
+    assert!(pulses.len() >= 30, "still felt: {}", pulses.len());
+    // A bridge joint always pulses.
+    let joint = Hit {
+        axle: Axle::Trailer,
+        crossing: Crossing::BridgeJoint,
+        factor: 1.0,
+    };
+    assert!(seam_rumbles(joint, 0.0));
+}

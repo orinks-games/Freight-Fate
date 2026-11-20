@@ -53,7 +53,7 @@ bookmarks usable.
 - [x] Outside ambience (built 2026-11-19, player request relayed by Orinks 2026-11-19): insects at dusk and night on warm nights (one recording; a second night's recording, alternating night by night, was dropped by Orinks's ear on 2026-11-20), birds at dawn and by day from freezing up, and a river under the truck at each OSM river crossing, held 6 real seconds past it. Heavy rain, storms, snow and ice are quiet. Each bed plays a clear copy on the driver's side and a muffled copy centred, crossfaded by the driver window's glass; the window, the scene and the water are state machines in `ff_core::sim::cab` and `sim::outside`. Replaces the old `ambient/night` bed. Sounds from OpenGameArt (CC0 and CC BY), prepared by `sound-test/outside_ambience.sh`.
 - [ ] (Found along the way) Outside ambience levels are first guesses for Orinks's ear: the beds' levels, the insects' window-up level at highway speed (about 4 dB over the road and engine at 65 mph in the 2 to 4 kHz band; Orinks heard it through the glass in a recording), and the river's level.
 - [x] Road seams (built 2026-11-19, Orinks asked the same evening; on the pavement layer 2026-11-20): a two-part thump at each seam, the steer axle and then the drive tandem a wheelbase (5.2 m, assumed) behind, so the gap widens as the truck slows. The layer decides where: full seams on jointed concrete, louder on fair and poor faulting, softer ones on asphalt over jointed concrete, none on asphalt or continuous concrete. Bridges and causeways from the layer have a heavier joint under all three axles, thinned for pacing. Where the layer reads nothing the stretches are still invented (`ff_core::sim::road_texture::RoadSurface::Invented`, drawn from the drive's road texture seed). Sounds are pitched cuts of the in-repo seam thump (`sound-test/road_seams.sh`). Detail: [November 20](#november-20-seams-and-joints-from-the-pavement-layer-found-along-the-way).
-- [ ] (Found along the way) Road seam levels (`SEAM_LEVEL`, `BRIDGE_JOINT_LEVEL`) are first guesses for Orinks's ear, and a recorded seam would replace the synthesized one if one turns up under a usable license. So are the faulting and overlay factors, the seam spacing (14 to 18 m, where real slabs are about 4.6 m; Orinks has a recording of each) and the joint thinning numbers.
+- [ ] (Found along the way) Road seam levels (`SEAM_LEVEL`, `BRIDGE_JOINT_LEVEL`) are first guesses for Orinks's ear, and a recorded seam would replace the synthesized one if one turns up under a usable license. So are the faulting and overlay factors and the joint thinning numbers. The seam spacing is the real slab length, about 4.6 m (Orinks chose it by ear on 2026-11-20 over the first 14 to 18 m).
 - [ ] (Found along the way) The 0 and 10 degree lines for birds and insects are assumptions, not sourced; regional and seasonal bird variety, lakes and the passenger window are not covered.
 - [ ] (Found along the way) The Speech voice row sets one installed voice for whichever bound voice lists voices first (the main voice, then the event voice), so the event voice's own installed voice cannot be chosen when both have lists, and a voice does not remember its own installed voice when the main voice changes.
 - [ ] (Found along the way) Hearken's own settings screen still offers only a built-in voice toggle, not the full main voice choice.
@@ -4284,10 +4284,17 @@ about 0.55 mile at standard pacing and 0.27 mile at relaxed. A river point with 
 as before; one with a structure takes the structure's ends only. The water under
 the truck still follows the river points (`sim::outside::Water`).
 
-What stays invented: the seam spacing (14 to 18 m, approved by ear; US jointed
-plain concrete panels run about 15 feet, FHWA Technical Advisory T 5040.30,
-January 2019), every level and factor, the thinning numbers, and the stretches
-where the layer reads nothing. `start_at` stages `bridge` and `jointed` from
+Seam spacing: 4.4 to 4.8 m, centred on the 15-foot (4.6 m) panel of US
+jointed plain concrete (FHWA Technical Advisory T 5040.30, January 2019), with
+the spread assumed. Orinks chose it by ear from a recording on 2026-11-20 over
+the first 14 to 18 m. At highway speed that is about six seams and twelve axle
+hits a second, so a seam's drive hit now lands after the next seam's steer
+hit, and the controller pulses for a seam at most every 0.25 s
+(`SEAM_RUMBLE_GAP_S`, assumed) so the pulses stay separate. The game-mix
+recording at this spacing peaked at -1.6 dBFS, so `SEAM_LEVEL` stays at 0.5.
+
+What stays invented: the spread of the spacing, every level and factor, the
+thinning numbers, and the stretches where the layer reads nothing. `start_at` stages `bridge` and `jointed` from
 the layer.
 
 ### November 16 exits inside a work zone (Release gate)

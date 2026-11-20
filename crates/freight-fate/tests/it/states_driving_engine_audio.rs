@@ -23,7 +23,7 @@
 use std::cell::RefCell;
 use std::rc::Rc;
 
-use ff_core::sim::road_texture::{axle_gap_s, RoadSurface, AXLE_GAP_M};
+use ff_core::sim::road_texture::{axle_gap_s, RoadSurface, AXLE_GAP_M, SEAM_SPACING_M};
 use ff_core::sim::transmission::REVERSE;
 use ff_core::sim::weather::WeatherKind;
 
@@ -877,7 +877,8 @@ fn test_road_joint_thumps_use_physical_distance_at_every_pace() {
         );
         assert!(joint_plays(&log).is_empty(), "{:#?}", joint_plays(&log));
 
-        for _ in 0..30 {
+        // Just past the seam: the next one is a slab length on.
+        for _ in 0..16 {
             harness.advance_clock(1.0 / 60.0);
             harness.with_drive(|drive, ctx| {
                 drive.truck_mut().velocity_mps = 20.0;
@@ -895,12 +896,15 @@ fn test_road_joint_thumps_use_physical_distance_at_every_pace() {
             thumps[0].1
         );
         assert!(
-            (harness.read_drive(|d| d.road_joint_accumulator_m) - 5.0).abs() < 1e-3,
+            (harness.read_drive(|d| d.road_joint_accumulator_m) - 1.0 / 3.0).abs() < 1e-3,
             "{}",
             harness.read_drive(|d| d.road_joint_accumulator_m)
         );
         let next = harness.read_drive(|d| d.next_joint_distance_m);
-        assert!((14.0..=18.0).contains(&next), "{next}");
+        assert!(
+            (SEAM_SPACING_M.0..=SEAM_SPACING_M.1).contains(&next),
+            "{next}"
+        );
     }
 }
 

@@ -27,6 +27,12 @@ const BRIDGE_JOINT_IMPACT: f64 = 0.2;
 /// No hit asks for more than this, so the bank's own level variation never
 /// takes it past 1.0 (the drives on poor concrete would reach 1.1).
 pub const HIT_CEILING: f64 = 1.0 / BANK_JITTER.1;
+/// Real seconds between two seam rumbles. A seam every 4.6 m at highway
+/// speed is twelve hits a second, and a pulse per hit would run together
+/// into one steady buzz; the controller pulses at most this often, on the
+/// steer axle, so each pulse is felt on its own. Assumed for feel. Bridge
+/// joints pulse on every axle, as before.
+pub const SEAM_RUMBLE_GAP_S: f64 = 0.25;
 /// A frame that moves the truck farther than this is a staged jump, not
 /// driving, and crosses no joint.
 const JUMP_MI: f64 = 1.0;
@@ -48,6 +54,8 @@ pub struct RoadTexture {
     pub since_joint_s: f64,
     /// The route mile the truck was at last frame.
     pub last_mi: f64,
+    /// Real seconds since the controller last pulsed for a seam.
+    pub since_seam_rumble_s: f64,
 }
 
 impl RoadTexture {
@@ -58,6 +66,7 @@ impl RoadTexture {
             spans,
             since_joint_s: f64::INFINITY,
             last_mi: position_mi,
+            since_seam_rumble_s: f64::INFINITY,
         }
     }
 }
@@ -112,8 +121,15 @@ impl DrivingState {
             }
         }
 
+        self.road_texture.since_seam_rumble_s += dt;
         for hit in landed {
             play_hit(ctx, hit, severity);
+            if seam_rumbles(hit, self.road_texture.since_seam_rumble_s) {
+                ctx.controller.rumble.joint(severity);
+                if hit.crossing == Crossing::Seam {
+                    self.road_texture.since_seam_rumble_s = 0.0;
+                }
+            }
         }
     }
 }
@@ -129,8 +145,16 @@ pub fn hit_sound(hit: Hit, severity: f64) -> (&'static str, f64) {
     (bank, (level * severity.clamp(0.0, 1.0)).min(HIT_CEILING))
 }
 
+/// Whether a hit pulses the controller: every bridge joint hit, and a
+/// seam's steer hit once [`SEAM_RUMBLE_GAP_S`] has passed since the last.
+pub fn seam_rumbles(hit: Hit, since_seam_rumble_s: f64) -> bool {
+    match hit.crossing {
+        Crossing::BridgeJoint => true,
+        Crossing::Seam => hit.axle == Axle::Steer && since_seam_rumble_s >= SEAM_RUMBLE_GAP_S,
+    }
+}
+
 fn play_hit(ctx: &mut GameContext, hit: Hit, severity: f64) {
     let (bank, level) = hit_sound(hit, severity);
     ctx.audio.play_bank_with(bank, FALLBACK, level, 0.0);
-    ctx.controller.rumble.joint(severity);
 }
