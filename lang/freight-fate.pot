@@ -4894,7 +4894,7 @@ msgstr ""
 msgid "{from_city} to {to_city} county run at {py_str_float} has no name"
 msgstr ""
 
-#: crates/ff-core/src/data/counties.rs crates/ff-core/src/sim/hos/clock.rs crates/ff-core/src/sim/truck_parking.rs
+#: crates/ff-core/src/data/counties.rs crates/ff-core/src/data/pavement.rs crates/ff-core/src/sim/hos/clock.rs crates/ff-core/src/sim/truck_parking.rs
 msgid "source"
 msgstr ""
 
@@ -5006,6 +5006,123 @@ msgid ""
 "Slope rejected at load, assumed level, not read: {signed} percent on ground "
 "both FHWA HPMS and the profile's own label class as level, above the {f} "
 "percent ceiling for {road_class} there."
+msgstr ""
+
+#: crates/ff-core/src/data/pavement.rs
+msgid "unpaved"
+msgstr ""
+
+#: crates/ff-core/src/data/pavement.rs
+msgid "asphalt"
+msgstr ""
+
+#: crates/ff-core/src/data/pavement.rs
+msgid "other"
+msgstr ""
+
+#: crates/ff-core/src/data/pavement.rs
+msgid "bridge"
+msgstr ""
+
+#: crates/ff-core/src/data/pavement.rs
+msgid "tunnel"
+msgstr ""
+
+#: crates/ff-core/src/data/pavement.rs
+msgid "causeway"
+msgstr ""
+
+#: crates/ff-core/src/data/pavement.rs crates/ff-core/src/data/world_constants.rs crates/ff-core/src/data/world_models.rs crates/ff-core/src/sim/enforcement_posts.rs
+msgid "both"
+msgstr ""
+
+#: crates/ff-core/src/data/pavement.rs crates/ff-core/src/data/world_constants.rs crates/ff-core/src/data/world_models.rs crates/freight-fate/src/states/driving_updates/air.rs
+msgid "forward"
+msgstr ""
+
+#: crates/ff-core/src/data/pavement.rs crates/ff-core/src/data/world_constants.rs crates/ff-core/src/data/world_models.rs crates/ff-core/src/engine_audio.rs
+msgid "reverse"
+msgstr ""
+
+#. placeholders: {from_city}, {to_city}, {what}
+#: crates/ff-core/src/data/pavement.rs
+msgid "{from_city} to {to_city} pavement {what} must be an object"
+msgstr ""
+
+#. placeholders: {from_city}, {to_city}, {what}, {text}, {why}
+#: crates/ff-core/src/data/pavement.rs
+msgid "{from_city} to {to_city} pavement {what} {text}: {why}"
+msgstr ""
+
+#: crates/ff-core/src/data/pavement.rs
+msgid "does not start with two miles"
+msgstr ""
+
+#: crates/ff-core/src/data/pavement.rs
+msgid "has no name"
+msgstr ""
+
+#. placeholders: {key}, {value}
+#: crates/ff-core/src/data/pavement.rs
+msgid "pavement {key}={value} is not a number"
+msgstr ""
+
+#: crates/ff-core/src/data/pavement.rs
+msgid "layer"
+msgstr ""
+
+#: crates/ff-core/src/data/pavement.rs
+msgid "surface"
+msgstr ""
+
+#: crates/ff-core/src/data/pavement.rs
+msgid "run"
+msgstr ""
+
+#. placeholders: {from_city}, {to_city}, {name}
+#: crates/ff-core/src/data/pavement.rs
+msgid ""
+"{from_city} to {to_city} pavement surface {name} is not an HPMS surface"
+msgstr ""
+
+#: crates/ff-core/src/data/pavement.rs
+msgid "iri"
+msgstr ""
+
+#: crates/ff-core/src/data/pavement.rs
+msgid "faulting"
+msgstr ""
+
+#: crates/ff-core/src/data/pavement.rs
+msgid "structures"
+msgstr ""
+
+#: crates/ff-core/src/data/pavement.rs
+msgid "structure"
+msgstr ""
+
+#. placeholders: {from_city}, {to_city}, {name}
+#: crates/ff-core/src/data/pavement.rs
+msgid ""
+"{from_city} to {to_city} pavement structure {name} is not a bridge, tunnel "
+"or causeway"
+msgstr ""
+
+#: crates/ff-core/src/data/pavement.rs
+msgid "hpms"
+msgstr ""
+
+#. placeholders: {from_city}, {to_city}, {py_str_float}
+#: crates/ff-core/src/data/pavement.rs
+msgid ""
+"{from_city} to {to_city} pavement mile_scale {py_str_float} is not near 1"
+msgstr ""
+
+#. placeholders: {from_city}, {to_city}, {py_str_float}
+#: crates/ff-core/src/data/pavement.rs
+msgid ""
+"{from_city} to {to_city} pavement read share {py_str_float} is not between "
+"0 and 1"
 msgstr ""
 
 #: crates/ff-core/src/data/regions.rs crates/ff-core/src/data/world_constants.rs crates/ff-core/src/models/economy.rs crates/ff-core/src/sim/season.rs
@@ -5876,18 +5993,6 @@ msgstr ""
 
 #: crates/ff-core/src/data/world_constants.rs
 msgid "placeholder"
-msgstr ""
-
-#: crates/ff-core/src/data/world_constants.rs crates/ff-core/src/data/world_models.rs crates/ff-core/src/sim/enforcement_posts.rs crates/freight-fate/src/states/main_menu/settings_actions.rs
-msgid "both"
-msgstr ""
-
-#: crates/ff-core/src/data/world_constants.rs crates/ff-core/src/data/world_models.rs crates/freight-fate/src/states/driving_updates/air.rs
-msgid "forward"
-msgstr ""
-
-#: crates/ff-core/src/data/world_constants.rs crates/ff-core/src/data/world_models.rs crates/ff-core/src/engine_audio.rs crates/ff-core/src/input_hints.rs
-msgid "reverse"
 msgstr ""
 
 #: crates/ff-core/src/data/world_constants.rs

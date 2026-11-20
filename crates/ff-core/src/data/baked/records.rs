@@ -17,6 +17,7 @@ use serde::{Deserialize, Serialize};
 
 use crate::data::counties::CountyRun;
 use crate::data::curves::CurveRecord;
+use crate::data::pavement::{Pavement, Structure, StructureKind, Surface, SurfaceRun, Ways};
 use crate::data::world_local_data::CityServiceEntry;
 use crate::data::world_models::{
     BillboardBan, City, CorridorDetail, Driveway, ElevationSample, ExitChain, FacilityApproach,
@@ -131,6 +132,127 @@ mirror!(BakedLaneSegment => LaneSegment {
     lanes_backward: i64, oneway: bool, source: String,
 });
 
+/// A pavement run, its enums stored by name so the wire form reads the same
+/// vocabulary as the JSON tree.
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct BakedSurfaceRun {
+    pub from_mi: f64,
+    pub to_mi: f64,
+    pub surface: String,
+    pub ways: String,
+    pub iri: Option<f64>,
+    pub faulting: Option<f64>,
+    pub inventory_side: bool,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct BakedStructure {
+    pub from_mi: f64,
+    pub to_mi: f64,
+    pub kind: String,
+    pub ways: String,
+    pub hpms_mi: Option<f64>,
+    pub span_disagrees: bool,
+}
+
+/// Holds runs and structures, so it is spelled out.
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct BakedPavement {
+    pub surface: Vec<BakedSurfaceRun>,
+    pub structures: Vec<BakedStructure>,
+    pub read_share_forward: f64,
+    pub read_share_reverse: f64,
+    pub inventory_share_forward: f64,
+    pub inventory_share_reverse: f64,
+    pub mile_scale: f64,
+    pub hpms_year: Option<i64>,
+    pub source: String,
+    pub screened: u32,
+}
+
+impl From<&Pavement> for BakedPavement {
+    fn from(p: &Pavement) -> Self {
+        BakedPavement {
+            surface: p
+                .surface
+                .iter()
+                .map(|r| BakedSurfaceRun {
+                    from_mi: r.from_mi,
+                    to_mi: r.to_mi,
+                    surface: r.surface.name().to_string(),
+                    ways: r.ways.name().to_string(),
+                    iri: r.iri,
+                    faulting: r.faulting,
+                    inventory_side: r.inventory_side,
+                })
+                .collect(),
+            structures: p
+                .structures
+                .iter()
+                .map(|s| BakedStructure {
+                    from_mi: s.from_mi,
+                    to_mi: s.to_mi,
+                    kind: s.kind.name().to_string(),
+                    ways: s.ways.name().to_string(),
+                    hpms_mi: s.hpms_mi,
+                    span_disagrees: s.span_disagrees,
+                })
+                .collect(),
+            read_share_forward: p.read_share_forward,
+            read_share_reverse: p.read_share_reverse,
+            inventory_share_forward: p.inventory_share_forward,
+            inventory_share_reverse: p.inventory_share_reverse,
+            mile_scale: p.mile_scale,
+            hpms_year: p.hpms_year,
+            source: p.source.clone(),
+            screened: u32::try_from(p.screened).unwrap_or(u32::MAX),
+        }
+    }
+}
+
+impl From<BakedPavement> for Pavement {
+    /// The names were written from the enums by the same build, so a name
+    /// that does not parse is a corrupt container; it reads as the
+    /// catch-all rather than taking the leg down.
+    fn from(b: BakedPavement) -> Self {
+        Pavement {
+            surface: b
+                .surface
+                .into_iter()
+                .map(|r| SurfaceRun {
+                    from_mi: r.from_mi,
+                    to_mi: r.to_mi,
+                    surface: Surface::from_name(&r.surface).unwrap_or(Surface::Other),
+                    ways: Ways::from_name(&r.ways).unwrap_or_default(),
+                    iri: r.iri,
+                    faulting: r.faulting,
+                    inventory_side: r.inventory_side,
+                })
+                .collect(),
+            structures: b
+                .structures
+                .into_iter()
+                .map(|s| Structure {
+                    from_mi: s.from_mi,
+                    to_mi: s.to_mi,
+                    kind: StructureKind::from_name(&s.kind).unwrap_or(StructureKind::Bridge),
+                    ways: Ways::from_name(&s.ways).unwrap_or_default(),
+                    hpms_mi: s.hpms_mi,
+                    span_disagrees: s.span_disagrees,
+                })
+                .collect(),
+            read_share_forward: b.read_share_forward,
+            read_share_reverse: b.read_share_reverse,
+            inventory_share_forward: b.inventory_share_forward,
+            inventory_share_reverse: b.inventory_share_reverse,
+            mile_scale: b.mile_scale,
+            hpms_year: b.hpms_year,
+            source: b.source,
+            screened: b.screened as usize,
+        }
+    }
+}
+
 /// The whole deferred half of one leg: the per-mile record lists
 /// `CorridorDetail` holds, in one blob.
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -155,6 +277,8 @@ pub struct BakedCorridor {
     pub speed_limits_folded: u32,
     #[serde(default)]
     pub counties: Vec<BakedCountyRun>,
+    #[serde(default)]
+    pub pavement: Option<BakedPavement>,
 }
 
 impl From<&CorridorDetail> for BakedCorridor {
@@ -177,6 +301,7 @@ impl From<&CorridorDetail> for BakedCorridor {
             billboard_bans: to_mirror(&detail.billboard_bans),
             speed_limits_folded: u32::try_from(detail.speed_limits_folded).unwrap_or(u32::MAX),
             counties: to_mirror(&detail.counties),
+            pavement: detail.pavement.as_ref().map(BakedPavement::from),
         }
     }
 }
@@ -201,6 +326,7 @@ impl From<BakedCorridor> for CorridorDetail {
             billboard_bans: from_mirror(baked.billboard_bans),
             speed_limits_folded: baked.speed_limits_folded as usize,
             counties: from_mirror(baked.counties),
+            pavement: baked.pavement.map(Pavement::from),
         }
     }
 }

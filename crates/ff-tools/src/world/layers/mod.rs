@@ -14,6 +14,7 @@
 //! cargo tools osm-villages     --pbf FILE [--only a:b;c:d] [--write]
 //! cargo tools hpms-traffic     [--only a:b;c:d] [--write]
 //! cargo tools hpms-terrain     [--only a:b;c:d] [--write]
+//! cargo tools hpms-pavement    [--only a:b;c:d] [--write]
 //! ```
 //!
 //! What changed from the Python, for all of them: every leg reads its road

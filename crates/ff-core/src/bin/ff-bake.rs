@@ -92,6 +92,14 @@ fn run(args: &Args) -> Result<(), String> {
             "{} short speed-limit postings folded as mapping artifacts",
             report.speed_limits_folded
         );
+        println!(
+            "{} legs with HPMS pavement; {} pavement records screened out; {} of {} structures \
+             flagged for a span off their HPMS length",
+            report.pavement_legs,
+            report.pavement_screened,
+            report.structures_flagged,
+            report.structures
+        );
     }
     Ok(())
 }

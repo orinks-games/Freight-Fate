@@ -4715,6 +4715,97 @@ msgstr ""
 "phần trăm trên vùng mà cả FHWA HPMS lẫn nhãn riêng của hồ sơ địa hình đều "
 "xếp là bằng phẳng, vượt trần {f} phần trăm cho {road_class} ở đó."
 
+msgid "unpaved"
+msgstr ""
+
+msgid "asphalt"
+msgstr ""
+
+msgid "other"
+msgstr ""
+
+msgid "bridge"
+msgstr ""
+
+msgid "tunnel"
+msgstr ""
+
+msgid "causeway"
+msgstr ""
+
+msgid "both"
+msgstr "cả hai"
+
+msgid "forward"
+msgstr "tiến lên"
+
+msgid "reverse"
+msgstr "lùi lại"
+
+#. placeholders: {from_city}, {to_city}, {what}
+msgid "{from_city} to {to_city} pavement {what} must be an object"
+msgstr ""
+
+#. placeholders: {from_city}, {to_city}, {what}, {text}, {why}
+msgid "{from_city} to {to_city} pavement {what} {text}: {why}"
+msgstr ""
+
+msgid "does not start with two miles"
+msgstr ""
+
+msgid "has no name"
+msgstr ""
+
+#. placeholders: {key}, {value}
+msgid "pavement {key}={value} is not a number"
+msgstr ""
+
+msgid "layer"
+msgstr ""
+
+msgid "surface"
+msgstr ""
+
+msgid "run"
+msgstr ""
+
+#. placeholders: {from_city}, {to_city}, {name}
+msgid ""
+"{from_city} to {to_city} pavement surface {name} is not an HPMS surface"
+msgstr ""
+
+msgid "iri"
+msgstr ""
+
+msgid "faulting"
+msgstr ""
+
+msgid "structures"
+msgstr ""
+
+msgid "structure"
+msgstr ""
+
+#. placeholders: {from_city}, {to_city}, {name}
+msgid ""
+"{from_city} to {to_city} pavement structure {name} is not a bridge, tunnel "
+"or causeway"
+msgstr ""
+
+msgid "hpms"
+msgstr ""
+
+#. placeholders: {from_city}, {to_city}, {py_str_float}
+msgid ""
+"{from_city} to {to_city} pavement mile_scale {py_str_float} is not near 1"
+msgstr ""
+
+#. placeholders: {from_city}, {to_city}, {py_str_float}
+msgid ""
+"{from_city} to {to_city} pavement read share {py_str_float} is not between "
+"0 and 1"
+msgstr ""
+
 msgid "northeast"
 msgstr "northeast"
 
@@ -5518,15 +5609,6 @@ msgstr "curated"
 
 msgid "placeholder"
 msgstr "placeholder"
-
-msgid "both"
-msgstr "cả hai"
-
-msgid "forward"
-msgstr "tiến lên"
-
-msgid "reverse"
-msgstr "lùi lại"
 
 msgid "ta "
 msgstr "ta "
