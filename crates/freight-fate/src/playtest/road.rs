@@ -1195,13 +1195,13 @@ fn feature_lead_mi(trip: &Trip, hit: &Hit, opts: &RoadOptions) -> f64 {
     }
 }
 
-/// A `DrivingState` already rolling at the feature, set up as asked.
 /// The career clock for a drive staged at `start_hour`, `day` days after
 /// the career's day at `career_hours`.
 pub fn staged_career_hours(career_hours: f64, start_hour: f64, day: i64) -> f64 {
     (career_hours / 24.0).floor() * 24.0 + day as f64 * 24.0 + start_hour
 }
 
+/// A `DrivingState` already rolling at the feature, set up as asked.
 pub fn build_driving(ctx: &mut GameContext, hit: &Hit, opts: &RoadOptions) -> (DrivingState, f64) {
     let departure = hit.origin_location.is_some();
     // Settings first: DrivingState reads the gearbox and the assist choices
