@@ -12873,7 +12873,7 @@ msgstr ""
 msgid "wilderness"
 msgstr ""
 
-#: crates/ff-core/src/settings.rs
+#: crates/ff-core/src/settings.rs crates/ff-core/src/sim/outside.rs
 msgid "river"
 msgstr ""
 
@@ -13061,6 +13061,22 @@ msgstr ""
 
 #: crates/ff-core/src/sim/arrival_gate.rs crates/freight-fate/src/states/driving_events/cruise_loop.rs
 msgid "holding"
+msgstr ""
+
+#: crates/ff-core/src/sim/cab.rs crates/freight-fate/src/app/key_probe.rs crates/freight-fate/src/controller/diagnostics.rs
+msgid "up"
+msgstr ""
+
+#: crates/ff-core/src/sim/cab.rs
+msgid "lowering"
+msgstr ""
+
+#: crates/ff-core/src/sim/cab.rs crates/freight-fate/src/app/key_probe.rs crates/freight-fate/src/controller/diagnostics.rs
+msgid "down"
+msgstr ""
+
+#: crates/ff-core/src/sim/cab.rs
+msgid "raising"
 msgstr ""
 
 #: crates/ff-core/src/sim/cab.rs
@@ -13820,6 +13836,26 @@ msgstr ""
 
 #: crates/ff-core/src/sim/lane_guidance.rs crates/freight-fate/src/states/driving_team/pilot.rs crates/freight-fate/src/states/driving_updates/cues.rs
 msgid "shoulder"
+msgstr ""
+
+#: crates/ff-core/src/sim/outside.rs crates/ff-core/src/speech_pacing.rs
+msgid "quiet"
+msgstr ""
+
+#: crates/ff-core/src/sim/outside.rs
+msgid "birds"
+msgstr ""
+
+#: crates/ff-core/src/sim/outside.rs
+msgid "insects"
+msgstr ""
+
+#: crates/ff-core/src/sim/outside.rs
+msgid "away"
+msgstr ""
+
+#: crates/ff-core/src/sim/outside.rs crates/freight-fate/src/states/driving_rest_states/fuel_pump.rs
+msgid "over"
 msgstr ""
 
 #: crates/ff-core/src/sim/pedal_latch.rs
@@ -17408,10 +17444,6 @@ msgstr ""
 msgid "silent"
 msgstr ""
 
-#: crates/ff-core/src/speech_pacing.rs
-msgid "quiet"
-msgstr ""
-
 #. placeholders: {city}
 #: crates/ff-core/src/speech_text.rs
 msgid "the {city}"
@@ -18036,14 +18068,6 @@ msgstr ""
 
 #: crates/freight-fate/src/app/key_probe.rs
 msgid " [same frame]"
-msgstr ""
-
-#: crates/freight-fate/src/app/key_probe.rs crates/freight-fate/src/controller/diagnostics.rs
-msgid "down"
-msgstr ""
-
-#: crates/freight-fate/src/app/key_probe.rs crates/freight-fate/src/controller/diagnostics.rs
-msgid "up"
 msgstr ""
 
 #: crates/freight-fate/src/app/key_probe.rs
@@ -19561,7 +19585,7 @@ msgid ""
 "                                    (downgrade, upgrade, zone, limit-drop,\n"
 "                                    stop, scale, curve, interchange, toll,\n"
 "                                    chain-law, destination, departure, "
-"all); all scans every\n"
+"river, all); all scans every\n"
 "                                    launchable road family and current "
 "world instance.\n"
 "                                    Destination is\n"
@@ -34390,10 +34414,6 @@ msgstr ""
 
 #: crates/freight-fate/src/states/driving_rest_states.rs
 msgid "waves you through"
-msgstr ""
-
-#: crates/freight-fate/src/states/driving_rest_states/fuel_pump.rs
-msgid "over"
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_rest_states/fuel_pump.rs
