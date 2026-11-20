@@ -156,6 +156,10 @@ pub struct GameContext {
     /// driver window all the way down (`Some(true)`) or up. `None` in the
     /// shipped game, where every drive starts with it up.
     pub playtest_window_down: Option<bool>,
+    /// A staged scenario's road surface for every drive it starts: jointed
+    /// the whole way (`Some(true)`) or smooth. `None` in the shipped game,
+    /// where stretches of each alternate.
+    pub playtest_road_jointed: Option<bool>,
     /// The last run ended without quitting and the main menu has not asked
     /// about it yet (`problem_reports::take_crash_offer`, read once when the
     /// app is built). The menu clears it when it asks, or when the player
@@ -296,6 +300,7 @@ impl GameContext {
             achievement_notice_timer: 0.0,
             playtest_sandbox: false,
             playtest_window_down: None,
+            playtest_road_jointed: None,
             crash_offer_pending: crate::problem_reports::take_crash_offer(),
             dispatch_board_seed: None,
             school_sandbox: false,

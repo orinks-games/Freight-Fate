@@ -81,6 +81,9 @@ pub struct Scenario {
     /// The driver window every drive from here on starts with: `Some(true)`
     /// all the way down, `Some(false)` up.
     pub window_down: Option<bool>,
+    /// The road surface every drive from here on keeps: `Some(true)` jointed
+    /// the whole way, `Some(false)` smooth.
+    pub road_jointed: Option<bool>,
 }
 
 fn number(args: &Map<String, Value>, key: &str) -> Result<Option<f64>, String> {
@@ -149,6 +152,16 @@ impl Scenario {
             Some("down") => Some(true),
             Some("up") => Some(false),
             Some(other) => return Err(format!("window must be up or down, not {other}")),
+        };
+        let road_jointed = match text(args, "road_surface")?.as_deref() {
+            None => None,
+            Some("jointed") => Some(true),
+            Some("smooth") => Some(false),
+            Some(other) => {
+                return Err(format!(
+                    "road_surface must be jointed or smooth, not {other}"
+                ))
+            }
         };
         let settings = match args.get("settings") {
             None | Some(Value::Null) => Map::new(),
@@ -247,6 +260,7 @@ impl Scenario {
             came_from: text(args, "came_from")?,
             settings,
             window_down,
+            road_jointed,
         })
     }
 
@@ -450,6 +464,14 @@ pub fn apply(ctx: &mut GameContext, scenario: &Scenario) -> Result<Vec<String>, 
             "Drives start with the driver window down.".to_string()
         } else {
             "Drives start with the driver window up.".to_string()
+        });
+    }
+    if let Some(jointed) = scenario.road_jointed {
+        ctx.playtest_road_jointed = Some(jointed);
+        notes.push(if jointed {
+            "Drives keep a jointed road surface.".to_string()
+        } else {
+            "Drives keep a smooth road surface.".to_string()
         });
     }
     if let Some(seed) = scenario.board_seed {

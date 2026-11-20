@@ -294,7 +294,8 @@ fn tools_list() -> Value {
              so the next board is shaped by where it came from), settings (an \
              object of setting name to value, for this \
              session), window (up or down: every drive from here on starts with \
-             the driver window there), and name (the career created when none is \
+             the driver window there), road_surface (jointed or smooth: every \
+             drive from here on keeps that surface the whole way), and name (the career created when none is \
              loaded; default Playtest). Nothing is refused for being unreasonable: this is the \
              audited sandbox. Listen afterwards for the terminal.",
             json!({
@@ -309,6 +310,7 @@ fn tools_list() -> Value {
                 "hour": {"type": "number"},
                 "fuel_pct": {"type": "number"},
                 "window": {"type": "string", "enum": ["up", "down"]},
+                "road_surface": {"type": "string", "enum": ["jointed", "smooth"]},
                 "damage_pct": {"type": "number"},
                 "tire_wear_pct": {"type": "number"},
                 "brake_wear_pct": {"type": "number"},

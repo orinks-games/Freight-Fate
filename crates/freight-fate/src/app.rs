@@ -272,6 +272,8 @@ pub struct DrivingObservation {
     pub outside_temperature_c: Option<f64>,
     /// Over a river or away from one.
     pub water: ff_core::sim::outside::Water,
+    /// Jointed (seams heard) or smooth road under the wheels.
+    pub road_surface: ff_core::sim::road_texture::RoadSurface,
 }
 
 /// The only capability a windowed input policy receives for one frame.
@@ -900,6 +902,7 @@ impl App {
             outside_bed: drive.outside.nature.bed.map_or("none", |bed| bed.name),
             outside_temperature_c: drive.outside.temperature_c(),
             water: drive.outside.water,
+            road_surface: drive.road_texture.surface,
         })
     }
 

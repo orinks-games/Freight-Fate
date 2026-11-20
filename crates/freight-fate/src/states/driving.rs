@@ -1032,6 +1032,8 @@ pub struct DrivingState {
     pub cab: ff_core::sim::cab::CabState,
     /// The beds outside the truck: birds, insects, a river under it.
     pub outside: crate::states::driving_updates::outside::OutsideAudio,
+    /// Seams and bridge joints under the wheels.
+    pub road_texture: crate::states::driving_updates::road_texture::RoadTexture,
     // The same tock, summoned by the steering itself rather than by I:
     // while a lane move is underway it runs on its own and ends with the
     // signal cancelling. See _update_steering_lane_cue.

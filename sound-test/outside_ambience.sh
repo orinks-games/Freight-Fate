@@ -21,13 +21,15 @@ AMB="$OUT/ambient"
 TMP=$(mktemp -d)
 trap 'rm -rf "$TMP"' EXIT
 
-# Loudness targets, RMS dBFS. -38.5 is what the old night bed (ambient/night,
-# retired with this change) measured, so a warm night is as loud as before.
-# The birds match it and the river sits 6 dB above.
-BED_RMS=-38.5
-RIVER_RMS=-32.5
+# Loudness targets, RMS dBFS. The old night bed (ambient/night, retired with
+# this change) measured -38.5 and played at 1.0 on the Sfx bus (0.8 by
+# default); these beds play at 1.0 on the Weather bus (0.65), so they carry
+# the 1.8 dB difference and a warm night is as loud as before. The birds match
+# it and the river sits 6 dB above.
+BED_RMS=-36.7
+RIVER_RMS=-30.7
 
-# The window-up muffle (Orinks's pick, 2026-11-20: the heavy chain on every
+# The window-up muffle (Orinks's pick, 2026-11-19: the heavy chain on every
 # bed). A thick glass and a short cab reflection, no level make-up of its own.
 # LIGHT, the window demos' chain, is kept for comparison rounds.
 LIGHT="highshelf=f=1000:g=-12,lowpass=f=3000"
@@ -42,13 +44,18 @@ SEALED_river=$HEAVY
 # their sealed twins get level make-up: cut what is under 400 Hz first (no
 # insect is there, and the chain's low shelf would lift the forest rumble),
 # then raise the 1.5 to 4 kHz band, where the cab lets anything through, to
-# INSECT_BAND_RMS, but never past INSECT_SEALED_CAP under the clear copy's
+# INSECT_BAND_RMS_<key>, but never past INSECT_SEALED_CAP_<key> under the clear copy's
 # overall level, so the muffled bed is never the louder of the two.
-INSECT_BAND_RMS=-46
-INSECT_SEALED_CAP=3
-MAKEUP_insects_1=1
-MAKEUP_insects_2=1
+# Night C's recording has its insects about 14 dB under night A's in the
+# 2 to 4 kHz band, so its twin aims higher and may match its clear copy.
+INSECT_BAND_RMS_insects_1=-40.6
+INSECT_BAND_RMS_insects_2=-38
+INSECT_SEALED_CAP_insects_1=1
+INSECT_SEALED_CAP_insects_2=0
 VORBIS=(-c:a libvorbis -q:a 5)
+# The sealed twins have nothing above a few kHz and play centred: mono at
+# 22.05 kHz, which keeps every sample position of the clear copy.
+SEALED_FORMAT=(-ac 1 -ar 22050)
 
 band_rms_of() {
   ffmpeg -nostats -i "$1" -af "highpass=f=1500,lowpass=f=4000,astats=measure_overall=RMS_level:measure_perchannel=none" \
@@ -104,8 +111,10 @@ bed() { # key wav-in seam target
 decode "$SRC/night-a_crickets_1_wolfgang.mp3" "$TMP/insects_1_in.wav"
 bed insects_1 "$TMP/insects_1_in.wav" 0.5 "$BED_RMS"
 
-# Insects, night two: 78 s with louder events in it; a 2 s seam.
-decode "$SRC/night-c_forest_night_jcsounds.mp3" "$TMP/insects_2_in.wav"
+# Insects, night two: 78 s with louder events in it; a 2 s seam. A third of
+# its level is rumble under 250 Hz that no insect makes; cut it, so the level
+# goes to the chorus.
+decode "$SRC/night-c_forest_night_jcsounds.mp3" "$TMP/insects_2_in.wav" "highpass=f=250,highpass=f=250"
 bed insects_2 "$TMP/insects_2_in.wav" 2 "$BED_RMS"
 
 # Birds: 47 s from 10 s in (the steadiest stretch) gives a 45 s loop with a
@@ -122,24 +131,25 @@ bed river "$TMP/river_in.wav" 1 "$RIVER_RMS"
 for key in insects_1 insects_2 birds_day river; do
   ffmpeg -v error -y -i "$TMP/$key.wav" "${VORBIS[@]}" "$AMB/$key.ogg"
   sealed_var="SEALED_$key"
-  makeup_var="MAKEUP_$key"
+  band_var="INSECT_BAND_RMS_$key"
+  cap_var="INSECT_SEALED_CAP_$key"
   chain=${!sealed_var}
   # Cut to the clear copy's length: the two loop side by side, and an echo
   # tail a few milliseconds long would walk them apart a little every lap.
   len=$(duration_of "$TMP/$key.wav")
-  if [ -n "${!makeup_var:-}" ]; then
+  if [ -n "${!band_var:-}" ]; then
     ffmpeg -v error -y -i "$TMP/$key.wav" -af "highpass=f=400,$chain" -t "$len" \
-      -c:a pcm_s16le "$TMP/${key}_sealed_raw.wav"
-    gain=$(awk -v t="$INSECT_BAND_RMS" -v b="$(band_rms_of "$TMP/${key}_sealed_raw.wav")" \
-      -v cap="$(awk -v o="$(rms_of "$TMP/$key.wav")" -v c="$INSECT_SEALED_CAP" 'BEGIN {print o - c}')" \
+      "${SEALED_FORMAT[@]}" -c:a pcm_s16le "$TMP/${key}_sealed_raw.wav"
+    gain=$(awk -v t="${!band_var}" -v b="$(band_rms_of "$TMP/${key}_sealed_raw.wav")" \
+      -v cap="$(awk -v o="$(rms_of "$TMP/$key.wav")" -v c="${!cap_var}" 'BEGIN {print o - c}')" \
       -v f="$(rms_of "$TMP/${key}_sealed_raw.wav")" \
       'BEGIN { g = t - b; if (f + g > cap) g = cap - f; print g }')
     printf '%-18s make-up %+.1f dB\n' "${key}_sealed" "$gain"
-    ffmpeg -v error -y -i "$TMP/${key}_sealed_raw.wav" -af "volume=${gain}dB,alimiter=limit=0.7" \
-      "${VORBIS[@]}" "$AMB/${key}_sealed.ogg"
+    ffmpeg -v error -y -i "$TMP/${key}_sealed_raw.wav" -af "volume=${gain}dB,alimiter=limit=0.7:level=false" \
+      "${SEALED_FORMAT[@]}" "${VORBIS[@]}" "$AMB/${key}_sealed.ogg"
   else
     ffmpeg -v error -y -i "$TMP/$key.wav" -af "$chain" -t "$len" \
-      "${VORBIS[@]}" "$AMB/${key}_sealed.ogg"
+      "${SEALED_FORMAT[@]}" "${VORBIS[@]}" "$AMB/${key}_sealed.ogg"
   fi
 done
 

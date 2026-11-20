@@ -1,13 +1,15 @@
 //! `states/driving_updates/outside.rs`: birds by day, insects at night and a
 //! river under the bridge, each through the closed window or clear through
-//! the open one (a player's ask, 2026-11-19). Pure ambience: what is asserted
+//! the open one, and the joints at each end of a river bridge (a player's
+//! ask, 2026-11-19). Pure ambience: what is asserted
 //! is which loop plays and at what level, never a spoken line.
 
 use ff_core::models::business::LEASED_OWNER_OPERATOR;
 use ff_core::models::jobs::{Job, CARGO_CATALOG};
 use ff_core::models::profile::Profile;
 use ff_core::sim::cab::GLASS_TRAVEL_S;
-use ff_core::sim::outside::{OutsideScene, Water, RIVER_HOLD_S, WATER_FADE_OUT_S};
+use ff_core::sim::outside::{OutsideScene, Water, RIVER_HOLD_S, RIVER_SPAN_MI, WATER_FADE_OUT_S};
+use ff_core::sim::road_texture::{RoadSurface, AXLE_GAP_M, TRAILER_GAP_M};
 use ff_core::sim::weather::WeatherKind;
 
 use freight_fate::app::testing::{AudioLog, RecordedLoop, TestApp};
@@ -259,4 +261,95 @@ fn test_a_staged_window_down_starts_the_drive_with_the_glass_down() {
     assert_eq!(drive.cab.window(), ff_core::sim::cab::Window::Down);
     run(&mut drive, &mut app, 4.0);
     assert!(on(&log, CH_NATURE_OPEN).unwrap().volume > 0.5);
+}
+
+#[test]
+fn test_no_outside_loop_is_asked_for_more_than_full_volume() {
+    // Hearken clamps a sound at 1, so a bed asked above it would flatten and
+    // the glass would top out early. Parked (no road mask), over a river,
+    // through a whole window travel each way.
+    let mut app = TestApp::new();
+    let (mut drive, log) = a_drive(&mut app, 23.0);
+    run(&mut drive, &mut app, 0.1);
+    let river = *drive.outside.river_miles().first().expect("a river");
+    drive.trip.position_mi = river;
+    let mut loudest: f64 = 0.0;
+    let mut step = |drive: &mut DrivingState, app: &mut TestApp, seconds: f64| {
+        for _ in 0..(seconds / FRAME).round() as usize {
+            drive.update_cab_audio(&mut app.ctx, FRAME);
+            drive.update_outside_audio(&mut app.ctx, FRAME);
+            for ch in CH_OUTSIDE {
+                if let Some(l) = on(&log, ch) {
+                    assert!(l.volume <= 1.0, "{ch}: {l:?}");
+                    loudest = loudest.max(l.volume);
+                }
+            }
+        }
+    };
+    step(&mut drive, &mut app, 4.0);
+    drive.handle_key_event(&mut app.ctx, &InputEvent::key(Key::Z));
+    step(&mut drive, &mut app, GLASS_TRAVEL_S + 0.5);
+    drive.handle_key_event(&mut app.ctx, &InputEvent::key(Key::Z));
+    step(&mut drive, &mut app, GLASS_TRAVEL_S + 0.5);
+    assert!(
+        loudest > 0.9,
+        "the beds reach full volume parked: {loudest}"
+    );
+}
+
+/// The bridge joint hits played, in order.
+fn bridge_hits(log: &AudioLog) -> usize {
+    log.borrow()
+        .played
+        .iter()
+        .filter(|(key, _, _)| key == "vehicle/bridge_joint")
+        .count()
+}
+
+/// One frame of the whole audio update, rolling at `speed`.
+fn roll(drive: &mut DrivingState, app: &mut TestApp, speed: f64, seconds: f64) {
+    for _ in 0..(seconds / FRAME).round() as usize {
+        drive.trip.truck.velocity_mps = speed;
+        drive.update_audio(&mut app.ctx, FRAME);
+    }
+}
+
+#[test]
+fn test_each_end_of_a_river_bridge_is_a_joint_under_all_three_axles() {
+    let mut app = TestApp::new();
+    let (mut drive, log) = a_drive(&mut app, 12.0);
+    drive.road_texture.surface = RoadSurface::held(false);
+    roll(&mut drive, &mut app, 0.0, 0.1);
+    let river = *drive.outside.river_miles().first().expect("a river");
+
+    // On to the bridge: the steer axle at once, then the drives and the
+    // trailer as the wheels roll over the joint.
+    drive.trip.position_mi = river - RIVER_SPAN_MI + 0.01;
+    roll(&mut drive, &mut app, 20.0, FRAME);
+    assert_eq!(bridge_hits(&log), 1, "the steer axle");
+    roll(
+        &mut drive,
+        &mut app,
+        20.0,
+        (AXLE_GAP_M + TRAILER_GAP_M) / 20.0 + 0.1,
+    );
+    assert_eq!(bridge_hits(&log), 3, "steer, drives, trailer");
+
+    // Off the far end: three more.
+    drive.trip.position_mi = river + RIVER_SPAN_MI + 0.01;
+    roll(&mut drive, &mut app, 20.0, 1.5);
+    assert_eq!(bridge_hits(&log), 6);
+}
+
+#[test]
+fn test_a_bridge_crossed_parked_or_crawling_makes_no_joint() {
+    let mut app = TestApp::new();
+    let (mut drive, log) = a_drive(&mut app, 12.0);
+    roll(&mut drive, &mut app, 0.0, 0.1);
+    let river = *drive.outside.river_miles().first().expect("a river");
+    drive.trip.position_mi = river;
+    roll(&mut drive, &mut app, 2.0, 1.0);
+    drive.trip.position_mi = river + 1.0;
+    roll(&mut drive, &mut app, 2.0, 1.0);
+    assert_eq!(bridge_hits(&log), 0);
 }

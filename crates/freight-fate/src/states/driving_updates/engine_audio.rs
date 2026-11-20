@@ -314,20 +314,7 @@ impl DrivingState {
             .set_engine_rpm_with(self.trip.truck.rpm, engine_load);
         ctx.audio.set_road_noise(self.trip.truck.velocity_mps);
 
-        // Road texture follows real wheel travel, not the trip model's compressed
-        // route distance. Ramps are outside the highway soundscape.
-        if dt > 0.0 && self.trip.truck.velocity_mps > 5.0 && !self.trip.on_ramp {
-            self.road_joint_accumulator_m += self.trip.truck.velocity_mps * dt;
-            if self.road_joint_accumulator_m >= self.next_joint_distance_m {
-                self.road_joint_accumulator_m %= self.next_joint_distance_m;
-                self.next_joint_distance_m = self.road_texture_rng.uniform(14.0, 18.0);
-
-                let severity = 1.0f64.min(self.trip.truck.velocity_mps / 30.0);
-                ctx.audio
-                    .play_with("vehicle/road_joint", 0.015 * severity, 0.0);
-                ctx.controller.rumble.joint(severity);
-            }
-        }
+        self.update_road_texture(ctx, dt);
 
         if self.trip.truck.engine_on && self.trip.truck.transmission.in_reverse() {
             if !self.reverse_cue_active {

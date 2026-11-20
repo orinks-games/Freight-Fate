@@ -159,7 +159,7 @@ pub struct Bed {
     /// How far the road may cover the muffled copy at speed (see
     /// [`road_mask_to`]). The insects keep more: through a closed window at
     /// highway speed they are how the driver knows it is night (Orinks,
-    /// 2026-11-20).
+    /// 2026-11-19).
     pub sealed_road_floor: f64,
 }
 
@@ -260,12 +260,14 @@ pub fn near_river(rivers: &[f64], position_mi: f64) -> bool {
 
 /// The level of a nature bed (birds, insects) with the window down and the
 /// truck parked. Orinks's ear sets it. Its loops ride the Weather volume,
-/// 0.65 by default, where the old night bed rode Effects at 0.8: 0.8 / 0.65
-/// keeps a warm night as loud as it was.
-pub const NATURE_LEVEL: f64 = 0.8 / 0.65;
+/// 0.65 by default, where the old night bed rode Effects at 0.8; the 1.8 dB
+/// between them is in the recordings, so a warm night is as loud as it was.
+/// Never above 1: the engine clamps a sound there, and a bed above it would
+/// flatten at a high Weather volume.
+pub const NATURE_LEVEL: f64 = 1.0;
 /// The river's level, window down. Orinks's ear sets it. The 6 dB the river
 /// sits above the nature beds is in its recording, so the two share a level.
-pub const WATER_LEVEL: f64 = 0.8 / 0.65;
+pub const WATER_LEVEL: f64 = 1.0;
 /// Real seconds a nature bed takes to fade in, and again to fade out.
 pub const SCENE_FADE_S: f64 = 3.0;
 pub const WATER_FADE_IN_S: f64 = 0.8;

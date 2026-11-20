@@ -14288,6 +14288,14 @@ msgstr ""
 msgid "Weather: {join}."
 msgstr ""
 
+#: crates/ff-core/src/sim/road_texture.rs
+msgid "smooth"
+msgstr ""
+
+#: crates/ff-core/src/sim/road_texture.rs
+msgid "jointed"
+msgstr ""
+
 #: crates/ff-core/src/sim/roadside_inspection.rs
 msgid "Level 1 full inspection"
 msgstr ""
@@ -17339,7 +17347,19 @@ msgid "Plays under a spoken line that already explains it."
 msgstr ""
 
 #: crates/ff-core/src/sound_catalog.rs
+msgid "A small debris strike under the wheels."
+msgstr ""
+
+#: crates/ff-core/src/sound_catalog.rs
 msgid "Pavement seams: texture, not a decision."
+msgstr ""
+
+#: crates/ff-core/src/sound_catalog.rs
+msgid "As the steer axle's seam."
+msgstr ""
+
+#: crates/ff-core/src/sound_catalog.rs
+msgid "The joint at a bridge end: texture, not a decision."
 msgstr ""
 
 #: crates/ff-core/src/sound_catalog.rs

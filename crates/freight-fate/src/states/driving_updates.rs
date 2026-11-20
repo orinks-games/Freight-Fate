@@ -15,11 +15,13 @@
 //! * [`cues`] -- what the lane sounds like: the edge ladder, off-pavement
 //!   transitions, the curve run's verdict, the transverse strips, the
 //!   locator and steering tocks, and the guidance director.
-//! * [`engine_audio`] -- the engine bed, the shift duck, road joints, the
+//! * [`engine_audio`] -- the engine bed, the shift duck, the
 //!   jake growl, the air-fill loop, and automatic retarder management.
 //! * [`radio`] -- reception, the FM fringe, station rotation and personal
 //!   playlists, the dial keys, and the live-data source syncs.
 //! * [`radio_synth`] -- the Roadhouse in Synthesized mode.
+//! * [`road_texture`] -- seams and bridge joints under the wheels.
+//! * [`outside`] -- birds, insects and the river outside the truck.
 //! * [`hazards`] -- the braking budget, automatic emergency braking, hazard
 //!   resolution, and the grade advisory.
 //! * [`enforcement`] -- the dash overspeed alert, the pull-over and its
@@ -53,6 +55,7 @@ pub mod pending;
 pub mod radio;
 pub mod radio_channel3000;
 pub mod radio_synth;
+pub mod road_texture;
 pub mod runaway;
 pub mod stops;
 

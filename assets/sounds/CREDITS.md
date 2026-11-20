@@ -49,7 +49,9 @@ current idle, start, and shutdown cues.
 | Air dryer purge | `vehicle/air_dryer_purge.ogg` | ElevenLabs-generated compressor cut-out purge, played when air pressure is ready |
 | Low air buzzer | `vehicle/low_air_buzzer.ogg` | ElevenLabs-generated low-air-pressure / spring-brake warning buzzer |
 | Highway road bed | `vehicle/road.ogg` | ElevenLabs-generated in-cab road ambience; raised 6 dB on 2026-10-08, when it sat about 15 dB under the engine |
-| Road seam thump | `vehicle/road_joint.ogg` | Short low thump synthesized in-repo for routine road texture |
+| Road seam thump | `vehicle/road_joint.ogg` | Short low thump synthesized in-repo; the fallback for the seam banks, and the small debris strike |
+| Road seams, steer and drive axles | `vehicle/seam_steer_01.ogg` to `_04`, `vehicle/seam_drive_01.ogg` to `_04` | Pitched cuts of the in-repo seam thump, the drive cuts lower and duller, made by `sound-test/road_seams.sh` |
+| Bridge end joint | `vehicle/bridge_joint_01.ogg` to `_03` | The in-repo seam thump pitched down with a second strike, made by `sound-test/road_seams.sh` |
 | Car pass-by | `traffic/car_pass.ogg` | ElevenLabs-generated nearby passenger-car pass-by cue |
 | Box truck pass-by | `traffic/box_truck_pass.ogg` | ElevenLabs-generated nearby medium-truck pass-by cue |
 | Semi pass-by | `traffic/semi_pass.ogg` | ElevenLabs-generated nearby tractor-trailer pass-by cue |
