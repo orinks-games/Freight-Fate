@@ -14394,11 +14394,24 @@ msgid "Weather: {join}."
 msgstr ""
 
 #: crates/ff-core/src/sim/road_texture.rs
-msgid "smooth"
+msgid "jointed"
 msgstr ""
 
 #: crates/ff-core/src/sim/road_texture.rs
-msgid "jointed"
+msgid "smooth"
+msgstr ""
+
+#. placeholders: {name}
+#: crates/ff-core/src/sim/road_texture.rs
+msgid "read {name}"
+msgstr ""
+
+#: crates/ff-core/src/sim/road_texture.rs
+msgid "invented"
+msgstr ""
+
+#: crates/ff-core/src/sim/road_texture.rs crates/freight-fate/src/app/key_probe.rs
+msgid "held"
 msgstr ""
 
 #: crates/ff-core/src/sim/roadside_inspection.rs
@@ -18193,10 +18206,6 @@ msgstr ""
 
 #: crates/freight-fate/src/app/key_probe.rs
 msgid " [same frame]"
-msgstr ""
-
-#: crates/freight-fate/src/app/key_probe.rs
-msgid "held"
 msgstr ""
 
 #: crates/freight-fate/src/app/key_probe.rs

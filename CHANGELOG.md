@@ -18,7 +18,7 @@
 - **The controller's second layer can move to the left bumper.** The Second layer bumper row in Controls swaps the bumpers, and prompts name the one you hold.
 - **Drive online as a guest, with no orinks.net account.** You show on the drivers board under a name orinks.net picks, like Copper Fox 12.
 - **Birds by day, insects at night and rivers under bridges now sound outside the truck.** Lower the driver window to hear them clearly.
-- **Road seams can now be heard as a two-part thump on some stretches of road.** River bridges have a joint at each end.
+- **Concrete roads now have audible seams, a two-part thump.** Bridges thump as you drive on, and long ones again as you leave.
 
 ### Changed
 

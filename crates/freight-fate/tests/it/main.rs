@@ -182,6 +182,7 @@ mod states_driving_rest_choice_scenarios;
 mod states_driving_retarder;
 mod states_driving_road;
 mod states_driving_road_chains;
+mod states_driving_road_texture;
 mod states_driving_rollover;
 mod states_driving_scale_lane_keeping;
 mod states_driving_scale_pairs;

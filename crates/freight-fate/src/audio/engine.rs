@@ -17,6 +17,11 @@ use super::{
     JAKE_RECORDED_KEY, SFX_EXTENSIONS,
 };
 
+/// The level a bank multiplies each trigger by, so no two clunks land
+/// identically (about ±1.4 dB). A caller keeping a hit at or under 1.0
+/// asks for no more than `1.0 / BANK_JITTER.1`.
+pub const BANK_JITTER: (f64, f64) = (0.85, 1.17);
+
 /// Facade over the active backend; the rest of the game talks only to this.
 pub struct AudioEngine {
     backend: Box<dyn AudioBackend>,
@@ -361,7 +366,7 @@ impl Audio for AudioEngine {
         self.bank_order.insert(base.to_string(), order);
         self.last_bank_key.insert(base.to_string(), key.clone());
         // Per-trigger level jitter, ~±1.4 dB: no two clunks land identically.
-        let jitter = self.rng.uniform(0.85, 1.17);
+        let jitter = self.rng.uniform(BANK_JITTER.0, BANK_JITTER.1);
         self.play_with(&key, volume * jitter, pan);
     }
 

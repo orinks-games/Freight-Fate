@@ -44,6 +44,7 @@ use crate::states::driving_core::DRIVE_PHASE_DELIVERY;
 use super::MPH_PER_MPS;
 
 pub mod destination;
+pub mod pavement;
 pub mod river;
 
 /// `--routes random` is a bounded, seeded sample from the world. Departure
@@ -60,7 +61,7 @@ pub const RANDOM_SAMPLE: usize = 6;
 /// launched later. It does not choose a facility or corridor.
 const DEPARTURE_TRIP_SEED: i64 = 0;
 
-pub const FEATURES: [&str; 13] = [
+pub const FEATURES: [&str; 15] = [
     "downgrade",
     "upgrade",
     "zone",
@@ -74,6 +75,8 @@ pub const FEATURES: [&str; 13] = [
     "destination",
     "departure",
     "river",
+    "bridge",
+    "jointed",
 ];
 const SCAN_STEP_MI: f64 = 0.1;
 /// How far before the feature the SEARCH looks back to report a posted
@@ -578,6 +581,8 @@ pub fn find_feature(
                 destination,
             )),
             "river" => hits.extend(self::river::river_hits(&mut trip, origin, destination)),
+            "bridge" => hits.extend(self::pavement::bridge_hits(&mut trip, origin, destination)),
+            "jointed" => hits.extend(self::pavement::jointed_hits(&mut trip, origin, destination)),
             _ => {}
         }
     }

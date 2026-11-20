@@ -33,6 +33,7 @@ pub mod destination_exit;
 mod exit_ramps;
 mod limits;
 mod lookups;
+mod pavement;
 mod place_time;
 mod placement;
 mod rivers;
