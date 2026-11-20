@@ -272,8 +272,12 @@ pub struct DrivingObservation {
     pub outside_temperature_c: Option<f64>,
     /// Over a river or away from one.
     pub water: ff_core::sim::outside::Water,
-    /// Jointed (seams heard) or smooth road under the wheels.
+    /// Jointed (seams heard) or smooth road under the wheels, and how the
+    /// game knows.
     pub road_surface: ff_core::sim::road_texture::RoadSurface,
+    /// The structure the pavement layer puts under the truck, with its
+    /// length in miles.
+    pub structure: Option<(ff_core::data::pavement::StructureKind, f64)>,
 }
 
 /// The only capability a windowed input policy receives for one frame.
@@ -903,6 +907,7 @@ impl App {
             outside_temperature_c: drive.outside.temperature_c(),
             water: drive.outside.water,
             road_surface: drive.road_texture.surface,
+            structure: drive.trip.structure_at_mile(drive.trip.position_mi),
         })
     }
 

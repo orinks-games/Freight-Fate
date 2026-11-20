@@ -1,73 +1,145 @@
 use super::*;
+use crate::data::pavement::Surface;
 
 fn rng() -> PyRandom {
     PyRandom::new_from_i64(7)
 }
 
-#[test]
-fn test_the_surface_transition_table() {
-    let mut r = rng();
-    let travel = |metres| RoadSurfaceEvent::Travel { metres };
-    // (from, travel, expected kind after, expected left when it is the same stretch)
-    let cases: [(RoadSurface, f64, &str, Option<f64>); 6] = [
-        (
-            RoadSurface::Smooth { left_m: 100.0 },
-            40.0,
-            "smooth",
-            Some(60.0),
-        ),
-        (
-            RoadSurface::Jointed { left_m: 100.0 },
-            40.0,
-            "jointed",
-            Some(60.0),
-        ),
-        (
-            RoadSurface::Smooth { left_m: 100.0 },
-            100.0,
-            "jointed",
-            None,
-        ),
-        (
-            RoadSurface::Jointed { left_m: 100.0 },
-            150.0,
-            "smooth",
-            None,
-        ),
-        (
-            RoadSurface::Jointed { left_m: 100.0 },
-            0.0,
-            "jointed",
-            Some(100.0),
-        ),
-        (RoadSurface::held(true), 1e9, "jointed", Some(f64::INFINITY)),
-    ];
-    for (from, metres, kind, left) in cases {
-        let to = from.next(travel(metres), &mut r);
-        assert_eq!(to.name(), kind, "{from:?} + {metres} m");
-        match left {
-            Some(left) => assert_eq!(to.left_m(), left, "{from:?} + {metres} m"),
-            None => {
-                let (lo, hi) = if to.is_jointed() { JOINTED_M } else { SMOOTH_M };
-                // The overflow past the old stretch is spent on the new one.
-                let spent = metres - from.left_m();
-                assert!(
-                    (lo - spent..=hi - spent).contains(&to.left_m()),
-                    "{from:?} + {metres} m -> {to:?}"
-                );
-            }
-        }
-    }
+fn read(surface: Surface, faulting: Option<f64>) -> Option<Reading> {
+    Some(Reading { surface, faulting })
 }
 
 #[test]
-fn test_a_long_roll_alternates_and_a_seed_replays_it() {
+fn test_the_surface_transition_table() {
+    use Surface::*;
+    let mut r = rng();
+    let travel = |metres, reading| RoadSurfaceEvent::Travel { metres, reading };
+    let jpc = read(JointedPlainConcrete, Some(0.02));
+    let invented_j = RoadSurface::Invented(Invented::Jointed { left_m: 100.0 });
+    let invented_s = RoadSurface::Invented(Invented::Smooth { left_m: 100.0 });
+    // (from, event, kind after, origin after)
+    let rows: [(RoadSurface, RoadSurfaceEvent, &str, &str); 9] = [
+        // A reading wins over invented road of either kind.
+        (
+            invented_s,
+            travel(10.0, jpc),
+            "jointed",
+            "read jointed_plain_concrete",
+        ),
+        (
+            invented_j,
+            travel(10.0, read(Asphalt, None)),
+            "smooth",
+            "read asphalt",
+        ),
+        // Read road follows the reading.
+        (
+            RoadSurface::Read(jpc.unwrap()),
+            travel(10.0, read(ContinuousConcrete, None)),
+            "smooth",
+            "read continuous_concrete",
+        ),
+        (
+            RoadSurface::Read(jpc.unwrap()),
+            travel(10.0, read(AsphaltOverJointedConcrete, None)),
+            "jointed",
+            "read asphalt_over_jointed_concrete",
+        ),
+        // Leaving read road starts invented road.
+        (
+            RoadSurface::Read(jpc.unwrap()),
+            travel(10.0, None),
+            "",
+            "invented",
+        ),
+        // Invented road keeps its stretch, then alternates.
+        (invented_j, travel(40.0, None), "jointed", "invented"),
+        (invented_s, travel(100.0, None), "jointed", "invented"),
+        (invented_j, travel(150.0, None), "smooth", "invented"),
+        // A hold wins over the layer.
+        (RoadSurface::held(false), travel(1e9, jpc), "smooth", "held"),
+    ];
+    for (from, event, kind, origin) in rows {
+        let to = from.next(event, &mut r);
+        if !kind.is_empty() {
+            assert_eq!(to.name(), kind, "{from:?} on {event:?}");
+        }
+        assert_eq!(to.origin(), origin, "{from:?} on {event:?}");
+    }
+    // The invented stretch spends the overflow on the next one.
+    let RoadSurface::Invented(to) = invented_s.next(travel(130.0, None), &mut r) else {
+        panic!("still invented");
+    };
+    assert!((JOINTED_M.0 - 30.0..=JOINTED_M.1 - 30.0).contains(&to.left_m()));
+    let RoadSurface::Invented(kept) = invented_j.next(travel(40.0, None), &mut r) else {
+        panic!("still invented");
+    };
+    assert_eq!(kept.left_m(), 60.0);
+}
+
+#[test]
+fn test_which_surfaces_have_seams_and_how_hard() {
+    use Surface::*;
+    let factor = |surface, faulting| RoadSurface::Read(Reading { surface, faulting }).seam_factor();
+    for s in [
+        JointedPlainConcrete,
+        JointedReinforcedConcrete,
+        UnbondedJointedConcreteOverlay,
+        BondedConcreteOverlay,
+    ] {
+        assert_eq!(factor(s, None), Some(1.0), "{s:?}");
+    }
+    assert_eq!(
+        factor(AsphaltOverJointedConcrete, Some(0.3)),
+        Some(OVERLAY_SEAM_FACTOR)
+    );
+    for s in [
+        Asphalt,
+        AsphaltOverAsphalt,
+        AsphaltOverContinuousConcrete,
+        ContinuousConcrete,
+        Unpaved,
+        Other,
+    ] {
+        assert_eq!(factor(s, Some(0.3)), None, "{s:?}");
+    }
+    // The faulting classes of 23 CFR 490.313.
+    let rows = [
+        (None, 1.0),
+        (Some(0.0), 1.0),
+        (Some(0.099), 1.0),
+        (Some(0.10), FAIR_SEAM_FACTOR),
+        (Some(0.15), FAIR_SEAM_FACTOR),
+        (Some(0.151), POOR_SEAM_FACTOR),
+        (Some(0.8), POOR_SEAM_FACTOR),
+    ];
+    for (faulting, want) in rows {
+        assert_eq!(
+            factor(JointedPlainConcrete, faulting),
+            Some(want),
+            "{faulting:?}"
+        );
+    }
+    assert_eq!(RoadSurface::held(true).seam_factor(), Some(1.0));
+    assert_eq!(RoadSurface::held(false).seam_factor(), None);
+    const { assert!(OVERLAY_SEAM_FACTOR < 1.0 && 1.0 < FAIR_SEAM_FACTOR) };
+    const { assert!(FAIR_SEAM_FACTOR < POOR_SEAM_FACTOR) };
+}
+
+#[test]
+fn test_a_long_invented_roll_alternates_and_a_seed_replays_it() {
     let walk = |seed| {
         let mut r = PyRandom::new_from_i64(seed);
-        let mut s = RoadSurface::first(&mut r);
+        let mut s = RoadSurface::first(None, &mut r);
         let mut kinds = vec![s.name()];
         for _ in 0..2_000 {
-            s = s.next(RoadSurfaceEvent::Travel { metres: 25.0 }, &mut r);
+            s = s.next(
+                RoadSurfaceEvent::Travel {
+                    metres: 25.0,
+                    reading: None,
+                },
+                &mut r,
+            );
             if kinds.last() != Some(&s.name()) {
                 kinds.push(s.name());
             }
@@ -83,16 +155,20 @@ fn test_a_long_roll_alternates_and_a_seed_replays_it() {
 #[test]
 fn test_a_seam_is_two_hits_and_a_bridge_joint_three() {
     let mut hits = AxleHits::default();
-    let steer = hits.cross(Crossing::Seam);
+    let steer = hits.cross(Crossing::Seam, 1.5);
     assert_eq!(steer.axle, Axle::Steer);
     assert!(hits.travel(AXLE_GAP_M - 0.1).is_empty());
     let drive = hits.travel(0.2);
     assert_eq!(drive.len(), 1);
     assert_eq!(drive[0].axle, Axle::Drive);
+    assert_eq!(
+        drive[0].factor, 1.5,
+        "the drives hit as hard as the steer axle"
+    );
     assert!(hits.is_empty());
 
     let mut hits = AxleHits::default();
-    assert_eq!(hits.cross(Crossing::BridgeJoint).axle, Axle::Steer);
+    assert_eq!(hits.cross(Crossing::BridgeJoint, 1.0).axle, Axle::Steer);
     let behind: Vec<Axle> = (0..100)
         .flat_map(|_| hits.travel(0.5))
         .map(|h| h.axle)
@@ -100,7 +176,7 @@ fn test_a_seam_is_two_hits_and_a_bridge_joint_three() {
     assert_eq!(behind, [Axle::Drive, Axle::Trailer]);
     // One long frame lands both, in order.
     let mut hits = AxleHits::default();
-    hits.cross(Crossing::BridgeJoint);
+    hits.cross(Crossing::BridgeJoint, 1.0);
     let both: Vec<Axle> = hits.travel(50.0).into_iter().map(|h| h.axle).collect();
     assert_eq!(both, [Axle::Drive, Axle::Trailer]);
 }

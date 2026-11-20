@@ -49,7 +49,7 @@ pub use assets::{
     MODULE_EXTENSIONS, MUSIC_EXTENSIONS, SFX_EXTENSIONS, SOUND_ASSETS_MISSING,
 };
 pub use backend::{loop_category, one_shot_category, AudioBackend, Buses, Category, VolumeUpdate};
-pub use engine::AudioEngine;
+pub use engine::{AudioEngine, BANK_JITTER};
 pub use ff_core::assets_pack::{generated_sound_keys, register_generated_sound};
 pub use ff_core::audio_loops::{to_seconds, LoopUnits, SustainLoopSpec};
 pub use hearken_backend::{headless_requested, HearkenBackend, HearkenEngineBand};

@@ -256,7 +256,9 @@ fn tools_list() -> Value {
             "Skip the menus: stage a drive at a discovered road feature and take the \
              wheel right there -- the same finder --playtest-road --find uses. \
              feature must be one of: downgrade, upgrade, zone, limit-drop, stop, \
-             scale, curve, interchange, toll, chain-law, destination, departure, river. \
+             scale, curve, interchange, toll, chain-law, destination, departure, river, \
+             bridge (one with joints, longest first), jointed (road with seams, longest \
+             first). \
              Same seed, same road. pick chooses among multiple matches (1-based). \
              unit plants a staffed enforcement unit unit_ahead_mi up the road (default \
              3) so an encounter can be staged on purpose; the road's own seeded posts \
@@ -295,7 +297,8 @@ fn tools_list() -> Value {
              object of setting name to value, for this \
              session), window (up or down: every drive from here on starts with \
              the driver window there), road_surface (jointed or smooth: every \
-             drive from here on keeps that surface the whole way), and name (the career created when none is \
+             drive from here on keeps that surface the whole way, over what the \
+             pavement layer reads), and name (the career created when none is \
              loaded; default Playtest). Nothing is refused for being unreasonable: this is the \
              audited sandbox. Listen afterwards for the terminal.",
             json!({

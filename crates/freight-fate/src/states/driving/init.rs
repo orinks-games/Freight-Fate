@@ -271,10 +271,15 @@ impl DrivingState {
         let next_joint_distance_m = road_texture_rng.uniform(14.0, 18.0);
         // Drawn even when a scenario holds the surface, so the seams' spacing
         // replays the same either way.
-        let mut road_surface = RoadSurface::first(&mut road_texture_rng);
+        let mut road_surface = RoadSurface::first(
+            trip.pavement_reading_at(trip.position_mi),
+            &mut road_texture_rng,
+        );
         if let Some(jointed) = ctx.playtest_road_jointed {
             road_surface = RoadSurface::held(jointed);
         }
+        let road_texture =
+            RoadTexture::new(road_surface, trip.bridge_joint_spans(), trip.position_mi);
 
         let damage_band = trip.truck.damage_band();
         let engine_on = trip.truck.engine_on;
@@ -731,7 +736,7 @@ impl DrivingState {
             lane_locator_timer: 0.0,
             cab,
             outside: Default::default(),
-            road_texture: RoadTexture::new(road_surface),
+            road_texture,
             steer_cue_active: false,
             exit_blinker_active: false,
             steer_cue_timer: 0.0,

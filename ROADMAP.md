@@ -52,8 +52,8 @@ bookmarks usable.
 - [x] Main voice (built 2026-11-17, owner request): Settings, Speech has a Main voice row above Driving event voice. Automatic stays the default; the player can pick any voice that can speak right now (a running screen reader, SAPI, Windows OneCore, Narrator while it runs, the built-in voice). The choice is saved as is and never rewritten: while the chosen voice cannot speak, the automatic pick speaks and the row says the voice is unavailable, and the health check binds it when it returns. When Driving event voice names the main voice, events go through the main voice and the event row reads "main voice"; the saved event voice is kept, so moving the main voice away brings the separate voice back. Hearken PR 74 (`main_backend_options`, the Narrator gate, the shared event voice).
 - [x] Outside ambience (built 2026-11-19, player request relayed by Orinks 2026-11-19): insects at dusk and night on warm nights (one recording; a second night's recording, alternating night by night, was dropped by Orinks's ear on 2026-11-20), birds at dawn and by day from freezing up, and a river under the truck at each OSM river crossing, held 6 real seconds past it. Heavy rain, storms, snow and ice are quiet. Each bed plays a clear copy on the driver's side and a muffled copy centred, crossfaded by the driver window's glass; the window, the scene and the water are state machines in `ff_core::sim::cab` and `sim::outside`. Replaces the old `ambient/night` bed. Sounds from OpenGameArt (CC0 and CC BY), prepared by `sound-test/outside_ambience.sh`.
 - [ ] (Found along the way) Outside ambience levels are first guesses for Orinks's ear: the beds' levels, the insects' window-up level at highway speed (about 4 dB over the road and engine at 65 mph in the 2 to 4 kHz band; Orinks heard it through the glass in a recording), and the river's level.
-- [x] Road seams (built 2026-11-19, Orinks asked the same evening): a two-part thump on jointed stretches, the steer axle and then the drive tandem a wheelbase (5.2 m, assumed) behind, so the gap widens as the truck slows; jointed and smooth stretches alternate (invented texture, `ff_core::sim::road_texture::RoadSurface`, drawn from the drive's road texture seed). Each end of a river bridge is a heavier joint under all three axles. Sounds are pitched cuts of the in-repo seam thump (`sound-test/road_seams.sh`).
-- [ ] (Found along the way) Road seam levels (`SEAM_LEVEL`, `BRIDGE_JOINT_LEVEL`) are first guesses for Orinks's ear, and a recorded seam would replace the synthesized one if one turns up under a usable license. Wiring the pavement layer's real surface type and bridges in place of the invented stretches waits on that layer.
+- [x] Road seams (built 2026-11-19, Orinks asked the same evening; on the pavement layer 2026-11-20): a two-part thump at each seam, the steer axle and then the drive tandem a wheelbase (5.2 m, assumed) behind, so the gap widens as the truck slows. The layer decides where: full seams on jointed concrete, louder on fair and poor faulting, softer ones on asphalt over jointed concrete, none on asphalt or continuous concrete. Bridges and causeways from the layer have a heavier joint under all three axles, thinned for pacing. Where the layer reads nothing the stretches are still invented (`ff_core::sim::road_texture::RoadSurface::Invented`, drawn from the drive's road texture seed). Sounds are pitched cuts of the in-repo seam thump (`sound-test/road_seams.sh`). Detail: [November 20](#november-20-seams-and-joints-from-the-pavement-layer-found-along-the-way).
+- [ ] (Found along the way) Road seam levels (`SEAM_LEVEL`, `BRIDGE_JOINT_LEVEL`) are first guesses for Orinks's ear, and a recorded seam would replace the synthesized one if one turns up under a usable license. So are the faulting and overlay factors, the seam spacing (14 to 18 m, where real slabs are about 4.6 m; Orinks has a recording of each) and the joint thinning numbers.
 - [ ] (Found along the way) The 0 and 10 degree lines for birds and insects are assumptions, not sourced; regional and seasonal bird variety, lakes and the passenger window are not covered.
 - [ ] (Found along the way) The Speech voice row sets one installed voice for whichever bound voice lists voices first (the main voice, then the event voice), so the event voice's own installed voice cannot be chosen when both have lists, and a voice does not remember its own installed voice when the main voice changes.
 - [ ] (Found along the way) Hearken's own settings screen still offers only a built-in voice toggle, not the full main voice choice.
@@ -84,8 +84,9 @@ bookmarks usable.
 - [ ] (Found along the way) Six Florida legs named I-95 ride Florida's Turnpike for about 13 miles (West Palm Beach, Port St. Lucie, Coral Springs and Jacksonville to Miami and Palm Bay). The route is a reasonable truck choice; the label is what is wrong. Name the road the legs drive, or split the highway name where they change roads.
 - [ ] (Found along the way) A whole-map run of the new layer builders (2026-11-05, dry run) would change most legs: lane counts and landmarks mostly by their source notes, villages by about 160 places, and low clearances from 118 legs to 543, mostly real posted bridges under 16 feet in the Northeast. Decide whether to apply it, and listen to a few of the new clearance calls first.
 - [ ] (Found along the way) The terrain class reads at most 800 HPMS sections per leg, so a long leg is judged on whichever 800 the server returns first: Harrisburg to Pittsburgh across the Alleghenies reads level. Count every section in the leg's own corridor instead.
-- [x] (Found along the way) What the road is made of, and where it leaves the ground, is on the map (2026-11-20; the owner asked whether pavement data could make the planned road seams accurate). `cargo tools hpms-pavement` reads FHWA HPMS surface type and bridges, tunnels and causeways along every leg's archived road, each way; nothing in the game uses it yet. Coverage and method: [November 20](#november-20-pavement-and-structures-from-hpms-found-along-the-way).
-- [ ] (Found along the way) Wire the pavement layer into the road seams once the ambience branch merges: where a leg has a reading, seams on jointed concrete, softer ones on asphalt over jointed concrete, bridge joints at each structure's ends; the made-up stretches only where a leg has no reading.
+- [x] (Found along the way) What the road is made of, and where it leaves the ground, is on the map (2026-11-20; the owner asked whether pavement data could make the planned road seams accurate). `cargo tools hpms-pavement` reads FHWA HPMS surface type and bridges, tunnels and causeways along every leg's archived road, each way; the road seams and bridge joints use it. Coverage and method: [November 20](#november-20-pavement-and-structures-from-hpms-found-along-the-way).
+- [x] (Found along the way) The road seams follow the pavement layer (2026-11-20): seams on jointed concrete by faulting class, softer ones on asphalt over jointed concrete, bridge joints at the ends of bridges and causeways of 0.05 mile and more, and the made-up stretches only where a leg has no reading. Detail: [November 20](#november-20-seams-and-joints-from-the-pavement-layer-found-along-the-way).
+- [ ] (Found along the way) Tunnels do not quiet the birds and insects. At standard pacing a one-mile tunnel passes in under three seconds, shorter than the outside bed's three-second fade, so the bed would only dip. It needs a faster fade for tunnels, or a muffle like the closed window's.
 - [ ] (Found along the way) The Allegheny Mountain Tunnel on the Pennsylvania Turnpike has no structure row in HPMS 2020 (Blue Mountain, Kittatinny and Tuscarora do), so the pavement layer has no tunnel there.
 - [ ] (Found along the way) HPMS reports bridge-sized culverts as bridges, so the pavement layer's bridges include some culverts. The National Bridge Inventory could tell them apart.
 - [ ] (Found along the way) Harrisburg to Pittsburgh still leaves the Turnpike for US-30 between about miles 87 and 100, near Bedford, after the re-route of 2026-11-05. HPMS has no surface for that stretch of US-30.
@@ -4240,6 +4241,54 @@ Five-leg dry run, gaps and oddities:
 `/mnt/project-files/ambience/pavement-dry-run.md` in the project files. After
 a `reroute-leg`, re-read the leg with `hpms-pavement --only from:to --write`;
 the reroute drops the layer and says so.
+
+### November 20 seams and joints from the pavement layer (Found along the way)
+
+The road seams made up their jointed stretches and put bridge joints at river
+points. They now follow the pavement layer (`Leg::pavement`), and the surface
+state says which it is following: `RoadSurface::Read` (the layer's class and
+faulting under the truck), `Invented` (only where the layer reads nothing), or
+`Held` (a staged scenario, which wins over the layer). The agent server's
+`status` reports it as, for example, `road_surface jointed, read
+jointed_plain_concrete; structure bridge 0.28 mi`.
+
+Which surfaces have seams follows the Field Manual's groups: jointed concrete
+(codes 3, 4, 9, 10) has full seams, asphalt over jointed concrete (7) has
+softer ones (its joints reflect through as cracks; the 0.5 factor is assumed),
+and asphalt, continuous concrete and unpaved have none.
+
+Faulting on the whole map (2026-11-20). Jointed concrete: 14,729 runs, 22,305
+miles; 13,145 runs (21,237 miles, 95%) carry a faulting value and 1,584 runs
+(1,068 miles) have none. Over the runs with one, in inches: 10th percentile
+0.00, 25th 0.01, median 0.03, 75th 0.05, 90th 0.10, maximum 0.8. By the 23 CFR
+490.313 classes: good (under 0.10) 11,779 runs and 19,835 miles, fair (0.10 to
+0.15) 867 runs and 1,159 miles, poor (over 0.15) 499 runs and 244 miles. Asphalt
+over jointed concrete: 10,547 runs, 21,404 miles, only 1,949 runs (7,351 miles,
+34%) with a value, nearly all 0.00 (median 0.00, 90th percentile 0.02; 8 runs
+fair, 9 poor): HPMS barely measures faulting through an overlay. So jointed
+concrete scales its seam by class (good 1.0, fair 1.25, poor 1.5; the class
+boundaries read, the factors assumed, no value counted as good), and the
+overlay keeps its one level. No hit asks the sound engine for more than 1.0
+after the drive axle gain, the faulting factor and the bank's own level
+variation (`HIT_CEILING`).
+
+Bridge joints come from the layer's bridges and causeways each way
+(`Trip::bridge_joint_spans`); a tunnel has none. Route miles pass 10 or 20 times
+faster than the wheels, so two rules thin them, both assumed for the ear: no
+joint on a structure under 0.05 mile (`MIN_SPAN_MI`; that drops 67,366 of the
+81,066 structures, nearly all culverts and single overpasses), and none within
+1.5 real seconds of the last one heard (`MIN_JOINT_GAP_S`), which also decides
+whether the far end is heard: at 65 mph a bridge is heard at both ends from
+about 0.55 mile at standard pacing and 0.27 mile at relaxed. A river point with no structure within
+0.15 mile keeps an assumed joint at each edge of its span, outside the gap rule,
+as before; one with a structure takes the structure's ends only. The water under
+the truck still follows the river points (`sim::outside::Water`).
+
+What stays invented: the seam spacing (14 to 18 m, approved by ear; US jointed
+plain concrete panels run about 15 feet, FHWA Technical Advisory T 5040.30,
+January 2019), every level and factor, the thinning numbers, and the stretches
+where the layer reads nothing. `start_at` stages `bridge` and `jointed` from
+the layer.
 
 ### November 16 exits inside a work zone (Release gate)
 
