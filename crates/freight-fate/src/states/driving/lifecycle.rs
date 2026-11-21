@@ -288,10 +288,14 @@ impl DrivingState {
             let speed_control = self.resumed_speed_control_status(ctx);
             let report_lead = self.trip.weather.report_lead(imperial);
             if self.terse_speech(ctx) {
-                let parked = self.parked_entry_status();
+                // The truck's state is one hole, so a translation takes the
+                // sentences in it one at a time. As two holes side by side,
+                // a translated line split them mid-sentence and left the
+                // parking brake in English.
+                let status = format!("{speed_control}{}", self.parked_entry_status());
                 let text = format!(
                     "Resuming {drive_name}: {destination}. {progress} {hours_used:.1} of {:.0} \
-                     hours used. {now}. {mode}. {report_lead}. {speed_control}{parked}",
+                     hours used. {now}. {mode}. {report_lead}. {status}",
                     self.job.deadline_game_h
                 );
                 ctx.say_with(text, Say::queued());
@@ -299,13 +303,17 @@ impl DrivingState {
                 let engine = self.engine_entry_instruction(ctx);
                 let transmission = self.transmission_sentence();
                 let brake = self.parking_brake_hint_tail(ctx);
+                // One hole for the same reason as the short line above: as
+                // three, "Press E to start the engine." stayed in English
+                // in every translation of this line.
+                let status = format!("{speed_control}{engine} {brake}");
+                let status = status.trim_end();
                 let text = format!(
                     "Resuming {drive_name}: {:.0} tons of {} to {destination}. {progress} \
                      {hours_used:.1} of {:.0} hours. {now}. {transmission} {report_lead}. \
-                     {speed_control}{engine} {brake}",
+                     {status}",
                     self.job.weight_tons, self.job.cargo.label, self.job.deadline_game_h,
                 );
-                let text = text.trim_end().to_string();
                 ctx.say_with(text, Say::queued());
             }
         } else {

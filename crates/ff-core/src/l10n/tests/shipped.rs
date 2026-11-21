@@ -390,3 +390,78 @@ fn shipped_russian_keeps_clock_lines_off_the_backup_summary() {
     assert_eq!(tr.translate("It is 9:00."), "Сейчас 9:00.");
     assert_eq!(tr.translate("It is night."), "Сейчас ночь.");
 }
+
+/// Every shipped catalog, as a player gets it.
+fn shipped_catalogs() -> Vec<(&'static str, Translator)> {
+    [
+        ("de", include_str!("../../../../../lang/de.po")),
+        ("es", include_str!("../../../../../lang/es.po")),
+        ("fr", include_str!("../../../../../lang/fr.po")),
+        ("it", include_str!("../../../../../lang/it.po")),
+        ("ja", include_str!("../../../../../lang/ja.po")),
+        ("pl", include_str!("../../../../../lang/pl.po")),
+        ("pt_BR", include_str!("../../../../../lang/pt_BR.po")),
+        ("ru", include_str!("../../../../../lang/ru.po")),
+        ("tr", include_str!("../../../../../lang/tr.po")),
+        ("vi", include_str!("../../../../../lang/vi.po")),
+        ("zh_CN", include_str!("../../../../../lang/zh_CN.po")),
+    ]
+    .into_iter()
+    .map(|(code, po)| {
+        let catalog = Catalog::from_po(code, po).expect("the shipped catalog parses");
+        (code, Translator::new(catalog))
+    })
+    .collect()
+}
+
+/// The line a resumed drive opens with ends in the truck's state: cruise,
+/// the engine, the parking brake. Every language says all of it. As holes
+/// side by side at the end of the line, a translated line split them
+/// mid-sentence, and "Press E to start the engine." stayed in English in
+/// ten languages (found before 1.9.7; Vietnamese reported it in PR 625).
+#[test]
+fn every_shipped_language_says_the_whole_resume_line() {
+    let long = "Resuming loaded delivery: 19 tons of shipping containers to Visalia Intermodal \
+                Ramp in Visalia, California. 12 miles remaining of 40. 0.5 of 6 hours. 5:01 PM. \
+                Automatic transmission. Simulated weather: fog, 59 F, visibility 0.3 miles.";
+    let short = "Resuming loaded delivery: Visalia Intermodal Ramp in Visalia, California. 12 \
+                 miles remaining of 40. 0.5 of 6 hours used. 5:01 PM. automatic. Simulated \
+                 weather: fog, 59 F, visibility 0.3 miles.";
+    let lines = [
+        format!("{long} Press E to start the engine."),
+        format!("{long} Press E to start the engine. At air ready, P releases the parking brake."),
+        format!("{long} Engine off."),
+        format!("{long} Engine idling."),
+        format!("{long} Engine off. At air ready, P releases the parking brake."),
+        format!("{long} Cruise paused. C cancels it. Engine idling."),
+        format!("{long} Cruise paused. Engine off."),
+        format!("{short} Engine off, air 90 psi, parking brake set."),
+        format!("{short} Engine idling, air ready, parking brake released."),
+        format!("{short} Cruise paused. Engine idling, air ready, parking brake released."),
+        format!("{short} Cruise paused. C cancels it. Engine off, air 90 psi, parking brake set."),
+    ];
+    // Phrases of the English line that no translation contains.
+    let english = [
+        "Resuming",
+        "remaining",
+        "hours",
+        "Automatic transmission",
+        " automatic.",
+        "Simulated",
+        "Press E",
+        "engine",
+        "Engine",
+        "air ready",
+        "brake",
+        "Cruise paused",
+        "cancels",
+    ];
+    for (code, tr) in shipped_catalogs() {
+        for line in &lines {
+            let said = tr.translate(line);
+            for word in english {
+                assert!(!said.contains(word), "{code} kept \"{word}\": {said}");
+            }
+        }
+    }
+}

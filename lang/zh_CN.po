@@ -13139,7 +13139,7 @@ msgstr "无法获取实时天气"
 #. placeholders: {conditions}
 #. one sentence of a longer line
 msgid "Simulated weather: {conditions}."
-msgstr "模拟备用天气：{conditions}。"
+msgstr "模拟天气：{conditions}。"
 
 #. placeholders: {conditions}
 msgid "Simulated weather: {conditions}. Live weather is unavailable"
@@ -20207,14 +20207,13 @@ msgstr "载货送货"
 msgid "Resuming {drive_name}: {destination}."
 msgstr "继续{drive_name}：{destination}。"
 
-#. placeholders: {drive_name}, {destination}, {progress}, {hours_used}, {deadline_game_h}, {now}, {mode}, {report_lead}, {speed_control}, {parked}
+#. placeholders: {drive_name}, {destination}, {progress}, {hours_used}, {deadline_game_h}, {now}, {mode}, {report_lead}, {status}
 msgid ""
 "Resuming {drive_name}: {destination}. {progress} {hours_used} of "
-"{deadline_game_h} hours used. {now}. {mode}. {report_lead}. "
-"{speed_control}{parked}"
+"{deadline_game_h} hours used. {now}. {mode}. {report_lead}. {status}"
 msgstr ""
 "继续{drive_name}：{destination}。{progress}截止时间{deadline_game_h}小时，已用{hours_used"
-"}小时。{now}。{mode}。{report_lead}。{speed_control}{parked}"
+"}小时。{now}。{mode}。{report_lead}。{status}"
 
 #. placeholders: {progress}, {hours_used}, {deadline_game_h}
 #. one sentence of a longer line
@@ -20227,15 +20226,14 @@ msgid ""
 "Resuming {drive_name}: {weight_tons} tons of {label} to {destination}."
 msgstr "恢复{drive_name}：{weight_tons}吨{label}至{destination}。"
 
-#. placeholders: {drive_name}, {weight_tons}, {label}, {destination}, {progress}, {hours_used}, {deadline_game_h}, {now}, {transmission}, {report_lead}, {speed_control}, {engine}, {brake}
+#. placeholders: {drive_name}, {weight_tons}, {label}, {destination}, {progress}, {hours_used}, {deadline_game_h}, {now}, {transmission}, {report_lead}, {status}
 msgid ""
 "Resuming {drive_name}: {weight_tons} tons of {label} to {destination}. "
 "{progress} {hours_used} of {deadline_game_h} hours. {now}. {transmission} "
-"{report_lead}. {speed_control}{engine} {brake}"
+"{report_lead}. {status}"
 msgstr ""
 "恢复{drive_name}：{weight_tons}吨{label}至{destination}。{progress} {hours_used} "
-"{deadline_game_h} 小时。{now}。{transmission} "
-"{report_lead}。{speed_control}{engine} {brake}"
+"{deadline_game_h} 小时。{now}。{transmission} {report_lead}。{status}"
 
 #. placeholders: {progress}, {hours_used}, {deadline_game_h}
 #. one sentence of a longer line
@@ -39183,6 +39181,23 @@ msgid ""
 "the engine, {pad_fuel} reads fuel, and {pad_speed_limit} reads the limit."
 msgstr ""
 "按住左肩键使用第二层按键。{pad_engine}控制发动机，{pad_fuel}读出燃油，{pad_speed_limit}读出限速。"
+
+#~ msgid ""
+#~ "Resuming {drive_name}: {destination}. {progress} {hours_used} of "
+#~ "{deadline_game_h} hours used. {now}. {mode}. {report_lead}. "
+#~ "{speed_control}{parked}"
+#~ msgstr ""
+#~ "继续{drive_name}：{destination}。{progress}截止时间{deadline_game_h}小时，已用{hours_used"
+#~ "}小时。{now}。{mode}。{report_lead}。{speed_control}{parked}"
+
+#~ msgid ""
+#~ "Resuming {drive_name}: {weight_tons} tons of {label} to {destination}. "
+#~ "{progress} {hours_used} of {deadline_game_h} hours. {now}. {transmission} "
+#~ "{report_lead}. {speed_control}{engine} {brake}"
+#~ msgstr ""
+#~ "恢复{drive_name}：{weight_tons}吨{label}至{destination}。{progress} {hours_used} "
+#~ "{deadline_game_h} 小时。{now}。{transmission} "
+#~ "{report_lead}。{speed_control}{engine} {brake}"
 
 #~ msgid ""
 #~ "{distance}, deadline {hours} hours. Team load: you and a co-driver take "

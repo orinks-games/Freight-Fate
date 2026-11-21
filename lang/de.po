@@ -14646,7 +14646,7 @@ msgstr "Live-Wetter ist nicht verfügbar"
 #. placeholders: {conditions}
 #. one sentence of a longer line
 msgid "Simulated weather: {conditions}."
-msgstr "Simuliertes Ersatzwetter: {conditions}."
+msgstr "Simuliertes Wetter: {conditions}."
 
 #. placeholders: {conditions}
 msgid "Simulated weather: {conditions}. Live weather is unavailable"
@@ -22626,15 +22626,13 @@ msgstr "Lieferfahrt"
 msgid "Resuming {drive_name}: {destination}."
 msgstr "Weiter mit {drive_name}: {destination}."
 
-#. placeholders: {drive_name}, {destination}, {progress}, {hours_used}, {deadline_game_h}, {now}, {mode}, {report_lead}, {speed_control}, {parked}
+#. placeholders: {drive_name}, {destination}, {progress}, {hours_used}, {deadline_game_h}, {now}, {mode}, {report_lead}, {status}
 msgid ""
 "Resuming {drive_name}: {destination}. {progress} {hours_used} of "
-"{deadline_game_h} hours used. {now}. {mode}. {report_lead}. "
-"{speed_control}{parked}"
+"{deadline_game_h} hours used. {now}. {mode}. {report_lead}. {status}"
 msgstr ""
 "Weiter mit {drive_name}: {destination}. {progress} {hours_used} von "
-"{deadline_game_h} Stunden verbraucht. {now}. {mode}. {report_lead}. "
-"{speed_control}{parked}"
+"{deadline_game_h} Stunden verbraucht. {now}. {mode}. {report_lead}. {status}"
 
 #. placeholders: {progress}, {hours_used}, {deadline_game_h}
 #. one sentence of a longer line
@@ -22648,15 +22646,15 @@ msgid ""
 msgstr ""
 "Weiter mit {drive_name}: {weight_tons} Tonnen {label} nach {destination}."
 
-#. placeholders: {drive_name}, {weight_tons}, {label}, {destination}, {progress}, {hours_used}, {deadline_game_h}, {now}, {transmission}, {report_lead}, {speed_control}, {engine}, {brake}
+#. placeholders: {drive_name}, {weight_tons}, {label}, {destination}, {progress}, {hours_used}, {deadline_game_h}, {now}, {transmission}, {report_lead}, {status}
 msgid ""
 "Resuming {drive_name}: {weight_tons} tons of {label} to {destination}. "
 "{progress} {hours_used} of {deadline_game_h} hours. {now}. {transmission} "
-"{report_lead}. {speed_control}{engine} {brake}"
+"{report_lead}. {status}"
 msgstr ""
 "Weiter mit {drive_name}: {weight_tons} Tonnen {label} nach {destination}. "
 "{progress} {hours_used} von {deadline_game_h} Stunden. {now}. "
-"{transmission} {report_lead}. {speed_control}{engine} {brake}"
+"{transmission} {report_lead}. {status}"
 
 #. placeholders: {progress}, {hours_used}, {deadline_game_h}
 #. one sentence of a longer line
@@ -44316,6 +44314,24 @@ msgstr ""
 "Halte den left bumper für eine zweite Ebene von Tasten. {pad_engine} "
 "steuert den Motor, {pad_fuel} liest den Kraftstoff vor und "
 "{pad_speed_limit} das Limit."
+
+#~ msgid ""
+#~ "Resuming {drive_name}: {destination}. {progress} {hours_used} of "
+#~ "{deadline_game_h} hours used. {now}. {mode}. {report_lead}. "
+#~ "{speed_control}{parked}"
+#~ msgstr ""
+#~ "Weiter mit {drive_name}: {destination}. {progress} {hours_used} von "
+#~ "{deadline_game_h} Stunden verbraucht. {now}. {mode}. {report_lead}. "
+#~ "{speed_control}{parked}"
+
+#~ msgid ""
+#~ "Resuming {drive_name}: {weight_tons} tons of {label} to {destination}. "
+#~ "{progress} {hours_used} of {deadline_game_h} hours. {now}. {transmission} "
+#~ "{report_lead}. {speed_control}{engine} {brake}"
+#~ msgstr ""
+#~ "Weiter mit {drive_name}: {weight_tons} Tonnen {label} nach {destination}. "
+#~ "{progress} {hours_used} von {deadline_game_h} Stunden. {now}. "
+#~ "{transmission} {report_lead}. {speed_control}{engine} {brake}"
 
 #~ msgid ""
 #~ "{distance}, deadline {hours} hours. Team load: you and a co-driver take "

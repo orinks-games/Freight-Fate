@@ -14490,7 +14490,7 @@ msgstr "Pogoda na żywo jest niedostępna"
 #. placeholders: {conditions}
 #. one sentence of a longer line
 msgid "Simulated weather: {conditions}."
-msgstr "Symulowana pogoda zastępcza: {conditions}."
+msgstr "Pogoda symulowana: {conditions}."
 
 #. placeholders: {conditions}
 msgid "Simulated weather: {conditions}. Live weather is unavailable"
@@ -22486,15 +22486,14 @@ msgstr "dostawa z ładunkiem"
 msgid "Resuming {drive_name}: {destination}."
 msgstr "Wznawianie: {drive_name}, cel: {destination}."
 
-#. placeholders: {drive_name}, {destination}, {progress}, {hours_used}, {deadline_game_h}, {now}, {mode}, {report_lead}, {speed_control}, {parked}
+#. placeholders: {drive_name}, {destination}, {progress}, {hours_used}, {deadline_game_h}, {now}, {mode}, {report_lead}, {status}
 msgid ""
 "Resuming {drive_name}: {destination}. {progress} {hours_used} of "
-"{deadline_game_h} hours used. {now}. {mode}. {report_lead}. "
-"{speed_control}{parked}"
+"{deadline_game_h} hours used. {now}. {mode}. {report_lead}. {status}"
 msgstr ""
 "Wznawianie: {drive_name}, cel: {destination}. {progress} Wykorzystano "
 "{hours_used} z {deadline_game_h} {deadline_game_h:godziny|godzin|godzin}. "
-"{now}. {mode}. {report_lead}. {speed_control}{parked}"
+"{now}. {mode}. {report_lead}. {status}"
 
 #. placeholders: {progress}, {hours_used}, {deadline_game_h}
 #. one sentence of a longer line
@@ -22511,16 +22510,16 @@ msgstr ""
 "Wznawianie: {drive_name}, {label}, {weight_tons} "
 "{weight_tons:tona|tony|ton}, do {destination}."
 
-#. placeholders: {drive_name}, {weight_tons}, {label}, {destination}, {progress}, {hours_used}, {deadline_game_h}, {now}, {transmission}, {report_lead}, {speed_control}, {engine}, {brake}
+#. placeholders: {drive_name}, {weight_tons}, {label}, {destination}, {progress}, {hours_used}, {deadline_game_h}, {now}, {transmission}, {report_lead}, {status}
 msgid ""
 "Resuming {drive_name}: {weight_tons} tons of {label} to {destination}. "
 "{progress} {hours_used} of {deadline_game_h} hours. {now}. {transmission} "
-"{report_lead}. {speed_control}{engine} {brake}"
+"{report_lead}. {status}"
 msgstr ""
 "Wznawianie: {drive_name}, {label}, {weight_tons} "
 "{weight_tons:tona|tony|ton}, do {destination}. {progress} Wykorzystano "
 "{hours_used} z {deadline_game_h} {deadline_game_h:godziny|godzin|godzin}. "
-"{now}. {transmission} {report_lead}. {speed_control}{engine} {brake}"
+"{now}. {transmission} {report_lead}. {status}"
 
 #. placeholders: {progress}, {hours_used}, {deadline_game_h}
 #. one sentence of a longer line
@@ -44141,6 +44140,25 @@ msgstr ""
 "Przytrzymaj left bumper, aby użyć drugiej warstwy przycisków. {pad_engine} "
 "steruje silnikiem, {pad_fuel} podaje paliwo, a {pad_speed_limit} "
 "ograniczenie prędkości."
+
+#~ msgid ""
+#~ "Resuming {drive_name}: {destination}. {progress} {hours_used} of "
+#~ "{deadline_game_h} hours used. {now}. {mode}. {report_lead}. "
+#~ "{speed_control}{parked}"
+#~ msgstr ""
+#~ "Wznawianie: {drive_name}, cel: {destination}. {progress} Wykorzystano "
+#~ "{hours_used} z {deadline_game_h} {deadline_game_h:godziny|godzin|godzin}. "
+#~ "{now}. {mode}. {report_lead}. {speed_control}{parked}"
+
+#~ msgid ""
+#~ "Resuming {drive_name}: {weight_tons} tons of {label} to {destination}. "
+#~ "{progress} {hours_used} of {deadline_game_h} hours. {now}. {transmission} "
+#~ "{report_lead}. {speed_control}{engine} {brake}"
+#~ msgstr ""
+#~ "Wznawianie: {drive_name}, {label}, {weight_tons} "
+#~ "{weight_tons:tona|tony|ton}, do {destination}. {progress} Wykorzystano "
+#~ "{hours_used} z {deadline_game_h} {deadline_game_h:godziny|godzin|godzin}. "
+#~ "{now}. {transmission} {report_lead}. {speed_control}{engine} {brake}"
 
 #~ msgid ""
 #~ "{distance}, deadline {hours} hours. Team load: you and a co-driver take "

@@ -22,7 +22,7 @@
 - **The Radio app lists local stations with their distance.**
 - **Game sound and the built-in voice come back after a Bluetooth headset drops out.**
 - **Runaway, shoulder and tire chain damage is now spoken.**
-- **Every translation covers the whole game again.**
+- **Every translation covers the lines added since 1.9.6.**
 
 ### Added
 
@@ -42,7 +42,7 @@
 - **Settings no longer has an Online row.** Online is on the main menu.
 - **The dispatch board lists loads in the order they were posted, not shortest first.** The recommended load now says why dispatch picked it.
 - **The Radio screen under Driving status moved into the Radio app.** Its Local stations list gives each nearby station's distance, and Enter tunes one.
-- **Every translation covers the whole game again.** Spanish, French, German, Italian, Brazilian Portuguese, Polish, Russian, Turkish, Vietnamese, Japanese and Simplified Chinese no longer switch to English for newer lines.
+- **Every translation covers the lines added since 1.9.6.** Spanish, French, German, Italian, Brazilian Portuguese, Polish, Russian, Turkish, Vietnamese, Japanese and Simplified Chinese no longer switch to English for them.
 - **On-duty time now tires you a little.** Fueling, docks, inspections and waiting at the wheel build it at a third of the driving rate.
 - **Sleep now takes off 8 points of fatigue an hour.** Ten hours clears 80, so going to bed exhausted leaves some.
 - **Coffee and energy drinks now wear off and take their lift back.** A second one before then adds no lift.
@@ -63,6 +63,7 @@
 - **Manual cloud backup now warns about newer cloud progress.** Choose Use the cloud copy on this computer to pick it up.
 - **The cloud restore prompt only warns about replacing a career when this device already has a copy.**
 - **Translated lines keep your driver name and version numbers as written.**
+- **Resuming a saved drive in a translated game now says the whole line in your language.** The engine and parking brake prompts used to stay in English.
 - **The Speech settings rows now update as soon as you change a voice.** Before, they changed only after leaving the menu.
 - **Cruise no longer pumps the brakes behind a slower car on streets and approaches.** It slows once and follows, so low air no longer sets the spring brakes.
 - **Enter accepts a facility arrival from a full stop with Facility stopping assistance off.** A stopped truck is told to set the parking brake.

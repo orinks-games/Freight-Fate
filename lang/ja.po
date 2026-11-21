@@ -13229,7 +13229,7 @@ msgstr "実際の天気は取得できません"
 #. placeholders: {conditions}
 #. one sentence of a longer line
 msgid "Simulated weather: {conditions}."
-msgstr "予備のシミュレーションの天気：{conditions}。"
+msgstr "シミュレーションの天気：{conditions}。"
 
 #. placeholders: {conditions}
 msgid "Simulated weather: {conditions}. Live weather is unavailable"
@@ -20429,14 +20429,13 @@ msgstr "積荷を載せた配達"
 msgid "Resuming {drive_name}: {destination}."
 msgstr "{drive_name}を再開：{destination}。"
 
-#. placeholders: {drive_name}, {destination}, {progress}, {hours_used}, {deadline_game_h}, {now}, {mode}, {report_lead}, {speed_control}, {parked}
+#. placeholders: {drive_name}, {destination}, {progress}, {hours_used}, {deadline_game_h}, {now}, {mode}, {report_lead}, {status}
 msgid ""
 "Resuming {drive_name}: {destination}. {progress} {hours_used} of "
-"{deadline_game_h} hours used. {now}. {mode}. {report_lead}. "
-"{speed_control}{parked}"
+"{deadline_game_h} hours used. {now}. {mode}. {report_lead}. {status}"
 msgstr ""
 "{drive_name}を再開：{destination}。{progress}{deadline_game_h}時間中{hours_used}時間を使"
-"用。{now}。{mode}。{report_lead}。{speed_control}{parked}"
+"用。{now}。{mode}。{report_lead}。{status}"
 
 #. placeholders: {progress}, {hours_used}, {deadline_game_h}
 #. one sentence of a longer line
@@ -20449,15 +20448,14 @@ msgid ""
 "Resuming {drive_name}: {weight_tons} tons of {label} to {destination}."
 msgstr "{drive_name}を再開します：{destination}への{label}{weight_tons}トン。"
 
-#. placeholders: {drive_name}, {weight_tons}, {label}, {destination}, {progress}, {hours_used}, {deadline_game_h}, {now}, {transmission}, {report_lead}, {speed_control}, {engine}, {brake}
+#. placeholders: {drive_name}, {weight_tons}, {label}, {destination}, {progress}, {hours_used}, {deadline_game_h}, {now}, {transmission}, {report_lead}, {status}
 msgid ""
 "Resuming {drive_name}: {weight_tons} tons of {label} to {destination}. "
 "{progress} {hours_used} of {deadline_game_h} hours. {now}. {transmission} "
-"{report_lead}. {speed_control}{engine} {brake}"
+"{report_lead}. {status}"
 msgstr ""
 "{drive_name}を再開します：{destination}への{label}{weight_tons}トン。{progress}{deadline"
-"_game_h}時間中{hours_used}時間を使用。{now}。{transmission}{report_lead}。{speed_contro"
-"l}{engine}{brake}"
+"_game_h}時間中{hours_used}時間を使用。{now}。{transmission}{report_lead}。{status}"
 
 #. placeholders: {progress}, {hours_used}, {deadline_game_h}
 #. one sentence of a longer line
@@ -39834,6 +39832,23 @@ msgid ""
 msgstr ""
 "左バンパーを押したままにすると、ボタンの2段目を使えます。{pad_engine}でエンジンを操作し、{pad_fuel}で燃料を、{pad_speed"
 "_limit}で制限速度を読み上げます。"
+
+#~ msgid ""
+#~ "Resuming {drive_name}: {destination}. {progress} {hours_used} of "
+#~ "{deadline_game_h} hours used. {now}. {mode}. {report_lead}. "
+#~ "{speed_control}{parked}"
+#~ msgstr ""
+#~ "{drive_name}を再開：{destination}。{progress}{deadline_game_h}時間中{hours_used}時間を使"
+#~ "用。{now}。{mode}。{report_lead}。{speed_control}{parked}"
+
+#~ msgid ""
+#~ "Resuming {drive_name}: {weight_tons} tons of {label} to {destination}. "
+#~ "{progress} {hours_used} of {deadline_game_h} hours. {now}. {transmission} "
+#~ "{report_lead}. {speed_control}{engine} {brake}"
+#~ msgstr ""
+#~ "{drive_name}を再開します：{destination}への{label}{weight_tons}トン。{progress}{deadline"
+#~ "_game_h}時間中{hours_used}時間を使用。{now}。{transmission}{report_lead}。{speed_contro"
+#~ "l}{engine}{brake}"
 
 #~ msgid ""
 #~ "{distance}, deadline {hours} hours. Team load: you and a co-driver take "

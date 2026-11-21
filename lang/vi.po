@@ -22540,14 +22540,13 @@ msgstr "chuyến giao hàng"
 msgid "Resuming {drive_name}: {destination}."
 msgstr "Tiếp tục {drive_name}: {destination}."
 
-#. placeholders: {drive_name}, {destination}, {progress}, {hours_used}, {deadline_game_h}, {now}, {mode}, {report_lead}, {speed_control}, {parked}
+#. placeholders: {drive_name}, {destination}, {progress}, {hours_used}, {deadline_game_h}, {now}, {mode}, {report_lead}, {status}
 msgid ""
 "Resuming {drive_name}: {destination}. {progress} {hours_used} of "
-"{deadline_game_h} hours used. {now}. {mode}. {report_lead}. "
-"{speed_control}{parked}"
+"{deadline_game_h} hours used. {now}. {mode}. {report_lead}. {status}"
 msgstr ""
 "Tiếp tục {drive_name}: {destination}. {progress} Đã dùng {hours_used} trên "
-"{deadline_game_h} giờ. {now}. {mode}. {report_lead}. {speed_control}{parked}"
+"{deadline_game_h} giờ. {now}. {mode}. {report_lead}. {status}"
 
 #. placeholders: {progress}, {hours_used}, {deadline_game_h}
 #. one sentence of a longer line
@@ -22560,12 +22559,15 @@ msgid ""
 "Resuming {drive_name}: {weight_tons} tons of {label} to {destination}."
 msgstr "Tiếp tục {drive_name}: {weight_tons} tấn {label} đến {destination}."
 
-#. placeholders: {drive_name}, {weight_tons}, {label}, {destination}, {progress}, {hours_used}, {deadline_game_h}, {now}, {transmission}, {report_lead}, {speed_control}, {engine}, {brake}
+#. placeholders: {drive_name}, {weight_tons}, {label}, {destination}, {progress}, {hours_used}, {deadline_game_h}, {now}, {transmission}, {report_lead}, {status}
 msgid ""
 "Resuming {drive_name}: {weight_tons} tons of {label} to {destination}. "
 "{progress} {hours_used} of {deadline_game_h} hours. {now}. {transmission} "
-"{report_lead}. {speed_control}{engine} {brake}"
+"{report_lead}. {status}"
 msgstr ""
+"Tiếp tục {drive_name}: {weight_tons} tấn {label} đến {destination}. "
+"{progress} {hours_used} trên {deadline_game_h} giờ. {now}. {transmission} "
+"{report_lead}. {status}"
 
 #. placeholders: {progress}, {hours_used}, {deadline_game_h}
 #. one sentence of a longer line
@@ -43912,6 +43914,14 @@ msgid ""
 msgstr ""
 "Giữ nút vai trái để mở lớp nút thứ hai. {pad_engine} bật tắt động cơ, "
 "{pad_fuel} đọc nhiên liệu và {pad_speed_limit} đọc tốc độ giới hạn."
+
+#~ msgid ""
+#~ "Resuming {drive_name}: {destination}. {progress} {hours_used} of "
+#~ "{deadline_game_h} hours used. {now}. {mode}. {report_lead}. "
+#~ "{speed_control}{parked}"
+#~ msgstr ""
+#~ "Tiếp tục {drive_name}: {destination}. {progress} Đã dùng {hours_used} trên "
+#~ "{deadline_game_h} giờ. {now}. {mode}. {report_lead}. {speed_control}{parked}"
 
 #~ msgid ""
 #~ "{distance}, deadline {hours} hours. Team load: you and a co-driver take "
