@@ -232,6 +232,7 @@ impl Menu for CrashReportOfferState {
                  attached. Say what you were doing when it closed.",
             ),
             MenuItem::new("Not now", |s: &mut Self, ctx| s.go_back(ctx))
+                .goes_back()
                 .help("Back to the main menu. Report a problem is there whenever you want it."),
             MenuItem::new("Stop asking after crashes", |s: &mut Self, ctx| {
                 s.stop_asking(ctx)

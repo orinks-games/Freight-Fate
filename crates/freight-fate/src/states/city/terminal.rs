@@ -551,6 +551,11 @@ impl CityMenuState {
 }
 
 impl Menu for CityMenuState {
+    /// Escape at the terminal quits to the main menu, which has its own row.
+    fn touch_back_row(&self) -> bool {
+        false
+    }
+
     fn menu(&self) -> &MenuCore<Self> {
         &self.menu
     }

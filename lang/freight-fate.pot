@@ -20202,6 +20202,26 @@ msgid "Ready in {remaining} seconds."
 msgstr ""
 
 #: crates/freight-fate/src/states/base/menu.rs
+msgid "Back to "
+msgstr ""
+
+#: crates/freight-fate/src/states/base/menu.rs
+msgid "No, "
+msgstr ""
+
+#: crates/freight-fate/src/states/base/menu.rs
+msgid "Resume "
+msgstr ""
+
+#: crates/freight-fate/src/states/base/menu.rs
+msgid "Return to "
+msgstr ""
+
+#: crates/freight-fate/src/states/base/menu.rs crates/freight-fate/src/states/career_stats.rs crates/freight-fate/src/states/city/extras.rs crates/freight-fate/src/states/city/truck_status.rs
+msgid "Back"
+msgstr ""
+
+#: crates/freight-fate/src/states/base/menu.rs
 msgid "Enter selects, Escape goes back. Control stops the current speech."
 msgstr ""
 
@@ -20228,10 +20248,6 @@ msgstr ""
 
 #: crates/freight-fate/src/states/base/menu.rs crates/freight-fate/src/states/career_setback.rs
 msgid "Repeat this line."
-msgstr ""
-
-#: crates/freight-fate/src/states/base/menu.rs crates/freight-fate/src/states/career_stats.rs crates/freight-fate/src/states/city/extras.rs crates/freight-fate/src/states/city/truck_status.rs
-msgid "Back"
 msgstr ""
 
 #: crates/freight-fate/src/states/base/menu.rs crates/freight-fate/src/states/logbook.rs

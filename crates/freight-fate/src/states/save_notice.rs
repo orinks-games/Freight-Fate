@@ -44,6 +44,11 @@ impl Default for SaveModifiedNoticeState {
 }
 
 impl Menu for SaveModifiedNoticeState {
+    /// A prompt to answer: Escape answers it, so touch adds no Back row.
+    fn touch_back_row(&self) -> bool {
+        false
+    }
+
     fn menu(&self) -> &MenuCore<Self> {
         &self.menu
     }
@@ -104,6 +109,11 @@ impl LegacyCareerNoticeState {
 }
 
 impl Menu for LegacyCareerNoticeState {
+    /// A prompt to answer: Escape answers it, so touch adds no Back row.
+    fn touch_back_row(&self) -> bool {
+        false
+    }
+
     fn menu(&self) -> &MenuCore<Self> {
         &self.menu
     }
@@ -164,6 +174,11 @@ impl NewerCareerNoticeState {
 }
 
 impl Menu for NewerCareerNoticeState {
+    /// A prompt to answer: Escape answers it, so touch adds no Back row.
+    fn touch_back_row(&self) -> bool {
+        false
+    }
+
     fn menu(&self) -> &MenuCore<Self> {
         &self.menu
     }
@@ -229,6 +244,11 @@ impl Default for DrivingRecordNoticeState {
 }
 
 impl Menu for DrivingRecordNoticeState {
+    /// A prompt to answer: Escape answers it, so touch adds no Back row.
+    fn touch_back_row(&self) -> bool {
+        false
+    }
+
     fn menu(&self) -> &MenuCore<Self> {
         &self.menu
     }
@@ -301,6 +321,11 @@ impl Default for SaveMigrationNoticeState {
 }
 
 impl Menu for SaveMigrationNoticeState {
+    /// A prompt to answer: Escape answers it, so touch adds no Back row.
+    fn touch_back_row(&self) -> bool {
+        false
+    }
+
     fn menu(&self) -> &MenuCore<Self> {
         &self.menu
     }

@@ -54,6 +54,11 @@ With no hardware keyboard, menu help names gestures. A menu with no help of
 its own says "Flick right or left to move and double tap to choose. Flick
 down with two fingers to go back."
 
+With no hardware keyboard, a menu that the two-finger flick down leaves, and
+that has no row of its own going back ("Back", "Back to terminal", "Cancel",
+"Keep driving"), gets a last row "Back". The main menu, the terminal and
+prompts that must be answered get none.
+
 The on-screen keyboard rises by itself when a name field opens and goes away
 when it closes; the old three-finger double tap is gone.
 
@@ -295,6 +300,7 @@ frameworks it and SDL2 need, plus clang's iOS runtime for `@available` checks.
 - Enter Practice gestures from the main menu row, flick up: it is named as a flick, never as an arrow key. Flick down with two fingers, wait ten seconds, and flick down again: practice closes. Verify the first-drive practice offer appears once.
 - Pause the drive: Driving commands is the second row. Open it, choose a radio command: the drive resumes and the command runs.
 - On Touch gestures, put "Driving command list" on the tap: a tap at the wheel opens the list.
-- Tap with three fingers many times, in apps with and without text: the command list opens every time, and no undo banner or shortcut bar appears.
+- Open a list that had no way back, such as Call dispatch on the pause menu: its last row is Back, and double tapping it goes back. A list that already had one, such as Manage careers, has no second Back.
+- Tap with three fingers many times at the wheel: the command list opens every time, and no undo banner or shortcut bar appears.
 - In Practice gestures, swipe down and hold, then lift: hear the length and where the deep swipe starts. Carry a swipe into the deep swipe and lift: hear "Deep swipe." with its length. Try an ordinary brake swipe several times and note the lengths.
 - On Touch gestures, flick up and down on "Deep swipe starts at": it moves in tens between 60 and 180, and a swipe in practice then needs that length to become the deep swipe.

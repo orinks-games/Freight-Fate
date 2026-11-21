@@ -75,6 +75,10 @@ pub struct MenuItem<S> {
     /// The click played when this item is activated. `None` for items whose
     /// action plays its own confirmation sound, so the two do not stack.
     pub select_sound: Option<String>,
+    /// The row leaves the menu the way Escape does ("Back", "Back to
+    /// terminal", "Cancel"). A touch screen adds a Back row only to a menu
+    /// with none; see [`goes_back_label`] and [`MenuItem::goes_back`].
+    pub leaves: bool,
 }
 
 impl<S> Clone for MenuItem<S> {
@@ -85,6 +89,7 @@ impl<S> Clone for MenuItem<S> {
             help: self.help.clone(),
             touch_help: self.touch_help.clone(),
             select_sound: self.select_sound.clone(),
+            leaves: self.leaves,
         }
     }
 }
@@ -95,13 +100,23 @@ impl<S: 'static> MenuItem<S> {
         label: impl Into<Label<S>>,
         action: impl Fn(&mut S, &mut GameContext) + 'static,
     ) -> Self {
+        let label = label.into();
+        let leaves = matches!(&label, Label::Text(text) if goes_back_label(text));
         Self {
-            label: label.into(),
+            label,
             action: Rc::new(action),
             help: Label::Text(String::new()),
             touch_help: None,
             select_sound: Some("ui/menu_select".to_string()),
+            leaves,
         }
+    }
+
+    /// Mark a row that leaves the menu but whose label does not say so
+    /// ("Skip and start driving"), so a touch screen adds no Back row.
+    pub fn goes_back(mut self) -> Self {
+        self.leaves = true;
+        self
     }
 
     /// A row that does nothing when activated (an information line).
@@ -138,6 +153,31 @@ impl<S: 'static> MenuItem<S> {
             _ => self.help.text(state, ctx),
         }
     }
+}
+
+/// A row label that leaves the menu by its wording: "Back", "Cancel",
+/// "Close", or one that starts "Back to", "Return to", "Resume" or "No,".
+/// A row this misses is marked with [`MenuItem::goes_back`].
+pub fn goes_back_label(text: &str) -> bool {
+    matches!(text, "Back" | "Cancel" | "Close")
+        || ["Back to ", "Return to ", "Resume ", "No, "]
+            .iter()
+            .any(|start| text.starts_with(start))
+}
+
+/// The touch screen's Back row: last, on a menu Escape leaves that has no
+/// row of its own going back (no keyboard means no Escape, and a scrub or a
+/// two-finger flick down is not for every hand). An empty menu keeps its
+/// intro help, which says how to go back.
+fn add_touch_back_row<S: Menu>(menu: &S, ctx: &GameContext, items: &mut Vec<MenuItem<S>>) {
+    if ctx.controller.device() != ff_core::input_hints::TOUCH
+        || !menu.touch_back_row()
+        || items.is_empty()
+        || items.iter().any(|item| item.leaves)
+    {
+        return;
+    }
+    items.push(MenuItem::new("Back", |s: &mut S, ctx| s.go_back(ctx)));
 }
 
 /// The reusable state of a `MenuState`: the Python class attributes
@@ -249,6 +289,13 @@ pub trait Menu: Sized + 'static {
     fn menu_mut(&mut self) -> &mut MenuCore<Self>;
     fn build_items(&mut self, ctx: &mut GameContext) -> Vec<MenuItem<Self>>;
 
+    /// Whether a touch screen may add a Back row. False for the main menu
+    /// and for prompts that must be answered, where Escape answers rather
+    /// than leaves.
+    fn touch_back_row(&self) -> bool {
+        true
+    }
+
     // -- State hooks, forwarded by impl_state_for_menu! ----------------------------
 
     fn paces_main_speech(&self) -> bool {
@@ -349,7 +396,8 @@ pub trait Menu: Sized + 'static {
 
     fn refresh(&mut self, ctx: &mut GameContext, keep_index: bool) {
         let old = self.menu().index;
-        let items = self.build_items(ctx);
+        let mut items = self.build_items(ctx);
+        add_touch_back_row(self, ctx, &mut items);
         let core = self.menu_mut();
         core.items = items;
         core.index = if keep_index { old } else { 0 };
@@ -649,7 +697,8 @@ impl_state_for_menu!(SimpleMenuState);
 /// play the open sound and announce. An overriding screen calls this to
 /// fall through.
 pub fn default_enter<S: Menu>(menu: &mut S, ctx: &mut GameContext) {
-    let items = menu.build_items(ctx);
+    let mut items = menu.build_items(ctx);
+    add_touch_back_row(menu, ctx, &mut items);
     let core = menu.menu_mut();
     core.items = items;
     core.clamp_index();

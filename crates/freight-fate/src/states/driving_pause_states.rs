@@ -639,6 +639,7 @@ impl Menu for QuitWhileMovingConfirmationState {
         let lost = self.lost_text(ctx);
         vec![
             MenuItem::new("Keep driving", |s: &mut Self, ctx| s.go_back(ctx))
+                .goes_back()
                 .help("Back to the pause menu."),
             MenuItem::new(
                 format!("Quit anyway and lose {lost}"),

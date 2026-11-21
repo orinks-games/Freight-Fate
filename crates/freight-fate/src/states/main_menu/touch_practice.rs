@@ -186,7 +186,7 @@ impl Menu for TouchPracticeOfferState {
                 ctx.pop_state();
                 ctx.push_state(InputPracticeState::gestures());
             }),
-            MenuItem::new("Skip and start driving", |s: &mut Self, ctx| s.go_back(ctx)),
+            MenuItem::new("Skip and start driving", |s: &mut Self, ctx| s.go_back(ctx)).goes_back(),
         ]
     }
 }
