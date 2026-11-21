@@ -27,9 +27,9 @@
 > follows at release. Keep this file current: when a feature lands on the 1.9
 > line, check it off here in the same change.
 
-> Current stable: **1.9.6** (2026-11-13). Next release: **1.9.7**, a fix
-> release from dev; `feat/career-2.0` merges into dev after its tag and
-> becomes the beta channel. The gate for both is under
+> Current stable: **1.9.7** (2026-11-21). `feat/career-2.0` merges into
+> dev next and becomes the beta channel; a 1.9 fix after that ships as
+> 1.9.8 from a tag on main. What stands before the beta is under
 > [November 14](#november-14-the-road-to-197-and-the-20-beta-found-along-the-way).
 
 ## Reading this roadmap
@@ -4521,11 +4521,15 @@ Release gate for 1.9.7:
       2026-11-09 (bullet under "1.9 in flight"; PR 631). The release build
       runs the tests, so a test that fails one run in some can fail the
       tag.
-- [ ] Release steps as for 1.9.6: the `## 1.9.7` notes with Highlights,
+- [x] Release steps as for 1.9.6: the `## 1.9.7` notes with Highlights,
       dev synced to main by PR, the final dev snapshot as the release
       candidate, the packaged save check from 1.9.6, orinks-net dev
       merged to main (it carries the reworded Five-by-Two badge), and the
-      tag pushed from the owner's PC on the owner's word.
+      tag pushed from the owner's PC on the owner's word. Done
+      2026-11-21: sync PR 712, tag `v1.9.7` on its merge commit. The
+      packaged 1.9.6 Linux build made a career and saved it mid-drive;
+      the packaged release candidate resumed that drive, saved the
+      career and opened it again.
 
 In 1.9.7 if they are ready, never holding it:
 
