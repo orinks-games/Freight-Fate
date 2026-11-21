@@ -4490,7 +4490,7 @@ Release gate for 1.9.7:
 - [x] A co-driver never drives past their hours, and hands back stopped
       (tester problem report, 2026-11-19: a fine and a late load;
       [November 21](#november-21-the-co-driver-past-their-hours-release-gate)).
-- [ ] SAPI and OneCore speech play on the default sound device again
+- [x] SAPI and OneCore speech play on the default sound device again
       (player problem report, 2026-11-20;
       [November 20](#november-20-speech-on-the-wrong-sound-device-release-gate)).
 - [ ] The Windows Defender detection a player reported on 2026-11-14.
@@ -4499,21 +4499,26 @@ Release gate for 1.9.7:
       detection is reported to Microsoft as a false positive and the
       downloads page says so. A code-signing certificate costs money and
       is the owner's decision.
-- [ ] Cloud backup and restore of a sealed career. 1.9.6 was the first
-      stable to seal saves, and nobody has restored one from the cloud
-      since. An agent checks it on the staging backend, then the owner
-      once on their own account.
-- [ ] A week of tester play on the fatigue changes, which reached the
+- [x] Cloud backup and restore of a sealed career. 1.9.6 was the first
+      stable to seal saves, and nobody had restored one from the cloud
+      since. An agent ran it on production with the desktop tester build
+      and two saves folders on 2026-11-18. It found a stale computer's
+      manual backup saying the cloud copy matched (PR 690) and a first
+      restore warning about a save that was not there (PR 682). The
+      re-check after those fixes is the tests; the owner's own check on
+      their account is not recorded.
+- [x] A week of tester play on the fatigue changes, which reached the
       snapshot on 2026-11-13: tag no earlier than 2026-11-20 unless the
       owner's listening pass (the yawn at worn, whether the numbers feel
       fair) clears them sooner. A tier-1 report against them restarts the
-      week.
-- [ ] Vietnamese fixes for English leaking into turn, speed limit and
-      resume lines (PR 625, Đào Đức Trung): review, merge, credit in the
+      week. The week passed with no such report.
+- [x] Vietnamese fixes for English leaking into turn, speed limit and
+      resume lines (PR 625, Đào Đức Trung): merged, credited in the
       notes.
-- [ ] Pin the dispatch test that failed the scheduled snapshot of
-      2026-11-09 (bullet under "1.9 in flight"). The release build runs
-      the tests, so a test that fails one run in some can fail the tag.
+- [x] Pin the dispatch test that failed the scheduled snapshot of
+      2026-11-09 (bullet under "1.9 in flight"; PR 631). The release build
+      runs the tests, so a test that fails one run in some can fail the
+      tag.
 - [ ] Release steps as for 1.9.6: the `## 1.9.7` notes with Highlights,
       dev synced to main by PR, the final dev snapshot as the release
       candidate, the packaged save check from 1.9.6, orinks-net dev
@@ -5175,6 +5180,6 @@ a public build leaks.
 - [x] Default automatic update offers to Remind me later and suppress held activation.
 - [x] Provision and back up the persistent sealing key; enable sealed careers in future release builds.
 - [x] Verify packaged migration before release. Checked 2026-11-13 on the Linux x64 packages: a career made in the 1.9.5 release opened in the beta snapshot of 2026-11-12, was sealed, saved and reopened, and its backup matched the 1.9.5 file byte for byte.
-- [ ] Verify a production cloud backup and restore from a sealed release build. See [release integration](docs/updater-and-sealed-saves.md).
+- [x] Verify a production cloud backup and restore from a sealed release build. See [release integration](docs/updater-and-sealed-saves.md). Run on production with the desktop tester build on 2026-11-18; it led to PRs 682 and 690.
 - [x] Careers an older release set aside come back. 1.9.5 cannot read a sealed career and renames it on its save scan, so one start of 1.9.5 on a 1.9.6 saves folder left 1.9.6 with no careers to list (found in the packaged check of 2026-11-13). The save listing now puts a set-aside sealed career back under its own name when no career holds that name and the file opens there.
 - [ ] A career made by 1.9.5 or earlier in a saves folder that a sealed release has already used is refused as unverified, because it cannot be told from a hand-edited file. A cloud restore is the way back; decide whether the message should say why.
