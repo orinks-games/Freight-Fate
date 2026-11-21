@@ -12,7 +12,7 @@ use freight_fate::app::testing::TestApp;
 use freight_fate::app::SharedState;
 use freight_fate::states::base::{Key, Menu};
 use freight_fate::states::driving_core::Instructor;
-use freight_fate::states::driving_menu_states::{DriveRef, DrivingStatusScreenState};
+use freight_fate::states::driving_menu_states::DriveRef;
 use freight_fate::states::driving_radio_app::{
     RadioAppState, RadioCategoryState, RadioSearchEntryState, RadioStationListState,
 };
@@ -221,94 +221,39 @@ fn test_favorites_are_saved_listed_and_tuned_from_the_app() {
 }
 
 #[test]
-fn test_the_tab_radio_screen_favorites_count_opens_the_list() {
+fn test_a_local_station_tunes_from_the_radio_app() {
     let mut app = TestApp::new();
     let drive = a_radio_drive(&mut app);
-    drive_and_ctx(&drive, &mut app, |d, ctx| {
-        d.trip.truck.start_engine();
-        d.toggle_radio_favorite(ctx);
-    });
-    let tuned = with_drive(&drive, |d| d.radio.current_station().display_name());
-    let mut state = DrivingStatusScreenState::new(DriveRef::of(&drive), "radio");
-    Menu::enter(&mut state, &mut app.ctx);
-    let rows = labels(&state, &app.ctx);
+    with_drive(&drive, |d| d.trip.truck.start_engine());
+    let mut app_state = RadioAppState::new(DriveRef::of(&drive));
+    let rows = build_labels(&mut app_state, &mut app.ctx);
     assert!(
-        rows.contains(&"Favorites saved: 1.".to_string()),
+        rows.iter().any(|r| r.starts_with("Local stations: ")),
         "{rows:?}"
     );
 
-    activate(&mut state, &mut app.ctx, "Favorites saved:");
+    activate(&mut app_state, &mut app.ctx, "Local stations: ");
     assert!(top_is::<RadioStationListState>(&app));
     let rows = with_top_ctx::<RadioStationListState, _>(&mut app, build_labels);
-    assert!(rows[0].starts_with(&tuned), "{rows:?}");
-}
-
-/// The Tab radio screen's station rows, the lines under "Receivable stations:".
-fn tab_radio_station_rows(rows: &[String]) -> Vec<String> {
-    rows.iter()
-        .skip_while(|r| *r != "Receivable stations:")
-        .filter(|r| r.contains(". Source: "))
+    let untuned = rows
+        .iter()
+        .find(|r| !r.contains("tuned now") && *r != "Back")
         .cloned()
-        .collect()
-}
-
-/// A station row on the Tab radio screen, other than the tuned one.
-fn an_untuned_station_row(rows: &[String]) -> String {
-    tab_radio_station_rows(rows)
-        .into_iter()
-        .find(|r| !r.starts_with("current, "))
-        .unwrap_or_else(|| panic!("no untuned station row: {rows:?}"))
+        .unwrap_or_else(|| panic!("no untuned station: {rows:?}"));
+    with_top_ctx::<RadioStationListState, _>(&mut app, |list, ctx| activate(list, ctx, &untuned));
+    assert!(last(&app).starts_with("Selected "), "{}", last(&app));
+    let tuned = with_drive(&drive, |d| d.radio.current_station().display_name());
+    assert!(untuned.starts_with(&tuned), "{tuned} / {untuned}");
 }
 
 #[test]
-fn test_enter_on_a_tab_radio_screen_station_tunes_it() {
+fn test_the_radio_app_says_the_engine_powers_the_radio() {
     let mut app = TestApp::new();
     let drive = a_radio_drive(&mut app);
-    with_drive(&drive, |d| d.trip.truck.start_engine());
-    let mut state = DrivingStatusScreenState::new(DriveRef::of(&drive), "radio");
-    Menu::enter(&mut state, &mut app.ctx);
-    let station_row = an_untuned_station_row(&labels(&state, &app.ctx));
-    let name = station_row.split(':').next().unwrap().to_string();
-
-    activate(&mut state, &mut app.ctx, &station_row);
-    assert_eq!(
-        with_drive(&drive, |d| d.radio.current_station().display_name()),
-        name
-    );
-    assert!(
-        last(&app).contains(&format!("Selected {name}.")),
-        "{}",
-        last(&app)
-    );
-    // The rebuilt screen marks the new station as the current one.
-    let rows = labels(&state, &app.ctx);
-    assert!(
-        rows.iter()
-            .any(|r| r.starts_with(&format!("current, {name}:"))),
-        "{rows:?}"
-    );
-}
-
-#[test]
-fn test_a_locked_dial_leaves_the_tab_radio_screen_stations_read_only() {
-    let mut app = TestApp::new();
-    let drive = a_radio_drive(&mut app);
-    // Synthesized music with streamer-safe mode on locks the dial.
-    app.ctx.settings.synth_music = true;
-    app.ctx.settings.radio_streamer_safe = true;
-    with_drive(&drive, |d| d.trip.truck.start_engine());
-    let tuned = with_drive(&drive, |d| d.radio.station_id.clone());
-    let mut state = DrivingStatusScreenState::new(DriveRef::of(&drive), "radio");
-    Menu::enter(&mut state, &mut app.ctx);
-    let rows = labels(&state, &app.ctx);
-    let stations = tab_radio_station_rows(&rows);
-    assert!(!stations.is_empty(), "{rows:?}");
-    for station_row in stations {
-        // Enter only repeats the line, as on every other status row.
-        activate(&mut state, &mut app.ctx, &station_row);
-        assert_eq!(last(&app), station_row);
-    }
-    assert_eq!(with_drive(&drive, |d| d.radio.station_id.clone()), tuned);
+    with_drive(&drive, |d| d.trip.truck.stop_engine());
+    let mut state = RadioAppState::new(DriveRef::of(&drive));
+    let rows = build_labels(&mut state, &mut app.ctx);
+    assert_eq!(rows[0], "The engine is off. The radio has no power.");
 }
 
 #[test]

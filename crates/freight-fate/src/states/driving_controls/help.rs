@@ -197,9 +197,6 @@ impl DrivingState {
                 .to_string(),
         );
         lines.push(format!(
-            "The {status} status menu has a radio screen of receivable stations."
-        ));
-        lines.push(format!(
             "{engine} starts the engine, and stops it only below 5 miles per hour."
         ));
         lines.push("Air pressure must build before the truck can move.".to_string());
