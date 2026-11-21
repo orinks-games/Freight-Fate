@@ -329,7 +329,7 @@ fn test_terminal_save_says_when_the_latest_save_is_already_backed_up() {
     State::update(&mut menu, &mut app.ctx, 0.0);
 
     transport.set_reply(Some(json!({
-        "saves": [{"saveName": "Road Star", "revision": 1}]
+        "saves": [{"saveName": cloud_slot_name("Road Star"), "revision": 1}]
     })));
 
     app.clear_speech();

@@ -2,9 +2,12 @@ use super::*;
 
 fn remember_local(service: &CloudSaves) {
     let (_, hash) = cloud_content(&profile("Road Star", 4500.0));
-    service
-        .sync_state()
-        .record_synced_for_driver("Road Star", 1, &hash, &identity().driver_id);
+    service.sync_state().record_synced_for_driver(
+        &cloud_slot_name("Road Star"),
+        1,
+        &hash,
+        &identity().driver_id,
+    );
 }
 
 #[test]
@@ -12,8 +15,8 @@ fn a_cached_hash_cannot_hide_another_devices_newer_revision() {
     let transport = FakeTransport::replying(json!({
         "saves": [
             {"saveName": "Other Career", "revision": 99},
-            {"saveName": "Road Star", "revision": 1},
-            {"saveName": "Road Star", "revision": 2,
+            {"saveName": cloud_slot_name("Road Star"), "revision": 1},
+            {"saveName": cloud_slot_name("Road Star"), "revision": 2,
              "createdAt": 1_700_000_000_000i64,
              "summary": "Road Star, level 1, 4,000 dollars"}
         ]
@@ -26,7 +29,9 @@ fn a_cached_hash_cannot_hide_another_devices_newer_revision() {
         .unwrap();
 
     assert_eq!(
-        service.outcome_for("Road Star", token).as_deref(),
+        service
+            .outcome_for(&cloud_slot_name("Road Star"), token)
+            .as_deref(),
         Some("stale")
     );
     assert!(
@@ -34,10 +39,16 @@ fn a_cached_hash_cannot_hide_another_devices_newer_revision() {
         "a stale copy must not be uploaded"
     );
     assert_eq!(transport.request_count(), 1);
-    assert_eq!(service.sync_state().slot("Road Star")["revision"], 1);
-    assert_eq!(service.conflicts()["Road Star"]["latestRevision"], 2);
     assert_eq!(
-        service.conflicts()["Road Star"]["latestSummary"],
+        service.sync_state().slot(&cloud_slot_name("Road Star"))["revision"],
+        1
+    );
+    assert_eq!(
+        service.conflicts()[&cloud_slot_name("Road Star")]["latestRevision"],
+        2
+    );
+    assert_eq!(
+        service.conflicts()[&cloud_slot_name("Road Star")]["latestSummary"],
         "Road Star, level 1, 4,000 dollars"
     );
     assert_eq!(
@@ -49,7 +60,7 @@ fn a_cached_hash_cannot_hide_another_devices_newer_revision() {
 #[test]
 fn a_recorded_stale_copy_becomes_a_real_conflict_after_local_changes() {
     let transport = FakeTransport::replying(json!({
-        "saves": [{"saveName": "Road Star", "revision": 2}]
+        "saves": [{"saveName": cloud_slot_name("Road Star"), "revision": 2}]
     }));
     let service = make_service(&transport, &ManualClock::new());
     remember_local(&service);
@@ -59,7 +70,9 @@ fn a_recorded_stale_copy_becomes_a_real_conflict_after_local_changes() {
             .backup_now("Road Star", profile("Road Star", money))
             .unwrap();
         assert_eq!(
-            service.outcome_for("Road Star", token).as_deref(),
+            service
+                .outcome_for(&cloud_slot_name("Road Star"), token)
+                .as_deref(),
             Some(expected)
         );
         if expected == "stale" {
@@ -68,7 +81,10 @@ fn a_recorded_stale_copy_becomes_a_real_conflict_after_local_changes() {
                 freight_fate::cloud_saves::STALE_BACKUP_STATUS
             );
         } else {
-            assert_eq!(service.status(), conflict_status("Road Star"));
+            assert_eq!(
+                service.status(),
+                conflict_status(&cloud_slot_name("Road Star"))
+            );
         }
     }
     assert!(transport.posts().is_empty());
@@ -85,7 +101,9 @@ fn a_deleted_cloud_slot_is_recreated_instead_of_claiming_it_matches() {
         .unwrap();
 
     assert_eq!(
-        service.outcome_for("Road Star", token).as_deref(),
+        service
+            .outcome_for(&cloud_slot_name("Road Star"), token)
+            .as_deref(),
         Some("accepted")
     );
     assert_eq!(transport.posts().len(), 1);
@@ -94,7 +112,10 @@ fn a_deleted_cloud_slot_is_recreated_instead_of_claiming_it_matches() {
 
 #[test]
 fn an_unreachable_or_unverifiable_cloud_cannot_be_called_a_match() {
-    for reply in [json!({}), json!({"saves": [{"saveName": "Road Star"}]})] {
+    for reply in [
+        json!({}),
+        json!({"saves": [{"saveName": cloud_slot_name("Road Star")}]}),
+    ] {
         let transport = FakeTransport::replying(reply);
         let clock = ManualClock::new();
         let service = make_service(&transport, &clock);
@@ -105,17 +126,21 @@ fn an_unreachable_or_unverifiable_cloud_cannot_be_called_a_match() {
             .unwrap();
 
         assert_eq!(
-            service.outcome_for("Road Star", token).as_deref(),
+            service
+                .outcome_for(&cloud_slot_name("Road Star"), token)
+                .as_deref(),
             Some("network")
         );
         assert!(transport.posts().is_empty());
         transport.set_reply(Some(
-            json!({"saves": [{"saveName": "Road Star", "revision": 1}]}),
+            json!({"saves": [{"saveName": cloud_slot_name("Road Star"), "revision": 1}]}),
         ));
         clock.advance(RETRY_INTERVAL_S + 0.1);
         service.pump(false);
         assert_eq!(
-            service.outcome_for("Road Star", token).as_deref(),
+            service
+                .outcome_for(&cloud_slot_name("Road Star"), token)
+                .as_deref(),
             Some("unchanged")
         );
         assert!(transport.posts().is_empty());
@@ -137,11 +162,16 @@ fn a_failed_freshness_check_reports_auth_or_network_without_uploading() {
             .unwrap();
 
         assert_eq!(
-            service.outcome_for("Road Star", token).as_deref(),
+            service
+                .outcome_for(&cloud_slot_name("Road Star"), token)
+                .as_deref(),
             Some(outcome)
         );
         assert!(transport.posts().is_empty());
-        assert_eq!(service.sync_state().slot("Road Star")["revision"], 1);
+        assert_eq!(
+            service.sync_state().slot(&cloud_slot_name("Road Star"))["revision"],
+            1
+        );
     }
 }
 
@@ -158,7 +188,7 @@ fn the_manual_menu_distinguishes_stale_copies_from_two_sided_conflicts() {
         let mut synced = Value::Object(local.to_dict());
         synced["money"] = json!(4500.0);
         let (_, hash) = cloud_content(&synced);
-        let entry = json!({"saveName": "Road Star", "revision": 2,
+        let entry = json!({"saveName": cloud_slot_name("Road Star"), "revision": 2,
         "summary": "Road Star, level 1, 4,000 dollars"});
         let transport = if stale {
             FakeTransport::replying(json!({"saves": [entry.clone()]}))
@@ -166,10 +196,19 @@ fn the_manual_menu_distinguishes_stale_copies_from_two_sided_conflicts() {
             FakeTransport::failing(conflict_error(Some(2)))
         };
         let service = install_cloud(&mut app, transport.clone(), true);
-        service
-            .sync_state()
-            .record_synced_for_driver("Road Star", 1, &hash, &identity().driver_id);
-        let mut slot = CloudSlotState::new(&mut app.ctx, "Road Star", vec![entry], None, None);
+        service.sync_state().record_synced_for_driver(
+            &cloud_slot_name("Road Star"),
+            1,
+            &hash,
+            &identity().driver_id,
+        );
+        let mut slot = CloudSlotState::new(
+            &mut app.ctx,
+            &cloud_slot_name("Road Star"),
+            vec![entry],
+            None,
+            None,
+        );
         slot.threaded = false;
         let slot = push(&mut app, slot);
         app.clear_speech();
@@ -219,7 +258,10 @@ fn the_manual_menu_distinguishes_stale_copies_from_two_sided_conflicts() {
                 status,
                 "The cloud copy changed on another computer. Nothing was changed."
             );
-            assert_eq!(service.status(), conflict_status("Road Star"));
+            assert_eq!(
+                service.status(),
+                conflict_status(&cloud_slot_name("Road Star"))
+            );
             assert!(
                 !lines
                     .iter()
@@ -249,7 +291,7 @@ fn the_terminal_handles_the_stale_outcome_without_calling_it_a_real_conflict() {
     menu.save(&mut app.ctx);
     State::update(&mut menu, &mut app.ctx, 0.0);
     transport.set_reply(Some(
-        json!({"saves": [{"saveName": "Road Star", "revision": 2}]}),
+        json!({"saves": [{"saveName": cloud_slot_name("Road Star"), "revision": 2}]}),
     ));
     app.clear_speech();
 
