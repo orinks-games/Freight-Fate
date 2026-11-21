@@ -730,6 +730,15 @@ static FFDirection ff_direction(CGFloat dx, CGFloat dy) {
     return self;
 }
 
+// iOS 13 put undo, redo and the editing shortcut bar on three fingers, the
+// same fingers as the command list tap. A responder opts out with
+// UIEditingInteractionConfigurationNone (UIResponder, iOS 13 and later); the
+// surface and the root view controller both answer it, since Apple's
+// documentation does not say where in the responder chain it is read.
+- (UIEditingInteractionConfiguration)editingInteractionConfiguration API_AVAILABLE(ios(13.0)) {
+    return UIEditingInteractionConfigurationNone;
+}
+
 - (void)installRecognizers {
     [self tapWithTouches:3 taps:1 code:FF_THREE_FINGER_TAP];
     UITapGestureRecognizer *twoDouble = [self tapWithTouches:2 taps:2 code:FF_MAGIC_TAP];
@@ -955,6 +964,22 @@ static void ff_defer_screen_edges(UIViewController *controller) {
     [controller setNeedsUpdateOfScreenEdgesDeferringSystemGestures];
 }
 
+// Keep iOS's three-finger editing gestures off the root view controller too
+// (see -[FFTouchView editingInteractionConfiguration]).
+static void ff_no_editing_gestures(UIViewController *controller) {
+    if (!controller) {
+        return;
+    }
+    if (@available(iOS 13.0, *)) {
+        SEL selector = @selector(editingInteractionConfiguration);
+        Method base = class_getInstanceMethod([UIResponder class], selector);
+        IMP none = imp_implementationWithBlock(^UIEditingInteractionConfiguration(__unused id me) {
+            return UIEditingInteractionConfigurationNone;
+        });
+        class_replaceMethod(object_getClass(controller), selector, none, method_getTypeEncoding(base));
+    }
+}
+
 // Lay the touch surface over SDL's view. `window` is the UIWindow SDL made
 // (what its window-manager info reports); a UIView is accepted as well.
 // Returns 1 when the surface is in place.
@@ -976,6 +1001,7 @@ int32_t ff_touch_install(void *window) {
     FFTouchView *surface = [[FFTouchView alloc] initWithFrame:host.bounds];
     [host addSubview:surface];
     ff_defer_screen_edges(host.window.rootViewController);
+    ff_no_editing_gestures(host.window.rootViewController);
     UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, surface);
     return 1;
 }

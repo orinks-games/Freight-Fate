@@ -22,12 +22,14 @@ use crate::states::driving_core::{
     FIELD_REPAIR_DAMAGE_PCT, MECHANIC_CALLOUT_FEE, MECHANIC_WAIT_MIN,
 };
 use crate::states::driving_dispatch_call::DispatchCallState;
-use crate::states::driving_menu_states::{keep_rows, push_over_drive, DriveRef};
+use crate::states::driving_menu_states::{
+    keep_rows, push_over_drive, DriveRef, DrivingCommandsState,
+};
 use crate::states::driving_rest_states::ShoulderSleepConfirmationState;
 use crate::states::learn_sounds::LearnSoundsState;
 use crate::states::main_menu::{
-    controls_help_page, open_career_achievements, HelpState, InputPracticeState, MainMenuState,
-    SettingsState, CAREER_ACHIEVEMENTS_HELP,
+    controls_help_page, open_career_achievements, practice_row, HelpState, InputPracticeState,
+    MainMenuState, SettingsState, CAREER_ACHIEVEMENTS_HELP,
 };
 use crate::states::online_states::DriversOnlineState;
 use crate::touch::Gesture;
@@ -137,10 +139,7 @@ impl PauseMenuState {
                 ctx.push_state(state);
             })
             .help("Every sound the road uses, and what each one means."),
-            MenuItem::new("Practice keys and buttons", |_s: &mut Self, ctx: &mut GameContext| {
-                ctx.push_state(InputPracticeState::new());
-            })
-            .help("Names what each key or controller button does while driving."),
+            practice_row(ctx),
             MenuItem::new(mechanic_label(d), |s: &mut Self, ctx| s.mechanic(ctx)).help(
                 "A mobile mechanic patches the truck up enough to drive on. Costs far more than a \
                  garage, an hour and a half, and billed even into debt.",
@@ -334,7 +333,26 @@ impl PauseMenuState {
                 ),
             );
         }
+        // A three-finger tap can land as one finger; the list is also here.
+        if InputPracticeState::touch_only(ctx) {
+            items.insert(
+                1,
+                MenuItem::new("Driving commands", |s: &mut Self, ctx| {
+                    s.driving_commands(ctx)
+                })
+                .help("Every driving command by name, in groups."),
+            );
+        }
         items
+    }
+
+    /// The command list over the drive, as the three-finger tap opens it: a
+    /// command chosen there runs on the resumed drive.
+    fn driving_commands(&mut self, ctx: &mut GameContext) {
+        self.leave_pause();
+        ctx.resume_event_speech();
+        ctx.pop_state();
+        ctx.push_state(DrivingCommandsState::with_drive(self.driving.clone()));
     }
 
     fn mechanic(&mut self, ctx: &mut GameContext) {
@@ -485,16 +503,20 @@ impl PauseMenuState {
         // road the player was not on. They come back to the road as it is
         // now.
         ctx.resume_event_speech();
-        // The player may have lost the thread across the pause: bring each
-        // facility's full name back once (research doc R6).
+        self.leave_pause();
+        ctx.pop_state();
+        ctx.say_with("Resumed.", Say::queued().review(false));
+    }
+
+    /// The player may have lost the thread across the pause: bring each
+    /// facility's full name back once (research doc R6).
+    fn leave_pause(&mut self) {
         self.driving.read(|d| {
             d.trip.reset_facility_mentions();
             d.pending_ambient_events.clear();
             // And the open scale still ahead, once (tester log, 2026-10-07).
             d.note_scale_reannounce(None);
         });
-        ctx.pop_state();
-        ctx.say_with("Resumed.", Say::queued().review(false));
     }
 
     fn status(&mut self, ctx: &mut GameContext) {

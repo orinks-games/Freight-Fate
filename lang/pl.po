@@ -16457,6 +16457,9 @@ msgstr "lub"
 msgid "Pause"
 msgstr "Pauza"
 
+msgid "Driving command list"
+msgstr "Lista poleceń jazdy"
+
 msgid "Nothing"
 msgstr "Nic"
 
@@ -29640,12 +29643,6 @@ msgstr "Poznaj dźwięki gry"
 msgid "Every sound the road uses, and what each one means."
 msgstr "Każdy dźwięk, którego używa droga, i co oznacza."
 
-msgid "Practice keys and buttons"
-msgstr "Ćwiczenie klawiszy i przycisków"
-
-msgid "Names what each key or controller button does while driving."
-msgstr "Mówi, co robi każdy klawisz lub przycisk kontrolera podczas jazdy."
-
 msgid ""
 "A mobile mechanic patches the truck up enough to drive on. Costs far more "
 "than a garage, an hour and a half, and billed even into debt."
@@ -29788,6 +29785,9 @@ msgstr ""
 "Kiepski sen na poboczu. Zeruje czas pracy kierowcy. Zmęczenie zostaje, "
 "możliwy mandat, możliwe drobne uszkodzenia ciężarówki, a termin nadal "
 "biegnie."
+
+msgid "Every driving command by name, in groups."
+msgstr ""
 
 msgid "Emergency shoulder sleep is not available."
 msgstr "Awaryjny sen na poboczu nie jest dostępny."
@@ -35603,6 +35603,18 @@ msgstr "Lewa gałka: wychyl w lewo lub w prawo, aby zmienić jeden pas."
 msgid "Left stick: steer."
 msgstr "Lewa gałka: kierowanie."
 
+msgid "Practice gestures"
+msgstr "Ćwiczenie gestów"
+
+msgid "Names what each gesture does while driving."
+msgstr ""
+
+msgid "Practice keys and buttons"
+msgstr "Ćwiczenie klawiszy i przycisków"
+
+msgid "Names what each key or controller button does while driving."
+msgstr "Mówi, co robi każdy klawisz lub przycisk kontrolera podczas jazdy."
+
 msgid "Change one lane left"
 msgstr "Zmień pas o jeden w lewo"
 
@@ -35708,6 +35720,42 @@ msgstr ""
 "Ćwiczenie klawiszy i przycisków. Naciśnij klawisz lub przycisk, aby "
 "usłyszeć, co robi podczas jazdy. Dwa razy Escape lub dwa razy Start, aby "
 "wyjść."
+
+msgid "Flick down with two fingers twice to leave."
+msgstr ""
+
+msgid "Escape twice within two seconds to leave."
+msgstr "Escape dwa razy w ciągu dwóch sekund, żeby wyjść."
+
+#. one sentence of a longer line
+msgid "A flick is one step."
+msgstr "Muśnięcie to jeden krok."
+
+#. one sentence of a longer line
+msgid "A swipe and hold is continuous."
+msgstr "Przesunięcie z przytrzymaniem działa ciągle."
+
+#. one sentence of a longer line
+msgid "Gestures are named but do not control the truck."
+msgstr "Gesty są nazywane, ale nie sterują ciężarówką."
+
+#. one sentence of a longer line
+msgid "Practice gestures."
+msgstr "Ćwiczenie gestów."
+
+#. placeholders: {leave}
+msgid ""
+"Practice gestures. A flick is one step. A swipe and hold is continuous. Try "
+"a flick up, then swipe up and hold. Gestures are named but do not control "
+"the truck. {leave}"
+msgstr ""
+"Ćwiczenie gestów. Muśnięcie to jeden krok. Przesunięcie z przytrzymaniem "
+"działa ciągle. Spróbuj muśnięcia w górę, a potem przesuń w górę i "
+"przytrzymaj. Gesty są nazywane, ale nie sterują ciężarówką. {leave}"
+
+#. one sentence of a longer line
+msgid "Try a flick up, then swipe up and hold."
+msgstr "Spróbuj muśnięcia w górę, a potem przesuń w górę i przytrzymaj."
 
 msgid "Gameplay"
 msgstr "Rozgrywka"
@@ -37570,9 +37618,6 @@ msgstr ""
 msgid "Deep swipe starts at: {touch_deep_swipe_points}"
 msgstr "Dalekie przesunięcie od: {touch_deep_swipe_points}"
 
-msgid "Practice gestures"
-msgstr "Ćwiczenie gestów"
-
 msgid ""
 "Names each gesture and its current command without controlling the truck."
 msgstr "Nazywa każdy gest i jego obecne polecenie, nie sterując ciężarówką."
@@ -37603,6 +37648,12 @@ msgstr ""
 #. placeholders: {gesture_name}, {label}
 msgid "{gesture_name} now runs {label}."
 msgstr "{gesture_name} uruchamia teraz: {label}."
+
+msgid "Leaving gesture practice."
+msgstr "Wychodzisz z ćwiczenia gestów."
+
+msgid "Again to leave practice."
+msgstr "Jeszcze raz, żeby wyjść z ćwiczenia."
 
 #. one sentence of a longer line
 msgid "Deep swipe."
@@ -37688,49 +37739,6 @@ msgstr "Ćwiczenie nazywa każdy gest bez ruszania ciężarówką."
 msgid "Skip and start driving"
 msgstr "Pomiń i zacznij jazdę"
 
-msgid "Flick down with two fingers twice within two seconds to leave."
-msgstr ""
-"Przesuń dwoma palcami w dół dwa razy w ciągu dwóch sekund, aby wyjść."
-
-msgid "Escape twice within two seconds to leave."
-msgstr "Escape dwa razy w ciągu dwóch sekund, żeby wyjść."
-
-#. one sentence of a longer line
-msgid "A flick is one step."
-msgstr "Muśnięcie to jeden krok."
-
-#. one sentence of a longer line
-msgid "A swipe and hold is continuous."
-msgstr "Przesunięcie z przytrzymaniem działa ciągle."
-
-#. one sentence of a longer line
-msgid "Gestures are named but do not control the truck."
-msgstr "Gesty są nazywane, ale nie sterują ciężarówką."
-
-#. one sentence of a longer line
-msgid "Practice gestures."
-msgstr "Ćwiczenie gestów."
-
-#. placeholders: {leave}
-msgid ""
-"Practice gestures. A flick is one step. A swipe and hold is continuous. Try "
-"a flick up, then swipe up and hold. Gestures are named but do not control "
-"the truck. {leave}"
-msgstr ""
-"Ćwiczenie gestów. Muśnięcie to jeden krok. Przesunięcie z przytrzymaniem "
-"działa ciągle. Spróbuj muśnięcia w górę, a potem przesuń w górę i "
-"przytrzymaj. Gesty są nazywane, ale nie sterują ciężarówką. {leave}"
-
-#. one sentence of a longer line
-msgid "Try a flick up, then swipe up and hold."
-msgstr "Spróbuj muśnięcia w górę, a potem przesuń w górę i przytrzymaj."
-
-msgid "Leaving gesture practice."
-msgstr "Wychodzisz z ćwiczenia gestów."
-
-msgid "Again to leave practice."
-msgstr "Jeszcze raz, żeby wyjść z ćwiczenia."
-
 msgid "Swipe up"
 msgstr "Przesunięcie w górę"
 
@@ -37784,9 +37792,6 @@ msgstr "Poprzedni komunikat"
 
 msgid "Next message"
 msgstr "Następny komunikat"
-
-msgid "Driving command list"
-msgstr "Lista poleceń jazdy"
 
 msgid "No command"
 msgstr "Brak polecenia"
@@ -43755,6 +43760,10 @@ msgid ""
 "Hold the left bumper for a second layer of buttons. {pad_engine} controls "
 "the engine, {pad_fuel} reads fuel, and {pad_speed_limit} reads the limit."
 msgstr ""
+
+#~ msgid "Flick down with two fingers twice within two seconds to leave."
+#~ msgstr ""
+#~ "Przesuń dwoma palcami w dół dwa razy w ciągu dwóch sekund, aby wyjść."
 
 #~ msgid ""
 #~ "freightfate -- Freight Fate\n"
