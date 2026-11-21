@@ -22,6 +22,7 @@
 
 ### Changed
 
+- **Settings no longer has an Online row.** Online is on the main menu.
 - **The dispatch board lists loads in the order they were posted, not shortest first.** The recommended load now says why dispatch picked it.
 - **The Radio screen under Driving status moved into the Radio app.** Its Local stations list gives each nearby station's distance, and Enter tunes one.
 - **The Simplified Chinese translation covers the whole game again.** Lines added since the last update no longer fall back to English.
