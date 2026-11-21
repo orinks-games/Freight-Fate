@@ -160,6 +160,9 @@ pub struct GameContext {
     /// the whole way (`Some(true)`) or smooth. `None` in the shipped game,
     /// where stretches of each alternate.
     pub playtest_road_jointed: Option<bool>,
+    /// The co-driver's logbook counters a sandbox scenario asked for, put
+    /// on the next co-driver paired for a load. `None` in the shipped game.
+    pub playtest_co_driver_hos: Option<crate::playtest::scenario::CoDriverHos>,
     /// The last run ended without quitting and the main menu has not asked
     /// about it yet (`problem_reports::take_crash_offer`, read once when the
     /// app is built). The menu clears it when it asks, or when the player
@@ -301,6 +304,7 @@ impl GameContext {
             playtest_sandbox: false,
             playtest_window_down: None,
             playtest_road_jointed: None,
+            playtest_co_driver_hos: None,
             crash_offer_pending: crate::problem_reports::take_crash_offer(),
             dispatch_board_seed: None,
             school_sandbox: false,

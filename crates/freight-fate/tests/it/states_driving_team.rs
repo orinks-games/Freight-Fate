@@ -32,6 +32,23 @@ fn quiet_drive(name: &str) -> PlaytestHarness {
     harness
 }
 
+/// The logbook at the wheel is the co-driver's while they hold it, and it
+/// is never in violation there (tester report, 2026-11-19).
+pub(crate) fn assert_co_driver_legal(harness: &PlaytestHarness) {
+    let ctx = &harness.app.ctx;
+    if !ctx.co_driver_away {
+        return;
+    }
+    let mode = ctx.settings.hos_mode.as_str();
+    let hos = &ctx.profile.as_ref().expect("a career").hos;
+    assert!(
+        !hos.in_violation(mode),
+        "the co-driver drove past their hours: {:.1} minutes driven, {:.1} on duty",
+        hos.driving_min,
+        hos.duty_min
+    );
+}
+
 /// Tick the app until `done` or `max_frames` pass. Returns whether `done`
 /// came true; on a timeout, prints where the drive got to.
 fn run_until(
@@ -42,6 +59,7 @@ fn run_until(
     for frame in 0..max_frames {
         harness.advance_frame_clock();
         harness.app.frame(DT);
+        assert_co_driver_legal(harness);
         if done(harness) {
             return true;
         }
@@ -616,7 +634,8 @@ fn a_slept_shift_ends_parked_at_a_stop_with_the_driver_woken() {
     use freight_fate::states::driving_rest_states::{ParkingFullState, RestStopState};
     let mut harness = asleep_at_speed("Team Sim Shift");
     harness.with_drive(|d, ctx| {
-        // A lot fifteen miles on, where the last of the hours run out.
+        // A lot seven miles on: the last their hours reach, keeping the
+        // lead they hand back with in hand.
         let lot = d
             .trip
             .stops
@@ -629,7 +648,7 @@ fn a_slept_shift_ends_parked_at_a_stop_with_the_driver_woken() {
             })
             .map(|stop| stop.at_mi)
             .expect("this route has somewhere to park");
-        d.trip.position_mi = lot - 15.0;
+        d.trip.position_mi = lot - 7.0;
         d.enforcement_prev_mi = d.trip.position_mi;
         // The co-driver's logbook: ten minutes of driving left before
         // they plan the end of the shift.
@@ -656,5 +675,11 @@ fn a_slept_shift_ends_parked_at_a_stop_with_the_driver_woken() {
     });
     assert!(woken, "{}", transcript_tail(&harness));
     let said = harness.transcript().join("\n");
-    assert!(said.contains("Their hours are up"), "{said}");
+    assert!(
+        said.contains(
+            "Dan has parked for the end of their shift. Their hours run out before the next \
+             place to park."
+        ),
+        "{said}"
+    );
 }

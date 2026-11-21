@@ -69,13 +69,36 @@ impl DrivingState {
             lines.push(format!("Co-driver: {name}, driving"));
             lines.extend(self.co_driver_clock_clause(ctx));
         } else {
-            lines.push(format!("Co-driver: {name}, in the sleeper"));
+            lines.push(self.co_driver_bunk_line(ctx));
         }
         lines.push(format!("About {name}: {}", team.co_driver.bio));
         if !team.last_summary.is_empty() {
             lines.push(format!("Last shift: {}", team.last_summary.join(" ")));
         }
         lines
+    }
+
+    /// The co-driver in the sleeper, with hours enforced: how far their own
+    /// rest has come and the driving it leaves them, so a hand-over short
+    /// of their hours is heard before it is made (tester report,
+    /// 2026-11-19: only the hand-over row's help said so).
+    fn co_driver_bunk_line(&self, ctx: &GameContext) -> String {
+        let Some(team) = &self.team else {
+            return String::new();
+        };
+        let name = team.co_driver.name;
+        let co = &team.off_wheel_hos;
+        let Some(left) = co_driver::shift_left_min(co, &ctx.settings.hos_mode) else {
+            return format!("Co-driver: {name}, in the sleeper");
+        };
+        if co_driver::fully_rested(co) {
+            return format!("Co-driver: {name}, in the sleeper, rested.");
+        }
+        format!(
+            "Co-driver: {name}, in the sleeper. Rest: {} of 10 hours. {} of driving left.",
+            hos::duration_text(co_driver::rested_min(co) / 60.0),
+            hos::duration_text(left / 60.0)
+        )
     }
 
     /// The co-driver's logbook line in the ELD app.

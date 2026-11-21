@@ -263,6 +263,10 @@ pub struct DrivingObservation {
     pub road_offer: crate::touch::RoadOffer,
     /// The clutch a touch shift works in a manual truck.
     pub touch_clutch: ff_core::sim::touch_clutch::TouchClutch,
+    /// On a load with a co-driver: where their shift stands, and the
+    /// driving time or duty window their own logbook has left (None with
+    /// hours off).
+    pub co_driver: Option<(ff_core::sim::team_shift::TeamShift, Option<f64>)>,
     /// The driver window's state machine.
     pub window: ff_core::sim::cab::Window,
     /// What is alive outside, and the bed playing for it ("none" if quiet).
@@ -901,6 +905,13 @@ impl App {
             jake_zone: drive.jake_zone_notice.key(),
             road_offer: drive.road_offer(&self.ctx),
             touch_clutch: drive.touch_clutch,
+            co_driver: drive.team.as_ref().map(|team| {
+                let left = ff_core::models::co_driver::shift_left_min(
+                    team.co_driver_hos(&self.ctx),
+                    &self.ctx.settings.hos_mode,
+                );
+                (team.shift, left)
+            }),
             window: drive.cab.window(),
             outside: drive.outside.scene,
             outside_bed: drive.outside.nature.bed.map_or("none", |bed| bed.name),

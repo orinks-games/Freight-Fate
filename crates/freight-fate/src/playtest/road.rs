@@ -1361,6 +1361,9 @@ pub fn build_driving(ctx: &mut GameContext, hit: &Hit, opts: &RoadOptions) -> (D
     // line -- so a slug here put "the destination exit for freight terminal
     // hattiesburg_ms_us freight market" into three of the lines a playtest
     // is usually listening for.
+    // A scenario that staged the co-driver's own hours wants them aboard:
+    // the load goes out as a team load, and they join with those hours.
+    job.team = ctx.playtest_co_driver_hos.is_some();
     job.origin_spoken = ctx.world.spoken_city(&origin_key, None);
     job.destination_spoken = ctx.world.spoken_city(&destination_key, None);
     if !departure {
@@ -1380,6 +1383,10 @@ pub fn build_driving(ctx: &mut GameContext, hit: &Hit, opts: &RoadOptions) -> (D
         DRIVE_PHASE_DELIVERY,
         Some(opts.hour.unwrap_or(9.0)),
     );
+    // A team load leaves with its co-driver aboard, in the bunk.
+    if driving.job.team {
+        driving.ensure_team(ctx);
+    }
     // The career clock moved to the staged hour on its own day, so what the
     // drive reads from the calendar follows the hour it was staged at. Left
     // as it was, the two clocks disagreed by up to a day.

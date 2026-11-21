@@ -8,6 +8,8 @@
 //! opened is the player's, and any other screen is a decision the
 //! co-driver hands back.
 
+use ff_core::sim::team_shift::TeamShift;
+
 use crate::app::GameContext;
 use crate::playtest::menu::menu_rows;
 use crate::states::base::{State, TimedMessageState};
@@ -57,17 +59,13 @@ pub fn overlay_move(top: &dyn State, drive: &DrivingState, ctx: &GameContext) ->
             .map_or_else(|| OverlayMove::Summon("roadside".into()), OverlayMove::Row);
     }
     if any.is::<ParkingFullState>() {
-        // The shift is over and the lot is full: the player decides where
-        // to sleep.
-        // The player rested, the next lot will do as well as this one.
-        let pilot = drive
-            .team
-            .as_ref()
-            .and_then(|team| team.wheel.as_ref())
-            .map(|wheel| &wheel.pilot)
-            .filter(|pilot| pilot.shift_over && !pilot.rested);
-        if let Some(pilot) = pilot {
-            return OverlayMove::Summon(pilot.shift_end_reason().into());
+        // Their hours are up and the lot is full: the player decides where
+        // to sleep. The pull-in normally hands back first
+        // (`co_driver_works_stop` summons "parking"); this covers a full-lot
+        // screen reached any other way. The player rested, the next lot will
+        // do as well as this one.
+        if drive.team_shift().hours_ending() {
+            return OverlayMove::Summon("parking".into());
         }
         return row_starting(&rows, "Drive on to the next stop")
             .map_or_else(|| OverlayMove::Summon("parking".into()), OverlayMove::Row);
@@ -90,14 +88,15 @@ fn rest_stop_move(rows: &[String], drive: &DrivingState, ctx: &GameContext) -> O
         .as_ref()
         .and_then(|team| team.wheel.as_ref())
         .map(|wheel| &wheel.pilot);
-    if let Some(pilot) = pilot.filter(|pilot| pilot.shift_over && !pilot.rested) {
-        return OverlayMove::Summon(pilot.shift_end_reason().into());
+    let shift = drive.team_shift();
+    if shift.hours_ending() {
+        return OverlayMove::Summon(drive.co_driver_lot_reason(ctx).into());
     }
     let can_park = drive
         .trip
         .nearest_stop_within(1.5)
         .is_some_and(|stop| stop.parking != "none" && stop.stop_type != "weigh_station");
-    let rested = pilot.is_some_and(|pilot| pilot.rested) || drive.player_rest_complete(ctx);
+    let rested = shift == TeamShift::EndingRested || drive.player_rest_complete(ctx);
     if rested && can_park {
         return OverlayMove::Summon("rested".into());
     }

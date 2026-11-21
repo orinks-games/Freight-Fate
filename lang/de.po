@@ -13183,6 +13183,9 @@ msgstr "zu einem Drittel voll"
 msgid "lightly loaded"
 msgstr "leicht beladen"
 
+msgid "bunk"
+msgstr ""
+
 msgid "eastern"
 msgstr "eastern"
 
@@ -30815,6 +30818,36 @@ msgstr "winkt den Lkw durch"
 msgid "waves you through"
 msgstr "winkt dich durch"
 
+msgid "You had driven past"
+msgstr ""
+
+#. placeholders: {name}
+msgid "{name} had driven past"
+msgstr ""
+
+msgid "you had driven past"
+msgstr ""
+
+msgid "Your 14-hour duty window"
+msgstr ""
+
+#. placeholders: {name}
+msgid "{name}'s 14-hour duty window"
+msgstr ""
+
+msgid "your 14-hour duty window"
+msgstr ""
+
+msgid "You were past the 30-minute"
+msgstr ""
+
+#. placeholders: {name}
+msgid "{name} was past the 30-minute"
+msgstr ""
+
+msgid "you were past the 30-minute"
+msgstr ""
+
 msgid "under"
 msgstr "unter"
 
@@ -32915,18 +32948,54 @@ msgstr "Die Lenkzeit ist aufgebraucht."
 
 #. placeholders: {name}
 #. one sentence of a longer line
-msgid "{name} needs you back at the wheel."
-msgstr "{name} braucht dich wieder am Steuer."
+msgid "{name} has parked and hands you the wheel."
+msgstr "{name} hat geparkt und übergibt dir das Steuer."
 
 #. placeholders: {name}
-msgid "{name} needs you back at the wheel. Their hours are up."
+msgid "{name} has parked and hands you the wheel. Their hours are up."
 msgstr ""
-"{name} braucht dich wieder am Steuer. Die Lenkzeit ist aufgebraucht."
+
+#. one sentence of a longer line
+msgid "Their hours are up, and yours reach the receiver."
+msgstr ""
+
+#. placeholders: {name}
+msgid ""
+"{name} has parked and hands you the wheel. Their hours are up, and yours "
+"reach the receiver."
+msgstr ""
 
 #. placeholders: {name}
 #. one sentence of a longer line
-msgid "{name} has parked and hands you the wheel."
-msgstr "{name} hat geparkt und übergibt dir das Steuer."
+msgid ""
+"{name} stopped on the shoulder with no lot in reach and hands you the wheel."
+msgstr ""
+
+#. placeholders: {name}
+msgid ""
+"{name} stopped on the shoulder with no lot in reach and hands you the "
+"wheel. Their hours are up."
+msgstr ""
+
+#. placeholders: {name}
+msgid ""
+"{name} stopped on the shoulder with no lot in reach and hands you the "
+"wheel. Their hours are up, and yours reach the receiver."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Their break is due."
+msgstr "Die Pause ist fällig."
+
+#. placeholders: {name}
+#. one sentence of a longer line
+msgid "{name} stopped on the shoulder and hands you the wheel."
+msgstr ""
+
+#. placeholders: {name}
+msgid ""
+"{name} stopped on the shoulder and hands you the wheel. Their break is due."
+msgstr ""
 
 #. placeholders: {name}
 msgid "{name} has parked and hands you the wheel. Your 10-hour rest is in."
@@ -33029,14 +33098,6 @@ msgid "{name} needs you. There is not enough money for fuel."
 msgstr "{name} braucht dich. Das Geld reicht nicht für Kraftstoff."
 
 #. one sentence of a longer line
-msgid "Their break is due."
-msgstr "Die Pause ist fällig."
-
-#. placeholders: {name}
-msgid "{name} needs you back at the wheel. Their break is due."
-msgstr "{name} braucht dich wieder am Steuer. Die Pause ist fällig."
-
-#. one sentence of a longer line
 msgid "A trooper has the truck stopped."
 msgstr "Ein Polizist hat den Lkw angehalten."
 
@@ -33116,18 +33177,48 @@ msgstr "Meilen, die {name} fährt, bringen dir die Hälfte."
 msgid "While {name} drives, you are logged in the sleeper berth."
 msgstr "Während {name} fährt, bist du in der Schlafkoje eingetragen."
 
-#. placeholders: {back}, {pay}
+#. placeholders: {pay}
 #. one sentence of a longer line
-msgid "{back} {pay} Those miles earn you half the experience."
-msgstr "{back} {pay} Diese Meilen bringen dir die halbe Erfahrung."
+msgid "{pay} Those miles earn you half the experience."
+msgstr "{pay} Diese Meilen bringen dir die halbe Erfahrung."
 
-#. placeholders: {back}, {pay}, {name}
+#. placeholders: {pay}, {name}
 msgid ""
-"{back} {pay} Those miles earn you half the experience. While {name} drives, "
-"you are logged in the sleeper berth."
+"{pay} Those miles earn you half the experience. While {name} drives, you "
+"are logged in the sleeper berth."
 msgstr ""
-"{back} {pay} Diese Meilen bringen dir die halbe Erfahrung. Während {name} "
-"fährt, bist du in der Schlafkabine eingetragen."
+"{pay} Diese Meilen bringen dir die halbe Erfahrung. Während {name} fährt, "
+"bist du in der Schlafkoje eingetragen."
+
+#. one sentence of a longer line
+msgid "Your own hours reach the receiver from there."
+msgstr ""
+
+#. placeholders: {name}, {left}
+#. one sentence of a longer line
+msgid ""
+"{name} has {left} of driving left, then parks and hands you the wheel."
+msgstr ""
+
+#. placeholders: {name}, {left}
+msgid ""
+"{name} has {left} of driving left, then parks and hands you the wheel. Your "
+"own hours reach the receiver from there."
+msgstr ""
+
+#. placeholders: {name}, {left}
+#. one sentence of a longer line
+msgid ""
+"{name} has {left} of driving left and no truck lot in reach, so they stop "
+"on the shoulder and hand you the wheel."
+msgstr ""
+
+#. placeholders: {name}, {left}
+msgid ""
+"{name} has {left} of driving left and no truck lot in reach, so they stop "
+"on the shoulder and hand you the wheel. Your own hours reach the receiver "
+"from there."
+msgstr ""
 
 #. placeholders: {name}, {left}
 msgid ""
@@ -33214,6 +33305,14 @@ msgstr " Deine 10-Stunden-Ruhepause beginnt von vorn."
 msgid "Take the wheel back"
 msgstr "Das Steuer zurücknehmen"
 
+#. placeholders: {name}, {time}
+msgid "Hand the wheel to {name} for {time} and ride along"
+msgstr ""
+
+#. placeholders: {name}, {time}
+msgid "Hand the wheel to {name} for {time} and sleep"
+msgstr ""
+
 #. placeholders: {name}
 msgid "Hand the wheel to {name} and ride along"
 msgstr "Das Steuer an {name} übergeben und mitfahren"
@@ -33264,11 +33363,8 @@ msgstr ""
 msgid "Refuel"
 msgstr "Tanken"
 
-msgid "last lot"
-msgstr "letzter Parkplatz"
-
-msgid "shift"
-msgstr "Schicht"
+msgid "shoulder break"
+msgstr ""
 
 msgid "stalled"
 msgstr "liegengeblieben"
@@ -33334,10 +33430,6 @@ msgstr ""
 msgid "Co-driver: {name}, driving"
 msgstr "Beifahrer: {name}, am Steuer"
 
-#. placeholders: {name}
-msgid "Co-driver: {name}, in the sleeper"
-msgstr "Beifahrer: {name}, in der Schlafkabine"
-
 #. placeholders: {name}, {bio}
 msgid "About {name}: {bio}"
 msgstr "Über {name}: {bio}"
@@ -33345,6 +33437,35 @@ msgstr "Über {name}: {bio}"
 #. placeholders: {join}
 msgid "Last shift: {join}"
 msgstr "Letzte Schicht: {join}"
+
+#. placeholders: {name}
+msgid "Co-driver: {name}, in the sleeper"
+msgstr "Beifahrer: {name}, in der Schlafkabine"
+
+#. placeholders: {name}
+msgid "Co-driver: {name}, in the sleeper, rested."
+msgstr ""
+
+#. placeholders: {name}
+#. one sentence of a longer line
+msgid "Co-driver: {name}, in the sleeper."
+msgstr ""
+
+#. placeholders: {name}, {duration_text}, {duration_text2}
+msgid ""
+"Co-driver: {name}, in the sleeper. Rest: {duration_text} of 10 hours. "
+"{duration_text2} of driving left."
+msgstr ""
+
+#. placeholders: {duration_text}
+#. one sentence of a longer line
+msgid "Rest: {duration_text} of 10 hours."
+msgstr ""
+
+#. placeholders: {duration_text2}
+#. one sentence of a longer line
+msgid "{duration_text2} of driving left."
+msgstr ""
 
 #. placeholders: {name}, {trim_end_matches}
 msgid "ELD, {name}: {trim_end_matches}"
@@ -33368,6 +33489,21 @@ msgstr ""
 #. placeholders: {name}, {f}
 msgid "Team load: {name} drove {f} of the miles"
 msgstr "Teamladung: {name} ist {f} der Meilen gefahren"
+
+msgid "hours up, yours reach"
+msgstr ""
+
+msgid "last lot"
+msgstr "letzter Parkplatz"
+
+msgid "hours up"
+msgstr ""
+
+msgid "shoulder hours"
+msgstr ""
+
+msgid "shoulder hours, yours reach"
+msgstr ""
 
 #. placeholders: {name}
 msgid "{name} took a 30-minute break on the shoulder."
@@ -43933,6 +44069,29 @@ msgid ""
 "the engine, {pad_fuel} reads fuel, and {pad_speed_limit} reads the limit."
 msgstr ""
 
+#~ msgid "{name} needs you back at the wheel."
+#~ msgstr "{name} braucht dich wieder am Steuer."
+
+#~ msgid "{name} needs you back at the wheel. Their hours are up."
+#~ msgstr ""
+#~ "{name} braucht dich wieder am Steuer. Die Lenkzeit ist aufgebraucht."
+
+#~ msgid "{name} needs you back at the wheel. Their break is due."
+#~ msgstr "{name} braucht dich wieder am Steuer. Die Pause ist fällig."
+
+#~ msgid "{back} {pay} Those miles earn you half the experience."
+#~ msgstr "{back} {pay} Diese Meilen bringen dir die halbe Erfahrung."
+
+#~ msgid ""
+#~ "{back} {pay} Those miles earn you half the experience. While {name} drives, "
+#~ "you are logged in the sleeper berth."
+#~ msgstr ""
+#~ "{back} {pay} Diese Meilen bringen dir die halbe Erfahrung. Während {name} "
+#~ "fährt, bist du in der Schlafkabine eingetragen."
+
+#~ msgid "shift"
+#~ msgstr "Schicht"
+
 #~ msgid "Flick down with two fingers twice within two seconds to leave."
 #~ msgstr ""
 #~ "Wische innerhalb von zwei Sekunden zweimal mit zwei Fingern nach unten, um "
@@ -49583,16 +49742,6 @@ msgstr ""
 #~ msgstr ""
 #~ "Du hältst auf dem Seitenstreifen für eine Kontrolle.{polite} {summary} "
 #~ "{outcome} {current}"
-
-#~ msgid "{pay} Those miles earn you half the experience."
-#~ msgstr "{pay} Diese Meilen bringen dir die halbe Erfahrung."
-
-#~ msgid ""
-#~ "{pay} Those miles earn you half the experience. While {name} drives, you "
-#~ "are logged in the sleeper berth."
-#~ msgstr ""
-#~ "{pay} Diese Meilen bringen dir die halbe Erfahrung. Während {name} fährt, "
-#~ "bist du in der Schlafkoje eingetragen."
 
 #~ msgid ""
 #~ "Level {level}, {title}. {f} experience.{owed_text} Reputation {f2} out of "

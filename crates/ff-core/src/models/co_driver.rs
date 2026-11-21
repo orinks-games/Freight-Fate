@@ -514,14 +514,31 @@ pub fn mark_introduced(stats: &mut Map<String, Value>) {
     stats.insert(STAT_INTRO.to_string(), Value::from(1));
 }
 
-/// Whether the co-driver should hand the wheel back now: with hours of
-/// service enforced, as their own driving time or duty window runs out.
-/// [`rest_complete`] usually ends the shift first.
+/// Whether the co-driver's hours are nearly gone: with hours of service
+/// enforced, their own driving time or duty window is within
+/// [`CO_DRIVER_SUMMON_LEAD_MIN`] of running out. The 30-minute break is left
+/// out, as in [`shift_left_min`]: it read a break coming due as the end of
+/// the shift. [`rest_complete`] usually ends the shift first.
 pub fn shift_over(hos: &HosClock, hos_mode: &str) -> bool {
-    enforced(hos_mode)
-        && hos
-            .remaining_min(hos_mode)
-            .is_some_and(|left| left <= CO_DRIVER_SUMMON_LEAD_MIN)
+    shift_left_min(hos, hos_mode).is_some_and(|left| left <= CO_DRIVER_SUMMON_LEAD_MIN)
+}
+
+/// Minutes the co-driver can drive for the player from this logbook: the
+/// shift left, less the [`CO_DRIVER_SUMMON_LEAD_MIN`] they keep in hand to
+/// make a lot. None with hours off.
+pub fn usable_min(hos: &HosClock, hos_mode: &str) -> Option<f64> {
+    shift_left_min(hos, hos_mode).map(|left| (left - CO_DRIVER_SUMMON_LEAD_MIN).max(0.0))
+}
+
+/// Whether the player's own logbook, as it stands, carries the rest of the
+/// trip without a 10-hour break: `drive_min_left` is the planner's driving
+/// minutes to the receiver. A co-driver whose hours end the shift before
+/// the player's rest is in hands back awake when this holds, instead of
+/// the player sleeping out the rest (owner rule 2026-10-21, narrowed
+/// 2026-11-21: the sleep-out is there so a player is never woken into a
+/// shift they cannot use, and one that reaches the receiver is usable).
+pub fn player_finishes(player: &HosClock, hos_mode: &str, drive_min_left: f64) -> bool {
+    enforced(hos_mode) && !team_worthwhile(player, hos_mode, drive_min_left)
 }
 
 /// Whether the co-driver should plan a stop for their 30-minute break.

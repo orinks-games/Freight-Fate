@@ -63,6 +63,11 @@ pub fn job_pairing(ctx: &GameContext, job: &Job) -> Pairing {
 
 /// The terms, as the handover rows' help reads them.
 pub fn terms_text(ctx: &GameContext, name: &str) -> String {
+    format!("{} {}", back_text(ctx, name), pay_text(ctx, name))
+}
+
+/// The pay and the logbook while the co-driver drives.
+fn pay_text(ctx: &GameContext, name: &str) -> String {
     let owner = is_owner_operator(&profile_of(ctx).business_status);
     let pay = if owner {
         format!(
@@ -72,38 +77,87 @@ pub fn terms_text(ctx: &GameContext, name: &str) -> String {
     } else {
         format!("Miles {name} drives pay you half.")
     };
-    let back = back_text(ctx, name);
     format!(
-        "{back} {pay} Those miles earn you half the experience. While {name} drives, you are \
-         logged in the sleeper berth."
+        "{pay} Those miles earn you half the experience. While {name} drives, you are logged in \
+         the sleeper berth."
     )
 }
 
-/// When the co-driver's hours run out before the player's 10-hour rest is
-/// in: how much driving they have. Before it, a player learned that only
-/// after handing over (player report, 2026-10-20).
-fn short_shift_text(ctx: &GameContext, d: &DrivingState, name: &str) -> Option<String> {
+/// The minutes the co-driver can drive for the player when their own hours
+/// would end the hand-over: they run out before the receiver, and, with the
+/// player's rest owed, before that rest is in. None otherwise, and with
+/// hours off.
+fn hours_end_handover(ctx: &GameContext, d: &DrivingState) -> Option<f64> {
     let mode = &ctx.settings.hos_mode;
-    let player = &profile_of(ctx).hos;
     let fresh = HosClock::new();
     let co = d.team.as_ref().map_or(&fresh, |team| &team.off_wheel_hos);
     // A co-driver short of their own rest gets it in the sleeper while the
     // player drives; handed the wheel now, what counts is what they have.
-    let hours_left = co_driver::shift_left_min(co, mode)? - co_driver::CO_DRIVER_SUMMON_LEAD_MIN;
-    let rest_left = co_driver::rest_left_min(player);
-    if rest_left <= hours_left {
+    let usable = co_driver::usable_min(co, mode)?;
+    if usable >= drive_min_left(ctx, d) {
         return None;
     }
-    let left = hos::duration_text(hours_left.max(0.0) / 60.0);
+    let player = &profile_of(ctx).hos;
+    if !co_driver::fully_rested(player) && co_driver::rest_left_min(player) <= usable {
+        return None;
+    }
+    Some(usable)
+}
+
+/// The planner's driving minutes from the truck to the receiver.
+fn drive_min_left(ctx: &GameContext, d: &DrivingState) -> f64 {
+    ff_core::models::jobs::route_drive_hours(
+        Some(&d.trip.route),
+        d.trip.position_mi,
+        Some(ctx.world),
+    ) * 60.0
+}
+
+/// When the co-driver's hours run out before the player's 10-hour rest is
+/// in: how much driving they have, and where the shift ends. Before it, a
+/// player learned that only after handing over (player report,
+/// 2026-10-20), and a tester handed over to a co-driver with 85 minutes
+/// left that only this help mentioned (tester report, 2026-11-19).
+///
+/// The flag is true when the text says the hand-back itself, awake with the
+/// player's own hours reaching the receiver, so the help leaves out the
+/// usual "once you have had your 10-hour rest", which would be untrue.
+fn short_shift_text(ctx: &GameContext, d: &DrivingState, name: &str) -> Option<(String, bool)> {
+    let mode = &ctx.settings.hos_mode;
+    let player = &profile_of(ctx).hos;
+    let usable = hours_end_handover(ctx, d)?;
+    if co_driver::fully_rested(player) {
+        return None;
+    }
+    let left = hos::duration_text(usable / 60.0);
     // Where their hours reach a lot, they park there; where they do not,
-    // the rest is slept on the shoulder (see `shoulder`).
+    // they stop on the shoulder (see `shoulder`).
     let here = d.trip.position_mi;
-    let reach = hours_left.max(0.0) / 60.0 * d.co_driver_pace_mph();
+    let reach = usable / 60.0 * d.co_driver_pace_mph();
     let lot_in_reach = d
         .co_driver_stops(StopPurpose::ShiftEnd, here)
         .iter()
         .any(|stop| stop.at_mi <= here + reach);
-    Some(if lot_in_reach {
+    // The player's own logbook as it will stand when the co-driver's shift
+    // ends: that much more time in the sleeper, that much less trip.
+    let mut at_end = player.clone();
+    at_end.sleeper(usable);
+    let trip_after = (drive_min_left(ctx, d) - usable).max(0.0);
+    if co_driver::player_finishes(&at_end, mode, trip_after) {
+        let text = if lot_in_reach {
+            format!(
+                "{name} has {left} of driving left, then parks and hands you the wheel. Your own \
+                 hours reach the receiver from there."
+            )
+        } else {
+            format!(
+                "{name} has {left} of driving left and no truck lot in reach, so they stop on the \
+                 shoulder and hand you the wheel. Your own hours reach the receiver from there."
+            )
+        };
+        return Some((text, true));
+    }
+    let text = if lot_in_reach {
         format!(
             "{name} has {left} of driving left, short of your 10-hour rest, so they park and you \
              finish it there."
@@ -114,7 +168,8 @@ fn short_shift_text(ctx: &GameContext, d: &DrivingState, name: &str) -> Option<S
              reach, so they stop on the shoulder and you finish it there. Shoulder rest is poor \
              and risks a ticket or minor damage."
         )
-    })
+    };
+    Some((text, false))
 }
 
 /// The introduction to team driving, said once per career the first time a
@@ -207,21 +262,34 @@ impl PauseMenuState {
         let carrier = ff_core::models::career::carrier_name_of(profile_of(ctx));
         let who = co_driver::pairing_line(&pairing, &carrier);
         let terms = match short_shift_text(ctx, d, name) {
-            Some(short) => format!("{short} {}", terms_text(ctx, name)),
+            Some((short, true)) => format!("{short} {}", pay_text(ctx, name)),
+            Some((short, false)) => format!("{short} {}", terms_text(ctx, name)),
             None => terms_text(ctx, name),
         };
-        vec![
-            MenuItem::new(
+        // When their hours end the hand-over, the rows say for how long.
+        let (ride, sleep) = match hours_end_handover(ctx, d) {
+            Some(usable) => {
+                let time = hos::duration_text(usable / 60.0);
+                (
+                    format!("Hand the wheel to {name} for {time} and ride along"),
+                    format!("Hand the wheel to {name} for {time} and sleep"),
+                )
+            }
+            None => (
                 format!("Hand the wheel to {name} and ride along"),
-                |s: &mut Self, ctx| s.hand_over(ctx, TeamMode::RideAlong),
-            )
+                format!("Hand the wheel to {name} and sleep"),
+            ),
+        };
+        vec![
+            MenuItem::new(ride, |s: &mut Self, ctx| {
+                s.hand_over(ctx, TeamMode::RideAlong)
+            })
             .help(format!(
                 "{who} You rest in the sleeper and hear the road. {terms}"
             )),
-            MenuItem::new(
-                format!("Hand the wheel to {name} and sleep"),
-                |s: &mut Self, ctx| s.hand_over(ctx, TeamMode::SleepThrough),
-            )
+            MenuItem::new(sleep, |s: &mut Self, ctx| {
+                s.hand_over(ctx, TeamMode::SleepThrough)
+            })
             .help(format!(
                 "{who} You wake when {name} needs you, with a summary of the drive. {terms}"
             )),

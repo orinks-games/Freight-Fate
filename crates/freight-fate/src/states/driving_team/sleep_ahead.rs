@@ -12,6 +12,7 @@
 
 use ff_core::models::co_driver;
 use ff_core::sim::hos::{self, HosClock};
+use ff_core::sim::team_shift::TeamShiftEvent;
 use ff_core::sim::trip_models::RoadStop;
 
 use crate::app::{GameContext, TRANSCRIPT_TARGET};
@@ -37,9 +38,6 @@ const CRUISE_SHARE: f64 = 0.96;
 const FLOOR_MPH: f64 = 25.0;
 /// The pace of the origin's streets, lights and corners included.
 const STREET_MPH: f64 = 18.0;
-/// The pace the co-driver's last minutes of driving are judged at when
-/// they look for a lot to end the shift in.
-const SHIFT_END_MPH: f64 = 55.0;
 /// Stops served in one go, at most: a guard, far above any real shift.
 const MAX_STOPS: usize = 40;
 
@@ -182,7 +180,7 @@ impl DrivingState {
                 || rest_in_min.is_some_and(|rest| minutes >= rest)
                 || (!last_lot_due_at_start
                     && self
-                        .last_lot_ahead(ctx, &hos, rest_left.map(|rest| rest - minutes), mile)
+                        .hours_end_lot(ctx, &hos, rest_left.map(|rest| rest - minutes), mile)
                         .is_some());
             if stop_at_need && due {
                 break;
@@ -269,12 +267,11 @@ impl DrivingState {
     /// `last_lot`: the last lot the co-driver's hours reach, with the
     /// player's rest still to come.
     fn sleep_park_for_shift_end(&mut self, ctx: &mut GameContext, stop: &RoadStop, last_lot: bool) {
-        let hours_up = co_driver::shift_over(hos_of(ctx), &ctx.settings.hos_mode);
-        if let Some(wheel) = self.team.as_mut().and_then(|team| team.wheel.as_mut()) {
-            wheel.pilot.shift_over = true;
-            wheel.pilot.rested = !hours_up && !last_lot;
-            wheel.pilot.last_lot = last_lot;
-        }
+        self.team_shift_event(if last_lot {
+            TeamShiftEvent::LastLotInReach
+        } else {
+            TeamShiftEvent::RestIn
+        });
         self.trip.position_mi = stop.at_mi;
         self.settle_enforcement_at(stop.at_mi);
         self.lane.recentre(0);
@@ -302,9 +299,11 @@ impl DrivingState {
             )
     }
 
-    /// The stop the co-driver makes for, short of `limit`. The shift's end
-    /// is wherever their hours reach: the first lot with room, or the last
-    /// stop before the hours run out when every lot is full.
+    /// The stop the co-driver makes for, short of `limit`. The shift's end,
+    /// once the player's rest is in, is wherever their hours reach, less the
+    /// lead they keep in hand: the first lot with room, or the last stop in
+    /// reach when every lot is full. Short of hours, nothing is in reach and
+    /// the live drive stops on the shoulder.
     fn sleep_stop_for(
         &self,
         ctx: &GameContext,
@@ -312,15 +311,7 @@ impl DrivingState {
         limit: f64,
     ) -> Option<RoadStop> {
         let here = self.trip.position_mi;
-        let reach = match purpose {
-            StopPurpose::ShiftEnd => {
-                let left_min = hos_of(ctx)
-                    .remaining_min(&ctx.settings.hos_mode)
-                    .unwrap_or(0.0);
-                left_min.max(0.0) / 60.0 * SHIFT_END_MPH
-            }
-            _ => self.co_driver_reach_mi(ctx, purpose),
-        };
+        let reach = self.co_driver_reach_mi(ctx, purpose);
         let stops: Vec<&RoadStop> = self
             .co_driver_stops(purpose, here)
             .into_iter()

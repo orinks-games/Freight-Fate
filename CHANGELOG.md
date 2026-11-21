@@ -38,6 +38,8 @@
 
 ### Fixed
 
+- **A co-driver no longer drives past their hours.** They park or pull onto the shoulder first, and the hand-over rows say how long they can drive.
+
 - **SAPI and Windows OneCore voices play on your default sound device again.** With several devices connected, they could come out of another one, such as a TV.
 
 - **A controller button name that starts a sentence now starts with a capital letter.** For example, "Air ready. Right bumper plus Y releases the parking brake."

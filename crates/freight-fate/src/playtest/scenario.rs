@@ -23,9 +23,56 @@ use ff_core::models::profile::Profile;
 use ff_core::playtest_levers::{apply_city, apply_clock, resolve_city_forgiving};
 use ff_core::pyfmt::fmt_grouped;
 use ff_core::sim::alertness::Alertness;
+use ff_core::sim::hos::HosClock;
 use ff_core::sim::vehicle::TruckState;
 
 use crate::app::GameContext;
+
+/// The co-driver's logbook counters, in game minutes. `None` leaves that
+/// counter as it is.
+#[derive(Debug, Clone, Copy, Default, PartialEq)]
+pub struct CoDriverHos {
+    pub driving_min: Option<f64>,
+    pub duty_min: Option<f64>,
+    pub since_break_min: Option<f64>,
+    /// Unbroken rest so far, in the sleeper, toward their 10 hours.
+    pub rest_min: Option<f64>,
+}
+
+impl CoDriverHos {
+    /// True when no counter was asked for.
+    pub fn is_empty(&self) -> bool {
+        *self == CoDriverHos::default()
+    }
+
+    /// Put the counters on the co-driver's logbook.
+    pub fn apply(&self, hos: &mut HosClock) {
+        if let Some(minutes) = self.driving_min {
+            hos.driving_min = minutes;
+        }
+        if let Some(minutes) = self.duty_min {
+            hos.duty_min = minutes;
+        }
+        if let Some(minutes) = self.since_break_min {
+            hos.since_break_min = minutes;
+        }
+        if let Some(minutes) = self.rest_min {
+            hos.off_duty_min = minutes;
+            hos.non_driving_min = minutes;
+            hos.status = "sleeper_berth".to_string();
+        }
+    }
+
+    /// What the counters are now, for the agent to hear back.
+    fn note(&self, hos: &HosClock) -> String {
+        let left = ff_core::models::co_driver::shift_left_min(hos, "realistic").unwrap_or(0.0);
+        format!(
+            "Co-driver's logbook: {:.0} minutes driven, {:.0} on duty, {:.0} since a break, \
+             {:.0} of rest; {left:.0} minutes of driving left on Realistic hours.",
+            hos.driving_min, hos.duty_min, hos.since_break_min, hos.off_duty_min
+        )
+    }
+}
 
 /// The situation asked for. `None` leaves that part of the career alone.
 #[derive(Debug, Clone, Default, PartialEq)]
@@ -68,6 +115,10 @@ pub struct Scenario {
     pub hos_driving_min: Option<f64>,
     pub hos_duty_min: Option<f64>,
     pub hos_since_break_min: Option<f64>,
+    /// The co-driver's own logbook counters, the way the `hos_` ones stage
+    /// the player's: put on the load in progress if it has a co-driver, and
+    /// on the next co-driver paired otherwise.
+    pub co_driver_hos: CoDriverHos,
     /// Drop any load in progress so the career is parked at the terminal.
     pub clear_load: bool,
     pub market_seed: Option<i64>,
@@ -200,7 +251,15 @@ impl Scenario {
                 }
             }
         }
-        for key in ["hos_driving_min", "hos_duty_min", "hos_since_break_min"] {
+        for key in [
+            "hos_driving_min",
+            "hos_duty_min",
+            "hos_since_break_min",
+            "co_driver_driving_min",
+            "co_driver_duty_min",
+            "co_driver_since_break_min",
+            "co_driver_rest_min",
+        ] {
             if let Some(minutes) = number(args, key)? {
                 if minutes < 0.0 {
                     return Err(format!("{key} must be zero or more"));
@@ -251,6 +310,12 @@ impl Scenario {
             hos_driving_min: number(args, "hos_driving_min")?,
             hos_duty_min: number(args, "hos_duty_min")?,
             hos_since_break_min: number(args, "hos_since_break_min")?,
+            co_driver_hos: CoDriverHos {
+                driving_min: number(args, "co_driver_driving_min")?,
+                duty_min: number(args, "co_driver_duty_min")?,
+                since_break_min: number(args, "co_driver_since_break_min")?,
+                rest_min: number(args, "co_driver_rest_min")?,
+            },
             clear_load: args
                 .get("clear_load")
                 .and_then(Value::as_bool)
@@ -268,6 +333,27 @@ impl Scenario {
     pub fn is_empty(&self) -> bool {
         *self == Scenario::default()
     }
+}
+
+/// Put the co-driver's counters on the load in progress, when it has a
+/// co-driver: the snapshot always holds their logbook as the one off the
+/// wheel, so the resumed drive starts with it. None when the load in
+/// progress has no co-driver, or there is none.
+fn stage_co_driver_hos(p: &mut Profile, staged: &CoDriverHos) -> Option<String> {
+    let team = p
+        .active_trip
+        .as_mut()
+        .and_then(|trip| trip.get_mut("team"))
+        .and_then(Value::as_object_mut);
+    let team = team?;
+    let mut hos = team
+        .get("co_driver_hos")
+        .map(HosClock::from_dict)
+        .unwrap_or_default();
+    staged.apply(&mut hos);
+    let note = staged.note(&hos);
+    team.insert("co_driver_hos".to_string(), hos.to_dict());
+    Some(note)
 }
 
 /// A career to stage on when none is loaded: a bench career, one delivery
@@ -289,6 +375,7 @@ fn fresh_career(world: &World, scenario: &Scenario) -> Result<Profile, String> {
 /// sentence per part, for the agent to hear back.
 pub fn apply(ctx: &mut GameContext, scenario: &Scenario) -> Result<Vec<String>, String> {
     let mut notes: Vec<String> = Vec::new();
+    let mut pending_co_driver = None;
     let world = ctx.world;
     if ctx.profile.is_none() {
         ctx.profile = Some(fresh_career(world, scenario)?);
@@ -441,8 +528,24 @@ pub fn apply(ctx: &mut GameContext, scenario: &Scenario) -> Result<Vec<String>, 
                 world.spoken_city(&from, Some(true))
             ));
         }
+        if !scenario.co_driver_hos.is_empty() {
+            match stage_co_driver_hos(p, &scenario.co_driver_hos) {
+                Some(note) => notes.push(note),
+                None => {
+                    pending_co_driver = Some(scenario.co_driver_hos);
+                    notes.push(
+                        "The co-driver's logbook counters go on the next co-driver paired for \
+                         a load."
+                            .to_string(),
+                    );
+                }
+            }
+        }
         // Whatever the board showed before, it shows the new situation now.
         p.dispatch_board_cache = None;
+    }
+    if pending_co_driver.is_some() {
+        ctx.playtest_co_driver_hos = pending_co_driver;
     }
     if let Some(hour) = scenario.hour {
         notes.extend(apply_clock(ctx, hour));

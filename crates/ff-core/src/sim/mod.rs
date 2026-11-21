@@ -29,6 +29,7 @@ pub mod runaway;
 pub mod season;
 pub mod stimulant;
 pub mod surge;
+pub mod team_shift;
 pub mod timezones;
 pub mod touch_clutch;
 pub mod traffic_manager;
