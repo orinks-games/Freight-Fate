@@ -33071,6 +33071,12 @@ msgstr ""
 
 #: crates/freight-fate/src/states/driving_menu_states/status.rs
 msgid ""
+"Up and down review the lines. Enter repeats a line, or tunes a station "
+"line. Escape goes back."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_menu_states/status.rs
+msgid ""
 "Up and down review the lines. Enter repeats a line. Escape goes back."
 msgstr ""
 
@@ -33365,6 +33371,14 @@ msgstr ""
 
 #: crates/freight-fate/src/states/driving_menu_states/status.rs crates/freight-fate/src/states/driving_radio_app.rs
 msgid "Your saved stations. Double tap one to tune it."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_menu_states/status.rs crates/freight-fate/src/states/driving_radio_app.rs
+msgid "Enter tunes this station."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_menu_states/status.rs crates/freight-fate/src/states/driving_radio_app.rs
+msgid "Double tap tunes this station."
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_menu_states/status.rs
@@ -34083,14 +34097,6 @@ msgstr ""
 #. placeholders: {display_name}
 #: crates/freight-fate/src/states/driving_radio_app.rs
 msgid "{display_name} is out of range here."
-msgstr ""
-
-#: crates/freight-fate/src/states/driving_radio_app.rs
-msgid "Enter tunes this station."
-msgstr ""
-
-#: crates/freight-fate/src/states/driving_radio_app.rs
-msgid "Double tap tunes this station."
 msgstr ""
 
 #. one sentence of a longer line

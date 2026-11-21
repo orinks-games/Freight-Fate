@@ -775,7 +775,7 @@ Use a readout hotkey for a quick check of fuel or time left. Press Tab, or the r
 | Route | Review your progress on the current route. |
 | Driver | Driver name, money, load, objective, truck fuel and damage, transmission, fatigue, hours, and deadline. |
 | Map | Route cities, highways, progress, next guidance, upcoming stops, map points, and toll exposure. |
-| Radio | Current station, stream-safety state, approximate reception position, and the stations you can tune here: every Freight Fate station, your playlists and favorites, and stations in range, with a count of the rest, which the Radio app lists. |
+| Radio | Current station, stream-safety state, approximate reception position, and the stations you can tune here: every Freight Fate station, your playlists and favorites, and stations in range, with a count of the rest, which the Radio app lists. Enter on a station tunes it. |
 | Driver apps | A tablet-style app menu for Radio, Navigation, Weather, Traffic, Truck stops, Road chatter, and ELD. |
 | Driving commands | Every driving command by name. Choose one to run it and return to the road. This is how a controller reaches the commands with no button of their own. |
 

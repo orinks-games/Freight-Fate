@@ -541,6 +541,16 @@ impl RadioState {
         &mut self,
         distance_text: Option<&dyn Fn(f64) -> String>,
     ) -> (Vec<String>, usize) {
+        let (rows, more) = self.station_list_rows(distance_text);
+        (rows.into_iter().map(|(_, line)| line).collect(), more)
+    }
+
+    /// [`RadioState::station_list_lines`] with each line's station id, so
+    /// the Tab radio screen can tune the station a row names.
+    pub fn station_list_rows(
+        &mut self,
+        distance_text: Option<&dyn Fn(f64) -> String>,
+    ) -> (Vec<(String, String)>, usize) {
         let current_id = self.current_station().id;
         let (local, elsewhere): (Vec<RadioReception>, Vec<RadioReception>) = self
             .receivable_stations()
@@ -562,13 +572,14 @@ impl RadioState {
                 };
                 distance = format!(", {spoken} away");
             }
-            lines.push(format!(
+            let line = format!(
                 "{selected}{}: {}, {}{distance}. Source: {}.",
                 station.display_name(),
                 station.format,
                 reception.signal_label(),
                 station.source
-            ));
+            );
+            lines.push((station.id.clone(), line));
         }
         (lines, elsewhere.len())
     }
