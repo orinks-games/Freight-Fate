@@ -28,8 +28,9 @@ use ff_core::models::trailers::{
 };
 use ff_core::playtest_levers::forced_dispatch_destination;
 use ff_core::pyfmt::{fmt_f, fmt_grouped};
+use ff_core::sim::chain_control::{posted_level, RoadReading};
 use ff_core::sim::hos::limits;
-use ff_core::sim::real_weather_alerts::{alerts_chain_law_level, warm_route_alerts};
+use ff_core::sim::real_weather_alerts::{alerts_raise_chain_law, warm_route_alerts};
 use ff_core::sim::trip::{Trip, TripOptions};
 use ff_core::sim::trip_models::{rig_must_chain, ChainCorridorAhead, CHAIN_LAW_LEAD_MI};
 use ff_core::sim::vehicle::TruckState;
@@ -291,22 +292,22 @@ fn posted_chain_law_on_route(ctx: &mut GameContext, trip: &Trip) -> Option<Chain
         let Some(city) = world.cities.get(key) else {
             return 0;
         };
-        let alert_level = alerts
+        let alert_raises = alerts
             .as_ref()
             .and_then(|a| a.get(city.lat, city.lon))
-            .map_or(0, |found| alerts_chain_law_level(&found));
+            .is_some_and(|found| alerts_raise_chain_law(&found));
         let (lat, lon) = (city.lat, city.lon);
         let observed = ctx.real_weather_provider().and_then(|provider| {
             // Keyed as the pickup's route weather is (`city_pickup`).
             provider.request(key, lat, lon);
             provider.get(key)
         });
-        let weather_level = match observed.map(|kind| effects(kind).surface) {
-            Some("ice") => 2,
-            Some("snow") => 1,
-            _ => 0,
-        };
-        alert_level.max(weather_level)
+        // The law follows the road: only observed snow or ice posts one,
+        // and a warning only raises it (`chain_control::posted_level`).
+        posted_level(RoadReading {
+            surface: observed.map_or("dry", |kind| effects(kind).surface),
+            alert_raises,
+        })
     };
     let areas = trip.chain_corridor_areas(0.0, trip.route.miles(), |_, _| true);
     for area in areas {

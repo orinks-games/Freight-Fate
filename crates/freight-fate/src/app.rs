@@ -282,6 +282,9 @@ pub struct DrivingObservation {
     /// The structure the pavement layer puts under the truck, with its
     /// length in miles.
     pub structure: Option<(ff_core::data::pavement::StructureKind, f64)>,
+    /// The chain law posted at the truck, and the chains against the road.
+    pub chain_control: ff_core::sim::chain_control::ChainControl,
+    pub chains: ff_core::sim::chain_control::ChainSet,
 }
 
 /// The only capability a windowed input policy receives for one frame.
@@ -455,6 +458,33 @@ impl PlayerInputFrame<'_> {
              for the call.",
             drive.trip.position_mi
         ))
+    }
+
+    /// The agent server's `weather` tool, and `start_at`'s `weather` field:
+    /// force the simulated sky (or free it with `None`) on every drive
+    /// staged from here on, and on the drive under way when there is one,
+    /// paused or not.
+    pub fn force_weather(&mut self, kind: Option<ff_core::sim::weather::WeatherKind>) -> String {
+        self.app.ctx.playtest_weather = Some(kind);
+        let mut live = false;
+        for state in self.app.states() {
+            let mut state = state.borrow_mut();
+            if let Some(drive) = state
+                .as_any_mut()
+                .downcast_mut::<crate::states::driving::DrivingState>()
+            {
+                drive.trip.weather.forced = kind;
+                live = true;
+            }
+        }
+        let sky = kind.map_or("a free sky".to_string(), |kind| {
+            format!("forced {}", kind.value())
+        });
+        if live {
+            format!("The drive under way, and drives staged after it, run under {sky}.")
+        } else {
+            format!("Drives staged from here on run under {sky}.")
+        }
     }
 
     /// The agent server's `nod` tool: open a nod-off's reaction window on
@@ -919,6 +949,8 @@ impl App {
             water: drive.outside.water,
             road_surface: drive.road_texture.surface,
             structure: drive.trip.structure_at_mile(drive.trip.position_mi),
+            chain_control: drive.trip.chain_control,
+            chains: drive.chain_set,
         })
     }
 

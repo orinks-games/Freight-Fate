@@ -88,6 +88,7 @@ fn scenario_properties() -> Value {
         "fuel_pct": {"type": "number"},
         "window": {"type": "string", "enum": ["up", "down"]},
         "road_surface": {"type": "string", "enum": ["jointed", "smooth"]},
+        "weather": {"type": "string", "description": "the simulated sky every drive starts under, forced: snow, ice, cloudy, clear, rain, heavy_rain, thunderstorm, fog or wind; free unlocks it"},
         "damage_pct": {"type": "number"},
         "tire_wear_pct": {"type": "number"},
         "brake_wear_pct": {"type": "number"},
@@ -267,7 +268,9 @@ fn tools_list() -> Value {
              double tap answers: none, exit, pull_over or arrival) and touch_clutch \
              (out, shifting, or neutral once it has taken neutral for an engine \
              lugging in a tall gear: the clutch a touch shift works in a manual \
-             truck). \
+             truck), chain_control (clear, level_1 or level_2: the chain law posted \
+             at the truck, which follows snow or ice on the road) and chains \
+             (stowed, on_snow, on_bare or broken). \
              Off the wheel the \
              STATE line carries touch_mode alone. A SPEECH line follows it \
              everywhere: main_backend (the saved Main voice choice, automatic \
@@ -325,6 +328,7 @@ fn tools_list() -> Value {
                 "unit_ahead_mi": {"type": "number", "description": "how far up the road the planted unit sits, default 3"},
                 "hour": {"type": "number", "description": "the drive's clock at the start, 0 to 24, default 9"},
                 "lead_mi": {"type": "number", "description": "miles before the feature to start, default the finder's own"},
+                "weather": {"type": "string", "description": "force the simulated sky for this and later drives: snow, ice, cloudy, clear, rain, heavy_rain, thunderstorm, fog or wind; free unlocks it"},
             }),
             &["feature"],
         ),
@@ -374,6 +378,18 @@ fn tools_list() -> Value {
                 "name": {"type": "string", "description": "the hazard's spoken name, with or without \"the\""},
             }),
             &["name"],
+        ),
+        tool(
+            "weather",
+            "Force the simulated sky on the drive under way, and on every drive staged \
+             after it: snow, ice, cloudy, clear, rain, heavy_rain, thunderstorm, fog or \
+             wind, or free to unlock it. The change lands on the next frame the way the \
+             sky changes on its own: the weather line, the road surface, and the chain \
+             law that follows the road.",
+            json!({
+                "kind": {"type": "string", "description": "a condition, or free"},
+            }),
+            &["kind"],
         ),
         tool(
             "nod",
@@ -797,11 +813,17 @@ pub fn build_command(name: &str, args: &Map<String, Value>) -> Result<Command, S
             if hour.is_some() {
                 opts.hour = hour;
             }
+            let weather = args
+                .get("weather")
+                .and_then(Value::as_str)
+                .map(crate::playtest::scenario::parse_weather)
+                .transpose()?;
             Ok(Command::StageHit {
                 hit: Box::new(hit),
                 found,
                 picked,
                 opts: Box::new(opts),
+                weather,
             })
         }
         "scenario" => crate::playtest::scenario::Scenario::from_json(args)
@@ -813,6 +835,12 @@ pub fn build_command(name: &str, args: &Map<String, Value>) -> Result<Command, S
             _ => Err("hazard needs name: the hazard's spoken name".to_string()),
         },
         "nod" => Ok(Command::Nod),
+        "weather" => match args.get("kind").and_then(Value::as_str) {
+            Some(kind) => {
+                crate::playtest::scenario::parse_weather(kind).map(|kind| Command::Weather { kind })
+            }
+            None => Err("weather needs kind: a condition, or free".to_string()),
+        },
         "operator_keys" => match args.get("live").and_then(Value::as_bool) {
             Some(live) => Ok(Command::OperatorKeys { live }),
             None => Err("operator_keys needs live: true or false".to_string()),

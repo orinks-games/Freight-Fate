@@ -560,11 +560,11 @@ Snow, ice, and freezing rain leave you less grip, particularly on worn tires. St
 | Equipment | What it does |
 | --- | --- |
 | Winter tires | A fresh set in a winter compound. Better grip on snow and ice all season, no speed penalty, normal wear. Company drivers ride on whatever the carrier specs. |
-| Snow chains | A set kept in the truck's side box until you hang them. Chains give the best grip on ice and packed snow, but demand chain speed, around 30 miles per hour, and they grind apart fast on bare pavement. Snapped chains are replaced at the garage. |
+| Snow chains | A set kept in the truck's side box until you hang them. Chains give the best grip on ice and packed snow, but demand chain speed, around 30 miles per hour, and they grind apart fast on a bare road. Snapped chains are replaced at the garage. |
 
-To fit or remove chains, stop and open the pause menu. The work counts on duty, and doing it in darkness takes longer and adds fatigue. Once they're fitted, keep near thirty miles per hour. Take them off when you reach bare pavement, before they break.
+To fit or remove chains, stop and open the pause menu. The work counts on duty, and doing it in darkness takes longer and adds fatigue. Once they're fitted, keep near thirty miles per hour. Take them off when you reach a bare road, before they break.
 
-Level 1 chain law accepts winter tires or chains. Level 2 requires chains on the drive axles. Ignoring the requirement brings a base citation of 580 dollars before multipliers.
+A chain law is posted only while snow or ice is on the road, on steep grades in California, Colorado, Idaho, Montana, Nevada, Oregon, Utah, Washington and Wyoming. You hear "Chain law lifted" when the road clears, and "Bare road" when chains are still on with no snow under them. Level 1 requires chains on your truck in California, Idaho, Montana, Nevada, Utah and Washington. Colorado and Oregon apply Level 1 to single-drive-axle trucks only, so yours passes without chains. Wyoming's Level 1 accepts winter tires or chains. Level 2 requires chains in every one of these states. Ignoring the requirement brings a base citation of 580 dollars before multipliers.
 
 ## Traffic and sharing the road
 

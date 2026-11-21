@@ -213,7 +213,7 @@ impl PauseMenuState {
                     ),
                     |s: &mut Self, ctx| s.remove_chains(ctx),
                 )
-                .help("Chains grind apart fast on bare pavement."),
+                .help("Chains grind apart fast on a bare road."),
             );
         } else if own_wheel
             && profile_of(ctx).chains_owned()
@@ -236,7 +236,7 @@ impl PauseMenuState {
                 .help(Label::dynamic(|_s: &Self, ctx| {
                     format!(
                         "Chains bite snow and ice. Keep under {} with chains on. Take them off \
-                         once the road is bare. In the dark, installing takes longer and more \
+                         on a bare road. In the dark, installing takes longer and more \
                          out of you.",
                         ctx.settings.speed_text(CHAIN_SAFE_MPH)
                     )

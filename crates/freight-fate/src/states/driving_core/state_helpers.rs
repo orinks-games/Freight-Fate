@@ -31,6 +31,23 @@ pub fn advance_rest_clock(
     duty_status: Option<&str>,
     note: &str,
 ) {
+    advance_clock(driving, ctx, minutes, duty_status, note, true);
+}
+
+/// `advance_rest_clock`, with the simulated sky's change timer moving with
+/// the clock (`sky_moves`) or held. Driving charges that timer in wall
+/// minutes, so a stop that bills it its full game minutes uses up most of a
+/// weather segment at once; putting chains on holds it, or the snow that
+/// posted the law often ended during the chain-up (player report,
+/// 2026-11-21). Live weather still polls either way.
+fn advance_clock(
+    driving: &mut DrivingState,
+    ctx: &mut GameContext,
+    minutes: f64,
+    duty_status: Option<&str>,
+    note: &str,
+    sky_moves: bool,
+) {
     let start_hour = driving.absolute_game_hour(ctx, None);
     driving
         .trip
@@ -38,7 +55,12 @@ pub fn advance_rest_clock(
         .burn_idle_fuel_over_game_time(minutes * 60.0);
     driving.trip.truck.advance_parked_time(minutes);
     driving.trip.game_minutes += minutes;
-    driving.trip.weather.update(minutes);
+    if sky_moves {
+        driving.trip.weather.update(minutes);
+    } else {
+        driving.trip.weather.update_paced(minutes, 0.0);
+    }
+    driving.trip.refresh_chain_control();
     // Whoever is off the wheel rests through the stop too.
     driving.team_menu_minutes(ctx, minutes);
     // While the co-driver works the stop, the player's own log reads the
@@ -82,6 +104,20 @@ pub fn advance_on_duty_clock(
 ) {
     accrue_on_duty_fatigue(driving, ctx, minutes);
     advance_rest_clock(driving, ctx, minutes, duty_status, note);
+    hos_mut_of(ctx).on_duty(minutes);
+}
+
+/// `advance_on_duty_clock` for putting chains on: the simulated sky holds
+/// (`advance_clock`).
+pub fn advance_on_duty_clock_holding_sky(
+    driving: &mut DrivingState,
+    ctx: &mut GameContext,
+    minutes: f64,
+    duty_status: Option<&str>,
+    note: &str,
+) {
+    accrue_on_duty_fatigue(driving, ctx, minutes);
+    advance_clock(driving, ctx, minutes, duty_status, note, false);
     hos_mut_of(ctx).on_duty(minutes);
 }
 

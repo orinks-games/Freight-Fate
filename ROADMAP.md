@@ -86,6 +86,7 @@ bookmarks usable.
 - [ ] (Found along the way) The terrain class reads at most 800 HPMS sections per leg, so a long leg is judged on whichever 800 the server returns first: Harrisburg to Pittsburgh across the Alleghenies reads level. Count every section in the leg's own corridor instead.
 - [x] (Found along the way) What the road is made of, and where it leaves the ground, is on the map (2026-11-20; the owner asked whether pavement data could make the planned road seams accurate). `cargo tools hpms-pavement` reads FHWA HPMS surface type and bridges, tunnels and causeways along every leg's archived road, each way; the road seams and bridge joints use it. Coverage and method: [November 20](#november-20-pavement-and-structures-from-hpms-found-along-the-way).
 - [x] (Found along the way) The road seams follow the pavement layer (2026-11-20): seams on jointed concrete by faulting class, softer ones on asphalt over jointed concrete, bridge joints at the ends of bridges and causeways of 0.05 mile and more, and the made-up stretches only where a leg has no reading. Detail: [November 20](#november-20-seams-and-joints-from-the-pavement-layer-found-along-the-way).
+- [x] (Found along the way) Chains broke on dry road under a chain law (player report, 2026-11-21: told to chain up under a cloudy sky, then the chains snapped and damaged the truck). A live Weather Service alert alone posted the law, a Winter Storm Watch included; putting chains on billed its 30 to 48 minutes to the simulated sky's change timer, which ended the snow during 18 to 38 percent of chain-ups (500 seeds each); and nothing said the law had lifted or the road was bare. Fixed 2026-11-21: a chain law follows the road. Detail: [November 21](#november-21-a-chain-law-follows-the-road-found-along-the-way).
 - [ ] (Found along the way) Tunnels do not quiet the birds and insects. At standard pacing a one-mile tunnel passes in under three seconds, shorter than the outside bed's three-second fade, so the bed would only dip. It needs a faster fade for tunnels, or a muffle like the closed window's.
 - [ ] (Found along the way) The Allegheny Mountain Tunnel on the Pennsylvania Turnpike has no structure row in HPMS 2020 (Blue Mountain, Kittatinny and Tuscarora do), so the pavement layer has no tunnel there.
 - [ ] (Found along the way) HPMS reports bridge-sized culverts as bridges, so the pavement layer's bridges include some culverts. The National Bridge Inventory could tell them apart.
@@ -4235,6 +4236,47 @@ holds the program's sound while it speaks. With the default device and the
 default communications device set to different devices, both voices played
 on the communications device before the patch and on the default device after
 it.
+
+### November 21 a chain law follows the road (Found along the way)
+
+A player in a chain-law state was told to chain up while the weather read
+cloudy; the chains then broke on dry ground and damaged the truck. All-season
+tires were not the cause: winter tires count only at Wyoming Level 1.
+
+- [x] The law follows the road. Snow on the road at the truck posts Level 1,
+      ice posts Level 2, and a bare road (dry or wet) posts nothing whatever
+      the alerts say; a blizzard, ice storm or freezing rain warning only
+      raises a posted Level 1 to 2, and a watch raises nothing. Real chain
+      controls are posted on road conditions (Caltrans R-1 to R-3; CDOT
+      posts Level 1 "when snow is covering any part of the traveled portion
+      of pavement on an ascending grade"). This retires the 2026-10-17 rule
+      that chains wore as on snow inside a posted control, since a posted
+      control now means snow or ice underfoot. The board's pre-acceptance
+      reminder reads the same rule.
+- [x] Two explicit state machines in `ff_core::sim::chain_control`:
+      `ChainControl` (the law: clear or posted at a level, moved only by
+      `Trip::refresh_chain_control`, which the frame, every stop that moves
+      the clock and every fresh read of the alerts call) and `ChainSet` (the
+      chains against the road: stowed, on snow, on bare road, broken; it owns
+      the half-mile bare-road run). `truck.chains_on` and the snap flag stay
+      the physics' inputs. The agent server's `status` reports both
+      (`chain_control`, `chains`), and `scenario`, `start_at` and a new
+      `weather` tool force the simulated sky.
+- [x] New lines: "Chain law lifted." when the law lifts for an area whose
+      sign was called (a truck held at the chain control hears the officer
+      instead), and "Bare road. Stop and take the chains off." after half a
+      mile of bare road with chains on, at quiet verbosity too. With Facility
+      stopping assistance on, "Bare road. Taking chains off, about N minutes
+      on duty." replaces the old chain-off line, inside a chain-law area or
+      out of one; "Leaving chains on. Another chain area in ..." is gone.
+- [x] Putting chains on holds the simulated sky's change timer (the timer
+      counts wall minutes while driving, and the install takes none); live
+      weather still polls. Before the fix, 500 seeded chain-ups starting ten
+      minutes into a snow segment ended the snow 92 times in a 30-minute
+      install and 187 times in a 48-minute one, most often to cloudy.
+- [x] The manual's "Level 1 chain law accepts winter tires or chains" was
+      wrong for every state but Wyoming; Winter driving now says which states
+      chain a truck at Level 1.
 
 ### November 20 pavement and structures from HPMS (Found along the way)
 

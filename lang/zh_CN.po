@@ -10542,6 +10542,18 @@ msgstr "驾驶室：驾驶侧车窗已降下，风扇中档，制冷"
 msgid "Cab: driver window down, fan high, air conditioning"
 msgstr "驾驶室：驾驶侧车窗已降下，风扇高档，制冷"
 
+msgid "snow"
+msgstr "雪"
+
+msgid "clear"
+msgstr "晴"
+
+msgid "stowed"
+msgstr ""
+
+msgid "broken"
+msgstr ""
+
 msgid "yield"
 msgstr "让行"
 
@@ -11129,9 +11141,6 @@ msgstr "flurr"
 msgid "frost"
 msgstr "frost"
 
-msgid "snow"
-msgstr "雪"
-
 msgid "wintry"
 msgstr "wintry"
 
@@ -11188,9 +11197,6 @@ msgstr "cloud"
 
 msgid "overcast"
 msgstr "overcast"
-
-msgid "clear"
-msgstr "晴"
 
 msgid "fair"
 msgstr "fair"
@@ -12492,6 +12498,9 @@ msgstr "厂区引道"
 
 msgid "destination approach"
 msgstr "目的地引道"
+
+msgid "Chain law lifted."
+msgstr ""
 
 msgid " Chain-up area on the right."
 msgstr "右侧是防滑链安装区。"
@@ -14247,6 +14256,21 @@ msgid ""
 "Staged {staged} at mile {position_mi}; it fires on the next rolling frame, "
 "so listen for the call."
 msgstr "已在{position_mi}英里处布置{staged}；下一个行驶帧触发，请留意播报。"
+
+msgid "a free sky"
+msgstr ""
+
+#. placeholders: {value}
+msgid "forced {value}"
+msgstr ""
+
+#. placeholders: {sky}
+msgid "The drive under way, and drives staged after it, run under {sky}."
+msgstr ""
+
+#. placeholders: {sky}
+msgid "Drives staged from here on run under {sky}."
+msgstr ""
 
 msgid "the co-driver has the wheel"
 msgstr "搭档司机正在驾驶"
@@ -18631,7 +18655,7 @@ msgid ""
 "A chain set is seven chains and two repair links. Four chains go on the "
 "drive tires and one on a trailer tire, the most any state here asks of a "
 "semi. The other two are spares. Put chains on from the pause menu once "
-"you're stopped in snow or ice. They wear out fast on bare pavement. Company "
+"you're stopped in snow or ice. They wear out fast on a bare road. Company "
 "drivers bill the carrier."
 msgstr ""
 "一套防滑链有七根链条和两个维修链节。四根装在驱动轮胎上，一根装在挂车轮胎上，这是这里任何州对半挂车要求的最多数量。另外两根备用。在冰雪路面停稳后，从暂停"
@@ -23564,6 +23588,9 @@ msgstr "时钟：{clock_text} {clock_zone_label}，{time_of_day}   疲劳：百�
 msgid "Billboard: {line}"
 msgstr "广告牌：{line}"
 
+msgid "Bare road. Stop and take the chains off."
+msgstr ""
+
 msgid "Come to a complete stop first."
 msgstr "先完全停下。"
 
@@ -23717,26 +23744,13 @@ msgstr "防滑链安装区。正在停车安装防滑链，大约占用{f}分钟
 msgid "Stopping to put chains on, about {f} minutes on duty."
 msgstr "正在停车安装防滑链，大约占用{f}分钟在岗时间。"
 
-#. placeholders: {distance_text}
 #. one sentence of a longer line
-msgid "Another chain area in {distance_text}."
-msgstr "{distance_text}后还有一个防滑链管制区。"
-
-#. one sentence of a longer line
-msgid "Leaving chains on."
-msgstr "暂不拆除防滑链。"
-
-#. placeholders: {distance_text}
-msgid "Leaving chains on. Another chain area in {distance_text}."
-msgstr "暂不拆除防滑链。{distance_text}后还有一个防滑链管制区。"
-
-#. one sentence of a longer line
-msgid "Chain-off area."
-msgstr "防滑链拆卸区。"
+msgid "Bare road."
+msgstr ""
 
 #. placeholders: {f}
-msgid "Chain-off area. Taking chains off, about {f} minutes on duty."
-msgstr "防滑链拆卸区。正在拆除防滑链，大约占用{f}分钟在岗时间。"
+msgid "Bare road. Taking chains off, about {f} minutes on duty."
+msgstr ""
 
 #. placeholders: {f}
 #. one sentence of a longer line
@@ -26749,7 +26763,7 @@ msgstr "{chain_repair_links} 左。"
 msgid "Remove snow chains: about {f} minutes"
 msgstr "卸下防滑链：大约{f}分钟"
 
-msgid "Chains grind apart fast on bare pavement."
+msgid "Chains grind apart fast on a bare road."
 msgstr "防滑链在干燥路面上磨损得很快。"
 
 #. one sentence of a longer line
@@ -26759,8 +26773,8 @@ msgstr "防滑链能在冰雪路面提供抓地力。"
 #. placeholders: {speed_text}
 msgid ""
 "Chains bite snow and ice. Keep under {speed_text} with chains on. Take them "
-"off once the road is bare. In the dark, installing takes longer and more "
-"out of you."
+"off on a bare road. In the dark, installing takes longer and more out of "
+"you."
 msgstr "防滑链能在冰雪路面提供抓地力。安装后车速须低于{speed_text}。驶上无冰雪路面后应拆除。夜间安装耗时更长，也更容易疲劳。"
 
 #. one sentence of a longer line
@@ -26773,7 +26787,7 @@ msgid "Keep under {speed_text} with chains on."
 msgstr "安装防滑链后车速须低于{speed_text}。"
 
 #. one sentence of a longer line
-msgid "Take them off once the road is bare."
+msgid "Take them off on a bare road."
 msgstr "驶上无冰雪路面后应拆除防滑链。"
 
 msgid "Wait for the chain law to lift"
@@ -35346,7 +35360,7 @@ msgstr ""
 msgid ""
 "Chain work uses on-duty time and adds fatigue, especially at night. Keep "
 "under chain speed, 30 miles per hour or 48 kilometers per hour, and remove "
-"chains on bare pavement before they break."
+"chains on a bare road before they break."
 msgstr ""
 "安装和维护防滑链会占用当班时间并增加疲劳，夜间尤其如此。安装后车速不得超过每小时30英里或每小时48公里；驶上无冰雪路面后应及时拆除，以免断裂。"
 
@@ -39048,6 +39062,21 @@ msgid ""
 "Hold the left bumper for a second layer of buttons. {pad_engine} controls "
 "the engine, {pad_fuel} reads fuel, and {pad_speed_limit} reads the limit."
 msgstr ""
+
+#~ msgid "Another chain area in {distance_text}."
+#~ msgstr "{distance_text}后还有一个防滑链管制区。"
+
+#~ msgid "Leaving chains on."
+#~ msgstr "暂不拆除防滑链。"
+
+#~ msgid "Leaving chains on. Another chain area in {distance_text}."
+#~ msgstr "暂不拆除防滑链。{distance_text}后还有一个防滑链管制区。"
+
+#~ msgid "Chain-off area."
+#~ msgstr "防滑链拆卸区。"
+
+#~ msgid "Chain-off area. Taking chains off, about {f} minutes on duty."
+#~ msgstr "防滑链拆卸区。正在拆除防滑链，大约占用{f}分钟在岗时间。"
 
 #~ msgid "{name} needs you back at the wheel."
 #~ msgstr "{name}需要你回来驾驶。"

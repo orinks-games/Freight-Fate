@@ -11850,6 +11850,18 @@ msgstr "Kabina: szyba kierowcy opuszczona, wentylator średnio, klimatyzacja"
 msgid "Cab: driver window down, fan high, air conditioning"
 msgstr "Kabina: szyba kierowcy opuszczona, wentylator wysoko, klimatyzacja"
 
+msgid "snow"
+msgstr "śnieg"
+
+msgid "clear"
+msgstr "bezchmurnie"
+
+msgid "stowed"
+msgstr ""
+
+msgid "broken"
+msgstr ""
+
 msgid "yield"
 msgstr "ustąp pierwszeństwa"
 
@@ -12455,9 +12467,6 @@ msgstr "flurr"
 msgid "frost"
 msgstr "frost"
 
-msgid "snow"
-msgstr "śnieg"
-
 msgid "wintry"
 msgstr "wintry"
 
@@ -12514,9 +12523,6 @@ msgstr "cloud"
 
 msgid "overcast"
 msgstr "overcast"
-
-msgid "clear"
-msgstr "bezchmurnie"
 
 msgid "fair"
 msgstr "fair"
@@ -13829,6 +13835,9 @@ msgstr "dojazd do zakładu"
 
 msgid "destination approach"
 msgstr "dojazd do celu"
+
+msgid "Chain law lifted."
+msgstr ""
 
 msgid " Chain-up area on the right."
 msgstr " Miejsce zakładania łańcuchów po prawej."
@@ -15798,6 +15807,21 @@ msgid ""
 msgstr ""
 "Ustawiono {staged} na mili {position_mi}; uruchomi się w następnej klatce "
 "jazdy, więc słuchaj komunikatu."
+
+msgid "a free sky"
+msgstr ""
+
+#. placeholders: {value}
+msgid "forced {value}"
+msgstr ""
+
+#. placeholders: {sky}
+msgid "The drive under way, and drives staged after it, run under {sky}."
+msgstr ""
+
+#. placeholders: {sky}
+msgid "Drives staged from here on run under {sky}."
+msgstr ""
 
 msgid "the co-driver has the wheel"
 msgstr "zmiennik prowadzi"
@@ -20695,7 +20719,7 @@ msgid ""
 "A chain set is seven chains and two repair links. Four chains go on the "
 "drive tires and one on a trailer tire, the most any state here asks of a "
 "semi. The other two are spares. Put chains on from the pause menu once "
-"you're stopped in snow or ice. They wear out fast on bare pavement. Company "
+"you're stopped in snow or ice. They wear out fast on a bare road. Company "
 "drivers bill the carrier."
 msgstr ""
 "Komplet łańcuchów to siedem łańcuchów i dwa ogniwa naprawcze. Cztery "
@@ -26273,6 +26297,9 @@ msgstr ""
 msgid "Billboard: {line}"
 msgstr "Billboard: {line}"
 
+msgid "Bare road. Stop and take the chains off."
+msgstr ""
+
 msgid "Come to a complete stop first."
 msgstr "Najpierw zatrzymaj się całkowicie."
 
@@ -26451,29 +26478,13 @@ msgstr ""
 "Zatrzymujesz się, żeby założyć łańcuchy, około {f} {f:minuty|minut|minut} "
 "służby."
 
-#. placeholders: {distance_text}
 #. one sentence of a longer line
-msgid "Another chain area in {distance_text}."
-msgstr "Kolejne miejsce łańcuchów za {distance_text}."
-
-#. one sentence of a longer line
-msgid "Leaving chains on."
-msgstr "Łańcuchy zostają założone."
-
-#. placeholders: {distance_text}
-msgid "Leaving chains on. Another chain area in {distance_text}."
+msgid "Bare road."
 msgstr ""
-"Łańcuchy zostają założone. Kolejne miejsce łańcuchów za {distance_text}."
-
-#. one sentence of a longer line
-msgid "Chain-off area."
-msgstr "Miejsce zdejmowania łańcuchów."
 
 #. placeholders: {f}
-msgid "Chain-off area. Taking chains off, about {f} minutes on duty."
+msgid "Bare road. Taking chains off, about {f} minutes on duty."
 msgstr ""
-"Miejsce zdejmowania łańcuchów. Zdejmujesz łańcuchy, około {f} "
-"{f:minuty|minut|minut} służby."
 
 #. placeholders: {f}
 #. one sentence of a longer line
@@ -29702,7 +29713,7 @@ msgstr "Zostało: {chain_repair_links}."
 msgid "Remove snow chains: about {f} minutes"
 msgstr "Zdejmij łańcuchy śniegowe: około {f} {f:minuty|minut|minut}"
 
-msgid "Chains grind apart fast on bare pavement."
+msgid "Chains grind apart fast on a bare road."
 msgstr "Łańcuchy szybko się ścierają na suchej nawierzchni."
 
 #. one sentence of a longer line
@@ -29712,8 +29723,8 @@ msgstr "Łańcuchy wgryzają się w śnieg i lód."
 #. placeholders: {speed_text}
 msgid ""
 "Chains bite snow and ice. Keep under {speed_text} with chains on. Take them "
-"off once the road is bare. In the dark, installing takes longer and more "
-"out of you."
+"off on a bare road. In the dark, installing takes longer and more out of "
+"you."
 msgstr ""
 "Łańcuchy wgryzają się w śnieg i lód. Na łańcuchach nie przekraczaj "
 "{speed_text}. Zdejmij je, gdy droga będzie czysta. Po ciemku zakładanie "
@@ -29729,7 +29740,7 @@ msgid "Keep under {speed_text} with chains on."
 msgstr "Na łańcuchach nie przekraczaj {speed_text}."
 
 #. one sentence of a longer line
-msgid "Take them off once the road is bare."
+msgid "Take them off on a bare road."
 msgstr "Zdejmij je, gdy droga będzie czysta."
 
 msgid "Wait for the chain law to lift"
@@ -39676,7 +39687,7 @@ msgstr ""
 msgid ""
 "Chain work uses on-duty time and adds fatigue, especially at night. Keep "
 "under chain speed, 30 miles per hour or 48 kilometers per hour, and remove "
-"chains on bare pavement before they break."
+"chains on a bare road before they break."
 msgstr ""
 "Praca przy łańcuchach zużywa czas służby i dokłada zmęczenia, zwłaszcza "
 "nocą. Nie przekraczaj prędkości na łańcuchach, 30 mil na godzinę, czyli 48 "
@@ -43905,6 +43916,24 @@ msgid ""
 "Hold the left bumper for a second layer of buttons. {pad_engine} controls "
 "the engine, {pad_fuel} reads fuel, and {pad_speed_limit} reads the limit."
 msgstr ""
+
+#~ msgid "Another chain area in {distance_text}."
+#~ msgstr "Kolejne miejsce łańcuchów za {distance_text}."
+
+#~ msgid "Leaving chains on."
+#~ msgstr "Łańcuchy zostają założone."
+
+#~ msgid "Leaving chains on. Another chain area in {distance_text}."
+#~ msgstr ""
+#~ "Łańcuchy zostają założone. Kolejne miejsce łańcuchów za {distance_text}."
+
+#~ msgid "Chain-off area."
+#~ msgstr "Miejsce zdejmowania łańcuchów."
+
+#~ msgid "Chain-off area. Taking chains off, about {f} minutes on duty."
+#~ msgstr ""
+#~ "Miejsce zdejmowania łańcuchów. Zdejmujesz łańcuchy, około {f} "
+#~ "{f:minuty|minut|minut} służby."
 
 #~ msgid "{name} needs you back at the wheel."
 #~ msgstr "{name} potrzebuje cię z powrotem za kierownicą."

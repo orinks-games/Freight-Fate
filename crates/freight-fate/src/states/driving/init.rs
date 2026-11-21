@@ -126,13 +126,19 @@ impl DrivingState {
             .city(&job.origin)
             .map(|city| city.region.clone())
             .unwrap_or_default();
-        let weather = WeatherSystem::new(
+        let mut weather = WeatherSystem::new(
             &region,
             Some(trip_seed),
             live_weather_provider(ctx),
             Some(profile_of(ctx).calendar_game_hours()),
             ctx.settings.live_weather_controls_calendar,
         );
+        if let Some(forced) = ctx.playtest_weather {
+            weather.forced = forced;
+            if let Some(kind) = forced {
+                weather.current = kind;
+            }
+        }
 
         let trip_start_hour = start_hour.unwrap_or_else(|| {
             if ctx.settings.time_scale == 1.0 {
@@ -421,8 +427,8 @@ impl DrivingState {
             chain_stop: None,
             chain_stop_brake: 0.0,
             chain_stop_areas_done: HashSet::new(),
-            chain_off_done: HashSet::new(),
-            chain_off_bare_from: None,
+            chain_set: Default::default(),
+            chain_bare_cue_pending: false,
             chain_assist_tighten_tried: false,
             chain_assist_snapped: false,
             curve_warned_mi: None,

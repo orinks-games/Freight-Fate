@@ -348,6 +348,7 @@ from the words, and synonyms cost them a re-read.
 | The held siren a driver hears when a trooper is pulling them over | Siren | siren loop, cop siren, alarm tone | `events/police_siren`, `states/driving_siren.py` |
 | Being pulled to the shoulder by one | pull-over | stop (already the POI, the act of stopping, and the command) | `_pull_over` |
 | The checkpoint watching for chain-law compliance on a graded climb | chain control | chain checkpoint, chain law stop, chain station | `EnforcementPost` (`KIND_CHAIN`), `REASON_BY_KIND` |
+| Pavement with no snow or ice on it: no chain law is posted there, and chains on it wear through | bare road ("Bare road.") | bare pavement, dry road, clear road | `chain_control::snow_or_ice`, `ChainSetCue::BareRoad` |
 | The inspection facility | weigh station; "the scale" in short cues | scale house, weigh point, chicken coop | `RoadStop(type="weigh_station")` |
 | The certified commercial scale on a truck stop's lot a driver pays to weigh on | CAT Scale; always named, never "the scale" | truck scale, Cat scale, public scale, weighbridge | `RoadStop.services` `scale`, `rest_stop/cat_scale.rs`, `tools/cat_scales.py` |
 | The printed result of a weigh, read aloud | CAT Scale ticket | weight ticket, scale ticket, weigh slip | `AxleLoads::ticket_text` |

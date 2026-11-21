@@ -38,6 +38,9 @@
 
 ### Fixed
 
+- **A chain law is now posted only with snow or ice on the road.** A winter weather alert alone no longer calls for chains.
+- **The game now says when a chain law lifts and when chains are on bare road.** Facility stopping assistance takes them off there.
+- **Simulated weather now holds while you put chains on.** The snow no longer ends during the work, leaving chains on bare road.
 - **A co-driver no longer drives past their hours.** They park or pull onto the shoulder first, and the hand-over rows say how long they can drive.
 
 - **SAPI and Windows OneCore voices play on your default sound device again.** With several devices connected, they could come out of another one, such as a TV.

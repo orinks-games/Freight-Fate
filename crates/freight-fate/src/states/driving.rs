@@ -327,10 +327,12 @@ pub struct DrivingState {
     /// Chain-law areas the chain-up stop has handled, declined or had
     /// cancelled: never retried.
     pub chain_stop_areas_done: HashSet<usize>,
-    /// The last chain-law area each chain-off decision was made after.
-    pub chain_off_done: HashSet<usize>,
-    /// Route mile the bare road began, past the last chain-law area.
-    pub chain_off_bare_from: Option<f64>,
+    /// The chains against the road (`ff_core::sim::chain_control`): owns
+    /// the bare-road run; `truck.chains_on` stays the physics' input.
+    pub chain_set: ff_core::sim::chain_control::ChainSet,
+    /// `ChainSet`'s bare-road cue, not yet answered by the line or by
+    /// facility stopping assistance.
+    pub chain_bare_cue_pending: bool,
     /// The slap tighten was offered once since the chains went on.
     pub chain_assist_tighten_tried: bool,
     /// A chain broke this drive and the assist hasn't answered it yet.

@@ -58,6 +58,11 @@ impl DrivingState {
         if self.limit_change_of_road_left(ctx, event) {
             return;
         }
+        if event.data.chain_law == Some(0) && self.chain_checkpoint_hold {
+            // Held at the chain control, the officer's own line says the
+            // law lifted.
+            return;
+        }
         if matches!(
             event.kind,
             TripEventKind::Billboard | TripEventKind::Landmark
