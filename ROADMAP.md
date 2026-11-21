@@ -4756,17 +4756,24 @@ remain planned or explicitly deferred.
       owner-operators a load-board view with each market's balance in
       words and lane rates that follow it.
 - [ ] **BLOCKER (2.0 tester release): orinks.net profile integrity export.**
-      The validator's exact save-field list must be updated from
-      `crates/ff-core/tests/profile_integrity_invariants.json` for the new
-      save fields `parked_facility`, `home_terminal_city`, `home_city`, and
-      `turnpike_program_notice_seen`, or cloud backups from 2.0 builds may
-      be rejected as a schema mismatch. Carrier slice 3 also grows
-      `carrierLabels` by 20 carriers (the regionals, Chatanika Freight Lines,
-      and the three locals), and a company driver no carrier near home would
-      take saves an empty `carrier_key` and `carrier_name`; the site must
-      accept both. The game-side export already includes these fields and
-      labels; deployment and acceptance by the site have not been verified
-      by this repository audit. Keep this gate open until that check passes.
+      Checked 2026-11-21: the site already accepted 2.0 backups (it stopped
+      demanding an exact field list in August), but a 2.0 public profile
+      lost its carrier and Alaska, BC and Yukon city names. Fixed on
+      orinks-net `dev`, not yet on production: the site keeps a second
+      export for 2.0
+      (`data/freight-fate-profile-invariants-career-2.json`, from this
+      branch's `profile_integrity_invariants.json`) and reads a save
+      stamped `created_line` "2.0" against it. Checked with the site's
+      tests and with real 2.0 saves written by this branch's `ff-core`: a
+      Chatanika Freight Lines driver in Fairbanks and a company driver with
+      an empty `carrier_key` and `carrier_name` both back up, list and
+      restore beside a same-name 1.9 slot, and the public profile names the
+      carrier and Alaska and Yukon cities; 1.9 saves read as before and do
+      not gain the livestock credential. Left: Orinks merges orinks-net
+      `dev` to `main` before the tester build ships, and one live backup
+      from a 2.0 build (the agent `--staging` site address still points at
+      the retired Vercel preview, and the current preview reads production
+      data). The public profile does not show the home terminal yet.
 
 - [ ] **A felony in a commercial vehicle carries its full 49 CFR 383.51
       weight.** Modelled today: running from a stop is a major offense
@@ -5517,8 +5524,9 @@ one-channel rule is in [October 26](#october-26-the-road-to-the-20-nightlies-fou
       suffix, such as `Road Star (Career 2)`, which 1.9 names cannot produce.
       Same-name 1.9 backups keep their own revisions and conflicts;
       both slots remain available for explicit restore into the local career.
-- [ ] The orinks.net profile export accepts the new fields and labels, on
-      the dev preview with the agent staging driver first.
+- [ ] The orinks.net profile export accepts the new fields and labels: done
+      on orinks-net `dev`, waiting on the merge to production and one live
+      2.0 backup (see the blocker above).
 - [ ] Curate the branch's ~110 unreleased changelog lines; the manual's
       hours-of-service and home-terminal pages. (`l10n-extract` ran with
       the sync.)
