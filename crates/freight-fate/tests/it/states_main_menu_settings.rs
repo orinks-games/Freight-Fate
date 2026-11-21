@@ -708,7 +708,6 @@ fn test_settings_menu_uses_category_submenus() {
             "Gameplay",
             "Audio",
             "Speech",
-            "Online",
             "Updates",
             "Problem reports",
             "Back",
