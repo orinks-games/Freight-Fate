@@ -284,7 +284,9 @@ impl Menu for UpdatePromptState {
                 .help("Download, then restart into the new version."),
             MenuItem::new("What's new", |s: &mut Self, ctx| s.whats_new(ctx))
                 .help("The changes in this update, line by line."),
-            MenuItem::new("Remind me later", |s: &mut Self, ctx| s.go_back(ctx)).help(
+            MenuItem::new("Remind me later", |s: &mut Self, ctx| s.go_back(ctx))
+                .goes_back()
+                .help(
                 "Ask again on returning to the main menu from a terminal or pickup facility, or the next time the game starts.",
             ),
             MenuItem::new("Skip this version", |s: &mut Self, ctx| s.skip(ctx))

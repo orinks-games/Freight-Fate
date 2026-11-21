@@ -11154,7 +11154,7 @@ msgstr ""
 msgid "shower"
 msgstr ""
 
-#: crates/ff-core/src/models/loyalty.rs crates/freight-fate/src/states/driving_core/constants.rs crates/freight-fate/src/states/driving_team/overlay.rs
+#: crates/ff-core/src/models/loyalty.rs crates/freight-fate/src/states/driving_core/constants.rs crates/freight-fate/src/states/driving_team/overlay.rs crates/freight-fate/src/states/driving_team/stop_work.rs
 msgid "parking"
 msgstr ""
 
@@ -18783,6 +18783,10 @@ msgstr ""
 msgid "Pause"
 msgstr ""
 
+#: crates/freight-fate/src/bindings/touch.rs crates/freight-fate/src/states/main_menu/touch_practice.rs
+msgid "Driving command list"
+msgstr ""
+
 #: crates/freight-fate/src/bindings/touch.rs
 msgid "Nothing"
 msgstr ""
@@ -20202,6 +20206,26 @@ msgid "Ready in {remaining} seconds."
 msgstr ""
 
 #: crates/freight-fate/src/states/base/menu.rs
+msgid "Back to "
+msgstr ""
+
+#: crates/freight-fate/src/states/base/menu.rs
+msgid "No, "
+msgstr ""
+
+#: crates/freight-fate/src/states/base/menu.rs
+msgid "Resume "
+msgstr ""
+
+#: crates/freight-fate/src/states/base/menu.rs
+msgid "Return to "
+msgstr ""
+
+#: crates/freight-fate/src/states/base/menu.rs crates/freight-fate/src/states/career_stats.rs crates/freight-fate/src/states/city/extras.rs crates/freight-fate/src/states/city/truck_status.rs
+msgid "Back"
+msgstr ""
+
+#: crates/freight-fate/src/states/base/menu.rs
 msgid "Enter selects, Escape goes back. Control stops the current speech."
 msgstr ""
 
@@ -20228,10 +20252,6 @@ msgstr ""
 
 #: crates/freight-fate/src/states/base/menu.rs crates/freight-fate/src/states/career_setback.rs
 msgid "Repeat this line."
-msgstr ""
-
-#: crates/freight-fate/src/states/base/menu.rs crates/freight-fate/src/states/career_stats.rs crates/freight-fate/src/states/city/extras.rs crates/freight-fate/src/states/city/truck_status.rs
-msgid "Back"
 msgstr ""
 
 #: crates/freight-fate/src/states/base/menu.rs crates/freight-fate/src/states/logbook.rs
@@ -32679,7 +32699,7 @@ msgstr ""
 msgid "Hours and clock"
 msgstr ""
 
-#: crates/freight-fate/src/states/driving_menu_states/commands.rs crates/freight-fate/src/states/driving_menu_states/status.rs
+#: crates/freight-fate/src/states/driving_menu_states/commands.rs crates/freight-fate/src/states/driving_menu_states/status.rs crates/freight-fate/src/states/driving_pause_states.rs
 msgid "Driving commands"
 msgstr ""
 
@@ -33376,14 +33396,6 @@ msgstr ""
 msgid "Every sound the road uses, and what each one means."
 msgstr ""
 
-#: crates/freight-fate/src/states/driving_pause_states.rs crates/freight-fate/src/states/main_menu/home.rs
-msgid "Practice keys and buttons"
-msgstr ""
-
-#: crates/freight-fate/src/states/driving_pause_states.rs crates/freight-fate/src/states/main_menu/home.rs
-msgid "Names what each key or controller button does while driving."
-msgstr ""
-
 #: crates/freight-fate/src/states/driving_pause_states.rs
 msgid ""
 "A mobile mechanic patches the truck up enough to drive on. Costs far more "
@@ -33530,6 +33542,10 @@ msgid ""
 "Poor sleep on the shoulder. Resets hours of service. Fatigue remains, "
 "possible ticket, possible minor truck damage, and the deadline keeps "
 "running."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_pause_states.rs
+msgid "Every driving command by name, in groups."
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_pause_states.rs
@@ -39961,6 +39977,22 @@ msgstr ""
 msgid "Left stick: steer."
 msgstr ""
 
+#: crates/freight-fate/src/states/main_menu/input_practice.rs crates/freight-fate/src/states/main_menu/touch_gestures.rs crates/freight-fate/src/states/main_menu/touch_practice.rs
+msgid "Practice gestures"
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu/input_practice.rs
+msgid "Names what each gesture does while driving."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu/input_practice.rs
+msgid "Practice keys and buttons"
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu/input_practice.rs
+msgid "Names what each key or controller button does while driving."
+msgstr ""
+
 #: crates/freight-fate/src/states/main_menu/input_practice.rs
 msgid "Change one lane left"
 msgstr ""
@@ -40095,6 +40127,47 @@ msgstr ""
 msgid ""
 "Key and button practice. Press a key or button to hear what it does while "
 "driving. Escape twice, or Start twice, to leave."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu/input_practice.rs
+msgid "Flick down with two fingers twice to leave."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu/input_practice.rs
+msgid "Escape twice within two seconds to leave."
+msgstr ""
+
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/main_menu/input_practice.rs
+msgid "A flick is one step."
+msgstr ""
+
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/main_menu/input_practice.rs
+msgid "A swipe and hold is continuous."
+msgstr ""
+
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/main_menu/input_practice.rs
+msgid "Gestures are named but do not control the truck."
+msgstr ""
+
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/main_menu/input_practice.rs
+msgid "Practice gestures."
+msgstr ""
+
+#. placeholders: {leave}
+#: crates/freight-fate/src/states/main_menu/input_practice.rs
+msgid ""
+"Practice gestures. A flick is one step. A swipe and hold is continuous. Try "
+"a flick up, then swipe up and hold. Gestures are named but do not control "
+"the truck. {leave}"
+msgstr ""
+
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/main_menu/input_practice.rs
+msgid "Try a flick up, then swipe up and hold."
 msgstr ""
 
 #: crates/freight-fate/src/states/main_menu/settings.rs
@@ -41933,10 +42006,6 @@ msgstr ""
 msgid "Deep swipe starts at: {touch_deep_swipe_points}"
 msgstr ""
 
-#: crates/freight-fate/src/states/main_menu/touch_gestures.rs crates/freight-fate/src/states/main_menu/touch_practice.rs
-msgid "Practice gestures"
-msgstr ""
-
 #: crates/freight-fate/src/states/main_menu/touch_gestures.rs
 msgid ""
 "Names each gesture and its current command without controlling the truck."
@@ -41969,6 +42038,14 @@ msgstr ""
 #. placeholders: {gesture_name}, {label}
 #: crates/freight-fate/src/states/main_menu/touch_gestures.rs
 msgid "{gesture_name} now runs {label}."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu/touch_practice.rs
+msgid "Leaving gesture practice."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu/touch_practice.rs
+msgid "Again to leave practice."
 msgstr ""
 
 #. one sentence of a longer line
@@ -42072,55 +42149,6 @@ msgid "Skip and start driving"
 msgstr ""
 
 #: crates/freight-fate/src/states/main_menu/touch_practice.rs
-msgid "Flick down with two fingers twice within two seconds to leave."
-msgstr ""
-
-#: crates/freight-fate/src/states/main_menu/touch_practice.rs
-msgid "Escape twice within two seconds to leave."
-msgstr ""
-
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/main_menu/touch_practice.rs
-msgid "A flick is one step."
-msgstr ""
-
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/main_menu/touch_practice.rs
-msgid "A swipe and hold is continuous."
-msgstr ""
-
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/main_menu/touch_practice.rs
-msgid "Gestures are named but do not control the truck."
-msgstr ""
-
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/main_menu/touch_practice.rs
-msgid "Practice gestures."
-msgstr ""
-
-#. placeholders: {leave}
-#: crates/freight-fate/src/states/main_menu/touch_practice.rs
-msgid ""
-"Practice gestures. A flick is one step. A swipe and hold is continuous. Try "
-"a flick up, then swipe up and hold. Gestures are named but do not control "
-"the truck. {leave}"
-msgstr ""
-
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/main_menu/touch_practice.rs
-msgid "Try a flick up, then swipe up and hold."
-msgstr ""
-
-#: crates/freight-fate/src/states/main_menu/touch_practice.rs
-msgid "Leaving gesture practice."
-msgstr ""
-
-#: crates/freight-fate/src/states/main_menu/touch_practice.rs
-msgid "Again to leave practice."
-msgstr ""
-
-#: crates/freight-fate/src/states/main_menu/touch_practice.rs
 msgid "Swipe up"
 msgstr ""
 
@@ -42190,10 +42218,6 @@ msgstr ""
 
 #: crates/freight-fate/src/states/main_menu/touch_practice.rs
 msgid "Next message"
-msgstr ""
-
-#: crates/freight-fate/src/states/main_menu/touch_practice.rs
-msgid "Driving command list"
 msgstr ""
 
 #: crates/freight-fate/src/states/main_menu/touch_practice.rs

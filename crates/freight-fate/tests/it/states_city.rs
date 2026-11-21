@@ -36,7 +36,7 @@ use freight_fate::states::driving_pause_states::{
     AbandonJobConfirmationState, PauseMenuState, ASSIGNED_REPOSITION_ABANDON_REPUTATION_PENALTY,
 };
 use freight_fate::states::main_menu::{
-    ConfirmQuitState, MainMenuState, TouchPracticeOfferState, TouchPracticeState,
+    ConfirmQuitState, InputPracticeState, MainMenuState, TouchPracticeOfferState,
 };
 use serde_json::{json, Map, Value};
 
@@ -401,7 +401,7 @@ fn touch_practice_offer_practice_and_skip_leave_the_driver_in_the_right_state() 
     assert!(is::<TouchPracticeOfferState>(&app));
 
     app.dispatch_gesture(freight_fate::touch::Gesture::DoubleTap);
-    assert!(is::<TouchPracticeState>(&app));
+    assert!(is::<InputPracticeState>(&app));
 
     app.pop_state();
     assert!(is::<DrivingState>(&app));

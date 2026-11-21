@@ -16646,6 +16646,9 @@ msgstr "hoặc"
 msgid "Pause"
 msgstr "Tạm dừng"
 
+msgid "Driving command list"
+msgstr "Danh sách lệnh lái xe"
+
 msgid "Nothing"
 msgstr "Không gán"
 
@@ -17869,6 +17872,21 @@ msgstr " Có {hidden} {plural} mới hơn ngoài bộ lọc này."
 msgid "Ready in {remaining} seconds."
 msgstr "Sẵn sàng sau {remaining} giây."
 
+msgid "Back to "
+msgstr ""
+
+msgid "No, "
+msgstr ""
+
+msgid "Resume "
+msgstr ""
+
+msgid "Return to "
+msgstr ""
+
+msgid "Back"
+msgstr "Quay lại"
+
 msgid "Enter selects, Escape goes back. Control stops the current speech."
 msgstr ""
 "Nhấn Enter để chọn, Escape để quay lại. Nhấn Control để ngắt giọng đọc đang "
@@ -17895,9 +17913,6 @@ msgstr "{position} trên {count}."
 
 msgid "Repeat this line."
 msgstr "Đọc lại dòng này."
-
-msgid "Back"
-msgstr "Quay lại"
 
 msgid "Return to the previous menu."
 msgstr "Quay về menu trước."
@@ -29563,12 +29578,6 @@ msgstr "Làm quen âm thanh trong game"
 msgid "Every sound the road uses, and what each one means."
 msgstr "Toàn bộ âm thanh trên đường và ý nghĩa của từng âm thanh."
 
-msgid "Practice keys and buttons"
-msgstr "Tập bấm phím và nút"
-
-msgid "Names what each key or controller button does while driving."
-msgstr "Đọc tên chức năng của từng phím hoặc nút tay cầm khi đang lái."
-
 msgid ""
 "A mobile mechanic patches the truck up enough to drive on. Costs far more "
 "than a garage, an hour and a half, and billed even into debt."
@@ -29711,6 +29720,9 @@ msgstr ""
 "Ngủ tạm bợ trên lề đường. Đặt lại giờ lái quy định. Độ mệt mỏi vẫn còn, có "
 "thể bị lập biên bản phạt, có thể hư hại nhẹ xe đầu kéo, và hạn giao hàng "
 "vẫn tiếp tục trôi."
+
+msgid "Every driving command by name, in groups."
+msgstr ""
 
 msgid "Emergency shoulder sleep is not available."
 msgstr "Hiện không thể ngủ khẩn cấp trên lề đường."
@@ -35554,6 +35566,18 @@ msgstr "Cần trái: gạt trái hoặc phải để chuyển một làn."
 msgid "Left stick: steer."
 msgstr "Cần trái: đánh lái."
 
+msgid "Practice gestures"
+msgstr "Luyện tập cử chỉ"
+
+msgid "Names what each gesture does while driving."
+msgstr ""
+
+msgid "Practice keys and buttons"
+msgstr "Tập bấm phím và nút"
+
+msgid "Names what each key or controller button does while driving."
+msgstr "Đọc tên chức năng của từng phím hoặc nút tay cầm khi đang lái."
+
 msgid "Change one lane left"
 msgstr "Chuyển sang trái một làn"
 
@@ -35658,6 +35682,42 @@ msgid ""
 msgstr ""
 "Luyện tập phím và nút. Nhấn một phím hoặc nút bất kỳ để nghe tác dụng của "
 "nó khi lái xe. Nhấn Escape hai lần, hoặc Start hai lần để thoát."
+
+msgid "Flick down with two fingers twice to leave."
+msgstr ""
+
+msgid "Escape twice within two seconds to leave."
+msgstr "Nhấn Escape hai lần trong vòng hai giây để thoát."
+
+#. one sentence of a longer line
+msgid "A flick is one step."
+msgstr "Hất nhẹ là đi một nấc."
+
+#. one sentence of a longer line
+msgid "A swipe and hold is continuous."
+msgstr "Vuốt và giữ là tác động liên tục."
+
+#. one sentence of a longer line
+msgid "Gestures are named but do not control the truck."
+msgstr "Các cử chỉ sẽ được đọc tên nhưng không điều khiển xe."
+
+#. one sentence of a longer line
+msgid "Practice gestures."
+msgstr "Luyện tập cử chỉ."
+
+#. placeholders: {leave}
+msgid ""
+"Practice gestures. A flick is one step. A swipe and hold is continuous. Try "
+"a flick up, then swipe up and hold. Gestures are named but do not control "
+"the truck. {leave}"
+msgstr ""
+"Luyện tập cử chỉ. Hất nhẹ là đi một nấc. Vuốt và giữ là tác động liên tục. "
+"Hãy thử hất nhẹ lên, rồi vuốt lên và giữ. Các cử chỉ sẽ được đọc tên nhưng "
+"không điều khiển xe. {leave}"
+
+#. one sentence of a longer line
+msgid "Try a flick up, then swipe up and hold."
+msgstr "Hãy thử hất nhẹ lên, rồi vuốt lên và giữ."
 
 msgid "Gameplay"
 msgstr "Lối chơi"
@@ -37513,9 +37573,6 @@ msgstr "Xác nhận, rồi chọn lệnh mà cử chỉ này thực hiện khi l
 msgid "Deep swipe starts at: {touch_deep_swipe_points}"
 msgstr "Vuốt sâu bắt đầu từ: {touch_deep_swipe_points}"
 
-msgid "Practice gestures"
-msgstr "Luyện tập cử chỉ"
-
 msgid ""
 "Names each gesture and its current command without controlling the truck."
 msgstr "Đọc tên từng cử chỉ và lệnh hiện tại mà không làm xe di chuyển."
@@ -37545,6 +37602,12 @@ msgstr ""
 #. placeholders: {gesture_name}, {label}
 msgid "{gesture_name} now runs {label}."
 msgstr "{gesture_name} hiện chạy lệnh {label}."
+
+msgid "Leaving gesture practice."
+msgstr "Thoát chế độ luyện tập cử chỉ."
+
+msgid "Again to leave practice."
+msgstr "Làm lại lần nữa để thoát luyện tập."
 
 #. one sentence of a longer line
 msgid "Deep swipe."
@@ -37629,48 +37692,6 @@ msgstr "Chế độ luyện tập sẽ đọc tên từng cử chỉ mà không 
 msgid "Skip and start driving"
 msgstr "Bỏ qua và bắt đầu lái"
 
-msgid "Flick down with two fingers twice within two seconds to leave."
-msgstr "Vuốt hai ngón xuống hai lần trong vòng hai giây để rời đi."
-
-msgid "Escape twice within two seconds to leave."
-msgstr "Nhấn Escape hai lần trong vòng hai giây để thoát."
-
-#. one sentence of a longer line
-msgid "A flick is one step."
-msgstr "Hất nhẹ là đi một nấc."
-
-#. one sentence of a longer line
-msgid "A swipe and hold is continuous."
-msgstr "Vuốt và giữ là tác động liên tục."
-
-#. one sentence of a longer line
-msgid "Gestures are named but do not control the truck."
-msgstr "Các cử chỉ sẽ được đọc tên nhưng không điều khiển xe."
-
-#. one sentence of a longer line
-msgid "Practice gestures."
-msgstr "Luyện tập cử chỉ."
-
-#. placeholders: {leave}
-msgid ""
-"Practice gestures. A flick is one step. A swipe and hold is continuous. Try "
-"a flick up, then swipe up and hold. Gestures are named but do not control "
-"the truck. {leave}"
-msgstr ""
-"Luyện tập cử chỉ. Hất nhẹ là đi một nấc. Vuốt và giữ là tác động liên tục. "
-"Hãy thử hất nhẹ lên, rồi vuốt lên và giữ. Các cử chỉ sẽ được đọc tên nhưng "
-"không điều khiển xe. {leave}"
-
-#. one sentence of a longer line
-msgid "Try a flick up, then swipe up and hold."
-msgstr "Hãy thử hất nhẹ lên, rồi vuốt lên và giữ."
-
-msgid "Leaving gesture practice."
-msgstr "Thoát chế độ luyện tập cử chỉ."
-
-msgid "Again to leave practice."
-msgstr "Làm lại lần nữa để thoát luyện tập."
-
 msgid "Swipe up"
 msgstr "Vuốt lên"
 
@@ -37724,9 +37745,6 @@ msgstr "Tin nhắn trước"
 
 msgid "Next message"
 msgstr "Tin nhắn tiếp theo"
-
-msgid "Driving command list"
-msgstr "Danh sách lệnh lái xe"
 
 msgid "No command"
 msgstr "Không có lệnh"
@@ -43690,6 +43708,9 @@ msgstr ""
 
 #~ msgid "shift"
 #~ msgstr "ca làm việc"
+
+#~ msgid "Flick down with two fingers twice within two seconds to leave."
+#~ msgstr "Vuốt hai ngón xuống hai lần trong vòng hai giây để rời đi."
 
 #~ msgid ""
 #~ "freightfate -- Freight Fate\n"

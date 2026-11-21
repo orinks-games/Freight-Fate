@@ -15034,6 +15034,9 @@ msgstr "か"
 msgid "Pause"
 msgstr "一時停止"
 
+msgid "Driving command list"
+msgstr "運転の操作の一覧"
+
 msgid "Nothing"
 msgstr "なし"
 
@@ -16189,6 +16192,21 @@ msgstr " このフィルターの外に、新しい{plural}が{hidden}件あり�
 msgid "Ready in {remaining} seconds."
 msgstr "あと{remaining}秒で準備ができます。"
 
+msgid "Back to "
+msgstr ""
+
+msgid "No, "
+msgstr ""
+
+msgid "Resume "
+msgstr ""
+
+msgid "Return to "
+msgstr ""
+
+msgid "Back"
+msgstr "Back"
+
 msgid "Enter selects, Escape goes back. Control stops the current speech."
 msgstr "Enter で選び、 Escape で戻ります。 Control で今の読み上げを止めます。"
 
@@ -16211,9 +16229,6 @@ msgstr "{count} 件中 {position} 件目。"
 
 msgid "Repeat this line."
 msgstr "この行を繰り返します。"
-
-msgid "Back"
-msgstr "Back"
 
 msgid "Return to the previous menu."
 msgstr "前のメニューに戻ります。"
@@ -26978,12 +26993,6 @@ msgstr "ゲームの音を覚える"
 msgid "Every sound the road uses, and what each one means."
 msgstr "道路で使われるすべての音と、それぞれの意味です。"
 
-msgid "Practice keys and buttons"
-msgstr "キーとボタンの練習"
-
-msgid "Names what each key or controller button does while driving."
-msgstr "運転中に各キーやコントローラーのボタンが何をするかを読み上げます。"
-
 msgid ""
 "A mobile mechanic patches the truck up enough to drive on. Costs far more "
 "than a garage, an hour and a half, and billed even into debt."
@@ -27105,6 +27114,9 @@ msgid ""
 "possible ticket, possible minor truck damage, and the deadline keeps "
 "running."
 msgstr "路肩ではよく眠れません。運転時間規制はリセットされます。疲れは残り、違反切符や軽いトラックの損傷の可能性があり、期限は進み続けます。"
+
+msgid "Every driving command by name, in groups."
+msgstr ""
 
 msgid "Emergency shoulder sleep is not available."
 msgstr "路肩での緊急の睡眠はできません。"
@@ -32450,6 +32462,18 @@ msgstr "Left stick: 左右に倒すと1車線変更。"
 msgid "Left stick: steer."
 msgstr "Left stick: ハンドル。"
 
+msgid "Practice gestures"
+msgstr "ジェスチャーの練習"
+
+msgid "Names what each gesture does while driving."
+msgstr ""
+
+msgid "Practice keys and buttons"
+msgstr "キーとボタンの練習"
+
+msgid "Names what each key or controller button does while driving."
+msgstr "運転中に各キーやコントローラーのボタンが何をするかを読み上げます。"
+
 msgid "Change one lane left"
 msgstr "左へ1車線変更"
 
@@ -32552,6 +32576,41 @@ msgid ""
 "Key and button practice. Press a key or button to hear what it does while "
 "driving. Escape twice, or Start twice, to leave."
 msgstr "キーとボタンの練習。キーかボタンを押すと、運転中の役割が聞けます。Escape を2回、または Start を2回で終了します。"
+
+msgid "Flick down with two fingers twice to leave."
+msgstr ""
+
+msgid "Escape twice within two seconds to leave."
+msgstr "抜けるには、2秒以内に Escape を2回押してください。"
+
+#. one sentence of a longer line
+msgid "A flick is one step."
+msgstr "フリックは1段階です。"
+
+#. one sentence of a longer line
+msgid "A swipe and hold is continuous."
+msgstr "スワイプして長押しすると続けて効きます。"
+
+#. one sentence of a longer line
+msgid "Gestures are named but do not control the truck."
+msgstr "ジェスチャーの名前は伝えますが、トラックは動きません。"
+
+#. one sentence of a longer line
+msgid "Practice gestures."
+msgstr "ジェスチャーの練習。"
+
+#. placeholders: {leave}
+msgid ""
+"Practice gestures. A flick is one step. A swipe and hold is continuous. Try "
+"a flick up, then swipe up and hold. Gestures are named but do not control "
+"the truck. {leave}"
+msgstr ""
+"ジェスチャーの練習。フリックは1段階です。スワイプして長押しすると続けて効きます。上にフリックしてから、上にスワイプして長押ししてみてください。ジェスチ"
+"ャーの名前は伝えますが、トラックは動きません。{leave}"
+
+#. one sentence of a longer line
+msgid "Try a flick up, then swipe up and hold."
+msgstr "上にフリックしてから、上にスワイプして長押ししてみてください。"
 
 msgid "Gameplay"
 msgstr "ゲームプレイ"
@@ -34172,9 +34231,6 @@ msgstr "確定してから、このジェスチャーで運転中に実行する
 msgid "Deep swipe starts at: {touch_deep_swipe_points}"
 msgstr "深いスワイプの開始位置：{touch_deep_swipe_points}"
 
-msgid "Practice gestures"
-msgstr "ジェスチャーの練習"
-
 msgid ""
 "Names each gesture and its current command without controlling the truck."
 msgstr "トラックを動かさずに、各ジェスチャーと今の操作の名前を伝えます。"
@@ -34201,6 +34257,12 @@ msgstr "上下に移動して操作を選び、確定するとジェスチャー
 #. placeholders: {gesture_name}, {label}
 msgid "{gesture_name} now runs {label}."
 msgstr "{gesture_name}で{label}を実行するようになりました。"
+
+msgid "Leaving gesture practice."
+msgstr "ジェスチャーの練習を終わります。"
+
+msgid "Again to leave practice."
+msgstr "もう一度で練習を終わります。"
 
 #. one sentence of a longer line
 msgid "Deep swipe."
@@ -34281,47 +34343,6 @@ msgstr "練習では、トラックを動かさずに各ジェスチャーの名
 msgid "Skip and start driving"
 msgstr "飛ばして運転を始める"
 
-msgid "Flick down with two fingers twice within two seconds to leave."
-msgstr "2秒以内に2本指で下に2回フリックすると終了します。"
-
-msgid "Escape twice within two seconds to leave."
-msgstr "抜けるには、2秒以内に Escape を2回押してください。"
-
-#. one sentence of a longer line
-msgid "A flick is one step."
-msgstr "フリックは1段階です。"
-
-#. one sentence of a longer line
-msgid "A swipe and hold is continuous."
-msgstr "スワイプして長押しすると続けて効きます。"
-
-#. one sentence of a longer line
-msgid "Gestures are named but do not control the truck."
-msgstr "ジェスチャーの名前は伝えますが、トラックは動きません。"
-
-#. one sentence of a longer line
-msgid "Practice gestures."
-msgstr "ジェスチャーの練習。"
-
-#. placeholders: {leave}
-msgid ""
-"Practice gestures. A flick is one step. A swipe and hold is continuous. Try "
-"a flick up, then swipe up and hold. Gestures are named but do not control "
-"the truck. {leave}"
-msgstr ""
-"ジェスチャーの練習。フリックは1段階です。スワイプして長押しすると続けて効きます。上にフリックしてから、上にスワイプして長押ししてみてください。ジェスチ"
-"ャーの名前は伝えますが、トラックは動きません。{leave}"
-
-#. one sentence of a longer line
-msgid "Try a flick up, then swipe up and hold."
-msgstr "上にフリックしてから、上にスワイプして長押ししてみてください。"
-
-msgid "Leaving gesture practice."
-msgstr "ジェスチャーの練習を終わります。"
-
-msgid "Again to leave practice."
-msgstr "もう一度で練習を終わります。"
-
 msgid "Swipe up"
 msgstr "上にスワイプ"
 
@@ -34375,9 +34396,6 @@ msgstr "前のメッセージ"
 
 msgid "Next message"
 msgstr "次のメッセージ"
-
-msgid "Driving command list"
-msgstr "運転の操作の一覧"
 
 msgid "No command"
 msgstr "操作なし"
@@ -39680,6 +39698,9 @@ msgstr ""
 
 #~ msgid "shift"
 #~ msgstr "交代"
+
+#~ msgid "Flick down with two fingers twice within two seconds to leave."
+#~ msgstr "2秒以内に2本指で下に2回フリックすると終了します。"
 
 #~ msgid ""
 #~ "freightfate -- Freight Fate\n"

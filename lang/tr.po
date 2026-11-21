@@ -16173,6 +16173,9 @@ msgstr "veya"
 msgid "Pause"
 msgstr "Duraklat"
 
+msgid "Driving command list"
+msgstr "Sürüş komutları listesi"
+
 msgid "Nothing"
 msgstr "Hiçbiri"
 
@@ -17390,6 +17393,21 @@ msgstr " Bu filtrenin dışında {hidden} yeni {plural} var."
 msgid "Ready in {remaining} seconds."
 msgstr "{remaining} saniye içinde hazır."
 
+msgid "Back to "
+msgstr ""
+
+msgid "No, "
+msgstr ""
+
+msgid "Resume "
+msgstr ""
+
+msgid "Return to "
+msgstr ""
+
+msgid "Back"
+msgstr "Geri"
+
 msgid "Enter selects, Escape goes back. Control stops the current speech."
 msgstr "Enter seçer, Escape geri döner. Control o anki konuşmayı durdurur."
 
@@ -17414,9 +17432,6 @@ msgstr "{position} / {count}."
 
 msgid "Repeat this line."
 msgstr "Bu satırı tekrarla."
-
-msgid "Back"
-msgstr "Geri"
 
 msgid "Return to the previous menu."
 msgstr "Önceki menüye dön."
@@ -28985,14 +29000,6 @@ msgstr "Oyun seslerini öğren"
 msgid "Every sound the road uses, and what each one means."
 msgstr "Yolun kullandığı her ses ve her birinin anlamı."
 
-msgid "Practice keys and buttons"
-msgstr "Tuş ve düğmeleri dene"
-
-msgid "Names what each key or controller button does while driving."
-msgstr ""
-"Sürüş sırasında her tuşun ya da oyun kumandası düğmesinin ne yaptığını "
-"söyler."
-
 msgid ""
 "A mobile mechanic patches the truck up enough to drive on. Costs far more "
 "than a garage, an hour and a half, and billed even into debt."
@@ -29133,6 +29140,9 @@ msgstr ""
 "Emniyet şeridinde kötü bir uyku. Çalışma ve dinlenme sürelerini sıfırlar. "
 "Yorgunluk kalır, ceza yiyebilirsiniz, tır biraz hasar görebilir ve teslim "
 "süresi işlemeye devam eder."
+
+msgid "Every driving command by name, in groups."
+msgstr ""
 
 msgid "Emergency shoulder sleep is not available."
 msgstr "Emniyet şeridinde acil uyku kullanılamıyor."
@@ -34931,6 +34941,20 @@ msgstr "Sol çubuk: bir şerit değiştirmek için sola ya da sağa itin."
 msgid "Left stick: steer."
 msgstr "Sol çubuk: direksiyon."
 
+msgid "Practice gestures"
+msgstr "Hareket alıştırması"
+
+msgid "Names what each gesture does while driving."
+msgstr ""
+
+msgid "Practice keys and buttons"
+msgstr "Tuş ve düğmeleri dene"
+
+msgid "Names what each key or controller button does while driving."
+msgstr ""
+"Sürüş sırasında her tuşun ya da oyun kumandası düğmesinin ne yaptığını "
+"söyler."
+
 msgid "Change one lane left"
 msgstr "Bir şerit sola geç"
 
@@ -35035,6 +35059,42 @@ msgid ""
 msgstr ""
 "Tuş ve düğme alıştırması. Sürerken ne yaptığını duymak için bir tuşa ya da "
 "düğmeye basın. Çıkmak için iki kez Escape ya da iki kez Start."
+
+msgid "Flick down with two fingers twice to leave."
+msgstr ""
+
+msgid "Escape twice within two seconds to leave."
+msgstr "Çıkmak için iki saniye içinde iki kez Escape."
+
+#. one sentence of a longer line
+msgid "A flick is one step."
+msgstr "Bir fiske bir adımdır."
+
+#. one sentence of a longer line
+msgid "A swipe and hold is continuous."
+msgstr "Kaydırıp tutmak süreklidir."
+
+#. one sentence of a longer line
+msgid "Gestures are named but do not control the truck."
+msgstr "Hareketler söylenir ama tırı kontrol etmez."
+
+#. one sentence of a longer line
+msgid "Practice gestures."
+msgstr "Hareket alıştırması."
+
+#. placeholders: {leave}
+msgid ""
+"Practice gestures. A flick is one step. A swipe and hold is continuous. Try "
+"a flick up, then swipe up and hold. Gestures are named but do not control "
+"the truck. {leave}"
+msgstr ""
+"Hareket alıştırması. Bir fiske bir adımdır. Kaydırıp tutmak süreklidir. "
+"Yukarı bir fiske deneyin, sonra yukarı kaydırıp tutun. Hareketler söylenir "
+"ama tırı kontrol etmez. {leave}"
+
+#. one sentence of a longer line
+msgid "Try a flick up, then swipe up and hold."
+msgstr "Yukarı bir fiske deneyin, sonra yukarı kaydırıp tutun."
 
 msgid "Gameplay"
 msgstr "Oynanış"
@@ -36870,9 +36930,6 @@ msgstr "Onaylayın, sonra bu hareketin sürerken çalıştıracağı komutu seç
 msgid "Deep swipe starts at: {touch_deep_swipe_points}"
 msgstr "Uzun kaydırma eşiği: {touch_deep_swipe_points}"
 
-msgid "Practice gestures"
-msgstr "Hareket alıştırması"
-
 msgid ""
 "Names each gesture and its current command without controlling the truck."
 msgstr "Tırı kontrol etmeden her hareketi ve mevcut komutunu söyler."
@@ -36902,6 +36959,12 @@ msgstr ""
 #. placeholders: {gesture_name}, {label}
 msgid "{gesture_name} now runs {label}."
 msgstr "{gesture_name} artık şunu çalıştırıyor: {label}."
+
+msgid "Leaving gesture practice."
+msgstr "Hareket alıştırmasından çıkılıyor."
+
+msgid "Again to leave practice."
+msgstr "Alıştırmadan çıkmak için bir kez daha."
 
 #. one sentence of a longer line
 msgid "Deep swipe."
@@ -36984,49 +37047,6 @@ msgstr "Alıştırma, tırı hareket ettirmeden her hareketi söyler."
 msgid "Skip and start driving"
 msgstr "Geç ve sürmeye başla"
 
-msgid "Flick down with two fingers twice within two seconds to leave."
-msgstr ""
-"Çıkmak için iki saniye içinde iki kez, iki parmakla aşağı kısa kaydırın."
-
-msgid "Escape twice within two seconds to leave."
-msgstr "Çıkmak için iki saniye içinde iki kez Escape."
-
-#. one sentence of a longer line
-msgid "A flick is one step."
-msgstr "Bir fiske bir adımdır."
-
-#. one sentence of a longer line
-msgid "A swipe and hold is continuous."
-msgstr "Kaydırıp tutmak süreklidir."
-
-#. one sentence of a longer line
-msgid "Gestures are named but do not control the truck."
-msgstr "Hareketler söylenir ama tırı kontrol etmez."
-
-#. one sentence of a longer line
-msgid "Practice gestures."
-msgstr "Hareket alıştırması."
-
-#. placeholders: {leave}
-msgid ""
-"Practice gestures. A flick is one step. A swipe and hold is continuous. Try "
-"a flick up, then swipe up and hold. Gestures are named but do not control "
-"the truck. {leave}"
-msgstr ""
-"Hareket alıştırması. Bir fiske bir adımdır. Kaydırıp tutmak süreklidir. "
-"Yukarı bir fiske deneyin, sonra yukarı kaydırıp tutun. Hareketler söylenir "
-"ama tırı kontrol etmez. {leave}"
-
-#. one sentence of a longer line
-msgid "Try a flick up, then swipe up and hold."
-msgstr "Yukarı bir fiske deneyin, sonra yukarı kaydırıp tutun."
-
-msgid "Leaving gesture practice."
-msgstr "Hareket alıştırmasından çıkılıyor."
-
-msgid "Again to leave practice."
-msgstr "Alıştırmadan çıkmak için bir kez daha."
-
 msgid "Swipe up"
 msgstr "Yukarı kaydırma"
 
@@ -37080,9 +37100,6 @@ msgstr "Önceki mesaj"
 
 msgid "Next message"
 msgstr "Sonraki mesaj"
-
-msgid "Driving command list"
-msgstr "Sürüş komutları listesi"
 
 msgid "No command"
 msgstr "Komut yok"
@@ -42990,6 +43007,10 @@ msgstr ""
 
 #~ msgid "shift"
 #~ msgstr "vardiya"
+
+#~ msgid "Flick down with two fingers twice within two seconds to leave."
+#~ msgstr ""
+#~ "Çıkmak için iki saniye içinde iki kez, iki parmakla aşağı kısa kaydırın."
 
 #~ msgid ""
 #~ "freightfate -- Freight Fate\n"

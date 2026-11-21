@@ -8,6 +8,11 @@ fn quit(ctx: &mut GameContext) {
 }
 
 impl Menu for MainMenuState {
+    /// The main menu: there is nothing to go back to.
+    fn touch_back_row(&self) -> bool {
+        false
+    }
+
     fn menu(&self) -> &MenuCore<Self> {
         &self.menu
     }
@@ -270,12 +275,7 @@ impl Menu for MainMenuState {
             })
             .help("Any sound the road uses, and what it means."),
         );
-        items.push(
-            MenuItem::new("Practice keys and buttons", |_s: &mut Self, ctx| {
-                ctx.push_state(InputPracticeState::new())
-            })
-            .help("Names what each key or controller button does while driving."),
-        );
+        items.push(practice_row(ctx));
         items.push(
             MenuItem::new("Settings", |_s: &mut Self, ctx| {
                 ctx.push_state(SettingsState::new())

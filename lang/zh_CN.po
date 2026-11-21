@@ -14882,6 +14882,9 @@ msgstr "或"
 msgid "Pause"
 msgstr "暂停"
 
+msgid "Driving command list"
+msgstr "驾驶命令列表"
+
 msgid "Nothing"
 msgstr "无"
 
@@ -16027,6 +16030,21 @@ msgstr " 此筛选之外还有{hidden}条较新的{plural}。"
 msgid "Ready in {remaining} seconds."
 msgstr "{remaining}秒后就绪。"
 
+msgid "Back to "
+msgstr ""
+
+msgid "No, "
+msgstr ""
+
+msgid "Resume "
+msgstr ""
+
+msgid "Return to "
+msgstr ""
+
+msgid "Back"
+msgstr "Back"
+
 msgid "Enter selects, Escape goes back. Control stops the current speech."
 msgstr "Enter选择，Escape返回。Control停止当前语音。"
 
@@ -16049,9 +16067,6 @@ msgstr "第 {position} 项，共 {count} 项。"
 
 msgid "Repeat this line."
 msgstr "重复这一行。"
-
-msgid "Back"
-msgstr "Back"
 
 msgid "Return to the previous menu."
 msgstr "返回上一个菜单。"
@@ -26696,12 +26711,6 @@ msgstr "学习游戏声音"
 msgid "Every sound the road uses, and what each one means."
 msgstr "道路用到的每一种声音，以及它们各自的含义。"
 
-msgid "Practice keys and buttons"
-msgstr "练习按键和按钮"
-
-msgid "Names what each key or controller button does while driving."
-msgstr "说出驾驶时每个按键或手柄按钮的作用。"
-
 msgid ""
 "A mobile mechanic patches the truck up enough to drive on. Costs far more "
 "than a garage, an hour and a half, and billed even into debt."
@@ -26821,6 +26830,9 @@ msgid ""
 "possible ticket, possible minor truck damage, and the deadline keeps "
 "running."
 msgstr "在路肩上睡不好。重置驾驶工时。疲劳仍在，可能会收到罚单，卡车可能有轻微损坏，截止时间也照样在走。"
+
+msgid "Every driving command by name, in groups."
+msgstr ""
 
 msgid "Emergency shoulder sleep is not available."
 msgstr "不能紧急路肩睡觉。"
@@ -32095,6 +32107,18 @@ msgstr "Left stick：向左或向右推，变换一条车道。"
 msgid "Left stick: steer."
 msgstr "Left stick：转向。"
 
+msgid "Practice gestures"
+msgstr "练习手势"
+
+msgid "Names what each gesture does while driving."
+msgstr ""
+
+msgid "Practice keys and buttons"
+msgstr "练习按键和按钮"
+
+msgid "Names what each key or controller button does while driving."
+msgstr "说出驾驶时每个按键或手柄按钮的作用。"
+
 msgid "Change one lane left"
 msgstr "向左变换一条车道"
 
@@ -32197,6 +32221,39 @@ msgid ""
 "Key and button practice. Press a key or button to hear what it does while "
 "driving. Escape twice, or Start twice, to leave."
 msgstr "按键和按钮练习。按一个键或按钮，可听到它在驾驶时的作用。按两次 Escape 或两次 Start 退出。"
+
+msgid "Flick down with two fingers twice to leave."
+msgstr ""
+
+msgid "Escape twice within two seconds to leave."
+msgstr "在两秒内按两次Escape即可离开。"
+
+#. one sentence of a longer line
+msgid "A flick is one step."
+msgstr "轻扫一次是一步。"
+
+#. one sentence of a longer line
+msgid "A swipe and hold is continuous."
+msgstr "滑动并按住是连续的。"
+
+#. one sentence of a longer line
+msgid "Gestures are named but do not control the truck."
+msgstr "手势会被说出来，但不会控制卡车。"
+
+#. one sentence of a longer line
+msgid "Practice gestures."
+msgstr "练习手势。"
+
+#. placeholders: {leave}
+msgid ""
+"Practice gestures. A flick is one step. A swipe and hold is continuous. Try "
+"a flick up, then swipe up and hold. Gestures are named but do not control "
+"the truck. {leave}"
+msgstr "练习手势。轻扫一次是一步。滑动并按住是连续的。先试试向上轻扫，再向上滑动并按住。手势会被说出来，但不会控制卡车。{leave}"
+
+#. one sentence of a longer line
+msgid "Try a flick up, then swipe up and hold."
+msgstr "先试试向上轻扫，再向上滑动并按住。"
 
 msgid "Gameplay"
 msgstr "游戏玩法"
@@ -33768,9 +33825,6 @@ msgstr "确认，然后选择这个手势在驾驶时执行的命令。"
 msgid "Deep swipe starts at: {touch_deep_swipe_points}"
 msgstr "长滑起点：{touch_deep_swipe_points}"
 
-msgid "Practice gestures"
-msgstr "练习手势"
-
 msgid ""
 "Names each gesture and its current command without controlling the truck."
 msgstr "说出每个手势和它当前的命令，但不会控制卡车。"
@@ -33797,6 +33851,12 @@ msgstr "上下移动选择一个命令，确认后把它放到这个手势上。
 #. placeholders: {gesture_name}, {label}
 msgid "{gesture_name} now runs {label}."
 msgstr "{gesture_name}现在执行{label}。"
+
+msgid "Leaving gesture practice."
+msgstr "正在离开手势练习。"
+
+msgid "Again to leave practice."
+msgstr "再来一次即可离开练习。"
 
 #. one sentence of a longer line
 msgid "Deep swipe."
@@ -33876,45 +33936,6 @@ msgstr "练习会说出每个手势，但不会让卡车移动。"
 msgid "Skip and start driving"
 msgstr "跳过，开始驾驶"
 
-msgid "Flick down with two fingers twice within two seconds to leave."
-msgstr "2秒内双指向下轻扫2次离开。"
-
-msgid "Escape twice within two seconds to leave."
-msgstr "在两秒内按两次Escape即可离开。"
-
-#. one sentence of a longer line
-msgid "A flick is one step."
-msgstr "轻扫一次是一步。"
-
-#. one sentence of a longer line
-msgid "A swipe and hold is continuous."
-msgstr "滑动并按住是连续的。"
-
-#. one sentence of a longer line
-msgid "Gestures are named but do not control the truck."
-msgstr "手势会被说出来，但不会控制卡车。"
-
-#. one sentence of a longer line
-msgid "Practice gestures."
-msgstr "练习手势。"
-
-#. placeholders: {leave}
-msgid ""
-"Practice gestures. A flick is one step. A swipe and hold is continuous. Try "
-"a flick up, then swipe up and hold. Gestures are named but do not control "
-"the truck. {leave}"
-msgstr "练习手势。轻扫一次是一步。滑动并按住是连续的。先试试向上轻扫，再向上滑动并按住。手势会被说出来，但不会控制卡车。{leave}"
-
-#. one sentence of a longer line
-msgid "Try a flick up, then swipe up and hold."
-msgstr "先试试向上轻扫，再向上滑动并按住。"
-
-msgid "Leaving gesture practice."
-msgstr "正在离开手势练习。"
-
-msgid "Again to leave practice."
-msgstr "再来一次即可离开练习。"
-
 msgid "Swipe up"
 msgstr "向上滑动"
 
@@ -33968,9 +33989,6 @@ msgstr "上一条消息"
 
 msgid "Next message"
 msgstr "下一条消息"
-
-msgid "Driving command list"
-msgstr "驾驶命令列表"
 
 msgid "No command"
 msgstr "无命令"
@@ -39050,6 +39068,9 @@ msgstr ""
 
 #~ msgid "shift"
 #~ msgstr "班次"
+
+#~ msgid "Flick down with two fingers twice within two seconds to leave."
+#~ msgstr "2秒内双指向下轻扫2次离开。"
 
 #~ msgid ""
 #~ "freightfate -- Freight Fate\n"

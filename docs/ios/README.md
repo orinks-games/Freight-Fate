@@ -54,6 +54,11 @@ With no hardware keyboard, menu help names gestures. A menu with no help of
 its own says "Flick right or left to move and double tap to choose. Flick
 down with two fingers to go back."
 
+With no hardware keyboard, a menu that the two-finger flick down leaves, and
+that has no row of its own going back ("Back", "Back to terminal", "Cancel",
+"Keep driving"), gets a last row "Back". The main menu, the terminal and
+prompts that must be answered get none.
+
 The on-screen keyboard rises by itself when a name field opens and goes away
 when it closes; the old three-finger double tap is gone.
 
@@ -108,8 +113,12 @@ pauses, a two-finger flick up is help, two-finger flicks left and right review
 messages, and three-finger flicks left and right tune the radio. Everything
 else is on the driving command list: a three-finger tap opens it, flick to a
 command, and double tap runs it. The Status menu is its first row, so a three-finger tap
-and then a double tap opens it. The list is the same on every device and always
-opens on its first row:
+and then a double tap opens it. The pause menu's second row, Driving commands,
+opens the same list, and the Touch gestures screen can put it on any slot as
+"Driving command list". A command chosen from the list resumes the drive and
+runs. The game opts out of iOS's three-finger editing gestures (undo, redo and
+the shortcut bar, iOS 13 and later) so they do not take the tap. The list is
+the same on every device and always opens on its first row:
 
 | Row | Opens or runs |
 |---|---|
@@ -160,7 +169,13 @@ The Touch gestures settings switch turns them off.
 
 Before your first drive after touching the screen, the game offers Practice
 gestures. It teaches the core rule first, then names each gesture without
-moving the truck; either answer is remembered. When a swipe down and hold
+moving the truck; either answer is remembered. With no hardware keyboard, the
+practice row on the main and pause menus reads "Practice gestures" and opens
+the same practice (with a keyboard it is "Practice keys and buttons"). Either
+practice names keys, controller buttons and gestures alike. By touch, the
+second two-finger flick down or scrub in a row leaves practice, however long
+after the first; any other gesture in between starts the count over. A
+keyboard still needs Escape twice within two seconds. When a swipe down and hold
 lifts, practice reads how far it travelled and where the deep swipe starts
 ("Length 64. The deep swipe starts at 90."); a deep swipe reads its own
 length ("Deep swipe. Length 112."). Only practice gets the lengths.
@@ -282,6 +297,10 @@ frameworks it and SDL2 need, plus clang's iOS runtime for `@available` checks.
 - In a Driving School lesson: the deep swipe while moving is the emergency brake, the still hold straightens, and gas releases the parking brake, as in a delivery.
 - With no hardware keyboard, no help, hint or field prompt names a key; connect one and keys come back.
 - Verify magic tap pauses, a three-finger hold does nothing, the three-finger double tap does nothing, and the haptics switch changes feedback.
-- Enter Practice gestures, verify a two-finger flick down twice exits, and verify the first-drive practice offer appears once.
+- Enter Practice gestures from the main menu row, flick up: it is named as a flick, never as an arrow key. Flick down with two fingers, wait ten seconds, and flick down again: practice closes. Verify the first-drive practice offer appears once.
+- Pause the drive: Driving commands is the second row. Open it, choose a radio command: the drive resumes and the command runs.
+- On Touch gestures, put "Driving command list" on the tap: a tap at the wheel opens the list.
+- Open a list that had no way back, such as Call dispatch on the pause menu: its last row is Back, and double tapping it goes back. A list that already had one, such as Manage careers, has no second Back.
+- Tap with three fingers many times at the wheel: the command list opens every time, and no undo banner or shortcut bar appears.
 - In Practice gestures, swipe down and hold, then lift: hear the length and where the deep swipe starts. Carry a swipe into the deep swipe and lift: hear "Deep swipe." with its length. Try an ordinary brake swipe several times and note the lengths.
 - On Touch gestures, flick up and down on "Deep swipe starts at": it moves in tens between 60 and 180, and a swipe in practice then needs that length to become the deep swipe.
