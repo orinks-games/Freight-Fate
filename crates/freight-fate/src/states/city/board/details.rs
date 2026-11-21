@@ -156,6 +156,10 @@ impl JobDetailState {
                 appointment_text(p.game_hours, loaded_departure_h + job.deadline_game_h, zone)
             ),
         ];
+        let urgency = job.urgency.details_line();
+        if !urgency.is_empty() {
+            lines.push(urgency.to_string());
+        }
         lines.extend(briefing::hours_lines(ctx, job));
         lines.push(briefing::fuel_line(ctx, job));
         lines.push(format!("Equipment: {}.", job.equipment_text()));

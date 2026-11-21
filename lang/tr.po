@@ -9374,19 +9374,6 @@ msgstr "Ödeme {pay} dolar."
 msgid "Pays {pay} dollars, {pay_preview}."
 msgstr "{pay} dolar ödüyor, {pay_preview}."
 
-#. one sentence of a longer line
-msgid "Team load: you and a co-driver take turns at the wheel."
-msgstr ""
-"Ekip yükü: siz ve bir yardımcı şoför direksiyona sırayla geçersiniz."
-
-#. placeholders: {distance}, {hours}
-msgid ""
-"{distance}, deadline {hours} hours. Team load: you and a co-driver take "
-"turns at the wheel."
-msgstr ""
-"{distance}, süre {hours} saat. Ekip yükü: siz ve ikinci bir sürücü sırayla "
-"direksiyona geçersiniz."
-
 #. placeholders: {distance}, {hours}
 msgid "{distance}, deadline {hours} hours with a 10-hour rest."
 msgstr "{distance}, süre {hours} saat, 10 saatlik dinlenmeyle."
@@ -9394,6 +9381,10 @@ msgstr "{distance}, süre {hours} saat, 10 saatlik dinlenmeyle."
 #. placeholders: {distance}, {hours}
 msgid "{distance}, deadline {hours} hours."
 msgstr "{distance}, süre {hours} saat."
+
+msgid "Team load: you and a co-driver take turns at the wheel."
+msgstr ""
+"Ekip yükü: siz ve bir yardımcı şoför direksiyona sırayla geçersiniz."
 
 #. placeholders: {min_level}
 msgid "Level {min_level} drivers unlock this cargo."
@@ -9424,6 +9415,9 @@ msgstr "dorsesiz"
 
 msgid "team"
 msgstr "ekip"
+
+msgid "urgency"
+msgstr ""
 
 #. placeholders: {unwrap_or_else}
 msgid "{unwrap_or_else} freight market"
@@ -9718,6 +9712,27 @@ msgstr ""
 #. one sentence of a longer line
 msgid "Plan to stop here."
 msgstr "Burada durmayı planlayın."
+
+msgid "standard"
+msgstr "standart"
+
+msgid "hot"
+msgstr ""
+
+msgid "flexible"
+msgstr ""
+
+msgid "Hot load."
+msgstr ""
+
+msgid "Flexible delivery."
+msgstr ""
+
+msgid "Hot load. Tight deadline, pays 25 percent more."
+msgstr ""
+
+msgid "Flexible delivery. Wide deadline, pays 10 percent less."
+msgstr ""
 
 msgid "landmark"
 msgstr "simgesel yer"
@@ -10625,9 +10640,6 @@ msgstr "yataklı kabin"
 
 msgid "light"
 msgstr "hafif"
-
-msgid "standard"
-msgstr "standart"
 
 msgid "heavy"
 msgstr "ağır"
@@ -43023,6 +43035,13 @@ msgid ""
 "Hold the left bumper for a second layer of buttons. {pad_engine} controls "
 "the engine, {pad_fuel} reads fuel, and {pad_speed_limit} reads the limit."
 msgstr ""
+
+#~ msgid ""
+#~ "{distance}, deadline {hours} hours. Team load: you and a co-driver take "
+#~ "turns at the wheel."
+#~ msgstr ""
+#~ "{distance}, süre {hours} saat. Ekip yükü: siz ve ikinci bir sürücü sırayla "
+#~ "direksiyona geçersiniz."
 
 #~ msgid "Another chain area in {distance_text}."
 #~ msgstr "{distance_text} sonra bir zincir alanı daha var."

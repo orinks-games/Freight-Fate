@@ -10775,18 +10775,6 @@ msgstr ""
 msgid "Pays {pay} dollars, {pay_preview}."
 msgstr ""
 
-#. one sentence of a longer line
-#: crates/ff-core/src/models/jobs.rs
-msgid "Team load: you and a co-driver take turns at the wheel."
-msgstr ""
-
-#. placeholders: {distance}, {hours}
-#: crates/ff-core/src/models/jobs.rs
-msgid ""
-"{distance}, deadline {hours} hours. Team load: you and a co-driver take "
-"turns at the wheel."
-msgstr ""
-
 #. placeholders: {distance}, {hours}
 #: crates/ff-core/src/models/jobs.rs
 msgid "{distance}, deadline {hours} hours with a 10-hour rest."
@@ -10795,6 +10783,10 @@ msgstr ""
 #. placeholders: {distance}, {hours}
 #: crates/ff-core/src/models/jobs.rs
 msgid "{distance}, deadline {hours} hours."
+msgstr ""
+
+#: crates/ff-core/src/models/jobs.rs
+msgid "Team load: you and a co-driver take turns at the wheel."
 msgstr ""
 
 #. placeholders: {min_level}
@@ -10834,6 +10826,10 @@ msgstr ""
 
 #: crates/ff-core/src/models/jobs.rs crates/freight-fate/src/states/driving/snapshot.rs
 msgid "team"
+msgstr ""
+
+#: crates/ff-core/src/models/jobs.rs
+msgid "urgency"
 msgstr ""
 
 #. placeholders: {unwrap_or_else}
@@ -11162,6 +11158,34 @@ msgstr ""
 #. one sentence of a longer line
 #: crates/ff-core/src/models/jobs/hos_stops.rs
 msgid "Plan to stop here."
+msgstr ""
+
+#: crates/ff-core/src/models/jobs/urgency.rs crates/ff-core/src/models/trucks.rs crates/ff-core/src/settings.rs crates/ff-core/src/sim/driving_modes.rs
+msgid "standard"
+msgstr ""
+
+#: crates/ff-core/src/models/jobs/urgency.rs
+msgid "hot"
+msgstr ""
+
+#: crates/ff-core/src/models/jobs/urgency.rs
+msgid "flexible"
+msgstr ""
+
+#: crates/ff-core/src/models/jobs/urgency.rs
+msgid "Hot load."
+msgstr ""
+
+#: crates/ff-core/src/models/jobs/urgency.rs
+msgid "Flexible delivery."
+msgstr ""
+
+#: crates/ff-core/src/models/jobs/urgency.rs
+msgid "Hot load. Tight deadline, pays 25 percent more."
+msgstr ""
+
+#: crates/ff-core/src/models/jobs/urgency.rs
+msgid "Flexible delivery. Wide deadline, pays 10 percent less."
 msgstr ""
 
 #: crates/ff-core/src/models/loyalty.rs crates/ff-core/src/sim/trip_models.rs
@@ -12162,10 +12186,6 @@ msgstr ""
 
 #: crates/ff-core/src/models/trucks.rs crates/ff-core/src/settings.rs crates/freight-fate/src/states/driving_events/ramp_crossing.rs
 msgid "light"
-msgstr ""
-
-#: crates/ff-core/src/models/trucks.rs crates/ff-core/src/settings.rs crates/ff-core/src/sim/driving_modes.rs crates/ff-core/src/sim/lane_guidance.rs
-msgid "standard"
 msgstr ""
 
 #: crates/ff-core/src/models/trucks.rs

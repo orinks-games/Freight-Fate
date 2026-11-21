@@ -9787,18 +9787,6 @@ msgstr "Trả {pay} đô la."
 msgid "Pays {pay} dollars, {pay_preview}."
 msgstr "Trả {pay} đô la, {pay_preview}."
 
-#. one sentence of a longer line
-msgid "Team load: you and a co-driver take turns at the wheel."
-msgstr "Lô hàng chạy đôi: bạn và một tài xế phụ thay phiên nhau cầm lái."
-
-#. placeholders: {distance}, {hours}
-msgid ""
-"{distance}, deadline {hours} hours. Team load: you and a co-driver take "
-"turns at the wheel."
-msgstr ""
-"{distance}, hạn giao hàng {hours} giờ. Lô hàng chạy đôi: bạn và một tài xế "
-"phụ thay phiên nhau cầm lái."
-
 #. placeholders: {distance}, {hours}
 msgid "{distance}, deadline {hours} hours with a 10-hour rest."
 msgstr "{distance}, hạn giao hàng {hours} giờ đã tính 10 giờ nghỉ."
@@ -9806,6 +9794,9 @@ msgstr "{distance}, hạn giao hàng {hours} giờ đã tính 10 giờ nghỉ."
 #. placeholders: {distance}, {hours}
 msgid "{distance}, deadline {hours} hours."
 msgstr "{distance}, hạn giao hàng {hours} giờ."
+
+msgid "Team load: you and a co-driver take turns at the wheel."
+msgstr "Lô hàng chạy đôi: bạn và một tài xế phụ thay phiên nhau cầm lái."
 
 #. placeholders: {min_level}
 msgid "Level {min_level} drivers unlock this cargo."
@@ -9836,6 +9827,9 @@ msgstr "chạy xe không thùng"
 
 msgid "team"
 msgstr "lái chung"
+
+msgid "urgency"
+msgstr ""
 
 #. placeholders: {unwrap_or_else}
 msgid "{unwrap_or_else} freight market"
@@ -10135,6 +10129,27 @@ msgstr ""
 #. one sentence of a longer line
 msgid "Plan to stop here."
 msgstr "Hãy tính phương án dừng tại đây."
+
+msgid "standard"
+msgstr "tiêu chuẩn"
+
+msgid "hot"
+msgstr ""
+
+msgid "flexible"
+msgstr ""
+
+msgid "Hot load."
+msgstr ""
+
+msgid "Flexible delivery."
+msgstr ""
+
+msgid "Hot load. Tight deadline, pays 25 percent more."
+msgstr ""
+
+msgid "Flexible delivery. Wide deadline, pays 10 percent less."
+msgstr ""
 
 msgid "landmark"
 msgstr "địa danh"
@@ -11061,9 +11076,6 @@ msgstr "buồng nằm"
 
 msgid "light"
 msgstr "nhẹ"
-
-msgid "standard"
-msgstr "tiêu chuẩn"
 
 msgid "heavy"
 msgstr "nặng"
@@ -43727,6 +43739,13 @@ msgid ""
 "Hold the left bumper for a second layer of buttons. {pad_engine} controls "
 "the engine, {pad_fuel} reads fuel, and {pad_speed_limit} reads the limit."
 msgstr ""
+
+#~ msgid ""
+#~ "{distance}, deadline {hours} hours. Team load: you and a co-driver take "
+#~ "turns at the wheel."
+#~ msgstr ""
+#~ "{distance}, hạn giao hàng {hours} giờ. Lô hàng chạy đôi: bạn và một tài xế "
+#~ "phụ thay phiên nhau cầm lái."
 
 #~ msgid "Another chain area in {distance_text}."
 #~ msgstr "Còn một khu vực bắt buộc lắp xích khác cách {distance_text}."
