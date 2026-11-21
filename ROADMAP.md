@@ -4526,9 +4526,10 @@ In 1.9.7 if they are ready, never holding it:
       (fixed on the site); close PR 629, which PR 630 replaced; ask the
       reporters of 519 and 492 to try 1.9.6, which redid controller
       detection and logs the cause of every damage.
-- [x] Station rows on the Tab radio screen tune the station with Enter,
-      or a double tap on a phone (owner, 2026-11-21). A locked dial keeps
-      them read-only.
+- [x] The Tab radio screen folded into the Radio app (owner, 2026-11-21):
+      a Local stations list (Freight Fate stations, playlists, favorites
+      and terrestrial stations in range, with distance) tunes on Enter or a
+      double tap, and the app front page names the streamer-safe state.
 
 Not in 1.9.7: guest drivers (PR 577, a draft waiting on the site), the
 ramp-end dock moving onto the gate's state enum, lane wander at drowsy,

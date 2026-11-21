@@ -7166,7 +7166,7 @@ msgid "{lane_word} lane{s_ending} your side"
 msgstr ""
 
 #. placeholders: {f}
-#: crates/ff-core/src/data/world_models/leg.rs crates/ff-core/src/models/jobs.rs crates/ff-core/src/radio/state.rs crates/ff-core/src/sim/traffic_manager.rs
+#: crates/ff-core/src/data/world_models/leg.rs crates/ff-core/src/models/jobs.rs crates/ff-core/src/sim/traffic_manager.rs
 msgid "{f} miles"
 msgstr ""
 
@@ -12700,7 +12700,7 @@ msgstr ""
 msgid "imported stations collide with curated station ids"
 msgstr ""
 
-#: crates/ff-core/src/radio.rs crates/freight-fate/src/states/driving_dispatch_call.rs
+#: crates/ff-core/src/radio.rs crates/freight-fate/src/states/driving_dispatch_call.rs crates/freight-fate/src/states/driving_radio_app.rs
 msgid "local"
 msgstr ""
 
@@ -12776,7 +12776,7 @@ msgstr ""
 msgid "Other stations"
 msgstr ""
 
-#: crates/ff-core/src/radio.rs crates/freight-fate/src/states/driving_menu_states/apps.rs crates/freight-fate/src/states/driving_menu_states/status.rs crates/freight-fate/src/states/driving_radio_app.rs
+#: crates/ff-core/src/radio.rs crates/freight-fate/src/states/driving_menu_states/apps.rs crates/freight-fate/src/states/driving_radio_app.rs crates/freight-fate/src/states/main_menu_help.rs
 msgid "Radio"
 msgstr ""
 
@@ -12821,30 +12821,6 @@ msgstr ""
 msgid "favorite"
 msgstr ""
 
-#. placeholders: {spoken}
-#: crates/ff-core/src/radio/state.rs
-msgid ", {spoken} away"
-msgstr ""
-
-#. placeholders: {spoken}
-#. one clause of a longer line
-#: crates/ff-core/src/radio/state.rs
-msgid "{spoken} away"
-msgstr ""
-
-#. placeholders: {source}
-#. one sentence of a longer line
-#: crates/ff-core/src/radio/state.rs
-msgid "Source: {source}."
-msgstr ""
-
-#. placeholders: {selected}, {display_name}, {format}, {signal_label}, {distance}, {source}
-#: crates/ff-core/src/radio/state.rs
-msgid ""
-"{selected}{display_name}: {format}, {signal_label}{distance}. Source: "
-"{source}."
-msgstr ""
-
 #: crates/ff-core/src/radio/state.rs crates/ff-core/src/settings.rs crates/freight-fate/src/states/driving/lifecycle.rs crates/freight-fate/src/states/driving_controls/info.rs
 msgid "on"
 msgstr ""
@@ -12868,6 +12844,12 @@ msgstr ""
 msgid ""
 "Radio {state}. {display_name}, {format}. {signal_label}. Volume "
 "{round_py_int} percent. {safety}. Source: {source}."
+msgstr ""
+
+#. placeholders: {source}
+#. one sentence of a longer line
+#: crates/ff-core/src/radio/state.rs
+msgid "Source: {source}."
 msgstr ""
 
 #. placeholders: {round_py_int}
@@ -18727,7 +18709,7 @@ msgstr ""
 msgid "Automatic or manual shifting"
 msgstr ""
 
-#: crates/freight-fate/src/bindings.rs crates/freight-fate/src/states/driving_menu_states/apps.rs crates/freight-fate/src/states/driving_menu_states/status.rs
+#: crates/freight-fate/src/bindings.rs crates/freight-fate/src/states/driving_menu_states/apps.rs
 msgid "radio"
 msgstr ""
 
@@ -25714,11 +25696,6 @@ msgstr ""
 msgid ""
 "The Driver apps tablet has a Radio app to search the dial, tune by name, "
 "and keep favorites."
-msgstr ""
-
-#. placeholders: {status}
-#: crates/freight-fate/src/states/driving_controls/help.rs
-msgid "The {status} status menu has a radio screen of receivable stations."
 msgstr ""
 
 #. placeholders: {engine}
@@ -33090,12 +33067,6 @@ msgstr ""
 
 #: crates/freight-fate/src/states/driving_menu_states/status.rs
 msgid ""
-"Up and down review the lines. Enter repeats a line, or tunes a station "
-"line. Escape goes back."
-msgstr ""
-
-#: crates/freight-fate/src/states/driving_menu_states/status.rs
-msgid ""
 "Up and down review the lines. Enter repeats a line. Escape goes back."
 msgstr ""
 
@@ -33219,185 +33190,6 @@ msgstr ""
 
 #: crates/freight-fate/src/states/driving_menu_states/status.rs
 msgid "Forgets the planned stop."
-msgstr ""
-
-#: crates/freight-fate/src/states/driving_menu_states/status.rs crates/freight-fate/src/states/driving_updates/radio.rs
-msgid "The engine is off. The radio has no power."
-msgstr ""
-
-#: crates/freight-fate/src/states/driving_menu_states/status.rs
-msgid "Streamer-safe mode on, with Music source set to Synthesized."
-msgstr ""
-
-#: crates/freight-fate/src/states/driving_menu_states/status.rs
-msgid ""
-"Streamer-safe mode keeps the radio on the Roadhouse, and tuning does "
-"nothing. Radio on or off and Radio volume are under Radio and CB on the "
-"three-finger tap list."
-msgstr ""
-
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/driving_menu_states/status.rs
-msgid ""
-"Shift with Page Down and Page Up, or semicolon and apostrophe, changes "
-"radio volume by 10 percent."
-msgstr ""
-
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/driving_menu_states/status.rs
-msgid "Station keys do nothing."
-msgstr ""
-
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/driving_menu_states/status.rs
-msgid "Streamer-safe mode keeps the radio on the Roadhouse."
-msgstr ""
-
-#. placeholders: {spoken}
-#: crates/freight-fate/src/states/driving_menu_states/status.rs
-msgid ""
-"Streamer-safe mode keeps the radio on the Roadhouse. Station keys do "
-"nothing. {spoken} turns the radio on or off. Shift with Page Down and Page "
-"Up, or semicolon and apostrophe, changes radio volume by 10 percent."
-msgstr ""
-
-#. placeholders: {spoken}
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/driving_menu_states/status.rs
-msgid "{spoken} turns the radio on or off."
-msgstr ""
-
-#: crates/freight-fate/src/states/driving_menu_states/status.rs
-msgid ""
-"Streamer-safe mode off. Real public streams and personal playlists are on "
-"the dial."
-msgstr ""
-
-#: crates/freight-fate/src/states/driving_menu_states/status.rs
-msgid ""
-"Streamer-safe mode on. Real public streams and personal playlists are "
-"hidden."
-msgstr ""
-
-#: crates/freight-fate/src/states/driving_menu_states/status.rs
-msgid "Streamer-safe mode off. Real public streams are on the dial."
-msgstr ""
-
-#: crates/freight-fate/src/states/driving_menu_states/status.rs
-msgid "Streamer-safe mode on. Real public streams are hidden."
-msgstr ""
-
-#: crates/freight-fate/src/states/driving_menu_states/status.rs
-msgid ""
-"Music source Synthesized: Freight Fate's own stations are off the dial."
-msgstr ""
-
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/driving_menu_states/status.rs
-msgid "No playlists of your own yet."
-msgstr ""
-
-#. placeholders: {personal_playlists_dir}
-#: crates/freight-fate/src/states/driving_menu_states/status.rs
-msgid ""
-"No playlists of your own yet. Put M3U, M3U8 or PLS playlist files in "
-"{personal_playlists_dir}."
-msgstr ""
-
-#. placeholders: {personal_playlists_dir}
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/driving_menu_states/status.rs
-msgid "Put M3U, M3U8 or PLS playlist files in {personal_playlists_dir}."
-msgstr ""
-
-#: crates/freight-fate/src/states/driving_menu_states/status.rs
-msgid ""
-"At the wheel, a three-finger flick left or right tunes stations. Radio "
-"category, Radio volume, favorites and radio power are under Radio and CB on "
-"the three-finger tap list."
-msgstr ""
-
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/driving_menu_states/status.rs
-msgid "Page Down and Page Up tune stations, or semicolon and apostrophe."
-msgstr ""
-
-#. placeholders: {spoken}, {spoken2}
-#: crates/freight-fate/src/states/driving_menu_states/status.rs
-msgid ""
-"Page Down and Page Up tune stations, or semicolon and apostrophe. With "
-"Control they jump categories. With Shift they change radio volume by 10 "
-"percent. {spoken} saves the station as a favorite. {spoken2} toggles the "
-"radio."
-msgstr ""
-
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/driving_menu_states/status.rs
-msgid "With Control they jump categories."
-msgstr ""
-
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/driving_menu_states/status.rs
-msgid "With Shift they change radio volume by 10 percent."
-msgstr ""
-
-#. placeholders: {spoken2}
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/driving_menu_states/status.rs
-msgid "{spoken2} toggles the radio."
-msgstr ""
-
-#. placeholders: {spoken}
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/driving_menu_states/status.rs
-msgid "{spoken} saves the station as a favorite."
-msgstr ""
-
-#. placeholders: {favorite_ids}
-#: crates/freight-fate/src/states/driving_menu_states/status.rs
-msgid "Favorites saved: {favorite_ids}."
-msgstr ""
-
-#. placeholders: {f}, {f2}
-#: crates/freight-fate/src/states/driving_menu_states/status.rs
-msgid "Approximate truck radio position: {f}, {f2}."
-msgstr ""
-
-#: crates/freight-fate/src/states/driving_menu_states/status.rs
-msgid "Receivable stations:"
-msgstr ""
-
-#: crates/freight-fate/src/states/driving_menu_states/status.rs
-msgid "Plus 1 more station, listed in the Radio app under Driver apps."
-msgstr ""
-
-#. placeholders: {n}
-#: crates/freight-fate/src/states/driving_menu_states/status.rs
-msgid "Plus {n} more stations, listed in the Radio app under Driver apps."
-msgstr ""
-
-#: crates/freight-fate/src/states/driving_menu_states/status.rs
-msgid "Favorites saved:"
-msgstr ""
-
-#: crates/freight-fate/src/states/driving_menu_states/status.rs crates/freight-fate/src/states/driving_radio_app.rs
-msgid "favorites"
-msgstr ""
-
-#: crates/freight-fate/src/states/driving_menu_states/status.rs crates/freight-fate/src/states/driving_radio_app.rs
-msgid "Your saved stations. Enter on one tunes it."
-msgstr ""
-
-#: crates/freight-fate/src/states/driving_menu_states/status.rs crates/freight-fate/src/states/driving_radio_app.rs
-msgid "Your saved stations. Double tap one to tune it."
-msgstr ""
-
-#: crates/freight-fate/src/states/driving_menu_states/status.rs crates/freight-fate/src/states/driving_radio_app.rs
-msgid "Enter tunes this station."
-msgstr ""
-
-#: crates/freight-fate/src/states/driving_menu_states/status.rs crates/freight-fate/src/states/driving_radio_app.rs
-msgid "Double tap tunes this station."
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_menu_states/status.rs
@@ -33998,6 +33790,59 @@ msgid "Save {display_name} to favorites"
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_radio_app.rs
+msgid ""
+"Streamer-safe mode on, with Music source set to Synthesized. The radio "
+"stays on the Roadhouse."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_radio_app.rs
+msgid ""
+"Streamer-safe mode off. Real public streams and personal playlists are on "
+"the dial."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_radio_app.rs
+msgid ""
+"Streamer-safe mode on. Real public streams and personal playlists are "
+"hidden."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_radio_app.rs
+msgid "Streamer-safe mode off. Real public streams are on the dial."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_radio_app.rs
+msgid "Streamer-safe mode on. Real public streams are hidden."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_radio_app.rs
+msgid ""
+"Music source Synthesized: Freight Fate's own stations are off the dial."
+msgstr ""
+
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_radio_app.rs
+msgid "No playlists of your own yet."
+msgstr ""
+
+#. placeholders: {personal_playlists_dir}
+#: crates/freight-fate/src/states/driving_radio_app.rs
+msgid ""
+"No playlists of your own yet. Put M3U, M3U8 or PLS playlist files in "
+"{personal_playlists_dir}."
+msgstr ""
+
+#. placeholders: {personal_playlists_dir}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_radio_app.rs
+msgid "Put M3U, M3U8 or PLS playlist files in {personal_playlists_dir}."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_radio_app.rs crates/freight-fate/src/states/driving_updates/radio.rs
+msgid "The engine is off. The radio has no power."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_radio_app.rs
 msgid "Now playing on the tuned station. Enter asks again."
 msgstr ""
 
@@ -34019,12 +33864,32 @@ msgid "Double tap switches the radio on or off."
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_radio_app.rs
+msgid "What is on the dial. Enter repeats it."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_radio_app.rs
+msgid "What is on the dial. Double tap repeats it."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_radio_app.rs
 msgid "Saves or removes the tuned station in favorites."
 msgstr ""
 
 #. placeholders: {favorites}
 #: crates/freight-fate/src/states/driving_radio_app.rs
 msgid "Favorites: {favorites} saved"
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_radio_app.rs
+msgid "favorites"
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_radio_app.rs
+msgid "Your saved stations. Enter on one tunes it."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_radio_app.rs
+msgid "Your saved stations. Double tap one to tune it."
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_radio_app.rs
@@ -34045,6 +33910,23 @@ msgstr ""
 msgid ""
 "Browse all stations, or one category such as Terrestrial or Web radio. "
 "Stations in range list first."
+msgstr ""
+
+#. placeholders: {local}
+#: crates/freight-fate/src/states/driving_radio_app.rs
+msgid "Local stations: {local}"
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_radio_app.rs
+msgid ""
+"Freight Fate stations, your playlists and favorites, and stations nearby. "
+"Enter on one tunes it."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_radio_app.rs
+msgid ""
+"Freight Fate stations, your playlists and favorites, and stations nearby. "
+"Double tap one to tune it."
 msgstr ""
 
 #. placeholders: {in_range}
@@ -34086,6 +33968,10 @@ msgstr ""
 msgid "Stations in range"
 msgstr ""
 
+#: crates/freight-fate/src/states/driving_radio_app.rs
+msgid "Local stations"
+msgstr ""
+
 #. placeholders: {query}
 #: crates/freight-fate/src/states/driving_radio_app.rs
 msgid "Stations matching {query}"
@@ -34116,6 +34002,19 @@ msgstr ""
 #. placeholders: {display_name}
 #: crates/freight-fate/src/states/driving_radio_app.rs
 msgid "{display_name} is out of range here."
+msgstr ""
+
+#. placeholders: {label}, {distance_text}
+#: crates/freight-fate/src/states/driving_radio_app.rs
+msgid "{label}, {distance_text} away"
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_radio_app.rs
+msgid "Enter tunes this station."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_radio_app.rs
+msgid "Double tap tunes this station."
 msgstr ""
 
 #. one sentence of a longer line

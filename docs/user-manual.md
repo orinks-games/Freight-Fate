@@ -775,7 +775,6 @@ Use a readout hotkey for a quick check of fuel or time left. Press Tab, or the r
 | Route | Review your progress on the current route. |
 | Driver | Driver name, money, load, objective, truck fuel and damage, transmission, fatigue, hours, and deadline. |
 | Map | Route cities, highways, progress, next guidance, upcoming stops, map points, and toll exposure. |
-| Radio | Current station, stream-safety state, approximate reception position, and the stations you can tune here: every Freight Fate station, your playlists and favorites, and stations in range, with a count of the rest, which the Radio app lists. Enter on a station tunes it. |
 | Driver apps | A tablet-style app menu for Radio, Navigation, Weather, Traffic, Truck stops, Road chatter, and ELD. |
 | Driving commands | Every driving command by name. Choose one to run it and return to the road. This is how a controller reaches the commands with no button of their own. |
 
@@ -787,9 +786,9 @@ Press Tab while driving, or the right bumper and Start on a controller, and choo
 
 ### Radio app
 
-Radio opens a menu where you can switch the radio on or off, tune a station, save or remove a favorite, browse stations in range, and suggest a station. Search stations lets you type part of a name, call sign, or format and press Enter for results. Results show 25 at a time; use the Next page and Previous page rows, or PageDown and PageUp, to reach the rest. Browse by category lists all stations or one category, such as Terrestrial or Web radio, in the same 25-row pages. Stations in range come first, local terrestrial ahead of web radio, and a station that repeats is listed once; out-of-range stations follow. Choose a result and press Enter to tune it. A station marked out of range here cannot be tuned from your current location.
+Radio opens a menu where you can switch the radio on or off, check whether streamer-safe mode is on, tune a station, save or remove a favorite, browse stations, and suggest a station. Local stations lists every Freight Fate station, your playlists and favorites, and the terrestrial stations in range, with how far off each one is. Stations in range adds the web and satellite streams too. Search stations lets you type part of a name, call sign, or format and press Enter for results. Results show 25 at a time; use the Next page and Previous page rows, or PageDown and PageUp, to reach the rest. Browse by category lists all stations or one category, such as Terrestrial or Web radio, in the same 25-row pages. Stations in range come first, local terrestrial ahead of web radio, and a station that repeats is listed once; out-of-range stations follow. Choose a result and press Enter to tune it. A station marked out of range here cannot be tuned from your current location.
 
-Favorites gives you a shorter list of stations you've saved. The Radio report under Driving status is useful for reading reception and playlist information; open the Radio app when you want to choose a station. The [radio guide](#radio-and-playlists) explains the dial, signal changes, personal music, and music settings.
+Favorites gives you a shorter list of stations you've saved. The [radio guide](#radio-and-playlists) explains the dial, signal changes, personal music, and music settings.
 
 ### Navigation app
 
@@ -1061,7 +1060,7 @@ On a controller, the right stick runs the radio. Push it right or left to tune, 
 
 Hold Control with a tuning key to move between route music, Freight Fate stations, your playlists, favorites, terrestrial stations, AFN, satellite, international, fallback, web radio, and other stations. This saves you from moving through the whole dial one station at a time. Open the [Radio app](#radio-app) if you already know the name or want to browse your favorites.
 
-Radio status shows the stations you can receive. The Radio app lets you search, tune, and manage favorites. Regional stations fade as you leave their range. A favorite does not fade: once its signal thins, the radio plays the station's stream instead, and the signal reads as streaming. When a signal is lost, the game tries a clear local station, then a fallback if needed. A failed stream leaves the dial for that session. Roadhouse and Night Line are available across the map.
+The Radio app lists the stations you can receive and lets you search, tune, and manage favorites. Regional stations fade as you leave their range. A favorite does not fade: once its signal thins, the radio plays the station's stream instead, and the signal reads as streaming. When a signal is lost, the game tries a clear local station, then a fallback if needed. A failed stream leaves the dial for that session. Roadhouse and Night Line are available across the map.
 
 ### Choosing music for your drive
 

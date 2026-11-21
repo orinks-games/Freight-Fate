@@ -930,15 +930,14 @@ and any fine amount you cannot get repeated after the fact.
 Setup: a long leg crossing regions; radio on (M).
 
 Do: tune with Page Down and Page Up (semicolon and apostrophe still
-work), ask for status with Y, open the
-Radio screen
-from Tab. Drive a long way and keep checking what the dial offers.
+work), ask for status with Y, open Local stations
+in the Radio app under Driver apps. Drive a long way and keep checking what the dial offers.
 
 Listen for: only receivable stations in the dial rotation, and the list
 changing as you cross the country; hosts on the Roadhouse and Night Line
 at their hours.
 
-Pass when: what you can tune matches where you are, and the Radio screen
+Pass when: what you can tune matches where you are, and Local stations
 agrees with what Page Down actually gives you.
 
 The thirteen Freight Fate regional stations — The Rawhide, Big Wheel
