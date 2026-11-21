@@ -16632,6 +16632,9 @@ msgstr "o"
 msgid "Pause"
 msgstr "Pausa"
 
+msgid "Driving command list"
+msgstr "Lista de controles de conducción"
+
 msgid "Nothing"
 msgstr "Nada"
 
@@ -29735,12 +29738,6 @@ msgstr "Aprender los sonidos del juego"
 msgid "Every sound the road uses, and what each one means."
 msgstr "Todos los sonidos que usa la carretera y lo que significa cada uno."
 
-msgid "Practice keys and buttons"
-msgstr "Practicar teclas y botones"
-
-msgid "Names what each key or controller button does while driving."
-msgstr "Dice qué hace cada tecla o botón del mando mientras conduces."
-
 msgid ""
 "A mobile mechanic patches the truck up enough to drive on. Costs far more "
 "than a garage, an hour and a half, and billed even into debt."
@@ -29884,6 +29881,9 @@ msgstr ""
 "Se duerme mal en el arcén. Reinicia las horas de servicio. El cansancio "
 "sigue, puede haber multa, puede haber daños leves en el camión y el plazo "
 "de entrega sigue corriendo."
+
+msgid "Every driving command by name, in groups."
+msgstr ""
 
 msgid "Emergency shoulder sleep is not available."
 msgstr "No puedes dormir en el arcén de emergencia."
@@ -35699,6 +35699,18 @@ msgstr ""
 msgid "Left stick: steer."
 msgstr "Stick izquierdo: girar."
 
+msgid "Practice gestures"
+msgstr "Practicar gestos"
+
+msgid "Names what each gesture does while driving."
+msgstr ""
+
+msgid "Practice keys and buttons"
+msgstr "Practicar teclas y botones"
+
+msgid "Names what each key or controller button does while driving."
+msgstr "Dice qué hace cada tecla o botón del mando mientras conduces."
+
 msgid "Change one lane left"
 msgstr "Cambiar un carril a la izquierda"
 
@@ -35803,6 +35815,45 @@ msgid ""
 msgstr ""
 "Práctica de teclas y botones. Pulsa una tecla o un botón para oír qué hace "
 "mientras conduces. Escape dos veces, o Start dos veces, para salir."
+
+msgid "Flick down with two fingers twice to leave."
+msgstr ""
+
+msgid "Escape twice within two seconds to leave."
+msgstr "Escape dos veces en menos de dos segundos para salir."
+
+#. one sentence of a longer line
+msgid "A flick is one step."
+msgstr "Un deslizamiento rápido es un paso."
+
+#. one sentence of a longer line
+msgid "A swipe and hold is continuous."
+msgstr "Deslizar y mantener es continuo."
+
+#. one sentence of a longer line
+msgid "Gestures are named but do not control the truck."
+msgstr "Los gestos se nombran pero no manejan el camión."
+
+#. one sentence of a longer line
+msgid "Practice gestures."
+msgstr "Practicar gestos."
+
+#. placeholders: {leave}
+msgid ""
+"Practice gestures. A flick is one step. A swipe and hold is continuous. Try "
+"a flick up, then swipe up and hold. Gestures are named but do not control "
+"the truck. {leave}"
+msgstr ""
+"Practicar gestos. Un deslizamiento rápido es un paso. Deslizar y mantener "
+"es continuo. Prueba un deslizamiento rápido hacia arriba y luego desliza "
+"hacia arriba y mantén. Los gestos se nombran pero no manejan el camión. "
+"{leave}"
+
+#. one sentence of a longer line
+msgid "Try a flick up, then swipe up and hold."
+msgstr ""
+"Prueba un deslizamiento rápido hacia arriba y luego desliza hacia arriba y "
+"mantén."
 
 msgid "Gameplay"
 msgstr "Jugabilidad"
@@ -37683,9 +37734,6 @@ msgstr ""
 msgid "Deep swipe starts at: {touch_deep_swipe_points}"
 msgstr "Umbral del deslizamiento largo: {touch_deep_swipe_points}"
 
-msgid "Practice gestures"
-msgstr "Practicar gestos"
-
 msgid ""
 "Names each gesture and its current command without controlling the truck."
 msgstr "Nombra cada gesto y su control actual sin manejar el camión."
@@ -37717,6 +37765,12 @@ msgstr ""
 #. placeholders: {gesture_name}, {label}
 msgid "{gesture_name} now runs {label}."
 msgstr "{gesture_name} ahora ejecuta {label}."
+
+msgid "Leaving gesture practice."
+msgstr "Saliendo de la práctica de gestos."
+
+msgid "Again to leave practice."
+msgstr "Otra vez para salir de la práctica."
 
 #. one sentence of a longer line
 msgid "Deep swipe."
@@ -37806,53 +37860,6 @@ msgstr "La práctica nombra cada gesto sin mover el camión."
 msgid "Skip and start driving"
 msgstr "Saltar y empezar a conducir"
 
-msgid "Flick down with two fingers twice within two seconds to leave."
-msgstr ""
-"Para salir, desliza rápido hacia abajo con dos dedos, dos veces en menos de "
-"dos segundos."
-
-msgid "Escape twice within two seconds to leave."
-msgstr "Escape dos veces en menos de dos segundos para salir."
-
-#. one sentence of a longer line
-msgid "A flick is one step."
-msgstr "Un deslizamiento rápido es un paso."
-
-#. one sentence of a longer line
-msgid "A swipe and hold is continuous."
-msgstr "Deslizar y mantener es continuo."
-
-#. one sentence of a longer line
-msgid "Gestures are named but do not control the truck."
-msgstr "Los gestos se nombran pero no manejan el camión."
-
-#. one sentence of a longer line
-msgid "Practice gestures."
-msgstr "Practicar gestos."
-
-#. placeholders: {leave}
-msgid ""
-"Practice gestures. A flick is one step. A swipe and hold is continuous. Try "
-"a flick up, then swipe up and hold. Gestures are named but do not control "
-"the truck. {leave}"
-msgstr ""
-"Practicar gestos. Un deslizamiento rápido es un paso. Deslizar y mantener "
-"es continuo. Prueba un deslizamiento rápido hacia arriba y luego desliza "
-"hacia arriba y mantén. Los gestos se nombran pero no manejan el camión. "
-"{leave}"
-
-#. one sentence of a longer line
-msgid "Try a flick up, then swipe up and hold."
-msgstr ""
-"Prueba un deslizamiento rápido hacia arriba y luego desliza hacia arriba y "
-"mantén."
-
-msgid "Leaving gesture practice."
-msgstr "Saliendo de la práctica de gestos."
-
-msgid "Again to leave practice."
-msgstr "Otra vez para salir de la práctica."
-
 msgid "Swipe up"
 msgstr "Deslizar arriba"
 
@@ -37906,9 +37913,6 @@ msgstr "Mensaje anterior"
 
 msgid "Next message"
 msgstr "Mensaje siguiente"
-
-msgid "Driving command list"
-msgstr "Lista de controles de conducción"
 
 msgid "No command"
 msgstr "Ningún control"
@@ -43940,6 +43944,11 @@ msgid ""
 "Hold the left bumper for a second layer of buttons. {pad_engine} controls "
 "the engine, {pad_fuel} reads fuel, and {pad_speed_limit} reads the limit."
 msgstr ""
+
+#~ msgid "Flick down with two fingers twice within two seconds to leave."
+#~ msgstr ""
+#~ "Para salir, desliza rápido hacia abajo con dos dedos, dos veces en menos de "
+#~ "dos segundos."
 
 #~ msgid ""
 #~ "freightfate -- Freight Fate\n"

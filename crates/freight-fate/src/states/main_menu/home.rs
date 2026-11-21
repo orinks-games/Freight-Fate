@@ -270,12 +270,7 @@ impl Menu for MainMenuState {
             })
             .help("Any sound the road uses, and what it means."),
         );
-        items.push(
-            MenuItem::new("Practice keys and buttons", |_s: &mut Self, ctx| {
-                ctx.push_state(InputPracticeState::new())
-            })
-            .help("Names what each key or controller button does while driving."),
-        );
+        items.push(practice_row(ctx));
         items.push(
             MenuItem::new("Settings", |_s: &mut Self, ctx| {
                 ctx.push_state(SettingsState::new())

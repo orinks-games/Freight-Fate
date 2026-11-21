@@ -59,7 +59,7 @@ pub use careers::{
     CareerAction, CareerActionsState, ConfirmCareerActionState, LoadDriverState, ManageCareersState,
 };
 pub use input_practice::{
-    describe_button, describe_key, opens_input_practice, opens_input_practice_pad,
+    describe_button, describe_key, opens_input_practice, opens_input_practice_pad, practice_row,
     InputPracticeState,
 };
 pub use settings::{
@@ -67,7 +67,7 @@ pub use settings::{
 };
 pub use shortcuts::{ShortcutDevice, ShortcutsState};
 pub use touch_gestures::{TouchCommandPickerState, TouchGesturesState};
-pub use touch_practice::{TouchPracticeOfferState, TouchPracticeState};
+pub use touch_practice::{TouchLeave, TouchLeaveEvent, TouchPracticeOfferState};
 
 pub use crate::states::main_menu_career::{
     region_menu_name, CareerStartState, HomeCityState, HomeTerminalState,

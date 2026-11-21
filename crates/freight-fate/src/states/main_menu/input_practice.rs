@@ -1,13 +1,18 @@
-//! Key and button practice: the keyboard and controller counterpart of
-//! gesture practice. Every key or button names what it does at the wheel,
-//! and nothing reaches the game. Shift F1 opens it from any screen.
+//! Practice: every key, controller button or gesture names what it does at
+//! the wheel, and nothing reaches the game. One screen answers all three, so
+//! a phone with a keyboard attached hears both. Shift F1 opens it from any
+//! screen; on a touch screen the main and pause menus open it as Practice
+//! gestures.
 
 use std::time::{Duration, Instant};
 
 use crate::app::GameContext;
 use crate::bindings::{pad_button_short_name, Action, Chord, PadChord};
 use crate::controller::ControllerButton;
-use crate::states::base::{InputEvent, Key, Mods, State};
+use crate::states::base::{InputEvent, Key, MenuItem, Mods, State};
+use crate::touch::{Gesture, TouchMode};
+
+use super::touch_practice::{GesturePractice, TouchLeave};
 
 /// How far a trigger or the left stick moves before practice names it, and
 /// how near rest it must come back before it is named again.
@@ -34,6 +39,10 @@ pub fn opens_input_practice_pad(ctx: &GameContext, button: ControllerButton) -> 
 
 #[derive(Default)]
 pub struct InputPracticeState {
+    /// Opened as Practice gestures: the entry line names gestures even when
+    /// a keyboard is in hand.
+    gestures_first: bool,
+    gestures: GesturePractice,
     last_leave: Option<Instant>,
     last_stick: Option<(ControllerButton, Instant)>,
     throttle_named: bool,
@@ -44,6 +53,25 @@ pub struct InputPracticeState {
 impl InputPracticeState {
     pub fn new() -> Self {
         Self::default()
+    }
+
+    /// Opened from a Practice gestures row.
+    pub fn gestures() -> Self {
+        Self {
+            gestures_first: true,
+            ..Self::default()
+        }
+    }
+
+    /// Practice gestures on a touch screen with no keyboard: the main and
+    /// pause menu rows open this, not key practice.
+    pub fn touch_only(ctx: &GameContext) -> bool {
+        ctx.controller.device() == ff_core::input_hints::TOUCH
+    }
+
+    /// Where the touch count to leave stands, for the agent server.
+    pub fn touch_leave(&self) -> TouchLeave {
+        self.gestures.leave_state()
     }
 
     /// Escape or Start: the first names it, a second within two seconds
@@ -67,6 +95,7 @@ impl InputPracticeState {
     }
 
     fn key_down(&mut self, ctx: &mut GameContext, key: Key, mods: Mods) {
+        self.gestures.other_input();
         if key == Key::Escape {
             self.leave_press(ctx, "Escape");
             return;
@@ -77,6 +106,7 @@ impl InputPracticeState {
     }
 
     fn button_down(&mut self, ctx: &mut GameContext, button: ControllerButton) {
+        self.gestures.other_input();
         let modified = ctx.controller.modifier && button != ControllerButton::RightShoulder;
         if opens_input_practice_pad(ctx, button) {
             self.last_leave = None;
@@ -130,6 +160,24 @@ impl InputPracticeState {
             ctx.say(text);
         }
     }
+}
+
+/// The practice row on the main and pause menus. On a touch screen with no
+/// keyboard it opens practice as Practice gestures.
+pub fn practice_row<S: 'static>(ctx: &GameContext) -> MenuItem<S> {
+    if InputPracticeState::touch_only(ctx) {
+        return MenuItem::new("Practice gestures", |_s: &mut S, ctx: &mut GameContext| {
+            ctx.push_state(InputPracticeState::gestures());
+        })
+        .help("Names what each gesture does while driving.");
+    }
+    MenuItem::new(
+        "Practice keys and buttons",
+        |_s: &mut S, ctx: &mut GameContext| {
+            ctx.push_state(InputPracticeState::new());
+        },
+    )
+    .help("Names what each key or controller button does while driving.")
 }
 
 /// True once when `value` passes the press point; rearms near rest.
@@ -268,10 +316,46 @@ pub fn describe_button(
 impl State for InputPracticeState {
     fn enter(&mut self, ctx: &mut GameContext) {
         ctx.audio.horn_stop();
-        ctx.say(
-            "Key and button practice. Press a key or button to hear what it does while \
-             driving. Escape twice, or Start twice, to leave.",
-        );
+        let touch = Self::touch_only(ctx);
+        if !touch && !self.gestures_first {
+            ctx.say(
+                "Key and button practice. Press a key or button to hear what it does while \
+                 driving. Escape twice, or Start twice, to leave.",
+            );
+            return;
+        }
+        // The core rule first: every gesture below is an example of it.
+        let leave = if touch {
+            "Flick down with two fingers twice to leave."
+        } else {
+            "Escape twice within two seconds to leave."
+        };
+        ctx.say(&format!(
+            "Practice gestures. A flick is one step. A swipe and hold is continuous. Try a \
+             flick up, then swipe up and hold. Gestures are named but do not control the \
+             truck. {leave}"
+        ));
+    }
+
+    fn touch_mode(&self) -> TouchMode {
+        TouchMode::Practice
+    }
+
+    fn handle_gesture(&mut self, ctx: &mut GameContext, gesture: Gesture) -> bool {
+        if !matches!(
+            gesture,
+            Gesture::Travel(_)
+                | Gesture::HoldEnded
+                | Gesture::SecondSteerEnded
+                | Gesture::KeyboardConnected
+                | Gesture::KeyboardDisconnected
+        ) {
+            self.last_leave = None;
+        }
+        if self.gestures.handle(ctx, gesture) {
+            ctx.pop_state();
+        }
+        true
     }
 
     fn handle_event(&mut self, ctx: &mut GameContext, event: &InputEvent) {
