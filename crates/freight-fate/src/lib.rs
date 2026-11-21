@@ -31,3 +31,9 @@ pub mod touch;
 pub mod updater;
 #[cfg(feature = "visuals")]
 pub mod visuals;
+
+/// Whether the radio reads the player's own playlists from the Playlists
+/// folder. Phones and tablets leave them out: the folder sits inside the
+/// app's private storage, where the player cannot put files, and the
+/// YouTube entries need a yt-dlp the phone cannot run.
+pub const PERSONAL_PLAYLISTS: bool = !cfg!(touch_screen);
