@@ -205,7 +205,7 @@ pub static HELP_PAGES: &[(&str, &[&str])] = &[
         &[
             "Winter tires improve snow and ice grip. Chains are carried in the truck. To put them on, stop and use the pause menu.",
             "Chain laws require chains on a truck at every chain-law level. Winter tires don't count for a semi. There are two exceptions at level one. Colorado and Oregon require chains only on single-drive-axle trucks, and Wyoming accepts snow tires. Signs announce the requirement before the chain-up area.",
-            "Chain work uses on-duty time and adds fatigue, especially at night. Keep under chain speed, 30 miles per hour or 48 kilometers per hour, and remove chains on bare pavement before they break.",
+            "Chain work uses on-duty time and adds fatigue, especially at night. Keep under chain speed, 30 miles per hour or 48 kilometers per hour, and remove chains on a bare road before they break.",
             "Worn tires and strong engine braking make slippery roads harder to control. Stop for rest or safer conditions when necessary.",
         ],
     ),

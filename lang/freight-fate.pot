@@ -9937,7 +9937,7 @@ msgstr ""
 msgid "carrier-sponsored free at level {level}"
 msgstr ""
 
-#: crates/ff-core/src/models/dispatch_board.rs crates/ff-core/src/sim/real_weather.rs crates/ff-core/src/sim/runaway.rs crates/ff-core/src/sim/weather/tables.rs
+#: crates/ff-core/src/models/dispatch_board.rs crates/ff-core/src/sim/chain_control.rs crates/ff-core/src/sim/real_weather.rs crates/ff-core/src/sim/runaway.rs
 msgid "clear"
 msgstr ""
 
@@ -13272,6 +13272,18 @@ msgstr ""
 msgid "Cab: driver window down, fan high, air conditioning"
 msgstr ""
 
+#: crates/ff-core/src/sim/chain_control.rs crates/ff-core/src/sim/real_weather.rs crates/ff-core/src/sim/real_weather_alerts.rs crates/ff-core/src/sim/weather/tables.rs
+msgid "snow"
+msgstr ""
+
+#: crates/ff-core/src/sim/chain_control.rs
+msgid "stowed"
+msgstr ""
+
+#: crates/ff-core/src/sim/chain_control.rs
+msgid "broken"
+msgstr ""
+
 #: crates/ff-core/src/sim/cross_traffic.rs crates/freight-fate/src/states/driving_events/ramp_crossing.rs crates/freight-fate/src/states/driving_events/ramp_terminal.rs crates/freight-fate/src/states/driving_events/street_controls.rs
 msgid "yield"
 msgstr ""
@@ -14007,7 +14019,7 @@ msgstr ""
 msgid "glaze"
 msgstr ""
 
-#: crates/ff-core/src/sim/real_weather.rs crates/ff-core/src/sim/weather/tables.rs crates/freight-fate/src/states/city/board/chains.rs
+#: crates/ff-core/src/sim/real_weather.rs crates/ff-core/src/sim/weather/tables.rs
 msgid "ice"
 msgstr ""
 
@@ -14029,10 +14041,6 @@ msgstr ""
 
 #: crates/ff-core/src/sim/real_weather.rs crates/ff-core/src/sim/real_weather_alerts.rs
 msgid "frost"
-msgstr ""
-
-#: crates/ff-core/src/sim/real_weather.rs crates/ff-core/src/sim/real_weather_alerts.rs crates/ff-core/src/sim/weather/tables.rs crates/freight-fate/src/states/city/board/chains.rs
-msgid "snow"
 msgstr ""
 
 #: crates/ff-core/src/sim/real_weather.rs
@@ -15776,6 +15784,10 @@ msgid "destination approach"
 msgstr ""
 
 #: crates/ff-core/src/sim/trip/zones.rs
+msgid "Chain law lifted."
+msgstr ""
+
+#: crates/ff-core/src/sim/trip/zones.rs
 msgid " Chain-up area on the right."
 msgstr ""
 
@@ -16682,7 +16694,7 @@ msgstr ""
 msgid "high winds"
 msgstr ""
 
-#: crates/ff-core/src/sim/weather/tables.rs
+#: crates/ff-core/src/sim/weather/tables.rs crates/freight-fate/src/states/city/board/chains.rs
 msgid "dry"
 msgstr ""
 
@@ -17982,6 +17994,25 @@ msgstr ""
 msgid ""
 "Staged {staged} at mile {position_mi}; it fires on the next rolling frame, "
 "so listen for the call."
+msgstr ""
+
+#: crates/freight-fate/src/app.rs
+msgid "a free sky"
+msgstr ""
+
+#. placeholders: {value}
+#: crates/freight-fate/src/app.rs
+msgid "forced {value}"
+msgstr ""
+
+#. placeholders: {sky}
+#: crates/freight-fate/src/app.rs
+msgid "The drive under way, and drives staged after it, run under {sky}."
+msgstr ""
+
+#. placeholders: {sky}
+#: crates/freight-fate/src/app.rs
+msgid "Drives staged from here on run under {sky}."
 msgstr ""
 
 #: crates/freight-fate/src/app.rs
@@ -23460,7 +23491,7 @@ msgid ""
 "A chain set is seven chains and two repair links. Four chains go on the "
 "drive tires and one on a trailer tire, the most any state here asks of a "
 "semi. The other two are spares. Put chains on from the pause menu once "
-"you're stopped in snow or ice. They wear out fast on bare pavement. Company "
+"you're stopped in snow or ice. They wear out fast on a bare road. Company "
 "drivers bill the carrier."
 msgstr ""
 
@@ -29491,6 +29522,10 @@ msgstr ""
 msgid "Billboard: {line}"
 msgstr ""
 
+#: crates/freight-fate/src/states/driving_events/chain_stop.rs
+msgid "Bare road. Stop and take the chains off."
+msgstr ""
+
 #: crates/freight-fate/src/states/driving_events/chain_stop.rs crates/freight-fate/src/states/driving_events/stops.rs crates/freight-fate/src/states/driving_pause_states.rs crates/freight-fate/src/states/driving_rest_states/shoulder.rs
 msgid "Come to a complete stop first."
 msgstr ""
@@ -29679,30 +29714,14 @@ msgstr ""
 msgid "Stopping to put chains on, about {f} minutes on duty."
 msgstr ""
 
-#. placeholders: {distance_text}
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/driving_events/chain_stop.rs
-msgid "Another chain area in {distance_text}."
-msgstr ""
-
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/driving_events/chain_stop.rs
-msgid "Leaving chains on."
-msgstr ""
-
-#. placeholders: {distance_text}
-#: crates/freight-fate/src/states/driving_events/chain_stop.rs
-msgid "Leaving chains on. Another chain area in {distance_text}."
-msgstr ""
-
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/driving_events/chain_stop.rs
-msgid "Chain-off area."
+msgid "Bare road."
 msgstr ""
 
 #. placeholders: {f}
 #: crates/freight-fate/src/states/driving_events/chain_stop.rs
-msgid "Chain-off area. Taking chains off, about {f} minutes on duty."
+msgid "Bare road. Taking chains off, about {f} minutes on duty."
 msgstr ""
 
 #. placeholders: {f}
@@ -33322,7 +33341,7 @@ msgid "Remove snow chains: about {f} minutes"
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_pause_states.rs
-msgid "Chains grind apart fast on bare pavement."
+msgid "Chains grind apart fast on a bare road."
 msgstr ""
 
 #. one sentence of a longer line
@@ -33334,8 +33353,8 @@ msgstr ""
 #: crates/freight-fate/src/states/driving_pause_states.rs
 msgid ""
 "Chains bite snow and ice. Keep under {speed_text} with chains on. Take them "
-"off once the road is bare. In the dark, installing takes longer and more "
-"out of you."
+"off on a bare road. In the dark, installing takes longer and more out of "
+"you."
 msgstr ""
 
 #. one sentence of a longer line
@@ -33351,7 +33370,7 @@ msgstr ""
 
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/driving_pause_states.rs
-msgid "Take them off once the road is bare."
+msgid "Take them off on a bare road."
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_pause_states.rs
@@ -43758,7 +43777,7 @@ msgstr ""
 msgid ""
 "Chain work uses on-duty time and adds fatigue, especially at night. Keep "
 "under chain speed, 30 miles per hour or 48 kilometers per hour, and remove "
-"chains on bare pavement before they break."
+"chains on a bare road before they break."
 msgstr ""
 
 #: crates/freight-fate/src/states/main_menu_help.rs

@@ -25,6 +25,7 @@ use ff_core::pyfmt::fmt_grouped;
 use ff_core::sim::alertness::Alertness;
 use ff_core::sim::hos::HosClock;
 use ff_core::sim::vehicle::TruckState;
+use ff_core::sim::weather::WeatherKind;
 
 use crate::app::GameContext;
 
@@ -135,6 +136,30 @@ pub struct Scenario {
     /// The road surface every drive from here on keeps: `Some(true)` jointed
     /// the whole way, `Some(false)` smooth.
     pub road_jointed: Option<bool>,
+    /// The simulated sky every drive from here on starts under:
+    /// `Some(Some(kind))` forced, `Some(None)` free (`parse_weather`).
+    pub weather: Option<Option<WeatherKind>>,
+}
+
+/// A `weather` field: a condition by name ("snow", "ice", "cloudy",
+/// "heavy_rain", or its spoken value such as "freezing rain") to force, or
+/// "free" to unlock the sky.
+pub fn parse_weather(value: &str) -> Result<Option<WeatherKind>, String> {
+    let value = value.trim().to_lowercase();
+    if value == "free" {
+        return Ok(None);
+    }
+    WeatherKind::ALL
+        .into_iter()
+        .find(|kind| kind.name().to_lowercase() == value || kind.value() == value)
+        .map(Some)
+        .ok_or_else(|| {
+            let names: Vec<String> = WeatherKind::ALL
+                .iter()
+                .map(|kind| kind.name().to_lowercase())
+                .collect();
+            format!("weather must be free or one of {}", names.join(", "))
+        })
 }
 
 fn number(args: &Map<String, Value>, key: &str) -> Result<Option<f64>, String> {
@@ -214,6 +239,9 @@ impl Scenario {
                 ))
             }
         };
+        let weather = text(args, "weather")?
+            .map(|value| parse_weather(&value))
+            .transpose()?;
         let settings = match args.get("settings") {
             None | Some(Value::Null) => Map::new(),
             Some(Value::Object(map)) => map.clone(),
@@ -326,6 +354,7 @@ impl Scenario {
             settings,
             window_down,
             road_jointed,
+            weather,
         })
     }
 
@@ -567,6 +596,13 @@ pub fn apply(ctx: &mut GameContext, scenario: &Scenario) -> Result<Vec<String>, 
             "Drives start with the driver window down.".to_string()
         } else {
             "Drives start with the driver window up.".to_string()
+        });
+    }
+    if let Some(weather) = scenario.weather {
+        ctx.playtest_weather = Some(weather);
+        notes.push(match weather {
+            Some(kind) => format!("Drives start under forced {}.", kind.value()),
+            None => "Drives start under a free sky.".to_string(),
         });
     }
     if let Some(jointed) = scenario.road_jointed {

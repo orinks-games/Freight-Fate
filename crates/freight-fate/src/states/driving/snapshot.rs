@@ -511,6 +511,16 @@ impl DrivingState {
         // it was at the last stop. An older save keeps the profile's value.
         state.trip.truck.chain_wear_pct =
             f(data, "chain_wear_pct", state.trip.truck.chain_wear_pct);
+        // The chain states are rebuilt from what the save already holds:
+        // the chains on or not, and the road under them now.
+        state.trip.chain_control = ff_core::sim::chain_control::ChainControl::from_reading(
+            state.trip.chain_road_reading(),
+        );
+        state.chain_set = ff_core::sim::chain_control::ChainSet::from_truck(
+            state.trip.truck.chains_on,
+            ff_core::sim::chain_control::snow_or_ice(state.trip.weather.effects().surface),
+            state.trip.position_mi,
+        );
         state.trailer_refused = b(data, "trailer_refused", false);
         state.trailer_repaired = b(data, "trailer_repaired", false);
         state.rig_buffs = data

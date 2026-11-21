@@ -11591,6 +11591,15 @@ msgstr "Kabin: şoför camı açık, fan orta, klima"
 msgid "Cab: driver window down, fan high, air conditioning"
 msgstr "Kabin: şoför camı açık, fan yüksek, klima"
 
+msgid "snow"
+msgstr "kar"
+
+msgid "stowed"
+msgstr ""
+
+msgid "broken"
+msgstr ""
+
 msgid "yield"
 msgstr "yol ver"
 
@@ -12192,9 +12201,6 @@ msgstr "hafif kar"
 
 msgid "frost"
 msgstr "kırağı"
-
-msgid "snow"
-msgstr "kar"
 
 msgid "wintry"
 msgstr "kış koşulları"
@@ -13564,6 +13570,9 @@ msgstr "tesis yaklaşımı"
 
 msgid "destination approach"
 msgstr "varış yaklaşımı"
+
+msgid "Chain law lifted."
+msgstr ""
 
 msgid " Chain-up area on the right."
 msgstr " Zincir takma alanı sağda."
@@ -15527,6 +15536,21 @@ msgid ""
 msgstr ""
 "{staged}, {position_mi}. milde hazır. Tır ilerler ilerlemez tetiklenir. "
 "Anonsu dinleyin."
+
+msgid "a free sky"
+msgstr ""
+
+#. placeholders: {value}
+msgid "forced {value}"
+msgstr ""
+
+#. placeholders: {sky}
+msgid "The drive under way, and drives staged after it, run under {sky}."
+msgstr ""
+
+#. placeholders: {sky}
+msgid "Drives staged from here on run under {sky}."
+msgstr ""
 
 msgid "the co-driver has the wheel"
 msgstr "direksiyonda yardımcı şoför var"
@@ -20279,7 +20303,7 @@ msgid ""
 "A chain set is seven chains and two repair links. Four chains go on the "
 "drive tires and one on a trailer tire, the most any state here asks of a "
 "semi. The other two are spares. Put chains on from the pause menu once "
-"you're stopped in snow or ice. They wear out fast on bare pavement. Company "
+"you're stopped in snow or ice. They wear out fast on a bare road. Company "
 "drivers bill the carrier."
 msgstr ""
 "Bir zincir takımı yedi zincir ve iki onarım baklasıdır. Dört zincir çekici "
@@ -25705,6 +25729,9 @@ msgstr ""
 msgid "Billboard: {line}"
 msgstr "Reklam panosu: {line}"
 
+msgid "Bare road. Stop and take the chains off."
+msgstr ""
+
 msgid "Come to a complete stop first."
 msgstr "Önce tamamen durun."
 
@@ -25873,28 +25900,13 @@ msgstr ""
 msgid "Stopping to put chains on, about {f} minutes on duty."
 msgstr "Zincir takmak için duruluyor, yaklaşık {f} dakika görevde."
 
-#. placeholders: {distance_text}
 #. one sentence of a longer line
-msgid "Another chain area in {distance_text}."
-msgstr "{distance_text} sonra bir zincir alanı daha var."
-
-#. one sentence of a longer line
-msgid "Leaving chains on."
-msgstr "Zincirler takılı kalıyor."
-
-#. placeholders: {distance_text}
-msgid "Leaving chains on. Another chain area in {distance_text}."
+msgid "Bare road."
 msgstr ""
-"Zincirler takılı kalıyor. {distance_text} sonra bir zincir alanı daha var."
-
-#. one sentence of a longer line
-msgid "Chain-off area."
-msgstr "Zincir çıkarma alanı."
 
 #. placeholders: {f}
-msgid "Chain-off area. Taking chains off, about {f} minutes on duty."
+msgid "Bare road. Taking chains off, about {f} minutes on duty."
 msgstr ""
-"Zincir çıkarma alanı. Zincirler çıkarılıyor, yaklaşık {f} dakika görevde."
 
 #. placeholders: {f}
 #. one sentence of a longer line
@@ -28910,7 +28922,7 @@ msgstr "Kalan: {chain_repair_links}."
 msgid "Remove snow chains: about {f} minutes"
 msgstr "Kar zincirlerini çıkar: yaklaşık {f} dakika"
 
-msgid "Chains grind apart fast on bare pavement."
+msgid "Chains grind apart fast on a bare road."
 msgstr "Zincirler çıplak asfaltta hızla parçalanır."
 
 #. one sentence of a longer line
@@ -28920,8 +28932,8 @@ msgstr "Zincirler karı ve buzu tutar."
 #. placeholders: {speed_text}
 msgid ""
 "Chains bite snow and ice. Keep under {speed_text} with chains on. Take them "
-"off once the road is bare. In the dark, installing takes longer and more "
-"out of you."
+"off on a bare road. In the dark, installing takes longer and more out of "
+"you."
 msgstr ""
 "Zincirler karı ve buzu tutar. Zincirler takılıyken {speed_text} altında "
 "kalın. Yol çıplaklaşınca çıkarın. Karanlıkta takmak daha uzun sürer ve sizi "
@@ -28937,7 +28949,7 @@ msgid "Keep under {speed_text} with chains on."
 msgstr "Zincirler takılıyken {speed_text} altında kalın."
 
 #. one sentence of a longer line
-msgid "Take them off once the road is bare."
+msgid "Take them off on a bare road."
 msgstr "Yol çıplaklaşınca çıkarın."
 
 msgid "Wait for the chain law to lift"
@@ -38786,7 +38798,7 @@ msgstr ""
 msgid ""
 "Chain work uses on-duty time and adds fatigue, especially at night. Keep "
 "under chain speed, 30 miles per hour or 48 kilometers per hour, and remove "
-"chains on bare pavement before they break."
+"chains on a bare road before they break."
 msgstr ""
 "Zincir işi görev süresinden yer ve yorgunluk ekler, özellikle gece. "
 "Zincirli hızın altında kalın, saatte 30 mil ya da 48 kilometre, ve kopmadan "
@@ -43011,6 +43023,23 @@ msgid ""
 "Hold the left bumper for a second layer of buttons. {pad_engine} controls "
 "the engine, {pad_fuel} reads fuel, and {pad_speed_limit} reads the limit."
 msgstr ""
+
+#~ msgid "Another chain area in {distance_text}."
+#~ msgstr "{distance_text} sonra bir zincir alanı daha var."
+
+#~ msgid "Leaving chains on."
+#~ msgstr "Zincirler takılı kalıyor."
+
+#~ msgid "Leaving chains on. Another chain area in {distance_text}."
+#~ msgstr ""
+#~ "Zincirler takılı kalıyor. {distance_text} sonra bir zincir alanı daha var."
+
+#~ msgid "Chain-off area."
+#~ msgstr "Zincir çıkarma alanı."
+
+#~ msgid "Chain-off area. Taking chains off, about {f} minutes on duty."
+#~ msgstr ""
+#~ "Zincir çıkarma alanı. Zincirler çıkarılıyor, yaklaşık {f} dakika görevde."
 
 #~ msgid ", {spoken} away"
 #~ msgstr ", uzaklık {spoken}"

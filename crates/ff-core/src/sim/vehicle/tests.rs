@@ -1051,24 +1051,23 @@ fn test_chains_grind_apart_on_bare_pavement_and_snap() {
 }
 
 #[test]
-fn test_chains_inside_a_posted_control_wear_as_on_snow() {
-    // A live winter-storm alert can post the chain law while the simulated
-    // road still reads wet. A lawful set at chain speed must last the
-    // control, not snap a dozen miles in (player report, 2026-10-17).
-    let mut posted = make_auto_truck();
-    posted.chains_on = true;
-    posted.surface = "wet".to_string();
-    posted.chain_control_road = true;
-    posted.velocity_mps = 25.0 / 2.23694;
-    posted.update_wear(1440.0); // ten miles at 25 mph
-    assert!(posted.chains_on);
-    assert!(posted.chain_wear_pct < 3.0, "{}", posted.chain_wear_pct);
-    // Out of the control the same wet road grinds them as before.
+fn test_an_alert_on_a_wet_road_posts_no_law_and_chains_wear_as_bare() {
+    // A live winter-storm alert once posted the chain law over a wet road,
+    // so lawful chains needed a snow-rate exemption (player report,
+    // 2026-10-17). The law now follows the road: wet road, no law, and
+    // chains left on there grind at the bare rate (player report,
+    // 2026-11-21).
+    use crate::sim::chain_control::{posted_level, RoadReading};
+    let reading = RoadReading {
+        surface: "wet",
+        alert_raises: true,
+    };
+    assert_eq!(posted_level(reading), 0);
     let mut left_on = make_auto_truck();
     left_on.chains_on = true;
     left_on.surface = "wet".to_string();
     left_on.velocity_mps = 25.0 / 2.23694;
-    left_on.update_wear(1440.0);
+    left_on.update_wear(1440.0); // ten miles at 25 mph
     assert!(left_on.chain_wear_pct > 50.0, "{}", left_on.chain_wear_pct);
 }
 

@@ -335,6 +335,13 @@ pub struct Trip {
     pub scale_reminder_hold_mi: Option<f64>,
     pub exit_approach_release_s: f64,
     pub announced_chain_law: HashSet<String>,
+    /// Whether a chain law is posted (`chain_control`): moved only by
+    /// `refresh_chain_control`, read by `chain_law_level`.
+    pub chain_control: crate::sim::chain_control::ChainControl,
+    /// The chain-law area whose sign call was spoken and whose law just
+    /// lifted, for `check_chain_law` to say so. A truck held at the
+    /// checkpoint hears the officer instead, so the drive clears it there.
+    pub chain_law_lift_to_speak: Option<usize>,
     pub announced_curves: HashSet<String>,
     pub announced_lane_changes: HashSet<String>,
     /// lazily built, direction-aware
@@ -513,6 +520,8 @@ impl Trip {
             scale_reminder_hold_mi: None,
             exit_approach_release_s: 0.0,
             announced_chain_law: HashSet::new(),
+            chain_control: Default::default(),
+            chain_law_lift_to_speak: None,
             announced_curves: HashSet::new(),
             announced_lane_changes: HashSet::new(),
             lane_runs: None,
