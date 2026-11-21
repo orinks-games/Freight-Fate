@@ -307,6 +307,31 @@ impl PlayerInputFrame<'_> {
         self.app.touch_mode()
     }
 
+    /// The dispatch board's state for `status`, when the board is on top:
+    /// `; board_mode ...; board_offer ...; board_reason ...; board_gate ...`.
+    pub fn dispatch_board_state(&self) -> Option<String> {
+        let state = self.app.state()?;
+        let state = state.borrow();
+        let board = state
+            .as_any()
+            .downcast_ref::<crate::states::city::JobBoardState>()?
+            .dispatch_board();
+        let offer = board
+            .offer()
+            .map_or("none".to_string(), |i| format!("job {}", i + 1));
+        let reason = match board.mode {
+            ff_core::models::dispatch_board::BoardMode::Assigned { .. } => "assigned",
+            ff_core::models::dispatch_board::BoardMode::Browse => {
+                board.recommendation.map_or("none", |r| r.reason.key())
+            }
+        };
+        Some(format!(
+            "; board_mode {}; board_offer {offer}; board_reason {reason}; board_gate {}",
+            board.mode_key(),
+            board.gate.key()
+        ))
+    }
+
     /// The voices as `status` reports them: the saved main voice choice
     /// ("automatic" when empty), the bound main voice, and the bound event
     /// voice ("main voice" when events share it).

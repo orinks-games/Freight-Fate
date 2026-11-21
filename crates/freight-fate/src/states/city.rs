@@ -435,11 +435,10 @@ pub fn open_freight_market(ctx: &mut GameContext) -> Vec<Job> {
                     // Replaces a slot rather than adding one: the board still shows
                     // exactly as many entries as the player's level and trust earn.
                     // The farthest ordinary offer goes -- the one least likely to be
-                    // what a driver actually wanted -- and the list is re-sorted by
-                    // distance the same way board.offers() leaves it.
-                    let last = fresh.len() - 1;
-                    fresh[last] = relay;
-                    sort_by_distance(&mut fresh);
+                    // what a driver actually wanted -- and the relay takes its row,
+                    // so the posted order stands.
+                    let slot = farthest_slot(&fresh, |_| true).unwrap_or(0);
+                    fresh[slot] = relay;
                 } else {
                     fresh.push(relay);
                 }
@@ -447,7 +446,13 @@ pub fn open_freight_market(ctx: &mut GameContext) -> Vec<Job> {
             lever_note = add_forced_board_job(ctx, &mut board, &mut fresh);
             let mut cache = Map::new();
             if let Some(held) = held_load::held_load(profile(ctx), world) {
-                held_load::carry_onto_board(&mut fresh, held, &mut cache);
+                let forced = forced_dispatch_destination();
+                let forced = (!forced.is_empty()).then(|| world.resolve_city_key(&forced));
+                held_load::carry_onto_board(&mut fresh, held, &mut cache, |job| {
+                    forced
+                        .as_ref()
+                        .is_some_and(|key| &world.resolve_city_key(&job.destination) == key)
+                });
             }
             let payloads: Vec<Value> = fresh
                 .iter()
@@ -468,12 +473,18 @@ pub fn open_freight_market(ctx: &mut GameContext) -> Vec<Job> {
     jobs
 }
 
-pub(crate) fn sort_by_distance(jobs: &mut [Job]) {
-    jobs.sort_by(|a, b| {
-        a.distance_mi
-            .partial_cmp(&b.distance_mi)
-            .unwrap_or(std::cmp::Ordering::Equal)
-    });
+/// Index of the longest load among those `eligible` allows: the row a
+/// relayed or held load takes over, so the board keeps the size the
+/// driver's level and standing earn. The first of equals wins.
+pub(crate) fn farthest_slot(jobs: &[Job], eligible: impl Fn(&Job) -> bool) -> Option<usize> {
+    jobs.iter()
+        .enumerate()
+        .filter(|(_, job)| eligible(job))
+        .fold(None, |best: Option<(usize, f64)>, (i, job)| match best {
+            Some((_, miles)) if miles >= job.distance_mi => best,
+            _ => Some((i, job.distance_mi)),
+        })
+        .map(|(i, _)| i)
 }
 
 /// `(city key, miles, leg count)` for every city reachable from `city` on a
@@ -588,8 +599,8 @@ fn add_forced_board_job(
     let Some(job) = job else {
         return format!("Playtest lever: no supported dispatch from here to {spoken}.");
     };
+    // The last row, every time, so a tester knows where to find it.
     jobs.push(job);
-    sort_by_distance(jobs);
     format!("Playtest lever: added a load to {spoken} to the board.")
 }
 

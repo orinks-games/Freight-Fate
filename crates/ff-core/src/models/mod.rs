@@ -11,6 +11,8 @@ pub mod carrier_fleet;
 pub mod carrier_move;
 pub mod co_driver;
 pub mod credentials;
+pub mod dispatch_board;
+pub mod dispatch_fit;
 pub mod dispatch_policy;
 pub mod economy;
 pub mod enforcement;

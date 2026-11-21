@@ -8658,6 +8658,26 @@ msgstr ", seviye {level} olunca taşıyıcı ücretsiz karşılar"
 msgid "carrier-sponsored free at level {level}"
 msgstr "seviye {level} olunca taşıyıcı ücretsiz karşılar"
 
+msgid "clear"
+msgstr "açık"
+
+#. placeholders: {i}
+msgid "hours_heard job {i}"
+msgstr ""
+
+#. placeholders: {i}
+msgid "chains_heard job {i}"
+msgstr ""
+
+msgid "assigned"
+msgstr "atanmış"
+
+msgid "browse"
+msgstr ""
+
+msgid "plain"
+msgstr ""
+
 msgid "Pay advance already taken for this load. Deliver it first."
 msgstr "Bu yük için ücret avansı zaten alındı. Önce yükü teslim edin."
 
@@ -9401,9 +9421,6 @@ msgstr "ödeme"
 
 msgid "bobtail"
 msgstr "dorsesiz"
-
-msgid "assigned"
-msgstr "atanmış"
 
 msgid "team"
 msgstr "ekip"
@@ -12252,9 +12269,6 @@ msgstr "bulut"
 
 msgid "overcast"
 msgstr "kapalı"
-
-msgid "clear"
-msgstr "açık"
 
 msgid "fair"
 msgstr "az bulutlu"
@@ -15448,6 +15462,16 @@ msgstr ""
 msgid "You take the wheel {start_mi} miles up the road."
 msgstr "Direksiyona yolun {start_mi} mil ilerisinde geçiyorsunuz."
 
+#. placeholders: {i}
+msgid "job {i}"
+msgstr ""
+
+#. placeholders: {mode_key}, {offer}, {reason}, {key}
+msgid ""
+"; board_mode {mode_key}; board_offer {offer}; board_reason {reason}; "
+"board_gate {key}"
+msgstr ""
+
 msgid "automatic"
 msgstr "otomatik"
 
@@ -17850,44 +17874,6 @@ msgstr "masraflardan sonra yaklaşık {take_home}"
 msgid "about {take_home} to you"
 msgstr "size yaklaşık {take_home}"
 
-#. placeholders: {highway}
-#. one sentence of a longer line
-msgid "A chain law is in effect on {highway} on this route."
-msgstr "Bu rotada {highway} üzerinde zincir kuralı yürürlükte."
-
-#. placeholders: {highway}
-msgid ""
-"A chain law is in effect on {highway} on this route. You have no chains. "
-"The garage here sells them. Enter again to accept."
-msgstr ""
-"Bu rotada {highway} üzerinde zincir kuralı yürürlükte. Zinciriniz yok. "
-"Buradaki garaj satıyor. Kabul etmek için yeniden Enter'a basın."
-
-#. one sentence of a longer line
-msgid "Enter again to accept."
-msgstr "Kabul etmek için yeniden Enter'a basın."
-
-#. one sentence of a longer line
-msgid "The garage here sells them."
-msgstr "Buradaki garaj satıyor."
-
-#. one sentence of a longer line
-msgid "You have no chains."
-msgstr "Zinciriniz yok."
-
-#. placeholders: {highway}
-#. one sentence of a longer line
-msgid "Trucks on {highway} must carry chains this season."
-msgstr "{highway} üzerindeki tırlar bu mevsim zincir taşımak zorunda."
-
-#. placeholders: {highway}
-msgid ""
-"Trucks on {highway} must carry chains this season. You have no chains. The "
-"garage here sells them. Enter again to accept."
-msgstr ""
-"{highway} üzerindeki tırlar bu mevsim zincir taşımak zorunda. Zinciriniz "
-"yok. Buradaki garaj satıyor. Kabul etmek için yeniden Enter'a basın."
-
 msgid "Dispatch board"
 msgstr "İş panosu"
 
@@ -17992,6 +17978,22 @@ msgstr ""
 #. one sentence of a longer line
 msgid "{note} New assignment: {described}"
 msgstr "{note} Yeni görev: {described}"
+
+#. placeholders: {label}
+msgid "Recommended dispatch, best pay for the hours: {label}"
+msgstr ""
+
+#. placeholders: {label}
+msgid "Recommended dispatch, best net for the hours: {label}"
+msgstr ""
+
+#. placeholders: {label}
+msgid "Recommended dispatch, most room on the deadline: {label}"
+msgstr ""
+
+#. placeholders: {label}
+msgid "Recommended dispatch: {label}"
+msgstr ""
 
 #. placeholders: {recommendation}, {label}
 msgid "Recommended dispatch, {recommendation}: {label}"
@@ -18215,6 +18217,44 @@ msgstr "Bu sefer 10 saatlik bir uyku gerektiriyor."
 #. placeholders: {sleeps}
 msgid "This run needs {sleeps} 10-hour sleeps."
 msgstr "Bu sefer {sleeps} kez 10 saatlik uyku gerektiriyor."
+
+#. placeholders: {highway}
+#. one sentence of a longer line
+msgid "A chain law is in effect on {highway} on this route."
+msgstr "Bu rotada {highway} üzerinde zincir kuralı yürürlükte."
+
+#. placeholders: {highway}
+msgid ""
+"A chain law is in effect on {highway} on this route. You have no chains. "
+"The garage here sells them. Enter again to accept."
+msgstr ""
+"Bu rotada {highway} üzerinde zincir kuralı yürürlükte. Zinciriniz yok. "
+"Buradaki garaj satıyor. Kabul etmek için yeniden Enter'a basın."
+
+#. one sentence of a longer line
+msgid "Enter again to accept."
+msgstr "Kabul etmek için yeniden Enter'a basın."
+
+#. one sentence of a longer line
+msgid "The garage here sells them."
+msgstr "Buradaki garaj satıyor."
+
+#. one sentence of a longer line
+msgid "You have no chains."
+msgstr "Zinciriniz yok."
+
+#. placeholders: {highway}
+#. one sentence of a longer line
+msgid "Trucks on {highway} must carry chains this season."
+msgstr "{highway} üzerindeki tırlar bu mevsim zincir taşımak zorunda."
+
+#. placeholders: {highway}
+msgid ""
+"Trucks on {highway} must carry chains this season. You have no chains. The "
+"garage here sells them. Enter again to accept."
+msgstr ""
+"{highway} üzerindeki tırlar bu mevsim zincir taşımak zorunda. Zinciriniz "
+"yok. Buradaki garaj satıyor. Kabul etmek için yeniden Enter'a basın."
 
 #. placeholders: {i}, {total}
 msgid "Job {i} of {total}: "

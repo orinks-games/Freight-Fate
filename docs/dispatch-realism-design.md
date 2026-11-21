@@ -142,6 +142,40 @@ view: each market's balance in words and lane rates that follow it.
 
 The owner chose A for 1.9 and B and C for 2.0 on 2026-10-26.
 
+## Posted order and a recommendation with a reason (2026-11-21)
+
+From about level 8 the last load on the board was always the best one.
+The board was sorted shortest first, and pay and experience follow
+miles, so the last row was the longest load and nearly always paid the
+most. The recommendation marked the shortest load off a recent lane,
+which was the first row.
+
+What changed:
+
+- The board lists loads in the order dispatch posted them. A board
+  reopened, or restored from a save, keeps its order. A load relayed
+  from a nearby city, or held while the driver rests, takes the row of
+  the longest load it replaces.
+- Dispatch recommends the load that pays the driver best for the hours
+  the whole trip takes: the empty drive, the pickup, the drive, its
+  breaks and its sleeps, on the driver's clock now. A long load that
+  needs a sleep has to pay for it. A driver whose standing has slipped
+  is steered to the load with the most room on its deadline. New hires
+  in training keep the short, easy loads they had.
+- The row says why: best pay for the hours, best net for the hours for
+  owner-operators, or most room on the deadline. A plain "Recommended
+  dispatch" means the best load was a lane just run, so dispatch picked
+  the next one. When the two best loads are within 5 percent of each
+  other dispatch recommends nothing and the cursor starts on the first
+  row.
+- Assigned dispatch, below level 8 or when load choice is revoked,
+  offers loads in the same order.
+
+Still to come: hot loads with a tight window that pay more, and
+flexible loads with a wide one that pay less. The scores live in
+`crates/ff-core/src/models/dispatch_fit.rs`, the board's state machine
+in `dispatch_board.rs` beside it.
+
 ## Sources
 
 - [PCS Software, Truck backhaul optimization](https://pcssoft.com/blog/truck-backhaul-optimization/):

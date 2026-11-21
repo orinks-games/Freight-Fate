@@ -220,7 +220,13 @@ fn tools_list() -> Value {
              lugging in a tall gear: the clutch a touch shift works in a manual \
              truck). \
              Off the wheel the \
-             STATE line carries touch_mode alone. A SPEECH line follows it \
+             STATE line carries touch_mode alone, and on the dispatch board also \
+             board_mode (assigned or browse), board_offer (the row dispatch \
+             assigned or recommends, or none), board_reason (assigned, none, \
+             training, best_pay_for_hours, best_net_for_hours, \
+             most_deadline_room or plain) and board_gate (clear, or hours_heard \
+             or chains_heard with the row whose warning was heard); there it presses \
+             no keys, since they are menu keys. A SPEECH line follows it \
              everywhere: main_backend (the saved Main voice choice, automatic \
              when none), main (the voice bound now) and event (the event \
              voice bound now, or main voice when events share it).",

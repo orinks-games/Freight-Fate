@@ -233,11 +233,11 @@ impl<'w> JobBoard<'w> {
                 opts.direct_freight,
             ));
         }
-        jobs.sort_by(|a, b| {
-            a.distance_mi
-                .partial_cmp(&b.distance_mi)
-                .unwrap_or(std::cmp::Ordering::Equal)
-        });
+        // Posted order: a shuffle drawn from the board's own seed after
+        // every job draw, so a seed still posts the same loads and only
+        // their order is new. Shortest first made the last row the longest
+        // load, and since pay follows miles, nearly always the best one.
+        self.rng.shuffle(&mut jobs);
         jobs
     }
 

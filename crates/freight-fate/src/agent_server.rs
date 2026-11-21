@@ -640,7 +640,11 @@ impl AgentPolicy {
                 let mode = input.touch_mode();
                 match input.driving_observation() {
                     Some(o) => text.push_str(&fatigue_state_line(&o, mode)),
-                    None => text.push_str(&format!("STATE: touch_mode {}.", mode.key())),
+                    None => text.push_str(&format!(
+                        "STATE: touch_mode {}{}.",
+                        mode.key(),
+                        input.dispatch_board_state().unwrap_or_default()
+                    )),
                 }
                 let (choice, main, event) = input.speech_state();
                 text.push_str(&format!(
@@ -838,15 +842,23 @@ impl AgentPolicy {
                     break;
                 }
                 Command::Status => {
-                    for (key, text) in [
-                        (Key::Space, None),
-                        (Key::S, Some('s')),
-                        (Key::G, Some('g')),
-                        (Key::U, Some('u')),
-                        (Key::R, Some('r')),
-                        (Key::C, Some('c')),
-                        (Key::F, Some('f')),
-                    ] {
+                    // On the dispatch board the readout keys are menu keys
+                    // (Space accepts, letters jump), so nothing is pressed
+                    // and the STATE line is the whole answer.
+                    let keys: &[(Key, Option<char>)] = if input.dispatch_board_state().is_some() {
+                        &[]
+                    } else {
+                        &[
+                            (Key::Space, None),
+                            (Key::S, Some('s')),
+                            (Key::G, Some('g')),
+                            (Key::U, Some('u')),
+                            (Key::R, Some('r')),
+                            (Key::C, Some('c')),
+                            (Key::F, Some('f')),
+                        ]
+                    };
+                    for &(key, text) in keys {
                         self.tap(key, text, Mods::NONE);
                     }
                     self.wait_until(STATUS_SETTLE_SECONDS, Until::Elapsed, false, reply);
