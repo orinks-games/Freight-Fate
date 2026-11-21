@@ -111,7 +111,11 @@ impl DrivingState {
         }
         if hours_up || (rested && can_park) {
             // They hand back, then the stop's menu opens for the player.
-            let reason = if hours_up {
+            // At a full lot "has parked" would be untrue: the player is
+            // handed the full-lot screen to choose where to sleep.
+            let reason = if hours_up && self.lot_full_now(stop) {
+                "parking"
+            } else if hours_up {
                 self.co_driver_lot_reason(ctx)
             } else {
                 "rested"

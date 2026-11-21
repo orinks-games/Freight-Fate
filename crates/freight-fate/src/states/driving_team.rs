@@ -571,7 +571,14 @@ impl DrivingState {
         lines.push(summon_line(name, reason));
         lines.extend(shoulder);
         let slept_min = (mode == Some(TeamMode::SleepThrough)).then_some(log.game_minutes);
-        if let Some(short) = rest_short_line(owed_rest, self.player_hos_now(ctx), slept_min, ctx) {
+        // Straight after "yours reach the receiver", a line about the rest
+        // still owed reads as an instruction to go and rest; the rest is on
+        // the Driver screen and the logbook (director, 2026-11-21).
+        let yours_reach = reason.ends_with("yours reach");
+        let short = (!yours_reach)
+            .then(|| rest_short_line(owed_rest, self.player_hos_now(ctx), slept_min, ctx))
+            .flatten();
+        if let Some(short) = short {
             lines.push(short);
         }
         if let Some(team) = self.team.as_mut() {

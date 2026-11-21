@@ -60,10 +60,10 @@ pub fn overlay_move(top: &dyn State, drive: &DrivingState, ctx: &GameContext) ->
     }
     if any.is::<ParkingFullState>() {
         // Their hours are up and the lot is full: the player decides where
-        // to sleep. The player rested, the next lot will do as well as this
-        // one.
-        // "Has parked" would be untrue at a full lot, so the line says the
-        // lot is full; the Driver screen says what their hours have left.
+        // to sleep. The pull-in normally hands back first
+        // (`co_driver_works_stop` summons "parking"); this covers a full-lot
+        // screen reached any other way. The player rested, the next lot will
+        // do as well as this one.
         if drive.team_shift().hours_ending() {
             return OverlayMove::Summon("parking".into());
         }

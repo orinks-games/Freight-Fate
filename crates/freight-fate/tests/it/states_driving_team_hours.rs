@@ -9,7 +9,7 @@
 //! service for ten hours, and afterwards a stale "shift over" handed the
 //! sleeping player the wheel at 43 miles per hour.
 
-use ff_core::sim::hos::HosClock;
+use ff_core::sim::hos::{self, HosClock};
 use ff_core::sim::team_shift::{TeamShift, TeamShiftEvent};
 use ff_core::sim::weather::WeatherKind;
 use freight_fate::playtest::harness::{PlaytestHarness, StartDelivery};
@@ -165,6 +165,9 @@ fn the_testers_hand_over_slept_through_stops_on_the_shoulder_and_wakes_the_playe
         "{}",
         tail(&harness)
     );
+    // Handed back awake: no line about the rest, which would read as an
+    // instruction to go and take it.
+    assert!(!said.contains("of your 10-hour rest"), "{said}");
     assert!(!said.contains("Hours of service violation"), "{said}");
     assert!(!said.contains("A trooper pulled Dan over"), "{said}");
     assert!(speed(&harness) < 1.0, "handed back stopped");
@@ -192,6 +195,7 @@ fn the_testers_hand_over_riding_along_stops_on_the_shoulder_too() {
         "{}",
         tail(&harness)
     );
+    assert!(!said.contains("of your 10-hour rest"), "{said}");
     assert!(speed(&harness) < 1.0, "handed back stopped");
 }
 
@@ -214,7 +218,53 @@ fn with_a_lot_in_his_hours_dan_parks_there_and_wakes_the_player() {
         "{}",
         tail(&harness)
     );
+    assert!(!said.contains("of your 10-hour rest"), "{said}");
     assert!(speed(&harness) < 1.0, "handed back parked");
+}
+
+#[test]
+fn at_a_full_lot_dan_says_the_lot_is_full_instead_of_parked() {
+    // Director review, 2026-11-21: the pull-in handed back with "has
+    // parked" before the full-lot screen came up.
+    let mut harness = testers_handover(
+        "Team Hours Full Lot",
+        TeamMode::SleepThrough,
+        6.2 * 60.0,
+        Some(40.0),
+    );
+    harness.with_drive(|d, _| {
+        // 1 AM, inside the night's parking crunch, which only tightens
+        // until 4.
+        let local = d.trip.local_hour();
+        d.trip.start_hour += (1.0 - local).rem_euclid(24.0);
+        let here = d.trip.position_mi;
+        let seed = d.trip_seed;
+        let full_at = (350..450)
+            .map(|tenths| here + f64::from(tenths) / 10.0)
+            .find(|mi| hos::parking_is_full(seed, *mi, 1.0, 0))
+            .expect("a mile where this seed fills the lot");
+        let lot = d
+            .trip
+            .stops
+            .iter_mut()
+            .find(|stop| stop.name.ends_with(" ahead"))
+            .expect("the staged lot");
+        lot.at_mi = full_at;
+        lot.parking_spaces = 0;
+        if !lot.actions.iter().any(|action| action == "sleep") {
+            lot.actions.push("sleep".to_string());
+        }
+    });
+    let back = until_handed_back_legal(&mut harness, 60 * 60 * 20);
+    assert!(back, "{}", tail(&harness));
+    let said = harness.transcript().join("\n");
+    assert!(
+        said.contains("Dan needs you. The lot is full."),
+        "{}",
+        tail(&harness)
+    );
+    assert!(!said.contains("Dan has parked"), "{said}");
+    assert!(speed(&harness) < 1.0, "handed back stopped");
 }
 
 #[test]
