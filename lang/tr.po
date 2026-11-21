@@ -8658,6 +8658,26 @@ msgstr ", seviye {level} olunca taşıyıcı ücretsiz karşılar"
 msgid "carrier-sponsored free at level {level}"
 msgstr "seviye {level} olunca taşıyıcı ücretsiz karşılar"
 
+msgid "clear"
+msgstr "açık"
+
+#. placeholders: {i}
+msgid "hours_heard job {i}"
+msgstr ""
+
+#. placeholders: {i}
+msgid "chains_heard job {i}"
+msgstr ""
+
+msgid "assigned"
+msgstr "atanmış"
+
+msgid "browse"
+msgstr ""
+
+msgid "plain"
+msgstr ""
+
 msgid "Pay advance already taken for this load. Deliver it first."
 msgstr "Bu yük için ücret avansı zaten alındı. Önce yükü teslim edin."
 
@@ -9401,9 +9421,6 @@ msgstr "ödeme"
 
 msgid "bobtail"
 msgstr "dorsesiz"
-
-msgid "assigned"
-msgstr "atanmış"
 
 msgid "team"
 msgstr "ekip"
@@ -11593,9 +11610,6 @@ msgstr "Kabin: şoför camı açık, fan yüksek, klima"
 
 msgid "snow"
 msgstr "kar"
-
-msgid "clear"
-msgstr "açık"
 
 msgid "stowed"
 msgstr ""
@@ -15460,6 +15474,16 @@ msgstr ""
 msgid "You take the wheel {start_mi} miles up the road."
 msgstr "Direksiyona yolun {start_mi} mil ilerisinde geçiyorsunuz."
 
+#. placeholders: {i}
+msgid "job {i}"
+msgstr ""
+
+#. placeholders: {mode_key}, {offer}, {reason}, {key}
+msgid ""
+"; board_mode {mode_key}; board_offer {offer}; board_reason {reason}; "
+"board_gate {key}"
+msgstr ""
+
 msgid "automatic"
 msgstr "otomatik"
 
@@ -17877,44 +17901,6 @@ msgstr "masraflardan sonra yaklaşık {take_home}"
 msgid "about {take_home} to you"
 msgstr "size yaklaşık {take_home}"
 
-#. placeholders: {highway}
-#. one sentence of a longer line
-msgid "A chain law is in effect on {highway} on this route."
-msgstr "Bu rotada {highway} üzerinde zincir kuralı yürürlükte."
-
-#. placeholders: {highway}
-msgid ""
-"A chain law is in effect on {highway} on this route. You have no chains. "
-"The garage here sells them. Enter again to accept."
-msgstr ""
-"Bu rotada {highway} üzerinde zincir kuralı yürürlükte. Zinciriniz yok. "
-"Buradaki garaj satıyor. Kabul etmek için yeniden Enter'a basın."
-
-#. one sentence of a longer line
-msgid "Enter again to accept."
-msgstr "Kabul etmek için yeniden Enter'a basın."
-
-#. one sentence of a longer line
-msgid "The garage here sells them."
-msgstr "Buradaki garaj satıyor."
-
-#. one sentence of a longer line
-msgid "You have no chains."
-msgstr "Zinciriniz yok."
-
-#. placeholders: {highway}
-#. one sentence of a longer line
-msgid "Trucks on {highway} must carry chains this season."
-msgstr "{highway} üzerindeki tırlar bu mevsim zincir taşımak zorunda."
-
-#. placeholders: {highway}
-msgid ""
-"Trucks on {highway} must carry chains this season. You have no chains. The "
-"garage here sells them. Enter again to accept."
-msgstr ""
-"{highway} üzerindeki tırlar bu mevsim zincir taşımak zorunda. Zinciriniz "
-"yok. Buradaki garaj satıyor. Kabul etmek için yeniden Enter'a basın."
-
 msgid "Dispatch board"
 msgstr "İş panosu"
 
@@ -18019,6 +18005,22 @@ msgstr ""
 #. one sentence of a longer line
 msgid "{note} New assignment: {described}"
 msgstr "{note} Yeni görev: {described}"
+
+#. placeholders: {label}
+msgid "Recommended dispatch, best pay for the hours: {label}"
+msgstr ""
+
+#. placeholders: {label}
+msgid "Recommended dispatch, best net for the hours: {label}"
+msgstr ""
+
+#. placeholders: {label}
+msgid "Recommended dispatch, most room on the deadline: {label}"
+msgstr ""
+
+#. placeholders: {label}
+msgid "Recommended dispatch: {label}"
+msgstr ""
 
 #. placeholders: {recommendation}, {label}
 msgid "Recommended dispatch, {recommendation}: {label}"
@@ -18242,6 +18244,44 @@ msgstr "Bu sefer 10 saatlik bir uyku gerektiriyor."
 #. placeholders: {sleeps}
 msgid "This run needs {sleeps} 10-hour sleeps."
 msgstr "Bu sefer {sleeps} kez 10 saatlik uyku gerektiriyor."
+
+#. placeholders: {highway}
+#. one sentence of a longer line
+msgid "A chain law is in effect on {highway} on this route."
+msgstr "Bu rotada {highway} üzerinde zincir kuralı yürürlükte."
+
+#. placeholders: {highway}
+msgid ""
+"A chain law is in effect on {highway} on this route. You have no chains. "
+"The garage here sells them. Enter again to accept."
+msgstr ""
+"Bu rotada {highway} üzerinde zincir kuralı yürürlükte. Zinciriniz yok. "
+"Buradaki garaj satıyor. Kabul etmek için yeniden Enter'a basın."
+
+#. one sentence of a longer line
+msgid "Enter again to accept."
+msgstr "Kabul etmek için yeniden Enter'a basın."
+
+#. one sentence of a longer line
+msgid "The garage here sells them."
+msgstr "Buradaki garaj satıyor."
+
+#. one sentence of a longer line
+msgid "You have no chains."
+msgstr "Zinciriniz yok."
+
+#. placeholders: {highway}
+#. one sentence of a longer line
+msgid "Trucks on {highway} must carry chains this season."
+msgstr "{highway} üzerindeki tırlar bu mevsim zincir taşımak zorunda."
+
+#. placeholders: {highway}
+msgid ""
+"Trucks on {highway} must carry chains this season. You have no chains. The "
+"garage here sells them. Enter again to accept."
+msgstr ""
+"{highway} üzerindeki tırlar bu mevsim zincir taşımak zorunda. Zinciriniz "
+"yok. Buradaki garaj satıyor. Kabul etmek için yeniden Enter'a basın."
 
 #. placeholders: {i}, {total}
 msgid "Job {i} of {total}: "
@@ -28676,6 +28716,11 @@ msgstr ""
 "mola yeri satırında ayrıntıları açar. Escape geri döner."
 
 msgid ""
+"Up and down review the lines. Enter repeats a line, or tunes a station "
+"line. Escape goes back."
+msgstr ""
+
+msgid ""
 "Up and down review the lines. Enter repeats a line. Escape goes back."
 msgstr ""
 "Yukarı ve aşağı satırlarda gezinir. Enter bir satırı tekrarlar. Escape geri "
@@ -28789,6 +28834,12 @@ msgid "Streamer-safe mode on, with Music source set to Synthesized."
 msgstr ""
 "Yayıncı için güvenli mod açık, Müzik kaynağı Sentezlenmiş olarak ayarlı."
 
+msgid ""
+"Streamer-safe mode keeps the radio on the Roadhouse, and tuning does "
+"nothing. Radio on or off and Radio volume are under Radio and CB on the "
+"three-finger tap list."
+msgstr ""
+
 #. one sentence of a longer line
 msgid ""
 "Shift with Page Down and Page Up, or semicolon and apostrophe, changes "
@@ -28835,6 +28886,12 @@ msgstr ""
 "Yayıncı için güvenli mod açık. Gerçek genel yayınlar ve kişisel çalma "
 "listeleri gizli."
 
+msgid "Streamer-safe mode off. Real public streams are on the dial."
+msgstr ""
+
+msgid "Streamer-safe mode on. Real public streams are hidden."
+msgstr ""
+
 msgid ""
 "Music source Synthesized: Freight Fate's own stations are off the dial."
 msgstr ""
@@ -28859,6 +28916,12 @@ msgid "Put M3U, M3U8 or PLS playlist files in {personal_playlists_dir}."
 msgstr ""
 "M3U, M3U8 ya da PLS çalma listesi dosyalarını şu klasöre koyun: "
 "{personal_playlists_dir}."
+
+msgid ""
+"At the wheel, a three-finger flick left or right tunes stations. Radio "
+"category, Radio volume, favorites and radio power are under Radio and CB on "
+"the three-finger tap list."
+msgstr ""
 
 #. one sentence of a longer line
 msgid "Page Down and Page Up tune stations, or semicolon and apostrophe."
@@ -28930,6 +28993,12 @@ msgstr "Kayıtlı istasyonlarınız. Birinde Enter'a basınca o istasyona geçer
 msgid "Your saved stations. Double tap one to tune it."
 msgstr ""
 "Kaydettiğiniz istasyonlar. Birini açmak için üzerine iki kez dokunun."
+
+msgid "Enter tunes this station."
+msgstr "Enter bu istasyona geçer."
+
+msgid "Double tap tunes this station."
+msgstr "Bu istasyonu açmak için iki kez dokunun."
 
 msgid "Back to the status screens."
 msgstr "Durum ekranlarına geri dön."
@@ -29557,12 +29626,6 @@ msgstr "Sonuçlar {start} ile {end} arası, toplam {hit_count}"
 msgid "{display_name} is out of range here."
 msgstr "{display_name} burada çekmiyor."
 
-msgid "Enter tunes this station."
-msgstr "Enter bu istasyona geçer."
-
-msgid "Double tap tunes this station."
-msgstr "Bu istasyonu açmak için iki kez dokunun."
-
 #. one sentence of a longer line
 msgid "Next page."
 msgstr "Sonraki sayfa."
@@ -29574,11 +29637,17 @@ msgstr "Sonraki sayfa. {next_page_preview}"
 msgid "Shows the next results. PageDown does the same."
 msgstr "Sonraki sonuçları gösterir. PageDown da aynısını yapar."
 
+msgid "Shows the next results. A three-finger flick right does the same."
+msgstr ""
+
 msgid "Previous page"
 msgstr "Önceki sayfa"
 
 msgid "Shows the earlier results. PageUp does the same."
 msgstr "Önceki sonuçları gösterir. PageUp da aynısını yapar."
+
+msgid "Shows the earlier results. A three-finger flick left does the same."
+msgstr ""
 
 msgid "No stations here yet."
 msgstr "Burada henüz istasyon yok."
@@ -29614,6 +29683,23 @@ msgstr "{count} sonuç."
 #. placeholders: {title}, {count}, {page}
 msgid "{title}. {count} matches. {page} PageDown for the next page."
 msgstr "{title}. {count} sonuç. {page} Sonraki sayfa için PageDown."
+
+#. placeholders: {page}
+#. one sentence of a longer line
+msgid "{page} Flick right with three fingers for the next page."
+msgstr ""
+
+#. placeholders: {title}, {count}, {page}
+msgid ""
+"{title}. {count} stations. {page} Flick right with three fingers for the "
+"next page."
+msgstr ""
+
+#. placeholders: {title}, {count}, {page}
+msgid ""
+"{title}. {count} matches. {page} Flick right with three fingers for the "
+"next page."
+msgstr ""
 
 #. one sentence of a longer line
 msgid "Nothing here yet."
@@ -35437,6 +35523,24 @@ msgstr "Oyun kumandası: etkin, {name} bağlı"
 msgid "Controller: enabled, none connected"
 msgstr "Oyun kumandası: etkin, hiçbiri bağlı değil"
 
+msgid ""
+"Off plays the full dial, including real public streams and personal "
+"playlists. On keeps the radio to built-in safe stations, for streaming or "
+"recording. With Music source set to Synthesized, On keeps the radio on the "
+"Roadhouse and station keys do nothing."
+msgstr ""
+"Kapalı, gerçek kamu yayınları ve kişisel çalma listeleri dahil tüm "
+"istasyonları çalar. Açık, yayın ya da kayıt için radyoyu yerleşik güvenli "
+"istasyonlarla sınırlar. Müzik kaynağı Sentezlenmiş iken Açık, radyoyu "
+"Roadhouse'ta tutar ve istasyon tuşları bir şey yapmaz."
+
+msgid ""
+"Off plays the full dial, including real public streams. On keeps the radio "
+"to built-in safe stations, for streaming or recording. With Music source "
+"set to Synthesized, On keeps the radio on the Roadhouse and tuning does "
+"nothing."
+msgstr ""
+
 msgid "a soft tone leans"
 msgstr "yumuşak bir ton"
 
@@ -36456,17 +36560,6 @@ msgstr ""
 #. placeholders: {on_off}
 msgid "Radio streamer-safe mode: {on_off}"
 msgstr "Radyoda yayıncı için güvenli mod: {on_off}"
-
-msgid ""
-"Off plays the full dial, including real public streams and personal "
-"playlists. On keeps the radio to built-in safe stations, for streaming or "
-"recording. With Music source set to Synthesized, On keeps the radio on the "
-"Roadhouse and station keys do nothing."
-msgstr ""
-"Kapalı, gerçek kamu yayınları ve kişisel çalma listeleri dahil tüm "
-"istasyonları çalar. Açık, yayın ya da kayıt için radyoyu yerleşik güvenli "
-"istasyonlarla sınırlar. Müzik kaynağı Sentezlenmiş iken Açık, radyoyu "
-"Roadhouse'ta tutar ve istasyon tuşları bir şey yapmaz."
 
 #. placeholders: {on_off}
 msgid "Shuffle personal playlists: {on_off}"
@@ -39701,6 +39794,52 @@ msgstr ""
 
 msgid "pad"
 msgstr "oyun kumandası"
+
+msgid ""
+"The radio plays while the engine runs. A three-finger flick right tunes "
+"forward, and a three-finger flick left tunes backward."
+msgstr ""
+
+msgid ""
+"Hold Control with a tune key to jump between categories, including route "
+"music, Freight Fate stations, favorites, and broadcast or web stations."
+msgstr ""
+
+msgid ""
+"Radio and CB on the three-finger tap list turns the radio on or off, saves "
+"favorites, and changes the radio volume and category. Categories include "
+"route music, Freight Fate stations, favorites, and broadcast or web "
+"stations."
+msgstr ""
+
+msgid ""
+"Radio status reads station, reception, volume, and streamer-safe status. "
+"What the radio is playing reads available song information. Both are under "
+"Radio and CB."
+msgstr ""
+
+msgid ""
+"Original uses the licensed menu and Roadhouse tracks. Synthesized plays "
+"music the game composes plus the three original tracks, and takes Freight "
+"Fate's regional stations and voiced breaks off the dial. Real streams "
+"remain unless streamer-safe mode hides them."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "How do I change stations?"
+msgstr ""
+
+#. placeholders: {control_radio}
+msgid ""
+"How do I change stations? With the engine running, {control_radio} switches "
+"the radio on, and Page Up or Page Down tunes."
+msgstr ""
+
+msgid ""
+"How do I change stations? With the engine running, a three-finger flick "
+"right or left tunes. Radio on or off is under Radio and CB on the "
+"three-finger tap list."
+msgstr ""
 
 #. placeholders: {page}, {HELP_PAGES}, {title}
 msgid "Page {page} of {HELP_PAGES}: {title}."

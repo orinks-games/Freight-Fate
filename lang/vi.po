@@ -9050,6 +9050,26 @@ msgstr ", hãng vận tải tài trợ miễn phí ở cấp {level}"
 msgid "carrier-sponsored free at level {level}"
 msgstr "hãng vận tải tài trợ miễn phí ở cấp {level}"
 
+msgid "clear"
+msgstr "trời quang"
+
+#. placeholders: {i}
+msgid "hours_heard job {i}"
+msgstr ""
+
+#. placeholders: {i}
+msgid "chains_heard job {i}"
+msgstr ""
+
+msgid "assigned"
+msgstr "đã giao"
+
+msgid "browse"
+msgstr ""
+
+msgid "plain"
+msgstr ""
+
 msgid "Pay advance already taken for this load. Deliver it first."
 msgstr "Bạn đã ứng lương cho lô hàng này rồi. Hãy giao hàng xong trước."
 
@@ -9813,9 +9833,6 @@ msgstr "tiền cước"
 
 msgid "bobtail"
 msgstr "chạy xe không thùng"
-
-msgid "assigned"
-msgstr "đã giao"
 
 msgid "team"
 msgstr "lái chung"
@@ -12037,9 +12054,6 @@ msgstr "Cabin: hạ kính cửa lái, quạt mạnh, điều hòa"
 
 msgid "snow"
 msgstr "tuyết rơi"
-
-msgid "clear"
-msgstr "trời quang"
 
 msgid "stowed"
 msgstr ""
@@ -15925,6 +15939,16 @@ msgstr ""
 msgid "You take the wheel {start_mi} miles up the road."
 msgstr "Bạn cầm lái từ {start_mi} dặm phía trước."
 
+#. placeholders: {i}
+msgid "job {i}"
+msgstr ""
+
+#. placeholders: {mode_key}, {offer}, {reason}, {key}
+msgid ""
+"; board_mode {mode_key}; board_offer {offer}; board_reason {reason}; "
+"board_gate {key}"
+msgstr ""
+
 msgid "automatic"
 msgstr "số tự động"
 
@@ -18360,45 +18384,6 @@ msgstr "khoảng {take_home} sau chi phí"
 msgid "about {take_home} to you"
 msgstr "khoảng {take_home} về tay bạn"
 
-#. placeholders: {highway}
-#. one sentence of a longer line
-msgid "A chain law is in effect on {highway} on this route."
-msgstr ""
-"Tuyến đường này đang áp dụng quy định bắt buộc lắp xích lốp trên {highway}."
-
-#. placeholders: {highway}
-msgid ""
-"A chain law is in effect on {highway} on this route. You have no chains. "
-"The garage here sells them. Enter again to accept."
-msgstr ""
-"Tuyến đường này đang áp dụng quy định bắt buộc lắp xích lốp trên {highway}. "
-"Bạn chưa có xích lốp. Xưởng sửa xe ở đây có bán. Nhấn Enter lần nữa để nhận."
-
-#. one sentence of a longer line
-msgid "Enter again to accept."
-msgstr "Nhấn Enter lần nữa để nhận."
-
-#. one sentence of a longer line
-msgid "The garage here sells them."
-msgstr "Xưởng sửa xe ở đây có bán."
-
-#. one sentence of a longer line
-msgid "You have no chains."
-msgstr "Bạn chưa có xích lốp."
-
-#. placeholders: {highway}
-#. one sentence of a longer line
-msgid "Trucks on {highway} must carry chains this season."
-msgstr "Xe tải chạy trên {highway} phải mang theo xích lốp trong mùa này."
-
-#. placeholders: {highway}
-msgid ""
-"Trucks on {highway} must carry chains this season. You have no chains. The "
-"garage here sells them. Enter again to accept."
-msgstr ""
-"Xe tải chạy trên {highway} phải mang theo xích lốp trong mùa này. Bạn chưa "
-"có xích lốp. Xưởng sửa xe ở đây có bán. Nhấn Enter lần nữa để nhận."
-
 msgid "Dispatch board"
 msgstr "Bảng đơn hàng"
 
@@ -18506,6 +18491,22 @@ msgstr ""
 #. one sentence of a longer line
 msgid "{note} New assignment: {described}"
 msgstr "{note} Chuyến được giao mới: {described}"
+
+#. placeholders: {label}
+msgid "Recommended dispatch, best pay for the hours: {label}"
+msgstr ""
+
+#. placeholders: {label}
+msgid "Recommended dispatch, best net for the hours: {label}"
+msgstr ""
+
+#. placeholders: {label}
+msgid "Recommended dispatch, most room on the deadline: {label}"
+msgstr ""
+
+#. placeholders: {label}
+msgid "Recommended dispatch: {label}"
+msgstr ""
 
 #. placeholders: {recommendation}, {label}
 msgid "Recommended dispatch, {recommendation}: {label}"
@@ -18735,6 +18736,45 @@ msgstr "Chuyến chạy này cần một giấc ngủ 10 giờ."
 #. placeholders: {sleeps}
 msgid "This run needs {sleeps} 10-hour sleeps."
 msgstr "Chuyến chạy này cần {sleeps} giấc ngủ 10 giờ."
+
+#. placeholders: {highway}
+#. one sentence of a longer line
+msgid "A chain law is in effect on {highway} on this route."
+msgstr ""
+"Tuyến đường này đang áp dụng quy định bắt buộc lắp xích lốp trên {highway}."
+
+#. placeholders: {highway}
+msgid ""
+"A chain law is in effect on {highway} on this route. You have no chains. "
+"The garage here sells them. Enter again to accept."
+msgstr ""
+"Tuyến đường này đang áp dụng quy định bắt buộc lắp xích lốp trên {highway}. "
+"Bạn chưa có xích lốp. Xưởng sửa xe ở đây có bán. Nhấn Enter lần nữa để nhận."
+
+#. one sentence of a longer line
+msgid "Enter again to accept."
+msgstr "Nhấn Enter lần nữa để nhận."
+
+#. one sentence of a longer line
+msgid "The garage here sells them."
+msgstr "Xưởng sửa xe ở đây có bán."
+
+#. one sentence of a longer line
+msgid "You have no chains."
+msgstr "Bạn chưa có xích lốp."
+
+#. placeholders: {highway}
+#. one sentence of a longer line
+msgid "Trucks on {highway} must carry chains this season."
+msgstr "Xe tải chạy trên {highway} phải mang theo xích lốp trong mùa này."
+
+#. placeholders: {highway}
+msgid ""
+"Trucks on {highway} must carry chains this season. You have no chains. The "
+"garage here sells them. Enter again to accept."
+msgstr ""
+"Xe tải chạy trên {highway} phải mang theo xích lốp trong mùa này. Bạn chưa "
+"có xích lốp. Xưởng sửa xe ở đây có bán. Nhấn Enter lần nữa để nhận."
 
 #. placeholders: {i}, {total}
 msgid "Job {i} of {total}: "
@@ -29255,6 +29295,11 @@ msgstr ""
 "ở dòng điểm dừng. Escape để quay lại."
 
 msgid ""
+"Up and down review the lines. Enter repeats a line, or tunes a station "
+"line. Escape goes back."
+msgstr ""
+
+msgid ""
 "Up and down review the lines. Enter repeats a line. Escape goes back."
 msgstr ""
 "Mũi tên lên xuống để xem các dòng. Enter để đọc lại dòng. Escape để quay "
@@ -29370,6 +29415,12 @@ msgid "Streamer-safe mode on, with Music source set to Synthesized."
 msgstr ""
 "Chế độ an toàn cho streamer đang bật, với nguồn nhạc đặt là Nhạc tổng hợp."
 
+msgid ""
+"Streamer-safe mode keeps the radio on the Roadhouse, and tuning does "
+"nothing. Radio on or off and Radio volume are under Radio and CB on the "
+"three-finger tap list."
+msgstr ""
+
 #. one sentence of a longer line
 msgid ""
 "Shift with Page Down and Page Up, or semicolon and apostrophe, changes "
@@ -29416,6 +29467,12 @@ msgstr ""
 "Chế độ an toàn cho streamer đang bật. Các đài trực tuyến thực tế và danh "
 "sách phát cá nhân đã được ẩn."
 
+msgid "Streamer-safe mode off. Real public streams are on the dial."
+msgstr ""
+
+msgid "Streamer-safe mode on. Real public streams are hidden."
+msgstr ""
+
 msgid ""
 "Music source Synthesized: Freight Fate's own stations are off the dial."
 msgstr ""
@@ -29440,6 +29497,12 @@ msgid "Put M3U, M3U8 or PLS playlist files in {personal_playlists_dir}."
 msgstr ""
 "Hãy chép tệp danh sách phát M3U, M3U8 hoặc PLS vào thư mục "
 "{personal_playlists_dir}."
+
+msgid ""
+"At the wheel, a three-finger flick left or right tunes stations. Radio "
+"category, Radio volume, favorites and radio power are under Radio and CB on "
+"the three-finger tap list."
+msgstr ""
 
 #. one sentence of a longer line
 msgid "Page Down and Page Up tune stations, or semicolon and apostrophe."
@@ -29505,6 +29568,12 @@ msgstr "Các đài bạn đã lưu. Nhấn Enter vào một đài để mở ngh
 
 msgid "Your saved stations. Double tap one to tune it."
 msgstr "Các đài bạn đã lưu. Chạm đúp vào một đài để dò tới đài đó."
+
+msgid "Enter tunes this station."
+msgstr "Nhấn Enter để mở đài này."
+
+msgid "Double tap tunes this station."
+msgstr "Chạm đúp để dò tới đài này."
 
 msgid "Back to the status screens."
 msgstr "Quay lại các màn hình trạng thái."
@@ -30136,12 +30205,6 @@ msgstr "Kết quả từ {start} đến {end} trên tổng số {hit_count}"
 msgid "{display_name} is out of range here."
 msgstr "{display_name} đang ngoài vùng phủ sóng tại đây."
 
-msgid "Enter tunes this station."
-msgstr "Nhấn Enter để mở đài này."
-
-msgid "Double tap tunes this station."
-msgstr "Chạm đúp để dò tới đài này."
-
 #. one sentence of a longer line
 msgid "Next page."
 msgstr "Trang sau."
@@ -30153,11 +30216,17 @@ msgstr "Trang sau. {next_page_preview}"
 msgid "Shows the next results. PageDown does the same."
 msgstr "Xem các kết quả tiếp theo. Phím PageDown có tác dụng tương tự."
 
+msgid "Shows the next results. A three-finger flick right does the same."
+msgstr ""
+
 msgid "Previous page"
 msgstr "Trang trước"
 
 msgid "Shows the earlier results. PageUp does the same."
 msgstr "Xem các kết quả trước đó. Phím PageUp có tác dụng tương tự."
+
+msgid "Shows the earlier results. A three-finger flick left does the same."
+msgstr ""
 
 msgid "No stations here yet."
 msgstr "Chưa có đài nào ở đây."
@@ -30195,6 +30264,23 @@ msgstr "{count} kết quả."
 #. placeholders: {title}, {count}, {page}
 msgid "{title}. {count} matches. {page} PageDown for the next page."
 msgstr "{title}. {count} kết quả. {page} Nhấn PageDown để sang trang sau."
+
+#. placeholders: {page}
+#. one sentence of a longer line
+msgid "{page} Flick right with three fingers for the next page."
+msgstr ""
+
+#. placeholders: {title}, {count}, {page}
+msgid ""
+"{title}. {count} stations. {page} Flick right with three fingers for the "
+"next page."
+msgstr ""
+
+#. placeholders: {title}, {count}, {page}
+msgid ""
+"{title}. {count} matches. {page} Flick right with three fingers for the "
+"next page."
+msgstr ""
 
 #. one sentence of a longer line
 msgid "Nothing here yet."
@@ -36064,6 +36150,25 @@ msgstr "Tay cầm: đang bật, đã kết nối {name}"
 msgid "Controller: enabled, none connected"
 msgstr "Tay cầm: đang bật, chưa kết nối tay cầm nào"
 
+msgid ""
+"Off plays the full dial, including real public streams and personal "
+"playlists. On keeps the radio to built-in safe stations, for streaming or "
+"recording. With Music source set to Synthesized, On keeps the radio on the "
+"Roadhouse and station keys do nothing."
+msgstr ""
+"Khi tắt, radio phát toàn bộ băng tần, gồm cả các luồng phát công khai ngoài "
+"đời và danh sách phát cá nhân. Khi bật, radio chỉ phát các đài an toàn bản "
+"quyền tích hợp sẵn, tiện cho phát trực tiếp hoặc ghi hình. Nếu Nguồn nhạc "
+"nền đặt ở Nhạc tổng hợp, bật mục này sẽ khóa radio ở đài Roadhouse và các "
+"phím chuyển đài không có tác dụng."
+
+msgid ""
+"Off plays the full dial, including real public streams. On keeps the radio "
+"to built-in safe stations, for streaming or recording. With Music source "
+"set to Synthesized, On keeps the radio on the Roadhouse and tuning does "
+"nothing."
+msgstr ""
+
 msgid "a soft tone leans"
 msgstr "âm báo nhẹ lệch"
 
@@ -37092,18 +37197,6 @@ msgstr ""
 #. placeholders: {on_off}
 msgid "Radio streamer-safe mode: {on_off}"
 msgstr "Chế độ radio an toàn phát trực tiếp: {on_off}"
-
-msgid ""
-"Off plays the full dial, including real public streams and personal "
-"playlists. On keeps the radio to built-in safe stations, for streaming or "
-"recording. With Music source set to Synthesized, On keeps the radio on the "
-"Roadhouse and station keys do nothing."
-msgstr ""
-"Khi tắt, radio phát toàn bộ băng tần, gồm cả các luồng phát công khai ngoài "
-"đời và danh sách phát cá nhân. Khi bật, radio chỉ phát các đài an toàn bản "
-"quyền tích hợp sẵn, tiện cho phát trực tiếp hoặc ghi hình. Nếu Nguồn nhạc "
-"nền đặt ở Nhạc tổng hợp, bật mục này sẽ khóa radio ở đài Roadhouse và các "
-"phím chuyển đài không có tác dụng."
 
 #. placeholders: {on_off}
 msgid "Shuffle personal playlists: {on_off}"
@@ -40406,6 +40499,52 @@ msgstr ""
 
 msgid "pad"
 msgstr "tay cầm"
+
+msgid ""
+"The radio plays while the engine runs. A three-finger flick right tunes "
+"forward, and a three-finger flick left tunes backward."
+msgstr ""
+
+msgid ""
+"Hold Control with a tune key to jump between categories, including route "
+"music, Freight Fate stations, favorites, and broadcast or web stations."
+msgstr ""
+
+msgid ""
+"Radio and CB on the three-finger tap list turns the radio on or off, saves "
+"favorites, and changes the radio volume and category. Categories include "
+"route music, Freight Fate stations, favorites, and broadcast or web "
+"stations."
+msgstr ""
+
+msgid ""
+"Radio status reads station, reception, volume, and streamer-safe status. "
+"What the radio is playing reads available song information. Both are under "
+"Radio and CB."
+msgstr ""
+
+msgid ""
+"Original uses the licensed menu and Roadhouse tracks. Synthesized plays "
+"music the game composes plus the three original tracks, and takes Freight "
+"Fate's regional stations and voiced breaks off the dial. Real streams "
+"remain unless streamer-safe mode hides them."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "How do I change stations?"
+msgstr ""
+
+#. placeholders: {control_radio}
+msgid ""
+"How do I change stations? With the engine running, {control_radio} switches "
+"the radio on, and Page Up or Page Down tunes."
+msgstr ""
+
+msgid ""
+"How do I change stations? With the engine running, a three-finger flick "
+"right or left tunes. Radio on or off is under Radio and CB on the "
+"three-finger tap list."
+msgstr ""
 
 #. placeholders: {page}, {HELP_PAGES}, {title}
 msgid "Page {page} of {HELP_PAGES}: {title}."

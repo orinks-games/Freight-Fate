@@ -123,14 +123,21 @@ pub struct DrivingStatusScreenState {
     menu: MenuCore<Self>,
     driving: DriveRef,
     pub screen: String,
+    /// The Radio screen's station rows, line to station id, from the last
+    /// build; empty while the dial is locked, so those rows only repeat.
+    radio_stations: Vec<(String, String)>,
 }
 
 /// The static `intro_help` the Python class carried became a property so the
-/// Map screen can mention opening a stop's details. The radio screen stays.
+/// Map and Radio screens can mention what Enter does on their rows.
 fn screen_intro_help(screen: &str) -> &'static str {
     if screen == "map" {
         return "Up and down review the lines. Enter repeats a line, or opens details on a \
                 stop line. Escape goes back.";
+    }
+    if screen == "radio" {
+        return "Up and down review the lines. Enter repeats a line, or tunes a station line. \
+                Escape goes back.";
     }
     "Up and down review the lines. Enter repeats a line. Escape goes back."
 }
@@ -151,6 +158,7 @@ impl DrivingStatusScreenState {
             menu: MenuCore::new(screen_title(screen)).with_intro_help(screen_intro_help(screen)),
             driving,
             screen: screen.to_string(),
+            radio_stations: Vec::new(),
         }
     }
 
@@ -418,16 +426,38 @@ impl DrivingStatusScreenState {
         ctx.say("Planned stop canceled.");
     }
 
+    fn station_id_for(&self, line: &str) -> Option<String> {
+        self.radio_stations
+            .iter()
+            .find(|(_, row)| row == line)
+            .map(|(id, _)| id.clone())
+    }
+
+    /// Tunes a station row the way the Radio app's lists do, then rebuilds
+    /// so "current" moves to the new station.
+    fn tune(&mut self, ctx: &mut GameContext, station_id: &str) {
+        let message = self
+            .driving
+            .with(ctx, |d, ctx| d.tune_radio_to(ctx, station_id))
+            .unwrap_or_default();
+        if !message.is_empty() {
+            ctx.say(&message);
+        }
+        self.refresh(ctx, true);
+    }
+
     fn radio_lines(&mut self, ctx: &mut GameContext) -> Vec<String> {
         self.driving
             .clone()
-            .call(self, ctx, |_s, ctx, d| {
+            .call(self, ctx, |s, ctx, d| {
                 // Opening the dial re-reads the Playlists folder: a playlist
                 // added or repaired mid-run used to need a whole new drive
                 // before the radio would look at the folder again, and this
                 // screen is where a player goes to find out why their
                 // playlist is not on the dial.
-                d.radio.reload_personal_playlists(&personal_playlists_dir());
+                if crate::PERSONAL_PLAYLISTS {
+                    d.radio.reload_personal_playlists(&personal_playlists_dir());
+                }
                 d.sync_radio_settings(ctx);
                 let position = d.radio.position;
                 let engine_on = d.trip.truck.engine_on;
@@ -449,22 +479,40 @@ impl DrivingStatusScreenState {
                     lines.push(
                         "Streamer-safe mode on, with Music source set to Synthesized.".to_string(),
                     );
-                    lines.push(format!(
-                        "Streamer-safe mode keeps the radio on the Roadhouse. Station keys do \
-                         nothing. {} turns the radio on or off. Shift with Page Down and Page \
-                         Up, or semicolon and apostrophe, changes radio volume by 10 percent.",
-                        ctx.bindings.spoken(Action::Radio)
-                    ));
-                } else {
-                    lines.push(if !ctx.settings.radio_streamer_safe {
-                        "Streamer-safe mode off. Real public streams and personal playlists are \
-                         on the dial."
+                    lines.push(if ctx.touch_hints() {
+                        "Streamer-safe mode keeps the radio on the Roadhouse, and tuning does \
+                         nothing. Radio on or off and Radio volume are under Radio and CB on \
+                         the three-finger tap list."
                             .to_string()
                     } else {
-                        "Streamer-safe mode on. Real public streams and personal playlists are \
-                         hidden."
-                            .to_string()
+                        format!(
+                            "Streamer-safe mode keeps the radio on the Roadhouse. Station keys \
+                             do nothing. {} turns the radio on or off. Shift with Page Down and \
+                             Page Up, or semicolon and apostrophe, changes radio volume by 10 \
+                             percent.",
+                            ctx.bindings.spoken(Action::Radio)
+                        )
                     });
+                } else {
+                    lines.push(
+                        match (ctx.settings.radio_streamer_safe, crate::PERSONAL_PLAYLISTS) {
+                            (false, true) => {
+                                "Streamer-safe mode off. Real public streams and \
+                                              personal playlists are on the dial."
+                            }
+                            (true, true) => {
+                                "Streamer-safe mode on. Real public streams and \
+                                             personal playlists are hidden."
+                            }
+                            (false, false) => {
+                                "Streamer-safe mode off. Real public streams are on the dial."
+                            }
+                            (true, false) => {
+                                "Streamer-safe mode on. Real public streams are hidden."
+                            }
+                        }
+                        .to_string(),
+                    );
                     if ctx.settings.synth_music && !ctx.settings.radio_streamer_safe {
                         lines.push(
                             "Music source Synthesized: Freight Fate's own stations are off \
@@ -480,20 +528,31 @@ impl DrivingStatusScreenState {
                         .catalog
                         .iter()
                         .any(|s| s.source_type == PERSONAL_PLAYLIST_SOURCE_TYPE);
-                    if !ctx.settings.radio_streamer_safe && !has_playlists {
+                    if crate::PERSONAL_PLAYLISTS
+                        && !ctx.settings.radio_streamer_safe
+                        && !has_playlists
+                    {
                         lines.push(format!(
                             "No playlists of your own yet. Put M3U, M3U8 or PLS playlist files \
                              in {}.",
                             personal_playlists_dir().display()
                         ));
                     }
-                    lines.push(format!(
-                        "Page Down and Page Up tune stations, or semicolon and apostrophe. With \
-                         Control they jump categories. With Shift they change radio volume by \
-                         10 percent. {} saves the station as a favorite. {} toggles the radio.",
-                        ctx.bindings.spoken(Action::RadioFavorite),
-                        ctx.bindings.spoken(Action::Radio)
-                    ));
+                    lines.push(if ctx.touch_hints() {
+                        "At the wheel, a three-finger flick left or right tunes stations. Radio \
+                         category, Radio volume, favorites and radio power are under Radio and \
+                         CB on the three-finger tap list."
+                            .to_string()
+                    } else {
+                        format!(
+                            "Page Down and Page Up tune stations, or semicolon and apostrophe. \
+                             With Control they jump categories. With Shift they change radio \
+                             volume by 10 percent. {} saves the station as a favorite. {} \
+                             toggles the radio.",
+                            ctx.bindings.spoken(Action::RadioFavorite),
+                            ctx.bindings.spoken(Action::Radio)
+                        )
+                    });
                 }
                 if !locked && !d.radio.favorite_ids.is_empty() {
                     lines.push(format!("Favorites saved: {}.", d.radio.favorite_ids.len()));
@@ -512,8 +571,9 @@ impl DrivingStatusScreenState {
                     ..Settings::default()
                 };
                 let distance_text = |miles: f64| units.distance_text(miles, false);
-                let (stations, more) = d.radio.station_list_lines(Some(&distance_text));
-                lines.extend(stations);
+                let (stations, more) = d.radio.station_list_rows(Some(&distance_text));
+                lines.extend(stations.iter().map(|(_, line)| line.clone()));
+                s.radio_stations = if locked { Vec::new() } else { stations };
                 // The streams in range everywhere run to thousands: count
                 // them, and name where they are listed.
                 match more {
@@ -575,6 +635,12 @@ impl Menu for DrivingStatusScreenState {
                         })
                         .help("Your saved stations. Enter on one tunes it.")
                         .touch_help("Your saved stations. Double tap one to tune it.")
+                    } else if let Some(id) = self.station_id_for(&line) {
+                        MenuItem::new(line, move |s: &mut Self, ctx: &mut GameContext| {
+                            s.tune(ctx, &id)
+                        })
+                        .help("Enter tunes this station.")
+                        .touch_help("Double tap tunes this station.")
                     } else {
                         say_item(line)
                     }

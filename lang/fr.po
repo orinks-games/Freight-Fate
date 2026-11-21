@@ -9077,6 +9077,26 @@ msgstr ", financée gratuitement par le transporteur au niveau {level}"
 msgid "carrier-sponsored free at level {level}"
 msgstr "gratuit, parrainé par le transporteur, au niveau {level}"
 
+msgid "clear"
+msgstr "clear"
+
+#. placeholders: {i}
+msgid "hours_heard job {i}"
+msgstr ""
+
+#. placeholders: {i}
+msgid "chains_heard job {i}"
+msgstr ""
+
+msgid "assigned"
+msgstr "attribué"
+
+msgid "browse"
+msgstr "parcourir"
+
+msgid "plain"
+msgstr ""
+
 msgid "Pay advance already taken for this load. Deliver it first."
 msgstr ""
 "Avance sur salaire déjà prise pour ce chargement. Livrez-le d'abord."
@@ -9845,9 +9865,6 @@ msgstr "paie"
 
 msgid "bobtail"
 msgstr "sans remorque"
-
-msgid "assigned"
-msgstr "attribué"
 
 msgid "team"
 msgstr "équipe"
@@ -12097,9 +12114,6 @@ msgstr "Cabine : vitre conducteur baissée, ventilation forte, climatisation"
 
 msgid "snow"
 msgstr "snow"
-
-msgid "clear"
-msgstr "clear"
 
 msgid "stowed"
 msgstr ""
@@ -16023,6 +16037,16 @@ msgstr ""
 msgid "You take the wheel {start_mi} miles up the road."
 msgstr "Vous prenez le volant {start_mi} miles plus loin sur la route."
 
+#. placeholders: {i}
+msgid "job {i}"
+msgstr ""
+
+#. placeholders: {mode_key}, {offer}, {reason}, {key}
+msgid ""
+"; board_mode {mode_key}; board_offer {offer}; board_reason {reason}; "
+"board_gate {key}"
+msgstr ""
+
 msgid "automatic"
 msgstr "automatique"
 
@@ -18515,48 +18539,6 @@ msgstr "environ {take_home} après frais"
 msgid "about {take_home} to you"
 msgstr "environ {take_home} pour vous"
 
-#. placeholders: {highway}
-#. one sentence of a longer line
-msgid "A chain law is in effect on {highway} on this route."
-msgstr ""
-"Une obligation de chaînes est en vigueur sur {highway} sur cet itinéraire."
-
-#. placeholders: {highway}
-msgid ""
-"A chain law is in effect on {highway} on this route. You have no chains. "
-"The garage here sells them. Enter again to accept."
-msgstr ""
-"Une obligation de chaînes est en vigueur sur {highway} sur cet itinéraire. "
-"Vous n'avez pas de chaînes. Le garage d'ici en vend. Enter de nouveau pour "
-"accepter."
-
-#. one sentence of a longer line
-msgid "Enter again to accept."
-msgstr "Enter de nouveau pour accepter."
-
-#. one sentence of a longer line
-msgid "The garage here sells them."
-msgstr "Le garage d'ici en vend."
-
-#. one sentence of a longer line
-msgid "You have no chains."
-msgstr "Vous n'avez pas de chaînes."
-
-#. placeholders: {highway}
-#. one sentence of a longer line
-msgid "Trucks on {highway} must carry chains this season."
-msgstr ""
-"Les camions sur {highway} doivent avoir des chaînes à bord cette saison."
-
-#. placeholders: {highway}
-msgid ""
-"Trucks on {highway} must carry chains this season. You have no chains. The "
-"garage here sells them. Enter again to accept."
-msgstr ""
-"Les camions sur {highway} doivent avoir des chaînes à bord cette saison. "
-"Vous n'avez pas de chaînes. Le garage d'ici en vend. Enter de nouveau pour "
-"accepter."
-
 msgid "Dispatch board"
 msgstr "Tableau des missions"
 
@@ -18667,6 +18649,22 @@ msgstr ""
 #. one sentence of a longer line
 msgid "{note} New assignment: {described}"
 msgstr "{note} Nouvelle attribution : {described}"
+
+#. placeholders: {label}
+msgid "Recommended dispatch, best pay for the hours: {label}"
+msgstr ""
+
+#. placeholders: {label}
+msgid "Recommended dispatch, best net for the hours: {label}"
+msgstr ""
+
+#. placeholders: {label}
+msgid "Recommended dispatch, most room on the deadline: {label}"
+msgstr ""
+
+#. placeholders: {label}
+msgid "Recommended dispatch: {label}"
+msgstr ""
 
 #. placeholders: {recommendation}, {label}
 msgid "Recommended dispatch, {recommendation}: {label}"
@@ -18907,6 +18905,48 @@ msgstr "Ce trajet demande une période de sommeil de 10 heures."
 #. placeholders: {sleeps}
 msgid "This run needs {sleeps} 10-hour sleeps."
 msgstr "Ce trajet demande {sleeps} périodes de sommeil de 10 heures."
+
+#. placeholders: {highway}
+#. one sentence of a longer line
+msgid "A chain law is in effect on {highway} on this route."
+msgstr ""
+"Une obligation de chaînes est en vigueur sur {highway} sur cet itinéraire."
+
+#. placeholders: {highway}
+msgid ""
+"A chain law is in effect on {highway} on this route. You have no chains. "
+"The garage here sells them. Enter again to accept."
+msgstr ""
+"Une obligation de chaînes est en vigueur sur {highway} sur cet itinéraire. "
+"Vous n'avez pas de chaînes. Le garage d'ici en vend. Enter de nouveau pour "
+"accepter."
+
+#. one sentence of a longer line
+msgid "Enter again to accept."
+msgstr "Enter de nouveau pour accepter."
+
+#. one sentence of a longer line
+msgid "The garage here sells them."
+msgstr "Le garage d'ici en vend."
+
+#. one sentence of a longer line
+msgid "You have no chains."
+msgstr "Vous n'avez pas de chaînes."
+
+#. placeholders: {highway}
+#. one sentence of a longer line
+msgid "Trucks on {highway} must carry chains this season."
+msgstr ""
+"Les camions sur {highway} doivent avoir des chaînes à bord cette saison."
+
+#. placeholders: {highway}
+msgid ""
+"Trucks on {highway} must carry chains this season. You have no chains. The "
+"garage here sells them. Enter again to accept."
+msgstr ""
+"Les camions sur {highway} doivent avoir des chaînes à bord cette saison. "
+"Vous n'avez pas de chaînes. Le garage d'ici en vend. Enter de nouveau pour "
+"accepter."
 
 #. placeholders: {i}, {total}
 msgid "Job {i} of {total}: "
@@ -29631,6 +29671,11 @@ msgstr ""
 "détails sur une ligne d'arrêt. Escape revient en arrière."
 
 msgid ""
+"Up and down review the lines. Enter repeats a line, or tunes a station "
+"line. Escape goes back."
+msgstr ""
+
+msgid ""
 "Up and down review the lines. Enter repeats a line. Escape goes back."
 msgstr ""
 "Haut et bas parcourent les lignes. Enter répète une ligne. Escape revient "
@@ -29750,6 +29795,12 @@ msgstr ""
 "Mode compatible streaming activé, avec la source musicale réglée sur "
 "Synthèse."
 
+msgid ""
+"Streamer-safe mode keeps the radio on the Roadhouse, and tuning does "
+"nothing. Radio on or off and Radio volume are under Radio and CB on the "
+"three-finger tap list."
+msgstr ""
+
 #. one sentence of a longer line
 msgid ""
 "Shift with Page Down and Page Up, or semicolon and apostrophe, changes "
@@ -29796,6 +29847,12 @@ msgstr ""
 "Mode compatible streaming activé. Les vrais flux publics et les listes de "
 "lecture personnelles sont masqués."
 
+msgid "Streamer-safe mode off. Real public streams are on the dial."
+msgstr ""
+
+msgid "Streamer-safe mode on. Real public streams are hidden."
+msgstr ""
+
 msgid ""
 "Music source Synthesized: Freight Fate's own stations are off the dial."
 msgstr ""
@@ -29820,6 +29877,12 @@ msgid "Put M3U, M3U8 or PLS playlist files in {personal_playlists_dir}."
 msgstr ""
 "Placez des fichiers de liste de lecture M3U, M3U8 ou PLS dans "
 "{personal_playlists_dir}."
+
+msgid ""
+"At the wheel, a three-finger flick left or right tunes stations. Radio "
+"category, Radio volume, favorites and radio power are under Radio and CB on "
+"the three-finger tap list."
+msgstr ""
 
 #. one sentence of a longer line
 msgid "Page Down and Page Up tune stations, or semicolon and apostrophe."
@@ -29889,6 +29952,12 @@ msgstr "Vos stations enregistrées. Enter sur l'une d'elles la règle."
 msgid "Your saved stations. Double tap one to tune it."
 msgstr ""
 "Vos stations enregistrées. Touchez-en une deux fois pour la syntoniser."
+
+msgid "Enter tunes this station."
+msgstr "Enter règle cette station."
+
+msgid "Double tap tunes this station."
+msgstr "Touchez deux fois pour syntoniser cette station."
 
 msgid "Back to the status screens."
 msgstr "Retour aux écrans d'état."
@@ -30538,12 +30607,6 @@ msgstr "Résultats {start} à {end} sur {hit_count}"
 msgid "{display_name} is out of range here."
 msgstr "{display_name} est hors de portée ici."
 
-msgid "Enter tunes this station."
-msgstr "Enter règle cette station."
-
-msgid "Double tap tunes this station."
-msgstr "Touchez deux fois pour syntoniser cette station."
-
 #. one sentence of a longer line
 msgid "Next page."
 msgstr "Page suivante."
@@ -30555,11 +30618,17 @@ msgstr "Page suivante. {next_page_preview}"
 msgid "Shows the next results. PageDown does the same."
 msgstr "Affiche les résultats suivants. PageDown fait de même."
 
+msgid "Shows the next results. A three-finger flick right does the same."
+msgstr ""
+
 msgid "Previous page"
 msgstr "Page précédente"
 
 msgid "Shows the earlier results. PageUp does the same."
 msgstr "Affiche les résultats précédents. PageUp fait de même."
+
+msgid "Shows the earlier results. A three-finger flick left does the same."
+msgstr ""
 
 msgid "No stations here yet."
 msgstr "Pas encore de stations ici."
@@ -30597,6 +30666,23 @@ msgstr "{count} résultats."
 #. placeholders: {title}, {count}, {page}
 msgid "{title}. {count} matches. {page} PageDown for the next page."
 msgstr "{title}. {count} résultats. {page} PageDown pour la page suivante."
+
+#. placeholders: {page}
+#. one sentence of a longer line
+msgid "{page} Flick right with three fingers for the next page."
+msgstr ""
+
+#. placeholders: {title}, {count}, {page}
+msgid ""
+"{title}. {count} stations. {page} Flick right with three fingers for the "
+"next page."
+msgstr ""
+
+#. placeholders: {title}, {count}, {page}
+msgid ""
+"{title}. {count} matches. {page} Flick right with three fingers for the "
+"next page."
+msgstr ""
 
 #. one sentence of a longer line
 msgid "Nothing here yet."
@@ -36606,6 +36692,25 @@ msgstr "Manette : activée, {name} connectée"
 msgid "Controller: enabled, none connected"
 msgstr "Manette : activée, aucune connectée"
 
+msgid ""
+"Off plays the full dial, including real public streams and personal "
+"playlists. On keeps the radio to built-in safe stations, for streaming or "
+"recording. With Music source set to Synthesized, On keeps the radio on the "
+"Roadhouse and station keys do nothing."
+msgstr ""
+"Désactivé joue tout le cadran, y compris les vrais flux publics et les "
+"playlists personnelles. Activé limite la radio aux stations intégrées sans "
+"risque, pour le streaming ou l'enregistrement. Avec la source musicale "
+"réglée sur Synthèse, Activé garde la radio sur le Roadhouse et les touches "
+"de station ne font rien."
+
+msgid ""
+"Off plays the full dial, including real public streams. On keeps the radio "
+"to built-in safe stations, for streaming or recording. With Music source "
+"set to Synthesized, On keeps the radio on the Roadhouse and tuning does "
+"nothing."
+msgstr ""
+
 msgid "a soft tone leans"
 msgstr "une tonalité douce penche"
 
@@ -37657,18 +37762,6 @@ msgstr ""
 #. placeholders: {on_off}
 msgid "Radio streamer-safe mode: {on_off}"
 msgstr "Mode radio compatible streaming : {on_off}"
-
-msgid ""
-"Off plays the full dial, including real public streams and personal "
-"playlists. On keeps the radio to built-in safe stations, for streaming or "
-"recording. With Music source set to Synthesized, On keeps the radio on the "
-"Roadhouse and station keys do nothing."
-msgstr ""
-"Désactivé joue tout le cadran, y compris les vrais flux publics et les "
-"playlists personnelles. Activé limite la radio aux stations intégrées sans "
-"risque, pour le streaming ou l'enregistrement. Avec la source musicale "
-"réglée sur Synthèse, Activé garde la radio sur le Roadhouse et les touches "
-"de station ne font rien."
 
 #. placeholders: {on_off}
 msgid "Shuffle personal playlists: {on_off}"
@@ -41045,6 +41138,52 @@ msgstr ""
 
 msgid "pad"
 msgstr "pad"
+
+msgid ""
+"The radio plays while the engine runs. A three-finger flick right tunes "
+"forward, and a three-finger flick left tunes backward."
+msgstr ""
+
+msgid ""
+"Hold Control with a tune key to jump between categories, including route "
+"music, Freight Fate stations, favorites, and broadcast or web stations."
+msgstr ""
+
+msgid ""
+"Radio and CB on the three-finger tap list turns the radio on or off, saves "
+"favorites, and changes the radio volume and category. Categories include "
+"route music, Freight Fate stations, favorites, and broadcast or web "
+"stations."
+msgstr ""
+
+msgid ""
+"Radio status reads station, reception, volume, and streamer-safe status. "
+"What the radio is playing reads available song information. Both are under "
+"Radio and CB."
+msgstr ""
+
+msgid ""
+"Original uses the licensed menu and Roadhouse tracks. Synthesized plays "
+"music the game composes plus the three original tracks, and takes Freight "
+"Fate's regional stations and voiced breaks off the dial. Real streams "
+"remain unless streamer-safe mode hides them."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "How do I change stations?"
+msgstr ""
+
+#. placeholders: {control_radio}
+msgid ""
+"How do I change stations? With the engine running, {control_radio} switches "
+"the radio on, and Page Up or Page Down tunes."
+msgstr ""
+
+msgid ""
+"How do I change stations? With the engine running, a three-finger flick "
+"right or left tunes. Radio on or off is under Radio and CB on the "
+"three-finger tap list."
+msgstr ""
 
 #. placeholders: {page}, {HELP_PAGES}, {title}
 msgid "Page {page} of {HELP_PAGES}: {title}."
@@ -59740,9 +59879,6 @@ msgstr ""
 #~ "while it is speaking; when nothing is being said, it repeats this help. "
 #~ msgstr ""
 #~ "pendant qu'elle parle ; quand rien n'est dit, il répète cette aide. "
-
-#~ msgid "browse"
-#~ msgstr "parcourir"
 
 #~ msgid "{page_text} PageDown for the next page."
 #~ msgstr "{page_text} PageDown pour la page suivante."

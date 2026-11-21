@@ -10,40 +10,28 @@ use ff_core::models::business::{
     build_business_settlement, has_weigh_station_transponder, is_owner_operator,
     BusinessSettlement, SettlementTerms, INDEPENDENT_AUTHORITY,
 };
-use ff_core::models::career_objectives::career_objective;
-use ff_core::models::career_training::{
-    is_company_training_profile, training_guidance, training_recommendation_score, TrainingStage,
-};
-use ff_core::models::carrier_fleet::{
-    assignment_reason_text, equipment_held_back, equipment_hold_text, slip_seats,
-};
+use ff_core::models::dispatch_board::{BoardEvent, BoardStep, DispatchBoard};
+use ff_core::models::dispatch_fit::{assignment_order, recommend, FitReason};
 use ff_core::models::dispatch_policy::{
     declines_remaining, dispatch_policy, DECLINE_REPUTATION_PENALTY, SENIOR_LOAD_CHOICE_LEVEL,
 };
 use ff_core::models::enforcement;
-use ff_core::models::jobs::{lane_key, lane_recent_either_way, route_drive_hours, Job};
+use ff_core::models::jobs::{route_drive_hours, Job};
 use ff_core::models::profile::Profile;
 use ff_core::models::trailers::{
     compatible_with_programs, owned_trailer_for_cargo, required_program_text,
 };
-use ff_core::playtest_levers::forced_dispatch_destination;
 use ff_core::pyfmt::{fmt_f, fmt_grouped};
-use ff_core::sim::chain_control::{posted_level, RoadReading};
 use ff_core::sim::hos::limits;
-use ff_core::sim::real_weather_alerts::{alerts_raise_chain_law, warm_route_alerts};
-use ff_core::sim::trip::{Trip, TripOptions};
-use ff_core::sim::trip_models::{rig_must_chain, ChainCorridorAhead, CHAIN_LAW_LEAD_MI};
-use ff_core::sim::vehicle::TruckState;
-use ff_core::sim::weather::{effects, WeatherSystem};
 
 use crate::app::{GameContext, Say, SharedState};
 use crate::impl_state_for_menu;
 use crate::meaningful_play::MeaningfulPlayReason;
 use crate::states::base::{InputEvent, Key, Menu, MenuCore, MenuItem};
 use crate::states::city::{
-    first_dispatch_done, held_load, home_terminal, launch_driving, profile, profile_mut,
-    sleeps_needed, DrivingLaunch, LaunchAnnouncement, DRIVE_PHASE_DELIVERY, DRIVE_PHASE_PICKUP,
-    PICKUP_CHECK_IN_MIN, PICKUP_LOADING_MIN,
+    held_load, home_terminal, launch_driving, profile, profile_mut, sleeps_needed, DrivingLaunch,
+    LaunchAnnouncement, DRIVE_PHASE_DELIVERY, DRIVE_PHASE_PICKUP, PICKUP_CHECK_IN_MIN,
+    PICKUP_LOADING_MIN,
 };
 use crate::states::city_pickup::warm_route_feeds;
 use crate::states::city_pickup::{
@@ -51,7 +39,10 @@ use crate::states::city_pickup::{
 };
 
 pub(crate) mod briefing;
+mod chains;
 mod details;
+mod equipment;
+mod fit;
 mod weight;
 pub use details::{describe_job, JobDetailState};
 
@@ -226,117 +217,15 @@ fn market_preview(business: &BusinessSettlement) -> String {
     format!("about {take_home} to you")
 }
 
-/// Stop planning's no-chains reminder, while the driver is still at the
-/// terminal and its garage is open, with no usable chains aboard: a chain
-/// law in effect right now on a chain area of the loaded route that chains
-/// this rig (`posted_chain_law_on_route`), or a carry-rule corridor in
-/// season (`Trip::chain_carry_corridors`). Speech only; a second Enter
-/// accepts as usual.
-fn chain_reminder_before_accepting(ctx: &mut GameContext, job: &Job) -> Option<String> {
-    {
-        let p = profile(ctx);
-        if !ctx.settings.hos_planning_hints
-            || job.bobtail
-            || (p.chains_owned() && p.chain_wear_pct() < 100.0)
-        {
-            return None;
-        }
-    }
-    let route = ctx
-        .world
-        .supported_route(&job.origin, &job.destination, None)
-        .ok()??;
-    // The sky here is never the offline forecast: that draw is unseeded
-    // until the drive starts, so it would name a law the road won't post.
-    let trip = Trip::new(
-        route,
-        TruckState::default(),
-        WeatherSystem::new("", Some(1), None, None, false),
-        TripOptions {
-            seed: Some(1),
-            career_hours: Some(profile(ctx).game_hours),
-            world: Some(ctx.world),
-            ..Default::default()
-        },
-    );
-    if let Some(ahead) = posted_chain_law_on_route(ctx, &trip) {
-        let highway = ahead.highway;
-        return Some(format!(
-            "A chain law is in effect on {highway} on this route. You have no chains. The \
-             garage here sells them. Enter again to accept."
-        ));
-    }
-    let ahead = trip.chain_carry_corridors().into_iter().next()?;
-    let highway = ahead.highway;
-    Some(format!(
-        "Trucks on {highway} must carry chains this season. You have no chains. The garage \
-         here sells them. Enter again to accept."
-    ))
-}
-
-/// The first chain area on `trip`'s route where a chain law is in effect
-/// now and chains this rig (`rig_must_chain`). The level is read from the
-/// live sources only: the Weather Service alerts cached for the cities at
-/// either end of the area's leg (`warm_route_alerts`, the same cache
-/// dispatch reads at the pickup), and with live weather on, those cities'
-/// observed snow or ice. With live sources off there is nothing to read,
-/// so the board reminds about carry-rule corridors only.
-fn posted_chain_law_on_route(ctx: &mut GameContext, trip: &Trip) -> Option<ChainCorridorAhead> {
-    let alerts = ctx.weather_alerts_provider_arc();
-    if let Some(alerts) = &alerts {
-        warm_route_alerts(&trip.route, alerts, ctx.world);
-    }
-    let world = ctx.world;
-    let cities = trip.route.cities.clone();
-    let mut sky_level = |key: &str| -> i64 {
-        let Some(city) = world.cities.get(key) else {
-            return 0;
-        };
-        let alert_raises = alerts
-            .as_ref()
-            .and_then(|a| a.get(city.lat, city.lon))
-            .is_some_and(|found| alerts_raise_chain_law(&found));
-        let (lat, lon) = (city.lat, city.lon);
-        let observed = ctx.real_weather_provider().and_then(|provider| {
-            // Keyed as the pickup's route weather is (`city_pickup`).
-            provider.request(key, lat, lon);
-            provider.get(key)
-        });
-        // The law follows the road: only observed snow or ice posts one,
-        // and a warning only raises it (`chain_control::posted_level`).
-        posted_level(RoadReading {
-            surface: observed.map_or("dry", |kind| effects(kind).surface),
-            alert_raises,
-        })
-    };
-    let areas = trip.chain_corridor_areas(0.0, trip.route.miles(), |_, _| true);
-    for area in areas {
-        let (leg, _) = trip.leg_at_mile(area.start_mi + CHAIN_LAW_LEAD_MI);
-        let level = cities
-            .get(leg..=leg + 1)
-            .unwrap_or_default()
-            .iter()
-            .map(|key| sky_level(key))
-            .max()
-            .unwrap_or(0);
-        if level > 0 && rig_must_chain(Some(&area.state), level) {
-            return Some(area);
-        }
-    }
-    None
-}
-
 // -- JobBoardState ------------------------------------------------------------------------
 
 pub struct JobBoardState {
     menu: MenuCore<Self>,
     pub jobs: Vec<Job>,
-    /// Index of the job whose hours warning was already heard once.
-    confirm_risky_job: Option<usize>,
-    /// Index of the job whose no-chains reminder was already heard once.
-    confirm_chain_job: Option<usize>,
+    /// Mode, accept gate and recommendation: moved only through
+    /// [`JobBoardState::advance`].
+    board: DispatchBoard,
     session_declined: HashSet<usize>,
-    assigned_queue: Vec<usize>,
 }
 
 impl JobBoardState {
@@ -346,33 +235,62 @@ impl JobBoardState {
                 .with_intro_help(JOB_BOARD_INTRO_HELP)
                 .with_touch_help(JOB_BOARD_TOUCH_HELP),
             jobs,
-            confirm_risky_job: None,
-            confirm_chain_job: None,
+            board: DispatchBoard::default(),
             session_declined: HashSet::new(),
-            assigned_queue: Vec::new(),
         };
-        if dispatch_policy(profile(ctx)).assigns_load {
-            state.assigned_queue = state.assignment_queue(ctx);
-        }
+        state.plan(ctx);
         if state.assigned_mode() {
             state.menu.intro_help = ASSIGNED_INTRO_HELP.to_string();
             state.menu.touch_help = Some(ASSIGNED_TOUCH_HELP.to_string());
         } else if let Some(held) = held_load::held_index(profile(ctx)) {
             // The load the driver went to sleep for is where they left it.
             state.menu.index = held.min(state.jobs.len().saturating_sub(1));
-        } else if let Some(recommended) = state.recommended_job_index(ctx) {
-            if state.recommendation_label(ctx).is_some() {
-                state.menu.index = recommended;
-            }
+        } else if let Some(recommended) = state.recommended_row(ctx) {
+            state.menu.index = recommended;
         }
         state
+    }
+
+    /// The one place the board's state moves.
+    fn advance(&mut self, event: BoardEvent) -> BoardStep {
+        let (board, step) = self.board.next(event);
+        self.board = board;
+        step
+    }
+
+    /// Dispatch plans the board: on opening, after a decline, and after a
+    /// pulled offer. Assigns when the policy says so and anything on the
+    /// board is unlocked; otherwise recommends at most one row.
+    fn plan(&mut self, ctx: &GameContext) {
+        let facts = fit::load_facts(ctx, &self.jobs);
+        let goal = fit::goal_for(profile(ctx));
+        let assigned = if dispatch_policy(profile(ctx)).assigns_load {
+            assignment_order(
+                &facts,
+                goal,
+                &self.declined_indices(ctx),
+                held_load::held_index(profile(ctx)),
+            )
+        } else {
+            Vec::new()
+        };
+        let recommendation = recommend(&facts, goal);
+        self.advance(BoardEvent::Planned {
+            assigned,
+            recommendation,
+        });
+    }
+
+    /// The board's state, for the agent server's `status`.
+    pub fn dispatch_board(&self) -> &DispatchBoard {
+        &self.board
     }
 
     /// Dispatch picks the load: new company hires get an assignment,
     /// not a browsable board. Falls back to browsing when nothing on the
     /// board is unlocked, so the player can still hear what is there.
     pub fn assigned_mode(&self) -> bool {
-        !self.assigned_queue.is_empty()
+        !self.board.assigned_queue().is_empty()
     }
 
     pub fn intro_help(&self) -> &str {
@@ -381,7 +299,7 @@ impl JobBoardState {
 
     /// `_assigned_job`: the load dispatch is offering right now.
     pub fn assigned_job(&self) -> &Job {
-        &self.jobs[self.assigned_queue[0]]
+        &self.jobs[self.board.assigned_queue()[0]]
     }
 
     /// Whether the load dispatch is offering is staged in the home yard --
@@ -393,7 +311,7 @@ impl JobBoardState {
 
     /// `_assigned_queue`: the order dispatch will offer the board in.
     pub fn assigned_queue(&self) -> &[usize] {
-        &self.assigned_queue
+        self.board.assigned_queue()
     }
 
     fn describe(&self, ctx: &GameContext, job: &Job, index: Option<usize>) -> String {
@@ -413,7 +331,8 @@ impl JobBoardState {
     }
 
     fn build_assignment_items(&mut self, ctx: &GameContext) -> Vec<MenuItem<Self>> {
-        let index = self.assigned_queue[0];
+        let queue = self.board.assigned_queue().to_vec();
+        let index = queue[0];
         let job = &self.jobs[index];
         let assignment_help = if job.bobtail {
             "Dispatch is sending you empty, with no pickup. After you accept, Route \
@@ -429,7 +348,7 @@ impl JobBoardState {
         )
         .help(assignment_help)];
         let remaining = declines_remaining(profile(ctx));
-        if self.assigned_queue.len() > 1 && remaining > 0 {
+        if queue.len() > 1 && remaining > 0 {
             items.push(
                 MenuItem::new(
                     format!(
@@ -445,7 +364,7 @@ impl JobBoardState {
                 ),
             );
         }
-        if self.assigned_queue.len() > 1 {
+        if queue.len() > 1 {
             items.push(
                 MenuItem::new("Review the rest of today's board", |s: &mut Self, ctx| {
                     s.review_locked_board(ctx)
@@ -466,7 +385,7 @@ impl JobBoardState {
     /// 2026-07-24): the offer pool widens with every level, and growth the
     /// driver cannot hear is not a reward yet. On demand, never automatic.
     pub fn review_locked_board(&mut self, ctx: &mut GameContext) {
-        let lines: Vec<String> = self.assigned_queue[1..]
+        let lines: Vec<String> = self.board.assigned_queue()[1..]
             .iter()
             .map(|&i| &self.jobs[i])
             .map(|job| {
@@ -547,9 +466,9 @@ impl JobBoardState {
             p.career.dispatch_declines_used += 1;
             p.career.reputation = (p.career.reputation - DECLINE_REPUTATION_PENALTY).max(0.0);
         }
-        let declined = self.assigned_queue[0];
+        let declined = self.board.assigned_queue()[0];
         self.remember_decline(ctx, declined);
-        self.assigned_queue = self.assignment_queue(ctx);
+        self.plan(ctx);
         ctx.save_profile();
         ctx.audio.play("ui/notify");
         self.refresh(ctx, false);
@@ -570,150 +489,37 @@ impl JobBoardState {
 
     fn job_label(&self, ctx: &GameContext, job: &Job, index: usize) -> String {
         let label = self.describe(ctx, job, Some(index));
-        if self.recommended_job_index(ctx) == Some(index - 1) {
-            let Some(recommendation) = self.recommendation_label(ctx) else {
-                return label;
-            };
-            return format!("Recommended dispatch, {recommendation}: {label}");
-        }
-        label
-    }
-
-    fn recommendation_label(&self, ctx: &GameContext) -> Option<String> {
-        if let Some(label) = self.training_recommendation_label(ctx) {
-            return Some(label);
-        }
-        let p = profile(ctx);
-        if first_dispatch_done(p) {
-            return Some(career_objective(p).recommendation);
-        }
-        if is_company_training_profile(p) {
-            return Some(career_objective(p).recommendation);
-        }
-        None
-    }
-
-    fn training_recommendation_label(&self, ctx: &GameContext) -> Option<String> {
-        let p = profile(ctx);
-        if !is_company_training_profile(p) {
-            return None;
-        }
-        let guidance = training_guidance(p);
-        if guidance.stage == TrainingStage::FirstDispatch && !first_dispatch_done(p) {
-            return Some(guidance.recommendation_label);
-        }
-        None
-    }
-
-    /// (score, index) for each unlocked job; lower scores fit better.
-    fn scored_candidates(&self, ctx: &GameContext) -> Vec<(f64, usize)> {
-        let p = profile(ctx);
-        let mut candidates: Vec<(f64, usize)> = Vec::new();
-        for (index, job) in self.jobs.iter().enumerate() {
-            if !locked_reason(p, job).is_empty() {
-                continue;
-            }
-            if is_owner_operator(&p.business_status) {
-                let business = settlement_for(p, job, false);
-                candidates.push((-business.net_before_advance, index));
-            } else if training_guidance(p).stage != TrainingStage::NormalGuidance {
-                candidates.push((training_recommendation_score(p, job), index));
-            } else {
-                candidates.push((job.distance_mi, index));
-            }
-        }
-        candidates
-    }
-
-    /// The load the cursor opens on: the best-scored one that is not a lane
-    /// the driver has just run, in either direction, else the best-scored
-    /// one. The straight return stays on the board as a choice; it stops
-    /// being the choice dispatch makes for the driver.
-    fn recommended_job_index(&self, ctx: &GameContext) -> Option<usize> {
-        let mut candidates = self.scored_candidates(ctx);
-        sort_scored(&mut candidates);
-        let p = profile(ctx);
-        let world = ctx.world;
-        candidates
-            .iter()
-            .find(|c| !lane_recent_either_way(&p.recent_lanes, &lane_key(world, &self.jobs[c.1])))
-            .or(candidates.first())
-            .map(|c| c.1)
-    }
-
-    /// Unlocked jobs in the order dispatch would assign them, best first.
-    ///
-    /// Declined loads move to the back: dispatch re-offers them only after
-    /// the fresh candidates run out, and reopening the board does not put a
-    /// refused load straight back on the driver.
-    fn assignment_queue(&self, ctx: &GameContext) -> Vec<usize> {
-        let mut candidates = self.scored_candidates(ctx);
-        sort_scored(&mut candidates);
-        let ordered: Vec<usize> = candidates.into_iter().map(|c| c.1).collect();
-        let declined = self.declined_indices(ctx);
-        let mut fresh: Vec<usize> = ordered
-            .iter()
-            .copied()
-            .filter(|i| !declined.contains(i))
-            .collect();
-        let reoffered: Vec<usize> = ordered
-            .iter()
-            .copied()
-            .filter(|i| declined.contains(i))
-            .collect();
-        // Lane variety: dispatch prefers a lane the driver has not just run,
-        // in either direction, so the load straight back where the truck
-        // came from waits behind every unseen lane. A stable partition, so
-        // score order still rules inside each group, and when every
-        // candidate is a recent lane nothing changes -- the nudge can delay
-        // a repeat, never block dispatch.
-        let recent = &profile(ctx).recent_lanes;
-        if !recent.is_empty() {
-            let world = ctx.world;
-            let is_recent =
-                |i: &usize| lane_recent_either_way(recent, &lane_key(world, &self.jobs[*i]));
-            let mut not_recent: Vec<usize> =
-                fresh.iter().copied().filter(|i| !is_recent(i)).collect();
-            let recent_ones: Vec<usize> = fresh.iter().copied().filter(is_recent).collect();
-            not_recent.extend(recent_ones);
-            fresh = not_recent;
-        }
-        let mut queue = fresh;
-        queue.extend(reoffered);
-        // A load dispatch relayed from a nearby city IS the assignment: the
-        // board here was thin, which is the only reason it is on it.
-        let here = ctx.world.resolve_city_key(&profile(ctx).current_city);
-        if let Some(pos) = queue.iter().position(|&index| {
-            let job = &self.jobs[index];
-            !job.bobtail && ctx.world.resolve_city_key(&job.origin) != here
-        }) {
-            let index = queue.remove(pos);
-            queue.insert(0, index);
-        }
-        // The load the driver slept for comes back as the assignment,
-        // unless they have since declined it.
-        if let Some(held) = held_load::held_index(profile(ctx)) {
-            if let Some(pos) = queue.iter().position(|&index| index == held) {
-                if !declined.contains(&held) {
-                    let index = queue.remove(pos);
-                    queue.insert(0, index);
+        match self.board.recommendation {
+            Some(r) if r.index == index - 1 => match r.reason {
+                FitReason::BestPayForHours => {
+                    format!("Recommended dispatch, best pay for the hours: {label}")
                 }
-            }
+                FitReason::BestNetForHours => {
+                    format!("Recommended dispatch, best net for the hours: {label}")
+                }
+                FitReason::MostDeadlineRoom => {
+                    format!("Recommended dispatch, most room on the deadline: {label}")
+                }
+                FitReason::Plain => format!("Recommended dispatch: {label}"),
+                FitReason::Training => match fit::training_label(profile(ctx)) {
+                    Some(recommendation) => {
+                        format!("Recommended dispatch, {recommendation}: {label}")
+                    }
+                    None => label,
+                },
+            },
+            _ => label,
         }
-        let forced = forced_dispatch_destination();
-        if !forced.is_empty() && !queue.is_empty() {
-            // Playtest lever: dispatch assigns the forced-destination load
-            // first, so a tester is not stuck with pot luck.
-            let key = ctx.world.resolve_city_key(&forced);
-            if let Some(pos) = queue
-                .iter()
-                .position(|&index| ctx.world.resolve_city_key(&self.jobs[index].destination) == key)
-            {
-                let index = queue.remove(pos);
-                queue.insert(0, index);
-            }
+    }
+
+    /// The row the cursor opens on: the recommended load, when its row
+    /// says so.
+    fn recommended_row(&self, ctx: &GameContext) -> Option<usize> {
+        let r = self.board.recommendation?;
+        match r.reason {
+            FitReason::Training => fit::training_label(profile(ctx)).map(|_| r.index),
+            _ => Some(r.index),
         }
-        queue
     }
 
     /// `_locked_reason(job)`.
@@ -725,7 +531,7 @@ impl JobBoardState {
     fn focused_job(&self) -> Option<usize> {
         if self.assigned_mode() {
             return if self.menu.index == 0 {
-                Some(self.assigned_queue[0])
+                Some(self.board.assigned_queue()[0])
             } else {
                 None
             };
@@ -734,11 +540,6 @@ impl JobBoardState {
             return Some(self.menu.index);
         }
         None
-    }
-
-    fn needs_hos_confirmation(&self, ctx: &GameContext, index: usize) -> bool {
-        self.job_exceeds_current_hos(ctx, &self.jobs[index])
-            && self.confirm_risky_job != Some(index)
     }
 
     /// True when hours already spent this shift force an extra 10-hour
@@ -812,13 +613,7 @@ impl JobBoardState {
     fn drop_dead_offer(&mut self, ctx: &mut GameContext, index: usize) {
         profile_mut(ctx).dispatch_board_cache = None;
         self.jobs.remove(index);
-        self.confirm_risky_job = None;
-        self.confirm_chain_job = None;
-        self.assigned_queue = if dispatch_policy(profile(ctx)).assigns_load {
-            self.assignment_queue(ctx)
-        } else {
-            Vec::new()
-        };
+        self.plan(ctx);
         self.refresh(ctx, false);
         ctx.audio.play("ui/warning");
     }
@@ -856,17 +651,22 @@ impl JobBoardState {
             }
             return;
         }
-        // A confirmation belongs to the job it was heard for: another
-        // selection starts over. Both stand until this job is accepted, so
-        // the hours warning is not re-run after the chain reminder.
-        if self.confirm_risky_job.is_some_and(|i| i != index) {
-            self.confirm_risky_job = None;
+        // The hours warning once, the chain reminder once, then accept; a
+        // warning belongs to the load it was heard for (`DispatchBoard`).
+        let needs_hours = self.job_exceeds_current_hos(ctx, &job);
+        let mut step = self.advance(BoardEvent::Select {
+            load: index,
+            needs_hours,
+        });
+        let mut reminder = None;
+        if step == BoardStep::CheckChains {
+            reminder = chains::chain_reminder_before_accepting(ctx, &job);
+            step = self.advance(BoardEvent::ChainsChecked {
+                load: index,
+                due: reminder.is_some(),
+            });
         }
-        if self.confirm_chain_job.is_some_and(|i| i != index) {
-            self.confirm_chain_job = None;
-        }
-        if self.needs_hos_confirmation(ctx, index) {
-            self.confirm_risky_job = Some(index);
+        if step == BoardStep::WarnHours {
             held_load::hold_for_rest(profile_mut(ctx), &job);
             ctx.save_profile();
             ctx.audio.play("ui/warning");
@@ -882,16 +682,11 @@ impl JobBoardState {
             }
             return;
         }
-        if self.confirm_chain_job != Some(index) {
-            if let Some(reminder) = chain_reminder_before_accepting(ctx, &job) {
-                self.confirm_chain_job = Some(index);
-                ctx.audio.play("ui/warning");
-                ctx.say(&reminder);
-                return;
-            }
+        if let (BoardStep::RemindChains, Some(reminder)) = (step, reminder) {
+            ctx.audio.play("ui/warning");
+            ctx.say(&reminder);
+            return;
         }
-        self.confirm_risky_job = None;
-        self.confirm_chain_job = None;
         if job.bobtail {
             self.accept_reposition(ctx, index);
             return;
@@ -931,7 +726,7 @@ impl JobBoardState {
         // Junior drivers slip-seat: the yard picks the tractor for the load
         // before the keys change hands, so the truck is decided before the
         // trip snapshot is taken.
-        let equipment_note = dispatch_equipment_note(ctx, &job);
+        let equipment_note = equipment::dispatch_equipment_note(ctx, &job);
         profile_mut(ctx).dispatch_board_cache = None;
         let line = format!(
             "Accepted.{equipment_note} {} empty to {}.",
@@ -980,7 +775,7 @@ impl JobBoardState {
             Ok(approach) => corridor.then(&approach),
             Err(_) => corridor.clone(),
         };
-        let equipment_note = dispatch_equipment_note(ctx, &job);
+        let equipment_note = equipment::dispatch_equipment_note(ctx, &job);
         profile_mut(ctx).dispatch_board_cache = None;
         // The facility text already names its city; whole miles for a run
         // this long (heard live: "in Las Vegas, Nevada in Las Vegas, Nevada"
@@ -1009,7 +804,7 @@ impl JobBoardState {
     /// pickup), then the pickup facility itself instead of a drive to it.
     fn accept_at_home_yard(&mut self, ctx: &mut GameContext, job: Job) {
         warm_route_feeds(ctx, &job.origin, &job.destination);
-        let equipment_note = dispatch_equipment_note(ctx, &job);
+        let equipment_note = equipment::dispatch_equipment_note(ctx, &job);
         profile_mut(ctx).dispatch_board_cache = None;
         let snapshot = pickup_snapshot(&job, &PickupSnapshotOptions::default());
         profile_mut(ctx).active_trip = Some(Value::Object(snapshot));
@@ -1061,57 +856,6 @@ impl JobBoardState {
             ),
         );
     }
-}
-
-fn sort_scored(candidates: &mut [(f64, usize)]) {
-    candidates.sort_by(|a, b| {
-        a.0.partial_cmp(&b.0)
-            .unwrap_or(std::cmp::Ordering::Equal)
-            .then(a.1.cmp(&b.1))
-    });
-}
-
-/// The tractor for this load, then the carrier's shop on it if it needs one.
-fn dispatch_equipment_note(ctx: &mut GameContext, job: &Job) -> String {
-    let seat = slip_seat_note(ctx, job);
-    let shop = crate::states::city_garage::carrier_shop_before_dispatch(ctx);
-    format!("{seat}{shop}")
-}
-
-/// Draw the assigned tractor and say why, or nothing if it is not new.
-///
-/// Silent when the truck has not changed: a driver who drew the same
-/// spare three loads running does not need telling three times.
-///
-/// A driver past slip-seating has ONE truck and draws nothing, so there
-/// is normally nothing to say -- but if the yard is holding them below
-/// the tractor their level earns, that is the one thing they will want
-/// explained, and this used to be silent about it. A level 11 driver
-/// capped to a regional truck by their standing got handed a yard mule
-/// every run with no reason given anywhere near the moment it happened;
-/// the explanation existed, but only on the standing screen, which you
-/// have to already suspect the answer to go and read (Brandon,
-/// 2026-08-21: "what gives?").
-fn slip_seat_note(ctx: &mut GameContext, job: &Job) -> String {
-    let p = profile_mut(ctx);
-    if p.owns_equipment() {
-        return String::new();
-    }
-    if !slip_seats(p) {
-        // No draw to announce, so say only the part that is news: why the
-        // iron is short of the level, and what gives it back.
-        return if equipment_held_back(p) {
-            format!(" {}", equipment_hold_text(p, true))
-        } else {
-            String::new()
-        };
-    }
-    let before = p.active_truck_key();
-    let key = p.take_slip_seat(job);
-    if key == before {
-        return String::new();
-    }
-    format!(" {}", assignment_reason_text::<Profile>(&key, Some(p)))
 }
 
 impl Menu for JobBoardState {
@@ -1220,6 +964,7 @@ impl_state_for_menu!(JobBoardState);
 mod tests {
     use super::*;
     use crate::app::testing::TestApp;
+    use ff_core::models::dispatch_board::AcceptGate;
     use ff_core::models::jobs::cargo_type;
 
     fn load(pickup: &str) -> Job {
@@ -1243,11 +988,13 @@ mod tests {
         app.ctx.profile = Some(Profile::named_in("Chain Board", "Denver"));
         let jobs = vec![load("Denver Gone-Away Storage"), load("Denver Cross-Dock")];
         let mut board = JobBoardState::new(&app.ctx, jobs);
-        board.confirm_risky_job = Some(0);
-        board.confirm_chain_job = Some(0);
+        board.advance(BoardEvent::Select {
+            load: 0,
+            needs_hours: true,
+        });
+        assert_eq!(board.board.gate, AcceptGate::HoursHeard(0));
         board.drop_dead_offer(&mut app.ctx, 0);
         assert_eq!(board.jobs.len(), 1);
-        assert_eq!(board.confirm_risky_job, None);
-        assert_eq!(board.confirm_chain_job, None);
+        assert_eq!(board.board.gate, AcceptGate::Clear);
     }
 }
