@@ -4001,22 +4001,22 @@ msgstr ""
 "えていました。"
 
 msgid "unpaved"
-msgstr ""
+msgstr "未舗装"
 
 msgid "asphalt"
-msgstr ""
+msgstr "アスファルト"
 
 msgid "other"
-msgstr ""
+msgstr "その他"
 
 msgid "bridge"
-msgstr ""
+msgstr "橋"
 
 msgid "tunnel"
-msgstr ""
+msgstr "トンネル"
 
 msgid "causeway"
-msgstr ""
+msgstr "堤防道路"
 
 msgid "both"
 msgstr "both"
@@ -4029,67 +4029,67 @@ msgstr "reverse"
 
 #. placeholders: {from_city}, {to_city}, {what}
 msgid "{from_city} to {to_city} pavement {what} must be an object"
-msgstr ""
+msgstr "{from_city}から{to_city}：舗装の{what}はオブジェクトでなければなりません"
 
 #. placeholders: {from_city}, {to_city}, {what}, {text}, {why}
 msgid "{from_city} to {to_city} pavement {what} {text}: {why}"
-msgstr ""
+msgstr "{from_city}から{to_city}：舗装の{what} {text}：{why}"
 
 msgid "does not start with two miles"
-msgstr ""
+msgstr "最初の2マイルから始まっていません"
 
 msgid "has no name"
-msgstr ""
+msgstr "名前がありません"
 
 #. placeholders: {key}, {value}
 msgid "pavement {key}={value} is not a number"
-msgstr ""
+msgstr "舗装の{key}={value}が数値ではありません"
 
 msgid "layer"
-msgstr ""
+msgstr "レイヤー"
 
 msgid "surface"
-msgstr ""
+msgstr "路面"
 
 msgid "run"
-msgstr ""
+msgstr "区間"
 
 #. placeholders: {from_city}, {to_city}, {name}
 msgid ""
 "{from_city} to {to_city} pavement surface {name} is not an HPMS surface"
-msgstr ""
+msgstr "{from_city}から{to_city}：舗装の路面{name}はHPMSの路面ではありません"
 
 msgid "iri"
-msgstr ""
+msgstr "iri"
 
 msgid "faulting"
-msgstr ""
+msgstr "段差"
 
 msgid "structures"
-msgstr ""
+msgstr "構造物"
 
 msgid "structure"
-msgstr ""
+msgstr "構造物"
 
 #. placeholders: {from_city}, {to_city}, {name}
 msgid ""
 "{from_city} to {to_city} pavement structure {name} is not a bridge, tunnel "
 "or causeway"
-msgstr ""
+msgstr "{from_city}から{to_city}：舗装の構造物{name}は橋、トンネル、堤防道路のどれでもありません"
 
 msgid "hpms"
-msgstr ""
+msgstr "hpms"
 
 #. placeholders: {from_city}, {to_city}, {py_str_float}
 msgid ""
 "{from_city} to {to_city} pavement mile_scale {py_str_float} is not near 1"
-msgstr ""
+msgstr "{from_city}から{to_city}：舗装のmile_scale {py_str_float}が1に近くありません"
 
 #. placeholders: {from_city}, {to_city}, {py_str_float}
 msgid ""
 "{from_city} to {to_city} pavement read share {py_str_float} is not between "
 "0 and 1"
-msgstr ""
+msgstr "{from_city}から{to_city}：舗装の読み取り割合{py_str_float}が0から1の間にありません"
 
 msgid "northeast"
 msgstr "northeast"
@@ -7910,11 +7910,11 @@ msgstr "晴れ"
 
 #. placeholders: {i}
 msgid "hours_heard job {i}"
-msgstr ""
+msgstr "hours_heard job {i}"
 
 #. placeholders: {i}
 msgid "chains_heard job {i}"
-msgstr ""
+msgstr "chains_heard job {i}"
 
 msgid "assigned"
 msgstr "割り当て"
@@ -7923,7 +7923,7 @@ msgid "browse"
 msgstr "閲覧"
 
 msgid "plain"
-msgstr ""
+msgstr "通常"
 
 msgid "Pay advance already taken for this load. Deliver it first."
 msgstr "この積荷の前払いはすでに受け取っています。先に届けてください。"
@@ -8620,7 +8620,7 @@ msgid "team"
 msgstr "チーム"
 
 msgid "urgency"
-msgstr ""
+msgstr "緊急度"
 
 #. placeholders: {unwrap_or_else}
 msgid "{unwrap_or_else} freight market"
@@ -8901,22 +8901,22 @@ msgid "standard"
 msgstr "標準"
 
 msgid "hot"
-msgstr ""
+msgstr "急ぎ"
 
 msgid "flexible"
-msgstr ""
+msgstr "余裕あり"
 
 msgid "Hot load."
-msgstr ""
+msgstr "急ぎの荷物です。"
 
 msgid "Flexible delivery."
-msgstr ""
+msgstr "余裕のある配送です。"
 
 msgid "Hot load. Tight deadline, pays 25 percent more."
-msgstr ""
+msgstr "急ぎの荷物です。期限が厳しく、報酬は25パーセント多めです。"
 
 msgid "Flexible delivery. Wide deadline, pays 10 percent less."
-msgstr ""
+msgstr "余裕のある配送です。期限が長く、報酬は10パーセント少なめです。"
 
 msgid "landmark"
 msgstr "landmark"
@@ -10576,13 +10576,13 @@ msgid "up"
 msgstr "解放"
 
 msgid "lowering"
-msgstr ""
+msgstr "下降中"
 
 msgid "down"
 msgstr "押下"
 
 msgid "raising"
-msgstr ""
+msgstr "上昇中"
 
 msgid "Driver window down."
 msgstr "運転席の窓を開けました。"
@@ -10651,10 +10651,10 @@ msgid "snow"
 msgstr "雪"
 
 msgid "stowed"
-msgstr ""
+msgstr "収納済み"
 
 msgid "broken"
-msgstr ""
+msgstr "切れた"
 
 msgid "yield"
 msgstr "譲る"
@@ -11184,13 +11184,13 @@ msgid "quiet"
 msgstr "控えめ"
 
 msgid "birds"
-msgstr ""
+msgstr "鳥"
 
 msgid "insects"
-msgstr ""
+msgstr "虫"
 
 msgid "away"
-msgstr ""
+msgstr "離れている"
 
 msgid "over"
 msgstr "超過"
@@ -11516,17 +11516,17 @@ msgid "Weather: {join}."
 msgstr "天気：{join}。"
 
 msgid "jointed"
-msgstr ""
+msgstr "継ぎ目あり"
 
 msgid "smooth"
-msgstr ""
+msgstr "なめらか"
 
 #. placeholders: {name}
 msgid "read {name}"
-msgstr ""
+msgstr "読み取り {name}"
 
 msgid "invented"
-msgstr ""
+msgstr "推定"
 
 msgid "held"
 msgstr "押下中"
@@ -11810,7 +11810,7 @@ msgid "lightly loaded"
 msgstr "少なめの積載"
 
 msgid "bunk"
-msgstr ""
+msgstr "寝台"
 
 msgid "eastern"
 msgstr "eastern"
@@ -12602,7 +12602,7 @@ msgid "destination approach"
 msgstr "目的地への接近路"
 
 msgid "Chain law lifted."
-msgstr ""
+msgstr "チェーン規制が解除されました。"
 
 msgid " Chain-up area on the right."
 msgstr "右にチェーン装着場があります。"
@@ -14015,16 +14015,16 @@ msgid "Plays under a spoken line that already explains it."
 msgstr "それを説明する読み上げの下で鳴ります。"
 
 msgid "A small debris strike under the wheels."
-msgstr ""
+msgstr "タイヤの下で小さな破片を踏みました。"
 
 msgid "Pavement seams: texture, not a decision."
 msgstr "舗装の継ぎ目で、質感であって判断ではありません。"
 
 msgid "As the steer axle's seam."
-msgstr ""
+msgstr "前輪の車軸が踏む継ぎ目の音です。"
 
 msgid "The joint at a bridge end: texture, not a decision."
-msgstr ""
+msgstr "橋の端の継ぎ目で、質感であって判断ではありません。"
 
 msgid "A door."
 msgstr "ドアです。"
@@ -14355,13 +14355,15 @@ msgstr "{start_mi}マイル先からハンドルを握ります。"
 
 #. placeholders: {i}
 msgid "job {i}"
-msgstr ""
+msgstr "仕事 {i}"
 
 #. placeholders: {mode_key}, {offer}, {reason}, {key}
 msgid ""
 "; board_mode {mode_key}; board_offer {offer}; board_reason {reason}; "
 "board_gate {key}"
 msgstr ""
+"; board_mode {mode_key}; board_offer {offer}; board_reason {reason}; "
+"board_gate {key}"
 
 msgid "automatic"
 msgstr "自動"
@@ -14425,19 +14427,19 @@ msgid ""
 msgstr "{position_mi}マイル地点に{staged}を仕込みました。次の走行フレームで発動するので、呼びかけを聞いてください。"
 
 msgid "a free sky"
-msgstr ""
+msgstr "固定しない空"
 
 #. placeholders: {value}
 msgid "forced {value}"
-msgstr ""
+msgstr "固定 {value}"
 
 #. placeholders: {sky}
 msgid "The drive under way, and drives staged after it, run under {sky}."
-msgstr ""
+msgstr "走行中の運転と、そのあとに用意する運転は、{sky}で進みます。"
 
 #. placeholders: {sky}
 msgid "Drives staged from here on run under {sky}."
-msgstr ""
+msgstr "これから用意する運転は、{sky}で進みます。"
 
 msgid "the co-driver has the wheel"
 msgstr "相棒の運転手がハンドルを握っています"
@@ -15304,7 +15306,7 @@ msgid "ok"
 msgstr "ok"
 
 msgid "stale"
-msgstr ""
+msgstr "古い"
 
 msgid "conflict"
 msgstr "conflict"
@@ -15346,6 +15348,7 @@ msgid ""
 "The cloud has a newer copy of this career. Nothing was changed. Choose Use "
 "the cloud copy on this computer to pick it up."
 msgstr ""
+"クラウドにこのキャリアの新しいコピーがあります。何も変更していません。取り込むには、「このコンピューターでクラウドのコピーを使う」を選んでください。"
 
 msgid ""
 "orinks.net no longer accepts this computer's sign-in. Usually this computer "
@@ -15902,6 +15905,57 @@ msgid ""
 "                                    it speaks its findings and writes a log\n"
 "  --log PATH                        session log for the watcher"
 msgstr ""
+"freightfate -- Freight Fate\n"
+"\n"
+"  freightfate                       プレイする\n"
+"  freightfate --smoke               起動して5フレーム描画し、終了する（CIの確認）\n"
+"  freightfate --headless            ウィンドウなし、読み上げなし\n"
+"  freightfate --controller-diagnostics\n"
+"                                    コントローラーのイベントを両方の層で記録する\n"
+"\n"
+"運転ツール：\n"
+"  --playtest-road --find FEATURE    道路の要素か出発ゲートから始める\n"
+"                                    （downgrade、upgrade、zone、limit-drop、\n"
+"                                    stop、scale、curve、interchange、toll、\n"
+"                                    "
+"chain-law、destination、departure、river、all）。all は\n"
+"                                    起動できるすべての道路の種類と、現在のワールドの\n"
+"                                    すべての場所を調べる。destination は\n"
+"                                    ルートの終わりにある配達先の出口ランプ。\n"
+"                                    departure は既定で、少数のルートの見本から\n"
+"                                    積荷のある施設の出口を調べる。\n"
+"                                    すべて調べるには --routes all を使う。\n"
+"                                    各結果には、ワールドを調べ直さない\n"
+"                                    --facility での直接の起動方法が表示される。\n"
+"                                    実際のプレイヤーの履歴が必要な状態遷移は、道路からは起動できない。\n"
+"                                    --from/--to/--seed/--scan と\n"
+"                                    アシストのスイッチで検索を絞り込む\n"
+"  --ai                               選んだ道路のシナリオで、実際のウィンドウで\n"
+"                                    ペースを守ったプレイヤー操作を使う。プレイヤー向けの\n"
+"                                    実際の読み上げがターミナルに流れる\n"
+"  --playtest-sandbox [--launch]     所有者のアカウントに届かないデータ\n"
+"                                    ディレクトリ。--dir/--reset/--print\n"
+"  --list-break-scenarios            すべての敵対的シナリオの名前を表示する\n"
+"  --list-speech-backends            見つかったすべてのスクリーンリーダーと声の名前を表示する\n"
+"                                    （--names-only はどれも開かずに一覧にする）\n"
+"  --break-scenario NAME             1つ実行する。--transcript で読み上げを聞く\n"
+"  --break-battery                   すべて実行して判定を表示する\n"
+"  --agent-server                    stdio の MCP サーバー付きの実際のゲームで、\n"
+"                                    AI エージェントがプレイできる（サンドボックス化。\n"
+"                                    --reset で新しいサンドボックス。\n"
+"                                    --find FEATURE [--from CITY] [--to "
+"CITY]\n"
+"                                    を付けると、仕込んだ運転から直接起動する。\n"
+"                                    --operator-keys はウィンドウを開いたままにし、\n"
+"                                    操作する人のキーボードも受け付けて、\n"
+"                                    エージェントと一緒にプレイできる。--staging は\n"
+"                                    専用のディレクトリと、ステージングサイトの\n"
+"                                    専用のドライバーを使い、クラウドバックアップはオン）\n"
+"  --key-probe [--seconds N]         キーボードがゲームに何を送っているかを示す。\n"
+"                                    押したキーを送り直すスクリーンリーダー（JAWS）向け：\n"
+"                                    各矢印キーを数秒ずつ押し続けると、\n"
+"                                    結果を読み上げてログに書き出す\n"
+"  --log PATH                        監視用のセッションログ"
 
 msgid "not running here"
 msgstr "ここでは動いていません"
@@ -16239,16 +16293,16 @@ msgid "Ready in {remaining} seconds."
 msgstr "あと{remaining}秒で準備ができます。"
 
 msgid "Back to "
-msgstr ""
+msgstr "戻る： "
 
 msgid "No, "
-msgstr ""
+msgstr "いいえ、 "
 
 msgid "Resume "
-msgstr ""
+msgstr "再開： "
 
 msgid "Return to "
-msgstr ""
+msgstr "戻る： "
 
 msgid "Back"
 msgstr "Back"
@@ -16760,19 +16814,19 @@ msgstr "{note}新しい割り当て：{described}"
 
 #. placeholders: {label}
 msgid "Recommended dispatch, best pay for the hours: {label}"
-msgstr ""
+msgstr "おすすめの配車、時間あたりの報酬が最も高い：{label}"
 
 #. placeholders: {label}
 msgid "Recommended dispatch, best net for the hours: {label}"
-msgstr ""
+msgstr "おすすめの配車、時間あたりの純利益が最も高い：{label}"
 
 #. placeholders: {label}
 msgid "Recommended dispatch, most room on the deadline: {label}"
-msgstr ""
+msgstr "おすすめの配車、期限に最も余裕がある：{label}"
 
 #. placeholders: {label}
 msgid "Recommended dispatch: {label}"
-msgstr ""
+msgstr "おすすめの配車：{label}"
 
 #. placeholders: {recommendation}, {label}
 msgid "Recommended dispatch, {recommendation}: {label}"
@@ -20955,7 +21009,7 @@ msgid ""
 msgstr "レーンキープがフルのときは、左右に倒すと1車線変更します。"
 
 msgid "Hold the right bumper for the clutch."
-msgstr ""
+msgstr "右バンパーを押し続けてクラッチにします。"
 
 msgid "Hold the left bumper for the clutch."
 msgstr "左バンパーを押し続けてクラッチにします。"
@@ -23891,7 +23945,7 @@ msgid "Billboard: {line}"
 msgstr "看板：{line}"
 
 msgid "Bare road. Stop and take the chains off."
-msgstr ""
+msgstr "路面の雪が消えました。停車してチェーンを外してください。"
 
 msgid "Come to a complete stop first."
 msgstr "先に完全に停車してください。"
@@ -24050,11 +24104,11 @@ msgstr "停車してチェーンを付けます。勤務時間で約{f}分です
 
 #. one sentence of a longer line
 msgid "Bare road."
-msgstr ""
+msgstr "路面の雪が消えました。"
 
 #. placeholders: {f}
 msgid "Bare road. Taking chains off, about {f} minutes on duty."
-msgstr ""
+msgstr "路面の雪が消えました。チェーンを外します。勤務時間で約{f}分です。"
 
 #. placeholders: {f}
 #. one sentence of a longer line
@@ -27036,7 +27090,7 @@ msgid ""
 msgstr "路肩ではよく眠れません。運転時間規制はリセットされます。疲れは残り、違反切符や軽いトラックの損傷の可能性があり、期限は進み続けます。"
 
 msgid "Every driving command by name, in groups."
-msgstr ""
+msgstr "運転の操作を名前ですべて、グループごとに並べます。"
 
 msgid "Emergency shoulder sleep is not available."
 msgstr "路肩での緊急の睡眠はできません。"
@@ -27319,7 +27373,7 @@ msgstr "{display_name}をお気に入りに保存"
 msgid ""
 "Streamer-safe mode on, with Music source set to Synthesized. The radio "
 "stays on the Roadhouse."
-msgstr ""
+msgstr "配信向けモードオン、音楽の種類は合成です。ラジオはRoadhouseのままです。"
 
 msgid ""
 "Streamer-safe mode off. Real public streams and personal playlists are on "
@@ -27332,10 +27386,10 @@ msgid ""
 msgstr "配信向けモードオン。実際の公開ストリームと自分のプレイリストは隠れています。"
 
 msgid "Streamer-safe mode off. Real public streams are on the dial."
-msgstr ""
+msgstr "配信向けモードオフ。実際の公開ストリームが選べます。"
 
 msgid "Streamer-safe mode on. Real public streams are hidden."
-msgstr ""
+msgstr "配信向けモードオン。実際の公開ストリームは隠れています。"
 
 msgid ""
 "Music source Synthesized: Freight Fate's own stations are off the dial."
@@ -27377,10 +27431,10 @@ msgid "Double tap switches the radio on or off."
 msgstr "ダブルタップでラジオをオンまたはオフにします。"
 
 msgid "What is on the dial. Enter repeats it."
-msgstr ""
+msgstr "今選べる局です。Enter でもう一度読み上げます。"
 
 msgid "What is on the dial. Double tap repeats it."
-msgstr ""
+msgstr "今選べる局です。ダブルタップでもう一度読み上げます。"
 
 msgid "Saves or removes the tuned station in favorites."
 msgstr "選局中の局をお気に入りに保存、または外します。"
@@ -27416,17 +27470,17 @@ msgstr "すべての局か、地上波やウェブラジオのような一つの
 
 #. placeholders: {local}
 msgid "Local stations: {local}"
-msgstr ""
+msgstr "地元の局：{local}"
 
 msgid ""
 "Freight Fate stations, your playlists and favorites, and stations nearby. "
 "Enter on one tunes it."
-msgstr ""
+msgstr "Freight Fateの局、自分のプレイリストとお気に入り、近くの局です。Enter で選局します。"
 
 msgid ""
 "Freight Fate stations, your playlists and favorites, and stations nearby. "
 "Double tap one to tune it."
-msgstr ""
+msgstr "Freight Fateの局、自分のプレイリストとお気に入り、近くの局です。ダブルタップで選局します。"
 
 #. placeholders: {in_range}
 msgid "Stations in range: {in_range}"
@@ -27459,7 +27513,7 @@ msgid "Stations in range"
 msgstr "受信できる局"
 
 msgid "Local stations"
-msgstr ""
+msgstr "地元の局"
 
 #. placeholders: {query}
 msgid "Stations matching {query}"
@@ -27488,7 +27542,7 @@ msgstr "ここでは{display_name}を受信できません。"
 
 #. placeholders: {label}, {distance_text}
 msgid "{label}, {distance_text} away"
-msgstr ""
+msgstr "{label}、{distance_text}先"
 
 msgid "Enter tunes this station."
 msgstr "Enter でこの局を選局します。"
@@ -27508,7 +27562,7 @@ msgid "Shows the next results. PageDown does the same."
 msgstr "次の結果を表示します。PageDown でも同じです。"
 
 msgid "Shows the next results. A three-finger flick right does the same."
-msgstr ""
+msgstr "次の結果を表示します。3本指で右にフリックしても同じです。"
 
 msgid "Previous page"
 msgstr "前のページ"
@@ -27517,7 +27571,7 @@ msgid "Shows the earlier results. PageUp does the same."
 msgstr "前の結果を表示します。PageUp でも同じです。"
 
 msgid "Shows the earlier results. A three-finger flick left does the same."
-msgstr ""
+msgstr "前の結果を表示します。3本指で左にフリックしても同じです。"
 
 msgid "No stations here yet."
 msgstr "ここにはまだ局がありません。"
@@ -27557,19 +27611,19 @@ msgstr "{title}。{count} 件。{page} PageDown で次のページへ。"
 #. placeholders: {page}
 #. one sentence of a longer line
 msgid "{page} Flick right with three fingers for the next page."
-msgstr ""
+msgstr "{page} 3本指で右にフリックすると次のページへ。"
 
 #. placeholders: {title}, {count}, {page}
 msgid ""
 "{title}. {count} stations. {page} Flick right with three fingers for the "
 "next page."
-msgstr ""
+msgstr "{title}。{count} 局。{page} 3本指で右にフリックすると次のページへ。"
 
 #. placeholders: {title}, {count}, {page}
 msgid ""
 "{title}. {count} matches. {page} Flick right with three fingers for the "
 "next page."
-msgstr ""
+msgstr "{title}。{count} 件。{page} 3本指で右にフリックすると次のページへ。"
 
 #. one sentence of a longer line
 msgid "Nothing here yet."
@@ -27979,34 +28033,34 @@ msgid "waves you through"
 msgstr "通してくれます"
 
 msgid "You had driven past"
-msgstr ""
+msgstr "あなたは超えて運転していました"
 
 #. placeholders: {name}
 msgid "{name} had driven past"
-msgstr ""
+msgstr "{name}は超えて運転していました"
 
 msgid "you had driven past"
-msgstr ""
+msgstr "あなたは超えて運転していました"
 
 msgid "Your 14-hour duty window"
-msgstr ""
+msgstr "あなたの14時間の勤務枠"
 
 #. placeholders: {name}
 msgid "{name}'s 14-hour duty window"
-msgstr ""
+msgstr "{name}の14時間の勤務枠"
 
 msgid "your 14-hour duty window"
-msgstr ""
+msgstr "あなたの14時間の勤務枠"
 
 msgid "You were past the 30-minute"
-msgstr ""
+msgstr "あなたは30分休憩の義務を過ぎていました"
 
 #. placeholders: {name}
 msgid "{name} was past the 30-minute"
-msgstr ""
+msgstr "{name}は30分休憩の義務を過ぎていました"
 
 msgid "you were past the 30-minute"
-msgstr ""
+msgstr "あなたは30分休憩の義務を過ぎていました"
 
 msgid "under"
 msgstr "以内"
@@ -29900,35 +29954,36 @@ msgstr "{name}が駐車して、ハンドルを渡してくれます。"
 
 #. placeholders: {name}
 msgid "{name} has parked and hands you the wheel. Their hours are up."
-msgstr ""
+msgstr "{name}が駐車して、ハンドルを渡してくれます。相棒の運転時間が尽きました。"
 
 #. one sentence of a longer line
 msgid "Their hours are up, and yours reach the receiver."
-msgstr ""
+msgstr "相棒の運転時間が尽きました。あなたの時間で荷受人まで届きます。"
 
 #. placeholders: {name}
 msgid ""
 "{name} has parked and hands you the wheel. Their hours are up, and yours "
 "reach the receiver."
-msgstr ""
+msgstr "{name}が駐車して、ハンドルを渡してくれます。相棒の運転時間が尽きました。あなたの時間で荷受人まで届きます。"
 
 #. placeholders: {name}
 #. one sentence of a longer line
 msgid ""
 "{name} stopped on the shoulder with no lot in reach and hands you the wheel."
-msgstr ""
+msgstr "近くに駐車場がないので、{name}が路肩に停めて、ハンドルを渡してくれます。"
 
 #. placeholders: {name}
 msgid ""
 "{name} stopped on the shoulder with no lot in reach and hands you the "
 "wheel. Their hours are up."
-msgstr ""
+msgstr "近くに駐車場がないので、{name}が路肩に停めて、ハンドルを渡してくれます。相棒の運転時間が尽きました。"
 
 #. placeholders: {name}
 msgid ""
 "{name} stopped on the shoulder with no lot in reach and hands you the "
 "wheel. Their hours are up, and yours reach the receiver."
 msgstr ""
+"近くに駐車場がないので、{name}が路肩に停めて、ハンドルを渡してくれます。相棒の運転時間が尽きました。あなたの時間で荷受人まで届きます。"
 
 #. one sentence of a longer line
 msgid "Their break is due."
@@ -29937,12 +29992,12 @@ msgstr "休憩の時間です。"
 #. placeholders: {name}
 #. one sentence of a longer line
 msgid "{name} stopped on the shoulder and hands you the wheel."
-msgstr ""
+msgstr "{name}が路肩に停めて、ハンドルを渡してくれます。"
 
 #. placeholders: {name}
 msgid ""
 "{name} stopped on the shoulder and hands you the wheel. Their break is due."
-msgstr ""
+msgstr "{name}が路肩に停めて、ハンドルを渡してくれます。相棒の休憩の時間です。"
 
 #. placeholders: {name}
 msgid "{name} has parked and hands you the wheel. Your 10-hour rest is in."
@@ -30118,26 +30173,27 @@ msgstr "{pay}その距離で得られる経験値は半分です。{name}が運�
 
 #. one sentence of a longer line
 msgid "Your own hours reach the receiver from there."
-msgstr ""
+msgstr "そこからは、あなた自身の時間で荷受人まで届きます。"
 
 #. placeholders: {name}, {left}
 #. one sentence of a longer line
 msgid ""
 "{name} has {left} of driving left, then parks and hands you the wheel."
-msgstr ""
+msgstr "{name}の残り運転時間は{left}です。そのあと駐車して、ハンドルを渡してくれます。"
 
 #. placeholders: {name}, {left}
 msgid ""
 "{name} has {left} of driving left, then parks and hands you the wheel. Your "
 "own hours reach the receiver from there."
 msgstr ""
+"{name}の残り運転時間は{left}です。そのあと駐車して、ハンドルを渡してくれます。そこからは、あなた自身の時間で荷受人まで届きます。"
 
 #. placeholders: {name}, {left}
 #. one sentence of a longer line
 msgid ""
 "{name} has {left} of driving left and no truck lot in reach, so they stop "
 "on the shoulder and hand you the wheel."
-msgstr ""
+msgstr "{name}の残り運転時間は{left}で、近くにトラックの駐車場がないので、路肩に停めてハンドルを渡してくれます。"
 
 #. placeholders: {name}, {left}
 msgid ""
@@ -30145,6 +30201,8 @@ msgid ""
 "on the shoulder and hand you the wheel. Your own hours reach the receiver "
 "from there."
 msgstr ""
+"{name}の残り運転時間は{left}で、近くにトラックの駐車場がないので、路肩に停めてハンドルを渡してくれます。そこからは、あなた自身の時間で荷受人"
+"まで届きます。"
 
 #. placeholders: {name}, {left}
 msgid ""
@@ -30219,11 +30277,11 @@ msgstr "運転を代わる"
 
 #. placeholders: {name}, {time}
 msgid "Hand the wheel to {name} for {time} and ride along"
-msgstr ""
+msgstr "{name}に{time}ハンドルを任せ、助手席で過ごす"
 
 #. placeholders: {name}, {time}
 msgid "Hand the wheel to {name} for {time} and sleep"
-msgstr ""
+msgstr "{name}に{time}ハンドルを任せ、眠る"
 
 #. placeholders: {name}
 msgid "Hand the wheel to {name} and ride along"
@@ -30274,7 +30332,7 @@ msgid "Refuel"
 msgstr "給油"
 
 msgid "shoulder break"
-msgstr ""
+msgstr "路肩での休憩"
 
 msgid "stalled"
 msgstr "エンスト"
@@ -30347,28 +30405,29 @@ msgstr "相棒の運転手：{name}、寝台で休憩中"
 
 #. placeholders: {name}
 msgid "Co-driver: {name}, in the sleeper, rested."
-msgstr ""
+msgstr "相棒の運転手：{name}、寝台で休憩中、休息済み。"
 
 #. placeholders: {name}
 #. one sentence of a longer line
 msgid "Co-driver: {name}, in the sleeper."
-msgstr ""
+msgstr "相棒の運転手：{name}、寝台で休憩中。"
 
 #. placeholders: {name}, {duration_text}, {duration_text2}
 msgid ""
 "Co-driver: {name}, in the sleeper. Rest: {duration_text} of 10 hours. "
 "{duration_text2} of driving left."
 msgstr ""
+"相棒の運転手：{name}、寝台で休憩中。休息：10時間のうち{duration_text}。残り運転時間は{duration_text2}。"
 
 #. placeholders: {duration_text}
 #. one sentence of a longer line
 msgid "Rest: {duration_text} of 10 hours."
-msgstr ""
+msgstr "休息：10時間のうち{duration_text}。"
 
 #. placeholders: {duration_text2}
 #. one sentence of a longer line
 msgid "{duration_text2} of driving left."
-msgstr ""
+msgstr "残り運転時間は{duration_text2}。"
 
 #. placeholders: {name}, {trim_end_matches}
 msgid "ELD, {name}: {trim_end_matches}"
@@ -30392,19 +30451,19 @@ msgid "Team load: {name} drove {f} of the miles"
 msgstr "チームの積荷：{name}が距離の{f}を運転"
 
 msgid "hours up, yours reach"
-msgstr ""
+msgstr "時間切れ、あなたの時間で届く"
 
 msgid "last lot"
 msgstr "最後の駐車場"
 
 msgid "hours up"
-msgstr ""
+msgstr "時間切れ"
 
 msgid "shoulder hours"
-msgstr ""
+msgstr "路肩で時間切れ"
 
 msgid "shoulder hours, yours reach"
-msgstr ""
+msgstr "路肩で時間切れ、あなたの時間で届く"
 
 #. placeholders: {name}
 msgid "{name} took a 30-minute break on the shoulder."
@@ -32489,7 +32548,7 @@ msgid "Practice gestures"
 msgstr "ジェスチャーの練習"
 
 msgid "Names what each gesture does while driving."
-msgstr ""
+msgstr "運転中に各ジェスチャーが何をするかを読み上げます。"
 
 msgid "Practice keys and buttons"
 msgstr "キーとボタンの練習"
@@ -32601,7 +32660,7 @@ msgid ""
 msgstr "キーとボタンの練習。キーかボタンを押すと、運転中の役割が聞けます。Escape を2回、または Start を2回で終了します。"
 
 msgid "Flick down with two fingers twice to leave."
-msgstr ""
+msgstr "2本指で下に2回フリックすると抜けます。"
 
 msgid "Escape twice within two seconds to leave."
 msgstr "抜けるには、2秒以内に Escape を2回押してください。"
@@ -32945,6 +33004,8 @@ msgid ""
 "set to Synthesized, On keeps the radio on the Roadhouse and tuning does "
 "nothing."
 msgstr ""
+"オフでは、実際の公開ストリームも含め、すべての局が流れます。オンでは、配信や録音のために、ラジオを組み込みの安全な局だけにします。音楽の種類が合成のとき"
+"にオンにすると、ラジオはRoadhouseのままで、選局しても何も変わりません。"
 
 msgid "a soft tone leans"
 msgstr "柔らかいトーンが"
@@ -33594,12 +33655,12 @@ msgstr "危険、急ブレーキ、ランブルストリップ、路面の継ぎ
 
 #. placeholders: {else}
 msgid "Second layer bumper: {else}"
-msgstr ""
+msgstr "2段目のバンパー：{else}"
 
 msgid ""
 "Which bumper you hold for the second layer of controller buttons. The other "
 "bumper is the clutch."
-msgstr ""
+msgstr "コントローラーのボタンの2段目に使うとき、どちらのバンパーを押し続けるかです。もう一方のバンパーはクラッチです。"
 
 #. placeholders: {on_off}
 msgid "Visual display: {on_off}"
@@ -33639,7 +33700,7 @@ msgstr "コントローラーのボタン"
 msgid ""
 "Move any driving control to another pad button, plain or with the left "
 "bumper held."
-msgstr ""
+msgstr "運転の操作を、別のボタン単体か、left bumper を押さえながらのボタンに変えます。"
 
 msgid ""
 "Move any driving control to another pad button, plain or with the right "
@@ -34032,28 +34093,28 @@ msgstr ""
 
 #. placeholders: {engine_label}
 msgid "Voice engine: {engine_label}"
-msgstr ""
+msgstr "音声エンジン：{engine_label}"
 
 msgid ""
 "Which text to speech engine on your phone the game speaks with. Changing it "
 "picks one of its voices, in the same language when it has one."
-msgstr ""
+msgstr "ゲームが話すのに使う、電話の音声読み上げエンジンです。変えると、そのエンジンの声を1つ選びます。同じ言語の声があればそれを選びます。"
 
 #. placeholders: {language_label}
 msgid "Voice language: {language_label}"
-msgstr ""
+msgstr "声の言語：{language_label}"
 
 msgid ""
 "Which of the engine's languages the Speech voice row offers voices in. "
 "Changing it picks the first voice in that language."
-msgstr ""
+msgstr "読み上げの声の行で、エンジンのどの言語の声を選べるかです。変えると、その言語の最初の声を選びます。"
 
 #. placeholders: {voice_label}
 msgid "Speech voice: {voice_label}"
-msgstr ""
+msgstr "読み上げの声：{voice_label}"
 
 msgid "Which voice of that engine and language the game speaks with."
-msgstr ""
+msgstr "ゲームが話すのに使う、そのエンジンと言語の声です。"
 
 msgid ""
 "Up and Down pick a control, Enter then a key press moves it, Escape goes "
@@ -34084,13 +34145,15 @@ msgstr "{label}に使う新しいキーを押してください。Escape で{cur
 msgid ""
 "Press the new button for {label}, with the left bumper held for the second "
 "layer."
-msgstr ""
+msgstr "{label}に使う新しいボタンを押してください。2段目は left bumper を押さえながら押します。"
 
 #. placeholders: {label}, {current}
 msgid ""
 "Press the new button for {label}, with the left bumper held for the second "
 "layer. Press {current} again to keep it."
 msgstr ""
+"{label}に使う新しいボタンを押してください。2段目は left bumper "
+"を押さえながら押します。もう一度{current}を押すとそのままにします。"
 
 #. placeholders: {current}
 #. one sentence of a longer line
@@ -34155,7 +34218,7 @@ msgstr "Enter を押してから、この操作に使いたいキーを押して
 msgid ""
 "Enter, then press the button you want for this control, with the left "
 "bumper held for the second layer."
-msgstr ""
+msgstr "Enter を押してから、この操作に使いたいボタンを押してください。2段目は left bumper を押さえながら押します。"
 
 msgid ""
 "Enter, then press the button you want for this control, with the right "
@@ -34198,6 +34261,8 @@ msgid ""
 "menu line never cuts off a road event. The rate, pitch, volume, and voice "
 "rows below appear only when the voice supports them."
 msgstr ""
+"道路の出来事を、メインの声か、2つ目の音声読み上げの声で伝えます。メニューの読み上げが道路の出来事をさえぎることはありません。下の速さ、高さ、音量、声の"
+"行は、その声が対応しているときだけ出ます。"
 
 msgid ""
 "Road events through the main voice or a separate SAPI or OneCore voice a "
@@ -36639,12 +36704,14 @@ msgstr "pad"
 msgid ""
 "The radio plays while the engine runs. A three-finger flick right tunes "
 "forward, and a three-finger flick left tunes backward."
-msgstr ""
+msgstr "ラジオはエンジンがかかっている間に流れます。3本指で右にフリックすると先の局へ、3本指で左にフリックすると前の局へ選局します。"
 
 msgid ""
 "Hold Control with a tune key to jump between categories, including route "
 "music, Freight Fate stations, favorites, and broadcast or web stations."
 msgstr ""
+"Control を押しながら選局キーを押すと、カテゴリーの間を移ります。ルートの音楽、Freight "
+"Fateの局、お気に入り、放送局やウェブの局などです。"
 
 msgid ""
 "Radio and CB on the three-finger tap list turns the radio on or off, saves "
@@ -36652,12 +36719,16 @@ msgid ""
 "route music, Freight Fate stations, favorites, and broadcast or web "
 "stations."
 msgstr ""
+"3本指タップの一覧にある「ラジオと無線」で、ラジオのオンとオフ、お気に入りの保存、ラジオの音量とカテゴリーの変更ができます。カテゴリーには、ルートの音楽"
+"、Freight Fateの局、お気に入り、放送局やウェブの局があります。"
 
 msgid ""
 "Radio status reads station, reception, volume, and streamer-safe status. "
 "What the radio is playing reads available song information. Both are under "
 "Radio and CB."
 msgstr ""
+"「ラジオの状態」で、局、受信状態、音量、配信向けモードの状態を読み上げます。「ラジオで流れている曲」で、わかる範囲の曲の情報を読み上げます。どちらも「ラ"
+"ジオと無線」にあります。"
 
 msgid ""
 "Original uses the licensed menu and Roadhouse tracks. Synthesized plays "
@@ -36665,22 +36736,28 @@ msgid ""
 "Fate's regional stations and voiced breaks off the dial. Real streams "
 "remain unless streamer-safe mode hides them."
 msgstr ""
+"オリジナルは、ライセンスを受けたメニューとRoadhouseの曲を使います。合成は、ゲームが作る音楽と3つのオリジナル曲を流し、Freight "
+"Fateの地方局と声の入るつなぎを外します。実際のストリームは、配信向けモードで隠さない限り残ります。"
 
 #. one sentence of a longer line
 msgid "How do I change stations?"
-msgstr ""
+msgstr "局を変えるにはどうすればいいですか？"
 
 #. placeholders: {control_radio}
 msgid ""
 "How do I change stations? With the engine running, {control_radio} switches "
 "the radio on, and Page Up or Page Down tunes."
 msgstr ""
+"局を変えるにはどうすればいいですか？エンジンがかかっているとき、{control_radio}でラジオをオンにし、Page Up か Page "
+"Down で選局します。"
 
 msgid ""
 "How do I change stations? With the engine running, a three-finger flick "
 "right or left tunes. Radio on or off is under Radio and CB on the "
 "three-finger tap list."
 msgstr ""
+"局を変えるにはどうすればいいですか？エンジンがかかっているとき、3本指で右か左にフリックすると選局します。ラジオのオンとオフは、3本指タップの一覧の「ラ"
+"ジオと無線」にあります。"
 
 #. placeholders: {page}, {HELP_PAGES}, {title}
 msgid "Page {page} of {HELP_PAGES}: {title}."
@@ -39711,18 +39788,18 @@ msgstr "もう一度選ぶと眠ります。"
 #. (crates/freight-fate/src/controller/bumpers.rs).
 #. placeholders: {short}
 msgid "left bumper plus {short}"
-msgstr ""
+msgstr "left bumperを押しながら{short}"
 
 msgid "the right bumper is the clutch"
-msgstr ""
+msgstr "right bumperはクラッチです"
 
 msgid "the left bumper is the second layer"
-msgstr ""
+msgstr "left bumperは2段目の割り当てです"
 
 msgid ""
 "For manual clutch, hold either Shift key on a keyboard or right bumper on a "
 "controller."
-msgstr ""
+msgstr "マニュアルのクラッチは、キーボードでは左右どちらかの Shift キー、コントローラーでは right bumper を押し続けます。"
 
 #. placeholders: {control_shift_up}, {control_shift_down}, {control_neutral}, {control_reverse}
 msgid ""
@@ -39730,9 +39807,12 @@ msgid ""
 "controller. Then {control_shift_up} shifts up, {control_shift_down} down, "
 "{control_neutral} selects neutral, and {control_reverse} selects reverse."
 msgstr ""
+"マニュアルのクラッチは、キーボードでは左右どちらかの Shift キー、コントローラーでは right bumper "
+"を押し続けます。そのうえで{control_shift_up}でシフトアップ、{control_shift_down}でシフトダウン、{control_"
+"neutral}でニュートラル、{control_reverse}でリバースに入ります。"
 
 msgid "Hold right bumper for manual clutch."
-msgstr ""
+msgstr "マニュアルのクラッチは right bumper を押し続けます。"
 
 #. placeholders: {pad_shift_up}, {pad_shift_down}, {pad_cruise}, {pad_speed}
 msgid ""
@@ -39740,15 +39820,20 @@ msgid ""
 "{pad_shift_down} down, past first into neutral and then reverse. "
 "{pad_cruise} starts speed control. {pad_speed} reads speed."
 msgstr ""
+"右バンパーを押したままでマニュアルのクラッチです。{pad_shift_up} でシフトアップ、{pad_shift_down} "
+"でシフトダウンし、1速より下はニュートラル、その次はリバースです。{pad_cruise}で速度制御を始めます。{pad_speed}で速度を読み上げま"
+"す。"
 
 msgid "Hold the left bumper for a second layer of buttons."
-msgstr ""
+msgstr "左バンパーを押したままにすると、ボタンの2段目を使えます。"
 
 #. placeholders: {pad_engine}, {pad_fuel}, {pad_speed_limit}
 msgid ""
 "Hold the left bumper for a second layer of buttons. {pad_engine} controls "
 "the engine, {pad_fuel} reads fuel, and {pad_speed_limit} reads the limit."
 msgstr ""
+"左バンパーを押したままにすると、ボタンの2段目を使えます。{pad_engine}でエンジンを操作し、{pad_fuel}で燃料を、{pad_speed"
+"_limit}で制限速度を読み上げます。"
 
 #~ msgid ""
 #~ "{distance}, deadline {hours} hours. Team load: you and a co-driver take "

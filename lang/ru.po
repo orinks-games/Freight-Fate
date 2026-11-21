@@ -4491,22 +4491,22 @@ msgstr ""
 "ровной, выше предела {f} процентов для {road_class} там."
 
 msgid "unpaved"
-msgstr ""
+msgstr "грунтовое"
 
 msgid "asphalt"
-msgstr ""
+msgstr "асфальт"
 
 msgid "other"
-msgstr ""
+msgstr "другое"
 
 msgid "bridge"
-msgstr ""
+msgstr "мост"
 
 msgid "tunnel"
-msgstr ""
+msgstr "тоннель"
 
 msgid "causeway"
-msgstr ""
+msgstr "дамба"
 
 msgid "both"
 msgstr "both"
@@ -4519,67 +4519,71 @@ msgstr "reverse"
 
 #. placeholders: {from_city}, {to_city}, {what}
 msgid "{from_city} to {to_city} pavement {what} must be an object"
-msgstr ""
+msgstr "{from_city} — {to_city}: покрытие {what} должно быть объектом"
 
 #. placeholders: {from_city}, {to_city}, {what}, {text}, {why}
 msgid "{from_city} to {to_city} pavement {what} {text}: {why}"
-msgstr ""
+msgstr "{from_city} — {to_city}: покрытие {what} {text}: {why}"
 
 msgid "does not start with two miles"
-msgstr ""
+msgstr "не начинается с двух миль"
 
 msgid "has no name"
-msgstr ""
+msgstr "без названия"
 
 #. placeholders: {key}, {value}
 msgid "pavement {key}={value} is not a number"
-msgstr ""
+msgstr "покрытие {key}={value} не является числом"
 
 msgid "layer"
-msgstr ""
+msgstr "слой"
 
 msgid "surface"
-msgstr ""
+msgstr "покрытие"
 
 msgid "run"
-msgstr ""
+msgstr "участок"
 
 #. placeholders: {from_city}, {to_city}, {name}
 msgid ""
 "{from_city} to {to_city} pavement surface {name} is not an HPMS surface"
-msgstr ""
+msgstr "{from_city} — {to_city}: покрытие {name} не является покрытием HPMS"
 
 msgid "iri"
-msgstr ""
+msgstr "iri"
 
 msgid "faulting"
-msgstr ""
+msgstr "уступы между плитами"
 
 msgid "structures"
-msgstr ""
+msgstr "сооружения"
 
 msgid "structure"
-msgstr ""
+msgstr "сооружение"
 
 #. placeholders: {from_city}, {to_city}, {name}
 msgid ""
 "{from_city} to {to_city} pavement structure {name} is not a bridge, tunnel "
 "or causeway"
 msgstr ""
+"{from_city} — {to_city}: сооружение {name} не мост, не тоннель и не дамба"
 
 msgid "hpms"
-msgstr ""
+msgstr "hpms"
 
 #. placeholders: {from_city}, {to_city}, {py_str_float}
 msgid ""
 "{from_city} to {to_city} pavement mile_scale {py_str_float} is not near 1"
 msgstr ""
+"{from_city} — {to_city}: mile_scale покрытия {py_str_float} далёк от 1"
 
 #. placeholders: {from_city}, {to_city}, {py_str_float}
 msgid ""
 "{from_city} to {to_city} pavement read share {py_str_float} is not between "
 "0 and 1"
 msgstr ""
+"{from_city} — {to_city}: доля прочитанного покрытия {py_str_float} не между "
+"0 и 1"
 
 msgid "northeast"
 msgstr "northeast"
@@ -8834,11 +8838,11 @@ msgstr "ясно"
 
 #. placeholders: {i}
 msgid "hours_heard job {i}"
-msgstr ""
+msgstr "hours_heard job {i}"
 
 #. placeholders: {i}
 msgid "chains_heard job {i}"
-msgstr ""
+msgstr "chains_heard job {i}"
 
 msgid "assigned"
 msgstr "назначен"
@@ -8847,7 +8851,7 @@ msgid "browse"
 msgstr "обзор"
 
 msgid "plain"
-msgstr ""
+msgstr "обычный"
 
 msgid "Pay advance already taken for this load. Deliver it first."
 msgstr "Аванс за этот груз уже взят. Сначала доставьте его."
@@ -9598,7 +9602,7 @@ msgid "team"
 msgstr "team"
 
 msgid "urgency"
-msgstr ""
+msgstr "срочность"
 
 #. placeholders: {unwrap_or_else}
 msgid "{unwrap_or_else} freight market"
@@ -9904,22 +9908,22 @@ msgid "standard"
 msgstr "стандартный"
 
 msgid "hot"
-msgstr ""
+msgstr "срочный"
 
 msgid "flexible"
-msgstr ""
+msgstr "гибкий"
 
 msgid "Hot load."
-msgstr ""
+msgstr "Срочный груз."
 
 msgid "Flexible delivery."
-msgstr ""
+msgstr "Гибкая доставка."
 
 msgid "Hot load. Tight deadline, pays 25 percent more."
-msgstr ""
+msgstr "Срочный груз. Сжатый срок, платят на 25 процентов больше."
 
 msgid "Flexible delivery. Wide deadline, pays 10 percent less."
-msgstr ""
+msgstr "Гибкая доставка. Свободный срок, платят на 10 процентов меньше."
 
 msgid "landmark"
 msgstr "landmark"
@@ -11749,13 +11753,13 @@ msgid "up"
 msgstr "отпущена"
 
 msgid "lowering"
-msgstr ""
+msgstr "опускается"
 
 msgid "down"
 msgstr "нажата"
 
 msgid "raising"
-msgstr ""
+msgstr "поднимается"
 
 msgid "Driver window down."
 msgstr "Окно водителя опущено."
@@ -11824,10 +11828,10 @@ msgid "snow"
 msgstr "снег"
 
 msgid "stowed"
-msgstr ""
+msgstr "убраны"
 
 msgid "broken"
-msgstr ""
+msgstr "порваны"
 
 msgid "yield"
 msgstr "уступите дорогу"
@@ -12372,13 +12376,13 @@ msgid "quiet"
 msgstr "тихая"
 
 msgid "birds"
-msgstr ""
+msgstr "птицы"
 
 msgid "insects"
-msgstr ""
+msgstr "насекомые"
 
 msgid "away"
-msgstr ""
+msgstr "далеко"
 
 msgid "over"
 msgstr "выше"
@@ -12705,17 +12709,17 @@ msgid "Weather: {join}."
 msgstr "Погода: {join}."
 
 msgid "jointed"
-msgstr ""
+msgstr "со швами"
 
 msgid "smooth"
-msgstr ""
+msgstr "ровное"
 
 #. placeholders: {name}
 msgid "read {name}"
-msgstr ""
+msgstr "прочитано {name}"
 
 msgid "invented"
-msgstr ""
+msgstr "придумано"
 
 msgid "held"
 msgstr "удерживается"
@@ -13001,7 +13005,7 @@ msgid "lightly loaded"
 msgstr "слабо загружена"
 
 msgid "bunk"
-msgstr ""
+msgstr "спальник"
 
 msgid "eastern"
 msgstr "eastern"
@@ -13806,7 +13810,7 @@ msgid "destination approach"
 msgstr "подъезд к месту доставки"
 
 msgid "Chain law lifted."
-msgstr ""
+msgstr "Закон о цепях отменён."
 
 msgid " Chain-up area on the right."
 msgstr " Площадка для установки цепей справа."
@@ -15362,16 +15366,16 @@ msgid "Plays under a spoken line that already explains it."
 msgstr "Звучит под голосовой фразой, которая его уже объясняет."
 
 msgid "A small debris strike under the wheels."
-msgstr ""
+msgstr "Небольшой удар обломков под колёсами."
 
 msgid "Pavement seams: texture, not a decision."
 msgstr "Стыки покрытия: фактура, а не решение."
 
 msgid "As the steer axle's seam."
-msgstr ""
+msgstr "Как шов под передней осью."
 
 msgid "The joint at a bridge end: texture, not a decision."
-msgstr ""
+msgstr "Шов на конце моста: фактура, а не решение."
 
 msgid "A door."
 msgstr "Дверь."
@@ -15720,13 +15724,15 @@ msgstr ""
 
 #. placeholders: {i}
 msgid "job {i}"
-msgstr ""
+msgstr "заказ {i}"
 
 #. placeholders: {mode_key}, {offer}, {reason}, {key}
 msgid ""
 "; board_mode {mode_key}; board_offer {offer}; board_reason {reason}; "
 "board_gate {key}"
 msgstr ""
+"; board_mode {mode_key}; board_offer {offer}; board_reason {reason}; "
+"board_gate {key}"
 
 msgid "automatic"
 msgstr "автоматическая"
@@ -15799,19 +15805,20 @@ msgstr ""
 "движения, слушайте сообщение."
 
 msgid "a free sky"
-msgstr ""
+msgstr "свободным небом"
 
 #. placeholders: {value}
 msgid "forced {value}"
-msgstr ""
+msgstr "принудительно {value}"
 
 #. placeholders: {sky}
 msgid "The drive under way, and drives staged after it, run under {sky}."
 msgstr ""
+"Текущая поездка и поездки, подготовленные после неё, идут под {sky}."
 
 #. placeholders: {sky}
 msgid "Drives staged from here on run under {sky}."
-msgstr ""
+msgstr "Поездки, подготовленные с этого момента, идут под {sky}."
 
 msgid "the co-driver has the wheel"
 msgstr "за рулём напарник"
@@ -16703,7 +16710,7 @@ msgid "ok"
 msgstr "ok"
 
 msgid "stale"
-msgstr ""
+msgstr "устарела"
 
 msgid "conflict"
 msgstr "conflict"
@@ -16745,6 +16752,8 @@ msgid ""
 "The cloud has a newer copy of this career. Nothing was changed. Choose Use "
 "the cloud copy on this computer to pick it up."
 msgstr ""
+"В облаке есть более новая копия этой карьеры. Ничего не изменено. Выберите "
+"«Использовать облачную копию на этом компьютере», чтобы её забрать."
 
 msgid ""
 "orinks.net no longer accepts this computer's sign-in. Usually this computer "
@@ -17352,6 +17361,81 @@ msgid ""
 "                                    it speaks its findings and writes a log\n"
 "  --log PATH                        session log for the watcher"
 msgstr ""
+"freightfate -- Freight Fate\n"
+"\n"
+"  freightfate                       играть\n"
+"  freightfate --smoke               запуск, отрисовка пяти кадров, выход "
+"(проверка CI)\n"
+"  freightfate --headless            без окна, без речи\n"
+"  freightfate --controller-diagnostics\n"
+"                                    запись событий геймпада, оба слоя\n"
+"\n"
+"Инструменты вождения:\n"
+"  --playtest-road --find FEATURE    старт у элемента дороги или ворот "
+"отправления\n"
+"                                    (downgrade, upgrade, zone, limit-drop,\n"
+"                                    stop, scale, curve, interchange, toll,\n"
+"                                    chain-law, destination, departure, "
+"river, all); all перебирает каждое\n"
+"                                    запускаемое семейство дорог и текущий "
+"экземпляр мира.\n"
+"                                    Destination это\n"
+"                                    съезд к месту доставки в конце\n"
+"                                    маршрута; departure по умолчанию "
+"перебирает небольшую выборку маршрутов\n"
+"                                    в поисках выездов с загруженных "
+"объектов. Используйте\n"
+"                                    --routes all для полного перечня;\n"
+"                                    каждый результат печатает прямой запуск "
+"--facility,\n"
+"                                    который не сканирует мир заново. "
+"Переходы\n"
+"                                    состояний, требующие живой истории "
+"игрока, нельзя запустить с дороги;\n"
+"                                    --from/--to/--seed/--scan и\n"
+"                                    переключатели помощников уточняют поиск\n"
+"  --ai                               с выбранным дорожным сценарием "
+"использует размеренное\n"
+"                                    управление игрока в настоящем окне; "
+"живая\n"
+"                                    речь для игрока выводится в терминал\n"
+"  --playtest-sandbox [--launch]     каталог данных, который не может "
+"достучаться до\n"
+"                                    аккаунта владельца; "
+"--dir/--reset/--print\n"
+"  --list-break-scenarios            назвать каждый проверочный сценарий\n"
+"  --list-speech-backends            назвать каждую найденную программу "
+"экранного доступа и голос\n"
+"                                    (--names-only перечисляет их, ничего не "
+"открывая)\n"
+"  --break-scenario NAME             запустить один, --transcript чтобы "
+"услышать его\n"
+"  --break-battery                   запустить все и вывести вердикты\n"
+"  --agent-server                    настоящая игра с MCP-сервером на stdio,\n"
+"                                    чтобы в неё мог играть ИИ-агент (в "
+"песочнице;\n"
+"                                    --reset для новой песочницы; добавьте\n"
+"                                    --find FEATURE [--from CITY] [--to "
+"CITY],\n"
+"                                    чтобы сразу начать с подготовленной "
+"поездки;\n"
+"                                    --operator-keys оставляет окно открытым "
+"и\n"
+"                                    пропускает клавиатуру оператора, чтобы "
+"играть\n"
+"                                    вместе с агентом; --staging использует "
+"свой\n"
+"                                    каталог и своего водителя на\n"
+"                                    тестовом сайте, облачное копирование "
+"включено)\n"
+"  --key-probe [--seconds N]         показать, что клавиатура передаёт игре,\n"
+"                                    для программы экранного доступа, "
+"которая повторно отправляет удержанные клавиши\n"
+"                                    (JAWS): подержите каждую клавишу со "
+"стрелкой несколько секунд;\n"
+"                                    проверка озвучит результаты и запишет "
+"журнал\n"
+"  --log PATH                        журнал сеанса для наблюдателя"
 
 msgid "not running here"
 msgstr "здесь не запущен"
@@ -17714,16 +17798,16 @@ msgid "Ready in {remaining} seconds."
 msgstr "Готово через {remaining} {remaining:секунду|секунды|секунд}."
 
 msgid "Back to "
-msgstr ""
+msgstr "Назад: "
 
 msgid "No, "
-msgstr ""
+msgstr "Нет, "
 
 msgid "Resume "
-msgstr ""
+msgstr "Продолжить: "
 
 msgid "Return to "
-msgstr ""
+msgstr "Вернуться: "
 
 msgid "Back"
 msgstr "Back"
@@ -18289,19 +18373,19 @@ msgstr "{note} Новое назначение: {described}"
 
 #. placeholders: {label}
 msgid "Recommended dispatch, best pay for the hours: {label}"
-msgstr ""
+msgstr "Рекомендуемый заказ, лучшая оплата за эти часы: {label}"
 
 #. placeholders: {label}
 msgid "Recommended dispatch, best net for the hours: {label}"
-msgstr ""
+msgstr "Рекомендуемый заказ, лучший чистый доход за эти часы: {label}"
 
 #. placeholders: {label}
 msgid "Recommended dispatch, most room on the deadline: {label}"
-msgstr ""
+msgstr "Рекомендуемый заказ, самый большой запас по сроку: {label}"
 
 #. placeholders: {label}
 msgid "Recommended dispatch: {label}"
-msgstr ""
+msgstr "Рекомендуемый заказ: {label}"
 
 #. placeholders: {recommendation}, {label}
 msgid "Recommended dispatch, {recommendation}: {label}"
@@ -23107,7 +23191,7 @@ msgstr ""
 "При полном удержании полосы наклон влево или вправо меняет одну полосу."
 
 msgid "Hold the right bumper for the clutch."
-msgstr ""
+msgstr "Удерживайте правый бампер для сцепления."
 
 msgid "Hold the left bumper for the clutch."
 msgstr "Удерживайте левый бампер для сцепления."
@@ -26443,7 +26527,7 @@ msgid "Billboard: {line}"
 msgstr "Билборд: {line}"
 
 msgid "Bare road. Stop and take the chains off."
-msgstr ""
+msgstr "Чистая дорога. Остановитесь и снимите цепи."
 
 msgid "Come to a complete stop first."
 msgstr "Сначала остановитесь полностью."
@@ -26625,11 +26709,12 @@ msgstr ""
 
 #. one sentence of a longer line
 msgid "Bare road."
-msgstr ""
+msgstr "Чистая дорога."
 
 #. placeholders: {f}
 msgid "Bare road. Taking chains off, about {f} minutes on duty."
 msgstr ""
+"Чистая дорога. Снимаем цепи, примерно {f} {f:минута|минуты|минут} на смене."
 
 #. placeholders: {f}
 #. one sentence of a longer line
@@ -29834,7 +29919,7 @@ msgstr ""
 "продолжает идти."
 
 msgid "Every driving command by name, in groups."
-msgstr ""
+msgstr "Все команды вождения по названиям, по группам."
 
 msgid "Emergency shoulder sleep is not available."
 msgstr "Экстренный сон на обочине недоступен."
@@ -30147,6 +30232,8 @@ msgid ""
 "Streamer-safe mode on, with Music source set to Synthesized. The radio "
 "stays on the Roadhouse."
 msgstr ""
+"Режим безопасности для стрима включён, источник музыки — Синтезированная. "
+"Радио остаётся на Roadhouse."
 
 msgid ""
 "Streamer-safe mode off. Real public streams and personal playlists are on "
@@ -30164,9 +30251,12 @@ msgstr ""
 
 msgid "Streamer-safe mode off. Real public streams are on the dial."
 msgstr ""
+"Режим безопасности для стрима выключен. Настоящие публичные потоки доступны "
+"на шкале."
 
 msgid "Streamer-safe mode on. Real public streams are hidden."
 msgstr ""
+"Режим безопасности для стрима включён. Настоящие публичные потоки скрыты."
 
 msgid ""
 "Music source Synthesized: Freight Fate's own stations are off the dial."
@@ -30213,10 +30303,10 @@ msgid "Double tap switches the radio on or off."
 msgstr "Двойное касание включает или выключает радио."
 
 msgid "What is on the dial. Enter repeats it."
-msgstr ""
+msgstr "Что сейчас на шкале. Enter повторяет."
 
 msgid "What is on the dial. Double tap repeats it."
-msgstr ""
+msgstr "Что сейчас на шкале. Двойное касание повторяет."
 
 msgid "Saves or removes the tuned station in favorites."
 msgstr "Сохраняет настроенную станцию в избранное или убирает её оттуда."
@@ -30258,17 +30348,21 @@ msgstr ""
 
 #. placeholders: {local}
 msgid "Local stations: {local}"
-msgstr ""
+msgstr "Местные станции: {local}"
 
 msgid ""
 "Freight Fate stations, your playlists and favorites, and stations nearby. "
 "Enter on one tunes it."
 msgstr ""
+"Станции Freight Fate, ваши плейлисты и избранное, а также станции "
+"поблизости. Enter на одной из них настраивает её."
 
 msgid ""
 "Freight Fate stations, your playlists and favorites, and stations nearby. "
 "Double tap one to tune it."
 msgstr ""
+"Станции Freight Fate, ваши плейлисты и избранное, а также станции "
+"поблизости. Коснитесь станции дважды, чтобы настроить её."
 
 #. placeholders: {in_range}
 msgid "Stations in range: {in_range}"
@@ -30306,7 +30400,7 @@ msgid "Stations in range"
 msgstr "Станции в зоне приёма"
 
 msgid "Local stations"
-msgstr ""
+msgstr "Местные станции"
 
 #. placeholders: {query}
 msgid "Stations matching {query}"
@@ -30335,7 +30429,7 @@ msgstr "{display_name} здесь вне зоны приёма."
 
 #. placeholders: {label}, {distance_text}
 msgid "{label}, {distance_text} away"
-msgstr ""
+msgstr "{label}, в {distance_text}"
 
 msgid "Enter tunes this station."
 msgstr "Enter настраивает эту станцию."
@@ -30356,6 +30450,8 @@ msgstr "Показывает следующие результаты. PageDown �
 
 msgid "Shows the next results. A three-finger flick right does the same."
 msgstr ""
+"Показывает следующие результаты. Смахивание тремя пальцами вправо делает то "
+"же самое."
 
 msgid "Previous page"
 msgstr "Предыдущая страница"
@@ -30365,6 +30461,8 @@ msgstr "Показывает предыдущие результаты. PageUp �
 
 msgid "Shows the earlier results. A three-finger flick left does the same."
 msgstr ""
+"Показывает предыдущие результаты. Смахивание тремя пальцами влево делает то "
+"же самое."
 
 msgid "No stations here yet."
 msgstr "Здесь пока нет станций."
@@ -30406,19 +30504,23 @@ msgstr "{title}. Совпадений: {count}. {page} PageDown — следую
 #. placeholders: {page}
 #. one sentence of a longer line
 msgid "{page} Flick right with three fingers for the next page."
-msgstr ""
+msgstr "{page} Смахните тремя пальцами вправо — следующая страница."
 
 #. placeholders: {title}, {count}, {page}
 msgid ""
 "{title}. {count} stations. {page} Flick right with three fingers for the "
 "next page."
 msgstr ""
+"{title}. Станций: {count}. {page} Смахните тремя пальцами вправо — "
+"следующая страница."
 
 #. placeholders: {title}, {count}, {page}
 msgid ""
 "{title}. {count} matches. {page} Flick right with three fingers for the "
 "next page."
 msgstr ""
+"{title}. Совпадений: {count}. {page} Смахните тремя пальцами вправо — "
+"следующая страница."
 
 #. one sentence of a longer line
 msgid "Nothing here yet."
@@ -30883,34 +30985,34 @@ msgid "waves you through"
 msgstr "пропускает вас"
 
 msgid "You had driven past"
-msgstr ""
+msgstr "Вы превысили"
 
 #. placeholders: {name}
 msgid "{name} had driven past"
-msgstr ""
+msgstr "{name} превысил"
 
 msgid "you had driven past"
-msgstr ""
+msgstr "вы превысили"
 
 msgid "Your 14-hour duty window"
-msgstr ""
+msgstr "Ваше 14-часовое окно смены"
 
 #. placeholders: {name}
 msgid "{name}'s 14-hour duty window"
-msgstr ""
+msgstr "14-часовое окно смены напарника {name}"
 
 msgid "your 14-hour duty window"
-msgstr ""
+msgstr "ваше 14-часовое окно смены"
 
 msgid "You were past the 30-minute"
-msgstr ""
+msgstr "Вы пропустили обязательный 30-минутный"
 
 #. placeholders: {name}
 msgid "{name} was past the 30-minute"
-msgstr ""
+msgstr "{name} пропустил обязательный 30-минутный"
 
 msgid "you were past the 30-minute"
-msgstr ""
+msgstr "вы пропустили обязательный 30-минутный"
 
 msgid "under"
 msgstr "ниже"
@@ -33036,35 +33138,43 @@ msgstr "{name} припарковался и передаёт вам руль."
 
 #. placeholders: {name}
 msgid "{name} has parked and hands you the wheel. Their hours are up."
-msgstr ""
+msgstr "{name} припарковался и передаёт вам руль. Его часы закончились."
 
 #. one sentence of a longer line
 msgid "Their hours are up, and yours reach the receiver."
-msgstr ""
+msgstr "Его часы закончились, а ваших хватит до получателя."
 
 #. placeholders: {name}
 msgid ""
 "{name} has parked and hands you the wheel. Their hours are up, and yours "
 "reach the receiver."
 msgstr ""
+"{name} припарковался и передаёт вам руль. Его часы закончились, а ваших "
+"хватит до получателя."
 
 #. placeholders: {name}
 #. one sentence of a longer line
 msgid ""
 "{name} stopped on the shoulder with no lot in reach and hands you the wheel."
 msgstr ""
+"{name} остановился на обочине, потому что стоянки рядом нет, и передаёт вам "
+"руль."
 
 #. placeholders: {name}
 msgid ""
 "{name} stopped on the shoulder with no lot in reach and hands you the "
 "wheel. Their hours are up."
 msgstr ""
+"{name} остановился на обочине, потому что стоянки рядом нет, и передаёт вам "
+"руль. Его часы закончились."
 
 #. placeholders: {name}
 msgid ""
 "{name} stopped on the shoulder with no lot in reach and hands you the "
 "wheel. Their hours are up, and yours reach the receiver."
 msgstr ""
+"{name} остановился на обочине, потому что стоянки рядом нет, и передаёт вам "
+"руль. Его часы закончились, а ваших хватит до получателя."
 
 #. one sentence of a longer line
 msgid "Their break is due."
@@ -33073,12 +33183,13 @@ msgstr "Напарнику пора на перерыв."
 #. placeholders: {name}
 #. one sentence of a longer line
 msgid "{name} stopped on the shoulder and hands you the wheel."
-msgstr ""
+msgstr "{name} остановился на обочине и передаёт вам руль."
 
 #. placeholders: {name}
 msgid ""
 "{name} stopped on the shoulder and hands you the wheel. Their break is due."
 msgstr ""
+"{name} остановился на обочине и передаёт вам руль. Ему пора на перерыв."
 
 #. placeholders: {name}
 msgid "{name} has parked and hands you the wheel. Your 10-hour rest is in."
@@ -33270,19 +33381,22 @@ msgstr ""
 
 #. one sentence of a longer line
 msgid "Your own hours reach the receiver from there."
-msgstr ""
+msgstr "Оттуда ваших собственных часов хватит до получателя."
 
 #. placeholders: {name}, {left}
 #. one sentence of a longer line
 msgid ""
 "{name} has {left} of driving left, then parks and hands you the wheel."
 msgstr ""
+"У {name} осталось {left} вождения, потом он паркуется и передаёт вам руль."
 
 #. placeholders: {name}, {left}
 msgid ""
 "{name} has {left} of driving left, then parks and hands you the wheel. Your "
 "own hours reach the receiver from there."
 msgstr ""
+"У {name} осталось {left} вождения, потом он паркуется и передаёт вам руль. "
+"Оттуда ваших собственных часов хватит до получателя."
 
 #. placeholders: {name}, {left}
 #. one sentence of a longer line
@@ -33290,6 +33404,8 @@ msgid ""
 "{name} has {left} of driving left and no truck lot in reach, so they stop "
 "on the shoulder and hand you the wheel."
 msgstr ""
+"У {name} осталось {left} вождения, а стоянки для грузовиков рядом нет, "
+"поэтому он остановится на обочине и передаст вам руль."
 
 #. placeholders: {name}, {left}
 msgid ""
@@ -33297,6 +33413,9 @@ msgid ""
 "on the shoulder and hand you the wheel. Your own hours reach the receiver "
 "from there."
 msgstr ""
+"У {name} осталось {left} вождения, а стоянки для грузовиков рядом нет, "
+"поэтому он остановится на обочине и передаст вам руль. Оттуда ваших "
+"собственных часов хватит до получателя."
 
 #. placeholders: {name}, {left}
 msgid ""
@@ -33381,11 +33500,11 @@ msgstr "Снова сесть за руль"
 
 #. placeholders: {name}, {time}
 msgid "Hand the wheel to {name} for {time} and ride along"
-msgstr ""
+msgstr "Передать руль напарнику {name} на {time} и ехать пассажиром"
 
 #. placeholders: {name}, {time}
 msgid "Hand the wheel to {name} for {time} and sleep"
-msgstr ""
+msgstr "Передать руль напарнику {name} на {time} и поспать"
 
 #. placeholders: {name}
 msgid "Hand the wheel to {name} and ride along"
@@ -33438,7 +33557,7 @@ msgid "Refuel"
 msgstr "Refuel"
 
 msgid "shoulder break"
-msgstr ""
+msgstr "перерыв на обочине"
 
 msgid "stalled"
 msgstr "stalled"
@@ -33517,28 +33636,30 @@ msgstr "Напарник: {name}, в спальнике"
 
 #. placeholders: {name}
 msgid "Co-driver: {name}, in the sleeper, rested."
-msgstr ""
+msgstr "Напарник: {name}, в спальнике, отдохнул."
 
 #. placeholders: {name}
 #. one sentence of a longer line
 msgid "Co-driver: {name}, in the sleeper."
-msgstr ""
+msgstr "Напарник: {name}, в спальнике."
 
 #. placeholders: {name}, {duration_text}, {duration_text2}
 msgid ""
 "Co-driver: {name}, in the sleeper. Rest: {duration_text} of 10 hours. "
 "{duration_text2} of driving left."
 msgstr ""
+"Напарник: {name}, в спальнике. Отдых: {duration_text} из 10 часов. Осталось "
+"{duration_text2} вождения."
 
 #. placeholders: {duration_text}
 #. one sentence of a longer line
 msgid "Rest: {duration_text} of 10 hours."
-msgstr ""
+msgstr "Отдых: {duration_text} из 10 часов."
 
 #. placeholders: {duration_text2}
 #. one sentence of a longer line
 msgid "{duration_text2} of driving left."
-msgstr ""
+msgstr "Осталось {duration_text2} вождения."
 
 #. placeholders: {name}, {trim_end_matches}
 msgid "ELD, {name}: {trim_end_matches}"
@@ -33565,19 +33686,19 @@ msgid "Team load: {name} drove {f} of the miles"
 msgstr "Командный рейс: доля миль за рулём у напарника {name}: {f}"
 
 msgid "hours up, yours reach"
-msgstr ""
+msgstr "часы закончились, ваших хватит"
 
 msgid "last lot"
 msgstr "последняя стоянка"
 
 msgid "hours up"
-msgstr ""
+msgstr "часы закончились"
 
 msgid "shoulder hours"
-msgstr ""
+msgstr "часы на обочине"
 
 msgid "shoulder hours, yours reach"
-msgstr ""
+msgstr "часы на обочине, ваших хватит"
 
 #. placeholders: {name}
 msgid "{name} took a 30-minute break on the shoulder."
@@ -35907,7 +36028,7 @@ msgid "Practice gestures"
 msgstr "Тренировка жестов"
 
 msgid "Names what each gesture does while driving."
-msgstr ""
+msgstr "Называет, что делает каждый жест во время вождения."
 
 msgid "Practice keys and buttons"
 msgstr "Тренировка клавиш и кнопок"
@@ -36022,7 +36143,7 @@ msgstr ""
 "она делает во время вождения. Дважды Escape или дважды Start для выхода."
 
 msgid "Flick down with two fingers twice to leave."
-msgstr ""
+msgstr "Дважды смахните двумя пальцами вниз, чтобы выйти."
 
 msgid "Escape twice within two seconds to leave."
 msgstr "Чтобы выйти, дважды нажмите Escape в течение двух секунд."
@@ -36402,6 +36523,10 @@ msgid ""
 "set to Synthesized, On keeps the radio on the Roadhouse and tuning does "
 "nothing."
 msgstr ""
+"Выключено: играет вся шкала, включая настоящие публичные потоки. Включено: "
+"радио ограничено встроенными безопасными станциями, для стрима или записи. "
+"Если источник музыки — Синтезированная, во включённом режиме радио остаётся "
+"на Roadhouse, а настройка ничего не делает."
 
 msgid "a soft tone leans"
 msgstr "мягкий тон смещается"
@@ -37164,12 +37289,14 @@ msgstr ""
 
 #. placeholders: {else}
 msgid "Second layer bumper: {else}"
-msgstr ""
+msgstr "Бампер второго слоя: {else}"
 
 msgid ""
 "Which bumper you hold for the second layer of controller buttons. The other "
 "bumper is the clutch."
 msgstr ""
+"Какой бампер вы удерживаете для второго слоя кнопок геймпада. Другой бампер "
+"работает как сцепление."
 
 #. placeholders: {on_off}
 msgid "Visual display: {on_off}"
@@ -37215,6 +37342,8 @@ msgid ""
 "Move any driving control to another pad button, plain or with the left "
 "bumper held."
 msgstr ""
+"Переназначьте любое действие вождения на другую кнопку геймпада, отдельно "
+"или с удержанием left bumper."
 
 msgid ""
 "Move any driving control to another pad button, plain or with the right "
@@ -37669,28 +37798,32 @@ msgstr ""
 
 #. placeholders: {engine_label}
 msgid "Voice engine: {engine_label}"
-msgstr ""
+msgstr "Движок речи: {engine_label}"
 
 msgid ""
 "Which text to speech engine on your phone the game speaks with. Changing it "
 "picks one of its voices, in the same language when it has one."
 msgstr ""
+"Каким движком синтеза речи на вашем телефоне говорит игра. При смене "
+"выбирается один из его голосов, на том же языке, если он есть."
 
 #. placeholders: {language_label}
 msgid "Voice language: {language_label}"
-msgstr ""
+msgstr "Язык голоса: {language_label}"
 
 msgid ""
 "Which of the engine's languages the Speech voice row offers voices in. "
 "Changing it picks the first voice in that language."
 msgstr ""
+"На каком из языков движка строка «Голос речи» предлагает голоса. При смене "
+"выбирается первый голос на этом языке."
 
 #. placeholders: {voice_label}
 msgid "Speech voice: {voice_label}"
-msgstr ""
+msgstr "Голос речи: {voice_label}"
 
 msgid "Which voice of that engine and language the game speaks with."
-msgstr ""
+msgstr "Каким голосом этого движка и языка говорит игра."
 
 msgid ""
 "Up and Down pick a control, Enter then a key press moves it, Escape goes "
@@ -37727,12 +37860,16 @@ msgid ""
 "Press the new button for {label}, with the left bumper held for the second "
 "layer."
 msgstr ""
+"Нажмите новую кнопку для действия {label}, с удержанием left bumper для "
+"второго слоя."
 
 #. placeholders: {label}, {current}
 msgid ""
 "Press the new button for {label}, with the left bumper held for the second "
 "layer. Press {current} again to keep it."
 msgstr ""
+"Нажмите новую кнопку для действия {label}, с удержанием left bumper для "
+"второго слоя. Нажмите {current} ещё раз, чтобы оставить её."
 
 #. placeholders: {current}
 #. one sentence of a longer line
@@ -37804,6 +37941,8 @@ msgid ""
 "Enter, then press the button you want for this control, with the left "
 "bumper held for the second layer."
 msgstr ""
+"Нажмите Enter, затем кнопку, которую хотите назначить на это действие, с "
+"удержанием left bumper для второго слоя."
 
 msgid ""
 "Enter, then press the button you want for this control, with the right "
@@ -37851,6 +37990,9 @@ msgid ""
 "menu line never cuts off a road event. The rate, pitch, volume, and voice "
 "rows below appear only when the voice supports them."
 msgstr ""
+"Дорожные события основным голосом или вторым голосом синтеза речи, чтобы "
+"строка меню никогда не прерывала дорожное событие. Строки скорости, высоты, "
+"громкости и голоса ниже появляются, только если голос их поддерживает."
 
 msgid ""
 "Road events through the main voice or a separate SAPI or OneCore voice a "
@@ -40750,11 +40892,16 @@ msgid ""
 "The radio plays while the engine runs. A three-finger flick right tunes "
 "forward, and a three-finger flick left tunes backward."
 msgstr ""
+"Радио играет, пока работает двигатель. Смахивание тремя пальцами вправо "
+"настраивает вперёд, а тремя пальцами влево — назад."
 
 msgid ""
 "Hold Control with a tune key to jump between categories, including route "
 "music, Freight Fate stations, favorites, and broadcast or web stations."
 msgstr ""
+"Удерживайте Control с клавишей настройки, чтобы переходить между "
+"категориями: музыка маршрута, станции Freight Fate, избранное и эфирные или "
+"интернет-станции."
 
 msgid ""
 "Radio and CB on the three-finger tap list turns the radio on or off, saves "
@@ -40762,12 +40909,19 @@ msgid ""
 "route music, Freight Fate stations, favorites, and broadcast or web "
 "stations."
 msgstr ""
+"Пункт «Радио и рация» в списке касания тремя пальцами включает и выключает "
+"радио, сохраняет избранное и меняет громкость и категорию радио. Категории: "
+"музыка маршрута, станции Freight Fate, избранное и эфирные или "
+"интернет-станции."
 
 msgid ""
 "Radio status reads station, reception, volume, and streamer-safe status. "
 "What the radio is playing reads available song information. Both are under "
 "Radio and CB."
 msgstr ""
+"«Состояние радио» называет станцию, качество приёма, громкость и режим "
+"безопасности для стрима. «Что играет радио» называет доступные сведения о "
+"песне. Оба пункта находятся в разделе «Радио и рация»."
 
 msgid ""
 "Original uses the licensed menu and Roadhouse tracks. Synthesized plays "
@@ -40775,22 +40929,32 @@ msgid ""
 "Fate's regional stations and voiced breaks off the dial. Real streams "
 "remain unless streamer-safe mode hides them."
 msgstr ""
+"Оригинальная использует лицензированные треки меню и Roadhouse. "
+"Синтезированная играет музыку, которую сочиняет игра, плюс три оригинальных "
+"трека, и убирает со шкалы региональные станции Freight Fate и их голосовые "
+"вставки. Настоящие потоки остаются, если их не скрывает режим безопасности "
+"для стрима."
 
 #. one sentence of a longer line
 msgid "How do I change stations?"
-msgstr ""
+msgstr "Как переключать станции?"
 
 #. placeholders: {control_radio}
 msgid ""
 "How do I change stations? With the engine running, {control_radio} switches "
 "the radio on, and Page Up or Page Down tunes."
 msgstr ""
+"Как переключать станции? При работающем двигателе {control_radio} включает "
+"радио, а Page Up или Page Down настраивают станцию."
 
 msgid ""
 "How do I change stations? With the engine running, a three-finger flick "
 "right or left tunes. Radio on or off is under Radio and CB on the "
 "three-finger tap list."
 msgstr ""
+"Как переключать станции? При работающем двигателе смахивание тремя пальцами "
+"вправо или влево настраивает станцию. Включить или выключить радио можно в "
+"пункте «Радио и рация» в списке касания тремя пальцами."
 
 #. placeholders: {page}, {HELP_PAGES}, {title}
 msgid "Page {page} of {HELP_PAGES}: {title}."
@@ -44077,18 +44241,20 @@ msgstr "Выберите ещё раз, чтобы лечь спать."
 #. (crates/freight-fate/src/controller/bumpers.rs).
 #. placeholders: {short}
 msgid "left bumper plus {short}"
-msgstr ""
+msgstr "left bumper плюс {short}"
 
 msgid "the right bumper is the clutch"
-msgstr ""
+msgstr "right bumper работает как сцепление"
 
 msgid "the left bumper is the second layer"
-msgstr ""
+msgstr "left bumper включает второй слой"
 
 msgid ""
 "For manual clutch, hold either Shift key on a keyboard or right bumper on a "
 "controller."
 msgstr ""
+"Для ручного сцепления удерживайте любую клавишу Shift на клавиатуре или "
+"right bumper на геймпаде."
 
 #. placeholders: {control_shift_up}, {control_shift_down}, {control_neutral}, {control_reverse}
 msgid ""
@@ -44096,9 +44262,13 @@ msgid ""
 "controller. Then {control_shift_up} shifts up, {control_shift_down} down, "
 "{control_neutral} selects neutral, and {control_reverse} selects reverse."
 msgstr ""
+"Для ручного сцепления удерживайте любую клавишу Shift на клавиатуре или "
+"right bumper на геймпаде. Затем {control_shift_up} переключает вверх, "
+"{control_shift_down} вниз, {control_neutral} включает нейтраль, а "
+"{control_reverse} задний ход."
 
 msgid "Hold right bumper for manual clutch."
-msgstr ""
+msgstr "Удерживайте right bumper для ручного сцепления."
 
 #. placeholders: {pad_shift_up}, {pad_shift_down}, {pad_cruise}, {pad_speed}
 msgid ""
@@ -44106,15 +44276,21 @@ msgid ""
 "{pad_shift_down} down, past first into neutral and then reverse. "
 "{pad_cruise} starts speed control. {pad_speed} reads speed."
 msgstr ""
+"Удерживайте right bumper как ручное сцепление. {pad_shift_up} переключает "
+"вверх, а {pad_shift_down} вниз, после первой на нейтраль, а затем на задний "
+"ход. {pad_cruise} включает контроль скорости. {pad_speed} называет скорость."
 
 msgid "Hold the left bumper for a second layer of buttons."
-msgstr ""
+msgstr "Удерживайте left bumper для второго слоя кнопок."
 
 #. placeholders: {pad_engine}, {pad_fuel}, {pad_speed_limit}
 msgid ""
 "Hold the left bumper for a second layer of buttons. {pad_engine} controls "
 "the engine, {pad_fuel} reads fuel, and {pad_speed_limit} reads the limit."
 msgstr ""
+"Удерживайте left bumper для второго слоя кнопок. {pad_engine} управляет "
+"двигателем, {pad_fuel} называет топливо, а {pad_speed_limit} ограничение "
+"скорости."
 
 #~ msgid ""
 #~ "{distance}, deadline {hours} hours. Team load: you and a co-driver take "

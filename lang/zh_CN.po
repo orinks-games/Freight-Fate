@@ -3956,22 +3956,22 @@ msgstr ""
 "percent ceiling for {road_class} there."
 
 msgid "unpaved"
-msgstr ""
+msgstr "未铺装"
 
 msgid "asphalt"
-msgstr ""
+msgstr "沥青"
 
 msgid "other"
-msgstr ""
+msgstr "其他"
 
 msgid "bridge"
-msgstr ""
+msgstr "桥梁"
 
 msgid "tunnel"
-msgstr ""
+msgstr "隧道"
 
 msgid "causeway"
-msgstr ""
+msgstr "堤道"
 
 msgid "both"
 msgstr "both"
@@ -3984,67 +3984,67 @@ msgstr "reverse"
 
 #. placeholders: {from_city}, {to_city}, {what}
 msgid "{from_city} to {to_city} pavement {what} must be an object"
-msgstr ""
+msgstr "{from_city}到{to_city}：路面{what}必须是对象"
 
 #. placeholders: {from_city}, {to_city}, {what}, {text}, {why}
 msgid "{from_city} to {to_city} pavement {what} {text}: {why}"
-msgstr ""
+msgstr "{from_city}到{to_city}：路面{what} {text}：{why}"
 
 msgid "does not start with two miles"
-msgstr ""
+msgstr "开头不是两英里"
 
 msgid "has no name"
-msgstr ""
+msgstr "没有名称"
 
 #. placeholders: {key}, {value}
 msgid "pavement {key}={value} is not a number"
-msgstr ""
+msgstr "路面{key}={value}不是数字"
 
 msgid "layer"
-msgstr ""
+msgstr "图层"
 
 msgid "surface"
-msgstr ""
+msgstr "路面类型"
 
 msgid "run"
-msgstr ""
+msgstr "路段"
 
 #. placeholders: {from_city}, {to_city}, {name}
 msgid ""
 "{from_city} to {to_city} pavement surface {name} is not an HPMS surface"
-msgstr ""
+msgstr "{from_city}到{to_city}：路面类型{name}不是HPMS路面类型"
 
 msgid "iri"
-msgstr ""
+msgstr "iri"
 
 msgid "faulting"
-msgstr ""
+msgstr "错台"
 
 msgid "structures"
-msgstr ""
+msgstr "构造物"
 
 msgid "structure"
-msgstr ""
+msgstr "构造物"
 
 #. placeholders: {from_city}, {to_city}, {name}
 msgid ""
 "{from_city} to {to_city} pavement structure {name} is not a bridge, tunnel "
 "or causeway"
-msgstr ""
+msgstr "{from_city}到{to_city}：构造物{name}不是桥梁、隧道或堤道"
 
 msgid "hpms"
-msgstr ""
+msgstr "hpms"
 
 #. placeholders: {from_city}, {to_city}, {py_str_float}
 msgid ""
 "{from_city} to {to_city} pavement mile_scale {py_str_float} is not near 1"
-msgstr ""
+msgstr "{from_city}到{to_city}：路面mile_scale {py_str_float}与1相差太远"
 
 #. placeholders: {from_city}, {to_city}, {py_str_float}
 msgid ""
 "{from_city} to {to_city} pavement read share {py_str_float} is not between "
 "0 and 1"
-msgstr ""
+msgstr "{from_city}到{to_city}：路面读取比例{py_str_float}不在0到1之间"
 
 msgid "northeast"
 msgstr "northeast"
@@ -7876,11 +7876,11 @@ msgstr "晴"
 
 #. placeholders: {i}
 msgid "hours_heard job {i}"
-msgstr ""
+msgstr "hours_heard job {i}"
 
 #. placeholders: {i}
 msgid "chains_heard job {i}"
-msgstr ""
+msgstr "chains_heard job {i}"
 
 msgid "assigned"
 msgstr "已分配"
@@ -7889,7 +7889,7 @@ msgid "browse"
 msgstr "浏览"
 
 msgid "plain"
-msgstr ""
+msgstr "普通"
 
 msgid "Pay advance already taken for this load. Deliver it first."
 msgstr "这单货物已经预支过工资了。先把它送达。"
@@ -8583,7 +8583,7 @@ msgid "team"
 msgstr "双人"
 
 msgid "urgency"
-msgstr ""
+msgstr "紧急程度"
 
 #. placeholders: {unwrap_or_else}
 msgid "{unwrap_or_else} freight market"
@@ -8861,22 +8861,22 @@ msgid "standard"
 msgstr "标准"
 
 msgid "hot"
-msgstr ""
+msgstr "加急"
 
 msgid "flexible"
-msgstr ""
+msgstr "灵活"
 
 msgid "Hot load."
-msgstr ""
+msgstr "加急货。"
 
 msgid "Flexible delivery."
-msgstr ""
+msgstr "灵活交付。"
 
 msgid "Hot load. Tight deadline, pays 25 percent more."
-msgstr ""
+msgstr "加急货。期限紧，报酬多25%。"
 
 msgid "Flexible delivery. Wide deadline, pays 10 percent less."
-msgstr ""
+msgstr "灵活交付。期限宽，报酬少10%。"
 
 msgid "landmark"
 msgstr "landmark"
@@ -10486,13 +10486,13 @@ msgid "up"
 msgstr "松开"
 
 msgid "lowering"
-msgstr ""
+msgstr "正在降下"
 
 msgid "down"
 msgstr "按下"
 
 msgid "raising"
-msgstr ""
+msgstr "正在升起"
 
 msgid "Driver window down."
 msgstr "驾驶侧车窗已降下。"
@@ -10561,10 +10561,10 @@ msgid "snow"
 msgstr "雪"
 
 msgid "stowed"
-msgstr ""
+msgstr "已收起"
 
 msgid "broken"
-msgstr ""
+msgstr "已断"
 
 msgid "yield"
 msgstr "让行"
@@ -11094,13 +11094,13 @@ msgid "quiet"
 msgstr "安静"
 
 msgid "birds"
-msgstr ""
+msgstr "鸟鸣"
 
 msgid "insects"
-msgstr ""
+msgstr "虫鸣"
 
 msgid "away"
-msgstr ""
+msgstr "远离"
 
 msgid "over"
 msgstr "超出"
@@ -11426,17 +11426,17 @@ msgid "Weather: {join}."
 msgstr "天气：{join}。"
 
 msgid "jointed"
-msgstr ""
+msgstr "有接缝"
 
 msgid "smooth"
-msgstr ""
+msgstr "平整"
 
 #. placeholders: {name}
 msgid "read {name}"
-msgstr ""
+msgstr "读取 {name}"
 
 msgid "invented"
-msgstr ""
+msgstr "推测"
 
 msgid "held"
 msgstr "按住"
@@ -11720,7 +11720,7 @@ msgid "lightly loaded"
 msgstr "轻载"
 
 msgid "bunk"
-msgstr ""
+msgstr "卧铺"
 
 msgid "eastern"
 msgstr "eastern"
@@ -12512,7 +12512,7 @@ msgid "destination approach"
 msgstr "目的地引道"
 
 msgid "Chain law lifted."
-msgstr ""
+msgstr "防滑链法规已解除。"
 
 msgid " Chain-up area on the right."
 msgstr "右侧是防滑链安装区。"
@@ -13873,16 +13873,16 @@ msgid "Plays under a spoken line that already explains it."
 msgstr "在一句已经解释了它的语音下面播放。"
 
 msgid "A small debris strike under the wheels."
-msgstr ""
+msgstr "车轮下轻轻碾过一块碎片。"
 
 msgid "Pavement seams: texture, not a decision."
 msgstr "路面接缝：是质感，不需要作出决定。"
 
 msgid "As the steer axle's seam."
-msgstr ""
+msgstr "如同前轴压过的接缝。"
 
 msgid "The joint at a bridge end: texture, not a decision."
-msgstr ""
+msgstr "桥头的伸缩缝：是质感，不需要作出决定。"
 
 msgid "A door."
 msgstr "一扇门。"
@@ -14213,13 +14213,15 @@ msgstr "你会在前方{start_mi}英里处接手驾驶。"
 
 #. placeholders: {i}
 msgid "job {i}"
-msgstr ""
+msgstr "任务 {i}"
 
 #. placeholders: {mode_key}, {offer}, {reason}, {key}
 msgid ""
 "; board_mode {mode_key}; board_offer {offer}; board_reason {reason}; "
 "board_gate {key}"
 msgstr ""
+"; board_mode {mode_key}; board_offer {offer}; board_reason {reason}; "
+"board_gate {key}"
 
 msgid "automatic"
 msgstr "自动"
@@ -14280,19 +14282,19 @@ msgid ""
 msgstr "已在{position_mi}英里处布置{staged}；下一个行驶帧触发，请留意播报。"
 
 msgid "a free sky"
-msgstr ""
+msgstr "自由天气"
 
 #. placeholders: {value}
 msgid "forced {value}"
-msgstr ""
+msgstr "强制 {value}"
 
 #. placeholders: {sky}
 msgid "The drive under way, and drives staged after it, run under {sky}."
-msgstr ""
+msgstr "正在进行的行程，以及之后布置的行程，都在{sky}下进行。"
 
 #. placeholders: {sky}
 msgid "Drives staged from here on run under {sky}."
-msgstr ""
+msgstr "从现在起布置的行程都在{sky}下进行。"
 
 msgid "the co-driver has the wheel"
 msgstr "搭档司机正在驾驶"
@@ -15152,7 +15154,7 @@ msgid "ok"
 msgstr "ok"
 
 msgid "stale"
-msgstr ""
+msgstr "过时"
 
 msgid "conflict"
 msgstr "conflict"
@@ -15193,7 +15195,7 @@ msgstr "hash"
 msgid ""
 "The cloud has a newer copy of this career. Nothing was changed. Choose Use "
 "the cloud copy on this computer to pick it up."
-msgstr ""
+msgstr "云端有这份生涯更新的副本。什么都没有改变。选择“在这台电脑上使用云端副本”来取回它。"
 
 msgid ""
 "orinks.net no longer accepts this computer's sign-in. Usually this computer "
@@ -15742,6 +15744,57 @@ msgid ""
 "                                    it speaks its findings and writes a log\n"
 "  --log PATH                        session log for the watcher"
 msgstr ""
+"freightfate -- Freight Fate\n"
+"\n"
+"  freightfate                       开始游戏\n"
+"  freightfate --smoke               启动，渲染5帧后退出（CI检查）\n"
+"  freightfate --headless            无窗口，无语音\n"
+"  freightfate --controller-diagnostics\n"
+"                                    记录两层手柄事件\n"
+"\n"
+"驾驶工具：\n"
+"  --playtest-road --find FEATURE    从道路特征或出发大门开始\n"
+"                                    （downgrade、upgrade、zone、limit-drop、\n"
+"                                    stop、scale、curve、interchange、toll、\n"
+"                                    "
+"chain-law、destination、departure、river、all）；all扫描所有\n"
+"                                    可启动的道路类型和当前世界实例。\n"
+"                                    destination是\n"
+"                                    路线末尾的\n"
+"                                    交货出口匝道；departure默认扫描少量路线，\n"
+"                                    寻找已加载的厂区出口。使用\n"
+"                                    --routes all进行完整清查；\n"
+"                                    每条结果都打印可直接启动的--facility命令，\n"
+"                                    无需重新扫描世界。需要实时玩家历史的状态\n"
+"                                    转换无法从道路启动；\n"
+"                                    --from/--to/--seed/--scan和\n"
+"                                    辅助开关可缩小搜索范围\n"
+"  --ai                               选定道路场景后，在真实窗口中\n"
+"                                    按节奏使用玩家操作；实时\n"
+"                                    玩家语音输出到终端\n"
+"  --playtest-sandbox [--launch]     无法访问所有者账户的\n"
+"                                    数据目录；--dir/--reset/--print\n"
+"  --list-break-scenarios            列出所有对抗测试场景\n"
+"  --list-speech-backends            列出找到的所有屏幕阅读器和语音\n"
+"                                    （--names-only只列名称，不打开）\n"
+"  --break-scenario NAME             运行一个场景，用--transcript收听\n"
+"  --break-battery                   全部运行并打印结果\n"
+"  --agent-server                    运行真实游戏，并在标准输入输出上提供MCP服务器，\n"
+"                                    供AI代理游玩（使用沙盒；\n"
+"                                    --reset新建沙盒；添加\n"
+"                                    --find FEATURE [--from CITY] [--to "
+"CITY]\n"
+"                                    直接进入已布置的驾驶场景；\n"
+"                                    --operator-keys保留窗口并\n"
+"                                    接受操作员键盘输入，以便\n"
+"                                    与代理一起游玩；--staging使用\n"
+"                                    独立目录和测试网站上的\n"
+"                                    独立司机，并开启云端备份）\n"
+"  --key-probe [--seconds N]         显示游戏收到的键盘输入，\n"
+"                                    用于重发长按按键的屏幕阅读器\n"
+"                                    （JAWS）：每个方向键按住几秒；\n"
+"                                    程序会播报结果并写入日志\n"
+"  --log PATH                        供观察者查看的游戏日志"
 
 msgid "not running here"
 msgstr "这里没有运行"
@@ -16077,16 +16130,16 @@ msgid "Ready in {remaining} seconds."
 msgstr "{remaining}秒后就绪。"
 
 msgid "Back to "
-msgstr ""
+msgstr "返回 "
 
 msgid "No, "
-msgstr ""
+msgstr "不， "
 
 msgid "Resume "
-msgstr ""
+msgstr "继续 "
 
 msgid "Return to "
-msgstr ""
+msgstr "回到 "
 
 msgid "Back"
 msgstr "Back"
@@ -16592,19 +16645,19 @@ msgstr "{note}新的指派：{described}"
 
 #. placeholders: {label}
 msgid "Recommended dispatch, best pay for the hours: {label}"
-msgstr ""
+msgstr "推荐调度，按工时报酬最高：{label}"
 
 #. placeholders: {label}
 msgid "Recommended dispatch, best net for the hours: {label}"
-msgstr ""
+msgstr "推荐调度，按工时净收入最高：{label}"
 
 #. placeholders: {label}
 msgid "Recommended dispatch, most room on the deadline: {label}"
-msgstr ""
+msgstr "推荐调度，期限最宽裕：{label}"
 
 #. placeholders: {label}
 msgid "Recommended dispatch: {label}"
-msgstr ""
+msgstr "推荐调度：{label}"
 
 #. placeholders: {recommendation}, {label}
 msgid "Recommended dispatch, {recommendation}: {label}"
@@ -20728,7 +20781,7 @@ msgid ""
 msgstr "车道保持为完全时，向左或向右推一下会变换一条车道。"
 
 msgid "Hold the right bumper for the clutch."
-msgstr ""
+msgstr "按住右肩键作为离合器。"
 
 msgid "Hold the left bumper for the clutch."
 msgstr "按住左肩键作为离合器。"
@@ -23623,7 +23676,7 @@ msgid "Billboard: {line}"
 msgstr "广告牌：{line}"
 
 msgid "Bare road. Stop and take the chains off."
-msgstr ""
+msgstr "路面已无冰雪。停车，拆下防滑链。"
 
 msgid "Come to a complete stop first."
 msgstr "先完全停下。"
@@ -23780,11 +23833,11 @@ msgstr "正在停车安装防滑链，大约占用{f}分钟在岗时间。"
 
 #. one sentence of a longer line
 msgid "Bare road."
-msgstr ""
+msgstr "路面已无冰雪。"
 
 #. placeholders: {f}
 msgid "Bare road. Taking chains off, about {f} minutes on duty."
-msgstr ""
+msgstr "路面已无冰雪。正在拆除防滑链，大约占用{f}分钟在岗时间。"
 
 #. placeholders: {f}
 #. one sentence of a longer line
@@ -26754,7 +26807,7 @@ msgid ""
 msgstr "在路肩上睡不好。重置驾驶工时。疲劳仍在，可能会收到罚单，卡车可能有轻微损坏，截止时间也照样在走。"
 
 msgid "Every driving command by name, in groups."
-msgstr ""
+msgstr "按名称列出所有驾驶指令，分组显示。"
 
 msgid "Emergency shoulder sleep is not available."
 msgstr "不能紧急路肩睡觉。"
@@ -27036,7 +27089,7 @@ msgstr "把{display_name}存为收藏"
 msgid ""
 "Streamer-safe mode on, with Music source set to Synthesized. The radio "
 "stays on the Roadhouse."
-msgstr ""
+msgstr "直播安全模式已开启，音乐来源设为合成。收音机停留在Roadhouse。"
 
 msgid ""
 "Streamer-safe mode off. Real public streams and personal playlists are on "
@@ -27049,10 +27102,10 @@ msgid ""
 msgstr "直播安全模式已开启。真实的公共电台流和个人播放列表已隐藏。"
 
 msgid "Streamer-safe mode off. Real public streams are on the dial."
-msgstr ""
+msgstr "直播安全模式已关闭。真实的公共电台流都在频段上。"
 
 msgid "Streamer-safe mode on. Real public streams are hidden."
-msgstr ""
+msgstr "直播安全模式已开启。真实的公共电台流已隐藏。"
 
 msgid ""
 "Music source Synthesized: Freight Fate's own stations are off the dial."
@@ -27093,10 +27146,10 @@ msgid "Double tap switches the radio on or off."
 msgstr "双击开关收音机。"
 
 msgid "What is on the dial. Enter repeats it."
-msgstr ""
+msgstr "频段上有什么。Enter重复一遍。"
 
 msgid "What is on the dial. Double tap repeats it."
-msgstr ""
+msgstr "频段上有什么。双击重复一遍。"
 
 msgid "Saves or removes the tuned station in favorites."
 msgstr "把调到的电台存入收藏或从收藏中移除。"
@@ -27132,17 +27185,17 @@ msgstr "浏览全部电台，或者一个类别，比如地面广播或网络电
 
 #. placeholders: {local}
 msgid "Local stations: {local}"
-msgstr ""
+msgstr "本地电台：{local}"
 
 msgid ""
 "Freight Fate stations, your playlists and favorites, and stations nearby. "
 "Enter on one tunes it."
-msgstr ""
+msgstr "Freight Fate电台、你的播放列表和收藏，以及附近的电台。在一个电台上按Enter调到它。"
 
 msgid ""
 "Freight Fate stations, your playlists and favorites, and stations nearby. "
 "Double tap one to tune it."
-msgstr ""
+msgstr "Freight Fate电台、你的播放列表和收藏，以及附近的电台。双击一个电台调到它。"
 
 #. placeholders: {in_range}
 msgid "Stations in range: {in_range}"
@@ -27175,7 +27228,7 @@ msgid "Stations in range"
 msgstr "范围内的电台"
 
 msgid "Local stations"
-msgstr ""
+msgstr "本地电台"
 
 #. placeholders: {query}
 msgid "Stations matching {query}"
@@ -27204,7 +27257,7 @@ msgstr "这里收不到{display_name}。"
 
 #. placeholders: {label}, {distance_text}
 msgid "{label}, {distance_text} away"
-msgstr ""
+msgstr "{label}，距离{distance_text}"
 
 msgid "Enter tunes this station."
 msgstr "Enter调到这个电台。"
@@ -27224,7 +27277,7 @@ msgid "Shows the next results. PageDown does the same."
 msgstr "显示后面的结果。PageDown 也可以。"
 
 msgid "Shows the next results. A three-finger flick right does the same."
-msgstr ""
+msgstr "显示后面的结果。三指向右轻扫也可以。"
 
 msgid "Previous page"
 msgstr "上一页"
@@ -27233,7 +27286,7 @@ msgid "Shows the earlier results. PageUp does the same."
 msgstr "显示前面的结果。PageUp 也可以。"
 
 msgid "Shows the earlier results. A three-finger flick left does the same."
-msgstr ""
+msgstr "显示前面的结果。三指向左轻扫也可以。"
 
 msgid "No stations here yet."
 msgstr "这里还没有电台。"
@@ -27273,19 +27326,19 @@ msgstr "{title}。{count} 个结果。{page} 按 PageDown 翻到下一页。"
 #. placeholders: {page}
 #. one sentence of a longer line
 msgid "{page} Flick right with three fingers for the next page."
-msgstr ""
+msgstr "{page} 三指向右轻扫翻到下一页。"
 
 #. placeholders: {title}, {count}, {page}
 msgid ""
 "{title}. {count} stations. {page} Flick right with three fingers for the "
 "next page."
-msgstr ""
+msgstr "{title}。{count} 个电台。{page} 三指向右轻扫翻到下一页。"
 
 #. placeholders: {title}, {count}, {page}
 msgid ""
 "{title}. {count} matches. {page} Flick right with three fingers for the "
 "next page."
-msgstr ""
+msgstr "{title}。{count} 个结果。{page} 三指向右轻扫翻到下一页。"
 
 #. one sentence of a longer line
 msgid "Nothing here yet."
@@ -27688,34 +27741,34 @@ msgid "waves you through"
 msgstr "挥手让你通过"
 
 msgid "You had driven past"
-msgstr ""
+msgstr "你已超过"
 
 #. placeholders: {name}
 msgid "{name} had driven past"
-msgstr ""
+msgstr "{name}已超过"
 
 msgid "you had driven past"
-msgstr ""
+msgstr "你已超过"
 
 msgid "Your 14-hour duty window"
-msgstr ""
+msgstr "你的14小时当班时段"
 
 #. placeholders: {name}
 msgid "{name}'s 14-hour duty window"
-msgstr ""
+msgstr "{name}的14小时当班时段"
 
 msgid "your 14-hour duty window"
-msgstr ""
+msgstr "你的14小时当班时段"
 
 msgid "You were past the 30-minute"
-msgstr ""
+msgstr "你已超过30分钟"
 
 #. placeholders: {name}
 msgid "{name} was past the 30-minute"
-msgstr ""
+msgstr "{name}已超过30分钟"
 
 msgid "you were past the 30-minute"
-msgstr ""
+msgstr "你已超过30分钟"
 
 msgid "under"
 msgstr "低于"
@@ -29575,35 +29628,35 @@ msgstr "{name}已停车，把方向盘交给你。"
 
 #. placeholders: {name}
 msgid "{name} has parked and hands you the wheel. Their hours are up."
-msgstr ""
+msgstr "{name}已停好车，把方向盘交给你。对方的工时已用完。"
 
 #. one sentence of a longer line
 msgid "Their hours are up, and yours reach the receiver."
-msgstr ""
+msgstr "对方的工时已用完，你的工时够开到收货方。"
 
 #. placeholders: {name}
 msgid ""
 "{name} has parked and hands you the wheel. Their hours are up, and yours "
 "reach the receiver."
-msgstr ""
+msgstr "{name}已停好车，把方向盘交给你。对方的工时已用完，你的工时够开到收货方。"
 
 #. placeholders: {name}
 #. one sentence of a longer line
 msgid ""
 "{name} stopped on the shoulder with no lot in reach and hands you the wheel."
-msgstr ""
+msgstr "附近没有停车场，{name}停在路肩上，把方向盘交给你。"
 
 #. placeholders: {name}
 msgid ""
 "{name} stopped on the shoulder with no lot in reach and hands you the "
 "wheel. Their hours are up."
-msgstr ""
+msgstr "附近没有停车场，{name}停在路肩上，把方向盘交给你。对方的工时已用完。"
 
 #. placeholders: {name}
 msgid ""
 "{name} stopped on the shoulder with no lot in reach and hands you the "
 "wheel. Their hours are up, and yours reach the receiver."
-msgstr ""
+msgstr "附近没有停车场，{name}停在路肩上，把方向盘交给你。对方的工时已用完，你的工时够开到收货方。"
 
 #. one sentence of a longer line
 msgid "Their break is due."
@@ -29612,12 +29665,12 @@ msgstr "搭档该中途休息了。"
 #. placeholders: {name}
 #. one sentence of a longer line
 msgid "{name} stopped on the shoulder and hands you the wheel."
-msgstr ""
+msgstr "{name}停在路肩上，把方向盘交给你。"
 
 #. placeholders: {name}
 msgid ""
 "{name} stopped on the shoulder and hands you the wheel. Their break is due."
-msgstr ""
+msgstr "{name}停在路肩上，把方向盘交给你。对方该中途休息了。"
 
 #. placeholders: {name}
 msgid "{name} has parked and hands you the wheel. Your 10-hour rest is in."
@@ -29783,43 +29836,43 @@ msgstr "{name}驾驶时，你的工时记为卧铺休息。"
 #. placeholders: {pay}
 #. one sentence of a longer line
 msgid "{pay} Those miles earn you half the experience."
-msgstr ""
+msgstr "{pay} 这些里程只给你一半经验。"
 
 #. placeholders: {pay}, {name}
 msgid ""
 "{pay} Those miles earn you half the experience. While {name} drives, you "
 "are logged in the sleeper berth."
-msgstr ""
+msgstr "{pay} 这些里程只给你一半经验。{name}驾驶时，你的工时记为卧铺休息。"
 
 #. one sentence of a longer line
 msgid "Your own hours reach the receiver from there."
-msgstr ""
+msgstr "从那里开始，你自己的工时够开到收货方。"
 
 #. placeholders: {name}, {left}
 #. one sentence of a longer line
 msgid ""
 "{name} has {left} of driving left, then parks and hands you the wheel."
-msgstr ""
+msgstr "{name}还能开{left}，然后停车，把方向盘交给你。"
 
 #. placeholders: {name}, {left}
 msgid ""
 "{name} has {left} of driving left, then parks and hands you the wheel. Your "
 "own hours reach the receiver from there."
-msgstr ""
+msgstr "{name}还能开{left}，然后停车，把方向盘交给你。从那里开始，你自己的工时够开到收货方。"
 
 #. placeholders: {name}, {left}
 #. one sentence of a longer line
 msgid ""
 "{name} has {left} of driving left and no truck lot in reach, so they stop "
 "on the shoulder and hand you the wheel."
-msgstr ""
+msgstr "{name}还能开{left}，附近没有卡车停车场，所以会停在路肩上，把方向盘交给你。"
 
 #. placeholders: {name}, {left}
 msgid ""
 "{name} has {left} of driving left and no truck lot in reach, so they stop "
 "on the shoulder and hand you the wheel. Your own hours reach the receiver "
 "from there."
-msgstr ""
+msgstr "{name}还能开{left}，附近没有卡车停车场，所以会停在路肩上，把方向盘交给你。从那里开始，你自己的工时够开到收货方。"
 
 #. placeholders: {name}, {left}
 msgid ""
@@ -29893,11 +29946,11 @@ msgstr "接回方向盘"
 
 #. placeholders: {name}, {time}
 msgid "Hand the wheel to {name} for {time} and ride along"
-msgstr ""
+msgstr "把方向盘交给{name}开{time}，随车休息"
 
 #. placeholders: {name}, {time}
 msgid "Hand the wheel to {name} for {time} and sleep"
-msgstr ""
+msgstr "把方向盘交给{name}开{time}，去睡觉"
 
 #. placeholders: {name}
 msgid "Hand the wheel to {name} and ride along"
@@ -29948,7 +30001,7 @@ msgid "Refuel"
 msgstr "加油"
 
 msgid "shoulder break"
-msgstr ""
+msgstr "路肩休息"
 
 msgid "stalled"
 msgstr "熄火"
@@ -30021,28 +30074,28 @@ msgstr "搭档司机：{name}，在卧铺"
 
 #. placeholders: {name}
 msgid "Co-driver: {name}, in the sleeper, rested."
-msgstr ""
+msgstr "搭档司机：{name}，在卧铺，已休息好。"
 
 #. placeholders: {name}
 #. one sentence of a longer line
 msgid "Co-driver: {name}, in the sleeper."
-msgstr ""
+msgstr "搭档司机：{name}，在卧铺。"
 
 #. placeholders: {name}, {duration_text}, {duration_text2}
 msgid ""
 "Co-driver: {name}, in the sleeper. Rest: {duration_text} of 10 hours. "
 "{duration_text2} of driving left."
-msgstr ""
+msgstr "搭档司机：{name}，在卧铺。休息：10小时中已过{duration_text}。还能开{duration_text2}。"
 
 #. placeholders: {duration_text}
 #. one sentence of a longer line
 msgid "Rest: {duration_text} of 10 hours."
-msgstr ""
+msgstr "休息：10小时中已过{duration_text}。"
 
 #. placeholders: {duration_text2}
 #. one sentence of a longer line
 msgid "{duration_text2} of driving left."
-msgstr ""
+msgstr "还能开{duration_text2}。"
 
 #. placeholders: {name}, {trim_end_matches}
 msgid "ELD, {name}: {trim_end_matches}"
@@ -30066,19 +30119,19 @@ msgid "Team load: {name} drove {f} of the miles"
 msgstr "双人任务：{name}驾驶了{f}的里程"
 
 msgid "hours up, yours reach"
-msgstr ""
+msgstr "工时用完，你的够"
 
 msgid "last lot"
 msgstr "最后一个停车场"
 
 msgid "hours up"
-msgstr ""
+msgstr "工时用完"
 
 msgid "shoulder hours"
-msgstr ""
+msgstr "路肩工时"
 
 msgid "shoulder hours, yours reach"
-msgstr ""
+msgstr "路肩工时，你的够"
 
 #. placeholders: {name}
 msgid "{name} took a 30-minute break on the shoulder."
@@ -32135,7 +32188,7 @@ msgid "Practice gestures"
 msgstr "练习手势"
 
 msgid "Names what each gesture does while driving."
-msgstr ""
+msgstr "说出驾驶时每个手势的作用。"
 
 msgid "Practice keys and buttons"
 msgstr "练习按键和按钮"
@@ -32247,7 +32300,7 @@ msgid ""
 msgstr "按键和按钮练习。按一个键或按钮，可听到它在驾驶时的作用。按两次 Escape 或两次 Start 退出。"
 
 msgid "Flick down with two fingers twice to leave."
-msgstr ""
+msgstr "双指向下轻扫两次退出。"
 
 msgid "Escape twice within two seconds to leave."
 msgstr "在两秒内按两次Escape即可离开。"
@@ -32586,6 +32639,8 @@ msgid ""
 "set to Synthesized, On keeps the radio on the Roadhouse and tuning does "
 "nothing."
 msgstr ""
+"关闭时播放整个频段，包括真实的公共电台流。开启时收音机只播内置的安全电台，适合直播或录制。音乐来源设为合成时，开启会让收音机停留在Roadhouse，调"
+"台不起作用。"
 
 msgid "a soft tone leans"
 msgstr "轻柔的提示音会"
@@ -33215,12 +33270,12 @@ msgstr "遇到危险、急刹车、振动带和路面接缝时手柄会震动。
 
 #. placeholders: {else}
 msgid "Second layer bumper: {else}"
-msgstr ""
+msgstr "第二层肩键：{else}"
 
 msgid ""
 "Which bumper you hold for the second layer of controller buttons. The other "
 "bumper is the clutch."
-msgstr ""
+msgstr "按住哪个肩键使用手柄的第二层按键。另一个肩键是离合器。"
 
 #. placeholders: {on_off}
 msgid "Visual display: {on_off}"
@@ -33258,7 +33313,7 @@ msgstr "手柄按键"
 msgid ""
 "Move any driving control to another pad button, plain or with the left "
 "bumper held."
-msgstr ""
+msgstr "把任何驾驶控制项移到手柄的另一个按键上，可以单按，也可以按住left bumper。"
 
 msgid ""
 "Move any driving control to another pad button, plain or with the right "
@@ -33636,28 +33691,28 @@ msgstr "巡航与前车保持的空间。近为两秒半，正常为三秒，远
 
 #. placeholders: {engine_label}
 msgid "Voice engine: {engine_label}"
-msgstr ""
+msgstr "语音引擎：{engine_label}"
 
 msgid ""
 "Which text to speech engine on your phone the game speaks with. Changing it "
 "picks one of its voices, in the same language when it has one."
-msgstr ""
+msgstr "游戏使用手机上的哪个文字转语音引擎说话。更换后会选择它的一个语音，有同一语言的就用同一语言。"
 
 #. placeholders: {language_label}
 msgid "Voice language: {language_label}"
-msgstr ""
+msgstr "语音语言：{language_label}"
 
 msgid ""
 "Which of the engine's languages the Speech voice row offers voices in. "
 "Changing it picks the first voice in that language."
-msgstr ""
+msgstr "“语音”一行提供引擎的哪种语言的语音。更换后会选择这种语言的第一个语音。"
 
 #. placeholders: {voice_label}
 msgid "Speech voice: {voice_label}"
-msgstr ""
+msgstr "语音：{voice_label}"
 
 msgid "Which voice of that engine and language the game speaks with."
-msgstr ""
+msgstr "游戏使用这个引擎和语言中的哪个语音说话。"
 
 msgid ""
 "Up and Down pick a control, Enter then a key press moves it, Escape goes "
@@ -33688,13 +33743,13 @@ msgstr "为{label}按下新的键。按Escape保留{current}。"
 msgid ""
 "Press the new button for {label}, with the left bumper held for the second "
 "layer."
-msgstr ""
+msgstr "为{label}按下新按键，按住left bumper可设置第二层。"
 
 #. placeholders: {label}, {current}
 msgid ""
 "Press the new button for {label}, with the left bumper held for the second "
 "layer. Press {current} again to keep it."
-msgstr ""
+msgstr "为{label}按下新按键，按住left bumper可设置第二层。再按一次{current}保留原来的按键。"
 
 #. placeholders: {current}
 #. one sentence of a longer line
@@ -33756,7 +33811,7 @@ msgstr "按Enter，然后按你想给这个控制项用的键。按Escape保留�
 msgid ""
 "Enter, then press the button you want for this control, with the left "
 "bumper held for the second layer."
-msgstr ""
+msgstr "按Enter，然后按你想给这个控制项用的按键，按住left bumper可设置第二层。"
 
 msgid ""
 "Enter, then press the button you want for this control, with the right "
@@ -33798,7 +33853,7 @@ msgid ""
 "Road events through the main voice or a second text to speech voice, so a "
 "menu line never cuts off a road event. The rate, pitch, volume, and voice "
 "rows below appear only when the voice supports them."
-msgstr ""
+msgstr "路况事件用主要语音或第二个文字转语音语音播报，这样菜单语句永远不会打断路况事件。下面的语速、音调、音量和语音几行只在语音支持时出现。"
 
 msgid ""
 "Road events through the main voice or a separate SAPI or OneCore voice a "
@@ -36080,12 +36135,12 @@ msgstr "pad"
 msgid ""
 "The radio plays while the engine runs. A three-finger flick right tunes "
 "forward, and a three-finger flick left tunes backward."
-msgstr ""
+msgstr "发动机运转时收音机会播放。三指向右轻扫向前调台，三指向左轻扫向后调台。"
 
 msgid ""
 "Hold Control with a tune key to jump between categories, including route "
 "music, Freight Fate stations, favorites, and broadcast or web stations."
-msgstr ""
+msgstr "按住Control加调台键可以在类别之间跳转，包括路线音乐、Freight Fate电台、收藏，以及广播或网络电台。"
 
 msgid ""
 "Radio and CB on the three-finger tap list turns the radio on or off, saves "
@@ -36093,12 +36148,14 @@ msgid ""
 "route music, Freight Fate stations, favorites, and broadcast or web "
 "stations."
 msgstr ""
+"三指轻点列表里的“收音机与CB电台”可以开关收音机、保存收藏、调整收音机音量和类别。类别包括路线音乐、Freight "
+"Fate电台、收藏，以及广播或网络电台。"
 
 msgid ""
 "Radio status reads station, reception, volume, and streamer-safe status. "
 "What the radio is playing reads available song information. Both are under "
 "Radio and CB."
-msgstr ""
+msgstr "“收音机状态”读出电台、信号、音量和直播安全状态。“收音机在播什么”读出可用的歌曲信息。两者都在“收音机与CB电台”里。"
 
 msgid ""
 "Original uses the licensed menu and Roadhouse tracks. Synthesized plays "
@@ -36106,22 +36163,24 @@ msgid ""
 "Fate's regional stations and voiced breaks off the dial. Real streams "
 "remain unless streamer-safe mode hides them."
 msgstr ""
+"原版使用授权的菜单和Roadhouse曲目。合成播放游戏生成的音乐和三首原创曲目，并把Freight "
+"Fate的地方电台和语音插播从频段上撤下。真实电台流仍然保留，除非直播安全模式把它们隐藏。"
 
 #. one sentence of a longer line
 msgid "How do I change stations?"
-msgstr ""
+msgstr "怎么换电台？"
 
 #. placeholders: {control_radio}
 msgid ""
 "How do I change stations? With the engine running, {control_radio} switches "
 "the radio on, and Page Up or Page Down tunes."
-msgstr ""
+msgstr "怎么换电台？发动机运转时，{control_radio}打开收音机，Page Up或Page Down调台。"
 
 msgid ""
 "How do I change stations? With the engine running, a three-finger flick "
 "right or left tunes. Radio on or off is under Radio and CB on the "
 "three-finger tap list."
-msgstr ""
+msgstr "怎么换电台？发动机运转时，三指向右或向左轻扫调台。开关收音机在三指轻点列表的“收音机与CB电台”里。"
 
 #. placeholders: {page}, {HELP_PAGES}, {title}
 msgid "Page {page} of {HELP_PAGES}: {title}."
@@ -39081,18 +39140,18 @@ msgstr "再次选择以睡觉。"
 #. (crates/freight-fate/src/controller/bumpers.rs).
 #. placeholders: {short}
 msgid "left bumper plus {short}"
-msgstr ""
+msgstr "left bumper加{short}"
 
 msgid "the right bumper is the clutch"
-msgstr ""
+msgstr "right bumper是离合器"
 
 msgid "the left bumper is the second layer"
-msgstr ""
+msgstr "left bumper是第二层"
 
 msgid ""
 "For manual clutch, hold either Shift key on a keyboard or right bumper on a "
 "controller."
-msgstr ""
+msgstr "手动离合时，按住键盘上任一Shift键或手柄上的右肩键。"
 
 #. placeholders: {control_shift_up}, {control_shift_down}, {control_neutral}, {control_reverse}
 msgid ""
@@ -39100,9 +39159,11 @@ msgid ""
 "controller. Then {control_shift_up} shifts up, {control_shift_down} down, "
 "{control_neutral} selects neutral, and {control_reverse} selects reverse."
 msgstr ""
+"手动离合时，按住键盘上任一Shift键或手柄上的右肩键。然后{control_shift_up}升挡，{control_shift_down}降挡，{c"
+"ontrol_neutral}挂空挡，{control_reverse}挂倒挡。"
 
 msgid "Hold right bumper for manual clutch."
-msgstr ""
+msgstr "按住右肩键作为手动离合器。"
 
 #. placeholders: {pad_shift_up}, {pad_shift_down}, {pad_cruise}, {pad_speed}
 msgid ""
@@ -39110,15 +39171,18 @@ msgid ""
 "{pad_shift_down} down, past first into neutral and then reverse. "
 "{pad_cruise} starts speed control. {pad_speed} reads speed."
 msgstr ""
+"按住右肩键作为手动离合器。{pad_shift_up} 升挡，{pad_shift_down} "
+"降挡，降过一挡进入空挡，再到倒挡。{pad_cruise}启动速度控制。{pad_speed}读出车速。"
 
 msgid "Hold the left bumper for a second layer of buttons."
-msgstr ""
+msgstr "按住左肩键使用第二层按键。"
 
 #. placeholders: {pad_engine}, {pad_fuel}, {pad_speed_limit}
 msgid ""
 "Hold the left bumper for a second layer of buttons. {pad_engine} controls "
 "the engine, {pad_fuel} reads fuel, and {pad_speed_limit} reads the limit."
 msgstr ""
+"按住左肩键使用第二层按键。{pad_engine}控制发动机，{pad_fuel}读出燃油，{pad_speed_limit}读出限速。"
 
 #~ msgid ""
 #~ "{distance}, deadline {hours} hours. Team load: you and a co-driver take "
