@@ -122,6 +122,50 @@ pub fn read_data_text(relative: &str) -> Option<String> {
     read_text_at(&data_path(relative))
 }
 
+/// The country folders under `world_data/` (`us`, `ca`), in the order
+/// `world_data/index.json` lists them; the United States alone when the
+/// index is missing or names none.
+pub fn country_folders_at(data_dir: &Path) -> Vec<String> {
+    let folders: Vec<String> = read_text_at(&data_dir.join("world_data").join("index.json"))
+        .and_then(|text| serde_json::from_str::<serde_json::Value>(&text).ok())
+        .and_then(|index| {
+            index.get("countries")?.as_array().map(|rows| {
+                rows.iter()
+                    .filter_map(|c| c.get("path")?.as_str().map(str::to_string))
+                    .collect()
+            })
+        })
+        .unwrap_or_default();
+    if folders.is_empty() {
+        vec!["us".to_string()]
+    } else {
+        folders
+    }
+}
+
+/// One gameplay layer file (`curves.jsonl`, `limit_artifacts.jsonl`) from
+/// every country's `world_data/<country>/gameplay/`, joined line-wise, or
+/// `None` when no country has it. Each file starts with its own meta line,
+/// which the readers skip; leg ids are unique across countries.
+pub fn country_gameplay_text_at(data_dir: &Path, file: &str) -> Option<String> {
+    let mut joined: Option<String> = None;
+    for folder in country_folders_at(data_dir) {
+        let path = data_dir
+            .join("world_data")
+            .join(folder)
+            .join("gameplay")
+            .join(file);
+        if let Some(text) = read_text_at(&path) {
+            let out = joined.get_or_insert_with(String::new);
+            out.push_str(&text);
+            if !text.ends_with('\n') {
+                out.push('\n');
+            }
+        }
+    }
+    joined
+}
+
 /// Read a UTF-8 text file, `None` when it does not exist (or cannot be read).
 ///
 /// A path under a data root that has a baked container falls through to the
@@ -226,6 +270,35 @@ mod tests {
         std::fs::create_dir_all(&index).unwrap();
         std::fs::write(index.join("index.json"), "{}").unwrap();
         assert_eq!(find_source_tree(&start), Some(tmp.path().join("data")));
+    }
+
+    #[test]
+    fn every_country_folder_in_the_index_is_read_in_order() {
+        assert_eq!(country_folders_at(data_root()), vec!["us", "ca"]);
+        let dir = tempfile::tempdir().unwrap();
+        assert_eq!(country_folders_at(dir.path()), vec!["us"]);
+    }
+
+    #[test]
+    fn a_gameplay_layer_joins_each_countrys_file() {
+        let dir = tempfile::tempdir().unwrap();
+        let world = dir.path().join("world_data");
+        std::fs::create_dir_all(world.join("us/gameplay")).unwrap();
+        std::fs::create_dir_all(world.join("ca/gameplay")).unwrap();
+        std::fs::write(
+            world.join("index.json"),
+            r#"{"countries": [{"code": "US", "path": "us"}, {"code": "CA", "path": "ca"}]}"#,
+        )
+        .unwrap();
+        std::fs::write(world.join("us/gameplay/x.jsonl"), "{\"meta\": {}}\nus-row").unwrap();
+        std::fs::write(
+            world.join("ca/gameplay/x.jsonl"),
+            "{\"meta\": {}}\nca-row\n",
+        )
+        .unwrap();
+        let text = country_gameplay_text_at(dir.path(), "x.jsonl").unwrap();
+        assert_eq!(text, "{\"meta\": {}}\nus-row\n{\"meta\": {}}\nca-row\n");
+        assert!(country_gameplay_text_at(dir.path(), "missing.jsonl").is_none());
     }
 
     #[test]

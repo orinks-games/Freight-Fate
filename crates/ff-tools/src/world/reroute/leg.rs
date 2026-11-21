@@ -30,17 +30,22 @@ use ff_core::pyfmt::round_py_n;
 use super::carry::{self, Line};
 use super::shape;
 use super::valhalla::{self, matches_shield};
-use super::{gameplay_dir, leg_id, shard_path};
+use super::{leg_id, shard_path};
 use crate::cli::{Args, Spec};
 use crate::pyjson::{Object, Value};
 use crate::util::Result;
 use crate::world::{load_world, save_world, source_root};
 
-const USAGE: &str = "usage: reroute-leg --leg from:to [--write] | reroute-leg --check";
+const USAGE: &str =
+    "usage: reroute-leg --leg from:to [--accept-miles] [--write] | reroute-leg --check";
 
 /// A reroute must put at least this share of the leg on its own shield,
 /// unless a curated pin says the route rides a signed connector there.
 const MIN_ON_LABEL: f64 = 0.25;
+/// A new road this much longer or shorter than the leg is refused without
+/// `--accept-miles`: the Surrey to Blaine truck route came back 513 miles
+/// against 16, the router avoiding the Pacific Highway crossing.
+const MAX_MILES_CHANGE: f64 = 0.25;
 /// A stop or checkpoint farther than this from the new road is no longer
 /// passed.
 const MAX_OFF_MI: f64 = 3.0;
@@ -76,6 +81,26 @@ const DROPPED_SHARDS: &[&str] = &[
 
 const ROUTE_SOURCE: &str = "Valhalla truck route over OpenStreetMap, resampled at development \
                             time (replaces the route this leg was first baked from).";
+
+/// The note a re-placed checkpoint's source ends with.
+const REPLACED_NOTE: &str = " Re-placed on the rerouted road by its own coordinates";
+/// Before re-placed checkpoints kept their citation, this replaced it.
+const OLD_GENERIC_NOTE: &str = "Real town on ";
+
+/// A re-placed checkpoint's source: its own citation, if it had one, then
+/// where it now sits on the new road.
+fn checkpoint_source(cited: &str, highway: &str, from: &str, to: &str, off: f64) -> String {
+    let cited = cited.split(REPLACED_NOTE).next().unwrap_or_default().trim();
+    let place = format!("{off:.2} mi off-route at closest approach");
+    if cited.is_empty() || cited.starts_with(OLD_GENERIC_NOTE) {
+        format!(
+            "Real town on {highway} between {from} and {to}; position matched to the nearest \
+             point on the leg's checked-in route geometry ({place})."
+        )
+    } else {
+        format!("{cited}{REPLACED_NOTE} ({place}).")
+    }
+}
 
 /// Legs rerouted and not yet finished.
 pub fn pending(world: &Object) -> Vec<String> {
@@ -147,12 +172,24 @@ fn append_source(row: &mut Value, note: &str) {
     }
 }
 
+/// A leg's stored route points as `(lon, lat)`, the shape the archive
+/// decodes to.
+pub fn scaffold_line(leg: &Value) -> Vec<(f64, f64)> {
+    leg.get("corridor")
+        .and_then(|c| c.get("route_points"))
+        .and_then(Value::as_array)
+        .into_iter()
+        .flatten()
+        .filter_map(|p| Some((p.get("lon")?.as_f64()?, p.get("lat")?.as_f64()?)))
+        .collect()
+}
+
 pub fn main(argv: &[String]) -> Result<i32> {
     let args = Args::parse(
         argv,
         &Spec {
             values: &["leg"],
-            flags: &["write", "check"],
+            flags: &["write", "check", "accept-miles"],
         },
     )
     .map_err(|e| format!("{e}\n{USAGE}"))?;
@@ -204,6 +241,23 @@ pub fn main(argv: &[String]) -> Result<i32> {
         "  it rides {highway} for {:.0}% of its miles (most miles on: {dominant})",
         100.0 * share
     );
+    if old_miles > 0.0
+        && (route.miles - old_miles).abs() / old_miles > MAX_MILES_CHANGE
+        && !args.flag("accept-miles")
+    {
+        println!(
+            "  REFUSING: the router's road is {:.0}% {} than the leg. A reroute that far off is \
+             usually the router avoiding something (a crossing, a pin on the wrong road), not a \
+             better road; check it, then pass --accept-miles if it is right.",
+            100.0 * (route.miles - old_miles).abs() / old_miles,
+            if route.miles > old_miles {
+                "longer"
+            } else {
+                "shorter"
+            }
+        );
+        return Ok(1);
+    }
     if share < MIN_ON_LABEL && !has_pinned_label_segment(&leg, &highway) {
         println!(
             "  REFUSING: a reroute puts a leg back on the road it is named for, and this \
@@ -264,10 +318,32 @@ pub fn main(argv: &[String]) -> Result<i32> {
     );
 
     let shard = shard_path(&world, &leg).ok_or("the leg's start city has no state")?;
-    let old_record = super::archive_record(&shard, &wanted)?
-        .ok_or("the leg has no archived road to carry its records from")?;
-    let (old_coords, _) =
-        shape::decode(&old_record["geom"]).ok_or("the old road does not decode")?;
+    let old_record = super::archive_record(&shard, &wanted)?;
+    let old_coords = match &old_record {
+        Some(record) => {
+            shape::decode(&record["geom"])
+                .ok_or("the old road does not decode")?
+                .0
+        }
+        None => {
+            // A scaffold leg (the Alcan, Alaska, British Columbia and the
+            // Yukon were laid out this way) has no archived road, only its
+            // route points; they are the old road its records were read on.
+            let points = scaffold_line(&leg);
+            if points.len() < 2 {
+                return Err(
+                    "the leg has no archived road and fewer than two route points to carry its \
+                     records from"
+                        .into(),
+                );
+            }
+            println!(
+                "  no archived road: carrying from the {} scaffold route points",
+                points.len()
+            );
+            points
+        }
+    };
     let old = Line::new(&old_coords, old_miles);
     let new = Line::new(&new_coords, miles);
 
@@ -310,7 +386,9 @@ pub fn main(argv: &[String]) -> Result<i32> {
         corridor.remove(key);
     }
 
-    // Checkpoints: real towns, re-placed by their own coordinates.
+    // Checkpoints: real places, re-placed by their own coordinates. A
+    // checkpoint's own citation (a port of entry's agency page, an OSM node)
+    // is kept; only the note on where it sits is rewritten.
     if let Some(rows) = corridor
         .get("checkpoints")
         .and_then(Value::as_array)
@@ -320,13 +398,10 @@ pub fn main(argv: &[String]) -> Result<i32> {
         let mut out = Vec::new();
         for (mut row, off) in kept {
             if let Some(o) = row.as_object_mut() {
+                let cited = o.get("source").map(Value::py_str).unwrap_or_default();
                 o.insert(
                     "source",
-                    Value::Str(format!(
-                        "Real town on {highway} between {from} and {to}; position matched to \
-                         the nearest point on the leg's checked-in route geometry ({off:.2} mi \
-                         off-route at closest approach)."
-                    )),
+                    Value::Str(checkpoint_source(&cited, &highway, from, to, off)),
                 );
             }
             out.push(row);
@@ -466,7 +541,9 @@ pub fn main(argv: &[String]) -> Result<i32> {
         println!("\n(dry run; pass --write)");
         return Ok(0);
     }
-    let mut record = old_record.clone();
+    let mut record = old_record
+        .clone()
+        .unwrap_or_else(|| serde_json::json!({ "leg": wanted }));
     record["geom"] = geom;
     record["miles"] = serde_json::json!(miles);
     record["highway"] = serde_json::json!(highway);
@@ -486,12 +563,16 @@ pub fn main(argv: &[String]) -> Result<i32> {
             o.insert("stops", Value::Array(new_stops));
         }
     }
-    for name in DROPPED_SHARDS {
-        let path = gameplay_dir().join(name);
-        if path.is_file() {
-            let n = super::replace_leg_rows(&path, &wanted, Vec::new())?;
-            if n > 0 {
-                println!("  dropped {n} rows from {name}");
+    // Every country's folder: rows written before the layers were filed by
+    // country (the Canadian legs' postings sat in the US folder) go too.
+    for (folder, dir) in crate::world::country::gameplay_dirs() {
+        for name in DROPPED_SHARDS {
+            let path = dir.join(name);
+            if path.is_file() {
+                let n = super::replace_leg_rows(&path, &wanted, Vec::new())?;
+                if n > 0 {
+                    println!("  dropped {n} rows from {folder}/gameplay/{name}");
+                }
             }
         }
     }
@@ -499,4 +580,51 @@ pub fn main(argv: &[String]) -> Result<i32> {
     crate::world::index::main(&[])?;
     println!("  wrote the new road. The leg is NOT finished: run reroute-enrich on it next.");
     Ok(0)
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn a_scaffold_leg_carries_from_its_route_points() {
+        let leg = crate::pyjson::loads(
+            r#"{"corridor": {"route_points": [
+                {"at_mi": 0.0, "lat": 55.75847, "lon": -120.22868},
+                {"at_mi": 7.5, "lat": 55.83302, "lon": -120.3608}]}}"#,
+        )
+        .unwrap();
+        assert_eq!(
+            scaffold_line(&leg),
+            vec![(-120.22868, 55.75847), (-120.3608, 55.83302)]
+        );
+        let bare = crate::pyjson::loads(r#"{"corridor": {}}"#).unwrap();
+        assert!(scaffold_line(&bare).is_empty());
+    }
+
+    #[test]
+    fn a_re_placed_checkpoint_keeps_its_citation() {
+        let cited = "U.S. Customs and Border Protection, Alcan Alaska Port of Entry (port 3104).";
+        let once = checkpoint_source(
+            cited,
+            "Alaska Highway",
+            "whitehorse_yt_ca",
+            "tok_ak_us",
+            0.0,
+        );
+        assert!(once.starts_with(cited), "{once}");
+        assert!(once.contains("Re-placed on the rerouted road"));
+        // A second reroute rewrites the note rather than stacking another.
+        let twice = checkpoint_source(
+            &once,
+            "Alaska Highway",
+            "whitehorse_yt_ca",
+            "tok_ak_us",
+            0.1,
+        );
+        assert_eq!(twice.matches("Re-placed").count(), 1);
+        assert!(twice.contains("0.10 mi off-route"));
+        let bare = checkpoint_source("", "BC 97", "a", "b", 0.0);
+        assert!(bare.starts_with("Real town on BC 97 between a and b"));
+    }
 }

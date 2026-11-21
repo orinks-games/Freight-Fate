@@ -60,6 +60,7 @@
 
 ### Changed
 
+- **The British Columbia and Yukon highways now follow the real roads, with their bends, hills, exits and towns.** Surrey to Blaine is now 15 miles, 14 northbound.
 - **Alaska, Yukon and British Columbia roads now use October's posted speed limits too.** Towns along the Alaska Highway slow you down, and the Glenn Highway runs at 65.
 - **A CDL pulled at speed now ends the run.** The truck stops on the shoulder, and a relief driver takes it back to the city the run left from.
 - **Dispatch trust no longer says the carrier may let you go while your CDL is pulled.** It says the seat is held until the suspension or disqualification ends.

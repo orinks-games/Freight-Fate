@@ -35,7 +35,7 @@ use super::osm::geo::{self, LegLine};
 use super::{load_world, save_world, source_root};
 use crate::cli::{Args, Spec};
 use crate::pyjson::{Object, Value};
-use crate::util::{self, Result};
+use crate::util::Result;
 use shp::Polygon;
 
 const USAGE: &str = "usage: census-counties --shp tl_2021_us_county.shp [--write]";
@@ -257,10 +257,9 @@ pub fn main(argv: &[String]) -> Result<i32> {
     );
     let lookup = Lookup::new(counties);
 
-    let root = util::repo_root();
     let source = source_root();
     let mut world = load_world(&source)?;
-    let lines = geo::load_archive(&root.join("data/world_data/us/geometry"))?;
+    let lines = crate::world::country::load_archives()?;
     let legs = world
         .get_mut("legs")
         .and_then(Value::as_array_mut)

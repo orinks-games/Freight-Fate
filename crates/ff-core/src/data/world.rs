@@ -19,7 +19,7 @@ use serde_json::Value;
 use super::baked::{BakedData, CorridorRef};
 use super::border_yards::border_yards_at;
 use super::branded_plazas::screen_branded_plazas;
-use super::data_resources::{baked_at, data_root, read_text_at};
+use super::data_resources::{baked_at, country_gameplay_text_at, data_root, read_text_at};
 use super::legacy_aliases::LEGACY_CITY_SLUGS;
 use super::stop_bounds::screen_stop_bounds;
 use super::stop_twins::screen_twin_stops;
@@ -213,8 +213,7 @@ impl World {
         };
 
         // Postings tools/screen_limit_artifacts.py found off the leg's highway.
-        let artifacts =
-            read_text_at(&data_dir.join("world_data/us/gameplay/limit_artifacts.jsonl"));
+        let artifacts = country_gameplay_text_at(&data_dir, "limit_artifacts.jsonl");
         let mut flagged_limits = flagged_limits_from(&artifacts.unwrap_or_default());
         let mut legs: Vec<Arc<Leg>> = Vec::with_capacity(data.legs.len());
         for (index, leg) in data.legs.into_iter().enumerate() {

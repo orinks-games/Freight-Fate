@@ -956,7 +956,7 @@ fn test_border_booths_follow_inbound_country_crossings() {
             "whitehorse_yt_ca",
             Some((
                 "Beaver Creek Port of Entry",
-                107.8,
+                107.7,
                 "CA",
                 "Canada Border Services Agency",
             )),
@@ -966,7 +966,7 @@ fn test_border_booths_follow_inbound_country_crossings() {
             "tok_ak_us",
             Some((
                 "Alcan Port of Entry",
-                297.5,
+                297.4,
                 "US",
                 "U.S. Customs and Border Protection",
             )),
@@ -976,7 +976,7 @@ fn test_border_booths_follow_inbound_country_crossings() {
             "surrey_bc_ca",
             Some((
                 "Pacific Highway Port of Entry",
-                1.5,
+                1.4,
                 "CA",
                 "Canada Border Services Agency",
             )),
@@ -986,7 +986,7 @@ fn test_border_booths_follow_inbound_country_crossings() {
             "blaine_wa_us",
             Some((
                 "Blaine Pacific Highway Port of Entry",
-                14.5,
+                13.5,
                 "US",
                 "U.S. Customs and Border Protection",
             )),

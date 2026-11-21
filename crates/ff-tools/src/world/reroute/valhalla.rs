@@ -177,13 +177,23 @@ pub fn route(start: (f64, f64), end: (f64, f64), via: &[(f64, f64)]) -> Result<O
             .into_iter()
             .flatten()
         {
-            let names = m
-                .get("street_names")
-                .and_then(|n| n.as_array())
-                .into_iter()
-                .flatten()
-                .filter_map(|n| n.as_str().map(str::to_string))
-                .collect();
+            // The road's number often rides only in `begin_street_names`
+            // (Valhalla writes "BC 97" there and "Cariboo Highway" in
+            // `street_names`), so both lists name the maneuver's road.
+            let mut names: Vec<String> = Vec::new();
+            for key in ["street_names", "begin_street_names"] {
+                for n in m
+                    .get(key)
+                    .and_then(|n| n.as_array())
+                    .into_iter()
+                    .flatten()
+                    .filter_map(|n| n.as_str())
+                {
+                    if !names.iter().any(|have| have == n) {
+                        names.push(n.to_string());
+                    }
+                }
+            }
             let miles = m.get("length").and_then(|l| l.as_f64()).unwrap_or(0.0);
             maneuvers.push((names, miles));
         }
@@ -272,7 +282,13 @@ pub fn shield_key(name: &str) -> Option<(&'static str, String)> {
     let class = match prefix.as_str() {
         "I" | "INTERSTATE" => "I",
         "US" | "US HIGHWAY" | "US HWY" | "US ROUTE" => "US",
-        "SR" | "STATE HIGHWAY" | "STATE ROUTE" | "STATE ROAD" | "HIGHWAY" | "ROUTE" => "STATE",
+        "SR" | "STATE HIGHWAY" | "STATE ROUTE" | "STATE ROAD" | "HIGHWAY" | "HWY" | "ROUTE" => {
+            "STATE"
+        }
+        // Canada's shields as OpenStreetMap writes them: the Trans-Canada
+        // ("TCH 1") and the Yellowhead ("YH 16") are their provinces' routes
+        // of the same number.
+        "TCH" | "YH" => "STATE",
         "CR" | "COUNTY ROAD" | "COUNTY ROUTE" => "CR",
         p if p.ends_with(" ROUTE") || p.ends_with(" HIGHWAY") || p.ends_with(" ROAD") => "STATE",
         p if p.len() == 2 && p.chars().all(|c| c.is_ascii_alphabetic()) => "STATE",
@@ -282,12 +298,32 @@ pub fn shield_key(name: &str) -> Option<(&'static str, String)> {
 }
 
 /// Is `name` (as OpenStreetMap writes it) the road `highway` (as the world
-/// writes it)? Class and number both, so US 95 is not I-95.
+/// writes it)? Class and number both, so US 95 is not I-95. A label naming
+/// several roads ("Hwy 15 / Pacific Highway") matches any of them, and a
+/// road known by name rather than number (the Alaska Highway, the Coquihalla)
+/// matches that name: Canadian legs are labelled that way, and every
+/// province's route collapses to the state class, so "BC 97" is "Hwy 97".
 pub fn matches_shield(name: &str, highway: &str) -> bool {
-    match (shield_key(highway), shield_key(name)) {
-        (Some(a), Some(b)) => a == b,
-        _ => false,
-    }
+    highway
+        .split('/')
+        .map(str::trim)
+        .filter(|part| !part.is_empty())
+        .any(|part| match (shield_key(part), shield_key(name)) {
+            (Some(a), Some(b)) => a == b,
+            (None, _) => same_name(name, part),
+            _ => false,
+        })
+}
+
+fn same_name(a: &str, b: &str) -> bool {
+    let norm = |s: &str| {
+        s.split_whitespace()
+            .map(str::to_lowercase)
+            .collect::<Vec<_>>()
+            .join(" ")
+    };
+    let (a, b) = (norm(a), norm(b));
+    !b.is_empty() && a == b
 }
 
 #[cfg(test)]
@@ -324,5 +360,24 @@ mod tests {
         assert!(matches_shield("TX 6", "State Highway 6"));
         assert!(matches_shield("NC 16", "NC-16"));
         assert!(!matches_shield("Tri-State Tollway", "I-94"));
+    }
+
+    #[test]
+    fn canadian_labels_match_by_number_or_by_name() {
+        assert!(matches_shield("BC 97", "Hwy 97"));
+        assert!(matches_shield("BC 97", "Highway 97"));
+        assert!(matches_shield("Alaska Highway", "Alaska Highway"));
+        assert!(matches_shield("alaska  highway", "Alaska Highway"));
+        assert!(!matches_shield("John Hart Highway", "Alaska Highway"));
+        assert!(matches_shield("BC 1", "Hwy 1 / Hwy 97"));
+        assert!(matches_shield("BC 97", "Hwy 1 / Hwy 97"));
+        assert!(!matches_shield("BC 5", "Hwy 1 / Hwy 97"));
+        assert!(matches_shield(
+            "Pacific Highway",
+            "Hwy 15 / Pacific Highway"
+        ));
+        assert!(matches_shield("I-5", "I-5 / US-97"));
+        assert!(matches_shield("TCH 1 West", "Hwy 1 / Hwy 97"));
+        assert!(matches_shield("YH 16", "Hwy 16"));
     }
 }

@@ -5211,7 +5211,9 @@ loudly when mostly assumed.
 
 - [ ] Route geometry: re-route every leg without a geometry archive over
       the planet cut with truck costing, points every quarter mile; re-sweep
-      the US legs baked against straight chords.
+      the US legs baked against straight chords. The British Columbia and
+      Yukon legs, Blaine to Surrey and Tok to Whitehorse are done
+      (2026-11-21, Canada tools pilot below); the other Alaska legs are not.
 - [x] The Python Alcan speed bake, ported into `osm-speed-limits`: a leg
       with no geometry archive is read along the Valhalla truck route
       through its route points (`--valhalla`, cached outside the repo), a
@@ -5238,6 +5240,12 @@ loudly when mostly assumed.
       Glennallen to Palmer (140 against 145), Prince George to Surrey (492
       against 465) and the short Anchorage, Wasilla, Palmer and Kenai legs.
       The route re-sweep above should re-measure those miles.
+      Re-measured 2026-11-21: Surrey to Blaine is 15 miles and Blaine to
+      Surrey 14, each pinned on the Pacific Highway truck crossing; Prince
+      George to Surrey is 466 and back 465. The BC unposted default was
+      tried and dropped: Motor Vehicle Act s.146(1) gives 80 km/h outside a
+      municipality and 50 inside, and the untagged Hart Highway is a posted
+      road OSM is silent on, so its gaps stay gaps.
 - [x] Exits, ramp lengths, terminals and controls, both directions' ramp
       ends: `cargo tools osm-exits`, run over the 2026-10-19 planet cut.
       Exits with a ramp end both ways went from 4,310 of 18,520 to 14,548
@@ -5245,9 +5253,11 @@ loudly when mostly assumed.
       read did not find again stay whole, and 195 ramp ends keep their old
       node, because a road stop or a street chain is keyed to them;
       re-baking the street chains (below) clears both.
-      The Alcan, Alaska, BC and Yukon legs on this branch have no exits
-      yet; they come with the route geometry above.
+      The Alaska legs on this branch have no exits yet; they come with the
+      route geometry above. The BC and Yukon legs have theirs (41, on
+      Highway 1), since a leg touching Canada is read whatever its label.
 - [ ] Curves: the archive builder, so detour and Alcan legs get real bends.
+      The BC and Yukon legs have them (2026-11-21); the Alaska legs not yet.
 - [ ] Grades: 3DEP for the US; the Canadian Digital Elevation Model
       elsewhere, labelled.
 - [ ] Lanes, traffic counts (provincial tables for Canada) and landmarks.
@@ -5326,6 +5336,30 @@ then the seven layers over the same planet cut), built with the Rust
 tools from the start. Canadian carriers and home bases follow the roads as
 a carrier slice (owner, 2026-10-26).
 
+- [x] Canada tools pilot (2026-11-21): a Canadian leg builds end to end
+      with `cargo tools`, its road in `world_data/ca/geometry` and its
+      curves, ramps and postings in `ca/gameplay`, which the game and the
+      bake read beside the US folder. The 14 BC and Yukon legs and the two
+      US-start border legs were rebuilt from their scaffolds and one was
+      driven. Recipe: "Building a Canadian corridor" in
+      `docs/map-enrichment-recipe.md`; report in the project files
+      (`career-2.0-alpha/canada-tools-report.md`).
+- [ ] (Found along the way) Keep a Canadian posting in km/h: a 100 km/h
+      sign is stored as 60 mph and read back as 97. Needs a raw `kmh`
+      field and a reader that speaks it as signed.
+- [ ] (Found along the way) Provincial traffic counts: no table is read,
+      so Canadian legs take the game's road-class estimate. BC publishes
+      counts in TRADAS; Alberta and Ontario have their own.
+- [ ] (Found along the way) Canadian terrain is derived from the leg's own
+      grades (no HPMS north of the border), so it cannot catch a bad grade
+      profile; a relief class from the Canadian Digital Elevation Model
+      would. It also reads level one way and rolling the other between
+      Watson Lake and Whitehorse, a near tie.
+- [ ] (Found along the way) Census divisions for Canadian county lines,
+      and truck stops on the BC and Yukon legs (none yet).
+- [ ] (Found along the way) A province line with no cited name is spoken
+      "Crossing into Yukon near British Columbia-Yukon line."; the place
+      half names the line itself. Wording for the director.
 - [ ] Trans-Canada and Yellowhead, Vancouver to Winnipeg (1, 5, 16, 2),
       joining the Alcan at Prince George and Dawson Creek and the US at
       Blaine, Sumas, Osoyoos, Kingsgate, Coutts, North Portal, Emerson.

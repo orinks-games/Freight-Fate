@@ -45,7 +45,7 @@ use std::collections::{HashMap, HashSet};
 use once_cell::sync::OnceCell;
 use serde::Deserialize;
 
-use super::data_resources::{baked, read_data_text};
+use super::data_resources::{baked, country_gameplay_text_at, data_root};
 use super::world::{get_world, World};
 use super::world_models::{Leg, Route};
 
@@ -810,9 +810,9 @@ pub fn load() -> &'static HashMap<String, Vec<CurveRecord>> {
         if let Some(container) = baked() {
             return container.curves().expect("baked curve table decodes");
         }
-        let curve_text = read_data_text("world_data/us/gameplay/curves.jsonl");
+        let curve_text = country_gameplay_text_at(data_root(), "curves.jsonl");
         let artifact_text =
-            read_data_text("world_data/us/gameplay/curve_artifacts.jsonl").unwrap_or_default();
+            country_gameplay_text_at(data_root(), "curve_artifacts.jsonl").unwrap_or_default();
         build_from_sources(
             curve_text.as_deref().unwrap_or(""),
             &artifact_text,

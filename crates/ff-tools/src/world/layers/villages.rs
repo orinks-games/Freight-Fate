@@ -150,6 +150,15 @@ fn taken_names(leg: &Value, world: &Object) -> HashSet<String> {
     taken
 }
 
+/// Whether `place=city` nodes are named on this leg as well as towns and
+/// villages. In the United States the cities between two dispatch cities
+/// are spoken from the GNIS checkpoints; a Canadian leg has no such list,
+/// so OpenStreetMap's cities (Chilliwack, Abbotsford) are its only source.
+/// A leg that starts or ends in Canada takes them.
+pub fn names_cities(leg: &Value, world: &Object) -> bool {
+    crate::world::country::leg_touches(world, leg, "CA")
+}
+
 #[derive(Default)]
 pub struct Counts {
     pub paired: usize,
@@ -168,10 +177,14 @@ pub fn bake_leg(
 ) -> Vec<Object> {
     let miles = leg_miles(leg);
     let taken = taken_names(leg, world);
+    let cities_named = names_cities(leg, world);
     let reach = (CATCHMENT_MI / 69.0 / CELL_DEG).ceil() as i64 + 1;
     let mut best: BTreeMap<String, Object> = BTreeMap::new();
     for i in grid.along(&route.points, reach) {
         let place = &places[i as usize];
+        if place.rank == "city" && !cities_named {
+            continue;
+        }
         let name = clean_name(&place.name);
         if name.is_empty() {
             continue;
@@ -290,7 +303,7 @@ pub fn is_gone(t: &[(&str, &str)]) -> bool {
 pub fn read_places(pbfs: &[std::path::PathBuf]) -> Result<Vec<Place>> {
     let keep = |t: &[(&str, &str)]| {
         let has = |k: &str| t.iter().find(|(tk, _)| *tk == k).map(|(_, v)| *v);
-        matches!(has("place"), Some("town" | "village"))
+        matches!(has("place"), Some("town" | "village" | "city"))
             && has("name").is_some_and(|n| !n.trim().is_empty())
             && !is_gone(t)
     };
@@ -396,6 +409,22 @@ pub fn main(argv: &[String]) -> Result<i32> {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn cities_are_named_on_canadian_legs_only() {
+        let world = crate::pyjson::loads(
+            r#"{"cities": {"surrey_bc_ca": {"country": "CA"}, "hope_bc_ca": {"country": "CA"},
+                "blaine_wa_us": {"country": "US"}, "seattle_wa_us": {"country": "US"}}}"#,
+        )
+        .unwrap();
+        let world = world.as_object().unwrap();
+        let leg = |a: &str, b: &str| {
+            crate::pyjson::loads(&format!(r#"{{"from": "{a}", "to": "{b}"}}"#)).unwrap()
+        };
+        assert!(names_cities(&leg("surrey_bc_ca", "hope_bc_ca"), world));
+        assert!(names_cities(&leg("blaine_wa_us", "surrey_bc_ca"), world));
+        assert!(!names_cities(&leg("seattle_wa_us", "blaine_wa_us"), world));
+    }
 
     #[test]
     fn a_village_moves_ahead_of_the_drop_it_explains() {

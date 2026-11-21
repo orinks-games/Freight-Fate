@@ -15,6 +15,7 @@
 //! produces the same bytes.
 
 pub mod counties;
+pub mod country;
 pub mod index;
 pub mod layers;
 pub mod osm;
