@@ -10194,27 +10194,6 @@ msgstr "你的播放列表文件{file_name}"
 msgid "favorite"
 msgstr "收藏"
 
-#. placeholders: {spoken}
-msgid ", {spoken} away"
-msgstr "，距离{spoken}"
-
-#. placeholders: {spoken}
-#. one clause of a longer line
-msgid "{spoken} away"
-msgstr "{spoken}外"
-
-#. placeholders: {source}
-#. one sentence of a longer line
-msgid "Source: {source}."
-msgstr "来源：{source}。"
-
-#. placeholders: {selected}, {display_name}, {format}, {signal_label}, {distance}, {source}
-msgid ""
-"{selected}{display_name}: {format}, {signal_label}{distance}. Source: "
-"{source}."
-msgstr ""
-"{selected}{display_name}：{format}，{signal_label}{distance}。来源：{source}。"
-
 msgid "on"
 msgstr "开启"
 
@@ -10236,6 +10215,11 @@ msgid ""
 msgstr ""
 "电台{state}。{display_name}，{format}。{signal_label}。音量百分之{round_py_int}。{safety"
 "}。来源：{source}。"
+
+#. placeholders: {source}
+#. one sentence of a longer line
+msgid "Source: {source}."
+msgstr "来源：{source}。"
 
 #. placeholders: {round_py_int}
 #. one sentence of a longer line
@@ -20453,10 +20437,6 @@ msgid ""
 "and keep favorites."
 msgstr "司机应用平板上有收音机应用，可以搜索频段、按名称调台和保存收藏。"
 
-#. placeholders: {status}
-msgid "The {status} status menu has a radio screen of receivable stations."
-msgstr "{status} 状态菜单有一个可接收电台的收音机界面。"
-
 #. placeholders: {engine}
 msgid ""
 "{engine} starts the engine, and stops it only below 5 miles per hour."
@@ -26446,11 +26426,6 @@ msgid ""
 msgstr "Up和Down浏览各行。Enter重复一行，在停靠点那一行上则打开详情。Escape返回。"
 
 msgid ""
-"Up and down review the lines. Enter repeats a line, or tunes a station "
-"line. Escape goes back."
-msgstr ""
-
-msgid ""
 "Up and down review the lines. Enter repeats a line. Escape goes back."
 msgstr "Up和Down浏览各行。Enter重复一行。Escape返回。"
 
@@ -26550,156 +26525,6 @@ msgstr "取消在{planned}的计划停靠"
 
 msgid "Forgets the planned stop."
 msgstr "忘掉计划的停靠点。"
-
-msgid "The engine is off. The radio has no power."
-msgstr "发动机关着。收音机没电。"
-
-msgid "Streamer-safe mode on, with Music source set to Synthesized."
-msgstr "直播安全模式已开启，音乐来源设为合成音乐。"
-
-msgid ""
-"Streamer-safe mode keeps the radio on the Roadhouse, and tuning does "
-"nothing. Radio on or off and Radio volume are under Radio and CB on the "
-"three-finger tap list."
-msgstr ""
-
-#. one sentence of a longer line
-msgid ""
-"Shift with Page Down and Page Up, or semicolon and apostrophe, changes "
-"radio volume by 10 percent."
-msgstr "Shift加Page Down和Page Up，或者分号和单引号，按10%调整收音机音量。"
-
-#. one sentence of a longer line
-msgid "Station keys do nothing."
-msgstr "电台键不起作用。"
-
-#. one sentence of a longer line
-msgid "Streamer-safe mode keeps the radio on the Roadhouse."
-msgstr "直播安全模式让收音机固定在Roadhouse。"
-
-#. placeholders: {spoken}
-msgid ""
-"Streamer-safe mode keeps the radio on the Roadhouse. Station keys do "
-"nothing. {spoken} turns the radio on or off. Shift with Page Down and Page "
-"Up, or semicolon and apostrophe, changes radio volume by 10 percent."
-msgstr ""
-"直播安全模式让收音机固定在Roadhouse。电台键不起作用。{spoken}打开或关闭收音机。Shift加Page Down和Page "
-"Up，或者分号和单引号，按10%调整收音机音量。"
-
-#. placeholders: {spoken}
-#. one sentence of a longer line
-msgid "{spoken} turns the radio on or off."
-msgstr "{spoken}打开或关闭收音机。"
-
-msgid ""
-"Streamer-safe mode off. Real public streams and personal playlists are on "
-"the dial."
-msgstr "直播安全模式已关闭。真实的公共电台流和个人播放列表都在频段上。"
-
-msgid ""
-"Streamer-safe mode on. Real public streams and personal playlists are "
-"hidden."
-msgstr "直播安全模式已开启。真实的公共电台流和个人播放列表已隐藏。"
-
-msgid "Streamer-safe mode off. Real public streams are on the dial."
-msgstr ""
-
-msgid "Streamer-safe mode on. Real public streams are hidden."
-msgstr ""
-
-msgid ""
-"Music source Synthesized: Freight Fate's own stations are off the dial."
-msgstr "音乐来源为合成音乐：Freight Fate自己的电台不在频段上。"
-
-#. one sentence of a longer line
-msgid "No playlists of your own yet."
-msgstr "你还没有自己的播放列表。"
-
-#. placeholders: {personal_playlists_dir}
-msgid ""
-"No playlists of your own yet. Put M3U, M3U8 or PLS playlist files in "
-"{personal_playlists_dir}."
-msgstr "你还没有自己的播放列表。把M3U、M3U8或PLS播放列表文件放进{personal_playlists_dir}。"
-
-#. placeholders: {personal_playlists_dir}
-#. one sentence of a longer line
-msgid "Put M3U, M3U8 or PLS playlist files in {personal_playlists_dir}."
-msgstr "把M3U、M3U8或PLS播放列表文件放进{personal_playlists_dir}。"
-
-msgid ""
-"At the wheel, a three-finger flick left or right tunes stations. Radio "
-"category, Radio volume, favorites and radio power are under Radio and CB on "
-"the three-finger tap list."
-msgstr ""
-
-#. one sentence of a longer line
-msgid "Page Down and Page Up tune stations, or semicolon and apostrophe."
-msgstr "Page Down和Page Up调台，或者用分号和单引号。"
-
-#. placeholders: {spoken}, {spoken2}
-msgid ""
-"Page Down and Page Up tune stations, or semicolon and apostrophe. With "
-"Control they jump categories. With Shift they change radio volume by 10 "
-"percent. {spoken} saves the station as a favorite. {spoken2} toggles the "
-"radio."
-msgstr ""
-"Page Down和Page "
-"Up调台，或者用分号和单引号。加Control跳到其他类别。加Shift按10%调整收音机音量。{spoken}把电台存为收藏。{spoken2}开关收"
-"音机。"
-
-#. one sentence of a longer line
-msgid "With Control they jump categories."
-msgstr "加Control跳到其他类别。"
-
-#. one sentence of a longer line
-msgid "With Shift they change radio volume by 10 percent."
-msgstr "加Shift按10%调整收音机音量。"
-
-#. placeholders: {spoken2}
-#. one sentence of a longer line
-msgid "{spoken2} toggles the radio."
-msgstr "{spoken2}开关收音机。"
-
-#. placeholders: {spoken}
-#. one sentence of a longer line
-msgid "{spoken} saves the station as a favorite."
-msgstr "{spoken}把电台存为收藏。"
-
-#. placeholders: {favorite_ids}
-msgid "Favorites saved: {favorite_ids}."
-msgstr "已收藏：{favorite_ids}。"
-
-#. placeholders: {f}, {f2}
-msgid "Approximate truck radio position: {f}, {f2}."
-msgstr "卡车收音机的大致位置：{f}，{f2}。"
-
-msgid "Receivable stations:"
-msgstr "可接收的电台："
-
-msgid "Plus 1 more station, listed in the Radio app under Driver apps."
-msgstr "另有1个电台，列在司机应用的收音机应用中。"
-
-#. placeholders: {n}
-msgid "Plus {n} more stations, listed in the Radio app under Driver apps."
-msgstr "另有{n}个电台，列在司机应用的收音机应用中。"
-
-msgid "Favorites saved:"
-msgstr "已保存的收藏夹："
-
-msgid "favorites"
-msgstr "favorites"
-
-msgid "Your saved stations. Enter on one tunes it."
-msgstr "你存下的电台。在一个电台上按Enter调到它。"
-
-msgid "Your saved stations. Double tap one to tune it."
-msgstr "你保存的电台。双击某个电台收听。"
-
-msgid "Enter tunes this station."
-msgstr "Enter调到这个电台。"
-
-msgid "Double tap tunes this station."
-msgstr "双击收听此电台。"
 
 msgid "Back to the status screens."
 msgstr "返回状态界面。"
@@ -27180,6 +27005,49 @@ msgstr "把{display_name}从收藏中移除"
 msgid "Save {display_name} to favorites"
 msgstr "把{display_name}存为收藏"
 
+msgid ""
+"Streamer-safe mode on, with Music source set to Synthesized. The radio "
+"stays on the Roadhouse."
+msgstr ""
+
+msgid ""
+"Streamer-safe mode off. Real public streams and personal playlists are on "
+"the dial."
+msgstr "直播安全模式已关闭。真实的公共电台流和个人播放列表都在频段上。"
+
+msgid ""
+"Streamer-safe mode on. Real public streams and personal playlists are "
+"hidden."
+msgstr "直播安全模式已开启。真实的公共电台流和个人播放列表已隐藏。"
+
+msgid "Streamer-safe mode off. Real public streams are on the dial."
+msgstr ""
+
+msgid "Streamer-safe mode on. Real public streams are hidden."
+msgstr ""
+
+msgid ""
+"Music source Synthesized: Freight Fate's own stations are off the dial."
+msgstr "音乐来源为合成音乐：Freight Fate自己的电台不在频段上。"
+
+#. one sentence of a longer line
+msgid "No playlists of your own yet."
+msgstr "你还没有自己的播放列表。"
+
+#. placeholders: {personal_playlists_dir}
+msgid ""
+"No playlists of your own yet. Put M3U, M3U8 or PLS playlist files in "
+"{personal_playlists_dir}."
+msgstr "你还没有自己的播放列表。把M3U、M3U8或PLS播放列表文件放进{personal_playlists_dir}。"
+
+#. placeholders: {personal_playlists_dir}
+#. one sentence of a longer line
+msgid "Put M3U, M3U8 or PLS playlist files in {personal_playlists_dir}."
+msgstr "把M3U、M3U8或PLS播放列表文件放进{personal_playlists_dir}。"
+
+msgid "The engine is off. The radio has no power."
+msgstr "发动机关着。收音机没电。"
+
 msgid "Now playing on the tuned station. Enter asks again."
 msgstr "调到的电台正在播放的内容。Enter再问一次。"
 
@@ -27196,12 +27064,27 @@ msgstr "Enter打开或关闭收音机。"
 msgid "Double tap switches the radio on or off."
 msgstr "双击开关收音机。"
 
+msgid "What is on the dial. Enter repeats it."
+msgstr ""
+
+msgid "What is on the dial. Double tap repeats it."
+msgstr ""
+
 msgid "Saves or removes the tuned station in favorites."
 msgstr "把调到的电台存入收藏或从收藏中移除。"
 
 #. placeholders: {favorites}
 msgid "Favorites: {favorites} saved"
 msgstr "收藏：已存{favorites}个"
+
+msgid "favorites"
+msgstr "favorites"
+
+msgid "Your saved stations. Enter on one tunes it."
+msgstr "你存下的电台。在一个电台上按Enter调到它。"
+
+msgid "Your saved stations. Double tap one to tune it."
+msgstr "你保存的电台。双击某个电台收听。"
 
 msgid "Search stations"
 msgstr "搜索电台"
@@ -27218,6 +27101,20 @@ msgid ""
 "Browse all stations, or one category such as Terrestrial or Web radio. "
 "Stations in range list first."
 msgstr "浏览全部电台，或者一个类别，比如地面广播或网络电台。范围内的电台排在前面。"
+
+#. placeholders: {local}
+msgid "Local stations: {local}"
+msgstr ""
+
+msgid ""
+"Freight Fate stations, your playlists and favorites, and stations nearby. "
+"Enter on one tunes it."
+msgstr ""
+
+msgid ""
+"Freight Fate stations, your playlists and favorites, and stations nearby. "
+"Double tap one to tune it."
+msgstr ""
 
 #. placeholders: {in_range}
 msgid "Stations in range: {in_range}"
@@ -27249,6 +27146,9 @@ msgstr "收藏的电台"
 msgid "Stations in range"
 msgstr "范围内的电台"
 
+msgid "Local stations"
+msgstr ""
+
 #. placeholders: {query}
 msgid "Stations matching {query}"
 msgstr "匹配{query}的电台"
@@ -27273,6 +27173,16 @@ msgstr "第 {start} 到 {end} 条结果，共 {hit_count} 条"
 #. placeholders: {display_name}
 msgid "{display_name} is out of range here."
 msgstr "这里收不到{display_name}。"
+
+#. placeholders: {label}, {distance_text}
+msgid "{label}, {distance_text} away"
+msgstr ""
+
+msgid "Enter tunes this station."
+msgstr "Enter调到这个电台。"
+
+msgid "Double tap tunes this station."
+msgstr "双击收听此电台。"
 
 #. one sentence of a longer line
 msgid "Next page."
@@ -39181,6 +39091,89 @@ msgid ""
 "Hold the left bumper for a second layer of buttons. {pad_engine} controls "
 "the engine, {pad_fuel} reads fuel, and {pad_speed_limit} reads the limit."
 msgstr ""
+
+#~ msgid ", {spoken} away"
+#~ msgstr "，距离{spoken}"
+
+#~ msgid "{spoken} away"
+#~ msgstr "{spoken}外"
+
+#~ msgid ""
+#~ "{selected}{display_name}: {format}, {signal_label}{distance}. Source: "
+#~ "{source}."
+#~ msgstr ""
+#~ "{selected}{display_name}：{format}，{signal_label}{distance}。来源：{source}。"
+
+#~ msgid "The {status} status menu has a radio screen of receivable stations."
+#~ msgstr "{status} 状态菜单有一个可接收电台的收音机界面。"
+
+#~ msgid "Streamer-safe mode on, with Music source set to Synthesized."
+#~ msgstr "直播安全模式已开启，音乐来源设为合成音乐。"
+
+#~ msgid ""
+#~ "Shift with Page Down and Page Up, or semicolon and apostrophe, changes "
+#~ "radio volume by 10 percent."
+#~ msgstr "Shift加Page Down和Page Up，或者分号和单引号，按10%调整收音机音量。"
+
+#~ msgid "Station keys do nothing."
+#~ msgstr "电台键不起作用。"
+
+#~ msgid "Streamer-safe mode keeps the radio on the Roadhouse."
+#~ msgstr "直播安全模式让收音机固定在Roadhouse。"
+
+#~ msgid ""
+#~ "Streamer-safe mode keeps the radio on the Roadhouse. Station keys do "
+#~ "nothing. {spoken} turns the radio on or off. Shift with Page Down and Page "
+#~ "Up, or semicolon and apostrophe, changes radio volume by 10 percent."
+#~ msgstr ""
+#~ "直播安全模式让收音机固定在Roadhouse。电台键不起作用。{spoken}打开或关闭收音机。Shift加Page Down和Page "
+#~ "Up，或者分号和单引号，按10%调整收音机音量。"
+
+#~ msgid "{spoken} turns the radio on or off."
+#~ msgstr "{spoken}打开或关闭收音机。"
+
+#~ msgid "Page Down and Page Up tune stations, or semicolon and apostrophe."
+#~ msgstr "Page Down和Page Up调台，或者用分号和单引号。"
+
+#~ msgid ""
+#~ "Page Down and Page Up tune stations, or semicolon and apostrophe. With "
+#~ "Control they jump categories. With Shift they change radio volume by 10 "
+#~ "percent. {spoken} saves the station as a favorite. {spoken2} toggles the "
+#~ "radio."
+#~ msgstr ""
+#~ "Page Down和Page "
+#~ "Up调台，或者用分号和单引号。加Control跳到其他类别。加Shift按10%调整收音机音量。{spoken}把电台存为收藏。{spoken2}开关收"
+#~ "音机。"
+
+#~ msgid "With Control they jump categories."
+#~ msgstr "加Control跳到其他类别。"
+
+#~ msgid "With Shift they change radio volume by 10 percent."
+#~ msgstr "加Shift按10%调整收音机音量。"
+
+#~ msgid "{spoken2} toggles the radio."
+#~ msgstr "{spoken2}开关收音机。"
+
+#~ msgid "{spoken} saves the station as a favorite."
+#~ msgstr "{spoken}把电台存为收藏。"
+
+#~ msgid "Favorites saved: {favorite_ids}."
+#~ msgstr "已收藏：{favorite_ids}。"
+
+#~ msgid "Approximate truck radio position: {f}, {f2}."
+#~ msgstr "卡车收音机的大致位置：{f}，{f2}。"
+
+#~ msgid "Receivable stations:"
+#~ msgstr "可接收的电台："
+
+#~ msgid "Plus 1 more station, listed in the Radio app under Driver apps."
+#~ msgstr "另有1个电台，列在司机应用的收音机应用中。"
+
+#~ msgid "Plus {n} more stations, listed in the Radio app under Driver apps."
+#~ msgstr "另有{n}个电台，列在司机应用的收音机应用中。"
+
+#~ msgid "Favorites saved:"
+#~ msgstr "已保存的收藏夹："
 
 #~ msgid ""
 #~ "Online options are now in the Online menu on the main menu. This row opens "

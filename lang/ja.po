@@ -10284,27 +10284,6 @@ msgstr "プレイリストファイル {file_name}"
 msgid "favorite"
 msgstr "お気に入り"
 
-#. placeholders: {spoken}
-msgid ", {spoken} away"
-msgstr "、距離{spoken}"
-
-#. placeholders: {spoken}
-#. one clause of a longer line
-msgid "{spoken} away"
-msgstr "{spoken}先"
-
-#. placeholders: {source}
-#. one sentence of a longer line
-msgid "Source: {source}."
-msgstr "出典：{source}。"
-
-#. placeholders: {selected}, {display_name}, {format}, {signal_label}, {distance}, {source}
-msgid ""
-"{selected}{display_name}: {format}, {signal_label}{distance}. Source: "
-"{source}."
-msgstr ""
-"{selected}{display_name}：{format}、{signal_label}{distance}。出典：{source}。"
-
 msgid "on"
 msgstr "オン"
 
@@ -10326,6 +10305,11 @@ msgid ""
 msgstr ""
 "ラジオ{state}。{display_name}、{format}。{signal_label}。音量{round_py_int}パーセント。{saf"
 "ety}。出典：{source}。"
+
+#. placeholders: {source}
+#. one sentence of a longer line
+msgid "Source: {source}."
+msgstr "出典：{source}。"
 
 #. placeholders: {round_py_int}
 #. one sentence of a longer line
@@ -20674,10 +20658,6 @@ msgid ""
 "and keep favorites."
 msgstr "ドライバーアプリのタブレットにはラジオアプリがあり、ダイヤルの検索、名前での選局、お気に入りの保存ができます。"
 
-#. placeholders: {status}
-msgid "The {status} status menu has a radio screen of receivable stations."
-msgstr "{status} のステータスメニューには受信できる局のラジオ画面があります。"
-
 #. placeholders: {engine}
 msgid ""
 "{engine} starts the engine, and stops it only below 5 miles per hour."
@@ -26726,11 +26706,6 @@ msgid ""
 msgstr "上下の矢印キーで行を確認します。Enter で行を繰り返し、停車地の行では詳細を開きます。Escape で戻ります。"
 
 msgid ""
-"Up and down review the lines. Enter repeats a line, or tunes a station "
-"line. Escape goes back."
-msgstr ""
-
-msgid ""
 "Up and down review the lines. Enter repeats a line. Escape goes back."
 msgstr "上下の矢印キーで行を確認します。Enter で行を繰り返します。Escape で戻ります。"
 
@@ -26830,158 +26805,6 @@ msgstr "{planned}での計画した停車を取り消す"
 
 msgid "Forgets the planned stop."
 msgstr "計画した停車を取り消します。"
-
-msgid "The engine is off. The radio has no power."
-msgstr "エンジンが切れています。ラジオに電源が入りません。"
-
-msgid "Streamer-safe mode on, with Music source set to Synthesized."
-msgstr "配信向けモードがオンで、音楽ソースはシンセ曲です。"
-
-msgid ""
-"Streamer-safe mode keeps the radio on the Roadhouse, and tuning does "
-"nothing. Radio on or off and Radio volume are under Radio and CB on the "
-"three-finger tap list."
-msgstr ""
-
-#. one sentence of a longer line
-msgid ""
-"Shift with Page Down and Page Up, or semicolon and apostrophe, changes "
-"radio volume by 10 percent."
-msgstr ""
-"Shift を押しながら Page Down と Page Up、またはセミコロンとアポストロフィで、ラジオの音量を10パーセントずつ変えます。"
-
-#. one sentence of a longer line
-msgid "Station keys do nothing."
-msgstr "局のキーは何もしません。"
-
-#. one sentence of a longer line
-msgid "Streamer-safe mode keeps the radio on the Roadhouse."
-msgstr "配信向けモードでは、ラジオは Roadhouse のままです。"
-
-#. placeholders: {spoken}
-msgid ""
-"Streamer-safe mode keeps the radio on the Roadhouse. Station keys do "
-"nothing. {spoken} turns the radio on or off. Shift with Page Down and Page "
-"Up, or semicolon and apostrophe, changes radio volume by 10 percent."
-msgstr ""
-"配信向けモードでは、ラジオは Roadhouse のままです。局のキーは何もしません。{spoken}でラジオをオンまたはオフにします。Shift "
-"を押しながら Page Down と Page Up、またはセミコロンとアポストロフィで、ラジオの音量を10パーセントずつ変えます。"
-
-#. placeholders: {spoken}
-#. one sentence of a longer line
-msgid "{spoken} turns the radio on or off."
-msgstr "{spoken}でラジオをオンまたはオフにします。"
-
-msgid ""
-"Streamer-safe mode off. Real public streams and personal playlists are on "
-"the dial."
-msgstr "配信向けモードオフ。実際の公開ストリームと自分のプレイリストが選べます。"
-
-msgid ""
-"Streamer-safe mode on. Real public streams and personal playlists are "
-"hidden."
-msgstr "配信向けモードオン。実際の公開ストリームと自分のプレイリストは隠れています。"
-
-msgid "Streamer-safe mode off. Real public streams are on the dial."
-msgstr ""
-
-msgid "Streamer-safe mode on. Real public streams are hidden."
-msgstr ""
-
-msgid ""
-"Music source Synthesized: Freight Fate's own stations are off the dial."
-msgstr "音楽ソースがシンセ曲です。Freight Fate 独自の局は選べません。"
-
-#. one sentence of a longer line
-msgid "No playlists of your own yet."
-msgstr "自分のプレイリストはまだありません。"
-
-#. placeholders: {personal_playlists_dir}
-msgid ""
-"No playlists of your own yet. Put M3U, M3U8 or PLS playlist files in "
-"{personal_playlists_dir}."
-msgstr ""
-"自分のプレイリストはまだありません。M3U、M3U8、PLS のプレイリストファイルを{personal_playlists_dir}に入れてください。"
-
-#. placeholders: {personal_playlists_dir}
-#. one sentence of a longer line
-msgid "Put M3U, M3U8 or PLS playlist files in {personal_playlists_dir}."
-msgstr "M3U、M3U8、PLS のプレイリストファイルを{personal_playlists_dir}に入れてください。"
-
-msgid ""
-"At the wheel, a three-finger flick left or right tunes stations. Radio "
-"category, Radio volume, favorites and radio power are under Radio and CB on "
-"the three-finger tap list."
-msgstr ""
-
-#. one sentence of a longer line
-msgid "Page Down and Page Up tune stations, or semicolon and apostrophe."
-msgstr "Page Down と Page Up、またはセミコロンとアポストロフィで局を選びます。"
-
-#. placeholders: {spoken}, {spoken2}
-msgid ""
-"Page Down and Page Up tune stations, or semicolon and apostrophe. With "
-"Control they jump categories. With Shift they change radio volume by 10 "
-"percent. {spoken} saves the station as a favorite. {spoken2} toggles the "
-"radio."
-msgstr ""
-"Page Down と Page Up、またはセミコロンとアポストロフィで局を選びます。Control "
-"を押しながらだとカテゴリーを移ります。Shift "
-"を押しながらだとラジオの音量を10パーセントずつ変えます。{spoken}で局をお気に入りに保存します。{spoken2}でラジオを切り替えます。"
-
-#. one sentence of a longer line
-msgid "With Control they jump categories."
-msgstr "Control を押しながらだとカテゴリーを移ります。"
-
-#. one sentence of a longer line
-msgid "With Shift they change radio volume by 10 percent."
-msgstr "Shift を押しながらだとラジオの音量を10パーセントずつ変えます。"
-
-#. placeholders: {spoken2}
-#. one sentence of a longer line
-msgid "{spoken2} toggles the radio."
-msgstr "{spoken2}でラジオを切り替えます。"
-
-#. placeholders: {spoken}
-#. one sentence of a longer line
-msgid "{spoken} saves the station as a favorite."
-msgstr "{spoken}で局をお気に入りに保存します。"
-
-#. placeholders: {favorite_ids}
-msgid "Favorites saved: {favorite_ids}."
-msgstr "保存したお気に入り：{favorite_ids}。"
-
-#. placeholders: {f}, {f2}
-msgid "Approximate truck radio position: {f}, {f2}."
-msgstr "トラックのラジオのおおよその位置：{f}、{f2}。"
-
-msgid "Receivable stations:"
-msgstr "受信できる局："
-
-msgid "Plus 1 more station, listed in the Radio app under Driver apps."
-msgstr "ほかに1局あります。ドライバーアプリのラジオアプリに載っています。"
-
-#. placeholders: {n}
-msgid "Plus {n} more stations, listed in the Radio app under Driver apps."
-msgstr "ほかに{n}局あります。ドライバーアプリのラジオアプリに載っています。"
-
-msgid "Favorites saved:"
-msgstr "保存したお気に入り："
-
-msgid "favorites"
-msgstr "favorites"
-
-msgid "Your saved stations. Enter on one tunes it."
-msgstr "保存した局です。Enter で選局します。"
-
-msgid "Your saved stations. Double tap one to tune it."
-msgstr "保存した局です。ダブルタップで選局します。"
-
-msgid "Enter tunes this station."
-msgstr "Enter でこの局を選局します。"
-
-msgid "Double tap tunes this station."
-msgstr "ダブルタップでこの局に合わせます。"
 
 msgid "Back to the status screens."
 msgstr "ステータス画面に戻ります。"
@@ -27465,6 +27288,50 @@ msgstr "{display_name}をお気に入りから外す"
 msgid "Save {display_name} to favorites"
 msgstr "{display_name}をお気に入りに保存"
 
+msgid ""
+"Streamer-safe mode on, with Music source set to Synthesized. The radio "
+"stays on the Roadhouse."
+msgstr ""
+
+msgid ""
+"Streamer-safe mode off. Real public streams and personal playlists are on "
+"the dial."
+msgstr "配信向けモードオフ。実際の公開ストリームと自分のプレイリストが選べます。"
+
+msgid ""
+"Streamer-safe mode on. Real public streams and personal playlists are "
+"hidden."
+msgstr "配信向けモードオン。実際の公開ストリームと自分のプレイリストは隠れています。"
+
+msgid "Streamer-safe mode off. Real public streams are on the dial."
+msgstr ""
+
+msgid "Streamer-safe mode on. Real public streams are hidden."
+msgstr ""
+
+msgid ""
+"Music source Synthesized: Freight Fate's own stations are off the dial."
+msgstr "音楽ソースがシンセ曲です。Freight Fate 独自の局は選べません。"
+
+#. one sentence of a longer line
+msgid "No playlists of your own yet."
+msgstr "自分のプレイリストはまだありません。"
+
+#. placeholders: {personal_playlists_dir}
+msgid ""
+"No playlists of your own yet. Put M3U, M3U8 or PLS playlist files in "
+"{personal_playlists_dir}."
+msgstr ""
+"自分のプレイリストはまだありません。M3U、M3U8、PLS のプレイリストファイルを{personal_playlists_dir}に入れてください。"
+
+#. placeholders: {personal_playlists_dir}
+#. one sentence of a longer line
+msgid "Put M3U, M3U8 or PLS playlist files in {personal_playlists_dir}."
+msgstr "M3U、M3U8、PLS のプレイリストファイルを{personal_playlists_dir}に入れてください。"
+
+msgid "The engine is off. The radio has no power."
+msgstr "エンジンが切れています。ラジオに電源が入りません。"
+
 msgid "Now playing on the tuned station. Enter asks again."
 msgstr "選局中の局で流れている曲です。Enter でもう一度確認します。"
 
@@ -27481,12 +27348,27 @@ msgstr "Enter でラジオをオンまたはオフにします。"
 msgid "Double tap switches the radio on or off."
 msgstr "ダブルタップでラジオをオンまたはオフにします。"
 
+msgid "What is on the dial. Enter repeats it."
+msgstr ""
+
+msgid "What is on the dial. Double tap repeats it."
+msgstr ""
+
 msgid "Saves or removes the tuned station in favorites."
 msgstr "選局中の局をお気に入りに保存、または外します。"
 
 #. placeholders: {favorites}
 msgid "Favorites: {favorites} saved"
 msgstr "お気に入り：{favorites}件保存"
+
+msgid "favorites"
+msgstr "favorites"
+
+msgid "Your saved stations. Enter on one tunes it."
+msgstr "保存した局です。Enter で選局します。"
+
+msgid "Your saved stations. Double tap one to tune it."
+msgstr "保存した局です。ダブルタップで選局します。"
 
 msgid "Search stations"
 msgstr "局を検索"
@@ -27503,6 +27385,20 @@ msgid ""
 "Browse all stations, or one category such as Terrestrial or Web radio. "
 "Stations in range list first."
 msgstr "すべての局か、地上波やウェブラジオのような一つのカテゴリーを見ます。受信できる局が先に並びます。"
+
+#. placeholders: {local}
+msgid "Local stations: {local}"
+msgstr ""
+
+msgid ""
+"Freight Fate stations, your playlists and favorites, and stations nearby. "
+"Enter on one tunes it."
+msgstr ""
+
+msgid ""
+"Freight Fate stations, your playlists and favorites, and stations nearby. "
+"Double tap one to tune it."
+msgstr ""
 
 #. placeholders: {in_range}
 msgid "Stations in range: {in_range}"
@@ -27534,6 +27430,9 @@ msgstr "お気に入りの局"
 msgid "Stations in range"
 msgstr "受信できる局"
 
+msgid "Local stations"
+msgstr ""
+
 #. placeholders: {query}
 msgid "Stations matching {query}"
 msgstr "{query}に一致する局"
@@ -27558,6 +27457,16 @@ msgstr "{hit_count} 件中 {start} 件目から {end} 件目"
 #. placeholders: {display_name}
 msgid "{display_name} is out of range here."
 msgstr "ここでは{display_name}を受信できません。"
+
+#. placeholders: {label}, {distance_text}
+msgid "{label}, {distance_text} away"
+msgstr ""
+
+msgid "Enter tunes this station."
+msgstr "Enter でこの局を選局します。"
+
+msgid "Double tap tunes this station."
+msgstr "ダブルタップでこの局に合わせます。"
 
 #. one sentence of a longer line
 msgid "Next page."
@@ -39812,6 +39721,90 @@ msgid ""
 "Hold the left bumper for a second layer of buttons. {pad_engine} controls "
 "the engine, {pad_fuel} reads fuel, and {pad_speed_limit} reads the limit."
 msgstr ""
+
+#~ msgid ", {spoken} away"
+#~ msgstr "、距離{spoken}"
+
+#~ msgid "{spoken} away"
+#~ msgstr "{spoken}先"
+
+#~ msgid ""
+#~ "{selected}{display_name}: {format}, {signal_label}{distance}. Source: "
+#~ "{source}."
+#~ msgstr ""
+#~ "{selected}{display_name}：{format}、{signal_label}{distance}。出典：{source}。"
+
+#~ msgid "The {status} status menu has a radio screen of receivable stations."
+#~ msgstr "{status} のステータスメニューには受信できる局のラジオ画面があります。"
+
+#~ msgid "Streamer-safe mode on, with Music source set to Synthesized."
+#~ msgstr "配信向けモードがオンで、音楽ソースはシンセ曲です。"
+
+#~ msgid ""
+#~ "Shift with Page Down and Page Up, or semicolon and apostrophe, changes "
+#~ "radio volume by 10 percent."
+#~ msgstr ""
+#~ "Shift を押しながら Page Down と Page Up、またはセミコロンとアポストロフィで、ラジオの音量を10パーセントずつ変えます。"
+
+#~ msgid "Station keys do nothing."
+#~ msgstr "局のキーは何もしません。"
+
+#~ msgid "Streamer-safe mode keeps the radio on the Roadhouse."
+#~ msgstr "配信向けモードでは、ラジオは Roadhouse のままです。"
+
+#~ msgid ""
+#~ "Streamer-safe mode keeps the radio on the Roadhouse. Station keys do "
+#~ "nothing. {spoken} turns the radio on or off. Shift with Page Down and Page "
+#~ "Up, or semicolon and apostrophe, changes radio volume by 10 percent."
+#~ msgstr ""
+#~ "配信向けモードでは、ラジオは Roadhouse のままです。局のキーは何もしません。{spoken}でラジオをオンまたはオフにします。Shift "
+#~ "を押しながら Page Down と Page Up、またはセミコロンとアポストロフィで、ラジオの音量を10パーセントずつ変えます。"
+
+#~ msgid "{spoken} turns the radio on or off."
+#~ msgstr "{spoken}でラジオをオンまたはオフにします。"
+
+#~ msgid "Page Down and Page Up tune stations, or semicolon and apostrophe."
+#~ msgstr "Page Down と Page Up、またはセミコロンとアポストロフィで局を選びます。"
+
+#~ msgid ""
+#~ "Page Down and Page Up tune stations, or semicolon and apostrophe. With "
+#~ "Control they jump categories. With Shift they change radio volume by 10 "
+#~ "percent. {spoken} saves the station as a favorite. {spoken2} toggles the "
+#~ "radio."
+#~ msgstr ""
+#~ "Page Down と Page Up、またはセミコロンとアポストロフィで局を選びます。Control "
+#~ "を押しながらだとカテゴリーを移ります。Shift "
+#~ "を押しながらだとラジオの音量を10パーセントずつ変えます。{spoken}で局をお気に入りに保存します。{spoken2}でラジオを切り替えます。"
+
+#~ msgid "With Control they jump categories."
+#~ msgstr "Control を押しながらだとカテゴリーを移ります。"
+
+#~ msgid "With Shift they change radio volume by 10 percent."
+#~ msgstr "Shift を押しながらだとラジオの音量を10パーセントずつ変えます。"
+
+#~ msgid "{spoken2} toggles the radio."
+#~ msgstr "{spoken2}でラジオを切り替えます。"
+
+#~ msgid "{spoken} saves the station as a favorite."
+#~ msgstr "{spoken}で局をお気に入りに保存します。"
+
+#~ msgid "Favorites saved: {favorite_ids}."
+#~ msgstr "保存したお気に入り：{favorite_ids}。"
+
+#~ msgid "Approximate truck radio position: {f}, {f2}."
+#~ msgstr "トラックのラジオのおおよその位置：{f}、{f2}。"
+
+#~ msgid "Receivable stations:"
+#~ msgstr "受信できる局："
+
+#~ msgid "Plus 1 more station, listed in the Radio app under Driver apps."
+#~ msgstr "ほかに1局あります。ドライバーアプリのラジオアプリに載っています。"
+
+#~ msgid "Plus {n} more stations, listed in the Radio app under Driver apps."
+#~ msgstr "ほかに{n}局あります。ドライバーアプリのラジオアプリに載っています。"
+
+#~ msgid "Favorites saved:"
+#~ msgstr "保存したお気に入り："
 
 #~ msgid ""
 #~ "Online options are now in the Online menu on the main menu. This row opens "

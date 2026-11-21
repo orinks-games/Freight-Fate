@@ -195,7 +195,7 @@ pub struct DrivingState {
     pub radio_reconnect_timer: f64,
     // The song the tuned stream last reported (ICY StreamTitle), polled on
     // the reception tick; None when nothing is streaming or the station
-    // sends no song information. Shift+Y speaks it, the Tab radio screen
+    // sends no song information. Shift+Y speaks it, the Radio app
     // and the drivers board line carry it.
     pub radio_now_playing: Option<String>,
     // The radio draws power from the engine: last power state, so the

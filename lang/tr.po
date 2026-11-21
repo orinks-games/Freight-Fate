@@ -11239,28 +11239,6 @@ msgstr "çalma listesi dosyanız {file_name}"
 msgid "favorite"
 msgstr "favori"
 
-#. placeholders: {spoken}
-msgid ", {spoken} away"
-msgstr ", uzaklık {spoken}"
-
-#. placeholders: {spoken}
-#. one clause of a longer line
-msgid "{spoken} away"
-msgstr "uzaklık {spoken}"
-
-#. placeholders: {source}
-#. one sentence of a longer line
-msgid "Source: {source}."
-msgstr "Kaynak: {source}."
-
-#. placeholders: {selected}, {display_name}, {format}, {signal_label}, {distance}, {source}
-msgid ""
-"{selected}{display_name}: {format}, {signal_label}{distance}. Source: "
-"{source}."
-msgstr ""
-"{selected}{display_name}: {format}, {signal_label}{distance}. Kaynak: "
-"{source}."
-
 msgid "on"
 msgstr "açık"
 
@@ -11282,6 +11260,11 @@ msgid ""
 msgstr ""
 "Radyo {state}. {display_name}, {format}. {signal_label}. Ses yüzde "
 "{round_py_int}. {safety}. Kaynak: {source}."
+
+#. placeholders: {source}
+#. one sentence of a longer line
+msgid "Source: {source}."
+msgstr "Kaynak: {source}."
 
 #. placeholders: {round_py_int}
 #. one sentence of a longer line
@@ -22270,12 +22253,6 @@ msgstr ""
 "Şoför uygulamaları tabletinde, frekansları aramak, istasyonu adıyla seçmek "
 "ve favorileri tutmak için bir Radyo uygulaması var."
 
-#. placeholders: {status}
-msgid "The {status} status menu has a radio screen of receivable stations."
-msgstr ""
-"{status} durum menüsünde alınabilen istasyonları gösteren bir radyo ekranı "
-"var."
-
 #. placeholders: {engine}
 msgid ""
 "{engine} starts the engine, and stops it only below 5 miles per hour."
@@ -28704,11 +28681,6 @@ msgstr ""
 "mola yeri satırında ayrıntıları açar. Escape geri döner."
 
 msgid ""
-"Up and down review the lines. Enter repeats a line, or tunes a station "
-"line. Escape goes back."
-msgstr ""
-
-msgid ""
 "Up and down review the lines. Enter repeats a line. Escape goes back."
 msgstr ""
 "Yukarı ve aşağı satırlarda gezinir. Enter bir satırı tekrarlar. Escape geri "
@@ -28814,179 +28786,6 @@ msgstr "Planlanan molayı iptal et: {planned}"
 
 msgid "Forgets the planned stop."
 msgstr "Planlanan molayı unutur."
-
-msgid "The engine is off. The radio has no power."
-msgstr "Motor kapalı. Radyoda güç yok."
-
-msgid "Streamer-safe mode on, with Music source set to Synthesized."
-msgstr ""
-"Yayıncı için güvenli mod açık, Müzik kaynağı Sentezlenmiş olarak ayarlı."
-
-msgid ""
-"Streamer-safe mode keeps the radio on the Roadhouse, and tuning does "
-"nothing. Radio on or off and Radio volume are under Radio and CB on the "
-"three-finger tap list."
-msgstr ""
-
-#. one sentence of a longer line
-msgid ""
-"Shift with Page Down and Page Up, or semicolon and apostrophe, changes "
-"radio volume by 10 percent."
-msgstr ""
-"Shift ile Page Down ve Page Up, ya da noktalı virgül ve kesme işareti, "
-"radyo sesini yüzde 10 değiştirir."
-
-#. one sentence of a longer line
-msgid "Station keys do nothing."
-msgstr "İstasyon tuşları bir şey yapmaz."
-
-#. one sentence of a longer line
-msgid "Streamer-safe mode keeps the radio on the Roadhouse."
-msgstr "Yayıncı için güvenli mod radyoyu Roadhouse istasyonunda tutar."
-
-#. placeholders: {spoken}
-msgid ""
-"Streamer-safe mode keeps the radio on the Roadhouse. Station keys do "
-"nothing. {spoken} turns the radio on or off. Shift with Page Down and Page "
-"Up, or semicolon and apostrophe, changes radio volume by 10 percent."
-msgstr ""
-"Yayıncı için güvenli mod radyoyu Roadhouse istasyonunda tutar. İstasyon "
-"tuşları bir şey yapmaz. {spoken} radyoyu açar ya da kapatır. Shift ile Page "
-"Down ve Page Up, ya da noktalı virgül ve kesme işareti, radyo sesini yüzde "
-"10 değiştirir."
-
-#. placeholders: {spoken}
-#. one sentence of a longer line
-msgid "{spoken} turns the radio on or off."
-msgstr "{spoken} radyoyu açar ya da kapatır."
-
-msgid ""
-"Streamer-safe mode off. Real public streams and personal playlists are on "
-"the dial."
-msgstr ""
-"Yayıncı için güvenli mod kapalı. Gerçek genel yayınlar ve kişisel çalma "
-"listeleri listede."
-
-msgid ""
-"Streamer-safe mode on. Real public streams and personal playlists are "
-"hidden."
-msgstr ""
-"Yayıncı için güvenli mod açık. Gerçek genel yayınlar ve kişisel çalma "
-"listeleri gizli."
-
-msgid "Streamer-safe mode off. Real public streams are on the dial."
-msgstr ""
-
-msgid "Streamer-safe mode on. Real public streams are hidden."
-msgstr ""
-
-msgid ""
-"Music source Synthesized: Freight Fate's own stations are off the dial."
-msgstr ""
-"Müzik kaynağı Sentezlenmiş: Freight Fate'in kendi istasyonları listede "
-"değil."
-
-#. one sentence of a longer line
-msgid "No playlists of your own yet."
-msgstr "Henüz kendi çalma listeniz yok."
-
-#. placeholders: {personal_playlists_dir}
-msgid ""
-"No playlists of your own yet. Put M3U, M3U8 or PLS playlist files in "
-"{personal_playlists_dir}."
-msgstr ""
-"Henüz kendi çalma listeniz yok. M3U, M3U8 ya da PLS çalma listesi "
-"dosyalarını şu klasöre koyun: {personal_playlists_dir}."
-
-#. placeholders: {personal_playlists_dir}
-#. one sentence of a longer line
-msgid "Put M3U, M3U8 or PLS playlist files in {personal_playlists_dir}."
-msgstr ""
-"M3U, M3U8 ya da PLS çalma listesi dosyalarını şu klasöre koyun: "
-"{personal_playlists_dir}."
-
-msgid ""
-"At the wheel, a three-finger flick left or right tunes stations. Radio "
-"category, Radio volume, favorites and radio power are under Radio and CB on "
-"the three-finger tap list."
-msgstr ""
-
-#. one sentence of a longer line
-msgid "Page Down and Page Up tune stations, or semicolon and apostrophe."
-msgstr ""
-"Page Down ve Page Up, ya da noktalı virgül ve kesme işareti, istasyon "
-"değiştirir."
-
-#. placeholders: {spoken}, {spoken2}
-msgid ""
-"Page Down and Page Up tune stations, or semicolon and apostrophe. With "
-"Control they jump categories. With Shift they change radio volume by 10 "
-"percent. {spoken} saves the station as a favorite. {spoken2} toggles the "
-"radio."
-msgstr ""
-"Page Down ve Page Up, ya da noktalı virgül ve kesme işareti, istasyon "
-"değiştirir. Control ile kategori atlarlar. Shift ile radyo sesini yüzde 10 "
-"değiştirirler. {spoken} istasyonu favori olarak kaydeder. {spoken2} radyoyu "
-"açıp kapatır."
-
-#. one sentence of a longer line
-msgid "With Control they jump categories."
-msgstr "Control ile kategori atlarlar."
-
-#. one sentence of a longer line
-msgid "With Shift they change radio volume by 10 percent."
-msgstr "Shift ile radyo sesini yüzde 10 değiştirirler."
-
-#. placeholders: {spoken2}
-#. one sentence of a longer line
-msgid "{spoken2} toggles the radio."
-msgstr "{spoken2} radyoyu açıp kapatır."
-
-#. placeholders: {spoken}
-#. one sentence of a longer line
-msgid "{spoken} saves the station as a favorite."
-msgstr "{spoken} istasyonu favori olarak kaydeder."
-
-#. placeholders: {favorite_ids}
-msgid "Favorites saved: {favorite_ids}."
-msgstr "Kayıtlı favoriler: {favorite_ids}."
-
-#. placeholders: {f}, {f2}
-msgid "Approximate truck radio position: {f}, {f2}."
-msgstr "Tır radyosunun yaklaşık konumu: {f}, {f2}."
-
-msgid "Receivable stations:"
-msgstr "Alınabilen istasyonlar:"
-
-msgid "Plus 1 more station, listed in the Radio app under Driver apps."
-msgstr ""
-"1 istasyon daha var. Şoför uygulamaları altında Radyo uygulamasında "
-"listeleniyor."
-
-#. placeholders: {n}
-msgid "Plus {n} more stations, listed in the Radio app under Driver apps."
-msgstr ""
-"{n} istasyon daha var. Şoför uygulamaları altında Radyo uygulamasında "
-"listeleniyor."
-
-msgid "Favorites saved:"
-msgstr "Kayıtlı favoriler:"
-
-msgid "favorites"
-msgstr "favoriler"
-
-msgid "Your saved stations. Enter on one tunes it."
-msgstr "Kayıtlı istasyonlarınız. Birinde Enter'a basınca o istasyona geçer."
-
-msgid "Your saved stations. Double tap one to tune it."
-msgstr ""
-"Kaydettiğiniz istasyonlar. Birini açmak için üzerine iki kez dokunun."
-
-msgid "Enter tunes this station."
-msgstr "Enter bu istasyona geçer."
-
-msgid "Double tap tunes this station."
-msgstr "Bu istasyonu açmak için iki kez dokunun."
 
 msgid "Back to the status screens."
 msgstr "Durum ekranlarına geri dön."
@@ -29511,6 +29310,59 @@ msgstr "{display_name} istasyonunu favorilerden çıkar"
 msgid "Save {display_name} to favorites"
 msgstr "{display_name} istasyonunu favorilere kaydet"
 
+msgid ""
+"Streamer-safe mode on, with Music source set to Synthesized. The radio "
+"stays on the Roadhouse."
+msgstr ""
+
+msgid ""
+"Streamer-safe mode off. Real public streams and personal playlists are on "
+"the dial."
+msgstr ""
+"Yayıncı için güvenli mod kapalı. Gerçek genel yayınlar ve kişisel çalma "
+"listeleri listede."
+
+msgid ""
+"Streamer-safe mode on. Real public streams and personal playlists are "
+"hidden."
+msgstr ""
+"Yayıncı için güvenli mod açık. Gerçek genel yayınlar ve kişisel çalma "
+"listeleri gizli."
+
+msgid "Streamer-safe mode off. Real public streams are on the dial."
+msgstr ""
+
+msgid "Streamer-safe mode on. Real public streams are hidden."
+msgstr ""
+
+msgid ""
+"Music source Synthesized: Freight Fate's own stations are off the dial."
+msgstr ""
+"Müzik kaynağı Sentezlenmiş: Freight Fate'in kendi istasyonları listede "
+"değil."
+
+#. one sentence of a longer line
+msgid "No playlists of your own yet."
+msgstr "Henüz kendi çalma listeniz yok."
+
+#. placeholders: {personal_playlists_dir}
+msgid ""
+"No playlists of your own yet. Put M3U, M3U8 or PLS playlist files in "
+"{personal_playlists_dir}."
+msgstr ""
+"Henüz kendi çalma listeniz yok. M3U, M3U8 ya da PLS çalma listesi "
+"dosyalarını şu klasöre koyun: {personal_playlists_dir}."
+
+#. placeholders: {personal_playlists_dir}
+#. one sentence of a longer line
+msgid "Put M3U, M3U8 or PLS playlist files in {personal_playlists_dir}."
+msgstr ""
+"M3U, M3U8 ya da PLS çalma listesi dosyalarını şu klasöre koyun: "
+"{personal_playlists_dir}."
+
+msgid "The engine is off. The radio has no power."
+msgstr "Motor kapalı. Radyoda güç yok."
+
 msgid "Now playing on the tuned station. Enter asks again."
 msgstr "Açık istasyonda şu an çalan. Enter yeniden sorar."
 
@@ -29528,12 +29380,28 @@ msgstr "Enter radyoyu açar ya da kapatır."
 msgid "Double tap switches the radio on or off."
 msgstr "Radyoyu açmak veya kapatmak için iki kez dokunun."
 
+msgid "What is on the dial. Enter repeats it."
+msgstr ""
+
+msgid "What is on the dial. Double tap repeats it."
+msgstr ""
+
 msgid "Saves or removes the tuned station in favorites."
 msgstr "Açık istasyonu favorilere kaydeder ya da çıkarır."
 
 #. placeholders: {favorites}
 msgid "Favorites: {favorites} saved"
 msgstr "Favoriler: {favorites} kayıtlı"
+
+msgid "favorites"
+msgstr "favoriler"
+
+msgid "Your saved stations. Enter on one tunes it."
+msgstr "Kayıtlı istasyonlarınız. Birinde Enter'a basınca o istasyona geçer."
+
+msgid "Your saved stations. Double tap one to tune it."
+msgstr ""
+"Kaydettiğiniz istasyonlar. Birini açmak için üzerine iki kez dokunun."
 
 msgid "Search stations"
 msgstr "İstasyon ara"
@@ -29554,6 +29422,20 @@ msgid ""
 msgstr ""
 "Tüm istasyonlara ya da Karasal veya Web radyosu gibi bir kategoriye "
 "gözatın. Çeken istasyonlar önce listelenir."
+
+#. placeholders: {local}
+msgid "Local stations: {local}"
+msgstr ""
+
+msgid ""
+"Freight Fate stations, your playlists and favorites, and stations nearby. "
+"Enter on one tunes it."
+msgstr ""
+
+msgid ""
+"Freight Fate stations, your playlists and favorites, and stations nearby. "
+"Double tap one to tune it."
+msgstr ""
 
 #. placeholders: {in_range}
 msgid "Stations in range: {in_range}"
@@ -29589,6 +29471,9 @@ msgstr "Favori istasyonlar"
 msgid "Stations in range"
 msgstr "Çeken istasyonlar"
 
+msgid "Local stations"
+msgstr ""
+
 #. placeholders: {query}
 msgid "Stations matching {query}"
 msgstr "Aramaya uyan istasyonlar: {query}"
@@ -29613,6 +29498,16 @@ msgstr "Sonuçlar {start} ile {end} arası, toplam {hit_count}"
 #. placeholders: {display_name}
 msgid "{display_name} is out of range here."
 msgstr "{display_name} burada çekmiyor."
+
+#. placeholders: {label}, {distance_text}
+msgid "{label}, {distance_text} away"
+msgstr ""
+
+msgid "Enter tunes this station."
+msgstr "Enter bu istasyona geçer."
+
+msgid "Double tap tunes this station."
+msgstr "Bu istasyonu açmak için iki kez dokunun."
 
 #. one sentence of a longer line
 msgid "Next page."
@@ -43116,6 +43011,104 @@ msgid ""
 "Hold the left bumper for a second layer of buttons. {pad_engine} controls "
 "the engine, {pad_fuel} reads fuel, and {pad_speed_limit} reads the limit."
 msgstr ""
+
+#~ msgid ", {spoken} away"
+#~ msgstr ", uzaklık {spoken}"
+
+#~ msgid "{spoken} away"
+#~ msgstr "uzaklık {spoken}"
+
+#~ msgid ""
+#~ "{selected}{display_name}: {format}, {signal_label}{distance}. Source: "
+#~ "{source}."
+#~ msgstr ""
+#~ "{selected}{display_name}: {format}, {signal_label}{distance}. Kaynak: "
+#~ "{source}."
+
+#~ msgid "The {status} status menu has a radio screen of receivable stations."
+#~ msgstr ""
+#~ "{status} durum menüsünde alınabilen istasyonları gösteren bir radyo ekranı "
+#~ "var."
+
+#~ msgid "Streamer-safe mode on, with Music source set to Synthesized."
+#~ msgstr ""
+#~ "Yayıncı için güvenli mod açık, Müzik kaynağı Sentezlenmiş olarak ayarlı."
+
+#~ msgid ""
+#~ "Shift with Page Down and Page Up, or semicolon and apostrophe, changes "
+#~ "radio volume by 10 percent."
+#~ msgstr ""
+#~ "Shift ile Page Down ve Page Up, ya da noktalı virgül ve kesme işareti, "
+#~ "radyo sesini yüzde 10 değiştirir."
+
+#~ msgid "Station keys do nothing."
+#~ msgstr "İstasyon tuşları bir şey yapmaz."
+
+#~ msgid "Streamer-safe mode keeps the radio on the Roadhouse."
+#~ msgstr "Yayıncı için güvenli mod radyoyu Roadhouse istasyonunda tutar."
+
+#~ msgid ""
+#~ "Streamer-safe mode keeps the radio on the Roadhouse. Station keys do "
+#~ "nothing. {spoken} turns the radio on or off. Shift with Page Down and Page "
+#~ "Up, or semicolon and apostrophe, changes radio volume by 10 percent."
+#~ msgstr ""
+#~ "Yayıncı için güvenli mod radyoyu Roadhouse istasyonunda tutar. İstasyon "
+#~ "tuşları bir şey yapmaz. {spoken} radyoyu açar ya da kapatır. Shift ile Page "
+#~ "Down ve Page Up, ya da noktalı virgül ve kesme işareti, radyo sesini yüzde "
+#~ "10 değiştirir."
+
+#~ msgid "{spoken} turns the radio on or off."
+#~ msgstr "{spoken} radyoyu açar ya da kapatır."
+
+#~ msgid "Page Down and Page Up tune stations, or semicolon and apostrophe."
+#~ msgstr ""
+#~ "Page Down ve Page Up, ya da noktalı virgül ve kesme işareti, istasyon "
+#~ "değiştirir."
+
+#~ msgid ""
+#~ "Page Down and Page Up tune stations, or semicolon and apostrophe. With "
+#~ "Control they jump categories. With Shift they change radio volume by 10 "
+#~ "percent. {spoken} saves the station as a favorite. {spoken2} toggles the "
+#~ "radio."
+#~ msgstr ""
+#~ "Page Down ve Page Up, ya da noktalı virgül ve kesme işareti, istasyon "
+#~ "değiştirir. Control ile kategori atlarlar. Shift ile radyo sesini yüzde 10 "
+#~ "değiştirirler. {spoken} istasyonu favori olarak kaydeder. {spoken2} radyoyu "
+#~ "açıp kapatır."
+
+#~ msgid "With Control they jump categories."
+#~ msgstr "Control ile kategori atlarlar."
+
+#~ msgid "With Shift they change radio volume by 10 percent."
+#~ msgstr "Shift ile radyo sesini yüzde 10 değiştirirler."
+
+#~ msgid "{spoken2} toggles the radio."
+#~ msgstr "{spoken2} radyoyu açıp kapatır."
+
+#~ msgid "{spoken} saves the station as a favorite."
+#~ msgstr "{spoken} istasyonu favori olarak kaydeder."
+
+#~ msgid "Favorites saved: {favorite_ids}."
+#~ msgstr "Kayıtlı favoriler: {favorite_ids}."
+
+#~ msgid "Approximate truck radio position: {f}, {f2}."
+#~ msgstr "Tır radyosunun yaklaşık konumu: {f}, {f2}."
+
+#~ msgid "Receivable stations:"
+#~ msgstr "Alınabilen istasyonlar:"
+
+#~ msgid "Plus 1 more station, listed in the Radio app under Driver apps."
+#~ msgstr ""
+#~ "1 istasyon daha var. Şoför uygulamaları altında Radyo uygulamasında "
+#~ "listeleniyor."
+
+#~ msgid "Plus {n} more stations, listed in the Radio app under Driver apps."
+#~ msgstr ""
+#~ "{n} istasyon daha var. Şoför uygulamaları altında Radyo uygulamasında "
+#~ "listeleniyor."
+
+#~ msgid "Favorites saved:"
+#~ msgstr "Kayıtlı favoriler:"
 
 #~ msgid ""
 #~ "Online options are now in the Online menu on the main menu. This row opens "

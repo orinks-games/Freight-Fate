@@ -627,11 +627,13 @@ fn switching_to_synthesized_moves_a_freight_fate_station_to_the_roadhouse() {
     }
 }
 
-/// The Tab radio screen's lines over a Denver drive with the engine running.
+/// The Radio app's front page over a Denver drive with the engine running,
+/// opened the way the tablet opens it (which re-reads the Playlists folder).
 fn radio_screen_lines(app: &mut TestApp, synth_music: bool, streamer_safe: bool) -> Vec<String> {
     use crate::states_driving_menus_support as dm;
     use freight_fate::states::base::Menu;
-    use freight_fate::states::driving_menu_states::{DriveRef, DrivingStatusScreenState};
+    use freight_fate::states::driving_menu_states::DriveRef;
+    use freight_fate::states::driving_radio_app::RadioAppState;
     app.ctx.settings.synth_music = synth_music;
     app.ctx.settings.radio_streamer_safe = streamer_safe;
     let drive = dm::a_drive_between(app, "Denver", "Salt Lake City", "Radio Screen");
@@ -639,46 +641,28 @@ fn radio_screen_lines(app: &mut TestApp, synth_music: bool, streamer_safe: bool)
         d.trip.truck.start_engine();
         d.radio.enabled = true;
     });
-    let mut state = DrivingStatusScreenState::new(DriveRef::of(&drive), "radio");
-    let items = state.build_items(&mut app.ctx);
-    items
-        .iter()
-        .map(|item| item.text(&state, &app.ctx))
-        .collect()
+    let mut state = RadioAppState::new(DriveRef::of(&drive));
+    Menu::enter(&mut state, &mut app.ctx);
+    dm::labels(&state, &app.ctx)
 }
 
 #[test]
-fn the_locked_radio_screen_names_only_what_still_works() {
+fn the_locked_radio_app_says_the_radio_stays_on_the_roadhouse() {
     let mut app = TestApp::new();
     let lines = radio_screen_lines(&mut app, true, true);
-    let power = app
-        .ctx
-        .bindings
-        .spoken(freight_fate::bindings::Action::Radio);
-    let help = lines
-        .iter()
-        .find(|l| l.starts_with("Streamer-safe mode keeps the radio on the Roadhouse."))
-        .unwrap_or_else(|| panic!("no locked line: {lines:#?}"));
-    assert!(help.contains("Station keys do nothing."), "{help}");
     assert!(
-        help.contains(&format!("{power} turns the radio on or off")),
-        "{help}"
+        lines.iter().any(|l| l
+            == "Streamer-safe mode on, with Music source set to Synthesized. The radio stays \
+                on the Roadhouse."),
+        "{lines:#?}"
     );
-    assert!(help.contains("changes radio volume"), "{help}");
     for line in &lines {
-        let lower = line.to_lowercase();
-        assert!(
-            !lower.contains("tune")
-                && !lower.contains("categor")
-                && !lower.contains("favorite")
-                && !lower.contains("hidden"),
-            "{line}"
-        );
+        assert!(!line.to_lowercase().contains("hidden"), "{line}");
     }
 }
 
 #[test]
-fn the_original_radio_screen_is_unchanged() {
+fn the_original_radio_app_names_the_streamer_safe_state() {
     for (streamer_safe, safety) in [
         (
             false,
@@ -692,21 +676,12 @@ fn the_original_radio_screen_is_unchanged() {
         let mut app = TestApp::new();
         let lines = radio_screen_lines(&mut app, false, streamer_safe);
         assert!(lines.iter().any(|l| l == safety), "{lines:#?}");
-        assert!(
-            lines.iter().any(|l| l
-                == "Page Down and Page Up tune stations, or semicolon and apostrophe. With \
-                    Control they jump categories. With Shift they change radio volume by 10 \
-                    percent. O saves the station as a favorite. M toggles the radio."),
-            "{lines:#?}"
-        );
-        assert!(!lines
-            .iter()
-            .any(|l| l.contains("Streamer-safe mode keeps the radio on the Roadhouse.")));
+        assert!(!lines.iter().any(|l| l.contains("stays on the Roadhouse")));
     }
 }
 
 #[test]
-fn the_radio_screen_says_where_playlists_go_until_there_is_one() {
+fn the_radio_app_says_where_playlists_go_until_there_is_one() {
     let mut app = TestApp::new();
     let folder = ff_core::models::profile::data_dir().join(ff_core::radio::PLAYLISTS_DIR_NAME);
     let expected = format!(
@@ -737,7 +712,7 @@ const OFF_THE_DIAL: &str =
     "Music source Synthesized: Freight Fate's own stations are off the dial.";
 
 #[test]
-fn the_synthesized_radio_screen_says_why_the_stations_are_gone() {
+fn the_synthesized_radio_app_says_why_the_stations_are_gone() {
     let mut app = TestApp::new();
     let lines = radio_screen_lines(&mut app, true, false);
     let safety = lines

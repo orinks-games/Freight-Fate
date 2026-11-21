@@ -18,13 +18,13 @@
 - **The controller's second layer can move to the left bumper.** The Second layer bumper row in Controls swaps the bumpers, and prompts name the one you hold.
 - **Drive online as a guest, with no orinks.net account.** You show on the drivers board under a name orinks.net picks, like Copper Fox 12.
 - **Birds by day, insects at night and rivers under bridges now sound outside the truck.** Lower the driver window to hear them clearly.
-- **Enter on a station in the Tab radio screen tunes it.**
 - **Concrete roads now have audible seams, a two-part thump.** Bridges thump as you drive on, and long ones again as you leave.
 
 ### Changed
 
 - **Settings no longer has an Online row.** Online is on the main menu.
 - **The dispatch board lists loads in the order they were posted, not shortest first.** The recommended load now says why dispatch picked it.
+- **The Radio screen under Driving status moved into the Radio app.** Its Local stations list gives each nearby station's distance, and Enter tunes one.
 - **The Simplified Chinese translation covers the whole game again.** Lines added since the last update no longer fall back to English.
 - **On-duty time now tires you a little.** Fueling, docks, inspections and waiting at the wheel build it at a third of the driving rate.
 - **Sleep now takes off 8 points of fatigue an hour.** Ten hours clears 80, so going to bed exhausted leaves some.
