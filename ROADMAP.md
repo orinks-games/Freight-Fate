@@ -4178,6 +4178,43 @@ with everything off):
 - Three "Found along the way" items above: the keeper trailing a posted
   drop, silent damage, the rural 70 posted on a boulevard.
 
+### November 21 the co-driver past their hours (Release gate)
+
+A tester's problem report (2026-11-19, a dev snapshot, a 1,256-mile team
+load): handed the wheel with 85 minutes of his own driving left, Dan chose a
+lot 21 miles on by a flat 40-mile look that never read his hours, ran out
+five miles short, and a trooper's log check during the braking fined the
+player 400 dollars and put the load out of service for ten hours, which made
+it late. The note said "You had driven past the 11-hour driving limit". After
+the order a stale flag handed the sleeping player the wheel at 43 miles per
+hour with "Their hours are up", which the order had made untrue.
+
+Fixed 2026-11-21:
+
+- The shift is one state machine, `ff_core::sim::team_shift`, in place of
+  three flags; a reset of the co-driver's clock opens the shift again. The
+  agent server's `status` reports it with the co-driver's minutes left, and
+  `scenario` stages the co-driver's own counters.
+- One function chooses the lot that ends a shift the hours limit, for the
+  live drive and the slept-through one: only a lot the time left, less the
+  15-minute lead, reaches at the co-driver's pace. The lot is judged again
+  every frame. With five minutes left and the truck not on the lot's ramp
+  they brake to a stop on the shoulder (the stop from 75 takes 2.3 minutes
+  of clock at the Standard pacing). The co-driver map sweeps assert the
+  logbook at the wheel is never in violation while the co-driver holds it.
+- `start_at` takes `lead_mi`, and after a scenario that staged the
+  co-driver's counters it stages a team load, so the agent server can drive
+  a hand-over near the receiver.
+- Every hand-back for the hours or a break due is made stopped, at a lot or
+  on the shoulder.
+- When the hours end the shift before the player's rest is in and the
+  player's own hours reach the receiver, the co-driver hands back awake
+  instead of the player sleeping out the rest. This narrows the 2026-10-21
+  rule; Orinks can overrule it.
+- The hand-over rows give the time when the co-driver's hours end the shift
+  ("Hand the wheel to Dan for 1.2 hours and sleep"), and the Driver screen
+  gives the co-driver's rest and driving left while they are in the sleeper.
+
 ### November 20 speech on the wrong sound device (Release gate)
 
 A player's problem report (2026-11-20, a tester snapshot, Windows 11 with
@@ -4376,6 +4413,9 @@ Release gate for 1.9.7:
       service killed twice. No one has run it with a real headset on
       Windows; the owner has none to test with and merged it for players
       to confirm.
+- [x] A co-driver never drives past their hours, and hands back stopped
+      (tester problem report, 2026-11-19: a fine and a late load;
+      [November 21](#november-21-the-co-driver-past-their-hours-release-gate)).
 - [ ] SAPI and OneCore speech play on the default sound device again
       (player problem report, 2026-11-20;
       [November 20](#november-20-speech-on-the-wrong-sound-device-release-gate)).

@@ -71,6 +71,52 @@ fn parse_key(name: &str) -> Option<(Key, Option<char>)> {
     Some((key, None))
 }
 
+/// The `scenario` tool's fields: one `json!` for the whole tool list would
+/// pass the macro's recursion limit, so the co-driver's counters are added
+/// to the rest here.
+fn scenario_properties() -> Value {
+    let mut properties = json!({
+        "name": {"type": "string"},
+        "city": {"type": "string"},
+        "level": {"type": "integer"},
+        "deliveries": {"type": "integer"},
+        "money": {"type": "number"},
+        "reputation": {"type": "number"},
+        "business": {"type": "string", "enum": ["company", "leased", "independent"]},
+        "endorsements": {"type": "array", "items": {"type": "string"}},
+        "hour": {"type": "number"},
+        "fuel_pct": {"type": "number"},
+        "window": {"type": "string", "enum": ["up", "down"]},
+        "road_surface": {"type": "string", "enum": ["jointed", "smooth"]},
+        "damage_pct": {"type": "number"},
+        "tire_wear_pct": {"type": "number"},
+        "brake_wear_pct": {"type": "number"},
+        "citations": {"type": "integer"},
+        "out_of_service_events": {"type": "integer"},
+        "rested": {"type": "boolean"},
+        "first_run": {"type": "boolean"},
+        "touch_gestures": {"type": "boolean"},
+        "fatigue": {"type": "number", "description": "0 to 100; 40 worn, 60 drowsy, 80 severe"},
+        "hos_driving_min": {"type": "number"},
+        "hos_duty_min": {"type": "number"},
+        "hos_since_break_min": {"type": "number"},
+        "clear_load": {"type": "boolean"},
+        "market_seed": {"type": "integer"},
+        "board_seed": {"type": "integer"},
+        "came_from": {"type": "string"},
+        "settings": {"type": "object"},
+    });
+    for key in [
+        "co_driver_driving_min",
+        "co_driver_duty_min",
+        "co_driver_since_break_min",
+        "co_driver_rest_min",
+    ] {
+        properties[key] = json!({"type": "number"});
+    }
+    properties
+}
+
 fn tools_list() -> Value {
     let tool = |name: &str, description: &str, properties: Value, required: &[&str]| {
         json!({
@@ -211,7 +257,10 @@ fn tools_list() -> Value {
              available, used, or none with no load on) and, while the trip has \
              ended at a facility gate, gate (arriving, rolling, \
              rolling_after_creep, creeping, stopped, stopped_told, holding or \
-             open), and jake_zone (what the driver has heard about the no \
+             open), on a load with a co-driver co_driver_shift (bunk, driving, \
+             ending_rested, ending_last_lot, ending_hours_short or shoulder: where \
+             their shift stands) and co_driver_left (the driving time or duty \
+             window their own logbook has left, in minutes, or hours off), and jake_zone (what the driver has heard about the no \
              engine brake zone ahead or under the truck: untold, heads_up, \
              inside_untold or inside_told), touch_mode (menu, field, wheel or \
              practice: how a gesture is read on this screen), road_offer (what a \
@@ -262,7 +311,10 @@ fn tools_list() -> Value {
              Same seed, same road. pick chooses among multiple matches (1-based). \
              unit plants a staffed enforcement unit unit_ahead_mi up the road (default \
              3) so an encounter can be staged on purpose; the road's own seeded posts \
-             stay. Listen after staging for the truck's actual starting condition.",
+             stay. lead_mi starts the truck that many miles before the feature instead \
+             of the finder's own lead. A scenario that staged the co-driver's hours \
+             (co_driver_*) makes the staged load a team load with them aboard. Listen \
+             after staging for the truck's actual starting condition.",
             json!({
                 "feature": {"type": "string"},
                 "origin": {"type": "string", "description": "search one corridor from this city (fast and thorough)"},
@@ -272,6 +324,7 @@ fn tools_list() -> Value {
                 "unit": {"type": "string", "description": "plant a staffed enforcement unit ahead of the start: one of median_crossover, roving_patrol, work_zone_post, scale_apron_post, fixed_scale, urban_unit, cmv_unit, chain_control"},
                 "unit_ahead_mi": {"type": "number", "description": "how far up the road the planted unit sits, default 3"},
                 "hour": {"type": "number", "description": "the drive's clock at the start, 0 to 24, default 9"},
+                "lead_mi": {"type": "number", "description": "miles before the feature to start, default the finder's own"},
             }),
             &["feature"],
         ),
@@ -290,7 +343,12 @@ fn tools_list() -> Value {
              walkthrough on the next drive), touch_gestures (true opens the iPhone \
              Touch gestures settings screen over the terminal), fatigue (0 to 100, set after rested; \
              the next drive starts in that band and gives its cue), hos_driving_min, hos_duty_min and \
-             hos_since_break_min (sandbox HOS counters in game minutes), clear_load (true drops a load in \
+             hos_since_break_min (sandbox HOS counters in game minutes), \
+             co_driver_driving_min, co_driver_duty_min, co_driver_since_break_min and \
+             co_driver_rest_min (the co-driver's own logbook in game minutes, rest being \
+             their unbroken sleeper time toward 10 hours: put on the load in progress \
+             when it has a co-driver, otherwise on the next co-driver paired, so a drive \
+             can start with the co-driver short of hours), clear_load (true drops a load in \
              progress first), market_seed and board_seed (the dispatch board rolls \
              from them), came_from (the city the truck delivered from to get here, \
              so the next board is shaped by where it came from), settings (an \
@@ -301,37 +359,7 @@ fn tools_list() -> Value {
              pavement layer reads), and name (the career created when none is \
              loaded; default Playtest). Nothing is refused for being unreasonable: this is the \
              audited sandbox. Listen afterwards for the terminal.",
-            json!({
-                "name": {"type": "string"},
-                "city": {"type": "string"},
-                "level": {"type": "integer"},
-                "deliveries": {"type": "integer"},
-                "money": {"type": "number"},
-                "reputation": {"type": "number"},
-                "business": {"type": "string", "enum": ["company", "leased", "independent"]},
-                "endorsements": {"type": "array", "items": {"type": "string"}},
-                "hour": {"type": "number"},
-                "fuel_pct": {"type": "number"},
-                "window": {"type": "string", "enum": ["up", "down"]},
-                "road_surface": {"type": "string", "enum": ["jointed", "smooth"]},
-                "damage_pct": {"type": "number"},
-                "tire_wear_pct": {"type": "number"},
-                "brake_wear_pct": {"type": "number"},
-                "citations": {"type": "integer"},
-                "out_of_service_events": {"type": "integer"},
-                "rested": {"type": "boolean"},
-                "first_run": {"type": "boolean"},
-                "touch_gestures": {"type": "boolean"},
-                "fatigue": {"type": "number", "description": "0 to 100; 40 worn, 60 drowsy, 80 severe"},
-                "hos_driving_min": {"type": "number"},
-                "hos_duty_min": {"type": "number"},
-                "hos_since_break_min": {"type": "number"},
-                "clear_load": {"type": "boolean"},
-                "market_seed": {"type": "integer"},
-                "board_seed": {"type": "integer"},
-                "came_from": {"type": "string"},
-                "settings": {"type": "object"},
-            }),
+            scenario_properties(),
             &[],
         ),
         tool(
@@ -755,8 +783,15 @@ pub fn build_command(name: &str, args: &Map<String, Value>) -> Result<Command, S
                 }
                 hour => hour,
             };
+            let lead = match args.get("lead_mi").and_then(Value::as_f64) {
+                Some(mi) if mi < 0.0 => return Err("lead_mi must not be negative".to_string()),
+                lead => lead,
+            };
             let (hit, mut opts, found, picked) =
                 discover(&feature, origin, destination, seed, pick, unit)?;
+            if lead.is_some() {
+                opts.lead = lead;
+            }
             // The drive's clock at the start: 9 AM unless asked (the outside
             // beds, night driving).
             if hour.is_some() {

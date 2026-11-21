@@ -11701,6 +11701,9 @@ msgstr "三分之一满"
 msgid "lightly loaded"
 msgstr "轻载"
 
+msgid "bunk"
+msgstr ""
+
 msgid "eastern"
 msgstr "eastern"
 
@@ -27648,6 +27651,36 @@ msgstr "挥手让卡车通过"
 msgid "waves you through"
 msgstr "挥手让你通过"
 
+msgid "You had driven past"
+msgstr ""
+
+#. placeholders: {name}
+msgid "{name} had driven past"
+msgstr ""
+
+msgid "you had driven past"
+msgstr ""
+
+msgid "Your 14-hour duty window"
+msgstr ""
+
+#. placeholders: {name}
+msgid "{name}'s 14-hour duty window"
+msgstr ""
+
+msgid "your 14-hour duty window"
+msgstr ""
+
+msgid "You were past the 30-minute"
+msgstr ""
+
+#. placeholders: {name}
+msgid "{name} was past the 30-minute"
+msgstr ""
+
+msgid "you were past the 30-minute"
+msgstr ""
+
 msgid "under"
 msgstr "低于"
 
@@ -29501,17 +29534,54 @@ msgstr "搭档的工时用完了。"
 
 #. placeholders: {name}
 #. one sentence of a longer line
-msgid "{name} needs you back at the wheel."
-msgstr "{name}需要你回来驾驶。"
+msgid "{name} has parked and hands you the wheel."
+msgstr "{name}已停车，把方向盘交给你。"
 
 #. placeholders: {name}
-msgid "{name} needs you back at the wheel. Their hours are up."
-msgstr "{name}需要你回来驾驶。搭档的工时用完了。"
+msgid "{name} has parked and hands you the wheel. Their hours are up."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Their hours are up, and yours reach the receiver."
+msgstr ""
+
+#. placeholders: {name}
+msgid ""
+"{name} has parked and hands you the wheel. Their hours are up, and yours "
+"reach the receiver."
+msgstr ""
 
 #. placeholders: {name}
 #. one sentence of a longer line
-msgid "{name} has parked and hands you the wheel."
-msgstr "{name}已停车，把方向盘交给你。"
+msgid ""
+"{name} stopped on the shoulder with no lot in reach and hands you the wheel."
+msgstr ""
+
+#. placeholders: {name}
+msgid ""
+"{name} stopped on the shoulder with no lot in reach and hands you the "
+"wheel. Their hours are up."
+msgstr ""
+
+#. placeholders: {name}
+msgid ""
+"{name} stopped on the shoulder with no lot in reach and hands you the "
+"wheel. Their hours are up, and yours reach the receiver."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Their break is due."
+msgstr "搭档该中途休息了。"
+
+#. placeholders: {name}
+#. one sentence of a longer line
+msgid "{name} stopped on the shoulder and hands you the wheel."
+msgstr ""
+
+#. placeholders: {name}
+msgid ""
+"{name} stopped on the shoulder and hands you the wheel. Their break is due."
+msgstr ""
 
 #. placeholders: {name}
 msgid "{name} has parked and hands you the wheel. Your 10-hour rest is in."
@@ -29602,14 +29672,6 @@ msgid "{name} needs you. There is not enough money for fuel."
 msgstr "{name}需要你。钱不够加油。"
 
 #. one sentence of a longer line
-msgid "Their break is due."
-msgstr "搭档该中途休息了。"
-
-#. placeholders: {name}
-msgid "{name} needs you back at the wheel. Their break is due."
-msgstr "{name}需要你回来驾驶。搭档该中途休息了。"
-
-#. one sentence of a longer line
 msgid "A trooper has the truck stopped."
 msgstr "巡警拦停了卡车。"
 
@@ -29682,16 +29744,46 @@ msgstr "{name}驾驶的里程，你拿一半报酬。"
 msgid "While {name} drives, you are logged in the sleeper berth."
 msgstr "{name}驾驶时，你的工时记为卧铺休息。"
 
-#. placeholders: {back}, {pay}
+#. placeholders: {pay}
 #. one sentence of a longer line
-msgid "{back} {pay} Those miles earn you half the experience."
-msgstr "{back} {pay} 这些里程只给你一半经验。"
+msgid "{pay} Those miles earn you half the experience."
+msgstr ""
 
-#. placeholders: {back}, {pay}, {name}
+#. placeholders: {pay}, {name}
 msgid ""
-"{back} {pay} Those miles earn you half the experience. While {name} drives, "
-"you are logged in the sleeper berth."
-msgstr "{back} {pay} 这些里程只给你一半经验。{name}驾驶时，你在日志上记为卧铺休息。"
+"{pay} Those miles earn you half the experience. While {name} drives, you "
+"are logged in the sleeper berth."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Your own hours reach the receiver from there."
+msgstr ""
+
+#. placeholders: {name}, {left}
+#. one sentence of a longer line
+msgid ""
+"{name} has {left} of driving left, then parks and hands you the wheel."
+msgstr ""
+
+#. placeholders: {name}, {left}
+msgid ""
+"{name} has {left} of driving left, then parks and hands you the wheel. Your "
+"own hours reach the receiver from there."
+msgstr ""
+
+#. placeholders: {name}, {left}
+#. one sentence of a longer line
+msgid ""
+"{name} has {left} of driving left and no truck lot in reach, so they stop "
+"on the shoulder and hand you the wheel."
+msgstr ""
+
+#. placeholders: {name}, {left}
+msgid ""
+"{name} has {left} of driving left and no truck lot in reach, so they stop "
+"on the shoulder and hand you the wheel. Your own hours reach the receiver "
+"from there."
+msgstr ""
 
 #. placeholders: {name}, {left}
 msgid ""
@@ -29763,6 +29855,14 @@ msgstr " 你的10小时休息重新计时。"
 msgid "Take the wheel back"
 msgstr "接回方向盘"
 
+#. placeholders: {name}, {time}
+msgid "Hand the wheel to {name} for {time} and ride along"
+msgstr ""
+
+#. placeholders: {name}, {time}
+msgid "Hand the wheel to {name} for {time} and sleep"
+msgstr ""
+
 #. placeholders: {name}
 msgid "Hand the wheel to {name} and ride along"
 msgstr "把方向盘交给{name}，随车休息"
@@ -29811,11 +29911,8 @@ msgstr "{name}撞上{animal}后继续行驶。损伤{damage}%。"
 msgid "Refuel"
 msgstr "加油"
 
-msgid "last lot"
-msgstr "最后一个停车场"
-
-msgid "shift"
-msgstr "班次"
+msgid "shoulder break"
+msgstr ""
 
 msgid "stalled"
 msgstr "熄火"
@@ -29874,10 +29971,6 @@ msgstr "{name}在{duration_text}后就需要你回来，那时你还没休息完
 msgid "Co-driver: {name}, driving"
 msgstr "搭档司机：{name}，驾驶中"
 
-#. placeholders: {name}
-msgid "Co-driver: {name}, in the sleeper"
-msgstr "搭档司机：{name}，在卧铺"
-
 #. placeholders: {name}, {bio}
 msgid "About {name}: {bio}"
 msgstr "关于{name}：{bio}"
@@ -29885,6 +29978,35 @@ msgstr "关于{name}：{bio}"
 #. placeholders: {join}
 msgid "Last shift: {join}"
 msgstr "上一班：{join}"
+
+#. placeholders: {name}
+msgid "Co-driver: {name}, in the sleeper"
+msgstr "搭档司机：{name}，在卧铺"
+
+#. placeholders: {name}
+msgid "Co-driver: {name}, in the sleeper, rested."
+msgstr ""
+
+#. placeholders: {name}
+#. one sentence of a longer line
+msgid "Co-driver: {name}, in the sleeper."
+msgstr ""
+
+#. placeholders: {name}, {duration_text}, {duration_text2}
+msgid ""
+"Co-driver: {name}, in the sleeper. Rest: {duration_text} of 10 hours. "
+"{duration_text2} of driving left."
+msgstr ""
+
+#. placeholders: {duration_text}
+#. one sentence of a longer line
+msgid "Rest: {duration_text} of 10 hours."
+msgstr ""
+
+#. placeholders: {duration_text2}
+#. one sentence of a longer line
+msgid "{duration_text2} of driving left."
+msgstr ""
 
 #. placeholders: {name}, {trim_end_matches}
 msgid "ELD, {name}: {trim_end_matches}"
@@ -29906,6 +30028,21 @@ msgstr "这趟货{name}开了{miles}：{share}为{grouped}美元，这些里程�
 #. placeholders: {name}, {f}
 msgid "Team load: {name} drove {f} of the miles"
 msgstr "双人任务：{name}驾驶了{f}的里程"
+
+msgid "hours up, yours reach"
+msgstr ""
+
+msgid "last lot"
+msgstr "最后一个停车场"
+
+msgid "hours up"
+msgstr ""
+
+msgid "shoulder hours"
+msgstr ""
+
+msgid "shoulder hours, yours reach"
+msgstr ""
 
 #. placeholders: {name}
 msgid "{name} took a 30-minute break on the shoulder."
@@ -38893,6 +39030,26 @@ msgid ""
 "Hold the left bumper for a second layer of buttons. {pad_engine} controls "
 "the engine, {pad_fuel} reads fuel, and {pad_speed_limit} reads the limit."
 msgstr ""
+
+#~ msgid "{name} needs you back at the wheel."
+#~ msgstr "{name}需要你回来驾驶。"
+
+#~ msgid "{name} needs you back at the wheel. Their hours are up."
+#~ msgstr "{name}需要你回来驾驶。搭档的工时用完了。"
+
+#~ msgid "{name} needs you back at the wheel. Their break is due."
+#~ msgstr "{name}需要你回来驾驶。搭档该中途休息了。"
+
+#~ msgid "{back} {pay} Those miles earn you half the experience."
+#~ msgstr "{back} {pay} 这些里程只给你一半经验。"
+
+#~ msgid ""
+#~ "{back} {pay} Those miles earn you half the experience. While {name} drives, "
+#~ "you are logged in the sleeper berth."
+#~ msgstr "{back} {pay} 这些里程只给你一半经验。{name}驾驶时，你在日志上记为卧铺休息。"
+
+#~ msgid "shift"
+#~ msgstr "班次"
 
 #~ msgid ""
 #~ "freightfate -- Freight Fate\n"

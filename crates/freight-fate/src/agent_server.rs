@@ -263,9 +263,14 @@ fn fatigue_state_line(o: &crate::app::DrivingObservation, mode: crate::touch::To
     let gate = o
         .gate
         .map_or(String::new(), |gate| format!("; gate {}", gate.key()));
+    // On a load with a co-driver: their shift and their minutes left.
+    let co_driver = o.co_driver.map_or(String::new(), |(shift, left)| {
+        let left = left.map_or("hours off".to_string(), |min| format!("{min:.0} min"));
+        format!("; co_driver_shift {}; co_driver_left {left}", shift.key())
+    });
     format!(
         "STATE: alertness {}; nod {} ({timer:.2} {unit}); nod_misses {}; lift_owed {lift}; \
-         rest_call {rest_call}; runaway {}{gate}; jake_zone {}; touch_mode {}; road_offer {}; \
+         rest_call {rest_call}; runaway {}{gate}{co_driver}; jake_zone {}; touch_mode {}; road_offer {}; \
          touch_clutch {}; window {}; outside {} ({}, {}); water {}; road_surface {}, {}; structure {}.",
         o.alertness.key(),
         o.nod.key(),
