@@ -16,7 +16,7 @@ msgid "Some badges stay secret until you earn them. Keep driving."
 msgstr "有些徽章在你获得之前会保密。继续开车。"
 
 msgid "road"
-msgstr "road"
+msgstr "道路"
 
 msgid "Out on the Road"
 msgstr "在路上"
@@ -32,7 +32,7 @@ msgid ""
 msgstr "中途休息、检查、车流，以及让司机守规矩的各种规定。"
 
 msgid "career"
-msgstr "career"
+msgstr "职业生涯"
 
 msgid "Career and Rank"
 msgstr "职业与职级"
@@ -54,7 +54,7 @@ msgid "Rain, snow, fog, and the seasons while you kept driving."
 msgstr "雨、雪、雾，还有你一路开过的季节。"
 
 msgid "places"
-msgstr "places"
+msgstr "地点"
 
 msgid "Places on the Map"
 msgstr "地图上的地方"
@@ -63,7 +63,7 @@ msgid "Cities, states, and regions you hauled into."
 msgstr "你拉货去过的城市、州和地区。"
 
 msgid "hidden"
-msgstr "hidden"
+msgstr "隐藏"
 
 msgid "Deep Cuts"
 msgstr "冷门珍藏"
@@ -292,7 +292,7 @@ msgid "James Taylor - Traffic Jam"
 msgstr "James Taylor - 堵车"
 
 msgid "inspection"
-msgstr "inspection"
+msgstr "检查"
 
 msgid "Smokey at the Scale"
 msgstr "称重站的警察"
@@ -1949,9 +1949,8 @@ msgid ""
 "public brand service listings (Love's/Speedco tire care, TravelCenters of "
 "America truck service, Pilot Flying J shower network)."
 msgstr ""
-"Brand service identity derived at runtime from the stop name; grounded in "
-"public brand service listings (Love's/Speedco tire care, TravelCenters of "
-"America truck service, Pilot Flying J shower network)."
+"品牌服务类型在运行时根据停靠点名称推断；依据各品牌公开的服务列表（Love's 和 Speedco 的轮胎保养、TravelCenters of "
+"America 的卡车维修、Pilot Flying J 的淋浴网络）。"
 
 msgid "tire care and quick lube"
 msgstr "轮胎保养和快速换油"
@@ -2115,10 +2114,10 @@ msgid ". No big rigs allowed, so you can stop here only without a trailer"
 msgstr "。这里禁止大型卡车进入，所以只有不带挂车才能在这里停车"
 
 msgid "baked bytes"
-msgstr "baked bytes"
+msgstr "烘焙字节"
 
 msgid "json bytes"
-msgstr "json bytes"
+msgstr "JSON 字节"
 
 msgid "ratio"
 msgstr "ratio"
@@ -2226,9 +2225,7 @@ msgstr "corridor"
 msgid ""
 "Original parody of a well-known Texas travel-center chain that bans big "
 "rigs; names and products are invented to keep the joke and drop the mark."
-msgstr ""
-"Original parody of a well-known Texas travel-center chain that bans big "
-"rigs; names and products are invented to keep the joke and drop the mark."
+msgstr "原创恶搞，取材于一家禁止大型卡车进入的知名得克萨斯旅行中心连锁店；名称和商品均为虚构，保留笑点、去掉商标。"
 
 msgid ""
 "The sign over the entrance is not subtle: no eighteen-wheelers. Big Buck's "
@@ -2337,9 +2334,7 @@ msgstr "一件印着“我在Big Buck's活下来了”的纪念T恤"
 msgid ""
 "Original parody billboard copy evoking real interstate roadside culture; "
 "real attraction names used nominatively, ad text invented."
-msgstr ""
-"Original parody billboard copy evoking real interstate roadside culture; "
-"real attraction names used nominatively, ad text invented."
+msgstr "原创恶搞广告牌文案，再现真实州际公路沿途文化；真实景点名称仅作指称使用，广告文字为虚构。"
 
 msgid "Did you eat today? Thank a trucker."
 msgstr "你今天吃饭了吗？谢谢卡车司机吧。"
@@ -3910,9 +3905,8 @@ msgid ""
 "read: above the {f} percent ceiling for {road_class} in {terrain} terrain "
 "(freight_fate.data.grades)."
 msgstr ""
-" Slope clamped at load from {signed} to {signed2} percent -- derived, not "
-"read: above the {f} percent ceiling for {road_class} in {terrain} terrain "
-"(freight_fate.data.grades)."
+" 加载时将坡度从 {signed} 限制为 {signed2} 百分比，属推算值而非读取值：超过了 {terrain} 地形中 "
+"{road_class} 的 {f} 百分比上限（freight_fate.data.grades）。"
 
 #. placeholders: {signed}, {f}, {road_class}
 msgid ""
@@ -3924,13 +3918,10 @@ msgid ""
 "Table 8-1), so this is a structure or building the elevation surface read, "
 "not the road (freight_fate.data.grades)."
 msgstr ""
-" Slope rejected at load, assumed level, not read: {signed} percent on "
-"ground both FHWA HPMS and the profile's own label class as level, above the "
-"{f} percent ceiling for {road_class} there. Level terrain holds short "
-"grades of no more than 1 to 2 percent (HPMS Field Manual, Terrain_Type) and "
-"freeways are designed to at most 3 to 4 percent on it (AASHTO Green Book "
-"Table 8-1), so this is a structure or building the elevation surface read, "
-"not the road (freight_fate.data.grades)."
+" 加载时拒绝该坡度，假定为平地，并非读取值：FHWA HPMS 和该剖面自身的标签都将此处地面归为平地，而坡度为 {signed} 百分比，超过了此处 "
+"{road_class} 的 {f} 百分比上限。平坦地形上的短坡不超过 1 到 2 百分比（HPMS Field "
+"Manual，Terrain_Type），高速公路在其上的设计坡度最多为 3 到 4 百分比（AASHTO Green Book Table "
+"8-1），因此这是高程表面读到的构筑物或建筑，而不是道路（freight_fate.data.grades）。"
 
 #. one sentence of a longer line
 msgid ""
@@ -3939,10 +3930,9 @@ msgid ""
 "on it (AASHTO Green Book Table 8-1), so this is a structure or building the "
 "elevation surface read, not the road (freight_fate.data.grades)."
 msgstr ""
-"Level terrain holds short grades of no more than 1 to 2 percent (HPMS Field "
-"Manual, Terrain_Type) and freeways are designed to at most 3 to 4 percent "
-"on it (AASHTO Green Book Table 8-1), so this is a structure or building the "
-"elevation surface read, not the road (freight_fate.data.grades)."
+"平坦地形上的短坡不超过 1 到 2 百分比（HPMS Field Manual，Terrain_Type），高速公路在其上的设计坡度最多为 3 到 4 "
+"百分比（AASHTO Green Book Table "
+"8-1），因此这是高程表面读到的构筑物或建筑，而不是道路（freight_fate.data.grades）。"
 
 #. placeholders: {signed}, {f}, {road_class}
 #. one sentence of a longer line
@@ -3951,9 +3941,8 @@ msgid ""
 "both FHWA HPMS and the profile's own label class as level, above the {f} "
 "percent ceiling for {road_class} there."
 msgstr ""
-"Slope rejected at load, assumed level, not read: {signed} percent on ground "
-"both FHWA HPMS and the profile's own label class as level, above the {f} "
-"percent ceiling for {road_class} there."
+"加载时拒绝该坡度，假定为平地，并非读取值：FHWA HPMS 和该剖面自身的标签都将此处地面归为平地，而坡度为 {signed} 百分比，超过了此处 "
+"{road_class} 的 {f} 百分比上限。"
 
 msgid "unpaved"
 msgstr "未铺装"
@@ -4065,59 +4054,57 @@ msgid "california"
 msgstr "california"
 
 msgid "the Northeast"
-msgstr "the Northeast"
+msgstr "东北部"
 
 msgid "Appalachia"
-msgstr "Appalachia"
+msgstr "阿巴拉契亚"
 
 msgid "the Great Lakes"
-msgstr "the Great Lakes"
+msgstr "五大湖地区"
 
 msgid "the Upper Midwest"
-msgstr "the Upper Midwest"
+msgstr "中西部北部"
 
 msgid "the Corn Belt"
-msgstr "the Corn Belt"
+msgstr "玉米带"
 
 msgid "the Heartland"
-msgstr "the Heartland"
+msgstr "中部腹地"
 
 msgid "the Southern Plains"
-msgstr "the Southern Plains"
+msgstr "南部平原"
 
 msgid "the Mid-South"
-msgstr "the Mid-South"
+msgstr "中南部"
 
 msgid "the Atlantic Southeast"
-msgstr "the Atlantic Southeast"
+msgstr "大西洋沿岸东南部"
 
 msgid "the Gulf Coast"
-msgstr "the Gulf Coast"
+msgstr "墨西哥湾沿岸"
 
 msgid "Florida"
 msgstr "Florida"
 
 msgid "the Rockies"
-msgstr "the Rockies"
+msgstr "落基山脉"
 
 msgid "the Great Basin"
-msgstr "the Great Basin"
+msgstr "大盆地"
 
 msgid "the Desert Southwest"
-msgstr "the Desert Southwest"
+msgstr "西南部沙漠"
 
 msgid "California"
 msgstr "California"
 
 msgid "the Pacific Northwest"
-msgstr "the Pacific Northwest"
+msgstr "太平洋西北部"
 
 msgid ""
 "Original welcome-sign copy pairing each state's well-known nickname with a "
 "widely-documented fact or landmark; roadside register, facts not invented."
-msgstr ""
-"Original welcome-sign copy pairing each state's well-known nickname with a "
-"widely-documented fact or landmark; roadside register, facts not invented."
+msgstr "原创州界欢迎牌文案，将各州的知名别称与有据可查的事实或地标搭配；采用路边标牌的语气，事实均非虚构。"
 
 msgid "Alabama"
 msgstr "Alabama"
@@ -4507,7 +4494,7 @@ msgid ""
 msgstr "欢迎来到Wyoming，平等之州，第一个让女性投票的州，Old Faithful的家乡，还有大片空旷无人的土地。"
 
 msgid "Opposite-direction copy"
-msgstr "Opposite-direction copy"
+msgstr "反方向文案"
 
 msgid "travel"
 msgstr "travel"
@@ -4605,7 +4592,7 @@ msgstr "{p}中{state}的rule_type未知：{py_repr_str}"
 
 #. placeholders: {cities}, {legs}
 msgid "World({cities} cities, {legs} legs)"
-msgstr "World({cities} cities, {legs} legs)"
+msgstr "World（{cities} 座城市，{legs} 个路段）"
 
 #. placeholders: {leg_from}
 msgid "Unknown city: {leg_from}"
@@ -4840,20 +4827,17 @@ msgstr "ezpass"
 msgid ""
 "Representative city service POI derived from the metro freight market and "
 "checked-in facility taxonomy."
-msgstr ""
-"Representative city service POI derived from the metro freight market and "
-"checked-in facility taxonomy."
+msgstr "代表性的城市服务地点，根据都市区货运市场和已登记的设施分类推算。"
 
 msgid ""
 "Representative terminal garage service POI derived from the home terminal."
-msgstr ""
-"Representative terminal garage service POI derived from the home terminal."
+msgstr "代表性的基地车库服务地点，根据基地推算。"
 
 msgid "garage"
 msgstr "维修厂"
 
 msgid "Representative truck dealer service POI for the metro service area."
-msgstr "Representative truck dealer service POI for the metro service area."
+msgstr "都市服务区内代表性的卡车经销商服务地点。"
 
 msgid "freight market office"
 msgstr "货运市场办公室"
@@ -5089,152 +5073,116 @@ msgstr "谷物"
 msgid ""
 "Representative air-cargo facility; guided by FAF modal and commodity "
 "framing."
-msgstr ""
-"Representative air-cargo facility; guided by FAF modal and commodity "
-"framing."
+msgstr "代表性的航空货运设施；参照 FAF 的运输方式和货物类别框架。"
 
 msgid ""
 "Representative automotive facility; guided by FAF commodity and "
 "metro-market framing."
-msgstr ""
-"Representative automotive facility; guided by FAF commodity and "
-"metro-market framing."
+msgstr "代表性的汽车设施；参照 FAF 的货物类别和都市市场框架。"
 
 msgid ""
 "Representative chemical or petroleum terminal; guided by FAF commodity "
 "framing."
-msgstr ""
-"Representative chemical or petroleum terminal; guided by FAF commodity "
-"framing."
+msgstr "代表性的化工或石油码头；参照 FAF 的货物类别框架。"
 
 msgid ""
 "Representative cold-storage facility; guided by FAF food flows and USDA "
 "refrigerated transport context."
-msgstr ""
-"Representative cold-storage facility; guided by FAF food flows and USDA "
-"refrigerated transport context."
+msgstr "代表性的冷库设施；参照 FAF 的食品流向和 USDA 冷藏运输背景。"
 
 msgid "Representative company terminal or yard for the metro service area."
-msgstr "Representative company terminal or yard for the metro service area."
+msgstr "都市服务区内代表性的公司场站或堆场。"
 
 msgid ""
 "Representative construction materials yard; guided by FAF "
 "construction-sector freight framing."
-msgstr ""
-"Representative construction materials yard; guided by FAF "
-"construction-sector freight framing."
+msgstr "代表性的建材堆场；参照 FAF 建筑行业的货运框架。"
 
 msgid ""
 "Representative cross-dock facility; guided by FAF metro logistics and "
 "border/gateway flows."
-msgstr ""
-"Representative cross-dock facility; guided by FAF metro logistics and "
-"border/gateway flows."
+msgstr "代表性的越库中转设施；参照 FAF 的都市物流以及边境和门户流向。"
 
 msgid ""
 "Curated representative distribution facility in the metro freight market."
-msgstr ""
-"Curated representative distribution facility in the metro freight market."
+msgstr "都市货运市场中精选的代表性配送设施。"
 
 msgid ""
 "Representative dry warehouse; guided by FAF metro-market freight flows."
-msgstr ""
-"Representative dry warehouse; guided by FAF metro-market freight flows."
+msgstr "代表性的普通仓库；参照 FAF 都市市场的货运流向。"
 
 msgid ""
 "Representative farm elevator or ag terminal; guided by USDA grain truck "
 "indicators and FAF agriculture flows."
-msgstr ""
-"Representative farm elevator or ag terminal; guided by USDA grain truck "
-"indicators and FAF agriculture flows."
+msgstr "代表性的粮食升降仓或农产品场站；参照 USDA 粮食卡车指标和 FAF 农业流向。"
 
 msgid "Curated representative food terminal in the metro freight market."
-msgstr "Curated representative food terminal in the metro freight market."
+msgstr "都市货运市场中精选的代表性食品场站。"
 
 msgid ""
 "Representative food processor; guided by FAF food flows and USDA "
 "agricultural transport context."
-msgstr ""
-"Representative food processor; guided by FAF food flows and USDA "
-"agricultural transport context."
+msgstr "代表性的食品加工厂；参照 FAF 的食品流向和 USDA 农产品运输背景。"
 
 msgid ""
 "Representative grocery and retail DC; guided by FAF commodity and "
 "metro-market framing."
-msgstr ""
-"Representative grocery and retail DC; guided by FAF commodity and "
-"metro-market framing."
+msgstr "代表性的食品杂货和零售配送中心；参照 FAF 的货物类别和都市市场框架。"
 
 msgid ""
 "Curated representative industrial facility in the metro freight market."
-msgstr ""
-"Curated representative industrial facility in the metro freight market."
+msgstr "都市货运市场中精选的代表性工业设施。"
 
 msgid ""
 "Curated representative intermodal facility in the metro freight market."
-msgstr ""
-"Curated representative intermodal facility in the metro freight market."
+msgstr "都市货运市场中精选的代表性多式联运设施。"
 
 msgid ""
 "Representative rail/intermodal ramp; guided by FAF all-mode freight flow "
 "framing."
-msgstr ""
-"Representative rail/intermodal ramp; guided by FAF all-mode freight flow "
-"framing."
+msgstr "代表性的铁路或多式联运坡道；参照 FAF 全运输方式货运流向框架。"
 
 msgid ""
 "Representative lumber or paper facility; guided by FAF commodity framing."
-msgstr ""
-"Representative lumber or paper facility; guided by FAF commodity framing."
+msgstr "代表性的木材或造纸设施；参照 FAF 的货物类别框架。"
 
 msgid ""
 "Curated representative manufacturing facility in the metro freight market."
-msgstr ""
-"Curated representative manufacturing facility in the metro freight market."
+msgstr "都市货运市场中精选的代表性制造设施。"
 
 msgid ""
 "Representative manufacturing plant; guided by FAF manufacturing-sector "
 "freight framing."
-msgstr ""
-"Representative manufacturing plant; guided by FAF manufacturing-sector "
-"freight framing."
+msgstr "代表性的制造工厂；参照 FAF 制造行业的货运框架。"
 
 msgid "Legacy bare-city load fallback for save compatibility."
-msgstr "Legacy bare-city load fallback for save compatibility."
+msgstr "为兼容旧存档而保留的仅含城市的旧版货物后备数据。"
 
 msgid ""
 "Representative mine or quarry; guided by FAF extraction-sector freight "
 "framing."
-msgstr ""
-"Representative mine or quarry; guided by FAF extraction-sector freight "
-"framing."
+msgstr "代表性的矿山或采石场；参照 FAF 采掘行业的货运框架。"
 
 msgid ""
 "Representative parcel hub; guided by metro logistics and air/intermodal "
 "freight patterns."
-msgstr ""
-"Representative parcel hub; guided by metro logistics and air/intermodal "
-"freight patterns."
+msgstr "代表性的包裹枢纽；参照都市物流以及航空和多式联运货运模式。"
 
 msgid "Curated representative port facility in the metro freight market."
-msgstr "Curated representative port facility in the metro freight market."
+msgstr "都市货运市场中精选的代表性港口设施。"
 
 msgid ""
 "Representative port terminal; guided by MARAD and BTS port performance "
 "datasets."
-msgstr ""
-"Representative port terminal; guided by MARAD and BTS port performance "
-"datasets."
+msgstr "代表性的港口码头；参照 MARAD 和 BTS 的港口绩效数据集。"
 
 msgid "Curated representative rail facility in the metro freight market."
-msgstr "Curated representative rail facility in the metro freight market."
+msgstr "都市货运市场中精选的代表性铁路设施。"
 
 msgid ""
 "Curated representative retail distribution facility in the metro freight "
 "market."
-msgstr ""
-"Curated representative retail distribution facility in the metro freight "
-"market."
+msgstr "都市货运市场中精选的代表性零售配送设施。"
 
 msgid ""
 "Curated shopping mall that receives store and restaurant freight at its "
@@ -5244,16 +5192,13 @@ msgstr "选定的购物中心，在后勤装卸台接收商店和餐厅的货物
 msgid ""
 "Representative steel or industrial facility; guided by FAF commodity "
 "framing."
-msgstr ""
-"Representative steel or industrial facility; guided by FAF commodity "
-"framing."
+msgstr "代表性的钢铁或工业设施；参照 FAF 的货物类别框架。"
 
 msgid "Curated representative freight terminal in the metro freight market."
-msgstr ""
-"Curated representative freight terminal in the metro freight market."
+msgstr "都市货运市场中精选的代表性货运场站。"
 
 msgid "Curated representative warehouse in the metro freight market."
-msgstr "Curated representative warehouse in the metro freight market."
+msgstr "都市货运市场中精选的代表性仓库。"
 
 msgid "industrial"
 msgstr "industrial"
@@ -5442,7 +5387,7 @@ msgid "rural"
 msgstr "rural"
 
 msgid "signal"
-msgstr "signal"
+msgstr "信号灯"
 
 msgid "has invalid segment"
 msgstr "含有无效分段"
@@ -5866,7 +5811,7 @@ msgid "controller A"
 msgstr "手柄A键"
 
 msgid "D-pad down"
-msgstr "D-pad down"
+msgstr "方向键下"
 
 msgid "rest"
 msgstr "休息"
@@ -5902,19 +5847,19 @@ msgid "right bumper plus B"
 msgstr "right bumper加B"
 
 msgid "D-pad right"
-msgstr "D-pad right"
+msgstr "方向键右"
 
 msgid "clock"
 msgstr "时钟"
 
 msgid "D-pad up"
-msgstr "D-pad up"
+msgstr "方向键上"
 
 msgid "route"
 msgstr "路线"
 
 msgid "D-pad left"
-msgstr "D-pad left"
+msgstr "方向键左"
 
 msgid "weather"
 msgstr "天气"
@@ -8471,19 +8416,19 @@ msgid "{label} kind"
 msgstr "{label}的kind"
 
 msgid "contract"
-msgstr "contract"
+msgstr "合同"
 
 msgid "pending"
-msgstr "pending"
+msgstr "待处理"
 
 msgid "completed"
-msgstr "completed"
+msgstr "已完成"
 
 msgid "failed"
-msgstr "failed"
+msgstr "失败"
 
 msgid "open"
-msgstr "open"
+msgstr "开放"
 
 #. placeholders: {label}
 msgid "missing or invalid {label}"
@@ -9121,13 +9066,13 @@ msgid "No advance while you owe {money_text}."
 msgstr "当你欠 {money_text} 时，不能预付款。"
 
 msgid "all"
-msgstr "all"
+msgstr "全部"
 
 msgid "half"
-msgstr "half"
+msgstr "一半"
 
 msgid "cushion"
-msgstr "cushion"
+msgstr "余量"
 
 msgid ""
 "the tractor is worth less than the loan on it and the lender takes it back"
@@ -9573,7 +9518,7 @@ msgid " Walking around it you find a {defect}."
 msgstr " 绕车检查时，你发现{defect}。"
 
 msgid "dropyard"
-msgstr "dropyard"
+msgstr "甩挂场"
 
 msgid "trailer"
 msgstr "挂车"
@@ -9594,7 +9539,7 @@ msgid "the shipper is loading you at the dock"
 msgstr "发货方在装卸口给你装货"
 
 msgid "swap"
-msgstr "swap"
+msgstr "交换"
 
 msgid "it is your own trailer, so they unload you at the dock"
 msgstr "这是你自己的挂车，所以他们在装卸口给你卸货"
@@ -10118,7 +10063,7 @@ msgid "imported stations collide with curated station ids"
 msgstr "导入的电台与精选电台的ID冲突"
 
 msgid "local"
-msgstr "local"
+msgstr "本地"
 
 msgid "codec"
 msgstr "codec"
@@ -10833,10 +10778,10 @@ msgid "Duty window closes in {duration_text}."
 msgstr "当班时段{duration_text}后结束。"
 
 msgid "drive"
-msgstr "drive"
+msgstr "驾驶"
 
 msgid "duty"
-msgstr "duty"
+msgstr "值班"
 
 msgid "At the wheel: no driving yet"
 msgstr "已驾驶时间：还没开车"
@@ -11121,40 +11066,40 @@ msgid "User-Agent"
 msgstr "User-Agent"
 
 msgid "squall"
-msgstr "squall"
+msgstr "飑"
 
 msgid "thunder"
-msgstr "thunder"
+msgstr "雷声"
 
 msgid "tstorm"
 msgstr "tstorm"
 
 msgid "freezing"
-msgstr "freezing"
+msgstr "冻结"
 
 msgid "glaze"
-msgstr "glaze"
+msgstr "雨凇"
 
 msgid "ice"
-msgstr "ice"
+msgstr "冰"
 
 msgid "icy"
-msgstr "icy"
+msgstr "结冰"
 
 msgid "sleet"
-msgstr "sleet"
+msgstr "雨夹雪"
 
 msgid "blizzard"
-msgstr "blizzard"
+msgstr "暴风雪"
 
 msgid "flurr"
 msgstr "flurr"
 
 msgid "frost"
-msgstr "frost"
+msgstr "霜冻"
 
 msgid "wintry"
-msgstr "wintry"
+msgstr "冬季天气"
 
 msgid "heavy rain"
 msgstr "大雨"
@@ -11169,28 +11114,28 @@ msgid "rain"
 msgstr "雨"
 
 msgid "spray"
-msgstr "spray"
+msgstr "水雾"
 
 msgid "ash"
-msgstr "ash"
+msgstr "火山灰"
 
 msgid "dust"
-msgstr "dust"
+msgstr "沙尘"
 
 msgid "fog"
 msgstr "雾"
 
 msgid "haze"
-msgstr "haze"
+msgstr "霾"
 
 msgid "mist"
-msgstr "mist"
+msgstr "薄雾"
 
 msgid "sand"
-msgstr "sand"
+msgstr "沙"
 
 msgid "smoke"
-msgstr "smoke"
+msgstr "烟雾"
 
 msgid "blust"
 msgstr "blust"
@@ -11199,25 +11144,25 @@ msgid "breez"
 msgstr "breez"
 
 msgid "gale"
-msgstr "gale"
+msgstr "大风"
 
 msgid "wind"
-msgstr "wind"
+msgstr "风"
 
 msgid "cloud"
-msgstr "cloud"
+msgstr "多云"
 
 msgid "overcast"
-msgstr "overcast"
+msgstr "阴天"
 
 msgid "fair"
-msgstr "fair"
+msgstr "晴好"
 
 msgid "sun"
-msgstr "sun"
+msgstr "阳光"
 
 msgid "sunny"
-msgstr "sunny"
+msgstr "晴天"
 
 #. placeholders: {raw}
 msgid "could not convert {raw} to float"
@@ -11270,130 +11215,130 @@ msgid "{event}, gusts to {gust} miles per hour"
 msgstr "{event}，阵风达每小时{gust}英里"
 
 msgid "marine"
-msgstr "marine"
+msgstr "海上"
 
 msgid "small craft"
-msgstr "small craft"
+msgstr "小型船只"
 
 msgid "surf"
-msgstr "surf"
+msgstr "海浪"
 
 msgid "rip current"
-msgstr "rip current"
+msgstr "离岸流"
 
 msgid "beach"
-msgstr "beach"
+msgstr "海滩"
 
 msgid "heat"
-msgstr "heat"
+msgstr "高温"
 
 msgid "red flag"
-msgstr "red flag"
+msgstr "红旗警告"
 
 msgid "fire weather"
-msgstr "fire weather"
+msgstr "火险天气"
 
 msgid "air quality"
-msgstr "air quality"
+msgstr "空气质量"
 
 msgid "freeze warning"
-msgstr "freeze warning"
+msgstr "霜冻警告"
 
 msgid "freeze watch"
-msgstr "freeze watch"
+msgstr "霜冻预警"
 
 msgid "hard freeze"
-msgstr "hard freeze"
+msgstr "严重霜冻"
 
 msgid "coastal flood"
-msgstr "coastal flood"
+msgstr "沿海洪水"
 
 msgid "lakeshore"
-msgstr "lakeshore"
+msgstr "湖岸"
 
 msgid "tornado warning"
-msgstr "tornado warning"
+msgstr "龙卷风警告"
 
 msgid "hurricane"
-msgstr "hurricane"
+msgstr "飓风"
 
 msgid "ice storm"
-msgstr "ice storm"
+msgstr "冰暴"
 
 msgid "extreme wind"
-msgstr "extreme wind"
+msgstr "极端大风"
 
 msgid "typhoon"
-msgstr "typhoon"
+msgstr "台风"
 
 msgid "freezing fog"
-msgstr "freezing fog"
+msgstr "冻雾"
 
 msgid "freezing rain"
 msgstr "冻雨"
 
 msgid "winter storm warning"
-msgstr "winter storm warning"
+msgstr "冬季风暴警告"
 
 msgid "winter weather"
-msgstr "winter weather"
+msgstr "冬季天气"
 
 msgid "lake effect"
-msgstr "lake effect"
+msgstr "湖泊效应"
 
 msgid "winter storm"
-msgstr "winter storm"
+msgstr "冬季风暴"
 
 msgid "flash flood warning"
-msgstr "flash flood warning"
+msgstr "山洪警告"
 
 msgid "flood advisory"
-msgstr "flood advisory"
+msgstr "洪水提示"
 
 msgid "flood warning"
-msgstr "flood warning"
+msgstr "洪水警告"
 
 msgid "high wind"
-msgstr "high wind"
+msgstr "强风"
 
 msgid "wind advisory"
-msgstr "wind advisory"
+msgstr "大风提示"
 
 msgid "wind warning"
-msgstr "wind warning"
+msgstr "大风警告"
 
 msgid "blowing dust"
-msgstr "blowing dust"
+msgstr "扬沙"
 
 msgid "dense fog"
-msgstr "dense fog"
+msgstr "浓雾"
 
 msgid "dense smoke"
-msgstr "dense smoke"
+msgstr "浓烟"
 
 msgid "dust storm"
-msgstr "dust storm"
+msgstr "沙尘暴"
 
 msgid "thunderstorm"
 msgstr "雷暴"
 
 msgid "tornado watch"
-msgstr "tornado watch"
+msgstr "龙卷风预警"
 
 msgid "flood watch"
-msgstr "flood watch"
+msgstr "洪水预警"
 
 msgid "tropical storm"
-msgstr "tropical storm"
+msgstr "热带风暴"
 
 msgid "special weather"
-msgstr "special weather"
+msgstr "特殊天气"
 
 msgid "wind chill"
-msgstr "wind chill"
+msgstr "风寒"
 
 msgid "extreme cold"
-msgstr "extreme cold"
+msgstr "极寒"
 
 msgid "severity"
 msgstr "severity"
@@ -12253,7 +12198,7 @@ msgid "Continue onto {highway}"
 msgstr "继续驶入{highway}"
 
 msgid "onramp"
-msgstr "onramp"
+msgstr "入口匝道"
 
 #. placeholders: {shield}, {toward}
 msgid "merge onto {shield} toward {toward}"
@@ -12264,7 +12209,7 @@ msgid "Merge onto {shield} toward {toward}{on_it_tail}."
 msgstr "并入{shield}，前往{toward}方向{on_it_tail}。"
 
 msgid "continue"
-msgstr "continue"
+msgstr "继续"
 
 #. placeholders: {highway}, {distance_text}, {toward}
 msgid "Continue on {highway} for {distance_text} toward {toward}."
@@ -12289,7 +12234,7 @@ msgid "Keep right for {shield} toward {toward}."
 msgstr "靠右走{shield}，前往{toward}方向。"
 
 msgid "maneuver"
-msgstr "maneuver"
+msgstr "操作"
 
 #. placeholders: {shield}
 msgid "keep right for {shield}"
@@ -12304,7 +12249,7 @@ msgid "Crossing into {into_state} near {place}."
 msgstr "在{place}附近进入{into_state}。"
 
 msgid "checkpoint"
-msgstr "checkpoint"
+msgstr "检查点"
 
 #. placeholders: {place}, {state}, {highway}
 msgid "{place}{state} on {highway}"
@@ -12323,17 +12268,17 @@ msgid " Toll {amount} dollars."
 msgstr "收费{amount}元。"
 
 msgid "toll"
-msgstr "toll"
+msgstr "收费"
 
 #. placeholders: {method_label}, {name}, {toll_text}
 msgid "{method_label} toll point, {name}.{toll_text}"
 msgstr "{method_label} 收费站，{name}.{toll_text}"
 
 msgid "restriction"
-msgstr "restriction"
+msgstr "限制"
 
 msgid "interchange"
-msgstr "interchange"
+msgstr "立交"
 
 #. placeholders: {label}, {interchange}
 msgid "{label} off {interchange}"
@@ -12552,7 +12497,7 @@ msgid "curve"
 msgstr "弯道"
 
 msgid "arrived"
-msgstr "arrived"
+msgstr "已到达"
 
 #. placeholders: {text}, {parking_spaces}
 msgid "{text}, {parking_spaces} spaces"
@@ -13011,10 +12956,10 @@ msgid "Content-Type"
 msgstr "Content-Type"
 
 msgid "unsupported"
-msgstr "unsupported"
+msgstr "不支持"
 
 msgid "empty"
-msgstr "empty"
+msgstr "空"
 
 msgid "schema"
 msgstr "schema"
@@ -13062,7 +13007,7 @@ msgid "simulated"
 msgstr "模拟"
 
 msgid "live"
-msgstr "live"
+msgstr "实时"
 
 msgid "loading"
 msgstr "加载中"
@@ -13209,7 +13154,7 @@ msgid "high winds"
 msgstr "大风"
 
 msgid "dry"
-msgstr "dry"
+msgstr "干燥"
 
 msgid "wet"
 msgstr "潮湿"
@@ -14324,34 +14269,34 @@ msgid "Freight Fate {version}"
 msgstr "Freight Fate {version}"
 
 msgid "window"
-msgstr "window"
+msgstr "窗口"
 
 msgid "speech"
-msgstr "speech"
+msgstr "语音"
 
 msgid "audio"
-msgstr "audio"
+msgstr "音频"
 
 msgid "settings"
-msgstr "settings"
+msgstr "设置"
 
 msgid "world"
-msgstr "world"
+msgstr "世界"
 
 msgid "discord presence"
-msgstr "discord presence"
+msgstr "Discord 状态"
 
 msgid "account achievements"
-msgstr "account achievements"
+msgstr "账户成就"
 
 msgid "driver identity"
-msgstr "driver identity"
+msgstr "司机身份"
 
 msgid "online services"
-msgstr "online services"
+msgstr "在线服务"
 
 msgid "volumes and voice"
-msgstr "volumes and voice"
+msgstr "音量和语音"
 
 msgid "Lane keeping is on full. Flick left or right to change lanes."
 msgstr "车道保持为完全。向左或向右轻扫来换道。"
@@ -14372,37 +14317,37 @@ msgid "jaws"
 msgstr "jaws"
 
 msgid "first screen"
-msgstr "first screen"
+msgstr "首个界面"
 
 msgid "background services started"
-msgstr "background services started"
+msgstr "后台服务已启动"
 
 msgid "first frame"
-msgstr "first frame"
+msgstr "首帧"
 
 msgid "quit: requested"
-msgstr "quit: requested"
+msgstr "退出：已请求"
 
 msgid "quit: saved"
-msgstr "quit: saved"
+msgstr "退出：已保存"
 
 msgid "quit: online services"
-msgstr "quit: online services"
+msgstr "退出：在线服务"
 
 msgid "quit: synthesized music"
-msgstr "quit: synthesized music"
+msgstr "退出：合成音乐"
 
 msgid "quit: controller"
-msgstr "quit: controller"
+msgstr "退出：手柄"
 
 msgid "quit: audio"
-msgstr "quit: audio"
+msgstr "退出：音频"
 
 msgid "quit: speech"
-msgstr "quit: speech"
+msgstr "退出：语音"
 
 msgid "quit: window"
-msgstr "quit: window"
+msgstr "退出：窗口"
 
 msgid "quit-services"
 msgstr "quit-services"
@@ -14429,16 +14374,16 @@ msgid "smoke: {KEY}.{ext} does not decode through Hearken: {e}"
 msgstr "冒烟测试：{KEY}.{ext}无法通过Hearken解码：{e}"
 
 msgid "start up"
-msgstr "start up"
+msgstr "启动"
 
 msgid "single instance check"
-msgstr "single instance check"
+msgstr "单实例检查"
 
 msgid "quit: done"
-msgstr "quit: done"
+msgstr "退出：完成"
 
 msgid "smoke checks"
-msgstr "smoke checks"
+msgstr "冒烟检查"
 
 msgid "screen"
 msgstr "界面"
@@ -14477,8 +14422,8 @@ msgid ""
 "{saturating_sub} {else} {name}{detail}{else2}{else3}; keyboard says "
 "{else4}, game reads {else5} (frame {frame_ms} ms)"
 msgstr ""
-"{saturating_sub} {else} {name}{detail}{else2}{else3}; keyboard says "
-"{else4}, game reads {else5} (frame {frame_ms} ms)"
+"{saturating_sub} {else} {name}{detail}{else2}{else3}；键盘报告 {else4}，游戏读取 "
+"{else5}（第 {frame_ms} 毫秒帧）"
 
 msgid " [keyboard repeat]"
 msgstr " [键盘自动重复]"
@@ -15510,19 +15455,19 @@ msgid "a button"
 msgstr "一个按键"
 
 msgid "centered"
-msgstr "centered"
+msgstr "居中"
 
 msgid "up right"
-msgstr "up right"
+msgstr "右上"
 
 msgid "down right"
-msgstr "down right"
+msgstr "右下"
 
 msgid "up left"
-msgstr "up left"
+msgstr "左上"
 
 msgid "down left"
-msgstr "down left"
+msgstr "左下"
 
 msgid "Controller diagnostics starting."
 msgstr "手柄诊断开始。"
@@ -15558,7 +15503,7 @@ msgstr "SDL看到{count}个设备槽位。"
 
 #. placeholders: {index}, {is_ctrl}, {name}
 msgid "  slot {index}: recognized as GameController={is_ctrl}, name={name}"
-msgstr "  slot {index}: recognized as GameController={is_ctrl}, name={name}"
+msgstr "  槽位 {index}：识别为 GameController={is_ctrl}，name={name}"
 
 #. placeholders: {joy_count}
 msgid "Raw joystick layer sees {joy_count} device(s)."
@@ -15569,8 +15514,8 @@ msgid ""
 "  joystick {index}: name={name} guid={guid} axes={num_axes} "
 "buttons={num_buttons} hats={num_hats} power={power}"
 msgstr ""
-"  joystick {index}: name={name} guid={guid} axes={num_axes} "
-"buttons={num_buttons} hats={num_hats} power={power}"
+"  摇杆 {index}：name={name} guid={guid} axes={num_axes} buttons={num_buttons} "
+"hats={num_hats} power={power}"
 
 #. placeholders: {index}, {e}
 msgid "  joystick {index}: could not open: {e}"
@@ -15586,51 +15531,51 @@ msgstr "没有事件泵。"
 
 #. placeholders: {string}, {value}, {AXIS_MAX}, {which}
 msgid "[GC ] AXIS  {string} raw={value} norm={AXIS_MAX} (device {which})"
-msgstr "[GC ] AXIS  {string} raw={value} norm={AXIS_MAX} (device {which})"
+msgstr "[GC ] AXIS  {string} raw={value} norm={AXIS_MAX}（设备 {which}）"
 
 #. placeholders: {string}, {which}
 msgid "[GC ] BTN   {string} DOWN (device {which})"
-msgstr "[GC ] BTN   {string} DOWN (device {which})"
+msgstr "[GC ] BTN   {string} DOWN（设备 {which}）"
 
 #. placeholders: {string}, {which}
 msgid "[GC ] BTN   {string} UP   (device {which})"
-msgstr "[GC ] BTN   {string} UP   (device {which})"
+msgstr "[GC ] BTN   {string} UP  （设备 {which}）"
 
 #. placeholders: {which}
 msgid "[GC ] device added (slot {which})"
-msgstr "[GC ] device added (slot {which})"
+msgstr "[GC ] 设备已添加（槽位 {which}）"
 
 #. placeholders: {which}
 msgid "[GC ] device removed (device {which})"
-msgstr "[GC ] device removed (device {which})"
+msgstr "[GC ] 设备已移除（设备 {which}）"
 
 #. placeholders: {axis_idx}, {AXIS_MAX}, {which}
 msgid "[JOY] AXIS  index={axis_idx} value={AXIS_MAX} (device {which})"
-msgstr "[JOY] AXIS  index={axis_idx} value={AXIS_MAX} (device {which})"
+msgstr "[JOY] AXIS  index={axis_idx} value={AXIS_MAX}（设备 {which}）"
 
 #. placeholders: {button_idx}, {which}
 msgid "[JOY] BTN   index={button_idx} DOWN (device {which})"
-msgstr "[JOY] BTN   index={button_idx} DOWN (device {which})"
+msgstr "[JOY] BTN   index={button_idx} DOWN（设备 {which}）"
 
 #. placeholders: {button_idx}, {which}
 msgid "[JOY] BTN   index={button_idx} UP   (device {which})"
-msgstr "[JOY] BTN   index={button_idx} UP   (device {which})"
+msgstr "[JOY] BTN   index={button_idx} UP  （设备 {which}）"
 
 #. placeholders: {hat_idx}, {state}, {hat_str}, {which}
 msgid "[JOY] HAT   index={hat_idx} {state} ({hat_str}) (device {which})"
-msgstr "[JOY] HAT   index={hat_idx} {state} ({hat_str}) (device {which})"
+msgstr "[JOY] HAT   index={hat_idx} {state}（{hat_str}）（设备 {which}）"
 
 #. placeholders: {name}, {guid}
 msgid "[JOY] device added: name={name} guid={guid}"
-msgstr "[JOY] device added: name={name} guid={guid}"
+msgstr "[JOY] 设备已添加：name={name} guid={guid}"
 
 #. placeholders: {which}
 msgid "[JOY] device added (slot {which})"
-msgstr "[JOY] device added (slot {which})"
+msgstr "[JOY] 设备已添加（槽位 {which}）"
 
 #. placeholders: {which}
 msgid "[JOY] device removed (device {which})"
-msgstr "[JOY] device removed (device {which})"
+msgstr "[JOY] 设备已移除（设备 {which}）"
 
 #. one sentence of a longer line
 msgid "Controller diagnostics stopped."
@@ -15655,9 +15600,11 @@ msgstr "一位司机"
 msgid "{name_list} {else} on duty."
 msgstr "{name_list}{else:}正在岗。"
 
+# same as English
 msgid "are"
 msgstr "are"
 
+# same as English
 msgid "is"
 msgstr "is"
 
@@ -17231,7 +17178,7 @@ msgid "A quarter of every settlement also keeps paying it down."
 msgstr "每笔结算的四分之一也会继续用来还款。"
 
 msgid "job"
-msgstr "job"
+msgstr "任务"
 
 msgid "Terminal"
 msgstr "场站"
@@ -17308,7 +17255,7 @@ msgid "Already rested. Enter again to sleep anyway."
 msgstr "已经休息过。仍要睡觉，请再次按Enter。"
 
 msgid "terminal sleep"
-msgstr "terminal sleep"
+msgstr "在基地睡觉"
 
 #. placeholders: {clock_text}, {time_of_day}
 #. one sentence of a longer line
@@ -19502,9 +19449,11 @@ msgstr "还没有云备份。"
 msgid "{slots} career{else}"
 msgstr "{slots}段职业生涯{else:}"
 
+# same as English
 msgid " is"
 msgstr " is"
 
+# same as English
 msgid "s are"
 msgstr "s are"
 
@@ -30696,9 +30645,7 @@ msgstr "{announced}有开放的称重站，{name}。{instruction}"
 msgid ""
 "reminder only {weigh_station_reminder_age_s} real s before, held back by "
 "the game"
-msgstr ""
-"reminder only {weigh_station_reminder_age_s} real s before, held back by "
-"the game"
+msgstr "提醒只提前了 {weigh_station_reminder_age_s} 秒真实时间，被游戏延后"
 
 msgid "never announced"
 msgstr "never announced"
@@ -30787,7 +30734,7 @@ msgid "Pulling over to the shoulder."
 msgstr "正靠边停到路肩上。"
 
 msgid "buff"
-msgstr "buff"
+msgstr "增益"
 
 msgid "Getting drowsy."
 msgstr "开始犯困了。"
@@ -31188,7 +31135,7 @@ msgstr "驾驶模式在停车后更改。"
 
 #. placeholders: {waited}
 msgid " after waiting {waited} s for the stop"
-msgstr " after waiting {waited} s for the stop"
+msgstr " 等待停车 {waited} 秒后"
 
 msgid "trip finished"
 msgstr "trip finished"
@@ -36956,9 +36903,11 @@ msgstr "还没有司机拥有公开主页。"
 msgid "{total} driver{else} a public profile"
 msgstr "{total}位司机有公开主页{else:}"
 
+# same as English
 msgid " has"
 msgstr " has"
 
+# same as English
 msgid "s have"
 msgstr "s have"
 
@@ -38937,7 +38886,7 @@ msgid "backslash"
 msgstr "反斜杠"
 
 msgid "grave"
-msgstr "grave"
+msgstr "重音符"
 
 msgid "grave accent"
 msgstr "反引号"
@@ -38964,19 +38913,19 @@ msgid "right bracket"
 msgstr "右方括号"
 
 msgid "Left Control"
-msgstr "Left Control"
+msgstr "左 Control"
 
 msgid "Right Control"
-msgstr "Right Control"
+msgstr "右 Control"
 
 msgid "Right Shift"
-msgstr "Right Shift"
+msgstr "右 Shift"
 
 msgid "Left Alt"
-msgstr "Left Alt"
+msgstr "左 Alt"
 
 msgid "Right Alt"
-msgstr "Right Alt"
+msgstr "右 Alt"
 
 msgid "an unnamed key"
 msgstr "一个没有名字的键"
@@ -39004,16 +38953,16 @@ msgid "the extra button"
 msgstr "额外按键"
 
 msgid "paddle 1"
-msgstr "paddle 1"
+msgstr "拨片 1"
 
 msgid "paddle 2"
-msgstr "paddle 2"
+msgstr "拨片 2"
 
 msgid "paddle 3"
-msgstr "paddle 3"
+msgstr "拨片 3"
 
 msgid "paddle 4"
-msgstr "paddle 4"
+msgstr "拨片 4"
 
 msgid "the touchpad"
 msgstr "touchpad"

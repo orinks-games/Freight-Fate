@@ -908,7 +908,7 @@ msgid "Sam Cooke - Chain Gang"
 msgstr "Sam Cooke - Chain Gang"
 
 msgid "Nitro Express"
-msgstr "Nitro Express"
+msgstr "Expresso de nitro"
 
 msgid ""
 "Your first tanker load, delivered. The surge pushed back the whole way."
@@ -1871,7 +1871,7 @@ msgid "name"
 msgstr "name"
 
 msgid "original"
-msgstr "original"
+msgstr "ordem original"
 
 msgid "Earned first"
 msgstr "Conquistadas primeiro"
@@ -5326,7 +5326,7 @@ msgstr "{p} {state} tem rule_type desconhecido {py_repr_str}"
 
 #. placeholders: {cities}, {legs}
 msgid "World({cities} cities, {legs} legs)"
-msgstr "World({cities} cities, {legs} legs)"
+msgstr "World({cities} cidades, {legs} trechos)"
 
 #. placeholders: {leg_from}
 msgid "Unknown city: {leg_from}"
@@ -6190,7 +6190,7 @@ msgid "rural"
 msgstr "rural"
 
 msgid "signal"
-msgstr "signal"
+msgstr "semáforo"
 
 msgid "has invalid segment"
 msgstr "tem segmento inválido"
@@ -8229,6 +8229,7 @@ msgstr "padrão do pátio"
 msgid "every new hire starts in the same trainer-spec tractor"
 msgstr "todo novato começa no mesmo cavalo mecânico de treinamento"
 
+# same as English
 msgid "regional"
 msgstr "regional"
 
@@ -8246,6 +8247,7 @@ msgstr ""
 "um cavalo mecânico com cabine-leito e autonomia de verdade para a "
 "interestadual"
 
+# same as English
 msgid "premium"
 msgstr "premium"
 
@@ -8931,7 +8933,7 @@ msgid "chains_heard job {i}"
 msgstr "chains_heard job {i}"
 
 msgid "assigned"
-msgstr "assigned"
+msgstr "atribuído"
 
 msgid "browse"
 msgstr "navegar"
@@ -8961,7 +8963,7 @@ msgid "Pay-advance limit reached. Deliver a load to pay it down."
 msgstr "Limite de adiantamentos atingido. Entregue uma carga para abater."
 
 msgid "lifetime"
-msgstr "lifetime"
+msgstr "vitalícia"
 
 msgid "Drove through the barrels in a work zone"
 msgstr "Passou por cima dos cones numa zona de obras"
@@ -9487,10 +9489,10 @@ msgid "citation"
 msgstr "multa"
 
 msgid "serious"
-msgstr "serious"
+msgstr "grave"
 
 msgid "major"
-msgstr "major"
+msgstr "gravíssima"
 
 msgid "crash"
 msgstr "acidente"
@@ -9581,7 +9583,7 @@ msgid "{label} kind"
 msgstr "{label} kind"
 
 msgid "contract"
-msgstr "contract"
+msgstr "contrato"
 
 msgid "pending"
 msgstr "pendente"
@@ -9676,19 +9678,19 @@ msgid "Requires {required_program_text} trailer program."
 msgstr "Exige o programa de reboque {required_program_text}."
 
 msgid "cargo"
-msgstr "cargo"
+msgstr "carga"
 
 msgid "origin"
-msgstr "origin"
+msgstr "origem"
 
 msgid "destination"
-msgstr "destination"
+msgstr "destino"
 
 msgid "pay"
-msgstr "pay"
+msgstr "pagamento"
 
 msgid "bobtail"
-msgstr "bobtail"
+msgstr "sem reboque"
 
 msgid "team"
 msgstr "dupla"
@@ -9705,10 +9707,10 @@ msgid "{name} yard"
 msgstr "pátio {name}"
 
 msgid "ships"
-msgstr "ships"
+msgstr "envia"
 
 msgid "receives"
-msgstr "receives"
+msgstr "recebe"
 
 msgid "general freight"
 msgstr "carga geral"
@@ -10237,10 +10239,10 @@ msgid "id"
 msgstr "id"
 
 msgid "watched"
-msgstr "watched"
+msgstr "vigiado"
 
 msgid "targeted"
-msgstr "targeted"
+msgstr "na mira"
 
 msgid "Safety record: clean. Inspectors have no reason to pull you in."
 msgstr ""
@@ -10274,13 +10276,13 @@ msgid "No advance while you owe {money_text}."
 msgstr "Sem adiantamento enquanto você deve {money_text}."
 
 msgid "all"
-msgstr "all"
+msgstr "tudo"
 
 msgid "half"
-msgstr "half"
+msgstr "metade"
 
 msgid "cushion"
-msgstr "cushion"
+msgstr "margem de segurança"
 
 msgid ""
 "the tractor is worth less than the loan on it and the lender takes it back"
@@ -10355,7 +10357,7 @@ msgstr ""
 "pagamento menor e equipamento à altura."
 
 msgid "termination"
-msgstr "termination"
+msgstr "demissão"
 
 #. one sentence of a longer line
 msgid ""
@@ -10417,7 +10419,7 @@ msgstr ""
 "requisitos de entrada são os mesmos que você cumpriu para chegar aqui."
 
 msgid "repossession"
-msgstr "repossession"
+msgstr "apreensão"
 
 msgid " and one more piece of equipment"
 msgstr " e mais um equipamento"
@@ -10812,7 +10814,7 @@ msgid " Walking around it you find a {defect}."
 msgstr " Dando a volta nele, você encontra um problema: {defect}."
 
 msgid "dropyard"
-msgstr "dropyard"
+msgstr "pátio de reboques"
 
 msgid "trailer"
 msgstr "reboque"
@@ -10824,7 +10826,7 @@ msgid "the yard has your load already on a trailer"
 msgstr "o pátio já tem sua carga num reboque"
 
 msgid "detention"
-msgstr "detention"
+msgstr "espera"
 
 msgid "the shipper is loading you at the dock, and they are running behind"
 msgstr "o embarcador está carregando você na doca, e eles estão atrasados"
@@ -10833,7 +10835,7 @@ msgid "the shipper is loading you at the dock"
 msgstr "o embarcador está carregando você na doca"
 
 msgid "swap"
-msgstr "swap"
+msgstr "troca"
 
 msgid "it is your own trailer, so they unload you at the dock"
 msgstr "o reboque é seu, então eles descarregam você na doca"
@@ -10862,7 +10864,7 @@ msgstr ""
 "Programa de reboque da transportadora para carga geral em caixas e paletes."
 
 msgid "reefer"
-msgstr "reefer"
+msgstr "refrigerado"
 
 msgid "Reefer"
 msgstr "Refrigerado"
@@ -10877,7 +10879,7 @@ msgstr ""
 "refrigerada."
 
 msgid "flatbed"
-msgstr "flatbed"
+msgstr "prancha"
 
 msgid "Flatbed"
 msgstr "Prancha"
@@ -11475,6 +11477,7 @@ msgstr "o catálogo de rádio tem ids de estação duplicados"
 msgid "imported stations collide with curated station ids"
 msgstr "estações importadas colidem com ids de estações selecionadas"
 
+# same as English
 msgid "local"
 msgstr "local"
 
@@ -11547,12 +11550,15 @@ msgstr "ao alcance"
 msgid "web"
 msgstr "web"
 
+# same as English
 msgid "playlist"
 msgstr "playlist"
 
+# same as English
 msgid "Playlists"
 msgstr "Playlists"
 
+# same as English
 msgid "Playlist"
 msgstr "Playlist"
 
@@ -11739,6 +11745,7 @@ msgstr "curta"
 msgid "far"
 msgstr "longa"
 
+# same as English
 msgid "normal"
 msgstr "normal"
 
@@ -12014,6 +12021,7 @@ msgstr "lidar"
 msgid "pacing"
 msgstr "acompanhamento de viatura"
 
+# same as English
 msgid "visual"
 msgstr "visual"
 
@@ -12204,10 +12212,10 @@ msgid "Duty window closes in {duration_text}."
 msgstr "A janela de serviço fecha em {duration_text}."
 
 msgid "drive"
-msgstr "drive"
+msgstr "direção"
 
 msgid "duty"
-msgstr "duty"
+msgstr "serviço"
 
 msgid "At the wheel: no driving yet"
 msgstr "Ao volante: nada dirigido ainda"
@@ -12487,10 +12495,10 @@ msgid "over"
 msgstr "acima"
 
 msgid "latched"
-msgstr "latched"
+msgstr "travado"
 
 msgid "released"
-msgstr "released"
+msgstr "solto"
 
 msgid "diesel-price"
 msgstr "diesel-price"
@@ -12502,10 +12510,10 @@ msgid "User-Agent"
 msgstr "User-Agent"
 
 msgid "squall"
-msgstr "squall"
+msgstr "rajada"
 
 msgid "thunder"
-msgstr "thunder"
+msgstr "trovão"
 
 msgid "tstorm"
 msgstr "tstorm"
@@ -12550,7 +12558,7 @@ msgid "rain"
 msgstr "chuva"
 
 msgid "spray"
-msgstr "spray"
+msgstr "borrifo"
 
 msgid "ash"
 msgstr "cinzas"
@@ -12586,7 +12594,7 @@ msgid "wind"
 msgstr "vento"
 
 msgid "cloud"
-msgstr "cloud"
+msgstr "nuvens"
 
 msgid "overcast"
 msgstr "encoberto"
@@ -12595,7 +12603,7 @@ msgid "fair"
 msgstr "tempo bom"
 
 msgid "sun"
-msgstr "sun"
+msgstr "sol"
 
 msgid "sunny"
 msgstr "ensolarado"
@@ -13160,6 +13168,7 @@ msgstr "solta"
 msgid "shifting"
 msgstr "trocando de marcha"
 
+# same as English
 msgid "minivan"
 msgstr "minivan"
 
@@ -13653,7 +13662,7 @@ msgid "Merge onto {shield} toward {toward}{on_it_tail}."
 msgstr "Entre na {shield} sentido {toward}{on_it_tail}."
 
 msgid "continue"
-msgstr "continue"
+msgstr "continuar"
 
 #. placeholders: {highway}, {distance_text}, {toward}
 msgid "Continue on {highway} for {distance_text} toward {toward}."
@@ -14240,13 +14249,13 @@ msgid "traffic"
 msgstr "trânsito"
 
 msgid "strong"
-msgstr "strong"
+msgstr "forte"
 
 msgid "ordinary"
-msgstr "ordinary"
+msgstr "comum"
 
 msgid "thin"
-msgstr "thin"
+msgstr "fraco"
 
 msgid "in the median"
 msgstr "no canteiro central"
@@ -17280,6 +17289,7 @@ msgstr ""
 "A camada de joystick bruta vê {joy_count} "
 "{joy_count:dispositivo|dispositivos}."
 
+# same as English
 #. placeholders: {index}, {name}, {guid}, {num_axes}, {num_buttons}, {num_hats}, {power}
 msgid ""
 "  joystick {index}: name={name} guid={guid} axes={num_axes} "
@@ -17304,15 +17314,16 @@ msgstr "Sem bomba de eventos."
 
 #. placeholders: {string}, {value}, {AXIS_MAX}, {which}
 msgid "[GC ] AXIS  {string} raw={value} norm={AXIS_MAX} (device {which})"
-msgstr "[GC ] AXIS  {string} raw={value} norm={AXIS_MAX} (device {which})"
+msgstr ""
+"[GC ] AXIS  {string} raw={value} norm={AXIS_MAX} (dispositivo {which})"
 
 #. placeholders: {string}, {which}
 msgid "[GC ] BTN   {string} DOWN (device {which})"
-msgstr "[GC ] BTN   {string} DOWN (device {which})"
+msgstr "[GC ] BTN   {string} DOWN (dispositivo {which})"
 
 #. placeholders: {string}, {which}
 msgid "[GC ] BTN   {string} UP   (device {which})"
-msgstr "[GC ] BTN   {string} UP   (device {which})"
+msgstr "[GC ] BTN   {string} UP   (dispositivo {which})"
 
 #. placeholders: {which}
 msgid "[GC ] device added (slot {which})"
@@ -17324,19 +17335,20 @@ msgstr "[GC ] dispositivo removido (device {which})"
 
 #. placeholders: {axis_idx}, {AXIS_MAX}, {which}
 msgid "[JOY] AXIS  index={axis_idx} value={AXIS_MAX} (device {which})"
-msgstr "[JOY] AXIS  index={axis_idx} value={AXIS_MAX} (device {which})"
+msgstr "[JOY] AXIS  index={axis_idx} value={AXIS_MAX} (dispositivo {which})"
 
 #. placeholders: {button_idx}, {which}
 msgid "[JOY] BTN   index={button_idx} DOWN (device {which})"
-msgstr "[JOY] BTN   index={button_idx} DOWN (device {which})"
+msgstr "[JOY] BTN   index={button_idx} DOWN (dispositivo {which})"
 
 #. placeholders: {button_idx}, {which}
 msgid "[JOY] BTN   index={button_idx} UP   (device {which})"
-msgstr "[JOY] BTN   index={button_idx} UP   (device {which})"
+msgstr "[JOY] BTN   index={button_idx} UP   (dispositivo {which})"
 
 #. placeholders: {hat_idx}, {state}, {hat_str}, {which}
 msgid "[JOY] HAT   index={hat_idx} {state} ({hat_str}) (device {which})"
-msgstr "[JOY] HAT   index={hat_idx} {state} ({hat_str}) (device {which})"
+msgstr ""
+"[JOY] HAT   index={hat_idx} {state} ({hat_str}) (dispositivo {which})"
 
 #. placeholders: {name}, {guid}
 msgid "[JOY] device added: name={name} guid={guid}"
@@ -17623,6 +17635,7 @@ msgstr "Yankee"
 msgid "Zulu"
 msgstr "Zulu"
 
+# same as English
 msgid "zero"
 msgstr "zero"
 
@@ -17925,6 +17938,7 @@ msgstr ""
 "Deslize rápido para a direita ou esquerda para navegar e toque duas vezes "
 "para escolher. Deslize rápido para baixo com dois dedos para voltar."
 
+# same as English
 msgid "Menu"
 msgstr "Menu"
 
@@ -19140,7 +19154,7 @@ msgid "job"
 msgstr "frete"
 
 msgid "Terminal"
-msgstr "Terminal"
+msgstr "Base"
 
 msgid "First-day briefing"
 msgstr "Orientação do primeiro dia"
@@ -21384,6 +21398,7 @@ msgstr "Carga: {f} toneladas de {label}"
 msgid "Destination: {destination}"
 msgstr "Destino: {destination}"
 
+# same as English
 #. placeholders: {state}
 msgid "Status: {state}"
 msgstr "Status: {state}"
@@ -22286,6 +22301,7 @@ msgid "The backup could not be downloaded. Your local save was not touched."
 msgstr ""
 "Não foi possível baixar o backup. Seu jogo salvo local não foi mexido."
 
+# same as English
 #. placeholders: {status}
 msgid "Status: {status}"
 msgstr "Status: {status}"
@@ -22466,6 +22482,7 @@ msgstr "ar pronto"
 msgid "air {air_pressure_psi} psi"
 msgstr "ar a {air_pressure_psi} psi"
 
+# same as English
 msgid "manual"
 msgstr "manual"
 
@@ -23426,12 +23443,12 @@ msgstr " Piloto automático em pausa."
 
 #. placeholders: {rpm}
 msgid ", {rpm} RPM"
-msgstr ", {rpm} RPM"
+msgstr ", {rpm} rotações por minuto"
 
 #. placeholders: {rpm}
 #. one clause of a longer line
 msgid "{rpm} RPM"
-msgstr "{rpm} RPM"
+msgstr "{rpm} rotações por minuto"
 
 #. placeholders: {signal_verb}, {armed_exit_name}, {distance_text}
 msgid " Signal {signal_verb} for {armed_exit_name}, {distance_text}."
@@ -23961,6 +23978,7 @@ msgstr "Mantendo o estágio {jake_stage_word}."
 msgid "Automatic jake {state}."
 msgstr "Freio motor automático {state}."
 
+# same as English
 msgid ", manual"
 msgstr ", manual"
 
@@ -24401,6 +24419,7 @@ msgstr "socorro na estrada"
 msgid "inspection check-in"
 msgstr "apresentação para inspeção"
 
+# same as English
 msgid "diesel"
 msgstr "diesel"
 
@@ -29358,6 +29377,7 @@ msgid ""
 msgstr ""
 "Cima e baixo percorrem as linhas. Enter repete uma linha. Escape volta."
 
+# same as English
 msgid "Status"
 msgstr "Status"
 
@@ -33404,7 +33424,7 @@ msgstr "Restam {duration_text2} de direção."
 
 #. placeholders: {name}, {trim_end_matches}
 msgid "ELD, {name}: {trim_end_matches}"
-msgstr "ELD, {name}: {trim_end_matches}"
+msgstr "Registrador eletrônico, {name}: {trim_end_matches}"
 
 #. placeholders: {round}
 msgid "their {round} percent"
@@ -35658,6 +35678,7 @@ msgstr "Começar uma carreira do zero."
 msgid "Earned and locked achievements for a saved career."
 msgstr "Conquistas obtidas e bloqueadas de uma carreira salva."
 
+# same as English
 msgid "Online"
 msgstr "Online"
 
@@ -36168,6 +36189,7 @@ msgstr "Relógio alinhado com {date_text}, {clock_text}."
 msgid "classic"
 msgstr "clássico"
 
+# same as English
 msgid "real"
 msgstr "real"
 
@@ -37234,6 +37256,7 @@ msgstr "Volume da música de fundo dos menus e das instalações."
 msgid "Music source: {else}"
 msgstr "Fonte da música: {else}"
 
+# same as English
 msgid "Original"
 msgstr "Original"
 
@@ -42376,6 +42399,7 @@ msgstr "A próxima atualização ainda vai ser oferecida."
 msgid " of changes"
 msgstr " de mudanças"
 
+# same as English
 #. placeholders: {f}, {changes}
 msgid "{f} megabytes{changes}"
 msgstr "{f} megabytes{changes}"
@@ -42729,9 +42753,11 @@ msgstr "VELOC."
 msgid "LIMIT"
 msgstr "MÁXIMA"
 
+# same as English
 msgid "AUTO"
 msgstr "AUTO"
 
+# same as English
 msgid "MANUAL"
 msgstr "MANUAL"
 
@@ -43115,7 +43141,7 @@ msgid "{count} kilometers per hour"
 msgstr "{count} quilômetros por hora"
 
 msgid "{count} RPM"
-msgstr "{count} RPM"
+msgstr "{count} rotações por minuto"
 
 #. A menu's position announcement after an item: "3 of 10".
 msgid "{index} of {count}"
@@ -43668,37 +43694,37 @@ msgstr "Quase toda com pista dupla, uma faixa do seu lado."
 #. (hearken-app src/bindings/names.rs). The lowercase words are the ids
 #. the settings file stores; they stay here so their translations are kept.
 msgid "keypad 0"
-msgstr "keypad 0"
+msgstr "teclado numérico 0"
 
 msgid "keypad 1"
-msgstr "keypad 1"
+msgstr "teclado numérico 1"
 
 msgid "keypad 2"
-msgstr "keypad 2"
+msgstr "teclado numérico 2"
 
 msgid "keypad 3"
-msgstr "keypad 3"
+msgstr "teclado numérico 3"
 
 msgid "keypad 4"
-msgstr "keypad 4"
+msgstr "teclado numérico 4"
 
 msgid "keypad 5"
-msgstr "keypad 5"
+msgstr "teclado numérico 5"
 
 msgid "keypad 6"
-msgstr "keypad 6"
+msgstr "teclado numérico 6"
 
 msgid "keypad 7"
-msgstr "keypad 7"
+msgstr "teclado numérico 7"
 
 msgid "keypad 8"
-msgstr "keypad 8"
+msgstr "teclado numérico 8"
 
 msgid "keypad 9"
-msgstr "keypad 9"
+msgstr "teclado numérico 9"
 
 msgid "keypad Enter"
-msgstr "keypad Enter"
+msgstr "Enter do teclado numérico"
 
 msgid "keypad plus"
 msgstr "keypad mais"
@@ -43785,19 +43811,19 @@ msgid "right bracket"
 msgstr "colchete direito"
 
 msgid "Left Control"
-msgstr "Left Control"
+msgstr "Control esquerdo"
 
 msgid "Right Control"
-msgstr "Right Control"
+msgstr "Control direito"
 
 msgid "Right Shift"
-msgstr "Right Shift"
+msgstr "Shift direito"
 
 msgid "Left Alt"
-msgstr "Left Alt"
+msgstr "Alt esquerdo"
 
 msgid "Right Alt"
-msgstr "Right Alt"
+msgstr "Alt direito"
 
 msgid "an unnamed key"
 msgstr "uma tecla sem nome"
@@ -43825,16 +43851,16 @@ msgid "the extra button"
 msgstr "o botão extra"
 
 msgid "paddle 1"
-msgstr "paddle 1"
+msgstr "botão traseiro 1"
 
 msgid "paddle 2"
-msgstr "paddle 2"
+msgstr "botão traseiro 2"
 
 msgid "paddle 3"
-msgstr "paddle 3"
+msgstr "botão traseiro 3"
 
 msgid "paddle 4"
-msgstr "paddle 4"
+msgstr "botão traseiro 4"
 
 msgid "the touchpad"
 msgstr "o touchpad"

@@ -1887,19 +1887,19 @@ msgid "Crosby, Stills, Nash & Young - Teach Your Children"
 msgstr "Crosby, Stills, Nash & Young - Teach Your Children"
 
 msgid "earned"
-msgstr "earned"
+msgstr "đã đạt"
 
 msgid "newest"
-msgstr "newest"
+msgstr "mới nhất"
 
 msgid "locked"
-msgstr "locked"
+msgstr "chưa mở khóa"
 
 msgid "name"
 msgstr "name"
 
 msgid "original"
-msgstr "original"
+msgstr "thứ tự gốc"
 
 msgid "Earned first"
 msgstr "Đã đạt trước"
@@ -4835,7 +4835,7 @@ msgid "the Northeast"
 msgstr "vùng Đông Bắc"
 
 msgid "Appalachia"
-msgstr "Appalachia"
+msgstr "vùng Appalachia"
 
 msgid "the Great Lakes"
 msgstr "vùng Ngũ Đại Hồ"
@@ -6483,6 +6483,7 @@ msgstr "trạm thu phí: {name}"
 msgid "{whole} feet {inches} inches"
 msgstr "{whole} feet {inches} inch"
 
+# same as English
 #. placeholders: {whole}
 msgid "{whole} feet"
 msgstr "{whole} feet"
@@ -8634,7 +8635,7 @@ msgid "june"
 msgstr "june"
 
 msgid "June"
-msgstr "June"
+msgstr "Tháng Sáu"
 
 msgid ""
 "Grew up waiting tables at Della's Blue Plate Diner and decided she wanted "
@@ -11890,6 +11891,7 @@ msgstr "cân bằng"
 msgid "interactive"
 msgstr "tương tác"
 
+# same as English
 msgid "alpha"
 msgstr "alpha"
 
@@ -11953,28 +11955,28 @@ msgid "recovering"
 msgstr "đang hồi sức"
 
 msgid "game minutes counted"
-msgstr "game minutes counted"
+msgstr "số phút trong game đã tính"
 
 msgid "seconds left"
-msgstr "seconds left"
+msgstr "số giây còn lại"
 
 msgid "game minutes left"
-msgstr "game minutes left"
+msgstr "số phút trong game còn lại"
 
 msgid "misses"
-msgstr "misses"
+msgstr "lần bỏ lỡ"
 
 msgid "arriving"
-msgstr "arriving"
+msgstr "đang đến nơi"
 
 msgid "rolling"
-msgstr "rolling"
+msgstr "đang chạy"
 
 msgid "creeping"
-msgstr "creeping"
+msgstr "đang chạy chậm"
 
 msgid "stopped"
-msgstr "stopped"
+msgstr "đã dừng"
 
 msgid "holding"
 msgstr "holding"
@@ -12191,7 +12193,7 @@ msgid "available"
 msgstr "available"
 
 msgid "used"
-msgstr "used"
+msgstr "đã dùng"
 
 msgid "on duty, not driving"
 msgstr "đang làm việc, không lái xe"
@@ -12544,7 +12546,7 @@ msgid "Hours of service: {phrase} until {due}."
 msgstr "Giờ lái quy định: còn {phrase} nữa là {due}."
 
 msgid "untold"
-msgstr "untold"
+msgstr "chưa báo"
 
 msgid "single"
 msgstr "đơn"
@@ -12767,7 +12769,7 @@ msgid ""
 msgstr "Máy chủ trả về lỗi 403. (GET api.weather.gov/points/1,2: Forbidden)"
 
 msgid "properties"
-msgstr "properties"
+msgstr "thuộc tính"
 
 msgid "no POST on the NWS API"
 msgstr "API của NWS không hỗ trợ POST"
@@ -13283,10 +13285,10 @@ msgid "{base} in {days_ahead} days"
 msgstr "{base} sau {days_ahead} ngày nữa"
 
 msgid "out"
-msgstr "out"
+msgstr "nhả"
 
 msgid "shifting"
-msgstr "shifting"
+msgstr "đang sang số"
 
 msgid "minivan"
 msgstr "xe minivan"
@@ -15893,16 +15895,16 @@ msgid "menu"
 msgstr "trình đơn"
 
 msgid "field"
-msgstr "field"
+msgstr "khu vực chạm"
 
 msgid "wheel"
-msgstr "wheel"
+msgstr "vô lăng"
 
 msgid "practice"
-msgstr "practice"
+msgstr "luyện tập"
 
 msgid "arrival"
-msgstr "arrival"
+msgstr "đến nơi"
 
 msgid "miles"
 msgstr "dặm"
@@ -15910,6 +15912,7 @@ msgstr "dặm"
 msgid "kilometers"
 msgstr "kilômét"
 
+# same as English
 #. placeholders: {feet}
 msgid "{feet} feet"
 msgstr "{feet} feet"
@@ -17479,9 +17482,11 @@ msgstr "Một tài xế"
 msgid "{name_list} {else} on duty."
 msgstr "{name_list}{else:} đang chạy."
 
+# same as English
 msgid "are"
 msgstr "are"
 
+# same as English
 msgid "is"
 msgstr "is"
 
@@ -17777,7 +17782,7 @@ msgid "Freight Fate"
 msgstr "Freight Fate"
 
 msgid "game"
-msgstr "game"
+msgstr "trò chơi"
 
 #. placeholders: {e}
 msgid "The report could not be packed: {e}."
@@ -18026,6 +18031,7 @@ msgstr ""
 "Vuốt nhanh sang phải hoặc trái để di chuyển và chạm đúp để chọn. Vuốt hai "
 "ngón xuống để quay lại."
 
+# same as English
 msgid "Menu"
 msgstr "Menu"
 
@@ -21747,9 +21753,11 @@ msgstr "Chưa có bản sao lưu đám mây nào."
 msgid "{slots} career{else}"
 msgstr "{slots} hồ sơ sự nghiệp{else:}"
 
+# same as English
 msgid " is"
 msgstr " is"
 
+# same as English
 msgid "s are"
 msgstr "s are"
 
@@ -23857,7 +23865,7 @@ msgstr "Thời tiết: {report_lead}"
 
 #. placeholders: {status_text}
 msgid "Radio: {status_text}"
-msgstr "Radio: {status_text}"
+msgstr "Đài phát thanh: {status_text}"
 
 #. placeholders: {calendar}
 msgid "Calendar: {calendar}"
@@ -27392,6 +27400,7 @@ msgstr "Dừng cách đèn giao thông {gap}. Đèn đang xanh."
 msgid "Stopped {gap} short of the light."
 msgstr "Dừng cách đèn giao thông {gap}."
 
+# same as English
 msgid "feet"
 msgstr "feet"
 
@@ -29050,10 +29059,10 @@ msgid "Driving help"
 msgstr "Trợ giúp lái xe"
 
 msgid "Plus"
-msgstr "Plus"
+msgstr "Dấu cộng"
 
 msgid "Minus"
-msgstr "Minus"
+msgstr "Dấu trừ"
 
 msgid "Page Down"
 msgstr "Page Down"
@@ -32814,10 +32823,10 @@ msgid "reason"
 msgstr "lý do"
 
 msgid "classmate"
-msgstr "classmate"
+msgstr "bạn cùng khóa"
 
 msgid "hire"
-msgstr "hire"
+msgstr "tuyển dụng"
 
 msgid "meridian"
 msgstr "meridian"
@@ -33407,7 +33416,7 @@ msgid "{name} took a 30-minute break on the shoulder."
 msgstr "{name} đã dừng ở lề đường nghỉ 30 phút giữa ca."
 
 msgid "slept on"
-msgstr "slept on"
+msgstr "ngủ tiếp"
 
 #. placeholders: {name}, {gallons}, {place}
 msgid ""
@@ -37634,7 +37643,7 @@ msgid "built-in voice"
 msgstr "giọng đọc tích hợp"
 
 msgid "Narrator"
-msgstr "Narrator"
+msgstr "Trình tường thuật"
 
 #. placeholders: {name}
 msgid "{name}, unavailable"
@@ -41525,6 +41534,7 @@ msgstr "{total} tài xế có hồ sơ công khai{else:}"
 msgid " has"
 msgstr " có"
 
+# same as English
 msgid "s have"
 msgstr "s have"
 
@@ -42591,7 +42601,7 @@ msgid "Escape cancels, Tab reads progress."
 msgstr "Escape để hủy, Tab để nghe tiến độ."
 
 msgid "lift"
-msgstr "lift"
+msgstr "nhấc ngón tay"
 
 #. placeholders: {lane_assist}
 msgid "Middle lane  ·  lane keeping {lane_assist}"
@@ -42667,7 +42677,7 @@ msgstr "SỐ TAY"
 
 #. placeholders: {rpm}
 msgid "{rpm} rpm"
-msgstr "{rpm} rpm"
+msgstr "{rpm} vòng mỗi phút"
 
 msgid "PARK BRAKE"
 msgstr "PHANH ĐỖ"
@@ -43008,6 +43018,7 @@ msgstr "{count} kilômét"
 msgid "{count} kilometer"
 msgstr "{count} kilômét"
 
+# same as English
 msgid "{count} feet"
 msgstr "{count} feet"
 

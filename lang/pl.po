@@ -19,7 +19,7 @@ msgstr ""
 "dalej."
 
 msgid "road"
-msgstr "road"
+msgstr "droga"
 
 msgid "Out on the Road"
 msgstr "W trasie"
@@ -38,7 +38,7 @@ msgstr ""
 "prawem."
 
 msgid "career"
-msgstr "career"
+msgstr "kariera"
 
 msgid "Career and Rank"
 msgstr "Kariera i ranga"
@@ -62,7 +62,7 @@ msgid "Rain, snow, fog, and the seasons while you kept driving."
 msgstr "Deszcz, śnieg, mgła i pory roku, które mijały ci za kierownicą."
 
 msgid "places"
-msgstr "places"
+msgstr "miejsca"
 
 msgid "Places on the Map"
 msgstr "Miejsca na mapie"
@@ -71,7 +71,7 @@ msgid "Cities, states, and regions you hauled into."
 msgstr "Miasta, stany i regiony, do których trafiły twoje ładunki."
 
 msgid "hidden"
-msgstr "hidden"
+msgstr "ukryte"
 
 msgid "Deep Cuts"
 msgstr "Perełki"
@@ -305,7 +305,7 @@ msgid "James Taylor - Traffic Jam"
 msgstr "James Taylor - Traffic Jam"
 
 msgid "inspection"
-msgstr "inspection"
+msgstr "kontrola"
 
 msgid "Smokey at the Scale"
 msgstr "Misiaczki na wadze"
@@ -913,7 +913,7 @@ msgid "Sam Cooke - Chain Gang"
 msgstr "Sam Cooke - Chain Gang"
 
 msgid "Nitro Express"
-msgstr "Nitro Express"
+msgstr "Nitro-ekspres"
 
 msgid ""
 "Your first tanker load, delivered. The surge pushed back the whole way."
@@ -2197,10 +2197,10 @@ msgstr ""
 "naczepy"
 
 msgid "baked bytes"
-msgstr "baked bytes"
+msgstr "bajty w paczce"
 
 msgid "json bytes"
-msgstr "json bytes"
+msgstr "bajty JSON"
 
 msgid "ratio"
 msgstr "ratio"
@@ -4656,7 +4656,7 @@ msgid "the Northeast"
 msgstr "Północny Wschód"
 
 msgid "Appalachia"
-msgstr "Appalachia"
+msgstr "Appalachy"
 
 msgid "the Great Lakes"
 msgstr "Wielkie Jeziora"
@@ -5480,7 +5480,7 @@ msgid "village"
 msgstr "village"
 
 msgid "hamlet"
-msgstr "hamlet"
+msgstr "przysiółek"
 
 msgid "place"
 msgstr "miejscowość"
@@ -5518,6 +5518,7 @@ msgstr "gotówka lub karta"
 msgid "ticket system"
 msgstr "system biletowy"
 
+# same as English
 msgid "transponder"
 msgstr "transponder"
 
@@ -6152,7 +6153,7 @@ msgid "rural"
 msgstr "rural"
 
 msgid "signal"
-msgstr "signal"
+msgstr "sygnalizacja świetlna"
 
 msgid "has invalid segment"
 msgstr "ma nieprawidłowy odcinek"
@@ -8181,7 +8182,7 @@ msgid "every new hire starts in the same trainer-spec tractor"
 msgstr "każdy nowy kierowca zaczyna w takim samym ciągniku szkoleniowym"
 
 msgid "regional"
-msgstr "regional"
+msgstr "regionalny"
 
 msgid "regional fleet"
 msgstr "flota regionalna"
@@ -8196,6 +8197,7 @@ msgid "a long-haul sleeper with real interstate range"
 msgstr ""
 "ciągnik z kabiną sypialną i prawdziwym zasięgiem na autostrady międzystanowe"
 
+# same as English
 msgid "premium"
 msgstr "premium"
 
@@ -9530,19 +9532,19 @@ msgid "{label} kind"
 msgstr "{label}: kind"
 
 msgid "contract"
-msgstr "contract"
+msgstr "kontrakt"
 
 msgid "pending"
-msgstr "pending"
+msgstr "oczekuje"
 
 msgid "completed"
-msgstr "completed"
+msgstr "wykonane"
 
 msgid "failed"
-msgstr "failed"
+msgstr "nieudane"
 
 msgid "open"
-msgstr "open"
+msgstr "otwarte"
 
 #. placeholders: {label}
 msgid "missing or invalid {label}"
@@ -9974,6 +9976,7 @@ msgstr "generic"
 msgid "shower"
 msgstr "prysznic"
 
+# same as English
 msgid "parking"
 msgstr "parking"
 
@@ -10229,13 +10232,13 @@ msgid "No advance while you owe {money_text}."
 msgstr "Bez zaliczki, dopóki jesteś winien {money_text}."
 
 msgid "all"
-msgstr "all"
+msgstr "wszystko"
 
 msgid "half"
-msgstr "half"
+msgstr "połowa"
 
 msgid "cushion"
-msgstr "cushion"
+msgstr "zapas"
 
 msgid ""
 "the tractor is worth less than the loan on it and the lender takes it back"
@@ -10763,7 +10766,7 @@ msgid " Walking around it you find a {defect}."
 msgstr " Przy obchodzie znajdujesz usterkę: {defect}."
 
 msgid "dropyard"
-msgstr "dropyard"
+msgstr "plac naczep"
 
 msgid "trailer"
 msgstr "naczepa"
@@ -10784,7 +10787,7 @@ msgid "the shipper is loading you at the dock"
 msgstr "nadawca ładuje cię przy rampie"
 
 msgid "swap"
-msgstr "swap"
+msgstr "wymiana"
 
 msgid "it is your own trailer, so they unload you at the dock"
 msgstr "to twoja własna naczepa, więc rozładowują cię przy rampie"
@@ -11426,7 +11429,7 @@ msgid "imported stations collide with curated station ids"
 msgstr "importowane stacje kolidują z identyfikatorami stacji z katalogu"
 
 msgid "local"
-msgstr "local"
+msgstr "lokalna"
 
 msgid "codec"
 msgstr "codec"
@@ -11482,6 +11485,7 @@ msgstr "Radio internetowe"
 msgid "Other stations"
 msgstr "Inne stacje"
 
+# same as English
 msgid "Radio"
 msgstr "Radio"
 
@@ -11528,7 +11532,7 @@ msgstr "tryb dla streamerów wyłączony"
 #. placeholders: {state}
 #. one sentence of a longer line
 msgid "Radio {state}."
-msgstr "Radio {state}."
+msgstr "Radio: {state}."
 
 #. placeholders: {state}, {display_name}, {format}, {signal_label}, {round_py_int}, {safety}, {source}
 msgid ""
@@ -11656,6 +11660,7 @@ msgstr "rzeka"
 msgid "museum"
 msgstr "muzeum"
 
+# same as English
 msgid "billboard"
 msgstr "billboard"
 
@@ -12150,10 +12155,10 @@ msgid "Duty window closes in {duration_text}."
 msgstr "Do zamknięcia okna służby: {duration_text}."
 
 msgid "drive"
-msgstr "drive"
+msgstr "jazda"
 
 msgid "duty"
-msgstr "duty"
+msgstr "służba"
 
 msgid "At the wheel: no driving yet"
 msgstr "Za kierownicą: jeszcze bez jazdy"
@@ -12450,40 +12455,40 @@ msgid "User-Agent"
 msgstr "User-Agent"
 
 msgid "squall"
-msgstr "squall"
+msgstr "szkwał"
 
 msgid "thunder"
-msgstr "thunder"
+msgstr "grzmot"
 
 msgid "tstorm"
 msgstr "tstorm"
 
 msgid "freezing"
-msgstr "freezing"
+msgstr "marznący"
 
 msgid "glaze"
-msgstr "glaze"
+msgstr "gołoledź"
 
 msgid "ice"
-msgstr "ice"
+msgstr "lód"
 
 msgid "icy"
-msgstr "icy"
+msgstr "oblodzenie"
 
 msgid "sleet"
-msgstr "sleet"
+msgstr "deszcz ze śniegiem"
 
 msgid "blizzard"
-msgstr "blizzard"
+msgstr "zamieć"
 
 msgid "flurr"
 msgstr "flurr"
 
 msgid "frost"
-msgstr "frost"
+msgstr "szron"
 
 msgid "wintry"
-msgstr "wintry"
+msgstr "zimowo"
 
 msgid "heavy rain"
 msgstr "ulewa"
@@ -12498,28 +12503,28 @@ msgid "rain"
 msgstr "deszcz"
 
 msgid "spray"
-msgstr "spray"
+msgstr "rozbryzgi"
 
 msgid "ash"
-msgstr "ash"
+msgstr "popiół"
 
 msgid "dust"
-msgstr "dust"
+msgstr "pył"
 
 msgid "fog"
 msgstr "mgła"
 
 msgid "haze"
-msgstr "haze"
+msgstr "zamglenie"
 
 msgid "mist"
-msgstr "mist"
+msgstr "mgiełka"
 
 msgid "sand"
-msgstr "sand"
+msgstr "piasek"
 
 msgid "smoke"
-msgstr "smoke"
+msgstr "dym"
 
 msgid "blust"
 msgstr "blust"
@@ -12528,25 +12533,25 @@ msgid "breez"
 msgstr "breez"
 
 msgid "gale"
-msgstr "gale"
+msgstr "wichura"
 
 msgid "wind"
-msgstr "wind"
+msgstr "wiatr"
 
 msgid "cloud"
-msgstr "cloud"
+msgstr "zachmurzenie"
 
 msgid "overcast"
-msgstr "overcast"
+msgstr "pochmurno"
 
 msgid "fair"
-msgstr "fair"
+msgstr "ładna pogoda"
 
 msgid "sun"
-msgstr "sun"
+msgstr "słońce"
 
 msgid "sunny"
-msgstr "sunny"
+msgstr "słonecznie"
 
 #. placeholders: {raw}
 msgid "could not convert {raw} to float"
@@ -12600,130 +12605,130 @@ msgid "{event}, gusts to {gust} miles per hour"
 msgstr "{event}, porywy do {gust} {gust:mili|mil|mil} na godzinę"
 
 msgid "marine"
-msgstr "marine"
+msgstr "pogoda morska"
 
 msgid "small craft"
-msgstr "small craft"
+msgstr "małe jednostki"
 
 msgid "surf"
-msgstr "surf"
+msgstr "przybój"
 
 msgid "rip current"
-msgstr "rip current"
+msgstr "prąd wsteczny"
 
 msgid "beach"
-msgstr "beach"
+msgstr "plaża"
 
 msgid "heat"
-msgstr "heat"
+msgstr "upał"
 
 msgid "red flag"
-msgstr "red flag"
+msgstr "czerwona flaga"
 
 msgid "fire weather"
-msgstr "fire weather"
+msgstr "zagrożenie pożarowe"
 
 msgid "air quality"
-msgstr "air quality"
+msgstr "jakość powietrza"
 
 msgid "freeze warning"
-msgstr "freeze warning"
+msgstr "ostrzeżenie przed przymrozkiem"
 
 msgid "freeze watch"
-msgstr "freeze watch"
+msgstr "możliwy przymrozek"
 
 msgid "hard freeze"
-msgstr "hard freeze"
+msgstr "silny mróz"
 
 msgid "coastal flood"
-msgstr "coastal flood"
+msgstr "powódź przybrzeżna"
 
 msgid "lakeshore"
-msgstr "lakeshore"
+msgstr "brzeg jeziora"
 
 msgid "tornado warning"
-msgstr "tornado warning"
+msgstr "ostrzeżenie przed tornadem"
 
 msgid "hurricane"
-msgstr "hurricane"
+msgstr "huragan"
 
 msgid "ice storm"
-msgstr "ice storm"
+msgstr "burza lodowa"
 
 msgid "extreme wind"
-msgstr "extreme wind"
+msgstr "ekstremalny wiatr"
 
 msgid "typhoon"
-msgstr "typhoon"
+msgstr "tajfun"
 
 msgid "freezing fog"
-msgstr "freezing fog"
+msgstr "marznąca mgła"
 
 msgid "freezing rain"
 msgstr "marznący deszcz"
 
 msgid "winter storm warning"
-msgstr "winter storm warning"
+msgstr "ostrzeżenie przed burzą śnieżną"
 
 msgid "winter weather"
-msgstr "winter weather"
+msgstr "zimowa pogoda"
 
 msgid "lake effect"
-msgstr "lake effect"
+msgstr "śnieg od jeziora"
 
 msgid "winter storm"
-msgstr "winter storm"
+msgstr "burza śnieżna"
 
 msgid "flash flood warning"
-msgstr "flash flood warning"
+msgstr "ostrzeżenie przed nagłą powodzią"
 
 msgid "flood advisory"
-msgstr "flood advisory"
+msgstr "komunikat o podtopieniach"
 
 msgid "flood warning"
-msgstr "flood warning"
+msgstr "ostrzeżenie przed powodzią"
 
 msgid "high wind"
-msgstr "high wind"
+msgstr "silny wiatr"
 
 msgid "wind advisory"
-msgstr "wind advisory"
+msgstr "komunikat o wietrze"
 
 msgid "wind warning"
-msgstr "wind warning"
+msgstr "ostrzeżenie przed wiatrem"
 
 msgid "blowing dust"
-msgstr "blowing dust"
+msgstr "zamieć pyłowa"
 
 msgid "dense fog"
-msgstr "dense fog"
+msgstr "gęsta mgła"
 
 msgid "dense smoke"
-msgstr "dense smoke"
+msgstr "gęsty dym"
 
 msgid "dust storm"
-msgstr "dust storm"
+msgstr "burza pyłowa"
 
 msgid "thunderstorm"
 msgstr "burza"
 
 msgid "tornado watch"
-msgstr "tornado watch"
+msgstr "możliwe tornado"
 
 msgid "flood watch"
-msgstr "flood watch"
+msgstr "możliwa powódź"
 
 msgid "tropical storm"
-msgstr "tropical storm"
+msgstr "burza tropikalna"
 
 msgid "special weather"
-msgstr "special weather"
+msgstr "szczególne warunki pogodowe"
 
 msgid "wind chill"
-msgstr "wind chill"
+msgstr "temperatura odczuwalna"
 
 msgid "extreme cold"
-msgstr "extreme cold"
+msgstr "ekstremalne zimno"
 
 msgid "severity"
 msgstr "severity"
@@ -13107,6 +13112,7 @@ msgstr "poza"
 msgid "shifting"
 msgstr "zmiana biegu"
 
+# same as English
 msgid "minivan"
 msgstr "minivan"
 
@@ -13305,7 +13311,7 @@ msgstr "korek w godzinach szczytu"
 #. placeholders: {limit}
 #. one sentence of a longer line
 msgid "Limit {limit}."
-msgstr "Limit {limit}."
+msgstr "Ograniczenie {limit}."
 
 #. placeholders: {keep}
 #. one sentence of a longer line
@@ -13402,7 +13408,7 @@ msgid "zone"
 msgstr "strefa"
 
 msgid "limit"
-msgstr "limit"
+msgstr "ograniczenie"
 
 #. placeholders: {reason}
 #. one sentence of a longer line
@@ -13586,7 +13592,7 @@ msgid "Continue onto {highway}"
 msgstr "Jedź dalej na {highway}"
 
 msgid "onramp"
-msgstr "onramp"
+msgstr "wjazd na drogę"
 
 #. placeholders: {shield}, {toward}
 msgid "merge onto {shield} toward {toward}"
@@ -13597,7 +13603,7 @@ msgid "Merge onto {shield} toward {toward}{on_it_tail}."
 msgstr "Wjedź na {shield} w kierunku {toward}{on_it_tail}."
 
 msgid "continue"
-msgstr "continue"
+msgstr "prosto"
 
 #. placeholders: {highway}, {distance_text}, {toward}
 msgid "Continue on {highway} for {distance_text} toward {toward}."
@@ -13623,7 +13629,7 @@ msgid "Keep right for {shield} toward {toward}."
 msgstr "Trzymaj się prawej na {shield} w kierunku {toward}."
 
 msgid "maneuver"
-msgstr "maneuver"
+msgstr "manewr"
 
 #. placeholders: {shield}
 msgid "keep right for {shield}"
@@ -13638,7 +13644,7 @@ msgid "Crossing into {into_state} near {place}."
 msgstr "Wjazd do {into_state} w pobliżu {place}."
 
 msgid "checkpoint"
-msgstr "checkpoint"
+msgstr "punkt kontrolny"
 
 #. placeholders: {place}, {state}, {highway}
 msgid "{place}{state} on {highway}"
@@ -13657,22 +13663,23 @@ msgid " Toll {amount} dollars."
 msgstr " Opłata {amount} {amount:dolar|dolary|dolarów}."
 
 msgid "toll"
-msgstr "toll"
+msgstr "opłata"
 
 #. placeholders: {method_label}, {name}, {toll_text}
 msgid "{method_label} toll point, {name}.{toll_text}"
 msgstr "{method_label}: punkt poboru opłat, {name}.{toll_text}"
 
 msgid "restriction"
-msgstr "restriction"
+msgstr "ograniczenie"
 
 msgid "interchange"
-msgstr "interchange"
+msgstr "węzeł"
 
 #. placeholders: {label}, {interchange}
 msgid "{label} off {interchange}"
 msgstr "{label}, {interchange}"
 
+# same as English
 #. placeholders: {text}
 msgid "Billboard: {text}"
 msgstr "Billboard: {text}"
@@ -13892,7 +13899,7 @@ msgid "curve"
 msgstr "zakręt"
 
 msgid "arrived"
-msgstr "arrived"
+msgstr "na miejscu"
 
 #. placeholders: {text}, {parking_spaces}
 msgid "{text}, {parking_spaces} spaces"
@@ -14106,6 +14113,7 @@ msgstr "ciężarówka bez hamulców na nachyleniu"
 msgid "the runaway truck"
 msgstr "ciężarówka bez hamulców"
 
+# same as English
 msgid "it"
 msgstr "it"
 
@@ -14358,10 +14366,10 @@ msgid "Content-Type"
 msgstr "Content-Type"
 
 msgid "unsupported"
-msgstr "unsupported"
+msgstr "nieobsługiwane"
 
 msgid "empty"
-msgstr "empty"
+msgstr "pusto"
 
 msgid "schema"
 msgstr "schema"
@@ -14412,7 +14420,7 @@ msgid "simulated"
 msgstr "symulowany"
 
 msgid "live"
-msgstr "live"
+msgstr "na żywo"
 
 msgid "loading"
 msgstr "ładowanie"
@@ -14561,7 +14569,7 @@ msgid "high winds"
 msgstr "silny wiatr"
 
 msgid "dry"
-msgstr "dry"
+msgstr "sucho"
 
 msgid "wet"
 msgstr "mokro"
@@ -15607,7 +15615,7 @@ msgstr "Ponad limit {limit_speed_text}."
 
 #. placeholders: {limit_value}
 msgid "Limit {limit_value}."
-msgstr "Limit {limit_value}."
+msgstr "Ograniczenie {limit_value}."
 
 #. placeholders: {pacenote}, {advisory_speed_text}
 msgid "{pacenote} Cruise easing to {advisory_speed_text}."
@@ -15675,6 +15683,7 @@ msgstr "Nowe osiągnięcie! {name}."
 msgid "Museum ahead: "
 msgstr "Przed tobą muzeum: "
 
+# same as English
 msgid "Billboard: "
 msgstr "Billboard: "
 
@@ -15726,7 +15735,7 @@ msgstr "{feet} {feet:stopa|stopy|stóp}"
 
 #. placeholders: {f}
 msgid "{f} mph"
-msgstr "{f} mph"
+msgstr "{f} {f:mila|mile|mil} na godzinę"
 
 #. placeholders: {achievement_id}
 msgid "unknown achievement id {achievement_id}"
@@ -16001,7 +16010,7 @@ msgid "smoke checks"
 msgstr "testy dymne"
 
 msgid "screen"
-msgstr "screen"
+msgstr "ekran"
 
 #. placeholders: {group}, {label}
 msgid "Tap with three fingers and open {group} for {label}"
@@ -17204,8 +17213,8 @@ msgid ""
 "  joystick {index}: name={name} guid={guid} axes={num_axes} "
 "buttons={num_buttons} hats={num_hats} power={power}"
 msgstr ""
-"  joystick {index}: name={name} guid={guid} axes={num_axes} "
-"buttons={num_buttons} hats={num_hats} power={power}"
+"  joystick {index}: nazwa={name} guid={guid} osie={num_axes} "
+"przyciski={num_buttons} krzyżaki={num_hats} zasilanie={power}"
 
 #. placeholders: {index}, {e}
 msgid "  joystick {index}: could not open: {e}"
@@ -17542,6 +17551,7 @@ msgstr "Yankee"
 msgid "Zulu"
 msgstr "Zulu"
 
+# same as English
 msgid "zero"
 msgstr "zero"
 
@@ -17804,7 +17814,7 @@ msgid "Could not copy to the clipboard."
 msgstr "Nie udało się skopiować do schowka."
 
 msgid "messages"
-msgstr "messages"
+msgstr "wiadomości"
 
 #. placeholders: {hidden}, {plural}
 msgid " {hidden} newer {plural} outside this filter."
@@ -17841,6 +17851,7 @@ msgstr ""
 "Przesuń w prawo lub w lewo, aby przejść dalej, i stuknij dwukrotnie, aby "
 "wybrać. Przesuń dwoma palcami w dół, aby wrócić."
 
+# same as English
 msgid "Menu"
 msgstr "Menu"
 
@@ -19063,7 +19074,7 @@ msgid "job"
 msgstr "zlecenie"
 
 msgid "Terminal"
-msgstr "Terminal"
+msgstr "Baza"
 
 msgid "First-day briefing"
 msgstr "Odprawa pierwszego dnia"
@@ -23821,6 +23832,7 @@ msgstr "Hamulce pneumatyczne: {air_status_text}"
 msgid "Weather: {report_lead}"
 msgstr "Pogoda: {report_lead}"
 
+# same as English
 #. placeholders: {status_text}
 msgid "Radio: {status_text}"
 msgstr "Radio: {status_text}"
@@ -26407,6 +26419,7 @@ msgstr ""
 "Zegar: {clock_text} {clock_zone_label}, {time_of_day}   Zmęczenie: "
 "{fatigue}%"
 
+# same as English
 #. placeholders: {line}
 msgid "Billboard: {line}"
 msgstr "Billboard: {line}"
@@ -26418,7 +26431,7 @@ msgid "Come to a complete stop first."
 msgstr "Najpierw zatrzymaj się całkowicie."
 
 msgid "chain up"
-msgstr "chain up"
+msgstr "zakładanie łańcuchów"
 
 msgid "In the dark, it took more out of you. "
 msgstr "Po ciemku bardziej cię to zmęczyło. "
@@ -26448,7 +26461,7 @@ msgid "No repair links left. The chain stays off."
 msgstr "Brak ogniw naprawczych. Łańcuch zostaje zdjęty."
 
 msgid "repair chain"
-msgstr "repair chain"
+msgstr "naprawa łańcucha"
 
 #. placeholders: {f}
 #. one sentence of a longer line
@@ -26473,7 +26486,7 @@ msgid "Check it again soon."
 msgstr "Wkrótce sprawdź go jeszcze raz."
 
 msgid "tighten chains"
-msgstr "tighten chains"
+msgstr "dociąganie łańcuchów"
 
 #. placeholders: {f}
 #. one sentence of a longer line
@@ -26487,7 +26500,7 @@ msgstr ""
 "{deadline_text}"
 
 msgid "remove chains"
-msgstr "remove chains"
+msgstr "zdejmowanie łańcuchów"
 
 msgid "The set is about done."
 msgstr "Komplet jest prawie zużyty."
@@ -26682,7 +26695,7 @@ msgid "{lane_text} of acceleration lane."
 msgstr "Pas rozbiegowy: {lane_text}."
 
 msgid "merge speed reached"
-msgstr "merge speed reached"
+msgstr "osiągnięto prędkość włączania się"
 
 #. placeholders: {speed_text}, {speed_text2}
 #. one sentence of a longer line
@@ -27476,7 +27489,7 @@ msgstr "Światło {phase}."
 
 #. placeholders: {limit_text}
 msgid " Limit {limit_text}."
-msgstr " Limit {limit_text}."
+msgstr " Ograniczenie {limit_text}."
 
 #. placeholders: {limit_clause}
 msgid "Stop sign at ramp end.{limit_clause}"
@@ -29117,9 +29130,11 @@ msgstr "Poprzednia stacja radiowa"
 msgid "Driving help"
 msgstr "Pomoc do jazdy"
 
+# same as English
 msgid "Plus"
 msgstr "Plus"
 
+# same as English
 msgid "Minus"
 msgstr "Minus"
 
@@ -30506,6 +30521,7 @@ msgstr "Miasto"
 msgid "Frequency"
 msgstr "Częstotliwość"
 
+# same as English
 msgid "Format"
 msgstr "Format"
 
@@ -31828,6 +31844,7 @@ msgstr ""
 "{done_say} {grouped} {grouped:dolar|dolary|dolarów}. Jest {clock_text}. "
 "Masz {grouped2} {grouped2:dolara|dolary|dolarów}. {deadline_text}"
 
+# same as English
 msgid "1 cent"
 msgstr "1 cent"
 
@@ -32867,6 +32884,7 @@ msgstr "Wymienione usługi: {join_phrase}."
 msgid "Services not listed."
 msgstr "Usługi niewymienione."
 
+# same as English
 #. placeholders: {parking_text}
 msgid "Parking: {parking_text}."
 msgstr "Parking: {parking_text}."
@@ -33532,7 +33550,7 @@ msgstr "Zostało {duration_text2} jazdy."
 
 #. placeholders: {name}, {trim_end_matches}
 msgid "ELD, {name}: {trim_end_matches}"
-msgstr "ELD, {name}: {trim_end_matches}"
+msgstr "Rejestrator elektroniczny, {name}: {trim_end_matches}"
 
 #. placeholders: {round}
 msgid "their {round} percent"
@@ -34218,8 +34236,8 @@ msgid ""
 "reminder only {weigh_station_reminder_age_s} real s before, held back by "
 "the game"
 msgstr ""
-"reminder only {weigh_station_reminder_age_s} real s before, held back by "
-"the game"
+"przypomnienie tylko {weigh_station_reminder_age_s} prawdziwych sekund "
+"wcześniej, wstrzymane przez grę"
 
 msgid "never announced"
 msgstr "never announced"
@@ -34325,7 +34343,7 @@ msgid "Pulling over to the shoulder."
 msgstr "Zjazd na pobocze."
 
 msgid "buff"
-msgstr "buff"
+msgstr "bonus"
 
 msgid "Getting drowsy."
 msgstr "Robi się sennie."
@@ -35802,6 +35820,7 @@ msgstr "Zacznij nową karierę."
 msgid "Earned and locked achievements for a saved career."
 msgstr "Zdobyte i zablokowane osiągnięcia zapisanej kariery."
 
+# same as English
 msgid "Online"
 msgstr "Online"
 
@@ -36312,7 +36331,7 @@ msgid "classic"
 msgstr "klasyczny"
 
 msgid "real"
-msgstr "real"
+msgstr "prawdziwy"
 
 #. one sentence of a longer line
 msgid "Every synthesized piece is new."
@@ -37825,6 +37844,7 @@ msgstr "Windows OneCore"
 msgid "built-in voice"
 msgstr "wbudowany głos"
 
+# same as English
 msgid "Narrator"
 msgstr "Narrator"
 
@@ -42872,6 +42892,7 @@ msgstr "LIMIT"
 msgid "LIMIT"
 msgstr "PRĘDK."
 
+# same as English
 msgid "AUTO"
 msgstr "AUTO"
 
@@ -43895,9 +43916,11 @@ msgstr "akcent grawis"
 msgid "equals"
 msgstr "znak równości"
 
+# same as English
 msgid "plus"
 msgstr "plus"
 
+# same as English
 msgid "minus"
 msgstr "minus"
 

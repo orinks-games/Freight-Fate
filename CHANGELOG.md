@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### Fixed
+
+- **Weather reports, weather alerts and about a thousand other lines are now spoken in your language.** Every translation had left some of them in English.
+
 ## 1.9.7 - 2026-11-21
 
 ### Compatibility
