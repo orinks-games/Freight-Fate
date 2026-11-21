@@ -171,10 +171,44 @@ What changed:
 - Assigned dispatch, below level 8 or when load choice is revoked,
   offers loads in the same order.
 
-Still to come: hot loads with a tight window that pay more, and
-flexible loads with a wide one that pay less. The scores live in
-`crates/ff-core/src/models/dispatch_fit.rs`, the board's state machine
-in `dispatch_board.rs` beside it.
+The scores live in `crates/ff-core/src/models/dispatch_fit.rs`, the
+board's state machine in `dispatch_board.rs` beside it.
+
+## Hot loads and flexible deliveries (2026-11-21)
+
+After the posted order, two loads of the same length still paid the
+same, because most loads sit on the pay floor. Real shippers differ in
+how fast they need the freight, so loads now come in three kinds:
+
+- A hot load (15 percent of loads) pays 25 percent more and gets the
+  tight end of the old deadline range, 1.2 times the legal hours.
+- A standard load (55 percent) gets 1.3 to 1.5 times.
+- A flexible delivery (30 percent) pays 10 percent less and gets 1.6 to
+  2.0 times.
+
+No deadline is tighter than the board already allowed. The kind is
+drawn from the load itself, the way a team load is, so every seed
+posts the same loads it did before; the board's one deadline draw is
+mapped into the kind's own range. Pay is applied after the pay floor,
+the market and direct freight, and before the team premium. With those
+shares the average pay rises 0.75 percent. Relayed loads and
+repositions are always standard. A flexible team load is held half an
+hour short of the solo legal hours, so it never leaves room for the
+sleep a team load skips (never tighter than the tightest team window).
+Posting those loads standard instead raised average pay 1.7 percent,
+because team loads are the best-paid rows. A save from before this
+change reads every load as standard.
+
+The board row adds "Hot load." or "Flexible delivery." after the miles
+and deadline, and the job details say what it means. A driver whose
+standing slipped is steered to the load with the most room on its
+deadline, which is usually the flexible one; the score did not change.
+
+Provenance: **assumed**. A search for a published expedited-truckload
+premium and for the share of time-critical truckload freight found
+carrier and broker marketing pages, no survey or index to cite. The
+shares are set so average pay does not move. The code is
+`crates/ff-core/src/models/jobs/urgency.rs`.
 
 ## Sources
 

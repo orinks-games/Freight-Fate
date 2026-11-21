@@ -723,6 +723,8 @@ When a load leaves the shipper needing a ten-hour break, the co-driver comes alo
 
 The pickup menu offers the same choice once the load is on: **Depart with Dan driving, and ride along**, or **and sleep**. Each row's help names the co-driver and the pay terms.
 
+**Hot loads and flexible deliveries.** A load on the dispatch board that says "Hot load" pays 25 percent more and has a tight deadline. One that says "Flexible delivery" pays 10 percent less and has a wide deadline.
+
 **Team loads.** Some long loads on the dispatch board are booked for a team. Their details say "Team load". They pay about a third more, and the deadline leaves no time for a ten-hour break, only for changing drivers. You can still drive a team load alone, but you will be late unless the co-driver takes their turns. Trip hours in the job details and the route plan at the shipper count on those turns, so they name no ten-hour sleep. With stop planning hints on, the hint near the end of your hours names your co-driver instead of a sleep stop.
 
 While the co-driver drives, the keys that move the truck do nothing. The information keys still answer, and Tab, the apps and the pause menu still open. If the radio was on, the co-driver may change the station or switch it off for a while; once you change it yourself, they leave it alone. A radio you left off stays off.

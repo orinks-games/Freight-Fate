@@ -8541,16 +8541,6 @@ msgstr "支付 {pay} 美元。"
 msgid "Pays {pay} dollars, {pay_preview}."
 msgstr "报酬{pay}美元，{pay_preview}。"
 
-#. one sentence of a longer line
-msgid "Team load: you and a co-driver take turns at the wheel."
-msgstr "双人任务：你和搭档司机轮流驾驶。"
-
-#. placeholders: {distance}, {hours}
-msgid ""
-"{distance}, deadline {hours} hours. Team load: you and a co-driver take "
-"turns at the wheel."
-msgstr "{distance}，期限{hours}小时。团队货：你和副驾驶轮流开车。"
-
 #. placeholders: {distance}, {hours}
 msgid "{distance}, deadline {hours} hours with a 10-hour rest."
 msgstr "{distance}，期限{hours}小时，含一次10小时休息。"
@@ -8558,6 +8548,9 @@ msgstr "{distance}，期限{hours}小时，含一次10小时休息。"
 #. placeholders: {distance}, {hours}
 msgid "{distance}, deadline {hours} hours."
 msgstr "{distance}，期限{hours}小时。"
+
+msgid "Team load: you and a co-driver take turns at the wheel."
+msgstr "双人任务：你和搭档司机轮流驾驶。"
 
 #. placeholders: {min_level}
 msgid "Level {min_level} drivers unlock this cargo."
@@ -8588,6 +8581,9 @@ msgstr "空车头"
 
 msgid "team"
 msgstr "双人"
+
+msgid "urgency"
+msgstr ""
 
 #. placeholders: {unwrap_or_else}
 msgid "{unwrap_or_else} freight market"
@@ -8860,6 +8856,27 @@ msgstr "最后一个可到达的{action}停靠点：{name}，前方{distance}。
 #. one sentence of a longer line
 msgid "Plan to stop here."
 msgstr "计划在这里停车。"
+
+msgid "standard"
+msgstr "标准"
+
+msgid "hot"
+msgstr ""
+
+msgid "flexible"
+msgstr ""
+
+msgid "Hot load."
+msgstr ""
+
+msgid "Flexible delivery."
+msgstr ""
+
+msgid "Hot load. Tight deadline, pays 25 percent more."
+msgstr ""
+
+msgid "Flexible delivery. Wide deadline, pays 10 percent less."
+msgstr ""
 
 msgid "landmark"
 msgstr "landmark"
@@ -9675,9 +9692,6 @@ msgstr "卧铺"
 
 msgid "light"
 msgstr "轻型"
-
-msgid "standard"
-msgstr "标准"
 
 msgid "heavy"
 msgstr "重型"
@@ -39182,6 +39196,11 @@ msgid ""
 "Hold the left bumper for a second layer of buttons. {pad_engine} controls "
 "the engine, {pad_fuel} reads fuel, and {pad_speed_limit} reads the limit."
 msgstr ""
+
+#~ msgid ""
+#~ "{distance}, deadline {hours} hours. Team load: you and a co-driver take "
+#~ "turns at the wheel."
+#~ msgstr "{distance}，期限{hours}小时。团队货：你和副驾驶轮流开车。"
 
 #~ msgid "{name} needs you back at the wheel."
 #~ msgstr "{name}需要你回来驾驶。"

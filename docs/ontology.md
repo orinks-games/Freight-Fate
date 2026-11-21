@@ -239,6 +239,8 @@ from the words, and synonyms cost them a re-read.
 | One booked citation or violation with its reason | citation / serious violation / major offense / safety incident, then day, clock, reason, fine, place | ticket entry, infraction, offense record, strike | `enforcement::RecordEntry`, `DrivingRecord.entries` |
 | The freight itself | cargo, the load | payload, goods | `CargoType`, `Job.cargo` |
 | The board of offers | dispatch board | job list, load board | `JobBoard` |
+| A load the shipper needs fast: a tight deadline, 25 percent more pay | hot load ("Hot load." on the board row) | rush load, expedited, urgent, hot shot | `LoadUrgency::Hot`, `Job.urgency` |
+| A load with a wide deadline that pays 10 percent less | flexible delivery ("Flexible delivery." on the board row) | flexible load, relaxed load, open window, slow load | `LoadUrgency::Flexible`, `Job.urgency` |
 | Asking the carrier's dispatcher for help on a trip, from the pause menu while stopped | call dispatch; the answer starts "Dispatch:" | radio dispatch, phone home, check call, Qualcomm message | `DispatchCallState`, `DispatchCallRequest` |
 | The vehicle | truck | rig (except as noted) | `TruckModel` |
 | One city-to-city stretch | leg | segment, hop | `Leg` |

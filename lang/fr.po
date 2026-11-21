@@ -9818,19 +9818,6 @@ msgstr "Paie {pay} dollars."
 msgid "Pays {pay} dollars, {pay_preview}."
 msgstr "Paie {pay} dollars, {pay_preview}."
 
-#. one sentence of a longer line
-msgid "Team load: you and a co-driver take turns at the wheel."
-msgstr ""
-"Chargement en équipe : vous et un coéquipier vous relayez au volant."
-
-#. placeholders: {distance}, {hours}
-msgid ""
-"{distance}, deadline {hours} hours. Team load: you and a co-driver take "
-"turns at the wheel."
-msgstr ""
-"{distance}, délai {hours} heures. Chargement en équipe : vous et un "
-"coéquipier vous relayez au volant."
-
 #. placeholders: {distance}, {hours}
 msgid "{distance}, deadline {hours} hours with a 10-hour rest."
 msgstr "{distance}, délai {hours} heures avec un repos de 10 heures."
@@ -9838,6 +9825,10 @@ msgstr "{distance}, délai {hours} heures avec un repos de 10 heures."
 #. placeholders: {distance}, {hours}
 msgid "{distance}, deadline {hours} hours."
 msgstr "{distance}, délai {hours} heures."
+
+msgid "Team load: you and a co-driver take turns at the wheel."
+msgstr ""
+"Chargement en équipe : vous et un coéquipier vous relayez au volant."
 
 #. placeholders: {min_level}
 msgid "Level {min_level} drivers unlock this cargo."
@@ -9868,6 +9859,9 @@ msgstr "sans remorque"
 
 msgid "team"
 msgstr "équipe"
+
+msgid "urgency"
+msgstr ""
 
 #. placeholders: {unwrap_or_else}
 msgid "{unwrap_or_else} freight market"
@@ -10166,6 +10160,27 @@ msgstr ""
 #. one sentence of a longer line
 msgid "Plan to stop here."
 msgstr "Prévoyez de vous arrêter ici."
+
+msgid "standard"
+msgstr "standard"
+
+msgid "hot"
+msgstr ""
+
+msgid "flexible"
+msgstr ""
+
+msgid "Hot load."
+msgstr ""
+
+msgid "Flexible delivery."
+msgstr ""
+
+msgid "Hot load. Tight deadline, pays 25 percent more."
+msgstr ""
+
+msgid "Flexible delivery. Wide deadline, pays 10 percent less."
+msgstr ""
 
 msgid "landmark"
 msgstr "landmark"
@@ -11101,9 +11116,6 @@ msgstr "couchette"
 
 msgid "light"
 msgstr "léger"
-
-msgid "standard"
-msgstr "standard"
 
 msgid "heavy"
 msgstr "lourd"
@@ -44532,6 +44544,13 @@ msgid ""
 "Hold the left bumper for a second layer of buttons. {pad_engine} controls "
 "the engine, {pad_fuel} reads fuel, and {pad_speed_limit} reads the limit."
 msgstr ""
+
+#~ msgid ""
+#~ "{distance}, deadline {hours} hours. Team load: you and a co-driver take "
+#~ "turns at the wheel."
+#~ msgstr ""
+#~ "{distance}, délai {hours} heures. Chargement en équipe : vous et un "
+#~ "coéquipier vous relayez au volant."
 
 #~ msgid "{name} needs you back at the wheel."
 #~ msgstr "{name} a besoin que vous repreniez le volant."

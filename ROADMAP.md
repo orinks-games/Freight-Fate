@@ -4357,10 +4357,14 @@ label from the career stage that said nothing about the load. Design:
 - [x] The board's mode, accept gate and recommendation are one state
       machine in ff-core (`dispatch_board`), and the agent server's
       `status` reports them on the board.
-- [ ] Hot and flexible loads: a tight window that pays more, a wide one
-      that pays less, applied after the pay floor, with the premium taken
-      from published expedited rates (design section 3, after the posted
-      board has been driven).
+- [x] Hot loads and flexible deliveries (2026-11-21): 15 percent of loads
+      are hot (25 percent more pay, the tightest deadline the board
+      already allowed), 30 percent are flexible (10 percent less, a wide
+      deadline), drawn from the load itself. Average pay moves under 1
+      percent. No published expedited premium was citable, so the numbers
+      are labelled assumed. A feature landing during the 1.9.7 fixes-only
+      stretch: the owner put it in 1.9.7 on 2026-11-21 as the last feature
+      before stable.
 
 ### November 16 exits inside a work zone (Release gate)
 
