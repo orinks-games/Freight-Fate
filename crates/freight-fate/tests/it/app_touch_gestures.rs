@@ -12,7 +12,7 @@ use freight_fate::states::driving::DrivingState;
 use freight_fate::states::driving_menu_states::DrivingCommandsState;
 use freight_fate::states::driving_pause_states::PauseMenuState;
 use freight_fate::states::main_menu::{
-    TouchCommandPickerState, TouchGesturesState, TouchPracticeState,
+    InputPracticeState, TouchCommandPickerState, TouchGesturesState,
 };
 use freight_fate::touch::{Gesture, TouchInput};
 
@@ -248,7 +248,7 @@ fn touch_practice_takes_pedal_and_bound_holds_before_they_press_keys() {
             .set_chord(Action::EmergencyBrake, Chord::plain(Key::Backslash)),
         freight_fate::bindings::Rebind::Done
     ));
-    harness.app.push_state(TouchPracticeState::new());
+    harness.app.push_state(InputPracticeState::gestures());
     harness.clear_speech();
 
     harness.app.dispatch_gesture(Gesture::HoldUpperBegan);
@@ -280,7 +280,7 @@ fn touch_practice_takes_pedal_and_bound_holds_before_they_press_keys() {
 #[test]
 fn touch_practice_names_every_fixed_gesture_command() {
     let mut harness = a_drive("Touch Practice Fixed");
-    harness.app.push_state(TouchPracticeState::new());
+    harness.app.push_state(InputPracticeState::gestures());
 
     harness.clear_speech();
     harness.app.dispatch_gesture(Gesture::SwipeRight);
@@ -669,7 +669,7 @@ fn a_cruise_flick_presses_no_pedal() {
 #[test]
 fn practice_reads_the_length_of_a_swipe_down_and_a_deep_swipe() {
     let mut harness = PlaytestHarness::new();
-    harness.app.push_state(TouchPracticeState::new());
+    harness.app.push_state(InputPracticeState::gestures());
     let mut input = TouchInput::new();
 
     touch(&mut harness, &mut input, Gesture::HoldLowerBegan);

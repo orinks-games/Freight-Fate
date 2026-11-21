@@ -87,7 +87,11 @@ pub fn configure_logging() {
     let log_path: Option<PathBuf> = match explicit {
         Some(path) => Some(PathBuf::from(path)),
         None if packaged => Some(packaged_log_path(
-            cfg!(any(target_os = "macos", target_os = "ios")),
+            cfg!(any(
+                target_os = "macos",
+                target_os = "ios",
+                target_os = "android"
+            )),
             &ff_core::settings::game_root(),
             &ff_core::models::profile::data_dir(),
         )),
@@ -99,7 +103,7 @@ pub fn configure_logging() {
     }
 
     let mut builder = env_logger::Builder::new();
-    builder.filter_level(level);
+    apply_levels(&mut builder, level);
     // "%(asctime)s %(levelname)s %(name)s: %(message)s"
     builder.format(|buf, record| {
         writeln!(
@@ -136,6 +140,16 @@ pub fn configure_logging() {
         log::error!("Fatal error: {info}");
         default_hook(info);
     }));
+}
+
+/// The chosen level for everything, with the chattiest dependencies held
+/// back. The Ogg reader logs two INFO lines each time a sound starts, and a
+/// looping sound restarts about twice a second on the road: a 1.9.6 problem
+/// report's log was 98 percent those lines, so the last megabyte a report
+/// carries held five hours of the session instead of all of it.
+fn apply_levels(builder: &mut env_logger::Builder, level: LevelFilter) {
+    builder.filter_level(level);
+    builder.filter_module("symphonia", level.min(LevelFilter::Warn));
 }
 
 fn python_level_name(level: log::Level) -> &'static str {
@@ -178,6 +192,29 @@ fn packaged_log_path(macos: bool, game_root: &Path, data_dir: &Path) -> PathBuf 
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn sound_decoding_info_stays_out_of_the_log() {
+        use log::{Level, Log, Metadata};
+        let enabled = |level: LevelFilter, target: &str, at: Level| {
+            let mut builder = env_logger::Builder::new();
+            apply_levels(&mut builder, level);
+            builder
+                .build()
+                .enabled(&Metadata::builder().target(target).level(at).build())
+        };
+        let ogg = "symphonia_format_ogg::demuxer";
+        assert!(!enabled(LevelFilter::Info, ogg, Level::Info));
+        assert!(enabled(LevelFilter::Info, ogg, Level::Warn));
+        assert!(!enabled(LevelFilter::Debug, ogg, Level::Debug));
+        assert!(!enabled(LevelFilter::Error, ogg, Level::Warn));
+        assert!(enabled(LevelFilter::Info, "freight_fate::app", Level::Info));
+        assert!(enabled(
+            LevelFilter::Info,
+            "freight_fate.transcript",
+            Level::Info
+        ));
+    }
 
     #[test]
     fn python_level_names_parse() {

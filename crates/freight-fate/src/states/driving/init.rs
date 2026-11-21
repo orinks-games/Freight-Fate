@@ -24,6 +24,7 @@ use ff_core::sim::lane_guidance::{HAIRPIN_ADVISORY_MPH, STRIP_LEAD_MI};
 use ff_core::sim::livestock::{CattleKind, LivestockLoad, LIVESTOCK_CARGO_KEY};
 use ff_core::sim::real_traffic::RealTrafficProvider;
 use ff_core::sim::real_weather::RealWeatherProvider;
+use ff_core::sim::road_texture::RoadSurface;
 use ff_core::sim::season::real_clock_game_hours;
 use ff_core::sim::surge::{liquid_load_for, LiquidCargo};
 use ff_core::sim::trip_traffic::TrafficProvider;
@@ -39,6 +40,7 @@ use crate::states::driving_events::billboard_moment::BillboardWatch;
 use crate::states::driving_updates::radio_channel3000::{
     channel3000_for_drive, channel3000_playable,
 };
+use crate::states::driving_updates::road_texture::RoadTexture;
 
 use super::DrivingState;
 
@@ -156,13 +158,19 @@ impl DrivingState {
             .city(&job.origin)
             .map(|city| city.region.clone())
             .unwrap_or_default();
-        let weather = WeatherSystem::new(
+        let mut weather = WeatherSystem::new(
             &region,
             Some(trip_seed),
             live_weather_provider(ctx),
             Some(profile_of(ctx).calendar_game_hours()),
             ctx.settings.live_weather_controls_calendar,
         );
+        if let Some(forced) = ctx.playtest_weather {
+            weather.forced = forced;
+            if let Some(kind) = forced {
+                weather.current = kind;
+            }
+        }
 
         let trip_start_hour = start_hour.unwrap_or_else(|| {
             if ctx.settings.time_scale == 1.0 {
@@ -293,7 +301,9 @@ impl DrivingState {
         }
         let community = load_community_stations(&crate::community_stations::cache_path());
         catalog.extend(new_community_stations(&catalog, community));
-        catalog.extend(load_personal_playlists(&personal_playlists_dir()));
+        if crate::PERSONAL_PLAYLISTS {
+            catalog.extend(load_personal_playlists(&personal_playlists_dir()));
+        }
         let radio = RadioState::from_settings(
             catalog,
             &RadioSettingsView(&ctx.settings),
@@ -315,7 +325,21 @@ impl DrivingState {
             .collect();
 
         let mut road_texture_rng = seeded_rng(seed_arg, 0x5EA7);
-        let next_joint_distance_m = road_texture_rng.uniform(14.0, 18.0);
+        let next_joint_distance_m = road_texture_rng.uniform(
+            ff_core::sim::road_texture::SEAM_SPACING_M.0,
+            ff_core::sim::road_texture::SEAM_SPACING_M.1,
+        );
+        // Drawn even when a scenario holds the surface, so the seams' spacing
+        // replays the same either way.
+        let mut road_surface = RoadSurface::first(
+            trip.pavement_reading_at(trip.position_mi),
+            &mut road_texture_rng,
+        );
+        if let Some(jointed) = ctx.playtest_road_jointed {
+            road_surface = RoadSurface::held(jointed);
+        }
+        let road_texture =
+            RoadTexture::new(road_surface, trip.bridge_joint_spans(), trip.position_mi);
 
         let damage_band = trip.truck.damage_band();
         let engine_on = trip.truck.engine_on;
@@ -330,7 +354,10 @@ impl DrivingState {
             "Engine off.".to_string()
         };
 
-        let cab = ff_core::sim::cab::CabState::for_outside(trip.weather.temperature_c());
+        let mut cab = ff_core::sim::cab::CabState::for_outside(trip.weather.temperature_c());
+        if let Some(down) = ctx.playtest_window_down {
+            cab.set_window(down);
+        }
 
         DrivingState {
             job,
@@ -453,8 +480,8 @@ impl DrivingState {
             chain_stop: None,
             chain_stop_brake: 0.0,
             chain_stop_areas_done: HashSet::new(),
-            chain_off_done: HashSet::new(),
-            chain_off_bare_from: None,
+            chain_set: Default::default(),
+            chain_bare_cue_pending: false,
             chain_assist_tighten_tried: false,
             chain_assist_snapped: false,
             curve_warned_mi: None,
@@ -772,6 +799,8 @@ impl DrivingState {
             lane_locator_on: false,
             lane_locator_timer: 0.0,
             cab,
+            outside: Default::default(),
+            road_texture,
             steer_cue_active: false,
             exit_blinker_active: false,
             steer_cue_timer: 0.0,

@@ -199,9 +199,6 @@ impl DrivingState {
                 .to_string(),
         );
         lines.push(format!(
-            "The {status} status menu has a radio screen of receivable stations."
-        ));
-        lines.push(format!(
             "{engine} starts the engine, and stops it only below 5 miles per hour."
         ));
         lines.push("Air pressure must build before the truck can move.".to_string());
@@ -354,8 +351,8 @@ impl DrivingState {
     /// `_speak_controller_help()`: controller layout help, spoken from the
     /// Back button or F1 on a pad. Buttons come from the player's own table.
     pub fn speak_controller_help(&mut self, ctx: &mut GameContext) {
-        let n = |action: Action| ctx.bindings.pad_spoken(action);
-        let c = |action: Action| capitalized(&ctx.bindings.pad_spoken(action));
+        let n = |action: Action| ctx.pad_name(action);
+        let c = |action: Action| capitalized(&ctx.pad_name(action));
         let manual = !self.trip.truck.transmission.automatic;
         // Each spoken sentence is one whole literal, so a catalog can
         // translate it as a unit. Sentences are joined with a space.
@@ -368,7 +365,11 @@ impl DrivingState {
         if manual {
             let shift_down = n(Action::ShiftDown);
             let shift_up_cap = c(Action::ShiftUp);
-            lines.push("Hold the left bumper for the clutch.".to_string());
+            lines.push(if ctx.settings.left_bumper_layer {
+                "Hold the right bumper for the clutch.".to_string()
+            } else {
+                "Hold the left bumper for the clutch.".to_string()
+            });
             lines.push(format!(
                 "{shift_up_cap} shifts up a gear, {shift_down} shifts down."
             ));

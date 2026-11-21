@@ -61,6 +61,12 @@ pub struct BakeReport {
     pub legs_with_corridor: usize,
     /// Short speed-limit postings the load-time artifact fold removed.
     pub speed_limits_folded: usize,
+    /// Legs with an HPMS pavement layer, the records its load screens
+    /// dropped, and the structures flagged for a span off their HPMS length.
+    pub pavement_legs: usize,
+    pub pavement_screened: usize,
+    pub structures: usize,
+    pub structures_flagged: usize,
 }
 
 impl BakeReport {
@@ -229,6 +235,13 @@ pub fn bake_bytes(data_dir: &Path) -> Result<(Vec<u8>, BakeReport), DataError> {
     for leg in &world.legs {
         let detail = leg.try_corridor()?;
         writer.report.speed_limits_folded += detail.speed_limits_folded;
+        if let Some(p) = &detail.pavement {
+            writer.report.pavement_legs += 1;
+            writer.report.pavement_screened += p.screened;
+            writer.report.structures += p.structures.len();
+            writer.report.structures_flagged +=
+                p.structures.iter().filter(|s| s.span_disagrees).count();
+        }
         let baked = BakedCorridor::from(detail);
         let plain = encode(&baked)?;
         // An empty corridor is the common case for a fixture-shaped leg and

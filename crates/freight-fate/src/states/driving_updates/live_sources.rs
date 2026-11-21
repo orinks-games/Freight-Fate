@@ -103,6 +103,7 @@ impl DrivingState {
             ctx.say_event_with(line, SayEvent::new().category(SpeechCategory::Safety));
         }
         self.trip.live_alerts = alerts;
+        self.trip.refresh_chain_control();
     }
 
     /// Re-read the Weather Service warnings where the truck stands, for a
@@ -114,6 +115,7 @@ impl DrivingState {
     pub fn refresh_weather_alerts_here(&mut self, ctx: &mut GameContext) {
         if !ctx.settings.real_weather {
             self.trip.live_alerts.clear();
+            self.trip.refresh_chain_control();
             return;
         }
         let Some(provider) = ctx.weather_alerts_provider_arc() else {
@@ -132,6 +134,7 @@ impl DrivingState {
             .into_iter()
             .filter(|alert| winter_fits || alerts_chain_law_level(std::slice::from_ref(alert)) == 0)
             .collect();
+        self.trip.refresh_chain_control();
     }
 
     pub fn sync_weather_source(&mut self, ctx: &mut GameContext) {

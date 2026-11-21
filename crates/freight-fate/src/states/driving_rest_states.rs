@@ -375,6 +375,12 @@ impl DrivingState {
 /// The screen speaks to the player ("lets you off"); the co-driver's note
 /// must not say the trooper stopped them. "Your record" stays: the record
 /// is the player's career.
+///
+/// The hours causes of an out-of-service order cannot come up while the
+/// co-driver drives, since their clock never goes into violation at the
+/// wheel; they are rewritten all the same, because "You had driven past the
+/// 11-hour driving limit" reached a tester whose co-driver had (tester
+/// report, 2026-11-19).
 fn co_driver_outcome(outcome: &str, name: &str) -> String {
     outcome
         .replace("lets you off", &format!("lets {name} off"))
@@ -384,6 +390,24 @@ fn co_driver_outcome(outcome: &str, name: &str) -> String {
             &format!("{name} pulled over promptly"),
         )
         .replace("waves you through", "waves the truck through")
+        .replace("You had driven past", &format!("{name} had driven past"))
+        .replace("you had driven past", &format!("{name} had driven past"))
+        .replace(
+            "Your 14-hour duty window",
+            &format!("{name}'s 14-hour duty window"),
+        )
+        .replace(
+            "your 14-hour duty window",
+            &format!("{name}'s 14-hour duty window"),
+        )
+        .replace(
+            "You were past the 30-minute",
+            &format!("{name} was past the 30-minute"),
+        )
+        .replace(
+            "you were past the 30-minute",
+            &format!("{name} was past the 30-minute"),
+        )
 }
 
 #[cfg(test)]
@@ -402,5 +426,22 @@ mod tests {
         assert!(
             !co_driver_outcome("The officer lets you go with a warning.", "Dan").contains("you")
         );
+    }
+
+    #[test]
+    fn an_hours_order_is_told_of_the_co_driver_too() {
+        let order = co_driver_outcome(
+            "Fined 400 dollars and a reputation hit. You had driven past the 11-hour driving \
+             limit and your 14-hour duty window had expired. It is 4:04 AM.",
+            "Dan",
+        );
+        assert!(
+            order.contains("Dan had driven past the 11-hour driving limit"),
+            "{order}"
+        );
+        assert!(order.contains("Dan's 14-hour duty window"), "{order}");
+        assert!(!order.to_lowercase().contains("you"), "{order}");
+        let rest = co_driver_outcome("You were past the 30-minute break requirement.", "Dan");
+        assert_eq!(rest, "Dan was past the 30-minute break requirement.");
     }
 }

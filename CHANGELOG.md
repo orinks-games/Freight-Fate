@@ -5,7 +5,6 @@
 ### Compatibility
 
 - **Freight Fate now requires iOS or iPadOS 15 or later.**
-
 - **2.0 backup names cannot collide with 1.9 career names.** They use a separate ending, such as Road Star (Career 2).
 - **Deleting a career removes only its own version's cloud backup.** Closing out a 2.0 career also leaves older backups safe.
 - **2.0 careers have their own cloud backups.** A 1.9 career with the same name keeps its own backup.
@@ -13,7 +12,6 @@
 - **Imported careers keep their last-played order.** Continue selects the most recently played 1.9 career after copying it into 2.0.
 - **1.9 cloud backups restored in 2.0 now become 2.0 careers.** Later backups identify the version needed to continue them.
 - **1.9 careers carry over on your first 2.0 start.** Your original copy stays playable in 1.9.
-- **Careers from newer Freight Fate versions stay untouched.** Local saves and cloud backups explain which version can continue them.
 
 ### Added
 
@@ -51,12 +49,6 @@
 - **Hooking or breaking a set of doubles adds time on duty,** and the walk-around takes 25 minutes instead of 15.
 - **The rear trailer of a set of doubles can whip on a hard swerve at 40 miles per hour and up.** You hear it when it starts. Reverse is refused with doubles hooked.
 - **The ELD now tracks your 70-hour, 8-day work cycle.** When a day of cycle hours is left the status line says so, and a 34-hour rest starts a fresh week.
-- **Cloud resume can pick up careers where you left off on another device.** Turn it on under Online after restoring each career once.
-- **Job details and the departure line say how much night driving a run has,** as in "About 4 hours of night driving."
-- **A drowsy driver can call dispatch to move the appointment,** giving up the on-time bonus. The row is Too tired to drive safely.
-- **The driving command list can change radio volume and category.**
-- **Settings, Speech now has a Main voice row.** Pick your screen reader, SAPI, Windows OneCore or the built-in voice, or keep automatic.
-- **Drive online as a guest, with no orinks.net account.** You show on the drivers board under a name orinks.net picks, like Copper Fox 12.
 
 ### Changed
 
@@ -72,39 +64,78 @@
 - **After a felony roadside stop the truck is towed to an impound lot in that city.** You post bond and are released after 12 hours of booking, logged off duty.
 - **Travel centers and truck parking lots are now for fuel, parking and rest only.** They never ship or receive freight.
 - **Job boards in the United States no longer offer loads into Canada.**
-- **On-duty time now tires you a little.** Fueling, docks, inspections and waiting at the wheel build it at a third of the driving rate.
-- **Sleep now takes off 8 points of fatigue an hour.** Ten hours clears 80, so going to bed exhausted leaves some.
-- **Coffee and energy drinks now wear off and take their lift back.** A second one before then adds no lift.
-- **Work at stops takes longer as fatigue rises.** Fueling, the walk-around, chain work and pulling in run slower from worn up.
-- **An inspection or traffic stop at severe fatigue ends in a ten-hour out-of-service order.**
-- **Five-by-Two now takes a full 10 hours asleep at a stop.** A split rest, or finishing a reset that a break started, no longer earns it.
-- **German now covers the lines added since October.** Co-driver, fatigue, stop planning and problem report lines no longer switch to English.
-- **The route picker reads the weather along a route with Tab.**
-- **The driving command list is now in groups.** Status menu comes first, then short lists for speed, the road, the truck, gears, radio and hours.
 
 ### Fixed
 
-- **On iPhone and iPad, pressing Up or Down once moves one menu row.**
-
-- **The cloud restore prompt only warns about replacing a career when this device already has a copy.**
-
-- **Picking up an older cloud career no longer moves it ahead of a more recently played local career.** Continue keeps their last-played order.
-
-- **An untouched resumed career stays ready for the next pickup.** Save upgrades no longer cause a false cloud conflict.
-
-- **Resetting or deleting a career waits for cloud resume to finish.** The career stays untouched while the check runs.
-
-- **One unavailable cloud career no longer stops other careers from resuming.**
-
-- **Continue picks the latest career resumed from another device.**
-
-- **Cloud resume leaves other accounts' careers alone.** Older backups without an account match need a manual restore first.
 - **Moving up from the training fleet now only offers carriers that hire where you live.** Your truck waits at the new carrier's terminal.
 - **A translated game no longer leaves half a line in English** on the dispatch board or in any line naming a carrier's terminal.
 - **Dispatch calls now read cargo damage, hours and distance cleanly,** and no longer call a sound load damaged.
 - **The Alaska Highway border crossing now has its real name, the Alcan port.** Heading into Canada, you pass the Beaver Creek border post.
 - **Save notices now show their text on screen,** not only their title and OK.
 - **Training classes now leave you tired, at about half the rate of driving.**
+
+## 1.9.7 - 2026-11-21
+
+### Compatibility
+
+- **A career last saved by a newer Freight Fate release is left untouched.** The career list and cloud backups name the version that can continue it.
+
+### Highlights
+
+- **Birds by day, insects at night and rivers under bridges now sound outside the truck.**
+- **Concrete roads now have audible seams, and bridges thump as you drive on.**
+- **The dispatch board lists loads in the order they were posted,** and some loads are now hot loads or flexible deliveries.
+- **Fatigue now slows work at stops, and sleep takes it off by the hour.** A drowsy driver can call dispatch to move the appointment.
+- **A chain law is now posted only with snow or ice on the road,** and the game says when it lifts.
+- **A co-driver no longer drives past their hours.**
+- **Drive online as a guest, with no orinks.net account.**
+- **Careers can pick up where you left off on another device.**
+- **Settings, Speech now has a Main voice row.**
+- **The Radio app lists local stations with their distance.**
+- **Game sound and the built-in voice come back after a Bluetooth headset drops out.**
+- **Runaway, shoulder and tire chain damage is now spoken.**
+- **Every translation covers the lines added since 1.9.6.**
+
+### Added
+
+- **Careers can pick up where you left off on another device.** Turn on Resume careers from other devices under Online, after restoring each career once.
+- **Job details and the departure line say how much night driving a run has,** as in "About 4 hours of night driving."
+- **A drowsy driver can call dispatch to move the appointment,** giving up the on-time bonus. The row is Too tired to drive safely.
+- **The driving command list can change radio volume and category.**
+- **Settings, Speech now has a Main voice row.** Pick your screen reader, SAPI, Windows OneCore or the built-in voice, or keep automatic.
+- **The controller's second layer can move to the left bumper.** The Second layer bumper row in Controls swaps the bumpers, and prompts name the one you hold.
+- **Drive online as a guest, with no orinks.net account.** You show on the drivers board under a name orinks.net picks, like Copper Fox 12.
+- **Birds by day, insects at night and rivers under bridges now sound outside the truck.** Lower the driver window to hear them clearly.
+- **Concrete roads now have audible seams, a two-part thump.** Bridges thump as you drive on, and long ones again as you leave.
+- **Some loads are now hot loads or flexible deliveries.** A hot load pays more with a tight deadline, and a flexible delivery pays less with a wide one.
+
+### Changed
+
+- **Settings no longer has an Online row.** Online is on the main menu.
+- **The dispatch board lists loads in the order they were posted, not shortest first.** The recommended load now says why dispatch picked it.
+- **The Radio screen under Driving status moved into the Radio app.** Its Local stations list gives each nearby station's distance, and Enter tunes one.
+- **Every translation covers the lines added since 1.9.6.** Spanish, French, German, Italian, Brazilian Portuguese, Polish, Russian, Turkish, Vietnamese, Japanese and Simplified Chinese no longer switch to English for them.
+- **On-duty time now tires you a little.** Fueling, docks, inspections and waiting at the wheel build it at a third of the driving rate.
+- **Sleep now takes off 8 points of fatigue an hour.** Ten hours clears 80, so going to bed exhausted leaves some.
+- **Coffee and energy drinks now wear off and take their lift back.** A second one before then adds no lift.
+- **Work at stops takes longer as fatigue rises.** Fueling, the walk-around, chain work and pulling in run slower from worn up.
+- **An inspection or traffic stop at severe fatigue ends in a ten-hour out-of-service order.**
+- **Five-by-Two now takes a full 10 hours asleep at a stop.** A split rest, or finishing a reset that a break started, no longer earns it.
+- **The route picker reads the weather along a route with Tab.**
+- **The driving command list is now in groups.** Status menu comes first, then short lists for speed, the road, the truck, gears, radio and hours.
+
+### Fixed
+
+- **A chain law is now posted only with snow or ice on the road.** A winter weather alert alone no longer calls for chains.
+- **The game now says when a chain law lifts and when chains are on bare road.** Facility stopping assistance takes them off there.
+- **Simulated weather now holds while you put chains on.** The snow no longer ends during the work, leaving chains on bare road.
+- **A co-driver no longer drives past their hours.** They park or pull onto the shoulder first, and the hand-over rows say how long they can drive.
+- **A controller button name that starts a sentence now starts with a capital letter.** For example, "Air ready. Right bumper plus Y releases the parking brake."
+- **Windows shutdown, restart or sign-out with the game open no longer causes a crash prompt on the next launch.**
+- **Manual cloud backup now warns about newer cloud progress.** Choose Use the cloud copy on this computer to pick it up.
+- **The cloud restore prompt only warns about replacing a career when this device already has a copy.**
+- **Translated lines keep your driver name and version numbers as written.**
+- **Resuming a saved drive in a translated game now says the whole line in your language.** The engine and parking brake prompts used to stay in English.
 - **The Speech settings rows now update as soon as you change a voice.** Before, they changed only after leaving the menu.
 - **Cruise no longer pumps the brakes behind a slower car on streets and approaches.** It slows once and follows, so low air no longer sets the spring brakes.
 - **Enter accepts a facility arrival from a full stop with Facility stopping assistance off.** A stopped truck is told to set the parking brake.
@@ -116,10 +147,9 @@
 - **A broken tire chain and drifting onto the shoulder asleep now say the truck's damage** ([issue 533](https://github.com/orinks-games/Freight-Fate/issues/533)).
 - **Smoke, Smoke, Smoke is earned only for brakes you heat yourself.** Brakes a co-driver left hot no longer earn it when you take the wheel ([issue 520](https://github.com/orinks-games/Freight-Fate/issues/520)).
 - **A no engine brake zone you were told about now says when it ends.** You hear "End of no engine brake zone." on the way out ([issue 520](https://github.com/orinks-games/Freight-Fate/issues/520)).
-- **Take the wheel back now warns that your rest will start over.** Your ten hours must be unbroken ([issue 520](https://github.com/orinks-games/Freight-Fate/issues/520)).
+- **The help for Take the wheel back now says when your 10-hour rest would start over.** Your ten hours must be unbroken ([issue 520](https://github.com/orinks-games/Freight-Fate/issues/520)).
 - **Work zones no longer close the right lane at an exit.** Near a truck stop, rest area or scale, roadwork closes the left lane.
 - **Stop notices are no longer lost when the voice is busy.** A truck stop's 5-mile call waits its turn behind billboards and roadwork calls.
-- **The Tab radio screen lists every Freight Fate station and the stations in range.** It used to stop after 16, before reaching any local station.
 - **The game no longer closes while the Windows SAPI voice is reading driving events.** SAPI now hands its speech to the game to play.
 - **Vietnamese no longer switches to English for turn directions, speed limit changes and the prompt to start the engine.** Thanks to Đào Đức Trung ([@Daoductrung](https://github.com/Daoductrung), [PR 625](https://github.com/orinks-games/Freight-Fate/pull/625)).
 

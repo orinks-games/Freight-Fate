@@ -204,8 +204,22 @@ pub fn parse_alerts(data: &Value) -> Vec<WeatherAlert> {
     alerts
 }
 
-/// 0 = no law, 1 = winter-rated tires or chains, 2 = chains required: what
-/// the active warnings alone call for, before the sky the truck is under.
+/// Whether any of the active warnings calls for chains on every truck: a
+/// blizzard, ice storm or freezing rain event, never a watch. It only raises
+/// a chain law the road already posted (`chain_control::posted_level`); on
+/// a bare road no warning posts one.
+pub fn alerts_raise_chain_law(alerts: &[WeatherAlert]) -> bool {
+    alerts.iter().any(|alert| {
+        let e = alert.event.to_lowercase();
+        !e.contains("watch")
+            && (e.contains("blizzard") || e.contains("ice storm") || e.contains("freezing rain"))
+    })
+}
+
+/// How wintry the active warnings are: 0 = not winter, 1 = winter storm,
+/// winter weather or snow, 2 = blizzard, ice storm or freezing rain. Read
+/// as the "is this a winter warning" filter; it posts no chain law, which
+/// follows the road (`chain_control`).
 pub fn alerts_chain_law_level(alerts: &[WeatherAlert]) -> i64 {
     alerts
         .iter()
@@ -639,6 +653,37 @@ mod tests {
             alerts_chain_law_level(&[alert("a", "High Wind Warning", "")]),
             0
         );
+    }
+
+    #[test]
+    fn test_only_blizzard_ice_and_freezing_rain_warnings_raise_a_chain_law() {
+        assert!(!alerts_raise_chain_law(&[]));
+        assert!(!alerts_raise_chain_law(&[alert(
+            "a",
+            "Winter Storm Warning",
+            ""
+        )]));
+        assert!(!alerts_raise_chain_law(&[alert(
+            "a",
+            "Winter Storm Watch",
+            ""
+        )]));
+        assert!(!alerts_raise_chain_law(&[alert("a", "Blizzard Watch", "")]));
+        assert!(alerts_raise_chain_law(&[alert(
+            "a",
+            "Blizzard Warning",
+            ""
+        )]));
+        assert!(alerts_raise_chain_law(&[alert(
+            "a",
+            "Ice Storm Warning",
+            ""
+        )]));
+        assert!(alerts_raise_chain_law(&[alert(
+            "a",
+            "Freezing Rain Advisory",
+            ""
+        )]));
     }
 
     #[test]

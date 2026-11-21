@@ -826,6 +826,8 @@ impl DrivingState {
         }
         if self.trip.truck.chains_on || self.trip.chain_law_level() == 0 {
             self.chain_checkpoint_hold = false;
+            // The officer's line is the lift line here.
+            self.trip.chain_law_lift_to_speak = None;
             if self.trip.truck.chains_on {
                 ctx.say_event_with(
                     "Chains on. The officer waves you back onto the highway.",
@@ -866,6 +868,7 @@ impl DrivingState {
         loop {
             if self.trip.chain_law_level() == 0 {
                 self.chain_checkpoint_hold = false;
+                self.trip.chain_law_lift_to_speak = None;
                 return Some(format!(
                     "The chain law lifted after {}. The officer waves you back onto the \
                      highway.",
@@ -933,10 +936,12 @@ impl DrivingState {
         }
         self.refresh_weather_alerts_here(ctx);
         self.trip.weather.update(0.0);
+        self.trip.refresh_chain_control();
         if self.trip.chain_law_level() > 0 {
             return Some("The chain law still stands.");
         }
         self.chain_checkpoint_hold = false;
+        self.trip.chain_law_lift_to_speak = None;
         Some("The chain law lifted overnight. The officer waves you back onto the highway.")
     }
 

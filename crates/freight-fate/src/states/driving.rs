@@ -195,7 +195,7 @@ pub struct DrivingState {
     pub radio_reconnect_timer: f64,
     // The song the tuned stream last reported (ICY StreamTitle), polled on
     // the reception tick; None when nothing is streaming or the station
-    // sends no song information. Shift+Y speaks it, the Tab radio screen
+    // sends no song information. Shift+Y speaks it, the Radio app
     // and the drivers board line carry it.
     pub radio_now_playing: Option<String>,
     // The radio draws power from the engine: last power state, so the
@@ -329,10 +329,12 @@ pub struct DrivingState {
     /// Chain-law areas the chain-up stop has handled, declined or had
     /// cancelled: never retried.
     pub chain_stop_areas_done: HashSet<usize>,
-    /// The last chain-law area each chain-off decision was made after.
-    pub chain_off_done: HashSet<usize>,
-    /// Route mile the bare road began, past the last chain-law area.
-    pub chain_off_bare_from: Option<f64>,
+    /// The chains against the road (`ff_core::sim::chain_control`): owns
+    /// the bare-road run; `truck.chains_on` stays the physics' input.
+    pub chain_set: ff_core::sim::chain_control::ChainSet,
+    /// `ChainSet`'s bare-road cue, not yet answered by the line or by
+    /// facility stopping assistance.
+    pub chain_bare_cue_pending: bool,
     /// The slap tighten was offered once since the chains went on.
     pub chain_assist_tighten_tried: bool,
     /// A chain broke this drive and the assist hasn't answered it yet.
@@ -1038,6 +1040,10 @@ pub struct DrivingState {
     pub lane_locator_timer: f64,
     /// The driver window and the climate controls: pure ambience, not saved.
     pub cab: ff_core::sim::cab::CabState,
+    /// The beds outside the truck: birds, insects, a river under it.
+    pub outside: crate::states::driving_updates::outside::OutsideAudio,
+    /// Seams and bridge joints under the wheels.
+    pub road_texture: crate::states::driving_updates::road_texture::RoadTexture,
     // The same tock, summoned by the steering itself rather than by I:
     // while a lane move is underway it runs on its own and ends with the
     // signal cancelling. See _update_steering_lane_cue.

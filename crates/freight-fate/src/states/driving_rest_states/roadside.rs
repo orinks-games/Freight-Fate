@@ -327,6 +327,11 @@ impl RoadsideExit for TrafficStopState {
 }
 
 impl Menu for TrafficStopState {
+    /// A prompt to answer: Escape answers it, so touch adds no Back row.
+    fn touch_back_row(&self) -> bool {
+        false
+    }
+
     fn menu(&self) -> &MenuCore<Self> {
         &self.menu
     }
@@ -624,6 +629,11 @@ impl RoadsideExit for EnforcementStopState {
 }
 
 impl Menu for EnforcementStopState {
+    /// A prompt to answer: Escape answers it, so touch adds no Back row.
+    fn touch_back_row(&self) -> bool {
+        false
+    }
+
     fn menu(&self) -> &MenuCore<Self> {
         &self.menu
     }
@@ -742,6 +752,11 @@ impl RoadsideExit for LicencePulledState {
 }
 
 impl Menu for LicencePulledState {
+    /// A prompt to answer: Escape answers it, so touch adds no Back row.
+    fn touch_back_row(&self) -> bool {
+        false
+    }
+
     fn menu(&self) -> &MenuCore<Self> {
         &self.menu
     }
@@ -949,6 +964,11 @@ fn leg_city(ctx: &GameContext, d: &DrivingState) -> Option<String> {
 }
 
 impl Menu for FelonyStopState {
+    /// A prompt to answer: Escape answers it, so touch adds no Back row.
+    fn touch_back_row(&self) -> bool {
+        false
+    }
+
     fn menu(&self) -> &MenuCore<Self> {
         &self.menu
     }

@@ -154,6 +154,7 @@ impl DrivingState {
                 self.trip.truck.horn_on = false;
                 self.push_pause_menu(ctx);
             }
+            TouchCommand::CommandList => self.push_driving_commands(ctx),
             TouchCommand::Nothing => {}
         }
         true

@@ -3,6 +3,10 @@
 //! backup menus share. Split out of `cloud_saves.rs` so the wording is one
 //! file to read; everything is re-exported from `crate::cloud_saves`.
 
+pub const STALE_BACKUP_STATUS: &str =
+    "The cloud has a newer copy of this career. Nothing was changed. \
+     Choose Use the cloud copy on this computer to pick it up.";
+
 // The spoken guidance for CloudAuthError, shared by every cloud menu so the
 // player always hears the same recovery path. orinks.net issues one token
 // per computer, so a refusal means this computer's token was signed out

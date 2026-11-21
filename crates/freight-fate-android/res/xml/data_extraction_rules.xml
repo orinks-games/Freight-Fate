@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- What Android may copy out of the game's storage. allowBackup="false"
+     already turns off cloud backup, but some Android 12+ phones still copy
+     an app's files in a phone-to-phone transfer. The orinks.net sign-in is
+     a plain file there (Android has no keyring the game can use), so it
+     never leaves the phone; a new phone links again. -->
+<data-extraction-rules>
+    <cloud-backup>
+        <exclude domain="file" path="FreightFate/online.json" />
+        <exclude domain="file" path="FreightFate/online.token" />
+    </cloud-backup>
+    <device-transfer>
+        <exclude domain="file" path="FreightFate/online.json" />
+        <exclude domain="file" path="FreightFate/online.token" />
+    </device-transfer>
+</data-extraction-rules>
