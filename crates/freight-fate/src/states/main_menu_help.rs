@@ -244,7 +244,7 @@ pub static HELP_PAGES: &[(&str, &[&str])] = &[
         "Settings and accessibility",
         &[
             "Settings save as you change them. Choose a setting with Up or Down, then Right or Enter for its next value, or Left for the previous value.",
-            "Gameplay holds driving assistance, difficulty and hours, world and traffic, and controls. Audio, Speech, Updates, Problem reports, and Online have separate choices where supported. F1 explains the selected setting.",
+            "Gameplay holds driving assistance, difficulty and hours, world and traffic, and controls. Audio, Speech, Updates, and Problem reports have separate choices where supported. F1 explains the selected setting.",
             "Realistic leaves lane keeping off. Balanced adds partial lane keeping and facility stops. All assists adds full lane keeping and a fifty-five mile per hour descent ceiling. Adjusting assistance yourself changes the preset name to Custom.",
             "Presets leave driving pace, legal hours, transmission, world sources, latching brake, and cue volumes as they are.",
             "Relaxed pacing passes about ten minutes of road and clock each real minute, with more response time and gentler consequences. Standard moves twice as fast. Real time follows the computer clock at real speed.",

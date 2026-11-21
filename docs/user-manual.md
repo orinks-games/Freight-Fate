@@ -860,7 +860,7 @@ Damaged freight can bring an exception deduction, a claim, or a refusal with no 
 
 ## Settings walkthrough
 
-Settings save as you change them. Use Up or Down to choose a setting, then Right or Enter for its next available value, or Left to go back to the previous value. On a controller, the D-pad does the same, and A selects the next value. Gameplay contains driving assistance, difficulty and hours, world and traffic, and controls. Audio, Speech, Updates, Problem reports, and Online have separate choices where supported.
+Settings save as you change them. Use Up or Down to choose a setting, then Right or Enter for its next available value, or Left to go back to the previous value. On a controller, the D-pad does the same, and A selects the next value. Gameplay contains driving assistance, difficulty and hours, world and traffic, and controls. Audio, Speech, Updates, and Problem reports have separate choices where supported.
 
 ### Driving assistance and speed keeper
 
