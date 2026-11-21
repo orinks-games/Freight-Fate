@@ -4565,19 +4565,15 @@ over-rev on a heavy cruise resume, and every map item.
 What stands between the 1.9.7 tag and 2.0 on the beta channel, on top of
 [The first 2.0 nightly](#the-first-20-nightly):
 
-- [ ] Sync dev into `feat/career-2.0` through a PR against the branch.
-      The branch last took dev on 2026-10-28 and is 243 commits behind.
-      The trial merge conflicts in 33 Rust source files, 26 map shards,
-      every language file, the manual and the changelog. This is the long
-      job and can start before the 1.9.7 tag, with a small second sync
-      after it. The November text rewrite (PRs 607 to 614) has to reach
-      the lines only 2.0 has. **In progress** (2026-11-14): dev merged
-      into a branch cut from `feat/career-2.0`, the rewrite carried to the
-      2.0 lines, in PR 632 against the branch. Left over from it:
-  - [ ] About 1,070 spoken lines per language have no translation on the
-        merged branch: nearly all are 2.0's own lines (Alaska, Canada,
-        cattle, the home terminal), which were never translated, and 52
-        are new from the sync. Translate before the beta.
+- [x] Sync dev into `feat/career-2.0` through a PR against the branch.
+      The first sync (PR 632, merged 2026-11-14) took dev through PR 625
+      and carried the November text rewrite to the 2.0 lines. The second
+      (2026-11-21, after the 1.9.7 tag) took dev at 1.9.7 and moved the
+      branch to version 2.0.0 (`2.0.0.dev0`), so an alpha build reads as
+      newer than 1.9.7. Left over from them:
+  - [ ] About 620 spoken lines per language have no translation on the
+        branch (598 in Spanish), nearly all 2.0's own lines (Alaska,
+        Canada, cattle, the home terminal). Translate before the beta.
   - [ ] 58 of 1,349 legs carry no county lines: the Alaska, British
         Columbia and Yukon legs, and Bellingham to Blaine both ways. The
         county layer reads only the archived U.S. route shapes, which these
@@ -4588,11 +4584,8 @@ What stands between the 1.9.7 tag and 2.0 on the beta channel, on top of
         toll points (Indiana Toll Road legs 8 and 25, Pennsylvania
         Turnpike legs 13 and 19). Check the Pennsylvania entry plaza 2.0
         cited (Carlisle, exit 226) still fits dev's re-routed leg 13.
-  - [ ] Branch protection on `feat/career-2.0` still requires the
-        `test (ubuntu-latest)` and `test (windows-latest)` checks from
-        `ci.yml`, which dev deleted on 2026-11-04 and the sync deletes
-        too. The owner changes the required checks in the repository
-        settings.
+  - [x] Branch protection on `feat/career-2.0` requires only the
+        changelog check, matching dev (changed 2026-11-14).
 - [x] Sealed saves: 2.0 opens a sealed 1.9.7 career and copies it forward
       into `2.0/profiles`, leaving the 1.9 original playable and unchanged.
   - [x] 1.9.7 refuses a career from a newer release line, local or cloud,
