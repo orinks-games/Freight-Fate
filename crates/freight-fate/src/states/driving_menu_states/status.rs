@@ -455,7 +455,9 @@ impl DrivingStatusScreenState {
                 // before the radio would look at the folder again, and this
                 // screen is where a player goes to find out why their
                 // playlist is not on the dial.
-                d.radio.reload_personal_playlists(&personal_playlists_dir());
+                if crate::PERSONAL_PLAYLISTS {
+                    d.radio.reload_personal_playlists(&personal_playlists_dir());
+                }
                 d.sync_radio_settings(ctx);
                 let position = d.radio.position;
                 let engine_on = d.trip.truck.engine_on;
@@ -477,22 +479,40 @@ impl DrivingStatusScreenState {
                     lines.push(
                         "Streamer-safe mode on, with Music source set to Synthesized.".to_string(),
                     );
-                    lines.push(format!(
-                        "Streamer-safe mode keeps the radio on the Roadhouse. Station keys do \
-                         nothing. {} turns the radio on or off. Shift with Page Down and Page \
-                         Up, or semicolon and apostrophe, changes radio volume by 10 percent.",
-                        ctx.bindings.spoken(Action::Radio)
-                    ));
-                } else {
-                    lines.push(if !ctx.settings.radio_streamer_safe {
-                        "Streamer-safe mode off. Real public streams and personal playlists are \
-                         on the dial."
+                    lines.push(if ctx.touch_hints() {
+                        "Streamer-safe mode keeps the radio on the Roadhouse, and tuning does \
+                         nothing. Radio on or off and Radio volume are under Radio and CB on \
+                         the three-finger tap list."
                             .to_string()
                     } else {
-                        "Streamer-safe mode on. Real public streams and personal playlists are \
-                         hidden."
-                            .to_string()
+                        format!(
+                            "Streamer-safe mode keeps the radio on the Roadhouse. Station keys \
+                             do nothing. {} turns the radio on or off. Shift with Page Down and \
+                             Page Up, or semicolon and apostrophe, changes radio volume by 10 \
+                             percent.",
+                            ctx.bindings.spoken(Action::Radio)
+                        )
                     });
+                } else {
+                    lines.push(
+                        match (ctx.settings.radio_streamer_safe, crate::PERSONAL_PLAYLISTS) {
+                            (false, true) => {
+                                "Streamer-safe mode off. Real public streams and \
+                                              personal playlists are on the dial."
+                            }
+                            (true, true) => {
+                                "Streamer-safe mode on. Real public streams and \
+                                             personal playlists are hidden."
+                            }
+                            (false, false) => {
+                                "Streamer-safe mode off. Real public streams are on the dial."
+                            }
+                            (true, false) => {
+                                "Streamer-safe mode on. Real public streams are hidden."
+                            }
+                        }
+                        .to_string(),
+                    );
                     if ctx.settings.synth_music && !ctx.settings.radio_streamer_safe {
                         lines.push(
                             "Music source Synthesized: Freight Fate's own stations are off \
@@ -508,20 +528,31 @@ impl DrivingStatusScreenState {
                         .catalog
                         .iter()
                         .any(|s| s.source_type == PERSONAL_PLAYLIST_SOURCE_TYPE);
-                    if !ctx.settings.radio_streamer_safe && !has_playlists {
+                    if crate::PERSONAL_PLAYLISTS
+                        && !ctx.settings.radio_streamer_safe
+                        && !has_playlists
+                    {
                         lines.push(format!(
                             "No playlists of your own yet. Put M3U, M3U8 or PLS playlist files \
                              in {}.",
                             personal_playlists_dir().display()
                         ));
                     }
-                    lines.push(format!(
-                        "Page Down and Page Up tune stations, or semicolon and apostrophe. With \
-                         Control they jump categories. With Shift they change radio volume by \
-                         10 percent. {} saves the station as a favorite. {} toggles the radio.",
-                        ctx.bindings.spoken(Action::RadioFavorite),
-                        ctx.bindings.spoken(Action::Radio)
-                    ));
+                    lines.push(if ctx.touch_hints() {
+                        "At the wheel, a three-finger flick left or right tunes stations. Radio \
+                         category, Radio volume, favorites and radio power are under Radio and \
+                         CB on the three-finger tap list."
+                            .to_string()
+                    } else {
+                        format!(
+                            "Page Down and Page Up tune stations, or semicolon and apostrophe. \
+                             With Control they jump categories. With Shift they change radio \
+                             volume by 10 percent. {} saves the station as a favorite. {} \
+                             toggles the radio.",
+                            ctx.bindings.spoken(Action::RadioFavorite),
+                            ctx.bindings.spoken(Action::Radio)
+                        )
+                    });
                 }
                 if !locked && !d.radio.favorite_ids.is_empty() {
                     lines.push(format!("Favorites saved: {}.", d.radio.favorite_ids.len()));

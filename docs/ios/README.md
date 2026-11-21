@@ -265,6 +265,9 @@ frameworks it and SDL2 need, plus clang's iOS runtime for `@available` checks.
   app starts tracking again. Settings, Problem reports lets you turn crash
   prompts back on. The log-location row is left out because the log is in the
   sandbox, and the braille-only Output row needs NVDA or JAWS.
+- The radio has no personal playlists on iPhone or Android. Their Playlists
+  folder would sit in the sandbox, where the player cannot put files, so the
+  dial, Radio status, Settings and How to play leave them out.
 - Spoken prompts name the gesture for a control in a sentence of their own
   ("Turn two fingers right to restart.", "Double tap to signal for the
   exit."), or its group on the three-finger tap command list when no

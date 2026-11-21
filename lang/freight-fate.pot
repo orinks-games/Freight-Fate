@@ -9624,7 +9624,7 @@ msgstr ""
 msgid "{name}, your old trainer, along for one load."
 msgstr ""
 
-#: crates/ff-core/src/models/credentials.rs
+#: crates/ff-core/src/models/credentials.rs crates/ff-core/src/models/dispatch_fit.rs
 msgid "training"
 msgstr ""
 
@@ -9935,6 +9935,32 @@ msgstr ""
 #. one clause of a longer line
 #: crates/ff-core/src/models/credentials.rs
 msgid "carrier-sponsored free at level {level}"
+msgstr ""
+
+#: crates/ff-core/src/models/dispatch_board.rs crates/ff-core/src/sim/real_weather.rs crates/ff-core/src/sim/runaway.rs crates/ff-core/src/sim/weather/tables.rs
+msgid "clear"
+msgstr ""
+
+#. placeholders: {i}
+#: crates/ff-core/src/models/dispatch_board.rs
+msgid "hours_heard job {i}"
+msgstr ""
+
+#. placeholders: {i}
+#: crates/ff-core/src/models/dispatch_board.rs
+msgid "chains_heard job {i}"
+msgstr ""
+
+#: crates/ff-core/src/models/dispatch_board.rs crates/ff-core/src/models/jobs.rs crates/ff-core/src/models/trailer_yard.rs crates/freight-fate/src/app.rs
+msgid "assigned"
+msgstr ""
+
+#: crates/ff-core/src/models/dispatch_board.rs
+msgid "browse"
+msgstr ""
+
+#: crates/ff-core/src/models/dispatch_fit.rs
+msgid "plain"
 msgstr ""
 
 #: crates/ff-core/src/models/economy.rs
@@ -10804,10 +10830,6 @@ msgstr ""
 
 #: crates/ff-core/src/models/jobs.rs
 msgid "bobtail"
-msgstr ""
-
-#: crates/ff-core/src/models/jobs.rs crates/ff-core/src/models/trailer_yard.rs
-msgid "assigned"
 msgstr ""
 
 #: crates/ff-core/src/models/jobs.rs crates/freight-fate/src/states/driving/snapshot.rs
@@ -14003,7 +14025,7 @@ msgstr ""
 msgid "glaze"
 msgstr ""
 
-#: crates/ff-core/src/sim/real_weather.rs crates/ff-core/src/sim/weather/tables.rs crates/freight-fate/src/states/city/board.rs
+#: crates/ff-core/src/sim/real_weather.rs crates/ff-core/src/sim/weather/tables.rs crates/freight-fate/src/states/city/board/chains.rs
 msgid "ice"
 msgstr ""
 
@@ -14027,7 +14049,7 @@ msgstr ""
 msgid "frost"
 msgstr ""
 
-#: crates/ff-core/src/sim/real_weather.rs crates/ff-core/src/sim/real_weather_alerts.rs crates/ff-core/src/sim/weather/tables.rs crates/freight-fate/src/states/city/board.rs
+#: crates/ff-core/src/sim/real_weather.rs crates/ff-core/src/sim/real_weather_alerts.rs crates/ff-core/src/sim/weather/tables.rs crates/freight-fate/src/states/city/board/chains.rs
 msgid "snow"
 msgstr ""
 
@@ -14105,10 +14127,6 @@ msgstr ""
 
 #: crates/ff-core/src/sim/real_weather.rs
 msgid "overcast"
-msgstr ""
-
-#: crates/ff-core/src/sim/real_weather.rs crates/ff-core/src/sim/runaway.rs crates/ff-core/src/sim/weather/tables.rs
-msgid "clear"
 msgstr ""
 
 #: crates/ff-core/src/sim/real_weather.rs
@@ -17903,6 +17921,18 @@ msgstr ""
 msgid "You take the wheel {start_mi} miles up the road."
 msgstr ""
 
+#. placeholders: {i}
+#: crates/freight-fate/src/app.rs
+msgid "job {i}"
+msgstr ""
+
+#. placeholders: {mode_key}, {offer}, {reason}, {key}
+#: crates/freight-fate/src/app.rs
+msgid ""
+"; board_mode {mode_key}; board_offer {offer}; board_reason {reason}; "
+"board_gate {key}"
+msgstr ""
+
 #: crates/freight-fate/src/app.rs crates/freight-fate/src/states/driving/lifecycle.rs crates/freight-fate/src/states/driving_menu_states/status.rs crates/freight-fate/src/states/driving_updates/frame.rs
 msgid "automatic"
 msgstr ""
@@ -20732,47 +20762,6 @@ msgstr ""
 msgid "about {take_home} to you"
 msgstr ""
 
-#. placeholders: {highway}
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/city/board.rs
-msgid "A chain law is in effect on {highway} on this route."
-msgstr ""
-
-#. placeholders: {highway}
-#: crates/freight-fate/src/states/city/board.rs
-msgid ""
-"A chain law is in effect on {highway} on this route. You have no chains. "
-"The garage here sells them. Enter again to accept."
-msgstr ""
-
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/city/board.rs
-msgid "Enter again to accept."
-msgstr ""
-
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/city/board.rs
-msgid "The garage here sells them."
-msgstr ""
-
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/city/board.rs
-msgid "You have no chains."
-msgstr ""
-
-#. placeholders: {highway}
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/city/board.rs
-msgid "Trucks on {highway} must carry chains this season."
-msgstr ""
-
-#. placeholders: {highway}
-#: crates/freight-fate/src/states/city/board.rs
-msgid ""
-"Trucks on {highway} must carry chains this season. You have no chains. The "
-"garage here sells them. Enter again to accept."
-msgstr ""
-
 #: crates/freight-fate/src/states/city/board.rs crates/freight-fate/src/states/city/terminal.rs
 msgid "Dispatch board"
 msgstr ""
@@ -20888,6 +20877,26 @@ msgstr ""
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/city/board.rs
 msgid "{note} New assignment: {described}"
+msgstr ""
+
+#. placeholders: {label}
+#: crates/freight-fate/src/states/city/board.rs
+msgid "Recommended dispatch, best pay for the hours: {label}"
+msgstr ""
+
+#. placeholders: {label}
+#: crates/freight-fate/src/states/city/board.rs
+msgid "Recommended dispatch, best net for the hours: {label}"
+msgstr ""
+
+#. placeholders: {label}
+#: crates/freight-fate/src/states/city/board.rs
+msgid "Recommended dispatch, most room on the deadline: {label}"
+msgstr ""
+
+#. placeholders: {label}
+#: crates/freight-fate/src/states/city/board.rs
+msgid "Recommended dispatch: {label}"
 msgstr ""
 
 #. placeholders: {recommendation}, {label}
@@ -21122,6 +21131,47 @@ msgstr ""
 #. placeholders: {sleeps}
 #: crates/freight-fate/src/states/city/board/briefing.rs
 msgid "This run needs {sleeps} 10-hour sleeps."
+msgstr ""
+
+#. placeholders: {highway}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/city/board/chains.rs
+msgid "A chain law is in effect on {highway} on this route."
+msgstr ""
+
+#. placeholders: {highway}
+#: crates/freight-fate/src/states/city/board/chains.rs
+msgid ""
+"A chain law is in effect on {highway} on this route. You have no chains. "
+"The garage here sells them. Enter again to accept."
+msgstr ""
+
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/city/board/chains.rs
+msgid "Enter again to accept."
+msgstr ""
+
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/city/board/chains.rs
+msgid "The garage here sells them."
+msgstr ""
+
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/city/board/chains.rs
+msgid "You have no chains."
+msgstr ""
+
+#. placeholders: {highway}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/city/board/chains.rs
+msgid "Trucks on {highway} must carry chains this season."
+msgstr ""
+
+#. placeholders: {highway}
+#: crates/freight-fate/src/states/city/board/chains.rs
+msgid ""
+"Trucks on {highway} must carry chains this season. You have no chains. The "
+"garage here sells them. Enter again to accept."
 msgstr ""
 
 #. placeholders: {i}, {total}
@@ -33160,6 +33210,13 @@ msgstr ""
 msgid "Streamer-safe mode on, with Music source set to Synthesized."
 msgstr ""
 
+#: crates/freight-fate/src/states/driving_menu_states/status.rs
+msgid ""
+"Streamer-safe mode keeps the radio on the Roadhouse, and tuning does "
+"nothing. Radio on or off and Radio volume are under Radio and CB on the "
+"three-finger tap list."
+msgstr ""
+
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/driving_menu_states/status.rs
 msgid ""
@@ -33204,6 +33261,14 @@ msgid ""
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_menu_states/status.rs
+msgid "Streamer-safe mode off. Real public streams are on the dial."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_menu_states/status.rs
+msgid "Streamer-safe mode on. Real public streams are hidden."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_menu_states/status.rs
 msgid ""
 "Music source Synthesized: Freight Fate's own stations are off the dial."
 msgstr ""
@@ -33224,6 +33289,13 @@ msgstr ""
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/driving_menu_states/status.rs
 msgid "Put M3U, M3U8 or PLS playlist files in {personal_playlists_dir}."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_menu_states/status.rs
+msgid ""
+"At the wheel, a three-finger flick left or right tunes stations. Radio "
+"category, Radio volume, favorites and radio power are under Radio and CB on "
+"the three-finger tap list."
 msgstr ""
 
 #. one sentence of a longer line
@@ -34042,11 +34114,19 @@ msgid "Shows the next results. PageDown does the same."
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_radio_app.rs
+msgid "Shows the next results. A three-finger flick right does the same."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_radio_app.rs
 msgid "Previous page"
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_radio_app.rs
 msgid "Shows the earlier results. PageUp does the same."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_radio_app.rs
+msgid "Shows the earlier results. A three-finger flick left does the same."
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_radio_app.rs
@@ -34091,6 +34171,26 @@ msgstr ""
 #. placeholders: {title}, {count}, {page}
 #: crates/freight-fate/src/states/driving_radio_app.rs
 msgid "{title}. {count} matches. {page} PageDown for the next page."
+msgstr ""
+
+#. placeholders: {page}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_radio_app.rs
+msgid "{page} Flick right with three fingers for the next page."
+msgstr ""
+
+#. placeholders: {title}, {count}, {page}
+#: crates/freight-fate/src/states/driving_radio_app.rs
+msgid ""
+"{title}. {count} stations. {page} Flick right with three fingers for the "
+"next page."
+msgstr ""
+
+#. placeholders: {title}, {count}, {page}
+#: crates/freight-fate/src/states/driving_radio_app.rs
+msgid ""
+"{title}. {count} matches. {page} Flick right with three fingers for the "
+"next page."
 msgstr ""
 
 #. one sentence of a longer line
@@ -40542,6 +40642,22 @@ msgid "Controller: enabled, none connected"
 msgstr ""
 
 #: crates/freight-fate/src/states/main_menu/settings_items.rs
+msgid ""
+"Off plays the full dial, including real public streams and personal "
+"playlists. On keeps the radio to built-in safe stations, for streaming or "
+"recording. With Music source set to Synthesized, On keeps the radio on the "
+"Roadhouse and station keys do nothing."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu/settings_items.rs
+msgid ""
+"Off plays the full dial, including real public streams. On keeps the radio "
+"to built-in safe stations, for streaming or recording. With Music source "
+"set to Synthesized, On keeps the radio on the Roadhouse and tuning does "
+"nothing."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu/settings_items.rs
 msgid "a soft tone leans"
 msgstr ""
 
@@ -41529,14 +41645,6 @@ msgstr ""
 #. placeholders: {on_off}
 #: crates/freight-fate/src/states/main_menu/settings_items.rs
 msgid "Radio streamer-safe mode: {on_off}"
-msgstr ""
-
-#: crates/freight-fate/src/states/main_menu/settings_items.rs
-msgid ""
-"Off plays the full dial, including real public streams and personal "
-"playlists. On keeps the radio to built-in safe stations, for streaming or "
-"recording. With Music source set to Synthesized, On keeps the radio on the "
-"Roadhouse and station keys do nothing."
 msgstr ""
 
 #. placeholders: {on_off}
@@ -44530,6 +44638,60 @@ msgstr ""
 
 #: crates/freight-fate/src/states/main_menu_help.rs
 msgid "pad"
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu_help.rs
+msgid ""
+"The radio plays while the engine runs. A three-finger flick right tunes "
+"forward, and a three-finger flick left tunes backward."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu_help.rs
+msgid ""
+"Hold Control with a tune key to jump between categories, including route "
+"music, Freight Fate stations, favorites, and broadcast or web stations."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu_help.rs
+msgid ""
+"Radio and CB on the three-finger tap list turns the radio on or off, saves "
+"favorites, and changes the radio volume and category. Categories include "
+"route music, Freight Fate stations, favorites, and broadcast or web "
+"stations."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu_help.rs
+msgid ""
+"Radio status reads station, reception, volume, and streamer-safe status. "
+"What the radio is playing reads available song information. Both are under "
+"Radio and CB."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu_help.rs
+msgid ""
+"Original uses the licensed menu and Roadhouse tracks. Synthesized plays "
+"music the game composes plus the three original tracks, and takes Freight "
+"Fate's regional stations and voiced breaks off the dial. Real streams "
+"remain unless streamer-safe mode hides them."
+msgstr ""
+
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/main_menu_help.rs
+msgid "How do I change stations?"
+msgstr ""
+
+#. placeholders: {control_radio}
+#: crates/freight-fate/src/states/main_menu_help.rs
+msgid ""
+"How do I change stations? With the engine running, {control_radio} switches "
+"the radio on, and Page Up or Page Down tunes."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu_help.rs
+msgid ""
+"How do I change stations? With the engine running, a three-finger flick "
+"right or left tunes. Radio on or off is under Radio and CB on the "
+"three-finger tap list."
 msgstr ""
 
 #. placeholders: {page}, {HELP_PAGES}, {title}

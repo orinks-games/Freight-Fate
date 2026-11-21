@@ -78,6 +78,19 @@ fn adjust(f: impl Fn(&mut SettingsCategoryState, &mut GameContext, i64) + 'stati
     Rc::new(f)
 }
 
+/// Help for the streamer-safe row. Phones have no personal playlists, and
+/// tune by gesture rather than with station keys.
+#[cfg(not(touch_screen))]
+const STREAMER_SAFE_HELP: &str = "Off plays the full dial, including real public streams and \
+     personal playlists. On keeps the radio to built-in safe \
+     stations, for streaming or recording. With Music source set to \
+     Synthesized, On keeps the radio on the Roadhouse and station \
+     keys do nothing.";
+#[cfg(touch_screen)]
+const STREAMER_SAFE_HELP: &str = "Off plays the full dial, including real public streams. On \
+     keeps the radio to built-in safe stations, for streaming or recording. With Music source \
+     set to Synthesized, On keeps the radio on the Roadhouse and tuning does nothing.";
+
 /// A settings row. Its help may name a control as `{{id}}`, read in the
 /// player's own keys the way the help pages read them.
 fn row(label: Label<SettingsCategoryState>, action: Adjust, help: &str) -> Row {
@@ -525,6 +538,8 @@ impl SettingsCategoryState {
                 adjust(|s, ctx, d| s.roll_music_seed(ctx, d)),
                 adjust(|s, ctx, d| s.volume(ctx, "radio_volume", 0.1 * d as f64)),
                 adjust(|s, ctx, d| s.toggle_radio_streamer_safe(ctx, d)),
+                // Phones have no personal playlists to shuffle.
+                #[cfg(not(touch_screen))]
                 adjust(|s, ctx, d| s.toggle_radio_shuffle_playlists(ctx, d)),
                 adjust(|s, ctx, d| s.toggle_radio_cab_speakers(ctx, d)),
                 adjust(|s, ctx, d| s.toggle_duck_for_speech(ctx, d)),
@@ -970,12 +985,9 @@ impl SettingsCategoryState {
                     format!("Radio streamer-safe mode: {}", on_off(s.radio_streamer_safe))
                 }),
                 adjust(|s, ctx, d| s.toggle_radio_streamer_safe(ctx, d)),
-                "Off plays the full dial, including real public streams and \
-                 personal playlists. On keeps the radio to built-in safe \
-                 stations, for streaming or recording. With Music source set to \
-                 Synthesized, On keeps the radio on the Roadhouse and station \
-                 keys do nothing.",
+                STREAMER_SAFE_HELP,
             ),
+            #[cfg(not(touch_screen))]
             row(
                 dyn_label(|s| {
                     format!(

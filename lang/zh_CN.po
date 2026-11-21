@@ -7871,6 +7871,26 @@ msgstr "，{level}级时承运商免费资助"
 msgid "carrier-sponsored free at level {level}"
 msgstr "由承运商赞助，在 {level} 级免费"
 
+msgid "clear"
+msgstr "晴"
+
+#. placeholders: {i}
+msgid "hours_heard job {i}"
+msgstr ""
+
+#. placeholders: {i}
+msgid "chains_heard job {i}"
+msgstr ""
+
+msgid "assigned"
+msgstr "已分配"
+
+msgid "browse"
+msgstr "浏览"
+
+msgid "plain"
+msgstr ""
+
 msgid "Pay advance already taken for this load. Deliver it first."
 msgstr "这单货物已经预支过工资了。先把它送达。"
 
@@ -8565,9 +8585,6 @@ msgstr "报酬"
 
 msgid "bobtail"
 msgstr "空车头"
-
-msgid "assigned"
-msgstr "已分配"
 
 msgid "team"
 msgstr "双人"
@@ -11188,9 +11205,6 @@ msgstr "cloud"
 
 msgid "overcast"
 msgstr "overcast"
-
-msgid "clear"
-msgstr "晴"
 
 msgid "fair"
 msgstr "fair"
@@ -14190,6 +14204,16 @@ msgstr "已布置：{description}。你会在前方{start_mi}英里处接手驾�
 msgid "You take the wheel {start_mi} miles up the road."
 msgstr "你会在前方{start_mi}英里处接手驾驶。"
 
+#. placeholders: {i}
+msgid "job {i}"
+msgstr ""
+
+#. placeholders: {mode_key}, {offer}, {reason}, {key}
+msgid ""
+"; board_mode {mode_key}; board_offer {offer}; board_reason {reason}; "
+"board_gate {key}"
+msgstr ""
+
 msgid "automatic"
 msgstr "自动"
 
@@ -16450,40 +16474,6 @@ msgstr "扣除成本后约{take_home}"
 msgid "about {take_home} to you"
 msgstr "你约得{take_home}"
 
-#. placeholders: {highway}
-#. one sentence of a longer line
-msgid "A chain law is in effect on {highway} on this route."
-msgstr "这条路线上的{highway}正在实施防滑链法规。"
-
-#. placeholders: {highway}
-msgid ""
-"A chain law is in effect on {highway} on this route. You have no chains. "
-"The garage here sells them. Enter again to accept."
-msgstr "这条路线上的{highway}正在实施防滑链法规。你没有防滑链。这里的修理厂有售。再次按Enter接受。"
-
-#. one sentence of a longer line
-msgid "Enter again to accept."
-msgstr "再次按Enter接受。"
-
-#. one sentence of a longer line
-msgid "The garage here sells them."
-msgstr "这里的修理厂有售。"
-
-#. one sentence of a longer line
-msgid "You have no chains."
-msgstr "你没有防滑链。"
-
-#. placeholders: {highway}
-#. one sentence of a longer line
-msgid "Trucks on {highway} must carry chains this season."
-msgstr "本季节在{highway}行驶的卡车必须携带防滑链。"
-
-#. placeholders: {highway}
-msgid ""
-"Trucks on {highway} must carry chains this season. You have no chains. The "
-"garage here sells them. Enter again to accept."
-msgstr "本季节在{highway}行驶的卡车必须携带防滑链。你没有防滑链。这里的修理厂有售。再次按Enter接受。"
-
 msgid "Dispatch board"
 msgstr "调度板"
 
@@ -16577,6 +16567,22 @@ msgstr "货物已拒绝，已记入你的服务记录。{note}新的指派：{de
 #. one sentence of a longer line
 msgid "{note} New assignment: {described}"
 msgstr "{note}新的指派：{described}"
+
+#. placeholders: {label}
+msgid "Recommended dispatch, best pay for the hours: {label}"
+msgstr ""
+
+#. placeholders: {label}
+msgid "Recommended dispatch, best net for the hours: {label}"
+msgstr ""
+
+#. placeholders: {label}
+msgid "Recommended dispatch, most room on the deadline: {label}"
+msgstr ""
+
+#. placeholders: {label}
+msgid "Recommended dispatch: {label}"
+msgstr ""
 
 #. placeholders: {recommendation}, {label}
 msgid "Recommended dispatch, {recommendation}: {label}"
@@ -16770,6 +16776,40 @@ msgstr "这趟行程需要睡眠10小时。"
 #. placeholders: {sleeps}
 msgid "This run needs {sleeps} 10-hour sleeps."
 msgstr "这趟行程需要睡眠{sleeps}次，每次10小时。"
+
+#. placeholders: {highway}
+#. one sentence of a longer line
+msgid "A chain law is in effect on {highway} on this route."
+msgstr "这条路线上的{highway}正在实施防滑链法规。"
+
+#. placeholders: {highway}
+msgid ""
+"A chain law is in effect on {highway} on this route. You have no chains. "
+"The garage here sells them. Enter again to accept."
+msgstr "这条路线上的{highway}正在实施防滑链法规。你没有防滑链。这里的修理厂有售。再次按Enter接受。"
+
+#. one sentence of a longer line
+msgid "Enter again to accept."
+msgstr "再次按Enter接受。"
+
+#. one sentence of a longer line
+msgid "The garage here sells them."
+msgstr "这里的修理厂有售。"
+
+#. one sentence of a longer line
+msgid "You have no chains."
+msgstr "你没有防滑链。"
+
+#. placeholders: {highway}
+#. one sentence of a longer line
+msgid "Trucks on {highway} must carry chains this season."
+msgstr "本季节在{highway}行驶的卡车必须携带防滑链。"
+
+#. placeholders: {highway}
+msgid ""
+"Trucks on {highway} must carry chains this season. You have no chains. The "
+"garage here sells them. Enter again to accept."
+msgstr "本季节在{highway}行驶的卡车必须携带防滑链。你没有防滑链。这里的修理厂有售。再次按Enter接受。"
 
 #. placeholders: {i}, {total}
 msgid "Job {i} of {total}: "
@@ -26517,6 +26557,12 @@ msgstr "发动机关着。收音机没电。"
 msgid "Streamer-safe mode on, with Music source set to Synthesized."
 msgstr "直播安全模式已开启，音乐来源设为合成音乐。"
 
+msgid ""
+"Streamer-safe mode keeps the radio on the Roadhouse, and tuning does "
+"nothing. Radio on or off and Radio volume are under Radio and CB on the "
+"three-finger tap list."
+msgstr ""
+
 #. one sentence of a longer line
 msgid ""
 "Shift with Page Down and Page Up, or semicolon and apostrophe, changes "
@@ -26555,6 +26601,12 @@ msgid ""
 "hidden."
 msgstr "直播安全模式已开启。真实的公共电台流和个人播放列表已隐藏。"
 
+msgid "Streamer-safe mode off. Real public streams are on the dial."
+msgstr ""
+
+msgid "Streamer-safe mode on. Real public streams are hidden."
+msgstr ""
+
 msgid ""
 "Music source Synthesized: Freight Fate's own stations are off the dial."
 msgstr "音乐来源为合成音乐：Freight Fate自己的电台不在频段上。"
@@ -26573,6 +26625,12 @@ msgstr "你还没有自己的播放列表。把M3U、M3U8或PLS播放列表文�
 #. one sentence of a longer line
 msgid "Put M3U, M3U8 or PLS playlist files in {personal_playlists_dir}."
 msgstr "把M3U、M3U8或PLS播放列表文件放进{personal_playlists_dir}。"
+
+msgid ""
+"At the wheel, a three-finger flick left or right tunes stations. Radio "
+"category, Radio volume, favorites and radio power are under Radio and CB on "
+"the three-finger tap list."
+msgstr ""
 
 #. one sentence of a longer line
 msgid "Page Down and Page Up tune stations, or semicolon and apostrophe."
@@ -27227,11 +27285,17 @@ msgstr "下一页。{next_page_preview}"
 msgid "Shows the next results. PageDown does the same."
 msgstr "显示后面的结果。PageDown 也可以。"
 
+msgid "Shows the next results. A three-finger flick right does the same."
+msgstr ""
+
 msgid "Previous page"
 msgstr "上一页"
 
 msgid "Shows the earlier results. PageUp does the same."
 msgstr "显示前面的结果。PageUp 也可以。"
+
+msgid "Shows the earlier results. A three-finger flick left does the same."
+msgstr ""
 
 msgid "No stations here yet."
 msgstr "这里还没有电台。"
@@ -27267,6 +27331,23 @@ msgstr "{count} 个结果。"
 #. placeholders: {title}, {count}, {page}
 msgid "{title}. {count} matches. {page} PageDown for the next page."
 msgstr "{title}。{count} 个结果。{page} 按 PageDown 翻到下一页。"
+
+#. placeholders: {page}
+#. one sentence of a longer line
+msgid "{page} Flick right with three fingers for the next page."
+msgstr ""
+
+#. placeholders: {title}, {count}, {page}
+msgid ""
+"{title}. {count} stations. {page} Flick right with three fingers for the "
+"next page."
+msgstr ""
+
+#. placeholders: {title}, {count}, {page}
+msgid ""
+"{title}. {count} matches. {page} Flick right with three fingers for the "
+"next page."
+msgstr ""
 
 #. one sentence of a longer line
 msgid "Nothing here yet."
@@ -32557,6 +32638,22 @@ msgstr "手柄：已启用，已连接 {name}"
 msgid "Controller: enabled, none connected"
 msgstr "手柄：已启用，未连接"
 
+msgid ""
+"Off plays the full dial, including real public streams and personal "
+"playlists. On keeps the radio to built-in safe stations, for streaming or "
+"recording. With Music source set to Synthesized, On keeps the radio on the "
+"Roadhouse and station keys do nothing."
+msgstr ""
+"关闭时播放全部频道，包括真实的公共网络电台和个人播放列表。打开时收音机只播放内置的安全电台，适合直播或录制。音乐来源设为“合成”时，打开这一项会让收音机"
+"固定在Roadhouse，电台键不起作用。"
+
+msgid ""
+"Off plays the full dial, including real public streams. On keeps the radio "
+"to built-in safe stations, for streaming or recording. With Music source "
+"set to Synthesized, On keeps the radio on the Roadhouse and tuning does "
+"nothing."
+msgstr ""
+
 msgid "a soft tone leans"
 msgstr "轻柔的提示音会"
 
@@ -33417,15 +33514,6 @@ msgstr "驾驶时的收音机音量。默认很低，好让语音、发动机和
 #. placeholders: {on_off}
 msgid "Radio streamer-safe mode: {on_off}"
 msgstr "收音机直播安全模式：{on_off}"
-
-msgid ""
-"Off plays the full dial, including real public streams and personal "
-"playlists. On keeps the radio to built-in safe stations, for streaming or "
-"recording. With Music source set to Synthesized, On keeps the radio on the "
-"Roadhouse and station keys do nothing."
-msgstr ""
-"关闭时播放全部频道，包括真实的公共网络电台和个人播放列表。打开时收音机只播放内置的安全电台，适合直播或录制。音乐来源设为“合成”时，打开这一项会让收音机"
-"固定在Roadhouse，电台键不起作用。"
 
 #. placeholders: {on_off}
 msgid "Shuffle personal playlists: {on_off}"
@@ -36056,6 +36144,52 @@ msgstr ""
 
 msgid "pad"
 msgstr "pad"
+
+msgid ""
+"The radio plays while the engine runs. A three-finger flick right tunes "
+"forward, and a three-finger flick left tunes backward."
+msgstr ""
+
+msgid ""
+"Hold Control with a tune key to jump between categories, including route "
+"music, Freight Fate stations, favorites, and broadcast or web stations."
+msgstr ""
+
+msgid ""
+"Radio and CB on the three-finger tap list turns the radio on or off, saves "
+"favorites, and changes the radio volume and category. Categories include "
+"route music, Freight Fate stations, favorites, and broadcast or web "
+"stations."
+msgstr ""
+
+msgid ""
+"Radio status reads station, reception, volume, and streamer-safe status. "
+"What the radio is playing reads available song information. Both are under "
+"Radio and CB."
+msgstr ""
+
+msgid ""
+"Original uses the licensed menu and Roadhouse tracks. Synthesized plays "
+"music the game composes plus the three original tracks, and takes Freight "
+"Fate's regional stations and voiced breaks off the dial. Real streams "
+"remain unless streamer-safe mode hides them."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "How do I change stations?"
+msgstr ""
+
+#. placeholders: {control_radio}
+msgid ""
+"How do I change stations? With the engine running, {control_radio} switches "
+"the radio on, and Page Up or Page Down tunes."
+msgstr ""
+
+msgid ""
+"How do I change stations? With the engine running, a three-finger flick "
+"right or left tunes. Radio on or off is under Radio and CB on the "
+"three-finger tap list."
+msgstr ""
 
 #. placeholders: {page}, {HELP_PAGES}, {title}
 msgid "Page {page} of {HELP_PAGES}: {title}."
@@ -50752,9 +50886,6 @@ msgstr ""
 #~ msgid ""
 #~ "while it is speaking; when nothing is being said, it repeats this help. "
 #~ msgstr "停止它；没有在说话时，它会重复这段帮助。 "
-
-#~ msgid "browse"
-#~ msgstr "浏览"
 
 #~ msgid "{page_text} PageDown for the next page."
 #~ msgstr "{page_text} 按 PageDown 翻到下一页。"

@@ -127,7 +127,9 @@ impl Menu for RadioAppState {
         // The dial re-reads the Playlists folder here for the same reason the
         // Tab radio screen does: this is where a player comes looking.
         self.driving.with(ctx, |d, ctx| {
-            d.radio.reload_personal_playlists(&personal_playlists_dir());
+            if crate::PERSONAL_PLAYLISTS {
+                d.radio.reload_personal_playlists(&personal_playlists_dir());
+            }
             d.sync_radio_settings(ctx);
         });
         let items = self.build_items(ctx);
@@ -431,7 +433,10 @@ impl Menu for RadioStationListState {
                         format!("Next page. {}", self.next_page_preview()),
                         |s: &mut Self, ctx| s.change_page(ctx, true),
                     )
-                    .help("Shows the next results. PageDown does the same."),
+                    .help("Shows the next results. PageDown does the same.")
+                    .touch_help(
+                        "Shows the next results. A three-finger flick right does the same.",
+                    ),
                 );
             }
             if self.page > 0 {
@@ -439,7 +444,10 @@ impl Menu for RadioStationListState {
                     MenuItem::new("Previous page", |s: &mut Self, ctx| {
                         s.change_page(ctx, false)
                     })
-                    .help("Shows the earlier results. PageUp does the same."),
+                    .help("Shows the earlier results. PageUp does the same.")
+                    .touch_help(
+                        "Shows the earlier results. A three-finger flick left does the same.",
+                    ),
                 );
             }
         }
@@ -483,10 +491,21 @@ impl Menu for RadioStationListState {
             // the noun for the number has the number beside it.
             let count = self.hit_count();
             let page = self.page_text();
-            ctx.say(&if self.kind == "browse" {
-                format!("{title}. {count} stations. {page} PageDown for the next page.")
-            } else {
-                format!("{title}. {count} matches. {page} PageDown for the next page.")
+            ctx.say(&match (self.kind == "browse", ctx.touch_hints()) {
+                (true, false) => {
+                    format!("{title}. {count} stations. {page} PageDown for the next page.")
+                }
+                (false, false) => {
+                    format!("{title}. {count} matches. {page} PageDown for the next page.")
+                }
+                (true, true) => format!(
+                    "{title}. {count} stations. {page} Flick right with three fingers for the \
+                     next page."
+                ),
+                (false, true) => format!(
+                    "{title}. {count} matches. {page} Flick right with three fingers for the \
+                     next page."
+                ),
             });
         } else if rows.is_empty() {
             ctx.say(&format!("{title}. Nothing here yet."));

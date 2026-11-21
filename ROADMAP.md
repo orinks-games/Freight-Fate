@@ -4334,6 +4334,34 @@ What stays invented: the spread of the spacing, every level and factor, the
 thinning numbers, and the stretches where the layer reads nothing. `start_at` stages `bridge` and `jointed` from
 the layer.
 
+### November 21 the dispatch board in posted order (Found along the way)
+
+The owner reported on 2026-11-21 that from about level 8 the last load
+on the board was always the best one to take. The board was sorted
+shortest first and pay follows miles, so the last row paid the most on
+80 to 84 percent of boards from level 6 (99 percent at level 3). The
+recommendation marked the shortest load not on a lane just run, with a
+label from the career stage that said nothing about the load. Design:
+`docs/dispatch-realism-design.md`, November 21.
+
+- [x] The board lists loads in the order dispatch posted them, a
+      shuffle from the board's own seed, saved with the board. A relayed
+      load and a load held for a rest take the farthest load's row; the
+      playtest lever's forced load is the last row.
+- [x] Dispatch recommends by take-home per hour of the whole trip on
+      the driver's current clock, sleeps included, and the row says why:
+      best pay for the hours, best net for the hours (owner-operators),
+      or most room on the deadline (standing slipped). Training is
+      unchanged. Two loads within 5 percent of each other recommend
+      nothing. Assigned dispatch uses the same score for its queue.
+- [x] The board's mode, accept gate and recommendation are one state
+      machine in ff-core (`dispatch_board`), and the agent server's
+      `status` reports them on the board.
+- [ ] Hot and flexible loads: a tight window that pays more, a wide one
+      that pays less, applied after the pay floor, with the premium taken
+      from published expedited rates (design section 3, after the posted
+      board has been driven).
+
 ### November 16 exits inside a work zone (Release gate)
 
 A player's problem report (2026-11-16, a tester snapshot): they signaled for

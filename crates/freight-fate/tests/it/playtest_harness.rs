@@ -881,10 +881,17 @@ fn test_mid_career_transcript_speaks_level_band_guidance() {
         },
     ));
 
-    // The band's title and plan are on Career plan; the board marks the
-    // load the band recommends.
+    // The band's title and plan are on Career plan. The board marks a load
+    // by what it is worth for the hours, never by the band's label.
     let text = result.transcript_text();
-    assert!(text.contains("senior company lane"));
+    assert!(!text.contains("senior company lane"), "{text}");
+    for line in text.lines().filter(|l| l.contains("Recommended dispatch")) {
+        assert!(
+            line.contains("Recommended dispatch, best pay for the hours: ")
+                || line.contains("Recommended dispatch: "),
+            "{line}"
+        );
+    }
     assert!(!text.to_lowercase().contains("probation"));
 }
 

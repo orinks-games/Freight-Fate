@@ -14,7 +14,7 @@ use ff_core::models::profile::Profile;
 
 use crate::states::city_pickup::job_origin_exists;
 
-use super::sort_by_distance;
+use super::farthest_slot;
 
 /// Cache field: `{"city": ..., "job": payload}` for the load awaiting a rest.
 const HELD: &str = "held_for_rest";
@@ -69,17 +69,24 @@ pub(crate) fn held_load(p: &Profile, world: &World) -> Option<Job> {
 }
 
 /// Put the held load on a freshly built board and record where it landed
-/// in the new cache. It takes the farthest slot, as a relayed load does, so
-/// the board keeps the size the driver's level and standing earn.
-pub(crate) fn carry_onto_board(fresh: &mut Vec<Job>, held: Job, cache: &mut Map<String, Value>) {
+/// in the new cache. It takes the row of the farthest load from this city,
+/// as a relayed load does, so the board keeps the size the driver's level
+/// and standing earn. A relayed load (from another city) and the playtest
+/// lever's forced load (`keep`) keep their rows.
+pub(crate) fn carry_onto_board(
+    fresh: &mut Vec<Job>,
+    held: Job,
+    cache: &mut Map<String, Value>,
+    keep: impl Fn(&Job) -> bool,
+) {
     let payload = Value::Object(job_payload(&held));
     let same = |job: &Job| Value::Object(job_payload(job)) == payload;
     if !fresh.iter().any(same) {
-        match fresh.last_mut() {
-            Some(last) => *last = held,
+        let origin = held.origin.clone();
+        match farthest_slot(fresh, |job| job.origin == origin && !keep(job)) {
+            Some(slot) => fresh[slot] = held,
             None => fresh.push(held),
         }
-        sort_by_distance(fresh);
     }
     if let Some(index) = fresh.iter().position(same) {
         cache.insert(HELD_INDEX.into(), Value::from(index as i64));
