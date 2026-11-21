@@ -4,6 +4,7 @@
 //! co-driver.
 
 use ff_core::models::co_driver;
+use ff_core::sim::team_shift::{TeamShift, TeamShiftEvent};
 use ff_core::sim::weather::WeatherKind;
 use freight_fate::playtest::harness::{PlaytestHarness, StartDelivery};
 use freight_fate::states::base::{InputEvent, Key};
@@ -372,7 +373,9 @@ fn with_no_lot_in_reach_the_rest_is_slept_out_on_the_shoulder() {
 /// hour passes as time.
 fn slept_shift_with_no_lot(name: &str) -> PlaytestHarness {
     let mut harness = quiet_drive(name);
-    hand_over_after(&mut harness, 300.0, TeamMode::SleepThrough);
+    // The player's own hour left does not reach the receiver, so the rest
+    // is slept out where Dan stops.
+    hand_over_after(&mut harness, 600.0, TeamMode::SleepThrough);
     harness.with_drive(|d, _| {
         d.trip
             .stops
@@ -448,9 +451,9 @@ fn an_offer_that_turns_up_on_a_refresh_keeps_the_introduction_for_later() {
 
 #[test]
 fn a_rested_co_driver_whose_hours_run_out_keeps_the_lot_they_chose() {
-    // The rest came in and Dan chose a lot within his hours, farther than
-    // the short look he takes when his hours run out first. Running out on
-    // the way does not drop that lot and hand back on the road.
+    // The rest came in and Dan chose a lot within his hours. Running short
+    // on the way does not drop that lot and hand back on the road while it
+    // can still be made before the clock runs out.
     let mut harness = quiet_drive("Team Rest Keep Lot");
     hand_over_after(&mut harness, 300.0, TeamMode::RideAlong);
     harness.with_drive(|d, _| {
@@ -472,13 +475,23 @@ fn a_rested_co_driver_whose_hours_run_out_keeps_the_lot_they_chose() {
             })
             .map(|stop| stop.key())
             .expect("this route has a lot well ahead");
+        // A mile and a half on: inside what the last minutes still reach.
+        if let Some(stop) = d.trip.stops.iter_mut().find(|stop| stop.key() == lot) {
+            stop.at_mi = here + 1.5;
+        }
+        let lot = d
+            .trip
+            .stops
+            .iter()
+            .find(|stop| stop.at_mi == here + 1.5)
+            .map(|stop| stop.key())
+            .expect("the lot moved");
+        d.team_shift_event(TeamShiftEvent::RestIn);
         let wheel = d
             .team
             .as_mut()
             .and_then(|team| team.wheel.as_mut())
             .expect("Dan is driving");
-        wheel.pilot.shift_over = true;
-        wheel.pilot.rested = true;
         wheel.pilot.making_for = Some((lot, StopPurpose::ShiftEnd));
     });
     let planned = harness.read_drive(|d| {
@@ -529,9 +542,12 @@ fn once_rested_the_co_driver_hands_back_at_a_lot_and_not_at_a_scale() {
         harness.with_drive(|d, ctx| {
             // `marked`: the pilot has already seen the rest come in; without
             // it the rest came in while they were stopped here.
-            if let Some(wheel) = d.team.as_mut().and_then(|team| team.wheel.as_mut()) {
-                wheel.pilot.shift_over = marked;
-                wheel.pilot.rested = marked;
+            if let Some(team) = d.team.as_mut() {
+                team.shift = if marked {
+                    TeamShift::EndingRested
+                } else {
+                    TeamShift::Driving
+                };
             }
             if scale {
                 stop.stop_type = "weigh_station".to_string();
@@ -604,7 +620,8 @@ fn a_break_due_with_no_stop_in_reach_is_taken_on_the_shoulder() {
 #[test]
 fn with_the_rest_in_a_break_due_short_of_a_stop_hands_back() {
     // The shoulder break is for a player still owed rest. Rested, the
-    // player takes the wheel instead of the truck stopping in its lane.
+    // player takes the wheel instead, from a truck stopped on the shoulder:
+    // it used to be handed over at highway speed.
     let mut harness = quiet_drive("Team Rested Break");
     hand_over_after(&mut harness, 300.0, TeamMode::RideAlong);
     player_sleeper(&mut harness, 600.0);
@@ -625,6 +642,10 @@ fn with_the_rest_in_a_break_due_short_of_a_stop_hands_back() {
     });
     assert!(woken, "{}", tail(&harness));
     let said = harness.transcript().join("\n");
-    assert!(said.contains("Their break is due."), "{said}");
-    assert!(!said.contains("on the shoulder"), "{said}");
+    assert!(
+        said.contains("Dan stopped on the shoulder and hands you the wheel. Their break is due."),
+        "{said}"
+    );
+    let speed = harness.read_drive(|d| d.truck().speed_mph());
+    assert!(speed < 1.0, "handed back stopped: {speed}");
 }

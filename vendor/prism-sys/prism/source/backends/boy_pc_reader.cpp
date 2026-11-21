@@ -1,0 +1,287 @@
+// SPDX-License-Identifier: MPL-2.0
+// Todo: this file is full of workarounds. Remove them when they are no longer
+// needed.
+
+#ifdef _WIN32
+#if defined(__x86_64) || defined(__x86_64__) || defined(__amd64__) ||          \
+    defined(__amd64) || defined(_M_X64) || defined(_M_IX86) ||                 \
+    defined(__i386__)
+#include "../annotations.h"
+#include "../backend.h"
+#include "../backend_catalog.h"
+#include "../logging.h"
+#include "../optional_library.h"
+#include <array>
+#include <atomic>
+#include <bitset>
+#include <cassert>
+#include <chrono>
+#include <condition_variable>
+#include <mutex>
+#include <optional>
+#include <raw/boy_pc_reader.h>
+#include <shared_mutex>
+#include <simdutf.h>
+#include <string_view>
+#include <tchar.h>
+#include <thread>
+#include <tlhelp32.h>
+#include <utility>
+#include <windows.h>
+
+namespace {
+#if defined(_M_X64) || defined(__x86_64__)
+constexpr const TCHAR *boy_pc_reader_dll = _T("byctrl-x64.dll");
+constexpr InstallLocation boy_pc_reader_install{
+    .subkey =
+        _T("SOFTWARE\\WOW6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninst")
+        _T("all\\{1F0FDAE0-3E94-4B86-8F08-C68E70D5D87D}_is1"),
+    .value = _T("InstallLocation")};
+#else
+constexpr const TCHAR *boy_pc_reader_dll = _T("byctrl.dll");
+constexpr InstallLocation boy_pc_reader_install{
+    .subkey = _T("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\{")
+              _T("1F0FDAE0-3E94-4B86-8F08-C68E70D5D87D}_is1"),
+    .value = _T("InstallLocation")};
+#endif
+
+struct BoyCtrl {
+  SharedLibrary library;
+  decltype(&::BoyCtrlInitializeU8) BoyCtrlInitializeU8 = nullptr;
+  decltype(&::BoyCtrlUninitialize) BoyCtrlUninitialize = nullptr;
+  decltype(&::BoyCtrlIsReaderRunning) BoyCtrlIsReaderRunning = nullptr;
+  decltype(&::BoyCtrlSpeak) BoyCtrlSpeak = nullptr;
+  decltype(&::BoyCtrlStopSpeaking) BoyCtrlStopSpeaking = nullptr;
+};
+
+std::optional<BoyCtrl> load_boy_ctrl() {
+  static const LogSource log{"BoyPCReader"};
+  BoyCtrl api{.library = open_optional_library(boy_pc_reader_dll,
+                                               &boy_pc_reader_install)};
+  if (!api.library) {
+    log.debug(_T("{} could not be loaded"), boy_pc_reader_dll);
+    return std::nullopt;
+  }
+  const SharedLibrary &library = api.library;
+  const bool complete =
+      library.bind(api.BoyCtrlInitializeU8, "BoyCtrlInitializeU8") &&
+      library.bind(api.BoyCtrlUninitialize, "BoyCtrlUninitialize") &&
+      library.bind(api.BoyCtrlIsReaderRunning, "BoyCtrlIsReaderRunning") &&
+      library.bind(api.BoyCtrlSpeak, "BoyCtrlSpeak") &&
+      library.bind(api.BoyCtrlStopSpeaking, "BoyCtrlStopSpeaking");
+  if (!complete) {
+    log.debug(_T("{} is missing a function prism needs"), boy_pc_reader_dll);
+    return std::nullopt;
+  }
+  return api;
+}
+
+const BoyCtrl *boy_ctrl() {
+  static const std::optional<BoyCtrl> api = load_boy_ctrl();
+  return api ? &*api : nullptr;
+}
+} // namespace
+
+// Whoever designed this screen reader API needs to learn how to properly design
+// C callbacks...
+class BoyPCReaderBackend;
+template <int Slot> struct CallbackSlot {
+  static BoyPCReaderBackend *instance;
+  static void __stdcall callback(int reason);
+};
+
+template <int Slot> BoyPCReaderBackend *CallbackSlot<Slot>::instance = nullptr;
+
+static std::mutex callback_slots_mtx;
+
+template <std::size_t... Is> struct SlotTableImpl {
+  struct Entry {
+    BoyPCReaderBackend **instance;
+    BoyCtrlSpeakCompleteFunc func;
+  };
+
+  static constexpr std::array entries = {
+      Entry{.instance = &CallbackSlot<Is>::instance,
+            .func = &CallbackSlot<Is>::callback}...};
+
+  static BoyCtrlSpeakCompleteFunc acquire(BoyPCReaderBackend *obj) {
+    std::scoped_lock lock(callback_slots_mtx);
+    for (auto &e : entries) {
+      if (*e.instance == nullptr) {
+        *e.instance = obj;
+        return e.func;
+      }
+    }
+    return nullptr;
+  }
+
+  static void release(const BoyPCReaderBackend *obj) {
+    assert(obj != nullptr);
+    std::scoped_lock lock(callback_slots_mtx);
+    for (auto &e : entries) {
+      if (*e.instance == obj) {
+        *e.instance = nullptr;
+        return;
+      }
+    }
+  }
+};
+
+template <std::size_t N, typename = std::make_index_sequence<N>>
+struct MakeSlotTable;
+
+template <std::size_t N, std::size_t... Is>
+struct MakeSlotTable<N, std::index_sequence<Is...>> {
+  using type = SlotTableImpl<Is...>;
+};
+
+template <std::size_t N> using SlotTable = MakeSlotTable<N>::type;
+
+class BoyPCReaderBackend final : public TextToSpeechBackend {
+private:
+  // This limit is most likely overkill, but this is deliberately so
+  // The objective is to have a limit so high that you are in practice never
+  // going to hit it unless you are deliberately trying to do so
+  using Slots = SlotTable<128>;
+  template <int Slot> friend struct CallbackSlot;
+  std::atomic_flag initialized;
+  std::atomic_flag speaking;
+  BoyCtrlSpeakCompleteFunc complete_callback{nullptr};
+  const BoyCtrl *api = nullptr;
+
+  static BackendError map_error(BoyCtrlError err) {
+    switch (err) {
+    case e_bcerr_fail:
+    case e_bcerr_arg:
+      return BackendError::InternalBackendError;
+    case e_bcerr_unavailable:
+      return BackendError::BackendNotAvailable;
+    default:
+      return BackendError::Unknown;
+    }
+  }
+
+  void handle_speak_complete([[maybe_unused]] int reason) { speaking.clear(); }
+
+public:
+  BoyPCReaderBackend() = default;
+  BoyPCReaderBackend(const BoyPCReaderBackend &) = delete;
+  BoyPCReaderBackend &operator=(const BoyPCReaderBackend &) = delete;
+  BoyPCReaderBackend(BoyPCReaderBackend &&) = delete;
+  BoyPCReaderBackend &operator=(BoyPCReaderBackend &&) = delete;
+  PRISM_SUPPRESS("f.6", "releasing the slot only locks a mutex")
+  ~BoyPCReaderBackend() override {
+    if (complete_callback != nullptr) {
+      Slots::release(this);
+      complete_callback = nullptr;
+    }
+    if (initialized.test())
+      api->BoyCtrlUninitialize();
+  }
+
+  [[nodiscard]] std::string_view get_name() const override {
+    return "BoyPCReader";
+  }
+
+  [[nodiscard]] std::bitset<64> get_features() const override {
+    using namespace BackendFeature;
+    std::bitset<64> features;
+    constexpr auto boy_pc_reader_processes = std::to_array<std::wstring_view>(
+        {_T("BoyService.exe"), _T("BoyHelper.exe"), _T("BoyHlp.exe"),
+         _T("BoyPcReader.exe"), _T("BoyPRStart.exe"), _T("BoySpeechSlave.exe"),
+         _T("BoyVoiceInput.exe")});
+    HANDLE snapshot = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
+    if (snapshot != INVALID_HANDLE_VALUE) {
+      PROCESSENTRY32 entry{};
+      entry.dwSize = sizeof(entry);
+      if (Process32First(snapshot, &entry)) {
+        do {
+          if (std::ranges::any_of(
+                  boy_pc_reader_processes, [entry](const auto &p) {
+                    return std::wstring_view{entry.szExeFile} == p;
+                  })) {
+            features |= IS_SUPPORTED_AT_RUNTIME;
+            break;
+          }
+        } while (Process32Next(snapshot, &entry));
+      }
+      CloseHandle(snapshot);
+    }
+    features |=
+        SUPPORTS_SPEAK | SUPPORTS_OUTPUT | SUPPORTS_STOP | SUPPORTS_IS_SPEAKING;
+    return features |= IS_SCREEN_READER;
+  }
+
+  BackendResult<> initialize() override {
+    if (initialized.test())
+      return std::unexpected(BackendError::AlreadyInitialized);
+    api = boy_ctrl();
+    if (api == nullptr)
+      return std::unexpected(BackendError::BackendNotAvailable);
+    if (complete_callback == nullptr) {
+      complete_callback = Slots::acquire(this);
+      if (complete_callback == nullptr)
+        return std::unexpected(BackendError::InternalBackendLimitExceeded);
+    }
+    if (const auto res = api->BoyCtrlInitializeU8(nullptr);
+        res != e_bcerr_success)
+      return std::unexpected(map_error(res));
+    if (!api->BoyCtrlIsReaderRunning()) {
+      api->BoyCtrlUninitialize();
+      return std::unexpected(BackendError::BackendNotAvailable);
+    }
+    initialized.test_and_set();
+    return {};
+  }
+
+  BackendResult<> speak(std::string_view text, bool interrupt) override {
+    if (!initialized.test())
+      return std::unexpected(BackendError::NotInitialized);
+    const auto len = simdutf::utf16_length_from_utf8(text.data(), text.size());
+    std::wstring wstr;
+    wstr.resize(len);
+    if (const auto res = simdutf::convert_valid_utf8_to_utf16(
+            text.data(), text.size(),
+            reinterpret_cast<char16_t *>(wstr.data()));
+        res == 0)
+      return std::unexpected(BackendError::InvalidUtf8);
+    if (const auto res =
+            api->BoyCtrlSpeak(wstr.c_str(), !interrupt, complete_callback);
+        res != e_bcerr_success)
+      return std::unexpected(map_error(res));
+    speaking.test_and_set();
+    return {};
+  }
+
+  BackendResult<> output(std::string_view text, bool interrupt) override {
+    return speak(text, interrupt);
+  }
+
+  BackendResult<bool> is_speaking() override {
+    if (!initialized.test())
+      return std::unexpected(BackendError::NotInitialized);
+    if (!api->BoyCtrlIsReaderRunning())
+      return std::unexpected(BackendError::BackendNotAvailable);
+    return speaking.test();
+  }
+
+  BackendResult<> stop() override {
+    if (!initialized.test())
+      return std::unexpected(BackendError::NotInitialized);
+    if (const auto res = api->BoyCtrlStopSpeaking(); res != e_bcerr_success)
+      return std::unexpected(map_error(res));
+    speaking.clear();
+    return {};
+  }
+};
+
+template <int Slot> void __stdcall CallbackSlot<Slot>::callback(int reason) {
+  std::scoped_lock lock(callback_slots_mtx);
+  if (instance != nullptr)
+    instance->handle_speak_complete(reason);
+}
+
+REGISTER_BACKEND_WITH_ID(BoyPCReaderBackend, Backends::BoyPCReader,
+                         "BoyPCReader", 101);
+#endif
+#endif

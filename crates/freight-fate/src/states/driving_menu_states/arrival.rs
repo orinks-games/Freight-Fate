@@ -1206,6 +1206,11 @@ impl ArrivalState {
 }
 
 impl Menu for ArrivalState {
+    /// A prompt to answer: Escape answers it, so touch adds no Back row.
+    fn touch_back_row(&self) -> bool {
+        false
+    }
+
     fn menu(&self) -> &MenuCore<Self> {
         &self.menu
     }

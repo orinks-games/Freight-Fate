@@ -16,7 +16,10 @@ use crate::meaningful_play::MeaningfulPlayReason;
 use crate::states::base::{Label, Menu, MenuCore, MenuItem};
 use crate::states::city::{profile, profile_mut};
 use crate::states::city_business::{TrailerProgramState, TruckShopState, UpgradeShopState};
+use crate::states::driving_core::town_hand_work_min;
 use crate::states::driving_rest_states::refuel_engine_gate_message;
+
+mod fuel;
 
 pub const TERMINAL_FUEL_MIN: f64 = 20.0;
 pub const TERMINAL_REPAIR_MIN: f64 = 60.0;
@@ -204,121 +207,6 @@ impl GarageState {
             fmt_f(p.truck_damage_pct(), 0),
             fmt_grouped(cost, 0)
         )
-    }
-
-    /// Shut the tractor off so the island (and this bay) will fuel.
-    pub fn shut_down_engine(&mut self, ctx: &mut GameContext) {
-        if !profile(ctx).truck_engine_on() {
-            ctx.say("The engine is already off.");
-            return;
-        }
-        profile_mut(ctx).set_truck_engine_on(false);
-        ctx.save_profile();
-        ctx.audio.play("ui/notify");
-        ctx.say("Engine off.");
-        self.refresh(ctx, true);
-    }
-
-    pub fn refuel(&mut self, ctx: &mut GameContext) {
-        // Engine first, then the tank: the same order as the fuel island.
-        // Reefer and APU may stay on; only the tractor must be off.
-        if let Some(msg) = refuel_engine_gate_message(profile(ctx).truck_engine_on()) {
-            ctx.audio.play("ui/error");
-            ctx.say(msg);
-            return;
-        }
-        let tank = Self::tank_gal(ctx);
-        let need = tank - profile(ctx).truck_fuel_gal();
-        if need < 1.0 {
-            ctx.say("The tank is already full.");
-            return;
-        }
-        if !player_pays_operating_costs(&profile(ctx).business_status) {
-            let (start, end) = {
-                let p = profile_mut(ctx);
-                p.set_truck_fuel_gal(tank);
-                let start = p.game_hours;
-                p.game_hours += TERMINAL_FUEL_MIN / 60.0;
-                p.hos.on_duty(TERMINAL_FUEL_MIN);
-                (start, p.game_hours)
-            };
-            crate::states::city::city_on_duty_fatigue(ctx, start, end);
-            ctx.save_profile();
-            ctx.audio.play("vehicle/fuel_pump");
-            ctx.say(&format!(
-                "Tank filled, {} minutes.",
-                fmt_f(TERMINAL_FUEL_MIN, 0)
-            ));
-            ctx.award_achievement("route_refuel");
-            self.refresh(ctx, true);
-            return;
-        }
-        let region = Self::region(ctx);
-        let state_code = Self::state_code(ctx);
-        let cost = ctx.economy.fuel_cost_at(&region, &state_code, need);
-        if profile(ctx).money() < cost {
-            self.partial_refuel(ctx, tank);
-            return;
-        }
-        let (start, end, money) = {
-            let p = profile_mut(ctx);
-            p.spend(cost);
-            p.set_truck_fuel_gal(tank);
-            let start = p.game_hours;
-            p.game_hours += TERMINAL_FUEL_MIN / 60.0;
-            (start, p.game_hours, p.money())
-        };
-        record_terminal_duty(ctx, start, end, "terminal fuel");
-        profile_mut(ctx).hos.on_duty(TERMINAL_FUEL_MIN);
-        ctx.save_profile();
-        ctx.audio.play("vehicle/fuel_pump");
-        ctx.say(&format!(
-            "Tank filled. {} dollars. You have {} dollars left.",
-            fmt_grouped(cost, 0),
-            fmt_grouped(money, 0)
-        ));
-        ctx.award_achievement("route_refuel");
-        self.refresh(ctx, true);
-    }
-
-    fn partial_refuel(&mut self, ctx: &mut GameContext, tank: f64) {
-        let region = Self::region(ctx);
-        let state_code = Self::state_code(ctx);
-        let price = ctx.economy.fuel_price_at(&region, &state_code);
-        let gallons = if price > 0.0 {
-            profile(ctx).money() / price
-        } else {
-            0.0
-        };
-        if gallons < 1.0 {
-            ctx.audio.play("ui/error");
-            ctx.say("Not enough money for one gallon of fuel.");
-            return;
-        }
-        let cost = ctx.economy.fuel_cost_at(&region, &state_code, gallons);
-        let (start, end, money) = {
-            let p = profile_mut(ctx);
-            p.spend(cost);
-            let fuel = tank.min(p.truck_fuel_gal() + gallons);
-            p.set_truck_fuel_gal(fuel);
-            let start = p.game_hours;
-            p.game_hours += TERMINAL_FUEL_MIN / 60.0;
-            (start, p.game_hours, p.money())
-        };
-        record_terminal_duty(ctx, start, end, "terminal fuel");
-        profile_mut(ctx).hos.on_duty(TERMINAL_FUEL_MIN);
-        ctx.save_profile();
-        ctx.audio.play("vehicle/fuel_pump");
-        ctx.say(&format!(
-            "Partial fuel: added {} gallons for \
-             {} dollars. \
-             You have {} dollars left.",
-            fmt_f(gallons, 0),
-            fmt_grouped(cost, 0),
-            fmt_grouped(money, 0)
-        ));
-        ctx.award_achievement("route_refuel");
-        self.refresh(ctx, true);
     }
 
     pub fn repair(&mut self, ctx: &mut GameContext) {
@@ -1022,7 +910,7 @@ impl Menu for GarageState {
                 "A chain set is seven chains and two repair links. Four chains go on the drive \
                  tires and one on a trailer tire, the most any state here asks of a semi. \
                  The other two are spares. Put chains on from the pause menu once you're stopped in snow \
-                 or ice. They wear out fast on bare pavement. Company drivers bill the \
+                 or ice. They wear out fast on a bare road. Company drivers bill the \
                  carrier.",
             ),
             MenuItem::new(

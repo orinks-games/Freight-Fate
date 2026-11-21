@@ -69,7 +69,7 @@ fn resolve_data_root() -> PathBuf {
             return root;
         }
     }
-    let executable = std::env::current_exe().ok();
+    let executable = crate::settings::paths::game_executable().ok();
     let exe_dir = executable
         .as_ref()
         .and_then(|exe| exe.parent().map(Path::to_path_buf));

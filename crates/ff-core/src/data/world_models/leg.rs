@@ -13,6 +13,7 @@ use super::{
     StateMileage, Stop, StreetControl, StreetLimit, TollEvent, TrafficVolumeSample, TunnelData,
 };
 use crate::data::counties::CountyRun;
+use crate::data::pavement::Pavement;
 use crate::data::world::World;
 use crate::data::world_corridor::build_leg_corridor;
 use crate::data::world_parsing::FlaggedLimit;
@@ -52,6 +53,8 @@ pub struct CorridorDetail {
     pub tunnel: Option<TunnelData>,
     pub billboard_bans: Vec<BillboardBan>,
     pub counties: Vec<CountyRun>,
+    /// Surface and structures from HPMS, when the leg has a reading.
+    pub pavement: Option<Pavement>,
 }
 
 /// The raw corridor JSON plus its parse context, held by a lazy leg until the
@@ -414,6 +417,13 @@ impl Leg {
 
     pub fn counties(&self) -> &[CountyRun] {
         &self.corridor().counties
+    }
+
+    /// What the road is made of and where it leaves the ground; resolve a
+    /// spot by direction with [`Pavement::surface_at`] and
+    /// [`Pavement::structures_for`]. `None` where HPMS reads nothing.
+    pub fn pavement(&self) -> Option<&Pavement> {
+        self.corridor().pavement.as_ref()
     }
 
     pub fn restrictions(&self) -> &[RouteRestriction] {

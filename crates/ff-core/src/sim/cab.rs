@@ -78,11 +78,88 @@ impl ClimateMode {
 /// reach for. 18 °C is the usual indoor comfort floor.
 pub const HEAT_BELOW_C: f64 = 18.0;
 
+/// The driver's window: where the glass is and which way it is going.
+///
+/// One enum where a bool (the switch) and a float (the glass) used to travel
+/// together. The switch can be flipped while the glass is moving, and the
+/// glass turns round from where it is.
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub enum Window {
+    Up,
+    /// Going down; `glass` is how far, 0 up to 1 down.
+    Lowering {
+        glass: f64,
+    },
+    Down,
+    /// Going up; `glass` is how far down it still is.
+    Raising {
+        glass: f64,
+    },
+}
+
+/// What moves the window: the switch, or real time passing.
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub enum WindowEvent {
+    Switch,
+    Tick { dt_real_s: f64 },
+}
+
+impl Window {
+    /// The window after `event`. The only place the window moves.
+    pub fn next(self, event: WindowEvent) -> Window {
+        match (self, event) {
+            (Window::Up, WindowEvent::Switch) => Window::Lowering { glass: 0.0 },
+            (Window::Lowering { glass }, WindowEvent::Switch) => Window::Raising { glass },
+            (Window::Down, WindowEvent::Switch) => Window::Raising { glass: 1.0 },
+            (Window::Raising { glass }, WindowEvent::Switch) => Window::Lowering { glass },
+            (Window::Lowering { glass }, WindowEvent::Tick { dt_real_s }) if dt_real_s > 0.0 => {
+                let glass = glass + dt_real_s / GLASS_TRAVEL_S;
+                if glass >= 1.0 {
+                    Window::Down
+                } else {
+                    Window::Lowering { glass }
+                }
+            }
+            (Window::Raising { glass }, WindowEvent::Tick { dt_real_s }) if dt_real_s > 0.0 => {
+                let glass = glass - dt_real_s / GLASS_TRAVEL_S;
+                if glass <= 0.0 {
+                    Window::Up
+                } else {
+                    Window::Raising { glass }
+                }
+            }
+            (window, WindowEvent::Tick { .. }) => window,
+        }
+    }
+
+    /// Where the glass is, 0 up to 1 down.
+    pub fn glass(self) -> f64 {
+        match self {
+            Window::Up => 0.0,
+            Window::Down => 1.0,
+            Window::Lowering { glass } | Window::Raising { glass } => glass,
+        }
+    }
+
+    /// Where the switch sent it: down, or on its way down.
+    pub fn switched_open(self) -> bool {
+        matches!(self, Window::Lowering { .. } | Window::Down)
+    }
+
+    /// The state's name, as the agent server reports it.
+    pub fn name(self) -> &'static str {
+        match self {
+            Window::Up => "up",
+            Window::Lowering { .. } => "lowering",
+            Window::Down => "down",
+            Window::Raising { .. } => "raising",
+        }
+    }
+}
+
 #[derive(Clone, Debug, PartialEq)]
 pub struct CabState {
-    window_open: bool,
-    /// Where the glass is: 0 all the way up, 1 all the way down.
-    glass: f64,
+    window: Window,
     pub fan: FanSpeed,
     pub mode: ClimateMode,
 }
@@ -101,26 +178,35 @@ impl CabState {
             _ => ClimateMode::Heat,
         };
         Self {
-            window_open: false,
-            glass: 0.0,
+            window: Window::Up,
             fan: FanSpeed::Off,
             mode,
         }
     }
 
     pub fn window_open(&self) -> bool {
-        self.window_open
+        self.window.switched_open()
+    }
+
+    /// The window's state machine.
+    pub fn window(&self) -> Window {
+        self.window
+    }
+
+    /// Put the window all the way up or down at once, for a staged drive.
+    pub fn set_window(&mut self, down: bool) {
+        self.window = if down { Window::Down } else { Window::Up };
     }
 
     /// Where the glass is, 0 up to 1 down.
     pub fn glass(&self) -> f64 {
-        self.glass
+        self.window.glass()
     }
 
     /// Flip the window and return what to say.
     pub fn toggle_window(&mut self) -> &'static str {
-        self.window_open = !self.window_open;
-        if self.window_open {
+        self.window = self.window.next(WindowEvent::Switch);
+        if self.window_open() {
             "Driver window down."
         } else {
             "Driver window up."
@@ -156,27 +242,18 @@ impl CabState {
 
     /// Move the glass toward where the switch sent it, over real seconds.
     pub fn step(&mut self, dt_real_s: f64) {
-        if dt_real_s <= 0.0 {
-            return;
-        }
-        let target = if self.window_open { 1.0 } else { 0.0 };
-        let step = dt_real_s / GLASS_TRAVEL_S;
-        self.glass = if self.glass < target {
-            (self.glass + step).min(target)
-        } else {
-            (self.glass - step).max(target)
-        };
+        self.window = self.window.next(WindowEvent::Tick { dt_real_s });
     }
 
     /// Gain multiplier for the outside sounds.
     pub fn outside_lift(&self) -> f64 {
-        1.0 + OUTSIDE_LIFT_OPEN * self.glass
+        1.0 + OUTSIDE_LIFT_OPEN * self.glass()
     }
 
     /// Level of the wind rush through the window; 0 means stop the loop.
     pub fn wind_rush_gain(&self, speed_mps: f64) -> f64 {
         let s = (speed_mps.max(0.0) / WIND_RUSH_FULL_MPS).min(1.0);
-        self.glass * s * s * WIND_RUSH_FULL
+        self.glass() * s * s * WIND_RUSH_FULL
     }
 
     /// Playback rate of the wind rush: a little higher as the air speeds up.
@@ -190,7 +267,7 @@ impl CabState {
     pub fn status_line(&self) -> Option<&'static str> {
         use ClimateMode::{AirConditioning as Ac, Heat};
         use FanSpeed::{High, Low, Medium, Off};
-        Some(match (self.window_open, self.fan, self.mode) {
+        Some(match (self.window_open(), self.fan, self.mode) {
             (false, Off, _) => return None,
             (true, Off, _) => "Cab: driver window down",
             (false, Low, Heat) => "Cab: fan low, heat",
@@ -245,6 +322,58 @@ mod tests {
         assert_eq!(cab.toggle_window(), "Driver window up.");
         cab.step(GLASS_TRAVEL_S * 3.0);
         assert_eq!(cab.glass(), 0.0);
+    }
+
+    #[test]
+    fn the_window_moves_by_its_transition_table() {
+        use Window::*;
+        use WindowEvent::*;
+        let half = GLASS_TRAVEL_S / 2.0;
+        let rows: [(Window, WindowEvent, Window); 12] = [
+            (Up, Switch, Lowering { glass: 0.0 }),
+            (Up, Tick { dt_real_s: 1.0 }, Up),
+            (Lowering { glass: 0.25 }, Switch, Raising { glass: 0.25 }),
+            (
+                Lowering { glass: 0.0 },
+                Tick { dt_real_s: half },
+                Lowering { glass: 0.5 },
+            ),
+            (Lowering { glass: 0.5 }, Tick { dt_real_s: half }, Down),
+            (Lowering { glass: 0.9 }, Tick { dt_real_s: 5.0 }, Down),
+            (
+                Lowering { glass: 0.3 },
+                Tick { dt_real_s: 0.0 },
+                Lowering { glass: 0.3 },
+            ),
+            (Down, Switch, Raising { glass: 1.0 }),
+            (Down, Tick { dt_real_s: 1.0 }, Down),
+            (Raising { glass: 0.75 }, Switch, Lowering { glass: 0.75 }),
+            (
+                Raising { glass: 1.0 },
+                Tick { dt_real_s: half },
+                Raising { glass: 0.5 },
+            ),
+            (Raising { glass: 0.5 }, Tick { dt_real_s: half }, Up),
+        ];
+        for (from, event, to) in rows {
+            assert_eq!(from.next(event), to, "{from:?} on {event:?}");
+        }
+        assert_eq!(
+            [Up, Lowering { glass: 0.1 }, Down, Raising { glass: 0.1 }].map(Window::name),
+            ["up", "lowering", "down", "raising"]
+        );
+    }
+
+    #[test]
+    fn a_switch_mid_travel_turns_the_glass_round_where_it_is() {
+        let mut cab = CabState::default();
+        assert_eq!(cab.toggle_window(), "Driver window down.");
+        cab.step(GLASS_TRAVEL_S * 0.3);
+        assert_eq!(cab.toggle_window(), "Driver window up.");
+        assert!((cab.glass() - 0.3).abs() < 1e-9);
+        assert!(!cab.window_open());
+        cab.step(GLASS_TRAVEL_S);
+        assert_eq!(cab.window(), Window::Up);
     }
 
     #[test]

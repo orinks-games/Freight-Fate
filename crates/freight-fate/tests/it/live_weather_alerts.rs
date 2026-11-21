@@ -159,10 +159,11 @@ fn test_the_cab_reads_a_warning_once_as_the_truck_drives_into_it() {
         "{}",
         harness.transcript_text()
     );
-    // The warnings the truck is under now steer the chain law, before any
-    // snow is on the road under the wheels.
+    // The warnings are held, but they post no chain law with no snow on
+    // the road under the wheels: the law follows the road (player report,
+    // 2026-11-21).
     assert_eq!(harness.read_drive(|d| d.trip.live_alerts.len()), 2);
-    assert_eq!(harness.read_drive(|d| d.trip.chain_law_level()), 1);
+    assert_eq!(harness.read_drive(|d| d.trip.chain_law_level()), 0);
 
     // And the Weather app keeps them askable after the one spoken line.
     let handle = DriveRef::of(&harness.shared_driving().expect("a drive on the stack"));

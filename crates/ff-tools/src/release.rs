@@ -25,6 +25,7 @@
 //! is notarized and stapled before it is archived; without them it is
 //! ad-hoc signed for local use.
 
+pub mod android;
 pub mod appimage;
 mod archive;
 pub mod ios;
@@ -126,7 +127,7 @@ pub fn staged_dir() -> PathBuf {
 }
 
 /// The version a developer snapshot reports: `[workspace.metadata.release]
-/// package-version` in the root Cargo.toml (`1.9.7.dev0`). It carries the
+/// package-version` in the root Cargo.toml (`2.0.0.dev0`). It carries the
 /// `.devN` the crate version cannot, so a snapshot never calls itself the
 /// stable release.
 pub fn project_version() -> Result<String> {

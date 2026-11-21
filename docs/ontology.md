@@ -231,7 +231,7 @@ from the words, and synonyms cost them a re-read.
 | --- | --- | --- | --- |
 | The haul contract | job | gig, run, assignment | `Job` |
 | A driving control moved to another key | keyboard shortcut (the screen), the key it is on ("Engine on or off: E") | binding, mapping, keybind, hotkey | `bindings::Action`, `KeyBindings` |
-| The same on the pad | controller button; right bumper plus «button» for the second layer | modified button, layer two, chord | `bindings::PadChord` |
+| The same on the pad | controller button; right bumper plus «button» for the second layer (left bumper plus «button» with Second layer bumper on left, which swaps the bumper in every control name and instruction) | modified button, layer two, chord | `bindings::PadChord`, `controller::bumpers` |
 | The list of every one-shot driving command by name, F2 or a three-finger tap at the wheel | driving commands (the screen title); "the three-finger tap list" in a touch prompt | command menu, action list, quick menu | `DrivingCommandsState` |
 | One of the fixed groups in the driving commands, in this order after "Status menu" | Speed and cruise; Road and stops; Where am I; Truck; Gears and engine brake; Radio and CB; Hours and clock | category, section, submenu, folder | `driving_menu_states::commands::Group` |
 | The clutch a touch shift presses and lets out by itself in a manual truck | (never spoken: the player hears the gear, then its clunk as it takes) | auto clutch, clutch assist, smart clutch | `ff_core::sim::touch_clutch::TouchClutch` |
@@ -240,6 +240,8 @@ from the words, and synonyms cost them a re-read.
 | One booked citation or violation with its reason | citation / serious violation / major offense / safety incident, then day, clock, reason, fine, place | ticket entry, infraction, offense record, strike | `enforcement::RecordEntry`, `DrivingRecord.entries` |
 | The freight itself | cargo, the load | payload, goods | `CargoType`, `Job.cargo` |
 | The board of offers | dispatch board | job list, load board | `JobBoard` |
+| A load the shipper needs fast: a tight deadline, 25 percent more pay | hot load ("Hot load." on the board row) | rush load, expedited, urgent, hot shot | `LoadUrgency::Hot`, `Job.urgency` |
+| A load with a wide deadline that pays 10 percent less | flexible delivery ("Flexible delivery." on the board row) | flexible load, relaxed load, open window, slow load | `LoadUrgency::Flexible`, `Job.urgency` |
 | Asking the carrier's dispatcher for help on a trip, from the pause menu while stopped | call dispatch; the answer starts "Dispatch:" | radio dispatch, phone home, check call, Qualcomm message | `DispatchCallState`, `DispatchCallRequest` |
 | The vehicle | truck | rig (except as noted) | `TruckModel` |
 | One city-to-city stretch | leg | segment, hop | `Leg` |
@@ -302,12 +304,13 @@ from the words, and synonyms cost them a re-read.
 | Driving time already spent this shift | at the wheel | hours driven, drive time used, hours on the road (that is the run) | `HosClock.wheel_time_summary` |
 | The 14-hour clock that starts when you go on duty | duty window | 14-hour clock, on-duty clock, shift window | `HosClock.duty_min` |
 | The 30 minutes off the wheel the law requires | break | rest break, 30, half-hour rest | `HosClock.break_summary` |
-| The second driver on a team load, who drives while the player is in the sleeper | co-driver, or their name ("Dan needs you back at the wheel.") | partner, teammate, relief driver, autopilot, AI driver | `TeamDrive`, `models::co_driver` |
+| The second driver on a team load, who drives while the player is in the sleeper | co-driver, or their name ("Dan needs you. The truck took damage.") | partner, teammate, relief driver, autopilot, AI driver | `TeamDrive`, `models::co_driver` |
 | A delivery run with a co-driver, including a load dispatch books for two drivers ("Team load" in the job details) | team load | team run, relay, duo | `TeamDrive`, `Job.team`, the `team:loads:` counters |
 | Resting in the sleeper while the co-driver drives at the normal pace | ride along ("Hand the wheel to Dan and ride along"; at the shipper, "Depart with Dan driving, and ride along") | watch, spectate, passenger seat | `TeamMode::RideAlong` |
 | Sleeping while the co-driver's shift runs ahead | sleep ("Hand the wheel to Dan and sleep"; at the shipper, "Depart with Dan driving, and sleep"); "sleep through it" in the manual | fast-forward, skip, time skip | `TeamMode::SleepThrough` |
 | The player's ten hours off in the sleeper while the co-driver drives, which resets their hours and ends the co-driver's shift | rest ("Rest: 3.5 hours of 10 hours."; "Your 10-hour rest is in.") | recovery, reset, sleep credit | `co_driver::rest_complete`, `Wheel.player_rest_owed` |
-| The co-driver giving the wheel back | needs you back ("Dan needs you back at the wheel."); the pause menu row is "Take the wheel back" | summon, wake call, handoff | `co_driver_summon`, `take_wheel_back` |
+| The co-driver giving the wheel back | hands you the wheel ("Dan has parked and hands you the wheel. Their hours are up."), or needs you ("Dan needs you. The lot is full.") for something only the driver decides; the pause menu row is "Take the wheel back" | summon, wake call, handoff | `co_driver_summon`, `take_wheel_back` |
+| The co-driver's own logbook while they are in the bunk: how far their own rest has come, and the driving it leaves them; on the hand-over rows, how long they can drive for you when their hours end the shift | driving left ("Co-driver: Dan, in the sleeper. Rest: 7.2 hours of 10 hours. 1.4 hours of driving left."); "Hand the wheel to Dan for 1.2 hours and sleep" | hours left, shift left, time remaining | `team_status_lines`, `co_driver::shift_left_min`, `co_driver::usable_min` |
 | The co-driver's own lines in the message review: their plans, stops, fines, inspections and the hazards they met (one of the categories `[` and `]` step through, present once they have said something) | Co-driver | team log, partner messages, AI log | `MessageCategory::CoDriver`, `co_driver_note` |
 | The in-game time of day (truck-local with a named zone in accelerated modes; computer-anchored and spoken as "local game time" in Real time) | clock | local time, game time | `Trip.local_hour`, `clock_text` |
 | When the load is due | deadline | due time, drop time (the appointment is the named hour) | `Job.deadline_game_h` |
@@ -357,6 +360,7 @@ from the words, and synonyms cost them a re-read.
 | The held siren a driver hears when a trooper is pulling them over | Siren | siren loop, cop siren, alarm tone | `events/police_siren`, `states/driving_siren.py` |
 | Being pulled to the shoulder by one | pull-over | stop (already the POI, the act of stopping, and the command) | `_pull_over` |
 | The checkpoint watching for chain-law compliance on a graded climb | chain control | chain checkpoint, chain law stop, chain station | `EnforcementPost` (`KIND_CHAIN`), `REASON_BY_KIND` |
+| Pavement with no snow or ice on it: no chain law is posted there, and chains on it wear through | bare road ("Bare road.") | bare pavement, dry road, clear road | `chain_control::snow_or_ice`, `ChainSetCue::BareRoad` |
 | The inspection facility | weigh station; "the scale" in short cues | scale house, weigh point, chicken coop | `RoadStop(type="weigh_station")` |
 | The certified commercial scale on a truck stop's lot a driver pays to weigh on | CAT Scale; always named, never "the scale" | truck scale, Cat scale, public scale, weighbridge | `RoadStop.services` `scale`, `rest_stop/cat_scale.rs`, `tools/cat_scales.py` |
 | The printed result of a weigh, read aloud | CAT Scale ticket | weight ticket, scale ticket, weigh slip | `AxleLoads::ticket_text` |
@@ -453,7 +457,7 @@ from the words, and synonyms cost them a re-read.
 | Air pressure fallen too low to brake safely | Low air buzzer | low-pressure alarm, air warning | `vehicle/low_air_buzzer` |
 | The parking brake engaging: a hard mechanical clunk of air dumping | Parking brake set | brake set, park brake on | `vehicle/brake_set` |
 | The parking brake releasing, freeing the truck to roll | Parking brake released | brake release, park brake off | `vehicle/brake_release` |
-| The driver's side window, lowered or raised by its motor; with it down the wind rushes in and the outside sounds louder | driver window; "Driver window down." / "Driver window up." | window (alone: "window" is also the duty window), cab window, open/closed | `sim/cab.rs CabState`, `cab/window_motor`, `cab/wind` |
+| The driver's side window, lowered or raised by its motor; with it down the wind rushes in and the outside sounds louder; with it up the birds, insects and rivers outside are muffled | driver window; "Driver window down." / "Driver window up." | window (alone: "window" is also the duty window), cab window, open/closed | `sim/cab.rs CabState` and `Window`, `cab/window_motor`, `cab/wind` |
 | The cab blower, off, low, medium or high | fan; "Fan low." | blower, vent, climate fan | `sim/cab.rs FanSpeed`, `cab/fan` |
 | Warm or cold air from the fan | heat; air conditioning | A/C, AC, cooling, climate mode, HVAC | `sim/cab.rs ClimateMode`, `cab/ac_clutch` |
 | The hardest stop the truck has, for a hazard that cannot otherwise be missed | Emergency brake | e-brake (bare abbreviation), panic stop | `vehicle/ebrake` (fallback `vehicle/brake_air`) |
@@ -507,6 +511,7 @@ from the words, and synonyms cost them a re-read.
 | Where the game's lines go: spoken, or to the screen reader's braille display with nothing spoken | Output (the Settings > Speech row), with speech and braille / braille only as its values; the display is "your braille display" | speech mode, silent mode, mute speech, braille backend, braille channel | `settings.braille_only`, `SpeechSink::set_braille_only`, `VoiceBackend::braille` |
 | The voice that reads menus and readouts, chosen on the Settings > Speech row "Main voice" (automatic, or a named voice) | main voice; the row's values are automatic, a voice's name, or "<name>, unavailable" | primary voice, menu voice, main backend, speech backend | `settings.main_backend`, `SpeechSink::main_backend_options`, `speech_voices::main_voice_label` |
 | The game's own speech synthesizer, played through the sound device, that speaks when no screen reader or system voice can; also a choice on the Main voice and Driving event voice rows | built-in voice | Genny (its engine's name), self-voicing, fallback voice, internal TTS | `hearken::speech::BUILTIN_BACKEND`, `speech_voices::spoken_voice_name` |
+| On Android, a text to speech engine installed on the phone, and the languages and voices it offers; the Settings > Speech rows "Voice engine", "Voice language" and "Speech voice" choose one voice through them | voice engine (always with "voice", since the engine is the truck's); voice language, which is not the Language row (that one is what the game speaks, this one only filters voices) | TTS engine, speech engine, synthesizer, provider, locale | `settings.speech_voice` (one "engine: language: voice" name), `settings_items::voice_groups` |
 | How loud the lane and edge cues are next to everything else | lane and edge cue volume (the Settings > Audio row), with quieter / standard / louder as its values | prominence (what the row said until 1.9, and what the owner could not decode), lane cue loudness, cue intensity | `settings.lane_cue_loudness`, `sim/lane_guidance.CUE_LOUDNESS` |
 
 Notes on the entries that are not simple:

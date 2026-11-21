@@ -15,6 +15,7 @@ pub mod grades;
 pub mod lcv_turnpikes;
 pub mod legacy_aliases;
 pub mod national_network;
+pub mod pavement;
 pub mod regions;
 pub mod seasonal_weight;
 pub mod state_welcome;

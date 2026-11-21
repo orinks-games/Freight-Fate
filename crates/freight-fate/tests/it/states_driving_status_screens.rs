@@ -27,6 +27,7 @@ use freight_fate::states::base::{Key, Menu, State};
 use freight_fate::states::driving_menu_states::{
     DriveRef, DriverAppScreenState, DriverAppsState, DrivingStatusScreenState, DrivingStatusState,
 };
+use freight_fate::states::driving_radio_app::RadioStationListState;
 
 const MPH_PER_MPS: f64 = 2.23694;
 
@@ -84,35 +85,33 @@ fn last_main(harness: &PlaytestHarness) -> String {
 }
 
 #[test]
-fn test_the_radio_screen_lists_channel_3000_with_the_freight_fate_stations() {
-    // Owner, 2026-11-17: the screen read the first 16 receivable stations,
-    // and the Freight Fate group alone is 20, so Channel 3000 never made it.
+fn test_local_stations_list_channel_3000_with_the_freight_fate_stations() {
+    // Owner, 2026-11-17: the Tab radio screen read the first 16 receivable
+    // stations, and the Freight Fate group alone is 20, so Channel 3000
+    // never made it. The Radio app's Local stations list took that list over.
     let mut harness = a_drive("Radio Screen");
     harness.app.ctx.settings.radio_streamer_safe = false;
     harness.with_drive(|drive, _| drive.set_channel3000_on_dial(true));
-    let lines = screen_lines(&mut harness, "radio");
-    let heading = lines
+    let mut list = RadioStationListState::new(drive_ref(&harness), "local");
+    let listed: Vec<String> = list
+        .build_items(&mut harness.app.ctx)
         .iter()
-        .position(|l| l == "Receivable stations:")
-        .unwrap_or_else(|| panic!("{lines:#?}"));
-    let listed = &lines[heading + 1..];
+        .map(|item| item.text(&list, &harness.app.ctx))
+        .collect();
     assert!(
-        listed.iter().any(|l| l.starts_with("Channel 3000:")),
-        "{lines:#?}"
+        listed.iter().any(|l| l.starts_with("Channel 3000,")),
+        "{listed:#?}"
     );
     for call_sign in ["WHWX", "WNAH", "WSOZ"] {
         assert!(
             listed.iter().any(|l| l.contains(call_sign)),
-            "{call_sign} missing: {lines:#?}"
+            "{call_sign} missing: {listed:#?}"
         );
     }
-    // The streams in range everywhere are one count, not thousands of rows.
+    // The streams in range everywhere stay on Stations in range.
     assert!(
-        listed
-            .iter()
-            .any(|l| l.starts_with("Plus ")
-                && l.ends_with("listed in the Radio app under Driver apps.")),
-        "{lines:#?}"
+        !listed.iter().any(|l| l.contains("Web radio")),
+        "{listed:#?}"
     );
 }
 
@@ -164,18 +163,6 @@ fn test_air_brake_help_and_status_are_spoken() {
     assert!(
         driver_lines.iter().any(|l| l.starts_with("Hours:")),
         "{driver_lines:#?}"
-    );
-
-    let radio_lines = screen_lines(&mut harness, "radio");
-    assert!(
-        radio_lines.iter().any(|l| l.starts_with("Radio on.")),
-        "{radio_lines:#?}"
-    );
-    assert!(
-        radio_lines
-            .iter()
-            .any(|l| l.starts_with("Receivable stations:")),
-        "{radio_lines:#?}"
     );
 
     let map_lines = screen_lines(&mut harness, "map");

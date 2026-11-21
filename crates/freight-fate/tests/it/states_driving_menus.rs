@@ -67,7 +67,6 @@ fn test_status_menu_lists_every_screen_and_a_way_back() {
             "Route",
             "Driver",
             "Map",
-            "Radio",
             "Driver apps",
             "Driving commands",
             "Back to driving",

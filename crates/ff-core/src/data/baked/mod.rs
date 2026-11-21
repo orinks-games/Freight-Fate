@@ -130,7 +130,9 @@ pub const MAGIC: &[u8; 8] = b"FFDATA\0\0";
 /// (`limited_classes`, `limited_text`).
 ///
 /// 15: a corridor carries the county each stretch runs through (`counties`).
-pub const FORMAT_VERSION: u32 = 15;
+///
+/// 16: a corridor carries its HPMS surface runs and structures (`pavement`).
+pub const FORMAT_VERSION: u32 = 16;
 
 const HEADER_LEN: usize = 32;
 

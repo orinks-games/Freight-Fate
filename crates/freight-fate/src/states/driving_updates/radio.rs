@@ -1086,15 +1086,15 @@ impl DrivingState {
         let mut status = self.radio.status_text();
         if !self.trip.truck.engine_on {
             // "Radio on" over a silent cab contradicts the player's ears;
-            // the same explanation the Tab radio screen gives goes here too.
+            // the same explanation the Radio app gives goes here too.
             status = format!("{status} The engine is off. The radio has no power.");
         }
         ctx.say(&status);
     }
 
     /// One spoken sentence: the song the tuned station reports, or why
-    /// there is none. Shared by Shift+Y, the Tab radio screen, and the
-    /// Radio app, so the three never disagree.
+    /// there is none. Shared by Shift+Y and the Radio app, so the two
+    /// never disagree.
     pub fn radio_now_playing_text(&mut self, ctx: &mut GameContext) -> String {
         if !self.radio.enabled {
             return "The radio is off.".to_string();

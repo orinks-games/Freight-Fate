@@ -198,3 +198,36 @@ fn gestures_that_would_type_a_character_type_nothing_into_a_name() {
     let name = with_state::<TextEntryState, _>(&app, |s, _| s.name());
     assert_eq!(name, "");
 }
+
+#[test]
+fn a_touch_menu_with_no_way_back_gains_a_back_row() {
+    let mut app = on_touch();
+    app.push_state(SimpleMenuState::new(
+        "Prompt",
+        vec![MenuItem::inert("Only")],
+    ));
+    app.push_state(three_rows());
+    app.dispatch_gesture(Gesture::SwipeLeft);
+    assert_eq!(current_label::<SimpleMenuState>(&app), "Back");
+    app.clear_speech();
+    app.dispatch_gesture(Gesture::DoubleTap);
+    assert_eq!(current_label::<SimpleMenuState>(&app), "Only");
+}
+
+#[test]
+fn a_menu_that_already_goes_back_gains_no_second_back_row() {
+    let mut app = on_touch();
+    app.push_state(SimpleMenuState::readout("Lines", vec!["One".to_string()]));
+    app.dispatch_gesture(Gesture::SwipeLeft);
+    assert_eq!(current_label::<SimpleMenuState>(&app), "Back");
+    app.dispatch_gesture(Gesture::SwipeLeft);
+    assert_eq!(current_label::<SimpleMenuState>(&app), "One");
+}
+
+#[test]
+fn a_keyboard_menu_gains_no_back_row() {
+    let mut app = TestApp::new();
+    app.push_state(three_rows());
+    key(&mut app, Key::Up);
+    assert_eq!(current_label::<SimpleMenuState>(&app), "Third");
+}

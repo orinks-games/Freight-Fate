@@ -208,3 +208,44 @@ fn road_staging_keeps_the_sandbox_driver_hours_and_fatigue() {
     assert_eq!(staged.hos.driving_min, 20.0);
     assert_eq!(staged.fatigue, 67.0);
 }
+
+#[test]
+fn road_staging_moves_the_career_clock_to_the_staged_hour() {
+    // A staged drive's clock was its own hour while the career clock stayed
+    // where the scenario left it, so what the drive read from the calendar
+    // could be a day off (2026-11-20). The career clock now moves to the
+    // staged hour on its own day.
+    let mut app = TestApp::new();
+    apply(
+        &mut app.ctx,
+        &scenario(json!({"city": "Buffalo", "rested": true, "hour": 6})),
+    )
+    .unwrap();
+    let career = app.ctx.profile.as_ref().unwrap().game_hours;
+    let pairs = vec![("Buffalo".to_string(), "Albany".to_string())];
+    let base = RoadOptions {
+        feature: "stop".to_string(),
+        trip_seed: Some(7),
+        ..Default::default()
+    };
+    let hit = find_feature(app.ctx.world, &pairs, "stop", &base, Some(7))
+        .into_iter()
+        .next()
+        .expect("a stop on the test corridor");
+    for hour in [2.0, 13.0, 23.0] {
+        let opts = RoadOptions {
+            feature: "stop".to_string(),
+            trip_seed: Some(7),
+            hour: Some(hour),
+            ..Default::default()
+        };
+        let (drive, _) = build_driving(&mut app.ctx, &hit, &opts);
+        let staged = drive.trip.career_hours.expect("a career clock");
+        assert_eq!(staged.rem_euclid(24.0), drive.trip.start_hour, "{hour}");
+        assert_eq!(
+            (staged / 24.0).floor(),
+            (career / 24.0).floor(),
+            "the career's own day at {hour}"
+        );
+    }
+}

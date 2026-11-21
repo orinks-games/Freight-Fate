@@ -31,6 +31,7 @@ pub mod pilot;
 pub mod radio;
 pub mod readouts;
 pub mod settle;
+pub mod shift;
 pub mod shoulder;
 pub mod sleep_ahead;
 pub mod stop_work;
@@ -39,6 +40,7 @@ use serde_json::{json, Map, Value};
 
 use ff_core::models::co_driver::{self, CoDriver, PairingReason};
 use ff_core::sim::hos::{self, HosClock};
+use ff_core::sim::team_shift::{TeamShift, TeamShiftEvent};
 
 use crate::app::{GameContext, TRANSCRIPT_TARGET};
 use crate::bindings::Action;
@@ -105,6 +107,9 @@ pub struct TeamDrive {
     pub wheel: Option<Wheel>,
     /// The last wake-up summary, kept for the Driver screen.
     pub last_summary: Vec<String>,
+    /// Where the co-driver's shift stands. Moved only through
+    /// [`DrivingState::team_shift_event`].
+    pub shift: TeamShift,
 }
 
 impl TeamDrive {
@@ -116,6 +121,7 @@ impl TeamDrive {
             co_driver_mi: 0.0,
             wheel: None,
             last_summary: Vec::new(),
+            shift: TeamShift::Bunk,
         }
     }
 
@@ -206,6 +212,30 @@ fn reason_from_key(key: &str) -> PairingReason {
 }
 
 impl DrivingState {
+    /// Where the co-driver's shift stands; in the bunk with no team.
+    pub fn team_shift(&self) -> TeamShift {
+        self.team
+            .as_ref()
+            .map_or(TeamShift::Bunk, |team| team.shift)
+    }
+
+    /// Move the co-driver's shift, and log the move.
+    pub fn team_shift_event(&mut self, event: TeamShiftEvent) {
+        let Some(team) = self.team.as_mut() else {
+            return;
+        };
+        let next = team.shift.next(event);
+        if next != team.shift {
+            log::info!(
+                target: TRANSCRIPT_TARGET,
+                "[co-driver] shift {} -> {} ({event:?})",
+                team.shift.key(),
+                next.key()
+            );
+        }
+        team.shift = next;
+    }
+
     /// Whether the co-driver holds the wheel right now.
     pub fn co_driver_driving(&self) -> bool {
         self.team.as_ref().is_some_and(|team| team.wheel.is_some())
@@ -281,6 +311,10 @@ impl DrivingState {
         let mut team = TeamDrive::new(pairing.co_driver, pairing.reason);
         // They start the load rested, from the bunk.
         team.off_wheel_hos.sleep();
+        // A sandbox scenario's counters, for a drive that starts short.
+        if let Some(staged) = ctx.playtest_co_driver_hos.take() {
+            staged.apply(&mut team.off_wheel_hos);
+        }
         self.team = Some(team);
     }
 
@@ -320,6 +354,8 @@ impl DrivingState {
             player_rest_owed,
             damage_seen: self.trip.truck.damage_pct,
         });
+        let name = team.co_driver.name;
+        self.team_shift_event(TeamShiftEvent::HandedOver);
         ctx.settings.hand_assists_to_co_driver();
         // The co-driver drives the automatic box. Set here, not by the
         // frame, which would announce it as the player's own change.
@@ -339,8 +375,7 @@ impl DrivingState {
         self.nod.next(NodEvent::WheelHandedOver);
         log::info!(
             target: TRANSCRIPT_TARGET,
-            "[co-driver] {} takes the wheel ({mode:?})",
-            team.co_driver.name
+            "[co-driver] {name} takes the wheel ({mode:?})"
         );
     }
 
@@ -349,6 +384,7 @@ impl DrivingState {
         let team = self.team.as_mut()?;
         let wheel = team.wheel.take()?;
         std::mem::swap(hos_mut_of(ctx), &mut team.off_wheel_hos);
+        self.team_shift_event(TeamShiftEvent::TakenBack);
         ctx.settings.take_assists_back();
         self.trip.truck.transmission.automatic = ctx.settings.automatic_transmission;
         ctx.co_driver_away = false;
@@ -408,7 +444,22 @@ impl DrivingState {
 fn summon_line(name: &str, reason: &str) -> String {
     match reason {
         "gate" => format!("{name} has the truck at the receiver's gate."),
-        "shift" => format!("{name} needs you back at the wheel. Their hours are up."),
+        "hours up" => format!("{name} has parked and hands you the wheel. Their hours are up."),
+        "hours up, yours reach" => format!(
+            "{name} has parked and hands you the wheel. Their hours are up, and yours reach the \
+             receiver."
+        ),
+        "shoulder hours" => format!(
+            "{name} stopped on the shoulder with no lot in reach and hands you the wheel. Their \
+             hours are up."
+        ),
+        "shoulder hours, yours reach" => format!(
+            "{name} stopped on the shoulder with no lot in reach and hands you the wheel. Their \
+             hours are up, and yours reach the receiver."
+        ),
+        "shoulder break" => {
+            format!("{name} stopped on the shoulder and hands you the wheel. Their break is due.")
+        }
         "rested" => format!("{name} has parked and hands you the wheel. Your 10-hour rest is in."),
         "slept on" => format!(
             "{name} parked when their hours ran out, and you slept on. Your 10-hour rest is in."
@@ -425,7 +476,6 @@ fn summon_line(name: &str, reason: &str) -> String {
         "off the road" => format!("{name} needs you. The truck has left the road."),
         "stalled" => format!("{name} needs you. The truck is stopped and will not go on."),
         "money" => format!("{name} needs you. There is not enough money for fuel."),
-        "break" => format!("{name} needs you back at the wheel. Their break is due."),
         "roadside" => format!("{name} needs you. A trooper has the truck stopped."),
         "parking" => format!("{name} needs you. The lot is full."),
         "chains" => format!(
@@ -521,7 +571,14 @@ impl DrivingState {
         lines.push(summon_line(name, reason));
         lines.extend(shoulder);
         let slept_min = (mode == Some(TeamMode::SleepThrough)).then_some(log.game_minutes);
-        if let Some(short) = rest_short_line(owed_rest, self.player_hos_now(ctx), slept_min, ctx) {
+        // Straight after "yours reach the receiver", a line about the rest
+        // still owed reads as an instruction to go and rest; the rest is on
+        // the Driver screen and the logbook (director, 2026-11-21).
+        let yours_reach = reason.ends_with("yours reach");
+        let short = (!yours_reach)
+            .then(|| rest_short_line(owed_rest, self.player_hos_now(ctx), slept_min, ctx))
+            .flatten();
+        if let Some(short) = short {
             lines.push(short);
         }
         if let Some(team) = self.team.as_mut() {

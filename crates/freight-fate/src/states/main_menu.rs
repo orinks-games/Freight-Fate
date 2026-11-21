@@ -59,7 +59,7 @@ pub use careers::{
     CareerAction, CareerActionsState, ConfirmCareerActionState, LoadDriverState, ManageCareersState,
 };
 pub use input_practice::{
-    describe_button, describe_key, opens_input_practice, opens_input_practice_pad,
+    describe_button, describe_key, opens_input_practice, opens_input_practice_pad, practice_row,
     InputPracticeState,
 };
 pub use settings::{
@@ -67,7 +67,7 @@ pub use settings::{
 };
 pub use shortcuts::{ShortcutDevice, ShortcutsState};
 pub use touch_gestures::{TouchCommandPickerState, TouchGesturesState};
-pub use touch_practice::{TouchPracticeOfferState, TouchPracticeState};
+pub use touch_practice::{TouchLeave, TouchLeaveEvent, TouchPracticeOfferState};
 
 pub use crate::states::main_menu_career::{
     region_menu_name, CareerStartState, HomeCityState, HomeTerminalState,
@@ -730,6 +730,8 @@ impl Menu for ConfirmQuitState {
                 s.go_back(ctx)
             }),
             MenuItem::new("Yes, quit Freight Fate", |_s: &mut Self, ctx| {
+                #[cfg(windows)]
+                log::info!("Quit confirmed");
                 // The close button is the one exit that skips the terminal's
                 // own save, so it saves the way Escape there does. Nowhere
                 // else has anything to write: a drive saves only at a stop,

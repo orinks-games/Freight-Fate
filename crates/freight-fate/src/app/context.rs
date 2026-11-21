@@ -152,6 +152,21 @@ pub struct GameContext {
     /// True while a playtest-lever scenario runs unsaved (see
     /// `playtest_levers::apply_continue_levers`); `save_profile` honors it.
     pub playtest_sandbox: bool,
+    /// The agent server's `scenario` window: the next drive starts with the
+    /// driver window all the way down (`Some(true)`) or up. `None` in the
+    /// shipped game, where every drive starts with it up.
+    pub playtest_window_down: Option<bool>,
+    /// A staged scenario's road surface for every drive it starts: jointed
+    /// the whole way (`Some(true)`) or smooth. `None` in the shipped game,
+    /// where stretches of each alternate.
+    pub playtest_road_jointed: Option<bool>,
+    /// A staged scenario's simulated sky for every drive it starts:
+    /// `Some(Some(kind))` forces that condition (`WeatherSystem::forced`),
+    /// `Some(None)` leaves it free. `None` in the shipped game.
+    pub playtest_weather: Option<Option<ff_core::sim::weather::WeatherKind>>,
+    /// The co-driver's logbook counters a sandbox scenario asked for, put
+    /// on the next co-driver paired for a load. `None` in the shipped game.
+    pub playtest_co_driver_hos: Option<crate::playtest::scenario::CoDriverHos>,
     /// The last run ended without quitting and the main menu has not asked
     /// about it yet (`problem_reports::take_crash_offer`, read once when the
     /// app is built). The menu clears it when it asks, or when the player
@@ -291,6 +306,10 @@ impl GameContext {
             achievement_notice: String::new(),
             achievement_notice_timer: 0.0,
             playtest_sandbox: false,
+            playtest_window_down: None,
+            playtest_road_jointed: None,
+            playtest_weather: None,
+            playtest_co_driver_hos: None,
             crash_offer_pending: crate::problem_reports::take_crash_offer(),
             dispatch_board_seed: None,
             school_sandbox: false,
@@ -854,7 +873,7 @@ impl GameContext {
     pub fn control_name(&self, action: crate::bindings::Action) -> String {
         let device = self.controller.device();
         if device == ff_core::input_hints::CONTROLLER && action.on_pad() {
-            self.bindings.pad_spoken(action)
+            self.pad_name(action)
         } else if device == ff_core::input_hints::TOUCH {
             self.bindings.touch_noun(action)
         } else {
@@ -906,7 +925,12 @@ impl GameContext {
         } else {
             self.bindings.hint_key_phrase(action)
         };
-        moved.unwrap_or_else(|| self.controller.hint(action))
+        let phrase = moved.unwrap_or_else(|| self.controller.hint(action));
+        if device == ff_core::input_hints::CONTROLLER {
+            self.bumper_words(&phrase).into_owned()
+        } else {
+            phrase
+        }
     }
 
     pub fn apply_speech(&mut self) {

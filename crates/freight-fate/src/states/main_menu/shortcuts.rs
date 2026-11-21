@@ -64,7 +64,7 @@ impl ShortcutsState {
     fn current_name(&self, ctx: &GameContext, action: Action) -> String {
         match self.device {
             ShortcutDevice::Keyboard => ctx.bindings.spoken(action),
-            ShortcutDevice::Controller => ctx.bindings.pad_spoken(action),
+            ShortcutDevice::Controller => ctx.pad_name(action),
         }
     }
 
@@ -74,6 +74,11 @@ impl ShortcutsState {
         let prompt = match self.device {
             ShortcutDevice::Keyboard => format!(
                 "Press the new key for {}. Escape keeps {current}.",
+                action.label()
+            ),
+            ShortcutDevice::Controller if ctx.settings.left_bumper_layer => format!(
+                "Press the new button for {}, with the left bumper held for the \
+                 second layer. Press {current} again to keep it.",
                 action.label()
             ),
             ShortcutDevice::Controller => format!(
@@ -113,7 +118,7 @@ impl ShortcutsState {
                 ctx.audio.play("ui/error");
                 ctx.say(&format!(
                     "{}. Press another, or keep {current} with Escape.",
-                    sentence_start(reason)
+                    sentence_start(&ctx.bumper_words(reason))
                 ));
             }
         }
@@ -149,7 +154,8 @@ impl ShortcutsState {
             modified: ctx.controller.modifier,
         };
         let result = ctx.bindings.set_pad_chord(action, chord);
-        self.finish(ctx, action, result, &chord.spoken());
+        let chosen = ctx.bumper_words(&chord.spoken()).into_owned();
+        self.finish(ctx, action, result, &chosen);
     }
 
     fn reset_all(&mut self, ctx: &mut GameContext) {
@@ -176,8 +182,9 @@ impl Menu for ShortcutsState {
         &mut self.menu
     }
 
-    fn build_items(&mut self, _ctx: &mut GameContext) -> Vec<MenuItem<Self>> {
+    fn build_items(&mut self, ctx: &mut GameContext) -> Vec<MenuItem<Self>> {
         let device = self.device;
+        let left_bumper_layer = ctx.settings.left_bumper_layer;
         let mut items: Vec<MenuItem<Self>> = Action::all()
             .filter(|action| match device {
                 ShortcutDevice::Keyboard => action.on_keyboard(),
@@ -194,6 +201,10 @@ impl Menu for ShortcutsState {
                     ShortcutDevice::Keyboard => {
                         "Enter, then press the key you want for this control. \
                          Escape keeps the one it has."
+                    }
+                    ShortcutDevice::Controller if left_bumper_layer => {
+                        "Enter, then press the button you want for this control, \
+                         with the left bumper held for the second layer."
                     }
                     ShortcutDevice::Controller => {
                         "Enter, then press the button you want for this control, \

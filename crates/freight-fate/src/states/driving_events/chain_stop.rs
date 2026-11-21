@@ -5,6 +5,7 @@
 
 use ff_core::models::profile::CHAIN_REPAIR_LINKS_PER_SET;
 use ff_core::pyfmt::fmt_f;
+use ff_core::sim::chain_control::{snow_or_ice, ChainSetEvent};
 use ff_core::sim::hos::limits;
 use ff_core::sim::trip_models::CHAIN_LAW_LEAD_MI;
 use ff_core::speech_pacing::SpeechCategory;
@@ -12,10 +13,11 @@ use ff_core::speech_pacing::SpeechCategory;
 use crate::app::{GameContext, SayEvent};
 use crate::states::driving::DrivingState;
 use crate::states::driving_core::{
-    advance_on_duty_clock, clock_text, deadline_text, hos_of, is_night, profile_mut_of, profile_of,
-    CHAIN_INSTALL_FATIGUE, CHAIN_INSTALL_MIN, CHAIN_INSTALL_NIGHT_FATIGUE,
-    CHAIN_INSTALL_NIGHT_MULT, CHAIN_REMOVE_FATIGUE, CHAIN_REMOVE_MIN, CHAIN_REPAIR_MIN,
-    CHAIN_REPAIR_WEAR_RESTORE, CHAIN_SAFE_MPH, CHAIN_TIGHTEN_MIN, CHAIN_TIGHTEN_WEAR_RESTORE,
+    advance_on_duty_clock, advance_on_duty_clock_holding_sky, clock_text, deadline_text, hos_of,
+    is_night, profile_mut_of, profile_of, CHAIN_INSTALL_FATIGUE, CHAIN_INSTALL_MIN,
+    CHAIN_INSTALL_NIGHT_FATIGUE, CHAIN_INSTALL_NIGHT_MULT, CHAIN_REMOVE_FATIGUE, CHAIN_REMOVE_MIN,
+    CHAIN_REPAIR_MIN, CHAIN_REPAIR_WEAR_RESTORE, CHAIN_SAFE_MPH, CHAIN_TIGHTEN_MIN,
+    CHAIN_TIGHTEN_WEAR_RESTORE,
 };
 use crate::states::driving_stops::assist_servo_brake;
 
@@ -41,10 +43,8 @@ pub struct ChainStop {
 /// The chain-up stop arms this far before a chain-law area that would chain
 /// the rig: room to brake from highway speed to the pullout.
 pub const CHAIN_STOP_ARM_MI: f64 = 1.5;
-/// Chain-off waits for this much bare road past the last chain-law area.
-pub const CHAIN_OFF_BARE_MI: f64 = 0.5;
-/// Another chain-law area this close ahead keeps the chains on.
-pub const CHAIN_OFF_KEEP_MI: f64 = 5.0;
+/// Chain-off waits for this much bare road (`ChainSet`'s bare-road cue).
+pub use ff_core::sim::chain_control::CHAIN_OFF_BARE_MI;
 /// A chain-up is not started with less than this many minutes left in the
 /// 14-hour window beyond the install itself.
 pub const CHAIN_STOP_HOS_MARGIN_MIN: f64 = 15.0;
@@ -53,6 +53,49 @@ const CHAIN_STOP_DECEL_MPS2: f64 = 1.2;
 const METERS_PER_MILE: f64 = 1609.344;
 
 impl DrivingState {
+    /// Move the chains (`ChainSet::next`), the one place they move. A
+    /// bare-road cue goes to facility stopping assistance when it is on,
+    /// and is said to the driver otherwise: one line either way.
+    pub fn chain_set_event(&mut self, event: ChainSetEvent) {
+        let (next, cue) = self.chain_set.next(event);
+        self.chain_set = next;
+        if cue.is_some() {
+            self.chain_bare_cue_pending = true;
+        }
+    }
+
+    /// The chains against the road under them, once a frame after the
+    /// physics, and the bare-road line when the assist won't take them off.
+    pub fn update_chain_set(&mut self, ctx: &mut GameContext) {
+        let snapped = self.trip.truck.chains_just_snapped;
+        if snapped {
+            self.chain_set_event(ChainSetEvent::WornThrough);
+            self.chain_bare_cue_pending = false;
+        }
+        self.chain_set_event(ChainSetEvent::Road {
+            snow: snow_or_ice(&self.trip.truck.surface),
+            mile: self.trip.position_mi,
+        });
+        if self.chain_bare_cue_pending
+            && (!ctx.settings.destination_approach_assist || !self.trip.truck.chains_on)
+        {
+            self.chain_bare_cue_pending = false;
+            if self.trip.truck.chains_on {
+                self.say_bare_road(ctx);
+            }
+        }
+    }
+
+    /// Chains on with no snow under them: they wear through in a few miles
+    /// and the snap damages the truck, so the line keeps its words at quiet
+    /// verbosity, like the slap warning.
+    pub fn say_bare_road(&mut self, ctx: &mut GameContext) {
+        ctx.say_event_with(
+            "Bare road. Stop and take the chains off.",
+            SayEvent::new().category(SpeechCategory::Safety),
+        );
+    }
+
     /// A usable set aboard: owned, and the truck's own meter says not
     /// snapped (the profile only catches up at a stop).
     pub fn chains_aboard(&self, ctx: &GameContext) -> bool {
@@ -103,12 +146,27 @@ impl DrivingState {
         } else {
             CHAIN_INSTALL_FATIGUE
         };
-        advance_on_duty_clock(self, ctx, minutes, Some("on_duty_not_driving"), "chain up");
+        // The simulated sky holds while the chains go on: the snow that
+        // posted the law must not end during the work (player report,
+        // 2026-11-21).
+        advance_on_duty_clock_holding_sky(
+            self,
+            ctx,
+            minutes,
+            Some("on_duty_not_driving"),
+            "chain up",
+        );
         {
             let p = profile_mut_of(ctx);
             p.fatigue = (p.fatigue + fatigue).min(100.0);
         }
         self.trip.truck.chains_on = true;
+        // The road as it reads after the clock moved, not before the work.
+        let surface_snow = snow_or_ice(self.trip.weather.effects().surface);
+        self.chain_set_event(ChainSetEvent::Installed {
+            surface_snow,
+            mile: self.trip.position_mi,
+        });
         self.chains_fast_active = false;
         self.chain_slap_said = false;
         self.chain_tightened = false;
@@ -119,7 +177,7 @@ impl DrivingState {
         } else {
             ""
         };
-        let bare = if self.trip.truck.surface != "snow" && self.trip.truck.surface != "ice" {
+        let bare = if !surface_snow {
             " The road here is bare. Chains wear out fast until you reach snow."
         } else {
             ""
@@ -157,6 +215,10 @@ impl DrivingState {
         profile_mut_of(ctx).set_chain_repair_links(links - 1);
         self.trip.truck.chain_wear_pct = 100.0 - CHAIN_REPAIR_WEAR_RESTORE;
         self.trip.truck.chains_on = true;
+        self.chain_set_event(ChainSetEvent::Repaired {
+            surface_snow: snow_or_ice(self.trip.weather.effects().surface),
+            mile: self.trip.position_mi,
+        });
         self.chains_fast_active = false;
         self.chain_slap_said = false;
         self.chain_tightened = false;
@@ -218,6 +280,8 @@ impl DrivingState {
             p.fatigue = (p.fatigue + CHAIN_REMOVE_FATIGUE).min(100.0);
         }
         self.trip.truck.chains_on = false;
+        self.chain_set_event(ChainSetEvent::Removed);
+        self.chain_bare_cue_pending = false;
         ctx.audio.play("ui/notify");
         let wear = self.trip.truck.chain_wear_pct;
         let state_word = if wear >= 75.0 {
@@ -238,17 +302,21 @@ impl DrivingState {
 
     /// Facility stopping assistance's roadside chain work: it pulls over to
     /// put chains on before a chain-law area that chains the rig, takes them
-    /// off on bare road after the last one, tightens a slapping chain and
+    /// off once they have run bare road (`ChainSet`'s cue), tightens a slapping chain and
     /// fixes a broken one. Run with the other assists' pedals, ahead of the
     /// physics. It only spends on-duty minutes: it never buys chains or
     /// links, chooses a route, or chains up outside a chain-law area.
     /// `driver_input` is the driver's own brake or throttle this frame.
     pub fn update_chain_stop_assist(&mut self, ctx: &mut GameContext, driver_input: bool) {
         if !ctx.settings.destination_approach_assist {
-            // Turned off mid-drive: anything pending goes with it.
+            // Turned off mid-drive: anything pending goes with it. A bare-road
+            // cue it had not answered yet is the driver's now.
             self.chain_stop = None;
             self.chain_stop_brake = 0.0;
             self.chain_assist_snapped = false;
+            if std::mem::take(&mut self.chain_bare_cue_pending) && self.trip.truck.chains_on {
+                self.say_bare_road(ctx);
+            }
             return;
         }
         if self.departure_chain || self.stop_chain.is_some() || self.ramp_mi.is_some() {
@@ -382,57 +450,20 @@ impl DrivingState {
                 return;
             }
         }
-        // B2: chain off on bare road past the last chain-law area.
-        if !self.trip.truck.chains_on || in_area.is_some() {
-            self.chain_off_bare_from = None;
-            return;
-        }
-        let Some(last) = self
-            .trip
-            .chain_law_areas
-            .iter()
-            .rposition(|(_, end)| *end <= here)
-        else {
-            return;
-        };
-        if self.chain_off_done.contains(&last) {
-            return;
-        }
-        if matches!(self.trip.truck.surface.as_str(), "snow" | "ice") {
-            self.chain_off_bare_from = None;
-            return;
-        }
-        let from = *self.chain_off_bare_from.get_or_insert(here);
-        if here - from < CHAIN_OFF_BARE_MI {
-            return;
-        }
-        self.chain_off_done.insert(last);
-        self.chain_off_bare_from = None;
-        let another = self
-            .trip
-            .chain_law_areas
-            .iter()
-            .map(|(start, _)| *start - here)
-            .find(|gap| *gap > 0.0 && *gap <= CHAIN_OFF_KEEP_MI);
-        if let Some(gap) = another {
+        // B2: chain off once the chains have run bare road (`ChainSet`'s
+        // cue, inside a chain-law area or out of one: on a bare road no law
+        // is posted to keep them on for).
+        if std::mem::take(&mut self.chain_bare_cue_pending) && self.trip.truck.chains_on {
+            let at = self.chain_stop_point();
+            self.arm_stop(ctx, ChainStopKind::Remove, at, held);
             Self::say_chain_stop(
                 ctx,
                 format!(
-                    "Leaving chains on. Another chain area in {}.",
-                    ctx.settings.distance_text(gap, true)
+                    "Bare road. Taking chains off, about {} minutes on duty.",
+                    fmt_f(self.hand_work_min(ctx, CHAIN_REMOVE_MIN), 0)
                 ),
             );
-            return;
         }
-        let at = self.chain_stop_point();
-        self.arm_stop(ctx, ChainStopKind::Remove, at, held);
-        Self::say_chain_stop(
-            ctx,
-            format!(
-                "Chain-off area. Taking chains off, about {} minutes on duty.",
-                fmt_f(self.hand_work_min(ctx, CHAIN_REMOVE_MIN), 0)
-            ),
-        );
     }
 
     /// Brake for the pending chain stop and, stopped, do the work.

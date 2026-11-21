@@ -2,15 +2,11 @@
 //! (`DrivingStatusState` / `DrivingStatusScreenState`).
 
 use ff_core::models::enforcement;
-use ff_core::models::profile;
 use ff_core::models::solvency::debt_line;
 use ff_core::pyfmt::{fmt_f, fmt_grouped};
-use ff_core::radio::{PERSONAL_PLAYLIST_SOURCE_TYPE, PLAYLISTS_DIR_NAME};
-use ff_core::settings::Settings;
 use ff_core::sim::trip_models::RoadStop;
 
 use crate::app::{GameContext, Say};
-use crate::bindings::Action;
 use crate::impl_state_for_menu;
 use crate::states::base::{Menu, MenuCore, MenuItem};
 use crate::states::driving_core::{
@@ -20,7 +16,6 @@ use crate::states::driving_core::{
 use crate::states::driving_menu_states::apps::DriverAppsState;
 use crate::states::driving_menu_states::commands::DrivingCommandsState;
 use crate::states::driving_menu_states::DriveRef;
-use crate::states::driving_radio_app::RadioStationListState;
 use crate::states::driving_stop_detail::StopDetailState;
 
 /// Live driving status, grouped into screens you open one at a time.
@@ -33,11 +28,10 @@ pub struct DrivingStatusState {
     driving: DriveRef,
 }
 
-const SCREENS: [(&str, &str); 5] = [
+const SCREENS: [(&str, &str); 4] = [
     ("Route", "route"),
     ("Driver", "driver"),
     ("Map", "map"),
-    ("Radio", "radio"),
     ("Driver apps", "apps"),
 ];
 
@@ -126,7 +120,7 @@ pub struct DrivingStatusScreenState {
 }
 
 /// The static `intro_help` the Python class carried became a property so the
-/// Map screen can mention opening a stop's details. The radio screen stays.
+/// Map screen can mention opening a stop's details.
 fn screen_intro_help(screen: &str) -> &'static str {
     if screen == "map" {
         return "Up and down review the lines. Enter repeats a line, or opens details on a \
@@ -140,7 +134,6 @@ fn screen_title(screen: &str) -> &'static str {
         "route" => "Route",
         "driver" => "Driver",
         "map" => "Map",
-        "radio" => "Radio",
         _ => "Status",
     }
 }
@@ -159,7 +152,6 @@ impl DrivingStatusScreenState {
             "driver" => self.driver_lines(ctx),
             // No map branch: build_items sends the Map screen through
             // map_items now, so its stop lines can open a details view.
-            "radio" => self.radio_lines(ctx),
             _ => self
                 .driving
                 .with(ctx, |d, ctx| d.status_lines(ctx))
@@ -422,123 +414,7 @@ impl DrivingStatusScreenState {
         self.refresh(ctx, true);
         ctx.say("Planned stop canceled.");
     }
-
-    fn radio_lines(&mut self, ctx: &mut GameContext) -> Vec<String> {
-        self.driving
-            .clone()
-            .call(self, ctx, |_s, ctx, d| {
-                // Opening the dial re-reads the Playlists folder: a playlist
-                // added or repaired mid-run used to need a whole new drive
-                // before the radio would look at the folder again, and this
-                // screen is where a player goes to find out why their
-                // playlist is not on the dial.
-                d.radio.reload_personal_playlists(&personal_playlists_dir());
-                d.sync_radio_settings(ctx);
-                let position = d.radio.position;
-                let engine_on = d.trip.truck.engine_on;
-                let radio_enabled = d.radio.enabled;
-                let mut lines = vec![d.radio.status_text()];
-                if !engine_on {
-                    lines.push("The engine is off. The radio has no power.".to_string());
-                }
-                if engine_on && radio_enabled {
-                    lines.push(d.radio_now_playing_text(ctx));
-                }
-                let locked = d.radio.station_locked();
-                if locked {
-                    // Synthesized with streamer-safe mode on: the station keys
-                    // do nothing, so the screen names only what still works.
-                    // This is an information screen the player asked for, not
-                    // a key response, so it still reports the lock in words --
-                    // it just no longer claims the keys "say so".
-                    lines.push(
-                        "Streamer-safe mode on, with Music source set to Synthesized.".to_string(),
-                    );
-                    lines.push(format!(
-                        "Streamer-safe mode keeps the radio on the Roadhouse. Station keys do \
-                         nothing. {} turns the radio on or off. Shift with Page Down and Page \
-                         Up, or semicolon and apostrophe, changes radio volume by 10 percent.",
-                        ctx.bindings.spoken(Action::Radio)
-                    ));
-                } else {
-                    lines.push(if !ctx.settings.radio_streamer_safe {
-                        "Streamer-safe mode off. Real public streams and personal playlists are \
-                         on the dial."
-                            .to_string()
-                    } else {
-                        "Streamer-safe mode on. Real public streams and personal playlists are \
-                         hidden."
-                            .to_string()
-                    });
-                    if ctx.settings.synth_music && !ctx.settings.radio_streamer_safe {
-                        lines.push(
-                            "Music source Synthesized: Freight Fate's own stations are off \
-                             the dial."
-                                .to_string(),
-                        );
-                    }
-                    // Players who saw the shuffle setting asked how to get
-                    // their own music on at all (issue #289): with nothing
-                    // loaded, say where the files go.
-                    let has_playlists = d
-                        .radio
-                        .catalog
-                        .iter()
-                        .any(|s| s.source_type == PERSONAL_PLAYLIST_SOURCE_TYPE);
-                    if !ctx.settings.radio_streamer_safe && !has_playlists {
-                        lines.push(format!(
-                            "No playlists of your own yet. Put M3U, M3U8 or PLS playlist files \
-                             in {}.",
-                            personal_playlists_dir().display()
-                        ));
-                    }
-                    lines.push(format!(
-                        "Page Down and Page Up tune stations, or semicolon and apostrophe. With \
-                         Control they jump categories. With Shift they change radio volume by \
-                         10 percent. {} saves the station as a favorite. {} toggles the radio.",
-                        ctx.bindings.spoken(Action::RadioFavorite),
-                        ctx.bindings.spoken(Action::Radio)
-                    ));
-                }
-                if !locked && !d.radio.favorite_ids.is_empty() {
-                    lines.push(format!("Favorites saved: {}.", d.radio.favorite_ids.len()));
-                }
-                if let Some((lat, lon)) = position {
-                    lines.push(format!(
-                        "Approximate truck radio position: {}, {}.",
-                        fmt_f(lat, 2),
-                        fmt_f(lon, 2)
-                    ));
-                }
-                lines.push("Receivable stations:".to_string());
-                let imperial = ctx.settings.imperial_units;
-                let units = Settings {
-                    imperial_units: imperial,
-                    ..Settings::default()
-                };
-                let distance_text = |miles: f64| units.distance_text(miles, false);
-                let (stations, more) = d.radio.station_list_lines(Some(&distance_text));
-                lines.extend(stations);
-                // The streams in range everywhere run to thousands: count
-                // them, and name where they are listed.
-                match more {
-                    0 => {}
-                    1 => lines.push(
-                        "Plus 1 more station, listed in the Radio app under Driver apps."
-                            .to_string(),
-                    ),
-                    n => lines.push(format!(
-                        "Plus {n} more stations, listed in the Radio app under Driver apps."
-                    )),
-                }
-                lines
-            })
-            .unwrap_or_default()
-    }
 }
-
-/// How the Radio screen's favorites count begins; Enter on it opens the list.
-const FAVORITES_SAVED_PREFIX: &str = "Favorites saved:";
 
 enum MapRow {
     Say(String),
@@ -567,24 +443,7 @@ impl Menu for DrivingStatusScreenState {
         let mut items = if self.screen == "map" {
             self.map_items(ctx)
         } else {
-            let radio = self.screen == "radio";
-            self.lines(ctx)
-                .into_iter()
-                .map(|line| {
-                    if radio && line.starts_with(FAVORITES_SAVED_PREFIX) {
-                        // The count reads like a row you can open, and the
-                        // Radio app's count opens the list, so this one does.
-                        MenuItem::new(line, |s: &mut Self, ctx: &mut GameContext| {
-                            let state = RadioStationListState::new(s.driving.clone(), "favorites");
-                            ctx.push_state(state);
-                        })
-                        .help("Your saved stations. Enter on one tunes it.")
-                        .touch_help("Your saved stations. Double tap one to tune it.")
-                    } else {
-                        say_item(line)
-                    }
-                })
-                .collect()
+            self.lines(ctx).into_iter().map(say_item).collect()
         };
         items.push(
             MenuItem::new("Back", |s: &mut Self, ctx| s.go_back(ctx))
@@ -595,9 +454,3 @@ impl Menu for DrivingStatusScreenState {
 }
 
 impl_state_for_menu!(DrivingStatusScreenState);
-
-/// `data_dir()` joined with the Playlists folder name
-/// (`radio.personal_playlists_dir`).
-fn personal_playlists_dir() -> std::path::PathBuf {
-    profile::data_dir().join(PLAYLISTS_DIR_NAME)
-}

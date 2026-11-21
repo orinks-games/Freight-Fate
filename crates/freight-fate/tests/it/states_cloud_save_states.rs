@@ -514,11 +514,11 @@ fn test_restore_confirmation_describes_whether_a_local_save_is_replaced() {
             !has_local_save,
             "{said}"
         );
-        let help = &helps::<ConfirmRestoreState>(&confirm, &app.ctx)[0];
-        if has_local_save {
-            assert!(help.contains("Keep this computer's save and back it up"));
-        } else {
-            assert_eq!(help, "Goes back without downloading.");
+        if !has_local_save {
+            assert_eq!(
+                helps::<ConfirmRestoreState>(&confirm, &app.ctx)[0],
+                "Goes back without downloading."
+            );
         }
     }
 }

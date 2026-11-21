@@ -1,0 +1,721 @@
+// SPDX-License-Identifier: MPL-2.0
+
+#include "prism.h"
+#include "annotations.h"
+#include "backend_enumerator.h"
+#include "frozen_registry.h"
+#include "logging.h"
+#include "plugin_loader.h"
+#include "power_notifier.h"
+#ifdef PRISM_HAVE_BACKEND_ANCHORS
+#include "backend_anchors.h"
+#endif
+#include <array>
+#include <cmath>
+#include <cstdint>
+#include <limits>
+#include <memory>
+#include <new>
+#include <simdutf.h>
+#include <string>
+#include <utility>
+#ifdef __ANDROID__
+#include <jni.h>
+#endif
+
+// The C API hands out mutable handles on purpose: almost every call changes
+// the backend or context behind them, even where this layer only forwards.
+#if defined(_MSC_VER) && !defined(__clang__)
+#pragma warning(disable : 26461)
+#endif
+
+struct PrismContext {
+  FrozenRegistry *registry;
+  std::unique_ptr<BackendEnumerator> enumerator;
+
+  explicit PrismContext(FrozenRegistry *registry) : registry(registry) {
+    registry->retain();
+  }
+  PrismContext(const PrismContext &) = delete;
+  PrismContext &operator=(const PrismContext &) = delete;
+  PrismContext(PrismContext &&) = delete;
+  PrismContext &operator=(PrismContext &&) = delete;
+  ~PrismContext() {
+    enumerator.reset();
+    registry->release();
+  }
+};
+
+struct PrismBackend {
+  std::shared_ptr<TextToSpeechBackend> impl;
+  std::string voice_name;
+  std::string voice_lang;
+};
+
+// This below function definition is defined in the custom backend adapter
+BackendFactory make_custom_factory(const PrismBackendVTable *vtable,
+                                   void *userdata,
+                                   void (*userdata_free)(void *),
+                                   std::uint64_t features, std::string name);
+
+static constexpr PrismError to_prism_error(BackendError e) {
+  return static_cast<PrismError>(std::to_underlying(e));
+}
+
+static constexpr BackendId to_backend_id(PrismBackendId id) {
+  return static_cast<BackendId>(id);
+}
+
+static constexpr PrismBackendId to_prism_id(BackendId id) {
+  return std::to_underlying(id);
+}
+
+PRISM_SUPPRESS("r.3", "the C API returns owning handles")
+static PrismBackend *wrap_backend(std::shared_ptr<TextToSpeechBackend> impl) {
+  if (!impl)
+    return nullptr;
+  auto *b = new (std::nothrow) PrismBackend;
+  if (b == nullptr)
+    return nullptr;
+  b->impl = std::move(impl);
+  return b;
+}
+
+// The C API is noexcept: an exception from an allocation, a lock, or a backend
+// is reported the way the C API reports any other failure.
+PRISM_SUPPRESS("f.6", "std::exception::what is noexcept")
+static void report_exception() noexcept {
+  try {
+    throw;
+  } catch (const std::exception &ex) {
+    prism_log(PRISM_LOG_LEVEL_ERROR, "prism", ex.what());
+  } catch (...) {
+    prism_log(PRISM_LOG_LEVEL_ERROR, "prism", "unknown exception");
+  }
+}
+
+template <typename F> static PrismError guard(F &&body) noexcept {
+  try {
+    return std::forward<F>(body)();
+  } catch (const std::bad_alloc &) {
+    return PRISM_ERROR_MEMORY_FAILURE;
+  } catch (...) {
+    report_exception();
+    return PRISM_ERROR_INTERNAL;
+  }
+}
+
+template <typename T, typename F>
+static T guard_or(T fallback, F &&body) noexcept {
+  try {
+    return std::forward<F>(body)();
+  } catch (...) {
+    report_exception();
+    return fallback;
+  }
+}
+
+[[nodiscard]] consteval uint32_t encode_version(uint32_t major, uint32_t minor,
+                                                uint32_t patch) noexcept {
+  return (major << 16) | (minor << 8) | patch;
+}
+
+static_assert(PRISM_VERSION_MAJOR <= UINT8_MAX);
+static_assert(PRISM_VERSION_MINOR <= UINT8_MAX);
+static_assert(PRISM_VERSION_PATCH <= UINT8_MAX);
+
+inline constexpr auto version = encode_version(
+    PRISM_VERSION_MAJOR, PRISM_VERSION_MINOR, PRISM_VERSION_PATCH);
+
+extern "C" {
+
+PRISM_API PRISM_NODISCARD PrismConfig PRISM_CALL prism_config_init(void)
+    PRISM_NOEXCEPT {
+  PrismConfig cfg{};
+  cfg.version = PRISM_CONFIG_VERSION;
+  return cfg;
+}
+
+PRISM_API PRISM_NODISCARD PRISM_MALLOC PrismContext *PRISM_CALL
+prism_init(PrismConfig *cfg) PRISM_NOEXCEPT {
+  init_logging_from_env();
+  FrozenRegistry *registry = FrozenRegistry::global();
+  if (cfg != nullptr) {
+    if (cfg->version == 0 || cfg->version > PRISM_CONFIG_VERSION)
+      return nullptr;
+    if (cfg->version >= 3 && cfg->registry != nullptr)
+      registry = reinterpret_cast<FrozenRegistry *>(cfg->registry);
+  }
+  auto *ctx = new (std::nothrow) PrismContext(registry);
+  if (ctx == nullptr)
+    return nullptr;
+  if (cfg != nullptr && cfg->version >= 3 &&
+      cfg->availability_callback != nullptr) {
+    try {
+      ctx->enumerator = std::make_unique<BackendEnumerator>(
+          registry, cfg->availability_callback,
+          cfg->version >= 4 ? cfg->availability_baseline_callback : nullptr,
+          cfg->availability_userdata, cfg->availability_poll_interval_ms,
+          cfg->availability_debounce_samples, cfg->availability_backoff_max_ms,
+          cfg->availability_auto_power_manage);
+    } catch (...) {
+      prism_log(PRISM_LOG_LEVEL_ERROR, "prism",
+                "failed to start backend enumerator");
+    }
+  }
+  return ctx;
+}
+
+PRISM_API void PRISM_CALL prism_shutdown(PrismContext *ctx) PRISM_NOEXCEPT {
+  delete ctx;
+}
+
+PRISM_API void PRISM_CALL prism_availability_poll_pause(PrismContext *ctx)
+    PRISM_NOEXCEPT {
+  try {
+    if (ctx != nullptr && ctx->enumerator)
+      ctx->enumerator->pause();
+  } catch (...) {
+    report_exception();
+  }
+}
+
+PRISM_API void PRISM_CALL prism_availability_poll_resume(PrismContext *ctx)
+    PRISM_NOEXCEPT {
+  try {
+    if (ctx != nullptr && ctx->enumerator)
+      ctx->enumerator->resume();
+  } catch (...) {
+    report_exception();
+  }
+}
+
+PRISM_API PRISM_NODISCARD bool PRISM_CALL
+prism_availability_auto_power_supported(void) PRISM_NOEXCEPT {
+  return PowerNotifier::supported();
+}
+
+PRISM_API PRISM_NODISCARD size_t PRISM_CALL
+prism_registry_count(PrismContext *ctx) PRISM_NOEXCEPT {
+  return ctx->registry->count();
+}
+
+PRISM_API PRISM_NODISCARD PrismBackendId PRISM_CALL
+prism_registry_id_at(PrismContext *ctx, size_t index) PRISM_NOEXCEPT {
+  return to_prism_id(ctx->registry->id_at(index));
+}
+
+PRISM_API PRISM_NODISCARD PrismBackendId PRISM_CALL prism_registry_id(
+    PrismContext *ctx, const char *PRISM_RESTRICT name) PRISM_NOEXCEPT {
+  return to_prism_id(ctx->registry->id(name));
+}
+
+PRISM_API PRISM_NODISCARD const char *PRISM_CALL
+prism_registry_name(PrismContext *ctx, PrismBackendId id) PRISM_NOEXCEPT {
+  const auto sv = ctx->registry->name(to_backend_id(id));
+  return sv.empty() ? nullptr : sv.data();
+}
+
+PRISM_API PRISM_NODISCARD int PRISM_CALL
+prism_registry_priority(PrismContext *ctx, PrismBackendId id) PRISM_NOEXCEPT {
+  return ctx->registry->priority(to_backend_id(id));
+}
+
+PRISM_API PRISM_NODISCARD bool PRISM_CALL
+prism_registry_exists(PrismContext *ctx, PrismBackendId id) PRISM_NOEXCEPT {
+  return id != PRISM_BACKEND_INVALID && ctx->registry->has(to_backend_id(id));
+}
+
+PRISM_API PRISM_NODISCARD PrismBackend *PRISM_CALL
+prism_registry_get(PrismContext *ctx, PrismBackendId id) PRISM_NOEXCEPT {
+  return guard_or<PrismBackend *>(nullptr, [&] {
+    return wrap_backend(ctx->registry->get(to_backend_id(id)));
+  });
+}
+
+PRISM_API PRISM_NODISCARD PRISM_MALLOC PrismBackend *PRISM_CALL
+prism_registry_create(PrismContext *ctx, PrismBackendId id) PRISM_NOEXCEPT {
+  return guard_or<PrismBackend *>(nullptr, [&] {
+    return wrap_backend(ctx->registry->create(to_backend_id(id)));
+  });
+}
+
+PRISM_API PRISM_NODISCARD PRISM_MALLOC PrismBackend *PRISM_CALL
+prism_registry_create_best(PrismContext *ctx) PRISM_NOEXCEPT {
+  return guard_or<PrismBackend *>(
+      nullptr, [&] { return wrap_backend(ctx->registry->create_best()); });
+}
+
+PRISM_API PRISM_NODISCARD PrismBackend *PRISM_CALL
+prism_registry_acquire(PrismContext *ctx, PrismBackendId id) PRISM_NOEXCEPT {
+  return guard_or<PrismBackend *>(nullptr, [&] {
+    return wrap_backend(ctx->registry->acquire(to_backend_id(id)));
+  });
+}
+
+PRISM_API PRISM_NODISCARD PrismBackend *PRISM_CALL
+prism_registry_acquire_best(PrismContext *ctx) PRISM_NOEXCEPT {
+  return guard_or<PrismBackend *>(
+      nullptr, [&] { return wrap_backend(ctx->registry->acquire_best()); });
+}
+
+PRISM_API PRISM_NODISCARD PRISM_MALLOC PrismRegistryBuilder *PRISM_CALL
+prism_registry_builder_new(void) PRISM_NOEXCEPT {
+  return guard_or<PrismRegistryBuilder *>(nullptr, [&] {
+    return reinterpret_cast<PrismRegistryBuilder *>(new (std::nothrow)
+                                                        RegistryBuilder());
+  });
+}
+
+PRISM_API PRISM_NODISCARD PrismError PRISM_CALL
+prism_registry_builder_add_backend(PrismRegistryBuilder *builder,
+                                   const char *PRISM_RESTRICT name,
+                                   int priority, uint64_t features,
+                                   const PrismBackendVTable *vtable,
+                                   void *userdata,
+                                   void(PRISM_CALL *userdata_free)(void *),
+                                   PrismBackendId *out_id) PRISM_NOEXCEPT {
+  if (vtable->size == 0) {
+    if (userdata_free != nullptr)
+      userdata_free(userdata);
+    return PRISM_ERROR_INVALID_PARAM;
+  }
+  // Until make_custom_factory returns a factory, userdata is still ours to
+  // free; afterwards the factory owns it and frees it when destroyed.
+  BackendFactory factory;
+  try {
+    factory = make_custom_factory(vtable, userdata, userdata_free, features,
+                                  std::string{name});
+  } catch (...) {
+    if (userdata_free != nullptr)
+      userdata_free(userdata);
+    return PRISM_ERROR_MEMORY_FAILURE;
+  }
+  if (!factory) {
+    if (userdata_free != nullptr)
+      userdata_free(userdata);
+    return PRISM_ERROR_INVALID_PARAM;
+  }
+  BackendId id{};
+  BuilderResult result{};
+  try {
+    result = reinterpret_cast<RegistryBuilder *>(builder)->add(
+        std::string{name}, priority, features, std::move(factory), &id);
+  } catch (...) {
+    return PRISM_ERROR_MEMORY_FAILURE;
+  }
+  switch (result) {
+  case BuilderResult::Ok: {
+    if (out_id != nullptr)
+      *out_id = to_prism_id(id);
+    return PRISM_OK;
+  }
+  case BuilderResult::InvalidUtf8:
+    return PRISM_ERROR_INVALID_UTF8;
+  case BuilderResult::EmptyName:
+  case BuilderResult::NegativePriority:
+  case BuilderResult::ReservedId:
+    return PRISM_ERROR_INVALID_PARAM;
+  case BuilderResult::Spent:
+  case BuilderResult::DuplicateName:
+  case BuilderResult::DuplicateId:
+    return PRISM_ERROR_INVALID_OPERATION;
+  }
+  return PRISM_ERROR_UNKNOWN;
+}
+
+PRISM_API PRISM_NODISCARD PrismError PRISM_CALL
+prism_registry_builder_add_library(
+    PrismRegistryBuilder *builder, const char *PRISM_RESTRICT path,
+    int priority_override, size_t *PRISM_RESTRICT out_count) PRISM_NOEXCEPT {
+  return guard([&] -> PrismError {
+    return load_plugin(*reinterpret_cast<RegistryBuilder *>(builder), path,
+                       priority_override, out_count);
+  });
+}
+
+PRISM_API PRISM_NODISCARD PRISM_MALLOC PrismRegistry *PRISM_CALL
+prism_registry_freeze(PrismRegistryBuilder *builder) PRISM_NOEXCEPT {
+  return guard_or<PrismRegistry *>(nullptr, [&] {
+    return reinterpret_cast<PrismRegistry *>(
+        reinterpret_cast<RegistryBuilder *>(builder)->freeze());
+  });
+}
+
+PRISM_API void PRISM_CALL
+prism_registry_builder_free(PrismRegistryBuilder *builder) PRISM_NOEXCEPT {
+  delete reinterpret_cast<RegistryBuilder *>(builder);
+}
+
+PRISM_API PrismRegistry *PRISM_CALL
+prism_registry_retain(PrismRegistry *registry) PRISM_NOEXCEPT {
+  if (registry != nullptr)
+    reinterpret_cast<FrozenRegistry *>(registry)->retain();
+  return registry;
+}
+
+PRISM_API void PRISM_CALL prism_registry_release(PrismRegistry *registry)
+    PRISM_NOEXCEPT {
+  if (registry != nullptr)
+    reinterpret_cast<FrozenRegistry *>(registry)->release();
+}
+
+PRISM_API void PRISM_CALL prism_backend_free(PrismBackend *backend)
+    PRISM_NOEXCEPT {
+  if (backend == nullptr)
+    return;
+  delete backend;
+}
+
+PRISM_API PRISM_NODISCARD const char *PRISM_CALL
+prism_backend_name(PrismBackend *backend) PRISM_NOEXCEPT {
+  return backend->impl->get_name().data();
+}
+
+PRISM_API PRISM_NODISCARD std::uint64_t PRISM_CALL
+prism_backend_get_features(PrismBackend *backend) PRISM_NOEXCEPT {
+  return guard_or<std::uint64_t>(
+      0, [&] { return backend->impl->get_features().to_ullong(); });
+}
+
+PRISM_API PRISM_NODISCARD PrismError PRISM_CALL
+prism_backend_initialize(PrismBackend *backend) PRISM_NOEXCEPT {
+  return guard([&] -> PrismError {
+    const auto r = backend->impl->initialize_tracked();
+    return r ? PRISM_OK : to_prism_error(r.error());
+  });
+}
+
+PRISM_API PRISM_NODISCARD PrismError PRISM_CALL
+prism_backend_speak(PrismBackend *backend, const char *PRISM_RESTRICT text,
+                    bool interrupt) PRISM_NOEXCEPT {
+  return guard([&] -> PrismError {
+    if (!simdutf::validate_utf8(text, std::string_view{text}.size()))
+      return PRISM_ERROR_INVALID_UTF8;
+    const auto r = backend->impl->speak(text, interrupt);
+    return r ? PRISM_OK : to_prism_error(r.error());
+  });
+}
+
+PRISM_API PRISM_NODISCARD PrismError PRISM_CALL prism_backend_speak_to_memory(
+    PrismBackend *backend, const char *PRISM_RESTRICT text,
+    PrismAudioCallback callback, void *userdata) PRISM_NOEXCEPT {
+  return guard([&] -> PrismError {
+    if (!simdutf::validate_utf8(text, std::string_view{text}.size()))
+      return PRISM_ERROR_INVALID_UTF8;
+    const auto r = backend->impl->speak_to_memory(
+        text,
+        [callback, userdata](void *, const float *samples, size_t count,
+                             size_t ch, size_t sr) {
+          callback(userdata, samples, count, ch, sr);
+        },
+        nullptr);
+    return r ? PRISM_OK : to_prism_error(r.error());
+  });
+}
+
+PRISM_API PRISM_NODISCARD PrismError PRISM_CALL prism_backend_braille(
+    PrismBackend *backend, const char *PRISM_RESTRICT text) PRISM_NOEXCEPT {
+  return guard([&] -> PrismError {
+    if (!simdutf::validate_utf8(text, std::string_view{text}.size()))
+      return PRISM_ERROR_INVALID_UTF8;
+    const auto r = backend->impl->braille(text);
+    return r ? PRISM_OK : to_prism_error(r.error());
+  });
+}
+
+PRISM_API PRISM_NODISCARD PrismError PRISM_CALL
+prism_backend_output(PrismBackend *backend, const char *PRISM_RESTRICT text,
+                     bool interrupt) PRISM_NOEXCEPT {
+  return guard([&] -> PrismError {
+    if (!simdutf::validate_utf8(text, std::string_view{text}.size()))
+      return PRISM_ERROR_INVALID_UTF8;
+    const auto r = backend->impl->output(text, interrupt);
+    return r ? PRISM_OK : to_prism_error(r.error());
+  });
+}
+
+PRISM_API PRISM_NODISCARD PrismError PRISM_CALL
+prism_backend_stop(PrismBackend *backend) PRISM_NOEXCEPT {
+  return guard([&] -> PrismError {
+    const auto r = backend->impl->stop();
+    return r ? PRISM_OK : to_prism_error(r.error());
+  });
+}
+
+PRISM_API PRISM_NODISCARD PrismError PRISM_CALL
+prism_backend_pause(PrismBackend *backend) PRISM_NOEXCEPT {
+  return guard([&] -> PrismError {
+    const auto r = backend->impl->pause();
+    return r ? PRISM_OK : to_prism_error(r.error());
+  });
+}
+
+PRISM_API PRISM_NODISCARD PrismError PRISM_CALL
+prism_backend_resume(PrismBackend *backend) PRISM_NOEXCEPT {
+  return guard([&] -> PrismError {
+    const auto r = backend->impl->resume();
+    return r ? PRISM_OK : to_prism_error(r.error());
+  });
+}
+
+PRISM_API PRISM_NODISCARD PrismError PRISM_CALL prism_backend_is_speaking(
+    PrismBackend *backend, bool *PRISM_RESTRICT out_speaking) PRISM_NOEXCEPT {
+  return guard([&] -> PrismError {
+    const auto r = backend->impl->is_speaking();
+    if (!r)
+      return to_prism_error(r.error());
+    *out_speaking = *r;
+    return PRISM_OK;
+  });
+}
+
+PRISM_API PRISM_NODISCARD PrismError PRISM_CALL
+prism_backend_set_volume(PrismBackend *backend, float volume) PRISM_NOEXCEPT {
+  return guard([&] -> PrismError {
+    if (!std::isfinite(volume) || volume < 0.0F || volume > 1.0F)
+      return PRISM_ERROR_RANGE_OUT_OF_BOUNDS;
+    const auto r = backend->impl->set_volume(volume);
+    return r ? PRISM_OK : to_prism_error(r.error());
+  });
+}
+
+PRISM_API PRISM_NODISCARD PrismError PRISM_CALL
+prism_backend_set_rate(PrismBackend *backend, float rate) PRISM_NOEXCEPT {
+  return guard([&] -> PrismError {
+    if (!std::isfinite(rate) || rate < 0.0F || rate > 1.0F)
+      return PRISM_ERROR_RANGE_OUT_OF_BOUNDS;
+    const auto r = backend->impl->set_rate(rate);
+    return r ? PRISM_OK : to_prism_error(r.error());
+  });
+}
+
+PRISM_API PRISM_NODISCARD PrismError PRISM_CALL
+prism_backend_set_pitch(PrismBackend *backend, float pitch) PRISM_NOEXCEPT {
+  return guard([&] -> PrismError {
+    if (!std::isfinite(pitch) || pitch < 0.0F || pitch > 1.0F)
+      return PRISM_ERROR_RANGE_OUT_OF_BOUNDS;
+    const auto r = backend->impl->set_pitch(pitch);
+    return r ? PRISM_OK : to_prism_error(r.error());
+  });
+}
+
+PRISM_API PRISM_NODISCARD PrismError PRISM_CALL prism_backend_get_volume(
+    PrismBackend *backend, float *PRISM_RESTRICT out_volume) PRISM_NOEXCEPT {
+  return guard([&] -> PrismError {
+    const auto r = backend->impl->get_volume();
+    if (!r)
+      return to_prism_error(r.error());
+    *out_volume = *r;
+    return PRISM_OK;
+  });
+}
+
+PRISM_API PRISM_NODISCARD PrismError PRISM_CALL prism_backend_get_rate(
+    PrismBackend *backend, float *PRISM_RESTRICT out_rate) PRISM_NOEXCEPT {
+  return guard([&] -> PrismError {
+    const auto r = backend->impl->get_rate();
+    if (!r)
+      return to_prism_error(r.error());
+    *out_rate = *r;
+    return PRISM_OK;
+  });
+}
+
+PRISM_API PRISM_NODISCARD PrismError PRISM_CALL prism_backend_get_pitch(
+    PrismBackend *backend, float *PRISM_RESTRICT out_pitch) PRISM_NOEXCEPT {
+  return guard([&] -> PrismError {
+    const auto r = backend->impl->get_pitch();
+    if (!r)
+      return to_prism_error(r.error());
+    *out_pitch = *r;
+    return PRISM_OK;
+  });
+}
+
+PRISM_API PRISM_NODISCARD PrismError PRISM_CALL
+prism_backend_refresh_voices(PrismBackend *backend) PRISM_NOEXCEPT {
+  return guard([&] -> PrismError {
+    const auto r = backend->impl->refresh_voices();
+    return r ? PRISM_OK : to_prism_error(r.error());
+  });
+}
+
+PRISM_API PRISM_NODISCARD PrismError PRISM_CALL prism_backend_count_voices(
+    PrismBackend *backend, size_t *PRISM_RESTRICT out_count) PRISM_NOEXCEPT {
+  return guard([&] -> PrismError {
+    const auto r = backend->impl->count_voices();
+    if (!r)
+      return to_prism_error(r.error());
+    *out_count = *r;
+    return PRISM_OK;
+  });
+}
+
+PRISM_API PRISM_NODISCARD PrismError PRISM_CALL prism_backend_get_voice_name(
+    PrismBackend *backend, size_t voice_id,
+    const char **PRISM_RESTRICT out_name) PRISM_NOEXCEPT {
+  return guard([&] -> PrismError {
+    auto r = backend->impl->get_voice_name(voice_id);
+    if (!r)
+      return to_prism_error(r.error());
+    backend->voice_name = std::move(*r);
+    *out_name = backend->voice_name.c_str();
+    return PRISM_OK;
+  });
+}
+
+PRISM_API PRISM_NODISCARD PrismError PRISM_CALL
+prism_backend_get_voice_language(PrismBackend *backend, size_t voice_id,
+                                 const char **PRISM_RESTRICT out_language)
+    PRISM_NOEXCEPT {
+  return guard([&] -> PrismError {
+    auto r = backend->impl->get_voice_language(voice_id);
+    if (!r)
+      return to_prism_error(r.error());
+    backend->voice_lang = std::move(*r);
+    *out_language = backend->voice_lang.c_str();
+    return PRISM_OK;
+  });
+}
+
+PRISM_API PRISM_NODISCARD PrismError PRISM_CALL
+prism_backend_set_voice(PrismBackend *backend, size_t voice_id) PRISM_NOEXCEPT {
+  return guard([&] -> PrismError {
+    const auto r = backend->impl->set_voice(voice_id);
+    return r ? PRISM_OK : to_prism_error(r.error());
+  });
+}
+
+PRISM_API PRISM_NODISCARD PrismError PRISM_CALL prism_backend_get_voice(
+    PrismBackend *backend, size_t *PRISM_RESTRICT out_voice_id) PRISM_NOEXCEPT {
+  return guard([&] -> PrismError {
+    const auto r = backend->impl->get_voice();
+    if (!r)
+      return to_prism_error(r.error());
+    *out_voice_id = *r;
+    return PRISM_OK;
+  });
+}
+
+PRISM_API PRISM_NODISCARD PrismError PRISM_CALL prism_backend_get_channels(
+    PrismBackend *backend, size_t *PRISM_RESTRICT out_channels) PRISM_NOEXCEPT {
+  return guard([&] -> PrismError {
+    const auto r = backend->impl->get_channels();
+    if (!r)
+      return to_prism_error(r.error());
+    *out_channels = *r;
+    return PRISM_OK;
+  });
+}
+
+PRISM_API PRISM_NODISCARD PrismError PRISM_CALL prism_backend_get_sample_rate(
+    PrismBackend *backend,
+    size_t *PRISM_RESTRICT out_sample_rate) PRISM_NOEXCEPT {
+  return guard([&] -> PrismError {
+    const auto r = backend->impl->get_sample_rate();
+    if (!r)
+      return to_prism_error(r.error());
+    *out_sample_rate = *r;
+    return PRISM_OK;
+  });
+}
+
+PRISM_API PRISM_NODISCARD PrismError PRISM_CALL prism_backend_get_bit_depth(
+    PrismBackend *backend,
+    size_t *PRISM_RESTRICT out_bit_depth) PRISM_NOEXCEPT {
+  return guard([&] -> PrismError {
+    const auto r = backend->impl->get_bit_depth();
+    if (!r)
+      return to_prism_error(r.error());
+    *out_bit_depth = *r;
+    return PRISM_OK;
+  });
+}
+
+PRISM_API PRISM_NODISCARD const char *PRISM_CALL
+prism_error_string(PrismError error) PRISM_NOEXCEPT {
+  static constexpr std::array strings = {
+      "Success",
+      "Not initialized",
+      "Invalid parameter",
+      "Not implemented",
+      "No voices available",
+      "Voice not found",
+      "Speak failure",
+      "Memory failure",
+      "Range out of bounds",
+      "Internal backend error",
+      "Not speaking",
+      "Not paused",
+      "Already paused",
+      "Invalid UTF-8",
+      "Invalid operation",
+      "Already initialized",
+      "Backend not available",
+      "Unknown error",
+      "Invalid audio format",
+      "Internal backend limit exceeded",
+      "Backend entered undefined state",
+      "Shared library load failed",
+      "Shared library is not a Prism plugin",
+      "Incompatible plugin ABI",
+  };
+  static_assert(std::size(strings) == PRISM_ERROR_COUNT,
+                "Error string table size mismatches error count");
+  if (static_cast<std::uint32_t>(error) >= PRISM_ERROR_COUNT)
+    return "Unknown error";
+  return strings[error];
+}
+
+PRISM_API PrismLogHandler PRISM_CALL
+prism_set_log_handler(PrismLogHandler handler) PRISM_NOEXCEPT {
+  Logger *const lg = logger();
+  return lg != nullptr ? lg->set_handler(handler) : PrismLogHandler{};
+}
+
+PRISM_API PrismLogLevel PRISM_CALL prism_set_log_level(PrismLogLevel level)
+    PRISM_NOEXCEPT {
+  Logger *const lg = logger();
+  return lg != nullptr ? lg->set_level(level) : PRISM_LOG_LEVEL_NONE;
+}
+
+PRISM_API void PRISM_CALL prism_log(PrismLogLevel level, const char *source,
+                                    const char *message) PRISM_NOEXCEPT {
+  Logger *const lg = logger();
+  if (lg == nullptr || !lg->wants(level))
+    return;
+  try {
+    lg->submit(level, source, message);
+  } catch (...) {
+    lg->note_dropped();
+  }
+}
+
+PRISM_API void PRISM_CALL prism_log_flush(void) PRISM_NOEXCEPT {
+  Logger *const lg = logger();
+  if (lg == nullptr)
+    return;
+  // NOLINTBEGIN(bugprone-empty-catch)
+  try {
+    lg->flush();
+  } catch (...) {
+  }
+  // NOLINTEND(bugprone-empty-catch)
+}
+
+PRISM_API void PRISM_CALL prism_log_shutdown(void) PRISM_NOEXCEPT {
+  if (Logger *const lg = logger(); lg != nullptr)
+    lg->shutdown();
+}
+
+PRISM_API PRISM_NODISCARD uint32_t PRISM_CALL prism_version(void)
+    PRISM_NOEXCEPT {
+  return version;
+}
+
+PRISM_API PRISM_NODISCARD const char *PRISM_CALL prism_version_string(void)
+    PRISM_NOEXCEPT {
+  return PRISM_VERSION_STRING;
+}
+}

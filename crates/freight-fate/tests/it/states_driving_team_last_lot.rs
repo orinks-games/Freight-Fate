@@ -158,8 +158,11 @@ fn riding_along_out_of_hours_the_co_driver_pulls_in_at_the_last_lot() {
 }
 
 #[test]
-fn with_hours_of_their_own_the_player_still_sleeps_out_the_rest_at_the_last_lot() {
-    let mut harness = short_shift_in("Team Last Lot Hours", 300.0, TeamMode::RideAlong);
+fn with_hours_short_of_the_receiver_the_player_still_sleeps_out_the_rest_at_the_last_lot() {
+    // An hour and a half of the player's own driving left, short of the
+    // receiver: the rest is slept out at the lot. Hours that reach it hand
+    // back awake (tester report, 2026-11-19; `states_driving_team_hours`).
+    let mut harness = short_shift_in("Team Last Lot Hours", 570.0, TeamMode::RideAlong);
     let last = harness.read_drive(|d| {
         d.co_driver_last_lot(&harness.app.ctx)
             .map(|stop| stop.name.clone())
@@ -175,12 +178,19 @@ fn with_hours_of_their_own_the_player_still_sleeps_out_the_rest_at_the_last_lot(
 
 #[test]
 fn the_handover_help_says_when_the_co_driver_is_short_of_the_players_rest() {
+    // Twenty minutes of the player's own driving left, and Dan's hour and
+    // a half: neither reaches the receiver, so the rest is finished where
+    // he parks.
     let mut harness = quiet_drive("Team Last Lot Help");
     let hos = &mut harness.app.ctx.profile.as_mut().expect("a career").hos;
-    hos.drive(300.0);
+    hos.drive(7.0 * 60.0);
+    hos.take_break(30.0);
+    hos.drive(220.0);
     harness.with_drive(|d, ctx| d.hand_wheel_to_co_driver(ctx, TeamMode::RideAlong));
     let hos = &mut harness.app.ctx.profile.as_mut().expect("a career").hos;
-    hos.drive(4.0 * 60.0);
+    hos.drive(7.0 * 60.0);
+    hos.take_break(30.0);
+    hos.drive(135.0);
     harness.with_drive(|d, ctx| {
         d.take_wheel_back(ctx);
     });
@@ -191,14 +201,16 @@ fn the_handover_help_says_when_the_co_driver_is_short_of_the_players_rest() {
             let items = pause.build_items(ctx);
             items
                 .iter()
-                .find(|item| item.label.text(pause, ctx) == "Hand the wheel to Dan and sleep")
+                .find(|item| {
+                    item.label.text(pause, ctx) == "Hand the wheel to Dan for 1.5 hours and sleep"
+                })
                 .map(|item| item.help.text(pause, ctx))
         },
     );
     let help = help.expect("the handover row");
     assert!(
         help.contains(
-            "Dan has 6.8 hours of driving left, short of your 10-hour rest, so they park and \
+            "Dan has 1.5 hours of driving left, short of your 10-hour rest, so they park and \
              you finish it there."
         ),
         "{help}"

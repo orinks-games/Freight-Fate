@@ -152,6 +152,38 @@ fn the_shift_runs_to_the_co_drivers_own_limit() {
 }
 
 #[test]
+fn a_break_coming_due_is_not_the_end_of_the_shift() {
+    let mut hos = HosClock::new();
+    hos.drive(8.0 * 60.0 - 10.0);
+    assert!(
+        !shift_over(&hos, "realistic"),
+        "the break is ten minutes off"
+    );
+    assert_eq!(
+        usable_min(&hos, "realistic"),
+        Some(3.0 * 60.0 + 10.0 - 15.0)
+    );
+    assert_eq!(usable_min(&hos, "off"), None);
+}
+
+#[test]
+fn the_player_finishes_the_load_on_their_own_hours_when_they_carry_the_trip() {
+    // The tester's evening: six hours driven since a full rest, then a
+    // little over an hour in the sleeper, with 2.4 hours left to the
+    // receiver.
+    let mut player = HosClock::new();
+    player.sleep();
+    player.on_duty(60.0);
+    player.drive(6.2 * 60.0);
+    player.sleeper(70.0);
+    assert!(player_finishes(&player, "realistic", 2.4 * 60.0));
+    // A trip past their driving time still needs the rest.
+    assert!(!player_finishes(&player, "realistic", 5.5 * 60.0));
+    // Hours off: nothing to finish on.
+    assert!(!player_finishes(&player, "off", 60.0));
+}
+
+#[test]
 fn the_break_is_planned_ahead_and_handed_back_only_when_overdue() {
     let mut hos = HosClock::new();
     hos.drive(5.0 * 60.0);

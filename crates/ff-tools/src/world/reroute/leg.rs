@@ -15,9 +15,10 @@
 //!   stop more than 3 miles off the new road dropped; a stop with no
 //!   coordinates follows its mile, or its share of the leg where the old
 //!   road is gone;
-//! * the grade profile, posted limits, state lines and toll events, all read
-//!   along the old road, are dropped, as are the leg's rows in the curve,
-//!   runaway-ramp and limit-screen layers;
+//! * the grade profile, posted limits, state lines, toll events and the
+//!   pavement layer, all read along the old road, are dropped, as are the
+//!   leg's rows in the curve, runaway-ramp and limit-screen layers (re-read
+//!   the pavement with `hpms-pavement --only from:to --write`);
 //! * new route points and elevation samples are written every 25 miles, so
 //!   the builders have the new road's bounds.
 //!
@@ -62,9 +63,10 @@ const CARRIED: &[&str] = &[
     "restrictions",
 ];
 /// Read along the old road and rebuilt by `reroute-enrich` (or, for toll
-/// events, re-curated by hand).
+/// events, re-curated by hand; for pavement, by `hpms-pavement --only`).
 const DROPPED: &[&str] = &[
     "grade_segments",
+    "pavement",
     "speed_limits",
     "state_crossings",
     "state_miles",
@@ -382,6 +384,7 @@ pub fn main(argv: &[String]) -> Result<i32> {
         .and_then(Value::as_array)
         .cloned()
         .unwrap_or_default();
+    let had_pavement = corridor.get("pavement").is_some();
     for key in DROPPED {
         corridor.remove(key);
     }
@@ -532,6 +535,9 @@ pub fn main(argv: &[String]) -> Result<i32> {
                 t.get("road").map(Value::py_str).unwrap_or_default()
             );
         }
+    }
+    if had_pavement {
+        println!("  pavement dropped: re-read it with hpms-pavement --only {from}:{to} --write");
     }
     if route.has_toll {
         println!("  the new road tolls and the leg has no toll events: curate them");

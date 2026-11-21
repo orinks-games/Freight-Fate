@@ -419,6 +419,17 @@ pub fn signal_for_the_exit_sentence(exit_hint: &str) -> String {
     }
 }
 
+/// A control name opening a sentence: "right bumper plus Y" becomes
+/// "Right bumper plus Y", "the Up arrow" "The Up arrow", and a key name is
+/// left as it is.
+pub fn sentence_start(text: &str) -> String {
+    let mut chars = text.chars();
+    match chars.next() {
+        Some(first) => first.to_uppercase().chain(chars).collect(),
+        None => String::new(),
+    }
+}
+
 /// "Press X to signal.", or the touch sentence.
 pub fn signal_sentence(exit_hint: &str) -> String {
     if exit_hint == TOUCH_EXIT_HINT {
@@ -825,6 +836,14 @@ mod tests {
     //! `tests/test_roadside_chatter.py`, `tests/test_instruction_retirement.py`
     //! and `tests/test_driving_speech_ladder.py`.
     use super::*;
+
+    #[test]
+    fn a_control_name_opening_a_sentence_takes_a_capital() {
+        assert_eq!(sentence_start("right bumper plus Y"), "Right bumper plus Y");
+        assert_eq!(sentence_start("the Up arrow"), "The Up arrow");
+        assert_eq!(sentence_start("P"), "P");
+        assert_eq!(sentence_start(""), "");
+    }
 
     #[test]
     fn test_a_spelled_out_class_takes_an() {
