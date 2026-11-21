@@ -4716,22 +4716,22 @@ msgstr ""
 "xếp là bằng phẳng, vượt trần {f} phần trăm cho {road_class} ở đó."
 
 msgid "unpaved"
-msgstr ""
+msgstr "đường đất"
 
 msgid "asphalt"
-msgstr ""
+msgstr "nhựa đường"
 
 msgid "other"
-msgstr ""
+msgstr "khác"
 
 msgid "bridge"
-msgstr ""
+msgstr "cầu"
 
 msgid "tunnel"
-msgstr ""
+msgstr "hầm"
 
 msgid "causeway"
-msgstr ""
+msgstr "đường đắp"
 
 msgid "both"
 msgstr "cả hai"
@@ -4744,67 +4744,74 @@ msgstr "lùi lại"
 
 #. placeholders: {from_city}, {to_city}, {what}
 msgid "{from_city} to {to_city} pavement {what} must be an object"
-msgstr ""
+msgstr "{from_city} đến {to_city}: mặt đường {what} phải là một đối tượng"
 
 #. placeholders: {from_city}, {to_city}, {what}, {text}, {why}
 msgid "{from_city} to {to_city} pavement {what} {text}: {why}"
-msgstr ""
+msgstr "{from_city} đến {to_city}: mặt đường {what} {text}: {why}"
 
 msgid "does not start with two miles"
-msgstr ""
+msgstr "không bắt đầu bằng hai dặm"
 
 msgid "has no name"
-msgstr ""
+msgstr "không có tên"
 
 #. placeholders: {key}, {value}
 msgid "pavement {key}={value} is not a number"
-msgstr ""
+msgstr "mặt đường {key}={value} không phải là số"
 
 msgid "layer"
-msgstr ""
+msgstr "lớp"
 
 msgid "surface"
-msgstr ""
+msgstr "bề mặt"
 
 msgid "run"
-msgstr ""
+msgstr "đoạn"
 
 #. placeholders: {from_city}, {to_city}, {name}
 msgid ""
 "{from_city} to {to_city} pavement surface {name} is not an HPMS surface"
 msgstr ""
+"{from_city} đến {to_city}: bề mặt đường {name} không phải là bề mặt HPMS"
 
 msgid "iri"
-msgstr ""
+msgstr "iri"
 
 msgid "faulting"
-msgstr ""
+msgstr "độ chênh tấm bê tông"
 
 msgid "structures"
-msgstr ""
+msgstr "công trình"
 
 msgid "structure"
-msgstr ""
+msgstr "công trình"
 
 #. placeholders: {from_city}, {to_city}, {name}
 msgid ""
 "{from_city} to {to_city} pavement structure {name} is not a bridge, tunnel "
 "or causeway"
 msgstr ""
+"{from_city} đến {to_city}: công trình {name} không phải là cầu, hầm hay "
+"đường đắp"
 
 msgid "hpms"
-msgstr ""
+msgstr "hpms"
 
 #. placeholders: {from_city}, {to_city}, {py_str_float}
 msgid ""
 "{from_city} to {to_city} pavement mile_scale {py_str_float} is not near 1"
 msgstr ""
+"{from_city} đến {to_city}: mile_scale của mặt đường là {py_str_float}, "
+"không gần 1"
 
 #. placeholders: {from_city}, {to_city}, {py_str_float}
 msgid ""
 "{from_city} to {to_city} pavement read share {py_str_float} is not between "
 "0 and 1"
 msgstr ""
+"{from_city} đến {to_city}: tỷ lệ mặt đường đọc được là {py_str_float}, "
+"không nằm trong khoảng 0 đến 1"
 
 msgid "northeast"
 msgstr "northeast"
@@ -9055,20 +9062,20 @@ msgstr "trời quang"
 
 #. placeholders: {i}
 msgid "hours_heard job {i}"
-msgstr ""
+msgstr "hours_heard job {i}"
 
 #. placeholders: {i}
 msgid "chains_heard job {i}"
-msgstr ""
+msgstr "chains_heard job {i}"
 
 msgid "assigned"
 msgstr "đã giao"
 
 msgid "browse"
-msgstr ""
+msgstr "duyệt"
 
 msgid "plain"
-msgstr ""
+msgstr "thường"
 
 msgid "Pay advance already taken for this load. Deliver it first."
 msgstr "Bạn đã ứng lương cho lô hàng này rồi. Hãy giao hàng xong trước."
@@ -9829,7 +9836,7 @@ msgid "team"
 msgstr "lái chung"
 
 msgid "urgency"
-msgstr ""
+msgstr "độ gấp"
 
 #. placeholders: {unwrap_or_else}
 msgid "{unwrap_or_else} freight market"
@@ -10134,22 +10141,22 @@ msgid "standard"
 msgstr "tiêu chuẩn"
 
 msgid "hot"
-msgstr ""
+msgstr "gấp"
 
 msgid "flexible"
-msgstr ""
+msgstr "linh hoạt"
 
 msgid "Hot load."
-msgstr ""
+msgstr "Hàng gấp."
 
 msgid "Flexible delivery."
-msgstr ""
+msgstr "Giao linh hoạt."
 
 msgid "Hot load. Tight deadline, pays 25 percent more."
-msgstr ""
+msgstr "Hàng gấp. Hạn giao sát, trả thêm 25 phần trăm."
 
 msgid "Flexible delivery. Wide deadline, pays 10 percent less."
-msgstr ""
+msgstr "Giao linh hoạt. Hạn giao rộng, trả ít hơn 10 phần trăm."
 
 msgid "landmark"
 msgstr "địa danh"
@@ -11976,13 +11983,13 @@ msgid "up"
 msgstr "đã thả"
 
 msgid "lowering"
-msgstr ""
+msgstr "đang hạ"
 
 msgid "down"
 msgstr "đang nhấn"
 
 msgid "raising"
-msgstr ""
+msgstr "đang nâng"
 
 msgid "Driver window down."
 msgstr "Hạ kính cửa sổ tài xế."
@@ -12051,10 +12058,10 @@ msgid "snow"
 msgstr "tuyết rơi"
 
 msgid "stowed"
-msgstr ""
+msgstr "đã cất"
 
 msgid "broken"
-msgstr ""
+msgstr "đã đứt"
 
 msgid "yield"
 msgstr "nhường đường"
@@ -12597,13 +12604,13 @@ msgid "quiet"
 msgstr "ít lời"
 
 msgid "birds"
-msgstr ""
+msgstr "chim"
 
 msgid "insects"
-msgstr ""
+msgstr "côn trùng"
 
 msgid "away"
-msgstr ""
+msgstr "ở xa"
 
 msgid "over"
 msgstr "vượt"
@@ -12929,17 +12936,17 @@ msgid "Weather: {join}."
 msgstr "Thời tiết: {join}."
 
 msgid "jointed"
-msgstr ""
+msgstr "có khe nối"
 
 msgid "smooth"
-msgstr ""
+msgstr "phẳng"
 
 #. placeholders: {name}
 msgid "read {name}"
-msgstr ""
+msgstr "đọc được {name}"
 
 msgid "invented"
-msgstr ""
+msgstr "suy đoán"
 
 msgid "held"
 msgstr "đang giữ"
@@ -13226,7 +13233,7 @@ msgid "lightly loaded"
 msgstr "chở ít chất lỏng"
 
 msgid "bunk"
-msgstr ""
+msgstr "giường"
 
 msgid "eastern"
 msgstr "miền Đông"
@@ -14029,7 +14036,7 @@ msgid "destination approach"
 msgstr "đường vào điểm giao"
 
 msgid "Chain law lifted."
-msgstr ""
+msgstr "Đã bỏ quy định bắt buộc xích lốp."
 
 msgid " Chain-up area on the right."
 msgstr " Có bãi lắp xích lốp bên phải."
@@ -15586,17 +15593,18 @@ msgid "Plays under a spoken line that already explains it."
 msgstr "Phát lót dưới một câu thoại vốn đã giải thích rõ rồi."
 
 msgid "A small debris strike under the wheels."
-msgstr ""
+msgstr "Bánh xe cán phải một mảnh vụn nhỏ."
 
 msgid "Pavement seams: texture, not a decision."
 msgstr ""
 "Tiếng khe nối mặt đường: tạo cảm giác mặt đường, không phải tín hiệu xử lý."
 
 msgid "As the steer axle's seam."
-msgstr ""
+msgstr "Như khe nối dưới trục lái."
 
 msgid "The joint at a bridge end: texture, not a decision."
 msgstr ""
+"Khe nối ở đầu cầu: tạo cảm giác mặt đường, không phải tín hiệu xử lý."
 
 msgid "A door."
 msgstr "Tiếng đóng mở cửa xe."
@@ -15936,13 +15944,15 @@ msgstr "Bạn cầm lái từ {start_mi} dặm phía trước."
 
 #. placeholders: {i}
 msgid "job {i}"
-msgstr ""
+msgstr "đơn hàng {i}"
 
 #. placeholders: {mode_key}, {offer}, {reason}, {key}
 msgid ""
 "; board_mode {mode_key}; board_offer {offer}; board_reason {reason}; "
 "board_gate {key}"
 msgstr ""
+"; board_mode {mode_key}; board_offer {offer}; board_reason {reason}; "
+"board_gate {key}"
 
 msgid "automatic"
 msgstr "số tự động"
@@ -16018,19 +16028,19 @@ msgstr ""
 "lăn bánh kế tiếp, nên hãy nghe lời báo."
 
 msgid "a free sky"
-msgstr ""
+msgstr "bầu trời tự do"
 
 #. placeholders: {value}
 msgid "forced {value}"
-msgstr ""
+msgstr "cố định {value}"
 
 #. placeholders: {sky}
 msgid "The drive under way, and drives staged after it, run under {sky}."
-msgstr ""
+msgstr "Chuyến đang chạy, và các chuyến dựng sau nó, đều chạy dưới {sky}."
 
 #. placeholders: {sky}
 msgid "Drives staged from here on run under {sky}."
-msgstr ""
+msgstr "Các chuyến dựng từ giờ trở đi đều chạy dưới {sky}."
 
 msgid "the co-driver has the wheel"
 msgstr "tài phụ đang cầm lái"
@@ -16914,7 +16924,7 @@ msgid "ok"
 msgstr "ok"
 
 msgid "stale"
-msgstr ""
+msgstr "cũ"
 
 msgid "conflict"
 msgstr "conflict"
@@ -16956,6 +16966,8 @@ msgid ""
 "The cloud has a newer copy of this career. Nothing was changed. Choose Use "
 "the cloud copy on this computer to pick it up."
 msgstr ""
+"Trên đám mây có bản mới hơn của sự nghiệp này. Chưa có gì bị thay đổi. Chọn "
+"Dùng bản trên đám mây trên máy này để lấy bản đó."
 
 msgid ""
 "orinks.net no longer accepts this computer's sign-in. Usually this computer "
@@ -17556,6 +17568,78 @@ msgid ""
 "                                    it speaks its findings and writes a log\n"
 "  --log PATH                        session log for the watcher"
 msgstr ""
+"freightfate -- Freight Fate\n"
+"\n"
+"  freightfate                       chơi\n"
+"  freightfate --smoke               khởi động, dựng năm khung hình, thoát "
+"(kiểm tra CI)\n"
+"  freightfate --headless            không cửa sổ, không giọng đọc\n"
+"  freightfate --controller-diagnostics\n"
+"                                    ghi nhật ký sự kiện tay cầm, cả hai lớp\n"
+"\n"
+"Công cụ lái xe:\n"
+"  --playtest-road --find FEATURE    bắt đầu tại một điểm đặc trưng trên "
+"đường hoặc cổng khởi hành\n"
+"                                    (downgrade, upgrade, zone, limit-drop,\n"
+"                                    stop, scale, curve, interchange, toll,\n"
+"                                    chain-law, destination, departure, "
+"river, all); all quét mọi\n"
+"                                    họ đường có thể khởi chạy và mọi phiên "
+"bản thế giới hiện tại.\n"
+"                                    destination là\n"
+"                                    lối ra giao hàng ở cuối\n"
+"                                    lộ trình; departure mặc định quét một "
+"mẫu lộ trình nhỏ\n"
+"                                    để tìm lối ra cơ sở đã tải. Dùng\n"
+"                                    --routes all để có bản kê đầy đủ;\n"
+"                                    mỗi kết quả in ra một lệnh khởi chạy "
+"--facility trực tiếp\n"
+"                                    không quét lại thế giới. Các chuyển "
+"trạng thái\n"
+"                                    cần lịch sử người chơi thật thì không "
+"khởi chạy từ đường được;\n"
+"                                    --from/--to/--seed/--scan và\n"
+"                                    các công tắc hỗ trợ lái giúp thu hẹp "
+"tìm kiếm\n"
+"  --ai                               với một tình huống đường đã chọn, dùng "
+"thao tác\n"
+"                                    người chơi có nhịp độ trong cửa sổ "
+"thật; giọng đọc\n"
+"                                    dành cho người chơi được truyền trực "
+"tiếp ra terminal\n"
+"  --playtest-sandbox [--launch]     một thư mục dữ liệu không thể chạm tới\n"
+"                                    tài khoản của chủ sở hữu; "
+"--dir/--reset/--print\n"
+"  --list-break-scenarios            liệt kê mọi tình huống đối kháng\n"
+"  --list-speech-backends            liệt kê mọi trình đọc màn hình và giọng "
+"đọc tìm thấy\n"
+"                                    (--names-only liệt kê mà không mở cái "
+"nào)\n"
+"  --break-scenario NAME             chạy một tình huống, --transcript để "
+"nghe nó\n"
+"  --break-battery                   chạy tất cả và in kết luận\n"
+"  --agent-server                    game thật với một máy chủ MCP trên "
+"stdio,\n"
+"                                    để tác tử AI có thể chơi (trong hộp "
+"cát;\n"
+"                                    --reset để có hộp cát mới; thêm\n"
+"                                    --find FEATURE [--from CITY] [--to "
+"CITY]\n"
+"                                    để khởi động thẳng vào một chuyến lái "
+"đã dàn dựng;\n"
+"                                    --operator-keys giữ cửa sổ mở và\n"
+"                                    nhận bàn phím của người điều khiển, để "
+"chơi\n"
+"                                    cùng tác tử; --staging dùng\n"
+"                                    thư mục riêng và tài xế riêng trên\n"
+"                                    trang staging, bật sao lưu đám mây)\n"
+"  --key-probe [--seconds N]         cho biết bàn phím của bạn gửi gì tới "
+"game,\n"
+"                                    dành cho trình đọc màn hình gửi lại "
+"phím đang giữ\n"
+"                                    (JAWS): giữ mỗi phím mũi tên vài giây;\n"
+"                                    nó đọc kết quả và ghi một tệp nhật ký\n"
+"  --log PATH                        nhật ký phiên cho trình theo dõi"
 
 msgid "not running here"
 msgstr "không chạy ở đây"
@@ -17916,16 +18000,16 @@ msgid "Ready in {remaining} seconds."
 msgstr "Sẵn sàng sau {remaining} giây."
 
 msgid "Back to "
-msgstr ""
+msgstr "Quay lại "
 
 msgid "No, "
-msgstr ""
+msgstr "Không, "
 
 msgid "Resume "
-msgstr ""
+msgstr "Tiếp tục "
 
 msgid "Return to "
-msgstr ""
+msgstr "Trở về "
 
 msgid "Back"
 msgstr "Quay lại"
@@ -18489,19 +18573,19 @@ msgstr "{note} Chuyến được giao mới: {described}"
 
 #. placeholders: {label}
 msgid "Recommended dispatch, best pay for the hours: {label}"
-msgstr ""
+msgstr "Đơn hàng gợi ý, trả cao nhất theo số giờ: {label}"
 
 #. placeholders: {label}
 msgid "Recommended dispatch, best net for the hours: {label}"
-msgstr ""
+msgstr "Đơn hàng gợi ý, lãi ròng cao nhất theo số giờ: {label}"
 
 #. placeholders: {label}
 msgid "Recommended dispatch, most room on the deadline: {label}"
-msgstr ""
+msgstr "Đơn hàng gợi ý, dư dả thời hạn nhất: {label}"
 
 #. placeholders: {label}
 msgid "Recommended dispatch: {label}"
-msgstr ""
+msgstr "Đơn hàng gợi ý: {label}"
 
 #. placeholders: {recommendation}, {label}
 msgid "Recommended dispatch, {recommendation}: {label}"
@@ -22482,6 +22566,9 @@ msgid ""
 "{progress} {hours_used} of {deadline_game_h} hours. {now}. {transmission} "
 "{report_lead}. {speed_control}{engine} {brake}"
 msgstr ""
+"Tiếp tục {drive_name}: {weight_tons} tấn {label} đến {destination}. "
+"{progress} {hours_used} trên {deadline_game_h} giờ. {now}. {transmission} "
+"{report_lead}. {speed_control}{engine} {brake}"
 
 #. placeholders: {progress}, {hours_used}, {deadline_game_h}
 #. one sentence of a longer line
@@ -23118,7 +23205,7 @@ msgstr ""
 "Khi giữ làn đặt toàn phần, gạt cần sang trái hoặc phải sẽ chuyển một làn."
 
 msgid "Hold the right bumper for the clutch."
-msgstr ""
+msgstr "Giữ nút vai phải để đạp côn."
 
 msgid "Hold the left bumper for the clutch."
 msgstr "Giữ nút vai trái để đạp côn."
@@ -26298,7 +26385,7 @@ msgid "Billboard: {line}"
 msgstr "Biển quảng cáo: {line}"
 
 msgid "Bare road. Stop and take the chains off."
-msgstr ""
+msgstr "Đường đã sạch tuyết. Dừng lại và tháo xích."
 
 msgid "Come to a complete stop first."
 msgstr "Hãy dừng hẳn xe trước đã."
@@ -26476,11 +26563,12 @@ msgstr "Đang dừng lại để lắp xích, mất khoảng {f} phút làm vi�
 
 #. one sentence of a longer line
 msgid "Bare road."
-msgstr ""
+msgstr "Đường đã sạch tuyết."
 
 #. placeholders: {f}
 msgid "Bare road. Taking chains off, about {f} minutes on duty."
 msgstr ""
+"Đường đã sạch tuyết. Đang dừng để tháo xích, mất khoảng {f} phút làm việc."
 
 #. placeholders: {f}
 #. one sentence of a longer line
@@ -29620,7 +29708,7 @@ msgstr ""
 "vẫn tiếp tục trôi."
 
 msgid "Every driving command by name, in groups."
-msgstr ""
+msgstr "Toàn bộ lệnh lái xe theo tên, chia theo nhóm."
 
 msgid "Emergency shoulder sleep is not available."
 msgstr "Hiện không thể ngủ khẩn cấp trên lề đường."
@@ -29927,6 +30015,8 @@ msgid ""
 "Streamer-safe mode on, with Music source set to Synthesized. The radio "
 "stays on the Roadhouse."
 msgstr ""
+"Chế độ an toàn cho streamer đang bật, với nguồn nhạc nền là Nhạc tổng hợp. "
+"Đài vẫn ở Roadhouse."
 
 msgid ""
 "Streamer-safe mode off. Real public streams and personal playlists are on "
@@ -29944,9 +30034,12 @@ msgstr ""
 
 msgid "Streamer-safe mode off. Real public streams are on the dial."
 msgstr ""
+"Chế độ an toàn cho streamer đang tắt. Các đài trực tuyến thực tế đều có "
+"trên bảng dò đài."
 
 msgid "Streamer-safe mode on. Real public streams are hidden."
 msgstr ""
+"Chế độ an toàn cho streamer đang bật. Các đài trực tuyến thực tế đã được ẩn."
 
 msgid ""
 "Music source Synthesized: Freight Fate's own stations are off the dial."
@@ -29993,10 +30086,10 @@ msgid "Double tap switches the radio on or off."
 msgstr "Chạm đúp để bật hoặc tắt đài."
 
 msgid "What is on the dial. Enter repeats it."
-msgstr ""
+msgstr "Những gì đang có trên bảng dò đài. Nhấn Enter để nghe lại."
 
 msgid "What is on the dial. Double tap repeats it."
-msgstr ""
+msgstr "Những gì đang có trên bảng dò đài. Chạm đúp để nghe lại."
 
 msgid "Saves or removes the tuned station in favorites."
 msgstr "Lưu hoặc xóa đài đang nghe khỏi mục yêu thích."
@@ -30036,17 +30129,21 @@ msgstr ""
 
 #. placeholders: {local}
 msgid "Local stations: {local}"
-msgstr ""
+msgstr "Đài địa phương: {local}"
 
 msgid ""
 "Freight Fate stations, your playlists and favorites, and stations nearby. "
 "Enter on one tunes it."
 msgstr ""
+"Các đài Freight Fate, danh sách phát và mục yêu thích của bạn, cùng các đài "
+"ở gần. Nhấn Enter vào một đài để nghe."
 
 msgid ""
 "Freight Fate stations, your playlists and favorites, and stations nearby. "
 "Double tap one to tune it."
 msgstr ""
+"Các đài Freight Fate, danh sách phát và mục yêu thích của bạn, cùng các đài "
+"ở gần. Chạm đúp vào một đài để dò tới đài đó."
 
 #. placeholders: {in_range}
 msgid "Stations in range: {in_range}"
@@ -30081,7 +30178,7 @@ msgid "Stations in range"
 msgstr "Đài trong vùng phủ sóng"
 
 msgid "Local stations"
-msgstr ""
+msgstr "Đài địa phương"
 
 #. placeholders: {query}
 msgid "Stations matching {query}"
@@ -30110,7 +30207,7 @@ msgstr "{display_name} đang ngoài vùng phủ sóng tại đây."
 
 #. placeholders: {label}, {distance_text}
 msgid "{label}, {distance_text} away"
-msgstr ""
+msgstr "{label}, cách {distance_text}"
 
 msgid "Enter tunes this station."
 msgstr "Nhấn Enter để mở đài này."
@@ -30131,6 +30228,8 @@ msgstr "Xem các kết quả tiếp theo. Phím PageDown có tác dụng tương
 
 msgid "Shows the next results. A three-finger flick right does the same."
 msgstr ""
+"Xem các kết quả tiếp theo. Vuốt nhanh ba ngón sang phải cũng có tác dụng "
+"tương tự."
 
 msgid "Previous page"
 msgstr "Trang trước"
@@ -30140,6 +30239,8 @@ msgstr "Xem các kết quả trước đó. Phím PageUp có tác dụng tương
 
 msgid "Shows the earlier results. A three-finger flick left does the same."
 msgstr ""
+"Xem các kết quả trước đó. Vuốt nhanh ba ngón sang trái cũng có tác dụng "
+"tương tự."
 
 msgid "No stations here yet."
 msgstr "Chưa có đài nào ở đây."
@@ -30181,19 +30282,22 @@ msgstr "{title}. {count} kết quả. {page} Nhấn PageDown để sang trang sa
 #. placeholders: {page}
 #. one sentence of a longer line
 msgid "{page} Flick right with three fingers for the next page."
-msgstr ""
+msgstr "{page} Vuốt nhanh ba ngón sang phải để sang trang sau."
 
 #. placeholders: {title}, {count}, {page}
 msgid ""
 "{title}. {count} stations. {page} Flick right with three fingers for the "
 "next page."
 msgstr ""
+"{title}. {count} đài. {page} Vuốt nhanh ba ngón sang phải để sang trang sau."
 
 #. placeholders: {title}, {count}, {page}
 msgid ""
 "{title}. {count} matches. {page} Flick right with three fingers for the "
 "next page."
 msgstr ""
+"{title}. {count} kết quả. {page} Vuốt nhanh ba ngón sang phải để sang trang "
+"sau."
 
 #. one sentence of a longer line
 msgid "Nothing here yet."
@@ -30654,34 +30758,34 @@ msgid "waves you through"
 msgstr "vẫy cho bạn đi qua"
 
 msgid "You had driven past"
-msgstr ""
+msgstr "Bạn đã lái quá"
 
 #. placeholders: {name}
 msgid "{name} had driven past"
-msgstr ""
+msgstr "{name} đã lái quá"
 
 msgid "you had driven past"
-msgstr ""
+msgstr "bạn đã lái quá"
 
 msgid "Your 14-hour duty window"
-msgstr ""
+msgstr "Khung giờ làm việc 14 giờ của bạn"
 
 #. placeholders: {name}
 msgid "{name}'s 14-hour duty window"
-msgstr ""
+msgstr "Khung giờ làm việc 14 giờ của {name}"
 
 msgid "your 14-hour duty window"
-msgstr ""
+msgstr "khung giờ làm việc 14 giờ của bạn"
 
 msgid "You were past the 30-minute"
-msgstr ""
+msgstr "Bạn đã quá hạn nghỉ 30 phút"
 
 #. placeholders: {name}
 msgid "{name} was past the 30-minute"
-msgstr ""
+msgstr "{name} đã quá hạn nghỉ 30 phút"
 
 msgid "you were past the 30-minute"
-msgstr ""
+msgstr "bạn đã quá hạn nghỉ 30 phút"
 
 msgid "under"
 msgstr "dưới"
@@ -32737,35 +32841,43 @@ msgstr "{name} đã đỗ xe và giao lại tay lái cho bạn."
 
 #. placeholders: {name}
 msgid "{name} has parked and hands you the wheel. Their hours are up."
-msgstr ""
+msgstr "{name} đã đỗ xe và giao lại tay lái cho bạn. Tài xế phụ đã hết giờ."
 
 #. one sentence of a longer line
 msgid "Their hours are up, and yours reach the receiver."
-msgstr ""
+msgstr "Tài xế phụ đã hết giờ, còn giờ của bạn đủ tới bên nhận hàng."
 
 #. placeholders: {name}
 msgid ""
 "{name} has parked and hands you the wheel. Their hours are up, and yours "
 "reach the receiver."
 msgstr ""
+"{name} đã đỗ xe và giao lại tay lái cho bạn. Tài xế phụ đã hết giờ, còn giờ "
+"của bạn đủ tới bên nhận hàng."
 
 #. placeholders: {name}
 #. one sentence of a longer line
 msgid ""
 "{name} stopped on the shoulder with no lot in reach and hands you the wheel."
 msgstr ""
+"Không có bãi đỗ nào gần đó, nên {name} dừng ở lề đường và giao lại tay lái "
+"cho bạn."
 
 #. placeholders: {name}
 msgid ""
 "{name} stopped on the shoulder with no lot in reach and hands you the "
 "wheel. Their hours are up."
 msgstr ""
+"Không có bãi đỗ nào gần đó, nên {name} dừng ở lề đường và giao lại tay lái "
+"cho bạn. Tài xế phụ đã hết giờ."
 
 #. placeholders: {name}
 msgid ""
 "{name} stopped on the shoulder with no lot in reach and hands you the "
 "wheel. Their hours are up, and yours reach the receiver."
 msgstr ""
+"Không có bãi đỗ nào gần đó, nên {name} dừng ở lề đường và giao lại tay lái "
+"cho bạn. Tài xế phụ đã hết giờ, còn giờ của bạn đủ tới bên nhận hàng."
 
 #. one sentence of a longer line
 msgid "Their break is due."
@@ -32774,12 +32886,13 @@ msgstr "Đã đến lúc tài xế phụ phải nghỉ giữa ca."
 #. placeholders: {name}
 #. one sentence of a longer line
 msgid "{name} stopped on the shoulder and hands you the wheel."
-msgstr ""
+msgstr "{name} dừng ở lề đường và giao lại tay lái cho bạn."
 
 #. placeholders: {name}
 msgid ""
 "{name} stopped on the shoulder and hands you the wheel. Their break is due."
 msgstr ""
+"{name} dừng ở lề đường và giao lại tay lái cho bạn. Đã tới giờ nghỉ giữa ca."
 
 #. placeholders: {name}
 msgid "{name} has parked and hands you the wheel. Your 10-hour rest is in."
@@ -32960,29 +33073,33 @@ msgstr ""
 #. placeholders: {pay}
 #. one sentence of a longer line
 msgid "{pay} Those miles earn you half the experience."
-msgstr ""
+msgstr "{pay} Quãng đường đó tính cho bạn một nửa điểm kinh nghiệm."
 
 #. placeholders: {pay}, {name}
 msgid ""
 "{pay} Those miles earn you half the experience. While {name} drives, you "
 "are logged in the sleeper berth."
 msgstr ""
+"{pay} Quãng đường đó tính cho bạn một nửa điểm kinh nghiệm. Trong lúc "
+"{name} cầm lái, nhật ký của bạn được ghi ở trạng thái nghỉ tại khoang ngủ."
 
 #. one sentence of a longer line
 msgid "Your own hours reach the receiver from there."
-msgstr ""
+msgstr "Từ đó, giờ của chính bạn đủ tới bên nhận hàng."
 
 #. placeholders: {name}, {left}
 #. one sentence of a longer line
 msgid ""
 "{name} has {left} of driving left, then parks and hands you the wheel."
-msgstr ""
+msgstr "{name} còn {left} lái, rồi sẽ đỗ xe và giao lại tay lái cho bạn."
 
 #. placeholders: {name}, {left}
 msgid ""
 "{name} has {left} of driving left, then parks and hands you the wheel. Your "
 "own hours reach the receiver from there."
 msgstr ""
+"{name} còn {left} lái, rồi sẽ đỗ xe và giao lại tay lái cho bạn. Từ đó, giờ "
+"của chính bạn đủ tới bên nhận hàng."
 
 #. placeholders: {name}, {left}
 #. one sentence of a longer line
@@ -32990,6 +33107,8 @@ msgid ""
 "{name} has {left} of driving left and no truck lot in reach, so they stop "
 "on the shoulder and hand you the wheel."
 msgstr ""
+"{name} còn {left} lái và không có bãi đỗ xe tải nào gần đó, nên sẽ dừng ở "
+"lề đường và giao lại tay lái cho bạn."
 
 #. placeholders: {name}, {left}
 msgid ""
@@ -32997,6 +33116,9 @@ msgid ""
 "on the shoulder and hand you the wheel. Your own hours reach the receiver "
 "from there."
 msgstr ""
+"{name} còn {left} lái và không có bãi đỗ xe tải nào gần đó, nên sẽ dừng ở "
+"lề đường và giao lại tay lái cho bạn. Từ đó, giờ của chính bạn đủ tới bên "
+"nhận hàng."
 
 #. placeholders: {name}, {left}
 msgid ""
@@ -33081,11 +33203,11 @@ msgstr "Nhận lại tay lái"
 
 #. placeholders: {name}, {time}
 msgid "Hand the wheel to {name} for {time} and ride along"
-msgstr ""
+msgstr "Giao tay lái cho {name} trong {time} và ngồi cùng"
 
 #. placeholders: {name}, {time}
 msgid "Hand the wheel to {name} for {time} and sleep"
-msgstr ""
+msgstr "Giao tay lái cho {name} trong {time} và đi ngủ"
 
 #. placeholders: {name}
 msgid "Hand the wheel to {name} and ride along"
@@ -33138,7 +33260,7 @@ msgid "Refuel"
 msgstr "Đổ dầu"
 
 msgid "shoulder break"
-msgstr ""
+msgstr "nghỉ ở lề đường"
 
 msgid "stalled"
 msgstr "chết máy"
@@ -33218,28 +33340,30 @@ msgstr "Tài xế phụ: {name}, đang nghỉ ở khoang ngủ"
 
 #. placeholders: {name}
 msgid "Co-driver: {name}, in the sleeper, rested."
-msgstr ""
+msgstr "Tài xế phụ: {name}, đang nghỉ ở khoang ngủ, đã nghỉ đủ."
 
 #. placeholders: {name}
 #. one sentence of a longer line
 msgid "Co-driver: {name}, in the sleeper."
-msgstr ""
+msgstr "Tài xế phụ: {name}, đang nghỉ ở khoang ngủ."
 
 #. placeholders: {name}, {duration_text}, {duration_text2}
 msgid ""
 "Co-driver: {name}, in the sleeper. Rest: {duration_text} of 10 hours. "
 "{duration_text2} of driving left."
 msgstr ""
+"Tài xế phụ: {name}, đang nghỉ ở khoang ngủ. Đã nghỉ: {duration_text} trên "
+"10 giờ. Còn {duration_text2} lái."
 
 #. placeholders: {duration_text}
 #. one sentence of a longer line
 msgid "Rest: {duration_text} of 10 hours."
-msgstr ""
+msgstr "Đã nghỉ: {duration_text} trên 10 giờ."
 
 #. placeholders: {duration_text2}
 #. one sentence of a longer line
 msgid "{duration_text2} of driving left."
-msgstr ""
+msgstr "Còn {duration_text2} lái."
 
 #. placeholders: {name}, {trim_end_matches}
 msgid "ELD, {name}: {trim_end_matches}"
@@ -33265,19 +33389,19 @@ msgid "Team load: {name} drove {f} of the miles"
 msgstr "Đơn chạy đôi: {name} đã lái {f} quãng đường"
 
 msgid "hours up, yours reach"
-msgstr ""
+msgstr "hết giờ, giờ của bạn đủ"
 
 msgid "last lot"
 msgstr "lô đất cuối"
 
 msgid "hours up"
-msgstr ""
+msgstr "hết giờ"
 
 msgid "shoulder hours"
-msgstr ""
+msgstr "hết giờ ở lề đường"
 
 msgid "shoulder hours, yours reach"
-msgstr ""
+msgstr "hết giờ ở lề đường, giờ của bạn đủ"
 
 #. placeholders: {name}
 msgid "{name} took a 30-minute break on the shoulder."
@@ -35580,7 +35704,7 @@ msgid "Practice gestures"
 msgstr "Luyện tập cử chỉ"
 
 msgid "Names what each gesture does while driving."
-msgstr ""
+msgstr "Đọc tên chức năng của từng cử chỉ khi đang lái."
 
 msgid "Practice keys and buttons"
 msgstr "Tập bấm phím và nút"
@@ -35694,7 +35818,7 @@ msgstr ""
 "nó khi lái xe. Nhấn Escape hai lần, hoặc Start hai lần để thoát."
 
 msgid "Flick down with two fingers twice to leave."
-msgstr ""
+msgstr "Vuốt hai ngón xuống hai lần để thoát."
 
 msgid "Escape twice within two seconds to leave."
 msgstr "Nhấn Escape hai lần trong vòng hai giây để thoát."
@@ -36074,6 +36198,10 @@ msgid ""
 "set to Synthesized, On keeps the radio on the Roadhouse and tuning does "
 "nothing."
 msgstr ""
+"Khi tắt, bảng dò đài phát đủ mọi đài, kể cả các đài trực tuyến thực tế. Khi "
+"bật, đài chỉ giữ các đài an toàn có sẵn, để phát trực tiếp hoặc ghi hình. "
+"Khi nguồn nhạc nền là Nhạc tổng hợp, bật sẽ giữ đài ở Roadhouse và dò đài "
+"không có tác dụng."
 
 msgid "a soft tone leans"
 msgstr "âm báo nhẹ lệch"
@@ -36830,12 +36958,14 @@ msgstr ""
 
 #. placeholders: {else}
 msgid "Second layer bumper: {else}"
-msgstr ""
+msgstr "Nút vai cho lớp thứ hai: {else}"
 
 msgid ""
 "Which bumper you hold for the second layer of controller buttons. The other "
 "bumper is the clutch."
 msgstr ""
+"Nút vai bạn giữ để dùng lớp nút thứ hai trên tay cầm. Nút vai còn lại là "
+"chân côn."
 
 #. placeholders: {on_off}
 msgid "Visual display: {on_off}"
@@ -36882,6 +37012,8 @@ msgid ""
 "Move any driving control to another pad button, plain or with the left "
 "bumper held."
 msgstr ""
+"Đổi bất kỳ lệnh lái xe nào sang nút tay cầm khác, bấm trực tiếp hoặc kết "
+"hợp giữ nút vai trái."
 
 msgid ""
 "Move any driving control to another pad button, plain or with the right "
@@ -37339,28 +37471,32 @@ msgstr ""
 
 #. placeholders: {engine_label}
 msgid "Voice engine: {engine_label}"
-msgstr ""
+msgstr "Bộ máy đọc: {engine_label}"
 
 msgid ""
 "Which text to speech engine on your phone the game speaks with. Changing it "
 "picks one of its voices, in the same language when it has one."
 msgstr ""
+"Bộ máy chuyển văn bản thành giọng nói trên điện thoại mà trò chơi dùng để "
+"đọc. Khi đổi, trò chơi chọn một giọng của bộ máy đó, cùng ngôn ngữ nếu có."
 
 #. placeholders: {language_label}
 msgid "Voice language: {language_label}"
-msgstr ""
+msgstr "Ngôn ngữ giọng đọc: {language_label}"
 
 msgid ""
 "Which of the engine's languages the Speech voice row offers voices in. "
 "Changing it picks the first voice in that language."
 msgstr ""
+"Ngôn ngữ của bộ máy mà dòng Giọng đọc lấy giọng. Khi đổi, trò chơi chọn "
+"giọng đầu tiên của ngôn ngữ đó."
 
 #. placeholders: {voice_label}
 msgid "Speech voice: {voice_label}"
-msgstr ""
+msgstr "Giọng đọc: {voice_label}"
 
 msgid "Which voice of that engine and language the game speaks with."
-msgstr ""
+msgstr "Giọng nào của bộ máy và ngôn ngữ đó mà trò chơi dùng để đọc."
 
 msgid ""
 "Up and Down pick a control, Enter then a key press moves it, Escape goes "
@@ -37395,13 +37531,15 @@ msgstr "Nhấn phím mới cho {label}. Nhấn Escape để giữ nguyên {curre
 msgid ""
 "Press the new button for {label}, with the left bumper held for the second "
 "layer."
-msgstr ""
+msgstr "Nhấn nút mới cho {label}, giữ nút vai trái để dùng lớp nút thứ hai."
 
 #. placeholders: {label}, {current}
 msgid ""
 "Press the new button for {label}, with the left bumper held for the second "
 "layer. Press {current} again to keep it."
 msgstr ""
+"Nhấn nút mới cho {label}, giữ nút vai trái để dùng lớp nút thứ hai. Nhấn "
+"lại {current} để giữ nguyên."
 
 #. placeholders: {current}
 #. one sentence of a longer line
@@ -37471,6 +37609,8 @@ msgid ""
 "Enter, then press the button you want for this control, with the left "
 "bumper held for the second layer."
 msgstr ""
+"Nhấn Enter, rồi bấm nút bạn muốn gán cho chức năng này, giữ nút vai trái để "
+"dùng lớp nút thứ hai."
 
 msgid ""
 "Enter, then press the button you want for this control, with the right "
@@ -37517,6 +37657,10 @@ msgid ""
 "menu line never cuts off a road event. The rate, pitch, volume, and voice "
 "rows below appear only when the voice supports them."
 msgstr ""
+"Sự kiện trên đường được đọc bằng giọng chính hoặc một giọng chuyển văn bản "
+"thành giọng nói thứ hai, để câu đọc của menu không bao giờ cắt ngang sự "
+"kiện trên đường. Các dòng tốc độ, cao độ, âm lượng và giọng bên dưới chỉ "
+"hiện khi giọng đó hỗ trợ."
 
 msgid ""
 "Road events through the main voice or a separate SAPI or OneCore voice a "
@@ -40410,11 +40554,16 @@ msgid ""
 "The radio plays while the engine runs. A three-finger flick right tunes "
 "forward, and a three-finger flick left tunes backward."
 msgstr ""
+"Đài phát khi động cơ đang nổ máy. Vuốt nhanh ba ngón sang phải để dò tới, "
+"vuốt nhanh ba ngón sang trái để dò lui."
 
 msgid ""
 "Hold Control with a tune key to jump between categories, including route "
 "music, Freight Fate stations, favorites, and broadcast or web stations."
 msgstr ""
+"Giữ Control cùng phím dò đài để nhảy qua lại giữa các nhóm, gồm nhạc theo "
+"tuyến, các đài Freight Fate, mục yêu thích và các đài phát sóng hoặc trực "
+"tuyến."
 
 msgid ""
 "Radio and CB on the three-finger tap list turns the radio on or off, saves "
@@ -40422,12 +40571,19 @@ msgid ""
 "route music, Freight Fate stations, favorites, and broadcast or web "
 "stations."
 msgstr ""
+"Mục Đài phát thanh và CB trong danh sách chạm ba ngón dùng để bật hoặc tắt "
+"đài, lưu mục yêu thích, đổi âm lượng và nhóm đài. Các nhóm gồm nhạc theo "
+"tuyến, các đài Freight Fate, mục yêu thích và các đài phát sóng hoặc trực "
+"tuyến."
 
 msgid ""
 "Radio status reads station, reception, volume, and streamer-safe status. "
 "What the radio is playing reads available song information. Both are under "
 "Radio and CB."
 msgstr ""
+"Trạng thái đài đọc tên đài, độ bắt sóng, âm lượng và trạng thái chế độ an "
+"toàn cho streamer. Đài đang phát gì đọc thông tin bài hát hiện có. Cả hai "
+"nằm trong Đài phát thanh và CB."
 
 msgid ""
 "Original uses the licensed menu and Roadhouse tracks. Synthesized plays "
@@ -40435,22 +40591,31 @@ msgid ""
 "Fate's regional stations and voiced breaks off the dial. Real streams "
 "remain unless streamer-safe mode hides them."
 msgstr ""
+"Nguyên bản dùng nhạc menu và nhạc Roadhouse có bản quyền. Nhạc tổng hợp "
+"phát nhạc do trò chơi tự soạn cùng ba bản nhạc gốc, và bỏ các đài khu vực "
+"của Freight Fate cùng các đoạn chen lời ra khỏi bảng dò đài. Các đài trực "
+"tuyến thực tế vẫn còn, trừ khi chế độ an toàn cho streamer ẩn chúng."
 
 #. one sentence of a longer line
 msgid "How do I change stations?"
-msgstr ""
+msgstr "Làm sao để đổi đài?"
 
 #. placeholders: {control_radio}
 msgid ""
 "How do I change stations? With the engine running, {control_radio} switches "
 "the radio on, and Page Up or Page Down tunes."
 msgstr ""
+"Làm sao để đổi đài? Khi động cơ đang nổ máy, {control_radio} bật radio, còn "
+"Page Up hoặc Page Down dùng để dò đài."
 
 msgid ""
 "How do I change stations? With the engine running, a three-finger flick "
 "right or left tunes. Radio on or off is under Radio and CB on the "
 "three-finger tap list."
 msgstr ""
+"Làm sao để đổi đài? Khi động cơ đang nổ máy, vuốt nhanh ba ngón sang phải "
+"hoặc sang trái để dò đài. Bật hoặc tắt đài nằm trong mục Đài phát thanh và "
+"CB ở danh sách chạm ba ngón."
 
 #. placeholders: {page}, {HELP_PAGES}, {title}
 msgid "Page {page} of {HELP_PAGES}: {title}."
@@ -43701,18 +43866,20 @@ msgstr "Chọn lần nữa để ngủ."
 #. (crates/freight-fate/src/controller/bumpers.rs).
 #. placeholders: {short}
 msgid "left bumper plus {short}"
-msgstr ""
+msgstr "nút vai trái cộng {short}"
 
 msgid "the right bumper is the clutch"
-msgstr ""
+msgstr "nút vai phải là chân côn"
 
 msgid "the left bumper is the second layer"
-msgstr ""
+msgstr "nút vai trái là nút chuyển lớp lệnh thứ hai"
 
 msgid ""
 "For manual clutch, hold either Shift key on a keyboard or right bumper on a "
 "controller."
 msgstr ""
+"Để đạp côn số sàn, nhấn giữ một trong hai phím Shift trên bàn phím hoặc nút "
+"vai phải trên tay cầm."
 
 #. placeholders: {control_shift_up}, {control_shift_down}, {control_neutral}, {control_reverse}
 msgid ""
@@ -43720,9 +43887,13 @@ msgid ""
 "controller. Then {control_shift_up} shifts up, {control_shift_down} down, "
 "{control_neutral} selects neutral, and {control_reverse} selects reverse."
 msgstr ""
+"Để đạp côn số sàn, nhấn giữ một trong hai phím Shift trên bàn phím hoặc nút "
+"vai phải trên tay cầm. Sau đó {control_shift_up} lên số, "
+"{control_shift_down} xuống số, {control_neutral} về số mo và "
+"{control_reverse} vào số lùi."
 
 msgid "Hold right bumper for manual clutch."
-msgstr ""
+msgstr "Giữ nút vai phải để đạp côn tay."
 
 #. placeholders: {pad_shift_up}, {pad_shift_down}, {pad_cruise}, {pad_speed}
 msgid ""
@@ -43730,15 +43901,20 @@ msgid ""
 "{pad_shift_down} down, past first into neutral and then reverse. "
 "{pad_cruise} starts speed control. {pad_speed} reads speed."
 msgstr ""
+"Giữ nút vai phải để đạp côn tay. {pad_shift_up} lên số và {pad_shift_down} "
+"xuống số, qua số một là về số mo rồi tới số lùi. {pad_cruise} bật điều "
+"khiển tốc độ. {pad_speed} đọc tốc độ."
 
 msgid "Hold the left bumper for a second layer of buttons."
-msgstr ""
+msgstr "Giữ nút vai trái để mở lớp nút thứ hai."
 
 #. placeholders: {pad_engine}, {pad_fuel}, {pad_speed_limit}
 msgid ""
 "Hold the left bumper for a second layer of buttons. {pad_engine} controls "
 "the engine, {pad_fuel} reads fuel, and {pad_speed_limit} reads the limit."
 msgstr ""
+"Giữ nút vai trái để mở lớp nút thứ hai. {pad_engine} bật tắt động cơ, "
+"{pad_fuel} đọc nhiên liệu và {pad_speed_limit} đọc tốc độ giới hạn."
 
 #~ msgid ""
 #~ "{distance}, deadline {hours} hours. Team load: you and a co-driver take "
