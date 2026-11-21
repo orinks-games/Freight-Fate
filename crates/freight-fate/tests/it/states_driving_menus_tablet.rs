@@ -243,6 +243,74 @@ fn test_the_tab_radio_screen_favorites_count_opens_the_list() {
     assert!(rows[0].starts_with(&tuned), "{rows:?}");
 }
 
+/// The Tab radio screen's station rows, the lines under "Receivable stations:".
+fn tab_radio_station_rows(rows: &[String]) -> Vec<String> {
+    rows.iter()
+        .skip_while(|r| *r != "Receivable stations:")
+        .filter(|r| r.contains(". Source: "))
+        .cloned()
+        .collect()
+}
+
+/// A station row on the Tab radio screen, other than the tuned one.
+fn an_untuned_station_row(rows: &[String]) -> String {
+    tab_radio_station_rows(rows)
+        .into_iter()
+        .find(|r| !r.starts_with("current, "))
+        .unwrap_or_else(|| panic!("no untuned station row: {rows:?}"))
+}
+
+#[test]
+fn test_enter_on_a_tab_radio_screen_station_tunes_it() {
+    let mut app = TestApp::new();
+    let drive = a_radio_drive(&mut app);
+    with_drive(&drive, |d| d.trip.truck.start_engine());
+    let mut state = DrivingStatusScreenState::new(DriveRef::of(&drive), "radio");
+    Menu::enter(&mut state, &mut app.ctx);
+    let station_row = an_untuned_station_row(&labels(&state, &app.ctx));
+    let name = station_row.split(':').next().unwrap().to_string();
+
+    activate(&mut state, &mut app.ctx, &station_row);
+    assert_eq!(
+        with_drive(&drive, |d| d.radio.current_station().display_name()),
+        name
+    );
+    assert!(
+        last(&app).contains(&format!("Selected {name}.")),
+        "{}",
+        last(&app)
+    );
+    // The rebuilt screen marks the new station as the current one.
+    let rows = labels(&state, &app.ctx);
+    assert!(
+        rows.iter()
+            .any(|r| r.starts_with(&format!("current, {name}:"))),
+        "{rows:?}"
+    );
+}
+
+#[test]
+fn test_a_locked_dial_leaves_the_tab_radio_screen_stations_read_only() {
+    let mut app = TestApp::new();
+    let drive = a_radio_drive(&mut app);
+    // Synthesized music with streamer-safe mode on locks the dial.
+    app.ctx.settings.synth_music = true;
+    app.ctx.settings.radio_streamer_safe = true;
+    with_drive(&drive, |d| d.trip.truck.start_engine());
+    let tuned = with_drive(&drive, |d| d.radio.station_id.clone());
+    let mut state = DrivingStatusScreenState::new(DriveRef::of(&drive), "radio");
+    Menu::enter(&mut state, &mut app.ctx);
+    let rows = labels(&state, &app.ctx);
+    let stations = tab_radio_station_rows(&rows);
+    assert!(!stations.is_empty(), "{rows:?}");
+    for station_row in stations {
+        // Enter only repeats the line, as on every other status row.
+        activate(&mut state, &mut app.ctx, &station_row);
+        assert_eq!(last(&app), station_row);
+    }
+    assert_eq!(with_drive(&drive, |d| d.radio.station_id.clone()), tuned);
+}
+
 #[test]
 fn test_an_empty_favourites_list_says_how_to_fill_it() {
     let mut app = TestApp::new();

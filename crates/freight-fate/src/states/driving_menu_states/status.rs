@@ -123,14 +123,21 @@ pub struct DrivingStatusScreenState {
     menu: MenuCore<Self>,
     driving: DriveRef,
     pub screen: String,
+    /// The Radio screen's station rows, line to station id, from the last
+    /// build; empty while the dial is locked, so those rows only repeat.
+    radio_stations: Vec<(String, String)>,
 }
 
 /// The static `intro_help` the Python class carried became a property so the
-/// Map screen can mention opening a stop's details. The radio screen stays.
+/// Map and Radio screens can mention what Enter does on their rows.
 fn screen_intro_help(screen: &str) -> &'static str {
     if screen == "map" {
         return "Up and down review the lines. Enter repeats a line, or opens details on a \
                 stop line. Escape goes back.";
+    }
+    if screen == "radio" {
+        return "Up and down review the lines. Enter repeats a line, or tunes a station line. \
+                Escape goes back.";
     }
     "Up and down review the lines. Enter repeats a line. Escape goes back."
 }
@@ -151,6 +158,7 @@ impl DrivingStatusScreenState {
             menu: MenuCore::new(screen_title(screen)).with_intro_help(screen_intro_help(screen)),
             driving,
             screen: screen.to_string(),
+            radio_stations: Vec::new(),
         }
     }
 
@@ -418,10 +426,30 @@ impl DrivingStatusScreenState {
         ctx.say("Planned stop canceled.");
     }
 
+    fn station_id_for(&self, line: &str) -> Option<String> {
+        self.radio_stations
+            .iter()
+            .find(|(_, row)| row == line)
+            .map(|(id, _)| id.clone())
+    }
+
+    /// Tunes a station row the way the Radio app's lists do, then rebuilds
+    /// so "current" moves to the new station.
+    fn tune(&mut self, ctx: &mut GameContext, station_id: &str) {
+        let message = self
+            .driving
+            .with(ctx, |d, ctx| d.tune_radio_to(ctx, station_id))
+            .unwrap_or_default();
+        if !message.is_empty() {
+            ctx.say(&message);
+        }
+        self.refresh(ctx, true);
+    }
+
     fn radio_lines(&mut self, ctx: &mut GameContext) -> Vec<String> {
         self.driving
             .clone()
-            .call(self, ctx, |_s, ctx, d| {
+            .call(self, ctx, |s, ctx, d| {
                 // Opening the dial re-reads the Playlists folder: a playlist
                 // added or repaired mid-run used to need a whole new drive
                 // before the radio would look at the folder again, and this
@@ -512,8 +540,9 @@ impl DrivingStatusScreenState {
                     ..Settings::default()
                 };
                 let distance_text = |miles: f64| units.distance_text(miles, false);
-                let (stations, more) = d.radio.station_list_lines(Some(&distance_text));
-                lines.extend(stations);
+                let (stations, more) = d.radio.station_list_rows(Some(&distance_text));
+                lines.extend(stations.iter().map(|(_, line)| line.clone()));
+                s.radio_stations = if locked { Vec::new() } else { stations };
                 // The streams in range everywhere run to thousands: count
                 // them, and name where they are listed.
                 match more {
@@ -575,6 +604,12 @@ impl Menu for DrivingStatusScreenState {
                         })
                         .help("Your saved stations. Enter on one tunes it.")
                         .touch_help("Your saved stations. Double tap one to tune it.")
+                    } else if let Some(id) = self.station_id_for(&line) {
+                        MenuItem::new(line, move |s: &mut Self, ctx: &mut GameContext| {
+                            s.tune(ctx, &id)
+                        })
+                        .help("Enter tunes this station.")
+                        .touch_help("Double tap tunes this station.")
                     } else {
                         say_item(line)
                     }
