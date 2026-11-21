@@ -15,11 +15,13 @@
 //! * [`cues`] -- what the lane sounds like: the edge ladder, off-pavement
 //!   transitions, the curve run's verdict, the transverse strips, the
 //!   locator and steering tocks, and the guidance director.
-//! * [`engine_audio`] -- the engine bed, the shift duck, road joints, the
+//! * [`engine_audio`] -- the engine bed, the shift duck, the
 //!   jake growl, the air-fill loop, and automatic retarder management.
 //! * [`radio`] -- reception, the FM fringe, station rotation and personal
 //!   playlists, the dial keys, and the live-data source syncs.
 //! * [`radio_synth`] -- the Roadhouse in Synthesized mode.
+//! * [`road_texture`] -- seams and bridge joints under the wheels.
+//! * [`outside`] -- birds, insects and the river outside the truck.
 //! * [`hazards`] -- the braking budget, automatic emergency braking, hazard
 //!   resolution, and the grade advisory.
 //! * [`enforcement`] -- the dash overspeed alert, the pull-over and its
@@ -47,11 +49,13 @@ pub mod frame;
 pub mod hazards;
 pub mod lanes;
 pub mod live_sources;
+pub mod outside;
 pub mod pacing;
 pub mod pending;
 pub mod radio;
 pub mod radio_channel3000;
 pub mod radio_synth;
+pub mod road_texture;
 pub mod runaway;
 pub mod stops;
 
@@ -279,6 +283,7 @@ pub mod live {
         static HAZARD_ACTIVE: Cell<bool> = const { Cell::new(false) };
         static ARRIVAL_MENU_OPEN: Cell<bool> = const { Cell::new(false) };
         static GATE_STOP_PROMPTED: Cell<bool> = const { Cell::new(false) };
+        static STOP_OFFER_OPEN: Cell<bool> = const { Cell::new(false) };
         static ON_RAMP: Cell<bool> = const { Cell::new(false) };
         static POSTED_LIMIT_MPH: Cell<f64> = const { Cell::new(0.0) };
         static RAMP_HOLDING: Cell<bool> = const { Cell::new(false) };
@@ -429,6 +434,19 @@ pub mod live {
 
     pub fn gate_stop_prompted() -> bool {
         GATE_STOP_PROMPTED.with(|cell| cell.get())
+    }
+
+    /// Whether the touch line for the stop the truck is waiting at still
+    /// holds: false once the double tap has opened the stop or the truck
+    /// has left it, so a cut copy handed back over the stop's own menu is
+    /// dropped. Stamped where it moves; the drive stops ticking under the
+    /// stop menu.
+    pub fn set_stop_offer_open(value: bool) {
+        STOP_OFFER_OPEN.with(|cell| cell.set(value));
+    }
+
+    pub fn stop_offer_open() -> bool {
+        STOP_OFFER_OPEN.with(|cell| cell.get())
     }
 }
 

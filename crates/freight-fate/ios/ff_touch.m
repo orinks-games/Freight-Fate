@@ -18,7 +18,8 @@
 // cancels the horn. A second finger tapping or flicking while a pedal is
 // held is a gesture of its own. No screen position is used, only relative
 // distances and times, so everything works anywhere on the screen.
-// Every gesture is queued as a small integer code; the Rust side
+// While Practice gestures is open, a hold in a direction also reports how far
+// it travelled as it lifts. Every gesture is queued as a small integer code; the Rust side
 // (`touch.rs`) drains the queue each frame and hands each gesture to the
 // game. Speech never comes from here: Prism speaks through VoiceOver's
 // announcement channel.
@@ -75,6 +76,11 @@ enum {
     FF_ROTATE_LEFT = 47,
     FF_KEYBOARD_CONNECTED = 48,
     FF_KEYBOARD_DISCONNECTED = 49,
+    // A hold's furthest travel along its direction, in whole points, as
+    // FF_TRAVEL_BASE plus the points (at most FF_TRAVEL_MAX). Sent as the
+    // finger lifts, only while ff_report_travel is on (Practice gestures).
+    FF_TRAVEL_BASE = 1000,
+    FF_TRAVEL_MAX = 999,
 };
 
 enum {
@@ -122,6 +128,7 @@ void ff_touch_haptic(int kind) {
 // The haptic every action gets: a tick for one step, a bump for a hold
 // starting or ending, a warning for the deep swipe, a success for the key.
 static int ff_haptic_kind(int32_t code) {
+    if (code >= FF_TRAVEL_BASE) return -1;
     switch (code) {
     case FF_KEYBOARD_CONNECTED:
     case FF_KEYBOARD_DISCONNECTED:
@@ -217,6 +224,14 @@ void ff_touch_set_tuning(double flick_points, double flick_ms, double deep_facto
     ff_rotate_degrees = fmax(10.0, fmin(90.0, rotate_degrees));
 }
 
+// Practice gestures turns this on to hear how far each hold went; the
+// drive's queue never carries a length.
+static BOOL ff_report_travel = NO;
+
+void ff_touch_set_report_travel(int enabled) {
+    ff_report_travel = enabled != 0;
+}
+
 int32_t ff_touch_keyboard_connected(void) {
     if (@available(iOS 14.0, *)) {
         return GCKeyboard.coalescedKeyboard != nil;
@@ -252,6 +267,7 @@ static FFDirection ff_direction(CGFloat dx, CGFloat dy) {
     int _flickExtensions;
     NSTimer *_stillTimer;
     int32_t _hold;
+    CGFloat _travel;
     UITouch *_second;
     CGPoint _secondStart;
     NSTimeInterval _secondStartTime;
@@ -274,6 +290,7 @@ static FFDirection ff_direction(CGFloat dx, CGFloat dy) {
             _first = touch;
             _start = [touch locationInView:self.view];
             _direction = FFNone;
+            _travel = 0;
             _stillTimer = [NSTimer scheduledTimerWithTimeInterval:ff_still_seconds
                                                            target:self
                                                          selector:@selector(stillElapsed)
@@ -323,6 +340,13 @@ static FFDirection ff_direction(CGFloat dx, CGFloat dy) {
                                                      selector:@selector(flickElapsed)
                                                      userInfo:nil
                                                       repeats:NO];
+    }
+    if (_direction != FFNone) {
+        CGFloat along = _direction == FFUp     ? -dy
+                        : _direction == FFDown ? dy
+                        : _direction == FFLeft ? -dx
+                                               : dx;
+        _travel = fmax(_travel, along);
     }
     // Only a stroke that has outlasted the flick window (the down hold has
     // begun) can become the deep swipe; a fast long flick down stays a flick.
@@ -390,6 +414,7 @@ static FFDirection ff_direction(CGFloat dx, CGFloat dy) {
         if (_hold) {
             [self flushPendingTap];
             [self endSecond];
+            [self reportTravel];
             ff_emit(FF_HOLD_ENDED);
             self.state = UIGestureRecognizerStateEnded;
         } else if (_direction != FFNone && self.state == UIGestureRecognizerStatePossible) {
@@ -418,6 +443,16 @@ static FFDirection ff_direction(CGFloat dx, CGFloat dy) {
             self.state = UIGestureRecognizerStateFailed;
         }
     }
+}
+
+// How far a hold in a direction went, for Practice gestures. A still hold
+// and a horn have no direction, so they report nothing.
+- (void)reportTravel {
+    if (!ff_report_travel || _direction == FFNone || _hold == FF_STILL_HOLD_BEGAN) {
+        return;
+    }
+    CGFloat points = fmin((CGFloat)FF_TRAVEL_MAX, fmax(0.0, round(_travel)));
+    ff_emit(FF_TRAVEL_BASE + (int32_t)points);
 }
 
 - (void)secondMoved {
@@ -533,6 +568,7 @@ static FFDirection ff_direction(CGFloat dx, CGFloat dy) {
     _first = nil;
     _second = nil;
     _hold = 0;
+    _travel = 0;
     _direction = FFNone;
     _secondDirection = FFNone;
     _secondSteering = NO;
@@ -692,6 +728,15 @@ static FFDirection ff_direction(CGFloat dx, CGFloat dy) {
     ff_push(ff_touch_keyboard_connected() ? FF_KEYBOARD_CONNECTED : FF_KEYBOARD_DISCONNECTED);
     [self installRecognizers];
     return self;
+}
+
+// iOS 13 put undo, redo and the editing shortcut bar on three fingers, the
+// same fingers as the command list tap. A responder opts out with
+// UIEditingInteractionConfigurationNone (UIResponder, iOS 13 and later); the
+// surface and the root view controller both answer it, since Apple's
+// documentation does not say where in the responder chain it is read.
+- (UIEditingInteractionConfiguration)editingInteractionConfiguration API_AVAILABLE(ios(13.0)) {
+    return UIEditingInteractionConfigurationNone;
 }
 
 - (void)installRecognizers {
@@ -919,6 +964,22 @@ static void ff_defer_screen_edges(UIViewController *controller) {
     [controller setNeedsUpdateOfScreenEdgesDeferringSystemGestures];
 }
 
+// Keep iOS's three-finger editing gestures off the root view controller too
+// (see -[FFTouchView editingInteractionConfiguration]).
+static void ff_no_editing_gestures(UIViewController *controller) {
+    if (!controller) {
+        return;
+    }
+    if (@available(iOS 13.0, *)) {
+        SEL selector = @selector(editingInteractionConfiguration);
+        Method base = class_getInstanceMethod([UIResponder class], selector);
+        IMP none = imp_implementationWithBlock(^UIEditingInteractionConfiguration(__unused id me) {
+            return UIEditingInteractionConfigurationNone;
+        });
+        class_replaceMethod(object_getClass(controller), selector, none, method_getTypeEncoding(base));
+    }
+}
+
 // Lay the touch surface over SDL's view. `window` is the UIWindow SDL made
 // (what its window-manager info reports); a UIView is accepted as well.
 // Returns 1 when the surface is in place.
@@ -940,8 +1001,18 @@ int32_t ff_touch_install(void *window) {
     FFTouchView *surface = [[FFTouchView alloc] initWithFrame:host.bounds];
     [host addSubview:surface];
     ff_defer_screen_edges(host.window.rootViewController);
+    ff_no_editing_gestures(host.window.rootViewController);
     UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, surface);
     return 1;
+}
+
+double ff_phone_safe_top_fraction(void *window) {
+    UIWindow *ui_window = (__bridge UIWindow *)window;
+    CGFloat height = CGRectGetHeight(ui_window.bounds);
+    if (ui_window.traitCollection.userInterfaceIdiom != UIUserInterfaceIdiomPhone || height <= 0) {
+        return 0;
+    }
+    return ui_window.safeAreaInsets.top / height;
 }
 
 // The scene lifecycle. iOS 27 refuses to launch an app built against its SDK
@@ -956,6 +1027,16 @@ int32_t ff_touch_install(void *window) {
 
 static UIWindowScene *ff_scene;
 static NSPointerArray *ff_unplaced_windows;
+
+void ff_observe_app_lifecycle(void (*foreground_changed)(int32_t)) {
+    NSNotificationCenter *center = NSNotificationCenter.defaultCenter;
+    [center addObserverForName:UIApplicationDidEnterBackgroundNotification object:nil queue:nil
+                    usingBlock:^(__unused NSNotification *note) { foreground_changed(0); }];
+    [center addObserverForName:UIApplicationWillTerminateNotification object:nil queue:nil
+                    usingBlock:^(__unused NSNotification *note) { foreground_changed(0); }];
+    [center addObserverForName:UIApplicationWillEnterForegroundNotification object:nil queue:nil
+                    usingBlock:^(__unused NSNotification *note) { foreground_changed(1); }];
+}
 
 static void ff_place_window(UIWindow *window) {
     if (window.windowScene) {

@@ -33,6 +33,7 @@ on:
       - "crates/freight-fate/build.rs"
       - "crates/freight-fate/src/touch.rs"
       - "crates/freight-fate/src/app/sdl_shell.rs"
+      - "crates/freight-fate/src/app/sdl_shell/ios.rs"
       - "crates/freight-fate/Cargo.toml"
       - "Cargo.toml"
       - "Cargo.lock"
@@ -64,7 +65,7 @@ jobs:
       CARGO_TERM_COLOR: always
       HOMEBREW_NO_AUTO_UPDATE: "1"
       # `cargo tools build-ios`'s MINIMUM_IOS.
-      IPHONEOS_DEPLOYMENT_TARGET: "14.0"
+      IPHONEOS_DEPLOYMENT_TARGET: "15.0"
       # Same escape hatch as the Mac nightly: the bundled SDL2 source
       # declares a cmake_minimum_required older than CMake 4 accepts.
       CMAKE_POLICY_VERSION_MINIMUM: "3.5"

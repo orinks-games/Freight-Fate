@@ -73,6 +73,24 @@ impl DrivingState {
         }
     }
 
+    /// On touch, `message` with the keyboard sentence `keyboard` ("Press E to
+    /// restart the engine.") swapped for the touch one; otherwise unchanged.
+    /// The rest of the line is the keyboard template's, so its sentences keep
+    /// their translations.
+    pub fn with_touch_sentence(
+        &self,
+        ctx: &GameContext,
+        message: String,
+        keyboard: &str,
+        touch: &str,
+    ) -> String {
+        if ctx.touch_hints() && message.contains(keyboard) {
+            message.replacen(keyboard, touch, 1)
+        } else {
+            message
+        }
+    }
+
     /// `_instruction_retired(action)` (research doc R7). Always retired with
     /// Driving hints off.
     pub fn instruction_retired(&self, ctx: &mut GameContext, action: &str) -> bool {
@@ -122,6 +140,9 @@ impl DrivingState {
         if self.instruction_retired(ctx, "engine") {
             return "Engine off.".to_string();
         }
+        if ctx.touch_hints() {
+            return "Turn two fingers right to start the engine.".to_string();
+        }
         format!("Press {} to start the engine.", ctx.control_hint("engine"))
     }
 
@@ -136,10 +157,14 @@ impl DrivingState {
         if self.instruction_retired(ctx, "cruise_set") {
             return "Cruise paused. ".to_string();
         }
-        format!(
-            "Cruise paused. {} cancels it. ",
-            ctx.control_hint("cruise_set")
-        )
+        if ctx.touch_hints() {
+            return format!(
+                "Cruise paused. {} to cancel it. ",
+                ctx.touch_instruction(crate::bindings::Action::Cruise)
+            );
+        }
+        let control_hint = ff_core::speech_text::sentence_start(&ctx.control_hint("cruise_set"));
+        format!("Cruise paused. {control_hint} cancels it. ")
     }
 
     /// The parking-brake pointer at the end of the resume line, retired once
@@ -147,6 +172,10 @@ impl DrivingState {
     pub fn parking_brake_hint_tail(&self, ctx: &mut GameContext) -> String {
         if self.instruction_retired(ctx, "parking_brake") {
             return String::new();
+        }
+        if ctx.touch_hints() {
+            return "At air ready, swipe up and hold to release the parking brake and drive."
+                .to_string();
         }
         format!(
             "At air ready, {} releases the parking brake.",
@@ -259,10 +288,14 @@ impl DrivingState {
             let speed_control = self.resumed_speed_control_status(ctx);
             let report_lead = self.trip.weather.report_lead(imperial);
             if self.terse_speech(ctx) {
-                let parked = self.parked_entry_status();
+                // The truck's state is one hole, so a translation takes the
+                // sentences in it one at a time. As two holes side by side,
+                // a translated line split them mid-sentence and left the
+                // parking brake in English.
+                let status = format!("{speed_control}{}", self.parked_entry_status());
                 let text = format!(
                     "Resuming {drive_name}: {destination}. {progress} {hours_used:.1} of {:.0} \
-                     hours used. {now}. {mode}. {report_lead}. {speed_control}{parked}",
+                     hours used. {now}. {mode}. {report_lead}. {status}",
                     self.job.deadline_game_h
                 );
                 ctx.say_with(text, Say::queued());
@@ -270,13 +303,17 @@ impl DrivingState {
                 let engine = self.engine_entry_instruction(ctx);
                 let transmission = self.transmission_sentence();
                 let brake = self.parking_brake_hint_tail(ctx);
+                // One hole for the same reason as the short line above: as
+                // three, "Press E to start the engine." stayed in English
+                // in every translation of this line.
+                let status = format!("{speed_control}{engine} {brake}");
+                let status = status.trim_end();
                 let text = format!(
                     "Resuming {drive_name}: {:.0} tons of {} to {destination}. {progress} \
                      {hours_used:.1} of {:.0} hours. {now}. {transmission} {report_lead}. \
-                     {speed_control}{engine} {brake}",
+                     {status}",
                     self.job.weight_tons, self.job.cargo.label, self.job.deadline_game_h,
                 );
-                let text = text.trim_end().to_string();
                 ctx.say_with(text, Say::queued());
             }
         } else {

@@ -284,13 +284,20 @@ impl DriverAppScreenState {
                 } else {
                     lines.push(format!("ELD route note: {context}"));
                 }
-                lines.push(format!(
-                    "ELD keys: {} time at the wheel, {} when the break is due, \
+                if ctx.touch_hints() {
+                    lines.push(
+                        "ELD commands: tap with three fingers and open Hours and clock."
+                            .to_string(),
+                    );
+                } else {
+                    lines.push(format!(
+                        "ELD keys: {} time at the wheel, {} when the break is due, \
                      {} what ends this shift.",
-                    ctx.control_name(Action::HosWheel),
-                    ctx.control_name(Action::HosBreak),
-                    ctx.control_name(Action::HosDrive),
-                ));
+                        ctx.control_name(Action::HosWheel),
+                        ctx.control_name(Action::HosBreak),
+                        ctx.control_name(Action::HosDrive),
+                    ));
+                }
                 lines
             })
             .unwrap_or_default()

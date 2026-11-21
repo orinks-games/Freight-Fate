@@ -38,6 +38,8 @@ use crate::states::main_menu::{
 use crate::touch::Gesture;
 
 mod ambient;
+#[cfg(target_os = "android")]
+mod android_touch;
 pub mod boot_timing;
 mod co_driver;
 pub mod context;
@@ -79,7 +81,7 @@ pub fn version() -> &'static str {
 
 /// `package_version` from the `build_info.json` next to the executable.
 fn baked_version() -> Option<String> {
-    let exe = std::env::current_exe().ok()?;
+    let exe = ff_core::settings::paths::game_executable().ok()?;
     let resource_dir =
         ff_core::data::data_resources::resource_dir_for_executable(&exe, cfg!(target_os = "macos"));
     let info = std::fs::read_to_string(resource_dir.join("build_info.json")).ok()?;
@@ -187,6 +189,9 @@ pub struct App {
     // join the SDL batch in `frame`, so they retain the normal held-key,
     // controller, speech and state-dispatch behavior.
     queued_player_input: Vec<InputEvent>,
+    /// The role each held pad bumper was pressed as, under the Second layer
+    /// bumper row (see `controller::bumpers`).
+    bumper_roles: crate::controller::bumpers::BumperRoles,
     /// Agent sessions: the operator's keyboard never reaches the game. The
     /// window is minimized at launch, and still the owner's typing in the
     /// next window arrived as Space readouts and an S limit report mid-run
@@ -258,6 +263,28 @@ pub struct DrivingObservation {
     pub road_offer: crate::touch::RoadOffer,
     /// The clutch a touch shift works in a manual truck.
     pub touch_clutch: ff_core::sim::touch_clutch::TouchClutch,
+    /// On a load with a co-driver: where their shift stands, and the
+    /// driving time or duty window their own logbook has left (None with
+    /// hours off).
+    pub co_driver: Option<(ff_core::sim::team_shift::TeamShift, Option<f64>)>,
+    /// The driver window's state machine.
+    pub window: ff_core::sim::cab::Window,
+    /// What is alive outside, and the bed playing for it ("none" if quiet).
+    pub outside: ff_core::sim::outside::OutsideScene,
+    pub outside_bed: &'static str,
+    /// The temperature the scene was last judged on; `None` with seasons off.
+    pub outside_temperature_c: Option<f64>,
+    /// Over a river or away from one.
+    pub water: ff_core::sim::outside::Water,
+    /// Jointed (seams heard) or smooth road under the wheels, and how the
+    /// game knows.
+    pub road_surface: ff_core::sim::road_texture::RoadSurface,
+    /// The structure the pavement layer puts under the truck, with its
+    /// length in miles.
+    pub structure: Option<(ff_core::data::pavement::StructureKind, f64)>,
+    /// The chain law posted at the truck, and the chains against the road.
+    pub chain_control: ff_core::sim::chain_control::ChainControl,
+    pub chains: ff_core::sim::chain_control::ChainSet,
 }
 
 /// The only capability a windowed input policy receives for one frame.
@@ -274,6 +301,10 @@ fn staged_road_handoff(description: &str, start_mi: f64) -> String {
 }
 
 impl PlayerInputFrame<'_> {
+    pub fn cloud_resume_state(&self) -> ff_core::cloud_resume::CheckState {
+        self.app.ctx.cloud_saves_service().resume_state()
+    }
+
     pub fn driving_observation(&self) -> Option<DrivingObservation> {
         self.app.driving_observation()
     }
@@ -281,6 +312,48 @@ impl PlayerInputFrame<'_> {
     /// How a touch gesture is read on the screen on top.
     pub fn touch_mode(&self) -> crate::touch::TouchMode {
         self.app.touch_mode()
+    }
+
+    /// The dispatch board's state for `status`, when the board is on top:
+    /// `; board_mode ...; board_offer ...; board_reason ...; board_gate ...`.
+    pub fn dispatch_board_state(&self) -> Option<String> {
+        let state = self.app.state()?;
+        let state = state.borrow();
+        let board = state
+            .as_any()
+            .downcast_ref::<crate::states::city::JobBoardState>()?
+            .dispatch_board();
+        let offer = board
+            .offer()
+            .map_or("none".to_string(), |i| format!("job {}", i + 1));
+        let reason = match board.mode {
+            ff_core::models::dispatch_board::BoardMode::Assigned { .. } => "assigned",
+            ff_core::models::dispatch_board::BoardMode::Browse => {
+                board.recommendation.map_or("none", |r| r.reason.key())
+            }
+        };
+        Some(format!(
+            "; board_mode {}; board_offer {offer}; board_reason {reason}; board_gate {}",
+            board.mode_key(),
+            board.gate.key()
+        ))
+    }
+
+    /// The voices as `status` reports them: the saved main voice choice
+    /// ("automatic" when empty), the bound main voice, and the bound event
+    /// voice ("main voice" when events share it).
+    pub fn speech_state(&self) -> (String, String, String) {
+        let ctx = &self.app.ctx;
+        let choice = match ctx.settings.main_backend.as_str() {
+            "" => "automatic".to_string(),
+            name => name.to_string(),
+        };
+        let event = if ctx.speech.has_separate_event_voice() {
+            ctx.speech.event_backend_name()
+        } else {
+            "main voice".to_string()
+        };
+        (choice, ctx.speech.backend_name(), event)
     }
 
     /// The player's own shortcut table, for a tool call that names a
@@ -412,6 +485,33 @@ impl PlayerInputFrame<'_> {
         ))
     }
 
+    /// The agent server's `weather` tool, and `start_at`'s `weather` field:
+    /// force the simulated sky (or free it with `None`) on every drive
+    /// staged from here on, and on the drive under way when there is one,
+    /// paused or not.
+    pub fn force_weather(&mut self, kind: Option<ff_core::sim::weather::WeatherKind>) -> String {
+        self.app.ctx.playtest_weather = Some(kind);
+        let mut live = false;
+        for state in self.app.states() {
+            let mut state = state.borrow_mut();
+            if let Some(drive) = state
+                .as_any_mut()
+                .downcast_mut::<crate::states::driving::DrivingState>()
+            {
+                drive.trip.weather.forced = kind;
+                live = true;
+            }
+        }
+        let sky = kind.map_or("a free sky".to_string(), |kind| {
+            format!("forced {}", kind.value())
+        });
+        if live {
+            format!("The drive under way, and drives staged after it, run under {sky}.")
+        } else {
+            format!("Drives staged from here on run under {sky}.")
+        }
+    }
+
     /// The agent server's `nod` tool: open a nod-off's reaction window on
     /// the drive under way, on its next rolling frame, with the warning,
     /// the reaction check and the outcome a counted nod has.
@@ -477,7 +577,14 @@ impl PlayerInputFrame<'_> {
             text.push(' ');
             text.push_str(&notes.join(" "));
         }
-        text.push_str(" The terminal menu is open; listen for it.");
+        if scenario.touch_gestures {
+            self.app
+                .push_state(crate::states::main_menu::TouchGesturesState::new());
+            self.app.ctx.run_deferred();
+            text.push_str(" Touch gestures is open over the terminal; listen for it.");
+        } else {
+            text.push_str(" The terminal menu is open; listen for it.");
+        }
         Ok(text)
     }
 
@@ -539,8 +646,7 @@ impl App {
         // Prism on its own worker thread: a wedged screen-reader or SAPI
         // call costs sentences, never the drive (a synchronous call here
         // froze the whole game at an I-77 merge -- Shane, 2026-08-30).
-        let speech: Box<dyn SpeechSink> =
-            Box::new(crate::speech::ThreadedSpeech::spawn(crate::speech::env()));
+        let speech: Box<dyn SpeechSink> = Box::new(crate::speech::spawn_worker());
         boot_timing::mark("speech");
         // Deferred: the output-device open runs on a worker thread, so a
         // machine where the probe hangs boots reading input instead of deaf.
@@ -629,7 +735,7 @@ impl App {
             ..Default::default()
         });
         let journal = JournalOutbox::new(
-            identity,
+            crate::online_guest::profile_identity(identity, &data_dir),
             settings.online_presence,
             &store.path().with_file_name("online-outbox.json"),
         );
@@ -698,6 +804,7 @@ impl App {
             clock: FrameClock::new(true),
             initial_state: None,
             queued_player_input: Vec::new(),
+            bumper_roles: Default::default(),
             operator_keys_ignored: false,
             world_held: false,
             key_probe: None,
@@ -853,6 +960,22 @@ impl App {
             jake_zone: drive.jake_zone_notice.key(),
             road_offer: drive.road_offer(&self.ctx),
             touch_clutch: drive.touch_clutch,
+            co_driver: drive.team.as_ref().map(|team| {
+                let left = ff_core::models::co_driver::shift_left_min(
+                    team.co_driver_hos(&self.ctx),
+                    &self.ctx.settings.hos_mode,
+                );
+                (team.shift, left)
+            }),
+            window: drive.cab.window(),
+            outside: drive.outside.scene,
+            outside_bed: drive.outside.nature.bed.map_or("none", |bed| bed.name),
+            outside_temperature_c: drive.outside.temperature_c(),
+            water: drive.outside.water,
+            road_surface: drive.road_texture.surface,
+            structure: drive.trip.structure_at_mile(drive.trip.position_mi),
+            chain_control: drive.trip.chain_control,
+            chains: drive.chain_set,
         })
     }
 
@@ -1107,7 +1230,24 @@ impl App {
     /// confirmation the player cannot get past would be a worse bug than the
     /// one it fixes -- if speech has dropped, or the dialog is somehow
     /// unreachable, Alt+F4 twice always closes the game.
+    ///
+    /// A phone or tablet never asks. There the close request is the system
+    /// ending the app (Android's activity being destroyed, from the app
+    /// switcher or for memory), which no answer can refuse, and SDL's
+    /// activity waits on the game's thread until it returns: a question here
+    /// froze the app until Android offered to close it, and the next start
+    /// then offered a crash report. The run is marked as ended cleanly at
+    /// once, before the shutdown: Android's launcher kills the process well
+    /// under a second after closing it from the app switcher, so a shutdown
+    /// slowed by a save or a cloud backup would otherwise read as a crash.
     pub fn handle_close_request(&mut self) {
+        #[cfg(windows)]
+        log::info!("Window close requested");
+        if cfg!(touch_screen) {
+            crate::problem_reports::end_session();
+            self.ctx.running = false;
+            return;
+        }
         let already_asking = self
             .ctx
             .state()
@@ -1367,6 +1507,11 @@ impl App {
             },
             None => Vec::new(),
         };
+        // The pad's own presses, not the queued ones (the agent server and
+        // tests press the game's buttons, which are already the roles).
+        events = self
+            .bumper_roles
+            .map(events, self.ctx.settings.left_bumper_layer);
         if self.operator_keys_ignored {
             events = without_operator_keys(events);
         }
@@ -1415,6 +1560,10 @@ impl App {
                 .is_ok_and(|state| state.captures_text_input())
         });
         shell.set_text_field(open);
+        let practice = self.touch_mode() == crate::touch::TouchMode::Practice;
+        if let Some(shell) = self.shell.as_mut() {
+            shell.set_report_travel(practice);
+        }
     }
 
     /// Main loop. `max_frames` runs that many frames then exits cleanly;
@@ -1693,6 +1842,8 @@ pub fn main_with(options: CliOptions) -> i32 {
     // The crash marker: set now, cleared on the way out, so a run that
     // ends any other way is offered as a report next time.
     crate::problem_reports::begin_session(&ff_core::settings::data_dir());
+    #[cfg(target_os = "ios")]
+    crate::problem_reports::observe_app_lifecycle();
     let code = run_game(&options);
     crate::problem_reports::end_session();
     guard.release();

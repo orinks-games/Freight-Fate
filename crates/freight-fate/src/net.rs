@@ -5,7 +5,8 @@
 //! the build machine, so `net.py` layered certifi's bundle on top of the
 //! platform store. The Rust build talks TLS through rustls with the platform
 //! verifier: the operating system's own roots (corporate proxy roots on
-//! Windows included) on every platform, with no bundle to go stale.
+//! Windows included), with no bundle to go stale. Android is the exception
+//! (see [`root_certs`]).
 //!
 //! This module also owns the two things every online module used to reach
 //! for separately in Python: the [`Transport`] trait (the `_http_json`
@@ -78,6 +79,21 @@ impl Tier {
     }
 }
 
+/// The certificates every client trusts.
+///
+/// The platform verifier everywhere but Android. There it reaches the
+/// system's trust store through a Java component (an AAR, with the Kotlin
+/// runtime it needs) and a JNI start-up call, which the APK does not carry,
+/// so Android trusts Mozilla's roots compiled into the game instead; they
+/// update with the game.
+fn root_certs() -> RootCerts {
+    if cfg!(target_os = "android") {
+        RootCerts::WebPki
+    } else {
+        RootCerts::PlatformVerifier
+    }
+}
+
 fn build_agent(timeout_s: f64) -> Agent {
     let config = Agent::config_builder()
         .timeout_global(Some(Duration::from_secs_f64(timeout_s)))
@@ -85,11 +101,7 @@ fn build_agent(timeout_s: f64) -> Agent {
         // error body out of a 4xx (Convex says *why* a paste was refused),
         // which an error-on-status client would have discarded.
         .http_status_as_error(false)
-        .tls_config(
-            TlsConfig::builder()
-                .root_certs(RootCerts::PlatformVerifier)
-                .build(),
-        )
+        .tls_config(TlsConfig::builder().root_certs(root_certs()).build())
         .build();
     Agent::new_with_config(config)
 }
@@ -119,11 +131,7 @@ static DOWNLOAD_AGENT: Lazy<Agent> = Lazy::new(|| {
     let config = Agent::config_builder()
         .timeout_connect(Some(timeout))
         .http_status_as_error(false)
-        .tls_config(
-            TlsConfig::builder()
-                .root_certs(RootCerts::PlatformVerifier)
-                .build(),
-        )
+        .tls_config(TlsConfig::builder().root_certs(root_certs()).build())
         .build();
     Agent::new_with_config(config)
 });

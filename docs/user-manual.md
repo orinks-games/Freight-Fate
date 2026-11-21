@@ -370,6 +370,8 @@ These are the default keyboard controls, with the default controller button besi
 
 To hear what a key does without pressing it on the road, press Shift F1 for [key and button practice](#practice-keys-and-buttons).
 
+This manual names the bumpers as they are by default. The Second layer bumper setting under Settings, Gameplay, Controls swaps them, and the game then names the one you hold.
+
 A control marked Driving commands has no controller button. Hold the right bumper and press Start to open Driving status, then choose Driving commands and pick it from the list. The list runs it and returns you to the road.
 
 | Key | Controller | Action |
@@ -391,7 +393,7 @@ A control marked Driving commands has no controller button. Hold the right bumpe
 | Alt+T | Driving commands | Switch between automatic and manual transmission on the road. This changes your whole control scheme. |
 | 1 / 2 / 3 | Right bumper plus right stick click steps to the next stage | Select the engine brake stage, two, four, or six cylinders of retard, while it is on. With the engine brake off these keys do nothing. |
 | H | Left stick click, hold | Hold to sound the horn; release to stop it. |
-| Z | Not on the controller | Lower or raise the driver window. With it down you hear the wind rush in and the road louder; it closes again at the start of every drive. |
+| Z | Not on the controller | Lower or raise the driver window. With it down you hear the wind rush in, the road louder, and the birds, insects or river outside clearly on your side; with it up they are muffled. It closes again at the start of every drive. |
 | Alt+Z | Not on the controller | Step the fan: off, low, medium, high. The fan runs while the engine does. |
 | Shift+Z | Not on the controller | Switch the fan between heat and air conditioning. A drive starts on whichever the weather calls for. |
 | Space | B | Report speed, gear, and the active speed-control mode and cruise speed when speed control is on. RPM is added with a manual transmission, and air pressure or the parking brake only when they need attention. With the signal set for an exit, it ends with that exit and how far away it is. Tab has the full air and brake readings. |
@@ -558,11 +560,11 @@ Snow, ice, and freezing rain leave you less grip, particularly on worn tires. St
 | Equipment | What it does |
 | --- | --- |
 | Winter tires | A fresh set in a winter compound. Better grip on snow and ice all season, no speed penalty, normal wear. Company drivers ride on whatever the carrier specs. |
-| Snow chains | A set kept in the truck's side box until you hang them. Chains give the best grip on ice and packed snow, but demand chain speed, around 30 miles per hour, and they grind apart fast on bare pavement. Snapped chains are replaced at the garage. |
+| Snow chains | A set kept in the truck's side box until you hang them. Chains give the best grip on ice and packed snow, but demand chain speed, around 30 miles per hour, and they grind apart fast on a bare road. Snapped chains are replaced at the garage. |
 
-To fit or remove chains, stop and open the pause menu. The work counts on duty, and doing it in darkness takes longer and adds fatigue. Once they're fitted, keep near thirty miles per hour. Take them off when you reach bare pavement, before they break.
+To fit or remove chains, stop and open the pause menu. The work counts on duty, and doing it in darkness takes longer and adds fatigue. Once they're fitted, keep near thirty miles per hour. Take them off when you reach a bare road, before they break.
 
-Level 1 chain law accepts winter tires or chains. Level 2 requires chains on the drive axles. Ignoring the requirement brings a base citation of 580 dollars before multipliers.
+A chain law is posted only while snow or ice is on the road, on steep grades in California, Colorado, Idaho, Montana, Nevada, Oregon, Utah, Washington and Wyoming. You hear "Chain law lifted" when the road clears, and "Bare road" when chains are still on with no snow under them. Level 1 requires chains on your truck in California, Idaho, Montana, Nevada, Utah and Washington. Colorado and Oregon apply Level 1 to single-drive-axle trucks only, so yours passes without chains. Wyoming's Level 1 accepts winter tires or chains. Level 2 requires chains in every one of these states. Ignoring the requirement brings a base citation of 580 dollars before multipliers.
 
 ## Traffic and sharing the road
 
@@ -721,6 +723,8 @@ When a load leaves the shipper needing a ten-hour break, the co-driver comes alo
 
 The pickup menu offers the same choice once the load is on: **Depart with Dan driving, and ride along**, or **and sleep**. Each row's help names the co-driver and the pay terms.
 
+**Hot loads and flexible deliveries.** A load on the dispatch board that says "Hot load" pays 25 percent more and has a tight deadline. One that says "Flexible delivery" pays 10 percent less and has a wide deadline.
+
 **Team loads.** Some long loads on the dispatch board are booked for a team. Their details say "Team load". They pay about a third more, and the deadline leaves no time for a ten-hour break, only for changing drivers. You can still drive a team load alone, but you will be late unless the co-driver takes their turns. Trip hours in the job details and the route plan at the shipper count on those turns, so they name no ten-hour sleep. With stop planning hints on, the hint near the end of your hours names your co-driver instead of a sleep stop.
 
 While the co-driver drives, the keys that move the truck do nothing. The information keys still answer, and Tab, the apps and the pause menu still open. If the radio was on, the co-driver may change the station or switch it off for a while; once you change it yourself, they leave it alone. A radio you left off stays off.
@@ -773,7 +777,6 @@ Use a readout hotkey for a quick check of fuel or time left. Press Tab, or the r
 | Route | Review your progress on the current route. |
 | Driver | Driver name, money, load, objective, truck fuel and damage, transmission, fatigue, hours, and deadline. |
 | Map | Route cities, highways, progress, next guidance, upcoming stops, map points, and toll exposure. |
-| Radio | Current station, stream-safety state, approximate reception position, and currently receivable stations. |
 | Driver apps | A tablet-style app menu for Radio, Navigation, Weather, Traffic, Truck stops, Road chatter, and ELD. |
 | Driving commands | Every driving command by name. Choose one to run it and return to the road. This is how a controller reaches the commands with no button of their own. |
 
@@ -785,9 +788,9 @@ Press Tab while driving, or the right bumper and Start on a controller, and choo
 
 ### Radio app
 
-Radio opens a menu where you can switch the radio on or off, tune a station, save or remove a favorite, browse stations in range, and suggest a station. Search stations lets you type part of a name, call sign, or format and press Enter for results. Results show 25 at a time; use the Next page and Previous page rows, or PageDown and PageUp, to reach the rest. Browse by category lists all stations or one category, such as Terrestrial or Web radio, in the same 25-row pages. Stations in range come first, local terrestrial ahead of web radio, and a station that repeats is listed once; out-of-range stations follow. Choose a result and press Enter to tune it. A station marked out of range here cannot be tuned from your current location.
+Radio opens a menu where you can switch the radio on or off, check whether streamer-safe mode is on, tune a station, save or remove a favorite, browse stations, and suggest a station. Local stations lists every Freight Fate station, your playlists and favorites, and the terrestrial stations in range, with how far off each one is. Stations in range adds the web and satellite streams too. Search stations lets you type part of a name, call sign, or format and press Enter for results. Results show 25 at a time; use the Next page and Previous page rows, or PageDown and PageUp, to reach the rest. Browse by category lists all stations or one category, such as Terrestrial or Web radio, in the same 25-row pages. Stations in range come first, local terrestrial ahead of web radio, and a station that repeats is listed once; out-of-range stations follow. Choose a result and press Enter to tune it. A station marked out of range here cannot be tuned from your current location.
 
-Favorites gives you a shorter list of stations you've saved. The Radio report under Driving status is useful for reading reception and playlist information; open the Radio app when you want to choose a station. The [radio guide](#radio-and-playlists) explains the dial, signal changes, personal music, and music settings.
+Favorites gives you a shorter list of stations you've saved. The [radio guide](#radio-and-playlists) explains the dial, signal changes, personal music, and music settings.
 
 ### Navigation app
 
@@ -858,7 +861,7 @@ Damaged freight can bring an exception deduction, a claim, or a refusal with no 
 
 ## Settings walkthrough
 
-Settings save as you change them. Use Up or Down to choose a setting, then Right or Enter for its next available value, or Left to go back to the previous value. On a controller, the D-pad does the same, and A selects the next value. Gameplay contains driving assistance, difficulty and hours, world and traffic, and controls. Audio, Speech, Updates, Problem reports, and Online have separate choices where supported.
+Settings save as you change them. Use Up or Down to choose a setting, then Right or Enter for its next available value, or Left to go back to the previous value. On a controller, the D-pad does the same, and A selects the next value. Gameplay contains driving assistance, difficulty and hours, world and traffic, and controls. Audio, Speech, Updates, and Problem reports have separate choices where supported.
 
 ### Driving assistance and speed keeper
 
@@ -935,6 +938,7 @@ This is where you change units, transmission, and eligible shortcuts. Open Keybo
 | Transmission | Switch between automatic and manual transmission. |
 | Controller | Accept controller input alongside the keyboard. The keyboard always stays active. While it is on, it names the controller the game is using. |
 | Haptics | Use controller vibration for hazards, hard braking, rumble strips, and road seams. |
+| Second layer bumper | Which bumper you hold for the second layer of controller buttons: right, the default, or left. The other bumper is the clutch. On left, every right bumper control in this manual is on the left bumper, and the clutch is on the right; the game names them that way too. |
 | Visual display | On by default: the game window draws the road, the dashboard, menus, and captions of what the game says. Off keeps the window dark and saves battery. Speech and sound are the same either way. |
 | Keyboard shortcuts | Choose the control you want to change and press Enter, then press your preferred key, with Shift, Control, or Alt held if you want a chord. A key another control already has is refused by name; Escape keeps the current key. The pause key, Enter, F1, F2, the Control keys that stop the voice, plus and minus, the radio dial keys, and the message review keys stay fixed. Choose the reset option to restore every default shortcut. |
 | Controller buttons | Choose the controller action you want to change and press Enter, then press your preferred button, with the right bumper held for the second layer. Press its current button to keep the assignment. Start, Back, the bumpers, the triggers, and the sticks stay fixed. |
@@ -975,6 +979,7 @@ Driving speech controls how much the game announces automatically. Standard incl
 | Place callouts | How much the GPS says about places along the road. Sparse, the default, speaks only the town names that explain a speed limit change, like Entering Strawberry right before its 35. All adds the towns the route passes through or skirts. Off silences place names entirely. Speed limit announcements themselves are never affected, and no tier ever reads out every place on the map. |
 | Menu position announcements | When on, menus say the position, like 3 of 10, after each option. Turn off to hear only the option. |
 | Say when a career is backed up | How often you hear that a career is backed up to your orinks.net account: every time, the default, once a session, or never. Backups keep going either way, and a refused backup is always spoken. |
+| Main voice | The voice that reads menus and readouts. Automatic, the default, uses your screen reader when one is running and a system voice when none is. You can pick any voice that can speak right now instead: a running screen reader, SAPI, Windows OneCore or the built-in voice. Narrator is listed while it is running; it cannot be cut off, so quick menu browsing falls behind. When Driving event voice names the same voice, road events go through the main voice. |
 | Driving event voice | Routes road events through the main voice or a separate software voice when available. |
 | Output | Speech and braille is the default: you'll hear the game's messages and, with NVDA or JAWS, receive them on your braille display too. Choose Braille only to play without speech. Menus, readouts, and road events all go to the display, including messages normally spoken by the driving event voice. Braille only requires NVDA or JAWS; with another voice source, the game keeps speaking and explains why. If your screen reader closes during a drive, speech returns until it is running again. |
 | JAWS arrow keys | Appears only when JAWS is your screen reader. JAWS reads each arrow key with its own script, which waits for the screen to change, so menus answer slowly and held arrows lag. Faster adds a small script for this game to your JAWS settings, in your own user folder, so the arrows answer at once. Default removes it. The game touches only its own two files there, and leaves alone any script of the same name that it did not write. Restart JAWS if nothing changes. With JAWS, tapping another key while you hold an arrow keeps the hold for a moment, but the truck can still stop accelerating after a few seconds, so tap the arrow again to keep going. |
@@ -1057,7 +1062,7 @@ On a controller, the right stick runs the radio. Push it right or left to tune, 
 
 Hold Control with a tuning key to move between route music, Freight Fate stations, your playlists, favorites, terrestrial stations, AFN, satellite, international, fallback, web radio, and other stations. This saves you from moving through the whole dial one station at a time. Open the [Radio app](#radio-app) if you already know the name or want to browse your favorites.
 
-Radio status shows the stations you can receive. The Radio app lets you search, tune, and manage favorites. Regional stations fade as you leave their range. A favorite does not fade: once its signal thins, the radio plays the station's stream instead, and the signal reads as streaming. When a signal is lost, the game tries a clear local station, then a fallback if needed. A failed stream leaves the dial for that session. Roadhouse and Night Line are available across the map.
+The Radio app lists the stations you can receive and lets you search, tune, and manage favorites. Regional stations fade as you leave their range. A favorite does not fade: once its signal thins, the radio plays the station's stream instead, and the signal reads as streaming. When a signal is lost, the game tries a clear local station, then a fallback if needed. A failed stream leaves the dial for that session. Roadhouse and Night Line are available across the map.
 
 ### Choosing music for your drive
 

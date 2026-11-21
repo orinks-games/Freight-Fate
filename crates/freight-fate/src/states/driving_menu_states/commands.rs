@@ -156,6 +156,18 @@ const TOP: &[Entry] = &[
     Entry::Back,
 ];
 
+/// The group of the driving command list that holds `action`, by its
+/// spoken name; `None` for a top-level row or a command the list lacks.
+pub fn command_group_label(action: Action) -> Option<&'static str> {
+    TOP.iter().find_map(|entry| match entry {
+        Open(group) => group
+            .entries()
+            .contains(&Run(action))
+            .then(|| group.label()),
+        _ => None,
+    })
+}
+
 impl Group {
     fn label(self) -> &'static str {
         match self {
@@ -339,10 +351,8 @@ impl DrivingCommandsState {
 fn action_item(ctx: &GameContext, action: Action) -> MenuItem<DrivingCommandsState> {
     let mut help = format!("On the keyboard: {}.", ctx.bindings.spoken(action));
     if action.on_pad() {
-        help.push_str(&format!(
-            " On the controller: {}.",
-            ctx.bindings.pad_spoken(action)
-        ));
+        let pad_spoken = ctx.pad_name(action);
+        help.push_str(&format!(" On the controller: {pad_spoken}."));
     }
     // The Status menu's gesture is this list, so its row has no help here.
     let touch = ctx
@@ -370,10 +380,9 @@ fn action_item(ctx: &GameContext, action: Action) -> MenuItem<DrivingCommandsSta
 fn value_item(ctx: &GameContext, value: Value) -> MenuItem<DrivingCommandsState> {
     let mut help = value.keyboard_help().to_string();
     let (up, down) = value.actions();
+    let (pad_spoken, pad_spoken2) = (ctx.pad_name(up), ctx.pad_name(down));
     help.push_str(&format!(
-        " On the controller: {} and {}.",
-        ctx.bindings.pad_spoken(up),
-        ctx.bindings.pad_spoken(down)
+        " On the controller: {pad_spoken} and {pad_spoken2}."
     ));
     let label = Label::dynamic(
         move |s: &DrivingCommandsState, ctx: &GameContext| match value {

@@ -1,7 +1,18 @@
 //! Home menu presentation and safe automatic update offers.
 use super::*;
 
+fn quit(ctx: &mut GameContext) {
+    #[cfg(windows)]
+    log::info!("Menu quit requested");
+    ctx.quit();
+}
+
 impl Menu for MainMenuState {
+    /// The main menu: there is nothing to go back to.
+    fn touch_back_row(&self) -> bool {
+        false
+    }
+
     fn menu(&self) -> &MenuCore<Self> {
         &self.menu
     }
@@ -11,6 +22,8 @@ impl Menu for MainMenuState {
     }
 
     fn enter(&mut self, ctx: &mut GameContext) {
+        ctx.cloud_saves_service()
+            .check_resume(ctx.online_enabled(ctx.settings.cloud_resume));
         let (sequence, ambience) = reuse_loadable_saves_scan(|| {
             // The base `Menu::enter`: rebuild the rows, play the open sound,
             // announce.
@@ -63,6 +76,16 @@ impl Menu for MainMenuState {
     }
 
     fn update(&mut self, ctx: &mut GameContext, dt: f64) {
+        let lines = ctx.cloud_saves_service().take_resume_lines();
+        if !lines.is_empty() {
+            if let Some(profile) = &ctx.profile {
+                ctx.profile = Profile::load(&profile.path()).ok();
+            }
+            self.refresh(ctx, true);
+            for line in lines {
+                ctx.say(&line);
+            }
+        }
         ctx.update_music_rotation(dt);
         // The last run never quit: ask once, before the update prompt can
         // land on top of the question.
@@ -175,6 +198,9 @@ impl Menu for MainMenuState {
                  Fate. They are listed under Choose career. ",
             );
         }
+        if loadable_saves().is_empty() && !newer_saves().is_empty() {
+            warning.push_str("Some saved careers need a newer version of Freight Fate. They are listed under Choose career. ");
+        }
         let text = format!(
             "Freight Fate {}. {warning}",
             updater::spoken_version(version())
@@ -196,7 +222,7 @@ impl Menu for MainMenuState {
                 .help(format!("Load the newest save for {}.", latest_profile.name)),
             );
         }
-        if !saves.is_empty() || !legacy_saves().is_empty() {
+        if !saves.is_empty() || !legacy_saves().is_empty() || !newer_saves().is_empty() {
             // Careers from earlier versions cannot continue, but they still
             // belong on the list: even with nothing loadable, Choose career is
             // where a player finds them and hears what happened.
@@ -207,7 +233,7 @@ impl Menu for MainMenuState {
                 .help("Any saved career, not only the newest."),
             );
         }
-        if !saves.is_empty() || !legacy_saves().is_empty() {
+        if !saves.is_empty() || !legacy_saves().is_empty() || !newer_saves().is_empty() {
             items.push(
                 MenuItem::new("Manage careers", |_s: &mut Self, ctx| {
                     ctx.push_state(ManageCareersState::new())
@@ -249,12 +275,7 @@ impl Menu for MainMenuState {
             })
             .help("Any sound the road uses, and what it means."),
         );
-        items.push(
-            MenuItem::new("Practice keys and buttons", |_s: &mut Self, ctx| {
-                ctx.push_state(InputPracticeState::new())
-            })
-            .help("Names what each key or controller button does while driving."),
-        );
+        items.push(practice_row(ctx));
         items.push(
             MenuItem::new("Settings", |_s: &mut Self, ctx| {
                 ctx.push_state(SettingsState::new())
@@ -272,17 +293,17 @@ impl Menu for MainMenuState {
                  attached.",
             ),
         );
-        // An iPhone app is never quit from inside; the system closes it.
-        if !cfg!(target_os = "ios") {
-            items.push(
-                MenuItem::new("Quit", |_s: &mut Self, ctx| ctx.quit()).help("Exit the game."),
-            );
+        // A phone or tablet app is never quit from inside; the system
+        // closes it.
+        if !cfg!(touch_screen) {
+            items
+                .push(MenuItem::new("Quit", |_s: &mut Self, ctx| quit(ctx)).help("Exit the game."));
         }
         items
     }
 
     fn go_back(&mut self, ctx: &mut GameContext) {
-        if cfg!(target_os = "ios") {
+        if cfg!(touch_screen) {
             return;
         }
         ctx.audio.play("ui/menu_back");

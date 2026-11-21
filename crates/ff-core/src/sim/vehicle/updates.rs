@@ -3,6 +3,8 @@
 
 use std::f64::consts::PI;
 
+use crate::sim::transmission::NEUTRAL;
+
 use super::{
     TruckState, AMBIENT_C, BRAKE_COOL_BASE_PER_S, BRAKE_COOL_SPEED_PER_S, BRAKE_WEAR_HOT_MULT,
     BRAKE_WEAR_PCT_PER_MJ, CARGO_BRAKE_PCT_PER_G_S, CARGO_CORNER_PCT_PER_G_S, CARGO_HARD_BRAKE_G,
@@ -148,11 +150,16 @@ impl TruckState {
                 }
                 // Launch regime: in a low gear the clutch slips and the engine
                 // holds idle-or-better. In a high gear the engine lugs.
-                let gear = tr.gear;
                 let automatic = tr.automatic;
-                if gear >= 4 && road_rpm < s.idle_rpm * 0.5 {
+                if self.lugging_in_tall_gear() {
                     let braking = self.brake > 0.01 || self.emergency_brake;
-                    if !automatic {
+                    if !automatic && self.lug_to_neutral {
+                        // On touch one finger is the truck, so every brake
+                        // lift would stall here: take neutral at the same
+                        // moment every time, brake or no brake.
+                        self.transmission.request_gear(NEUTRAL);
+                        self.took_lug_neutral = true;
+                    } else if !automatic {
                         // Braking to a stop in a tall gear holds idle rather
                         // than stalling, so a manual driver can gear down and
                         // brake for traffic at once (owner ruling,
@@ -183,6 +190,34 @@ impl TruckState {
             let target = floor.max(s.idle_rpm + (s.max_rpm - s.idle_rpm) * self.throttle);
             self.rpm += (target - self.rpm) * (4.0 * dt).min(1.0);
         }
+    }
+
+    /// The engine is coupled in fourth or taller with the road turning it
+    /// under half of idle: where a manual stalls once the brake is off, and
+    /// an automatic kicks down, or a touch driver's manual takes neutral
+    /// ([`Self::lug_to_neutral`]). The parking brake holding a standing
+    /// truck is not this; the engine free-revs there.
+    pub fn lugging_in_tall_gear(&self) -> bool {
+        let s = &self.specs;
+        let tr = &self.transmission;
+        if !self.engine_on || tr.in_neutral() || tr.gear < 4 {
+            return false;
+        }
+        let ratio = tr.ratio_for(tr.gear);
+        if ratio == 0.0 || tr.clutch > 0.5 || tr.shifting() {
+            return false;
+        }
+        if self.parking_brake && self.velocity_mps.abs() < 0.1 {
+            return false;
+        }
+        let wheel_rps = self.velocity_mps.abs() / (2.0 * PI * s.wheel_radius_m);
+        wheel_rps * 60.0 * ratio.abs() < s.idle_rpm * 0.5
+    }
+
+    /// Whether a step took neutral for [`Self::lug_to_neutral`] since the
+    /// last ask; asking clears it.
+    pub fn take_lug_neutral(&mut self) -> bool {
+        std::mem::take(&mut self.took_lug_neutral)
     }
 
     pub fn stall(&mut self) {
@@ -327,7 +362,7 @@ impl TruckState {
         // links flail into the fender and the whole set is scrap.
         if self.chains_on && speed > 0.01 {
             let mut rate = CHAIN_WEAR_PCT_PER_MILE;
-            if self.surface != "snow" && self.surface != "ice" && !self.chain_control_road {
+            if self.surface != "snow" && self.surface != "ice" {
                 rate *= CHAIN_WEAR_BARE_MULT;
             }
             if self.speed_mph() > CHAIN_SAFE_MPH {

@@ -65,7 +65,8 @@ const SKIP_PATH_PARTS: &[&str] = &[
     "profile_integrity_invariants", "profile_invariants", "cloud_save_integrity",
     "/cloud_saves/api", "/settings/migrate", "/settings/paths", "/net.rs", "/net/",
     "/updater", "/online_presence", "discord_presence", "single_instance", "/app/logging",
-    "/app/boot_timing", "/app/loop_watch", "/audio/youtube",
+    "/app/boot_timing", "/app/loop_watch", "/audio/youtube", "/src/android.rs",
+    "/controller/bumpers.rs",
     // Load-time map screens: record fields and patterns, never spoken.
     "/data/stop_bounds",
 ];

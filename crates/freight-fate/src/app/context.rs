@@ -152,6 +152,21 @@ pub struct GameContext {
     /// True while a playtest-lever scenario runs unsaved (see
     /// `playtest_levers::apply_continue_levers`); `save_profile` honors it.
     pub playtest_sandbox: bool,
+    /// The agent server's `scenario` window: the next drive starts with the
+    /// driver window all the way down (`Some(true)`) or up. `None` in the
+    /// shipped game, where every drive starts with it up.
+    pub playtest_window_down: Option<bool>,
+    /// A staged scenario's road surface for every drive it starts: jointed
+    /// the whole way (`Some(true)`) or smooth. `None` in the shipped game,
+    /// where stretches of each alternate.
+    pub playtest_road_jointed: Option<bool>,
+    /// A staged scenario's simulated sky for every drive it starts:
+    /// `Some(Some(kind))` forces that condition (`WeatherSystem::forced`),
+    /// `Some(None)` leaves it free. `None` in the shipped game.
+    pub playtest_weather: Option<Option<ff_core::sim::weather::WeatherKind>>,
+    /// The co-driver's logbook counters a sandbox scenario asked for, put
+    /// on the next co-driver paired for a load. `None` in the shipped game.
+    pub playtest_co_driver_hos: Option<crate::playtest::scenario::CoDriverHos>,
     /// The last run ended without quitting and the main menu has not asked
     /// about it yet (`problem_reports::take_crash_offer`, read once when the
     /// app is built). The menu clears it when it asks, or when the player
@@ -291,6 +306,10 @@ impl GameContext {
             achievement_notice: String::new(),
             achievement_notice_timer: 0.0,
             playtest_sandbox: false,
+            playtest_window_down: None,
+            playtest_road_jointed: None,
+            playtest_weather: None,
+            playtest_co_driver_hos: None,
             crash_offer_pending: crate::problem_reports::take_crash_offer(),
             dispatch_board_seed: None,
             school_sandbox: false,
@@ -803,6 +822,9 @@ impl GameContext {
         self.services.cloud.set_enabled(enabled);
         self.services
             .cloud
+            .configure_resume(self.settings.cloud_resume);
+        self.services
+            .cloud
             .set_backup_announcements(BackupAnnouncements::from_setting(
                 &self.settings.backup_announcements,
             ));
@@ -819,7 +841,12 @@ impl GameContext {
         self.services.online.set_identity(identity.clone());
         self.services.duty.set_identity(identity.as_ref());
         self.services.cloud.set_identity(identity.clone());
-        self.services.journal.set_identity(identity);
+        // A guest's journal and achievements are never sent: no profile.
+        let journal = match ff_core::models::profile::data_dir_if_allowed() {
+            Some(dir) => crate::online_guest::profile_identity(identity, &dir),
+            None => identity,
+        };
+        self.services.journal.set_identity(journal);
     }
 
     /// Reflect the controller setting (e.g. after a settings change).
@@ -846,7 +873,7 @@ impl GameContext {
     pub fn control_name(&self, action: crate::bindings::Action) -> String {
         let device = self.controller.device();
         if device == ff_core::input_hints::CONTROLLER && action.on_pad() {
-            self.bindings.pad_spoken(action)
+            self.pad_name(action)
         } else if device == ff_core::input_hints::TOUCH {
             self.bindings.touch_noun(action)
         } else {
@@ -860,6 +887,33 @@ impl GameContext {
         self.controller.device() == ff_core::input_hints::TOUCH
     }
 
+    /// How a touch player runs `action` at the wheel, as an instruction that
+    /// opens a sentence: "Turn two fingers right", "Tap", or, for a command
+    /// with no gesture, "Tap with three fingers and open Road and stops for
+    /// Rest stop".
+    pub fn touch_instruction(&self, action: crate::bindings::Action) -> String {
+        if let Some(gesture) = self.bindings.touch_instruction(action) {
+            return gesture.to_string();
+        }
+        match crate::states::driving_menu_states::command_group_label(action) {
+            Some(group) => format!(
+                "Tap with three fingers and open {group} for {}",
+                action.label()
+            ),
+            None => format!("Tap with three fingers for {}", action.label()),
+        }
+    }
+
+    /// [`Self::touch_instruction`] for the middle of a sentence.
+    pub fn touch_instruction_mid(&self, action: crate::bindings::Action) -> String {
+        let text = self.touch_instruction(action);
+        let mut chars = text.chars();
+        match chars.next() {
+            Some(first) => first.to_lowercase().chain(chars).collect(),
+            None => text,
+        }
+    }
+
     /// Name a control for a spoken prompt, following the active device and
     /// whatever key or button the player has it on.
     pub fn control_hint(&self, action: &str) -> String {
@@ -871,7 +925,12 @@ impl GameContext {
         } else {
             self.bindings.hint_key_phrase(action)
         };
-        moved.unwrap_or_else(|| self.controller.hint(action))
+        let phrase = moved.unwrap_or_else(|| self.controller.hint(action));
+        if device == ff_core::input_hints::CONTROLLER {
+            self.bumper_words(&phrase).into_owned()
+        } else {
+            phrase
+        }
     }
 
     pub fn apply_speech(&mut self) {

@@ -289,6 +289,20 @@ impl GameContext {
     pub fn tr(&self, text: &str) -> String {
         self.translator.translate(text).into_owned()
     }
+
+    /// One of the game's own control names or instructions with "left
+    /// bumper" and "right bumper" swapped when the left bumper is the second
+    /// layer, so it names the button the player holds. Never a finished
+    /// line: a name in it would be swapped too (see `controller::bumpers`).
+    pub fn bumper_words<'a>(&self, text: &'a str) -> std::borrow::Cow<'a, str> {
+        crate::controller::bumpers::swap_words(text, self.settings.left_bumper_layer)
+    }
+
+    /// `action`'s pad button by name, naming the bumper the player holds.
+    pub fn pad_name(&self, action: crate::bindings::Action) -> String {
+        self.bumper_words(&self.bindings.pad_spoken(action))
+            .into_owned()
+    }
 }
 
 #[cfg(test)]

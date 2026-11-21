@@ -116,7 +116,9 @@ pub const MAGIC: &[u8; 8] = b"FFDATA\0\0";
 /// fold removed (`speed_limits_folded`).
 ///
 /// 10: a corridor carries the county each stretch runs through (`counties`).
-pub const FORMAT_VERSION: u32 = 10;
+///
+/// 11: a corridor carries its HPMS surface runs and structures (`pavement`).
+pub const FORMAT_VERSION: u32 = 11;
 
 const HEADER_LEN: usize = 32;
 

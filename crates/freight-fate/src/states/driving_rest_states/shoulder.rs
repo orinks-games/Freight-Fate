@@ -91,6 +91,11 @@ impl ShoulderSleepConfirmationState {
 }
 
 impl Menu for ShoulderSleepConfirmationState {
+    /// A prompt to answer: Escape answers it, so touch adds no Back row.
+    fn touch_back_row(&self) -> bool {
+        false
+    }
+
     fn menu(&self) -> &MenuCore<Self> {
         &self.menu
     }
@@ -154,7 +159,11 @@ impl Menu for ShoulderSleepConfirmationState {
         }
         ctx.audio.play("ui/menu_back");
         ctx.pop_state();
-        let message = if ctx.settings.driving_hints {
+        let message = if ctx.settings.driving_hints && ctx.touch_hints() {
+            "Shoulder sleep canceled. Back on the road. Parking brake set. Swipe up and hold to \
+             release it and drive."
+                .to_string()
+        } else if ctx.settings.driving_hints {
             let hint = ctx.control_hint("parking_brake");
             format!(
                 "Shoulder sleep canceled. Back on the road. Parking brake set, {hint} releases \

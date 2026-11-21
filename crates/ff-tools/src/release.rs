@@ -25,10 +25,10 @@
 //! is notarized and stapled before it is archived; without them it is
 //! ad-hoc signed for local use.
 
+pub mod android;
 pub mod appimage;
 mod archive;
 pub mod ios;
-pub mod ios_signing;
 mod macos;
 mod packs;
 pub mod plist;

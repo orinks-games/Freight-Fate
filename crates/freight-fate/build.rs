@@ -10,6 +10,7 @@
 use std::{env, fs, path::PathBuf};
 
 fn main() {
+    declare_touch_screen_cfg();
     pass_on_hearken_link_args();
     link_prism_system_libraries();
     build_ios_bridge();
@@ -34,7 +35,7 @@ fn main() {
         // macOS and Linux are not vendored on purpose: SDL2 is compiled in
         // statically there (see Cargo.toml), so there is nothing missing and
         // nothing to warn about.
-        if os != "macos" && os != "linux" && os != "ios" {
+        if os != "macos" && os != "linux" && os != "ios" && os != "android" {
             println!("cargo:warning=freight-fate: no vendored SDL2 for {os}-{arch} under vendor/sdl2; expecting a system SDL2");
         }
         return;
@@ -50,6 +51,20 @@ fn main() {
                 let _ = fs::copy(&p, profile.join(p.file_name().unwrap()));
             }
         }
+    }
+}
+
+/// `cfg(touch_screen)`: a phone or tablet build, iPhone and iPad or Android.
+///
+/// The game's touch surface, gesture help, gesture settings and the
+/// no-Quit main menu belong to both; only how the gestures are recognised
+/// (UIKit on iOS, SDL's finger events on Android) differs, and that code
+/// keeps naming its own `target_os`.
+fn declare_touch_screen_cfg() {
+    println!("cargo::rustc-check-cfg=cfg(touch_screen)");
+    let os = env::var("CARGO_CFG_TARGET_OS").unwrap_or_default();
+    if os == "ios" || os == "android" {
+        println!("cargo:rustc-cfg=touch_screen");
     }
 }
 
@@ -112,20 +127,22 @@ fn link_prism_system_libraries() {
     }
 }
 
-/// Compile the UIKit gesture and VoiceOver bridge (`ios/ff_touch.m`).
+/// Compile the UIKit keyboard, gesture and VoiceOver bridges.
 ///
 /// It is the one piece of the iOS port that has to be Objective-C: a view
 /// over SDL's own, carrying the gesture recognizers and the accessibility
 /// element VoiceOver focuses. Everything it sees is queued as a plain gesture
 /// code that `touch` turns into the same key events the desktop game reads.
 fn build_ios_bridge() {
-    let source = "ios/ff_touch.m";
-    println!("cargo:rerun-if-changed={source}");
+    let sources = ["ios/ff_touch.m", "ios/ff_keyboard.m"];
+    for source in sources {
+        println!("cargo:rerun-if-changed={source}");
+    }
     if env::var("CARGO_CFG_TARGET_OS").as_deref() != Ok("ios") {
         return;
     }
     cc::Build::new()
-        .file(source)
+        .files(sources)
         .flag("-fobjc-arc")
         .flag("-fmodules")
         .compile("ff_touch");

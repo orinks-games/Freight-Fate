@@ -496,13 +496,17 @@ fn test_road_joint_thumps_pause_off_highway() {
     let tape = CueAudio::install(&mut app);
     d.road_joint_accumulator_m = 0.0;
     d.next_joint_distance_m = 15.0;
+    d.road_texture.surface = ff_core::sim::road_texture::RoadSurface::held(true);
     d.trip.on_ramp = true;
     d.trip.truck.velocity_mps = 20.0;
 
     d.update_audio(&mut app.ctx, 1.0);
 
     assert_eq!(d.road_joint_accumulator_m, 0.0);
-    assert!(!tape.keys().iter().any(|key| key == "vehicle/road_joint"));
+    assert!(!tape
+        .keys()
+        .iter()
+        .any(|key| key == "vehicle/road_joint" || key.starts_with("vehicle/seam_")));
 }
 
 #[test]

@@ -21,6 +21,22 @@ use freight_fate::states::base::Key;
 
 const FRAME: f64 = 1.0 / 60.0;
 
+#[test]
+fn status_reports_cloud_resume_without_a_career() {
+    let mut app = TestApp::new();
+    let (tx, rx) = mpsc::channel();
+    let (reply, answer) = mpsc::channel();
+    tx.send(freight_fate::agent_server::Request::for_test(
+        Command::Status,
+        reply,
+    ))
+    .unwrap();
+    let mut agent = policy(Ears::shared(), rx, None);
+    app.run_with_player_input(Some(240), |input, _dt| agent.step(input, FRAME));
+    let text = answer.try_recv().unwrap().unwrap();
+    assert!(text.contains("CLOUD RESUME: Off."), "{text}");
+}
+
 fn rpc(id: u64, method: &str, params: &str) -> String {
     format!(r#"{{"jsonrpc":"2.0","id":{id},"method":"{method}","params":{params}}}"#)
 }

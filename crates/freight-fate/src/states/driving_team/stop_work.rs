@@ -9,6 +9,7 @@ use ff_core::models::co_driver;
 use ff_core::models::loyalty::loyalty_earnings_text;
 use ff_core::sim::hos;
 use ff_core::sim::roadside_inspection::InspectionLevel;
+use ff_core::sim::team_shift::TeamShift;
 use ff_core::sim::trip_models::RoadStop;
 
 use crate::app::{GameContext, TRANSCRIPT_TARGET};
@@ -94,19 +95,28 @@ impl DrivingState {
         let Some(wheel) = team.wheel.as_ref() else {
             return false;
         };
-        let shift_over = wheel.pilot.shift_over && !wheel.pilot.rested;
-        let rested = wheel.pilot.rested || self.player_rest_complete(ctx);
+        let shift = team.shift;
+        let hours_up = shift.hours_ending();
+        let rested = shift == TeamShift::EndingRested || self.player_rest_complete(ctx);
         let can_park = stop.parking != "none" && !self.lot_full_now(stop);
         let rest_left = self.player_rest_left_min(ctx).filter(|left| *left > 0.0);
-        if let Some(left) = rest_left.filter(|_| shift_over && can_park) {
+        // Their hours are up with the player's rest owed: the rest is slept
+        // out here, unless the player's own hours reach the receiver.
+        let sleep_out =
+            rest_left.filter(|_| hours_up && can_park && !self.player_finishes_load(ctx));
+        if let Some(left) = sleep_out {
             self.co_driver_parks_for_rest(ctx, stop, left);
             self.co_driver_summon(ctx, "slept on");
             return false;
         }
-        if shift_over || (rested && can_park) {
+        if hours_up || (rested && can_park) {
             // They hand back, then the stop's menu opens for the player.
-            let reason = if shift_over {
-                wheel.pilot.shift_end_reason()
+            // At a full lot "has parked" would be untrue: the player is
+            // handed the full-lot screen to choose where to sleep.
+            let reason = if hours_up && self.lot_full_now(stop) {
+                "parking"
+            } else if hours_up {
+                self.co_driver_lot_reason(ctx)
             } else {
                 "rested"
             };

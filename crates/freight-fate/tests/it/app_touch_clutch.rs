@@ -168,36 +168,59 @@ fn a_touch_restart_after_a_stall_in_fifth_takes_neutral_then_first() {
     assert!(!heard(&harness, "Grinding"), "{:?}", harness.transcript());
 }
 
-#[test]
-fn the_touch_stall_line_names_the_turn_and_the_flick() {
-    let mut harness = a_manual_truck("Touch Clutch Stall Line", true);
-    harness.with_drive(|drive, _| {
-        drive.trip.truck.transmission.gear = 6;
-        drive.trip.truck.transmission.clutch = 0.0;
-        drive.trip.truck.parking_brake = false;
-    });
-    harness.clear_speech();
-    frames(&mut harness, 1.0);
-    let said = harness.transcript().join("\n");
-    assert!(
-        said.contains(
-            "Engine stalled. Turn two fingers right to restart, then hold a pedal and flick up \
-             with a second finger for first gear."
-        ),
-        "{said}"
-    );
+const NEUTRAL_LINE: &str = "Neutral. Hold a pedal and flick up with a second finger for a gear.";
+
+fn neutral_lines(harness: &PlaytestHarness) -> usize {
+    harness
+        .transcript()
+        .iter()
+        .filter(|line| line.contains("Neutral."))
+        .count()
 }
 
-/// The 2026-09-28 rule on touch: braking to a stop in a tall gear holds
-/// idle, and the engine stalls only once the brake lets go.
-#[test]
-fn a_touch_brake_to_a_stop_in_fifth_holds_idle_until_the_lift() {
-    let mut harness = a_manual_truck("Touch Clutch Brake Stop", true);
+/// A manual rolling at `mph` in `gear`, parking brake off.
+fn rolling(harness: &mut PlaytestHarness, gear: i32, mph: f64) {
     harness.with_drive(|drive, _| {
         drive.trip.truck.parking_brake = false;
-        drive.trip.truck.transmission.gear = 5;
-        drive.trip.truck.velocity_mps = 15.0 / 2.236_936_292_054_402;
+        drive.trip.truck.transmission.gear = gear;
+        drive.trip.truck.velocity_mps = mph / 2.236_936_292_054_402;
     });
+    harness.clear_speech();
+}
+
+/// Holds the brake by touch (`Some(input)`) or with the Down key until the
+/// truck has stood five seconds, failing on a stall. Returns whether the
+/// neutral was taken before the truck stopped.
+fn brake_to_a_stop(harness: &mut PlaytestHarness) -> bool {
+    let mut stopped_for = 0.0;
+    let mut neutral_while_rolling = false;
+    for _ in 0..90 * 60 {
+        frames(harness, 1.0 / 60.0);
+        let (on, mph, gear) = harness.read_drive(|drive| {
+            let truck = &drive.trip.truck;
+            (truck.engine_on, truck.speed_mph(), truck.transmission.gear)
+        });
+        assert!(on, "stalled with the brake held at {mph:.1} mph");
+        if gear == 0 && mph >= 0.1 {
+            neutral_while_rolling = true;
+        }
+        if mph < 0.1 {
+            stopped_for += 1.0 / 60.0;
+            if stopped_for >= 5.0 {
+                return neutral_while_rolling;
+            }
+        }
+    }
+    panic!("never came to a stop");
+}
+
+/// The step 4 drive's stall: a touch manual in tenth braking off the
+/// highway takes neutral on the way down, says so once, and the lift
+/// leaves the engine running.
+#[test]
+fn a_touch_manual_in_tenth_brakes_to_a_stop_in_neutral() {
+    let mut harness = a_manual_truck("Touch Neutral Tenth", true);
+    rolling(&mut harness, 10, 55.0);
     let mut input = freight_fate::touch::TouchInput::new();
     let mut touch = |harness: &mut PlaytestHarness, gesture| {
         for event in input.handle(gesture).events {
@@ -205,21 +228,165 @@ fn a_touch_brake_to_a_stop_in_fifth_holds_idle_until_the_lift() {
         }
     };
     touch(&mut harness, Gesture::HoldLowerBegan);
-    let mut stopped_for = 0.0;
-    for _ in 0..60 * 60 {
-        frames(&mut harness, 1.0 / 60.0);
-        let (on, mph) =
-            harness.read_drive(|drive| (drive.trip.truck.engine_on, drive.trip.truck.speed_mph()));
-        assert!(on, "stalled with the brake held at {mph:.1} mph");
-        if mph < 0.1 {
-            stopped_for += 1.0 / 60.0;
-            if stopped_for >= 5.0 {
-                break;
-            }
-        }
-    }
-    assert!(stopped_for >= 5.0, "never came to a stop");
+    assert!(brake_to_a_stop(&mut harness), "neutral only at the stop");
+    assert_eq!(gear(&harness), 0);
+    assert_eq!(clutch(&harness).0, TouchClutch::Neutral);
     touch(&mut harness, Gesture::HoldEnded);
     frames(&mut harness, 2.0);
+    let truck = harness.read_drive(|drive| (drive.trip.truck.engine_on, drive.trip.truck.stalled));
+    assert_eq!(truck, (true, false));
+    assert!(heard(&harness, NEUTRAL_LINE), "{:?}", harness.transcript());
+    assert_eq!(neutral_lines(&harness), 1, "{:?}", harness.transcript());
+    // First gear from there, by touch, with no grind; the clutch reads out.
+    touch(&mut harness, Gesture::HoldLowerBegan);
+    touch(&mut harness, Gesture::LowerHoldSwipeUp);
+    assert_eq!(gear(&harness), 1);
+    frames(&mut harness, 1.0);
+    assert_eq!(clutch(&harness).0, TouchClutch::Out);
+    assert!(!heard(&harness, "Grinding"), "{:?}", harness.transcript());
+}
+
+/// Coasting down in a tall gear with no pedal at all takes the same
+/// neutral: no frame can carry the truck past it into a stall.
+#[test]
+fn a_touch_manual_coasting_down_in_sixth_takes_neutral() {
+    let mut harness = a_manual_truck("Touch Neutral Coast", true);
+    rolling(&mut harness, 6, 9.0);
+    for _ in 0..60 * 60 {
+        frames(&mut harness, 1.0 / 60.0);
+        let (on, gear) = harness.read_drive(|drive| {
+            (
+                drive.trip.truck.engine_on,
+                drive.trip.truck.transmission.gear,
+            )
+        });
+        assert!(on, "stalled coasting");
+        if gear == 0 {
+            break;
+        }
+    }
+    assert_eq!(gear(&harness), 0);
+    assert_eq!(neutral_lines(&harness), 1, "{:?}", harness.transcript());
+}
+
+/// The 2026-09-28 rule on a keyboard is untouched: braking in a tall gear
+/// holds idle, and the lift stalls.
+#[test]
+fn a_keyboard_manual_in_tenth_still_stalls_at_the_lift() {
+    let mut harness = a_manual_truck("Keyboard Tenth Stall", false);
+    rolling(&mut harness, 10, 55.0);
+    harness
+        .app
+        .ctx
+        .input
+        .press(Key::Down, freight_fate::states::base::Mods::NONE);
+    assert!(!brake_to_a_stop(&mut harness));
+    assert_eq!(gear(&harness), 10);
+    harness
+        .app
+        .ctx
+        .input
+        .release(Key::Down, freight_fate::states::base::Mods::NONE);
+    frames(&mut harness, 2.0);
     assert!(harness.read_drive(|drive| drive.trip.truck.stalled));
+    assert_eq!(neutral_lines(&harness), 0, "{:?}", harness.transcript());
+}
+
+/// Third is in the launch regime: no neutral, no stall.
+#[test]
+fn a_touch_manual_in_third_brakes_to_a_stop_in_gear() {
+    let mut harness = a_manual_truck("Touch Neutral Third", true);
+    rolling(&mut harness, 3, 15.0);
+    let mut input = freight_fate::touch::TouchInput::new();
+    for event in input.handle(Gesture::HoldLowerBegan).events {
+        harness.app.handle_event(&event);
+    }
+    assert!(!brake_to_a_stop(&mut harness));
+    for event in input.handle(Gesture::HoldEnded).events {
+        harness.app.handle_event(&event);
+    }
+    frames(&mut harness, 2.0);
+    assert_eq!(gear(&harness), 3);
+    assert!(harness.read_drive(|drive| drive.trip.truck.engine_on));
+    assert_eq!(neutral_lines(&harness), 0, "{:?}", harness.transcript());
+}
+
+#[test]
+fn a_touch_automatic_never_hears_the_neutral() {
+    let mut harness = a_manual_truck("Touch Neutral Automatic", true);
+    harness.app.ctx.settings.automatic_transmission = true;
+    harness.with_drive(|drive, _| drive.trip.truck.transmission.automatic = true);
+    rolling(&mut harness, 10, 55.0);
+    let mut input = freight_fate::touch::TouchInput::new();
+    for event in input.handle(Gesture::HoldLowerBegan).events {
+        harness.app.handle_event(&event);
+    }
+    brake_to_a_stop(&mut harness);
+    assert_eq!(neutral_lines(&harness), 0, "{:?}", harness.transcript());
+    assert_eq!(clutch(&harness).0, TouchClutch::Out);
+}
+
+/// Three touch shifts out of neutral retire the instruction.
+#[test]
+fn the_neutral_line_drops_its_instruction_after_three_shifts_out_of_neutral() {
+    let mut harness = a_manual_truck("Touch Neutral Retire", true);
+    for _ in 0..3 {
+        harness.app.dispatch_gesture(Gesture::LowerHoldSwipeUp);
+        assert_eq!(gear(&harness), 1);
+        frames(&mut harness, 1.0);
+        harness.with_drive(|drive, _| drive.trip.truck.transmission.gear = 0);
+    }
+    rolling(&mut harness, 10, 3.0);
+    frames(&mut harness, 2.0);
+    assert_eq!(gear(&harness), 0);
+    let said = harness.transcript();
+    assert!(
+        said.iter().any(|line| line.ends_with("] Neutral.")),
+        "{said:?}"
+    );
+    assert!(!heard(&harness, NEUTRAL_LINE), "{said:?}");
+}
+
+fn governed(harness: &PlaytestHarness) -> (f64, f64) {
+    harness.read_drive(|drive| {
+        let truck = &drive.trip.truck;
+        (truck.coupled_rpm(None), truck.specs.max_rpm)
+    })
+}
+
+/// Slowed to 10 in tenth, the truck is in neutral; a touch flick up takes
+/// the gear that fits the road speed, not first.
+#[test]
+fn a_touch_flick_up_from_neutral_while_rolling_takes_a_gear_that_fits() {
+    let mut harness = a_manual_truck("Touch Neutral Rolling Gear", true);
+    rolling(&mut harness, 0, 10.0);
+    harness.app.dispatch_gesture(Gesture::LowerHoldSwipeUp);
+    let gear = gear(&harness);
+    assert!(gear > 1, "took gear {gear}");
+    let (rpm, max) = governed(&harness);
+    assert!(rpm <= max, "gear {gear} at {rpm:.0} rpm over {max:.0}");
+    let lower = harness.read_drive(|drive| drive.trip.truck.coupled_rpm(Some(gear - 1)));
+    assert!(lower > max, "gear {} would also fit", gear - 1);
+    assert!(!heard(&harness, "Grinding"), "{:?}", harness.transcript());
+}
+
+#[test]
+fn a_touch_flick_up_from_neutral_when_stopped_takes_first() {
+    let mut harness = a_manual_truck("Touch Neutral Stopped Gear", true);
+    harness.app.dispatch_gesture(Gesture::LowerHoldSwipeUp);
+    assert_eq!(gear(&harness), 1);
+}
+
+#[test]
+fn a_keyboard_shift_up_from_neutral_while_rolling_still_takes_first() {
+    let mut harness = a_manual_truck("Keyboard Neutral Rolling Gear", false);
+    rolling(&mut harness, 0, 10.0);
+    harness
+        .app
+        .ctx
+        .input
+        .press(Key::LShift, freight_fate::states::base::Mods::NONE);
+    frames(&mut harness, 1.0 / 60.0);
+    harness.key(key_event(Key::W, Some('w')));
+    assert_eq!(gear(&harness), 1);
 }

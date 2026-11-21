@@ -21,6 +21,9 @@ pub enum TouchCommand {
     Action(Action),
     /// The pause menu, which is Escape rather than an [`Action`].
     Pause,
+    /// The grouped driving command list the three-finger tap opens, for a
+    /// player whose three-finger tap lands as one finger.
+    CommandList,
     Nothing,
 }
 
@@ -29,6 +32,7 @@ impl TouchCommand {
         match self {
             TouchCommand::Action(action) => action.label(),
             TouchCommand::Pause => "Pause",
+            TouchCommand::CommandList => "Driving command list",
             TouchCommand::Nothing => "Nothing",
         }
     }
@@ -37,6 +41,7 @@ impl TouchCommand {
         match self {
             TouchCommand::Action(action) => action.id(),
             TouchCommand::Pause => "pause",
+            TouchCommand::CommandList => "command_list",
             TouchCommand::Nothing => "none",
         }
     }
@@ -44,6 +49,7 @@ impl TouchCommand {
     fn parse(text: &str) -> Option<TouchCommand> {
         match text {
             "pause" => Some(TouchCommand::Pause),
+            "command_list" => Some(TouchCommand::CommandList),
             "none" => Some(TouchCommand::Nothing),
             id => Action::from_id(id)
                 .filter(|action| {
@@ -56,15 +62,19 @@ impl TouchCommand {
     /// Every command a gesture can run, in the order the picker reads them.
     /// The held controls are left out: a tap cannot hold a pedal.
     pub fn all() -> impl Iterator<Item = TouchCommand> {
-        [TouchCommand::Nothing, TouchCommand::Pause]
-            .into_iter()
-            .chain(
-                Action::all()
-                    .filter(|action| {
-                        !action.held() || matches!(action, Action::SteerLeft | Action::SteerRight)
-                    })
-                    .map(TouchCommand::Action),
-            )
+        [
+            TouchCommand::Nothing,
+            TouchCommand::Pause,
+            TouchCommand::CommandList,
+        ]
+        .into_iter()
+        .chain(
+            Action::all()
+                .filter(|action| {
+                    !action.held() || matches!(action, Action::SteerLeft | Action::SteerRight)
+                })
+                .map(TouchCommand::Action),
+        )
     }
 }
 
@@ -145,13 +155,13 @@ const SLOTS: &[(Gesture, &str, &str, TouchCommand)] = &[
         Gesture::LowerHoldTap,
         "bottom_hold_tap",
         "Brake hold, tap with a second finger",
-        run(Action::ParkingBrake),
+        TouchCommand::Nothing,
     ),
     (
         Gesture::LowerHoldDoubleTap,
         "bottom_hold_double_tap",
         "Brake hold, double tap with a second finger",
-        run(Action::Engine),
+        TouchCommand::Nothing,
     ),
     (
         Gesture::LowerHoldSwipeUp,
@@ -247,7 +257,61 @@ pub fn touch_gesture_noun(gesture: Gesture) -> Option<String> {
     }
 }
 
+/// A slot gesture as an instruction that opens a sentence ("Tap", "Hold
+/// gas and tap with a second finger"); `None` for a fixed one.
+pub fn touch_gesture_instruction(gesture: Gesture) -> Option<&'static str> {
+    Some(match gesture {
+        Gesture::Tap => "Tap",
+        Gesture::SwipeUp => "Flick up",
+        Gesture::SwipeDown => "Flick down",
+        Gesture::MagicTap => "Double tap with two fingers",
+        Gesture::ThreeFingerSwipeUp => "Flick up with three fingers",
+        Gesture::ThreeFingerSwipeDown => "Flick down with three fingers",
+        Gesture::UpperHoldTap => "Hold gas and tap with a second finger",
+        Gesture::UpperHoldDoubleTap => "Hold gas and double tap with a second finger",
+        Gesture::UpperHoldSwipeUp => "Hold gas and flick up with a second finger",
+        Gesture::UpperHoldSwipeDown => "Hold gas and flick down with a second finger",
+        Gesture::UpperHoldSwipeLeft => "Hold gas and flick left with a second finger",
+        Gesture::UpperHoldSwipeRight => "Hold gas and flick right with a second finger",
+        Gesture::LowerHoldTap => "Hold the brake and tap with a second finger",
+        Gesture::LowerHoldDoubleTap => "Hold the brake and double tap with a second finger",
+        Gesture::LowerHoldSwipeUp => "Hold the brake and flick up with a second finger",
+        Gesture::LowerHoldSwipeDown => "Hold the brake and flick down with a second finger",
+        Gesture::LowerHoldSwipeLeft => "Hold the brake and flick left with a second finger",
+        Gesture::LowerHoldSwipeRight => "Hold the brake and flick right with a second finger",
+        _ => return None,
+    })
+}
+
 impl KeyBindings {
+    /// How a touch player runs `action`, as an instruction that opens a
+    /// sentence: the first slot gesture it is on, else its fixed gesture;
+    /// `None` when only the driving command list has it.
+    pub fn touch_instruction(&self, action: Action) -> Option<&'static str> {
+        if action == Action::Engine {
+            return Some("Turn two fingers right");
+        }
+        let on_gesture = SLOTS
+            .iter()
+            .map(|(gesture, ..)| *gesture)
+            .find(|gesture| self.touch_command(*gesture) == Some(TouchCommand::Action(action)))
+            .and_then(touch_gesture_instruction);
+        if on_gesture.is_some() {
+            return on_gesture;
+        }
+        Some(match action {
+            Action::Accelerate => "Swipe up and hold",
+            Action::Brake => "Swipe down and hold",
+            Action::EmergencyBrake => "Swipe down deep and hold",
+            Action::Horn => "Hold two fingers",
+            Action::SteerLeft => "Flick left",
+            Action::SteerRight => "Flick right",
+            Action::TakeExit => "Double tap",
+            Action::Status => "Tap with three fingers, then double tap",
+            _ => return None,
+        })
+    }
+
     /// How a touch player runs `action`, as a noun for a spoken prompt:
     /// the first gesture it is on, else the fixed pedal and steering
     /// gestures, else its row on the driving command list.
@@ -378,8 +442,9 @@ mod tests {
         let b = KeyBindings::default();
         let on = |g| b.touch_command(g);
         assert_eq!(on(Gesture::UpperHoldTap), Some(run(Action::Cruise)));
-        assert_eq!(on(Gesture::LowerHoldTap), Some(run(Action::ParkingBrake)));
-        assert_eq!(on(Gesture::LowerHoldDoubleTap), Some(run(Action::Engine)));
+        assert_eq!(on(Gesture::LowerHoldTap), Some(TouchCommand::Nothing));
+        assert_eq!(on(Gesture::LowerHoldDoubleTap), Some(TouchCommand::Nothing));
+        assert_eq!(on(Gesture::UpperHoldDoubleTap), Some(TouchCommand::Nothing));
         assert_eq!(on(Gesture::UpperHoldSwipeUp), Some(run(Action::ShiftUp)));
         assert_eq!(
             on(Gesture::UpperHoldSwipeDown),
@@ -440,16 +505,18 @@ mod tests {
         b.set_touch_command(Gesture::Tap, run(Action::Fuel));
         b.set_touch_command(Gesture::MagicTap, TouchCommand::Nothing);
         b.set_touch_command(Gesture::LowerHoldSwipeUp, TouchCommand::Pause);
+        b.set_touch_command(Gesture::SwipeDown, TouchCommand::CommandList);
         let mut settings = Settings::default();
         b.store(&mut settings);
         assert_eq!(
             settings.touch_bindings,
-            "tap=fuel;magic_tap=none;bottom_hold_swipe_up=pause"
+            "tap=fuel;swipe_down=command_list;magic_tap=none;bottom_hold_swipe_up=pause"
         );
         assert_eq!(KeyBindings::from_settings(&settings), b);
         // Back to the default clears the override.
         b.set_touch_command(Gesture::Tap, run(Action::Speed));
         b.set_touch_command(Gesture::MagicTap, TouchCommand::Pause);
+        b.set_touch_command(Gesture::SwipeDown, run(Action::CruiseDown));
         b.reset_touch();
         assert!(b.is_default());
     }

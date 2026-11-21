@@ -44,6 +44,11 @@ impl Default for SaveModifiedNoticeState {
 }
 
 impl Menu for SaveModifiedNoticeState {
+    /// A prompt to answer: Escape answers it, so touch adds no Back row.
+    fn touch_back_row(&self) -> bool {
+        false
+    }
+
     fn menu(&self) -> &MenuCore<Self> {
         &self.menu
     }
@@ -104,6 +109,11 @@ impl LegacyCareerNoticeState {
 }
 
 impl Menu for LegacyCareerNoticeState {
+    /// A prompt to answer: Escape answers it, so touch adds no Back row.
+    fn touch_back_row(&self) -> bool {
+        false
+    }
+
     fn menu(&self) -> &MenuCore<Self> {
         &self.menu
     }
@@ -138,6 +148,65 @@ impl Menu for LegacyCareerNoticeState {
 }
 
 impl_state_for_menu!(LegacyCareerNoticeState);
+
+pub fn newer_career_notice(name: &str, line: &str) -> String {
+    format!(
+        "{name} was made in Freight Fate {line}. This version cannot continue it. \
+         Nothing was lost: the save is untouched and still works in Freight Fate {line}."
+    )
+}
+
+pub struct NewerCareerNoticeState {
+    menu: MenuCore<Self>,
+    driver_name: String,
+    line: String,
+}
+
+impl NewerCareerNoticeState {
+    pub fn new(driver_name: &str, line: &str) -> Self {
+        Self {
+            menu: MenuCore::new("Career from a newer version")
+                .with_intro_help("Escape goes back to the career list."),
+            driver_name: driver_name.to_string(),
+            line: line.to_string(),
+        }
+    }
+}
+
+impl Menu for NewerCareerNoticeState {
+    /// A prompt to answer: Escape answers it, so touch adds no Back row.
+    fn touch_back_row(&self) -> bool {
+        false
+    }
+
+    fn menu(&self) -> &MenuCore<Self> {
+        &self.menu
+    }
+    fn menu_mut(&mut self) -> &mut MenuCore<Self> {
+        &mut self.menu
+    }
+    fn announce_entry(&mut self, ctx: &mut GameContext) {
+        ctx.say(&format!(
+            "{} {}",
+            newer_career_notice(&self.driver_name, &self.line),
+            self.current_text(ctx)
+        ));
+    }
+    fn build_items(&mut self, _ctx: &mut GameContext) -> Vec<MenuItem<Self>> {
+        vec![
+            MenuItem::new("Start a new career", |_s: &mut Self, ctx| {
+                ctx.replace_state(NameEntryState::new());
+            })
+            .help("Start fresh with a different driver name."),
+            MenuItem::new("Back to the career list", |s: &mut Self, ctx| {
+                s.go_back(ctx)
+            })
+            .help("Back to the saved careers, nothing changed."),
+        ]
+    }
+}
+
+impl_state_for_menu!(NewerCareerNoticeState);
 
 /// A career that predates the enforcement record, told where it stands.
 ///
@@ -175,6 +244,11 @@ impl Default for DrivingRecordNoticeState {
 }
 
 impl Menu for DrivingRecordNoticeState {
+    /// A prompt to answer: Escape answers it, so touch adds no Back row.
+    fn touch_back_row(&self) -> bool {
+        false
+    }
+
     fn menu(&self) -> &MenuCore<Self> {
         &self.menu
     }
@@ -247,6 +321,11 @@ impl Default for SaveMigrationNoticeState {
 }
 
 impl Menu for SaveMigrationNoticeState {
+    /// A prompt to answer: Escape answers it, so touch adds no Back row.
+    fn touch_back_row(&self) -> bool {
+        false
+    }
+
     fn menu(&self) -> &MenuCore<Self> {
         &self.menu
     }

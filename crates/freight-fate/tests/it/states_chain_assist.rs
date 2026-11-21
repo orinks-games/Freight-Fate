@@ -6,6 +6,7 @@ use ff_core::sim::weather::WeatherKind;
 
 use ff_core::models::jobs::{cargo_type, Job};
 use ff_core::models::profile::Profile;
+use ff_core::sim::chain_control::ChainSet;
 use ff_core::sim::real_weather::{Observation, RealWeatherProvider};
 use ff_core::sim::real_weather_alerts::{WeatherAlert, WeatherAlertsProvider};
 use freight_fate::app::testing::TestApp;
@@ -191,9 +192,24 @@ fn accept_under(origin: &str, destination: &str, event: &str, sky: RealWeatherPr
     app.main_lines().last().cloned().unwrap_or_default()
 }
 
+/// Live snow at every station on the way.
+fn snowing() -> RealWeatherProvider {
+    RealWeatherProvider::new(Arc::new(|_lat, _lon| {
+        Ok(Observation::new("Heavy Snow", 10.0, Some(-5.0), Some(0.5)))
+    }))
+    .with_threaded(false)
+}
+
 #[test]
 fn test_the_board_names_a_chain_law_in_effect_on_the_route() {
+    // The law follows the road: a warning over a bare road posts nothing
+    // (player report, 2026-11-21).
     let line = accept_under_alert("Sacramento", "Reno", "Winter Storm Warning");
+    assert!(
+        !line.contains("chain"),
+        "an alert alone posts no law: {line}"
+    );
+    let line = accept_under("Sacramento", "Reno", "Winter Storm Warning", snowing());
     assert_eq!(
         line,
         "A chain law is in effect on I-80 on this route. You have no chains. The garage here \
@@ -216,17 +232,21 @@ fn test_live_snow_at_a_route_city_posts_the_law_on_the_board() {
 
 #[test]
 fn test_a_level_1_alert_where_a_tandem_drives_on_stays_quiet_on_the_board() {
-    // A winter storm posts Level 1; Colorado lets a tandem drive on.
-    let line = accept_under_alert("Denver", "Silverthorne", "Winter Storm Warning");
+    // Snow posts Level 1; Colorado lets a tandem drive on.
+    let line = accept_under("Denver", "Silverthorne", "Winter Storm Warning", snowing());
     assert!(!line.contains("chain"), "Colorado Level 1: {line}");
-    // An ice storm posts Level 2 on the same road, which chains every rig.
-    let line = accept_under_alert("Denver", "Silverthorne", "Ice Storm Warning");
+    // An ice storm warning over snow raises it to Level 2, which chains
+    // every rig.
+    let line = accept_under("Denver", "Silverthorne", "Ice Storm Warning", snowing());
     assert!(line.contains("chain law is in effect on I-70"), "{line}");
-    let line = accept_under_alert("Pendleton", "La Grande", "Ice Storm Warning");
+    let line = accept_under("Pendleton", "La Grande", "Ice Storm Warning", snowing());
     assert!(line.contains("chain law is in effect on I-84"), "{line}");
+    // Over a bare road the same warning posts nothing.
+    let line = accept_under_alert("Pendleton", "La Grande", "Ice Storm Warning");
+    assert!(!line.contains("chain"), "bare road: {line}");
     // Oregon Level 1 chains only single-drive-axle trucks: a tandem hears
     // nothing about chains.
-    let line = accept_under_alert("Pendleton", "La Grande", "Winter Storm Warning");
+    let line = accept_under("Pendleton", "La Grande", "Winter Storm Warning", snowing());
     assert!(!line.contains("chain"), "Oregon Level 1: {line}");
 }
 
@@ -564,6 +584,21 @@ fn test_no_chain_up_stop_where_the_rig_needs_no_chains() {
     assert!((money(&app) - 1000.0).abs() < 0.01);
 }
 
+/// One frame of the chains against the road, then the assist.
+fn chains_then_assist(app: &mut TestApp, drive: &SharedState) {
+    drive_and_ctx(drive, app, |d, ctx| d.update_chain_set(ctx));
+    assist(app, drive, false);
+}
+
+/// Chains on, over the bare road the drive was staged on.
+fn chains_on_bare(drive: &SharedState) {
+    with_drive(drive, |d| {
+        d.trip.truck.chains_on = true;
+        d.trip.truck.surface = "dry".to_string();
+        d.chain_set = ChainSet::from_truck(true, false, d.trip.position_mi);
+    });
+}
+
 #[test]
 fn test_facility_stopping_takes_chains_off_on_bare_road() {
     let mut app = TestApp::new();
@@ -577,28 +612,31 @@ fn test_facility_stopping_takes_chains_off_on_bare_road() {
         10.2,
         vec![(0.0, 10.0)],
     );
-    with_drive(&drive, |d| {
-        d.trip.truck.chains_on = true;
-        d.trip.truck.surface = "dry".to_string();
-    });
-    assist(&mut app, &drive, false);
+    chains_on_bare(&drive);
+    chains_then_assist(&mut app, &drive);
     assert!(
         pending(&drive).is_none(),
         "not yet half a mile of bare road"
     );
     with_drive(&drive, |d| d.trip.position_mi = 10.8);
-    assist(&mut app, &drive, false);
+    chains_then_assist(&mut app, &drive);
     assert_eq!(pending(&drive), Some(ChainStopKind::Remove));
-    assert!(lines(&app)
-        .contains(&"Chain-off area. Taking chains off, about 10 minutes on duty.".to_string()));
+    assert_eq!(
+        lines(&app),
+        vec!["Bare road. Taking chains off, about 10 minutes on duty.".to_string()],
+        "the assist's line alone, not the driver's as well"
+    );
     let before = minutes(&drive);
     come_to_rest(&mut app, &drive);
     assert!(!with_drive(&drive, |d| d.trip.truck.chains_on));
+    assert_eq!(with_drive(&drive, |d| d.chain_set), ChainSet::Stowed);
     assert!(((minutes(&drive) - before) - 10.0).abs() < 0.5);
-    drop(drive);
-    drop(app);
+}
 
-    // Another area within 5 miles keeps them on.
+#[test]
+fn test_facility_stopping_takes_chains_off_on_bare_road_inside_a_chain_law_area() {
+    // On a bare road no law is posted, so there is nothing to keep them on
+    // for, inside an area or with another close ahead.
     let mut app = TestApp::new();
     app.ctx.settings.imperial_units = true;
     let drive = stop_drive(
@@ -607,23 +645,56 @@ fn test_facility_stopping_takes_chains_off_on_bare_road() {
         "Silverthorne",
         0,
         true,
-        10.2,
+        4.0,
         vec![(0.0, 10.0), (13.0, 20.0)],
     );
-    with_drive(&drive, |d| {
-        d.trip.truck.chains_on = true;
-        d.trip.truck.surface = "dry".to_string();
-    });
-    assist(&mut app, &drive, false);
-    with_drive(&drive, |d| d.trip.position_mi = 10.8);
-    assist(&mut app, &drive, false);
-    assert!(pending(&drive).is_none());
-    assert!(with_drive(&drive, |d| d.trip.truck.chains_on));
+    chains_on_bare(&drive);
+    chains_then_assist(&mut app, &drive);
+    with_drive(&drive, |d| d.trip.position_mi = 4.6);
+    chains_then_assist(&mut app, &drive);
+    assert_eq!(pending(&drive), Some(ChainStopKind::Remove));
     assert!(
-        lines(&app).contains(&"Leaving chains on. Another chain area in 2.2 miles.".to_string()),
+        lines(&app)
+            .contains(&"Bare road. Taking chains off, about 10 minutes on duty.".to_string()),
         "{:?}",
         lines(&app)
     );
+}
+
+#[test]
+fn test_without_the_assist_the_driver_hears_bare_road_once_per_stretch() {
+    let mut app = TestApp::new();
+    app.ctx.settings.imperial_units = true;
+    let drive = stop_drive(
+        &mut app,
+        "Denver",
+        "Silverthorne",
+        0,
+        true,
+        4.0,
+        vec![(0.0, 10.0)],
+    );
+    app.ctx.settings.destination_approach_assist = false;
+    let clock = app.fake_pacer_clock();
+    chains_on_bare(&drive);
+    let bare_line = "Bare road. Stop and take the chains off.".to_string();
+    let count = |app: &TestApp| lines(app).iter().filter(|l| **l == bare_line).count();
+    for mile in [4.2, 4.4, 4.6, 5.0, 6.0] {
+        with_drive(&drive, |d| d.trip.position_mi = mile);
+        chains_then_assist(&mut app, &drive);
+    }
+    assert_eq!(count(&app), 1, "{:?}", lines(&app));
+    assert!(pending(&drive).is_none());
+    // Snow again a couple of minutes on, then bare: the line comes back.
+    clock.advance(120.0);
+    with_drive(&drive, |d| d.trip.truck.surface = "snow".to_string());
+    chains_then_assist(&mut app, &drive);
+    with_drive(&drive, |d| d.trip.truck.surface = "wet".to_string());
+    for mile in [6.2, 6.4, 6.8] {
+        with_drive(&drive, |d| d.trip.position_mi = mile);
+        chains_then_assist(&mut app, &drive);
+    }
+    assert_eq!(count(&app), 2, "{:?}", lines(&app));
 }
 
 #[test]

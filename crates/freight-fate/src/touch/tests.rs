@@ -317,6 +317,7 @@ fn every_gesture_has_a_route_on_every_screen() {
             R::Keyboard,
             R::Keyboard,
         ),
+        (Gesture::Travel(64), R::Nothing, R::Nothing, R::Nothing),
     ];
     assert_eq!(TouchMode::ALL.len(), 4, "a new mode needs its column");
     for code in 0..64 {
@@ -369,6 +370,26 @@ fn every_native_code_round_trips_and_unknown_codes_are_ignored() {
     assert_eq!(Gesture::from_code(13), None);
     assert_eq!(Gesture::from_code(50), None);
     assert_eq!(Gesture::from_code(-1), None);
+}
+
+#[test]
+fn a_swipe_length_decodes_at_both_ends_of_its_range() {
+    assert_eq!(
+        Gesture::from_code(TRAVEL_CODE_BASE),
+        Some(Gesture::Travel(0))
+    );
+    assert_eq!(
+        Gesture::from_code(TRAVEL_CODE_BASE + 999),
+        Some(Gesture::Travel(MAX_TRAVEL_POINTS))
+    );
+    assert_eq!(Gesture::from_code(TRAVEL_CODE_BASE - 1), None);
+    assert_eq!(Gesture::from_code(TRAVEL_CODE_BASE + 1000), None);
+    // A length presses nothing, and only practice hears it.
+    assert_eq!(Gesture::Travel(90).key(), None);
+    assert_eq!(
+        route(TouchMode::Practice, Gesture::Travel(90)),
+        Route::Practice
+    );
 }
 
 #[test]

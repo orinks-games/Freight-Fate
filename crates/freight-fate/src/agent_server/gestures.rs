@@ -47,9 +47,24 @@ impl AgentPolicy {
         &mut self,
         gesture: Gesture,
         seconds: Option<f64>,
+        length: Option<u16>,
         reply: Reply,
     ) -> bool {
         let lift = lift_for(gesture);
+        if length.is_some() && !takes_length(gesture) {
+            let _ = reply.send(Err(format!(
+                "{} has no length; give length on a one-finger hold, deep_swipe or lift.",
+                gesture.name()
+            )));
+            return false;
+        }
+        if length.is_some() && seconds.is_none() && gesture != Gesture::HoldEnded {
+            let _ = reply.send(Err(
+                "An untimed hold reports its length on the lift: send lift with length."
+                    .to_string(),
+            ));
+            return false;
+        }
         if let Some(seconds) = seconds {
             let Some(lift) = lift else {
                 let _ = reply.send(Err(format!(
@@ -67,9 +82,13 @@ impl AgentPolicy {
             }
             let seconds = seconds.clamp(0.05, MAX_GESTURE_HOLD_SECONDS);
             self.queue_touch(gesture);
-            self.gesture_lift = Some((lift, seconds));
+            self.gesture_lift = Some((lift, seconds, length));
             self.wait_until(seconds + PEDAL_SETTLE_SECONDS, Until::Elapsed, false, reply);
             return true;
+        }
+        // A lift with a length reports it first, as the phone does.
+        if let (Gesture::HoldEnded, Some(points)) = (gesture, length) {
+            self.queue_touch(Gesture::Travel(points));
         }
         self.queue_touch(gesture);
         self.wait_until(GESTURE_SETTLE_SECONDS, Until::Elapsed, false, reply);
@@ -90,12 +109,15 @@ impl AgentPolicy {
         if let Some(key) = self.touch.held() {
             input.assert_held(key);
         }
-        if let Some((lift, remaining)) = self.gesture_lift.take() {
+        if let Some((lift, remaining, length)) = self.gesture_lift.take() {
             let remaining = remaining - dt;
             if remaining > 0.0 {
-                self.gesture_lift = Some((lift, remaining));
+                self.gesture_lift = Some((lift, remaining, length));
             } else {
-                for event in self.touch.handle(lift).events {
+                let travel = length.map(|points| self.touch.handle(Gesture::Travel(points)));
+                let events = travel.into_iter().flat_map(|out| out.events);
+                let lifted = self.touch.handle(lift).events;
+                for event in events.chain(lifted) {
                     input.queue_player_input(event);
                 }
             }
@@ -112,6 +134,20 @@ impl AgentPolicy {
             input.queue_player_input(event);
         }
     }
+}
+
+/// The gestures a finger's length goes with: a one-finger hold in a
+/// direction, the deep swipe, and the lift that ends either.
+fn takes_length(gesture: Gesture) -> bool {
+    matches!(
+        gesture,
+        Gesture::HoldUpperBegan
+            | Gesture::HoldLowerBegan
+            | Gesture::HoldLeftBegan
+            | Gesture::HoldRightBegan
+            | Gesture::DeepSwipeDownBegan
+            | Gesture::HoldEnded
+    )
 }
 
 #[cfg(test)]

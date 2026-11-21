@@ -171,7 +171,8 @@ development packages the nightly Career 1.9 workflow installs; on Ubuntu 22.04 t
 `gcc-13`/`g++-13` itself when the default `gcc` is older. macOS builds SDL2
 from source, so do not install Homebrew's `sdl2`.
 
-For iPhone and iPad builds and the touch gestures, see `docs/ios.md`.
+For iPhone and iPad builds and the touch gestures, see `docs/ios/README.md`.
+For Android builds, TalkBack and the voice rows, see `docs/android/README.md`.
 
 ### Advanced maintainer overrides
 

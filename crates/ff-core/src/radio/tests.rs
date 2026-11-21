@@ -1713,8 +1713,9 @@ fn test_imported_stations_come_in_near_their_transmitter() {
 fn test_imported_station_spoken_text_is_clean() {
     // Curated stations may speak their website as a source note; the imported
     // tier's spoken lines carry no URLs or stream jargon at all.
-    let mut radio = RadioState::new(imported()).with_position(Some(DALLAS));
-    for line in radio.station_list_lines(30, None) {
+    let radio = RadioState::new(imported()).with_position(Some(DALLAS));
+    for reception in radio.local_stations() {
+        let line = reception.station.display_name();
         assert!(!line.to_lowercase().contains("http"));
         assert!(!line.contains('\n') && !line.contains('\t'));
     }
@@ -1726,18 +1727,36 @@ fn test_imported_station_spoken_text_is_clean() {
 }
 
 #[test]
-fn test_station_list_lines_speak_distance_and_source() {
-    let near = terrestrial_at("fix-near", "WZZZ", 0.0);
-    let mut radio = RadioState::new(vec![near])
-        .with_station_id("fix-near")
-        .with_position(Some(DALLAS));
-    let lines = radio.station_list_lines(12, None);
-    assert_eq!(
-        lines,
-        vec!["current, WZZZ FM: country, strong signal, 0 miles away. Source: reception fixture."]
-    );
-    let spoken = radio.station_list_lines(12, Some(&|miles: f64| format!("{miles:.1} mi")));
-    assert!(spoken[0].contains(", 0.0 mi away"));
+fn test_local_stations_carry_every_ff_station_and_the_locals_in_range() {
+    // The Tab radio screen once read the first 16 receivable stations. The
+    // Freight Fate group alone is 20, so Channel 3000 and the last regional
+    // stations were cut, and no station in range was ever reached (owner,
+    // 2026-11-17).
+    let mut dial = catalog();
+    dial.push(terrestrial_at("kzzz-dallas", "KZZZ", 0.0));
+    let radio = RadioState::new(dial).with_position(Some(DALLAS));
+    let receivable = radio.receivable_stations();
+    let local = radio.local_stations();
+    let lines: Vec<String> = local.iter().map(|r| r.station.display_name()).collect();
+    let more = receivable.len() - local.len();
+    for reception in receivable.iter().filter(|r| dial_group(&r.station) == 1) {
+        let name = reception.station.display_name();
+        assert!(
+            lines.iter().any(|l| l.contains(&name)),
+            "{name} missing from {lines:#?}"
+        );
+    }
+    assert!(lines.iter().any(|l| l.contains("Channel 3000")));
+    assert!(lines.iter().any(|l| l.starts_with("KZZZ FM")), "{lines:#?}");
+    // The distance rides along for the list to speak.
+    let kzzz = local
+        .iter()
+        .find(|r| r.station.call_sign == "KZZZ")
+        .unwrap();
+    assert!(kzzz.distance_miles.is_some());
+    // Streams from anywhere are counted, not read out one by one.
+    assert!(more > 0);
+    assert_eq!(lines.len() + more, receivable.len());
 }
 
 // -- test_radio_multi_site.py -----------------------------------------------------

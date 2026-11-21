@@ -13,6 +13,8 @@
 //! binding, gets the key a keyboard player would press. Nothing here touches
 //! UIKit, so the whole mapping is tested on every platform.
 
+pub mod recognizer;
+
 use crate::bindings::Action;
 use crate::states::base::{InputEvent, Key, Mods};
 pub use ff_core::touch_mode::{RoadOffer, TouchMode};
@@ -93,7 +95,15 @@ pub enum Gesture {
     /// A hardware keyboard connected or went away.
     KeyboardConnected,
     KeyboardDisconnected,
+    /// How far a one-finger hold travelled along its direction, in whole
+    /// points, sent as it lifts while Practice gestures is open.
+    Travel(u16),
 }
+
+/// The first code of the swipe lengths: [`TRAVEL_CODE_BASE`] plus the points.
+pub const TRAVEL_CODE_BASE: i32 = 1000;
+/// The longest swipe length a code carries; a longer one reads as this.
+pub const MAX_TRAVEL_POINTS: u16 = 999;
 
 impl Gesture {
     /// The code `ios/ff_touch.m` queues for this gesture.
@@ -148,6 +158,12 @@ impl Gesture {
             47 => Gesture::RotateLeft,
             48 => Gesture::KeyboardConnected,
             49 => Gesture::KeyboardDisconnected,
+            travel
+                if (TRAVEL_CODE_BASE..=TRAVEL_CODE_BASE + i32::from(MAX_TRAVEL_POINTS))
+                    .contains(&travel) =>
+            {
+                Gesture::Travel(u16::try_from(travel - TRAVEL_CODE_BASE).ok()?)
+            }
             _ => return None,
         })
     }
@@ -194,6 +210,7 @@ impl Gesture {
             | Gesture::RotateLeft
             | Gesture::KeyboardConnected
             | Gesture::KeyboardDisconnected
+            | Gesture::Travel(_)
             | Gesture::UpperHoldTap
             | Gesture::UpperHoldDoubleTap
             | Gesture::UpperHoldSwipeUp
@@ -359,6 +376,8 @@ pub fn route(mode: TouchMode, gesture: Gesture) -> Route {
     match gesture {
         G::KeyboardConnected | G::KeyboardDisconnected => Route::Keyboard,
         _ if mode == TouchMode::Practice => Route::Practice,
+        // Only practice reads a swipe's length.
+        G::Travel(_) => Route::Nothing,
         G::HoldEnded => Route::Lift,
         _ if mode == TouchMode::Menu => menu_route(gesture),
         // A tap, a magic tap and the message flicks would type a comma, a

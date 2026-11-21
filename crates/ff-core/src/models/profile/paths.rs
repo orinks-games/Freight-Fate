@@ -69,10 +69,21 @@ impl SaveRoots {
             override_dir,
             game_root: game_root(),
             legacy_data_dir: legacy_data_dir(),
-            macos_data_dir: macos_data_dir(),
-            macos: cfg!(any(target_os = "macos", target_os = "ios")),
+            // One fixed per-user folder, never beside the game: Application
+            // Support on macOS and iOS, the app's private `FreightFate`
+            // folder on Android (see `settings::paths::legacy_data_dir`).
+            macos_data_dir: if cfg!(target_os = "android") {
+                legacy_data_dir()
+            } else {
+                macos_data_dir()
+            },
+            macos: cfg!(any(
+                target_os = "macos",
+                target_os = "ios",
+                target_os = "android"
+            )),
             frozen_exe_dir: if super::is_frozen() {
-                std::env::current_exe()
+                crate::settings::paths::game_executable()
                     .ok()
                     .and_then(|exe| exe.parent().map(Path::to_path_buf))
             } else {

@@ -75,6 +75,7 @@ const CRUISE_REPLY_FRAMES: u32 = 30;
 /// minus); no target is ever this far from what K captured.
 const MAX_CRUISE_TAPS: i64 = 60;
 
+mod bed_levels;
 mod ears;
 mod gestures;
 mod holder;
@@ -155,6 +156,9 @@ pub enum Command {
     Gesture {
         gesture: crate::touch::Gesture,
         seconds: Option<f64>,
+        /// How far the finger travelled, in points, sent as it lifts the
+        /// way the phone does while Practice gestures is open.
+        length: Option<u16>,
     },
     /// Run until a line carrying `text` is heard, or a menu opens, or the
     /// clock runs out -- whichever first. Replies with what was heard.
@@ -200,6 +204,11 @@ pub enum Command {
     /// Open a nod-off's reaction window on the live drive
     /// (`PlayerInputFrame::stage_nod`).
     Nod,
+    /// Force the simulated sky on the live drive and later ones
+    /// (`PlayerInputFrame::force_weather`); `None` unlocks it.
+    Weather {
+        kind: Option<ff_core::sim::weather::WeatherKind>,
+    },
     /// The hit is discovered on the serve thread (world data only) so the
     /// game loop never blocks on a search; the loop only builds the drive.
     StageHit {
@@ -207,6 +216,7 @@ pub enum Command {
         opts: Box<crate::playtest::road::RoadOptions>,
         found: usize,
         picked: usize,
+        weather: Option<Option<ff_core::sim::weather::WeatherKind>>,
     },
     Quit,
 }
@@ -259,10 +269,15 @@ fn fatigue_state_line(o: &crate::app::DrivingObservation, mode: crate::touch::To
     let gate = o
         .gate
         .map_or(String::new(), |gate| format!("; gate {}", gate.key()));
+    // On a load with a co-driver: their shift and their minutes left.
+    let co_driver = o.co_driver.map_or(String::new(), |(shift, left)| {
+        let left = left.map_or("hours off".to_string(), |min| format!("{min:.0} min"));
+        format!("; co_driver_shift {}; co_driver_left {left}", shift.key())
+    });
     format!(
         "STATE: alertness {}; nod {} ({timer:.2} {unit}); nod_misses {}; lift_owed {lift}; \
-         rest_call {rest_call}; runaway {}{gate}; jake_zone {}; touch_mode {}; road_offer {}; \
-         touch_clutch {}.",
+         rest_call {rest_call}; runaway {}{gate}{co_driver}; jake_zone {}; touch_mode {}; road_offer {}; \
+         touch_clutch {}; window {}; outside {} ({}, {}); water {}; road_surface {}, {}; structure {}; chain_control {}; chains {}.",
         o.alertness.key(),
         o.nod.key(),
         o.nod.misses,
@@ -270,7 +285,19 @@ fn fatigue_state_line(o: &crate::app::DrivingObservation, mode: crate::touch::To
         o.jake_zone,
         mode.key(),
         o.road_offer.key(),
-        o.touch_clutch.name()
+        o.touch_clutch.name(),
+        o.window.name(),
+        o.outside.name(),
+        o.outside_bed,
+        o.outside_temperature_c
+            .map_or("seasons off".to_string(), |t| format!("{t:.1} C")),
+        o.water.name(),
+        o.road_surface.name(),
+        o.road_surface.origin(),
+        o.structure
+            .map_or("none".to_string(), |(kind, mi)| format!("{} {mi:.2} mi", kind.name())),
+        o.chain_control.key(),
+        o.chains.key()
     )
 }
 
@@ -367,8 +394,9 @@ pub struct AgentPolicy {
     /// The touch screen's translator, holding whatever a gesture hold keeps
     /// down, the way `ios/ff_touch.m` feeds it.
     touch: crate::touch::TouchInput,
-    /// A timed `gesture` hold: what lifts it, and the real seconds left.
-    gesture_lift: Option<(crate::touch::Gesture, f64)>,
+    /// A timed `gesture` hold: what lifts it, the real seconds left, and
+    /// the length it reports as it lifts.
+    gesture_lift: Option<(crate::touch::Gesture, f64, Option<u16>)>,
     /// Key events scripted frame by frame, front first. A tap is two
     /// frames -- down, then up -- because the held-key tracker reads a
     /// press and release inside ONE frame as a screen reader's re-injected
@@ -625,8 +653,20 @@ impl AgentPolicy {
                 let mode = input.touch_mode();
                 match input.driving_observation() {
                     Some(o) => text.push_str(&fatigue_state_line(&o, mode)),
-                    None => text.push_str(&format!("STATE: touch_mode {}.", mode.key())),
+                    None => text.push_str(&format!(
+                        "STATE: touch_mode {}{}.",
+                        mode.key(),
+                        input.dispatch_board_state().unwrap_or_default()
+                    )),
                 }
+                let (choice, main, event) = input.speech_state();
+                text.push_str(&format!(
+                    "\nCLOUD RESUME: {:?}.",
+                    input.cloud_resume_state()
+                ));
+                text.push_str(&format!(
+                    "\nSPEECH: main_backend {choice}; main {main}; event {event}."
+                ));
             }
             let _ = waiting.reply.send(Ok(text));
         }
@@ -741,8 +781,12 @@ impl AgentPolicy {
                     self.wait_until(seconds + PEDAL_SETTLE_SECONDS, Until::Elapsed, false, reply);
                     break;
                 }
-                Command::Gesture { gesture, seconds } => {
-                    if self.send_gesture(gesture, seconds, reply) {
+                Command::Gesture {
+                    gesture,
+                    seconds,
+                    length,
+                } => {
+                    if self.send_gesture(gesture, seconds, length, reply) {
                         break;
                     }
                 }
@@ -811,15 +855,23 @@ impl AgentPolicy {
                     break;
                 }
                 Command::Status => {
-                    for (key, text) in [
-                        (Key::Space, None),
-                        (Key::S, Some('s')),
-                        (Key::G, Some('g')),
-                        (Key::U, Some('u')),
-                        (Key::R, Some('r')),
-                        (Key::C, Some('c')),
-                        (Key::F, Some('f')),
-                    ] {
+                    // On the dispatch board the readout keys are menu keys
+                    // (Space accepts, letters jump), so nothing is pressed
+                    // and the STATE line is the whole answer.
+                    let keys: &[(Key, Option<char>)] = if input.dispatch_board_state().is_some() {
+                        &[]
+                    } else {
+                        &[
+                            (Key::Space, None),
+                            (Key::S, Some('s')),
+                            (Key::G, Some('g')),
+                            (Key::U, Some('u')),
+                            (Key::R, Some('r')),
+                            (Key::C, Some('c')),
+                            (Key::F, Some('f')),
+                        ]
+                    };
+                    for &(key, text) in keys {
                         self.tap(key, text, Mods::NONE);
                     }
                     self.wait_until(STATUS_SETTLE_SECONDS, Until::Elapsed, false, reply);
@@ -885,12 +937,19 @@ impl AgentPolicy {
                 Command::Nod => {
                     let _ = reply.send(input.stage_nod());
                 }
+                Command::Weather { kind } => {
+                    let _ = reply.send(Ok(input.force_weather(kind)));
+                }
                 Command::StageHit {
                     hit,
                     opts,
                     found,
                     picked,
+                    weather,
                 } => {
+                    if let Some(kind) = weather {
+                        input.force_weather(kind);
+                    }
                     // Dropping into a fresh drive: whatever the agent was
                     // holding belongs to the old screen.
                     self.held.clear();

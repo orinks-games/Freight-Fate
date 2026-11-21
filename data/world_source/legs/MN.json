@@ -761,7 +761,51 @@
             "name": "Cerro Gordo County",
             "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
           }
-        ]
+        ],
+        "pavement": {
+          "surface": [
+            "0.03 2.325 asphalt_over_asphalt iri=91",
+            "2.325 2.815 asphalt_over_jointed_concrete iri=77",
+            "3.05 9.455 unbonded_jointed_concrete_overlay iri=76 faulting=0.02",
+            "10.545 11.03 unbonded_jointed_concrete_overlay iri=84 faulting=0.02",
+            "11.03 25.58 asphalt_over_jointed_concrete reverse iri=53 faulting=0",
+            "25.78 26.035 jointed_plain_concrete",
+            "26.035 32.745 asphalt",
+            "32.745 38.545 asphalt_over_jointed_concrete",
+            "38.545 40.23 asphalt_over_jointed_concrete reverse iri=66 faulting=0",
+            "40.23 41.235 asphalt_over_jointed_concrete iri=84 faulting=0",
+            "41.235 41.615 asphalt_over_asphalt iri=70 faulting=0",
+            "41.615 41.795 jointed_plain_concrete forward iri=201 faulting=0.07",
+            "41.795 41.895 asphalt_over_jointed_concrete forward iri=342 faulting=0.05"
+          ],
+          "structures": [
+            "3.09 3.155 bridge hpms=0.064",
+            "8.295 8.31 bridge hpms=0.015",
+            "8.54 8.565 bridge hpms=0.025",
+            "11.445 11.45 bridge reverse hpms=0.005",
+            "18.535 18.565 bridge reverse hpms=0.031",
+            "22.225 22.23 bridge reverse hpms=0.005",
+            "25.88 25.935 bridge hpms=0.055",
+            "27.3 27.31 bridge hpms=0.006",
+            "30.98 30.985 bridge hpms=0.005",
+            "35.38 35.395 bridge hpms=0.015",
+            "35.83 35.84 bridge hpms=0.009",
+            "36.93 36.935 bridge hpms=0.005",
+            "37.635 37.67 bridge hpms=0.035",
+            "39.03 39.07 bridge reverse hpms=0.055",
+            "40.565 40.575 bridge hpms=0.008"
+          ],
+          "meta": {
+            "read_share_forward": 0.574,
+            "read_share_reverse": 0.954,
+            "inventory_share_forward": 0.0,
+            "inventory_share_reverse": 0.0,
+            "sectioned_share": 0.987,
+            "mile_scale": 0.9895,
+            "hpms_year": 2020,
+            "source": "FHWA Highway Performance Monitoring System (HPMS) Surface_Type (Item 49) and Structure_Type (Item 4), codes per the HPMS Field Manual, Chapter 4 (https://www.fhwa.dot.gov/policyinformation/hpms/fieldmanual/page06.cfm and page04.cfm), read from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view), accessed 2026-11-20. The class and the structure are READ. Mileage is DERIVED: each section's longest geometry piece projected onto the archived leg road and rescaled to the leg's miles, read in 0.005-mile bins, the highest functional class nearest the road winning where rows overlap. A run marked inventory_side is ASSUMED: the leg drives the non-inventory carriageway there, which HPMS gives no surface of its own, and the inventory carriageway's reading within 250 m is applied to it (meta inventory_share_* gives how much of the leg). A structure's hpms_mi is READ: the milepoint length of the HPMS sections behind it, each once. mile_scale is leg miles per measured mile of the archived road. Each surface entry reads 'from_mi to_mi class', then forward or reverse when it holds one way only, then iri=, faulting= and inventory_side where they apply; each structure reads 'from_mi to_mi kind', the way, then hpms= (its HPMS length). iri (inches per mile) and faulting (inches) are DERIVED: the mean of the section readings inside the run. Where HPMS has no reading nothing is written. HPMS reports bridge-sized culverts as bridges."
+          }
+        }
       },
       "stops": [
         {
@@ -1650,7 +1694,34 @@
             "name": "Steele County",
             "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
           }
-        ]
+        ],
+        "pavement": {
+          "surface": [
+            "0.03 2.8 asphalt_over_asphalt iri=180",
+            "2.8 27.855 unbonded_jointed_concrete_overlay iri=62 faulting=0.02",
+            "27.855 31.395 asphalt_over_jointed_concrete iri=45",
+            "31.395 33.855 jointed_plain_concrete iri=74 faulting=0.02"
+          ],
+          "structures": [
+            "0.585 0.61 bridge hpms=0.026",
+            "0.755 0.81 bridge hpms=0.055",
+            "2.21 2.26 bridge hpms=0.049",
+            "26.65 26.675 bridge hpms=0.024",
+            "30.19 30.22 bridge hpms=0.025",
+            "30.81 30.85 bridge hpms=0.038",
+            "31.725 31.765 bridge hpms=0.035"
+          ],
+          "meta": {
+            "read_share_forward": 0.966,
+            "read_share_reverse": 0.966,
+            "inventory_share_forward": 0.0,
+            "inventory_share_reverse": 0.0,
+            "sectioned_share": 0.986,
+            "mile_scale": 1.0443,
+            "hpms_year": 2020,
+            "source": "FHWA Highway Performance Monitoring System (HPMS) Surface_Type (Item 49) and Structure_Type (Item 4), codes per the HPMS Field Manual, Chapter 4 (https://www.fhwa.dot.gov/policyinformation/hpms/fieldmanual/page06.cfm and page04.cfm), read from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view), accessed 2026-11-20. The class and the structure are READ. Mileage is DERIVED: each section's longest geometry piece projected onto the archived leg road and rescaled to the leg's miles, read in 0.005-mile bins, the highest functional class nearest the road winning where rows overlap. A run marked inventory_side is ASSUMED: the leg drives the non-inventory carriageway there, which HPMS gives no surface of its own, and the inventory carriageway's reading within 250 m is applied to it (meta inventory_share_* gives how much of the leg). A structure's hpms_mi is READ: the milepoint length of the HPMS sections behind it, each once. mile_scale is leg miles per measured mile of the archived road. Each surface entry reads 'from_mi to_mi class', then forward or reverse when it holds one way only, then iri=, faulting= and inventory_side where they apply; each structure reads 'from_mi to_mi kind', the way, then hpms= (its HPMS length). iri (inches per mile) and faulting (inches) are DERIVED: the mean of the section readings inside the run. Where HPMS has no reading nothing is written. HPMS reports bridge-sized culverts as bridges."
+          }
+        }
       },
       "stops": [
         {
@@ -2533,7 +2604,45 @@
             "name": "Itasca County",
             "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
           }
-        ]
+        ],
+        "pavement": {
+          "surface": [
+            "0.04 0.1 asphalt iri=116",
+            "1.86 13.145 asphalt_over_asphalt iri=56",
+            "13.145 18.61 asphalt iri=73",
+            "18.61 24.635 asphalt_over_asphalt iri=108",
+            "24.635 26.32 asphalt iri=50",
+            "26.32 34.635 asphalt_over_asphalt iri=49",
+            "34.635 36.38 asphalt iri=61",
+            "36.38 45.685 asphalt_over_asphalt iri=118",
+            "45.685 47.225 asphalt iri=54",
+            "47.225 52.205 asphalt_over_asphalt iri=110",
+            "52.205 57.56 asphalt_over_jointed_concrete iri=75",
+            "57.56 57.83 asphalt iri=163",
+            "57.83 58.215 asphalt_over_jointed_concrete iri=115",
+            "58.215 66.6 unbonded_jointed_concrete_overlay iri=64 faulting=0.02",
+            "66.6 67.855 asphalt iri=96",
+            "67.855 70.77 asphalt_over_asphalt iri=81",
+            "70.77 71.77 asphalt_over_jointed_concrete iri=139",
+            "71.77 71.94 asphalt iri=119 inventory_side"
+          ],
+          "structures": [
+            "3.98 4.02 bridge hpms=0.044",
+            "6.985 7.065 bridge hpms=0.082",
+            "19.765 19.795 bridge hpms=0.026",
+            "49.38 49.42 bridge hpms=0.039"
+          ],
+          "meta": {
+            "read_share_forward": 0.974,
+            "read_share_reverse": 0.974,
+            "inventory_share_forward": 0.002,
+            "inventory_share_reverse": 0.002,
+            "sectioned_share": 0.998,
+            "mile_scale": 0.9971,
+            "hpms_year": 2020,
+            "source": "FHWA Highway Performance Monitoring System (HPMS) Surface_Type (Item 49) and Structure_Type (Item 4), codes per the HPMS Field Manual, Chapter 4 (https://www.fhwa.dot.gov/policyinformation/hpms/fieldmanual/page06.cfm and page04.cfm), read from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view), accessed 2026-11-20. The class and the structure are READ. Mileage is DERIVED: each section's longest geometry piece projected onto the archived leg road and rescaled to the leg's miles, read in 0.005-mile bins, the highest functional class nearest the road winning where rows overlap. A run marked inventory_side is ASSUMED: the leg drives the non-inventory carriageway there, which HPMS gives no surface of its own, and the inventory carriageway's reading within 250 m is applied to it (meta inventory_share_* gives how much of the leg). A structure's hpms_mi is READ: the milepoint length of the HPMS sections behind it, each once. mile_scale is leg miles per measured mile of the archived road. Each surface entry reads 'from_mi to_mi class', then forward or reverse when it holds one way only, then iri=, faulting= and inventory_side where they apply; each structure reads 'from_mi to_mi kind', the way, then hpms= (its HPMS length). iri (inches per mile) and faulting (inches) are DERIVED: the mean of the section readings inside the run. Where HPMS has no reading nothing is written. HPMS reports bridge-sized culverts as bridges."
+          }
+        }
       },
       "stops": [
         {
@@ -4367,7 +4476,129 @@
             "name": "Cass County",
             "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
           }
-        ]
+        ],
+        "pavement": {
+          "surface": [
+            "0.305 0.375 jointed_plain_concrete iri=252 faulting=0.07 inventory_side",
+            "0.375 0.45 jointed_plain_concrete iri=166 faulting=0.05",
+            "0.45 0.57 asphalt_over_jointed_concrete iri=160",
+            "0.57 4.22 jointed_plain_concrete iri=109 faulting=0.04",
+            "4.22 4.525 asphalt iri=125",
+            "4.525 7.595 jointed_plain_concrete iri=120 faulting=0.07",
+            "7.595 8.085 unbonded_jointed_concrete_overlay iri=139 faulting=0.04",
+            "8.48 17.305 unbonded_jointed_concrete_overlay iri=67 faulting=0.02",
+            "17.305 21.24 asphalt_over_asphalt iri=60",
+            "21.435 21.685 asphalt_over_asphalt iri=139",
+            "21.685 22.18 asphalt_over_jointed_concrete iri=109",
+            "22.875 56.125 asphalt_over_jointed_concrete iri=95",
+            "57.115 61.235 asphalt_over_jointed_concrete iri=64",
+            "61.235 61.695 asphalt_over_asphalt iri=90",
+            "61.895 62.08 asphalt_over_asphalt iri=89",
+            "62.08 72.135 asphalt_over_jointed_concrete iri=48",
+            "72.33 85.445 asphalt_over_jointed_concrete iri=90",
+            "85.445 94.485 jointed_plain_concrete iri=132 faulting=0.03",
+            "94.485 98.56 asphalt_over_asphalt iri=100",
+            "98.56 100.63 asphalt iri=153",
+            "100.63 100.845 asphalt_over_asphalt iri=106",
+            "100.845 101.905 asphalt iri=26",
+            "103.33 106.985 asphalt iri=28",
+            "107.495 111.58 asphalt iri=30",
+            "111.58 113.355 asphalt_over_asphalt iri=109",
+            "113.945 115.15 asphalt_over_asphalt iri=151",
+            "115.15 116.555 asphalt iri=83",
+            "116.555 119.475 asphalt_over_asphalt iri=57",
+            "119.475 120.255 asphalt_over_asphalt iri=52 inventory_side",
+            "120.255 120.755 asphalt_over_jointed_concrete iri=82",
+            "120.755 121.125 jointed_plain_concrete iri=81 faulting=0.04",
+            "121.125 121.515 asphalt_over_jointed_concrete iri=83",
+            "121.515 122.52 jointed_plain_concrete iri=71 faulting=0.03",
+            "122.52 123.05 asphalt_over_jointed_concrete iri=93",
+            "123.05 123.67 jointed_plain_concrete iri=78 faulting=0.04",
+            "123.67 124.09 asphalt_over_jointed_concrete iri=80",
+            "124.09 125.205 jointed_plain_concrete iri=66 faulting=0.03",
+            "125.5 126.6 jointed_plain_concrete iri=78 faulting=0.04",
+            "126.995 127.715 jointed_plain_concrete iri=72 faulting=0.04",
+            "127.715 135.975 asphalt_over_jointed_concrete iri=92",
+            "135.975 136.44 asphalt_over_asphalt iri=142",
+            "136.44 137.015 asphalt iri=78",
+            "137.015 140.6 unbonded_jointed_concrete_overlay iri=50 faulting=0.02",
+            "141.795 142.69 unbonded_jointed_concrete_overlay iri=57 faulting=0.02",
+            "142.69 145.295 asphalt iri=69",
+            "145.295 146.22 asphalt_over_jointed_concrete iri=60",
+            "148.735 150.535 asphalt_over_jointed_concrete iri=67 inventory_side",
+            "150.71 160.59 asphalt_over_jointed_concrete iri=58",
+            "160.59 160.855 asphalt iri=63",
+            "160.855 161.11 jointed_plain_concrete iri=78 faulting=0.03",
+            "161.11 165.205 asphalt_over_jointed_concrete iri=62",
+            "165.205 166.38 asphalt_over_asphalt iri=99",
+            "166.38 166.89 asphalt_over_jointed_concrete iri=90",
+            "167.585 172.465 asphalt_over_jointed_concrete iri=79",
+            "172.465 176.045 asphalt_over_asphalt iri=63",
+            "176.045 178.02 asphalt_over_jointed_concrete iri=44",
+            "178.02 201.35 asphalt_over_asphalt iri=61",
+            "202.84 204.15 asphalt_over_asphalt iri=84",
+            "204.15 207.02 jointed_plain_concrete iri=85 faulting=0.03",
+            "207.02 208.58 unbonded_jointed_concrete_overlay iri=80 faulting=0.02",
+            "208.58 210.27 asphalt_over_jointed_concrete iri=67",
+            "210.86 212.845 asphalt_over_jointed_concrete iri=88",
+            "214.36 214.755 asphalt_over_jointed_concrete iri=60",
+            "216.245 217.545 asphalt_over_jointed_concrete iri=77",
+            "219.65 226.415 asphalt_over_jointed_concrete iri=77",
+            "226.415 227.365 jointed_plain_concrete iri=94 faulting=0.02",
+            "227.365 227.82 asphalt_over_jointed_concrete iri=68",
+            "227.82 229.245 asphalt_over_jointed_concrete iri=65 inventory_side",
+            "229.245 249.92 asphalt_over_jointed_concrete iri=76",
+            "249.92 250.925 asphalt_over_jointed_concrete iri=172 inventory_side",
+            "251.53 251.59 jointed_plain_concrete iri=321 faulting=0.05"
+          ],
+          "structures": [
+            "0.57 1.72 bridge hpms=1.158",
+            "2.375 2.59 bridge hpms=0.223",
+            "3.975 4.195 bridge hpms=0.219",
+            "4.51 5.12 bridge hpms=0.628",
+            "5.21 5.285 bridge hpms=0.072",
+            "5.445 5.485 bridge hpms=0.039",
+            "6.45 6.495 bridge hpms=0.042",
+            "7.58 7.64 bridge hpms=0.057",
+            "10.515 10.58 bridge hpms=0.065",
+            "10.91 10.99 bridge hpms=0.08",
+            "11.645 11.695 bridge hpms=0.049",
+            "15.265 15.31 bridge hpms=0.047",
+            "15.77 15.81 bridge hpms=0.041",
+            "17.3 17.405 bridge hpms=0.106",
+            "17.655 17.695 bridge hpms=0.042",
+            "17.775 17.825 bridge hpms=0.047",
+            "39.475 39.535 bridge hpms=0.058",
+            "62.16 62.2 bridge hpms=0.039",
+            "77.45 77.47 bridge hpms=0.022",
+            "84.49 84.515 bridge hpms=0.024",
+            "115.03 115.165 bridge hpms=0.132",
+            "122.11 122.145 bridge hpms=0.033",
+            "135.955 135.975 bridge hpms=0.02",
+            "136.26 136.34 bridge hpms=0.083",
+            "150.71 150.74 bridge hpms=0.026",
+            "165.565 165.59 bridge hpms=0.023",
+            "173.995 174.04 bridge hpms=0.042",
+            "179.685 179.745 bridge hpms=0.061",
+            "183.46 183.485 bridge hpms=0.021",
+            "206.865 206.91 bridge hpms=0.047",
+            "229.34 229.365 bridge hpms=0.022",
+            "237.96 237.985 bridge hpms=0.027",
+            "244.53 244.575 bridge hpms=0.046",
+            "251.445 251.52 bridge hpms=0.072",
+            "251.53 251.57 bridge hpms=0.043"
+          ],
+          "meta": {
+            "read_share_forward": 0.925,
+            "read_share_reverse": 0.925,
+            "inventory_share_forward": 0.02,
+            "inventory_share_reverse": 0.02,
+            "sectioned_share": 1.0,
+            "mile_scale": 1.0,
+            "hpms_year": 2020,
+            "source": "FHWA Highway Performance Monitoring System (HPMS) Surface_Type (Item 49) and Structure_Type (Item 4), codes per the HPMS Field Manual, Chapter 4 (https://www.fhwa.dot.gov/policyinformation/hpms/fieldmanual/page06.cfm and page04.cfm), read from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view), accessed 2026-11-20. The class and the structure are READ. Mileage is DERIVED: each section's longest geometry piece projected onto the archived leg road and rescaled to the leg's miles, read in 0.005-mile bins, the highest functional class nearest the road winning where rows overlap. A run marked inventory_side is ASSUMED: the leg drives the non-inventory carriageway there, which HPMS gives no surface of its own, and the inventory carriageway's reading within 250 m is applied to it (meta inventory_share_* gives how much of the leg). A structure's hpms_mi is READ: the milepoint length of the HPMS sections behind it, each once. mile_scale is leg miles per measured mile of the archived road. Each surface entry reads 'from_mi to_mi class', then forward or reverse when it holds one way only, then iri=, faulting= and inventory_side where they apply; each structure reads 'from_mi to_mi kind', the way, then hpms= (its HPMS length). iri (inches per mile) and faulting (inches) are DERIVED: the mean of the section readings inside the run. Where HPMS has no reading nothing is written. HPMS reports bridge-sized culverts as bridges."
+          }
+        }
       },
       "stops": [
         {
@@ -7267,7 +7498,93 @@
             "name": "Hennepin County",
             "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
           }
-        ]
+        ],
+        "pavement": {
+          "surface": [
+            "0.24 0.41 jointed_plain_concrete iri=212 faulting=0.06",
+            "0.41 0.525 asphalt_over_jointed_concrete iri=155",
+            "0.525 4.175 jointed_plain_concrete iri=109 faulting=0.04",
+            "4.175 4.48 asphalt iri=125",
+            "4.48 7.545 jointed_plain_concrete iri=120 faulting=0.07",
+            "7.545 17.255 unbonded_jointed_concrete_overlay iri=72 faulting=0.02",
+            "17.255 22.06 asphalt_over_asphalt iri=63",
+            "22.66 22.775 asphalt_over_asphalt iri=46",
+            "24.49 26.895 asphalt_over_asphalt iri=73",
+            "27.495 30.075 asphalt_over_asphalt iri=56",
+            "30.075 31.155 asphalt_over_asphalt iri=45 inventory_side",
+            "31.155 31.46 asphalt_over_asphalt iri=49",
+            "31.46 32.06 asphalt_over_asphalt iri=55 inventory_side",
+            "32.06 35.03 unbonded_jointed_concrete_overlay iri=79 faulting=0.04 inventory_side",
+            "35.03 45.2 unbonded_jointed_concrete_overlay iri=85 faulting=0.03",
+            "45.2 45.54 asphalt iri=49",
+            "45.83 47.42 asphalt iri=33",
+            "48.725 54.505 asphalt iri=37",
+            "54.505 56.435 unbonded_jointed_concrete_overlay iri=64 faulting=0.02",
+            "60.795 66.895 unbonded_jointed_concrete_overlay iri=64 faulting=0.02",
+            "71.02 71.42 unbonded_jointed_concrete_overlay iri=93 faulting=0.03",
+            "71.42 74.605 asphalt_over_jointed_concrete iri=65",
+            "74.605 79.15 unbonded_jointed_concrete_overlay iri=44 faulting=0.02",
+            "80.65 81.96 unbonded_jointed_concrete_overlay iri=45 faulting=0.02",
+            "81.96 84.86 unbonded_jointed_concrete_overlay iri=63 faulting=0.02 inventory_side",
+            "84.86 87.54 unbonded_jointed_concrete_overlay iri=61 faulting=0.02",
+            "87.735 93.48 unbonded_jointed_concrete_overlay iri=48 faulting=0.02",
+            "93.48 99.665 asphalt_over_jointed_concrete iri=85",
+            "99.665 101.805 unbonded_jointed_concrete_overlay iri=84 faulting=0.03",
+            "101.805 108.34 jointed_plain_concrete iri=76 faulting=0.05",
+            "108.34 123.69 asphalt_over_asphalt iri=50",
+            "123.69 128.715 unbonded_jointed_concrete_overlay iri=63 faulting=0.04",
+            "129.49 135.995 unbonded_jointed_concrete_overlay iri=68 faulting=0.02",
+            "135.995 141.76 asphalt_over_continuous_concrete iri=95",
+            "141.76 145.94 asphalt_over_jointed_concrete iri=63",
+            "150.225 151.81 asphalt_over_jointed_concrete iri=239"
+          ],
+          "structures": [
+            "0.525 1.675 bridge hpms=1.158",
+            "2.33 2.545 bridge hpms=0.223",
+            "3.93 4.15 bridge hpms=0.219",
+            "4.465 5.075 bridge hpms=0.628",
+            "5.165 5.24 bridge hpms=0.072",
+            "5.4 5.44 bridge hpms=0.039",
+            "6.405 6.45 bridge hpms=0.042",
+            "7.53 7.585 bridge hpms=0.057",
+            "8.285 8.335 bridge hpms=0.049",
+            "10.465 10.53 bridge hpms=0.065",
+            "10.86 10.94 bridge hpms=0.08",
+            "11.595 11.645 bridge hpms=0.049",
+            "15.215 15.26 bridge hpms=0.047",
+            "15.72 15.765 bridge hpms=0.041",
+            "17.25 17.355 bridge hpms=0.106",
+            "17.605 17.645 bridge hpms=0.042",
+            "17.725 17.775 bridge hpms=0.047",
+            "21.305 21.32 bridge hpms=0.015",
+            "21.52 21.565 bridge hpms=0.041",
+            "25.02 25.075 bridge hpms=0.056",
+            "37.2 37.235 bridge hpms=0.036",
+            "38.835 38.865 bridge hpms=0.035",
+            "40.67 40.72 bridge hpms=0.052",
+            "50.22 50.26 bridge hpms=0.041",
+            "72.04 72.11 bridge hpms=0.066",
+            "73.265 73.3 bridge hpms=0.035",
+            "75.525 75.58 bridge hpms=0.056",
+            "86.56 86.605 bridge hpms=0.046",
+            "141.25 141.29 bridge hpms=0.038",
+            "145.94 145.975 bridge hpms=0.081",
+            "149.72 149.775 bridge hpms=0.054",
+            "150.225 150.26 bridge hpms=0.037",
+            "150.64 150.67 bridge hpms=0.032",
+            "151.27 151.63 bridge hpms=0.357"
+          ],
+          "meta": {
+            "read_share_forward": 0.867,
+            "read_share_reverse": 0.867,
+            "inventory_share_forward": 0.05,
+            "inventory_share_reverse": 0.05,
+            "sectioned_share": 0.999,
+            "mile_scale": 0.9992,
+            "hpms_year": 2020,
+            "source": "FHWA Highway Performance Monitoring System (HPMS) Surface_Type (Item 49) and Structure_Type (Item 4), codes per the HPMS Field Manual, Chapter 4 (https://www.fhwa.dot.gov/policyinformation/hpms/fieldmanual/page06.cfm and page04.cfm), read from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view), accessed 2026-11-20. The class and the structure are READ. Mileage is DERIVED: each section's longest geometry piece projected onto the archived leg road and rescaled to the leg's miles, read in 0.005-mile bins, the highest functional class nearest the road winning where rows overlap. A run marked inventory_side is ASSUMED: the leg drives the non-inventory carriageway there, which HPMS gives no surface of its own, and the inventory carriageway's reading within 250 m is applied to it (meta inventory_share_* gives how much of the leg). A structure's hpms_mi is READ: the milepoint length of the HPMS sections behind it, each once. mile_scale is leg miles per measured mile of the archived road. Each surface entry reads 'from_mi to_mi class', then forward or reverse when it holds one way only, then iri=, faulting= and inventory_side where they apply; each structure reads 'from_mi to_mi kind', the way, then hpms= (its HPMS length). iri (inches per mile) and faulting (inches) are DERIVED: the mean of the section readings inside the run. Where HPMS has no reading nothing is written. HPMS reports bridge-sized culverts as bridges."
+          }
+        }
       },
       "stops": [
         {
@@ -8604,7 +8921,47 @@
             "name": "St. Louis County",
             "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
           }
-        ]
+        ],
+        "pavement": {
+          "surface": [
+            "0.16 0.58 asphalt iri=149",
+            "0.58 2.225 asphalt_over_jointed_concrete iri=91",
+            "2.225 3.34 asphalt iri=98",
+            "3.34 61.47 asphalt_over_asphalt iri=98",
+            "61.47 62.985 asphalt_over_jointed_concrete iri=111",
+            "62.985 74.695 asphalt_over_asphalt iri=143",
+            "74.695 75.49 asphalt iri=147",
+            "75.49 75.82 asphalt_over_asphalt iri=114",
+            "75.82 78.46 jointed_plain_concrete iri=108 faulting=0.05",
+            "78.46 78.77 asphalt iri=126",
+            "78.77 82.505 jointed_plain_concrete iri=110 faulting=0.04",
+            "82.505 82.565 asphalt_over_jointed_concrete iri=136",
+            "82.565 82.73 jointed_plain_concrete iri=210 faulting=0.06",
+            "82.73 82.8 jointed_plain_concrete iri=161 faulting=0.05 inventory_side"
+          ],
+          "structures": [
+            "2.9 2.95 bridge hpms=0.05",
+            "3 3.025 bridge hpms=0.023",
+            "37.28 37.305 bridge hpms=0.026",
+            "55.34 55.51 bridge hpms=0.168",
+            "77.495 77.535 bridge hpms=0.039",
+            "77.69 77.765 bridge hpms=0.072",
+            "77.855 78.475 bridge hpms=0.628",
+            "78.8 79.015 bridge hpms=0.219",
+            "80.395 80.615 bridge hpms=0.223",
+            "81.275 82.505 bridge hpms=1.258"
+          ],
+          "meta": {
+            "read_share_forward": 0.996,
+            "read_share_reverse": 0.996,
+            "inventory_share_forward": 0.001,
+            "inventory_share_reverse": 0.001,
+            "sectioned_share": 0.999,
+            "mile_scale": 0.9986,
+            "hpms_year": 2020,
+            "source": "FHWA Highway Performance Monitoring System (HPMS) Surface_Type (Item 49) and Structure_Type (Item 4), codes per the HPMS Field Manual, Chapter 4 (https://www.fhwa.dot.gov/policyinformation/hpms/fieldmanual/page06.cfm and page04.cfm), read from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view), accessed 2026-11-20. The class and the structure are READ. Mileage is DERIVED: each section's longest geometry piece projected onto the archived leg road and rescaled to the leg's miles, read in 0.005-mile bins, the highest functional class nearest the road winning where rows overlap. A run marked inventory_side is ASSUMED: the leg drives the non-inventory carriageway there, which HPMS gives no surface of its own, and the inventory carriageway's reading within 250 m is applied to it (meta inventory_share_* gives how much of the leg). A structure's hpms_mi is READ: the milepoint length of the HPMS sections behind it, each once. mile_scale is leg miles per measured mile of the archived road. Each surface entry reads 'from_mi to_mi class', then forward or reverse when it holds one way only, then iri=, faulting= and inventory_side where they apply; each structure reads 'from_mi to_mi kind', the way, then hpms= (its HPMS length). iri (inches per mile) and faulting (inches) are DERIVED: the mean of the section readings inside the run. Where HPMS has no reading nothing is written. HPMS reports bridge-sized culverts as bridges."
+          }
+        }
       },
       "stops": [
         {
@@ -10135,7 +10492,74 @@
             "name": "St. Louis County",
             "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
           }
-        ]
+        ],
+        "pavement": {
+          "surface": [
+            "1.045 2.535 asphalt_over_jointed_concrete iri=45",
+            "2.535 5.245 asphalt_over_asphalt iri=61",
+            "5.245 5.63 continuous_concrete iri=79",
+            "5.63 6.43 asphalt_over_asphalt iri=82",
+            "6.43 7.16 continuous_concrete iri=70",
+            "7.16 21.95 asphalt iri=103",
+            "21.95 22.915 jointed_plain_concrete iri=69 faulting=0.05",
+            "22.915 24.485 asphalt_over_asphalt iri=97",
+            "24.485 27.735 asphalt iri=56",
+            "27.735 29.83 asphalt_over_jointed_concrete iri=103",
+            "29.83 30.335 asphalt_over_asphalt iri=51",
+            "30.335 31.875 asphalt iri=43",
+            "31.875 34.235 asphalt_over_asphalt iri=44",
+            "34.235 34.705 asphalt iri=51",
+            "34.705 48.155 asphalt_over_asphalt iri=43",
+            "48.155 49.36 asphalt_over_jointed_concrete iri=99",
+            "50.695 52.245 asphalt_over_jointed_concrete iri=72",
+            "52.245 60.345 asphalt_over_asphalt iri=105",
+            "60.345 64.245 asphalt iri=140",
+            "64.245 65.54 unbonded_jointed_concrete_overlay iri=62 faulting=0.05",
+            "66.16 69.685 unbonded_jointed_concrete_overlay iri=50 faulting=0.04",
+            "69.685 71.045 jointed_plain_concrete iri=79 faulting=0.02",
+            "71.045 76.885 unbonded_jointed_concrete_overlay iri=60 faulting=0.04",
+            "76.885 77.38 jointed_plain_concrete iri=89 faulting=0.03",
+            "77.38 83.31 asphalt_over_asphalt iri=50",
+            "83.31 84.34 asphalt iri=63",
+            "84.34 84.675 asphalt_over_asphalt iri=126",
+            "84.675 86.805 asphalt iri=104",
+            "86.805 89.505 jointed_plain_concrete iri=144 faulting=0.08",
+            "89.505 89.565 asphalt_over_jointed_concrete iri=136",
+            "89.565 89.73 jointed_plain_concrete iri=210 faulting=0.06",
+            "89.73 89.8 jointed_plain_concrete iri=161 faulting=0.05 inventory_side"
+          ],
+          "structures": [
+            "3.475 3.51 bridge hpms=0.037",
+            "6.28 6.325 bridge hpms=0.043",
+            "8.44 8.495 bridge hpms=0.055",
+            "10.67 10.74 bridge hpms=0.073",
+            "13.775 13.82 bridge hpms=0.042",
+            "20.11 20.15 bridge hpms=0.041",
+            "20.41 20.465 bridge hpms=0.054",
+            "22.86 22.9 bridge hpms=0.041",
+            "24.3 24.325 bridge hpms=0.024",
+            "24.505 24.545 bridge hpms=0.04",
+            "29.83 29.86 bridge hpms=0.03",
+            "36.495 36.535 bridge hpms=0.042",
+            "42.27 42.305 bridge hpms=0.037",
+            "48.155 48.17 bridge hpms=0.014",
+            "60.81 60.83 bridge hpms=0.017",
+            "73.395 73.47 bridge hpms=0.076",
+            "86.88 86.915 bridge hpms=0.034",
+            "87.865 88.055 bridge hpms=0.194",
+            "88.1 89.505 bridge hpms=1.475"
+          ],
+          "meta": {
+            "read_share_forward": 0.964,
+            "read_share_reverse": 0.964,
+            "inventory_share_forward": 0.001,
+            "inventory_share_reverse": 0.001,
+            "sectioned_share": 0.988,
+            "mile_scale": 0.9964,
+            "hpms_year": 2020,
+            "source": "FHWA Highway Performance Monitoring System (HPMS) Surface_Type (Item 49) and Structure_Type (Item 4), codes per the HPMS Field Manual, Chapter 4 (https://www.fhwa.dot.gov/policyinformation/hpms/fieldmanual/page06.cfm and page04.cfm), read from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view), accessed 2026-11-20. The class and the structure are READ. Mileage is DERIVED: each section's longest geometry piece projected onto the archived leg road and rescaled to the leg's miles, read in 0.005-mile bins, the highest functional class nearest the road winning where rows overlap. A run marked inventory_side is ASSUMED: the leg drives the non-inventory carriageway there, which HPMS gives no surface of its own, and the inventory carriageway's reading within 250 m is applied to it (meta inventory_share_* gives how much of the leg). A structure's hpms_mi is READ: the milepoint length of the HPMS sections behind it, each once. mile_scale is leg miles per measured mile of the archived road. Each surface entry reads 'from_mi to_mi class', then forward or reverse when it holds one way only, then iri=, faulting= and inventory_side where they apply; each structure reads 'from_mi to_mi kind', the way, then hpms= (its HPMS length). iri (inches per mile) and faulting (inches) are DERIVED: the mean of the section readings inside the run. Where HPMS has no reading nothing is written. HPMS reports bridge-sized culverts as bridges."
+          }
+        }
       },
       "stops": [
         {
@@ -12207,7 +12631,116 @@
             "name": "Hennepin County",
             "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
           }
-        ]
+        ],
+        "pavement": {
+          "surface": [
+            "0.76 2.575 asphalt_over_jointed_concrete iri=57",
+            "2.575 2.665 jointed_plain_concrete iri=389 faulting=0.09",
+            "2.69 2.735 jointed_plain_concrete iri=142 faulting=0.03",
+            "2.735 7.54 asphalt_over_jointed_concrete iri=70",
+            "8.395 10.94 asphalt_over_jointed_concrete iri=82",
+            "10.94 11.34 asphalt iri=92",
+            "12.18 28.275 asphalt iri=71",
+            "28.955 34.955 asphalt_over_asphalt iri=92",
+            "34.955 35.615 asphalt iri=140",
+            "35.615 36.87 asphalt_over_jointed_concrete iri=104",
+            "36.87 40.365 asphalt_over_asphalt iri=60",
+            "40.365 45.56 asphalt iri=103",
+            "46.045 46.745 asphalt iri=105",
+            "47.66 49.045 asphalt iri=96",
+            "49.445 50.43 asphalt iri=87",
+            "50.615 50.72 asphalt iri=90",
+            "50.72 53.8 asphalt_over_asphalt iri=91",
+            "53.8 65.18 asphalt_over_jointed_concrete iri=89",
+            "67.38 70.895 asphalt_over_jointed_concrete iri=93",
+            "71.78 88.85 asphalt_over_jointed_concrete iri=104",
+            "88.85 89.27 asphalt_over_asphalt iri=59",
+            "89.27 89.525 asphalt iri=163",
+            "89.525 91.08 asphalt_over_asphalt iri=77",
+            "91.08 91.21 asphalt iri=81",
+            "91.21 104.985 asphalt_over_asphalt iri=65",
+            "105.795 117.865 asphalt_over_asphalt iri=92",
+            "117.865 118.095 asphalt iri=123",
+            "118.095 132.4 asphalt_over_asphalt iri=59",
+            "137.04 138.255 asphalt_over_asphalt iri=75",
+            "138.255 145.345 asphalt iri=42",
+            "145.345 146.86 asphalt_over_jointed_concrete iri=59",
+            "146.86 147.415 asphalt_over_asphalt iri=76",
+            "147.915 149.115 asphalt_over_asphalt iri=70",
+            "149.655 160.13 asphalt_over_asphalt iri=71",
+            "160.875 164.6 asphalt_over_asphalt iri=53",
+            "164.65 170.22 asphalt_over_asphalt iri=37",
+            "170.52 178.28 asphalt_over_asphalt iri=40",
+            "178.5 183.01 asphalt_over_asphalt iri=56",
+            "183.02 183.3 asphalt_over_asphalt iri=124",
+            "183.3 185.33 jointed_plain_concrete iri=95 faulting=0.03",
+            "185.975 186.38 jointed_plain_concrete iri=84 faulting=0.02",
+            "186.38 188.305 asphalt_over_asphalt iri=76",
+            "188.305 189.25 asphalt iri=70",
+            "189.25 189.8 asphalt_over_asphalt iri=97",
+            "190.07 191.605 asphalt_over_asphalt iri=101 faulting=0.04",
+            "191.605 194.725 jointed_plain_concrete iri=118 faulting=0.05",
+            "195.025 204.815 jointed_plain_concrete iri=92 faulting=0.03",
+            "204.815 211.805 asphalt_over_jointed_concrete iri=66",
+            "211.94 212.325 jointed_plain_concrete iri=80 faulting=0.03 inventory_side",
+            "212.405 212.58 asphalt_over_jointed_concrete iri=59",
+            "212.685 213.295 jointed_plain_concrete iri=186 faulting=0.03",
+            "213.295 213.48 jointed_plain_concrete iri=231 faulting=0 inventory_side"
+          ],
+          "structures": [
+            "6.305 6.355 bridge hpms=0.049",
+            "9.87 9.925 bridge hpms=0.057",
+            "10.465 10.51 bridge hpms=0.044",
+            "11.295 11.34 bridge hpms=0.048",
+            "14.25 14.41 bridge hpms=0.166",
+            "15.16 15.205 bridge hpms=0.046",
+            "29.49 29.525 bridge hpms=0.034",
+            "33.405 33.47 bridge hpms=0.063",
+            "35.855 35.9 bridge hpms=0.043",
+            "40.76 40.815 bridge hpms=0.057",
+            "77.415 77.485 bridge hpms=0.067",
+            "81.075 81.1 bridge hpms=0.022",
+            "88.14 88.16 bridge hpms=0.021",
+            "118 118.03 bridge hpms=0.025",
+            "129.335 129.375 bridge hpms=0.038",
+            "131.545 131.575 bridge hpms=0.026",
+            "137.625 137.67 bridge hpms=0.042",
+            "149.035 149.07 bridge hpms=0.035",
+            "151.26 151.31 bridge hpms=0.047",
+            "161.185 161.235 bridge hpms=0.046",
+            "161.985 162.03 bridge hpms=0.043",
+            "162.925 162.965 bridge hpms=0.039",
+            "164.295 164.345 bridge hpms=0.054",
+            "182.995 183.01 bridge hpms=0.016",
+            "183.02 183.025 bridge hpms=0.004",
+            "183.475 183.525 bridge hpms=0.051",
+            "184.75 184.82 bridge hpms=0.067",
+            "187.325 187.385 bridge hpms=0.06",
+            "188.48 188.53 bridge hpms=0.052",
+            "189.55 189.595 bridge hpms=0.046",
+            "196.84 196.865 bridge hpms=0.025",
+            "197.6 197.63 bridge hpms=0.029",
+            "199.865 199.91 bridge hpms=0.048",
+            "202.715 202.74 bridge hpms=0.029",
+            "202.81 202.885 bridge hpms=0.079",
+            "204.84 204.905 bridge hpms=0.063",
+            "206.04 206.055 bridge hpms=0.017",
+            "209.415 209.435 bridge hpms=0.021",
+            "209.62 209.64 bridge hpms=0.022",
+            "212.82 213.295 bridge hpms=0.726",
+            "213.295 213.48 bridge forward hpms=0.651"
+          ],
+          "meta": {
+            "read_share_forward": 0.915,
+            "read_share_reverse": 0.915,
+            "inventory_share_forward": 0.003,
+            "inventory_share_reverse": 0.003,
+            "sectioned_share": 0.999,
+            "mile_scale": 1.003,
+            "hpms_year": 2020,
+            "source": "FHWA Highway Performance Monitoring System (HPMS) Surface_Type (Item 49) and Structure_Type (Item 4), codes per the HPMS Field Manual, Chapter 4 (https://www.fhwa.dot.gov/policyinformation/hpms/fieldmanual/page06.cfm and page04.cfm), read from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view), accessed 2026-11-20. The class and the structure are READ. Mileage is DERIVED: each section's longest geometry piece projected onto the archived leg road and rescaled to the leg's miles, read in 0.005-mile bins, the highest functional class nearest the road winning where rows overlap. A run marked inventory_side is ASSUMED: the leg drives the non-inventory carriageway there, which HPMS gives no surface of its own, and the inventory carriageway's reading within 250 m is applied to it (meta inventory_share_* gives how much of the leg). A structure's hpms_mi is READ: the milepoint length of the HPMS sections behind it, each once. mile_scale is leg miles per measured mile of the archived road. Each surface entry reads 'from_mi to_mi class', then forward or reverse when it holds one way only, then iri=, faulting= and inventory_side where they apply; each structure reads 'from_mi to_mi kind', the way, then hpms= (its HPMS length). iri (inches per mile) and faulting (inches) are DERIVED: the mean of the section readings inside the run. Where HPMS has no reading nothing is written. HPMS reports bridge-sized culverts as bridges."
+          }
+        }
       },
       "stops": [
         {
@@ -13698,7 +14231,87 @@
             "name": "Hennepin County",
             "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
           }
-        ]
+        ],
+        "pavement": {
+          "surface": [
+            "0.265 0.655 asphalt_over_asphalt iri=308",
+            "0.83 0.97 jointed_plain_concrete iri=166 faulting=0.01",
+            "0.985 3.325 asphalt_over_asphalt iri=85",
+            "3.325 11.995 jointed_plain_concrete iri=71 faulting=0.01",
+            "11.995 12.485 asphalt_over_jointed_concrete iri=90",
+            "12.485 13.435 jointed_plain_concrete iri=81 faulting=0.02",
+            "13.435 15.16 asphalt_over_jointed_concrete iri=81",
+            "15.16 23.255 unbonded_jointed_concrete_overlay iri=64 faulting=0.02",
+            "23.255 24.695 asphalt_over_jointed_concrete iri=32",
+            "24.695 27.3 jointed_plain_concrete iri=116 faulting=0.03",
+            "27.3 31.42 asphalt_over_jointed_concrete iri=61",
+            "31.42 35.765 unbonded_jointed_concrete_overlay iri=59 faulting=0.02",
+            "35.765 36.845 jointed_plain_concrete iri=92 faulting=0.04",
+            "36.845 38.57 unbonded_jointed_concrete_overlay iri=57 faulting=0.02",
+            "38.57 39.755 jointed_plain_concrete iri=71 faulting=0.02",
+            "39.755 47.095 unbonded_jointed_concrete_overlay iri=60 faulting=0.02",
+            "47.095 48.23 jointed_plain_concrete iri=98 faulting=0.03",
+            "48.23 53.695 asphalt_over_jointed_concrete iri=91",
+            "53.695 54.08 asphalt iri=106",
+            "54.335 54.82 asphalt iri=143",
+            "54.82 63.28 jointed_plain_concrete iri=86 faulting=0.02",
+            "63.28 66.525 asphalt_over_asphalt iri=59",
+            "66.525 66.975 jointed_plain_concrete iri=92 faulting=0.04",
+            "66.975 67 jointed_plain_concrete iri=128 faulting=0.05 inventory_side",
+            "67.18 69.555 jointed_plain_concrete iri=91 faulting=0.06",
+            "69.555 71.735 asphalt_over_jointed_concrete iri=96",
+            "71.865 72.285 asphalt_over_jointed_concrete iri=86",
+            "72.285 77.15 jointed_plain_concrete iri=89 faulting=0.03",
+            "77.15 79.495 asphalt_over_jointed_concrete iri=151",
+            "79.495 80.295 jointed_plain_concrete iri=121 faulting=0.05"
+          ],
+          "structures": [
+            "0.79 0.97 bridge hpms=0.182",
+            "16.36 16.385 bridge hpms=0.025",
+            "25.295 25.51 bridge hpms=0.215",
+            "25.67 25.725 bridge hpms=0.055",
+            "45.64 45.665 bridge hpms=0.025",
+            "46.015 46.06 bridge hpms=0.045",
+            "46.08 46.135 bridge hpms=0.055",
+            "58.47 58.485 bridge reverse hpms=0.056",
+            "58.485 58.55 bridge hpms=0.064",
+            "58.84 58.885 bridge hpms=0.047",
+            "58.885 58.89 bridge reverse hpms=0.05",
+            "61.16 61.18 bridge reverse hpms=0.091",
+            "61.18 61.29 bridge hpms=0.107",
+            "61.63 61.67 bridge hpms=0.04",
+            "61.805 61.875 bridge hpms=0.072",
+            "61.91 61.94 bridge hpms=0.029",
+            "62.02 62.08 bridge hpms=0.059",
+            "62.17 63.28 bridge hpms=1.114",
+            "63.45 63.495 bridge hpms=0.042",
+            "66 66.135 bridge hpms=0.135",
+            "66.52 66.61 bridge hpms=0.09",
+            "66.95 66.975 bridge hpms=0.038",
+            "69.09 69.135 bridge hpms=0.046",
+            "71.65 71.7 bridge hpms=0.053",
+            "73.39 73.43 bridge hpms=0.042",
+            "74.13 74.16 bridge hpms=0.03",
+            "74.39 74.4 bridge hpms=0.012",
+            "74.63 74.665 bridge hpms=0.035",
+            "74.995 75.02 bridge hpms=0.026",
+            "76 76.075 bridge hpms=0.076",
+            "78.6 78.625 bridge hpms=0.025",
+            "78.715 78.745 bridge hpms=0.027",
+            "78.85 78.88 bridge hpms=0.033",
+            "79.98 80.025 bridge hpms=0.044"
+          ],
+          "meta": {
+            "read_share_forward": 0.979,
+            "read_share_reverse": 0.979,
+            "inventory_share_forward": 0.0,
+            "inventory_share_reverse": 0.0,
+            "sectioned_share": 0.988,
+            "mile_scale": 0.9963,
+            "hpms_year": 2020,
+            "source": "FHWA Highway Performance Monitoring System (HPMS) Surface_Type (Item 49) and Structure_Type (Item 4), codes per the HPMS Field Manual, Chapter 4 (https://www.fhwa.dot.gov/policyinformation/hpms/fieldmanual/page06.cfm and page04.cfm), read from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view), accessed 2026-11-20. The class and the structure are READ. Mileage is DERIVED: each section's longest geometry piece projected onto the archived leg road and rescaled to the leg's miles, read in 0.005-mile bins, the highest functional class nearest the road winning where rows overlap. A run marked inventory_side is ASSUMED: the leg drives the non-inventory carriageway there, which HPMS gives no surface of its own, and the inventory carriageway's reading within 250 m is applied to it (meta inventory_share_* gives how much of the leg). A structure's hpms_mi is READ: the milepoint length of the HPMS sections behind it, each once. mile_scale is leg miles per measured mile of the archived road. Each surface entry reads 'from_mi to_mi class', then forward or reverse when it holds one way only, then iri=, faulting= and inventory_side where they apply; each structure reads 'from_mi to_mi kind', the way, then hpms= (its HPMS length). iri (inches per mile) and faulting (inches) are DERIVED: the mean of the section readings inside the run. Where HPMS has no reading nothing is written. HPMS reports bridge-sized culverts as bridges."
+          }
+        }
       },
       "stops": [
         {
@@ -14754,7 +15367,52 @@
             "name": "Olmsted County",
             "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
           }
-        ]
+        ],
+        "pavement": {
+          "surface": [
+            "0.265 0.66 asphalt_over_asphalt iri=309",
+            "1.455 2.49 asphalt_over_asphalt iri=198",
+            "2.49 4.015 asphalt_over_jointed_concrete iri=61",
+            "4.015 25.68 jointed_plain_concrete iri=84 faulting=0.02",
+            "25.7 43.795 jointed_plain_concrete iri=79 faulting=0.02",
+            "43.795 46.305 asphalt_over_asphalt iri=62",
+            "46.305 48.97 jointed_plain_concrete iri=93 faulting=0.02",
+            "48.97 49.36 asphalt_over_jointed_concrete iri=90",
+            "61.275 68.075 jointed_plain_concrete iri=80 faulting=0.03",
+            "68.075 70.145 asphalt_over_jointed_concrete iri=43",
+            "70.145 73.885 jointed_plain_concrete iri=115 faulting=0.1",
+            "73.885 80.605 asphalt_over_jointed_concrete iri=60",
+            "80.625 82.11 asphalt_over_jointed_concrete iri=54",
+            "82.11 82.305 jointed_plain_concrete iri=85 faulting=0.03",
+            "82.51 83.335 jointed_plain_concrete iri=116 faulting=0.03"
+          ],
+          "structures": [
+            "2.49 2.5 bridge hpms=0.02",
+            "3.51 3.55 bridge hpms=0.039",
+            "4.455 4.505 bridge hpms=0.051",
+            "6.84 6.89 bridge hpms=0.053",
+            "15.425 15.5 bridge hpms=0.074",
+            "29.98 30.015 bridge hpms=0.034",
+            "30.125 30.165 bridge hpms=0.038",
+            "30.785 30.82 bridge hpms=0.039",
+            "43.19 43.245 bridge hpms=0.057",
+            "43.735 43.765 bridge hpms=0.028",
+            "43.91 43.95 bridge hpms=0.038",
+            "46.205 46.27 bridge hpms=0.062",
+            "61.575 61.755 bridge hpms=0.182",
+            "69.03 69.07 bridge hpms=0.04"
+          ],
+          "meta": {
+            "read_share_forward": 0.835,
+            "read_share_reverse": 0.835,
+            "inventory_share_forward": 0.0,
+            "inventory_share_reverse": 0.0,
+            "sectioned_share": 0.849,
+            "mile_scale": 0.9999,
+            "hpms_year": 2020,
+            "source": "FHWA Highway Performance Monitoring System (HPMS) Surface_Type (Item 49) and Structure_Type (Item 4), codes per the HPMS Field Manual, Chapter 4 (https://www.fhwa.dot.gov/policyinformation/hpms/fieldmanual/page06.cfm and page04.cfm), read from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view), accessed 2026-11-20. The class and the structure are READ. Mileage is DERIVED: each section's longest geometry piece projected onto the archived leg road and rescaled to the leg's miles, read in 0.005-mile bins, the highest functional class nearest the road winning where rows overlap. A run marked inventory_side is ASSUMED: the leg drives the non-inventory carriageway there, which HPMS gives no surface of its own, and the inventory carriageway's reading within 250 m is applied to it (meta inventory_share_* gives how much of the leg). A structure's hpms_mi is READ: the milepoint length of the HPMS sections behind it, each once. mile_scale is leg miles per measured mile of the archived road. Each surface entry reads 'from_mi to_mi class', then forward or reverse when it holds one way only, then iri=, faulting= and inventory_side where they apply; each structure reads 'from_mi to_mi kind', the way, then hpms= (its HPMS length). iri (inches per mile) and faulting (inches) are DERIVED: the mean of the section readings inside the run. Where HPMS has no reading nothing is written. HPMS reports bridge-sized culverts as bridges."
+          }
+        }
       },
       "stops": [
         {
@@ -18861,7 +19519,241 @@
             "name": "Polk County",
             "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
           }
-        ]
+        ],
+        "pavement": {
+          "surface": [
+            "0.695 0.745 jointed_plain_concrete iri=138 inventory_side",
+            "0.745 1.57 jointed_plain_concrete iri=121 faulting=0.05",
+            "1.57 3.93 asphalt_over_jointed_concrete iri=151",
+            "3.93 8.82 jointed_plain_concrete iri=89 faulting=0.03",
+            "8.82 12.605 asphalt_over_jointed_concrete iri=65",
+            "12.605 14.68 asphalt iri=96",
+            "14.68 15.73 asphalt_over_asphalt iri=101",
+            "15.73 17.975 asphalt_over_jointed_concrete iri=70",
+            "17.975 24.875 jointed_plain_concrete iri=79 faulting=0.04",
+            "24.875 28.46 unbonded_jointed_concrete_overlay iri=63 faulting=0.02",
+            "28.46 29.365 jointed_plain_concrete iri=48 faulting=0.04",
+            "29.365 37.75 unbonded_jointed_concrete_overlay iri=57 faulting=0.02",
+            "37.75 42.445 jointed_plain_concrete iri=62 faulting=0.04",
+            "43.38 43.475 jointed_plain_concrete iri=128 faulting=0.04",
+            "43.475 47.175 unbonded_jointed_concrete_overlay iri=74 faulting=0.03",
+            "47.175 51.055 asphalt_over_jointed_concrete iri=91",
+            "51.055 63.515 asphalt_over_asphalt iri=47",
+            "63.515 67.015 jointed_plain_concrete iri=71 faulting=0.02",
+            "67.015 70.41 asphalt_over_jointed_concrete iri=45",
+            "70.41 104.78 unbonded_jointed_concrete_overlay iri=68 faulting=0.02",
+            "105.885 106.38 unbonded_jointed_concrete_overlay iri=84 faulting=0.02",
+            "106.38 122.32 asphalt_over_jointed_concrete reverse iri=52 faulting=0",
+            "122.32 122.385 jointed_reinforced_concrete reverse iri=219 faulting=0.01",
+            "122.385 123.295 asphalt_over_jointed_concrete reverse iri=38 faulting=0",
+            "123.295 123.34 jointed_reinforced_concrete reverse iri=124 faulting=0",
+            "123.34 133.445 asphalt_over_jointed_concrete reverse iri=49 faulting=0",
+            "133.445 133.75 asphalt_over_continuous_concrete reverse iri=59 faulting=0",
+            "133.75 133.95 asphalt reverse iri=71 faulting=0",
+            "133.95 134.25 asphalt_over_continuous_concrete reverse iri=58 faulting=0",
+            "134.25 134.35 asphalt_over_jointed_concrete reverse iri=55 faulting=0",
+            "134.35 134.85 asphalt_over_continuous_concrete reverse iri=61 faulting=0",
+            "134.85 140.465 asphalt_over_jointed_concrete reverse iri=62 faulting=0",
+            "140.465 141.465 asphalt_over_continuous_concrete reverse iri=51 faulting=0",
+            "141.465 144.675 asphalt_over_jointed_concrete reverse iri=64 faulting=0",
+            "144.675 144.775 asphalt_over_continuous_concrete reverse iri=71 faulting=0",
+            "144.775 150.49 asphalt_over_jointed_concrete reverse iri=69 faulting=0",
+            "150.49 153.3 asphalt_over_continuous_concrete reverse iri=36 faulting=0",
+            "153.3 165.72 asphalt_over_jointed_concrete reverse iri=54 faulting=0",
+            "165.72 168.03 asphalt_over_continuous_concrete reverse iri=43 faulting=0",
+            "168.03 168.065 jointed_reinforced_concrete reverse iri=281 faulting=0",
+            "168.065 169.93 asphalt_over_continuous_concrete reverse iri=48 faulting=0",
+            "169.93 175.735 asphalt_over_jointed_concrete reverse iri=51 faulting=0",
+            "175.735 176.23 asphalt_over_continuous_concrete reverse iri=60 faulting=0",
+            "176.23 176.245 jointed_reinforced_concrete reverse iri=233 faulting=0",
+            "176.245 177.04 asphalt_over_continuous_concrete reverse iri=45 faulting=0",
+            "177.04 177.045 jointed_reinforced_concrete reverse iri=48 faulting=0",
+            "177.045 179.905 asphalt_over_continuous_concrete reverse iri=48 faulting=0",
+            "179.905 179.955 jointed_reinforced_concrete reverse iri=201 faulting=0",
+            "179.955 181.045 asphalt_over_continuous_concrete reverse iri=62 faulting=0",
+            "181.045 181.055 jointed_reinforced_concrete reverse iri=156 faulting=0",
+            "181.055 181.075 jointed_plain_concrete reverse iri=180 faulting=0",
+            "181.075 181.255 asphalt_over_continuous_concrete reverse iri=76 faulting=0",
+            "181.255 182.155 jointed_plain_concrete reverse iri=86 faulting=0.02",
+            "182.155 182.255 bonded_concrete_overlay reverse iri=114 faulting=0.04",
+            "182.255 191.185 jointed_plain_concrete reverse iri=75 faulting=0.02",
+            "191.185 191.785 asphalt_over_jointed_concrete reverse iri=72 faulting=0",
+            "191.785 191.885 asphalt reverse iri=61 faulting=0",
+            "191.885 192.16 asphalt_over_jointed_concrete reverse iri=118 faulting=0",
+            "192.16 192.205 jointed_plain_concrete reverse iri=276 faulting=0",
+            "192.205 192.385 asphalt_over_jointed_concrete reverse iri=119 faulting=0",
+            "192.385 192.685 asphalt reverse iri=61 faulting=0",
+            "192.685 194.09 asphalt_over_jointed_concrete reverse iri=54 faulting=0",
+            "194.09 200.51 jointed_plain_concrete reverse iri=70 faulting=0.03",
+            "200.51 200.855 asphalt_over_jointed_concrete reverse iri=63 faulting=0",
+            "200.855 202.665 jointed_plain_concrete reverse iri=76 faulting=0.03",
+            "202.665 203.265 asphalt_over_jointed_concrete reverse iri=60 faulting=0",
+            "203.265 213.445 jointed_plain_concrete reverse iri=85 faulting=0.03",
+            "213.445 213.47 asphalt_over_jointed_concrete reverse iri=355 faulting=0",
+            "213.47 213.475 jointed_reinforced_concrete reverse iri=281 faulting=0",
+            "213.475 214.95 asphalt_over_jointed_concrete reverse iri=117 faulting=0",
+            "214.95 215.98 jointed_reinforced_concrete reverse iri=74 faulting=0.02",
+            "215.98 216.06 asphalt_over_jointed_concrete reverse iri=125 faulting=0.01",
+            "216.06 217.355 jointed_reinforced_concrete reverse iri=68 faulting=0.02",
+            "217.355 229.595 asphalt_over_jointed_concrete reverse iri=67 faulting=0",
+            "229.595 229.74 asphalt_over_continuous_concrete reverse iri=49 faulting=0",
+            "229.74 231.295 jointed_plain_concrete reverse iri=100 faulting=0.02",
+            "231.295 232.3 asphalt_over_jointed_concrete reverse iri=91 faulting=0.02",
+            "232.3 232.98 jointed_reinforced_concrete reverse iri=84 faulting=0.02",
+            "232.98 236.515 asphalt reverse iri=68 faulting=0",
+            "236.515 237.615 asphalt_over_asphalt reverse iri=87 faulting=0",
+            "237.615 237.815 asphalt reverse iri=127 faulting=0",
+            "237.815 237.875 asphalt_over_asphalt reverse iri=58 faulting=0",
+            "237.875 238.06 asphalt reverse iri=72 faulting=0.01",
+            "238.06 238.21 asphalt_over_jointed_concrete reverse iri=166 faulting=0",
+            "238.21 238.49 asphalt_over_asphalt reverse iri=153 faulting=0.02",
+            "238.49 238.53 continuous_concrete reverse iri=127 faulting=0.01",
+            "238.53 240.115 asphalt_over_asphalt reverse iri=60 faulting=0",
+            "240.115 240.215 asphalt_over_continuous_concrete reverse iri=80 faulting=0",
+            "240.215 242.005 jointed_reinforced_concrete reverse iri=114 faulting=0.02",
+            "242.005 242.12 asphalt_over_jointed_concrete reverse iri=94 faulting=0.01",
+            "242.12 242.32 jointed_reinforced_concrete reverse iri=69 faulting=0.03",
+            "242.32 243.52 continuous_concrete reverse iri=104 faulting=0.02",
+            "243.52 243.54 jointed_plain_concrete reverse iri=157 faulting=0.04",
+            "243.54 243.765 jointed_reinforced_concrete reverse iri=82 faulting=0.01",
+            "243.87 243.9 continuous_concrete reverse",
+            "243.9 244.33 continuous_concrete forward",
+            "244.33 244.475 asphalt_over_jointed_concrete forward",
+            "244.475 244.545 asphalt_over_continuous_concrete forward",
+            "244.545 244.64 asphalt_over_jointed_concrete forward",
+            "244.64 244.77 asphalt_over_jointed_concrete reverse",
+            "244.77 244.805 asphalt_over_jointed_concrete",
+            "244.805 244.87 asphalt_over_jointed_concrete reverse",
+            "244.87 245 asphalt_over_jointed_concrete forward"
+          ],
+          "structures": [
+            "1.035 1.08 bridge hpms=0.044",
+            "2.175 2.21 bridge hpms=0.033",
+            "2.325 2.355 bridge hpms=0.027",
+            "2.445 2.47 bridge hpms=0.025",
+            "5.005 5.08 bridge hpms=0.076",
+            "6.07 6.095 bridge hpms=0.026",
+            "6.405 6.435 bridge hpms=0.035",
+            "6.665 6.675 bridge hpms=0.012",
+            "6.905 6.935 bridge hpms=0.03",
+            "7.67 7.71 bridge hpms=0.042",
+            "12.7 12.74 bridge hpms=0.035",
+            "13.36 13.63 bridge hpms=0.274",
+            "14.755 14.795 bridge hpms=0.039",
+            "17.915 17.975 bridge hpms=0.058",
+            "20.7 20.735 bridge hpms=0.038",
+            "20.94 20.975 bridge hpms=0.033",
+            "21.88 21.915 bridge hpms=0.037",
+            "22.46 22.48 bridge hpms=0.022",
+            "23.855 23.91 bridge hpms=0.055",
+            "36.55 36.59 bridge hpms=0.042",
+            "47.155 47.21 bridge hpms=0.054",
+            "48.795 48.83 bridge hpms=0.034",
+            "49.12 49.145 bridge hpms=0.025",
+            "49.35 49.405 bridge hpms=0.057",
+            "50.395 50.435 bridge hpms=0.04",
+            "60.73 60.76 bridge hpms=0.031",
+            "62.76 62.785 bridge hpms=0.024",
+            "63.775 63.815 bridge hpms=0.043",
+            "63.975 64.015 bridge hpms=0.039",
+            "66.66 66.695 bridge hpms=0.035",
+            "67.535 67.575 bridge hpms=0.038",
+            "68.145 68.17 bridge hpms=0.025",
+            "71.54 71.565 bridge hpms=0.024",
+            "94.1 94.145 bridge hpms=0.045",
+            "94.83 94.88 bridge hpms=0.054",
+            "95.375 95.405 bridge hpms=0.028",
+            "95.595 95.625 bridge hpms=0.026",
+            "96.97 97.21 bridge hpms=0.241",
+            "98.34 98.405 bridge hpms=0.064",
+            "103.605 103.62 bridge hpms=0.015",
+            "103.86 103.885 bridge hpms=0.025",
+            "106.795 106.8 bridge reverse hpms=0.005",
+            "113.975 114 bridge reverse hpms=0.025",
+            "117.71 117.715 bridge reverse hpms=0.005",
+            "122.345 122.4 bridge reverse hpms=0.079",
+            "123.295 123.34 bridge reverse hpms=0.047",
+            "126.47 126.475 bridge reverse hpms=0.005",
+            "130.885 130.935 bridge reverse hpms=0.051",
+            "131.1 131.105 bridge reverse hpms=0.004",
+            "131.24 131.275 bridge reverse hpms=0.034",
+            "131.51 131.555 bridge reverse hpms=0.04",
+            "131.76 131.805 bridge reverse hpms=0.059",
+            "133.31 133.34 bridge reverse hpms=0.028",
+            "136.98 137.01 bridge reverse hpms=0.028",
+            "138.46 138.49 bridge reverse hpms=0.04",
+            "142.075 142.08 bridge reverse hpms=0.005",
+            "142.505 142.51 bridge reverse hpms=0.006",
+            "142.525 142.53 bridge reverse hpms=0.005",
+            "144.405 144.44 bridge reverse hpms=0.034",
+            "145.62 145.625 bridge reverse hpms=0.004",
+            "145.63 145.635 bridge reverse hpms=0.004",
+            "145.97 145.995 bridge reverse hpms=0.033",
+            "147.07 147.075 bridge reverse hpms=0.004",
+            "147.08 147.085 bridge reverse hpms=0.005",
+            "148.705 148.73 bridge reverse hpms=0.027",
+            "149.825 149.835 bridge reverse hpms=0.007",
+            "154.4 154.43 bridge reverse hpms=0.029",
+            "157.35 157.355 bridge reverse hpms=0.005",
+            "159.3 159.31 bridge reverse hpms=0.008",
+            "159.985 160.035 bridge reverse hpms=0.082",
+            "161.76 161.795 bridge reverse hpms=0.059",
+            "165.47 165.475 bridge reverse hpms=0.005",
+            "168.03 168.07 bridge reverse hpms=0.068",
+            "170.15 170.205 bridge reverse hpms=0.056",
+            "172.315 172.345 bridge reverse hpms=0.042",
+            "176.23 176.255 bridge reverse hpms=0.034",
+            "177.04 177.045 bridge reverse hpms=0.004",
+            "179.905 179.955 bridge reverse hpms=0.05",
+            "181.045 181.075 bridge reverse hpms=0.027",
+            "182.305 182.315 bridge reverse hpms=0.01",
+            "192.16 192.205 bridge reverse hpms=0.048",
+            "192.935 192.94 bridge reverse hpms=0.005",
+            "196.86 196.865 bridge reverse hpms=0.005",
+            "196.87 196.875 bridge reverse hpms=0.005",
+            "199.49 199.495 bridge reverse hpms=0.004",
+            "201.655 201.695 bridge reverse hpms=0.037",
+            "205.415 205.485 bridge reverse hpms=0.07",
+            "211.595 211.63 bridge reverse hpms=0.046",
+            "211.98 212.015 bridge reverse hpms=0.031",
+            "213.45 213.495 bridge reverse hpms=0.043",
+            "215.385 215.4 bridge reverse hpms=0.019",
+            "215.98 216.06 bridge reverse hpms=0.132",
+            "218.265 218.275 bridge reverse hpms=0.01",
+            "220.6 220.61 bridge reverse hpms=0.009",
+            "221.36 221.39 bridge reverse hpms=0.033",
+            "230.21 230.22 bridge reverse hpms=0.016",
+            "230.545 230.575 bridge reverse hpms=0.031",
+            "231.53 231.565 bridge reverse hpms=0.031",
+            "231.925 231.93 bridge reverse hpms=0.007",
+            "232.62 232.665 bridge reverse hpms=0.042",
+            "236.925 236.99 bridge reverse hpms=0.089",
+            "238.055 238.135 bridge reverse hpms=0.082",
+            "238.24 238.285 bridge reverse hpms=0.041",
+            "238.49 238.53 bridge reverse hpms=0.042",
+            "238.715 238.75 bridge reverse hpms=0.042",
+            "240.225 240.265 bridge reverse hpms=0.036",
+            "240.735 240.775 bridge reverse hpms=0.073",
+            "241.5 241.535 bridge reverse hpms=0.046",
+            "241.61 241.63 bridge reverse hpms=0.019",
+            "241.705 241.78 bridge reverse hpms=0.075",
+            "241.825 242.005 bridge reverse hpms=0.219",
+            "242.51 242.55 bridge reverse hpms=0.068",
+            "243.54 243.7 bridge reverse hpms=0.171",
+            "243.87 243.9 bridge reverse hpms=0.032",
+            "243.9 243.93 bridge forward hpms=0.027"
+          ],
+          "meta": {
+            "read_share_forward": 0.427,
+            "read_share_reverse": 0.985,
+            "inventory_share_forward": 0.0,
+            "inventory_share_reverse": 0.0,
+            "sectioned_share": 0.999,
+            "mile_scale": 1.0017,
+            "hpms_year": 2020,
+            "source": "FHWA Highway Performance Monitoring System (HPMS) Surface_Type (Item 49) and Structure_Type (Item 4), codes per the HPMS Field Manual, Chapter 4 (https://www.fhwa.dot.gov/policyinformation/hpms/fieldmanual/page06.cfm and page04.cfm), read from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view), accessed 2026-11-20. The class and the structure are READ. Mileage is DERIVED: each section's longest geometry piece projected onto the archived leg road and rescaled to the leg's miles, read in 0.005-mile bins, the highest functional class nearest the road winning where rows overlap. A run marked inventory_side is ASSUMED: the leg drives the non-inventory carriageway there, which HPMS gives no surface of its own, and the inventory carriageway's reading within 250 m is applied to it (meta inventory_share_* gives how much of the leg). A structure's hpms_mi is READ: the milepoint length of the HPMS sections behind it, each once. mile_scale is leg miles per measured mile of the archived road. Each surface entry reads 'from_mi to_mi class', then forward or reverse when it holds one way only, then iri=, faulting= and inventory_side where they apply; each structure reads 'from_mi to_mi kind', the way, then hpms= (its HPMS length). iri (inches per mile) and faulting (inches) are DERIVED: the mean of the section readings inside the run. Where HPMS has no reading nothing is written. HPMS reports bridge-sized culverts as bridges."
+          }
+        }
       },
       "stops": [
         {
@@ -20743,7 +21635,68 @@
             "name": "Hennepin County",
             "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
           }
-        ]
+        ],
+        "pavement": {
+          "surface": [
+            "1.045 1.96 jointed_plain_concrete iri=66 faulting=0.02",
+            "1.96 14.345 asphalt_over_asphalt iri=47",
+            "14.345 18.18 asphalt_over_jointed_concrete iri=91",
+            "18.18 21.87 unbonded_jointed_concrete_overlay iri=74 faulting=0.03",
+            "21.87 27.54 jointed_plain_concrete iri=65 faulting=0.04",
+            "27.54 35.87 unbonded_jointed_concrete_overlay iri=57 faulting=0.02",
+            "35.87 36.77 jointed_plain_concrete iri=48 faulting=0.04",
+            "36.77 40.33 unbonded_jointed_concrete_overlay iri=63 faulting=0.02",
+            "40.33 47.19 jointed_plain_concrete iri=79 faulting=0.04",
+            "47.19 49.42 asphalt_over_jointed_concrete iri=70",
+            "49.42 50.465 asphalt_over_asphalt iri=101",
+            "50.465 52.53 asphalt iri=96",
+            "52.53 56.295 asphalt_over_jointed_concrete iri=65",
+            "56.295 61.15 jointed_plain_concrete iri=89 faulting=0.03",
+            "61.15 63.495 asphalt_over_jointed_concrete iri=151",
+            "63.495 64.295 jointed_plain_concrete iri=121 faulting=0.05"
+          ],
+          "structures": [
+            "1.465 1.505 bridge hpms=0.039",
+            "1.66 1.705 bridge hpms=0.043",
+            "2.685 2.71 bridge hpms=0.024",
+            "4.7 4.73 bridge hpms=0.031",
+            "14.965 15.005 bridge hpms=0.04",
+            "15.975 16.035 bridge hpms=0.057",
+            "16.24 16.265 bridge hpms=0.025",
+            "16.545 16.585 bridge hpms=0.038",
+            "18.145 18.2 bridge hpms=0.054",
+            "28.69 28.735 bridge hpms=0.042",
+            "41.29 41.345 bridge hpms=0.055",
+            "42.71 42.735 bridge hpms=0.022",
+            "43.275 43.31 bridge hpms=0.037",
+            "44.205 44.235 bridge hpms=0.033",
+            "44.44 44.475 bridge hpms=0.038",
+            "47.19 47.25 bridge hpms=0.058",
+            "50.35 50.39 bridge hpms=0.039",
+            "51.51 51.78 bridge hpms=0.274",
+            "52.395 52.43 bridge hpms=0.035",
+            "57.395 57.435 bridge hpms=0.042",
+            "58.135 58.165 bridge hpms=0.03",
+            "58.395 58.405 bridge hpms=0.012",
+            "58.635 58.67 bridge hpms=0.035",
+            "59 59.025 bridge hpms=0.026",
+            "60.005 60.08 bridge hpms=0.076",
+            "62.6 62.625 bridge hpms=0.025",
+            "62.72 62.745 bridge hpms=0.027",
+            "62.85 62.885 bridge hpms=0.033",
+            "63.98 64.025 bridge hpms=0.044"
+          ],
+          "meta": {
+            "read_share_forward": 0.973,
+            "read_share_reverse": 0.973,
+            "inventory_share_forward": 0.0,
+            "inventory_share_reverse": 0.0,
+            "sectioned_share": 0.987,
+            "mile_scale": 0.9955,
+            "hpms_year": 2020,
+            "source": "FHWA Highway Performance Monitoring System (HPMS) Surface_Type (Item 49) and Structure_Type (Item 4), codes per the HPMS Field Manual, Chapter 4 (https://www.fhwa.dot.gov/policyinformation/hpms/fieldmanual/page06.cfm and page04.cfm), read from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view), accessed 2026-11-20. The class and the structure are READ. Mileage is DERIVED: each section's longest geometry piece projected onto the archived leg road and rescaled to the leg's miles, read in 0.005-mile bins, the highest functional class nearest the road winning where rows overlap. A run marked inventory_side is ASSUMED: the leg drives the non-inventory carriageway there, which HPMS gives no surface of its own, and the inventory carriageway's reading within 250 m is applied to it (meta inventory_share_* gives how much of the leg). A structure's hpms_mi is READ: the milepoint length of the HPMS sections behind it, each once. mile_scale is leg miles per measured mile of the archived road. Each surface entry reads 'from_mi to_mi class', then forward or reverse when it holds one way only, then iri=, faulting= and inventory_side where they apply; each structure reads 'from_mi to_mi kind', the way, then hpms= (its HPMS length). iri (inches per mile) and faulting (inches) are DERIVED: the mean of the section readings inside the run. Where HPMS has no reading nothing is written. HPMS reports bridge-sized culverts as bridges."
+          }
+        }
       },
       "stops": [
         {
@@ -22210,7 +23163,47 @@
             "name": "Freeborn County",
             "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
           }
-        ]
+        ],
+        "pavement": {
+          "surface": [
+            "0.66 3.85 jointed_plain_concrete iri=100 faulting=0.03",
+            "4.155 9.78 asphalt_over_jointed_concrete iri=50",
+            "9.78 10.385 jointed_plain_concrete iri=81 faulting=0.02",
+            "10.385 10.525 jointed_plain_concrete iri=130 faulting=0.02 inventory_side",
+            "10.64 18.205 asphalt_over_asphalt iri=119",
+            "18.205 44.115 jointed_plain_concrete iri=80 faulting=0.05",
+            "44.115 53.225 asphalt_over_jointed_concrete iri=102 faulting=0.01",
+            "53.225 59.9 unbonded_jointed_concrete_overlay iri=68 faulting=0.03",
+            "60.055 60.885 unbonded_jointed_concrete_overlay iri=81 faulting=0.02",
+            "60.885 61.21 unbonded_jointed_concrete_overlay iri=69 faulting=0.02 inventory_side",
+            "61.21 61.4 unbonded_jointed_concrete_overlay iri=70 faulting=0.02",
+            "61.4 64 asphalt_over_asphalt iri=180"
+          ],
+          "structures": [
+            "0.655 0.66 bridge hpms=0.015",
+            "2.225 2.28 bridge hpms=0.051",
+            "4.62 4.65 bridge hpms=0.03",
+            "14.415 14.465 bridge hpms=0.047",
+            "41.125 41.15 bridge hpms=0.023",
+            "41.5 41.535 bridge hpms=0.034",
+            "43.31 43.365 bridge hpms=0.055",
+            "53.225 53.275 bridge hpms=0.047",
+            "59.77 59.82 bridge hpms=0.053",
+            "61.915 61.96 bridge hpms=0.049",
+            "63.275 63.33 bridge hpms=0.055",
+            "63.47 63.495 bridge hpms=0.026"
+          ],
+          "meta": {
+            "read_share_forward": 0.981,
+            "read_share_reverse": 0.981,
+            "inventory_share_forward": 0.007,
+            "inventory_share_reverse": 0.007,
+            "sectioned_share": 0.985,
+            "mile_scale": 0.9989,
+            "hpms_year": 2020,
+            "source": "FHWA Highway Performance Monitoring System (HPMS) Surface_Type (Item 49) and Structure_Type (Item 4), codes per the HPMS Field Manual, Chapter 4 (https://www.fhwa.dot.gov/policyinformation/hpms/fieldmanual/page06.cfm and page04.cfm), read from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view), accessed 2026-11-20. The class and the structure are READ. Mileage is DERIVED: each section's longest geometry piece projected onto the archived leg road and rescaled to the leg's miles, read in 0.005-mile bins, the highest functional class nearest the road winning where rows overlap. A run marked inventory_side is ASSUMED: the leg drives the non-inventory carriageway there, which HPMS gives no surface of its own, and the inventory carriageway's reading within 250 m is applied to it (meta inventory_share_* gives how much of the leg). A structure's hpms_mi is READ: the milepoint length of the HPMS sections behind it, each once. mile_scale is leg miles per measured mile of the archived road. Each surface entry reads 'from_mi to_mi class', then forward or reverse when it holds one way only, then iri=, faulting= and inventory_side where they apply; each structure reads 'from_mi to_mi kind', the way, then hpms= (its HPMS length). iri (inches per mile) and faulting (inches) are DERIVED: the mean of the section readings inside the run. Where HPMS has no reading nothing is written. HPMS reports bridge-sized culverts as bridges."
+          }
+        }
       },
       "stops": [
         {
@@ -23893,7 +24886,63 @@
             "name": "La Crosse County",
             "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
           }
-        ]
+        ],
+        "pavement": {
+          "surface": [
+            "0.66 4.065 jointed_plain_concrete iri=100 faulting=0.03",
+            "4.065 8.775 asphalt_over_jointed_concrete iri=44",
+            "8.8 9.735 asphalt_over_jointed_concrete iri=32",
+            "10.005 57.325 unbonded_jointed_concrete_overlay iri=55 faulting=0.02",
+            "57.325 63.1 asphalt_over_jointed_concrete iri=79",
+            "63.1 66.25 unbonded_jointed_concrete_overlay iri=90 faulting=0.03",
+            "66.25 69.055 jointed_plain_concrete iri=84 faulting=0.04",
+            "69.055 69.78 asphalt iri=92",
+            "69.78 71.245 asphalt_over_jointed_concrete iri=55",
+            "71.26 71.265 jointed_plain_concrete iri=130 faulting=0",
+            "71.265 72.17 jointed_plain_concrete forward iri=139 faulting=0",
+            "72.17 72.185 jointed_plain_concrete reverse iri=153 faulting=0",
+            "72.185 72.66 jointed_plain_concrete forward iri=135 faulting=0.01",
+            "72.66 73.05 asphalt_over_jointed_concrete forward iri=181",
+            "73.05 73.695 jointed_plain_concrete iri=266 faulting=0.01"
+          ],
+          "structures": [
+            "0.655 0.66 bridge hpms=0.015",
+            "2.225 2.28 bridge hpms=0.051",
+            "4.01 4.07 bridge hpms=0.058",
+            "4.53 4.62 bridge hpms=0.09",
+            "5.22 5.275 bridge hpms=0.056",
+            "6.75 6.785 bridge hpms=0.034",
+            "20.705 20.75 bridge hpms=0.046",
+            "24.385 24.435 bridge hpms=0.05",
+            "30.135 30.165 bridge hpms=0.031",
+            "35.035 35.115 bridge hpms=0.08",
+            "37.625 37.65 bridge hpms=0.027",
+            "48.2 48.24 bridge hpms=0.039",
+            "49.705 49.735 bridge hpms=0.033",
+            "55.31 55.34 bridge hpms=0.026",
+            "60.725 60.76 bridge hpms=0.035",
+            "64.19 64.22 bridge hpms=0.028",
+            "64.625 64.645 bridge hpms=0.018",
+            "69.6 69.645 bridge hpms=0.045",
+            "71.19 71.245 bridge hpms=0.059",
+            "71.26 71.265 bridge hpms=0.08",
+            "71.265 71.335 bridge forward hpms=0.08",
+            "71.335 71.34 bridge hpms=0.08",
+            "72.08 72.17 bridge forward hpms=0.1",
+            "72.17 72.185 bridge reverse hpms=0.1",
+            "72.185 72.575 bridge forward hpms=0.39"
+          ],
+          "meta": {
+            "read_share_forward": 0.983,
+            "read_share_reverse": 0.959,
+            "inventory_share_forward": 0.0,
+            "inventory_share_reverse": 0.0,
+            "sectioned_share": 0.993,
+            "mile_scale": 0.9993,
+            "hpms_year": 2020,
+            "source": "FHWA Highway Performance Monitoring System (HPMS) Surface_Type (Item 49) and Structure_Type (Item 4), codes per the HPMS Field Manual, Chapter 4 (https://www.fhwa.dot.gov/policyinformation/hpms/fieldmanual/page06.cfm and page04.cfm), read from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view), accessed 2026-11-20. The class and the structure are READ. Mileage is DERIVED: each section's longest geometry piece projected onto the archived leg road and rescaled to the leg's miles, read in 0.005-mile bins, the highest functional class nearest the road winning where rows overlap. A run marked inventory_side is ASSUMED: the leg drives the non-inventory carriageway there, which HPMS gives no surface of its own, and the inventory carriageway's reading within 250 m is applied to it (meta inventory_share_* gives how much of the leg). A structure's hpms_mi is READ: the milepoint length of the HPMS sections behind it, each once. mile_scale is leg miles per measured mile of the archived road. Each surface entry reads 'from_mi to_mi class', then forward or reverse when it holds one way only, then iri=, faulting= and inventory_side where they apply; each structure reads 'from_mi to_mi kind', the way, then hpms= (its HPMS length). iri (inches per mile) and faulting (inches) are DERIVED: the mean of the section readings inside the run. Where HPMS has no reading nothing is written. HPMS reports bridge-sized culverts as bridges."
+          }
+        }
       },
       "stops": [
         {
@@ -25544,7 +26593,72 @@
             "name": "Hennepin County",
             "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
           }
-        ]
+        ],
+        "pavement": {
+          "surface": [
+            "0.655 8.045 jointed_plain_concrete iri=101 faulting=0.03",
+            "8.045 9.915 asphalt_over_jointed_concrete iri=44",
+            "9.915 12.14 jointed_plain_concrete iri=68 faulting=0.02",
+            "12.14 13.845 asphalt_over_jointed_concrete iri=35",
+            "13.875 23.905 asphalt_over_jointed_concrete iri=36",
+            "23.945 24.83 asphalt_over_jointed_concrete iri=37",
+            "24.83 27.66 jointed_plain_concrete iri=101 faulting=0.07",
+            "27.66 44.205 asphalt_over_jointed_concrete iri=39",
+            "44.205 46.395 jointed_plain_concrete iri=160 faulting=0.13",
+            "46.395 51.46 asphalt_over_jointed_concrete iri=91",
+            "51.46 61.27 asphalt_over_asphalt iri=103",
+            "61.27 62.05 jointed_plain_concrete iri=107 faulting=0.03",
+            "62.05 65.575 asphalt_over_jointed_concrete iri=58",
+            "65.575 67.02 jointed_plain_concrete iri=79 faulting=0.02",
+            "67.02 67.11 asphalt_over_asphalt iri=112",
+            "67.11 69.025 jointed_plain_concrete iri=102 faulting=0.03",
+            "69.03 69.455 jointed_plain_concrete iri=100 faulting=0.04",
+            "69.455 70.66 asphalt_over_jointed_concrete iri=96",
+            "70.66 71.535 asphalt iri=109",
+            "71.535 72.925 asphalt_over_asphalt iri=107",
+            "72.925 76.19 jointed_plain_concrete iri=147 faulting=0.02",
+            "76.235 76.245 jointed_plain_concrete iri=84 faulting=0.02 inventory_side",
+            "76.415 78.015 asphalt iri=110",
+            "78.015 80.06 asphalt_over_asphalt iri=112",
+            "80.06 81.82 jointed_plain_concrete iri=141 faulting=0.03",
+            "81.86 81.95 jointed_plain_concrete iri=324 faulting=0.03 inventory_side"
+          ],
+          "structures": [
+            "1.505 1.53 bridge hpms=0.028",
+            "1.53 1.535 bridge reverse hpms=0.026",
+            "1.555 1.595 bridge hpms=0.04",
+            "1.69 1.75 bridge hpms=0.06",
+            "11.01 11.065 bridge hpms=0.054",
+            "11.51 11.56 bridge hpms=0.049",
+            "21.31 21.35 bridge hpms=0.037",
+            "25.9 25.94 bridge hpms=0.039",
+            "43.12 43.17 bridge hpms=0.046",
+            "44.205 44.29 bridge hpms=0.085",
+            "55.34 55.37 bridge hpms=0.027",
+            "60.88 60.965 bridge hpms=0.083",
+            "61.625 61.67 bridge hpms=0.046",
+            "64.915 64.95 bridge hpms=0.035",
+            "65.285 65.34 bridge hpms=0.054",
+            "66.31 66.35 bridge hpms=0.044",
+            "72.21 72.3 bridge hpms=0.09",
+            "72.51 72.61 bridge hpms=0.1",
+            "74.205 74.27 bridge forward hpms=0.067",
+            "80.25 80.345 bridge hpms=0.096",
+            "81.18 81.225 bridge hpms=0.041",
+            "81.405 81.455 bridge hpms=0.052",
+            "81.78 81.82 bridge hpms=0.041"
+          ],
+          "meta": {
+            "read_share_forward": 0.975,
+            "read_share_reverse": 0.975,
+            "inventory_share_forward": 0.001,
+            "inventory_share_reverse": 0.001,
+            "sectioned_share": 0.996,
+            "mile_scale": 0.9985,
+            "hpms_year": 2020,
+            "source": "FHWA Highway Performance Monitoring System (HPMS) Surface_Type (Item 49) and Structure_Type (Item 4), codes per the HPMS Field Manual, Chapter 4 (https://www.fhwa.dot.gov/policyinformation/hpms/fieldmanual/page06.cfm and page04.cfm), read from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view), accessed 2026-11-20. The class and the structure are READ. Mileage is DERIVED: each section's longest geometry piece projected onto the archived leg road and rescaled to the leg's miles, read in 0.005-mile bins, the highest functional class nearest the road winning where rows overlap. A run marked inventory_side is ASSUMED: the leg drives the non-inventory carriageway there, which HPMS gives no surface of its own, and the inventory carriageway's reading within 250 m is applied to it (meta inventory_share_* gives how much of the leg). A structure's hpms_mi is READ: the milepoint length of the HPMS sections behind it, each once. mile_scale is leg miles per measured mile of the archived road. Each surface entry reads 'from_mi to_mi class', then forward or reverse when it holds one way only, then iri=, faulting= and inventory_side where they apply; each structure reads 'from_mi to_mi kind', the way, then hpms= (its HPMS length). iri (inches per mile) and faulting (inches) are DERIVED: the mean of the section readings inside the run. Where HPMS has no reading nothing is written. HPMS reports bridge-sized culverts as bridges."
+          }
+        }
       },
       "stops": [
         {
@@ -26557,7 +27671,44 @@
             "name": "Winona County",
             "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
           }
-        ]
+        ],
+        "pavement": {
+          "surface": [
+            "0.66 4.05 jointed_plain_concrete iri=100 faulting=0.03",
+            "4.05 8.745 asphalt_over_jointed_concrete iri=44",
+            "8.775 9.705 asphalt_over_jointed_concrete iri=32",
+            "9.97 44 unbonded_jointed_concrete_overlay iri=57 faulting=0.02",
+            "44 50.81 asphalt_over_asphalt iri=52",
+            "50.81 50.815 asphalt_over_jointed_concrete iri=229",
+            "50.825 51.335 asphalt_over_jointed_concrete iri=236",
+            "51.335 51.72 asphalt_over_asphalt iri=92"
+          ],
+          "structures": [
+            "0.655 0.66 bridge hpms=0.015",
+            "2.22 2.27 bridge hpms=0.051",
+            "3.995 4.055 bridge hpms=0.058",
+            "4.515 4.605 bridge hpms=0.09",
+            "5.205 5.26 bridge hpms=0.056",
+            "6.73 6.765 bridge hpms=0.034",
+            "20.64 20.685 bridge hpms=0.046",
+            "24.31 24.36 bridge hpms=0.05",
+            "30.04 30.07 bridge hpms=0.031",
+            "34.925 35.005 bridge hpms=0.08",
+            "37.51 37.535 bridge hpms=0.027",
+            "44 44.045 bridge hpms=0.042",
+            "48.21 48.23 bridge hpms=0.02"
+          ],
+          "meta": {
+            "read_share_forward": 0.958,
+            "read_share_reverse": 0.958,
+            "inventory_share_forward": 0.0,
+            "inventory_share_reverse": 0.0,
+            "sectioned_share": 0.969,
+            "mile_scale": 0.9962,
+            "hpms_year": 2020,
+            "source": "FHWA Highway Performance Monitoring System (HPMS) Surface_Type (Item 49) and Structure_Type (Item 4), codes per the HPMS Field Manual, Chapter 4 (https://www.fhwa.dot.gov/policyinformation/hpms/fieldmanual/page06.cfm and page04.cfm), read from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view), accessed 2026-11-20. The class and the structure are READ. Mileage is DERIVED: each section's longest geometry piece projected onto the archived leg road and rescaled to the leg's miles, read in 0.005-mile bins, the highest functional class nearest the road winning where rows overlap. A run marked inventory_side is ASSUMED: the leg drives the non-inventory carriageway there, which HPMS gives no surface of its own, and the inventory carriageway's reading within 250 m is applied to it (meta inventory_share_* gives how much of the leg). A structure's hpms_mi is READ: the milepoint length of the HPMS sections behind it, each once. mile_scale is leg miles per measured mile of the archived road. Each surface entry reads 'from_mi to_mi class', then forward or reverse when it holds one way only, then iri=, faulting= and inventory_side where they apply; each structure reads 'from_mi to_mi kind', the way, then hpms= (its HPMS length). iri (inches per mile) and faulting (inches) are DERIVED: the mean of the section readings inside the run. Where HPMS has no reading nothing is written. HPMS reports bridge-sized culverts as bridges."
+          }
+        }
       },
       "stops": [
         {
@@ -29033,7 +30184,64 @@
             "name": "Cass County",
             "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
           }
-        ]
+        ],
+        "pavement": {
+          "surface": [
+            "0.475 1.025 asphalt iri=87",
+            "1.025 2.7 asphalt_over_asphalt iri=77",
+            "2.7 5.025 jointed_plain_concrete iri=113 faulting=0.06",
+            "5.025 10.655 asphalt_over_asphalt iri=38",
+            "11.07 41.195 asphalt_over_asphalt iri=65",
+            "41.195 70.65 unbonded_jointed_concrete_overlay iri=68 faulting=0.04",
+            "70.65 76.755 jointed_plain_concrete iri=84 faulting=0.06",
+            "76.755 97.25 unbonded_jointed_concrete_overlay iri=86 faulting=0.04",
+            "97.25 117.325 jointed_plain_concrete iri=69 faulting=0.05",
+            "117.945 118.04 jointed_plain_concrete iri=128 faulting=0.06",
+            "118.04 131.41 asphalt_over_jointed_concrete iri=86",
+            "131.41 136.805 jointed_plain_concrete iri=102 faulting=0.03",
+            "136.805 153.645 unbonded_jointed_concrete_overlay iri=53 faulting=0.02",
+            "153.645 162.185 asphalt_over_continuous_concrete iri=58",
+            "162.185 167.815 asphalt_over_jointed_concrete iri=85",
+            "167.815 167.975 asphalt iri=208",
+            "167.98 168.18 jointed_plain_concrete iri=123 faulting=0.04",
+            "168.18 170.145 asphalt_over_jointed_concrete iri=187",
+            "170.155 170.69 jointed_plain_concrete iri=142 faulting=0.04"
+          ],
+          "structures": [
+            "3.535 3.575 bridge hpms=0.041",
+            "5.065 5.105 bridge hpms=0.043",
+            "21.955 22 bridge hpms=0.047",
+            "31.42 31.455 bridge hpms=0.034",
+            "36.425 36.455 bridge hpms=0.028",
+            "37.735 37.77 bridge hpms=0.034",
+            "40.835 40.86 bridge hpms=0.028",
+            "43.41 43.45 bridge hpms=0.039",
+            "63.085 63.12 bridge hpms=0.035",
+            "64.56 64.6 bridge hpms=0.041",
+            "68.43 68.47 bridge hpms=0.042",
+            "71.29 71.34 bridge hpms=0.048",
+            "84.045 84.08 bridge hpms=0.035",
+            "85.93 85.96 bridge hpms=0.031",
+            "116.06 116.1 bridge hpms=0.039",
+            "118.15 118.19 bridge hpms=0.039",
+            "122.115 122.15 bridge hpms=0.036",
+            "123.3 123.355 bridge hpms=0.055",
+            "146.56 146.595 bridge hpms=0.032",
+            "160.67 160.775 bridge hpms=0.105",
+            "170.055 170.145 bridge hpms=0.087",
+            "170.155 170.22 bridge hpms=0.065"
+          ],
+          "meta": {
+            "read_share_forward": 0.989,
+            "read_share_reverse": 0.989,
+            "inventory_share_forward": 0.0,
+            "inventory_share_reverse": 0.0,
+            "sectioned_share": 0.996,
+            "mile_scale": 0.9994,
+            "hpms_year": 2020,
+            "source": "FHWA Highway Performance Monitoring System (HPMS) Surface_Type (Item 49) and Structure_Type (Item 4), codes per the HPMS Field Manual, Chapter 4 (https://www.fhwa.dot.gov/policyinformation/hpms/fieldmanual/page06.cfm and page04.cfm), read from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view), accessed 2026-11-20. The class and the structure are READ. Mileage is DERIVED: each section's longest geometry piece projected onto the archived leg road and rescaled to the leg's miles, read in 0.005-mile bins, the highest functional class nearest the road winning where rows overlap. A run marked inventory_side is ASSUMED: the leg drives the non-inventory carriageway there, which HPMS gives no surface of its own, and the inventory carriageway's reading within 250 m is applied to it (meta inventory_share_* gives how much of the leg). A structure's hpms_mi is READ: the milepoint length of the HPMS sections behind it, each once. mile_scale is leg miles per measured mile of the archived road. Each surface entry reads 'from_mi to_mi class', then forward or reverse when it holds one way only, then iri=, faulting= and inventory_side where they apply; each structure reads 'from_mi to_mi kind', the way, then hpms= (its HPMS length). iri (inches per mile) and faulting (inches) are DERIVED: the mean of the section readings inside the run. Where HPMS has no reading nothing is written. HPMS reports bridge-sized culverts as bridges."
+          }
+        }
       },
       "stops": [
         {
@@ -30433,7 +31641,54 @@
             "name": "Hennepin County",
             "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
           }
-        ]
+        ],
+        "pavement": {
+          "surface": [
+            "0.475 0.95 asphalt iri=85",
+            "1.53 5.17 asphalt_over_asphalt iri=69",
+            "5.17 5.29 jointed_plain_concrete iri=147 faulting=0.03",
+            "5.29 5.51 asphalt_over_asphalt iri=79",
+            "5.715 13.095 unbonded_jointed_concrete_overlay iri=45 faulting=0.02",
+            "13.095 30.395 jointed_plain_concrete iri=85 faulting=0.08",
+            "30.395 35.33 asphalt_over_asphalt iri=43",
+            "35.33 36.93 jointed_plain_concrete iri=105 faulting=0.05",
+            "36.93 39.51 asphalt_over_asphalt iri=52",
+            "39.51 41.89 unbonded_jointed_concrete_overlay iri=76 faulting=0.03",
+            "41.89 43.525 asphalt_over_asphalt iri=101 faulting=0.04",
+            "43.525 56.625 jointed_plain_concrete iri=98 faulting=0.04",
+            "56.625 64.315 asphalt_over_jointed_concrete iri=65",
+            "64.42 65.025 jointed_plain_concrete iri=186 faulting=0.03",
+            "65.115 65.305 jointed_plain_concrete iri=204 faulting=0.02"
+          ],
+          "structures": [
+            "5.41 5.415 bridge hpms=0.009",
+            "29.82 29.885 bridge hpms=0.063",
+            "35.69 35.74 bridge hpms=0.053",
+            "39.735 39.805 bridge hpms=0.072",
+            "48.72 48.745 bridge hpms=0.025",
+            "49.475 49.5 bridge hpms=0.029",
+            "51.72 51.77 bridge hpms=0.048",
+            "54.545 54.575 bridge hpms=0.029",
+            "54.64 54.715 bridge hpms=0.079",
+            "56.655 56.715 bridge hpms=0.063",
+            "57.84 57.855 bridge hpms=0.017",
+            "61.175 61.2 bridge hpms=0.023",
+            "61.38 61.4 bridge hpms=0.022",
+            "64.555 65.025 bridge hpms=0.726",
+            "65.025 65.115 bridge forward hpms=0.651",
+            "65.115 65.18 bridge hpms=0.651"
+          ],
+          "meta": {
+            "read_share_forward": 0.967,
+            "read_share_reverse": 0.967,
+            "inventory_share_forward": 0.0,
+            "inventory_share_reverse": 0.0,
+            "sectioned_share": 0.989,
+            "mile_scale": 0.9939,
+            "hpms_year": 2020,
+            "source": "FHWA Highway Performance Monitoring System (HPMS) Surface_Type (Item 49) and Structure_Type (Item 4), codes per the HPMS Field Manual, Chapter 4 (https://www.fhwa.dot.gov/policyinformation/hpms/fieldmanual/page06.cfm and page04.cfm), read from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view), accessed 2026-11-20. The class and the structure are READ. Mileage is DERIVED: each section's longest geometry piece projected onto the archived leg road and rescaled to the leg's miles, read in 0.005-mile bins, the highest functional class nearest the road winning where rows overlap. A run marked inventory_side is ASSUMED: the leg drives the non-inventory carriageway there, which HPMS gives no surface of its own, and the inventory carriageway's reading within 250 m is applied to it (meta inventory_share_* gives how much of the leg). A structure's hpms_mi is READ: the milepoint length of the HPMS sections behind it, each once. mile_scale is leg miles per measured mile of the archived road. Each surface entry reads 'from_mi to_mi class', then forward or reverse when it holds one way only, then iri=, faulting= and inventory_side where they apply; each structure reads 'from_mi to_mi kind', the way, then hpms= (its HPMS length). iri (inches per mile) and faulting (inches) are DERIVED: the mean of the section readings inside the run. Where HPMS has no reading nothing is written. HPMS reports bridge-sized culverts as bridges."
+          }
+        }
       },
       "stops": [
         {
@@ -31602,7 +32857,52 @@
             "name": "Kandiyohi County",
             "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
           }
-        ]
+        ],
+        "pavement": {
+          "surface": [
+            "0.475 1.025 asphalt iri=87",
+            "1.025 2.69 asphalt_over_asphalt iri=77",
+            "2.69 3.185 jointed_plain_concrete iri=132 faulting=0.08",
+            "3.45 4.37 asphalt_over_asphalt iri=109",
+            "4.37 7.4 asphalt iri=69",
+            "7.4 8.24 asphalt_over_asphalt iri=95",
+            "8.24 22.645 asphalt iri=61",
+            "22.645 31.35 asphalt_over_asphalt iri=105",
+            "31.35 37.81 jointed_plain_concrete iri=70 faulting=0.02",
+            "37.81 38.005 asphalt iri=54",
+            "38.005 55.605 asphalt_over_asphalt iri=50",
+            "55.695 55.77 asphalt_over_asphalt iri=42",
+            "55.94 56.15 asphalt_over_asphalt iri=59",
+            "56.15 58.655 asphalt_over_jointed_concrete iri=76",
+            "58.655 58.865 asphalt_over_jointed_concrete iri=90 inventory_side",
+            "59.025 59.1 asphalt_over_jointed_concrete iri=157 inventory_side",
+            "59.1 59.2 jointed_plain_concrete iri=62 faulting=0.02 inventory_side",
+            "59.2 59.515 asphalt_over_asphalt iri=81 inventory_side",
+            "59.515 61.945 asphalt_over_asphalt iri=115"
+          ],
+          "structures": [
+            "7.67 7.735 bridge hpms=0.066",
+            "12.275 12.3 bridge hpms=0.031",
+            "17.12 17.165 bridge hpms=0.043",
+            "22.14 22.19 bridge hpms=0.05",
+            "34.255 34.31 bridge hpms=0.056",
+            "34.465 34.505 bridge hpms=0.042",
+            "34.74 34.825 bridge hpms=0.082",
+            "49.24 49.28 bridge hpms=0.038",
+            "55.685 55.74 bridge forward hpms=0.057",
+            "61.78 61.94 bridge hpms=0.16"
+          ],
+          "meta": {
+            "read_share_forward": 0.98,
+            "read_share_reverse": 0.98,
+            "inventory_share_forward": 0.011,
+            "inventory_share_reverse": 0.011,
+            "sectioned_share": 0.994,
+            "mile_scale": 0.9953,
+            "hpms_year": 2020,
+            "source": "FHWA Highway Performance Monitoring System (HPMS) Surface_Type (Item 49) and Structure_Type (Item 4), codes per the HPMS Field Manual, Chapter 4 (https://www.fhwa.dot.gov/policyinformation/hpms/fieldmanual/page06.cfm and page04.cfm), read from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view), accessed 2026-11-20. The class and the structure are READ. Mileage is DERIVED: each section's longest geometry piece projected onto the archived leg road and rescaled to the leg's miles, read in 0.005-mile bins, the highest functional class nearest the road winning where rows overlap. A run marked inventory_side is ASSUMED: the leg drives the non-inventory carriageway there, which HPMS gives no surface of its own, and the inventory carriageway's reading within 250 m is applied to it (meta inventory_share_* gives how much of the leg). A structure's hpms_mi is READ: the milepoint length of the HPMS sections behind it, each once. mile_scale is leg miles per measured mile of the archived road. Each surface entry reads 'from_mi to_mi class', then forward or reverse when it holds one way only, then iri=, faulting= and inventory_side where they apply; each structure reads 'from_mi to_mi kind', the way, then hpms= (its HPMS length). iri (inches per mile) and faulting (inches) are DERIVED: the mean of the section readings inside the run. Where HPMS has no reading nothing is written. HPMS reports bridge-sized culverts as bridges."
+          }
+        }
       },
       "stops": [
         {
@@ -33193,7 +34493,57 @@
             "name": "Hennepin County",
             "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
           }
-        ]
+        ],
+        "pavement": {
+          "surface": [
+            "0.15 0.4 asphalt iri=181",
+            "0.4 0.57 jointed_plain_concrete iri=153 faulting=0.04",
+            "0.57 1.79 asphalt_over_jointed_concrete iri=163",
+            "1.79 2.75 asphalt iri=87",
+            "2.75 4.045 asphalt_over_jointed_concrete iri=70",
+            "4.045 14.65 asphalt_over_asphalt iri=76",
+            "14.65 25.115 asphalt iri=32",
+            "25.115 26.245 asphalt_over_jointed_concrete iri=66",
+            "26.245 27.125 jointed_plain_concrete iri=131 faulting=0.04",
+            "27.125 28.94 asphalt_over_jointed_concrete iri=138",
+            "28.94 33.58 asphalt_over_asphalt iri=102",
+            "33.58 43.86 jointed_plain_concrete iri=105 faulting=0.03",
+            "43.86 45.53 asphalt iri=151",
+            "45.53 50.425 asphalt_over_jointed_concrete iri=53",
+            "50.425 67.075 asphalt iri=137",
+            "67.075 67.285 asphalt_over_asphalt iri=91",
+            "67.285 71.46 asphalt_over_jointed_concrete iri=65",
+            "71.46 73.94 asphalt iri=106",
+            "73.94 74.6 asphalt_over_jointed_concrete iri=101",
+            "74.6 75.13 asphalt iri=100",
+            "75.13 81.445 jointed_plain_concrete iri=85 faulting=0.03",
+            "81.445 82.34 asphalt_over_jointed_concrete iri=118",
+            "82.34 83.59 jointed_plain_concrete iri=81 faulting=0.04",
+            "83.59 89.92 asphalt_over_asphalt iri=54",
+            "89.92 93.3 jointed_plain_concrete iri=111 faulting=0.04"
+          ],
+          "structures": [
+            "2.225 2.28 bridge hpms=0.056",
+            "10.055 10.11 bridge hpms=0.058",
+            "65.955 66.04 bridge hpms=0.086",
+            "75.695 75.94 bridge hpms=0.247",
+            "81.945 81.995 bridge hpms=0.051",
+            "84.915 84.95 bridge hpms=0.034",
+            "87.015 87.04 bridge hpms=0.022",
+            "91.2 92.08 bridge hpms=0.88",
+            "92.235 92.375 bridge hpms=0.143"
+          ],
+          "meta": {
+            "read_share_forward": 0.991,
+            "read_share_reverse": 0.991,
+            "inventory_share_forward": 0.0,
+            "inventory_share_reverse": 0.0,
+            "sectioned_share": 0.996,
+            "mile_scale": 1.0049,
+            "hpms_year": 2020,
+            "source": "FHWA Highway Performance Monitoring System (HPMS) Surface_Type (Item 49) and Structure_Type (Item 4), codes per the HPMS Field Manual, Chapter 4 (https://www.fhwa.dot.gov/policyinformation/hpms/fieldmanual/page06.cfm and page04.cfm), read from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view), accessed 2026-11-20. The class and the structure are READ. Mileage is DERIVED: each section's longest geometry piece projected onto the archived leg road and rescaled to the leg's miles, read in 0.005-mile bins, the highest functional class nearest the road winning where rows overlap. A run marked inventory_side is ASSUMED: the leg drives the non-inventory carriageway there, which HPMS gives no surface of its own, and the inventory carriageway's reading within 250 m is applied to it (meta inventory_share_* gives how much of the leg). A structure's hpms_mi is READ: the milepoint length of the HPMS sections behind it, each once. mile_scale is leg miles per measured mile of the archived road. Each surface entry reads 'from_mi to_mi class', then forward or reverse when it holds one way only, then iri=, faulting= and inventory_side where they apply; each structure reads 'from_mi to_mi kind', the way, then hpms= (its HPMS length). iri (inches per mile) and faulting (inches) are DERIVED: the mean of the section readings inside the run. Where HPMS has no reading nothing is written. HPMS reports bridge-sized culverts as bridges."
+          }
+        }
       },
       "stops": [
         {
@@ -34366,7 +35716,68 @@
             "name": "Codington County",
             "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
           }
-        ]
+        ],
+        "pavement": {
+          "surface": [
+            "0.15 0.555 asphalt iri=183",
+            "0.555 1 jointed_plain_concrete iri=197 faulting=0.05",
+            "1 1.905 asphalt_over_jointed_concrete iri=112",
+            "4.14 31.77 asphalt_over_jointed_concrete iri=59",
+            "31.77 73.52 asphalt_over_asphalt iri=105",
+            "73.52 74.34 asphalt_over_jointed_concrete iri=127",
+            "74.34 84.305 asphalt iri=98",
+            "84.305 85.645 jointed_reinforced_concrete iri=166 faulting=0.05",
+            "85.645 85.97 asphalt iri=168",
+            "85.97 107.25 jointed_reinforced_concrete iri=88 faulting=0.03",
+            "107.25 107.28 jointed_plain_concrete iri=139 faulting=0.02",
+            "107.305 107.32 jointed_reinforced_concrete reverse iri=82 faulting=0.03",
+            "107.66 107.695 jointed_reinforced_concrete forward iri=102 faulting=0.05",
+            "107.695 133.645 jointed_reinforced_concrete iri=108 faulting=0.04",
+            "133.645 133.705 jointed_reinforced_concrete forward iri=91 faulting=0.04",
+            "133.645 133.705 jointed_reinforced_concrete reverse iri=78 faulting=0.03 inventory_side",
+            "133.905 134 asphalt_over_continuous_concrete iri=116 faulting=0",
+            "134 137.005 asphalt iri=123",
+            "137.005 138.315 jointed_reinforced_concrete iri=123 faulting=0.05",
+            "138.315 138.995 asphalt"
+          ],
+          "structures": [
+            "0.95 0.995 bridge hpms=0.044",
+            "13.85 13.91 bridge hpms=0.059",
+            "32.82 32.845 bridge hpms=0.029",
+            "36.125 36.14 bridge hpms=0.014",
+            "40.715 40.73 bridge hpms=0.012",
+            "50.56 50.595 bridge hpms=0.035",
+            "73.845 73.87 bridge hpms=0.028",
+            "74.42 74.49 bridge hpms=0.074",
+            "75.545 75.575 bridge hpms=0.029",
+            "85.58 85.59 bridge hpms=0.012",
+            "85.86 85.9 bridge hpms=0.04",
+            "91.82 91.825 bridge hpms=0.007",
+            "95.02 95.025 bridge hpms=0.004",
+            "96.56 96.565 bridge hpms=0.004",
+            "98.025 98.03 bridge hpms=0.004",
+            "107.26 107.28 bridge hpms=0.034",
+            "107.965 107.995 bridge hpms=0.031",
+            "110.735 110.76 bridge hpms=0.023",
+            "113.75 113.775 bridge hpms=0.025",
+            "114.125 114.13 bridge forward hpms=0.004",
+            "114.14 114.145 bridge hpms=0.004",
+            "116.845 116.865 bridge hpms=0.023",
+            "126.655 126.755 bridge hpms=0.186",
+            "128.88 128.9 bridge hpms=0.024",
+            "128.9 128.905 bridge forward hpms=0.008"
+          ],
+          "meta": {
+            "read_share_forward": 0.979,
+            "read_share_reverse": 0.978,
+            "inventory_share_forward": 0.0,
+            "inventory_share_reverse": 0.0,
+            "sectioned_share": 0.983,
+            "mile_scale": 1.0015,
+            "hpms_year": 2020,
+            "source": "FHWA Highway Performance Monitoring System (HPMS) Surface_Type (Item 49) and Structure_Type (Item 4), codes per the HPMS Field Manual, Chapter 4 (https://www.fhwa.dot.gov/policyinformation/hpms/fieldmanual/page06.cfm and page04.cfm), read from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view), accessed 2026-11-20. The class and the structure are READ. Mileage is DERIVED: each section's longest geometry piece projected onto the archived leg road and rescaled to the leg's miles, read in 0.005-mile bins, the highest functional class nearest the road winning where rows overlap. A run marked inventory_side is ASSUMED: the leg drives the non-inventory carriageway there, which HPMS gives no surface of its own, and the inventory carriageway's reading within 250 m is applied to it (meta inventory_share_* gives how much of the leg). A structure's hpms_mi is READ: the milepoint length of the HPMS sections behind it, each once. mile_scale is leg miles per measured mile of the archived road. Each surface entry reads 'from_mi to_mi class', then forward or reverse when it holds one way only, then iri=, faulting= and inventory_side where they apply; each structure reads 'from_mi to_mi kind', the way, then hpms= (its HPMS length). iri (inches per mile) and faulting (inches) are DERIVED: the mean of the section readings inside the run. Where HPMS has no reading nothing is written. HPMS reports bridge-sized culverts as bridges."
+          }
+        }
       },
       "stops": [
         {
@@ -35193,7 +36604,50 @@
             "name": "La Crosse County",
             "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
           }
-        ]
+        ],
+        "pavement": {
+          "surface": [
+            "1.27 1.625 asphalt_over_asphalt iri=91",
+            "1.625 2.13 asphalt_over_jointed_concrete iri=236",
+            "2.13 5.595 asphalt_over_asphalt iri=61",
+            "5.595 18.255 asphalt_over_jointed_concrete iri=37",
+            "18.355 19.25 asphalt_over_jointed_concrete iri=44",
+            "19.25 22.355 unbonded_jointed_concrete_overlay iri=90 faulting=0.03",
+            "22.355 25.12 jointed_plain_concrete iri=84 faulting=0.04",
+            "25.12 25.835 asphalt iri=92",
+            "25.835 27.285 asphalt_over_jointed_concrete iri=55",
+            "27.3 28.195 jointed_plain_concrete forward iri=139 faulting=0",
+            "28.195 28.21 jointed_plain_concrete reverse iri=153 faulting=0",
+            "28.21 28.68 jointed_plain_concrete forward iri=135 faulting=0.01",
+            "28.68 29.065 asphalt_over_jointed_concrete forward iri=181",
+            "29.065 29.7 jointed_plain_concrete iri=265 faulting=0.01"
+          ],
+          "structures": [
+            "2.46 2.485 bridge hpms=0.026",
+            "3.83 3.86 bridge hpms=0.033",
+            "8.65 8.68 bridge hpms=0.029",
+            "10.61 10.63 bridge hpms=0.02",
+            "20.325 20.35 bridge hpms=0.026",
+            "20.755 20.77 bridge hpms=0.018",
+            "25.66 25.705 bridge hpms=0.045",
+            "27.225 27.285 bridge hpms=0.059",
+            "27.3 27.37 bridge forward hpms=0.08",
+            "27.37 27.375 bridge hpms=0.08",
+            "28.105 28.195 bridge forward hpms=0.1",
+            "28.195 28.21 bridge reverse hpms=0.1",
+            "28.21 28.595 bridge forward hpms=0.39"
+          ],
+          "meta": {
+            "read_share_forward": 0.943,
+            "read_share_reverse": 0.885,
+            "inventory_share_forward": 0.0,
+            "inventory_share_reverse": 0.0,
+            "sectioned_share": 0.962,
+            "mile_scale": 0.9857,
+            "hpms_year": 2020,
+            "source": "FHWA Highway Performance Monitoring System (HPMS) Surface_Type (Item 49) and Structure_Type (Item 4), codes per the HPMS Field Manual, Chapter 4 (https://www.fhwa.dot.gov/policyinformation/hpms/fieldmanual/page06.cfm and page04.cfm), read from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view), accessed 2026-11-20. The class and the structure are READ. Mileage is DERIVED: each section's longest geometry piece projected onto the archived leg road and rescaled to the leg's miles, read in 0.005-mile bins, the highest functional class nearest the road winning where rows overlap. A run marked inventory_side is ASSUMED: the leg drives the non-inventory carriageway there, which HPMS gives no surface of its own, and the inventory carriageway's reading within 250 m is applied to it (meta inventory_share_* gives how much of the leg). A structure's hpms_mi is READ: the milepoint length of the HPMS sections behind it, each once. mile_scale is leg miles per measured mile of the archived road. Each surface entry reads 'from_mi to_mi class', then forward or reverse when it holds one way only, then iri=, faulting= and inventory_side where they apply; each structure reads 'from_mi to_mi kind', the way, then hpms= (its HPMS length). iri (inches per mile) and faulting (inches) are DERIVED: the mean of the section readings inside the run. Where HPMS has no reading nothing is written. HPMS reports bridge-sized culverts as bridges."
+          }
+        }
       },
       "stops": [
         {

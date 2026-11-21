@@ -159,6 +159,15 @@ impl SpeechSink for TeeSpeech {
     fn select_event_backend(&mut self, name: Option<&str>) {
         self.inner.select_event_backend(name);
     }
+    fn main_backend_options(&self) -> Vec<String> {
+        self.inner.main_backend_options()
+    }
+    fn settled(&self) -> bool {
+        self.inner.settled()
+    }
+    fn select_main_backend(&mut self, name: Option<&str>) {
+        self.inner.select_main_backend(name);
+    }
     fn set_braille_only(&mut self, on: bool) {
         self.inner.set_braille_only(on);
     }
@@ -216,6 +225,7 @@ struct TeeAudio {
     /// Last reported pan step per loop channel, and for the engine, so a pan
     /// held steady says nothing and a pan on the move says so once per step.
     loop_pan_steps: HashMap<u32, i32>,
+    bed_levels: super::bed_levels::BedLevels,
     engine_pan_step: i32,
     /// See `Audio::set_cues_muted`: a cue held back is not heard either.
     cues_muted: bool,
@@ -248,7 +258,13 @@ impl TeeAudio {
     /// a bed that stops leaning left and restarts centred used to say
     /// nothing, because the tee still remembered "left" for the channel.
     fn loop_stopped(&mut self, channel: u32) {
-        self.loop_keys.remove(&channel);
+        let key = self.loop_keys.remove(&channel);
+        // The outside beds stop as a fact under test; other loops' stops
+        // are not reported, as before.
+        if let Some(key) = key.filter(|_| crate::audio::CH_OUTSIDE.contains(&channel)) {
+            self.hear(format!("[sound bed] {key} stops"));
+        }
+        self.bed_levels.stopped(channel);
         self.loop_pan_steps.remove(&channel);
         if channel == CH_ROAD {
             self.ears.borrow_mut().road_bed_lean = None;
@@ -344,10 +360,21 @@ impl Audio for TeeAudio {
         self.inner.has_asset(key)
     }
     fn start_loop_with(&mut self, channel: u32, key: &str, volume: f64, fade_ms: u32) {
+        if self.loop_keys.get(&channel).map(String::as_str) != Some(key) {
+            self.bed_levels.stopped(channel);
+        }
         self.loop_started(channel, key);
+        if let Some(line) = self.bed_levels.heard(channel, key, volume) {
+            self.hear(line);
+        }
         self.inner.start_loop_with(channel, key, volume, fade_ms);
     }
     fn set_loop_volume(&mut self, channel: u32, volume: f64) {
+        if let Some(key) = self.loop_keys.get(&channel).cloned() {
+            if let Some(line) = self.bed_levels.heard(channel, &key, volume) {
+                self.hear(line);
+            }
+        }
         self.inner.set_loop_volume(channel, volume);
     }
     fn set_loop_pan(&mut self, channel: u32, pan: f64) {
@@ -580,6 +607,7 @@ pub fn install_ears(app: &mut App) -> SharedEars {
         ambient_key: None,
         loop_keys: HashMap::new(),
         loop_pan_steps: HashMap::new(),
+        bed_levels: Default::default(),
         engine_pan_step: 0,
         cues_muted: false,
     });
@@ -654,6 +682,7 @@ mod tests {
             ambient_key: None,
             loop_keys: HashMap::new(),
             loop_pan_steps: HashMap::new(),
+            bed_levels: Default::default(),
             engine_pan_step: 0,
             cues_muted: false,
         }

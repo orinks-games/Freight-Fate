@@ -934,19 +934,63 @@ impl Trip {
     /// 0 = no law, 1 = Level 1 (cars may use winter tires; trucks chain,
     /// except tandem-drive trucks in Colorado), 2 = chains on every truck.
     ///
-    /// The sky the truck is under sets the floor; an active Weather Service
-    /// warning for this stretch (a winter storm, a blizzard, an ice storm)
-    /// raises it, the way a state posts the law on the warning, not on the
-    /// first flake.
+    /// The law `ChainControl` posts for the road as it reads now: snow on
+    /// the road posts Level 1 and ice Level 2; a bare road posts nothing,
+    /// whatever the warnings say. Read from the reading rather than the
+    /// stored state so a stop that moved the clock, or a test that set the
+    /// sky, gets a current answer before the next `refresh_chain_control`,
+    /// which moves the stored state and says when the law lifts.
     pub fn chain_law_level(&self) -> i64 {
-        let from_sky = match self.weather.effects().surface {
-            "ice" => 2,
-            "snow" => 1,
-            _ => 0,
-        };
-        from_sky.max(crate::sim::real_weather_alerts::alerts_chain_law_level(
-            &self.live_alerts,
-        ))
+        crate::sim::chain_control::ChainControl::from_reading(self.chain_road_reading()).level()
+    }
+
+    /// What the road says at the truck now, for the chain law: the sky's
+    /// surface and whether a live warning chains every truck.
+    pub fn chain_road_reading(&self) -> crate::sim::chain_control::RoadReading<'static> {
+        crate::sim::chain_control::RoadReading {
+            surface: self.weather.effects().surface,
+            alert_raises: crate::sim::real_weather_alerts::alerts_raise_chain_law(
+                &self.live_alerts,
+            ),
+        }
+    }
+
+    /// Move the chain law on the road as it reads now. Every path that
+    /// changes the sky or the warnings calls it: the frame update, a stop
+    /// that moves the clock, a fresh read of the warnings. When the law
+    /// lifts with its sign call spoken for an area the truck is in or
+    /// approaching, that area is kept for `check_chain_law` to say so, and
+    /// every announced sign is forgotten, so a law posted again speaks again.
+    pub fn refresh_chain_control(
+        &mut self,
+    ) -> Option<crate::sim::chain_control::ChainControlChange> {
+        use crate::sim::chain_control::ChainControlChange;
+        let (next, change) = self.chain_control.next(self.chain_road_reading());
+        self.chain_control = next;
+        if change == Some(ChainControlChange::Lifted) {
+            let lookahead = self.zone_warning_lookahead_mi().max(1.0);
+            let here = self.position_mi;
+            let announced = |i: usize| {
+                let prefix = format!("chain-law:{i}:");
+                self.announced_chain_law
+                    .iter()
+                    .any(|key| key.starts_with(&prefix))
+            };
+            self.chain_law_lift_to_speak =
+                self.chain_law_areas
+                    .iter()
+                    .enumerate()
+                    .position(|(i, (start, end))| {
+                        let inside = *start <= here && here <= *end;
+                        let ahead = start - here;
+                        (inside || 0.0 < ahead && ahead <= lookahead) && announced(i)
+                    });
+            self.announced_chain_law
+                .retain(|key| !key.starts_with("chain-law:"));
+        } else if change.is_some() {
+            self.chain_law_lift_to_speak = None;
+        }
+        change
     }
 
     /// The truck is on a Colorado chain-carry corridor's mountain run in

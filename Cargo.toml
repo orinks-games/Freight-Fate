@@ -3,9 +3,13 @@ resolver = "2"
 members = [
     "crates/ff-core",
     "crates/freight-fate",
+    "crates/freight-fate-android",
     "crates/ff-tools",
     "vendor/hearken-seal",
 ]
+# A patched copy of a crates.io crate, built only as a dependency: not linted
+# or tested as part of the workspace.
+exclude = ["vendor/prism-sys"]
 
 [workspace.package]
 version = "1.9.7"
@@ -68,14 +72,14 @@ sdl2 = "0.38"
 #   [patch."https://github.com/orinks-games/hearken"]
 #   hearken = { path = "../hearken/crates/hearken" }
 # to a cargo config (never commit it).
-hearken = { git = "https://github.com/orinks-games/hearken", rev = "33606499feeba14bd4eb918451ff2b0bea034da4", default-features = false, features = ["kira", "radio"] }
+hearken = { git = "https://github.com/orinks-games/hearken", rev = "dcf48aabefccedd851764e897cd2d5ce857a4be2", default-features = false, features = ["kira", "radio"] }
 # The engine's signed self-updater, on its own: Freight Fate keeps its own
 # update screens and release tooling, and uses the engine's checks,
 # downloads (only the files that changed, when it can) and swap. The game
 # uses its HTTPS client; ff-tools signs the manifests and writes the file
 # indexes with it.
-hearken-update = { git = "https://github.com/orinks-games/hearken", rev = "33606499feeba14bd4eb918451ff2b0bea034da4", default-features = false }
-hearken-seal = { git = "https://github.com/orinks-games/hearken", rev = "33606499feeba14bd4eb918451ff2b0bea034da4", default-features = false }
+hearken-update = { git = "https://github.com/orinks-games/hearken", rev = "dcf48aabefccedd851764e897cd2d5ce857a4be2", default-features = false }
+hearken-seal = { git = "https://github.com/orinks-games/hearken", rev = "dcf48aabefccedd851764e897cd2d5ce857a4be2", default-features = false }
 # Problem reports (the report type, its limits and the crash marker), from a
 # later Hearken commit than the engine pin: the crate stands alone, so it is
 # taken on its own rather than moving the engine before a stable release.
@@ -89,6 +93,13 @@ raw-window-handle = "0.6"
 objc2-app-kit = { version = "0.3", default-features = false, features = ["std", "NSResponder", "NSWindow"] }
 url = "2"
 webbrowser = "1"
+# Android: JNI calls into the activity (haptics, keyboard, TalkBack state),
+# and the process-wide Java VM and activity that cpal and webbrowser find
+# through ndk-context, which the game registers at start-up. Both are
+# already in the Android build through cpal and webbrowser; these are the
+# versions they resolve.
+jni = "0.22"
+ndk-context = "0.1"
 windows-sys = { version = "0.59", features = ["Win32_Foundation", "Win32_System_Threading", "Win32_System_Diagnostics_ToolHelp", "Win32_Security", "Win32_Storage_FileSystem", "Win32_System_Console", "Win32_System_Diagnostics_Debug", "Win32_System_IO", "Win32_System_Kernel", "Win32_System_LibraryLoader", "Win32_UI_WindowsAndMessaging", "Win32_UI_Input_KeyboardAndMouse"] }
 proptest = "1"
 memmap2 = "0.9"
@@ -141,3 +152,11 @@ opt-level = 2
 # extension is available upstream; the seal format and cryptography are unchanged.
 [patch."https://github.com/orinks-games/hearken"]
 hearken-seal = { path = "vendor/hearken-seal" }
+
+# prism-sys 0.1.6 with Windows SAPI and OneCore speech opened on the default
+# output device by name; with no device named, Windows played them on another
+# device for a player with several connected. The changed lines are listed in
+# vendor/prism-sys/PATCHES.md. Remove this and the copy when a prism-sys
+# release names the device itself.
+[patch.crates-io]
+prism-sys = { path = "vendor/prism-sys" }

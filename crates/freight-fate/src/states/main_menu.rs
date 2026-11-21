@@ -15,7 +15,7 @@ use chrono::{DateTime, Datelike, Local, Timelike};
 use ff_core::ambient_bed::BedClaim;
 use ff_core::models::business::status_label;
 use ff_core::models::jobs::facility_text;
-use ff_core::models::profile::{LegacyCareerError, LoadError, Profile};
+use ff_core::models::profile::{LegacyCareerError, LoadError, NewerCareerError, Profile};
 use ff_core::models::start_options::option_for_profile;
 use ff_core::music::{select_menu_ambience, select_menu_music_sequence, MenuMusicProfile};
 use ff_core::playtest_levers::apply_continue_levers;
@@ -47,6 +47,7 @@ mod settings;
 mod settings_actions;
 mod settings_items;
 mod shortcuts;
+mod speech_voices;
 mod touch_gestures;
 mod touch_practice;
 
@@ -58,7 +59,7 @@ pub use careers::{
     CareerAction, CareerActionsState, ConfirmCareerActionState, LoadDriverState, ManageCareersState,
 };
 pub use input_practice::{
-    describe_button, describe_key, opens_input_practice, opens_input_practice_pad,
+    describe_button, describe_key, opens_input_practice, opens_input_practice_pad, practice_row,
     InputPracticeState,
 };
 pub use settings::{
@@ -66,7 +67,7 @@ pub use settings::{
 };
 pub use shortcuts::{ShortcutDevice, ShortcutsState};
 pub use touch_gestures::{TouchCommandPickerState, TouchGesturesState};
-pub use touch_practice::{TouchPracticeOfferState, TouchPracticeState};
+pub use touch_practice::{TouchLeave, TouchLeaveEvent, TouchPracticeOfferState};
 
 pub use crate::states::main_menu_career::{
     region_menu_name, CareerStartState, HomeCityState, HomeTerminalState,
@@ -103,6 +104,7 @@ thread_local! {
     // missing career reads as data loss to a blind player -- so loadable_saves
     // collects them here for the menus to show alongside the loadable ones.
     static LEGACY_SAVES: RefCell<Vec<LegacyCareerError>> = const { RefCell::new(Vec::new()) };
+    static NEWER_SAVES: RefCell<Vec<NewerCareerError>> = const { RefCell::new(Vec::new()) };
     // Reused within a single reuse_loadable_saves_scan() block (see below) so a
     // state that asks several times in one pass -- MainMenuState.enter() calls
     // loadable_saves() three times: build_items, announce_entry's legacy-save
@@ -153,6 +155,7 @@ pub fn loadable_saves() -> Vec<(PathBuf, Profile)> {
     let mut errors = Vec::new();
     let mut invalid = Vec::new();
     let mut legacy = Vec::new();
+    let mut newer = Vec::new();
     let mut saves = Vec::new();
     for path in Profile::list_saves() {
         match Profile::load(&path) {
@@ -166,6 +169,7 @@ pub fn loadable_saves() -> Vec<(PathBuf, Profile)> {
                 saves.push((path, profile));
             }
             Err(LoadError::LegacyCareer(err)) => legacy.push(err),
+            Err(LoadError::NewerCareer(err)) => newer.push(err),
             Err(LoadError::Integrity(_)) => invalid.push(path),
             Err(LoadError::Io(error)) => {
                 let name = path.file_stem().unwrap_or_default().to_string_lossy();
@@ -176,6 +180,7 @@ pub fn loadable_saves() -> Vec<(PathBuf, Profile)> {
     LAST_SAVE_ERRORS.with(|v| *v.borrow_mut() = errors);
     LAST_INVALID_SAVES.with(|v| *v.borrow_mut() = invalid);
     LEGACY_SAVES.with(|v| *v.borrow_mut() = legacy);
+    NEWER_SAVES.with(|v| *v.borrow_mut() = newer);
     if active {
         LOADABLE_SAVES_CACHE.with(|c| *c.borrow_mut() = Some(saves.clone()));
     }
@@ -190,6 +195,10 @@ pub fn last_invalid_saves() -> Vec<PathBuf> {
 /// Careers the last scan refused as pre-1.9.
 pub fn legacy_saves() -> Vec<LegacyCareerError> {
     LEGACY_SAVES.with(|v| v.borrow().clone())
+}
+
+pub fn newer_saves() -> Vec<NewerCareerError> {
+    NEWER_SAVES.with(|v| v.borrow().clone())
 }
 
 /// How many real save-directory scans have run on this thread.
@@ -640,6 +649,10 @@ impl MainMenuState {
     }
 
     fn continue_latest(&mut self, ctx: &mut GameContext) {
+        if ctx.cloud_saves_service().resume_pending() {
+            ctx.say(crate::cloud_saves::RESUME_CHECKING);
+            return;
+        }
         let saves = loadable_saves();
         let Some((_, latest)) = saves.into_iter().next() else {
             ctx.say("No saved careers found.");
@@ -742,6 +755,8 @@ impl Menu for ConfirmQuitState {
                 s.go_back(ctx)
             }),
             MenuItem::new("Yes, quit Freight Fate", |_s: &mut Self, ctx| {
+                #[cfg(windows)]
+                log::info!("Quit confirmed");
                 // The close button is the one exit that skips the terminal's
                 // own save, so it saves the way Escape there does. Nowhere
                 // else has anything to write: a drive saves only at a stop,

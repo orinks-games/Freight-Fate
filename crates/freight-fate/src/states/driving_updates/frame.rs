@@ -540,11 +540,13 @@ impl DrivingState {
             }
         }
 
+        self.arm_touch_neutral(ctx);
         let was_on = self.trip.truck.engine_on;
         let was_air_ready = self.trip.truck.air_ready();
         let was_low_air = self.trip.truck.air_low_warning();
         let was_spring_brake = self.trip.truck.spring_brakes_active();
         self.trip.truck.update(dt);
+        self.answer_touch_neutral(ctx);
         self.update_air_brake_announcements(
             ctx,
             was_on,
@@ -567,7 +569,9 @@ impl DrivingState {
                 let hints = self.driving_hints(ctx);
                 let pad = ctx.controller.device() == ff_core::input_hints::CONTROLLER;
                 // On touch the restart takes neutral itself, and a shift
-                // works its own clutch.
+                // works its own clutch. The road no longer stalls a touch
+                // manual in a tall gear (`answer_touch_neutral`); the touch
+                // lines stay for a stall from anything else.
                 let touch = ctx.touch_hints();
                 let text = if !hints {
                     if tr.automatic || tr.in_neutral() || touch {
@@ -581,6 +585,8 @@ impl DrivingState {
                          first gear."
                             .to_string()
                     }
+                } else if (tr.automatic || tr.in_neutral()) && touch {
+                    "Engine stalled. Turn two fingers right to restart.".to_string()
                 } else if tr.automatic || tr.in_neutral() {
                     format!(
                         "Engine stalled. Press {} to restart.",
@@ -631,7 +637,13 @@ impl DrivingState {
         // The yard is announced when the truck has turned into it, not when
         // it rolls over the driveway's milepost on its way past the turn.
         self.trip.yard_entry_held = self.driveway_turn_pending();
-        for event in self.trip.update(dt) {
+        let mut events = self.trip.update(dt);
+        // A chain law posted or lifted by the sky changing is said before
+        // the weather line of the same frame: with the weather first, the
+        // sign call was lost behind it, and a driver heard the snow begin
+        // with no word of the law it posted (agent drive, 2026-11-21).
+        events.sort_by_key(|event| event.data.chain_law.is_none());
+        for event in events {
             self.handle_trip_event(ctx, &event);
         }
         if self.selected_stop_key.is_some()
@@ -678,6 +690,7 @@ impl DrivingState {
             self.update_ramp_light(ctx, 0.0);
         }
         self.update_departure_ramp(ctx, moved_mi);
+        self.update_touch_stop_offer(ctx);
         self.bound_departure_merge_recovery(moved_mi, dt);
         // Every clock pin is settled for the frame by here.
         self.trace_clock_override(dt);
@@ -720,6 +733,8 @@ impl DrivingState {
         self.update_engine_brake_zone(ctx, dt);
         self.update_pull_over(ctx, dt, braking || emergency);
         self.update_brake_heat_cue(ctx, dt);
+        // Before the traction cues, which consume the snap flag.
+        self.update_chain_set(ctx);
         self.update_traction_cues(ctx);
         self.update_runaway(ctx);
         self.update_chain_reminder(ctx);

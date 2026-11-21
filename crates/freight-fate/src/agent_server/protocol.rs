@@ -71,6 +71,53 @@ fn parse_key(name: &str) -> Option<(Key, Option<char>)> {
     Some((key, None))
 }
 
+/// The `scenario` tool's fields: one `json!` for the whole tool list would
+/// pass the macro's recursion limit, so the co-driver's counters are added
+/// to the rest here.
+fn scenario_properties() -> Value {
+    let mut properties = json!({
+        "name": {"type": "string"},
+        "city": {"type": "string"},
+        "level": {"type": "integer"},
+        "deliveries": {"type": "integer"},
+        "money": {"type": "number"},
+        "reputation": {"type": "number"},
+        "business": {"type": "string", "enum": ["company", "leased", "independent"]},
+        "endorsements": {"type": "array", "items": {"type": "string"}},
+        "hour": {"type": "number"},
+        "fuel_pct": {"type": "number"},
+        "window": {"type": "string", "enum": ["up", "down"]},
+        "road_surface": {"type": "string", "enum": ["jointed", "smooth"]},
+        "weather": {"type": "string", "description": "the simulated sky every drive starts under, forced: snow, ice, cloudy, clear, rain, heavy_rain, thunderstorm, fog or wind; free unlocks it"},
+        "damage_pct": {"type": "number"},
+        "tire_wear_pct": {"type": "number"},
+        "brake_wear_pct": {"type": "number"},
+        "citations": {"type": "integer"},
+        "out_of_service_events": {"type": "integer"},
+        "rested": {"type": "boolean"},
+        "first_run": {"type": "boolean"},
+        "touch_gestures": {"type": "boolean"},
+        "fatigue": {"type": "number", "description": "0 to 100; 40 worn, 60 drowsy, 80 severe"},
+        "hos_driving_min": {"type": "number"},
+        "hos_duty_min": {"type": "number"},
+        "hos_since_break_min": {"type": "number"},
+        "clear_load": {"type": "boolean"},
+        "market_seed": {"type": "integer"},
+        "board_seed": {"type": "integer"},
+        "came_from": {"type": "string"},
+        "settings": {"type": "object"},
+    });
+    for key in [
+        "co_driver_driving_min",
+        "co_driver_duty_min",
+        "co_driver_since_break_min",
+        "co_driver_rest_min",
+    ] {
+        properties[key] = json!({"type": "number"});
+    }
+    properties
+}
+
 fn tools_list() -> Value {
     let tool = |name: &str, description: &str, properties: Value, required: &[&str]| {
         json!({
@@ -151,10 +198,13 @@ fn tools_list() -> Value {
              hold stays down until \
              lift, or give seconds and the game lifts it, as pedal does. A deep swipe \
              grows out of a brake hold, so send brake_hold first, then deep_swipe. \
-             status reports the touch mode and, at the wheel, what a double tap answers.",
+             status reports the touch mode and, at the wheel, what a double tap answers. \
+             length (points) on a timed one-finger hold, a deep_swipe or a lift sends \
+             how far the finger travelled as it lifts, which Practice gestures reads.",
             json!({
                 "name": {"type": "string"},
                 "seconds": {"type": "number", "description": "for a hold: real seconds before the game lifts it, 0.05 to 30"},
+                "length": {"type": "integer", "description": "for a one-finger hold, deep_swipe or lift: points travelled, sent as the finger lifts"},
             }),
             &["name"],
         ),
@@ -198,7 +248,8 @@ fn tools_list() -> Value {
             "status",
             "The wheel's readouts in one call -- speed, speed limit, grade, what is \
              coming up, route status, the clock, fuel -- pressed as a player would \
-             and returned together with anything else heard meanwhile. At the wheel \
+             and returned together with anything else heard meanwhile. Also reports \
+             CLOUD RESUME: Off, Idle, Checking, Cancelling, Done with counts, or Failed. At the wheel \
              it ends with one STATE line, not spoken: alertness (the fatigue band: \
              rested, worn, drowsy or severe), nod (awake, nodding or recovering, \
              with its timer), nod_misses (missed nods in a row toward the forced \
@@ -207,14 +258,30 @@ fn tools_list() -> Value {
              available, used, or none with no load on) and, while the trip has \
              ended at a facility gate, gate (arriving, rolling, \
              rolling_after_creep, creeping, stopped, stopped_told, holding or \
-             open), and jake_zone (what the driver has heard about the no \
+             open), on a load with a co-driver co_driver_shift (bunk, driving, \
+             ending_rested, ending_last_lot, ending_hours_short or shoulder: where \
+             their shift stands) and co_driver_left (the driving time or duty \
+             window their own logbook has left, in minutes, or hours off), and jake_zone (what the driver has heard about the no \
              engine brake zone ahead or under the truck: untold, heads_up, \
              inside_untold or inside_told), touch_mode (menu, field, wheel or \
              practice: how a gesture is read on this screen), road_offer (what a \
              double tap answers: none, exit, pull_over or arrival) and touch_clutch \
-             (out or shifting: the clutch a touch shift works in a manual truck). \
+             (out, shifting, or neutral once it has taken neutral for an engine \
+             lugging in a tall gear: the clutch a touch shift works in a manual \
+             truck), chain_control (clear, level_1 or level_2: the chain law posted \
+             at the truck, which follows snow or ice on the road) and chains \
+             (stowed, on_snow, on_bare or broken). \
              Off the wheel the \
-             STATE line carries touch_mode alone.",
+             STATE line carries touch_mode alone, and on the dispatch board also \
+             board_mode (assigned or browse), board_offer (the row dispatch \
+             assigned or recommends, or none), board_reason (assigned, none, \
+             training, best_pay_for_hours, best_net_for_hours, \
+             most_deadline_room or plain) and board_gate (clear, or hours_heard \
+             or chains_heard with the row whose warning was heard); there it presses \
+             no keys, since they are menu keys. A SPEECH line follows it \
+             everywhere: main_backend (the saved Main voice choice, automatic \
+             when none), main (the voice bound now) and event (the event \
+             voice bound now, or main voice when events share it).",
             json!({}),
             &[],
         ),
@@ -247,11 +314,16 @@ fn tools_list() -> Value {
             "Skip the menus: stage a drive at a discovered road feature and take the \
              wheel right there -- the same finder --playtest-road --find uses. \
              feature must be one of: downgrade, upgrade, zone, limit-drop, stop, \
-             scale, curve, interchange, toll, chain-law, destination, departure. \
+             scale, curve, interchange, toll, chain-law, destination, departure, river, \
+             bridge (one with joints, longest first), jointed (road with seams, longest \
+             first). \
              Same seed, same road. pick chooses among multiple matches (1-based). \
              unit plants a staffed enforcement unit unit_ahead_mi up the road (default \
              3) so an encounter can be staged on purpose; the road's own seeded posts \
-             stay. Listen after staging for the truck's actual starting condition.",
+             stay. lead_mi starts the truck that many miles before the feature instead \
+             of the finder's own lead. A scenario that staged the co-driver's hours \
+             (co_driver_*) makes the staged load a team load with them aboard. Listen \
+             after staging for the truck's actual starting condition.",
             json!({
                 "feature": {"type": "string"},
                 "origin": {"type": "string", "description": "search one corridor from this city (fast and thorough)"},
@@ -260,6 +332,9 @@ fn tools_list() -> Value {
                 "pick": {"type": "integer", "description": "1-based match index, default 1"},
                 "unit": {"type": "string", "description": "plant a staffed enforcement unit ahead of the start: one of median_crossover, roving_patrol, work_zone_post, scale_apron_post, fixed_scale, urban_unit, cmv_unit, chain_control"},
                 "unit_ahead_mi": {"type": "number", "description": "how far up the road the planted unit sits, default 3"},
+                "hour": {"type": "number", "description": "the drive's clock at the start, 0 to 24, default 9"},
+                "lead_mi": {"type": "number", "description": "miles before the feature to start, default the finder's own"},
+                "weather": {"type": "string", "description": "force the simulated sky for this and later drives: snow, ice, cloudy, clear, rain, heavy_rain, thunderstorm, fog or wind; free unlocks it"},
             }),
             &["feature"],
         ),
@@ -274,43 +349,27 @@ fn tools_list() -> Value {
              brake_wear_pct (0 to 100, what a roadside inspection reads), citations and \
              out_of_service_events (counts on the record, dated now; with damage they set the \
              safety band that decides who is pulled into the inspection lane), \
-             rested (true takes a full sleep), fatigue (0 to 100, set after rested; \
+             rested (true takes a full sleep), first_run (true teaches the first-run \
+             walkthrough on the next drive), touch_gestures (true opens the iPhone \
+             Touch gestures settings screen over the terminal), fatigue (0 to 100, set after rested; \
              the next drive starts in that band and gives its cue), hos_driving_min, hos_duty_min and \
-             hos_since_break_min (sandbox HOS counters in game minutes), clear_load (true drops a load in \
+             hos_since_break_min (sandbox HOS counters in game minutes), \
+             co_driver_driving_min, co_driver_duty_min, co_driver_since_break_min and \
+             co_driver_rest_min (the co-driver's own logbook in game minutes, rest being \
+             their unbroken sleeper time toward 10 hours: put on the load in progress \
+             when it has a co-driver, otherwise on the next co-driver paired, so a drive \
+             can start with the co-driver short of hours), clear_load (true drops a load in \
              progress first), market_seed and board_seed (the dispatch board rolls \
              from them), came_from (the city the truck delivered from to get here, \
              so the next board is shaped by where it came from), settings (an \
              object of setting name to value, for this \
-             session), and name (the career created when none is loaded; default \
-             Playtest). Nothing is refused for being unreasonable: this is the \
+             session), window (up or down: every drive from here on starts with \
+             the driver window there), road_surface (jointed or smooth: every \
+             drive from here on keeps that surface the whole way, over what the \
+             pavement layer reads), and name (the career created when none is \
+             loaded; default Playtest). Nothing is refused for being unreasonable: this is the \
              audited sandbox. Listen afterwards for the terminal.",
-            json!({
-                "name": {"type": "string"},
-                "city": {"type": "string"},
-                "level": {"type": "integer"},
-                "deliveries": {"type": "integer"},
-                "money": {"type": "number"},
-                "reputation": {"type": "number"},
-                "business": {"type": "string", "enum": ["company", "leased", "independent"]},
-                "endorsements": {"type": "array", "items": {"type": "string"}},
-                "hour": {"type": "number"},
-                "fuel_pct": {"type": "number"},
-                "damage_pct": {"type": "number"},
-                "tire_wear_pct": {"type": "number"},
-                "brake_wear_pct": {"type": "number"},
-                "citations": {"type": "integer"},
-                "out_of_service_events": {"type": "integer"},
-                "rested": {"type": "boolean"},
-                "fatigue": {"type": "number", "description": "0 to 100; 40 worn, 60 drowsy, 80 severe"},
-                "hos_driving_min": {"type": "number"},
-                "hos_duty_min": {"type": "number"},
-                "hos_since_break_min": {"type": "number"},
-                "clear_load": {"type": "boolean"},
-                "market_seed": {"type": "integer"},
-                "board_seed": {"type": "integer"},
-                "came_from": {"type": "string"},
-                "settings": {"type": "object"},
-            }),
+            scenario_properties(),
             &[],
         ),
         tool(
@@ -325,6 +384,18 @@ fn tools_list() -> Value {
                 "name": {"type": "string", "description": "the hazard's spoken name, with or without \"the\""},
             }),
             &["name"],
+        ),
+        tool(
+            "weather",
+            "Force the simulated sky on the drive under way, and on every drive staged \
+             after it: snow, ice, cloudy, clear, rain, heavy_rain, thunderstorm, fog or \
+             wind, or free to unlock it. The change lands on the next frame the way the \
+             sky changes on its own: the weather line, the road surface, and the chain \
+             law that follows the road.",
+            json!({
+                "kind": {"type": "string", "description": "a condition, or free"},
+            }),
+            &["kind"],
         ),
         tool(
             "nod",
@@ -615,7 +686,22 @@ pub fn build_command(name: &str, args: &Map<String, Value>) -> Result<Command, S
                     _ => return Err("seconds must be a positive number".to_string()),
                 },
             };
-            Ok(Command::Gesture { gesture, seconds })
+            let length = match args.get("length") {
+                None | Some(Value::Null) => None,
+                Some(value) => match value.as_u64() {
+                    Some(points) => Some(
+                        u16::try_from(points)
+                            .unwrap_or(u16::MAX)
+                            .min(crate::touch::MAX_TRAVEL_POINTS),
+                    ),
+                    None => return Err("length must be a whole number of points".to_string()),
+                },
+            };
+            Ok(Command::Gesture {
+                gesture,
+                seconds,
+                length,
+            })
         }
         "wait_for" => {
             let seconds = args.get("seconds").and_then(Value::as_f64).unwrap_or(0.0);
@@ -713,13 +799,37 @@ pub fn build_command(name: &str, args: &Map<String, Value>) -> Result<Command, S
                     Some((kind, ahead))
                 }
             };
-            let (hit, opts, found, picked) =
+            let hour = match args.get("hour").and_then(Value::as_f64) {
+                Some(h) if !(0.0..24.0).contains(&h) => {
+                    return Err("hour must be from 0 up to 24".to_string())
+                }
+                hour => hour,
+            };
+            let lead = match args.get("lead_mi").and_then(Value::as_f64) {
+                Some(mi) if mi < 0.0 => return Err("lead_mi must not be negative".to_string()),
+                lead => lead,
+            };
+            let (hit, mut opts, found, picked) =
                 discover(&feature, origin, destination, seed, pick, unit)?;
+            if lead.is_some() {
+                opts.lead = lead;
+            }
+            // The drive's clock at the start: 9 AM unless asked (the outside
+            // beds, night driving).
+            if hour.is_some() {
+                opts.hour = hour;
+            }
+            let weather = args
+                .get("weather")
+                .and_then(Value::as_str)
+                .map(crate::playtest::scenario::parse_weather)
+                .transpose()?;
             Ok(Command::StageHit {
                 hit: Box::new(hit),
                 found,
                 picked,
                 opts: Box::new(opts),
+                weather,
             })
         }
         "scenario" => crate::playtest::scenario::Scenario::from_json(args)
@@ -731,6 +841,12 @@ pub fn build_command(name: &str, args: &Map<String, Value>) -> Result<Command, S
             _ => Err("hazard needs name: the hazard's spoken name".to_string()),
         },
         "nod" => Ok(Command::Nod),
+        "weather" => match args.get("kind").and_then(Value::as_str) {
+            Some(kind) => {
+                crate::playtest::scenario::parse_weather(kind).map(|kind| Command::Weather { kind })
+            }
+            None => Err("weather needs kind: a condition, or free".to_string()),
+        },
         "operator_keys" => match args.get("live").and_then(Value::as_bool) {
             Some(live) => Ok(Command::OperatorKeys { live }),
             None => Err("operator_keys needs live: true or false".to_string()),

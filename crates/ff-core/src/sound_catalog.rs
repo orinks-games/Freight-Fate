@@ -814,7 +814,17 @@ pub const SELF_EXPLANATORY: &[(&str, &str)] = &[
     ),
     (
         "vehicle/road_joint",
+        "A small debris strike under the wheels.",
+    ),
+    // The seam and bridge joint banks, by the base their cuts are played by.
+    (
+        "vehicle/seam_steer",
         "Pavement seams: texture, not a decision.",
+    ),
+    ("vehicle/seam_drive", "As the steer axle's seam."),
+    (
+        "vehicle/bridge_joint",
+        "The joint at a bridge end: texture, not a decision.",
     ),
     ("vehicle/truck_door", "A door."),
     (

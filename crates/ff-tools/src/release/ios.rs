@@ -34,6 +34,8 @@
 use std::path::{Path, PathBuf};
 use std::process::{Command, Stdio};
 
+pub mod signing;
+
 use super::plist::{self, Plist};
 use crate::cli::{Args, Spec};
 use crate::util::{self, Result};
@@ -41,10 +43,7 @@ use crate::util::{self, Result};
 pub const BUNDLE_ID: &str = "net.orinks.freightfate";
 const APP_NAME: &str = "FreightFate";
 const DISPLAY_NAME: &str = "Freight Fate";
-/// SDL2's UIKit backend and Prism's VoiceOver backend both run on iOS 12,
-/// but GameController's extended-gamepad profile names and CoreHaptics need
-/// 14; nothing older is worth carrying.
-const MINIMUM_IOS: &str = "14.0";
+const MINIMUM_IOS: &str = "15.0";
 
 #[derive(Clone, Copy)]
 struct Target {
@@ -521,6 +520,14 @@ mod tests {
         assert!(xml.contains("<string>ExtendedGamepad</string>"));
         assert!(xml.contains("<string>iPhoneOS</string>"));
         assert!(xml.contains("<string>FFSceneDelegate</string>"));
+    }
+
+    #[test]
+    fn info_plist_requires_ios_15() {
+        for target in [DEVICE, SIMULATOR] {
+            let info = info_plist("1.9.0", target, None);
+            assert_eq!(info.get("MinimumOSVersion"), Some(&Plist::string("15.0")));
+        }
     }
 
     fn mode(argv: &[&str]) -> Result<Signing> {

@@ -190,6 +190,7 @@ pub fn best_relay(
         );
         let seed = request.seed ^ i64::from(crc32(city.as_bytes()));
         let mut board = JobBoard::new(world, Some(seed), None);
+        board.standard_only = true;
         let offers = board.offers(
             city,
             request.endorsements,

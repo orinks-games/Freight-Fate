@@ -58,6 +58,11 @@ impl DrivingState {
         if self.limit_change_of_road_left(ctx, event) {
             return;
         }
+        if event.data.chain_law == Some(0) && self.chain_checkpoint_hold {
+            // Held at the chain control, the officer's own line says the
+            // law lifted.
+            return;
+        }
         if matches!(
             event.kind,
             TripEventKind::Billboard | TripEventKind::Landmark
@@ -1516,7 +1521,11 @@ impl DrivingState {
             // was is the lights line's, and the scale's "wave you in" said
             // shoulder and weigh station in one breath (owner, 2026-11-04).
             let summary = format!("Out of service {oos_phrase}. Citation: {evidence_text}.");
-            let lights = if self.driving_hints(ctx) {
+            let lights = if self.driving_hints(ctx) && ctx.touch_hints() {
+                "Lights and siren behind you for a log check. Double tap to signal, then stop on \
+                 the shoulder."
+                    .to_string()
+            } else if self.driving_hints(ctx) {
                 format!(
                     "Lights and siren behind you for a log check. Signal with {} and stop on \
                      the shoulder.",

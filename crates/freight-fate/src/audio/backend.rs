@@ -8,7 +8,9 @@ use std::fmt;
 
 use ff_core::audio_loops::SustainLoopSpec;
 
-use super::{AudioError, CH_ENGINE, CH_SIREN, CH_WEATHER, CH_WEATHER_B, ENGINE_RPM_IDLE};
+use super::{
+    AudioError, CH_ENGINE, CH_OUTSIDE, CH_SIREN, CH_WEATHER, CH_WEATHER_B, ENGINE_RPM_IDLE,
+};
 
 /// The mix bus a sound rides: one of the seven volume settings.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
@@ -64,7 +66,8 @@ pub fn one_shot_category(key: &str) -> Category {
 pub fn loop_category(channel: u32) -> Category {
     if CH_ENGINE.contains(&channel) {
         Category::Engine
-    } else if channel == CH_WEATHER || channel == CH_WEATHER_B {
+    } else if channel == CH_WEATHER || channel == CH_WEATHER_B || CH_OUTSIDE.contains(&channel) {
+        // The outside beds ride the Weather volume and its speech duck.
         Category::Weather
     } else if channel == CH_SIREN {
         // Off the shared sfx bus on purpose: a siren behind you is the one
@@ -376,6 +379,9 @@ mod tests {
         assert_eq!(loop_category(CH_SIREN), Category::Siren);
         assert_eq!(loop_category(CH_JAKE), Category::Sfx);
         assert_eq!(loop_category(CH_ALERT), Category::Sfx);
+        for ch in super::CH_OUTSIDE {
+            assert_eq!(loop_category(ch), Category::Weather);
+        }
     }
 
     #[test]

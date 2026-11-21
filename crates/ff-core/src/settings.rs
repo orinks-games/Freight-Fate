@@ -40,6 +40,8 @@ impl From<ScoreDisplay> for Value {
 mod assists;
 mod migrate;
 pub mod paths;
+pub use touch::{DEEP_SWIPE_MAX_POINTS, DEEP_SWIPE_MIN_POINTS, DEEP_SWIPE_STEP_POINTS};
+mod touch;
 mod units;
 pub use assists::AssistStash;
 #[cfg(test)]
@@ -608,6 +610,11 @@ settings_fields! {
     /// how often "<career> is backed up." is spoken after a background
     /// cloud backup: "every" upload, "once" per career per session, "off"
     backup_announcements: String = "every" => str_checked,
+    /// The main voice the player chose, by registry name ("SAPI",
+    /// "OneCore", "NVDA", "Genny" for the built-in voice, "UIA" for
+    /// Narrator); "" picks automatically. Never rewritten when the chosen
+    /// voice cannot speak right now: the automatic pick speaks meanwhile.
+    main_backend: String = "" => str_checked,
     /// driving events on a separate voice
     sapi_events: bool = true => bool_truthy,
     /// which voice that is (e.g. SAPI/OneCore)
@@ -662,6 +669,7 @@ settings_fields! {
     /// two only make sense together -- and the Online menu turns it off
     /// again on its own.
     cloud_saves: bool = false => bool_strict,
+    cloud_resume: bool = false => bool_strict,
     /// accept game-controller input alongside the keyboard
     controller_enabled: bool = true => bool_strict,
     /// Immediately activate a menu entry when its initial is unique.
@@ -753,6 +761,10 @@ settings_fields! {
     /// Whether the main menu offers to send a problem report after a run
     /// that ended without quitting (a crash, a kill, a power cut).
     crash_report_offer: bool = true => bool_strict,
+    /// The left bumper is the controller's second layer and the right one
+    /// the clutch, instead of the other way round (the Settings > Controls
+    /// row "Second layer bumper").
+    left_bumper_layer: bool = false => bool_strict,
 }
 
 impl Settings {
