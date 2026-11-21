@@ -560,11 +560,11 @@ Snow, ice, and freezing rain leave you less grip, particularly on worn tires. St
 | Equipment | What it does |
 | --- | --- |
 | Winter tires | A fresh set in a winter compound. Better grip on snow and ice all season, no speed penalty, normal wear. Company drivers ride on whatever the carrier specs. |
-| Snow chains | A set kept in the truck's side box until you hang them. Chains give the best grip on ice and packed snow, but demand chain speed, around 30 miles per hour, and they grind apart fast on bare pavement. Snapped chains are replaced at the garage. |
+| Snow chains | A set kept in the truck's side box until you hang them. Chains give the best grip on ice and packed snow, but demand chain speed, around 30 miles per hour, and they grind apart fast on a bare road. Snapped chains are replaced at the garage. |
 
-To fit or remove chains, stop and open the pause menu. The work counts on duty, and doing it in darkness takes longer and adds fatigue. Once they're fitted, keep near thirty miles per hour. Take them off when you reach bare pavement, before they break.
+To fit or remove chains, stop and open the pause menu. The work counts on duty, and doing it in darkness takes longer and adds fatigue. Once they're fitted, keep near thirty miles per hour. Take them off when you reach a bare road, before they break.
 
-Level 1 chain law accepts winter tires or chains. Level 2 requires chains on the drive axles. Ignoring the requirement brings a base citation of 580 dollars before multipliers.
+A chain law is posted only while snow or ice is on the road, on steep grades in California, Colorado, Idaho, Montana, Nevada, Oregon, Utah, Washington and Wyoming. You hear "Chain law lifted" when the road clears, and "Bare road" when chains are still on with no snow under them. Level 1 requires chains on your truck in California, Idaho, Montana, Nevada, Utah and Washington. Colorado and Oregon apply Level 1 to single-drive-axle trucks only, so yours passes without chains. Wyoming's Level 1 accepts winter tires or chains. Level 2 requires chains in every one of these states. Ignoring the requirement brings a base citation of 580 dollars before multipliers.
 
 ## Traffic and sharing the road
 
@@ -777,7 +777,6 @@ Use a readout hotkey for a quick check of fuel or time left. Press Tab, or the r
 | Route | Review your progress on the current route. |
 | Driver | Driver name, money, load, objective, truck fuel and damage, transmission, fatigue, hours, and deadline. |
 | Map | Route cities, highways, progress, next guidance, upcoming stops, map points, and toll exposure. |
-| Radio | Current station, stream-safety state, approximate reception position, and the stations you can tune here: every Freight Fate station, your playlists and favorites, and stations in range, with a count of the rest, which the Radio app lists. |
 | Driver apps | A tablet-style app menu for Radio, Navigation, Weather, Traffic, Truck stops, Road chatter, and ELD. |
 | Driving commands | Every driving command by name. Choose one to run it and return to the road. This is how a controller reaches the commands with no button of their own. |
 
@@ -789,9 +788,9 @@ Press Tab while driving, or the right bumper and Start on a controller, and choo
 
 ### Radio app
 
-Radio opens a menu where you can switch the radio on or off, tune a station, save or remove a favorite, browse stations in range, and suggest a station. Search stations lets you type part of a name, call sign, or format and press Enter for results. Results show 25 at a time; use the Next page and Previous page rows, or PageDown and PageUp, to reach the rest. Browse by category lists all stations or one category, such as Terrestrial or Web radio, in the same 25-row pages. Stations in range come first, local terrestrial ahead of web radio, and a station that repeats is listed once; out-of-range stations follow. Choose a result and press Enter to tune it. A station marked out of range here cannot be tuned from your current location.
+Radio opens a menu where you can switch the radio on or off, check whether streamer-safe mode is on, tune a station, save or remove a favorite, browse stations, and suggest a station. Local stations lists every Freight Fate station, your playlists and favorites, and the terrestrial stations in range, with how far off each one is. Stations in range adds the web and satellite streams too. Search stations lets you type part of a name, call sign, or format and press Enter for results. Results show 25 at a time; use the Next page and Previous page rows, or PageDown and PageUp, to reach the rest. Browse by category lists all stations or one category, such as Terrestrial or Web radio, in the same 25-row pages. Stations in range come first, local terrestrial ahead of web radio, and a station that repeats is listed once; out-of-range stations follow. Choose a result and press Enter to tune it. A station marked out of range here cannot be tuned from your current location.
 
-Favorites gives you a shorter list of stations you've saved. The Radio report under Driving status is useful for reading reception and playlist information; open the Radio app when you want to choose a station. The [radio guide](#radio-and-playlists) explains the dial, signal changes, personal music, and music settings.
+Favorites gives you a shorter list of stations you've saved. The [radio guide](#radio-and-playlists) explains the dial, signal changes, personal music, and music settings.
 
 ### Navigation app
 
@@ -862,7 +861,7 @@ Damaged freight can bring an exception deduction, a claim, or a refusal with no 
 
 ## Settings walkthrough
 
-Settings save as you change them. Use Up or Down to choose a setting, then Right or Enter for its next available value, or Left to go back to the previous value. On a controller, the D-pad does the same, and A selects the next value. Gameplay contains driving assistance, difficulty and hours, world and traffic, and controls. Audio, Speech, Updates, Problem reports, and Online have separate choices where supported.
+Settings save as you change them. Use Up or Down to choose a setting, then Right or Enter for its next available value, or Left to go back to the previous value. On a controller, the D-pad does the same, and A selects the next value. Gameplay contains driving assistance, difficulty and hours, world and traffic, and controls. Audio, Speech, Updates, and Problem reports have separate choices where supported.
 
 ### Driving assistance and speed keeper
 
@@ -1063,7 +1062,7 @@ On a controller, the right stick runs the radio. Push it right or left to tune, 
 
 Hold Control with a tuning key to move between route music, Freight Fate stations, your playlists, favorites, terrestrial stations, AFN, satellite, international, fallback, web radio, and other stations. This saves you from moving through the whole dial one station at a time. Open the [Radio app](#radio-app) if you already know the name or want to browse your favorites.
 
-Radio status shows the stations you can receive. The Radio app lets you search, tune, and manage favorites. Regional stations fade as you leave their range. A favorite does not fade: once its signal thins, the radio plays the station's stream instead, and the signal reads as streaming. When a signal is lost, the game tries a clear local station, then a fallback if needed. A failed stream leaves the dial for that session. Roadhouse and Night Line are available across the map.
+The Radio app lists the stations you can receive and lets you search, tune, and manage favorites. Regional stations fade as you leave their range. A favorite does not fade: once its signal thins, the radio plays the station's stream instead, and the signal reads as streaming. When a signal is lost, the game tries a clear local station, then a fallback if needed. A failed stream leaves the dial for that session. Roadhouse and Night Line are available across the map.
 
 ### Choosing music for your drive
 

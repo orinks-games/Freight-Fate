@@ -23,7 +23,9 @@
 
 ### Changed
 
+- **Settings no longer has an Online row.** Online is on the main menu.
 - **The dispatch board lists loads in the order they were posted, not shortest first.** The recommended load now says why dispatch picked it.
+- **The Radio screen under Driving status moved into the Radio app.** Its Local stations list gives each nearby station's distance, and Enter tunes one.
 - **The Simplified Chinese translation covers the whole game again.** Lines added since the last update no longer fall back to English.
 - **On-duty time now tires you a little.** Fueling, docks, inspections and waiting at the wheel build it at a third of the driving rate.
 - **Sleep now takes off 8 points of fatigue an hour.** Ten hours clears 80, so going to bed exhausted leaves some.
@@ -40,6 +42,9 @@
 
 ### Fixed
 
+- **A chain law is now posted only with snow or ice on the road.** A winter weather alert alone no longer calls for chains.
+- **The game now says when a chain law lifts and when chains are on bare road.** Facility stopping assistance takes them off there.
+- **Simulated weather now holds while you put chains on.** The snow no longer ends during the work, leaving chains on bare road.
 - **A co-driver no longer drives past their hours.** They park or pull onto the shoulder first, and the hand-over rows say how long they can drive.
 
 - **SAPI and Windows OneCore voices play on your default sound device again.** With several devices connected, they could come out of another one, such as a TV.

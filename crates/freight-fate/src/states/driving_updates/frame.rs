@@ -637,7 +637,13 @@ impl DrivingState {
         // The yard is announced when the truck has turned into it, not when
         // it rolls over the driveway's milepost on its way past the turn.
         self.trip.yard_entry_held = self.driveway_turn_pending();
-        for event in self.trip.update(dt) {
+        let mut events = self.trip.update(dt);
+        // A chain law posted or lifted by the sky changing is said before
+        // the weather line of the same frame: with the weather first, the
+        // sign call was lost behind it, and a driver heard the snow begin
+        // with no word of the law it posted (agent drive, 2026-11-21).
+        events.sort_by_key(|event| event.data.chain_law.is_none());
+        for event in events {
             self.handle_trip_event(ctx, &event);
         }
         if self.selected_stop_key.is_some()
@@ -727,6 +733,8 @@ impl DrivingState {
         self.update_engine_brake_zone(ctx, dt);
         self.update_pull_over(ctx, dt, braking || emergency);
         self.update_brake_heat_cue(ctx, dt);
+        // Before the traction cues, which consume the snap flag.
+        self.update_chain_set(ctx);
         self.update_traction_cues(ctx);
         self.update_runaway(ctx);
         self.update_chain_reminder(ctx);

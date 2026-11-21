@@ -197,6 +197,7 @@ impl DrivingState {
     fn sleep_drive_clocks(&mut self, ctx: &mut GameContext, jump: Jump) {
         self.trip.game_minutes += jump.minutes;
         self.trip.weather.update(jump.minutes);
+        self.trip.refresh_chain_control();
         hos_mut_of(ctx).drive(jump.minutes);
         self.trip.last_moved_mi = jump.miles;
         self.update_team_hours(ctx, jump.minutes);

@@ -2,6 +2,7 @@
 pub mod alertness;
 pub mod arrival_gate;
 pub mod cab;
+pub mod chain_control;
 pub mod cross_traffic;
 pub mod driving_modes;
 pub mod enforcement_observe;

@@ -160,6 +160,10 @@ pub struct GameContext {
     /// the whole way (`Some(true)`) or smooth. `None` in the shipped game,
     /// where stretches of each alternate.
     pub playtest_road_jointed: Option<bool>,
+    /// A staged scenario's simulated sky for every drive it starts:
+    /// `Some(Some(kind))` forces that condition (`WeatherSystem::forced`),
+    /// `Some(None)` leaves it free. `None` in the shipped game.
+    pub playtest_weather: Option<Option<ff_core::sim::weather::WeatherKind>>,
     /// The co-driver's logbook counters a sandbox scenario asked for, put
     /// on the next co-driver paired for a load. `None` in the shipped game.
     pub playtest_co_driver_hos: Option<crate::playtest::scenario::CoDriverHos>,
@@ -304,6 +308,7 @@ impl GameContext {
             playtest_sandbox: false,
             playtest_window_down: None,
             playtest_road_jointed: None,
+            playtest_weather: None,
             playtest_co_driver_hos: None,
             crash_offer_pending: crate::problem_reports::take_crash_offer(),
             dispatch_board_seed: None,

@@ -11752,28 +11752,6 @@ msgstr "votre fichier de playlist {file_name}"
 msgid "favorite"
 msgstr "favori"
 
-#. placeholders: {spoken}
-msgid ", {spoken} away"
-msgstr ", à {spoken}"
-
-#. placeholders: {spoken}
-#. one clause of a longer line
-msgid "{spoken} away"
-msgstr "à {spoken}"
-
-#. placeholders: {source}
-#. one sentence of a longer line
-msgid "Source: {source}."
-msgstr "Source : {source}."
-
-#. placeholders: {selected}, {display_name}, {format}, {signal_label}, {distance}, {source}
-msgid ""
-"{selected}{display_name}: {format}, {signal_label}{distance}. Source: "
-"{source}."
-msgstr ""
-"{selected}{display_name} : {format}, {signal_label}{distance}. Source : "
-"{source}."
-
 msgid "on"
 msgstr "activé"
 
@@ -11795,6 +11773,11 @@ msgid ""
 msgstr ""
 "Radio {state}. {display_name}, {format}. {signal_label}. Volume "
 "{round_py_int} pour cent. {safety}. Source : {source}."
+
+#. placeholders: {source}
+#. one sentence of a longer line
+msgid "Source: {source}."
+msgstr "Source : {source}."
 
 #. placeholders: {round_py_int}
 #. one sentence of a longer line
@@ -12123,6 +12106,15 @@ msgstr ""
 
 msgid "Cab: driver window down, fan high, air conditioning"
 msgstr "Cabine : vitre conducteur baissée, ventilation forte, climatisation"
+
+msgid "snow"
+msgstr "snow"
+
+msgid "stowed"
+msgstr ""
+
+msgid "broken"
+msgstr ""
 
 msgid "yield"
 msgstr "cédez le passage"
@@ -12729,9 +12721,6 @@ msgstr "flurr"
 
 msgid "frost"
 msgstr "frost"
-
-msgid "snow"
-msgstr "snow"
 
 msgid "wintry"
 msgstr "wintry"
@@ -14105,6 +14094,9 @@ msgstr "accès au site"
 
 msgid "destination approach"
 msgstr "accès à la destination"
+
+msgid "Chain law lifted."
+msgstr ""
 
 msgid " Chain-up area on the right."
 msgstr " Aire de pose des chaînes à droite."
@@ -16126,6 +16118,21 @@ msgid ""
 msgstr ""
 "{staged} préparé au mile {position_mi} ; il se déclenche à la prochaine "
 "image en roulant, alors écoutez l'annonce."
+
+msgid "a free sky"
+msgstr ""
+
+#. placeholders: {value}
+msgid "forced {value}"
+msgstr ""
+
+#. placeholders: {sky}
+msgid "The drive under way, and drives staged after it, run under {sky}."
+msgstr ""
+
+#. placeholders: {sky}
+msgid "Drives staged from here on run under {sky}."
+msgstr ""
 
 msgid "the co-driver has the wheel"
 msgstr "le coéquipier est au volant"
@@ -21053,7 +21060,7 @@ msgid ""
 "A chain set is seven chains and two repair links. Four chains go on the "
 "drive tires and one on a trailer tire, the most any state here asks of a "
 "semi. The other two are spares. Put chains on from the pause menu once "
-"you're stopped in snow or ice. They wear out fast on bare pavement. Company "
+"you're stopped in snow or ice. They wear out fast on a bare road. Company "
 "drivers bill the carrier."
 msgstr ""
 "Un jeu de chaînes compte sept chaînes et deux maillons de réparation. "
@@ -23090,10 +23097,6 @@ msgid ""
 msgstr ""
 "La tablette Applis du chauffeur a une appli Radio pour parcourir la bande, "
 "syntoniser par nom et garder des favoris."
-
-#. placeholders: {status}
-msgid "The {status} status menu has a radio screen of receivable stations."
-msgstr "Le menu d'état {status} a un écran radio des stations captées."
 
 #. placeholders: {engine}
 msgid ""
@@ -26638,6 +26641,9 @@ msgstr ""
 msgid "Billboard: {line}"
 msgstr "Panneau : {line}"
 
+msgid "Bare road. Stop and take the chains off."
+msgstr ""
+
 msgid "Come to a complete stop first."
 msgstr "Arrêtez-vous complètement d'abord."
 
@@ -26811,29 +26817,13 @@ msgstr ""
 msgid "Stopping to put chains on, about {f} minutes on duty."
 msgstr "Arrêt pour poser les chaînes, environ {f} minutes en service."
 
-#. placeholders: {distance_text}
 #. one sentence of a longer line
-msgid "Another chain area in {distance_text}."
-msgstr "Autre aire de chaînes dans {distance_text}."
-
-#. one sentence of a longer line
-msgid "Leaving chains on."
-msgstr "Les chaînes restent posées."
-
-#. placeholders: {distance_text}
-msgid "Leaving chains on. Another chain area in {distance_text}."
+msgid "Bare road."
 msgstr ""
-"Les chaînes restent posées. Autre aire de chaînes dans {distance_text}."
-
-#. one sentence of a longer line
-msgid "Chain-off area."
-msgstr "Aire de dépose des chaînes."
 
 #. placeholders: {f}
-msgid "Chain-off area. Taking chains off, about {f} minutes on duty."
+msgid "Bare road. Taking chains off, about {f} minutes on duty."
 msgstr ""
-"Aire de dépose des chaînes. Dépose des chaînes, environ {f} minutes en "
-"service."
 
 #. placeholders: {f}
 #. one sentence of a longer line
@@ -29783,172 +29773,6 @@ msgstr "Annuler l'arrêt prévu à {planned}"
 msgid "Forgets the planned stop."
 msgstr "Oublie l'arrêt prévu."
 
-msgid "The engine is off. The radio has no power."
-msgstr "Le moteur est coupé. La radio n'a pas de courant."
-
-msgid "Streamer-safe mode on, with Music source set to Synthesized."
-msgstr ""
-"Mode compatible streaming activé, avec la source musicale réglée sur "
-"Synthèse."
-
-msgid ""
-"Streamer-safe mode keeps the radio on the Roadhouse, and tuning does "
-"nothing. Radio on or off and Radio volume are under Radio and CB on the "
-"three-finger tap list."
-msgstr ""
-
-#. one sentence of a longer line
-msgid ""
-"Shift with Page Down and Page Up, or semicolon and apostrophe, changes "
-"radio volume by 10 percent."
-msgstr ""
-"Shift avec Page Down et Page Up, ou point-virgule et apostrophe, change le "
-"volume de la radio de 10 pour cent."
-
-#. one sentence of a longer line
-msgid "Station keys do nothing."
-msgstr "Les touches de station ne font rien."
-
-#. one sentence of a longer line
-msgid "Streamer-safe mode keeps the radio on the Roadhouse."
-msgstr "Le mode compatible streaming garde la radio sur le Roadhouse."
-
-#. placeholders: {spoken}
-msgid ""
-"Streamer-safe mode keeps the radio on the Roadhouse. Station keys do "
-"nothing. {spoken} turns the radio on or off. Shift with Page Down and Page "
-"Up, or semicolon and apostrophe, changes radio volume by 10 percent."
-msgstr ""
-"Le mode compatible streaming garde la radio sur le Roadhouse. Les touches "
-"de station ne font rien. {spoken} allume ou éteint la radio. Shift avec "
-"Page Down et Page Up, ou point-virgule et apostrophe, change le volume de "
-"la radio de 10 pour cent."
-
-#. placeholders: {spoken}
-#. one sentence of a longer line
-msgid "{spoken} turns the radio on or off."
-msgstr "{spoken} allume ou éteint la radio."
-
-msgid ""
-"Streamer-safe mode off. Real public streams and personal playlists are on "
-"the dial."
-msgstr ""
-"Mode compatible streaming désactivé. Les vrais flux publics et les listes "
-"de lecture personnelles sont sur le cadran."
-
-msgid ""
-"Streamer-safe mode on. Real public streams and personal playlists are "
-"hidden."
-msgstr ""
-"Mode compatible streaming activé. Les vrais flux publics et les listes de "
-"lecture personnelles sont masqués."
-
-msgid "Streamer-safe mode off. Real public streams are on the dial."
-msgstr ""
-
-msgid "Streamer-safe mode on. Real public streams are hidden."
-msgstr ""
-
-msgid ""
-"Music source Synthesized: Freight Fate's own stations are off the dial."
-msgstr ""
-"Source musicale Synthèse : les stations propres à Freight Fate ne sont plus "
-"sur le cadran."
-
-#. one sentence of a longer line
-msgid "No playlists of your own yet."
-msgstr "Pas encore de listes de lecture à vous."
-
-#. placeholders: {personal_playlists_dir}
-msgid ""
-"No playlists of your own yet. Put M3U, M3U8 or PLS playlist files in "
-"{personal_playlists_dir}."
-msgstr ""
-"Pas encore de listes de lecture à vous. Placez des fichiers de liste de "
-"lecture M3U, M3U8 ou PLS dans {personal_playlists_dir}."
-
-#. placeholders: {personal_playlists_dir}
-#. one sentence of a longer line
-msgid "Put M3U, M3U8 or PLS playlist files in {personal_playlists_dir}."
-msgstr ""
-"Placez des fichiers de liste de lecture M3U, M3U8 ou PLS dans "
-"{personal_playlists_dir}."
-
-msgid ""
-"At the wheel, a three-finger flick left or right tunes stations. Radio "
-"category, Radio volume, favorites and radio power are under Radio and CB on "
-"the three-finger tap list."
-msgstr ""
-
-#. one sentence of a longer line
-msgid "Page Down and Page Up tune stations, or semicolon and apostrophe."
-msgstr ""
-"Page Down et Page Up changent de station, ou point-virgule et apostrophe."
-
-#. placeholders: {spoken}, {spoken2}
-msgid ""
-"Page Down and Page Up tune stations, or semicolon and apostrophe. With "
-"Control they jump categories. With Shift they change radio volume by 10 "
-"percent. {spoken} saves the station as a favorite. {spoken2} toggles the "
-"radio."
-msgstr ""
-"Page Down et Page Up changent de station, ou point-virgule et apostrophe. "
-"Avec Control, ils sautent de catégorie. Avec Shift, ils changent le volume "
-"de la radio de 10 pour cent. {spoken} enregistre la station en favori. "
-"{spoken2} allume ou éteint la radio."
-
-#. one sentence of a longer line
-msgid "With Control they jump categories."
-msgstr "Avec Control, ils sautent de catégorie."
-
-#. one sentence of a longer line
-msgid "With Shift they change radio volume by 10 percent."
-msgstr "Avec Shift, ils changent le volume de la radio de 10 pour cent."
-
-#. placeholders: {spoken2}
-#. one sentence of a longer line
-msgid "{spoken2} toggles the radio."
-msgstr "{spoken2} allume ou éteint la radio."
-
-#. placeholders: {spoken}
-#. one sentence of a longer line
-msgid "{spoken} saves the station as a favorite."
-msgstr "{spoken} enregistre la station en favori."
-
-#. placeholders: {favorite_ids}
-msgid "Favorites saved: {favorite_ids}."
-msgstr "Favoris enregistrés : {favorite_ids}."
-
-#. placeholders: {f}, {f2}
-msgid "Approximate truck radio position: {f}, {f2}."
-msgstr "Position approximative de la radio du camion : {f}, {f2}."
-
-msgid "Receivable stations:"
-msgstr "Stations captables :"
-
-msgid "Plus 1 more station, listed in the Radio app under Driver apps."
-msgstr ""
-"Plus 1 autre station, listée dans l'appli Radio sous Applis du chauffeur."
-
-#. placeholders: {n}
-msgid "Plus {n} more stations, listed in the Radio app under Driver apps."
-msgstr ""
-"Plus {n} autres stations, listées dans l'appli Radio sous Applis du "
-"chauffeur."
-
-msgid "Favorites saved:"
-msgstr "Favoris enregistrés :"
-
-msgid "favorites"
-msgstr "favorites"
-
-msgid "Your saved stations. Enter on one tunes it."
-msgstr "Vos stations enregistrées. Enter sur l'une d'elles la règle."
-
-msgid "Your saved stations. Double tap one to tune it."
-msgstr ""
-"Vos stations enregistrées. Touchez-en une deux fois pour la syntoniser."
-
 msgid "Back to the status screens."
 msgstr "Retour aux écrans d'état."
 
@@ -30079,7 +29903,7 @@ msgstr "Il en reste {chain_repair_links}."
 msgid "Remove snow chains: about {f} minutes"
 msgstr "Retirer les chaînes à neige : environ {f} minutes"
 
-msgid "Chains grind apart fast on bare pavement."
+msgid "Chains grind apart fast on a bare road."
 msgstr "Les chaînes s'usent vite sur chaussée sèche."
 
 #. one sentence of a longer line
@@ -30089,8 +29913,8 @@ msgstr "Les chaînes mordent la neige et la glace."
 #. placeholders: {speed_text}
 msgid ""
 "Chains bite snow and ice. Keep under {speed_text} with chains on. Take them "
-"off once the road is bare. In the dark, installing takes longer and more "
-"out of you."
+"off on a bare road. In the dark, installing takes longer and more out of "
+"you."
 msgstr ""
 "Les chaînes mordent la neige et la glace. Restez sous {speed_text} avec les "
 "chaînes. Retirez-les dès que la route est dégagée. Dans le noir, la pose "
@@ -30107,7 +29931,7 @@ msgid "Keep under {speed_text} with chains on."
 msgstr "Restez sous {speed_text} avec les chaînes."
 
 #. one sentence of a longer line
-msgid "Take them off once the road is bare."
+msgid "Take them off on a bare road."
 msgstr "Retirez-les dès que la route est dégagée."
 
 msgid "Wait for the chain law to lift"
@@ -30493,6 +30317,59 @@ msgstr "Retirer {display_name} des favoris"
 msgid "Save {display_name} to favorites"
 msgstr "Ajouter {display_name} aux favoris"
 
+msgid ""
+"Streamer-safe mode on, with Music source set to Synthesized. The radio "
+"stays on the Roadhouse."
+msgstr ""
+
+msgid ""
+"Streamer-safe mode off. Real public streams and personal playlists are on "
+"the dial."
+msgstr ""
+"Mode compatible streaming désactivé. Les vrais flux publics et les listes "
+"de lecture personnelles sont sur le cadran."
+
+msgid ""
+"Streamer-safe mode on. Real public streams and personal playlists are "
+"hidden."
+msgstr ""
+"Mode compatible streaming activé. Les vrais flux publics et les listes de "
+"lecture personnelles sont masqués."
+
+msgid "Streamer-safe mode off. Real public streams are on the dial."
+msgstr ""
+
+msgid "Streamer-safe mode on. Real public streams are hidden."
+msgstr ""
+
+msgid ""
+"Music source Synthesized: Freight Fate's own stations are off the dial."
+msgstr ""
+"Source musicale Synthèse : les stations propres à Freight Fate ne sont plus "
+"sur le cadran."
+
+#. one sentence of a longer line
+msgid "No playlists of your own yet."
+msgstr "Pas encore de listes de lecture à vous."
+
+#. placeholders: {personal_playlists_dir}
+msgid ""
+"No playlists of your own yet. Put M3U, M3U8 or PLS playlist files in "
+"{personal_playlists_dir}."
+msgstr ""
+"Pas encore de listes de lecture à vous. Placez des fichiers de liste de "
+"lecture M3U, M3U8 ou PLS dans {personal_playlists_dir}."
+
+#. placeholders: {personal_playlists_dir}
+#. one sentence of a longer line
+msgid "Put M3U, M3U8 or PLS playlist files in {personal_playlists_dir}."
+msgstr ""
+"Placez des fichiers de liste de lecture M3U, M3U8 ou PLS dans "
+"{personal_playlists_dir}."
+
+msgid "The engine is off. The radio has no power."
+msgstr "Le moteur est coupé. La radio n'a pas de courant."
+
 msgid "Now playing on the tuned station. Enter asks again."
 msgstr "En cours de diffusion sur la station réglée. Enter redemande."
 
@@ -30511,12 +30388,28 @@ msgstr "Enter allume ou éteint la radio."
 msgid "Double tap switches the radio on or off."
 msgstr "Touchez deux fois pour allumer ou éteindre la radio."
 
+msgid "What is on the dial. Enter repeats it."
+msgstr ""
+
+msgid "What is on the dial. Double tap repeats it."
+msgstr ""
+
 msgid "Saves or removes the tuned station in favorites."
 msgstr "Ajoute ou retire la station réglée des favoris."
 
 #. placeholders: {favorites}
 msgid "Favorites: {favorites} saved"
 msgstr "Favoris : {favorites} enregistrées"
+
+msgid "favorites"
+msgstr "favorites"
+
+msgid "Your saved stations. Enter on one tunes it."
+msgstr "Vos stations enregistrées. Enter sur l'une d'elles la règle."
+
+msgid "Your saved stations. Double tap one to tune it."
+msgstr ""
+"Vos stations enregistrées. Touchez-en une deux fois pour la syntoniser."
 
 msgid "Search stations"
 msgstr "Chercher des stations"
@@ -30537,6 +30430,20 @@ msgid ""
 msgstr ""
 "Parcourez toutes les stations, ou une catégorie comme Hertzien ou Radio "
 "web. Les stations à portée viennent en premier."
+
+#. placeholders: {local}
+msgid "Local stations: {local}"
+msgstr ""
+
+msgid ""
+"Freight Fate stations, your playlists and favorites, and stations nearby. "
+"Enter on one tunes it."
+msgstr ""
+
+msgid ""
+"Freight Fate stations, your playlists and favorites, and stations nearby. "
+"Double tap one to tune it."
+msgstr ""
 
 #. placeholders: {in_range}
 msgid "Stations in range: {in_range}"
@@ -30572,6 +30479,9 @@ msgstr "Stations favorites"
 msgid "Stations in range"
 msgstr "Stations à portée"
 
+msgid "Local stations"
+msgstr ""
+
 #. placeholders: {query}
 msgid "Stations matching {query}"
 msgstr "Stations correspondant à {query}"
@@ -30596,6 +30506,10 @@ msgstr "Résultats {start} à {end} sur {hit_count}"
 #. placeholders: {display_name}
 msgid "{display_name} is out of range here."
 msgstr "{display_name} est hors de portée ici."
+
+#. placeholders: {label}, {distance_text}
+msgid "{label}, {distance_text} away"
+msgstr ""
 
 msgid "Enter tunes this station."
 msgstr "Enter règle cette station."
@@ -36379,13 +36293,6 @@ msgstr "reports"
 msgid "Open {label} settings."
 msgstr "Ouvrir les paramètres {label}."
 
-msgid ""
-"Online options are now in the Online menu on the main menu. This row opens "
-"it."
-msgstr ""
-"Les options en ligne sont maintenant dans le menu En ligne du menu "
-"principal. Cette ligne l'ouvre."
-
 msgid "Settings saved."
 msgstr "Paramètres enregistrés."
 
@@ -40207,7 +40114,7 @@ msgstr ""
 msgid ""
 "Chain work uses on-duty time and adds fatigue, especially at night. Keep "
 "under chain speed, 30 miles per hour or 48 kilometers per hour, and remove "
-"chains on bare pavement before they break."
+"chains on a bare road before they break."
 msgstr ""
 "La pose des chaînes consomme du temps en service et ajoute de la fatigue, "
 "surtout la nuit. Restez sous la vitesse avec chaînes, 30 miles à l'heure ou "
@@ -40504,13 +40411,13 @@ msgstr ""
 
 msgid ""
 "Gameplay holds driving assistance, difficulty and hours, world and traffic, "
-"and controls. Audio, Speech, Updates, Problem reports, and Online have "
-"separate choices where supported. F1 explains the selected setting."
+"and controls. Audio, Speech, Updates, and Problem reports have separate "
+"choices where supported. F1 explains the selected setting."
 msgstr ""
 "Jeu regroupe l'assistance à la conduite, la difficulté et les heures, le "
-"monde et la circulation, et les commandes. Audio, Parole, Mises à jour, "
-"Signalements de problèmes et En ligne ont leurs propres choix là où c'est "
-"possible. F1 explique le réglage sélectionné."
+"monde et la circulation, et les commandes. Audio, Parole, Mises à jour et "
+"Signalements de problèmes ont leurs propres choix là où c'est possible. F1 "
+"explique le réglage sélectionné."
 
 msgid ""
 "Realistic leaves lane keeping off. Balanced adds partial lane keeping and "
@@ -44551,6 +44458,136 @@ msgstr ""
 #~ msgstr ""
 #~ "{distance}, délai {hours} heures. Chargement en équipe : vous et un "
 #~ "coéquipier vous relayez au volant."
+
+#~ msgid "Another chain area in {distance_text}."
+#~ msgstr "Autre aire de chaînes dans {distance_text}."
+
+#~ msgid "Leaving chains on."
+#~ msgstr "Les chaînes restent posées."
+
+#~ msgid "Leaving chains on. Another chain area in {distance_text}."
+#~ msgstr ""
+#~ "Les chaînes restent posées. Autre aire de chaînes dans {distance_text}."
+
+#~ msgid "Chain-off area."
+#~ msgstr "Aire de dépose des chaînes."
+
+#~ msgid "Chain-off area. Taking chains off, about {f} minutes on duty."
+#~ msgstr ""
+#~ "Aire de dépose des chaînes. Dépose des chaînes, environ {f} minutes en "
+#~ "service."
+
+#~ msgid ", {spoken} away"
+#~ msgstr ", à {spoken}"
+
+#~ msgid "{spoken} away"
+#~ msgstr "à {spoken}"
+
+#~ msgid ""
+#~ "{selected}{display_name}: {format}, {signal_label}{distance}. Source: "
+#~ "{source}."
+#~ msgstr ""
+#~ "{selected}{display_name} : {format}, {signal_label}{distance}. Source : "
+#~ "{source}."
+
+#~ msgid "The {status} status menu has a radio screen of receivable stations."
+#~ msgstr "Le menu d'état {status} a un écran radio des stations captées."
+
+#~ msgid "Streamer-safe mode on, with Music source set to Synthesized."
+#~ msgstr ""
+#~ "Mode compatible streaming activé, avec la source musicale réglée sur "
+#~ "Synthèse."
+
+#~ msgid ""
+#~ "Shift with Page Down and Page Up, or semicolon and apostrophe, changes "
+#~ "radio volume by 10 percent."
+#~ msgstr ""
+#~ "Shift avec Page Down et Page Up, ou point-virgule et apostrophe, change le "
+#~ "volume de la radio de 10 pour cent."
+
+#~ msgid "Station keys do nothing."
+#~ msgstr "Les touches de station ne font rien."
+
+#~ msgid "Streamer-safe mode keeps the radio on the Roadhouse."
+#~ msgstr "Le mode compatible streaming garde la radio sur le Roadhouse."
+
+#~ msgid ""
+#~ "Streamer-safe mode keeps the radio on the Roadhouse. Station keys do "
+#~ "nothing. {spoken} turns the radio on or off. Shift with Page Down and Page "
+#~ "Up, or semicolon and apostrophe, changes radio volume by 10 percent."
+#~ msgstr ""
+#~ "Le mode compatible streaming garde la radio sur le Roadhouse. Les touches "
+#~ "de station ne font rien. {spoken} allume ou éteint la radio. Shift avec "
+#~ "Page Down et Page Up, ou point-virgule et apostrophe, change le volume de "
+#~ "la radio de 10 pour cent."
+
+#~ msgid "{spoken} turns the radio on or off."
+#~ msgstr "{spoken} allume ou éteint la radio."
+
+#~ msgid "Page Down and Page Up tune stations, or semicolon and apostrophe."
+#~ msgstr ""
+#~ "Page Down et Page Up changent de station, ou point-virgule et apostrophe."
+
+#~ msgid ""
+#~ "Page Down and Page Up tune stations, or semicolon and apostrophe. With "
+#~ "Control they jump categories. With Shift they change radio volume by 10 "
+#~ "percent. {spoken} saves the station as a favorite. {spoken2} toggles the "
+#~ "radio."
+#~ msgstr ""
+#~ "Page Down et Page Up changent de station, ou point-virgule et apostrophe. "
+#~ "Avec Control, ils sautent de catégorie. Avec Shift, ils changent le volume "
+#~ "de la radio de 10 pour cent. {spoken} enregistre la station en favori. "
+#~ "{spoken2} allume ou éteint la radio."
+
+#~ msgid "With Control they jump categories."
+#~ msgstr "Avec Control, ils sautent de catégorie."
+
+#~ msgid "With Shift they change radio volume by 10 percent."
+#~ msgstr "Avec Shift, ils changent le volume de la radio de 10 pour cent."
+
+#~ msgid "{spoken2} toggles the radio."
+#~ msgstr "{spoken2} allume ou éteint la radio."
+
+#~ msgid "{spoken} saves the station as a favorite."
+#~ msgstr "{spoken} enregistre la station en favori."
+
+#~ msgid "Favorites saved: {favorite_ids}."
+#~ msgstr "Favoris enregistrés : {favorite_ids}."
+
+#~ msgid "Approximate truck radio position: {f}, {f2}."
+#~ msgstr "Position approximative de la radio du camion : {f}, {f2}."
+
+#~ msgid "Receivable stations:"
+#~ msgstr "Stations captables :"
+
+#~ msgid "Plus 1 more station, listed in the Radio app under Driver apps."
+#~ msgstr ""
+#~ "Plus 1 autre station, listée dans l'appli Radio sous Applis du chauffeur."
+
+#~ msgid "Plus {n} more stations, listed in the Radio app under Driver apps."
+#~ msgstr ""
+#~ "Plus {n} autres stations, listées dans l'appli Radio sous Applis du "
+#~ "chauffeur."
+
+#~ msgid "Favorites saved:"
+#~ msgstr "Favoris enregistrés :"
+
+#~ msgid ""
+#~ "Online options are now in the Online menu on the main menu. This row opens "
+#~ "it."
+#~ msgstr ""
+#~ "Les options en ligne sont maintenant dans le menu En ligne du menu "
+#~ "principal. Cette ligne l'ouvre."
+
+#~ msgid ""
+#~ "Gameplay holds driving assistance, difficulty and hours, world and traffic, "
+#~ "and controls. Audio, Speech, Updates, Problem reports, and Online have "
+#~ "separate choices where supported. F1 explains the selected setting."
+#~ msgstr ""
+#~ "Jeu regroupe l'assistance à la conduite, la difficulté et les heures, le "
+#~ "monde et la circulation, et les commandes. Audio, Parole, Mises à jour, "
+#~ "Signalements de problèmes et En ligne ont leurs propres choix là où c'est "
+#~ "possible. F1 explique le réglage sélectionné."
 
 #~ msgid "{name} needs you back at the wheel."
 #~ msgstr "{name} a besoin que vous repreniez le volant."

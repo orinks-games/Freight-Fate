@@ -204,6 +204,11 @@ pub enum Command {
     /// Open a nod-off's reaction window on the live drive
     /// (`PlayerInputFrame::stage_nod`).
     Nod,
+    /// Force the simulated sky on the live drive and later ones
+    /// (`PlayerInputFrame::force_weather`); `None` unlocks it.
+    Weather {
+        kind: Option<ff_core::sim::weather::WeatherKind>,
+    },
     /// The hit is discovered on the serve thread (world data only) so the
     /// game loop never blocks on a search; the loop only builds the drive.
     StageHit {
@@ -211,6 +216,7 @@ pub enum Command {
         opts: Box<crate::playtest::road::RoadOptions>,
         found: usize,
         picked: usize,
+        weather: Option<Option<ff_core::sim::weather::WeatherKind>>,
     },
     Quit,
 }
@@ -271,7 +277,7 @@ fn fatigue_state_line(o: &crate::app::DrivingObservation, mode: crate::touch::To
     format!(
         "STATE: alertness {}; nod {} ({timer:.2} {unit}); nod_misses {}; lift_owed {lift}; \
          rest_call {rest_call}; runaway {}{gate}{co_driver}; jake_zone {}; touch_mode {}; road_offer {}; \
-         touch_clutch {}; window {}; outside {} ({}, {}); water {}; road_surface {}, {}; structure {}.",
+         touch_clutch {}; window {}; outside {} ({}, {}); water {}; road_surface {}, {}; structure {}; chain_control {}; chains {}.",
         o.alertness.key(),
         o.nod.key(),
         o.nod.misses,
@@ -289,7 +295,9 @@ fn fatigue_state_line(o: &crate::app::DrivingObservation, mode: crate::touch::To
         o.road_surface.name(),
         o.road_surface.origin(),
         o.structure
-            .map_or("none".to_string(), |(kind, mi)| format!("{} {mi:.2} mi", kind.name()))
+            .map_or("none".to_string(), |(kind, mi)| format!("{} {mi:.2} mi", kind.name())),
+        o.chain_control.key(),
+        o.chains.key()
     )
 }
 
@@ -929,12 +937,19 @@ impl AgentPolicy {
                 Command::Nod => {
                     let _ = reply.send(input.stage_nod());
                 }
+                Command::Weather { kind } => {
+                    let _ = reply.send(Ok(input.force_weather(kind)));
+                }
                 Command::StageHit {
                     hit,
                     opts,
                     found,
                     picked,
+                    weather,
                 } => {
+                    if let Some(kind) = weather {
+                        input.force_weather(kind);
+                    }
                     // Dropping into a fresh drive: whatever the agent was
                     // holding belongs to the old screen.
                     self.held.clear();

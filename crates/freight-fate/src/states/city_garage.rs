@@ -878,7 +878,7 @@ impl Menu for GarageState {
                 "A chain set is seven chains and two repair links. Four chains go on the drive \
                  tires and one on a trailer tire, the most any state here asks of a semi. \
                  The other two are spares. Put chains on from the pause menu once you're stopped in snow \
-                 or ice. They wear out fast on bare pavement. Company drivers bill the \
+                 or ice. They wear out fast on a bare road. Company drivers bill the \
                  carrier.",
             ),
             MenuItem::new(

@@ -10298,27 +10298,6 @@ msgstr "プレイリストファイル {file_name}"
 msgid "favorite"
 msgstr "お気に入り"
 
-#. placeholders: {spoken}
-msgid ", {spoken} away"
-msgstr "、距離{spoken}"
-
-#. placeholders: {spoken}
-#. one clause of a longer line
-msgid "{spoken} away"
-msgstr "{spoken}先"
-
-#. placeholders: {source}
-#. one sentence of a longer line
-msgid "Source: {source}."
-msgstr "出典：{source}。"
-
-#. placeholders: {selected}, {display_name}, {format}, {signal_label}, {distance}, {source}
-msgid ""
-"{selected}{display_name}: {format}, {signal_label}{distance}. Source: "
-"{source}."
-msgstr ""
-"{selected}{display_name}：{format}、{signal_label}{distance}。出典：{source}。"
-
 msgid "on"
 msgstr "オン"
 
@@ -10340,6 +10319,11 @@ msgid ""
 msgstr ""
 "ラジオ{state}。{display_name}、{format}。{signal_label}。音量{round_py_int}パーセント。{saf"
 "ety}。出典：{source}。"
+
+#. placeholders: {source}
+#. one sentence of a longer line
+msgid "Source: {source}."
+msgstr "出典：{source}。"
 
 #. placeholders: {round_py_int}
 #. one sentence of a longer line
@@ -10662,6 +10646,15 @@ msgstr "運転席：窓を開けています、ファン中、冷房"
 
 msgid "Cab: driver window down, fan high, air conditioning"
 msgstr "運転席：窓を開けています、ファン強、冷房"
+
+msgid "snow"
+msgstr "雪"
+
+msgid "stowed"
+msgstr ""
+
+msgid "broken"
+msgstr ""
 
 msgid "yield"
 msgstr "譲る"
@@ -11249,9 +11242,6 @@ msgstr "flurr"
 
 msgid "frost"
 msgstr "霜"
-
-msgid "snow"
-msgstr "雪"
 
 msgid "wintry"
 msgstr "冬の天気"
@@ -12610,6 +12600,9 @@ msgstr "施設への接近路"
 
 msgid "destination approach"
 msgstr "目的地への接近路"
+
+msgid "Chain law lifted."
+msgstr ""
 
 msgid " Chain-up area on the right."
 msgstr "右にチェーン装着場があります。"
@@ -14430,6 +14423,21 @@ msgid ""
 "Staged {staged} at mile {position_mi}; it fires on the next rolling frame, "
 "so listen for the call."
 msgstr "{position_mi}マイル地点に{staged}を仕込みました。次の走行フレームで発動するので、呼びかけを聞いてください。"
+
+msgid "a free sky"
+msgstr ""
+
+#. placeholders: {value}
+msgid "forced {value}"
+msgstr ""
+
+#. placeholders: {sky}
+msgid "The drive under way, and drives staged after it, run under {sky}."
+msgstr ""
+
+#. placeholders: {sky}
+msgid "Drives staged from here on run under {sky}."
+msgstr ""
 
 msgid "the co-driver has the wheel"
 msgstr "相棒の運転手がハンドルを握っています"
@@ -18876,7 +18884,7 @@ msgid ""
 "A chain set is seven chains and two repair links. Four chains go on the "
 "drive tires and one on a trailer tire, the most any state here asks of a "
 "semi. The other two are spares. Put chains on from the pause menu once "
-"you're stopped in snow or ice. They wear out fast on bare pavement. Company "
+"you're stopped in snow or ice. They wear out fast on a bare road. Company "
 "drivers bill the carrier."
 msgstr ""
 "チェーンのセットは7本のチェーンと修理用リンク2つです。駆動輪に4本、トレーラーのタイヤに1本で、ここのどの州がセミトレーラーに求める本数も満たします。"
@@ -20687,10 +20695,6 @@ msgid ""
 "The Driver apps tablet has a Radio app to search the dial, tune by name, "
 "and keep favorites."
 msgstr "ドライバーアプリのタブレットにはラジオアプリがあり、ダイヤルの検索、名前での選局、お気に入りの保存ができます。"
-
-#. placeholders: {status}
-msgid "The {status} status menu has a radio screen of receivable stations."
-msgstr "{status} のステータスメニューには受信できる局のラジオ画面があります。"
 
 #. placeholders: {engine}
 msgid ""
@@ -23886,6 +23890,9 @@ msgstr ""
 msgid "Billboard: {line}"
 msgstr "看板：{line}"
 
+msgid "Bare road. Stop and take the chains off."
+msgstr ""
+
 msgid "Come to a complete stop first."
 msgstr "先に完全に停車してください。"
 
@@ -24041,26 +24048,13 @@ msgstr "チェーン装着場。停車してチェーンを付けます。勤務
 msgid "Stopping to put chains on, about {f} minutes on duty."
 msgstr "停車してチェーンを付けます。勤務時間で約{f}分です。"
 
-#. placeholders: {distance_text}
 #. one sentence of a longer line
-msgid "Another chain area in {distance_text}."
-msgstr "{distance_text}先に、次のチェーン装着場があります。"
-
-#. one sentence of a longer line
-msgid "Leaving chains on."
-msgstr "チェーンは付けたままにします。"
-
-#. placeholders: {distance_text}
-msgid "Leaving chains on. Another chain area in {distance_text}."
-msgstr "チェーンは付けたままにします。{distance_text}先に、次のチェーン装着場があります。"
-
-#. one sentence of a longer line
-msgid "Chain-off area."
-msgstr "チェーン脱着場です。"
+msgid "Bare road."
+msgstr ""
 
 #. placeholders: {f}
-msgid "Chain-off area. Taking chains off, about {f} minutes on duty."
-msgstr "チェーン脱着場です。チェーンを外します。勤務時間で約{f}分です。"
+msgid "Bare road. Taking chains off, about {f} minutes on duty."
+msgstr ""
 
 #. placeholders: {f}
 #. one sentence of a longer line
@@ -26840,152 +26834,6 @@ msgstr "{planned}での計画した停車を取り消す"
 msgid "Forgets the planned stop."
 msgstr "計画した停車を取り消します。"
 
-msgid "The engine is off. The radio has no power."
-msgstr "エンジンが切れています。ラジオに電源が入りません。"
-
-msgid "Streamer-safe mode on, with Music source set to Synthesized."
-msgstr "配信向けモードがオンで、音楽ソースはシンセ曲です。"
-
-msgid ""
-"Streamer-safe mode keeps the radio on the Roadhouse, and tuning does "
-"nothing. Radio on or off and Radio volume are under Radio and CB on the "
-"three-finger tap list."
-msgstr ""
-
-#. one sentence of a longer line
-msgid ""
-"Shift with Page Down and Page Up, or semicolon and apostrophe, changes "
-"radio volume by 10 percent."
-msgstr ""
-"Shift を押しながら Page Down と Page Up、またはセミコロンとアポストロフィで、ラジオの音量を10パーセントずつ変えます。"
-
-#. one sentence of a longer line
-msgid "Station keys do nothing."
-msgstr "局のキーは何もしません。"
-
-#. one sentence of a longer line
-msgid "Streamer-safe mode keeps the radio on the Roadhouse."
-msgstr "配信向けモードでは、ラジオは Roadhouse のままです。"
-
-#. placeholders: {spoken}
-msgid ""
-"Streamer-safe mode keeps the radio on the Roadhouse. Station keys do "
-"nothing. {spoken} turns the radio on or off. Shift with Page Down and Page "
-"Up, or semicolon and apostrophe, changes radio volume by 10 percent."
-msgstr ""
-"配信向けモードでは、ラジオは Roadhouse のままです。局のキーは何もしません。{spoken}でラジオをオンまたはオフにします。Shift "
-"を押しながら Page Down と Page Up、またはセミコロンとアポストロフィで、ラジオの音量を10パーセントずつ変えます。"
-
-#. placeholders: {spoken}
-#. one sentence of a longer line
-msgid "{spoken} turns the radio on or off."
-msgstr "{spoken}でラジオをオンまたはオフにします。"
-
-msgid ""
-"Streamer-safe mode off. Real public streams and personal playlists are on "
-"the dial."
-msgstr "配信向けモードオフ。実際の公開ストリームと自分のプレイリストが選べます。"
-
-msgid ""
-"Streamer-safe mode on. Real public streams and personal playlists are "
-"hidden."
-msgstr "配信向けモードオン。実際の公開ストリームと自分のプレイリストは隠れています。"
-
-msgid "Streamer-safe mode off. Real public streams are on the dial."
-msgstr ""
-
-msgid "Streamer-safe mode on. Real public streams are hidden."
-msgstr ""
-
-msgid ""
-"Music source Synthesized: Freight Fate's own stations are off the dial."
-msgstr "音楽ソースがシンセ曲です。Freight Fate 独自の局は選べません。"
-
-#. one sentence of a longer line
-msgid "No playlists of your own yet."
-msgstr "自分のプレイリストはまだありません。"
-
-#. placeholders: {personal_playlists_dir}
-msgid ""
-"No playlists of your own yet. Put M3U, M3U8 or PLS playlist files in "
-"{personal_playlists_dir}."
-msgstr ""
-"自分のプレイリストはまだありません。M3U、M3U8、PLS のプレイリストファイルを{personal_playlists_dir}に入れてください。"
-
-#. placeholders: {personal_playlists_dir}
-#. one sentence of a longer line
-msgid "Put M3U, M3U8 or PLS playlist files in {personal_playlists_dir}."
-msgstr "M3U、M3U8、PLS のプレイリストファイルを{personal_playlists_dir}に入れてください。"
-
-msgid ""
-"At the wheel, a three-finger flick left or right tunes stations. Radio "
-"category, Radio volume, favorites and radio power are under Radio and CB on "
-"the three-finger tap list."
-msgstr ""
-
-#. one sentence of a longer line
-msgid "Page Down and Page Up tune stations, or semicolon and apostrophe."
-msgstr "Page Down と Page Up、またはセミコロンとアポストロフィで局を選びます。"
-
-#. placeholders: {spoken}, {spoken2}
-msgid ""
-"Page Down and Page Up tune stations, or semicolon and apostrophe. With "
-"Control they jump categories. With Shift they change radio volume by 10 "
-"percent. {spoken} saves the station as a favorite. {spoken2} toggles the "
-"radio."
-msgstr ""
-"Page Down と Page Up、またはセミコロンとアポストロフィで局を選びます。Control "
-"を押しながらだとカテゴリーを移ります。Shift "
-"を押しながらだとラジオの音量を10パーセントずつ変えます。{spoken}で局をお気に入りに保存します。{spoken2}でラジオを切り替えます。"
-
-#. one sentence of a longer line
-msgid "With Control they jump categories."
-msgstr "Control を押しながらだとカテゴリーを移ります。"
-
-#. one sentence of a longer line
-msgid "With Shift they change radio volume by 10 percent."
-msgstr "Shift を押しながらだとラジオの音量を10パーセントずつ変えます。"
-
-#. placeholders: {spoken2}
-#. one sentence of a longer line
-msgid "{spoken2} toggles the radio."
-msgstr "{spoken2}でラジオを切り替えます。"
-
-#. placeholders: {spoken}
-#. one sentence of a longer line
-msgid "{spoken} saves the station as a favorite."
-msgstr "{spoken}で局をお気に入りに保存します。"
-
-#. placeholders: {favorite_ids}
-msgid "Favorites saved: {favorite_ids}."
-msgstr "保存したお気に入り：{favorite_ids}。"
-
-#. placeholders: {f}, {f2}
-msgid "Approximate truck radio position: {f}, {f2}."
-msgstr "トラックのラジオのおおよその位置：{f}、{f2}。"
-
-msgid "Receivable stations:"
-msgstr "受信できる局："
-
-msgid "Plus 1 more station, listed in the Radio app under Driver apps."
-msgstr "ほかに1局あります。ドライバーアプリのラジオアプリに載っています。"
-
-#. placeholders: {n}
-msgid "Plus {n} more stations, listed in the Radio app under Driver apps."
-msgstr "ほかに{n}局あります。ドライバーアプリのラジオアプリに載っています。"
-
-msgid "Favorites saved:"
-msgstr "保存したお気に入り："
-
-msgid "favorites"
-msgstr "favorites"
-
-msgid "Your saved stations. Enter on one tunes it."
-msgstr "保存した局です。Enter で選局します。"
-
-msgid "Your saved stations. Double tap one to tune it."
-msgstr "保存した局です。ダブルタップで選局します。"
-
 msgid "Back to the status screens."
 msgstr "ステータス画面に戻ります。"
 
@@ -27103,7 +26951,7 @@ msgstr "残りは{chain_repair_links}です。"
 msgid "Remove snow chains: about {f} minutes"
 msgstr "スノーチェーンを外す：約{f}分"
 
-msgid "Chains grind apart fast on bare pavement."
+msgid "Chains grind apart fast on a bare road."
 msgstr "乾いた路面では、チェーンはすぐにすり減って切れます。"
 
 #. one sentence of a longer line
@@ -27113,8 +26961,8 @@ msgstr "チェーンは雪や氷に食い込みます。"
 #. placeholders: {speed_text}
 msgid ""
 "Chains bite snow and ice. Keep under {speed_text} with chains on. Take them "
-"off once the road is bare. In the dark, installing takes longer and more "
-"out of you."
+"off on a bare road. In the dark, installing takes longer and more out of "
+"you."
 msgstr ""
 "チェーンは雪や氷に食い込みます。チェーンを付けている間は{speed_text}未満で走ってください。路面が乾いたら外してください。暗いと、付けるのに時"
 "間がかかり、体力も使います。"
@@ -27129,7 +26977,7 @@ msgid "Keep under {speed_text} with chains on."
 msgstr "チェーンを付けている間は{speed_text}未満で走ってください。"
 
 #. one sentence of a longer line
-msgid "Take them off once the road is bare."
+msgid "Take them off on a bare road."
 msgstr "路面が乾いたら外してください。"
 
 msgid "Wait for the chain law to lift"
@@ -27468,6 +27316,50 @@ msgstr "{display_name}をお気に入りから外す"
 msgid "Save {display_name} to favorites"
 msgstr "{display_name}をお気に入りに保存"
 
+msgid ""
+"Streamer-safe mode on, with Music source set to Synthesized. The radio "
+"stays on the Roadhouse."
+msgstr ""
+
+msgid ""
+"Streamer-safe mode off. Real public streams and personal playlists are on "
+"the dial."
+msgstr "配信向けモードオフ。実際の公開ストリームと自分のプレイリストが選べます。"
+
+msgid ""
+"Streamer-safe mode on. Real public streams and personal playlists are "
+"hidden."
+msgstr "配信向けモードオン。実際の公開ストリームと自分のプレイリストは隠れています。"
+
+msgid "Streamer-safe mode off. Real public streams are on the dial."
+msgstr ""
+
+msgid "Streamer-safe mode on. Real public streams are hidden."
+msgstr ""
+
+msgid ""
+"Music source Synthesized: Freight Fate's own stations are off the dial."
+msgstr "音楽ソースがシンセ曲です。Freight Fate 独自の局は選べません。"
+
+#. one sentence of a longer line
+msgid "No playlists of your own yet."
+msgstr "自分のプレイリストはまだありません。"
+
+#. placeholders: {personal_playlists_dir}
+msgid ""
+"No playlists of your own yet. Put M3U, M3U8 or PLS playlist files in "
+"{personal_playlists_dir}."
+msgstr ""
+"自分のプレイリストはまだありません。M3U、M3U8、PLS のプレイリストファイルを{personal_playlists_dir}に入れてください。"
+
+#. placeholders: {personal_playlists_dir}
+#. one sentence of a longer line
+msgid "Put M3U, M3U8 or PLS playlist files in {personal_playlists_dir}."
+msgstr "M3U、M3U8、PLS のプレイリストファイルを{personal_playlists_dir}に入れてください。"
+
+msgid "The engine is off. The radio has no power."
+msgstr "エンジンが切れています。ラジオに電源が入りません。"
+
 msgid "Now playing on the tuned station. Enter asks again."
 msgstr "選局中の局で流れている曲です。Enter でもう一度確認します。"
 
@@ -27484,12 +27376,27 @@ msgstr "Enter でラジオをオンまたはオフにします。"
 msgid "Double tap switches the radio on or off."
 msgstr "ダブルタップでラジオをオンまたはオフにします。"
 
+msgid "What is on the dial. Enter repeats it."
+msgstr ""
+
+msgid "What is on the dial. Double tap repeats it."
+msgstr ""
+
 msgid "Saves or removes the tuned station in favorites."
 msgstr "選局中の局をお気に入りに保存、または外します。"
 
 #. placeholders: {favorites}
 msgid "Favorites: {favorites} saved"
 msgstr "お気に入り：{favorites}件保存"
+
+msgid "favorites"
+msgstr "favorites"
+
+msgid "Your saved stations. Enter on one tunes it."
+msgstr "保存した局です。Enter で選局します。"
+
+msgid "Your saved stations. Double tap one to tune it."
+msgstr "保存した局です。ダブルタップで選局します。"
 
 msgid "Search stations"
 msgstr "局を検索"
@@ -27506,6 +27413,20 @@ msgid ""
 "Browse all stations, or one category such as Terrestrial or Web radio. "
 "Stations in range list first."
 msgstr "すべての局か、地上波やウェブラジオのような一つのカテゴリーを見ます。受信できる局が先に並びます。"
+
+#. placeholders: {local}
+msgid "Local stations: {local}"
+msgstr ""
+
+msgid ""
+"Freight Fate stations, your playlists and favorites, and stations nearby. "
+"Enter on one tunes it."
+msgstr ""
+
+msgid ""
+"Freight Fate stations, your playlists and favorites, and stations nearby. "
+"Double tap one to tune it."
+msgstr ""
 
 #. placeholders: {in_range}
 msgid "Stations in range: {in_range}"
@@ -27537,6 +27458,9 @@ msgstr "お気に入りの局"
 msgid "Stations in range"
 msgstr "受信できる局"
 
+msgid "Local stations"
+msgstr ""
+
 #. placeholders: {query}
 msgid "Stations matching {query}"
 msgstr "{query}に一致する局"
@@ -27561,6 +27485,10 @@ msgstr "{hit_count} 件中 {start} 件目から {end} 件目"
 #. placeholders: {display_name}
 msgid "{display_name} is out of range here."
 msgstr "ここでは{display_name}を受信できません。"
+
+#. placeholders: {label}, {distance_text}
+msgid "{label}, {distance_text} away"
+msgstr ""
 
 msgid "Enter tunes this station."
 msgstr "Enter でこの局を選局します。"
@@ -32735,11 +32663,6 @@ msgstr "問題の報告"
 msgid "Open {label} settings."
 msgstr "{label}の設定を開きます。"
 
-msgid ""
-"Online options are now in the Online menu on the main menu. This row opens "
-"it."
-msgstr "オンラインの設定は、メインメニューのオンラインメニューに移りました。この行で開きます。"
-
 msgid "Settings saved."
 msgstr "設定を保存しました。"
 
@@ -35940,7 +35863,7 @@ msgstr ""
 msgid ""
 "Chain work uses on-duty time and adds fatigue, especially at night. Keep "
 "under chain speed, 30 miles per hour or 48 kilometers per hour, and remove "
-"chains on bare pavement before they break."
+"chains on a bare road before they break."
 msgstr ""
 "チェーンの作業は勤務時間を使い、特に夜は疲労が増えます。チェーン走行の速度、時速30マイル、時速48キロメートル未満を保ち、乾いた路面では切れる前にチェ"
 "ーンを外してください。"
@@ -36183,11 +36106,11 @@ msgstr "設定は変えるとすぐに保存されます。上下で設定を選
 
 msgid ""
 "Gameplay holds driving assistance, difficulty and hours, world and traffic, "
-"and controls. Audio, Speech, Updates, Problem reports, and Online have "
-"separate choices where supported. F1 explains the selected setting."
+"and controls. Audio, Speech, Updates, and Problem reports have separate "
+"choices where supported. F1 explains the selected setting."
 msgstr ""
-"ゲームプレイには、運転アシスト、難易度と運転時間、ワールドと周囲の車、操作があります。オーディオ、読み上げ、アップデート、問題の報告、オンラインには、対"
-"応している場合それぞれの選択肢があります。F1 で選んでいる設定を説明します。"
+"ゲームプレイには、運転アシスト、難易度と運転時間、ワールドと周囲の車、操作があります。オーディオ、読み上げ、アップデート、問題の報告には、対応している場"
+"合それぞれの選択肢があります。F1 で選んでいる設定を説明します。"
 
 msgid ""
 "Realistic leaves lane keeping off. Balanced adds partial lane keeping and "
@@ -39831,6 +39754,118 @@ msgstr ""
 #~ "{distance}, deadline {hours} hours. Team load: you and a co-driver take "
 #~ "turns at the wheel."
 #~ msgstr "{distance}、期限{hours}時間。チームの積荷です。相棒の運転手と交代でハンドルを握ります。"
+
+#~ msgid "Another chain area in {distance_text}."
+#~ msgstr "{distance_text}先に、次のチェーン装着場があります。"
+
+#~ msgid "Leaving chains on."
+#~ msgstr "チェーンは付けたままにします。"
+
+#~ msgid "Leaving chains on. Another chain area in {distance_text}."
+#~ msgstr "チェーンは付けたままにします。{distance_text}先に、次のチェーン装着場があります。"
+
+#~ msgid "Chain-off area."
+#~ msgstr "チェーン脱着場です。"
+
+#~ msgid "Chain-off area. Taking chains off, about {f} minutes on duty."
+#~ msgstr "チェーン脱着場です。チェーンを外します。勤務時間で約{f}分です。"
+
+#~ msgid ", {spoken} away"
+#~ msgstr "、距離{spoken}"
+
+#~ msgid "{spoken} away"
+#~ msgstr "{spoken}先"
+
+#~ msgid ""
+#~ "{selected}{display_name}: {format}, {signal_label}{distance}. Source: "
+#~ "{source}."
+#~ msgstr ""
+#~ "{selected}{display_name}：{format}、{signal_label}{distance}。出典：{source}。"
+
+#~ msgid "The {status} status menu has a radio screen of receivable stations."
+#~ msgstr "{status} のステータスメニューには受信できる局のラジオ画面があります。"
+
+#~ msgid "Streamer-safe mode on, with Music source set to Synthesized."
+#~ msgstr "配信向けモードがオンで、音楽ソースはシンセ曲です。"
+
+#~ msgid ""
+#~ "Shift with Page Down and Page Up, or semicolon and apostrophe, changes "
+#~ "radio volume by 10 percent."
+#~ msgstr ""
+#~ "Shift を押しながら Page Down と Page Up、またはセミコロンとアポストロフィで、ラジオの音量を10パーセントずつ変えます。"
+
+#~ msgid "Station keys do nothing."
+#~ msgstr "局のキーは何もしません。"
+
+#~ msgid "Streamer-safe mode keeps the radio on the Roadhouse."
+#~ msgstr "配信向けモードでは、ラジオは Roadhouse のままです。"
+
+#~ msgid ""
+#~ "Streamer-safe mode keeps the radio on the Roadhouse. Station keys do "
+#~ "nothing. {spoken} turns the radio on or off. Shift with Page Down and Page "
+#~ "Up, or semicolon and apostrophe, changes radio volume by 10 percent."
+#~ msgstr ""
+#~ "配信向けモードでは、ラジオは Roadhouse のままです。局のキーは何もしません。{spoken}でラジオをオンまたはオフにします。Shift "
+#~ "を押しながら Page Down と Page Up、またはセミコロンとアポストロフィで、ラジオの音量を10パーセントずつ変えます。"
+
+#~ msgid "{spoken} turns the radio on or off."
+#~ msgstr "{spoken}でラジオをオンまたはオフにします。"
+
+#~ msgid "Page Down and Page Up tune stations, or semicolon and apostrophe."
+#~ msgstr "Page Down と Page Up、またはセミコロンとアポストロフィで局を選びます。"
+
+#~ msgid ""
+#~ "Page Down and Page Up tune stations, or semicolon and apostrophe. With "
+#~ "Control they jump categories. With Shift they change radio volume by 10 "
+#~ "percent. {spoken} saves the station as a favorite. {spoken2} toggles the "
+#~ "radio."
+#~ msgstr ""
+#~ "Page Down と Page Up、またはセミコロンとアポストロフィで局を選びます。Control "
+#~ "を押しながらだとカテゴリーを移ります。Shift "
+#~ "を押しながらだとラジオの音量を10パーセントずつ変えます。{spoken}で局をお気に入りに保存します。{spoken2}でラジオを切り替えます。"
+
+#~ msgid "With Control they jump categories."
+#~ msgstr "Control を押しながらだとカテゴリーを移ります。"
+
+#~ msgid "With Shift they change radio volume by 10 percent."
+#~ msgstr "Shift を押しながらだとラジオの音量を10パーセントずつ変えます。"
+
+#~ msgid "{spoken2} toggles the radio."
+#~ msgstr "{spoken2}でラジオを切り替えます。"
+
+#~ msgid "{spoken} saves the station as a favorite."
+#~ msgstr "{spoken}で局をお気に入りに保存します。"
+
+#~ msgid "Favorites saved: {favorite_ids}."
+#~ msgstr "保存したお気に入り：{favorite_ids}。"
+
+#~ msgid "Approximate truck radio position: {f}, {f2}."
+#~ msgstr "トラックのラジオのおおよその位置：{f}、{f2}。"
+
+#~ msgid "Receivable stations:"
+#~ msgstr "受信できる局："
+
+#~ msgid "Plus 1 more station, listed in the Radio app under Driver apps."
+#~ msgstr "ほかに1局あります。ドライバーアプリのラジオアプリに載っています。"
+
+#~ msgid "Plus {n} more stations, listed in the Radio app under Driver apps."
+#~ msgstr "ほかに{n}局あります。ドライバーアプリのラジオアプリに載っています。"
+
+#~ msgid "Favorites saved:"
+#~ msgstr "保存したお気に入り："
+
+#~ msgid ""
+#~ "Online options are now in the Online menu on the main menu. This row opens "
+#~ "it."
+#~ msgstr "オンラインの設定は、メインメニューのオンラインメニューに移りました。この行で開きます。"
+
+#~ msgid ""
+#~ "Gameplay holds driving assistance, difficulty and hours, world and traffic, "
+#~ "and controls. Audio, Speech, Updates, Problem reports, and Online have "
+#~ "separate choices where supported. F1 explains the selected setting."
+#~ msgstr ""
+#~ "ゲームプレイには、運転アシスト、難易度と運転時間、ワールドと周囲の車、操作があります。オーディオ、読み上げ、アップデート、問題の報告、オンラインには、対"
+#~ "応している場合それぞれの選択肢があります。F1 で選んでいる設定を説明します。"
 
 #~ msgid "{name} needs you back at the wheel."
 #~ msgstr "{name}が運転を代わってほしいそうです。"

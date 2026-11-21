@@ -461,6 +461,17 @@ impl Trip {
     }
 
     pub fn check_chain_law(&mut self) {
+        if let Some(area) = self.chain_law_lift_to_speak.take() {
+            self.emit(
+                TripEventKind::GpsCue,
+                SpokenMessage::new("Chain law lifted."),
+                TripEventData {
+                    chain_law: Some(0),
+                    chain_law_area: Some(area),
+                    ..Default::default()
+                },
+            );
+        }
         let level = self.chain_law_level();
         if level == 0 || self.chain_law_areas.is_empty() {
             return;

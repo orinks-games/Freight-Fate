@@ -14,7 +14,7 @@ use super::{
     station_identity, RadioAction, RadioPlaybackBackend, RadioReception, RadioStation,
     SAFE_ROUTE_PLAYLIST, SIGNAL_FULL_VOLUME, STATIC_SIGNAL_THRESHOLD,
 };
-use crate::pyfmt::{fmt_f, round_py_int};
+use crate::pyfmt::round_py_int;
 
 /// Saved stations pull forward to this dial group ([`RadioState::group`]): with
 /// thousands of stations on the dial, the driver's own picks sit right after
@@ -526,51 +526,21 @@ impl RadioState {
         dial_category_name(dial_group(station))
     }
 
-    /// The Tab radio screen's station list: one line for every station the
-    /// truck hears from the dial's local groups -- the Freight Fate stations,
-    /// the driver's playlists, saved favorites and terrestrial stations in
-    /// range, plus the safety fallback -- in dial order, and how many more
-    /// receivable stations (web, satellite and the rest, thousands of them,
-    /// in range everywhere) the list leaves to the Radio app.
+    /// The Radio app's Local stations list: every receivable station from
+    /// the dial's local groups -- the Freight Fate stations, the driver's
+    /// playlists, saved favorites and terrestrial stations in range, plus
+    /// the safety fallback -- in dial order. Web, satellite and the rest
+    /// (thousands of them, in range everywhere) stay on Stations in range.
     ///
-    /// It used to be the first 16 receivable stations. Once the Freight Fate
-    /// group grew past 16, that cut Channel 3000 and the last few regional
-    /// stations, and never reached a single station in range (owner,
-    /// 2026-11-17).
-    pub fn station_list_lines(
-        &mut self,
-        distance_text: Option<&dyn Fn(f64) -> String>,
-    ) -> (Vec<String>, usize) {
-        let current_id = self.current_station().id;
-        let (local, elsewhere): (Vec<RadioReception>, Vec<RadioReception>) = self
-            .receivable_stations()
+    /// The Tab radio screen this list came from once read the first 16
+    /// receivable stations. Once the Freight Fate group grew past 16, that
+    /// cut Channel 3000 and the last few regional stations, and never
+    /// reached a single station in range (owner, 2026-11-17).
+    pub fn local_stations(&self) -> Vec<RadioReception> {
+        self.receivable_stations()
             .into_iter()
-            .partition(|r| r.fallback || self.group(&r.station) <= TERRESTRIAL_GROUP);
-        let mut lines = Vec::new();
-        for reception in local {
-            let station = &reception.station;
-            let selected = if station.id == current_id {
-                "current, "
-            } else {
-                ""
-            };
-            let mut distance = String::new();
-            if let Some(miles) = reception.distance_miles {
-                let spoken = match distance_text {
-                    Some(f) => f(miles),
-                    None => format!("{} miles", fmt_f(miles, 0)),
-                };
-                distance = format!(", {spoken} away");
-            }
-            lines.push(format!(
-                "{selected}{}: {}, {}{distance}. Source: {}.",
-                station.display_name(),
-                station.format,
-                reception.signal_label(),
-                station.source
-            ));
-        }
-        (lines, elsewhere.len())
+            .filter(|r| r.fallback || self.group(&r.station) <= TERRESTRIAL_GROUP)
+            .collect()
     }
 
     pub fn current_station(&mut self) -> RadioStation {

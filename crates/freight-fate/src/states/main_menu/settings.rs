@@ -15,7 +15,6 @@ use ff_core::settings::{lane_keeping_to_legacy, Settings};
 use crate::app::{active_log_path, GameContext, Say};
 use crate::impl_state_for_menu;
 use crate::states::base::{InputEvent, Key, Menu, MenuCore, MenuItem};
-use crate::states::online_hub::OnlineHubState;
 
 use super::speech_voices::{rows_signature, RowsAction, RowsEvent, RowsSignature, RowsWait};
 
@@ -55,11 +54,6 @@ impl SettingsState {
         }
         ctx.push_state(SettingsCategoryState::new(category));
     }
-
-    fn open_online_hub(&mut self, ctx: &mut GameContext) {
-        let hub = OnlineHubState::new(ctx);
-        ctx.push_state(hub);
-    }
 }
 
 impl Default for SettingsState {
@@ -92,16 +86,6 @@ impl Menu for SettingsState {
                     .help(format!("Open {} settings.", label.to_lowercase()))
             })
             .collect();
-        // The Online items moved to the main menu; this stays in the old spot
-        // (after Speech) for a release or two so muscle memory still lands
-        // somewhere useful.
-        items.insert(
-            3,
-            MenuItem::new("Online", |s: &mut Self, ctx| s.open_online_hub(ctx)).help(
-                "Online options are now in the Online menu on the main menu. This row \
-                 opens it.",
-            ),
-        );
         items.push(MenuItem::new("Back", |s: &mut Self, ctx| s.go_back(ctx)));
         items
     }
