@@ -8829,6 +8829,26 @@ msgstr ", бесплатно за счёт перевозчика на уров�
 msgid "carrier-sponsored free at level {level}"
 msgstr "бесплатно за счёт перевозчика на уровне {level}"
 
+msgid "clear"
+msgstr "ясно"
+
+#. placeholders: {i}
+msgid "hours_heard job {i}"
+msgstr ""
+
+#. placeholders: {i}
+msgid "chains_heard job {i}"
+msgstr ""
+
+msgid "assigned"
+msgstr "назначен"
+
+msgid "browse"
+msgstr "обзор"
+
+msgid "plain"
+msgstr ""
+
 msgid "Pay advance already taken for this load. Deliver it first."
 msgstr "Аванс за этот груз уже взят. Сначала доставьте его."
 
@@ -9582,9 +9602,6 @@ msgstr "оплата"
 
 msgid "bobtail"
 msgstr "без прицепа"
-
-msgid "assigned"
-msgstr "назначен"
 
 msgid "team"
 msgstr "team"
@@ -12469,9 +12486,6 @@ msgstr "облачно"
 
 msgid "overcast"
 msgstr "пасмурно"
-
-msgid "clear"
-msgstr "ясно"
 
 msgid "fair"
 msgstr "хорошая погода"
@@ -15700,6 +15714,16 @@ msgstr ""
 "Вы садитесь за руль через {start_mi} {start_mi:милю|мили|миль} дальше по "
 "дороге."
 
+#. placeholders: {i}
+msgid "job {i}"
+msgstr ""
+
+#. placeholders: {mode_key}, {offer}, {reason}, {key}
+msgid ""
+"; board_mode {mode_key}; board_offer {offer}; board_reason {reason}; "
+"board_gate {key}"
+msgstr ""
+
 msgid "automatic"
 msgstr "автоматическая"
 
@@ -18133,44 +18157,6 @@ msgstr "около {take_home} после расходов"
 msgid "about {take_home} to you"
 msgstr "около {take_home} вам"
 
-#. placeholders: {highway}
-#. one sentence of a longer line
-msgid "A chain law is in effect on {highway} on this route."
-msgstr "На этом маршруте на {highway} действует закон о цепях."
-
-#. placeholders: {highway}
-msgid ""
-"A chain law is in effect on {highway} on this route. You have no chains. "
-"The garage here sells them. Enter again to accept."
-msgstr ""
-"На этом маршруте на {highway} действует закон о цепях. У вас нет цепей. "
-"Здешняя мастерская их продаёт. Нажмите Enter ещё раз, чтобы принять."
-
-#. one sentence of a longer line
-msgid "Enter again to accept."
-msgstr "Нажмите Enter ещё раз, чтобы принять."
-
-#. one sentence of a longer line
-msgid "The garage here sells them."
-msgstr "Здешняя мастерская их продаёт."
-
-#. one sentence of a longer line
-msgid "You have no chains."
-msgstr "У вас нет цепей."
-
-#. placeholders: {highway}
-#. one sentence of a longer line
-msgid "Trucks on {highway} must carry chains this season."
-msgstr "В этот сезон грузовики на {highway} обязаны возить цепи."
-
-#. placeholders: {highway}
-msgid ""
-"Trucks on {highway} must carry chains this season. You have no chains. The "
-"garage here sells them. Enter again to accept."
-msgstr ""
-"В этот сезон грузовики на {highway} обязаны возить цепи. У вас нет цепей. "
-"Здешняя мастерская их продаёт. Нажмите Enter ещё раз, чтобы принять."
-
 msgid "Dispatch board"
 msgstr "Доска заказов"
 
@@ -18281,6 +18267,22 @@ msgstr ""
 #. one sentence of a longer line
 msgid "{note} New assignment: {described}"
 msgstr "{note} Новое назначение: {described}"
+
+#. placeholders: {label}
+msgid "Recommended dispatch, best pay for the hours: {label}"
+msgstr ""
+
+#. placeholders: {label}
+msgid "Recommended dispatch, best net for the hours: {label}"
+msgstr ""
+
+#. placeholders: {label}
+msgid "Recommended dispatch, most room on the deadline: {label}"
+msgstr ""
+
+#. placeholders: {label}
+msgid "Recommended dispatch: {label}"
+msgstr ""
 
 #. placeholders: {recommendation}, {label}
 msgid "Recommended dispatch, {recommendation}: {label}"
@@ -18515,6 +18517,44 @@ msgstr "Этому рейсу нужен 10-часовой сон."
 msgid "This run needs {sleeps} 10-hour sleeps."
 msgstr ""
 "Этому рейсу нужно {sleeps} {sleeps:ночёвка|ночёвки|ночёвок} по 10 часов."
+
+#. placeholders: {highway}
+#. one sentence of a longer line
+msgid "A chain law is in effect on {highway} on this route."
+msgstr "На этом маршруте на {highway} действует закон о цепях."
+
+#. placeholders: {highway}
+msgid ""
+"A chain law is in effect on {highway} on this route. You have no chains. "
+"The garage here sells them. Enter again to accept."
+msgstr ""
+"На этом маршруте на {highway} действует закон о цепях. У вас нет цепей. "
+"Здешняя мастерская их продаёт. Нажмите Enter ещё раз, чтобы принять."
+
+#. one sentence of a longer line
+msgid "Enter again to accept."
+msgstr "Нажмите Enter ещё раз, чтобы принять."
+
+#. one sentence of a longer line
+msgid "The garage here sells them."
+msgstr "Здешняя мастерская их продаёт."
+
+#. one sentence of a longer line
+msgid "You have no chains."
+msgstr "У вас нет цепей."
+
+#. placeholders: {highway}
+#. one sentence of a longer line
+msgid "Trucks on {highway} must carry chains this season."
+msgstr "В этот сезон грузовики на {highway} обязаны возить цепи."
+
+#. placeholders: {highway}
+msgid ""
+"Trucks on {highway} must carry chains this season. You have no chains. The "
+"garage here sells them. Enter again to accept."
+msgstr ""
+"В этот сезон грузовики на {highway} обязаны возить цепи. У вас нет цепей. "
+"Здешняя мастерская их продаёт. Нажмите Enter ещё раз, чтобы принять."
 
 #. placeholders: {i}, {total}
 msgid "Job {i} of {total}: "
@@ -59138,9 +59178,6 @@ msgstr ""
 #~ "while it is speaking; when nothing is being said, it repeats this help. "
 #~ msgstr ""
 #~ "пока он говорит; когда ничего не звучит, она повторяет эту справку. "
-
-#~ msgid "browse"
-#~ msgstr "обзор"
 
 #~ msgid "{page_text} PageDown for the next page."
 #~ msgstr "{page_text} PageDown — следующая страница."

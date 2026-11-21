@@ -9624,7 +9624,7 @@ msgstr ""
 msgid "{name}, your old trainer, along for one load."
 msgstr ""
 
-#: crates/ff-core/src/models/credentials.rs
+#: crates/ff-core/src/models/credentials.rs crates/ff-core/src/models/dispatch_fit.rs
 msgid "training"
 msgstr ""
 
@@ -9935,6 +9935,32 @@ msgstr ""
 #. one clause of a longer line
 #: crates/ff-core/src/models/credentials.rs
 msgid "carrier-sponsored free at level {level}"
+msgstr ""
+
+#: crates/ff-core/src/models/dispatch_board.rs crates/ff-core/src/sim/real_weather.rs crates/ff-core/src/sim/runaway.rs crates/ff-core/src/sim/weather/tables.rs
+msgid "clear"
+msgstr ""
+
+#. placeholders: {i}
+#: crates/ff-core/src/models/dispatch_board.rs
+msgid "hours_heard job {i}"
+msgstr ""
+
+#. placeholders: {i}
+#: crates/ff-core/src/models/dispatch_board.rs
+msgid "chains_heard job {i}"
+msgstr ""
+
+#: crates/ff-core/src/models/dispatch_board.rs crates/ff-core/src/models/jobs.rs crates/ff-core/src/models/trailer_yard.rs crates/freight-fate/src/app.rs
+msgid "assigned"
+msgstr ""
+
+#: crates/ff-core/src/models/dispatch_board.rs
+msgid "browse"
+msgstr ""
+
+#: crates/ff-core/src/models/dispatch_fit.rs
+msgid "plain"
 msgstr ""
 
 #: crates/ff-core/src/models/economy.rs
@@ -10804,10 +10830,6 @@ msgstr ""
 
 #: crates/ff-core/src/models/jobs.rs
 msgid "bobtail"
-msgstr ""
-
-#: crates/ff-core/src/models/jobs.rs crates/ff-core/src/models/trailer_yard.rs
-msgid "assigned"
 msgstr ""
 
 #: crates/ff-core/src/models/jobs.rs crates/freight-fate/src/states/driving/snapshot.rs
@@ -14003,7 +14025,7 @@ msgstr ""
 msgid "glaze"
 msgstr ""
 
-#: crates/ff-core/src/sim/real_weather.rs crates/ff-core/src/sim/weather/tables.rs crates/freight-fate/src/states/city/board.rs
+#: crates/ff-core/src/sim/real_weather.rs crates/ff-core/src/sim/weather/tables.rs crates/freight-fate/src/states/city/board/chains.rs
 msgid "ice"
 msgstr ""
 
@@ -14027,7 +14049,7 @@ msgstr ""
 msgid "frost"
 msgstr ""
 
-#: crates/ff-core/src/sim/real_weather.rs crates/ff-core/src/sim/real_weather_alerts.rs crates/ff-core/src/sim/weather/tables.rs crates/freight-fate/src/states/city/board.rs
+#: crates/ff-core/src/sim/real_weather.rs crates/ff-core/src/sim/real_weather_alerts.rs crates/ff-core/src/sim/weather/tables.rs crates/freight-fate/src/states/city/board/chains.rs
 msgid "snow"
 msgstr ""
 
@@ -14105,10 +14127,6 @@ msgstr ""
 
 #: crates/ff-core/src/sim/real_weather.rs
 msgid "overcast"
-msgstr ""
-
-#: crates/ff-core/src/sim/real_weather.rs crates/ff-core/src/sim/runaway.rs crates/ff-core/src/sim/weather/tables.rs
-msgid "clear"
 msgstr ""
 
 #: crates/ff-core/src/sim/real_weather.rs
@@ -17903,6 +17921,18 @@ msgstr ""
 msgid "You take the wheel {start_mi} miles up the road."
 msgstr ""
 
+#. placeholders: {i}
+#: crates/freight-fate/src/app.rs
+msgid "job {i}"
+msgstr ""
+
+#. placeholders: {mode_key}, {offer}, {reason}, {key}
+#: crates/freight-fate/src/app.rs
+msgid ""
+"; board_mode {mode_key}; board_offer {offer}; board_reason {reason}; "
+"board_gate {key}"
+msgstr ""
+
 #: crates/freight-fate/src/app.rs crates/freight-fate/src/states/driving/lifecycle.rs crates/freight-fate/src/states/driving_menu_states/status.rs crates/freight-fate/src/states/driving_updates/frame.rs
 msgid "automatic"
 msgstr ""
@@ -20732,47 +20762,6 @@ msgstr ""
 msgid "about {take_home} to you"
 msgstr ""
 
-#. placeholders: {highway}
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/city/board.rs
-msgid "A chain law is in effect on {highway} on this route."
-msgstr ""
-
-#. placeholders: {highway}
-#: crates/freight-fate/src/states/city/board.rs
-msgid ""
-"A chain law is in effect on {highway} on this route. You have no chains. "
-"The garage here sells them. Enter again to accept."
-msgstr ""
-
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/city/board.rs
-msgid "Enter again to accept."
-msgstr ""
-
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/city/board.rs
-msgid "The garage here sells them."
-msgstr ""
-
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/city/board.rs
-msgid "You have no chains."
-msgstr ""
-
-#. placeholders: {highway}
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/city/board.rs
-msgid "Trucks on {highway} must carry chains this season."
-msgstr ""
-
-#. placeholders: {highway}
-#: crates/freight-fate/src/states/city/board.rs
-msgid ""
-"Trucks on {highway} must carry chains this season. You have no chains. The "
-"garage here sells them. Enter again to accept."
-msgstr ""
-
 #: crates/freight-fate/src/states/city/board.rs crates/freight-fate/src/states/city/terminal.rs
 msgid "Dispatch board"
 msgstr ""
@@ -20888,6 +20877,26 @@ msgstr ""
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/city/board.rs
 msgid "{note} New assignment: {described}"
+msgstr ""
+
+#. placeholders: {label}
+#: crates/freight-fate/src/states/city/board.rs
+msgid "Recommended dispatch, best pay for the hours: {label}"
+msgstr ""
+
+#. placeholders: {label}
+#: crates/freight-fate/src/states/city/board.rs
+msgid "Recommended dispatch, best net for the hours: {label}"
+msgstr ""
+
+#. placeholders: {label}
+#: crates/freight-fate/src/states/city/board.rs
+msgid "Recommended dispatch, most room on the deadline: {label}"
+msgstr ""
+
+#. placeholders: {label}
+#: crates/freight-fate/src/states/city/board.rs
+msgid "Recommended dispatch: {label}"
 msgstr ""
 
 #. placeholders: {recommendation}, {label}
@@ -21122,6 +21131,47 @@ msgstr ""
 #. placeholders: {sleeps}
 #: crates/freight-fate/src/states/city/board/briefing.rs
 msgid "This run needs {sleeps} 10-hour sleeps."
+msgstr ""
+
+#. placeholders: {highway}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/city/board/chains.rs
+msgid "A chain law is in effect on {highway} on this route."
+msgstr ""
+
+#. placeholders: {highway}
+#: crates/freight-fate/src/states/city/board/chains.rs
+msgid ""
+"A chain law is in effect on {highway} on this route. You have no chains. "
+"The garage here sells them. Enter again to accept."
+msgstr ""
+
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/city/board/chains.rs
+msgid "Enter again to accept."
+msgstr ""
+
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/city/board/chains.rs
+msgid "The garage here sells them."
+msgstr ""
+
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/city/board/chains.rs
+msgid "You have no chains."
+msgstr ""
+
+#. placeholders: {highway}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/city/board/chains.rs
+msgid "Trucks on {highway} must carry chains this season."
+msgstr ""
+
+#. placeholders: {highway}
+#: crates/freight-fate/src/states/city/board/chains.rs
+msgid ""
+"Trucks on {highway} must carry chains this season. You have no chains. The "
+"garage here sells them. Enter again to accept."
 msgstr ""
 
 #. placeholders: {i}, {total}

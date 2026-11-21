@@ -8991,6 +8991,26 @@ msgstr ", von der Spedition bezahlt ab Level {level}"
 msgid "carrier-sponsored free at level {level}"
 msgstr "vom Spediteur gesponsert, kostenlos ab Stufe {level}"
 
+msgid "clear"
+msgstr "klar"
+
+#. placeholders: {i}
+msgid "hours_heard job {i}"
+msgstr ""
+
+#. placeholders: {i}
+msgid "chains_heard job {i}"
+msgstr ""
+
+msgid "assigned"
+msgstr "zugewiesen"
+
+msgid "browse"
+msgstr "stöbern"
+
+msgid "plain"
+msgstr ""
+
 msgid "Pay advance already taken for this load. Deliver it first."
 msgstr ""
 "Für diesen Auftrag hast du schon einen Lohnvorschuss genommen. Liefere ihn "
@@ -9758,9 +9778,6 @@ msgstr "Bezahlung"
 
 msgid "bobtail"
 msgstr "ohne Auflieger"
-
-msgid "assigned"
-msgstr "zugewiesen"
 
 msgid "team"
 msgstr "Team"
@@ -12666,9 +12683,6 @@ msgstr "Wolken"
 
 msgid "overcast"
 msgstr "bedeckt"
-
-msgid "clear"
-msgstr "klar"
 
 msgid "fair"
 msgstr "heiter"
@@ -15899,6 +15913,16 @@ msgid "You take the wheel {start_mi} miles up the road."
 msgstr ""
 "Du übernimmst das Steuer {start_mi} Meilen weiter die Straße hinauf."
 
+#. placeholders: {i}
+msgid "job {i}"
+msgstr ""
+
+#. placeholders: {mode_key}, {offer}, {reason}, {key}
+msgid ""
+"; board_mode {mode_key}; board_offer {offer}; board_reason {reason}; "
+"board_gate {key}"
+msgstr ""
+
 msgid "automatic"
 msgstr "Automatik"
 
@@ -18340,44 +18364,6 @@ msgstr "etwa {take_home} nach Kosten"
 msgid "about {take_home} to you"
 msgstr "etwa {take_home} für dich"
 
-#. placeholders: {highway}
-#. one sentence of a longer line
-msgid "A chain law is in effect on {highway} on this route."
-msgstr "Auf dieser Route gilt Kettenpflicht auf {highway}."
-
-#. placeholders: {highway}
-msgid ""
-"A chain law is in effect on {highway} on this route. You have no chains. "
-"The garage here sells them. Enter again to accept."
-msgstr ""
-"Auf dieser Route gilt Kettenpflicht auf {highway}. Du hast keine Ketten. "
-"Die Werkstatt hier verkauft welche. Noch einmal Enter zum Annehmen."
-
-#. one sentence of a longer line
-msgid "Enter again to accept."
-msgstr "Noch einmal Enter zum Annehmen."
-
-#. one sentence of a longer line
-msgid "The garage here sells them."
-msgstr "Die Werkstatt hier verkauft welche."
-
-#. one sentence of a longer line
-msgid "You have no chains."
-msgstr "Du hast keine Ketten."
-
-#. placeholders: {highway}
-#. one sentence of a longer line
-msgid "Trucks on {highway} must carry chains this season."
-msgstr "Lkw auf {highway} müssen in dieser Saison Ketten mitführen."
-
-#. placeholders: {highway}
-msgid ""
-"Trucks on {highway} must carry chains this season. You have no chains. The "
-"garage here sells them. Enter again to accept."
-msgstr ""
-"Lkw auf {highway} müssen in dieser Saison Ketten mitführen. Du hast keine "
-"Ketten. Die Werkstatt hier verkauft welche. Noch einmal Enter zum Annehmen."
-
 msgid "Dispatch board"
 msgstr "Auftragsbörse"
 
@@ -18487,6 +18473,22 @@ msgstr ""
 #. one sentence of a longer line
 msgid "{note} New assignment: {described}"
 msgstr "{note} Neue Zuweisung: {described}"
+
+#. placeholders: {label}
+msgid "Recommended dispatch, best pay for the hours: {label}"
+msgstr ""
+
+#. placeholders: {label}
+msgid "Recommended dispatch, best net for the hours: {label}"
+msgstr ""
+
+#. placeholders: {label}
+msgid "Recommended dispatch, most room on the deadline: {label}"
+msgstr ""
+
+#. placeholders: {label}
+msgid "Recommended dispatch: {label}"
+msgstr ""
 
 #. placeholders: {recommendation}, {label}
 msgid "Recommended dispatch, {recommendation}: {label}"
@@ -18722,6 +18724,44 @@ msgstr "Diese Fahrt braucht eine 10-stündige Schlafpause."
 #. placeholders: {sleeps}
 msgid "This run needs {sleeps} 10-hour sleeps."
 msgstr "Diese Fahrt braucht {sleeps} Schlafpausen von 10 Stunden."
+
+#. placeholders: {highway}
+#. one sentence of a longer line
+msgid "A chain law is in effect on {highway} on this route."
+msgstr "Auf dieser Route gilt Kettenpflicht auf {highway}."
+
+#. placeholders: {highway}
+msgid ""
+"A chain law is in effect on {highway} on this route. You have no chains. "
+"The garage here sells them. Enter again to accept."
+msgstr ""
+"Auf dieser Route gilt Kettenpflicht auf {highway}. Du hast keine Ketten. "
+"Die Werkstatt hier verkauft welche. Noch einmal Enter zum Annehmen."
+
+#. one sentence of a longer line
+msgid "Enter again to accept."
+msgstr "Noch einmal Enter zum Annehmen."
+
+#. one sentence of a longer line
+msgid "The garage here sells them."
+msgstr "Die Werkstatt hier verkauft welche."
+
+#. one sentence of a longer line
+msgid "You have no chains."
+msgstr "Du hast keine Ketten."
+
+#. placeholders: {highway}
+#. one sentence of a longer line
+msgid "Trucks on {highway} must carry chains this season."
+msgstr "Lkw auf {highway} müssen in dieser Saison Ketten mitführen."
+
+#. placeholders: {highway}
+msgid ""
+"Trucks on {highway} must carry chains this season. You have no chains. The "
+"garage here sells them. Enter again to accept."
+msgstr ""
+"Lkw auf {highway} müssen in dieser Saison Ketten mitführen. Du hast keine "
+"Ketten. Die Werkstatt hier verkauft welche. Noch einmal Enter zum Annehmen."
 
 #. placeholders: {i}, {total}
 msgid "Job {i} of {total}: "
@@ -59344,9 +59384,6 @@ msgstr ""
 #~ "while it is speaking; when nothing is being said, it repeats this help. "
 #~ msgstr ""
 #~ "während sie spricht; wenn nichts gesagt wird, wiederholt sie diese Hilfe. "
-
-#~ msgid "browse"
-#~ msgstr "stöbern"
 
 #~ msgid "{page_text} PageDown for the next page."
 #~ msgstr "{page_text} PageDown für die nächste Seite."

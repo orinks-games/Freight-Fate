@@ -83,14 +83,23 @@ fn entry_announcement(app: &TestApp) -> String {
 fn test_new_hire_board_offers_single_assignment_with_decline() {
     let mut app = TestApp::new();
     new_hire(&mut app, "New Hire");
-    profile_mut(&mut app).career.deliveries = 12; // past training stages
+    {
+        let p = profile_mut(&mut app);
+        p.career.deliveries = 12; // past training stages
+        p.career.reputation = 86.0; // standing is fine: dispatch plans for pay
+    }
 
-    push_board(&mut app, vec![job(180.0), job(70.0)]);
+    // Both loads run the same Chicago to Milwaukee road, so the same hours;
+    // the one that pays the driver more for them is the assignment.
+    push_board(
+        &mut app,
+        vec![job_with(180.0, 900.0, 8.0), job_with(70.0, 1800.0, 8.0)],
+    );
 
     assert!(with_state::<JobBoardState, _>(&app, |b, _| b.assigned_mode()));
     let labels = labels::<JobBoardState>(&app);
     assert!(labels[0].starts_with("Assigned load:"));
-    assert!(labels[0].contains("70 miles")); // the recommended (shortest) load
+    assert!(labels[0].contains("70 miles"), "{labels:?}");
     assert!(labels[1].starts_with("Decline and request another load:"));
     assert!(labels[1].contains(&format!("{NEW_HIRE_DECLINE_BUDGET} declines left")));
     assert_eq!(labels.last().unwrap(), "Back to terminal");
@@ -166,10 +175,18 @@ fn the_cursor_skips_the_straight_return_when_the_driver_picks() {
 fn test_declining_assignment_costs_reputation_and_draws_next_load() {
     let mut app = TestApp::new();
     new_hire(&mut app, "Decliner");
-    profile_mut(&mut app).career.deliveries = 12;
+    {
+        let p = profile_mut(&mut app);
+        p.career.deliveries = 12;
+        p.career.reputation = 86.0;
+    }
     let reputation_before = profile(&app).career.reputation;
 
-    push_board(&mut app, vec![job(180.0), job(70.0)]);
+    // Same road and hours; the 70-mile load pays more, so it is offered first.
+    push_board(
+        &mut app,
+        vec![job_with(180.0, 900.0, 8.0), job_with(70.0, 1800.0, 8.0)],
+    );
     select::<JobBoardState>(&mut app, "Decline");
 
     assert_eq!(profile(&app).career.dispatch_declines_used, 1);
@@ -522,6 +539,50 @@ fn test_declined_load_stays_declined_when_the_board_is_reopened() {
     );
 }
 
+/// The board is saved in the order dispatch posted it, and the declined
+/// list holds board rows: after a save and a reload the same rows come back
+/// in the same order, and the refused load is still the one refused.
+#[test]
+fn a_declined_load_still_names_the_same_load_after_a_save_restore() {
+    let mut app = TestApp::new();
+    new_hire(&mut app, "Board Restorer");
+    app.ctx.dispatch_board_seed = Some(41);
+    open_freight_market(&mut app.ctx);
+    let posted: Vec<String> = with_state::<JobBoardState, _>(&app, |b, _| {
+        b.jobs.iter().map(Job::describe_plain).collect()
+    });
+    let has_decline = labels::<JobBoardState>(&app)
+        .iter()
+        .any(|l| l.starts_with("Decline"));
+    if !has_decline {
+        return; // single-candidate board this seed: nothing to decline
+    }
+    let refused = with_state::<JobBoardState, _>(&app, |b, _| b.assigned_queue()[0]);
+    select::<JobBoardState>(&mut app, "Decline");
+    key(&mut app, Key::Escape);
+
+    let saved = profile(&app).to_dict();
+    app.ctx.profile = Some(Profile::from_dict(&saved));
+    open_freight_market(&mut app.ctx);
+
+    let restored: Vec<String> = with_state::<JobBoardState, _>(&app, |b, _| {
+        b.jobs.iter().map(Job::describe_plain).collect()
+    });
+    assert_eq!(restored, posted, "the saved board keeps its posted order");
+    let declined: Vec<usize> = profile(&app).dispatch_board_cache.as_ref().unwrap()["declined"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .map(|v| v.as_u64().unwrap() as usize)
+        .collect();
+    assert_eq!(declined, vec![refused]);
+    let offered = with_state::<JobBoardState, _>(&app, |b, _| b.assigned_queue()[0]);
+    assert_ne!(
+        offered, refused,
+        "the refused load is not offered again first"
+    );
+}
+
 #[test]
 fn test_assigned_board_help_describes_accept_and_decline() {
     let mut app = TestApp::new();
@@ -543,9 +604,16 @@ fn test_assignment_board_offers_a_review_of_the_locked_pool() {
     // speaks the other postings as flavor, never automatically.
     let mut app = TestApp::new();
     new_hire(&mut app, "New Hire");
-    profile_mut(&mut app).career.deliveries = 12;
+    {
+        let p = profile_mut(&mut app);
+        p.career.deliveries = 12;
+        p.career.reputation = 86.0;
+    }
 
-    push_board(&mut app, vec![job(180.0), job(70.0)]);
+    push_board(
+        &mut app,
+        vec![job_with(180.0, 900.0, 8.0), job_with(70.0, 1800.0, 8.0)],
+    );
     assert!(with_state::<JobBoardState, _>(&app, |b, _| b.assigned_mode()));
     activate::<JobBoardState>(&mut app, "Review the rest of today's board");
     let said = app.main_lines().last().cloned().unwrap();
@@ -1757,7 +1825,7 @@ fn test_dispatch_board_speaks_objective_and_marks_recommended_job() {
 
     push_board(
         &mut app,
-        vec![job_with(180.0, 1200.0, 8.0), job_with(70.0, 700.0, 8.0)],
+        vec![job_with(180.0, 700.0, 8.0), job_with(70.0, 1400.0, 8.0)],
     );
 
     let entry = entry_announcement(&app);
@@ -1768,7 +1836,11 @@ fn test_dispatch_board_speaks_objective_and_marks_recommended_job() {
         .iter()
         .find(|row| row.starts_with("Recommended dispatch"))
         .expect("a recommended row");
-    assert!(recommended.starts_with("Recommended dispatch, senior company lane: Job 2 of 2:"));
+    // Same road, same hours: the second pays the driver more for them.
+    assert!(
+        recommended.starts_with("Recommended dispatch, best pay for the hours: Job 2 of 2:"),
+        "{rows:?}"
+    );
     assert!(!rows[0].starts_with("Recommended dispatch"));
 }
 
@@ -1859,22 +1931,24 @@ fn test_dispatch_board_recommendation_label_is_spoken_and_visible() {
 
     push_board(
         &mut app,
-        vec![job_with(45.0, 900.0, 1.0), job_with(120.0, 900.0, 12.0)],
+        vec![job_with(45.0, 1800.0, 8.0), job_with(120.0, 900.0, 8.0)],
     );
 
     let entry = entry_announcement(&app);
     assert!(!entry.contains("Career objective:"));
     assert!(!entry.contains("First-day objective"));
-    assert!(!entry.contains("Recommended dispatch: senior company lane"));
-    assert!(entry.contains("Recommended dispatch, senior company lane: Job 1 of 2:"));
+    assert!(
+        entry.contains("Recommended dispatch, best pay for the hours: Job 1 of 2:"),
+        "{entry}"
+    );
     assert!(!entry.contains("Recommended dispatch is Recommended dispatch"));
     assert_eq!(index::<JobBoardState>(&app), 0);
     assert!(current_text::<JobBoardState>(&app)
-        .starts_with("Recommended dispatch, senior company lane: Job 1 of 2:"));
+        .starts_with("Recommended dispatch, best pay for the hours: Job 1 of 2:"));
     let rows = labels::<JobBoardState>(&app);
     let recommended: Vec<&String> = rows
         .iter()
-        .filter(|row| row.starts_with("Recommended dispatch, senior company lane:"))
+        .filter(|row| row.starts_with("Recommended dispatch"))
         .collect();
     assert_eq!(recommended, vec![&rows[0]]);
 }

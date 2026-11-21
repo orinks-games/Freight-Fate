@@ -7905,6 +7905,26 @@ msgstr "、レベル{level}で運送会社が無料で負担"
 msgid "carrier-sponsored free at level {level}"
 msgstr "運送会社のスポンサーでレベル {level} から無料"
 
+msgid "clear"
+msgstr "晴れ"
+
+#. placeholders: {i}
+msgid "hours_heard job {i}"
+msgstr ""
+
+#. placeholders: {i}
+msgid "chains_heard job {i}"
+msgstr ""
+
+msgid "assigned"
+msgstr "割り当て"
+
+msgid "browse"
+msgstr "閲覧"
+
+msgid "plain"
+msgstr ""
+
 msgid "Pay advance already taken for this load. Deliver it first."
 msgstr "この積荷の前払いはすでに受け取っています。先に届けてください。"
 
@@ -8602,9 +8622,6 @@ msgstr "報酬"
 
 msgid "bobtail"
 msgstr "トレーラーなし"
-
-msgid "assigned"
-msgstr "割り当て"
 
 msgid "team"
 msgstr "チーム"
@@ -11278,9 +11295,6 @@ msgstr "雲"
 
 msgid "overcast"
 msgstr "曇り"
-
-msgid "clear"
-msgstr "晴れ"
 
 msgid "fair"
 msgstr "おおむね晴れ"
@@ -14332,6 +14346,16 @@ msgstr "準備完了：{description}。{start_mi}マイル先からハンドル�
 msgid "You take the wheel {start_mi} miles up the road."
 msgstr "{start_mi}マイル先からハンドルを握ります。"
 
+#. placeholders: {i}
+msgid "job {i}"
+msgstr ""
+
+#. placeholders: {mode_key}, {offer}, {reason}, {key}
+msgid ""
+"; board_mode {mode_key}; board_offer {offer}; board_reason {reason}; "
+"board_gate {key}"
+msgstr ""
+
 msgid "automatic"
 msgstr "自動"
 
@@ -16616,43 +16640,6 @@ msgstr "経費差し引き後約{take_home}"
 msgid "about {take_home} to you"
 msgstr "あなたの取り分約{take_home}"
 
-#. placeholders: {highway}
-#. one sentence of a longer line
-msgid "A chain law is in effect on {highway} on this route."
-msgstr "このルートの{highway}でチェーン規制が実施中です。"
-
-#. placeholders: {highway}
-msgid ""
-"A chain law is in effect on {highway} on this route. You have no chains. "
-"The garage here sells them. Enter again to accept."
-msgstr ""
-"このルートの{highway}でチェーン規制が実施中です。チェーンを持っていません。ここの整備工場で売っています。もう一度Enterを押すと受けます。"
-
-#. one sentence of a longer line
-msgid "Enter again to accept."
-msgstr "もう一度Enterを押すと受けます。"
-
-#. one sentence of a longer line
-msgid "The garage here sells them."
-msgstr "ここの整備工場で売っています。"
-
-#. one sentence of a longer line
-msgid "You have no chains."
-msgstr "チェーンを持っていません。"
-
-#. placeholders: {highway}
-#. one sentence of a longer line
-msgid "Trucks on {highway} must carry chains this season."
-msgstr "この季節、{highway}を走るトラックはチェーンの携行が必要です。"
-
-#. placeholders: {highway}
-msgid ""
-"Trucks on {highway} must carry chains this season. You have no chains. The "
-"garage here sells them. Enter again to accept."
-msgstr ""
-"この季節、{highway}を走るトラックはチェーンの携行が必要です。チェーンを持っていません。ここの整備工場で売っています。もう一度Enterを押すと"
-"受けます。"
-
 msgid "Dispatch board"
 msgstr "配車ボード"
 
@@ -16748,6 +16735,22 @@ msgstr "積荷を断りました。仕事の記録に残ります。{note}新し
 #. one sentence of a longer line
 msgid "{note} New assignment: {described}"
 msgstr "{note}新しい割り当て：{described}"
+
+#. placeholders: {label}
+msgid "Recommended dispatch, best pay for the hours: {label}"
+msgstr ""
+
+#. placeholders: {label}
+msgid "Recommended dispatch, best net for the hours: {label}"
+msgstr ""
+
+#. placeholders: {label}
+msgid "Recommended dispatch, most room on the deadline: {label}"
+msgstr ""
+
+#. placeholders: {label}
+msgid "Recommended dispatch: {label}"
+msgstr ""
 
 #. placeholders: {recommendation}, {label}
 msgid "Recommended dispatch, {recommendation}: {label}"
@@ -16941,6 +16944,43 @@ msgstr "この運行には10時間の睡眠が必要です。"
 #. placeholders: {sleeps}
 msgid "This run needs {sleeps} 10-hour sleeps."
 msgstr "この運行には10時間の睡眠が{sleeps}回必要です。"
+
+#. placeholders: {highway}
+#. one sentence of a longer line
+msgid "A chain law is in effect on {highway} on this route."
+msgstr "このルートの{highway}でチェーン規制が実施中です。"
+
+#. placeholders: {highway}
+msgid ""
+"A chain law is in effect on {highway} on this route. You have no chains. "
+"The garage here sells them. Enter again to accept."
+msgstr ""
+"このルートの{highway}でチェーン規制が実施中です。チェーンを持っていません。ここの整備工場で売っています。もう一度Enterを押すと受けます。"
+
+#. one sentence of a longer line
+msgid "Enter again to accept."
+msgstr "もう一度Enterを押すと受けます。"
+
+#. one sentence of a longer line
+msgid "The garage here sells them."
+msgstr "ここの整備工場で売っています。"
+
+#. one sentence of a longer line
+msgid "You have no chains."
+msgstr "チェーンを持っていません。"
+
+#. placeholders: {highway}
+#. one sentence of a longer line
+msgid "Trucks on {highway} must carry chains this season."
+msgstr "この季節、{highway}を走るトラックはチェーンの携行が必要です。"
+
+#. placeholders: {highway}
+msgid ""
+"Trucks on {highway} must carry chains this season. You have no chains. The "
+"garage here sells them. Enter again to accept."
+msgstr ""
+"この季節、{highway}を走るトラックはチェーンの携行が必要です。チェーンを持っていません。ここの整備工場で売っています。もう一度Enterを押すと"
+"受けます。"
 
 #. placeholders: {i}, {total}
 msgid "Job {i} of {total}: "
@@ -52052,9 +52092,6 @@ msgstr ""
 #~ msgid ""
 #~ "while it is speaking; when nothing is being said, it repeats this help. "
 #~ msgstr "話している間はそれを止め、何も話していないときはこのヘルプを繰り返します。 "
-
-#~ msgid "browse"
-#~ msgstr "閲覧"
 
 #~ msgid "{page_text} PageDown for the next page."
 #~ msgstr "{page_text} PageDown で次のページへ。"

@@ -7871,6 +7871,26 @@ msgstr "，{level}级时承运商免费资助"
 msgid "carrier-sponsored free at level {level}"
 msgstr "由承运商赞助，在 {level} 级免费"
 
+msgid "clear"
+msgstr "晴"
+
+#. placeholders: {i}
+msgid "hours_heard job {i}"
+msgstr ""
+
+#. placeholders: {i}
+msgid "chains_heard job {i}"
+msgstr ""
+
+msgid "assigned"
+msgstr "已分配"
+
+msgid "browse"
+msgstr "浏览"
+
+msgid "plain"
+msgstr ""
+
 msgid "Pay advance already taken for this load. Deliver it first."
 msgstr "这单货物已经预支过工资了。先把它送达。"
 
@@ -8565,9 +8585,6 @@ msgstr "报酬"
 
 msgid "bobtail"
 msgstr "空车头"
-
-msgid "assigned"
-msgstr "已分配"
 
 msgid "team"
 msgstr "双人"
@@ -11188,9 +11205,6 @@ msgstr "cloud"
 
 msgid "overcast"
 msgstr "overcast"
-
-msgid "clear"
-msgstr "晴"
 
 msgid "fair"
 msgstr "fair"
@@ -14190,6 +14204,16 @@ msgstr "已布置：{description}。你会在前方{start_mi}英里处接手驾�
 msgid "You take the wheel {start_mi} miles up the road."
 msgstr "你会在前方{start_mi}英里处接手驾驶。"
 
+#. placeholders: {i}
+msgid "job {i}"
+msgstr ""
+
+#. placeholders: {mode_key}, {offer}, {reason}, {key}
+msgid ""
+"; board_mode {mode_key}; board_offer {offer}; board_reason {reason}; "
+"board_gate {key}"
+msgstr ""
+
 msgid "automatic"
 msgstr "自动"
 
@@ -16450,40 +16474,6 @@ msgstr "扣除成本后约{take_home}"
 msgid "about {take_home} to you"
 msgstr "你约得{take_home}"
 
-#. placeholders: {highway}
-#. one sentence of a longer line
-msgid "A chain law is in effect on {highway} on this route."
-msgstr "这条路线上的{highway}正在实施防滑链法规。"
-
-#. placeholders: {highway}
-msgid ""
-"A chain law is in effect on {highway} on this route. You have no chains. "
-"The garage here sells them. Enter again to accept."
-msgstr "这条路线上的{highway}正在实施防滑链法规。你没有防滑链。这里的修理厂有售。再次按Enter接受。"
-
-#. one sentence of a longer line
-msgid "Enter again to accept."
-msgstr "再次按Enter接受。"
-
-#. one sentence of a longer line
-msgid "The garage here sells them."
-msgstr "这里的修理厂有售。"
-
-#. one sentence of a longer line
-msgid "You have no chains."
-msgstr "你没有防滑链。"
-
-#. placeholders: {highway}
-#. one sentence of a longer line
-msgid "Trucks on {highway} must carry chains this season."
-msgstr "本季节在{highway}行驶的卡车必须携带防滑链。"
-
-#. placeholders: {highway}
-msgid ""
-"Trucks on {highway} must carry chains this season. You have no chains. The "
-"garage here sells them. Enter again to accept."
-msgstr "本季节在{highway}行驶的卡车必须携带防滑链。你没有防滑链。这里的修理厂有售。再次按Enter接受。"
-
 msgid "Dispatch board"
 msgstr "调度板"
 
@@ -16577,6 +16567,22 @@ msgstr "货物已拒绝，已记入你的服务记录。{note}新的指派：{de
 #. one sentence of a longer line
 msgid "{note} New assignment: {described}"
 msgstr "{note}新的指派：{described}"
+
+#. placeholders: {label}
+msgid "Recommended dispatch, best pay for the hours: {label}"
+msgstr ""
+
+#. placeholders: {label}
+msgid "Recommended dispatch, best net for the hours: {label}"
+msgstr ""
+
+#. placeholders: {label}
+msgid "Recommended dispatch, most room on the deadline: {label}"
+msgstr ""
+
+#. placeholders: {label}
+msgid "Recommended dispatch: {label}"
+msgstr ""
 
 #. placeholders: {recommendation}, {label}
 msgid "Recommended dispatch, {recommendation}: {label}"
@@ -16770,6 +16776,40 @@ msgstr "这趟行程需要睡眠10小时。"
 #. placeholders: {sleeps}
 msgid "This run needs {sleeps} 10-hour sleeps."
 msgstr "这趟行程需要睡眠{sleeps}次，每次10小时。"
+
+#. placeholders: {highway}
+#. one sentence of a longer line
+msgid "A chain law is in effect on {highway} on this route."
+msgstr "这条路线上的{highway}正在实施防滑链法规。"
+
+#. placeholders: {highway}
+msgid ""
+"A chain law is in effect on {highway} on this route. You have no chains. "
+"The garage here sells them. Enter again to accept."
+msgstr "这条路线上的{highway}正在实施防滑链法规。你没有防滑链。这里的修理厂有售。再次按Enter接受。"
+
+#. one sentence of a longer line
+msgid "Enter again to accept."
+msgstr "再次按Enter接受。"
+
+#. one sentence of a longer line
+msgid "The garage here sells them."
+msgstr "这里的修理厂有售。"
+
+#. one sentence of a longer line
+msgid "You have no chains."
+msgstr "你没有防滑链。"
+
+#. placeholders: {highway}
+#. one sentence of a longer line
+msgid "Trucks on {highway} must carry chains this season."
+msgstr "本季节在{highway}行驶的卡车必须携带防滑链。"
+
+#. placeholders: {highway}
+msgid ""
+"Trucks on {highway} must carry chains this season. You have no chains. The "
+"garage here sells them. Enter again to accept."
+msgstr "本季节在{highway}行驶的卡车必须携带防滑链。你没有防滑链。这里的修理厂有售。再次按Enter接受。"
 
 #. placeholders: {i}, {total}
 msgid "Job {i} of {total}: "
@@ -50841,9 +50881,6 @@ msgstr ""
 #~ msgid ""
 #~ "while it is speaking; when nothing is being said, it repeats this help. "
 #~ msgstr "停止它；没有在说话时，它会重复这段帮助。 "
-
-#~ msgid "browse"
-#~ msgstr "浏览"
 
 #~ msgid "{page_text} PageDown for the next page."
 #~ msgstr "{page_text} 按 PageDown 翻到下一页。"

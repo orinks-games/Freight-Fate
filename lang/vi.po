@@ -9050,6 +9050,26 @@ msgstr ", hãng vận tải tài trợ miễn phí ở cấp {level}"
 msgid "carrier-sponsored free at level {level}"
 msgstr "hãng vận tải tài trợ miễn phí ở cấp {level}"
 
+msgid "clear"
+msgstr "trời quang"
+
+#. placeholders: {i}
+msgid "hours_heard job {i}"
+msgstr ""
+
+#. placeholders: {i}
+msgid "chains_heard job {i}"
+msgstr ""
+
+msgid "assigned"
+msgstr "đã giao"
+
+msgid "browse"
+msgstr ""
+
+msgid "plain"
+msgstr ""
+
 msgid "Pay advance already taken for this load. Deliver it first."
 msgstr "Bạn đã ứng lương cho lô hàng này rồi. Hãy giao hàng xong trước."
 
@@ -9813,9 +9833,6 @@ msgstr "tiền cước"
 
 msgid "bobtail"
 msgstr "chạy xe không thùng"
-
-msgid "assigned"
-msgstr "đã giao"
 
 msgid "team"
 msgstr "lái chung"
@@ -12694,9 +12711,6 @@ msgstr "mây"
 
 msgid "overcast"
 msgstr "u ám"
-
-msgid "clear"
-msgstr "trời quang"
 
 msgid "fair"
 msgstr "trời quang"
@@ -15916,6 +15930,16 @@ msgstr ""
 msgid "You take the wheel {start_mi} miles up the road."
 msgstr "Bạn cầm lái từ {start_mi} dặm phía trước."
 
+#. placeholders: {i}
+msgid "job {i}"
+msgstr ""
+
+#. placeholders: {mode_key}, {offer}, {reason}, {key}
+msgid ""
+"; board_mode {mode_key}; board_offer {offer}; board_reason {reason}; "
+"board_gate {key}"
+msgstr ""
+
 msgid "automatic"
 msgstr "số tự động"
 
@@ -18336,45 +18360,6 @@ msgstr "khoảng {take_home} sau chi phí"
 msgid "about {take_home} to you"
 msgstr "khoảng {take_home} về tay bạn"
 
-#. placeholders: {highway}
-#. one sentence of a longer line
-msgid "A chain law is in effect on {highway} on this route."
-msgstr ""
-"Tuyến đường này đang áp dụng quy định bắt buộc lắp xích lốp trên {highway}."
-
-#. placeholders: {highway}
-msgid ""
-"A chain law is in effect on {highway} on this route. You have no chains. "
-"The garage here sells them. Enter again to accept."
-msgstr ""
-"Tuyến đường này đang áp dụng quy định bắt buộc lắp xích lốp trên {highway}. "
-"Bạn chưa có xích lốp. Xưởng sửa xe ở đây có bán. Nhấn Enter lần nữa để nhận."
-
-#. one sentence of a longer line
-msgid "Enter again to accept."
-msgstr "Nhấn Enter lần nữa để nhận."
-
-#. one sentence of a longer line
-msgid "The garage here sells them."
-msgstr "Xưởng sửa xe ở đây có bán."
-
-#. one sentence of a longer line
-msgid "You have no chains."
-msgstr "Bạn chưa có xích lốp."
-
-#. placeholders: {highway}
-#. one sentence of a longer line
-msgid "Trucks on {highway} must carry chains this season."
-msgstr "Xe tải chạy trên {highway} phải mang theo xích lốp trong mùa này."
-
-#. placeholders: {highway}
-msgid ""
-"Trucks on {highway} must carry chains this season. You have no chains. The "
-"garage here sells them. Enter again to accept."
-msgstr ""
-"Xe tải chạy trên {highway} phải mang theo xích lốp trong mùa này. Bạn chưa "
-"có xích lốp. Xưởng sửa xe ở đây có bán. Nhấn Enter lần nữa để nhận."
-
 msgid "Dispatch board"
 msgstr "Bảng đơn hàng"
 
@@ -18482,6 +18467,22 @@ msgstr ""
 #. one sentence of a longer line
 msgid "{note} New assignment: {described}"
 msgstr "{note} Chuyến được giao mới: {described}"
+
+#. placeholders: {label}
+msgid "Recommended dispatch, best pay for the hours: {label}"
+msgstr ""
+
+#. placeholders: {label}
+msgid "Recommended dispatch, best net for the hours: {label}"
+msgstr ""
+
+#. placeholders: {label}
+msgid "Recommended dispatch, most room on the deadline: {label}"
+msgstr ""
+
+#. placeholders: {label}
+msgid "Recommended dispatch: {label}"
+msgstr ""
 
 #. placeholders: {recommendation}, {label}
 msgid "Recommended dispatch, {recommendation}: {label}"
@@ -18711,6 +18712,45 @@ msgstr "Chuyến chạy này cần một giấc ngủ 10 giờ."
 #. placeholders: {sleeps}
 msgid "This run needs {sleeps} 10-hour sleeps."
 msgstr "Chuyến chạy này cần {sleeps} giấc ngủ 10 giờ."
+
+#. placeholders: {highway}
+#. one sentence of a longer line
+msgid "A chain law is in effect on {highway} on this route."
+msgstr ""
+"Tuyến đường này đang áp dụng quy định bắt buộc lắp xích lốp trên {highway}."
+
+#. placeholders: {highway}
+msgid ""
+"A chain law is in effect on {highway} on this route. You have no chains. "
+"The garage here sells them. Enter again to accept."
+msgstr ""
+"Tuyến đường này đang áp dụng quy định bắt buộc lắp xích lốp trên {highway}. "
+"Bạn chưa có xích lốp. Xưởng sửa xe ở đây có bán. Nhấn Enter lần nữa để nhận."
+
+#. one sentence of a longer line
+msgid "Enter again to accept."
+msgstr "Nhấn Enter lần nữa để nhận."
+
+#. one sentence of a longer line
+msgid "The garage here sells them."
+msgstr "Xưởng sửa xe ở đây có bán."
+
+#. one sentence of a longer line
+msgid "You have no chains."
+msgstr "Bạn chưa có xích lốp."
+
+#. placeholders: {highway}
+#. one sentence of a longer line
+msgid "Trucks on {highway} must carry chains this season."
+msgstr "Xe tải chạy trên {highway} phải mang theo xích lốp trong mùa này."
+
+#. placeholders: {highway}
+msgid ""
+"Trucks on {highway} must carry chains this season. You have no chains. The "
+"garage here sells them. Enter again to accept."
+msgstr ""
+"Xe tải chạy trên {highway} phải mang theo xích lốp trong mùa này. Bạn chưa "
+"có xích lốp. Xưởng sửa xe ở đây có bán. Nhấn Enter lần nữa để nhận."
 
 #. placeholders: {i}, {total}
 msgid "Job {i} of {total}: "
