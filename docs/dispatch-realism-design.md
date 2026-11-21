@@ -142,6 +142,74 @@ view: each market's balance in words and lane rates that follow it.
 
 The owner chose A for 1.9 and B and C for 2.0 on 2026-10-26.
 
+## Posted order and a recommendation with a reason (2026-11-21)
+
+From about level 8 the last load on the board was always the best one.
+The board was sorted shortest first, and pay and experience follow
+miles, so the last row was the longest load and nearly always paid the
+most. The recommendation marked the shortest load off a recent lane,
+which was the first row.
+
+What changed:
+
+- The board lists loads in the order dispatch posted them. A board
+  reopened, or restored from a save, keeps its order. A load relayed
+  from a nearby city, or held while the driver rests, takes the row of
+  the longest load it replaces.
+- Dispatch recommends the load that pays the driver best for the hours
+  the whole trip takes: the empty drive, the pickup, the drive, its
+  breaks and its sleeps, on the driver's clock now. A long load that
+  needs a sleep has to pay for it. A driver whose standing has slipped
+  is steered to the load with the most room on its deadline. New hires
+  in training keep the short, easy loads they had.
+- The row says why: best pay for the hours, best net for the hours for
+  owner-operators, or most room on the deadline. A plain "Recommended
+  dispatch" means the best load was a lane just run, so dispatch picked
+  the next one. When the two best loads are within 5 percent of each
+  other dispatch recommends nothing and the cursor starts on the first
+  row.
+- Assigned dispatch, below level 8 or when load choice is revoked,
+  offers loads in the same order.
+
+The scores live in `crates/ff-core/src/models/dispatch_fit.rs`, the
+board's state machine in `dispatch_board.rs` beside it.
+
+## Hot loads and flexible deliveries (2026-11-21)
+
+After the posted order, two loads of the same length still paid the
+same, because most loads sit on the pay floor. Real shippers differ in
+how fast they need the freight, so loads now come in three kinds:
+
+- A hot load (15 percent of loads) pays 25 percent more and gets the
+  tight end of the old deadline range, 1.2 times the legal hours.
+- A standard load (55 percent) gets 1.3 to 1.5 times.
+- A flexible delivery (30 percent) pays 10 percent less and gets 1.6 to
+  2.0 times.
+
+No deadline is tighter than the board already allowed. The kind is
+drawn from the load itself, the way a team load is, so every seed
+posts the same loads it did before; the board's one deadline draw is
+mapped into the kind's own range. Pay is applied after the pay floor,
+the market and direct freight, and before the team premium. With those
+shares the average pay rises 0.75 percent. Relayed loads and
+repositions are always standard. A flexible team load is held half an
+hour short of the solo legal hours, so it never leaves room for the
+sleep a team load skips (never tighter than the tightest team window).
+Posting those loads standard instead raised average pay 1.7 percent,
+because team loads are the best-paid rows. A save from before this
+change reads every load as standard.
+
+The board row adds "Hot load." or "Flexible delivery." after the miles
+and deadline, and the job details say what it means. A driver whose
+standing slipped is steered to the load with the most room on its
+deadline, which is usually the flexible one; the score did not change.
+
+Provenance: **assumed**. A search for a published expedited-truckload
+premium and for the share of time-critical truckload freight found
+carrier and broker marketing pages, no survey or index to cite. The
+shares are set so average pay does not move. The code is
+`crates/ff-core/src/models/jobs/urgency.rs`.
+
 ## Sources
 
 - [PCS Software, Truck backhaul optimization](https://pcssoft.com/blog/truck-backhaul-optimization/):

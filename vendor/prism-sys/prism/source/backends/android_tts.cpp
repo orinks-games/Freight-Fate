@@ -1,0 +1,412 @@
+// SPDX-License-Identifier: MPL-2.0
+
+#ifdef __ANDROID__
+#include "../backend.h"
+#include "../backend_catalog.h"
+#include "android/AudioCallback.hpp"
+#include "android/BackendFeatures.hpp"
+#include "android/BackendFeaturesHigh.hpp"
+#include "android/Unit.hpp"
+#include "android/jni/AbstractTextToSpeechBackend.hpp"
+#include "android_features.h"
+#include <atomic>
+#include <cmath>
+#include <jni.h>
+#include <limits>
+#include <memory>
+#include <utility>
+
+class AndroidTextToSpeechAudioCallbackAdapter
+    : public prism::java::AudioCallback {
+public:
+  using PrismLambda = TextToSpeechBackend::AudioCallback;
+
+private:
+  PrismLambda lambda;
+  void *userdata;
+
+public:
+  AndroidTextToSpeechAudioCallbackAdapter(PrismLambda lambda, void *userdata)
+      : lambda(std::move(lambda)), userdata(userdata) {}
+  void on_audio([[maybe_unused]] std::int64_t java_userdata,
+                const djinni::DataView &samples, int64_t sample_count,
+                int64_t channels, int64_t sample_rate) override {
+    const auto *float_samples = reinterpret_cast<const float *>(samples.buf());
+    if (lambda) {
+      lambda(userdata, float_samples, static_cast<std::size_t>(sample_count),
+             static_cast<std::size_t>(channels),
+             static_cast<std::size_t>(sample_rate));
+    }
+  }
+};
+
+class AndroidTextToSpeechBackend final : public TextToSpeechBackend {
+private:
+  std::shared_ptr<prism::java::AbstractTextToSpeechBackend> backend{nullptr};
+
+public:
+  ~AndroidTextToSpeechBackend() override {
+    if (!backend)
+      return;
+    auto *env = djinni::jniGetThreadEnv();
+    if (env == nullptr)
+      return;
+    auto jobj = prism::jni::AbstractTextToSpeechBackend::fromCpp(env, backend);
+    if (!jobj)
+      return;
+    jclass cls = env->GetObjectClass(jobj.get());
+    if (cls != nullptr) {
+      jmethodID mid = env->GetMethodID(cls, "close", "()V");
+      if (mid != nullptr) {
+        env->CallVoidMethod(jobj.get(), mid);
+        if (env->ExceptionCheck() != 0) {
+          env->ExceptionDescribe();
+          env->ExceptionClear();
+        }
+      }
+      env->DeleteLocalRef(cls);
+    }
+  }
+
+  [[nodiscard]] std::string_view get_name() const override {
+    return "Android Text to Speech";
+  }
+
+  [[nodiscard]] std::bitset<64> get_features() const override try {
+    if (backend) {
+      return combined_features(*backend);
+    }
+    auto *env = djinni::jniGetThreadEnv();
+    if (env == nullptr) {
+      return {};
+    }
+    auto *cls = static_cast<jclass>(env->NewLocalRef(
+        djinni::jniFindClass(
+            "com/github/ethindp/prism/AndroidTextToSpeechBackend")
+            .get()));
+    if (cls == nullptr) {
+      if (env->ExceptionCheck() != 0)
+        env->ExceptionClear();
+      return {};
+    }
+    auto *ctor = env->GetMethodID(cls, "<init>", "()V");
+    if (ctor == nullptr) {
+      if (env->ExceptionCheck() != 0)
+        env->ExceptionClear();
+      env->DeleteLocalRef(cls);
+      return {};
+    }
+    auto *instance = env->NewObject(cls, ctor);
+    if (instance == nullptr) {
+      if (env->ExceptionCheck() != 0)
+        env->ExceptionClear();
+      env->DeleteLocalRef(cls);
+      return {};
+    }
+    auto handle = prism::jni::AbstractTextToSpeechBackend::toCpp(env, instance);
+    env->DeleteLocalRef(instance);
+    env->DeleteLocalRef(cls);
+    if (!handle) {
+      return {};
+    }
+    return combined_features(*handle);
+  } catch (...) {
+    return {};
+  }
+
+  BackendResult<> initialize() override try {
+    if (backend != nullptr)
+      return std::unexpected(BackendError::AlreadyInitialized);
+    auto *jni_env = djinni::jniGetThreadEnv();
+    if (jni_env == nullptr)
+      return std::unexpected(BackendError::BackendNotAvailable);
+    auto *java_class = static_cast<jclass>(jni_env->NewLocalRef(
+        djinni::jniFindClass(
+            "com/github/ethindp/prism/AndroidTextToSpeechBackend")
+            .get()));
+    if (java_class == nullptr) {
+      if (jni_env->ExceptionCheck() != 0)
+        jni_env->ExceptionClear();
+      return std::unexpected(BackendError::BackendNotAvailable);
+    }
+    jmethodID constructor = jni_env->GetMethodID(java_class, "<init>", "()V");
+    if (constructor == nullptr) {
+      if (jni_env->ExceptionCheck() != 0)
+        jni_env->ExceptionClear();
+      jni_env->DeleteLocalRef(java_class);
+      return std::unexpected(BackendError::BackendNotAvailable);
+    }
+    auto *instance = jni_env->NewObject(java_class, constructor);
+    if (instance == nullptr) {
+      if (jni_env->ExceptionCheck() != 0)
+        jni_env->ExceptionClear();
+      jni_env->DeleteLocalRef(java_class);
+      return std::unexpected(BackendError::BackendNotAvailable);
+    }
+    auto candidate =
+        prism::jni::AbstractTextToSpeechBackend::toCpp(jni_env, instance);
+    jni_env->DeleteLocalRef(java_class);
+    jni_env->DeleteLocalRef(instance);
+    if (!candidate) {
+      if (jni_env->ExceptionCheck() != 0)
+        jni_env->ExceptionClear();
+      return std::unexpected(BackendError::BackendNotAvailable);
+    }
+    if (const auto res = candidate->initialize(); !res)
+      return std::unexpected(static_cast<BackendError>(res.error()));
+    backend = std::move(candidate);
+    return {};
+  } catch (...) {
+    return std::unexpected(BackendError::BackendNotAvailable);
+  }
+
+  BackendResult<> speak(std::string_view text, bool interrupt) override {
+    if (!backend)
+      return std::unexpected(BackendError::NotInitialized);
+    djinni::DataView view(reinterpret_cast<const uint8_t *>(text.data()),
+                          text.size());
+    if (const auto res = backend->speak(view, interrupt); !res)
+      return std::unexpected(static_cast<BackendError>(res.error()));
+    return {};
+  }
+
+  BackendResult<> speak_to_memory(std::string_view text, AudioCallback callback,
+                                  void *userdata) override {
+    if (!backend)
+      return std::unexpected(BackendError::NotInitialized);
+    djinni::DataView view(reinterpret_cast<const uint8_t *>(text.data()),
+                          text.size());
+    auto adapter = std::make_shared<AndroidTextToSpeechAudioCallbackAdapter>(
+        callback, userdata);
+    if (const auto res = backend->speak_to_memory(
+            view, adapter, reinterpret_cast<std::int64_t>(userdata));
+        !res)
+      return std::unexpected(static_cast<BackendError>(res.error()));
+    return {};
+  }
+
+  BackendResult<> braille(std::string_view text) override {
+    if (!backend)
+      return std::unexpected(BackendError::NotInitialized);
+    djinni::DataView view(reinterpret_cast<const uint8_t *>(text.data()),
+                          text.size());
+    if (const auto res = backend->braille(view); !res)
+      return std::unexpected(static_cast<BackendError>(res.error()));
+    return {};
+  }
+
+  BackendResult<> output(std::string_view text, bool interrupt) override {
+    if (!backend)
+      return std::unexpected(BackendError::NotInitialized);
+    djinni::DataView view(reinterpret_cast<const uint8_t *>(text.data()),
+                          text.size());
+    if (const auto res = backend->output(view, interrupt); !res)
+      return std::unexpected(static_cast<BackendError>(res.error()));
+    return {};
+  }
+
+  BackendResult<bool> is_speaking() override {
+    if (!backend)
+      return std::unexpected(BackendError::NotInitialized);
+    if (const auto res = backend->is_speaking(); res)
+      return *res;
+    else
+      return std::unexpected(static_cast<BackendError>(res.error()));
+  }
+
+  BackendResult<> stop() override {
+    if (!backend)
+      return std::unexpected(BackendError::NotInitialized);
+    if (const auto res = backend->stop(); res)
+      return {};
+    else
+      return std::unexpected(static_cast<BackendError>(res.error()));
+  }
+
+  BackendResult<> pause() override {
+    if (!backend)
+      return std::unexpected(BackendError::NotInitialized);
+    if (const auto res = backend->pause(); res)
+      return {};
+    else
+      return std::unexpected(static_cast<BackendError>(res.error()));
+  }
+
+  BackendResult<> resume() override {
+    if (!backend)
+      return std::unexpected(BackendError::NotInitialized);
+    if (const auto res = backend->resume(); res)
+      return {};
+    else
+      return std::unexpected(static_cast<BackendError>(res.error()));
+  }
+
+  BackendResult<> set_volume(float volume) override {
+    if (!backend)
+      return std::unexpected(BackendError::NotInitialized);
+    if (const auto res = backend->set_volume(volume); res)
+      return {};
+    else
+      return std::unexpected(static_cast<BackendError>(res.error()));
+  }
+
+  BackendResult<float> get_volume() override {
+    if (!backend)
+      return std::unexpected(BackendError::NotInitialized);
+    if (const auto res = backend->get_volume(); res)
+      return *res;
+    else
+      return std::unexpected(static_cast<BackendError>(res.error()));
+  }
+
+  BackendResult<> set_rate(float rate) override {
+    if (!backend)
+      return std::unexpected(BackendError::NotInitialized);
+    if (const auto res = backend->set_rate(rate); res)
+      return {};
+    else
+      return std::unexpected(static_cast<BackendError>(res.error()));
+  }
+
+  BackendResult<float> get_rate() override {
+    if (!backend)
+      return std::unexpected(BackendError::NotInitialized);
+    if (const auto res = backend->get_rate(); res)
+      return *res;
+    else
+      return std::unexpected(static_cast<BackendError>(res.error()));
+  }
+
+  BackendResult<> set_pitch(float pitch) override {
+    if (!backend)
+      return std::unexpected(BackendError::NotInitialized);
+    if (const auto res = backend->set_pitch(pitch); res)
+      return {};
+    else
+      return std::unexpected(static_cast<BackendError>(res.error()));
+  }
+
+  BackendResult<float> get_pitch() override {
+    if (!backend)
+      return std::unexpected(BackendError::NotInitialized);
+    if (const auto res = backend->get_pitch(); res)
+      return *res;
+    else
+      return std::unexpected(static_cast<BackendError>(res.error()));
+  }
+
+  BackendResult<> refresh_voices() override {
+    if (!backend)
+      return std::unexpected(BackendError::NotInitialized);
+    if (const auto res = backend->refresh_voices(); res)
+      return {};
+    else
+      return std::unexpected(static_cast<BackendError>(res.error()));
+  }
+
+  BackendResult<std::size_t> count_voices() override {
+    if (!backend)
+      return std::unexpected(BackendError::NotInitialized);
+    if (const auto res = backend->count_voices(); res) {
+      const auto val = *res;
+      if (val < 0)
+        return std::unexpected(BackendError::InternalBackendError);
+      return static_cast<std::size_t>(val);
+    } else {
+      return std::unexpected(static_cast<BackendError>(res.error()));
+    }
+  }
+
+  BackendResult<std::string> get_voice_name(std::size_t id) override {
+    if (!backend)
+      return std::unexpected(BackendError::NotInitialized);
+    if (id >= std::numeric_limits<std::int64_t>::max())
+      return std::unexpected(BackendError::RangeOutOfBounds);
+    if (const auto res = backend->get_voice_name(static_cast<std::int64_t>(id));
+        res)
+      return *res;
+    else
+      return std::unexpected(static_cast<BackendError>(res.error()));
+  }
+
+  BackendResult<std::string> get_voice_language(std::size_t id) override {
+    if (!backend)
+      return std::unexpected(BackendError::NotInitialized);
+    if (id >= std::numeric_limits<std::int64_t>::max())
+      return std::unexpected(BackendError::RangeOutOfBounds);
+    if (const auto res =
+            backend->get_voice_language(static_cast<std::int64_t>(id));
+        res)
+      return *res;
+    else
+      return std::unexpected(static_cast<BackendError>(res.error()));
+  }
+
+  BackendResult<> set_voice(std::size_t id) override {
+    if (!backend)
+      return std::unexpected(BackendError::NotInitialized);
+    if (id >= std::numeric_limits<std::int64_t>::max())
+      return std::unexpected(BackendError::RangeOutOfBounds);
+    if (const auto res = backend->set_voice(static_cast<std::int64_t>(id)); res)
+      return {};
+    else
+      return std::unexpected(static_cast<BackendError>(res.error()));
+  }
+
+  BackendResult<std::size_t> get_voice() override {
+    if (!backend)
+      return std::unexpected(BackendError::NotInitialized);
+    if (const auto res = backend->get_voice(); res) {
+      const auto val = *res;
+      if (val < 0)
+        return std::unexpected(BackendError::RangeOutOfBounds);
+      return static_cast<std::size_t>(val);
+    } else {
+      return std::unexpected(static_cast<BackendError>(res.error()));
+    }
+  }
+
+  BackendResult<std::size_t> get_channels() override {
+    if (!backend)
+      return std::unexpected(BackendError::NotInitialized);
+    if (const auto res = backend->get_channels(); res) {
+      const auto val = *res;
+      if (val < 0)
+        return std::unexpected(BackendError::RangeOutOfBounds);
+      return static_cast<std::size_t>(val);
+    } else {
+      return std::unexpected(static_cast<BackendError>(res.error()));
+    }
+  }
+
+  BackendResult<std::size_t> get_sample_rate() override {
+    if (!backend)
+      return std::unexpected(BackendError::NotInitialized);
+    if (const auto res = backend->get_sample_rate(); res) {
+      const auto val = *res;
+      if (val < 0)
+        return std::unexpected(BackendError::RangeOutOfBounds);
+      return static_cast<std::size_t>(val);
+    } else {
+      return std::unexpected(static_cast<BackendError>(res.error()));
+    }
+  }
+
+  BackendResult<std::size_t> get_bit_depth() override {
+    if (!backend)
+      return std::unexpected(BackendError::NotInitialized);
+    if (const auto res = backend->get_bit_depth(); res) {
+      const auto val = *res;
+      if (val < 0)
+        return std::unexpected(BackendError::RangeOutOfBounds);
+      return static_cast<std::size_t>(val);
+    } else {
+      return std::unexpected(static_cast<BackendError>(res.error()));
+    }
+  }
+};
+
+REGISTER_BACKEND_WITH_ID(AndroidTextToSpeechBackend,
+                         Backends::AndroidTextToSpeech,
+                         "Android Text to Speech", 0);
+#endif

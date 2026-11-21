@@ -44,6 +44,8 @@ use crate::states::driving_core::DRIVE_PHASE_DELIVERY;
 use super::MPH_PER_MPS;
 
 pub mod destination;
+pub mod pavement;
+pub mod river;
 
 /// `--routes random` is a bounded, seeded sample from the world. Departure
 /// discovery uses this by default; `--routes all` remains available for an
@@ -59,7 +61,7 @@ pub const RANDOM_SAMPLE: usize = 6;
 /// launched later. It does not choose a facility or corridor.
 const DEPARTURE_TRIP_SEED: i64 = 0;
 
-pub const FEATURES: [&str; 12] = [
+pub const FEATURES: [&str; 15] = [
     "downgrade",
     "upgrade",
     "zone",
@@ -72,6 +74,9 @@ pub const FEATURES: [&str; 12] = [
     "chain-law",
     "destination",
     "departure",
+    "river",
+    "bridge",
+    "jointed",
 ];
 const SCAN_STEP_MI: f64 = 0.1;
 /// How far before the feature the SEARCH looks back to report a posted
@@ -597,6 +602,9 @@ pub fn find_feature(
                 origin,
                 destination,
             )),
+            "river" => hits.extend(self::river::river_hits(&mut trip, origin, destination)),
+            "bridge" => hits.extend(self::pavement::bridge_hits(&mut trip, origin, destination)),
+            "jointed" => hits.extend(self::pavement::jointed_hits(&mut trip, origin, destination)),
             _ => {}
         }
     }
@@ -1209,6 +1217,12 @@ fn feature_lead_mi(trip: &Trip, hit: &Hit, opts: &RoadOptions) -> f64 {
     }
 }
 
+/// The career clock for a drive staged at `start_hour` on the career's day
+/// at `career_hours`.
+pub fn staged_career_hours(career_hours: f64, start_hour: f64) -> f64 {
+    (career_hours / 24.0).floor() * 24.0 + start_hour
+}
+
 /// A `DrivingState` already rolling at the feature, set up as asked.
 pub fn build_driving(ctx: &mut GameContext, hit: &Hit, opts: &RoadOptions) -> (DrivingState, f64) {
     let departure = hit.origin_location.is_some();
@@ -1373,6 +1387,9 @@ pub fn build_driving(ctx: &mut GameContext, hit: &Hit, opts: &RoadOptions) -> (D
     if let Some(key) = opts.departure_hazmat.as_deref() {
         job.hazmat = ff_core::models::jobs::hazmat::hazmat_commodity(key);
     }
+    // A scenario that staged the co-driver's own hours wants them aboard:
+    // the load goes out as a team load, and they join with those hours.
+    job.team = ctx.playtest_co_driver_hos.is_some();
     job.origin_spoken = ctx.world.spoken_city(&origin_key, None);
     job.destination_spoken = ctx.world.spoken_city(&destination_key, None);
     if !departure {
@@ -1392,6 +1409,16 @@ pub fn build_driving(ctx: &mut GameContext, hit: &Hit, opts: &RoadOptions) -> (D
         DRIVE_PHASE_DELIVERY,
         Some(opts.hour.unwrap_or(9.0)),
     );
+    // A team load leaves with its co-driver aboard, in the bunk.
+    if driving.job.team {
+        driving.ensure_team(ctx);
+    }
+    // The career clock moved to the staged hour on its own day, so what the
+    // drive reads from the calendar follows the hour it was staged at. Left
+    // as it was, the two clocks disagreed by up to a day.
+    if let Some(career) = driving.trip.career_hours {
+        driving.trip.career_hours = Some(staged_career_hours(career, driving.trip.start_hour));
+    }
 
     if let (Some(stage), Some(load)) = (&opts.cattle, driving.trip.truck.livestock.as_mut()) {
         load.stage(

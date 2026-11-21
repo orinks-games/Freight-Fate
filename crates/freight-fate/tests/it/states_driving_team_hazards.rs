@@ -39,6 +39,7 @@ fn run_until(
     for _ in 0..max_frames {
         harness.advance_frame_clock();
         harness.app.frame(DT);
+        crate::states_driving_team::assert_co_driver_legal(harness);
         if done(harness) {
             return true;
         }

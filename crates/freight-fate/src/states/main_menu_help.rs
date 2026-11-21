@@ -205,7 +205,7 @@ pub static HELP_PAGES: &[(&str, &[&str])] = &[
         &[
             "Winter tires improve snow and ice grip. Chains are carried in the truck. To put them on, stop and use the pause menu.",
             "Chain laws require chains on a truck at every chain-law level. Winter tires don't count for a semi. There are two exceptions at level one. Colorado and Oregon require chains only on single-drive-axle trucks, and Wyoming accepts snow tires. Signs announce the requirement before the chain-up area.",
-            "Chain work uses on-duty time and adds fatigue, especially at night. Keep under chain speed, 30 miles per hour or 48 kilometers per hour, and remove chains on bare pavement before they break.",
+            "Chain work uses on-duty time and adds fatigue, especially at night. Keep under chain speed, 30 miles per hour or 48 kilometers per hour, and remove chains on a bare road before they break.",
             "Worn tires and strong engine braking make slippery roads harder to control. Stop for rest or safer conditions when necessary.",
         ],
     ),
@@ -244,7 +244,7 @@ pub static HELP_PAGES: &[(&str, &[&str])] = &[
         "Settings and accessibility",
         &[
             "Settings save as you change them. Choose a setting with Up or Down, then Right or Enter for its next value, or Left for the previous value.",
-            "Gameplay holds driving assistance, difficulty and hours, world and traffic, and controls. Audio, Speech, Updates, Problem reports, and Online have separate choices where supported. F1 explains the selected setting.",
+            "Gameplay holds driving assistance, difficulty and hours, world and traffic, and controls. Audio, Speech, Updates, and Problem reports have separate choices where supported. F1 explains the selected setting.",
             "Realistic leaves lane keeping off. Balanced adds partial lane keeping and facility stops. All assists adds full lane keeping and a fifty-five mile per hour descent ceiling. Adjusting assistance yourself changes the preset name to Custom.",
             "Presets leave driving pace, legal hours, transmission, world sources, latching brake, and cue volumes as they are.",
             "Relaxed pacing passes about ten minutes of road and clock each real minute, with more response time and gentler consequences. Standard moves twice as fast. Real time follows the computer clock at real speed.",
@@ -313,8 +313,11 @@ pub static HELP_PAGES: &[(&str, &[&str])] = &[
 /// player and device. A placeholder that names nothing the table knows is
 /// left as written, so a typo reads aloud in a test instead of vanishing.
 pub fn render_help_line(ctx: &GameContext, template: &str) -> String {
+    // The page's own bumper words follow the Second layer bumper row before
+    // any name is filled in; the swapped lines are in lang/extra.pot.
+    let template = ctx.bumper_words(template);
     let mut out = String::with_capacity(template.len());
-    let mut rest = template;
+    let mut rest: &str = &template;
     while let Some(start) = rest.find("{{") {
         let Some(len) = rest[start..].find("}}") else {
             break;
@@ -328,7 +331,7 @@ pub fn render_help_line(ctx: &GameContext, template: &str) -> String {
         };
         let name = match Action::from_id(id) {
             Some(action) => match device {
-                Some(ShortcutDevice::Controller) => ctx.bindings.pad_spoken(action),
+                Some(ShortcutDevice::Controller) => ctx.pad_name(action),
                 Some(ShortcutDevice::Keyboard) => ctx.bindings.spoken(action),
                 None => ctx.control_name(action),
             },
@@ -351,13 +354,94 @@ pub fn render_help_line(ctx: &GameContext, template: &str) -> String {
     out
 }
 
+/// Lines a phone or tablet build reads differently: `(desktop line, with a
+/// keyboard, by touch)`, `None` leaving the line out. Phones have no
+/// personal playlists (their Playlists folder is out of the player's reach),
+/// and a touch player tunes with three-finger flicks, not the Page keys.
+#[cfg_attr(not(touch_screen), allow(dead_code))]
+static PHONE_LINES: &[(&str, Option<&str>, Option<&str>)] = &[
+    (
+        "With the engine running, {{radio}} switches the radio on or off. Page Down or apostrophe tunes forward. Page Up or semicolon tunes backward.",
+        Some("With the engine running, {{radio}} switches the radio on or off. Page Down or apostrophe tunes forward. Page Up or semicolon tunes backward."),
+        Some("The radio plays while the engine runs. A three-finger flick right tunes forward, and a three-finger flick left tunes backward."),
+    ),
+    (
+        "Hold Control with a tune key to jump between categories, including route music, Freight Fate stations, your playlists, favorites, and broadcast or web stations.",
+        Some("Hold Control with a tune key to jump between categories, including route music, Freight Fate stations, favorites, and broadcast or web stations."),
+        Some("Radio and CB on the three-finger tap list turns the radio on or off, saves favorites, and changes the radio volume and category. Categories include route music, Freight Fate stations, favorites, and broadcast or web stations."),
+    ),
+    (
+        "Hold Shift to change volume in ten percent steps: Page Up or semicolon raises it, Page Down or apostrophe lowers it.",
+        Some("Hold Shift to change volume in ten percent steps: Page Up or semicolon raises it, Page Down or apostrophe lowers it."),
+        None,
+    ),
+    (
+        "{{radio_favorite}} saves or removes a favorite. {{radio_status}} reads station, reception, volume, and streamer-safe status. {{radio_now_playing}} reads available song information.",
+        Some("{{radio_favorite}} saves or removes a favorite. {{radio_status}} reads station, reception, volume, and streamer-safe status. {{radio_now_playing}} reads available song information."),
+        Some("Radio status reads station, reception, volume, and streamer-safe status. What the radio is playing reads available song information. Both are under Radio and CB."),
+    ),
+    (
+        "Put M3U, M3U8, or PLS playlists in the Playlists folder inside your saves folder. Radio status gives the folder location and reloads the playlists when opened. Entries can be audio files, network paths, or stream addresses.",
+        None,
+        None,
+    ),
+    (
+        "Personal playlists normally play in order and resume where you left them. Shuffle plays every track once in a random order, then chooses a new order. Unreadable entries are skipped.",
+        None,
+        None,
+    ),
+    (
+        "Original uses the licensed menu and Roadhouse tracks. Synthesized plays music the game composes plus the three original tracks, and takes Freight Fate's regional stations and voiced breaks off the dial. Real streams and personal playlists remain unless streamer-safe mode hides them.",
+        Some("Original uses the licensed menu and Roadhouse tracks. Synthesized plays music the game composes plus the three original tracks, and takes Freight Fate's regional stations and voiced breaks off the dial. Real streams remain unless streamer-safe mode hides them."),
+        Some("Original uses the licensed menu and Roadhouse tracks. Synthesized plays music the game composes plus the three original tracks, and takes Freight Fate's regional stations and voiced breaks off the dial. Real streams remain unless streamer-safe mode hides them."),
+    ),
+    (
+        "How do I change stations or play my own music? With the engine running, {{radio}} switches the radio on, and Page Up or Page Down tunes. Put playlist files in the Playlists folder inside your saves folder. Radio status gives its location.",
+        Some("How do I change stations? With the engine running, {{radio}} switches the radio on, and Page Up or Page Down tunes."),
+        Some("How do I change stations? With the engine running, a three-finger flick right or left tunes. Radio on or off is under Radio and CB on the three-finger tap list."),
+    ),
+];
+
+/// A page title as this build reads it: phones have no playlists.
+fn page_title_text(title: &'static str) -> &'static str {
+    if cfg!(touch_screen) && title == "Radio and playlists" {
+        "Radio"
+    } else {
+        title
+    }
+}
+
+/// The page's lines as this build and device read them, before control
+/// names are filled in.
+fn page_lines(ctx: &GameContext, lines: &'static [&'static str]) -> Vec<&'static str> {
+    if !cfg!(touch_screen) {
+        return lines.to_vec();
+    }
+    let touch = ctx.touch_hints();
+    lines
+        .iter()
+        .filter_map(
+            |line| match PHONE_LINES.iter().find(|(desktop, ..)| desktop == line) {
+                Some((_, keyboard, by_touch)) => {
+                    if touch {
+                        *by_touch
+                    } else {
+                        *keyboard
+                    }
+                }
+                None => Some(*line),
+            },
+        )
+        .collect()
+}
+
 /// One page, rendered: its title and lines.
 pub fn help_page(ctx: &GameContext, page: usize) -> (&'static str, Vec<String>) {
     let (title, lines) = HELP_PAGES[page.min(HELP_PAGES.len() - 1)];
     (
-        title,
-        lines
-            .iter()
+        page_title_text(title),
+        page_lines(ctx, lines)
+            .into_iter()
             .map(|line| render_help_line(ctx, line))
             .collect(),
     )
@@ -398,7 +482,7 @@ impl HelpState {
     }
 
     fn page_title(&self) -> String {
-        let (title, _) = HELP_PAGES[self.page];
+        let title = page_title_text(HELP_PAGES[self.page].0);
         format!("Page {} of {}: {title}.", self.page + 1, HELP_PAGES.len())
     }
 }
@@ -485,5 +569,22 @@ impl State for HelpState {
             out.push(format!("{marker}{text}"));
         }
         out
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    /// A phone rewrite keyed on a line the manual no longer has would
+    /// quietly put the desktop wording back on the phone.
+    #[test]
+    fn every_phone_line_matches_a_manual_line() {
+        for (desktop, ..) in PHONE_LINES {
+            assert!(
+                HELP_PAGES.iter().any(|(_, lines)| lines.contains(desktop)),
+                "no manual line reads: {desktop}"
+            );
+        }
     }
 }

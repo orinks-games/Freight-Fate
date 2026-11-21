@@ -1,0 +1,522 @@
+// SPDX-License-Identifier: MPL-2.0
+package com.github.ethindp.prism;
+
+import android.content.Intent;
+import android.media.AudioAttributes;
+import android.os.Build;
+import android.os.Bundle;
+import android.os.ParcelFileDescriptor;
+import android.speech.tts.*;
+import android.speech.tts.TextToSpeech.*;
+import android.system.ErrnoException;
+import android.system.Os;
+import android.system.OsConstants;
+import com.snapchat.djinni.Outcome;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.nio.*;
+import java.nio.charset.*;
+import java.util.ArrayList;
+import java.util.EnumSet;
+import java.util.List;
+import java.util.Locale;
+import java.util.Set;
+import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.Consumer;
+
+public class AndroidTextToSpeechBackend extends TextToSpeechBackend implements AutoCloseable {
+  private static final long INITIALIZATION_TIMEOUT_SECONDS = 10;
+
+  private volatile TextToSpeech tts;
+  private float ttsVolume = 1.0f;
+  private float ttsRate = 1.0f;
+  private float ttsPitch = 1.0f;
+  private volatile boolean isTTSInitialized = false;
+  private final Object ttsStateLock = new Object();
+  private CharsetDecoder decoder;
+  private List<Voice> voiceList;
+  private ConcurrentHashMap<String, Consumer<Integer>> pendingUtterances =
+      new ConcurrentHashMap<>();
+
+  @Override
+  public String getName() {
+    return "Android Text to Speech";
+  }
+
+  @Override
+  public EnumSet<BackendFeaturesHigh> getFeaturesHigh() {
+    return EnumSet.of(BackendFeaturesHigh.IS_SPEECH_ENGINE);
+  }
+
+  @Override
+  public EnumSet<BackendFeatures> getFeatures() {
+    final EnumSet<BackendFeatures> features = EnumSet.noneOf(BackendFeatures.class);
+    try {
+      final TextToSpeech localTts = this.tts;
+      final boolean initialized = this.isTTSInitialized;
+      final boolean available;
+      if (localTts != null) {
+        available = initialized;
+      } else {
+        boolean engineInstalled = false;
+        try {
+          final var ctx = PrismContext.get();
+          if (ctx != null) {
+            final var pm = ctx.getPackageManager();
+            if (pm != null) {
+              final var probe = new Intent(TextToSpeech.Engine.INTENT_ACTION_TTS_SERVICE);
+              engineInstalled = !pm.queryIntentServices(probe, 0).isEmpty();
+            }
+          }
+        } catch (Exception e) {
+          engineInstalled = false;
+        }
+        available = engineInstalled;
+      }
+      if (available) {
+        features.add(BackendFeatures.IS_SUPPORTED_AT_RUNTIME);
+      }
+      features.add(BackendFeatures.SUPPORTS_SPEAK);
+      features.add(BackendFeatures.SUPPORTS_OUTPUT);
+      features.add(BackendFeatures.SUPPORTS_SPEAK_TO_MEMORY);
+      features.add(BackendFeatures.SUPPORTS_IS_SPEAKING);
+      features.add(BackendFeatures.SUPPORTS_STOP);
+      features.add(BackendFeatures.SUPPORTS_SET_VOLUME);
+      features.add(BackendFeatures.SUPPORTS_GET_VOLUME);
+      features.add(BackendFeatures.SUPPORTS_SET_RATE);
+      features.add(BackendFeatures.SUPPORTS_GET_RATE);
+      features.add(BackendFeatures.SUPPORTS_SET_PITCH);
+      features.add(BackendFeatures.SUPPORTS_GET_PITCH);
+      features.add(BackendFeatures.SUPPORTS_REFRESH_VOICES);
+      features.add(BackendFeatures.SUPPORTS_COUNT_VOICES);
+      features.add(BackendFeatures.SUPPORTS_GET_VOICE_NAME);
+      features.add(BackendFeatures.SUPPORTS_GET_VOICE_LANGUAGE);
+      features.add(BackendFeatures.SUPPORTS_GET_VOICE);
+      features.add(BackendFeatures.SUPPORTS_SET_VOICE);
+      return features;
+    } catch (Exception e) {
+      return features;
+    }
+  }
+
+  @Override
+  public Outcome<Unit, BackendError> initialize() {
+    synchronized (ttsStateLock) {
+      if (isTTSInitialized || tts != null) {
+        return Outcome.fromError(BackendError.ALREADY_INITIALIZED);
+      }
+    }
+    final CharsetDecoder candidateDecoder =
+        StandardCharsets.UTF_8
+            .newDecoder()
+            .onMalformedInput(CodingErrorAction.REPORT)
+            .onUnmappableCharacter(CodingErrorAction.REPORT);
+    final var ctx = PrismContext.get();
+    if (ctx == null) {
+      return Outcome.fromError(BackendError.BACKEND_NOT_AVAILABLE);
+    }
+    TtsKeepAlive.start(ctx);
+    final CountDownLatch initializedLatch = new CountDownLatch(1);
+    final int pendingStatus = Integer.MIN_VALUE;
+    final int abandonedStatus = Integer.MIN_VALUE + 1;
+    final AtomicInteger initializationStatus = new AtomicInteger(pendingStatus);
+    final OnInitListener listener =
+        status -> {
+          initializationStatus.compareAndSet(pendingStatus, status);
+          initializedLatch.countDown();
+        };
+    final TextToSpeech candidate;
+    try {
+      // Android may invoke the listener synchronously on construction failure.
+      // The listener therefore must not access this.tts before this constructor
+      // expression has returned.
+      candidate = new TextToSpeech(ctx, listener);
+    } catch (RuntimeException e) {
+      return Outcome.fromError(BackendError.BACKEND_NOT_AVAILABLE);
+    }
+    try {
+      if (!initializedLatch.await(INITIALIZATION_TIMEOUT_SECONDS, TimeUnit.SECONDS)) {
+        if (initializationStatus.compareAndSet(pendingStatus, abandonedStatus)) {
+          shutdownEngine(candidate);
+          return Outcome.fromError(BackendError.BACKEND_NOT_AVAILABLE);
+        }
+      }
+    } catch (InterruptedException e) {
+      Thread.currentThread().interrupt();
+      if (initializationStatus.compareAndSet(pendingStatus, abandonedStatus)) {
+        shutdownEngine(candidate);
+        return Outcome.fromError(BackendError.BACKEND_NOT_AVAILABLE);
+      }
+    }
+    final int status = initializationStatus.get();
+    if (status != TextToSpeech.SUCCESS) {
+      shutdownEngine(candidate);
+      return Outcome.fromError(BackendError.BACKEND_NOT_AVAILABLE);
+    }
+    try {
+      try {
+        candidate.setLanguage(Locale.getDefault());
+      } catch (RuntimeException ignored) {
+      }
+      candidate.setPitch(1.0f);
+      candidate.setSpeechRate(1.0f);
+      final AudioAttributes audioAttributes =
+          new AudioAttributes.Builder()
+              .setUsage(AudioAttributes.USAGE_ASSISTANCE_ACCESSIBILITY)
+              .setContentType(AudioAttributes.CONTENT_TYPE_SPEECH)
+              .build();
+      candidate.setAudioAttributes(audioAttributes);
+      candidate.setOnUtteranceProgressListener(
+          new UtteranceProgressListener() {
+            @Override
+            public void onStart(String utteranceId) {}
+
+            @Override
+            public void onDone(String utteranceId) {
+              final Consumer<Integer> callback = pendingUtterances.get(utteranceId);
+              if (callback != null) {
+                callback.accept(TextToSpeech.SUCCESS);
+              }
+            }
+
+            @Override
+            public void onError(String utteranceId) {
+              final Consumer<Integer> callback = pendingUtterances.get(utteranceId);
+              if (callback != null) {
+                callback.accept(TextToSpeech.ERROR);
+              }
+            }
+          });
+      final Set<Voice> voices = candidate.getVoices();
+      final List<Voice> candidateVoices =
+          voices != null ? new ArrayList<>(voices) : new ArrayList<>();
+      synchronized (ttsStateLock) {
+        decoder = candidateDecoder;
+        voiceList = candidateVoices;
+        tts = candidate;
+        isTTSInitialized = true;
+      }
+      return Outcome.fromResult(new Unit());
+    } catch (RuntimeException e) {
+      shutdownEngine(candidate);
+      return Outcome.fromError(BackendError.BACKEND_NOT_AVAILABLE);
+    }
+  }
+
+  @Override
+  public Outcome<Unit, BackendError> speak(ByteBuffer text, boolean interrupt) {
+    if (!isTTSInitialized) return Outcome.fromError(BackendError.NOT_INITIALIZED);
+    var bb = text.asReadOnlyBuffer();
+    decoder.reset();
+    var out = CharBuffer.allocate((int) Math.ceil(bb.capacity() * decoder.maxCharsPerByte()));
+    var cr = decoder.decode(bb, out, true);
+    if (cr.isOverflow()) {
+      return Outcome.fromError(BackendError.INTERNAL_BACKEND_ERROR);
+    }
+    cr = decoder.flush(out);
+    if (cr.isOverflow()) {
+      return Outcome.fromError(BackendError.INTERNAL_BACKEND_ERROR);
+    }
+    out.flip();
+    Bundle params = new Bundle();
+    params.putFloat(TextToSpeech.Engine.KEY_PARAM_VOLUME, ttsVolume);
+    if (out.remaining() >= TextToSpeech.getMaxSpeechInputLength()) {
+      var segments =
+          TextChunker.split(out, out.remaining(), TextToSpeech.getMaxSpeechInputLength());
+      for (int segment = 0; segment < segments.size(); ++segment) {
+        if (segment == 0 && interrupt) {
+          if (tts.speak(segments.get(segment), TextToSpeech.QUEUE_FLUSH, params, null)
+              != TextToSpeech.SUCCESS) return Outcome.fromError(BackendError.SPEAK_FAILURE);
+        } else {
+          if (tts.speak(segments.get(segment), TextToSpeech.QUEUE_ADD, params, null)
+              != TextToSpeech.SUCCESS) return Outcome.fromError(BackendError.SPEAK_FAILURE);
+        }
+      }
+    } else {
+      if (tts.speak(
+              out.toString(),
+              interrupt ? TextToSpeech.QUEUE_FLUSH : TextToSpeech.QUEUE_ADD,
+              params,
+              null)
+          != TextToSpeech.SUCCESS) return Outcome.fromError(BackendError.SPEAK_FAILURE);
+    }
+    return Outcome.fromResult(new Unit());
+  }
+
+  @Override
+  public Outcome<Unit, BackendError> output(ByteBuffer text, boolean interrupt) {
+    return speak(text, interrupt);
+  }
+
+  @Override
+  public Outcome<Unit, BackendError> speakToMemory(
+      ByteBuffer text, AudioCallback callback, long userdata) {
+    if (!isTTSInitialized) return Outcome.fromError(BackendError.NOT_INITIALIZED);
+    var bb = text.asReadOnlyBuffer();
+    decoder.reset();
+    var out = CharBuffer.allocate((int) Math.ceil(bb.capacity() * decoder.maxCharsPerByte()));
+    var cr = decoder.decode(bb, out, true);
+    if (cr.isOverflow()) {
+      return Outcome.fromError(BackendError.INTERNAL_BACKEND_ERROR);
+    }
+    cr = decoder.flush(out);
+    if (cr.isOverflow()) {
+      return Outcome.fromError(BackendError.INTERNAL_BACKEND_ERROR);
+    }
+    out.flip();
+    String textString = out.toString();
+    ParcelFileDescriptor pfd;
+    File tempFile = null;
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+      try {
+        var memfd = Os.memfd_create("tts_synthesis", 0);
+        pfd = ParcelFileDescriptor.dup(memfd);
+        Os.close(memfd);
+      } catch (ErrnoException | IOException e) {
+        return Outcome.fromError(BackendError.INTERNAL_BACKEND_ERROR);
+      }
+    } else {
+      try {
+        tempFile = File.createTempFile("prism_tts_", ".wav", PrismContext.get().getCacheDir());
+        pfd = ParcelFileDescriptor.open(tempFile, ParcelFileDescriptor.MODE_READ_WRITE);
+      } catch (IOException e) {
+        if (tempFile != null) tempFile.delete();
+        return Outcome.fromError(BackendError.INTERNAL_BACKEND_ERROR);
+      }
+    }
+    String utteranceId = UUID.randomUUID().toString();
+    CountDownLatch latch = new CountDownLatch(1);
+    final AtomicBoolean success = new AtomicBoolean(false);
+    try {
+      pendingUtterances.put(
+          utteranceId,
+          (status) -> {
+            if (status == TextToSpeech.SUCCESS) success.set(true);
+            latch.countDown();
+          });
+      Bundle params = new Bundle();
+      params.putFloat(TextToSpeech.Engine.KEY_PARAM_VOLUME, ttsVolume);
+      int result;
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+        result = tts.synthesizeToFile(textString, params, pfd, utteranceId);
+      } else {
+        result = tts.synthesizeToFile(textString, params, tempFile, utteranceId);
+      }
+      if (result != TextToSpeech.SUCCESS) {
+        return Outcome.fromError(BackendError.SPEAK_FAILURE);
+      }
+      try {
+        if (!latch.await(60, TimeUnit.SECONDS)) {
+          return Outcome.fromError(BackendError.INTERNAL_BACKEND_ERROR);
+        }
+      } catch (InterruptedException e) {
+        Thread.currentThread().interrupt();
+        return Outcome.fromError(BackendError.INTERNAL_BACKEND_ERROR);
+      }
+      if (!success.get()) {
+        return Outcome.fromError(BackendError.SPEAK_FAILURE);
+      }
+      try {
+        Os.lseek(pfd.getFileDescriptor(), 0, OsConstants.SEEK_SET);
+      } catch (ErrnoException e) {
+        return Outcome.fromError(BackendError.INTERNAL_BACKEND_ERROR);
+      }
+      try (FileInputStream fis = new FileInputStream(pfd.getFileDescriptor())) {
+        byte[] header = new byte[44];
+        if (fis.read(header) != 44) {
+          return Outcome.fromError(BackendError.INTERNAL_BACKEND_ERROR);
+        }
+        ByteBuffer headerBuf = ByteBuffer.wrap(header).order(ByteOrder.LITTLE_ENDIAN);
+        short channels = headerBuf.getShort(22);
+        int sampleRate = headerBuf.getInt(24);
+        short bitsPerSample = headerBuf.getShort(34);
+        if (bitsPerSample != 16) {
+          return Outcome.fromError(BackendError.INTERNAL_BACKEND_ERROR);
+        }
+        byte[] data;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+          data = fis.readAllBytes();
+        } else {
+          int dataSize = (int) (pfd.getStatSize() - 44);
+          data = new byte[dataSize];
+          int totalRead = 0;
+          while (totalRead < dataSize) {
+            int read = fis.read(data, totalRead, dataSize - totalRead);
+            if (read == -1) break;
+            totalRead += read;
+          }
+        }
+        ByteBuffer pcmBuf = ByteBuffer.wrap(data).order(ByteOrder.LITTLE_ENDIAN);
+        ShortBuffer shortBuf = pcmBuf.asShortBuffer();
+        int sampleCount = shortBuf.remaining();
+        ByteBuffer floatBytes = ByteBuffer.allocate(sampleCount * 4).order(ByteOrder.nativeOrder());
+        FloatBuffer floatBuf = floatBytes.asFloatBuffer();
+        for (int i = 0; i < sampleCount; i++) {
+          float sample = shortBuf.get(i) / 32768.0f;
+          floatBuf.put(sample);
+        }
+        callback.onAudio(userdata, floatBytes, sampleCount, channels, sampleRate);
+      } catch (IOException e) {
+        return Outcome.fromError(BackendError.INTERNAL_BACKEND_ERROR);
+      }
+      return Outcome.fromResult(new Unit());
+    } finally {
+      pendingUtterances.remove(utteranceId);
+      try {
+        pfd.close();
+      } catch (IOException ignored) {
+      }
+      if (tempFile != null) tempFile.delete();
+    }
+  }
+
+  @Override
+  public Outcome<Boolean, BackendError> isSpeaking() {
+    if (!isTTSInitialized) return Outcome.fromError(BackendError.NOT_INITIALIZED);
+    return Outcome.fromResult(tts.isSpeaking());
+  }
+
+  @Override
+  public Outcome<Unit, BackendError> stop() {
+    if (!isTTSInitialized) return Outcome.fromError(BackendError.NOT_INITIALIZED);
+    if (tts.stop() != TextToSpeech.SUCCESS)
+      return Outcome.fromError(BackendError.INTERNAL_BACKEND_ERROR);
+    pendingUtterances.clear();
+    return Outcome.fromResult(new Unit());
+  }
+
+  @Override
+  public Outcome<Unit, BackendError> setRate(float rate) {
+    if (!isTTSInitialized) return Outcome.fromError(BackendError.NOT_INITIALIZED);
+    ttsRate = Utils.expRangeConvert(rate, 0.1f, 3.05f, 6.0f);
+    if (tts.setSpeechRate(ttsRate) == TextToSpeech.ERROR) {
+      return Outcome.fromError(BackendError.INTERNAL_BACKEND_ERROR);
+    }
+    return Outcome.fromResult(new Unit());
+  }
+
+  @Override
+  public Outcome<Float, BackendError> getRate() {
+    if (!isTTSInitialized) return Outcome.fromError(BackendError.NOT_INITIALIZED);
+    return Outcome.fromResult(Utils.expRangeConvertInv(ttsRate, 0.1f, 3.05f, 6.0f));
+  }
+
+  @Override
+  public Outcome<Unit, BackendError> setPitch(float pitch) {
+    if (!isTTSInitialized) return Outcome.fromError(BackendError.NOT_INITIALIZED);
+    ttsPitch = Utils.expRangeConvert(pitch, 0.25f, 2.125f, 4.0f);
+    if (tts.setPitch(ttsPitch) == TextToSpeech.ERROR) {
+      return Outcome.fromError(BackendError.INTERNAL_BACKEND_ERROR);
+    }
+    return Outcome.fromResult(new Unit());
+  }
+
+  @Override
+  public Outcome<Float, BackendError> getPitch() {
+    if (!isTTSInitialized) return Outcome.fromError(BackendError.NOT_INITIALIZED);
+    return Outcome.fromResult(Utils.expRangeConvertInv(ttsPitch, 0.25f, 2.125f, 4.0f));
+  }
+
+  @Override
+  public Outcome<Unit, BackendError> setVolume(float volume) {
+    if (!isTTSInitialized) return Outcome.fromError(BackendError.NOT_INITIALIZED);
+    ttsVolume = volume;
+    return Outcome.fromResult(new Unit());
+  }
+
+  @Override
+  public Outcome<Float, BackendError> getVolume() {
+    if (!isTTSInitialized) return Outcome.fromError(BackendError.NOT_INITIALIZED);
+    return Outcome.fromResult(ttsVolume);
+  }
+
+  @Override
+  public Outcome<Unit, BackendError> refreshVoices() {
+    if (!isTTSInitialized) return Outcome.fromError(BackendError.NOT_INITIALIZED);
+    Set<Voice> voices = tts.getVoices();
+    if (voices != null) {
+      voiceList = new ArrayList<>(voices);
+    } else {
+      voiceList = new ArrayList<>();
+    }
+    return Outcome.fromResult(new Unit());
+  }
+
+  @Override
+  public Outcome<Long, BackendError> countVoices() {
+    if (!isTTSInitialized) return Outcome.fromError(BackendError.NOT_INITIALIZED);
+    if (voiceList == null) return Outcome.fromResult(0L);
+    return Outcome.fromResult((long) voiceList.size());
+  }
+
+  @Override
+  public Outcome<String, BackendError> getVoiceName(long id) {
+    if (!isTTSInitialized) return Outcome.fromError(BackendError.NOT_INITIALIZED);
+    if (voiceList == null || id < 0 || id >= voiceList.size())
+      return Outcome.fromError(BackendError.RANGE_OUT_OF_BOUNDS);
+    return Outcome.fromResult(voiceList.get((int) id).getName());
+  }
+
+  @Override
+  public Outcome<String, BackendError> getVoiceLanguage(long id) {
+    if (!isTTSInitialized) return Outcome.fromError(BackendError.NOT_INITIALIZED);
+    if (voiceList == null || id < 0 || id >= voiceList.size())
+      return Outcome.fromError(BackendError.RANGE_OUT_OF_BOUNDS);
+    return Outcome.fromResult(voiceList.get((int) id).getLocale().toLanguageTag());
+  }
+
+  @Override
+  public Outcome<Unit, BackendError> setVoice(long id) {
+    if (!isTTSInitialized) return Outcome.fromError(BackendError.NOT_INITIALIZED);
+    if (voiceList == null || id < 0 || id >= voiceList.size())
+      return Outcome.fromError(BackendError.RANGE_OUT_OF_BOUNDS);
+    Voice v = voiceList.get((int) id);
+    if (tts.setVoice(v) == TextToSpeech.ERROR) {
+      return Outcome.fromError(BackendError.INTERNAL_BACKEND_ERROR);
+    }
+    return Outcome.fromResult(new Unit());
+  }
+
+  @Override
+  public Outcome<Long, BackendError> getVoice() {
+    if (!isTTSInitialized) return Outcome.fromError(BackendError.NOT_INITIALIZED);
+    Voice current = tts.getVoice();
+    if (current == null || voiceList == null)
+      return Outcome.fromError(BackendError.INTERNAL_BACKEND_ERROR);
+    int index = voiceList.indexOf(current);
+    if (index == -1) return Outcome.fromError(BackendError.INTERNAL_BACKEND_ERROR);
+    return Outcome.fromResult((long) index);
+  }
+
+  @Override
+  public void close() {
+    final TextToSpeech engine;
+    synchronized (ttsStateLock) {
+      engine = tts;
+      tts = null;
+      isTTSInitialized = false;
+      voiceList = null;
+      decoder = null;
+    }
+    shutdownEngine(engine);
+    pendingUtterances.clear();
+  }
+
+  private static void shutdownEngine(TextToSpeech engine) {
+    if (engine == null) return;
+    try {
+      engine.stop();
+    } catch (RuntimeException ignored) {
+    }
+    try {
+      engine.shutdown();
+    } catch (RuntimeException ignored) {
+    }
+  }
+}

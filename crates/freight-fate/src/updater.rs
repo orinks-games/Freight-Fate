@@ -127,7 +127,10 @@ impl UpdaterEnv {
     pub fn current() -> Self {
         Self {
             platform: Platform::current(),
-            executable: std::env::current_exe().unwrap_or_default(),
+            // The executable the game's files sit beside: on Android a
+            // stand-in in the unpacked game folder, since the real process
+            // is the system's app_process.
+            executable: ff_core::settings::paths::game_executable().unwrap_or_default(),
         }
     }
 

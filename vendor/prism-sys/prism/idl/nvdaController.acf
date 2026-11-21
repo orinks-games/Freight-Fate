@@ -1,0 +1,38 @@
+// SPDX-License-Identifier: MPL-2.0
+// See the README for information on why the following license header remains.
+/*
+This file is a part of the NVDA project.
+URL: http://www.nvda-project.org/
+Copyright 2006-2023 NV Access Limited, Leonard de Ruijter.
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Lesser General Public License version 2.1, as published by
+the Free Software Foundation.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+This license can be found at:
+http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html
+*/
+
+[
+	explicit_handle
+]
+interface NvdaController {
+	[fault_status,comm_status] testIfRunning();
+	[fault_status,comm_status] speakText();
+	[fault_status,comm_status] cancelSpeech();
+	[fault_status,comm_status] brailleMessage();
+}
+
+interface NvdaController2 {
+	[explicit_handle,fault_status,comm_status] getProcessId();
+	[explicit_handle,fault_status,comm_status] speakSsml();
+	[fault_status,comm_status] onSsmlMarkReached();
+}
+
+[
+	explicit_handle
+]
+interface NvdaController3 {
+	[fault_status,comm_status] isSpeaking();
+}

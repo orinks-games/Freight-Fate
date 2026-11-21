@@ -888,3 +888,48 @@ msgstr ""
 #. The last sentence of the sleep preview, when nothing comes before it.
 msgid "Select again to sleep."
 msgstr ""
+
+#. The controller lines with the bumpers swapped, for a player who holds the
+#. left bumper for the second layer (Settings, Controls, Second layer bumper).
+#. The game swaps the words in its own help pages and control names
+#. (crates/freight-fate/src/controller/bumpers.rs).
+#. placeholders: {short}
+msgid "left bumper plus {short}"
+msgstr ""
+
+msgid "the right bumper is the clutch"
+msgstr ""
+
+msgid "the left bumper is the second layer"
+msgstr ""
+
+msgid ""
+"For manual clutch, hold either Shift key on a keyboard or right bumper on a "
+"controller."
+msgstr ""
+
+#. placeholders: {control_shift_up}, {control_shift_down}, {control_neutral}, {control_reverse}
+msgid ""
+"For manual clutch, hold either Shift key on a keyboard or right bumper on a "
+"controller. Then {control_shift_up} shifts up, {control_shift_down} down, "
+"{control_neutral} selects neutral, and {control_reverse} selects reverse."
+msgstr ""
+
+msgid "Hold right bumper for manual clutch."
+msgstr ""
+
+#. placeholders: {pad_shift_up}, {pad_shift_down}, {pad_cruise}, {pad_speed}
+msgid ""
+"Hold right bumper for manual clutch. {pad_shift_up} shifts up and "
+"{pad_shift_down} down, past first into neutral and then reverse. "
+"{pad_cruise} starts speed control. {pad_speed} reads speed."
+msgstr ""
+
+msgid "Hold the left bumper for a second layer of buttons."
+msgstr ""
+
+#. placeholders: {pad_engine}, {pad_fuel}, {pad_speed_limit}
+msgid ""
+"Hold the left bumper for a second layer of buttons. {pad_engine} controls "
+"the engine, {pad_fuel} reads fuel, and {pad_speed_limit} reads the limit."
+msgstr ""

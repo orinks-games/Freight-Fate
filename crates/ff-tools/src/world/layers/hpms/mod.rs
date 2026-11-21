@@ -1,12 +1,14 @@
 //! FHWA's Highway Performance Monitoring System (HPMS), read from the
 //! national layer hosted on ArcGIS Living Atlas (Federal User Community
-//! `hpms_v2_view`): traffic volumes (`hpms-traffic`) and terrain class
-//! (`hpms-terrain`).
+//! `hpms_v2_view`): traffic volumes (`hpms-traffic`), terrain class
+//! (`hpms-terrain`), and surface type and structures (`hpms-pavement`).
 //!
 //! Every answer is cached under `.route-cache/hpms/`, keyed by the query,
 //! so a re-run is free and an interrupted crawl resumes where it stopped.
 //! `--refresh` asks the server again.
 
+pub mod pavement;
+pub mod pavement_match;
 pub mod terrain;
 pub mod traffic;
 

@@ -15,7 +15,6 @@ use ff_core::settings::{lane_keeping_to_legacy, Settings};
 use crate::app::{active_log_path, GameContext, Say};
 use crate::impl_state_for_menu;
 use crate::states::base::{InputEvent, Key, Menu, MenuCore, MenuItem};
-use crate::states::online_hub::OnlineHubState;
 
 use super::speech_voices::{rows_signature, RowsAction, RowsEvent, RowsSignature, RowsWait};
 
@@ -41,11 +40,6 @@ impl SettingsState {
         ("Problem reports", "reports"),
     ];
 
-    /// Categories with nothing to do on iPhone and iPad: TestFlight and the
-    /// App Store do the updating, and the log sits where the player cannot
-    /// open it.
-    const HIDDEN_ON_IOS: [&'static str; 2] = ["updates", "reports"];
-
     pub fn new() -> Self {
         Self {
             menu: MenuCore::new("Settings")
@@ -59,11 +53,6 @@ impl SettingsState {
             return;
         }
         ctx.push_state(SettingsCategoryState::new(category));
-    }
-
-    fn open_online_hub(&mut self, ctx: &mut GameContext) {
-        let hub = OnlineHubState::new(ctx);
-        ctx.push_state(hub);
     }
 }
 
@@ -85,7 +74,10 @@ impl Menu for SettingsState {
     fn build_items(&mut self, _ctx: &mut GameContext) -> Vec<MenuItem<Self>> {
         let mut items: Vec<MenuItem<Self>> = Self::CATEGORIES
             .iter()
-            .filter(|(_, key)| !Self::HIDDEN_ON_IOS.contains(key) || !cfg!(target_os = "ios"))
+            // Android has not had a problem report sent from it yet, and its log
+            // sits in the app's private storage, so it keeps the category off
+            // until a report is tried there. Updates are off by self_updates.
+            .filter(|(_, key)| *key != "reports" || !cfg!(target_os = "android"))
             // AG Now updates the game itself, so the update channel and the
             // manual check have nothing to do there either.
             .filter(|(_, key)| *key != "updates" || crate::updater::self_updates())
@@ -94,16 +86,6 @@ impl Menu for SettingsState {
                     .help(format!("Open {} settings.", label.to_lowercase()))
             })
             .collect();
-        // The Online items moved to the main menu; this stays in the old spot
-        // (after Speech) for a release or two so muscle memory still lands
-        // somewhere useful.
-        items.insert(
-            3,
-            MenuItem::new("Online", |s: &mut Self, ctx| s.open_online_hub(ctx)).help(
-                "Online options are now in the Online menu on the main menu. This row \
-                 opens it.",
-            ),
-        );
         items.push(MenuItem::new("Back", |s: &mut Self, ctx| s.go_back(ctx)));
         items
     }
@@ -579,7 +561,7 @@ impl Menu for SettingsCategoryState {
             let marker = if i == core.index { "> " } else { "  " };
             out.push(format!("{marker}{}", item.text(self, ctx)));
         }
-        if self.category == "reports" {
+        if self.category == "reports" && !cfg!(target_os = "ios") {
             out.push(String::new());
             out.extend(self.log_location_lines());
         }

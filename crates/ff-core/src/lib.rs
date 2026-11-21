@@ -35,6 +35,7 @@ pub mod radio;
 pub mod radio_content;
 pub mod radio_rotation;
 pub mod rumble;
+pub mod session_end;
 pub mod settings;
 pub mod sound_catalog;
 pub mod speech_pacing;

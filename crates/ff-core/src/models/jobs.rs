@@ -26,6 +26,9 @@ pub mod relay;
 mod team_tests;
 #[cfg(test)]
 mod tests;
+mod urgency;
+#[cfg(test)]
+mod urgency_tests;
 
 pub use board::{reachable_cities, turn_angle_deg, Candidate, JobBoard, OfferOptions};
 pub use deadline::{
@@ -37,6 +40,11 @@ pub use deadline::{
     DEADLINE_MIN_SEGMENT_MPH, DEADLINE_PLANNING_SPEED_FACTOR, DEADLINE_SAMPLE_MI,
     DISPATCH_FLAT_MINIMUM_BY_LEVEL, HOOKUP_FEE, LONG_HAUL_MINIMUM_RATE_BY_LEVEL,
     SHORT_HAUL_FULL_PREMIUM_MI, SHORT_HAUL_RATE_BY_LEVEL, SHORT_HAUL_TAPER_END_RATE_BY_LEVEL,
+};
+
+pub use urgency::{
+    LoadUrgency, FLEXIBLE_LOAD_PAY_MULT, FLEXIBLE_LOAD_SHARE, FLEXIBLE_LOAD_SLACK_RANGE,
+    HOT_LOAD_PAY_MULT, HOT_LOAD_SHARE, HOT_LOAD_SLACK, STANDARD_LOAD_SLACK_RANGE,
 };
 
 mod catalog;
@@ -162,6 +170,9 @@ pub struct Job {
     /// The placarded material, for placarded cargo; None for an old save
     /// whose packaged load never named one.
     pub hazmat: Option<&'static hazmat::HazmatCommodity>,
+    /// How fast the shipper needs it: a hot load pays more on a tight
+    /// deadline, a flexible delivery less on a wide one.
+    pub urgency: LoadUrgency,
 }
 
 /// Seasonal weight restriction recorded when a job is dispatched.
@@ -251,6 +262,7 @@ impl Job {
             seasonal_weight_limit: None,
             team: false,
             hazmat: hazmat::default_commodity(cargo.key),
+            urgency: LoadUrgency::Standard,
         }
     }
 
@@ -352,15 +364,22 @@ impl Job {
             opts.distance_text.to_string()
         };
         let hours = fmt_f(self.deadline_game_h, 0);
-        let deadline = if self.team {
-            format!(
-                "{distance}, deadline {hours} hours. Team load: you and a co-driver take turns at the wheel."
-            )
-        } else if self.deadline_covers_rest {
+        let terms = if self.deadline_covers_rest && !self.team {
             format!("{distance}, deadline {hours} hours with a 10-hour rest.")
         } else {
             format!("{distance}, deadline {hours} hours.")
         };
+        let team = if self.team {
+            "Team load: you and a co-driver take turns at the wheel."
+        } else {
+            ""
+        };
+        // The urgency sits between the deadline and the team sentence.
+        let deadline = [terms.as_str(), self.urgency.board_sentence(), team]
+            .into_iter()
+            .filter(|sentence| !sentence.is_empty())
+            .collect::<Vec<_>>()
+            .join(" ");
         let extra = if opts.extra.is_empty() {
             String::new()
         } else {
@@ -588,6 +607,7 @@ pub fn job_payload(job: &Job) -> Map<String, Value> {
             })
         }),
         "team": job.team,
+        "urgency": job.urgency.key(),
     });
     match value {
         Value::Object(mut map) => {
@@ -686,6 +706,7 @@ pub fn job_from_payload(data: &Map<String, Value>) -> Option<Job> {
     {
         job.hazmat = Some(material);
     }
+    job.urgency = LoadUrgency::from_key(data.get("urgency").and_then(Value::as_str).unwrap_or(""));
     Some(job)
 }
 

@@ -13,15 +13,15 @@ use crate::data::world_models::{City, CrossingLoad, Location};
 use crate::models::business_constants::DIRECT_FREIGHT_PAY_MULT;
 use crate::models::carriers::carrier;
 use crate::models::co_driver::{load_seed, team_load_drawn, TEAM_LOAD_PAY_MULT};
-use crate::models::jobs::team_deadline_hours;
 use crate::models::jobs::{
     cargo_type, dispatch_deadline_hours, market_tag_cargo_bonus, minimum_pay_for_level, plan_hos,
-    CargoType, Job, SeasonalWeightLimit, DEADLINE_DISPATCH_SLACK_RANGE, FACILITY_SELECTION_WEIGHTS,
-    HELD_CREDENTIAL_CARGO_WEIGHT, HELD_CREDENTIAL_FACILITY_BONUS, HOOKUP_FEE, LEVEL_DISTANCE_CAPS,
-    LEVEL_DISTANCE_CAP_STEP_MI, MAX_DISPATCH_DISTANCE_MI, MIN_JOB_DISTANCE_MI, PREMIUM_LANE_LEVEL,
-    PREMIUM_LANE_LONG_HAUL_BIAS, SPECIALIZED_FREIGHT_LEVEL, SPECIALIZED_FREIGHT_WEIGHT,
-    THIN_OUTBOUND_ORIGIN_WEIGHT,
+    CargoType, Job, LoadUrgency, SeasonalWeightLimit, DEADLINE_DISPATCH_SLACK_RANGE,
+    FACILITY_SELECTION_WEIGHTS, HELD_CREDENTIAL_CARGO_WEIGHT, HELD_CREDENTIAL_FACILITY_BONUS,
+    HOOKUP_FEE, LEVEL_DISTANCE_CAPS, LEVEL_DISTANCE_CAP_STEP_MI, MAX_DISPATCH_DISTANCE_MI,
+    MIN_JOB_DISTANCE_MI, PREMIUM_LANE_LEVEL, PREMIUM_LANE_LONG_HAUL_BIAS,
+    SPECIALIZED_FREIGHT_LEVEL, SPECIALIZED_FREIGHT_WEIGHT, THIN_OUTBOUND_ORIGIN_WEIGHT,
 };
+use crate::models::jobs::{required_hours, team_deadline_hours};
 use crate::models::jobs::{BEHIND_HEADING_PENALTY, RETURN_LANE_MIN_POOL, RETURN_LANE_SHARE};
 use crate::models::market::Market;
 use crate::models::start_options::{start_option, DEFAULT_START_KEY};
@@ -34,6 +34,11 @@ use crate::sim::vehicle::{
 };
 
 mod cattle;
+
+/// A flexible team load's deadline stays this far short of the solo
+/// driver's legal hours, so it never leaves room for the 10-hour sleep a
+/// team load skips. A design margin, not a measurement.
+const TEAM_FLEXIBLE_SOLO_MARGIN_H: f64 = 0.5;
 
 /// `(destination, route miles, route leg count)`.
 pub type Candidate = (String, f64, usize);
@@ -118,6 +123,9 @@ pub struct JobBoard<'w> {
     // burned, the way a real dispatcher asks what you have left.
     pub hos: Option<HosClock>,
     calendar_hours: Option<f64>,
+    /// Post every load standard: a relay brings a nearby load as it is,
+    /// with no hot or flexible terms.
+    pub standard_only: bool,
     rng: PyRandom,
 }
 
@@ -128,6 +136,7 @@ impl<'w> JobBoard<'w> {
             world,
             hos: hos.cloned(),
             calendar_hours: None,
+            standard_only: false,
             rng: match seed {
                 Some(seed) => PyRandom::new_from_i64(seed),
                 None => PyRandom::new_unseeded(),
@@ -310,11 +319,11 @@ impl<'w> JobBoard<'w> {
                 jobs.push(job);
             }
         }
-        jobs.sort_by(|a, b| {
-            a.distance_mi
-                .partial_cmp(&b.distance_mi)
-                .unwrap_or(std::cmp::Ordering::Equal)
-        });
+        // Posted order: a shuffle drawn from the board's own seed after
+        // every job draw, so a seed still posts the same loads and only
+        // their order is new. Shortest first made the last row the longest
+        // load, and since pay follows miles, nearly always the best one.
+        self.rng.shuffle(&mut jobs);
         jobs
     }
 
@@ -929,16 +938,38 @@ impl<'w> JobBoard<'w> {
         } else {
             1.0
         };
+        // A fresh driver's sleeps, planned once for the team draw and the
+        // stretch question below.
+        let fresh_sleeps = plan_hos(miles, route.as_ref(), Some(self.world), None).sleeps;
+        // A load a solo driver must sleep on the way to deliver may be booked
+        // for a team: it pays more and allows no 10-hour break. Drawn from
+        // the load itself, not the board's dice, so every other offer stays
+        // what it was.
+        let seed = load_seed(origin, destination, cargo.key, weight);
+        let livestock = cargo.key == LIVESTOCK_CARGO_KEY;
+        let team = !livestock && fresh_sleeps > 0 && team_load_drawn(&seed);
+        // How fast the shipper needs it, drawn from the load itself too.
+        // Relays stay standard, and so does a cattle run: the 28-hour limit
+        // sets its deadline.
+        let urgency = if self.standard_only || livestock {
+            LoadUrgency::Standard
+        } else {
+            LoadUrgency::drawn(&seed)
+        };
         let pay = round_py_n(
-            base_pay.max(minimum_pay_for_level(miles, level)) * mult * direct_mult,
+            base_pay.max(minimum_pay_for_level(miles, level))
+                * mult
+                * direct_mult
+                * urgency.pay_mult(),
             2,
         );
         // deadline: the honest HOS-compliant hours (driving, breaks, sleep),
         // shipper slack on top, plus a flat hour for fuel and the unexpected
-        let slack = self.rng.uniform(
+        let slack_draw = self.rng.uniform(
             DEADLINE_DISPATCH_SLACK_RANGE.0,
             DEADLINE_DISPATCH_SLACK_RANGE.1,
         );
+        let slack = urgency.slack(slack_draw, DEADLINE_DISPATCH_SLACK_RANGE);
         let deadline = dispatch_deadline_hours(
             miles,
             slack,
@@ -950,8 +981,6 @@ impl<'w> JobBoard<'w> {
             .deadline_slack;
         // Speak the stretch when the driver's current clock forces a sleep a
         // fresh clock would not have needed -- the long number is the law.
-        // A fresh driver's sleeps, planned once for both questions below.
-        let fresh_sleeps = plan_hos(miles, route.as_ref(), Some(self.world), None).sleeps;
         let covers_rest = match &self.hos {
             Some(hos) => {
                 plan_hos(miles, route.as_ref(), Some(self.world), Some(hos)).sleeps > fresh_sleeps
@@ -977,14 +1006,10 @@ impl<'w> JobBoard<'w> {
         job.origin_locality = origin_facility.locality.clone();
         job.destination_locality = destination_facility.locality.clone();
         job.deadline_covers_rest = covers_rest;
+        job.urgency = urgency;
         job.origin_spoken = self.world.spoken_city(origin, Some(true));
         job.destination_spoken = self.world.spoken_city(destination, Some(true));
-        // A load a solo driver must sleep on the way to deliver may be booked
-        // for a team: it pays more and allows no 10-hour break. Drawn from
-        // the load itself, not the board's dice, so every other offer stays
-        // what it was.
-        let seed = load_seed(origin, destination, cargo.key, job.weight_tons);
-        if cargo.key == LIVESTOCK_CARGO_KEY {
+        if livestock {
             // The 28-hour limit plans a cattle run, not the dice: a run a
             // solo driver could not make without a 10-hour break is a team
             // load, and one that does not fit is no load at all.
@@ -998,12 +1023,23 @@ impl<'w> JobBoard<'w> {
             ) {
                 return None;
             }
-        } else if fresh_sleeps > 0 && team_load_drawn(&seed) {
+        } else if team {
             job.team = true;
             job.deadline_covers_rest = false;
             job.pay = round_py_n(job.pay * TEAM_LOAD_PAY_MULT, 2);
+            let team_hours =
+                |slack: f64| team_deadline_hours(miles, slack, route.as_ref(), Some(self.world));
+            let mut hours = team_hours(slack);
+            if urgency == LoadUrgency::Flexible {
+                // Wide, but never wide enough for the 10-hour sleep a team
+                // load skips, and never tighter than the tightest window.
+                let solo = required_hours(miles, route.as_ref(), Some(self.world), None);
+                hours = hours
+                    .min(solo - TEAM_FLEXIBLE_SOLO_MARGIN_H)
+                    .max(team_hours(DEADLINE_DISPATCH_SLACK_RANGE.0));
+            }
             job.deadline_game_h = round_py_n(
-                team_deadline_hours(miles, slack, route.as_ref(), Some(self.world))
+                hours
                     * start_option(Some(carrier_key))
                         .dispatch_profile()
                         .deadline_slack,

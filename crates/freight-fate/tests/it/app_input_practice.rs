@@ -106,6 +106,51 @@ fn escape_twice_returns_to_the_drive() {
 }
 
 #[test]
+fn with_the_left_bumper_layer_the_bumper_held_is_the_one_named() {
+    // The pad's presses arrive already swapped (`controller::bumpers`), so
+    // the game's second layer is the left bumper in the player's hand, and
+    // every spoken line names it that way.
+    let mut harness = a_drive("Practice Left Layer");
+    harness.app.ctx.settings.left_bumper_layer = true;
+    pad(&mut harness);
+    open_practice(&mut harness);
+    button(&mut harness, ControllerButton::RightShoulder);
+    assert_eq!(
+        last_main(&harness),
+        "The left bumper: hold for the second layer of buttons."
+    );
+    button(&mut harness, ControllerButton::X);
+    assert_eq!(
+        last_main(&harness),
+        "Left bumper plus X: Posted speed limit."
+    );
+    button_up(&mut harness, ControllerButton::X);
+    button_up(&mut harness, ControllerButton::RightShoulder);
+    button(&mut harness, ControllerButton::LeftShoulder);
+    assert_eq!(
+        last_main(&harness),
+        "The right bumper: hold as the clutch in a manual truck."
+    );
+}
+
+#[test]
+fn with_the_left_bumper_layer_a_name_keeps_its_own_words() {
+    // Only the game's control names and instructions swap; a finished line
+    // is spoken as it was built, so a driver called "Right bumper" keeps
+    // the name.
+    let mut harness = a_drive("Right Bumper");
+    harness.app.ctx.settings.left_bumper_layer = true;
+    assert_eq!(
+        harness.app.ctx.tr("Welcome back, Right bumper."),
+        "Welcome back, Right bumper."
+    );
+    assert_eq!(
+        harness.app.ctx.bumper_words("Right bumper plus X"),
+        "Left bumper plus X"
+    );
+}
+
+#[test]
 fn pad_buttons_are_named_on_both_layers() {
     let mut harness = a_drive("Practice Pad");
     pad(&mut harness);

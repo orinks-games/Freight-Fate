@@ -3,6 +3,7 @@
 //! `_speech_control_specs`, `_driving_assist_specs` in `main_menu.py`).
 
 mod dynamic;
+mod voice_groups;
 
 use std::rc::Rc;
 
@@ -16,7 +17,9 @@ use super::settings_actions::{
     score_display_label, update_channel,
 };
 use super::shortcuts::{ShortcutDevice, ShortcutsState};
-use super::speech_voices::{event_voice_label, main_voice_label, speech_voice_label};
+use super::speech_voices::{
+    event_voice_label, main_voice_label, speech_voice_label, EVENT_VOICE_HELP,
+};
 use super::touch_gestures::TouchGesturesState;
 use crate::app::GameContext;
 use crate::states::base::{Label, Menu, MenuItem};
@@ -74,6 +77,19 @@ fn controller_label(ctx: &GameContext) -> String {
 fn adjust(f: impl Fn(&mut SettingsCategoryState, &mut GameContext, i64) + 'static) -> Adjust {
     Rc::new(f)
 }
+
+/// Help for the streamer-safe row. Phones have no personal playlists, and
+/// tune by gesture rather than with station keys.
+#[cfg(not(touch_screen))]
+const STREAMER_SAFE_HELP: &str = "Off plays the full dial, including real public streams and \
+     personal playlists. On keeps the radio to built-in safe \
+     stations, for streaming or recording. With Music source set to \
+     Synthesized, On keeps the radio on the Roadhouse and station \
+     keys do nothing.";
+#[cfg(touch_screen)]
+const STREAMER_SAFE_HELP: &str = "Off plays the full dial, including real public streams. On \
+     keeps the radio to built-in safe stations, for streaming or recording. With Music source \
+     set to Synthesized, On keeps the radio on the Roadhouse and tuning does nothing.";
 
 /// A settings row. Its help may name a control as `{{id}}`, read in the
 /// player's own keys the way the help pages read them.
@@ -354,7 +370,12 @@ impl SettingsCategoryState {
                        starts. Never keeps it quiet. Backups keep going either \
                        way, and a refused backup is always spoken.",
             },
-            SpeechSpec {
+        ];
+        // Android always speaks through its text to speech voice: the game's
+        // gestures need TalkBack paused, and a paused TalkBack says nothing,
+        // so there is no other main voice to offer.
+        if !cfg!(target_os = "android") {
+            specs.push(SpeechSpec {
                 label: Label::dynamic(|_s, ctx| {
                     let options = ctx.speech.main_backend_options();
                     format!(
@@ -367,34 +388,23 @@ impl SettingsCategoryState {
                        your screen reader when one is running, and a system \
                        voice when none is. A screen reader is listed only while \
                        it is running.",
-            },
-            SpeechSpec {
-                label: Label::dynamic(|_s, ctx| {
-                    let main_name = ctx.speech.backend_name();
-                    let options = ctx.speech.event_backend_options();
-                    format!(
-                        "Driving event voice: {}",
-                        event_voice_label(&ctx.settings, &main_name, &options)
-                    )
-                }),
-                action: adjust(|s, ctx, d| s.cycle_event_voice(ctx, d)),
-                help: if cfg!(target_os = "ios") {
-                    "Road events through the main voice or a separate system \
-                     voice that VoiceOver cannot cut off. The rate, pitch, \
-                     volume, and voice rows below appear only when the voice \
-                     supports them. With VoiceOver running, set those in \
-                     VoiceOver."
-                } else {
-                    "Road events through the main voice or a separate SAPI or \
-                     OneCore voice a screen reader cannot cut off. The rate, \
-                     pitch, volume, and voice rows below appear only when the \
-                     voice supports them. With a screen reader running, set \
-                     those in the screen reader."
-                },
-            },
-        ];
-        // Braille only needs NVDA or JAWS, which iPhone and iPad do not have.
-        if !cfg!(target_os = "ios") {
+            });
+        }
+        specs.push(SpeechSpec {
+            label: Label::dynamic(|_s, ctx| {
+                let main_name = ctx.speech.backend_name();
+                let options = ctx.speech.event_backend_options();
+                format!(
+                    "Driving event voice: {}",
+                    event_voice_label(&ctx.settings, &main_name, &options)
+                )
+            }),
+            action: adjust(|s, ctx, d| s.cycle_event_voice(ctx, d)),
+            help: EVENT_VOICE_HELP,
+        });
+        // Braille only needs NVDA or JAWS, which phones and tablets do not
+        // have.
+        if !cfg!(touch_screen) {
             specs.push(SpeechSpec {
                 label: dyn_label(|s| format!("Output: {}", output_label(s))),
                 action: adjust(|s, ctx, d| s.toggle_braille_only(ctx, d)),
@@ -444,7 +454,12 @@ impl SettingsCategoryState {
                 help: "Loudness of the game's voice, separate from sound volume.",
             });
         }
-        if !speech.voice_names().is_empty() {
+        let voices = speech.voice_names();
+        // Android lists every engine's voices; there they are browsed by
+        // engine and language first.
+        if cfg!(target_os = "android") && voice_groups::grouped(&voices) {
+            specs.extend(voice_groups::specs());
+        } else if !voices.is_empty() {
             specs.push(SpeechSpec {
                 label: Label::dynamic(|_s, ctx| {
                     let voices = ctx.speech.voice_names();
@@ -487,6 +502,7 @@ impl SettingsCategoryState {
                 adjust(|s, ctx, d| s.toggle_transmission(ctx, d)),
                 adjust(|s, ctx, d| s.toggle_controller(ctx, d)),
                 adjust(|s, ctx, d| s.toggle_haptics(ctx, d)),
+                adjust(|s, ctx, d| s.toggle_left_bumper_layer(ctx, d)),
                 #[cfg(feature = "visuals")]
                 adjust(|s, ctx, d| s.toggle_visual_display(ctx, d)),
                 adjust(|s, ctx, d| s.toggle_menu_accelerator_keys(ctx, d)),
@@ -522,6 +538,8 @@ impl SettingsCategoryState {
                 adjust(|s, ctx, d| s.roll_music_seed(ctx, d)),
                 adjust(|s, ctx, d| s.volume(ctx, "radio_volume", 0.1 * d as f64)),
                 adjust(|s, ctx, d| s.toggle_radio_streamer_safe(ctx, d)),
+                // Phones have no personal playlists to shuffle.
+                #[cfg(not(touch_screen))]
                 adjust(|s, ctx, d| s.toggle_radio_shuffle_playlists(ctx, d)),
                 adjust(|s, ctx, d| s.toggle_radio_cab_speakers(ctx, d)),
                 adjust(|s, ctx, d| s.toggle_duck_for_speech(ctx, d)),
@@ -741,6 +759,17 @@ impl SettingsCategoryState {
                     "Controller rumble for hazards, hard braking, the rumble \
                      strip, and road seams. Needs a controller connected.",
                 ),
+                row(
+                    dyn_label(|s| {
+                        format!(
+                            "Second layer bumper: {}",
+                            if s.left_bumper_layer { "left" } else { "right" }
+                        )
+                    }),
+                    adjust(|s, ctx, d| s.toggle_left_bumper_layer(ctx, d)),
+                    "Which bumper you hold for the second layer of controller \
+                     buttons. The other bumper is the clutch.",
+                ),
                 // A build without the visual display has nothing to turn off.
                 #[cfg(feature = "visuals")]
                 row(
@@ -774,17 +803,23 @@ impl SettingsCategoryState {
                         ctx.push_state(ShortcutsState::new(ShortcutDevice::Controller))
                     },
                 )
-                .help(
-                    "Move any driving control to another pad button, plain or with \
-                     the right bumper held.",
-                ),
+                .help(Label::dynamic(|_s, ctx| {
+                    if ctx.settings.left_bumper_layer {
+                        "Move any driving control to another pad button, plain or with \
+                         the left bumper held."
+                    } else {
+                        "Move any driving control to another pad button, plain or with \
+                         the right bumper held."
+                    }
+                    .to_string()
+                })),
                 // The speed keeper moved to Driving assistance: it holds a speed
                 // for you, which is what every other row on that screen does.
                 // Controls is the keyboard, the controller, and the units the
                 // numbers arrive in.
             ]
             .into_iter()
-            .chain(cfg!(target_os = "ios").then(touch_gestures_row))
+            .chain(cfg!(touch_screen).then(touch_gestures_row))
             .chain([back_row()])
             .collect(),
             "audio" => self.audio_items(),
@@ -797,8 +832,8 @@ impl SettingsCategoryState {
                 items.push(back_row());
                 items
             }
-            "reports" => vec![
-                row(
+            "reports" => {
+                let mut items = vec![row(
                     dyn_label(|s| {
                         format!(
                             "Ask to report a problem after a crash: {}",
@@ -808,17 +843,22 @@ impl SettingsCategoryState {
                     adjust(|s, ctx, d| s.toggle_crash_report_offer(ctx, d)),
                     "On, the main menu offers to send a report when the game closed \
                      without quitting the last time, with that run's log attached.",
-                ),
-                MenuItem::new(
-                    "Where the game log is saved",
-                    |s: &mut SettingsCategoryState, ctx| s.say_log_location(ctx),
-                )
-                .help(
-                    "The session log records everything the game said out \
-                     loud. Report a problem attaches it for you.",
-                ),
-                back_row(),
-            ],
+                )];
+                if !cfg!(target_os = "ios") {
+                    items.push(
+                        MenuItem::new(
+                            "Where the game log is saved",
+                            |s: &mut SettingsCategoryState, ctx| s.say_log_location(ctx),
+                        )
+                        .help(
+                            "The session log records everything the game said out \
+                             loud. Report a problem attaches it for you.",
+                        ),
+                    );
+                }
+                items.push(back_row());
+                items
+            }
             _ => self.update_items(ctx),
         }
     }
@@ -945,12 +985,9 @@ impl SettingsCategoryState {
                     format!("Radio streamer-safe mode: {}", on_off(s.radio_streamer_safe))
                 }),
                 adjust(|s, ctx, d| s.toggle_radio_streamer_safe(ctx, d)),
-                "Off plays the full dial, including real public streams and \
-                 personal playlists. On keeps the radio to built-in safe \
-                 stations, for streaming or recording. With Music source set to \
-                 Synthesized, On keeps the radio on the Roadhouse and station \
-                 keys do nothing.",
+                STREAMER_SAFE_HELP,
             ),
+            #[cfg(not(touch_screen))]
             row(
                 dyn_label(|s| {
                     format!(

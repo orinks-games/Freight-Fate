@@ -21,6 +21,9 @@ pub enum TouchCommand {
     Action(Action),
     /// The pause menu, which is Escape rather than an [`Action`].
     Pause,
+    /// The grouped driving command list the three-finger tap opens, for a
+    /// player whose three-finger tap lands as one finger.
+    CommandList,
     Nothing,
 }
 
@@ -29,6 +32,7 @@ impl TouchCommand {
         match self {
             TouchCommand::Action(action) => action.label(),
             TouchCommand::Pause => "Pause",
+            TouchCommand::CommandList => "Driving command list",
             TouchCommand::Nothing => "Nothing",
         }
     }
@@ -37,6 +41,7 @@ impl TouchCommand {
         match self {
             TouchCommand::Action(action) => action.id(),
             TouchCommand::Pause => "pause",
+            TouchCommand::CommandList => "command_list",
             TouchCommand::Nothing => "none",
         }
     }
@@ -44,6 +49,7 @@ impl TouchCommand {
     fn parse(text: &str) -> Option<TouchCommand> {
         match text {
             "pause" => Some(TouchCommand::Pause),
+            "command_list" => Some(TouchCommand::CommandList),
             "none" => Some(TouchCommand::Nothing),
             id => Action::from_id(id)
                 .filter(|action| {
@@ -56,15 +62,19 @@ impl TouchCommand {
     /// Every command a gesture can run, in the order the picker reads them.
     /// The held controls are left out: a tap cannot hold a pedal.
     pub fn all() -> impl Iterator<Item = TouchCommand> {
-        [TouchCommand::Nothing, TouchCommand::Pause]
-            .into_iter()
-            .chain(
-                Action::all()
-                    .filter(|action| {
-                        !action.held() || matches!(action, Action::SteerLeft | Action::SteerRight)
-                    })
-                    .map(TouchCommand::Action),
-            )
+        [
+            TouchCommand::Nothing,
+            TouchCommand::Pause,
+            TouchCommand::CommandList,
+        ]
+        .into_iter()
+        .chain(
+            Action::all()
+                .filter(|action| {
+                    !action.held() || matches!(action, Action::SteerLeft | Action::SteerRight)
+                })
+                .map(TouchCommand::Action),
+        )
     }
 }
 
@@ -495,16 +505,18 @@ mod tests {
         b.set_touch_command(Gesture::Tap, run(Action::Fuel));
         b.set_touch_command(Gesture::MagicTap, TouchCommand::Nothing);
         b.set_touch_command(Gesture::LowerHoldSwipeUp, TouchCommand::Pause);
+        b.set_touch_command(Gesture::SwipeDown, TouchCommand::CommandList);
         let mut settings = Settings::default();
         b.store(&mut settings);
         assert_eq!(
             settings.touch_bindings,
-            "tap=fuel;magic_tap=none;bottom_hold_swipe_up=pause"
+            "tap=fuel;swipe_down=command_list;magic_tap=none;bottom_hold_swipe_up=pause"
         );
         assert_eq!(KeyBindings::from_settings(&settings), b);
         // Back to the default clears the override.
         b.set_touch_command(Gesture::Tap, run(Action::Speed));
         b.set_touch_command(Gesture::MagicTap, TouchCommand::Pause);
+        b.set_touch_command(Gesture::SwipeDown, run(Action::CruiseDown));
         b.reset_touch();
         assert!(b.is_default());
     }

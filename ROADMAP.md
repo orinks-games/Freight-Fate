@@ -47,13 +47,22 @@ bookmarks usable.
 
 ## 1.9 in flight (ships from `dev` and `main`)
 
+- [x] Manual cloud backup checks the current cloud revision before saying copies match; a stale local copy leaves the newer cloud career untouched and explains how to restore it.
+- [x] Opt-in cloud resume (owner request): main-menu checks pick up clean, tracked careers from another device; changed local copies use the existing Cloud backup conflict choice. Off by default.
 - [x] Guest drivers (built 2026-11-07, merged to dev 2026-11-17): Drive online as a guest on the Online menu gets a word-list name from orinks.net and turns Profile sharing on; Guest name asks for a new one; guests are on the board only, so a profile, road journal, achievements and cloud backup stay account-only. An account with no driver yet takes the guest over when it connects. Needs the orinks.net guest routes live on the production site.
 - [x] Main voice (built 2026-11-17, owner request): Settings, Speech has a Main voice row above Driving event voice. Automatic stays the default; the player can pick any voice that can speak right now (a running screen reader, SAPI, Windows OneCore, Narrator while it runs, the built-in voice). The choice is saved as is and never rewritten: while the chosen voice cannot speak, the automatic pick speaks and the row says the voice is unavailable, and the health check binds it when it returns. When Driving event voice names the main voice, events go through the main voice and the event row reads "main voice"; the saved event voice is kept, so moving the main voice away brings the separate voice back. Hearken PR 74 (`main_backend_options`, the Narrator gate, the shared event voice).
+- [x] Outside ambience (built 2026-11-19, player request relayed by Orinks 2026-11-19): insects at dusk and night on warm nights (one recording; a second night's recording, alternating night by night, was dropped by Orinks's ear on 2026-11-20), birds at dawn and by day from freezing up, and a river under the truck at each OSM river crossing, held 6 real seconds past it. Heavy rain, storms, snow and ice are quiet. Each bed plays a clear copy on the driver's side and a muffled copy centred, crossfaded by the driver window's glass; the window, the scene and the water are state machines in `ff_core::sim::cab` and `sim::outside`. Replaces the old `ambient/night` bed. Sounds from OpenGameArt (CC0 and CC BY), prepared by `sound-test/outside_ambience.sh`.
+- [ ] (Found along the way) Outside ambience levels are first guesses for Orinks's ear: the beds' levels, the insects' window-up level at highway speed (about 4 dB over the road and engine at 65 mph in the 2 to 4 kHz band; Orinks heard it through the glass in a recording), and the river's level.
+- [x] Road seams (built 2026-11-19, Orinks asked the same evening; on the pavement layer 2026-11-20): a two-part thump at each seam, the steer axle and then the drive tandem a wheelbase (5.2 m, assumed) behind, so the gap widens as the truck slows. The layer decides where: full seams on jointed concrete, louder on fair and poor faulting, softer ones on asphalt over jointed concrete, none on asphalt or continuous concrete. Bridges and causeways from the layer have a heavier joint under all three axles, thinned for pacing. Where the layer reads nothing the stretches are still invented (`ff_core::sim::road_texture::RoadSurface::Invented`, drawn from the drive's road texture seed). Sounds are pitched cuts of the in-repo seam thump (`sound-test/road_seams.sh`). Detail: [November 20](#november-20-seams-and-joints-from-the-pavement-layer-found-along-the-way).
+- [ ] (Found along the way) Road seam levels (`SEAM_LEVEL`, `BRIDGE_JOINT_LEVEL`) are first guesses for Orinks's ear, and a recorded seam would replace the synthesized one if one turns up under a usable license. So are the faulting and overlay factors and the joint thinning numbers. The seam spacing is the real slab length, about 4.6 m (Orinks chose it by ear on 2026-11-20 over the first 14 to 18 m).
+- [ ] (Found along the way) The 0 and 10 degree lines for birds and insects are assumptions, not sourced; regional and seasonal bird variety, lakes and the passenger window are not covered.
 - [ ] (Found along the way) The Speech voice row sets one installed voice for whichever bound voice lists voices first (the main voice, then the event voice), so the event voice's own installed voice cannot be chosen when both have lists, and a voice does not remember its own installed voice when the main voice changes.
 - [ ] (Found along the way) Hearken's own settings screen still offers only a built-in voice toggle, not the full main voice choice.
 - [ ] (Found along the way) The agent server's `status` tool presses the readout keys, and inside a settings menu those keys change rows: one drive of 2026-11-18 changed the event voice and the language that way.
 - [ ] (Found along the way) Where the saved event voice is not on the machine, the voice standing in for it can be the built-in voice (Linux with Speech Dispatcher, a Mac without VoiceOver), so road events default to the built-in voice there.
 - [x] (Found along the way) Cruise in a low-speed zone pumped the brakes behind a slower car and ran the air down to the spring brakes (issue 520, a 1.9.5 log: twice in two minutes in a Waco work zone, behind a car doing 21 with the zone held at 30). The low-speed half matched the car only while the gap was inside a window priced from the truck's speed now, so its own brake shrank the window back past the car, it let go, throttled up and braked again: 34 applications and 125 psi to 40 in fifteen seconds on a bench. Highway work zones moved to adaptive cruise in 1.9.6, which follows the same car on one application, so that zone no longer does it; streets, facility approaches and merge lanes still did. Fixed 2026-11-15: once it starts following a slower vehicle it keeps following it until that vehicle speeds up past the zone's number or stops being the lead (`ff_core::sim::keeper_follow`; the agent server's `observe` reports it as "following traffic"). Bench: one application, 124 psi held.
+- [x] (Found along the way) The line a resumed drive opens with stayed partly English in every translation but Vietnamese (found in the 1.9.7 release review, 2026-11-21; in 1.9.6 too): "Press E to start the engine.", the parking brake pointer and, on the short line, "parking brake set". The truck's state was two or three holes side by side at the end of the line, and a translated line split them mid-sentence. Fixed 2026-11-21: the state is one hole in both lines, every catalog carries the new lines, and a test says the whole line in all eleven languages. The sentence "Simulated weather: ..." also said fallback weather in ten languages; it now says simulated weather.
+- [ ] (Found along the way) Every catalog has entries filled with their own English, which `l10n-check --stats` counts as translated (2026-11-21): French says "fog", "rain" and "snow" in a weather report, Spanish leaves most weather alert names. About 1,290 entries where one language keeps the English and at least six others translate it, from 22 in Turkish to 251 in French; some are names or words that are the same in that language. The lists are in the project files under `release-1.9.7/english-leftovers/`. Translate the real gaps, and have `l10n-check` report a line that equals its English where most languages differ. A German drive on 2026-11-21 also heard words left English inside translated lines ("Diese delivery geht vom letzten Haltepunkt aus weiter", "parcel loose" in the market watch, "Start auf a service road") and one line out of order ("Trotzdem beenden und 1183 Meilen. verlieren").
 - [ ] (Found along the way) The low-speed half of cruise still re-presses about six times in two minutes following a car at 21 down a 3 percent grade (air stays near 100 psi); adaptive cruise on the same bench re-presses twice.
 
 - [x] (Found along the way) Sound or the built-in voice stays off after a Bluetooth headset connects, disconnects or drops out (a player said on 2026-11-13 that issue 483 was back in 1.9.6; the report had no log). The device code was the same in 1.9.5 and 1.9.6, so the October fix had gaps, and 1.9.6 added one more. Game sound: the device was only reopened when it said it was gone, so a stream that ended on any other error, or stopped asking for sound with no error, stayed silent until restart. Built-in voice (new in 1.9.6): it has its own stream and only came back on a device at the same sample rate, so a headset at 44,100 Hz beside speakers at 48,000 muted it. Fixed 2026-11-13 in Hearken (orinks-games/hearken PR 69, pinned here): both streams count their own callbacks and reopen the default device after a lost-device error, after another error followed by half a second of silence, or after 2 seconds of silence, waiting 4, 8, then 16 seconds between tries on a device that stays silent; the voice follows the new device's rate. Staged on Linux by killing and restarting the sound service: silent before, back within half a second after. Not yet run on Windows with a headset.
@@ -78,6 +87,14 @@ bookmarks usable.
 - [ ] (Found along the way) Six Florida legs named I-95 ride Florida's Turnpike for about 13 miles (West Palm Beach, Port St. Lucie, Coral Springs and Jacksonville to Miami and Palm Bay). The route is a reasonable truck choice; the label is what is wrong. Name the road the legs drive, or split the highway name where they change roads.
 - [ ] (Found along the way) A whole-map run of the new layer builders (2026-11-05, dry run) would change most legs: lane counts and landmarks mostly by their source notes, villages by about 160 places, and low clearances from 118 legs to 543, mostly real posted bridges under 16 feet in the Northeast. Decide whether to apply it, and listen to a few of the new clearance calls first.
 - [ ] (Found along the way) The terrain class reads at most 800 HPMS sections per leg, so a long leg is judged on whichever 800 the server returns first: Harrisburg to Pittsburgh across the Alleghenies reads level. Count every section in the leg's own corridor instead.
+- [x] (Found along the way) What the road is made of, and where it leaves the ground, is on the map (2026-11-20; the owner asked whether pavement data could make the planned road seams accurate). `cargo tools hpms-pavement` reads FHWA HPMS surface type and bridges, tunnels and causeways along every leg's archived road, each way; the road seams and bridge joints use it. Coverage and method: [November 20](#november-20-pavement-and-structures-from-hpms-found-along-the-way).
+- [x] (Found along the way) The road seams follow the pavement layer (2026-11-20): seams on jointed concrete by faulting class, softer ones on asphalt over jointed concrete, bridge joints at the ends of bridges and causeways of 0.05 mile and more, and the made-up stretches only where a leg has no reading. Detail: [November 20](#november-20-seams-and-joints-from-the-pavement-layer-found-along-the-way).
+- [x] (Found along the way) Chains broke on dry road under a chain law (player report, 2026-11-21: told to chain up under a cloudy sky, then the chains snapped and damaged the truck). A live Weather Service alert alone posted the law, a Winter Storm Watch included; putting chains on billed its 30 to 48 minutes to the simulated sky's change timer, which ended the snow during 18 to 38 percent of chain-ups (500 seeds each); and nothing said the law had lifted or the road was bare. Fixed 2026-11-21: a chain law follows the road. Detail: [November 21](#november-21-a-chain-law-follows-the-road-found-along-the-way).
+- [ ] (Found along the way) Tunnels do not quiet the birds and insects. At standard pacing a one-mile tunnel passes in under three seconds, shorter than the outside bed's three-second fade, so the bed would only dip. It needs a faster fade for tunnels, or a muffle like the closed window's.
+- [ ] (Found along the way) The Allegheny Mountain Tunnel on the Pennsylvania Turnpike has no structure row in HPMS 2020 (Blue Mountain, Kittatinny and Tuscarora do), so the pavement layer has no tunnel there.
+- [ ] (Found along the way) HPMS reports bridge-sized culverts as bridges, so the pavement layer's bridges include some culverts. The National Bridge Inventory could tell them apart.
+- [ ] (Found along the way) Harrisburg to Pittsburgh still leaves the Turnpike for US-30 between about miles 87 and 100, near Bedford, after the re-route of 2026-11-05. HPMS has no surface for that stretch of US-30.
+- [ ] (Found along the way) California 99 near Bakersfield (miles 25 to 28 of Bakersfield to Los Angeles) has HPMS sections with no surface type, so the pavement layer is silent there.
 - [x] (Found along the way) Towns that no longer exist (owner, 2026-11-09: "Knife River, Montana"). The town checkpoints were named from the USGS place list, which keeps retired census names at the spot of the town that replaced them: Knife River was the 2010 census name for Savage, and the drive said both at mile 65.6 of Williston to Glendive. Fixed 2026-11-09: all 3,002 town checkpoints were checked against the 2024 Census place list and the USGS list, and the 12,017 village nodes against current OpenStreetMap. Knife River and Ore'q (a former Yurok village at Orick) are gone, West Side Highway (a road) is Lexington, Washington, Picnic Point-North Lynnwood (split for 2020) is North Lynnwood, Lysander New Community (deleted from OpenStreetMap) is gone, and three doubled Lacy Lakeview calls and four doubled Tri City calls are one each. `osm-villages` now refuses nodes tagged abandoned, disused, a ghost town or population 0, and treats a hyphen as a space when it checks a name is already spoken.
 - [ ] (Found along the way) Village landmarks still name places that are not towns: about 150 civil townships ("Brownstown Charter Township", "Pennsauken Township"), golf and retirement communities ("Herons Glen Golf and Country Club", "Shell Point Retirement Community") and planned-community neighbourhoods in The Woodlands. Decide whether a township is spoken, and drop the clubs.
 - [ ] (Found along the way) Landmarks name some protected areas a driver would not recognise as a place ("Grand Calumet River Area of Concern", "Business and Government Historic District"). OpenStreetMap's protect_class separates nature areas (1 to 6) from cultural and resource ones; filter on it.
@@ -804,6 +821,7 @@ into the release gate. Details stay in the linked dated sections, marked
 Everything found before 2026-09-25 moved to
 [2.0](#found-along-the-way-in-19-moved-to-20) that day.
 
+- [x] (Found along the way) Confirmed Windows shutdown, restart and sign-out clear the crash marker with a 500 ms cleanup wait. Queries and cancelled session ends keep it. The window callback does not save careers or wait for cloud services; saves remain at normal checkpoints.
 - [x] (Found along the way) Fatigue bands and the nod-off are state
       machines saved with the trip: a quiet first yawn at 40, the band in
       the readouts, no repeated drowsy line after a small lift
@@ -1566,9 +1584,82 @@ Everything found before 2026-09-25 moved to
       swipe starts at 90.", "Deep swipe. Length 112."). Touch gestures has a
       "Deep swipe starts at" row, 60 to 180 points in tens; the settings
       file keeps `touch_deep_swipe_factor`. Nothing was tried on a phone.
+- [x] Second layer bumper (2026-11-18, a player's request): Settings,
+      Gameplay, Controls swaps the bumpers, so the left bumper holds the
+      second layer and the right bumper is the clutch. The pad's presses
+      are swapped as they arrive, each keeping its role until released, and
+      the game's own control names and fixed instructions name the swapped
+      bumpers (`controller::bumpers`); finished lines, and the names in
+      them, are never rewritten. With the default layout every line keeps
+      its translation.
+- [ ] (Found along the way) Translate the swapped bumper lines: with
+      Second layer bumper on left, the instructions that name a bumper are
+      new catalog entries (some in `lang/extra.pot`), spoken in English
+      until each language translates them.
 - [ ] (Found along the way) iPhone gesture plan step 7: the stroke
       recogniser moved into `ff-core`, and the default deep swipe set from
-      lengths measured on a phone.
+      lengths measured on a phone. Android's recogniser
+      (`freight-fate/src/touch/recognizer.rs`) is already a Rust port of
+      `ff_touch.m` over raw finger events, tested on the desktop, and could
+      be the one both phones share.
+- [x] Freight Fate builds for Android phones, Android 14 or newer
+      (2026-11-18): the same Rust game under SDL2's Android backend, speech
+      through Prism's Android text to speech, and the iPhone's gestures
+      recognised from SDL's finger events with the same settings and
+      haptics. `cargo tools build-android` packages a signed APK without
+      Gradle; `docs/android/README.md` has the rest. TalkBack has to be
+      suspended while playing (Android has no direct touch), and the game says
+      so through TalkBack. Settings, Speech browses voices by engine, then
+      language, then voice. Played on one phone: menus, speech, sound and
+      music, a delivery, cloud restore and the orinks.net link.
+- [ ] (Found along the way) Android: the game compiles its own copy of
+      Prism's Android text to speech voice, which centres rate and pitch on
+      the voice's normal values (Prism 0.1.6's 50% pitch spoke at 2.1 times
+      normal) and lists every installed engine's voices. Drop the copy once
+      Prism does both; the build refuses a Prism whose file has changed.
+- [ ] (Found along the way) Android controllers (a DualSense Edge, 2026-11-18):
+      menus, driving and rumble work over USB and Bluetooth.
+      SDL 2.26's HIDAPI manager registered its receivers without the
+      exported flag and asked for USB permission with an implicit mutable
+      PendingIntent, both refused by Android 14, so HIDAPI was off; the game
+      now compiles a corrected copy (`crates/freight-fate-android/sdl`).
+      SDL 2.26 cannot rumble a Bluetooth controller on Android, so the game
+      rumbles it through Android's VibratorManager, on every connected
+      controller with motors.
+- [x] (Found along the way) Android: a DualSense on a USB cable is also a
+      four-channel sound card (headphones on the first two, the haptic
+      motors on the last two), and Android copied mono speech into all
+      four, so the motors buzzed under every line. While a controller's
+      sound output is connected, each line is now synthesized and streamed
+      to an `AudioTrack` on the controller, the voice in the front pair and
+      silence in the motor pair (`SpeechRoute`, from the file-and-AudioTrack
+      idea in review of PR 672). Stereo game sound never reached the
+      motors. Played on a Pixel 10 Pro with a DualSense Edge, 2026-11-18:
+      a whole trip on the cable with no buzz; where each line played is
+      logged to `logs/speech-route.log`.
+- [ ] (Found along the way) Android: Settings has no Problem reports
+      category. The iPhone has one now; Android keeps it off until a
+      report has been sent from a phone and the log screen suits a log in
+      the app's private storage.
+- [ ] (Found along the way) Android: a drive in progress is lost back to
+      its last stop when Android ends the game in the background, which it
+      does without warning. Consider saving the drive as the game leaves
+      the foreground.
+- [ ] (Found along the way) Android: the TalkBack reminder is English only;
+      it is sent from the activity, outside the game's translations.
+- [ ] (Found along the way) Android: strokes that start at a screen edge
+      can be taken by the system's back and home gestures. The activity
+      could exclude the side edges (`setSystemGestureExclusionRects`); the
+      home gesture cannot be excluded.
+- [ ] (Found along the way) Android: the orinks.net sign-in is an
+      owner-only file in the app's private storage, since the `keyring`
+      crate has no Android backend (its in-memory fallback forgot the
+      sign-in at every launch). Android Keystore encryption would be
+      stronger. HTTPS checks certificates against the bundled WebPKI roots,
+      not the phone's store, because the platform verifier needs extra
+      Android setup.
+- [ ] (Found along the way) Android: only 64-bit ARM is built; 32-bit
+      phones and x86 Chromebooks are untried.
 - [ ] (Found along the way) Cleanup: menu intro help is spoken only when a
       menu has no rows, and on job and stop details, which lead with it. The
       help key and gesture keep reading the row's own help. The keyboard
@@ -3961,6 +4052,9 @@ and 7.
       figure; the fuel row's help now reads its minutes. Docks, mechanics,
       shops, officers, scale wave-throughs and buying a chain set keep
       their times.
+- [x] (Found along the way) Owner listening fixes: repeated energy drinks
+      explain that there is no additional lift; terminal fueling uses the
+      same fatigue slowdown as roadside fueling, including partial fills.
 - [x] (Found along the way) An officer can see it (part 6): the scale's
       inspection lane, a roadside inspection or log check, and a traffic
       stop at severe end in the fatigue out-of-service order after the
@@ -4102,6 +4196,235 @@ with everything off):
 - Three "Found along the way" items above: the keeper trailing a posted
   drop, silent damage, the rural 70 posted on a boulevard.
 
+### November 21 the co-driver past their hours (Release gate)
+
+A tester's problem report (2026-11-19, a dev snapshot, a 1,256-mile team
+load): handed the wheel with 85 minutes of his own driving left, Dan chose a
+lot 21 miles on by a flat 40-mile look that never read his hours, ran out
+five miles short, and a trooper's log check during the braking fined the
+player 400 dollars and put the load out of service for ten hours, which made
+it late. The note said "You had driven past the 11-hour driving limit". After
+the order a stale flag handed the sleeping player the wheel at 43 miles per
+hour with "Their hours are up", which the order had made untrue.
+
+Fixed 2026-11-21:
+
+- The shift is one state machine, `ff_core::sim::team_shift`, in place of
+  three flags; a reset of the co-driver's clock opens the shift again. The
+  agent server's `status` reports it with the co-driver's minutes left, and
+  `scenario` stages the co-driver's own counters.
+- One function chooses the lot that ends a shift the hours limit, for the
+  live drive and the slept-through one: only a lot the time left, less the
+  15-minute lead, reaches at the co-driver's pace. The lot is judged again
+  every frame. With five minutes left and the truck not on the lot's ramp
+  they brake to a stop on the shoulder (the stop from 75 takes 2.3 minutes
+  of clock at the Standard pacing). The co-driver map sweeps assert the
+  logbook at the wheel is never in violation while the co-driver holds it.
+- `start_at` takes `lead_mi`, and after a scenario that staged the
+  co-driver's counters it stages a team load, so the agent server can drive
+  a hand-over near the receiver.
+- Every hand-back for the hours or a break due is made stopped, at a lot or
+  on the shoulder.
+- When the hours end the shift before the player's rest is in and the
+  player's own hours reach the receiver, the co-driver hands back awake
+  instead of the player sleeping out the rest. This narrows the 2026-10-21
+  rule; Orinks can overrule it.
+- The hand-over rows give the time when the co-driver's hours end the shift
+  ("Hand the wheel to Dan for 1.2 hours and sleep"), and the Driver screen
+  gives the co-driver's rest and driving left while they are in the sleeper.
+
+### November 20 speech on the wrong sound device (Release gate)
+
+A player's problem report (2026-11-20, a tester snapshot, Windows 11 with
+several sound devices): SAPI and Windows OneCore voices came out of their TV,
+while game sound, NVDA and the built-in voice played on the default device.
+Prism 0.1.6, on dev since 2026-11-18 and not in 1.9.6, plays those two voices
+itself, SAPI through XAudio2 and OneCore through an AudioGraph, and opens
+"the default" with no device named. Game sound and the built-in voice open
+the console default by name.
+
+Fix on review (2026-11-20): the game carries a patched copy of prism-sys
+0.1.6 under `vendor/prism-sys` that names the console default device for both
+voices, falling back to the old call if the device cannot be named. When the
+named device is unplugged, or the default changes, the next line opens the
+new default. The copy goes when a prism-sys release names the device itself.
+Proven on the owner's PC (2026-11-20) with a probe that lists which device
+holds the program's sound while it speaks. With the default device and the
+default communications device set to different devices, both voices played
+on the communications device before the patch and on the default device after
+it.
+
+### November 21 a chain law follows the road (Found along the way)
+
+A player in a chain-law state was told to chain up while the weather read
+cloudy; the chains then broke on dry ground and damaged the truck. All-season
+tires were not the cause: winter tires count only at Wyoming Level 1.
+
+- [x] The law follows the road. Snow on the road at the truck posts Level 1,
+      ice posts Level 2, and a bare road (dry or wet) posts nothing whatever
+      the alerts say; a blizzard, ice storm or freezing rain warning only
+      raises a posted Level 1 to 2, and a watch raises nothing. Real chain
+      controls are posted on road conditions (Caltrans R-1 to R-3; CDOT
+      posts Level 1 "when snow is covering any part of the traveled portion
+      of pavement on an ascending grade"). This retires the 2026-10-17 rule
+      that chains wore as on snow inside a posted control, since a posted
+      control now means snow or ice underfoot. The board's pre-acceptance
+      reminder reads the same rule.
+- [x] Two explicit state machines in `ff_core::sim::chain_control`:
+      `ChainControl` (the law: clear or posted at a level, moved only by
+      `Trip::refresh_chain_control`, which the frame, every stop that moves
+      the clock and every fresh read of the alerts call) and `ChainSet` (the
+      chains against the road: stowed, on snow, on bare road, broken; it owns
+      the half-mile bare-road run). `truck.chains_on` and the snap flag stay
+      the physics' inputs. The agent server's `status` reports both
+      (`chain_control`, `chains`), and `scenario`, `start_at` and a new
+      `weather` tool force the simulated sky.
+- [x] New lines: "Chain law lifted." when the law lifts for an area whose
+      sign was called (a truck held at the chain control hears the officer
+      instead), and "Bare road. Stop and take the chains off." after half a
+      mile of bare road with chains on, at quiet verbosity too. With Facility
+      stopping assistance on, "Bare road. Taking chains off, about N minutes
+      on duty." replaces the old chain-off line, inside a chain-law area or
+      out of one; "Leaving chains on. Another chain area in ..." is gone.
+- [x] Putting chains on holds the simulated sky's change timer (the timer
+      counts wall minutes while driving, and the install takes none); live
+      weather still polls. Before the fix, 500 seeded chain-ups starting ten
+      minutes into a snow segment ended the snow 92 times in a 30-minute
+      install and 187 times in a 48-minute one, most often to cloudy.
+- [x] The manual's "Level 1 chain law accepts winter tires or chains" was
+      wrong for every state but Wyoming; Winter driving now says which states
+      chain a truck at Level 1.
+
+### November 20 pavement and structures from HPMS (Found along the way)
+
+The road seams planned for the outside ambience made up their jointed and
+smooth stretches and put bridge joints at river crossings, because the map
+had no pavement or bridge data. `cargo tools hpms-pavement` now writes
+`corridor.pavement` on each leg from FHWA HPMS (the same national layer as
+`hpms-traffic` and `hpms-terrain`): runs of like surface (`asphalt`,
+`jointed_plain_concrete`, `asphalt_over_jointed_concrete` and the rest of
+the Field Manual's Item 49 codes, by name), mean roughness and faulting where
+HPMS has them, and bridges, tunnels and causeways (Item 4), each marked for
+the directions it holds. ff-core parses it (`data::pavement`), bakes it
+(container format 11), and `Leg::pavement` resolves a spot by direction.
+
+How it reads a leg: every mainline row near the archived road (functional
+systems 1 to 5) is projected onto it and must run along it, so crossing roads
+drop out; where rows overlap, the highest class nearest the road wins, which
+keeps Texas frontage roads off I-35. Bins of 0.005 mile, each way, merge into
+runs. Nothing caps how many rows a leg reads.
+
+Provenance: the class and the structure are read; the mileage is derived (the
+projection), and so are roughness and faulting means. Where the leg drives
+the non-inventory side of a divided road that HPMS reads nothing of, the
+inventory side's reading within 250 m is applied to it and marked
+`inventory_side`: that is an assumption, and the layer's meta and the
+builder's printout count it apart. Each structure keeps HPMS's own length
+(`hpms_mi`, read) beside its derived ends, and the load flags one whose span
+disagrees by more than 0.05 mile, without changing it. Load screens drop a
+run off its leg or ending before it starts, a structure longer than any of
+its kind on the map (bridge 25 mi, tunnel 3, causeway 25), and two miles of
+runs each under 0.2 mile (two carriageways interleaved).
+
+Coverage (whole map, 2026-11-20): all 1,285 legs carry the layer. The
+surface is read on 91.3% of 140,698 leg miles (mean of the two directions),
+0.9% of those assumed from the inventory carriageway; the rest is left
+empty. 58,930 surface runs and 81,066 structures (80,942 bridges, 113
+tunnels, 11 causeways). The load screens drop none; 2,275 structures (2.8%)
+are flagged for a span off their HPMS length. Each tree grew about 10 MB.
+
+Five-leg dry run, gaps and oddities:
+`/mnt/project-files/ambience/pavement-dry-run.md` in the project files. After
+a `reroute-leg`, re-read the leg with `hpms-pavement --only from:to --write`;
+the reroute drops the layer and says so.
+
+### November 20 seams and joints from the pavement layer (Found along the way)
+
+The road seams made up their jointed stretches and put bridge joints at river
+points. They now follow the pavement layer (`Leg::pavement`), and the surface
+state says which it is following: `RoadSurface::Read` (the layer's class and
+faulting under the truck), `Invented` (only where the layer reads nothing), or
+`Held` (a staged scenario, which wins over the layer). The agent server's
+`status` reports it as, for example, `road_surface jointed, read
+jointed_plain_concrete; structure bridge 0.28 mi`.
+
+Which surfaces have seams follows the Field Manual's groups: jointed concrete
+(codes 3, 4, 9, 10) has full seams, asphalt over jointed concrete (7) has
+softer ones (its joints reflect through as cracks; the 0.5 factor is assumed),
+and asphalt, continuous concrete and unpaved have none.
+
+Faulting on the whole map (2026-11-20). Jointed concrete: 14,729 runs, 22,305
+miles; 13,145 runs (21,237 miles, 95%) carry a faulting value and 1,584 runs
+(1,068 miles) have none. Over the runs with one, in inches: 10th percentile
+0.00, 25th 0.01, median 0.03, 75th 0.05, 90th 0.10, maximum 0.8. By the 23 CFR
+490.313 classes: good (under 0.10) 11,779 runs and 19,835 miles, fair (0.10 to
+0.15) 867 runs and 1,159 miles, poor (over 0.15) 499 runs and 244 miles. Asphalt
+over jointed concrete: 10,547 runs, 21,404 miles, only 1,949 runs (7,351 miles,
+34%) with a value, nearly all 0.00 (median 0.00, 90th percentile 0.02; 8 runs
+fair, 9 poor): HPMS barely measures faulting through an overlay. So jointed
+concrete scales its seam by class (good 1.0, fair 1.25, poor 1.5; the class
+boundaries read, the factors assumed, no value counted as good), and the
+overlay keeps its one level. No hit asks the sound engine for more than 1.0
+after the drive axle gain, the faulting factor and the bank's own level
+variation (`HIT_CEILING`).
+
+Bridge joints come from the layer's bridges and causeways each way
+(`Trip::bridge_joint_spans`); a tunnel has none. Route miles pass 10 or 20 times
+faster than the wheels, so two rules thin them, both assumed for the ear: no
+joint on a structure under 0.05 mile (`MIN_SPAN_MI`; that drops 67,366 of the
+81,066 structures, nearly all culverts and single overpasses), and none within
+1.5 real seconds of the last one heard (`MIN_JOINT_GAP_S`), which also decides
+whether the far end is heard: at 65 mph a bridge is heard at both ends from
+about 0.55 mile at standard pacing and 0.27 mile at relaxed. A river point with no structure within
+0.15 mile keeps an assumed joint at each edge of its span, outside the gap rule,
+as before; one with a structure takes the structure's ends only. The water under
+the truck still follows the river points (`sim::outside::Water`).
+
+Seam spacing: 4.4 to 4.8 m, centred on the 15-foot (4.6 m) panel of US
+jointed plain concrete (FHWA Technical Advisory T 5040.30, January 2019), with
+the spread assumed. Orinks chose it by ear from a recording on 2026-11-20 over
+the first 14 to 18 m. At highway speed that is about six seams and twelve axle
+hits a second, so a seam's drive hit now lands after the next seam's steer
+hit, and the controller pulses for a seam at most every 0.25 s
+(`SEAM_RUMBLE_GAP_S`, assumed) so the pulses stay separate. The game-mix
+recording at this spacing peaked at -1.6 dBFS, so `SEAM_LEVEL` stays at 0.5.
+
+What stays invented: the spread of the spacing, every level and factor, the
+thinning numbers, and the stretches where the layer reads nothing. `start_at` stages `bridge` and `jointed` from
+the layer.
+
+### November 21 the dispatch board in posted order (Found along the way)
+
+The owner reported on 2026-11-21 that from about level 8 the last load
+on the board was always the best one to take. The board was sorted
+shortest first and pay follows miles, so the last row paid the most on
+80 to 84 percent of boards from level 6 (99 percent at level 3). The
+recommendation marked the shortest load not on a lane just run, with a
+label from the career stage that said nothing about the load. Design:
+`docs/dispatch-realism-design.md`, November 21.
+
+- [x] The board lists loads in the order dispatch posted them, a
+      shuffle from the board's own seed, saved with the board. A relayed
+      load and a load held for a rest take the farthest load's row; the
+      playtest lever's forced load is the last row.
+- [x] Dispatch recommends by take-home per hour of the whole trip on
+      the driver's current clock, sleeps included, and the row says why:
+      best pay for the hours, best net for the hours (owner-operators),
+      or most room on the deadline (standing slipped). Training is
+      unchanged. Two loads within 5 percent of each other recommend
+      nothing. Assigned dispatch uses the same score for its queue.
+- [x] The board's mode, accept gate and recommendation are one state
+      machine in ff-core (`dispatch_board`), and the agent server's
+      `status` reports them on the board.
+- [x] Hot loads and flexible deliveries (2026-11-21): 15 percent of loads
+      are hot (25 percent more pay, the tightest deadline the board
+      already allowed), 30 percent are flexible (10 percent less, a wide
+      deadline), drawn from the load itself. Average pay moves under 1
+      percent. No published expedited premium was citable, so the numbers
+      are labelled assumed. A feature landing during the 1.9.7 fixes-only
+      stretch: the owner put it in 1.9.7 on 2026-11-21 as the last feature
+      before stable.
+
 ### November 16 exits inside a work zone (Release gate)
 
 A player's problem report (2026-11-16, a tester snapshot): they signaled for
@@ -4181,27 +4504,38 @@ Release gate for 1.9.7:
       service killed twice. No one has run it with a real headset on
       Windows; the owner has none to test with and merged it for players
       to confirm.
+- [x] A co-driver never drives past their hours, and hands back stopped
+      (tester problem report, 2026-11-19: a fine and a late load;
+      [November 21](#november-21-the-co-driver-past-their-hours-release-gate)).
+- [x] SAPI and OneCore speech play on the default sound device again
+      (player problem report, 2026-11-20;
+      [November 20](#november-20-speech-on-the-wrong-sound-device-release-gate)).
 - [ ] The Windows Defender detection a player reported on 2026-11-14.
       The Windows build is not code signed. Before the tag, the release
       candidate's Windows files are scanned and come back clean, or the
       detection is reported to Microsoft as a false positive and the
       downloads page says so. A code-signing certificate costs money and
       is the owner's decision.
-- [ ] Cloud backup and restore of a sealed career. 1.9.6 was the first
-      stable to seal saves, and nobody has restored one from the cloud
-      since. An agent checks it on the staging backend, then the owner
-      once on their own account.
-- [ ] A week of tester play on the fatigue changes, which reached the
+- [x] Cloud backup and restore of a sealed career. 1.9.6 was the first
+      stable to seal saves, and nobody had restored one from the cloud
+      since. An agent ran it on production with the desktop tester build
+      and two saves folders on 2026-11-18. It found a stale computer's
+      manual backup saying the cloud copy matched (PR 690) and a first
+      restore warning about a save that was not there (PR 682). The
+      re-check after those fixes is the tests; the owner's own check on
+      their account is not recorded.
+- [x] A week of tester play on the fatigue changes, which reached the
       snapshot on 2026-11-13: tag no earlier than 2026-11-20 unless the
       owner's listening pass (the yawn at worn, whether the numbers feel
       fair) clears them sooner. A tier-1 report against them restarts the
-      week.
-- [ ] Vietnamese fixes for English leaking into turn, speed limit and
-      resume lines (PR 625, Đào Đức Trung): review, merge, credit in the
+      week. The week passed with no such report.
+- [x] Vietnamese fixes for English leaking into turn, speed limit and
+      resume lines (PR 625, Đào Đức Trung): merged, credited in the
       notes.
-- [ ] Pin the dispatch test that failed the scheduled snapshot of
-      2026-11-09 (bullet under "1.9 in flight"). The release build runs
-      the tests, so a test that fails one run in some can fail the tag.
+- [x] Pin the dispatch test that failed the scheduled snapshot of
+      2026-11-09 (bullet under "1.9 in flight"; PR 631). The release build
+      runs the tests, so a test that fails one run in some can fail the
+      tag.
 - [ ] Release steps as for 1.9.6: the `## 1.9.7` notes with Highlights,
       dev synced to main by PR, the final dev snapshot as the release
       candidate, the packaged save check from 1.9.6, orinks-net dev
@@ -4218,6 +4552,10 @@ In 1.9.7 if they are ready, never holding it:
       (fixed on the site); close PR 629, which PR 630 replaced; ask the
       reporters of 519 and 492 to try 1.9.6, which redid controller
       detection and logs the cause of every damage.
+- [x] The Tab radio screen folded into the Radio app (owner, 2026-11-21):
+      a Local stations list (Freight Fate stations, playlists, favorites
+      and terrestrial stations in range, with distance) tunes on Enter or a
+      double tap, and the app front page names the streamer-safe state.
 
 Not in 1.9.7: guest drivers (PR 577, a draft waiting on the site), the
 ramp-end dock moving onto the gate's state enum, lane wander at drowsy,
@@ -4227,19 +4565,15 @@ over-rev on a heavy cruise resume, and every map item.
 What stands between the 1.9.7 tag and 2.0 on the beta channel, on top of
 [The first 2.0 nightly](#the-first-20-nightly):
 
-- [ ] Sync dev into `feat/career-2.0` through a PR against the branch.
-      The branch last took dev on 2026-10-28 and is 243 commits behind.
-      The trial merge conflicts in 33 Rust source files, 26 map shards,
-      every language file, the manual and the changelog. This is the long
-      job and can start before the 1.9.7 tag, with a small second sync
-      after it. The November text rewrite (PRs 607 to 614) has to reach
-      the lines only 2.0 has. **In progress** (2026-11-14): dev merged
-      into a branch cut from `feat/career-2.0`, the rewrite carried to the
-      2.0 lines, in PR 632 against the branch. Left over from it:
-  - [ ] About 1,070 spoken lines per language have no translation on the
-        merged branch: nearly all are 2.0's own lines (Alaska, Canada,
-        cattle, the home terminal), which were never translated, and 52
-        are new from the sync. Translate before the beta.
+- [x] Sync dev into `feat/career-2.0` through a PR against the branch.
+      The first sync (PR 632, merged 2026-11-14) took dev through PR 625
+      and carried the November text rewrite to the 2.0 lines. The second
+      (2026-11-21, after the 1.9.7 tag) took dev at 1.9.7 and moved the
+      branch to version 2.0.0 (`2.0.0.dev0`), so an alpha build reads as
+      newer than 1.9.7. Left over from them:
+  - [ ] About 620 spoken lines per language have no translation on the
+        branch (598 in Spanish), nearly all 2.0's own lines (Alaska,
+        Canada, cattle, the home terminal). Translate before the beta.
   - [ ] 58 of 1,349 legs carry no county lines: the Alaska, British
         Columbia and Yukon legs, and Bellingham to Blaine both ways. The
         county layer reads only the archived U.S. route shapes, which these
@@ -4250,11 +4584,8 @@ What stands between the 1.9.7 tag and 2.0 on the beta channel, on top of
         toll points (Indiana Toll Road legs 8 and 25, Pennsylvania
         Turnpike legs 13 and 19). Check the Pennsylvania entry plaza 2.0
         cited (Carlisle, exit 226) still fits dev's re-routed leg 13.
-  - [ ] Branch protection on `feat/career-2.0` still requires the
-        `test (ubuntu-latest)` and `test (windows-latest)` checks from
-        `ci.yml`, which dev deleted on 2026-11-04 and the sync deletes
-        too. The owner changes the required checks in the repository
-        settings.
+  - [x] Branch protection on `feat/career-2.0` requires only the
+        changelog check, matching dev (changed 2026-11-14).
 - [x] Sealed saves: 2.0 opens a sealed 1.9.7 career and copies it forward
       into `2.0/profiles`, leaving the 1.9 original playable and unchanged.
   - [x] 1.9.7 refuses a career from a newer release line, local or cloud,
@@ -5768,6 +6099,6 @@ a public build leaks.
 - [x] Default automatic update offers to Remind me later and suppress held activation.
 - [x] Provision and back up the persistent sealing key; enable sealed careers in future release builds.
 - [x] Verify packaged migration before release. Checked 2026-11-13 on the Linux x64 packages: a career made in the 1.9.5 release opened in the beta snapshot of 2026-11-12, was sealed, saved and reopened, and its backup matched the 1.9.5 file byte for byte.
-- [ ] Verify a production cloud backup and restore from a sealed release build. See [release integration](docs/updater-and-sealed-saves.md).
+- [x] Verify a production cloud backup and restore from a sealed release build. See [release integration](docs/updater-and-sealed-saves.md). Run on production with the desktop tester build on 2026-11-18; it led to PRs 682 and 690.
 - [x] Careers an older release set aside come back. 1.9.5 cannot read a sealed career and renames it on its save scan, so one start of 1.9.5 on a 1.9.6 saves folder left 1.9.6 with no careers to list (found in the packaged check of 2026-11-13). The save listing now puts a set-aside sealed career back under its own name when no career holds that name and the file opens there.
 - [ ] A career made by 1.9.5 or earlier in a saves folder that a sealed release has already used is refused as unverified, because it cannot be told from a hand-edited file. A cloud restore is the way back; decide whether the message should say why.

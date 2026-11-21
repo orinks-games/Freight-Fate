@@ -57,12 +57,17 @@ pub fn is_interstate(highway: &str) -> bool {
 
 /// `(xmin, ymin, xmax, ymax)` boxes covering the road in 60-mile spans.
 pub fn envelopes(route: &Route) -> Vec<(f64, f64, f64, f64)> {
+    envelopes_with(route, ENVELOPE_SPAN_MI, ENVELOPE_PAD_M)
+}
+
+/// Boxes covering the road in `span_mi` spans, padded by `pad_m`.
+pub fn envelopes_with(route: &Route, span_mi: f64, pad_m: f64) -> Vec<(f64, f64, f64, f64)> {
     let mut spans: Vec<Vec<(f64, f64)>> = Vec::new();
     let mut span: Vec<(f64, f64)> = Vec::new();
     let mut start = 0.0;
     for (p, cum) in route.points.iter().zip(&route.cum_mi) {
         span.push(*p);
-        if cum - start >= ENVELOPE_SPAN_MI {
+        if cum - start >= span_mi {
             spans.push(std::mem::replace(&mut span, vec![*p]));
             start = *cum;
         }
@@ -82,8 +87,8 @@ pub fn envelopes(route: &Route) -> Vec<(f64, f64, f64, f64)> {
                 hi_lon = hi_lon.max(lon);
             }
             let mid = (lo_lat + hi_lat) / 2.0;
-            let lat_pad = ENVELOPE_PAD_M / 111_320.0;
-            let lon_pad = ENVELOPE_PAD_M / (111_320.0 * mid.to_radians().cos().max(0.2));
+            let lat_pad = pad_m / 111_320.0;
+            let lon_pad = pad_m / (111_320.0 * mid.to_radians().cos().max(0.2));
             (
                 lo_lon - lon_pad,
                 lo_lat - lat_pad,

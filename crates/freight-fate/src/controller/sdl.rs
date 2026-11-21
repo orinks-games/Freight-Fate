@@ -11,6 +11,11 @@ use super::{ControllerAxis, ControllerButton, PadDevice, PadSubsystem, PadSubsys
 /// `Controller.quit()` did.
 pub struct SdlPad {
     controller: GameController,
+    /// Android: SDL refused to rumble this pad (it rumbles only the pads its
+    /// HIDAPI drivers hold, which there means a USB cable), so Android
+    /// rumbles it instead.
+    #[cfg(target_os = "android")]
+    android_rumble: bool,
 }
 
 impl PadDevice for SdlPad {
@@ -23,12 +28,30 @@ impl PadDevice for SdlPad {
     }
 
     fn rumble(&mut self, low: u16, high: u16, duration_ms: u32) {
+        #[cfg(target_os = "android")]
+        if self.android_rumble {
+            crate::android::pad_rumble(low, high, duration_ms);
+            return;
+        }
         // Driver dependent: a pad without motors answers with an error,
         // which is not worth a log line per frame.
-        let _ = self.controller.set_rumble(low, high, duration_ms);
+        let refused = self.controller.set_rumble(low, high, duration_ms).is_err();
+        #[cfg(target_os = "android")]
+        if refused {
+            log::info!("SDL cannot rumble this controller; Android rumbles it");
+            self.android_rumble = true;
+            crate::android::pad_rumble(low, high, duration_ms);
+        }
+        #[cfg(not(target_os = "android"))]
+        let _ = refused;
     }
 
     fn stop_rumble(&mut self) {
+        #[cfg(target_os = "android")]
+        if self.android_rumble {
+            crate::android::pad_rumble(0, 0, 0);
+            return;
+        }
         let _ = self.controller.set_rumble(0, 0, 0);
     }
 
@@ -65,7 +88,11 @@ impl PadSubsystem for SdlPadSubsystem {
 
     fn open(&self, index: u32) -> Option<Box<dyn PadDevice>> {
         match self.subsystem.open(index) {
-            Ok(controller) => Some(Box::new(SdlPad { controller })),
+            Ok(controller) => Some(Box::new(SdlPad {
+                controller,
+                #[cfg(target_os = "android")]
+                android_rumble: false,
+            })),
             Err(e) => {
                 log::debug!("Could not open controller at slot {index}: {e}");
                 None

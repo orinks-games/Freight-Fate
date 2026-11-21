@@ -126,6 +126,15 @@ sdl2 = { workspace = true, features = ["bundled", "static-link"] }
 sdl2 = { workspace = true, features = ["bundled", "static-link"] }
 raw-window-handle.workspace = true
 
+# Android compiles SDL2 from source too, but as its own libSDL2.so rather
+# than static: SDL's Java activity calls into SDL through JNI symbols, which
+# a static SDL inside the game's cdylib would hide. The APK carries
+# libSDL2.so beside libmain.so (see `crates/freight-fate-android`).
+[target.'cfg(target_os = "android")'.dependencies]
+sdl2 = { workspace = true, features = ["bundled"] }
+jni.workspace = true
+ndk-context.workspace = true
+
 [build-dependencies]
 cc = "1"
 

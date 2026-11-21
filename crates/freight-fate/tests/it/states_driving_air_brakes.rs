@@ -597,3 +597,33 @@ fn test_the_speed_keeper_stops_for_a_stopped_car_without_draining_the_air() {
     assert!(min_psi > 110.0, "the tanks fell to {min_psi:.1} psi");
     assert!(speed < 0.5, "the truck ended at {speed:.1} mph");
 }
+
+/// A button name that opens a sentence opens it with a capital, as a key
+/// name already does: "Air ready. Right bumper plus Y releases the parking
+/// brake.", not "Air ready. right bumper plus Y ...".
+#[test]
+fn on_a_controller_a_button_name_opening_a_sentence_takes_a_capital() {
+    use ff_core::input_hints::CONTROLLER;
+    use freight_fate::controller::fakes::FakePad;
+    let mut harness = a_drive("Air Pad Capitals");
+    harness.app.ctx.settings.driving_hints = true;
+    let c = &mut harness.app.ctx.controller;
+    c.set_enabled(true);
+    c.bind_device(Box::new(FakePad::new(0)), "test pad");
+    c.set_id_pending(false);
+    c.active_device = CONTROLLER;
+    let (air, cruise) = harness.with_drive(|drive, ctx| {
+        drive.trip.truck.parking_brake = true;
+        drive.trip.truck.set_air_pressure_psi(120.0);
+        drive.speed_control_armed = true;
+        (
+            drive.air_start_instruction(ctx),
+            drive.resumed_speed_control_status(ctx),
+        )
+    });
+    assert_eq!(
+        air,
+        "Air ready. Right bumper plus Y releases the parking brake."
+    );
+    assert_eq!(cruise, "Cruise paused. The Y button cancels it. ");
+}

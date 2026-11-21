@@ -11,11 +11,16 @@ use ff_core::pyrandom::PyRandom;
 use super::{
     asset_bytes, Audio, AudioBackend, AudioError, Buses, HearkenBackend, KeyProbe, NullBackend,
     RadioVoicing, SustainLoopSpec, VolumeUpdate, ALERT_HOLD_TIMEOUT_S, CH_AIR, CH_ALERT,
-    CH_AMBIENT, CH_CAB_FAN, CH_CAB_WIND, CH_EDGE, CH_HORN, CH_JAKE, CH_LANE_GUIDE, CH_RADIO_FX,
-    CH_ROAD, CH_SCALE, CH_SURGE, CH_TRAFFIC_BED, CH_TRAFFIC_SOUNDS, CH_WEATHER, CH_WEATHER_B,
-    CUE_HOLD_TIMEOUT_S, HORN_LOOP, JAKE_BAND_PREFIX, JAKE_CLASSIC_KEY, JAKE_RECORDED_KEY,
-    SFX_EXTENSIONS,
+    CH_AMBIENT, CH_CAB_FAN, CH_CAB_WIND, CH_EDGE, CH_HORN, CH_JAKE, CH_LANE_GUIDE, CH_OUTSIDE,
+    CH_RADIO_FX, CH_ROAD, CH_SCALE, CH_SURGE, CH_TRAFFIC_BED, CH_TRAFFIC_SOUNDS, CH_WEATHER,
+    CH_WEATHER_B, CUE_HOLD_TIMEOUT_S, HORN_LOOP, JAKE_BAND_PREFIX, JAKE_CLASSIC_KEY,
+    JAKE_RECORDED_KEY, SFX_EXTENSIONS,
 };
+
+/// The level a bank multiplies each trigger by, so no two clunks land
+/// identically (about ±1.4 dB). A caller keeping a hit at or under 1.0
+/// asks for no more than `1.0 / BANK_JITTER.1`.
+pub const BANK_JITTER: (f64, f64) = (0.85, 1.17);
 
 /// Facade over the active backend; the rest of the game talks only to this.
 pub struct AudioEngine {
@@ -361,7 +366,7 @@ impl Audio for AudioEngine {
         self.bank_order.insert(base.to_string(), order);
         self.last_bank_key.insert(base.to_string(), key.clone());
         // Per-trigger level jitter, ~±1.4 dB: no two clunks land identically.
-        let jitter = self.rng.uniform(0.85, 1.17);
+        let jitter = self.rng.uniform(BANK_JITTER.0, BANK_JITTER.1);
         self.play_with(&key, volume * jitter, pan);
     }
 
@@ -697,6 +702,11 @@ impl Audio for AudioEngine {
             // The cab's window rush and blower: set every frame at the wheel.
             CH_CAB_WIND,
             CH_CAB_FAN,
+            // The outside beds, also set every frame at the wheel.
+            CH_OUTSIDE[0],
+            CH_OUTSIDE[1],
+            CH_OUTSIDE[2],
+            CH_OUTSIDE[3],
         ] {
             self.stop_loop_with(ch, 400);
         }

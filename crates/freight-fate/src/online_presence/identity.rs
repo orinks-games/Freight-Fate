@@ -286,6 +286,14 @@ impl SecretStore for RefusingStore {
 /// Rust build links its backends in at compile time, so the only question
 /// left is whether this platform has one at all.
 pub fn secret_store_report() -> (bool, String) {
+    if cfg!(target_os = "android") {
+        return (
+            true,
+            "no platform secret store on android; the driver token is kept in an \
+             owner-only file in the app's private storage"
+                .to_string(),
+        );
+    }
     let expected = if cfg!(target_os = "windows") {
         Some("Windows")
     } else if cfg!(target_os = "macos") {
@@ -386,8 +394,19 @@ impl IdentityStore {
 
     /// The shipped configuration: the platform keyring over `data_dir`, with
     /// a wall-clock limit so a Keychain ACL prompt cannot freeze launch.
+    ///
+    /// Android has no keyring backend: the `keyring` crate falls back to its
+    /// in-memory mock there, which accepts the token and forgets it when the
+    /// game closes, so the phone had to be linked again at every launch.
+    /// The token goes to the owner-only file instead, inside the app's
+    /// private storage, which no other app can read.
     pub fn platform(data_dir: &Path) -> Self {
-        let mut store = Self::new(data_dir, Some(Arc::new(KeyringStore)));
+        let keyring: Option<Arc<dyn SecretStore>> = if cfg!(target_os = "android") {
+            None
+        } else {
+            Some(Arc::new(KeyringStore))
+        };
+        let mut store = Self::new(data_dir, keyring);
         store.secret_timeout = Some(SECRET_STORE_TIMEOUT);
         store
     }

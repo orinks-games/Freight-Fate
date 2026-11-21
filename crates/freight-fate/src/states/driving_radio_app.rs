@@ -1,8 +1,8 @@
 //! The Radio app on the driver tablet: search the dial, tune by name, keep
 //! favorites (port of `freight_fate/states/driving_radio_app.py`).
 //!
-//! The dial keys walk the band one station at a time and the Tab radio screen
-//! only reports; neither lets a driver ask for a station by name, and with
+//! The dial keys walk the band one station at a time, which never lets a
+//! driver ask for a station by name, and with
 //! five thousand web stations behind the terrestrial band that is the
 //! difference between finding one and never hearing it. This app is three
 //! short lists and a text field over the existing `RadioState`: nothing here
@@ -15,8 +15,8 @@
 
 use ff_core::models::profile;
 use ff_core::radio::{
-    search_page_bounds, search_page_count, RadioReception, RadioStation, PLAYLISTS_DIR_NAME,
-    RADIO_SEARCH_PAGE_SIZE,
+    search_page_bounds, search_page_count, RadioReception, RadioStation,
+    PERSONAL_PLAYLIST_SOURCE_TYPE, PLAYLISTS_DIR_NAME, RADIO_SEARCH_PAGE_SIZE,
 };
 
 use crate::app::{GameContext, Say};
@@ -105,6 +105,56 @@ impl RadioAppState {
         ctx.settings.synth_music && ctx.settings.radio_streamer_safe
     }
 
+    /// What the dial carries: the streamer-safe state, a Synthesized music
+    /// source, and where playlists go while there are none.
+    fn dial_lines(&mut self, ctx: &mut GameContext) -> Vec<String> {
+        if Self::dial_locked(ctx) {
+            return vec![
+                "Streamer-safe mode on, with Music source set to Synthesized. The radio stays on \
+                 the Roadhouse."
+                    .to_string(),
+            ];
+        }
+        let safe = ctx.settings.radio_streamer_safe;
+        let mut lines = vec![match (safe, crate::PERSONAL_PLAYLISTS) {
+            (false, true) => {
+                "Streamer-safe mode off. Real public streams and personal playlists are on the \
+                 dial."
+            }
+            (true, true) => {
+                "Streamer-safe mode on. Real public streams and personal playlists are hidden."
+            }
+            (false, false) => "Streamer-safe mode off. Real public streams are on the dial.",
+            (true, false) => "Streamer-safe mode on. Real public streams are hidden.",
+        }
+        .to_string()];
+        if ctx.settings.synth_music && !safe {
+            lines.push(
+                "Music source Synthesized: Freight Fate's own stations are off the dial."
+                    .to_string(),
+            );
+        }
+        // Players who saw the shuffle setting asked how to get their own
+        // music on at all (issue #289): with nothing loaded, say where the
+        // files go.
+        let has_playlists = self
+            .driving
+            .read(|d| {
+                d.radio
+                    .catalog
+                    .iter()
+                    .any(|s| s.source_type == PERSONAL_PLAYLIST_SOURCE_TYPE)
+            })
+            .unwrap_or(true);
+        if crate::PERSONAL_PLAYLISTS && !safe && !has_playlists {
+            lines.push(format!(
+                "No playlists of your own yet. Put M3U, M3U8 or PLS playlist files in {}.",
+                personal_playlists_dir().display()
+            ));
+        }
+        lines
+    }
+
     fn open_list(&mut self, ctx: &mut GameContext, kind: &str) {
         if Self::dial_locked(ctx) {
             return;
@@ -124,10 +174,13 @@ impl Menu for RadioAppState {
     }
 
     fn enter(&mut self, ctx: &mut GameContext) {
-        // The dial re-reads the Playlists folder here for the same reason the
-        // Tab radio screen does: this is where a player comes looking.
+        // Opening the app re-reads the Playlists folder: a playlist added or
+        // repaired mid-run used to need a whole new drive before the radio
+        // would look again, and this is where a player comes looking.
         self.driving.with(ctx, |d, ctx| {
-            d.radio.reload_personal_playlists(&personal_playlists_dir());
+            if crate::PERSONAL_PLAYLISTS {
+                d.radio.reload_personal_playlists(&personal_playlists_dir());
+            }
             d.sync_radio_settings(ctx);
         });
         let items = self.build_items(ctx);
@@ -145,7 +198,13 @@ impl Menu for RadioAppState {
         // rebuilt strings say the same thing.
         let now_playing = self
             .driving
-            .with(ctx, |d, ctx| d.radio_now_playing_text(ctx))
+            .with(ctx, |d, ctx| {
+                if d.trip.truck.engine_on {
+                    d.radio_now_playing_text(ctx)
+                } else {
+                    "The engine is off. The radio has no power.".to_string()
+                }
+            })
             .unwrap_or_default();
         let (enabled, tuned) = self
             .driving
@@ -157,13 +216,19 @@ impl Menu for RadioAppState {
             .driving
             .with(ctx, |d, _| d.radio.favorites().len())
             .unwrap_or(0);
-        let in_range = self
+        let (local, in_range) = self
             .driving
-            .with(ctx, |d, _| d.radio.receivable_stations().len())
-            .unwrap_or(0);
+            .with(ctx, |d, _| {
+                (
+                    d.radio.local_stations().len(),
+                    d.radio.receivable_stations().len(),
+                )
+            })
+            .unwrap_or((0, 0));
+        let dial_lines = self.dial_lines(ctx);
         let favorite_label = self.favorite_label(ctx);
         let repeat = now_playing.clone();
-        vec![
+        let mut items = vec![
             MenuItem::new(now_playing, move |_s: &mut Self, ctx: &mut GameContext| {
                 ctx.say(&repeat)
             })
@@ -178,6 +243,16 @@ impl Menu for RadioAppState {
             )
             .help("Enter switches the radio on or off.")
             .touch_help("Double tap switches the radio on or off."),
+        ];
+        items.extend(dial_lines.into_iter().map(|line| {
+            let spoken = line.clone();
+            MenuItem::new(line, move |_s: &mut Self, ctx: &mut GameContext| {
+                ctx.say(&spoken)
+            })
+            .help("What is on the dial. Enter repeats it.")
+            .touch_help("What is on the dial. Double tap repeats it.")
+        }));
+        items.extend([
             MenuItem::new(favorite_label, |s: &mut Self, ctx| s.toggle_favorite(ctx))
                 .help("Saves or removes the tuned station in favorites."),
             MenuItem::new(
@@ -205,6 +280,17 @@ impl Menu for RadioAppState {
                 "Browse all stations, or one category such as Terrestrial or Web radio. Stations \
                  in range list first.",
             ),
+            MenuItem::new(format!("Local stations: {local}"), |s: &mut Self, ctx| {
+                s.open_list(ctx, "local")
+            })
+            .help(
+                "Freight Fate stations, your playlists and favorites, and stations nearby. Enter \
+                 on one tunes it.",
+            )
+            .touch_help(
+                "Freight Fate stations, your playlists and favorites, and stations nearby. \
+                 Double tap one to tune it.",
+            ),
             MenuItem::new(
                 format!("Stations in range: {in_range}"),
                 |s: &mut Self, ctx| s.open_list(ctx, "range"),
@@ -220,7 +306,8 @@ impl Menu for RadioAppState {
             ),
             MenuItem::new("Back to Driver apps", |s: &mut Self, ctx| s.go_back(ctx))
                 .help("Return to the driver tablet app list."),
-        ]
+        ]);
+        items
     }
 }
 
@@ -243,6 +330,7 @@ fn list_title(kind: &str, query: &str) -> String {
     match kind {
         "favorites" => "Favorite stations".to_string(),
         "range" => "Stations in range".to_string(),
+        "local" => "Local stations".to_string(),
         _ => format!("Stations matching {query}"),
     }
 }
@@ -294,6 +382,16 @@ impl RadioStationListState {
             "favorites" => self
                 .driving
                 .read(|d| d.radio.favorites())
+                .unwrap_or_default(),
+            "local" => self
+                .driving
+                .read(|d| {
+                    d.radio
+                        .local_stations()
+                        .into_iter()
+                        .map(|r| (r.station.clone(), Some(r)))
+                        .collect()
+                })
                 .unwrap_or_default(),
             "range" => self
                 .driving
@@ -412,10 +510,18 @@ impl Menu for RadioStationListState {
         let mut items: Vec<MenuItem<Self>> = rows
             .into_iter()
             .map(|(station, reception)| {
-                let label = self
+                let mut label = self
                     .driving
                     .with(ctx, |d, _| hit_label(d, &station, reception.as_ref()))
                     .unwrap_or_default();
+                // Nearby stations say how far off they are, as the Tab radio
+                // screen this list replaced did.
+                if self.kind == "local" {
+                    if let Some(miles) = reception.as_ref().and_then(|r| r.distance_miles) {
+                        label =
+                            format!("{label}, {} away", ctx.settings.distance_text(miles, false));
+                    }
+                }
                 MenuItem::new(label, move |s: &mut Self, ctx: &mut GameContext| {
                     s.tune(ctx, &station, reception.as_ref())
                 })
@@ -431,7 +537,10 @@ impl Menu for RadioStationListState {
                         format!("Next page. {}", self.next_page_preview()),
                         |s: &mut Self, ctx| s.change_page(ctx, true),
                     )
-                    .help("Shows the next results. PageDown does the same."),
+                    .help("Shows the next results. PageDown does the same.")
+                    .touch_help(
+                        "Shows the next results. A three-finger flick right does the same.",
+                    ),
                 );
             }
             if self.page > 0 {
@@ -439,7 +548,10 @@ impl Menu for RadioStationListState {
                     MenuItem::new("Previous page", |s: &mut Self, ctx| {
                         s.change_page(ctx, false)
                     })
-                    .help("Shows the earlier results. PageUp does the same."),
+                    .help("Shows the earlier results. PageUp does the same.")
+                    .touch_help(
+                        "Shows the earlier results. A three-finger flick left does the same.",
+                    ),
                 );
             }
         }
@@ -483,10 +595,21 @@ impl Menu for RadioStationListState {
             // the noun for the number has the number beside it.
             let count = self.hit_count();
             let page = self.page_text();
-            ctx.say(&if self.kind == "browse" {
-                format!("{title}. {count} stations. {page} PageDown for the next page.")
-            } else {
-                format!("{title}. {count} matches. {page} PageDown for the next page.")
+            ctx.say(&match (self.kind == "browse", ctx.touch_hints()) {
+                (true, false) => {
+                    format!("{title}. {count} stations. {page} PageDown for the next page.")
+                }
+                (false, false) => {
+                    format!("{title}. {count} matches. {page} PageDown for the next page.")
+                }
+                (true, true) => format!(
+                    "{title}. {count} stations. {page} Flick right with three fingers for the \
+                     next page."
+                ),
+                (false, true) => format!(
+                    "{title}. {count} matches. {page} Flick right with three fingers for the \
+                     next page."
+                ),
             });
         } else if rows.is_empty() {
             ctx.say(&format!("{title}. Nothing here yet."));

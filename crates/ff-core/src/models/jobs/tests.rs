@@ -120,9 +120,15 @@ fn test_northeast_short_corridor_deadline_uses_direct_route() {
 
     assert!(!ny_jobs.is_empty());
     assert!(ny_jobs.iter().all(|job| job.distance_mi == 107.0));
-    assert!(ny_jobs
-        .iter()
-        .all(|job| (3.0..=5.0).contains(&job.deadline_game_h)));
+    // A flexible delivery's window runs wider; the others stay tight.
+    assert!(ny_jobs.iter().all(|job| {
+        let ceiling = if job.urgency == LoadUrgency::Flexible {
+            7.0
+        } else {
+            5.0
+        };
+        (3.0..=ceiling).contains(&job.deadline_game_h)
+    }));
     assert!(ny_jobs
         .iter()
         .all(|job| job.deadline_game_h >= required(job) * 1.2));
@@ -1045,8 +1051,10 @@ fn test_rookie_boards_have_rewarding_minimum_pay() {
     ] {
         for seed in 0..15 {
             for job in offers(seed, city, NONE, 1) {
-                // pay is rounded to cents, so compare against the floor to cents
-                assert!(job.pay >= round_py_n(minimum_pay_for_level(job.distance_mi, 1), 2));
+                // pay is rounded to cents, so compare against the floor to
+                // cents; a flexible delivery's discount comes after the floor
+                let floor = round_py_n(minimum_pay_for_level(job.distance_mi, 1), 2);
+                assert!(job.pay >= round_py_n(floor * job.urgency.pay_mult(), 2) - 0.01);
             }
         }
     }
@@ -1062,7 +1070,16 @@ fn test_long_haul_boards_have_rewarding_minimum_pay() {
 
     assert!(!long_jobs.is_empty());
     for job in long_jobs {
-        assert!(job.pay / job.distance_mi >= 5.25);
+        // A flexible delivery's discount comes after the floor, and its
+        // pay is rounded to cents.
+        assert!(
+            job.pay / job.urgency.pay_mult() / job.distance_mi >= 5.25 - 0.001,
+            "{:?} team {} pay {} for {} mi",
+            job.urgency,
+            job.team,
+            job.pay,
+            job.distance_mi
+        );
     }
 }
 

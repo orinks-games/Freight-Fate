@@ -1,0 +1,46 @@
+[package]
+name = "prism-sys"
+description = "Raw FFI bindings to the prism speech library"
+links = "prism"
+build = "build.rs"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+readme.workspace = true
+repository.workspace = true
+keywords.workspace = true
+categories.workspace = true
+# The parts of prism its CMake build never reads, so the crate carries only what building it takes. The Godot bindings alone were most of the package.
+exclude = [
+	"prism/.github",
+	"prism/bindings",
+	"prism/build.gradle",
+	"prism/demos",
+	"prism/doc",
+	"prism/flake.lock",
+	"prism/flake.nix",
+	"prism/gdextension",
+	"prism/gradle",
+	"prism/gradle.properties",
+	"prism/gradlew",
+	"prism/gradlew.bat",
+	"prism/pyproject.toml",
+	"prism/pytest.ini",
+	"prism/rewrite-init.gradle",
+	"prism/settings.gradle",
+	"prism/shims",
+	"prism/tests",
+	"prism/tools",
+	"prism/uv.lock",
+	"prism/third_party/highway/hwy/**/*_test.cc",
+]
+
+[lints]
+workspace = true
+
+[build-dependencies]
+cmake = "0.1.58"
+pkg-config = "0.3.34"
+
+[features]
+static = []
