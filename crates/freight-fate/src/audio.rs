@@ -439,6 +439,10 @@ pub fn engine_freq_mult(rpm: f64) -> f64 {
 /// flat). The pure zones either side of each window are what keep every
 /// sounding cut close to its recorded speed.
 pub fn engine_band_weights(rpm: f64, natives: &[f64]) -> Vec<f64> {
+    engine_band_weights_with_width(rpm, natives, ENGINE_XFADE_LOG_FRAC)
+}
+
+fn engine_band_weights_with_width(rpm: f64, natives: &[f64], width: f64) -> Vec<f64> {
     let n = natives.len();
     let mut weights = vec![0.0; n];
     if n == 0 {
@@ -455,8 +459,8 @@ pub fn engine_band_weights(rpm: f64, natives: &[f64]) -> Vec<f64> {
                 // centered window: below it the lower band is pure, above it
                 // the upper band is pure.
                 let t = (rpm / natives[i]).ln() / (natives[i + 1] / natives[i]).ln();
-                let half = ENGINE_XFADE_LOG_FRAC / 2.0;
-                let s = (t - (0.5 - half)) / ENGINE_XFADE_LOG_FRAC;
+                let half = width / 2.0;
+                let s = (t - (0.5 - half)) / width;
                 if s <= 0.0 {
                     weights[i] = 1.0;
                 } else if s >= 1.0 {

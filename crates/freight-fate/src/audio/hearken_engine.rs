@@ -12,18 +12,22 @@ use super::assets::{asset_length_s, stereo_engine_available};
 use super::backend::Category;
 use super::hearken_backend::{bus_of, level, EngineBand, HearkenBackend};
 use super::{
-    advance_engine_wobble, engine_band_weights, engine_freq_mult, engine_load_gain, ENGINE_BANDS,
-    ENGINE_BAND_RATE_MAX, ENGINE_BAND_RATE_MIN, ENGINE_CLASSIC_LOOP_KEY, ENGINE_LOOP_GAIN,
-    ENGINE_LOOP_KEY, ENGINE_RESUME_FADE_S, ENGINE_RPM_IDLE, ENGINE_SLIDE_MS, ENGINE_SLIDE_SNAP_MS,
-    ENGINE_SLIDE_SNAP_RPM, ENGINE_START_ASSUMED_LEN_S, ENGINE_START_CROSSFADE_S,
-    ENGINE_START_FADE_IN_CURVE, ENGINE_START_FADE_OUT_CURVE, ENGINE_START_SETTLE_CURVE,
-    ENGINE_START_SETTLE_S, ENGINE_START_TAIL_ANCHOR, STEREO_ENGINE_BANDS,
+    advance_engine_wobble, engine_band_weights, engine_band_weights_with_width, engine_freq_mult,
+    engine_load_gain, ENGINE_BANDS, ENGINE_BAND_RATE_MAX, ENGINE_BAND_RATE_MIN,
+    ENGINE_CLASSIC_LOOP_KEY, ENGINE_LOOP_GAIN, ENGINE_LOOP_KEY, ENGINE_RESUME_FADE_S,
+    ENGINE_RPM_IDLE, ENGINE_SLIDE_MS, ENGINE_SLIDE_SNAP_MS, ENGINE_SLIDE_SNAP_RPM,
+    ENGINE_START_ASSUMED_LEN_S, ENGINE_START_CROSSFADE_S, ENGINE_START_FADE_IN_CURVE,
+    ENGINE_START_FADE_OUT_CURVE, ENGINE_START_SETTLE_CURVE, ENGINE_START_SETTLE_S,
+    ENGINE_START_TAIL_ANCHOR, STEREO_ENGINE_BANDS,
 };
 
 // The recorded cab engine follows the live clutch-out rev fall closely.
 // Blend level separately so differently recorded bands enter smoothly.
 const STEREO_REV_SLIDE_MS: u32 = 55;
 const STEREO_GAIN_SLIDE_MS: u32 = 30;
+// The cab takes differ in tone. Blend a little longer while keeping all
+// audible cuts inside the rate clamp, even across the widest band gap.
+const STEREO_XFADE_LOG_FRAC: f64 = 0.40;
 
 impl HearkenBackend {
     /// A fade that drives the engine loop's intro gain (0 = silent under the
@@ -321,7 +325,11 @@ impl HearkenBackend {
                 0
             };
             let natives: Vec<f64> = self.engine_bands.iter().map(|band| band.native).collect();
-            let weights = engine_band_weights(rpm, &natives);
+            let weights = if self.engine_stereo_ring {
+                engine_band_weights_with_width(rpm, &natives, STEREO_XFADE_LOG_FRAC)
+            } else {
+                engine_band_weights(rpm, &natives)
+            };
             let mut failed = false;
             for (i, band) in self.engine_bands.iter_mut().enumerate() {
                 if !self.audio.is_playing(band.sound) {
