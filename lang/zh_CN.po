@@ -13139,6 +13139,9 @@ msgstr "发出退出信号"
 msgid "scale reminder"
 msgstr "称重站提醒"
 
+msgid "border booth"
+msgstr ""
+
 msgid "miles per hour"
 msgstr "英里每小时"
 
@@ -21888,18 +21891,11 @@ msgstr ""
 msgid "Customs booth in half a mile. Stop at the booth."
 msgstr ""
 
-msgid ", which your carrier pays"
-msgstr "，由你的承运公司支付"
-
-#. one clause of a longer line
-msgid "which your carrier pays"
-msgstr "由你的承运公司支付"
-
-#. placeholders: {name}, {agency}, {penalty}, {payer}
+#. placeholders: {name}, {agency}, {penalty}
 msgid ""
 "At {name}, {agency} stopped the truck for running the customs booth: "
-"{penalty}{payer}."
-msgstr "在 {name}，{agency} 因你闯过海关检查站拦停了卡车：{penalty}{payer}。"
+"{penalty}."
+msgstr "在 {name}，{agency} 因你闯过海关检查站拦停了卡车：{penalty}。"
 
 #. placeholders: {border_chase_line}, {control_hint}
 msgid ""
@@ -41163,6 +41159,17 @@ msgid ""
 "the engine, {pad_fuel} reads fuel, and {pad_speed_limit} reads the limit."
 msgstr ""
 "按住左肩键使用第二层按键。{pad_engine}控制发动机，{pad_fuel}读出燃油，{pad_speed_limit}读出限速。"
+
+#~ msgid ", which your carrier pays"
+#~ msgstr "，由你的承运公司支付"
+
+#~ msgid "which your carrier pays"
+#~ msgstr "由你的承运公司支付"
+
+#~ msgid ""
+#~ "At {name}, {agency} stopped the truck for running the customs booth: "
+#~ "{penalty}{payer}."
+#~ msgstr "在 {name}，{agency} 因你闯过海关检查站拦停了卡车：{penalty}{payer}。"
 
 #~ msgid "{name} Company Yard"
 #~ msgstr "{name}公司车场"

@@ -166,6 +166,9 @@ pub struct TripOptions {
     pub imperial: bool,
     pub hazard_scale: f64,
     pub career_hours: Option<f64>,
+    /// Whole days from the career clock to the date the player hears
+    /// (`Profile::calendar_game_hours`), for schedules kept by date.
+    pub calendar_shift_h: f64,
     /// The career calendar follows the real date, so weekdays are real.
     pub live_calendar: bool,
     pub traffic_provider: Option<Arc<dyn TrafficProvider>>,
@@ -190,6 +193,7 @@ impl Default for TripOptions {
             imperial: true,
             hazard_scale: 1.0,
             career_hours: None,
+            calendar_shift_h: 0.0,
             live_calendar: false,
             traffic_provider: None,
             parking_provider: None,
@@ -229,6 +233,10 @@ pub struct Trip {
     /// Absolute career clock at departure: carries the day of the week so
     /// commuter rush hour only forms on weekdays. None reads as a weekday.
     pub career_hours: Option<f64>,
+    /// Whole days from the career clock to the spoken date: a schedule
+    /// published by date (the Whittier tunnel's seasons) reads the date the
+    /// player hears, not the career's own day count.
+    pub calendar_shift_h: f64,
     /// The career calendar follows the real date, so weekdays are real.
     pub live_calendar: bool,
     imperial: bool,
@@ -339,6 +347,12 @@ pub struct Trip {
     /// reminder buys the driver real seconds to signal at any pacing. Set by
     /// the game; past the milepost, or on a ramp, it holds nothing.
     pub scale_reminder_hold_mi: Option<f64>,
+    /// The milepost of a customs booth whose half-mile reminder has been
+    /// spoken. From that line to the booth the clock runs real while the
+    /// truck is over the bypass speed, so "Stop at the booth" leaves room
+    /// to stop at any pacing. Set by the game; past the booth it holds
+    /// nothing.
+    pub border_reminder_hold_mi: Option<f64>,
     pub exit_approach_release_s: f64,
     pub announced_chain_law: HashSet<String>,
     /// Whether a chain law is posted (`chain_control`): moved only by
@@ -474,6 +488,7 @@ impl Trip {
             hazard_scale,
             start_hour,
             career_hours: opts.career_hours,
+            calendar_shift_h: opts.calendar_shift_h,
             live_calendar: opts.live_calendar,
             imperial: opts.imperial,
             traffic_provider: opts.traffic_provider,
@@ -532,6 +547,7 @@ impl Trip {
             lane_steers: None,
             exit_approach_mi: None,
             scale_reminder_hold_mi: None,
+            border_reminder_hold_mi: None,
             exit_approach_release_s: 0.0,
             announced_chain_law: HashSet::new(),
             chain_control: Default::default(),
@@ -731,6 +747,19 @@ impl Trip {
             // back before the crossing can count, and the reminder's real
             // seconds are counted on the real clock either way.
             return Some("scale reminder");
+        }
+        if self
+            .border_reminder_hold_mi
+            .is_some_and(|booth_mi| self.position_mi < booth_mi)
+            && self.truck.speed_mph() > SCALE_BYPASS_MPH
+        {
+            // The customs booth's half-mile reminder, the same law as the
+            // scale's: at relaxed pacing the half mile went by in three real
+            // seconds, so a truck braking on "Stop at the booth" from 55 ran
+            // the booth and drew the 5,000 dollar penalty (agent drive,
+            // 2026-11-22). Under the bypass speed the truck stops at the
+            // booth anyway, so the low-speed pacing runs as usual.
+            return Some("border booth");
         }
         None
     }

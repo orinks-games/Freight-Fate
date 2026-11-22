@@ -925,6 +925,53 @@ fn whittier_tunnel_schedule_keeps_alaska_time() {
     );
 }
 
+/// The tunnel's seasons follow the date the player hears, not the career's
+/// own day count: a career on day 0 (March 21) whose calendar shows July 10
+/// gets the summer 5:30 AM opening, not the winter 7:00 AM one (agent
+/// drive, 2026-11-22).
+#[test]
+fn whittier_tunnel_season_reads_the_spoken_date() {
+    let world = world();
+    let leg = world
+        .legs
+        .iter()
+        .find(|leg| leg.a == "bear_valley_ak_us" && leg.b == "whittier_ak_us")
+        .expect("Whittier tunnel leg")
+        .as_ref()
+        .clone();
+    let closed_line = |calendar_shift_h: f64| {
+        let route = Route::from_legs(
+            vec!["bear_valley_ak_us".into(), "whittier_ak_us".into()],
+            vec![leg.clone()],
+        );
+        let mut truck = TruckState::default();
+        truck.start_engine();
+        truck.velocity_mps = 25.0 * 1609.344 / 3600.0;
+        // 9 AM Eastern on career day 0 is 5 AM in Alaska.
+        let mut trip = Trip::new(
+            route,
+            truck,
+            default_weather(),
+            TripOptions {
+                world: Some(world),
+                career_hours: Some(9.0),
+                start_hour: 9.0,
+                calendar_shift_h,
+                ..TripOptions::seeded(93)
+            },
+        );
+        trip.update(1.0)
+            .into_iter()
+            .find(|e| e.data.context.as_deref() == Some("tunnel_closed"))
+            .expect("the tunnel is shut at 5 AM")
+            .text()
+            .to_string()
+    };
+    assert!(closed_line(0.0).contains("next opening is at 7:30 AM"));
+    // March 21 to July 10 is 111 days.
+    assert!(closed_line(111.0 * 24.0).contains("next opening is at 5:30 AM"));
+}
+
 #[test]
 fn test_border_booths_follow_inbound_country_crossings() {
     let world = world();

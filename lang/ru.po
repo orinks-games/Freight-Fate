@@ -14411,6 +14411,9 @@ msgstr "съезд с указателем"
 msgid "scale reminder"
 msgstr "напоминание о весах"
 
+msgid "border booth"
+msgstr ""
+
 msgid "miles per hour"
 msgstr "миль в час"
 
@@ -24158,20 +24161,13 @@ msgstr ""
 msgid "Customs booth in half a mile. Stop at the booth."
 msgstr ""
 
-msgid ", which your carrier pays"
-msgstr ", который оплачивает ваш перевозчик"
-
-#. one clause of a longer line
-msgid "which your carrier pays"
-msgstr "который оплачивает ваш перевозчик"
-
-#. placeholders: {name}, {agency}, {penalty}, {payer}
+#. placeholders: {name}, {agency}, {penalty}
 msgid ""
 "At {name}, {agency} stopped the truck for running the customs booth: "
-"{penalty}{payer}."
+"{penalty}."
 msgstr ""
 "В пункте {name} {agency} остановила грузовик за проезд таможенного поста "
-"без остановки: {penalty}{payer}."
+"без остановки: {penalty}."
 
 #. placeholders: {border_chase_line}, {control_hint}
 msgid ""
@@ -46175,6 +46171,19 @@ msgstr ""
 "Удерживайте left bumper для второго слоя кнопок. {pad_engine} управляет "
 "двигателем, {pad_fuel} называет топливо, а {pad_speed_limit} ограничение "
 "скорости."
+
+#~ msgid ", which your carrier pays"
+#~ msgstr ", который оплачивает ваш перевозчик"
+
+#~ msgid "which your carrier pays"
+#~ msgstr "который оплачивает ваш перевозчик"
+
+#~ msgid ""
+#~ "At {name}, {agency} stopped the truck for running the customs booth: "
+#~ "{penalty}{payer}."
+#~ msgstr ""
+#~ "В пункте {name} {agency} остановила грузовик за проезд таможенного поста "
+#~ "без остановки: {penalty}{payer}."
 
 #~ msgid "{name} Company Yard"
 #~ msgstr "Площадка компании {name}"

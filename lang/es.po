@@ -14610,6 +14610,9 @@ msgstr "salida señalizada"
 msgid "scale reminder"
 msgstr "recordatorio de báscula"
 
+msgid "border booth"
+msgstr ""
+
 msgid "miles per hour"
 msgstr "millas por hora"
 
@@ -24284,20 +24287,13 @@ msgstr ""
 msgid "Customs booth in half a mile. Stop at the booth."
 msgstr ""
 
-msgid ", which your carrier pays"
-msgstr ", que paga tu transportista"
-
-#. one clause of a longer line
-msgid "which your carrier pays"
-msgstr "que paga tu transportista"
-
-#. placeholders: {name}, {agency}, {penalty}, {payer}
+#. placeholders: {name}, {agency}, {penalty}
 msgid ""
 "At {name}, {agency} stopped the truck for running the customs booth: "
-"{penalty}{payer}."
+"{penalty}."
 msgstr ""
 "En {name}, {agency} detuvo el camión por saltarse la caseta de aduanas: "
-"{penalty}{payer}."
+"{penalty}."
 
 #. placeholders: {border_chase_line}, {control_hint}
 msgid ""
@@ -46226,6 +46222,19 @@ msgstr ""
 "Mantén el botón superior izquierdo para una segunda capa de botones. "
 "{pad_engine} controla el motor, {pad_fuel} lee el combustible y "
 "{pad_speed_limit} lee el límite."
+
+#~ msgid ", which your carrier pays"
+#~ msgstr ", que paga tu transportista"
+
+#~ msgid "which your carrier pays"
+#~ msgstr "que paga tu transportista"
+
+#~ msgid ""
+#~ "At {name}, {agency} stopped the truck for running the customs booth: "
+#~ "{penalty}{payer}."
+#~ msgstr ""
+#~ "En {name}, {agency} detuvo el camión por saltarse la caseta de aduanas: "
+#~ "{penalty}{payer}."
 
 #~ msgid "{name} Company Yard"
 #~ msgstr "Patio de la empresa {name}"
