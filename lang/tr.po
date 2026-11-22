@@ -6561,8 +6561,9 @@ msgstr "{city} Soğuk Hava Deposu"
 msgid "{city} Company Yard"
 msgstr "{city} Firma Sahası"
 
+# leave empty: real truck stops are named this way (Pilot Travel Center), and the frame speaks the brand as a city
 msgid "{city} Travel Center"
-msgstr "{city} Büyük Dinlenme Tesisi"
+msgstr ""
 
 msgid "{city} Truck Parking"
 msgstr "{city} Tır Parkı"
@@ -7017,6 +7018,7 @@ msgstr "Yük: {spoken}."
 msgid "This load is {spoken}. {reason}"
 msgstr "Yük: {spoken}. {reason}"
 
+# leave empty: a map data error message, never spoken; it took "A deer crossing the road" apart
 #. placeholders: {context}, {what}
 msgid "{context} crossing {what}"
 msgstr ""
@@ -9176,9 +9178,10 @@ msgstr "yerel"
 msgid "national"
 msgstr "ulusal"
 
+# leave empty: two holes side by side; the split between them falls inside the carrier name
 #. placeholders: {name}, {name2}
 msgid "{name} {name2} terminal"
-msgstr "{name} {name2} terminali"
+msgstr ""
 
 msgid "inert"
 msgstr ""
@@ -13569,9 +13572,10 @@ msgstr "80 saatlik Kanada döngünüz doldu"
 msgid "Hours of service: {cycle_text}."
 msgstr "Çalışma ve dinlenme süreleri: {cycle_text}."
 
+# leave empty: a frame around whole sentences; "Hours of service: ... left in the duty window." translates whole without it, and the frame left "hours of" English
 #. placeholders: {cycle_text}, {advice}
 msgid "Hours of service: {cycle_text}. {advice}"
-msgstr "Çalışma ve dinlenme süreleri: {cycle_text}. {advice}"
+msgstr ""
 
 #. one sentence of a longer line
 msgid "Hours of service: past your limit."
@@ -13638,9 +13642,10 @@ msgstr ""
 " Döngü: {duration_text2} içinde {duration_text} kullanıldı, "
 "{duration_text3} kaldı."
 
+# leave empty: a frame around whole sentences; the ELD status and hours sentences translate whole without it, and the frame left "ELD:" in front
 #. placeholders: {lead}, {status}, {cycle_clause}, {suffix}
 msgid "{lead} ELD status {status}.{cycle_clause}{suffix}"
-msgstr "{lead} ELD durumu: {status}.{cycle_clause}{suffix}"
+msgstr ""
 
 #. placeholders: {duration_text}
 msgid "Driving left: {duration_text}."
@@ -21284,9 +21289,10 @@ msgstr ""
 "{no_truck_location_line} Bir taşıyıcı firma size tır verene kadar ne "
 "taşıyıcı firma ne tır var. {grouped} dolar.{cdl}{record}"
 
+# leave empty: a frame around whole sentences; the sentences translate whole without it, and it left "Pays" English
 #. placeholders: {upper_first}, {grouped}, {cdl}, {record}
 msgid "{upper_first}. {grouped} dollars.{cdl}{record}"
-msgstr "{upper_first}. {grouped} dolar.{cdl}{record}"
+msgstr ""
 
 #. placeholders: {city_name}, {grouped}, {cdl}, {record}
 msgid "{city_name}. {grouped} dollars.{cdl}{record}"
@@ -23371,9 +23377,10 @@ msgstr "Rampada yükleme"
 msgid "At a pickup facility"
 msgstr "Yükleme tesisinde"
 
+# leave empty: two open holes around "for"; it matches any line with "for" in it and leaves half of it English
 #. placeholders: {cargo_label}, {destination}
 msgid "{cargo_label} for {destination}"
-msgstr "{destination} için {cargo_label}"
+msgstr ""
 
 #. placeholders: {destination}
 msgid "Loaded and sealed for {destination}."
@@ -30568,9 +30575,10 @@ msgstr "28 saatlik sınıra {hours_text} kaldı."
 msgid "past the 28-hour limit"
 msgstr "28 saatlik sınırın ötesinde"
 
+# leave empty: one hole before "left"; it takes "Sharp left" and "Driving left" and the hours lines apart
 #. placeholders: {hours_text}
 msgid "{hours_text} left"
-msgstr "{hours_text} kaldı"
+msgstr ""
 
 #. placeholders: {aboard_text}, {limit}
 #. one sentence of a longer line
@@ -32042,10 +32050,11 @@ msgstr "Yedek bir onarım baklası kullanır."
 msgid "Uses a spare repair link. {chain_repair_links} left."
 msgstr "Yedek bir onarım baklası kullanır. Kalan: {chain_repair_links}."
 
+# leave empty: one hole before "left"; it took every left curve call ("Sharp left, half a mile.") and dropped the direction
 #. placeholders: {chain_repair_links}
 #. one sentence of a longer line
 msgid "{chain_repair_links} left."
-msgstr "Kalan: {chain_repair_links}."
+msgstr ""
 
 #. placeholders: {f}
 msgid "Remove snow chains: about {f} minutes"

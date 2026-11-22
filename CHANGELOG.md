@@ -85,6 +85,7 @@
 
 ### Fixed
 
+- **Left curve calls say "left" again in every language.** They are spoken in English for now.
 - **Crossing into the District of Columbia now says "the District of Columbia."**
 - **Toll lines no longer say the word toll twice,** as in toll at Alligator Alley commercial toll.
 - **A roadside attraction board is no longer skipped when a joke board came just before it.**

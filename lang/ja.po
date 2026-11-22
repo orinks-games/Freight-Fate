@@ -5970,8 +5970,9 @@ msgstr "{city}冷蔵倉庫"
 msgid "{city} Company Yard"
 msgstr "{city}会社ヤード"
 
+# leave empty: real truck stops are named this way (Pilot Travel Center), and the frame speaks the brand as a city
 msgid "{city} Travel Center"
-msgstr "{city}トラベルセンター"
+msgstr ""
 
 msgid "{city} Truck Parking"
 msgstr "{city}トラック駐車場"
@@ -6423,9 +6424,10 @@ msgstr "この積荷は{spoken}です。"
 msgid "This load is {spoken}. {reason}"
 msgstr "この積荷は{spoken}です。{reason}"
 
+# leave empty: a map data error message, never spoken; it took "A deer crossing the road" apart
 #. placeholders: {context}, {what}
 msgid "{context} crossing {what}"
-msgstr "{context}の国境通過{what}"
+msgstr ""
 
 msgid "has an unknown kind"
 msgstr "種類が不明です"
@@ -8405,9 +8407,10 @@ msgstr "ローカル"
 msgid "national"
 msgstr "全国"
 
+# leave empty: two holes side by side; the split between them falls inside the carrier name
 #. placeholders: {name}, {name2}
 msgid "{name} {name2} terminal"
-msgstr "{name} {name2}ターミナル"
+msgstr ""
 
 # same as English
 msgid "inert"
@@ -12492,9 +12495,10 @@ msgstr "カナダの80時間サイクルを使い切りました"
 msgid "Hours of service: {cycle_text}."
 msgstr "運転時間規制：{cycle_text}。"
 
+# leave empty: a frame around whole sentences; "Hours of service: ... left in the duty window." translates whole without it, and the frame left "hours of" English
 #. placeholders: {cycle_text}, {advice}
 msgid "Hours of service: {cycle_text}. {advice}"
-msgstr "運転時間規制：{cycle_text}。{advice}"
+msgstr ""
 
 #. one sentence of a longer line
 msgid "Hours of service: past your limit."
@@ -12555,9 +12559,10 @@ msgid ""
 " Cycle: {duration_text} used of {duration_text2}, {duration_text3} left."
 msgstr " サイクル：{duration_text2}のうち{duration_text}を使用、残り{duration_text3}。"
 
+# leave empty: a frame around whole sentences; the ELD status and hours sentences translate whole without it, and the frame left "ELD:" in front
 #. placeholders: {lead}, {status}, {cycle_clause}, {suffix}
 msgid "{lead} ELD status {status}.{cycle_clause}{suffix}"
-msgstr "{lead} ELD ステータス: {status}。{cycle_clause}{suffix}"
+msgstr ""
 
 #. placeholders: {duration_text}
 msgid "Driving left: {duration_text}."
@@ -19792,9 +19797,10 @@ msgstr ""
 "{no_truck_location_line}運送会社もトラックもありません。運送会社がトラックを割り当てるまでです。所持金は{grouped}ドルで"
 "す。{cdl}{record}"
 
+# leave empty: a frame around whole sentences; the sentences translate whole without it, and it left "Pays" English
 #. placeholders: {upper_first}, {grouped}, {cdl}, {record}
 msgid "{upper_first}. {grouped} dollars.{cdl}{record}"
-msgstr "{upper_first}。所持金は{grouped}ドルです。{cdl}{record}"
+msgstr ""
 
 #. placeholders: {city_name}, {grouped}, {cdl}, {record}
 msgid "{city_name}. {grouped} dollars.{cdl}{record}"
@@ -21705,9 +21711,10 @@ msgstr "ドックで積み込み中"
 msgid "At a pickup facility"
 msgstr "積み込み施設にて"
 
+# leave empty: two open holes around "for"; it matches any line with "for" in it and leaves half of it English
 #. placeholders: {cargo_label}, {destination}
 msgid "{cargo_label} for {destination}"
-msgstr "{destination}行きの{cargo_label}"
+msgstr ""
 
 #. placeholders: {destination}
 msgid "Loaded and sealed for {destination}."
@@ -28405,9 +28412,10 @@ msgstr "28時間の制限まで、残り{hours_text}です。"
 msgid "past the 28-hour limit"
 msgstr "28時間の制限を過ぎています"
 
+# leave empty: one hole before "left"; it takes "Sharp left" and "Driving left" and the hours lines apart
 #. placeholders: {hours_text}
 msgid "{hours_text} left"
-msgstr "残り{hours_text}"
+msgstr ""
 
 #. placeholders: {aboard_text}, {limit}
 #. one sentence of a longer line
@@ -29814,10 +29822,11 @@ msgstr "予備の修理用リンクを使います。"
 msgid "Uses a spare repair link. {chain_repair_links} left."
 msgstr "予備の修理用リンクを使います。残りは{chain_repair_links}です。"
 
+# leave empty: one hole before "left"; it took every left curve call ("Sharp left, half a mile.") and dropped the direction
 #. placeholders: {chain_repair_links}
 #. one sentence of a longer line
 msgid "{chain_repair_links} left."
-msgstr "残りは{chain_repair_links}です。"
+msgstr ""
 
 #. placeholders: {f}
 msgid "Remove snow chains: about {f} minutes"
