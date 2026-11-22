@@ -272,6 +272,10 @@ pub struct StartDelivery {
     pub arm_speed_control_on_deadhead: bool,
     pub walk_around_trailer: bool,
     pub refuse_bad_trailer: bool,
+    /// Spend declines until dispatch assigns a load at least this long, for
+    /// a scenario that needs more road than the nearest neighbour gives
+    /// (a co-driver, a second shift).
+    pub min_load_mi: Option<f64>,
 }
 
 impl Default for StartDelivery {
@@ -285,6 +289,7 @@ impl Default for StartDelivery {
             arm_speed_control_on_deadhead: false,
             walk_around_trailer: false,
             refuse_bad_trailer: false,
+            min_load_mi: None,
         }
     }
 }
@@ -719,7 +724,11 @@ impl PlaytestHarness {
         if assigned {
             // New company hires are assigned a load: job_rank spends declines
             // to reach an alternative instead of browsing the board.
-            self.accept_assigned_job(setup.job_rank, setup.arm_speed_control_on_deadhead);
+            self.accept_assigned_job(
+                setup.job_rank,
+                setup.arm_speed_control_on_deadhead,
+                setup.min_load_mi,
+            );
         } else {
             self.choose_unlocked_job(setup.job_rank);
         }
@@ -1414,7 +1423,7 @@ impl PlaytestHarness {
         panic!("Job index {target_index} not keyboard reachable");
     }
 
-    fn accept_assigned_job(&mut self, rank: usize, need_deadhead: bool) {
+    fn accept_assigned_job(&mut self, rank: usize, need_deadhead: bool, min_mi: Option<f64>) {
         use crate::states::city::JobBoardState;
 
         // The harness stages FREIGHT runs: if dispatch's assignment is a
@@ -1426,6 +1435,7 @@ impl PlaytestHarness {
             let skip = self.with_state::<JobBoardState, _>(|board, ctx| {
                 !board.jobs.is_empty()
                     && (board.assigned_job().bobtail
+                        || min_mi.is_some_and(|mi| board.assigned_job().distance_mi < mi)
                         || (need_deadhead && board.assigned_load_is_staged_here(ctx)))
             });
             if !skip || !self.move_to_decline() {

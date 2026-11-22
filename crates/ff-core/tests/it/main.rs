@@ -37,6 +37,7 @@ mod data_pavement;
 mod data_place_names;
 mod data_regions;
 mod data_service_plazas;
+mod data_great_lakes;
 mod data_south_jersey;
 mod data_stop_access;
 mod data_stop_bounds;
