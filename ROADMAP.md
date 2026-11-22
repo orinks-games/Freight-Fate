@@ -5962,7 +5962,14 @@ design, each with the director's pick.
       from Deadhorse, the Mackenzie Valley winter road and the Dempster
       ice crossings, Manitoba, northern Ontario.
 - [ ] Live weather for Canada, so Canadian temperatures can be real
-      readings as Alaska's are.
+      readings as Alaska's are. Source: Environment and Climate Change
+      Canada's free public weather service (the Meteorological Service of
+      Canada's API, api.weather.gc.ca), the owner's pick on 2026-11-22
+      over Open-Meteo, whose free tier is for non-commercial use only. The
+      National Weather Service stays the source for the United States and
+      Alaska. Confirm the endpoints and terms of use before building. With
+      live weather on, the real reading decides the temperature and so
+      when frost forms; the climate table is for simulated weather.
 - [ ] Headlights as a control, on the same clarity model (July notes).
 
 ### Personal conveyance and duty-purpose correction
