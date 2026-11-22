@@ -176,12 +176,12 @@ fn test_air_brake_startup_blocks_movement_until_ready_and_released() {
         "{:#?}",
         event_calls(&harness)
     );
-    // The compressor-ready cue is a real air-dryer purge, not a UI beep.
+    // The recording fixture reports the optional cab purge as available.
     assert!(
         log.borrow()
             .played
             .iter()
-            .any(|(key, _, _)| key == "vehicle/air_dryer_purge"),
+            .any(|(key, _, _)| key == "vehicle/air_dryer_purge_cab"),
         "{:#?}",
         log.borrow().played
     );

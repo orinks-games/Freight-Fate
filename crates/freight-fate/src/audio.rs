@@ -150,7 +150,17 @@ pub const ENGINE_BANDS: [(&str, f64); 5] = [
     ("engine/high", 1900.0),
 ];
 
-/// Whether `key` is one of the five engine band cuts (`ENGINE_BAND_KEYS`).
+/// The cab stereo cuts have their own keys so the existing recordings keep
+/// their own pitch calibration in older packs.
+pub const STEREO_ENGINE_BANDS: [(&str, f64); 5] = [
+    ("engine_stereo/idle", 650.0),
+    ("engine_stereo/low", 898.0),
+    ("engine_stereo/mid", 1279.0),
+    ("engine_stereo/midhigh", 1473.0),
+    ("engine_stereo/high", 1988.0),
+];
+
+/// Whether `key` is one of the original five engine band cuts.
 pub fn is_engine_band_key(key: &str) -> bool {
     ENGINE_BANDS.iter().any(|(band, _native)| *band == key)
 }
@@ -217,25 +227,10 @@ pub const ENGINE_WOBBLE_RATE_STEP: f64 = 0.004; // random-walk speed, fraction p
 pub const ENGINE_WOBBLE_GAIN_MAX: f64 = 0.06; // +/- fraction of band gain (~0.5 dB)
 pub const ENGINE_WOBBLE_GAIN_STEP: f64 = 0.10;
 
-// Ignition crossfade. When the engine is deliberately started, the
-// "engine/start" one-shot plays at full volume while the idle loop is held
-// silent; near the tail of the clip the two crossfade over
-// ENGINE_START_CROSSFADE_S seconds. Tune these to taste -- curve names are
-// keys into `audio_fades::CURVES` (linear, ease_in, ease_out, ease_in_out,
-// exponential, equal_power_in/out).
-pub const ENGINE_START_CROSSFADE_S: f64 = 0.3; // length of the tail blend
-pub const ENGINE_START_TAIL_ANCHOR: bool = true; // blend ends at the clip's end; false = blend from t=0
-pub const ENGINE_START_FADE_OUT_CURVE: &str = "equal_power_out"; // start.ogg 1.0 -> 0.0
-pub const ENGINE_START_FADE_IN_CURVE: &str = "equal_power_in"; // engine loop 0.0 -> 1.0
-pub const ENGINE_START_ASSUMED_LEN_S: f64 = 2.0; // fallback if the clip length can't be queried
-                                                 // Short fade-in for a silent (no-crank) engine loop start, e.g. resuming a
-                                                 // trip whose engine was already running, or coming back from an in-trip menu.
+// The ignition cue finishes before the running engine starts.
+const STEREO_ENGINE_START_KEY: &str = "engine_stereo/start";
+// Soft return when the engine was already running, such as after a menu.
 pub const ENGINE_RESUME_FADE_S: f64 = 0.25;
-// After the crank hands off, the loop starts at the crank's (full-load)
-// volume so there is no dip, then eases down to its true off-throttle load
-// over this window.
-pub const ENGINE_START_SETTLE_S: f64 = 0.6; // ease from crank level down to idle load
-pub const ENGINE_START_SETTLE_CURVE: &str = "ease_out"; // key into audio_fades.CURVES
 
 /// How far the ducked channels (engine, weather, and the music slot the
 /// radio rides) drop while the event voice speaks, when the Settings > Audio
@@ -429,6 +424,10 @@ pub fn engine_freq_mult(rpm: f64) -> f64 {
 /// flat). The pure zones either side of each window are what keep every
 /// sounding cut close to its recorded speed.
 pub fn engine_band_weights(rpm: f64, natives: &[f64]) -> Vec<f64> {
+    engine_band_weights_with_width(rpm, natives, ENGINE_XFADE_LOG_FRAC)
+}
+
+fn engine_band_weights_with_width(rpm: f64, natives: &[f64], width: f64) -> Vec<f64> {
     let n = natives.len();
     let mut weights = vec![0.0; n];
     if n == 0 {
@@ -445,8 +444,8 @@ pub fn engine_band_weights(rpm: f64, natives: &[f64]) -> Vec<f64> {
                 // centered window: below it the lower band is pure, above it
                 // the upper band is pure.
                 let t = (rpm / natives[i]).ln() / (natives[i + 1] / natives[i]).ln();
-                let half = ENGINE_XFADE_LOG_FRAC / 2.0;
-                let s = (t - (0.5 - half)) / ENGINE_XFADE_LOG_FRAC;
+                let half = width / 2.0;
+                let s = (t - (0.5 - half)) / width;
                 if s <= 0.0 {
                     weights[i] = 1.0;
                 } else if s >= 1.0 {
@@ -566,7 +565,7 @@ pub trait Audio {
     fn engine_volume(&self) -> f64;
     fn ui_volume(&self) -> f64;
     fn engine_running(&self) -> bool;
-    /// True while a deliberate ignition is still crossfading into the loop.
+    /// True while the ignition one-shot is playing.
     fn engine_starting(&self) -> bool;
 
     /// Hold back the game's own cues -- the `ui/` and `events/` one-shots

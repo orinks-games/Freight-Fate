@@ -135,7 +135,7 @@ impl AudioBackend for HearkenBackend {
     }
 
     fn engine_starting(&self) -> bool {
-        self.engine_starting.get()
+        self.engine_ignition.starter().is_some()
     }
 
     fn engine_voice_classic(&self) -> Option<bool> {

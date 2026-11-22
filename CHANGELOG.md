@@ -66,6 +66,8 @@
 
 ### Changed
 
+- **Freeway traffic, passing vehicles and ramp cross traffic now use real recordings.** Vehicles driving alongside hold a steady exterior sound by lane.
+- **The recorded truck engine has stereo cab sound and follows rev changes more closely.** Gear changes use clacks recorded inside the cab.
 - **The GPS no longer calls out low bridges and weight limits.** Your route already clears every one of them.
 - **The player manual now covers 2.0,** including Alaska and Canada, the border, units, carriers and the hours rules in each place.
 - **The new roads, loads and achievements are translated in all eleven languages.**
@@ -88,6 +90,8 @@
 ### Fixed
 
 - **Toll estimates no longer charge a one-way bridge in both directions.** The estimate now matches what the drive charges.
+- **The truck's starter gives way to a brief idle before the engine revs up to build air.**
+- **Automatic gear changes start with a softer clunk so the drop in revs is easier to hear.**
 - **Left curve calls say "left" again in every language.** They are spoken in English for now.
 - **Crossing into the District of Columbia now says "the District of Columbia."**
 - **Toll lines no longer say the word toll twice,** as in toll at Alligator Alley commercial toll.
