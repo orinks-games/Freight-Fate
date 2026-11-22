@@ -7,9 +7,9 @@ use crate::data::world_models::{Leg, Route};
 use crate::models::jobs::{Job, LONG_HAUL_MILES};
 use crate::pyfmt::{fmt_f, round_py_n};
 use crate::sim::hos::HosClock;
-use crate::sim::limit_gaps::unposted_limit;
+use crate::sim::limit_gaps::{in_canada_at, open_road_mph, unposted_limit};
 use crate::sim::trip_models::{
-    approach_shed_mi, corridor_speed_limit, leg_speed_limit_at, DESTINATION_APPROACH_LIMIT_MPH,
+    approach_shed_mi, leg_speed_limit_at, DESTINATION_APPROACH_LIMIT_MPH,
     DESTINATION_LOCAL_APPROACH_MI, FACILITY_ACCESS_LIMIT_MPH, FACILITY_GATE_LIMIT_MPH,
     FACILITY_GATE_ZONE_MI, URBAN_LIMIT_MPH, URBAN_RADIUS_MI,
 };
@@ -539,9 +539,10 @@ pub fn route_planning_limit(
         let toward_city = &route.cities[(leg_index + 1).min(route.cities.len() - 1)];
         let region = route_city_region(toward_city, world);
         limit = baked.unwrap_or_else(|| {
-            unposted_limit(leg, offset_mi, corridor_speed_limit(&leg.highway, &region))
+            unposted_limit(leg, offset_mi, open_road_mph(leg, offset_mi, &region))
         });
         if baked.is_none()
+            && !in_canada_at(leg, offset_mi)
             && city_mileposts
                 .iter()
                 .any(|mp| (route_mi - mp).abs() <= URBAN_RADIUS_MI)
