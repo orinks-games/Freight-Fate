@@ -131,3 +131,99 @@ fn canadian_postings_are_read_or_marked_as_gaps() {
     }
     assert!(read > 100, "only {read} read postings on the Canadian legs");
 }
+
+#[test]
+fn the_lower_post_weave_reads_as_one_entry_into_yukon() {
+    let weave = leg("fort_nelson_bc_ca:watson_lake_yt_ca");
+    let lines: Vec<(f64, &str, &str)> = weave
+        .state_crossings()
+        .iter()
+        .map(|c| (c.at_mi, c.state.as_str(), c.place.as_str()))
+        .collect();
+    assert_eq!(lines, vec![(311.7, "Yukon", "Lower Post")]);
+    let miles: Vec<(&str, f64)> = weave
+        .state_miles()
+        .iter()
+        .map(|m| (m.state.as_str(), m.miles))
+        .collect();
+    assert_eq!(miles[0], ("British Columbia", 311.7));
+    assert_eq!(miles.len(), 2);
+    // A true in-and-out of British Columbia is left alone.
+    assert_eq!(
+        leg("watson_lake_yt_ca:whitehorse_yt_ca")
+            .state_crossings()
+            .len(),
+        2
+    );
+}
+
+#[test]
+fn the_weave_screen_changes_no_us_leg() {
+    let world = world();
+    let mut checked = 0;
+    for path in std::fs::read_dir(data_dir().join("world_data/us/legs")).unwrap() {
+        let text = std::fs::read_to_string(path.unwrap().path()).unwrap();
+        let shard: serde_json::Value =
+            serde_json::from_str(text.trim_start_matches('\u{feff}')).unwrap();
+        for raw in shard["legs"].as_array().unwrap() {
+            let (a, b) = (raw["from"].as_str().unwrap(), raw["to"].as_str().unwrap());
+            let us = [a, b]
+                .iter()
+                .all(|s| world.cities.get(*s).is_some_and(|c| c.country == "US"));
+            if !us {
+                continue;
+            }
+            let stored = raw["corridor"]["state_crossings"]
+                .as_array()
+                .map_or(0, Vec::len);
+            let leg = world.legs.iter().find(|l| l.a == a && l.b == b).unwrap();
+            assert_eq!(leg.state_crossings().len(), stored, "{a} to {b}");
+            checked += 1;
+        }
+    }
+    assert!(checked > 1000, "only {checked} US legs checked");
+}
+
+#[test]
+fn canadian_postings_are_driven_at_the_number_on_the_sign() {
+    // Fort Nelson to Watson Lake is Canadian end to end: every read posting
+    // is a whole km/h sign.
+    let mut signs = 0;
+    for s in leg("fort_nelson_bc_ca:watson_lake_yt_ca").speed_limits() {
+        let Some(mph) = s.mph else { continue };
+        let kmh = mph * ff_core::units::MILES_TO_KM;
+        assert!(
+            (kmh - kmh.round()).abs() < 1e-6,
+            "mile {}: {kmh} km/h",
+            s.at_mi
+        );
+        assert_eq!(kmh.round() % 10.0, 0.0, "mile {}: {kmh} km/h", s.at_mi);
+        signs += 1;
+    }
+    assert!(signs > 5);
+    // Alaska's side of the border stays in mph.
+    let tok = leg("whitehorse_yt_ca:tok_ak_us");
+    let alaska: Vec<f64> = tok
+        .speed_limits()
+        .iter()
+        .filter(|s| s.at_mi > 298.0)
+        .filter_map(|s| s.mph)
+        .collect();
+    assert!(!alaska.is_empty());
+    assert!(alaska.iter().all(|mph| mph % 5.0 == 0.0), "{alaska:?}");
+}
+
+#[test]
+fn a_canadian_ramp_advisory_keeps_its_km_h() {
+    // A 50 km/h ramp sign is 31.07 mph, not the 50 mph the US bare-number
+    // screen would make of it.
+    let leg = leg("surrey_bc_ca:prince_george_bc_ca");
+    let advisories: Vec<f64> = leg
+        .interchanges()
+        .iter()
+        .flat_map(|x| [x.ramp_advisory_mph_forward, x.ramp_advisory_mph_backward])
+        .flatten()
+        .collect();
+    assert!(!advisories.is_empty());
+    assert!(advisories.iter().all(|mph| *mph < 40.0), "{advisories:?}");
+}

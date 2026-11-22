@@ -304,13 +304,29 @@ impl Trip {
                 } else {
                     (&crossing.from_state, &crossing.state)
                 };
-                let place = &crossing.place;
+                // A line with no cited place gets the short call; it plays
+                // over the crossing sound.
+                let place = crossing.place.trim();
+                let (label, spoken) = if place.is_empty() {
+                    // Worded as the time-zone line's first sentence, so it
+                    // shares that translation.
+                    let name = into_state;
+                    (
+                        format!("crossing from {from_state} into {into_state}"),
+                        format!("Crossing into {name}."),
+                    )
+                } else {
+                    (
+                        format!("crossing from {from_state} into {into_state} near {place}"),
+                        format!("Crossing into {into_state} near {place}."),
+                    )
+                };
                 cues.push(NavigationCue::new(
                     &format!("state:{i}:{}:{into_state}", py_str_float(crossing.at_mi)),
                     "state_crossing",
                     start + offset,
-                    &format!("crossing from {from_state} into {into_state} near {place}"),
-                    &format!("Crossing into {into_state} near {place}."),
+                    &label,
+                    &spoken,
                 ));
             }
             for checkpoint in leg.checkpoints() {

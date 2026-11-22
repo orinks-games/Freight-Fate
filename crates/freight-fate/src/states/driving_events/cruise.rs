@@ -181,6 +181,9 @@ impl DrivingState {
                 // Which limit, and whether it is in force yet: "for the lower
                 // limit" in a 70 read as cruise ignoring the road (owner,
                 // 2026-10-25).
+                // "ahead" is kept on purpose: it is the only word saying the
+                // limit is not in force yet, the exception the no-ahead rule
+                // allows (director, R1 follow-up, 2026-11-22).
                 _ if posted < self.trip.speed_limit_at(self.trip.position_mi).0 => {
                     format!(" for the {} limit ahead", ctx.settings.speed_value(posted))
                 }
@@ -214,6 +217,14 @@ impl DrivingState {
             },
             ctx.settings.speed_text(effective_mph)
         );
+        // The open-road bridge already said this resume and its number.
+        let bridge_said = self.bridge_resume_said_mph.take();
+        let already_said = transition_label == Some("Open road")
+            && exit_note.is_empty()
+            && bridge_said.is_some_and(|said| (said - round_py(effective_mph)).abs() < 0.5);
+        if already_said {
+            return;
+        }
         if transition_label.is_some() {
             // ROUTE: automation retaking the pedals after a zone, the same
             // handoff as the keeper's resume line (driving_speed_control 291,

@@ -70,7 +70,7 @@ fn a_qualified_trainee_moves_on_the_second_press() {
     // cannot be undone (R1 review, 2026-11-22).
     assert!(
         app.main_lines().iter().any(|l| l.contains(
-            "Truck starts at Summit Value Logistics Denver terminal. Press Enter again to move."
+            "Truck starts at Summit Value Logistics Milwaukee terminal. Press Enter again to move."
         )),
         "{:?}",
         app.main_lines()

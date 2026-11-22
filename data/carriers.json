@@ -3,7 +3,18 @@
     "name": "Northstar Freight Lines",
     "tier": "national",
     "terminal_city_keys": [
-      "chicago_il_us"
+      "chicago_il_us",
+      "atlanta_ga_us",
+      "dallas_tx_us",
+      "riverside_ca_us",
+      "boise_id_us",
+      "newark_nj_us",
+      "north_platte_ne_us",
+      "albuquerque_nm_us",
+      "bismarck_nd_us",
+      "jacksonville_fl_us",
+      "portland_or_us",
+      "houston_tx_us"
     ],
     "hiring_radius_mi": null,
     "home_time_policy": "inert",
@@ -29,7 +40,18 @@
     "name": "Great Lakes Training Transport",
     "tier": "national",
     "terminal_city_keys": [
-      "milwaukee_wi_us"
+      "milwaukee_wi_us",
+      "memphis_tn_us",
+      "phoenix_az_us",
+      "columbus_oh_us",
+      "garden_city_ks_us",
+      "twin_falls_id_us",
+      "jacksonville_fl_us",
+      "newark_nj_us",
+      "san_antonio_tx_us",
+      "fargo_nd_us",
+      "sacramento_ca_us",
+      "spokane_wa_us"
     ],
     "hiring_radius_mi": null,
     "home_time_policy": "inert",
@@ -89,7 +111,18 @@
     "name": "Summit Value Logistics",
     "tier": "national",
     "terminal_city_keys": [
-      "denver_co_us"
+      "denver_co_us",
+      "los_angeles_ca_us",
+      "houston_tx_us",
+      "nashville_tn_us",
+      "allentown_pa_us",
+      "omaha_ne_us",
+      "boise_id_us",
+      "orlando_fl_us",
+      "el_paso_tx_us",
+      "milwaukee_wi_us",
+      "billings_mt_us",
+      "portland_or_us"
     ],
     "hiring_radius_mi": null,
     "home_time_policy": "inert",
@@ -150,7 +183,7 @@
     "tier": "regional",
     "terminal_city_keys": [
       "harrisburg_pa_us",
-      "baltimore_md_us",
+      "worcester_ma_us",
       "pittsburgh_pa_us",
       "newark_nj_us"
     ],
@@ -701,5 +734,986 @@
     },
     "cargo_weight_bonus": {},
     "lane_area": "Anchorage, the Mat-Su valley, and Seward"
+  },
+  "winterset_refrigerated": {
+    "name": "Winterset Refrigerated Lines",
+    "tier": "national",
+    "terminal_city_keys": [
+      "salinas_ca_us",
+      "yakima_wa_us",
+      "garden_city_ks_us",
+      "mcallen_tx_us",
+      "lakeland_fl_us",
+      "green_bay_wi_us",
+      "syracuse_ny_us",
+      "little_rock_ar_us",
+      "phoenix_az_us",
+      "bismarck_nd_us",
+      "twin_falls_id_us",
+      "charlotte_nc_us"
+    ],
+    "hiring_radius_mi": null,
+    "home_time_policy": "inert",
+    "run_band_mi": {
+      "min": 400.0,
+      "max": 3000.0
+    },
+    "company_pay": {
+      "pay_share": 0.37,
+      "min_per_mile": 0.8,
+      "stop_pay": 160.0,
+      "on_time_bonus_share": 0.05
+    },
+    "dispatch": {
+      "short_haul_bias": 0.0,
+      "regional_bias": 0.0,
+      "long_haul_bias": 0.2,
+      "deadline_slack": 1.0
+    },
+    "cargo_weight_bonus": {
+      "food": 0.3,
+      "refrigerated": 0.3
+    },
+    "lane_area": "the lower 48",
+    "specialty": "refrigerated freight"
+  },
+  "double_springs_linehaul": {
+    "name": "Double Springs Linehaul",
+    "tier": "national",
+    "terminal_city_keys": [
+      "memphis_tn_us",
+      "indianapolis_in_us",
+      "riverside_ca_us",
+      "salt_lake_city_ut_us",
+      "sacramento_ca_us",
+      "allentown_pa_us",
+      "sioux_falls_sd_us",
+      "portland_or_us",
+      "orlando_fl_us",
+      "billings_mt_us",
+      "fort_worth_tx_us",
+      "albuquerque_nm_us"
+    ],
+    "hiring_radius_mi": null,
+    "home_time_policy": "inert",
+    "run_band_mi": {
+      "min": 250.0,
+      "max": 1200.0
+    },
+    "company_pay": {
+      "pay_share": 0.35,
+      "min_per_mile": 0.86,
+      "stop_pay": 165.0,
+      "on_time_bonus_share": 0.04
+    },
+    "dispatch": {
+      "short_haul_bias": 0.0,
+      "regional_bias": 0.3,
+      "long_haul_bias": 0.0,
+      "deadline_slack": 1.0
+    },
+    "cargo_weight_bonus": {
+      "parcel_doubles": 0.35,
+      "turnpike_doubles": 0.2,
+      "parcel": 0.2
+    },
+    "lane_area": "the lower 48",
+    "specialty": "doubles"
+  },
+  "open_hearth_flatbed": {
+    "name": "Open Hearth Flatbed Lines",
+    "tier": "national",
+    "terminal_city_keys": [
+      "pittsburgh_pa_us",
+      "birmingham_al_us",
+      "houston_tx_us",
+      "portland_or_us",
+      "tulsa_ok_us",
+      "gary_in_us",
+      "bakersfield_ca_us",
+      "worcester_ma_us",
+      "rapid_city_sd_us",
+      "tampa_fl_us",
+      "salt_lake_city_ut_us",
+      "el_paso_tx_us"
+    ],
+    "hiring_radius_mi": null,
+    "home_time_policy": "inert",
+    "run_band_mi": {
+      "min": 400.0,
+      "max": 3000.0
+    },
+    "company_pay": {
+      "pay_share": 0.37,
+      "min_per_mile": 0.86,
+      "stop_pay": 185.0,
+      "on_time_bonus_share": 0.03
+    },
+    "dispatch": {
+      "short_haul_bias": 0.0,
+      "regional_bias": 0.0,
+      "long_haul_bias": 0.1,
+      "deadline_slack": 1.0
+    },
+    "cargo_weight_bonus": {
+      "steel": 0.3,
+      "machinery": 0.2,
+      "lumber_paper": 0.2,
+      "construction": 0.15
+    },
+    "lane_area": "the lower 48",
+    "specialty": "steel, machinery and lumber"
+  },
+  "elochoman_freight": {
+    "name": "Elochoman Freight Lines",
+    "tier": "regional",
+    "terminal_city_keys": [
+      "tacoma_wa_us",
+      "yakima_wa_us",
+      "eugene_or_us",
+      "bend_or_us"
+    ],
+    "hiring_radius_mi": 250.0,
+    "home_time_policy": "inert",
+    "run_band_mi": {
+      "min": 150.0,
+      "max": 600.0
+    },
+    "company_pay": {
+      "pay_share": 0.34,
+      "min_per_mile": 0.94,
+      "stop_pay": 130.0,
+      "on_time_bonus_share": 0.03
+    },
+    "dispatch": {
+      "short_haul_bias": 0.0,
+      "regional_bias": 0.6,
+      "long_haul_bias": 0.0,
+      "deadline_slack": 1.0
+    },
+    "cargo_weight_bonus": {
+      "lumber_paper": 0.2,
+      "food": 0.15
+    },
+    "lane_area": "the Cascades, from Puget Sound to central Oregon"
+  },
+  "cosumnes_freight": {
+    "name": "Cosumnes Freight",
+    "tier": "regional",
+    "terminal_city_keys": [
+      "stockton_ca_us",
+      "reno_nv_us",
+      "redding_ca_us",
+      "elko_nv_us"
+    ],
+    "hiring_radius_mi": 250.0,
+    "home_time_policy": "inert",
+    "run_band_mi": {
+      "min": 150.0,
+      "max": 500.0
+    },
+    "company_pay": {
+      "pay_share": 0.34,
+      "min_per_mile": 0.93,
+      "stop_pay": 140.0,
+      "on_time_bonus_share": 0.03
+    },
+    "dispatch": {
+      "short_haul_bias": 0.0,
+      "regional_bias": 0.6,
+      "long_haul_bias": 0.0,
+      "deadline_slack": 1.0
+    },
+    "cargo_weight_bonus": {
+      "food": 0.2,
+      "farm_inputs": 0.15
+    },
+    "lane_area": "northern California and northern Nevada"
+  },
+  "cuyama_transport": {
+    "name": "Cuyama Transport",
+    "tier": "regional",
+    "terminal_city_keys": [
+      "san_diego_ca_us",
+      "bakersfield_ca_us",
+      "riverside_ca_us",
+      "phoenix_az_us"
+    ],
+    "hiring_radius_mi": 250.0,
+    "home_time_policy": "inert",
+    "run_band_mi": {
+      "min": 150.0,
+      "max": 600.0
+    },
+    "company_pay": {
+      "pay_share": 0.34,
+      "min_per_mile": 0.93,
+      "stop_pay": 135.0,
+      "on_time_bonus_share": 0.03
+    },
+    "dispatch": {
+      "short_haul_bias": 0.0,
+      "regional_bias": 0.6,
+      "long_haul_bias": 0.0,
+      "deadline_slack": 1.0
+    },
+    "cargo_weight_bonus": {
+      "container": 0.2,
+      "retail": 0.15
+    },
+    "lane_area": "Southern California and Arizona"
+  },
+  "hovenweep_freight": {
+    "name": "Hovenweep Freight",
+    "tier": "regional",
+    "terminal_city_keys": [
+      "flagstaff_az_us",
+      "farmington_nm_us",
+      "grand_junction_co_us",
+      "pueblo_co_us"
+    ],
+    "hiring_radius_mi": 250.0,
+    "home_time_policy": "inert",
+    "run_band_mi": {
+      "min": 150.0,
+      "max": 600.0
+    },
+    "company_pay": {
+      "pay_share": 0.34,
+      "min_per_mile": 0.95,
+      "stop_pay": 125.0,
+      "on_time_bonus_share": 0.03
+    },
+    "dispatch": {
+      "short_haul_bias": 0.0,
+      "regional_bias": 0.6,
+      "long_haul_bias": 0.0,
+      "deadline_slack": 1.0
+    },
+    "cargo_weight_bonus": {
+      "bulk": 0.2,
+      "construction": 0.15
+    },
+    "lane_area": "the Four Corners and southern Colorado"
+  },
+  "two_medicine_freight": {
+    "name": "Two Medicine Freight Lines",
+    "tier": "regional",
+    "terminal_city_keys": [
+      "missoula_mt_us",
+      "great_falls_mt_us",
+      "casper_wy_us",
+      "rapid_city_sd_us"
+    ],
+    "hiring_radius_mi": 250.0,
+    "home_time_policy": "inert",
+    "run_band_mi": {
+      "min": 150.0,
+      "max": 600.0
+    },
+    "company_pay": {
+      "pay_share": 0.34,
+      "min_per_mile": 0.95,
+      "stop_pay": 125.0,
+      "on_time_bonus_share": 0.03
+    },
+    "dispatch": {
+      "short_haul_bias": 0.0,
+      "regional_bias": 0.6,
+      "long_haul_bias": 0.0,
+      "deadline_slack": 1.0
+    },
+    "cargo_weight_bonus": {
+      "grain": 0.2,
+      "livestock": 0.2,
+      "bulk": 0.1
+    },
+    "lane_area": "Montana, Wyoming and the Black Hills"
+  },
+  "lake_traverse_freight": {
+    "name": "Lake Traverse Freight",
+    "tier": "regional",
+    "terminal_city_keys": [
+      "sioux_falls_sd_us",
+      "minot_nd_us",
+      "north_platte_ne_us"
+    ],
+    "hiring_radius_mi": 250.0,
+    "home_time_policy": "inert",
+    "run_band_mi": {
+      "min": 150.0,
+      "max": 600.0
+    },
+    "company_pay": {
+      "pay_share": 0.34,
+      "min_per_mile": 0.95,
+      "stop_pay": 125.0,
+      "on_time_bonus_share": 0.03
+    },
+    "dispatch": {
+      "short_haul_bias": 0.0,
+      "regional_bias": 0.6,
+      "long_haul_bias": 0.0,
+      "deadline_slack": 1.0
+    },
+    "cargo_weight_bonus": {
+      "grain": 0.25,
+      "farm_inputs": 0.2
+    },
+    "lane_area": "the Dakotas and Nebraska"
+  },
+  "tahquamenon_freight": {
+    "name": "Tahquamenon Freight",
+    "tier": "regional",
+    "terminal_city_keys": [
+      "madison_wi_us",
+      "wausau_wi_us",
+      "marquette_mi_us",
+      "st_cloud_mn_us"
+    ],
+    "hiring_radius_mi": 250.0,
+    "home_time_policy": "inert",
+    "run_band_mi": {
+      "min": 150.0,
+      "max": 500.0
+    },
+    "company_pay": {
+      "pay_share": 0.34,
+      "min_per_mile": 0.93,
+      "stop_pay": 140.0,
+      "on_time_bonus_share": 0.03
+    },
+    "dispatch": {
+      "short_haul_bias": 0.0,
+      "regional_bias": 0.6,
+      "long_haul_bias": 0.0,
+      "deadline_slack": 1.0
+    },
+    "cargo_weight_bonus": {
+      "lumber_paper": 0.25,
+      "food": 0.1
+    },
+    "lane_area": "Wisconsin, central Minnesota and the Upper Peninsula"
+  },
+  "kishwaukee_transport": {
+    "name": "Kishwaukee Transport",
+    "tier": "regional",
+    "terminal_city_keys": [
+      "des_moines_ia_us",
+      "davenport_ia_us",
+      "peoria_il_us",
+      "st_louis_mo_us"
+    ],
+    "hiring_radius_mi": 250.0,
+    "home_time_policy": "inert",
+    "run_band_mi": {
+      "min": 150.0,
+      "max": 450.0
+    },
+    "company_pay": {
+      "pay_share": 0.34,
+      "min_per_mile": 0.92,
+      "stop_pay": 145.0,
+      "on_time_bonus_share": 0.03
+    },
+    "dispatch": {
+      "short_haul_bias": 0.0,
+      "regional_bias": 0.6,
+      "long_haul_bias": 0.0,
+      "deadline_slack": 1.0
+    },
+    "cargo_weight_bonus": {
+      "grain": 0.2,
+      "farm_inputs": 0.15,
+      "machinery": 0.1
+    },
+    "lane_area": "Iowa, central Illinois and St. Louis"
+  },
+  "shiawassee_freight": {
+    "name": "Shiawassee Freight",
+    "tier": "regional",
+    "terminal_city_keys": [
+      "grand_rapids_mi_us",
+      "fort_wayne_in_us",
+      "toledo_oh_us"
+    ],
+    "hiring_radius_mi": 250.0,
+    "home_time_policy": "inert",
+    "run_band_mi": {
+      "min": 150.0,
+      "max": 400.0
+    },
+    "company_pay": {
+      "pay_share": 0.34,
+      "min_per_mile": 0.91,
+      "stop_pay": 150.0,
+      "on_time_bonus_share": 0.03
+    },
+    "dispatch": {
+      "short_haul_bias": 0.0,
+      "regional_bias": 0.6,
+      "long_haul_bias": 0.0,
+      "deadline_slack": 1.0
+    },
+    "cargo_weight_bonus": {
+      "automotive": 0.25,
+      "steel": 0.15
+    },
+    "lane_area": "Michigan, northern Indiana and northwest Ohio"
+  },
+  "laguna_madre_freight": {
+    "name": "Laguna Madre Freight Lines",
+    "tier": "regional",
+    "terminal_city_keys": [
+      "corpus_christi_tx_us",
+      "laredo_tx_us",
+      "beaumont_tx_us",
+      "lafayette_la_us"
+    ],
+    "hiring_radius_mi": 250.0,
+    "home_time_policy": "inert",
+    "run_band_mi": {
+      "min": 150.0,
+      "max": 500.0
+    },
+    "company_pay": {
+      "pay_share": 0.34,
+      "min_per_mile": 0.93,
+      "stop_pay": 135.0,
+      "on_time_bonus_share": 0.03
+    },
+    "dispatch": {
+      "short_haul_bias": 0.0,
+      "regional_bias": 0.6,
+      "long_haul_bias": 0.0,
+      "deadline_slack": 1.0
+    },
+    "cargo_weight_bonus": {
+      "chemicals": 0.2,
+      "container": 0.15
+    },
+    "lane_area": "the Texas and Louisiana Gulf Coast"
+  },
+  "sulphur_draw_transport": {
+    "name": "Sulphur Draw Transport",
+    "tier": "regional",
+    "terminal_city_keys": [
+      "midland_tx_us",
+      "lubbock_tx_us",
+      "el_paso_tx_us",
+      "san_angelo_tx_us"
+    ],
+    "hiring_radius_mi": 250.0,
+    "home_time_policy": "inert",
+    "run_band_mi": {
+      "min": 150.0,
+      "max": 600.0
+    },
+    "company_pay": {
+      "pay_share": 0.34,
+      "min_per_mile": 0.95,
+      "stop_pay": 125.0,
+      "on_time_bonus_share": 0.03
+    },
+    "dispatch": {
+      "short_haul_bias": 0.0,
+      "regional_bias": 0.6,
+      "long_haul_bias": 0.0,
+      "deadline_slack": 1.0
+    },
+    "cargo_weight_bonus": {
+      "bulk": 0.2,
+      "chemicals": 0.15
+    },
+    "lane_area": "West Texas and the Permian Basin"
+  },
+  "anclote_freight": {
+    "name": "Anclote Freight",
+    "tier": "regional",
+    "terminal_city_keys": [
+      "tallahassee_fl_us",
+      "tampa_fl_us",
+      "fort_myers_fl_us"
+    ],
+    "hiring_radius_mi": 250.0,
+    "home_time_policy": "inert",
+    "run_band_mi": {
+      "min": 150.0,
+      "max": 450.0
+    },
+    "company_pay": {
+      "pay_share": 0.34,
+      "min_per_mile": 0.92,
+      "stop_pay": 145.0,
+      "on_time_bonus_share": 0.03
+    },
+    "dispatch": {
+      "short_haul_bias": 0.0,
+      "regional_bias": 0.6,
+      "long_haul_bias": 0.0,
+      "deadline_slack": 1.0
+    },
+    "cargo_weight_bonus": {
+      "food": 0.2,
+      "construction": 0.15
+    },
+    "lane_area": "the Florida Gulf Coast"
+  },
+  "pasquotank_freight": {
+    "name": "Pasquotank Freight Lines",
+    "tier": "regional",
+    "terminal_city_keys": [
+      "raleigh_nc_us",
+      "wilmington_nc_us",
+      "charleston_sc_us",
+      "norfolk_va_us"
+    ],
+    "hiring_radius_mi": 250.0,
+    "home_time_policy": "inert",
+    "run_band_mi": {
+      "min": 150.0,
+      "max": 500.0
+    },
+    "company_pay": {
+      "pay_share": 0.34,
+      "min_per_mile": 0.93,
+      "stop_pay": 135.0,
+      "on_time_bonus_share": 0.03
+    },
+    "dispatch": {
+      "short_haul_bias": 0.0,
+      "regional_bias": 0.6,
+      "long_haul_bias": 0.0,
+      "deadline_slack": 1.0
+    },
+    "cargo_weight_bonus": {
+      "container": 0.2,
+      "lumber_paper": 0.15
+    },
+    "lane_area": "the Carolina and Virginia coast"
+  },
+  "sebasticook_freight": {
+    "name": "Sebasticook Freight",
+    "tier": "regional",
+    "terminal_city_keys": [
+      "bangor_me_us",
+      "burlington_vt_us",
+      "syracuse_ny_us"
+    ],
+    "hiring_radius_mi": 250.0,
+    "home_time_policy": "inert",
+    "run_band_mi": {
+      "min": 150.0,
+      "max": 500.0
+    },
+    "company_pay": {
+      "pay_share": 0.34,
+      "min_per_mile": 0.93,
+      "stop_pay": 135.0,
+      "on_time_bonus_share": 0.03
+    },
+    "dispatch": {
+      "short_haul_bias": 0.0,
+      "regional_bias": 0.6,
+      "long_haul_bias": 0.0,
+      "deadline_slack": 1.0
+    },
+    "cargo_weight_bonus": {
+      "lumber_paper": 0.25,
+      "food": 0.1
+    },
+    "lane_area": "Maine, Vermont and upstate New York"
+  },
+  "bergen_point_drayage": {
+    "name": "Bergen Point Drayage",
+    "tier": "local",
+    "terminal_city_keys": [
+      "newark_nj_us",
+      "new_york_ny_us"
+    ],
+    "hiring_radius_mi": 50.0,
+    "home_time_policy": "inert",
+    "run_band_mi": {
+      "min": 25.0,
+      "max": 150.0
+    },
+    "company_pay": {
+      "pay_share": 0.3,
+      "min_per_mile": 1.05,
+      "stop_pay": 210.0,
+      "on_time_bonus_share": 0.03
+    },
+    "dispatch": {
+      "short_haul_bias": 0.0,
+      "regional_bias": 0.0,
+      "long_haul_bias": 0.0,
+      "deadline_slack": 1.05
+    },
+    "cargo_weight_bonus": {
+      "container": 0.3,
+      "port_container": 0.2
+    },
+    "lane_area": "the New York and New Jersey port"
+  },
+  "wassaw_sound_drayage": {
+    "name": "Wassaw Sound Drayage",
+    "tier": "local",
+    "terminal_city_keys": [
+      "savannah_ga_us"
+    ],
+    "hiring_radius_mi": 50.0,
+    "home_time_policy": "inert",
+    "run_band_mi": {
+      "min": 25.0,
+      "max": 150.0
+    },
+    "company_pay": {
+      "pay_share": 0.3,
+      "min_per_mile": 1.05,
+      "stop_pay": 210.0,
+      "on_time_bonus_share": 0.03
+    },
+    "dispatch": {
+      "short_haul_bias": 0.0,
+      "regional_bias": 0.0,
+      "long_haul_bias": 0.0,
+      "deadline_slack": 1.05
+    },
+    "cargo_weight_bonus": {
+      "container": 0.3,
+      "retail": 0.1
+    },
+    "lane_area": "the Port of Savannah"
+  },
+  "brays_bayou_cartage": {
+    "name": "Brays Bayou Cartage",
+    "tier": "local",
+    "terminal_city_keys": [
+      "houston_tx_us"
+    ],
+    "hiring_radius_mi": 50.0,
+    "home_time_policy": "inert",
+    "run_band_mi": {
+      "min": 25.0,
+      "max": 150.0
+    },
+    "company_pay": {
+      "pay_share": 0.3,
+      "min_per_mile": 1.05,
+      "stop_pay": 210.0,
+      "on_time_bonus_share": 0.03
+    },
+    "dispatch": {
+      "short_haul_bias": 0.0,
+      "regional_bias": 0.0,
+      "long_haul_bias": 0.0,
+      "deadline_slack": 1.05
+    },
+    "cargo_weight_bonus": {
+      "chemicals": 0.2,
+      "container": 0.15
+    },
+    "lane_area": "greater Houston"
+  },
+  "village_creek_cartage": {
+    "name": "Village Creek Cartage",
+    "tier": "local",
+    "terminal_city_keys": [
+      "dallas_tx_us",
+      "fort_worth_tx_us"
+    ],
+    "hiring_radius_mi": 50.0,
+    "home_time_policy": "inert",
+    "run_band_mi": {
+      "min": 25.0,
+      "max": 150.0
+    },
+    "company_pay": {
+      "pay_share": 0.3,
+      "min_per_mile": 1.05,
+      "stop_pay": 210.0,
+      "on_time_bonus_share": 0.03
+    },
+    "dispatch": {
+      "short_haul_bias": 0.0,
+      "regional_bias": 0.0,
+      "long_haul_bias": 0.0,
+      "deadline_slack": 1.05
+    },
+    "cargo_weight_bonus": {
+      "retail": 0.2,
+      "parcel": 0.15
+    },
+    "lane_area": "Dallas and Fort Worth"
+  },
+  "nancy_creek_cartage": {
+    "name": "Nancy Creek Cartage",
+    "tier": "local",
+    "terminal_city_keys": [
+      "atlanta_ga_us"
+    ],
+    "hiring_radius_mi": 50.0,
+    "home_time_policy": "inert",
+    "run_band_mi": {
+      "min": 25.0,
+      "max": 150.0
+    },
+    "company_pay": {
+      "pay_share": 0.3,
+      "min_per_mile": 1.05,
+      "stop_pay": 210.0,
+      "on_time_bonus_share": 0.03
+    },
+    "dispatch": {
+      "short_haul_bias": 0.0,
+      "regional_bias": 0.0,
+      "long_haul_bias": 0.0,
+      "deadline_slack": 1.05
+    },
+    "cargo_weight_bonus": {
+      "parcel": 0.2,
+      "retail": 0.15
+    },
+    "lane_area": "greater Atlanta"
+  },
+  "duwamish_drayage": {
+    "name": "Duwamish Drayage",
+    "tier": "local",
+    "terminal_city_keys": [
+      "seattle_wa_us",
+      "tacoma_wa_us"
+    ],
+    "hiring_radius_mi": 50.0,
+    "home_time_policy": "inert",
+    "run_band_mi": {
+      "min": 25.0,
+      "max": 150.0
+    },
+    "company_pay": {
+      "pay_share": 0.3,
+      "min_per_mile": 1.05,
+      "stop_pay": 210.0,
+      "on_time_bonus_share": 0.03
+    },
+    "dispatch": {
+      "short_haul_bias": 0.0,
+      "regional_bias": 0.0,
+      "long_haul_bias": 0.0,
+      "deadline_slack": 1.05
+    },
+    "cargo_weight_bonus": {
+      "container": 0.3
+    },
+    "lane_area": "Seattle and Tacoma"
+  },
+  "carquinez_drayage": {
+    "name": "Carquinez Drayage",
+    "tier": "local",
+    "terminal_city_keys": [
+      "san_francisco_ca_us",
+      "san_jose_ca_us"
+    ],
+    "hiring_radius_mi": 50.0,
+    "home_time_policy": "inert",
+    "run_band_mi": {
+      "min": 25.0,
+      "max": 150.0
+    },
+    "company_pay": {
+      "pay_share": 0.3,
+      "min_per_mile": 1.05,
+      "stop_pay": 210.0,
+      "on_time_bonus_share": 0.03
+    },
+    "dispatch": {
+      "short_haul_bias": 0.0,
+      "regional_bias": 0.0,
+      "long_haul_bias": 0.0,
+      "deadline_slack": 1.05
+    },
+    "cargo_weight_bonus": {
+      "container": 0.25,
+      "food": 0.1
+    },
+    "lane_area": "the San Francisco Bay Area"
+  },
+  "zacate_creek_cartage": {
+    "name": "Zacate Creek Cartage",
+    "tier": "local",
+    "terminal_city_keys": [
+      "laredo_tx_us"
+    ],
+    "hiring_radius_mi": 50.0,
+    "home_time_policy": "inert",
+    "run_band_mi": {
+      "min": 25.0,
+      "max": 150.0
+    },
+    "company_pay": {
+      "pay_share": 0.3,
+      "min_per_mile": 1.05,
+      "stop_pay": 210.0,
+      "on_time_bonus_share": 0.03
+    },
+    "dispatch": {
+      "short_haul_bias": 0.0,
+      "regional_bias": 0.0,
+      "long_haul_bias": 0.0,
+      "deadline_slack": 1.05
+    },
+    "cargo_weight_bonus": {
+      "retail": 0.2,
+      "general": 0.15
+    },
+    "lane_area": "Laredo and its border crossings"
+  },
+  "nonconnah_cartage": {
+    "name": "Nonconnah Cartage",
+    "tier": "local",
+    "terminal_city_keys": [
+      "memphis_tn_us"
+    ],
+    "hiring_radius_mi": 50.0,
+    "home_time_policy": "inert",
+    "run_band_mi": {
+      "min": 25.0,
+      "max": 150.0
+    },
+    "company_pay": {
+      "pay_share": 0.3,
+      "min_per_mile": 1.05,
+      "stop_pay": 210.0,
+      "on_time_bonus_share": 0.03
+    },
+    "dispatch": {
+      "short_haul_bias": 0.0,
+      "regional_bias": 0.0,
+      "long_haul_bias": 0.0,
+      "deadline_slack": 1.05
+    },
+    "cargo_weight_bonus": {
+      "parcel": 0.25,
+      "general": 0.1
+    },
+    "lane_area": "Memphis"
+  },
+  "quindaro_cartage": {
+    "name": "Quindaro Cartage",
+    "tier": "local",
+    "terminal_city_keys": [
+      "kansas_city_mo_us"
+    ],
+    "hiring_radius_mi": 50.0,
+    "home_time_policy": "inert",
+    "run_band_mi": {
+      "min": 25.0,
+      "max": 150.0
+    },
+    "company_pay": {
+      "pay_share": 0.3,
+      "min_per_mile": 1.05,
+      "stop_pay": 210.0,
+      "on_time_bonus_share": 0.03
+    },
+    "dispatch": {
+      "short_haul_bias": 0.0,
+      "regional_bias": 0.0,
+      "long_haul_bias": 0.0,
+      "deadline_slack": 1.05
+    },
+    "cargo_weight_bonus": {
+      "general": 0.15,
+      "grain": 0.1
+    },
+    "lane_area": "greater Kansas City"
+  },
+  "virginia_key_cartage": {
+    "name": "Virginia Key Cartage",
+    "tier": "local",
+    "terminal_city_keys": [
+      "miami_fl_us"
+    ],
+    "hiring_radius_mi": 50.0,
+    "home_time_policy": "inert",
+    "run_band_mi": {
+      "min": 25.0,
+      "max": 150.0
+    },
+    "company_pay": {
+      "pay_share": 0.3,
+      "min_per_mile": 1.05,
+      "stop_pay": 210.0,
+      "on_time_bonus_share": 0.03
+    },
+    "dispatch": {
+      "short_haul_bias": 0.0,
+      "regional_bias": 0.0,
+      "long_haul_bias": 0.0,
+      "deadline_slack": 1.05
+    },
+    "cargo_weight_bonus": {
+      "food": 0.2,
+      "container": 0.15
+    },
+    "lane_area": "greater Miami"
+  },
+  "tanners_creek_cartage": {
+    "name": "Tanners Creek Cartage",
+    "tier": "local",
+    "terminal_city_keys": [
+      "norfolk_va_us"
+    ],
+    "hiring_radius_mi": 50.0,
+    "home_time_policy": "inert",
+    "run_band_mi": {
+      "min": 25.0,
+      "max": 150.0
+    },
+    "company_pay": {
+      "pay_share": 0.3,
+      "min_per_mile": 1.05,
+      "stop_pay": 210.0,
+      "on_time_bonus_share": 0.03
+    },
+    "dispatch": {
+      "short_haul_bias": 0.0,
+      "regional_bias": 0.0,
+      "long_haul_bias": 0.0,
+      "deadline_slack": 1.05
+    },
+    "cargo_weight_bonus": {
+      "container": 0.3
+    },
+    "lane_area": "Hampton Roads"
+  },
+  "ecorse_river_cartage": {
+    "name": "Ecorse River Cartage",
+    "tier": "local",
+    "terminal_city_keys": [
+      "detroit_mi_us"
+    ],
+    "hiring_radius_mi": 50.0,
+    "home_time_policy": "inert",
+    "run_band_mi": {
+      "min": 25.0,
+      "max": 150.0
+    },
+    "company_pay": {
+      "pay_share": 0.3,
+      "min_per_mile": 1.05,
+      "stop_pay": 210.0,
+      "on_time_bonus_share": 0.03
+    },
+    "dispatch": {
+      "short_haul_bias": 0.0,
+      "regional_bias": 0.0,
+      "long_haul_bias": 0.0,
+      "deadline_slack": 1.05
+    },
+    "cargo_weight_bonus": {
+      "automotive": 0.3,
+      "steel": 0.15
+    },
+    "lane_area": "greater Detroit"
   }
 }
