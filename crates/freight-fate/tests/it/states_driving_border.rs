@@ -529,7 +529,8 @@ fn the_booth_reminder_holds_the_clock_to_real_time_until_the_booth() {
     });
     let transcript = harness.transcript_text();
     assert!(
-        transcript.contains("Customs booth in half a mile. Stop at the booth."),
+        // Still in the Yukon, so Automatic units speak the half mile in meters.
+        transcript.contains("Customs booth in 800 meters. Stop at the booth."),
         "{transcript}"
     );
 

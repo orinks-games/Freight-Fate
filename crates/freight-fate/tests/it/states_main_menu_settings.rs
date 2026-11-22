@@ -11,6 +11,7 @@ use crate::states_main_menu_support::*;
 use ff_core::models::profile::Profile;
 use ff_core::settings::{Settings, PACE_RETIRED_NOTICES};
 use ff_core::sim::season::{date_text, real_clock_game_hours};
+use ff_core::units::UnitsMode;
 use freight_fate::app::testing::{set_headless_env, DataDirGuard, TempDir, TestApp};
 use freight_fate::app::App;
 use freight_fate::speech::CaptureSpeech;
@@ -510,8 +511,11 @@ fn test_settings_menu_toggles_jake_voice_and_persists() {
 fn test_settings_menu_saves_each_change() {
     let mut app = TestApp::new();
     open_settings_category(&mut app, "Controls");
-    assert!(app.ctx.settings.imperial());
+    assert_eq!(app.ctx.settings.units_mode(), UnitsMode::Automatic);
     move_to::<Cat>(&mut app, "Units");
+    key(&mut app, Key::Return);
+    assert_eq!(app.ctx.settings.units_mode(), UnitsMode::Imperial);
+    assert_eq!(Settings::load().units_mode(), UnitsMode::Imperial);
     key(&mut app, Key::Return);
     assert!(!app.ctx.settings.imperial());
     assert!(!Settings::load().imperial());
