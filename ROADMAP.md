@@ -6154,6 +6154,14 @@ a carrier slice (owner, 2026-10-26).
       `osm-exit-routes` reads New Brunswick's, Nova Scotia's (Highway,
       Trunk, Route) and PEI's route networks, and an exit the relations
       miss speaks its province's word at load ("NS 102" is Highway 102).
+      The load rule names only what a number proves: Quebec's A- comes
+      from the list of autoroutes in service, Ontario's Highway only for
+      400 to 427, Manitoba's below 200, and anything else stays as read.
+- [ ] (Found along the way) `osm-exit-routes` should read Ontario's
+      county and regional road networks. About 60 Ontario exits carry a
+      bare number the relation pass missed (2, 15, 18, 27, 32, 33, 38,
+      88, 450), mostly county and regional roads, so they speak the bare
+      number.
 - [ ] (Found along the way) New Brunswick's bilingual exit signs ("Air
       Cargo / Fret", "Village of/de Gagetown") were cut to English by
       hand in 13 exits; a re-run of `osm-exits` brings the sign text back.
