@@ -138,6 +138,9 @@ pub trait TextEntry: Sized + 'static {
                 ctx.pop_state();
             }
             Key::Return | Key::KpEnter => self.confirm(ctx),
+            // Help, a two-finger flick up on a phone: the field's opening
+            // line again, which says how it works.
+            Key::F1 => self.enter(ctx),
             Key::Backspace => self.backspace(ctx),
             Key::Left => self.move_cursor(ctx, -1),
             Key::Right => self.move_cursor(ctx, 1),

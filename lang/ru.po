@@ -8823,6 +8823,9 @@ msgstr ""
 msgid " Enter books it."
 msgstr " Enter бронирует."
 
+msgid " Double tap books it."
+msgstr ""
+
 #. placeholders: {grouped}
 msgid "{grouped} dollars"
 msgstr "{grouped} {grouped:доллар|доллара|долларов}"
@@ -19393,12 +19396,6 @@ msgstr "Сохраняет карьеру."
 
 msgid "Settings"
 msgstr "Настройки"
-
-msgid ""
-"Units, transmission, volumes, weather, voices, update channel, and pacing."
-msgstr ""
-"Единицы, коробка передач, громкость, погода, голоса, канал обновлений и "
-"темп."
 
 msgid "Quit to main menu"
 msgstr "Выйти в главное меню"
@@ -30438,6 +30435,11 @@ msgstr ""
 "Станции Freight Fate, ваши плейлисты и избранное, а также станции "
 "поблизости. Коснитесь станции дважды, чтобы настроить её."
 
+msgid ""
+"Freight Fate stations, your favorites, and stations nearby. Double tap one "
+"to tune it."
+msgstr ""
+
 #. placeholders: {in_range}
 msgid "Stations in range: {in_range}"
 msgstr "Станции в зоне приёма: {in_range}"
@@ -35710,6 +35712,9 @@ msgstr ""
 "Enter предложит удалить это сохранение. Оно по-прежнему работает во Freight "
 "Fate 1.8."
 
+msgid "Double tap offers to delete this save."
+msgstr ""
+
 msgid ""
 "Double tap offers to delete this save. It still works in Freight Fate 1.8."
 msgstr ""
@@ -36016,6 +36021,10 @@ msgid "Online"
 msgstr "Онлайн"
 
 msgid ""
+"Drivers on duty, your orinks.net account, and cloud backup and restore."
+msgstr ""
+
+msgid ""
 "Drivers on duty, your orinks.net account, cloud backup and restore, and "
 "Discord presence."
 msgstr ""
@@ -36272,6 +36281,15 @@ msgid "Settings saved."
 msgstr "Настройки сохранены."
 
 msgid ""
+"Units, transmission, volumes, weather, voices, update channel, and pacing."
+msgstr ""
+"Единицы, коробка передач, громкость, погода, голоса, канал обновлений и "
+"темп."
+
+msgid "Units, transmission, volumes, weather, voices, and pacing."
+msgstr ""
+
+msgid ""
 "Gameplay is now a category with its own submenu: Driving assistance, "
 "Difficulty and hours of service, World and traffic, and Controls. Weather, "
 "traffic, and parking sources moved into World and traffic from Speech and "
@@ -36491,11 +36509,9 @@ msgid "every time"
 msgstr "каждый раз"
 
 msgid ""
-"Lane keeping full: the truck holds the lane, swipe left or right to change "
+"Lane keeping full: the truck holds the lane, flick left or right to change "
 "lanes."
 msgstr ""
-"Удержание полосы полное: грузовик держит полосу, проведите влево или "
-"вправо, чтобы сменить полосу."
 
 #. placeholders: {control_name}, {control_name2}
 msgid ""
@@ -36561,16 +36577,6 @@ msgstr "Динамики кабины"
 msgid "Clean"
 msgstr "Чистый"
 
-msgid "Controller: disabled"
-msgstr "Геймпад: выключен"
-
-#. placeholders: {name}
-msgid "Controller: enabled, {name} connected"
-msgstr "Геймпад: включён, подключён {name}"
-
-msgid "Controller: enabled, none connected"
-msgstr "Геймпад: включён, не подключён"
-
 msgid ""
 "Off plays the full dial, including real public streams and personal "
 "playlists. On keeps the radio to built-in safe stations, for streaming or "
@@ -36594,6 +36600,26 @@ msgstr ""
 "Если источник музыки — Синтезированная, во включённом режиме радио остаётся "
 "на Roadhouse, а настройка ничего не делает."
 
+msgid ""
+"On, driving lines name the key for the next step, like Press X to signal "
+"for the exit. Off, they leave the key out. Driving school always names it."
+msgstr ""
+"Если включено, реплики в пути называют клавишу для следующего шага, "
+"например: нажмите X, чтобы включить сигнал съезда. Если выключено, клавиша "
+"не называется. В автошколе она называется всегда."
+
+msgid ""
+"Extra callouts between directions: parks, rivers, mountain passes, museums "
+"and billboards. Right arrow turns all on, Left arrow all off, and the "
+"switches below pick each kind. Safety and navigation are never affected. "
+"Town names are the Place callouts row below."
+msgstr ""
+"Дополнительные сообщения между указаниями: парки, реки, горные перевалы, "
+"музеи и рекламные щиты. Стрелка вправо включает все, стрелка влево "
+"выключает все, а переключатели ниже выбирают каждый вид. Безопасность и "
+"навигация не затрагиваются никогда. Названия городов — это строка «Названия "
+"мест» ниже."
+
 msgid "a soft tone leans"
 msgstr "мягкий тон смещается"
 
@@ -36609,16 +36635,6 @@ msgstr "к"
 #. placeholders: {what}, {way}
 msgid "{what} {way} where the wheel should go, so steer {way} it"
 msgstr "{what} {way} нужной позиции руля, так что рулите {way} этой позиции"
-
-msgid "Touch gestures"
-msgstr "Жесты касания"
-
-msgid ""
-"Choose which driving command each touch gesture runs, including a second "
-"finger while holding gas or brake."
-msgstr ""
-"Выберите, какую команду вождения выполняет каждый жест касания, в том числе "
-"вторым пальцем, пока вы держите газ или тормоз."
 
 msgid "Automatic emergency braking"
 msgstr "Автоматическое экстренное торможение"
@@ -36732,10 +36748,6 @@ msgid ""
 msgstr "Одно нажатие {control_brake} отпускает его, и газ тоже."
 
 #. one sentence of a longer line
-msgid "Presets never change this."
-msgstr "Наборы помощников это никогда не меняют."
-
-#. one sentence of a longer line
 msgid "Tap the brake, then press it again and hold half a second."
 msgstr "Коротко нажмите тормоз, затем нажмите снова и держите полсекунды."
 
@@ -36766,14 +36778,6 @@ msgstr ""
 msgid "Curve callouts"
 msgstr "Объявления поворотов"
 
-#. one sentence of a longer line
-msgid ""
-"Bends that demand slowing are called before they arrive, like Sharp left, "
-"half a mile, advise 35."
-msgstr ""
-"Повороты, требующие сбросить скорость, объявляются заранее, например: "
-"«Резко налево, полмили, рекомендуемая скорость 35»."
-
 #. placeholders: {control_upcoming}
 msgid ""
 "Bends that demand slowing are called before they arrive, like Sharp left, "
@@ -36786,11 +36790,6 @@ msgstr ""
 "вы уже едете достаточно медленно, не объявляются. Нажмите "
 "{control_upcoming}, чтобы в любом случае перечислить ближайшие. Наборы "
 "помощников это никогда не меняют."
-
-#. one sentence of a longer line
-msgid "Bends you are already slow enough for stay silent."
-msgstr ""
-"Повороты, для которых вы уже едете достаточно медленно, не объявляются."
 
 #. placeholders: {control_upcoming}
 #. one sentence of a longer line
@@ -36824,12 +36823,6 @@ msgstr ""
 "дороге возвращает управление обычному круиз-контролю. Он заранее сбрасывает "
 "скорость перед следующим поворотом или следующим более низким ограничением. "
 "Торможение отменяет его. Предустановки этого не меняют."
-
-#. one sentence of a longer line
-msgid "It eases off early for the next turn or the next lower limit."
-msgstr ""
-"Оно заранее сбрасывает скорость перед следующим поворотом или следующим "
-"более низким ограничением."
 
 #. placeholders: {language_label}
 msgid "Language: {language_label}"
@@ -36883,29 +36876,9 @@ msgstr ""
 msgid "Driving hints: {on_off}"
 msgstr "Подсказки за рулём: {on_off}"
 
-msgid ""
-"On, driving lines name the key for the next step, like Press X to signal "
-"for the exit. Off, they leave the key out. Driving school always names it."
-msgstr ""
-"Если включено, реплики в пути называют клавишу для следующего шага, "
-"например: нажмите X, чтобы включить сигнал съезда. Если выключено, клавиша "
-"не называется. В автошколе она называется всегда."
-
 #. placeholders: {chatter_summary}
 msgid "Roadside chatter: {chatter_summary}"
 msgstr "Рассказы о дороге: {chatter_summary}"
-
-msgid ""
-"Extra callouts between directions: parks, rivers, mountain passes, museums "
-"and billboards. Right arrow turns all on, Left arrow all off, and the "
-"switches below pick each kind. Safety and navigation are never affected. "
-"Town names are the Place callouts row below."
-msgstr ""
-"Дополнительные сообщения между указаниями: парки, реки, горные перевалы, "
-"музеи и рекламные щиты. Стрелка вправо включает все, стрелка влево "
-"выключает все, а переключатели ниже выбирают каждый вид. Безопасность и "
-"навигация не затрагиваются никогда. Названия городов — это строка «Названия "
-"мест» ниже."
 
 #. placeholders: {on_off}
 msgid "Speak parks and forests: {on_off}"
@@ -37086,6 +37059,17 @@ msgid ""
 "ten minutes of road and clock each real minute, with more time to react to "
 "hazards, gentler damage and fatigue, and calmer speech. Standard keeps "
 "normal pressure at about twenty minutes each real minute. Real time keeps "
+"Standard's pressure and runs the clock at real speed, matched to this "
+"device's date and time. Switching never changes your hours of service or "
+"the time left on a delivery. You can also switch from the pause menu during "
+"a drive. The change starts when the truck next stops."
+msgstr ""
+
+msgid ""
+"How fast the clock runs and how hard the road pushes. Relaxed passes about "
+"ten minutes of road and clock each real minute, with more time to react to "
+"hazards, gentler damage and fatigue, and calmer speech. Standard keeps "
+"normal pressure at about twenty minutes each real minute. Real time keeps "
 "Standard's pressure and runs the clock at real speed, matched to your "
 "computer's date and time. Switching never changes your hours of service or "
 "the time left on a delivery. You can also switch from the pause menu during "
@@ -37125,22 +37109,6 @@ msgstr "Выключено"
 msgid "On"
 msgstr "Включено"
 
-#. one sentence of a longer line
-msgid ""
-"At the dispatch board, it warns when the load crosses a road that needs "
-"chains and the terminal garage can still sell you a set."
-msgstr ""
-"На доске заказов предупреждает, когда груз пойдёт по дороге, где нужны "
-"цепи, а гараж терминала ещё может продать вам комплект."
-
-#. one sentence of a longer line
-msgid ""
-"Early advice to stop for a break or sleep while you still have time, plus "
-"the last stop you can legally reach."
-msgstr ""
-"Заранее советует остановиться на перерыв или сон, пока ещё есть время, и "
-"называет последнюю остановку, до которой вы успеваете по закону."
-
 #. placeholders: {control_rest}
 msgid ""
 "Early advice to stop for a break or sleep while you still have time, plus "
@@ -37170,24 +37138,6 @@ msgid "Hours warnings and readout keys work whether this is on or off."
 msgstr ""
 "Предупреждения о времени и клавиши справки работают, включено это или нет."
 
-#. one sentence of a longer line
-msgid "It also warns about chain laws."
-msgstr "Также предупреждает о требовании цепей."
-
-#. one sentence of a longer line
-msgid "It never buys anything."
-msgstr "Он никогда ничего не покупает."
-
-#. one sentence of a longer line
-msgid "On Quiet or Urgent only, there is no hint."
-msgstr "На «тихая» или «только срочное» подсказки нет."
-
-#. one sentence of a longer line
-msgid "On the road, it warns when a posted chain law covers your truck."
-msgstr ""
-"В дороге предупреждает, когда объявленное требование цепей касается вашего "
-"грузовика."
-
 #. placeholders: {control_rest}
 #. one sentence of a longer line
 msgid ""
@@ -37196,14 +37146,6 @@ msgid ""
 msgstr ""
 "В движении {control_rest} планирует рекомендованную остановку, а повторное "
 "нажатие отменяет её."
-
-#. one sentence of a longer line
-msgid ""
-"With Driving speech on Standard, one hint comes before the next hours "
-"warning."
-msgstr ""
-"Когда речь в пути стоит на «стандартная», перед следующим предупреждением о "
-"часах звучит одна подсказка."
 
 #. placeholders: {else}
 msgid "Weather source: {else}"
@@ -37280,6 +37222,13 @@ msgstr "Улицы к объектам: {on_off}"
 
 msgid ""
 "On, you drive the real streets between the highway and a facility, turn by "
+"turn. Off, the exit ramp ends at the facility gate, and no exit has a light "
+"or stop sign. A loaded run leaves straight onto the highway, and a pickup "
+"in town is one stretch of road. The change applies from your next drive."
+msgstr ""
+
+msgid ""
+"On, you drive the real streets between the highway and a facility, turn by "
 "turn. Off works as in version 1.8. The exit ramp ends at the facility gate, "
 "and no exit has a light or stop sign. A loaded run leaves straight onto the "
 "highway, and a pickup in town is one stretch of road. The change applies "
@@ -37291,136 +37240,14 @@ msgstr ""
 "Гружёный рейс выходит прямо на шоссе, а забор груза в городе — это один "
 "отрезок дороги. Изменение действует со следующей поездки."
 
-#. placeholders: {else}
-msgid "Units: {else}"
-msgstr "Единицы: {else}"
-
-msgid "imperial, miles"
-msgstr "имперские, мили"
-
-msgid "metric, kilometers"
-msgstr "метрические, километры"
-
-msgid "Distance and speed in miles or kilometers."
-msgstr "Расстояние и скорость в милях или километрах."
-
-#. placeholders: {else}
-msgid "Transmission: {else}"
-msgstr "Коробка передач: {else}"
-
-#. one sentence of a longer line
-msgid "Automatic shifts for you."
-msgstr "Автомат переключает передачи за вас."
-
-#. placeholders: {control_shift_up}, {control_shift_down}
-msgid ""
-"Automatic shifts for you. Manual: hold the clutch, then {control_shift_up} "
-"shifts up and {control_shift_down} shifts down."
-msgstr ""
-"Автомат переключает передачи за вас. Механика: держите сцепление, тогда "
-"{control_shift_up} повышает передачу, а {control_shift_down} понижает."
-
-#. placeholders: {control_shift_up}, {control_shift_down}
-#. one sentence of a longer line
-msgid ""
-"Manual: hold the clutch, then {control_shift_up} shifts up and "
-"{control_shift_down} shifts down."
-msgstr ""
-"Механика: держите сцепление, тогда {control_shift_up} повышает передачу, а "
-"{control_shift_down} понижает."
-
-msgid ""
-"Game-controller input alongside the keyboard, which always stays active. "
-"The first connected controller is used."
-msgstr ""
-"Ввод с геймпада вместе с клавиатурой, которая всегда остаётся активной. "
-"Используется первый подключённый геймпад."
-
-#. placeholders: {else}
-msgid "Haptics: {else}"
-msgstr "Вибрация: {else}"
-
-msgid "enabled"
-msgstr "включён"
-
-msgid "disabled"
-msgstr "выключен"
-
-msgid ""
-"Controller rumble for hazards, hard braking, the rumble strip, and road "
-"seams. Needs a controller connected."
-msgstr ""
-"Вибрация геймпада при опасностях, резком торможении, на шумовой полосе и на "
-"стыках дороги. Нужен подключённый геймпад."
-
-#. placeholders: {else}
-msgid "Second layer bumper: {else}"
-msgstr "Бампер второго слоя: {else}"
-
-msgid ""
-"Which bumper you hold for the second layer of controller buttons. The other "
-"bumper is the clutch."
-msgstr ""
-"Какой бампер вы удерживаете для второго слоя кнопок геймпада. Другой бампер "
-"работает как сцепление."
-
-#. placeholders: {on_off}
-msgid "Visual display: {on_off}"
-msgstr "Визуальный экран: {on_off}"
-
-msgid ""
-"Draws the road, the dashboard, menus and captions of what is spoken in the "
-"game window, for sighted and low-vision players. Off keeps the window dark "
-"and saves battery. Speech and sound are the same either way."
-msgstr ""
-"Рисует в окне игры дорогу, приборную панель, меню и субтитры того, что "
-"произносится, для зрячих и слабовидящих игроков. Если выключено, окно "
-"остаётся тёмным и экономит батарею. Речь и звук одинаковы в обоих случаях."
-
-#. placeholders: {on_off}
-msgid "Letters run menu items: {on_off}"
-msgstr "Буквы запускают пункты меню: {on_off}"
-
-msgid ""
-"On, typing the first letter of an item runs it when no other item starts "
-"with that letter. When several share it, the letter moves between them and "
-"Enter runs the one you are on. Off, letters only move to the item."
-msgstr ""
-"Если включено, первая буква пункта запускает его, когда ни один другой "
-"пункт не начинается с этой буквы. Если букву делят несколько пунктов, она "
-"переходит между ними, а Enter запускает тот, на котором вы стоите. Если "
-"выключено, буквы только переходят к пункту."
-
-msgid "Keyboard shortcuts"
-msgstr "Клавиши управления"
-
-msgid ""
-"Move any driving key to another key. Enter on a control, then press the key "
-"you want for it."
-msgstr ""
-"Переназначьте любую клавишу вождения на другую клавишу. Нажмите Enter на "
-"действии, затем нажмите нужную клавишу."
-
-msgid "Controller buttons"
-msgstr "Кнопки геймпада"
-
-msgid ""
-"Move any driving control to another pad button, plain or with the left "
-"bumper held."
-msgstr ""
-"Переназначьте любое действие вождения на другую кнопку геймпада, отдельно "
-"или с удержанием left bumper."
-
-msgid ""
-"Move any driving control to another pad button, plain or with the right "
-"bumper held."
-msgstr ""
-"Переназначьте любое действие вождения на другую кнопку геймпада, отдельно "
-"или с удержанием right bumper."
-
 #. placeholders: {on_off}
 msgid "Ask to report a problem after a crash: {on_off}"
 msgstr "Предлагать сообщить о проблеме после сбоя: {on_off}"
+
+msgid ""
+"On, the main menu offers to send a report if the game stopped while you "
+"were playing last time, with that run's log attached."
+msgstr ""
 
 msgid ""
 "On, the main menu offers to send a report when the game closed without "
@@ -37683,6 +37510,184 @@ msgstr ""
 msgid "Menu movement, selection, warning, and cash sounds."
 msgstr "Звуки перемещения по меню, выбора, предупреждений и денег."
 
+msgid "Controller: disabled"
+msgstr "Геймпад: выключен"
+
+#. placeholders: {name}
+msgid "Controller: enabled, {name} connected"
+msgstr "Геймпад: включён, подключён {name}"
+
+msgid "Controller: enabled, none connected"
+msgstr "Геймпад: включён, не подключён"
+
+msgid "Touch gestures"
+msgstr "Жесты касания"
+
+msgid ""
+"Choose which driving command each touch gesture runs, including a second "
+"finger while holding gas or brake."
+msgstr ""
+"Выберите, какую команду вождения выполняет каждый жест касания, в том числе "
+"вторым пальцем, пока вы держите газ или тормоз."
+
+#. one sentence of a longer line
+msgid "Automatic shifts for you."
+msgstr "Автомат переключает передачи за вас."
+
+#. placeholders: {up}, {down}
+msgid ""
+"Automatic shifts for you. In manual, the clutch works itself. {up} to shift "
+"up. {down} to shift down."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "In manual, the clutch works itself."
+msgstr ""
+
+#. placeholders: {down}
+#. one sentence of a longer line
+msgid "{down} to shift down."
+msgstr ""
+
+#. placeholders: {up}
+#. one sentence of a longer line
+msgid "{up} to shift up."
+msgstr ""
+
+#. placeholders: {else}
+msgid "Units: {else}"
+msgstr "Единицы: {else}"
+
+msgid "imperial, miles"
+msgstr "имперские, мили"
+
+msgid "metric, kilometers"
+msgstr "метрические, километры"
+
+msgid "Distance and speed in miles or kilometers."
+msgstr "Расстояние и скорость в милях или километрах."
+
+#. placeholders: {else}
+msgid "Transmission: {else}"
+msgstr "Коробка передач: {else}"
+
+#. placeholders: {control_shift_up}, {control_shift_down}
+msgid ""
+"Automatic shifts for you. Manual: hold the clutch, then {control_shift_up} "
+"shifts up and {control_shift_down} shifts down."
+msgstr ""
+"Автомат переключает передачи за вас. Механика: держите сцепление, тогда "
+"{control_shift_up} повышает передачу, а {control_shift_down} понижает."
+
+#. placeholders: {control_shift_up}, {control_shift_down}
+#. one sentence of a longer line
+msgid ""
+"Manual: hold the clutch, then {control_shift_up} shifts up and "
+"{control_shift_down} shifts down."
+msgstr ""
+"Механика: держите сцепление, тогда {control_shift_up} повышает передачу, а "
+"{control_shift_down} понижает."
+
+msgid ""
+"Game-controller input alongside the touch screen, which always stays "
+"active. The first connected controller is used."
+msgstr ""
+
+msgid ""
+"Game-controller input alongside the keyboard, which always stays active. "
+"The first connected controller is used."
+msgstr ""
+"Ввод с геймпада вместе с клавиатурой, которая всегда остаётся активной. "
+"Используется первый подключённый геймпад."
+
+#. placeholders: {else}
+msgid "Haptics: {else}"
+msgstr "Вибрация: {else}"
+
+msgid "enabled"
+msgstr "включён"
+
+msgid "disabled"
+msgstr "выключен"
+
+msgid ""
+"Controller rumble for hazards, hard braking, the rumble strip, and road "
+"seams. Needs a controller connected."
+msgstr ""
+"Вибрация геймпада при опасностях, резком торможении, на шумовой полосе и на "
+"стыках дороги. Нужен подключённый геймпад."
+
+#. placeholders: {else}
+msgid "Second layer bumper: {else}"
+msgstr "Бампер второго слоя: {else}"
+
+msgid ""
+"Which bumper you hold for the second layer of controller buttons. The other "
+"bumper is the clutch."
+msgstr ""
+"Какой бампер вы удерживаете для второго слоя кнопок геймпада. Другой бампер "
+"работает как сцепление."
+
+#. placeholders: {on_off}
+msgid "Visual display: {on_off}"
+msgstr "Визуальный экран: {on_off}"
+
+msgid ""
+"Draws the road, the dashboard, menus and captions of what is spoken on the "
+"screen, for sighted and low-vision players. Off keeps the screen dark and "
+"saves battery. Speech and sound are the same either way."
+msgstr ""
+
+msgid ""
+"Draws the road, the dashboard, menus and captions of what is spoken in the "
+"game window, for sighted and low-vision players. Off keeps the window dark "
+"and saves battery. Speech and sound are the same either way."
+msgstr ""
+"Рисует в окне игры дорогу, приборную панель, меню и субтитры того, что "
+"произносится, для зрячих и слабовидящих игроков. Если выключено, окно "
+"остаётся тёмным и экономит батарею. Речь и звук одинаковы в обоих случаях."
+
+#. placeholders: {on_off}
+msgid "Letters run menu items: {on_off}"
+msgstr "Буквы запускают пункты меню: {on_off}"
+
+msgid ""
+"On, typing the first letter of an item runs it when no other item starts "
+"with that letter. When several share it, the letter moves between them and "
+"Enter runs the one you are on. Off, letters only move to the item."
+msgstr ""
+"Если включено, первая буква пункта запускает его, когда ни один другой "
+"пункт не начинается с этой буквы. Если букву делят несколько пунктов, она "
+"переходит между ними, а Enter запускает тот, на котором вы стоите. Если "
+"выключено, буквы только переходят к пункту."
+
+msgid "Keyboard shortcuts"
+msgstr "Клавиши управления"
+
+msgid ""
+"Move any driving key to another key. Enter on a control, then press the key "
+"you want for it."
+msgstr ""
+"Переназначьте любую клавишу вождения на другую клавишу. Нажмите Enter на "
+"действии, затем нажмите нужную клавишу."
+
+msgid "Controller buttons"
+msgstr "Кнопки геймпада"
+
+msgid ""
+"Move any driving control to another pad button, plain or with the left "
+"bumper held."
+msgstr ""
+"Переназначьте любое действие вождения на другую кнопку геймпада, отдельно "
+"или с удержанием left bumper."
+
+msgid ""
+"Move any driving control to another pad button, plain or with the right "
+"bumper held."
+msgstr ""
+"Переназначьте любое действие вождения на другую кнопку геймпада, отдельно "
+"или с удержанием right bumper."
+
 #. placeholders: {_}
 msgid "Update channel: {_}"
 msgstr "Канал обновлений: {_}"
@@ -37873,6 +37878,196 @@ msgstr ""
 "половиной секунды, нормально три, далеко три с половиной. Погода "
 "увеличивает дистанцию при любом выборе. Все три не доводят до штрафа за "
 "слишком короткую дистанцию. Предустановка выше её никогда не меняет."
+
+msgid ""
+"Realistic turns on every assist except facility stopping assistance, sets "
+"descent speed control to Light, and leaves lane keeping off. Balanced adds "
+"partial lane keeping, Standard descent speed control, and facility stopping "
+"assistance. All assists turns on every assist, sets descent speed control "
+"to Strong, and sets lane keeping to full: the truck holds the lane, a flick "
+"left or right changes lanes, and your destination exit is taken for you. "
+"Changing one assist makes this Custom. You still choose routes and handle "
+"yards and docks. Presets never change pacing, hours rules, transmission, "
+"weather, or hazards."
+msgstr ""
+
+msgid ""
+"Brake briefly, lift, then swipe down and hold again for half a second. A "
+"click means the brake now holds by itself. Brake again or accelerate to "
+"release it. The gas never latches. Presets never change this."
+msgstr ""
+
+#. one sentence of a longer line
+msgid ""
+"Bends that demand slowing are called before they arrive, like Sharp left, "
+"half a mile, advise 35."
+msgstr ""
+"Повороты, требующие сбросить скорость, объявляются заранее, например: "
+"«Резко налево, полмили, рекомендуемая скорость 35»."
+
+#. placeholders: {upcoming}
+msgid ""
+"Bends that demand slowing are called before they arrive, like Sharp left, "
+"half a mile, advise 35. Bends you are already slow enough for stay silent. "
+"{upcoming} to list the next few either way. Presets never change this."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Bends you are already slow enough for stay silent."
+msgstr ""
+"Повороты, для которых вы уже едете достаточно медленно, не объявляются."
+
+#. one sentence of a longer line
+msgid "Presets never change this."
+msgstr "Наборы помощников это никогда не меняют."
+
+#. placeholders: {upcoming}
+#. one sentence of a longer line
+msgid "{upcoming} to list the next few either way."
+msgstr ""
+
+#. one sentence of a longer line
+msgid ""
+"In low-speed zones, like facility roads, gates, and construction zones, "
+"cruise can hold your current speed."
+msgstr ""
+
+#. placeholders: {cruise}
+msgid ""
+"In low-speed zones, like facility roads, gates, and construction zones, "
+"cruise can hold your current speed. {cruise} to set it. It hands back to "
+"normal cruise on open roads. It eases off early for the next turn or the "
+"next lower limit. Braking cancels it. Presets never change this."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "It eases off early for the next turn or the next lower limit."
+msgstr ""
+"Оно заранее сбрасывает скорость перед следующим поворотом или следующим "
+"более низким ограничением."
+
+#. one sentence of a longer line
+msgid "It hands back to normal cruise on open roads."
+msgstr ""
+
+#. placeholders: {cruise}
+#. one sentence of a longer line
+msgid "{cruise} to set it."
+msgstr ""
+
+#. placeholders: {lean}
+msgid ""
+"How much of the steering the truck does. Full holds the lane, leaves a lane "
+"that a work zone closes, and takes your exits and open weigh stations "
+"without a signal, including the destination exit. On full, flick left or "
+"right to change lanes. Partial follows bends but lets the truck drift, and "
+"lane changes and speed are yours. Off drifts like a real truck. Bends are "
+"yours unless curve assistance is on, and every exit needs a signal and the "
+"exit lane. On partial or off, {lean}. Road noise sits where you are in the "
+"lane. At the lane's edge you hear a stutter as a tire touches the rumble "
+"strip, a buzz when it is fully on it, and gravel off the pavement. The "
+"Steering guide and Lane guide sound rows, under Audio, change which way to "
+"steer and what leans. Realistic sets this off, Balanced partial, All "
+"assists full."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "On full, flick left or right to change lanes."
+msgstr ""
+
+#. one sentence of a longer line
+msgid ""
+"At the dispatch board, it warns when the load crosses a road that needs "
+"chains and the terminal garage can still sell you a set."
+msgstr ""
+"На доске заказов предупреждает, когда груз пойдёт по дороге, где нужны "
+"цепи, а гараж терминала ещё может продать вам комплект."
+
+#. one sentence of a longer line
+msgid "Do it again to cancel."
+msgstr ""
+
+#. one sentence of a longer line
+msgid ""
+"Early advice to stop for a break or sleep while you still have time, plus "
+"the last stop you can legally reach."
+msgstr ""
+"Заранее советует остановиться на перерыв или сон, пока ещё есть время, и "
+"называет последнюю остановку, до которой вы успеваете по закону."
+
+#. placeholders: {rest}
+msgid ""
+"Early advice to stop for a break or sleep while you still have time, plus "
+"the last stop you can legally reach. {rest} to plan the recommended stop "
+"while rolling. Do it again to cancel. With Driving speech on Standard, one "
+"hint comes before the next hours warning. On Quiet or Urgent only, there is "
+"no hint. It also warns about chain laws. At the dispatch board, it warns "
+"when the load crosses a road that needs chains and the terminal garage can "
+"still sell you a set. On the road, it warns when a posted chain law covers "
+"your truck. It never buys anything. Hours warnings and readouts work "
+"whether this is on or off."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Hours warnings and readouts work whether this is on or off."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "It also warns about chain laws."
+msgstr "Также предупреждает о требовании цепей."
+
+#. one sentence of a longer line
+msgid "It never buys anything."
+msgstr "Он никогда ничего не покупает."
+
+#. one sentence of a longer line
+msgid "On Quiet or Urgent only, there is no hint."
+msgstr "На «тихая» или «только срочное» подсказки нет."
+
+#. one sentence of a longer line
+msgid "On the road, it warns when a posted chain law covers your truck."
+msgstr ""
+"В дороге предупреждает, когда объявленное требование цепей касается вашего "
+"грузовика."
+
+#. one sentence of a longer line
+msgid ""
+"With Driving speech on Standard, one hint comes before the next hours "
+"warning."
+msgstr ""
+"Когда речь в пути стоит на «стандартная», перед следующим предупреждением о "
+"часах звучит одна подсказка."
+
+#. placeholders: {rest}
+#. one sentence of a longer line
+msgid "{rest} to plan the recommended stop while rolling."
+msgstr ""
+
+msgid ""
+"How loud the lane and edge cues are next to everything else: the rumble "
+"strip, the gravel off the pavement, the lane locator, and the transverse "
+"strips before a dangerous bend. It adjusts only these cues, on top of "
+"Gameplay cues volume. Quieter sits under the engine, standard matches it, "
+"louder cuts through."
+msgstr ""
+
+msgid ""
+"Double tap to type a seed, a whole number. Flick up or down to roll a new "
+"one. Every synthesized piece changes with it."
+msgstr ""
+
+msgid ""
+"On, driving lines name the gesture for the next step, like Double tap to "
+"signal for the exit. Off, they leave the gesture out. Driving school always "
+"names it."
+msgstr ""
+
+msgid ""
+"Extra callouts between directions: parks, rivers, mountain passes, museums "
+"and billboards. Flick up to turn all on, or down to turn all off. The "
+"switches below pick each kind. Safety and navigation are never affected. "
+"Town names are the Place callouts row below."
+msgstr ""
 
 #. placeholders: {engine_label}
 msgid "Voice engine: {engine_label}"
@@ -38092,6 +38287,9 @@ msgstr ""
 "чтобы выбрать команду, которую он выполняет за рулём. Вернитесь назад, "
 "чтобы выйти."
 
+msgid "Double tap a gesture to choose the command it runs while driving."
+msgstr ""
+
 msgid "Gesture"
 msgstr "Жест"
 
@@ -38174,10 +38372,6 @@ msgstr ""
 msgid "Tilt for full steering: {touch_tilt_full} degrees"
 msgstr ""
 
-msgid "Confirm, then choose the command this gesture runs while driving."
-msgstr ""
-"Подтвердите, затем выберите команду, которую этот жест выполняет за рулём."
-
 #. placeholders: {touch_deep_swipe_points}
 msgid "Deep swipe starts at: {touch_deep_swipe_points}"
 msgstr "Глубокий свайп начинается с: {touch_deep_swipe_points}"
@@ -38203,11 +38397,14 @@ msgid "Puts every gesture on this screen back where it started."
 msgstr "Возвращает каждый жест на этом экране туда, где он был изначально."
 
 msgid ""
-"Move up and down to pick a command and confirm to put it on the gesture. "
-"Going back keeps the one it has."
+"Up and Down pick a command or a group, and Enter opens a group. Enter on a "
+"command puts it on the gesture. Escape keeps the one it has."
 msgstr ""
-"Перемещайтесь вверх и вниз, чтобы выбрать команду, и подтвердите, чтобы "
-"назначить её на жест. Если вернуться назад, останется текущая."
+
+msgid ""
+"Double tap a command to put it on the gesture, or a group to open it. Flick "
+"down with two fingers to keep the one it has."
+msgstr ""
 
 #. placeholders: {gesture_name}, {label}
 msgid "{gesture_name} now runs {label}."
@@ -41782,10 +41979,42 @@ msgstr "Карьер, ожидающих вашего выбора копии: {
 
 msgid ""
 "The careers backed up to your orinks.net account, to bring one onto this "
+"device."
+msgstr ""
+
+msgid ""
+"The careers backed up to your orinks.net account, to bring one onto this "
 "computer."
 msgstr ""
 "Карьеры, скопированные в ваш аккаунт orinks.net, чтобы перенести одну из "
 "них на этот компьютер."
+
+#. one sentence of a longer line
+msgid ""
+"A career here changed on another device, and it is not backing up until you "
+"pick."
+msgstr ""
+
+#. one sentence of a longer line
+msgid ""
+"Choosing this device's save keeps what you have played and sends it up."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Nothing is overwritten until you choose."
+msgstr "Ничего не перезаписывается, пока вы не выберете."
+
+#. one sentence of a longer line
+msgid "Open this to choose which copy to keep."
+msgstr "Откройте этот пункт, чтобы выбрать, какую копию оставить."
+
+#. placeholders: {base}
+msgid ""
+"Open this to choose which copy to keep. A career here changed on another "
+"device, and it is not backing up until you pick. Choosing this device's "
+"save keeps what you have played and sends it up. Nothing is overwritten "
+"until you choose. {base}"
+msgstr ""
 
 #. one sentence of a longer line
 msgid ""
@@ -41801,14 +42030,6 @@ msgid ""
 msgstr ""
 "Если выбрать сохранение этого компьютера, сыгранное останется и будет "
 "отправлено в облако."
-
-#. one sentence of a longer line
-msgid "Nothing is overwritten until you choose."
-msgstr "Ничего не перезаписывается, пока вы не выберете."
-
-#. one sentence of a longer line
-msgid "Open this to choose which copy to keep."
-msgstr "Откройте этот пункт, чтобы выбрать, какую копию оставить."
 
 #. placeholders: {base}
 msgid ""
@@ -41835,6 +42056,12 @@ msgstr ""
 "рейсе последний раз. Enter на водителе зачитывает его профиль. Просмотр "
 "ничего не сообщает о вас."
 
+msgid ""
+"Every driver with a public profile, on duty or not, and when each was last "
+"on duty. Double tap a driver to read their profile. Viewing it shares "
+"nothing about you."
+msgstr ""
+
 #. placeholders: {on_off}
 msgid "Say when drivers go on or off duty: {on_off}"
 msgstr ""
@@ -41848,6 +42075,11 @@ msgstr ""
 "Сообщение вроде «Road Star в рейсе», которое слышно где бы вы ни были в "
 "игре. Проверяет публичный список водителей примерно раз в минуту, не "
 "требует аккаунта и ничего не сообщает о вас."
+
+msgid ""
+"Achievements earned across every career on this device. The main menu's "
+"Achievements is per career."
+msgstr ""
 
 msgid ""
 "Achievements earned across every career on this installation. The main "
@@ -41873,6 +42105,13 @@ msgstr "Онлайн-службы: {on_off}"
 
 msgid ""
 "Master switch for the orinks.net and sharing services. Off stops the "
+"drivers list, profile sharing, cloud backup and station suggestions without "
+"losing their settings. Live weather, traffic, and parking have their own "
+"toggles under Settings."
+msgstr ""
+
+msgid ""
+"Master switch for the orinks.net and sharing services. Off stops the "
 "drivers list, profile sharing, cloud backup, station suggestions, and "
 "Discord presence without losing their settings. Live weather, traffic, and "
 "parking have their own toggles under Settings."
@@ -41890,6 +42129,12 @@ msgstr "Аккаунт orinks.net: подключён"
 
 msgid "Set up orinks.net account"
 msgstr "Настроить аккаунт orinks.net"
+
+msgid ""
+"Connects the game to your orinks.net account, which turns Profile sharing "
+"on and starts backing your careers up. Each has its own item on this menu. "
+"Driver name and signed-in devices are on Open my driver setup page."
+msgstr ""
 
 msgid ""
 "Connects the game to your orinks.net account, which turns Profile sharing "
@@ -41913,6 +42158,11 @@ msgstr ""
 
 msgid "Open my driver setup page"
 msgstr "Открыть мою страницу настройки водителя"
+
+msgid ""
+"Opens your orinks.net driver setup page in a browser, for your driver name, "
+"profile sharing, and the devices signed in to your account."
+msgstr ""
 
 msgid ""
 "Opens your orinks.net driver setup page in a browser, for your driver name, "
@@ -41950,6 +42200,13 @@ msgstr "Копировать сохранения в аккаунт orinks.net: 
 
 msgid "Back up saves to your orinks.net account: not set up"
 msgstr "Копировать сохранения в аккаунт orinks.net: не настроено"
+
+msgid ""
+"Uploads each saved career to your orinks.net account, to restore on another "
+"device. Backups are private and never public downloads. Comes on when you "
+"connect the account. Public profile statistics are read from these backups, "
+"so turning this off empties them."
+msgstr ""
 
 msgid ""
 "Uploads each saved career to your orinks.net account, to restore on another "
@@ -41996,9 +42253,43 @@ msgstr ""
 "Выберите «Настроить сейчас», чтобы подключить этот компьютер, или «Не "
 "сейчас», чтобы начать ездить."
 
+msgid ""
+"Choose Set up now to connect this device, or Not now to start driving."
+msgstr ""
+
 #. one sentence of a longer line
 msgid "Before you set off."
 msgstr "Перед тем как отправиться в путь."
+
+#. placeholders: {current}
+msgid ""
+"Before you set off. You can connect this device to an orinks.net account. "
+"That backs your career up so you can bring it to another device, and puts "
+"your driver profile and on-duty activity on the public site. You can turn "
+"either of those off afterwards from Online on the main menu. It takes a "
+"code and your browser, and you can do it any time instead. {current}"
+msgstr ""
+
+#. one sentence of a longer line
+msgid ""
+"It takes a code and your browser, and you can do it any time instead."
+msgstr ""
+"Для этого нужны код и браузер, а сделать это можно и позже, в любой момент."
+
+#. one sentence of a longer line
+msgid ""
+"That backs your career up so you can bring it to another device, and puts "
+"your driver profile and on-duty activity on the public site."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "You can connect this device to an orinks.net account."
+msgstr ""
+
+#. one sentence of a longer line
+msgid ""
+"You can turn either of those off afterwards from Online on the main menu."
+msgstr "Любое из этого можно потом выключить через «Онлайн» в главном меню."
 
 #. placeholders: {current}
 msgid ""
@@ -42017,12 +42308,6 @@ msgstr ""
 
 #. one sentence of a longer line
 msgid ""
-"It takes a code and your browser, and you can do it any time instead."
-msgstr ""
-"Для этого нужны код и браузер, а сделать это можно и позже, в любой момент."
-
-#. one sentence of a longer line
-msgid ""
 "That backs your career up so you can bring it to another computer, and puts "
 "your driver profile and on-duty activity on the public site."
 msgstr ""
@@ -42034,11 +42319,6 @@ msgstr ""
 msgid "You can connect this computer to an orinks.net account."
 msgstr "Вы можете подключить этот компьютер к аккаунту orinks.net."
 
-#. one sentence of a longer line
-msgid ""
-"You can turn either of those off afterwards from Online on the main menu."
-msgstr "Любое из этого можно потом выключить через «Онлайн» в главном меню."
-
 msgid "Not now"
 msgstr "Не сейчас"
 
@@ -42047,6 +42327,11 @@ msgstr "Начать ездить. Подключиться можно позж�
 
 msgid "Set up now"
 msgstr "Настроить сейчас"
+
+msgid ""
+"Connect this device to an orinks.net account, which turns on cloud backup "
+"and your public driver profile."
+msgstr ""
 
 msgid ""
 "Connect this computer to an orinks.net account, which turns on cloud backup "
@@ -42990,6 +43275,25 @@ msgstr "Enter продолжит вашу карьеру."
 
 #. one sentence of a longer line
 msgid ""
+"This save was changed outside the game, or copied from another device, so "
+"it is marked as modified."
+msgstr ""
+
+#. placeholders: {current_text}
+msgid ""
+"This save was changed outside the game, or copied from another device, so "
+"it is marked as modified. Your career still works on this device, but "
+"profile sharing may not accept a modified profile. {current_text}"
+msgstr ""
+
+#. one sentence of a longer line
+msgid ""
+"Your career still works on this device, but profile sharing may not accept "
+"a modified profile."
+msgstr ""
+
+#. one sentence of a longer line
+msgid ""
 "This save was changed outside the game, or copied from another computer, so "
 "it is marked as modified."
 msgstr ""
@@ -43028,12 +43332,8 @@ msgstr ""
 "Эту карьеру нельзя продолжить в версии 1.9. Escape вернёт к списку карьер."
 
 #. one sentence of a longer line
-msgid ""
-"Nothing was lost: the save is still on this computer, untouched, and it "
-"still works in Freight Fate 1.8."
+msgid "Nothing was lost: the save is still on this device, untouched."
 msgstr ""
-"Ничего не потеряно: сохранение по-прежнему на этом компьютере, нетронутое, "
-"и всё ещё работает во Freight Fate 1.8."
 
 #. one sentence of a longer line
 msgid ""
@@ -43047,6 +43347,22 @@ msgstr ""
 #. one sentence of a longer line
 msgid "{driver_name} was made in an earlier version of Freight Fate."
 msgstr "{driver_name} создан в более ранней версии Freight Fate."
+
+#. placeholders: {driver_name}, {current_text}
+msgid ""
+"{driver_name} was made in an earlier version of Freight Fate. Version 1.9 "
+"rebalances the whole career, from pay to trucks to levels, so every driver "
+"starts fresh. Nothing was lost: the save is still on this device, "
+"untouched. {current_text}"
+msgstr ""
+
+#. one sentence of a longer line
+msgid ""
+"Nothing was lost: the save is still on this computer, untouched, and it "
+"still works in Freight Fate 1.8."
+msgstr ""
+"Ничего не потеряно: сохранение по-прежнему на этом компьютере, нетронутое, "
+"и всё ещё работает во Freight Fate 1.8."
 
 #. placeholders: {driver_name}, {current_text}
 msgid ""
@@ -44961,6 +45277,24 @@ msgstr ""
 "Удерживайте left bumper для второго слоя кнопок. {pad_engine} управляет "
 "двигателем, {pad_fuel} называет топливо, а {pad_speed_limit} ограничение "
 "скорости."
+
+#~ msgid ""
+#~ "Lane keeping full: the truck holds the lane, swipe left or right to change "
+#~ "lanes."
+#~ msgstr ""
+#~ "Удержание полосы полное: грузовик держит полосу, проведите влево или "
+#~ "вправо, чтобы сменить полосу."
+
+#~ msgid "Confirm, then choose the command this gesture runs while driving."
+#~ msgstr ""
+#~ "Подтвердите, затем выберите команду, которую этот жест выполняет за рулём."
+
+#~ msgid ""
+#~ "Move up and down to pick a command and confirm to put it on the gesture. "
+#~ "Going back keeps the one it has."
+#~ msgstr ""
+#~ "Перемещайтесь вверх и вниз, чтобы выбрать команду, и подтвердите, чтобы "
+#~ "назначить её на жест. Если вернуться назад, останется текущая."
 
 #~ msgid "Destination {destination_label} ahead."
 #~ msgstr "Впереди место доставки: {destination_label}."

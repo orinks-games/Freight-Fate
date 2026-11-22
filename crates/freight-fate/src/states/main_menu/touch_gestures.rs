@@ -8,7 +8,10 @@
 use crate::app::GameContext;
 use crate::bindings::{touch_gesture_name, touch_slots, TouchCommand};
 use crate::impl_state_for_menu;
-use crate::states::base::{Key, Label, Menu, MenuCore, MenuItem};
+use crate::states::base::{
+    default_announce_entry, default_go_back, Key, Label, Menu, MenuCore, MenuItem,
+};
+use crate::states::driving_menu_states::{command_list_rows, CommandListRow};
 use crate::touch::Gesture;
 
 use super::settings::save_settings;
@@ -16,6 +19,9 @@ use super::InputPracticeState;
 
 const GESTURES_HELP: &str = "Move up and down to pick a gesture, then confirm it to choose the \
                              command it runs while driving. Go back to leave.";
+/// The screen's help on a touch screen, which every gesture row reads too.
+const GESTURES_TOUCH_HELP: &str =
+    "Double tap a gesture to choose the command it runs while driving.";
 
 fn command_name(ctx: &GameContext, gesture: Gesture) -> &'static str {
     ctx.bindings
@@ -106,7 +112,9 @@ pub struct TouchGesturesState {
 impl TouchGesturesState {
     pub fn new() -> Self {
         Self {
-            menu: MenuCore::new("Touch gestures").with_intro_help(GESTURES_HELP),
+            menu: MenuCore::new("Touch gestures")
+                .with_intro_help(GESTURES_HELP)
+                .with_touch_help(GESTURES_TOUCH_HELP),
             deep_swipe_row: usize::MAX,
             tilt_row: usize::MAX,
             tilt_full_row: usize::MAX,
@@ -253,7 +261,6 @@ impl Menu for TouchGesturesState {
                     ctx.push_state(picker);
                 },
             )
-            .help("Confirm, then choose the command this gesture runs while driving.")
         }));
         self.deep_swipe_row = items.len();
         items.push(
@@ -303,6 +310,25 @@ impl Menu for TouchGesturesState {
         items
     }
 
+    /// A gesture row has no help of its own: all eighteen would say the same
+    /// thing, so each reads the screen's help.
+    fn current_help(&self, ctx: &GameContext) -> String {
+        let gestures =
+            self.deep_swipe_row.saturating_sub(touch_slots().count())..self.deep_swipe_row;
+        if gestures.contains(&self.menu.index) {
+            return self.menu.intro(ctx);
+        }
+        let Some(item) = self.menu.items.get(self.menu.index) else {
+            return self.menu.intro(ctx);
+        };
+        let help = item.help_text(self, ctx);
+        if help.is_empty() {
+            format!("{}.", item.text(self, ctx))
+        } else {
+            help
+        }
+    }
+
     /// Right and Left change the deep swipe and tilt rows; a flick up or
     /// down on touch arrives as the same keys.
     fn handle_extra_key(&mut self, ctx: &mut GameContext, key: Key) -> bool {
@@ -326,22 +352,87 @@ impl Menu for TouchGesturesState {
 
 impl_state_for_menu!(TouchGesturesState);
 
-/// The commands one gesture can run, opened on the one it runs now.
+/// One row of the command picker's top list.
+#[derive(Clone, Debug, PartialEq, Eq)]
+enum PickerRow {
+    Command(TouchCommand),
+    /// A group of the driving command list, by its name, with the commands
+    /// of it a gesture can run.
+    Group(&'static str, Vec<TouchCommand>),
+}
+
+/// The picker's top list: Nothing, then the driving command list's own
+/// commands and groups in its order, then the commands it does not list
+/// (pause, the list itself, steering), in [`TouchCommand::all`] order.
+fn picker_rows() -> Vec<PickerRow> {
+    let runnable: Vec<TouchCommand> = TouchCommand::all().collect();
+    let mut placed: Vec<TouchCommand> = vec![TouchCommand::Nothing];
+    let mut rows = vec![PickerRow::Command(TouchCommand::Nothing)];
+    for row in command_list_rows() {
+        match row {
+            CommandListRow::Command(command) => {
+                if runnable.contains(&command) && !placed.contains(&command) {
+                    placed.push(command);
+                    rows.push(PickerRow::Command(command));
+                }
+            }
+            CommandListRow::Group(label, commands) => {
+                let commands: Vec<TouchCommand> = commands
+                    .into_iter()
+                    .filter(|command| runnable.contains(command) && !placed.contains(command))
+                    .collect();
+                if !commands.is_empty() {
+                    placed.extend(commands.iter().copied());
+                    rows.push(PickerRow::Group(label, commands));
+                }
+            }
+        }
+    }
+    rows.extend(
+        runnable
+            .into_iter()
+            .filter(|command| !placed.contains(command))
+            .map(PickerRow::Command),
+    );
+    rows
+}
+
+const PICKER_HELP: &str = "Up and Down pick a command or a group, and Enter opens a group. \
+     Enter on a command puts it on the gesture. Escape keeps the one it has.";
+const PICKER_TOUCH_HELP: &str = "Double tap a command to put it on the gesture, or a group to \
+     open it. Flick down with two fingers to keep the one it has.";
+
+/// The commands one gesture can run, in the groups of the driving command
+/// list, opened on the row that holds the command it runs now.
 pub struct TouchCommandPickerState {
     menu: MenuCore<Self>,
     gesture: Gesture,
+    /// The group open in place of the top list, by its row in the top list.
+    group: Option<usize>,
 }
 
 impl TouchCommandPickerState {
     pub fn new(ctx: &GameContext, gesture: Gesture) -> Self {
-        let mut menu = MenuCore::new(gesture_name(gesture)).with_intro_help(
-            "Move up and down to pick a command and confirm to put it on the gesture. Going back keeps the one it has.",
-        );
-        let current = ctx.bindings.touch_command(gesture);
-        menu.index = TouchCommand::all()
-            .position(|command| Some(command) == current)
+        let menu = MenuCore::new(gesture_name(gesture))
+            .with_intro_help(PICKER_HELP)
+            .with_touch_help(PICKER_TOUCH_HELP);
+        let current = ctx
+            .bindings
+            .touch_command(gesture)
+            .unwrap_or(TouchCommand::Nothing);
+        let mut state = Self {
+            menu,
+            gesture,
+            group: None,
+        };
+        state.menu.index = picker_rows()
+            .iter()
+            .position(|row| match row {
+                PickerRow::Command(command) => *command == current,
+                PickerRow::Group(_, commands) => commands.contains(&current),
+            })
             .unwrap_or(0);
-        Self { menu, gesture }
+        state
     }
 
     fn choose(&mut self, ctx: &mut GameContext, command: TouchCommand) {
@@ -356,6 +447,25 @@ impl TouchCommandPickerState {
             command.label()
         ));
     }
+
+    /// Show the group on top-list row `group`, or the top list for `None`,
+    /// on the row `index`.
+    fn show(&mut self, ctx: &mut GameContext, group: Option<usize>, index: usize) {
+        self.group = group;
+        self.menu.title = match group.and_then(|row| picker_rows().into_iter().nth(row)) {
+            Some(PickerRow::Group(label, _)) => label.to_string(),
+            _ => gesture_name(self.gesture).to_string(),
+        };
+        self.refresh(ctx, false);
+        self.menu.index = index.min(self.menu.items.len().saturating_sub(1));
+        default_announce_entry(self, ctx);
+    }
+
+    fn command_item(command: TouchCommand) -> MenuItem<Self> {
+        MenuItem::new(command.label(), move |s: &mut Self, ctx| {
+            s.choose(ctx, command)
+        })
+    }
 }
 
 impl Menu for TouchCommandPickerState {
@@ -367,14 +477,43 @@ impl Menu for TouchCommandPickerState {
         &mut self.menu
     }
 
-    fn build_items(&mut self, _ctx: &mut GameContext) -> Vec<MenuItem<Self>> {
-        TouchCommand::all()
-            .map(|command| {
-                MenuItem::new(command.label(), move |s: &mut Self, ctx| {
-                    s.choose(ctx, command)
-                })
+    fn build_items(&mut self, ctx: &mut GameContext) -> Vec<MenuItem<Self>> {
+        let rows = picker_rows();
+        let gesture = self.gesture;
+        if let Some(PickerRow::Group(_, commands)) = self.group.and_then(|row| rows.get(row)) {
+            return commands.iter().copied().map(Self::command_item).collect();
+        }
+        rows.into_iter()
+            .enumerate()
+            .map(|(index, row)| match row {
+                PickerRow::Command(command) => Self::command_item(command),
+                PickerRow::Group(label, commands) => {
+                    let current = commands
+                        .iter()
+                        .position(|command| Some(*command) == ctx.bindings.touch_command(gesture));
+                    MenuItem::new(label, move |s: &mut Self, ctx| {
+                        s.show(ctx, Some(index), current.unwrap_or(0))
+                    })
+                }
             })
             .collect()
+    }
+
+    /// Every row reads the screen's help: a command's name is all a row
+    /// would say about itself.
+    fn current_help(&self, ctx: &GameContext) -> String {
+        self.menu.intro(ctx)
+    }
+
+    /// Back from a group returns to its row in the top list.
+    fn go_back(&mut self, ctx: &mut GameContext) {
+        match self.group {
+            Some(row) => {
+                ctx.audio.play("ui/menu_back");
+                self.show(ctx, None, row);
+            }
+            None => default_go_back(self, ctx),
+        }
     }
 }
 
