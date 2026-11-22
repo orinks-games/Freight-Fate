@@ -189,6 +189,18 @@ impl Default for TouchGesturesState {
 }
 
 impl Menu for TouchGesturesState {
+    fn update(&mut self, ctx: &mut GameContext, dt: f64) {
+        ctx.update_music_rotation(dt);
+        // The switch can go off without a press: a phone with no motion
+        // sensor, found once it was on. The angle row goes with it.
+        if (self.tilt_full_row != usize::MAX) != tilt_on(ctx) {
+            if self.menu.index == self.tilt_full_row {
+                self.menu.index = self.tilt_row;
+            }
+            self.refresh(ctx, true);
+        }
+    }
+
     fn menu(&self) -> &MenuCore<Self> {
         &self.menu
     }

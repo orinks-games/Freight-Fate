@@ -39,6 +39,8 @@ pub struct TiltInput {
     /// The agent server stands in for the sensor: the pose it holds the
     /// phone in, `None` while it sends no samples.
     agent_pose: Option<Option<f64>>,
+    /// The agent server stands in for a phone with no motion sensor.
+    agent_no_sensor: bool,
     lines: Vec<TiltLine>,
     /// Counts the machine's moves, so a line cut off mid-sentence is not
     /// replayed once it is no longer true ("No tilt reading" after the
@@ -56,6 +58,7 @@ impl Default for TiltInput {
             sensor_present: None,
             focused: true,
             agent_pose: None,
+            agent_no_sensor: false,
             lines: Vec::new(),
             moves: std::rc::Rc::default(),
         }
@@ -88,7 +91,16 @@ impl TiltInput {
     /// `None`. The first call makes it the sensor for the rest of the run.
     pub fn set_agent_pose(&mut self, degrees: Option<f64>) {
         self.agent_pose = Some(degrees);
+        self.agent_no_sensor = false;
         self.sensor_present = Some(true);
+    }
+
+    /// The agent server stands in for a phone with no motion sensor: the
+    /// next time tilt steering runs, opening the sensor finds none.
+    pub fn set_agent_no_sensor(&mut self) {
+        self.agent_pose = Some(None);
+        self.agent_no_sensor = true;
+        self.sensor_present = None;
     }
 
     /// The agent server's pose, while it stands in for the sensor.
@@ -147,8 +159,10 @@ impl TiltInput {
     fn agent_read(&self, running: bool) -> Option<TiltRead> {
         let pose = self.agent_pose?;
         Some(match pose {
-            Some(degrees) if running => TiltRead::Sample(degrees),
-            _ => TiltRead::Idle,
+            _ if !running => TiltRead::Idle,
+            _ if self.agent_no_sensor => TiltRead::Missing,
+            Some(degrees) => TiltRead::Sample(degrees),
+            None => TiltRead::Idle,
         })
     }
 
@@ -193,6 +207,15 @@ impl App {
                         super::SayEvent::new().valid(move || moves.get() == now),
                     );
                 }
+            }
+        }
+        // A phone with no motion sensor found once the switch was on: the
+        // switch goes off in the file too, so the Touch gestures rows and
+        // the command list agree with what steers.
+        if setting && self.ctx.tilt.state() == TiltSteering::NoSensor {
+            self.ctx.settings.touch_tilt_steering = false;
+            if let Err(error) = self.ctx.settings.save() {
+                log::warn!("Could not save settings: {error}");
             }
         }
         let lock = self.ctx.tilt.state().locks_screen();

@@ -347,7 +347,7 @@ impl DrivingCommandsState {
                 // Set tilt level has no key and no gesture until the player
                 // gives it one, so its help says what it does instead.
                 const TILT_LEVEL_HELP: &str =
-                    "Tilt steering takes level from how the phone is held now.";
+                    "Tilt steering treats the way you hold the phone now as level.";
                 let touch = fixed.touch_noun(ctx).map_or_else(
                     || TILT_LEVEL_HELP.to_string(),
                     |noun| format!("At the wheel: {noun}."),

@@ -221,3 +221,26 @@ fn a_device_with_no_motion_sensor_keeps_the_row_off_and_says_so() {
         Some("Tilt steering: Off")
     );
 }
+
+#[test]
+fn a_sensor_found_missing_once_on_turns_the_switch_off() {
+    let mut harness = PlaytestHarness::new();
+    harness.app.ctx.settings.touch_tilt_steering = true;
+    harness.app.ctx.tilt.set_agent_no_sensor();
+    harness.app.push_state(TouchGesturesState::new());
+    harness.clear_speech();
+    frames(&mut harness, 0.2);
+    assert!(!harness.app.ctx.settings.touch_tilt_steering);
+    let saved = ff_core::settings::Settings::load();
+    assert!(!saved.touch_tilt_steering);
+    assert_eq!(
+        harness.transcript(),
+        vec!["This device has no motion sensor.".to_string()]
+    );
+    assert_eq!(harness.app.ctx.tilt.state().key(), "off");
+    assert_eq!(harness.app.ctx.tilt.sensor_present, Some(false));
+    assert!(!harness
+        .menu_labels()
+        .iter()
+        .any(|l| l.starts_with("Tilt for full steering")));
+}
