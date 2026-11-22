@@ -6062,8 +6062,20 @@ a carrier slice (owner, 2026-10-26).
       28 percent of Seattle's and half of Bellingham's posted loads go to
       Canada once the West opened. A weight on loads that cross (0.4 would
       roughly halve it) is a balance call for the owner.
-- [ ] (Found along the way) The hours rules line at a border is spoken a
-      second time after a customs booth or police stop interrupts it.
+- [ ] (Found along the way) The crossing call and the hours rules line at
+      a border are spoken a second time when a status readout, a customs
+      booth or a police stop cuts them.
+- [ ] (Found along the way) Converted limits at Blaine: northbound
+      (Bellingham to Surrey) "Speed limit reduced to 19 leaving Blaine for
+      one mile" is 30 km/h in miles before the line; southbound (Surrey to
+      Bellingham) "reduced to 64 approaching Blaine" is 40 mph in
+      kilometers.
+- [ ] (Found along the way) Stop names start lowercase in the approach
+      call: "truck fuel station: McLeod Lake Petro-Canada in 7 kilometers",
+      "travel center: Speed Pro Truck Stop". The Gordie Howe toll line
+      also starts lowercase and is said twice.
+- [ ] (Found along the way) Pigeon River and the Sault Ste. Marie bridge
+      take loads but were not driven for loads across the border.
 - [ ] (Found along the way) Shipping containers are hooked on a flatbed or
       a dry van at the Surrey and Bellingham terminals.
 - [ ] Canadian carriers and home bases, and loads inside Canada for them:
