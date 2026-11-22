@@ -13,6 +13,7 @@
 - **Lines that were said twice or late are now said once, in order.** This covers the first drive, stop arrivals and leaving Settings.
 - **An open weigh station is announced once, then its exit signal.** The stop callout that repeated it is gone.
 - **Report a problem now says plainly when orinks.net cannot be reached.** It used to read the error text aloud.
+- **A successful cloud restore no longer leaves the newer-copy warning in the Cloud backup menu.**
 
 ### Changed
 

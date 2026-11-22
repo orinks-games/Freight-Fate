@@ -19229,10 +19229,6 @@ msgid "orinks.net no longer accepts this computer's sign-in"
 msgstr ""
 
 #: crates/freight-fate/src/cloud_saves.rs
-msgid "Cloud backup is ready."
-msgstr ""
-
-#: crates/freight-fate/src/cloud_saves.rs
 msgid "cloud-saves"
 msgstr ""
 
@@ -19571,6 +19567,10 @@ msgstr ""
 
 #: crates/freight-fate/src/cloud_saves/worker.rs
 msgid "no revision synced yet"
+msgstr ""
+
+#: crates/freight-fate/src/cloud_saves/worker.rs crates/freight-fate/src/cloud_saves.rs
+msgid "Cloud backup is ready."
 msgstr ""
 
 #: crates/freight-fate/src/cloud_saves/worker.rs
