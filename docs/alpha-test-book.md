@@ -81,9 +81,8 @@ Don't report these as missing; they are planned:
 - No Canadian carrier, so no home city or career start in Canada.
 - No ferries: Juneau, Kodiak, Newfoundland and the other places with no
   road are not on the map.
-- Not yet built: the Northwest Territories, Fort McMurray, Prince Rupert,
-  the Stewart-Cassiar, Dawson City, and the Taylor and Top of the World
-  highways.
+- Not yet built: the Dempster Highway to Inuvik, the Liard Highway, and
+  the Taylor and Top of the World highways.
 - No wipers, frost or ice roads yet.
 - Cattle have no recorded sounds yet.
 - About 600 new spoken lines per language have no translation. Play in
@@ -95,9 +94,11 @@ The full list of rough edges is [Known gaps](#chapter-11-known-gaps).
 
 **The map reaches Alaska and Canada.** Alaska from Tok to Fairbanks,
 Deadhorse, Anchorage, the Kenai Peninsula, Valdez, Whittier, Skagway and
-Haines. Canada across British Columbia, the Yukon, Alberta, Saskatchewan,
-Manitoba, Ontario and Quebec, and New Brunswick, Nova Scotia and Prince
-Edward Island. Chapters 3 and 7.
+Haines. Canada across British Columbia, the Yukon, the Northwest Territories,
+Alberta, Saskatchewan, Manitoba, Ontario and Quebec, and New Brunswick,
+Nova Scotia and Prince Edward Island. The north reaches Fort McMurray,
+Yellowknife, Prince Rupert, the Stewart-Cassiar Highway with Stewart and
+Hyder, Alaska, and Dawson City. Chapters 3 and 7.
 
 **The border is a stop.** Every crossing has a customs booth both ways,
 with a chance of secondary inspection and a penalty for driving past.
@@ -395,7 +396,7 @@ Listen for, as you cross into each place:
 - "Canadian hours rules: 13 hours of driving and 14 on duty in a 16-hour
   window."
 - "North of 60 hours rules: 15 hours of driving and 18 on duty in a
-  20-hour window." (the Yukon)
+  20-hour window." (the Yukon and the Northwest Territories)
 
 Pass when: each is said once at its line, after the crossing call.
 
@@ -451,7 +452,8 @@ the voice gets badly wrong.
 
 Listen for: the local time line crossing into Saskatchewan and Manitoba
 (Central), Alberta (Mountain), Kenora (Central to Eastern), the Peace
-country around Dawson Creek (Mountain), the Yukon (Mountain), and New Brunswick, Nova Scotia and Prince Edward
+country around Dawson Creek (Mountain), the Yukon and the Northwest
+Territories (Mountain), and New Brunswick, Nova Scotia and Prince Edward
 Island (Atlantic).
 
 Pass when: the clock after each line matches the zone, and the delivery
@@ -468,6 +470,38 @@ and the Confederation Bridge toll on the way off the island.
 Pass when: the Cobequid Pass toll is charged each way, the bridge charges
 nothing going onto the island and once leaving it, and each toll is in
 Canadian dollars at the booth.
+
+### 7.5 The Deh Cho Bridge toll
+
+Setup: a load from the United States to Yellowknife
+(`FREIGHT_FATE_FORCE_DEST` set to `yellowknife_nt_ca`, with a carrier
+that crosses the border), as a company driver.
+
+Listen for: "Crossing into Northwest Territories." and the north-of-60
+hours rules on the Mackenzie Highway. North of Hay River, "Crossing the
+Mackenzie River." then "Transponder toll at Deh Cho Bridge, 168 Canadian
+dollars, billed to carrier settlement."
+
+Pass when: the toll is charged once going north and not at all on the
+way back south.
+
+### 7.6 Leaving Hyder
+
+Setup: a company driver parked in Hyder (`FREIGHT_FATE_FORCE_CITY` set
+to `hyder_ak_us`). Hyder has no freight, so dispatch sends you out
+empty, and the only road out runs through Stewart.
+
+Listen for: "Stewart Port of Entry in half a mile, Canada Border
+Services Agency. Every truck stops at the customs booth.", then
+"Crossing into British Columbia.", "Crossing into Pacific Time.",
+"Speeds and distances are in kilometers now." and the Canadian hours
+rules. At the booth: "Stewart Port of Entry, Canada Border Services
+Agency. The officer asks for your passport and checks the eManifest
+filed for this load."
+
+Pass when: you can't drive on from Stewart without stopping at the
+booth. Going the other way, into Hyder, nothing stops you, because there
+is no US port.
 
 ## Chapter 8. Weather and billboards
 
@@ -619,7 +653,9 @@ Known and recorded. Report them only if one costs you a load or a drive.
 - Some northern links are thin on stops: Tok to Haines Junction has fuel
   but no long rest stop; Timmins to Sudbury has fuel at Gogama but no
   sourced overnight stop; five Prairie and Rockies links under 200 miles
-  have no 10-hour stop.
+  have no 10-hour stop; Slave Lake to Peace River has fuel at High
+  Prairie but no sleep stop; Fort Providence to Yellowknife has no fuel
+  on the road, as in life, and one rest area.
 - Several northern stops are town stations or unnamed rest areas whose
   truck access is assumed.
 - Kenora, Hearst and Kapuskasing use unnamed industrial land for freight.
@@ -663,7 +699,7 @@ In PowerShell:
 
 City keys are the city, the state or province, and the country, in lower
 case with underscores: `fairbanks_ak_us`, `whitehorse_yt_ca`,
-`quebec_city_qc_ca`.
+`yellowknife_nt_ca`, `hyder_ak_us`, `quebec_city_qc_ca`.
 
 Unset with `Remove-Item Env:FREIGHT_FATE_FORCE_CITY`, and the same for
 the others.

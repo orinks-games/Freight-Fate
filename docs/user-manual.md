@@ -420,12 +420,13 @@ Laredo has two border transfer yards for freight to and from Mexico. A southboun
 The map reaches past the lower 48:
 
 - **Alaska**, from the Alaska Highway at Tok and Delta Junction to Fairbanks, North Pole and the Fort Knox mine, up the Dalton Highway through Coldfoot to Deadhorse, and south to Anchorage, Palmer, Wasilla, Port MacKenzie, the Kenai Peninsula (Kenai, Nikiski, Soldotna, Homer, Seward), Valdez and Glennallen. Whittier is reached only through the Anton Anderson Memorial Tunnel, with its one-lane gate and toll. Skagway and Haines connect to the Yukon by road.
-- **British Columbia and the Yukon**, along the Alaska Highway from Dawson Creek, Fort St. John and Fort Nelson to Watson Lake, Whitehorse and Haines Junction, across southern BC from Vancouver and Surrey through Hope, Kamloops, Kelowna and Cranbrook, and north through Williams Lake and Quesnel to Prince George.
-- **Alberta, Saskatchewan and Manitoba**, on the Trans-Canada and Yellowhead highways through Calgary, Edmonton, Regina, Saskatoon and on to Winnipeg.
+- **British Columbia and the Yukon**, along the Alaska Highway from Dawson Creek, Fort St. John and Fort Nelson to Watson Lake, Whitehorse and Haines Junction, across southern BC from Vancouver and Surrey through Hope, Kamloops, Kelowna and Cranbrook, north through Williams Lake and Quesnel to Prince George, west on the Yellowhead Highway through Vanderhoof, Smithers and Terrace to Kitimat and Prince Rupert, and up the Stewart-Cassiar Highway to Watson Lake, with the branch to Stewart and Hyder, Alaska. In the Yukon, the Klondike Highway runs north from Whitehorse through Carmacks to Dawson City.
+- **Alberta, Saskatchewan and Manitoba**, on the Trans-Canada and Yellowhead highways through Calgary, Edmonton, Regina, Saskatoon and on to Winnipeg. North of Edmonton, Highway 63 reaches Fort McMurray, and Highway 2 runs through Slave Lake to Peace River.
+- **The Northwest Territories**, up the Mackenzie Highway from Peace River through High Level to Hay River, then across the Deh Cho Bridge over the Mackenzie River to Yellowknife. The Deh Cho Bridge charges trucks a toll going north only, 168 Canadian dollars.
 - **Ontario and Quebec**, from Windsor and Sarnia through London, Toronto, Ottawa and Montréal to Quebec City, and across the north on Highways 17 and 11 from Kenora and Thunder Bay to Sault Ste. Marie, Timmins and North Bay.
 - **New Brunswick, Nova Scotia and Prince Edward Island**, through the Houlton and Calais crossings, with the Cobequid Pass toll each way and the Confederation Bridge toll, which is charged only leaving Prince Edward Island.
 
-Some places have no road yet. Juneau, Ketchikan, Sitka, Kodiak, Cordova, Nome and Bethel are reached only by sea or air, and Newfoundland only by ferry, so none of them is on the map. The Taylor and Top of the World highways close for winter and are not on the map either.
+Some places have no road yet. Juneau, Ketchikan, Sitka, Kodiak, Cordova, Nome and Bethel are reached only by sea or air, and Newfoundland only by ferry, so none of them is on the map. The Taylor and Top of the World highways close for winter and are not on the map either, and neither is the Dempster Highway to Inuvik.
 
 ### Freight in Alaska and Canada
 
@@ -437,7 +438,7 @@ Dispatch offers loads from US cities into Canada and loads from Canada back to t
 
 With Units on Automatic, the default, you hear miles in the United States and kilometers in Canada. Crossing the border, the GPS says "Speeds and distances are in kilometers now." or "Speeds and distances are in miles now." In kilometers, fuel is in liters, loads in tonnes, weights in kilograms and low bridges in meters, and the cruise dial steps 95, 100, 105. Imperial keeps miles everywhere and Metric keeps kilometers everywhere; neither says anything at the border. Canadian speed limits are said as signed: a 100 sign is 100 kilometers per hour, or 62 miles per hour in Imperial. Heavy trucks in British Columbia are held to 105 kilometers per hour.
 
-Diesel in each province and the Yukon costs what it does there, and a Canadian pump says its price in Canadian dollars a liter. Canadian toll booths say the Canadian price, such as 35 Canadian dollars at the Blue Water Bridge. Your settlement and your cash stay in US dollars, and the carrier is billed in US dollars.
+Diesel in each province and territory costs what it does there, and a Canadian pump says its price in Canadian dollars a liter. Canadian toll booths say the Canadian price, such as 35 Canadian dollars at the Blue Water Bridge. Your settlement and your cash stay in US dollars, and the carrier is billed in US dollars.
 
 ### Hours rules where you drive
 
@@ -448,13 +449,13 @@ Hours of service follow the place the truck is in, and you hear the new rules as
 | The lower 48 | 11 hours of driving in a 14-hour window, a 30-minute break after 8 hours of driving, and 70 hours on duty in 8 days. |
 | Alaska | 15 hours of driving and 20 on duty, no 30-minute break, and 80 hours in 8 days. |
 | Canada south of 60 degrees north | 13 hours of driving and 14 on duty in a 16-hour window, and 70 hours in 7 days. |
-| North of 60 degrees north: the Yukon | 15 hours of driving and 18 on duty in a 20-hour window, and 80 hours in 7 days. |
+| North of 60 degrees north: the Yukon and the Northwest Territories | 15 hours of driving and 18 on duty in a 20-hour window, and 80 hours in 7 days. |
 
 The C key, the ELD app and the logbook read the rules you are under, starting "Canadian hours rules" or "Alaska hours rules". In the United States 34 hours off in a row restart your cycle; in Canada it takes 36. Rest menus offer the same rests in Canada as in the United States. A load's deadline is planned on the lower-48 daily rules for the whole route: 11 hours of driving, the 14-hour window and the 30-minute break. The work cycle isn't part of that plan.
 
 ### Time zones on the map
 
-The map uses Eastern, Central, Mountain, Pacific and Alaska Time, plus Atlantic Time in the Maritimes. Alberta is Mountain, Saskatchewan and Manitoba are Central, and Ontario and Quebec are Eastern, except northwestern Ontario around Kenora, which is Central. In British Columbia, the East Kootenay and the Peace country around Dawson Creek are Mountain; the rest is Pacific. The Yukon keeps Mountain Time. Daylight saving isn't modeled, so every zone keeps standard time all year.
+The map uses Eastern, Central, Mountain, Pacific and Alaska Time, plus Atlantic Time in the Maritimes. Alberta is Mountain, Saskatchewan and Manitoba are Central, and Ontario and Quebec are Eastern, except northwestern Ontario around Kenora, which is Central. In British Columbia, the East Kootenay and the Peace country around Dawson Creek are Mountain; the rest is Pacific. The Yukon and the Northwest Territories keep Mountain Time. Daylight saving isn't modeled, so every zone keeps standard time all year.
 
 ### Weather in the north
 
@@ -467,6 +468,8 @@ Billboards follow each state's, province's and territory's sign law. Maine, Verm
 ## Crossing the border
 
 Trucks cross the border at the Pacific Highway at Blaine, Sumas, Osoyoos, Kingsgate, Coutts, North Portal, Emerson, Pigeon River, the Sault Ste. Marie International Bridge, the Gordie Howe and Blue Water bridges, Lewiston-Queenston, the Thousand Islands, Lacolle, Stanstead, the Klondike and Haines highways, and the Alcan port on the Alaska Highway, with Beaver Creek on the Canadian side, plus Houlton and Calais. Every truck stops for customs at each crossing, in both directions.
+
+Hyder, Alaska, is the one exception. The road into Hyder from Stewart, British Columbia, has no US port, so nothing stops you going in. Coming out, every truck stops at Canadian customs in Stewart. Hyder has no freight, so no load starts or ends there.
 
 As you cross the line, the GPS names the province or state you're entering, then, in this order, the time zone if it changes, the units line if Automatic changes them, and the new hours rules. Each waits for the one before it to finish. The new country's speed limit applies from the line.
 
