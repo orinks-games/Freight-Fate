@@ -10340,13 +10340,11 @@ msgstr "更宽裕的预约时间"
 msgid "balanced dispatch"
 msgstr "均衡调度"
 
-msgid "Northstar Freight Lines: balanced company driver"
-msgstr "Northstar Freight Lines：均衡型公司司机"
+msgid "Northstar Freight Lines: national company driver"
+msgstr "Northstar Freight Lines：全国性公司司机"
 
-msgid ""
-"Balanced company-driver start with steady wages, normal training support, "
-"and assigned carrier equipment."
-msgstr "均衡的公司司机起步：工资稳定，培训支持正常，由承运商分配设备。"
+msgid "Steady wages and no specialty, with loads of up to 3000 miles."
+msgstr "工资稳定，没有专长货类，货物最远 3000 英里。"
 
 msgid ""
 "A balanced company-driver path. The carrier assigns and maintains the "
@@ -10354,13 +10352,13 @@ msgid ""
 "specialty."
 msgstr "一条均衡的公司司机路线。承运商分配并保养牵引车，支付燃油和日常维修，发放稳定的工资，没有专长方向。"
 
-msgid "Great Lakes Training Transport: trainer-friendly company driver"
-msgstr "Great Lakes Training Transport：重视培训的公司司机"
+msgid "Great Lakes Training Transport: national company driver"
+msgstr "Great Lakes Training Transport：全国性公司司机"
 
 msgid ""
-"Trainer-friendly company start with stronger stop pay, more short rookie "
-"loads, and a little more appointment slack."
-msgstr "重视培训的公司起步：停靠点报酬更高，新手短途货物更多，预约时间也宽裕一些。"
+"A training fleet with stronger stop pay, more short rookie loads, and a "
+"little more appointment slack."
+msgstr "培训车队：停靠点报酬更高，新手短途货物更多，预约时间也宽裕一些。"
 
 msgid ""
 "A practical training-fleet start. Stop pay is better on short loads, and "
@@ -10374,16 +10372,16 @@ msgstr ""
 msgid "Milwaukee"
 msgstr "Milwaukee"
 
-msgid "Prairie Link Regional: mile-focused company driver"
-msgstr "Prairie Link Regional：按里程计酬的公司司机"
+msgid "Prairie Link Regional: regional company driver"
+msgstr "Prairie Link Regional：区域性公司司机"
 
 msgid "Prairie Link Regional"
 msgstr "Prairie Link Regional"
 
 msgid ""
-"Regional carrier with a better per-mile floor, lower stop pay, and more "
-"same-region grain and bulk lanes."
-msgstr "区域承运商，每英里保底更高，停靠点报酬更低，同区域的粮食和散货线路更多。"
+"A better per-mile floor, lower stop pay, and more same-region grain and "
+"bulk lanes."
+msgstr "每英里保底更高，停靠点报酬更低，同区域的粮食和散货线路更多。"
 
 msgid ""
 "A mile-focused company start. The per-mile wage floor is higher, but stop "
@@ -10394,8 +10392,8 @@ msgstr ""
 "一个看重里程的公司起步。每英里工资保底更高，但停靠点报酬更低，所以更适合稳定的区域里程，而不是很短的往返。调度偏向同区域的粮食和散货任务。承运商仍然分配"
 "并保养牵引车。"
 
-msgid "Summit Value Logistics: appointment-bonus company driver"
-msgstr "Summit Value Logistics：准时奖金型公司司机"
+msgid "Summit Value Logistics: national company driver"
+msgstr "Summit Value Logistics：全国性公司司机"
 
 msgid "Summit Value Logistics"
 msgstr "Summit Value Logistics"
@@ -10434,6 +10432,40 @@ msgstr ""
 "最难的开局方式。你一开始就挂靠承运商，开着一辆刚买的全新卡车：油箱加满，没有损坏，没有磨损。周转资金有限，燃油、维修、准备金和结算手续费这些运营成本都从"
 "你自己的现金里出，而不是承运商出。你仍然从一级起步，和其他人爬同样的职业阶梯：这改变的是谁付钱，而不是你走了多远。"
 
+msgid ""
+"The carrier assigns and maintains the tractor and pays fuel and routine "
+"repairs."
+msgstr ""
+
+#. placeholders: {clause}
+msgid " Those loads need {clause}."
+msgstr ""
+
+#. placeholders: {name}
+msgid "{name}: national company driver"
+msgstr ""
+
+#. placeholders: {specialty}, {max}
+msgid "Mostly {specialty}, with loads of up to {max} miles."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "A national company-driver start."
+msgstr ""
+
+#. placeholders: {specialty}, {max}, {needs}, {equipment}
+msgid ""
+"A national company-driver start. Dispatch leans toward {specialty} and "
+"offers loads of up to {max} miles.{needs} {equipment}"
+msgstr ""
+
+#. placeholders: {specialty}, {max}, {needs}, {equipment}
+#. one sentence of a longer line
+msgid ""
+"Dispatch leans toward {specialty} and offers loads of up to {max} "
+"miles.{needs} {equipment}"
+msgstr ""
+
 msgid "its home region"
 msgstr ""
 
@@ -10450,22 +10482,15 @@ msgstr ""
 msgid "A {tier} company-driver start in {area}."
 msgstr ""
 
-#. placeholders: {tier}, {area}, {max}
+#. placeholders: {tier}, {area}, {max}, {equipment}
 msgid ""
 "A {tier} company-driver start in {area}. Dispatch offers loads of up to "
-"{max} miles. The carrier assigns and maintains the tractor and pays fuel "
-"and routine repairs."
+"{max} miles. {equipment}"
 msgstr ""
 
 #. placeholders: {max}
 #. one sentence of a longer line
 msgid "Dispatch offers loads of up to {max} miles."
-msgstr ""
-
-#. one sentence of a longer line
-msgid ""
-"The carrier assigns and maintains the tractor and pays fuel and routine "
-"repairs."
 msgstr ""
 
 msgid "in good shape"
@@ -41337,6 +41362,33 @@ msgid ""
 "the engine, {pad_fuel} reads fuel, and {pad_speed_limit} reads the limit."
 msgstr ""
 "按住左肩键使用第二层按键。{pad_engine}控制发动机，{pad_fuel}读出燃油，{pad_speed_limit}读出限速。"
+
+#~ msgid "Northstar Freight Lines: balanced company driver"
+#~ msgstr "Northstar Freight Lines：均衡型公司司机"
+
+#~ msgid ""
+#~ "Balanced company-driver start with steady wages, normal training support, "
+#~ "and assigned carrier equipment."
+#~ msgstr "均衡的公司司机起步：工资稳定，培训支持正常，由承运商分配设备。"
+
+#~ msgid "Great Lakes Training Transport: trainer-friendly company driver"
+#~ msgstr "Great Lakes Training Transport：重视培训的公司司机"
+
+#~ msgid ""
+#~ "Trainer-friendly company start with stronger stop pay, more short rookie "
+#~ "loads, and a little more appointment slack."
+#~ msgstr "重视培训的公司起步：停靠点报酬更高，新手短途货物更多，预约时间也宽裕一些。"
+
+#~ msgid "Prairie Link Regional: mile-focused company driver"
+#~ msgstr "Prairie Link Regional：按里程计酬的公司司机"
+
+#~ msgid ""
+#~ "Regional carrier with a better per-mile floor, lower stop pay, and more "
+#~ "same-region grain and bulk lanes."
+#~ msgstr "区域承运商，每英里保底更高，停靠点报酬更低，同区域的粮食和散货线路更多。"
+
+#~ msgid "Summit Value Logistics: appointment-bonus company driver"
+#~ msgstr "Summit Value Logistics：准时奖金型公司司机"
 
 #~ msgid "Slept 10 hours. It is {clock_text}, {time_of_day}."
 #~ msgstr "睡了10个小时。是{clock_text}、{time_of_day}。"

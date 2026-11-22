@@ -128,9 +128,10 @@ fn the_main_menu_welcomes_and_walks_a_new_career_to_the_home_city() {
     assert!(current_label::<HomeCityState>(&app).starts_with("Chicago"));
     key(&mut app, Key::Return); // default city: Chicago
     assert!(is::<CareerStartState>(&app));
-    assert!(current_label::<CareerStartState>(&app).starts_with("Northstar"));
+    // Locals come first, nearest terminal first: Chicago's own local.
+    assert!(current_label::<CareerStartState>(&app).starts_with("Des Plaines River Cartage"));
     app.clear_speech();
-    // Default start: Northstar. The career exists, the welcome was spoken,
+    // The first row starts a career. The career exists, the welcome was spoken,
     // and the whole new-career chain is gone from the stack: main menu, then
     // the city placeholder.
     key(&mut app, Key::Return);
@@ -1071,13 +1072,12 @@ fn test_an_owner_operator_hears_no_travel_line() {
 
 #[test]
 fn test_carrier_counts_name_distinct_carriers_not_start_rows() {
-    // Milwaukee: Northstar, Great Lakes Training, Summit Value, Loonwater
-    // Regional (Green Bay) and Olentangy Valley Freight (Indianapolis
-    // reaches it); the owner-operator start leases to Northstar, so it is
-    // not a sixth. Wichita: the three nationals, Prairie Link and Verdigris
-    // Transport.
+    // Milwaukee: the six nationals and five regionals whose radius reaches
+    // it; the owner-operator start leases to Northstar, so it is not
+    // another carrier. Wichita: the six nationals, Prairie Link and
+    // Verdigris Transport.
     let mut app = TestApp::new();
-    for (city, carriers, rows) in [("milwaukee_wi_us", 5, 6), ("wichita_ks_us", 5, 6)] {
+    for (city, carriers, rows) in [("milwaukee_wi_us", 11, 12), ("wichita_ks_us", 8, 9)] {
         let picker = CareerStartState::new(&app.ctx, "Counter", city);
         assert_eq!(picker.carrier_count(&app.ctx), carriers, "{city}");
         assert_eq!(picker.option_keys().len(), rows, "{city}");
@@ -1088,7 +1088,7 @@ fn test_carrier_counts_name_distinct_carriers_not_start_rows() {
     assert!(
         app.main_lines()
             .iter()
-            .any(|l| l.starts_with("Career start. 5 carriers hire in Milwaukee")),
+            .any(|l| l.starts_with("Career start. 11 carriers hire in Milwaukee")),
         "{:?}",
         app.main_lines()
     );
@@ -1098,5 +1098,5 @@ fn test_carrier_counts_name_distinct_carriers_not_start_rows() {
     let help = with_state::<HomeCityState, _>(&app, |s, ctx| {
         freight_fate::states::base::Menu::current_help(s, ctx)
     });
-    assert!(help.contains("5 carriers hire here."), "{help}");
+    assert!(help.contains("8 carriers hire here."), "{help}");
 }

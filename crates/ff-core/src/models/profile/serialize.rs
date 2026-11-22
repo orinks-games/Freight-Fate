@@ -313,13 +313,23 @@ impl Profile {
         }
 
         let saved_home = s("home_terminal_city", "");
+        // A save with no home terminal (a 1.9 career copied forward) is
+        // homed at its carrier's terminal nearest the driver's home city
+        // when one is saved, else nearest the truck. 1.9 saved neither home,
+        // so a copied 1.9 career keys on the truck's city.
+        let saved_home_city = s("home_city", "");
+        let home_base = if saved_home.trim().is_empty() {
+            saved_home_city.as_str()
+        } else {
+            saved_home.as_str()
+        };
         let home_terminal_city = migrate_home_terminal_city(
             crate::models::carriers::hiring_carrier(
                 &s("carrier_key", &defaults.carrier_key),
                 &s("carrier_name", &defaults.carrier_name),
                 &s("business_status", &defaults.business_status),
             ),
-            &saved_home,
+            home_base,
             &s("current_city", &defaults.current_city),
         );
         // A stale saved home (not the carrier's terminal city) was corrected:
