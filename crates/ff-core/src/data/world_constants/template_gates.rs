@@ -428,6 +428,13 @@ pub const CURATED_COMPLETE_MARKET_CITY_KEYS: &[&str] = &[
     // at Carneys Point and the Cape May fishing docks.
     "carneys_point_nj_us",
     "cape_may_nj_us",
+    // Great Lakes (missing roads, 2026-11-22): the Joliet intermodal yards,
+    // the Alpena cement plant, Pinney Dock at Ashtabula and Sandusky's
+    // plants, each surveyed.
+    "joliet_il_us",
+    "alpena_mi_us",
+    "ashtabula_oh_us",
+    "sandusky_oh_us",
 ];
 
 /// Whether this city keeps only its authored freight locations. See
