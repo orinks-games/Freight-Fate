@@ -2980,7 +2980,15 @@
           "name": "level",
           "sections": 0,
           "source": "DERIVED, not read: Canada has no national inventory like HPMS, so the class is the terrain the leg's own grade profile spends the most miles in (the reroute-enrich rule: sustained grade of 5 percent, or 4 percent with 1,000 ft of relief within 5 miles, is mountain; 1.5 percent or 400 ft of relief is hills; else flat), mapped flat to level, hills to rolling and mountain to mountainous. It reads the same elevation as the grade, so it is no independent check on it."
-        }
+        },
+        "billboard_bans": [
+          {
+            "from_mi": 67.2,
+            "to_mi": 68.2,
+            "name": "Fox Lake Territorial Park",
+            "source": "derived 2026-11-22: OpenStreetMap protected-area polygon (Fox Lake Territorial Park) boundary from the planet extract of 2026-11-16 (corridor-5-west-places.md); the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on); widened to the one-mile minimum"
+          }
+        ]
       },
       "rerouted": true
     },
@@ -11636,7 +11644,21 @@
           "name": "rolling",
           "sections": 0,
           "source": "DERIVED, not read: Canada has no national inventory like HPMS, so the class is the terrain the leg's own grade profile spends the most miles in (the reroute-enrich rule: sustained grade of 5 percent, or 4 percent with 1,000 ft of relief within 5 miles, is mountain; 1.5 percent or 400 ft of relief is hills; else flat), mapped flat to level, hills to rolling and mountain to mountainous. It reads the same elevation as the grade, so it is no independent check on it."
-        }
+        },
+        "billboard_bans": [
+          {
+            "from_mi": 62.4,
+            "to_mi": 66.3,
+            "name": "T\u0101 Ch'il\u0101 Provincial Park",
+            "source": "derived 2026-11-22: OpenStreetMap protected-area polygon (T\u0101 Ch'il\u0101 Provincial Park) boundary from the planet extract of 2026-11-16 (corridor-5-west-places.md); the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
+          },
+          {
+            "from_mi": 119.3,
+            "to_mi": 120.3,
+            "name": "Chickens Neck Mountain Ecological Reserve",
+            "source": "derived 2026-11-22: OpenStreetMap protected-area polygon (Chickens Neck Mountain Ecological Reserve) boundary from the planet extract of 2026-11-16 (corridor-5-west-places.md); the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on); widened to the one-mile minimum"
+          }
+        ]
       },
       "rerouted": true
     },
@@ -19095,7 +19117,15 @@
           "name": "level",
           "sections": 0,
           "source": "DERIVED, not read: Canada has no national inventory like HPMS, so the class is the terrain the leg's own grade profile spends the most miles in (the reroute-enrich rule: sustained grade of 5 percent, or 4 percent with 1,000 ft of relief within 5 miles, is mountain; 1.5 percent or 400 ft of relief is hills; else flat), mapped flat to level, hills to rolling and mountain to mountainous. It reads the same elevation as the grade, so it is no independent check on it."
-        }
+        },
+        "billboard_bans": [
+          {
+            "from_mi": 42.8,
+            "to_mi": 43.8,
+            "name": "Fox Lake Territorial Park",
+            "source": "derived 2026-11-22: OpenStreetMap protected-area polygon (Fox Lake Territorial Park) boundary from the planet extract of 2026-11-16 (corridor-5-west-places.md); the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on); widened to the one-mile minimum"
+          }
+        ]
       },
       "rerouted": true
     },
