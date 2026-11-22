@@ -124,6 +124,90 @@ const CHRISTMAS_SIGNS: &[HolidaySign] = &[
     anywhere("Christmas week. The freight is presents now, and every dock wants it yesterday."),
 ];
 
+/// What is behind the tractor that a cargo sign can answer. Every field is
+/// something the drive already knows: the job's cargo, the trailer on the
+/// fifth wheel, the driver's carrier.
+#[derive(Debug, Clone, Copy, Default, PartialEq, Eq)]
+pub struct Hauling<'a> {
+    /// Live cattle on the delivery leg of a livestock load.
+    pub cattle: bool,
+    /// A load that needs the reefer, with the trailer hooked.
+    pub reefer: bool,
+    /// A set of doubles hooked.
+    pub doubles: bool,
+    /// The carrier whose name is on the door, for a company or leased-on
+    /// driver; None for independent authority or no carrier.
+    pub carrier: Option<&'a str>,
+}
+
+impl Hauling<'_> {
+    fn is_empty(&self) -> bool {
+        !self.cattle && !self.reefer && !self.doubles && self.carrier.is_none()
+    }
+}
+
+/// The lines each kind of load can hear. A carrier line holds `{carrier}`
+/// where the carrier's name is read.
+#[derive(Debug, Clone, Copy, Default, PartialEq, Eq)]
+pub struct CargoPools {
+    pub cattle: &'static [&'static str],
+    pub reefer: &'static [&'static str],
+    pub doubles: &'static [&'static str],
+    pub carrier: &'static [&'static str],
+}
+
+/// Signs for a cattle hauler. The director writes these; empty until then.
+pub const CATTLE_LINES: &[&str] = &[];
+/// Signs for a reefer load. The director writes these; empty until then.
+pub const REEFER_LINES: &[&str] = &[];
+/// Signs for a set of doubles. The director writes these; empty until then.
+pub const DOUBLES_LINES: &[&str] = &[];
+/// Signs that name the driver's carrier. The director writes these.
+pub const CARRIER_LINES: &[&str] = &[];
+
+/// The cargo lines that ship.
+pub const CARGO_POOLS: CargoPools = CargoPools {
+    cattle: CATTLE_LINES,
+    reefer: REEFER_LINES,
+    doubles: DOUBLES_LINES,
+    carrier: CARRIER_LINES,
+};
+
+/// A cargo line takes one pool sign in this many, offset from the holiday
+/// signs so a holiday week still shows through.
+pub const CARGO_EVERY: usize = 3;
+const CARGO_PHASE: usize = 1;
+
+/// The cargo line for this sign, from these pools, or None.
+fn cargo_line(pools: &CargoPools, hauling: Hauling, nth: usize, offset: usize) -> Option<String> {
+    if hauling.is_empty() || nth % CARGO_EVERY != CARGO_PHASE {
+        return None;
+    }
+    let mut here: Vec<String> = Vec::new();
+    for (applies, pool) in [
+        (hauling.cattle, pools.cattle),
+        (hauling.reefer, pools.reefer),
+        (hauling.doubles, pools.doubles),
+    ] {
+        if applies {
+            here.extend(pool.iter().map(|line| (*line).to_string()));
+        }
+    }
+    if let Some(name) = hauling.carrier.map(str::trim).filter(|n| !n.is_empty()) {
+        here.extend(
+            pools
+                .carrier
+                .iter()
+                .map(|line| line.replace("{carrier}", name)),
+        );
+    }
+    if here.is_empty() {
+        return None;
+    }
+    let i = (nth / CARGO_EVERY + offset) % here.len();
+    Some(here.swap_remove(i))
+}
+
 /// Every sign a holiday puts up, wherever each one is true.
 pub fn holiday_signs(holiday: Holiday) -> &'static [HolidaySign] {
     match holiday {
@@ -175,15 +259,33 @@ pub struct BillboardMoment<'a> {
     pub offset: usize,
     /// The two-letter state the truck is in, if known.
     pub state: Option<&'a str>,
+    /// What the trailer is hauling.
+    pub hauling: Hauling<'a>,
 }
 
 /// The line to read in place of an everyday pool sign, or None to read it.
 ///
 /// Big Jim answers every incident, once, at the next sign. The small hours
-/// take every other sign and a holiday every fourth, so the ordinary roadside
-/// still shows through. Each pool is walked in order from the trip's offset,
-/// so no line comes back until the rest of its pool has been read.
-pub fn dynamic_billboard(moment: BillboardMoment) -> Option<&'static str> {
+/// take every other sign, the load every third and a holiday every fourth,
+/// so the ordinary roadside still shows through. Each pool is walked in order
+/// from the trip's offset, so no line comes back until the rest of its pool
+/// has been read.
+pub fn dynamic_billboard(moment: BillboardMoment) -> Option<String> {
+    dynamic_billboard_from(&CARGO_POOLS, moment)
+}
+
+fn dynamic_billboard_from(cargo: &CargoPools, moment: BillboardMoment) -> Option<String> {
+    if let Some(line) = fixed_billboard(moment) {
+        return Some(line.to_string());
+    }
+    if let Some(line) = cargo_line(cargo, moment.hauling, moment.nth, moment.offset) {
+        return Some(line);
+    }
+    holiday_billboard(moment).map(str::to_string)
+}
+
+/// Big Jim and the small hours: the swaps that outrank the load.
+fn fixed_billboard(moment: BillboardMoment) -> Option<&'static str> {
     let walk = |len: usize, every: usize| (moment.nth / every + moment.offset) % len;
     if let Some(incident) = moment.incident {
         let pool = match incident {
@@ -197,6 +299,11 @@ pub fn dynamic_billboard(moment: BillboardMoment) -> Option<&'static str> {
         let pool = SMALL_HOURS_LINES;
         return Some(pool[walk(pool.len(), SMALL_HOURS_EVERY)]);
     }
+    None
+}
+
+fn holiday_billboard(moment: BillboardMoment) -> Option<&'static str> {
+    let walk = |len: usize, every: usize| (moment.nth / every + moment.offset) % len;
     let holiday = moment.holiday?;
     if !moment.nth.is_multiple_of(HOLIDAY_EVERY) {
         return None;
@@ -271,13 +378,13 @@ mod tests {
             holiday: Some(Holiday::Christmas),
             ..Default::default()
         };
-        assert!(CITATION_LINES.contains(&dynamic_billboard(moment).unwrap()));
+        assert!(CITATION_LINES.contains(&dynamic_billboard(moment).unwrap().as_str()));
         let moment = BillboardMoment {
             incident: Some(Incident::Collision),
             nth: 7,
             ..Default::default()
         };
-        assert!(COLLISION_LINES.contains(&dynamic_billboard(moment).unwrap()));
+        assert!(COLLISION_LINES.contains(&dynamic_billboard(moment).unwrap().as_str()));
     }
 
     #[test]
@@ -299,7 +406,7 @@ mod tests {
         assert_eq!(dynamic_billboard(BillboardMoment::default()), None);
     }
 
-    fn halloween_in(state: Option<&str>, nth: usize, offset: usize) -> Option<&'static str> {
+    fn halloween_in(state: Option<&str>, nth: usize, offset: usize) -> Option<String> {
         dynamic_billboard(BillboardMoment {
             holiday: Some(Holiday::Halloween),
             nth,
@@ -323,15 +430,15 @@ mod tests {
                     let state = (!state.is_empty()).then_some(state);
                     (0..200).map(move |n| halloween_in(state, n * HOLIDAY_EVERY, 0))
                 })
-                .any(|line| line == Some(sign.text));
+                .any(|line| line.as_deref() == Some(sign.text));
             assert!(
                 !heard_somewhere_else,
                 "{} read outside {:?}",
                 sign.text, sign.states
             );
             let home = Some(sign.states[0]);
-            let heard_at_home =
-                (0..200).any(|n| halloween_in(home, n * HOLIDAY_EVERY, 0) == Some(sign.text));
+            let heard_at_home = (0..200)
+                .any(|n| halloween_in(home, n * HOLIDAY_EVERY, 0).as_deref() == Some(sign.text));
             assert!(heard_at_home, "{} never read in {:?}", sign.text, home);
         }
     }
@@ -371,5 +478,89 @@ mod tests {
                 .len(),
             3
         );
+    }
+
+    const TEST_POOLS: CargoPools = CargoPools {
+        cattle: &["Cattle one.", "Cattle two."],
+        reefer: &["Reefer one."],
+        doubles: &["Doubles one."],
+        carrier: &["{carrier} sign."],
+    };
+
+    fn cargo_at(hauling: Hauling, nth: usize) -> Option<String> {
+        dynamic_billboard_from(
+            &TEST_POOLS,
+            BillboardMoment {
+                hauling,
+                nth,
+                ..Default::default()
+            },
+        )
+    }
+
+    #[test]
+    fn a_load_takes_one_pool_sign_in_three() {
+        let cattle = Hauling {
+            cattle: true,
+            ..Default::default()
+        };
+        let swapped: Vec<usize> = (0..9).filter(|&n| cargo_at(cattle, n).is_some()).collect();
+        assert_eq!(swapped, vec![1, 4, 7]);
+        assert_eq!(cargo_at(Hauling::default(), 1), None);
+    }
+
+    #[test]
+    fn only_the_load_aboard_is_answered() {
+        let reefer = Hauling {
+            reefer: true,
+            ..Default::default()
+        };
+        assert_eq!(cargo_at(reefer, 1).as_deref(), Some("Reefer one."));
+        let carrier = Hauling {
+            carrier: Some("Mesa Freight"),
+            ..Default::default()
+        };
+        assert_eq!(cargo_at(carrier, 1).as_deref(), Some("Mesa Freight sign."));
+        let blank = Hauling {
+            carrier: Some("  "),
+            ..Default::default()
+        };
+        assert_eq!(cargo_at(blank, 1), None);
+    }
+
+    #[test]
+    fn big_jim_and_the_small_hours_outrank_the_load() {
+        let moment = BillboardMoment {
+            incident: Some(Incident::Collision),
+            hauling: Hauling {
+                doubles: true,
+                ..Default::default()
+            },
+            nth: 1,
+            ..Default::default()
+        };
+        let line = dynamic_billboard_from(&TEST_POOLS, moment).unwrap();
+        assert!(COLLISION_LINES.contains(&line.as_str()));
+    }
+
+    #[test]
+    fn a_cattle_pool_is_walked_before_it_repeats() {
+        let cattle = Hauling {
+            cattle: true,
+            ..Default::default()
+        };
+        let heard: Vec<_> = [1, 4]
+            .iter()
+            .map(|&n| cargo_at(cattle, n).unwrap())
+            .collect();
+        assert_ne!(heard[0], heard[1]);
+    }
+
+    #[test]
+    fn shipped_cargo_lines_are_speakable() {
+        for line in [CATTLE_LINES, REEFER_LINES, DOUBLES_LINES, CARRIER_LINES].concat() {
+            assert!(!line.chars().any(|c| c.is_ascii_digit()), "{line}");
+            assert!(line.split_whitespace().count() <= 25, "{line}");
+        }
     }
 }

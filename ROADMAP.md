@@ -469,6 +469,11 @@ bookmarks usable.
       Thanksgiving week.
 - [ ] Billboards could also react to the cargo in the trailer and to the
       weather (owner, 2026-09-30: "at least one and two" shipped first).
+      The cargo half is built on `feat/career-2.0` (2026-11-22): a load of
+      cattle, a reefer load, a set of doubles and the carrier on the door
+      each have a pool that takes one everyday sign in three, after Big
+      Jim and the small hours. The pools are empty until the director's
+      lines land. Weather is still open.
 
 - [x] Placed billboards face one way (owner, 2026-09-30): every placed
       attraction sign was heard from both sides of the road, and 128 of the
@@ -5717,6 +5722,26 @@ a carrier slice (owner, 2026-10-26).
       customs with hours, FAST and cabotage at every listed port;
       Newfoundland's half hour and Saskatchewan's standard time; Quebec
       signs read as written; the Coquihalla, Rogers Pass and 17 closures.
+- [x] Billboards follow each province's and territory's sign law
+      (2026-11-22). Alberta, Prince Edward Island, Newfoundland and
+      Labrador, the Northwest Territories and Nunavut ban commercial
+      boards, as Alaska does; the Yukon, Nova Scotia and New Brunswick
+      license only boards for traveler attractions and services, so placed
+      attraction signs stand there and the everyday pool does not; the
+      rest license boards off the right of way. Parks the road crosses are
+      billboard bans on the legs. Table and sources in
+      `docs/billboard-spider-methodology.md` section 11, the same rows in
+      `data/billboard_law.rs`. `cargo tools bake-billboards` (the Python
+      sheet bake, ported) refuses a sign where the law or a park says no.
+- [ ] Billboards along the Alaska Highway and Highway 97: the sign sheet
+      (`data/spider/signsheets/alaska-highway-bc-yukon-2026-11-22.md`)
+      waits for the director's copy and Orinks's approval before it bakes.
+- [ ] Billboard sheets for each Canadian corridor as its PR merges, West
+      first; French attraction names listed for Orinks's ear.
+- [ ] (Found along the way) New Brunswick is read attractions only
+      province-wide because its freight routes are Level I and II
+      highways; its ordinary highways license commercial boards. A per-leg
+      law would let a pool line stand on those.
 
 ### Personal conveyance and duty-purpose correction
 
