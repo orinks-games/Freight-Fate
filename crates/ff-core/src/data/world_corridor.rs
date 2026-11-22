@@ -19,10 +19,10 @@
 
 use serde_json::{Map, Value};
 
+use super::bridges::parse_bridges;
 use super::counties::parse_county_runs;
 use super::grades::screen_grade_segments;
 use super::line_weave::{miles_from_crossings, screen_weave};
-use super::bridges::parse_bridges;
 use super::pavement::parse_pavement;
 use super::world_constants::{LIMIT_ARTIFACT_PLACE_CHECKPOINTS, LIMIT_EXPLAINING_CATEGORIES};
 use super::world_models::{name_provincial_routes, CorridorDetail, DataError, TunnelData};

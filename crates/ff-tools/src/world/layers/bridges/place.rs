@@ -70,9 +70,25 @@ const BRIDGE_WORDS: &[&str] = &["Bridge", "Skyway", "Causeway", "Viaduct", "Pont
 /// A name with one of these is a street or a ramp, not a bridge's own name
 /// ("Bridge Street", "Blue Water Bridge Approach", "Highway 118 Overpass").
 const NOT_A_BRIDGE_NAME: &[&str] = &[
-    "Street", "Road", "Avenue", "Drive", "Lane", "Boulevard", "Way", "Rue", "Chemin",
-    "Approach", "Overpass", "Overhead", "Underpass", "Interchange", "Flyover", "Ramp",
-    "Exit", "Port Of Entry", "Port of Entry",
+    "Street",
+    "Road",
+    "Avenue",
+    "Drive",
+    "Lane",
+    "Boulevard",
+    "Way",
+    "Rue",
+    "Chemin",
+    "Approach",
+    "Overpass",
+    "Overhead",
+    "Underpass",
+    "Interchange",
+    "Flyover",
+    "Ramp",
+    "Exit",
+    "Port Of Entry",
+    "Port of Entry",
 ];
 
 /// Whether a name reads as a bridge's own name.
@@ -82,17 +98,26 @@ pub fn reads_as_bridge(name: &str) -> bool {
         .filter(|w| !w.is_empty())
         .collect();
     words.iter().any(|w| BRIDGE_WORDS.contains(w))
-        && !NOT_A_BRIDGE_NAME
-            .iter()
-            .any(|bad| name.split_whitespace().any(|w| w == *bad) || name.contains(&format!(" {bad}")))
+        && !NOT_A_BRIDGE_NAME.iter().any(|bad| {
+            name.split_whitespace().any(|w| w == *bad) || name.contains(&format!(" {bad}"))
+        })
 }
 
 /// A name for an overpass, ramp or interchange, which a driver does not
 /// hear as crossing a bridge ("Highway 118 Overpass at Akerley Blvd.").
 fn labels_a_ramp(name: &str) -> bool {
-    ["Overpass", "Overhead", "Underpass", "Interchange", "Flyover", "Ramp", "Approach", "Connector"]
-        .iter()
-        .any(|w| name.contains(w))
+    [
+        "Overpass",
+        "Overhead",
+        "Underpass",
+        "Interchange",
+        "Flyover",
+        "Ramp",
+        "Approach",
+        "Connector",
+    ]
+    .iter()
+    .any(|w| name.contains(w))
 }
 
 /// The spoken name an element's tags give a bridge under `key` (and
@@ -205,8 +230,11 @@ impl Catalog {
         let mut raw_carriers = Vec::new();
         let mut water = Vec::new();
         for w in found.ways {
-            let pairs: Vec<(&str, &str)> =
-                w.tags.iter().map(|(k, v)| (k.as_str(), v.as_str())).collect();
+            let pairs: Vec<(&str, &str)> = w
+                .tags
+                .iter()
+                .map(|(k, v)| (k.as_str(), v.as_str()))
+                .collect();
             if is_carrier(&pairs) {
                 raw_carriers.push(w);
             } else if is_outline(&pairs) {
@@ -250,8 +278,11 @@ impl Catalog {
                             .filter(|n| reads_as_bridge(n))
                             .and_then(|n| bridge_name(&n))
                             .map(|n| {
-                            (n, format!("read from the name of way {}, a bridge's name", w.id))
-                        })
+                                (
+                                    n,
+                                    format!("read from the name of way {}, a bridge's name", w.id),
+                                )
+                            })
                     })
                     .or_else(|| {
                         by_relation.get(&w.id).map(|(n, rid)| {

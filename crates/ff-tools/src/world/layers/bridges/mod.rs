@@ -138,9 +138,8 @@ pub fn main(argv: &[String]) -> Result<i32> {
     let only = Only::parse(&args);
     let mut run = Run::load()?;
 
-    let way = |t: &[(&str, &str)]| {
-        place::is_carrier(t) || place::is_outline(t) || place::is_water(t)
-    };
+    let way =
+        |t: &[(&str, &str)]| place::is_carrier(t) || place::is_outline(t) || place::is_water(t);
     let relation = |t: &[(&str, &str)]| t.iter().any(|(k, v)| *k == "type" && *v == "bridge");
     let found = features::read(
         &pbfs,
@@ -154,8 +153,11 @@ pub fn main(argv: &[String]) -> Result<i32> {
         .ways
         .iter()
         .filter(|w| {
-            let pairs: Vec<(&str, &str)> =
-                w.tags.iter().map(|(k, v)| (k.as_str(), v.as_str())).collect();
+            let pairs: Vec<(&str, &str)> = w
+                .tags
+                .iter()
+                .map(|(k, v)| (k.as_str(), v.as_str()))
+                .collect();
             place::is_carrier(&pairs)
         })
         .map(|w| (w.id, w.coords[w.coords.len() / 2]))

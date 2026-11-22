@@ -123,7 +123,10 @@ pub fn joints_heard(
     let mut heard = Vec::new();
     for joint in reached {
         if since >= MIN_JOINT_GAP_S
-            || matches!(joint.origin, SpanOrigin::RiverAssumed | SpanOrigin::NamedBridge)
+            || matches!(
+                joint.origin,
+                SpanOrigin::RiverAssumed | SpanOrigin::NamedBridge
+            )
         {
             heard.push(joint);
             since = 0.0;

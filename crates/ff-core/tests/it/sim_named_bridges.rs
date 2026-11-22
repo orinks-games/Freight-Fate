@@ -62,7 +62,10 @@ fn the_confederation_bridge_is_named_once_driving_onto_the_island() {
     assert!((bridge.length_mi() - 8.0).abs() < 0.2, "{bridge:?}");
     let said = lines_between(&mut east, bridge.from_mi - 1.0, bridge.to_mi + 1.0);
     assert_eq!(said, vec!["Crossing the Confederation Bridge.".to_string()]);
-    assert!(matches!(east.bridge_state(), BridgeCrossing::RoadAfter { .. }));
+    assert!(matches!(
+        east.bridge_state(),
+        BridgeCrossing::RoadAfter { .. }
+    ));
 
     let spans = east.bridge_joint_spans();
     assert!(
@@ -102,6 +105,15 @@ fn the_river_line_gives_way_to_the_bridge_over_it() {
         "{:?}",
         east.landmarks
     );
+    // The layer measured only the US end (0.1 of 1.1 miles), so the joints
+    // sit at the bridge's own ends.
+    let spans = east.bridge_joint_spans();
+    let inside: Vec<_> = spans
+        .iter()
+        .filter(|s| s.from_mi < bridge.to_mi && bridge.from_mi < s.to_mi)
+        .collect();
+    assert_eq!(inside.len(), 1, "{inside:?}");
+    assert_eq!(inside[0].origin, SpanOrigin::NamedBridge);
     // The water still plays under it.
     assert!(east
         .river_crossing_miles()

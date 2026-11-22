@@ -156,7 +156,11 @@ pub enum BridgeEvent {
 impl BridgeCrossing {
     /// The state after `event`, and the index of the bridge whose line is
     /// due. The only place the state moves.
-    pub fn next(self, event: BridgeEvent, bridges: &[RouteBridge]) -> (BridgeCrossing, Option<usize>) {
+    pub fn next(
+        self,
+        event: BridgeEvent,
+        bridges: &[RouteBridge],
+    ) -> (BridgeCrossing, Option<usize>) {
         let (at, placed) = match event {
             BridgeEvent::Moved { at_mi } => (at_mi, false),
             BridgeEvent::Placed { at_mi } => (at_mi, true),
@@ -164,7 +168,9 @@ impl BridgeCrossing {
         let under = bridges.iter().position(|b| b.holds(at));
         let Some(i) = under else {
             return match self {
-                BridgeCrossing::On { index, .. } => (BridgeCrossing::RoadAfter { last: index }, None),
+                BridgeCrossing::On { index, .. } => {
+                    (BridgeCrossing::RoadAfter { last: index }, None)
+                }
                 other => (other, None),
             };
         };
@@ -229,20 +235,90 @@ mod tests {
         use BridgeCrossing::*;
         let table: &[(BridgeCrossing, BridgeEvent, BridgeCrossing, Option<usize>)] = &[
             (Road, moved(5.0), Road, None),
-            (Road, moved(10.1), On { index: 0, water: true }, Some(0)),
-            (On { index: 0, water: true }, moved(14.0), On { index: 0, water: true }, None),
-            (On { index: 0, water: true }, moved(18.2), RoadAfter { last: 0 }, None),
-            (RoadAfter { last: 0 }, moved(17.9), On { index: 0, water: true }, None),
-            (RoadAfter { last: 0 }, moved(30.1), On { index: 1, water: false }, Some(1)),
-            (Road, BridgeEvent::Placed { at_mi: 10.1 }, On { index: 0, water: true }, None),
+            (
+                Road,
+                moved(10.1),
+                On {
+                    index: 0,
+                    water: true,
+                },
+                Some(0),
+            ),
+            (
+                On {
+                    index: 0,
+                    water: true,
+                },
+                moved(14.0),
+                On {
+                    index: 0,
+                    water: true,
+                },
+                None,
+            ),
+            (
+                On {
+                    index: 0,
+                    water: true,
+                },
+                moved(18.2),
+                RoadAfter { last: 0 },
+                None,
+            ),
+            (
+                RoadAfter { last: 0 },
+                moved(17.9),
+                On {
+                    index: 0,
+                    water: true,
+                },
+                None,
+            ),
+            (
+                RoadAfter { last: 0 },
+                moved(30.1),
+                On {
+                    index: 1,
+                    water: false,
+                },
+                Some(1),
+            ),
+            (
+                Road,
+                BridgeEvent::Placed { at_mi: 10.1 },
+                On {
+                    index: 0,
+                    water: true,
+                },
+                None,
+            ),
             // Dropped past the start: the line belonged to the road behind.
-            (Road, moved(13.0), On { index: 0, water: true }, None),
+            (
+                Road,
+                moved(13.0),
+                On {
+                    index: 0,
+                    water: true,
+                },
+                None,
+            ),
         ];
         for (from, event, to, says) in table {
             assert_eq!(from.next(*event, &b), (*to, *says), "{from:?} {event:?}");
         }
-        assert!(On { index: 0, water: true }.over_water());
-        assert_eq!(On { index: 1, water: false }.key(), "on_bridge");
+        assert!(On {
+            index: 0,
+            water: true
+        }
+        .over_water());
+        assert_eq!(
+            On {
+                index: 1,
+                water: false
+            }
+            .key(),
+            "on_bridge"
+        );
     }
 
     #[test]
@@ -266,7 +342,10 @@ mod tests {
         ];
         choose_spoken(&mut b, &[]);
         assert!(b[0].line.is_some() && b[1].line.is_none());
-        assert_eq!(crossing_line("Pont Laviolette"), "Crossing Pont Laviolette.");
+        assert_eq!(
+            crossing_line("Pont Laviolette"),
+            "Crossing Pont Laviolette."
+        );
     }
 
     #[test]
@@ -283,7 +362,10 @@ mod tests {
             ],
         );
         assert!(b[0].line.is_none(), "toll two miles before names it");
-        assert!(b[1].line.is_some(), "toll ten miles before is another stretch");
+        assert!(
+            b[1].line.is_some(),
+            "toll ten miles before is another stretch"
+        );
 
         // The toll's name holds the five miles against a shorter bridge.
         let mut b = vec![

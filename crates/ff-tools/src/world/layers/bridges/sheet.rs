@@ -106,9 +106,10 @@ impl Sheet {
                     "way" => {
                         self.by_way.insert(id, i);
                         // A listed outline holds the road ways inside it.
-                        if let Some(ring) = outlines.get(&id).filter(|r| {
-                            r.len() >= 4 && r.first() == r.last()
-                        }) {
+                        if let Some(ring) = outlines
+                            .get(&id)
+                            .filter(|r| r.len() >= 4 && r.first() == r.last())
+                        {
                             for (wid, mid) in carriers {
                                 if ring_contains(ring, mid.0, mid.1) {
                                     self.by_way.insert(*wid, i);

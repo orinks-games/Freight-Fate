@@ -8,6 +8,15 @@ use crate::sim::road_texture::joints::JointSpan;
 use crate::sim::road_texture::Reading;
 use crate::sim::trip_route_helpers::stop_offset_for_direction;
 
+/// A named bridge whose structures cover at least this share of its length
+/// is the structure the layer measured, so the structures keep their
+/// joints. Calibrated on the 508 named bridge sides with a structure on
+/// their leg (2026-11-22): 399 covered 80 percent or more and 60 not at
+/// all; of the 49 between, the 29 from half up are the same bridge measured
+/// shorter, and the 20 below half are one end of a longer bridge (the US
+/// span of the Blue Water Bridge, 0.1 of 1.1 miles).
+const NAMED_COVERED_SHARE: f64 = 0.5;
+
 impl Trip {
     /// The leg under route mile `mile`: its index, whether the truck drives
     /// it forward, and the offset in the leg's own (native) frame.
@@ -55,9 +64,9 @@ impl Trip {
     /// order (see `sim::road_texture::joints`). A leg with the layer gives
     /// its bridges and causeways, and an assumed span at each river point
     /// with no structure within [`RIVER_SPAN_MI`]; a leg without it gives an
-    /// assumed span at every river point. A named bridge with no structure
-    /// under it gives its own whole span, and a river point on it no
-    /// assumed one. Empty on a facility approach.
+    /// assumed span at every river point. A named bridge the structures
+    /// mostly miss gives its own whole span in their place, and a river
+    /// point on it no assumed one. Empty on a facility approach.
     pub fn bridge_joint_spans(&self) -> Vec<JointSpan> {
         if self.is_facility_approach_route() {
             return Vec::new();
@@ -75,24 +84,35 @@ impl Trip {
                 .pavement()
                 .map(|p| p.structures_for(forward))
                 .unwrap_or_default();
-            for &(from, to, kind) in &structures {
-                let (a, b) = (route(from), route(to));
-                if let Some(span) = JointSpan::from_structure(a.min(b), a.max(b), kind) {
-                    spans.push(span);
-                }
-            }
-            // A named bridge the layer reads no structure under, for its
-            // whole span.
+            // A named bridge the layer's structures cover for less than
+            // [`NAMED_COVERED_SHARE`] of its length (the US end of a border
+            // bridge, one span of a long causeway) gives its own whole span,
+            // and the structures inside it give way, so the joints sit at
+            // the bridge's real ends.
             let named: Vec<(f64, f64)> = leg
                 .bridges()
                 .for_direction(forward)
                 .map(|b| (b.from_mi, b.to_mi))
                 .collect();
+            let mut own: Vec<(f64, f64)> = Vec::new();
             for &(from, to) in &named {
-                let covered = structures.iter().any(|s| s.0 < to && from < s.1);
-                if !covered {
+                let covered: f64 = structures
+                    .iter()
+                    .map(|s| (s.1.min(to) - s.0.max(from)).max(0.0))
+                    .sum();
+                if covered < NAMED_COVERED_SHARE * (to - from) {
+                    own.push((from, to));
                     let (a, b) = (route(from), route(to));
                     spans.push(JointSpan::named_bridge(a.min(b), a.max(b)));
+                }
+            }
+            for &(from, to, kind) in &structures {
+                if own.iter().any(|&(a, b)| from < b && a < to) {
+                    continue;
+                }
+                let (a, b) = (route(from), route(to));
+                if let Some(span) = JointSpan::from_structure(a.min(b), a.max(b), kind) {
+                    spans.push(span);
                 }
             }
             for landmark in leg.landmarks() {
