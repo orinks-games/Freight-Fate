@@ -14843,6 +14843,10 @@ msgstr "{highway} üzerinde {place}{state}"
 msgid "Passing {place}{state}."
 msgstr "Geçilen yer: {place}{state}."
 
+#. placeholders: {f}
+msgid " Toll {f} Canadian dollars."
+msgstr ""
+
 #. placeholders: {amount}
 msgid " Toll about {amount} dollars."
 msgstr " Geçiş ücreti yaklaşık {amount} dolar."
@@ -16919,6 +16923,16 @@ msgstr "{terse} Sinyal vermek için {exit_hint} tuşuna basın."
 
 msgid "estimated "
 msgstr "tahminen "
+
+#. placeholders: {method_label}, {name}, {estimate}, {cad}
+msgid ""
+"{method_label} toll at {name}, {estimate}{cad} Canadian dollars, billed to "
+"carrier settlement."
+msgstr ""
+
+#. placeholders: {cad}
+msgid "Toll, {cad} Canadian dollars, carrier."
+msgstr ""
 
 #. placeholders: {method_label}, {name}, {estimate}, {amount_text}
 msgid ""
@@ -28353,6 +28367,10 @@ msgstr "Hızlanma şeridi"
 msgid " for the exit"
 msgstr " çıkış için"
 
+#. placeholders: {speed_value}
+msgid " for the {speed_value} limit"
+msgstr " {speed_value} hız sınırı için"
+
 msgid " through the construction zone"
 msgstr " çalışma bölgesi boyunca"
 
@@ -28362,10 +28380,6 @@ msgstr " yoğun trafik boyunca"
 #. placeholders: {speed_value}
 msgid " for the {speed_value} limit ahead"
 msgstr " ilerideki {speed_value} hız sınırı için"
-
-#. placeholders: {speed_value}
-msgid " for the {speed_value} limit"
-msgstr " {speed_value} hız sınırı için"
 
 #. placeholders: {value}
 msgid " in the {value}"

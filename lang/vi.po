@@ -15286,6 +15286,10 @@ msgstr "{place}{state} trên {highway}"
 msgid "Passing {place}{state}."
 msgstr "Đang qua {place}{state}."
 
+#. placeholders: {f}
+msgid " Toll {f} Canadian dollars."
+msgstr ""
+
 #. placeholders: {amount}
 msgid " Toll about {amount} dollars."
 msgstr " Phí cầu đường khoảng {amount} đô la."
@@ -17386,6 +17390,16 @@ msgstr "{terse} Nhấn {exit_hint} để bật xi-nhan."
 
 msgid "estimated "
 msgstr "ước tính "
+
+#. placeholders: {method_label}, {name}, {estimate}, {cad}
+msgid ""
+"{method_label} toll at {name}, {estimate}{cad} Canadian dollars, billed to "
+"carrier settlement."
+msgstr ""
+
+#. placeholders: {cad}
+msgid "Toll, {cad} Canadian dollars, carrier."
+msgstr ""
 
 #. placeholders: {method_label}, {name}, {estimate}, {amount_text}
 msgid ""
@@ -28910,6 +28924,10 @@ msgstr "Làn tăng tốc"
 msgid " for the exit"
 msgstr " để ra lối rẽ"
 
+#. placeholders: {speed_value}
+msgid " for the {speed_value} limit"
+msgstr " theo giới hạn {speed_value}"
+
 msgid " through the construction zone"
 msgstr " qua khu vực thi công"
 
@@ -28919,10 +28937,6 @@ msgstr " qua đoạn đường đông xe"
 #. placeholders: {speed_value}
 msgid " for the {speed_value} limit ahead"
 msgstr " theo giới hạn {speed_value} phía trước"
-
-#. placeholders: {speed_value}
-msgid " for the {speed_value} limit"
-msgstr " theo giới hạn {speed_value}"
 
 #. placeholders: {value}
 msgid " in the {value}"

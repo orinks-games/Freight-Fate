@@ -318,8 +318,27 @@ fn quebec_exits_give_their_directions_in_english() {
             let french = x
                 .via
                 .split(|c: char| c == ';' || c.is_whitespace())
-                .any(|w| matches!(w, "Est" | "Ouest" | "Nord" | "Sud"));
+                .any(|w| matches!(w.to_lowercase().as_str(), "est" | "ouest" | "nord" | "sud"));
             assert!(!french, "{} to {} exit {}: {}", l.a, l.b, x.exit_ref, x.via);
+        }
+    }
+}
+
+#[test]
+fn ontario_exits_do_not_name_an_emergency_detour_as_their_road() {
+    // "Highway 401 EDR" marks the detour to take when the 401 closes; the
+    // exit leads to Highway 3.
+    for l in world()
+        .legs
+        .iter()
+        .filter(|l| l.a.ends_with("_on_ca") || l.b.ends_with("_on_ca"))
+    {
+        for x in l.interchanges() {
+            let detour = x
+                .via
+                .split_whitespace()
+                .any(|w| w.eq_ignore_ascii_case("EDR"));
+            assert!(!detour, "{} to {} exit {}: {}", l.a, l.b, x.exit_ref, x.via);
         }
     }
 }
@@ -345,4 +364,27 @@ fn every_long_western_canada_leg_has_fuel_a_loaded_truck_can_use() {
         .map(|l| format!("{}:{} ({} mi)", l.a, l.b, l.miles))
         .collect();
     assert!(dry.is_empty(), "no loaded-truck fuel on {dry:#?}");
+}
+
+#[test]
+fn canadian_booths_say_the_canadian_price_and_bill_us_dollars() {
+    // Orinks, 2026-11-22: a Canadian booth says the Canadian price. The
+    // settlement keeps the one currency the career runs in.
+    let toll = &leg("sarnia_on_ca:port_huron_mi_us").toll_events()[0];
+    assert_eq!(toll.canadian_amount(), Some(35.0));
+    assert!((toll.amount - 25.04).abs() < 0.005, "{}", toll.amount);
+    let line = ff_core::speech_text::toll_charged(
+        &toll.method_label(),
+        &toll.name,
+        &ff_core::speech_text::toll_amount_text(toll),
+        toll.estimated,
+    );
+    assert_eq!(
+        line.normal,
+        "cash or card toll at Blue Water Bridge toll, 35 Canadian dollars, billed to carrier settlement."
+    );
+    // The US-side booth into Canada still posts US dollars.
+    let back = &leg("port_huron_mi_us:sarnia_on_ca").toll_events()[0];
+    assert_eq!(back.canadian_amount(), None);
+    assert_eq!(ff_core::speech_text::toll_amount_text(back), "26");
 }

@@ -6039,7 +6039,28 @@ a carrier slice (owner, 2026-10-26).
       its bare number ("exit 185 for 255"). `cargo tools osm-exit-routes`
       (2026-11-22) matches each bare number to the OpenStreetMap road
       route relation nearest the exit and speaks its kind: Route 255,
-      A-20, Highway 8, County Road 31, Regional Road 60.
+      A-20, Highway 8, County Road 31, Regional Road 60. Emergency detour
+      refs ("Highway 401 EDR") are dropped, and French directions read in
+      English whatever their case.
+- [ ] (Found along the way) 75 Ontario and Quebec exits still sign a bare
+      number, because no road route relation of that number lies within
+      6 km: mostly roads Hamilton, Kingston and Chatham-Kent number
+      without a county name, plus a few roads whose relation is missing
+      from the cut. Hand fix first: Mississauga to Hamilton says "exit 70
+      for 8 toward East" (Hamilton's road 8; "East" is OSM's destination
+      tag).
+- [x] (Found along the way) The cruise speed for an exit sat over the
+      posted limit where a slow road meets a faster interchange: at the
+      Blue Water Bridge approach, posted 50 km/h, cruise set 56 "for the
+      exit" and the game then warned the driver twice. Fixed 2026-11-22:
+      the exit approach speed is never above the posting at the gore,
+      nor above the posting where the truck is while the exit is armed.
+- [x] (Found along the way) Canadian toll booths say the Canadian price
+      (Orinks, 2026-11-22): Blue Water into the US CAD 35, Gordie Howe
+      CAD 60 both ways, Lewiston-Queenston CAD 48.50. The settlement stays
+      in US dollars.
+- [ ] (Found along the way) The Thousand Islands booth at Ivy Lea, on the
+      Canadian side, still says US dollars: no Canadian rate is sourced.
 - [ ] (Found along the way) A provincial traffic table for Ontario (MTO
       AADT) and Quebec (MTMD DJMA); traffic on the Ontario and Quebec legs
       is assumed until then.
