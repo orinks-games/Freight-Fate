@@ -10718,10 +10718,7 @@
           "name": "Le Domaine",
           "type": "fuel_station",
           "actions": [
-            "park",
-            "save",
-            "fuel",
-            "break"
+            "fuel"
           ],
           "services": [
             "parking",
@@ -10736,7 +10733,7 @@
           ],
           "curation": "curated",
           "vehicle_access": "tractor_trailer",
-          "source": "Position read from OSM node 5737019507 (services, Le Domaine) and way 419744777 (fuel, operator Garage Kevin B. Murphy), OpenStreetMap planet extract 2026-11-16, the one fuel stop on Route 117 through the La V\u00e9rendrye reserve between Grand-Remous and Louvicourt. Diesel, food and year-round opening assumed, not read. Tractor-trailer access assumed, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+          "source": "Position read from OSM node 5737019507 (services, Le Domaine) and way 419744777 (fuel, operator Garage Kevin B. Murphy), OpenStreetMap planet extract 2026-11-16, the one fuel stop on Route 117 through the La V\u00e9rendrye reserve between Grand-Remous and Louvicourt. Diesel, food and year-round opening assumed, not read. Tractor-trailer access assumed, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road. Truck parking is not verified, so the stop offers fuel only.",
           "at_mi": 67.3
         },
         {
@@ -10751,13 +10748,13 @@
           "services": [
             "parking"
           ],
-          "parking": "unknown",
+          "parking": "limited",
           "directions": [
             "both"
           ],
           "curation": "curated",
           "vehicle_access": "tractor_trailer",
-          "source": "Position and name read from OSM node 1829923220 (highway=rest_area, Aire de repos de R\u00e9servoir-Dozois (Sureau), toilets=no), OpenStreetMap planet extract 2026-11-16, on Route 117 in the La V\u00e9rendrye reserve. Year-round opening, truck parking and an overnight stay are assumed, not read. Leg mile projected onto the leg's road.",
+          "source": "Position and name read from OSM node 1829923220 (highway=rest_area, Aire de repos de R\u00e9servoir-Dozois (Sureau), toilets=no), OpenStreetMap planet extract 2026-11-16, on Route 117 in the La V\u00e9rendrye reserve. Year-round opening, truck parking and an overnight stay are assumed, not read. Leg mile projected onto the leg's road. Truck parking assumed limited, as at other Quebec highway rest areas; capacity not read.",
           "at_mi": 115.9
         }
       ],
@@ -49970,23 +49967,20 @@
           "services": [
             "parking"
           ],
-          "parking": "unknown",
+          "parking": "limited",
           "directions": [
             "both"
           ],
           "curation": "curated",
           "vehicle_access": "tractor_trailer",
-          "source": "Position and name read from OSM node 1829923220 (highway=rest_area, Aire de repos de R\u00e9servoir-Dozois (Sureau), toilets=no), OpenStreetMap planet extract 2026-11-16, on Route 117 in the La V\u00e9rendrye reserve. Year-round opening, truck parking and an overnight stay are assumed, not read. Leg mile projected onto the leg's road.",
+          "source": "Position and name read from OSM node 1829923220 (highway=rest_area, Aire de repos de R\u00e9servoir-Dozois (Sureau), toilets=no), OpenStreetMap planet extract 2026-11-16, on Route 117 in the La V\u00e9rendrye reserve. Year-round opening, truck parking and an overnight stay are assumed, not read. Leg mile projected onto the leg's road. Truck parking assumed limited, as at other Quebec highway rest areas; capacity not read.",
           "at_mi": 64.1
         },
         {
           "name": "Le Domaine",
           "type": "fuel_station",
           "actions": [
-            "park",
-            "save",
-            "fuel",
-            "break"
+            "fuel"
           ],
           "services": [
             "parking",
@@ -50001,7 +49995,7 @@
           ],
           "curation": "curated",
           "vehicle_access": "tractor_trailer",
-          "source": "Position read from OSM node 5737019507 (services, Le Domaine) and way 419744777 (fuel, operator Garage Kevin B. Murphy), OpenStreetMap planet extract 2026-11-16, the one fuel stop on Route 117 through the La V\u00e9rendrye reserve between Grand-Remous and Louvicourt. Diesel, food and year-round opening assumed, not read. Tractor-trailer access assumed, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+          "source": "Position read from OSM node 5737019507 (services, Le Domaine) and way 419744777 (fuel, operator Garage Kevin B. Murphy), OpenStreetMap planet extract 2026-11-16, the one fuel stop on Route 117 through the La V\u00e9rendrye reserve between Grand-Remous and Louvicourt. Diesel, food and year-round opening assumed, not read. Tractor-trailer access assumed, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road. Truck parking is not verified, so the stop offers fuel only.",
           "at_mi": 112.7
         }
       ],
