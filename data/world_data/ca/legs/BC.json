@@ -25415,7 +25415,39 @@
           "name": "rolling",
           "sections": 0,
           "source": "DERIVED, not read: Canada has no national inventory like HPMS, so the class is the terrain the leg's own grade profile spends the most miles in (the reroute-enrich rule: sustained grade of 5 percent, or 4 percent with 1,000 ft of relief within 5 miles, is mountain; 1.5 percent or 400 ft of relief is hills; else flat), mapped flat to level, hills to rolling and mountain to mountainous. It reads the same elevation as the grade, so it is no independent check on it."
-        }
+        },
+        "billboard_bans": [
+          {
+            "from_mi": 27.4,
+            "to_mi": 37.2,
+            "name": "Stikine River Provincial Park",
+            "source": "derived 2026-11-22: OpenStreetMap protected-area polygon (Stikine River Provincial Park) boundary from the planet extract of 2026-11-16 (corridor-5-west-places.md); the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
+          },
+          {
+            "from_mi": 60.6,
+            "to_mi": 69.3,
+            "name": "Todagin Wildlife Management Area",
+            "source": "derived 2026-11-22: OpenStreetMap protected-area polygon (Todagin Wildlife Management Area) boundary from the planet extract of 2026-11-16 (corridor-5-west-places.md); the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
+          },
+          {
+            "from_mi": 77.3,
+            "to_mi": 81.3,
+            "name": "Kinaskan Lake Provincial Park",
+            "source": "derived 2026-11-22: OpenStreetMap protected-area polygon (Kinaskan Lake Provincial Park) boundary from the planet extract of 2026-11-16 (corridor-5-west-places.md); the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
+          },
+          {
+            "from_mi": 125.4,
+            "to_mi": 137.5,
+            "name": "Ningunsaw Provincial Park and Ecological Reserve",
+            "source": "derived 2026-11-22: OpenStreetMap protected-area polygon (Ningunsaw Provincial Park and Ecological Reserve) boundary from the planet extract of 2026-11-16 (corridor-5-west-places.md); the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
+          },
+          {
+            "from_mi": 192.4,
+            "to_mi": 204.9,
+            "name": "Hanna-Tintina Conservancy",
+            "source": "derived 2026-11-22: OpenStreetMap protected-area polygon (Hanna-Tintina Conservancy) boundary from the planet extract of 2026-11-16 (corridor-5-west-places.md); the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
+          }
+        ]
       },
       "rerouted": true
     },
@@ -26946,7 +26978,21 @@
           "name": "rolling",
           "sections": 0,
           "source": "DERIVED, not read: Canada has no national inventory like HPMS, so the class is the terrain the leg's own grade profile spends the most miles in (the reroute-enrich rule: sustained grade of 5 percent, or 4 percent with 1,000 ft of relief within 5 miles, is mountain; 1.5 percent or 400 ft of relief is hills; else flat), mapped flat to level, hills to rolling and mountain to mountainous. It reads the same elevation as the grade, so it is no independent check on it."
-        }
+        },
+        "billboard_bans": [
+          {
+            "from_mi": 38.7,
+            "to_mi": 39.7,
+            "name": "Chickens Neck Mountain Ecological Reserve",
+            "source": "derived 2026-11-22: OpenStreetMap protected-area polygon (Chickens Neck Mountain Ecological Reserve) boundary from the planet extract of 2026-11-16 (corridor-5-west-places.md); the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on); widened to the one-mile minimum"
+          },
+          {
+            "from_mi": 92.7,
+            "to_mi": 96.6,
+            "name": "T\u0101 Ch'il\u0101 Provincial Park",
+            "source": "derived 2026-11-22: OpenStreetMap protected-area polygon (T\u0101 Ch'il\u0101 Provincial Park) boundary from the planet extract of 2026-11-16 (corridor-5-west-places.md); the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
+          }
+        ]
       },
       "rerouted": true
     },
@@ -53985,7 +54031,27 @@
           "name": "rolling",
           "sections": 0,
           "source": "DERIVED, not read: Canada has no national inventory like HPMS, so the class is the terrain the leg's own grade profile spends the most miles in (the reroute-enrich rule: sustained grade of 5 percent, or 4 percent with 1,000 ft of relief within 5 miles, is mountain; 1.5 percent or 400 ft of relief is hills; else flat), mapped flat to level, hills to rolling and mountain to mountainous. It reads the same elevation as the grade, so it is no independent check on it."
-        }
+        },
+        "billboard_bans": [
+          {
+            "from_mi": 11.65,
+            "to_mi": 12.65,
+            "name": "Kitimat River Provincial Park",
+            "source": "derived 2026-11-22: OpenStreetMap protected-area polygon (Kitimat River Provincial Park) boundary from the planet extract of 2026-11-16 (corridor-5-west-places.md); the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on); widened to the one-mile minimum"
+          },
+          {
+            "from_mi": 27.8,
+            "to_mi": 29.0,
+            "name": "Lakelse Lake Wetlands Provincial Park",
+            "source": "derived 2026-11-22: OpenStreetMap protected-area polygon (Lakelse Lake Wetlands Provincial Park) boundary from the planet extract of 2026-11-16 (corridor-5-west-places.md); the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
+          },
+          {
+            "from_mi": 34.1,
+            "to_mi": 35.1,
+            "name": "Lakelse Lake Provincial Park",
+            "source": "derived 2026-11-22: OpenStreetMap protected-area polygon (Lakelse Lake Provincial Park) boundary from the planet extract of 2026-11-16 (corridor-5-west-places.md); the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on); widened to the one-mile minimum"
+          }
+        ]
       },
       "route_via": [
         {
@@ -61384,7 +61450,39 @@
           "name": "rolling",
           "sections": 0,
           "source": "DERIVED, not read: Canada has no national inventory like HPMS, so the class is the terrain the leg's own grade profile spends the most miles in (the reroute-enrich rule: sustained grade of 5 percent, or 4 percent with 1,000 ft of relief within 5 miles, is mountain; 1.5 percent or 400 ft of relief is hills; else flat), mapped flat to level, hills to rolling and mountain to mountainous. It reads the same elevation as the grade, so it is no independent check on it."
-        }
+        },
+        "billboard_bans": [
+          {
+            "from_mi": 0.5,
+            "to_mi": 13.0,
+            "name": "Hanna-Tintina Conservancy",
+            "source": "derived 2026-11-22: OpenStreetMap protected-area polygon (Hanna-Tintina Conservancy) boundary from the planet extract of 2026-11-16 (corridor-5-west-places.md); the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
+          },
+          {
+            "from_mi": 67.9,
+            "to_mi": 80.0,
+            "name": "Ningunsaw Provincial Park and Ecological Reserve",
+            "source": "derived 2026-11-22: OpenStreetMap protected-area polygon (Ningunsaw Provincial Park and Ecological Reserve) boundary from the planet extract of 2026-11-16 (corridor-5-west-places.md); the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
+          },
+          {
+            "from_mi": 124.1,
+            "to_mi": 128.1,
+            "name": "Kinaskan Lake Provincial Park",
+            "source": "derived 2026-11-22: OpenStreetMap protected-area polygon (Kinaskan Lake Provincial Park) boundary from the planet extract of 2026-11-16 (corridor-5-west-places.md); the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
+          },
+          {
+            "from_mi": 136.1,
+            "to_mi": 144.8,
+            "name": "Todagin Wildlife Management Area",
+            "source": "derived 2026-11-22: OpenStreetMap protected-area polygon (Todagin Wildlife Management Area) boundary from the planet extract of 2026-11-16 (corridor-5-west-places.md); the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
+          },
+          {
+            "from_mi": 168.2,
+            "to_mi": 178.0,
+            "name": "Stikine River Provincial Park",
+            "source": "derived 2026-11-22: OpenStreetMap protected-area polygon (Stikine River Provincial Park) boundary from the planet extract of 2026-11-16 (corridor-5-west-places.md); the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
+          }
+        ]
       },
       "rerouted": true
     },
@@ -61742,7 +61840,15 @@
           "name": "rolling",
           "sections": 0,
           "source": "DERIVED, not read: Canada has no national inventory like HPMS, so the class is the terrain the leg's own grade profile spends the most miles in (the reroute-enrich rule: sustained grade of 5 percent, or 4 percent with 1,000 ft of relief within 5 miles, is mountain; 1.5 percent or 400 ft of relief is hills; else flat), mapped flat to level, hills to rolling and mountain to mountainous. It reads the same elevation as the grade, so it is no independent check on it."
-        }
+        },
+        "billboard_bans": [
+          {
+            "from_mi": 14.8,
+            "to_mi": 15.8,
+            "name": "Bear Glacier Provincial Park",
+            "source": "derived 2026-11-22: OpenStreetMap protected-area polygon (Bear Glacier Provincial Park) boundary from the planet extract of 2026-11-16 (corridor-5-west-places.md); the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
+          }
+        ]
       },
       "rerouted": true
     },
@@ -63470,7 +63576,51 @@
           "name": "level",
           "sections": 0,
           "source": "DERIVED, not read: Canada has no national inventory like HPMS, so the class is the terrain the leg's own grade profile spends the most miles in (the reroute-enrich rule: sustained grade of 5 percent, or 4 percent with 1,000 ft of relief within 5 miles, is mountain; 1.5 percent or 400 ft of relief is hills; else flat), mapped flat to level, hills to rolling and mountain to mountainous. It reads the same elevation as the grade, so it is no independent check on it."
-        }
+        },
+        "billboard_bans": [
+          {
+            "from_mi": 0,
+            "to_mi": 1.0,
+            "name": "Meziadin Lake Provincial Park",
+            "source": "derived 2026-11-22: OpenStreetMap protected-area polygon (Meziadin Lake Provincial Park) boundary from the planet extract of 2026-11-16 (corridor-5-west-places.md); the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on); widened to the one-mile minimum"
+          },
+          {
+            "from_mi": 0.7,
+            "to_mi": 8.7,
+            "name": "Hanna-Tintina Conservancy",
+            "source": "derived 2026-11-22: OpenStreetMap protected-area polygon (Hanna-Tintina Conservancy) boundary from the planet extract of 2026-11-16 (corridor-5-west-places.md); the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
+          },
+          {
+            "from_mi": 102.8,
+            "to_mi": 104.3,
+            "name": "Seven Sisters Protected Area",
+            "source": "derived 2026-11-22: OpenStreetMap protected-area polygon (Seven Sisters Protected Area) boundary from the planet extract of 2026-11-16 (corridor-5-west-places.md); the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
+          },
+          {
+            "from_mi": 106.4,
+            "to_mi": 107.8,
+            "name": "Seven Sisters Protected Area",
+            "source": "derived 2026-11-22: OpenStreetMap protected-area polygon (Seven Sisters Protected Area) boundary from the planet extract of 2026-11-16 (corridor-5-west-places.md); the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
+          },
+          {
+            "from_mi": 109.45,
+            "to_mi": 110.45,
+            "name": "Seven Sisters Protected Area",
+            "source": "derived 2026-11-22: OpenStreetMap protected-area polygon (Seven Sisters Protected Area) boundary from the planet extract of 2026-11-16 (corridor-5-west-places.md); the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on); widened to the one-mile minimum"
+          },
+          {
+            "from_mi": 119.3,
+            "to_mi": 126.3,
+            "name": "Seven Sisters Protected Area",
+            "source": "derived 2026-11-22: OpenStreetMap protected-area polygon (Seven Sisters Protected Area) boundary from the planet extract of 2026-11-16 (corridor-5-west-places.md); the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
+          },
+          {
+            "from_mi": 143.25,
+            "to_mi": 144.25,
+            "name": "Kleanza Creek Provincial Park",
+            "source": "derived 2026-11-22: OpenStreetMap protected-area polygon (Kleanza Creek Provincial Park) boundary from the planet extract of 2026-11-16 (corridor-5-west-places.md); the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on); widened to the one-mile minimum"
+          }
+        ]
       },
       "rerouted": true
     },
@@ -75767,7 +75917,39 @@
           "name": "level",
           "sections": 0,
           "source": "DERIVED, not read: Canada has no national inventory like HPMS, so the class is the terrain the leg's own grade profile spends the most miles in (the reroute-enrich rule: sustained grade of 5 percent, or 4 percent with 1,000 ft of relief within 5 miles, is mountain; 1.5 percent or 400 ft of relief is hills; else flat), mapped flat to level, hills to rolling and mountain to mountainous. It reads the same elevation as the grade, so it is no independent check on it."
-        }
+        },
+        "billboard_bans": [
+          {
+            "from_mi": 15.3,
+            "to_mi": 16.3,
+            "name": "Prudhomme Lake Provincial Park",
+            "source": "derived 2026-11-22: OpenStreetMap protected-area polygon (Prudhomme Lake Provincial Park) boundary from the planet extract of 2026-11-16 (corridor-5-west-places.md); the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on); widened to the one-mile minimum"
+          },
+          {
+            "from_mi": 21.5,
+            "to_mi": 23.5,
+            "name": "Gamble Creek Ecological Reserve",
+            "source": "derived 2026-11-22: OpenStreetMap protected-area polygon (Gamble Creek Ecological Reserve) boundary from the planet extract of 2026-11-16 (corridor-5-west-places.md); the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
+          },
+          {
+            "from_mi": 28.6,
+            "to_mi": 32.5,
+            "name": "Skeena Bank Conservancy",
+            "source": "derived 2026-11-22: OpenStreetMap protected-area polygon (Skeena Bank Conservancy) boundary from the planet extract of 2026-11-16 (corridor-5-west-places.md); the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
+          },
+          {
+            "from_mi": 51.5,
+            "to_mi": 53.4,
+            "name": "Lower Skeena River Provincial Park",
+            "source": "derived 2026-11-22: OpenStreetMap protected-area polygon (Lower Skeena River Provincial Park) boundary from the planet extract of 2026-11-16 (corridor-5-west-places.md); the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
+          },
+          {
+            "from_mi": 57.9,
+            "to_mi": 58.9,
+            "name": "Skeena River Ecological Reserve and Exchamsiks River Provincial Park",
+            "source": "derived 2026-11-22: OpenStreetMap protected-area polygon (Skeena River Ecological Reserve and Exchamsiks River Provincial Park) boundary from the planet extract of 2026-11-16 (corridor-5-west-places.md); the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
+          }
+        ]
       },
       "rerouted": true
     },
@@ -85933,7 +86115,33 @@
           "name": "level",
           "sections": 0,
           "source": "DERIVED, not read: Canada has no national inventory like HPMS, so the class is the terrain the leg's own grade profile spends the most miles in (the reroute-enrich rule: sustained grade of 5 percent, or 4 percent with 1,000 ft of relief within 5 miles, is mountain; 1.5 percent or 400 ft of relief is hills; else flat), mapped flat to level, hills to rolling and mountain to mountainous. It reads the same elevation as the grade, so it is no independent check on it."
-        }
+        },
+        "billboard_bans": [
+          {
+            "from_mi": 50.0,
+            "to_mi": 51.0,
+            "name": "Seeley Lake Provincial Park",
+            "source": "derived 2026-11-22: OpenStreetMap protected-area polygon (Seeley Lake Provincial Park) boundary from the planet extract of 2026-11-16 (corridor-5-west-places.md); the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on); widened to the one-mile minimum"
+          },
+          {
+            "from_mi": 76.3,
+            "to_mi": 83.5,
+            "name": "Seven Sisters Protected Area",
+            "source": "derived 2026-11-22: OpenStreetMap protected-area polygon (Seven Sisters Protected Area) boundary from the planet extract of 2026-11-16 (corridor-5-west-places.md); the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
+          },
+          {
+            "from_mi": 92.8,
+            "to_mi": 99.8,
+            "name": "Seven Sisters Protected Area",
+            "source": "derived 2026-11-22: OpenStreetMap protected-area polygon (Seven Sisters Protected Area) boundary from the planet extract of 2026-11-16 (corridor-5-west-places.md); the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
+          },
+          {
+            "from_mi": 117.3,
+            "to_mi": 118.3,
+            "name": "Kleanza Creek Provincial Park",
+            "source": "derived 2026-11-22: OpenStreetMap protected-area polygon (Kleanza Creek Provincial Park) boundary from the planet extract of 2026-11-16 (corridor-5-west-places.md); the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
+          }
+        ]
       },
       "rerouted": true
     },
@@ -87818,7 +88026,21 @@
           "name": "level",
           "sections": 0,
           "source": "DERIVED, not read: Canada has no national inventory like HPMS, so the class is the terrain the leg's own grade profile spends the most miles in (the reroute-enrich rule: sustained grade of 5 percent, or 4 percent with 1,000 ft of relief within 5 miles, is mountain; 1.5 percent or 400 ft of relief is hills; else flat), mapped flat to level, hills to rolling and mountain to mountainous. It reads the same elevation as the grade, so it is no independent check on it."
-        }
+        },
+        "billboard_bans": [
+          {
+            "from_mi": 137.9,
+            "to_mi": 138.9,
+            "name": "Drywilliam Lake Ecological Reserve",
+            "source": "derived 2026-11-22: OpenStreetMap protected-area polygon (Drywilliam Lake Ecological Reserve) boundary from the planet extract of 2026-11-16 (corridor-5-west-places.md); the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on); widened to the one-mile minimum"
+          },
+          {
+            "from_mi": 141.4,
+            "to_mi": 142.7,
+            "name": "Beaumont Provincial Park",
+            "source": "derived 2026-11-22: OpenStreetMap protected-area polygon (Beaumont Provincial Park) boundary from the planet extract of 2026-11-16 (corridor-5-west-places.md); the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
+          }
+        ]
       },
       "rerouted": true
     },
@@ -88410,7 +88632,15 @@
           "name": "rolling",
           "sections": 0,
           "source": "DERIVED, not read: Canada has no national inventory like HPMS, so the class is the terrain the leg's own grade profile spends the most miles in (the reroute-enrich rule: sustained grade of 5 percent, or 4 percent with 1,000 ft of relief within 5 miles, is mountain; 1.5 percent or 400 ft of relief is hills; else flat), mapped flat to level, hills to rolling and mountain to mountainous. It reads the same elevation as the grade, so it is no independent check on it."
-        }
+        },
+        "billboard_bans": [
+          {
+            "from_mi": 20.5,
+            "to_mi": 21.5,
+            "name": "Bear Glacier Provincial Park",
+            "source": "derived 2026-11-22: OpenStreetMap protected-area polygon (Bear Glacier Provincial Park) boundary from the planet extract of 2026-11-16 (corridor-5-west-places.md); the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
+          }
+        ]
       },
       "rerouted": true
     },
@@ -90786,7 +91016,27 @@
           "name": "rolling",
           "sections": 0,
           "source": "DERIVED, not read: Canada has no national inventory like HPMS, so the class is the terrain the leg's own grade profile spends the most miles in (the reroute-enrich rule: sustained grade of 5 percent, or 4 percent with 1,000 ft of relief within 5 miles, is mountain; 1.5 percent or 400 ft of relief is hills; else flat), mapped flat to level, hills to rolling and mountain to mountainous. It reads the same elevation as the grade, so it is no independent check on it."
-        }
+        },
+        "billboard_bans": [
+          {
+            "from_mi": 11.2,
+            "to_mi": 12.2,
+            "name": "Lakelse Lake Provincial Park",
+            "source": "derived 2026-11-22: OpenStreetMap protected-area polygon (Lakelse Lake Provincial Park) boundary from the planet extract of 2026-11-16 (corridor-5-west-places.md); the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on); widened to the one-mile minimum"
+          },
+          {
+            "from_mi": 17.3,
+            "to_mi": 18.5,
+            "name": "Lakelse Lake Wetlands Provincial Park",
+            "source": "derived 2026-11-22: OpenStreetMap protected-area polygon (Lakelse Lake Wetlands Provincial Park) boundary from the planet extract of 2026-11-16 (corridor-5-west-places.md); the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
+          },
+          {
+            "from_mi": 33.65,
+            "to_mi": 34.65,
+            "name": "Kitimat River Provincial Park",
+            "source": "derived 2026-11-22: OpenStreetMap protected-area polygon (Kitimat River Provincial Park) boundary from the planet extract of 2026-11-16 (corridor-5-west-places.md); the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on); widened to the one-mile minimum"
+          }
+        ]
       },
       "rerouted": true
     },
@@ -92358,7 +92608,51 @@
           "name": "level",
           "sections": 0,
           "source": "DERIVED, not read: Canada has no national inventory like HPMS, so the class is the terrain the leg's own grade profile spends the most miles in (the reroute-enrich rule: sustained grade of 5 percent, or 4 percent with 1,000 ft of relief within 5 miles, is mountain; 1.5 percent or 400 ft of relief is hills; else flat), mapped flat to level, hills to rolling and mountain to mountainous. It reads the same elevation as the grade, so it is no independent check on it."
-        }
+        },
+        "billboard_bans": [
+          {
+            "from_mi": 12.15,
+            "to_mi": 13.15,
+            "name": "Kleanza Creek Provincial Park",
+            "source": "derived 2026-11-22: OpenStreetMap protected-area polygon (Kleanza Creek Provincial Park) boundary from the planet extract of 2026-11-16 (corridor-5-west-places.md); the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on); widened to the one-mile minimum"
+          },
+          {
+            "from_mi": 30.7,
+            "to_mi": 37.7,
+            "name": "Seven Sisters Protected Area",
+            "source": "derived 2026-11-22: OpenStreetMap protected-area polygon (Seven Sisters Protected Area) boundary from the planet extract of 2026-11-16 (corridor-5-west-places.md); the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
+          },
+          {
+            "from_mi": 46.55,
+            "to_mi": 47.55,
+            "name": "Seven Sisters Protected Area",
+            "source": "derived 2026-11-22: OpenStreetMap protected-area polygon (Seven Sisters Protected Area) boundary from the planet extract of 2026-11-16 (corridor-5-west-places.md); the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on); widened to the one-mile minimum"
+          },
+          {
+            "from_mi": 49.2,
+            "to_mi": 50.6,
+            "name": "Seven Sisters Protected Area",
+            "source": "derived 2026-11-22: OpenStreetMap protected-area polygon (Seven Sisters Protected Area) boundary from the planet extract of 2026-11-16 (corridor-5-west-places.md); the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
+          },
+          {
+            "from_mi": 52.7,
+            "to_mi": 54.2,
+            "name": "Seven Sisters Protected Area",
+            "source": "derived 2026-11-22: OpenStreetMap protected-area polygon (Seven Sisters Protected Area) boundary from the planet extract of 2026-11-16 (corridor-5-west-places.md); the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
+          },
+          {
+            "from_mi": 147.7,
+            "to_mi": 155.7,
+            "name": "Hanna-Tintina Conservancy",
+            "source": "derived 2026-11-22: OpenStreetMap protected-area polygon (Hanna-Tintina Conservancy) boundary from the planet extract of 2026-11-16 (corridor-5-west-places.md); the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
+          },
+          {
+            "from_mi": 155.4,
+            "to_mi": 156.4,
+            "name": "Meziadin Lake Provincial Park",
+            "source": "derived 2026-11-22: OpenStreetMap protected-area polygon (Meziadin Lake Provincial Park) boundary from the planet extract of 2026-11-16 (corridor-5-west-places.md); the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on); widened to the one-mile minimum"
+          }
+        ]
       },
       "rerouted": true
     },
@@ -93420,7 +93714,39 @@
           "name": "level",
           "sections": 0,
           "source": "DERIVED, not read: Canada has no national inventory like HPMS, so the class is the terrain the leg's own grade profile spends the most miles in (the reroute-enrich rule: sustained grade of 5 percent, or 4 percent with 1,000 ft of relief within 5 miles, is mountain; 1.5 percent or 400 ft of relief is hills; else flat), mapped flat to level, hills to rolling and mountain to mountainous. It reads the same elevation as the grade, so it is no independent check on it."
-        }
+        },
+        "billboard_bans": [
+          {
+            "from_mi": 32.5,
+            "to_mi": 33.5,
+            "name": "Skeena River Ecological Reserve and Exchamsiks River Provincial Park",
+            "source": "derived 2026-11-22: OpenStreetMap protected-area polygon (Skeena River Ecological Reserve and Exchamsiks River Provincial Park) boundary from the planet extract of 2026-11-16 (corridor-5-west-places.md); the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
+          },
+          {
+            "from_mi": 38.0,
+            "to_mi": 39.9,
+            "name": "Lower Skeena River Provincial Park",
+            "source": "derived 2026-11-22: OpenStreetMap protected-area polygon (Lower Skeena River Provincial Park) boundary from the planet extract of 2026-11-16 (corridor-5-west-places.md); the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
+          },
+          {
+            "from_mi": 58.9,
+            "to_mi": 62.8,
+            "name": "Skeena Bank Conservancy",
+            "source": "derived 2026-11-22: OpenStreetMap protected-area polygon (Skeena Bank Conservancy) boundary from the planet extract of 2026-11-16 (corridor-5-west-places.md); the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
+          },
+          {
+            "from_mi": 67.9,
+            "to_mi": 69.9,
+            "name": "Gamble Creek Ecological Reserve",
+            "source": "derived 2026-11-22: OpenStreetMap protected-area polygon (Gamble Creek Ecological Reserve) boundary from the planet extract of 2026-11-16 (corridor-5-west-places.md); the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
+          },
+          {
+            "from_mi": 75.1,
+            "to_mi": 76.1,
+            "name": "Prudhomme Lake Provincial Park",
+            "source": "derived 2026-11-22: OpenStreetMap protected-area polygon (Prudhomme Lake Provincial Park) boundary from the planet extract of 2026-11-16 (corridor-5-west-places.md); the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on); widened to the one-mile minimum"
+          }
+        ]
       },
       "rerouted": true
     },
@@ -94895,7 +95221,33 @@
           "name": "level",
           "sections": 0,
           "source": "DERIVED, not read: Canada has no national inventory like HPMS, so the class is the terrain the leg's own grade profile spends the most miles in (the reroute-enrich rule: sustained grade of 5 percent, or 4 percent with 1,000 ft of relief within 5 miles, is mountain; 1.5 percent or 400 ft of relief is hills; else flat), mapped flat to level, hills to rolling and mountain to mountainous. It reads the same elevation as the grade, so it is no independent check on it."
-        }
+        },
+        "billboard_bans": [
+          {
+            "from_mi": 12.2,
+            "to_mi": 13.2,
+            "name": "Kleanza Creek Provincial Park",
+            "source": "derived 2026-11-22: OpenStreetMap protected-area polygon (Kleanza Creek Provincial Park) boundary from the planet extract of 2026-11-16 (corridor-5-west-places.md); the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
+          },
+          {
+            "from_mi": 30.7,
+            "to_mi": 37.7,
+            "name": "Seven Sisters Protected Area",
+            "source": "derived 2026-11-22: OpenStreetMap protected-area polygon (Seven Sisters Protected Area) boundary from the planet extract of 2026-11-16 (corridor-5-west-places.md); the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
+          },
+          {
+            "from_mi": 47.0,
+            "to_mi": 54.2,
+            "name": "Seven Sisters Protected Area",
+            "source": "derived 2026-11-22: OpenStreetMap protected-area polygon (Seven Sisters Protected Area) boundary from the planet extract of 2026-11-16 (corridor-5-west-places.md); the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
+          },
+          {
+            "from_mi": 79.5,
+            "to_mi": 80.5,
+            "name": "Seeley Lake Provincial Park",
+            "source": "derived 2026-11-22: OpenStreetMap protected-area polygon (Seeley Lake Provincial Park) boundary from the planet extract of 2026-11-16 (corridor-5-west-places.md); the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on); widened to the one-mile minimum"
+          }
+        ]
       },
       "rerouted": true
     },
@@ -102664,7 +103016,21 @@
           "name": "level",
           "sections": 0,
           "source": "DERIVED, not read: Canada has no national inventory like HPMS, so the class is the terrain the leg's own grade profile spends the most miles in (the reroute-enrich rule: sustained grade of 5 percent, or 4 percent with 1,000 ft of relief within 5 miles, is mountain; 1.5 percent or 400 ft of relief is hills; else flat), mapped flat to level, hills to rolling and mountain to mountainous. It reads the same elevation as the grade, so it is no independent check on it."
-        }
+        },
+        "billboard_bans": [
+          {
+            "from_mi": 25.6,
+            "to_mi": 26.9,
+            "name": "Beaumont Provincial Park",
+            "source": "derived 2026-11-22: OpenStreetMap protected-area polygon (Beaumont Provincial Park) boundary from the planet extract of 2026-11-16 (corridor-5-west-places.md); the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
+          },
+          {
+            "from_mi": 29.4,
+            "to_mi": 30.4,
+            "name": "Drywilliam Lake Ecological Reserve",
+            "source": "derived 2026-11-22: OpenStreetMap protected-area polygon (Drywilliam Lake Ecological Reserve) boundary from the planet extract of 2026-11-16 (corridor-5-west-places.md); the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on); widened to the one-mile minimum"
+          }
+        ]
       },
       "rerouted": true
     },

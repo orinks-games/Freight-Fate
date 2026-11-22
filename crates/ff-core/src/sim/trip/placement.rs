@@ -597,6 +597,7 @@ impl Trip {
                         format!("{}.", landmark.spoken)
                     },
                 );
+                callout.place = landmark.name.clone();
                 if landmark.category == "village" {
                     if landmark.off_mi > VILLAGE_PASS_OFF_MI {
                         continue;
@@ -610,10 +611,41 @@ impl Trip {
                 callouts.push(callout);
             }
         }
-        // Town names are placed first and scenery fills the gaps around them.
-        let mut spaced = Self::thin_villages(villages);
+        Self::space_landmarks(Self::thin_villages(villages), callouts)
+    }
+
+    /// Town names are placed first and scenery fills the gaps around them. A
+    /// landmark line that names a kept town at the town's own milepost
+    /// ("Passing Bethune Memorial House, in Gravenhurst.") is the town's line:
+    /// it takes the town's slot instead of being spaced away behind it. Where
+    /// the town explains a speed limit change it stays a town name, saying
+    /// the landmark's words, so the limit keeps its explanation; elsewhere it
+    /// is heard as the landmark it is, under the roadside switches, since a
+    /// town name that explains nothing is heard only at the loudest place
+    /// tier.
+    pub fn space_landmarks(
+        mut spaced: Vec<RoadsideCallout>,
+        mut callouts: Vec<RoadsideCallout>,
+    ) -> Vec<RoadsideCallout> {
         callouts.sort_by(|a, b| a.at_mi.partial_cmp(&b.at_mi).expect("finite mileposts"));
         for callout in callouts {
+            let town = (callout.category == "highway_marker" && !callout.place.is_empty())
+                .then(|| {
+                    spaced.iter().position(|kept| {
+                        kept.category == "village"
+                            && kept.place == callout.place
+                            && (kept.at_mi - callout.at_mi).abs() < TOWN_LINE_SAME_MILE_MI
+                    })
+                })
+                .flatten();
+            if let Some(town) = town {
+                if spaced[town].explains_limit {
+                    spaced[town].spoken = callout.spoken;
+                } else {
+                    spaced[town] = callout;
+                }
+                continue;
+            }
             if callout.category != "billboard_sign"
                 && spaced
                     .iter()

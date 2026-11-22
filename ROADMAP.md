@@ -6371,6 +6371,13 @@ a carrier slice (owner, 2026-10-26).
       approved board was dropped (heard on Belleville to Kingston, and
       the Ottawa boards lost at 20x). A placed sign still spends the
       budget once read.
+- [x] A landmark line that names its town takes the town's slot
+      (2026-11-22, Found along the way): Bethune Memorial House and
+      Wembley's museum stand at their village's milepost, the village won
+      the two-mile spacing, and a village that explains no limit is heard
+      only at the loudest place tier, so neither line was heard. Placement
+      now gives the town's slot to the landmark line; a town that explains
+      a limit keeps that role and says the landmark's words.
 - [ ] (Found along the way) Brock's Monument is still skipped: on
       Niagara Falls to Buffalo it sits within two miles of "Entering
       Queenston" and "Passing Lewiston". No park bans are derived for

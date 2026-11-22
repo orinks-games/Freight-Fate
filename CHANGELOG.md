@@ -107,6 +107,7 @@
 
 ### Fixed
 
+- **Town lines that name a landmark now play.** Passing Gravenhurst names Bethune Memorial House, and Wembley names its dinosaur museum.
 - **Driving into the Northwest Territories now says "the Northwest Territories."** The District of Columbia gets its "the" too.
 - **A roadside attraction board is no longer skipped when a joke board came just before it.** Boards like Kingston Penitentiary's now play as you pass.
 - **An empty run now parks and settles when it arrives,** without offering to drop a loaded trailer it never had.
