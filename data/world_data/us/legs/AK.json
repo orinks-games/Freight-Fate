@@ -26860,6 +26860,240 @@
       "rerouted": true
     },
     {
+      "from": "hyder_ak_us",
+      "to": "stewart_bc_ca",
+      "miles": 5,
+      "highway": "Hwy 37A / Premier Avenue",
+      "terrain": "flat",
+      "divided": false,
+      "lanes": 2,
+      "stops": [],
+      "corridor": {
+        "tollway_detected": false,
+        "route_points": [
+          {
+            "at_mi": 0.0,
+            "lat": 55.91698,
+            "lon": -130.02765
+          },
+          {
+            "at_mi": 5.0,
+            "lat": 55.95535,
+            "lon": -129.97136
+          }
+        ],
+        "checkpoints": [
+          {
+            "name": "Stewart Port of Entry",
+            "at_mi": 0.7,
+            "type": "border",
+            "state": "British Columbia",
+            "highway": "Hwy 37A / Premier Avenue",
+            "lat": 55.91196,
+            "lon": -130.01634,
+            "source": "Canada Border Services Agency Stewart, # 1 Highway 37A; no commercial hours published: the CBSA Stewart office lists traveller hours only, 08:00 to 24:00 October to April and 07:00 to 24:00 May to September, seven days a week, with telephone reporting overnight (CBSA Directory of Offices and Services open data (https://www.cbsa-asfc.gc.ca/data/offices-bureaux-en.csv, read 2026-11-22)). Position read from OpenStreetMap way 532973966 (barrier=border_control, government=customs, Canada Border Services Agency - Stewart), OpenStreetMap planet file of 2026-11-16."
+          }
+        ],
+        "source": "New leg for the northern corridor, west (Career 2.0, 2026-11-22): laid out between the two city pins, then routed by Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de) along Hwy 37A and, in Hyder, Premier Avenue.",
+        "elevation_samples": [
+          {
+            "at_mi": 0.0,
+            "elevation_ft": 32.8,
+            "source": "Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "at_mi": 5.0,
+            "elevation_ft": 49.2,
+            "source": "Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          }
+        ],
+        "grade_segments": [
+          {
+            "start_mi": 0.0,
+            "end_mi": 1.0,
+            "avg_grade_pct": 0.12,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 1.0,
+            "end_mi": 1.4,
+            "avg_grade_pct": 2.25,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 1.4,
+            "end_mi": 4.2,
+            "avg_grade_pct": -0.27,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 4.2,
+            "end_mi": 4.8,
+            "avg_grade_pct": 0.25,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 4.8,
+            "end_mi": 5.0,
+            "avg_grade_pct": 0.0,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          }
+        ],
+        "state_miles": [
+          {
+            "state": "Alaska",
+            "miles": 0.7,
+            "source": "derived 2026-11-05: the leg's archived route geometry intersected with OpenStreetMap state and province boundary relations (boundary=administrative, admin_level=4); at_mi = cumulative geometry distance at each boundary crossing, rescaled to leg miles; state miles = differences of those boundaries. OpenStreetMap, boundary relations read from the OpenStreetMap API on 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "state": "British Columbia",
+            "miles": 4.3,
+            "source": "derived 2026-11-05: the leg's archived route geometry intersected with OpenStreetMap state and province boundary relations (boundary=administrative, admin_level=4); at_mi = cumulative geometry distance at each boundary crossing, rescaled to leg miles; state miles = differences of those boundaries. OpenStreetMap, boundary relations read from the OpenStreetMap API on 2026-11-16: https://www.openstreetmap.org/."
+          }
+        ],
+        "state_crossings": [
+          {
+            "at_mi": 0.7,
+            "from_state": "Alaska",
+            "state": "British Columbia",
+            "place": "",
+            "source": "derived 2026-11-05: the leg's archived route geometry intersected with OpenStreetMap state and province boundary relations (boundary=administrative, admin_level=4); at_mi = cumulative geometry distance at each boundary crossing, rescaled to leg miles; state miles = differences of those boundaries. OpenStreetMap, boundary relations read from the OpenStreetMap API on 2026-11-16: https://www.openstreetmap.org/."
+          }
+        ],
+        "interchanges": [],
+        "speed_limits": [
+          {
+            "at_mi": 0.0,
+            "mph": 20,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 0.7,
+            "mph": 30,
+            "kmh": 50,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 3.0,
+            "mph": 20,
+            "kmh": 30,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 4.0,
+            "mph": 30,
+            "kmh": 50,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          }
+        ],
+        "lane_segments": [
+          {
+            "start_mi": 0.0,
+            "end_mi": 5.0,
+            "lanes": 2,
+            "source": "OpenStreetMap lanes tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; total per the OSM lanes semantics (directional on oneway carriageways). ODbL, (c) OpenStreetMap contributors."
+          }
+        ],
+        "restrictions": [],
+        "landmarks": [
+          {
+            "name": "Tongass National Forest",
+            "category": "national_forest",
+            "kind": "zone",
+            "at_mi": 0.7,
+            "lat": 55.91202,
+            "lon": -130.01764,
+            "spoken": "Entering Tongass National Forest",
+            "source": "derived: name and category read from the OpenStreetMap tags of relation 6535292 (Tongass National Forest); placed at the first road vertex inside it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "name": "Stewart Museum",
+            "category": "museum",
+            "kind": "point",
+            "at_mi": 3.3,
+            "lat": 55.9379,
+            "lon": -129.98873,
+            "spoken": "Passing Stewart Museum",
+            "source": "derived: name and category read from the OpenStreetMap tags of node 5831773068 (Stewart Museum); placed at the nearest projection of it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "name": "Bear River",
+            "category": "river",
+            "kind": "point",
+            "at_mi": 4.8,
+            "lat": 55.95367,
+            "lon": -129.97562,
+            "spoken": "Crossing the Bear River",
+            "source": "derived: name and category read from the OpenStreetMap tags of way 346637971 (Bear River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          }
+        ],
+        "hpms_terrain": {
+          "type": 1,
+          "name": "level",
+          "sections": 0,
+          "source": "DERIVED, not read: Canada has no national inventory like HPMS, so the class is the terrain the leg's own grade profile spends the most miles in (the reroute-enrich rule: sustained grade of 5 percent, or 4 percent with 1,000 ft of relief within 5 miles, is mountain; 1.5 percent or 400 ft of relief is hills; else flat), mapped flat to level, hills to rolling and mountain to mountainous. It reads the same elevation as the grade, so it is no independent check on it."
+        },
+        "border_crossing": {
+          "id": "stewart_hyder",
+          "from_country": "US",
+          "to_country": "CA",
+          "ports": [
+            "stewart_hyder"
+          ],
+          "mode": "through_freight",
+          "cabotage": "forbidden",
+          "port_names": {
+            "CA": "Stewart Port of Entry",
+            "US": "Hyder (no US port of entry)"
+          },
+          "agencies": {
+            "CA": "Canada Border Services Agency",
+            "US": "none: U.S. Customs and Border Protection has no station at Hyder"
+          },
+          "commercial_hours": {
+            "CA": "no commercial hours published: the CBSA Stewart office lists traveller hours only, 08:00 to 24:00 October to April and 07:00 to 24:00 May to September, seven days a week, with telephone reporting overnight",
+            "US": "no inspection entering Hyder"
+          },
+          "fast_lane": false,
+          "source": "Canadian side: CBSA office Stewart, # 1 Highway 37A, Stewart, British Columbia, services HWY/B, EXPORT and EDI, US port given as 'No US Customs presence (Hyder AK)'; hours read from the CBSA Directory of Offices and Services open data (https://www.cbsa-asfc.gc.ca/data/offices-bureaux-en.csv, read 2026-11-22). US side: the same CBSA record says there is no US customs presence at Hyder, so a truck entering Alaska here is not inspected. Booth position read from OpenStreetMap (OpenStreetMap planet file of 2026-11-16)."
+        }
+      },
+      "rerouted": true,
+      "border_crossing": {
+        "id": "stewart_hyder",
+        "from_country": "US",
+        "to_country": "CA",
+        "ports": [
+          "stewart_hyder"
+        ],
+        "mode": "through_freight",
+        "cabotage": "forbidden",
+        "port_names": {
+          "CA": "Stewart Port of Entry",
+          "US": "Hyder (no US port of entry)"
+        },
+        "agencies": {
+          "CA": "Canada Border Services Agency",
+          "US": "none: U.S. Customs and Border Protection has no station at Hyder"
+        },
+        "commercial_hours": {
+          "CA": "no commercial hours published: the CBSA Stewart office lists traveller hours only, 08:00 to 24:00 October to April and 07:00 to 24:00 May to September, seven days a week, with telephone reporting overnight",
+          "US": "no inspection entering Hyder"
+        },
+        "fast_lane": false,
+        "source": "Canadian side: CBSA office Stewart, # 1 Highway 37A, Stewart, British Columbia, services HWY/B, EXPORT and EDI, US port given as 'No US Customs presence (Hyder AK)'; hours read from the CBSA Directory of Offices and Services open data (https://www.cbsa-asfc.gc.ca/data/offices-bureaux-en.csv, read 2026-11-22). US side: the same CBSA record says there is no US customs presence at Hyder, so a truck entering Alaska here is not inspected. Booth position read from OpenStreetMap (OpenStreetMap planet file of 2026-11-16)."
+      }
+    },
+    {
       "from": "kenai_ak_us",
       "to": "nikiski_ak_us",
       "miles": 13,
