@@ -87,8 +87,9 @@ Don't report these as missing; they are planned:
   highways.
 - No wipers, frost or ice roads yet.
 - Cattle have no recorded sounds yet.
-- About 600 new spoken lines per language have no translation. Play in
-  English, or expect English lines in your language.
+- All eleven languages have the new spoken lines translated. If you
+  hear an English line while playing in another language, report it with
+  the line quoted.
 
 The full list of rough edges is [Known gaps](#chapter-11-known-gaps).
 
@@ -680,8 +681,6 @@ Known and recorded. Report them only if one costs you a load or a drive.
 - No Ambassador Bridge, Peace Bridge, Fort Frances crossing or Highway 407.
 - French and other place names have not all been checked by ear.
 - Twin parcel loads stay off Alaska and Canadian lanes.
-- Carrier start rows, lane areas and the new lines are in English in other
-  languages.
 
 ## Appendix A. Levers
 

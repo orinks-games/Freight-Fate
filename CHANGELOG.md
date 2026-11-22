@@ -65,6 +65,7 @@
 ### Changed
 
 - **The player manual now covers 2.0,** including Alaska and Canada, the border, units, carriers and the hours rules in each place.
+- **The new roads, loads and achievements are translated in all eleven languages.**
 - **A new career starts at your carrier's terminal.** Pick a region, a home city, then a carrier hiring there.
 - **The career start list runs local, regional, then national carriers, nearest terminal first.** The owner-operator start stays last.
 - **Your home terminal is your carrier's own terminal,** such as Northstar Freight Lines Chicago terminal.
