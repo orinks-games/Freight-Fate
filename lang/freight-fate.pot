@@ -5030,14 +5030,6 @@ msgid "unpaved"
 msgstr ""
 
 #: crates/ff-core/src/data/pavement.rs
-msgid "asphalt"
-msgstr ""
-
-#: crates/ff-core/src/data/pavement.rs
-msgid "other"
-msgstr ""
-
-#: crates/ff-core/src/data/pavement.rs
 msgid "bridge"
 msgstr ""
 
@@ -5084,6 +5076,25 @@ msgstr ""
 msgid "pavement {key}={value} is not a number"
 msgstr ""
 
+#. placeholders: {key}, {v}
+#: crates/ff-core/src/data/pavement.rs
+msgid "pavement {key}={v} is not a year"
+msgstr ""
+
+#: crates/ff-core/src/data/pavement.rs
+msgid "deck"
+msgstr ""
+
+#. placeholders: {v}
+#: crates/ff-core/src/data/pavement.rs
+msgid "pavement deck={v} is not a deck"
+msgstr ""
+
+#. placeholders: {key}, {v}
+#: crates/ff-core/src/data/pavement.rs
+msgid "pavement {key}={v} is not two miles"
+msgstr ""
+
 #: crates/ff-core/src/data/pavement.rs
 msgid "layer"
 msgstr ""
@@ -5111,6 +5122,14 @@ msgid "faulting"
 msgstr ""
 
 #: crates/ff-core/src/data/pavement.rs
+msgid "built"
+msgstr ""
+
+#: crates/ff-core/src/data/pavement.rs
+msgid "improved"
+msgstr ""
+
+#: crates/ff-core/src/data/pavement.rs
 msgid "structures"
 msgstr ""
 
@@ -5129,6 +5148,14 @@ msgstr ""
 msgid "hpms"
 msgstr ""
 
+#: crates/ff-core/src/data/pavement.rs
+msgid "nbi"
+msgstr ""
+
+#: crates/ff-core/src/data/pavement.rs
+msgid "grate"
+msgstr ""
+
 #. placeholders: {from_city}, {to_city}, {py_str_float}
 #: crates/ff-core/src/data/pavement.rs
 msgid ""
@@ -5140,6 +5167,54 @@ msgstr ""
 msgid ""
 "{from_city} to {to_city} pavement read share {py_str_float} is not between "
 "0 and 1"
+msgstr ""
+
+#: crates/ff-core/src/data/pavement/grooves.rs
+msgid "concrete"
+msgstr ""
+
+#: crates/ff-core/src/data/pavement/grooves.rs crates/ff-core/src/data/pavement.rs
+msgid "asphalt"
+msgstr ""
+
+#: crates/ff-core/src/data/pavement/grooves.rs crates/ff-core/src/data/pavement.rs
+msgid "other"
+msgstr ""
+
+#: crates/ff-core/src/data/pavement/grooves.rs
+msgid ""
+"Drakopoulos, Shaw and Ornek, \"Wet Pavements Crash Study of Longitudinal and "
+"Transverse Tined PCC\", Marquette University for WisDOT, June 2007, appendix "
+"A, page A3"
+msgstr ""
+
+#: crates/ff-core/src/data/pavement/grooves.rs crates/ff-core/src/data/regions.rs crates/ff-core/src/data/state_welcome.rs crates/ff-core/src/sim/timezones.rs
+msgid "California"
+msgstr ""
+
+#: crates/ff-core/src/data/pavement/grooves.rs
+msgid ""
+"IGGA/ACPA, \"Longitudinal versus Transverse Grooving\", June 2020: California "
+"never used transverse tining on highways; Marquette 2007, appendix A, page "
+"A3: longitudinal tining since the 1970s on all high-speed pavements"
+msgstr ""
+
+#: crates/ff-core/src/data/pavement/grooves.rs crates/ff-core/src/data/state_welcome.rs crates/ff-core/src/sim/timezones.rs crates/ff-core/src/sim/trip_models.rs
+msgid "Michigan"
+msgstr ""
+
+#: crates/ff-core/src/data/pavement/grooves.rs crates/ff-core/src/data/state_welcome.rs crates/ff-core/src/sim/timezones.rs
+msgid "Wisconsin"
+msgstr ""
+
+#: crates/ff-core/src/data/pavement/grooves.rs crates/ff-core/src/data/state_welcome.rs crates/ff-core/src/sim/timezones.rs
+msgid "Iowa"
+msgstr ""
+
+#: crates/ff-core/src/data/pavement/grooves.rs
+msgid ""
+"Iowa DOT Standard Specifications (2008), section 2412.06: Interstate and "
+"Primary bridge decks are grooved longitudinally"
 msgstr ""
 
 #: crates/ff-core/src/data/regions.rs crates/ff-core/src/data/world_constants.rs crates/ff-core/src/models/economy.rs crates/ff-core/src/sim/season.rs
@@ -5220,10 +5295,6 @@ msgstr ""
 
 #: crates/ff-core/src/data/regions.rs
 msgid "the Desert Southwest"
-msgstr ""
-
-#: crates/ff-core/src/data/regions.rs crates/ff-core/src/data/state_welcome.rs crates/ff-core/src/sim/timezones.rs crates/ff-core/src/sim/trip_models.rs
-msgid "California"
 msgstr ""
 
 #: crates/ff-core/src/data/regions.rs
@@ -5359,10 +5430,6 @@ msgid ""
 "racing and more rows of corn than a driver can count."
 msgstr ""
 
-#: crates/ff-core/src/data/state_welcome.rs crates/ff-core/src/sim/timezones.rs
-msgid "Iowa"
-msgstr ""
-
 #: crates/ff-core/src/data/state_welcome.rs
 msgid ""
 "Welcome to Iowa, the Hawkeye State, where the corn is high, the ground is "
@@ -5427,10 +5494,6 @@ msgstr ""
 msgid ""
 "Welcome to Massachusetts, the Bay State, where the Revolution kicked off "
 "and everybody still drives like it."
-msgstr ""
-
-#: crates/ff-core/src/data/state_welcome.rs crates/ff-core/src/sim/timezones.rs crates/ff-core/src/sim/trip_models.rs
-msgid "Michigan"
 msgstr ""
 
 #: crates/ff-core/src/data/state_welcome.rs
@@ -5697,10 +5760,6 @@ msgstr ""
 msgid ""
 "Welcome to West Virginia, the Mountain State. Almost heaven, they say, and "
 "the roads do wind exactly like the song."
-msgstr ""
-
-#: crates/ff-core/src/data/state_welcome.rs crates/ff-core/src/sim/timezones.rs
-msgid "Wisconsin"
 msgstr ""
 
 #: crates/ff-core/src/data/state_welcome.rs

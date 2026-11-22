@@ -102,6 +102,10 @@ bookmarks usable.
 - [ ] (Found along the way) Tunnels do not quiet the birds and insects. At standard pacing a one-mile tunnel passes in under three seconds, shorter than the outside bed's three-second fade, so the bed would only dip. It needs a faster fade for tunnels, or a muffle like the closed window's.
 - [ ] (Found along the way) The Allegheny Mountain Tunnel on the Pennsylvania Turnpike has no structure row in HPMS 2020 (Blue Mountain, Kittatinny and Tuscarora do), so the pavement layer has no tunnel there.
 - [ ] (Found along the way) HPMS reports bridge-sized culverts as bridges, so the pavement layer's bridges include some culverts. The National Bridge Inventory could tell them apart.
+- [x] (Found along the way) Bridge decks and concrete build years are on the map (2026-11-22, for the tire whine on grooved concrete and the hum of steel grate decks the owner asked for). `cargo tools nbi-decks` reads each bridge's deck from the National Bridge Inventory; `hpms-pavement` reads build and improvement years onto concrete runs; ff-core answers whether a mile is open grating or grooved across the lane. Coverage and method: [November 22](#november-22-bridge-decks-and-concrete-build-years-found-along-the-way).
+- [ ] (Found along the way) Texas bridges on Austin to San Antonio sit 0.1 to 0.35 mi early in the pavement layer against the National Bridge Inventory, so their joints play early. See [November 22](#november-22-bridge-decks-and-concrete-build-years-found-along-the-way).
+- [ ] (Found along the way) A long structure that the National Bridge Inventory splits into several records (the Atchafalaya Basin Bridge, the Hood Canal Bridge) gets no deck, since no single record fits its length. Reading it piece by piece was looked at and left (2026-11-22): the Hood Canal Bridge's four records (1.486 mi together against the structure's 1.455) do fit as a sum, but their points do not mark a consistent end (the west half and a draw span section share the west end), so where each piece sits would be a guess; and on I-10 over Bayou Grosse Tete each piece has a twin for the other carriageway that no field tells apart. Reopen it if a source gives each record's extent.
+- [ ] (Found along the way) A state survey of groove practice (NCHRP Report 634) would replace the national tining years; it was unreachable from the cloud on 2026-11-22. Canada has no National Bridge Inventory, so Canadian bridges have no deck.
 - [ ] (Found along the way) Harrisburg to Pittsburgh still leaves the Turnpike for US-30 between about miles 87 and 100, near Bedford, after the re-route of 2026-11-05. HPMS has no surface for that stretch of US-30.
 - [ ] (Found along the way) California 99 near Bakersfield (miles 25 to 28 of Bakersfield to Los Angeles) has HPMS sections with no surface type, so the pavement layer is silent there.
 - [x] (Found along the way) Towns that no longer exist (owner, 2026-11-09: "Knife River, Montana"). The town checkpoints were named from the USGS place list, which keeps retired census names at the spot of the town that replaced them: Knife River was the 2010 census name for Savage, and the drive said both at mile 65.6 of Williston to Glendive. Fixed 2026-11-09: all 3,002 town checkpoints were checked against the 2024 Census place list and the USGS list, and the 12,017 village nodes against current OpenStreetMap. Knife River and Ore'q (a former Yurok village at Orick) are gone, West Side Highway (a road) is Lexington, Washington, Picnic Point-North Lynnwood (split for 2020) is North Lynnwood, Lysander New Community (deleted from OpenStreetMap) is gone, and three doubled Lacy Lakeview calls and four doubled Tri City calls are one each. `osm-villages` now refuses nodes tagged abandoned, disused, a ghost town or population 0, and treats a hyphen as a space when it checks a name is already spoken.
@@ -4459,6 +4463,53 @@ recording at this spacing peaked at -1.6 dBFS, so `SEAM_LEVEL` stays at 0.5.
 What stays invented: the spread of the spacing, every level and factor, the
 thinning numbers, and the stretches where the layer reads nothing. `start_at` stages `bridge` and `jointed` from
 the layer.
+
+### November 22 bridge decks and concrete build years (Found along the way)
+
+The tire whine on concrete grooved across the lane and the hum of steel
+grate decks need to know, for any mile, what the tire is on. Neither HPMS
+nor the National Bridge Inventory records a surface's texture, so the
+answer is labelled by how it is known.
+
+- **Decks: READ.** `cargo tools nbi-decks` (run after `hpms-pavement`)
+  puts each National Bridge Inventory record carried on a structure onto
+  the pavement layer's structure when its point lies within 60 m of the
+  archived road, inside the structure or within 0.02 mi of its ends, and
+  its length within 0.05 mi of the structure's span; the best length fit
+  wins. Each tolerance is calibrated in `nbi/decks.rs`. Whole map:
+  21,611 of 26,770 structure crossings of 0.05 mi or more, counted each
+  way, have a deck (80.7 percent): concrete 15,595, asphalt 3,391, other
+  2,604, open grating 21. Seven open gratings are kept, each checked by
+  hand: the Main Street Bridge in Jacksonville, Brickell Avenue in Miami,
+  US-31 at Manistee and Charlevoix, Cape Fear Memorial, Bridge Street in
+  Newark and US 40 in Zanesville. On a movable bridge the grating is the
+  movable span, derived from the record's span count and longest span and
+  centred on the structure. The Mackinac Bridge stays as NBI codes it.
+- **Concrete build years: READ; grooves on pavement: DERIVED.** Exposed
+  concrete runs carry HPMS Year_Last_Construction and YEAR_LAST_IMPROVEMENT.
+  The rule (`data/pavement/grooves.rs`): built 1980 to 2005 (FHWA
+  T 5140.10 of 1979 to T 5040.36 of 2005), not improved since, never in
+  California; Michigan from 1975, Wisconsin from 1978. Whole map: 12,385
+  of 25,279 concrete miles carry a build year (49 percent) and 3,380 are
+  grooved by the rule (13.4 percent). Of the dated miles, 3,492 were built
+  after 2005, 668 before the start year and 4,645 improved since.
+- **Grooves on concrete decks: ASSUMED.** A concrete deck of 0.05 mi or
+  more is taken as grooved across the lane, except in Iowa, which cuts its
+  decks along the lane. That comes round about 5.5 times per 100 route
+  miles. A shorter deck, or a bridge no record matched, defers to the
+  pavement around it.
+- Load screens drop a grating span outside its bridge, a deck on a tunnel
+  and a year outside 1900 to the HPMS year; none fired on this write.
+- **Texas placement (Found along the way).** On Austin to San Antonio the
+  layer's bridges sit 0.1 to 0.35 mi before NBI records of the same length,
+  the gap growing along the leg (16 bridges, median 0.28 mi). The other
+  dry-run legs agree to within 0.01 mi. NBI's points sit on the archived
+  road, so the Texas HPMS section geometry is what is off. The match was
+  not widened to cover it; that leg's bridges mostly have no deck, and its
+  joints play early.
+- Dry run notes: `/mnt/project-files/ambience/whine/data-dry-run.md`. After
+  a `reroute-leg`, run `hpms-pavement --only from:to --write`, then
+  `nbi-decks --only from:to --write`.
 
 ### November 21 the dispatch board in posted order (Found along the way)
 

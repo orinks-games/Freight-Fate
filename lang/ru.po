@@ -4506,12 +4506,6 @@ msgstr ""
 msgid "unpaved"
 msgstr "грунтовое"
 
-msgid "asphalt"
-msgstr "асфальт"
-
-msgid "other"
-msgstr "другое"
-
 msgid "bridge"
 msgstr "мост"
 
@@ -4548,6 +4542,21 @@ msgstr "без названия"
 msgid "pavement {key}={value} is not a number"
 msgstr "покрытие {key}={value} не является числом"
 
+#. placeholders: {key}, {v}
+msgid "pavement {key}={v} is not a year"
+msgstr ""
+
+msgid "deck"
+msgstr ""
+
+#. placeholders: {v}
+msgid "pavement deck={v} is not a deck"
+msgstr ""
+
+#. placeholders: {key}, {v}
+msgid "pavement {key}={v} is not two miles"
+msgstr ""
+
 msgid "layer"
 msgstr "слой"
 
@@ -4568,6 +4577,12 @@ msgstr "iri"
 msgid "faulting"
 msgstr "уступы между плитами"
 
+msgid "built"
+msgstr ""
+
+msgid "improved"
+msgstr ""
+
 msgid "structures"
 msgstr "сооружения"
 
@@ -4584,6 +4599,12 @@ msgstr ""
 msgid "hpms"
 msgstr "hpms"
 
+msgid "nbi"
+msgstr ""
+
+msgid "grate"
+msgstr ""
+
 #. placeholders: {from_city}, {to_city}, {py_str_float}
 msgid ""
 "{from_city} to {to_city} pavement mile_scale {py_str_float} is not near 1"
@@ -4597,6 +4618,44 @@ msgid ""
 msgstr ""
 "{from_city} — {to_city}: доля прочитанного покрытия {py_str_float} не между "
 "0 и 1"
+
+msgid "concrete"
+msgstr ""
+
+msgid "asphalt"
+msgstr "асфальт"
+
+msgid "other"
+msgstr "другое"
+
+msgid ""
+"Drakopoulos, Shaw and Ornek, \"Wet Pavements Crash Study of Longitudinal and "
+"Transverse Tined PCC\", Marquette University for WisDOT, June 2007, appendix "
+"A, page A3"
+msgstr ""
+
+msgid "California"
+msgstr "California"
+
+msgid ""
+"IGGA/ACPA, \"Longitudinal versus Transverse Grooving\", June 2020: California "
+"never used transverse tining on highways; Marquette 2007, appendix A, page "
+"A3: longitudinal tining since the 1970s on all high-speed pavements"
+msgstr ""
+
+msgid "Michigan"
+msgstr "Michigan"
+
+msgid "Wisconsin"
+msgstr "Wisconsin"
+
+msgid "Iowa"
+msgstr "Iowa"
+
+msgid ""
+"Iowa DOT Standard Specifications (2008), section 2412.06: Interstate and "
+"Primary bridge decks are grooved longitudinally"
+msgstr ""
 
 msgid "northeast"
 msgstr "northeast"
@@ -4657,9 +4716,6 @@ msgstr "Большой Бассейн"
 
 msgid "the Desert Southwest"
 msgstr "пустынный Юго-Запад"
-
-msgid "California"
-msgstr "California"
 
 msgid "the Pacific Northwest"
 msgstr "тихоокеанский Северо-Запад"
@@ -4799,9 +4855,6 @@ msgstr ""
 "Добро пожаловать в Indiana, штат Хужеров, родину величайшего зрелища в "
 "автогонках и стольких рядов кукурузы, что водителю не сосчитать."
 
-msgid "Iowa"
-msgstr "Iowa"
-
 msgid ""
 "Welcome to Iowa, the Hawkeye State, where the corn is high, the ground is "
 "flat, and somebody carved a baseball diamond into a cornfield."
@@ -4868,9 +4921,6 @@ msgid ""
 msgstr ""
 "Добро пожаловать в Massachusetts, штат Залива, где началась революция и где "
 "все до сих пор так и водят."
-
-msgid "Michigan"
-msgstr "Michigan"
 
 msgid ""
 "Welcome to Michigan, the Great Lakes State. Hold up your right hand: that "
@@ -5139,9 +5189,6 @@ msgid ""
 msgstr ""
 "Добро пожаловать в West Virginia, Горный штат. Почти рай, говорят, и дороги "
 "петляют точно как в песне."
-
-msgid "Wisconsin"
-msgstr "Wisconsin"
 
 msgid ""
 "Welcome to Wisconsin, the Badger State. Cheese, more cheese, and a giant "
