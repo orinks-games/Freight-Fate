@@ -149,6 +149,7 @@ impl DrivingState {
             self.ladder_leg_index = leg;
             ctx.reset_ladder_leg_memory();
         }
+        self.scale_named_s = (self.scale_named_s - dt).max(0.0);
         if self.destination_exit_response_s > 0.0 {
             self.destination_exit_response_s = (self.destination_exit_response_s - dt).max(0.0);
             if self.destination_exit_response_s == 0.0 && self.exit_stop.is_none() {

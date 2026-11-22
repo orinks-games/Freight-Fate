@@ -10,7 +10,9 @@ use ff_core::models::safety_record::{
 use ff_core::pyrandom::PyRandom;
 use ff_core::settings::short_distance_text_for;
 use ff_core::sim::enforcement_posts::post_seed;
-use ff_core::sim::trip_models::{RoadStop, ENFORCEMENT_WARNING_MAX_MI, SCALE_WARNING_REAL_S};
+use ff_core::sim::trip_models::{
+    RoadStop, TripEvent, TripEventKind, ENFORCEMENT_WARNING_MAX_MI, SCALE_WARNING_REAL_S,
+};
 use ff_core::speech_pacing::SpeechCategory;
 
 use crate::app::{GameContext, SayEvent};
@@ -30,6 +32,28 @@ impl DrivingState {
     /// stop's own key, so a reload cannot reopen a dark scale.
     pub fn scale_is_open(&self, stop: &RoadStop) -> bool {
         self.trip.scale_open(stop)
+    }
+
+    /// Whether `event` is the stop callout for an open scale the weigh
+    /// station notice announces. The notice names the scale, its distance
+    /// and the pull-in, so the callout said it a second time and the exit
+    /// signal a third (phone walk, 2026-11-21). A scale the player planned
+    /// keeps its callout, and with scales not enforced there is no notice.
+    pub fn scale_notice_covers(&self, ctx: &GameContext, event: &TripEvent) -> bool {
+        event.kind == TripEventKind::StopAhead
+            && !event.data.planned.unwrap_or(false)
+            && !self.enforcement_bypassed(ctx)
+            && event
+                .data
+                .stop
+                .as_ref()
+                .is_some_and(|stop| stop.stop_type == "weigh_station" && self.scale_is_open(stop))
+    }
+
+    /// Whether the weigh station notice named `stop` in words a moment ago,
+    /// so the exit signal can say "the scale exit" alone.
+    pub fn scale_just_named(&self, stop: &RoadStop) -> bool {
+        self.scale_named_s > 0.0 && self.scale_named_key == self.weigh_station_key(stop)
     }
 
     /// Lead distance for the open-scale call, sized in real seconds.

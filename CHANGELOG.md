@@ -4,8 +4,9 @@
 
 ### Fixed
 
-- **Spoken lines that came twice or too late are now said once, in order.** This covers the first run, stop arrivals, leaving Settings and the online offer.
-- **Report a problem says in plain words when orinks.net cannot be reached.** It no longer reads out the error.
+- **Lines that were said twice or late are now said once, in order.** This covers the first drive, stop arrivals and leaving Settings.
+- **An open weigh station is announced once, then its exit signal.** The stop callout that repeated it is gone.
+- **Report a problem now says plainly when orinks.net cannot be reached.** It used to read the error text aloud.
 
 ### Changed
 

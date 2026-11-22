@@ -217,7 +217,15 @@ impl DrivingState {
             "stop" => " Ramp ends at a stop sign.",
             _ => "",
         };
+        // The weigh station notice gave the name and the distance a moment
+        // ago, so the signal says which exit and nothing it already said.
+        let scale_named = stop.stop_type == "weigh_station" && self.scale_just_named(&stop);
         let ahead_text = ctx.settings.distance_text(ahead, true);
+        let head_and_distance = if scale_named {
+            format!("{signal} for the scale exit.")
+        } else {
+            format!("{head} {ahead_text}.")
+        };
         // No ramp number here: it is braked for past the gore, where taking
         // the exit names it as the exit speed. Said a mile out it asked the
         // driver to shed on the mainline (realistic exit, 2026-09-24).
@@ -228,7 +236,7 @@ impl DrivingState {
             // No lane hint: lane keeping moves to the right lane itself
             // (`keep_right_for_exit`), and what it does is the manual's to
             // explain, not the callout's (owner, 2026-10-14).
-            format!("{head} {ahead_text}.{ending}")
+            format!("{head_and_distance}{ending}")
         } else {
             // The right lane now; the exit lane itself where it opens, which
             // the cab calls at the taper. Nothing at all when the truck is
@@ -239,7 +247,7 @@ impl DrivingState {
             } else {
                 " Move to the right lane."
             };
-            format!("{head} {ahead_text}.{lane_hint}{ending}")
+            format!("{head_and_distance}{lane_hint}{ending}")
         };
         if self.is_selected_stop(Some(&stop)) {
             self.selected_stop_assist_armed = ctx.settings.destination_approach_assist;

@@ -30297,6 +30297,11 @@ msgstr ""
 msgid " Ramp ends at a stop sign."
 msgstr ""
 
+#. placeholders: {signal}
+#: crates/freight-fate/src/states/driving_events/exits.rs
+msgid "{signal} for the scale exit."
+msgstr ""
+
 #: crates/freight-fate/src/states/driving_events/exits.rs crates/freight-fate/src/states/driving_events/ramp_crossing.rs crates/freight-fate/src/states/driving_events/stops.rs
 msgid " Stop at the entrance."
 msgstr ""
