@@ -6086,8 +6086,16 @@ a carrier slice (owner, 2026-10-26).
 - [ ] (Found along the way) Canadian shippers outside Surrey: Prince
       George, the Peace River towns, Fort Nelson, Watson Lake and Whitehorse
       receive freight but ship none yet (the Northwood pulp mill closed in
-      2026), so their boards are empty. A verified sawmill, cross-dock or
-      fuel terminal in each would open a US-bound board there.
+      2026). Until each has a verified sawmill, cross-dock or fuel
+      terminal, a company driver there is sent on empty to the nearest city
+      with a load (the reposition fallback, 2026-11-22).
+- [x] A company driver's board is never empty: with no load and no relay,
+      dispatch assigns a reposition to the nearest city whose board has a
+      load for that driver. Slow test over every Canadian city, carrier and
+      level 1 and 8. An empty run now parks and settles on arrival instead
+      of opening the dock menu.
+- [ ] (Found along the way) The reposition's accept line says "177.0
+      kilometers", with a decimal the board line does not have.
 - [ ] (Found along the way) The load card's hours plan does not say it
       counts customs time; a border load's plan reads the same as a home
       one. Wording for the director.

@@ -94,6 +94,7 @@
 
 ### Fixed
 
+- **An empty run now parks and settles when it arrives,** without offering to drop a loaded trailer it never had.
 - **The sleep forecast in Canada now counts Canadian hours:** 13 hours of driving and a 16-hour shift.
 - **The loyalty readout now gives fuel in liters when distances are in kilometers.**
 - **Exits in Ontario and Quebec now name the road they lead to,** such as Route 255 or Highway 8, with directions in English.
