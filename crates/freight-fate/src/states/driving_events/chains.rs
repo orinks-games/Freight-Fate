@@ -548,7 +548,7 @@ impl DrivingState {
         self.trip.controlled_ramp = true;
         let lane_text = spoken_feet_or_meters(
             self.departure_ramp_mi.unwrap_or(0.0),
-            ctx.settings.imperial_units,
+            ctx.settings.imperial(),
         );
         // Hand the lane to the KEEPER explicitly, here, rather than leaving it
         // to the resume path to work out. The swap happens late in the frame,

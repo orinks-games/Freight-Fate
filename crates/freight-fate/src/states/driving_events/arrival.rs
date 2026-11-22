@@ -19,6 +19,8 @@ use crate::states::driving_menu_states::{replace_drive_with, DriveRef, FacilityA
 use crate::states::driving_updates::live;
 use ff_core::sim::arrival_gate::{GateCue, GateEvent};
 
+/// What the roadside rescue puts in an empty tank.
+const ROADSIDE_RESCUE_GAL: f64 = 30.0;
 impl DrivingState {
     /// Once-per-threshold low-fuel cue at about 15 percent remaining, naming
     /// the next fuel stop on the route (or that none is listed).
@@ -174,7 +176,7 @@ impl DrivingState {
                 "on the carrier account, and dispatch noted the service call".to_string()
             }
         };
-        self.trip.truck.refuel(Some(30.0));
+        self.trip.truck.refuel(Some(ROADSIDE_RESCUE_GAL));
         self.trip.truck.recover_from_fuel_depletion();
         self.cancel_cruise(ctx, false);
         self.rescue_offered = false;
@@ -185,10 +187,18 @@ impl DrivingState {
         let engine = ctx.control_hint("engine");
         let mut opts = SayEvent::queued().priority(EventPriority::Important);
         opts.category = Some(SpeechCategory::Safety);
-        let message = format!(
-            "Out of fuel. Roadside rescue brought thirty gallons {billing}. Press {engine} to \
-             restart the engine."
-        );
+        let message = if ctx.settings.imperial() {
+            format!(
+                "Out of fuel. Roadside rescue brought thirty gallons {billing}. Press {engine} to \
+                 restart the engine."
+            )
+        } else {
+            let rescue = ctx.settings.volume_text(ROADSIDE_RESCUE_GAL);
+            format!(
+                "Out of fuel. Roadside rescue brought {rescue} {billing}. Press {engine} to \
+                 restart the engine."
+            )
+        };
         let restart = format!("Press {engine} to restart the engine.");
         let message = self.without_key_hint(ctx, message, &restart);
         let message = self.with_touch_sentence(

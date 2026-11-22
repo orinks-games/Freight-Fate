@@ -8684,6 +8684,46 @@
           "source_note": "Read: OpenStreetMap node 2058194642 (amenity=fuel, fuel:diesel=yes, name Delta Western, checked 2026-07-10), OpenStreetMap planet file of 2026-11-16. Diesel is read; truck parking and tractor-trailer access are not claimed."
         }
       ]
+    },
+    "plattsburgh_ny_us": {
+      "spoken_city": "Plattsburgh",
+      "state": "NY",
+      "country": "US",
+      "region": "northeast",
+      "locations": [
+        {
+          "name": "Alstom Plattsburgh Plant",
+          "type": "manufacturing_plant",
+          "cargo": [
+            "machinery"
+          ],
+          "lat": 44.677403,
+          "lon": -73.469701,
+          "source_note": "Railcar plant; OSM still names it Bombardier, which sold it to Alstom in 2021. Name and position read from OpenStreetMap way 594685326 (\"Bombardier\"), OpenStreetMap planet file of 2026-11-16; the pin is the centroid of its mapped outline. Type and cargo are assigned from the game's facility classes (derived)."
+        }
+      ],
+      "lat": 44.6995,
+      "lon": -73.4529
+    },
+    "st_johnsbury_vt_us": {
+      "spoken_city": "St. Johnsbury",
+      "state": "VT",
+      "country": "US",
+      "region": "northeast",
+      "locations": [
+        {
+          "name": "Fairbanks Scales St. Johnsbury",
+          "type": "manufacturing_plant",
+          "cargo": [
+            "machinery"
+          ],
+          "lat": 44.427578,
+          "lon": -71.976442,
+          "source_note": "Scale works. Name and position read from OpenStreetMap way 484040013 (\"Fairbanks Scales\"), OpenStreetMap planet file of 2026-11-16; the pin is the centroid of its mapped outline. Type and cargo are assigned from the game's facility classes (derived)."
+        }
+      ],
+      "lat": 44.4192,
+      "lon": -72.0151
     }
   }
 }

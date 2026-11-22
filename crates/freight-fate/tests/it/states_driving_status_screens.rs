@@ -407,7 +407,11 @@ fn test_route_and_driver_traffic_name_box_truck_with_cruise_set() {
 #[test]
 fn test_metric_status_lines_do_not_mix_mph_and_miles() {
     let mut harness = PlaytestHarness::new();
-    harness.app.ctx.settings.imperial_units = false;
+    harness
+        .app
+        .ctx
+        .settings
+        .set_units_mode(ff_core::units::UnitsMode::Metric);
     harness.start_delivery(StartDelivery::named("Metric Status"));
     harness.with_drive(|drive, _| {
         drive.tutorial = None;

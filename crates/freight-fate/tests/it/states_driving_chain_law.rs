@@ -442,7 +442,11 @@ fn test_winter_tires_on_a_level_1_law_still_get_the_checkpoint() {
 
 fn over_speed_line(imperial: bool) -> String {
     let mut app = TestApp::new();
-    app.ctx.settings.imperial_units = imperial;
+    app.ctx.settings.set_units_mode(if imperial {
+        ff_core::units::UnitsMode::Imperial
+    } else {
+        ff_core::units::UnitsMode::Metric
+    });
     let drive = a_drive(&mut app);
     with_drive(&drive, |d| {
         d.trip.truck.chains_on = true;

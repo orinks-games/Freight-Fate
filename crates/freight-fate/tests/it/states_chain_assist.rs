@@ -284,7 +284,9 @@ fn test_a_second_enter_accepts_past_the_chain_reminder() {
 fn test_the_road_reminder_plays_once_per_corridor_and_never_spends() {
     let mut app = TestApp::new();
     app.ctx.settings.hos_planning_hints = true;
-    app.ctx.settings.imperial_units = true;
+    app.ctx
+        .settings
+        .set_units_mode(ff_core::units::UnitsMode::Imperial);
     // Areas at mile 20 (exit 254 at 18.7 before it) and 40 (exit 234 at 38).
     let drive = i70_drive(
         &mut app,
@@ -334,7 +336,9 @@ fn test_the_road_reminder_plays_once_per_corridor_and_never_spends() {
     // No mapped exit before the area: no exit clause.
     let mut app = TestApp::new();
     app.ctx.settings.hos_planning_hints = true;
-    app.ctx.settings.imperial_units = false;
+    app.ctx
+        .settings
+        .set_units_mode(ff_core::units::UnitsMode::Metric);
     let drive = i70_drive(&mut app, 288.0, false, 2.0, vec![(10.0, 16.0)]);
     remind(&mut app, &drive);
     let said = reminders(&app);
@@ -602,7 +606,9 @@ fn chains_on_bare(drive: &SharedState) {
 #[test]
 fn test_facility_stopping_takes_chains_off_on_bare_road() {
     let mut app = TestApp::new();
-    app.ctx.settings.imperial_units = true;
+    app.ctx
+        .settings
+        .set_units_mode(ff_core::units::UnitsMode::Imperial);
     let drive = stop_drive(
         &mut app,
         "Denver",
@@ -638,7 +644,9 @@ fn test_facility_stopping_takes_chains_off_on_bare_road_inside_a_chain_law_area(
     // On a bare road no law is posted, so there is nothing to keep them on
     // for, inside an area or with another close ahead.
     let mut app = TestApp::new();
-    app.ctx.settings.imperial_units = true;
+    app.ctx
+        .settings
+        .set_units_mode(ff_core::units::UnitsMode::Imperial);
     let drive = stop_drive(
         &mut app,
         "Denver",
@@ -664,7 +672,9 @@ fn test_facility_stopping_takes_chains_off_on_bare_road_inside_a_chain_law_area(
 #[test]
 fn test_without_the_assist_the_driver_hears_bare_road_once_per_stretch() {
     let mut app = TestApp::new();
-    app.ctx.settings.imperial_units = true;
+    app.ctx
+        .settings
+        .set_units_mode(ff_core::units::UnitsMode::Imperial);
     let drive = stop_drive(
         &mut app,
         "Denver",

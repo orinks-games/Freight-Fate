@@ -238,20 +238,35 @@ impl FacilityArrivalState {
         let (title, message, status) = if drop_hook {
             (
                 "Dropping the trailer",
-                format!(
-                    "Dropping the loaded trailer at {facility}, {} tons of {cargo_label}. \
-                     Hooking an empty.",
-                    fmt_f(weight_tons, 0)
-                ),
+                if ctx.settings.imperial() {
+                    format!(
+                        "Dropping the loaded trailer at {facility}, {} tons of {cargo_label}. \
+                         Hooking an empty.",
+                        fmt_f(weight_tons, 0)
+                    )
+                } else {
+                    format!(
+                        "Dropping the loaded trailer at {facility}, {} of {cargo_label}. \
+                         Hooking an empty.",
+                        ctx.settings.tons_text(weight_tons)
+                    )
+                },
                 "Dropping the trailer.",
             )
         } else {
             (
                 "Unloading cargo",
-                format!(
-                    "Docked at {facility}. Unloading {} tons of {cargo_label}.",
-                    fmt_f(weight_tons, 0)
-                ),
+                if ctx.settings.imperial() {
+                    format!(
+                        "Docked at {facility}. Unloading {} tons of {cargo_label}.",
+                        fmt_f(weight_tons, 0)
+                    )
+                } else {
+                    format!(
+                        "Docked at {facility}. Unloading {} of {cargo_label}.",
+                        ctx.settings.tons_text(weight_tons)
+                    )
+                },
                 "Unloading cargo.",
             )
         };
@@ -366,8 +381,8 @@ impl FacilityArrivalState {
         let finish = self.finish_instruction(ctx);
         let Some(text) = self.driving.with(ctx, |d, ctx| {
             format!(
-                "At {facility}. {} tons of {}. Speed {}. {}. Stop, then {finish}.",
-                fmt_f(d.job.weight_tons, 0),
+                "At {facility}. {} of {}. Speed {}. {}. Stop, then {finish}.",
+                ctx.settings.tons_text(d.job.weight_tons),
                 d.job.spoken_cargo_label(),
                 ctx.settings.speed_text(d.trip.truck.speed_mph()),
                 if d.trip.truck.engine_on {

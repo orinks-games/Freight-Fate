@@ -1142,6 +1142,7 @@
           ],
           "curation": "curated",
           "vehicle_access": "tractor_trailer",
+          "vehicle_access_basis": "read",
           "at_mi": 120.0
         },
         {
@@ -1169,6 +1170,7 @@
           ],
           "curation": "curated",
           "vehicle_access": "tractor_trailer",
+          "vehicle_access_basis": "assumed",
           "at_mi": 120.0
         }
       ],
@@ -3014,6 +3016,7 @@
           ],
           "curation": "curated",
           "vehicle_access": "tractor_trailer",
+          "vehicle_access_basis": "assumed",
           "at_mi": 83.3
         },
         {
@@ -3032,6 +3035,7 @@
           ],
           "curation": "curated",
           "vehicle_access": "tractor_trailer",
+          "vehicle_access_basis": "assumed",
           "at_mi": 112.1
         }
       ],
@@ -3799,6 +3803,7 @@
           ],
           "curation": "curated",
           "vehicle_access": "tractor_trailer",
+          "vehicle_access_basis": "assumed",
           "at_mi": 86.0
         },
         {
@@ -3817,6 +3822,7 @@
           ],
           "curation": "curated",
           "vehicle_access": "tractor_trailer",
+          "vehicle_access_basis": "assumed",
           "at_mi": 87.6
         }
       ],
@@ -4205,6 +4211,7 @@
           ],
           "curation": "curated",
           "vehicle_access": "tractor_trailer",
+          "vehicle_access_basis": "assumed",
           "at_mi": 54.3
         },
         {
@@ -4223,6 +4230,7 @@
           ],
           "curation": "curated",
           "vehicle_access": "tractor_trailer",
+          "vehicle_access_basis": "assumed",
           "at_mi": 82.5
         }
       ],
@@ -5162,6 +5170,7 @@
           ],
           "curation": "curated",
           "vehicle_access": "tractor_trailer",
+          "vehicle_access_basis": "assumed",
           "at_mi": 3.8
         },
         {
@@ -5195,12 +5204,13 @@
             "diesel"
           ],
           "parking": "unknown",
-          "source": "Cardlock read from the Co-op Whitewood Cardlock listing, 1206 Highway 1, Whitewood (https://www.shopping-canada.com/stores-brands/co-op/saskatchewan/whitewood/co-op-whitewood-cardlock-1206-highway-1-s0g-5c0, read 2026-11-22). Position assumed: OSM node 5198674368, the Co-op on Highway 1 at Whitewood, OpenStreetMap planet extract 2026-11-16; the cardlock's own pumps may stand apart from it. Diesel is assumed for a cardlock. A cardlock sells to account holders only. Year round is assumed. Leg mile projected onto the leg's road.",
+          "source": "Cardlock read from the Co-op Whitewood Cardlock listing, 1206 Highway 1, Whitewood (https://www.shopping-canada.com/stores-brands/co-op/saskatchewan/whitewood/co-op-whitewood-cardlock-1206-highway-1-s0g-5c0, read 2026-11-22). Position assumed: OSM node 5198674368, the Co-op on Highway 1 at Whitewood, OpenStreetMap planet extract 2026-11-16; the cardlock's own pumps may stand apart from it. Diesel is assumed for a cardlock. A cardlock sells to account holders only. Tractor-trailer access is assumed for a commercial cardlock, not verified. Year round is assumed. Leg mile projected onto the leg's road.",
           "directions": [
             "both"
           ],
           "curation": "curated",
           "vehicle_access": "tractor_trailer",
+          "vehicle_access_basis": "assumed",
           "at_mi": 108.3
         }
       ],
@@ -6594,6 +6604,7 @@
           ],
           "curation": "curated",
           "vehicle_access": "tractor_trailer",
+          "vehicle_access_basis": "assumed",
           "at_mi": 20.5
         }
       ],
@@ -7843,6 +7854,7 @@
           ],
           "curation": "curated",
           "vehicle_access": "tractor_trailer",
+          "vehicle_access_basis": "assumed",
           "at_mi": 3.8
         },
         {
@@ -7882,6 +7894,7 @@
           ],
           "curation": "curated",
           "vehicle_access": "tractor_trailer",
+          "vehicle_access_basis": "assumed",
           "at_mi": 45.6
         }
       ],
@@ -9287,6 +9300,7 @@
           ],
           "curation": "curated",
           "vehicle_access": "tractor_trailer",
+          "vehicle_access_basis": "assumed",
           "at_mi": 3.8
         },
         {
@@ -9305,6 +9319,7 @@
           ],
           "curation": "curated",
           "vehicle_access": "tractor_trailer",
+          "vehicle_access_basis": "assumed",
           "at_mi": 32.0
         }
       ],
@@ -10158,6 +10173,7 @@
           ],
           "curation": "curated",
           "vehicle_access": "tractor_trailer",
+          "vehicle_access_basis": "assumed",
           "at_mi": 142.5
         },
         {
@@ -10185,6 +10201,7 @@
           ],
           "curation": "curated",
           "vehicle_access": "tractor_trailer",
+          "vehicle_access_basis": "assumed",
           "at_mi": 162.5
         }
       ],
@@ -11118,6 +11135,7 @@
           ],
           "curation": "curated",
           "vehicle_access": "tractor_trailer",
+          "vehicle_access_basis": "assumed",
           "at_mi": 78.6
         },
         {
@@ -11938,6 +11956,7 @@
           ],
           "curation": "curated",
           "vehicle_access": "tractor_trailer",
+          "vehicle_access_basis": "assumed",
           "at_mi": 1.3
         },
         {
@@ -11956,6 +11975,7 @@
           ],
           "curation": "curated",
           "vehicle_access": "tractor_trailer",
+          "vehicle_access_basis": "assumed",
           "at_mi": 1.6
         },
         {
@@ -11994,6 +12014,7 @@
           ],
           "curation": "curated",
           "vehicle_access": "tractor_trailer",
+          "vehicle_access_basis": "assumed",
           "at_mi": 129.8
         }
       ],
@@ -12867,6 +12888,7 @@
           ],
           "curation": "curated",
           "vehicle_access": "tractor_trailer",
+          "vehicle_access_basis": "assumed",
           "at_mi": 0.8
         },
         {
@@ -12885,6 +12907,7 @@
           ],
           "curation": "curated",
           "vehicle_access": "tractor_trailer",
+          "vehicle_access_basis": "assumed",
           "at_mi": 29.7
         }
       ],
@@ -14340,6 +14363,7 @@
           ],
           "curation": "curated",
           "vehicle_access": "tractor_trailer",
+          "vehicle_access_basis": "assumed",
           "at_mi": 166.5
         },
         {
@@ -14358,6 +14382,7 @@
           ],
           "curation": "curated",
           "vehicle_access": "tractor_trailer",
+          "vehicle_access_basis": "assumed",
           "at_mi": 169.0
         }
       ],
@@ -15357,6 +15382,7 @@
           ],
           "curation": "curated",
           "vehicle_access": "tractor_trailer",
+          "vehicle_access_basis": "assumed",
           "at_mi": 72.4
         },
         {
@@ -15405,6 +15431,7 @@
           ],
           "curation": "curated",
           "vehicle_access": "tractor_trailer",
+          "vehicle_access_basis": "assumed",
           "at_mi": 114.1
         }
       ],
@@ -16258,6 +16285,7 @@
           ],
           "curation": "curated",
           "vehicle_access": "tractor_trailer",
+          "vehicle_access_basis": "assumed",
           "at_mi": 127.7
         },
         {

@@ -15,6 +15,9 @@
 
 ### Added
 
+- **Units has a new Automatic choice, the default in 2.0.** Miles in the United States, kilometers in Canada, with one line when a drive crosses.
+- **Kilometers now reach fuel, weights and signs.** Fuel is in liters, loads in tonnes, weights in kilograms and low bridges in meters.
+- **The cruise dial steps in the units you hear.** In kilometers it walks 95, 100, 105.
 - **Seventeen new achievements.** Earn them in Alaska, on the Alaska Highway, at customs, on a restart, with a carrier, hauling cattle and at the Laredo yards.
 - **Live cattle are a new freight class from level 5.** Haul feeder calves from sale barns to feed yards, and fed cattle to beef plants, on a livestock trailer.
 - **Cattle react to hard braking and sharp turns.** Too much and they lose their footing or go down. Stop and choose Check the cattle to get one up.
@@ -40,7 +43,10 @@
 - **Heavy trucks in British Columbia are now held to 105 kilometers per hour, as the law requires.**
 - **The map now reaches Alaska and northern Canada along the Alaska Highway,** from Blaine and Bellingham through Prince George, Dawson Creek and Whitehorse to Tok and Fairbanks.
 - **The map now reaches Alberta, Saskatchewan and Manitoba,** on the Trans-Canada and Yellowhead highways from Vancouver to Winnipeg, with six more border crossings.
-- **Diesel in Alberta, Saskatchewan and Manitoba now costs what it does there.**
+- **Diesel in Alberta, Saskatchewan, Manitoba, Ontario and Quebec now costs what it does there.**
+- **The map now reaches Ontario and Quebec,** from Windsor and Sarnia through Toronto, Ottawa and Montreal to Quebec City, with seven border crossings.
+- **The Gordie Howe, Blue Water, Lewiston-Queenston and Thousand Islands bridges charge their published truck tolls.**
+- **A route between two US cities stays in the United States when a US road exists.** Alaska routes still run through Canada.
 - **Alaska roads now reach the Kenai Peninsula, Valdez and Deadhorse.** Seward, Valdez and Kenai offer only their real freight sites, and Deadhorse sells diesel.
 - **The map now reaches Skagway, Haines, North Pole, Nikiski, Port MacKenzie and the Fort Knox mine.** Skagway and Haines cross into the Yukon, with fuel at Haines Junction.
 - **Hours of service now follow Alaska and Canadian rules where you drive.** You hear the new limits as you cross into each place.
@@ -60,6 +66,7 @@
 ### Changed
 
 - **Alaska's highways now have their real bends, grades, lane counts and towns.** The road between Palmer and Wasilla is now called the Palmer-Wasilla Highway.
+- **A 1.9 Units choice of imperial becomes Automatic in 2.0.** A choice of metric stays metric.
 - **The career start list now runs local, regional, then national carriers, nearest terminal first.** The owner-operator start stays last.
 - **The British Columbia and Yukon highways now follow the real roads, with their bends, hills, exits and towns.** Surrey to Blaine is now 15 miles, 14 northbound.
 - **Canadian speed limits are now said as signed.** A 100 sign is 100 in kilometers and 62 in miles, and cruise holds that speed.
@@ -101,6 +108,7 @@
 - **A reefer box left off on the road now warms at the same rate as at a stop.** It had been warming ten times slower while driving.
 - **Sleeping with cattle aboard now warns when they would pass the 28-hour limit,** and the hours readouts stop naming a 30-minute break that cannot come due.
 - **A refused reverse with doubles no longer plays the gear-shift sound,** and the doubles hook-up time is spoken once at the shipper and once at the receiver.
+- **A team load's deadline is now always too short for one driver with a 10-hour sleep,** at any urgency.
 
 ## 1.9.7 - 2026-11-21
 

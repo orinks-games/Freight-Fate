@@ -6,9 +6,15 @@ use ff_core::data::world::World;
 use ff_core::models::jobs::Job;
 use ff_core::models::profile::Profile;
 use ff_core::pyfmt::fmt_grouped;
+use ff_core::settings::Settings;
 use ff_core::sim::vehicle::{TrailerSet, TruckState, KG_PER_LB, KG_PER_TON};
 
-pub(super) fn load_weight_margin(world: &World, p: &Profile, job: &Job) -> String {
+pub(super) fn load_weight_margin(
+    world: &World,
+    settings: &Settings,
+    p: &Profile,
+    job: &Job,
+) -> String {
     let mut proposed = p.clone();
     proposed.take_slip_seat(job);
     let mut truck = TruckState::new(proposed.truck_specs());
@@ -31,22 +37,29 @@ pub(super) fn load_weight_margin(world: &World, p: &Profile, job: &Job) -> Strin
     if margin_kg >= 0.0 {
         return String::new();
     }
-    let mut text = format!(
-        "Load weight: {} pounds over the gross-weight limit with current fuel.",
-        fmt_grouped(margin_kg.abs() / KG_PER_LB, 0)
-    );
+    let mut text = if settings.imperial() {
+        format!(
+            "Load weight: {} pounds over the gross-weight limit with current fuel.",
+            fmt_grouped(margin_kg.abs() / KG_PER_LB, 0)
+        )
+    } else {
+        format!(
+            "Load weight: {} over the gross-weight limit with current fuel.",
+            settings.weight_text(margin_kg.abs())
+        )
+    };
     if truck.trailer_set.is_doubles() {
         text.push_str(&format!(
-            " The limit for this set of doubles on the lanes offered is {} pounds, counting both \
+            " The limit for this set of doubles on the lanes offered is {}, counting both \
              trailers and the converter dolly.",
-            fmt_grouped(truck.trailer_set.legal_gvw_lb().round(), 0)
+            settings.weight_text(truck.trailer_set.legal_gvw_kg)
         ));
     }
     if let Some(limit) = &job.seasonal_weight_limit {
         text.push_str(&format!(
-            " Spring weight limits on the {} hold this truck to {} pounds gross.",
+            " Spring weight limits on the {} hold this truck to {} gross.",
             limit.highway,
-            fmt_grouped(truck.trailer_set.legal_gvw_lb().round(), 0)
+            settings.weight_text(truck.trailer_set.legal_gvw_kg)
         ));
     }
     text

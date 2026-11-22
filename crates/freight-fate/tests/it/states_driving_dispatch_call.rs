@@ -208,11 +208,13 @@ fn test_road_summary_follows_the_distance_unit() {
     let mut app = TestApp::new();
     let drive = a_drive(&mut app);
     drive_and_ctx(&drive, &mut app, |driving, ctx| {
-        ctx.settings.imperial_units = false;
+        ctx.settings
+            .set_units_mode(ff_core::units::UnitsMode::Metric);
         let road = dispatch_request(driving, ctx, CALL_ROAD).summary;
         assert!(road.ends_with(" kilometers remain."), "{road}");
         assert!(!road.contains("mile"), "{road}");
-        ctx.settings.imperial_units = true;
+        ctx.settings
+            .set_units_mode(ff_core::units::UnitsMode::Imperial);
         let road = dispatch_request(driving, ctx, CALL_ROAD).summary;
         assert!(road.ends_with(" miles remain."), "{road}");
     });

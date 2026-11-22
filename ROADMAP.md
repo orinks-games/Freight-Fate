@@ -5943,6 +5943,15 @@ a carrier slice (owner, 2026-10-26).
       by tractor-trailer and these are its diesel between the towns). A
       loaded truck is now offered them; Fort Nelson to Watson Lake has
       Toad River, Northern Rockies and Liard Hot Springs.
+- [x] West corridor fuel stops say how their truck access was decided
+      (2026-11-22): 9 read and 74 assumed of the 83 placed, taken from
+      each stop's own source note. `osm-stops` no longer deletes a stop on
+      a leg its list does not cover just because it shares a listed name
+      (a run of the West list without `--only` was dropping US
+      Petro-Canada stops and others).
+- [ ] (Found along the way) Simonson Travel Center (Grand Forks) is in the
+      West list and within reach of two North Dakota legs it was never
+      placed on; a run without `--only` adds it there.
 - [ ] (Found along the way) Read truck access for the 24 assumed northern
       fuel stops: an operator answer or a listing per stop turns each into
       a reading (`osm-stops` prints the read to assumed count).
@@ -5984,14 +5993,60 @@ a carrier slice (owner, 2026-10-26).
 - [ ] The Ontario and Quebec trunk (401, 400, 11, 17, 20, 40), Windsor to
       Quebec City and Thunder Bay, with the Detroit, Sarnia, Niagara,
       Lansdowne, Cornwall, Lacolle and Stanstead crossings.
+- [x] The Ontario and Quebec trunk, first pass (2026-11-22): 36 cities
+      from Windsor to Rivière-du-Loup, Saguenay and Rouyn-Noranda over the
+      401, 400, 11, 17, 417, 20, 40 and 117, plus Plattsburgh and St.
+      Johnsbury on the US side; 108 legs, both directions, every layer the
+      Canadian recipe builds. Seven crossings: Gordie Howe (Detroit),
+      Blue Water (Port Huron), Queenston-Lewiston, Thousand Islands
+      (Lansdowne), Lacolle-Champlain, Saint-Armand-Highgate Springs and
+      Stanstead-Derby Line, each with its ports, agencies and hours; the
+      four bridge tolls are the published five-axle rates. Thunder Bay
+      belongs to the Winnipeg corridor. Report:
+      `career-2.0-alpha/corridor-ontario-quebec-report.md`.
+- [x] (Found along the way) Rest and fuel stops on the Ontario and Quebec
+      legs (2026-11-22): 27 stops on 22 legs placed with `osm-stops`, six
+      Flying J travel centers, eight ONroute plazas (truck access
+      assumed), Le Domaine fuel and the Réservoir-Dozois rest area on
+      Mont-Laurier to Val-d'Or. Postings re-read with km/h kept.
+- [ ] (Found along the way) Second pass of Quebec and northern Ontario
+      stops: Petro-Canada and Ultramar truck stops on the 20 and 40, and
+      fuel on 11 and 17; those links are short and end in towns with fuel.
+- [ ] (Found along the way) Quebec exit lines say a route number bare
+      ("exit 185 for 255"); the Route prefix is missing.
+- [ ] (Found along the way) The Ambassador Bridge, the Peace Bridge (with a
+      Fort Erie city), Cornwall to Massena and Ogdensburg to Prescott are
+      not on the map; each city pair has one crossing.
+- [ ] (Found along the way) In-bond transit through the other country:
+      a route between two cities of one country stays in it when a road
+      that does exists (2026-11-22), so Detroit to Buffalo does not take
+      the 401 through Ontario as real carriers often do. A later feature
+      with the paperwork to go with it.
 - [ ] Winnipeg to Thunder Bay over 17 and 1, Kenora and Dryden as fuel.
 - [ ] Atlantic Canada to Halifax, Charlottetown and Sydney; Houlton,
       Calais and St. Stephen crossings.
 - [ ] The north: 63 to Fort McMurray, 16 to Prince Rupert, 37 to the
       Yukon, 3 to Yellowknife, freight nodes only.
+- [x] Units: Automatic (miles in the United States, kilometers in Canada,
+      one spoken line at the crossing), the 2.0 default; Imperial and Metric
+      hold one unit everywhere. Fuel, weights, load tons, sign heights and
+      the cruise dial follow the effective units. A 1.9 true becomes
+      Automatic, false becomes Metric.
+- [ ] (Found along the way) A 1.9 build that saves the shared settings
+      file writes only the keys it knows, so it drops `units`. 2.0 then reads
+      1.9's `imperial_units: true` as Automatic, and a player's explicit
+      Imperial comes back as Automatic. Metric survives, since false still
+      maps to Metric.
+- [x] (Found along the way) A Canadian 100 km/h sign speaks 100 in
+      kilometers and 62 in miles, and cruise to the limit holds 100 (driven
+      Surrey to Prince George, 2026-11-22).
+- [ ] (Found along the way) Hear a Canadian road pump in Automatic in a
+      drive (liters, the per liter price, "N liters fueled"). Covered so far
+      by tests and the Surrey terminal garage drive; the Whitewood cardlock
+      on Regina to Brandon is the nearest pump to stage.
 - [ ] The rules before the first corridor merges: postings in the
-      player's units from the sign's own number (done; an Automatic units
-      setting is its own brief); cycle 1 and 2 hours of service
+      player's units from the sign's own number (done; Automatic speaks
+      km/h in Canada); cycle 1 and 2 hours of service
       with the Canadian rest menus; provincial weights, the 25 m length,
       B-trains, spring bans; the 105 km/h limiters; CAD at the pump;
       customs with hours, FAST and cabotage at every listed port;

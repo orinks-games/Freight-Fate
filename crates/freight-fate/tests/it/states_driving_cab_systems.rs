@@ -75,7 +75,11 @@ fn test_engine_shutdown_is_blocked_at_highway_speed() {
 #[test]
 fn test_engine_shutdown_block_speaks_its_limit_in_metric() {
     let mut harness = a_drive("Shutdown Blocked Metric");
-    harness.app.ctx.settings.imperial_units = false;
+    harness
+        .app
+        .ctx
+        .settings
+        .set_units_mode(ff_core::units::UnitsMode::Metric);
     press(&mut harness, Key::E);
     harness.app.ctx.audio.update(5.0);
     harness.with_drive(|drive, _| drive.truck_mut().velocity_mps = 11.2);

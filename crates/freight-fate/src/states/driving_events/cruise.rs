@@ -278,7 +278,7 @@ impl DrivingState {
                 CRUISE_MIN_MPH.max(limit)
             }
         };
-        let target = cruise_step_target(base, direction, fine);
+        let target = cruise_step_target_in(base, direction, fine, ctx.settings.imperial());
         self.speed_control_target_mph = Some(target);
         if self.cruise_mph.is_some() {
             self.cruise_mph = Some(target);
