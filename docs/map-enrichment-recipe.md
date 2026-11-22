@@ -472,6 +472,11 @@ cargo tools osm-lanes        --pbf roads.osm.pbf --only "$L" --extract-date D --
 cargo tools osm-restrictions --pbf roads.osm.pbf --only "$L" --extract-date D --write
 cargo tools osm-landmarks    --pbf canada-alaska-raw.osm.pbf --only "$L" --extract-date D --write
 cargo tools osm-villages     --pbf canada-alaska-raw.osm.pbf --only "$L" --extract-date D --write
+cargo tools osm-speed-limits --pbf roads.osm.pbf --only "$L" --extract-date D \
+    --snapshot "OpenStreetMap planet file" --write
+cargo tools osm-exits        --pbf roads.osm.pbf --only "$L" --write
+cargo tools osm-stops        --pbf canada-alaska-raw.osm.pbf --only "$L"   # leads only
+cargo tools osm-stops        --stops docs/stops/canada-alaska.json --only "$L" --write
 cargo tools hpms-terrain     --only "$L" --write
 cargo tools hpms-traffic     --only "$L" --write
 cargo tools index-world --check
@@ -504,9 +509,11 @@ lines for now. A leg with no `counties` is quiet, not broken.
   (a port of entry's agency page, its OSM node) with a note on where it
   now sits, and a line keeps the name the leg carried for it when the new
   crossing is within 10 miles of the old one.
-- **Speed limits.** A bare number is km/h in Canada; stored rounded to 5
-  mph like every posting, so the game reads a 70 km/h sign back as 72
-  until postings keep their km/h (ROADMAP). An untagged stretch stays an explicit gap (the
+- **Speed limits.** A bare number is km/h in Canada. The posting keeps
+  the sign's own number as `kmh` beside its `mph`, and the game drives the
+  sign exactly (kmh / 1.609344), so a 100 sign is "Speed limit 100." in
+  metric and 62 in imperial. A Canadian ramp advisory keeps its km/h too.
+  An untagged stretch stays an explicit gap (the
   game's highway heuristic), not the province's statutory default: in the
   pilot the untagged stretches were posted roads OpenStreetMap is silent on
   (100 miles of the Hart Highway), where British Columbia's 80 km/h
@@ -514,6 +521,11 @@ lines for now. A leg with no `counties` is quiet, not broken.
   been wrong. A province goes in `UNPOSTED_DEFAULTS`
   (`ff-tools/src/world/osm/region.rs`) only once its untagged ways are
   shown to be unposted. Alaska's 55 mph is there already.
+- **Province lines speak short.** A line with no cited place says
+  "Crossing into Yukon."; the tool writes an empty place, never the line's
+  own name. A cited place is a plain phrase ("the Pacific Highway border
+  crossing", "Lower Post"). A leg that crosses one line more than twice has
+  its stays under 5 miles screened out at load, with their returns.
 - **Exits.** Every Canadian leg is read, whatever its label (there are no
   Interstates); exits appear where the road is a freeway with
   `motorway_junction` nodes, numbered as signed.
@@ -527,6 +539,67 @@ lines for now. A leg with no `counties` is quiet, not broken.
   border).
 - **Restrictions.** `maxheight` in metres and `maxweight` in tonnes are
   read as they are in the US.
+
+### Stops (fuel, truck stops, rest areas)
+
+A stop is a promise the driver can pull in, so it comes from a curated
+list, never straight from OpenStreetMap. Two steps:
+
+1. **Leads.** `cargo tools osm-stops --pbf canada-alaska-raw.osm.pbf
+   --only "$L" [--near-mi 1.5]` prints every fuel station, rest area,
+   services area and truck parking near each leg's road, with its leg
+   mile, how far off it sits and the tags that matter (diesel, hgv,
+   opening hours, website). It writes nothing.
+2. **Curate, then place.** Add each stop to `docs/stops/canada-alaska.json`
+   (or a new list for another region) with `lat`, `lon`, the stop record
+   the game reads (`name`, `type`, `actions`, `services`, `parking`,
+   `vehicle_access`) and a `source` that says what was read, what was
+   derived and what was assumed. Then `cargo tools osm-stops --stops FILE
+   --only "$L" --write` puts each stop on every leg whose road passes
+   within its `reach_mi` (0.5 mile by default) and replaces that leg's
+   stops of the same name. A stop on one side of a divided road carries
+   `heading` ("Northbound") and lands only on the legs headed that way.
+   Re-run it after a reroute; the miles follow the new road.
+
+Sources, in order:
+
+- **Provincial and territorial lists.** British Columbia publishes its
+  rest areas as open data (DataBC layer
+  `WHSE_IMAGERY_AND_BASE_MAPS.MOT_REST_AREAS_SP` at
+  `openmaps.gov.bc.ca/geo/pub/wfs`), with fields for commercial trucks,
+  open year round, side and access. Take only rows that accommodate
+  commercial trucks. The ministry says drivers may sleep at any rest area
+  and asks for stays under eight hours (TranBC), so BC rest areas get
+  `sleep`. North of Fort Nelson the Alaska Highway is federal: Public
+  Services and Procurement Canada's Alaska Highway page lists the summer
+  and the winter fuel stops by kilometre, the best source for a season. Yukon's
+  511 rest-area feed needs a developer key; until one is set up, Yukon
+  rest areas come from OpenStreetMap (`operator=Government of Yukon`,
+  `opening_hours=24/7`). The Government of Yukon's monthly fuel price
+  survey (yukon.ca) prices diesel by community: a community priced in
+  February sells diesel in winter.
+- **Operator pages** for roadhouses and lodges, for diesel and season.
+- **OpenStreetMap** for position and for stations in towns, labelled as
+  read from OSM, with year round assumed and said so.
+
+**Seasons.** The game has no closed season for a stop, so a stop is placed
+only when it is open year round. Give a seasonal or unconfirmed stop a
+`season` ("May to September", "unconfirmed") and the tool leaves it out
+and prints it. Many Alaska Highway lodges close in winter or have closed
+for good; never place one on an old guidebook's word.
+
+**Truck access must be read.** The game screens a fuel stop whose
+parking is not confirmed and whose name carries no truck word (truck,
+travel, plaza, cardlock and the like) to bobtail only, because an assumed
+`tractor_trailer` is not a reading. A lodge with no source for truck
+parking is still placed, but a tractor-trailer is not offered it. Find
+the reading (an operator page, a provincial list) before calling it a
+truck stop.
+
+**A 10-hour break needs `sleep`.** Lodges and motels with fuel get
+`sleep` (`parking: "limited"`); a fuel-only station or a cardlock does
+not. A cardlock sells to account holders only; its `actions` are
+`fuel` alone.
 
 ### Time
 

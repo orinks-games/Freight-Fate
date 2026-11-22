@@ -5114,9 +5114,9 @@ branch. The older Phase A/B plan checklists are not a live completion list.
       unverified. Seward and Valdez seafood plant owners were verified as
       Silver Bay Seafoods on 2026-10-07, but the OSM endpoint names still read
       Icicle and Peter Pan until the next Alaska endpoint re-sweep.
-- [ ] (Found along the way) Yukon km/h speeds are rounded to the nearest 5 mph
-      when baked (100 km/h reads 60 mph, 90 km/h reads 55); exact conversion
-      (62 and 56) needs the maxspeed parser and a Yukon/BC re-bake.
+- [x] (Found along the way) Yukon km/h speeds are rounded to the nearest 5 mph
+      when baked. Fixed 2026-11-22: postings keep their km/h and convert
+      exactly (100 reads 62, 90 reads 56); see the Canada tools pilot.
 - [ ] (Found along the way) Border processing times and the secondary-referral
       chance are gameplay assumptions.
 - [ ] (Found along the way) Passport and FAST documents are not modeled.
@@ -5683,9 +5683,13 @@ a carrier slice (owner, 2026-10-26).
       driven. Recipe: "Building a Canadian corridor" in
       `docs/map-enrichment-recipe.md`; report in the project files
       (`career-2.0-alpha/canada-tools-report.md`).
-- [ ] (Found along the way) Keep a Canadian posting in km/h: a 100 km/h
-      sign is stored as 60 mph and read back as 97. Needs a raw `kmh`
-      field and a reader that speaks it as signed.
+- [x] Canadian postings keep their km/h (2026-11-22): each posting stores
+      the sign's `kmh` beside its `mph`, and the game drives the sign
+      exactly (kmh / 1.609344), so a 100 sign speaks 100 in metric and 62 in
+      imperial; cruise to the limit, the speed keeper, speeding and the U
+      readout all use that value. Canadian ramp advisories keep their km/h
+      (the US bare-number screen is skipped there). The visual speed sign in
+      the drive scene still draws whole mph.
 - [ ] (Found along the way) Provincial traffic counts: no table is read,
       so Canadian legs take the game's road-class estimate. BC publishes
       counts in TRADAS; Alberta and Ontario have their own.
@@ -5694,11 +5698,33 @@ a carrier slice (owner, 2026-10-26).
       profile; a relief class from the Canadian Digital Elevation Model
       would. It also reads level one way and rolling the other between
       Watson Lake and Whitehorse, a near tie.
-- [ ] (Found along the way) Census divisions for Canadian county lines,
-      and truck stops on the BC and Yukon legs (none yet).
-- [ ] (Found along the way) A province line with no cited name is spoken
-      "Crossing into Yukon near British Columbia-Yukon line."; the place
-      half names the line itself. Wording for the director.
+- [ ] (Found along the way) Census divisions for Canadian county lines.
+- [x] Stops on the BC, Yukon and Alaska legs (2026-11-22): 108 stops on 32
+      legs from a curated list (`docs/stops/canada-alaska.json`) placed by
+      `cargo tools osm-stops`. BC rest areas from the province's open data
+      (trucks accommodated, open year round); fuel from operator pages, the
+      Government of Yukon fuel price survey and OSM. Glennallen to Tok,
+      Delta Junction to Glennallen and Glennallen to Valdez still have no
+      mid-leg stop.
+- [ ] (Found along the way) A stop has no closed season, so seasonal and
+      unconfirmed stops are left out: Contact Creek (diesel unconfirmed), Coal
+      River (summer only), Buckinghorse River, Continental Divide and Yukon River Camp, and
+      the seasonal BC rest areas. A `season` field the game honours would
+      let them in for the months they are open.
+- [ ] (Found along the way) Yukon rest areas come from OSM: 511 Yukon's
+      rest-area feed needs a developer key.
+- [ ] (Found along the way) Truck access at the Alaska Highway lodges and
+      town stations is not read anywhere, so the game offers them to a
+      bobtail only: Fort Nelson to Watson Lake has no tractor-trailer fuel
+      on the map. Needs an operator answer or a provincial list per stop.
+- [x] Province lines speak short (2026-11-22): a line with no cited place
+      is "Crossing into Yukon.", cited places are plain phrases ("the Alcan
+      border crossing", "Lower Post"), and a leg that crosses one line more
+      than twice drops stays under 5 miles at load with their returns
+      (`ff_core::data::line_weave`). Calibrated on the Lower Post weave:
+      its short stays are 1.3 to 4.8 miles, the next real stays 27.7 and 40.
+      A leg crossing a line once or twice, and every US leg, is untouched.
+      Fort Nelson to Watson Lake now enters Yukon once, near Lower Post.
 - [ ] Trans-Canada and Yellowhead, Vancouver to Winnipeg (1, 5, 16, 2),
       joining the Alcan at Prince George and Dawson Creek and the US at
       Blaine, Sumas, Osoyoos, Kingsgate, Coutts, North Portal, Emerson.
@@ -5710,8 +5736,9 @@ a carrier slice (owner, 2026-10-26).
       Calais and St. Stephen crossings.
 - [ ] The north: 63 to Fort McMurray, 16 to Prince Rupert, 37 to the
       Yukon, 3 to Yellowknife, freight nodes only.
-- [ ] The rules before the first corridor merges: postings spoken in km/h
-      in Canada whatever the unit setting; cycle 1 and 2 hours of service
+- [ ] The rules before the first corridor merges: postings in the
+      player's units from the sign's own number (done; an Automatic units
+      setting is its own brief); cycle 1 and 2 hours of service
       with the Canadian rest menus; provincial weights, the 25 m length,
       B-trains, spring bans; the 105 km/h limiters; CAD at the pump;
       customs with hours, FAST and cabotage at every listed port;

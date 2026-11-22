@@ -49,10 +49,13 @@
 - **Hooking or breaking a set of doubles adds time on duty,** and the walk-around takes 25 minutes instead of 15.
 - **The rear trailer of a set of doubles can whip on a hard swerve at 40 miles per hour and up.** You hear it when it starts. Reverse is refused with doubles hooked.
 - **The ELD now tracks your 70-hour, 8-day work cycle.** When a day of cycle hours is left the status line says so, and a 34-hour rest starts a fresh week.
+- **Fuel stops, lodges and rest areas now line the Alaska Highway and the roads of British Columbia and Alaska.** Only stops open all year are offered.
 
 ### Changed
 
-- **The British Columbia and Yukon highways now follow the real roads, with their bends, hills, exits and towns.** Surrey to Blaine is now 15 miles, 14 northbound.
+- **British Columbia and Yukon highways now follow the real roads.** They have their own bends, hills, exits and towns now.
+- **Canadian speed limits are now said as signed.** A 100 sign is 100 in kilometers and 62 in miles, and cruise holds that speed.
+- **Crossing into Yukon from Fort Nelson is now said once, near Lower Post.** A province line with no named place says just "Crossing into Yukon."
 - **Alaska, Yukon and British Columbia roads now use October's posted speed limits too.** Towns along the Alaska Highway slow you down, and the Glenn Highway runs at 65.
 - **A CDL pulled at speed now ends the run.** The truck stops on the shoulder, and a relief driver takes it back to the city the run left from.
 - **Dispatch trust no longer says the carrier may let you go while your CDL is pulled.** It says the seat is held until the suspension or disqualification ends.

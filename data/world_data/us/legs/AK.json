@@ -212,7 +212,75 @@
       "terrain": "hills",
       "divided": false,
       "lanes": 2,
-      "stops": [],
+      "stops": [
+        {
+          "name": "Essential One, Girdwood",
+          "type": "fuel_station",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "break"
+          ],
+          "services": [
+            "parking",
+            "diesel",
+            "gasoline"
+          ],
+          "parking": "limited",
+          "directions": [
+            "both"
+          ],
+          "curation": "curated",
+          "vehicle_access": "tractor_trailer",
+          "source": "Position and diesel read from OSM way 184098987 (fuel:diesel=yes), OpenStreetMap planet extract 2026-11-16. Open year round is assumed for a staffed station in a town on a through highway; not verified. Tractor-trailer access is assumed for a highway fuel stop, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+          "at_mi": 27.3
+        },
+        {
+          "name": "Speedway Express, Portage",
+          "type": "fuel_station",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "break"
+          ],
+          "services": [
+            "parking",
+            "diesel",
+            "gasoline"
+          ],
+          "parking": "limited",
+          "directions": [
+            "both"
+          ],
+          "curation": "curated",
+          "vehicle_access": "tractor_trailer",
+          "source": "Position and diesel read from OSM way 1090311206 (Speedway, fuel:diesel=yes), OpenStreetMap planet extract 2026-11-16. Open year round is assumed for a staffed station in a town on a through highway; not verified. Tractor-trailer access is assumed for a highway fuel stop, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+          "at_mi": 38.1
+        },
+        {
+          "name": "Turnagain Pass rest area",
+          "type": "public_rest_area",
+          "actions": [
+            "park",
+            "save",
+            "break"
+          ],
+          "services": [
+            "parking",
+            "restrooms"
+          ],
+          "parking": "limited",
+          "directions": [
+            "both"
+          ],
+          "curation": "curated",
+          "vehicle_access": "tractor_trailer",
+          "source": "Position read from OSM way 230274187 (highway=rest_area, name Turnagain Pass Rest Area Southbound, toilets=yes), OpenStreetMap planet extract 2026-11-16, on the southbound side. Open year round and tractor-trailer access are assumed, not verified. Leg mile projected onto the leg's road.",
+          "at_mi": 59.8
+        }
+      ],
       "corridor": {
         "tollway_detected": false,
         "route_points": [
@@ -2775,7 +2843,121 @@
       "terrain": "flat",
       "divided": false,
       "lanes": 2,
-      "stops": [],
+      "stops": [
+        {
+          "name": "Essential One, Girdwood",
+          "type": "fuel_station",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "break"
+          ],
+          "services": [
+            "parking",
+            "diesel",
+            "gasoline"
+          ],
+          "parking": "limited",
+          "directions": [
+            "both"
+          ],
+          "curation": "curated",
+          "vehicle_access": "tractor_trailer",
+          "source": "Position and diesel read from OSM way 184098987 (fuel:diesel=yes), OpenStreetMap planet extract 2026-11-16. Open year round is assumed for a staffed station in a town on a through highway; not verified. Tractor-trailer access is assumed for a highway fuel stop, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+          "at_mi": 27.1
+        },
+        {
+          "name": "Speedway Express, Portage",
+          "type": "fuel_station",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "break"
+          ],
+          "services": [
+            "parking",
+            "diesel",
+            "gasoline"
+          ],
+          "parking": "limited",
+          "directions": [
+            "both"
+          ],
+          "curation": "curated",
+          "vehicle_access": "tractor_trailer",
+          "source": "Position and diesel read from OSM way 1090311206 (Speedway, fuel:diesel=yes), OpenStreetMap planet extract 2026-11-16. Open year round is assumed for a staffed station in a town on a through highway; not verified. Tractor-trailer access is assumed for a highway fuel stop, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+          "at_mi": 37.8
+        },
+        {
+          "name": "Turnagain Pass rest area",
+          "type": "public_rest_area",
+          "actions": [
+            "park",
+            "save",
+            "break"
+          ],
+          "services": [
+            "parking",
+            "restrooms"
+          ],
+          "parking": "limited",
+          "directions": [
+            "both"
+          ],
+          "curation": "curated",
+          "vehicle_access": "tractor_trailer",
+          "source": "Position read from OSM way 230274187 (highway=rest_area, name Turnagain Pass Rest Area Southbound, toilets=yes), OpenStreetMap planet extract 2026-11-16, on the southbound side. Open year round and tractor-trailer access are assumed, not verified. Leg mile projected onto the leg's road.",
+          "at_mi": 59.3
+        },
+        {
+          "name": "Grizzly Ridge, Cooper Landing",
+          "type": "fuel_station",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "break"
+          ],
+          "services": [
+            "parking",
+            "diesel",
+            "gasoline"
+          ],
+          "parking": "limited",
+          "directions": [
+            "both"
+          ],
+          "curation": "curated",
+          "vehicle_access": "tractor_trailer",
+          "source": "Position and diesel read from OSM node 3593503576 (fuel:diesel=yes), OpenStreetMap planet extract 2026-11-16. Open year round is assumed for a staffed station in a town on a through highway; not verified. Tractor-trailer access is assumed for a highway fuel stop, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+          "at_mi": 101.4
+        },
+        {
+          "name": "Tesoro, Sterling",
+          "type": "fuel_station",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "break"
+          ],
+          "services": [
+            "parking",
+            "diesel",
+            "gasoline"
+          ],
+          "parking": "limited",
+          "directions": [
+            "both"
+          ],
+          "curation": "curated",
+          "vehicle_access": "tractor_trailer",
+          "source": "Position and diesel read from OSM node 3011807038 (Tesoro, fuel:diesel=yes), OpenStreetMap planet extract 2026-11-16. Open year round is assumed for a staffed station in a town on a through highway; not verified. Tractor-trailer access is assumed for a highway fuel stop, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+          "at_mi": 134.8
+        }
+      ],
       "corridor": {
         "tollway_detected": false,
         "route_points": [
@@ -16668,23 +16850,31 @@
       "lanes": 2,
       "stops": [
         {
-          "name": "Yukon River Camp",
-          "at_mi": 119,
-          "type": "travel_center",
-          "source": "Yukon River Camp https://yukonrivercamp.com/ confirms gas and diesel; Dalton MP 56 (BLM 2024 guide), 175\u221256=119 paid miles south of Coldfoot. Local OSM node 410640133 supports large-vehicle access; parking capacity not verified.",
+          "name": "Hilltop Truck Stop",
+          "type": "truck_stop",
           "actions": [
-            "fuel"
+            "park",
+            "save",
+            "fuel",
+            "food",
+            "break",
+            "sleep"
           ],
           "services": [
+            "parking",
             "diesel",
-            "gasoline"
+            "gasoline",
+            "food",
+            "restrooms"
           ],
-          "parking": "unknown",
+          "parking": "limited",
           "directions": [
             "both"
           ],
           "curation": "curated",
-          "vehicle_access": "tractor_trailer"
+          "vehicle_access": "tractor_trailer",
+          "source": "Position and diesel read from OSM node 4946680541 (fuel:diesel=yes), OpenStreetMap planet extract 2026-11-16. Year round is assumed for the last truck stop before the Dalton Highway, not verified. Tractor-trailer access is assumed for a highway fuel stop, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+          "at_mi": 242.4
         }
       ],
       "corridor": {
@@ -32473,7 +32663,31 @@
       "terrain": "flat",
       "divided": false,
       "lanes": 2,
-      "stops": [],
+      "stops": [
+        {
+          "name": "Salcha Tesoro",
+          "type": "fuel_station",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "break"
+          ],
+          "services": [
+            "parking",
+            "diesel",
+            "gasoline"
+          ],
+          "parking": "limited",
+          "directions": [
+            "both"
+          ],
+          "curation": "curated",
+          "vehicle_access": "tractor_trailer",
+          "source": "Position and diesel read from OSM node 5059457397 (Tesoro, fuel:diesel=yes), OpenStreetMap planet extract 2026-11-16. Open year round is assumed for a staffed station in a town on a through highway; not verified. Tractor-trailer access is assumed for a highway fuel stop, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+          "at_mi": 61.4
+        }
+      ],
       "corridor": {
         "tollway_detected": false,
         "route_points": [
@@ -37285,7 +37499,31 @@
       "terrain": "flat",
       "divided": false,
       "lanes": 2,
-      "stops": [],
+      "stops": [
+        {
+          "name": "Silver Fox Roadhouse",
+          "type": "fuel_station",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "break"
+          ],
+          "services": [
+            "parking",
+            "diesel",
+            "gasoline"
+          ],
+          "parking": "limited",
+          "directions": [
+            "both"
+          ],
+          "curation": "curated",
+          "vehicle_access": "tractor_trailer",
+          "source": "Position and diesel read from OSM node 4105387190 (fuel:diesel=yes, opening_hours=24/7), OpenStreetMap planet extract 2026-11-16. Open 24/7 read from OSM; year round is assumed. Tractor-trailer access is assumed for a highway fuel stop, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+          "at_mi": 17.9
+        }
+      ],
       "corridor": {
         "tollway_detected": false,
         "route_points": [
@@ -39301,23 +39539,31 @@
       "lanes": 2,
       "stops": [
         {
-          "name": "Yukon River Camp",
-          "at_mi": 140,
-          "type": "travel_center",
-          "source": "Yukon River Camp https://yukonrivercamp.com/ confirms gas and diesel; Dalton MP 56 (BLM 2024 guide), 84+56=140 paid miles from Fairbanks. Local OSM node 410640133 supports large-vehicle access; parking capacity not verified.",
+          "name": "Hilltop Truck Stop",
+          "type": "truck_stop",
           "actions": [
-            "fuel"
+            "park",
+            "save",
+            "fuel",
+            "food",
+            "break",
+            "sleep"
           ],
           "services": [
+            "parking",
             "diesel",
-            "gasoline"
+            "gasoline",
+            "food",
+            "restrooms"
           ],
-          "parking": "unknown",
+          "parking": "limited",
           "directions": [
             "both"
           ],
           "curation": "curated",
-          "vehicle_access": "tractor_trailer"
+          "vehicle_access": "tractor_trailer",
+          "source": "Position and diesel read from OSM node 4946680541 (fuel:diesel=yes), OpenStreetMap planet extract 2026-11-16. Year round is assumed for the last truck stop before the Dalton Highway, not verified. Tractor-trailer access is assumed for a highway fuel stop, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+          "at_mi": 16.7
         }
       ],
       "corridor": {
@@ -44460,7 +44706,31 @@
       "terrain": "flat",
       "divided": false,
       "lanes": 2,
-      "stops": [],
+      "stops": [
+        {
+          "name": "Salcha Tesoro",
+          "type": "fuel_station",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "break"
+          ],
+          "services": [
+            "parking",
+            "diesel",
+            "gasoline"
+          ],
+          "parking": "limited",
+          "directions": [
+            "both"
+          ],
+          "curation": "curated",
+          "vehicle_access": "tractor_trailer",
+          "source": "Position and diesel read from OSM node 5059457397 (Tesoro, fuel:diesel=yes), OpenStreetMap planet extract 2026-11-16. Open year round is assumed for a staffed station in a town on a through highway; not verified. Tractor-trailer access is assumed for a highway fuel stop, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+          "at_mi": 34.6
+        }
+      ],
       "corridor": {
         "tollway_detected": false,
         "route_points": [
@@ -49368,7 +49638,31 @@
       "terrain": "hills",
       "divided": false,
       "lanes": 2,
-      "stops": [],
+      "stops": [
+        {
+          "name": "Eureka Lodge",
+          "type": "fuel_station",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "break"
+          ],
+          "services": [
+            "parking",
+            "diesel",
+            "gasoline"
+          ],
+          "parking": "limited",
+          "directions": [
+            "both"
+          ],
+          "curation": "curated",
+          "vehicle_access": "tractor_trailer",
+          "source": "Position and diesel read from OSM way 1186323357 (Tesoro, fuel:diesel=yes), OpenStreetMap planet extract 2026-11-16. Year round is assumed, not verified. Tractor-trailer access is assumed for a highway fuel stop, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road. Mile measured on the leg's coarse stored route points, so it may be a few miles out.",
+          "at_mi": 65.6
+        }
+      ],
       "corridor": {
         "tollway_detected": false,
         "route_points": [
@@ -52096,7 +52390,54 @@
       "terrain": "hills",
       "divided": false,
       "lanes": 2,
-      "stops": [],
+      "stops": [
+        {
+          "name": "Sunshine Speedway, Talkeetna junction",
+          "type": "fuel_station",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "break"
+          ],
+          "services": [
+            "parking",
+            "diesel",
+            "gasoline"
+          ],
+          "parking": "limited",
+          "directions": [
+            "both"
+          ],
+          "curation": "curated",
+          "vehicle_access": "tractor_trailer",
+          "source": "Position and diesel read from OSM way 296835309 (Speedway, fuel:diesel=yes), OpenStreetMap planet extract 2026-11-16. Open year round is assumed for a staffed station in a town on a through highway; not verified. Tractor-trailer access is assumed for a highway fuel stop, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road. Mile measured on the leg's coarse stored route points, so it may be a few miles out.",
+          "at_mi": 150.9
+        },
+        {
+          "name": "Willow Tesoro",
+          "type": "fuel_station",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "break"
+          ],
+          "services": [
+            "parking",
+            "diesel",
+            "gasoline"
+          ],
+          "parking": "limited",
+          "directions": [
+            "both"
+          ],
+          "curation": "curated",
+          "vehicle_access": "tractor_trailer",
+          "source": "Position and diesel read from OSM way 1461479771 (Tesoro, fuel:diesel=yes), OpenStreetMap planet extract 2026-11-16. Open year round is assumed for a staffed station in a town on a through highway; not verified. Tractor-trailer access is assumed for a highway fuel stop, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road. Mile measured on the leg's coarse stored route points, so it may be a few miles out.",
+          "at_mi": 181.4
+        }
+      ],
       "corridor": {
         "tollway_detected": false,
         "route_points": [
@@ -52392,7 +52733,54 @@
       "terrain": "flat",
       "divided": false,
       "lanes": 2,
-      "stops": [],
+      "stops": [
+        {
+          "name": "Petro Express, Anchor Point",
+          "type": "fuel_station",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "break"
+          ],
+          "services": [
+            "parking",
+            "diesel",
+            "gasoline"
+          ],
+          "parking": "limited",
+          "directions": [
+            "both"
+          ],
+          "curation": "curated",
+          "vehicle_access": "tractor_trailer",
+          "source": "Position and diesel read from OSM node 3562711593 (Tesoro, fuel:diesel=yes), OpenStreetMap planet extract 2026-11-16. Open year round is assumed for a staffed station in a town on a through highway; not verified. Tractor-trailer access is assumed for a highway fuel stop, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+          "at_mi": 15.8
+        },
+        {
+          "name": "Tesoro, Ninilchik",
+          "type": "fuel_station",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "break"
+          ],
+          "services": [
+            "parking",
+            "diesel",
+            "gasoline"
+          ],
+          "parking": "limited",
+          "directions": [
+            "both"
+          ],
+          "curation": "curated",
+          "vehicle_access": "tractor_trailer",
+          "source": "Position and diesel read from OSM node 2995293798 (Tesoro, fuel:diesel=yes, opening_hours=Mo-Su 06:00-22:00), OpenStreetMap planet extract 2026-11-16. Open year round is assumed for a staffed station in a town on a through highway; not verified. Tractor-trailer access is assumed for a highway fuel stop, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+          "at_mi": 35.6
+        }
+      ],
       "corridor": {
         "tollway_detected": false,
         "route_points": [
@@ -54550,7 +54938,31 @@
       "terrain": "hills",
       "divided": false,
       "lanes": 2,
-      "stops": [],
+      "stops": [
+        {
+          "name": "Eureka Lodge",
+          "type": "fuel_station",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "break"
+          ],
+          "services": [
+            "parking",
+            "diesel",
+            "gasoline"
+          ],
+          "parking": "limited",
+          "directions": [
+            "both"
+          ],
+          "curation": "curated",
+          "vehicle_access": "tractor_trailer",
+          "source": "Position and diesel read from OSM way 1186323357 (Tesoro, fuel:diesel=yes), OpenStreetMap planet extract 2026-11-16. Year round is assumed, not verified. Tractor-trailer access is assumed for a highway fuel stop, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road. Mile measured on the leg's coarse stored route points, so it may be a few miles out.",
+          "at_mi": 79.4
+        }
+      ],
       "corridor": {
         "tollway_detected": false,
         "route_points": [
@@ -54866,7 +55278,75 @@
       "terrain": "flat",
       "divided": false,
       "lanes": 2,
-      "stops": [],
+      "stops": [
+        {
+          "name": "Turnagain Pass rest area",
+          "type": "public_rest_area",
+          "actions": [
+            "park",
+            "save",
+            "break"
+          ],
+          "services": [
+            "parking",
+            "restrooms"
+          ],
+          "parking": "limited",
+          "directions": [
+            "both"
+          ],
+          "curation": "curated",
+          "vehicle_access": "tractor_trailer",
+          "source": "Position read from OSM way 230274186 (highway=rest_area, name Turnagain Pass Rest Area Northbound, toilets=yes), OpenStreetMap planet extract 2026-11-16, on the northbound side. Open year round and tractor-trailer access are assumed, not verified. Leg mile projected onto the leg's road.",
+          "at_mi": 66.9
+        },
+        {
+          "name": "Speedway Express, Portage",
+          "type": "fuel_station",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "break"
+          ],
+          "services": [
+            "parking",
+            "diesel",
+            "gasoline"
+          ],
+          "parking": "limited",
+          "directions": [
+            "both"
+          ],
+          "curation": "curated",
+          "vehicle_access": "tractor_trailer",
+          "source": "Position and diesel read from OSM way 1090311206 (Speedway, fuel:diesel=yes), OpenStreetMap planet extract 2026-11-16. Open year round is assumed for a staffed station in a town on a through highway; not verified. Tractor-trailer access is assumed for a highway fuel stop, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+          "at_mi": 88.8
+        },
+        {
+          "name": "Essential One, Girdwood",
+          "type": "fuel_station",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "break"
+          ],
+          "services": [
+            "parking",
+            "diesel",
+            "gasoline"
+          ],
+          "parking": "limited",
+          "directions": [
+            "both"
+          ],
+          "curation": "curated",
+          "vehicle_access": "tractor_trailer",
+          "source": "Position and diesel read from OSM way 184098987 (fuel:diesel=yes), OpenStreetMap planet extract 2026-11-16. Open year round is assumed for a staffed station in a town on a through highway; not verified. Tractor-trailer access is assumed for a highway fuel stop, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+          "at_mi": 99.6
+        }
+      ],
       "corridor": {
         "tollway_detected": false,
         "route_points": [
@@ -57376,7 +57856,54 @@
       "terrain": "flat",
       "divided": false,
       "lanes": 2,
-      "stops": [],
+      "stops": [
+        {
+          "name": "Grizzly Ridge, Cooper Landing",
+          "type": "fuel_station",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "break"
+          ],
+          "services": [
+            "parking",
+            "diesel",
+            "gasoline"
+          ],
+          "parking": "limited",
+          "directions": [
+            "both"
+          ],
+          "curation": "curated",
+          "vehicle_access": "tractor_trailer",
+          "source": "Position and diesel read from OSM node 3593503576 (fuel:diesel=yes), OpenStreetMap planet extract 2026-11-16. Open year round is assumed for a staffed station in a town on a through highway; not verified. Tractor-trailer access is assumed for a highway fuel stop, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+          "at_mi": 47.8
+        },
+        {
+          "name": "Tesoro, Sterling",
+          "type": "fuel_station",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "break"
+          ],
+          "services": [
+            "parking",
+            "diesel",
+            "gasoline"
+          ],
+          "parking": "limited",
+          "directions": [
+            "both"
+          ],
+          "curation": "curated",
+          "vehicle_access": "tractor_trailer",
+          "source": "Position and diesel read from OSM node 3011807038 (Tesoro, fuel:diesel=yes), OpenStreetMap planet extract 2026-11-16. Open year round is assumed for a staffed station in a town on a through highway; not verified. Tractor-trailer access is assumed for a highway fuel stop, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+          "at_mi": 81.7
+        }
+      ],
       "corridor": {
         "tollway_detected": false,
         "route_points": [
@@ -59318,7 +59845,121 @@
       "terrain": "flat",
       "divided": false,
       "lanes": 2,
-      "stops": [],
+      "stops": [
+        {
+          "name": "Tesoro, Sterling",
+          "type": "fuel_station",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "break"
+          ],
+          "services": [
+            "parking",
+            "diesel",
+            "gasoline"
+          ],
+          "parking": "limited",
+          "directions": [
+            "both"
+          ],
+          "curation": "curated",
+          "vehicle_access": "tractor_trailer",
+          "source": "Position and diesel read from OSM node 3011807038 (Tesoro, fuel:diesel=yes), OpenStreetMap planet extract 2026-11-16. Open year round is assumed for a staffed station in a town on a through highway; not verified. Tractor-trailer access is assumed for a highway fuel stop, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+          "at_mi": 12.1
+        },
+        {
+          "name": "Grizzly Ridge, Cooper Landing",
+          "type": "fuel_station",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "break"
+          ],
+          "services": [
+            "parking",
+            "diesel",
+            "gasoline"
+          ],
+          "parking": "limited",
+          "directions": [
+            "both"
+          ],
+          "curation": "curated",
+          "vehicle_access": "tractor_trailer",
+          "source": "Position and diesel read from OSM node 3593503576 (fuel:diesel=yes), OpenStreetMap planet extract 2026-11-16. Open year round is assumed for a staffed station in a town on a through highway; not verified. Tractor-trailer access is assumed for a highway fuel stop, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+          "at_mi": 45.5
+        },
+        {
+          "name": "Turnagain Pass rest area",
+          "type": "public_rest_area",
+          "actions": [
+            "park",
+            "save",
+            "break"
+          ],
+          "services": [
+            "parking",
+            "restrooms"
+          ],
+          "parking": "limited",
+          "directions": [
+            "both"
+          ],
+          "curation": "curated",
+          "vehicle_access": "tractor_trailer",
+          "source": "Position read from OSM way 230274186 (highway=rest_area, name Turnagain Pass Rest Area Northbound, toilets=yes), OpenStreetMap planet extract 2026-11-16, on the northbound side. Open year round and tractor-trailer access are assumed, not verified. Leg mile projected onto the leg's road.",
+          "at_mi": 87.4
+        },
+        {
+          "name": "Speedway Express, Portage",
+          "type": "fuel_station",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "break"
+          ],
+          "services": [
+            "parking",
+            "diesel",
+            "gasoline"
+          ],
+          "parking": "limited",
+          "directions": [
+            "both"
+          ],
+          "curation": "curated",
+          "vehicle_access": "tractor_trailer",
+          "source": "Position and diesel read from OSM way 1090311206 (Speedway, fuel:diesel=yes), OpenStreetMap planet extract 2026-11-16. Open year round is assumed for a staffed station in a town on a through highway; not verified. Tractor-trailer access is assumed for a highway fuel stop, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+          "at_mi": 109.2
+        },
+        {
+          "name": "Essential One, Girdwood",
+          "type": "fuel_station",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "break"
+          ],
+          "services": [
+            "parking",
+            "diesel",
+            "gasoline"
+          ],
+          "parking": "limited",
+          "directions": [
+            "both"
+          ],
+          "curation": "curated",
+          "vehicle_access": "tractor_trailer",
+          "source": "Position and diesel read from OSM way 184098987 (fuel:diesel=yes), OpenStreetMap planet extract 2026-11-16. Open year round is assumed for a staffed station in a town on a through highway; not verified. Tractor-trailer access is assumed for a highway fuel stop, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+          "at_mi": 119.9
+        }
+      ],
       "corridor": {
         "tollway_detected": false,
         "route_points": [
@@ -62261,7 +62902,54 @@
       "terrain": "flat",
       "divided": false,
       "lanes": 2,
-      "stops": [],
+      "stops": [
+        {
+          "name": "Tesoro, Ninilchik",
+          "type": "fuel_station",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "break"
+          ],
+          "services": [
+            "parking",
+            "diesel",
+            "gasoline"
+          ],
+          "parking": "limited",
+          "directions": [
+            "both"
+          ],
+          "curation": "curated",
+          "vehicle_access": "tractor_trailer",
+          "source": "Position and diesel read from OSM node 2995293798 (Tesoro, fuel:diesel=yes, opening_hours=Mo-Su 06:00-22:00), OpenStreetMap planet extract 2026-11-16. Open year round is assumed for a staffed station in a town on a through highway; not verified. Tractor-trailer access is assumed for a highway fuel stop, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+          "at_mi": 39.4
+        },
+        {
+          "name": "Petro Express, Anchor Point",
+          "type": "fuel_station",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "break"
+          ],
+          "services": [
+            "parking",
+            "diesel",
+            "gasoline"
+          ],
+          "parking": "limited",
+          "directions": [
+            "both"
+          ],
+          "curation": "curated",
+          "vehicle_access": "tractor_trailer",
+          "source": "Position and diesel read from OSM node 3562711593 (Tesoro, fuel:diesel=yes), OpenStreetMap planet extract 2026-11-16. Open year round is assumed for a staffed station in a town on a through highway; not verified. Tractor-trailer access is assumed for a highway fuel stop, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+          "at_mi": 59.2
+        }
+      ],
       "corridor": {
         "tollway_detected": false,
         "route_points": [
@@ -64059,7 +64747,54 @@
       "terrain": "flat",
       "divided": false,
       "lanes": 2,
-      "stops": [],
+      "stops": [
+        {
+          "name": "Tesoro, Sterling",
+          "type": "fuel_station",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "break"
+          ],
+          "services": [
+            "parking",
+            "diesel",
+            "gasoline"
+          ],
+          "parking": "limited",
+          "directions": [
+            "both"
+          ],
+          "curation": "curated",
+          "vehicle_access": "tractor_trailer",
+          "source": "Position and diesel read from OSM node 3011807038 (Tesoro, fuel:diesel=yes), OpenStreetMap planet extract 2026-11-16. Open year round is assumed for a staffed station in a town on a through highway; not verified. Tractor-trailer access is assumed for a highway fuel stop, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+          "at_mi": 12.3
+        },
+        {
+          "name": "Grizzly Ridge, Cooper Landing",
+          "type": "fuel_station",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "break"
+          ],
+          "services": [
+            "parking",
+            "diesel",
+            "gasoline"
+          ],
+          "parking": "limited",
+          "directions": [
+            "both"
+          ],
+          "curation": "curated",
+          "vehicle_access": "tractor_trailer",
+          "source": "Position and diesel read from OSM node 3593503576 (fuel:diesel=yes), OpenStreetMap planet extract 2026-11-16. Open year round is assumed for a staffed station in a town on a through highway; not verified. Tractor-trailer access is assumed for a highway fuel stop, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+          "at_mi": 46.2
+        }
+      ],
       "corridor": {
         "tollway_detected": false,
         "route_points": [
@@ -65993,7 +66728,31 @@
       "terrain": "flat",
       "divided": false,
       "lanes": 2,
-      "stops": [],
+      "stops": [
+        {
+          "name": "Silver Fox Roadhouse",
+          "type": "fuel_station",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "break"
+          ],
+          "services": [
+            "parking",
+            "diesel",
+            "gasoline"
+          ],
+          "parking": "limited",
+          "directions": [
+            "both"
+          ],
+          "curation": "curated",
+          "vehicle_access": "tractor_trailer",
+          "source": "Position and diesel read from OSM node 4105387190 (fuel:diesel=yes, opening_hours=24/7), OpenStreetMap planet extract 2026-11-16. Open 24/7 read from OSM; year round is assumed. Tractor-trailer access is assumed for a highway fuel stop, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+          "at_mi": 90.2
+        }
+      ],
       "corridor": {
         "tollway_detected": false,
         "route_points": [
@@ -68163,7 +68922,143 @@
       "terrain": "hills",
       "divided": false,
       "lanes": 2,
-      "stops": [],
+      "stops": [
+        {
+          "name": "Naabia Niign, Northway Junction",
+          "type": "fuel_station",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "break"
+          ],
+          "services": [
+            "parking",
+            "diesel",
+            "gasoline"
+          ],
+          "parking": "limited",
+          "directions": [
+            "both"
+          ],
+          "curation": "curated",
+          "vehicle_access": "tractor_trailer",
+          "source": "Position and diesel read from OSM way 455287948 (fuel:diesel=yes, opening_hours=24/7), OpenStreetMap planet extract 2026-11-16. Open 24/7 read from OSM; year round is assumed. Tractor-trailer access is assumed for a highway fuel stop, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+          "at_mi": 48.9
+        },
+        {
+          "name": "Fas Gas, Beaver Creek",
+          "type": "fuel_station",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "break"
+          ],
+          "services": [
+            "parking",
+            "diesel",
+            "gasoline"
+          ],
+          "parking": "limited",
+          "directions": [
+            "both"
+          ],
+          "curation": "curated",
+          "vehicle_access": "tractor_trailer",
+          "source": "Position and diesel read from OSM node 12010033873 (Fas Gas, fuel:diesel=yes), OpenStreetMap planet extract 2026-11-16. Year-round diesel in Beaver Creek: read from the Government of Yukon fuel price survey, which prices diesel there in February 2025 (https://yukon.ca/sites/default/files/2025-02/fin-yukon-fuel-price-survey-february-2025_0.pdf), April 2026 and July 2026; the survey names no station, so which station is derived from the OSM tags. Tractor-trailer access is assumed for a highway fuel stop, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+          "at_mi": 109.3
+        },
+        {
+          "name": "Kluane Energy, Burwash Landing",
+          "type": "fuel_station",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "break"
+          ],
+          "services": [
+            "parking",
+            "diesel",
+            "gasoline"
+          ],
+          "parking": "limited",
+          "directions": [
+            "both"
+          ],
+          "curation": "curated",
+          "vehicle_access": "tractor_trailer",
+          "source": "Position and diesel read from OSM node 12007478131 (fuel:diesel=yes, opening_hours=24/7), OpenStreetMap planet extract 2026-11-16. Year-round diesel in Burwash Landing: read from the Government of Yukon fuel price survey, which prices diesel there in February 2025 (https://yukon.ca/sites/default/files/2025-02/fin-yukon-fuel-price-survey-february-2025_0.pdf), April 2026 and July 2026; the survey names no station, so which station is derived from the OSM tags. Tractor-trailer access is assumed for a highway fuel stop, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+          "at_mi": 215.0
+        },
+        {
+          "name": "Fas Gas, Destruction Bay",
+          "type": "fuel_station",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "break"
+          ],
+          "services": [
+            "parking",
+            "diesel",
+            "gasoline"
+          ],
+          "parking": "limited",
+          "directions": [
+            "both"
+          ],
+          "curation": "curated",
+          "vehicle_access": "tractor_trailer",
+          "source": "Position and diesel read from OSM way 376013233 (Fas Gas, fuel:diesel=yes, opening_hours=07:00-23:00), OpenStreetMap planet extract 2026-11-16. Year-round diesel in Destruction Bay: read from the Government of Yukon fuel price survey, which prices diesel there in February 2025 (https://yukon.ca/sites/default/files/2025-02/fin-yukon-fuel-price-survey-february-2025_0.pdf), April 2026 and July 2026; the survey names no station, so which station is derived from the OSM tags. Tractor-trailer access is assumed for a highway fuel stop, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+          "at_mi": 224.9
+        },
+        {
+          "name": "Source Motors, Haines Junction",
+          "type": "fuel_station",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "break"
+          ],
+          "services": [
+            "parking",
+            "diesel",
+            "gasoline"
+          ],
+          "parking": "limited",
+          "directions": [
+            "both"
+          ],
+          "curation": "curated",
+          "vehicle_access": "tractor_trailer",
+          "source": "Position and diesel read from OSM way 507396026 (fuel:diesel=yes, opening_hours=24/7), OpenStreetMap planet extract 2026-11-16. Year-round diesel in Haines Junction: read from the Government of Yukon fuel price survey, which prices diesel there in February 2025 (https://yukon.ca/sites/default/files/2025-02/fin-yukon-fuel-price-survey-february-2025_0.pdf), April 2026 and July 2026; the survey names no station, so which station is derived from the OSM tags. Tractor-trailer access is assumed for a highway fuel stop, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+          "at_mi": 289.8
+        },
+        {
+          "name": "Cousins rest area",
+          "type": "public_rest_area",
+          "actions": [
+            "park",
+            "save",
+            "break"
+          ],
+          "services": [
+            "parking"
+          ],
+          "parking": "limited",
+          "directions": [
+            "both"
+          ],
+          "curation": "curated",
+          "vehicle_access": "tractor_trailer",
+          "source": "Position read from OSM way 305369410 (highway=rest_area, operator=Government of Yukon, opening_hours=24/7), OpenStreetMap planet extract 2026-11-16. Year round is derived from the 24/7 tag; tractor-trailer access is assumed. Leg mile projected onto the leg's road.",
+          "at_mi": 378.2
+        }
+      ],
       "corridor": {
         "tollway_detected": false,
         "route_points": [
@@ -74039,7 +74934,54 @@
       "terrain": "hills",
       "divided": false,
       "lanes": 2,
-      "stops": [],
+      "stops": [
+        {
+          "name": "Willow Tesoro",
+          "type": "fuel_station",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "break"
+          ],
+          "services": [
+            "parking",
+            "diesel",
+            "gasoline"
+          ],
+          "parking": "limited",
+          "directions": [
+            "both"
+          ],
+          "curation": "curated",
+          "vehicle_access": "tractor_trailer",
+          "source": "Position and diesel read from OSM way 1461479771 (Tesoro, fuel:diesel=yes), OpenStreetMap planet extract 2026-11-16. Open year round is assumed for a staffed station in a town on a through highway; not verified. Tractor-trailer access is assumed for a highway fuel stop, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road. Mile measured on the leg's coarse stored route points, so it may be a few miles out.",
+          "at_mi": 25.6
+        },
+        {
+          "name": "Sunshine Speedway, Talkeetna junction",
+          "type": "fuel_station",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "break"
+          ],
+          "services": [
+            "parking",
+            "diesel",
+            "gasoline"
+          ],
+          "parking": "limited",
+          "directions": [
+            "both"
+          ],
+          "curation": "curated",
+          "vehicle_access": "tractor_trailer",
+          "source": "Position and diesel read from OSM way 296835309 (Speedway, fuel:diesel=yes), OpenStreetMap planet extract 2026-11-16. Open year round is assumed for a staffed station in a town on a through highway; not verified. Tractor-trailer access is assumed for a highway fuel stop, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road. Mile measured on the leg's coarse stored route points, so it may be a few miles out.",
+          "at_mi": 56.1
+        }
+      ],
       "corridor": {
         "tollway_detected": false,
         "route_points": [
