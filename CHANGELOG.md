@@ -83,6 +83,10 @@
 - **Moving up to another carrier now says where your truck will start** before you confirm.
 - **The sleep that finishes a 34-hour restart now says your cycle clock reset.**
 - **A repossession with no carrier to take you on now names the city it looked near.**
+- **The delivery screen now reads the receiver's cattle count and any freight claim.** Both had gone missing from the screen.
+- **A reefer box left off on the road now warms at the same rate as at a stop.** It had been warming ten times slower while driving.
+- **Sleeping with cattle aboard now warns when they would pass the 28-hour limit,** and the hours readouts stop naming a 30-minute break that cannot come due.
+- **A refused reverse with doubles no longer plays the gear-shift sound,** and the doubles hook-up time is spoken once at the shipper and once at the receiver.
 
 ## 1.9.7 - 2026-11-21
 

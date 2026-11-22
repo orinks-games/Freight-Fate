@@ -8,6 +8,10 @@ use crate::app::GameContext;
 use crate::states::driving::DrivingState;
 use crate::states::driving_core::{clock_text, profile_of, MOTEL_COST};
 
+/// Said in a sleep's forecast when live cattle would pass the 28-hour limit
+/// before the driver wakes.
+pub const CATTLE_LIMIT_IN_SLEEP_TEXT: &str = "The cattle pass the 28-hour limit while you sleep.";
+
 #[derive(Clone, Copy, PartialEq, Eq)]
 pub(super) enum SleepChoice {
     Sleeper(i64),
@@ -117,6 +121,15 @@ pub(super) fn sleep_preview(d: &DrivingState, ctx: &GameContext, choice: SleepCh
     } else {
         "The delivery deadline will have arrived.".to_string()
     };
+    // A sleep that carries live cattle past their 28-hour limit costs the
+    // load every hour past it; the forecast is the last place to hear it.
+    let cattle = d
+        .livestock()
+        .filter(|load| load.aboard())
+        .map(|load| load.limit_left_min())
+        .filter(|left| *left > 0.0 && *left <= minutes)
+        .map(|_| format!(" {CATTLE_LIMIT_IN_SLEEP_TEXT}"))
+        .unwrap_or_default();
     let pending = after
         .split_pending_summary()
         .map(|summary| format!(" {summary}"))
@@ -128,7 +141,7 @@ pub(super) fn sleep_preview(d: &DrivingState, ctx: &GameContext, choice: SleepCh
     };
     format!(
         "Sleep {span}{more} at {}. {effect} {legal} Fatigue {} to {}. Clock moves ahead {span}. \
-         {deadline}{pending}{cost} Select again to sleep.",
+         {deadline}{cattle}{pending}{cost} Select again to sleep.",
         choice.name(),
         fmt_f(profile.fatigue, 0),
         fmt_f(fatigue_after, 0)

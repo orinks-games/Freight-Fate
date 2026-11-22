@@ -77,6 +77,8 @@ impl DrivingState {
         }
         if cattle_aboard {
             hos_mut_of(ctx).waive_break();
+        } else if hos_of(ctx).break_waived {
+            hos_mut_of(ctx).restore_break();
         }
         if !hos::HOS_NON_ENFORCED_MODES.contains(&mode.as_str()) && self.hazard_deadline.is_none() {
             let marks = tuning_for_time_scale(self.trip.time_scale).hos_warning_marks_min;

@@ -13519,6 +13519,9 @@ msgstr ""
 msgid "No 30-minute break is required under Canadian hours rules."
 msgstr ""
 
+msgid "No 30-minute break is required with cattle aboard."
+msgstr ""
+
 msgid "Break overdue"
 msgstr "Pause überfällig"
 
@@ -22928,10 +22931,10 @@ msgstr "Halt an, bevor du lädst."
 msgid "Hooking the loaded trailer"
 msgstr "Beladenen Auflieger ankuppeln"
 
-#. placeholders: {facility}, {map}, {f}, {cargo_label}, {doubles_clause}
+#. placeholders: {facility}, {map}, {f}, {cargo_label}
 msgid ""
 "Dropping your empty at {facility} and hooking {map}, loaded with {f} tons "
-"of {cargo_label}.{doubles_clause}"
+"of {cargo_label}."
 msgstr ""
 
 msgid "Dropping and hooking."
@@ -22940,8 +22943,8 @@ msgstr "Aufliegertausch."
 msgid "Loading cargo"
 msgstr "Ladung wird geladen"
 
-#. placeholders: {f}, {cargo_label}, {facility}, {doubles_clause}
-msgid "Loading {f} tons of {cargo_label} at {facility}.{doubles_clause}"
+#. placeholders: {f}, {cargo_label}, {facility}
+msgid "Loading {f} tons of {cargo_label} at {facility}."
 msgstr ""
 
 msgid "Loading cargo."
@@ -31380,16 +31383,17 @@ msgid ""
 msgstr ""
 "Beladenen Auflieger bei {facility} abstellen, {f} Tonnen {cargo_label}."
 
-#. placeholders: {facility}, {f}, {cargo_label}, {doubles}
+#. placeholders: {facility}, {f}, {cargo_label}
 msgid ""
 "Dropping the loaded trailer at {facility}, {f} tons of {cargo_label}. "
-"Hooking an empty.{doubles}"
+"Hooking an empty."
 msgstr ""
+"Beladenen Auflieger bei {facility} abstellen, {f} Tonnen {cargo_label}. "
+"Leeren ankuppeln."
 
-#. placeholders: {doubles}
 #. one sentence of a longer line
-msgid "Hooking an empty.{doubles}"
-msgstr ""
+msgid "Hooking an empty."
+msgstr "Leeren ankuppeln."
 
 msgid "Dropping the trailer."
 msgstr "Auflieger wird abgestellt."
@@ -31402,14 +31406,14 @@ msgstr "Ladung wird entladen"
 msgid "Docked at {facility}."
 msgstr "Angedockt bei {facility}."
 
-#. placeholders: {facility}, {f}, {cargo_label}, {doubles}
-msgid "Docked at {facility}. Unloading {f} tons of {cargo_label}.{doubles}"
-msgstr ""
+#. placeholders: {facility}, {f}, {cargo_label}
+msgid "Docked at {facility}. Unloading {f} tons of {cargo_label}."
+msgstr "Angedockt bei {facility}. {f} Tonnen {cargo_label} werden entladen."
 
-#. placeholders: {f}, {cargo_label}, {doubles}
+#. placeholders: {f}, {cargo_label}
 #. one sentence of a longer line
-msgid "Unloading {f} tons of {cargo_label}.{doubles}"
-msgstr ""
+msgid "Unloading {f} tons of {cargo_label}."
+msgstr "{f} Tonnen {cargo_label} werden entladen."
 
 msgid "Unloading cargo."
 msgstr "Ladung wird entladen."
@@ -33209,6 +33213,9 @@ msgid ""
 msgstr ""
 "Motor aus beim Parken, kein Kraftstoffverbrauch. Pflicht vor der Zapfsäule."
 
+msgid "The cattle pass the 28-hour limit while you sleep."
+msgstr ""
+
 msgid "the lot"
 msgstr "Parkplatz"
 
@@ -33296,19 +33303,20 @@ msgstr "Die Uhr springt {span} vor."
 msgid "Sleep {span}{more} at {name}."
 msgstr "{span}{more} schlafen bei {name}."
 
-#. placeholders: {span}, {more}, {name}, {effect}, {legal}, {f}, {f2}, {deadline}, {pending}, {cost}
+#. placeholders: {span}, {more}, {name}, {effect}, {legal}, {f}, {f2}, {deadline}, {cattle}, {pending}, {cost}
 msgid ""
 "Sleep {span}{more} at {name}. {effect} {legal} Fatigue {f} to {f2}. Clock "
-"moves ahead {span}. {deadline}{pending}{cost} Select again to sleep."
+"moves ahead {span}. {deadline}{cattle}{pending}{cost} Select again to sleep."
 msgstr ""
 "{span}{more} schlafen bei {name}. {effect} {legal} Müdigkeit {f} auf {f2}. "
-"Die Uhr springt {span} vor. {deadline}{pending}{cost} Noch einmal wählen, "
-"um zu schlafen."
+"Die Uhr springt {span} vor. {deadline}{cattle}{pending}{cost} Noch einmal "
+"wählen, um zu schlafen."
 
-#. placeholders: {deadline}, {pending}, {cost}
+#. placeholders: {deadline}, {cattle}, {pending}, {cost}
 #. one sentence of a longer line
-msgid "{deadline}{pending}{cost} Select again to sleep."
-msgstr "{deadline}{pending}{cost} Noch einmal auswählen zum Schlafen."
+msgid "{deadline}{cattle}{pending}{cost} Select again to sleep."
+msgstr ""
+"{deadline}{cattle}{pending}{cost} Noch einmal auswählen zum Schlafen."
 
 #. placeholders: {effect}, {legal}, {f}, {f2}
 #. one sentence of a longer line
@@ -46410,6 +46418,17 @@ msgstr ""
 #~ "und Dienstzeit zurückgesetzt. Der Schlaf war schlecht. "
 #~ "{deadline_text}{wake_air_instruction}"
 
+#~ msgid ""
+#~ "Sleep {span}{more} at {name}. {effect} {legal} Fatigue {f} to {f2}. Clock "
+#~ "moves ahead {span}. {deadline}{pending}{cost} Select again to sleep."
+#~ msgstr ""
+#~ "{span}{more} schlafen bei {name}. {effect} {legal} Müdigkeit {f} auf {f2}. "
+#~ "Die Uhr springt {span} vor. {deadline}{pending}{cost} Noch einmal wählen, "
+#~ "um zu schlafen."
+
+#~ msgid "{deadline}{pending}{cost} Select again to sleep."
+#~ msgstr "{deadline}{pending}{cost} Noch einmal auswählen zum Schlafen."
+
 #~ msgid ", which your carrier pays"
 #~ msgstr ", die deine Spedition zahlt"
 
@@ -46710,22 +46729,6 @@ msgstr ""
 
 #~ msgid "Parked at {name} in {city}."
 #~ msgstr "Geparkt bei {name} in {city}."
-
-#~ msgid ""
-#~ "Dropping the loaded trailer at {facility}, {f} tons of {cargo_label}. "
-#~ "Hooking an empty."
-#~ msgstr ""
-#~ "Beladenen Auflieger bei {facility} abstellen, {f} Tonnen {cargo_label}. "
-#~ "Leeren ankuppeln."
-
-#~ msgid "Hooking an empty."
-#~ msgstr "Leeren ankuppeln."
-
-#~ msgid "Docked at {facility}. Unloading {f} tons of {cargo_label}."
-#~ msgstr "Angedockt bei {facility}. {f} Tonnen {cargo_label} werden entladen."
-
-#~ msgid "Unloading {f} tons of {cargo_label}."
-#~ msgstr "{f} Tonnen {cargo_label} werden entladen."
 
 #~ msgid ""
 #~ "At {facility}. {f} tons of {label}. Speed {speed_text}. {else}. Stop, then "

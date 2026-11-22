@@ -12145,6 +12145,9 @@ msgstr ""
 msgid "No 30-minute break is required under Canadian hours rules."
 msgstr ""
 
+msgid "No 30-minute break is required with cattle aboard."
+msgstr ""
+
 msgid "Break overdue"
 msgstr "休憩の期限切れ"
 
@@ -20898,10 +20901,10 @@ msgstr "積み込みの前に停車してください。"
 msgid "Hooking the loaded trailer"
 msgstr "積荷の載ったトレーラーをつないでいます"
 
-#. placeholders: {facility}, {map}, {f}, {cargo_label}, {doubles_clause}
+#. placeholders: {facility}, {map}, {f}, {cargo_label}
 msgid ""
 "Dropping your empty at {facility} and hooking {map}, loaded with {f} tons "
-"of {cargo_label}.{doubles_clause}"
+"of {cargo_label}."
 msgstr ""
 
 msgid "Dropping and hooking."
@@ -20910,8 +20913,8 @@ msgstr "ドロップ・アンド・フック中です。"
 msgid "Loading cargo"
 msgstr "積み込み中"
 
-#. placeholders: {f}, {cargo_label}, {facility}, {doubles_clause}
-msgid "Loading {f} tons of {cargo_label} at {facility}.{doubles_clause}"
+#. placeholders: {f}, {cargo_label}, {facility}
+msgid "Loading {f} tons of {cargo_label} at {facility}."
 msgstr ""
 
 msgid "Loading cargo."
@@ -28679,16 +28682,15 @@ msgid ""
 "Dropping the loaded trailer at {facility}, {f} tons of {cargo_label}."
 msgstr "{facility}で積んだトレーラーを切り離しています。{cargo_label}{f}トンです。"
 
-#. placeholders: {facility}, {f}, {cargo_label}, {doubles}
+#. placeholders: {facility}, {f}, {cargo_label}
 msgid ""
 "Dropping the loaded trailer at {facility}, {f} tons of {cargo_label}. "
-"Hooking an empty.{doubles}"
-msgstr ""
+"Hooking an empty."
+msgstr "{facility}で積んだトレーラーを切り離しています。{cargo_label}{f}トンです。空のトレーラーをつないでいます。"
 
-#. placeholders: {doubles}
 #. one sentence of a longer line
-msgid "Hooking an empty.{doubles}"
-msgstr ""
+msgid "Hooking an empty."
+msgstr "空のトレーラーをつないでいます。"
 
 msgid "Dropping the trailer."
 msgstr "トレーラーを切り離しています。"
@@ -28701,14 +28703,14 @@ msgstr "積荷を降ろしています"
 msgid "Docked at {facility}."
 msgstr "{facility}の荷降ろし場に着けました。"
 
-#. placeholders: {facility}, {f}, {cargo_label}, {doubles}
-msgid "Docked at {facility}. Unloading {f} tons of {cargo_label}.{doubles}"
-msgstr ""
+#. placeholders: {facility}, {f}, {cargo_label}
+msgid "Docked at {facility}. Unloading {f} tons of {cargo_label}."
+msgstr "{facility}の荷降ろし場に着けました。{cargo_label}{f}トンを降ろしています。"
 
-#. placeholders: {f}, {cargo_label}, {doubles}
+#. placeholders: {f}, {cargo_label}
 #. one sentence of a longer line
-msgid "Unloading {f} tons of {cargo_label}.{doubles}"
-msgstr ""
+msgid "Unloading {f} tons of {cargo_label}."
+msgstr "{cargo_label}{f}トンを降ろしています。"
 
 msgid "Unloading cargo."
 msgstr "積荷を降ろしています。"
@@ -30328,6 +30330,9 @@ msgid ""
 "Engine off while parked, no fuel burned. Required before the fuel island."
 msgstr "駐車中はエンジンを切り、燃料を使いません。給油レーンに入る前に必要です。"
 
+msgid "The cattle pass the 28-hour limit while you sleep."
+msgstr ""
+
 msgid "the lot"
 msgstr "駐車場"
 
@@ -30404,18 +30409,18 @@ msgstr "時計が{span}進みます。"
 msgid "Sleep {span}{more} at {name}."
 msgstr "{name}で{more}{span}眠ります。"
 
-#. placeholders: {span}, {more}, {name}, {effect}, {legal}, {f}, {f2}, {deadline}, {pending}, {cost}
+#. placeholders: {span}, {more}, {name}, {effect}, {legal}, {f}, {f2}, {deadline}, {cattle}, {pending}, {cost}
 msgid ""
 "Sleep {span}{more} at {name}. {effect} {legal} Fatigue {f} to {f2}. Clock "
-"moves ahead {span}. {deadline}{pending}{cost} Select again to sleep."
+"moves ahead {span}. {deadline}{cattle}{pending}{cost} Select again to sleep."
 msgstr ""
 "{name}で{span}{more}眠ります。{effect} {legal} "
-"疲労は{f}から{f2}へ。時計が{span}進みます。{deadline}{pending}{cost} もう一度選ぶと眠ります。"
+"疲労は{f}から{f2}へ。時計が{span}進みます。{deadline}{cattle}{pending}{cost} もう一度選ぶと眠ります。"
 
-#. placeholders: {deadline}, {pending}, {cost}
+#. placeholders: {deadline}, {cattle}, {pending}, {cost}
 #. one sentence of a longer line
-msgid "{deadline}{pending}{cost} Select again to sleep."
-msgstr "{deadline}{pending}{cost}眠るにはもう一度選んでください。"
+msgid "{deadline}{cattle}{pending}{cost} Select again to sleep."
+msgstr "{deadline}{cattle}{pending}{cost}眠るにはもう一度選んでください。"
 
 #. placeholders: {effect}, {legal}, {f}, {f2}
 #. one sentence of a longer line
@@ -42007,6 +42012,16 @@ msgstr ""
 #~ "{engine_off}駐車場で10時間眠りました。{clock_text}。運転と勤務の時計はリセットされました。眠りは浅かったです。{deadlin"
 #~ "e_text}{wake_air_instruction}"
 
+#~ msgid ""
+#~ "Sleep {span}{more} at {name}. {effect} {legal} Fatigue {f} to {f2}. Clock "
+#~ "moves ahead {span}. {deadline}{pending}{cost} Select again to sleep."
+#~ msgstr ""
+#~ "{name}で{span}{more}眠ります。{effect} {legal} "
+#~ "疲労は{f}から{f2}へ。時計が{span}進みます。{deadline}{pending}{cost} もう一度選ぶと眠ります。"
+
+#~ msgid "{deadline}{pending}{cost} Select again to sleep."
+#~ msgstr "{deadline}{pending}{cost}眠るにはもう一度選んでください。"
+
 #~ msgid ", which your carrier pays"
 #~ msgstr "、運送会社が支払います"
 
@@ -42265,20 +42280,6 @@ msgstr ""
 
 #~ msgid "Parked at {name} in {city}."
 #~ msgstr "{city}の{name}に駐車しました。"
-
-#~ msgid ""
-#~ "Dropping the loaded trailer at {facility}, {f} tons of {cargo_label}. "
-#~ "Hooking an empty."
-#~ msgstr "{facility}で積んだトレーラーを切り離しています。{cargo_label}{f}トンです。空のトレーラーをつないでいます。"
-
-#~ msgid "Hooking an empty."
-#~ msgstr "空のトレーラーをつないでいます。"
-
-#~ msgid "Docked at {facility}. Unloading {f} tons of {cargo_label}."
-#~ msgstr "{facility}の荷降ろし場に着けました。{cargo_label}{f}トンを降ろしています。"
-
-#~ msgid "Unloading {f} tons of {cargo_label}."
-#~ msgstr "{cargo_label}{f}トンを降ろしています。"
 
 #~ msgid ""
 #~ "At {facility}. {f} tons of {label}. Speed {speed_text}. {else}. Stop, then "

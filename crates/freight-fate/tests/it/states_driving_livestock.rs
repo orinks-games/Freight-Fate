@@ -156,3 +156,100 @@ fn a_saved_cattle_drive_keeps_its_load() {
     assert!((load.hours_aboard() - 9.5).abs() < 1e-9);
     assert!(restored.livestock_departure_said);
 }
+
+/// The forecast of a sleep that would carry the cattle past their 28-hour
+/// limit says so before the driver commits to it; one that wakes in time,
+/// or a load already past the limit, adds nothing.
+#[test]
+fn a_sleep_forecast_warns_when_the_cattle_would_pass_the_limit() {
+    use ff_core::sim::livestock::{CattleKind, LivestockLoad};
+    use ff_core::sim::trip_models::RoadStop;
+    use freight_fate::playtest::harness::{PlaytestHarness, StartDelivery};
+    use freight_fate::states::base::Menu;
+    use freight_fate::states::driving_menu_states::DriveRef;
+    use freight_fate::states::driving_rest_states::RestStopState;
+
+    const WARNING: &str = "The cattle pass the 28-hour limit while you sleep.";
+    let mut harness = PlaytestHarness::new();
+    harness.start_delivery(StartDelivery::named("Cattle Sleep"));
+    let stage = |harness: &mut PlaytestHarness, hours: f64| {
+        harness.with_drive(|drive, _| {
+            let mut load = LivestockLoad::booked(
+                CattleKind::FedCattle,
+                19.0,
+                (37.7, -100.0),
+                (37.0, -100.9),
+                7,
+            );
+            load.stage(Some(LoadPhase::Aboard), None, None, None, Some(hours));
+            drive.trip.truck.livestock = Some(load);
+        });
+    };
+    let forecast = |harness: &mut PlaytestHarness, label: &str| -> String {
+        let at = harness.read_drive(|d| d.trip.position_mi);
+        let mut stop = RoadStop::new("Test Travel Center", at, "travel_center");
+        stop.actions = vec!["park".to_string(), "sleep".to_string()];
+        stop.services = vec!["parking".to_string()];
+        stop.parking = "confirmed".to_string();
+        let handle = DriveRef::of(&harness.shared_driving().expect("a drive on the stack"));
+        let mut state = RestStopState::with_drive(handle, stop, false);
+        harness.clear_speech();
+        let items = state.build_items(&mut harness.app.ctx);
+        let row = items
+            .iter()
+            .find(|item| item.text(&state, &harness.app.ctx).starts_with(label))
+            .cloned()
+            .expect("the sleep row");
+        (row.action)(&mut state, &mut harness.app.ctx);
+        harness.app.main_lines().join(" | ")
+    };
+
+    // 25.5 hours aboard: a 3-hour sleep passes the limit, a 2-hour one wakes
+    // with half an hour to spare.
+    stage(&mut harness, 25.5);
+    let three = forecast(&mut harness, "Sleep 3 hours");
+    assert!(three.contains("Select again to sleep"), "{three}");
+    assert!(three.contains(WARNING), "{three}");
+    let two = forecast(&mut harness, "Sleep 2 hours");
+    assert!(!two.contains(WARNING), "{two}");
+
+    // Already past it: the status says so; the forecast does not repeat it.
+    stage(&mut harness, 29.0);
+    let past = forecast(&mut harness, "Sleep 10 hours");
+    assert!(!past.contains(WARNING), "{past}");
+}
+
+/// The receiver's count and the claim reach the settlement screen itself,
+/// the rows the player arrows through, not only the composed summary.
+#[test]
+fn the_settlement_screen_reads_the_receivers_count_and_the_claim() {
+    use freight_fate::states::driving_menu_states::ArrivalState;
+
+    let mut app = TestApp::new();
+    let mut d = a_cattle_drive(&mut app);
+    if let Some(load) = d.trip.truck.livestock.as_mut() {
+        load.stage(None, None, None, None, Some(2.0));
+    }
+    // Past the claim line: the receiver counts the cattle that could not
+    // walk off, and the carrier pays a claim.
+    d.trip.truck.cargo_damage_pct = 52.0;
+    d.trip.position_mi = d.trip.total_miles();
+    d.trip.update(0.0);
+    let arrival = ArrivalState::new(&mut app.ctx, &mut d);
+    let rows = arrival.summary_lines.join(" | ");
+    assert!(
+        rows.contains("could not walk off. The carrier pays a claim."),
+        "{rows}"
+    );
+    assert!(
+        rows.contains("Receiver took the load but noted damage"),
+        "{rows}"
+    );
+    // The count follows the load row it is about.
+    let load_row = arrival
+        .summary_lines
+        .iter()
+        .position(|l| l.starts_with("Load: "))
+        .expect("a load row");
+    assert!(arrival.summary_lines[load_row + 1].contains("could not walk off"));
+}
