@@ -149,6 +149,9 @@ pub const STATE_REGION: &[(&str, &str)] = &[
     ("AB", "rockies"),
     ("SK", "heartland"),
     ("MB", "heartland"),
+    // Career 2.0 northern corridor (same table): the Northwest Territories
+    // take Alberta's row, the road north runs out of the Peace country.
+    ("NT", "rockies"),
     // Atlantic corridor: the Maritimes share Maine's Northeast flavor.
     ("NB", "northeast"),
     ("NS", "northeast"),
@@ -399,6 +402,7 @@ mod tests {
         assert_eq!(classify_region("NS", 44.65, -63.58).unwrap(), "northeast"); // Halifax
         assert_eq!(classify_region("PE", 46.24, -63.13).unwrap(), "northeast"); // Charlottetown
         assert_eq!(classify_region("MB", 49.90, -97.14).unwrap(), "heartland"); // Winnipeg
+        assert_eq!(classify_region("NT", 62.45, -114.37).unwrap(), "rockies"); // Yellowknife
     }
 
     #[test]

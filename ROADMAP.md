@@ -6260,7 +6260,30 @@ a carrier slice (owner, 2026-10-26).
       and a 10-hour stop on Woodstock to Bangor (132 miles, the Irving at
       Hogan Road the only placed stop).
 - [ ] The north: 63 to Fort McMurray, 16 to Prince Rupert, 37 to the
-      Yukon, 3 to Yellowknife, freight nodes only.
+      Yukon, 3 to Yellowknife, freight nodes only. The west half is built
+      (below); the east half is its own pass.
+- [x] The north, west half, first pass (2026-11-22): 19 towns (Fort
+      McMurray, Slave Lake, Peace River, High Level, Hay River, Yellowknife,
+      Smithers, Terrace, Kitimat, Prince Rupert, Stewart and Dawson City,
+      with Wandering River, Fort Providence, Vanderhoof, Meziadin Junction,
+      Dease Lake and Carmacks as fuel towns, and Hyder, Alaska, with no
+      freight) and 42 legs on 63, the Mackenzie (2, 35, 1 and 3), the
+      Yellowhead west of Prince George, 37 and 37A, and the North Klondike.
+      The Northwest Territories join the map on Mountain Time. Hyder to
+      Stewart stops at CBSA Stewart; going into Hyder has no inspection.
+      The Deh Cho Bridge charges its published northbound commercial toll.
+      Stops from `docs/stops/canada-north-west.json`. Report:
+      `career-2.0-alpha/corridor-5-west-report.md`.
+- [ ] (Found along the way) Two northern legs are thin: Slave Lake to
+      Peace River (166 miles) has fuel at High Prairie but no sleep stop,
+      and Fort Providence to Yellowknife (191 miles) has no fuel on the
+      road, as in life. Twenty-two of the 59 northern stops have truck
+      access assumed; the Alberta and NWT rest area pages would read them.
+- [ ] (Found along the way) Northern roads left for later: the Dempster
+      to Inuvik and the Top of the World Highway (both seasonal, both want
+      a seasonal road rule and the Yukon ferry at Dawson), the
+      Trans-Labrador Highway, the James Bay Road, and Newfoundland, which
+      needs the Marine Atlantic ferry.
 - [x] Units: Automatic (miles in the United States, kilometers in Canada,
       one spoken line at the crossing), the 2.0 default; Imperial and Metric
       hold one unit everywhere. Fuel, weights, load tons, sign heights and
