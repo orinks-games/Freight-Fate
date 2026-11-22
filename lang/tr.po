@@ -5031,6 +5031,18 @@ msgstr ""
 "{from_city} - {to_city}: okunan kaplama payı {py_str_float}, 0 ile 1 "
 "arasında değil"
 
+msgid "Northwest Territories"
+msgstr ""
+
+msgid "the Northwest Territories"
+msgstr "Northwest Territories"
+
+msgid "District of Columbia"
+msgstr "District of Columbia"
+
+msgid "the District of Columbia"
+msgstr "District of Columbia"
+
 msgid "northeast"
 msgstr "northeast"
 
@@ -5189,9 +5201,6 @@ msgid ""
 msgstr ""
 "Delaware'e hoş geldiniz, Birinci Eyalet; Anayasa'yı ilk onaylayan, bunu "
 "tabelaya yazacak kadar da gururlu."
-
-msgid "District of Columbia"
-msgstr "District of Columbia"
 
 msgid ""
 "Welcome to the District of Columbia, the nation's capital. Monuments, "
@@ -9605,9 +9614,6 @@ msgstr ""
 
 msgid "Quebec"
 msgstr "Quebec"
-
-msgid "Northwest Territories"
-msgstr ""
 
 msgid "New Brunswick"
 msgstr ""
@@ -15128,9 +15134,9 @@ msgid "crossing from {from_state} into {into_state} near {place}"
 msgstr ""
 "{place} yakınında {from_state} eyaletinden {into_state} eyaletine geçiş"
 
-#. placeholders: {into_state}, {place}
-msgid "Crossing into {into_state} near {place}."
-msgstr "{place} yakınında {into_state} eyaletine giriyorsunuz."
+#. placeholders: {name}, {place}
+msgid "Crossing into {name} near {place}."
+msgstr "{place} yakınında {name} eyaletine giriyorsunuz."
 
 msgid "checkpoint"
 msgstr "kontrol noktası"
@@ -15621,9 +15627,9 @@ msgstr "{highway} için katılan trafik"
 msgid "traffic merging for roadwork"
 msgstr "yol çalışması nedeniyle şeride katılan trafik"
 
-#. placeholders: {city_state}
-msgid "Crossing into {city_state}. "
-msgstr "{city_state} sınırını geçiyorsunuz. "
+#. placeholders: {name}
+msgid "Crossing into {name}. "
+msgstr "{name} sınırını geçiyorsunuz. "
 
 #. placeholders: {crossing}, {city}, {city_state}
 msgid "{crossing}Passing {city}, {city_state}."

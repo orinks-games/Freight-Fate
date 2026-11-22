@@ -6279,6 +6279,11 @@ a carrier slice (owner, 2026-10-26).
       and Fort Providence to Yellowknife (191 miles) has no fuel on the
       road, as in life. Twenty-two of the 59 northern stops have truck
       access assumed; the Alberta and NWT rest area pages would read them.
+- [ ] (Found along the way) OpenStreetMap posts 30 km/h on the Yellowknife
+      Highway just north of the Deh Cho Bridge (way 144053104), which the
+      game reads as 1.7 miles at 30 on Hay River to Fort Providence (miles
+      100.3 to 102.0) while the bridge itself is 70. Kept as read; check it
+      against the territory's signs.
 - [ ] (Found along the way) Northern roads left for later: the Dempster
       to Inuvik and the Top of the World Highway (both seasonal, both want
       a seasonal road rule and the Yukon ferry at Dawson), the
