@@ -13379,11 +13379,6 @@ msgstr "{reason}区間の終わりです。"
 msgid "End of {reason} zone. Speed limit {speed_value}."
 msgstr "{reason}区間の終わりです。制限速度{speed_value}。"
 
-#. placeholders: {name}
-#. one sentence of a longer line
-msgid "Crossing into {name}."
-msgstr "{name}に入ります。"
-
 #. placeholders: {name}, {clock_text}
 msgid "Crossing into {name}. It is now {clock_text}."
 msgstr "{name}に入ります。現在の時刻は{clock_text}です。"
@@ -13592,6 +13587,14 @@ msgstr "操作"
 #. placeholders: {shield}
 msgid "keep right for {shield}"
 msgstr "右寄りに進み、{shield}へ"
+
+#. placeholders: {from_state}, {into_state}
+msgid "crossing from {from_state} into {into_state}"
+msgstr ""
+
+#. placeholders: {name}
+msgid "Crossing into {name}."
+msgstr "{name}に入ります。"
 
 #. placeholders: {from_state}, {into_state}, {place}
 msgid "crossing from {from_state} into {into_state} near {place}"

@@ -13293,11 +13293,6 @@ msgstr "{reason}区结束。"
 msgid "End of {reason} zone. Speed limit {speed_value}."
 msgstr "{reason}区结束。限速{speed_value}。"
 
-#. placeholders: {name}
-#. one sentence of a longer line
-msgid "Crossing into {name}."
-msgstr "进入{name}。"
-
 #. placeholders: {name}, {clock_text}
 msgid "Crossing into {name}. It is now {clock_text}."
 msgstr "进入{name}。现在是{clock_text}。"
@@ -13506,6 +13501,14 @@ msgstr "maneuver"
 #. placeholders: {shield}
 msgid "keep right for {shield}"
 msgstr "靠右走{shield}"
+
+#. placeholders: {from_state}, {into_state}
+msgid "crossing from {from_state} into {into_state}"
+msgstr ""
+
+#. placeholders: {name}
+msgid "Crossing into {name}."
+msgstr "进入{name}。"
 
 #. placeholders: {from_state}, {into_state}, {place}
 msgid "crossing from {from_state} into {into_state} near {place}"

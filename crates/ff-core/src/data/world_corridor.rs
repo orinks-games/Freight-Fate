@@ -21,6 +21,7 @@ use serde_json::{Map, Value};
 
 use super::counties::parse_county_runs;
 use super::grades::screen_grade_segments;
+use super::line_weave::{miles_from_crossings, screen_weave};
 use super::pavement::parse_pavement;
 use super::world_constants::{LIMIT_ARTIFACT_PLACE_CHECKPOINTS, LIMIT_EXPLAINING_CATEGORIES};
 use super::world_models::{CorridorDetail, DataError, TunnelData};
@@ -148,6 +149,17 @@ pub fn build_leg_corridor(
         .iter()
         .map(|m| parse_state_mileage(m, leg_from, leg_to))
         .collect::<Result<Vec<_>, _>>()?;
+    // A road weaving along a line keeps only its real changes of
+    // jurisdiction (see `line_weave`); the stored crossings stay as read.
+    let read_crossings = state_crossings.len();
+    let start_state = state_crossings.first().map(|c| c.from_state.clone());
+    let state_crossings = screen_weave(state_crossings);
+    let state_miles = match start_state {
+        Some(start) if state_crossings.len() < read_crossings => {
+            miles_from_crossings(&state_crossings, &start, miles)
+        }
+        _ => state_miles,
+    };
     let toll_events = list_field(corridor, "toll_events")
         .iter()
         .map(|e| parse_toll_event(e, miles, leg_from, leg_to, highway))

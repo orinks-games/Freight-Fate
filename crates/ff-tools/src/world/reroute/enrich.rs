@@ -494,7 +494,6 @@ pub fn main(argv: &[String]) -> Result<i32> {
             .and_then(|c| c.get("state"))
             .map(Value::py_str)
             .unwrap_or_default();
-        let highway = leg.get("highway").map(Value::py_str).unwrap_or_default();
         let cum = shape::cumulative_m(&p.coords);
         let (state_miles, crossings) = states::state_context(
             &p.coords,
@@ -502,7 +501,6 @@ pub fn main(argv: &[String]) -> Result<i32> {
             p.miles,
             &state_name(&world, &code),
             &net,
-            &highway,
             &old_crossings(&world, leg, id),
         );
         for c in &crossings {

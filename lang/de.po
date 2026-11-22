@@ -14771,11 +14771,6 @@ msgstr "Ende der Zone: {reason}."
 msgid "End of {reason} zone. Speed limit {speed_value}."
 msgstr "Ende der Zone: {reason}. Tempolimit {speed_value}."
 
-#. placeholders: {name}
-#. one sentence of a longer line
-msgid "Crossing into {name}."
-msgstr "Du fährst nach {name}."
-
 #. placeholders: {name}, {clock_text}
 msgid "Crossing into {name}. It is now {clock_text}."
 msgstr "Du fährst nach {name}. Es ist jetzt {clock_text}."
@@ -14984,6 +14979,14 @@ msgstr "Manöver"
 #. placeholders: {shield}
 msgid "keep right for {shield}"
 msgstr "rechts halten auf {shield}"
+
+#. placeholders: {from_state}, {into_state}
+msgid "crossing from {from_state} into {into_state}"
+msgstr ""
+
+#. placeholders: {name}
+msgid "Crossing into {name}."
+msgstr "Du fährst nach {name}."
 
 #. placeholders: {from_state}, {into_state}, {place}
 msgid "crossing from {from_state} into {into_state} near {place}"
