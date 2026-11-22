@@ -196,6 +196,9 @@ pub struct MenuCore<S> {
     pub index: usize,
 }
 
+/// How many rows Page Up and Page Down move in a menu, every menu alike.
+pub const PAGE_ROWS: usize = 10;
+
 pub const DEFAULT_INTRO_HELP: &str =
     "Enter selects, Escape goes back. Control stops the current speech.";
 
@@ -462,8 +465,8 @@ pub trait Menu: Sized + 'static {
         let count = core.items.len();
         match key {
             Key::Up | Key::Down => count <= 1,
-            Key::Home => core.index == 0,
-            Key::End => core.index + 1 >= count,
+            Key::Home | Key::PageUp => core.index == 0,
+            Key::End | Key::PageDown => core.index + 1 >= count,
             _ => false,
         }
     }
@@ -487,6 +490,25 @@ pub trait Menu: Sized + 'static {
         core.index = index.min(core.items.len() - 1);
         ctx.audio.play("ui/menu_move");
         self.speak_current(ctx);
+    }
+
+    /// Page Up and Page Down (a three-finger flick left or right on touch):
+    /// [`PAGE_ROWS`] rows back or forward,
+    /// stopping at the first and last row, where the row is read again.
+    /// Nothing wraps, so a jump never lands somewhere the player cannot
+    /// place. A menu whose pages are its own takes the keys first
+    /// ([`Self::handle_extra_key`]).
+    fn page_by(&mut self, ctx: &mut GameContext, forward: bool) {
+        let core = self.menu();
+        if core.items.is_empty() {
+            return;
+        }
+        let target = if forward {
+            (core.index + PAGE_ROWS).min(core.items.len() - 1)
+        } else {
+            core.index.saturating_sub(PAGE_ROWS)
+        };
+        self.jump(ctx, target);
     }
 
     fn activate(&mut self, ctx: &mut GameContext) {
@@ -737,6 +759,8 @@ pub fn default_handle_event<S: Menu>(menu: &mut S, ctx: &mut GameContext, event:
             let last = menu.menu().items.len().saturating_sub(1);
             menu.jump(ctx, last);
         }
+        Key::PageUp => menu.page_by(ctx, false),
+        Key::PageDown => menu.page_by(ctx, true),
         Key::Return | Key::Space | Key::KpEnter => menu.activate(ctx),
         Key::Escape => menu.go_back(ctx),
         Key::F1 => {
