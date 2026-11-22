@@ -2,6 +2,7 @@
 pub mod amenities;
 pub mod baked;
 pub mod big_bucks;
+pub mod billboard_law;
 pub mod billboards;
 pub mod billboards_dynamic;
 pub mod border_yards;

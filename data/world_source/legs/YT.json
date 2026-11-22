@@ -2938,7 +2938,39 @@
           "name": "rolling",
           "sections": 0,
           "source": "DERIVED, not read: Canada has no national inventory like HPMS, so the class is the terrain the leg's own grade profile spends the most miles in (the reroute-enrich rule: sustained grade of 5 percent, or 4 percent with 1,000 ft of relief within 5 miles, is mountain; 1.5 percent or 400 ft of relief is hills; else flat), mapped flat to level, hills to rolling and mountain to mountainous. It reads the same elevation as the grade, so it is no independent check on it."
-        }
+        },
+        "billboard_bans": [
+          {
+            "from_mi": 93.4,
+            "to_mi": 97.7,
+            "name": "Portage Brule Rapids Protected Area",
+            "source": "derived 2026-11-22: OpenStreetMap relation 2226680 (Portage Brule Rapids Protected Area) boundary from the OSM API; the stretch of the leg's archived route inside the park or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
+          },
+          {
+            "from_mi": 128.4,
+            "to_mi": 130.2,
+            "name": "Liard River Hot Springs Provincial Park",
+            "source": "derived 2026-11-22: OpenStreetMap relation 2225662 (Liard River Hot Springs Provincial Park) boundary from the OSM API; the stretch of the leg's archived route inside the park or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
+          },
+          {
+            "from_mi": 145.9,
+            "to_mi": 197.1,
+            "name": "Muncho Lake Provincial Park",
+            "source": "derived 2026-11-22: OpenStreetMap relation 2225665 (Muncho Lake Provincial Park) boundary from the OSM API; the stretch of the leg's archived route inside the park or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
+          },
+          {
+            "from_mi": 225.7,
+            "to_mi": 234.4,
+            "name": "Stone Mountain Provincial Park",
+            "source": "derived 2026-11-22: OpenStreetMap relation 2226568 (Stone Mountain Provincial Park) boundary from the OSM API; the stretch of the leg's archived route inside the park or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
+          },
+          {
+            "from_mi": 234.3,
+            "to_mi": 246.0,
+            "name": "Northern Rocky Mountains Protected Area",
+            "source": "derived 2026-11-22: OpenStreetMap relation 2226565 (Northern Rocky Mountains Protected Area) boundary from the OSM API; the stretch of the leg's archived route inside the park or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
+          }
+        ]
       },
       "rerouted": true
     },
@@ -9713,7 +9745,21 @@
           "name": "level",
           "sections": 0,
           "source": "DERIVED, not read: Canada has no national inventory like HPMS, so the class is the terrain the leg's own grade profile spends the most miles in (the reroute-enrich rule: sustained grade of 5 percent, or 4 percent with 1,000 ft of relief within 5 miles, is mountain; 1.5 percent or 400 ft of relief is hills; else flat), mapped flat to level, hills to rolling and mountain to mountainous. It reads the same elevation as the grade, so it is no independent check on it."
-        }
+        },
+        "billboard_bans": [
+          {
+            "from_mi": 96.3,
+            "to_mi": 101.5,
+            "name": "Kluane National Park and Reserve",
+            "source": "derived 2026-11-22: OpenStreetMap relation 9561308 (Kluane National Park and Reserve) boundary from the OSM API; the stretch of the leg's archived route inside the park or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
+          },
+          {
+            "from_mi": 137.1,
+            "to_mi": 149.9,
+            "name": "Kluane National Park and Reserve",
+            "source": "derived 2026-11-22: OpenStreetMap relation 9561308 (Kluane National Park and Reserve) boundary from the OSM API; the stretch of the leg's archived route inside the park or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
+          }
+        ]
       },
       "border_crossing": {
         "id": "alcan_beaver_creek",

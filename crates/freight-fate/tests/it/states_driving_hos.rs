@@ -25,6 +25,7 @@ use ff_core::models::enforcement;
 use ff_core::sim::hos::{self, HosRules};
 use ff_core::sim::trip_models::{RoadStop, TripEvent, TripEventData, TripEventKind};
 use ff_core::sim::weather::WeatherKind;
+use ff_core::speech_pacing::SpeechCategory;
 use freight_fate::controller::ControllerButton;
 use freight_fate::playtest::harness::{PlaytestHarness, RouteSetup, StartDelivery};
 use freight_fate::states::base::{InputEvent, Key, Menu};
@@ -187,7 +188,10 @@ fn press_t(harness: &mut PlaytestHarness) {
 /// `driving._update_hours_and_fatigue(dt)`.
 fn hours_frame(harness: &mut PlaytestHarness, dt: f64) {
     harness.advance_clock(dt);
-    harness.with_drive(move |d, ctx| d.update_hours_and_fatigue(ctx, dt));
+    harness.with_drive(move |d, ctx| {
+        d.update_hours_and_fatigue(ctx, dt);
+        d.update_after_crossing(ctx, dt);
+    });
 }
 
 fn whitehorse_tok_drive() -> PlaytestHarness {
@@ -224,7 +228,9 @@ fn hos_jurisdiction_switches_at_alcan_checkpoint_and_announces_once() {
     harness.with_drive(|drive, ctx| {
         drive.trip.position_mi = 297.6;
         drive.update_hours_and_fatigue(ctx, 0.0);
+        drive.update_after_crossing(ctx, 0.0);
         drive.update_hours_and_fatigue(ctx, 0.0);
+        drive.update_after_crossing(ctx, 0.0);
     });
     assert_eq!(
         harness.app.ctx.profile.as_ref().unwrap().hos.rules,
@@ -235,15 +241,13 @@ fn hos_jurisdiction_switches_at_alcan_checkpoint_and_announces_once() {
         .event_calls()
         .into_iter()
         .filter(|(text, _)| {
-            text == "Alaska hours rules now apply: up to 15 hours of driving and 20 on duty \
-                     after 10 hours off, with no 30-minute break."
+            text == "Alaska hours rules: 15 hours of driving and 20 on duty, with no 30-minute break."
         })
         .collect();
     assert_eq!(
         announcements,
         vec![(
-            "Alaska hours rules now apply: up to 15 hours of driving and 20 on duty \
-         after 10 hours off, with no 30-minute break."
+            "Alaska hours rules: 15 hours of driving and 20 on duty, with no 30-minute break."
                 .to_string(),
             false,
         )]
@@ -264,7 +268,10 @@ fn switch_announcement(mut harness: PlaytestHarness, from: HosRules, to: HosRule
         .hos
         .set_rules(from);
     harness.clear_speech();
-    harness.with_drive(|drive, ctx| drive.update_hours_and_fatigue(ctx, 0.0));
+    harness.with_drive(|drive, ctx| {
+        drive.update_hours_and_fatigue(ctx, 0.0);
+        drive.update_after_crossing(ctx, 0.0);
+    });
     assert_eq!(harness.app.ctx.profile.as_ref().unwrap().hos.rules, to);
     let spoken: Vec<_> = harness
         .app
@@ -277,6 +284,140 @@ fn switch_announcement(mut harness: PlaytestHarness, from: HosRules, to: HosRule
     spoken[0].clone()
 }
 
+/// The order at a line is a rule: the crossing call is spoken and finishes,
+/// then the time zone, then the hours line. Spoken the moment the rules
+/// changed, the hours line flushed the crossing call mid-sentence at the
+/// Yukon line, and the time zone line was dropped as stale behind it.
+#[test]
+fn hours_line_follows_the_crossing_call_once_it_finishes() {
+    let mut harness = whitehorse_tok_drive();
+    hours_frame(&mut harness, 0.0);
+    harness.with_drive(|drive, _| drive.trip.truck.velocity_mps = 45.0 * 0.44704);
+    harness.clear_speech();
+    let hours_line =
+        "Alaska hours rules: 15 hours of driving and 20 on duty, with no 30-minute break.";
+    // When each line was handed to the voice, on the harness clock. The
+    // harness frame drains the queue, as the real frame does.
+    let mut handed_at: Vec<(String, f64)> = Vec::new();
+    for _ in 0..60 * 60 {
+        let before = harness.app.event_calls().len();
+        harness.drive_frames(1);
+        harness.with_drive(|drive, ctx| drive.update_hours_and_fatigue(ctx, 1.0 / 60.0));
+        let now = harness.clock_now();
+        let calls = harness.app.event_calls();
+        handed_at.extend(calls[before..].iter().map(|(text, _)| (text.clone(), now)));
+        if calls[before..].iter().any(|(text, _)| text == hours_line) {
+            break;
+        }
+    }
+    let at = |prefix: &str| {
+        handed_at
+            .iter()
+            .find(|(text, _)| text.starts_with(prefix))
+            .map(|(_, at)| *at)
+            .unwrap_or_else(|| panic!("no {prefix:?}: {handed_at:?}"))
+    };
+    // A line of a dozen words takes seconds to say; handed over in the
+    // same frame, the next one cut it.
+    assert!(
+        at("Crossing into Alaska Time") - at("Crossing into Alaska near") >= 1.0,
+        "{handed_at:?}"
+    );
+    assert!(
+        at(hours_line) - at("Crossing into Alaska Time") >= 1.0,
+        "{handed_at:?}"
+    );
+    let calls = harness.app.event_calls();
+    let crossing = calls
+        .iter()
+        .position(|(text, _)| text.starts_with("Crossing into Alaska near"))
+        .unwrap_or_else(|| panic!("no crossing call: {calls:?}"));
+    let hours = calls
+        .iter()
+        .position(|(text, _)| text == hours_line)
+        .unwrap_or_else(|| panic!("no hours line: {calls:?}"));
+    let time_zone = calls
+        .iter()
+        .position(|(text, _)| text.starts_with("Crossing into Alaska Time"))
+        .unwrap_or_else(|| panic!("no time zone line: {calls:?}"));
+    assert!(crossing < time_zone && time_zone < hours, "{calls:?}");
+    assert!(!calls[hours].1, "the hours line must not cut in: {calls:?}");
+    assert_eq!(
+        calls
+            .iter()
+            .filter(|(text, _)| text.starts_with("Crossing into Alaska near"))
+            .count(),
+        1,
+        "{calls:?}"
+    );
+}
+
+/// A time zone line keeps the default priority it had before the queue, so
+/// even released late it waits behind a navigation call rather than cut it.
+/// It is spoken at every zone change in the lower 48, where an exit call can
+/// be on the voice.
+#[test]
+fn a_queued_time_zone_line_does_not_cut_a_navigation_call() {
+    use freight_fate::app::SayEvent;
+    use freight_fate::speech::EventPriority;
+    use freight_fate::states::driving_updates::after_crossing::{
+        AfterCrossing, AFTER_CROSSING_MAX_WAIT_S,
+    };
+    let mut harness = whitehorse_tok_drive();
+    let exit_call = "In half a mile, take exit 12 on the right for Route 9 toward \
+                     Fairbanks, then keep left at the fork and merge onto the \
+                     highway heading north toward the city.";
+    harness.with_drive(|drive, ctx| {
+        ctx.say_event_with(
+            exit_call,
+            SayEvent::queued()
+                .priority(EventPriority::Important)
+                .category(SpeechCategory::Navigation),
+        );
+        // A second line behind it, so the voice holds a backlog that an
+        // Important line arriving late would flush, exit call and all.
+        ctx.say_event_with(
+            "Speed limit 45 in one mile.",
+            SayEvent::queued()
+                .priority(EventPriority::Important)
+                .category(SpeechCategory::Navigation),
+        );
+        drive.queue_after_crossing(
+            AfterCrossing::TimeZone,
+            "Crossing into Alaska Time. It is now 2 AM.",
+            None,
+        );
+    });
+    harness.advance_clock(1.5);
+    harness.with_drive(|drive, ctx| {
+        assert!(ctx.event_voice_busy());
+        // Waited its longest, so it goes now, with the exit call speaking.
+        drive.update_after_crossing(ctx, AFTER_CROSSING_MAX_WAIT_S);
+    });
+    let calls = harness.app.event_calls();
+    let exit = calls
+        .iter()
+        .position(|(text, _)| text == exit_call)
+        .unwrap_or_else(|| panic!("{calls:?}"));
+    assert!(
+        calls[exit + 1..]
+            .iter()
+            .all(|(_, interrupting)| !interrupting),
+        "the time zone line cut the exit call: {calls:?}"
+    );
+    assert_eq!(
+        calls.iter().filter(|(text, _)| text == exit_call).count(),
+        1,
+        "the exit call was cut and handed back: {calls:?}"
+    );
+    assert_eq!(AfterCrossing::TimeZone.priority(), None);
+    assert_eq!(AfterCrossing::Units.priority(), None);
+    assert_eq!(
+        AfterCrossing::HoursRules.priority(),
+        Some(EventPriority::Important)
+    );
+}
+
 #[test]
 fn hos_north_of_60_notice_names_the_federal_canadian_rules() {
     let spoken = switch_announcement(
@@ -286,8 +427,7 @@ fn hos_north_of_60_notice_names_the_federal_canadian_rules() {
     );
     assert_eq!(
         spoken,
-        "Canadian north-of-60 hours rules now apply. Up to 15 hours of driving and 18 on duty \
-         after 8 hours off. No driving once 20 hours have passed since that break."
+        "North of 60 hours rules: 15 hours of driving and 18 on duty in a 20-hour window."
     );
     assert!(!spoken.contains("Yukon"), "{spoken}");
 }
@@ -307,8 +447,7 @@ fn hos_south_of_60_notice_counts_sixteen_hours_from_the_break() {
     let spoken = switch_announcement(harness, HosRules::Us, HosRules::CanadaSouth60);
     assert_eq!(
         spoken,
-        "Canadian hours rules now apply. Up to 13 hours of driving and 14 on duty after 8 hours \
-         off. No driving once 16 hours have passed since that break."
+        "Canadian hours rules: 13 hours of driving and 14 on duty in a 16-hour window."
     );
 }
 
@@ -333,7 +472,7 @@ fn hos_jurisdiction_switches_silently_when_not_enforced() {
         .app
         .event_calls()
         .iter()
-        .all(|(text, _)| !text.contains("hours rules now apply")));
+        .all(|(text, _)| !text.contains("hours rules")));
 }
 
 // -- the warnings the drive speaks ---------------------------------------------------

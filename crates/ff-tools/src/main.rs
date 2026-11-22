@@ -218,6 +218,12 @@ const COMMANDS: &[(&str, &str, Command)] = &[
     ),
     #[cfg(feature = "world")]
     (
+        "bake-billboards",
+        "place an approved sign sheet's billboards on the legs, checking sign law and spacing",
+        world::billboards::main,
+    ),
+    #[cfg(feature = "world")]
+    (
         "reroute-leg",
         "put a leg on the road a loaded truck takes, from the Valhalla truck router",
         world::reroute::leg_main,

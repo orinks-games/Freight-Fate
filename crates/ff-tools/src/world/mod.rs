@@ -14,6 +14,7 @@
 //! files and the leg order inside them are sorted, so the same data always
 //! produces the same bytes.
 
+pub mod billboards;
 pub mod counties;
 pub mod country;
 pub mod index;

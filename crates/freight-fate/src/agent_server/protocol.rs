@@ -85,6 +85,7 @@ fn scenario_properties() -> Value {
         "business": {"type": "string", "enum": ["company", "leased", "independent"]},
         "endorsements": {"type": "array", "items": {"type": "string"}},
         "hour": {"type": "number"},
+        "date": {"type": "string", "description": "the calendar date the career shows, MM-DD (05-01): dated rules such as spring weight limits and tunnel seasons read it; career time and hours do not move"},
         "fuel_pct": {"type": "number"},
         "window": {"type": "string", "enum": ["up", "down"]},
         "road_surface": {"type": "string", "enum": ["jointed", "smooth"]},
@@ -101,6 +102,7 @@ fn scenario_properties() -> Value {
         "hos_driving_min": {"type": "number"},
         "hos_duty_min": {"type": "number"},
         "hos_since_break_min": {"type": "number"},
+        "hos_cycle_min": {"type": "number", "description": "on-duty minutes on the 70-hour, 8-day cycle, all ending now"},
         "clear_load": {"type": "boolean"},
         "market_seed": {"type": "integer"},
         "board_seed": {"type": "integer"},
@@ -316,7 +318,8 @@ fn tools_list() -> Value {
              feature must be one of: downgrade, upgrade, zone, limit-drop, stop, \
              scale, curve, interchange, toll, chain-law, destination, departure, river, \
              bridge (one with joints, longest first), jointed (road with seams, longest \
-             first). \
+             first), border (a customs booth at a land crossing; pass origin and \
+             destination, e.g. bellingham_wa_us and surrey_bc_ca). \
              Same seed, same road. pick chooses among multiple matches (1-based). \
              unit plants a staffed enforcement unit unit_ahead_mi up the road (default \
              3) so an encounter can be staged on purpose; the road's own seeded posts \
@@ -362,7 +365,8 @@ fn tools_list() -> Value {
              walkthrough on the next drive), touch_gestures (true opens the iPhone \
              Touch gestures settings screen over the terminal), fatigue (0 to 100, set after rested; \
              the next drive starts in that band and gives its cue), hos_driving_min, hos_duty_min and \
-             hos_since_break_min (sandbox HOS counters in game minutes), \
+             hos_since_break_min (sandbox HOS counters in game minutes), hos_cycle_min \
+             (on-duty minutes on the 70-hour, 8-day cycle, all ending now), \
              co_driver_driving_min, co_driver_duty_min, co_driver_since_break_min and \
              co_driver_rest_min (the co-driver's own logbook in game minutes, rest being \
              their unbroken sleeper time toward 10 hours: put on the load in progress \
