@@ -41,6 +41,7 @@ mod ambient;
 #[cfg(target_os = "android")]
 mod android_touch;
 pub mod boot_timing;
+mod career_badges;
 mod co_driver;
 pub mod context;
 #[cfg(windows)]
