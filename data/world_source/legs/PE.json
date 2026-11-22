@@ -1699,7 +1699,9 @@
             "amount_plate": 14.31,
             "estimated": false,
             "at_mi": 34.3,
-            "source": "Confederation Bridge: CAD 20.00 flat for any vehicle since 2025, collected leaving Prince Edward Island at the Borden-Carleton plaza, nothing charged going onto the island (confederationbridge.com tolls, read 2026-11-22); amount derived at 1.3978 CAD per USD, the rate the game uses for Canadian fines. Position read from the OpenStreetMap toll booth node 1923039171, projected on the leg's archived road."
+            "source": "Confederation Bridge: CAD 20.00 flat for any vehicle since 2025, collected leaving Prince Edward Island at the Borden-Carleton plaza, nothing charged going onto the island (confederationbridge.com tolls, read 2026-11-22); amount derived at 1.3978 CAD per USD, the rate the game uses for Canadian fines. Position read from the OpenStreetMap toll booth node 1923039171, projected on the leg's archived road. Canadian price read: CAD 20.00 at the Borden-Carleton plaza.",
+            "amount_local": 20.0,
+            "currency": "CAD"
           }
         ]
       },
@@ -5100,7 +5102,9 @@
             "amount_plate": 14.31,
             "estimated": false,
             "at_mi": 16.2,
-            "source": "Confederation Bridge: CAD 20.00 flat for any vehicle since 2025, collected leaving Prince Edward Island at the Borden-Carleton plaza, nothing charged going onto the island (confederationbridge.com tolls, read 2026-11-22); amount derived at 1.3978 CAD per USD, the rate the game uses for Canadian fines. Position read from the OpenStreetMap toll booth node 1923039171, projected on the leg's archived road."
+            "source": "Confederation Bridge: CAD 20.00 flat for any vehicle since 2025, collected leaving Prince Edward Island at the Borden-Carleton plaza, nothing charged going onto the island (confederationbridge.com tolls, read 2026-11-22); amount derived at 1.3978 CAD per USD, the rate the game uses for Canadian fines. Position read from the OpenStreetMap toll booth node 1923039171, projected on the leg's archived road. Canadian price read: CAD 20.00 at the Borden-Carleton plaza.",
+            "amount_local": 20.0,
+            "currency": "CAD"
           }
         ]
       },

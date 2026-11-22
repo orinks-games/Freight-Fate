@@ -2238,7 +2238,9 @@
             "amount_plate": 10.73,
             "estimated": false,
             "at_mi": 40.3,
-            "source": "Cobequid Pass toll plaza: CAD 3.00 per axle for a vehicle not registered in Nova Scotia, so CAD 15.00 for a five-axle rig, charged each way (cobequidpass.com rates and FAQ, as cited on Wikipedia's Nova Scotia Highway 104 page, read 2026-11-22); amount derived at 1.3978 CAD per USD, the rate the game uses for Canadian fines. A 2025-03-04 announcement of doubled rates for US-plated trucks is not confirmed as in force and is not modelled. Position read from the OpenStreetMap toll booth node 1848713801 (eastbound booth), projected on the leg's archived road."
+            "source": "Cobequid Pass toll plaza: CAD 3.00 per axle for a vehicle not registered in Nova Scotia, so CAD 15.00 for a five-axle rig, charged each way (cobequidpass.com rates and FAQ, as cited on Wikipedia's Nova Scotia Highway 104 page, read 2026-11-22); amount derived at 1.3978 CAD per USD, the rate the game uses for Canadian fines. A 2025-03-04 announcement of doubled rates for US-plated trucks is not confirmed as in force and is not modelled. Position read from the OpenStreetMap toll booth node 1848713801 (eastbound booth), projected on the leg's archived road. Canadian price read: CAD 3.00 per axle, CAD 15.00 for five axles, at the Cobequid Pass plaza.",
+            "amount_local": 15.0,
+            "currency": "CAD"
           }
         ]
       },
@@ -20052,7 +20054,9 @@
             "amount_plate": 10.73,
             "estimated": false,
             "at_mi": 24.8,
-            "source": "Cobequid Pass toll plaza: CAD 3.00 per axle for a vehicle not registered in Nova Scotia, so CAD 15.00 for a five-axle rig, charged each way (cobequidpass.com rates and FAQ, as cited on Wikipedia's Nova Scotia Highway 104 page, read 2026-11-22); amount derived at 1.3978 CAD per USD, the rate the game uses for Canadian fines. A 2025-03-04 announcement of doubled rates for US-plated trucks is not confirmed as in force and is not modelled. Position read from the OpenStreetMap toll booth node 270846896 (westbound booth), projected on the leg's archived road."
+            "source": "Cobequid Pass toll plaza: CAD 3.00 per axle for a vehicle not registered in Nova Scotia, so CAD 15.00 for a five-axle rig, charged each way (cobequidpass.com rates and FAQ, as cited on Wikipedia's Nova Scotia Highway 104 page, read 2026-11-22); amount derived at 1.3978 CAD per USD, the rate the game uses for Canadian fines. A 2025-03-04 announcement of doubled rates for US-plated trucks is not confirmed as in force and is not modelled. Position read from the OpenStreetMap toll booth node 270846896 (westbound booth), projected on the leg's archived road. Canadian price read: CAD 3.00 per axle, CAD 15.00 for five axles, at the Cobequid Pass plaza.",
+            "amount_local": 15.0,
+            "currency": "CAD"
           }
         ]
       },
