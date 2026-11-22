@@ -6489,6 +6489,60 @@ a carrier slice (owner, 2026-10-26).
       (`data/freight-fate-profile-invariants-career-2.json`) lists 651
       cities against the branch's 805; refresh it before 2.0 cloud saves.
 
+### California and the Southwest roads (missing roads brief 3, November 22)
+
+- [x] 35 new legs in California, Arizona and Nevada, routed by the truck
+      router over the OpenStreetMap planet of 2026-11-16 and built with
+      every layer, among them CA 46 from Bakersfield to San Luis Obispo,
+      CA 91 from Riverside to Santa Ana, US 395 to Ridgecrest, US 6 and US
+      95 into Tonopah, US 89 from Page to Saint George, AZ 95 along the
+      Colorado River, CA 20 and CA 36 across the northern Coast Ranges and
+      US 50 from Carson City. No new cities.
+- [x] 16 legs split at the cities on their road (decision 2), each with a
+      `RETIRED_LEGS` chain so a trip saved on it resumes on the chain: Los
+      Angeles to San Diego at Santa Ana and Oceanside, the Fairfield legs
+      (Sacramento, San Francisco, Santa Rosa, San Jose and Stockton), the
+      Valencia and Mojave legs, Redding to Klamath Falls at Mount Shasta,
+      Ridgecrest to Bishop at Lone Pine, Visalia to Santa Maria at San Luis
+      Obispo, Prescott to Flagstaff at Camp Verde and Yuma to Phoenix at
+      Buckeye. Stops, checkpoints, tolls (Carquinez and Bay Bridge) and
+      billboards moved by coordinate. Chains are within 4 miles of the old
+      leg except Yuma to Phoenix (7 over) and Prescott to Flagstaff (5 over).
+- [x] Re-routed onto their road: Prescott to Phoenix, El Centro to Yuma,
+      Sacramento to Portland, San Diego to Riverside, Visalia to
+      Bakersfield, Austin to Fallon, Elko to Wells, Ely to Tonopah, Fallon
+      to Fernley, Las Vegas to Alamo, West Wendover to Salt Lake City,
+      Winnemucca to Battle Mountain, and Payson to Winslow (now AZ 87, 90
+      miles; it ran AZ 260 through Holbrook, which the new Payson to Show
+      Low leg keeps).
+- [x] Renamed to the road they ride: Cottonwood to Sedona AZ-89A, Kingman
+      to Lake Havasu City I-40, Lake Havasu City to Yuma AZ-95, Tucson to
+      Sierra Vista I-10, Chico to Fairfield and Chico to Redding CA-99,
+      Riverside to Lancaster CA-138, Sacramento to Yuba City CA-70,
+      Valencia to Victorville CA-14, Alamo to Ely NV-318.
+- [x] Stops list `docs/stops/southwest-california.json`: the stops the
+      region's legs already carried, plus 39 travel centers and state rest
+      areas read from OpenStreetMap (23 with truck access read, 16 assumed).
+- [ ] (Found along the way) Still no stop a tractor-trailer can use on
+      Austin to Fallon, Eureka to Austin, Phoenix to Payson, Oxnard to Los
+      Angeles, Santa Rosa to Ukiah, Carson City to Fallon, Lancaster to Los
+      Angeles, Casa Grande to Globe, Payson to Show Low, Globe to Tucson,
+      Blythe to Bullhead City, Carson City to Sacramento, Payson to Winslow and Chico to
+      Fortuna; the leads found none.
+- [ ] (Found along the way) 16 state rest areas have truck access assumed,
+      not read; Caltrans, ADOT and NDOT rest area lists would settle them.
+- [ ] (Found along the way) Billboards on the new legs: a sheet needs
+      Orinks's approval.
+- [ ] (Found along the way) Bakersfield to Barstow (CA 58) passes 3.45
+      miles from the Mojave pin, so it was not split; it runs beside the
+      Mojave chain on the same road.
+- [ ] (Found along the way) CA 138 between Lancaster and Valencia (decision
+      10) is left undone: the leg would be 284 miles; a junction town on CA
+      138 would fix it.
+- [ ] (Found along the way) 14 pairs within 150 miles are still well over
+      their road, mostly central Nevada around Austin, Eureka and Alamo
+      (their roads fail the road screen) and Payson to Globe and Holbrook.
+
 ### Winter cab, wipers and ice roads (designed November 22)
 
 The owner asked for heat and air that do something (frost with the heat
