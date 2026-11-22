@@ -5891,12 +5891,16 @@ a carrier slice (owner, 2026-10-26).
       four bridge tolls are the published five-axle rates. Thunder Bay
       belongs to the Winnipeg corridor. Report:
       `career-2.0-alpha/corridor-ontario-quebec-report.md`.
-- [ ] (Found along the way) Rest and fuel stops on the Ontario and Quebec
-      legs, from the Canada stops list (`osm-stops`) once it merges; no
-      leg there has a stop yet. Mont-Laurier to Val-d'Or is 180 miles.
-- [ ] (Found along the way) Re-read the Ontario and Quebec postings with
-      `osm-speed-limits` once postings keep their km/h; they were read
-      before that change and are rounded to 5 mph.
+- [x] (Found along the way) Rest and fuel stops on the Ontario and Quebec
+      legs (2026-11-22): 27 stops on 22 legs placed with `osm-stops`, six
+      Flying J travel centers, eight ONroute plazas (truck access
+      assumed), Le Domaine fuel and the Réservoir-Dozois rest area on
+      Mont-Laurier to Val-d'Or. Postings re-read with km/h kept.
+- [ ] (Found along the way) Second pass of Quebec and northern Ontario
+      stops: Petro-Canada and Ultramar truck stops on the 20 and 40, and
+      fuel on 11 and 17; those links are short and end in towns with fuel.
+- [ ] (Found along the way) Quebec exit lines say a route number bare
+      ("exit 185 for 255"); the Route prefix is missing.
 - [ ] (Found along the way) The Ambassador Bridge, the Peace Bridge (with a
       Fort Erie city), Cornwall to Massena and Ogdensburg to Prescott are
       not on the map; each city pair has one crossing.
