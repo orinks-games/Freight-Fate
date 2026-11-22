@@ -67,6 +67,7 @@
 
 - **Alaska's highways now have their real bends, grades, lane counts and towns.** The road between Palmer and Wasilla is now called the Palmer-Wasilla Highway.
 - **Simulated weather in Alaska and Canada now gets as cold as the real winters there.** A January morning in Fairbanks now reads below zero Fahrenheit.
+- **Museums by the road are now said as you pass them.** "Gwinnett History Museum ahead" is now "Passing Gwinnett History Museum."
 - **A 1.9 Units choice of imperial becomes Automatic in 2.0.** A choice of metric stays metric.
 - **The career start list now runs local, regional, then national carriers, nearest terminal first.** The owner-operator start stays last.
 - **The British Columbia and Yukon highways now follow the real roads, with their bends, hills, exits and towns.** Surrey to Blaine is now 15 miles, 14 northbound.
@@ -89,6 +90,7 @@
 
 - **Exits in Ontario and Quebec now name the road they lead to,** such as Route 255 or Highway 8, with directions in English.
 - **Canadian highways are now given the direction they run,** so Highway 400 to Barrie is north and the 401 to Kingston is east.
+- **Toll lines now start with a capital and say toll once:** "Cash or card toll at Gordie Howe International Bridge, 44 dollars."
 - **A stop with only fuel pumps no longer offers a motel room or a night in the lot.**
 - **Moving up from the training fleet now only offers carriers that hire where you live.** Your truck waits at the new carrier's terminal.
 - **A translated game no longer leaves half a line in English** on the dispatch board or in any line naming a carrier's terminal.

@@ -80,3 +80,27 @@ fn test_a_town_is_not_spoken_twice_under_two_spellings() {
     }
     assert!(found.is_empty(), "{found:#?}");
 }
+
+/// No landmark line says "X ahead" (owner rule, 2026-11-09): a museum is
+/// "Passing ...". Billboard copy is the one exception, being the board's own
+/// words.
+#[test]
+fn no_landmark_line_says_ahead() {
+    let mut found: Vec<String> = Vec::new();
+    for leg in &world().legs {
+        for l in leg.landmarks() {
+            if l.category == "billboard_sign" {
+                continue;
+            }
+            if l.spoken.ends_with(" ahead") || l.spoken.starts_with("Museum ahead:") {
+                found.push(format!("{}:{} {}", leg.a, leg.b, l.spoken));
+            }
+        }
+    }
+    assert!(
+        found.is_empty(),
+        "{} lines, first {:#?}",
+        found.len(),
+        &found[..found.len().min(5)]
+    );
+}

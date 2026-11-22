@@ -15118,10 +15118,6 @@ msgstr " Opłata {amount} {amount:dolar|dolary|dolarów}."
 msgid "toll"
 msgstr "toll"
 
-#. placeholders: {method_label}, {name}, {toll_text}
-msgid "{method_label} toll point, {name}.{toll_text}"
-msgstr "{method_label}: punkt poboru opłat, {name}.{toll_text}"
-
 msgid "restriction"
 msgstr "restriction"
 
@@ -17212,6 +17208,10 @@ msgstr ""
 msgid "Toll, {amount_text} dollars, carrier."
 msgstr ""
 "Opłata, {amount_text} {amount_text:dolar|dolary|dolarów}, przewoźnik."
+
+#. placeholders: {method_label}, {name}, {toll_text}
+msgid "{method_label} toll point, {name}.{toll_text}"
+msgstr "{method_label}: punkt poboru opłat, {name}.{toll_text}"
 
 #. placeholders: {limit_speed_text}
 msgid "Over the limit of {limit_speed_text}."
@@ -45743,6 +45743,14 @@ msgstr "{stop_name} za {distance}."
 
 msgid "Passing {city}."
 msgstr "Mijasz {city}."
+
+#. A landmark beside the road. {name} is the landmark's own name; the
+#. second form is a museum whose name does not say museum.
+msgid "Passing {name}"
+msgstr "Mijasz {name}"
+
+msgid "Passing {name}, a museum"
+msgstr "Mijasz {name}, muzeum"
 
 msgid "Entering {place}."
 msgstr "Wjeżdżasz do {place}."

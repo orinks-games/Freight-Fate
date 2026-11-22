@@ -15246,10 +15246,6 @@ msgstr " Pedaggio di {amount} dollari."
 msgid "toll"
 msgstr "pedaggio"
 
-#. placeholders: {method_label}, {name}, {toll_text}
-msgid "{method_label} toll point, {name}.{toll_text}"
-msgstr "Casello {method_label}, {name}.{toll_text}"
-
 msgid "restriction"
 msgstr "limitazione"
 
@@ -17362,6 +17358,10 @@ msgstr ""
 #. placeholders: {amount_text}
 msgid "Toll, {amount_text} dollars, carrier."
 msgstr "Pedaggio, {amount_text} dollari, alla ditta."
+
+#. placeholders: {method_label}, {name}, {toll_text}
+msgid "{method_label} toll point, {name}.{toll_text}"
+msgstr "Casello {method_label}, {name}.{toll_text}"
 
 #. placeholders: {limit_speed_text}
 msgid "Over the limit of {limit_speed_text}."
@@ -45839,6 +45839,14 @@ msgstr "{stop_name} tra {distance}."
 
 msgid "Passing {city}."
 msgstr "Passi per {city}."
+
+#. A landmark beside the road. {name} is the landmark's own name; the
+#. second form is a museum whose name does not say museum.
+msgid "Passing {name}"
+msgstr "Passi da {name}"
+
+msgid "Passing {name}, a museum"
+msgstr "Passi da {name}, un museo"
 
 msgid "Entering {place}."
 msgstr "Stai entrando a {place}."

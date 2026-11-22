@@ -382,10 +382,10 @@ impl Trip {
                     "toll",
                     start + offset,
                     &toll.road,
-                    &format!(
-                        "{} toll point, {}.{toll_text}",
-                        toll.method_label(),
-                        toll.name
+                    &crate::speech_text::toll_point_notice(
+                        &toll.method_label(),
+                        &toll.name,
+                        &toll_text,
                     ),
                 ));
             }

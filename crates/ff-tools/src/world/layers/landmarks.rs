@@ -165,12 +165,12 @@ pub fn spoken(category: Category, name: &str) -> String {
         return format!("Entering {name}");
     }
     match category {
-        Category::Museum if low.contains("museum") => format!("{name} ahead"),
-        Category::Museum => format!("Museum ahead: {name}"),
+        Category::Museum if low.contains("museum") => format!("Passing {name}"),
+        Category::Museum => format!("Passing {name}, a museum"),
         Category::River if low.contains("river") => format!("Crossing the {name}"),
         Category::River => format!("Crossing the {name} River"),
         Category::MountainPass => format!("Approaching {name}"),
-        _ => format!("{name} ahead"),
+        _ => format!("Passing {name}"),
     }
 }
 
@@ -669,7 +669,10 @@ mod tests {
         assert_eq!(spoken(c, &n), "Crossing the Flint River");
         let museum = tags(&[("tourism", "museum"), ("name", "Route 66 Museum")]);
         let (c, n) = classify(&museum).unwrap();
-        assert_eq!(spoken(c, &n), "Route 66 Museum ahead");
+        assert_eq!(spoken(c, &n), "Passing Route 66 Museum");
+        let house = tags(&[("tourism", "museum"), ("name", "Bledsoe-Green House")]);
+        let (c, n) = classify(&house).unwrap();
+        assert_eq!(spoken(c, &n), "Passing Bledsoe-Green House, a museum");
     }
 
     #[test]
