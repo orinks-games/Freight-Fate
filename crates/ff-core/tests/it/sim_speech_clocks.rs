@@ -169,6 +169,43 @@ fn test_20x_does_not_multiply_ambient_or_cb_over_the_same_sitting_time() {
 }
 
 #[test]
+fn a_placed_attraction_sign_is_read_even_right_after_a_joke_board() {
+    // Kingston Penitentiary, 2026-11-22: a pool board a mile before the
+    // placed sign spent the chatter budget and the approved board was lost.
+    let mut trip = highway_trip(4.0);
+    trip.billboards = vec![RoadsideCallout::new(
+        "billboard:2.0",
+        2.0,
+        "billboard",
+        "Billboard: planted joke.",
+    )];
+    trip.landmarks = vec![RoadsideCallout::new(
+        "landmark:0:3.0:Planted Museum",
+        3.0,
+        "billboard_sign",
+        "Billboard: The Planted Museum, ahead.",
+    )];
+    trip.announced_billboards.clear();
+    trip.announced_landmarks.clear();
+    trip.last_chatter_s = None;
+    trip.posts = Vec::new();
+    let events = drive_miles(&mut trip, 5.0, 0.25);
+    let spoken: Vec<String> = events
+        .iter()
+        .filter(|e| matches!(e.kind, TripEventKind::Billboard | TripEventKind::Landmark))
+        .map(|e| e.text().to_string())
+        .collect();
+    assert!(
+        spoken.iter().any(|t| t.contains("planted joke")),
+        "the joke board should play first: {spoken:?}"
+    );
+    assert!(
+        spoken.iter().any(|t| t.contains("Planted Museum")),
+        "the placed sign was silenced by the joke board's budget: {spoken:?}"
+    );
+}
+
+#[test]
 fn test_geo_callouts_fire_once_per_place_at_either_clock() {
     fn plant(trip: &mut Trip) {
         trip.landmarks = vec![

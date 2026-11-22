@@ -6269,6 +6269,12 @@ a carrier slice (owner, 2026-10-26).
       sheet bake no longer lets one crowd a sign, and a board may stand 4
       to 15 miles before its place. Ten skipped Ontario and Quebec lines
       and Batoche both ways placed on that pass.
+- [x] Placed attraction boards no longer wait on the chatter budget
+      (2026-11-22, Found along the way): a pool board or river line
+      spoken shortly before one spent the 90-second budget and the
+      approved board was dropped (heard on Belleville to Kingston, and
+      the Ottawa boards lost at 20x). A placed sign still spends the
+      budget once read.
 - [ ] (Found along the way) Brock's Monument is still skipped: on
       Niagara Falls to Buffalo it sits within two miles of "Entering
       Queenston" and "Passing Lewiston". No park bans are derived for
