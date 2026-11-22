@@ -24116,51 +24116,6 @@
             "source": "derived: name and category read from the OpenStreetMap tags of way 1314152410 (Detroit River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           },
           {
-            "name": "Ecorse",
-            "at_mi": 8.0,
-            "off_mi": 3.52,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=town node 154174657, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Ecorse"
-          },
-          {
-            "name": "Southgate",
-            "at_mi": 8.0,
-            "off_mi": 7.71,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=town node 154046631, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Southgate"
-          },
-          {
-            "name": "Wyandotte",
-            "at_mi": 8.1,
-            "off_mi": 5.96,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=town node 154392967, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Wyandotte"
-          },
-          {
-            "name": "Riverview",
-            "at_mi": 8.1,
-            "off_mi": 8.28,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=town node 153937595, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Riverview"
-          },
-          {
-            "name": "Trenton",
-            "at_mi": 8.1,
-            "off_mi": 10.3,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=town node 154077502, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Trenton"
-          },
-          {
             "name": "LaSalle",
             "at_mi": 9.9,
             "off_mi": 1.75,
@@ -71708,24 +71663,6 @@
         ],
         "landmarks": [
           {
-            "name": "Corunna",
-            "at_mi": 9.1,
-            "off_mi": 2.79,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=town node 1327587146, projected onto the leg's OpenRouteService driving-hgv route",
-            "spoken": "Passing Corunna"
-          },
-          {
-            "name": "Mooretown",
-            "at_mi": 10.2,
-            "off_mi": 4.39,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 2209009229, projected onto the leg's OpenRouteService driving-hgv route",
-            "spoken": "Passing Mooretown"
-          },
-          {
             "name": "Saint Clair",
             "at_mi": 12.0,
             "off_mi": 4.34,
@@ -71733,15 +71670,6 @@
             "kind": "point",
             "source": "OpenStreetMap place=town node 153833228, projected onto the leg's OpenRouteService driving-hgv route",
             "spoken": "Passing Saint Clair"
-          },
-          {
-            "name": "Courtright",
-            "at_mi": 12.0,
-            "off_mi": 5.1,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 2209008497, projected onto the leg's OpenRouteService driving-hgv route",
-            "spoken": "Passing Courtright"
           },
           {
             "name": "Pine River",
@@ -73164,24 +73092,6 @@
         ],
         "landmarks": [
           {
-            "name": "Corunna",
-            "at_mi": 1.9,
-            "off_mi": 5.39,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=town node 1327587146, projected onto the leg's OpenRouteService driving-hgv route",
-            "spoken": "Passing Corunna"
-          },
-          {
-            "name": "Mooretown",
-            "at_mi": 1.9,
-            "off_mi": 8.76,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 2209009229, projected onto the leg's OpenRouteService driving-hgv route",
-            "spoken": "Passing Mooretown"
-          },
-          {
             "name": "Saint Clair",
             "at_mi": 1.9,
             "off_mi": 9.86,
@@ -73189,15 +73099,6 @@
             "kind": "point",
             "source": "OpenStreetMap place=town node 153833228, projected onto the leg's OpenRouteService driving-hgv route",
             "spoken": "Passing Saint Clair"
-          },
-          {
-            "name": "Courtright",
-            "at_mi": 1.9,
-            "off_mi": 10.21,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 2209008497, projected onto the leg's OpenRouteService driving-hgv route",
-            "spoken": "Passing Courtright"
           },
           {
             "name": "Farm Museum",
@@ -73899,24 +73800,6 @@
         "restrictions": [],
         "landmarks": [
           {
-            "name": "Corunna",
-            "at_mi": 0.0,
-            "off_mi": 5.87,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=town node 1327587146, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Corunna"
-          },
-          {
-            "name": "Mooretown",
-            "at_mi": 0.0,
-            "off_mi": 9.29,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 2209009229, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Mooretown"
-          },
-          {
             "name": "Saint Clair",
             "at_mi": 0.0,
             "off_mi": 10.52,
@@ -73924,15 +73807,6 @@
             "kind": "point",
             "source": "OpenStreetMap place=town node 153833228, projected onto the leg's checked-in route geometry",
             "spoken": "Passing Saint Clair"
-          },
-          {
-            "name": "Courtright",
-            "at_mi": 0.0,
-            "off_mi": 10.77,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 2209008497, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Courtright"
           },
           {
             "name": "Black River",
@@ -75718,15 +75592,6 @@
             "lon": -84.36311,
             "spoken": "Crossing the St. Marys River",
             "source": "derived: name and category read from the OpenStreetMap tags of way 164115533 (St. Marys River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
-          },
-          {
-            "name": "Bay Mills",
-            "at_mi": 8.0,
-            "off_mi": 10.6,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 154338595, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Bay Mills"
           }
         ],
         "hpms_terrain": {

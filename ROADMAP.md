@@ -6003,6 +6003,29 @@ a carrier slice (owner, 2026-10-26).
       heard as "Truck limit 113 kilometers per hour". Lines with no sign in
       the extract: Lacolle (first Quebec posting 4 miles in), Derby Line
       to Stanstead, Osoyoos southbound, Pembina southbound.
+- [x] Villages are named from the road's side of the border (2026-11-22):
+      `osm-villages --boundaries` reads the province polygons and drops a
+      place in the other country from the road at its mile, except within
+      a mile of the road's own crossing. 145 stored records dropped (ON 95,
+      BC 26, MI 15, NY 4, ND 2, SK 2, QC 1), none within the 1.5 miles a
+      drive names, so the change is heard in Alt+3: Youngstown from the
+      QEW, Waddington and Ogdensburg from the 401, Wyandotte from Windsor,
+      Oroville from Osoyoos. Grand Island stays.
+- [x] A First Nations reserve's number is not spoken (2026-11-22):
+      "Okanagan 1" is "Okanagan"; a number after "Lot" stays for Prince
+      Edward Island. 12 records. Slipped capitals are undone in spoken
+      names ("JIm River", "PIcnic Area"; ONroute kept as a brand).
+      Steele Creek and Farmers Loop, Fairbanks neighbourhoods mapped as
+      villages, are not named on Fairbanks legs (16 records): a 5-mile
+      circle round each end city would have dropped 1,516 records, most
+      of them real towns beside small cities (Muscle Shoals, Pouce Coupe),
+      so they are a named list (`CITY_NEIGHBOURHOODS`).
+- [ ] (Found along the way) A village across water from the road on the
+      same side of the border is still named for Alt+3: Hope (across the
+      Fraser) and Waddington (across the St. Lawrence) were the reports.
+      Needs coastline and water areas in the extract the village tool
+      reads, and a check that the line from the road to the place crosses
+      water.
 - [ ] (Found along the way) Simonson Travel Center (Grand Forks) is in the
       West list and within reach of two North Dakota legs it was never
       placed on; a run without `--only` adds it there.

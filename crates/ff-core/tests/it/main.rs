@@ -43,6 +43,7 @@ mod data_stop_exits;
 mod data_street_chain;
 mod data_street_turns;
 mod data_surface_streets;
+mod data_village_sides;
 mod data_world;
 mod data_world_overlay;
 mod economy;
