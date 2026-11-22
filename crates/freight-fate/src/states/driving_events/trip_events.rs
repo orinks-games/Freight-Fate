@@ -19,6 +19,7 @@ use crate::app::{GameContext, Say, SayEvent};
 use crate::states::driving::DrivingState;
 use crate::states::driving_core::*;
 use crate::states::driving_turns::{is_judged_turn, ADVICE_IN_CALL, TURN_COMMIT_TAIL_MI};
+use crate::states::driving_updates::after_crossing::AfterCrossing;
 use crate::states::driving_updates::live;
 
 use super::ambient::Ambient;
@@ -232,10 +233,15 @@ impl DrivingState {
                 if let Some(sound) = sound {
                     ctx.audio.play(sound);
                 }
+                // After the crossing call, not on top of it: spoken as
+                // ambient chatter it was dropped as stale behind a long
+                // state-line call, and the player lost the clock change.
                 let terse = self.terse_speech(ctx);
-                let mut opts = SayEvent::queued();
-                opts.category = category;
-                ctx.say_event_with(timezone_crossing_message(event, terse), opts);
+                self.queue_after_crossing(
+                    AfterCrossing::TimeZone,
+                    timezone_crossing_message(event, terse),
+                    category,
+                );
             }
             TripEventKind::Curve => self.handle_curve_event(ctx, event, message, category),
             TripEventKind::Landmark | TripEventKind::Billboard => {
