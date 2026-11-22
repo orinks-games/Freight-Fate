@@ -13,20 +13,34 @@
 
 /// `(from, to, replacement chain from first to last, both ends included)`.
 /// Each entry is also read backwards for the reverse direction.
-pub const RETIRED_LEGS: &[(&str, &str, &[&str])] = &[(
-    "surrey_bc_ca",
-    "prince_george_bc_ca",
-    &[
+pub const RETIRED_LEGS: &[(&str, &str, &[&str])] = &[
+    (
         "surrey_bc_ca",
-        "abbotsford_bc_ca",
-        "chilliwack_bc_ca",
-        "hope_bc_ca",
-        "cache_creek_bc_ca",
-        "williams_lake_bc_ca",
-        "quesnel_bc_ca",
         "prince_george_bc_ca",
-    ],
-)];
+        &[
+            "surrey_bc_ca",
+            "abbotsford_bc_ca",
+            "chilliwack_bc_ca",
+            "hope_bc_ca",
+            "cache_creek_bc_ca",
+            "williams_lake_bc_ca",
+            "quesnel_bc_ca",
+            "prince_george_bc_ca",
+        ],
+    ),
+    // The Florida and Georgia missing roads (2026-11-22) split West Palm
+    // Beach to Palm Bay at Port Saint Lucie, which it passed 1.2 miles off.
+    // The chain is 51 plus 65 miles against the old leg's 110.
+    (
+        "west_palm_beach_fl_us",
+        "palm_bay_fl_us",
+        &[
+            "west_palm_beach_fl_us",
+            "port_saint_lucie_fl_us",
+            "palm_bay_fl_us",
+        ],
+    ),
+];
 
 /// The replacement chain for a retired hop `a` to `b`, in travel order.
 pub fn replacement_chain(a: &str, b: &str) -> Option<Vec<String>> {
