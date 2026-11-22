@@ -7984,6 +7984,18 @@ msgstr ""
 msgid "for {name}"
 msgstr ""
 
+#: crates/ff-core/src/data/world_models/interchange.rs
+msgid "Route "
+msgstr ""
+
+#: crates/ff-core/src/data/world_models/interchange.rs
+msgid "Highway "
+msgstr ""
+
+#: crates/ff-core/src/data/world_models/interchange.rs
+msgid "Trunk "
+msgstr ""
+
 #. placeholders: {items}, {items2}
 #: crates/ff-core/src/data/world_models/interchange.rs
 msgid "{items} and {items2}"
@@ -11015,6 +11027,18 @@ msgstr ""
 
 #: crates/ff-core/src/models/economy.rs crates/ff-core/src/sim/timezones.rs crates/freight-fate/src/online_activation.rs
 msgid "Quebec"
+msgstr ""
+
+#: crates/ff-core/src/models/economy.rs crates/ff-core/src/sim/timezones.rs
+msgid "New Brunswick"
+msgstr ""
+
+#: crates/ff-core/src/models/economy.rs crates/ff-core/src/sim/timezones.rs
+msgid "Nova Scotia"
+msgstr ""
+
+#: crates/ff-core/src/models/economy.rs crates/ff-core/src/sim/timezones.rs
+msgid "Prince Edward Island"
 msgstr ""
 
 #: crates/ff-core/src/models/economy.rs
@@ -16912,6 +16936,14 @@ msgstr ""
 
 #: crates/ff-core/src/sim/team_shift.rs
 msgid "bunk"
+msgstr ""
+
+#: crates/ff-core/src/sim/timezones.rs
+msgid "atlantic"
+msgstr ""
+
+#: crates/ff-core/src/sim/timezones.rs
+msgid "Atlantic Time"
 msgstr ""
 
 #: crates/ff-core/src/sim/timezones.rs
@@ -50909,6 +50941,10 @@ msgstr ""
 
 #: lang/extra.pot
 msgid "{clock} Hawaii Time"
+msgstr ""
+
+#: lang/extra.pot
+msgid "{clock} Atlantic Time"
 msgstr ""
 
 #: lang/extra.pot
