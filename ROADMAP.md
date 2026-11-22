@@ -5758,20 +5758,21 @@ a carrier slice (owner, 2026-10-26).
       Prince George is retired for its chain through Hope and the Cariboo;
       saves on it resume on the chain. Hanna is a fuel town on Highways 9
       and 7. Report: `career-2.0-alpha/corridor-west-report.md`.
-- [ ] (Found along the way) West stops are thin on nine long links (Kamloops
-      to Valemount, the Yellowhead east of Saskatoon, Regina to Brandon and
-      Saskatoon, Calgary and Cranbrook to Golden, Lethbridge to Cranbrook,
-      Grande Prairie to Whitecourt): town stations have no reading of
-      truck access, and Prairie rest areas have no source for an overnight
-      stay. Operator pages and the provincial rest area rules would fill
-      them.
+- [ ] (Found along the way) West stops are still thin on five links under
+      200 miles (Calgary and Cranbrook to Golden, Lethbridge to Cranbrook,
+      Grande Prairie to Whitecourt, Regina to Saskatoon): no 10-hour stop
+      inside 150 miles, because town stations have no reading of truck
+      access and Prairie rest areas have no source for an overnight stay.
+      Operator pages and the provincial rest area rules would fill them.
+      Every link over 200 miles has fuel and a 10-hour stop.
+- [ ] (Found along the way) Three West stops are assumed, not read:
+      Churchbridge and Foam Lake rest areas as overnight stops, and the
+      position of the Whitewood Co-op cardlock. Each says so in its source.
 - [ ] (Found along the way) US port hours for Eastport, Pembina, Sumas and
       Oroville: the CBP pages did not load from the cloud.
 - [ ] (Found along the way) Huntingdon is closed to commercial traffic at
-      weekends (CBSA); the hours are stored on the crossing, but nothing
-      holds a truck there on a Saturday yet.
-- [ ] (Found along the way) Yukon is on Mountain Standard time all year
-      since 2020; the game still puts Whitehorse on Pacific time.
+      weekends (CBSA); the hours are stored on the crossing, but on a
+      Saturday the booth still clears a truck as on a weekday.
 - [ ] The Ontario and Quebec trunk (401, 400, 11, 17, 20, 40), Windsor to
       Quebec City and Thunder Bay, with the Detroit, Sarnia, Niagara,
       Lansdowne, Cornwall, Lacolle and Stanstead crossings.

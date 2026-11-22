@@ -1036,6 +1036,26 @@
       "vehicle_access": "tractor_trailer"
     },
     {
+      "name": "Whitewood Co-op Cardlock",
+      "type": "fuel_station",
+      "actions": [
+        "fuel"
+      ],
+      "services": [
+        "diesel"
+      ],
+      "parking": "unknown",
+      "source": "Cardlock read from the Co-op Whitewood Cardlock listing, 1206 Highway 1, Whitewood (https://www.shopping-canada.com/stores-brands/co-op/saskatchewan/whitewood/co-op-whitewood-cardlock-1206-highway-1-s0g-5c0, read 2026-11-22). Position assumed: OSM node 5198674368, the Co-op on Highway 1 at Whitewood, OpenStreetMap planet extract 2026-11-16; the cardlock's own pumps may stand apart from it. Diesel is assumed for a cardlock. A cardlock sells to account holders only. Year round is assumed. Leg mile projected onto the leg's road.",
+      "lat": 50.3352,
+      "lon": -102.25732,
+      "reach_mi": 0.5,
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
       "name": "Truck parking near Calgary",
       "lat": 50.34141,
       "lon": -113.76511,
@@ -1510,6 +1530,29 @@
       "vehicle_access": "tractor_trailer"
     },
     {
+      "name": "Churchbridge rest area",
+      "type": "public_rest_area",
+      "actions": [
+        "park",
+        "save",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "parking"
+      ],
+      "parking": "unknown",
+      "source": "Position read from OSM way 1132008506 (highway=rest_area, no name), OpenStreetMap planet extract 2026-11-16; named for Churchbridge, the town beside it. ASSUMED: truck room and an overnight stay. No source found that says trucks may stay here; it is placed so the 231 miles between Portage la Prairie and Yorkton have one 10-hour stop (director, 2026-11-22). Year round is assumed. Leg mile projected onto the leg's road.",
+      "lat": 50.89527,
+      "lon": -101.89126,
+      "reach_mi": 0.5,
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
       "name": "Flying J",
       "lat": 50.94883,
       "lon": -113.97942,
@@ -1914,13 +1957,14 @@
       "actions": [
         "park",
         "save",
-        "break"
+        "break",
+        "sleep"
       ],
       "services": [
         "parking"
       ],
       "parking": "unknown",
-      "source": "Read: highway rest area from OSM way 746708966 (highway=rest_area), OpenStreetMap planet extract 2026-11-16. Year round and truck room are assumed, not verified; no overnight stay is claimed. Leg mile projected onto the leg's road.",
+      "source": "Read: highway rest area from OSM way 746708966 (highway=rest_area), OpenStreetMap planet extract 2026-11-16. Year round and truck room are assumed, not verified; no overnight stay is claimed. Leg mile projected onto the leg's road. ASSUMED: an overnight stay. No source found that says trucks may stay here; it is the 10-hour stop for the 206 miles between Saskatoon and Yorkton (director, 2026-11-22).",
       "directions": [
         "both"
       ],
@@ -2003,6 +2047,36 @@
       ],
       "parking": "unknown",
       "source": "Position read from OSM node 13291217002 (opening_hours=24/7, website=https://ufa.com/myUFA/locations/innisfail), OpenStreetMap planet extract 2026-11-16. Diesel is assumed from the cardlock name, not tagged. A cardlock sells to account holders only. Year round is assumed. Tractor-trailer access is assumed for a highway cardlock, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Blue River Husky Esso truck stop",
+      "type": "travel_center",
+      "actions": [
+        "park",
+        "save",
+        "fuel",
+        "food",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "parking",
+        "diesel",
+        "gasoline",
+        "food",
+        "restrooms"
+      ],
+      "parking": "confirmed",
+      "parking_spaces": 10,
+      "source": "Position read from OSM node 3645435682 (Esso, operator Husky, opening_hours=24/7), OpenStreetMap planet extract 2026-11-16. Diesel and the truck stop diner read from the Blue River services list (https://www.blueriverbc.ca/services/, read 2026-11-22: Blue River Husky Esso, 778 Highway 5, gasoline and diesel). Truck parking read from AllStays (https://allstays.com/c/truck-stops-british-columbia.htm, read 2026-11-22: Husky Travel Centre, Highway 5 S, 10 truck parking spaces). Year round is assumed. An overnight stay is assumed for a truck stop with truck parking. Leg mile projected onto the leg's road.",
+      "lat": 52.1036,
+      "lon": -119.31056,
+      "reach_mi": 0.5,
       "directions": [
         "both"
       ],
