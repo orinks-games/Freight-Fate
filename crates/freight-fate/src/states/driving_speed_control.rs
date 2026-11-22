@@ -11,6 +11,7 @@
 //! and where the cruise loop imports them; they are re-exported here so this
 //! module's own surface reads like the Python file's.
 
+use ff_core::pyfmt::round_py;
 use ff_core::sim::trip::is_highway_zone_reason;
 use ff_core::sim::trip_route_helpers::zone_key;
 use ff_core::sim::vehicle::MIN_STOPPING_DECEL_MPS2;
@@ -162,6 +163,7 @@ impl DrivingState {
         self.clear_stop_pause();
         self.speed_control_target_mph = None;
         self.speed_control_floor_said = false;
+        self.bridge_resume_said_mph = None;
         // A curve pause dies with the session it was holding open: a manual
         // K, the driver's own emergency brake, or any other disarm during the
         // bend must not leave a resume mile behind to re-engage a session
@@ -468,8 +470,16 @@ impl DrivingState {
                 return;
             }
             self.engage_keeper(ctx, limit, KEEPER_OPEN_ROAD_BRIDGE, Some(limit), false);
+            // One resume line, with the number cruise will hold: the bridge
+            // used to say "Cruise resuming." and the handoff at road speed
+            // "Cruise resuming, 45." a few seconds later (R1 review drive,
+            // Chicago to Gary, 2026-11-22). The handoff stays quiet when it
+            // lands on this same number.
+            let target = round_py(self.speed_control_target_mph.unwrap_or(limit))
+                .clamp(CRUISE_MIN_MPH, CRUISE_MAX_MPH);
+            self.bridge_resume_said_mph = Some(target);
             ctx.say_event_with(
-                "Cruise resuming.",
+                format!("Cruise resuming, {}.", ctx.settings.speed_value(target)),
                 SayEvent::queued()
                     .priority(EventPriority::Important)
                     .category(SpeechCategory::Confirmation),

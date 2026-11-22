@@ -172,6 +172,9 @@ pub struct OsmWay {
     /// `hgv` when the tags name the unit or the way's jurisdiction.
     pub ca_mph: Option<f64>,
     pub ca_hgv: bool,
+    /// The number on the sign when the Canadian reading was in km/h (a bare
+    /// number, or one marked km/h), kept as read beside `ca_mph`.
+    pub ca_kmh: Option<i64>,
     pub coords: Vec<(f64, f64)>,
 }
 
@@ -183,6 +186,16 @@ impl OsmWay {
             self.ca_mph.map(|m| (m, self.ca_hgv))
         } else {
             self.mph.map(|m| (m, self.hgv))
+        }
+    }
+
+    /// The km/h on the sign, where the way is read in Canada and its limit
+    /// is in km/h. Alaska and the rest of the United States post mph.
+    pub fn sign_kmh(&self, in_canada: bool) -> Option<i64> {
+        if in_canada {
+            self.ca_kmh
+        } else {
+            None
         }
     }
 }
@@ -288,6 +301,7 @@ mod tests {
             hgv: false,
             ca_mph: Some(55.0),
             ca_hgv: false,
+            ca_kmh: None,
             coords: vec![(lat, -97.01), (lat, -96.99)],
         };
         let line = LegLine::new(vec![(30.0, -97.0), (30.01, -97.0)]);

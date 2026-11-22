@@ -694,10 +694,11 @@ impl PlaytestHarness {
             self.key(key_event(key, Some(ch)));
         }
         self.key(key_event(Key::Return, None));
-        // Career start, home terminal, home city: three confirmations.
+        // Home region and home city take their defaults; the career start
+        // is Northstar, the default start, wherever the picker sorts it.
         self.key(key_event(Key::Return, None));
         self.key(key_event(Key::Return, None));
-        self.key(key_event(Key::Return, None));
+        self.select_menu_item_starting("Northstar");
         assert!(
             self.state_is::<CityMenuState>(),
             "the new-career flow did not land at the terminal"
@@ -1532,6 +1533,9 @@ impl PlaytestHarness {
         // unreachable and got written up as a strict xfail against the game
         // rather than against this loop.
         self.with_drive(|drive, ctx| {
+            // The lines that follow a crossing call (time zone, units,
+            // hours) wait in their own queue, which the real frame drains.
+            drive.update_after_crossing(ctx, DT);
             drive.update_ambient_events(ctx, DT);
             drive.update_hazard(ctx, DT);
             if drive.hazard_deadline.is_some() {

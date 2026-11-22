@@ -97,7 +97,12 @@ fn a_set_of_doubles_takes_two_hook_ups_and_a_longer_walk_around_at_the_shipper()
     assert_eq!(plan.minutes, LIVE_LOAD_MIN + extra);
     let hours_before = profile(&app).game_hours;
     let duty_before = profile(&app).hos.duty_min;
+    app.clear_speech();
     key(&mut app, Key::Return); // load
+    assert!(
+        !app.main_lines().join(" ").contains(&hook),
+        "said at check-in, the doubles time is not repeated at loading"
+    );
     finish_timed_state(&mut app);
     assert_eq!(profile(&app).game_hours, hours_before + plan.minutes / 60.0);
     assert_eq!(profile(&app).hos.duty_min, duty_before + plan.minutes);
@@ -195,11 +200,12 @@ fn breaking_a_set_of_doubles_at_the_receiver_takes_time_and_says_so() {
         app.visible_lines()
     );
 
+    app.clear_speech();
     key(&mut app, Key::Return); // drop or dock
     let said = app.main_lines().join(" ");
     assert!(
-        said.contains(&text),
-        "the work must speak the break time: {said}"
+        !said.contains(&text),
+        "said on arrival, the break time is not repeated when the work starts: {said}"
     );
     finish_timed_state(&mut app);
     let minutes_after = shared

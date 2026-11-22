@@ -7,9 +7,11 @@
 //! through untouched.
 
 use ff_core::data::billboards_dynamic::{
-    dynamic_billboard, holiday_on, BillboardMoment, Incident, SMALL_HOURS,
+    dynamic_billboard, holiday_on, BillboardMoment, Hauling, Incident, SMALL_HOURS,
 };
+use ff_core::models::business::INDEPENDENT_AUTHORITY;
 use ff_core::sim::alertness::Alertness;
+use ff_core::sim::livestock::LIVESTOCK_CARGO_KEY;
 use ff_core::sim::season::calendar_date;
 use ff_core::speech_text::SpokenMessage;
 
@@ -17,7 +19,7 @@ use chrono::Datelike;
 
 use crate::app::GameContext;
 use crate::states::driving::DrivingState;
-use crate::states::driving_core::profile_of;
+use crate::states::driving_core::{profile_of, DRIVE_PHASE_DELIVERY};
 
 /// Incident damage that counts as hitting something: shoulder and lane
 /// strikes add a percent or more, so half a percent is never wear noise.
@@ -81,12 +83,26 @@ impl DrivingState {
             nth: self.pool_billboards_heard,
             offset: self.billboard_offset,
             state: state.as_deref(),
+            hauling: self.hauling(profile.business_status.as_str(), &profile.carrier_name),
         };
         self.billboard_watch = now;
         self.pool_billboards_heard += 1;
         match dynamic_billboard(moment) {
             Some(line) => SpokenMessage::new(format!("Billboard: {line}")),
             None => message,
+        }
+    }
+
+    /// What a cargo sign can see behind the tractor.
+    fn hauling<'a>(&self, business_status: &str, carrier_name: &'a str) -> Hauling<'a> {
+        let truck = &self.trip.truck;
+        let delivering = self.phase == DRIVE_PHASE_DELIVERY;
+        Hauling {
+            cattle: delivering && self.job.cargo.key == LIVESTOCK_CARGO_KEY,
+            reefer: truck.trailer_attached && truck.cargo_needs_reefer,
+            doubles: truck.doubles_hooked(),
+            carrier: (business_status != INDEPENDENT_AUTHORITY && !carrier_name.trim().is_empty())
+                .then_some(carrier_name),
         }
     }
 }

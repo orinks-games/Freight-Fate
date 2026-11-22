@@ -469,6 +469,11 @@ bookmarks usable.
       Thanksgiving week.
 - [ ] Billboards could also react to the cargo in the trailer and to the
       weather (owner, 2026-09-30: "at least one and two" shipped first).
+      The cargo half is built on `feat/career-2.0` (2026-11-22): a load of
+      cattle, a reefer load, a set of doubles and the carrier on the door
+      each have a pool that takes one everyday sign in three, after Big
+      Jim and the small hours. The pools are empty until the director's
+      lines land. Weather is still open.
 
 - [x] Placed billboards face one way (owner, 2026-09-30): every placed
       attraction sign was heard from both sides of the road, and 128 of the
@@ -4804,8 +4809,10 @@ offerability and hiring-radius rule (`is_offerable_home_city`; regionals
 home drivers only within their radius). Slice 2 made the new-career picker
 enforce it: region, then offerable home city, then the carriers hiring
 there, with the truck starting at that carrier's terminal. Slice 3 is also
-landed: the catalog now has **24 carriers: 3 national, 18 regional, and
-3 local**. `home_time_policy` remains `inert` for all 24.
+landed: the catalog had **24 carriers: 3 national, 18 regional, and
+3 local**. The 2.0 carrier spread (brief 12, 2026-11-22) takes it to **54:
+6 national, 32 regional, 16 local**. `home_time_policy` remains `inert` for
+all of them.
 
 Automated evidence: [`carrier_slice3.rs`](crates/ff-core/tests/it/carrier_slice3.rs)
 checks the catalog, hiring areas, coverage, terminal cities, and fallback
@@ -4868,6 +4875,38 @@ in the audited Windows run.
       never a world pin, so Fairbanks having no world `company_yard` or
       `terminal` pin is not a gap. The slice 3 test checks that terminal
       cities are real map cities with carrier-owned terminals.
+- [x] **2.0 carrier spread (brief 12).** Three specialist nationals
+      (Winterset Refrigerated Lines, Double Springs Linehaul, Open Hearth
+      Flatbed Lines, 12 terminals each), fourteen regionals and thirteen
+      locals. Lower-48 freight cities in reach of regionals, before then
+      after: one 248 / two 258 / three 101 / four 19, then two 141 / three
+      286 / four 154 / five 45. Locals hire in 45 cities (was 10). The start
+      picker lists 8 to 12 carriers in every lower-48 city (was 4 to 7);
+      New York 10, Chicago 12, Dallas 11, Billings 8, Anchorage 2. Worst
+      nearest-terminal distance per national: Open Hearth 512 mi (Shelby, MT),
+      Summit 482, Double Springs 474, Great Lakes Training 468, Winterset
+      455, Northstar 441. Bismarck, Twin Falls and Albuquerque each hold at
+      most two nationals' terminals. The picker sorts local, regional,
+      national, nearest terminal first, owner-operator last.
+      `tests/it/carrier_spread.rs` pins the coverage. Names were checked
+      against FMCSA and web listings; the record is in the carriers report.
+- [ ] **No Canadian carrier yet (Found along the way).** BC and YT stay
+      closed as home bases; a Canadian carrier joins when the Canadian
+      roads open for hiring.
+- [ ] **A second Alaska regional waits for new Alaska lanes (Found along
+      the way).** Chatanika covers every hirable Alaska city today; add a
+      second only when the map adds Alaska freight a second carrier would
+      run.
+- [ ] **Carrier start rows in other languages (Found along the way).**
+      The generated start rows ("{name}: regional company driver, {area}",
+      the national specialty rows, their summaries and help) and every
+      carrier's lane area and specialty phrase have no translations yet, so
+      a Spanish player in Chicago hears the local and regional rows in
+      English. Only the four hand-written starts are translated.
+- [x] **The hand-written company start rows say their kind.** Northstar,
+      Great Lakes Training and Summit Value say "national company driver",
+      Prairie Link "regional company driver", and their summaries no longer
+      repeat it (director's wording, 2026-11-22).
 - [ ] **Great Lakes Training `short_haul_bias` 0.8 conflicts with its 400 mi
       national run band.** The dispatch bias asks for short rookie loads the
       band minimum would forbid once enforced. Revisit in slice 4.
@@ -4953,10 +4992,30 @@ branch. The older Phase A/B plan checklists are not a live completion list.
       Highway to Dawson City are left out until the map has a seasonal road
       rule: both close in winter, and Little Gold Creek and Poker Creek open
       only in summer.
-- [ ] (Found along the way) Tok–Haines Junction (291 mi) and Delta
-      Junction–Glennallen and Healy–Wasilla have long stretches with no town
-      on the map; Beaver Creek, Destruction Bay, Paxson and Cantwell are
-      candidates for fuel stops.
+- [x] **Stops and fuel on the Alaska routes (2026-11-22).** Brief 5's
+      list (`docs/stops/canada-alaska.json`) is placed on the rebuilt and
+      split legs, and `docs/stops/alaska-routes.json` adds the town diesel a
+      through route passes (Coldfoot, Delta Junction, Glennallen, Tok,
+      Healy, Cantwell, Nenana, Fox, Valdez, Whitehorse, Carcross Corner,
+      Skagway, Haines, Haines Junction) plus two rest areas with sleep: the
+      Farthest North Spruce wayside on the Dalton and East Fork on the Parks
+      Highway. No route has a fuel gap over 200 miles except the Dalton's
+      real ones: Coldfoot to Deadhorse (240) and Fairbanks to Coldfoot
+      (238, with Yukon River Camp left out as summer-only). The fuel range
+      warning names the 240 miles leaving Coldfoot (a test pins it).
+- [ ] (Found along the way) Tok–Haines Junction (291 mi) has fuel at Beaver
+      Creek, Burwash Landing and Destruction Bay but no place to take a
+      10-hour rest: no Yukon source says a highway rest area allows an
+      overnight stay, and one (Junction 37) is signed against it. A lodge
+      or motel open all winter at Beaver Creek or Destruction Bay is the
+      candidate.
+- [ ] (Found along the way) The two Alaska sleep stops rest on 17 AAC
+      05.045 (parking limited only by posted limits); their posted limits
+      and winter plowing are assumed, not verified. Yukon River Camp's
+      winter fuel would close the Fairbanks–Coldfoot gap if confirmed.
+- [ ] (Found along the way) The Alaska Highway sign sheet's six Tok-leg
+      signs were renamed to the split legs at Haines Junction; the sheet is
+      still not baked (placeholder copy).
 - [ ] (Found along the way) Spring weight notices were checked only for the
       roads already listed. The Kenai Spur to Nikiski, the Steese to Fort
       Knox, the Klondike and Haines highways and Knik-Goose Bay Road to Port
@@ -5154,9 +5213,9 @@ branch. The older Phase A/B plan checklists are not a live completion list.
       unverified. Seward and Valdez seafood plant owners were verified as
       Silver Bay Seafoods on 2026-10-07, but the OSM endpoint names still read
       Icicle and Peter Pan until the next Alaska endpoint re-sweep.
-- [ ] (Found along the way) Yukon km/h speeds are rounded to the nearest 5 mph
-      when baked (100 km/h reads 60 mph, 90 km/h reads 55); exact conversion
-      (62 and 56) needs the maxspeed parser and a Yukon/BC re-bake.
+- [x] (Found along the way) Yukon km/h speeds are rounded to the nearest 5 mph
+      when baked. Fixed 2026-11-22: postings keep their km/h and convert
+      exactly (100 reads 62, 90 reads 56); see the Canada tools pilot.
 - [ ] (Found along the way) Border processing times and the secondary-referral
       chance are gameplay assumptions.
 - [ ] (Found along the way) Passport and FAST documents are not modeled.
@@ -5226,6 +5285,17 @@ branch. The older Phase A/B plan checklists are not a live completion list.
       so the Canadian diesel price and the liter line at the pump cannot be
       met on a drive yet (stops on northern legs are the Canada map tools
       thread's work).
+- [x] (Found along the way) At a state, province or country line the hours
+      rules line cut the crossing call mid-sentence (the north-of-60 line at
+      the Yukon line, R2 drive, 2026-11-22). The order at a line is now a
+      rule: the crossing call finishes, then the units line, then a shorter
+      hours line.
+- [ ] (Found along the way) The customs booth approach is an implicit state
+      machine: three string keys in the enforcement events (notice,
+      reminder, booth), the pending clearance and the reminder's real-time
+      hold. Make it one `BoothApproach` enum in `ff-core` (Ahead, Noticed,
+      Reminded, Stopped, Ran, Cleared) so the agent server's `status` reports
+      it and a scenario can set it. No defect came from it yet.
 
 Automated evidence: the four `test_alcan_phase_a_*` cases (including the
 Tok–Delta Junction–Fairbanks split), `test_alcan_phase_b1_tok_cutoff_glenn_to_anchorage`,
@@ -5588,6 +5658,57 @@ Honesty debts for this v1 slice (do not paper over):
       November, both coasts, every province). Each waits for the
       cross-border loads PR and for its city or road to exist on the map.
 
+### November 22 freight review: doubles, Laredo, cattle, reefer, hazmat
+
+Read the 2.0-only freight code and drove each kind on the agent server
+with Facility streets off (transcripts in the project's
+`career-2.0-alpha` folder).
+
+- [x] The delivery screen dropped the receiver's lines: the cattle count
+      ("2 could not walk off ...") and the cargo claim line were composed
+      but never reached the rows the player reads, because the screen reads
+      its own itemized list. Both rows now follow the Load row. The same
+      gap exists on dev (1.9.x) and needs the same fix there. (Found along
+      the way)
+- [x] A reefer box on the road ran its temperature and spoilage on real
+      seconds while the game clock ran at the pace, so a box with the unit
+      off warmed ten times slower driving than parked. Both clocks are now
+      game seconds. (Found along the way)
+- [x] A sleep's forecast now says when the cattle would pass the 28-hour
+      limit before the driver wakes. (Found along the way)
+- [x] With cattle aboard the hours readouts named a 30-minute break that
+      never comes due; Alt S now says no break is required with cattle
+      aboard, and the break drops out of the other readouts. (Found along
+      the way)
+- [x] A refused reverse with doubles played the gear-shift sound first;
+      the doubles hook-up and break-the-set times were each spoken twice in
+      a row. (Found along the way)
+- [ ] *(Found along the way)* The other lines `summary_parts` carries for
+      a loaded delivery (a preventable-damage deductible, on-the-spot
+      tickets, a balance a load could not cover) are not on the delivery
+      screen either; check each against the itemized rows.
+- [ ] *(Found along the way)* Past the 28-hour limit the game only says
+      "The cattle have been aboard 28 hours." and keeps costing condition;
+      there is no way to unload, feed and water for 5 hours as the law
+      requires. Decide whether a feed-and-water stop belongs in 2.0.
+- [ ] *(Found along the way)* The cattle condition line on the road
+      reuses the boxed-freight sentence ("The load has shifted hard and is
+      injured ... the carrier pays for what you broke"); cattle need their
+      own wording.
+- [ ] *(Found along the way)* Every cattle load on the board says "They
+      can ride 28 hours.", which never changes; a candidate for removal.
+- [ ] *(Found along the way)* A tunnel refusal reads the whole rule,
+      including the bulk-flammable clause, to a packaged poison-gas load
+      the clause does not concern.
+- [ ] *(Found along the way)* The doubles route lines say "National
+      Network", a regulation's name a player may not know.
+- [ ] *(Found along the way)* A cattle board load from Dodge City to
+      Liberal posted 83 miles, but dispatch routed it 120 miles around
+      construction; the settlement credits the posted 83.
+- [ ] *(Found along the way)* The agent server cannot stage a southbound
+      load to a Laredo transfer yard or a rear-trailer whip under partial
+      lane keeping; both were checked by tests only.
+
 ### The first 2.0 nightly
 
 Plumbing before the merge, none of it gameplay (agreed 2026-10-26; the
@@ -5774,9 +5895,13 @@ a carrier slice (owner, 2026-10-26).
       driven. Recipe: "Building a Canadian corridor" in
       `docs/map-enrichment-recipe.md`; report in the project files
       (`career-2.0-alpha/canada-tools-report.md`).
-- [ ] (Found along the way) Keep a Canadian posting in km/h: a 100 km/h
-      sign is stored as 60 mph and read back as 97. Needs a raw `kmh`
-      field and a reader that speaks it as signed.
+- [x] Canadian postings keep their km/h (2026-11-22): each posting stores
+      the sign's `kmh` beside its `mph`, and the game drives the sign
+      exactly (kmh / 1.609344), so a 100 sign speaks 100 in metric and 62 in
+      imperial; cruise to the limit, the speed keeper, speeding and the U
+      readout all use that value. Canadian ramp advisories keep their km/h
+      (the US bare-number screen is skipped there). The visual speed sign in
+      the drive scene still draws whole mph.
 - [ ] (Found along the way) Provincial traffic counts: no table is read,
       so Canadian legs take the game's road-class estimate. BC publishes
       counts in TRADAS; Alberta and Ontario have their own.
@@ -5785,11 +5910,33 @@ a carrier slice (owner, 2026-10-26).
       profile; a relief class from the Canadian Digital Elevation Model
       would. It also reads level one way and rolling the other between
       Watson Lake and Whitehorse, a near tie.
-- [ ] (Found along the way) Census divisions for Canadian county lines,
-      and truck stops on the BC and Yukon legs (none yet).
-- [ ] (Found along the way) A province line with no cited name is spoken
-      "Crossing into Yukon near British Columbia-Yukon line."; the place
-      half names the line itself. Wording for the director.
+- [ ] (Found along the way) Census divisions for Canadian county lines.
+- [x] Stops on the BC, Yukon and Alaska legs (2026-11-22): 108 stops on 32
+      legs from a curated list (`docs/stops/canada-alaska.json`) placed by
+      `cargo tools osm-stops`. BC rest areas from the province's open data
+      (trucks accommodated, open year round); fuel from operator pages, the
+      Government of Yukon fuel price survey and OSM. Glennallen to Tok,
+      Delta Junction to Glennallen and Glennallen to Valdez still have no
+      mid-leg stop.
+- [ ] (Found along the way) A stop has no closed season, so seasonal and
+      unconfirmed stops are left out: Contact Creek (diesel unconfirmed), Coal
+      River (summer only), Buckinghorse River, Continental Divide and Yukon River Camp, and
+      the seasonal BC rest areas. A `season` field the game honours would
+      let them in for the months they are open.
+- [ ] (Found along the way) Yukon rest areas come from OSM: 511 Yukon's
+      rest-area feed needs a developer key.
+- [ ] (Found along the way) Truck access at the Alaska Highway lodges and
+      town stations is not read anywhere, so the game offers them to a
+      bobtail only: Fort Nelson to Watson Lake has no tractor-trailer fuel
+      on the map. Needs an operator answer or a provincial list per stop.
+- [x] Province lines speak short (2026-11-22): a line with no cited place
+      is "Crossing into Yukon.", cited places are plain phrases ("the Alcan
+      border crossing", "Lower Post"), and a leg that crosses one line more
+      than twice drops stays under 5 miles at load with their returns
+      (`ff_core::data::line_weave`). Calibrated on the Lower Post weave:
+      its short stays are 1.3 to 4.8 miles, the next real stays 27.7 and 40.
+      A leg crossing a line once or twice, and every US leg, is untouched.
+      Fort Nelson to Watson Lake now enters Yukon once, near Lower Post.
 - [ ] Trans-Canada and Yellowhead, Vancouver to Winnipeg (1, 5, 16, 2),
       joining the Alcan at Prince George and Dawson Creek and the US at
       Blaine, Sumas, Osoyoos, Kingsgate, Coutts, North Portal, Emerson.
@@ -5801,13 +5948,34 @@ a carrier slice (owner, 2026-10-26).
       Calais and St. Stephen crossings.
 - [ ] The north: 63 to Fort McMurray, 16 to Prince Rupert, 37 to the
       Yukon, 3 to Yellowknife, freight nodes only.
-- [ ] The rules before the first corridor merges: postings spoken in km/h
-      in Canada whatever the unit setting; cycle 1 and 2 hours of service
+- [ ] The rules before the first corridor merges: postings in the
+      player's units from the sign's own number (done; an Automatic units
+      setting is its own brief); cycle 1 and 2 hours of service
       with the Canadian rest menus; provincial weights, the 25 m length,
       B-trains, spring bans; the 105 km/h limiters; CAD at the pump;
       customs with hours, FAST and cabotage at every listed port;
       Newfoundland's half hour and Saskatchewan's standard time; Quebec
       signs read as written; the Coquihalla, Rogers Pass and 17 closures.
+- [x] Billboards follow each province's and territory's sign law
+      (2026-11-22). Alberta, Prince Edward Island, Newfoundland and
+      Labrador, the Northwest Territories and Nunavut ban commercial
+      boards, as Alaska does; the Yukon, Nova Scotia and New Brunswick
+      license only boards for traveler attractions and services, so placed
+      attraction signs stand there and the everyday pool does not; the
+      rest license boards off the right of way. Parks the road crosses are
+      billboard bans on the legs. Table and sources in
+      `docs/billboard-spider-methodology.md` section 11, the same rows in
+      `data/billboard_law.rs`. `cargo tools bake-billboards` (the Python
+      sheet bake, ported) refuses a sign where the law or a park says no.
+- [ ] Billboards along the Alaska Highway and Highway 97: the sign sheet
+      (`data/spider/signsheets/alaska-highway-bc-yukon-2026-11-22.md`)
+      waits for the director's copy and Orinks's approval before it bakes.
+- [ ] Billboard sheets for each Canadian corridor as its PR merges, West
+      first; French attraction names listed for Orinks's ear.
+- [ ] (Found along the way) New Brunswick is read attractions only
+      province-wide because its freight routes are Level I and II
+      highways; its ordinary highways license commercial boards. A per-leg
+      law would let a pool line stand on those.
 
 ### Personal conveyance and duty-purpose correction
 
@@ -6051,6 +6219,25 @@ here 2026-09-25. Details stay in the linked dated sections.
       wait. Neither holds on the Dalton Highway or other remote Alaska and
       Canadian roads, where a callout takes far longer; scale both by road
       and remoteness.
+- [ ] (Found along the way) **A 1.9 career copied into 2.0 can carry a
+      home terminal its carrier does not run.** A Prairie Link driver who
+      lives in Miami comes over with the Milwaukee fallback terminal and no
+      home city, so a later let-go looks for carriers near Milwaukee. Pick
+      from the current city when the copied terminal is not one of the
+      carrier's own (R1 review, 2026-11-22).
+- [ ] (Found along the way) **Employment is an implicit state machine.**
+      `carrier_key`, `carrier_name`, `business_status`,
+      `sufferance_carrier_key` and `let_go_by` move together across hiring,
+      being let go, applying and own authority. Make it one `Employment`
+      enum in `ff-core` (hired, on sufferance, unassigned, own authority)
+      with one `next(event)` and a transition table, reported by the agent
+      server's `status` (R1 review, 2026-11-22).
+- [ ] (Found along the way) **The destination approach has no limit in
+      force.** Once the destination exit is taken, the trip still reads the
+      interstate's number up to the gate's half mile, so speeding warnings,
+      cruise and the assists go by 65 while S says the approach's 45. Put the
+      approach limit back on the map when the exit is taken, the way the
+      gate's 15 is restored (R1 follow-up, 2026-11-22).
 - [ ] **Route calls to a remote dispatcher when one is available.** Deliver
       the same structured request asynchronously, with a short wait and the
       local dispatcher as the automatic fallback.

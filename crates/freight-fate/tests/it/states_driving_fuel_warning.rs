@@ -402,3 +402,62 @@ fn test_the_low_fuel_warning_names_only_fuel_this_rig_can_reach_on_the_route() {
         vec!["Fuel low: 12 percent. No fuel stop before the destination.".to_string()]
     );
 }
+
+/// The Dalton's real gap: Coldfoot is the last diesel for 240 miles, and a
+/// tank that will not reach Deadhorse hears so leaving Coldfoot, with the
+/// distance to the Colville pumps (Alaska routes, 2026-11-22).
+#[test]
+fn test_the_dalton_warns_past_coldfoot_with_the_real_gap() {
+    let mut app = TestApp::new();
+    let world = get_world();
+    let mut profile = Profile::named_in("Dalton Fuel", "fairbanks_ak_us");
+    profile.tutorial_done = true;
+    app.ctx.profile = Some(profile);
+    let job = make_reposition_job(world, "fairbanks_ak_us", "deadhorse_ak_us", false, None)
+        .expect("Fairbanks to Deadhorse is a supported reposition");
+    let route = world
+        .shortest_route("fairbanks_ak_us", "deadhorse_ak_us", None, false)
+        .expect("the world routes")
+        .expect("Fairbanks to Deadhorse has a route");
+    let mut drive = DrivingState::new(
+        &mut app.ctx,
+        job,
+        route,
+        Some(0),
+        DRIVE_PHASE_DELIVERY,
+        Some(12.0),
+    );
+    drive.trip.set_npc_vehicles(Vec::new());
+    drive.tutorial = None;
+    drive.departure_checked = true;
+    drive.trip.bobtail = false;
+    let at = |name: &str| {
+        drive
+            .trip
+            .stops
+            .iter()
+            .find(|s| s.name == name)
+            .map(|s| s.at_mi)
+            .unwrap_or_else(|| panic!("{name} is a stop on the Dalton"))
+    };
+    let (coldfoot, colville) = (at("Coldfoot Camp"), at("Colville Fuel Station"));
+    assert!(
+        (235.0..245.0).contains(&(colville - coldfoot)),
+        "Coldfoot to the Colville pumps is the Dalton's 240 miles, got {}",
+        colville - coldfoot
+    );
+
+    // Just past Coldfoot with 35 gallons: about 210 miles at six to the gallon.
+    drive.trip.position_mi = coldfoot + 0.5;
+    drive.trip.fuel_used_gal = 0.0;
+    drive.trip.truck.fuel_gal = 35.0;
+    drive.fuel_range_short_said = false;
+    app.clear_speech();
+    drive.check_fuel_range_warning(&mut app.ctx);
+    let lines = range_lines(&app);
+    assert_eq!(lines.len(), 1, "{:?}", app.event_lines());
+    assert!(
+        lines[0].starts_with("Fuel range about 210 miles, short of the next fuel stop"),
+        "{lines:?}"
+    );
+}

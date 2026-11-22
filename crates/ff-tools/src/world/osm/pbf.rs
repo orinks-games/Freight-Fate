@@ -13,7 +13,7 @@ use std::time::Instant;
 use osmpbf::{BlobDecode, BlobReader, PrimitiveBlock};
 use rayon::iter::{ParallelBridge, ParallelIterator};
 
-use super::bake::way_limit_in;
+use super::bake::way_reading_in;
 use super::geo::OsmWay;
 use crate::util::Result;
 
@@ -30,6 +30,7 @@ struct RawWay {
     hgv: bool,
     ca_mph: Option<f64>,
     ca_hgv: bool,
+    ca_kmh: Option<i64>,
 }
 
 const CANADIAN_REF_CODES: &[&str] = &[
@@ -96,12 +97,13 @@ fn ways_of(block: &PrimitiveBlock) -> Vec<RawWay> {
                 continue;
             }
             let hint = bare_unit_is_kmh(maxspeed_type, &route_ref);
-            let read = |kmh: bool| match way_limit_in(maxspeed, maxspeed_hgv, hint.unwrap_or(kmh)) {
-                Some((mph, hgv)) => (Some(mph), hgv),
-                None => (None, false),
+            let read = |kmh: bool| match way_reading_in(maxspeed, maxspeed_hgv, hint.unwrap_or(kmh))
+            {
+                Some((mph, hgv, sign_kmh)) => (Some(mph), hgv, sign_kmh),
+                None => (None, false, None),
             };
-            let (mph, hgv) = read(false);
-            let (ca_mph, ca_hgv) = read(true);
+            let (mph, hgv, _) = read(false);
+            let (ca_mph, ca_hgv, ca_kmh) = read(true);
             out.push(RawWay {
                 id: way.id(),
                 refs: way.refs().collect(),
@@ -110,6 +112,7 @@ fn ways_of(block: &PrimitiveBlock) -> Vec<RawWay> {
                 hgv,
                 ca_mph,
                 ca_hgv,
+                ca_kmh,
             });
         }
     }
@@ -223,6 +226,7 @@ pub fn read_ways(paths: &[impl AsRef<Path>]) -> Result<Vec<OsmWay>> {
                 hgv: way.hgv,
                 ca_mph: way.ca_mph,
                 ca_hgv: way.ca_hgv,
+                ca_kmh: way.ca_kmh,
                 coords,
             });
         }
