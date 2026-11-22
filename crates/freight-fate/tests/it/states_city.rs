@@ -771,16 +771,7 @@ fn test_team_load_details_plan_the_co_driver_instead_of_sleeps() {
     let mut app = TestApp::new();
     career(&mut app, "Team Detail", "Buffalo");
     profile_mut(&mut app).career.xp = *LEVEL_XP.last().unwrap();
-    let mut job = JobBoard::seeded(app.ctx.world, 7)
-        .offers(
-            "Buffalo",
-            &["refrigerated", "heavy_haul", "high_value"],
-            OfferOptions::level(5),
-        )
-        .into_iter()
-        .max_by(|a, b| a.distance_mi.total_cmp(&b.distance_mi))
-        .expect("an offer");
-    assert!(job.distance_mi > 700.0, "{} miles", job.distance_mi);
+    let mut job = long_buffalo_offer(&app);
     job.team = true;
     push_board(&mut app, vec![job]);
     key(&mut app, Key::F1);
@@ -809,22 +800,32 @@ fn test_job_details_leave_hours_out_with_hours_of_service_off() {
     assert!(rows.iter().any(|r| r.starts_with("Fuel: ")), "{rows:?}");
 }
 
+/// A Buffalo offer of more than 700 miles: the longest on the first board
+/// seed that posts one. Which seed does depends on the map, and a new
+/// corridor can shorten the longest offer on any one board.
+fn long_buffalo_offer(app: &TestApp) -> Job {
+    (7..64)
+        .filter_map(|seed| {
+            JobBoard::seeded(app.ctx.world, seed)
+                .offers(
+                    "Buffalo",
+                    &["refrigerated", "heavy_haul", "high_value"],
+                    OfferOptions::level(5),
+                )
+                .into_iter()
+                .max_by(|a, b| a.distance_mi.total_cmp(&b.distance_mi))
+        })
+        .find(|job| job.distance_mi > 700.0)
+        .expect("a Buffalo offer over 700 miles")
+}
+
 /// The longest Buffalo offer, alone on the board, read at local hour
 /// `hour` (Buffalo keeps Eastern time, the reference clock).
 fn longest_job_details_at(app: &mut TestApp, hour: f64) -> Vec<String> {
     career(app, "Night Detail", "Buffalo");
     profile_mut(app).career.xp = *LEVEL_XP.last().unwrap();
     profile_mut(app).game_hours = 48.0 + hour;
-    let job = JobBoard::seeded(app.ctx.world, 7)
-        .offers(
-            "Buffalo",
-            &["refrigerated", "heavy_haul", "high_value"],
-            OfferOptions::level(5),
-        )
-        .into_iter()
-        .max_by(|a, b| a.distance_mi.total_cmp(&b.distance_mi))
-        .expect("an offer");
-    assert!(job.distance_mi > 700.0, "{} miles", job.distance_mi);
+    let job = long_buffalo_offer(app);
     push_board(app, vec![job]);
     key(app, Key::F1);
     labels::<JobDetailState>(app)
