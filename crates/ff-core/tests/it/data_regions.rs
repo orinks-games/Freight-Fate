@@ -109,3 +109,26 @@ fn test_hazard_region_tags_are_canonical() {
         }
     }
 }
+
+#[test]
+fn test_every_city_has_a_climate_row() {
+    // The simulated temperature reads `City::climate`: every city must land
+    // on a real row, never the default, and the lower 48 (Alaska aside)
+    // must read its freight region unchanged.
+    use ff_core::sim::season::{region_climate, DEFAULT_CLIMATE};
+    let world = world();
+    let mut bad = Vec::new();
+    for (name, city) in &world.cities {
+        let climate = city.climate();
+        if climate != "heartland" && region_climate(climate) == DEFAULT_CLIMATE {
+            bad.push(format!("{name}: {climate} has no row"));
+        }
+        if city.country == "US" && city.state_code != "AK" && climate != city.region {
+            bad.push(format!(
+                "{name}: climate {climate} != region {}",
+                city.region
+            ));
+        }
+    }
+    assert!(bad.is_empty(), "{}", bad.join("\n"));
+}

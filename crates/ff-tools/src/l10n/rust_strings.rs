@@ -71,6 +71,8 @@ const SKIP_PATH_PARTS: &[&str] = &[
     "/data/stop_bounds",
     // The sign-law table: jurisdiction names and statute citations, never spoken.
     "/data/billboard_law",
+    // The climate table: station names and normals sources, never spoken.
+    "/data/climate",
 ];
 
 /// The hole an English plural ending ("s", "es") fills; a translation may
