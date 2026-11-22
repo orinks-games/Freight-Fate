@@ -1,5 +1,10 @@
 {
   "about": "Curated stops for the Ontario and Quebec legs, placed by cargo tools osm-stops --stops. lat, lon, reach_mi, season and heading steer placement; every other key is the stop as the game reads it. A stop whose season is not 'year round' is left out.",
+  "truck_access": {
+    "read": 6,
+    "assumed": 10,
+    "about": "Stops whose tractor-trailer access was read from a source, and those where it is assumed with the reason in source. The Flying J centers carry hgv=yes in OpenStreetMap; the ONroute plazas, Le Domaine and the Réservoir-Dozois rest area have no source either way."
+  },
   "stops": [
     {
       "name": "Flying J Travel Center Tilbury",
@@ -28,6 +33,7 @@
       ],
       "curation": "curated",
       "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "read",
       "source": "Position and truck access read from OSM way 230499047 (brand Flying J, hgv=yes, website https://locations.pilotflyingj.com/ca/on/tilbury/19325-essex-county-rd-42), OpenStreetMap planet extract 2026-11-16. Diesel and truck parking read from the brand: a Flying J travel center is a truck stop. Open year round and around the clock is assumed, not read. Leg mile projected onto the leg's road; it sits off the highway at the exit."
     },
     {
@@ -57,6 +63,7 @@
       ],
       "curation": "curated",
       "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "read",
       "source": "Position and truck access read from OSM way 195507992 (brand Flying J, hgv=yes, website https://locations.pilotflyingj.com/ca/on/london/3700-highbury-ave-s), OpenStreetMap planet extract 2026-11-16. Diesel and truck parking read from the brand: a Flying J travel center is a truck stop. Open year round and around the clock is assumed, not read. Leg mile projected onto the leg's road; it sits off the highway at the exit."
     },
     {
@@ -86,6 +93,7 @@
       ],
       "curation": "curated",
       "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "read",
       "source": "Position and truck access read from OSM way 183248946 (brand Flying J, hgv=yes, website https://locations.pilotflyingj.com/ca/on/ayr/2492-cedar-creek-rd), OpenStreetMap planet extract 2026-11-16. Diesel and truck parking read from the brand: a Flying J travel center is a truck stop. Open year round and around the clock is assumed, not read. Leg mile projected onto the leg's road; it sits off the highway at the exit."
     },
     {
@@ -115,6 +123,7 @@
       ],
       "curation": "curated",
       "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "read",
       "source": "Position and truck access read from OSM way 1323214543 (brand Flying J, hgv=yes, website https://locations.pilotflyingj.com/ca/on/mississauga/1400-britannia-rd-e), OpenStreetMap planet extract 2026-11-16. Diesel and truck parking read from the brand: a Flying J travel center is a truck stop. Open year round and around the clock is assumed, not read. Leg mile projected onto the leg's road; it sits off the highway at the exit."
     },
     {
@@ -144,6 +153,7 @@
       ],
       "curation": "curated",
       "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "read",
       "source": "Position and truck access read from OSM way 503663315 (brand Flying J, hgv=yes, website https://locations.pilotflyingj.com/ca/on/napanee/628-county-rd-41), OpenStreetMap planet extract 2026-11-16. Diesel and truck parking read from the brand: a Flying J travel center is a truck stop. Open year round and around the clock is assumed, not read. Leg mile projected onto the leg's road; it sits off the highway at the exit."
     },
     {
@@ -173,6 +183,7 @@
       ],
       "curation": "curated",
       "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "read",
       "source": "Position and truck access read from OSM way 358968546 (brand Flying J, hgv=yes, website https://locations.pilotflyingj.com/ca/on/lancaster/20382-old-hwy-2), OpenStreetMap planet extract 2026-11-16. Diesel and truck parking read from the brand: a Flying J travel center is a truck stop. Open year round and around the clock is assumed, not read. Leg mile projected onto the leg's road; it sits off the highway at the exit."
     },
     {
@@ -198,6 +209,7 @@
       ],
       "curation": "curated",
       "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "assumed",
       "source": "Confirmed a service plaza: ONroute runs the Highway 401 service centres, and OSM maps this one as highway=services. Position and name read from OSM way 338688734 (OpenStreetMap planet extract 2026-11-16), an ONroute service centre on Highway 401; open 24/7 read from OSM. Diesel assumed for an ONroute centre, not tagged. Side derived: an Ontario 401 centre on the north side serves westbound traffic, the south side eastbound. Tractor-trailer access assumed, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road. Truck parking is not verified, so the stop offers fuel only."
     },
     {
@@ -223,6 +235,7 @@
       ],
       "curation": "curated",
       "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "assumed",
       "source": "Confirmed a service plaza: ONroute runs the Highway 401 service centres, and OSM maps this one as highway=services. Position and name read from OSM way 338688735 (OpenStreetMap planet extract 2026-11-16), an ONroute service centre on Highway 401; open 24/7 assumed (ONroute centres run around the clock; this one's hours are not tagged). Diesel assumed for an ONroute centre, not tagged. Side derived: an Ontario 401 centre on the north side serves westbound traffic, the south side eastbound. Tractor-trailer access assumed, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road. Truck parking is not verified, so the stop offers fuel only."
     },
     {
@@ -248,6 +261,7 @@
       ],
       "curation": "curated",
       "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "assumed",
       "source": "Confirmed a service plaza: ONroute runs the Highway 401 service centres, and OSM maps this one as highway=services. Position and name read from OSM way 338397359 (OpenStreetMap planet extract 2026-11-16), an ONroute service centre on Highway 401; open 24/7 assumed (ONroute centres run around the clock; this one's hours are not tagged). Diesel assumed for an ONroute centre, not tagged. Side derived: an Ontario 401 centre on the north side serves westbound traffic, the south side eastbound. Tractor-trailer access assumed, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road. Truck parking is not verified, so the stop offers fuel only."
     },
     {
@@ -273,6 +287,7 @@
       ],
       "curation": "curated",
       "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "assumed",
       "source": "Confirmed a service plaza: ONroute runs the Highway 401 service centres, and OSM maps this one as highway=services. Position and name read from OSM way 338371886 (OpenStreetMap planet extract 2026-11-16), an ONroute service centre on Highway 401; open 24/7 assumed (ONroute centres run around the clock; this one's hours are not tagged). Diesel assumed for an ONroute centre, not tagged. Side derived: an Ontario 401 centre on the north side serves westbound traffic, the south side eastbound. Tractor-trailer access assumed, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road. Truck parking is not verified, so the stop offers fuel only."
     },
     {
@@ -298,6 +313,7 @@
       ],
       "curation": "curated",
       "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "assumed",
       "source": "Confirmed a service plaza: ONroute runs the Highway 401 service centres, and OSM maps this one as highway=services. Position and name read from OSM way 338648434 (OpenStreetMap planet extract 2026-11-16), an ONroute service centre on Highway 401; open 24/7 read from OSM. Diesel assumed for an ONroute centre, not tagged. Side derived: an Ontario 401 centre on the north side serves westbound traffic, the south side eastbound. Tractor-trailer access assumed, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road. Truck parking is not verified, so the stop offers fuel only."
     },
     {
@@ -323,6 +339,7 @@
       ],
       "curation": "curated",
       "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "assumed",
       "source": "Confirmed a service plaza: ONroute runs the Highway 401 service centres, and OSM maps this one as highway=services. Position and name read from OSM way 338648439 (OpenStreetMap planet extract 2026-11-16), an ONroute service centre on Highway 401; open 24/7 assumed (ONroute centres run around the clock; this one's hours are not tagged). Diesel assumed for an ONroute centre, not tagged. Side derived: an Ontario 401 centre on the north side serves westbound traffic, the south side eastbound. Tractor-trailer access assumed, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road. Truck parking is not verified, so the stop offers fuel only."
     },
     {
@@ -348,6 +365,7 @@
       ],
       "curation": "curated",
       "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "assumed",
       "source": "Confirmed a service plaza: ONroute runs the Highway 401 service centres, and OSM maps this one as highway=services. Position and name read from OSM way 338671717 (OpenStreetMap planet extract 2026-11-16), an ONroute service centre on Highway 401; open 24/7 assumed (ONroute centres run around the clock; this one's hours are not tagged). Diesel assumed for an ONroute centre, not tagged. Side derived: an Ontario 401 centre on the north side serves westbound traffic, the south side eastbound. Tractor-trailer access assumed, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road. Truck parking is not verified, so the stop offers fuel only."
     },
     {
@@ -373,6 +391,7 @@
       ],
       "curation": "curated",
       "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "assumed",
       "source": "Confirmed a service plaza: ONroute runs the Highway 401 service centres, and OSM maps this one as highway=services. Position and name read from OSM way 236134060 (OpenStreetMap planet extract 2026-11-16), an ONroute service centre on Highway 401; open 24/7 assumed (ONroute centres run around the clock; this one's hours are not tagged). Diesel assumed for an ONroute centre, not tagged. Side derived: an Ontario 401 centre on the north side serves westbound traffic, the south side eastbound. Tractor-trailer access assumed, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road. Truck parking is not verified, so the stop offers fuel only."
     },
     {
@@ -397,6 +416,7 @@
       ],
       "curation": "curated",
       "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "assumed",
       "source": "Position read from OSM node 5737019507 (services, Le Domaine) and way 419744777 (fuel, operator Garage Kevin B. Murphy), OpenStreetMap planet extract 2026-11-16, the one fuel stop on Route 117 through the La Vérendrye reserve between Grand-Remous and Louvicourt. Diesel, food and year-round opening assumed, not read. Tractor-trailer access assumed, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road. Truck parking is not verified, so the stop offers fuel only."
     },
     {
@@ -420,6 +440,7 @@
       ],
       "curation": "curated",
       "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "assumed",
       "source": "Position and name read from OSM node 1829923220 (highway=rest_area, Aire de repos de Réservoir-Dozois (Sureau), toilets=no), OpenStreetMap planet extract 2026-11-16, on Route 117 in the La Vérendrye reserve. Year-round opening, truck parking and an overnight stay are assumed, not read. Leg mile projected onto the leg's road. Truck parking assumed limited, as at other Quebec highway rest areas; capacity not read."
     }
   ]
