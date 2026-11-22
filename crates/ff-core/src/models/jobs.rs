@@ -136,6 +136,11 @@ pub struct Job {
     pub destination: String,
     /// shortest-route miles, used for pay and deadline
     pub distance_mi: f64,
+    /// The miles of the road dispatch sent the truck, when longer than
+    /// the posted `distance_mi`; 0 when it is the posted road. Paid and
+    /// credited at settlement. `distance_mi` stays the posted figure, which
+    /// the shipper's yard and dock draws are seeded from.
+    pub dispatched_mi: f64,
     pub pay: f64,
     pub deadline_game_h: f64,
     /// market multiplier already applied to pay
@@ -250,6 +255,7 @@ impl Job {
             origin_location: origin_location.to_string(),
             destination: destination.to_string(),
             distance_mi,
+            dispatched_mi: 0.0,
             pay,
             deadline_game_h,
             market_mult: 1.0,
@@ -270,6 +276,43 @@ impl Job {
             hazmat: hazmat::default_commodity(cargo.key),
             urgency: LoadUrgency::Standard,
         }
+    }
+
+    /// Dispatch sent the truck a longer road than the board posted, for
+    /// construction or weather the board could not see. The carrier pays
+    /// the miles it sends: pay scales with them, the deadline gains the
+    /// extra driving time, and the settlement credits the miles driven.
+    /// True when anything changed. A shorter road keeps the posted pay.
+    pub fn rerate_for_dispatched_miles(&mut self, miles: f64, extra_drive_h: f64) -> bool {
+        let miles = round_py_n(miles, 1);
+        if self.bobtail || self.distance_mi <= 0.0 || miles <= self.credited_mi() + 0.5 {
+            return false;
+        }
+        self.pay = round_py_n(self.pay * miles / self.credited_mi(), 2);
+        self.deadline_game_h = round_py_n(self.deadline_game_h + extra_drive_h.max(0.0), 1);
+        self.dispatched_mi = miles;
+        true
+    }
+
+    /// The miles paid and credited: the road dispatch sent, else the posted.
+    pub fn credited_mi(&self) -> f64 {
+        if self.dispatched_mi > 0.0 {
+            self.dispatched_mi
+        } else {
+            self.distance_mi
+        }
+    }
+
+    /// "29 head of fed cattle" for a live cattle load; None for any other.
+    pub fn cattle_head_text(&self) -> Option<String> {
+        if self.cargo.key != crate::sim::livestock::LIVESTOCK_CARGO_KEY {
+            return None;
+        }
+        let kind = crate::sim::livestock::CattleKind::for_origin(&self.origin_type);
+        Some(crate::sim::livestock::head_text(
+            kind.head_for_tons(self.weight_tons),
+            kind,
+        ))
     }
 
     pub fn spoken_origin(&self) -> &str {
@@ -337,15 +380,11 @@ impl Job {
             Some(card) => format!("{tons} tons of {cargo} from {origin} {card}."),
             None => format!("{tons} tons of {cargo} from {origin} to {destination}."),
         };
-        // Live cattle: how many head, and the law the deadline answers to.
-        let cattle = if self.cargo.key == crate::sim::livestock::LIVESTOCK_CARGO_KEY {
-            let kind = crate::sim::livestock::CattleKind::for_origin(&self.origin_type);
-            format!(
-                " {}. They can ride 28 hours.",
-                crate::sim::livestock::head_text(kind.head_for_tons(self.weight_tons), kind)
-            )
-        } else {
-            String::new()
+        // Live cattle: how many head. The 28-hour limit is on the load's
+        // details, in the status and in Check the cattle.
+        let cattle = match self.cattle_head_text() {
+            Some(head) => format!(" {head}."),
+            None => String::new(),
         };
         let trailer = if opts.trailer_note.is_empty() {
             String::new()
@@ -627,6 +666,9 @@ pub fn job_payload(job: &Job) -> Map<String, Value> {
             if let Some(material) = job.hazmat {
                 map.insert("hazmat".into(), json!(material.key));
             }
+            if job.dispatched_mi > 0.0 {
+                map.insert("dispatched_mi".into(), json!(job.dispatched_mi));
+            }
             map
         }
         _ => unreachable!("json! object"),
@@ -687,6 +729,7 @@ pub fn job_from_payload(data: &Map<String, Value>) -> Option<Job> {
         number("deadline_game_h")?,
     );
     job.market_mult = json_f64(data.get("market_mult"), 1.0);
+    job.dispatched_mi = json_f64(data.get("dispatched_mi"), 0.0).max(0.0);
     job.origin_type = str_or(data, "origin_type", "metro_market");
     job.destination_location = destination_location;
     job.destination_type = str_or(data, "destination_type", "metro_market");

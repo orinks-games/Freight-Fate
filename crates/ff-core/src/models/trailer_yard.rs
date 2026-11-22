@@ -40,6 +40,7 @@ use crate::models::career::JobView;
 use crate::models::doubles::{doubles_break_extra_min, doubles_hook_extra_min};
 use crate::models::trailers::{owned_trailer_for_cargo, trailer_keys_for_cargo, trailer_type};
 use crate::pyfmt::{fmt_f, py_str_float, round_py_n};
+use crate::sim::livestock::LIVESTOCK_CARGO_KEY;
 
 #[cfg(test)]
 mod tests;
@@ -312,7 +313,10 @@ where
             paperwork_minutes: paperwork,
         };
     }
-    if let Some(trailer) = preloaded_trailer(job) {
+    // Live cattle never wait in a yard on a dropped trailer: they load at
+    // the chute with the truck there.
+    let live_cattle = job.cargo_key() == LIVESTOCK_CARGO_KEY;
+    if let Some(trailer) = preloaded_trailer(job).filter(|_| !live_cattle) {
         return PickupPlan {
             mode: MODE_DROP_HOOK,
             minutes: DROP_HOOK_MIN + doubles_min,
@@ -434,7 +438,10 @@ where
         "" => job.destination_location(),
         id => id,
     };
-    if facility_has_drop_yard(facility_type, facility_id) {
+    // Live cattle walk off at the receiver's chute; a trailer of them is
+    // never left in a yard.
+    let live_cattle = job.cargo_key() == LIVESTOCK_CARGO_KEY;
+    if !live_cattle && facility_has_drop_yard(facility_type, facility_id) {
         return DeliveryPlan {
             mode: MODE_DROP_HOOK,
             minutes: DROP_EMPTY_MIN + doubles_min,

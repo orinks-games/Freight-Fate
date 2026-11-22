@@ -6,7 +6,8 @@ use indexmap::IndexMap;
 use once_cell::sync::Lazy;
 use parking_lot::Mutex;
 
-use crate::data::lcv_turnpikes::cargo_requires_lcv_turnpike;
+use crate::data::lcv_turnpikes::{cargo_requires_lcv_turnpike, filter_lcv_turnpike_routes};
+use crate::data::national_network::{cargo_requires_national_network, filter_staa_doubles_routes};
 use crate::data::seasonal_weight::{seasonal_gvw_cap_kg, strictest_on_route};
 use crate::data::world::{max_alternate_miles, World};
 use crate::data::world_models::{City, CrossingLoad, Location, Route};
@@ -963,6 +964,24 @@ impl<'w> JobBoard<'w> {
                 }
             }
             legal
+        } else if cargo_requires_national_network(cargo.key)
+            || cargo_requires_lcv_turnpike(cargo.key)
+        {
+            // Dispatch keeps only the lanes a set of doubles may run, so the
+            // board posts the miles of the lane it will send: posting the
+            // open road paid a twin load for miles it never drove.
+            let options = self
+                .world
+                .supported_route_options(origin, destination, 3)
+                .unwrap_or_default();
+            let lanes = if cargo_requires_national_network(cargo.key) {
+                filter_staa_doubles_routes(&options)
+            } else {
+                filter_lcv_turnpike_routes(&options)
+            };
+            let lane = lanes.into_iter().next()?;
+            miles = lane.miles();
+            Some(lane)
         } else {
             open_route
         };

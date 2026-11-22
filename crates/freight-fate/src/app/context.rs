@@ -181,6 +181,9 @@ pub struct GameContext {
     /// advances it by one, so a career that comes back to the board is not
     /// offered the identical set again.
     pub dispatch_board_seed: Option<i64>,
+    /// The agent server's `board_load_to`: a city or a facility the next
+    /// dispatch board adds a load to, the way the destination lever does.
+    pub playtest_board_load_to: Option<String>,
     /// Driving-school sandbox: the profile is a throwaway copy and must
     /// never reach disk; the real save is restored when school ends.
     pub school_sandbox: bool,
@@ -312,6 +315,7 @@ impl GameContext {
             playtest_co_driver_hos: None,
             crash_offer_pending: crate::problem_reports::take_crash_offer(),
             dispatch_board_seed: None,
+            playtest_board_load_to: None,
             school_sandbox: false,
             school_real_profile: None,
             event_pacer: EventSpeechPacer::new(super::FF_PACER),

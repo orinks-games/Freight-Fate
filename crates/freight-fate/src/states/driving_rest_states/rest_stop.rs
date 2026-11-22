@@ -1430,10 +1430,10 @@ impl RestStopState {
                 Some("on_duty_not_driving"),
                 "pre-trip walk-around",
             );
+            // The doubles line names both trailers and the dolly once, at
+            // its start, so a clean set needs no second list.
             let body = if lines.is_empty() && doubles {
-                "Nothing to write up: tires, brakes, lights, both trailers and the converter \
-                 dolly would all pass."
-                    .to_string()
+                "Nothing to write up.".to_string()
             } else if lines.is_empty() {
                 "Nothing to write up: tires, brakes, lights and the trailer would all pass."
                     .to_string()

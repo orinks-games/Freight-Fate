@@ -608,7 +608,7 @@ pub fn company_driver_pay(
     reputation: Option<f64>,
 ) -> f64 {
     let plan = pay_plan_for_key(carrier_key_value);
-    let wage_floor = plan.stop_pay + job.distance_mi * plan.min_per_mile;
+    let wage_floor = plan.stop_pay + job.credited_mi() * plan.min_per_mile;
     let wage_share = gross_pay * plan.pay_share;
     let mut bonus = if on_time {
         gross_pay * plan.on_time_bonus_share
@@ -633,7 +633,7 @@ pub fn owner_operator_charges(
     transponder: bool,
     record_surcharge: f64,
 ) -> Vec<BusinessCharge> {
-    let miles = job.distance_mi;
+    let miles = job.credited_mi();
     let mut charges = vec![
         BusinessCharge {
             label: "maintenance reserve",
@@ -673,7 +673,7 @@ pub fn independent_authority_charges_for_trailers<S: AsRef<str>>(
     transponder: bool,
     record_surcharge: f64,
 ) -> Vec<BusinessCharge> {
-    let miles = job.distance_mi;
+    let miles = job.credited_mi();
     let owned_trailer_charge = owned_trailer_charge_per_mile(job.cargo.key, owned_trailers);
     let trailer_charge = match owned_trailer_charge {
         None => BusinessCharge {
