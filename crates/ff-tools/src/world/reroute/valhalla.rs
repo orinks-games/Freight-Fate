@@ -306,21 +306,60 @@ pub fn shield_key(name: &str) -> Option<(&'static str, String)> {
 pub fn matches_shield(name: &str, highway: &str) -> bool {
     highway
         .split('/')
+        .flat_map(|part| part.split(" and "))
         .map(str::trim)
         .filter(|part| !part.is_empty())
         .any(|part| match (shield_key(part), shield_key(name)) {
             (Some(a), Some(b)) => a == b,
-            (None, _) => same_name(name, part),
+            (None, Some(b)) => same_name(name, part) || named_route_is(part, &b),
+            (None, None) => same_name(name, part),
             _ => false,
         })
 }
 
+/// Alaska and Yukon highways are known by name, and the world labels its
+/// legs that way, but the truck router often names a stretch only by its
+/// route number ("AK 1" for the Seward Highway), so a named label also
+/// matches the numbers its road carries. Read from the `ref` tags on the
+/// OpenStreetMap ways of each name (planet of 2026-11-16): one road can
+/// carry two numbers along its length (the Seward Highway is AK 1 to Tern
+/// Lake and AK 9 on to Seward; the Richardson is AK 4 from Valdez and
+/// AK 2 from Delta Junction).
+const NAMED_ROUTES: &[(&str, &[&str])] = &[
+    ("Alaska Highway", &["AK 2", "YK 1"]),
+    ("Dalton Highway", &["AK 11"]),
+    ("Elliott Highway", &["AK 2"]),
+    ("George Parks Highway", &["AK 3"]),
+    ("Parks Highway", &["AK 3"]),
+    ("Glenn Highway", &["AK 1"]),
+    ("Haines Highway", &["AK 7", "YK 3"]),
+    ("Haines Road", &["YK 3"]),
+    ("Klondike Highway", &["AK 98", "YK 2"]),
+    ("Richardson Highway", &["AK 4", "AK 2"]),
+    ("Seward Highway", &["AK 1", "AK 9"]),
+    ("Steese Highway", &["AK 2", "AK 6"]),
+    ("Sterling Highway", &["AK 1"]),
+    ("Tok Cutoff", &["AK 1"]),
+];
+
+fn named_route_is(label: &str, shield: &(&'static str, String)) -> bool {
+    NAMED_ROUTES
+        .iter()
+        .filter(|(road, _)| same_name(label, road))
+        .flat_map(|(_, numbers)| numbers.iter())
+        .any(|number| shield_key(number).as_ref() == Some(shield))
+}
+
 fn same_name(a: &str, b: &str) -> bool {
+    // A street's direction word is not part of its name: OpenStreetMap
+    // writes "East Palmer-Wasilla Highway" for the Palmer-Wasilla Highway.
+    const DIRECTIONS: &[&str] = &["north", "south", "east", "west"];
     let norm = |s: &str| {
-        s.split_whitespace()
-            .map(str::to_lowercase)
-            .collect::<Vec<_>>()
-            .join(" ")
+        let mut words: Vec<String> = s.split_whitespace().map(str::to_lowercase).collect();
+        if words.len() > 2 && DIRECTIONS.contains(&words[0].as_str()) {
+            words.remove(0);
+        }
+        words.join(" ")
     };
     let (a, b) = (norm(a), norm(b));
     !b.is_empty() && a == b
@@ -379,5 +418,23 @@ mod tests {
         assert!(matches_shield("I-5", "I-5 / US-97"));
         assert!(matches_shield("TCH 1 West", "Hwy 1 / Hwy 97"));
         assert!(matches_shield("YH 16", "Hwy 16"));
+    }
+
+    #[test]
+    fn alaska_named_highways_match_their_route_numbers() {
+        assert!(matches_shield("AK 1", "Seward Highway"));
+        assert!(matches_shield("AK 9", "Seward Highway"));
+        assert!(matches_shield("AK 3 North", "George Parks Highway / Glenn Highway"));
+        assert!(matches_shield("AK 2", "Richardson Highway"));
+        assert!(matches_shield("AK 4", "Richardson Highway"));
+        assert!(matches_shield("AK 1", "Seward Highway and Portage Glacier Highway"));
+        assert!(!matches_shield("AK 3", "Richardson Highway"));
+        assert!(!matches_shield("US 1", "Seward Highway"));
+        assert!(!matches_shield("AK 2", "Dalton Highway"));
+        assert!(matches_shield(
+            "East Palmer-Wasilla Highway",
+            "Palmer-Wasilla Highway"
+        ));
+        assert!(!matches_shield("East Street", "Street"));
     }
 }

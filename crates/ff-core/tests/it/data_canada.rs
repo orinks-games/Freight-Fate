@@ -8,7 +8,8 @@ use ff_core::data::curves::leg_curves;
 use ff_core::data::world_models::Leg;
 
 /// The legs rebuilt from scaffolds: every leg that starts or ends in
-/// British Columbia or Yukon.
+/// British Columbia or Yukon. The Alaska Highway between Whitehorse and Tok
+/// is split at Haines Junction, where the Haines Highway leaves it.
 const REBUILT: &[&str] = &[
     "dawson_creek_bc_ca:fort_st_john_bc_ca",
     "dawson_creek_bc_ca:prince_george_bc_ca",
@@ -22,10 +23,16 @@ const REBUILT: &[&str] = &[
     "surrey_bc_ca:prince_george_bc_ca",
     "watson_lake_yt_ca:fort_nelson_bc_ca",
     "watson_lake_yt_ca:whitehorse_yt_ca",
-    "whitehorse_yt_ca:tok_ak_us",
+    "whitehorse_yt_ca:haines_junction_yt_ca",
     "whitehorse_yt_ca:watson_lake_yt_ca",
+    "whitehorse_yt_ca:skagway_ak_us",
+    "haines_junction_yt_ca:whitehorse_yt_ca",
+    "haines_junction_yt_ca:tok_ak_us",
+    "haines_junction_yt_ca:haines_ak_us",
     "blaine_wa_us:surrey_bc_ca",
-    "tok_ak_us:whitehorse_yt_ca",
+    "tok_ak_us:haines_junction_yt_ca",
+    "haines_ak_us:haines_junction_yt_ca",
+    "skagway_ak_us:whitehorse_yt_ca",
 ];
 
 fn leg(id: &str) -> &'static Leg {
@@ -97,7 +104,7 @@ fn province_and_border_lines_are_read_with_their_names() {
         "{:?}",
         yukon.state_crossings()
     );
-    let border = leg("whitehorse_yt_ca:tok_ak_us");
+    let border = leg("haines_junction_yt_ca:tok_ak_us");
     assert!(
         border
             .state_crossings()

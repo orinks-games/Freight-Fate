@@ -140,7 +140,14 @@ fn test_alaska_is_served_by_alaska_carriers_only() {
             continue;
         }
         assert!(
-            is_offerable_home_city(world, &city) || city == "deadhorse_ak_us",
+            // Deadhorse, Haines and Skagway lie past every Alaska carrier's
+            // hiring radius; the last two reach the rest of Alaska only
+            // through Canada.
+            is_offerable_home_city(world, &city)
+                || matches!(
+                    city.as_str(),
+                    "deadhorse_ak_us" | "haines_ak_us" | "skagway_ak_us"
+                ),
             "{city} not offered"
         );
         for c in carrier_catalog().values() {

@@ -39,6 +39,7 @@
 - **Heavy trucks in British Columbia are now held to 105 kilometers per hour, as the law requires.**
 - **The map now reaches Alaska and northern Canada along the Alaska Highway,** from Blaine and Bellingham through Prince George, Dawson Creek and Whitehorse to Tok and Fairbanks.
 - **Alaska roads now reach the Kenai Peninsula, Valdez and Deadhorse.** Seward, Valdez and Kenai offer only their real freight sites, and Deadhorse sells diesel.
+- **The map now reaches Skagway, Haines, North Pole, Nikiski, Port MacKenzie and the Fort Knox mine.** Skagway and Haines cross into the Yukon, with fuel at Haines Junction.
 - **Hours of service now follow Alaska and Canadian rules where you drive.** You hear the new limits as you cross into each place.
 - **Twenty new carriers hire across the map, including Alaska.** Every lower-48 city now has a regional carrier, and three local carriers run short loads around Chicago, Los Angeles and Anchorage.
 - **Fairbanks job boards now use real freight sites,** such as Costco, Fred Meyer and Spenard Builders Supply.
@@ -52,6 +53,7 @@
 
 ### Changed
 
+- **Alaska's highways now have their real bends, grades, lane counts and towns.** The road between Palmer and Wasilla is now called the Palmer-Wasilla Highway.
 - **The British Columbia and Yukon highways now follow the real roads, with their bends, hills, exits and towns.** Surrey to Blaine is now 15 miles, 14 northbound.
 - **Alaska, Yukon and British Columbia roads now use October's posted speed limits too.** Towns along the Alaska Highway slow you down, and the Glenn Highway runs at 65.
 - **A CDL pulled at speed now ends the run.** The truck stops on the shoulder, and a relief driver takes it back to the city the run left from.
