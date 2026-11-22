@@ -625,6 +625,7 @@ impl DrivingState {
         // change; the setter only re-renders cues when the choice actually flips.
         self.trip.set_imperial(ctx.settings.imperial_units);
         let pos_before = self.trip.position_mi;
+        let generation_before = self.trip_generation;
         // Tell the trip model which stop's exit is signaled or on the ramp so its
         // plan-cancelled warning can tell a driver who is taking the exit from one
         // who blew past it. Set before trip.update (which runs check_stops) and
@@ -646,6 +647,9 @@ impl DrivingState {
         events.sort_by_key(|event| event.data.chain_law.is_none());
         for event in events {
             self.handle_trip_event(ctx, &event);
+        }
+        if self.trip_generation == generation_before {
+            self.note_road_tally(pos_before);
         }
         if self.selected_stop_key.is_some()
             && self.trip.planned_stop_key != self.selected_stop_key

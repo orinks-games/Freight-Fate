@@ -17775,27 +17775,6 @@ msgstr "ready"
 msgid "token"
 msgstr "token"
 
-msgid "online-journal"
-msgstr "online-journal"
-
-msgid "items"
-msgstr "items"
-
-msgid "delivery"
-msgstr "delivery"
-
-msgid "Delivered without new truck damage"
-msgstr "Consegnato senza nuovi danni al camion"
-
-msgid "payload"
-msgstr "payload"
-
-msgid "achievement"
-msgstr "achievement"
-
-msgid "level"
-msgstr "level"
-
 msgid "Freight Fate"
 msgstr "Freight Fate"
 
@@ -18354,6 +18333,9 @@ msgid ""
 msgstr ""
 "Da nuovo assunto, la centrale ti assegna carico e percorso, e rifiutare un "
 "incarico finisce nel tuo stato di servizio."
+
+msgid "level"
+msgstr "level"
 
 msgid "endorsements"
 msgstr "endorsements"
@@ -22677,6 +22659,9 @@ msgstr "Al volante. Sono le {now}. {engine}"
 #. one sentence of a longer line
 msgid "It is {now}."
 msgstr "Sono le {now}."
+
+msgid "delivery"
+msgstr "delivery"
 
 msgid "alertness"
 msgstr "vigilanza"
@@ -29772,10 +29757,11 @@ msgid "Uses a spare repair link. {chain_repair_links} left."
 msgstr ""
 "Usa una maglia di riparazione di scorta. Ne restano {chain_repair_links}."
 
+# leave empty: one hole before "left"; it took every left curve call ("Sharp left, half a mile.") and dropped the direction
 #. placeholders: {chain_repair_links}
 #. one sentence of a longer line
 msgid "{chain_repair_links} left."
-msgstr "Ne restano {chain_repair_links}."
+msgstr ""
 
 #. placeholders: {f}
 msgid "Remove snow chains: about {f} minutes"
@@ -45278,6 +45264,21 @@ msgstr ""
 #~ "Offerta di carico da {origin_facility_text} a {destination_facility_text}. "
 #~ "Dopo il ritiro, Pianificazione del percorso elenca soste, carburante, "
 #~ "pedaggi, meteo e restrizioni."
+
+#~ msgid "online-journal"
+#~ msgstr "online-journal"
+
+#~ msgid "items"
+#~ msgstr "items"
+
+#~ msgid "Delivered without new truck damage"
+#~ msgstr "Consegnato senza nuovi danni al camion"
+
+#~ msgid "payload"
+#~ msgstr "payload"
+
+#~ msgid "achievement"
+#~ msgstr "achievement"
 
 #~ msgid ""
 #~ "Lane keeping full: the truck holds the lane, swipe left or right to change "

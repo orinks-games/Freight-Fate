@@ -17606,27 +17606,6 @@ msgstr "ready"
 msgid "token"
 msgstr "token"
 
-msgid "online-journal"
-msgstr "online-journal"
-
-msgid "items"
-msgstr "items"
-
-msgid "delivery"
-msgstr "delivery"
-
-msgid "Delivered without new truck damage"
-msgstr "Dostarczono bez nowych uszkodzeń ciężarówki"
-
-msgid "payload"
-msgstr "payload"
-
-msgid "achievement"
-msgstr "achievement"
-
-msgid "level"
-msgstr "level"
-
 msgid "Freight Fate"
 msgstr "Freight Fate"
 
@@ -18187,6 +18166,9 @@ msgid ""
 msgstr ""
 "Jako nowemu pracownikowi dyspozytor przydziela ci ładunek i trasę, a odmowa "
 "przydziału trafia do twojej historii obsługi."
+
+msgid "level"
+msgstr "level"
 
 msgid "endorsements"
 msgstr "endorsements"
@@ -22567,6 +22549,9 @@ msgstr "Za kierownicą. Jest {now}. {engine}"
 #. one sentence of a longer line
 msgid "It is {now}."
 msgstr "Jest {now}."
+
+msgid "delivery"
+msgstr "delivery"
 
 msgid "alertness"
 msgstr "czujność"
@@ -29711,10 +29696,11 @@ msgstr "Zużywa zapasowe ogniwo naprawcze."
 msgid "Uses a spare repair link. {chain_repair_links} left."
 msgstr "Zużywa zapasowe ogniwo naprawcze. Zostało: {chain_repair_links}."
 
+# leave empty: one hole before "left"; it took every left curve call ("Sharp left, half a mile.") and dropped the direction
 #. placeholders: {chain_repair_links}
 #. one sentence of a longer line
 msgid "{chain_repair_links} left."
-msgstr "Zostało: {chain_repair_links}."
+msgstr ""
 
 #. placeholders: {f}
 msgid "Remove snow chains: about {f} minutes"
@@ -45177,6 +45163,21 @@ msgstr ""
 #~ "Oferta ładunku z {origin_facility_text} do {destination_facility_text}. Po "
 #~ "załadunku Planowanie trasy wymieni odpoczynki, paliwo, opłaty drogowe, "
 #~ "pogodę i ograniczenia."
+
+#~ msgid "online-journal"
+#~ msgstr "online-journal"
+
+#~ msgid "items"
+#~ msgstr "items"
+
+#~ msgid "Delivered without new truck damage"
+#~ msgstr "Dostarczono bez nowych uszkodzeń ciężarówki"
+
+#~ msgid "payload"
+#~ msgstr "payload"
+
+#~ msgid "achievement"
+#~ msgstr "achievement"
 
 #~ msgid ""
 #~ "Lane keeping full: the truck holds the lane, swipe left or right to change "

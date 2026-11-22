@@ -15946,27 +15946,6 @@ msgstr "ready"
 msgid "token"
 msgstr "令牌"
 
-msgid "online-journal"
-msgstr "online-journal"
-
-msgid "items"
-msgstr "items"
-
-msgid "delivery"
-msgstr "delivery"
-
-msgid "Delivered without new truck damage"
-msgstr "送达时卡车没有新增损伤"
-
-msgid "payload"
-msgstr "payload"
-
-msgid "achievement"
-msgstr "achievement"
-
-msgid "level"
-msgstr "level"
-
 msgid "Freight Fate"
 msgstr "Freight Fate"
 
@@ -16468,6 +16447,9 @@ msgid ""
 "As a new hire, dispatch assigns your load and route, and refusing an "
 "assignment goes on your service record."
 msgstr "作为新员工，调度会给你指派货物和路线，拒绝指派会记入你的服务记录。"
+
+msgid "level"
+msgstr "level"
 
 msgid "endorsements"
 msgstr "endorsements"
@@ -20283,6 +20265,9 @@ msgstr "在驾驶座上。现在是{now}。{engine}"
 #. one sentence of a longer line
 msgid "It is {now}."
 msgstr "现在是{now}。"
+
+msgid "delivery"
+msgstr "delivery"
 
 msgid "alertness"
 msgstr "清醒度"
@@ -26759,10 +26744,11 @@ msgstr "使用一个备用维修链节。"
 msgid "Uses a spare repair link. {chain_repair_links} left."
 msgstr "使用一个备用维修链节。还剩{chain_repair_links}个。"
 
+# leave empty: one hole before "left"; it took every left curve call ("Sharp left, half a mile.") and dropped the direction
 #. placeholders: {chain_repair_links}
 #. one sentence of a longer line
 msgid "{chain_repair_links} left."
-msgstr "{chain_repair_links} 左。"
+msgstr ""
 
 #. placeholders: {f}
 msgid "Remove snow chains: about {f} minutes"
@@ -40221,6 +40207,21 @@ msgstr ""
 #~ msgstr ""
 #~ "从{origin_facility_text}到{destination_facility_text}的货物报价。提货后，“路线规划”会列出休息、燃油、"
 #~ "过路费、天气和限制。"
+
+#~ msgid "online-journal"
+#~ msgstr "online-journal"
+
+#~ msgid "items"
+#~ msgstr "items"
+
+#~ msgid "Delivered without new truck damage"
+#~ msgstr "送达时卡车没有新增损伤"
+
+#~ msgid "payload"
+#~ msgstr "payload"
+
+#~ msgid "achievement"
+#~ msgstr "achievement"
 
 #~ msgid ""
 #~ "Lane keeping full: the truck holds the lane, swipe left or right to change "

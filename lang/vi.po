@@ -17790,27 +17790,6 @@ msgstr "sẵn sàng"
 msgid "token"
 msgstr "token"
 
-msgid "online-journal"
-msgstr "online-journal"
-
-msgid "items"
-msgstr "items"
-
-msgid "delivery"
-msgstr "giao hàng"
-
-msgid "Delivered without new truck damage"
-msgstr "Giao hàng không làm hư hỏng thêm xe"
-
-msgid "payload"
-msgstr "payload"
-
-msgid "achievement"
-msgstr "achievement"
-
-msgid "level"
-msgstr "cấp độ"
-
 msgid "Freight Fate"
 msgstr "Freight Fate"
 
@@ -18361,6 +18340,9 @@ msgid ""
 msgstr ""
 "Là tài xế mới, bộ phận điều phối sẽ giao lô hàng và lộ trình cho bạn; nếu "
 "từ chối chuyến được giao sẽ bị ghi vào hồ sơ công tác."
+
+msgid "level"
+msgstr "cấp độ"
 
 msgid "endorsements"
 msgstr "hạng bổ sung CDL"
@@ -22614,6 +22596,9 @@ msgstr "Đã ngồi vào ghế lái. Bây giờ là {now}. {engine}"
 #. one sentence of a longer line
 msgid "It is {now}."
 msgstr "Bây giờ là {now}."
+
+msgid "delivery"
+msgstr "giao hàng"
 
 msgid "alertness"
 msgstr "độ tỉnh táo"
@@ -29635,10 +29620,11 @@ msgstr "Dùng một mắt xích sửa chữa dự phòng."
 msgid "Uses a spare repair link. {chain_repair_links} left."
 msgstr "Dùng một mắt xích sửa chữa dự phòng. Còn {chain_repair_links} mắt."
 
+# leave empty: one hole before "left"; it took every left curve call ("Sharp left, half a mile.") and dropped the direction
 #. placeholders: {chain_repair_links}
 #. one sentence of a longer line
 msgid "{chain_repair_links} left."
-msgstr "Còn {chain_repair_links} mắt."
+msgstr ""
 
 #. placeholders: {f}
 msgid "Remove snow chains: about {f} minutes"
@@ -44957,6 +44943,21 @@ msgstr ""
 #~ "Đề nghị chở lô hàng từ {origin_facility_text} đến "
 #~ "{destination_facility_text}. Sau khi lấy hàng, mục Lập kế hoạch lộ trình sẽ "
 #~ "liệt kê điểm nghỉ, dầu, phí cầu đường, thời tiết và các hạn chế."
+
+#~ msgid "online-journal"
+#~ msgstr "online-journal"
+
+#~ msgid "items"
+#~ msgstr "items"
+
+#~ msgid "Delivered without new truck damage"
+#~ msgstr "Giao hàng không làm hư hỏng thêm xe"
+
+#~ msgid "payload"
+#~ msgstr "payload"
+
+#~ msgid "achievement"
+#~ msgstr "achievement"
 
 #~ msgid ""
 #~ "Lane keeping full: the truck holds the lane, swipe left or right to change "

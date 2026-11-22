@@ -240,6 +240,7 @@ impl DrivingState {
         );
         out.insert("rig_buffs".to_string(), json!(self.rig_buffs));
         out.insert("stop_visit".to_string(), json!(self.stop_visit));
+        out.insert("road_tally".to_string(), json!(self.road_tally));
         out.insert("drove_automatic".to_string(), json!(self.drove_automatic));
         out.insert(
             "speed_control_armed".to_string(),
@@ -534,6 +535,16 @@ impl DrivingState {
             .cloned()
             .and_then(|value| serde_json::from_value(value).ok())
             .unwrap_or_default();
+        // A snapshot from before the tally starts counting inspections here.
+        let mut road_tally: ff_core::sim::road_tally::RoadTally = data
+            .get("road_tally")
+            .cloned()
+            .and_then(|value| serde_json::from_value(value).ok())
+            .unwrap_or_default();
+        road_tally.inspections_before.get_or_insert_with(|| {
+            crate::states::driving_updates::road_tally::career_inspections(ctx)
+        });
+        state.road_tally = road_tally;
         state.drove_automatic = b(data, "drove_automatic", false);
         // A team load resumes with the player at the wheel.
         state.team = data

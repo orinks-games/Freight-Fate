@@ -17801,27 +17801,6 @@ msgstr "ready"
 msgid "token"
 msgstr "token"
 
-msgid "online-journal"
-msgstr "online-journal"
-
-msgid "items"
-msgstr "items"
-
-msgid "delivery"
-msgstr "delivery"
-
-msgid "Delivered without new truck damage"
-msgstr "Entregado sin nuevos daños en el camión"
-
-msgid "payload"
-msgstr "payload"
-
-msgid "achievement"
-msgstr "achievement"
-
-msgid "level"
-msgstr "level"
-
 msgid "Freight Fate"
 msgstr "Freight Fate"
 
@@ -18381,6 +18360,9 @@ msgid ""
 msgstr ""
 "Como recién contratado, despacho te asigna la carga y la ruta, y rechazar "
 "una asignación queda en tu historial de servicio."
+
+msgid "level"
+msgstr "level"
 
 msgid "endorsements"
 msgstr "endorsements"
@@ -22699,6 +22681,9 @@ msgstr "Al volante. Son las {now}. {engine}"
 #. one sentence of a longer line
 msgid "It is {now}."
 msgstr "Son las {now}."
+
+msgid "delivery"
+msgstr "delivery"
 
 msgid "alertness"
 msgstr "estado de alerta"
@@ -29806,10 +29791,11 @@ msgid "Uses a spare repair link. {chain_repair_links} left."
 msgstr ""
 "Usa un eslabón de reparación de repuesto. Quedan {chain_repair_links}."
 
+# leave empty: one hole before "left"; it took every left curve call ("Sharp left, half a mile.") and dropped the direction
 #. placeholders: {chain_repair_links}
 #. one sentence of a longer line
 msgid "{chain_repair_links} left."
-msgstr "Quedan {chain_repair_links}."
+msgstr ""
 
 #. placeholders: {f}
 msgid "Remove snow chains: about {f} minutes"
@@ -45368,6 +45354,21 @@ msgstr ""
 #~ "Oferta de carga de {origin_facility_text} a {destination_facility_text}. "
 #~ "Después de la recogida, Planificación de ruta indica descansos, "
 #~ "combustible, peajes, tiempo y restricciones."
+
+#~ msgid "online-journal"
+#~ msgstr "online-journal"
+
+#~ msgid "items"
+#~ msgstr "items"
+
+#~ msgid "Delivered without new truck damage"
+#~ msgstr "Entregado sin nuevos daños en el camión"
+
+#~ msgid "payload"
+#~ msgstr "payload"
+
+#~ msgid "achievement"
+#~ msgstr "achievement"
 
 #~ msgid ""
 #~ "Lane keeping full: the truck holds the lane, swipe left or right to change "

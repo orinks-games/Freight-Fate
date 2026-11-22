@@ -17941,27 +17941,6 @@ msgstr "ready"
 msgid "token"
 msgstr "token"
 
-msgid "online-journal"
-msgstr "online-journal"
-
-msgid "items"
-msgstr "items"
-
-msgid "delivery"
-msgstr "delivery"
-
-msgid "Delivered without new truck damage"
-msgstr "Livré sans nouveau dégât au camion"
-
-msgid "payload"
-msgstr "payload"
-
-msgid "achievement"
-msgstr "achievement"
-
-msgid "level"
-msgstr "level"
-
 msgid "Freight Fate"
 msgstr "Freight Fate"
 
@@ -18527,6 +18506,9 @@ msgstr ""
 "En tant que nouvelle recrue, le dispatch vous attribue votre chargement et "
 "votre itinéraire, et refuser une attribution est inscrit à votre dossier de "
 "service."
+
+msgid "level"
+msgstr "level"
 
 msgid "endorsements"
 msgstr "endorsements"
@@ -22888,6 +22870,9 @@ msgstr "Au volant. Il est {now}. {engine}"
 #. one sentence of a longer line
 msgid "It is {now}."
 msgstr "Il est {now}."
+
+msgid "delivery"
+msgstr "delivery"
 
 msgid "alertness"
 msgstr "alertness"
@@ -30026,10 +30011,11 @@ msgstr ""
 "Utilise un maillon de réparation de rechange. Il en reste "
 "{chain_repair_links}."
 
+# leave empty: one hole before "left"; it took every left curve call ("Sharp left, half a mile.") and dropped the direction
 #. placeholders: {chain_repair_links}
 #. one sentence of a longer line
 msgid "{chain_repair_links} left."
-msgstr "Il en reste {chain_repair_links}."
+msgstr ""
 
 #. placeholders: {f}
 msgid "Remove snow chains: about {f} minutes"
@@ -45689,6 +45675,21 @@ msgstr ""
 #~ "Offre de chargement de {origin_facility_text} à "
 #~ "{destination_facility_text}. Après le chargement, Planification de "
 #~ "l'itinéraire liste repos, carburant, péages, météo et restrictions."
+
+#~ msgid "online-journal"
+#~ msgstr "online-journal"
+
+#~ msgid "items"
+#~ msgstr "items"
+
+#~ msgid "Delivered without new truck damage"
+#~ msgstr "Livré sans nouveau dégât au camion"
+
+#~ msgid "payload"
+#~ msgstr "payload"
+
+#~ msgid "achievement"
+#~ msgstr "achievement"
 
 #~ msgid ""
 #~ "Lane keeping full: the truck holds the lane, swipe left or right to change "

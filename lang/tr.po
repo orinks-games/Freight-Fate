@@ -17314,27 +17314,6 @@ msgstr "hazır"
 msgid "token"
 msgstr "erişim anahtarı"
 
-msgid "online-journal"
-msgstr "çevrim içi yol günlüğü"
-
-msgid "items"
-msgstr "öğeler"
-
-msgid "delivery"
-msgstr "teslimat"
-
-msgid "Delivered without new truck damage"
-msgstr "Tıra yeni hasar gelmeden teslim edildi"
-
-msgid "payload"
-msgstr "gönderilen veri"
-
-msgid "achievement"
-msgstr "başarım"
-
-msgid "level"
-msgstr "seviye"
-
 msgid "Freight Fate"
 msgstr "Freight Fate"
 
@@ -17888,6 +17867,9 @@ msgid ""
 msgstr ""
 "Yeni şoför olarak yükünüzü ve rotanızı sevkiyat belirler; bir görevi "
 "reddetmek hizmet sicilinize işlenir."
+
+msgid "level"
+msgstr "seviye"
 
 msgid "endorsements"
 msgstr "ehliyet ekleri"
@@ -22080,6 +22062,9 @@ msgstr "Direksiyonda. Saat {now}. {engine}"
 #. one sentence of a longer line
 msgid "It is {now}."
 msgstr "Saat {now}."
+
+msgid "delivery"
+msgstr "teslimat"
 
 msgid "alertness"
 msgstr "uyanıklık"
@@ -29044,10 +29029,11 @@ msgstr "Yedek bir onarım baklası kullanır."
 msgid "Uses a spare repair link. {chain_repair_links} left."
 msgstr "Yedek bir onarım baklası kullanır. Kalan: {chain_repair_links}."
 
+# leave empty: one hole before "left"; it took every left curve call ("Sharp left, half a mile.") and dropped the direction
 #. placeholders: {chain_repair_links}
 #. one sentence of a longer line
 msgid "{chain_repair_links} left."
-msgstr "Kalan: {chain_repair_links}."
+msgstr ""
 
 #. placeholders: {f}
 msgid "Remove snow chains: about {f} minutes"
@@ -44250,6 +44236,21 @@ msgstr ""
 #~ "Yük teklifi: {origin_facility_text} çıkışlı, {destination_facility_text} "
 #~ "varışlı. Yüklemeden sonra Güzergâh planlama molaları, yakıtı, geçiş "
 #~ "ücretlerini, havayı ve kısıtlamaları listeler."
+
+#~ msgid "online-journal"
+#~ msgstr "çevrim içi yol günlüğü"
+
+#~ msgid "items"
+#~ msgstr "öğeler"
+
+#~ msgid "Delivered without new truck damage"
+#~ msgstr "Tıra yeni hasar gelmeden teslim edildi"
+
+#~ msgid "payload"
+#~ msgstr "gönderilen veri"
+
+#~ msgid "achievement"
+#~ msgstr "başarım"
 
 #~ msgid ""
 #~ "Lane keeping full: the truck holds the lane, swipe left or right to change "

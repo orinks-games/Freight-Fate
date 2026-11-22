@@ -9,6 +9,7 @@
 
 ### Fixed
 
+- **Left curve calls say "left" again in every language.** They are spoken in English for now.
 - **The hours of service countdown plays a chime again.** The alarm tone is still kept for a violation.
 - **Lines that were said twice or late are now said once, in order.** This covers the first drive, stop arrivals and leaving Settings.
 - **An open weigh station is announced once, then its exit signal.** The stop callout that repeated it is gone.

@@ -222,6 +222,7 @@ impl DrivingState {
             return;
         }
         self.stop_visit(stop).inspected = true;
+        self.note_road_tally_scale(stop);
         let (line, weight) = if self.decal_waves_through(ctx) {
             advance_on_duty_clock(self, ctx, WAVE_THROUGH_MIN, None, "");
             record_inspection(ctx);

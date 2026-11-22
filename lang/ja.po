@@ -16107,27 +16107,6 @@ msgstr "ready"
 msgid "token"
 msgstr "token"
 
-msgid "online-journal"
-msgstr "online-journal"
-
-msgid "items"
-msgstr "items"
-
-msgid "delivery"
-msgstr "配達"
-
-msgid "Delivered without new truck damage"
-msgstr "新たなトラックの損傷なしで配達"
-
-msgid "payload"
-msgstr "payload"
-
-msgid "achievement"
-msgstr "achievement"
-
-msgid "level"
-msgstr "level"
-
 msgid "Freight Fate"
 msgstr "Freight Fate"
 
@@ -16631,6 +16610,9 @@ msgid ""
 "As a new hire, dispatch assigns your load and route, and refusing an "
 "assignment goes on your service record."
 msgstr "新人のうちは配車係が積荷とルートを割り当て、割り当てを断ると仕事の記録に残ります。"
+
+msgid "level"
+msgstr "level"
 
 msgid "endorsements"
 msgstr "endorsements"
@@ -20505,6 +20487,9 @@ msgstr "運転席です。現在{now}。{engine}"
 #. one sentence of a longer line
 msgid "It is {now}."
 msgstr "{now}です。"
+
+msgid "delivery"
+msgstr "配達"
 
 msgid "alertness"
 msgstr "覚醒度"
@@ -27039,10 +27024,11 @@ msgstr "予備の修理用リンクを使います。"
 msgid "Uses a spare repair link. {chain_repair_links} left."
 msgstr "予備の修理用リンクを使います。残りは{chain_repair_links}です。"
 
+# leave empty: one hole before "left"; it took every left curve call ("Sharp left, half a mile.") and dropped the direction
 #. placeholders: {chain_repair_links}
 #. one sentence of a longer line
 msgid "{chain_repair_links} left."
-msgstr "残りは{chain_repair_links}です。"
+msgstr ""
 
 #. placeholders: {f}
 msgid "Remove snow chains: about {f} minutes"
@@ -40873,6 +40859,21 @@ msgstr ""
 #~ msgstr ""
 #~ "{origin_facility_text}から{destination_facility_text}への貨物の依頼です。荷積みのあと、ルート計画で休憩"
 #~ "、燃料、通行料、天気、規制が確認できます。"
+
+#~ msgid "online-journal"
+#~ msgstr "online-journal"
+
+#~ msgid "items"
+#~ msgstr "items"
+
+#~ msgid "Delivered without new truck damage"
+#~ msgstr "新たなトラックの損傷なしで配達"
+
+#~ msgid "payload"
+#~ msgstr "payload"
+
+#~ msgid "achievement"
+#~ msgstr "achievement"
 
 #~ msgid ""
 #~ "Lane keeping full: the truck holds the lane, swipe left or right to change "
