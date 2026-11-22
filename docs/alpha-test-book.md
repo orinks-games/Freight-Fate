@@ -477,7 +477,7 @@ Setup: a load from the United States to Yellowknife
 (`FREIGHT_FATE_FORCE_DEST` set to `yellowknife_nt_ca`, with a carrier
 that crosses the border), as a company driver.
 
-Listen for: "Crossing into Northwest Territories." and the north-of-60
+Listen for: "Crossing into the Northwest Territories." and the north-of-60
 hours rules on the Mackenzie Highway. North of Hay River, "Crossing the
 Mackenzie River." then "Transponder toll at Deh Cho Bridge, 168 Canadian
 dollars, billed to carrier settlement."
@@ -528,10 +528,11 @@ and live weather returns at the US line.
 Setup: Speak billboards on.
 
 Listen for: new boards and plain landmark lines along the Canadian and
-Alaska roads; no boards at all in Maine, Vermont, Alaska, Alberta, Prince Edward
-Island, the Northwest Territories or parks the road crosses; only boards
-for places to visit in the Yukon, New Brunswick and Nova Scotia; holiday boards by country, Canada Day and October's Thanksgiving
-only in Canada.
+Alaska roads; no boards at all in Maine, Vermont, Alaska, Alberta, Prince
+Edward Island, the Northwest Territories or parks the road crosses, so in
+Alberta places are named plainly as you pass; only boards for places to
+visit in the Yukon, New Brunswick and Nova Scotia; holiday boards by
+country, Canada Day and October's Thanksgiving only in Canada.
 
 Pass when: a board names a real place you are near, none plays where
 boards are banned, and a US holiday board never plays in Canada.
