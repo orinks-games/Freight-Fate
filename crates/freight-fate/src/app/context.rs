@@ -789,6 +789,8 @@ impl GameContext {
             .sfx(self.settings.sfx_volume)
             .music(self.settings.music_volume)
             .weather(self.settings.weather_volume)
+            .outside(self.settings.outside_volume)
+            .road(self.settings.road_surface_volume)
             .engine(self.settings.engine_volume)
             .ui(self.settings.ui_volume);
         self.audio.set_volumes(&update);
@@ -904,6 +906,15 @@ impl GameContext {
                 action.label()
             ),
             None => format!("Tap with three fingers for {}", action.label()),
+        }
+    }
+
+    /// [`Self::touch_instruction`] for a sentence about a held pedal, where
+    /// a second-finger slot is named before the plain gesture.
+    pub fn touch_instruction_while_pedal(&self, action: crate::bindings::Action) -> String {
+        match self.bindings.touch_instruction_while_pedal(action) {
+            Some(gesture) => gesture.to_string(),
+            None => self.touch_instruction(action),
         }
     }
 
