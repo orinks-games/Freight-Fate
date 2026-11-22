@@ -166,6 +166,36 @@ pub const BOARD_LAWS: &[Jurisdiction] = &[
     ),
 ];
 
+/// The country a road is in, which decides whose holidays its boards keep.
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum Country {
+    UnitedStates,
+    Canada,
+}
+
+/// Canada's provinces and territories, by postal code.
+pub const CANADA: [&str; 13] = [
+    "BC", "AB", "SK", "MB", "ON", "QC", "NB", "NS", "PE", "NL", "YT", "NT", "NU",
+];
+
+/// The country a postal code or bake name is in. Everything outside Canada's
+/// thirteen is a state of the United States, which the map was before 2.0.
+pub fn country_of(code_or_name: &str) -> Country {
+    let canadian = jurisdiction(code_or_name).map_or_else(
+        || {
+            CANADA
+                .iter()
+                .any(|c| c.eq_ignore_ascii_case(code_or_name.trim()))
+        },
+        |j| CANADA.contains(&j.code),
+    );
+    if canadian {
+        Country::Canada
+    } else {
+        Country::UnitedStates
+    }
+}
+
 /// The recorded jurisdiction for a postal code or a bake name, if any.
 pub fn jurisdiction(code_or_name: &str) -> Option<&'static Jurisdiction> {
     let key = code_or_name.trim();
@@ -183,15 +213,23 @@ pub fn board_law(code_or_name: &str) -> BoardLaw {
 mod tests {
     use super::*;
 
-    const CANADA: [&str; 13] = [
-        "BC", "AB", "SK", "MB", "ON", "QC", "NB", "NS", "PE", "NL", "YT", "NT", "NU",
-    ];
-
     #[test]
     fn every_province_and_territory_has_an_answer() {
         for code in CANADA {
             let row = jurisdiction(code).unwrap_or_else(|| panic!("{code} missing"));
             assert!(!row.source.trim().is_empty(), "{code} has no source");
+        }
+    }
+
+    #[test]
+    fn provinces_are_in_canada_and_states_are_not() {
+        for code in CANADA {
+            assert_eq!(country_of(code), Country::Canada, "{code}");
+        }
+        assert_eq!(country_of("Quebec"), Country::Canada);
+        assert_eq!(country_of("Yukon"), Country::Canada);
+        for code in ["NY", "AK", "VT", "WA", "TX"] {
+            assert_eq!(country_of(code), Country::UnitedStates, "{code}");
         }
     }
 

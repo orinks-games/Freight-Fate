@@ -11,6 +11,8 @@
 //! driver who cannot see the road toward a stop that is not there costs the
 //! drive, so each line is true on any road, on its day.
 
+use crate::data::billboard_law::{country_of, Country};
+
 /// What happened since the last pool sign that Big Jim answers.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum Incident {
@@ -56,29 +58,45 @@ pub const SMALL_HOURS_LINES: &[&str] = &[
     "Sleep is a gift. Unwrap it somewhere legal.",
 ];
 
-/// One holiday sign, and where its copy is true. An empty `states` list is
-/// true on any road; a line naming a region lists the states it holds in, so
-/// a Salem sign is never read in Texas.
+/// One holiday sign, and where its copy is true. A holiday belongs to a
+/// country: a United States board is read only on a road in the United
+/// States, so a Thanksgiving pie in late November never turns up in Quebec.
+/// Within its country an empty `states` list is true on any road; a line
+/// naming a region lists the states it holds in, so a Salem sign is never
+/// read in Texas.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct HolidaySign {
     pub text: &'static str,
+    pub country: Country,
     pub states: &'static [&'static str],
 }
 
 impl HolidaySign {
-    /// True in this state (a two-letter code), or anywhere for an unanchored
-    /// line. A regional line is never read where the state is unknown.
+    /// True in this state (a two-letter code). An unanchored line holds
+    /// anywhere in its country, and a road whose state is unknown counts as
+    /// the United States, as the whole map was before 2.0. A regional line is
+    /// never read where the state is unknown.
     pub fn holds_in(&self, state: Option<&str>) -> bool {
-        self.states.is_empty() || state.is_some_and(|s| self.states.contains(&s))
+        let country = state.map_or(Country::UnitedStates, country_of);
+        country == self.country
+            && (self.states.is_empty() || state.is_some_and(|s| self.states.contains(&s)))
     }
 }
 
 const fn anywhere(text: &'static str) -> HolidaySign {
-    HolidaySign { text, states: &[] }
+    HolidaySign {
+        text,
+        country: Country::UnitedStates,
+        states: &[],
+    }
 }
 
 const fn in_states(text: &'static str, states: &'static [&'static str]) -> HolidaySign {
-    HolidaySign { text, states }
+    HolidaySign {
+        text,
+        country: Country::UnitedStates,
+        states,
+    }
 }
 
 const NEW_ENGLAND: &[&str] = &["CT", "MA", "ME", "NH", "RI", "VT"];
@@ -394,6 +412,26 @@ mod tests {
                 assert!(!lower.contains(claim), "{line} names a stop");
             }
         }
+    }
+
+    #[test]
+    fn a_united_states_holiday_is_kept_off_canadian_roads() {
+        let moment = |state| BillboardMoment {
+            holiday: Some(Holiday::Thanksgiving),
+            state,
+            ..BillboardMoment::default()
+        };
+        for holiday in HOLIDAYS {
+            for sign in holiday_signs(holiday) {
+                assert_eq!(sign.country, Country::UnitedStates, "{}", sign.text);
+            }
+        }
+        for state in ["QC", "ON", "BC", "YT"] {
+            assert_eq!(holiday_billboard(moment(Some(state))), None, "{state}");
+        }
+        assert!(holiday_billboard(moment(Some("NY"))).is_some());
+        assert!(holiday_billboard(moment(Some("AK"))).is_some());
+        assert!(holiday_billboard(moment(None)).is_some());
     }
 
     #[test]
