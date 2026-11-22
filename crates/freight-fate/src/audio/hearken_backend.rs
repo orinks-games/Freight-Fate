@@ -209,7 +209,7 @@ pub struct HearkenBackend {
     pub(super) engine_bands: Vec<EngineBand>,
     pub(super) engine_stereo_ring: bool,
     pub(super) engine_voice_classic: bool,
-    /// While present, the ignition one-shot owns engine playback.
+    /// While present, the ignition one-shot is the audible engine voice.
     pub(super) engine_intro_sound: Option<Sound>,
     pub(super) engine_intro_gain: Rc<Cell<f64>>,
     pub(super) intro_applied: f64,

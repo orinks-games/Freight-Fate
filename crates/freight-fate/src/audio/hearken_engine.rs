@@ -5,11 +5,12 @@
 use std::rc::Rc;
 
 use ff_core::audio_fades::Fade;
-use hearken::audio::Start;
+use hearken::audio::{Bus, LoopRegion, Sound, Start};
 
 use super::assets::{asset_bytes, stereo_engine_available};
 use super::backend::Category;
 use super::hearken_backend::{bus_of, level, EngineBand, HearkenBackend};
+use super::hearken_clips::{cab_start_frames, CAB_LOOP_FADE_FRAMES, CAB_SAMPLE_RATE};
 use super::{
     advance_engine_wobble, engine_band_weights, engine_band_weights_with_width, engine_freq_mult,
     engine_load_gain, ENGINE_BANDS, ENGINE_BAND_RATE_MAX, ENGINE_BAND_RATE_MIN,
@@ -64,11 +65,13 @@ impl HearkenBackend {
         if play_start_sound {
             let bus = bus_of(Category::Engine);
             let start = Start::ONCE.volume(level(&self.buses, Category::Engine, 1.0));
-            if !self.engine_voice_classic
-                && stereo_engine_available()
-                && asset_bytes(STEREO_ENGINE_START_KEY, SFX_EXTENSIONS).is_some()
-            {
-                self.engine_intro_sound = self.start_sfx(STEREO_ENGINE_START_KEY, bus, start);
+            if !self.engine_voice_classic && stereo_engine_available() {
+                if self.start_stereo_ignition(bus, start) {
+                    return;
+                }
+                if asset_bytes(STEREO_ENGINE_START_KEY, SFX_EXTENSIONS).is_some() {
+                    self.engine_intro_sound = self.start_sfx(STEREO_ENGINE_START_KEY, bus, start);
+                }
             }
             if self.engine_intro_sound.is_none() {
                 self.engine_intro_sound = self.start_sfx("engine/start", bus, start);
@@ -79,6 +82,58 @@ impl HearkenBackend {
             }
         }
         self.start_running_engine(EngineLoopEntry::Resume);
+    }
+
+    fn start_stereo_ignition(&mut self, bus: Bus, start: Start) -> bool {
+        // A deferred device can re-create long-lived loops from their
+        // starting positions. Keep that path on the ordinary one-shot.
+        if self.opening || self.key_filter.is_some() {
+            return false;
+        }
+        let Some(frames) = asset_bytes(STEREO_ENGINE_START_KEY, SFX_EXTENSIONS)
+            .and_then(|(bytes, _)| cab_start_frames(&bytes))
+        else {
+            return false;
+        };
+        let loop_start = (frames + CAB_LOOP_FADE_FRAMES) as f64 / f64::from(CAB_SAMPLE_RATE);
+        let loop_config = Start::LOOP
+            .volume(0.0)
+            .pan(self.engine_pan as f32)
+            .region(LoopRegion::from(loop_start));
+        let keys = STEREO_ENGINE_BANDS.map(|(key, _)| format!("{key}@{frames}"));
+        let mut starts = vec![(STEREO_ENGINE_START_KEY, bus, start)];
+        starts.extend(keys.iter().map(|key| (key.as_str(), bus, loop_config)));
+        // These WAVs carry exactly the starter's length in silence. Start
+        // them on the same sample so the handoff happens in the mixer.
+        let sounds = self.audio.start_together(&starts);
+        if sounds.contains(&Sound::NONE) {
+            for sound in sounds {
+                self.audio.stop(sound, 0);
+            }
+            return false;
+        }
+        if let Some(requested) = self.requested_keys.as_mut() {
+            requested.push(STEREO_ENGINE_START_KEY.into());
+            requested.extend(STEREO_ENGINE_BANDS.map(|(key, _)| key.to_string()));
+        }
+        self.engine_intro_sound = sounds.first().copied();
+        self.engine_bands
+            .extend(
+                STEREO_ENGINE_BANDS
+                    .iter()
+                    .zip(&sounds[1..])
+                    .map(|(&(_, native), &sound)| EngineBand {
+                        native,
+                        sound,
+                        last_rate: 1.0,
+                        last_volume: 0.0,
+                    }),
+            );
+        self.engine_stereo_ring = true;
+        self.engine_wobble.resize(self.engine_bands.len(), [0.0; 2]);
+        self.engine_intro_gain.set(1.0);
+        self.set_engine_rpm(self.engine_last_rpm, self.engine_last_throttle);
+        true
     }
 
     fn start_running_engine(&mut self, entry: EngineLoopEntry) {
@@ -155,7 +210,11 @@ impl HearkenBackend {
             .is_some_and(|sound| !self.audio.is_playing(sound))
         {
             self.engine_intro_sound = None;
-            self.start_running_engine(EngineLoopEntry::AfterIgnition);
+            if self.engine_bands.is_empty() {
+                self.start_running_engine(EngineLoopEntry::AfterIgnition);
+            } else {
+                self.set_engine_rpm(self.engine_last_rpm, self.engine_last_throttle);
+            }
         }
         if self.engine_running && self.engine_intro_gain.get() != self.intro_applied {
             self.set_engine_rpm(self.engine_last_rpm, self.engine_last_throttle);
@@ -173,10 +232,15 @@ impl HearkenBackend {
         self.engine_running = false;
         self.fades.clear();
         self.engine_intro_gain.set(1.0);
-        if let Some(sound) = self.engine_intro_sound.take() {
+        let intro = self.engine_intro_sound.take();
+        if let Some(sound) = intro {
             self.audio.stop(sound, 0);
         }
-        let fade_ms = if shutdown_sound { 0 } else { 250 };
+        let fade_ms = if shutdown_sound || intro.is_some() {
+            0
+        } else {
+            250
+        };
         for band in std::mem::take(&mut self.engine_bands) {
             self.audio.stop(band.sound, fade_ms);
         }
@@ -262,10 +326,12 @@ impl HearkenBackend {
                     (rpm / band.native).clamp(ENGINE_BAND_RATE_MIN, ENGINE_BAND_RATE_MAX);
                 rate *= 1.0 + wob[0];
                 let volume = level * w * (1.0 + wob[1]);
-                self.audio.set_pitch_over(band.sound, rate as f32, slide_ms);
+                if self.engine_intro_sound.is_none() {
+                    self.audio.set_pitch_over(band.sound, rate as f32, slide_ms);
+                    band.last_rate = rate;
+                }
                 self.audio
                     .set_volume_over(band.sound, volume as f32, gain_ms);
-                band.last_rate = rate;
                 band.last_volume = volume;
             }
             if failed {
