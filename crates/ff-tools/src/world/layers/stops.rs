@@ -294,6 +294,7 @@ pub fn runs(route: &Route, at_mi: f64, heading: &str) -> bool {
 }
 
 /// The stop records one leg gets from the list, in mile order.
+#[cfg(test)]
 pub fn place_on_leg(route: &Route, miles: f64, coarse: bool, list: &[Curated]) -> Vec<Object> {
     placed_on_leg(route, miles, coarse, list)
         .into_iter()

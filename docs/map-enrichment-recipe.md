@@ -455,6 +455,12 @@ osmium tags-filter canada-alaska-raw.osm.pbf r/boundary=administrative \
   -o boundaries-all.osm.pbf                              # province and state lines
 ```
 
+Check that every province and state relation you need is in the
+boundaries cut (`osmium tags-filter boundaries-all.osm.pbf r/admin_level=4`
+and list the names). The 2026-11-16 cut had no Ontario relation (r68841);
+fetch a missing one from the OSM API and merge it into the boundaries file
+before `reroute-enrich`, or that province's lines go missing.
+
 The planet date is the `YYMMDD` in the key; pass it as `--extract-date` on
 every tool, because the cut carries no header date. Keep the raw cut:
 `osm-landmarks` and `osm-villages` read tags the roads cut drops.
