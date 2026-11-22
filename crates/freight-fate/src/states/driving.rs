@@ -803,6 +803,11 @@ pub struct DrivingState {
     // so cruise taking over from the keeper at that same number stays quiet
     // instead of saying the resume a second time.
     pub bridge_resume_said_mph: Option<f64>,
+    // The limit in force on the ramp past the destination exit (the
+    // destination approach's), read once a frame from `approach_limit_after_exit` so the
+    // ramp cap, the dash and the pacer go by the number S speaks. None on
+    // the highway and on streets that post their own limits.
+    pub after_exit_limit_mph: Option<f64>,
     // The posted number the keeper last took its target from, so a street
     // that posts a HIGHER one can hand the keeper back up to street speed.
     pub keeper_zone_limit: Option<f64>,

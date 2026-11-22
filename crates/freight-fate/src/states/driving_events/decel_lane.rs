@@ -49,13 +49,22 @@ impl DrivingState {
     /// Cleveland's exit 170A, a minute and a half on a ramp whose bend is a
     /// few truck lengths (owner, 2026-10-24). Off a laid-out ramp there are
     /// no pieces to tell apart, so the exit speed holds throughout.
+    ///
+    /// Off the destination exit the ramp leads to the facility, and the
+    /// limit S gives there (the approach's, then the gate's) caps it too:
+    /// the assists held the ramp's design speed while S said 45, and 15
+    /// inside the gate's half mile (R1 follow-up, 2026-11-22).
     pub fn ramp_cap_here_mph(&self) -> f64 {
         let exit = self.armed_ramp_mph(None);
-        match self.ramp_layout {
+        let cap = match self.ramp_layout {
             Some(layout) if self.on_laid_out_ramp() && !self.short_of_ramp_curve_end() => {
                 exit.max(layout.tangent_mph)
             }
             _ => exit,
+        };
+        match self.after_exit_limit_mph {
+            Some(limit) => cap.min(limit),
+            None => cap,
         }
     }
 
