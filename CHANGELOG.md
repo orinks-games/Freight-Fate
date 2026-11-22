@@ -28,6 +28,7 @@
 - **Trucks now stop for customs at every border crossing, both ways.** Driving past the booth brings a penalty, which a company driver's carrier pays.
 - **Dispatch now offers loads into Canada and back,** with customs time in the deadline. A US carrier may not haul between Canadian towns.
 - **A route between two US cities stays in the United States when a US road exists.** Alaska routes still run through Canada.
+- **South Jersey has new roads.** Drive the Turnpike or I-295 to Carneys Point, cross the Delaware Memorial Bridge, or haul to Cape May.
 - **Units has a new Automatic choice, the default in 2.0:** miles in the United States, kilometers in Canada, said once at the border.
 - **Kilometers now reach fuel, weights and signs.** Fuel is in liters, loads in tonnes, weights in kilograms and low bridges in meters.
 - **The cruise dial steps in the units you hear.** In kilometers it walks 95, 100, 105.
@@ -85,6 +86,7 @@
 
 ### Fixed
 
+- **Toll estimates no longer charge a one-way bridge in both directions.** The estimate now matches what the drive charges.
 - **Left curve calls say "left" again in every language.** They are spoken in English for now.
 - **Crossing into the District of Columbia now says "the District of Columbia."**
 - **Toll lines no longer say the word toll twice,** as in toll at Alligator Alley commercial toll.

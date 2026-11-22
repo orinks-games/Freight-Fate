@@ -627,10 +627,19 @@ impl Route {
             .collect()
     }
 
+    /// The tolls this route is charged, in leg order: a booth that collects
+    /// one way only counts on the legs driven that way, as the drive bills
+    /// it, so the quote before a trip matches what the trip charges.
     pub fn toll_events(&self) -> Vec<&TollEvent> {
         self.legs
             .iter()
-            .flat_map(|leg| leg.toll_events().iter())
+            .enumerate()
+            .flat_map(|(index, leg)| {
+                let forward = self.cities.get(index).is_none_or(|city| city == &leg.a);
+                leg.toll_events()
+                    .iter()
+                    .filter(move |toll| toll.applies_to_direction(forward))
+            })
             .collect()
     }
 

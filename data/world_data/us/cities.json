@@ -8735,6 +8735,103 @@
       "source_note": "Place read from the OpenStreetMap place node 7985211156 for Hyder (place=village), OpenStreetMap planet file of 2026-11-16. Hyder is reached by road only from Stewart, British Columbia; it has no freight facility in OpenStreetMap, so it has no facilities or generated jobs.",
       "no_freight": true,
       "locations": []
+    },
+    "carneys_point_nj_us": {
+      "spoken_city": "Carneys Point",
+      "state": "NJ",
+      "country": "US",
+      "region": "northeast",
+      "lat": 39.684,
+      "lon": -75.4851,
+      "source_note": "Pin at the truck stops where the New Jersey Turnpike (Interchange 1), I-295 (Exit 2), US 40 and the Delaware Memorial Bridge meet in Carneys Point Township, Salem County, so a through trip can use the bridge without a detour to a town centre. Position read from Pilot Company's page for Pilot Travel Center #688, 326 Slapes Corner Road, I-295 Exit 2C (https://locations.pilotflyingj.com/us/nj/carneys-point/326-slapes-corner-rd, read 2026-11-22). The director approved this city inside 30 miles of Wilmington by name (missing roads brief 1, 2026-11-22); region northeast.",
+      "locations": [
+        {
+          "name": "Chemours Chambers Works",
+          "type": "chemical_petroleum_terminal",
+          "lat": 39.69324,
+          "lon": -75.49643,
+          "ships": [
+            "chemicals"
+          ],
+          "receives": [
+            "chemicals",
+            "bulk"
+          ],
+          "source_note": "Read: Chemours says it continues to manufacture fluoropolymers and finished products at Chambers Works, Deepwater, Salem County, on the eastern shore of the Delaware River, with two tenants operating processes there (Form 10-K for 2025, https://www.sec.gov/Archives/edgar/data/1627223/000119312526065201/cc-20251231.htm, read 2026-11-22). Position derived: the centre of the riverside industrial area at Deepwater in OpenStreetMap way 40320925 (landuse=industrial, NJ 2002 land use), OpenStreetMap planet file of 2026-11-16; OpenStreetMap does not name the works. Roles derived: a chemical plant ships chemicals and receives chemicals and bulk feedstock."
+        },
+        {
+          "name": "McLane New Jersey",
+          "type": "grocery_retail_dc",
+          "lat": 39.68531,
+          "lon": -75.43724,
+          "ships": [
+            "food",
+            "refrigerated",
+            "retail"
+          ],
+          "receives": [
+            "food",
+            "refrigerated",
+            "retail"
+          ],
+          "source_note": "Read: OpenStreetMap way 955365416 (building=warehouse, name McLane New Jersey) east of the I-295 and Turnpike junction, OpenStreetMap planet file of 2026-11-16; McLane, a grocery and foodservice distributor to convenience stores, hires warehouse and transportation staff at Carneys Point (job listings at careerbuilder.com and ability.usnlx.com for Carneys Point, NJ, read 2026-11-22). Roles derived: a grocery distribution centre receives food, chilled food and store goods by the truckload and ships them out to stores."
+        },
+        {
+          "name": "Amazon Carneys Point",
+          "type": "retail_distribution",
+          "lat": 39.686,
+          "lon": -75.42899,
+          "ships": [
+            "retail",
+            "general"
+          ],
+          "receives": [
+            "retail",
+            "general",
+            "electronics"
+          ],
+          "source_note": "Read: OpenStreetMap way 1167557701 (building=warehouse, operator Amazon, name Amazon Fulfillment Center TEB4, 747 Courses Landing Road), OpenStreetMap planet file of 2026-11-16; Amazon announced a fulfillment center in Carneys Point, Salem County (Real Estate NJ, https://re-nj.com/amazon-announces-newest-south-jersey-fulfillment-center/, read 2026-11-22). Roles derived: a fulfillment centre receives store goods by the trailer load and ships orders out."
+        },
+        {
+          "name": "Pilot Travel Center Slapes Corner",
+          "type": "travel_center",
+          "lat": 39.684,
+          "lon": -75.4851,
+          "source_note": "Read: Pilot Company's page for Pilot Travel Center #688, 326 Slapes Corner Road, I-295 Exit 2C: 12 diesel lanes, 16 showers, 213 truck parking spaces, CAT Scale (https://locations.pilotflyingj.com/us/nj/carneys-point/326-slapes-corner-rd, read 2026-11-22); OpenStreetMap way 1107452401 still tags it Flying J."
+        },
+        {
+          "name": "Pilot Travel Center Pennsville-Auburn Road",
+          "type": "travel_center",
+          "lat": 39.68073,
+          "lon": -75.47952,
+          "source_note": "Read: Pilot Company's page for Pilot Travel Center #253, 600 Pennsville Auburn Road, I-295 Exit 2B: 7 diesel lanes, 2 showers, 25 truck parking spaces (https://locations.pilotflyingj.com/us/nj/carneys-point/600-pennsville-auburn-rd, read 2026-11-22)."
+        }
+      ]
+    },
+    "cape_may_nj_us": {
+      "spoken_city": "Cape May",
+      "state": "NJ",
+      "country": "US",
+      "region": "northeast",
+      "lat": 38.94873,
+      "lon": -74.90558,
+      "source_note": "Pin at Schellenger Landing on Cape May Harbor, where NJ 109 from the end of the Garden State Parkway meets Ocean Drive and the fish docks, read from the OpenStreetMap place node 158821092, OpenStreetMap planet file of 2026-11-16; the City of Cape May's own place node (158863250) is 1.3 miles southwest, in the resort town. Cape May-Wildwood is the 17th US port by commercial landings, 58.0 million pounds in 2023 (NOAA Fisheries, Fisheries of the United States 2023, Table 2, https://s3.amazonaws.com/media.fisheries.noaa.gov/2026-02/FUS-2023-web.pdf, read 2026-11-22). Region northeast.",
+      "locations": [
+        {
+          "name": "Lund's Fisheries",
+          "type": "food_processor",
+          "lat": 38.95544,
+          "lon": -74.89069,
+          "ships": [
+            "refrigerated",
+            "food"
+          ],
+          "receives": [
+            "general"
+          ],
+          "source_note": "Read: Lund's Fisheries says it runs one of the largest seafood processing plants on the eastern seaboard in Cape May, with over 1,200 feet of waterfront where at least 15 vessels a day land, and sells fresh, land-frozen and sea-frozen product (https://lundsfish.com/lunds-on-shore/, read 2026-11-22). The street address, 997 Ocean Drive, is from business directory listings; position derived: OpenStreetMap's address for 997 Ocean Drive (way 263265781, found through Nominatim on 2026-11-22). Roles derived: a seafood plant ships chilled and frozen product and receives general supplies."
+        }
+      ]
     }
   }
 }

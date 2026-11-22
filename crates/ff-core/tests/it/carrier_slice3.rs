@@ -69,8 +69,8 @@ fn test_every_lower_48_city_is_hired_into() {
     let world = world();
     let cities = lower_48_cities(world);
     // 626 before Plattsburgh, New York and St. Johnsbury, Vermont joined with
-    // the Quebec crossings.
-    assert_eq!(cities.len(), 628, "the lower-48 map city count moved");
+    // the Quebec crossings; 630 with Carneys Point and Cape May, New Jersey.
+    assert_eq!(cities.len(), 630, "the lower-48 map city count moved");
     let mut by_any = 0;
     let mut by_regional = 0;
     let mut missing_regional = Vec::new();
@@ -89,9 +89,9 @@ fn test_every_lower_48_city_is_hired_into() {
             missing_regional.push(city.clone());
         }
     }
-    assert_eq!(by_any, 628);
+    assert_eq!(by_any, 630);
     assert_eq!(
-        by_regional, 628,
+        by_regional, 630,
         "no regional hires in {missing_regional:?}"
     );
 }

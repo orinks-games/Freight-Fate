@@ -423,6 +423,11 @@ pub const CURATED_COMPLETE_MARKET_CITY_KEYS: &[&str] = &[
     "kitimat_bc_ca",
     "prince_rupert_bc_ca",
     "dawson_city_yt_ca",
+    // South Jersey (missing roads brief 1, 2026-11-22): each carries only the
+    // sites authored for it, the Chambers Works and two distribution centres
+    // at Carneys Point and the Cape May fishing docks.
+    "carneys_point_nj_us",
+    "cape_may_nj_us",
 ];
 
 /// Whether this city keeps only its authored freight locations. See

@@ -11961,7 +11961,7 @@
       "from": "allentown_pa_us",
       "to": "trenton_nj_us",
       "miles": 60.0,
-      "highway": "US-22",
+      "highway": "PA-313",
       "terrain": "hills",
       "corridor": {
         "checkpoints": [
@@ -11970,20 +11970,20 @@
             "at_mi": 16.53,
             "type": "place",
             "state": "Pennsylvania",
-            "highway": "US-22",
+            "highway": "PA-309",
             "lat": 40.4418,
             "lon": -75.3416,
-            "source": "Real town on US-22 between allentown_pa_us and trenton_nj_us; position matched to the nearest point on the real ORS driving-hgv route geometry (0.0 mi off-route at closest approach)."
+            "source": "Real town on PA-309 between allentown_pa_us and trenton_nj_us; position matched to the nearest point on the real ORS driving-hgv route geometry (0.0 mi off-route at closest approach). Road re-read 2026-11-22 from OpenStreetMap ways along the route geometry (was US-22)."
           },
           {
             "name": "Doylestown",
             "at_mi": 31.89,
             "type": "place",
             "state": "Pennsylvania",
-            "highway": "US-22",
+            "highway": "PA-313",
             "lat": 40.3101,
             "lon": -75.1299,
-            "source": "Real town on US-22 between allentown_pa_us and trenton_nj_us; position matched to the nearest point on the real ORS driving-hgv route geometry (1.0 mi off-route at closest approach)."
+            "source": "Real town on PA-313 between allentown_pa_us and trenton_nj_us; position matched to the nearest point on the real ORS driving-hgv route geometry (1.0 mi off-route at closest approach). Road re-read 2026-11-22 from OpenStreetMap ways along the route geometry (was US-22)."
           }
         ],
         "tollway_detected": false,

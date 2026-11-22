@@ -82,7 +82,7 @@ bookmarks usable.
 - [ ] (Found along the way) An RV and a coach bus run at car speed and climb like one: neither has a governor band or climb numbers yet. Give them one with the realistic-traffic speed work.
 - [ ] (Found along the way) Resuming cruise to a remembered 85 on a 12 percent downgrade with the automatic and a 21-ton load peaks 7 rpm past the over-rev line (2,317 against 2,310), and charges the over-rev wear. The resume test was written against a 15.6-ton load, and the new Chicago career's first load grew when the Chicago legs were re-routed (2026-11-09); the test now pins the old load. Check whether the automatic should upshift or the cruise should brake sooner with a heavy trailer.
 - [x] (Found along the way) Gary and South Bend to Chicago left I-90 for Cline Avenue around the Chicago Skyway, and Philadelphia, Harrisburg and Baltimore to Pittsburgh left the Pennsylvania Turnpike for US-30 near Breezewood and Bedford: the old truck router avoided tolls (route audit of 2026-11-05). Re-routed 2026-11-05 onto the toll roads, every layer rebuilt from the planet file of 2026-11-03, and the toll booths re-placed: the Skyway's 5-axle toll is read from its operator's table, and Harrisburg's and Baltimore's Turnpike tolls are pro-rated by miles from Philadelphia's estimate.
-- [ ] (Found along the way) Four legs store a straight line across a stretch of their road: Newark to Trenton (38 miles between miles 8 and 46, where the New Jersey Turnpike is), Portland to Salt Lake City (28 miles near mile 166), Knoxville to Atlanta (17 miles near mile 44) and Springfield to St. Louis (12 miles near mile 49). Curves, limits and exits there are read off a line that is not the road. The truck router puts each back on its interstate (69 to 96% of the miles); re-route them the same way.
+- [ ] (Found along the way) Four legs store a straight line across a stretch of their road: Newark to Trenton (38 miles between miles 8 and 46, where the New Jersey Turnpike is; re-routed onto the Turnpike on `feat/career-2.0` 2026-11-22, the South Jersey roads), Portland to Salt Lake City (28 miles near mile 166), Knoxville to Atlanta (17 miles near mile 44) and Springfield to St. Louis (12 miles near mile 49). Curves, limits and exits there are read off a line that is not the road. The truck router puts each back on its interstate (69 to 96% of the miles); re-route them the same way.
 - [ ] (Found along the way) Five legs ride other roads for 5 to 16 miles beside their interstate: Charlotte to Knoxville (US-321 and US-221 Business near Hickory and Marion), Erie to Meadville (PA-98), Rapid City to Sioux Falls (SD-50), Paducah to Clarksville (US-60 and US-62) and Sacramento to Portland (OR-99). The truck router keeps 77 to 97% of each on the interstate. Erie to Meadville reads 0% on I-79 in the router's own report, which needs a look before re-routing it.
 - [ ] (Found along the way) Six Florida legs named I-95 ride Florida's Turnpike for about 13 miles (West Palm Beach, Port St. Lucie, Coral Springs and Jacksonville to Miami and Palm Bay). The route is a reasonable truck choice; the label is what is wrong. Name the road the legs drive, or split the highway name where they change roads.
 - [ ] (Found along the way) A whole-map run of the new layer builders (2026-11-05, dry run) would change most legs: lane counts and landmarks mostly by their source notes, villages by about 160 places, and low clearances from 118 legs to 543, mostly real posted bridges under 16 feet in the Northeast. Decide whether to apply it. The low clearances need no listening pass: the GPS no longer speaks them (2026-11-22).
@@ -1266,9 +1266,13 @@ Everything found before 2026-09-25 moved to
 - [x] Thomas Edison sat on Toms River to Newark at mile 49.55, its place
       on the old line. It is a southbound plaza, so the service-plaza fix
       (#297) took it off this northbound leg, which now has no stops.
-- [ ] Toms River to Newark has no northbound Turnpike service plazas
+- [x] Toms River to Newark has no northbound Turnpike service plazas
       (Joyce Kilmer, Grover Cleveland) and no Turnpike toll event (the leg
-      is flagged as a tollway with none).
+      is flagged as a tollway with none). Fixed 2026-11-22 on
+      `feat/career-2.0` (South Jersey roads): Joyce Kilmer and Grover
+      Cleveland serve the northbound run, Molly Pitcher and Thomas Edison
+      the southbound one, and the Turnpike ticket from 7A to 13A is charged
+      at the exit booth each way.
 - [ ] Toms River to Newark keeps its curated top-level two lanes per
       direction; the Turnpike's dual roadways from Interchange 6 to 14 carry
       more (the baked lane segments hold OSM's counts).
@@ -5069,6 +5073,9 @@ branch. The older Phase A/B plan checklists are not a live completion list.
       Bear Valley round-trip toll.
 - [ ] **Ferries of any kind.** A verified freight need is required before a
       ferry becomes a driveable route.
+- [ ] **Cape May–Lewes ferry.** Cape May is on the map since 2026-11-22 and
+      the ferry carries trucks across Delaware Bay to Lewes; it waits for
+      ferries, and Lewes is not a city yet.
 - [ ] **Whittier–Valdez ferry.** No service or verified freight slice is modeled.
 - [ ] **Whittier tunnel special movements.** Permits for 10–11 foot loads and
       special Class E openings remain open.
@@ -6421,6 +6428,66 @@ a carrier slice (owner, 2026-10-26).
       province-wide because its freight routes are Level I and II
       highways; its ordinary highways license commercial boards. A per-leg
       law would let a pool line stand on those.
+
+### South Jersey roads (missing roads brief 1, November 22)
+
+- [x] Carneys Point and Cape May are cities. Carneys Point has the
+      Chemours Chambers Works, McLane New Jersey and Amazon's Carneys Point
+      building, and two Pilot travel centers; Cape May has the Schellenger
+      Landing fishing docks and Lund's Fisheries. Both keep only those sites.
+- [x] Eight new legs, routed by the truck router over the OpenStreetMap
+      planet of 2026-11-16 and built with every layer: Newark to Carneys
+      Point (New Jersey Turnpike), Trenton to Carneys Point (I-295),
+      Carneys Point to Wilmington (I-295 and the Delaware Memorial Bridge),
+      Carneys Point to Baltimore (I-95), Carneys Point to Vineland (US-40),
+      Toms River to Trenton (I-195), Vineland to Cape May (NJ-55) and
+      Atlantic City to Cape May (Garden State Parkway). Newark to Trenton
+      re-routed onto the Turnpike.
+- [x] Atlantic City to Philadelphia is the Atlantic City Expressway (43 of
+      its 63 miles); Allentown to Trenton is PA-313, not US-22, which it
+      never touches (PA-313, PA-413 and PA-309 carry 30 of its 59 miles).
+- [x] New Jersey stops list (`docs/stops/new-jersey.json`): the Turnpike's
+      service areas on the side they serve, the Parkway's median plazas,
+      Petro Bordentown, TA Paulsboro, the two Flying Js and the I-95
+      Maryland plazas. On a leg stored one way, a one-sided stop is now
+      placed for the direction that passes it (`osm-stops`).
+- [x] Tolls: the Turnpike from the NJTA 2026 class 5 schedule, charged
+      once at the exit booth each way; the Parkway's Barnegat, New Gretna,
+      Great Egg and Cape May barriers; the Delaware Memorial Bridge
+      southbound only. A route's toll quote now counts a one-way booth only
+      in the direction it collects, as the drive charges it.
+- [ ] (Found along the way) Billboards on the eight new legs: a sheet
+      needs Orinks's approval.
+- [ ] (Found along the way) The Delaware Memorial Bridge is not named on
+      the road: the named bridges layer (`osm-bridges`) is not on this
+      branch yet.
+- [ ] (Found along the way) Tolls still missing: the Atlantic City
+      Expressway (its operator's site refuses automated reads), the Ben
+      Franklin Bridge on Atlantic City to Philadelphia, and Newark to
+      Philadelphia through the Turnpike's Pennsylvania extension.
+- [ ] (Found along the way) No truck stop is on Carneys Point to Vineland,
+      Toms River to Trenton, Vineland to Cape May or Carneys Point to
+      Wilmington; the leads found none a truck can use.
+- [ ] (Found along the way) Love's Bordentown (OpenStreetMap way
+      217783542) is an unverified lead near Turnpike Interchange 7; it is
+      not placed.
+- [ ] (Found along the way) About 24 Canadian border-crossing legs have
+      no counties on their US side. `census-counties` now takes `--only`;
+      run it for those legs on their own.
+- [ ] (Found along the way) An exit with no number cannot be the
+      destination exit. Toms River to Trenton leaves NJ 29 at the unnumbered
+      exit for NJ 129 into Trenton, but the call names I-295's exit 1A-B,
+      3.4 miles out, which the truck drives past.
+- [ ] (Found along the way) The speed limit screen folds a real posting
+      on a leg that rides several roads under one label: Vineland to Cape May
+      is labelled NJ-55 and loses NJ-47's 45 near Heislerville (1.3 miles).
+- [ ] (Found along the way) The merge and location lines take a road's
+      direction from its number's parity; I-195 (east and west) and I-295
+      over the Delaware Memorial Bridge are corrected by table, and other
+      three-digit Interstates have not been checked.
+- [ ] (Found along the way) orinks.net's Career 2.0 catalog export
+      (`data/freight-fate-profile-invariants-career-2.json`) lists 651
+      cities against the branch's 805; refresh it before 2.0 cloud saves.
 
 ### Winter cab, wipers and ice roads (designed November 22)
 
