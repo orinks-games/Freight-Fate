@@ -38,6 +38,8 @@
 - **Diesel in British Columbia and the Yukon now costs what it does there,** and Canadian pumps also say the price in Canadian dollars a liter.
 - **Heavy trucks in British Columbia are now held to 105 kilometers per hour, as the law requires.**
 - **The map now reaches Alaska and northern Canada along the Alaska Highway,** from Blaine and Bellingham through Prince George, Dawson Creek and Whitehorse to Tok and Fairbanks.
+- **The map now reaches Alberta, Saskatchewan and Manitoba,** on the Trans-Canada and Yellowhead highways from Vancouver to Winnipeg, with six more border crossings.
+- **Diesel in Alberta, Saskatchewan and Manitoba now costs what it does there.**
 - **Alaska roads now reach the Kenai Peninsula, Valdez and Deadhorse.** Seward, Valdez and Kenai offer only their real freight sites, and Deadhorse sells diesel.
 - **Hours of service now follow Alaska and Canadian rules where you drive.** You hear the new limits as you cross into each place.
 - **Twenty new carriers hire across the map, including Alaska.** Every lower-48 city now has a regional carrier, and three local carriers run short loads around Chicago, Los Angeles and Anchorage.

@@ -61379,6 +61379,911 @@
       "lanes": 1
     },
     {
+      "from": "shelby_mt_us",
+      "to": "lethbridge_ab_ca",
+      "miles": 101,
+      "highway": "Hwy 4 / I-15",
+      "terrain": "flat",
+      "divided": false,
+      "lanes": 2,
+      "stops": [],
+      "corridor": {
+        "tollway_detected": false,
+        "route_points": [
+          {
+            "at_mi": 0.0,
+            "lat": 48.50531,
+            "lon": -111.85702
+          },
+          {
+            "at_mi": 27.53,
+            "lat": 48.88976,
+            "lon": -111.90818
+          },
+          {
+            "at_mi": 53.2,
+            "lat": 49.21122,
+            "lon": -112.13016
+          },
+          {
+            "at_mi": 79.76,
+            "lat": 49.49864,
+            "lon": -112.49843
+          },
+          {
+            "at_mi": 101.0,
+            "lat": 49.69924,
+            "lon": -112.80153
+          }
+        ],
+        "elevation_samples": [
+          {
+            "at_mi": 0.0,
+            "elevation_ft": 3294.0,
+            "source": "Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "at_mi": 25.29,
+            "elevation_ft": 3421.9,
+            "source": "Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "at_mi": 50.32,
+            "elevation_ft": 3461.3,
+            "source": "Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "at_mi": 75.42,
+            "elevation_ft": 3133.2,
+            "source": "Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "at_mi": 100.59,
+            "elevation_ft": 3015.1,
+            "source": "Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "at_mi": 101.0,
+            "elevation_ft": 3008.5,
+            "source": "Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          }
+        ],
+        "checkpoints": [
+          {
+            "name": "Coutts Port of Entry",
+            "at_mi": 35.5,
+            "type": "border",
+            "state": "Alberta",
+            "highway": "Hwy 4 / I-15",
+            "lat": 48.99842,
+            "lon": -111.960669,
+            "source": "Canada Border Services Agency Coutts (705), Highway 4 South, Coutts; joint facilities with the US; commercial hours read from the CBSA Directory of Offices and Services open data (https://www.cbsa-asfc.gc.ca/data/offices-bureaux-en.csv, read 2026-11-22): commercial 24 hours, 7 days a week, FAST declarations accepted. Position read from OpenStreetMap way 888313980 (Coutts Port of Entry, operator Canada Border Services Agency), OpenStreetMap planet file of 2026-11-16. Re-placed on the rerouted road by its own coordinates (0.03 mi off-route at closest approach)."
+          },
+          {
+            "name": "Sweetgrass Port of Entry",
+            "at_mi": 35.5,
+            "type": "border",
+            "state": "Montana",
+            "highway": "Hwy 4 / I-15",
+            "lat": 48.998108,
+            "lon": -111.960527,
+            "source": "U.S. Customs and Border Protection Sweetgrass, Montana (3310), 39825 Interstate 15, Sweetgrass; open 24 hours, 7 days a week (https://cbp.gov/contact/ports/area-port-sweetgrass-montana-3310, read 2026-11-22). Position read from OpenStreetMap way 888313979 (Area Port of Sweetgrass, Montana), OpenStreetMap planet file of 2026-11-16. Re-placed on the rerouted road by its own coordinates (0.03 mi off-route at closest approach)."
+          }
+        ],
+        "grade_segments": [
+          {
+            "start_mi": 0.0,
+            "end_mi": 1.2,
+            "avg_grade_pct": 0.18,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 1.2,
+            "end_mi": 1.4,
+            "avg_grade_pct": 2.14,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 1.4,
+            "end_mi": 1.7,
+            "avg_grade_pct": 0.48,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 1.7,
+            "end_mi": 2.3,
+            "avg_grade_pct": 3.15,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 2.3,
+            "end_mi": 2.9,
+            "avg_grade_pct": 0.31,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 2.9,
+            "end_mi": 3.2,
+            "avg_grade_pct": 1.82,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 3.2,
+            "end_mi": 5.0,
+            "avg_grade_pct": 0.43,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 5.0,
+            "end_mi": 5.3,
+            "avg_grade_pct": 1.64,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 5.3,
+            "end_mi": 7.8,
+            "avg_grade_pct": 0.05,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 7.8,
+            "end_mi": 8.1,
+            "avg_grade_pct": -2.05,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 8.1,
+            "end_mi": 18.9,
+            "avg_grade_pct": -0.18,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 18.9,
+            "end_mi": 19.5,
+            "avg_grade_pct": 0.3,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 19.5,
+            "end_mi": 22.3,
+            "avg_grade_pct": 0.31,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 22.3,
+            "end_mi": 22.5,
+            "avg_grade_pct": 1.73,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 22.5,
+            "end_mi": 25.3,
+            "avg_grade_pct": -0.51,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 25.3,
+            "end_mi": 25.9,
+            "avg_grade_pct": -2.54,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 25.9,
+            "end_mi": 27.1,
+            "avg_grade_pct": -0.05,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 27.1,
+            "end_mi": 27.4,
+            "avg_grade_pct": 1.63,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 27.4,
+            "end_mi": 30.2,
+            "avg_grade_pct": -0.06,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 30.2,
+            "end_mi": 30.5,
+            "avg_grade_pct": 2.02,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 30.5,
+            "end_mi": 31.1,
+            "avg_grade_pct": -0.71,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 31.1,
+            "end_mi": 31.4,
+            "avg_grade_pct": 1.73,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 31.4,
+            "end_mi": 31.7,
+            "avg_grade_pct": -0.22,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 31.7,
+            "end_mi": 32.9,
+            "avg_grade_pct": 3.4,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 32.9,
+            "end_mi": 34.5,
+            "avg_grade_pct": 0.55,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 34.5,
+            "end_mi": 35.2,
+            "avg_grade_pct": -4.03,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 35.2,
+            "end_mi": 38.9,
+            "avg_grade_pct": -0.25,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 38.9,
+            "end_mi": 39.2,
+            "avg_grade_pct": -2.25,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 39.2,
+            "end_mi": 39.8,
+            "avg_grade_pct": -0.64,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 39.8,
+            "end_mi": 40.1,
+            "avg_grade_pct": 1.7,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 40.1,
+            "end_mi": 40.5,
+            "avg_grade_pct": -0.19,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 40.5,
+            "end_mi": 40.8,
+            "avg_grade_pct": 1.92,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 40.8,
+            "end_mi": 41.1,
+            "avg_grade_pct": 0.79,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 41.1,
+            "end_mi": 42.1,
+            "avg_grade_pct": 0.72,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 42.1,
+            "end_mi": 43.0,
+            "avg_grade_pct": -0.07,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 43.0,
+            "end_mi": 43.6,
+            "avg_grade_pct": -2.56,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 43.6,
+            "end_mi": 46.7,
+            "avg_grade_pct": 0.07,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 46.7,
+            "end_mi": 47.0,
+            "avg_grade_pct": -1.85,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 47.0,
+            "end_mi": 49.0,
+            "avg_grade_pct": 0.5,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 49.0,
+            "end_mi": 49.4,
+            "avg_grade_pct": 1.92,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 49.4,
+            "end_mi": 49.7,
+            "avg_grade_pct": 1.34,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 49.7,
+            "end_mi": 50.0,
+            "avg_grade_pct": -1.76,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 50.0,
+            "end_mi": 51.2,
+            "avg_grade_pct": -1.21,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 51.2,
+            "end_mi": 51.6,
+            "avg_grade_pct": -1.71,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 51.6,
+            "end_mi": 61.0,
+            "avg_grade_pct": -0.14,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 61.0,
+            "end_mi": 62.0,
+            "avg_grade_pct": -2.45,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 62.0,
+            "end_mi": 71.0,
+            "avg_grade_pct": 0.1,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 71.0,
+            "end_mi": 71.3,
+            "avg_grade_pct": -2.44,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 71.3,
+            "end_mi": 101.0,
+            "avg_grade_pct": -0.1,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          }
+        ],
+        "state_miles": [
+          {
+            "state": "Montana",
+            "miles": 35.5,
+            "source": "derived 2026-11-05: the leg's archived route geometry intersected with OpenStreetMap state and province boundary relations (boundary=administrative, admin_level=4); at_mi = cumulative geometry distance at each boundary crossing, rescaled to leg miles; state miles = differences of those boundaries. OpenStreetMap, boundary relations read from the OpenStreetMap API on 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "state": "Alberta",
+            "miles": 65.5,
+            "source": "derived 2026-11-05: the leg's archived route geometry intersected with OpenStreetMap state and province boundary relations (boundary=administrative, admin_level=4); at_mi = cumulative geometry distance at each boundary crossing, rescaled to leg miles; state miles = differences of those boundaries. OpenStreetMap, boundary relations read from the OpenStreetMap API on 2026-11-16: https://www.openstreetmap.org/."
+          }
+        ],
+        "state_crossings": [
+          {
+            "at_mi": 35.5,
+            "from_state": "Montana",
+            "state": "Alberta",
+            "place": "Montana-Alberta line on Hwy 4 / I-15",
+            "source": "derived 2026-11-05: the leg's archived route geometry intersected with OpenStreetMap state and province boundary relations (boundary=administrative, admin_level=4); at_mi = cumulative geometry distance at each boundary crossing, rescaled to leg miles; state miles = differences of those boundaries. OpenStreetMap, boundary relations read from the OpenStreetMap API on 2026-11-16: https://www.openstreetmap.org/."
+          }
+        ],
+        "interchanges": [
+          {
+            "at_mi": 2.3,
+            "exit_ref": "364",
+            "name": "",
+            "destinations": [
+              "Shelby"
+            ],
+            "via": "I 15 Business",
+            "highway": "Hwy 4 / I-15",
+            "source": "Exit ref, name and destination signs read from OpenStreetMap highway=motorway_junction nodes on a motorway or trunk way running along the leg's archived route, and the destination tags of this exit's own motorway_link ramps, OpenStreetMap planet file of 2026-11-16. at_mi derived: the mean of the exit's junction nodes (one per carriageway) projected onto that route, rescaled to the leg's miles: https://www.openstreetmap.org/",
+            "ramp_far_end": "surface",
+            "ramp_far_end_source": "derived: this exit's motorway_link chains walked from every gore within 500 m of its junction nodes, both carriageways, in the OpenStreetMap planet file of 2026-11-16. 'motorway' means every chain merges onto a highway=motorway way; 'surface' means at least one chain ends off the motorway network: https://www.openstreetmap.org/",
+            "ramp_length_ft_backward": 1129.1,
+            "ramp_terminal_backward": {
+              "node": 46314703,
+              "lat": 48.5328866,
+              "lon": -111.861446
+            },
+            "ramp_length_source": "derived from OpenStreetMap geometry: summed node-to-node distance along this exit's motorway_link way(s), from the gore node where the ramp leaves the motorway to the nearest node where it ends (a public road -- trunk to residential, not a service or private way -- or a dead end, else a motorway merge). Per direction of travel: the gore nearest the exit's junction nodes whose first ramp edge runs that way. Starts at the OSM diverge, at or near the gore, so any deceleration lane before it is not included. Screened: under 300 ft or over 1.5 mi dropped, not clamped. OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/",
+            "ramp_terminal_source": "read from OpenStreetMap topology: the node where the same walk that measures ramp_length ends (the public crossroad or dead end the motorway_link way reaches), per direction of travel. Only baked beside a length that passed its screen, and never for a ramp that ends in a merge. OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/"
+          },
+          {
+            "at_mi": 6.5,
+            "exit_ref": "369",
+            "name": "",
+            "destinations": [],
+            "via": "",
+            "highway": "Hwy 4 / I-15",
+            "source": "Exit ref, name and destination signs read from OpenStreetMap highway=motorway_junction nodes on a motorway or trunk way running along the leg's archived route, and the destination tags of this exit's own motorway_link ramps, OpenStreetMap planet file of 2026-11-16. at_mi derived: the mean of the exit's junction nodes (one per carriageway) projected onto that route, rescaled to the leg's miles: https://www.openstreetmap.org/",
+            "ramp_far_end": "surface",
+            "ramp_far_end_source": "derived: this exit's motorway_link chains walked from every gore within 500 m of its junction nodes, both carriageways, in the OpenStreetMap planet file of 2026-11-16. 'motorway' means every chain merges onto a highway=motorway way; 'surface' means at least one chain ends off the motorway network: https://www.openstreetmap.org/",
+            "ramp_length_ft_backward": 1291.2,
+            "ramp_terminal_backward": {
+              "node": 46318760,
+              "lat": 48.5953747,
+              "lon": -111.8628933
+            },
+            "ramp_length_ft_forward": 1453.2,
+            "ramp_terminal_forward": {
+              "node": 46318727,
+              "lat": 48.5953704,
+              "lon": -111.860663
+            },
+            "ramp_length_source": "derived from OpenStreetMap geometry: summed node-to-node distance along this exit's motorway_link way(s), from the gore node where the ramp leaves the motorway to the nearest node where it ends (a public road -- trunk to residential, not a service or private way -- or a dead end, else a motorway merge). Per direction of travel: the gore nearest the exit's junction nodes whose first ramp edge runs that way. Starts at the OSM diverge, at or near the gore, so any deceleration lane before it is not included. Screened: under 300 ft or over 1.5 mi dropped, not clamped. OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/",
+            "ramp_terminal_source": "read from OpenStreetMap topology: the node where the same walk that measures ramp_length ends (the public crossroad or dead end the motorway_link way reaches), per direction of travel. Only baked beside a length that passed its screen, and never for a ramp that ends in a merge. OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/"
+          },
+          {
+            "at_mi": 10.5,
+            "exit_ref": "373",
+            "name": "",
+            "destinations": [],
+            "via": "",
+            "highway": "Hwy 4 / I-15",
+            "source": "Exit ref, name and destination signs read from OpenStreetMap highway=motorway_junction nodes on a motorway or trunk way running along the leg's archived route, and the destination tags of this exit's own motorway_link ramps, OpenStreetMap planet file of 2026-11-16. at_mi derived: the mean of the exit's junction nodes (one per carriageway) projected onto that route, rescaled to the leg's miles: https://www.openstreetmap.org/",
+            "ramp_far_end": "surface",
+            "ramp_far_end_source": "derived: this exit's motorway_link chains walked from every gore within 500 m of its junction nodes, both carriageways, in the OpenStreetMap planet file of 2026-11-16. 'motorway' means every chain merges onto a highway=motorway way; 'surface' means at least one chain ends off the motorway network: https://www.openstreetmap.org/",
+            "ramp_length_ft_backward": 1271.3,
+            "ramp_terminal_backward": {
+              "node": 46326503,
+              "lat": 48.6532119,
+              "lon": -111.8630063
+            },
+            "ramp_length_ft_forward": 1410.7,
+            "ramp_terminal_forward": {
+              "node": 46323917,
+              "lat": 48.6532246,
+              "lon": -111.8609572
+            },
+            "ramp_length_source": "derived from OpenStreetMap geometry: summed node-to-node distance along this exit's motorway_link way(s), from the gore node where the ramp leaves the motorway to the nearest node where it ends (a public road -- trunk to residential, not a service or private way -- or a dead end, else a motorway merge). Per direction of travel: the gore nearest the exit's junction nodes whose first ramp edge runs that way. Starts at the OSM diverge, at or near the gore, so any deceleration lane before it is not included. Screened: under 300 ft or over 1.5 mi dropped, not clamped. OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/",
+            "ramp_terminal_source": "read from OpenStreetMap topology: the node where the same walk that measures ramp_length ends (the public crossroad or dead end the motorway_link way reaches), per direction of travel. Only baked beside a length that passed its screen, and never for a ramp that ends in a merge. OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/"
+          },
+          {
+            "at_mi": 16.5,
+            "exit_ref": "379",
+            "name": "",
+            "destinations": [
+              "Kevin",
+              "Oilmont"
+            ],
+            "via": "MT 343;MT 215",
+            "highway": "Hwy 4 / I-15",
+            "source": "Exit ref, name and destination signs read from OpenStreetMap highway=motorway_junction nodes on a motorway or trunk way running along the leg's archived route, and the destination tags of this exit's own motorway_link ramps, OpenStreetMap planet file of 2026-11-16. at_mi derived: the mean of the exit's junction nodes (one per carriageway) projected onto that route, rescaled to the leg's miles: https://www.openstreetmap.org/",
+            "ramp_far_end": "surface",
+            "ramp_far_end_source": "derived: this exit's motorway_link chains walked from every gore within 500 m of its junction nodes, both carriageways, in the OpenStreetMap planet file of 2026-11-16. 'motorway' means every chain merges onto a highway=motorway way; 'surface' means at least one chain ends off the motorway network: https://www.openstreetmap.org/",
+            "ramp_length_ft_backward": 1353.5,
+            "ramp_terminal_backward": {
+              "node": 46327176,
+              "lat": 48.7401264,
+              "lon": -111.8621636
+            },
+            "ramp_length_ft_forward": 1625.9,
+            "ramp_terminal_forward": {
+              "node": 46327139,
+              "lat": 48.7401252,
+              "lon": -111.8600581
+            },
+            "ramp_length_source": "derived from OpenStreetMap geometry: summed node-to-node distance along this exit's motorway_link way(s), from the gore node where the ramp leaves the motorway to the nearest node where it ends (a public road -- trunk to residential, not a service or private way -- or a dead end, else a motorway merge). Per direction of travel: the gore nearest the exit's junction nodes whose first ramp edge runs that way. Starts at the OSM diverge, at or near the gore, so any deceleration lane before it is not included. Screened: under 300 ft or over 1.5 mi dropped, not clamped. OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/",
+            "ramp_terminal_source": "read from OpenStreetMap topology: the node where the same walk that measures ramp_length ends (the public crossroad or dead end the motorway_link way reaches), per direction of travel. Only baked beside a length that passed its screen, and never for a ramp that ends in a merge. OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/"
+          },
+          {
+            "at_mi": 22.5,
+            "exit_ref": "385",
+            "name": "",
+            "destinations": [],
+            "via": "",
+            "highway": "Hwy 4 / I-15",
+            "source": "Exit ref, name and destination signs read from OpenStreetMap highway=motorway_junction nodes on a motorway or trunk way running along the leg's archived route, and the destination tags of this exit's own motorway_link ramps, OpenStreetMap planet file of 2026-11-16. at_mi derived: the mean of the exit's junction nodes (one per carriageway) projected onto that route, rescaled to the leg's miles: https://www.openstreetmap.org/",
+            "ramp_far_end": "surface",
+            "ramp_far_end_source": "derived: this exit's motorway_link chains walked from every gore within 500 m of its junction nodes, both carriageways, in the OpenStreetMap planet file of 2026-11-16. 'motorway' means every chain merges onto a highway=motorway way; 'surface' means at least one chain ends off the motorway network: https://www.openstreetmap.org/",
+            "ramp_length_ft_backward": 1262.5,
+            "ramp_terminal_backward": {
+              "node": 46321796,
+              "lat": 48.8269738,
+              "lon": -111.8641586
+            },
+            "ramp_length_ft_forward": 1414.6,
+            "ramp_terminal_forward": {
+              "node": 46321760,
+              "lat": 48.8270039,
+              "lon": -111.8614743
+            },
+            "ramp_length_source": "derived from OpenStreetMap geometry: summed node-to-node distance along this exit's motorway_link way(s), from the gore node where the ramp leaves the motorway to the nearest node where it ends (a public road -- trunk to residential, not a service or private way -- or a dead end, else a motorway merge). Per direction of travel: the gore nearest the exit's junction nodes whose first ramp edge runs that way. Starts at the OSM diverge, at or near the gore, so any deceleration lane before it is not included. Screened: under 300 ft or over 1.5 mi dropped, not clamped. OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/",
+            "ramp_terminal_source": "read from OpenStreetMap topology: the node where the same walk that measures ramp_length ends (the public crossroad or dead end the motorway_link way reaches), per direction of travel. Only baked beside a length that passed its screen, and never for a ramp that ends in a merge. OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/"
+          },
+          {
+            "at_mi": 27.1,
+            "exit_ref": "389",
+            "name": "",
+            "destinations": [
+              "Sunburst"
+            ],
+            "via": "MT 389",
+            "highway": "Hwy 4 / I-15",
+            "source": "Exit ref, name and destination signs read from OpenStreetMap highway=motorway_junction nodes on a motorway or trunk way running along the leg's archived route, and the destination tags of this exit's own motorway_link ramps, OpenStreetMap planet file of 2026-11-16. at_mi derived: the mean of the exit's junction nodes (one per carriageway) projected onto that route, rescaled to the leg's miles: https://www.openstreetmap.org/",
+            "ramp_far_end": "surface",
+            "ramp_far_end_source": "derived: this exit's motorway_link chains walked from every gore within 500 m of its junction nodes, both carriageways, in the OpenStreetMap planet file of 2026-11-16. 'motorway' means every chain merges onto a highway=motorway way; 'surface' means at least one chain ends off the motorway network: https://www.openstreetmap.org/",
+            "ramp_length_ft_backward": 1282.5,
+            "ramp_terminal_backward": {
+              "node": 46312075,
+              "lat": 48.8848814,
+              "lon": -111.9049814
+            },
+            "ramp_length_ft_forward": 1349.9,
+            "ramp_terminal_forward": {
+              "node": 46314065,
+              "lat": 48.8848795,
+              "lon": -111.9019298
+            },
+            "ramp_length_source": "derived from OpenStreetMap geometry: summed node-to-node distance along this exit's motorway_link way(s), from the gore node where the ramp leaves the motorway to the nearest node where it ends (a public road -- trunk to residential, not a service or private way -- or a dead end, else a motorway merge). Per direction of travel: the gore nearest the exit's junction nodes whose first ramp edge runs that way. Starts at the OSM diverge, at or near the gore, so any deceleration lane before it is not included. Screened: under 300 ft or over 1.5 mi dropped, not clamped. OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/",
+            "ramp_terminal_source": "read from OpenStreetMap topology: the node where the same walk that measures ramp_length ends (the public crossroad or dead end the motorway_link way reaches), per direction of travel. Only baked beside a length that passed its screen, and never for a ramp that ends in a merge. OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/"
+          },
+          {
+            "at_mi": 31.4,
+            "exit_ref": "394",
+            "name": "",
+            "destinations": [
+              "Ranch Access"
+            ],
+            "via": "",
+            "highway": "Hwy 4 / I-15",
+            "source": "Exit ref, name and destination signs read from OpenStreetMap highway=motorway_junction nodes on a motorway or trunk way running along the leg's archived route, and the destination tags of this exit's own motorway_link ramps, OpenStreetMap planet file of 2026-11-16. at_mi derived: the mean of the exit's junction nodes (one per carriageway) projected onto that route, rescaled to the leg's miles: https://www.openstreetmap.org/",
+            "ramp_far_end": "surface",
+            "ramp_far_end_source": "derived: this exit's motorway_link chains walked from every gore within 500 m of its junction nodes, both carriageways, in the OpenStreetMap planet file of 2026-11-16. 'motorway' means every chain merges onto a highway=motorway way; 'surface' means at least one chain ends off the motorway network: https://www.openstreetmap.org/",
+            "ramp_length_ft_backward": 1196.0,
+            "ramp_terminal_backward": {
+              "node": 46315209,
+              "lat": 48.943019,
+              "lon": -111.9337038
+            },
+            "ramp_length_ft_forward": 1101.9,
+            "ramp_terminal_forward": {
+              "node": 46315220,
+              "lat": 48.9429938,
+              "lon": -111.9306688
+            },
+            "ramp_length_source": "derived from OpenStreetMap geometry: summed node-to-node distance along this exit's motorway_link way(s), from the gore node where the ramp leaves the motorway to the nearest node where it ends (a public road -- trunk to residential, not a service or private way -- or a dead end, else a motorway merge). Per direction of travel: the gore nearest the exit's junction nodes whose first ramp edge runs that way. Starts at the OSM diverge, at or near the gore, so any deceleration lane before it is not included. Screened: under 300 ft or over 1.5 mi dropped, not clamped. OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/",
+            "ramp_terminal_source": "read from OpenStreetMap topology: the node where the same walk that measures ramp_length ends (the public crossroad or dead end the motorway_link way reaches), per direction of travel. Only baked beside a length that passed its screen, and never for a ramp that ends in a merge. OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/"
+          },
+          {
+            "at_mi": 35.1,
+            "exit_ref": "397",
+            "name": "",
+            "destinations": [
+              "Sweergrass",
+              "Rest Area"
+            ],
+            "via": "",
+            "highway": "Hwy 4 / I-15",
+            "source": "Exit ref, name and destination signs read from OpenStreetMap highway=motorway_junction nodes on a motorway or trunk way running along the leg's archived route, and the destination tags of this exit's own motorway_link ramps, OpenStreetMap planet file of 2026-11-16. at_mi derived: the mean of the exit's junction nodes (one per carriageway) projected onto that route, rescaled to the leg's miles: https://www.openstreetmap.org/",
+            "ramp_far_end": "surface",
+            "ramp_far_end_source": "derived: this exit's motorway_link chains walked from every gore within 500 m of its junction nodes, both carriageways, in the OpenStreetMap planet file of 2026-11-16. 'motorway' means every chain merges onto a highway=motorway way; 'surface' means at least one chain ends off the motorway network: https://www.openstreetmap.org/",
+            "ramp_length_ft_backward": 969.2,
+            "ramp_terminal_backward": {
+              "node": 46310219,
+              "lat": 48.9937842,
+              "lon": -111.9622992
+            },
+            "ramp_length_ft_forward": 1596.1,
+            "ramp_terminal_forward": {
+              "node": 46320389,
+              "lat": 48.9942737,
+              "lon": -111.9579487
+            },
+            "ramp_length_source": "derived from OpenStreetMap geometry: summed node-to-node distance along this exit's motorway_link way(s), from the gore node where the ramp leaves the motorway to the nearest node where it ends (a public road -- trunk to residential, not a service or private way -- or a dead end, else a motorway merge). Per direction of travel: the gore nearest the exit's junction nodes whose first ramp edge runs that way. Starts at the OSM diverge, at or near the gore, so any deceleration lane before it is not included. Screened: under 300 ft or over 1.5 mi dropped, not clamped. OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/",
+            "ramp_terminal_source": "read from OpenStreetMap topology: the node where the same walk that measures ramp_length ends (the public crossroad or dead end the motorway_link way reaches), per direction of travel. Only baked beside a length that passed its screen, and never for a ramp that ends in a merge. OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/"
+          }
+        ],
+        "speed_limits": [
+          {
+            "at_mi": 0.0,
+            "mph": 25,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 1.1,
+            "mph": 35,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 1.4,
+            "mph": 45,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 1.9,
+            "mph": 55,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 3.1,
+            "mph": 70,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": true
+          },
+          {
+            "at_mi": 35.0,
+            "mph": 55,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 35.4,
+            "mph": 25,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 35.6,
+            "mph": 30,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 36.8,
+            "mph": 70,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 96.2,
+            "mph": 50,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 98.1,
+            "mph": 45,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 99.6,
+            "mph": 35,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 99.9,
+            "mph": 50,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 100.6,
+            "mph": 45,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          }
+        ],
+        "lane_segments": [
+          {
+            "start_mi": 1.9,
+            "end_mi": 100.6,
+            "lanes": 2,
+            "oneway": true,
+            "source": "OpenStreetMap lanes tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; total per the OSM lanes semantics (directional on oneway carriageways). ODbL, (c) OpenStreetMap contributors."
+          }
+        ],
+        "restrictions": [],
+        "landmarks": [
+          {
+            "name": "Kevin",
+            "at_mi": 17.3,
+            "off_mi": 4.74,
+            "category": "village",
+            "kind": "point",
+            "source": "OpenStreetMap place=village node 150932815, projected onto the leg's checked-in route geometry",
+            "spoken": "Passing Kevin"
+          },
+          {
+            "name": "Sunburst",
+            "at_mi": 27.3,
+            "off_mi": 0.4,
+            "category": "village",
+            "kind": "point",
+            "source": "OpenStreetMap place=village node 150961064, projected onto the leg's checked-in route geometry",
+            "spoken": "Entering Sunburst"
+          },
+          {
+            "name": "Coutts",
+            "at_mi": 35.2,
+            "off_mi": 0.18,
+            "category": "village",
+            "kind": "point",
+            "source": "OpenStreetMap place=village node 51969472, projected onto the leg's checked-in route geometry, placed ahead of the speed zone it explains",
+            "spoken": "Entering Coutts"
+          },
+          {
+            "name": "Milk River",
+            "category": "river",
+            "kind": "point",
+            "at_mi": 47.7,
+            "lat": 49.14332,
+            "lon": -112.08341,
+            "spoken": "Crossing the Milk River",
+            "source": "derived: name and category read from the OpenStreetMap tags of way 259861525 (Milk River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "name": "Warner",
+            "at_mi": 59.2,
+            "off_mi": 0.52,
+            "category": "village",
+            "kind": "point",
+            "source": "OpenStreetMap place=village node 51972802, projected onto the leg's checked-in route geometry",
+            "spoken": "Passing Warner"
+          },
+          {
+            "name": "Stirling",
+            "at_mi": 80.8,
+            "off_mi": 1.04,
+            "category": "village",
+            "kind": "point",
+            "source": "OpenStreetMap place=village node 51972897, projected onto the leg's checked-in route geometry",
+            "spoken": "Passing Stirling"
+          },
+          {
+            "name": "Raymond",
+            "at_mi": 83.1,
+            "off_mi": 7.23,
+            "category": "village",
+            "kind": "point",
+            "source": "OpenStreetMap place=town node 51970727, projected onto the leg's checked-in route geometry",
+            "spoken": "Passing Raymond"
+          },
+          {
+            "name": "Coaldale",
+            "at_mi": 96.0,
+            "off_mi": 7.05,
+            "category": "village",
+            "kind": "point",
+            "source": "OpenStreetMap place=town node 29661151, projected onto the leg's checked-in route geometry",
+            "spoken": "Passing Coaldale"
+          },
+          {
+            "name": "Coalhurst",
+            "at_mi": 100.9,
+            "off_mi": 6.49,
+            "category": "village",
+            "kind": "point",
+            "source": "OpenStreetMap place=town node 29661168, projected onto the leg's checked-in route geometry",
+            "spoken": "Passing Coalhurst"
+          },
+          {
+            "name": "Diamond City",
+            "at_mi": 100.9,
+            "off_mi": 6.82,
+            "category": "village",
+            "kind": "point",
+            "source": "OpenStreetMap place=village node 187574901, projected onto the leg's checked-in route geometry",
+            "spoken": "Passing Diamond City"
+          },
+          {
+            "name": "Shaughnessy",
+            "at_mi": 100.9,
+            "off_mi": 10.76,
+            "category": "village",
+            "kind": "point",
+            "source": "OpenStreetMap place=village node 187574892, projected onto the leg's checked-in route geometry",
+            "spoken": "Passing Shaughnessy"
+          }
+        ],
+        "hpms_terrain": {
+          "type": 1,
+          "name": "level",
+          "sections": 0,
+          "source": "DERIVED, not read: Canada has no national inventory like HPMS, so the class is the terrain the leg's own grade profile spends the most miles in (the reroute-enrich rule: sustained grade of 5 percent, or 4 percent with 1,000 ft of relief within 5 miles, is mountain; 1.5 percent or 400 ft of relief is hills; else flat), mapped flat to level, hills to rolling and mountain to mountainous. It reads the same elevation as the grade, so it is no independent check on it."
+        }
+      },
+      "source": "Career 2.0 western Canada corridor (canada-network.md corridor 1), first pass built 2026-11-22 with cargo tools over the OpenStreetMap planet file of 2026-11-16.",
+      "border_crossing": {
+        "id": "coutts_sweetgrass",
+        "from_country": "US",
+        "to_country": "CA",
+        "ports": [
+          "coutts_sweetgrass"
+        ],
+        "mode": "through_freight",
+        "cabotage": "forbidden",
+        "port_names": {
+          "CA": "Coutts Port of Entry",
+          "US": "Sweetgrass Port of Entry"
+        },
+        "agencies": {
+          "CA": "Canada Border Services Agency",
+          "US": "U.S. Customs and Border Protection"
+        },
+        "commercial_hours": {
+          "CA": "commercial 24 hours, 7 days a week, FAST declarations accepted",
+          "US": "open 24 hours, 7 days a week (https://cbp.gov/contact/ports/area-port-sweetgrass-montana-3310, read 2026-11-22)"
+        },
+        "fast_lane": true,
+        "source": "Canadian side: CBSA office Coutts (705), Highway 4 South, Coutts; joint facilities with the US, hours read from the CBSA Directory of Offices and Services open data (https://www.cbsa-asfc.gc.ca/data/offices-bureaux-en.csv, read 2026-11-22). US side: CBP port Sweetgrass, Montana (3310), 39825 Interstate 15, Sweetgrass; open 24 hours, 7 days a week (https://cbp.gov/contact/ports/area-port-sweetgrass-montana-3310, read 2026-11-22). Booth positions read from OpenStreetMap (OpenStreetMap planet file of 2026-11-16)."
+      },
+      "route_via": [
+        {
+          "lat": 49.00587,
+          "lon": -111.9638,
+          "note": "I-15 just past the Coutts and Sweetgrass joint port, ref AB 4; the commercial crossing on I-15."
+        }
+      ],
+      "rerouted": true
+    },
+    {
       "from": "superior_mt_us",
       "to": "missoula_mt_us",
       "highway": "I-90",
