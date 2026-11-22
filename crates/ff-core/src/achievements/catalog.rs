@@ -17,7 +17,7 @@ use super::{Achievement, AchievementCategory};
 /// sha256 over every category and achievement field, as the generator
 /// computed it from the Python catalog (see `catalog_digest` in the
 /// tests for the exact framing).
-pub const CATALOG_DIGEST: &str = "c1889b63b6a5bef7dbd09cc03aaffd61df870b1f69d37c6e76217023f2f01cac";
+pub const CATALOG_DIGEST: &str = "8cbc79f6d5f1e9024a9e944698415901abddbbffe18c1d2b8a86039f3b8952e4";
 
 /// What a locked, hidden achievement speaks in place of its real name and
 /// description. Keeps a hidden badge's surprise -- the joke, the calendar
@@ -70,7 +70,7 @@ pub const CATEGORIES: [AchievementCategory; 7] = [
 
 /// Every badge, in the Python catalog's order (the achievements menu and
 /// the cloud validator's allow-list both walk it in this order).
-pub static ACHIEVEMENTS: [Achievement; 201] = [
+pub static ACHIEVEMENTS: [Achievement; 210] = [
     Achievement {
         id: "first_dispatch",
         name: "Breaker, Breaker",
@@ -1677,6 +1677,78 @@ pub static ACHIEVEMENTS: [Achievement; 201] = [
         description: "A trailer handed off at a Laredo transfer yard.",
         category: "road",
         inspiration: "Gene Autry - South of the Border",
+        hidden: false,
+    },
+    Achievement {
+        id: "canada_delivery",
+        name: "Across the Border",
+        description: "A load delivered in Canada.",
+        category: "places",
+        inspiration: "Bruce Springsteen - Across the Border",
+        hidden: false,
+    },
+    Achievement {
+        id: "alberta_delivery",
+        name: "Alberta Bound",
+        description: "A load delivered in Alberta.",
+        category: "places",
+        inspiration: "Gordon Lightfoot - Alberta Bound",
+        hidden: false,
+    },
+    Achievement {
+        id: "saskatoon_delivery",
+        name: "Runnin' Back to Saskatoon",
+        description: "A load delivered in Saskatoon.",
+        category: "places",
+        inspiration: "The Guess Who - Runnin' Back to Saskatoon",
+        hidden: false,
+    },
+    Achievement {
+        id: "sudbury_saturday",
+        name: "Sudbury Saturday Night",
+        description: "A load delivered in Sudbury on a Saturday, between 6 PM and midnight.",
+        category: "places",
+        inspiration: "Stompin' Tom Connors - Sudbury Saturday Night",
+        hidden: false,
+    },
+    Achievement {
+        id: "nova_scotia_out",
+        name: "Farewell to Nova Scotia",
+        description: "A load hauled out of Nova Scotia.",
+        category: "places",
+        inspiration: "Traditional - Farewell to Nova Scotia",
+        hidden: false,
+    },
+    Achievement {
+        id: "quebec_winter",
+        name: "Mon Pays",
+        description: "A load delivered in the province of Quebec in winter.",
+        category: "weather_seasons",
+        inspiration: "Gilles Vigneault - Mon Pays",
+        hidden: false,
+    },
+    Achievement {
+        id: "superior_november",
+        name: "The Wreck of the Edmund Fitzgerald",
+        description: "Highway 17 along Lake Superior, from Sault Ste. Marie to Thunder Bay, driven in November.",
+        category: "hidden",
+        inspiration: "Gordon Lightfoot - The Wreck of the Edmund Fitzgerald",
+        hidden: true,
+    },
+    Achievement {
+        id: "both_coasts_canada",
+        name: "Northwest Passage",
+        description: "Loads delivered in British Columbia and in Atlantic Canada.",
+        category: "places",
+        inspiration: "Stan Rogers - Northwest Passage",
+        hidden: false,
+    },
+    Achievement {
+        id: "every_province",
+        name: "This Land Is Your Land",
+        description: "A load delivered in every province on the map.",
+        category: "places",
+        inspiration: "Woody Guthrie - This Land Is Your Land",
         hidden: false,
     },
 ];
