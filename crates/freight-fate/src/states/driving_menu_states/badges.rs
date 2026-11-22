@@ -13,7 +13,7 @@ use ff_core::models::co_driver;
 use ff_core::sim::livestock::Footing;
 use ff_core::sim::season::{
     date_text, is_friday_the_thirteenth, is_truck_driver_appreciation_week, player_calendar_hours,
-    season,
+    real_weekday_name, season, weekday_name,
 };
 use ff_core::sim::vehicle::{combination_tare_kg, max_legal_cargo_tons, TruckSpecs};
 use serde_json::Value;
@@ -32,6 +32,30 @@ use crate::states::driving_menu_states::{simple_arrival_badge, ArrivalState};
 /// must not crash a settlement.
 fn live_calendar(ctx: &GameContext, d: &DrivingState) -> bool {
     d.trip.weather.provider.is_some() && ctx.settings.live_weather_controls_calendar
+}
+
+/// The month of a calendar date line such as "November 12".
+fn arrival_month(date: &str) -> &str {
+    date.split_whitespace().next().unwrap_or_default()
+}
+
+/// The weekday on the destination's clock. The calendar runs on the
+/// career's own clock; the destination's local hour says how far its time
+/// zone sits from it, so a load in at 11 PM Saturday in Sudbury is a
+/// Saturday there whatever the career clock's day.
+fn local_weekday(calendar_hours: f64, local_hour: f64, live: bool) -> &'static str {
+    let mut offset = local_hour - calendar_hours.rem_euclid(24.0);
+    if offset > 12.0 {
+        offset -= 24.0;
+    } else if offset < -12.0 {
+        offset += 24.0;
+    }
+    let local = calendar_hours + offset;
+    if live {
+        real_weekday_name(local, None)
+    } else {
+        weekday_name(local)
+    }
 }
 
 /// How close to the legal ceiling a load has to come to count as "pushing
@@ -610,12 +634,18 @@ pub(crate) fn award_arrival_achievements(
     });
     let carrier_key = profile_of(ctx).carrier_key.clone();
     let game_hours = profile_of(ctx).game_hours;
+    let month = arrival_month(&arrival_date);
+    let local_weekday = local_weekday(calendar_hours, arrival_hour, live);
     let end = DriveEnd {
         route,
         destination: &dest,
+        origin: &origin,
         bobtail: false,
         team: state.team_miles > 0.0,
         season: career_season,
+        month,
+        local_weekday,
+        local_hour: arrival_hour,
         spring_weight_limit: job.seasonal_weight_limit.is_some(),
         border_yard_drop: yard_drop_line(job).is_some(),
         cattle,
@@ -658,13 +688,26 @@ pub(crate) fn award_bobtail_road_badges(
     d: &DrivingState,
 ) {
     let dest = d.route.cities.last().cloned().unwrap_or_default();
-    let game_hours = profile_of(ctx).game_hours;
+    let origin = d.route.cities.first().cloned().unwrap_or_default();
+    let (game_hours, calendar_hours) = {
+        let p = profile_of(ctx);
+        let live = live_calendar(ctx, d);
+        (
+            p.game_hours,
+            player_calendar_hours(p.game_hours, Some(p.calendar_game_hours()), live),
+        )
+    };
+    let arrival_date = date_text(calendar_hours);
     let end = DriveEnd {
         route: &d.route,
         destination: &dest,
+        origin: &origin,
         bobtail: true,
         team: false,
         season: "",
+        month: arrival_month(&arrival_date),
+        local_weekday: "",
+        local_hour: 0.0,
         spring_weight_limit: false,
         border_yard_drop: false,
         cattle: None,
