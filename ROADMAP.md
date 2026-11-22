@@ -4943,8 +4943,8 @@ branch. The older Phase A/B plan checklists are not a live completion list.
       Fairbanks. Both crossings carry through-freight metadata in both
       directions. The Alaska Highway line is identified as Alcan, with the
       Beaver Creek post represented on the Tok-to-Whitehorse approach.
-      Canadian towns are pass-through fuel/rest stops; US dispatch still
-      offers US destinations, allowing US-to-US routes through Canada.
+      Canadian towns were pass-through fuel/rest stops until loads across
+      the border opened them (see "Canada: all routes in and baked").
 - [x] **Posted speed profiles on the Yukon and northern BC legs.** Canadian
       bare OSM speed values are interpreted as km/h; Alaska's 55 mph fallback
       applies only to the Alaska stretch of a cross-border leg.
@@ -6004,6 +6004,29 @@ a carrier slice (owner, 2026-10-26).
       heard as "Truck limit 113 kilometers per hour". Lines with no sign in
       the extract: Lacolle (first Quebec posting 4 miles in), Derby Line
       to Stanstead, Osoyoos southbound, Pembina southbound.
+- [x] Villages are named from the road's side of the border (2026-11-22):
+      `osm-villages --boundaries` reads the province polygons and drops a
+      place in the other country from the road at its mile, except within
+      a mile of the road's own crossing. 145 stored records dropped (ON 95,
+      BC 26, MI 15, NY 4, ND 2, SK 2, QC 1), none within the 1.5 miles a
+      drive names, so the change is heard in Alt+3: Youngstown from the
+      QEW, Waddington and Ogdensburg from the 401, Wyandotte from Windsor,
+      Oroville from Osoyoos. Grand Island stays.
+- [x] A First Nations reserve's number is not spoken (2026-11-22):
+      "Okanagan 1" is "Okanagan"; a number after "Lot" stays for Prince
+      Edward Island. 12 records. Slipped capitals are undone in spoken
+      names ("JIm River", "PIcnic Area"; ONroute kept as a brand).
+      Steele Creek and Farmers Loop, Fairbanks neighbourhoods mapped as
+      villages, are not named on Fairbanks legs (16 records): a 5-mile
+      circle round each end city would have dropped 1,516 records, most
+      of them real towns beside small cities (Muscle Shoals, Pouce Coupe),
+      so they are a named list (`CITY_NEIGHBOURHOODS`).
+- [ ] (Found along the way) A village across water from the road on the
+      same side of the border is still named for Alt+3: Hope (across the
+      Fraser) and Waddington (across the St. Lawrence) were the reports.
+      Needs coastline and water areas in the extract the village tool
+      reads, and a check that the line from the road to the place crosses
+      water.
 - [ ] (Found along the way) Simonson Travel Center (Grand Forks) is in the
       West list and within reach of two North Dakota legs it was never
       placed on; a run without `--only` adds it there.
@@ -6045,6 +6068,64 @@ a carrier slice (owner, 2026-10-26).
 - [ ] (Found along the way) Huntingdon is closed to commercial traffic at
       weekends (CBSA); the hours are stored on the crossing, but on a
       Saturday the booth still clears a truck as on a weekday.
+- [x] Loads across the border (2026-11-22, brief 7): a US carrier's board
+      offers loads from the United States into Canada and from Canada back
+      to the United States, never between two Canadian points (cabotage).
+      Every Canadian city on the map is open, the West corridor's 48 on
+      their template markets and the seven Alcan towns on surveyed
+      receivers. The carriers that run to Canada are data (`cross_border`
+      in `carriers.json`: the nationals except Great Lakes Training, and the
+      regionals whose terminals sit near the border). Twin parcel, cattle
+      and placarded loads stay home. A border load's deadline books 55
+      minutes at each customs booth, planned on US hours rules (the stricter
+      on driving hours both sides of 60). Yukon keeps Mountain Time; live
+      weather and alerts do not ask the US Weather Service north of the
+      border. Per-city checklist: "What a Canadian city needs before a load
+      can end there" in `docs/map-enrichment-recipe.md`.
+- [ ] (Found along the way) Border loads near the line are frequent: about
+      28 percent of Seattle's and half of Bellingham's posted loads go to
+      Canada once the West opened. A weight on loads that cross (0.4 would
+      roughly halve it) is a balance call for the owner.
+- [ ] (Found along the way) The crossing call and the hours rules line at
+      a border are spoken a second time when a status readout, a customs
+      booth or a police stop cuts them.
+- [ ] (Found along the way) Converted limits at Blaine: northbound
+      (Bellingham to Surrey) "Speed limit reduced to 19 leaving Blaine for
+      one mile" is 30 km/h in miles before the line; southbound (Surrey to
+      Bellingham) "reduced to 64 approaching Blaine" is 40 mph in
+      kilometers.
+- [ ] (Found along the way) Stop names start lowercase in the approach
+      call: "truck fuel station: McLeod Lake Petro-Canada in 7 kilometers",
+      "travel center: Speed Pro Truck Stop". The Gordie Howe toll line
+      also starts lowercase and is said twice.
+- [ ] (Found along the way) Pigeon River and the Sault Ste. Marie bridge
+      take loads but were not driven for loads across the border.
+- [ ] (Found along the way) Shipping containers are hooked on a flatbed or
+      a dry van at the Surrey and Bellingham terminals.
+- [ ] Canadian carriers and home bases, and loads inside Canada for them:
+      the next dispatch slice after loads across the border.
+- [ ] (Found along the way) Placarded loads across the border: Canada's
+      Transportation of Dangerous Goods papers and the placard rules at the
+      port are not modeled, so hazmat stays off Canadian lanes for now.
+- [ ] (Found along the way) Canadian shippers outside Surrey: Prince
+      George, the Peace River towns, Fort Nelson, Watson Lake and Whitehorse
+      receive freight but ship none yet (the Northwood pulp mill closed in
+      2026). Until each has a verified sawmill, cross-dock or fuel
+      terminal, a company driver there is sent on empty to the nearest city
+      with a load (the reposition fallback, 2026-11-22).
+- [x] A company driver's board is never empty: with no load and no relay,
+      dispatch assigns a reposition to the nearest city whose board has a
+      load for that driver. Slow test over every Canadian city, carrier and
+      level 1 and 8. An empty run now parks and settles on arrival instead
+      of opening the dock menu.
+- [ ] (Found along the way) The reposition's accept line says "177.0
+      kilometers", with a decimal the board line does not have.
+- [ ] (Found along the way) The load card's hours plan does not say it
+      counts customs time; a border load's plan reads the same as a home
+      one. Wording for the director.
+- [ ] (Found along the way) Atlantic and Newfoundland time zones: the
+      clock knows Pacific to Central in Canada; the Atlantic provinces and
+      Newfoundland's half hour arrive with their corridors.
 - [ ] The Ontario and Quebec trunk (401, 400, 11, 17, 20, 40), Windsor to
       Quebec City and Thunder Bay, with the Detroit, Sarnia, Niagara,
       Lansdowne, Cornwall, Lacolle and Stanstead crossings.

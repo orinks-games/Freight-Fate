@@ -7530,14 +7530,14 @@
             "source": "derived: name and category read from the OpenStreetMap tags of way 479619107 (South Fork Koyukuk River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           },
           {
-            "name": "JIm River",
+            "name": "Jim River",
             "category": "river",
             "kind": "point",
             "at_mi": 31.0,
             "lat": 66.88465,
             "lon": -150.52526,
-            "spoken": "Crossing the JIm River",
-            "source": "derived: name and category read from the OpenStreetMap tags of way 1088245862 (JIm River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+            "spoken": "Crossing the Jim River",
+            "source": "derived: name and category read from the OpenStreetMap tags of way 1088245862 (Jim River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           },
           {
             "name": "Kanuti River",
@@ -7580,15 +7580,6 @@
             "source": "derived: name and category read from the OpenStreetMap tags of way 120854430 (Chatanika River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           },
           {
-            "name": "Steele Creek",
-            "at_mi": 249.2,
-            "off_mi": 1.12,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 13937136041, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Steele Creek"
-          },
-          {
             "name": "Badger",
             "at_mi": 249.3,
             "off_mi": 8.43,
@@ -7596,15 +7587,6 @@
             "kind": "point",
             "source": "OpenStreetMap place=town node 7351401477, projected onto the leg's checked-in route geometry",
             "spoken": "Passing Badger"
-          },
-          {
-            "name": "Farmers Loop",
-            "at_mi": 250.2,
-            "off_mi": 1.47,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 13937136043, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Farmers Loop"
           },
           {
             "name": "Chena Ridge",
@@ -13430,15 +13412,6 @@
             "spoken": "Passing Chena Ridge"
           },
           {
-            "name": "Farmers Loop",
-            "at_mi": 3.7,
-            "off_mi": 1.47,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 13937136043, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Farmers Loop"
-          },
-          {
             "name": "Badger",
             "at_mi": 4.7,
             "off_mi": 8.42,
@@ -13446,15 +13419,6 @@
             "kind": "point",
             "source": "OpenStreetMap place=town node 7351401477, projected onto the leg's checked-in route geometry",
             "spoken": "Passing Badger"
-          },
-          {
-            "name": "Steele Creek",
-            "at_mi": 4.8,
-            "off_mi": 1.12,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 13937136041, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Steele Creek"
           },
           {
             "name": "Chatanika River",
@@ -13497,14 +13461,14 @@
             "source": "derived: name and category read from the OpenStreetMap tags of way 506100216 (Kanuti River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           },
           {
-            "name": "JIm River",
+            "name": "Jim River",
             "category": "river",
             "kind": "point",
             "at_mi": 223.0,
             "lat": 66.88465,
             "lon": -150.52527,
-            "spoken": "Crossing the JIm River",
-            "source": "derived: name and category read from the OpenStreetMap tags of way 1088245862 (JIm River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+            "spoken": "Crossing the Jim River",
+            "source": "derived: name and category read from the OpenStreetMap tags of way 1088245862 (Jim River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           },
           {
             "name": "South Fork Koyukuk River",
@@ -15726,24 +15690,6 @@
             "spoken": "Passing Chena Ridge"
           },
           {
-            "name": "Farmers Loop",
-            "at_mi": 3.8,
-            "off_mi": 1.47,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 13937136043, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Farmers Loop"
-          },
-          {
-            "name": "Steele Creek",
-            "at_mi": 4.8,
-            "off_mi": 1.12,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 13937136041, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Steele Creek"
-          },
-          {
             "name": "Badger",
             "at_mi": 4.8,
             "off_mi": 8.42,
@@ -16111,24 +16057,6 @@
         "checkpoints": [],
         "source": "Paid miles re-set to Parks Highway milepost arithmetic from Anchorage (Parks milepost Fairbanks~MP358 \u2192 Nenana~MP305). Shape (route_points lat/lon) unchanged from prior public Valhalla truck densify; at_mi rescaled to paid 53. Fairbanks pin on Airport Way at about MP 358, 4 mi short of the Parks terminus at MP 362; paid miles match the pin. Prior: Development-time public Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de, loaded-semi options), sampled 2026-09-24. Router reported 56.5 mi; paid miles 57. George Parks Highway (AK-3). Parks Highway Fairbanks to Nenana; ALCAN Phase B2; paid ~57 (public Valhalla truck ~56.5).",
         "landmarks": [
-          {
-            "name": "Farmers Loop",
-            "at_mi": 0.1,
-            "off_mi": 4.02,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 13937136043, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Farmers Loop"
-          },
-          {
-            "name": "Steele Creek",
-            "at_mi": 0.1,
-            "off_mi": 4.89,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 13937136041, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Steele Creek"
-          },
           {
             "name": "Badger",
             "at_mi": 1.4,
@@ -16701,24 +16629,6 @@
             "spoken": "Passing Chena Ridge"
           },
           {
-            "name": "Farmers Loop",
-            "at_mi": 0.1,
-            "off_mi": 4.02,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 13937136043, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Farmers Loop"
-          },
-          {
-            "name": "Steele Creek",
-            "at_mi": 0.1,
-            "off_mi": 4.89,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 13937136041, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Steele Creek"
-          },
-          {
             "name": "Badger",
             "at_mi": 9.9,
             "off_mi": 2.59,
@@ -16919,15 +16829,6 @@
         "source": "Scaffold from city pins, 2026-11-22, replaced by reroute-leg.",
         "landmarks": [
           {
-            "name": "Steele Creek",
-            "at_mi": 21.2,
-            "off_mi": 1.0,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 13937136041, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Steele Creek"
-          },
-          {
             "name": "Badger",
             "at_mi": 22.2,
             "off_mi": 8.43,
@@ -16935,15 +16836,6 @@
             "kind": "point",
             "source": "OpenStreetMap place=town node 7351401477, projected onto the leg's checked-in route geometry",
             "spoken": "Passing Badger"
-          },
-          {
-            "name": "Farmers Loop",
-            "at_mi": 23.2,
-            "off_mi": 1.47,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 13937136043, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Farmers Loop"
           },
           {
             "name": "Chena Ridge",
@@ -27651,24 +27543,6 @@
             "source": "derived: name and category read from the OpenStreetMap tags of way 34107027 (Chena River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           },
           {
-            "name": "Farmers Loop",
-            "at_mi": 55.0,
-            "off_mi": 4.05,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 13937136043, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Farmers Loop"
-          },
-          {
-            "name": "Steele Creek",
-            "at_mi": 55.0,
-            "off_mi": 4.96,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 13937136041, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Steele Creek"
-          },
-          {
             "name": "Badger",
             "at_mi": 55.0,
             "off_mi": 9.33,
@@ -29399,15 +29273,6 @@
             "spoken": "Passing Badger"
           },
           {
-            "name": "Steele Creek",
-            "at_mi": 13.5,
-            "off_mi": 4.91,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 13937136041, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Steele Creek"
-          },
-          {
             "name": "Chena Ridge",
             "at_mi": 13.9,
             "off_mi": 5.3,
@@ -29415,15 +29280,6 @@
             "kind": "point",
             "source": "OpenStreetMap place=village node 13937136042, projected onto the leg's checked-in route geometry",
             "spoken": "Passing Chena Ridge"
-          },
-          {
-            "name": "Farmers Loop",
-            "at_mi": 14.0,
-            "off_mi": 4.05,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 13937136043, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Farmers Loop"
           }
         ],
         "interchanges": [],

@@ -11013,6 +11013,22 @@ msgstr "parking"
 msgid "Loyalty points: {f}."
 msgstr "Punkty lojalnościowe: {f}."
 
+#. placeholders: {f}, {volume}, {shower_credits}
+msgid ""
+"Loyalty points: {f}. Total fueled: {volume}. Shower credits available: "
+"{shower_credits}."
+msgstr ""
+
+#. placeholders: {shower_credits}
+#. one sentence of a longer line
+msgid "Shower credits available: {shower_credits}."
+msgstr "Dostępne kupony na prysznic: {shower_credits}."
+
+#. placeholders: {volume}
+#. one sentence of a longer line
+msgid "Total fueled: {volume}."
+msgstr ""
+
 #. placeholders: {f}, {f2}, {shower_credits}
 msgid ""
 "Loyalty points: {f}. Total gallons fueled: {f2}. Shower credits available: "
@@ -11020,11 +11036,6 @@ msgid ""
 msgstr ""
 "Punkty lojalnościowe: {f}. Łącznie zatankowane galony: {f2}. Dostępne "
 "kupony na prysznic: {shower_credits}."
-
-#. placeholders: {shower_credits}
-#. one sentence of a longer line
-msgid "Shower credits available: {shower_credits}."
-msgstr "Dostępne kupony na prysznic: {shower_credits}."
 
 #. placeholders: {f2}
 #. one sentence of a longer line

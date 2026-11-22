@@ -20,7 +20,7 @@ use crate::pyfmt::round_py_n;
 
 use super::board::{reachable_cities, Candidate, JobBoard, OfferOptions};
 use super::deadline::{required_hours, route_drive_hours};
-use super::{Job, ASSIGNED_REPOSITION_PAY_FRACTION, MIN_JOB_DISTANCE_MI};
+use super::{make_reposition_job, Job, ASSIGNED_REPOSITION_PAY_FRACTION, MIN_JOB_DISTANCE_MI};
 
 /// Fewer loads than this that the driver can actually take, and the board
 /// is thin. Three is the smallest board that still reads as a choice.
@@ -270,6 +270,62 @@ pub fn relay_load(
     // count the deadhead.
     relay.job.pay = round_py_n(relay.job.pay + relay.deadhead_pay, 2);
     Some(relay)
+}
+
+/// The carrier's answer to a board with nothing on it: when the driver's
+/// city has no load and no relay, dispatch sends the truck empty to the
+/// nearest city whose own board has a load this driver can take, as a
+/// carrier-assigned reposition paid at the empty-mile rate. A town that
+/// receives freight but ships none (the Alaska Highway towns before a
+/// shipper is surveyed) would otherwise leave a company driver parked for
+/// good. Nearest by road; the destination's board is drawn the way a relay
+/// town's is, so it respects the carrier's lanes and cabotage. None only
+/// when no reachable city has a load for the driver.
+pub fn fallback_reposition(
+    world: &World,
+    request: &RelayRequest<'_>,
+    nearby: &[Candidate],
+) -> Option<Job> {
+    let here = world.resolve_city_key(request.here);
+    let ships = |key: &str| {
+        world.city(key).is_ok_and(|city| {
+            city.locations
+                .iter()
+                .any(|loc| !JobBoard::cargo_for_location(loc, "ships", None).is_empty())
+        })
+    };
+    let mut towns: Vec<&Candidate> = nearby
+        .iter()
+        .filter(|(city, miles, _)| *city != here && *miles > 0.0)
+        .collect();
+    towns.sort_by(|a, b| a.1.total_cmp(&b.1));
+    for (city, _, _) in towns {
+        if !ships(city) {
+            continue;
+        }
+        let seed = request.seed ^ i64::from(crc32(city.as_bytes()));
+        let mut board = JobBoard::new(world, Some(seed), None);
+        board.standard_only = true;
+        let has_load = board
+            .offers(
+                city,
+                request.endorsements,
+                OfferOptions {
+                    count: THIN_BOARD_LOADS,
+                    level: request.level,
+                    market: request.market,
+                    carrier_key: request.carrier_key,
+                    direct_freight: request.direct_freight,
+                    came_from: None,
+                },
+            )
+            .iter()
+            .any(|job| usable(job, request.endorsements));
+        if has_load {
+            return make_reposition_job(world, &here, city, true, request.carrier_key);
+        }
+    }
+    None
 }
 
 #[cfg(test)]

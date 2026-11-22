@@ -87,10 +87,10 @@ pub(super) fn sleep_preview(d: &DrivingState, ctx: &GameContext, choice: SleepCh
         }
     };
     let wake_hour = d.trip.local_hour() + minutes / 60.0;
-    let legal = match hos::limits(&ctx.settings.hos_mode) {
-        Some((drive_limit, duty_limit, _)) => {
-            let drive_left = (drive_limit - after.driving_min).max(0.0) / 60.0;
-            let duty_left = (duty_limit - after.duty_min).max(0.0) / 60.0;
+    let legal = match after.drive_and_window_left_min(&ctx.settings.hos_mode) {
+        Some((drive_left, duty_left)) => {
+            let drive_left = drive_left / 60.0;
+            let duty_left = duty_left / 60.0;
             if duty_left <= 0.0 {
                 format!(
                     "Afterward, driving allowance is {} hours, but your legal driving window is closed.",

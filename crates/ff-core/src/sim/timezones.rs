@@ -1,4 +1,4 @@
-//! United States time zones and the local wall clock.
+//! North American time zones and the local wall clock.
 //!
 //! The career clock (`profile.game_hours`) and the trip clock
 //! (`Trip.current_hour`) are a single absolute timeline defined as Eastern
@@ -105,6 +105,8 @@ fn state_zone(state: &str) -> Option<TimeZone> {
         // Yellowknife); the road in comes from Alberta on the same clock.
         "Northwest Territories" | "NT" => MOUNTAIN,
         "Saskatchewan" | "SK" | "Manitoba" | "MB" => CENTRAL,
+        // Yukon keeps UTC-7 all year (since November 2020): plain Mountain.
+        "Yukon" | "YT" => MOUNTAIN,
         // Quebec west of the Lower North Shore, which is all the map reaches.
         "Quebec" | "QC" => EASTERN,
         _ => return None,
@@ -419,6 +421,32 @@ mod tests {
             ("Coeur d'Alene", 47.68, -116.78, "Idaho", PACIFIC),
             ("Portland", 45.52, -122.68, "Oregon", PACIFIC),
             ("Ontario", 44.03, -116.96, "Oregon", MOUNTAIN),
+        ];
+        for (place, lat, lon, state, expected) in cases {
+            assert_eq!(zone_for(lat, lon, state), expected, "{place}");
+        }
+    }
+
+    #[test]
+    fn canadian_towns_keep_their_own_clocks() {
+        let cases = [
+            ("Surrey", 49.18, -122.73, "British Columbia", PACIFIC),
+            ("Prince George", 53.87, -122.74, "British Columbia", PACIFIC),
+            ("Dawson Creek", 55.76, -120.23, "British Columbia", MOUNTAIN),
+            (
+                "Fort St. John",
+                56.24,
+                -120.81,
+                "British Columbia",
+                MOUNTAIN,
+            ),
+            ("Fort Nelson", 58.80, -122.70, "British Columbia", MOUNTAIN),
+            ("Lower Post", 59.93, -128.50, "British Columbia", PACIFIC),
+            ("Watson Lake", 60.06, -128.71, "Yukon", MOUNTAIN),
+            ("Whitehorse", 60.72, -135.05, "Yukon", MOUNTAIN),
+            ("Calgary", 51.05, -114.07, "Alberta", MOUNTAIN),
+            ("Regina", 50.45, -104.62, "Saskatchewan", CENTRAL),
+            ("Winnipeg", 49.90, -97.14, "Manitoba", CENTRAL),
         ];
         for (place, lat, lon, state, expected) in cases {
             assert_eq!(zone_for(lat, lon, state), expected, "{place}");

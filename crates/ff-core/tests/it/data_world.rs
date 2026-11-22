@@ -2232,8 +2232,11 @@ fn test_alcan_public_lots_use_travel_center_or_truck_parking() {
         "Tok stand-in must keep a single curated lot, got {}",
         tok.locations.len()
     );
+    // Surrey keeps its truck lot beside its two real freight sites (the
+    // Fraser Surrey container terminal and a Costco), and no stamped ones.
     let surrey = world.city("surrey_bc_ca").expect("surrey");
-    assert_eq!(surrey.locations.len(), 1);
+    assert_eq!(surrey.locations.len(), 3);
+    assert!(!surrey.locations.iter().any(|l| l.template));
 }
 
 #[test]
@@ -2852,12 +2855,6 @@ fn test_fairbanks_has_curated_freight_job_endpoints() {
         "tok_ak_us",
         "glennallen_ak_us",
         "blaine_wa_us",
-        "dawson_creek_bc_ca",
-        "fort_st_john_bc_ca",
-        "fort_nelson_bc_ca",
-        "watson_lake_yt_ca",
-        "whitehorse_yt_ca",
-        "prince_george_bc_ca",
     ] {
         let city = world
             .city(city_key)
@@ -2868,6 +2865,35 @@ fn test_fairbanks_has_curated_freight_job_endpoints() {
                 .all(|loc| loc.ships.is_empty() && loc.receives.is_empty()),
             "{city_key} must stay empty of freight roles"
         );
+    }
+    // The Canadian towns opened to loads across the border receive at
+    // their real, sourced sites and stamp nothing invented.
+    for city_key in [
+        "surrey_bc_ca",
+        "prince_george_bc_ca",
+        "dawson_creek_bc_ca",
+        "fort_st_john_bc_ca",
+        "fort_nelson_bc_ca",
+        "watson_lake_yt_ca",
+        "whitehorse_yt_ca",
+    ] {
+        let city = world
+            .city(city_key)
+            .unwrap_or_else(|_| panic!("{city_key}"));
+        assert!(!city.locations.iter().any(|l| l.template), "{city_key}");
+        let receivers: Vec<_> = city
+            .locations
+            .iter()
+            .filter(|l| !l.receives.is_empty())
+            .collect();
+        assert!(!receivers.is_empty(), "{city_key} receives nothing");
+        for loc in receivers {
+            assert!(
+                loc.lat != 0.0 && !loc.source_note.is_empty(),
+                "{city_key} {} needs a pin and a source",
+                loc.name
+            );
+        }
     }
 }
 
