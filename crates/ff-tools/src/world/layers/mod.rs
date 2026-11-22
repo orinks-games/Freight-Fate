@@ -28,6 +28,7 @@
 //! until `--write`, which saves the world source and runs `index-world`;
 //! re-bake `world.ffdata` afterwards.
 
+pub mod border;
 pub mod exit_routes;
 pub mod features;
 pub mod hpms;

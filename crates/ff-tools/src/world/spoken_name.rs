@@ -61,15 +61,45 @@ pub fn latin_only(raw: &str) -> String {
 pub fn spoken_name(name: &str, name_en: Option<&str>) -> String {
     let name = name.trim();
     if name.chars().all(is_readable) {
-        return name.to_string();
+        return stray_capitals_fixed(name);
     }
     if let Some(en) = name_en.map(str::trim).filter(|n| !n.is_empty()) {
         let en = latin_only(en);
         if !en.is_empty() {
-            return en;
+            return stray_capitals_fixed(&en);
         }
     }
-    latin_only(name)
+    stray_capitals_fixed(&latin_only(name))
+}
+
+/// Words that are spelled with two capitals on purpose.
+const TWO_CAPITAL_WORDS: &[&str] = &["ONroute"];
+
+/// `name` with a mapper's slipped shift key undone: a word of two capitals
+/// and then only lower case ("JIm River", "PIcnic Area") keeps its first
+/// capital alone. A voice reads "JIm" letter by letter. Brand spellings in
+/// [`TWO_CAPITAL_WORDS`] stay.
+pub fn stray_capitals_fixed(name: &str) -> String {
+    name.split(' ')
+        .map(|word| {
+            let chars: Vec<char> = word.chars().collect();
+            let slipped = chars.len() >= 3
+                && chars[0].is_uppercase()
+                && chars[1].is_uppercase()
+                && chars[2..].iter().all(|c| c.is_lowercase())
+                && !TWO_CAPITAL_WORDS.contains(&word);
+            if slipped {
+                let mut out = String::new();
+                out.push(chars[0]);
+                out.extend(chars[1].to_lowercase());
+                out.extend(&chars[2..]);
+                out
+            } else {
+                word.to_string()
+            }
+        })
+        .collect::<Vec<_>>()
+        .join(" ")
 }
 
 #[cfg(test)]
@@ -117,6 +147,21 @@ mod tests {
         assert_eq!(spoken_name("ᒪᐢᑿᒌᐢ", Some("Maskwacis")), "Maskwacis");
         assert_eq!(spoken_name("Maskwacis", Some("  ")), "Maskwacis");
         assert_eq!(spoken_name("ᒪᐢᑿᒌᐢ Maskwacis", None), "Maskwacis");
+    }
+
+    #[test]
+    fn a_slipped_capital_is_undone_and_a_brand_kept() {
+        assert_eq!(stray_capitals_fixed("JIm River"), "Jim River");
+        assert_eq!(stray_capitals_fixed("PIcnic Area"), "Picnic Area");
+        assert_eq!(
+            stray_capitals_fixed("ONroute Tilbury North"),
+            "ONroute Tilbury North"
+        );
+        assert_eq!(
+            stray_capitals_fixed("US 2 and BC Hwy 3"),
+            "US 2 and BC Hwy 3"
+        );
+        assert_eq!(spoken_name("JIm River", None), "Jim River");
     }
 
     #[test]

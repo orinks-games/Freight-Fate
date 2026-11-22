@@ -101,6 +101,9 @@
 - **Place names written partly in Cree syllabics now say only the English part,** such as Pasqua First Nation.
 - **Crossing into Canada or the United States now puts that country's speed limit in force at the line.** North of Coutts the truck no longer keeps Montana's 70.
 - **Mountain passes are now named only where the road goes over them.** Trail passes beside the highway, such as Saddleback Pass near Lake Louise, stay quiet.
+- **Alt 3 no longer names a town across the border as the nearest town,** such as Youngstown, New York from the Queen Elizabeth Way.
+- **The drive into Fairbanks no longer names Steele Creek and Farmers Loop as towns.** They are parts of Fairbanks.
+- **Town names no longer carry a reserve number or a stray capital,** so Okanagan 1 is Okanagan and JIm River is Jim River.
 - **Toll booths in Canada now say the Canadian price,** such as 35 Canadian dollars at the Blue Water Bridge. The carrier is still billed in US dollars.
 - **Cruise no longer sets a speed over the limit for an exit.** On a slow road before a ramp, it now holds the posted limit, so no speeding warning plays.
 - **A stop with only fuel pumps no longer offers a motel room or a night in the lot.**
