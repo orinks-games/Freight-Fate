@@ -106,6 +106,7 @@
 - **A reefer box left off on the road now warms at the same rate as at a stop.** It had been warming ten times slower while driving.
 - **Sleeping with cattle aboard now warns when they would pass the 28-hour limit,** and the hours readouts stop naming a 30-minute break that cannot come due.
 - **A refused reverse with doubles no longer plays the gear-shift sound,** and the doubles hook-up time is spoken once at the shipper and once at the receiver.
+- **A team load's deadline is now always too short for one driver with a 10-hour sleep,** at any urgency.
 
 ## 1.9.7 - 2026-11-21
 
