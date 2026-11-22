@@ -46,6 +46,7 @@
 - **Diesel in Alberta, Saskatchewan, Manitoba, Ontario and Quebec now costs what it does there.**
 - **The map now reaches Ontario and Quebec,** from Windsor and Sarnia through Toronto, Ottawa and Montreal to Quebec City, with seven border crossings.
 - **The Gordie Howe, Blue Water, Lewiston-Queenston and Thousand Islands bridges charge their published truck tolls.**
+- **The map now joins Winnipeg to Thunder Bay, Sault Ste. Marie, Timmins and North Bay** on Highways 17 and 11, with crossings at Pigeon River and the Sault Ste. Marie International Bridge, which charges its truck toll.
 - **A route between two US cities stays in the United States when a US road exists.** Alaska routes still run through Canada.
 - **Alaska roads now reach the Kenai Peninsula, Valdez and Deadhorse.** Seward, Valdez and Kenai offer only their real freight sites, and Deadhorse sells diesel.
 - **The map now reaches Skagway, Haines, North Pole, Nikiski, Port MacKenzie and the Fort Knox mine.** Skagway and Haines cross into the Yukon, with fuel at Haines Junction.
@@ -90,6 +91,7 @@
 
 - **Exits in Ontario and Quebec now name the road they lead to,** such as Route 255 or Highway 8, with directions in English.
 - **Canadian highways are now given the direction they run,** so Highway 400 to Barrie is north and the 401 to Kingston is east.
+- **A Canadian road with no speed sign on the map now takes the province's default limit,** such as 80 kilometers per hour in Ontario, instead of an American figure like 97.
 - **Toll lines no longer say the word toll twice,** as in toll at Gordie Howe International Bridge toll.
 - **Place names written partly in Cree syllabics now say only the English part,** such as Pasqua First Nation.
 - **Crossing into Canada or the United States now puts that country's speed limit in force at the line.** North of Coutts the truck no longer keeps Montana's 70.
