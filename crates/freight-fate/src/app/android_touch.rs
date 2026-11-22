@@ -1,10 +1,9 @@
 //! Android's touch surface: SDL's finger events through the gesture
 //! recognizer, into the same [`TouchInput`] the iOS gestures feed.
 //!
-//! iOS recognizes gestures natively (`ios/ff_touch.m`); Android has no
-//! UIKit, so SDL hands over each finger's raw events and
-//! [`Recognizer`](crate::touch::recognizer::Recognizer) applies the iOS
-//! rules to them. Positions are converted from pixels to points with the
+//! Android has no UIKit, so SDL hands over each finger's raw events and
+//! [`Recognizer`](ff_core::touch::recognizer::Recognizer), the one the
+//! iPhone uses with New gesture reading on, applies the iOS rules to them. Positions are converted from pixels to points with the
 //! screen's density (a point is 1/160 of an inch, the size of an Android
 //! dp), so the settings' thresholds mean the same distance on both phones.
 //! Each gesture gets the iOS haptic: a tick for a step, a bump for a hold
@@ -19,7 +18,7 @@ use sdl2::keyboard::Keycode;
 
 use crate::states::base::InputEvent;
 use crate::touch::recognizer::{Recognizer, Tuning};
-use crate::touch::{Gesture, TouchInput};
+use crate::touch::{fingers, Gesture, TouchInput};
 
 /// Haptics on or off, from the Touch gestures settings.
 static HAPTICS: AtomicBool = AtomicBool::new(true);
@@ -31,13 +30,7 @@ pub(crate) fn set_haptics(enabled: bool) {
 }
 
 pub(crate) fn set_tuning(settings: &ff_core::settings::Settings) {
-    let tuning = Tuning::new(
-        settings.touch_flick_points,
-        settings.touch_flick_ms,
-        settings.touch_deep_swipe_factor,
-        settings.touch_still_hold_ms,
-        settings.touch_rotate_degrees,
-    );
+    let tuning = fingers::tuning(settings);
     *TUNING.lock().unwrap_or_else(|e| e.into_inner()) = Some(tuning);
 }
 
@@ -140,8 +133,8 @@ impl AndroidTouch {
         gestures.extend(self.recognizer.drain());
         for gesture in gestures {
             if HAPTICS.load(Ordering::Relaxed) {
-                if let Some(kind) = haptic_kind(gesture) {
-                    crate::android::haptic(kind);
+                if let Some(haptic) = gesture.haptic() {
+                    crate::android::haptic(haptic.code());
                 }
             }
             events.extend(touch.handle(gesture).events);
@@ -176,28 +169,4 @@ impl AndroidTouch {
 
 fn seconds(ms: u32) -> f64 {
     f64::from(ms) / 1000.0
-}
-
-/// The haptic each gesture gets, as `ios/ff_touch.m` assigns them:
-/// 0 a bump (a hold starting or ending), 1 a tick (one step), 2 a warning
-/// (the deep swipe), 3 a success (the engine key).
-fn haptic_kind(gesture: Gesture) -> Option<i32> {
-    Some(match gesture {
-        Gesture::KeyboardConnected | Gesture::KeyboardDisconnected | Gesture::Travel(_) => {
-            return None
-        }
-        Gesture::HoldUpperBegan
-        | Gesture::HoldLowerBegan
-        | Gesture::HoldLeftBegan
-        | Gesture::HoldRightBegan
-        | Gesture::StillHoldBegan
-        | Gesture::HornHoldBegan
-        | Gesture::SecondSteerLeftBegan
-        | Gesture::SecondSteerRightBegan
-        | Gesture::SecondSteerEnded
-        | Gesture::HoldEnded => 0,
-        Gesture::DeepSwipeDownBegan | Gesture::EmergencyBrakeHoldBegan => 2,
-        Gesture::RotateRight | Gesture::RotateLeft => 3,
-        _ => 1,
-    })
 }

@@ -43,6 +43,7 @@ pub mod sound_catalog;
 pub mod speech_pacing;
 pub mod speech_text;
 pub mod spoken_advice;
+pub mod touch;
 pub mod touch_mode;
 pub mod units;
 pub mod wav;
