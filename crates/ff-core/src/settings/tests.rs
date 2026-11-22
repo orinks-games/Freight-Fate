@@ -19,6 +19,7 @@ use serde_json::{json, Map, Value};
 use super::paths::ENV_LOCK;
 use super::*;
 use crate::speech_pacing::{Disposition, SpeechCategory};
+use crate::units::{UnitsEvent, UnitsMode};
 
 /// `isolated_data_dir`: run `body` with settings pointed at a fresh tempdir.
 ///
@@ -53,14 +54,87 @@ fn from_json(value: Value) -> Settings {
 
 fn metric() -> Settings {
     let mut s = Settings::default();
-    s.imperial_units = false;
+    s.set_units_mode(UnitsMode::Metric);
     s
 }
 
 fn imperial() -> Settings {
     let mut s = Settings::default();
-    s.imperial_units = true;
+    s.set_units_mode(UnitsMode::Imperial);
     s
+}
+
+#[test]
+fn a_new_install_is_automatic() {
+    assert_eq!(Settings::default().units_mode(), UnitsMode::Automatic);
+    assert_eq!(from_json(json!({})).units_mode(), UnitsMode::Automatic);
+    assert_eq!(Settings::from_dict(None).units_mode(), UnitsMode::Automatic);
+}
+
+#[test]
+fn a_1_9_settings_file_keeps_what_its_units_meant() {
+    // True was 1.9's default and becomes Automatic; false was a choice.
+    assert_eq!(
+        from_json(json!({"imperial_units": true})).units_mode(),
+        UnitsMode::Automatic
+    );
+    assert_eq!(
+        from_json(json!({"imperial_units": false})).units_mode(),
+        UnitsMode::Metric
+    );
+    // A 2.0 file's own row wins over the key it writes for 1.9.
+    assert_eq!(
+        from_json(json!({"units": "imperial", "imperial_units": true})).units_mode(),
+        UnitsMode::Imperial
+    );
+    assert_eq!(
+        from_json(json!({"units": "furlongs"})).units_mode(),
+        UnitsMode::Automatic
+    );
+}
+
+#[test]
+fn a_2_0_file_still_tells_1_9_its_units() {
+    for (mode, legacy) in [
+        (UnitsMode::Automatic, true),
+        (UnitsMode::Imperial, true),
+        (UnitsMode::Metric, false),
+    ] {
+        let mut s = Settings::default();
+        s.set_units_mode(mode);
+        let stored: Value = serde_json::from_str(&s.to_file_text()).unwrap();
+        assert_eq!(stored["units"], mode.key());
+        assert_eq!(stored["imperial_units"], legacy);
+        assert_eq!(from_json(stored).units_mode(), mode);
+    }
+}
+
+#[test]
+fn automatic_readouts_follow_the_country() {
+    let mut s = Settings::default();
+    assert_eq!(s.speed_text(62.137), "62 miles per hour");
+    assert_eq!(s.move_units(UnitsEvent::ScreenAt("CA".into())), None);
+    assert_eq!(s.speed_text(62.137), "100 kilometers per hour");
+    assert_eq!(s.volume_text(10.0), "38 liters");
+    assert_eq!(
+        s.move_units(UnitsEvent::TruckIn("US".into())),
+        Some(crate::units::INTO_MILES_LINE)
+    );
+    assert_eq!(s.volume_text(10.0), "10 gallons");
+    let mut held = imperial();
+    held.move_units(UnitsEvent::TruckIn("CA".into()));
+    assert_eq!(held.speed_text(62.137), "62 miles per hour");
+}
+
+#[test]
+fn set_field_accepts_the_1_9_key_and_an_unknown_mode_falls_back() {
+    let mut s = Settings::default();
+    assert!(s.set_field("imperial_units", &json!(false)));
+    assert_eq!(s.units_mode(), UnitsMode::Metric);
+    assert!(s.set_field("units", &json!("imperial")));
+    assert_eq!(s.units_mode(), UnitsMode::Imperial);
+    assert!(s.set_field("units", &json!("leagues")));
+    assert_eq!(s.units, "automatic");
 }
 
 #[test]
@@ -123,7 +197,7 @@ fn the_defaults_match_the_python_dataclass() {
     let s = Settings::default();
     let expected: Value = serde_json::from_str(
         r#"{
-        "online_services": true, "imperial_units": true, "engine_voice": "real",
+        "online_services": true, "units": "automatic", "engine_voice": "real",
         "jake_voice": "real", "acc_following_gap": "normal", "automatic_transmission": true,
         "automatic_jake": true,
         "automatic_direction_changes": "simple", "time_scale": 10.0,
@@ -232,7 +306,7 @@ fn facility_streets_default_on_and_round_trip_as_a_boolean() {
 fn the_file_text_is_what_json_dump_wrote() {
     let s = Settings::default();
     let text = s.to_file_text();
-    assert!(text.starts_with("{\n  \"online_services\": true,\n  \"imperial_units\": true,\n"));
+    assert!(text.starts_with("{\n  \"online_services\": true,\n  \"units\": \"automatic\",\n"));
     assert!(text.ends_with(
         "  \"pad_bindings\": \"\",\n  \"touch_bindings\": \"\",\n  \"touch_haptics\": true,\n  \"touch_practice_offered\": false,\n  \
          \"touch_flick_points\": 30.0,\n  \"touch_flick_ms\": 150.0,\n  \
@@ -240,7 +314,7 @@ fn the_file_text_is_what_json_dump_wrote() {
          \"touch_rotate_degrees\": 30.0,\n  \"touch_parking_brake_mph\": 1.0,\n  \
          \"steering_guide_inverted\": false,\n  \"assist_preset_chosen\": false,\n  \"facility_streets\": true,\n  \"language\": \"auto\",\n  \
          \"visual_display\": true,\n  \"achievement_sort\": \"earned\",\n  \"driving_hints\": true,\n  \
-         \"crash_report_offer\": true,\n  \"left_bumper_layer\": false,\n  \"steering_assist\": \"off\"\n}"
+         \"crash_report_offer\": true,\n  \"left_bumper_layer\": false,\n  \"steering_assist\": \"off\",\n  \"imperial_units\": true\n}"
     ));
     assert!(text.contains("\n  \"time_scale\": 10.0,\n"));
     assert!(text.contains("\n  \"radio_volume\": 0.25,\n"));
@@ -297,7 +371,7 @@ fn unknown_keys_are_ignored_and_wrong_shapes_take_the_python_fallbacks() {
         "controller_enabled": 1,
         "cloud_saves": "true",
     }));
-    assert!(!s.imperial_units); // truthiness of 0
+    assert_eq!(s.units_mode(), UnitsMode::Metric); // truthiness of 0
     assert!(s.online_services); // truthiness of "yes"
     assert_eq!(s.engine_voice, "real");
     assert_eq!(s.hos_mode, "realistic");
@@ -385,9 +459,9 @@ fn settings_layout_notice_keeps_the_oldest_owed_version() {
 #[test]
 fn set_field_and_field_value_round_trip_by_name() {
     let mut s = Settings::default();
-    assert!(s.set_field("imperial_units", &json!(false)));
-    assert!(!s.imperial_units);
-    assert_eq!(s.field_value("imperial_units"), Some(json!(false)));
+    assert!(s.set_field("units", &json!("metric")));
+    assert_eq!(s.units_mode(), UnitsMode::Metric);
+    assert_eq!(s.field_value("units"), Some(json!("metric")));
     assert!(!s.set_field("speech_verbosity", &json!(0)));
     assert_eq!(s.field_value("speech_verbosity"), None);
 }
@@ -960,7 +1034,7 @@ fn speed_value_short_distance_and_gap_follow_the_unit() {
 fn test_settings_roundtrip() {
     with_data_dir(|_| {
         let mut s = Settings::default();
-        s.imperial_units = false;
+        s.set_units_mode(UnitsMode::Metric);
         s.music_volume = 0.3;
         s.radio_volume = 0.2;
         s.radio_enabled = false;
@@ -972,7 +1046,7 @@ fn test_settings_roundtrip() {
         s.sapi_events = false;
         s.save().unwrap();
         let loaded = Settings::load();
-        assert!(!loaded.imperial_units);
+        assert_eq!(loaded.units_mode(), UnitsMode::Metric);
         assert_eq!(loaded.music_volume, 0.3);
         assert_eq!(loaded.radio_volume, 0.2);
         assert!(!loaded.radio_enabled);
@@ -1101,7 +1175,7 @@ fn test_settings_survive_corrupt_file() {
         s.save().unwrap();
         std::fs::write(Settings::path(), "{not json").unwrap();
         let loaded = Settings::load();
-        assert!(loaded.imperial_units); // defaults
+        assert_eq!(loaded.units_mode(), UnitsMode::Automatic); // defaults
     });
 }
 
@@ -1109,7 +1183,7 @@ fn test_settings_survive_corrupt_file() {
 fn test_unit_formatting() {
     let mut s = Settings::default();
     assert!(s.speed_text(60.0).contains("miles per hour"));
-    s.imperial_units = false;
+    s.set_units_mode(UnitsMode::Metric);
     assert_eq!(s.speed_text(60.0), "97 kilometers per hour");
 }
 

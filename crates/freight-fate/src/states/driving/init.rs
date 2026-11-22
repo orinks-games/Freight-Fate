@@ -229,7 +229,7 @@ impl DrivingState {
                 time_scale: ctx.settings.time_scale,
                 seed: Some(trip_seed),
                 start_hour: trip_start_hour,
-                imperial: ctx.settings.imperial_units,
+                imperial: ctx.settings.imperial(),
                 hazard_scale,
                 career_hours: Some(profile_of(ctx).game_hours),
                 calendar_shift_h,
@@ -243,6 +243,12 @@ impl DrivingState {
                 ..Default::default()
             },
         );
+        // The drive starts in the units of the place it leaves, silently:
+        // the city screen already spoke in them.
+        let start_country = trip.country_at(0.0);
+        ctx.settings
+            .move_units(ff_core::units::UnitsEvent::ScreenAt(start_country));
+        trip.set_imperial(ctx.settings.imperial());
         // How often a trooper pulls this driver in for a routine inspection
         // rides the safety record from the first mile.
         {
@@ -436,6 +442,8 @@ impl DrivingState {
             hos_plan_hint_pending: None,
             hos_jurisdiction_initialized: false,
             enforcement_events: HashSet::new(),
+            units_due_mi: None,
+            units_hold_mi: 0.0,
             pending_border_clearance: None,
             out_of_service_count: 0,
             alertness: Alertness::Rested,

@@ -678,24 +678,37 @@ impl PickupFacilityState {
                 "Hooking the loaded trailer",
                 // The doubles time was said at check-in and stays on the
                 // screen; the hook-up does not say it again.
-                format!(
-                    "Dropping your empty at {facility} and hooking {}, loaded with {} tons \
-                     of {}.",
-                    plan.trailer
-                        .as_ref()
-                        .map(|t| t.spoken_name())
-                        .unwrap_or_default(),
-                    fmt_f(self.job.weight_tons, 0),
-                    self.job.spoken_cargo_label(),
-                ),
+                if ctx.settings.imperial() {
+                    format!(
+                        "Dropping your empty at {facility} and hooking {}, loaded with {} tons \
+                         of {}.",
+                        plan.trailer
+                            .as_ref()
+                            .map(|t| t.spoken_name())
+                            .unwrap_or_default(),
+                        fmt_f(self.job.weight_tons, 0),
+                        self.job.spoken_cargo_label(),
+                    )
+                } else {
+                    format!(
+                        "Dropping your empty at {facility} and hooking {}, loaded with {} \
+                         of {}.",
+                        plan.trailer
+                            .as_ref()
+                            .map(|t| t.spoken_name())
+                            .unwrap_or_default(),
+                        ctx.settings.tons_text(self.job.weight_tons),
+                        self.job.spoken_cargo_label(),
+                    )
+                },
                 "Dropping and hooking.",
             )
         } else {
             (
                 "Loading cargo",
                 format!(
-                    "Loading {} tons of {} at {facility}.",
-                    fmt_f(self.job.weight_tons, 0),
+                    "Loading {} of {} at {facility}.",
+                    ctx.settings.tons_text(self.job.weight_tons),
                     self.job.spoken_cargo_label(),
                 ),
                 "Loading cargo.",
@@ -1032,26 +1045,47 @@ impl PickupFacilityState {
         } else {
             "Engine off"
         };
-        let text = format!(
-            "Pickup {}: {state}. {} tons of {} for {}. {}. {engine}. Air {} psi, \
-             {brake}.{}",
-            self.facility(),
-            fmt_f(self.job.weight_tons, 0),
-            self.job.spoken_cargo_label(),
-            self.job.destination_facility_text(),
-            ctx.settings.speed_text(self.truck.speed_mph()),
-            fmt_f(self.truck.air_pressure_psi(), 0),
-            self.speed_control_pause_text(ctx)
-        );
+        let text = if ctx.settings.imperial() {
+            format!(
+                "Pickup {}: {state}. {} tons of {} for {}. {}. {engine}. Air {} psi, \
+                 {brake}.{}",
+                self.facility(),
+                fmt_f(self.job.weight_tons, 0),
+                self.job.spoken_cargo_label(),
+                self.job.destination_facility_text(),
+                ctx.settings.speed_text(self.truck.speed_mph()),
+                fmt_f(self.truck.air_pressure_psi(), 0),
+                self.speed_control_pause_text(ctx)
+            )
+        } else {
+            format!(
+                "Pickup {}: {state}. {} of {} for {}. {}. {engine}. Air {} psi, \
+                 {brake}.{}",
+                self.facility(),
+                ctx.settings.tons_text(self.job.weight_tons),
+                self.job.spoken_cargo_label(),
+                self.job.destination_facility_text(),
+                ctx.settings.speed_text(self.truck.speed_mph()),
+                fmt_f(self.truck.air_pressure_psi(), 0),
+                self.speed_control_pause_text(ctx)
+            )
+        };
         // The idling bill lives here rather than on the loaded line, where
         // it was trivia spoken over the next instruction (owner, 2026-11-04).
         // Rounded to a tenth, so the smallest number spoken is one worth
         // hearing rather than "0.0 gallons".
         let idle = if round_py_n(self.idle_gallons, 1) > 0.0 {
-            format!(
-                " Idling here burned {} gallons.",
-                fmt_f(self.idle_gallons, 1)
-            )
+            if ctx.settings.imperial() {
+                format!(
+                    " Idling here burned {} gallons.",
+                    fmt_f(self.idle_gallons, 1)
+                )
+            } else {
+                format!(
+                    " Idling here burned {} liters.",
+                    fmt_f(self.idle_gallons / ctx.settings.per_volume(1.0), 1)
+                )
+            }
         } else {
             String::new()
         };
@@ -1173,7 +1207,7 @@ impl Menu for PickupFacilityState {
         let lead = if self.loaded {
             let destination = self.job.spoken_destination();
             let mut lead = self
-                .cattle_loaded_line()
+                .cattle_loaded_line(ctx.settings.imperial())
                 .unwrap_or_else(|| format!("Loaded and sealed for {destination}."));
             if self.just_loaded {
                 let minutes = fmt_f(plan.minutes, 0);
@@ -1337,8 +1371,8 @@ impl Menu for PickupFacilityState {
             self.menu.title.clone(),
             format!("Facility: {}", self.facility()),
             format!(
-                "Cargo: {} tons of {}",
-                fmt_f(self.job.weight_tons, 0),
+                "Cargo: {} of {}",
+                ctx.settings.tons_text(self.job.weight_tons),
                 self.job.spoken_cargo_label()
             ),
             format!("Destination: {}", self.job.spoken_destination()),

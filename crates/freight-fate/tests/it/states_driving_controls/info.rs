@@ -47,7 +47,7 @@ fn test_speed_key_includes_speed_keeper_target_when_active() {
 #[test]
 fn test_weather_key_reads_safe_speed_in_metric_units() {
     let mut app = TestApp::new();
-    app.ctx.settings.imperial_units = false;
+    app.ctx.settings.set_units_mode(ff_core::units::UnitsMode::Metric);
     let mut d = a_drive(&mut app);
     d.trip.weather.current = WeatherKind::Rain;
     app.clear_speech();
@@ -75,7 +75,7 @@ fn test_speed_limit_key_reports_how_far_over_you_are() {
 #[test]
 fn test_metric_speed_limit_key_reports_overage_in_metric_units() {
     let mut app = TestApp::new();
-    app.ctx.settings.imperial_units = false;
+    app.ctx.settings.set_units_mode(ff_core::units::UnitsMode::Metric);
     let mut d = a_drive(&mut app);
     d.trip.position_mi = d.trip.total_miles() / 2.0;
     let at = d.trip.position_mi;
@@ -427,7 +427,7 @@ fn test_upcoming_key_stays_a_couple_of_sentences() {
 #[test]
 fn test_upcoming_key_uses_metric_distances() {
     let mut app = TestApp::new();
-    app.ctx.settings.imperial_units = false;
+    app.ctx.settings.set_units_mode(ff_core::units::UnitsMode::Metric);
     let mut d = a_drive(&mut app);
     d.trip.set_imperial(false);
     d.trip.position_mi = 20.0;

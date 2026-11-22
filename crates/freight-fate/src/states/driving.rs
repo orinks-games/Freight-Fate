@@ -226,6 +226,12 @@ pub struct DrivingState {
     pub hos_plan_hint_pending: Option<String>,
     pub hos_jurisdiction_initialized: bool,
     pub enforcement_events: HashSet<String>,
+    /// Where the country under the truck first changed the Automatic units
+    /// with no crossing call to carry the line yet.
+    pub units_due_mi: Option<f64>,
+    /// A crossing call moved the units here; the map's own country is not
+    /// judged again until the truck is past this milepost.
+    pub units_hold_mi: f64,
     pub pending_border_clearance: Option<BorderBooth>,
     pub out_of_service_count: i64,
     /// The fatigue band the road last cued (`ff_core::sim::alertness`).

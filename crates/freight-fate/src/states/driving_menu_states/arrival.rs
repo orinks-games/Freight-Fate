@@ -807,10 +807,10 @@ impl ArrivalState {
         self.summary_parts.insert(
             0,
             format!(
-                "Delivered {} tons of {} to {} in {} hours, {}.{yard_drop}{receiver_service_clause} {}. {}: {} dollars. \
+                "Delivered {} of {} to {} in {} hours, {}.{yard_drop}{receiver_service_clause} {}. {}: {} dollars. \
                  Charges {}: tolls {}, extra charges {}. {accessorial_clause} Business status: {}. Costs {}. \
                  Fines {}. Net {}, you have {}. Parked {}.",
-                fmt_f(job.weight_tons, 0),
+                ctx.settings.tons_text(job.weight_tons),
                 job.spoken_cargo_label(),
                 job.spoken_destination(),
                 fmt_f(hours, 1),
@@ -1016,8 +1016,8 @@ impl ArrivalState {
                 )
             },
             format!(
-                "Load: {} tons of {}.",
-                fmt_f(job.weight_tons, 0),
+                "Load: {} of {}.",
+                ctx.settings.tons_text(job.weight_tons),
                 job.spoken_cargo_label()
             ),
             format!("Trip time: {} hours.", fmt_f(hours, 1)),

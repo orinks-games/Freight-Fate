@@ -177,18 +177,18 @@ impl DrivingStatusScreenState {
                 // The player cannot see the trailer; the dock's verdict must
                 // not be the first they hear of what the freight is in. Live
                 // cattle are told in the words their events use.
+                let tons = ctx.settings.tons_text(d.job.weight_tons);
+                let gross = ctx
+                    .settings
+                    .tons_text(d.trip.truck.gross_mass_kg() / KG_PER_TON);
                 let load_line = match d.livestock_condition_clause() {
                     Some(cattle) => format!(
-                        "Load: {} tons of {}, gross {} tons. {cattle}",
-                        fmt_f(d.job.weight_tons, 0),
+                        "Load: {tons} of {}, gross {gross}. {cattle}",
                         d.job.spoken_cargo_label(),
-                        fmt_f(d.trip.truck.gross_mass_kg() / KG_PER_TON, 0),
                     ),
                     None => format!(
-                        "Load: {} tons of {}, gross {} tons, freight {}",
-                        fmt_f(d.job.weight_tons, 0),
+                        "Load: {tons} of {}, gross {gross}, freight {}",
                         d.job.spoken_cargo_label(),
-                        fmt_f(d.trip.truck.gross_mass_kg() / KG_PER_TON, 0),
                         crate::states::driving_damage::cargo_status_clause(&d.trip.truck)
                     ),
                 };
@@ -326,7 +326,7 @@ impl DrivingStatusScreenState {
                 )));
                 rows.push(MapRow::Say(format!(
                     "Guidance: {}",
-                    d.trip.next_navigation_context(settings.imperial_units)
+                    d.trip.next_navigation_context(settings.imperial())
                 )));
                 let upcoming: Vec<RoadStop> = d
                     .trip

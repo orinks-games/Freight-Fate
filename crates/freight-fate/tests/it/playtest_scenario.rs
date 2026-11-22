@@ -276,6 +276,7 @@ fn board_load_to_adds_a_southbound_yard_load_to_the_board() {
         "laredo-tx-us:cross_dock:sci-cross-dock"
     );
     assert!(southbound_consignee(last).is_some(), "{last:?}");
+}
 
 /// `hos_cycle_min` puts a working week on the cycle ledger, so a drive can
 /// start near the 70-hour limit or out of it.

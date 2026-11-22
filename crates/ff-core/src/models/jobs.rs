@@ -202,6 +202,9 @@ pub struct DescribeOptions<'a> {
     pub empty_first: &'a str,
     /// Any closing sentences, such as a weight warning.
     pub extra: &'a str,
+    /// Say the load's weight in metric tonnes, for a player whose readouts
+    /// are in kilometers; US tons otherwise.
+    pub metric: bool,
 }
 
 /// "Buffalo to Jamestown, New York", naming the state once when both
@@ -358,12 +361,19 @@ impl Job {
         };
         // Whole sentences, so a catalog has each one with its words.
         let tons = fmt_f(self.weight_tons, 0);
+        let tonnes = fmt_f(self.weight_tons * 0.90718474, 0);
         let cargo = self.spoken_cargo_label();
         let destination = self.spoken_destination();
         let origin = route_origin(self.spoken_origin(), destination);
         // A load for a border transfer yard names its Mexican consignee;
         // the yard in the US city is still where the trailer is delivered.
         let load = match load_card_line(self, destination) {
+            Some(card) if opts.metric => {
+                format!("{tonnes} tonnes of {cargo} from {origin} {card}.")
+            }
+            None if opts.metric => {
+                format!("{tonnes} tonnes of {cargo} from {origin} to {destination}.")
+            }
             Some(card) => format!("{tons} tons of {cargo} from {origin} {card}."),
             None => format!("{tons} tons of {cargo} from {origin} to {destination}."),
         };

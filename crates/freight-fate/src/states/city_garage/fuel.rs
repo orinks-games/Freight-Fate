@@ -87,7 +87,11 @@ impl GarageState {
         };
         if gallons < 1.0 {
             ctx.audio.play("ui/error");
-            ctx.say("Not enough money for one gallon of fuel.");
+            ctx.say(if ctx.settings.imperial() {
+                "Not enough money for one gallon of fuel."
+            } else {
+                "Not enough money for fuel."
+            });
             return;
         }
         let cost = ctx.economy.fuel_cost_at(&region, &state_code, gallons);
@@ -105,14 +109,26 @@ impl GarageState {
         profile_mut(ctx).hos.on_duty(minutes);
         ctx.save_profile();
         ctx.audio.play("vehicle/fuel_pump");
-        ctx.say(&format!(
-            "Partial fuel: added {} gallons for \
-             {} dollars. \
-             You have {} dollars left.",
-            fmt_f(gallons, 0),
-            fmt_grouped(cost, 0),
-            fmt_grouped(money, 0)
-        ));
+        let added = if ctx.settings.imperial() {
+            format!(
+                "Partial fuel: added {} gallons for \
+                 {} dollars. \
+                 You have {} dollars left.",
+                fmt_f(gallons, 0),
+                fmt_grouped(cost, 0),
+                fmt_grouped(money, 0)
+            )
+        } else {
+            format!(
+                "Partial fuel: added {} for \
+                 {} dollars. \
+                 You have {} dollars left.",
+                ctx.settings.volume_text(gallons),
+                fmt_grouped(cost, 0),
+                fmt_grouped(money, 0)
+            )
+        };
+        ctx.say(&added);
         ctx.award_achievement("route_refuel");
         self.refresh(ctx, true);
     }

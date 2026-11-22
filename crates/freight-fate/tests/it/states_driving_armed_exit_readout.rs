@@ -23,7 +23,11 @@ fn test_space_and_u_name_the_signalled_stop_exit_and_its_distance() {
     // Signal set for a truck stop's exit 1.3 miles ahead, through the X key:
     // farther out than the blinker runs, so "set", as the X line said.
     let (mut harness, stop) = exit_rig_with(70.0, 0.0, 1.3, 62.0, false, Rig::default());
-    harness.app.ctx.settings.imperial_units = true;
+    harness
+        .app
+        .ctx
+        .settings
+        .set_units_mode(ff_core::units::UnitsMode::Imperial);
 
     let space = press(&mut harness, Key::Space);
     assert!(
@@ -86,7 +90,11 @@ fn test_space_and_u_name_the_signalled_destination_exit() {
         d.exit_stop = Some(exit.clone());
         (exit.at_mi, name)
     });
-    harness.app.ctx.settings.imperial_units = true;
+    harness
+        .app
+        .ctx
+        .settings
+        .set_units_mode(ff_core::units::UnitsMode::Imperial);
 
     // Signal on through the X key.
     press(&mut harness, Key::X);

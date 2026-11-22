@@ -42,7 +42,7 @@ pub fn describe_job(ctx: &GameContext, total: usize, job: &Job, index: Option<us
     let p = profile(ctx);
     let business = settlement_for(p, job, true);
     let note = trailer_note(p, job);
-    let weight = load_weight_margin(ctx.world, p, job);
+    let weight = load_weight_margin(ctx.world, &ctx.settings, p, job);
     let preview = market_preview(&business);
     let distance = ctx.settings.distance_text(job.distance_mi, false);
     // A load dispatch relayed from a nearby city: the empty drive to the
@@ -67,6 +67,7 @@ pub fn describe_job(ctx: &GameContext, total: usize, job: &Job, index: Option<us
         distance_text: &distance,
         empty_first: &empty_first,
         extra: &weight,
+        metric: !ctx.settings.imperial(),
     })
 }
 
@@ -173,7 +174,7 @@ impl JobDetailState {
             "loose" => lines.push("Market: loose, so this load pays less than usual.".to_string()),
             _ => {}
         }
-        let weight = load_weight_margin(ctx.world, p, job);
+        let weight = load_weight_margin(ctx.world, &ctx.settings, p, job);
         if !weight.is_empty() {
             lines.insert(4, weight);
         }

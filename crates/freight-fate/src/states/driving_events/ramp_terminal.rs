@@ -397,7 +397,7 @@ impl DrivingState {
     /// terminal callout has already named the light or the sign, and the tick
     /// does the rest of the work (owner, 2026-08-21).
     pub fn ramp_bar_milestones(&self, ctx: &GameContext) -> Vec<i64> {
-        let imperial = ctx.settings.imperial_units;
+        let imperial = ctx.settings.imperial();
         let thresholds: &[i64] = if imperial {
             &RAMP_GAP_MILESTONES_FT
         } else {
@@ -676,7 +676,7 @@ impl DrivingState {
             return;
         }
         let thresholds = self.ramp_bar_milestones(ctx);
-        let imperial = ctx.settings.imperial_units;
+        let imperial = ctx.settings.imperial();
         let unit_mi = if imperial {
             1.0 / 5280.0
         } else {
@@ -822,7 +822,7 @@ impl DrivingState {
 
     /// A short gap in round spoken units: feet or meters, never decimals.
     pub fn short_distance_text(&self, ctx: &GameContext, miles: f64) -> String {
-        spoken_feet_or_meters(miles, ctx.settings.imperial_units)
+        spoken_feet_or_meters(miles, ctx.settings.imperial())
     }
 
     /// The enforced limit AT THE STOP BAR, spoken.

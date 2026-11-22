@@ -923,7 +923,7 @@ pub fn launch_driving(ctx: &mut GameContext, launch: DrivingLaunch) {
                             &driving
                                 .trip
                                 .truck
-                                .reefer_running_announcement(ctx.settings.imperial_units),
+                                .reefer_running_announcement(ctx.settings.imperial()),
                         );
                     }
                     line

@@ -81,25 +81,31 @@ const MAX_CRUISE_TAPS: i64 = 60;
 /// Off the grid, 61 to 55 used to be six Ctrl taps and six spoken lines in
 /// the transcript (Whitehorse to Tok drive, 2026-11-22); a player taps
 /// twice, 60 then 55.
-fn dial_taps(set: f64, wanted: f64) -> Vec<bool> {
-    use crate::states::driving_core::cruise_step_target;
-    let wanted = wanted.round();
-    let direction: i32 = if wanted > set { 1 } else { -1 };
+fn dial_taps(set: f64, wanted: f64, imperial: bool) -> Vec<bool> {
+    use crate::states::driving_core::cruise_step_target_in;
+    use ff_core::units::MILES_TO_KM;
+    // Walked in the unit the player hears: in kilometers the dial steps
+    // fives and ones of km/h, so a 100 sign is 100, not 62 mph read back
+    // as 99 (border drive, 2026-11-22).
+    let per_mph = if imperial { 1.0 } else { MILES_TO_KM };
+    let shown = |mph: f64| mph * per_mph;
+    let wanted = (wanted * per_mph).round();
+    let direction: i32 = if wanted > shown(set) { 1 } else { -1 };
     let mut taps = Vec::new();
     let mut at = set;
-    while (wanted - at).abs() >= 0.5 && taps.len() < MAX_CRUISE_TAPS as usize {
-        let coarse = cruise_step_target(at, direction, false);
+    while (wanted - shown(at)).abs() >= 0.5 && taps.len() < MAX_CRUISE_TAPS as usize {
+        let coarse = cruise_step_target_in(at, direction, false, imperial);
         let fits = if direction > 0 {
-            coarse <= wanted + 0.01
+            shown(coarse) <= wanted + 0.01
         } else {
-            coarse >= wanted - 0.01
+            shown(coarse) >= wanted - 0.01
         };
-        let (fine, next) = if fits && (coarse - at).abs() > 0.01 {
+        let (fine, next) = if fits && (shown(coarse) - shown(at)).abs() > 0.01 {
             (false, coarse)
         } else {
-            (true, cruise_step_target(at, direction, true))
+            (true, cruise_step_target_in(at, direction, true, imperial))
         };
-        if (next - at).abs() < 0.01 {
+        if (shown(next) - shown(at)).abs() < 0.01 {
             break; // pinned at the dial's floor or ceiling
         }
         taps.push(fine);
@@ -115,14 +121,19 @@ mod dial_tests {
     #[test]
     fn the_dial_walks_the_fives_first_like_a_player() {
         // 61 to 55: 60, then 55.
-        assert_eq!(dial_taps(61.0, 55.0), vec![false, false]);
+        assert_eq!(dial_taps(61.0, 55.0, true), vec![false, false]);
         // 30 to 55: five plain taps.
-        assert_eq!(dial_taps(30.0, 55.0), vec![false; 5]);
+        assert_eq!(dial_taps(30.0, 55.0, true), vec![false; 5]);
         // 55 to 58: three Ctrl taps, no overshoot to 60.
-        assert_eq!(dial_taps(55.0, 58.0), vec![true; 3]);
+        assert_eq!(dial_taps(55.0, 58.0, true), vec![true; 3]);
         // 62 to 70: 65, 70.
-        assert_eq!(dial_taps(62.0, 70.0), vec![false, false]);
-        assert!(dial_taps(55.0, 55.0).is_empty());
+        assert_eq!(dial_taps(62.0, 70.0, true), vec![false, false]);
+        assert!(dial_taps(55.0, 55.0, true).is_empty());
+        // In kilometers: 97 km/h to a 100 sign is one plain tap to 100.
+        let kmh = |v: f64| v / ff_core::units::MILES_TO_KM;
+        assert_eq!(dial_taps(kmh(97.0), kmh(100.0), false), vec![false]);
+        // 100 to 103 km/h: three Ctrl taps, no overshoot to 105.
+        assert_eq!(dial_taps(kmh(100.0), kmh(103.0), false), vec![true; 3]);
     }
 }
 
@@ -580,7 +591,7 @@ impl AgentPolicy {
                     ..Mods::NONE
                 };
                 let mut taps = 0u32;
-                for fine_tap in dial_taps(set, wanted) {
+                for fine_tap in dial_taps(set, wanted, observed.imperial) {
                     self.tap(key, text, if fine_tap { fine } else { Mods::NONE });
                     taps += 1;
                 }
@@ -706,6 +717,7 @@ impl AgentPolicy {
                 text.push_str(&format!(
                     "\nSPEECH: main_backend {choice}; main {main}; event {event}."
                 ));
+                text.push_str(&format!("\nUNITS: {}.", input.units_state()));
             }
             let _ = waiting.reply.send(Ok(text));
         }
