@@ -45,6 +45,7 @@
 - **The map now reaches Alberta, Saskatchewan and Manitoba,** on the Trans-Canada and Yellowhead highways from Vancouver to Winnipeg, with six more border crossings.
 - **Diesel in Alberta, Saskatchewan, Manitoba, Ontario and Quebec now costs what it does there.**
 - **The map now reaches Ontario and Quebec,** from Windsor and Sarnia through Toronto, Ottawa and Montreal to Quebec City, with seven border crossings.
+- **The map now reaches Thompson, Baie-Comeau, Sept-Îles and Chibougamau,** on Manitoba's Highway 6 and Quebec's Routes 113, 167, 172 and 138.
 - **The Gordie Howe, Blue Water, Lewiston-Queenston and Thousand Islands bridges charge their published truck tolls.**
 - **The map now joins Winnipeg to Thunder Bay, Sault Ste. Marie, Timmins and North Bay** on Highways 17 and 11, with crossings at Pigeon River and the Sault Ste. Marie International Bridge, which charges its truck toll.
 - **A route between two US cities stays in the United States when a US road exists.** Alaska routes still run through Canada.
