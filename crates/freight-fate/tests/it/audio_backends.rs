@@ -696,7 +696,7 @@ fn test_running_engine_starts_only_after_crank_finishes() {
     r.engine.update(0.05);
     assert!(!r.engine.engine_starting());
     assert!(!r.hearken().engine_bands().is_empty() || r.hearken().engine_sound().is_some());
-    r.engine.update(0.1);
+    r.engine.update(0.025);
     let h = r.hearken();
     assert_eq!(h.engine_intro_gain(), 1.0);
     assert_eq!(h.fade_count(), 0); // finished fades are dropped

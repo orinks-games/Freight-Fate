@@ -229,7 +229,7 @@ pub const ENGINE_WOBBLE_GAIN_STEP: f64 = 0.10;
 
 // The ignition cue finishes before the running engine starts.
 const STEREO_ENGINE_START_KEY: &str = "engine_stereo/start";
-const ENGINE_IGNITION_IDLE_FADE_S: f64 = 0.08;
+const ENGINE_IGNITION_IDLE_FADE_S: f64 = 0.02;
 // Soft return when the engine was already running, such as after a menu.
 pub const ENGINE_RESUME_FADE_S: f64 = 0.25;
 
