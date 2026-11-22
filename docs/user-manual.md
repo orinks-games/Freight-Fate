@@ -462,7 +462,7 @@ Simulated weather in Alaska and Canada gets as cold as the real winters there: a
 
 ### Billboards
 
-Billboards follow each state's, province's and territory's sign law. Maine, Vermont, Alaska, Alberta, Prince Edward Island and the Northwest Territories ban them. The Yukon, New Brunswick and Nova Scotia keep only boards for places to visit. No board stands in a park the road crosses. Where boards are banned, some landmarks are named plainly as you pass. Holiday boards follow the country you're in: Canada Day and October's Thanksgiving in Canada, the Fourth of July and November's Thanksgiving in the United States [waits on PR 751]. To turn billboards off, set Speak billboards to off under Settings, Speech.
+Billboards follow each state's, province's and territory's sign law. Maine, Vermont, Alaska, Alberta, Prince Edward Island and the Northwest Territories ban them. The Yukon, New Brunswick and Nova Scotia keep only boards for places to visit. No board stands in a park the road crosses. Where boards are banned, some landmarks are named plainly as you pass. Holiday boards follow the country you're in: Canada Day and October's Thanksgiving in Canada, the Fourth of July and November's Thanksgiving in the United States. To turn billboards off, set Speak billboards to off under Settings, Speech.
 
 ## Crossing the border
 
@@ -971,7 +971,7 @@ Unloading uses on-duty time. When it's finished, settlement explains the load's 
 
 On-time delivery pays ten percent extra. Arriving even earlier doesn't add another bonus, while late freight pays less. Company tolls and approved extra charges don't reduce driver wages. Tickets you've already paid aren't charged a second time.
 
-Damaged freight can bring an exception deduction, a claim, or a refusal with no delivery pay. A fragile load tolerates less abuse than bulk freight. Hard braking, fast bends, and collisions can all affect the cargo. If you can't cover the resulting charges, they become debt. A refused load's settlement says the receiver refused it, with no pay for the load and no on-time bonus. A company driver never owes more on a refused or claimed load than their own pay for it [waits on PR 759].
+Damaged freight can bring an exception deduction, a claim, or a refusal with no delivery pay. A fragile load tolerates less abuse than bulk freight. Hard braking, fast bends, and collisions can all affect the cargo. If you can't cover the resulting charges, they become debt. A refused load's settlement says the receiver refused it, with no pay for the load and no on-time bonus. A company driver is charged their own pay for a refused or damaged load, not the load's full price, and the damage deductible still applies.
 
 ## Settings walkthrough
 

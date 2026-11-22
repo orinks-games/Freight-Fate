@@ -491,7 +491,7 @@ Listen for: new boards and plain landmark lines along the Canadian and
 Alaska roads; no boards at all in Maine, Vermont, Alaska, Alberta, Prince Edward
 Island, the Northwest Territories or parks the road crosses; only boards
 for places to visit in the Yukon, New Brunswick and Nova Scotia; holiday boards by country, Canada Day and October's Thanksgiving
-only in Canada [waits on PR 751].
+only in Canada.
 
 Pass when: a board names a real place you are near, none plays where
 boards are banned, and a US holiday board never plays in Canada.
@@ -546,7 +546,8 @@ Listen for: "Load refused" as the title, "Pay for the load: none. The
 receiver refused it.", no on-time bonus.
 
 Pass when: the settlement doesn't contradict itself, and a company driver
-never owes more than their own pay for the load [waits on PR 759].
+is charged their own pay for the load, not its full price, plus the damage
+deductible.
 
 ## Chapter 10. Achievements
 
