@@ -97,6 +97,12 @@ const NOAA: &str = "NOAA NCEI U.S. Climate Normals 1991-2020, monthly \
 const ECCC: &str = "Environment and Climate Change Canada, Canadian Climate \
                     Normals 1991-2020 (climate.weather.gc.ca)";
 
+/// Thompson's normals: the Meteorological Service's API serves the
+/// 1981-2010 period for this station, not 1991-2020.
+const ECCC_1981: &str = "Environment and Climate Change Canada, Canadian Climate \
+                         Normals 1981-2010 (api.weather.gc.ca, collection \
+                         climate-normals, read 2026-11-22)";
+
 const fn f(mean: f64, max: f64, min: f64) -> MonthNormals {
     MonthNormals { mean, max, min }
 }
@@ -164,7 +170,7 @@ pub const NORTHERN_STATIONS: &[StationNormals] = &[
     // the Yukon outside the Whitehorse basin, the south of the Northwest
     // Territories, northern Saskatchewan and Manitoba. Fort Nelson reads
     // January -20.3, Watson Lake -21.7, Burwash -20.6, Hay River -21.4,
-    // Fort McMurray -17.2, La Ronge -18.3, The Pas -18.8, Thompson -23.4.
+    // Fort McMurray -17.2, La Ronge -18.3, The Pas -18.8. Thompson has a row of its own.
     StationNormals {
         key: "northern_forest_west",
         station: "High Level (3073140)",
@@ -172,6 +178,16 @@ pub const NORTHERN_STATIONS: &[StationNormals] = &[
         unit: NormalsUnit::Celsius,
         january: f(-19.8, -14.6, -25.0),
         july: f(16.8, 23.3, 10.3),
+    },
+    // Manitoba north of 55: Thompson, at the end of Highway 6, reads 4 C
+    // colder in January than the western belt's High Level row.
+    StationNormals {
+        key: "manitoba_north",
+        station: "Thompson A (5062922)",
+        source: ECCC_1981,
+        unit: NormalsUnit::Celsius,
+        january: f(-23.9, -18.3, -29.3),
+        july: f(16.2, 23.1, 9.1),
     },
     // The boreal belt east of Lake Superior: northern Ontario and Quebec,
     // Labrador. Kapuskasing reads January -17.4, Val-d'Or -16.3, Rouyn
@@ -341,7 +357,9 @@ pub fn climate_region(state: &str, lat: f64, lon: f64) -> Result<&'static str, D
             }
         }
         "MB" => {
-            if lat >= 53.5 {
+            if lat >= 55.0 {
+                "manitoba_north"
+            } else if lat >= 53.5 {
                 "northern_forest_west"
             } else {
                 "prairies"

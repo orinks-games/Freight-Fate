@@ -54,6 +54,7 @@
 - **The map now reaches New Brunswick, Nova Scotia and Prince Edward Island,** from Rivière-du-Loup to Halifax, Sydney and Charlottetown, with border crossings at Houlton and Calais.
 - **The Cobequid Pass and the Confederation Bridge now charge their tolls.** The bridge charges only when you leave Prince Edward Island.
 - **The clock now tells Atlantic Time in the Maritimes, and diesel there costs what it does there.**
+- **The map now reaches Thompson, Baie-Comeau, Sept-Îles and Chibougamau,** on Manitoba's Highway 6 and Quebec's Routes 113, 167, 172 and 138.
 - **The Gordie Howe, Blue Water, Lewiston-Queenston and Thousand Islands bridges charge their published truck tolls.**
 - **The map now reaches Fort McMurray, Yellowknife, Prince Rupert, Stewart and Dawson City.** The Deh Cho Bridge charges its toll, and trucks leaving Hyder clear customs at Stewart.
 - **The map now joins Winnipeg to Thunder Bay, Sault Ste. Marie, Timmins and North Bay** on Highways 17 and 11, with crossings at Pigeon River and the Sault Ste. Marie International Bridge, which charges its truck toll.

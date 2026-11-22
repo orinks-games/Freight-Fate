@@ -812,15 +812,17 @@ fn test_long_hauls_unlock_around_level_five() {
 fn test_destination_weighting_prefers_near_cities() {
     // Milwaukee is 92 miles from Chicago; New York is ~880. Even at a high
     // level with everything in range, near cities must come up far more often.
+    // Each is a few in a thousand offers now that Canada's towns share the
+    // board, so 60 seeds tied at 2 and 2; 400 give 17 to 4.
     let mut near = 0;
     let mut far = 0;
-    for seed in 0..60 {
+    for seed in 0..400 {
         for job in offers(seed, "Chicago", NONE, 6) {
             near += i32::from(job.destination == "milwaukee_wi_us");
             far += i32::from(job.destination == "new_york_ny_us");
         }
     }
-    assert!(near > far);
+    assert!(near > far, "Milwaukee {near}, New York {far}");
 }
 
 /// Milwaukee to Kenosha and back is the bounce the owner described
