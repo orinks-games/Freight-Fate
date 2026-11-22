@@ -5645,7 +5645,7 @@ Honesty debts for this v1 slice (do not paper over):
       would give the synth mode a real band. genny is Python, so it is a port,
       not an embed.
 
-### Achievements for 2.0 (wave 1 built, wave 2 waits for Canada)
+### Achievements for 2.0 (waves 1 and 2 built)
 
 - [x] Seventeen badges (catalog 184 to 201): Alaska, Anchorage,
       Deadhorse, the Whittier tunnel, the whole Alaska Highway, Fairbanks in
@@ -5661,10 +5661,12 @@ Honesty debts for this v1 slice (do not paper over):
 - [ ] (Found along the way) Waiting out a CDL suspension at the terminal
       logs one 10-hour sleep on the hours clock however long the wait, so a
       multi-day wait does not restart the cycle.
-- [ ] Wave 2, Canada: nine badges (Across the Border, Alberta Bound,
-      Saskatoon, Sudbury, Halifax, Quebec in winter, Lake Superior in
-      November, both coasts, every province). Each waits for the
-      cross-border loads PR and for its city or road to exist on the map.
+- [x] Wave 2, Canada: nine achievements (catalog 201 to 210): Canada,
+      Alberta, Saskatoon, Sudbury on a Saturday evening, a load out of Nova
+      Scotia, Quebec in winter, Highway 17 along Lake Superior in November
+      (hidden), British Columbia and Atlantic Canada, and every province.
+      Every province is read off the map, so a new corridor adds to it.
+      Awarded from now on.
 
 ### November 22 freight review: doubles, Laredo, cattle, reefer, hazmat
 
