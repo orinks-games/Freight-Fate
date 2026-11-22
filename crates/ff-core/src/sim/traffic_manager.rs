@@ -18,8 +18,8 @@ use crate::pyrandom::PyRandom;
 use crate::sim::enforcement_posts::{seed_text, EnforcementPost};
 use crate::sim::hos::is_night;
 use crate::sim::trip_models::{
-    corridor_speed_limit, hourly_volume_fraction, leg_aadt_at, leg_lane_count, leg_speed_limit_at,
-    TrafficContext, DEFAULT_LEG_LANES, DIRECTIONAL_SPLIT, MAX_DRIVABLE_LANES, RUSH_HOUR_WINDOWS,
+    hourly_volume_fraction, leg_aadt_at, leg_lane_count, leg_speed_limit_at, TrafficContext,
+    DEFAULT_LEG_LANES, DIRECTIONAL_SPLIT, MAX_DRIVABLE_LANES, RUSH_HOUR_WINDOWS,
     TRAFFIC_LOOKAHEAD_MI,
 };
 use crate::sim::vehicle::{AIR_DENSITY, G as GRAVITY_MPS2, MPS_TO_MPH};
@@ -961,7 +961,8 @@ impl TrafficManager {
         if let Some(baked) = leg_speed_limit_at(leg, offset) {
             return baked;
         }
-        crate::sim::limit_gaps::unposted_limit(leg, offset, corridor_speed_limit(&leg.highway, ""))
+        let open_road = crate::sim::limit_gaps::open_road_mph(leg, offset, "");
+        crate::sim::limit_gaps::unposted_limit(leg, offset, open_road)
     }
 
     /// Signed grade at a route mile, positive uphill in the direction of

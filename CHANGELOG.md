@@ -90,6 +90,7 @@
 
 - **Exits in Ontario and Quebec now name the road they lead to,** such as Route 255 or Highway 8, with directions in English.
 - **Canadian highways are now given the direction they run,** so Highway 400 to Barrie is north and the 401 to Kingston is east.
+- **A Canadian road with no speed sign on the map now takes the province's default limit,** such as 80 kilometers per hour in Ontario, instead of an American figure like 97.
 - **Toll booths in Canada now say the Canadian price,** such as 35 Canadian dollars at the Blue Water Bridge. The carrier is still billed in US dollars.
 - **Cruise no longer sets a speed over the limit for an exit.** On a slow road before a ramp, it now holds the posted limit, so no speeding warning plays.
 - **A stop with only fuel pumps no longer offers a motel room or a night in the lot.**
