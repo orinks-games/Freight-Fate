@@ -5196,6 +5196,13 @@ branch. The older Phase A/B plan checklists are not a live completion list.
       the Yukon line, R2 drive, 2026-11-22). The order at a line is now a
       rule: the crossing call finishes, then the units line, then a shorter
       hours line.
+- [x] (Found along the way) A crossing call could be lost: a long ice
+      hazard held the road's chatter queue past its 12-second age limit and
+      "Crossing into Yukon" was never said (Canada corridor drives,
+      2026-11-22). A state or province line and the lines after it carry
+      rule changes, so they now wait for the road to go quiet however long
+      it takes, and play once each, in order. The agent server can stage a
+      drive before a line (`start_at` feature `state-line`).
 - [ ] (Found along the way) The customs booth approach is an implicit state
       machine: three string keys in the enforcement events (notice,
       reminder, booth), the pending clearance and the reminder's real-time
