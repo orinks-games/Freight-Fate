@@ -181,7 +181,7 @@ A menu gives its title, the selected option, and the option's position in the li
 
 ### Menu navigation
 
-Use Up and Down to find the option you want, then Enter or Space to select it. Escape usually takes you back. On a long list, Home and End reach its ends, and a letter or number jumps to a matching choice.
+Use Up and Down to find the option you want, then Enter or Space to select it. Escape usually takes you back. On a long list, Home and End reach its ends, Page Up and Page Down move ten choices at a time, and a letter or number jumps to a matching choice.
 
 | Key | Action |
 | --- | --- |
@@ -189,6 +189,7 @@ Use Up and Down to find the option you want, then Enter or Space to select it. E
 | Enter or Space | Activate the selected choice. |
 | Escape | Go back, cancel, or repeat a status message when leaving is not useful. |
 | Home or End | Jump to the first or last choice. |
+| Page Up or Page Down | Move ten choices back or forward, stopping at the first or last. |
 | Letter or number | Jump to the next choice starting with that character. |
 | F1 | Show help for the current item. |
 | Comma | Review earlier speech, except while typing text. |
