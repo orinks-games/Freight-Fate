@@ -440,8 +440,19 @@ impl ArrivalState {
             &deadline_terms,
         );
         let gross_pay = business.gross_pay;
-        let on_time_bonus_paid = (gross_pay - no_on_time_bonus_business.gross_pay).max(0.0);
-        let early_bonus = (gross_pay - deadline_business.gross_pay).max(0.0);
+        // A refused load pays nothing, so it reads no bonus: its whole pay,
+        // bonus included, is the loss the claim row names.
+        let refused = cargo.rejected();
+        let on_time_bonus_paid = if refused {
+            0.0
+        } else {
+            (gross_pay - no_on_time_bonus_business.gross_pay).max(0.0)
+        };
+        let early_bonus = if refused {
+            0.0
+        } else {
+            (gross_pay - deadline_business.gross_pay).max(0.0)
+        };
         // Anything this load could not cover is carried, not forgiven: a load
         // too cheap to pay its charges used to be told it paid them in full.
         // The carried balance from earlier loads is added back after
@@ -807,17 +818,27 @@ impl ArrivalState {
         self.summary_parts.insert(
             0,
             format!(
-                "Delivered {} of {} to {} in {} hours, {}.{yard_drop}{receiver_service_clause} {}. {}: {} dollars. \
+                "Delivered {} of {} to {} in {} hours, {}.{yard_drop}{receiver_service_clause} {}. {}: {}. \
                  Charges {}: tolls {}, extra charges {}. {accessorial_clause} Business status: {}. Costs {}. \
                  Fines {}. Net {}, you have {}. Parked {}.",
                 ctx.settings.tons_text(job.weight_tons),
                 job.spoken_cargo_label(),
                 job.spoken_destination(),
                 fmt_f(hours, 1),
-                if on_time { "on time" } else { "late" },
+                if refused {
+                    "refused by the receiver"
+                } else if on_time {
+                    "on time"
+                } else {
+                    "late"
+                },
                 clock_text(to_local(game_hours, destination_timezone)),
                 pay_label(&business_status),
-                fmt_grouped(gross_pay, 0),
+                if refused {
+                    "none".to_string()
+                } else {
+                    format!("{} dollars", fmt_grouped(gross_pay, 0))
+                },
                 fmt_grouped(carrier_charges, 0),
                 fmt_grouped(toll_expense, 0),
                 charge_summary(&accessorials),
@@ -905,7 +926,7 @@ impl ArrivalState {
                 fmt_grouped(early_bonus, 0)
             ));
         }
-        if bonus_lines.is_empty() {
+        if bonus_lines.is_empty() && !refused {
             bonus_lines.push("No delivery bonus on this run.".to_string());
         }
         // Condition rows carry information only when something happened: a
@@ -1002,7 +1023,14 @@ impl ArrivalState {
             // The first row is the one read on arrival: where, whether on
             // time, and what it paid. The rows below itemize it.
             // The screen's title already says "Delivery complete".
-            if on_time {
+            if refused {
+                // The screen's title already says "Load refused".
+                format!(
+                    "In {}. Net {} dollars.",
+                    job.spoken_destination(),
+                    fmt_grouped(net_pay, 0)
+                )
+            } else if on_time {
                 format!(
                     "On time in {}. Net {} dollars.",
                     job.spoken_destination(),
@@ -1026,11 +1054,18 @@ impl ArrivalState {
                 clock_text(to_local(game_hours, destination_timezone))
             ),
             format!("Parked {}.", self.terminal.service_area_phrase(ctx.world)),
-            format!(
-                "{}: {} dollars.",
-                pay_label(&business_status),
-                fmt_grouped(gross_pay, 0)
-            ),
+            if refused {
+                format!(
+                    "{}: none. The receiver refused it.",
+                    pay_label(&business_status)
+                )
+            } else {
+                format!(
+                    "{}: {} dollars.",
+                    pay_label(&business_status),
+                    fmt_grouped(gross_pay, 0)
+                )
+            },
             format!("Business status: {}.", business.status_label),
         ];
         // Each carrier-ledger item on its own row, by what it is: detention
@@ -1089,6 +1124,10 @@ impl ArrivalState {
         lines.extend(career_lines);
         self.summary_lines = lines;
         self.announcements = announcements;
+        if refused {
+            // The screen's title is read before its first row.
+            self.menu.title = "Load refused".to_string();
+        }
     }
 
     /// Say what a balance owed did to this settlement, and warn once a rung.
