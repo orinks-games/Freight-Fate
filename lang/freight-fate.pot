@@ -14,7 +14,7 @@ msgstr ""
 msgid "Some badges stay secret until you earn them. Keep driving."
 msgstr ""
 
-#: crates/ff-core/src/achievements/catalog.rs
+#: crates/ff-core/src/achievements/catalog.rs crates/freight-fate/src/audio/backend.rs crates/freight-fate/src/audio/hearken_backend.rs
 msgid "road"
 msgstr ""
 
@@ -18535,6 +18535,10 @@ msgstr ""
 
 #: crates/freight-fate/src/audio/assets.rs
 msgid "Sound assets are missing or unreadable: ui/menu_select"
+msgstr ""
+
+#: crates/freight-fate/src/audio/backend.rs crates/freight-fate/src/audio/hearken_backend.rs
+msgid "outside"
 msgstr ""
 
 #: crates/freight-fate/src/audio/backend.rs
@@ -41593,6 +41597,24 @@ msgstr ""
 
 #. placeholders: {pct}
 #: crates/freight-fate/src/states/main_menu/settings_items.rs
+msgid "Outside sounds volume: {pct} percent"
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu/settings_items.rs
+msgid "Birds by day, insects at night, and the rivers you pass."
+msgstr ""
+
+#. placeholders: {pct}
+#: crates/freight-fate/src/states/main_menu/settings_items.rs
+msgid "Road surface volume: {pct} percent"
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu/settings_items.rs
+msgid "The thump of pavement seams and bridge joints under the wheels."
+msgstr ""
+
+#. placeholders: {pct}
+#: crates/freight-fate/src/states/main_menu/settings_items.rs
 msgid "Engine sounds volume: {pct} percent"
 msgstr ""
 
@@ -41714,8 +41736,8 @@ msgstr ""
 
 #: crates/freight-fate/src/states/main_menu/settings_items.rs
 msgid ""
-"While the road voice speaks, the engine, weather, and radio drop to half "
-"volume, then come back."
+"While the road voice speaks, the engine, weather, outside sounds, and radio "
+"drop to half volume, then come back."
 msgstr ""
 
 #. placeholders: {pct}

@@ -16468,6 +16468,9 @@ msgstr "xm"
 msgid "Sound assets are missing or unreadable: ui/menu_select"
 msgstr "Thiếu hoặc không đọc được tệp âm thanh: ui/menu_select"
 
+msgid "outside"
+msgstr ""
+
 msgid "ui"
 msgstr "ui"
 
@@ -37224,6 +37227,20 @@ msgid "Rain, wind, thunder, snow, and fog sounds."
 msgstr "Âm thanh mưa, gió, sấm sét, tuyết và sương mù."
 
 #. placeholders: {pct}
+msgid "Outside sounds volume: {pct} percent"
+msgstr ""
+
+msgid "Birds by day, insects at night, and the rivers you pass."
+msgstr ""
+
+#. placeholders: {pct}
+msgid "Road surface volume: {pct} percent"
+msgstr ""
+
+msgid "The thump of pavement seams and bridge joints under the wheels."
+msgstr ""
+
+#. placeholders: {pct}
 msgid "Engine sounds volume: {pct} percent"
 msgstr "Âm lượng động cơ: {pct} phần trăm"
 
@@ -37340,11 +37357,9 @@ msgid "Lower game sounds during speech: {on_off}"
 msgstr "Giảm âm thanh game khi có giọng đọc: {on_off}"
 
 msgid ""
-"While the road voice speaks, the engine, weather, and radio drop to half "
-"volume, then come back."
+"While the road voice speaks, the engine, weather, outside sounds, and radio "
+"drop to half volume, then come back."
 msgstr ""
-"Trong lúc giọng báo trên đường đang nói, tiếng động cơ, thời tiết và radio "
-"giảm xuống một nửa âm lượng rồi tăng lại."
 
 #. placeholders: {pct}
 msgid "Menu and UI sounds volume: {pct} percent"
@@ -44586,6 +44601,13 @@ msgid ""
 msgstr ""
 "Giữ nút vai trái để mở lớp nút thứ hai. {pad_engine} bật tắt động cơ, "
 "{pad_fuel} đọc nhiên liệu và {pad_speed_limit} đọc tốc độ giới hạn."
+
+#~ msgid ""
+#~ "While the road voice speaks, the engine, weather, and radio drop to half "
+#~ "volume, then come back."
+#~ msgstr ""
+#~ "Trong lúc giọng báo trên đường đang nói, tiếng động cơ, thời tiết và radio "
+#~ "giảm xuống một nửa âm lượng rồi tăng lại."
 
 #~ msgid ""
 #~ "Hold one finger still for half a second to straighten the wheel. With "
