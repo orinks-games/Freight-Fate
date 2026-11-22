@@ -6528,6 +6528,11 @@ a carrier slice (owner, 2026-10-26).
       five-axle truck class 5. Re-price them from the schedule.
 - [ ] (Found along the way) Youngstown to DuBois (I-80) waits for the
       Northeast build, where DuBois becomes a city.
+- [ ] (Found along the way) Three through roads the list leaves undone,
+      each over 200 miles between cities with no junction town on it: US 36
+      from Springfield, Illinois to Kansas City (a town near Quincy would
+      fix it), US 250 from Charleston, West Virginia to Toledo (near Akron)
+      and US 27 from Richmond, Indiana to Kalamazoo (near Richmond).
 
 ### Winter cab, wipers and ice roads (designed November 22)
 

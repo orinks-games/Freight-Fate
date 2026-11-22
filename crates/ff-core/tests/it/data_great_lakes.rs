@@ -96,3 +96,55 @@ fn chicago_to_st_louis_runs_through_joliet_and_bloomington() {
         ]
     );
 }
+
+fn drive(cities: &[&str]) -> Route {
+    world()
+        .route_from_cities(cities)
+        .unwrap_or_else(|| panic!("no route through {cities:?}"))
+}
+
+#[test]
+fn the_ohio_turnpike_is_one_ticket_each_way_at_the_2026_class_5_fare() {
+    // Ohio Turnpike 2026 schedule (new toll system), class 5, E-ZPass:
+    // exits 118 to 64 cost 12.00, exits 142 to 64 cost 17.50.
+    for (a, b, fare) in [
+        ("mansfield_oh_us", "toledo_oh_us", 12.0),
+        ("cleveland_oh_us", "toledo_oh_us", 17.5),
+    ] {
+        for cities in [[a, b], [b, a]] {
+            let trip = drive(&cities);
+            assert_eq!(trip.toll_events().len(), 1, "{cities:?}");
+            assert!(
+                (trip.estimated_tolls() - fare).abs() < 1e-9,
+                "{cities:?}: {}",
+                trip.estimated_tolls()
+            );
+        }
+    }
+}
+
+#[test]
+fn the_mackinac_bridge_is_paid_both_ways_on_the_new_legs() {
+    for (a, b) in [
+        ("alpena_mi_us", "sault_ste_marie_mi_us"),
+        ("escanaba_mi_us", "traverse_city_mi_us"),
+    ] {
+        for cities in [[a, b], [b, a]] {
+            let trip = drive(&cities);
+            let names: Vec<&str> = trip
+                .toll_events()
+                .iter()
+                .map(|t| t.name.as_str())
+                .collect();
+            assert_eq!(names, ["Mackinac Bridge toll"], "{cities:?}");
+            assert!((trip.estimated_tolls() - 25.0).abs() < 1e-9);
+        }
+    }
+}
+
+#[test]
+fn gary_to_joliet_pays_no_toll() {
+    // The Borman and US 12 and 20 beside the Indiana Toll Road are free.
+    let trip = drive(&["gary_in_us", "joliet_il_us"]);
+    assert!(trip.toll_events().is_empty());
+}
