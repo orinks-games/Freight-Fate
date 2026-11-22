@@ -38,6 +38,12 @@ the road runs through is a billboard ban on the leg, so no sign stands
 there; a few signs stand farther out than usual because of that, and each
 says so.
 
+The Whitehorse to Tok leg was split at Haines Junction on 2026-11-22
+(the Alaska routes rebuild), so its six signs now name the split legs:
+a mile past Haines Junction counts from there, the same place on the road.
+Each was then re-placed from its OpenStreetMap element on the new legs,
+keeping its old lead before the place; none moved more than 0.3 mile.
+
 For Orinks's ear: **Da Kų** (Haines Junction) is written with a u
 with an ogonek, Southern Tutchone for "Our House"; also Tutchone, Aishihik,
 Kluane, Liard, Teslin, Tetsa, Chetwynd and Quesnel. No French names on
@@ -268,8 +274,8 @@ Ice Age Beringia; a full-size cast of the largest woolly mammoth found in North 
 
 ### Yukon Beringia Interpretive Centre (eastbound, Tok to Whitehorse)
 - treatment: billboard
-- leg: tok_ak_us -> whitehorse_yt_ca
-- at_mi: 377
+- leg: haines_junction_yt_ca -> whitehorse_yt_ca
+- at_mi: 86
 - spoken: Billboard: The Yukon Beringia Interpretive Centre, ahead in Whitehorse. Ice Age Yukon, and a full-size cast of the largest woolly mammoth found in North America. He would not fit in your trailer.
 
 ## Yukon Transportation Museum -- Whitehorse, beside the airport
@@ -278,8 +284,8 @@ Its DC-3, CF-CPY, is billed as the world's largest weathervane: it turns on its 
 
 ### Yukon Transportation Museum (eastbound, Tok to Whitehorse)
 - treatment: billboard
-- leg: tok_ak_us -> whitehorse_yt_ca
-- at_mi: 381
+- leg: haines_junction_yt_ca -> whitehorse_yt_ca
+- at_mi: 90
 - spoken: Billboard: The Yukon Transportation Museum, ahead in Whitehorse. Out front, an old airliner on a pedestal turns to face the wind, billed as the world's largest weathervane. It is never wrong.
 
 ## Da Kų Cultural Centre -- Haines Junction, Yukon
@@ -288,14 +294,14 @@ Written **Da Kų** (Southern Tutchone for Our House), owned by the Champagne and
 
 ### Da Ku Cultural Centre (westbound, Whitehorse to Tok)
 - treatment: billboard
-- leg: whitehorse_yt_ca -> tok_ak_us
-- at_mi: 86
+- leg: whitehorse_yt_ca -> haines_junction_yt_ca
+- at_mi: 85.7
 - spoken: Billboard: Da Kų Cultural Centre, ahead in Haines Junction. The name is Southern Tutchone for Our House, and it belongs to the Champagne and Aishihik First Nations. Guests welcome in summer.
 
 ### Da Ku Cultural Centre (eastbound, Tok to Whitehorse)
 - treatment: billboard
-- leg: tok_ak_us -> whitehorse_yt_ca
-- at_mi: 282
+- leg: tok_ak_us -> haines_junction_yt_ca
+- at_mi: 281.8
 - spoken: Billboard: Da Kų Cultural Centre, ahead in Haines Junction. The name is Southern Tutchone for Our House, and it belongs to the Champagne and Aishihik First Nations. Guests welcome in summer.
 
 ## Kluane Museum of History -- Burwash Landing, Historic Mile 1093
@@ -304,12 +310,12 @@ Formerly the Kluane Museum of Natural History: wildlife dioramas, First Nations 
 
 ### Kluane Museum of History (westbound, Whitehorse to Tok)
 - treatment: billboard
-- leg: whitehorse_yt_ca -> tok_ak_us
-- at_mi: 163
+- leg: haines_junction_yt_ca -> tok_ak_us
+- at_mi: 66.8
 - spoken: Billboard: The Kluane Museum of History, ahead in Burwash Landing. Yukon wildlife in glass cases, holding very still. The ones outside do not.
 
 ### Kluane Museum of History (eastbound, Tok to Whitehorse)
 - treatment: billboard
-- leg: tok_ak_us -> whitehorse_yt_ca
-- at_mi: 206
+- leg: tok_ak_us -> haines_junction_yt_ca
+- at_mi: 206.3
 - spoken: Billboard: The Kluane Museum of History, ahead in Burwash Landing. Yukon wildlife in glass cases, holding very still. The ones outside do not.

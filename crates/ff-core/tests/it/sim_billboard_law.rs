@@ -27,10 +27,11 @@ fn trip_through(cities: &[&str], seed: i64) -> Trip {
 
 /// The Alaska Highway from Fort Nelson to Tok: British Columbia, the Yukon
 /// and Alaska, with Muncho Lake, Stone Mountain and Kluane along it.
-const ALCAN: [&str; 4] = [
+const ALCAN: [&str; 5] = [
     "fort_nelson_bc_ca",
     "watson_lake_yt_ca",
     "whitehorse_yt_ca",
+    "haines_junction_yt_ca",
     "tok_ak_us",
 ];
 

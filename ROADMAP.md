@@ -4964,17 +4964,72 @@ branch. The older Phase A/B plan checklists are not a live completion list.
       Tok–Fairbanks now passes through Delta Junction; Valdez connects via
       Glennallen; Anchorage reaches Seward and Soldotna, with Kenai and Homer
       beyond Soldotna; and the Dalton Highway runs from Fairbanks through
-      Coldfoot to Deadhorse. Paid miles remain separate from loaded-semi
-      router distances. Verified freight endpoints serve Valdez, Kenai,
+      Coldfoot to Deadhorse. Paid miles were milepost differences until the
+      2026-11-22 rebuild, which pays the driven length of each road. Verified freight endpoints serve Valdez, Kenai,
       Seward, and Homer, and those towns carry only their real freight
       sites: the Valdez container terminal, Silver Bay Seafoods in Valdez and
       Seward, the Alaska Railroad dock and yard in Seward, and Carlile and
       Inlet Fish Producers in Kenai, with no template warehouses, grain
-      elevators or rail ramps. The Dalton tops out at Atigun Pass's 4,739 ft,
+      elevators or rail ramps. Atigun Pass is spoken at the Dalton's top,
       its DEM grade spikes are capped at the BLM's 12%, its unposted
       stretches run at the Dalton's 50 mph, and Colville sells diesel at
       Deadhorse. Thompson Pass, Keystone Canyon and Isabel Pass are spoken on
       the Richardson Highway.
+- [x] **Every Alaska road route, rebuilt (2026-11-22).** All 55 Alaska legs
+      and the Yukon legs that reach Alaska carry their real road from
+      OpenStreetMap with the full layer set (curves, grades, lanes, speed
+      postings, towns, landmarks, HPMS terrain, traffic and pavement); the
+      Bear Valley–Whittier tunnel leg was left as authored. New towns: North
+      Pole (Petro Star refinery), Nikiski (Marathon Kenai refinery), Port
+      MacKenzie, the Fort Knox mine, Skagway (Alaska Marine Lines and Petro
+      Marine) and Haines and Haines Junction as fuel stops. New crossings:
+      Pleasant Camp and Dalton Cache on the Haines Highway, Fraser and
+      Skagway on the Klondike Highway. The Alaska Highway now splits at
+      Haines Junction and the Richardson at North Pole. The pass and town
+      checkpoints were re-placed on the new roads from OpenStreetMap, and
+      the report is
+      `/mnt/project-files/career-2.0-alpha/alaska-routes-report.md`.
+- [ ] (Found along the way) Taylor Highway to Eagle and the Top of the World
+      Highway to Dawson City are left out until the map has a seasonal road
+      rule: both close in winter, and Little Gold Creek and Poker Creek open
+      only in summer.
+- [x] **Stops and fuel on the Alaska routes (2026-11-22).** Brief 5's
+      list (`docs/stops/canada-alaska.json`) is placed on the rebuilt and
+      split legs, and `docs/stops/alaska-routes.json` adds the town diesel a
+      through route passes (Coldfoot, Delta Junction, Glennallen, Tok,
+      Healy, Cantwell, Nenana, Fox, Valdez, Whitehorse, Carcross Corner,
+      Skagway, Haines, Haines Junction) plus two rest areas with sleep: the
+      Farthest North Spruce wayside on the Dalton and East Fork on the Parks
+      Highway. No route has a fuel gap over 200 miles except the Dalton's
+      real ones: Coldfoot to Deadhorse (240) and Fairbanks to Coldfoot
+      (238, with Yukon River Camp left out as summer-only). The fuel range
+      warning names the 240 miles leaving Coldfoot (a test pins it).
+- [ ] (Found along the way) Tok–Haines Junction (291 mi) has fuel at Beaver
+      Creek, Burwash Landing and Destruction Bay but no place to take a
+      10-hour rest: no Yukon source says a highway rest area allows an
+      overnight stay, and one (Junction 37) is signed against it. A lodge
+      or motel open all winter at Beaver Creek or Destruction Bay is the
+      candidate.
+- [ ] (Found along the way) The two Alaska sleep stops rest on 17 AAC
+      05.045 (parking limited only by posted limits); their posted limits
+      and winter plowing are assumed, not verified. Yukon River Camp's
+      winter fuel would close the Fairbanks–Coldfoot gap if confirmed.
+- [ ] (Found along the way) The Alaska Highway sign sheet's six Tok-leg
+      signs were renamed to the split legs at Haines Junction; the sheet is
+      still not baked (placeholder copy).
+- [ ] (Found along the way) Spring weight notices were checked only for the
+      roads already listed. The Kenai Spur to Nikiski, the Steese to Fort
+      Knox, the Klondike and Haines highways and Knik-Goose Bay Road to Port
+      MacKenzie need the 2026 DOT&PF notices read.
+- [ ] (Found along the way) Alaska pays the driven road length now, a mile
+      or two off the milepost reckoning on most roads (Glennallen–Palmer is
+      140, mileposts say 145). Decide whether any leg should pay mileposts.
+- [ ] (Found along the way) Stored elevation samples on rebuilt legs are
+      about 25 miles apart, so a pass summit is not among them; the radio's
+      elevation reading misses Atigun and Thompson passes.
+- [ ] (Found along the way) The Watson Lake legs in Yukon still say two lanes
+      each way on a two-lane road; with no HPMS in Canada the leg-level lane
+      count needs a rule from the OSM lane tags.
 - [x] **Alaska's 2026 spring-breakup weight limits.** DOT&PF notices apply
       85% limits to listed corridors by leg; dispatch derives each truck's
       axle cap, filters overweight restricted routes from the route menu, and
@@ -5037,6 +5092,11 @@ branch. The older Phase A/B plan checklists are not a live completion list.
 - [ ] **Alaska Railroad alternative for placarded hazardous materials.**
       Placarded loads are refused at the tunnel; train carriage is not modeled.
 - [ ] **Whittier freight facilities.** Await a verified freight address and coordinates.
+      Checked again 2026-11-22: the Alaska Railroad's 2025 Whittier Terminal
+      Master Plan describes a barge-to-rail terminal with truck gates but no
+      place where highway trucks load or unload, and names no truck operator;
+      the unnamed seafood plant and Shoreside Petroleum's fuel dock have no
+      source that shows truck freight.
 - [ ] **Whittier is not yet reachable in a career.** With no freight it gets
       no jobs, and Bear Valley and Whittier are not offered as home cities,
       so only tests drive the tunnel until a verified facility lands.

@@ -72,3 +72,28 @@ fn canada_to_canada_stays_in_canada() {
         assert_eq!(countries(&found), ["CA"], "{a} to {b}: {:?}", found.cities);
     }
 }
+
+#[test]
+fn the_new_alaska_cities_stay_in_alaska_unless_only_the_yukon_connects_them() {
+    for (a, b) in [
+        ("north_pole_ak_us", "nikiski_ak_us"),
+        ("fort_knox_ak_us", "port_mackenzie_ak_us"),
+        ("tok_ak_us", "anchorage_ak_us"),
+    ] {
+        let found = route(a, b);
+        assert_eq!(countries(&found), ["US"], "{a} to {b}: {:?}", found.cities);
+    }
+    // Skagway and Haines reach the rest of Alaska only through the Yukon.
+    for (a, b) in [
+        ("skagway_ak_us", "haines_ak_us"),
+        ("haines_ak_us", "fairbanks_ak_us"),
+    ] {
+        let found = route(a, b);
+        assert_eq!(
+            countries(&found),
+            ["US", "CA", "US"],
+            "{a} to {b}: {:?}",
+            found.cities
+        );
+    }
+}
