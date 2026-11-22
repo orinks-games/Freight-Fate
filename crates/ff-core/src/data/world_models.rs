@@ -16,7 +16,6 @@ use super::world_constants::{
     lookup, screened_vehicle_access, vehicle_access_allows, DEFAULT_VEHICLE_ACCESS,
     LOCATION_TYPE_LABELS, PARKING_CERTAINTY_LABELS, STOP_TYPE_LABELS, TOLL_METHOD_LABELS,
 };
-use crate::pyfmt::{py_int, py_str_float, round_py_int, round_py_n};
 
 mod crossing;
 mod interchange;
@@ -919,12 +918,13 @@ impl TollEvent {
 
 /// A posted clearance or weight advisory on the driven corridor.
 ///
-/// Baked from OpenStreetMap `maxheight`/`maxweight` tags at build time (see
-/// `tools/build_interchanges.py --restrictions`) and stored already
-/// normalized: `feet` for a `low_clearance`, US short `tons` for a
-/// `weight_limit`. Routing already avoids impassable restrictions, so these
-/// are advisory signage a legal truck drives past -- the GPS speaks them
-/// ahead like toll points; they never reroute or block.
+/// Baked from OpenStreetMap `maxheight`/`maxweight` tags (`cargo tools
+/// osm-restrictions`) and stored already normalized: `feet` for a
+/// `low_clearance`, US short `tons` for a `weight_limit`. Routing already
+/// avoids impassable restrictions, so these are signs a legal truck drives
+/// past. The layer is stored and parsed but not spoken: the GPS calls about
+/// them told the driver nothing and were removed (owner, 2026-11-22). It is
+/// kept for a route that weighs the truck's own height and weight.
 #[derive(Debug, Clone, PartialEq, Default)]
 pub struct RouteRestriction {
     pub at_mi: f64,
@@ -933,89 +933,6 @@ pub struct RouteRestriction {
     pub feet: f64,
     pub tons: f64,
     pub source: String,
-}
-
-impl RouteRestriction {
-    pub fn value_text(&self) -> String {
-        self.value_text_in(true)
-    }
-
-    /// The sign's value in the player's units: feet and inches and US tons,
-    /// or meters and tonnes to one decimal when the readouts are in
-    /// kilometers.
-    pub fn value_text_in(&self, imperial: bool) -> String {
-        if !imperial {
-            if self.kind == "low_clearance" {
-                let meters = round_py_n(self.feet * 0.3048, 1);
-                return format!("{} meters", py_str_float(meters));
-            }
-            let tonnes = round_py_n(self.tons * 0.90718474, 1);
-            return if tonnes == tonnes.trunc() {
-                format!("{} tonnes", py_int(tonnes))
-            } else {
-                format!("{} tonnes", py_str_float(tonnes))
-            };
-        }
-        if self.kind == "low_clearance" {
-            let mut whole = py_int(self.feet);
-            let mut inches = round_py_int((self.feet - whole as f64) * 12.0);
-            if inches >= 12 {
-                whole += 1;
-                inches -= 12;
-            }
-            if inches != 0 {
-                return format!("{whole} feet {inches} inches");
-            }
-            return format!("{whole} feet");
-        }
-        let tons = round_py_n(self.tons, 1);
-        if tons == tons.trunc() {
-            format!("{} tons", py_int(tons))
-        } else {
-            format!("{} tons", py_str_float(tons))
-        }
-    }
-
-    pub fn kind_label(&self) -> &'static str {
-        // "Low bridge", not "low clearance": the sign's own jargon read badly
-        // over speech (owner report 2026-08-13, "posted whatever"), and the
-        // thing a driver pictures is the bridge. Canonical noun in ontology.md.
-        if self.kind == "low_clearance" {
-            "low bridge"
-        } else {
-            "weight limit"
-        }
-    }
-
-    pub fn spoken_ahead(&self) -> String {
-        self.spoken_ahead_in(true)
-    }
-
-    pub fn spoken_ahead_in(&self, imperial: bool) -> String {
-        let value_text = self.value_text_in(imperial);
-        // The far call answers the only question a driver has about a sign
-        // they cannot see: does it matter? Routing already refused anything
-        // impassable (see the struct docs), so the honest answer is no, and
-        // saying so is the difference between information and worry.
-        format!(
-            "a {}, signed {}. Your route clears it",
-            self.kind_label(),
-            value_text
-        )
-    }
-
-    pub fn spoken_near(&self) -> String {
-        self.spoken_near_in(true)
-    }
-
-    pub fn spoken_near_in(&self, imperial: bool) -> String {
-        let value_text = self.value_text_in(imperial);
-        format!(
-            "{}, signed {}.",
-            py_capitalize(self.kind_label()),
-            value_text
-        )
-    }
 }
 
 /// Python `str.capitalize()`: first character upper, the rest lower.
@@ -1113,35 +1030,6 @@ impl fmt::Display for City {
 #[cfg(test)]
 mod tests {
     use super::*;
-
-    #[test]
-    fn restriction_value_text_reads_like_the_sign() {
-        let low = RouteRestriction {
-            at_mi: 1.0,
-            kind: "low_clearance".into(),
-            feet: 13.5,
-            ..Default::default()
-        };
-        assert_eq!(low.value_text(), "13 feet 6 inches");
-        assert_eq!(low.spoken_near(), "Low bridge, signed 13 feet 6 inches.");
-        let weight = RouteRestriction {
-            at_mi: 1.0,
-            kind: "weight_limit".into(),
-            tons: 12.0,
-            ..Default::default()
-        };
-        assert_eq!(weight.value_text(), "12 tons");
-        let half = RouteRestriction {
-            tons: 12.5,
-            kind: "weight_limit".into(),
-            ..Default::default()
-        };
-        assert_eq!(half.value_text(), "12.5 tons");
-        assert_eq!(
-            half.spoken_ahead(),
-            "a weight limit, signed 12.5 tons. Your route clears it"
-        );
-    }
 
     #[test]
     fn interchange_phrase_drops_the_via_restated_as_a_destination() {

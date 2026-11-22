@@ -68,7 +68,6 @@ are. Japanese has no plural forms; write one form.
 | passing | 追い越し | |
 | hazard | 危険 | |
 | stopping distance | 停止距離 | Not "制動距離", a shorter distance. |
-| low bridge | 低い橋 | |
 | weight limit | 重量制限 | |
 | exit speed | 出口速度 | |
 | ramp curve | ランプのカーブ | |

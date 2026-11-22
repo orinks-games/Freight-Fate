@@ -68,6 +68,7 @@ mod sim_multilane_speech;
 mod sim_province_limits;
 mod sim_real_construction_zones;
 mod sim_river_crossings;
+mod sim_route_restrictions;
 mod sim_scale_check_in_guidance;
 mod sim_speech_clocks;
 mod sim_steer_build;

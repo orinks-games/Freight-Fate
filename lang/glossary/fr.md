@@ -64,7 +64,6 @@ Page Up, F1 and the rest) and place names stay in English.
 | passing | dépassement | |
 | hazard | danger | |
 | stopping distance | distance d'arrêt | |
-| low bridge | pont bas | |
 | weight limit | limite de poids | |
 | exit speed | vitesse de sortie | |
 | ramp curve | virage de bretelle | |

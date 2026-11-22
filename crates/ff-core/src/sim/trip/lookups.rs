@@ -866,9 +866,6 @@ impl Trip {
                 }
             }
             "toll" => format!("Toll point in {ahead_text}: {}.", cue.text),
-            // The cue text is a full clause, so the wrapper only places it on
-            // the road (owner, 2026-08-13).
-            "restriction" => format!("In {ahead_text}, {}.", cue.text),
             _ => format!("Next guidance in {ahead_text}: {}.", cue.text),
         }
     }
