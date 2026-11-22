@@ -13,7 +13,7 @@ use super::backend::Category;
 use super::hearken_backend::{bus_of, level, EngineBand, HearkenBackend};
 use super::{
     advance_engine_wobble, engine_band_weights, engine_band_weights_with_width, engine_freq_mult,
-    engine_load_gain, ACCEL_ENGINE_BANDS, ENGINE_BANDS, ENGINE_BAND_RATE_MAX, ENGINE_BAND_RATE_MIN,
+    engine_load_gain, ENGINE_BANDS, ENGINE_BAND_RATE_MAX, ENGINE_BAND_RATE_MIN,
     ENGINE_CLASSIC_LOOP_KEY, ENGINE_LOOP_GAIN, ENGINE_LOOP_KEY, ENGINE_RESUME_FADE_S,
     ENGINE_RPM_IDLE, ENGINE_SLIDE_MS, ENGINE_SLIDE_SNAP_MS, ENGINE_SLIDE_SNAP_RPM,
     ENGINE_START_ASSUMED_LEN_S, ENGINE_START_CROSSFADE_S, ENGINE_START_FADE_IN_CURVE,
@@ -104,17 +104,13 @@ impl HearkenBackend {
         }
         self.engine_stereo_ring = false;
         if !self.engine_voice_classic {
-            for bands in [&ACCEL_ENGINE_BANDS[..], &STEREO_ENGINE_BANDS] {
-                if !stereo_engine_available(bands) {
-                    continue;
-                }
-                self.start_engine_bands(bands);
-                if self.engine_bands.len() == bands.len() {
-                    self.engine_stereo_ring = true;
-                    break;
-                }
-                for band in self.engine_bands.drain(..) {
-                    self.audio.stop(band.sound, 0);
+            if stereo_engine_available() {
+                self.start_engine_bands(&STEREO_ENGINE_BANDS);
+                self.engine_stereo_ring = self.engine_bands.len() == STEREO_ENGINE_BANDS.len();
+                if !self.engine_stereo_ring {
+                    for band in self.engine_bands.drain(..) {
+                        self.audio.stop(band.sound, 0);
+                    }
                 }
             }
             if !self.engine_stereo_ring {
@@ -390,37 +386,22 @@ mod tests {
 
     #[test]
     fn stereo_engine_uses_native_rpms_and_tracks_the_unloaded_shift() {
-        // With a missing acceleration cut, the available stereo ring still
-        // starts as a unit. Once all the cuts are present, use the denser ring.
         let source = pcm16_wav(&[512, -256, -512, 256].repeat(100), 2, 48_000);
         for (key, _) in STEREO_ENGINE_BANDS {
             register_generated_sound(key, source.clone(), "wav");
         }
-        let (missing_key, _) = ACCEL_ENGINE_BANDS[ACCEL_ENGINE_BANDS.len() - 1];
-        for (key, _) in ACCEL_ENGINE_BANDS {
-            if key != missing_key {
-                register_generated_sound(key, source.clone(), "wav");
-            }
-        }
-        let (fallback, _) = RecordingBackend::new();
-        let mut fallback = HearkenBackend::with_backend(Box::new(fallback));
-        fallback.engine_start(false);
-
-        register_generated_sound(missing_key, source, "wav");
         let (backend, recorder) = RecordingBackend::new();
         let mut engine = HearkenBackend::with_backend(Box::new(backend));
         engine.engine_start(false);
-        for (key, _) in STEREO_ENGINE_BANDS.iter().chain(&ACCEL_ENGINE_BANDS) {
+        for (key, _) in STEREO_ENGINE_BANDS {
             unregister_generated_sound(key);
         }
-        assert!(fallback.engine_stereo_ring);
-        assert_eq!(fallback.engine_bands.len(), STEREO_ENGINE_BANDS.len());
         assert!(engine.engine_stereo_ring);
-        assert_eq!(engine.engine_bands.len(), ACCEL_ENGINE_BANDS.len());
+        assert_eq!(engine.engine_bands.len(), STEREO_ENGINE_BANDS.len());
 
-        let (key, native) = ACCEL_ENGINE_BANDS[5];
+        let (key, native) = STEREO_ENGINE_BANDS[3];
         let channel = recorder.channel_of(key).expect("stereo upper-mid loop");
-        assert_eq!(engine.engine_bands[5].native, native);
+        assert_eq!(engine.engine_bands[3].native, native);
 
         for (rpm, duck, expected_ms) in [
             (native, 1.0, ENGINE_SLIDE_SNAP_MS),
