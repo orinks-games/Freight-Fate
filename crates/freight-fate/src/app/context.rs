@@ -164,6 +164,9 @@ pub struct GameContext {
     /// the whole way (`Some(true)`) or smooth. `None` in the shipped game,
     /// where stretches of each alternate.
     pub playtest_road_jointed: Option<bool>,
+    /// A staged scenario's tire song for every drive it starts. `None` in
+    /// the shipped game, where the pavement layer decides.
+    pub playtest_tire_song: Option<ff_core::sim::road_texture::song::HeldSong>,
     /// A staged scenario's simulated sky for every drive it starts:
     /// `Some(Some(kind))` forces that condition (`WeatherSystem::forced`),
     /// `Some(None)` leaves it free. `None` in the shipped game.
@@ -316,6 +319,7 @@ impl GameContext {
             playtest_sandbox: false,
             playtest_window_down: None,
             playtest_road_jointed: None,
+            playtest_tire_song: None,
             playtest_weather: None,
             playtest_co_driver_hos: None,
             crash_offer_pending: crate::problem_reports::take_crash_offer(),

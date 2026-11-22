@@ -852,7 +852,7 @@ impl SettingsCategoryState {
                     format!("Road surface volume: {} percent", pct(s.road_surface_volume))
                 }),
                 adjust(|s, ctx, d| s.volume(ctx, "road_surface_volume", 0.1 * d as f64)),
-                "The thump of pavement seams and bridge joints under the wheels.",
+                "The thump of pavement seams and bridge joints under the wheels, and the tires' whine on grooved concrete and hum on steel grate decks.",
             ),
             row(
                 dyn_label(|s| format!("Engine sounds volume: {} percent", pct(s.engine_volume))),

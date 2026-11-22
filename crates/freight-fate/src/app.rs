@@ -287,6 +287,8 @@ pub struct DrivingObservation {
     /// Jointed (seams heard) or smooth road under the wheels, and how the
     /// game knows.
     pub road_surface: ff_core::sim::road_texture::RoadSurface,
+    /// What the tires are singing, and how the game knows.
+    pub tire_song: ff_core::sim::road_texture::song::TireSong,
     /// The structure the pavement layer puts under the truck, with its
     /// length in miles.
     pub structure: Option<(ff_core::data::pavement::StructureKind, f64)>,
@@ -1054,6 +1056,7 @@ impl App {
             outside_temperature_c: drive.outside.temperature_c(),
             water: drive.outside.water,
             road_surface: drive.road_texture.surface,
+            tire_song: drive.road_texture.song,
             structure: drive.trip.structure_at_mile(drive.trip.position_mi),
             chain_control: drive.trip.chain_control,
             chains: drive.chain_set,

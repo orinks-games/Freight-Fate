@@ -22,6 +22,7 @@ use ff_core::radio_rotation::initial_airtime_s;
 use ff_core::sim::lane_guidance::{HAIRPIN_ADVISORY_MPH, STRIP_LEAD_MI};
 use ff_core::sim::real_traffic::RealTrafficProvider;
 use ff_core::sim::real_weather::RealWeatherProvider;
+use ff_core::sim::road_texture::song::TireSong;
 use ff_core::sim::road_texture::RoadSurface;
 use ff_core::sim::season::real_clock_game_hours;
 use ff_core::sim::surge::{liquid_load_for, LiquidCargo};
@@ -289,8 +290,16 @@ impl DrivingState {
         if let Some(jointed) = ctx.playtest_road_jointed {
             road_surface = RoadSurface::held(jointed);
         }
-        let road_texture =
-            RoadTexture::new(road_surface, trip.bridge_joint_spans(), trip.position_mi);
+        let tire_song = match ctx.playtest_tire_song {
+            Some(held) => TireSong::Held(held),
+            None => TireSong::first(trip.underfoot_at(trip.position_mi)),
+        };
+        let road_texture = RoadTexture::new(
+            road_surface,
+            tire_song,
+            trip.bridge_joint_spans(),
+            trip.position_mi,
+        );
 
         let damage_band = trip.truck.damage_band();
         let engine_on = trip.truck.engine_on;

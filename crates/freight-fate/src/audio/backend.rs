@@ -9,7 +9,8 @@ use std::fmt;
 use ff_core::audio_loops::SustainLoopSpec;
 
 use super::{
-    AudioError, CH_ENGINE, CH_OUTSIDE, CH_SIREN, CH_WEATHER, CH_WEATHER_B, ENGINE_RPM_IDLE,
+    AudioError, CH_ENGINE, CH_OUTSIDE, CH_ROAD_SONG, CH_SIREN, CH_WEATHER, CH_WEATHER_B,
+    ENGINE_RPM_IDLE,
 };
 
 /// The mix bus a sound rides: one of the volume settings.
@@ -86,6 +87,9 @@ pub fn loop_category(channel: u32) -> Category {
         Category::Weather
     } else if CH_OUTSIDE.contains(&channel) {
         Category::Outside
+    } else if channel == CH_ROAD_SONG {
+        // With the seams and joints: the Road surface volume, never ducked.
+        Category::Road
     } else if channel == CH_SIREN {
         // Off the shared sfx bus on purpose: a siren behind you is the one
         // sound in the game that must be raisable without dragging every
@@ -429,6 +433,8 @@ mod tests {
         for ch in super::CH_OUTSIDE {
             assert_eq!(loop_category(ch), Category::Outside);
         }
+        // The tires' song rides with the seams.
+        assert_eq!(loop_category(super::CH_ROAD_SONG), Category::Road);
     }
 
     #[test]

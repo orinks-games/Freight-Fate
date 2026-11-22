@@ -24,6 +24,7 @@ use ff_core::playtest_levers::{apply_city, apply_clock, resolve_city_forgiving};
 use ff_core::pyfmt::fmt_grouped;
 use ff_core::sim::alertness::Alertness;
 use ff_core::sim::hos::HosClock;
+use ff_core::sim::road_texture::song::HeldSong;
 use ff_core::sim::vehicle::TruckState;
 use ff_core::sim::weather::WeatherKind;
 
@@ -143,6 +144,9 @@ pub struct Scenario {
     /// The road surface every drive from here on keeps: `Some(true)` jointed
     /// the whole way, `Some(false)` smooth.
     pub road_jointed: Option<bool>,
+    /// The tires' song every drive from here on holds, over what the layer
+    /// reads.
+    pub tire_song: Option<HeldSong>,
     /// The simulated sky every drive from here on starts under:
     /// `Some(Some(kind))` forced, `Some(None)` free (`parse_weather`).
     pub weather: Option<Option<WeatherKind>>,
@@ -248,6 +252,13 @@ impl Scenario {
                     "road_surface must be jointed or smooth, not {other}"
                 ))
             }
+        };
+        let tire_song = match text(args, "tire_song")?.as_deref() {
+            None => None,
+            Some(name) => Some(
+                HeldSong::from_name(name)
+                    .ok_or_else(|| format!("tire_song must be quiet, whine or hum, not {name}"))?,
+            ),
         };
         let weather = text(args, "weather")?
             .map(|value| parse_weather(&value))
@@ -366,6 +377,7 @@ impl Scenario {
             settings,
             window_down,
             road_jointed,
+            tire_song,
             weather,
             newspaper: text(args, "newspaper")?.map(|value| match value.as_str() {
                 "none" => None,
@@ -613,6 +625,10 @@ pub fn apply(ctx: &mut GameContext, scenario: &Scenario) -> Result<Vec<String>, 
         } else {
             "Drives start with the driver window up.".to_string()
         });
+    }
+    if let Some(song) = scenario.tire_song {
+        ctx.playtest_tire_song = Some(song);
+        notes.push(format!("Drives hold the tire song {}.", song.name()));
     }
     if let Some(weather) = scenario.weather {
         ctx.playtest_weather = Some(weather);
