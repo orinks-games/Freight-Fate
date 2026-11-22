@@ -18,6 +18,7 @@
 
 ### Changed
 
+- **The player manual has been rewritten in a clearer, more conversational style.** It walks through each part of the game step by step.
 - **Exit, stop, fuel and road report calls no longer end in "ahead".** "Signal set for exit 323, 5 miles."
 - **F1 in a text field now repeats how the field works.**
 
