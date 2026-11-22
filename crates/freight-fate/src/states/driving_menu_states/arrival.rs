@@ -9,11 +9,14 @@
 use std::time::{SystemTime, UNIX_EPOCH};
 
 use ff_core::models::border_freight::yard_drop_line;
-use ff_core::models::business::{display_rank_for, uses_company_career_ranks_for, SettlementTerms};
+use ff_core::models::business::{
+    company_driver_pay, display_rank_for, uses_company_career_ranks_for, SettlementTerms,
+    COMPANY_DRIVER,
+};
 use ff_core::models::career::{standing_xp_rate, xp_rate_settlement_clause};
 use ff_core::models::career_ladder::relabel_level_up_announcements;
 use ff_core::models::cargo_condition::{
-    cargo_condition_text, settle_cargo, CargoSettlement, CargoVocabulary,
+    cargo_condition_text, pay_loss_share, settle_cargo, CargoSettlement, CargoVocabulary,
 };
 use ff_core::models::carrier_fleet::{
     assigned_truck_key, equipment_held_back, fleet_tier_for_level, fleet_upgrade_announcement,
@@ -385,9 +388,8 @@ impl ArrivalState {
         // carrier owes the value of freight it damages, and a receiver may
         // refuse a bad load outright -- which is why this is the largest
         // consequence in the game and comes off the top of the haul.
-        let cargo = settle_cargo(d.trip.truck.cargo_damage_pct, gross_base);
+        let mut cargo = settle_cargo(d.trip.truck.cargo_damage_pct, gross_base);
         let vocabulary = d.trip.truck.cargo_vocabulary();
-        driver_charges += cargo.pay_loss;
 
         let owned_trailers: Vec<String> = profile_of(ctx).owned_trailers.clone();
         let owned_refs: Vec<&str> = owned_trailers.iter().map(String::as_str).collect();
@@ -396,6 +398,22 @@ impl ArrivalState {
         let transponder = has_weigh_station_transponder(profile_of(ctx));
         let record_surcharge = enforcement::record_insurance_surcharge(profile_of(ctx));
         let business_status = profile_of(ctx).business_status.clone();
+        // A company driver loses their own pay for the load, never the
+        // load's revenue: the revenue is the carrier's, and charging it
+        // left a refused load owing hundreds past the pay it cost. The
+        // claim share comes off the driver's wage for the load; leased and
+        // owner-operators keep the revenue, so they lose its share.
+        if business_status == COMPANY_DRIVER && cargo.pay_loss > 0.0 {
+            let wage = company_driver_pay(
+                &job,
+                gross_base,
+                pay_on_time,
+                Some(carrier_key.as_str()),
+                Some(reputation_before),
+            );
+            cargo.pay_loss = round_py_n(wage * pay_loss_share(&cargo.outcome), 2);
+        }
+        driver_charges += cargo.pay_loss;
         let terms = SettlementTerms {
             carrier_key: Some(carrier_key.as_str()),
             owned_trailers: &owned_refs,

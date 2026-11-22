@@ -70,6 +70,7 @@
 
 ### Changed
 
+- **A company driver now loses only their own pay for a refused or damaged load,** not the load's full price. The damage deductible still applies.
 - **Alaska's highways now have their real bends, grades, lane counts and towns.** The road between Palmer and Wasilla is now called the Palmer-Wasilla Highway.
 - **Simulated weather in Alaska and Canada now gets as cold as the real winters there.** A January morning in Fairbanks now reads below zero Fahrenheit.
 - **Museums by the road are now said as you pass them.** "Gwinnett History Museum ahead" is now "Passing Gwinnett History Museum."
