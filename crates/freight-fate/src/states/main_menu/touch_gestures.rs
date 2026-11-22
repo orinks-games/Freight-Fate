@@ -176,7 +176,6 @@ impl TouchGesturesState {
     fn toggle_shared_recogniser(&mut self, ctx: &mut GameContext) {
         ctx.settings.touch_shared_recogniser = !ctx.settings.touch_shared_recogniser;
         save_settings(&ctx.settings);
-        ctx.audio.play("ui/menu_select");
         self.speak_current(ctx);
     }
 
