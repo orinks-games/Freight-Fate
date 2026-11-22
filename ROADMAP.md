@@ -6350,8 +6350,9 @@ a carrier slice (owner, 2026-10-26).
       Placed and dry run, waiting on approval: the Alaska roads sheet
       (`alaska-roads-2026-11-22.md`, 33 placed) and the northern Ontario
       sheet (`northern-ontario-2026-11-22.md`, 51 placed, with corridor 3's
-      park bans and the North Shore Scenic Drive ban on the legs). Atlantic
-      Canada next.
+      park bans and the North Shore Scenic Drive ban on the legs), and the
+      Atlantic Canada sheet (`atlantic-canada-2026-11-22.md`, 30 placed,
+      with corridor 4's government park bans on the legs).
 - [ ] (Found along the way) New Brunswick is read attractions only
       province-wide because its freight routes are Level I and II
       highways; its ordinary highways license commercial boards. A per-leg
