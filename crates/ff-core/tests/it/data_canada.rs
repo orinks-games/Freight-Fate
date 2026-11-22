@@ -1,5 +1,5 @@
-//! The British Columbia and Yukon legs as rebuilt by the `cargo tools`
-//! pipeline: each carries its own archived road, a grade profile, read
+//! The Canadian legs as built by the `cargo tools` pipeline (the BC and
+//! Yukon pilot, then each corridor): each carries its own archived road, a grade profile, read
 //! speed postings, read province lines and curves from the Canadian
 //! gameplay folder.
 
@@ -7,33 +7,29 @@ use crate::data_support::{data_dir, world};
 use ff_core::data::curves::leg_curves;
 use ff_core::data::world_models::Leg;
 
-/// The legs rebuilt from scaffolds: every leg that starts or ends in
-/// British Columbia or Yukon. The Alaska Highway between Whitehorse and Tok
-/// is split at Haines Junction, where the Haines Highway leaves it.
-const REBUILT: &[&str] = &[
-    "dawson_creek_bc_ca:fort_st_john_bc_ca",
-    "dawson_creek_bc_ca:prince_george_bc_ca",
-    "fort_nelson_bc_ca:fort_st_john_bc_ca",
-    "fort_nelson_bc_ca:watson_lake_yt_ca",
-    "fort_st_john_bc_ca:dawson_creek_bc_ca",
-    "fort_st_john_bc_ca:fort_nelson_bc_ca",
-    "prince_george_bc_ca:dawson_creek_bc_ca",
-    "prince_george_bc_ca:surrey_bc_ca",
-    "surrey_bc_ca:blaine_wa_us",
-    "surrey_bc_ca:prince_george_bc_ca",
-    "watson_lake_yt_ca:fort_nelson_bc_ca",
-    "watson_lake_yt_ca:whitehorse_yt_ca",
-    "whitehorse_yt_ca:haines_junction_yt_ca",
-    "whitehorse_yt_ca:watson_lake_yt_ca",
-    "whitehorse_yt_ca:skagway_ak_us",
-    "haines_junction_yt_ca:whitehorse_yt_ca",
-    "haines_junction_yt_ca:tok_ak_us",
-    "haines_junction_yt_ca:haines_ak_us",
-    "blaine_wa_us:surrey_bc_ca",
-    "tok_ak_us:haines_junction_yt_ca",
-    "haines_ak_us:haines_junction_yt_ca",
-    "skagway_ak_us:whitehorse_yt_ca",
-];
+/// Every leg that starts or ends in Canada: the BC and Yukon legs rebuilt
+/// from scaffolds and every corridor built since.
+fn canadian_legs() -> Vec<String> {
+    world()
+        .legs
+        .iter()
+        .filter(|l| l.a.ends_with("_ca") || l.b.ends_with("_ca"))
+        .map(|l| format!("{}:{}", l.a, l.b))
+        .collect()
+}
+
+fn geometry_files(country: &str) -> Vec<String> {
+    let dir = data_dir().join(format!("world_data/{country}/geometry"));
+    let mut files: Vec<String> = std::fs::read_dir(&dir)
+        .unwrap()
+        .filter_map(|e| e.ok())
+        .map(|e| e.file_name().to_string_lossy().into_owned())
+        .filter(|n| n.ends_with(".jsonl"))
+        .map(|n| format!("world_data/{country}/geometry/{n}"))
+        .collect();
+    files.sort();
+    files
+}
 
 fn leg(id: &str) -> &'static Leg {
     let (a, b) = id.split_once(':').unwrap();
@@ -54,17 +50,17 @@ fn archived_ids(path: &str) -> Vec<String> {
 
 #[test]
 fn every_canadian_leg_has_an_archived_road_in_its_countrys_folder() {
-    let mut ids = archived_ids("world_data/ca/geometry/bc.jsonl");
-    ids.extend(archived_ids("world_data/ca/geometry/yt.jsonl"));
-    ids.extend(archived_ids("world_data/us/geometry/wa.jsonl"));
-    ids.extend(archived_ids("world_data/us/geometry/ak.jsonl"));
-    for id in REBUILT {
+    let ca = geometry_files("ca");
+    let mut ids: Vec<String> = Vec::new();
+    for path in ca.iter().chain(geometry_files("us").iter()) {
+        ids.extend(archived_ids(path));
+    }
+    let legs = canadian_legs();
+    assert!(legs.len() > 100, "only {} Canadian legs", legs.len());
+    for id in &legs {
         assert!(ids.iter().any(|i| i == id), "{id} has no archived road");
     }
-    for path in [
-        "world_data/ca/geometry/bc.jsonl",
-        "world_data/ca/geometry/yt.jsonl",
-    ] {
+    for path in &ca {
         for id in archived_ids(path) {
             let from = id.split(':').next().unwrap_or_default();
             assert!(
@@ -77,8 +73,8 @@ fn every_canadian_leg_has_an_archived_road_in_its_countrys_folder() {
 
 #[test]
 fn every_canadian_leg_has_a_grade_profile_that_covers_it() {
-    for id in REBUILT {
-        let leg = leg(id);
+    for id in canadian_legs() {
+        let leg = leg(&id);
         let segments = leg.grade_segments();
         assert!(!segments.is_empty(), "{id} has no grade profile");
         let end = segments.iter().map(|s| s.end_mi).fold(0.0, f64::max);
@@ -124,8 +120,8 @@ fn province_and_border_lines_are_read_with_their_names() {
 #[test]
 fn canadian_postings_are_read_or_marked_as_gaps() {
     let mut read = 0;
-    for id in REBUILT {
-        for s in leg(id).speed_limits() {
+    for id in canadian_legs() {
+        for s in leg(&id).speed_limits() {
             assert!(
                 !s.source.starts_with("Coarse "),
                 "{id} still carries a coarse posting at mile {}",
@@ -137,6 +133,27 @@ fn canadian_postings_are_read_or_marked_as_gaps() {
         }
     }
     assert!(read > 100, "only {read} read postings on the Canadian legs");
+}
+
+#[test]
+fn prairie_province_lines_are_read_with_their_names() {
+    let line = leg("lloydminster_ab_ca:north_battleford_sk_ca");
+    assert!(
+        line.state_crossings()
+            .iter()
+            .any(|c| c.from_state == "Alberta" && c.state == "Saskatchewan"),
+        "{:?}",
+        line.state_crossings()
+    );
+    let border = leg("winnipeg_mb_ca:grand_forks_nd_us");
+    assert!(
+        border
+            .state_crossings()
+            .iter()
+            .any(|c| c.from_state == "Manitoba" && c.state == "North Dakota"),
+        "{:?}",
+        border.state_crossings()
+    );
 }
 
 #[test]
@@ -224,7 +241,7 @@ fn canadian_postings_are_driven_at_the_number_on_the_sign() {
 fn a_canadian_ramp_advisory_keeps_its_km_h() {
     // A 50 km/h ramp sign is 31.07 mph, not the 50 mph the US bare-number
     // screen would make of it.
-    let leg = leg("surrey_bc_ca:prince_george_bc_ca");
+    let leg = leg("vancouver_bc_ca:abbotsford_bc_ca");
     let advisories: Vec<f64> = leg
         .interchanges()
         .iter()

@@ -136,6 +136,1074 @@
           "source_note": "Read: OpenStreetMap way 392434012 (amenity=fuel, fuel:diesel=yes, large_vehicles=yes, name North 60 Petro Express, Mile 1060 Alaska Highway, checked 2026-07-08), OpenStreetMap planet file of 2026-11-16. Diesel and large-vehicle access are read; parking capacity is not claimed."
         }
       ]
+    },
+    "vancouver_bc_ca": {
+      "spoken_city": "Vancouver",
+      "state": "BC",
+      "country": "CA",
+      "region": "pacific_northwest",
+      "locations": [
+        {
+          "name": "Centerm Container Terminal",
+          "type": "port",
+          "lat": 49.28804,
+          "lon": -123.09546,
+          "source_note": "DP World Centerm container terminal on Burrard Inlet, Port of Vancouver. Name, kind and position read from OpenStreetMap way 220771243 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/220771243)."
+        },
+        {
+          "name": "Viterra Pacific Terminal",
+          "type": "port",
+          "lat": 49.28779,
+          "lon": -123.06785,
+          "source_note": "Viterra grain terminal on the Vancouver waterfront. Name, kind and position read from OpenStreetMap way 1174883978 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/1174883978)."
+        },
+        {
+          "name": "Alliance Grain Terminal",
+          "type": "port",
+          "lat": 49.28603,
+          "lon": -123.07915,
+          "source_note": "Alliance Grain Terminal, Port of Vancouver. Name, kind and position read from OpenStreetMap way 1173738444 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/1173738444)."
+        }
+      ],
+      "lat": 49.28804,
+      "lon": -123.09546
+    },
+    "abbotsford_bc_ca": {
+      "spoken_city": "Abbotsford",
+      "state": "BC",
+      "country": "CA",
+      "region": "pacific_northwest",
+      "locations": [
+        {
+          "name": "P&H Abbotsford Inland Terminal",
+          "type": "farm_elevator",
+          "lat": 49.05162,
+          "lon": -122.2885,
+          "source_note": "Parrish & Heimbecker feed grain terminal. Name, kind and position read from OpenStreetMap way 375708892 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/375708892)."
+        },
+        {
+          "name": "Lineage Logistics Abbotsford",
+          "type": "cold_storage",
+          "lat": 49.03913,
+          "lon": -122.34373,
+          "source_note": "Lineage Logistics cold storage warehouse. Name, kind and position read from OpenStreetMap way 338964891 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/338964891)."
+        },
+        {
+          "name": "Sofina Foods Abbotsford",
+          "type": "food_processor",
+          "lat": 49.03767,
+          "lon": -122.33998,
+          "source_note": "Sofina Foods poultry plant. Name, kind and position read from OpenStreetMap way 379139498 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/379139498)."
+        },
+        {
+          "name": "Saputo Abbotsford",
+          "type": "food_processor",
+          "lat": 49.03538,
+          "lon": -122.27425,
+          "source_note": "Saputo dairy plant. Name, kind and position read from OpenStreetMap way 328501135 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/328501135)."
+        }
+      ],
+      "lat": 49.05162,
+      "lon": -122.2885
+    },
+    "chilliwack_bc_ca": {
+      "spoken_city": "Chilliwack",
+      "state": "BC",
+      "country": "CA",
+      "region": "pacific_northwest",
+      "locations": [
+        {
+          "name": "Molson Coors Fraser Valley Brewery",
+          "type": "food_processor",
+          "lat": 49.14696,
+          "lon": -121.95905,
+          "source_note": "Molson Coors brewery opened 2019. Name, kind and position read from OpenStreetMap way 706254362 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/706254362)."
+        },
+        {
+          "name": "Rogers Foods Chilliwack",
+          "type": "food_processor",
+          "lat": 49.11606,
+          "lon": -121.99743,
+          "source_note": "Rogers Foods flour and cereal mill. Name, kind and position read from OpenStreetMap way 881959488 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/881959488)."
+        }
+      ],
+      "lat": 49.14696,
+      "lon": -121.95905
+    },
+    "hope_bc_ca": {
+      "spoken_city": "Hope",
+      "state": "BC",
+      "country": "CA",
+      "region": "pacific_northwest",
+      "locations": [
+        {
+          "name": "Flying J Hope",
+          "type": "travel_center",
+          "lat": 49.36545,
+          "lon": -121.48324,
+          "source_note": "Flying J fuel stop on Highway 1 at Hope, tagged hgv=yes. Name, kind and position read from OpenStreetMap way 486119835 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/486119835)."
+        }
+      ],
+      "lat": 49.36545,
+      "lon": -121.48324
+    },
+    "merritt_bc_ca": {
+      "spoken_city": "Merritt",
+      "state": "BC",
+      "country": "CA",
+      "region": "pacific_northwest",
+      "locations": [
+        {
+          "name": "Esso Commercial Cardlock Merritt",
+          "type": "travel_center",
+          "lat": 50.12368,
+          "lon": -120.74863,
+          "source_note": "Esso commercial cardlock at the Coquihalla interchange. Name, kind and position read from OpenStreetMap way 135719638 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/135719638)."
+        }
+      ],
+      "lat": 50.12368,
+      "lon": -120.74863
+    },
+    "kamloops_bc_ca": {
+      "spoken_city": "Kamloops",
+      "state": "BC",
+      "country": "CA",
+      "region": "pacific_northwest",
+      "locations": [
+        {
+          "name": "Suncor Distribution Centre Kamloops",
+          "type": "chemical_petroleum_terminal",
+          "lat": 50.711,
+          "lon": -120.43327,
+          "source_note": "Suncor fuel distribution terminal. Name, kind and position read from OpenStreetMap way 235253192 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/235253192)."
+        },
+        {
+          "name": "Trans Mountain Kamloops Terminal",
+          "type": "chemical_petroleum_terminal",
+          "lat": 50.66269,
+          "lon": -120.41575,
+          "source_note": "Trans Mountain pipeline terminal. Name, kind and position read from OpenStreetMap way 1424718553 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/1424718553)."
+        },
+        {
+          "name": "New Afton Mine",
+          "type": "mine_quarry",
+          "lat": 50.65805,
+          "lon": -120.52039,
+          "source_note": "New Gold's New Afton copper and gold mine. Name, kind and position read from OpenStreetMap way 843551594 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/843551594)."
+        }
+      ],
+      "lat": 50.711,
+      "lon": -120.43327
+    },
+    "vernon_bc_ca": {
+      "spoken_city": "Vernon",
+      "state": "BC",
+      "country": "CA",
+      "region": "pacific_northwest",
+      "locations": [
+        {
+          "name": "Tolko Lavington Planer Mill",
+          "type": "lumber_paper",
+          "lat": 50.22951,
+          "lon": -119.09946,
+          "source_note": "Tolko Industries planer mill at Lavington. Name, kind and position read from OpenStreetMap way 124817839 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/124817839)."
+        },
+        {
+          "name": "Pinnacle Lavington Pellet Plant",
+          "type": "lumber_paper",
+          "lat": 50.23349,
+          "lon": -119.10001,
+          "source_note": "Pinnacle wood pellet plant at Lavington. Name, kind and position read from OpenStreetMap way 751690660 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/751690660)."
+        },
+        {
+          "name": "Gorman Brothers Lumber Lavington",
+          "type": "lumber_paper",
+          "lat": 50.22903,
+          "lon": -119.01194,
+          "source_note": "Gorman Brothers lumber yard. Name, kind and position read from OpenStreetMap way 691992965 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/691992965)."
+        }
+      ],
+      "lat": 50.2668671,
+      "lon": -119.2718157
+    },
+    "kelowna_bc_ca": {
+      "spoken_city": "Kelowna",
+      "state": "BC",
+      "country": "CA",
+      "region": "pacific_northwest",
+      "locations": [
+        {
+          "name": "Gorman Brothers Lumber",
+          "type": "lumber_paper",
+          "lat": 49.81897,
+          "lon": -119.65481,
+          "source_note": "Gorman Brothers sawmill, West Kelowna. Name, kind and position read from OpenStreetMap way 376159406 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/376159406)."
+        },
+        {
+          "name": "Costco Kelowna",
+          "type": "retail_distribution",
+          "lat": 49.88026,
+          "lon": -119.42912,
+          "source_note": "Costco warehouse store. Name, kind and position read from OpenStreetMap way 1136603092 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/1136603092)."
+        }
+      ],
+      "lat": 49.8879177,
+      "lon": -119.495902
+    },
+    "penticton_bc_ca": {
+      "spoken_city": "Penticton",
+      "state": "BC",
+      "country": "CA",
+      "region": "pacific_northwest",
+      "locations": [
+        {
+          "name": "Apple Packing Plant, Summerland",
+          "type": "food_processor",
+          "lat": 49.60237,
+          "lon": -119.67448,
+          "source_note": "Fruit packing plant at Summerland. Name, kind and position read from OpenStreetMap way 223593290 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/223593290)."
+        },
+        {
+          "name": "Moduline Penticton",
+          "type": "manufacturing_plant",
+          "lat": 49.48873,
+          "lon": -119.60629,
+          "source_note": "Moduline modular home plant. Name, kind and position read from OpenStreetMap way 656685597 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/656685597)."
+        }
+      ],
+      "lat": 49.5003268,
+      "lon": -119.593249
+    },
+    "osoyoos_bc_ca": {
+      "spoken_city": "Osoyoos",
+      "state": "BC",
+      "country": "CA",
+      "region": "pacific_northwest",
+      "locations": [
+        {
+          "name": "Husky Osoyoos",
+          "type": "travel_center",
+          "lat": 49.03249,
+          "lon": -119.47121,
+          "source_note": "Fuel station on Highway 3 and 97; OpenStreetMap maps no freight facility in Osoyoos itself. Name, kind and position read from OpenStreetMap way 223355261 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/223355261)."
+        }
+      ],
+      "lat": 49.03249,
+      "lon": -119.47121
+    },
+    "princeton_bc_ca": {
+      "spoken_city": "Princeton",
+      "state": "BC",
+      "country": "CA",
+      "region": "pacific_northwest",
+      "locations": [
+        {
+          "name": "Esso Cardlock Princeton",
+          "type": "travel_center",
+          "lat": 49.45355,
+          "lon": -120.51085,
+          "source_note": "Esso cardlock on Highway 3. Name, kind and position read from OpenStreetMap node 11450646448 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/node/11450646448)."
+        }
+      ],
+      "lat": 49.45355,
+      "lon": -120.51085
+    },
+    "salmon_arm_bc_ca": {
+      "spoken_city": "Salmon Arm",
+      "state": "BC",
+      "country": "CA",
+      "region": "pacific_northwest",
+      "locations": [
+        {
+          "name": "Tappen Mill",
+          "type": "lumber_paper",
+          "lat": 50.78131,
+          "lon": -119.33138,
+          "source_note": "Sawmill at Tappen on Highway 1. Name, kind and position read from OpenStreetMap way 238230104 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/238230104)."
+        },
+        {
+          "name": "Buckerfield's Salmon Arm",
+          "type": "retail_distribution",
+          "lat": 50.69315,
+          "lon": -119.30568,
+          "source_note": "Farm supply store. Name, kind and position read from OpenStreetMap way 144825721 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/144825721)."
+        }
+      ],
+      "lat": 50.7005059,
+      "lon": -119.2790529
+    },
+    "revelstoke_bc_ca": {
+      "spoken_city": "Revelstoke",
+      "state": "BC",
+      "country": "CA",
+      "region": "pacific_northwest",
+      "locations": [
+        {
+          "name": "Downie Timber",
+          "type": "lumber_paper",
+          "lat": 50.98853,
+          "lon": -118.2007,
+          "source_note": "Downie Timber sawmill. Name, kind and position read from OpenStreetMap way 173602757 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/173602757)."
+        }
+      ],
+      "lat": 50.98853,
+      "lon": -118.2007
+    },
+    "golden_bc_ca": {
+      "spoken_city": "Golden",
+      "state": "BC",
+      "country": "CA",
+      "region": "pacific_northwest",
+      "locations": [
+        {
+          "name": "Louisiana-Pacific Golden",
+          "type": "lumber_paper",
+          "lat": 51.31344,
+          "lon": -116.98112,
+          "source_note": "Louisiana-Pacific building products plant. Name, kind and position read from OpenStreetMap way 521495881 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/521495881)."
+        }
+      ],
+      "lat": 51.31344,
+      "lon": -116.98112
+    },
+    "cranbrook_bc_ca": {
+      "spoken_city": "Cranbrook",
+      "state": "BC",
+      "country": "CA",
+      "region": "pacific_northwest",
+      "locations": [
+        {
+          "name": "Esso Cranbrook",
+          "type": "travel_center",
+          "lat": 49.51119,
+          "lon": -115.77199,
+          "source_note": "Fuel station on Highway 3/95 in Cranbrook; OpenStreetMap maps no freight facility in Cranbrook. Name, kind and position read from OpenStreetMap way 159743353 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/159743353)."
+        }
+      ],
+      "lat": 49.51119,
+      "lon": -115.77199
+    },
+    "castlegar_bc_ca": {
+      "spoken_city": "Castlegar",
+      "state": "BC",
+      "country": "CA",
+      "region": "pacific_northwest",
+      "locations": [
+        {
+          "name": "Mercer Celgar Pulp Mill",
+          "type": "lumber_paper",
+          "lat": 49.33522,
+          "lon": -117.72129,
+          "source_note": "Mercer Celgar pulp mill. Name, kind and position read from OpenStreetMap way 1442630339 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/1442630339)."
+        },
+        {
+          "name": "Interfor Castlegar",
+          "type": "lumber_paper",
+          "lat": 49.33753,
+          "lon": -117.7512,
+          "source_note": "Interfor Castlegar sawmill. Name, kind and position read from OpenStreetMap way 188065840 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/188065840)."
+        }
+      ],
+      "lat": 49.33522,
+      "lon": -117.72129
+    },
+    "creston_bc_ca": {
+      "spoken_city": "Creston",
+      "state": "BC",
+      "country": "CA",
+      "region": "pacific_northwest",
+      "locations": [
+        {
+          "name": "Flying J Cardlock Creston",
+          "type": "travel_center",
+          "lat": 49.11242,
+          "lon": -116.52444,
+          "source_note": "Flying J cardlock on Highway 3. Name, kind and position read from OpenStreetMap way 1429825183 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/1429825183)."
+        }
+      ],
+      "lat": 49.11242,
+      "lon": -116.52444
+    },
+    "cache_creek_bc_ca": {
+      "spoken_city": "Cache Creek",
+      "state": "BC",
+      "country": "CA",
+      "region": "pacific_northwest",
+      "locations": [
+        {
+          "name": "Co-op Cardlock Cache Creek",
+          "type": "travel_center",
+          "lat": 50.8041,
+          "lon": -121.32536,
+          "source_note": "Co-op cardlock at the Highway 1 and 97 junction. Name, kind and position read from OpenStreetMap node 5275348793 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/node/5275348793)."
+        }
+      ],
+      "lat": 50.8041,
+      "lon": -121.32536
+    },
+    "williams_lake_bc_ca": {
+      "spoken_city": "Williams Lake",
+      "state": "BC",
+      "country": "CA",
+      "region": "pacific_northwest",
+      "locations": [
+        {
+          "name": "Tolko Williams Lake",
+          "type": "lumber_paper",
+          "lat": 52.11709,
+          "lon": -122.13481,
+          "source_note": "Tolko Industries sawmill. Name, kind and position read from OpenStreetMap node 254837825 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/node/254837825)."
+        },
+        {
+          "name": "CN Williams Lake Yard",
+          "type": "rail",
+          "lat": 52.11946,
+          "lon": -122.13068,
+          "source_note": "CN rail yard. Name, kind and position read from OpenStreetMap node 11537763864 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/node/11537763864)."
+        }
+      ],
+      "lat": 52.11709,
+      "lon": -122.13481
+    },
+    "quesnel_bc_ca": {
+      "spoken_city": "Quesnel",
+      "state": "BC",
+      "country": "CA",
+      "region": "pacific_northwest",
+      "locations": [
+        {
+          "name": "West Fraser Quesnel Sawmill",
+          "type": "lumber_paper",
+          "lat": 52.99713,
+          "lon": -122.50223,
+          "source_note": "West Fraser sawmill. Name, kind and position read from OpenStreetMap way 385589599 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/385589599)."
+        },
+        {
+          "name": "Quesnel River Pulp",
+          "type": "lumber_paper",
+          "lat": 52.99993,
+          "lon": -122.49899,
+          "source_note": "Quesnel River Pulp mill. Name, kind and position read from OpenStreetMap way 606773725 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/606773725)."
+        }
+      ],
+      "lat": 52.99713,
+      "lon": -122.50223
+    },
+    "mcbride_bc_ca": {
+      "spoken_city": "McBride",
+      "state": "BC",
+      "country": "CA",
+      "region": "pacific_northwest",
+      "locations": [
+        {
+          "name": "Centex McBride",
+          "type": "travel_center",
+          "lat": 53.30485,
+          "lon": -120.16121,
+          "source_note": "Fuel station on Highway 16. Name, kind and position read from OpenStreetMap node 5272221099 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/node/5272221099)."
+        }
+      ],
+      "lat": 53.30485,
+      "lon": -120.16121
+    },
+    "valemount_bc_ca": {
+      "spoken_city": "Valemount",
+      "state": "BC",
+      "country": "CA",
+      "region": "pacific_northwest",
+      "locations": [
+        {
+          "name": "Co-op Cardlock Valemount",
+          "type": "travel_center",
+          "lat": 52.82875,
+          "lon": -119.27655,
+          "source_note": "Co-op cardlock on Highway 5. Name, kind and position read from OpenStreetMap node 5272361423 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/node/5272361423)."
+        }
+      ],
+      "lat": 52.82875,
+      "lon": -119.27655
+    },
+    "calgary_ab_ca": {
+      "spoken_city": "Calgary",
+      "state": "AB",
+      "country": "CA",
+      "region": "rockies",
+      "locations": [
+        {
+          "name": "CN Calgary Logistics Park",
+          "type": "intermodal",
+          "lat": 51.10451,
+          "lon": -113.846,
+          "source_note": "CN intermodal and logistics park at Conrich. Name, kind and position read from OpenStreetMap way 377512194 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/377512194)."
+        },
+        {
+          "name": "Interlink Logistics Park",
+          "type": "distribution",
+          "lat": 51.18811,
+          "lon": -113.97601,
+          "source_note": "Distribution park in north Calgary. Name, kind and position read from OpenStreetMap way 904567162 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/904567162)."
+        }
+      ],
+      "lat": 51.0456064,
+      "lon": -114.057541
+    },
+    "red_deer_ab_ca": {
+      "spoken_city": "Red Deer",
+      "state": "AB",
+      "country": "CA",
+      "region": "rockies",
+      "locations": [
+        {
+          "name": "Peavey Industries Gasoline Alley Distribution Centre",
+          "type": "distribution",
+          "lat": 52.21171,
+          "lon": -113.82224,
+          "source_note": "Peavey Industries distribution centre. Name, kind and position read from OpenStreetMap way 1467371933 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/1467371933)."
+        },
+        {
+          "name": "Saputo Red Deer",
+          "type": "food_processor",
+          "lat": 52.27263,
+          "lon": -113.81487,
+          "source_note": "Saputo dairy plant. Name, kind and position read from OpenStreetMap way 1550072619 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/1550072619)."
+        }
+      ],
+      "lat": 52.21171,
+      "lon": -113.82224
+    },
+    "edmonton_ab_ca": {
+      "spoken_city": "Edmonton",
+      "state": "AB",
+      "country": "CA",
+      "region": "rockies",
+      "locations": [
+        {
+          "name": "CN Edmonton Intermodal Terminal",
+          "type": "intermodal",
+          "lat": 53.5856,
+          "lon": -113.63509,
+          "source_note": "CN intermodal terminal. Name, kind and position read from OpenStreetMap way 1109881863 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/1109881863)."
+        },
+        {
+          "name": "CPKC Edmonton Intermodal Terminal",
+          "type": "intermodal",
+          "lat": 53.47175,
+          "lon": -113.48858,
+          "source_note": "CPKC intermodal terminal. Name, kind and position read from OpenStreetMap way 514245532 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/514245532)."
+        },
+        {
+          "name": "Imperial Strathcona Refinery",
+          "type": "chemical_petroleum_terminal",
+          "lat": 53.54975,
+          "lon": -113.38967,
+          "source_note": "Imperial Oil refinery. Name, kind and position read from OpenStreetMap way 411773952 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/411773952)."
+        }
+      ],
+      "lat": 53.5462055,
+      "lon": -113.491241
+    },
+    "lethbridge_ab_ca": {
+      "spoken_city": "Lethbridge",
+      "state": "AB",
+      "country": "CA",
+      "region": "rockies",
+      "locations": [
+        {
+          "name": "Cargill Lethbridge Grain Elevator",
+          "type": "farm_elevator",
+          "lat": 49.69883,
+          "lon": -112.80287,
+          "source_note": "Cargill grain elevator. Name, kind and position read from OpenStreetMap way 666065184 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/666065184)."
+        },
+        {
+          "name": "RCS Cartage Lethbridge",
+          "type": "warehouse",
+          "lat": 49.69963,
+          "lon": -112.79298,
+          "source_note": "Cartage warehouse. Name, kind and position read from OpenStreetMap way 895643178 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/895643178)."
+        }
+      ],
+      "lat": 49.69883,
+      "lon": -112.80287
+    },
+    "medicine_hat_ab_ca": {
+      "spoken_city": "Medicine Hat",
+      "state": "AB",
+      "country": "CA",
+      "region": "rockies",
+      "locations": [
+        {
+          "name": "Medicine Hat Freight Terminal",
+          "type": "rail",
+          "lat": 50.03573,
+          "lon": -110.66781,
+          "source_note": "Rail freight terminal. Name, kind and position read from OpenStreetMap node 3900580923 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/node/3900580923)."
+        },
+        {
+          "name": "Apex Distribution Medicine Hat",
+          "type": "distribution",
+          "lat": 50.06122,
+          "lon": -110.71909,
+          "source_note": "Apex Distribution warehouse. Name, kind and position read from OpenStreetMap way 552498147 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/552498147)."
+        }
+      ],
+      "lat": 50.03573,
+      "lon": -110.66781
+    },
+    "brooks_ab_ca": {
+      "spoken_city": "Brooks",
+      "state": "AB",
+      "country": "CA",
+      "region": "rockies",
+      "locations": [
+        {
+          "name": "JBS Food Canada Brooks",
+          "type": "food_processor",
+          "lat": 50.6191,
+          "lon": -111.9347,
+          "source_note": "JBS beef plant at Brooks. Name, kind and position read from OpenStreetMap way 1478462052 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/1478462052)."
+        }
+      ],
+      "lat": 50.6191,
+      "lon": -111.9347
+    },
+    "hinton_ab_ca": {
+      "spoken_city": "Hinton",
+      "state": "AB",
+      "country": "CA",
+      "region": "rockies",
+      "locations": [
+        {
+          "name": "West Fraser Hinton Pulp",
+          "type": "lumber_paper",
+          "lat": 53.41077,
+          "lon": -117.57619,
+          "source_note": "West Fraser pulp mill. Name, kind and position read from OpenStreetMap way 299517004 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/299517004)."
+        }
+      ],
+      "lat": 53.41077,
+      "lon": -117.57619
+    },
+    "edson_ab_ca": {
+      "spoken_city": "Edson",
+      "state": "AB",
+      "country": "CA",
+      "region": "rockies",
+      "locations": [
+        {
+          "name": "Edson OSB Mill",
+          "type": "lumber_paper",
+          "lat": 53.59466,
+          "lon": -116.38996,
+          "source_note": "Oriented strand board mill. Name, kind and position read from OpenStreetMap way 297937468 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/297937468)."
+        }
+      ],
+      "lat": 53.59466,
+      "lon": -116.38996
+    },
+    "whitecourt_ab_ca": {
+      "spoken_city": "Whitecourt",
+      "state": "AB",
+      "country": "CA",
+      "region": "rockies",
+      "locations": [
+        {
+          "name": "Millar Western Pulpmill and Canfor Sawmill",
+          "type": "lumber_paper",
+          "lat": 54.14639,
+          "lon": -115.69243,
+          "source_note": "Millar Western pulp mill and Canfor sawmill. Name, kind and position read from OpenStreetMap way 262295775 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/262295775)."
+        }
+      ],
+      "lat": 54.14639,
+      "lon": -115.69243
+    },
+    "grande_prairie_ab_ca": {
+      "spoken_city": "Grande Prairie",
+      "state": "AB",
+      "country": "CA",
+      "region": "rockies",
+      "locations": [
+        {
+          "name": "Canfor Grande Prairie",
+          "type": "lumber_paper",
+          "lat": 55.16202,
+          "lon": -118.81451,
+          "source_note": "Canfor sawmill and pulp complex. Name, kind and position read from OpenStreetMap relation 6675140 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/relation/6675140)."
+        },
+        {
+          "name": "Costco Grande Prairie",
+          "type": "retail_distribution",
+          "lat": 55.16894,
+          "lon": -118.84407,
+          "source_note": "Costco warehouse store. Name, kind and position read from OpenStreetMap way 207681619 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/207681619)."
+        }
+      ],
+      "lat": 55.16202,
+      "lon": -118.81451
+    },
+    "lloydminster_ab_ca": {
+      "spoken_city": "Lloydminster",
+      "state": "AB",
+      "country": "CA",
+      "region": "rockies",
+      "locations": [
+        {
+          "name": "ADM Lloydminster",
+          "type": "food_processor",
+          "lat": 53.28378,
+          "lon": -110.0313,
+          "source_note": "ADM canola crushing plant. Name, kind and position read from OpenStreetMap way 623961645 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/623961645)."
+        },
+        {
+          "name": "Viterra Lloydminster Inland Terminal",
+          "type": "farm_elevator",
+          "lat": 53.25571,
+          "lon": -109.96528,
+          "source_note": "Viterra inland grain terminal. Name, kind and position read from OpenStreetMap way 1308652685 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/1308652685)."
+        },
+        {
+          "name": "Rosenau Transport Lloydminster",
+          "type": "cross_dock",
+          "lat": 53.2812,
+          "lon": -110.09392,
+          "source_note": "Rosenau Transport terminal. Name, kind and position read from OpenStreetMap way 1174869219 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/1174869219)."
+        }
+      ],
+      "lat": 53.28378,
+      "lon": -110.0313
+    },
+    "jasper_ab_ca": {
+      "spoken_city": "Jasper",
+      "state": "AB",
+      "country": "CA",
+      "region": "rockies",
+      "locations": [
+        {
+          "name": "Petro-Canada Jasper",
+          "type": "travel_center",
+          "lat": 52.88044,
+          "lon": -118.0793,
+          "source_note": "Fuel station in Jasper townsite. Name, kind and position read from OpenStreetMap way 301398687 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/301398687)."
+        }
+      ],
+      "lat": 52.88044,
+      "lon": -118.0793
+    },
+    "swift_current_sk_ca": {
+      "spoken_city": "Swift Current",
+      "state": "SK",
+      "country": "CA",
+      "region": "heartland",
+      "locations": [
+        {
+          "name": "CPKC Swift Current Yard",
+          "type": "rail",
+          "lat": 50.28146,
+          "lon": -107.80458,
+          "source_note": "CPKC rail yard. Name, kind and position read from OpenStreetMap node 3900580922 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/node/3900580922)."
+        }
+      ],
+      "lat": 50.28146,
+      "lon": -107.80458
+    },
+    "moose_jaw_sk_ca": {
+      "spoken_city": "Moose Jaw",
+      "state": "SK",
+      "country": "CA",
+      "region": "heartland",
+      "locations": [
+        {
+          "name": "Moose Jaw Refinery",
+          "type": "chemical_petroleum_terminal",
+          "lat": 50.38959,
+          "lon": -105.52038,
+          "source_note": "Moose Jaw asphalt refinery. Name, kind and position read from OpenStreetMap way 757427359 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/757427359)."
+        },
+        {
+          "name": "Parrish & Heimbecker Moose Jaw",
+          "type": "food_processor",
+          "lat": 50.38968,
+          "lon": -105.54734,
+          "source_note": "P&H flour mill. Name, kind and position read from OpenStreetMap way 543938573 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/543938573)."
+        },
+        {
+          "name": "Viterra Moose Jaw",
+          "type": "farm_elevator",
+          "lat": 50.38255,
+          "lon": -105.60947,
+          "source_note": "Viterra grain facility. Name, kind and position read from OpenStreetMap way 544267122 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/544267122)."
+        }
+      ],
+      "lat": 50.38959,
+      "lon": -105.52038
+    },
+    "regina_sk_ca": {
+      "spoken_city": "Regina",
+      "state": "SK",
+      "country": "CA",
+      "region": "heartland",
+      "locations": [
+        {
+          "name": "CPKC Regina Intermodal Terminal",
+          "type": "intermodal",
+          "lat": 50.43633,
+          "lon": -104.76414,
+          "source_note": "CPKC intermodal terminal at the Global Transportation Hub. Name, kind and position read from OpenStreetMap node 14107860921 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/node/14107860921)."
+        },
+        {
+          "name": "John Deere Western Distribution Centre",
+          "type": "distribution",
+          "lat": 50.47117,
+          "lon": -104.57768,
+          "source_note": "John Deere parts distribution centre. Name, kind and position read from OpenStreetMap way 275060978 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/275060978)."
+        },
+        {
+          "name": "Co-op Refinery Regina",
+          "type": "chemical_petroleum_terminal",
+          "lat": 50.48368,
+          "lon": -104.57941,
+          "source_note": "Federated Co-operatives refinery complex. Name, kind and position read from OpenStreetMap way 319629749 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/319629749)."
+        }
+      ],
+      "lat": 50.4479733,
+      "lon": -104.6158764
+    },
+    "saskatoon_sk_ca": {
+      "spoken_city": "Saskatoon",
+      "state": "SK",
+      "country": "CA",
+      "region": "heartland",
+      "locations": [
+        {
+          "name": "Federated Co-operatives Saskatoon",
+          "type": "distribution",
+          "lat": 52.16353,
+          "lon": -106.65911,
+          "source_note": "Federated Co-operatives warehouse. Name, kind and position read from OpenStreetMap way 544015848 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/544015848)."
+        },
+        {
+          "name": "CPKC Sutherland Yard",
+          "type": "rail",
+          "lat": 52.13454,
+          "lon": -106.58874,
+          "source_note": "CPKC rail yard. Name, kind and position read from OpenStreetMap node 14266306703 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/node/14266306703)."
+        },
+        {
+          "name": "Ardent Mills Saskatoon",
+          "type": "food_processor",
+          "lat": 52.14271,
+          "lon": -106.66165,
+          "source_note": "Ardent Mills flour mill. Name, kind and position read from OpenStreetMap way 1489299121 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/1489299121)."
+        }
+      ],
+      "lat": 52.16353,
+      "lon": -106.65911
+    },
+    "north_battleford_sk_ca": {
+      "spoken_city": "North Battleford",
+      "state": "SK",
+      "country": "CA",
+      "region": "heartland",
+      "locations": [
+        {
+          "name": "North Battleford Freight Terminal",
+          "type": "rail",
+          "lat": 52.76855,
+          "lon": -108.29412,
+          "source_note": "Rail freight terminal. Name, kind and position read from OpenStreetMap node 3900580918 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/node/3900580918)."
+        }
+      ],
+      "lat": 52.76855,
+      "lon": -108.29412
+    },
+    "prince_albert_sk_ca": {
+      "spoken_city": "Prince Albert",
+      "state": "SK",
+      "country": "CA",
+      "region": "heartland",
+      "locations": [
+        {
+          "name": "Carlton Trail Railway Prince Albert Yard",
+          "type": "rail",
+          "lat": 53.19782,
+          "lon": -105.74566,
+          "source_note": "Carlton Trail Railway yard. Name, kind and position read from OpenStreetMap node 7755238987 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/node/7755238987)."
+        }
+      ],
+      "lat": 53.19782,
+      "lon": -105.74566
+    },
+    "yorkton_sk_ca": {
+      "spoken_city": "Yorkton",
+      "state": "SK",
+      "country": "CA",
+      "region": "heartland",
+      "locations": [
+        {
+          "name": "Gladstone Industrial Park",
+          "type": "industrial_park",
+          "lat": 51.23231,
+          "lon": -102.46285,
+          "source_note": "Industrial park in north Yorkton. Name, kind and position read from OpenStreetMap way 352194686 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/352194686)."
+        }
+      ],
+      "lat": 51.23231,
+      "lon": -102.46285
+    },
+    "kindersley_sk_ca": {
+      "spoken_city": "Kindersley",
+      "state": "SK",
+      "country": "CA",
+      "region": "heartland",
+      "locations": [
+        {
+          "name": "Esso Kindersley",
+          "type": "travel_center",
+          "lat": 51.47422,
+          "lon": -109.16013,
+          "source_note": "Fuel station on Highway 7; OpenStreetMap maps no freight facility in Kindersley. Name, kind and position read from OpenStreetMap way 537132148 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/537132148)."
+        }
+      ],
+      "lat": 51.47422,
+      "lon": -109.16013
+    },
+    "weyburn_sk_ca": {
+      "spoken_city": "Weyburn",
+      "state": "SK",
+      "country": "CA",
+      "region": "heartland",
+      "locations": [
+        {
+          "name": "Co-op Weyburn",
+          "type": "travel_center",
+          "lat": 49.66388,
+          "lon": -103.85578,
+          "source_note": "Co-op fuel station; OpenStreetMap maps no freight facility in Weyburn. Name, kind and position read from OpenStreetMap node 4950836777 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/node/4950836777)."
+        }
+      ],
+      "lat": 49.66388,
+      "lon": -103.85578
+    },
+    "estevan_sk_ca": {
+      "spoken_city": "Estevan",
+      "state": "SK",
+      "country": "CA",
+      "region": "heartland",
+      "locations": [
+        {
+          "name": "Boundary Dam Power Station",
+          "type": "mine_quarry",
+          "lat": 49.09727,
+          "lon": -103.02618,
+          "source_note": "SaskPower coal-fired station fed by the Estevan coal mines. Name, kind and position read from OpenStreetMap way 198187522 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/198187522)."
+        }
+      ],
+      "lat": 49.09727,
+      "lon": -103.02618
+    },
+    "brandon_mb_ca": {
+      "spoken_city": "Brandon",
+      "state": "MB",
+      "country": "CA",
+      "region": "heartland",
+      "locations": [
+        {
+          "name": "Co-op Feeds Brandon",
+          "type": "food_processor",
+          "lat": 49.85542,
+          "lon": -99.94701,
+          "source_note": "Co-op feed mill. Name, kind and position read from OpenStreetMap way 95317707 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/95317707)."
+        },
+        {
+          "name": "Canada Packers Brandon",
+          "type": "food_processor",
+          "lat": 49.83248,
+          "lon": -99.85343,
+          "source_note": "Pork plant east of Brandon. Name, kind and position read from OpenStreetMap way 1006254410 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/1006254410)."
+        },
+        {
+          "name": "Rosenau Transport Brandon",
+          "type": "cross_dock",
+          "lat": 49.82528,
+          "lon": -99.86436,
+          "source_note": "Rosenau Transport terminal. Name, kind and position read from OpenStreetMap way 1419479533 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/1419479533)."
+        }
+      ],
+      "lat": 49.85542,
+      "lon": -99.94701
+    },
+    "portage_la_prairie_mb_ca": {
+      "spoken_city": "Portage la Prairie",
+      "state": "MB",
+      "country": "CA",
+      "region": "heartland",
+      "locations": [
+        {
+          "name": "McCain Foods Portage la Prairie",
+          "type": "food_processor",
+          "lat": 49.98875,
+          "lon": -98.27004,
+          "source_note": "McCain potato processing plant. Name, kind and position read from OpenStreetMap way 80491388 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/80491388)."
+        },
+        {
+          "name": "Simplot Portage la Prairie",
+          "type": "food_processor",
+          "lat": 49.97265,
+          "lon": -98.395,
+          "source_note": "Simplot potato plant. Name, kind and position read from OpenStreetMap way 297516838 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/297516838)."
+        },
+        {
+          "name": "Roquette Portage la Prairie",
+          "type": "food_processor",
+          "lat": 49.96265,
+          "lon": -98.39162,
+          "source_note": "Roquette pea protein plant. Name, kind and position read from OpenStreetMap way 834630487 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/834630487)."
+        }
+      ],
+      "lat": 49.98875,
+      "lon": -98.27004
+    },
+    "winnipeg_mb_ca": {
+      "spoken_city": "Winnipeg",
+      "state": "MB",
+      "country": "CA",
+      "region": "heartland",
+      "locations": [
+        {
+          "name": "CN Symington Yard",
+          "type": "intermodal",
+          "lat": 49.86935,
+          "lon": -97.05719,
+          "source_note": "CN Symington classification yard. Name, kind and position read from OpenStreetMap way 32685811 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/32685811)."
+        },
+        {
+          "name": "Winnipeg Cold Storage",
+          "type": "cold_storage",
+          "lat": 49.91053,
+          "lon": -97.1455,
+          "source_note": "Cold storage warehouse. Name, kind and position read from OpenStreetMap way 83132968 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/83132968)."
+        }
+      ],
+      "lat": 49.86935,
+      "lon": -97.05719
+    },
+    "hanna_ab_ca": {
+      "spoken_city": "Hanna",
+      "state": "AB",
+      "country": "CA",
+      "region": "rockies",
+      "locations": [
+        {
+          "name": "UFA Cardlock Hanna",
+          "type": "travel_center",
+          "lat": 51.639,
+          "lon": -111.94116,
+          "source_note": "UFA cardlock on Highway 9 at Hanna. Name, kind and position read from OpenStreetMap node 6696155885 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/node/6696155885)."
+        }
+      ],
+      "lat": 51.639,
+      "lon": -111.94116
     }
   }
 }
