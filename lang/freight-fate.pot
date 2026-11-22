@@ -7066,55 +7066,6 @@ msgstr ""
 msgid "toll point: {name}"
 msgstr ""
 
-#. placeholders: {whole}, {inches}
-#: crates/ff-core/src/data/world_models.rs
-msgid "{whole} feet {inches} inches"
-msgstr ""
-
-#. placeholders: {whole}
-#: crates/ff-core/src/data/world_models.rs
-msgid "{whole} feet"
-msgstr ""
-
-#. placeholders: {py_int}
-#: crates/ff-core/src/data/world_models.rs
-msgid "{py_int} tons"
-msgstr ""
-
-#. placeholders: {py_str_float}
-#: crates/ff-core/src/data/world_models.rs
-msgid "{py_str_float} tons"
-msgstr ""
-
-#: crates/ff-core/src/data/world_models.rs
-msgid "low bridge"
-msgstr ""
-
-#: crates/ff-core/src/data/world_models.rs
-msgid "weight limit"
-msgstr ""
-
-#. one sentence of a longer line
-#: crates/ff-core/src/data/world_models.rs
-msgid "Your route clears it"
-msgstr ""
-
-#. placeholders: {kind_label}, {value_text}
-#. one sentence of a longer line
-#: crates/ff-core/src/data/world_models.rs
-msgid "a {kind_label}, signed {value_text}."
-msgstr ""
-
-#. placeholders: {kind_label}, {value_text}
-#: crates/ff-core/src/data/world_models.rs
-msgid "a {kind_label}, signed {value_text}. Your route clears it"
-msgstr ""
-
-#. placeholders: {py_capitalize}, {value_text}
-#: crates/ff-core/src/data/world_models.rs
-msgid "{py_capitalize}, signed {value_text}."
-msgstr ""
-
 #: crates/ff-core/src/data/world_models/interchange.rs crates/ff-core/src/sim/trip_road_events.rs crates/ff-core/src/touch_mode.rs
 msgid "exit"
 msgstr ""
@@ -15466,11 +15417,6 @@ msgid "Toll point in {ahead_text}: {text}."
 msgstr ""
 
 #. placeholders: {ahead_text}, {text}
-#: crates/ff-core/src/sim/trip/lookups.rs crates/ff-core/src/sim/trip/update.rs
-msgid "In {ahead_text}, {text}."
-msgstr ""
-
-#. placeholders: {ahead_text}, {text}
 #: crates/ff-core/src/sim/trip/lookups.rs
 msgid "Next guidance in {ahead_text}: {text}."
 msgstr ""
@@ -15628,10 +15574,6 @@ msgid "{method_label} toll point, {name}.{toll_text}"
 msgstr ""
 
 #: crates/ff-core/src/sim/trip/placement.rs
-msgid "restriction"
-msgstr ""
-
-#: crates/ff-core/src/sim/trip/placement.rs
 msgid "interchange"
 msgstr ""
 
@@ -15717,6 +15659,11 @@ msgstr ""
 #. placeholders: {ahead_text}, {text}, {speed}
 #: crates/ff-core/src/sim/trip/update.rs
 msgid "Traffic slowing in {ahead_text}, {text}{speed}."
+msgstr ""
+
+#. placeholders: {ahead_text}, {text}
+#: crates/ff-core/src/sim/trip/update.rs
+msgid "In {ahead_text}, {text}."
 msgstr ""
 
 #. placeholders: {distance}
@@ -20917,14 +20864,14 @@ msgstr ""
 #: crates/freight-fate/src/states/city/board.rs
 msgid ""
 "Dispatch is sending you empty, with no pickup. After you accept, Route "
-"planning lists rest, fuel, tolls, weather and restrictions."
+"planning lists rest, fuel, tolls and weather."
 msgstr ""
 
 #: crates/freight-fate/src/states/city/board.rs
 msgid ""
 "Dispatch assigned this load. Accepting starts the empty drive from your "
 "terminal to the pickup. After pickup, Route planning lists rest, fuel, "
-"tolls, weather and restrictions."
+"tolls and weather."
 msgstr ""
 
 #. placeholders: {describe}
@@ -21176,8 +21123,7 @@ msgstr ""
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/city/board.rs
 msgid ""
-"After you accept, Route planning lists rest, fuel, tolls, weather and "
-"restrictions."
+"After you accept, Route planning lists rest, fuel, tolls and weather."
 msgstr ""
 
 #. placeholders: {destination}
@@ -21190,14 +21136,12 @@ msgstr ""
 #: crates/freight-fate/src/states/city/board.rs
 msgid ""
 "Dispatch is sending you empty to {destination}. After you accept, Route "
-"planning lists rest, fuel, tolls, weather and restrictions."
+"planning lists rest, fuel, tolls and weather."
 msgstr ""
 
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/city/board.rs
-msgid ""
-"After pickup, Route planning lists rest, fuel, tolls, weather and "
-"restrictions."
+msgid "After pickup, Route planning lists rest, fuel, tolls and weather."
 msgstr ""
 
 #. placeholders: {origin_facility_text}, {destination_facility_text}
@@ -21211,8 +21155,7 @@ msgstr ""
 #: crates/freight-fate/src/states/city/board.rs
 msgid ""
 "Load offer from {origin_facility_text} to {destination_facility_text}. "
-"After pickup, Route planning lists rest, fuel, tolls, weather and "
-"restrictions."
+"After pickup, Route planning lists rest, fuel, tolls and weather."
 msgstr ""
 
 #. placeholders: {hours}

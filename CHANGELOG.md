@@ -17,6 +17,7 @@
 
 ### Changed
 
+- **The GPS no longer calls out low bridges and weight limits.** Your route already clears every one of them.
 - **Exit, stop, fuel and road report calls no longer end in "ahead".** "Signal set for exit 323, 5 miles."
 - **F1 in a text field now repeats how the field works.**
 

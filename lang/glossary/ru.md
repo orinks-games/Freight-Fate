@@ -71,7 +71,6 @@ Plurals: the game supports `{count:one|few|many}` choices (see "Plurals" in
 | passing | обгон | |
 | hazard | опасность | |
 | stopping distance | остановочный путь | |
-| low bridge | низкий мост | |
 | weight limit | ограничение массы | |
 | exit speed | скорость съезда | |
 | ramp curve | поворот съезда | |
