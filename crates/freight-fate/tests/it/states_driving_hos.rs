@@ -211,6 +211,8 @@ fn test_hos_violation_speech_interrupts_but_threshold_warning_does_not() {
         p.hos.duty_min = p.hos.driving_min;
         p.hos.since_break_min = 0.0;
     }
+    let audio = harness.app.record_audio();
+    let played = |key: &str| audio.borrow().played.iter().any(|(k, _, _)| k == key);
     harness.clear_speech();
     hours_frame(&mut harness, 1.0);
     let calls = harness.app.event_calls();
@@ -219,6 +221,8 @@ fn test_hos_violation_speech_interrupts_but_threshold_warning_does_not() {
         .find(|(text, _)| text.starts_with("Hours of service: 30 minutes"))
         .unwrap_or_else(|| panic!("the countdown was never spoken: {calls:?}"));
     assert!(!warning.1, "the countdown must not cut the driver off");
+    assert!(played("ui/notify"), "the countdown plays its chime");
+    assert!(!played("ui/warning"), "the alarm is for a violation only");
 
     {
         let p = harness.app.ctx.profile.as_mut().expect("a career");
@@ -240,6 +244,7 @@ fn test_hos_violation_speech_interrupts_but_threshold_warning_does_not() {
         .find(|(text, _)| text.starts_with("Hours of service violation:"))
         .unwrap_or_else(|| panic!("the violation was never spoken: {calls:?}"));
     assert!(violation.1, "a violation interrupts");
+    assert!(played("ui/warning"), "a violation sounds the alarm");
 }
 
 #[test]

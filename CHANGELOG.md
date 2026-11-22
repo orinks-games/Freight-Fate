@@ -6,6 +6,10 @@
 
 - **Page Up and Page Down now move ten options at a time in every menu.**
 
+### Fixed
+
+- **The hours of service countdown plays a chime again.** The alarm tone is still kept for a violation.
+
 ## 1.9.7 - 2026-11-21
 
 ### Compatibility
