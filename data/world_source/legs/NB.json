@@ -1954,33 +1954,6 @@
             "spoken": "Passing Saint-Hilaire"
           },
           {
-            "name": "Frenchville",
-            "at_mi": 0.3,
-            "off_mi": 6.79,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 158860184, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Frenchville"
-          },
-          {
-            "name": "Saint Agatha",
-            "at_mi": 0.3,
-            "off_mi": 8.81,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 158845200, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Saint Agatha"
-          },
-          {
-            "name": "Grand Isle",
-            "at_mi": 0.4,
-            "off_mi": 9.0,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 158814624, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Grand Isle"
-          },
-          {
             "name": "Baker-Brook",
             "at_mi": 3.6,
             "off_mi": 9.71,
@@ -3983,6 +3956,15 @@
             "spoken": "Passing Saint-Hilaire"
           },
           {
+            "name": "Baker-Brook",
+            "at_mi": 0.0,
+            "off_mi": 9.95,
+            "category": "village",
+            "kind": "point",
+            "source": "OpenStreetMap place=village node 1497802457, projected onto the leg's checked-in route geometry",
+            "spoken": "Passing Baker-Brook"
+          },
+          {
             "name": "Saint-Joseph-de-Madawaska",
             "at_mi": 0.7,
             "off_mi": 5.56,
@@ -3999,15 +3981,6 @@
             "kind": "point",
             "source": "OpenStreetMap place=village node 1498386411, projected onto the leg's checked-in route geometry",
             "spoken": "Passing Rivi\u00e8re-Verte"
-          },
-          {
-            "name": "Grand Isle",
-            "at_mi": 9.8,
-            "off_mi": 1.84,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 158814624, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Grand Isle"
           },
           {
             "name": "Sainte-Anne-de-Madawaska",
@@ -4028,15 +4001,6 @@
             "spoken": "Passing Saint-L\u00e9onard"
           },
           {
-            "name": "Van Buren",
-            "at_mi": 26.7,
-            "off_mi": 1.19,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=town node 158909978, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Van Buren"
-          },
-          {
             "name": "Saint-Andr\u00e9",
             "at_mi": 34.9,
             "off_mi": 1.16,
@@ -4044,15 +4008,6 @@
             "kind": "point",
             "source": "OpenStreetMap place=village node 676395732, projected onto the leg's checked-in route geometry",
             "spoken": "Passing Saint-Andr\u00e9"
-          },
-          {
-            "name": "Hamlin",
-            "at_mi": 35.7,
-            "off_mi": 1.36,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 158842659, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Hamlin"
           },
           {
             "name": "Saint John River",
@@ -4074,24 +4029,6 @@
             "spoken": "Passing Drummond"
           },
           {
-            "name": "Caswell",
-            "at_mi": 45.1,
-            "off_mi": 4.08,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 8465052268, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Caswell"
-          },
-          {
-            "name": "Limestone",
-            "at_mi": 49.8,
-            "off_mi": 4.23,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=town node 158860239, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Limestone"
-          },
-          {
             "name": "Aroostook River",
             "category": "river",
             "kind": "point",
@@ -4109,15 +4046,6 @@
             "kind": "point",
             "source": "OpenStreetMap place=village node 410339278, projected onto the leg's checked-in route geometry",
             "spoken": "Entering Aroostook"
-          },
-          {
-            "name": "Fort Fairfield",
-            "at_mi": 58.6,
-            "off_mi": 4.6,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=town node 158826319, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Fort Fairfield"
           },
           {
             "name": "Perth-Andover",
@@ -4145,15 +4073,6 @@
             "kind": "point",
             "source": "OpenStreetMap place=village node 1643719285, projected onto the leg's checked-in route geometry",
             "spoken": "Passing Kilburn"
-          },
-          {
-            "name": "Mars Hill",
-            "at_mi": 75.0,
-            "off_mi": 6.52,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=town node 158821990, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Mars Hill"
           },
           {
             "name": "Upper Knoxford",
@@ -4247,6 +4166,15 @@
             "source": "derived: name and category read from the OpenStreetMap tags of node 3892942263 (Potato World); placed at the nearest projection of it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           },
           {
+            "name": "Glassville",
+            "at_mi": 84.8,
+            "off_mi": 11.22,
+            "category": "village",
+            "kind": "point",
+            "source": "OpenStreetMap place=village node 1638561153, projected onto the leg's checked-in route geometry",
+            "spoken": "Passing Glassville"
+          },
+          {
             "name": "Hartland",
             "at_mi": 95.8,
             "off_mi": 2.54,
@@ -4265,6 +4193,42 @@
             "spoken": "Passing Ashland"
           },
           {
+            "name": "Mainstream",
+            "at_mi": 95.8,
+            "off_mi": 9.28,
+            "category": "village",
+            "kind": "point",
+            "source": "OpenStreetMap place=village node 1638514716, projected onto the leg's checked-in route geometry",
+            "spoken": "Passing Mainstream"
+          },
+          {
+            "name": "Cloverdale",
+            "at_mi": 95.8,
+            "off_mi": 10.58,
+            "category": "village",
+            "kind": "point",
+            "source": "OpenStreetMap place=village node 1638514709, projected onto the leg's checked-in route geometry",
+            "spoken": "Passing Cloverdale"
+          },
+          {
+            "name": "East Brighton",
+            "at_mi": 96.3,
+            "off_mi": 6.88,
+            "category": "village",
+            "kind": "point",
+            "source": "OpenStreetMap place=village node 1638514711, projected onto the leg's checked-in route geometry",
+            "spoken": "Passing East Brighton"
+          },
+          {
+            "name": "Pole Hill",
+            "at_mi": 96.3,
+            "off_mi": 8.36,
+            "category": "village",
+            "kind": "point",
+            "source": "OpenStreetMap place=village node 1638514718, projected onto the leg's checked-in route geometry",
+            "spoken": "Passing Pole Hill"
+          },
+          {
             "name": "Meduxnekeag River",
             "category": "river",
             "kind": "point",
@@ -4273,6 +4237,15 @@
             "lon": -67.60821,
             "spoken": "Crossing the Meduxnekeag River",
             "source": "derived: name and category read from the OpenStreetMap tags of way 692510207 (Meduxnekeag River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "name": "Meductic",
+            "at_mi": 106.8,
+            "off_mi": 11.94,
+            "category": "village",
+            "kind": "point",
+            "source": "OpenStreetMap place=village node 1289705379, projected onto the leg's checked-in route geometry",
+            "spoken": "Passing Meductic"
           }
         ],
         "hpms_terrain": {
@@ -10557,15 +10530,6 @@
             "lon": -67.49821,
             "spoken": "Crossing the Eel River",
             "source": "derived: name and category read from the OpenStreetMap tags of way 697874748 (Eel River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
-          },
-          {
-            "name": "Houlton",
-            "at_mi": 61.2,
-            "off_mi": 11.08,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=town node 1895709513, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Houlton"
           },
           {
             "name": "Hartland",
@@ -28677,15 +28641,6 @@
             "spoken": "Passing Saint Andrews"
           },
           {
-            "name": "Robbinston",
-            "at_mi": 57.0,
-            "off_mi": 8.23,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 158853089, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Robbinston"
-          },
-          {
             "name": "Waweig River",
             "category": "river",
             "kind": "point",
@@ -28703,24 +28658,6 @@
             "kind": "point",
             "source": "OpenStreetMap place=village node 13392068433, projected onto the leg's checked-in route geometry",
             "spoken": "Passing Upper Mills"
-          },
-          {
-            "name": "Baileyville",
-            "at_mi": 70.0,
-            "off_mi": 6.86,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=town node 158876069, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Baileyville"
-          },
-          {
-            "name": "Meddybemps",
-            "at_mi": 70.0,
-            "off_mi": 11.44,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 158895327, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Meddybemps"
           }
         ],
         "hpms_terrain": {
@@ -30286,15 +30223,6 @@
             "spoken": "Passing Robbinston"
           },
           {
-            "name": "Upper Mills",
-            "at_mi": 10.3,
-            "off_mi": 0.63,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 13392068433, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Upper Mills"
-          },
-          {
             "name": "Charlotte",
             "at_mi": 11.5,
             "off_mi": 8.69,
@@ -30329,6 +30257,15 @@
             "kind": "point",
             "source": "OpenStreetMap place=village node 158910841, projected onto the leg's checked-in route geometry",
             "spoken": "Passing Princeton"
+          },
+          {
+            "name": "Indian Township",
+            "at_mi": 20.0,
+            "off_mi": 10.63,
+            "category": "village",
+            "kind": "point",
+            "source": "OpenStreetMap place=village node 10655478572, projected onto the leg's checked-in route geometry",
+            "spoken": "Passing Indian Township"
           },
           {
             "name": "Cooper",
@@ -31943,24 +31880,6 @@
             "spoken": "Passing Upper Mills"
           },
           {
-            "name": "Baileyville",
-            "at_mi": 0.0,
-            "off_mi": 6.86,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=town node 158876069, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Baileyville"
-          },
-          {
-            "name": "Meddybemps",
-            "at_mi": 0.0,
-            "off_mi": 11.44,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 158895327, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Meddybemps"
-          },
-          {
             "name": "Waweig River",
             "category": "river",
             "kind": "point",
@@ -31969,15 +31888,6 @@
             "lon": -67.14697,
             "spoken": "Crossing the Waweig River",
             "source": "derived: name and category read from the OpenStreetMap tags of way 76229654 (Waweig River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
-          },
-          {
-            "name": "Robbinston",
-            "at_mi": 12.9,
-            "off_mi": 8.2,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 158853089, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Robbinston"
           },
           {
             "name": "Saint Andrews",
@@ -36159,6 +36069,15 @@
         "restrictions": [],
         "landmarks": [
           {
+            "name": "Meductic",
+            "at_mi": 0.4,
+            "off_mi": 11.95,
+            "category": "village",
+            "kind": "point",
+            "source": "OpenStreetMap place=village node 1289705379, projected onto the leg's checked-in route geometry",
+            "spoken": "Passing Meductic"
+          },
+          {
             "name": "Meduxnekeag River",
             "category": "river",
             "kind": "point",
@@ -36167,6 +36086,33 @@
             "lon": -67.60805,
             "spoken": "Crossing the Meduxnekeag River",
             "source": "derived: name and category read from the OpenStreetMap tags of way 692510207 (Meduxnekeag River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "name": "East Brighton",
+            "at_mi": 10.9,
+            "off_mi": 6.86,
+            "category": "village",
+            "kind": "point",
+            "source": "OpenStreetMap place=village node 1638514711, projected onto the leg's checked-in route geometry",
+            "spoken": "Passing East Brighton"
+          },
+          {
+            "name": "Pole Hill",
+            "at_mi": 10.9,
+            "off_mi": 8.34,
+            "category": "village",
+            "kind": "point",
+            "source": "OpenStreetMap place=village node 1638514718, projected onto the leg's checked-in route geometry",
+            "spoken": "Passing Pole Hill"
+          },
+          {
+            "name": "Cloverdale",
+            "at_mi": 11.1,
+            "off_mi": 10.54,
+            "category": "village",
+            "kind": "point",
+            "source": "OpenStreetMap place=village node 1638514709, projected onto the leg's checked-in route geometry",
+            "spoken": "Passing Cloverdale"
           },
           {
             "name": "Hartland",
@@ -36187,6 +36133,15 @@
             "spoken": "Passing Ashland"
           },
           {
+            "name": "Mainstream",
+            "at_mi": 11.3,
+            "off_mi": 9.26,
+            "category": "village",
+            "kind": "point",
+            "source": "OpenStreetMap place=village node 1638514716, projected onto the leg's checked-in route geometry",
+            "spoken": "Passing Mainstream"
+          },
+          {
             "name": "Potato World",
             "category": "museum",
             "kind": "point",
@@ -36204,6 +36159,15 @@
             "kind": "point",
             "source": "OpenStreetMap place=town node 6369154465, projected onto the leg's checked-in route geometry",
             "spoken": "Passing Florenceville-Bristol"
+          },
+          {
+            "name": "Glassville",
+            "at_mi": 22.7,
+            "off_mi": 11.18,
+            "category": "village",
+            "kind": "point",
+            "source": "OpenStreetMap place=village node 1638561153, projected onto the leg's checked-in route geometry",
+            "spoken": "Passing Glassville"
           },
           {
             "name": "Centreville",
@@ -36278,15 +36242,6 @@
             "spoken": "Passing Upper Knoxford"
           },
           {
-            "name": "Mars Hill",
-            "at_mi": 32.2,
-            "off_mi": 6.56,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=town node 158821990, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Mars Hill"
-          },
-          {
             "name": "Kilburn",
             "at_mi": 36.9,
             "off_mi": 1.84,
@@ -36314,15 +36269,6 @@
             "spoken": "Passing Perth-Andover"
           },
           {
-            "name": "Fort Fairfield",
-            "at_mi": 48.4,
-            "off_mi": 4.64,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=town node 158826319, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Fort Fairfield"
-          },
-          {
             "name": "Aroostook",
             "at_mi": 50.2,
             "off_mi": 0.34,
@@ -36340,24 +36286,6 @@
             "lon": -67.73309,
             "spoken": "Crossing the Aroostook River",
             "source": "derived: name and category read from the OpenStreetMap tags of way 1435797099 (Aroostook River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
-          },
-          {
-            "name": "Limestone",
-            "at_mi": 57.2,
-            "off_mi": 4.25,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=town node 158860239, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Limestone"
-          },
-          {
-            "name": "Caswell",
-            "at_mi": 61.9,
-            "off_mi": 4.1,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 8465052268, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Caswell"
           },
           {
             "name": "Drummond",
@@ -36379,15 +36307,6 @@
             "source": "derived: name and category read from the OpenStreetMap tags of way 151176670 (Saint John River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           },
           {
-            "name": "Hamlin",
-            "at_mi": 71.4,
-            "off_mi": 1.39,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 158842659, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Hamlin"
-          },
-          {
             "name": "Saint-Andr\u00e9",
             "at_mi": 72.1,
             "off_mi": 1.14,
@@ -36395,15 +36314,6 @@
             "kind": "point",
             "source": "OpenStreetMap place=village node 676395732, projected onto the leg's checked-in route geometry",
             "spoken": "Passing Saint-Andr\u00e9"
-          },
-          {
-            "name": "Van Buren",
-            "at_mi": 80.2,
-            "off_mi": 1.21,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=town node 158909978, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Van Buren"
           },
           {
             "name": "Saint-L\u00e9onard",
@@ -36433,15 +36343,6 @@
             "spoken": "Passing Rivi\u00e8re-Verte"
           },
           {
-            "name": "Grand Isle",
-            "at_mi": 97.4,
-            "off_mi": 1.87,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 158814624, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Grand Isle"
-          },
-          {
             "name": "Saint-Joseph-de-Madawaska",
             "at_mi": 106.3,
             "off_mi": 5.5,
@@ -36467,6 +36368,15 @@
             "kind": "point",
             "source": "OpenStreetMap place=village node 1498148946, projected onto the leg's checked-in route geometry",
             "spoken": "Passing Saint-Hilaire"
+          },
+          {
+            "name": "Baker-Brook",
+            "at_mi": 107.0,
+            "off_mi": 9.95,
+            "category": "village",
+            "kind": "point",
+            "source": "OpenStreetMap place=village node 1497802457, projected onto the leg's checked-in route geometry",
+            "spoken": "Passing Baker-Brook"
           }
         ],
         "hpms_terrain": {
@@ -37460,15 +37370,6 @@
             "kind": "point",
             "source": "OpenStreetMap place=village node 1638514711, projected onto the leg's checked-in route geometry",
             "spoken": "Passing East Brighton"
-          },
-          {
-            "name": "Houlton",
-            "at_mi": 1.0,
-            "off_mi": 11.03,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=town node 1895709513, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Houlton"
           },
           {
             "name": "Eel River",
