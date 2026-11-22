@@ -25499,6 +25499,14 @@ msgstr "a saída {name}"
 msgid "the destination exit for {name}"
 msgstr "a saída do destino para {name}"
 
+#. placeholders: {speed_text}
+msgid " About {speed_text} over."
+msgstr " Cerca de {speed_text} acima."
+
+#. placeholders: {limit_text}, {comparison}
+msgid "Speed limit {limit_text}.{comparison}"
+msgstr ""
+
 #. placeholders: {reason}
 msgid ", in a {reason} zone"
 msgstr ", numa zona de {reason}"
@@ -25507,10 +25515,6 @@ msgstr ", numa zona de {reason}"
 #. one clause of a longer line
 msgid "in a {reason} zone"
 msgstr "numa zona de {reason}"
-
-#. placeholders: {speed_text}
-msgid " About {speed_text} over."
-msgstr " Cerca de {speed_text} acima."
 
 #. placeholders: {state}
 msgid " {state} holds trucks to this."
@@ -31436,6 +31440,16 @@ msgstr "Descarregando"
 msgid "Docked at {facility}."
 msgstr "Na doca em {facility}."
 
+#. placeholders: {facility}, {f}, {cargo_label}
+msgid "Docked at {facility}. Unloading {f} tons of {cargo_label}."
+msgstr ""
+"Na doca em {facility}. Descarregando {f} toneladas de {cargo_label}."
+
+#. placeholders: {f}, {cargo_label}
+#. one sentence of a longer line
+msgid "Unloading {f} tons of {cargo_label}."
+msgstr "Descarregando {f} toneladas de {cargo_label}."
+
 #. placeholders: {facility}, {tons_text}, {cargo_label}
 msgid "Docked at {facility}. Unloading {tons_text} of {cargo_label}."
 msgstr ""
@@ -35028,8 +35042,9 @@ msgstr "O piloto automático volta a {floor}. Os pedais são seus."
 msgid "Pedals are yours."
 msgstr "Os pedais são seus."
 
-msgid "Cruise resuming."
-msgstr "Piloto automático retomando."
+#. placeholders: {speed_value}
+msgid "Cruise resuming, {speed_value}."
+msgstr "Piloto automático retomando, {speed_value}."
 
 msgid "turn"
 msgstr "turn"
@@ -46351,18 +46366,14 @@ msgstr ""
 "controla o motor, {pad_fuel} lê o combustível e {pad_speed_limit} lê o "
 "limite."
 
-#~ msgid "Docked at {facility}. Unloading {f} tons of {cargo_label}."
-#~ msgstr ""
-#~ "Na doca em {facility}. Descarregando {f} toneladas de {cargo_label}."
-
-#~ msgid "Unloading {f} tons of {cargo_label}."
-#~ msgstr "Descarregando {f} toneladas de {cargo_label}."
-
 #~ msgid "Units: {else}"
 #~ msgstr "Unidades: {else}"
 
 #~ msgid "Distance and speed in miles or kilometers."
 #~ msgstr "Distância e velocidade em milhas ou quilômetros."
+
+#~ msgid "Cruise resuming."
+#~ msgstr "Piloto automático retomando."
 
 #~ msgid "Northstar Freight Lines: balanced company driver"
 #~ msgstr "Northstar Freight Lines: motorista da transportadora equilibrado"
@@ -59696,9 +59707,6 @@ msgstr ""
 
 #~ msgid "Following gap {gap} seconds."
 #~ msgstr "Distância de seguimento de {gap} segundos."
-
-#~ msgid "Cruise resuming, {speed_value}."
-#~ msgstr "Piloto automático retomando, {speed_value}."
 
 #~ msgid "Adaptive cruise off. Press {key} to set it."
 #~ msgstr "Piloto automático adaptativo desligado. Pressione {key} para ligar."

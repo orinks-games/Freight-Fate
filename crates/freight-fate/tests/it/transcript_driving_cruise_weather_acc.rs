@@ -1241,14 +1241,24 @@ fn test_a_hazard_that_leaves_the_truck_below_cruise_speed_still_resumes() {
         spoken(&harness)
     );
     assert!(
-        said_any(&harness, "Cruise resuming."),
+        said_any(&harness, "Cruise resuming, 60."),
         "{:?}",
         spoken(&harness)
     );
 
-    // Back at road speed, the keeper hands to adaptive cruise on its own.
+    // Back at road speed, the keeper hands to adaptive cruise on its own,
+    // and the resume already said is not said again (R1 review drive,
+    // 2026-11-22: "Cruise resuming." then "Cruise resuming, 45.").
+    harness.clear_speech();
     harness.with_drive(|d, _| d.truck_mut().velocity_mps = 24.0 / MPH_PER_MPS);
     harness.with_drive(|d, ctx| d.update_keeper(ctx, 0.1, false, false, false));
     assert!(harness.read_drive(|d| d.cruise_mph).is_some());
     assert!(harness.read_drive(|d| d.keeper_mph).is_none());
+    assert!(
+        !spoken(&harness)
+            .iter()
+            .any(|l| l.contains("Cruise resuming")),
+        "{:?}",
+        spoken(&harness)
+    );
 }

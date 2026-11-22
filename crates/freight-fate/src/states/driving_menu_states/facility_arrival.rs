@@ -256,10 +256,17 @@ impl FacilityArrivalState {
         } else {
             (
                 "Unloading cargo",
-                format!(
-                    "Docked at {facility}. Unloading {} of {cargo_label}.",
-                    ctx.settings.tons_text(weight_tons)
-                ),
+                if ctx.settings.imperial() {
+                    format!(
+                        "Docked at {facility}. Unloading {} tons of {cargo_label}.",
+                        fmt_f(weight_tons, 0)
+                    )
+                } else {
+                    format!(
+                        "Docked at {facility}. Unloading {} of {cargo_label}.",
+                        ctx.settings.tons_text(weight_tons)
+                    )
+                },
                 "Unloading cargo.",
             )
         };

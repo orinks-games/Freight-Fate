@@ -25849,6 +25849,14 @@ msgstr "la sortie {name}"
 msgid "the destination exit for {name}"
 msgstr "la sortie de destination pour {name}"
 
+#. placeholders: {speed_text}
+msgid " About {speed_text} over."
+msgstr " Environ {speed_text} au-dessus."
+
+#. placeholders: {limit_text}, {comparison}
+msgid "Speed limit {limit_text}.{comparison}"
+msgstr ""
+
 #. placeholders: {reason}
 msgid ", in a {reason} zone"
 msgstr ", dans une zone {reason}"
@@ -25857,10 +25865,6 @@ msgstr ", dans une zone {reason}"
 #. one clause of a longer line
 msgid "in a {reason} zone"
 msgstr "dans une zone {reason}"
-
-#. placeholders: {speed_text}
-msgid " About {speed_text} over."
-msgstr " Environ {speed_text} au-dessus."
 
 #. placeholders: {state}
 msgid " {state} holds trucks to this."
@@ -31841,6 +31845,15 @@ msgstr "Déchargement"
 msgid "Docked at {facility}."
 msgstr "À quai à {facility}."
 
+#. placeholders: {facility}, {f}, {cargo_label}
+msgid "Docked at {facility}. Unloading {f} tons of {cargo_label}."
+msgstr "À quai à {facility}. Déchargement de {f} tonnes de {cargo_label}."
+
+#. placeholders: {f}, {cargo_label}
+#. one sentence of a longer line
+msgid "Unloading {f} tons of {cargo_label}."
+msgstr "Déchargement de {f} tonnes de {cargo_label}."
+
 #. placeholders: {facility}, {tons_text}, {cargo_label}
 msgid "Docked at {facility}. Unloading {tons_text} of {cargo_label}."
 msgstr ""
@@ -35495,8 +35508,9 @@ msgstr "Le régulateur reprend à {floor}. Les pédales sont à vous."
 msgid "Pedals are yours."
 msgstr "Les pédales sont à vous."
 
-msgid "Cruise resuming."
-msgstr "Le régulateur reprend."
+#. placeholders: {speed_value}
+msgid "Cruise resuming, {speed_value}."
+msgstr "Régulateur repris, {speed_value}."
 
 msgid "turn"
 msgstr "turn"
@@ -46984,17 +46998,14 @@ msgstr ""
 "commande le moteur, {pad_fuel} lit le carburant, et {pad_speed_limit} lit "
 "la limitation."
 
-#~ msgid "Docked at {facility}. Unloading {f} tons of {cargo_label}."
-#~ msgstr "À quai à {facility}. Déchargement de {f} tonnes de {cargo_label}."
-
-#~ msgid "Unloading {f} tons of {cargo_label}."
-#~ msgstr "Déchargement de {f} tonnes de {cargo_label}."
-
 #~ msgid "Units: {else}"
 #~ msgstr "Unités : {else}"
 
 #~ msgid "Distance and speed in miles or kilometers."
 #~ msgstr "Distances et vitesses en miles ou en kilomètres."
+
+#~ msgid "Cruise resuming."
+#~ msgstr "Le régulateur reprend."
 
 #~ msgid "Northstar Freight Lines: balanced company driver"
 #~ msgstr "Northstar Freight Lines : chauffeur salarié équilibré"
@@ -60632,9 +60643,6 @@ msgstr ""
 
 #~ msgid "Following gap {gap} seconds."
 #~ msgstr "Intervalle de suivi {gap} secondes."
-
-#~ msgid "Cruise resuming, {speed_value}."
-#~ msgstr "Régulateur repris, {speed_value}."
 
 #~ msgid "Adaptive cruise off. Press {key} to set it."
 #~ msgstr "Régulateur adaptatif désactivé. Appuyez sur {key} pour le régler."

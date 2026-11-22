@@ -25016,6 +25016,14 @@ msgstr "{name} çıkışı"
 msgid "the destination exit for {name}"
 msgstr "{name} için varış çıkışı"
 
+#. placeholders: {speed_text}
+msgid " About {speed_text} over."
+msgstr " Yaklaşık {speed_text} fazla."
+
+#. placeholders: {limit_text}, {comparison}
+msgid "Speed limit {limit_text}.{comparison}"
+msgstr ""
+
 #. placeholders: {reason}
 msgid ", in a {reason} zone"
 msgstr ", {reason} bölgesinde"
@@ -25024,10 +25032,6 @@ msgstr ", {reason} bölgesinde"
 #. one clause of a longer line
 msgid "in a {reason} zone"
 msgstr "{reason} bölgesinde"
-
-#. placeholders: {speed_text}
-msgid " About {speed_text} over."
-msgstr " Yaklaşık {speed_text} fazla."
 
 #. placeholders: {state}
 msgid " {state} holds trucks to this."
@@ -30882,6 +30886,15 @@ msgstr "Yük boşaltılıyor"
 msgid "Docked at {facility}."
 msgstr "Rampaya yanaşıldı: {facility}."
 
+#. placeholders: {facility}, {f}, {cargo_label}
+msgid "Docked at {facility}. Unloading {f} tons of {cargo_label}."
+msgstr "Rampaya yanaşıldı: {facility}. {f} ton {cargo_label} boşaltılıyor."
+
+#. placeholders: {f}, {cargo_label}
+#. one sentence of a longer line
+msgid "Unloading {f} tons of {cargo_label}."
+msgstr "{f} ton {cargo_label} boşaltılıyor."
+
 #. placeholders: {facility}, {tons_text}, {cargo_label}
 msgid "Docked at {facility}. Unloading {tons_text} of {cargo_label}."
 msgstr ""
@@ -34402,8 +34415,9 @@ msgstr "Hız sabitleyici {floor} hızla devam eder. Pedallar sizde."
 msgid "Pedals are yours."
 msgstr "Pedallar sizde."
 
-msgid "Cruise resuming."
-msgstr "Hız sabitleyici devam ediyor."
+#. placeholders: {speed_value}
+msgid "Cruise resuming, {speed_value}."
+msgstr ""
 
 msgid "turn"
 msgstr "dönüş"
@@ -45570,17 +45584,14 @@ msgstr ""
 "motoru kontrol eder, {pad_fuel} yakıtı okur ve {pad_speed_limit} hız "
 "sınırını okur."
 
-#~ msgid "Docked at {facility}. Unloading {f} tons of {cargo_label}."
-#~ msgstr "Rampaya yanaşıldı: {facility}. {f} ton {cargo_label} boşaltılıyor."
-
-#~ msgid "Unloading {f} tons of {cargo_label}."
-#~ msgstr "{f} ton {cargo_label} boşaltılıyor."
-
 #~ msgid "Units: {else}"
 #~ msgstr "Birimler: {else}"
 
 #~ msgid "Distance and speed in miles or kilometers."
 #~ msgstr "Mesafe ve hız mil ya da kilometre olarak."
+
+#~ msgid "Cruise resuming."
+#~ msgstr "Hız sabitleyici devam ediyor."
 
 #~ msgid "Northstar Freight Lines: balanced company driver"
 #~ msgstr "Northstar Freight Lines: dengeli firma şoförü"

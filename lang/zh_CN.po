@@ -23115,6 +23115,14 @@ msgstr "{name}出口"
 msgid "the destination exit for {name}"
 msgstr "{name}的目的地出口"
 
+#. placeholders: {speed_text}
+msgid " About {speed_text} over."
+msgstr " 大约超速{speed_text}。"
+
+#. placeholders: {limit_text}, {comparison}
+msgid "Speed limit {limit_text}.{comparison}"
+msgstr ""
+
 #. placeholders: {reason}
 msgid ", in a {reason} zone"
 msgstr "，在{reason}区域"
@@ -23123,10 +23131,6 @@ msgstr "，在{reason}区域"
 #. one clause of a longer line
 msgid "in a {reason} zone"
 msgstr "在{reason}区域"
-
-#. placeholders: {speed_text}
-msgid " About {speed_text} over."
-msgstr " 大约超速{speed_text}。"
 
 #. placeholders: {state}
 msgid " {state} holds trucks to this."
@@ -28639,6 +28643,15 @@ msgstr "正在卸货"
 msgid "Docked at {facility}."
 msgstr "已靠上{facility}的装卸口。"
 
+#. placeholders: {facility}, {f}, {cargo_label}
+msgid "Docked at {facility}. Unloading {f} tons of {cargo_label}."
+msgstr "已靠上{facility}的装卸口。正在卸下{f}吨{cargo_label}。"
+
+#. placeholders: {f}, {cargo_label}
+#. one sentence of a longer line
+msgid "Unloading {f} tons of {cargo_label}."
+msgstr "正在卸下{f}吨{cargo_label}。"
+
 #. placeholders: {facility}, {tons_text}, {cargo_label}
 msgid "Docked at {facility}. Unloading {tons_text} of {cargo_label}."
 msgstr ""
@@ -31876,8 +31889,9 @@ msgstr "巡航在{floor}恢复。踏板交给你。"
 msgid "Pedals are yours."
 msgstr "踏板是你的。"
 
-msgid "Cruise resuming."
-msgstr "巡航恢复。"
+#. placeholders: {speed_value}
+msgid "Cruise resuming, {speed_value}."
+msgstr "巡航恢复，{speed_value}。"
 
 msgid "turn"
 msgstr "转弯"
@@ -41618,17 +41632,14 @@ msgid ""
 msgstr ""
 "按住左肩键使用第二层按键。{pad_engine}控制发动机，{pad_fuel}读出燃油，{pad_speed_limit}读出限速。"
 
-#~ msgid "Docked at {facility}. Unloading {f} tons of {cargo_label}."
-#~ msgstr "已靠上{facility}的装卸口。正在卸下{f}吨{cargo_label}。"
-
-#~ msgid "Unloading {f} tons of {cargo_label}."
-#~ msgstr "正在卸下{f}吨{cargo_label}。"
-
 #~ msgid "Units: {else}"
 #~ msgstr "单位：{else}"
 
 #~ msgid "Distance and speed in miles or kilometers."
 #~ msgstr "距离和速度用英里还是公里。"
+
+#~ msgid "Cruise resuming."
+#~ msgstr "巡航恢复。"
 
 #~ msgid "Northstar Freight Lines: balanced company driver"
 #~ msgstr "Northstar Freight Lines：均衡型公司司机"
@@ -52070,9 +52081,6 @@ msgstr ""
 
 #~ msgid "Following gap {gap} seconds."
 #~ msgstr "跟车间隔{gap}秒。"
-
-#~ msgid "Cruise resuming, {speed_value}."
-#~ msgstr "巡航恢复，{speed_value}。"
 
 #~ msgid "Adaptive cruise off. Press {key} to set it."
 #~ msgstr "自适应巡航已关闭。按{key}设定。"

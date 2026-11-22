@@ -228,6 +228,23 @@ impl DrivingState {
             ctx.say(&gate);
             return;
         }
+        // Off the destination exit the highway trip has ended at its last
+        // mile, so the limit there is still the interstate's: S on the Gary
+        // approach said "Truck limit 65 miles per hour." with the gate 0.1
+        // miles ahead at 15 (R1 review drive, 2026-11-22). Answer with the
+        // road the truck is on instead: the gate's limit inside its zone, the
+        // approach's before it.
+        if let Some(limit) = self.approach_limit_after_exit(ctx) {
+            let over = self.trip.truck.speed_mph() - limit;
+            let comparison = if over >= 1.0 {
+                format!(" About {} over.", ctx.settings.speed_text(over))
+            } else {
+                String::new()
+            };
+            let limit_text = ctx.settings.speed_text(limit);
+            ctx.say(&format!("Speed limit {limit_text}.{comparison}"));
+            return;
+        }
         let position = self.trip.position_mi;
         let (limit, reason) = self.trip.speed_limit_at(position);
         // A street is not a zone: its limit is its own (`spoken_zone`).
@@ -279,6 +296,27 @@ impl DrivingState {
         ctx.say(&format!(
             "{lead} {limit_text}{zone}.{split}{comparison}{advisory}"
         ));
+    }
+
+    /// The limit of the road past the destination exit, for S: the gate's
+    /// inside its zone, the destination approach's before it, never above
+    /// the corridor's own. None while the truck is still on the highway or
+    /// on streets that post their own limits.
+    pub fn approach_limit_after_exit(&mut self, ctx: &GameContext) -> Option<f64> {
+        if !self.destination_exit_taken
+            || self.surface_chain
+            || self.departure_chain
+            || self.stop_chain.is_some()
+            || self.trip.is_facility_approach_route()
+        {
+            return None;
+        }
+        let gate_mi = self.gate_distance_mi(ctx)?;
+        if gate_mi <= self.gate_zone_length_mi() + 1e-6 {
+            return Some(ff_core::sim::trip_models::FACILITY_GATE_LIMIT_MPH);
+        }
+        let (corridor, _) = self.trip.speed_limit_at(self.trip.position_mi);
+        Some(corridor.min(ff_core::sim::trip_models::DESTINATION_APPROACH_LIMIT_MPH))
     }
 
     /// The bend under the wheels, or the next one close ahead -- whichever

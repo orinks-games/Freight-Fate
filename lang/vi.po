@@ -25549,6 +25549,14 @@ msgstr "lối ra {name}"
 msgid "the destination exit for {name}"
 msgstr "lối ra điểm giao tới {name}"
 
+#. placeholders: {speed_text}
+msgid " About {speed_text} over."
+msgstr " Vượt khoảng {speed_text}."
+
+#. placeholders: {limit_text}, {comparison}
+msgid "Speed limit {limit_text}.{comparison}"
+msgstr ""
+
 #. placeholders: {reason}
 msgid ", in a {reason} zone"
 msgstr ", trong khu vực {reason}"
@@ -25557,10 +25565,6 @@ msgstr ", trong khu vực {reason}"
 #. one clause of a longer line
 msgid "in a {reason} zone"
 msgstr "trong khu vực {reason}"
-
-#. placeholders: {speed_text}
-msgid " About {speed_text} over."
-msgstr " Vượt khoảng {speed_text}."
 
 #. placeholders: {state}
 msgid " {state} holds trucks to this."
@@ -31454,6 +31458,15 @@ msgstr "Đang dỡ hàng"
 msgid "Docked at {facility}."
 msgstr "Đã vào bến tại {facility}."
 
+#. placeholders: {facility}, {f}, {cargo_label}
+msgid "Docked at {facility}. Unloading {f} tons of {cargo_label}."
+msgstr "Đã vào bến tại {facility}. Đang dỡ {f} tấn {cargo_label}."
+
+#. placeholders: {f}, {cargo_label}
+#. one sentence of a longer line
+msgid "Unloading {f} tons of {cargo_label}."
+msgstr "Đang dỡ {f} tấn {cargo_label}."
+
 #. placeholders: {facility}, {tons_text}, {cargo_label}
 msgid "Docked at {facility}. Unloading {tons_text} of {cargo_label}."
 msgstr ""
@@ -35013,8 +35026,9 @@ msgstr "Ga tự động khôi phục ở mức {floor}. Bạn tự điều khi�
 msgid "Pedals are yours."
 msgstr "Bạn tự điều khiển bàn đạp."
 
-msgid "Cruise resuming."
-msgstr "Đang khôi phục ga tự động."
+#. placeholders: {speed_value}
+msgid "Cruise resuming, {speed_value}."
+msgstr ""
 
 msgid "turn"
 msgstr "chuyển hướng"
@@ -46256,17 +46270,14 @@ msgstr ""
 "Giữ nút vai trái để mở lớp nút thứ hai. {pad_engine} bật tắt động cơ, "
 "{pad_fuel} đọc nhiên liệu và {pad_speed_limit} đọc tốc độ giới hạn."
 
-#~ msgid "Docked at {facility}. Unloading {f} tons of {cargo_label}."
-#~ msgstr "Đã vào bến tại {facility}. Đang dỡ {f} tấn {cargo_label}."
-
-#~ msgid "Unloading {f} tons of {cargo_label}."
-#~ msgstr "Đang dỡ {f} tấn {cargo_label}."
-
 #~ msgid "Units: {else}"
 #~ msgstr "Đơn vị đo: {else}"
 
 #~ msgid "Distance and speed in miles or kilometers."
 #~ msgstr "Hiển thị quãng đường và tốc độ theo dặm hoặc kilômét."
+
+#~ msgid "Cruise resuming."
+#~ msgstr "Đang khôi phục ga tự động."
 
 #~ msgid "Northstar Freight Lines: balanced company driver"
 #~ msgstr "Northstar Freight Lines: tài xế hãng cân bằng"

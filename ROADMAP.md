@@ -6158,6 +6158,12 @@ here 2026-09-25. Details stay in the linked dated sections.
       enum in `ff-core` (hired, on sufferance, unassigned, own authority)
       with one `next(event)` and a transition table, reported by the agent
       server's `status` (R1 review, 2026-11-22).
+- [ ] (Found along the way) **The destination approach has no limit in
+      force.** Once the destination exit is taken, the trip still reads the
+      interstate's number up to the gate's half mile, so speeding warnings,
+      cruise and the assists go by 65 while S says the approach's 45. Put the
+      approach limit back on the map when the exit is taken, the way the
+      gate's 15 is restored (R1 follow-up, 2026-11-22).
 - [ ] **Route calls to a remote dispatcher when one is available.** Deliver
       the same structured request asynchronously, with a short wait and the
       local dispatcher as the automatic fallback.

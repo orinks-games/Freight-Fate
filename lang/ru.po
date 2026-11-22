@@ -25539,6 +25539,14 @@ msgstr "съезд {name}"
 msgid "the destination exit for {name}"
 msgstr "съезд к месту доставки, {name}"
 
+#. placeholders: {speed_text}
+msgid " About {speed_text} over."
+msgstr " Превышение примерно на {speed_text}."
+
+#. placeholders: {limit_text}, {comparison}
+msgid "Speed limit {limit_text}.{comparison}"
+msgstr ""
+
 #. placeholders: {reason}
 msgid ", in a {reason} zone"
 msgstr ", зона: {reason}"
@@ -25547,10 +25555,6 @@ msgstr ", зона: {reason}"
 #. one clause of a longer line
 msgid "in a {reason} zone"
 msgstr "в зоне: {reason}"
-
-#. placeholders: {speed_text}
-msgid " About {speed_text} over."
-msgstr " Превышение примерно на {speed_text}."
 
 #. placeholders: {state}
 msgid " {state} holds trucks to this."
@@ -31651,6 +31655,17 @@ msgstr "Разгрузка"
 msgid "Docked at {facility}."
 msgstr "У рампы: {facility}."
 
+#. placeholders: {facility}, {f}, {cargo_label}
+msgid "Docked at {facility}. Unloading {f} tons of {cargo_label}."
+msgstr ""
+"У рампы: {facility}. Разгружаем {f} {f:тонна|тонны|тонн}, груз: "
+"{cargo_label}."
+
+#. placeholders: {f}, {cargo_label}
+#. one sentence of a longer line
+msgid "Unloading {f} tons of {cargo_label}."
+msgstr "Разгружаем {f} {f:тонна|тонны|тонн}, груз: {cargo_label}."
+
 #. placeholders: {facility}, {tons_text}, {cargo_label}
 msgid "Docked at {facility}. Unloading {tons_text} of {cargo_label}."
 msgstr ""
@@ -35298,8 +35313,9 @@ msgstr "Круиз-контроль возобновится на {floor}. Пе�
 msgid "Pedals are yours."
 msgstr "Педали ваши."
 
-msgid "Cruise resuming."
-msgstr "Круиз-контроль продолжает."
+#. placeholders: {speed_value}
+msgid "Cruise resuming, {speed_value}."
+msgstr "Круиз-контроль возобновлён, {speed_value}."
 
 msgid "turn"
 msgstr "turn"
@@ -46626,19 +46642,14 @@ msgstr ""
 "двигателем, {pad_fuel} называет топливо, а {pad_speed_limit} ограничение "
 "скорости."
 
-#~ msgid "Docked at {facility}. Unloading {f} tons of {cargo_label}."
-#~ msgstr ""
-#~ "У рампы: {facility}. Разгружаем {f} {f:тонна|тонны|тонн}, груз: "
-#~ "{cargo_label}."
-
-#~ msgid "Unloading {f} tons of {cargo_label}."
-#~ msgstr "Разгружаем {f} {f:тонна|тонны|тонн}, груз: {cargo_label}."
-
 #~ msgid "Units: {else}"
 #~ msgstr "Единицы: {else}"
 
 #~ msgid "Distance and speed in miles or kilometers."
 #~ msgstr "Расстояние и скорость в милях или километрах."
+
+#~ msgid "Cruise resuming."
+#~ msgstr "Круиз-контроль продолжает."
 
 #~ msgid "Northstar Freight Lines: balanced company driver"
 #~ msgstr "Northstar Freight Lines: сбалансированный старт штатным водителем"
@@ -59960,9 +59971,6 @@ msgstr ""
 
 #~ msgid "Following gap {gap} seconds."
 #~ msgstr "Дистанция {gap} {gap:секунда|секунды|секунд}."
-
-#~ msgid "Cruise resuming, {speed_value}."
-#~ msgstr "Круиз-контроль возобновлён, {speed_value}."
 
 #~ msgid "Adaptive cruise off. Press {key} to set it."
 #~ msgstr ""
