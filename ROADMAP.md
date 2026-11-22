@@ -4571,12 +4571,17 @@ Release gate for 1.9.7:
 - [x] SAPI and OneCore speech play on the default sound device again
       (player problem report, 2026-11-20;
       [November 20](#november-20-speech-on-the-wrong-sound-device-release-gate)).
-- [ ] The Windows Defender detection a player reported on 2026-11-14.
+- [x] The Windows Defender detection a player reported on 2026-11-14.
       The Windows build is not code signed. Before the tag, the release
       candidate's Windows files are scanned and come back clean, or the
       detection is reported to Microsoft as a false positive and the
       downloads page says so. A code-signing certificate costs money and
-      is the owner's decision.
+      is the owner's decision. Scanned on 2026-11-22, after the tag: the
+      published 1.9.7 Windows zip (hash matching `checksums.txt`) and
+      its 24 extracted files came back with no threats on the owner's
+      PC, Defender signatures 1.463.411.0, real-time protection on. One
+      PC's scan does not rule out the cloud detection another player
+      saw; signing is still open.
 - [x] Cloud backup and restore of a sealed career. 1.9.6 was the first
       stable to seal saves, and nobody had restored one from the cloud
       since. An agent ran it on production with the desktop tester build
