@@ -264,7 +264,7 @@ impl DrivingState {
     /// phone is in, and says "Level set." once it has. With tilt steering
     /// off it does nothing and says nothing.
     pub fn set_tilt_level(&mut self, ctx: &mut GameContext) {
-        if ctx.settings.touch_tilt_steering {
+        if crate::app::tilt::wanted(&ctx.settings) {
             ctx.tilt.request_level();
         }
     }

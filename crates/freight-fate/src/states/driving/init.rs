@@ -252,7 +252,7 @@ impl DrivingState {
         }
         let community = load_community_stations(&crate::community_stations::cache_path());
         catalog.extend(new_community_stations(&catalog, community));
-        if crate::PERSONAL_PLAYLISTS {
+        if crate::device::personal_playlists() {
             catalog.extend(load_personal_playlists(&personal_playlists_dir()));
         }
         let radio = RadioState::from_settings(

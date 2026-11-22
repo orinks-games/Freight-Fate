@@ -112,6 +112,10 @@ pub struct Scenario {
     /// Tilt steering on or off (Touch gestures, Tilt steering). The agent
     /// server's `tilt` tool is the phone's motion sensor.
     pub tilt_steering: Option<bool>,
+    /// Play as an iPhone (true) or as this desktop again (false): the phone's
+    /// menus, rows and help, starting with no hardware keyboard, so prompts
+    /// name gestures. Applied before anything else in the scenario.
+    pub phone: Option<bool>,
     /// The fatigue number, 0 to 100, set after `rested`.
     pub fatigue: Option<f64>,
     /// Sandbox HOS counters for a near-limit road start. These are staged
@@ -338,6 +342,7 @@ impl Scenario {
                 .and_then(Value::as_bool)
                 .unwrap_or(false),
             tilt_steering: args.get("tilt_steering").and_then(Value::as_bool),
+            phone: args.get("phone").and_then(Value::as_bool),
             fatigue: number(args, "fatigue")?,
             hos_driving_min: number(args, "hos_driving_min")?,
             hos_duty_min: number(args, "hos_duty_min")?,

@@ -1,7 +1,6 @@
 //! Key and button practice (`states/main_menu/input_practice.rs`): Shift F1
 //! over any screen, every key and button named, nothing sent to the drive.
 
-use ff_core::input_hints::CONTROLLER;
 use ff_core::sim::weather::WeatherKind;
 
 use freight_fate::controller::fakes::FakePad;
@@ -48,7 +47,7 @@ fn pad(harness: &mut PlaytestHarness) {
     c.set_enabled(true);
     c.bind_device(Box::new(FakePad::new(0)), "test pad");
     c.set_id_pending(false);
-    c.active_device = CONTROLLER;
+    c.note_controller();
 }
 
 fn button(harness: &mut PlaytestHarness, button: ControllerButton) {

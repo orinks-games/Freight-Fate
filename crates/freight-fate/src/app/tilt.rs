@@ -11,6 +11,13 @@ use ff_core::sim::tilt_steering::{TiltEvent, TiltLine, TiltSteering};
 
 use super::App;
 
+/// Whether tilt steering is wanted: the switch is on and this is a phone
+/// (`crate::device::phone`). A desktop with the switch set in its file, or
+/// a laptop with an accelerometer of its own, never opens the sensor.
+pub fn wanted(settings: &ff_core::settings::Settings) -> bool {
+    settings.touch_tilt_steering && crate::device::phone()
+}
+
 /// What the motion sensor gave this frame.
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub enum TiltRead {
@@ -180,7 +187,7 @@ impl App {
     /// free the screen's orientation. Runs after the frame's events, so a
     /// drive that just resumed is at the wheel this frame.
     pub(super) fn update_tilt(&mut self, dt: f64) {
-        let setting = self.ctx.settings.touch_tilt_steering;
+        let setting = wanted(&self.ctx.settings);
         // Only in the foreground. Leaving the wheel for the app switcher, a
         // call or the home screen is leaving the wheel, so the return takes
         // level again.

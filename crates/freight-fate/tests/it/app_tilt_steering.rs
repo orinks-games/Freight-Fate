@@ -18,6 +18,8 @@ fn a_tilt_drive(name: &str, lane_keeping: &str) -> PlaytestHarness {
     harness.app.ctx.settings.lane_keeping = lane_keeping.to_string();
     harness.app.ctx.tilt.set_agent_pose(Some(0.0));
     harness.start_delivery(StartDelivery::named(name));
+    // Staged on the desktop board, then played as a phone.
+    freight_fate::device::force_phone(true);
     harness.with_drive(|drive, _| {
         drive.tutorial = None;
         drive.departure_checked = true;
@@ -138,6 +140,21 @@ fn set_tilt_level_takes_level_from_the_pose_now() {
 }
 
 #[test]
+fn on_the_desktop_the_switch_does_nothing() {
+    let mut harness = a_tilt_drive("Tilt Desktop", "off");
+    freight_fate::device::force_phone(false);
+    tilt(&mut harness, Some(40.0), 1.0);
+    assert_eq!(harness.app.ctx.tilt.state().key(), "off");
+    assert_eq!(harness.read_drive(|drive| drive.lane.steering), 0.0);
+    assert!(harness.app.ctx.settings.touch_tilt_steering);
+    assert!(
+        harness.transcript().is_empty(),
+        "{:?}",
+        harness.transcript()
+    );
+}
+
+#[test]
 fn with_tilt_steering_off_nothing_steers_and_nothing_is_said() {
     let mut harness = a_tilt_drive("Tilt Off", "off");
     harness.app.ctx.settings.touch_tilt_steering = false;
@@ -155,6 +172,7 @@ fn with_tilt_steering_off_nothing_steers_and_nothing_is_said() {
 
 #[test]
 fn the_touch_gestures_screen_turns_tilt_steering_on_and_steps_its_angle() {
+    freight_fate::device::force_phone(true);
     let mut harness = PlaytestHarness::new();
     harness.app.push_state(TouchGesturesState::new());
     assert_eq!(
@@ -203,6 +221,7 @@ fn the_touch_gestures_screen_turns_tilt_steering_on_and_steps_its_angle() {
 
 #[test]
 fn a_device_with_no_motion_sensor_keeps_the_row_off_and_says_so() {
+    freight_fate::device::force_phone(true);
     let mut harness = PlaytestHarness::new();
     harness.app.ctx.tilt.sensor_present = Some(false);
     harness.app.push_state(TouchGesturesState::new());
@@ -224,6 +243,7 @@ fn a_device_with_no_motion_sensor_keeps_the_row_off_and_says_so() {
 
 #[test]
 fn a_sensor_found_missing_once_on_turns_the_switch_off() {
+    freight_fate::device::force_phone(true);
     let mut harness = PlaytestHarness::new();
     harness.app.ctx.settings.touch_tilt_steering = true;
     harness.app.ctx.tilt.set_agent_no_sensor();

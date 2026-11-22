@@ -358,7 +358,6 @@ pub fn render_help_line(ctx: &GameContext, template: &str) -> String {
 /// keyboard, by touch)`, `None` leaving the line out. Phones have no
 /// personal playlists (their Playlists folder is out of the player's reach),
 /// and a touch player tunes with three-finger flicks, not the Page keys.
-#[cfg_attr(not(touch_screen), allow(dead_code))]
 static PHONE_LINES: &[(&str, Option<&str>, Option<&str>)] = &[
     (
         "Partial follows bends with gentle drift. Off leaves steering to you unless curve assistance is enabled. Hold a steering control across the lane line to change lanes.",
@@ -409,7 +408,7 @@ static PHONE_LINES: &[(&str, Option<&str>, Option<&str>)] = &[
 
 /// A page title as this build reads it: phones have no playlists.
 fn page_title_text(title: &'static str) -> &'static str {
-    if cfg!(touch_screen) && title == "Radio and playlists" {
+    if crate::device::phone() && title == "Radio and playlists" {
         "Radio"
     } else {
         title
@@ -419,7 +418,7 @@ fn page_title_text(title: &'static str) -> &'static str {
 /// The page's lines as this build and device read them, before control
 /// names are filled in.
 fn page_lines(ctx: &GameContext, lines: &'static [&'static str]) -> Vec<&'static str> {
-    if !cfg!(touch_screen) {
+    if !crate::device::phone() {
         return lines.to_vec();
     }
     let touch = ctx.touch_hints();

@@ -709,6 +709,7 @@ impl AgentPolicy {
                 text.push_str(&format!(
                     "\nSPEECH: main_backend {choice}; main {main}; event {event}."
                 ));
+                text.push_str(&format!("\nINPUT: {}.", input.input_state()));
             }
             let _ = waiting.reply.send(Ok(text));
         }

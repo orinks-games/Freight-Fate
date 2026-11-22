@@ -448,7 +448,7 @@ impl Menu for DrivingCommandsState {
     }
 
     fn build_items(&mut self, ctx: &mut GameContext) -> Vec<MenuItem<Self>> {
-        let tilt = ctx.settings.touch_tilt_steering;
+        let tilt = crate::app::tilt::wanted(&ctx.settings);
         self.entries()
             .iter()
             .filter(|entry| tilt || **entry != F(Fixed::SetTiltLevel))

@@ -359,6 +359,28 @@ impl PlayerInputFrame<'_> {
     /// The voices as `status` reports them: the saved main voice choice
     /// ("automatic" when empty), the bound main voice, and the bound event
     /// voice ("main voice" when events share it).
+    /// The input machine as `status` reports it: whether this run is a
+    /// phone, the input the prompts name, and what is connected.
+    pub fn input_state(&self) -> String {
+        let input = self.app.ctx.controller.input();
+        format!(
+            "phone {}; device {}; last_used {}; keyboard {}; controller {}",
+            crate::device::phone(),
+            input.device().key(),
+            input.last_used().key(),
+            if input.keyboard_connected() {
+                "connected"
+            } else {
+                "none"
+            },
+            if input.controller_connected() {
+                "connected"
+            } else {
+                "none"
+            },
+        )
+    }
+
     pub fn speech_state(&self) -> (String, String, String) {
         let ctx = &self.app.ctx;
         let choice = match ctx.settings.main_backend.as_str() {
@@ -574,6 +596,13 @@ impl PlayerInputFrame<'_> {
         scenario: &crate::playtest::scenario::Scenario,
     ) -> Result<String, String> {
         use crate::states::city::CityMenuState;
+        if let Some(phone) = scenario.phone {
+            crate::device::force_phone(phone);
+            self.app
+                .ctx
+                .controller
+                .restart_input(crate::device::phone());
+        }
         let notes = crate::playtest::scenario::apply(&mut self.app.ctx, scenario)?;
         // Down to the title screen, never past it: an empty stack is how the
         // loop knows the game is over, and the first live scenario quit the
@@ -1154,7 +1183,9 @@ impl App {
         let mode = self.touch_mode();
         let route = crate::touch::route(mode, gesture);
         if route == Route::Keyboard {
-            self.ctx.controller.hardware_keyboard = gesture == Gesture::KeyboardConnected;
+            self.ctx
+                .controller
+                .set_hardware_keyboard(gesture == Gesture::KeyboardConnected);
             return;
         }
         self.ctx.controller.note_touch();
@@ -1280,7 +1311,7 @@ impl App {
     pub fn handle_close_request(&mut self) {
         #[cfg(windows)]
         log::info!("Window close requested");
-        if cfg!(touch_screen) {
+        if crate::device::phone() {
             crate::problem_reports::end_session();
             self.ctx.running = false;
             return;

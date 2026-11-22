@@ -607,13 +607,13 @@ fn a_second_finger_shift_flick_in_automatic_does_nothing_and_says_nothing() {
 fn without_a_hardware_keyboard_hints_name_gestures() {
     let mut harness = a_drive("Touch No Keyboard");
     harness.app.dispatch_gesture(Gesture::KeyboardDisconnected);
-    assert!(!harness.app.ctx.controller.hardware_keyboard);
+    assert!(!harness.app.ctx.controller.hardware_keyboard());
     assert_eq!(
         harness.app.ctx.controller.device(),
         ff_core::input_hints::TOUCH
     );
     harness.app.dispatch_gesture(Gesture::KeyboardConnected);
-    assert!(harness.app.ctx.controller.hardware_keyboard);
+    assert!(harness.app.ctx.controller.hardware_keyboard());
 }
 
 /// The cruise flicks with cruise ON: each flick steps the target one notch

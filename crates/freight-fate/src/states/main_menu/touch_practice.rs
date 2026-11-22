@@ -102,7 +102,7 @@ impl GesturePractice {
         use ff_core::sim::lane_push::LaneSide;
         use ff_core::sim::tilt_steering::steering_curve;
         let degrees = match ctx.tilt.degrees() {
-            Some(degrees) if ctx.settings.touch_tilt_steering => degrees,
+            Some(degrees) if crate::app::tilt::wanted(&ctx.settings) => degrees,
             _ => {
                 self.tilt_push = ff_core::sim::lane_push::LanePush::Centred;
                 return;

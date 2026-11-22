@@ -503,7 +503,7 @@ impl DrivingState {
         } else {
             "Flick left or right to change lanes, or swipe left or right and hold to steer. "
         });
-        if ctx.settings.touch_tilt_steering {
+        if crate::app::tilt::wanted(&ctx.settings) {
             text.push_str(if ctx.settings.lane_is_automated() {
                 "Tilt the phone left or right to change one lane, and bring it back level \
                  before the next. "

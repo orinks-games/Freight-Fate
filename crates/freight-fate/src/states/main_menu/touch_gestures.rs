@@ -90,7 +90,7 @@ fn tilt_full_help(ctx: &GameContext) -> &'static str {
 
 /// Whether tilt steering is steering: on, on a device with a motion sensor.
 fn tilt_on(ctx: &GameContext) -> bool {
-    ctx.settings.touch_tilt_steering
+    crate::app::tilt::wanted(&ctx.settings)
         && ctx.tilt.state() != ff_core::sim::tilt_steering::TiltSteering::NoSensor
 }
 
