@@ -147,6 +147,17 @@ impl DrivingState {
         } else {
             String::new()
         };
+        // The exit's number never sits over the posting the truck is in. At
+        // the Blue Water Bridge approach, posted 50 km/h, cruise set 56 "for
+        // the exit" and the game then warned the driver about a speed it chose
+        // itself (agent drive, 2026-11-22).
+        if self.cruise_exit_mph.is_some() {
+            let (here, _) = self.trip.speed_limit_at(self.trip.position_mi);
+            if here < effective_mph {
+                effective_mph = here;
+                exit_note = format!(" for the {} limit", ctx.settings.speed_value(here));
+            }
+        }
         // Name the number the truck will actually hold. The resume line used
         // to speak the SET speed while a zone cap silently pinned the working
         // target far below it: clear of the visible queue in a heavy-traffic
