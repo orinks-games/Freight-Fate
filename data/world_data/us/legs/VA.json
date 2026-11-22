@@ -1476,7 +1476,7 @@
             "category": "museum",
             "kind": "point",
             "at_mi": 46.9,
-            "spoken": "Eastern Shore Railway Museum ahead"
+            "spoken": "Passing Eastern Shore Railway Museum"
           },
           {
             "name": "Bloxom",
@@ -7344,13 +7344,6 @@
             ]
           },
           {
-            "name": "New Market Gap",
-            "category": "mountain_pass",
-            "kind": "point",
-            "at_mi": 21.1,
-            "spoken": "Approaching New Market Gap"
-          },
-          {
             "name": "North Fork Shenandoah River",
             "category": "river",
             "kind": "point",
@@ -7398,13 +7391,6 @@
             "spoken": "Passing Basye"
           },
           {
-            "name": "Moreland Gap",
-            "category": "mountain_pass",
-            "kind": "point",
-            "at_mi": 29.3,
-            "spoken": "Approaching Moreland Gap"
-          },
-          {
             "name": "Edinburg",
             "at_mi": 33.5,
             "off_mi": 0.83,
@@ -7418,7 +7404,7 @@
             "category": "museum",
             "kind": "point",
             "at_mi": 34.1,
-            "spoken": "\"Connections\" The Shentel Museum ahead"
+            "spoken": "Passing \"Connections\" The Shentel Museum"
           },
           {
             "name": "Woodstock",
@@ -7446,13 +7432,6 @@
             "kind": "point",
             "source": "OpenStreetMap place=village node 157607657, projected onto the leg's OpenRouteService driving-hgv route",
             "spoken": "Passing Toms Brook"
-          },
-          {
-            "name": "Mine Gap",
-            "category": "mountain_pass",
-            "kind": "point",
-            "at_mi": 45.2,
-            "spoken": "Approaching Mine Gap"
           },
           {
             "name": "Dinosaur Land",
@@ -7536,13 +7515,6 @@
             "kind": "point",
             "source": "OpenStreetMap place=village node 157579474, projected onto the leg's OpenRouteService driving-hgv route",
             "spoken": "Passing Boyce"
-          },
-          {
-            "name": "Hoop Petticoat Gap",
-            "category": "mountain_pass",
-            "kind": "point",
-            "at_mi": 66.8,
-            "spoken": "Approaching Hoop Petticoat Gap"
           },
           {
             "name": "Berryville",
@@ -9303,7 +9275,7 @@
             "category": "museum",
             "kind": "point",
             "at_mi": 35.4,
-            "spoken": "Virginia Distillery Museum ahead"
+            "spoken": "Passing Virginia Distillery Museum"
           },
           {
             "name": "Wintergreen",
@@ -12260,16 +12232,6 @@
             "spoken": "Passing Warrenton"
           },
           {
-            "name": "Hopewell Gap",
-            "category": "mountain_pass",
-            "kind": "point",
-            "at_mi": 18.4,
-            "lat": 38.84495,
-            "lon": -77.7518,
-            "spoken": "Approaching Hopewell Gap",
-            "source": "derived 2026-10-01: name, category and kind read from OpenStreetMap tags via classify_narratable_feature; spoken text derived via spoken_landmark_text; nearest projection of OSM node 210769949 (Hopewell Gap) onto the leg's archived dense route geometry; at_mi = interpolated cumulative distance at the projection, rescaled to leg miles. OpenStreetMap via Overpass: https://www.openstreetmap.org/."
-          },
-          {
             "name": "Middleburg",
             "at_mi": 18.7,
             "off_mi": 8.49,
@@ -12332,16 +12294,6 @@
             "kind": "point",
             "source": "OpenStreetMap place=village node 158466758, projected onto the leg's checked-in route geometry",
             "spoken": "Entering Apple Mountain Lake"
-          },
-          {
-            "name": "CHester Gap",
-            "category": "mountain_pass",
-            "kind": "point",
-            "at_mi": 40.1,
-            "lat": 38.9192,
-            "lon": -78.12074,
-            "spoken": "Approaching CHester Gap",
-            "source": "derived 2026-10-01: name, category and kind read from OpenStreetMap tags via classify_narratable_feature; spoken text derived via spoken_landmark_text; nearest projection of OSM node 220431639 (CHester Gap) onto the leg's archived dense route geometry; at_mi = interpolated cumulative distance at the projection, rescaled to leg miles. OpenStreetMap via Overpass: https://www.openstreetmap.org/."
           },
           {
             "name": "Shenandoah Farms",
@@ -21712,14 +21664,14 @@
             "category": "museum",
             "kind": "point",
             "at_mi": 0.0,
-            "spoken": "The MacArthur Memorial Museum ahead"
+            "spoken": "Passing The MacArthur Memorial Museum"
           },
           {
             "name": "Hunter House Victorian Museum",
             "category": "museum",
             "kind": "point",
             "at_mi": 0.0,
-            "spoken": "Hunter House Victorian Museum ahead"
+            "spoken": "Passing Hunter House Victorian Museum"
           },
           {
             "name": "King Neptune (eastbound)",
@@ -31206,7 +31158,7 @@
             "category": "museum",
             "kind": "point",
             "at_mi": 79.1,
-            "spoken": "South Hill Tobacco Museum ahead"
+            "spoken": "Passing South Hill Tobacco Museum"
           },
           {
             "name": "La Crosse",
@@ -34176,7 +34128,7 @@
             "category": "museum",
             "kind": "point",
             "at_mi": 84.9,
-            "spoken": "Hampton Roads Naval Museum ahead"
+            "spoken": "Passing Hampton Roads Naval Museum"
           },
           {
             "name": "King Neptune (eastbound)",
@@ -43961,13 +43913,6 @@
             "spoken": "Passing Daleville"
           },
           {
-            "name": "Buford's Gap",
-            "category": "mountain_pass",
-            "kind": "point",
-            "at_mi": 14.0,
-            "spoken": "Approaching Buford's Gap"
-          },
-          {
             "name": "Troutville",
             "at_mi": 14.1,
             "off_mi": 0.44,
@@ -44065,7 +44010,7 @@
             "category": "museum",
             "kind": "point",
             "at_mi": 50.0,
-            "spoken": "Museum ahead: Rockbridge Historical Society"
+            "spoken": "Passing Rockbridge Historical Society, a museum"
           },
           {
             "name": "Maury River",
@@ -52868,7 +52813,7 @@
             "category": "museum",
             "kind": "point",
             "at_mi": 24.2,
-            "spoken": "For the Kids by George Children's Museum ahead"
+            "spoken": "Passing For the Kids by George Children's Museum"
           },
           {
             "name": "Shepherdstown",

@@ -17473,11 +17473,6 @@ msgstr ""
 msgid "toll"
 msgstr ""
 
-#. placeholders: {method_label}, {name}, {toll_text}
-#: crates/ff-core/src/sim/trip/placement.rs
-msgid "{method_label} toll point, {name}.{toll_text}"
-msgstr ""
-
 #: crates/ff-core/src/sim/trip/placement.rs
 msgid "restriction"
 msgstr ""
@@ -19851,6 +19846,11 @@ msgstr ""
 #. placeholders: {amount_text}
 #: crates/ff-core/src/speech_text.rs
 msgid "Toll, {amount_text} dollars, carrier."
+msgstr ""
+
+#. placeholders: {method_label}, {name}, {toll_text}
+#: crates/ff-core/src/speech_text.rs
+msgid "{method_label} toll point, {name}.{toll_text}"
 msgstr ""
 
 #. placeholders: {limit_speed_text}
@@ -50599,6 +50599,16 @@ msgstr ""
 
 #: lang/extra.pot
 msgid "Passing {city}."
+msgstr ""
+
+#. A landmark beside the road. {name} is the landmark's own name; the
+#. second form is a museum whose name does not say museum.
+#: lang/extra.pot
+msgid "Passing {name}"
+msgstr ""
+
+#: lang/extra.pot
+msgid "Passing {name}, a museum"
 msgstr ""
 
 #: lang/extra.pot
