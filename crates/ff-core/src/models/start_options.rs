@@ -117,6 +117,9 @@ pub struct CareerStartOption {
     pub starting_deliveries: i64,
     pub starting_on_time_deliveries: i64,
     pub starting_total_miles: f64,
+    /// The run-band maximum a generated carrier's words name ("loads of up
+    /// to 500 miles"); 0 for a hand-written start. See [`Self::summary_in`].
+    pub run_max_mi: f64,
     pub starting_total_earnings: f64,
     pub starting_reputation: f64,
     pub company_pay: Option<CompanyPayPlan>,
@@ -182,6 +185,7 @@ const DEFAULTS: CareerStartOption = CareerStartOption {
     starting_deliveries: 0,
     starting_on_time_deliveries: 0,
     starting_total_miles: 0.0,
+    run_max_mi: 0.0,
     starting_total_earnings: 0.0,
     starting_reputation: 50.0,
     company_pay: None,
@@ -373,11 +377,35 @@ fn generated_start_options() -> &'static [CareerStartOption] {
                     default_city: leak(default_city),
                     company_pay: Some(c.company_pay),
                     dispatch: c.dispatch,
+                    run_max_mi: c.run_band.max_mi,
                     ..DEFAULTS
                 }
             })
             .collect()
     })
+}
+
+impl CareerStartOption {
+    /// `menu_summary` in the player's units: a generated carrier's run-band
+    /// maximum is written in miles and spoken in whatever the readouts use.
+    pub fn summary_in(&self, settings: &crate::settings::Settings) -> String {
+        self.in_units(self.menu_summary, settings)
+    }
+
+    /// `help_text` in the player's units, as [`Self::summary_in`].
+    pub fn help_in(&self, settings: &crate::settings::Settings) -> String {
+        self.in_units(self.help_text, settings)
+    }
+
+    fn in_units(&self, text: &str, settings: &crate::settings::Settings) -> String {
+        if self.run_max_mi <= 0.0 {
+            return text.to_string();
+        }
+        text.replace(
+            &format!("{} miles", fmt_miles(self.run_max_mi)),
+            &settings.distance_text(self.run_max_mi, false),
+        )
+    }
 }
 
 fn fmt_miles(miles: f64) -> String {

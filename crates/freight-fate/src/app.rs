@@ -370,6 +370,22 @@ impl PlayerInputFrame<'_> {
         (choice, ctx.speech.backend_name(), event)
     }
 
+    /// The units as `status` reports them: the row's mode, the country they
+    /// are judged in, and the units every readout uses right now.
+    pub fn units_state(&self) -> String {
+        let settings = &self.app.ctx.settings;
+        format!(
+            "mode {}; country {}; effective {}",
+            settings.units_mode().key(),
+            settings.units_place.country(),
+            if settings.imperial() {
+                "miles"
+            } else {
+                "kilometers"
+            }
+        )
+    }
+
     /// The player's own shortcut table, for a tool call that names a
     /// control rather than a key.
     pub fn bindings(&self) -> &crate::bindings::KeyBindings {

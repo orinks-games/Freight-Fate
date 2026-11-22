@@ -5710,8 +5710,13 @@ a carrier slice (owner, 2026-10-26).
       Calais and St. Stephen crossings.
 - [ ] The north: 63 to Fort McMurray, 16 to Prince Rupert, 37 to the
       Yukon, 3 to Yellowknife, freight nodes only.
-- [ ] The rules before the first corridor merges: postings spoken in km/h
-      in Canada whatever the unit setting; cycle 1 and 2 hours of service
+- [x] Units: Automatic (miles in the United States, kilometers in Canada,
+      one spoken line at the crossing), the 2.0 default; Imperial and Metric
+      hold one unit everywhere. Fuel, weights, load tons, sign heights and
+      the cruise dial follow the effective units. A 1.9 true becomes
+      Automatic, false becomes Metric.
+- [ ] The rules before the first corridor merges: postings follow the
+      Units setting (Automatic speaks km/h in Canada); cycle 1 and 2 hours of service
       with the Canadian rest menus; provincial weights, the 25 m length,
       B-trains, spring bans; the 105 km/h limiters; CAD at the pump;
       customs with hours, FAST and cabotage at every listed port;

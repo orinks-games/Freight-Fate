@@ -1577,12 +1577,9 @@ pub fn print_setup(ctx: &mut GameContext, hit: &Hit, start_mi: f64, opts: &RoadO
     );
     println!("    driving speech  : {}", s.driving_speech);
     println!(
-        "    units           : {}",
-        if s.imperial_units {
-            "miles"
-        } else {
-            "kilometers"
-        }
+        "    units           : {} ({})",
+        s.units,
+        if s.imperial() { "miles" } else { "kilometers" }
     );
     println!(
         "    cruise    : {}",

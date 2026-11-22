@@ -9,11 +9,10 @@
 //! stop, and an overnight run could pass a row of open pumps and still go
 //! dry.
 
-use ff_core::models::economy::{cad_per_litre, canada_diesel_usd_per_gal};
+use ff_core::models::economy::canada_diesel_usd_per_gal;
 use ff_core::models::loyalty::loyalty_earnings_text;
 use ff_core::pyfmt::{fmt_f, fmt_grouped};
 use ff_core::sim::trip_models::RoadStop;
-use ff_core::sim::vehicle::KG_PER_LB;
 
 use crate::app::GameContext;
 use crate::states::base::Menu;
@@ -27,10 +26,10 @@ pub trait FuelPump: Menu {
     fn drive(&self) -> &DriveRef;
     fn stop(&self) -> &RoadStop;
 
-    fn weight_margin_text(label: &str, margin_kg: f64) -> String {
-        let pounds = fmt_grouped((margin_kg.abs() / KG_PER_LB).round(), 0);
+    fn weight_margin_text(ctx: &GameContext, label: &str, margin_kg: f64) -> String {
+        let weight = ctx.settings.weight_text(margin_kg.abs());
         let side = if margin_kg >= 0.0 { "under" } else { "over" };
-        format!("{label}: {pounds} pounds {side} the gross-weight limit")
+        format!("{label}: {weight} {side} the gross-weight limit")
     }
 
     /// The fuel row, given the drive the caller already holds.
@@ -46,6 +45,7 @@ pub trait FuelPump: Menu {
             return "Fuel: tank is full".to_string();
         }
         let margin = Self::weight_margin_text(
+            ctx,
             "Full tank",
             d.trip
                 .truck
@@ -53,8 +53,8 @@ pub trait FuelPump: Menu {
         );
         if !player_pays_operating_costs(&profile_of(ctx).business_status) {
             return format!(
-                "Refuel {} gallons on the carrier fuel card. {margin}",
-                fmt_f(need, 0)
+                "Refuel {} on the carrier fuel card. {margin}",
+                ctx.settings.volume_text(need)
             );
         }
         let region = d.trip.current_region();
@@ -63,16 +63,15 @@ pub trait FuelPump: Menu {
         let cost = ctx.economy.fuel_cost_at(region, &jurisdiction, need) + 35.0;
         if canada_diesel_usd_per_gal(&jurisdiction).is_some() {
             return format!(
-                "Refuel {} gallons for {} dollars. Diesel here is {} Canadian dollars a liter. \
-                 {margin}",
-                fmt_f(need, 0),
+                "Refuel {} for {} dollars. Diesel here is {}. {margin}",
+                ctx.settings.volume_text(need),
                 fmt_grouped(cost, 0),
-                fmt_f(cad_per_litre(price), 2)
+                ctx.settings.diesel_price_text(price, true)
             );
         }
         format!(
-            "Refuel {} gallons for {} dollars. {margin}",
-            fmt_f(need, 0),
+            "Refuel {} for {} dollars. {margin}",
+            ctx.settings.volume_text(need),
             fmt_grouped(cost, 0)
         )
     }
@@ -137,7 +136,7 @@ pub trait FuelPump: Menu {
             (d.trip.truck.gross_weight_margin_kg(), minutes)
         });
         let (margin_kg, minutes) = done.unwrap_or((0.0, FUEL_STOP_MIN));
-        let margin = Self::weight_margin_text("Gross weight", margin_kg);
+        let margin = Self::weight_margin_text(ctx, "Gross weight", margin_kg);
         ctx.audio.play("vehicle/fuel_pump");
 
         // Award loyalty points for fueling, then save: saved first, the
@@ -153,17 +152,17 @@ pub trait FuelPump: Menu {
         if carrier_card {
             // the carrier fuel card covers road fuel for company drivers
             ctx.say(&format!(
-                "Refueled {} gallons on the carrier fuel card. Fueling took {} minutes. \
+                "Refueled {} on the carrier fuel card. Fueling took {} minutes. \
                  {margin}. {loyalty_text}",
-                fmt_f(need, 0),
+                ctx.settings.volume_text(need),
                 fmt_f(minutes, 0)
             ));
         } else {
             let money = profile_of(ctx).money();
             ctx.say(&format!(
-                "Refueled {} gallons for {} dollars. You have {} dollars. Fueling took {} \
+                "Refueled {} for {} dollars. You have {} dollars. Fueling took {} \
                  minutes. {margin}. {loyalty_text}",
-                fmt_f(need, 0),
+                ctx.settings.volume_text(need),
                 fmt_grouped(cost, 0),
                 fmt_grouped(money, 0),
                 fmt_f(minutes, 0)

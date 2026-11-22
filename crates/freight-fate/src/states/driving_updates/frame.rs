@@ -622,7 +622,7 @@ impl DrivingState {
 
         // Keep the trip's spoken-distance units in step with a live settings
         // change; the setter only re-renders cues when the choice actually flips.
-        self.trip.set_imperial(ctx.settings.imperial_units);
+        self.trip.set_imperial(ctx.settings.imperial());
         self.check_border_approach(ctx);
         let pos_before = self.trip.position_mi;
         // Tell the trip model which stop's exit is signaled or on the ramp so its
@@ -647,6 +647,10 @@ impl DrivingState {
         for event in events {
             self.handle_trip_event(ctx, &event);
         }
+        // Automatic units follow the country under the truck. Judged after
+        // this frame's trip events, so the crossing call is said first and
+        // the units line after it.
+        self.follow_units(ctx);
         if self.selected_stop_key.is_some()
             && self.trip.planned_stop_key != self.selected_stop_key
             && self.ramp_stop.is_none()

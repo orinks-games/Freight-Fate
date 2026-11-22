@@ -624,6 +624,16 @@ impl DrivingState {
                 }
             }
         }
+        // Automatic units changing at this line say so after the call.
+        if let Some(cue) = event.data.cue.as_ref() {
+            let into_state = cue.key.rsplit(':').next().unwrap_or("").to_string();
+            if let Some(line) = self.units_line_for_crossing(ctx, &into_state) {
+                message = SpokenMessage::pair(
+                    format!("{} {line}", message.normal),
+                    message.terse.map(|terse| format!("{terse} {line}")),
+                );
+            }
+        }
         self.speak_ambient_event(
             ctx,
             message,

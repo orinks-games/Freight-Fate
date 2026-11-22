@@ -391,7 +391,7 @@ impl DrivingState {
                 // capture the loop variable, which ruff B023 names.)
                 let announced = ctx.settings.short_distance_text(ahead);
                 let scale_mi = stop.at_mi;
-                let imperial = ctx.settings.imperial_units;
+                let imperial = ctx.settings.imperial();
                 self.refresh_live_facts();
                 ctx.say_event_with(
                     // short_distance_text, not distance_text: the plain form

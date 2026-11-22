@@ -159,7 +159,7 @@ impl DriverAppScreenState {
     fn navigation_lines(&mut self, ctx: &mut GameContext) -> Vec<String> {
         self.driving
             .with(ctx, |d, ctx| {
-                let imperial = ctx.settings.imperial_units;
+                let imperial = ctx.settings.imperial();
                 vec![
                     format!("Navigation: {}", d.trip.next_navigation_context(imperial)),
                     format!("Route progress: {}", d.trip.progress_summary(imperial)),
@@ -172,7 +172,7 @@ impl DriverAppScreenState {
     fn weather_lines(&mut self, ctx: &mut GameContext) -> Vec<String> {
         self.driving
             .with(ctx, |d, ctx| {
-                let imperial = ctx.settings.imperial_units;
+                let imperial = ctx.settings.imperial();
                 let mut source = d.trip.weather.source_label().to_string();
                 if d.trip.weather.live_weather_refreshing() {
                     source += ". Live weather is updating for your current location";
@@ -450,7 +450,7 @@ impl Menu for DriverAppScreenState {
             let lead = self
                 .driving
                 .with(ctx, |d, ctx| {
-                    d.trip.weather.report_lead(ctx.settings.imperial_units)
+                    d.trip.weather.report_lead(ctx.settings.imperial())
                 })
                 .unwrap_or_default();
             ctx.say_with(format!("{prefix}. {lead}."), Say::queued());

@@ -103,8 +103,7 @@ fn test_terminal_garage_price_names_canadian_dollars_only_in_canada() {
     assert_eq!(
         whitehorse,
         format!(
-            "Garage: fuel {} per gallon, {} Canadian dollars a liter",
-            fmt_f(price, 2),
+            "Garage: fuel {} Canadian dollars a liter",
             fmt_f(cad_per_litre(price), 2)
         )
     );
@@ -115,7 +114,7 @@ fn test_terminal_garage_price_names_canadian_dollars_only_in_canada() {
     let price = us.ctx.economy.fuel_price_at("pacific_northwest", "WA");
     assert_eq!(
         seattle,
-        format!("Garage: fuel {} per gallon", fmt_f(price, 2))
+        format!("Garage: fuel {} dollars a gallon", fmt_f(price, 2))
     );
 }
 

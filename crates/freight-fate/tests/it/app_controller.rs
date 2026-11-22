@@ -513,9 +513,9 @@ fn test_menu_dpad_moves_and_adjusts() {
             .menu_mut()
             .index = 0;
     }
-    let before = app.ctx.settings.imperial_units;
+    let before = app.ctx.settings.imperial();
     app.dispatch_controller(&button(ControllerButton::DPadRight, 0));
-    assert_ne!(app.ctx.settings.imperial_units, before);
+    assert_ne!(app.ctx.settings.imperial(), before);
     app.shutdown();
 }
 

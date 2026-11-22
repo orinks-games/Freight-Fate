@@ -308,6 +308,12 @@ impl Settings {
             "steering_assist",
             Value::from(lane_keeping_to_legacy(&self.lane_keeping)),
         ));
+        // A 1.9 build reads only this key. Automatic is miles there: 1.9
+        // has no Canada on its map, and miles was its default.
+        pairs.push((
+            "imperial_units",
+            Value::from(self.units_mode() != crate::units::UnitsMode::Metric),
+        ));
         pairs
     }
 
@@ -371,6 +377,25 @@ impl Settings {
                 s.online_presence = false;
             }
         }
+        // ``imperial_units`` became the three-way ``units`` row in 2.0. A
+        // file that already says ``units`` is read as-is. A 1.9 file's true
+        // was the old default and becomes Automatic, which still says miles
+        // everywhere the 1.9 map went; its false was a player choosing
+        // kilometers, and stays Metric.
+        if let Some(data) = data {
+            if !data.contains_key("units") {
+                if let Some(legacy) = data.get("imperial_units") {
+                    let mut imperial = true;
+                    coerce::bool_truthy(&mut imperial, legacy, "imperial_units");
+                    s.set_units_mode(if imperial {
+                        crate::units::UnitsMode::Automatic
+                    } else {
+                        crate::units::UnitsMode::Metric
+                    });
+                }
+            }
+        }
+        s.normalize_units();
         // ``steering_assist`` became ``lane_keeping`` in 1.9. A save that
         // already carries the new key is read as-is; anything older has its
         // legacy value carried across to the mode that behaves identically,

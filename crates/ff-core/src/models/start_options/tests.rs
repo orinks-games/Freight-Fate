@@ -469,3 +469,23 @@ fn test_start_options_for_a_city_are_only_carriers_that_hire_there() {
     );
     assert_eq!(keys("healy_ak_us"), ["chatanika_freight"]);
 }
+
+#[test]
+fn a_generated_carrier_names_its_longest_load_in_the_players_units() {
+    let Some(option) = all_start_options()
+        .into_iter()
+        .find(|option| option.run_max_mi > 0.0)
+    else {
+        return;
+    };
+    let mut settings = crate::settings::Settings::default();
+    let miles = option.summary_in(&settings);
+    assert!(miles.contains(" miles."), "{miles}");
+    settings.set_units_mode(crate::units::UnitsMode::Metric);
+    let km = option.summary_in(&settings);
+    assert!(
+        km.contains(" kilometers.") && !km.contains(" miles"),
+        "{km}"
+    );
+    assert!(!option.help_in(&settings).contains(" miles"));
+}

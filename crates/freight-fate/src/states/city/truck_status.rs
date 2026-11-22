@@ -118,10 +118,10 @@ impl TruckStatusState {
         };
         lines.extend([
             format!(
-                "Fuel: {} percent, {} gallons of {}.",
+                "Fuel: {} percent, {} of {}.",
                 fmt_f(fuel_pct, 0),
-                fmt_f(p.truck_fuel_gal(), 0),
-                fmt_f(specs.fuel_tank_gal, 0),
+                ctx.settings.volume_value(p.truck_fuel_gal()),
+                ctx.settings.volume_text(specs.fuel_tank_gal),
             ),
             format!(
                 "Tractor condition: {condition}, {} percent damage.",

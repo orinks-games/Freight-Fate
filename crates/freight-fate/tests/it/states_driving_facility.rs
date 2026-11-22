@@ -1239,7 +1239,9 @@ fn test_the_pickup_progress_summary_speaks_the_players_unit() {
         d.pickup_facility_text(&app.ctx)
     )));
 
-    app.ctx.settings.imperial_units = false;
+    app.ctx
+        .settings
+        .set_units_mode(ff_core::units::UnitsMode::Metric);
     let metric = d.pickup_progress_summary(&app.ctx);
     assert!(metric.contains("kilometers remaining of"));
     assert!(!metric.contains("miles"));

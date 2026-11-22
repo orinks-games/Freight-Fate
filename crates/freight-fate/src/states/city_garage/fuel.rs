@@ -87,7 +87,7 @@ impl GarageState {
         };
         if gallons < 1.0 {
             ctx.audio.play("ui/error");
-            ctx.say("Not enough money for one gallon of fuel.");
+            ctx.say("Not enough money for fuel.");
             return;
         }
         let cost = ctx.economy.fuel_cost_at(&region, &state_code, gallons);
@@ -106,10 +106,10 @@ impl GarageState {
         ctx.save_profile();
         ctx.audio.play("vehicle/fuel_pump");
         ctx.say(&format!(
-            "Partial fuel: added {} gallons for \
+            "Partial fuel: added {} for \
              {} dollars. \
              You have {} dollars left.",
-            fmt_f(gallons, 0),
+            ctx.settings.volume_text(gallons),
             fmt_grouped(cost, 0),
             fmt_grouped(money, 0)
         ));

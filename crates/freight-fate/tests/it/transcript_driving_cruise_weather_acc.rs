@@ -276,7 +276,11 @@ fn test_an_ignored_dodgeable_hazard_still_ends_cruise_at_the_deadline() {
 #[test]
 fn test_metric_cruise_minimum_refusal_uses_metric_units() {
     let mut harness = PlaytestHarness::new();
-    harness.app.ctx.settings.imperial_units = false;
+    harness
+        .app
+        .ctx
+        .settings
+        .set_units_mode(ff_core::units::UnitsMode::Metric);
     harness.start_delivery(freight_fate::playtest::harness::StartDelivery::named(
         "Metric",
     ));

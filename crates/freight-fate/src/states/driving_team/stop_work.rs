@@ -150,10 +150,13 @@ impl DrivingState {
         let place = stop.spoken_name();
         let line = match (gallons > 0.0, took_break) {
             (true, true) => format!(
-                "{name} fueled {} gallons and took a 30-minute break at {place}.",
-                gallons.round()
+                "{name} fueled {} and took a 30-minute break at {place}.",
+                ctx.settings.volume_text(gallons)
             ),
-            (true, false) => format!("{name} fueled {} gallons at {place}.", gallons.round()),
+            (true, false) => format!(
+                "{name} fueled {} at {place}.",
+                ctx.settings.volume_text(gallons)
+            ),
             (false, true) => format!("{name} took a 30-minute break at {place}."),
             (false, false) => format!("{name} stopped at {place}."),
         };

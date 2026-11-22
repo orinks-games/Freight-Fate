@@ -3,7 +3,7 @@
 
 use ff_core::models::business::{is_owner_operator, player_pays_operating_costs};
 use ff_core::models::economy::{
-    cad_per_litre, canada_diesel_usd_per_gal, damage_severity_mult, Economy, REPAIR_COST_PER_PCT,
+    canada_diesel_usd_per_gal, damage_severity_mult, Economy, REPAIR_COST_PER_PCT,
 };
 use ff_core::models::profile::{Profile, CHAIN_REPAIR_LINKS_PER_SET};
 use ff_core::pyfmt::{fmt_f, fmt_grouped, round_py_n};
@@ -172,7 +172,7 @@ impl GarageState {
             return "Fuel: tank is full".to_string();
         }
         if !player_pays_operating_costs(&p.business_status) {
-            return format!("Refuel: {} gallons", fmt_f(need, 0));
+            return format!("Refuel: {}", ctx.settings.volume_text(need));
         }
         let region = Self::region(ctx);
         let state_code = Self::state_code(ctx);
@@ -180,15 +180,15 @@ impl GarageState {
         let cost = ctx.economy.fuel_cost_at(&region, &state_code, need);
         if canada_diesel_usd_per_gal(&state_code).is_some() {
             return format!(
-                "Refuel {} gallons for {} dollars. Diesel here is {} Canadian dollars a liter.",
-                fmt_f(need, 0),
+                "Refuel {} for {} dollars. Diesel here is {}.",
+                ctx.settings.volume_text(need),
                 fmt_grouped(cost, 0),
-                fmt_f(cad_per_litre(price), 2)
+                ctx.settings.diesel_price_text(price, true)
             );
         }
         format!(
-            "Refuel {} gallons for {} dollars",
-            fmt_f(need, 0),
+            "Refuel {} for {} dollars",
+            ctx.settings.volume_text(need),
             fmt_grouped(cost, 0)
         )
     }

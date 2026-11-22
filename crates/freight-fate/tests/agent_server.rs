@@ -37,6 +37,38 @@ fn status_reports_cloud_resume_without_a_career() {
     assert!(text.contains("CLOUD RESUME: Off."), "{text}");
 }
 
+#[test]
+fn status_reports_the_units_mode_and_what_the_readouts_use() {
+    for (mode, effective) in [
+        ("automatic", "miles"),
+        ("imperial", "miles"),
+        ("metric", "kilometers"),
+    ] {
+        let mut app = TestApp::new();
+        assert!(app
+            .app
+            .ctx
+            .settings
+            .set_field("units", &serde_json::json!(mode)));
+        let (tx, rx) = mpsc::channel();
+        let (reply, answer) = mpsc::channel();
+        tx.send(freight_fate::agent_server::Request::for_test(
+            Command::Status,
+            reply,
+        ))
+        .unwrap();
+        let mut agent = policy(Ears::shared(), rx, None);
+        app.run_with_player_input(Some(240), |input, _dt| agent.step(input, FRAME));
+        let text = answer.try_recv().unwrap().unwrap();
+        assert!(
+            text.contains(&format!(
+                "UNITS: mode {mode}; country US; effective {effective}."
+            )),
+            "{text}"
+        );
+    }
+}
+
 fn rpc(id: u64, method: &str, params: &str) -> String {
     format!(r#"{{"jsonrpc":"2.0","id":{id},"method":"{method}","params":{params}}}"#)
 }

@@ -272,7 +272,7 @@ impl DrivingState {
             "manual"
         };
         let now = clock_text(self.trip.local_hour());
-        let imperial = ctx.settings.imperial_units;
+        let imperial = ctx.settings.imperial();
         if self.resumed {
             let hours_used = self.trip.game_minutes / 60.0;
             let (drive_name, destination) = if self.phase == DRIVE_PHASE_PICKUP {
@@ -309,10 +309,10 @@ impl DrivingState {
                 let status = format!("{speed_control}{engine} {brake}");
                 let status = status.trim_end();
                 let text = format!(
-                    "Resuming {drive_name}: {:.0} tons of {} to {destination}. {progress} \
+                    "Resuming {drive_name}: {} of {} to {destination}. {progress} \
                      {hours_used:.1} of {:.0} hours. {now}. {transmission} {report_lead}. \
                      {status}",
-                    self.job.weight_tons,
+                    ctx.settings.tons_text(self.job.weight_tons),
                     self.job.spoken_cargo_label(),
                     self.job.deadline_game_h,
                 );

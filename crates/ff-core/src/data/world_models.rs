@@ -917,6 +917,25 @@ pub struct RouteRestriction {
 
 impl RouteRestriction {
     pub fn value_text(&self) -> String {
+        self.value_text_in(true)
+    }
+
+    /// The sign's value in the player's units: feet and inches and US tons,
+    /// or meters and tonnes to one decimal when the readouts are in
+    /// kilometers.
+    pub fn value_text_in(&self, imperial: bool) -> String {
+        if !imperial {
+            if self.kind == "low_clearance" {
+                let meters = round_py_n(self.feet * 0.3048, 1);
+                return format!("{} meters", py_str_float(meters));
+            }
+            let tonnes = round_py_n(self.tons * 0.90718474, 1);
+            return if tonnes == tonnes.trunc() {
+                format!("{} tonnes", py_int(tonnes))
+            } else {
+                format!("{} tonnes", py_str_float(tonnes))
+            };
+        }
         if self.kind == "low_clearance" {
             let mut whole = py_int(self.feet);
             let mut inches = round_py_int((self.feet - whole as f64) * 12.0);
@@ -949,6 +968,10 @@ impl RouteRestriction {
     }
 
     pub fn spoken_ahead(&self) -> String {
+        self.spoken_ahead_in(true)
+    }
+
+    pub fn spoken_ahead_in(&self, imperial: bool) -> String {
         // The far call answers the only question a driver has about a sign
         // they cannot see: does it matter? Routing already refused anything
         // impassable (see the struct docs), so the honest answer is no, and
@@ -956,15 +979,19 @@ impl RouteRestriction {
         format!(
             "a {}, signed {}. Your route clears it",
             self.kind_label(),
-            self.value_text()
+            self.value_text_in(imperial)
         )
     }
 
     pub fn spoken_near(&self) -> String {
+        self.spoken_near_in(true)
+    }
+
+    pub fn spoken_near_in(&self, imperial: bool) -> String {
         format!(
             "{}, signed {}.",
             py_capitalize(self.kind_label()),
-            self.value_text()
+            self.value_text_in(imperial)
         )
     }
 }

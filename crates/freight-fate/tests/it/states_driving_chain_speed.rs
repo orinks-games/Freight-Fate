@@ -10,7 +10,9 @@ const MPS_PER_MPH: f64 = 0.44704;
 #[test]
 fn test_cruise_holds_chain_speed_and_gives_it_back() {
     let mut app = TestApp::new();
-    app.ctx.settings.imperial_units = true;
+    app.ctx
+        .settings
+        .set_units_mode(ff_core::units::UnitsMode::Imperial);
     let drive = a_drive(&mut app);
     drive_and_ctx(&drive, &mut app, |d, ctx| {
         d.trip.truck.engine_on = true;

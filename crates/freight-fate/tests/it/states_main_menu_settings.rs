@@ -510,11 +510,11 @@ fn test_settings_menu_toggles_jake_voice_and_persists() {
 fn test_settings_menu_saves_each_change() {
     let mut app = TestApp::new();
     open_settings_category(&mut app, "Controls");
-    assert!(app.ctx.settings.imperial_units);
+    assert!(app.ctx.settings.imperial());
     move_to::<Cat>(&mut app, "Units");
     key(&mut app, Key::Return);
-    assert!(!app.ctx.settings.imperial_units);
-    assert!(!Settings::load().imperial_units);
+    assert!(!app.ctx.settings.imperial());
+    assert!(!Settings::load().imperial());
 }
 
 #[test]

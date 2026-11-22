@@ -52,7 +52,7 @@ impl BusinessStatusState {
                     }),
                     move |s: &mut Self, ctx| s.move_to_carrier(ctx, option),
                 )
-                .help(option.menu_summary)
+                .help(option.summary_in(&ctx.settings))
             })
             .collect()
     }
@@ -64,12 +64,14 @@ impl BusinessStatusState {
             if ctx.touch_hints() {
                 ctx.say(&format!(
                     "{}. {} Double tap again to move.",
-                    option.carrier_name, option.menu_summary
+                    option.carrier_name,
+                    option.summary_in(&ctx.settings)
                 ));
             } else {
                 ctx.say(&format!(
                     "{}. {} Press Enter again to move.",
-                    option.carrier_name, option.menu_summary
+                    option.carrier_name,
+                    option.summary_in(&ctx.settings)
                 ));
             }
             self.refresh(ctx, true);

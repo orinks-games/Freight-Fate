@@ -171,7 +171,7 @@ impl DrivingState {
             // at 900 feet, and "1000 feet." there is a distance that is not
             // true (review of the realistic exit, 2026-09-24).
             let gap_mi = ramp_mi - RAMP_ACCESS_MI;
-            let unit_mi = if ctx.settings.imperial_units {
+            let unit_mi = if ctx.settings.imperial() {
                 1.0 / 5280.0
             } else {
                 1.0 / 1609.344
