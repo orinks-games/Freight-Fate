@@ -988,6 +988,27 @@ fn test_sleeping_shuts_down_a_running_engine() {
 }
 
 #[test]
+fn a_fuel_only_stop_offers_no_lot_sleep_and_no_motel() {
+    let mut harness = a_drive("Cardlock");
+    let at_mi = here(&harness);
+    // A cardlock is pumps and nothing else: no lot to sleep in, no motel.
+    let mut cardlock = RoadStop::new("AFD Wonowon cardlock", at_mi, "fuel_station");
+    cardlock.actions = vec!["fuel".to_string()];
+    let rows = rest_rows(&mut harness, cardlock);
+    assert!(
+        rows.iter()
+            .any(|row| row.starts_with("Refuel") || row.starts_with("Fuel")),
+        "{rows:?}"
+    );
+    assert!(
+        !rows
+            .iter()
+            .any(|row| row.contains("Sleep") || row.starts_with("Motel room")),
+        "{rows:?}"
+    );
+}
+
+#[test]
 fn test_break_only_stop_always_offers_emergency_lot_sleep() {
     let mut harness = a_drive("Lot Sleep"); // fresh hours, not tired
     let at_mi = here(&harness);

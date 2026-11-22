@@ -5872,10 +5872,24 @@ a carrier slice (owner, 2026-10-26).
       let them in for the months they are open.
 - [ ] (Found along the way) Yukon rest areas come from OSM: 511 Yukon's
       rest-area feed needs a developer key.
-- [ ] (Found along the way) Truck access at the Alaska Highway lodges and
-      town stations is not read anywhere, so the game offers them to a
-      bobtail only: Fort Nelson to Watson Lake has no tractor-trailer fuel
-      on the map. Needs an operator answer or a provincial list per stop.
+- [x] Truck access at the Alaska Highway lodges and the Yukon and Alaska
+      town stations (2026-11-22): each fuel stop in the list now says how
+      its access was decided (`vehicle_access_basis`), and the load-time
+      screen keeps a stated basis. 4 read (Watson Lake Tags, Junction 37,
+      Teslin's Yukon Motel and Haines Junction's Source Motors, from
+      FindFuelStops' Yukon truck stop directory), 24 assumed: no operator
+      page, the PSPC Alaska Highway page or the BC fleet fuel list says
+      either way, so `source` gives the reason (the highway's freight moves
+      by tractor-trailer and these are its diesel between the towns). A
+      loaded truck is now offered them; Fort Nelson to Watson Lake has
+      Toad River, Northern Rockies and Liard Hot Springs.
+- [ ] (Found along the way) Read truck access for the 24 assumed northern
+      fuel stops: an operator answer or a listing per stop turns each into
+      a reading (`osm-stops` prints the read to assumed count).
+- [x] The stop menu follows the stop's actions (2026-11-22): a stop that
+      neither parks nor takes a break (a cardlock, a lone pump) offers no
+      lot sleep and no motel. In the US this changes 2 stops, both
+      fuel-only travel centers; no stop that parks loses a row.
 - [x] Province lines speak short (2026-11-22): a line with no cited place
       is "Crossing into Yukon.", cited places are plain phrases ("the Alcan
       border crossing", "Lower Post"), and a leg that crosses one line more

@@ -6342,6 +6342,14 @@ msgstr ""
 msgid "placeholder"
 msgstr ""
 
+#: crates/ff-core/src/data/world_constants.rs crates/ff-core/src/data/world_local_data.rs
+msgid "assumed"
+msgstr ""
+
+#: crates/ff-core/src/data/world_constants.rs crates/ff-core/src/data/world_local_data.rs crates/freight-fate/src/states/driving_menu_states/drive_ref.rs
+msgid "read"
+msgstr ""
+
 #: crates/ff-core/src/data/world_constants.rs
 msgid "ta "
 msgstr ""
@@ -6438,7 +6446,7 @@ msgstr ""
 msgid "inspect"
 msgstr ""
 
-#: crates/ff-core/src/data/world_constants.rs crates/freight-fate/src/states/driving_core/constants.rs
+#: crates/ff-core/src/data/world_constants.rs crates/freight-fate/src/states/driving_core/constants.rs crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
 msgid "park"
 msgstr ""
 
@@ -7289,14 +7297,6 @@ msgstr ""
 #. placeholders: {p}, {rid}
 #: crates/ff-core/src/data/world_local_data.rs
 msgid "{p} local approach {rid} segment exposes raw source text"
-msgstr ""
-
-#: crates/ff-core/src/data/world_local_data.rs
-msgid "assumed"
-msgstr ""
-
-#: crates/ff-core/src/data/world_local_data.rs crates/freight-fate/src/states/driving_menu_states/drive_ref.rs
-msgid "read"
 msgstr ""
 
 #: crates/ff-core/src/data/world_local_data.rs

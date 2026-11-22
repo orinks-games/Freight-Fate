@@ -274,6 +274,25 @@ pub fn parse_curated(text: &str) -> Result<Vec<Curated>> {
     Ok(out)
 }
 
+/// How many of these stops say their truck access was read, and how many
+/// say it was assumed (`vehicle_access_basis`).
+pub fn access_tally<'a>(stops: impl Iterator<Item = &'a Curated>) -> (usize, usize) {
+    let (mut read, mut assumed) = (0, 0);
+    for c in stops {
+        match c
+            .record
+            .get("vehicle_access_basis")
+            .map(Value::py_str)
+            .as_deref()
+        {
+            Some("read") => read += 1,
+            Some("assumed") => assumed += 1,
+            _ => {}
+        }
+    }
+    (read, assumed)
+}
+
 /// Whether the road at `at_mi` runs the way `heading` names.
 pub fn runs(route: &Route, at_mi: f64, heading: &str) -> bool {
     let i = route
@@ -387,10 +406,24 @@ fn place(args: &Args, run: &mut Run, only: &Only, path: &str) -> Result<i32> {
                 )
             })
             .collect();
-        println!("  {id}: {}", summary.join("; "));
+        if !summary.is_empty() {
+            println!("  {id}: {}", summary.join("; "));
+        }
         let obj = leg
             .as_object_mut()
             .ok_or_else(|| format!("{id} is not an object"))?;
+        let holds_listed = obj
+            .get("stops")
+            .and_then(Value::as_array)
+            .is_some_and(|rows| {
+                rows.iter()
+                    .any(|s| names.contains(&s.get("name").map(Value::py_str).unwrap_or_default()))
+            });
+        if records.is_empty() && !holds_listed {
+            // Nothing from the list lands here or was here: the leg is not
+            // the list's to touch, not even to re-sort.
+            continue;
+        }
         let mut rows: Vec<Value> = obj
             .get("stops")
             .and_then(Value::as_array)
@@ -414,13 +447,22 @@ fn place(args: &Args, run: &mut Run, only: &Only, path: &str) -> Result<i32> {
         let _ = corridor_mut(leg)?;
     }
     run.archive = archive;
-    for (c, used) in list.iter().zip(used) {
-        if !used && c.season == "year round" {
+    for (c, used) in list.iter().zip(&used) {
+        if !*used && c.season == "year round" {
             let name = c.record.get("name").map(Value::py_str).unwrap_or_default();
             println!("on no leg in --only: {name}");
         }
     }
     println!("{placed} stops placed; {changed} legs changed.");
+    let (read, assumed) = access_tally(list.iter().zip(&used).filter(|(_, u)| **u).map(|(c, _)| c));
+    println!(
+        "truck access on the placed stops: {read} read, {assumed} assumed{}",
+        if assumed > read {
+            " -- mostly assumed"
+        } else {
+            ""
+        }
+    );
     run.finish(args.flag("write"))
 }
 
@@ -468,6 +510,24 @@ mod tests {
         );
         assert_eq!(candidate_kind(&[("amenity", "parking")]), None);
         assert_eq!(candidate_kind(&[("tourism", "motel")]), None);
+    }
+
+    #[test]
+    fn access_is_tallied_read_and_assumed() {
+        let list = parse_curated(
+            r#"{"stops": [
+                {"name": "A", "lat": 1, "lon": 1, "type": "fuel_station", "source": "s",
+                 "actions": ["fuel"], "services": ["diesel"], "vehicle_access_basis": "read"},
+                {"name": "B", "lat": 1, "lon": 1, "type": "fuel_station", "source": "s",
+                 "actions": ["fuel"], "services": ["diesel"], "vehicle_access_basis": "assumed"},
+                {"name": "C", "lat": 1, "lon": 1, "type": "fuel_station", "source": "s",
+                 "actions": ["fuel"], "services": ["diesel"], "vehicle_access_basis": "assumed"},
+                {"name": "D", "lat": 1, "lon": 1, "type": "fuel_station", "source": "s",
+                 "actions": ["fuel"], "services": ["diesel"]}
+            ]}"#,
+        )
+        .unwrap();
+        assert_eq!(access_tally(list.iter()), (1, 2));
     }
 
     fn list() -> Vec<Curated> {
