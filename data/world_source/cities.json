@@ -11157,6 +11157,154 @@
       ],
       "lat": 47.50579,
       "lon": -79.68533
+    },
+    "ashern_mb_ca": {
+      "spoken_city": "Ashern",
+      "state": "MB",
+      "country": "CA",
+      "region": "heartland",
+      "locations": [
+        {
+          "name": "Esso Ashern",
+          "type": "travel_center",
+          "lat": 51.1833,
+          "lon": -98.35123,
+          "source_note": "Esso station on Highway 6 at Ashern. Name, brand and position read from OpenStreetMap way 534086765 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/534086765). A fuel town: a pass-through stop with fuel, no freight."
+        }
+      ],
+      "lat": 51.1833,
+      "lon": -98.35123
+    },
+    "grand_rapids_mb_ca": {
+      "spoken_city": "Grand Rapids",
+      "state": "MB",
+      "country": "CA",
+      "region": "heartland",
+      "locations": [
+        {
+          "name": "Esso Grand Rapids",
+          "type": "travel_center",
+          "lat": 53.18366,
+          "lon": -99.27037,
+          "source_note": "Esso station on Highway 6 at Grand Rapids. Name, brand and position read from OpenStreetMap way 534023365 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/534023365). A fuel town: a pass-through stop with fuel, no freight."
+        }
+      ],
+      "lat": 53.18366,
+      "lon": -99.27037
+    },
+    "thompson_mb_ca": {
+      "spoken_city": "Thompson",
+      "state": "MB",
+      "country": "CA",
+      "region": "heartland",
+      "locations": [
+        {
+          "name": "Vale Thompson Operations",
+          "type": "mine_quarry",
+          "cargo": [
+            "bulk"
+          ],
+          "lat": 55.7172,
+          "lon": -97.84967,
+          "source_note": "Industrial land south of Thompson beside the Thompson Inco substation (way 132872863), the site of Vale's nickel mine and mill. Position read from OpenStreetMap way 132875554 (no name) in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/132875554); OpenStreetMap does not name the site, so the name is descriptive and the kind is assumed."
+        },
+        {
+          "name": "CN Thompson Yard",
+          "type": "intermodal",
+          "lat": 55.7397,
+          "lon": -97.83204,
+          "source_note": "Canadian National rail yard at Thompson station (railway=rail, service=yard), the end of the Hudson Bay Railway's connection south. Position read from OpenStreetMap way 288604943 (no name) in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/288604943); OpenStreetMap does not name the site, so the name is descriptive and the kind is assumed."
+        }
+      ],
+      "lat": 55.7172,
+      "lon": -97.84967
+    },
+    "baie_comeau_qc_ca": {
+      "spoken_city": "Baie-Comeau",
+      "state": "QC",
+      "country": "CA",
+      "region": "northeast",
+      "locations": [
+        {
+          "name": "Resolute Baie-Comeau Mill",
+          "type": "lumber_paper",
+          "cargo": [
+            "bulk"
+          ],
+          "lat": 49.22143,
+          "lon": -68.16121,
+          "source_note": "Newsprint mill (\"Produits forestiers Resolu\"). Name and position read from OpenStreetMap way 409632404 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/409632404); the type is assigned from the game's facility classes (derived)."
+        },
+        {
+          "name": "Alcoa Baie-Comeau Smelter",
+          "type": "steel_industrial",
+          "cargo": [
+            "bulk"
+          ],
+          "lat": 49.25132,
+          "lon": -68.1481,
+          "source_note": "Aluminum smelter (\"Alcoa Aluminerie de Baie-Comeau\"). Name and position read from OpenStreetMap way 80866758 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/80866758); the type is assigned from the game's facility classes (derived)."
+        },
+        {
+          "name": "SOPOR Transshipment Centre",
+          "type": "port_terminal",
+          "lat": 49.2122,
+          "lon": -68.2229,
+          "source_note": "Port transshipment terminal (\"Centre de transbordement SOPOR\", man_made=container_terminal). Name and position read from OpenStreetMap way 669414714 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/669414714); the type is assigned from the game's facility classes (derived)."
+        }
+      ],
+      "lat": 49.22143,
+      "lon": -68.16121
+    },
+    "sept_iles_qc_ca": {
+      "spoken_city": "Sept-\u00celes",
+      "state": "QC",
+      "country": "CA",
+      "region": "northeast",
+      "locations": [
+        {
+          "name": "Alouette Aluminum Smelter",
+          "type": "steel_industrial",
+          "cargo": [
+            "bulk"
+          ],
+          "lat": 50.1572,
+          "lon": -66.45567,
+          "source_note": "Aluminum smelter at Pointe-Noire (\"Aluminerie Alouette\"). Name and position read from OpenStreetMap way 573537656 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/573537656); the type is assigned from the game's facility classes (derived)."
+        }
+      ],
+      "lat": 50.1572,
+      "lon": -66.45567
+    },
+    "chibougamau_qc_ca": {
+      "spoken_city": "Chibougamau",
+      "state": "QC",
+      "country": "CA",
+      "region": "northeast",
+      "locations": [
+        {
+          "name": "Chibougamau Industrial Area",
+          "type": "lumber_paper",
+          "cargo": [
+            "bulk"
+          ],
+          "lat": 49.93189,
+          "lon": -74.37927,
+          "source_note": "Industrial land on Route 167 at the north end of Chibougamau, a sawmill town. Position read from OpenStreetMap way 226246144 (no name) in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/226246144); OpenStreetMap does not name the site, so the name is descriptive and the kind is assumed."
+        },
+        {
+          "name": "Copper Rand Mine",
+          "type": "mine_quarry",
+          "cargo": [
+            "bulk"
+          ],
+          "lat": 49.89123,
+          "lon": -74.28002,
+          "source_note": "Copper mine east of Chibougamau (industrial=mine, operator Dor\u00e9 Copper Mining Corp). Name and position read from OpenStreetMap way 1135736116 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/1135736116); the type is assigned from the game's facility classes (derived)."
+        }
+      ],
+      "lat": 49.93189,
+      "lon": -74.37927
     }
   }
 }
