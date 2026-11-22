@@ -293,6 +293,42 @@ pub fn access_tally<'a>(stops: impl Iterator<Item = &'a Curated>) -> (usize, usi
     (read, assumed)
 }
 
+/// The listed names this leg's road passes within reach of. Only these are
+/// the list's on this leg: a stop elsewhere that happens to share a listed
+/// name (a Petro-Canada in Washington, a Chevron anywhere) is another stop.
+/// Season and heading do not matter here, so a stop that turned seasonal or
+/// one-sided is still the list's to take off the leg.
+pub fn owned_names(route: &Route, list: &[Curated]) -> Vec<String> {
+    list.iter()
+        .filter(|c| route.project(c.lat, c.lon).1 <= c.reach_mi)
+        .map(|c| c.record.get("name").map(Value::py_str).unwrap_or_default())
+        .collect()
+}
+
+/// A leg's stops after the list's: the leg's own stops of an owned name are
+/// replaced by `records`, everything else is kept, in mile order. `None`
+/// when the list has nothing to do with this leg, so it is left as it is,
+/// not even re-sorted.
+pub fn merged_rows(
+    existing: &[Value],
+    records: Vec<Object>,
+    owned: &[String],
+) -> Option<Vec<Value>> {
+    let name = |s: &Value| s.get("name").map(Value::py_str).unwrap_or_default();
+    if records.is_empty() && !existing.iter().any(|s| owned.contains(&name(s))) {
+        return None;
+    }
+    let mut rows: Vec<Value> = existing
+        .iter()
+        .filter(|s| !owned.contains(&name(s)))
+        .cloned()
+        .collect();
+    rows.extend(records.into_iter().map(Value::Object));
+    let at = |v: &Value| v.get("at_mi").and_then(Value::as_f64).unwrap_or(0.0);
+    rows.sort_by(|a, b| at(a).total_cmp(&at(b)));
+    Some(rows)
+}
+
 /// Whether the road at `at_mi` runs the way `heading` names.
 pub fn runs(route: &Route, at_mi: f64, heading: &str) -> bool {
     let i = route
@@ -389,12 +425,7 @@ fn place(args: &Args, run: &mut Run, only: &Only, path: &str) -> Result<i32> {
             used[*k] = true;
         }
         let records: Vec<Object> = found.into_iter().map(|(_, r)| r).collect();
-        // The list owns every name it carries: a leg's stop of that name is
-        // replaced, or dropped when the stop no longer lands on the leg.
-        let names: Vec<String> = list
-            .iter()
-            .map(|c| c.record.get("name").map(Value::py_str).unwrap_or_default())
-            .collect();
+        let owned = owned_names(&route, &list);
         placed += records.len();
         let summary: Vec<String> = records
             .iter()
@@ -412,32 +443,14 @@ fn place(args: &Args, run: &mut Run, only: &Only, path: &str) -> Result<i32> {
         let obj = leg
             .as_object_mut()
             .ok_or_else(|| format!("{id} is not an object"))?;
-        let holds_listed = obj
+        let existing: Vec<Value> = obj
             .get("stops")
             .and_then(Value::as_array)
-            .is_some_and(|rows| {
-                rows.iter()
-                    .any(|s| names.contains(&s.get("name").map(Value::py_str).unwrap_or_default()))
-            });
-        if records.is_empty() && !holds_listed {
-            // Nothing from the list lands here or was here: the leg is not
-            // the list's to touch, not even to re-sort.
-            continue;
-        }
-        let mut rows: Vec<Value> = obj
-            .get("stops")
-            .and_then(Value::as_array)
-            .into_iter()
-            .flatten()
-            .filter(|s| {
-                let name = s.get("name").map(Value::py_str).unwrap_or_default();
-                !names.contains(&name)
-            })
             .cloned()
-            .collect();
-        rows.extend(records.into_iter().map(Value::Object));
-        let at = |v: &Value| v.get("at_mi").and_then(Value::as_f64).unwrap_or(0.0);
-        rows.sort_by(|a, b| at(a).total_cmp(&at(b)));
+            .unwrap_or_default();
+        let Some(rows) = merged_rows(&existing, records, &owned) else {
+            continue;
+        };
         let rows = Value::Array(rows);
         if obj.get("stops") != Some(&rows) {
             changed += 1;
@@ -557,6 +570,32 @@ mod tests {
         assert_eq!(names, vec!["Near"], "far and seasonal stops stay off");
         assert_eq!(placed[0].get("at_mi").and_then(Value::as_f64), Some(50.0));
         assert!(placed[0].get("lat").is_none() && placed[0].get("season").is_none());
+    }
+
+    #[test]
+    fn a_stop_far_from_the_list_keeps_its_shared_name() {
+        // "Near" is listed at (30.5, -97.003). A leg 300 miles away holds a
+        // stop of the same name: it is not the list's, so the leg is left
+        // alone. The leg the listed stop lies on gets it replaced.
+        let far = Route::new(&LegLine::new(vec![(35.0, -97.0), (36.0, -97.0)]), 69.0);
+        let owned = owned_names(&far, &list());
+        assert!(owned.is_empty(), "{owned:?}");
+        let theirs =
+            crate::pyjson::loads(r#"[{"name": "Near", "at_mi": 10.0, "source": "theirs"}]"#)
+                .unwrap();
+        let theirs = theirs.as_array().unwrap().clone();
+        assert!(merged_rows(&theirs, Vec::new(), &owned).is_none());
+
+        let near = Route::new(&LegLine::new(vec![(30.0, -97.0), (31.0, -97.0)]), 100.0);
+        let owned = owned_names(&near, &list());
+        assert!(owned.contains(&"Near".to_string()));
+        let records = place_on_leg(&near, 100.0, false, &list());
+        let rows = merged_rows(&theirs, records, &owned).unwrap();
+        assert_eq!(rows.len(), 1);
+        assert_eq!(
+            rows[0].get("source").map(Value::py_str).as_deref(),
+            Some("Operator page.")
+        );
     }
 
     #[test]
