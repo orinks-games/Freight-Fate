@@ -1282,7 +1282,15 @@
           "name": "level",
           "sections": 0,
           "source": "DERIVED, not read: Canada has no national inventory like HPMS, so the class is the terrain the leg's own grade profile spends the most miles in (the reroute-enrich rule: sustained grade of 5 percent, or 4 percent with 1,000 ft of relief within 5 miles, is mountain; 1.5 percent or 400 ft of relief is hills; else flat), mapped flat to level, hills to rolling and mountain to mountainous. It reads the same elevation as the grade, so it is no independent check on it."
-        }
+        },
+        "billboard_bans": [
+          {
+            "from_mi": 7.85,
+            "to_mi": 8.85,
+            "name": "Tillebrook Provincial Park",
+            "source": "derived 2026-11-22: OpenStreetMap relation 6423608 (Tillebrook Provincial Park) boundary from the OSM API; the stretch of the leg's archived route inside the park or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on); widened to the one-mile minimum"
+          }
+        ]
       },
       "source": "Career 2.0 western Canada corridor (canada-network.md corridor 1), first pass built 2026-11-22 with cargo tools over the OpenStreetMap planet file of 2026-11-16.",
       "rerouted": true
@@ -4346,6 +4354,16 @@
             "spoken": "Passing Balzac Industrial Park"
           },
           {
+            "name": "Canada Olympic Park (Calgary to Golden)",
+            "category": "highway_marker",
+            "kind": "point",
+            "at_mi": 9.2,
+            "spoken": "Passing Canada Olympic Park, from the nineteen eighty-eight Winter Games.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Artists View Park West",
             "at_mi": 11.4,
             "off_mi": 0.73,
@@ -4532,6 +4550,16 @@
             "source": "derived: name and category read from the OpenStreetMap tags of relation 9368703 (Yoho National Park); placed at the first road vertex inside it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           },
           {
+            "name": "Spiral Tunnels (Calgary to Golden)",
+            "category": "highway_marker",
+            "kind": "point",
+            "at_mi": 125.0,
+            "spoken": "Passing the Spiral Tunnels, where the railway loops inside the mountain.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Field",
             "at_mi": 129.5,
             "off_mi": 0.21,
@@ -4539,6 +4567,16 @@
             "kind": "point",
             "source": "OpenStreetMap place=village node 51970759, projected onto the leg's checked-in route geometry, placed ahead of the speed zone it explains",
             "spoken": "Entering Field"
+          },
+          {
+            "name": "Kicking Horse Pedestrian Bridge (Calgary to Golden)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 153.1,
+            "spoken": "Billboard: The Kicking Horse Pedestrian Bridge, ahead in Golden. Billed as the longest freestanding timber frame bridge in Canada, raised by more than a hundred timber framers. Pedestrians only. That means you, driver.",
+            "directions": [
+              "forward"
+            ]
           }
         ],
         "hpms_terrain": {
@@ -4546,7 +4584,51 @@
           "name": "rolling",
           "sections": 0,
           "source": "DERIVED, not read: Canada has no national inventory like HPMS, so the class is the terrain the leg's own grade profile spends the most miles in (the reroute-enrich rule: sustained grade of 5 percent, or 4 percent with 1,000 ft of relief within 5 miles, is mountain; 1.5 percent or 400 ft of relief is hills; else flat), mapped flat to level, hills to rolling and mountain to mountainous. It reads the same elevation as the grade, so it is no independent check on it."
-        }
+        },
+        "billboard_bans": [
+          {
+            "from_mi": 48.6,
+            "to_mi": 54.7,
+            "name": "Bow Valley Provincial Park",
+            "source": "derived 2026-11-22: OpenStreetMap relation 6364810 (Bow Valley Provincial Park) boundary from the OSM API; the stretch of the leg's archived route inside the park or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
+          },
+          {
+            "from_mi": 52.7,
+            "to_mi": 63.5,
+            "name": "Bow Valley Wildland Provincial Park",
+            "source": "derived 2026-11-22: OpenStreetMap relation 6364530 (Bow Valley Wildland Provincial Park) boundary from the OSM API; the stretch of the leg's archived route inside the park or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
+          },
+          {
+            "from_mi": 61.8,
+            "to_mi": 62.8,
+            "name": "Bow Valley Provincial Park",
+            "source": "derived 2026-11-22: OpenStreetMap relation 6364810 (Bow Valley Provincial Park) boundary from the OSM API; the stretch of the leg's archived route inside the park or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on); widened to the one-mile minimum"
+          },
+          {
+            "from_mi": 62.6,
+            "to_mi": 63.6,
+            "name": "Canmore Nordic Centre Provincial Park",
+            "source": "derived 2026-11-22: OpenStreetMap relation 6364669 (Canmore Nordic Centre Provincial Park) boundary from the OSM API; the stretch of the leg's archived route inside the park or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on); widened to the one-mile minimum"
+          },
+          {
+            "from_mi": 66.1,
+            "to_mi": 68.8,
+            "name": "Bow Valley Wildland Provincial Park",
+            "source": "derived 2026-11-22: OpenStreetMap relation 6364530 (Bow Valley Wildland Provincial Park) boundary from the OSM API; the stretch of the leg's archived route inside the park or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
+          },
+          {
+            "from_mi": 68.7,
+            "to_mi": 119.6,
+            "name": "Banff National Park",
+            "source": "derived 2026-11-22: OpenStreetMap relation 6365995 (Banff National Park) boundary from the OSM API; the stretch of the leg's archived route inside the park or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
+          },
+          {
+            "from_mi": 119.5,
+            "to_mi": 147.9,
+            "name": "Yoho National Park",
+            "source": "derived 2026-11-22: OpenStreetMap relation 9368703 (Yoho National Park) boundary from the OSM API; the stretch of the leg's archived route inside the park or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
+          }
+        ]
       },
       "source": "Career 2.0 western Canada corridor (canada-network.md corridor 1), first pass built 2026-11-22 with cargo tools over the OpenStreetMap planet file of 2026-11-16.",
       "rerouted": true
@@ -7506,6 +7588,16 @@
             "kind": "point",
             "source": "OpenStreetMap place=town node 29661168, projected onto the leg's checked-in route geometry",
             "spoken": "Passing Coalhurst"
+          },
+          {
+            "name": "Lethbridge Viaduct (Calgary to Lethbridge)",
+            "category": "highway_marker",
+            "kind": "point",
+            "at_mi": 135.5,
+            "spoken": "Passing the High Level Bridge, Lethbridge's railway viaduct.",
+            "directions": [
+              "forward"
+            ]
           },
           {
             "name": "Coaldale",
@@ -10510,7 +10602,15 @@
           "name": "level",
           "sections": 0,
           "source": "DERIVED, not read: Canada has no national inventory like HPMS, so the class is the terrain the leg's own grade profile spends the most miles in (the reroute-enrich rule: sustained grade of 5 percent, or 4 percent with 1,000 ft of relief within 5 miles, is mountain; 1.5 percent or 400 ft of relief is hills; else flat), mapped flat to level, hills to rolling and mountain to mountainous. It reads the same elevation as the grade, so it is no independent check on it."
-        }
+        },
+        "billboard_bans": [
+          {
+            "from_mi": 40.9,
+            "to_mi": 42.6,
+            "name": "Wabamun Lake Provincial Park",
+            "source": "derived 2026-11-22: OpenStreetMap relation 6412932 (Wabamun Lake Provincial Park) boundary from the OSM API; the stretch of the leg's archived route inside the park or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
+          }
+        ]
       },
       "source": "Career 2.0 western Canada corridor (canada-network.md corridor 1), first pass built 2026-11-22 with cargo tools over the OpenStreetMap planet file of 2026-11-16.",
       "rerouted": true
@@ -11050,6 +11150,16 @@
             "lon": -112.04831,
             "spoken": "Crossing the Vermilion River",
             "source": "derived: name and category read from the OpenStreetMap tags of way 193381519 (Vermilion River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "name": "Vegreville egg (Edmonton to Lloydminster)",
+            "category": "highway_marker",
+            "kind": "point",
+            "at_mi": 66.7,
+            "spoken": "Passing Vegreville's giant Ukrainian Easter egg.",
+            "directions": [
+              "forward"
+            ]
           },
           {
             "name": "Lavoy",
@@ -11793,6 +11903,14 @@
             "kmh": 50,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
+          }
+        ],
+        "billboard_bans": [
+          {
+            "from_mi": 24.8,
+            "to_mi": 31.0,
+            "name": "Elk Island National Park",
+            "source": "derived 2026-11-22: OpenStreetMap relation 13131508 (Elk Island National Park) boundary from the OSM API; the stretch of the leg's archived route inside the park or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
           }
         ]
       },
@@ -18821,7 +18939,15 @@
           "name": "level",
           "sections": 0,
           "source": "DERIVED, not read: Canada has no national inventory like HPMS, so the class is the terrain the leg's own grade profile spends the most miles in (the reroute-enrich rule: sustained grade of 5 percent, or 4 percent with 1,000 ft of relief within 5 miles, is mountain; 1.5 percent or 400 ft of relief is hills; else flat), mapped flat to level, hills to rolling and mountain to mountainous. It reads the same elevation as the grade, so it is no independent check on it."
-        }
+        },
+        "billboard_bans": [
+          {
+            "from_mi": 82.0,
+            "to_mi": 83.9,
+            "name": "Wabamun Lake Provincial Park",
+            "source": "derived 2026-11-22: OpenStreetMap relation 6412932 (Wabamun Lake Provincial Park) boundary from the OSM API; the stretch of the leg's archived route inside the park or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
+          }
+        ]
       },
       "source": "Career 2.0 western Canada corridor (canada-network.md corridor 1), first pass built 2026-11-22 with cargo tools over the OpenStreetMap planet file of 2026-11-16.",
       "rerouted": true
@@ -19490,7 +19616,15 @@
           "name": "level",
           "sections": 0,
           "source": "DERIVED, not read: Canada has no national inventory like HPMS, so the class is the terrain the leg's own grade profile spends the most miles in (the reroute-enrich rule: sustained grade of 5 percent, or 4 percent with 1,000 ft of relief within 5 miles, is mountain; 1.5 percent or 400 ft of relief is hills; else flat), mapped flat to level, hills to rolling and mountain to mountainous. It reads the same elevation as the grade, so it is no independent check on it."
-        }
+        },
+        "billboard_bans": [
+          {
+            "from_mi": 30.3,
+            "to_mi": 35.0,
+            "name": "Obed Lake Provincial Park",
+            "source": "derived 2026-11-22: OpenStreetMap relation 6048525 (Obed Lake Provincial Park) boundary from the OSM API; the stretch of the leg's archived route inside the park or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
+          }
+        ]
       },
       "source": "Career 2.0 western Canada corridor (canada-network.md corridor 1), first pass built 2026-11-22 with cargo tools over the OpenStreetMap planet file of 2026-11-16.",
       "rerouted": true
@@ -21161,6 +21295,16 @@
             "kind": "point",
             "source": "OpenStreetMap place=town node 51971708, projected onto the leg's checked-in route geometry",
             "spoken": "Passing Wembley"
+          },
+          {
+            "name": "Wembley",
+            "category": "highway_marker",
+            "kind": "point",
+            "at_mi": 14.2,
+            "spoken": "Passing Wembley, home of the Philip J. Currie Dinosaur Museum.",
+            "directions": [
+              "forward"
+            ]
           },
           {
             "name": "Beaverlodge",
@@ -27612,7 +27756,15 @@
           "name": "level",
           "sections": 0,
           "source": "DERIVED, not read: Canada has no national inventory like HPMS, so the class is the terrain the leg's own grade profile spends the most miles in (the reroute-enrich rule: sustained grade of 5 percent, or 4 percent with 1,000 ft of relief within 5 miles, is mountain; 1.5 percent or 400 ft of relief is hills; else flat), mapped flat to level, hills to rolling and mountain to mountainous. It reads the same elevation as the grade, so it is no independent check on it."
-        }
+        },
+        "billboard_bans": [
+          {
+            "from_mi": 21.1,
+            "to_mi": 25.9,
+            "name": "Obed Lake Provincial Park",
+            "source": "derived 2026-11-22: OpenStreetMap relation 6048525 (Obed Lake Provincial Park) boundary from the OSM API; the stretch of the leg's archived route inside the park or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
+          }
+        ]
       },
       "source": "Career 2.0 western Canada corridor (canada-network.md corridor 1), first pass built 2026-11-22 with cargo tools over the OpenStreetMap planet file of 2026-11-16.",
       "rerouted": true
@@ -28203,7 +28355,15 @@
           "name": "level",
           "sections": 0,
           "source": "DERIVED, not read: Canada has no national inventory like HPMS, so the class is the terrain the leg's own grade profile spends the most miles in (the reroute-enrich rule: sustained grade of 5 percent, or 4 percent with 1,000 ft of relief within 5 miles, is mountain; 1.5 percent or 400 ft of relief is hills; else flat), mapped flat to level, hills to rolling and mountain to mountainous. It reads the same elevation as the grade, so it is no independent check on it."
-        }
+        },
+        "billboard_bans": [
+          {
+            "from_mi": 18.8,
+            "to_mi": 50.0,
+            "name": "Jasper National Park",
+            "source": "derived 2026-11-22: OpenStreetMap relation 6395738 (Jasper National Park) boundary from the OSM API; the stretch of the leg's archived route inside the park or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
+          }
+        ]
       },
       "source": "Career 2.0 western Canada corridor (canada-network.md corridor 1), first pass built 2026-11-22 with cargo tools over the OpenStreetMap planet file of 2026-11-16.",
       "rerouted": true
@@ -28749,7 +28909,15 @@
           "name": "level",
           "sections": 0,
           "source": "DERIVED, not read: Canada has no national inventory like HPMS, so the class is the terrain the leg's own grade profile spends the most miles in (the reroute-enrich rule: sustained grade of 5 percent, or 4 percent with 1,000 ft of relief within 5 miles, is mountain; 1.5 percent or 400 ft of relief is hills; else flat), mapped flat to level, hills to rolling and mountain to mountainous. It reads the same elevation as the grade, so it is no independent check on it."
-        }
+        },
+        "billboard_bans": [
+          {
+            "from_mi": 0.0,
+            "to_mi": 31.3,
+            "name": "Jasper National Park",
+            "source": "derived 2026-11-22: OpenStreetMap relation 6395738 (Jasper National Park) boundary from the OSM API; the stretch of the leg's archived route inside the park or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
+          }
+        ]
       },
       "source": "Career 2.0 western Canada corridor (canada-network.md corridor 1), first pass built 2026-11-22 with cargo tools over the OpenStreetMap planet file of 2026-11-16.",
       "rerouted": true
@@ -29834,6 +30002,16 @@
             "source": "derived: name and category read from the OpenStreetMap tags of way 254280413 (Moose River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           },
           {
+            "name": "Mount Robson (Jasper to McBride)",
+            "category": "highway_marker",
+            "kind": "point",
+            "at_mi": 53.3,
+            "spoken": "Passing Mount Robson, the highest peak in the Canadian Rockies.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Robson River",
             "category": "river",
             "kind": "point",
@@ -29878,7 +30056,33 @@
           "name": "level",
           "sections": 0,
           "source": "DERIVED, not read: Canada has no national inventory like HPMS, so the class is the terrain the leg's own grade profile spends the most miles in (the reroute-enrich rule: sustained grade of 5 percent, or 4 percent with 1,000 ft of relief within 5 miles, is mountain; 1.5 percent or 400 ft of relief is hills; else flat), mapped flat to level, hills to rolling and mountain to mountainous. It reads the same elevation as the grade, so it is no independent check on it."
-        }
+        },
+        "billboard_bans": [
+          {
+            "from_mi": 0.0,
+            "to_mi": 16.9,
+            "name": "Jasper National Park",
+            "source": "derived 2026-11-22: OpenStreetMap relation 6395738 (Jasper National Park) boundary from the OSM API; the stretch of the leg's archived route inside the park or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
+          },
+          {
+            "from_mi": 16.8,
+            "to_mi": 57.4,
+            "name": "Mount Robson Provincial Park",
+            "source": "derived 2026-11-22: OpenStreetMap relation 2235398 (Mount Robson Provincial Park) boundary from the OSM API; the stretch of the leg's archived route inside the park or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
+          },
+          {
+            "from_mi": 17.9,
+            "to_mi": 24.4,
+            "name": "Mount Robson Corridor Protected Area",
+            "source": "derived 2026-11-22: OpenStreetMap relation 2235396 (Mount Robson Corridor Protected Area) boundary from the OSM API; the stretch of the leg's archived route inside the park or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
+          },
+          {
+            "from_mi": 27.5,
+            "to_mi": 53.7,
+            "name": "Mount Robson Corridor Protected Area",
+            "source": "derived 2026-11-22: OpenStreetMap relation 2235396 (Mount Robson Corridor Protected Area) boundary from the OSM API; the stretch of the leg's archived route inside the park or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
+          }
+        ]
       },
       "source": "Career 2.0 western Canada corridor (canada-network.md corridor 1), first pass built 2026-11-22 with cargo tools over the OpenStreetMap planet file of 2026-11-16.",
       "rerouted": true
@@ -30709,6 +30913,16 @@
             "source": "derived: name and category read from the OpenStreetMap tags of way 254280413 (Moose River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           },
           {
+            "name": "Mount Robson (Jasper to Valemount)",
+            "category": "highway_marker",
+            "kind": "point",
+            "at_mi": 53.4,
+            "spoken": "Passing Mount Robson, the highest peak in the Canadian Rockies.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Robson River",
             "category": "river",
             "kind": "point",
@@ -30733,7 +30947,33 @@
           "name": "level",
           "sections": 0,
           "source": "DERIVED, not read: Canada has no national inventory like HPMS, so the class is the terrain the leg's own grade profile spends the most miles in (the reroute-enrich rule: sustained grade of 5 percent, or 4 percent with 1,000 ft of relief within 5 miles, is mountain; 1.5 percent or 400 ft of relief is hills; else flat), mapped flat to level, hills to rolling and mountain to mountainous. It reads the same elevation as the grade, so it is no independent check on it."
-        }
+        },
+        "billboard_bans": [
+          {
+            "from_mi": 0.0,
+            "to_mi": 16.9,
+            "name": "Jasper National Park",
+            "source": "derived 2026-11-22: OpenStreetMap relation 6395738 (Jasper National Park) boundary from the OSM API; the stretch of the leg's archived route inside the park or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
+          },
+          {
+            "from_mi": 16.8,
+            "to_mi": 57.5,
+            "name": "Mount Robson Provincial Park",
+            "source": "derived 2026-11-22: OpenStreetMap relation 2235398 (Mount Robson Provincial Park) boundary from the OSM API; the stretch of the leg's archived route inside the park or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
+          },
+          {
+            "from_mi": 17.9,
+            "to_mi": 24.4,
+            "name": "Mount Robson Corridor Protected Area",
+            "source": "derived 2026-11-22: OpenStreetMap relation 2235396 (Mount Robson Corridor Protected Area) boundary from the OSM API; the stretch of the leg's archived route inside the park or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
+          },
+          {
+            "from_mi": 27.6,
+            "to_mi": 53.8,
+            "name": "Mount Robson Corridor Protected Area",
+            "source": "derived 2026-11-22: OpenStreetMap relation 2235396 (Mount Robson Corridor Protected Area) boundary from the OSM API; the stretch of the leg's archived route inside the park or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
+          }
+        ]
       },
       "source": "Career 2.0 western Canada corridor (canada-network.md corridor 1), first pass built 2026-11-22 with cargo tools over the OpenStreetMap planet file of 2026-11-16.",
       "rerouted": true
@@ -34455,6 +34695,16 @@
             "source": "derived: name and category read from the OpenStreetMap tags of way 598639517 (Crowsnest River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           },
           {
+            "name": "Frank Slide (Lethbridge to Cranbrook)",
+            "category": "highway_marker",
+            "kind": "point",
+            "at_mi": 85.4,
+            "spoken": "Passing the Frank Slide, Canada's deadliest rockslide.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Crowsnest Pass",
             "at_mi": 90.3,
             "off_mi": 0.06,
@@ -34571,7 +34821,21 @@
           "name": "level",
           "sections": 0,
           "source": "DERIVED, not read: Canada has no national inventory like HPMS, so the class is the terrain the leg's own grade profile spends the most miles in (the reroute-enrich rule: sustained grade of 5 percent, or 4 percent with 1,000 ft of relief within 5 miles, is mountain; 1.5 percent or 400 ft of relief is hills; else flat), mapped flat to level, hills to rolling and mountain to mountainous. It reads the same elevation as the grade, so it is no independent check on it."
-        }
+        },
+        "billboard_bans": [
+          {
+            "from_mi": 97.5,
+            "to_mi": 98.5,
+            "name": "Castle Wildland Provincial Park",
+            "source": "derived 2026-11-22: OpenStreetMap relation 7214661 (Castle Wildland Provincial Park) boundary from the OSM API; the stretch of the leg's archived route inside the park or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on); widened to the one-mile minimum"
+          },
+          {
+            "from_mi": 100.9,
+            "to_mi": 101.9,
+            "name": "Crowsnest Provincial Park",
+            "source": "derived 2026-11-22: OpenStreetMap relation 2228047 (Crowsnest Provincial Park) boundary from the OSM API; the stretch of the leg's archived route inside the park or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on); widened to the one-mile minimum"
+          }
+        ]
       },
       "source": "Career 2.0 western Canada corridor (canada-network.md corridor 1), first pass built 2026-11-22 with cargo tools over the OpenStreetMap planet file of 2026-11-16.",
       "rerouted": true
@@ -35167,6 +35431,16 @@
             "kind": "point",
             "source": "OpenStreetMap place=town node 51973292, projected onto the leg's checked-in route geometry",
             "spoken": "Passing Redcliff"
+          },
+          {
+            "name": "Saamis Tepee (Lethbridge to Medicine Hat)",
+            "category": "highway_marker",
+            "kind": "point",
+            "at_mi": 102.3,
+            "spoken": "Passing the Saamis Tepee, the world's tallest.",
+            "directions": [
+              "forward"
+            ]
           }
         ],
         "hpms_terrain": {
@@ -36661,6 +36935,16 @@
             "spoken": "Entering Lavoy"
           },
           {
+            "name": "Vegreville egg (Lloydminster to Edmonton)",
+            "category": "highway_marker",
+            "kind": "point",
+            "at_mi": 88.3,
+            "spoken": "Passing Vegreville's giant Ukrainian Easter egg.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Vermilion River",
             "category": "river",
             "kind": "point",
@@ -37515,6 +37799,14 @@
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           }
+        ],
+        "billboard_bans": [
+          {
+            "from_mi": 124.0,
+            "to_mi": 130.2,
+            "name": "Elk Island National Park",
+            "source": "derived 2026-11-22: OpenStreetMap relation 13131508 (Elk Island National Park) boundary from the OSM API; the stretch of the leg's archived route inside the park or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
+          }
         ]
       },
       "source": "Career 2.0 western Canada corridor (canada-network.md corridor 1), first pass built 2026-11-22 with cargo tools over the OpenStreetMap planet file of 2026-11-16.",
@@ -37746,6 +38038,16 @@
             "kind": "point",
             "source": "OpenStreetMap place=village node 52289607, projected onto the leg's checked-in route geometry",
             "spoken": "Passing Prince"
+          },
+          {
+            "name": "Fort Battleford (Lloydminster to North Battleford)",
+            "category": "highway_marker",
+            "kind": "point",
+            "at_mi": 84.3,
+            "spoken": "Passing Fort Battleford National Historic Site.",
+            "directions": [
+              "forward"
+            ]
           },
           {
             "name": "North Saskatchewan River",
@@ -38263,7 +38565,15 @@
           "name": "level",
           "sections": 0,
           "source": "DERIVED, not read: Canada has no national inventory like HPMS, so the class is the terrain the leg's own grade profile spends the most miles in (the reroute-enrich rule: sustained grade of 5 percent, or 4 percent with 1,000 ft of relief within 5 miles, is mountain; 1.5 percent or 400 ft of relief is hills; else flat), mapped flat to level, hills to rolling and mountain to mountainous. It reads the same elevation as the grade, so it is no independent check on it."
-        }
+        },
+        "billboard_bans": [
+          {
+            "from_mi": 63.15,
+            "to_mi": 64.15,
+            "name": "Tillebrook Provincial Park",
+            "source": "derived 2026-11-22: OpenStreetMap relation 6423608 (Tillebrook Provincial Park) boundary from the OSM API; the stretch of the leg's archived route inside the park or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on); widened to the one-mile minimum"
+          }
+        ]
       },
       "source": "Career 2.0 western Canada corridor (canada-network.md corridor 1), first pass built 2026-11-22 with cargo tools over the OpenStreetMap planet file of 2026-11-16.",
       "rerouted": true
@@ -38757,6 +39067,16 @@
           }
         ],
         "landmarks": [
+          {
+            "name": "Saamis Tepee (Medicine Hat to Lethbridge)",
+            "category": "highway_marker",
+            "kind": "point",
+            "at_mi": 2.5,
+            "spoken": "Passing the Saamis Tepee, the world's tallest.",
+            "directions": [
+              "forward"
+            ]
+          },
           {
             "name": "Redcliff",
             "at_mi": 4.5,
