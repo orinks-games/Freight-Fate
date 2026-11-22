@@ -95,7 +95,7 @@ fn test_route_key_reports_reverse_route_direction() {
 #[test]
 fn test_route_key_uses_metric_distances() {
     let mut app = TestApp::new();
-    app.ctx.settings.imperial_units = false;
+    app.ctx.settings.set_units_mode(ff_core::units::UnitsMode::Metric);
     let mut d = a_drive(&mut app);
     d.trip.set_imperial(false);
     d.trip.position_mi = 20.0;

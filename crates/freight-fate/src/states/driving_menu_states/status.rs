@@ -175,10 +175,11 @@ impl DrivingStatusScreenState {
                     format!("{} hours past the deadline", fmt_f(-deadline, 1))
                 };
                 let load_line = format!(
-                    "Load: {} tons of {}, gross {} tons, freight {}",
-                    fmt_f(d.job.weight_tons, 0),
+                    "Load: {} of {}, gross {}, freight {}",
+                    ctx.settings.tons_text(d.job.weight_tons),
                     d.job.spoken_cargo_label(),
-                    fmt_f(d.trip.truck.gross_mass_kg() / KG_PER_TON, 0),
+                    ctx.settings
+                        .tons_text(d.trip.truck.gross_mass_kg() / KG_PER_TON),
                     // The player cannot see the trailer; the dock's verdict
                     // must not be the first they hear of what the freight is
                     // in.
@@ -318,7 +319,7 @@ impl DrivingStatusScreenState {
                 )));
                 rows.push(MapRow::Say(format!(
                     "Guidance: {}",
-                    d.trip.next_navigation_context(settings.imperial_units)
+                    d.trip.next_navigation_context(settings.imperial())
                 )));
                 let upcoming: Vec<RoadStop> = d
                     .trip

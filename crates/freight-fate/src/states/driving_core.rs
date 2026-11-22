@@ -47,6 +47,7 @@ use ff_core::sim::hos::HosClock;
 use ff_core::sim::trip_models::{RoadStop, TripEvent, TripEventKind};
 use ff_core::sim::vehicle::TruckState;
 use ff_core::speech_pacing::SpeechCategory;
+use ff_core::units::MILES_TO_KM;
 
 use crate::app::{GameContext, Say};
 use crate::audio::{youtube, RADIO_TUNE_FADE_MS};
@@ -163,16 +164,26 @@ pub fn hos_mut_of(ctx: &mut GameContext) -> &mut HosClock {
 /// a precise number and cannot feather K onto it. The epsilon keeps a
 /// float a hair off the grid from turning a tap into a no-op snap.
 pub fn cruise_step_target(target_mph: f64, direction: i32, fine: bool) -> f64 {
+    cruise_step_target_in(target_mph, direction, fine, true)
+}
+
+/// `cruise_step_target` on the grid of the units the driver hears: fives
+/// and ones of kilometers per hour when the readouts are in kilometers, so
+/// the dial says "Cruise 100." and not 97 or 105. The set point stays in
+/// miles per hour inside; only the grid moves.
+pub fn cruise_step_target_in(target_mph: f64, direction: i32, fine: bool, imperial: bool) -> f64 {
+    let per_mph = if imperial { 1.0 } else { MILES_TO_KM };
+    let value = target_mph * per_mph;
     let stepped = if fine {
-        target_mph + direction as f64
+        value + direction as f64
     } else if direction > 0 {
-        let notches = (target_mph / CRUISE_STEP_MPH + 1e-9).floor();
+        let notches = (value / CRUISE_STEP_MPH + 1e-9).floor();
         (notches + 1.0) * CRUISE_STEP_MPH
     } else {
-        let notches = (target_mph / CRUISE_STEP_MPH - 1e-9).ceil();
+        let notches = (value / CRUISE_STEP_MPH - 1e-9).ceil();
         (notches - 1.0) * CRUISE_STEP_MPH
     };
-    stepped.clamp(CRUISE_MIN_MPH, CRUISE_MAX_MPH)
+    (stepped / per_mph).clamp(CRUISE_MIN_MPH, CRUISE_MAX_MPH)
 }
 
 /// Conservatively cover the spoken cue plus a real response window.

@@ -172,23 +172,42 @@ impl GarageState {
             return "Fuel: tank is full".to_string();
         }
         if !player_pays_operating_costs(&p.business_status) {
-            return format!("Refuel: {} gallons", fmt_f(need, 0));
+            if ctx.settings.imperial() {
+                return format!("Refuel: {} gallons", fmt_f(need, 0));
+            }
+            return format!("Refuel: {}", ctx.settings.volume_text(need));
         }
         let region = Self::region(ctx);
         let state_code = Self::state_code(ctx);
         let price = ctx.economy.fuel_price_at(&region, &state_code);
         let cost = ctx.economy.fuel_cost_at(&region, &state_code, need);
-        if canada_diesel_usd_per_gal(&state_code).is_some() {
+        let canadian = canada_diesel_usd_per_gal(&state_code).is_some();
+        if ctx.settings.imperial() {
+            if canadian {
+                return format!(
+                    "Refuel {} gallons for {} dollars. Diesel here is {} Canadian dollars a liter.",
+                    fmt_f(need, 0),
+                    fmt_grouped(cost, 0),
+                    fmt_f(cad_per_litre(price), 2)
+                );
+            }
             return format!(
-                "Refuel {} gallons for {} dollars. Diesel here is {} Canadian dollars a liter.",
+                "Refuel {} gallons for {} dollars",
                 fmt_f(need, 0),
+                fmt_grouped(cost, 0)
+            );
+        }
+        if canadian {
+            return format!(
+                "Refuel {} for {} dollars. Diesel here is {}.",
+                ctx.settings.volume_text(need),
                 fmt_grouped(cost, 0),
-                fmt_f(cad_per_litre(price), 2)
+                ctx.settings.diesel_price_text(price, true)
             );
         }
         format!(
-            "Refuel {} gallons for {} dollars",
-            fmt_f(need, 0),
+            "Refuel {} for {} dollars",
+            ctx.settings.volume_text(need),
             fmt_grouped(cost, 0)
         )
     }

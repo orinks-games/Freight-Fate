@@ -472,6 +472,40 @@ fn test_start_options_for_a_city_are_only_carriers_that_hire_there() {
 }
 
 #[test]
+fn a_generated_carrier_names_its_longest_load_in_the_players_units() {
+    let Some(option) = all_start_options()
+        .into_iter()
+        .find(|option| option.run_max_mi > 0.0)
+    else {
+        return;
+    };
+    let mut settings = crate::settings::Settings::default();
+    let miles = option.summary_in(&settings);
+    assert!(miles.contains(" miles"), "{miles}");
+    settings.set_units_mode(crate::units::UnitsMode::Metric);
+    let km = option.summary_in(&settings);
+    assert!(km.contains(" kilometers") && !km.contains(" miles"), "{km}");
+    assert!(!option.help_in(&settings).contains(" miles"));
+    // A national's generated row converts the same way.
+    let reefer = start_option(Some("winterset_refrigerated"));
+    assert_eq!(
+        reefer.summary_in(&settings),
+        "Mostly refrigerated freight, with loads of up to 4828 kilometers."
+    );
+    // A hand-written row has no run band to convert, so it names no distance.
+    for option in all_start_options() {
+        if option.run_max_mi <= 0.0 {
+            assert!(
+                !option.menu_summary.contains(" miles"),
+                "{}: {}",
+                option.key,
+                option.menu_summary
+            );
+        }
+    }
+}
+
+#[test]
 fn test_the_start_picker_lists_locals_then_regionals_then_nationals_nearest_first() {
     let world = crate::data::world::get_world();
     for city in [

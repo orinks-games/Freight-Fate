@@ -251,7 +251,9 @@ fn said(app: &TestApp) -> String {
 #[test]
 fn test_metric_pull_over_announcement_uses_metric_units() {
     let mut app = TestApp::new();
-    app.ctx.settings.imperial_units = false;
+    app.ctx
+        .settings
+        .set_units_mode(ff_core::units::UnitsMode::Metric);
     let mut drive = a_drive(&mut app, Some(1.0));
     app.clear_speech();
     speed_for(&mut drive, &mut app, 20.0);
@@ -335,7 +337,9 @@ fn test_stopping_drops_engine_audio_to_idle() {
 #[test]
 fn test_metric_traffic_stop_outcome_uses_metric_units() {
     let mut app = TestApp::new();
-    app.ctx.settings.imperial_units = false;
+    app.ctx
+        .settings
+        .set_units_mode(ff_core::units::UnitsMode::Metric);
     let mut drive = a_drive(&mut app, Some(1.0));
     speed_for(&mut drive, &mut app, 25.0);
     drive.trip.truck.velocity_mps = 0.0;
