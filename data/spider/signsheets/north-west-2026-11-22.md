@@ -18,7 +18,7 @@ Places, miles and sources are in `career-2.0-alpha/corridor-5-west-places.md`.
 - at_mi: 99.5
 - spoken: Billboard: Mile Zero of the Mackenzie Highway, ahead in Grimshaw. Work on the road north began in nineteen thirty-eight, stopped for the war, and reached Hay River about ten years later. Dispatch still calls it a day trip.
 
-Not placed: Alberta bans billboards (the sign law table), so the baker refuses a board here. The place is at mile 109.5. Back to the director: a plain line or nothing.
+Not placed: Alberta bans billboards (the sign law table), so the baker refuses a board here. The place is at mile 109.5. Withdrawn by the director (2026-11-22): Mile Zero is carried by Grimshaw's own line below; the railway museum and the Oil Sands Discovery Centre get nothing.
 
 ### Mile Zero of the Mackenzie Highway (Peace River to Grande Prairie)
 - treatment: skip
@@ -26,7 +26,7 @@ Not placed: Alberta bans billboards (the sign law table), so the baker refuses a
 - at_mi: 0.5
 - spoken: Billboard: Mile Zero of the Mackenzie Highway, ahead in Grimshaw. Work on the road north began in nineteen thirty-eight, stopped for the war, and reached Hay River about ten years later. Dispatch still calls it a day trip.
 
-Not placed: Alberta bans billboards (the sign law table), so the baker refuses a board here. The place is at mile 10.5. Back to the director: a plain line or nothing.
+Not placed: Alberta bans billboards (the sign law table), so the baker refuses a board here. The place is at mile 10.5. Withdrawn by the director (2026-11-22): Mile Zero is carried by Grimshaw's own line below; the railway museum and the Oil Sands Discovery Centre get nothing.
 
 
 ## Northern Alberta Historical and Railway Museum
@@ -37,7 +37,7 @@ Not placed: Alberta bans billboards (the sign law table), so the baker refuses a
 - at_mi: 102.3
 - spoken: Billboard: The Northern Alberta Historical and Railway Museum, ahead in McLennan. A railway station, a caboose, a speeder shed and a Pullman coach from nineteen thirteen called the Golden Coach. None of it is going anywhere, which in a museum is the idea.
 
-Not placed: Alberta bans billboards (the sign law table), so the baker refuses a board here. The place is at mile 112.3. Back to the director: a plain line or nothing.
+Not placed: Alberta bans billboards (the sign law table), so the baker refuses a board here. The place is at mile 112.3. Withdrawn by the director (2026-11-22): Mile Zero is carried by Grimshaw's own line below; the railway museum and the Oil Sands Discovery Centre get nothing.
 
 ### Northern Alberta Historical and Railway Museum (Peace River to Slave Lake)
 - treatment: skip
@@ -45,7 +45,7 @@ Not placed: Alberta bans billboards (the sign law table), so the baker refuses a
 - at_mi: 43.7
 - spoken: Billboard: The Northern Alberta Historical and Railway Museum, ahead in McLennan. A railway station, a caboose, a speeder shed and a Pullman coach from nineteen thirteen called the Golden Coach. None of it is going anywhere, which in a museum is the idea.
 
-Not placed: Alberta bans billboards (the sign law table), so the baker refuses a board here. The place is at mile 53.7. Back to the director: a plain line or nothing.
+Not placed: Alberta bans billboards (the sign law table), so the baker refuses a board here. The place is at mile 53.7. Withdrawn by the director (2026-11-22): Mile Zero is carried by Grimshaw's own line below; the railway museum and the Oil Sands Discovery Centre get nothing.
 
 
 ## Oil Sands Discovery Centre
@@ -56,7 +56,7 @@ Not placed: Alberta bans billboards (the sign law table), so the baker refuses a
 - at_mi: 112.8
 - spoken: Billboard: The Oil Sands Discovery Centre, ahead in Fort McMurray. It opened in nineteen eighty-five to show the history, science and technology of the oil sands. The technology is mostly very large machinery. You may be hauling some.
 
-Not placed: Alberta bans billboards (the sign law table), so the baker refuses a board here. The place is at mile 122.8. Back to the director: a plain line or nothing.
+Not placed: Alberta bans billboards (the sign law table), so the baker refuses a board here. The place is at mile 122.8. Withdrawn by the director (2026-11-22): Mile Zero is carried by Grimshaw's own line below; the railway museum and the Oil Sands Discovery Centre get nothing.
 
 
 ## World's largest fly rod
@@ -153,6 +153,25 @@ The place is at mile 183.8; the board stands 10.0 miles before it.
 
 The place is at mile 35.2; the board stands 10.0 miles before it.
 
+## Grimshaw
+
+The Mile Zero marker of the Mackenzie Highway stands in Grimshaw. Alberta bans billboards, so the town's own line carries it (director's ruling, 2026-11-22).
+
+### Grimshaw
+- treatment: landmark
+- leg: grande_prairie_ab_ca -> peace_river_ab_ca
+- at_mi: 109.7
+- spoken: Entering Grimshaw, mile zero of the Mackenzie Highway.
+
+Replaces the map's own village line "Entering Grimshaw" at mile 109.7: the record is named for the town, so the bake swaps the words into the village record, which keeps its part in explaining the town's speed limit.
+
+### Grimshaw
+- treatment: landmark
+- leg: peace_river_ab_ca -> grande_prairie_ab_ca
+- at_mi: 10.3
+- spoken: Entering Grimshaw, mile zero of the Mackenzie Highway.
+
+Replaces "Entering Grimshaw" at mile 10.3 the same way.
 
 ## Alexandra Falls
 
