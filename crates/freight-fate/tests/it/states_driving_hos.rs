@@ -199,7 +199,9 @@ fn whitehorse_tok_drive() -> PlaytestHarness {
     );
     harness.with_drive(|drive, _| {
         drive.departure_checked = true;
-        drive.trip.position_mi = 297.4;
+        // Just short of the Yukon-Alaska line at mile 297.0; the Alcan port
+        // sits 0.4 mi past it, inside Alaska.
+        drive.trip.position_mi = 296.9;
     });
     harness.clear_speech();
     harness

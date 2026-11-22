@@ -27,6 +27,7 @@ pub mod valhalla;
 
 use std::path::{Path, PathBuf};
 
+use super::country;
 use crate::pyjson::{Object, Value};
 use crate::util::{self, Result};
 
@@ -38,19 +39,18 @@ pub fn leg_id(leg: &Value) -> String {
     format!("{}:{}", end("from"), end("to"))
 }
 
-pub fn geometry_dir() -> PathBuf {
-    util::repo_root().join("data/world_data/us/geometry")
+/// The geometry archive folder of the country a leg starts in
+/// (`world_data/<country>/geometry`).
+pub fn geometry_dir(world: &Object, leg: &Value) -> PathBuf {
+    country::geometry_dir_of(&country::leg_folder(world, leg))
 }
 
-pub fn gameplay_dir() -> PathBuf {
-    util::repo_root().join("data/world_data/us/gameplay")
-}
-
-/// The archive shard a leg lives in: the state of its `from` city.
+/// The archive shard a leg lives in: the state of its `from` city, in the
+/// folder of that city's country.
 pub fn shard_path(world: &Object, leg: &Value) -> Option<PathBuf> {
     let from = leg.get("from")?.as_str()?;
     let state = world.get("cities")?.get(from)?.get("state")?.as_str()?;
-    Some(geometry_dir().join(format!("{}.jsonl", state.to_lowercase())))
+    Some(geometry_dir(world, leg).join(format!("{}.jsonl", state.to_lowercase())))
 }
 
 /// One leg's archive record, as written.
@@ -71,12 +71,24 @@ pub fn archive_record(path: &Path, id: &str) -> Result<Option<serde_json::Value>
     Ok(None)
 }
 
+/// The meta `source` of an archive shard `reroute-leg` starts.
+const NEW_SHARD_SOURCE: &str = "Valhalla truck route over OpenStreetMap (ODbL, (c) OpenStreetMap \
+     contributors), resampled at development time by cargo tools reroute-leg";
+
 /// Replace (or add) one leg's record in its archive shard. Python wrote
 /// these lines with `json.dumps(sort_keys=True)`, which this matches.
 pub fn write_archive_record(path: &Path, id: &str, record: &serde_json::Value) -> Result<()> {
     let text = util::read_text_lf(path).unwrap_or_default();
     let line = python_line(record);
     let mut out = Vec::new();
+    if text.trim().is_empty() {
+        // A shard this tool starts (a new province's) says what it holds.
+        out.push(python_line(&serde_json::json!({ "meta": {
+            "schema": 1,
+            "layer": "geometry",
+            "source": NEW_SHARD_SOURCE,
+        }})));
+    }
     let mut replaced = false;
     for existing in text.lines() {
         if existing.trim().is_empty() {

@@ -16,7 +16,7 @@ use regex::Regex;
 use std::sync::LazyLock;
 
 use super::geo::{LegLine, WayIndex, M_PER_MI};
-use super::region::{LegRegions, ALASKA_DEFAULT_MPH};
+use super::region::LegRegions;
 use crate::pyjson::{Object, Value};
 
 /// How near a way must be to govern a sample point.
@@ -94,13 +94,14 @@ pub fn is_interstate(highway: &str) -> bool {
 }
 
 /// One step of the profile. `mph` of `None` is a coverage gap; `assumed`
-/// marks Alaska's unposted default, where no posted way was found.
+/// is the source of a jurisdiction's unposted default (Alaska's, a
+/// province's), used where no posted way was found.
 #[derive(Debug, Clone, PartialEq)]
 pub struct Sample {
     pub at_mi: f64,
     pub mph: Option<i64>,
     pub hgv: bool,
-    pub assumed: bool,
+    pub assumed: Option<&'static str>,
 }
 
 /// How far past a country border the first posting read can sit and still
@@ -167,12 +168,13 @@ pub fn bake_leg(
         let read = best
             .filter(|b| !(interstate && b.0 < INTERSTATE_MIN_PLAUSIBLE_MPH))
             .map(|(mph, hgv, _, _)| (mph as i64, hgv, false));
-        let alaska_default = || {
+        let read = read.map(|(mph, hgv, _)| (mph, hgv, None));
+        let unposted = || {
             regions
-                .in_alaska(at_mi)
-                .then_some((ALASKA_DEFAULT_MPH, false, true))
+                .unposted_default(at_mi)
+                .map(|(mph, source)| (mph, false, Some(source)))
         };
-        let Some((mph, hgv, assumed)) = read.or_else(alaska_default) else {
+        let Some((mph, hgv, assumed)) = read.or_else(unposted) else {
             hole_start.get_or_insert(at_mi);
             continue;
         };
@@ -182,7 +184,7 @@ pub fn bake_leg(
                     at_mi: start,
                     mph: None,
                     hgv: false,
-                    assumed: false,
+                    assumed: None,
                 });
             }
         }
@@ -216,7 +218,7 @@ pub fn bake_leg(
                 at_mi: start,
                 mph: None,
                 hgv: false,
-                assumed: false,
+                assumed: None,
             });
         }
     }
@@ -267,8 +269,8 @@ pub fn repair(highway: &str, leg_miles: f64, samples: &mut Vec<Sample>) -> usize
 }
 
 /// The world-source rows, keyed and ordered as the existing data writes them.
-/// A read posting carries `source`; Alaska's default carries `assumed`.
-pub fn world_rows(samples: &[Sample], source: &str, assumed: &str) -> Vec<Value> {
+/// A read posting carries `source`; an unposted default carries its own.
+pub fn world_rows(samples: &[Sample], source: &str) -> Vec<Value> {
     samples
         .iter()
         .map(|s| {
@@ -277,7 +279,7 @@ pub fn world_rows(samples: &[Sample], source: &str, assumed: &str) -> Vec<Value>
             match s.mph {
                 Some(mph) => {
                     row.insert("mph", Value::Int(i128::from(mph)));
-                    let source = if s.assumed { assumed } else { source };
+                    let source = s.assumed.unwrap_or(source);
                     row.insert("source", Value::Str(source.to_string()));
                     row.insert("hgv", Value::Bool(s.hgv));
                 }
@@ -357,7 +359,9 @@ mod tests {
             r#"{{"miles": {miles}, "corridor": {{"state_crossings": [{crossings}]}}}}"#
         ))
         .unwrap();
-        let canadian = ["Yukon".to_string()].into_iter().collect();
+        let canadian = ["Yukon".to_string(), "British Columbia".to_string()]
+            .into_iter()
+            .collect();
         let regions = LegRegions::of(&leg, &line, &canadian);
         bake_leg(highway, &line, miles, &index, &regions)
     }
@@ -376,7 +380,7 @@ mod tests {
         let samples = bake_in(vec![bare_ninety(1, -100.1, -99.5)], "AK-2", yukon);
         assert_eq!(samples.len(), 1, "{samples:?}");
         assert_eq!(samples[0].mph, Some(55));
-        assert!(!samples[0].assumed);
+        assert!(samples[0].assumed.is_none());
     }
 
     #[test]
@@ -385,7 +389,21 @@ mod tests {
         let samples = bake_in(Vec::new(), "AK-2", alaska);
         assert_eq!(samples.len(), 1, "{samples:?}");
         assert_eq!((samples[0].at_mi, samples[0].mph), (0.0, Some(55)));
-        assert!(samples[0].assumed);
+        assert!(samples[0].assumed.is_some());
+    }
+
+    #[test]
+    fn british_columbia_with_no_posted_way_stays_a_gap() {
+        // An untagged Hart Highway is a posted road OpenStreetMap is silent
+        // on, not an unposted one: no statutory default is filled in.
+        let bc = r#"{"at_mi": 0.0, "from_state": "British Columbia", "state": "British Columbia"}"#;
+        assert!(bake_in(Vec::new(), "Alaska Highway", bc).is_empty());
+    }
+
+    #[test]
+    fn yukon_has_no_fixed_default_so_an_unposted_road_stays_a_gap() {
+        let yukon = r#"{"at_mi": 0.0, "from_state": "Yukon", "state": "Yukon"}"#;
+        assert!(bake_in(Vec::new(), "Alaska Highway", yukon).is_empty());
     }
 
     #[test]
@@ -448,7 +466,7 @@ mod tests {
             at_mi,
             mph: Some(mph),
             hgv: false,
-            assumed: false,
+            assumed: None,
         };
         let mut samples = vec![s(0.0, 25), s(22.0, 65)];
         assert_eq!(repair("US-60", 40.0, &mut samples), 1);
@@ -467,23 +485,22 @@ mod tests {
                     at_mi: 0.0,
                     mph: Some(65),
                     hgv: true,
-                    assumed: false,
+                    assumed: None,
                 },
                 Sample {
                     at_mi: 6.5,
                     mph: None,
                     hgv: false,
-                    assumed: false,
+                    assumed: None,
                 },
                 Sample {
                     at_mi: 9.0,
                     mph: Some(55),
                     hgv: false,
-                    assumed: true,
+                    assumed: Some("assumed"),
                 },
             ],
             "src",
-            "assumed",
         );
         let text: Vec<String> = rows
             .iter()

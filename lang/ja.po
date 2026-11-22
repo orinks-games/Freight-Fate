@@ -3998,14 +3998,14 @@ msgstr "gentle"
 msgid "Contents"
 msgstr "Contents"
 
+msgid "us"
+msgstr "us"
+
 msgid "interstate"
 msgstr "interstate"
 
 msgid "state"
 msgstr "state"
-
-msgid "us"
-msgstr "us"
 
 msgid "flat"
 msgstr "flat"
@@ -13225,6 +13225,9 @@ msgstr "案内された出口"
 msgid "scale reminder"
 msgstr "計量所の注意"
 
+msgid "border booth"
+msgstr ""
+
 msgid "miles per hour"
 msgstr "マイル毎時"
 
@@ -22112,18 +22115,11 @@ msgstr ""
 msgid "Customs booth in half a mile. Stop at the booth."
 msgstr ""
 
-msgid ", which your carrier pays"
-msgstr "、運送会社が支払います"
-
-#. one clause of a longer line
-msgid "which your carrier pays"
-msgstr "運送会社が支払います"
-
-#. placeholders: {name}, {agency}, {penalty}, {payer}
+#. placeholders: {name}, {agency}, {penalty}
 msgid ""
 "At {name}, {agency} stopped the truck for running the customs booth: "
-"{penalty}{payer}."
-msgstr "{name}で、税関を通過せずに走ったため{agency}がトラックを止めました：{penalty}{payer}。"
+"{penalty}."
+msgstr "{name}で、税関を通過せずに走ったため{agency}がトラックを止めました：{penalty}。"
 
 #. placeholders: {border_chase_line}, {control_hint}
 msgid ""
@@ -41851,6 +41847,17 @@ msgstr ""
 #~ msgstr ""
 #~ "{engine_off}駐車場で10時間眠りました。{clock_text}。運転と勤務の時計はリセットされました。眠りは浅かったです。{deadlin"
 #~ "e_text}{wake_air_instruction}"
+
+#~ msgid ", which your carrier pays"
+#~ msgstr "、運送会社が支払います"
+
+#~ msgid "which your carrier pays"
+#~ msgstr "運送会社が支払います"
+
+#~ msgid ""
+#~ "At {name}, {agency} stopped the truck for running the customs booth: "
+#~ "{penalty}{payer}."
+#~ msgstr "{name}で、税関を通過せずに走ったため{agency}がトラックを止めました：{penalty}{payer}。"
 
 #~ msgid "{name} Company Yard"
 #~ msgstr "{name}の会社ヤード"

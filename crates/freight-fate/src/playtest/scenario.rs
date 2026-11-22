@@ -142,6 +142,32 @@ pub struct Scenario {
     /// The simulated sky every drive from here on starts under:
     /// `Some(Some(kind))` forced, `Some(None)` free (`parse_weather`).
     pub weather: Option<Option<WeatherKind>>,
+    /// The calendar date the career shows, as (month, day): what dated
+    /// rules read (spring weight limits, the Whittier tunnel's seasons).
+    /// Career time, deadlines and hours of service do not move.
+    pub date: Option<(u32, u32)>,
+}
+
+/// A `date` field: "MM-DD", such as "05-01".
+fn parse_date(value: &str) -> Result<(u32, u32), String> {
+    let bad = || format!("date must be MM-DD, such as 05-01, not {value:?}");
+    let (month, day) = value.split_once('-').ok_or_else(bad)?;
+    let (month, day) = (
+        month.trim().parse::<u32>().map_err(|_| bad())?,
+        day.trim().parse::<u32>().map_err(|_| bad())?,
+    );
+    // 2001, the career calendar's own year: no February 29.
+    chrono::NaiveDate::from_ymd_opt(2001, month, day).ok_or_else(bad)?;
+    Ok((month, day))
+}
+
+/// Career hours (from the March 21 anchor) that fall on this date.
+fn date_game_hours((month, day): (u32, u32)) -> f64 {
+    use chrono::Datelike;
+    let ordinal =
+        chrono::NaiveDate::from_ymd_opt(2001, month, day).map_or(1, |date| date.ordinal()) as f64;
+    // `day_of_year` reads as the ordinal: hour 0 is day 80, March 21.
+    (ordinal - ff_core::sim::season::CAREER_START_DAY_OF_YEAR).rem_euclid(365.0) * 24.0
 }
 
 /// A `weather` field: a condition by name ("snow", "ice", "cloudy",
@@ -360,6 +386,9 @@ impl Scenario {
             window_down,
             road_jointed,
             weather,
+            date: text(args, "date")?
+                .map(|value| parse_date(&value))
+                .transpose()?,
         })
     }
 
@@ -584,6 +613,14 @@ pub fn apply(ctx: &mut GameContext, scenario: &Scenario) -> Result<Vec<String>, 
                 }
             }
         }
+        if let Some(date) = scenario.date {
+            p.live_calendar = false;
+            p.anchor_calendar_to(date_game_hours(date));
+            notes.push(format!(
+                "The calendar shows {}.",
+                ff_core::sim::season::date_text(p.calendar_game_hours())
+            ));
+        }
         // Whatever the board showed before, it shows the new situation now.
         p.dispatch_board_cache = None;
     }
@@ -648,6 +685,21 @@ mod tests {
     use super::*;
 
     #[test]
+    fn a_staged_date_lands_on_that_calendar_day() {
+        for (date, spoken) in [
+            ((5, 1), "May 1"),
+            ((3, 21), "March 21"),
+            ((1, 1), "January 1"),
+        ] {
+            assert_eq!(
+                ff_core::sim::season::date_text(date_game_hours(date) + 9.0),
+                spoken
+            );
+        }
+        assert_eq!(parse_date("05-01"), Ok((5, 1)));
+    }
+
+    #[test]
     fn test_arguments_are_checked_before_anything_moves() {
         let bad = |json: &str| {
             let args: Map<String, Value> = serde_json::from_str(json).unwrap();
@@ -661,6 +713,8 @@ mod tests {
         assert!(bad(r#"{"business": "owner"}"#).contains("business"));
         assert!(bad(r#"{"endorsements": ["rocket"]}"#).contains("unknown endorsement"));
         assert!(bad(r#"{"settings": 3}"#).contains("settings"));
+        assert!(bad(r#"{"date": "02-29"}"#).contains("date"));
+        assert!(bad(r#"{"date": "May 1"}"#).contains("date"));
         let args: Map<String, Value> = serde_json::from_str(
             r#"{"city": "Tonopah", "level": 5, "business": "leased", "endorsements": ["hazmat"],
                 "hour": 6.5, "fuel_pct": 25, "rested": true, "fatigue": 64,

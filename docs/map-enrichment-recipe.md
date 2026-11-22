@@ -427,6 +427,114 @@ building, so no corridor ships placeholder checkpoints or misses its
 endpoint truck stops. One PR per corridor, each a player-facing content drop
 with its own changelog line.
 
+## Building a Canadian corridor
+
+Proven on the 14 BC and Yukon legs of the Alaska Highway route and their two
+US-side mirrors (Blaine to Surrey, Tok to Whitehorse) on 2026-11-21. Every
+command below is a `cargo tools` command; nothing needs a server of our own.
+Cities and legs come first (one corridor PR adds them: slug, `spoken_city`,
+`state` as the two-letter province code, `country: "CA"`); this is what
+turns a new leg into a full one.
+
+### The cut (once per corridor batch)
+
+Geofabrik resets cloud connections, so stream the osm-pds planet. One bbox
+covers Canada and Alaska (`-170,41.6,-52,72`); the cut is about 10 GB and
+the download about 25 minutes. Fetch in 256 MB ranges in parallel (a single
+`curl` gets reset; the helper used for the pilot is `rangecat.py` in the
+project's `career-2.0-alpha` files, a 40-line ordered range fetcher) and
+pipe into osmium:
+
+```
+python3 rangecat.py https://osm-pds.s3.amazonaws.com/2026/planet-YYMMDD.osm.pbf <bytes> \
+  | osmium extract -s simple -b -170,41.6,-52,72 -F pbf - -o canada-alaska-raw.osm.pbf
+osmium tags-filter canada-alaska-raw.osm.pbf w/highway \
+  n/highway=motorway_junction,traffic_signals,stop,give_way n/barrier=toll_booth \
+  -o roads.osm.pbf                                       # about 1.8 GB
+osmium tags-filter canada-alaska-raw.osm.pbf r/boundary=administrative \
+  -o boundaries-all.osm.pbf                              # province and state lines
+```
+
+The planet date is the `YYMMDD` in the key; pass it as `--extract-date` on
+every tool, because the cut carries no header date. Keep the raw cut:
+`osm-landmarks` and `osm-villages` read tags the roads cut drops.
+
+### Per batch of legs, in order
+
+`L` is the legs as `from:to;from:to` slugs, both directions listed.
+
+```
+cargo tools reroute-leg --leg <from:to> --write          # once per leg
+cargo tools reroute-enrich --leg "$L" --pbf roads.osm.pbf --extract-date D \
+    --snapshot "OpenStreetMap planet file" \
+    --boundaries boundaries-all.osm.pbf --boundaries-read D --write
+cargo tools osm-lanes        --pbf roads.osm.pbf --only "$L" --extract-date D --write
+cargo tools osm-restrictions --pbf roads.osm.pbf --only "$L" --extract-date D --write
+cargo tools osm-landmarks    --pbf canada-alaska-raw.osm.pbf --only "$L" --extract-date D --write
+cargo tools osm-villages     --pbf canada-alaska-raw.osm.pbf --only "$L" --extract-date D --write
+cargo tools hpms-terrain     --only "$L" --write
+cargo tools hpms-traffic     --only "$L" --write
+cargo tools index-world --check
+cargo run -p ff-core --bin ff-bake -- --data-dir data --out dist/freight_fate/data/world.ffdata
+```
+
+`census-counties` is not run: Canada speaks province lines and no county
+lines for now. A leg with no `counties` is quiet, not broken.
+
+### What each step does north of the border
+
+- **Where it is filed.** A leg's road and gameplay layers go in the folder
+  of the country it starts in (`world_data/ca/geometry/bc.jsonl`,
+  `world_data/ca/gameplay/curves.jsonl`), from `world_data/index.json`. The
+  game and the bake read every country's folder.
+- **Route.** Valhalla truck costing, as in the US. Canadian labels match by
+  number ("Hwy 97" is BC 97, TCH 1, YH 16) or by name ("Alaska Highway").
+  A scaffold leg with no archived road carries from its route points.
+- **Border crossings need a pin.** The truck router avoids the Pacific
+  Highway crossing (513 miles for a 15-mile leg). `reroute-leg` refuses any
+  road more than 25 percent off the leg's miles; pin the port with
+  `route_via` on the approach road, one point per direction, and check the
+  maneuvers ride the port's road. Pass `--accept-miles` only for a real
+  change.
+- **Province lines.** Read from the admin_level 4 relations (English names,
+  so Quebec is "Quebec"). The international border is the same relations
+  meeting. A dip into the next province and back within half a mile is not
+  spoken (the Alaska Highway rides the 60th parallel past Lower Post).
+- **Cited names survive a reroute.** A checkpoint keeps its own source
+  (a port of entry's agency page, its OSM node) with a note on where it
+  now sits, and a line keeps the name the leg carried for it when the new
+  crossing is within 10 miles of the old one.
+- **Speed limits.** A bare number is km/h in Canada; stored rounded to 5
+  mph like every posting, so the game reads a 70 km/h sign back as 72
+  until postings keep their km/h (ROADMAP). An untagged stretch stays an explicit gap (the
+  game's highway heuristic), not the province's statutory default: in the
+  pilot the untagged stretches were posted roads OpenStreetMap is silent on
+  (100 miles of the Hart Highway), where British Columbia's 80 km/h
+  default outside a municipality (Motor Vehicle Act s. 146(1)) would have
+  been wrong. A province goes in `UNPOSTED_DEFAULTS`
+  (`ff-tools/src/world/osm/region.rs`) only once its untagged ways are
+  shown to be unposted. Alaska's 55 mph is there already.
+- **Exits.** Every Canadian leg is read, whatever its label (there are no
+  Interstates); exits appear where the road is a freeway with
+  `motorway_junction` nodes, numbered as signed.
+- **Grades.** Valhalla `/height`, which answers north of 60.
+- **Terrain.** No HPMS: derived from the leg's own grade profile (the
+  terrain it spends most miles in), and so no independent check on it.
+- **Traffic.** No HPMS and no provincial table read yet: the leg keeps no
+  counts and the game assumes its road-class volume.
+- **Towns.** OpenStreetMap `place=town|village` and, on a leg touching
+  Canada, `place=city` (there is no GNIS checkpoint list north of the
+  border).
+- **Restrictions.** `maxheight` in metres and `maxweight` in tonnes are
+  read as they are in the US.
+
+### Time
+
+For the 16 pilot legs together: routing 1 to 4 seconds a leg, enrich about
+4 minutes, lanes 41 s, restrictions 31 s, landmarks 270 s, villages 39 s
+(one read of each cut per tool). The cut, about 25 minutes, is the long
+pole.
+
 ## Spidering the network (finding new legs and cities)
 
 Distinct from enriching existing legs: this fills GAPS in the graph where a

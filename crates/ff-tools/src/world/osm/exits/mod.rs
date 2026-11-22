@@ -15,8 +15,9 @@
 //! exits and their ramps can no longer come from different OSM sets. See
 //! [`discover`] and [`ramps`] for what changed from the Python.
 //!
-//! Each Interstate leg, and each other leg that already carries exits, is
-//! read against its archived road (`world_data/us/geometry/`). A leg with no
+//! Each Interstate leg, each Canadian leg, and each other leg that already
+//! carries exits, is read against its archived road
+//! (`world_data/<country>/geometry/`). A leg with no
 //! archived road keeps what it has. What the run keeps from the old data:
 //!
 //! * an exit record whose `source` is not this tool's read (or the Python's
@@ -49,7 +50,6 @@ use std::sync::LazyLock;
 
 use regex::Regex;
 
-use super::geo;
 use super::pbf;
 use crate::cli::{Args, Spec};
 use crate::pyjson::{self, Value};
@@ -168,7 +168,7 @@ pub fn main(argv: &[String]) -> Result<i32> {
     let root = crate::util::repo_root();
     let source = source_root();
     let mut world = load_world(&source)?;
-    let lines = geo::load_archive(&root.join("data/world_data/us/geometry"))?;
+    let lines = crate::world::country::load_archives()?;
     let terminals_in_use = chain_terminals(&root, &world)?;
     println!(
         "{} archived leg lines, {} street-chain terminals; reading {} extract(s) dated {date}",
@@ -195,6 +195,7 @@ pub fn main(argv: &[String]) -> Result<i32> {
     let mut tally = Tally::default();
     let mut found = DiscoverCounts::default();
     let mut ramp_counts = RampCounts::default();
+    let world_view = world.clone();
     let legs = world
         .get_mut("legs")
         .and_then(Value::as_array_mut)
@@ -212,7 +213,11 @@ pub fn main(argv: &[String]) -> Result<i32> {
             .and_then(Value::as_array)
             .cloned()
             .unwrap_or_default();
-        if !INTERSTATE.is_match(&highway) && old.is_empty() {
+        // Canada has no Interstates: its freeways (Hwy 1 through the Lower
+        // Mainland, the 401) are provincial routes, so a Canadian leg is
+        // read whatever its label, and finds exits only where it is one.
+        let canadian = crate::world::country::leg_touches(&world_view, leg, "CA");
+        if !INTERSTATE.is_match(&highway) && old.is_empty() && !canadian {
             tally.not_eligible += 1;
             continue;
         }

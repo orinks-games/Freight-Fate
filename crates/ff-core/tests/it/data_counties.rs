@@ -5,7 +5,9 @@ use ff_core::data::counties::county_at;
 
 /// The legs with an archived U.S. route, in either direction: the county
 /// layer is derived from that route, so a leg without one (Alaska, Canada)
-/// has nothing to place a county line on.
+/// has nothing to place a county line on. A leg with a Canadian end is left
+/// out too: the Census county lines stop at the border and Canada's census
+/// divisions are not read yet, so its Canadian miles carry no county.
 fn archived_routes() -> std::collections::HashSet<String> {
     let dir =
         std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../../data/world_data/us/geometry");
@@ -33,7 +35,13 @@ fn every_leg_names_a_county_from_its_start() {
     for leg in &world.legs {
         let archived = routes.contains(&format!("{}:{}", leg.a, leg.b))
             || routes.contains(&format!("{}:{}", leg.b, leg.a));
-        if !archived {
+        let canadian = [&leg.a, &leg.b].iter().any(|slug| {
+            world
+                .cities
+                .get(slug.as_str())
+                .is_some_and(|c| c.country == "CA")
+        });
+        if !archived || canadian {
             continue;
         }
         let runs = leg.counties();

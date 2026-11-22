@@ -1603,7 +1603,7 @@ fn test_alcan_border_identity_and_posted_speed_profiles() {
         .iter()
         .find(|checkpoint| checkpoint["name"].as_str() == Some("Alcan Port of Entry"))
         .expect("Alcan Port of Entry checkpoint");
-    assert_eq!(alcan["at_mi"].as_f64(), Some(297.5));
+    assert_eq!(alcan["at_mi"].as_f64(), Some(297.4));
     assert_eq!(alcan["state"].as_str(), Some("Alaska"));
     assert!(alcan["source"]
         .as_str()
@@ -1630,7 +1630,7 @@ fn test_alcan_border_identity_and_posted_speed_profiles() {
         .expect("Beaver Creek checkpoint source")
         .contains("3531514528"));
 
-    for (leg, at_mi) in [(tok_to_whitehorse, 89.5), (whitehorse_to_tok, 297.5)] {
+    for (leg, at_mi) in [(tok_to_whitehorse, 89.9), (whitehorse_to_tok, 297.0)] {
         let crossings = leg["corridor"]["state_crossings"]
             .as_array()
             .expect("Alaska–Yukon state crossings");

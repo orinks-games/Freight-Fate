@@ -4412,14 +4412,14 @@ msgstr "gentle"
 msgid "Contents"
 msgstr "İçindekiler"
 
+msgid "us"
+msgstr "us"
+
 msgid "interstate"
 msgstr "interstate"
 
 msgid "state"
 msgstr "state"
-
-msgid "us"
-msgstr "us"
 
 msgid "flat"
 msgstr "flat"
@@ -14197,6 +14197,9 @@ msgstr "sinyal verilmiş çıkış"
 msgid "scale reminder"
 msgstr "kantar hatırlatması"
 
+msgid "border booth"
+msgstr ""
+
 msgid "miles per hour"
 msgstr "mil hız"
 
@@ -23663,20 +23666,13 @@ msgstr ""
 msgid "Customs booth in half a mile. Stop at the booth."
 msgstr ""
 
-msgid ", which your carrier pays"
-msgstr ", bunu taşıma şirketin öder"
-
-#. one clause of a longer line
-msgid "which your carrier pays"
-msgstr "bunu taşıma şirketin öder"
-
-#. placeholders: {name}, {agency}, {penalty}, {payer}
+#. placeholders: {name}, {agency}, {penalty}
 msgid ""
 "At {name}, {agency} stopped the truck for running the customs booth: "
-"{penalty}{payer}."
+"{penalty}."
 msgstr ""
 "{name} noktasında {agency}, gümrük kulübesini geçtiğin için tırı durdurdu: "
-"{penalty}{payer}."
+"{penalty}."
 
 #. placeholders: {border_chase_line}, {control_hint}
 msgid ""
@@ -45169,6 +45165,19 @@ msgstr ""
 #~ msgstr ""
 #~ "{engine_off}Otoparkta 10 saat uyudunuz. {clock_text}. Sürüş ve görev "
 #~ "saatleri sıfırlandı. Kötü uyudunuz. {deadline_text}{wake_air_instruction}"
+
+#~ msgid ", which your carrier pays"
+#~ msgstr ", bunu taşıma şirketin öder"
+
+#~ msgid "which your carrier pays"
+#~ msgstr "bunu taşıma şirketin öder"
+
+#~ msgid ""
+#~ "At {name}, {agency} stopped the truck for running the customs booth: "
+#~ "{penalty}{payer}."
+#~ msgstr ""
+#~ "{name} noktasında {agency}, gümrük kulübesini geçtiğin için tırı durdurdu: "
+#~ "{penalty}{payer}."
 
 #~ msgid "{name} Company Yard"
 #~ msgstr "{name} Firma Sahası"

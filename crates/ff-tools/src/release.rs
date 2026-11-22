@@ -91,6 +91,8 @@ const RUST_BAKED_SOURCE_FILES: &[&str] = &[
     "world_data/ca/cities.json",
     "world_data/us/gameplay/curves.jsonl",
     "world_data/us/gameplay/curve_artifacts.jsonl",
+    "world_data/ca/gameplay/curves.jsonl",
+    "world_data/ca/gameplay/curve_artifacts.jsonl",
 ];
 /// Loose runtime data files still shipped as files, because the container
 /// does not cover them. Empty today -- everything the game loads is baked --

@@ -4707,14 +4707,14 @@ msgstr "cua nhẹ"
 msgid "Contents"
 msgstr "Mục lục"
 
+msgid "us"
+msgstr "us"
+
 msgid "interstate"
 msgstr "xa lộ liên bang"
 
 msgid "state"
 msgstr "quốc lộ tiểu bang"
-
-msgid "us"
-msgstr "us"
 
 msgid "flat"
 msgstr "bằng phẳng"
@@ -14637,6 +14637,9 @@ msgstr "lối ra có biển báo"
 msgid "scale reminder"
 msgstr "nhắc trạm cân"
 
+msgid "border booth"
+msgstr ""
+
 msgid "miles per hour"
 msgstr "dặm/giờ"
 
@@ -24194,20 +24197,12 @@ msgstr ""
 msgid "Customs booth in half a mile. Stop at the booth."
 msgstr ""
 
-msgid ", which your carrier pays"
-msgstr ", do hãng vận tải của bạn trả"
-
-#. one clause of a longer line
-msgid "which your carrier pays"
-msgstr "do hãng vận tải của bạn trả"
-
-#. placeholders: {name}, {agency}, {penalty}, {payer}
+#. placeholders: {name}, {agency}, {penalty}
 msgid ""
 "At {name}, {agency} stopped the truck for running the customs booth: "
-"{penalty}{payer}."
+"{penalty}."
 msgstr ""
-"Tại {name}, {agency} đã chặn xe tải vì chạy qua trạm hải quan: "
-"{penalty}{payer}."
+"Tại {name}, {agency} đã chặn xe tải vì chạy qua trạm hải quan: {penalty}."
 
 #. placeholders: {border_chase_line}, {control_hint}
 msgid ""
@@ -45856,6 +45851,19 @@ msgstr ""
 #~ "{engine_off}Đã ngủ 10 giờ ngoài bãi xe. Bây giờ là {clock_text}. Đồng hồ "
 #~ "giờ lái và khung giờ làm việc đã được đặt lại. Giấc ngủ không được sâu. "
 #~ "{deadline_text}{wake_air_instruction}"
+
+#~ msgid ", which your carrier pays"
+#~ msgstr ", do hãng vận tải của bạn trả"
+
+#~ msgid "which your carrier pays"
+#~ msgstr "do hãng vận tải của bạn trả"
+
+#~ msgid ""
+#~ "At {name}, {agency} stopped the truck for running the customs booth: "
+#~ "{penalty}{payer}."
+#~ msgstr ""
+#~ "Tại {name}, {agency} đã chặn xe tải vì chạy qua trạm hải quan: "
+#~ "{penalty}{payer}."
 
 #~ msgid "{name} Company Yard"
 #~ msgstr "Bãi xe công ty {name}"

@@ -4528,14 +4528,14 @@ msgstr "gentle"
 msgid "Contents"
 msgstr "Contents"
 
+msgid "us"
+msgstr "us"
+
 msgid "interstate"
 msgstr "interstate"
 
 msgid "state"
 msgstr "state"
-
-msgid "us"
-msgstr "us"
 
 msgid "flat"
 msgstr "flat"
@@ -14458,6 +14458,9 @@ msgstr "zjazd z sygnalizacją"
 msgid "scale reminder"
 msgstr "przypomnienie o wadze"
 
+msgid "border booth"
+msgstr ""
+
 msgid "miles per hour"
 msgstr "mil na godzinę"
 
@@ -24148,20 +24151,13 @@ msgstr ""
 msgid "Customs booth in half a mile. Stop at the booth."
 msgstr ""
 
-msgid ", which your carrier pays"
-msgstr ", którą płaci twój przewoźnik"
-
-#. one clause of a longer line
-msgid "which your carrier pays"
-msgstr "którą płaci twój przewoźnik"
-
-#. placeholders: {name}, {agency}, {penalty}, {payer}
+#. placeholders: {name}, {agency}, {penalty}
 msgid ""
 "At {name}, {agency} stopped the truck for running the customs booth: "
-"{penalty}{payer}."
+"{penalty}."
 msgstr ""
 "Na {name} {agency} zatrzymała ciężarówkę za przejechanie przez punkt celny "
-"bez zatrzymania: {penalty}{payer}."
+"bez zatrzymania: {penalty}."
 
 #. placeholders: {border_chase_line}, {control_hint}
 msgid ""
@@ -46083,6 +46079,19 @@ msgstr ""
 #~ "{engine_off}10 godzin snu na parkingu. {clock_text}. Czas jazdy i okno "
 #~ "służby wyzerowane. Odpoczynek był kiepski. "
 #~ "{deadline_text}{wake_air_instruction}"
+
+#~ msgid ", which your carrier pays"
+#~ msgstr ", którą płaci twój przewoźnik"
+
+#~ msgid "which your carrier pays"
+#~ msgstr "którą płaci twój przewoźnik"
+
+#~ msgid ""
+#~ "At {name}, {agency} stopped the truck for running the customs booth: "
+#~ "{penalty}{payer}."
+#~ msgstr ""
+#~ "Na {name} {agency} zatrzymała ciężarówkę za przejechanie przez punkt celny "
+#~ "bez zatrzymania: {penalty}{payer}."
 
 #~ msgid "{name} Company Yard"
 #~ msgstr "Plac firmowy {name}"

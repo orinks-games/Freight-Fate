@@ -61,6 +61,10 @@ impl DrivingState {
             let reminder_key = format!("border-reminder:{}", booth.key);
             if ahead <= 0.5 && !self.enforcement_events.contains(&reminder_key) {
                 self.enforcement_events.insert(reminder_key);
+                // From here to the booth the clock runs real above the
+                // bypass speed (`Trip::real_time_override`), so the half
+                // mile is half a mile of stopping room at any pacing.
+                self.trip.border_reminder_hold_mi = Some(booth.at_mi);
                 self.refresh_live_facts();
                 let at_mi = booth.at_mi;
                 ctx.say_event_with(
@@ -120,15 +124,12 @@ impl DrivingState {
         // to lifetime per-profile counts for each country.
         let (fine, penalty) = border_penalty_and_record(ctx, &booth);
         self.pending_border_clearance = Some(booth.clone());
-        // The penalty is assessed against the carrier: a company driver's
-        // carrier pays it, and an owner-operator is the one who pays.
-        let payer = if border_penalty_charged_to_carrier(ctx) {
-            ", which your carrier pays"
-        } else {
-            ""
-        };
+        // Who pays is the stop's outcome line ("paid by your carrier" for a
+        // company driver), so the officer's summary names only the penalty:
+        // saying it in both had the carrier paying twice in one breath
+        // (agent drive, 2026-11-22).
         let summary = format!(
-            "At {}, {} stopped the truck for running the customs booth: {}{payer}.",
+            "At {}, {} stopped the truck for running the customs booth: {}.",
             booth.name, booth.agency, penalty
         );
         let lights_message = format!(

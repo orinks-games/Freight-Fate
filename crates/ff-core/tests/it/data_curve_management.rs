@@ -878,7 +878,12 @@ fn test_the_corridor_is_a_sanity_bound_not_a_decision() {
 /// miss.
 #[test]
 fn test_every_connector_row_names_the_reading_that_flagged_it() {
-    let text = read_data_text("world_data/us/gameplay/curves.jsonl").expect("curves.jsonl");
+    // Every country's curves: a Canadian leg's rows live in `ca/gameplay`.
+    let text = ff_core::data::data_resources::country_gameplay_text_at(
+        ff_core::data::data_resources::data_root(),
+        "curves.jsonl",
+    )
+    .expect("curves.jsonl");
     let known = ["osm:ramp", "osm:off-corridor", "sweep:window"];
     let mut seen: HashSet<String> = HashSet::new();
     for line in text.lines() {

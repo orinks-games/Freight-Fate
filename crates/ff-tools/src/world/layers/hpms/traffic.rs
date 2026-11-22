@@ -294,6 +294,8 @@ pub fn main(argv: &[String]) -> Result<i32> {
     let note = source(&super::today());
     let mut run = Run::load()?;
     let archive = std::mem::take(&mut run.archive);
+    let world = run.world.clone();
+    let mut canadian = 0usize;
     let (mut changed, mut same, mut none, mut failed, mut no_archive) = (0, 0, 0, 0, 0);
     let legs = run.legs_mut()?;
     let total = legs.iter().filter(|l| only.wants(&leg_id(l))).count();
@@ -304,6 +306,14 @@ pub fn main(argv: &[String]) -> Result<i32> {
             continue;
         }
         done += 1;
+        if crate::world::country::leg_touches(&world, leg, "CA") {
+            // HPMS holds no Canadian road, and a cross-border leg's box
+            // would catch only its US end. No provincial count table is
+            // read yet, so the leg keeps no counts and the game's own
+            // road-class volume stands in (assumed, said at the end).
+            canadian += 1;
+            continue;
+        }
         let Some(line) = archive.get(&id) else {
             no_archive += 1;
             continue;
@@ -373,6 +383,13 @@ pub fn main(argv: &[String]) -> Result<i32> {
          answer(s) fetched.",
         client.fetched.load(std::sync::atomic::Ordering::Relaxed)
     );
+    if canadian > 0 {
+        println!(
+            "{canadian} legs touching Canada NOT read: HPMS is US-only and no provincial count \
+             table is read yet. They keep no counts, so the game ASSUMES its road-class volume \
+             (heuristic_aadt) on all of them."
+        );
+    }
     run.finish(args.flag("write"))
 }
 
