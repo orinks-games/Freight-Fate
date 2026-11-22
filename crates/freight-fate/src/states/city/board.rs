@@ -21,7 +21,7 @@ use ff_core::models::profile::Profile;
 use ff_core::models::trailers::{
     compatible_with_programs, owned_trailer_for_cargo, required_program_text,
 };
-use ff_core::pyfmt::{fmt_f, fmt_grouped};
+use ff_core::pyfmt::fmt_grouped;
 use ff_core::sim::hos::limits;
 
 use crate::app::{GameContext, Say, SharedState};
@@ -397,9 +397,9 @@ impl JobBoardState {
                     )
                 } else {
                     format!(
-                        "{} tons of {} to \
+                        "{} of {} to \
                          {}, {}",
-                        fmt_f(job.weight_tons, 0),
+                        ctx.settings.tons_text(job.weight_tons),
                         job.spoken_cargo_label(),
                         job.spoken_destination(),
                         ctx.settings.distance_text(job.distance_mi, false)

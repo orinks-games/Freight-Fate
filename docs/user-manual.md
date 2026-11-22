@@ -949,7 +949,7 @@ This is where you change units, transmission, and eligible shortcuts. Open Keybo
 
 | Setting | Purpose |
 | --- | --- |
-| Units | Switch speed and distance between miles and kilometers. |
+| Units | Automatic, the default, uses miles in the United States and kilometers in Canada, and says so when a drive crosses the border. Imperial keeps miles everywhere, and Metric keeps kilometers. The choice covers speeds, distances, the cruise dial, fuel in gallons or liters, weights in pounds or kilograms, loads in tons or tonnes, and low bridges in feet or meters. |
 | Transmission | Switch between automatic and manual transmission. |
 | Controller | Accept controller input alongside the keyboard. The keyboard always stays active. While it is on, it names the controller the game is using. |
 | Haptics | Use controller vibration for hazards, hard braking, rumble strips, and road seams. |

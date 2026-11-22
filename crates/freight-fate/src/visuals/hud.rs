@@ -932,7 +932,7 @@ mod tests {
         assert_eq!(curve_label(&text, 20, "hairpin", false), "32 km/h hairpin");
         // The number is the one the spoken warning gives for the same bend.
         let metric = Settings {
-            imperial_units: false,
+            units: "metric".to_string(),
             ..Settings::default()
         };
         for mph in [15, 25, 35, 45, 55, 65] {

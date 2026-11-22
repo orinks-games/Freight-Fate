@@ -202,7 +202,14 @@ impl CityMenuState {
         } else {
             ""
         };
-        if canada_diesel_usd_per_gal(&state_code).is_some() {
+        let canadian = canada_diesel_usd_per_gal(&state_code).is_some();
+        if !ctx.settings.imperial() {
+            return format!(
+                "Garage: fuel {}{live}",
+                ctx.settings.diesel_price_text(price, canadian)
+            );
+        }
+        if canadian {
             return format!(
                 "Garage: fuel {} per gallon, {} Canadian dollars a liter{live}",
                 fmt_f(price, 2),
@@ -651,6 +658,14 @@ impl Menu for CityMenuState {
 
     fn enter(&mut self, ctx: &mut GameContext) {
         self.confirm_sleep_rested = false;
+        // Every screen in town speaks in the city's own units (Automatic).
+        let country = ctx
+            .world
+            .city(&profile(ctx).current_city)
+            .map(|city| city.country.clone())
+            .unwrap_or_default();
+        ctx.settings
+            .move_units(ff_core::units::UnitsEvent::ScreenAt(country));
         // Entering -- first arrival or coming back from a submenu -- drops any
         // backup announcement still owed to an earlier save: spoken text is
         // the interface, and a stale "Backed up to the cloud" landing minutes

@@ -51,7 +51,10 @@ pub fn settings_flips_mid_drive() -> Outcome {
             "imperial limit readout has no imperial units: {imperial_line}"
         ));
     }
-    rig.app.ctx.settings.imperial_units = false;
+    rig.app
+        .ctx
+        .settings
+        .set_units_mode(ff_core::units::UnitsMode::Metric);
     rig.run_frames(2);
     rig.drive.speak_speed_limit(&mut rig.app.ctx);
     rig.app.ctx.run_deferred();

@@ -1084,7 +1084,9 @@ fn test_the_stop_bar_countdown_shrinks_on_the_quieter_rungs() {
     // tick cannot make; quiet keeps one (owner, 2026-08-21).
     let mut app = an_app();
     let drive = a_drive(&mut app);
-    app.ctx.settings.imperial_units = true;
+    app.ctx
+        .settings
+        .set_units_mode(ff_core::units::UnitsMode::Imperial);
 
     app.ctx.settings.driving_speech = "standard".to_string();
     let standard = drive.ramp_bar_milestones(&app.ctx);
@@ -1118,7 +1120,9 @@ fn test_the_stop_bar_countdown_shrinks_on_the_quieter_rungs() {
     );
 
     // Metric behaves the same way against the same physical distances.
-    app.ctx.settings.imperial_units = false;
+    app.ctx
+        .settings
+        .set_units_mode(ff_core::units::UnitsMode::Metric);
     app.ctx.settings.driving_speech = "standard".to_string();
     assert_eq!(drive.ramp_bar_milestones(&app.ctx), vec![300, 150]);
     app.ctx.settings.driving_speech = "quiet".to_string();
@@ -1135,7 +1139,9 @@ fn test_the_quiet_stop_bar_call_is_the_distance_and_nothing_else() {
     // the limit is, so both halves are a re-read (owner, 2026-08-21).
     let mut app = an_app();
     let mut drive = a_drive(&mut app);
-    app.ctx.settings.imperial_units = true;
+    app.ctx
+        .settings
+        .set_units_mode(ff_core::units::UnitsMode::Imperial);
     app.ctx.settings.driving_speech = "quiet".to_string();
 
     drive.ramp_light_announced = true;
