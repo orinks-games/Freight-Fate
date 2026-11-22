@@ -5953,8 +5953,10 @@ a carrier slice (owner, 2026-10-26).
       from the sign sheet
       (`data/spider/signsheets/alaska-highway-bc-yukon-2026-11-22.md`),
       director's copy, baked on the legs; merges on Orinks's approval.
-- [ ] The sheet's 13 Highway 1 and 97 boards (Hope to Barkerville) move to
-      the West corridor's sheet, same copy, once its chain legs merge.
+- [x] The sheet's 13 Highway 1 and 97 boards (Hope to Barkerville) moved
+      to the West corridor's sheet
+      (`data/spider/signsheets/west-corridor-2026-11-22.md`), same copy,
+      re-placed on the chain legs; merges on Orinks's approval.
 - [ ] Billboard sheets for each Canadian corridor and the new Alaska
       routes, once the routing is in (owner, 2026-11-22: iconic real places
       and landmarks, the way the 1.9 attraction expansion did it), West

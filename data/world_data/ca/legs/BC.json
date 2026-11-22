@@ -4973,6 +4973,16 @@
             "source": "derived: name and category read from the OpenStreetMap tags of node 5080137065 (Jackass Mountain Summit); placed at the nearest projection of it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           },
           {
+            "name": "Hell's Gate Airtram (southbound, Cache Creek to Hope)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 74.0,
+            "spoken": "Billboard: Hell's Gate Airtram, ahead in the Fraser Canyon. A cable car down to where the whole river squeezes through its narrowest gap. Summer only. The river never closes.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Joan Blakeborough Museum",
             "category": "museum",
             "kind": "point",
@@ -5012,6 +5022,16 @@
             "source": "derived: name and category read from the OpenStreetMap tags of way 482528911 (Fraser River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           },
           {
+            "name": "Yale Historic Site (southbound, Cache Creek to Hope)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 97.0,
+            "spoken": "Billboard: Yale Historic Site, ahead. In the gold rush of eighteen fifty-eight the steamboats stopped here and the wagon road began. Gold panning in summer. Keep the day job.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Yale",
             "at_mi": 104.2,
             "off_mi": 0.03,
@@ -5019,6 +5039,16 @@
             "kind": "point",
             "source": "OpenStreetMap place=village node 52556072, projected onto the leg's checked-in route geometry, placed ahead of the speed zone it explains",
             "spoken": "Entering Yale"
+          },
+          {
+            "name": "Fort Hope (southbound, Cache Creek to Hope)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 112.0,
+            "spoken": "Billboard: Hope, ahead. More than eighty chainsaw carvings stand around town. Every driver says they are beyond Hope on the way out. The locals have heard it.",
+            "directions": [
+              "forward"
+            ]
           },
           {
             "name": "Sunshine Valley",
@@ -7393,6 +7423,16 @@
             "kind": "point",
             "source": "OpenStreetMap place=town node 52553491, projected onto the leg's checked-in route geometry, placed ahead of the speed zone it explains",
             "spoken": "Entering 100 Mile House"
+          },
+          {
+            "name": "One Hundred and Eight Mile Heritage Site (northbound, Cache Creek to Williams Lake)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 73.0,
+            "spoken": "Billboard: One Hundred and Eight Mile Heritage Site, ahead. Wagon road roadhouses and a huge log barn built in nineteen oh-eight for Clydesdales. The original horsepower lived well.",
+            "directions": [
+              "forward"
+            ]
           },
           {
             "name": "Forest Grove",
@@ -11330,6 +11370,16 @@
             "spoken": "Passing Harrison Mills"
           },
           {
+            "name": "Bridal Veil Falls (eastbound, Chilliwack to Hope)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 5.0,
+            "spoken": "Billboard: Bridal Veil Falls, ahead near Chilliwack. A tall fall of water sliding down smooth rock like a veil. Nobody has located the groom.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Rosedale",
             "at_mi": 9.3,
             "off_mi": 1.37,
@@ -11383,6 +11433,16 @@
             "kind": "point",
             "source": "OpenStreetMap place=village node 717574983, projected onto the leg's checked-in route geometry",
             "spoken": "Passing Harrison Hot Springs"
+          },
+          {
+            "name": "Fort Hope (eastbound, Chilliwack to Hope)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 25.0,
+            "spoken": "Billboard: Hope, ahead. More than eighty chainsaw carvings stand around town. Every driver says they are beyond Hope on the way out. The locals have heard it.",
+            "directions": [
+              "forward"
+            ]
           }
         ],
         "hpms_terrain": {
@@ -37442,6 +37502,16 @@
             "source": "derived: name and category read from the OpenStreetMap tags of way 482528911 (Fraser River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           },
           {
+            "name": "Yale Historic Site (northbound, Hope to Cache Creek)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 8.0,
+            "spoken": "Billboard: Yale Historic Site, ahead. In the gold rush of eighteen fifty-eight the steamboats stopped here and the wagon road began. Gold panning in summer. Keep the day job.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Yale",
             "at_mi": 17.2,
             "off_mi": 0.03,
@@ -37449,6 +37519,16 @@
             "kind": "point",
             "source": "OpenStreetMap place=village node 52556072, projected onto the leg's checked-in route geometry, placed ahead of the speed zone it explains",
             "spoken": "Entering Yale"
+          },
+          {
+            "name": "Hell's Gate Airtram (northbound, Hope to Cache Creek)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 25.0,
+            "spoken": "Billboard: Hell's Gate Airtram, ahead in the Fraser Canyon. A cable car down to where the whole river squeezes through its narrowest gap. Summer only. The river never closes.",
+            "directions": [
+              "forward"
+            ]
           },
           {
             "name": "Anderson River",
@@ -38102,6 +38182,16 @@
             "kind": "point",
             "source": "OpenStreetMap place=village node 717574983, projected onto the leg's checked-in route geometry",
             "spoken": "Passing Harrison Hot Springs"
+          },
+          {
+            "name": "Bridal Veil Falls (westbound, Hope to Chilliwack)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 14.0,
+            "spoken": "Billboard: Bridal Veil Falls, ahead near Chilliwack. A tall fall of water sliding down smooth rock like a veil. Nobody has located the groom.",
+            "directions": [
+              "forward"
+            ]
           },
           {
             "name": "Agassiz Harrison Museum",
@@ -65390,6 +65480,16 @@
             "spoken": "Entering Hixon"
           },
           {
+            "name": "Barkerville Historic Town (southbound, Prince George to Quesnel)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 48.0,
+            "spoken": "Billboard: Barkerville Historic Town, east of Quesnel. Billy Barker struck gold in eighteen sixty-two. The town burned in eighteen sixty-eight and was rebuilt in six weeks. Contractors, take note.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Cottonwood River",
             "category": "river",
             "kind": "point",
@@ -68166,6 +68266,16 @@
             "kind": "point",
             "source": "OpenStreetMap place=village node 52556464, projected onto the leg's checked-in route geometry",
             "spoken": "Entering Hixon"
+          },
+          {
+            "name": "The Exploration Place (northbound, Quesnel to Prince George)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 61.0,
+            "spoken": "Billboard: The Exploration Place, ahead in Prince George. Fossils inside, and outside, what the museum calls Canada's shortest passenger railway. It hauls no freight.",
+            "directions": [
+              "forward"
+            ]
           }
         ],
         "hpms_terrain": {
@@ -84531,6 +84641,16 @@
             "source": "derived: name and category read from the OpenStreetMap tags of way 167411579 (Lac La Hache Provincial Park); placed at the first road vertex inside it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           },
           {
+            "name": "One Hundred and Eight Mile Heritage Site (southbound, Williams Lake to Cache Creek)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 39.0,
+            "spoken": "Billboard: One Hundred and Eight Mile Heritage Site, ahead. Wagon road roadhouses and a huge log barn built in nineteen oh-eight for Clydesdales. The original horsepower lived well.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Forest Grove",
             "at_mi": 51.0,
             "off_mi": 10.06,
@@ -85364,6 +85484,16 @@
             "kind": "point",
             "source": "OpenStreetMap place=village node 2149482509, projected onto the leg's checked-in route geometry",
             "spoken": "Entering Kersley"
+          },
+          {
+            "name": "Barkerville Historic Town (northbound, Williams Lake to Quesnel)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 67.0,
+            "spoken": "Billboard: Barkerville Historic Town, east of Quesnel. Billy Barker struck gold in eighteen sixty-two. The town burned in eighteen sixty-eight and was rebuilt in six weeks. Contractors, take note.",
+            "directions": [
+              "forward"
+            ]
           },
           {
             "name": "Quesnel River",

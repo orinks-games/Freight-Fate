@@ -44,7 +44,7 @@
 - **Alaska roads now reach the Kenai Peninsula, Valdez and Deadhorse.** Seward, Valdez and Kenai offer only their real freight sites, and Deadhorse sells diesel.
 - **Hours of service now follow Alaska and Canadian rules where you drive.** You hear the new limits as you cross into each place.
 - **Billboards in Canada follow each province's sign law.** The everyday roadside signs no longer stand in the Yukon or in parks along the Alaska Highway.
-- **The Alaska Highway has billboards for its attractions.** From Mile Zero in Dawson Creek to the Sign Post Forest and Kluane, each board tells you a little about the place.
+- **Highway 97 and the Alaska Highway have billboards for their attractions.** From Hope and Barkerville to the Sign Post Forest and Kluane, each board tells you a little about the place.
 - **Billboards notice what you haul.** Cattle, a reefer load or doubles get their own signs, and now and then a board names your carrier.
 - **Fifty-four carriers now hire across the map, including Alaska.** Every lower-48 city has at least two regional carriers, and local carriers work 16 big cities and ports.
 - **Three new national carriers lean toward refrigerated freight, doubles, or steel, machinery and lumber.**
