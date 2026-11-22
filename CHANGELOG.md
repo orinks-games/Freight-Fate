@@ -5,152 +5,100 @@
 ### Compatibility
 
 - **Freight Fate now requires iOS or iPadOS 15 or later.**
-- **2.0 backup names cannot collide with 1.9 career names.** They use a separate ending, such as Road Star (Career 2).
-- **Deleting a career removes only its own version's cloud backup.** Closing out a 2.0 career also leaves older backups safe.
-- **2.0 careers have their own cloud backups.** A 1.9 career with the same name keeps its own backup.
+- **1.9 careers carry over on your first 2.0 start.** Your original copy stays playable in 1.9.
 - **Recoverable set-aside 1.9 careers now carry over to 2.0.** Their original files stay untouched.
 - **Imported careers keep their last-played order.** Continue selects the most recently played 1.9 career after copying it into 2.0.
+- **2.0 careers have their own cloud backups,** with names such as Road Star (Career 2), so a 1.9 career's backup stays its own.
+- **Deleting a career removes only its own version's cloud backup.** Closing out a 2.0 career also leaves older backups safe.
 - **1.9 cloud backups restored in 2.0 now become 2.0 careers.** Later backups identify the version needed to continue them.
-- **1.9 careers carry over on your first 2.0 start.** Your original copy stays playable in 1.9.
+- **A 1.9 Units choice of imperial becomes Automatic in 2.0.** A choice of metric stays metric.
 
 ### Added
 
-- **Units has a new Automatic choice, the default in 2.0.** Miles in the United States, kilometers in Canada, with one line when a drive crosses.
+- **The map now reaches Alaska,** from Tok and Fairbanks to Deadhorse, Anchorage, the Kenai Peninsula and Valdez, with real freight sites and highways.
+- **Skagway and Haines cross into the Yukon,** and Whittier is reached through the Anton Anderson Memorial Tunnel, with its one-lane gate and toll.
+- **Alaska's spring weight limits now apply.** From April to mid-June, offers on thawing highways carry lighter loads and name the road.
+- **The map now follows the Alaska Highway from Blaine through Prince George and Dawson Creek to Whitehorse,** on the real roads, bends and towns.
+- **The map now reaches Fort McMurray, Yellowknife, Prince Rupert, Stewart and Dawson City.** The Deh Cho Bridge charges trucks going north.
+- **The map now crosses western Canada,** from Vancouver to Winnipeg on the Trans-Canada and Yellowhead highways, with six more border crossings.
+- **The map now joins Winnipeg to Thunder Bay, Sault Ste. Marie, Timmins and North Bay** on Highways 17 and 11.
+- **The map now reaches Ontario and Quebec,** from Windsor and Sarnia through Toronto, Ottawa and Montreal to Quebec City.
+- **The map now reaches Thompson, Baie-Comeau, Sept-Îles and Chibougamau,** on Manitoba's Highway 6 and Quebec's northern routes.
+- **The map now reaches New Brunswick, Nova Scotia and Prince Edward Island,** through Houlton and Calais, with the Cobequid Pass and Confederation Bridge tolls.
+- **Trucks now stop for customs at every border crossing, both ways.** Driving past the booth brings a penalty, which a company driver's carrier pays.
+- **Dispatch now offers loads into Canada and back,** with customs time in the deadline. A US carrier may not haul between Canadian towns.
+- **A route between two US cities stays in the United States when a US road exists.** Alaska routes still run through Canada.
+- **Units has a new Automatic choice, the default in 2.0:** miles in the United States, kilometers in Canada, said once at the border.
 - **Kilometers now reach fuel, weights and signs.** Fuel is in liters, loads in tonnes, weights in kilograms and low bridges in meters.
 - **The cruise dial steps in the units you hear.** In kilometers it walks 95, 100, 105.
-- **Seventeen new achievements.** Earn them in Alaska, on the Alaska Highway, at customs, on a restart, with a carrier, hauling cattle and at the Laredo yards.
-- **Nine new achievements in Canada.** Earn them in Alberta, Saskatoon, Sudbury, Nova Scotia and Quebec, on both coasts and in every province.
-- **Live cattle are a new freight class from level 5.** Haul feeder calves from sale barns to feed yards, and fed cattle to beef plants, on a livestock trailer.
-- **Cattle react to hard braking and sharp turns.** Too much and they lose their footing or go down. Stop and choose Check the cattle to get one up.
-- **Cattle loads must arrive within the 28-hour limit.** You hear when 2 hours, 1 hour and 30 minutes are left, and the receiver names the shrink.
-- **Your hours of service stop counting within 150 air miles of a cattle load's shipper or receiver.** No 30-minute break is needed while cattle are aboard.
-- **Cattle heat up while the truck stands on a hot day.** On a hot afternoon at a cattle shipper, choose Load this evening to wait for the cool.
-- **The livestock handling certificate is free.** Your carrier sponsors it at level 6, or take the course yourself from level 5.
-- **Laredo now has two real border transfer yards for Mexico freight.** Southbound loads name their Mexican consignee and drop at the yard. Northbound trailers wait on paperwork first.
-- **Explosive and flammable tank loads now avoid the San Francisco-Oakland Bay Bridge.** The Mackinac Bridge toll is charged, and the Chesapeake Bay Bridge-Tunnel toll matches its published rate.
-- **Tolls now match each toll road's published truck rate.** The Maryland Bay Bridge now charges eastbound, and one-way tolls charge only one way.
-- **High winds now close the Chesapeake Bay Bridge-Tunnel and Mackinac Bridge to trucks.** Your truck waits on duty at the bridge until the wind drops.
-- **Hazardous and heavy loads now wait for an escort across the Mackinac Bridge.** The 20-minute wait counts as on duty.
-- **Tunnels and bridges now refuse only the hazardous loads they actually ban.** Explosives wait out weekday rush hours at the Golden Gate Bridge.
-- **Job details now name a hazardous load's material,** for example Gasoline, UN1203, Class 3.
-- **Simulated high winds now vary and ease off over a few hours.** Live weather reads the wind at the bridge itself.
-- **Toll roads you could drive for free now charge.** These include the New York Thruway and the George Washington, Bay and Golden Gate bridges.
-- **Dispatch now routes hazardous and tank loads around real tunnels that ban them,** such as by Loveland Pass or the Baltimore Beltway.
-- **Whittier is now reached through the Anton Anderson Memorial Tunnel,** with its one-lane gate and toll.
-- **You can call dispatch while stopped about the trip.** Report a delay, your hours, road conditions, truck trouble or load trouble.
-- **Trucks now stop for customs on the Alaska Highway and both ways at Blaine.** Driving past the booth brings a penalty, which a company driver's carrier pays.
-- **Alaska's spring weight limits now apply.** From April to mid-June, loads on thawing Alaska highways are lighter, and offers name the road setting the limit.
-- **Diesel in British Columbia and the Yukon now costs what it does there,** and Canadian pumps also say the price in Canadian dollars a liter.
-- **Heavy trucks in British Columbia are now held to 105 kilometers per hour, as the law requires.**
-- **Dispatch now offers loads into Canada and back.** Canadian cities from Vancouver to Quebec City, and up the Alaska Highway to Whitehorse, take deliveries from US cities.
-- **A board in Canada offers loads back to the United States only.** A US carrier may not haul between two Canadian towns.
-- **Deadlines for a load across the border include time at customs.**
-- **The Yukon now keeps Mountain Time.**
-- **Live weather no longer carries a US reading into Canada.** North of the border the sky is simulated, and weather alerts stay quiet.
-- **The map now reaches Alaska and northern Canada along the Alaska Highway,** from Blaine and Bellingham through Prince George, Dawson Creek and Whitehorse to Tok and Fairbanks.
-- **The map now reaches Alberta, Saskatchewan and Manitoba,** on the Trans-Canada and Yellowhead highways from Vancouver to Winnipeg, with six more border crossings.
-- **Diesel in Alberta, Saskatchewan, Manitoba, Ontario and Quebec now costs what it does there.**
-- **The map now reaches Ontario and Quebec,** from Windsor and Sarnia through Toronto, Ottawa and Montreal to Quebec City, with seven border crossings.
-- **The map now reaches New Brunswick, Nova Scotia and Prince Edward Island,** from Rivière-du-Loup to Halifax, Sydney and Charlottetown, with border crossings at Houlton and Calais.
-- **The Cobequid Pass and the Confederation Bridge now charge their tolls.** The bridge charges only when you leave Prince Edward Island.
-- **The clock now tells Atlantic Time in the Maritimes, and diesel there costs what it does there.**
-- **The map now reaches Thompson, Baie-Comeau, Sept-Îles and Chibougamau,** on Manitoba's Highway 6 and Quebec's Routes 113, 167, 172 and 138.
-- **The Gordie Howe, Blue Water, Lewiston-Queenston and Thousand Islands bridges charge their published truck tolls.**
-- **The map now reaches Fort McMurray, Yellowknife, Prince Rupert, Stewart and Dawson City.** The Deh Cho Bridge charges its toll, and trucks leaving Hyder clear customs at Stewart.
-- **The map now joins Winnipeg to Thunder Bay, Sault Ste. Marie, Timmins and North Bay** on Highways 17 and 11, with crossings at Pigeon River and the Sault Ste. Marie International Bridge, which charges its truck toll.
-- **A route between two US cities stays in the United States when a US road exists.** Alaska routes still run through Canada.
-- **Alaska roads now reach the Kenai Peninsula, Valdez and Deadhorse.** Seward, Valdez and Kenai offer only their real freight sites, and Deadhorse sells diesel.
-- **The map now reaches Skagway, Haines, North Pole, Nikiski, Port MacKenzie and the Fort Knox mine.** Skagway and Haines cross into the Yukon, with fuel at Haines Junction.
+- **Canadian speed limits are said as signed and apply from the line.** British Columbia holds heavy trucks to 105 kilometers per hour.
+- **Diesel and tolls in Canada cost what they do there.** Pumps and booths say the Canadian price, and you are billed in US dollars.
 - **Hours of service now follow Alaska and Canadian rules where you drive.** You hear the new limits as you cross into each place.
-- **Billboards in Canada follow each province's sign law.** The everyday roadside signs no longer stand in the Yukon or in parks along the Alaska Highway.
-- **Highway 97 and the Alaska Highway have billboards for their attractions.** From Hope and Barkerville to the Sign Post Forest and Kluane, each board tells you a little about the place.
-- **Ontario and Quebec have billboards for their attractions.** From the Big Nickel to the Château Frontenac and the Cité de l'Or, each board tells you a little about the place.
-- **Canadian roads keep Canada's holidays.** Canada Day and October's Thanksgiving get their own boards, and the Fourth of July stays south of the border.
-- **Western Canada has billboards for its attractions.** From the Othello Tunnels to Vegreville's giant egg, boards stand outside the parks and plain lines name places inside them.
-- **Billboards notice what you haul.** Cattle, a reefer load or doubles get their own signs, and now and then a board names your carrier.
-- **Fifty-four carriers now hire across the map, including Alaska.** Every lower-48 city has at least two regional carriers, and local carriers work 16 big cities and ports.
+- **The ELD now tracks your 70-hour, 8-day work cycle.** A 34-hour rest starts a fresh week, and the sleep that finishes it says so.
+- **The clock now keeps Atlantic Time in the Maritimes and Mountain Time in the Yukon and the Northwest Territories.**
+- **Fuel stops, lodges and rest areas now line the northern roads.** Loaded trucks fuel at the lodges, and only year-round stops are offered.
+- **Fifty-four carriers now hire across the map, including Alaska.** Regional carriers serve every lower-48 city, and local carriers work 16 big cities and ports.
 - **Three new national carriers lean toward refrigerated freight, doubles, or steel, machinery and lumber.**
-- **Fairbanks job boards now use real freight sites,** such as Costco, Fred Meyer and Spenard Builders Supply.
-- **Twin parcel trailers now stay on the Interstates.** Dispatch drops a lane that leaves them, and says so when no lane is left.
-- **The reefer and the APU now have their own keys,** Alt+R and Alt+U. Cold freight warms slowly with the reefer off, and the engine must be off to fuel.
-- **Turnpike doubles pull two 48-foot vans on the Thruway, Mass Pike and the Ohio, Indiana and Kansas turnpikes.** They need the doubles endorsement and the long combination vehicle certificate.
-- **A set of doubles now counts both trailers and the converter dolly in its gross weight,** and turnpike doubles use each turnpike's own weight limit.
-- **Hooking or breaking a set of doubles adds time on duty,** and the walk-around takes 25 minutes instead of 15.
-- **The rear trailer of a set of doubles can whip on a hard swerve at 40 miles per hour and up.** You hear it when it starts. Reverse is refused with doubles hooked.
-- **The ELD now tracks your 70-hour, 8-day work cycle.** When a day of cycle hours is left the status line says so, and a 34-hour rest starts a fresh week.
-- **Fuel stops, lodges and rest areas now line the Alaska Highway and the roads of British Columbia and Alaska.** A loaded truck can fuel at the lodges and town stations, and only stops open all year are offered.
+- **Live cattle are a new freight class from level 5,** hauled from sale barns to feed yards and from feed yards to beef plants.
+- **Cattle react to hard braking and sharp turns.** If one goes down, stop and choose Check the cattle to get it up.
+- **Cattle loads must arrive within 28 hours.** You hear when 2 hours, 1 hour and 30 minutes are left.
+- **Hours of service stop counting within 150 air miles of a cattle shipper or receiver,** and no 30-minute break is needed with cattle aboard.
+- **Cattle heat up while the truck stands on a hot day.** At a hot cattle shipper, choose Load this evening.
+- **The livestock handling certificate is free.** Your carrier sponsors it at level 6, or take the course yourself from level 5.
+- **Turnpike doubles pull two 48-foot vans on five turnpikes, from the Thruway to Kansas,** with the doubles endorsement and the long combination vehicle certificate.
+- **A set of doubles counts both trailers and the dolly in its weight,** and hooking or breaking a set adds time on duty.
+- **The rear trailer of a set of doubles can whip on a hard swerve at 40 miles per hour or more.**
+- **Twin parcel trailers now stay on the Interstates.** Dispatch drops a lane that leaves them.
+- **The reefer and the APU have their own keys, Alt+R and Alt+U.** Cold freight warms slowly with the reefer off.
+- **Laredo now has two border transfer yards for Mexico freight.** Southbound loads drop at the yard, and northbound trailers wait on their paperwork.
+- **Tunnels and bridges now turn away only the hazardous loads they ban,** and dispatch routes those loads around them. Job details name the material.
+- **High winds now close the Chesapeake Bay Bridge-Tunnel and the Mackinac Bridge to trucks.** Your truck waits on duty until the wind drops.
+- **Hazardous and heavy loads now wait 20 minutes for an escort across the Mackinac Bridge.**
+- **Toll roads and bridges now charge their published truck rates,** from the Thruway to the Golden Gate. One-way tolls charge one way.
+- **Simulated high winds now vary and ease off over a few hours.** Live weather reads the wind at the bridge itself.
+- **You can call dispatch while stopped about the trip.** Report a delay, your hours, road conditions, truck trouble or load trouble.
+- **Twenty-six new achievements,** earned in Alaska and Canada, at customs, with cattle, with one carrier, on a restart and at the Laredo yards.
+- **Billboards follow each state's and province's sign law,** with attraction boards across Canada and plain lines where boards are banned.
+- **Billboards notice what you haul.** Cattle, a reefer load or doubles get their own signs, and now and then a board names your carrier.
+- **Canadian roads keep Canada's holidays.** Canada Day and October's Thanksgiving get their own boards.
 
 ### Changed
 
-- **When a company driver's board has no load, dispatch now sends the truck empty to the nearest city that has one,** paid at the empty-mile rate.
-- **A company driver now loses only their own pay for a refused or damaged load,** not the load's full price. The damage deductible still applies.
-- **Alaska's highways now have their real bends, grades, lane counts and towns.** The road between Palmer and Wasilla is now called the Palmer-Wasilla Highway.
-- **Simulated weather in Alaska and Canada now gets as cold as the real winters there.** A January morning in Fairbanks now reads below zero Fahrenheit.
-- **Museums by the road are now said as you pass them.** "Gwinnett History Museum ahead" is now "Passing Gwinnett History Museum."
-- **A 1.9 Units choice of imperial becomes Automatic in 2.0.** A choice of metric stays metric.
-- **The career start list now runs local, regional, then national carriers, nearest terminal first.** The owner-operator start stays last.
-- **The British Columbia and Yukon highways now follow the real roads, with their bends, hills, exits and towns.** Surrey to Blaine is now 15 miles, 14 northbound.
-- **Canadian speed limits are now said as signed.** A 100 sign is 100 in kilometers and 62 in miles, and cruise holds that speed.
-- **Crossing into Yukon from Fort Nelson is now said once, near Lower Post.** A province line with no named place says just "Crossing into Yukon."
-- **Alaska, Yukon and British Columbia roads now use October's posted speed limits too.** Towns along the Alaska Highway slow you down, and the Glenn Highway runs at 65.
-- **A CDL pulled at speed now ends the run.** The truck stops on the shoulder, and a relief driver takes it back to the city the run left from.
-- **Dispatch trust no longer says the carrier may let you go while your CDL is pulled.** It says the seat is held until the suspension or disqualification ends.
+- **The player manual now covers 2.0,** including Alaska and Canada, the border, units, carriers and the hours rules in each place.
+- **The new roads, loads and achievements are translated in all eleven languages.**
+- **A new career starts at your carrier's terminal.** Pick a region, a home city, then a carrier hiring there.
+- **The career start list runs local, regional, then national carriers, nearest terminal first.** The owner-operator start stays last.
+- **Your home terminal is your carrier's own terminal,** such as Northstar Freight Lines Chicago terminal.
+- **The terminal says where your truck really is:** at your carrier's terminal, a facility, a truck stop, or just the city.
+- **If a carrier lets you go, a carrier hiring near your home takes you on.** If none can, choose Apply to a carrier.
+- **When a company driver's board has no load, dispatch sends the truck empty to the nearest city with one,** paid at the empty-mile rate.
+- **A company driver now loses only their own pay for a refused or damaged load.** The damage deductible still applies.
+- **A CDL pulled at speed now ends the run.** A relief driver takes the truck back to the city the run left from.
+- **Dispatch trust no longer says the carrier may let you go while your CDL is pulled.** It says your seat is held.
+- **A suspended or disqualified CDL no longer sends you to the dispatch board.** The terminal menu offers to wait it out instead.
 - **A debt firing or repossession is now said as you enter the terminal,** before the terminal menu.
-- **A suspended or disqualified CDL no longer sends you to the dispatch board.** The terminal menu offers Wait out the CDL suspension, or Wait out the CDL disqualification, instead.
-- **Your home terminal is your carrier's own terminal,** named for the carrier and the city, such as Northstar Freight Lines Chicago terminal.
-- **A new career starts at your carrier's terminal.** Pick a region, a home city, then a carrier hiring there. Each carrier row says where your truck starts.
-- **The terminal says where your truck really is:** at your carrier's terminal, at the facility where you last delivered, at a truck stop, or just the city.
-- **If a carrier lets you go, a carrier that hires near your home takes you on.** If none can, choose Apply to a carrier at the terminal.
-- **After a felony roadside stop the truck is towed to an impound lot in that city.** You post bond and are released after 12 hours of booking, logged off duty.
+- **After a felony roadside stop the truck is towed to an impound lot in that city.** Release takes 12 hours, logged off duty.
 - **Travel centers and truck parking lots are now for fuel, parking and rest only.** They never ship or receive freight.
+- **Simulated weather in Alaska and Canada now gets as cold as the real winters there.** A January morning in Fairbanks reads below zero Fahrenheit.
+- **Museums by the road are now said as you pass them.** "Gwinnett History Museum ahead" is now "Passing Gwinnett History Museum."
 
 ### Fixed
 
-- **Town lines that name a landmark now play.** Passing Gravenhurst names Bethune Memorial House, and Wembley names its dinosaur museum.
-- **Driving into the Northwest Territories now says "the Northwest Territories."** The District of Columbia gets its "the" too.
-- **A roadside attraction board is no longer skipped when a joke board came just before it.** Boards like Kingston Penitentiary's now play as you pass.
+- **Crossing into the District of Columbia now says "the District of Columbia."**
+- **Toll lines no longer say the word toll twice,** as in toll at Alligator Alley commercial toll.
+- **A roadside attraction board is no longer skipped when a joke board came just before it.**
 - **An empty run now parks and settles when it arrives,** without offering to drop a loaded trailer it never had.
-- **The sleep forecast in Canada now counts Canadian hours:** 13 hours of driving and a 16-hour shift.
-- **The loyalty readout now gives fuel in liters when distances are in kilometers.**
-- **Exits in Ontario and Quebec now name the road they lead to,** such as Route 255 or Highway 8, with directions in English.
-- **Canadian highways are now given the direction they run,** so Highway 400 to Barrie is north and the 401 to Kingston is east.
-- **A Canadian road with no speed sign on the map now takes the province's default limit,** such as 80 kilometers per hour in Ontario, instead of an American figure like 97.
-- **Toll lines no longer say the word toll twice,** as in toll at Gordie Howe International Bridge toll.
-- **Place names written partly in Cree syllabics now say only the English part,** such as Pasqua First Nation.
-- **Crossing into Canada or the United States now puts that country's speed limit in force at the line.** North of Coutts the truck no longer keeps Montana's 70.
-- **Mountain passes are now named only where the road goes over them.** Trail passes beside the highway, such as Saddleback Pass near Lake Louise, stay quiet.
-- **Alt 3 no longer names a town across the border as the nearest town,** such as Youngstown, New York from the Queen Elizabeth Way.
-- **The drive into Fairbanks no longer names Steele Creek and Farmers Loop as towns.** They are parts of Fairbanks.
-- **Town names no longer carry a reserve number or a stray capital,** so Okanagan 1 is Okanagan and JIm River is Jim River.
-- **Toll booths in Canada now say the Canadian price,** such as 35 Canadian dollars at the Blue Water Bridge. The carrier is still billed in US dollars.
-- **Cruise no longer sets a speed over the limit for an exit.** On a slow road before a ramp, it now holds the posted limit, so no speeding warning plays.
-- **A stop with only fuel pumps no longer offers a motel room or a night in the lot.**
-- **Moving up from the training fleet now only offers carriers that hire where you live.** Your truck waits at the new carrier's terminal.
-- **A translated game no longer leaves half a line in English** on the dispatch board or in any line naming a carrier's terminal.
-- **Dispatch calls now read cargo damage, hours and distance cleanly,** and no longer call a sound load damaged.
-- **The Alaska Highway border crossing now has its real name, the Alcan port.** Heading into Canada, you pass the Beaver Creek border post.
-- **Save notices now show their text on screen,** not only their title and OK.
-- **Training classes now leave you tired, at about half the rate of driving.**
-- **Setting the parking brake at a gate no longer repeats the reminder to set it.**
-- **Picking a home city or a carrier plays one select sound,** not two.
-- **Alaska is now its own region when you pick a home city.**
-- **The logbook now shows the hours you drove and unloaded on a delivery,** with the city names spoken.
-- **Each carrier row in a new career names its area once,** then the longest load it gives.
-- **Moving up to another carrier now says where your truck will start** before you confirm.
-- **The sleep that finishes a 34-hour restart now says your cycle clock reset.**
-- **A repossession with no carrier to take you on now names the city it looked near.**
+- **Mountain passes are now named only where the road goes over them.** Trail passes beside the highway stay quiet.
+- **Cruise no longer sets a speed over the limit for an exit.** On a slow road before a ramp, it holds the posted limit.
 - **Cruise coming back after a slowdown now says it once,** with the speed it will hold.
-- **The S key off the destination exit now reads the approach limit,** not the interstate's.
-- **Past the destination exit, the assists and the speed warning go by the approach limit.** Well over it on the ramp, you now hear the warning.
-- **The delivery screen now reads the receiver's cattle count and any freight claim.** Both had gone missing from the screen.
-- **A longer road from dispatch is now paid by the mile.** When construction sends a company driver the long way, pay and the miles credited follow the road.
-- **Twin-trailer loads now post the miles of the road they must take.** The board had posted the shorter road doubles may not use.
-- **The delivery screen now reads deductibles, an uncovered balance and road tickets.** They had only reached the spoken summary.
-- **Live cattle are no longer dropped in a yard.** A cattle load always unloads at the receiver.
-- **A hazardous load turned away at a tunnel now hears only why.** Chlorine is no longer told the bulk fuel rule.
-- **A reefer box left off on the road now warms at the same rate as at a stop.** It had been warming ten times slower while driving.
-- **Sleeping with cattle aboard now warns when they would pass the 28-hour limit,** and the hours readouts stop naming a 30-minute break that cannot come due.
-- **A refused reverse with doubles no longer plays the gear-shift sound,** and the doubles hook-up time is spoken once at the shipper and once at the receiver.
+- **Past the destination exit, the S key, the assists and the speed warning go by the approach limit,** not the interstate's.
+- **A stop with only fuel pumps no longer offers a motel room or a night in the lot.**
+- **Setting the parking brake at a gate no longer repeats the reminder to set it.**
+- **Dispatch calls now read cargo damage, hours and distance cleanly,** and no longer call a sound load damaged.
+- **Save notices now show their text on screen,** not only their title and OK.
+- **The logbook now shows the hours you drove and unloaded on a delivery,** with the city names spoken.
+- **A longer road from dispatch is now paid by the mile.** When construction sends a company driver the long way, the pay follows.
+- **The delivery screen now reads deductibles, an uncovered balance, road tickets and any freight claim.** They had only reached the spoken summary.
 - **A team load's deadline no longer leaves room for a 10-hour sleep,** at any urgency.
 - **A refused load's settlement no longer reads a pay figure or an on-time bonus.** It says the receiver refused it.
 

@@ -1,1202 +1,720 @@
-# Freight Fate 1.9 alpha test book
+# Freight Fate 2.0 alpha test book
 
-The 1.9 line is an opt-in alpha: a version with lots of changes, running
-ahead of the calm nightly line. This book is for the people testing it —
-it says what is different, how to hear each change for yourself, and when
-to call it working. The physics side (jake, brakes, ice, chains) has its
-own companion volume, `docs/physics-playtest-checklists.md`; this book
-covers everything else and points there for the winter suite.
+This book is for the people testing the first 2.0 alpha. It says what is
+new since 1.9.7, how to hear each change for yourself, and when to call
+it working. The physics side (engine brake, brakes, ice, chains) still has
+its own companion volume, `docs/physics-playtest-checklists.md`.
 
-Written for a screen-reader playtest: everything to verify is spoken,
-never visual. Each checklist says how to set it up, what to do, what to
-listen for, and when to call it a pass. Work them in order or
-cherry-pick — every one stands alone, except Chapter 0, which is setup
-you need before the game will behave the way the rest of this book
-describes.
+Everything to check is spoken. Each checklist says how to set it up, what
+to do, what to listen for, and when to call it a pass. Work them in order
+or pick the ones you like. Each stands alone, except Chapter 0, which is
+setup you need first.
 
-When something fails, note three things: what you did, what you heard,
-and what you expected to hear. That sentence pair is worth more than any
-log file.
+When something fails, write down three things: what you did, what you
+heard, and what you expected to hear. Quote a wrong spoken line as closely
+as you can; the exact wording is often the whole bug.
 
 ## Chapter 0. Before your first drive
 
-Four things you cannot work out by playing, and one thing that is missing
-on purpose. Read this chapter before you open the game; the rest of the
-book assumes you have.
-
-### 0.1 The alpha talks to a test server, not the real orinks.net
-
-Every online feature in this alpha — the drivers board, profile sharing,
-cloud backup — talks to a staging copy of the website
-instead of the real one. It is a separate site, with separate accounts
-and separate data.
-
-Three things follow from that, and all three are intended:
-
-- **Your real orinks.net sign-in will not work here.** Make a fresh
-  account on the staging site and use that one for the whole alpha.
-- **Nothing you do touches your real driver.** Your real profile, your
-  real board listing, and your real backups are untouched no matter what
-  you do in the alpha.
-- **Everything you make on staging is disposable.** Staging careers and
-  backups will not carry over when 1.9 releases. Never let a career you
-  care about exist only as a staging backup.
-
-Do not file "my orinks.net account is rejected" as a bug. What is worth
-reporting is a spoken line that says orinks.net without making clear
-which one you are being sent to, a refusal that leaves you no way to try
-again, or anything you do in the alpha showing up on the real site.
-
-### 0.2 Connecting an account is a code and a browser
-
-Setup: the staging account from 0.1, and a browser you can reach.
-
-Do: from the main menu, open Online, then "Set up orinks.net account".
-Choose the first item. If the browser does not open by itself, use "Say
-my activation code again" to hear it spelled out phonetically, or "Copy
-my activation code" to put it on the clipboard, and go to the site
-yourself. Sign in there and enter the code. Come back to the game and
-wait.
-
-Listen for: the game saying it is contacting the site, then reading you
-a short activation code; the menu item itself changing to say it is
-waiting for that code; a spoken re-orientation when you switch back to
-the game from the browser; and a confirmation naming your driver once
-the code is claimed.
-
-Pass when: you got connected using speech alone, you could replay the
-code as many times as you needed, and the confirmation said in so many
-words that your careers are backing up and profile sharing is on.
-
-The driver name in that confirmation is there to be checked, not
-admired: it is how you would find out somebody else claimed the code you
-just read aloud. If it is not your driver, say so.
-
-One deliberate design worth knowing, and it changed in 1.9: connecting
-an account now turns profile sharing and cloud backup on, because the
-career statistics on your public profile are read out of the backup, and
-an account that publishes nothing left new drivers looking at an empty
-profile. Both are single items on the Online menu if you want either
-off. A confirmation that claims otherwise, in either direction, is a
-bug.
-
-Also expected: right after you create your very first career, the game
-offers this setup once, unprompted, with "Not now" already selected. It
-is asked once ever and never again. That is not a stray prompt.
-
-### 0.3 What is already on before you touch anything
-
-Two things are on when you install: **Online services**, the master
-switch, and **Discord presence**. Discord presence shares only broad
-activity — main menu, driving a route, resting — and does nothing at all
-unless Discord is running. The master switch is only a master switch:
-everything underneath it is off or needs an account, so nothing is
-published because of it.
-
-Off until you turn each one on: live weather, traffic and parking. Profile sharing and cloud backup are off too until
-you connect an account, which is what turns them on — see 0.2.
-
-The radio plays its full dial out of the box, real public streams
-included. The streamer-safe setting is the opt-out: turn it on while
-streaming or recording and the radio keeps to built-in safe stations.
-
-The sharing switches all live on one screen: Online, on the main menu.
-The streamer-safe switch is under Settings, Audio. Live weather,
-traffic and parking are under Settings, Speech and weather, and they
-follow their own toggles — the master switch does not reach them.
-
-### 0.4 Hear what gets shared before any of it is shared
-
-Do: on the Online menu, before turning anything on, open account setup
-and choose "Hear what gets shared". Then start turning profile sharing
-on and choose the same item from the confirmation screen. Press F1 on
-each row of the Online menu.
-
-Listen for: one disclosure that says up front that connecting an account
-turns profile sharing on and starts backing your careers up, and where
-to turn either off; that names your driver name, broad on-duty board
-activity, eligible profile details, achievements, road-journal posts,
-the updates feed, and the game version you are running; and that says
-plainly what is never published — your real name, your full save,
-coordinates, cargo details, precise location, and the money you
-currently have. Lifetime career earnings are public; current cash is
-not.
-
-Pass when: you could hear the whole disclosure twice, from two places,
-without anything being transmitted, and every F1 row agreed with it.
-
-### 0.5 There is no driving school in this alpha
-
-The practice road where nothing counts is held back for a later
-release. It is not in the terminal menu and it is not hiding behind a
-level. **Do not file its absence as a bug.**
-
-What you get instead: a first-drive tutorial that walks you through
-starting the engine, waiting for air, releasing the parking brake and
-pulling away, and then stops; and "Learn game sounds" on the main menu
-and in the pause menu, which plays any road cue on demand in seven
-groups with F1 explaining what each one means. Everything past pulling
-away — lane changes, engine brake stages, long descents, exits — you
-learn on a real load.
-
-Worth reporting: a spoken prompt that tells you to go to the driving
-school, or a cue you met at speed that has no entry in Learn game
-sounds.
-
-## Chapter 1. What the alpha changes, system by system
-
-An exhaustive tour of the gap between the nightly you are used to and
-this alpha. Each entry names the chapter or companion checklist that
-tests it.
-
-**The truck is a different machine.** The engine brake is now a real
-three-stage jake working through the gears — strong in a low gear at high
-RPM, nearly useless in overdrive — and automatics pre-select down to put
-it to work. Brakes heat like real drums: drag them down a grade and they
-fade; jake-and-snub keeps them cool. Letting a downhill spin the engine
-past its limit now wears the engine. Companion volume, checklists 5
-and 9.
-
-**Winter is real.** Freezing rain is its own weather and the one worth
-parking for. Winter tires are a garage choice with trade-offs.
-Chains ride in the side box, take real minutes and fatigue to hang (more
-in the dark), transform ice stops and icy descents, and grind apart on
-bare pavement. Chain laws activate over the steep passes with flashing
-signs, warnings, and a citation that starts at 580 dollars and climbs if
-you have a record or are inside a construction zone. Worn tires
-hydroplane at lower speeds; the jake can break the drive wheels loose on
-ice. Companion volume, checklists 1 through 8.
-
-**Wear, and the truck it belongs to.** Tires, brakes, and engine each
-have their own wear meter, driven by how you actually drive. Wear talks
-back: bald tires grip less, worn brakes fade sooner, a tired engine loses
-power and drinks fuel. Condition — wear, damage, fuel — now stays with
-each truck instead of following your profile between tractors. Chapter 2.
-
-**Truck stops earn their parking lots.** Meals, showers, and rig care are
-purchasable at real branded stops, each good at what it is really known
-for, and the effects are spoken buffs with clocks on them. Road shops fix
-tires and brakes at brand-true prices; Big Buck's, famously, fixes
-nothing. Chapter 3.
-
-**The lane is a place.** Discrete lanes with real traffic in them:
-dodgeable hazards, sideswipe risk, construction lane closures, keep-right
-nags, and exits that gate on being in the right lane. Highway exits take
-a real setup — signal with X, get to the right lane, steer into the exit
-lane where it opens just before the gore, and slow down in it. Signalized ramp terminals run a stable green/yellow/red cycle with
-dedicated earcons and a cross-traffic clearance before green. Chapter 4.
-
-**Traffic has a clock.** Congestion is grounded in real federal traffic
-counts per leg: metro stretches jam at rush hour and flow free at
-midnight, and entering a live jam puts slow traffic in both lanes.
-Chapter 5.
-
-**Cities are driven, not teleported.** Tier-1 surface streets carry real
-turn-by-turn cues with direction-shaped earcons panned to the maneuver
-side. Arrivals flow off the ramp onto the destination's streets; loaded
-departures drive the streets out to the on-ramp. The terminal's dispatch
-board, garage, and truck dealer are all direct menu items, naming the
-real local dealer where sourced data exists. Chapter 6.
-
-**The law is watching more than your speed.** Weigh-station blow-pasts
-and severe visible damage draw stops; running from lights escalates to a
-felony stop with spike strips; construction zones stage a merge and
-flagger before the barrels; CB chatter hints at troopers ahead. Traffic
-stops read a real logbook — the in-cab Record of Duty Status — and dock
-work takes spoken on-duty time. Chapter 7.
-
-**Three trip-pacing modes.** Relaxed runs at ten times real time, Standard
-at twenty times, and Real time at normal speed. The retired Realistic
-pacing choice now uses Standard. Chapter 8 compares the accelerated modes.
-
-**The career reads like employment.** New careers choose among fictional
-starter carriers (assigned equipment, carrier-paid fuel and repairs,
-different wage and freight personalities) or a riskier owner-operator
-start. A 30-level business arc runs company ranks to the leased-on gate
-at 18, own authority at 25, independent ranks to 30. Dispatch freedom is
-earned: new hires run what dispatch assigns against a small decline
-budget; the full board unlocks at level 8; route choice belongs to
-owner-operators. Trailers, carrier accounts, reputation trust bonuses,
-endorsement courses, and a first-day briefing that repeats until your
-first load. Chapter 9.
-
-**172 achievements, in seven categories.** State, region, and city
-arrivals, cargo firsts, close calls, mishaps, and career milestones. The
-badge wall opens on the categories and each one counts what you have
-earned in it. Chapter 9 covers the spot checks.
-
-**The law costs money now, and money has a floor under it.** Every fine
-in the game lives on one schedule and most of them roughly tripled; a
-fine earned inside a construction zone is doubled, and every citation
-already on your record makes the next one dearer, up to twice the base.
-An unpaid fine becomes a balance you carry, only a quarter of each
-settlement goes to it, and the balance is not allowed to grow without
-end. Chapter 9.6.
-
-**The radio follows the map.** M toggles it, Page Down and Page Up tune
-to the next and previous of the stations you can actually receive, and
-Control with a tuning key jumps a whole category of the dial. The
-thirteen Freight Fate regional stations are always receivable wherever
-you are; real stations have real coverage and fade at the edge of it.
-The full dial plays out of the box; streamer-safe mode is the opt-out
-for anyone broadcasting their drive. The radio draws power from the
-engine and falls silent with it. Chapter 10.
-
-**The world got big and specific.** More than a hundred new dispatchable
-cities fill the dead zones — the mountain West, the northern plains, the
-Great Basin, Appalachia — on their real roads with real grades,
-checkpoints, and truck stops. Roadside landmarks speak as ambient chatter
-with per-kind switches in Settings. The career clock crosses real US time
-zones, spoken, with deadlines in destination local time. Chapter 11.
-
-**Online services point at a test server.** The drivers board, profile
-sharing and cloud backup all talk to a staging copy of
-orinks.net, with its own accounts and its own throwaway data. You need a
-fresh account there and your real one will not work. Chapter 0.
-
-**Cloud restores get a second integrity check.** Beyond the server's
-signature, a restored profile must pass the game's own sanity rules, and
-a file that fails is refused with a plainly spoken reason. Also shipping
-on the nightly line. Chapter 12.
-
-**Careers from before 1.9 do not carry over.** 1.9 rebalances pay,
-trucks and levels, so every driver starts fresh. Your old save is left
-untouched on this computer and still works in 1.8, and the game explains
-this when you try to continue one. This is intended, not a bug —
-Chapter 12 covers what is worth reporting about it.
-
-## Chapter 2. Wear meters and the truck they belong to
-
-### 2.1 The three meters move for three reasons
-
-Setup: an owner-operator profile with a loaded, longish leg — a few
-hundred miles of ordinary interstate.
-
-Do: before departing, open the truck status readout (Tab while driving,
-or the garage's condition readout in town) and note tire, brake, and
-engine wear. Drive the leg with some deliberate sins: ride the service
-brakes on one descent, hold a low gear past the shift point for a minute,
-run loaded the whole way. Deliver, and listen to the delivery summary.
-
-Listen for: the delivery summary telling you what the run added to each
-meter, separately. The status readout speaking all three meters any time
-you ask.
-
-Pass when: each meter moved and the summary attributed wear where you
-earned it — brake wear from the dragged descent, engine wear from the
-lugging and the loaded hours, tire wear from the miles.
-
-### 2.2 Wear talks back
-
-Setup: wear a truck through many legs or use an established
-high-mileage profile.
-
-Do: compare a hard stop and a fuel readout against a fresh truck's.
-
-Listen for: worn brakes pulling weaker and overheating sooner (the fade
-warning arrives earlier than the companion volume's fresh-truck
-anchors); a tired engine burning noticeably more fuel on the F readout
-over the same leg.
-
-Pass when: the worn truck is audibly worse in the way each meter
-promises, and the garage quotes a repair for exactly the worn item.
-
-### 2.3 Condition follows the truck, not you
-
-Setup: an owner-operator with enough money for a second tractor.
-
-Do: run your current truck until it carries obvious wear and a
-half-empty tank; note the readouts. Buy a second truck at the dealer and
-drive it. Then swap back.
-
-Listen for: the new truck rolling out fresh with a full tank — none of
-your first truck's wear or fuel state carried over. On the swap back,
-the first truck exactly as you left it: same wear, same tank.
+### 0.1 Back up your saves first
+
+Do this before you start the alpha for the first time.
+
+On Windows and Linux, Freight Fate keeps its saves in a folder called
+`saves` inside the game's own folder. Copy that whole folder somewhere
+safe. It holds your careers, your settings and the key that signs your
+careers; a career copied without that key can't be opened. On a Mac, the
+saves are in one folder for every copy of the game: copy
+`~/Library/Application Support/FreightFate` instead.
+
+### 0.2 Your 1.9 careers come with you, as copies
+
+The first time 2.0 starts, it copies every 1.9 career it can read into a
+`2.0` folder inside `saves`, and Continue picks the 1.9 career you played
+last. The 1.9 originals are not changed: 1.9 still plays them, and 1.9.7
+refuses to open a 2.0 career rather than damage it.
+
+Each copy of the game owns only the saves inside its own folder. So if
+you unzip the alpha into a new folder, it starts with no careers; copy
+your 1.9 `saves` folder into the alpha's folder before its first start.
+Switching Settings, Updates, Update channel to alpha in your 1.9 copy
+updates that copy in place, which keeps the saves but leaves you no 1.9
+build in that folder. Keep a separate 1.9 folder if you want to go on
+playing 1.9.
+
+A copied career keeps its name, and a new 2.0 career can't take a name a
+1.9 career already has.
+
+One known snag: 1.9 and 2.0 share the settings file when they share a
+folder. If you set Units to Imperial in 2.0 and then run 1.9, it comes
+back as Automatic in 2.0. Set it again; Metric survives.
+
+### 0.3 The alpha talks to the real orinks.net
+
+There is no test server this time. Online features, the drivers list,
+profile sharing and cloud backup, go to the real orinks.net with your real
+account. A 2.0 career backs up under its own name with "(Career 2)" on the
+end, such as Road Star (Career 2), so it never replaces the 1.9 backup of
+the same driver. Deleting a 2.0 career removes only the 2.0 backup.
+
+Your public profile may not name a 2.0 career's carrier or its Alaska and
+Canadian cities until the website's update goes live. Backups work either
+way. Don't report a missing carrier on the profile; do report a backup
+that is refused, or a 1.9 backup that changed.
+
+### 0.4 Settings worth knowing
+
+- **Units** (Settings, Gameplay, Controls) is Automatic in 2.0: miles in
+  the United States, kilometers in Canada. A 1.9 choice of imperial
+  becomes Automatic; metric stays metric.
+- **Weather source** and **Live weather controls calendar** (Settings,
+  Gameplay, World and traffic) decide the date and the weather. With live
+  weather on, the date is today's, so it is winter now in the north.
+  Live weather covers the United States only; in Canada the weather is
+  simulated.
+- **Speak billboards** (Settings, Speech) turns billboards on or off.
 
-Pass when: nothing teleported between tractors, and the garage in town
-fixes the truck you actually drove in, not the one parked.
+### 0.5 What isn't in this alpha
 
-### 2.4 The garage sells more than tires
-
-Setup: an owner-operator in town with worn brakes and a worn engine.
+Don't report these as missing; they are planned:
 
-Do: open the terminal garage and walk the service list.
-
-Listen for: brake jobs and engine overhauls offered alongside tire
-replacement, each quoting shop time and a real price. On a company
-driver profile, the same services billing the carrier instead.
+- No Canadian carrier, so no home city or career start in Canada.
+- No ferries: Juneau, Kodiak, Newfoundland and the other places with no
+  road are not on the map.
+- Not yet built: Route 138 east of Sept-Îles, The Pas and Flin Flon,
+  Route 389 and Labrador, the James Bay Road, the Dempster Highway to
+  Inuvik, the Liard Highway, and the Taylor and Top of the World
+  highways.
+- No wipers, frost or ice roads yet.
+- Cattle have no recorded sounds yet.
+- All eleven languages have the new spoken lines translated. If you
+  hear an English line while playing in another language, report it with
+  the line quoted.
 
-Pass when: each service restores its meter, costs an owner-operator real
-money, and takes spoken shop time.
+The full list of rough edges is [Known gaps](#chapter-11-known-gaps).
 
-## Chapter 3. Truck stops: meals, showers, and rig care
+## Chapter 1. What 2.0 changes
 
-### 3.1 One food buff at a time, and it never adds hours
+**The map reaches Alaska and Canada.** Alaska from Tok to Fairbanks,
+Deadhorse, Anchorage, the Kenai Peninsula, Valdez, Whittier, Skagway and
+Haines. Canada across British Columbia, the Yukon, the Northwest Territories,
+Alberta, Saskatchewan, Manitoba, Ontario and Quebec, and New Brunswick,
+Nova Scotia and Prince Edward Island. The north reaches Fort McMurray,
+Yellowknife, Prince Rupert, the Stewart-Cassiar Highway with Stewart and
+Hyder, Alaska, Dawson City, Thompson, Baie-Comeau, Sept-Îles and
+Chibougamau. Chapters 3 and 7.
 
-Setup: any loaded run past branded truck stops; note your fatigue in the
-Tab status menu, and your time at the wheel with Alt+A.
+**The border is a stop.** Every crossing has a customs booth both ways,
+with a chance of secondary inspection and a penalty for driving past.
+Loads go into Canada and back. Chapter 4.
 
-Do: pull into a stop (T at an announced stop) and buy a hot meal. Drive
-an hour, then buy an energy drink somewhere else.
+**Units follow the country.** Automatic speaks miles in the United States
+and kilometers in Canada, fuel in liters and loads in tonnes there, and
+Canadian prices at pumps and booths. Chapter 5.
 
-Listen for: the meal easing fatigue immediately and the status readout
-(Tab) naming the active food buff and how long it has left; the energy
-drink replacing the meal buff rather than stacking on it. Petro's Iron
-Skillet dinner beating a no-name diner's effect.
+**Hours follow the place.** Alaska, Canada south of 60 and north of 60
+each have their own limits and cycles. Chapter 6.
 
-Pass when: one food buff exists at a time, the readout tracks it, and
-your legal driving hours never grew — buffs touch fatigue, never the
-clock.
-
-### 3.2 The shower deal is real
-
-Setup: a run past a Pilot or Flying J with fuel below full.
-
-Do: buy fuel there, then check the shower price. Compare with a stop
-where you bought nothing.
-
-Pass when: the fuel purchase made the shower free, like real life, and
-without fuel it costs money.
-
-### 3.3 Rig care buffs, one per system
-
-Setup: an owner-operator mid-trip near a Speedco or Love's.
-
-Do: buy the lube-bay service, then a tire rotation, then a bottle of
-diesel additive at any fuel stop.
-
-Listen for: each purchase spoken with what it slows (engine wear for the
-lube bay, tread for the rotation, a little of both for the additive) and
-the status readout carrying one buff per rig system — a new lube
-purchase replaces the old one instead of stacking.
-
-Pass when: the delivery summary's wear lines come in lower than an
-unbuffed run of the same leg, and no purchase ever added driving hours.
-
-### 3.4 Road repairs are brand-true
-
-Setup: a worn truck and a route with a spread of branded stops (the
-interstate picks in the companion volume all qualify).
-
-Do: at a Love's or Speedco, ask for tires. At a TA or Petro, ask for a
-brake job. At some other major travel center, ask for tires. At Big
-Buck's, ask for anything.
-
-Listen for: Love's and Speedco replacing tires fast at close to the
-garage price; TA and Petro running full service shops that also do
-brakes on the road; other majors mounting tires at a spoken road markup;
-an engine overhaul always deferred to your terminal garage; Big Buck's
-fixing nothing, famously. Road shops selling the whole job or none of
-it — no partial repairs when cash is short.
-
-Pass when: every brand behaved by its real-world reputation and the
-prices said so out loud.
-
-## Chapter 4. Lanes, exits, and ramp lights
-
-### 4.1 The lane is discrete and the taps are real
-
-Setup: Settings, Driving assistance, Lane keeping set to off — that is
-the hardest setting on this row, not the mildest, so read the value
-clause before you commit. Any multi-lane interstate leg.
-
-Do: press L to hear your lane. Tap Left and Right arrows to change
-lanes; try one while on an exit ramp.
-
-Listen for: signal clicks with each timed change, L describing the new
-lane, and the ramp refusing: "You are on the exit ramp. No lanes to
-change."
-
-Pass when: every change is announced, lands in the adjacent lane, and
-the lane readout always agrees with what you last did.
-
-### 4.2 Change lanes or brake
-
-Setup: a busy leg with Standard trip pacing.
-
-Do: when a dodgeable hazard calls "Change lanes or brake!", dodge with a
-lane change instead of braking — but press L first to know where the
-traffic is.
-
-Listen for: a clean dodge when the adjacent lane is clear; sideswipe
-risk spoken when it is not; the CB nagging you to keep right if you camp
-the hammer lane afterward.
-
-Pass when: the lane change resolves the hazard and sideswiping
-real traffic carries real consequences.
-
-### 4.2a The warning leaves you time to answer it
-
-New on 2026-08-11, from Munchkinbear's report and Darren's logs. The
-truck used to take over almost the instant it warned you — often inside
-half a second, sometimes before the sentence had finished — and on hot
-brakes or a downgrade it fired on the same breath. Every recorded lane
-change had automatic braking cut in mid-move.
-
-Setup: automatic emergency braking on (it is on by default), Standard
-pressure, highway speed. Worth repeating on a long downgrade and again
-with brakes you have already cooked on a descent, because those are the
-cases that used to be worst.
-
-Do: when a hazard calls, count before you act. Then run it three ways —
-answer immediately with a lane change; answer late, a good two or three
-seconds in; and do nothing at all.
-
-Listen for: enough silence after the warning to hear it out and act. If
-you start a lane change, the change should finish and clear the hazard on
-its own; "Automatic braking" should not land on top of you part-way
-through the move. Doing nothing should end in the assist braking for you
-and actually stopping the truck — that changed the same day, and it is
-the second half of this checklist.
-
-Worth its own run: the assist says "Automatic braking" and uses the
-normal brakes, one steady application it holds to the end, and it only
-adds "Emergency braking engaged" when the stop it is actually making has
-stopped getting there in the time left. So take a hazard at the bottom of
-a long descent, with brakes you have already cooked and rain or ice
-underneath. That combination used to end in a collision after the truck
-had told you it was braking. On good brakes on level ground you should
-never hear the second line, and the air gauge should barely move.
-
-Pass when: you can hear the whole warning and still beat it, on every
-road and whatever state the brakes are in; and when you do nothing, the
-truck stops short of the hazard rather than announcing the stop and
-hitting it anyway.
+**Carriers decide where you start.** Fifty-four carriers. A new career
+picks a region, a home city and a carrier, and starts at that carrier's
+terminal. Chapter 2.
 
-Report if: the assist engages while you are mid-lane-change; the gap
-between the warning and the truck acting is shorter on one kind of road
-than another; or the truck brakes hard, says so, and still collides. The
-first two were the original bug and the third is the one found alongside
-it.
+**Northern weather is cold.** Simulated winters in Alaska and Canada match
+the real ones. Chapter 8.
 
-Turn automatic emergency braking off in Settings and the whole safety net
-goes with it — ignoring a hazard then is a collision, as it should be.
-That is the setting doing its job, not a regression.
+**Billboards follow sign law,** with new boards and landmarks for Canada
+and Alaska, and holidays by country. Chapter 8.
 
-### 4.3 Construction closes a real lane
-
-Setup: any leg that announces a construction zone.
+**New freight.** Live cattle, doubles on the Interstates and the
+turnpikes, hazardous loads routed around tunnels that ban them, bridges
+that close in high wind, the Laredo yards, and the reefer and APU keys.
+Chapter 9.
 
-Do: obey the merge — flagger and taper first, then the barrels. On a
-second pass, stay in the closing lane too long on purpose. Press L
-before and after, so you know how many lanes you had.
+**Twenty-six new achievements.** Chapter 10.
 
-Listen for: the staged approach in order (merge warning, flagger,
-taper), then, if you ignored it, plowing through the barrels: truck
-damage, a citation of 1,000 dollars or more, and a plain statement that
-it goes on your safety record. Enforcement pressure hinted on the CB a
-few miles out.
+## Chapter 2. Carriers and the career start
 
-Pass when: complying is calm, ignoring it costs both damage and money,
-and you were told the money was a citation and not a repair bill.
-
-Two rules here are deliberate, so do not report them as bugs:
-
-- **The barrels are charged once per construction zone**, however many
-  times they catch you inside it. That is one refusal to merge. The
-  damage still lands every time.
-- **The barrel citation is not doubled for being in a construction
-  zone**, unlike every other fine. Its amount is already the roadwork
-  penalty. Other citations you collect inside the zone are doubled, and
-  the game says so out loud when it doubles one.
+### 2.1 The career start list
 
-### 4.3a A construction zone never closes your only lane
+Setup: none.
 
-Setup: a leg that narrows to one lane your side — the road speaks the
-change ("Down to one lane your side", "Road widens to three lanes your
-side"), and L always answers with the lane count you actually have.
+Do: New career, enter a name, pick a region, then a home city. Try a big
+city (Chicago, Dallas), a small one in the plains (Billings), and
+Anchorage.
 
-Do: drive construction zones on stretches where the lane count changes.
+Listen for: "Career start. 12 carriers hire in Chicago, Illinois." (the
+count changes by city), then local carriers first, then regional, then
+national, nearest terminal first, with the owner-operator start last.
+Each row names the carrier's kind, what freight it leans toward, its
+longest loads, and the terminal where your truck starts. F1 on a row says
+more.
 
-Listen for: no merge demand and no barrel citation anywhere a second
-lane your side does not exist for the whole zone, taper included. You
-should never be ordered out of a lane you cannot leave.
+Pass when: every lower-48 city has at least eight carriers, Anchorage has
+two (Chatanika Freight Lines and Knik Arm Cartage), no Canadian city is
+offered as a home, and the distances in the rows are in your units.
 
-Pass when: every merge you were asked to make had somewhere to go.
-Being pinned in a coned-off lane with no open lane beside you is worth
-reporting immediately — note the two cities and roughly how far into the
-leg it happened.
+### 2.2 The first day at your carrier's terminal
 
-Also listen for: the side never changing its mind. The lane named in the
-advance warning, in U, at the taper, inside the work zone, and by any
-refusal when you ask to change lanes is one and the same lane. If you are
-told the right lane is closed and anything afterwards treats the left one
-as shut, report it. Where the road drops a lane under you, expect to hear
-which lane closed and which one you are now in — never silence followed by
-barrels.
+Setup: finish 2.1 with a carrier whose terminal is in another city.
 
-### 4.4 Exits take a setup
+Listen for: the briefing at "{carrier} {city} terminal", saying the
+carrier paid your travel from your home city; at the terminal menu, where
+your truck is parked; a level 1 board that isn't empty.
 
-Setup: any leg with announced exits; know your destination exit (R for
-progress, Shift+R for what the next exit offers).
+Pass when: the terminal names the carrier and its city, and your first
+assigned load leaves from there.
 
-Do: when your exit is announced, press X to commit to it. Follow the
-GPS: the right lane, then the exit lane where it opens. Once, miss the
-exit on purpose.
+### 2.3 Losing a job and getting a seat back
 
-Listen for: the GPS asking for the right lane only while you are out of
-it, and for the exit lane once, where it opens; checking your speed at the
-gore point, and explaining plainly what happens now that you missed —
-and merge/exit traffic pressuring the maneuver while you do it.
+Setup: a company career near the reputation floor or the debt ceiling.
+`FREIGHT_FATE_FORCE_PERSIST` off, so nothing sticks.
 
-Pass when: a set-up exit flows clean, a missed exit costs real miles and
-is explained, and X while a pull-over is pending signals that instead.
+Do: drive badly until the carrier ends your employment.
 
-### 4.5 The ramp light is an instrument
+Listen for: the news as you enter the terminal, before the terminal menu;
+a regional or local carrier near your home taking you on, never the one
+that ended it; Great Lakes Training Transport only when no regional or
+local hires there. With no carrier at all, the terminal offers Apply to a
+carrier where the dispatch board was.
 
-Setup: exits whose ramps end at a signal (thousands do — they are baked
-from real intersection data).
+Pass when: the new carrier hires near your home, and Get Back is earned
+at the next terminal visit once you're on another carrier's payroll.
 
-Do: take a ramp to its stop bar on a red; wait for the cycle. On another
-ramp, run the red deliberately.
+### 2.4 Moving up from Great Lakes
 
-Listen for: the dedicated red-light earcon and spoken callout at the
-bar, the distinct green earcon on release, and cross-traffic punishing a
-run red with more than words.
+Setup: a Great Lakes Training Transport career at level 4 with full
+dispatch trust.
 
-Pass when: red means stop, green frees you, and running it hurt.
+Do: open Business status and choose Move to another carrier.
 
-### 4.6 The ramp's ending is announced before the ramp
+Listen for: carriers that hire where you live, and "You start at their
+{city} terminal" before you confirm.
 
-Setup: any leg with announced exits.
+Pass when: the move names your new terminal, the truck waits there, and
+Takin' Care of Business is earned.
 
-Do: signal for an exit with X and listen to the whole announcement.
-Press U on the mainline before the exit. Then take the ramp and watch
-the clock: press C once on the open highway and again while braking
-down a ramp that ends in a light or sign.
+### 2.5 A 1.9 career carried over
 
-Listen for: the signal-on announcement naming the ending -- "The ramp
-ends at a stop sign." -- with a mile-plus still to drive, U carrying
-the same phrase, and time slowing to real seconds from the gore of a
-controlled ramp: the half mile down to the sign takes as long as it
-would take a real truck, not a compressed blink.
+Setup: Chapter 0.2, with at least one 1.9 career.
 
-Pass when: you always know how the ramp ends before you are on it, and
-you always have real time to brake for it. A free-flow ramp still
-passes in compressed time.
+Do: start 2.0. Choose Continue. Then start 1.9 from its own folder.
 
-### 4.7 Latching brake
+Listen for: Continue naming the 1.9 career you played last; the
+terminal saying where its truck is.
 
-Setup: Settings, Driving assistance, Latching brake on (the default).
+Pass when: the career plays in 2.0 with its money, level and record, and
+1.9 still opens the original unchanged.
 
-Do: stop, shift to reverse, then hold the throttle to go forward.
-Pump the pedal -- tap, then hold -- and do the same. On a long
-downgrade, tap the brake, then press it again and hold for half a
-second. Let go. Later, press it once to take it back. Latch it
-again and tap the accelerator.
+## Chapter 3. Alaska
 
-Listen for: getting out of reverse with a normal hold, including
-after pumping, with no "Throttle latched." and no catch click on
-the throttle. A brake catch click clearly different from the gear
-click, then "Brake latched."; the drums holding with your hands
-off; "Brake released." on the single press or instantly on the
-accelerator. A latched brake on a grade heats and fades exactly
-like a held one -- the latch never edits physics.
+### 3.1 The Alaska Highway
 
-Pass when: the throttle key never latches, reverse lets go with a
-normal hold, the brake gesture never fires from ordinary pumping
-taps, and every brake latch and release is spoken.
+Setup: a load or an empty run between Dawson Creek or Fort Nelson and
+Tok, Fairbanks or Delta Junction. `FREIGHT_FATE_FORCE_CITY` can park you
+in Whitehorse (`whitehorse_yt_ca`).
 
-## Chapter 5. Traffic with a clock
+Listen for: town names and lower limits through the towns along the
+highway; fuel stops, lodges and rest areas that say Fuel or No fuel;
+"Crossing into Yukon." near Lower Post, said once; the Alcan port on the
+way into Alaska and the Beaver Creek post on the way into Canada.
 
-### 5.1 Rush hour is a place and a time
+Pass when: you can plan fuel and sleep from Dawson Creek to Fairbanks
+with T and the Truck stops app, and every crossing call is said once.
+Drive the whole road, in pieces over several loads if you like, for The
+Long and Winding Road.
 
-Setup: a metro leg (into or out of Denver, Portland, or any big-city
-corridor). Two runs: one arriving in the commute window, one near
-midnight — the C key tells you the local clock.
+### 3.2 The Dalton to Deadhorse
 
-Do: drive the same stretch at both hours.
+Setup: a load to Deadhorse, in winter for Cold as Ice.
 
-Listen for: the rush-hour run jamming — spoken congestion, slow traffic
-injected in both lanes, your following distance doing real work — and
-the midnight run flowing free on the same asphalt.
+Listen for: Coldfoot, the Arctic Circle, Atigun Pass, the steep grades
+called with G, and Deadhorse selling diesel.
 
-Pass when: the difference between the two runs is unmistakable by ear
-alone, and rural stretches never fake a jam.
+Pass when: the grades over Atigun Pass are called, fuel at Coldfoot is
+offered, and the delivery earns Top of the World.
 
-## Chapter 6. Streets, the truck dealer, and both ends of the trip
+### 3.3 Whittier and the tunnel
 
-### 6.1 Turn-by-turn on real streets
+Setup: a drive to Whittier from Bear Valley.
 
-Setup: a delivery to a facility in a city with street-level data (big
-terminals usually qualify; the arrival announces itself street by
-street).
+Listen for: the Anton Anderson Memorial Tunnel's one-lane gate, its
+schedule and the toll.
 
-Do: follow the spoken maneuvers off the ramp to the gate.
+Pass when: the gate holds you until your direction opens, the toll is
+charged once, and the arrival earns Tunnel of Love.
 
-Listen for: each junction spoken with block-aware distance ("Turn right
-onto..."), a direction-shaped earcon panned to the maneuver side —
-falling chime left, rising chime right, steady tone ahead — and highway
-pressure language gone quiet on the streets.
+### 3.4 Spring weight limits
 
-Pass when: you can drive gate-to-gate by ear, and near-straight name
-changes say "Continue onto" instead of inventing a turn.
+Setup: a career date between April and mid-June, a Fairbanks or Anchorage
+board.
 
-### 6.2 Departures drive out, too
+Listen for: offers on thawing highways that name the road setting the
+limit, and lighter loads on them.
 
-Setup: a loaded run out of a facility that announced street-level
-arrival (chain-capable both ways).
+Pass when: the limit is named on the offer, and a load booked under it
+earns Travelin' Light on delivery.
 
-Do: accept the load and start driving from the gate.
+### 3.5 Skagway and Haines
 
-Listen for: the same streets outbound with every turn direction
-correctly flipped, then the on-ramp merge onto the highway with your
-clock and tolls continuous — no teleport to the interstate.
+Setup: a load into Skagway, or a run from Haines to Haines Junction.
 
-Pass when: the outbound chain mirrors the inbound one and the trip
-odometer never jumps.
+Listen for: the Klondike or Haines Highway into the Yukon, with a customs
+booth at each crossing, and fuel at Haines Junction.
 
-### 6.3 The truck dealer is a direct menu item
+Pass when: each crossing has its booth and its hours line, and the
+distance and fuel readouts make sense for a road this empty.
 
-Setup: any terminal city with a source-backed local dealer.
+## Chapter 4. The border
 
-Do: open **Truck dealer** from the terminal menu.
+### 4.1 The line, in order
 
-Listen for: the intro naming the real local dealer where sourced data
-exists, with no drive or menu teleport in between -- the dispatch board
-and the garage are the same way, each its own direct terminal item.
+Setup: Units on Automatic, a drive across any crossing. Blaine to Surrey
+is short.
 
-Pass when: the dealer name matches the city it claims to be, and the
-menu opens immediately.
+Listen for, in this order and each once: the crossing call ("Crossing
+into British Columbia near the Pacific Highway border crossing."), the
+time zone if it changes, "Speeds and distances are in kilometers now.",
+then "Canadian hours rules: 13 hours of driving and 14 on duty in a
+16-hour window." Coming back, "Speeds and distances are in miles now." and
+the US hours line. The new country's speed limit from the line.
 
-## Chapter 7. Enforcement and the working day
+Pass when: nothing is dropped and nothing is cut off. A line cut by
+another line and said again in full is known; note it if it bothers you.
 
-### 7.1 The logbook is real and the law reads it
+### 4.2 The customs booth
 
-Setup: a career a few deliveries old.
+Listen for: the port's name, its distance and agency, and "Every truck
+stops at the customs booth."; then "Customs booth in half a mile. Stop at
+the booth." (800 meters in kilometers).
 
-Do: in town, open the city menu's Logbook item and arrow through the
-entries. Then get pulled over on the road (speeding works) and listen.
+Do: stop at the booth. Choose Answer the officer's questions and hand
+over your documents.
 
-Listen for: Record of Duty Status lines that match what you actually did
-— drive blocks, on-duty dock time, rests — and the officer's stop
-referencing your logbook rather than ignoring it.
+Listen for: "The officer asks for your passport and checks the eManifest
+filed for this load.", then "Cleared. Welcome to Canada." or "Welcome to
+the United States."
 
-Pass when: the book matches your day and the stop reads it.
+Pass when: you had room to stop from the reminder, clearing took 10
+minutes on duty (check Alt+A before and after), Escape at the booth says
+"Customs has to clear you before you drive on.", and your first clearance
+earns Borderline.
 
-### 7.2 Weigh stations and visible damage
+### 4.3 Secondary inspection
 
-Setup: a leg with an announced weigh station; separately, a truck
-carrying severe damage.
+Do: cross several times. About one truck in ten is referred.
 
-Do: blow past the open scale once. Drive the damaged truck past patrol
-presence.
+Listen for: "Referred to secondary inspection. Officers examine the
+trailer for 45 minutes, then clear you."
 
-Listen for: the blow-past drawing a roadside stop with consequences;
-severe visible damage attracting a stop all by itself.
+Pass when: the 45 minutes show on the clock and in the logbook as on
+duty.
 
-Pass when: both stop types trigger from their true causes and resolve
-with spoken outcomes (fines, orders, or a clean release).
+### 4.4 Driving past the booth
 
-### 7.3 Running is a felony
+Do: drive through the booth at speed.
 
-Setup: courage, and a save you do not love. Get lit up, then do not
-stop.
+Listen for: "An RCMP cruiser is behind you with its lights on." going
+into Canada, or "A Border Patrol vehicle..." going south, then the stop,
+"Officers escort you and the truck back to the port.", and the penalty:
+5,000 US dollars the first time going south, 2,000 Canadian dollars going
+north, charged in US dollars.
 
-Listen for: escalating warnings, then the felony stop — spike strips,
-the arrest, and a loaded run cancelled out from under you.
+Pass when: a company driver hears the carrier pays; an owner-operator
+pays it; customs then clears you as in 4.2.
 
-Pass when: the escalation is staged and spoken all the way down, and
-the consequences land on your career, not just your ears.
+### 4.5 Loads into Canada and back
 
-### 7.3a A trooper who saw you does not forget
+Setup: a career at a national carrier other than Great Lakes, on a board
+near the border (Bellingham, Detroit, Buffalo, Minot).
 
-New on 2026-08-11, from JamminJerry's report of running whole routes over
-the limit with nothing ever happening. The game deliberately gives you
-one thing at a time, so an officer's look was held back whenever
-something else already had your attention — a hazard, an exit, a stop in
-progress — and then it was never given back. The look is now kept and
-acted on the moment the cab goes quiet.
+Listen for: loads to Canadian cities named with their province, "from
+Bellingham, Washington to Surrey, British Columbia". On the board in
+Canada, only loads to the United States.
 
-Setup: a long run, Standard pressure. There is nothing to set for
-enforcement any more — how loud the policed country sounds now comes from
-where you are and what time it is.
+Pass when: no Canadian board offers a load to another Canadian city; no
+twin trailer, cattle or placarded load crosses; Great Lakes and local
+carriers offer no Canadian loads; and the deadline leaves time for
+customs.
 
-Do: hold nine or ten over for a long stretch, on purpose, and keep
-driving through hazards rather than around them. The point is to be busy
-exactly when a trooper is looking.
+### 4.6 A town that ships nothing
 
-Listen for: the enforcement earcon before any post can see you — that
-never changes, and it is the rule that an officer you were never told
-about may not cost you anything. Then, after a hazard resolves, lights
-and siren arriving a little late rather than not at all.
+Setup: a company career.
 
-Pass when: a long over-the-limit run produces traffic stops at a rate
-that feels like a road with police on it, and every one of them was
-audible first.
+Do: deliver to Whitehorse, Watson Lake or Prince George, which ship
+nothing, then open the dispatch board.
 
-Worth knowing before you report: under nine over accrues nothing at all,
-by design. If you sit at eight over for a thousand miles and nothing ever
-happens, that is the game working. Ten over is the first speed anything
-can be built on.
+Listen for: an assigned empty run to the nearest city with a load, such
+as "Assigned load: Reposition, empty, to Skagway, Alaska, 177
+kilometers. Pays 54 dollars."
 
-### 7.4 Docks take time
+Pass when: the empty run parks and settles when you arrive, with no dock
+menu, and the next board has a load. An empty board with no way to leave
+is a bug.
 
-Setup: any pickup and delivery.
+## Chapter 5. Units, fuel and money
 
-Do: listen through the loading and unloading at both ends; check the
-clock (C) and your time on duty this shift (Alt+A) before and after.
+### 5.1 Automatic at the line
 
-Listen for: spoken on-duty time passing at the dock, pull-ins taking
-real minutes, and loaded launches ramping in heavy instead of leaping
-off the line.
+Setup: Automatic, cruise set before a crossing.
 
-Pass when: dock time shows up in the logbook as on-duty and your
-delivery windows price it in.
+Do: press Space before and after the line; press Plus and Minus in
+Canada.
 
-## Chapter 8. Three pressures, one truck
+Listen for: speed in miles per hour before and kilometers per hour after,
+with the truck's speed unchanged; the cruise dial stepping 95, 100, 105.
 
-### 8.1 Relaxed is calmer, not smaller
+Pass when: every readout after the line is in kilometers: distances, R,
+F (liters), the load (tonnes), low bridges (meters).
 
-Setup: the same leg, same load, driven twice: once in Relaxed, once in
-Standard (Settings, driving mode).
+### 5.2 Imperial and Metric
 
-Do: drive the leg in each mode with the same load.
+Do: drive the same crossing with Imperial, then with Metric.
 
-Listen for: Relaxed keeping every system — weather, traffic, air brakes,
-fatigue, hazards, consequences — but spacing hazards farther apart,
-allowing more response time, building damage and fatigue more gently,
-and speaking routine matters more quietly. Standard keeping the
-quicker decision cadence. Safety warnings staying ahead of hours and
-fatigue chatter in both.
+Pass when: Imperial stays in miles everywhere and a 100 sign reads 62;
+Metric stays in kilometers in the United States too; neither says a
+units line at the border.
 
-Pass when: the difference is pacing and breathing room, never missing
-systems — nothing in Relaxed feels like a feature was removed.
+### 5.3 Pumps, tolls and settlement
 
-## Chapter 9. The career is a job
+Setup: a Canadian fuel stop (McLeod Lake on the Alaska Highway, or
+Whitewood on Regina to Brandon), and a toll bridge such as the Blue Water
+Bridge.
 
-### 9.1 The first day lands
+Listen for: the price in Canadian dollars a liter and "N liters fueled";
+the booth saying the Canadian price, such as 35 Canadian dollars at the
+Blue Water Bridge.
 
-Setup: a brand-new career.
+Pass when: the pump and the booth speak Canadian dollars, and the
+settlement and your cash stay in US dollars.
 
-Do: walk the start: pick among the starter carriers (or the
-owner-operator start), listen to the first-day briefing, then stall —
-visit menus without accepting a load.
+## Chapter 6. Hours of service
 
-Listen for: each carrier pitched with its real trade-offs (wage,
-dispatch personality, freight mix, assigned equipment); the briefing
-repeating until your first dispatch is accepted; the Career plan
-terminal item naming your next practical step in plain words.
+### 6.1 The rules lines
 
-Pass when: a brand-new player who only listens knows exactly what to do
-next.
+Listen for, as you cross into each place:
 
-### 9.2 Dispatch freedom is earned
+- "US hours rules: 11 hours of driving in a 14-hour window, and a
+  30-minute break after 8 hours of driving."
+- "Alaska hours rules: 15 hours of driving and 20 on duty, with no
+  30-minute break."
+- "Canadian hours rules: 13 hours of driving and 14 on duty in a 16-hour
+  window."
+- "North of 60 hours rules: 15 hours of driving and 18 on duty in a
+  20-hour window." (the Yukon and the Northwest Territories)
 
-Setup: a new company-driver career.
+Pass when: each is said once at its line, after the crossing call.
 
-Do: try to refuse work. Decline dispatched loads until the budget runs
-dry; note what the board offers before level 8 and after.
+### 6.2 The readouts agree
 
-Listen for: declines drawing down a spoken budget that refills on
-promotion; declined loads staying declined; the full freight board
-unlocking at level 8; route choice refused until you are an
-owner-operator or run your own authority.
+Do: in each place, press C, Alt+A, Alt+S and Alt+D, and open the ELD app.
 
-Pass when: the freedom ladder matches your level and the game says why
-each rung is locked.
+Pass when: each reads the rules you are under ("Canadian hours rules. 13
+hours of driving, 14 hours on duty, and 16 hours of shift left."). Report
+any readout that names a 30-minute break in Alaska or Canada.
 
-Numbers to expect, so you can tell a wrong count from a design you did
-not like: a new hire gets three refusals per level band, four from level
-five. Each refusal costs two reputation, and one on-time delivery wins
-that back.
+### 6.3 The cycle and the restart
 
-**Declining hard has a second, slower consequence, and it is intended.**
-Dispatch trust slides down a four-rung ladder — full, guarded, poor, last
-chance — and each rung down takes a refusal off your budget, holds back
-freight, and slows how fast career experience arrives. Below guarded,
-picking your own loads is revoked even past level 8. Dispatch trust also
-answers to your CDL and to money you owe, not just to refusals, so a
-clean driver in debt can see it fall too. Ask for it any time: it is on
-the Career stats screen in town and on Tab, Driver while driving, and it
-names which of the three is holding it down and what brings it back.
+Setup: a career late in its week (60 or more hours on duty in the last
+8 days).
 
-Report the slowdown only if the game never told you it was happening.
-The rate is deliberately never spoken as a number.
+Listen for: the ELD status line saying a day of cycle hours is left; the
+sleep that finishes 34 hours off (36 in Canada) saying "Cycle clock
+reset."
 
-### 9.3 The money is a carrier's money
+Pass when: the restart clears the cycle, and Sunday Morning Coming Down
+is earned; at your home terminal, Take Me Home, Country Roads too.
 
-Setup: a company-driver career and an owner-operator career,
-side by side if you keep two profiles.
+### 6.4 Sleeping in Canada
 
-Do: fuel and repair on both. Deliver specialty cargo on time and watch
-the streaks.
+Do: at a Canadian stop, read the sleep row before choosing it.
 
-Listen for: the carrier covering a company driver's road fuel and
-routine repairs; the owner-operator paying real operating costs from day
-one; on-time streaks and specialty cargo compounding experience;
-reputation paying a continuous dispatch trust bonus you can hear in the
-offers.
+Pass when: it says "Afterward, driving allowance is 13.0 hours. Your
+legal driving window closes in 16.0 hours", the Canadian numbers.
 
-Pass when: the same purchase sounds different in the two careers, and
-personal money still buys endorsement courses and motel rest in both.
+## Chapter 7. Canadian roads
 
-### 9.4 Trailers and the long arc
+### 7.1 Speed limits
 
-Setup: a career at or past the level-18 leased-on gate (an established
-profile is fine).
+Listen for: a 100 sign read as 100 kilometers per hour; British Columbia
+holding heavy trucks to 105; an unsigned stretch taking the province's
+default, such as 80 in Ontario, never an American figure like 97.
 
-Do: walk the leased-on trailer program, then dispatch rows with trailer
-previews.
+Pass when: no limit sounds like a conversion ("19", "64", "113") and
+cruise holds the posted number.
 
-Listen for: dispatch rows previewing trailer fit and estimated take-home
-before you accept; owned trailers arriving with own authority at 25;
-guidance voices changing with the level band; haul-length caps growing
-through the arc instead of maxing early.
+### 7.2 Exits and directions in Ontario and Quebec
 
-Pass when: the trailer economics are spoken before commitment and the
-arc still has somewhere to go at level 25.
+Listen for: exits naming the road they lead to, such as Route 255 or
+Highway 8; Highway 400 to Barrie as north and the 401 to Kingston as east;
+French place names as signed.
 
-### 9.5 Achievement spot checks
+Pass when: no exit says a bare number, no direction is in French, and
+place names are said in a way you would recognize. Note any French name
+the voice gets badly wrong.
 
-Do: earn any three obvious ones — a first delivery, a state arrival, a
-close call — and check the badge wall.
+### 7.3 Time zones
 
-Pass when: each lands once, speaks its line, and nothing awards twice.
+Listen for: the local time line crossing into Saskatchewan and Manitoba
+(Central), Alberta (Mountain), Kenora (Central to Eastern), the Peace
+country around Dawson Creek (Mountain), the Yukon and the Northwest
+Territories (Mountain), and New Brunswick, Nova Scotia and Prince Edward
+Island (Atlantic).
 
-### 9.6 Owing money, and the floor underneath it
+Pass when: the clock after each line matches the zone, and the delivery
+appointment still uses the receiver's time.
 
-Fines got much bigger in 1.9 and testers have already done the
-arithmetic and got frightened. Here is the shape the game is actually
-built to, so you can tell us when it does not hold.
+### 7.4 Atlantic Canada
 
-**What is intended.** A fine you cannot pay does not simply take your
-cash negative and leave you there. It becomes a **balance owed** that
-you carry, and four rules govern it:
+Setup: a load across Houlton or Calais into Nova Scotia, then one to
+Prince Edward Island and back.
 
-- **Only a quarter of any settlement goes to the balance.** Three
-  quarters always reaches you. You can never finish a run with nothing
-  because of what you owe, so working always helps.
-- **There is a ceiling, and you are told what it is.** For a company
-  driver it is what the carrier will carry — roughly eight of your own
-  settlements, never less than 6,000 dollars. For an owner-operator it
-  is what the tractor would fetch at sale, never less than 12,000.
-- **You get three spoken warnings on the way there**: when a balance
-  first exists, when you pass halfway, and a last warning that leaves
-  real room — at least a couple of your own settlements — before
-  anything happens.
-- **No single citation can reach the ceiling on its own.** The worst
-  fine in the game, a repeat offender doing thirty over inside a
-  construction zone, tops out at 10,000 dollars against a 12,000 floor.
-  One traffic stop is never meant to end a career.
+Listen for: the customs booth, the Cobequid Pass toll in each direction,
+and the Confederation Bridge toll on the way off the island.
 
-**What happens at the ceiling.** A company driver's employment ends and
-they move to another fleet on shorter freight and lesser equipment. An
-owner-operator's lender takes the tractor back and they go on a payroll
-again. Both settle the balance to zero, both keep level, experience,
-endorsements, driving record and everything else owned, and both land as
-a screen you can arrow through line by line and re-read before you leave
-it. Neither is a game over and neither deletes a save.
+Pass when: the Cobequid Pass toll is charged each way, the bridge charges
+nothing going onto the island and once leaving it, and each toll is in
+Canadian dollars at the booth.
 
-If you are already at the fleet that hires anyone, there is nowhere
-further to fall, so the carrier holds the balance at the ceiling and
-writes off anything past it. It cannot grow.
+### 7.5 The Deh Cho Bridge toll
 
-Setup: a career you do not mind wrecking. An owner-operator start is the
-fastest route — 18,000 dollars of working capital against a 12,000
-repossession floor.
+Setup: a load from the United States to Yellowknife
+(`FREIGHT_FATE_FORCE_DEST` set to `yellowknife_nt_ca`, with a carrier
+that crosses the border), as a company driver.
 
-Do: collect citations on purpose. Blow an open scale, run fifteen or
-more over, ignore a merge into the barrels. Spend past zero at the
-garage. Between each one, check what you owe: Career stats in town, Tab
-then Driver while driving, or Business status. Ask dispatch for an
-advance once a balance exists. Keep going to the ceiling.
+Listen for: "Crossing into the Northwest Territories." and the north-of-60
+hours rules on the Mackenzie Highway. North of Hay River, "Crossing the
+Mackenzie River." then "Transponder toll at Deh Cho Bridge, 168 Canadian
+dollars, billed to carrier settlement."
 
-Listen for: every citation naming its amount and your remaining cash;
-the doubling spoken as a reason whenever a fine is doubled for being in
-a construction zone; the balance turning up in the delivery summary with
-what the settlement paid toward it; the three warning rungs arriving in
-order, each naming the ceiling and what happens there; a refused pay
-advance explaining that a share of every settlement is already spoken
-for; and the ending screen reading in order — the money, what it cost,
-what you keep, where you go next.
+Pass when: the toll is charged once going north and not at all on the
+way back south.
 
-Pass when: you were never surprised. Every rung was spoken before the
-next one, the ceiling was a number you had heard, three quarters of each
-settlement really did reach you, and the ending screen let you re-read
-every line before you left it.
+### 7.6 Leaving Hyder
 
-Worth reporting: a settlement that leaves you with less than three
-quarters of the net; a balance still growing after the ceiling on a
-last-chance carrier; an ending that arrives with no final warning before
-it, or that arrives while you still had a couple of runs of room; any
-line that calls you failed, bankrupt, fired, or says a save was lost;
-and any fine amount you cannot get repeated after the fact.
+Setup: a company driver parked in Hyder (`FREIGHT_FATE_FORCE_CITY` set
+to `hyder_ak_us`). Hyder has no freight, so dispatch sends you out
+empty, and the only road out runs through Stewart.
 
-## Chapter 10. Radio
+Listen for: "Stewart Port of Entry in half a mile, Canada Border
+Services Agency. Every truck stops at the customs booth.", then
+"Crossing into British Columbia.", "Crossing into Pacific Time.",
+"Speeds and distances are in kilometers now." and the Canadian hours
+rules. At the booth: "Stewart Port of Entry, Canada Border Services
+Agency. The officer asks for your passport and checks the eManifest
+filed for this load."
 
-### 10.1 The dial follows the map
+Pass when: you can't drive on from Stewart without stopping at the
+booth. Going the other way, into Hyder, nothing stops you, because there
+is no US port.
 
-Setup: a long leg crossing regions; radio on (M).
+## Chapter 8. Weather and billboards
 
-Do: tune with Page Down and Page Up (semicolon and apostrophe still
-work), ask for status with Y, open Local stations
-in the Radio app under Driver apps. Drive a long way and keep checking what the dial offers.
+### 8.1 Northern cold
 
-Listen for: only receivable stations in the dial rotation, and the list
-changing as you cross the country; hosts on the Roadhouse and Night Line
-at their hours.
+Setup: simulated weather (or live weather in Canada),
+January.
 
-Pass when: what you can tune matches where you are, and Local stations
-agrees with what Page Down actually gives you.
+Listen for: Fairbanks below zero Fahrenheit on a January morning,
+Whitehorse well below freezing, Seattle unchanged.
 
-The thirteen Freight Fate regional stations — The Rawhide, Big Wheel
-Country, Prairie Line and the rest — are receivable everywhere by
-design, so they do not fade at a market edge. That is not a broken range
-check. Real coverage, fringe static and the handover to the Roadhouse
-belong to real stations, which play out of the box on a fresh install.
+Pass when: temperatures fall as you drive north, and a July day in
+Fairbanks is mild.
 
-### 10.2 Streamer-safe on demand
+### 8.2 Live weather at the border
 
-Setup: a fresh install or reset settings.
+Setup: Weather source live.
 
-Do: check that real public streams and personal playlists are on the
-dial without touching anything — the full dial is the default. Then
-turn on the one streamer-safe switch under Settings, Audio, and check
-the dial again.
+Pass when: past the line the weather is simulated, alerts stay quiet,
+and live weather returns at the US line.
 
-Pass when: streamer-safe on leaves only built-in safe stations, and
-turning it back off restores the full dial.
+### 8.3 Billboards and sign law
 
-### 10.3 A dial this big needs jumping, not walking
+Setup: Speak billboards on.
 
-Setup: a fresh install — the whole dial is live by default: terrestrial,
-AFN, satellite, international, web radio, and your own playlists if you
-have any. Terrestrial lists the strongest signal first.
+Listen for: new boards and plain landmark lines along the Canadian and
+Alaska roads; no boards at all in Maine, Vermont, Alaska, Alberta, Prince
+Edward Island, the Northwest Territories or parks the road crosses, so in
+Alberta places are named plainly as you pass; only boards for places to
+visit in the Yukon, New Brunswick and Nova Scotia; holiday boards by
+country, Canada Day and October's Thanksgiving only in Canada. Between
+Barrie and North Bay, listen for "Passing Bethune Memorial House, in
+Gravenhurst." in place of the town's own name.
 
-Do: hold Control and press a tuning key repeatedly to walk the
-categories instead of the stations. Find a station you like and press O.
-Press O again on the same station. Jump to the Favorites category and
-check it is there. Keep tuning until something refuses to play.
+Pass when: a board names a real place you are near, none plays where
+boards are banned, and a US holiday board never plays in Canada.
 
-Listen for: each Control jump naming the category it landed in before
-naming the station; O confirming a station saved and then unsaved; a
-station that will not play handing over to another one in the same
-category rather than leaving you in silence, and then staying off the
-dial for the rest of the session.
+## Chapter 9. Freight
 
-Pass when: you could cross a dial of thousands of stations in a handful
-of presses, favorites survive a restart, and a dead stream never traps
-you twice in one session.
+### 9.1 Live cattle
 
-A retired dead stream comes back next time you play. That is deliberate:
-a stream that was down for an hour is not gone forever.
+Setup: a career at level 5 or more with the livestock handling
+certificate (free course from level 5).
 
-## Chapter 11. The world speaks
+Listen for: the head count in job details; the 2-hour, 1-hour and
+30-minute warnings before the 28-hour limit; cattle losing their footing
+after hard braking; Check the cattle when one goes down; the shrink at
+delivery.
 
-### 11.1 New country
+Pass when: a clean load earns Rawhide, and the hours readouts name no
+30-minute break while cattle are aboard.
 
-Setup: dispatch into the new territory — the Great Basin on I-80, the
-Hi-Line on US-2, I-70 over the Rockies, I-75 through the Kentucky
-mountains.
+### 9.2 Doubles
 
-Do: drive a leg that did not exist on the nightly line.
+Setup: the doubles endorsement; for turnpike doubles, the LCV certificate.
 
-Listen for: real roads with real checkpoints, grades that match the
-terrain out the window, truck stops (or a spoken rural-diesel fallback)
-on every leg, and fuel planning that actually matters on the empty
-stretches.
+Listen for: hook-up time once at the shipper and once at the receiver, a
+25-minute walk-around, the rear trailer whipping on a hard swerve at 40
+miles per hour, reverse refused.
 
-Pass when: the new corridor plays as fully as an old one — no silent
-miles, no missing fuel plan.
+Pass when: the board posts the miles of the road the doubles must take,
+and no doubles load is offered into Canada.
 
-### 11.1a The road holds its shape and its number
+### 9.3 Hazardous loads, tunnels and wind
 
-Two map fixes landed on 2026-08-11, both reported from this alpha. Sharp
-switchback calls were turning up on ordinary US and state routes away
-from the mountains, most often a mile or two out of a town; and the
-posted limit would drop and come straight back with nothing on the road
-to explain it.
+Listen for: the material in job details ("Gasoline, UN1203, Class 3"),
+routes around tunnels that ban the load, the Mackinac escort wait, a
+bridge closed in high wind.
 
-Setup: a long run on US and state routes rather than interstate, and at
-least one leg that leaves a town onto a two-lane. Standard pressure.
+Pass when: a load turned away hears only why, and wind and escort waits
+count as on duty.
 
-Do: drive the first few miles out of a town paying attention to the curve
-calls, then settle in and just listen to the speed limit for half an hour.
-Press the limit key whenever something sounds wrong, so you can tell a
-real sign from a phantom.
+### 9.4 Laredo
 
-Listen for: curve calls that match the road you are on — a hairpin only
-where the country is steep enough for one. And a posted limit
-that changes when the road changes and holds otherwise, rather than
-dipping and recovering for no reason you can hear.
+Setup: a southbound load to Laredo.
 
-Pass when: no switchback is called on flat or gently rolling ground, and
-a limit change is always something you can attribute — a town, a canyon,
-a state line, a work zone.
+Pass when: the load names its Mexican consignee, the trailer drops at
+the yard, and South of the Border is earned.
 
-Worth knowing before you report: real mountain country was left entirely
-alone, so US-550 over Red Mountain Pass and the Salt River Canyon still
-bend as hard as they ever did — those calls are correct. And a village
-main street really is posted low for half a mile, so a short drop with a
-town named around it is a real sign, not the bug.
+### 9.5 A refused load
 
-### 11.2 The chatter switches work
+Do: deliver a badly damaged load until the receiver refuses it.
 
-Setup: Settings, the Roadside chatter group.
+Listen for: "Load refused" as the title, "Pay for the load: none. The
+receiver refused it.", no on-time bonus.
 
-Do: drive a landmark-rich leg (national forests, named rivers, passes)
-with chatter on; flip the master switch off; then re-enable just one
-kind; then set verbosity to terse.
+Pass when: the settlement doesn't contradict itself, and a company driver
+is charged their own pay for the load, not its full price, plus the damage
+deductible.
 
-Listen for: ambient callouts for landmarks and parody billboards when
-on; total silence from the whole group when the master switch is off;
-only the chosen kind returning; terse verbosity muting it all
-regardless.
+## Chapter 10. Achievements
 
-Pass when: every switch does exactly what its label says, spoken
-settings round-trip included.
+Twenty-six new achievements. Seventeen come from Alaska, the border and
+the new freight: North to Alaska, Anchorage, Top of the World, Tunnel of
+Love, The Long and Winding Road, When It's Springtime in Alaska, Cold as
+Ice, Travelin' Light, Borderline, Sunday Morning Coming Down, Take Me Home,
+Country Roads, Workin' for a Livin', Get Back, Takin' Care of Business,
+Rawhide, Cattle Call and South of the Border. Nine come from Canada:
+Across the Border, Alberta Bound, Runnin' Back to Saskatoon, Sudbury
+Saturday Night, Farewell to Nova Scotia, Mon Pays, Northwest Passage, This
+Land Is Your Land, and one hidden. The checklists above say where most of
+them come from.
 
-### 11.3 Time is local
+Pass when: each is earned once, at the moment its description says, and
+Achievements reads its description. Past deliveries earn nothing; only
+Get Back reads your saved record.
 
-Setup: a leg crossing a zone boundary (Denver westbound works).
+### 10.1 Across the Border
 
-Do: check the clock before and after the crossing; take a load whose
-deadline lies across a boundary.
+Setup: a load from Detroit to Windsor.
 
-Listen for: the zone change spoken at the line, C reporting the new
-local time, and deadlines always read in the destination's local time.
+Do: deliver it.
 
-Pass when: you can never be surprised by an hour you were not told
-about.
+Listen for: "Across the Border" in the list of new achievements on the
+delivery summary. In Achievements, Places on the Map, the row reads
+"Earned: Across the Border. A load delivered in Canada."
 
-### 11.4 The comma walks back through what you heard
+Pass when: it is earned on that first Canadian delivery and not again.
 
-Setup: any busy drive -- callouts, status keys, a warning or two.
+### 10.2 Farewell to Nova Scotia
 
-Do: press comma once and you get the newest line, as always. Now press
-it again quickly, and again: each press steps one line older, spoken as
-"2 back:", "3 back:". Wait ten seconds and press once more. Then press
-Space (a fresh status line) and comma again.
+Setup: a load from Halifax or Truro to the United States.
 
-Listen for: the walk stepping through both voices' recent lines --
-menu speech and driving events share one history -- the position
-prefix on every older line, the pause snapping the key back to the
-newest line, and any fresh announcement doing the same.
+Do: deliver it.
 
-Pass when: a warning you missed two announcements ago is reachable in
-three presses, and a comma pressed cold always answers "what did it
-just say?".
+Listen for: "Farewell to Nova Scotia" on the delivery summary, not at
+pickup.
 
-## Chapter 12. Saves, restores, and the integrity gate
+Pass when: it is earned when the load is delivered.
 
-### 12.1 Old careers are turned away kindly
+### 10.3 Mon Pays
 
-1.9 does not continue careers made before it. This is deliberate: 1.9
-rebalances pay, trucks and levels, so an old high-level driver would
-arrive on a scale that no longer exists. Your old save is not touched
-and still works in 1.8. **Do not file the refusal as a bug** — what is
-worth reporting is a refusal that is confusing, silent, or that loses
-anything.
+Setup: a winter clock, and a load to anywhere in Quebec.
 
-Setup: a career made in 1.8 or on the nightly line, in place before you
-start the alpha.
+Do: deliver it. Then try a Quebec delivery outside winter on a fresh
+career.
 
-Do: open the career list and try to continue it.
+Pass when: only the winter delivery earns it.
 
-Listen for: the driver being named, a plain explanation that 1.9
-rebalances the whole career so everyone starts fresh, a clear statement
-that the old save is still on this computer and still works in 1.8, and
-an offer to start a new career.
+### 10.4 The hidden one
 
-Pass when: you understood why without needing to ask, nothing suggested
-the save was deleted or damaged, and you could get to a new career from
-where the message left you.
+Listen for: Deep Cuts in Achievements, where locked hidden rows read
+"Locked: A Secret the Manifest Is Keeping".
 
-### 12.2 Cloud restores still restore
+Pass when: no locked row gives a hidden achievement's name or
+description.
 
-Setup: a cloud backup made normally. If you have not set one up yet,
-Chapter 0 has the account and the backup switch — connecting the account
-turns cloud backup on, and it needs the staging account, not your real
-one. Remember that a staging backup is disposable: it is not a safe
-place for the only copy of a career.
+## Chapter 11. Known gaps
 
-Do: restore it.
+Known and recorded. Report them only if one costs you a load or a drive.
 
-Listen for: a clean, ordinary restore. The new integrity layer runs
-behind the server's signature on every restore; a valid save should
-restore without an integrity warning. If a restore is refused, the spoken
-line names the first problem in plain words. Include that sentence in the bug report.
+- Some northern links are thin on stops: Tok to Haines Junction has fuel
+  but no long rest stop; Timmins to Sudbury has fuel at Gogama but no
+  sourced overnight stop; five Prairie and Rockies links under 200 miles
+  have no 10-hour stop; Slave Lake to Peace River has fuel at High
+  Prairie but no sleep stop; Fort Providence to Yellowknife has no fuel
+  on the road, as in life, and one rest area; Highway 6 has no 10-hour
+  stop with a source between Ashern and Thompson; Route 167 has no fuel
+  for 118 miles south of Chibougamau, and Route 113 none for 128 miles
+  between Senneterre and Waswanipi.
+- Several northern stops are town stations or unnamed rest areas whose
+  truck access is assumed.
+- Kenora, Hearst and Kapuskasing use unnamed industrial land for freight.
+- About 75 Ontario and Quebec exits still sign a bare number.
+- Canada has no county lines, so Alt+5 says less there.
+- Canadian traffic is estimated, not read from provincial counts.
+- Canadian diesel prices are fixed 2025 averages.
+- Canadian rest menus offer the US rests; Canada's daily off-duty rules
+  and cycle 2 are not modeled.
+- The deadline plans the whole route on US rules.
+- Passports and FAST cards are not modeled; Huntingdon clears trucks on
+  weekends, when the real port is closed.
+- No Ambassador Bridge, Peace Bridge, Fort Frances crossing or Highway 407.
+- French and other place names have not all been checked by ear.
+- Twin parcel loads stay off Alaska and Canadian lanes.
 
-Pass when: valid saves restore without an integrity warning and any refusal
-you can provoke says exactly why.
+## Appendix A. Levers
 
-## Appendix A. Levers and keys
+Set these before launching the game, load your career from the main
+menu, and unset them when you're done. A lever session is a sandbox: you
+hear "Playtest sandbox: nothing this session is saved" and your real save
+resumes untouched next time. Add `FREIGHT_FATE_FORCE_PERSIST = "1"` only
+when you want the changes to stick.
 
-Weather forcing (`FREIGHT_FATE_FORCE_WEATHER`), the winter route picks,
-and the physics key list live in the companion volume,
-`docs/physics-playtest-checklists.md`. The README has the full key
-table. The keys this book leans on beyond the physics ones:
+In PowerShell:
 
-Driving: X commit to the exit (or signal a pull-over), L lane readout,
-I lane locator on and off, Left/Right steer or, with lane keeping on
-full, tap to change lanes, B the emergency brake, K automatic speed
-control, Shift+K resume it after braking cancelled it, Alt+T swap
-automatic and manual shifting, Alt+J whether J runs the automatic engine
-brake, T stop at an announced service, Enter accept a city-service
-arrival.
+    $env:FREIGHT_FATE_FORCE_CITY = "bellingham_wa_us"
+    $env:FREIGHT_FATE_FORCE_CLOCK = "8"
+    $env:FREIGHT_FATE_FORCE_DEST = "surrey_bc_ca"
 
-Asking: R progress, Shift+R next exit, U upcoming, S posted limit, D the
-one safe speed for here, G the grade and the next one, C clock,
-deadline, and the nearest hours limit, Alt+A time at the wheel this
-shift, Alt+S when the break is due, Alt+D what ends the shift and where
-you can stop before it, F fuel, A repeat last announcement, F1 the full
-key help.
+- `FREIGHT_FATE_FORCE_CITY`: park the career in a city, by key or plain
+  name.
+- `FREIGHT_FATE_FORCE_CLOCK`: roll the clock to the next time it reads
+  that hour (0 to 23), logged off duty.
+- `FREIGHT_FATE_FORCE_DEST`: the next new dispatch board offers a load to
+  that city when a road reaches it. A Canadian destination needs a board
+  that may send loads there.
+- `FREIGHT_FATE_FORCE_WEATHER`: see the companion volume.
 
-Radio: M on and off, Page Down and Page Up to tune (semicolon and
-apostrophe still work), Control with a tuning key to jump a category, O
-to save or unsave a favorite, Y for status.
+City keys are the city, the state or province, and the country, in lower
+case with underscores: `fairbanks_ak_us`, `whitehorse_yt_ca`,
+`yellowknife_nt_ca`, `hyder_ak_us`, `quebec_city_qc_ca`.
 
-Messages, on every screen: comma repeats the last spoken line and
-presses again walk back through the last 200, period moves forward,
-Control with comma or period jumps to the oldest or newest, the bracket
-keys switch between all messages, general messages and driving events,
-and Control C copies the one you are on.
-
-### Scenario levers
-
-Three more environment variables move a career into position for a
-scenario without hours of setup driving. All three speak what they did
-in plain words, move no miles and no money, and only touch a career
-that is parked with no load in progress.
-
-**A lever session is a sandbox by default.** The whole run — the
-relocation, any loads you take, money won or lost, damage, abandoned
-jobs — plays out in memory and is never saved. You hear "Playtest
-sandbox: nothing this session is saved" as the career loads, and your
-real save resumes untouched the next time you play normally. For the
-rare run whose changes should stick (moving your career home, say), set
-`FREIGHT_FATE_FORCE_PERSIST = "1"` alongside the levers and the session
-saves like normal play.
-
-Set the levers before launching the game, load your career from the
-main menu, and unset them when the scenario is done. In PowerShell:
-
-    $env:FREIGHT_FATE_FORCE_CITY = "denver_co_us"
-    $env:FREIGHT_FATE_FORCE_CLOCK = "21"
-    $env:FREIGHT_FATE_FORCE_DEST = "silverthorne_co_us"
-
-- `FREIGHT_FATE_FORCE_CITY` — relocate the parked career to a city
-  (slug or plain name) as the career loads. You hear "Playtest lever:
-  relocated to..." after the terminal announcement.
-- `FREIGHT_FATE_FORCE_CLOCK` — roll the career clock forward to the
-  next time the local wall clock reads that hour (0 to 23). The wait is
-  logged as off duty; ten or more hours counts as a full break and
-  resets hours of service, exactly like sleeping at the terminal.
-- `FREIGHT_FATE_FORCE_DEST` — the next freshly built dispatch board is
-  guaranteed to offer a load to that city when a supported corridor
-  reaches it, and assigned dispatch hands you that load first. If the
-  board was cached before you set the lever, sleep once or deliver a
-  load to refresh it.
-
-Unset with `Remove-Item Env:FREIGHT_FATE_FORCE_CITY` (and the same for
-the other two) before normal play. When shared profiles arrive, the
-event ledger must record forced relocations and clock moves so a
-shared save records those changes (see docs/profile-invariants.md).
+Unset with `Remove-Item Env:FREIGHT_FATE_FORCE_CITY`, and the same for
+the others.
 
 ## Appendix B. Reporting a run
 
-One line of setup, what you heard, what you expected. Say which chapter
-and checklist, your driving mode, and whether weather was forced. If a
-spoken line was wrong, quote it as closely as you can — the exact
-wording is often the whole bug.
+Report a problem on the main menu opens the report form with your game
+log attached. Say which chapter and checklist, your units and driving
+mode, whether weather was live or simulated, what you did, what you
+heard, and what you expected.
