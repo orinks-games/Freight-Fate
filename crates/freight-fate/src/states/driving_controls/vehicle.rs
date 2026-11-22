@@ -303,6 +303,10 @@ impl DrivingState {
             return;
         }
         self.trip.truck.set_parking_brake();
+        // Before anything is said: the confirmation below can cut a queued
+        // "Set the parking brake to check in.", and the hand-back reads the
+        // live facts to decide whether that line is still true.
+        self.refresh_live_facts();
         self.trip.truck.throttle = 0.0;
         self.cancel_cruise_for_parking_brake(ctx);
         let speed = self.trip.truck.speed_mph();

@@ -1295,3 +1295,16 @@ fn test_home_terminal_city_round_trips_unchanged() {
         assert_eq!(back.current_city, "Milwaukee");
     });
 }
+
+#[test]
+fn test_a_carrier_change_homes_from_where_the_driver_lives() {
+    // Fairbanks with the national default: a terminal in the lower 48.
+    let mut p = Profile::named_in("Northbound", "fairbanks_ak_us");
+    assert_ne!(p.home_terminal_city, "fairbanks_ak_us");
+    p.change_carrier("chatanika_freight", "Chatanika Freight Lines");
+    assert_eq!(p.home_terminal_city, "fairbanks_ak_us");
+    // A saved home wins over where the truck is.
+    p.home_city = "anchorage_ak_us".to_string();
+    p.change_carrier("knik_arm_cartage", "Knik Arm Cartage");
+    assert_eq!(p.home_terminal_city, "anchorage_ak_us");
+}
