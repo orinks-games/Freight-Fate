@@ -8,7 +8,7 @@ use ff_core::models::jobs::{Job, CARGO_CATALOG};
 use ff_core::models::profile::Profile;
 use ff_core::sim::outside::RIVER_SPAN_MI;
 use ff_core::sim::road_texture::joints::{JointSpan, SpanOrigin, MIN_SPAN_MI};
-use ff_core::sim::road_texture::song::{HeldSong, TireSong, HUM, WHINE};
+use ff_core::sim::road_texture::song::{HeldSong, TireSong, HUM, HUM_MIN_S, WHINE};
 use ff_core::sim::road_texture::{
     Axle, Crossing, Hit, RoadSurface, AXLE_GAP_M, OVERLAY_SEAM_FACTOR, POOR_SEAM_FACTOR,
     TRAILER_GAP_M,
@@ -391,4 +391,24 @@ fn a_held_song_plays_its_loop_at_a_pitch_that_follows_speed() {
 #[test]
 fn the_song_rides_the_road_surface_volume() {
     assert_eq!(loop_category(CH_ROAD_SONG), Category::Road);
+}
+
+#[test]
+fn the_main_street_bridge_grating_hums_and_the_road_past_it_is_quiet() {
+    use ff_core::sim::road_texture::song::Underfoot;
+    let mut app = TestApp::new();
+    let (mut drive, log) = a_drive(&mut app, "Jacksonville", "Miami", 0.85);
+    assert_eq!(drive.trip.underfoot_at(0.95), Underfoot::Grating);
+    // At route pacing the 0.07 mile grating passes in well under a second;
+    // the hum holds its three real seconds and then goes.
+    let mut hummed_s = 0.0;
+    for _ in 0..600 {
+        cruise(&mut drive, &mut app, 20.0, 12.0, FRAME);
+        if song(&log).is_some_and(|s| s.0 == HUM.key) {
+            hummed_s += FRAME;
+        }
+    }
+    assert!(drive.trip.position_mi > 1.05);
+    assert!((hummed_s - HUM_MIN_S).abs() < 0.1, "hummed {hummed_s} s");
+    assert_eq!(drive.road_texture.song, TireSong::Quiet);
 }

@@ -132,7 +132,7 @@ impl DrivingState {
             }
         }
 
-        self.update_tire_song(ctx, speed);
+        self.update_tire_song(ctx, speed, dt);
 
         self.road_texture.since_seam_rumble_s += dt;
         for hit in landed {
@@ -149,14 +149,15 @@ impl DrivingState {
 
 impl DrivingState {
     /// The whine or the hum, one loop on the Road surface volume. Ramps are
-    /// outside the highway soundscape, as for the seams.
-    fn update_tire_song(&mut self, ctx: &mut GameContext, speed: f64) {
+    /// outside the highway soundscape, as for the seams. `dt` is real
+    /// seconds, which the song's holds count.
+    fn update_tire_song(&mut self, ctx: &mut GameContext, speed: f64, dt: f64) {
         let under = if self.trip.on_ramp {
             ff_core::sim::road_texture::song::Underfoot::Plain
         } else {
             self.trip.underfoot_at(self.trip.position_mi)
         };
-        let song = self.road_texture.song.next(SongEvent::Under(under));
+        let song = self.road_texture.song.next(SongEvent::Under { under, dt });
         self.road_texture.song = song;
         match song.mix(speed) {
             Some((sound, rate, level)) => {

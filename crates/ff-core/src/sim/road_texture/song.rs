@@ -62,20 +62,67 @@ impl HeldSong {
     }
 }
 
+/// The real seconds a song has left to sound once its surface is behind
+/// the truck, and whether it is behind.
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct Hold {
+    pub left_s: f64,
+    /// The truck is past the surface; only the hold keeps the song.
+    pub past: bool,
+}
+
+impl Hold {
+    fn fresh(left_s: f64) -> Hold {
+        Hold {
+            left_s,
+            past: false,
+        }
+    }
+
+    fn after(self, dt: f64, past: bool) -> Hold {
+        Hold {
+            left_s: (self.left_s - dt.max(0.0)).max(0.0),
+            past,
+        }
+    }
+
+    fn holds(self) -> bool {
+        self.left_s > 0.0
+    }
+}
+
+/// A grating hums for at least this many real seconds from when the hum
+/// starts. Route miles pass 10 or 20 times faster than the wheels turn, so
+/// a movable span of 0.07 mile would otherwise be a 0.6 s burst. Assumed
+/// for the ear, in the manner of the river's hold.
+pub const HUM_MIN_S: f64 = 3.0;
+/// A concrete deck whines for at least this many real seconds: the bridge
+/// joints' own gap ([`super::joints::MIN_JOINT_GAP_S`]), so a short deck is
+/// thump, whine, thump and a long one still ends on its far joint. Pavement
+/// whine has no hold. Assumed for the ear.
+pub const DECK_WHINE_MIN_S: f64 = 1.5;
+
 /// What the tires are singing.
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+#[derive(Clone, Copy, Debug, PartialEq)]
 pub enum TireSong {
     Quiet,
-    Whine(Grooves),
-    Hum,
+    Whine(Grooves, Hold),
+    Hum(Hold),
     /// A staged scenario holds one song; it wins over the layer.
     Held(HeldSong),
 }
 
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+#[derive(Clone, Copy, Debug, PartialEq)]
 pub enum SongEvent {
-    /// The steer axle is now on this.
-    Under(Underfoot),
+    /// The steer axle is now on this, `dt` real seconds after the last.
+    Under { under: Underfoot, dt: f64 },
+}
+
+fn whine_hold(grooves: Grooves) -> f64 {
+    match grooves {
+        Grooves::AssumedDeck => DECK_WHINE_MIN_S,
+        Grooves::DerivedFromBuildYear => 0.0,
+    }
 }
 
 /// One of the two loops, with the speed it was made for.
@@ -115,18 +162,31 @@ pub const SONG_FADE_MS: u32 = 100;
 impl TireSong {
     /// The song a drive starts with.
     pub fn first(under: Underfoot) -> TireSong {
-        TireSong::Quiet.next(SongEvent::Under(under))
+        TireSong::Quiet.next(SongEvent::Under { under, dt: 0.0 })
     }
 
-    /// The only place the song moves. Grating wins over grooves, since the
-    /// layer gives the grating first; a hold never moves.
+    /// The only place the song moves. A hold never moves; a grating wins
+    /// over grooves, and a hum still holding wins over a whine; a song whose
+    /// surface is behind the truck sounds out its hold, then goes quiet.
     pub fn next(self, event: SongEvent) -> TireSong {
-        let SongEvent::Under(under) = event;
+        let SongEvent::Under { under, dt } = event;
+        let hold = match self {
+            TireSong::Held(_) => return self,
+            TireSong::Quiet => None,
+            TireSong::Whine(_, h) | TireSong::Hum(h) => Some(h),
+        };
         match (self, under) {
-            (TireSong::Held(_), _) => self,
-            (_, Underfoot::Plain) => TireSong::Quiet,
-            (_, Underfoot::Grooved(g)) => TireSong::Whine(g),
-            (_, Underfoot::Grating) => TireSong::Hum,
+            (TireSong::Hum(h), Underfoot::Grating) => TireSong::Hum(h.after(dt, false)),
+            (_, Underfoot::Grating) => TireSong::Hum(Hold::fresh(HUM_MIN_S)),
+            (TireSong::Hum(h), _) if h.after(dt, true).holds() => TireSong::Hum(h.after(dt, true)),
+            (TireSong::Whine(was, h), Underfoot::Grooved(g)) if was == g => {
+                TireSong::Whine(g, h.after(dt, false))
+            }
+            (_, Underfoot::Grooved(g)) => TireSong::Whine(g, Hold::fresh(whine_hold(g))),
+            (_, Underfoot::Plain) => match (self, hold.map(|h| h.after(dt, true))) {
+                (TireSong::Whine(g, _), Some(h)) if h.holds() => TireSong::Whine(g, h),
+                _ => TireSong::Quiet,
+            },
         }
     }
 
@@ -134,17 +194,19 @@ impl TireSong {
     pub fn sound(self) -> Option<SongLoop> {
         match self {
             TireSong::Quiet | TireSong::Held(HeldSong::Quiet) => None,
-            TireSong::Whine(_) | TireSong::Held(HeldSong::Whine) => Some(WHINE),
-            TireSong::Hum | TireSong::Held(HeldSong::Hum) => Some(HUM),
+            TireSong::Whine(..) | TireSong::Held(HeldSong::Whine) => Some(WHINE),
+            TireSong::Hum(_) | TireSong::Held(HeldSong::Hum) => Some(HUM),
         }
     }
 
     /// The song as the agent server's `status` reports it.
     pub fn describe(self) -> String {
+        let holding = |h: Hold| if h.past { ", holding" } else { "" };
         match self {
             TireSong::Quiet => "quiet".to_string(),
-            TireSong::Whine(g) => format!("whine ({})", grooves_origin(g)),
-            TireSong::Hum => "hum".to_string(),
+            TireSong::Whine(g, h) => format!("whine ({}{})", grooves_origin(g), holding(h)),
+            TireSong::Hum(h) if h.past => "hum (holding)".to_string(),
+            TireSong::Hum(_) => "hum".to_string(),
             TireSong::Held(h) => format!("held {}", h.name()),
         }
     }
@@ -165,102 +227,4 @@ impl TireSong {
 }
 
 #[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn test_the_song_transition_table() {
-        use Grooves::*;
-        use TireSong as S;
-        use Underfoot as U;
-        let held = [HeldSong::Quiet, HeldSong::Whine, HeldSong::Hum];
-        let froms = [
-            S::Quiet,
-            S::Whine(DerivedFromBuildYear),
-            S::Whine(AssumedDeck),
-            S::Hum,
-        ];
-        // (under, after) for every song that is not held.
-        let rows = [
-            (U::Plain, S::Quiet),
-            (
-                U::Grooved(DerivedFromBuildYear),
-                S::Whine(DerivedFromBuildYear),
-            ),
-            (U::Grooved(AssumedDeck), S::Whine(AssumedDeck)),
-            (U::Grating, S::Hum),
-        ];
-        for from in froms {
-            for (under, after) in rows {
-                assert_eq!(
-                    from.next(SongEvent::Under(under)),
-                    after,
-                    "{from:?} on {under:?}"
-                );
-            }
-        }
-        for h in held {
-            for (under, _) in rows {
-                assert_eq!(S::Held(h).next(SongEvent::Under(under)), S::Held(h));
-            }
-        }
-    }
-
-    #[test]
-    fn test_one_loop_change_per_transition() {
-        let whine = TireSong::Whine(Grooves::AssumedDeck);
-        assert_eq!(TireSong::Quiet.sound(), None);
-        assert_eq!(whine.sound(), Some(WHINE));
-        assert_eq!(TireSong::Hum.sound(), Some(HUM));
-        // Whine to hum swaps one loop for the other; how the game knows
-        // the grooves never changes the sound.
-        assert_eq!(
-            TireSong::Whine(Grooves::DerivedFromBuildYear).sound(),
-            whine.sound()
-        );
-        assert_eq!(TireSong::Held(HeldSong::Hum).sound(), Some(HUM));
-        assert_eq!(TireSong::Held(HeldSong::Quiet).sound(), None);
-    }
-
-    #[test]
-    fn test_the_mix_follows_speed() {
-        let whine = TireSong::Whine(Grooves::DerivedFromBuildYear);
-        // At its reference speed the loop plays at its own pitch and level.
-        let (_, rate, level) = whine.mix(WHINE.reference_mps).unwrap();
-        assert!((rate - 1.0).abs() < 1e-9);
-        assert!((level - WHINE.level).abs() < 1e-9);
-        // 35 mph after 65: the note drops with the speed, and so does the
-        // level, by the 1.5 power.
-        let (_, rate, level) = whine.mix(15.65).unwrap();
-        assert!((rate - 15.65 / 29.06).abs() < 1e-9);
-        assert!((level - WHINE.level * (15.65_f64 / 29.06).powf(1.5)).abs() < 1e-9);
-        // Above the reference the level is capped and the rate clamped.
-        let (_, rate, level) = TireSong::Hum.mix(40.0).unwrap();
-        assert_eq!(rate, SONG_RATE.1);
-        assert!((level - HUM.level).abs() < 1e-9);
-        // Under the seam speed it is silent; a quiet song never plays.
-        assert_eq!(whine.mix(SEAM_MIN_SPEED_MPS), None);
-        assert_eq!(TireSong::Quiet.mix(30.0), None);
-        let (_, rate, _) = whine.mix(6.0).unwrap();
-        assert_eq!(rate, SONG_RATE.0);
-    }
-
-    #[test]
-    fn test_status_names() {
-        assert_eq!(TireSong::Quiet.describe(), "quiet");
-        assert_eq!(
-            TireSong::Whine(Grooves::DerivedFromBuildYear).describe(),
-            "whine (derived from build year)"
-        );
-        assert_eq!(
-            TireSong::Whine(Grooves::AssumedDeck).describe(),
-            "whine (assumed, concrete deck)"
-        );
-        assert_eq!(TireSong::Hum.describe(), "hum");
-        assert_eq!(TireSong::Held(HeldSong::Whine).describe(), "held whine");
-        for h in ["quiet", "whine", "hum"] {
-            assert_eq!(HeldSong::from_name(h).map(HeldSong::name), Some(h));
-        }
-        assert_eq!(HeldSong::from_name("loud"), None);
-    }
-}
+mod tests;
