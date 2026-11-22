@@ -28296,16 +28296,15 @@ msgstr "这些已从这次结算里扣除。"
 msgid "Billed to the carrier, not deducted from driver pay."
 msgstr "由承运商支付，不从司机工资里扣。"
 
-#. placeholders: {grouped2}, {grouped3}, {charge_summary}
+#. placeholders: {grouped}, {grouped2}, {charge_summary}
 #. one sentence of a longer line
-msgid ""
-"Charges {grouped2}: tolls {grouped3}, extra charges {charge_summary}."
-msgstr "收费{grouped2}：通行费{grouped3}，配件{charge_summary}。"
+msgid "Charges {grouped}: tolls {grouped2}, extra charges {charge_summary}."
+msgstr ""
 
-#. placeholders: {grouped4}
+#. placeholders: {grouped3}
 #. one sentence of a longer line
-msgid "Costs {grouped4}."
-msgstr "成本 {grouped4}。"
+msgid "Costs {grouped3}."
+msgstr ""
 
 #. placeholders: {tons_text}, {cargo_label}, {destination}, {f}, {else}, {yard_drop}, {receiver_service_clause}, {clock_text}
 #. one sentence of a longer line
@@ -28314,30 +28313,33 @@ msgid ""
 "{else}.{yard_drop}{receiver_service_clause} {clock_text}."
 msgstr ""
 
-#. placeholders: {tons_text}, {cargo_label}, {destination}, {f}, {else}, {yard_drop}, {receiver_service_clause}, {clock_text}, {pay_label}, {grouped}, {grouped2}, {grouped3}, {charge_summary}, {accessorial_clause}, {status_label}, {grouped4}, {grouped5}, {grouped6}, {grouped7}, {service_area_phrase}
+#. placeholders: {tons_text}, {cargo_label}, {destination}, {f}, {else}, {yard_drop}, {receiver_service_clause}, {clock_text}, {pay_label}, {format}, {grouped}, {grouped2}, {charge_summary}, {accessorial_clause}, {status_label}, {grouped3}, {grouped4}, {grouped5}, {grouped6}, {service_area_phrase}
 msgid ""
 "Delivered {tons_text} of {cargo_label} to {destination} in {f} hours, "
 "{else}.{yard_drop}{receiver_service_clause} {clock_text}. {pay_label}: "
-"{grouped} dollars. Charges {grouped2}: tolls {grouped3}, extra charges "
+"{format}. Charges {grouped}: tolls {grouped2}, extra charges "
 "{charge_summary}. {accessorial_clause} Business status: {status_label}. "
-"Costs {grouped4}. Fines {grouped5}. Net {grouped6}, you have {grouped7}. "
+"Costs {grouped3}. Fines {grouped4}. Net {grouped5}, you have {grouped6}. "
 "Parked {service_area_phrase}."
 msgstr ""
 
-#. placeholders: {grouped5}
+#. placeholders: {grouped4}
 #. one sentence of a longer line
-msgid "Fines {grouped5}."
-msgstr "罚款{grouped5}。"
+msgid "Fines {grouped4}."
+msgstr ""
 
-#. placeholders: {grouped6}, {grouped7}
+#. placeholders: {grouped5}, {grouped6}
 #. one sentence of a longer line
-msgid "Net {grouped6}, you have {grouped7}."
-msgstr "净{grouped6}，你有{grouped7}。"
+msgid "Net {grouped5}, you have {grouped6}."
+msgstr ""
 
 #. placeholders: {accessorial_clause}, {status_label}
 #. one sentence of a longer line
 msgid "{accessorial_clause} Business status: {status_label}."
 msgstr "{accessorial_clause}经营状况：{status_label}。"
+
+msgid "refused by the receiver"
+msgstr ""
 
 msgid "on time"
 msgstr "准时"
@@ -28415,6 +28417,10 @@ msgstr "经营成本：{grouped}美元。"
 msgid "Business cost detail: {business_charge_summary}."
 msgstr "经营成本明细：{business_charge_summary}。"
 
+#. placeholders: {destination}, {grouped}
+msgid "In {destination}. Net {grouped} dollars."
+msgstr ""
+
 #. placeholders: {grouped}
 #. one sentence of a longer line
 msgid "Net {grouped} dollars."
@@ -28454,6 +28460,19 @@ msgstr "现在是{clock_text}。"
 msgid "Parked {service_area_phrase}."
 msgstr ""
 
+#. one sentence of a longer line
+msgid "The receiver refused it."
+msgstr ""
+
+#. placeholders: {pay_label}
+#. one sentence of a longer line
+msgid "{pay_label}: none."
+msgstr ""
+
+#. placeholders: {pay_label}
+msgid "{pay_label}: none. The receiver refused it."
+msgstr ""
+
 #. placeholders: {status_label}
 msgid "Business status: {status_label}."
 msgstr "经营状况：{status_label}。"
@@ -28481,6 +28500,9 @@ msgstr "路线：{join}。"
 #. placeholders: {distance_text}
 msgid "Distance credited: {distance_text}."
 msgstr "计入的距离：{distance_text}。"
+
+msgid "Load refused"
+msgstr ""
 
 #. one sentence of a longer line
 msgid "The balance holds where it is."
@@ -41762,6 +41784,19 @@ msgid ""
 "the engine, {pad_fuel} reads fuel, and {pad_speed_limit} reads the limit."
 msgstr ""
 "按住左肩键使用第二层按键。{pad_engine}控制发动机，{pad_fuel}读出燃油，{pad_speed_limit}读出限速。"
+
+#~ msgid ""
+#~ "Charges {grouped2}: tolls {grouped3}, extra charges {charge_summary}."
+#~ msgstr "收费{grouped2}：通行费{grouped3}，配件{charge_summary}。"
+
+#~ msgid "Costs {grouped4}."
+#~ msgstr "成本 {grouped4}。"
+
+#~ msgid "Fines {grouped5}."
+#~ msgstr "罚款{grouped5}。"
+
+#~ msgid "Net {grouped6}, you have {grouped7}."
+#~ msgstr "净{grouped6}，你有{grouped7}。"
 
 #~ msgid "Units: {else}"
 #~ msgstr "单位：{else}"

@@ -31274,18 +31274,15 @@ msgstr "Это вычтено из этого расчёта."
 msgid "Billed to the carrier, not deducted from driver pay."
 msgstr "Выставлено перевозчику, из оплаты водителя не вычитается."
 
-#. placeholders: {grouped2}, {grouped3}, {charge_summary}
+#. placeholders: {grouped}, {grouped2}, {charge_summary}
 #. one sentence of a longer line
-msgid ""
-"Charges {grouped2}: tolls {grouped3}, extra charges {charge_summary}."
+msgid "Charges {grouped}: tolls {grouped2}, extra charges {charge_summary}."
 msgstr ""
-"Расходы {grouped2}: плата за проезд {grouped3}, дополнительные услуги "
-"{charge_summary}."
 
-#. placeholders: {grouped4}
+#. placeholders: {grouped3}
 #. one sentence of a longer line
-msgid "Costs {grouped4}."
-msgstr "Расходы бизнеса {grouped4}."
+msgid "Costs {grouped3}."
+msgstr ""
 
 #. placeholders: {tons_text}, {cargo_label}, {destination}, {f}, {else}, {yard_drop}, {receiver_service_clause}, {clock_text}
 #. one sentence of a longer line
@@ -31294,30 +31291,33 @@ msgid ""
 "{else}.{yard_drop}{receiver_service_clause} {clock_text}."
 msgstr ""
 
-#. placeholders: {tons_text}, {cargo_label}, {destination}, {f}, {else}, {yard_drop}, {receiver_service_clause}, {clock_text}, {pay_label}, {grouped}, {grouped2}, {grouped3}, {charge_summary}, {accessorial_clause}, {status_label}, {grouped4}, {grouped5}, {grouped6}, {grouped7}, {service_area_phrase}
+#. placeholders: {tons_text}, {cargo_label}, {destination}, {f}, {else}, {yard_drop}, {receiver_service_clause}, {clock_text}, {pay_label}, {format}, {grouped}, {grouped2}, {charge_summary}, {accessorial_clause}, {status_label}, {grouped3}, {grouped4}, {grouped5}, {grouped6}, {service_area_phrase}
 msgid ""
 "Delivered {tons_text} of {cargo_label} to {destination} in {f} hours, "
 "{else}.{yard_drop}{receiver_service_clause} {clock_text}. {pay_label}: "
-"{grouped} dollars. Charges {grouped2}: tolls {grouped3}, extra charges "
+"{format}. Charges {grouped}: tolls {grouped2}, extra charges "
 "{charge_summary}. {accessorial_clause} Business status: {status_label}. "
-"Costs {grouped4}. Fines {grouped5}. Net {grouped6}, you have {grouped7}. "
+"Costs {grouped3}. Fines {grouped4}. Net {grouped5}, you have {grouped6}. "
 "Parked {service_area_phrase}."
 msgstr ""
 
-#. placeholders: {grouped5}
+#. placeholders: {grouped4}
 #. one sentence of a longer line
-msgid "Fines {grouped5}."
-msgstr "Штрафы {grouped5}."
+msgid "Fines {grouped4}."
+msgstr ""
 
-#. placeholders: {grouped6}, {grouped7}
+#. placeholders: {grouped5}, {grouped6}
 #. one sentence of a longer line
-msgid "Net {grouped6}, you have {grouped7}."
-msgstr "Чистыми {grouped6}, у вас {grouped7}."
+msgid "Net {grouped5}, you have {grouped6}."
+msgstr ""
 
 #. placeholders: {accessorial_clause}, {status_label}
 #. one sentence of a longer line
 msgid "{accessorial_clause} Business status: {status_label}."
 msgstr "{accessorial_clause} Статус бизнеса: {status_label}."
+
+msgid "refused by the receiver"
+msgstr ""
 
 msgid "on time"
 msgstr "вовремя"
@@ -31403,6 +31403,10 @@ msgstr "Расходы бизнеса: {grouped} {grouped:доллар|долл�
 msgid "Business cost detail: {business_charge_summary}."
 msgstr "Подробности расходов бизнеса: {business_charge_summary}."
 
+#. placeholders: {destination}, {grouped}
+msgid "In {destination}. Net {grouped} dollars."
+msgstr ""
+
 #. placeholders: {grouped}
 #. one sentence of a longer line
 msgid "Net {grouped} dollars."
@@ -31446,6 +31450,19 @@ msgstr "Сейчас {clock_text}."
 msgid "Parked {service_area_phrase}."
 msgstr ""
 
+#. one sentence of a longer line
+msgid "The receiver refused it."
+msgstr ""
+
+#. placeholders: {pay_label}
+#. one sentence of a longer line
+msgid "{pay_label}: none."
+msgstr ""
+
+#. placeholders: {pay_label}
+msgid "{pay_label}: none. The receiver refused it."
+msgstr ""
+
 #. placeholders: {status_label}
 msgid "Business status: {status_label}."
 msgstr "Статус бизнеса: {status_label}."
@@ -31473,6 +31490,9 @@ msgstr "Маршрут: {join}."
 #. placeholders: {distance_text}
 msgid "Distance credited: {distance_text}."
 msgstr "Засчитанное расстояние: {distance_text}."
+
+msgid "Load refused"
+msgstr ""
 
 #. one sentence of a longer line
 msgid "The balance holds where it is."
@@ -46772,6 +46792,21 @@ msgstr ""
 "Удерживайте left bumper для второго слоя кнопок. {pad_engine} управляет "
 "двигателем, {pad_fuel} называет топливо, а {pad_speed_limit} ограничение "
 "скорости."
+
+#~ msgid ""
+#~ "Charges {grouped2}: tolls {grouped3}, extra charges {charge_summary}."
+#~ msgstr ""
+#~ "Расходы {grouped2}: плата за проезд {grouped3}, дополнительные услуги "
+#~ "{charge_summary}."
+
+#~ msgid "Costs {grouped4}."
+#~ msgstr "Расходы бизнеса {grouped4}."
+
+#~ msgid "Fines {grouped5}."
+#~ msgstr "Штрафы {grouped5}."
+
+#~ msgid "Net {grouped6}, you have {grouped7}."
+#~ msgstr "Чистыми {grouped6}, у вас {grouped7}."
 
 #~ msgid "Units: {else}"
 #~ msgstr "Единицы: {else}"
