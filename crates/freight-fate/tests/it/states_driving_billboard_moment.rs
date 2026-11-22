@@ -6,6 +6,8 @@ use ff_core::data::billboards_dynamic::{
     holiday_signs, Holiday, CITATION_LINES, COLLISION_LINES, HOLIDAY_EVERY, SMALL_HOURS_LINES,
 };
 use ff_core::data::world::get_world;
+use ff_core::models::business_constants::INDEPENDENT_AUTHORITY;
+use ff_core::models::career::carrier_name_of;
 use ff_core::models::jobs::{Job, CARGO_CATALOG};
 use ff_core::models::profile::Profile;
 use ff_core::sim::trip_models::{TripEvent, TripEventData, TripEventKind};
@@ -19,9 +21,16 @@ const PLAIN: &str = "Billboard: Buffet: if it isn't on a steam table, it isn't d
 
 /// Buffalo to Rochester at noon in early spring: no holiday, not the small
 /// hours, so a pool sign reads as written unless the drive gives it cause.
+/// The driver runs on their own authority, so no carrier's sign answers.
 fn a_drive(app: &mut TestApp) -> DrivingState {
-    let world = get_world();
     let mut profile = Profile::named_in("Signs", "Buffalo");
+    profile.business_status = INDEPENDENT_AUTHORITY.to_string();
+    drive_for(app, profile)
+}
+
+/// The same drive for this driver.
+fn drive_for(app: &mut TestApp, mut profile: Profile) -> DrivingState {
+    let world = get_world();
     profile.tutorial_done = true;
     app.ctx.profile = Some(profile);
     let route = world
@@ -164,4 +173,23 @@ fn test_halloween_week_reads_varied_signs_true_in_new_york() {
             .unwrap_or_else(|| panic!("not a Halloween sign: {said}"));
         assert!(sign.holds_in(Some("NY")), "read in New York: {said}");
     }
+}
+
+#[test]
+fn test_a_company_driver_hears_the_carrier_one_sign_in_nine() {
+    let mut app = TestApp::new();
+    let profile = Profile::named_in("Signs", "Buffalo");
+    let carrier = carrier_name_of(&profile);
+    assert!(!carrier.is_empty(), "a new company driver has a carrier");
+    let mut d = drive_for(&mut app, profile);
+    let heard: Vec<String> = (0..18)
+        .map(|_| read(&mut d, &mut app, &pool_sign()))
+        .collect();
+    let named: Vec<usize> = heard
+        .iter()
+        .enumerate()
+        .filter(|(_, said)| said.contains(carrier.as_str()))
+        .map(|(n, _)| n)
+        .collect();
+    assert_eq!(named, vec![7, 16], "{heard:?}");
 }

@@ -11,6 +11,10 @@
 //! driver who cannot see the road toward a stop that is not there costs the
 //! drive, so each line is true on any road, on its day.
 
+use chrono::{Datelike, NaiveDate, Weekday};
+
+use crate::data::billboard_law::{country_of, Country};
+
 /// What happened since the last pool sign that Big Jim answers.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum Incident {
@@ -23,10 +27,16 @@ pub enum Incident {
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum Holiday {
     NewYear,
+    /// The Fourth of July: the United States only.
     Independence,
     Halloween,
+    /// United States Thanksgiving, in late November.
     Thanksgiving,
     Christmas,
+    /// The first of July: Canada only.
+    CanadaDay,
+    /// Canadian Thanksgiving, the second Monday of October.
+    CanadianThanksgiving,
 }
 
 pub const COLLISION_LINES: &[&str] = &[
@@ -56,29 +66,75 @@ pub const SMALL_HOURS_LINES: &[&str] = &[
     "Sleep is a gift. Unwrap it somewhere legal.",
 ];
 
-/// One holiday sign, and where its copy is true. An empty `states` list is
-/// true on any road; a line naming a region lists the states it holds in, so
-/// a Salem sign is never read in Texas.
+/// One holiday sign, and where its copy is true. A sign belongs to the
+/// countries that keep its holiday: a United States Thanksgiving board is
+/// read only on a road in the United States, so its pie never turns up in
+/// Quebec, while a Christmas board reads on both sides of the border.
+/// Within its countries an empty `states` list is true on any road; a line
+/// naming a region lists the states it holds in, so a Salem sign is never
+/// read in Texas.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct HolidaySign {
     pub text: &'static str,
+    pub countries: &'static [Country],
     pub states: &'static [&'static str],
 }
 
 impl HolidaySign {
-    /// True in this state (a two-letter code), or anywhere for an unanchored
-    /// line. A regional line is never read where the state is unknown.
+    /// True in this state (a two-letter code). An unanchored line holds
+    /// anywhere in its countries, and a road whose state is unknown counts
+    /// as the United States, as the whole map was before 2.0. A regional
+    /// line is never read where the state is unknown.
     pub fn holds_in(&self, state: Option<&str>) -> bool {
-        self.states.is_empty() || state.is_some_and(|s| self.states.contains(&s))
+        self.countries.contains(&road_country(state))
+            && (self.states.is_empty() || state.is_some_and(|s| self.states.contains(&s)))
     }
 }
 
-const fn anywhere(text: &'static str) -> HolidaySign {
-    HolidaySign { text, states: &[] }
+/// The country a road's state code is in; unknown counts as the United
+/// States.
+fn road_country(state: Option<&str>) -> Country {
+    state.map_or(Country::UnitedStates, country_of)
 }
 
+const BOTH: &[Country] = &[Country::UnitedStates, Country::Canada];
+const US: &[Country] = &[Country::UnitedStates];
+const CANADA: &[Country] = &[Country::Canada];
+
+/// A line true on any road of either country.
+const fn anywhere(text: &'static str) -> HolidaySign {
+    HolidaySign {
+        text,
+        countries: BOTH,
+        states: &[],
+    }
+}
+
+/// A line true on any road in the United States only.
+const fn us_only(text: &'static str) -> HolidaySign {
+    HolidaySign {
+        text,
+        countries: US,
+        states: &[],
+    }
+}
+
+/// A line true on any road in Canada only.
+const fn canada_only(text: &'static str) -> HolidaySign {
+    HolidaySign {
+        text,
+        countries: CANADA,
+        states: &[],
+    }
+}
+
+/// A line true only in the United States states it names.
 const fn in_states(text: &'static str, states: &'static [&'static str]) -> HolidaySign {
-    HolidaySign { text, states }
+    HolidaySign {
+        text,
+        countries: US,
+        states,
+    }
 }
 
 const NEW_ENGLAND: &[&str] = &["CT", "MA", "ME", "NH", "RI", "VT"];
@@ -91,8 +147,8 @@ const NEW_YEAR_SIGNS: &[HolidaySign] = &[
 ];
 
 const INDEPENDENCE_SIGNS: &[HolidaySign] = &[
-    anywhere("Happy Fourth of July. Somewhere a brother-in-law is lighting the loud ones. Mind the smoke."),
-    anywhere("Independence week. Flags on every porch, and a grill going in every yard for a thousand miles."),
+    us_only("Happy Fourth of July. Somewhere a brother-in-law is lighting the loud ones. Mind the smoke."),
+    us_only("Independence week. Flags on every porch, and a grill going in every yard for a thousand miles."),
 ];
 
 const HALLOWEEN_SIGNS: &[HolidaySign] = &[
@@ -114,8 +170,18 @@ const HALLOWEEN_SIGNS: &[HolidaySign] = &[
 ];
 
 const THANKSGIVING_SIGNS: &[HolidaySign] = &[
-    anywhere("Thanksgiving week. Somewhere a turkey is grateful you are hauling freight and not him."),
-    anywhere("Happy Thanksgiving. Every pie case in the country is full, and every pair of pants is worried."),
+    us_only("Thanksgiving week. Somewhere a turkey is grateful you are hauling freight and not him."),
+    us_only("Happy Thanksgiving. Every pie case in the country is full, and every pair of pants is worried."),
+];
+
+const CANADA_DAY_SIGNS: &[HolidaySign] = &[
+    canada_only("Happy Canada Day. The fireworks start at dusk. This far north in July, dusk takes its time."),
+    canada_only("Canada Day week. Fireworks over every lake, and somebody's uncle in charge of the barbecue again."),
+];
+
+const CANADIAN_THANKSGIVING_SIGNS: &[HolidaySign] = &[
+    canada_only("Happy Thanksgiving. It comes in October here, while the leaves are still worth looking at. The turkey has no opinion on the date."),
+    canada_only("Thanksgiving weekend. Canada holds it in October, and gets to the pie weeks ahead of the neighbors."),
 ];
 
 const CHRISTMAS_SIGNS: &[HolidaySign] = &[
@@ -140,12 +206,6 @@ pub struct Hauling<'a> {
     pub carrier: Option<&'a str>,
 }
 
-impl Hauling<'_> {
-    fn is_empty(&self) -> bool {
-        !self.cattle && !self.reefer && !self.doubles && self.carrier.is_none()
-    }
-}
-
 /// The lines each kind of load can hear. A carrier line holds `{carrier}`
 /// where the carrier's name is read.
 #[derive(Debug, Clone, Copy, Default, PartialEq, Eq)]
@@ -156,14 +216,43 @@ pub struct CargoPools {
     pub carrier: &'static [&'static str],
 }
 
-/// Signs for a cattle hauler. The director writes these; empty until then.
-pub const CATTLE_LINES: &[&str] = &[];
-/// Signs for a reefer load. The director writes these; empty until then.
-pub const REEFER_LINES: &[&str] = &[];
-/// Signs for a set of doubles. The director writes these; empty until then.
-pub const DOUBLES_LINES: &[&str] = &[];
-/// Signs that name the driver's carrier. The director writes these.
-pub const CARRIER_LINES: &[&str] = &[];
+/// Signs for a cattle hauler.
+pub const CATTLE_LINES: &[&str] = &[
+    "Welcome to cattle country. Your passengers already know.",
+    "Easy on the brakes, driver. Everyone behind you is standing.",
+    "Garden Gate Vegetarian Cafe. Endorsed by every passenger in your trailer.",
+    "Big Earl's Steakhouse. If your trailer is mooing, keep driving. It upsets the customers.",
+    "Leather goods outlet. Please park the trailer facing away.",
+    "Cowboy church, Sundays. The herd is welcome. The herd stays in the trailer.",
+];
+/// Signs for a reefer load.
+pub const REEFER_LINES: &[&str] = &[
+    "Hauling cold? Somebody's ice cream is counting on you. No pressure.",
+    "That hum behind your cab is a grocery store's whole weekend. Keep it cold.",
+    "Lettuce does not care about your schedule. Lettuce cares about the temperature.",
+    "Polar Pete's Ice Cream. Colder than your trailer. We checked.",
+    "Fresh, never frozen, says the diner. Your trailer says otherwise.",
+    "Frozen custard stand. Our freezer is older than yours, and it never complains.",
+];
+/// Signs for a set of doubles.
+pub const DOUBLES_LINES: &[&str] = &[
+    "Two trailers? Show-off.",
+    "Buy one trailer, get one free. Looks like you already did.",
+    "Backing lessons, by appointment. Doubles drivers, we cannot help you either.",
+    "The second trailer goes where the first one went. That is the theory.",
+    "Twin trailers: because one was not enough to worry about.",
+];
+/// Signs that name the driver's carrier.
+pub const CARRIER_LINES: &[&str] = &[
+    "{carrier} is hiring. You already work there. Tell a friend.",
+    "Drive for {carrier}. Ask the driver in front of this sign how it is going.",
+    "{carrier}: on time since this morning.",
+    "How is my driving? {carrier} would also like to know.",
+    "{carrier} salutes its drivers. This sign was cheaper than a raise.",
+    "Proud home of {carrier}. Our drivers get home eventually.",
+    "Big Jim Tolliver has never sued {carrier}. Keep it that way.",
+    "This mile of highway is sponsored by {carrier}. The litter is not ours.",
+];
 
 /// The cargo lines that ship.
 pub const CARGO_POOLS: CargoPools = CargoPools {
@@ -178,34 +267,52 @@ pub const CARGO_POOLS: CargoPools = CargoPools {
 pub const CARGO_EVERY: usize = 3;
 const CARGO_PHASE: usize = 1;
 
+/// Of the cargo slots, the carrier takes one in this many (one pool sign in
+/// nine), so a company driver is not read the carrier's name all career.
+pub const CARRIER_EVERY: usize = 3;
+const CARRIER_PHASE: usize = 2;
+
 /// The cargo line for this sign, from these pools, or None.
+///
+/// Every third pool sign is a cargo slot. Every third cargo slot is the
+/// carrier's, when the driver has one; the others draw only from the load
+/// aboard (cattle, reefer, doubles), and stay everyday signs without one.
 fn cargo_line(pools: &CargoPools, hauling: Hauling, nth: usize, offset: usize) -> Option<String> {
-    if hauling.is_empty() || nth % CARGO_EVERY != CARGO_PHASE {
+    if nth % CARGO_EVERY != CARGO_PHASE {
         return None;
     }
-    let mut here: Vec<String> = Vec::new();
+    let slot = nth / CARGO_EVERY;
+    let carrier = hauling
+        .carrier
+        .map(str::trim)
+        .filter(|name| !name.is_empty() && !pools.carrier.is_empty());
+    if let Some(name) = carrier {
+        if slot % CARRIER_EVERY == CARRIER_PHASE {
+            let line = pools.carrier[(slot / CARRIER_EVERY + offset) % pools.carrier.len()];
+            return Some(line.replace("{carrier}", name));
+        }
+    }
+    let mut here: Vec<&str> = Vec::new();
     for (applies, pool) in [
         (hauling.cattle, pools.cattle),
         (hauling.reefer, pools.reefer),
         (hauling.doubles, pools.doubles),
     ] {
         if applies {
-            here.extend(pool.iter().map(|line| (*line).to_string()));
+            here.extend_from_slice(pool);
         }
-    }
-    if let Some(name) = hauling.carrier.map(str::trim).filter(|n| !n.is_empty()) {
-        here.extend(
-            pools
-                .carrier
-                .iter()
-                .map(|line| line.replace("{carrier}", name)),
-        );
     }
     if here.is_empty() {
         return None;
     }
-    let i = (nth / CARGO_EVERY + offset) % here.len();
-    Some(here.swap_remove(i))
+    // Count only the slots the load gets, so its pool is walked in order
+    // around the carrier's.
+    let ordinal = if carrier.is_some() {
+        slot - (slot + CARRIER_EVERY - CARRIER_PHASE) / CARRIER_EVERY
+    } else {
+        slot
+    };
+    Some(here[(ordinal + offset) % here.len()].to_string())
 }
 
 /// Every sign a holiday puts up, wherever each one is true.
@@ -216,6 +323,8 @@ pub fn holiday_signs(holiday: Holiday) -> &'static [HolidaySign] {
         Holiday::Halloween => HALLOWEEN_SIGNS,
         Holiday::Thanksgiving => THANKSGIVING_SIGNS,
         Holiday::Christmas => CHRISTMAS_SIGNS,
+        Holiday::CanadaDay => CANADA_DAY_SIGNS,
+        Holiday::CanadianThanksgiving => CANADIAN_THANKSGIVING_SIGNS,
     }
 }
 
@@ -229,19 +338,34 @@ pub const SMALL_HOURS_EVERY: usize = 2;
 /// Local hours the small-hours signs come out: one in the morning until five.
 pub const SMALL_HOURS: std::ops::Range<f64> = 1.0..5.0;
 
-/// The holiday whose week a calendar date falls in.
+/// The holiday whose week a calendar date falls in, on a road in this
+/// state (a two-letter code; unknown counts as the United States).
 ///
-/// Thanksgiving is the fourth Thursday of November, which always lands
-/// between the 22nd and the 28th, so its week is that span.
-pub fn holiday_on(month: u32, day: u32) -> Option<Holiday> {
-    match (month, day) {
+/// United States Thanksgiving is the fourth Thursday of November, which
+/// always lands between the 22nd and the 28th, so its week is that span.
+/// Canadian Thanksgiving is the second Monday of October; its week is the
+/// seven days ending on it. Canada Day's week runs June 28 to July 1.
+pub fn holiday_on(date: NaiveDate, state: Option<&str>) -> Option<Holiday> {
+    let canada = road_country(state) == Country::Canada;
+    match (date.month(), date.day()) {
         (12, 29..=31) | (1, 1) => Some(Holiday::NewYear),
-        (6, 28..=30) | (7, 1..=4) => Some(Holiday::Independence),
+        (6, 28..=30) | (7, 1) if canada => Some(Holiday::CanadaDay),
+        (6, 28..=30) | (7, 1..=4) if !canada => Some(Holiday::Independence),
         (10, 24..=31) => Some(Holiday::Halloween),
-        (11, 22..=28) => Some(Holiday::Thanksgiving),
+        (11, 22..=28) if !canada => Some(Holiday::Thanksgiving),
         (12, 10..=25) => Some(Holiday::Christmas),
+        (10, _) if canada && canadian_thanksgiving_week(date) => {
+            Some(Holiday::CanadianThanksgiving)
+        }
         _ => None,
     }
+}
+
+/// Whether a date is in the seven days ending on the second Monday of
+/// October.
+fn canadian_thanksgiving_week(date: NaiveDate) -> bool {
+    NaiveDate::from_weekday_of_month_opt(date.year(), 10, Weekday::Mon, 2)
+        .is_some_and(|monday| (0..7).contains(&(monday - date).num_days()))
 }
 
 /// What the drive offers a pool sign to react to.
@@ -266,7 +390,8 @@ pub struct BillboardMoment<'a> {
 /// The line to read in place of an everyday pool sign, or None to read it.
 ///
 /// Big Jim answers every incident, once, at the next sign. The small hours
-/// take every other sign, the load every third and a holiday every fourth,
+/// take every other sign, the load every third (the carrier's name one in
+/// nine) and a holiday every fourth,
 /// so the ordinary roadside still shows through. Each pool is walked in order
 /// from the trip's offset, so no line comes back until the rest of its pool
 /// has been read.
@@ -320,12 +445,14 @@ fn holiday_billboard(moment: BillboardMoment) -> Option<&'static str> {
 mod tests {
     use super::*;
 
-    const HOLIDAYS: [Holiday; 5] = [
+    const HOLIDAYS: [Holiday; 7] = [
         Holiday::NewYear,
         Holiday::Independence,
         Holiday::Halloween,
         Holiday::Thanksgiving,
         Holiday::Christmas,
+        Holiday::CanadaDay,
+        Holiday::CanadianThanksgiving,
     ];
 
     fn every_line() -> Vec<&'static str> {
@@ -355,19 +482,99 @@ mod tests {
     }
 
     #[test]
+    fn a_united_states_holiday_is_kept_off_canadian_roads() {
+        let moment = |state| BillboardMoment {
+            holiday: Some(Holiday::Thanksgiving),
+            state,
+            ..BillboardMoment::default()
+        };
+        for holiday in [Holiday::Independence, Holiday::Thanksgiving] {
+            for sign in holiday_signs(holiday) {
+                assert_eq!(sign.countries, US, "{}", sign.text);
+            }
+        }
+        for state in ["QC", "ON", "BC", "YT"] {
+            assert_eq!(holiday_billboard(moment(Some(state))), None, "{state}");
+        }
+        assert!(holiday_billboard(moment(Some("NY"))).is_some());
+        assert!(holiday_billboard(moment(Some("AK"))).is_some());
+        assert!(holiday_billboard(moment(None)).is_some());
+    }
+
+    fn day(y: i32, m: u32, d: u32) -> NaiveDate {
+        NaiveDate::from_ymd_opt(y, m, d).unwrap()
+    }
+
+    #[test]
     fn holiday_weeks_cover_the_day_itself() {
-        assert_eq!(holiday_on(1, 1), Some(Holiday::NewYear));
-        assert_eq!(holiday_on(12, 31), Some(Holiday::NewYear));
-        assert_eq!(holiday_on(7, 4), Some(Holiday::Independence));
-        assert_eq!(holiday_on(7, 5), None);
-        assert_eq!(holiday_on(10, 31), Some(Holiday::Halloween));
-        assert_eq!(holiday_on(12, 25), Some(Holiday::Christmas));
-        assert_eq!(holiday_on(12, 26), None);
+        let us = |m, d| holiday_on(day(2026, m, d), Some("NY"));
+        assert_eq!(us(1, 1), Some(Holiday::NewYear));
+        assert_eq!(us(12, 31), Some(Holiday::NewYear));
+        assert_eq!(us(7, 4), Some(Holiday::Independence));
+        assert_eq!(us(7, 5), None);
+        assert_eq!(us(10, 31), Some(Holiday::Halloween));
+        assert_eq!(us(12, 25), Some(Holiday::Christmas));
+        assert_eq!(us(12, 26), None);
         // The fourth Thursday of November: the 26th in 2026, the 22nd in 2029.
-        assert_eq!(holiday_on(11, 26), Some(Holiday::Thanksgiving));
-        assert_eq!(holiday_on(11, 22), Some(Holiday::Thanksgiving));
-        assert_eq!(holiday_on(11, 21), None);
-        assert_eq!(holiday_on(9, 30), None);
+        assert_eq!(us(11, 26), Some(Holiday::Thanksgiving));
+        assert_eq!(us(11, 22), Some(Holiday::Thanksgiving));
+        assert_eq!(us(11, 21), None);
+        assert_eq!(us(9, 30), None);
+        assert_eq!(
+            us(10, 12),
+            None,
+            "no Canadian Thanksgiving south of the line"
+        );
+        assert_eq!(
+            holiday_on(day(2026, 7, 1), None),
+            Some(Holiday::Independence)
+        );
+    }
+
+    #[test]
+    fn canada_keeps_its_own_holidays() {
+        let ca = |y, m, d| holiday_on(day(y, m, d), Some("ON"));
+        assert_eq!(ca(2026, 6, 28), Some(Holiday::CanadaDay));
+        assert_eq!(ca(2026, 7, 1), Some(Holiday::CanadaDay));
+        assert_eq!(ca(2026, 7, 2), None, "the Fourth is not Canada's");
+        assert_eq!(ca(2026, 11, 26), None, "nor is November's Thanksgiving");
+        assert_eq!(ca(2026, 12, 25), Some(Holiday::Christmas));
+        assert_eq!(ca(2026, 1, 1), Some(Holiday::NewYear));
+        assert_eq!(ca(2026, 10, 31), Some(Holiday::Halloween));
+        // The second Monday of October: the 12th in 2026, the 13th in 2025.
+        assert_eq!(ca(2026, 10, 12), Some(Holiday::CanadianThanksgiving));
+        assert_eq!(ca(2026, 10, 6), Some(Holiday::CanadianThanksgiving));
+        assert_eq!(ca(2026, 10, 5), None);
+        assert_eq!(ca(2026, 10, 13), None);
+        assert_eq!(ca(2025, 10, 13), Some(Holiday::CanadianThanksgiving));
+        assert_eq!(ca(2025, 10, 6), None);
+    }
+
+    #[test]
+    fn shared_holidays_read_in_both_countries() {
+        let moment = |holiday, state| BillboardMoment {
+            holiday: Some(holiday),
+            state: Some(state),
+            ..BillboardMoment::default()
+        };
+        for holiday in [Holiday::NewYear, Holiday::Halloween, Holiday::Christmas] {
+            for state in ["NY", "QC", "BC"] {
+                let line = holiday_billboard(moment(holiday, state));
+                assert!(line.is_some(), "{holiday:?} in {state}");
+            }
+        }
+        // A regional Halloween line keeps its states: Salem is never read in Quebec.
+        let regional = holiday_signs(Holiday::Halloween)
+            .iter()
+            .filter(|s| !s.states.is_empty());
+        for sign in regional {
+            assert!(!sign.holds_in(Some("QC")), "{}", sign.text);
+        }
+        // Canada's own holidays read only north of the line.
+        for holiday in [Holiday::CanadaDay, Holiday::CanadianThanksgiving] {
+            assert!(holiday_billboard(moment(holiday, "ON")).is_some());
+            assert_eq!(holiday_billboard(moment(holiday, "NY")), None);
+        }
     }
 
     #[test]
@@ -516,16 +723,89 @@ mod tests {
             ..Default::default()
         };
         assert_eq!(cargo_at(reefer, 1).as_deref(), Some("Reefer one."));
-        let carrier = Hauling {
-            carrier: Some("Mesa Freight"),
-            ..Default::default()
-        };
-        assert_eq!(cargo_at(carrier, 1).as_deref(), Some("Mesa Freight sign."));
         let blank = Hauling {
             carrier: Some("  "),
             ..Default::default()
         };
-        assert_eq!(cargo_at(blank, 1), None);
+        assert_eq!(cargo_at(blank, 7), None);
+    }
+
+    /// Which pool each of the first eighteen pool signs is read from:
+    /// '.' an everyday sign, 'L' the load's, 'C' the carrier's.
+    fn cadence(hauling: Hauling) -> String {
+        (0..18)
+            .map(|n| match cargo_at(hauling, n) {
+                None => '.',
+                Some(line) if line.contains("Mesa Freight") => 'C',
+                Some(_) => 'L',
+            })
+            .collect()
+    }
+
+    #[test]
+    fn the_carrier_takes_one_pool_sign_in_nine() {
+        let mesa = Some("Mesa Freight");
+        let table = [
+            // A company driver with nothing special aboard.
+            (
+                Hauling {
+                    carrier: mesa,
+                    ..Default::default()
+                },
+                ".......C........C.",
+            ),
+            // Cattle for a company: the load's slots around the carrier's.
+            (
+                Hauling {
+                    cattle: true,
+                    carrier: mesa,
+                    ..Default::default()
+                },
+                ".L..L..C..L..L..C.",
+            ),
+            // Cattle on one's own authority: every cargo slot is the load's.
+            (
+                Hauling {
+                    cattle: true,
+                    ..Default::default()
+                },
+                ".L..L..L..L..L..L.",
+            ),
+            (Hauling::default(), ".................."),
+        ];
+        for (hauling, want) in table {
+            assert_eq!(cadence(hauling), want, "{hauling:?}");
+        }
+    }
+
+    #[test]
+    fn carrier_lines_never_mix_into_the_load() {
+        let both = Hauling {
+            reefer: true,
+            carrier: Some("Mesa Freight"),
+            ..Default::default()
+        };
+        for n in [1, 4, 10, 13] {
+            assert_eq!(cargo_at(both, n).as_deref(), Some("Reefer one."));
+        }
+        assert_eq!(cargo_at(both, 7).as_deref(), Some("Mesa Freight sign."));
+    }
+
+    #[test]
+    fn the_load_walks_its_pool_around_the_carrier() {
+        let cattle = Hauling {
+            cattle: true,
+            carrier: Some("Mesa Freight"),
+            ..Default::default()
+        };
+        let heard: Vec<_> = [1, 4, 10, 13]
+            .iter()
+            .map(|&n| cargo_at(cattle, n).unwrap())
+            .collect();
+        assert_eq!(
+            heard,
+            ["Cattle one.", "Cattle two.", "Cattle one.", "Cattle two."]
+        );
     }
 
     #[test]
@@ -561,6 +841,11 @@ mod tests {
         for line in [CATTLE_LINES, REEFER_LINES, DOUBLES_LINES, CARRIER_LINES].concat() {
             assert!(!line.chars().any(|c| c.is_ascii_digit()), "{line}");
             assert!(line.split_whitespace().count() <= 25, "{line}");
+            let lower = line.to_lowercase();
+            for claim in ["next exit", "miles ahead", "exit ", "turn off"] {
+                assert!(!lower.contains(claim), "{line} names a stop");
+            }
         }
+        assert!(CARRIER_LINES.iter().all(|line| line.contains("{carrier}")));
     }
 }

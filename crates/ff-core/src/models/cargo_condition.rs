@@ -159,27 +159,27 @@ impl CargoSettlement {
     }
 }
 
+/// The share of a load's pay the receiver's finding takes: all of it for a
+/// refusal, part of it for a claim or an exception, none for a clean load.
+pub fn pay_loss_share(outcome: &str) -> f64 {
+    match outcome {
+        CARGO_OUTCOME_REJECTED => CARGO_REJECT_PAY_LOSS,
+        CARGO_OUTCOME_CLAIM => CARGO_CLAIM_PAY_LOSS,
+        CARGO_OUTCOME_EXCEPTION => CARGO_EXCEPTION_PAY_LOSS,
+        _ => 0.0,
+    }
+}
+
 /// Rule on a delivered load. Gross pay is the haul before deductions.
 pub fn settle_cargo(condition_pct: f64, gross_pay: f64) -> CargoSettlement {
     let outcome = cargo_outcome(condition_pct);
     let gross = gross_pay.max(0.0);
-    let (pay_loss, claim_value, reputation_hit) = match outcome {
-        CARGO_OUTCOME_REJECTED => (
-            gross * CARGO_REJECT_PAY_LOSS,
-            gross * CARGO_REJECT_VALUE_MULT,
-            CARGO_REJECT_REPUTATION,
-        ),
-        CARGO_OUTCOME_CLAIM => (
-            gross * CARGO_CLAIM_PAY_LOSS,
-            gross * CARGO_CLAIM_VALUE_MULT,
-            CARGO_CLAIM_REPUTATION,
-        ),
-        CARGO_OUTCOME_EXCEPTION => (
-            gross * CARGO_EXCEPTION_PAY_LOSS,
-            0.0,
-            CARGO_EXCEPTION_REPUTATION,
-        ),
-        _ => (0.0, 0.0, 0.0),
+    let pay_loss = gross * pay_loss_share(outcome);
+    let (claim_value, reputation_hit) = match outcome {
+        CARGO_OUTCOME_REJECTED => (gross * CARGO_REJECT_VALUE_MULT, CARGO_REJECT_REPUTATION),
+        CARGO_OUTCOME_CLAIM => (gross * CARGO_CLAIM_VALUE_MULT, CARGO_CLAIM_REPUTATION),
+        CARGO_OUTCOME_EXCEPTION => (0.0, CARGO_EXCEPTION_REPUTATION),
+        _ => (0.0, 0.0),
     };
     CargoSettlement {
         outcome: outcome.to_string(),
