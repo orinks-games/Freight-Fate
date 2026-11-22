@@ -639,10 +639,13 @@ impl Trip {
         } else {
             TunnelDirection::FromWhittier
         };
+        // The season's hours are kept by date, so the gate reads the date
+        // the player hears. On the career's own day count a career whose
+        // calendar follows the real date got the winter hours in July.
         match gate_decision(
             &data,
             career_datetime(
-                self.career_hours,
+                self.career_hours.map(|hours| hours + self.calendar_shift_h),
                 self.start_hour,
                 self.game_minutes,
                 self.leg_start_zone(leg_index),
