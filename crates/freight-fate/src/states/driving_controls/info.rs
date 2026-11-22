@@ -228,6 +228,22 @@ impl DrivingState {
             ctx.say(&gate);
             return;
         }
+        // Off the destination exit the highway trip has ended at its last
+        // mile, so the limit there is still the interstate's: S on the Gary
+        // approach said "Truck limit 65 miles per hour." with the gate 0.1
+        // miles ahead (R1 review drive, 2026-11-22). Answer with the ramp the
+        // truck is on instead: the destination approach's limit.
+        if let Some(limit) = self.approach_limit_after_exit() {
+            let over = self.trip.truck.speed_mph() - limit;
+            let comparison = if over >= 1.0 {
+                format!(" About {} over.", ctx.settings.speed_text(over))
+            } else {
+                String::new()
+            };
+            let limit_text = ctx.settings.speed_text(limit);
+            ctx.say(&format!("Speed limit {limit_text}.{comparison}"));
+            return;
+        }
         let position = self.trip.position_mi;
         let (limit, reason) = self.trip.speed_limit_at(position);
         // A street is not a zone: its limit is its own (`spoken_zone`).
@@ -279,6 +295,33 @@ impl DrivingState {
         ctx.say(&format!(
             "{lead} {limit_text}{zone}.{split}{comparison}{advisory}"
         ));
+    }
+
+    /// The limit of the ramp past the destination exit: the destination
+    /// approach's, never above the corridor's own. S speaks it, and the ramp
+    /// cap, the dash and the pacer go by it (`after_exit_limit_mph`). None
+    /// while the truck is still on the highway, on streets that post their
+    /// own limits, or off the ramp, where the gate's 15 is back on the map
+    /// (`post_gate_zone`).
+    ///
+    /// The ramp never takes the gate's 15. A plain ramp ends at the gate
+    /// with its stop sign or light a few hundred feet short of it, and the
+    /// gate's half mile reached back over that bar: the dash called "Over
+    /// the limit of 15" while the assist slowed for the sign, and the roll
+    /// from the sign was held at 15 where the owner wants road (2026-09-03,
+    /// "crawling at 12"). The stop at the ramp's end is the ramp's own rule.
+    pub fn approach_limit_after_exit(&mut self) -> Option<f64> {
+        if !self.destination_exit_taken
+            || self.ramp_mi.is_none()
+            || self.surface_chain
+            || self.departure_chain
+            || self.stop_chain.is_some()
+            || self.trip.is_facility_approach_route()
+        {
+            return None;
+        }
+        let (corridor, _) = self.trip.speed_limit_at(self.trip.position_mi);
+        Some(corridor.min(ff_core::sim::trip_models::DESTINATION_APPROACH_LIMIT_MPH))
     }
 
     /// The bend under the wheels, or the next one close ahead -- whichever

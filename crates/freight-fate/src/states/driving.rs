@@ -799,6 +799,15 @@ pub struct DrivingState {
     // speed has nothing to bridge it, so the cab says once what the session
     // is waiting for. Reset when cruise engages or the session disarms.
     pub speed_control_floor_said: bool,
+    // The number the open-road bridge already said ("Cruise resuming, 45."),
+    // so cruise taking over from the keeper at that same number stays quiet
+    // instead of saying the resume a second time.
+    pub bridge_resume_said_mph: Option<f64>,
+    // The limit in force on the ramp past the destination exit (the
+    // destination approach's), read once a frame from `approach_limit_after_exit` so the
+    // ramp cap, the dash and the pacer go by the number S speaks. None on
+    // the highway and on streets that post their own limits.
+    pub after_exit_limit_mph: Option<f64>,
     // The posted number the keeper last took its target from, so a street
     // that posts a HIGHER one can hand the keeper back up to street speed.
     pub keeper_zone_limit: Option<f64>,
@@ -1006,6 +1015,9 @@ pub struct DrivingState {
     // Ambient lines waiting for the road to go quiet. A FIFO, not the
     // one slot it used to be: see _speak_ambient_event.
     pub pending_ambient_events: VecDeque<PendingAmbient>,
+    /// Lines that follow a crossing call (units, then hours rules), waiting
+    /// for it to finish: see `driving_updates::after_crossing`.
+    pub after_crossing: Vec<crate::states::driving_updates::after_crossing::PendingAfterCrossing>,
     pub road_joint_accumulator_m: f64,
     pub next_joint_distance_m: f64,
     pub lane_guidance: LaneGuidance,

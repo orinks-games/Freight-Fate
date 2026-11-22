@@ -1289,30 +1289,60 @@
   ],
   "carrierLabels": {
     "alapaha_regional": "Alapaha Regional",
+    "anclote_freight": "Anclote Freight",
     "androscoggin_freight": "Androscoggin Freight",
     "barataria_carriers": "Barataria Carriers",
     "basin_harbor_drayage": "Basin Harbor Drayage",
+    "bergen_point_drayage": "Bergen Point Drayage",
+    "brays_bayou_cartage": "Brays Bayou Cartage",
+    "carquinez_drayage": "Carquinez Drayage",
     "chatanika_freight": "Chatanika Freight Lines",
     "chehalis_freight": "Chehalis Freight Lines",
+    "cosumnes_freight": "Cosumnes Freight",
+    "cuyama_transport": "Cuyama Transport",
     "des_plaines_cartage": "Des Plaines River Cartage",
+    "double_springs_linehaul": "Double Springs Linehaul",
+    "duwamish_drayage": "Duwamish Drayage",
+    "ecorse_river_cartage": "Ecorse River Cartage",
+    "elochoman_freight": "Elochoman Freight Lines",
     "great_lakes_training": "Great Lakes Training Transport",
+    "hovenweep_freight": "Hovenweep Freight",
+    "kishwaukee_transport": "Kishwaukee Transport",
     "kittatinny_crossroads": "Kittatinny Crossroads Freight",
     "knik_arm_cartage": "Knik Arm Cartage",
+    "laguna_madre_freight": "Laguna Madre Freight Lines",
+    "lake_traverse_freight": "Lake Traverse Freight",
     "lone_mesa_freight": "Lone Mesa Freight",
     "loonwater_regional": "Loonwater Regional",
     "meherrin_transport": "Meherrin Transport",
     "musselshell_freight": "Musselshell Freight Lines",
+    "nancy_creek_cartage": "Nancy Creek Cartage",
+    "nonconnah_cartage": "Nonconnah Cartage",
     "northstar": "Northstar Freight Lines",
     "olentangy_valley": "Olentangy Valley Freight",
+    "open_hearth_flatbed": "Open Hearth Flatbed Lines",
+    "pasquotank_freight": "Pasquotank Freight Lines",
     "pinyon_basin": "Pinyon Basin Transport",
     "prairie_link": "Prairie Link Regional",
+    "quindaro_cartage": "Quindaro Cartage",
     "roadstead_owner_operator": "Northstar Freight Lines",
     "saint_francis_river": "Saint Francis River Lines",
     "san_simon_freight": "San Simon Freight",
+    "sebasticook_freight": "Sebasticook Freight",
+    "shiawassee_freight": "Shiawassee Freight",
+    "sulphur_draw_transport": "Sulphur Draw Transport",
     "summit_value": "Summit Value Logistics",
     "sunpine_freight": "Sunpine Freight Lines",
+    "tahquamenon_freight": "Tahquamenon Freight",
+    "tanners_creek_cartage": "Tanners Creek Cartage",
     "tehachapi_motor_lines": "Tehachapi Motor Lines",
-    "verdigris_transport": "Verdigris Transport"
+    "two_medicine_freight": "Two Medicine Freight Lines",
+    "verdigris_transport": "Verdigris Transport",
+    "village_creek_cartage": "Village Creek Cartage",
+    "virginia_key_cartage": "Virginia Key Cartage",
+    "wassaw_sound_drayage": "Wassaw Sound Drayage",
+    "winterset_refrigerated": "Winterset Refrigerated Lines",
+    "zacate_creek_cartage": "Zacate Creek Cartage"
   },
   "carriers": {
     "alapaha_regional": {
@@ -1327,6 +1357,19 @@
         "stopPay": 135
       },
       "suggestedHomeTerminal": "Atlanta"
+    },
+    "anclote_freight": {
+      "description": "A regional company-driver start in the Florida Gulf Coast. Dispatch offers loads of up to 450 miles. The carrier assigns and maintains the tractor and pays fuel and routine repairs.",
+      "dispatch": "more same-region lanes",
+      "favoredFreight": [],
+      "name": "Anclote Freight",
+      "pay": {
+        "minPerMile": 0.92,
+        "onTimeBonusShare": 0.03,
+        "payShare": 0.34,
+        "stopPay": 145
+      },
+      "suggestedHomeTerminal": "Tallahassee"
     },
     "androscoggin_freight": {
       "description": "A regional company-driver start in New England and the upper Hudson. Dispatch offers loads of up to 600 miles. The carrier assigns and maintains the tractor and pays fuel and routine repairs.",
@@ -1367,6 +1410,45 @@
       },
       "suggestedHomeTerminal": "Los Angeles"
     },
+    "bergen_point_drayage": {
+      "description": "A local company-driver start in the New York and New Jersey port. Dispatch offers loads of up to 150 miles. The carrier assigns and maintains the tractor and pays fuel and routine repairs.",
+      "dispatch": "more appointment slack",
+      "favoredFreight": [],
+      "name": "Bergen Point Drayage",
+      "pay": {
+        "minPerMile": 1.05,
+        "onTimeBonusShare": 0.03,
+        "payShare": 0.3,
+        "stopPay": 210
+      },
+      "suggestedHomeTerminal": "Newark"
+    },
+    "brays_bayou_cartage": {
+      "description": "A local company-driver start in greater Houston. Dispatch offers loads of up to 150 miles. The carrier assigns and maintains the tractor and pays fuel and routine repairs.",
+      "dispatch": "more appointment slack",
+      "favoredFreight": [],
+      "name": "Brays Bayou Cartage",
+      "pay": {
+        "minPerMile": 1.05,
+        "onTimeBonusShare": 0.03,
+        "payShare": 0.3,
+        "stopPay": 210
+      },
+      "suggestedHomeTerminal": "Houston"
+    },
+    "carquinez_drayage": {
+      "description": "A local company-driver start in the San Francisco Bay Area. Dispatch offers loads of up to 150 miles. The carrier assigns and maintains the tractor and pays fuel and routine repairs.",
+      "dispatch": "more appointment slack",
+      "favoredFreight": [],
+      "name": "Carquinez Drayage",
+      "pay": {
+        "minPerMile": 1.05,
+        "onTimeBonusShare": 0.03,
+        "payShare": 0.3,
+        "stopPay": 210
+      },
+      "suggestedHomeTerminal": "San Francisco"
+    },
     "chatanika_freight": {
       "description": "A regional company-driver start in Alaska, between Anchorage, the Mat-Su valley, the Kenai Peninsula, Valdez, Fairbanks, Tok, and Deadhorse on the Dalton Highway. Dispatch offers loads of up to 600 miles. The carrier assigns and maintains the tractor and pays fuel and routine repairs.",
       "dispatch": "more same-region lanes",
@@ -1393,6 +1475,32 @@
       },
       "suggestedHomeTerminal": "Seattle"
     },
+    "cosumnes_freight": {
+      "description": "A regional company-driver start in northern California and northern Nevada. Dispatch offers loads of up to 500 miles. The carrier assigns and maintains the tractor and pays fuel and routine repairs.",
+      "dispatch": "more same-region lanes",
+      "favoredFreight": [],
+      "name": "Cosumnes Freight",
+      "pay": {
+        "minPerMile": 0.93,
+        "onTimeBonusShare": 0.03,
+        "payShare": 0.34,
+        "stopPay": 140
+      },
+      "suggestedHomeTerminal": "Stockton"
+    },
+    "cuyama_transport": {
+      "description": "A regional company-driver start in Southern California and Arizona. Dispatch offers loads of up to 600 miles. The carrier assigns and maintains the tractor and pays fuel and routine repairs.",
+      "dispatch": "more same-region lanes",
+      "favoredFreight": [],
+      "name": "Cuyama Transport",
+      "pay": {
+        "minPerMile": 0.93,
+        "onTimeBonusShare": 0.03,
+        "payShare": 0.34,
+        "stopPay": 135
+      },
+      "suggestedHomeTerminal": "San Diego"
+    },
     "des_plaines_cartage": {
       "description": "A local company-driver start in Chicagoland. Dispatch offers loads of up to 150 miles. The carrier assigns and maintains the tractor and pays fuel and routine repairs.",
       "dispatch": "more appointment slack",
@@ -1406,6 +1514,58 @@
       },
       "suggestedHomeTerminal": "Chicago"
     },
+    "double_springs_linehaul": {
+      "description": "A national company-driver start. Dispatch leans toward doubles and offers loads of up to 1200 miles. Those loads need the doubles endorsement. The carrier assigns and maintains the tractor and pays fuel and routine repairs.",
+      "dispatch": "more same-region lanes",
+      "favoredFreight": [],
+      "name": "Double Springs Linehaul",
+      "pay": {
+        "minPerMile": 0.86,
+        "onTimeBonusShare": 0.04,
+        "payShare": 0.35,
+        "stopPay": 165
+      },
+      "suggestedHomeTerminal": "Memphis"
+    },
+    "duwamish_drayage": {
+      "description": "A local company-driver start in Seattle and Tacoma. Dispatch offers loads of up to 150 miles. The carrier assigns and maintains the tractor and pays fuel and routine repairs.",
+      "dispatch": "more appointment slack",
+      "favoredFreight": [],
+      "name": "Duwamish Drayage",
+      "pay": {
+        "minPerMile": 1.05,
+        "onTimeBonusShare": 0.03,
+        "payShare": 0.3,
+        "stopPay": 210
+      },
+      "suggestedHomeTerminal": "Seattle"
+    },
+    "ecorse_river_cartage": {
+      "description": "A local company-driver start in greater Detroit. Dispatch offers loads of up to 150 miles. The carrier assigns and maintains the tractor and pays fuel and routine repairs.",
+      "dispatch": "more appointment slack",
+      "favoredFreight": [],
+      "name": "Ecorse River Cartage",
+      "pay": {
+        "minPerMile": 1.05,
+        "onTimeBonusShare": 0.03,
+        "payShare": 0.3,
+        "stopPay": 210
+      },
+      "suggestedHomeTerminal": "Detroit"
+    },
+    "elochoman_freight": {
+      "description": "A regional company-driver start in the Cascades, from Puget Sound to central Oregon. Dispatch offers loads of up to 600 miles. The carrier assigns and maintains the tractor and pays fuel and routine repairs.",
+      "dispatch": "more same-region lanes",
+      "favoredFreight": [],
+      "name": "Elochoman Freight Lines",
+      "pay": {
+        "minPerMile": 0.94,
+        "onTimeBonusShare": 0.03,
+        "payShare": 0.34,
+        "stopPay": 130
+      },
+      "suggestedHomeTerminal": "Tacoma"
+    },
     "great_lakes_training": {
       "description": "A practical training-fleet start. Stop pay is better on short loads, and dispatch leans toward shorter training work with a little more deadline room. Equipment and routine costs stay carrier-paid. At level 4 with full dispatch trust, Business status lets you move to another carrier.",
       "dispatch": "more short training loads, more appointment slack",
@@ -1418,6 +1578,32 @@
         "stopPay": 225
       },
       "suggestedHomeTerminal": "Milwaukee"
+    },
+    "hovenweep_freight": {
+      "description": "A regional company-driver start in the Four Corners and southern Colorado. Dispatch offers loads of up to 600 miles. The carrier assigns and maintains the tractor and pays fuel and routine repairs.",
+      "dispatch": "more same-region lanes",
+      "favoredFreight": [],
+      "name": "Hovenweep Freight",
+      "pay": {
+        "minPerMile": 0.95,
+        "onTimeBonusShare": 0.03,
+        "payShare": 0.34,
+        "stopPay": 125
+      },
+      "suggestedHomeTerminal": "Flagstaff"
+    },
+    "kishwaukee_transport": {
+      "description": "A regional company-driver start in Iowa, central Illinois and St. Louis. Dispatch offers loads of up to 450 miles. The carrier assigns and maintains the tractor and pays fuel and routine repairs.",
+      "dispatch": "more same-region lanes",
+      "favoredFreight": [],
+      "name": "Kishwaukee Transport",
+      "pay": {
+        "minPerMile": 0.92,
+        "onTimeBonusShare": 0.03,
+        "payShare": 0.34,
+        "stopPay": 145
+      },
+      "suggestedHomeTerminal": "Des Moines"
     },
     "kittatinny_crossroads": {
       "description": "A regional company-driver start in the Mid-Atlantic, from the New Jersey ports across Pennsylvania to the Chesapeake. Dispatch offers loads of up to 600 miles. The carrier assigns and maintains the tractor and pays fuel and routine repairs.",
@@ -1444,6 +1630,32 @@
         "stopPay": 210
       },
       "suggestedHomeTerminal": "Anchorage"
+    },
+    "laguna_madre_freight": {
+      "description": "A regional company-driver start in the Texas and Louisiana Gulf Coast. Dispatch offers loads of up to 500 miles. The carrier assigns and maintains the tractor and pays fuel and routine repairs.",
+      "dispatch": "more same-region lanes",
+      "favoredFreight": [],
+      "name": "Laguna Madre Freight Lines",
+      "pay": {
+        "minPerMile": 0.93,
+        "onTimeBonusShare": 0.03,
+        "payShare": 0.34,
+        "stopPay": 135
+      },
+      "suggestedHomeTerminal": "Corpus Christi"
+    },
+    "lake_traverse_freight": {
+      "description": "A regional company-driver start in the Dakotas and Nebraska. Dispatch offers loads of up to 600 miles. The carrier assigns and maintains the tractor and pays fuel and routine repairs.",
+      "dispatch": "more same-region lanes",
+      "favoredFreight": [],
+      "name": "Lake Traverse Freight",
+      "pay": {
+        "minPerMile": 0.95,
+        "onTimeBonusShare": 0.03,
+        "payShare": 0.34,
+        "stopPay": 125
+      },
+      "suggestedHomeTerminal": "Sioux Falls"
     },
     "lone_mesa_freight": {
       "description": "A regional company-driver start in the Texas Triangle and the Rio Grande Valley. Dispatch offers loads of up to 600 miles. The carrier assigns and maintains the tractor and pays fuel and routine repairs.",
@@ -1497,6 +1709,32 @@
       },
       "suggestedHomeTerminal": "Denver"
     },
+    "nancy_creek_cartage": {
+      "description": "A local company-driver start in greater Atlanta. Dispatch offers loads of up to 150 miles. The carrier assigns and maintains the tractor and pays fuel and routine repairs.",
+      "dispatch": "more appointment slack",
+      "favoredFreight": [],
+      "name": "Nancy Creek Cartage",
+      "pay": {
+        "minPerMile": 1.05,
+        "onTimeBonusShare": 0.03,
+        "payShare": 0.3,
+        "stopPay": 210
+      },
+      "suggestedHomeTerminal": "Atlanta"
+    },
+    "nonconnah_cartage": {
+      "description": "A local company-driver start in Memphis. Dispatch offers loads of up to 150 miles. The carrier assigns and maintains the tractor and pays fuel and routine repairs.",
+      "dispatch": "more appointment slack",
+      "favoredFreight": [],
+      "name": "Nonconnah Cartage",
+      "pay": {
+        "minPerMile": 1.05,
+        "onTimeBonusShare": 0.03,
+        "payShare": 0.3,
+        "stopPay": 210
+      },
+      "suggestedHomeTerminal": "Memphis"
+    },
     "northstar": {
       "description": "A balanced company-driver path. The carrier assigns and maintains the tractor, pays fuel and routine repairs, and pays steady wages with no specialty.",
       "dispatch": "balanced dispatch",
@@ -1522,6 +1760,32 @@
         "stopPay": 135
       },
       "suggestedHomeTerminal": "Columbus"
+    },
+    "open_hearth_flatbed": {
+      "description": "A national company-driver start. Dispatch leans toward steel, machinery and lumber and offers loads of up to 3000 miles. Those loads need the flatbed securement certificate. The carrier assigns and maintains the tractor and pays fuel and routine repairs.",
+      "dispatch": "more longer lanes",
+      "favoredFreight": [],
+      "name": "Open Hearth Flatbed Lines",
+      "pay": {
+        "minPerMile": 0.86,
+        "onTimeBonusShare": 0.03,
+        "payShare": 0.37,
+        "stopPay": 185
+      },
+      "suggestedHomeTerminal": "Pittsburgh"
+    },
+    "pasquotank_freight": {
+      "description": "A regional company-driver start in the Carolina and Virginia coast. Dispatch offers loads of up to 500 miles. The carrier assigns and maintains the tractor and pays fuel and routine repairs.",
+      "dispatch": "more same-region lanes",
+      "favoredFreight": [],
+      "name": "Pasquotank Freight Lines",
+      "pay": {
+        "minPerMile": 0.93,
+        "onTimeBonusShare": 0.03,
+        "payShare": 0.34,
+        "stopPay": 135
+      },
+      "suggestedHomeTerminal": "Raleigh"
     },
     "pinyon_basin": {
       "description": "A regional company-driver start in the Great Basin, between Salt Lake City, Boise, and Las Vegas. Dispatch offers loads of up to 600 miles. The carrier assigns and maintains the tractor and pays fuel and routine repairs.",
@@ -1553,6 +1817,19 @@
       },
       "suggestedHomeTerminal": "Kansas City"
     },
+    "quindaro_cartage": {
+      "description": "A local company-driver start in greater Kansas City. Dispatch offers loads of up to 150 miles. The carrier assigns and maintains the tractor and pays fuel and routine repairs.",
+      "dispatch": "more appointment slack",
+      "favoredFreight": [],
+      "name": "Quindaro Cartage",
+      "pay": {
+        "minPerMile": 1.05,
+        "onTimeBonusShare": 0.03,
+        "payShare": 0.3,
+        "stopPay": 210
+      },
+      "suggestedHomeTerminal": "Kansas City"
+    },
     "saint_francis_river": {
       "description": "A regional company-driver start in the Mid-South around Memphis, Little Rock, and Nashville. Dispatch offers loads of up to 600 miles. The carrier assigns and maintains the tractor and pays fuel and routine repairs.",
       "dispatch": "more same-region lanes",
@@ -1578,6 +1855,45 @@
         "stopPay": 135
       },
       "suggestedHomeTerminal": "Phoenix"
+    },
+    "sebasticook_freight": {
+      "description": "A regional company-driver start in Maine, Vermont and upstate New York. Dispatch offers loads of up to 500 miles. The carrier assigns and maintains the tractor and pays fuel and routine repairs.",
+      "dispatch": "more same-region lanes",
+      "favoredFreight": [],
+      "name": "Sebasticook Freight",
+      "pay": {
+        "minPerMile": 0.93,
+        "onTimeBonusShare": 0.03,
+        "payShare": 0.34,
+        "stopPay": 135
+      },
+      "suggestedHomeTerminal": "Bangor"
+    },
+    "shiawassee_freight": {
+      "description": "A regional company-driver start in Michigan, northern Indiana and northwest Ohio. Dispatch offers loads of up to 400 miles. The carrier assigns and maintains the tractor and pays fuel and routine repairs.",
+      "dispatch": "more same-region lanes",
+      "favoredFreight": [],
+      "name": "Shiawassee Freight",
+      "pay": {
+        "minPerMile": 0.91,
+        "onTimeBonusShare": 0.03,
+        "payShare": 0.34,
+        "stopPay": 150
+      },
+      "suggestedHomeTerminal": "Grand Rapids"
+    },
+    "sulphur_draw_transport": {
+      "description": "A regional company-driver start in West Texas and the Permian Basin. Dispatch offers loads of up to 600 miles. The carrier assigns and maintains the tractor and pays fuel and routine repairs.",
+      "dispatch": "more same-region lanes",
+      "favoredFreight": [],
+      "name": "Sulphur Draw Transport",
+      "pay": {
+        "minPerMile": 0.95,
+        "onTimeBonusShare": 0.03,
+        "payShare": 0.34,
+        "stopPay": 125
+      },
+      "suggestedHomeTerminal": "Midland"
     },
     "summit_value": {
       "description": "A performance-sensitive company start. Good on-time runs pay better, but the guaranteed floor is smaller. Dispatch leans toward longer and higher-value lanes. The carrier still supplies equipment, authority, insurance, fuel, and repairs.",
@@ -1609,6 +1925,32 @@
       },
       "suggestedHomeTerminal": "Jacksonville"
     },
+    "tahquamenon_freight": {
+      "description": "A regional company-driver start in Wisconsin, central Minnesota and the Upper Peninsula. Dispatch offers loads of up to 500 miles. The carrier assigns and maintains the tractor and pays fuel and routine repairs.",
+      "dispatch": "more same-region lanes",
+      "favoredFreight": [],
+      "name": "Tahquamenon Freight",
+      "pay": {
+        "minPerMile": 0.93,
+        "onTimeBonusShare": 0.03,
+        "payShare": 0.34,
+        "stopPay": 140
+      },
+      "suggestedHomeTerminal": "Madison"
+    },
+    "tanners_creek_cartage": {
+      "description": "A local company-driver start in Hampton Roads. Dispatch offers loads of up to 150 miles. The carrier assigns and maintains the tractor and pays fuel and routine repairs.",
+      "dispatch": "more appointment slack",
+      "favoredFreight": [],
+      "name": "Tanners Creek Cartage",
+      "pay": {
+        "minPerMile": 1.05,
+        "onTimeBonusShare": 0.03,
+        "payShare": 0.3,
+        "stopPay": 210
+      },
+      "suggestedHomeTerminal": "Norfolk"
+    },
     "tehachapi_motor_lines": {
       "description": "A regional company-driver start in California, from the Los Angeles basin through the Central Valley to Reno. Dispatch offers loads of up to 600 miles. The carrier assigns and maintains the tractor and pays fuel and routine repairs.",
       "dispatch": "more same-region lanes",
@@ -1622,6 +1964,19 @@
       },
       "suggestedHomeTerminal": "Los Angeles"
     },
+    "two_medicine_freight": {
+      "description": "A regional company-driver start in Montana, Wyoming and the Black Hills. Dispatch offers loads of up to 600 miles. The carrier assigns and maintains the tractor and pays fuel and routine repairs.",
+      "dispatch": "more same-region lanes",
+      "favoredFreight": [],
+      "name": "Two Medicine Freight Lines",
+      "pay": {
+        "minPerMile": 0.95,
+        "onTimeBonusShare": 0.03,
+        "payShare": 0.34,
+        "stopPay": 125
+      },
+      "suggestedHomeTerminal": "Missoula"
+    },
     "verdigris_transport": {
       "description": "A regional company-driver start in the southern plains of Oklahoma and the Texas Panhandle. Dispatch offers loads of up to 600 miles. The carrier assigns and maintains the tractor and pays fuel and routine repairs.",
       "dispatch": "more same-region lanes",
@@ -1634,9 +1989,75 @@
         "stopPay": 135
       },
       "suggestedHomeTerminal": "Oklahoma City"
+    },
+    "village_creek_cartage": {
+      "description": "A local company-driver start in Dallas and Fort Worth. Dispatch offers loads of up to 150 miles. The carrier assigns and maintains the tractor and pays fuel and routine repairs.",
+      "dispatch": "more appointment slack",
+      "favoredFreight": [],
+      "name": "Village Creek Cartage",
+      "pay": {
+        "minPerMile": 1.05,
+        "onTimeBonusShare": 0.03,
+        "payShare": 0.3,
+        "stopPay": 210
+      },
+      "suggestedHomeTerminal": "Dallas"
+    },
+    "virginia_key_cartage": {
+      "description": "A local company-driver start in greater Miami. Dispatch offers loads of up to 150 miles. The carrier assigns and maintains the tractor and pays fuel and routine repairs.",
+      "dispatch": "more appointment slack",
+      "favoredFreight": [],
+      "name": "Virginia Key Cartage",
+      "pay": {
+        "minPerMile": 1.05,
+        "onTimeBonusShare": 0.03,
+        "payShare": 0.3,
+        "stopPay": 210
+      },
+      "suggestedHomeTerminal": "Miami"
+    },
+    "wassaw_sound_drayage": {
+      "description": "A local company-driver start in the Port of Savannah. Dispatch offers loads of up to 150 miles. The carrier assigns and maintains the tractor and pays fuel and routine repairs.",
+      "dispatch": "more appointment slack",
+      "favoredFreight": [],
+      "name": "Wassaw Sound Drayage",
+      "pay": {
+        "minPerMile": 1.05,
+        "onTimeBonusShare": 0.03,
+        "payShare": 0.3,
+        "stopPay": 210
+      },
+      "suggestedHomeTerminal": "Savannah"
+    },
+    "winterset_refrigerated": {
+      "description": "A national company-driver start. Dispatch leans toward refrigerated freight and offers loads of up to 3000 miles. Those loads need the refrigerated certificate. The carrier assigns and maintains the tractor and pays fuel and routine repairs.",
+      "dispatch": "more longer lanes",
+      "favoredFreight": [],
+      "name": "Winterset Refrigerated Lines",
+      "pay": {
+        "minPerMile": 0.8,
+        "onTimeBonusShare": 0.05,
+        "payShare": 0.37,
+        "stopPay": 160
+      },
+      "suggestedHomeTerminal": "Salinas"
+    },
+    "zacate_creek_cartage": {
+      "description": "A local company-driver start in Laredo and its border crossings. Dispatch offers loads of up to 150 miles. The carrier assigns and maintains the tractor and pays fuel and routine repairs.",
+      "dispatch": "more appointment slack",
+      "favoredFreight": [],
+      "name": "Zacate Creek Cartage",
+      "pay": {
+        "minPerMile": 1.05,
+        "onTimeBonusShare": 0.03,
+        "payShare": 0.3,
+        "stopPay": 210
+      },
+      "suggestedHomeTerminal": "Laredo"
     }
   },
   "cityLabels": {
+    "abbotsford_bc_ca": "Abbotsford, British Columbia",
     "aberdeen_sd_us": "Aberdeen, South Dakota",
     "abilene_tx_us": "Abilene, Texas",
     "abingdon_va_us": "Abingdon, Virginia",
@@ -1677,6 +2098,7 @@
     "baltimore_md_us": "Baltimore, Maryland",
     "bangor_me_us": "Bangor, Maine",
     "barnstable_ma_us": "Barnstable, Massachusetts",
+    "barrie_on_ca": "Barrie, Ontario",
     "barstow_ca_us": "Barstow, California",
     "bartlesville_ok_us": "Bartlesville, Oklahoma",
     "baton_rouge_la_us": "Baton Rouge, Louisiana",
@@ -1684,6 +2106,7 @@
     "bear_valley_ak_us": "Bear Valley, Alaska",
     "beaumont_tx_us": "Beaumont, Texas",
     "beckley_wv_us": "Beckley, West Virginia",
+    "belleville_on_ca": "Belleville, Ontario",
     "bellingham_wa_us": "Bellingham, Washington",
     "bemidji_mn_us": "Bemidji, Minnesota",
     "bend_or_us": "Bend, Oregon",
@@ -1703,9 +2126,13 @@
     "boston_ma_us": "Boston, Massachusetts",
     "bowling_green_ky_us": "Bowling Green, Kentucky",
     "bozeman_mt_us": "Bozeman, Montana",
+    "brampton_on_ca": "Brampton, Ontario",
+    "brandon_mb_ca": "Brandon, Manitoba",
     "bridgeport_ct_us": "Bridgeport, Connecticut",
     "bristol_tn_us": "Bristol, Tennessee",
+    "brockville_on_ca": "Brockville, Ontario",
     "brookings_sd_us": "Brookings, South Dakota",
+    "brooks_ab_ca": "Brooks, Alberta",
     "brownsville_tx_us": "Brownsville, Texas",
     "brownwood_tx_us": "Brownwood, Texas",
     "brunswick_ga_us": "Brunswick, Georgia",
@@ -1717,6 +2144,8 @@
     "burlington_ia_us": "Burlington, Iowa",
     "burlington_vt_us": "Burlington, Vermont",
     "butte_mt_us": "Butte, Montana",
+    "cache_creek_bc_ca": "Cache Creek, British Columbia",
+    "calgary_ab_ca": "Calgary, Alberta",
     "camp_verde_az_us": "Camp Verde, Arizona",
     "cape_charles_va_us": "Cape Charles, Virginia",
     "cape_coral_fl_us": "Cape Coral, Florida",
@@ -1727,6 +2156,7 @@
     "cartersville_ga_us": "Cartersville, Georgia",
     "casa_grande_az_us": "Casa Grande, Arizona",
     "casper_wy_us": "Casper, Wyoming",
+    "castlegar_bc_ca": "Castlegar, British Columbia",
     "cedar_city_ut_us": "Cedar City, Utah",
     "cedar_rapids_ia_us": "Cedar Rapids, Iowa",
     "champaign_il_us": "Champaign, Illinois",
@@ -1734,12 +2164,14 @@
     "charleston_wv_us": "Charleston, West Virginia",
     "charlotte_nc_us": "Charlotte, North Carolina",
     "charlottesville_va_us": "Charlottesville, Virginia",
+    "chatham_on_ca": "Chatham, Ontario",
     "chattanooga_tn_us": "Chattanooga, Tennessee",
     "cheyenne_wy_us": "Cheyenne, Wyoming",
     "chicago_il_us": "Chicago, Illinois",
     "chico_ca_us": "Chico, California",
     "childress_tx_us": "Childress, Texas",
     "chillicothe_oh_us": "Chillicothe, Ohio",
+    "chilliwack_bc_ca": "Chilliwack, British Columbia",
     "chippewa_falls_wi_us": "Chippewa Falls, Wisconsin",
     "cincinnati_oh_us": "Cincinnati, Ohio",
     "clarendon_tx_us": "Clarendon, Texas",
@@ -1765,10 +2197,13 @@
     "coos_bay_or_us": "Coos Bay, Oregon",
     "coral_springs_fl_us": "Coral Springs, Florida",
     "cordele_ga_us": "Cordele, Georgia",
+    "cornwall_on_ca": "Cornwall, Ontario",
     "corpus_christi_tx_us": "Corpus Christi, Texas",
     "corvallis_or_us": "Corvallis, Oregon",
     "cottonwood_az_us": "Cottonwood, Arizona",
+    "cranbrook_bc_ca": "Cranbrook, British Columbia",
     "crescent_city_ca_us": "Crescent City, California",
+    "creston_bc_ca": "Creston, British Columbia",
     "crestview_fl_us": "Crestview, Florida",
     "cullman_al_us": "Cullman, Alabama",
     "cumberland_md_us": "Cumberland, Maryland",
@@ -1793,6 +2228,7 @@
     "dothan_al_us": "Dothan, Alabama",
     "douglas_az_us": "Douglas, Arizona",
     "dover_de_us": "Dover, Delaware",
+    "drummondville_qc_ca": "Drummondville, Quebec",
     "dublin_ga_us": "Dublin, Georgia",
     "dubuque_ia_us": "Dubuque, Iowa",
     "duluth_mn_us": "Duluth, Minnesota",
@@ -1803,6 +2239,8 @@
     "dyersburg_tn_us": "Dyersburg, Tennessee",
     "eagle_pass_tx_us": "Eagle Pass, Texas",
     "eau_claire_wi_us": "Eau Claire, Wisconsin",
+    "edmonton_ab_ca": "Edmonton, Alberta",
+    "edson_ab_ca": "Edson, Alberta",
     "edwards_co_us": "Edwards, Colorado",
     "effingham_il_us": "Effingham, Illinois",
     "el_centro_ca_us": "El Centro, California",
@@ -1817,6 +2255,7 @@
     "enid_ok_us": "Enid, Oklahoma",
     "erie_pa_us": "Erie, Pennsylvania",
     "escanaba_mi_us": "Escanaba, Michigan",
+    "estevan_sk_ca": "Estevan, Saskatchewan",
     "eugene_or_us": "Eugene, Oregon",
     "eureka_ca_us": "Eureka, California",
     "eureka_nv_us": "Eureka, Nevada",
@@ -1853,17 +2292,20 @@
     "gallup_nm_us": "Gallup, New Mexico",
     "garden_city_ks_us": "Garden City, Kansas",
     "gary_in_us": "Gary, Indiana",
+    "gatineau_qc_ca": "Gatineau, Quebec",
     "gillette_wy_us": "Gillette, Wyoming",
     "glasgow_mt_us": "Glasgow, Montana",
     "glendive_mt_us": "Glendive, Montana",
     "glennallen_ak_us": "Glennallen, Alaska",
     "glenwood_springs_co_us": "Glenwood Springs, Colorado",
     "globe_az_us": "Globe, Arizona",
+    "golden_bc_ca": "Golden, British Columbia",
     "grand_forks_nd_us": "Grand Forks, North Dakota",
     "grand_island_ne_us": "Grand Island, Nebraska",
     "grand_junction_co_us": "Grand Junction, Colorado",
     "grand_rapids_mi_us": "Grand Rapids, Michigan",
     "grand_rapids_mn_us": "Grand Rapids, Minnesota",
+    "grande_prairie_ab_ca": "Grande Prairie, Alberta",
     "grants_pass_or_us": "Grants Pass, Oregon",
     "great_bend_ks_us": "Great Bend, Kansas",
     "great_falls_mt_us": "Great Falls, Montana",
@@ -1876,7 +2318,9 @@
     "grenada_ms_us": "Grenada, Mississippi",
     "gulfport_ms_us": "Gulfport, Mississippi",
     "hagerstown_md_us": "Hagerstown, Maryland",
+    "hamilton_on_ca": "Hamilton, Ontario",
     "hammond_la_us": "Hammond, Louisiana",
+    "hanna_ab_ca": "Hanna, Alberta",
     "harrisburg_pa_us": "Harrisburg, Pennsylvania",
     "harrison_ar_us": "Harrison, Arkansas",
     "harrisonburg_va_us": "Harrisonburg, Virginia",
@@ -1892,9 +2336,11 @@
     "hibbing_mn_us": "Hibbing, Minnesota",
     "hickory_nc_us": "Hickory, North Carolina",
     "hinesville_ga_us": "Hinesville, Georgia",
+    "hinton_ab_ca": "Hinton, Alberta",
     "hobbs_nm_us": "Hobbs, New Mexico",
     "holbrook_az_us": "Holbrook, Arizona",
     "homer_ak_us": "Homer, Alaska",
+    "hope_bc_ca": "Hope, British Columbia",
     "hot_springs_ar_us": "Hot Springs, Arkansas",
     "hot_springs_sd_us": "Hot Springs, South Dakota",
     "houghton_mi_us": "Houghton, Michigan",
@@ -1916,6 +2362,7 @@
     "jacksonville_nc_us": "Jacksonville, North Carolina",
     "jamestown_nd_us": "Jamestown, North Dakota",
     "jamestown_ny_us": "Jamestown, New York",
+    "jasper_ab_ca": "Jasper, Alberta",
     "johnson_city_tn_us": "Johnson City, Tennessee",
     "jonesboro_ar_us": "Jonesboro, Arkansas",
     "joplin_mo_us": "Joplin, Missouri",
@@ -1923,18 +2370,23 @@
     "junction_tx_us": "Junction, Texas",
     "kalamazoo_mi_us": "Kalamazoo, Michigan",
     "kalispell_mt_us": "Kalispell, Montana",
+    "kamloops_bc_ca": "Kamloops, British Columbia",
     "kansas_city_mo_us": "Kansas City, Missouri",
     "kearney_ne_us": "Kearney, Nebraska",
     "keene_nh_us": "Keene, New Hampshire",
     "kellogg_id_us": "Kellogg, Idaho",
+    "kelowna_bc_ca": "Kelowna, British Columbia",
     "kenai_ak_us": "Kenai, Alaska",
     "kenosha_wi_us": "Kenosha, Wisconsin",
     "kerrville_tx_us": "Kerrville, Texas",
     "key_west_fl_us": "Key West, Florida",
     "killeen_tx_us": "Killeen, Texas",
+    "kindersley_sk_ca": "Kindersley, Saskatchewan",
     "kingman_az_us": "Kingman, Arizona",
     "kingsport_tn_us": "Kingsport, Tennessee",
+    "kingston_on_ca": "Kingston, Ontario",
     "kirksville_mo_us": "Kirksville, Missouri",
+    "kitchener_on_ca": "Kitchener, Ontario",
     "klamath_falls_or_us": "Klamath Falls, Oregon",
     "knoxville_tn_us": "Knoxville, Tennessee",
     "kokomo_in_us": "Kokomo, Indiana",
@@ -1958,6 +2410,7 @@
     "las_vegas_nv_us": "Las Vegas, Nevada",
     "lawrence_ks_us": "Lawrence, Kansas",
     "lawton_ok_us": "Lawton, Oklahoma",
+    "lethbridge_ab_ca": "Lethbridge, Alberta",
     "lewiston_id_us": "Lewiston, Idaho",
     "lewiston_me_us": "Lewiston, Maine",
     "lexington_ky_us": "Lexington, Kentucky",
@@ -1968,8 +2421,10 @@
     "limon_co_us": "Limon, Colorado",
     "lincoln_ne_us": "Lincoln, Nebraska",
     "little_rock_ar_us": "Little Rock, Arkansas",
+    "lloydminster_ab_ca": "Lloydminster, Alberta",
     "logan_ut_us": "Logan, Utah",
     "london_ky_us": "London, Kentucky",
+    "london_on_ca": "London, Ontario",
     "lone_pine_ca_us": "Lone Pine, California",
     "longview_tx_us": "Longview, Texas",
     "longview_wa_us": "Longview, Washington",
@@ -1996,14 +2451,17 @@
     "mattoon_il_us": "Mattoon, Illinois",
     "mcalester_ok_us": "McAlester, Oklahoma",
     "mcallen_tx_us": "McAllen, Texas",
+    "mcbride_bc_ca": "McBride, British Columbia",
     "mccall_id_us": "McCall, Idaho",
     "mckinney_tx_us": "McKinney, Texas",
     "mcminnville_or_us": "McMinnville, Oregon",
     "meadville_pa_us": "Meadville, Pennsylvania",
     "medford_or_us": "Medford, Oregon",
+    "medicine_hat_ab_ca": "Medicine Hat, Alberta",
     "memphis_tn_us": "Memphis, Tennessee",
     "merced_ca_us": "Merced, California",
     "meridian_ms_us": "Meridian, Mississippi",
+    "merritt_bc_ca": "Merritt, British Columbia",
     "miami_fl_us": "Miami, Florida",
     "midland_tx_us": "Midland, Texas",
     "miles_city_mt_us": "Miles City, Montana",
@@ -2011,6 +2469,7 @@
     "mineral_wells_tx_us": "Mineral Wells, Texas",
     "minneapolis_mn_us": "Minneapolis, Minnesota",
     "minot_nd_us": "Minot, North Dakota",
+    "mississauga_on_ca": "Mississauga, Ontario",
     "missoula_mt_us": "Missoula, Montana",
     "mitchell_sd_us": "Mitchell, South Dakota",
     "moab_ut_us": "Moab, Utah",
@@ -2018,9 +2477,12 @@
     "modesto_ca_us": "Modesto, California",
     "mojave_ca_us": "Mojave, California",
     "monroe_la_us": "Monroe, Louisiana",
+    "mont_laurier_qc_ca": "Mont-Laurier, Quebec",
     "montgomery_al_us": "Montgomery, Alabama",
     "montpelier_vt_us": "Montpelier, Vermont",
+    "montreal_qc_ca": "Montr\u00e9al, Quebec",
     "montrose_co_us": "Montrose, Colorado",
+    "moose_jaw_sk_ca": "Moose Jaw, Saskatchewan",
     "morehead_ky_us": "Morehead, Kentucky",
     "morgantown_wv_us": "Morgantown, West Virginia",
     "morristown_tn_us": "Morristown, Tennessee",
@@ -2049,9 +2511,12 @@
     "newberg_or_us": "Newberg, Oregon",
     "newport_or_us": "Newport, Oregon",
     "newport_ri_us": "Newport, Rhode Island",
+    "niagara_falls_on_ca": "Niagara Falls, Ontario",
     "nogales_az_us": "Nogales, Arizona",
     "norfolk_ne_us": "Norfolk, Nebraska",
     "norfolk_va_us": "Norfolk, Virginia",
+    "north_battleford_sk_ca": "North Battleford, Saskatchewan",
+    "north_bay_on_ca": "North Bay, Ontario",
     "north_platte_ne_us": "North Platte, Nebraska",
     "north_port_fl_us": "North Port, Florida",
     "ocala_fl_us": "Ocala, Florida",
@@ -2067,7 +2532,10 @@
     "opelika_al_us": "Opelika, Alabama",
     "orange_tx_us": "Orange, Texas",
     "orlando_fl_us": "Orlando, Florida",
+    "oshawa_on_ca": "Oshawa, Ontario",
     "oshkosh_wi_us": "Oshkosh, Wisconsin",
+    "osoyoos_bc_ca": "Osoyoos, British Columbia",
+    "ottawa_on_ca": "Ottawa, Ontario",
     "ottumwa_ia_us": "Ottumwa, Iowa",
     "owatonna_mn_us": "Owatonna, Minnesota",
     "owensboro_ky_us": "Owensboro, Kentucky",
@@ -2086,10 +2554,14 @@
     "panama_city_fl_us": "Panama City, Florida",
     "paris_tx_us": "Paris, Texas",
     "parkersburg_wv_us": "Parkersburg, West Virginia",
+    "parry_sound_on_ca": "Parry Sound, Ontario",
     "payson_az_us": "Payson, Arizona",
+    "pembroke_on_ca": "Pembroke, Ontario",
     "pendleton_or_us": "Pendleton, Oregon",
     "pensacola_fl_us": "Pensacola, Florida",
+    "penticton_bc_ca": "Penticton, British Columbia",
     "peoria_il_us": "Peoria, Illinois",
+    "peterborough_on_ca": "Peterborough, Ontario",
     "petersburg_va_us": "Petersburg, Virginia",
     "philadelphia_pa_us": "Philadelphia, Pennsylvania",
     "phoenix_az_us": "Phoenix, Arizona",
@@ -2098,27 +2570,36 @@
     "pine_bluff_ar_us": "Pine Bluff, Arkansas",
     "pittsburgh_pa_us": "Pittsburgh, Pennsylvania",
     "plainview_tx_us": "Plainview, Texas",
+    "plattsburgh_ny_us": "Plattsburgh, New York",
     "pocatello_id_us": "Pocatello, Idaho",
     "ponca_city_ok_us": "Ponca City, Oklahoma",
     "poplar_bluff_mo_us": "Poplar Bluff, Missouri",
     "port_angeles_wa_us": "Port Angeles, Washington",
     "port_huron_mi_us": "Port Huron, Michigan",
     "port_saint_lucie_fl_us": "Port Saint Lucie, Florida",
+    "portage_la_prairie_mb_ca": "Portage la Prairie, Manitoba",
     "portland_me_us": "Portland, Maine",
     "portland_or_us": "Portland, Oregon",
     "portsmouth_nh_us": "Portsmouth, New Hampshire",
     "prescott_az_us": "Prescott, Arizona",
+    "prince_albert_sk_ca": "Prince Albert, Saskatchewan",
     "prince_george_bc_ca": "Prince George, British Columbia",
+    "princeton_bc_ca": "Princeton, British Columbia",
     "providence_ri_us": "Providence, Rhode Island",
     "provo_ut_us": "Provo, Utah",
     "pueblo_co_us": "Pueblo, Colorado",
+    "quebec_city_qc_ca": "Quebec City, Quebec",
+    "quesnel_bc_ca": "Quesnel, British Columbia",
     "quincy_il_us": "Quincy, Illinois",
     "raleigh_nc_us": "Raleigh, North Carolina",
     "rapid_city_sd_us": "Rapid City, South Dakota",
     "raton_nm_us": "Raton, New Mexico",
     "rawlins_wy_us": "Rawlins, Wyoming",
+    "red_deer_ab_ca": "Red Deer, Alberta",
     "redding_ca_us": "Redding, California",
+    "regina_sk_ca": "Regina, Saskatchewan",
     "reno_nv_us": "Reno, Nevada",
+    "revelstoke_bc_ca": "Revelstoke, British Columbia",
     "rice_lake_wi_us": "Rice Lake, Wisconsin",
     "richfield_ut_us": "Richfield, Utah",
     "richmond_in_us": "Richmond, Indiana",
@@ -2126,6 +2607,7 @@
     "richmond_va_us": "Richmond, Virginia",
     "ridgecrest_ca_us": "Ridgecrest, California",
     "riverside_ca_us": "Riverside, California",
+    "riviere_du_loup_qc_ca": "Rivi\u00e8re-du-Loup, Quebec",
     "roanoke_va_us": "Roanoke, Virginia",
     "rochester_mn_us": "Rochester, Minnesota",
     "rochester_ny_us": "Rochester, New York",
@@ -2136,17 +2618,21 @@
     "rome_ga_us": "Rome, Georgia",
     "roseburg_or_us": "Roseburg, Oregon",
     "roswell_nm_us": "Roswell, New Mexico",
+    "rouyn_noranda_qc_ca": "Rouyn-Noranda, Quebec",
     "russellville_ar_us": "Russellville, Arkansas",
     "ruston_la_us": "Ruston, Louisiana",
     "rutland_vt_us": "Rutland, Vermont",
     "sacramento_ca_us": "Sacramento, California",
     "saginaw_mi_us": "Saginaw, Michigan",
+    "saguenay_qc_ca": "Saguenay, Quebec",
     "saint_george_ut_us": "Saint George, Utah",
+    "saint_jean_sur_richelieu_qc_ca": "Saint-Jean-sur-Richelieu, Quebec",
     "saint_joseph_mo_us": "Saint Joseph, Missouri",
     "salem_or_us": "Salem, Oregon",
     "salina_ks_us": "Salina, Kansas",
     "salinas_ca_us": "Salinas, California",
     "salisbury_md_us": "Salisbury, Maryland",
+    "salmon_arm_bc_ca": "Salmon Arm, British Columbia",
     "salt_lake_city_ut_us": "Salt Lake City, Utah",
     "san_angelo_tx_us": "San Angelo, Texas",
     "san_antonio_tx_us": "San Antonio, Texas",
@@ -2161,6 +2647,8 @@
     "santa_maria_ca_us": "Santa Maria, California",
     "santa_rosa_ca_us": "Santa Rosa, California",
     "sarasota_fl_us": "Sarasota, Florida",
+    "sarnia_on_ca": "Sarnia, Ontario",
+    "saskatoon_sk_ca": "Saskatoon, Saskatchewan",
     "sault_ste_marie_mi_us": "Sault Ste. Marie, Michigan",
     "savannah_ga_us": "Savannah, Georgia",
     "scottsbluff_ne_us": "Scottsbluff, Nebraska",
@@ -2172,6 +2660,7 @@
     "seward_ak_us": "Seward, Alaska",
     "sheboygan_wi_us": "Sheboygan, Wisconsin",
     "shelby_mt_us": "Shelby, Montana",
+    "sherbrooke_qc_ca": "Sherbrooke, Quebec",
     "sheridan_wy_us": "Sheridan, Wyoming",
     "sherman_tx_us": "Sherman, Texas",
     "show_low_az_us": "Show Low, Arizona",
@@ -2191,7 +2680,9 @@
     "springfield_il_us": "Springfield, Illinois",
     "springfield_ma_us": "Springfield, Massachusetts",
     "springfield_mo_us": "Springfield, Missouri",
+    "st_catharines_on_ca": "St. Catharines, Ontario",
     "st_cloud_mn_us": "St. Cloud, Minnesota",
+    "st_johnsbury_vt_us": "St. Johnsbury, Vermont",
     "st_louis_mo_us": "St. Louis, Missouri",
     "state_college_pa_us": "State College, Pennsylvania",
     "statesboro_ga_us": "Statesboro, Georgia",
@@ -2201,11 +2692,13 @@
     "stockton_ca_us": "Stockton, California",
     "stratford_tx_us": "Stratford, Texas",
     "stuttgart_ar_us": "Stuttgart, Arkansas",
+    "sudbury_on_ca": "Sudbury, Ontario",
     "sulphur_la_us": "Sulphur, Louisiana",
     "sumter_sc_us": "Sumter, South Carolina",
     "superior_mt_us": "Superior, Montana",
     "surrey_bc_ca": "Surrey, British Columbia",
     "susanville_ca_us": "Susanville, California",
+    "swift_current_sk_ca": "Swift Current, Saskatchewan",
     "syracuse_ny_us": "Syracuse, New York",
     "tacoma_wa_us": "Tacoma, Washington",
     "tallahassee_fl_us": "Tallahassee, Florida",
@@ -2220,10 +2713,12 @@
     "toms_river_nj_us": "Toms River, New Jersey",
     "tonopah_nv_us": "Tonopah, Nevada",
     "topeka_ks_us": "Topeka, Kansas",
+    "toronto_on_ca": "Toronto, Ontario",
     "traverse_city_mi_us": "Traverse City, Michigan",
     "trenton_nj_us": "Trenton, New Jersey",
     "tri_cities_wa_us": "Tri-Cities, Washington",
     "trinidad_co_us": "Trinidad, Colorado",
+    "trois_rivieres_qc_ca": "Trois-Rivi\u00e8res, Quebec",
     "troy_al_us": "Troy, Alabama",
     "tucson_az_us": "Tucson, Arizona",
     "tucumcari_nm_us": "Tucumcari, New Mexico",
@@ -2235,10 +2730,14 @@
     "ukiah_ca_us": "Ukiah, California",
     "utica_ny_us": "Utica, New York",
     "uvalde_tx_us": "Uvalde, Texas",
+    "val_d_or_qc_ca": "Val-d'Or, Quebec",
     "valdez_ak_us": "Valdez, Alaska",
     "valdosta_ga_us": "Valdosta, Georgia",
+    "valemount_bc_ca": "Valemount, British Columbia",
     "valencia_ca_us": "Valencia, California",
     "van_horn_tx_us": "Van Horn, Texas",
+    "vancouver_bc_ca": "Vancouver, British Columbia",
+    "vernon_bc_ca": "Vernon, British Columbia",
     "vernon_tx_us": "Vernon, Texas",
     "vicksburg_ms_us": "Vicksburg, Mississippi",
     "victoria_tx_us": "Victoria, Texas",
@@ -2261,12 +2760,15 @@
     "wenatchee_wa_us": "Wenatchee, Washington",
     "west_palm_beach_fl_us": "West Palm Beach, Florida",
     "west_wendover_nv_us": "West Wendover, Nevada",
+    "weyburn_sk_ca": "Weyburn, Saskatchewan",
     "wheatland_wy_us": "Wheatland, Wyoming",
     "wheeling_wv_us": "Wheeling, West Virginia",
+    "whitecourt_ab_ca": "Whitecourt, Alberta",
     "whitehorse_yt_ca": "Whitehorse, Yukon",
     "whittier_ak_us": "Whittier, Alaska",
     "wichita_falls_tx_us": "Wichita Falls, Texas",
     "wichita_ks_us": "Wichita, Kansas",
+    "williams_lake_bc_ca": "Williams Lake, British Columbia",
     "williamsport_pa_us": "Williamsport, Pennsylvania",
     "williston_nd_us": "Williston, North Dakota",
     "willits_ca_us": "Willits, California",
@@ -2274,15 +2776,19 @@
     "wilmington_de_us": "Wilmington, Delaware",
     "wilmington_nc_us": "Wilmington, North Carolina",
     "winchester_va_us": "Winchester, Virginia",
+    "windsor_on_ca": "Windsor, Ontario",
     "winnemucca_nv_us": "Winnemucca, Nevada",
+    "winnipeg_mb_ca": "Winnipeg, Manitoba",
     "winona_mn_us": "Winona, Minnesota",
     "winslow_az_us": "Winslow, Arizona",
     "winston_salem_nc_us": "Winston-Salem, North Carolina",
     "wolf_point_mt_us": "Wolf Point, Montana",
     "woodburn_or_us": "Woodburn, Oregon",
+    "woodstock_on_ca": "Woodstock, Ontario",
     "worcester_ma_us": "Worcester, Massachusetts",
     "wytheville_va_us": "Wytheville, Virginia",
     "yakima_wa_us": "Yakima, Washington",
+    "yorkton_sk_ca": "Yorkton, Saskatchewan",
     "youngstown_oh_us": "Youngstown, Ohio",
     "yreka_ca_us": "Yreka, California",
     "yuba_city_ca_us": "Yuba City, California",

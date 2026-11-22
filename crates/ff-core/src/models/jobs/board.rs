@@ -803,13 +803,17 @@ impl<'w> JobBoard<'w> {
         if location.template {
             weight *= 0.9;
         }
-        let option = start_option(Some(carrier_key));
-        if !option.cargo_weight_bonus.is_empty()
-            && option
+        // The carrier's favored freight, read from `carriers.json` like the
+        // cargo weight, so a generated start leans the same way a
+        // hand-written one does.
+        let favors_here = match crate::models::carriers::carrier(carrier_key) {
+            Some(c) => c.cargo_weight_bonus.iter().any(|(key, _)| handled(key)),
+            None => start_option(Some(carrier_key))
                 .cargo_weight_bonus
                 .iter()
-                .any(|(key, _)| handled(key))
-        {
+                .any(|(key, _)| handled(key)),
+        };
+        if favors_here {
             weight += 0.2;
         }
         weight.max(0.1)

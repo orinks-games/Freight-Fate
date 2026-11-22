@@ -19,6 +19,7 @@ use crate::app::{GameContext, Say, SayEvent};
 use crate::states::driving::DrivingState;
 use crate::states::driving_core::*;
 use crate::states::driving_turns::{is_judged_turn, ADVICE_IN_CALL, TURN_COMMIT_TAIL_MI};
+use crate::states::driving_updates::after_crossing::AfterCrossing;
 use crate::states::driving_updates::live;
 
 use super::ambient::Ambient;
@@ -232,10 +233,15 @@ impl DrivingState {
                 if let Some(sound) = sound {
                     ctx.audio.play(sound);
                 }
+                // After the crossing call, not on top of it: spoken as
+                // ambient chatter it was dropped as stale behind a long
+                // state-line call, and the player lost the clock change.
                 let terse = self.terse_speech(ctx);
-                let mut opts = SayEvent::queued();
-                opts.category = category;
-                ctx.say_event_with(timezone_crossing_message(event, terse), opts);
+                self.queue_after_crossing(
+                    AfterCrossing::TimeZone,
+                    timezone_crossing_message(event, terse),
+                    category,
+                );
             }
             TripEventKind::Curve => self.handle_curve_event(ctx, event, message, category),
             TripEventKind::Landmark | TripEventKind::Billboard => {
@@ -624,14 +630,22 @@ impl DrivingState {
                 }
             }
         }
-        self.speak_ambient_event(
-            ctx,
-            message,
-            Ambient::new()
-                .sound(sound)
-                .category(category)
-                .priority(EventPriority::Important),
-        );
+        // Never dropped: the line carries the rule changes that follow it,
+        // so it waits for the road to go quiet however long a hazard holds
+        // it (an ice hazard aged it out of the ambient queue, 2026-11-22),
+        // and the lines after it wait behind it.
+        self.log_ambient_event(ctx, &message, category);
+        let text = message.render(self.terse_speech(ctx)).to_string();
+        if text.is_empty() {
+            if let Some(sound) = sound {
+                ctx.play_event_cue(category, sound, 1.0, 0.0);
+            }
+        } else {
+            self.queue_crossing_call(text, category, sound);
+            // On a quiet road it goes now, ahead of the badge below: where
+            // the truck is comes first.
+            self.update_after_crossing(ctx, 0.0);
+        }
         ctx.award_driving_achievement("state_crossing");
     }
 

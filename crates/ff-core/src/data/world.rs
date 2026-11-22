@@ -791,6 +791,17 @@ impl World {
     /// the historical full graph available for legacy saves and map integrity
     /// checks while supported freight routes are enriched lane by lane.
     /// `Ok(None)` when no road connects the cities; `Err` for an unknown city.
+    ///
+    /// A route between two cities of one country stays in that country when
+    /// such a road exists: the search runs first with every leg that touches
+    /// another country walled, and only when that finds nothing runs again
+    /// on the whole map. The career has no in-bond paperwork, so Detroit to
+    /// Buffalo by the 401 through Ontario would put a domestic load through
+    /// two customs booths for no reason the driver hears; Bellingham to
+    /// Fairbanks has no road that stays in the US and still runs through
+    /// British Columbia and the Yukon. Every search goes through here (the
+    /// alternatives, the legal route around a refused crossing, a reroute
+    /// during a drive), so all of them keep the rule.
     pub fn shortest_route(
         &self,
         start: &str,
@@ -800,12 +811,45 @@ impl World {
     ) -> Result<Option<Route>, DataError> {
         let start = self.resolve_city_key(start);
         let end = self.resolve_city_key(end);
-        if !self.cities.contains_key(&start) {
-            return Err(DataError::key(format!("Unknown city: {start}")));
+        let (Some(from), Some(to)) = (self.cities.get(&start), self.cities.get(&end)) else {
+            let missing = if self.cities.contains_key(&start) {
+                end
+            } else {
+                start
+            };
+            return Err(DataError::key(format!("Unknown city: {missing}")));
+        };
+        if from.country == to.country {
+            let country = from.country.clone();
+            if let Some(route) =
+                self.search(&start, &end, penalties, require_metadata, Some(&country))
+            {
+                return Ok(Some(route));
+            }
         }
-        if !self.cities.contains_key(&end) {
-            return Err(DataError::key(format!("Unknown city: {end}")));
-        }
+        Ok(self.search(&start, &end, penalties, require_metadata, None))
+    }
+
+    /// Whether a leg has both ends in `country`.
+    fn leg_within(&self, leg: &Leg, country: &str) -> bool {
+        [&leg.a, &leg.b].iter().all(|key| {
+            self.cities
+                .get(key.as_str())
+                .is_some_and(|c| c.country == country)
+        })
+    }
+
+    /// The Dijkstra behind [`Self::shortest_route`], for resolved keys of
+    /// known cities; `within` keeps the search on legs inside one country.
+    fn search(
+        &self,
+        start: &str,
+        end: &str,
+        penalties: Option<&Penalties>,
+        require_metadata: bool,
+        within: Option<&str>,
+    ) -> Option<Route> {
+        let (start, end) = (start.to_string(), end.to_string());
         let has_penalties = penalties.is_some_and(|p| !p.is_empty());
         let mut dist: HashMap<String, f64> = HashMap::new();
         dist.insert(start.clone(), 0.0);
@@ -825,6 +869,9 @@ impl World {
             };
             for leg in legs {
                 if require_metadata && !self.leg_metadata_complete(leg) {
+                    continue;
+                }
+                if within.is_some_and(|country| !self.leg_within(leg, country)) {
                     continue;
                 }
                 let nxt = leg.other(&city);
@@ -873,7 +920,7 @@ impl World {
             }
         }
         if !prev.contains_key(&end) && start != end {
-            return Ok(None);
+            return None;
         }
         let mut cities = vec![end.clone()];
         let mut legs: Vec<Arc<Leg>> = Vec::new();
@@ -889,12 +936,29 @@ impl World {
         }
         cities.reverse();
         legs.reverse();
-        Ok(Some(Route::new(cities, legs)))
+        Some(Route::new(cities, legs))
+    }
+
+    /// A saved trip's city keys, resolved, with any hop the map retired
+    /// swapped for the legs that replaced it (see [`retired_legs`]).
+    ///
+    /// [`retired_legs`]: crate::data::retired_legs
+    fn resolve_route_cities<S: AsRef<str>>(&self, cities: &[S]) -> Vec<String> {
+        let cities: Vec<String> = cities
+            .iter()
+            .map(|c| self.resolve_city_key(c.as_ref()))
+            .collect();
+        crate::data::retired_legs::expand_retired_hops(cities, |a, b| {
+            self.adjacency
+                .get(a)
+                .is_some_and(|legs| pick_hop(legs, a, b, |_| true).is_some())
+        })
     }
 
     /// Rebuild a route from its city sequence (used by saved trips).
     ///
-    /// Returns None if any hop is missing, so callers can fall back
+    /// A hop the map retired is rebuilt on the legs that replaced it.
+    /// Returns None if any other hop is missing, so callers can fall back
     /// gracefully when a save references a road that no longer exists. This is
     /// intentionally the legacy/full graph path; new freight uses supported
     /// route helpers so missing metadata cannot silently invent conditions.
@@ -902,10 +966,7 @@ impl World {
         if cities.len() < 2 {
             return None;
         }
-        let cities: Vec<String> = cities
-            .iter()
-            .map(|c| self.resolve_city_key(c.as_ref()))
-            .collect();
+        let cities = self.resolve_route_cities(cities);
         let mut legs: Vec<Arc<Leg>> = Vec::new();
         for pair in cities.windows(2) {
             let (a, b) = (&pair[0], &pair[1]);
@@ -929,10 +990,7 @@ impl World {
         if cities.len() < 2 {
             return None;
         }
-        let cities: Vec<String> = cities
-            .iter()
-            .map(|c| self.resolve_city_key(c.as_ref()))
-            .collect();
+        let cities = self.resolve_route_cities(cities);
         let mut legs: Vec<Arc<Leg>> = Vec::new();
         for pair in cities.windows(2) {
             let (a, b) = (&pair[0], &pair[1]);

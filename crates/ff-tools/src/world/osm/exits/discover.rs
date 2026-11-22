@@ -65,7 +65,44 @@ pub fn clean_place(value: &str) -> String {
     if !words.is_empty() && words.iter().all(|w| VEHICLE_CONTROL_WORDS.contains(w)) {
         return String::new();
     }
-    text
+    // "BUS ONLY Government Street" is a lane sign with a street on it, not a
+    // place a truck heads toward.
+    if words
+        .windows(2)
+        .any(|w| matches!(w[0], "bus" | "buses" | "hov" | "transit") && w[1] == "only")
+    {
+        return String::new();
+    }
+    unshout(&text)
+}
+
+/// Sign text in capitals spoken as a word reads ("Hwy 1 EAST" to "Hwy 1
+/// East"). Words of three letters or fewer stay as written, since those are
+/// codes and initials (YYC, USA).
+fn unshout(text: &str) -> String {
+    text.split(' ')
+        .map(|w| {
+            let letters = w.chars().filter(|c| c.is_alphabetic()).count();
+            if letters >= 4 && w.chars().all(|c| !c.is_lowercase()) {
+                let mut chars = w.chars();
+                chars
+                    .next()
+                    .map(|c| c.to_string() + &chars.as_str().to_lowercase())
+                    .unwrap_or_default()
+            } else {
+                w.to_string()
+            }
+        })
+        .collect::<Vec<_>>()
+        .join(" ")
+}
+
+/// A `destination:ref` that names the exit itself ("EXIT 171"), not a route.
+fn names_an_exit(reference: &str) -> bool {
+    reference
+        .split_whitespace()
+        .next()
+        .is_some_and(|w| w.eq_ignore_ascii_case("exit"))
 }
 
 /// The places in a `destination` tag, in order, once each.
@@ -357,7 +394,10 @@ pub fn signs(topo: &Topo, exit: &ExitNodes) -> (Vec<String>, String) {
                     dests.push(place);
                 }
             }
-            if via.is_empty() && !link.destination_ref.is_empty() {
+            if via.is_empty()
+                && !link.destination_ref.is_empty()
+                && !names_an_exit(&link.destination_ref)
+            {
                 via = link.destination_ref.clone();
             }
         }
@@ -410,6 +450,12 @@ mod tests {
         assert_eq!(clean_place("Trucks - Buses"), "");
         assert_eq!(clean_place("Buses And Cars Only"), "");
         assert_eq!(clean_place("highway=primary"), "");
+        assert_eq!(clean_place("BUS ONLY Government Street"), "");
+        assert_eq!(clean_place("Hwy 1 EAST"), "Hwy 1 East");
+        assert_eq!(clean_place("Hope BUSINESS ROUTE"), "Hope Business Route");
+        assert_eq!(clean_place("Airport YYC"), "Airport YYC");
+        assert!(names_an_exit("EXIT 171"));
+        assert!(!names_an_exit("BC 5"));
         assert_eq!(
             split_destinations("Dallas;Fort Worth;Dallas;Cars Only"),
             vec!["Dallas", "Fort Worth"]

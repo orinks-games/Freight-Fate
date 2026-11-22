@@ -113,7 +113,7 @@ impl DrivingState {
     /// The length of the road signed at the gate speed: the trip's own yard
     /// or gate zone once posted, else the one the run would post. None at all
     /// on a street chain whose gate stands on the street itself.
-    fn gate_zone_length_mi(&self) -> f64 {
+    pub(crate) fn gate_zone_length_mi(&self) -> f64 {
         let zone = match self.trip.gate_zone() {
             Some(zone) => zone.clone(),
             None if self.trip.has_street_detail() => return 0.0,

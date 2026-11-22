@@ -69,6 +69,8 @@ const SKIP_PATH_PARTS: &[&str] = &[
     "/controller/bumpers.rs",
     // Load-time map screens: record fields and patterns, never spoken.
     "/data/stop_bounds",
+    // The sign-law table: jurisdiction names and statute citations, never spoken.
+    "/data/billboard_law",
 ];
 
 /// The hole an English plural ending ("s", "es") fills; a translation may

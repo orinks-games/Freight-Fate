@@ -1258,6 +1258,12 @@ fn test_alcan_phase_a_inland_filament_to_dawson_creek() {
         north.cities,
         vec![
             "surrey_bc_ca".to_string(),
+            "abbotsford_bc_ca".to_string(),
+            "chilliwack_bc_ca".to_string(),
+            "hope_bc_ca".to_string(),
+            "cache_creek_bc_ca".to_string(),
+            "williams_lake_bc_ca".to_string(),
+            "quesnel_bc_ca".to_string(),
             "prince_george_bc_ca".to_string(),
             "dawson_creek_bc_ca".to_string(),
         ]
@@ -1271,6 +1277,12 @@ fn test_alcan_phase_a_inland_filament_to_dawson_creek() {
         vec![
             "dawson_creek_bc_ca".to_string(),
             "prince_george_bc_ca".to_string(),
+            "quesnel_bc_ca".to_string(),
+            "williams_lake_bc_ca".to_string(),
+            "cache_creek_bc_ca".to_string(),
+            "hope_bc_ca".to_string(),
+            "chilliwack_bc_ca".to_string(),
+            "abbotsford_bc_ca".to_string(),
             "surrey_bc_ca".to_string(),
         ]
     );
@@ -1294,8 +1306,10 @@ fn test_alcan_phase_a_inland_filament_to_dawson_creek() {
         .map(|leg| (leg.a.as_str(), leg.b.as_str()))
         .collect();
     for (a, b) in [
-        ("surrey_bc_ca", "prince_george_bc_ca"),
-        ("prince_george_bc_ca", "surrey_bc_ca"),
+        ("surrey_bc_ca", "abbotsford_bc_ca"),
+        ("abbotsford_bc_ca", "surrey_bc_ca"),
+        ("quesnel_bc_ca", "prince_george_bc_ca"),
+        ("prince_george_bc_ca", "quesnel_bc_ca"),
         ("prince_george_bc_ca", "dawson_creek_bc_ca"),
         ("dawson_creek_bc_ca", "prince_george_bc_ca"),
         ("dawson_creek_bc_ca", "fort_st_john_bc_ca"),
@@ -1307,15 +1321,15 @@ fn test_alcan_phase_a_inland_filament_to_dawson_creek() {
         );
     }
     // Paid inland miles stay in the honest truck-routed band (not short-hop).
-    let pg = world
-        .legs
-        .iter()
-        .find(|leg| leg.a == "surrey_bc_ca" && leg.b == "prince_george_bc_ca")
-        .expect("surrey->prince george");
+    let pg = north.miles()
+        - world
+            .legs
+            .iter()
+            .find(|leg| leg.a == "prince_george_bc_ca" && leg.b == "dawson_creek_bc_ca")
+            .map_or(0.0, |leg| leg.miles);
     assert!(
-        (400.0..=520.0).contains(&pg.miles),
-        "Surrey–Prince George must be real Hwy 1/97 miles, got {}",
-        pg.miles
+        (400.0..=520.0).contains(&pg),
+        "Surrey–Prince George must be real Hwy 1/97 miles, got {pg}"
     );
     let dc = world
         .legs
@@ -1440,14 +1454,18 @@ fn test_alcan_phase_a_terminus_to_fairbanks() {
             "whitehorse_yt_ca".to_string(),
         ]
     );
-    // Continuous Lower 48 → Fairbanks through Blaine (no Anchorage; no teleport).
+    // Continuous Lower 48 → Fairbanks through a commercial crossing (no teleport).
     let full = world
         .shortest_route("bellingham_wa_us", "fairbanks_ak_us", None, false)
         .expect("bellingham loads")
         .expect("Lower 48 must reach Fairbanks on the Phase A ALCAN corridor");
     assert!(
-        full.cities.iter().any(|c| c == "blaine_wa_us"),
-        "must enter Canada via Blaine Pacific Highway, got {:?}",
+        // Blaine for the coast, Sumas for the Fraser Valley and the Cariboo.
+        matches!(
+            full.cities.get(1).map(String::as_str),
+            Some("blaine_wa_us" | "abbotsford_bc_ca")
+        ),
+        "must enter Canada at Blaine or Sumas, got {:?}",
         full.cities
     );
     assert!(
@@ -1638,7 +1656,7 @@ fn test_alcan_border_identity_and_posted_speed_profiles() {
         assert_eq!(crossings[0]["at_mi"].as_f64(), Some(at_mi));
         assert_eq!(
             crossings[0]["place"].as_str(),
-            Some("Alaska–Yukon border on the Alaska Highway at Alcan, Alaska")
+            Some("the Alcan border crossing")
         );
     }
 
@@ -1880,14 +1898,18 @@ fn test_alcan_phase_b1_tok_cutoff_glenn_to_anchorage() {
             "tok_ak_us".to_string(),
         ]
     );
-    // Continuous Lower 48 → Anchorage through Blaine + Phase A corridor (no teleport).
+    // Continuous Lower 48 → Anchorage through a crossing + Phase A corridor (no teleport).
     let full = world
         .shortest_route("bellingham_wa_us", "anchorage_ak_us", None, false)
         .expect("bellingham loads")
         .expect("Lower 48 must reach Anchorage on ALCAN + Phase B1");
     assert!(
-        full.cities.iter().any(|c| c == "blaine_wa_us"),
-        "must enter Canada via Blaine, got {:?}",
+        // Blaine for the coast, Sumas for the Fraser Valley and the Cariboo.
+        matches!(
+            full.cities.get(1).map(String::as_str),
+            Some("blaine_wa_us" | "abbotsford_bc_ca")
+        ),
+        "must enter Canada at Blaine or Sumas, got {:?}",
         full.cities
     );
     assert!(
@@ -2769,8 +2791,17 @@ fn test_legs_are_sane_and_unique() {
         // Real metro-twin and drayage corridors (Newark-NYC ~11 mi, Norfolk-
         // Virginia Beach ~18, New Haven-Bridgeport ~21) are legitimate short
         // freight lanes; only ban truly trivial or cross-country single legs.
+        // Twin cities facing each other across a river and a state or
+        // province line (Port Huron and Sarnia, Ottawa and Gatineau) are a
+        // bridge apart, so they may sit closer.
+        let state = |key: &str| world.cities[key].state.as_str();
+        let floor = if state(&leg.a) != state(&leg.b) {
+            5.0
+        } else {
+            10.0
+        };
         assert!(
-            leg.highway == "Anton Anderson Memorial Tunnel" || (10.0..=800.0).contains(&leg.miles),
+            leg.highway == "Anton Anderson Memorial Tunnel" || (floor..=800.0).contains(&leg.miles),
             "absurd mileage: {leg:?}"
         );
         // Directed uniqueness: the graph may author both A→B and B→A (ALCAN

@@ -98,6 +98,12 @@ fn state_zone(state: &str) -> Option<TimeZone> {
         "California" | "Washington" => PACIFIC,
         "Alaska" => ALASKA,
         "Hawaii" => HAWAII,
+        // Canada, on the same fixed standard offsets. Saskatchewan keeps
+        // Central Standard Time all year, which is what a fixed offset says.
+        "Alberta" | "AB" => MOUNTAIN,
+        "Saskatchewan" | "SK" | "Manitoba" | "MB" => CENTRAL,
+        // Quebec west of the Lower North Shore, which is all the map reaches.
+        "Quebec" | "QC" => EASTERN,
         _ => return None,
     })
 }
@@ -221,8 +227,37 @@ fn nevada(_lat: f64, lon: f64) -> TimeZone {
     }
 }
 
+/// British Columbia is Pacific except two corners on Mountain Standard Time:
+/// the East Kootenay (Golden, Cranbrook, Creston; the line crosses Highway 1
+/// at the east side of Glacier National Park and Highway 3 at Kootenay Pass)
+/// and the Peace and Northern Rockies country (Chetwynd, Dawson Creek, Fort
+/// St. John, Fort Nelson), which keep Mountain Standard Time all year.
+fn british_columbia(lat: f64, lon: f64) -> TimeZone {
+    if lat < 52.5 && lon >= -117.2 {
+        return MOUNTAIN;
+    }
+    if lat >= 55.5 && lon >= -123.5 {
+        return MOUNTAIN;
+    }
+    PACIFIC
+}
+
+/// Ontario is Eastern except the northwest, where Kenora, Dryden and Ignace
+/// keep Central time; the line runs near the 90th meridian, between Upsala
+/// and Ignace on Highway 17, so Thunder Bay is Eastern. (Atikokan, west of
+/// it, keeps Eastern Standard Time all year; no city there is on the map.)
+fn ontario(_lat: f64, lon: f64) -> TimeZone {
+    if lon < -90.5 {
+        CENTRAL
+    } else {
+        EASTERN
+    }
+}
+
 fn split_state_zone(state: &str) -> Option<fn(f64, f64) -> TimeZone> {
     Some(match state {
+        "British Columbia" | "BC" => british_columbia,
+        "Ontario" | "ON" => ontario,
         "Florida" => florida,
         "Indiana" => indiana,
         "Kentucky" => kentucky,
@@ -383,6 +418,32 @@ mod tests {
             ("Ontario", 44.03, -116.96, "Oregon", MOUNTAIN),
         ];
         for (place, lat, lon, state, expected) in cases {
+            assert_eq!(zone_for(lat, lon, state), expected, "{place}");
+        }
+    }
+
+    #[test]
+    fn test_western_canada_zones() {
+        for (place, lat, lon, state, expected) in [
+            ("Vancouver", 49.28, -123.12, "British Columbia", PACIFIC),
+            ("Revelstoke", 51.0, -118.2, "British Columbia", PACIFIC),
+            ("Golden", 51.3, -116.96, "British Columbia", MOUNTAIN),
+            ("Cranbrook", 49.51, -115.77, "British Columbia", MOUNTAIN),
+            ("Castlegar", 49.32, -117.66, "British Columbia", PACIFIC),
+            ("Prince George", 53.92, -122.75, "British Columbia", PACIFIC),
+            ("Dawson Creek", 55.76, -120.24, "British Columbia", MOUNTAIN),
+            ("Windsor", 42.31, -83.04, "Ontario", EASTERN),
+            ("Thunder Bay", 48.38, -89.25, "Ontario", EASTERN),
+            ("Kenora", 49.77, -94.49, "Ontario", CENTRAL),
+            ("Montreal", 45.50, -73.57, "Quebec", EASTERN),
+            ("Rouyn-Noranda", 48.24, -79.02, "Quebec", EASTERN),
+            ("Chetwynd", 55.70, -121.63, "British Columbia", MOUNTAIN),
+            ("Jasper", 52.88, -118.08, "Alberta", MOUNTAIN),
+            ("Grande Prairie", 55.17, -118.8, "Alberta", MOUNTAIN),
+            ("Swift Current", 50.29, -107.79, "Saskatchewan", CENTRAL),
+            ("Regina", 50.45, -104.61, "Saskatchewan", CENTRAL),
+            ("Winnipeg", 49.9, -97.14, "Manitoba", CENTRAL),
+        ] {
             assert_eq!(zone_for(lat, lon, state), expected, "{place}");
         }
     }

@@ -276,4 +276,19 @@ fn board_load_to_adds_a_southbound_yard_load_to_the_board() {
         "laredo-tx-us:cross_dock:sci-cross-dock"
     );
     assert!(southbound_consignee(last).is_some(), "{last:?}");
+
+/// `hos_cycle_min` puts a working week on the cycle ledger, so a drive can
+/// start near the 70-hour limit or out of it.
+#[test]
+fn hos_cycle_min_stages_the_working_week() {
+    let mut app = TestApp::new();
+    let notes = apply(&mut app.ctx, &scenario(json!({"hos_cycle_min": 4140})))
+        .expect("the scenario applies");
+    assert!(notes
+        .iter()
+        .any(|n| n == "HOS cycle: 4140 minutes on duty."));
+    let p = app.ctx.profile.as_ref().expect("a career");
+    assert_eq!(p.hos.cycle_used_min(), 4140.0);
+    assert_eq!(p.hos.cycle_remaining_min("realistic"), Some(60.0));
+    assert_eq!(p.hos.restart_remaining_min(), 34.0 * 60.0);
 }
