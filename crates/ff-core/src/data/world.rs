@@ -812,7 +812,11 @@ impl World {
         let start = self.resolve_city_key(start);
         let end = self.resolve_city_key(end);
         let (Some(from), Some(to)) = (self.cities.get(&start), self.cities.get(&end)) else {
-            let missing = if self.cities.contains_key(&start) { end } else { start };
+            let missing = if self.cities.contains_key(&start) {
+                end
+            } else {
+                start
+            };
             return Err(DataError::key(format!("Unknown city: {missing}")));
         };
         if from.country == to.country {
@@ -828,9 +832,11 @@ impl World {
 
     /// Whether a leg has both ends in `country`.
     fn leg_within(&self, leg: &Leg, country: &str) -> bool {
-        [&leg.a, &leg.b]
-            .iter()
-            .all(|key| self.cities.get(key.as_str()).is_some_and(|c| c.country == country))
+        [&leg.a, &leg.b].iter().all(|key| {
+            self.cities
+                .get(key.as_str())
+                .is_some_and(|c| c.country == country)
+        })
     }
 
     /// The Dijkstra behind [`Self::shortest_route`], for resolved keys of

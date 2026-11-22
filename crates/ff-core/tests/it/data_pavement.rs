@@ -19,7 +19,11 @@ fn most_legs_have_a_layer_and_the_screens_drop_little() {
     // HPMS is a US inventory: a leg that ends in Canada has at most its US
     // miles read, and a leg wholly in Canada has none.
     let in_us = |key: &str| world.cities.get(key).is_some_and(|c| c.country == "US");
-    let us_legs = world.legs.iter().filter(|l| in_us(&l.a) && in_us(&l.b)).count();
+    let us_legs = world
+        .legs
+        .iter()
+        .filter(|l| in_us(&l.a) && in_us(&l.b))
+        .count();
     for leg in &world.legs {
         let Some(p) = leg.pavement() else { continue };
         if in_us(&leg.a) && in_us(&leg.b) {

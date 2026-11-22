@@ -41,15 +41,17 @@ fn detroit_to_windsor_never_ends_at_a_detroit_exit() {
     let line = border_mile(&trip);
     assert!(line > 5.0, "the Gordie Howe line, mile {line}");
     if let Some((at_mi, label, _)) = scan_destination_exit(world(), &trip, true) {
-        assert!(at_mi > line, "exit {label} at mile {at_mi}, before the line at {line}");
+        assert!(
+            at_mi > line,
+            "exit {label} at mile {at_mi}, before the line at {line}"
+        );
     }
 }
 
 #[test]
 fn windsor_to_detroit_still_takes_a_detroit_exit() {
     let trip = trip_on("windsor_on_ca", "detroit_mi_us");
-    let (at_mi, label, _) =
-        scan_destination_exit(world(), &trip, true).expect("a Detroit exit");
+    let (at_mi, label, _) = scan_destination_exit(world(), &trip, true).expect("a Detroit exit");
     let line = border_mile(&trip);
     assert!(at_mi > line, "exit {label} at mile {at_mi}, line at {line}");
 }

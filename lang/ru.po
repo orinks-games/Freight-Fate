@@ -5549,13 +5549,9 @@ msgstr "Неизвестный идентификатор объекта: {facil
 msgid "terminal"
 msgstr "terminal"
 
-#. placeholders: {start}
-msgid "Unknown city: {start}"
-msgstr "Неизвестный город: {start}"
-
-#. placeholders: {end}
-msgid "Unknown city: {end}"
-msgstr "Неизвестный город: {end}"
+#. placeholders: {missing}
+msgid "Unknown city: {missing}"
+msgstr ""
 
 #. placeholders: {city}
 msgid "{city} has no freight facilities"
@@ -9464,6 +9460,12 @@ msgstr ""
 
 msgid "Yukon"
 msgstr ""
+
+msgid "Ontario"
+msgstr ""
+
+msgid "Quebec"
+msgstr "Квебек"
 
 msgid "Pay advance already taken for this load. Deliver it first."
 msgstr "Аванс за этот груз уже взят. Сначала доставьте его."
@@ -19009,9 +19011,6 @@ msgstr "Оскар"
 
 msgid "Papa"
 msgstr "Папа"
-
-msgid "Quebec"
-msgstr "Квебек"
 
 msgid "Romeo"
 msgstr "Ромео"
@@ -46377,6 +46376,12 @@ msgstr ""
 "Удерживайте left bumper для второго слоя кнопок. {pad_engine} управляет "
 "двигателем, {pad_fuel} называет топливо, а {pad_speed_limit} ограничение "
 "скорости."
+
+#~ msgid "Unknown city: {start}"
+#~ msgstr "Неизвестный город: {start}"
+
+#~ msgid "Unknown city: {end}"
+#~ msgstr "Неизвестный город: {end}"
 
 #~ msgid "Cruise resuming."
 #~ msgstr "Круиз-контроль продолжает."

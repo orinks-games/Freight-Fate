@@ -5742,13 +5742,9 @@ msgstr "Identifiant de site inconnu : {facility_id}"
 msgid "terminal"
 msgstr "terminal"
 
-#. placeholders: {start}
-msgid "Unknown city: {start}"
-msgstr "Ville inconnue : {start}"
-
-#. placeholders: {end}
-msgid "Unknown city: {end}"
-msgstr "Ville inconnue : {end}"
+#. placeholders: {missing}
+msgid "Unknown city: {missing}"
+msgstr ""
 
 #. placeholders: {city}
 msgid "{city} has no freight facilities"
@@ -9716,6 +9712,12 @@ msgstr ""
 
 msgid "Yukon"
 msgstr ""
+
+msgid "Ontario"
+msgstr ""
+
+msgid "Quebec"
+msgstr "Quebec"
 
 msgid "Pay advance already taken for this load. Deliver it first."
 msgstr ""
@@ -19366,9 +19368,6 @@ msgstr "Oscar"
 
 msgid "Papa"
 msgstr "Papa"
-
-msgid "Quebec"
-msgstr "Quebec"
 
 msgid "Romeo"
 msgstr "Romeo"
@@ -46733,6 +46732,12 @@ msgstr ""
 "Maintenez le left bumper pour une deuxième couche de boutons. {pad_engine} "
 "commande le moteur, {pad_fuel} lit le carburant, et {pad_speed_limit} lit "
 "la limitation."
+
+#~ msgid "Unknown city: {start}"
+#~ msgstr "Ville inconnue : {start}"
+
+#~ msgid "Unknown city: {end}"
+#~ msgstr "Ville inconnue : {end}"
 
 #~ msgid "Cruise resuming."
 #~ msgstr "Le régulateur reprend."

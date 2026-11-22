@@ -365,11 +365,17 @@ mod tests {
         assert_eq!(classify_region("NY", 40.71, -74.01).unwrap(), "northeast"); // New York
         assert_eq!(classify_region("TN", 35.96, -83.92).unwrap(), "appalachia"); // Knoxville
         assert_eq!(classify_region("TN", 36.16, -86.78).unwrap(), "mid_south"); // Nashville
-        // Ontario and Quebec splits.
-        assert_eq!(classify_region("ON", 46.49, -80.99).unwrap(), "upper_midwest"); // Sudbury
+                                                                                // Ontario and Quebec splits.
+        assert_eq!(
+            classify_region("ON", 46.49, -80.99).unwrap(),
+            "upper_midwest"
+        ); // Sudbury
         assert_eq!(classify_region("ON", 45.42, -75.70).unwrap(), "northeast"); // Ottawa
         assert_eq!(classify_region("ON", 43.65, -79.38).unwrap(), "great_lakes"); // Toronto
-        assert_eq!(classify_region("QC", 48.10, -77.78).unwrap(), "upper_midwest"); // Val-d'Or
+        assert_eq!(
+            classify_region("QC", 48.10, -77.78).unwrap(),
+            "upper_midwest"
+        ); // Val-d'Or
         assert_eq!(classify_region("QC", 45.50, -73.57).unwrap(), "northeast"); // Montreal
         assert_eq!(classify_region("QC", 48.43, -71.07).unwrap(), "northeast"); // Saguenay
     }

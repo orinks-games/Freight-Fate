@@ -5627,13 +5627,9 @@ msgstr "Id de instalação desconhecido: {facility_id}"
 msgid "terminal"
 msgstr "terminal"
 
-#. placeholders: {start}
-msgid "Unknown city: {start}"
-msgstr "Cidade desconhecida: {start}"
-
-#. placeholders: {end}
-msgid "Unknown city: {end}"
-msgstr "Cidade desconhecida: {end}"
+#. placeholders: {missing}
+msgid "Unknown city: {missing}"
+msgstr ""
 
 #. placeholders: {city}
 msgid "{city} has no freight facilities"
@@ -9550,6 +9546,12 @@ msgstr ""
 
 msgid "Yukon"
 msgstr ""
+
+msgid "Ontario"
+msgstr ""
+
+msgid "Quebec"
+msgstr "Quebec"
 
 msgid "Pay advance already taken for this load. Deliver it first."
 msgstr "O adiantamento desta carga já foi feito. Entregue-a primeiro."
@@ -19107,9 +19109,6 @@ msgstr "Oscar"
 
 msgid "Papa"
 msgstr "Papa"
-
-msgid "Quebec"
-msgstr "Quebec"
 
 msgid "Romeo"
 msgstr "Romeo"
@@ -46101,6 +46100,12 @@ msgstr ""
 "Segure o left bumper para uma segunda camada de botões. {pad_engine} "
 "controla o motor, {pad_fuel} lê o combustível e {pad_speed_limit} lê o "
 "limite."
+
+#~ msgid "Unknown city: {start}"
+#~ msgstr "Cidade desconhecida: {start}"
+
+#~ msgid "Unknown city: {end}"
+#~ msgstr "Cidade desconhecida: {end}"
 
 #~ msgid "Cruise resuming."
 #~ msgstr "Piloto automático retomando."

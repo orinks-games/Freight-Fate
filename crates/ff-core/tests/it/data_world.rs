@@ -2773,7 +2773,11 @@ fn test_legs_are_sane_and_unique() {
         // province line (Port Huron and Sarnia, Ottawa and Gatineau) are a
         // bridge apart, so they may sit closer.
         let state = |key: &str| world.cities[key].state.as_str();
-        let floor = if state(&leg.a) != state(&leg.b) { 5.0 } else { 10.0 };
+        let floor = if state(&leg.a) != state(&leg.b) {
+            5.0
+        } else {
+            10.0
+        };
         assert!(
             leg.highway == "Anton Anderson Memorial Tunnel" || (floor..=800.0).contains(&leg.miles),
             "absurd mileage: {leg:?}"
