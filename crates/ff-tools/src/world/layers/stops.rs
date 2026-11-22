@@ -261,7 +261,9 @@ pub fn parse_curated(text: &str) -> Result<Vec<Curated>> {
         }
         // The name is spoken: script a voice cannot read comes out, and a
         // name left with nothing readable is an error in the list.
-        let spoken = crate::world::spoken_name::latin_only(&name);
+        let spoken = crate::world::spoken_name::stray_capitals_fixed(
+            &crate::world::spoken_name::latin_only(&name),
+        );
         if spoken.is_empty() {
             return Err(format!("stop {name:?} has no name a voice can read"));
         }

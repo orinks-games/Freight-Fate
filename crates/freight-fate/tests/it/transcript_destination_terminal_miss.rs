@@ -372,3 +372,27 @@ fn test_speed_control_waits_out_a_pending_ramp_stop() {
         55.0
     ));
 }
+
+#[test]
+fn an_empty_run_parks_and_settles_without_a_dock_menu() {
+    // Agent drive, 2026-11-22: an assigned reposition to Skagway pulled into
+    // a cross-dock and offered "Drop the loaded trailer and hook an empty",
+    // its paperwork quoting a load's pay. An empty run has nothing to drop.
+    let mut app = TestApp::new();
+    let (shared, _clock) = a_drive(&mut app);
+    with_drive(&mut app, &shared, |d, _| d.job.bobtail = true);
+    at_the_terminal(&mut app, &shared, 0.0);
+    with_drive(&mut app, &shared, |d, ctx| d.open_facility_arrival(ctx));
+    crate::states_city_support::finish_timed_state(&mut app);
+    let top = app.ctx.state().expect("a screen after the pull-in");
+    assert!(
+        top.borrow()
+            .as_any()
+            .is::<freight_fate::states::driving_menu_states::ArrivalState>(),
+        "an empty run opened the dock menu"
+    );
+    assert!(!app
+        .main_lines()
+        .iter()
+        .any(|line| line.contains("Drop the loaded trailer")));
+}

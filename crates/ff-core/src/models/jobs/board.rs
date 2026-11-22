@@ -14,6 +14,7 @@ use crate::data::world_models::{City, CrossingLoad, Location, Route};
 use crate::models::business_constants::DIRECT_FREIGHT_PAY_MULT;
 use crate::models::carriers::carrier;
 use crate::models::co_driver::{load_seed, team_load_drawn, TEAM_LOAD_PAY_MULT};
+use crate::models::jobs::cross_border;
 use crate::models::jobs::{
     cargo_type, dispatch_deadline_hours, market_tag_cargo_bonus, minimum_pay_for_level, plan_hos,
     CargoType, Job, LoadUrgency, SeasonalWeightLimit, DEADLINE_DISPATCH_SLACK_RANGE,
@@ -219,11 +220,14 @@ impl<'w> JobBoard<'w> {
         let Ok(city_obj) = self.world.city(&city) else {
             return jobs;
         };
+        // A carrier without Canadian authority keeps to the United States.
+        let to_canada = cross_border::carrier_runs_to_canada(carrier_key);
         let candidates: Vec<Candidate> = self
             .candidates(&city)
             .into_iter()
             .filter(|c| c.1 >= MIN_JOB_DISTANCE_MI)
             .filter(|c| self.city_has_freight_receiver(&c.0))
+            .filter(|c| to_canada || !self.crosses_border(&city, &c.0))
             .collect();
         let cap = Self::distance_cap_for_carrier(level, carrier_key);
         // Run-band *max* is already folded into `cap` (tighter of level cap and
@@ -309,7 +313,24 @@ impl<'w> JobBoard<'w> {
                 }
                 continue;
             }
-            let (destination, miles, _legs) = dest_cycle[jobs.len() % dest_cycle.len()].clone();
+            let slot = jobs.len() % dest_cycle.len();
+            let (mut destination, mut miles, _legs) = dest_cycle[slot].clone();
+            // Freight that stays home (twins, cattle, placards) drawn for a
+            // slot across the border takes the next home destination in the
+            // spread instead of being dropped, so the border does not thin
+            // that freight out of a board near it.
+            if !cross_border::cargo_type_may_cross(cargo)
+                && self.crosses_border(&city, &destination)
+            {
+                let home = (1..dest_cycle.len())
+                    .map(|step| &dest_cycle[(slot + step) % dest_cycle.len()])
+                    .find(|c| !self.crosses_border(&city, &c.0));
+                let Some((home_destination, home_miles, _)) = home else {
+                    continue;
+                };
+                destination = home_destination.clone();
+                miles = *home_miles;
+            }
             // LCV freight only runs where the frozen network reaches: both
             // ends of the lane must sit in states that allow the combination.
             if cargo.lcv_lanes && !self.lcv_lane(&city, &destination) {
@@ -613,10 +634,9 @@ impl<'w> JobBoard<'w> {
             }
         }
         let mut computed: Vec<Candidate> = Vec::new();
-        // Phase A ALCAN: the continuous graph may reach Canada pass-through
-        // towns, but the job board must not mint CA destinations for a US
-        // carrier (through-freight corridor ≠ cabotage board). Keep offers
-        // same-country until a Canada domestic career board is an explicit cut.
+        // The driver works for a US carrier: loads into Canada and back out,
+        // never between two Canadian points (`cross_border`). A Canadian
+        // carrier's board is a later slice.
         let origin_country = self
             .world
             .cities
@@ -633,7 +653,7 @@ impl<'w> JobBoard<'w> {
                 .get(&dest)
                 .map(|c| c.country.as_str())
                 .unwrap_or("US");
-            if dest_country != origin_country {
+            if !cross_border::lane_allowed(origin_country, dest_country) {
                 continue;
             }
             if let Ok(Some(route)) = self.world.supported_route(city, &dest, None) {
@@ -646,6 +666,18 @@ impl<'w> JobBoard<'w> {
             .or_default()
             .insert(city.to_string(), computed.clone());
         computed
+    }
+
+    /// Whether a load between these cities crosses the border.
+    pub(crate) fn crosses_border(&self, origin: &str, destination: &str) -> bool {
+        let country = |key: &str| {
+            self.world
+                .cities
+                .get(key)
+                .map(|c| c.country.as_str())
+                .unwrap_or("US")
+        };
+        cross_border::lane_crosses(country(origin), country(destination))
     }
 
     /// True when the city has at least one facility that receives freight.
@@ -894,6 +926,15 @@ impl<'w> JobBoard<'w> {
                 origin_facility.id, destination_facility.id
             ),
         );
+        if self.crosses_border(origin, destination)
+            && !cross_border::cargo_may_cross(
+                cargo.national_network,
+                cargo.key == LIVESTOCK_CARGO_KEY,
+                material.is_some(),
+            )
+        {
+            return None;
+        }
         let load = CrossingLoad::standard_rig(true)
             .with_cargo(
                 cargo.key,

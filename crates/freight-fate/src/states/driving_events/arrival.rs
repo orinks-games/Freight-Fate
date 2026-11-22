@@ -15,7 +15,9 @@ use crate::online_presence::RADIO_CLAUSE;
 use crate::states::base::TimedMessageState;
 use crate::states::driving::DrivingState;
 use crate::states::driving_core::*;
-use crate::states::driving_menu_states::{replace_drive_with, DriveRef, FacilityArrivalState};
+use crate::states::driving_menu_states::{
+    replace_drive_with, settlement_hours, DriveRef, FacilityArrivalState,
+};
 use crate::states::driving_updates::live;
 use ff_core::sim::arrival_gate::{GateCue, GateEvent};
 
@@ -630,6 +632,14 @@ impl DrivingState {
                 move |ctx: &mut GameContext| {
                     let handle = drive.clone();
                     drive.with(ctx, |drive, ctx| {
+                        // An empty run has nothing to drop or unload: it
+                        // parks and settles, with no dock menu offering to
+                        // drop a loaded trailer it never had.
+                        if drive.job.bobtail {
+                            let hours = settlement_hours(drive);
+                            drive.replace_with_arrival_state_at(ctx, hours);
+                            return;
+                        }
                         drive.set_status("Parked at destination. Dock and deliver.");
                         // `FacilityArrivalState(self.ctx, self)`: the drive
                         // it covers is the one that pulled in, not whatever

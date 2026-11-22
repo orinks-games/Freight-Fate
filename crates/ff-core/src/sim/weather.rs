@@ -232,6 +232,10 @@ pub struct WeatherSystem {
     last_observed_temperature: Option<f64>,
     carried_last_known: bool,
     fallback_active: bool,
+    /// False while the tracked point is outside the live provider's country
+    /// (the US Weather Service answers nothing north of the border): the
+    /// sky runs simulated and nothing is fetched (`set_live_coverage`).
+    live_coverage: bool,
     /// Dev/testing override, usually None.
     pub forced: Option<WeatherKind>,
     pub current: WeatherKind,
@@ -302,6 +306,7 @@ impl WeatherSystem {
             last_observed_temperature: None,
             carried_last_known: false,
             fallback_active: false,
+            live_coverage: true,
             forced: forced_weather(),
             current: WeatherKind::Clear,
             minutes_until_change: 0.0,
@@ -512,6 +517,10 @@ impl WeatherSystem {
             return None;
         }
 
+        if !self.live_coverage {
+            return self.simulated_tick(sitting_minutes);
+        }
+
         let changed = self.poll_provider();
         if self.live {
             self.fallback_active = false;
@@ -546,6 +555,12 @@ impl WeatherSystem {
             }
         }
 
+        self.simulated_tick(sitting_minutes)
+    }
+
+    /// One step of the simulated sky: a new draw, near the current one,
+    /// every 25 to 70 minutes.
+    fn simulated_tick(&mut self, sitting_minutes: f64) -> Option<WeatherKind> {
         self.minutes_until_change -= sitting_minutes;
         if self.minutes_until_change > 0.0 {
             return None;
@@ -559,6 +574,29 @@ impl WeatherSystem {
             return Some(new);
         }
         None
+    }
+
+    /// Whether the live provider can answer for the tracked point. Crossing
+    /// out of its country, the sky stays as it was and runs simulated from
+    /// there, reported as simulated, never as a last-known reading carried
+    /// a thousand miles; crossing back, live weather is fetched afresh.
+    pub fn set_live_coverage(&mut self, covered: bool) {
+        if covered == self.live_coverage {
+            return;
+        }
+        self.live_coverage = covered;
+        self.live = false;
+        self.live_raw = None;
+        self.live_city = None;
+        self.live_kind = None;
+        self.carried_last_known = false;
+        self.session_had_live = false;
+        self.fallback_active = false;
+    }
+
+    /// See [`Self::set_live_coverage`].
+    pub fn live_coverage(&self) -> bool {
+        self.live_coverage
     }
 
     /// Whether the provider has no usable data and a fetch has failed.
@@ -578,12 +616,12 @@ impl WeatherSystem {
 
     /// Whether live weather is selected but no observation is ready yet.
     pub fn live_weather_loading(&mut self) -> bool {
-        self.provider.is_some() && !self.live && !self.provider_offline()
+        self.provider.is_some() && self.live_coverage && !self.live && !self.provider_offline()
     }
 
     /// Canonical source state for speech, menus, and event labels.
     pub fn source_status(&mut self) -> &'static str {
-        if self.provider.is_none() {
+        if self.provider.is_none() || !self.live_coverage {
             return "simulated";
         }
         if self.live {

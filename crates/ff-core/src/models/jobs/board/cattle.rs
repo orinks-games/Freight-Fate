@@ -26,7 +26,8 @@ impl<'w> JobBoard<'w> {
         let kind = CattleKind::for_origin(&origin.facility_type);
         let mut options: Vec<(String, f64, &'w Location)> = Vec::new();
         for (destination, miles, _legs) in candidates {
-            if destination == city {
+            // Live cattle stay inside the United States (`cross_border`).
+            if destination == city || self.crosses_border(city, destination) {
                 continue;
             }
             let Some(dest_city) = self.world.cities.get(destination) else {

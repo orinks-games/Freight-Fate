@@ -29,7 +29,7 @@ use ff_core::input_hints::TOUCH;
 use ff_core::models::business::{is_owner_operator, COMPANY_DRIVER, INDEPENDENT_AUTHORITY};
 use ff_core::models::enforcement;
 use ff_core::models::home_base::{ParkedAt, ParkedKind};
-use ff_core::models::jobs::relay::{relay_load, RelayRequest};
+use ff_core::models::jobs::relay::{fallback_reposition, relay_load, usable, RelayRequest};
 use ff_core::models::jobs::{
     board_offer_count, came_from_city, departure_deadline_hours, job_from_payload, job_payload,
     normalize_job_cities, plan_hos, Job, JobBoard, OfferOptions, ACTIVE_TRIP_FAIRNESS_SLACK,
@@ -180,11 +180,6 @@ pub(crate) fn sleeps_needed(drive_h: f64, first_shift_h: f64, shift_h: f64) -> i
 
 // Empty-drive range for shopping another city's board.
 pub const BOBTAIL_RANGE_MI: f64 = 400.0;
-
-// Company drivers don't get to bobtail on a whim (that's the owner-operator
-// menu item above); instead dispatch relays them a load from a nearby city
-// when the board here is thin -- see `relay_load_for_board` and
-// `ff_core::models::jobs::relay` for the rule and its thresholds.
 
 // How long a manual "Save game" waits for its cloud backup result before
 // handing the attempt back to the background retry. Long enough for a normal
@@ -572,13 +567,11 @@ pub(crate) fn warm_dispatch_board(world: &'static World, city: &str) {
 }
 
 /// The load dispatch relays onto a company driver's board when the board
-/// here is thin (`ff_core::models::jobs::relay`): a load from one of the
-/// nearest freight towns, its deadhead paid at the empty-mile rate (the
-/// delivery clock starts at the shipper), offered as one assignment. None
-/// when the board here is good enough, for an owner-operator (their own
-/// "Bobtail to a nearby city" is how they reposition, on their own fuel),
-/// and for a brand new hire, whose first dispatch is always freight from
-/// this yard.
+/// here is thin (`ff_core::models::jobs::relay`), its deadhead paid at the
+/// empty-mile rate, or an assigned reposition when nothing here or nearby
+/// fits. None when the board here is good enough, for an owner-operator
+/// (their "Bobtail to a nearby city" repositions them), and for a brand new
+/// hire, whose first dispatch is always freight from this yard.
 ///
 /// Seeded off the board's own cache key so the same board relays the same
 /// load every time it is reopened, exactly like the rest of the cached
@@ -613,7 +606,12 @@ pub fn relay_load_for_board(ctx: &GameContext, key: &Value, local: &[Job]) -> Op
         direct_freight: p.business_status == INDEPENDENT_AUTHORITY,
         seed,
     };
-    relay_load(world, &request, local, &nearby).map(|relay| relay.job)
+    // Nothing here the driver can take and nothing to relay: the carrier
+    // sends the truck empty to the nearest city with a load for it.
+    let stranded = !local.iter().any(|job| usable(job, &endorsements));
+    relay_load(world, &request, local, &nearby)
+        .map(|relay| relay.job)
+        .or_else(|| stranded.then(|| fallback_reposition(world, &request, &nearby))?)
 }
 
 /// FREIGHT_FATE_FORCE_DEST playtest lever: guarantee one load to the
