@@ -13160,6 +13160,9 @@ msgstr ""
 msgid "No 30-minute break is required under Canadian hours rules."
 msgstr ""
 
+msgid "No 30-minute break is required with cattle aboard."
+msgstr ""
+
 msgid "Break overdue"
 msgstr "Перерыв просрочен"
 
@@ -22658,10 +22661,10 @@ msgstr "Перед погрузкой остановитесь."
 msgid "Hooking the loaded trailer"
 msgstr "Цепляем загруженный прицеп"
 
-#. placeholders: {facility}, {map}, {f}, {cargo_label}, {doubles_clause}
+#. placeholders: {facility}, {map}, {f}, {cargo_label}
 msgid ""
 "Dropping your empty at {facility} and hooking {map}, loaded with {f} tons "
-"of {cargo_label}.{doubles_clause}"
+"of {cargo_label}."
 msgstr ""
 
 msgid "Dropping and hooking."
@@ -22670,8 +22673,8 @@ msgstr "Перецепляем прицеп."
 msgid "Loading cargo"
 msgstr "Погрузка"
 
-#. placeholders: {f}, {cargo_label}, {facility}, {doubles_clause}
-msgid "Loading {f} tons of {cargo_label} at {facility}.{doubles_clause}"
+#. placeholders: {f}, {cargo_label}, {facility}
+msgid "Loading {f} tons of {cargo_label} at {facility}."
 msgstr ""
 
 msgid "Loading cargo."
@@ -31255,16 +31258,17 @@ msgstr ""
 "Оставляем гружёный прицеп: {facility}, {f} {f:тонна|тонны|тонн}, груз: "
 "{cargo_label}."
 
-#. placeholders: {facility}, {f}, {cargo_label}, {doubles}
+#. placeholders: {facility}, {f}, {cargo_label}
 msgid ""
 "Dropping the loaded trailer at {facility}, {f} tons of {cargo_label}. "
-"Hooking an empty.{doubles}"
+"Hooking an empty."
 msgstr ""
+"Оставляем гружёный прицеп: {facility}, {f} {f:тонна|тонны|тонн}, груз: "
+"{cargo_label}. Цепляем пустой."
 
-#. placeholders: {doubles}
 #. one sentence of a longer line
-msgid "Hooking an empty.{doubles}"
-msgstr ""
+msgid "Hooking an empty."
+msgstr "Цепляем пустой."
 
 msgid "Dropping the trailer."
 msgstr "Оставляем прицеп."
@@ -31277,14 +31281,16 @@ msgstr "Разгрузка"
 msgid "Docked at {facility}."
 msgstr "У рампы: {facility}."
 
-#. placeholders: {facility}, {f}, {cargo_label}, {doubles}
-msgid "Docked at {facility}. Unloading {f} tons of {cargo_label}.{doubles}"
+#. placeholders: {facility}, {f}, {cargo_label}
+msgid "Docked at {facility}. Unloading {f} tons of {cargo_label}."
 msgstr ""
+"У рампы: {facility}. Разгружаем {f} {f:тонна|тонны|тонн}, груз: "
+"{cargo_label}."
 
-#. placeholders: {f}, {cargo_label}, {doubles}
+#. placeholders: {f}, {cargo_label}
 #. one sentence of a longer line
-msgid "Unloading {f} tons of {cargo_label}.{doubles}"
-msgstr ""
+msgid "Unloading {f} tons of {cargo_label}."
+msgstr "Разгружаем {f} {f:тонна|тонны|тонн}, груз: {cargo_label}."
 
 msgid "Unloading cargo."
 msgstr "Разгрузка."
@@ -33107,6 +33113,9 @@ msgstr ""
 "Двигатель заглушен на стоянке, топливо не расходуется. Обязательно перед "
 "топливным островком."
 
+msgid "The cattle pass the 28-hour limit while you sleep."
+msgstr ""
+
 msgid "the lot"
 msgstr "стоянка"
 
@@ -33196,19 +33205,19 @@ msgstr "Часы переводятся вперёд на {span}."
 msgid "Sleep {span}{more} at {name}."
 msgstr "Сон {span}{more}, место: {name}."
 
-#. placeholders: {span}, {more}, {name}, {effect}, {legal}, {f}, {f2}, {deadline}, {pending}, {cost}
+#. placeholders: {span}, {more}, {name}, {effect}, {legal}, {f}, {f2}, {deadline}, {cattle}, {pending}, {cost}
 msgid ""
 "Sleep {span}{more} at {name}. {effect} {legal} Fatigue {f} to {f2}. Clock "
-"moves ahead {span}. {deadline}{pending}{cost} Select again to sleep."
+"moves ahead {span}. {deadline}{cattle}{pending}{cost} Select again to sleep."
 msgstr ""
 "Сон {span}{more}: {name}. {effect} {legal} Усталость с {f} до {f2}. Часы "
-"переводятся вперёд на {span}. {deadline}{pending}{cost} Выберите ещё раз, "
-"чтобы лечь спать."
+"переводятся вперёд на {span}. {deadline}{cattle}{pending}{cost} Выберите "
+"ещё раз, чтобы лечь спать."
 
-#. placeholders: {deadline}, {pending}, {cost}
+#. placeholders: {deadline}, {cattle}, {pending}, {cost}
 #. one sentence of a longer line
-msgid "{deadline}{pending}{cost} Select again to sleep."
-msgstr "{deadline}{pending}{cost} Выберите ещё раз, чтобы поспать."
+msgid "{deadline}{cattle}{pending}{cost} Select again to sleep."
+msgstr "{deadline}{cattle}{pending}{cost} Выберите ещё раз, чтобы поспать."
 
 #. placeholders: {effect}, {legal}, {f}, {f2}
 #. one sentence of a longer line
@@ -46176,6 +46185,17 @@ msgstr ""
 "двигателем, {pad_fuel} называет топливо, а {pad_speed_limit} ограничение "
 "скорости."
 
+#~ msgid ""
+#~ "Sleep {span}{more} at {name}. {effect} {legal} Fatigue {f} to {f2}. Clock "
+#~ "moves ahead {span}. {deadline}{pending}{cost} Select again to sleep."
+#~ msgstr ""
+#~ "Сон {span}{more}: {name}. {effect} {legal} Усталость с {f} до {f2}. Часы "
+#~ "переводятся вперёд на {span}. {deadline}{pending}{cost} Выберите ещё раз, "
+#~ "чтобы лечь спать."
+
+#~ msgid "{deadline}{pending}{cost} Select again to sleep."
+#~ msgstr "{deadline}{pending}{cost} Выберите ещё раз, чтобы поспать."
+
 #~ msgid "{name} Company Yard"
 #~ msgstr "Площадка компании {name}"
 
@@ -46470,24 +46490,6 @@ msgstr ""
 
 #~ msgid "Parked at {name} in {city}."
 #~ msgstr "Припаркован в {name}, {city}."
-
-#~ msgid ""
-#~ "Dropping the loaded trailer at {facility}, {f} tons of {cargo_label}. "
-#~ "Hooking an empty."
-#~ msgstr ""
-#~ "Оставляем гружёный прицеп: {facility}, {f} {f:тонна|тонны|тонн}, груз: "
-#~ "{cargo_label}. Цепляем пустой."
-
-#~ msgid "Hooking an empty."
-#~ msgstr "Цепляем пустой."
-
-#~ msgid "Docked at {facility}. Unloading {f} tons of {cargo_label}."
-#~ msgstr ""
-#~ "У рампы: {facility}. Разгружаем {f} {f:тонна|тонны|тонн}, груз: "
-#~ "{cargo_label}."
-
-#~ msgid "Unloading {f} tons of {cargo_label}."
-#~ msgstr "Разгружаем {f} {f:тонна|тонны|тонн}, груз: {cargo_label}."
 
 #~ msgid ""
 #~ "At {facility}. {f} tons of {label}. Speed {speed_text}. {else}. Stop, then "

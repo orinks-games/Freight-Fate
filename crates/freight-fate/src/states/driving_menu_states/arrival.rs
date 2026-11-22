@@ -441,22 +441,28 @@ impl ArrivalState {
         // The carried balance from earlier loads is added back after
         // collection below, so it is never taken twice.
         profile_mut_of(ctx).fines_owed = business.uncollected_charges;
+        // What the receiver found, for the settlement rows: the screen reads
+        // its own itemized list, not `summary_parts`, so these lines are
+        // carried into it below or the player never hears them.
+        let mut receiver_lines: Vec<String> = Vec::new();
         // Live cattle come off first: the count, the hours aboard and what
         // the receiver found, before any money is named.
         if let Some(load) = d.trip.truck.livestock.as_mut() {
             let one_down = load.footing == ff_core::sim::livestock::Footing::OneDown;
             load.start_unloading();
             load.delivered();
-            self.summary_parts
-                .push(ff_core::sim::livestock::receiver_ruling_line(
-                    cargo.condition_pct,
-                    load.head,
-                    load.hours_aboard(),
-                    one_down,
-                ));
+            let line = ff_core::sim::livestock::receiver_ruling_line(
+                cargo.condition_pct,
+                load.head,
+                load.hours_aboard(),
+                one_down,
+            );
+            receiver_lines.push(line.clone());
+            self.summary_parts.push(line);
         }
         if !cargo.clean() {
             let line = self.cargo_settlement_line(ctx, d, &cargo, vocabulary);
+            receiver_lines.push(line.clone());
             self.summary_parts.push(line);
             let p = profile_mut_of(ctx);
             p.career.reputation = (p.career.reputation - cargo.reputation_hit).max(0.0);
@@ -1027,6 +1033,10 @@ impl ArrivalState {
                     fmt_f(receiver_service_hours * 60.0, 0)
                 ),
             );
+        }
+        // The receiver's count and any claim follow the load they are about.
+        for (i, line) in receiver_lines.into_iter().enumerate() {
+            lines.insert(2 + i, line);
         }
         if let Some(line) = yard_drop_line(&job) {
             lines.insert(1, line);

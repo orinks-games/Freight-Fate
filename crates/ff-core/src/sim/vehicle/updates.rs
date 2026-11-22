@@ -76,9 +76,12 @@ impl TruckState {
         };
         self.update_rpm(dt);
         self.update_fuel(dt);
-        // Hotel burns use the same game-second scale as update_fuel.
-        // Fuel burn follows mpg compression; cargo temp/spoil do not.
-        self.advance_hotel_power(dt * self.fuel_burn_mult, dt);
+        // Hotel burns and the box temperature both run on game seconds: the
+        // trip's time compression (`fuel_burn_mult`) is the game clock the
+        // hours of service and the rest stops use, so a box left off on the
+        // road warms at the same rate per game hour as one left off at a stop.
+        let game_s = dt * self.fuel_burn_mult;
+        self.advance_hotel_power(game_s, game_s);
         self.update_temps(dt);
         self.update_wear(dt);
     }
