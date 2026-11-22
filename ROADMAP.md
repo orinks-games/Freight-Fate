@@ -5196,6 +5196,36 @@ branch. The older Phase A/B plan checklists are not a live completion list.
       June 8 notice; the game keeps the restriction through June 15.
 - [ ] (Found along the way) The Palmer–Wasilla route retraces the Palmer–Wasilla
       Highway, which would put it under the unmodeled Mat-Su area-wide limit.
+- [x] (Release gate) The customs booth's half-mile reminder held no real-time
+      clock, so at relaxed pacing the half mile went by in about three real
+      seconds and a truck braking on "Stop at the booth" from highway speed
+      ran the booth and drew the penalty (R2 review drive, 2026-11-22). The
+      reminder now pins the clock to real time until the booth above the
+      bypass speed, the same law as the open scale's reminder.
+- [x] (Found along the way) The Whittier tunnel's seasonal hours read the
+      career's own day count rather than the date the player hears, so a
+      career whose calendar showed July got the winter 7:00 AM opening. The
+      gate now reads the spoken date.
+- [x] (Found along the way) The agent server can stage a drive before a
+      customs booth (`start_at` feature `border`) and a calendar date
+      (`scenario` field `date`), so spring weight limits and the tunnel's
+      seasons can be driven.
+- [ ] (Found along the way) Yukon keeps UTC-7 all year and Dawson Creek,
+      Fort St. John and Fort Nelson keep Mountain Standard Time all year,
+      but the game speaks Pacific Time for the whole Alcan in Canada (Beaver
+      Creek read "6:18 AM Pacific Time"). Belongs with the Canada rules work
+      (time zones), since the game has no daylight saving to hang it on.
+- [ ] (Found along the way) The Whittier tunnel gate is judged at the leg
+      start and the wait passes as a jump in the clock while the truck keeps
+      rolling; nothing holds the truck at the staging lane. Spoken lines are
+      true ("The next opening is at 5:30 AM") but the truck does not stop.
+- [ ] (Found along the way) No spring weight-limit window covers the Dalton
+      Highway (the 2026 notices transcribed name none), so a Deadhorse load
+      meets a limit only on the Richardson or Parks approach.
+- [ ] (Found along the way) The Alcan legs in Canada carry no truck stops,
+      so the Canadian diesel price and the liter line at the pump cannot be
+      met on a drive yet (stops on northern legs are the Canada map tools
+      thread's work).
 
 Automated evidence: the four `test_alcan_phase_a_*` cases (including the
 Tok–Delta Junction–Fairbanks split), `test_alcan_phase_b1_tok_cutoff_glenn_to_anchorage`,
@@ -5536,6 +5566,27 @@ Honesty debts for this v1 slice (do not paper over):
       porting genny's voiced instruments, drums and styles into that renderer
       would give the synth mode a real band. genny is Python, so it is a port,
       not an embed.
+
+### Achievements for 2.0 (wave 1 built, wave 2 waits for Canada)
+
+- [x] Seventeen badges (catalog 184 to 201): Alaska, Anchorage,
+      Deadhorse, the Whittier tunnel, the whole Alaska Highway, Fairbanks in
+      spring, the Dalton in winter, spring weight limits, first customs, a
+      34-hour restart and one at the home terminal, a week for one carrier,
+      rehired after a let-go, the move up from the training fleet, two
+      cattle badges and the Laredo transfer yard. Rules and tests:
+      `ff_core::achievements::career_two`. Awarded from now on, except
+      Get Back, which reads the record at the next terminal visit.
+- [ ] (Found along the way) The Whittier tunnel badge is only reachable by
+      an owner-operator's empty run until Whittier gets a freight market
+      (Alaska routes brief).
+- [ ] (Found along the way) Waiting out a CDL suspension at the terminal
+      logs one 10-hour sleep on the hours clock however long the wait, so a
+      multi-day wait does not restart the cycle.
+- [ ] Wave 2, Canada: nine badges (Across the Border, Alberta Bound,
+      Saskatoon, Sudbury, Halifax, Quebec in winter, Lake Superior in
+      November, both coasts, every province). Each waits for the
+      cross-border loads PR and for its city or road to exist on the map.
 
 ### The first 2.0 nightly
 

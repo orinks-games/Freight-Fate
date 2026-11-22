@@ -42,7 +42,9 @@ use crate::states::driving_core::{
     reputation_pay_bonus, unique_consecutive, wallet_delta, xp_class_multiplier, xp_streak_bonus,
 };
 use crate::states::driving_damage::{damage_summary_line, preventable_damage_charge};
-use crate::states::driving_menu_states::badges::award_arrival_achievements;
+use crate::states::driving_menu_states::badges::{
+    award_arrival_achievements, award_bobtail_road_badges,
+};
 use crate::states::driving_menu_states::{
     DELIVERY_SETTLEMENT_MAX_AVERAGE_MPH, ROAD_GRIME_PER_MILE, SETTLEMENT_LOW_FUEL_FRACTION,
 };
@@ -259,6 +261,7 @@ impl ArrivalState {
         if let Some(result) = ctx.award_achievement_with("bobtail_done", false, false) {
             self.summary_parts.push(result.award.message.normal.clone());
         }
+        award_bobtail_road_badges(self, ctx, d);
         // The arrival screen and announcement read summary_lines, not parts.
         self.summary_lines = self.summary_parts.clone();
     }
