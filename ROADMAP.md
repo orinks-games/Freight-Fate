@@ -5949,6 +5949,23 @@ a carrier slice (owner, 2026-10-26).
       a leg its list does not cover just because it shares a listed name
       (a run of the West list without `--only` was dropping US
       Petro-Canada stops and others).
+- [x] Spoken names keep only what a voice can read (2026-11-22): a name
+      uses `name:en` when OpenStreetMap has one, else `name` with any run
+      of non-Latin script taken out (accents stay), and a name with
+      nothing left is not spoken. Landmarks, villages, exits and stop lists
+      follow it (`world/spoken_name.rs` in `ff-tools`); 11 stored names
+      changed (Cree syllabics in Alberta, Saskatchewan and Manitoba, the
+      IPA glottal stop in "ʔEsdilagh", a box-drawing dash in one North
+      Carolina stop).
+- [x] Mountain passes are named only within 0.4 mile of the leg's road
+      (2026-11-22). Calibrated on the 338 stored passes, each node read
+      from OpenStreetMap: 189 within 100 m, the known road passes mapped at
+      their saddle reach 554 m (Campbell Pass), trail passes start past
+      900 m; 131 dropped, 207 kept. 179 of the old records carried no node
+      id and were matched by name through Nominatim to the nearest node.
+- [ ] (Found along the way) "pic de Melette" (Quebec, 2 legs) is a peak
+      tagged as a pass on a cycleway 300 m from the road, and stays in
+      under the 0.4-mile rule.
 - [ ] (Found along the way) Simonson Travel Center (Grand Forks) is in the
       West list and within reach of two North Dakota legs it was never
       placed on; a run without `--only` adds it there.

@@ -20060,20 +20060,6 @@
             "source": "derived 2026-10-01: placed by tools/place_river_crossings.py at the crossing of OSM waterway way 43775469 (Nolichucky River) with the leg's archived dense route geometry; at_mi = cum[i-1] + t*(cum[i]-cum[i-1]) rescaled to leg miles, taking the crossing nearest the previous at_mi when the river crosses more than once. OpenStreetMap, Geofabrik us-latest extract 2026-09-30: https://www.openstreetmap.org/."
           },
           {
-            "name": "Sugarloaf Gap",
-            "category": "mountain_pass",
-            "kind": "point",
-            "at_mi": 30.2,
-            "spoken": "Approaching Sugarloaf Gap"
-          },
-          {
-            "name": "Rice Gap",
-            "category": "mountain_pass",
-            "kind": "point",
-            "at_mi": 30.8,
-            "spoken": "Approaching Rice Gap"
-          },
-          {
             "name": "Rural Heritage Museum",
             "category": "museum",
             "kind": "point",
@@ -20097,13 +20083,6 @@
             "kind": "point",
             "source": "OpenStreetMap place=town node 154061305, projected onto the leg's OpenRouteService driving-hgv route",
             "spoken": "Passing Marshall"
-          },
-          {
-            "name": "Craven Gap",
-            "category": "mountain_pass",
-            "kind": "point",
-            "at_mi": 56.5,
-            "spoken": "Approaching Craven Gap"
           },
           {
             "name": "Candler",

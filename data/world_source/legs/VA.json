@@ -7344,13 +7344,6 @@
             ]
           },
           {
-            "name": "New Market Gap",
-            "category": "mountain_pass",
-            "kind": "point",
-            "at_mi": 21.1,
-            "spoken": "Approaching New Market Gap"
-          },
-          {
             "name": "North Fork Shenandoah River",
             "category": "river",
             "kind": "point",
@@ -7398,13 +7391,6 @@
             "spoken": "Passing Basye"
           },
           {
-            "name": "Moreland Gap",
-            "category": "mountain_pass",
-            "kind": "point",
-            "at_mi": 29.3,
-            "spoken": "Approaching Moreland Gap"
-          },
-          {
             "name": "Edinburg",
             "at_mi": 33.5,
             "off_mi": 0.83,
@@ -7446,13 +7432,6 @@
             "kind": "point",
             "source": "OpenStreetMap place=village node 157607657, projected onto the leg's OpenRouteService driving-hgv route",
             "spoken": "Passing Toms Brook"
-          },
-          {
-            "name": "Mine Gap",
-            "category": "mountain_pass",
-            "kind": "point",
-            "at_mi": 45.2,
-            "spoken": "Approaching Mine Gap"
           },
           {
             "name": "Dinosaur Land",
@@ -7536,13 +7515,6 @@
             "kind": "point",
             "source": "OpenStreetMap place=village node 157579474, projected onto the leg's OpenRouteService driving-hgv route",
             "spoken": "Passing Boyce"
-          },
-          {
-            "name": "Hoop Petticoat Gap",
-            "category": "mountain_pass",
-            "kind": "point",
-            "at_mi": 66.8,
-            "spoken": "Approaching Hoop Petticoat Gap"
           },
           {
             "name": "Berryville",
@@ -12260,16 +12232,6 @@
             "spoken": "Passing Warrenton"
           },
           {
-            "name": "Hopewell Gap",
-            "category": "mountain_pass",
-            "kind": "point",
-            "at_mi": 18.4,
-            "lat": 38.84495,
-            "lon": -77.7518,
-            "spoken": "Approaching Hopewell Gap",
-            "source": "derived 2026-10-01: name, category and kind read from OpenStreetMap tags via classify_narratable_feature; spoken text derived via spoken_landmark_text; nearest projection of OSM node 210769949 (Hopewell Gap) onto the leg's archived dense route geometry; at_mi = interpolated cumulative distance at the projection, rescaled to leg miles. OpenStreetMap via Overpass: https://www.openstreetmap.org/."
-          },
-          {
             "name": "Middleburg",
             "at_mi": 18.7,
             "off_mi": 8.49,
@@ -12332,16 +12294,6 @@
             "kind": "point",
             "source": "OpenStreetMap place=village node 158466758, projected onto the leg's checked-in route geometry",
             "spoken": "Entering Apple Mountain Lake"
-          },
-          {
-            "name": "CHester Gap",
-            "category": "mountain_pass",
-            "kind": "point",
-            "at_mi": 40.1,
-            "lat": 38.9192,
-            "lon": -78.12074,
-            "spoken": "Approaching CHester Gap",
-            "source": "derived 2026-10-01: name, category and kind read from OpenStreetMap tags via classify_narratable_feature; spoken text derived via spoken_landmark_text; nearest projection of OSM node 220431639 (CHester Gap) onto the leg's archived dense route geometry; at_mi = interpolated cumulative distance at the projection, rescaled to leg miles. OpenStreetMap via Overpass: https://www.openstreetmap.org/."
           },
           {
             "name": "Shenandoah Farms",
@@ -43959,13 +43911,6 @@
             "kind": "point",
             "source": "OpenStreetMap place=town node 158352768, projected onto the leg's OpenRouteService driving-hgv route",
             "spoken": "Passing Daleville"
-          },
-          {
-            "name": "Buford's Gap",
-            "category": "mountain_pass",
-            "kind": "point",
-            "at_mi": 14.0,
-            "spoken": "Approaching Buford's Gap"
           },
           {
             "name": "Troutville",

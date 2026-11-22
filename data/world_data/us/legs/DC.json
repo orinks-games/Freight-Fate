@@ -2524,16 +2524,6 @@
             "spoken": "Passing Haymarket"
           },
           {
-            "name": "Thoroughfare Gap",
-            "category": "mountain_pass",
-            "kind": "point",
-            "at_mi": 46.8,
-            "lat": 38.77953,
-            "lon": -77.67757,
-            "spoken": "Approaching Thoroughfare Gap",
-            "source": "derived 2026-10-01: name, category and kind read from OpenStreetMap tags via classify_narratable_feature; spoken text derived via spoken_landmark_text; nearest projection of OSM node 210849571 (Thoroughfare Gap) onto the leg's archived dense route geometry; at_mi = interpolated cumulative distance at the projection, rescaled to leg miles. OpenStreetMap via Overpass: https://www.openstreetmap.org/."
-          },
-          {
             "name": "New Baltimore",
             "at_mi": 49.7,
             "off_mi": 0.18,

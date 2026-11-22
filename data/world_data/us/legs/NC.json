@@ -1032,13 +1032,6 @@
             "spoken": "Passing Tryon"
           },
           {
-            "name": "Trammel Gap",
-            "category": "mountain_pass",
-            "kind": "point",
-            "at_mi": 35.6,
-            "spoken": "Approaching Trammel Gap"
-          },
-          {
             "name": "The Carl Sandburg Home (northbound)",
             "category": "billboard_sign",
             "kind": "point",
@@ -2584,13 +2577,6 @@
             "kind": "point",
             "source": "OpenStreetMap place=town node 153904354, projected onto the leg's OpenRouteService driving-hgv route",
             "spoken": "Passing Weaverville"
-          },
-          {
-            "name": "Craven Gap",
-            "category": "mountain_pass",
-            "kind": "point",
-            "at_mi": 4.03,
-            "spoken": "Approaching Craven Gap"
           },
           {
             "name": "Biltmore Forest",
@@ -10641,13 +10627,6 @@
             "kind": "point",
             "source": "OpenStreetMap place=town node 153904354, projected onto the leg's OpenRouteService driving-hgv route",
             "spoken": "Passing Weaverville"
-          },
-          {
-            "name": "Craven Gap",
-            "category": "mountain_pass",
-            "kind": "point",
-            "at_mi": 3.8,
-            "spoken": "Approaching Craven Gap"
           },
           {
             "name": "Biltmore Forest",
@@ -26693,13 +26672,6 @@
             "kind": "point",
             "source": "OpenStreetMap place=village node 153894527, projected onto the leg's OpenRouteService driving-hgv route",
             "spoken": "Passing Candler"
-          },
-          {
-            "name": "Newfound Gap",
-            "category": "mountain_pass",
-            "kind": "point",
-            "at_mi": 167.29,
-            "spoken": "Approaching Newfound Gap"
           },
           {
             "name": "Clyde",
@@ -46652,7 +46624,7 @@
           "approach_source": "derived: routed over the local OpenStreetMap extract from this exit's ramp terminal node (read) to the stop's read coordinates; per-street limit, controls and driveway as in facility_approaches.json generated.street_sources"
         },
         {
-          "name": "I-95 Southbound \u2500 Johnston County",
+          "name": "I-95 Southbound Johnston County",
           "type": "public_rest_area",
           "at_mi": 48.5,
           "source": "OpenStreetMap/Overpass development-time corridor amenity query, accessed 2026-06-21; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs.",

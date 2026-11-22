@@ -21,6 +21,7 @@ pub mod index;
 pub mod layers;
 pub mod osm;
 pub mod reroute;
+pub mod spoken_name;
 
 use std::collections::BTreeMap;
 use std::path::{Path, PathBuf};

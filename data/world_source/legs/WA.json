@@ -5220,13 +5220,6 @@
             "source": "derived 2026-10-01: placed by tools/place_river_crossings.py at the crossing of OSM waterway way 164125011 (Willamette River) with the leg's archived dense route geometry; at_mi = cum[i-1] + t*(cum[i]-cum[i-1]) rescaled to leg miles, taking the crossing nearest the previous at_mi when the river crosses more than once. OpenStreetMap, Geofabrik us-latest extract 2026-09-30: https://www.openstreetmap.org/."
           },
           {
-            "name": "Sylvan Hill",
-            "category": "mountain_pass",
-            "kind": "point",
-            "at_mi": 57.0,
-            "spoken": "Approaching Sylvan Hill"
-          },
-          {
             "name": "Lake Oswego",
             "at_mi": 57.0,
             "off_mi": 6.54,
@@ -20482,25 +20475,11 @@
             "source": "derived 2026-10-01: placed by tools/place_river_crossings.py at the crossing of OSM waterway way 32506322 (South Fork Snoqualmie River) with the leg's archived dense route geometry; at_mi = cum[i-1] + t*(cum[i]-cum[i-1]) rescaled to leg miles, taking the crossing nearest the previous at_mi when the river crosses more than once. OpenStreetMap, Geofabrik us-latest extract 2026-09-30: https://www.openstreetmap.org/."
           },
           {
-            "name": "Windy Pass",
-            "category": "mountain_pass",
-            "kind": "point",
-            "at_mi": 59.8,
-            "spoken": "Approaching Windy Pass"
-          },
-          {
             "name": "Okanogan-Wenatchee National Forest",
             "category": "national_forest",
             "kind": "zone",
             "at_mi": 67.2,
             "spoken": "Entering Okanogan-Wenatchee National Forest"
-          },
-          {
-            "name": "Stampede Pass",
-            "category": "mountain_pass",
-            "kind": "point",
-            "at_mi": 67.6,
-            "spoken": "Approaching Stampede Pass"
           },
           {
             "name": "Roslyn",
@@ -20547,13 +20526,6 @@
             "kind": "point",
             "source": "OpenStreetMap place=village node 48661528, projected onto the leg's OpenRouteService driving-hgv route",
             "spoken": "Passing Thorp"
-          },
-          {
-            "name": "Old Blewett Pass",
-            "category": "mountain_pass",
-            "kind": "point",
-            "at_mi": 121.1,
-            "spoken": "Approaching Old Blewett Pass"
           },
           {
             "name": "The Bavarian Village",
@@ -24978,13 +24950,6 @@
             "kind": "point",
             "at_mi": 218.7,
             "spoken": "Approaching Deadman Pass"
-          },
-          {
-            "name": "Red Saddle",
-            "category": "mountain_pass",
-            "kind": "point",
-            "at_mi": 231.5,
-            "spoken": "Approaching Red Saddle"
           },
           {
             "name": "Grande Ronde River",
@@ -37436,20 +37401,6 @@
             "spoken": "Approaching Snoqualmie Pass"
           },
           {
-            "name": "Windy Pass",
-            "category": "mountain_pass",
-            "kind": "point",
-            "at_mi": 230.8,
-            "spoken": "Approaching Windy Pass"
-          },
-          {
-            "name": "Hemlock Pass",
-            "category": "mountain_pass",
-            "kind": "point",
-            "at_mi": 233.0,
-            "spoken": "Approaching Hemlock Pass"
-          },
-          {
             "name": "South Fork Snoqualmie River",
             "category": "river",
             "kind": "point",
@@ -44309,20 +44260,6 @@
             "spoken": "Passing North Bend"
           },
           {
-            "name": "Windy Pass",
-            "category": "mountain_pass",
-            "kind": "point",
-            "at_mi": 61.0,
-            "spoken": "Approaching Windy Pass"
-          },
-          {
-            "name": "Stampede Pass",
-            "category": "mountain_pass",
-            "kind": "point",
-            "at_mi": 68.7,
-            "spoken": "Approaching Stampede Pass"
-          },
-          {
             "name": "Okanogan-Wenatchee National Forest",
             "category": "national_forest",
             "kind": "zone",
@@ -49740,13 +49677,6 @@
             ]
           },
           {
-            "name": "Davies Pass",
-            "category": "mountain_pass",
-            "kind": "point",
-            "at_mi": 110.2,
-            "spoken": "Approaching Davies Pass"
-          },
-          {
             "name": "Rufus",
             "at_mi": 110.5,
             "off_mi": 0.11,
@@ -49989,13 +49919,6 @@
             "kind": "point",
             "source": "OpenStreetMap place=town node 150932828, projected onto the leg's OpenRouteService driving-hgv route",
             "spoken": "Passing Milwaukie"
-          },
-          {
-            "name": "Sylvan Hill",
-            "category": "mountain_pass",
-            "kind": "point",
-            "at_mi": 219.0,
-            "spoken": "Approaching Sylvan Hill"
           },
           {
             "name": "Lake Oswego",
@@ -54310,20 +54233,6 @@
             "kind": "point",
             "at_mi": 170.9,
             "spoken": "Approaching Snoqualmie Pass"
-          },
-          {
-            "name": "Windy Pass",
-            "category": "mountain_pass",
-            "kind": "point",
-            "at_mi": 172.0,
-            "spoken": "Approaching Windy Pass"
-          },
-          {
-            "name": "Hemlock Pass",
-            "category": "mountain_pass",
-            "kind": "point",
-            "at_mi": 174.3,
-            "spoken": "Approaching Hemlock Pass"
           },
           {
             "name": "South Fork Snoqualmie River",
@@ -65447,13 +65356,6 @@
             "spoken": "Entering Okanogan-Wenatchee National Forest"
           },
           {
-            "name": "Old Blewett Pass",
-            "category": "mountain_pass",
-            "kind": "point",
-            "at_mi": 31.7,
-            "spoken": "Approaching Old Blewett Pass"
-          },
-          {
             "name": "Cle Elum",
             "at_mi": 53.0,
             "off_mi": 10.91,
@@ -69525,20 +69427,6 @@
             "kind": "point",
             "at_mi": 89.3,
             "spoken": "Approaching Snoqualmie Pass"
-          },
-          {
-            "name": "Windy Pass",
-            "category": "mountain_pass",
-            "kind": "point",
-            "at_mi": 90.3,
-            "spoken": "Approaching Windy Pass"
-          },
-          {
-            "name": "Hemlock Pass",
-            "category": "mountain_pass",
-            "kind": "point",
-            "at_mi": 92.7,
-            "spoken": "Approaching Hemlock Pass"
           },
           {
             "name": "South Fork Snoqualmie River",

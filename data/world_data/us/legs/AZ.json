@@ -9355,20 +9355,6 @@
             ]
           },
           {
-            "name": "Lone Pine Saddle",
-            "category": "mountain_pass",
-            "kind": "point",
-            "at_mi": 73.56,
-            "spoken": "Approaching Lone Pine Saddle"
-          },
-          {
-            "name": "Burro Gap",
-            "category": "mountain_pass",
-            "kind": "point",
-            "at_mi": 76.4,
-            "spoken": "Approaching Burro Gap"
-          },
-          {
             "name": "Benson",
             "at_mi": 79.44,
             "off_mi": 2.97,
@@ -11744,13 +11730,6 @@
             "kind": "point",
             "source": "OpenStreetMap place=village node 10832432940, projected onto the leg's OpenRouteService driving-hgv route",
             "spoken": "Passing Walnut Creek"
-          },
-          {
-            "name": "Coyote Pass",
-            "category": "mountain_pass",
-            "kind": "point",
-            "at_mi": 151.0,
-            "spoken": "Approaching Coyote Pass"
           }
         ],
         "speed_limits": [
@@ -14802,13 +14781,6 @@
             "kind": "point",
             "source": "OpenStreetMap place=village node 11709590971, projected onto the leg's OpenRouteService driving-hgv route",
             "spoken": "Passing Mountain View Ranches"
-          },
-          {
-            "name": "Fremont Saddle",
-            "category": "mountain_pass",
-            "kind": "point",
-            "at_mi": 8.1,
-            "spoken": "Approaching Fremont Saddle"
           },
           {
             "name": "Timberline-Fernwood",
@@ -24075,13 +24047,6 @@
             "kind": "point",
             "source": "OpenStreetMap place=village node 11476737069, projected onto the leg's OpenRouteService driving-hgv route",
             "spoken": "Passing New Kingman-Butler"
-          },
-          {
-            "name": "Coyote Pass",
-            "category": "mountain_pass",
-            "kind": "point",
-            "at_mi": 0.1,
-            "spoken": "Approaching Coyote Pass"
           },
           {
             "name": "Golden Valley",
@@ -38734,13 +38699,6 @@
             "source": "derived 2026-10-01: placed by tools/place_river_crossings.py at the crossing of OSM waterway way 422097184 (Santa Ana River) with the leg's archived dense route geometry; at_mi = cum[i-1] + t*(cum[i]-cum[i-1]) rescaled to leg miles, taking the crossing nearest the previous at_mi when the river crosses more than once. OpenStreetMap, Geofabrik us-latest extract 2026-09-30: https://www.openstreetmap.org/."
           },
           {
-            "name": "Little Pigeon Pass",
-            "category": "mountain_pass",
-            "kind": "point",
-            "at_mi": 316.5,
-            "spoken": "Approaching Little Pigeon Pass"
-          },
-          {
             "name": "Grand Terrace",
             "at_mi": 317.0,
             "off_mi": 2.15,
@@ -49727,27 +49685,6 @@
             "kind": "point",
             "source": "OpenStreetMap place=town node 150933986, projected onto the leg's OpenRouteService driving-hgv route",
             "spoken": "Passing Benson"
-          },
-          {
-            "name": "Burro Gap",
-            "category": "mountain_pass",
-            "kind": "point",
-            "at_mi": 48.53,
-            "spoken": "Approaching Burro Gap"
-          },
-          {
-            "name": "Cottonwood Saddle",
-            "category": "mountain_pass",
-            "kind": "point",
-            "at_mi": 49.83,
-            "spoken": "Approaching Cottonwood Saddle"
-          },
-          {
-            "name": "Lone Pine Saddle",
-            "category": "mountain_pass",
-            "kind": "point",
-            "at_mi": 51.57,
-            "spoken": "Approaching Lone Pine Saddle"
           },
           {
             "name": "Kartchner Caverns (from Sierra Vista)",
