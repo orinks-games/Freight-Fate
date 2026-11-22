@@ -28,7 +28,8 @@ pub fn stop_offset_for_direction(at_mi: f64, leg_miles: f64, forward: bool) -> f
 /// Uses the US route-numbering convention -- odd routes are signed
 /// north/south, even routes east/west -- so the spoken direction matches
 /// real signage even where a leg runs diagonally. The sign comes from the
-/// endpoints' coordinates on the route's primary axis. Empty when the
+/// endpoints' coordinates on the route's primary axis. A leg wholly in
+/// Canada is signed by the axis it runs along instead. Empty when the
 /// highway has no number or a city lacks coordinates.
 pub fn leg_heading(world: &World, highway: &str, from_city: &str, to_city: &str) -> &'static str {
     let digits = Regex::new(r"\d+").expect("static regex");
@@ -40,6 +41,26 @@ pub fn leg_heading(world: &World, highway: &str, from_city: &str, to_city: &str)
     };
     if a.lat == 0.0 && a.lon == 0.0 {
         return "";
+    }
+    // Canada signs the way the road runs, not by the number's parity:
+    // Highway 400 is north and south, the 401 east and west, and the
+    // Trans-Canada's Highway 1 east and west through BC. A leg wholly in
+    // Canada takes the axis its ends lie along. (Quebec's autoroutes keep
+    // parity, A-20 east and A-55 north, and the axis agrees with them.)
+    if a.country == "CA" && b.country == "CA" {
+        let north = b.lat - a.lat;
+        let east = (b.lon - a.lon) * ((a.lat + b.lat) / 2.0).to_radians().cos();
+        return if north.abs() >= east.abs() {
+            if north >= 0.0 {
+                "North"
+            } else {
+                "South"
+            }
+        } else if east >= 0.0 {
+            "East"
+        } else {
+            "West"
+        };
     }
     // Python `int(match.group()) % 2`: a very long digit run still parses
     // there; here a parse failure reads as even, which no real shield hits.
