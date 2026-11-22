@@ -5963,8 +5963,9 @@ msgstr "{city}冷库"
 msgid "{city} Company Yard"
 msgstr "{city}公司车场"
 
+# leave empty: real truck stops are named this way (Pilot Travel Center), and the frame speaks the brand as a city
 msgid "{city} Travel Center"
-msgstr "{city}旅行服务中心"
+msgstr ""
 
 msgid "{city} Truck Parking"
 msgstr "{city}卡车停车场"
@@ -6416,9 +6417,10 @@ msgstr "这批货是{spoken}。"
 msgid "This load is {spoken}. {reason}"
 msgstr "这批货是{spoken}。{reason}"
 
+# leave empty: a map data error message, never spoken; it took "A deer crossing the road" apart
 #. placeholders: {context}, {what}
 msgid "{context} crossing {what}"
-msgstr "{context}过境点{what}"
+msgstr ""
 
 msgid "has an unknown kind"
 msgstr "类型未知"
@@ -8384,9 +8386,10 @@ msgstr "local"
 msgid "national"
 msgstr "全国性"
 
+# leave empty: two holes side by side; the split between them falls inside the carrier name
 #. placeholders: {name}, {name2}
 msgid "{name} {name2} terminal"
-msgstr "{name}{name2}场站"
+msgstr ""
 
 # same as English
 msgid "inert"
@@ -12388,9 +12391,10 @@ msgstr "你的80小时加拿大周期已用完"
 msgid "Hours of service: {cycle_text}."
 msgstr "驾驶工时：{cycle_text}。"
 
+# leave empty: a frame around whole sentences; "Hours of service: ... left in the duty window." translates whole without it, and the frame left "hours of" English
 #. placeholders: {cycle_text}, {advice}
 msgid "Hours of service: {cycle_text}. {advice}"
-msgstr "驾驶工时：{cycle_text}。{advice}"
+msgstr ""
 
 #. one sentence of a longer line
 msgid "Hours of service: past your limit."
@@ -12449,9 +12453,10 @@ msgid ""
 " Cycle: {duration_text} used of {duration_text2}, {duration_text3} left."
 msgstr " 周期：{duration_text2}中已用{duration_text}，剩余{duration_text3}。"
 
+# leave empty: a frame around whole sentences; the ELD status and hours sentences translate whole without it, and the frame left "ELD:" in front
 #. placeholders: {lead}, {status}, {cycle_clause}, {suffix}
 msgid "{lead} ELD status {status}.{cycle_clause}{suffix}"
-msgstr "{lead} ELD 状态：{status}。{cycle_clause}{suffix}"
+msgstr ""
 
 #. placeholders: {duration_text}
 msgid "Driving left: {duration_text}."
@@ -19592,9 +19597,10 @@ msgid ""
 msgstr ""
 "{no_truck_location_line}没有承运商，也没有卡车，直到有承运商给你分配一辆。{grouped}美元。{cdl}{record}"
 
+# leave empty: a frame around whole sentences; the sentences translate whole without it, and it left "Pays" English
 #. placeholders: {upper_first}, {grouped}, {cdl}, {record}
 msgid "{upper_first}. {grouped} dollars.{cdl}{record}"
-msgstr "{upper_first}。{grouped}美元。{cdl}{record}"
+msgstr ""
 
 #. placeholders: {city_name}, {grouped}, {cdl}, {record}
 msgid "{city_name}. {grouped} dollars.{cdl}{record}"
@@ -21482,9 +21488,10 @@ msgstr "正在装卸口装货"
 msgid "At a pickup facility"
 msgstr "在提货厂区"
 
+# leave empty: two open holes around "for"; it matches any line with "for" in it and leaves half of it English
 #. placeholders: {cargo_label}, {destination}
 msgid "{cargo_label} for {destination}"
-msgstr "送往{destination}的{cargo_label}"
+msgstr ""
 
 #. placeholders: {destination}
 msgid "Loaded and sealed for {destination}."
@@ -28107,9 +28114,10 @@ msgstr "28小时限制还剩{hours_text}。"
 msgid "past the 28-hour limit"
 msgstr "已超过28小时限制"
 
+# leave empty: one hole before "left"; it takes "Sharp left" and "Driving left" and the hours lines apart
 #. placeholders: {hours_text}
 msgid "{hours_text} left"
-msgstr "还剩{hours_text}"
+msgstr ""
 
 #. placeholders: {aboard_text}, {limit}
 #. one sentence of a longer line
@@ -29509,10 +29517,11 @@ msgstr "使用一个备用维修链节。"
 msgid "Uses a spare repair link. {chain_repair_links} left."
 msgstr "使用一个备用维修链节。还剩{chain_repair_links}个。"
 
+# leave empty: one hole before "left"; it took every left curve call ("Sharp left, half a mile.") and dropped the direction
 #. placeholders: {chain_repair_links}
 #. one sentence of a longer line
 msgid "{chain_repair_links} left."
-msgstr "{chain_repair_links} 左。"
+msgstr ""
 
 #. placeholders: {f}
 msgid "Remove snow chains: about {f} minutes"

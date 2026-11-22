@@ -12,6 +12,11 @@
 //! the language has. The game skips an entry it cannot use and speaks the
 //! English instead, so none of these break the game; they break the
 //! translation.
+//!
+//! An entry whose translator comment starts with `leave empty` must stay
+//! empty: it is a loose frame ("{cargo_label} for {destination}") that, once
+//! translated, takes lines its older whole-line entries covered and leaves
+//! them half English.
 
 use std::collections::BTreeSet;
 use std::path::Path;
@@ -54,6 +59,15 @@ const KEY_NAMES: &[&str] = &[
     "F8",
     "F9",
 ];
+
+/// A translator comment that keeps an entry untranslated in every language.
+const LEAVE_EMPTY: &str = "leave empty";
+
+fn must_stay_empty(translator_comments: &[String]) -> bool {
+    translator_comments
+        .iter()
+        .any(|note| note.starts_with(LEAVE_EMPTY))
+}
 
 /// Python's `repr()` of a string, for naming an entry in a report.
 pub fn py_repr(s: &str) -> String {
@@ -230,6 +244,13 @@ fn check_file(code: &str, path: &Path) -> Result<(Vec<String>, usize, usize)> {
         }
         translated += 1;
         let short: String = entry.msgid.chars().take(70).collect();
+        if must_stay_empty(&entry.translator_comments) {
+            problems.push(format!(
+                "{name}:{}: is marked \"{LEAVE_EMPTY}\" but translated: {}",
+                entry.line,
+                py_repr(&short)
+            ));
+        }
         for problem in check_entry(code, &entry.msgid, &entry.msgstr) {
             problems.push(format!(
                 "{name}:{}: {problem}: {}",
@@ -301,6 +322,29 @@ mod tests {
         assert_eq!(
             check_entry("ru", "{n} load{s_ending}", "{n:a|b}"),
             ["{n:...} gives 2 forms; ru has 3"]
+        );
+    }
+
+    #[test]
+    fn a_leave_empty_entry_must_stay_empty() {
+        assert!(must_stay_empty(&["leave empty: a loose frame".into()]));
+        assert!(!must_stay_empty(&["same as English".into()]));
+        let dir = std::env::temp_dir().join(format!("l10n-leave-empty-{}", std::process::id()));
+        std::fs::create_dir_all(&dir).unwrap();
+        let path = dir.join("es.po");
+        std::fs::write(
+            &path,
+            "# leave empty: a loose frame\nmsgid \"{a} for {b}\"\nmsgstr \"{a} para {b}\"\n\n\
+             # leave empty: a loose frame\nmsgid \"{c} left\"\nmsgstr \"\"\n",
+        )
+        .unwrap();
+        let (problems, total, translated) = check_file("es", &path).unwrap();
+        std::fs::remove_dir_all(&dir).ok();
+        assert_eq!((total, translated), (2, 1));
+        assert_eq!(problems.len(), 1, "{problems:?}");
+        assert!(
+            problems[0].contains("marked \"leave empty\""),
+            "{problems:?}"
         );
     }
 
