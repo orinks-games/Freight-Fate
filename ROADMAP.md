@@ -5943,8 +5943,17 @@ a carrier slice (owner, 2026-10-26).
 - [ ] (Found along the way) Second pass of Quebec and northern Ontario
       stops: Petro-Canada and Ultramar truck stops on the 20 and 40, and
       fuel on 11 and 17; those links are short and end in towns with fuel.
-- [ ] (Found along the way) Quebec exit lines say a route number bare
-      ("exit 185 for 255"); the Route prefix is missing.
+- [x] (Found along the way) Quebec and Ontario exit lines named a road by
+      its bare number ("exit 185 for 255"). `cargo tools osm-exit-routes`
+      (2026-11-22) matches each bare number to the OpenStreetMap road
+      route relation nearest the exit and speaks its kind: Route 255,
+      A-20, Highway 8, County Road 31, Regional Road 60.
+- [ ] (Found along the way) A provincial traffic table for Ontario (MTO
+      AADT) and Quebec (MTMD DJMA); traffic on the Ontario and Quebec legs
+      is assumed until then.
+- [ ] (Found along the way) Highway 407 ETR as an electronic toll road;
+      the Kitchener and Hamilton legs into Mississauga are pinned to 401,
+      403 and the QEW to stay off it.
 - [ ] (Found along the way) The Ambassador Bridge, the Peace Bridge (with a
       Fort Erie city), Cornwall to Massena and Ogdensburg to Prescott are
       not on the map; each city pair has one crossing.

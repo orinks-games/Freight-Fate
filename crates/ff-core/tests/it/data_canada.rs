@@ -282,3 +282,44 @@ fn a_loaded_truck_is_offered_fuel_between_fort_nelson_and_watson_lake() {
         }
     }
 }
+
+fn exit_phrase(id: &str, exit_ref: &str) -> String {
+    leg(id)
+        .interchanges()
+        .iter()
+        .find(|x| x.exit_ref == exit_ref)
+        .unwrap_or_else(|| panic!("{id} has no exit {exit_ref}"))
+        .spoken_phrase()
+}
+
+#[test]
+fn ontario_and_quebec_exits_name_the_road_they_sign() {
+    // OpenStreetMap signs these by bare number; the sign says the road.
+    let quebec = exit_phrase("trois_rivieres_qc_ca:drummondville_qc_ca", "185");
+    assert!(
+        quebec.starts_with("exit 185 for Route 255 toward"),
+        "{quebec}"
+    );
+    let ontario = exit_phrase("kitchener_on_ca:mississauga_on_ca", "278");
+    assert!(
+        ontario.starts_with("exit 278 for Highway 8 toward"),
+        "{ontario}"
+    );
+}
+
+#[test]
+fn quebec_exits_give_their_directions_in_english() {
+    for l in world()
+        .legs
+        .iter()
+        .filter(|l| l.a.ends_with("_qc_ca") || l.b.ends_with("_qc_ca"))
+    {
+        for x in l.interchanges() {
+            let french = x
+                .via
+                .split(|c: char| c == ';' || c.is_whitespace())
+                .any(|w| matches!(w, "Est" | "Ouest" | "Nord" | "Sud"));
+            assert!(!french, "{} to {} exit {}: {}", l.a, l.b, x.exit_ref, x.via);
+        }
+    }
+}
