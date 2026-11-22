@@ -150,7 +150,7 @@ fn beaver_creek_approach_and_clearance_charge_ten_on_duty_minutes() {
     let opening = harness.transcript_text();
     assert!(
         opening.contains(
-            "Beaver Creek Port of Entry, Canada Border Services Agency. The officer asks for your passport and checks the eManifest your carrier filed before arrival."
+            "Beaver Creek Port of Entry, Canada Border Services Agency. The officer asks for your passport and checks the eManifest filed for this load."
         ),
         "{opening}"
     );
@@ -293,7 +293,11 @@ fn a_company_drivers_carrier_pays_the_port_running_penalty() {
     assert!(profile.career.reputation < reputation_before);
     let transcript = harness.transcript_text();
     assert!(
-        transcript.contains("a 5,000 US dollar civil penalty, which your carrier pays."),
+        transcript.contains("a 5,000 US dollar civil penalty."),
+        "{transcript}"
+    );
+    assert!(
+        !transcript.contains("which your carrier pays"),
         "{transcript}"
     );
     assert!(
@@ -497,4 +501,41 @@ fn escape_before_customs_clearance_keeps_the_menu_open() {
     assert!(harness
         .transcript_text()
         .contains("Customs has to clear you before you drive on."));
+}
+
+/// From the half-mile reminder to the booth the clock runs real above the
+/// bypass speed, so "Stop at the booth" leaves room to stop at a compressed
+/// pacing. At ten times speed the half mile went by in three real seconds
+/// and a truck braking on the reminder ran the booth (agent drive,
+/// 2026-11-22).
+#[test]
+fn the_booth_reminder_holds_the_clock_to_real_time_until_the_booth() {
+    let mut harness = border_drive("whitehorse_yt_ca", "tok_ak_us");
+    let booth = booth_named(&harness, "Alcan Port of Entry");
+    harness.with_drive(|drive, ctx| {
+        drive.trip.time_scale = 10.0;
+        drive.trip.position_mi = booth.at_mi - 0.45;
+        drive.trip.truck.velocity_mps = mph_to_mps(55.0);
+        drive.check_border_approach(ctx);
+        assert_eq!(drive.trip.border_reminder_hold_mi, Some(booth.at_mi));
+        assert_eq!(drive.trip.real_time_override(), Some("border booth"));
+        assert!(drive.trip.effective_time_scale() <= 1.0);
+
+        // Slowed under the bypass speed the booth stops the truck anyway,
+        // so the ordinary low-speed pacing runs.
+        drive.trip.truck.velocity_mps = mph_to_mps(10.0);
+        assert_eq!(drive.trip.real_time_override(), None);
+        drive.trip.truck.velocity_mps = mph_to_mps(55.0);
+    });
+    let transcript = harness.transcript_text();
+    assert!(
+        transcript.contains("Customs booth in half a mile. Stop at the booth."),
+        "{transcript}"
+    );
+
+    // Past the booth the hold is gone, even at speed.
+    harness.with_drive(|drive, _| {
+        drive.trip.position_mi = booth.at_mi + 0.01;
+        assert_ne!(drive.trip.real_time_override(), Some("border booth"));
+    });
 }

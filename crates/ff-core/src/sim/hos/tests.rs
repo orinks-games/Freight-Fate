@@ -2376,3 +2376,29 @@ fn the_break_is_waived_while_livestock_are_aboard() {
     // The driving limit is unchanged.
     assert_eq!(c.driving_min, 8.0 * 60.0 + 5.0);
 }
+
+#[test]
+fn a_waived_break_is_not_named_in_the_readouts() {
+    let mode = "realistic";
+    let mut c = HosClock::new();
+    c.drive(60.0);
+    c.waive_break();
+    assert_eq!(
+        c.break_summary(mode, false),
+        "No 30-minute break is required with cattle aboard."
+    );
+    assert!(!c.summary(mode).contains("break"), "{}", c.summary(mode));
+    assert!(
+        c.summary_lines(mode)
+            .iter()
+            .all(|line| !line.contains("break")),
+        "{:?}",
+        c.summary_lines(mode)
+    );
+    assert_ne!(c.next_limit(mode).map(|l| l.kind), Some("break"));
+    // Once the cattle are off the break counts again.
+    c.restore_break();
+    assert!(c
+        .break_summary(mode, false)
+        .starts_with("30-minute break due in"));
+}

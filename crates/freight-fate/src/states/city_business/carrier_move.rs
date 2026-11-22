@@ -7,6 +7,7 @@
 use ff_core::models::carrier_move::{
     apply_carrier_move, at_training_fleet, move_up_carriers, move_up_eligibility, move_up_home,
 };
+use ff_core::models::carriers::{carrier, home_terminal_city_for};
 use ff_core::models::start_options::CareerStartOption;
 
 use super::{save_business_change, BusinessStatusState};
@@ -61,14 +62,25 @@ impl BusinessStatusState {
         self.return_armed = false;
         if self.move_armed != Some(option.key) {
             self.move_armed = Some(option.key);
+            // The move cannot be undone and can take the truck to another
+            // city, so the confirmation names where it starts, the way the
+            // career start's carrier rows do (R1 review, 2026-11-22).
+            let starts = carrier(option.key)
+                .and_then(|c| {
+                    let home =
+                        home_terminal_city_for(Some(c), ctx.world, move_up_home(profile(ctx)))?;
+                    c.terminal_name(ctx.world, &home)
+                })
+                .map(|t| format!(" Truck starts at {t}."))
+                .unwrap_or_default();
             if ctx.touch_hints() {
                 ctx.say(&format!(
-                    "{}. {} Double tap again to move.",
+                    "{}. {}{starts} Double tap again to move.",
                     option.carrier_name, option.menu_summary
                 ));
             } else {
                 ctx.say(&format!(
-                    "{}. {} Press Enter again to move.",
+                    "{}. {}{starts} Press Enter again to move.",
                     option.carrier_name, option.menu_summary
                 ));
             }
@@ -81,6 +93,8 @@ impl BusinessStatusState {
         save_business_change(ctx);
         ctx.audio.play("ui/notify");
         ctx.say(&line);
+        ctx.award_achievement("carrier_step_up");
+        ctx.award_rehire_badge();
         self.refresh(ctx, false);
     }
 }

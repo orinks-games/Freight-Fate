@@ -1006,6 +1006,9 @@ pub struct DrivingState {
     // Ambient lines waiting for the road to go quiet. A FIFO, not the
     // one slot it used to be: see _speak_ambient_event.
     pub pending_ambient_events: VecDeque<PendingAmbient>,
+    /// Lines that follow a crossing call (units, then hours rules), waiting
+    /// for it to finish: see `driving_updates::after_crossing`.
+    pub after_crossing: Vec<crate::states::driving_updates::after_crossing::PendingAfterCrossing>,
     pub road_joint_accumulator_m: f64,
     pub next_joint_distance_m: f64,
     pub lane_guidance: LaneGuidance,

@@ -38,11 +38,14 @@ use crate::states::city::CityMenuState;
 use crate::states::driving::DrivingState;
 use crate::states::driving_core::{
     carrier_accessorial_charges, charge_summary, charge_total, clock_text,
-    has_weigh_station_transponder, is_owner_operator, pay_label, profile_mut_of, profile_of,
-    reputation_pay_bonus, unique_consecutive, wallet_delta, xp_class_multiplier, xp_streak_bonus,
+    has_weigh_station_transponder, is_owner_operator, log_driving_until, pay_label, profile_mut_of,
+    profile_of, reputation_pay_bonus, unique_consecutive, wallet_delta, xp_class_multiplier,
+    xp_streak_bonus,
 };
 use crate::states::driving_damage::{damage_summary_line, preventable_damage_charge};
-use crate::states::driving_menu_states::badges::award_arrival_achievements;
+use crate::states::driving_menu_states::badges::{
+    award_arrival_achievements, award_bobtail_road_badges,
+};
 use crate::states::driving_menu_states::{
     DELIVERY_SETTLEMENT_MAX_AVERAGE_MPH, ROAD_GRIME_PER_MILE, SETTLEMENT_LOW_FUEL_FRACTION,
 };
@@ -212,6 +215,8 @@ impl ArrivalState {
         } else {
             "No load and no pay. ".to_string()
         };
+        let trip_start = profile_of(ctx).game_hours;
+        log_driving_until(d, ctx, trip_start + hours);
         let (game_hours, market_day) = {
             let p = profile_mut_of(ctx);
             p.game_hours += hours;
@@ -259,6 +264,7 @@ impl ArrivalState {
         if let Some(result) = ctx.award_achievement_with("bobtail_done", false, false) {
             self.summary_parts.push(result.award.message.normal.clone());
         }
+        award_bobtail_road_badges(self, ctx, d);
         // The arrival screen and announcement read summary_lines, not parts.
         self.summary_lines = self.summary_parts.clone();
     }
@@ -441,22 +447,28 @@ impl ArrivalState {
         // The carried balance from earlier loads is added back after
         // collection below, so it is never taken twice.
         profile_mut_of(ctx).fines_owed = business.uncollected_charges;
+        // What the receiver found, for the settlement rows: the screen reads
+        // its own itemized list, not `summary_parts`, so these lines are
+        // carried into it below or the player never hears them.
+        let mut receiver_lines: Vec<String> = Vec::new();
         // Live cattle come off first: the count, the hours aboard and what
         // the receiver found, before any money is named.
         if let Some(load) = d.trip.truck.livestock.as_mut() {
             let one_down = load.footing == ff_core::sim::livestock::Footing::OneDown;
             load.start_unloading();
             load.delivered();
-            self.summary_parts
-                .push(ff_core::sim::livestock::receiver_ruling_line(
-                    cargo.condition_pct,
-                    load.head,
-                    load.hours_aboard(),
-                    one_down,
-                ));
+            let line = ff_core::sim::livestock::receiver_ruling_line(
+                cargo.condition_pct,
+                load.head,
+                load.hours_aboard(),
+                one_down,
+            );
+            receiver_lines.push(line.clone());
+            self.summary_parts.push(line);
         }
         if !cargo.clean() {
             let line = self.cargo_settlement_line(ctx, d, &cargo, vocabulary);
+            receiver_lines.push(line.clone());
             self.summary_parts.push(line);
             let p = profile_mut_of(ctx);
             p.career.reputation = (p.career.reputation - cargo.reputation_hit).max(0.0);
@@ -676,6 +688,17 @@ impl ArrivalState {
                 enforcement::reputation_text(reputation_before, ctx.settings.score_display)
             ));
         }
+        // The logbook: the road up to check-in, then the receiver's dock.
+        let trip_start = profile_of(ctx).game_hours;
+        log_driving_until(d, ctx, trip_start + hours);
+        let facility = d.destination_facility_text(ctx);
+        profile_mut_of(ctx).duty_log.record(
+            "on_duty_not_driving",
+            trip_start + hours,
+            trip_start + elapsed_hours,
+            &facility,
+            "receiver unloading",
+        );
         let (game_hours, market_day) = {
             let p = profile_mut_of(ctx);
             p.game_hours += elapsed_hours;
@@ -1027,6 +1050,10 @@ impl ArrivalState {
                     fmt_f(receiver_service_hours * 60.0, 0)
                 ),
             );
+        }
+        // The receiver's count and any claim follow the load they are about.
+        for (i, line) in receiver_lines.into_iter().enumerate() {
+            lines.insert(2 + i, line);
         }
         if let Some(line) = yard_drop_line(&job) {
             lines.insert(1, line);
