@@ -1,6 +1,6 @@
 # Freight Fate Player Manual
 
-In Freight Fate you haul freight between American cities and build a trucking career. Each load means planning fuel, rest and truck care so the cargo arrives on time and undamaged. Driving assistance can steer and brake for you while you learn the sounds and controls, and you can turn it down later.
+Freight Fate is an audio game for blind and visually impaired players. You haul freight across the United States, Alaska and Canada and build a trucking career. Each load means planning fuel, rest and truck care so the cargo arrives on time and undamaged. Driving assistance can steer and brake for you while you learn the sounds and controls, and you can turn it down later.
 
 Start at the [main menu](#main-menu), then follow [your first delivery](#quick-start). The [driving controls](#driving-controls) list every key. In the game, How to play is a shorter guide that names your current keys.
 
@@ -13,6 +13,8 @@ Start at the [main menu](#main-menu), then follow [your first delivery](#quick-s
 - [Business status](#business-status)
 - [Dispatch and jobs](#dispatch-and-jobs)
 - [Pickup, loading, and route planning](#pickup-loading-and-route-planning)
+- [Alaska and Canada](#alaska-and-canada)
+- [Crossing the border](#crossing-the-border)
 - [Driving controls](#driving-controls)
 - [Truck behavior](#truck-behavior)
 - [Truck damage and being out of service](#truck-damage-and-being-out-of-service)
@@ -97,6 +99,10 @@ Choose career lets you return to any saved driver. You can keep separate careers
 
 Manage careers lets you reset or delete a career. Check the selected driver when the game asks you to confirm.
 
+#### Careers from 1.9
+
+The first time 2.0 starts, it copies your 1.9 careers into its own folder, and Continue picks the one you played last. The 1.9 originals stay as they were, so they still play in 1.9. A copied career keeps its 1.9 name; a new 2.0 career can't take a name a 1.9 career already uses. Deleting a 2.0 career leaves its 1.9 original and the 1.9 cloud backup alone.
+
 ## Quick start
 
 ### Choosing how much help you want
@@ -105,19 +111,31 @@ When you first launch the game, it asks how much driving assistance you'd like. 
 
 ### Starting your career
 
-Choose New career on the main menu and enter your name. You'll choose whether to drive for a company or own your truck, followed by your region and home terminal. A company supplies your equipment and covers routine equipment costs. If you start as an owner-operator, those bills are yours. Keep that difference in mind when planning how much money you need between loads.
+Choose New career on the main menu and enter your name. Then pick a home region, a home city in it, and a carrier that hires there. The last list also has the owner-operator start. A company supplies your equipment and covers routine equipment costs. If you start as an owner-operator, those bills are yours. Keep that difference in mind when planning how much money you need between loads.
+
+Home cities are in the lower 48 states and Alaska, which is its own region. You can't make your home in Canada yet, because no Canadian carrier hires there.
 
 ### Choosing your carrier and home terminal
 
-Your carrier affects the work dispatch offers and how you're paid. Read the company descriptions before choosing, so you know what kind of loads and pay arrangement to expect.
+Fifty-four carriers hire drivers. The career start list names how many hire in your home city, then lists local carriers, then regional, then national, nearest terminal first in each group, with the owner-operator start last. Each row says the carrier's kind, what freight it leans toward, its longest loads, and the terminal where your truck starts. Press F1 on a row for more.
+
+| Kind | Where it hires | What it hauls |
+| --- | --- | --- |
+| National | Anywhere in the lower 48. You start at its terminal nearest your home. | Loads of any length. Some nationals lean toward one kind of freight, such as refrigerated loads, doubles, or steel, machinery and lumber. |
+| Regional | Within about 250 miles of one of its terminals. | Shorter runs, mostly inside its area. |
+| Local | Within about 50 miles of its terminal. | Short runs around one city or port. |
+
+In Alaska, Chatanika Freight Lines hires as a regional out of Anchorage and Fairbanks, and Knik Arm Cartage as a local around Anchorage.
+
+Your carrier affects the work dispatch offers and how you're paid. Four carriers have their own pay rules:
 
 #### Northstar Freight Lines
 
-Northstar has balanced company-driver wages and a broad mix of freight, with no focus on one type of run.
+Northstar is a national with steady wages and a broad mix of freight, with no focus on one type of run.
 
 #### Great Lakes Training Transport
 
-Great Lakes has more short-haul training work, better stop pay on short loads, and slightly more forgiving deadlines while you learn to plan a trip. Once you reach level 4 with full dispatch trust, Business status lets you move to any of the other three carriers.
+Great Lakes is a national training fleet. It has more short training loads, better stop pay on short loads, and slightly more forgiving deadlines while you learn to plan a trip. Once you reach level 4 with full dispatch trust, Business status lets you move to a carrier that hires where you live.
 
 #### Prairie Link Regional
 
@@ -125,11 +143,13 @@ Prairie Link keeps more of its work within the same region and emphasizes grain 
 
 #### Summit Value Logistics
 
-Summit has more long-haul and high-value lanes. It pays a better percentage and on-time bonus, with a smaller guarantee. Your earnings depend more on the load's revenue and an on-time arrival.
+Summit is a national with more long-haul and high-value lanes. It pays a better percentage and on-time bonus, with a smaller guarantee. Your earnings depend more on the load's revenue and an on-time arrival.
 
 #### Your starting money and home terminal
 
-Whichever start you choose, you're at level one. A company driver begins with 5,000 dollars, a full tank, and carrier equipment. A leased-on owner starts with 18,000 dollars and a new truck, but also has its operating costs to cover. You can accept the suggested home terminal or choose another.
+Whichever start you choose, you're at level one. A company driver begins with 5,000 dollars, a full tank, and carrier equipment. A leased-on owner starts with 18,000 dollars and a new truck, but also has its operating costs to cover.
+
+Your home terminal is your carrier's own terminal, named for the carrier and the city, such as Northstar Freight Lines Chicago terminal. A new career starts there, even when it is in another city from your home. At the terminal, the game says where your truck is: at your carrier's terminal, at the facility where you last delivered, at a truck stop, or just the city.
 
 The first-day briefing gives you an initial objective and explains the costs you'll face. Once you've accepted dispatch, Career plan shows the next step in your career. You'll come back to the same work cycle: collect freight, deliver it, read the settlement, and find another load at the next terminal. Fuel and legal rest need room in that plan.
 
@@ -248,6 +268,8 @@ The terminal is your stop between jobs. Before taking another load, you can revi
 | Choice | What it does |
 | --- | --- |
 | Dispatch board | Browse freight offers from local facilities. |
+| Apply to a carrier | Only when no carrier employs you. Lists the carriers that would take you on from your home; there is no dispatch board until one does. |
+| Wait out the CDL suspension | Only while your CDL is suspended or disqualified. The clock jumps to the day it ends; your money, truck and record stay as they are. |
 | Truck dealer | Owner-operators only. Browse tractors at the local dealer, buy one, or switch between the trucks you own. The intro names a local dealer when one is listed for that area. |
 | Drive to a nearby city without a trailer | Owner-operators only. Drive empty to a nearby city for its dispatch board. It costs fuel and hours of service, with no load and no pay. |
 | Career plan | Review your next career objective after the first dispatch. |
@@ -260,7 +282,7 @@ The terminal is your stop between jobs. Before taking another load, you can revi
 | Walk around the truck | A pre-trip walk-around that finds what a roadside inspector would find on the tractor. It takes 15 minutes on duty. |
 | Time and weather | Check the clock, date, season, career day, and local weather, including the age of a live weather report when available. |
 | Logbook | Review your Record of Duty Status: what you are doing now, your hours limits, today's totals, and the recent entries. |
-| Sleep 10 hours | Rest at the terminal and reset hours of service. |
+| Sleep 10 hours | Rest at the terminal and reset hours of service. When the sleep finishes a restart, it also says "Cycle clock reset." |
 | Save game | Save the current career. |
 | Settings | Open settings categories. |
 | Quit to main menu | Save and return to the title menu. |
@@ -335,7 +357,7 @@ Company drivers never buy a truck: the carrier assigns one from a fleet that imp
 
 ### Dispatch trust
 
-Dispatch looks at your reputation, record, CDL, and debt when deciding how much work and equipment to give you. Low trust can reduce your load choices and experience earnings or hold back equipment. Career stats and Driver status explain the restriction and how to recover. Held equipment returns when the hold clears. If a company driver's reputation reaches the floor, Great Lakes Training Transport takes over. Once you're back to full trust at level 4 or above, Business status lets you move to another carrier.
+Dispatch looks at your reputation, record, CDL, and debt when deciding how much work and equipment to give you. Low trust can reduce your load choices and experience earnings or hold back equipment. Career stats and Driver status explain the restriction and how to recover. Held equipment returns when the hold clears. If your carrier ends your employment, a regional or local carrier that hires near your home takes you on, nearest terminal first, never the carrier that ended it. When none hires there, Great Lakes Training Transport does. If no carrier hires at your home at all, the terminal offers Apply to a carrier instead of the dispatch board. A driver at Great Lakes who is back to full trust at level 4 or above can move, from Business status, to another carrier that hires where they live.
 
 When cash is short, you can request a capped advance against your next load. Road stops can also offer one against a load you're already carrying. It comes out of settlement, so treat it as money brought forward. Dispatch won't offer another advance while settlements are already paying down a balance owed.
 
@@ -376,6 +398,84 @@ Hard braking and sharp turns throw the cattle. Too much and they lose their foot
 Within 150 air miles of the shipper or the receiver, your hours of service do not count. You hear when the truck leaves that circle and when it enters the receiver's. No 30-minute break is needed while cattle are aboard.
 
 On a hot day, cattle heat up while the truck stands. On a hot afternoon at the shipper, Load this evening waits off duty until 8 PM before loading. At delivery the receiver counts the cattle off and names the shrink, the weight they lost aboard.
+
+### Doubles
+
+Twin parcel loads pull two short trailers on a converter dolly and need the doubles endorsement. They stay on the Interstates: dispatch drops a lane whose roads are closed to them, and says so when no lane is left. Turnpike doubles pull two 48-foot vans on the New York Thruway, the Massachusetts Turnpike and the Ohio, Indiana and Kansas turnpikes, and need the doubles endorsement and the LCV certificate.
+
+A set of doubles counts both trailers and the dolly in its gross weight, and turnpike doubles use each turnpike's own weight limit. Hooking or breaking the set adds time on duty, and the walk-around takes 25 minutes instead of 15. A hard swerve at 40 miles per hour or more can make the rear trailer whip; you hear it when it starts. You can't reverse with doubles hooked.
+
+### Hazardous loads, tunnels and bridges
+
+Job details name a placarded load's material, for example Gasoline, UN1203, Class 3. Dispatch routes hazardous and tank loads around tunnels and bridges that ban them, such as by Loveland Pass or around the Baltimore Beltway tunnels, and a tunnel or bridge turns away only the loads it really bans. Explosives wait out weekday rush hours at the Golden Gate Bridge. Hazardous and heavy loads wait 20 minutes on duty for an escort across the Mackinac Bridge.
+
+High winds close the Chesapeake Bay Bridge-Tunnel and the Mackinac Bridge to trucks. Your truck waits on duty at the bridge until the wind drops. Toll roads and bridges charge their published truck rates.
+
+### Laredo and Mexico freight
+
+Laredo has two border transfer yards for freight to and from Mexico. A southbound load names its Mexican consignee, such as Saltillo, Coahuila, and you drop the trailer at the yard; a transfer carrier takes it across. A northbound trailer waits at the yard on its paperwork before you can hook it. Your truck never crosses into Mexico.
+
+## Alaska and Canada
+
+The map reaches past the lower 48:
+
+- **Alaska**, from the Alaska Highway at Tok and Delta Junction to Fairbanks, North Pole and the Fort Knox mine, up the Dalton Highway through Coldfoot to Deadhorse, and south to Anchorage, Palmer, Wasilla, Port MacKenzie, the Kenai Peninsula (Kenai, Nikiski, Soldotna, Homer, Seward), Valdez and Glennallen. Whittier is reached only through the Anton Anderson Memorial Tunnel, with its one-lane gate and toll. Skagway and Haines connect to the Yukon by road.
+- **British Columbia and the Yukon**, along the Alaska Highway from Dawson Creek, Fort St. John and Fort Nelson to Watson Lake, Whitehorse and Haines Junction, across southern BC from Vancouver and Surrey through Hope, Kamloops, Kelowna and Cranbrook, north through Williams Lake and Quesnel to Prince George, west on the Yellowhead Highway through Vanderhoof, Smithers and Terrace to Kitimat and Prince Rupert, and up the Stewart-Cassiar Highway to Watson Lake, with the branch to Stewart and Hyder, Alaska. In the Yukon, the Klondike Highway runs north from Whitehorse through Carmacks to Dawson City.
+- **Alberta, Saskatchewan and Manitoba**, on the Trans-Canada and Yellowhead highways through Calgary, Edmonton, Regina, Saskatoon and on to Winnipeg. From Winnipeg, Highway 6 runs north through Ashern and Grand Rapids to Thompson. North of Edmonton, Highway 63 reaches Fort McMurray, and Highway 2 runs through Slave Lake to Peace River.
+- **The Northwest Territories**, up the Mackenzie Highway from Peace River through High Level to Hay River, then across the Deh Cho Bridge over the Mackenzie River to Yellowknife. The Deh Cho Bridge charges trucks a toll going north only, 168 Canadian dollars.
+- **Ontario and Quebec**, from Windsor and Sarnia through London, Toronto, Ottawa and Montréal to Quebec City, and across the north on Highways 17 and 11 from Kenora and Thunder Bay to Sault Ste. Marie, Timmins and North Bay. In northern Quebec, Routes 172 and 138 run from Saguenay along the north shore to Baie-Comeau and Sept-Îles, with no ferry, and Chibougamau is reached from Saguenay on Routes 170 and 167 and from Val-d'Or on Route 113.
+- **New Brunswick, Nova Scotia and Prince Edward Island**, through the Houlton and Calais crossings, with the Cobequid Pass toll each way and the Confederation Bridge toll, which is charged only leaving Prince Edward Island.
+
+Some places have no road yet. Juneau, Ketchikan, Sitka, Kodiak, Cordova, Nome and Bethel are reached only by sea or air, and Newfoundland only by ferry, so none of them is on the map. The Taylor and Top of the World highways close for winter and are not on the map either. Not built yet: Route 138 east of Sept-Îles, The Pas and Flin Flon, Route 389 and Labrador, the James Bay Road, the Dempster Highway to Inuvik, and the ice roads.
+
+### Freight in Alaska and Canada
+
+Fairbanks, Seward, Valdez, Kenai and the other Alaska towns offer their real freight sites, and Deadhorse sells diesel. Between April and mid-June, thawing Alaska highways carry lighter loads under spring weight limits, and an offer names the road setting the limit.
+
+Dispatch offers loads from US cities into Canada and loads from Canada back to the United States. A US carrier may not haul between two Canadian towns, so a board in Canada offers only loads to the United States. Twin trailers, live cattle and placarded hazardous loads stay in their own country. Every national except Great Lakes Training Transport runs to Canada, and so do the regionals whose terminals sit near the border; local carriers stay home. A load's deadline includes time at customs.
+
+### Speeds, distances and money
+
+With Units on Automatic, the default, you hear miles in the United States and kilometers in Canada. Crossing the border, the GPS says "Speeds and distances are in kilometers now." or "Speeds and distances are in miles now." In kilometers, fuel is in liters, loads in tonnes, weights in kilograms and low bridges in meters, and the cruise dial steps 95, 100, 105. Imperial keeps miles everywhere and Metric keeps kilometers everywhere; neither says anything at the border. Canadian speed limits are said as signed: a 100 sign is 100 kilometers per hour, or 62 miles per hour in Imperial. Heavy trucks in British Columbia are held to 105 kilometers per hour.
+
+Diesel in each province and territory costs what it does there, and a Canadian pump says its price in Canadian dollars a liter. Canadian toll booths say the Canadian price, such as 35 Canadian dollars at the Blue Water Bridge. Your settlement and your cash stay in US dollars, and the carrier is billed in US dollars.
+
+### Hours rules where you drive
+
+Hours of service follow the place the truck is in, and you hear the new rules as you cross into each place:
+
+| Where | Rules |
+| --- | --- |
+| The lower 48 | 11 hours of driving in a 14-hour window, a 30-minute break after 8 hours of driving, and 70 hours on duty in 8 days. |
+| Alaska | 15 hours of driving and 20 on duty, no 30-minute break, and 80 hours in 8 days. |
+| Canada south of 60 degrees north | 13 hours of driving and 14 on duty in a 16-hour window, and 70 hours in 7 days. |
+| North of 60 degrees north: the Yukon and the Northwest Territories | 15 hours of driving and 18 on duty in a 20-hour window, and 80 hours in 7 days. |
+
+The C key, the ELD app and the logbook read the rules you are under, starting "Canadian hours rules" or "Alaska hours rules". In the United States 34 hours off in a row restart your cycle; in Canada it takes 36. Rest menus offer the same rests in Canada as in the United States. A load's deadline is planned on the lower-48 daily rules for the whole route: 11 hours of driving, the 14-hour window and the 30-minute break. The work cycle isn't part of that plan.
+
+### Time zones on the map
+
+The map uses Eastern, Central, Mountain, Pacific and Alaska Time, plus Atlantic Time in the Maritimes. Alberta is Mountain, Saskatchewan and Manitoba are Central, and Ontario and Quebec are Eastern, except northwestern Ontario around Kenora, which is Central. In British Columbia, the East Kootenay and the Peace country around Dawson Creek are Mountain; the rest is Pacific. The Yukon and the Northwest Territories keep Mountain Time. Daylight saving isn't modeled, so every zone keeps standard time all year.
+
+### Weather in the north
+
+Simulated weather in Alaska and Canada gets as cold as the real winters there: a January morning in Fairbanks reads below zero Fahrenheit, and Whitehorse well below freezing. Live weather comes from the US weather service, which has no Canadian data, so north of the border the weather is simulated and weather alerts stay quiet; live weather comes back at the US line.
+
+### Billboards
+
+Billboards follow each state's, province's and territory's sign law. Maine, Vermont, Alaska, Alberta, Prince Edward Island and the Northwest Territories ban them. The Yukon, New Brunswick and Nova Scotia keep only boards for places to visit. No board stands in a park the road crosses. Where boards are banned, some landmarks are named plainly as you pass. Holiday boards follow the country you're in: Canada Day and October's Thanksgiving in Canada, the Fourth of July and November's Thanksgiving in the United States. To turn billboards off, set Speak billboards to off under Settings, Speech.
+
+## Crossing the border
+
+Trucks cross the border at the Pacific Highway at Blaine, Sumas, Osoyoos, Kingsgate, Coutts, North Portal, Emerson, Pigeon River, the Sault Ste. Marie International Bridge, the Gordie Howe and Blue Water bridges, Lewiston-Queenston, the Thousand Islands, Lacolle, Stanstead, the Klondike and Haines highways, and the Alcan port on the Alaska Highway, with Beaver Creek on the Canadian side, plus Houlton and Calais. Every truck stops for customs at each crossing, in both directions.
+
+Hyder, Alaska, is the one exception. The road into Hyder from Stewart, British Columbia, has no US port, so nothing stops you going in. Coming out, every truck stops at Canadian customs in Stewart. Hyder has no freight, so no load starts or ends there.
+
+As you cross the line, the GPS names the province or state you're entering, then, in this order, the time zone if it changes, the units line if Automatic changes them, and the new hours rules. Each waits for the one before it to finish. The new country's speed limit applies from the line.
+
+Before the booth, the GPS names the port, its distance and the agency, and says every truck stops at the customs booth. Half a mile out you hear "Customs booth in half a mile. Stop at the booth.", or 800 meters in kilometers. Slow down and stop at the booth. The officer asks for your passport and checks the eManifest filed for this load. Choose Answer the officer's questions and hand over your documents. Primary inspection takes 10 minutes on duty. About one truck in ten is referred to secondary inspection, where officers examine the trailer for 45 minutes before clearing you. You hear "Cleared. Welcome to Canada." or "Welcome to the United States."
+
+Driving past the booth brings an RCMP cruiser or a Border Patrol vehicle behind you with its lights on. Signal with X and stop on the shoulder, and officers escort you and the truck back to the port. The penalty going into the United States is 5,000 dollars, then 10,000 for each later offense. Going into Canada it is 2,000 Canadian dollars, then 4,000, then 8,000, charged in US dollars. A company driver's carrier pays the penalty; you lose reputation either way.
 
 ## Driving controls
 
@@ -424,7 +524,7 @@ A control marked Driving commands has no controller button. Hold the right bumpe
 | Alt+S | Driving commands | Report when your 30 minute break is due, or that a break will not help. |
 | Alt+D | Driving commands | Report what ends this shift, driving time left and duty window both, and where you can legally stop before it. |
 | R | D-pad up, with or without the right bumper | Report trip progress (the same percent the online drivers list shows) and the distance left, then the road you are on with its direction, the state you are in, and the city you are heading toward. With a planned stop set, the distance counts down to that stop instead of the destination. On city streets, pulling out of the origin gate, driving a pickup approach, or running the last streets to a facility gate, it names the street under your wheels and counts down to the on-ramp or the gate instead. Distances close in quarter miles and then in feet, so the answer is never "0 miles" while the gate is still ahead. |
-| Alt+1 | Driving commands | Report the state you are in, and nothing else. |
+| Alt+1 | Driving commands | Report the state, province or territory you are in, and nothing else. |
 | Alt+2 | Driving commands | Report the road you are on, signed the way you would read it, "I-90 East". On city streets it names the street instead. |
 | Alt+3 | Driving commands | Report the town you are in. When you are not in one, it names the nearest town, how far off the road it sits, and whether it is ahead or behind. On an empty stretch it says there is no town near you rather than going quiet. |
 | Alt+4 | Driving commands | Report the direction you are travelling, as the shields sign it, "Eastbound". A city street has no signed direction and it says so. |
@@ -643,11 +743,11 @@ Don't wait for an empty tank before looking for fuel. Warnings tell you when it'
 
 V reads the weather and simulated forecasts. Conditions affect much of the drive, including grip, visibility, safe speed, cruise gap, drag, fuel use, and sound. A career begins on March 21 and moves through the seasons as you drive and rest. Check the date with the C hotkey, open status, or check at the terminal.
 
-Live weather normally controls the calendar. If you want the career calendar to advance independently, turn that option off. An established career starts its independent calendar on today's date, and conditions are adjusted to its season. At a terminal, the temperature comes from a live station when available.
+In Alaska and Canada, simulated weather follows each area's real winters; see [Weather in the north](#weather-in-the-north). Live weather normally controls the calendar. If you want the career calendar to advance independently, turn that option off. An established career starts its independent calendar on today's date, and conditions are adjusted to its season. At a terminal, the temperature comes from a live station when available.
 
 ### Time zones
 
-In accelerated modes, you hear the truck's local time and announcements when you cross a time-zone boundary. Appointments use the receiver's time and include the day. Real time uses your computer clock as the local game clock. Aligning that clock doesn't change the time left on a delivery or the duration of your hours limits. Daylight saving isn't modeled.
+In accelerated modes, you hear the truck's local time and announcements when you cross a time-zone boundary. [Time zones on the map](#time-zones-on-the-map) lists the zones the map has. Appointments use the receiver's time and include the day. Real time uses your computer clock as the local game clock. Aligning that clock doesn't change the time left on a delivery or the duration of your hours limits. Daylight saving isn't modeled.
 
 ## Enforcement, your record, and your CDL
 
@@ -685,7 +785,7 @@ A Level 3 inspection checks the license and paperwork in about 15 minutes. Roadc
 
 Serious violations include driving fifteen or more over, reckless driving, unsafe lane changes, tailgating, failure to stop, barrels, and repeated fatigued driving. Two within 180 game days suspend your CDL for 60 days. Three or more mean 120 days, and suspensions run consecutively. Fleeing disqualifies you for a year the first time and for life the second.
 
-During a suspension, you can't take driving work, and an active or saved drive ends. You keep your level, experience, endorsements, and equipment. Career stats and Driver status let you review the record and hear what another violation would mean.
+During a suspension, you can't take driving work, and an active or saved drive ends. A CDL pulled at speed stops the truck on the shoulder, and a relief driver takes it back to the city the run left from. At the terminal, Wait out the CDL suspension passes the time in one go. You keep your level, experience, endorsements, and equipment. Career stats and Driver status let you review the record and hear what another violation would mean.
 
 ## When you owe money
 
@@ -693,13 +793,15 @@ If you can't cover a charge, it becomes a balance owed. A quarter of later settl
 
 You'll hear warnings when debt begins, passes halfway, and gets close to the ceiling. For a company driver, the ceiling is eight average settlements or 6,000 dollars, whichever is larger. For an owner, it's sixty percent of tractor resale value or 12,000 dollars, whichever is larger.
 
-At the ceiling, a company driver loses that carrier job and moves to Great Lakes Training Transport. An owner's lender takes the tractors, and the driver returns to company work. The debt closes and cash becomes zero. You keep your level, experience, endorsements, record, and other belongings.
+At the ceiling, a company driver loses that carrier job and goes to a carrier that hires near home, as described under [Dispatch trust](#dispatch-trust). An owner's lender takes the tractors, and the driver returns to company work the same way. The news is said as you enter the terminal. The debt closes and cash becomes zero. You keep your level, experience, endorsements, record, and other belongings.
 
-If you're already at Great Lakes, debt stops at the ceiling. Excess is written off while repayments continue. The game presents the outcome in a report you can review.
+If you're already at Great Lakes, or at the carrier that took you on after your last job ended, debt stops at the ceiling. Excess is written off while repayments continue. The game presents the outcome in a report you can review.
 
 ## Hours of service and fatigue
 
-Your legal hours are the same in both hours modes: eleven driving hours after ten off, a fourteen-hour duty window, and a thirty-minute break after eight cumulative driving hours. Relaxed reduces enforcement pressure; it doesn't extend those limits.
+Your legal hours are the same in both hours modes. In the lower 48 they are eleven driving hours after ten off, a fourteen-hour duty window, and a thirty-minute break after eight cumulative driving hours. Alaska and Canada have their own limits, listed under [Hours rules where you drive](#hours-rules-where-you-drive). Relaxed reduces enforcement pressure; it doesn't extend those limits.
+
+On top of each day's limits there is a work cycle: 70 hours on duty in any 8 days in the lower 48. When a day of cycle hours is left, the ELD status line says so. Thirty-four hours off duty in a row start a fresh week, and the sleep that finishes them says your cycle clock reset.
 
 Any thirty consecutive minutes without driving can meet the driving-break requirement. Loading and inspections can count, but they won't reset the duty window. Moving the truck for work counts even when you're driving without a trailer.
 
@@ -758,7 +860,7 @@ To drive again sooner, pause and choose Take the wheel back. Your ten hours must
 
 **Who they are.** Once you have run a team load, Career stats has a Co-drivers list: everyone you have teamed with, how many loads you ran together, and a line or two about them. The Driver status screen reads the same story for the co-driver on your current load. Nothing reads it to you unless you open it.
 
-**What it costs.** On a company job, miles the co-driver drives pay you half. An owner-operator pays their co-driver 30 percent of the settlement for those miles, and still pays fuel, tolls and upkeep. Those miles earn half the career experience. The settlement names the co-driver's miles and share. Badges for how a haul was driven, such as a long run with no tolls, are not earned on a team load, and the road journal notes who drove.
+**What it costs.** On a company job, miles the co-driver drives pay you half. An owner-operator pays their co-driver 30 percent of the settlement for those miles, and still pays fuel, tolls and upkeep. Those miles earn half the career experience. The settlement names the co-driver's miles and share. Achievements for how a haul was driven, such as a long run with no tolls, are not earned on a team load, and the road journal notes who drove.
 
 **Your hours.** Time while the co-driver drives counts as sleeper-berth time, whether you ride along or sleep. Ten hours of it resets your legal hours, and the bunk takes off 8 points of fatigue an hour, the same as sleep parked. The co-driver keeps a logbook of their own. The Driver status screen says who is driving. It, C and the Take the wheel back row all say how much of your ten hours you have rested and when the co-driver hands back, for example "Rest: 3.5 hours of 10 hours. Dan hands back in about 6.5 hours." The ELD app reads both logbooks. If you were already rested when you handed over, the co-driver drives until their own hours run out.
 
@@ -872,7 +974,7 @@ Unloading uses on-duty time. When it's finished, settlement explains the load's 
 
 On-time delivery pays ten percent extra. Arriving even earlier doesn't add another bonus, while late freight pays less. Company tolls and approved extra charges don't reduce driver wages. Tickets you've already paid aren't charged a second time.
 
-Damaged freight can bring an exception deduction, a claim, or a refusal with no delivery pay. A fragile load tolerates less abuse than bulk freight. Hard braking, fast bends, and collisions can all affect the cargo. If you can't cover the resulting charges, they become debt.
+Damaged freight can bring an exception deduction, a claim, or a refusal with no delivery pay. A fragile load tolerates less abuse than bulk freight. Hard braking, fast bends, and collisions can all affect the cargo. If you can't cover the resulting charges, they become debt. A refused load's settlement says the receiver refused it, with no pay for the load and no on-time bonus. A company driver is charged their own pay for a refused or damaged load, not the load's full price, and the damage deductible still applies.
 
 ## Settings walkthrough
 
@@ -915,7 +1017,7 @@ Choose the driving pace first. Relaxed gives you more time to react, Standard co
 | Setting | Purpose |
 | --- | --- |
 | Driving mode | Choose Relaxed, Standard, or Real time. |
-| Hours of service | Choose realistic or relaxed legal limits. Both use the same 11-hour driving limit, 14-hour duty window, and break after 8 hours. Relaxed reduces fines, inspections, and random hazards. |
+| Hours of service | Choose realistic or relaxed legal limits. Both use the same limits: in the lower 48, the 11-hour driving limit, 14-hour duty window, and break after 8 hours. Relaxed reduces fines, inspections, and random hazards. |
 | Hours of service planning hints | Off by default. On, when the delivery is out of legal reach, the cab suggests a break or sleep stop once, with time to spare before the next hours warning, and names the last stop you can legally reach if it suggests an earlier one. While rolling, choosing a break or sleep from T plans that stop; press T again to cancel. Quiet and Urgent only driving speech skip the spoken suggestion. |
 
 #### Choosing your driving pace
@@ -936,9 +1038,9 @@ Here you choose where the game's weather, traffic reports, and fuel prices come 
 
 | Setting | Purpose |
 | --- | --- |
-| Weather source | Switches between simulated weather and live conditions for your current route position while driving. Route planning checks live city conditions along the route when available. |
+| Weather source | Switches between simulated weather and live conditions for your current route position while driving. Route planning checks live city conditions along the route when available. Live conditions cover the United States only; in Canada the weather is simulated. |
 | Traffic source | Switches between simulated traffic incidents and live incident reports from state road information services when available. |
-| Fuel prices | This week's national average, the default, puts the federal weekly diesel price at every pump, with each region's usual difference on top. Simulated draws a price per region for the session. |
+| Fuel prices | This week's national average, the default, puts the federal weekly diesel price at every pump, with each region's usual difference on top. Simulated draws a price per region for the session. Canadian pumps use each province's own average price. |
 | Parking source | Switches between simulated truck parking and live availability when available. |
 | Live weather controls calendar | When on, live weather uses today's real date and season. When off, live conditions continue while the career date advances at midnight and its seasons pass. |
 | Facility streets | On by default: you drive the real streets between the highway and a facility, turn by turn. Off, as in version 1.8, the exit ramp ends at the facility gate, no exit has a light or stop sign, a loaded run leaves straight onto the highway, and a pickup in town is one stretch of road. A change applies from your next drive. |
@@ -1105,6 +1207,8 @@ Open Achievements from the main menu and choose a saved career. While you play, 
 
 The first row, Sort, sets the order of the categories below it and of the entries inside them: earned first, newest first, locked first, A to Z, or the original order. Use Left and Right, or Enter, to change it; the game remembers your choice. Earned first is the default. Each category opens on its own Sort row, which changes that category alone until you leave the achievements. Account achievements under Online sort the same way.
 
+2.0 adds achievements for deliveries in Alaska, the whole Alaska Highway, clearing customs, a restart, a week of loads for one carrier, moving up from the training fleet, cattle, and the Laredo yards. Others come from Canada: a first Canadian delivery, deliveries in Alberta, Saskatoon, Sudbury on a Saturday night and Quebec in winter, a load out of Nova Scotia, deliveries on both coasts, and a delivery in every province on the map. One more is hidden.
+
 Earned entries include their descriptions. Locked entries don't give you the same detail, and hidden achievements keep their names secret until earned. You can browse them between trips without starting or changing a career.
 
 After your first dispatch, check Career plan at the terminal for your next goal. Career stats shows the level, reputation, deliveries, qualifications, and record that affect your opportunities. Business status explains your equipment and business position. Use those reports to plan for new freight, another truck, or own authority.
@@ -1117,7 +1221,7 @@ Account setup connects an existing account through your browser. The game opens 
 
 Your public profile can show lifetime earnings, but it doesn't publish current cash, full saves, coordinates, or precise location. Detailed career statistics need a validated private backup. Turning off sharing hides the profile without turning off backups. On the setup page, you can change names and revoke computers you've signed in.
 
-Cloud backup uploads privately after each save and keeps ten accepted revisions per career, for up to ten careers. Connecting your account enables it. Restoring verifies the signature and keeps the replaced local save as a fallback. Back up this career now sends a backup immediately. Removing an old cloud career doesn't remove the local one.
+Cloud backup uploads privately after each save and keeps ten accepted revisions per career, for up to ten careers. A 2.0 career backs up under its own name with "(Career 2)" on the end, such as Road Star (Career 2), so it never replaces the 1.9 backup of the same driver. A 1.9 backup restored in 2.0 becomes a 2.0 career. Connecting your account enables it. Restoring verifies the signature and keeps the replaced local save as a fallback. Back up this career now sends a backup immediately. Removing an old cloud career doesn't remove the local one.
 
 
 
@@ -1142,6 +1246,22 @@ Low dispatch trust, a suspended CDL, debt, or your driving record can hold equip
 ### What is the difference between reputation and dispatch trust?
 
 Reputation is a score out of 100 built from your deliveries and lowered by your driving record. Its descriptions are Outstanding (90 and up), Well regarded (75 to 89), Established (60 to 74), Unproven (40 to 59, where every new driver starts at 50), Shaky, Damaged, and Ruined. Dispatch trust lines add it as, for example, "Dispatch trust: full. Reputation 85 out of 100." In Settings, Speech, Score display can speak both the description and number, the percentage only, or the description only. Dispatch trust is what the carrier lets you do right now: how much of the board you see, how many loads you can refuse, and which truck you get. Your CDL, your record, and what you owe count toward it as well as reputation. See [Dispatch trust](#dispatch-trust).
+
+### Why are speeds in kilometers now?
+
+You are in Canada with Units on Automatic, the default. Back in the United States the GPS says "Speeds and distances are in miles now." To keep one unit everywhere, set Units to Imperial or Metric under Settings, Gameplay, Controls.
+
+### Can I start a career in Canada?
+
+Not yet. Home cities are in the lower 48 and Alaska, because no Canadian carrier hires yet. You can haul into Canada with a US carrier that crosses the border.
+
+### Why didn't my load go to a Canadian town from here?
+
+A US carrier may not haul between two Canadian towns, so a board in Canada offers only loads to the United States.
+
+### Why did I wait at the border?
+
+Every truck stops at the customs booth. Primary inspection takes 10 minutes, and about one truck in ten is sent to secondary inspection for 45 more. Both count as on duty.
 
 ### How many levels are there?
 
