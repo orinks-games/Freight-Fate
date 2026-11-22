@@ -581,6 +581,15 @@ settings_fields! {
     /// 2026-10-18).
     radio_cab_speakers: bool = true => bool_strict,
     weather_volume: f64 = 0.65 => level,
+    /// The beds outside the truck: birds by day, insects at night, rivers.
+    /// They rode Weather sounds volume until this setting split them off;
+    /// a settings file from before it starts at that player's weather
+    /// level, so the mix they had does not move.
+    outside_volume: f64 = 0.65 => level,
+    /// Pavement seams and bridge joints under the wheels. They rode
+    /// Gameplay cues volume until this setting split them off; a settings
+    /// file from before it starts at that player's cue level.
+    road_surface_volume: f64 = 0.8 => level,
     engine_volume: f64 = 0.55 => level,
     ui_volume: f64 = 0.9 => level,
     /// Step the game sounds back while the road voice speaks: engine,
@@ -776,6 +785,14 @@ settings_fields! {
     /// the clutch, instead of the other way round (the Settings > Controls
     /// row "Second layer bumper").
     left_bumper_layer: bool = false => bool_strict,
+    /// Tilting the phone steers too (Touch gestures, Tilt steering), and
+    /// how many degrees from level steer fully, 15 to 45.
+    touch_tilt_steering: bool = false => bool_strict,
+    touch_tilt_full_degrees: f64 = 30.0 => float_plain,
+    /// iPhone and iPad read gestures with the recognizer Android uses
+    /// (`ff_core::touch::recognizer`) instead of UIKit's (Touch gestures,
+    /// New gesture reading). Kept until the native one is retired.
+    touch_shared_recogniser: bool = false => bool_strict,
 }
 
 impl Settings {

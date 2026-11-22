@@ -338,6 +338,11 @@ impl State for WhatsNewState {
         ));
     }
 
+    /// The opening line again: the release, its length and the keys.
+    fn on_app_return(&mut self, ctx: &mut GameContext) {
+        self.enter(ctx);
+    }
+
     /// A tap reads the current line again.
     fn handle_gesture(&mut self, ctx: &mut GameContext, gesture: Gesture) -> bool {
         if gesture != Gesture::Tap {

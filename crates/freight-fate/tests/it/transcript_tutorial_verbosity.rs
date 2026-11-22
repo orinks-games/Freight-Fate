@@ -225,3 +225,35 @@ fn test_the_gate_is_tutorial_done_itself_not_verbosity_history() {
     let first_timer = DrivingState::new(&mut app.ctx, job, route, None, DRIVE_PHASE_DELIVERY, None);
     assert!(first_timer.tutorial.is_some());
 }
+
+/// Phone walk W2: "Air ready." and "Reminder: air is ready. ..." landed a
+/// second apart, the reminder timed from the engine start. Air coming up is
+/// its own line, so the reminder waits from it.
+#[test]
+fn test_air_ready_is_not_followed_by_its_own_reminder() {
+    let mut app = TestApp::new();
+    prepare(&mut app, false);
+    let mut tutorial = Tutorial::new();
+    tutorial.begin(&mut app.ctx);
+    tutorial.on_engine_started(&mut app.ctx);
+    let parked = TruckState {
+        primary_air_psi: 120.0,
+        secondary_air_psi: 120.0,
+        ..truck_at(0.0, true)
+    };
+    tutorial.update(&mut app.ctx, 24.5, &parked);
+    app.clear_speech();
+    tutorial.on_air_ready();
+    tutorial.update(&mut app.ctx, 1.0, &parked);
+    assert!(
+        !app.main_lines()
+            .iter()
+            .any(|line| line.starts_with("Reminder")),
+        "{:?}",
+        app.main_lines()
+    );
+    tutorial.update(&mut app.ctx, 25.0, &parked);
+    let lines = app.main_lines();
+    assert_eq!(lines.len(), 1, "{lines:?}");
+    assert!(lines[0].starts_with("Reminder: air is ready."), "{lines:?}");
+}

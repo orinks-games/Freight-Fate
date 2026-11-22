@@ -4,7 +4,6 @@
 
 use crate::states_driving_menus_support::{a_drive, drive_ref, key as key_event, last, with_drive};
 use crate::states_main_menu_support::*;
-use ff_core::input_hints::CONTROLLER;
 #[cfg(feature = "agent-server")]
 use freight_fate::agent_server::{build_command, Command, KeySpec};
 use freight_fate::app::testing::TestApp;
@@ -31,7 +30,7 @@ fn force_controller(app: &mut TestApp) {
     c.set_enabled(true);
     c.bind_device(Box::new(FakePad::new(0)), "test pad");
     c.set_id_pending(false);
-    c.active_device = CONTROLLER;
+    c.note_controller();
 }
 
 fn button(button: ControllerButton) -> InputEvent {

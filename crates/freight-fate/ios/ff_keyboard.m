@@ -1,3 +1,4 @@
+#import <GameController/GameController.h>
 #import <UIKit/UIKit.h>
 #import <dispatch/dispatch.h>
 #import <objc/runtime.h>
@@ -34,4 +35,12 @@ void ff_use_hardware_vertical_arrows(void *window) {
         });
         class_replaceMethod(cls, selector, filtered, method_getTypeEncoding(method));
     });
+}
+
+// Whether a hardware keyboard is connected now.
+int32_t ff_touch_keyboard_connected(void) {
+    if (@available(iOS 14.0, *)) {
+        return GCKeyboard.coalescedKeyboard != nil;
+    }
+    return 0;
 }
