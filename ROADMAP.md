@@ -4660,7 +4660,7 @@ town at 15 to 23 mph. Design: the doc "Realistic traffic pass: design"
 
 ## 2.0 in progress (`feat/career-2.0`) -- the working week and home
 
-- [x] Stereo truck engine. The licensed cab recordings use their measured RPMs for five loop bands, with shorter pitch slides through shifts and a pair of in-cab shift cues. The pack builder reads the cuts from the licensed overlay.
+- [x] Stereo truck engine. Five cab loops use their measured RPMs, with shorter pitch slides through shifts and two in-cab shift cues. The starter finishes before idle begins. The licensed overlay supplies the cab start and air-ready purge for the sound pack.
 - [x] No more low bridge and weight limit calls (owner, 2026-11-22: they spammed the player about bridges a truck never meets). Routing already avoids anything a legal truck cannot pass, so every call ended "Your route clears it"; Joplin to Tulsa spoke up to 122 of them, and Detroit to Windsor six in the eight miles before customs. The `corridor.restrictions` layer, its parser and the bake stay for a route that weighs the truck's own height and weight. The dispatch board help no longer promises restrictions in Route planning, which never listed them.
 - [x] Opt-in cloud resume: main-menu checks pick up clean, tracked careers from this release line's cloud slots; changed local copies use Cloud backup's conflict choice. Off by default; 1.9 backups stay separate.
 

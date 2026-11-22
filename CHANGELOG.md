@@ -86,6 +86,7 @@
 
 ### Fixed
 
+- **The truck's starter finishes before the running engine sound comes in.**
 - **Left curve calls say "left" again in every language.** They are spoken in English for now.
 - **Crossing into the District of Columbia now says "the District of Columbia."**
 - **Toll lines no longer say the word toll twice,** as in toll at Alligator Alley commercial toll.

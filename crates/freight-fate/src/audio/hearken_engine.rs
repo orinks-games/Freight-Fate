@@ -1,24 +1,21 @@
 //! The Hearken backend's truck engine: the multisample ring with per-band
-//! rate tracking, the legacy single pitched loop, the ignition crossfade,
-//! and the per-frame `update` -- ported line for line from the BASS
-//! backend it replaced, with a playback rate where BASS slid a frequency.
+//! rate tracking, the legacy single pitched loop, the ignition handoff,
+//! and the per-frame `update`.
 
 use std::rc::Rc;
 
-use ff_core::audio_fades::{curve, Fade};
+use ff_core::audio_fades::Fade;
 use hearken::audio::Start;
 
-use super::assets::{asset_length_s, stereo_engine_available};
+use super::assets::{asset_bytes, stereo_engine_available};
 use super::backend::Category;
 use super::hearken_backend::{bus_of, level, EngineBand, HearkenBackend};
 use super::{
     advance_engine_wobble, engine_band_weights, engine_band_weights_with_width, engine_freq_mult,
     engine_load_gain, ENGINE_BANDS, ENGINE_BAND_RATE_MAX, ENGINE_BAND_RATE_MIN,
-    ENGINE_CLASSIC_LOOP_KEY, ENGINE_LOOP_GAIN, ENGINE_LOOP_KEY, ENGINE_RESUME_FADE_S,
-    ENGINE_RPM_IDLE, ENGINE_SLIDE_MS, ENGINE_SLIDE_SNAP_MS, ENGINE_SLIDE_SNAP_RPM,
-    ENGINE_START_ASSUMED_LEN_S, ENGINE_START_CROSSFADE_S, ENGINE_START_FADE_IN_CURVE,
-    ENGINE_START_FADE_OUT_CURVE, ENGINE_START_SETTLE_CURVE, ENGINE_START_SETTLE_S,
-    ENGINE_START_TAIL_ANCHOR, STEREO_ENGINE_BANDS,
+    ENGINE_CLASSIC_LOOP_KEY, ENGINE_IGNITION_IDLE_FADE_S, ENGINE_LOOP_GAIN, ENGINE_LOOP_KEY,
+    ENGINE_RESUME_FADE_S, ENGINE_RPM_IDLE, ENGINE_SLIDE_MS, ENGINE_SLIDE_SNAP_MS,
+    ENGINE_SLIDE_SNAP_RPM, SFX_EXTENSIONS, STEREO_ENGINE_BANDS, STEREO_ENGINE_START_KEY,
 };
 
 // The recorded cab engine follows the live clutch-out rev fall closely.
@@ -30,35 +27,6 @@ const STEREO_GAIN_SLIDE_MS: u32 = 30;
 const STEREO_XFADE_LOG_FRAC: f64 = 0.40;
 
 impl HearkenBackend {
-    /// A fade that drives the engine loop's intro gain (0 = silent under the
-    /// crank, 1 = full), presenting `start` at once.
-    fn intro_gain_fade(
-        &self,
-        start: f64,
-        end: f64,
-        duration_s: f64,
-        curve_name: &str,
-        delay_s: f64,
-        end_starting: bool,
-    ) -> Fade {
-        let gain = Rc::clone(&self.engine_intro_gain);
-        let on_done: Option<Box<dyn FnMut()>> = if end_starting {
-            let starting = Rc::clone(&self.engine_starting);
-            Some(Box::new(move || starting.set(false)))
-        } else {
-            None
-        };
-        Fade::with_options(
-            move |value| gain.set(value.clamp(0.0, 1.0)),
-            start,
-            end,
-            duration_s,
-            curve(curve_name),
-            delay_s,
-            on_done,
-        )
-    }
-
     /// One engine loop, silent, at the engine's pan.
     fn start_engine_loop(&mut self, key: &str) -> Option<hearken::audio::Sound> {
         let start = Start::LOOP.volume(0.0).pan(self.engine_pan as f32);
@@ -85,23 +53,32 @@ impl HearkenBackend {
         }
         self.engine_running = true;
         self.fades.clear();
-        // Hold the loop silent while the ignition one-shot plays; crossfade
-        // it up at the tail. A silent (resume) start skips the crank.
-        self.engine_intro_gain.set(0.0);
-        self.engine_intro_load.set(0.0);
+        self.engine_last_rpm = ENGINE_RPM_IDLE;
+        self.engine_last_throttle = 0.0;
         if play_start_sound {
-            self.begin_engine_start_crossfade();
-        } else {
-            let fade = self.intro_gain_fade(
-                0.0,
-                1.0,
-                ENGINE_RESUME_FADE_S,
-                ENGINE_START_FADE_IN_CURVE,
-                0.0,
-                false,
-            );
-            self.fades.add(fade);
+            let bus = bus_of(Category::Engine);
+            let start = Start::ONCE.volume(level(&self.buses, Category::Engine, 1.0));
+            if !self.engine_voice_classic
+                && stereo_engine_available()
+                && asset_bytes(STEREO_ENGINE_START_KEY, SFX_EXTENSIONS).is_some()
+            {
+                self.engine_intro_sound = self.start_sfx(STEREO_ENGINE_START_KEY, bus, start);
+            }
+            if self.engine_intro_sound.is_none() {
+                self.engine_intro_sound = self.start_sfx("engine/start", bus, start);
+            }
+            if self.engine_intro_sound.is_some() {
+                self.engine_intro_gain.set(0.0);
+                return;
+            }
         }
+        self.start_running_engine(ENGINE_RESUME_FADE_S);
+    }
+
+    fn start_running_engine(&mut self, fade_s: f64) {
+        let gain = Rc::clone(&self.engine_intro_gain);
+        self.fades
+            .add(Fade::new(move |value| gain.set(value), 0.0, 1.0, fade_s));
         self.engine_stereo_ring = false;
         if !self.engine_voice_classic {
             if stereo_engine_available() {
@@ -138,81 +115,7 @@ impl HearkenBackend {
             self.engine_sound = sound;
         }
         self.engine_wobble.resize(self.engine_bands.len(), [0.0; 2]);
-        self.set_engine_rpm(ENGINE_RPM_IDLE, 0.0);
-    }
-
-    /// Play `engine/start` at full volume and blend into the loop at its
-    /// tail.
-    fn begin_engine_start_crossfade(&mut self) {
-        self.engine_starting.set(true);
-        let base = level(&self.buses, Category::Engine, 1.0);
-        let start = Start::ONCE.volume(base);
-        let Some(sound) = self.start_sfx("engine/start", bus_of(Category::Engine), start) else {
-            // No crank available: bring the loop up promptly so the engine
-            // is still audible.
-            let fade = self.intro_gain_fade(0.0, 1.0, ENGINE_RESUME_FADE_S, "linear", 0.0, true);
-            self.fades.add(fade);
-            return;
-        };
-        self.engine_intro_sound = Some(sound);
-        self.crank_base = base;
-        self.crank_gain.set(1.0);
-        self.crank_applied = 1.0;
-        let clip_len = self.crank_length_s(sound);
-        let delay = if ENGINE_START_TAIL_ANCHOR {
-            (clip_len - ENGINE_START_CROSSFADE_S).max(0.0)
-        } else {
-            0.0
-        };
-        // Boost the loop to full (crank) load through the handoff so it
-        // meets the crank tail at the same level instead of the quieter
-        // off-throttle idle.
-        self.engine_intro_load.set(1.0);
-
-        // The crank itself: the fade writes the multiplier and `update`
-        // applies it, since a closure cannot borrow the pool it lives
-        // beside.
-        let crank = Rc::clone(&self.crank_gain);
-        self.fades.add(Fade::with_options(
-            move |m| crank.set(m),
-            1.0,
-            0.0,
-            ENGINE_START_CROSSFADE_S,
-            curve(ENGINE_START_FADE_OUT_CURVE),
-            delay,
-            None,
-        ));
-        let fade_in = self.intro_gain_fade(
-            0.0,
-            1.0,
-            ENGINE_START_CROSSFADE_S,
-            ENGINE_START_FADE_IN_CURVE,
-            delay,
-            true,
-        );
-        self.fades.add(fade_in);
-        // Once the crossfade completes, ease the load boost back off so the
-        // loop settles to its real off-throttle volume.
-        let load = Rc::clone(&self.engine_intro_load);
-        self.fades.add(Fade::with_options(
-            move |value| load.set(value.clamp(0.0, 1.0)),
-            1.0,
-            0.0,
-            ENGINE_START_SETTLE_S,
-            curve(ENGINE_START_SETTLE_CURVE),
-            delay + ENGINE_START_CROSSFADE_S,
-            None,
-        ));
-    }
-
-    /// The crank's length: what the output decoded, else the clip's own
-    /// headers, else a safe fallback.
-    fn crank_length_s(&mut self, sound: hearken::audio::Sound) -> f64 {
-        self.audio
-            .length_s(sound)
-            .filter(|s| *s > 0.0)
-            .or_else(|| Some(asset_length_s("engine/start")).filter(|s| *s > 0.0))
-            .unwrap_or(ENGINE_START_ASSUMED_LEN_S)
+        self.set_engine_rpm(self.engine_last_rpm, self.engine_last_throttle);
     }
 
     pub(super) fn update(&mut self, dt: f64) {
@@ -222,19 +125,14 @@ impl HearkenBackend {
         self.follow_open();
         self.collect_radio_stream();
         self.fades.update(dt);
-        let crank = self.crank_gain.get();
-        if crank != self.crank_applied {
-            self.crank_applied = crank;
-            if let Some(sound) = self.engine_intro_sound {
-                // A dying sound ignores it, like BASS's suppressed error.
-                let volume = self.crank_base * crank as f32;
-                self.audio.set_volume_over(sound, volume, 0);
-            }
+        if self
+            .engine_intro_sound
+            .is_some_and(|sound| !self.audio.is_playing(sound))
+        {
+            self.engine_intro_sound = None;
+            self.start_running_engine(ENGINE_IGNITION_IDLE_FADE_S);
         }
-        // The ignition fades moved the intro gain or load boost: re-apply
-        // the engine level at the last known rpm.
-        let intro = (self.engine_intro_gain.get(), self.engine_intro_load.get());
-        if self.engine_running && intro != self.intro_applied {
+        if self.engine_running && self.engine_intro_gain.get() != self.intro_applied {
             self.set_engine_rpm(self.engine_last_rpm, self.engine_last_throttle);
         }
         // Advance the per-band anti-repetition walks; set_engine_rpm
@@ -250,17 +148,16 @@ impl HearkenBackend {
         self.engine_running = false;
         self.fades.clear();
         self.engine_intro_gain.set(1.0);
-        self.engine_intro_load.set(0.0);
-        self.engine_starting.set(false);
-        self.engine_intro_sound = None;
-        self.crank_gain.set(1.0);
-        self.crank_applied = 1.0;
+        if let Some(sound) = self.engine_intro_sound.take() {
+            self.audio.stop(sound, 0);
+        }
+        let fade_ms = if shutdown_sound { 0 } else { 250 };
         for band in std::mem::take(&mut self.engine_bands) {
-            self.audio.stop(band.sound, 250);
+            self.audio.stop(band.sound, fade_ms);
         }
         self.engine_wobble.clear();
         if let Some(sound) = self.engine_sound.take() {
-            self.audio.stop(sound, 250);
+            self.audio.stop(sound, fade_ms);
         }
         if shutdown_sound {
             self.play("engine/shutdown", 1.0, 0.0);
@@ -287,8 +184,7 @@ impl HearkenBackend {
     /// `rpm / native_rpm` (clamped) so the pitch is continuous through a
     /// crossfade instead of stepping between the cuts' recorded speeds.
     pub(super) fn set_engine_rpm(&mut self, rpm: f64, throttle: f64) {
-        if !(self.engine_running && (!self.engine_bands.is_empty() || self.engine_sound.is_some()))
-        {
+        if !self.engine_running {
             return;
         }
         // A step-sized rpm change (shift re-entry) snaps; wander glides.
@@ -304,14 +200,9 @@ impl HearkenBackend {
         self.engine_last_rpm = rpm;
         self.engine_last_throttle = throttle;
         let intro_gain = self.engine_intro_gain.get();
-        let intro_load = self.engine_intro_load.get();
-        self.intro_applied = (intro_gain, intro_load);
-        let mut load_gain = engine_load_gain(throttle);
-        // During the ignition handoff, boost load toward full so the loop
-        // meets the crank tail; the boost eases back to 0 afterward.
-        load_gain += intro_load * (1.0 - load_gain);
+        self.intro_applied = intro_gain;
         let level = (ENGINE_LOOP_GAIN
-            * load_gain
+            * engine_load_gain(throttle)
             * self.engine_duck
             * self.buses.engine
             * self.buses.speech_duck

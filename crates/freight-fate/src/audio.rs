@@ -227,25 +227,11 @@ pub const ENGINE_WOBBLE_RATE_STEP: f64 = 0.004; // random-walk speed, fraction p
 pub const ENGINE_WOBBLE_GAIN_MAX: f64 = 0.06; // +/- fraction of band gain (~0.5 dB)
 pub const ENGINE_WOBBLE_GAIN_STEP: f64 = 0.10;
 
-// Ignition crossfade. When the engine is deliberately started, the
-// "engine/start" one-shot plays at full volume while the idle loop is held
-// silent; near the tail of the clip the two crossfade over
-// ENGINE_START_CROSSFADE_S seconds. Tune these to taste -- curve names are
-// keys into `audio_fades::CURVES` (linear, ease_in, ease_out, ease_in_out,
-// exponential, equal_power_in/out).
-pub const ENGINE_START_CROSSFADE_S: f64 = 0.3; // length of the tail blend
-pub const ENGINE_START_TAIL_ANCHOR: bool = true; // blend ends at the clip's end; false = blend from t=0
-pub const ENGINE_START_FADE_OUT_CURVE: &str = "equal_power_out"; // start.ogg 1.0 -> 0.0
-pub const ENGINE_START_FADE_IN_CURVE: &str = "equal_power_in"; // engine loop 0.0 -> 1.0
-pub const ENGINE_START_ASSUMED_LEN_S: f64 = 2.0; // fallback if the clip length can't be queried
-                                                 // Short fade-in for a silent (no-crank) engine loop start, e.g. resuming a
-                                                 // trip whose engine was already running, or coming back from an in-trip menu.
+// The ignition cue finishes before the running engine starts.
+const STEREO_ENGINE_START_KEY: &str = "engine_stereo/start";
+const ENGINE_IGNITION_IDLE_FADE_S: f64 = 0.08;
+// Soft return when the engine was already running, such as after a menu.
 pub const ENGINE_RESUME_FADE_S: f64 = 0.25;
-// After the crank hands off, the loop starts at the crank's (full-load)
-// volume so there is no dip, then eases down to its true off-throttle load
-// over this window.
-pub const ENGINE_START_SETTLE_S: f64 = 0.6; // ease from crank level down to idle load
-pub const ENGINE_START_SETTLE_CURVE: &str = "ease_out"; // key into audio_fades.CURVES
 
 /// How far the ducked channels (engine, weather, and the music slot the
 /// radio rides) drop while the event voice speaks, when the Settings > Audio
