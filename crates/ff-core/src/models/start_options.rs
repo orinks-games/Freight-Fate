@@ -605,8 +605,8 @@ fn hiring_options_in_catalog_order(
 /// nationals), nearest hiring terminal first within a tier, ties by carrier
 /// key; the owner-operator start last. `hire` gives an option's carrier and
 /// the air miles to the terminal it would hire into.
-fn sort_for_start_picker<'a>(
-    options: &mut [&'a CareerStartOption],
+fn sort_for_start_picker(
+    options: &mut [&CareerStartOption],
     hire: impl Fn(&CareerStartOption) -> Option<(&'static carriers::Carrier, f64)>,
 ) {
     options.sort_by_cached_key(|option| {
