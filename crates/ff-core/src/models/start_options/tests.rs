@@ -522,11 +522,11 @@ fn test_a_generated_national_start_says_national_and_names_its_freight() {
     assert_eq!(reefer.key, "winterset_refrigerated");
     assert_eq!(
         reefer.label,
-        "Winterset Refrigerated Lines: national company driver, refrigerated freight"
+        "Winterset Refrigerated Lines: national company driver"
     );
     assert_eq!(
         reefer.menu_summary,
-        "A national carrier that mostly hauls refrigerated freight, with loads of up to 3000 miles."
+        "Mostly refrigerated freight, with loads of up to 3000 miles."
     );
     assert_eq!(
         reefer.help_text,

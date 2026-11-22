@@ -381,8 +381,8 @@ fn generated_start_words(c: &carriers::Carrier, max: &str) -> (String, String, S
             .map(|clause| format!(" Those loads need {clause}."))
             .unwrap_or_default();
         return (
-            format!("{}: national company driver, {specialty}", c.name),
-            format!("A national carrier that mostly hauls {specialty}, with loads of up to {max} miles."),
+            format!("{}: national company driver", c.name),
+            format!("Mostly {specialty}, with loads of up to {max} miles."),
             format!(
                 "A national company-driver start. Dispatch leans toward {specialty} and offers \
                  loads of up to {max} miles.{needs} {equipment}"
