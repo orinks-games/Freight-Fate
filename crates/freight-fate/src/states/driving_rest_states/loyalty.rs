@@ -147,7 +147,12 @@ impl Menu for LoyaltyRewardsState {
     }
 
     fn announce_entry(&mut self, ctx: &mut GameContext) {
-        let summary = profile_of(ctx).loyalty.summary();
+        let summary = {
+            let loyalty = &profile_of(ctx).loyalty;
+            let volume = (!ctx.settings.imperial())
+                .then(|| ctx.settings.volume_text(loyalty.total_gallons_fueled));
+            loyalty.summary_in(volume.as_deref())
+        };
         let title = self.menu.title.clone();
         let name = self.stop.spoken_name();
         ctx.say(&format!("{title}. {summary} At {name}."));

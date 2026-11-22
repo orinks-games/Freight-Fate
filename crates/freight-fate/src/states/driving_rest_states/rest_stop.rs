@@ -228,7 +228,12 @@ impl RestStopState {
         // Loyalty program status -- at hospitality stops. A scale hands out
         // citations, not points.
         if !is_scale {
-            let summary = profile_of(ctx).loyalty.summary();
+            let summary = {
+                let loyalty = &profile_of(ctx).loyalty;
+                let volume = (!ctx.settings.imperial())
+                    .then(|| ctx.settings.volume_text(loyalty.total_gallons_fueled));
+                loyalty.summary_in(volume.as_deref())
+            };
             items.push(
                 MenuItem::new(
                     format!("Loyalty program: {summary}"),

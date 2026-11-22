@@ -1481,7 +1481,12 @@ impl RouteSelectState {
         if let Some(provider) = ctx.real_weather_provider() {
             for route in &routes {
                 for name in &route.cities {
-                    if let Some(city) = world.cities.get(name) {
+                    // The Weather Service answers for the United States only.
+                    if let Some(city) = world
+                        .cities
+                        .get(name)
+                        .filter(|c| c.country.eq_ignore_ascii_case("US"))
+                    {
                         provider.request(&city.key, city.lat, city.lon);
                     }
                 }

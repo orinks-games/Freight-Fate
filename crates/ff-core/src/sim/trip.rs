@@ -627,10 +627,14 @@ impl Trip {
         // Start the first route cell's live-weather fetch now rather than on
         // the first update tick. Opportunistic only: a route whose cities are
         // not in the world cannot resolve a location yet.
+        let covered = trip.live_weather_covers(0.0);
+        trip.weather.set_live_coverage(covered);
         if let Some((weather_key, lat, lon)) = trip.weather_location() {
             trip.weather.set_city(&weather_key, lat, lon);
-            if let Some(provider) = trip.weather.provider_mut() {
-                provider.request(&weather_key, lat, lon);
+            if covered {
+                if let Some(provider) = trip.weather.provider_mut() {
+                    provider.request(&weather_key, lat, lon);
+                }
             }
         }
         // Each wind-rule bridge is read at its own station, so fetch those

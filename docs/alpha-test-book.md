@@ -75,7 +75,7 @@ that is refused, or a 1.9 backup that changed.
   Gameplay, World and traffic) decide the date and the weather. With live
   weather on, the date is today's, so it is winter now in the north.
   Live weather covers the United States only; in Canada the weather is
-  simulated [waits on PR 758].
+  simulated.
 - **Speak billboards** (Settings, Speech) turns billboards on or off.
 
 ### 0.5 What isn't in this alpha
@@ -105,7 +105,7 @@ Edward Island [waits on PR 756]. Chapters 3 and 7.
 
 **The border is a stop.** Every crossing has a customs booth both ways,
 with a chance of secondary inspection and a penalty for driving past.
-Loads go into Canada and back [waits on PR 758]. Chapter 4.
+Loads go into Canada and back. Chapter 4.
 
 **Units follow the country.** Automatic speaks miles in the United States
 and kilometers in Canada, fuel in liters and loads in tonnes there, and
@@ -321,7 +321,7 @@ north, charged in US dollars.
 Pass when: a company driver hears the carrier pays; an owner-operator
 pays it; customs then clears you as in 4.2.
 
-### 4.5 Loads into Canada and back [waits on PR 758]
+### 4.5 Loads into Canada and back
 
 Setup: a career at a national carrier other than Great Lakes, on a board
 near the border (Bellingham, Detroit, Buffalo, Minot).
@@ -335,7 +335,7 @@ twin trailer, cattle or placarded load crosses; Great Lakes and local
 carriers offer no Canadian loads; and the deadline leaves time for
 customs.
 
-### 4.6 A town that ships nothing [waits on PR 758]
+### 4.6 A town that ships nothing
 
 Setup: a company career.
 
@@ -423,7 +423,7 @@ reset."
 Pass when: the restart clears the cycle, and Sunday Morning Coming Down
 is earned; at your home terminal, Take Me Home, Country Roads too.
 
-### 6.4 Sleeping in Canada [waits on PR 758]
+### 6.4 Sleeping in Canada
 
 Do: at a Canadian stop, read the sleep row before choosing it.
 
@@ -455,8 +455,7 @@ the voice gets badly wrong.
 
 Listen for: the local time line crossing into Saskatchewan and Manitoba
 (Central), Alberta (Mountain), Kenora (Central to Eastern), the Peace
-country around Dawson Creek (Mountain), the Yukon (Mountain) [waits on
-PR 758], and the Maritimes (Atlantic) [waits on PR 756].
+country around Dawson Creek (Mountain), the Yukon (Mountain), and the Maritimes (Atlantic) [waits on PR 756].
 
 Pass when: the clock after each line matches the zone, and the delivery
 appointment still uses the receiver's time.
@@ -474,7 +473,7 @@ Pass when: both tolls are charged once, in Canadian dollars at the booth.
 
 ### 8.1 Northern cold
 
-Setup: simulated weather (or live weather in Canada [waits on PR 758]),
+Setup: simulated weather (or live weather in Canada),
 January.
 
 Listen for: Fairbanks below zero Fahrenheit on a January morning,
@@ -483,7 +482,7 @@ Whitehorse well below freezing, Seattle unchanged.
 Pass when: temperatures fall as you drive north, and a July day in
 Fairbanks is mild.
 
-### 8.2 Live weather at the border [waits on PR 758]
+### 8.2 Live weather at the border
 
 Setup: Weather source live.
 
@@ -615,7 +614,7 @@ In PowerShell:
   that hour (0 to 23), logged off duty.
 - `FREIGHT_FATE_FORCE_DEST`: the next new dispatch board offers a load to
   that city when a road reaches it. A Canadian destination needs a board
-  that may send loads there [waits on PR 758].
+  that may send loads there.
 - `FREIGHT_FATE_FORCE_WEATHER`: see the companion volume.
 
 City keys are the city, the state or province, and the country, in lower

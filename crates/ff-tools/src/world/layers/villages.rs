@@ -14,10 +14,18 @@
 //! as one place ("Camp Verde / Matthi:wa"). A village the road runs through
 //! (half a mile or closer) that sits just before a speed drop to 45 or less
 //! moves to 0.2 mile ahead of the drop, so its name explains the limit.
-//! Run after `osm-landmarks`.
+//! With `--boundaries` (an extract holding the province and state
+//! boundaries), a place on the other side of the Canada–United States border
+//! from the road is dropped: Youngstown, New York is across the Niagara from
+//! the QEW, not on it. A place within a mile of the road's own crossing is
+//! kept, since the road itself is on both sides there. A First Nations
+//! reserve's number is not spoken ("Okanagan 1" is "Okanagan"), and the
+//! neighbourhoods in [`CITY_NEIGHBOURHOODS`] are not named on legs to their
+//! city. Run after `osm-landmarks`.
 
 use std::collections::{BTreeMap, HashSet};
 
+use super::border::Provinces;
 use super::features::{self, tag, Select};
 use super::landmarks::clean_name;
 use super::{corridor_mut, leg_id, leg_miles, pbf_paths, round, Grid, Only, Route, Run};
@@ -25,9 +33,10 @@ use crate::cli::{Args, Spec};
 use crate::pyjson::{Object, Value};
 use crate::util::Result;
 use crate::world::osm::geo::{haversine_m, M_PER_MI};
+use crate::world::osm::region::{canadian_states, LegRegions};
 
-const USAGE: &str = "usage: osm-villages --pbf FILE [--pbf FILE ...] [--only from:to;from:to] \
-                     [--extract-date YYYY-MM-DD] [--snapshot NAME] [--write]";
+const USAGE: &str = "usage: osm-villages --pbf FILE [--pbf FILE ...] [--boundaries FILE] \
+                     [--only from:to;from:to] [--extract-date YYYY-MM-DD] [--snapshot NAME] [--write]";
 
 pub const CATCHMENT_MI: f64 = 12.0;
 pub const CITY_DEDUPE_MI: f64 = 4.0;
@@ -39,6 +48,51 @@ pub const MAX_PER_LEG: usize = 30;
 pub const ENTER_OFF_MI: f64 = 0.5;
 const UNSPEAKABLE: &[char] = &['/', ':', ';', '|', '(', ')', '='];
 const CELL_DEG: f64 = 0.25;
+/// A place this close to the road's own country crossing is not judged by
+/// side: the road is in both countries there.
+pub const BORDER_KEEP_MI: f64 = 1.0;
+
+/// A city's own neighbourhoods that OpenStreetMap maps as villages, as
+/// `(place, city slug)`. On a leg to or from that city the name would sound
+/// like one more town before the city itself. No distance separates these
+/// from a real town beside a small city (Muscle Shoals by Florence, Pouce
+/// Coupe by Dawson Creek), so they are named.
+pub const CITY_NEIGHBOURHOODS: &[(&str, &str)] = &[
+    ("Steele Creek", "fairbanks_ak_us"),
+    ("Farmers Loop", "fairbanks_ak_us"),
+];
+
+/// `name` without a First Nations reserve's number ("Chapel Island 5",
+/// "Okanagan 1", "Sahhaltkum 4"; a letter may follow, "6A"). A number after
+/// "Lot" is the name itself, as in Prince Edward Island's "Belmont Lot 16".
+pub fn reserve_number_dropped(name: &str) -> String {
+    let Some((head, last)) = name.rsplit_once(' ') else {
+        return name.to_string();
+    };
+    let digits = last.trim_end_matches(|c: char| c.is_ascii_alphabetic());
+    let is_number = !digits.is_empty()
+        && digits.chars().all(|c| c.is_ascii_digit())
+        && last.len() - digits.len() <= 1;
+    let lot = head
+        .rsplit(' ')
+        .next()
+        .is_some_and(|w| matches!(w.to_lowercase().as_str(), "lot" | "no." | "no" | "number"));
+    if is_number && !lot && head.chars().any(char::is_alphabetic) {
+        head.trim_end().to_string()
+    } else {
+        name.to_string()
+    }
+}
+
+/// Whether a place is a neighbourhood of either end city.
+fn is_neighbourhood(leg: &Value, name: &str) -> bool {
+    ["from", "to"].iter().any(|end| {
+        let slug = leg.get(end).and_then(Value::as_str).unwrap_or("");
+        CITY_NEIGHBOURHOODS
+            .iter()
+            .any(|(place, city)| *place == name && *city == slug)
+    })
+}
 
 #[derive(Debug, Clone)]
 pub struct Place {
@@ -163,6 +217,21 @@ pub fn names_cities(leg: &Value, world: &Object) -> bool {
 pub struct Counts {
     pub paired: usize,
     pub unspeakable: usize,
+    pub across_border: usize,
+    pub unjudged: usize,
+}
+
+/// The places read from the extracts, their grid, and the dispatch cities.
+pub struct Found {
+    pub places: Vec<Place>,
+    pub grid: Grid,
+    pub anchors: Vec<(f64, f64, String)>,
+}
+
+/// The border check for one leg: the provinces, and the leg's stretches.
+pub struct Sides<'a> {
+    pub provinces: &'a Provinces,
+    pub regions: LegRegions,
 }
 
 /// The leg's village records, in mile order.
@@ -170,11 +239,15 @@ pub fn bake_leg(
     leg: &Value,
     world: &Object,
     route: &Route,
-    places: &[Place],
-    grid: &Grid,
-    anchors: &[(f64, f64, String)],
+    found: &Found,
+    sides: Option<&Sides>,
     counts: &mut Counts,
 ) -> Vec<Object> {
+    let Found {
+        places,
+        grid,
+        anchors,
+    } = found;
     let miles = leg_miles(leg);
     let taken = taken_names(leg, world);
     let cities_named = names_cities(leg, world);
@@ -185,8 +258,8 @@ pub fn bake_leg(
         if place.rank == "city" && !cities_named {
             continue;
         }
-        let name = clean_name(&place.name);
-        if name.is_empty() {
+        let name = reserve_number_dropped(&clean_name(&place.name));
+        if name.is_empty() || is_neighbourhood(leg, &name) {
             continue;
         }
         if !speakable(&name) {
@@ -211,6 +284,22 @@ pub fn bake_leg(
         });
         if is_city {
             continue;
+        }
+        if let Some(sides) = sides {
+            let at = at_mi.clamp(0.0, miles);
+            let near_line = sides
+                .regions
+                .borders
+                .iter()
+                .any(|b| (b.mile() - at).abs() <= BORDER_KEEP_MI);
+            match sides.provinces.in_canada(place.lat, place.lon) {
+                None => counts.unjudged += 1,
+                Some(canada) if canada != sides.regions.in_canada(at) && !near_line => {
+                    counts.across_border += 1;
+                    continue;
+                }
+                Some(_) => {}
+            }
         }
         let off = round(off_mi, 2);
         if best
@@ -335,7 +424,7 @@ pub fn main(argv: &[String]) -> Result<i32> {
     let args = Args::parse(
         argv,
         &Spec {
-            values: &["pbf", "only", "extract-date", "snapshot"],
+            values: &["pbf", "boundaries", "only", "extract-date", "snapshot"],
             flags: &["write"],
         },
     )
@@ -350,8 +439,36 @@ pub fn main(argv: &[String]) -> Result<i32> {
     for (i, p) in places.iter().enumerate() {
         grid.insert_point(p.lat, p.lon, i as u32);
     }
-    let anchors = city_anchors(&run.world);
+    let found = Found {
+        places,
+        grid,
+        anchors: city_anchors(&run.world),
+    };
     let world = run.world.clone();
+    let canadian = canadian_states(&world);
+    let provinces = match args.value("boundaries") {
+        Some(path) => {
+            let p = Provinces::read(&std::path::PathBuf::from(path), &canadian)?;
+            println!(
+                "Border check from {} provinces; left out (their boundary does not close in \
+                 the extract): {}",
+                p.read.len(),
+                if p.left_out.is_empty() {
+                    "none".to_string()
+                } else {
+                    p.left_out.join(", ")
+                }
+            );
+            Some(p)
+        }
+        None => {
+            println!(
+                "WARNING: no --boundaries file, so places across the Canada–United States \
+                 border from the road are not dropped."
+            );
+            None
+        }
+    };
     let archive = std::mem::take(&mut run.archive);
     let mut counts = Counts::default();
     let (mut changed, mut same, mut total, mut no_archive) = (0, 0, 0, 0);
@@ -365,7 +482,11 @@ pub fn main(argv: &[String]) -> Result<i32> {
             continue;
         };
         let route = Route::new(line, leg_miles(leg));
-        let records = bake_leg(leg, &world, &route, &places, &grid, &anchors, &mut counts);
+        let sides = provinces.as_ref().map(|provinces| Sides {
+            provinces,
+            regions: LegRegions::of(leg, line, &canadian),
+        });
+        let records = bake_leg(leg, &world, &route, &found, sides.as_ref(), &mut counts);
         total += records.len();
         if only.is_some() {
             let list: Vec<String> = records
@@ -402,9 +523,10 @@ pub fn main(argv: &[String]) -> Result<i32> {
     }
     run.archive = archive;
     println!(
-        "{total} villages; {} placed ahead of a speed zone, {} names refused as unspeakable; \
+        "{total} villages; {} placed ahead of a speed zone, {} names refused as unspeakable, \
+         {} across the border from the road dropped, {} not judged by side; \
          {changed} legs changed, {same} the same, {no_archive} with no archived road kept.",
-        counts.paired, counts.unspeakable
+        counts.paired, counts.unspeakable, counts.across_border, counts.unjudged
     );
     run.finish(args.flag("write"))
 }
@@ -482,6 +604,17 @@ mod tests {
             ("place", "village"),
             ("name", "Ore'q (historical)")
         ]));
+    }
+
+    #[test]
+    fn a_reserve_number_is_dropped_and_a_lot_number_kept() {
+        assert_eq!(reserve_number_dropped("Chapel Island 5"), "Chapel Island");
+        assert_eq!(reserve_number_dropped("Okanagan 1"), "Okanagan");
+        assert_eq!(reserve_number_dropped("Stoney 142B"), "Stoney");
+        assert_eq!(reserve_number_dropped("Belmont Lot 16"), "Belmont Lot 16");
+        assert_eq!(reserve_number_dropped("Lot 16"), "Lot 16");
+        assert_eq!(reserve_number_dropped("Sahhaltkum"), "Sahhaltkum");
+        assert_eq!(reserve_number_dropped("100 Mile House"), "100 Mile House");
     }
 
     #[test]

@@ -431,7 +431,7 @@ Some places have no road yet. Juneau, Ketchikan, Sitka, Kodiak, Cordova, Nome an
 
 Fairbanks, Seward, Valdez, Kenai and the other Alaska towns offer their real freight sites, and Deadhorse sells diesel. Between April and mid-June, thawing Alaska highways carry lighter loads under spring weight limits, and an offer names the road setting the limit.
 
-[waits on PR 758] Dispatch offers loads from US cities into Canada and loads from Canada back to the United States. A US carrier may not haul between two Canadian towns, so a board in Canada offers only loads to the United States. Twin trailers, live cattle and placarded hazardous loads stay in their own country. Every national except Great Lakes Training Transport runs to Canada, and so do the regionals whose terminals sit near the border; local carriers stay home. A load's deadline includes time at customs.
+Dispatch offers loads from US cities into Canada and loads from Canada back to the United States. A US carrier may not haul between two Canadian towns, so a board in Canada offers only loads to the United States. Twin trailers, live cattle and placarded hazardous loads stay in their own country. Every national except Great Lakes Training Transport runs to Canada, and so do the regionals whose terminals sit near the border; local carriers stay home. A load's deadline includes time at customs.
 
 ### Speeds, distances and money
 
@@ -454,11 +454,11 @@ The C key, the ELD app and the logbook read the rules you are under, starting "C
 
 ### Time zones on the map
 
-The map uses Eastern, Central, Mountain, Pacific and Alaska Time, plus Atlantic Time in the Maritimes [waits on PR 756]. Alberta is Mountain, Saskatchewan and Manitoba are Central, and Ontario and Quebec are Eastern, except northwestern Ontario around Kenora, which is Central. In British Columbia, the East Kootenay and the Peace country around Dawson Creek are Mountain; the rest is Pacific. The Yukon keeps Mountain Time [waits on PR 758]. Daylight saving isn't modeled, so every zone keeps standard time all year.
+The map uses Eastern, Central, Mountain, Pacific and Alaska Time, plus Atlantic Time in the Maritimes [waits on PR 756]. Alberta is Mountain, Saskatchewan and Manitoba are Central, and Ontario and Quebec are Eastern, except northwestern Ontario around Kenora, which is Central. In British Columbia, the East Kootenay and the Peace country around Dawson Creek are Mountain; the rest is Pacific. The Yukon keeps Mountain Time. Daylight saving isn't modeled, so every zone keeps standard time all year.
 
 ### Weather in the north
 
-Simulated weather in Alaska and Canada gets as cold as the real winters there: a January morning in Fairbanks reads below zero Fahrenheit, and Whitehorse well below freezing. Live weather comes from the US weather service, which has no Canadian data, so north of the border the weather is simulated and weather alerts stay quiet; live weather comes back at the US line [waits on PR 758].
+Simulated weather in Alaska and Canada gets as cold as the real winters there: a January morning in Fairbanks reads below zero Fahrenheit, and Whitehorse well below freezing. Live weather comes from the US weather service, which has no Canadian data, so north of the border the weather is simulated and weather alerts stay quiet; live weather comes back at the US line.
 
 ### Billboards
 
@@ -1035,7 +1035,7 @@ Here you choose where the game's weather, traffic reports, and fuel prices come 
 
 | Setting | Purpose |
 | --- | --- |
-| Weather source | Switches between simulated weather and live conditions for your current route position while driving. Route planning checks live city conditions along the route when available. Live conditions cover the United States only; in Canada the weather is simulated [waits on PR 758]. |
+| Weather source | Switches between simulated weather and live conditions for your current route position while driving. Route planning checks live city conditions along the route when available. Live conditions cover the United States only; in Canada the weather is simulated. |
 | Traffic source | Switches between simulated traffic incidents and live incident reports from state road information services when available. |
 | Fuel prices | This week's national average, the default, puts the federal weekly diesel price at every pump, with each region's usual difference on top. Simulated draws a price per region for the session. Canadian pumps use each province's own average price. |
 | Parking source | Switches between simulated truck parking and live availability when available. |
@@ -1250,11 +1250,11 @@ You are in Canada with Units on Automatic, the default. Back in the United State
 
 ### Can I start a career in Canada?
 
-Not yet. Home cities are in the lower 48 and Alaska, because no Canadian carrier hires yet. You can haul into Canada with a US carrier that crosses the border [waits on PR 758].
+Not yet. Home cities are in the lower 48 and Alaska, because no Canadian carrier hires yet. You can haul into Canada with a US carrier that crosses the border.
 
 ### Why didn't my load go to a Canadian town from here?
 
-A US carrier may not haul between two Canadian towns, so a board in Canada offers only loads to the United States [waits on PR 758].
+A US carrier may not haul between two Canadian towns, so a board in Canada offers only loads to the United States.
 
 ### Why did I wait at the border?
 
