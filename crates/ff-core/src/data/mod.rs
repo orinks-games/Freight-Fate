@@ -19,6 +19,7 @@ pub mod legacy_aliases;
 pub mod line_weave;
 pub mod national_network;
 pub mod pavement;
+pub mod place_article;
 pub mod province_limits;
 pub mod regions;
 pub mod retired_legs;

@@ -63,6 +63,8 @@ fn blows(kind: WeatherKind) -> bool {
 }
 
 #[cfg(test)]
+mod crossing_name_tests;
+#[cfg(test)]
 mod tests;
 
 pub use tables::{

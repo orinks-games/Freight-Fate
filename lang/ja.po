@@ -4607,6 +4607,18 @@ msgid ""
 "0 and 1"
 msgstr "{from_city}から{to_city}：舗装の読み取り割合{py_str_float}が0から1の間にありません"
 
+msgid "Northwest Territories"
+msgstr ""
+
+msgid "the Northwest Territories"
+msgstr "Northwest Territories"
+
+msgid "District of Columbia"
+msgstr "District of Columbia"
+
+msgid "the District of Columbia"
+msgstr "District of Columbia"
+
 msgid "northeast"
 msgstr "northeast"
 
@@ -4748,9 +4760,6 @@ msgid ""
 "Welcome to Delaware, the First State, first to ratify the Constitution and "
 "proud enough to say so right on the sign."
 msgstr "Delawareへようこそ、最初の州。最初に憲法を批准し、それを看板に堂々と書くほど誇りに思っています。"
-
-msgid "District of Columbia"
-msgstr "District of Columbia"
 
 msgid ""
 "Welcome to the District of Columbia, the nation's capital. Monuments, "
@@ -8849,9 +8858,6 @@ msgstr ""
 
 msgid "Quebec"
 msgstr "ケベック"
-
-msgid "Northwest Territories"
-msgstr ""
 
 msgid "New Brunswick"
 msgstr ""
@@ -14156,9 +14162,9 @@ msgstr "{name}に入ります。"
 msgid "crossing from {from_state} into {into_state} near {place}"
 msgstr "{place}付近で{from_state}から{into_state}に入ります"
 
-#. placeholders: {into_state}, {place}
-msgid "Crossing into {into_state} near {place}."
-msgstr "{place}付近で{into_state}に入ります。"
+#. placeholders: {name}, {place}
+msgid "Crossing into {name} near {place}."
+msgstr "{place}付近で{name}に入ります。"
 
 msgid "checkpoint"
 msgstr "チェックポイント"
@@ -14643,9 +14649,9 @@ msgstr "{highway}へ合流する車"
 msgid "traffic merging for roadwork"
 msgstr "工事のため合流してくる車"
 
-#. placeholders: {city_state}
-msgid "Crossing into {city_state}. "
-msgstr "{city_state}に入ります。 "
+#. placeholders: {name}
+msgid "Crossing into {name}. "
+msgstr "{name}に入ります。 "
 
 #. placeholders: {crossing}, {city}, {city_state}
 msgid "{crossing}Passing {city}, {city_state}."

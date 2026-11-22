@@ -104,6 +104,7 @@
 
 ### Fixed
 
+- **Driving into the Northwest Territories now says "the Northwest Territories."** The District of Columbia gets its "the" too.
 - **An empty run now parks and settles when it arrives,** without offering to drop a loaded trailer it never had.
 - **The sleep forecast in Canada now counts Canadian hours:** 13 hours of driving and a 16-hour shift.
 - **The loyalty readout now gives fuel in liters when distances are in kilometers.**
