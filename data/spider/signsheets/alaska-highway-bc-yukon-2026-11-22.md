@@ -1,8 +1,7 @@
 # The Alaska Highway and Highway 97, British Columbia and the Yukon -- 2026-11-22
 
-Copy by the director, 2026-11-22, waiting on Orinks's approval; only then
-does `cargo tools bake-billboards --sheet <this file> --write` put it on the
-legs. Both directions of an attraction read the same line.
+Copy by the director, 2026-11-22, approved by Orinks on 2026-11-22 and
+baked with `cargo tools bake-billboards --sheet <this file> --write`. Both directions of an attraction read the same line.
 
 The thirteen Highway 1 and 97 signs between Surrey and Prince George
 (Bridal Veil Falls, Hope, Yale, Hell's Gate, One Hundred and Eight Mile,
@@ -303,6 +302,14 @@ Written **Da Kų** (Southern Tutchone for Our House), owned by the Champagne and
 - leg: tok_ak_us -> haines_junction_yt_ca
 - at_mi: 281.8
 - spoken: Billboard: Da Kų Cultural Centre, ahead in Haines Junction. The name is Southern Tutchone for Our House, and it belongs to the Champagne and Aishihik First Nations. Guests welcome in summer.
+
+### Da Ku Cultural Centre (northbound, Haines Highway, Haines to Haines Junction)
+- treatment: billboard
+- leg: haines_ak_us -> haines_junction_yt_ca
+- at_mi: 137.0
+- spoken: Billboard: Da Kų Cultural Centre, ahead in Haines Junction. The name is Southern Tutchone for Our House, and it belongs to the Champagne and Aishihik First Nations. Guests welcome in summer.
+
+The place is at mile 148.0, 0.69 miles off; the board stands 11.0 miles before it. The same approved line on a second road (director's ruling, 2026-11-22).
 
 ## Kluane Museum of History -- Burwash Landing, Historic Mile 1093
 

@@ -1181,7 +1181,7 @@ impl Trip {
             // sitting budget like CB_CALLS_PER_RUN: skip extras rather than
             // let 20x multiply pokes. Villages and limit-explaining names
             // are places -- once per milepost, no budget.
-            if !callout.is_place_callout() && !self.chatter_ready() {
+            if callout.waits_for_chatter_budget() && !self.chatter_ready() {
                 announced.insert(callout.key.clone());
                 continue;
             }

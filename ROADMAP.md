@@ -6333,23 +6333,35 @@ a carrier slice (owner, 2026-10-26).
       to the West corridor's sheet
       (`data/spider/signsheets/west-corridor-2026-11-22.md`), same copy,
       re-placed on the chain legs; approved by Orinks 2026-11-22.
-- [x] Billboards across Ontario and Quebec (2026-11-22): 46 signs from
+- [x] Billboards across Ontario and Quebec (2026-11-22): 58 signs from
       `data/spider/signsheets/ontario-quebec-2026-11-22.md`, the director's
       copy approved by Orinks, Quebec boards in English with names as
-      signed; Bethune Memorial House takes Gravenhurst's own line.
-- [ ] (Found along the way) Ontario and Quebec sheet lines skipped, each
-      within two miles of a line the map already speaks: Kingston
-      Penitentiary, Upper Canada Village both ways, Brock's Monument, the
-      Dionne home, and one direction each of the Snow Countess (two),
-      Doon, the Welland Canals Centre, Fort Chambly and the Château
-      Frontenac. The St. Catharines to Niagara Falls leg speaks towns that
-      are not on it (Vineland, Beamsville, Youngstown, Lewiston, the
-      Tonawandas), which crowds the Niagara boards. No park bans are
-      derived for Ontario and Quebec legs yet.
+      signed; Bethune Memorial House takes Gravenhurst's own line. The Big
+      Nickel board also stands on the roads in from Sault Ste. Marie and
+      Timmins.
+- [x] Sign crowding counts only lines the drive speaks (2026-11-22): a
+      village more than 1.5 miles off the road is never spoken, so the
+      sheet bake no longer lets one crowd a sign, and a board may stand 4
+      to 15 miles before its place. Ten skipped Ontario and Quebec lines
+      and Batoche both ways placed on that pass.
+- [x] Placed attraction boards no longer wait on the chatter budget
+      (2026-11-22, Found along the way): a pool board or river line
+      spoken shortly before one spent the 90-second budget and the
+      approved board was dropped (heard on Belleville to Kingston, and
+      the Ottawa boards lost at 20x). A placed sign still spends the
+      budget once read.
+- [ ] (Found along the way) Brock's Monument is still skipped: on
+      Niagara Falls to Buffalo it sits within two miles of "Entering
+      Queenston" and "Passing Lewiston". No park bans are derived for
+      Ontario and Quebec legs south of corridor 3 yet.
 - [x] Holiday boards follow the country (2026-11-22): New Year,
       Halloween and Christmas read in both countries, the Fourth of July
       and November's Thanksgiving only in the United States; Canada Day
       and October's Thanksgiving read only in Canada.
+- [x] Billboards across western Canada (2026-11-22): 84 signs from
+      `data/spider/signsheets/west-corridor-2026-11-22.md`, approved by
+      Orinks, with park bans on 64 West legs derived from OpenStreetMap park
+      boundaries (142 spans).
 - [ ] (Found along the way) West sheet lines skipped this pass, each
       within two miles of a line the map already speaks: Alexandra Bridge
       southbound (Fraser River crossing), Lake Louise both ways ("Approaching
@@ -6357,8 +6369,7 @@ a carrier slice (owner, 2026-10-26).
       Drumheller's tyrannosaur both ways ("Entering Drumheller" stays for its
       speed zone), the Lethbridge viaduct departures (Oldman River) and Fort
       Battleford from North Battleford toward Lloydminster (North
-      Saskatchewan River). Batoche both ways: even in place of the
-      town's own line it crowds the Carlton and Beardy's and Okemasis' lines. Calgary Tower, Kootenay Pass, Rogers Pass, Banff
+      Saskatchewan River). Calgary Tower, Kootenay Pass, Rogers Pass, Banff
       and Elk Island are left out: the map already speaks them, or the road
       reaches the tower only at Calgary's arrival point.
 - [ ] Billboard sheets for each Canadian corridor and the new Alaska
@@ -6366,6 +6377,12 @@ a carrier slice (owner, 2026-10-26).
       and landmarks, the way the 1.9 attraction expansion did it), West
       first; French attraction names listed for Orinks's ear, copy to
       Orinks for approval.
+      Placed and dry run, waiting on approval: the Alaska roads sheet
+      (`alaska-roads-2026-11-22.md`, 33 placed) and the northern Ontario
+      sheet (`northern-ontario-2026-11-22.md`, 51 placed, with corridor 3's
+      park bans and the North Shore Scenic Drive ban on the legs), and the
+      Atlantic Canada sheet (`atlantic-canada-2026-11-22.md`, 30 placed,
+      with corridor 4's government park bans on the legs).
 - [ ] (Found along the way) New Brunswick is read attractions only
       province-wide because its freight routes are Level I and II
       highways; its ordinary highways license commercial boards. A per-leg

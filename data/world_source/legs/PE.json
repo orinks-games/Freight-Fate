@@ -1703,6 +1703,14 @@
             "amount_local": 20.0,
             "currency": "CAD"
           }
+        ],
+        "billboard_bans": [
+          {
+            "from_mi": 42.8,
+            "to_mi": 45.3,
+            "name": "Cape Jourimain National Wildlife Area",
+            "source": "derived 2026-11-22: OpenStreetMap relation 21602238 (Cape Jourimain National Wildlife Area) boundary from the Atlantic cut of the planet extract of 2026-11-16; the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
+          }
         ]
       },
       "rerouted": true
@@ -5105,6 +5113,14 @@
             "source": "Confederation Bridge: CAD 20.00 flat for any vehicle since 2025, collected leaving Prince Edward Island at the Borden-Carleton plaza, nothing charged going onto the island (confederationbridge.com tolls, read 2026-11-22); amount derived at 1.3978 CAD per USD, the rate the game uses for Canadian fines. Position read from the OpenStreetMap toll booth node 1923039171, projected on the leg's archived road. Canadian price read: CAD 20.00 at the Borden-Carleton plaza.",
             "amount_local": 20.0,
             "currency": "CAD"
+          }
+        ],
+        "billboard_bans": [
+          {
+            "from_mi": 24.7,
+            "to_mi": 27.3,
+            "name": "Cape Jourimain National Wildlife Area",
+            "source": "derived 2026-11-22: OpenStreetMap relation 21602238 (Cape Jourimain National Wildlife Area) boundary from the Atlantic cut of the planet extract of 2026-11-16; the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
           }
         ]
       },
