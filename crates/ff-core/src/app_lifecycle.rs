@@ -277,11 +277,22 @@ mod tests {
         AppLifecycle { place, sound_taken }
     }
 
+    /// One row: where it was, the sound held, the event, where it goes,
+    /// the sound held after, and the actions.
+    type Row = (
+        AppPlace,
+        bool,
+        AppEvent,
+        AppPlace,
+        bool,
+        &'static [AppAction],
+    );
+
     /// Every place, with the sound held and not, against every event.
     #[test]
     fn transition_table() {
         #[rustfmt::skip]
-        let table: [(AppPlace, bool, AppEvent, AppPlace, bool, &[AppAction]); 42] = [
+        let table: [Row; 42] = [
             (Active, false, WillResignActive, Inactive, false, LEAVE),
             (Active, false, DidEnterBackground, Background, false, LEAVE_AND_SAVE),
             (Active, false, WillEnterForeground, Active, false, NONE),
