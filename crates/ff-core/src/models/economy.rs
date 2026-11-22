@@ -19,9 +19,20 @@ use crate::pyrandom::PyRandom;
 ///   read 2026-11-22; Ottawa's Ontario part averaged 140.6).
 /// - Quebec, read: Québec City's April to December 2025 average, 172.2
 ///   (table read 2026-11-22; Montréal averaged 172.8).
+/// - Alberta, derived: the mean of Calgary's (138.2) and Edmonton's (135.2)
+///   April to December 2025 averages, 136.7.
+/// - Saskatchewan, derived: the mean of Regina's (139.1) and Saskatoon's
+///   (141.6) April to December 2025 averages, 140.4.
+/// - Manitoba, read: Winnipeg's April to December 2025 average, 144.8.
+///
+/// Alberta, Saskatchewan and Manitoba read from the table's CSV as
+/// downloaded 2026-11-22 (data through October 2026).
 pub const CANADA_DIESEL_CENTS_PER_L: &[(&str, &str, f64)] = &[
     ("BC", "British Columbia", 161.6),
     ("YT", "Yukon", 162.9),
+    ("AB", "Alberta", 136.7),
+    ("SK", "Saskatchewan", 140.4),
+    ("MB", "Manitoba", 144.8),
     ("ON", "Ontario", 138.1),
     ("QC", "Quebec", 172.2),
 ];

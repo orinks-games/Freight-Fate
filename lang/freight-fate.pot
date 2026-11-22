@@ -10750,7 +10750,7 @@ msgid ""
 "{doubles_break_extra_min} extra minutes on duty"
 msgstr ""
 
-#: crates/ff-core/src/models/economy.rs crates/freight-fate/src/states/driving_core/constants.rs
+#: crates/ff-core/src/models/economy.rs crates/ff-core/src/sim/timezones.rs crates/freight-fate/src/states/driving_core/constants.rs
 msgid "British Columbia"
 msgstr ""
 
@@ -10758,11 +10758,23 @@ msgstr ""
 msgid "Yukon"
 msgstr ""
 
-#: crates/ff-core/src/models/economy.rs
+#: crates/ff-core/src/models/economy.rs crates/ff-core/src/sim/timezones.rs
+msgid "Alberta"
+msgstr ""
+
+#: crates/ff-core/src/models/economy.rs crates/ff-core/src/sim/timezones.rs
+msgid "Saskatchewan"
+msgstr ""
+
+#: crates/ff-core/src/models/economy.rs crates/ff-core/src/sim/timezones.rs
+msgid "Manitoba"
+msgstr ""
+
+#: crates/ff-core/src/models/economy.rs crates/ff-core/src/sim/timezones.rs
 msgid "Ontario"
 msgstr ""
 
-#: crates/ff-core/src/models/economy.rs crates/freight-fate/src/online_activation.rs
+#: crates/ff-core/src/models/economy.rs crates/ff-core/src/sim/timezones.rs crates/freight-fate/src/online_activation.rs
 msgid "Quebec"
 msgstr ""
 

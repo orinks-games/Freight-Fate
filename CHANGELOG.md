@@ -39,6 +39,8 @@
 - **Diesel in British Columbia and the Yukon now costs what it does there,** and Canadian pumps also say the price in Canadian dollars a liter.
 - **Heavy trucks in British Columbia are now held to 105 kilometers per hour, as the law requires.**
 - **The map now reaches Alaska and northern Canada along the Alaska Highway,** from Blaine and Bellingham through Prince George, Dawson Creek and Whitehorse to Tok and Fairbanks.
+- **The map now reaches Alberta, Saskatchewan and Manitoba,** on the Trans-Canada and Yellowhead highways from Vancouver to Winnipeg, with six more border crossings.
+- **Diesel in Alberta, Saskatchewan, Manitoba, Ontario and Quebec now costs what it does there.**
 - **The map now reaches Ontario and Quebec,** from Windsor and Sarnia through Toronto, Ottawa and Montreal to Quebec City, with seven border crossings.
 - **The Gordie Howe, Blue Water, Lewiston-Queenston and Thousand Islands bridges charge their published truck tolls.**
 - **A route between two US cities stays in the United States when a US road exists.** Alaska routes still run through Canada.
@@ -93,7 +95,8 @@
 - **The sleep that finishes a 34-hour restart now says your cycle clock reset.**
 - **A repossession with no carrier to take you on now names the city it looked near.**
 - **Cruise coming back after a slowdown now says it once,** with the speed it will hold.
-- **The S key off the destination exit now reads the approach or gate limit,** not the interstate's.
+- **The S key off the destination exit now reads the approach limit,** not the interstate's.
+- **Past the destination exit, the assists and the speed warning go by the approach limit.** Well over it on the ramp, you now hear the warning.
 - **The delivery screen now reads the receiver's cattle count and any freight claim.** Both had gone missing from the screen.
 - **A reefer box left off on the road now warms at the same rate as at a stop.** It had been warming ten times slower while driving.
 - **Sleeping with cattle aboard now warns when they would pass the 28-hour limit,** and the hours readouts stop naming a 30-minute break that cannot come due.

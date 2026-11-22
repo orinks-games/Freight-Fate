@@ -288,7 +288,8 @@ pub fn shield_key(name: &str) -> Option<(&'static str, String)> {
         // Canada's shields as OpenStreetMap writes them: the Trans-Canada
         // ("TCH 1") and the Yellowhead ("YH 16") are their provinces' routes
         // of the same number.
-        "TCH" | "YH" => "STATE",
+        // Manitoba signs its primary roads Provincial Trunk Highways.
+        "TCH" | "YH" | "PTH" => "STATE",
         // Quebec's autoroutes ("A-20", "Autoroute 20").
         "A" | "AUTOROUTE" => "STATE",
         "CR" | "COUNTY ROAD" | "COUNTY ROUTE" => "CR",
@@ -319,7 +320,10 @@ pub fn matches_shield(name: &str, highway: &str) -> bool {
         })
 }
 
-/// `"20"` to `Some("20")`; anything with words in it to `None`.
+/// A road OpenStreetMap names by its bare number ("2", "16", "401",
+/// "20"), as the Prairie provinces, Ontario and Quebec do: the number, so a
+/// provincial shield of that number matches. "16B" or "16A" (a business or
+/// alternate route) is not bare, so it matches nothing.
 fn bare_number(name: &str) -> Option<String> {
     let name = name.trim();
     (!name.is_empty() && name.chars().all(|c| c.is_ascii_digit())).then(|| name.to_string())
@@ -396,5 +400,10 @@ mod tests {
         assert!(!matches_shield("20", "A-40"));
         assert!(!matches_shield("94", "I-94"));
         assert!(!matches_shield("Autoroute Jean-Lesage", "A-20"));
+        assert!(matches_shield("16", "Hwy 16 / Yellowhead Highway"));
+        assert!(matches_shield("2", "Hwy 2"));
+        assert!(!matches_shield("16B", "Hwy 16"));
+        assert!(!matches_shield("2", "Hwy 16"));
+        assert!(matches_shield("PTH 1 West", "Hwy 1 / Trans-Canada Highway"));
     }
 }
