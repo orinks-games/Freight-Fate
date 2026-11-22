@@ -42,6 +42,7 @@ mod app_lifecycle;
 mod app_main_channel_pacing;
 mod app_message_review;
 mod app_name_entry;
+mod app_phone_how_to_play;
 mod app_phone_run;
 mod app_playtest_levers;
 mod app_smoke;

@@ -16902,6 +16902,9 @@ msgstr "Drehe zwei Finger nach rechts"
 msgid "Swipe up and hold"
 msgstr "Wische nach oben und halte"
 
+msgid "a swipe up and hold"
+msgstr "ein Wischen nach oben und Halten"
+
 msgid "Swipe down and hold"
 msgstr "Wische nach unten und halte"
 
@@ -16914,8 +16917,20 @@ msgstr "Halte zwei Finger gedrückt"
 msgid "Flick left"
 msgstr "Nach links wischen"
 
+msgid "a flick left"
+msgstr "ein Wischen nach links"
+
 msgid "Flick right"
 msgstr "Nach rechts wischen"
+
+msgid "a flick right"
+msgstr "ein Wischen nach rechts"
+
+msgid "Hold one finger still for half a second"
+msgstr ""
+
+msgid "a still hold for half a second"
+msgstr "ein ruhiges Halten für eine halbe Sekunde"
 
 msgid "Double tap"
 msgstr "Doppeltippen"
@@ -16923,24 +16938,12 @@ msgstr "Doppeltippen"
 msgid "Tap with three fingers, then double tap"
 msgstr "Tippe mit drei Fingern, dann doppelt"
 
+msgid "a three-finger tap then a double tap"
+msgstr "ein Tippen mit drei Fingern, dann ein Doppeltippen"
+
 #. placeholders: {label}
 msgid "{label} from the three-finger tap list"
 msgstr "{label} aus der Liste für Tippen mit drei Fingern"
-
-msgid "a swipe up and hold"
-msgstr "ein Wischen nach oben und Halten"
-
-msgid "a flick left"
-msgstr "ein Wischen nach links"
-
-msgid "a flick right"
-msgstr "ein Wischen nach rechts"
-
-msgid "a still hold for half a second"
-msgstr "ein ruhiges Halten für eine halbe Sekunde"
-
-msgid "a three-finger tap then a double tap"
-msgstr "ein Tippen mit drei Fingern, dann ein Doppeltippen"
 
 #. placeholders: {touch_noun}, {touch_noun2}
 msgid "{touch_noun} and {touch_noun2}"
@@ -23534,6 +23537,9 @@ msgstr ""
 "Wisch nach links oder rechts, um die Spur zu wechseln. Bei voller "
 "Spurhaltung ist Wischen die einzige Spursteuerung. "
 
+msgid "Flick left or right to change lanes. "
+msgstr ""
+
 msgid ""
 "Flick left or right to change lanes, or swipe left or right and hold to "
 "steer. "
@@ -23553,19 +23559,10 @@ msgid ""
 "Hold one finger still for half a second to straighten the wheel. With "
 "cruise off, flick up to turn it on. Double tap to take an exit, pull over, "
 "or confirm arrival at a gate. Tap with two fingers to stop speech. Turn two "
-"fingers right like a key to start the engine, and left to stop it once the "
-"truck has stopped. Hold two fingers for the horn. While holding a pedal, a "
-"second finger's flicks and holds work the same way. "
+"fingers right to start the engine, and left to stop it once the truck has "
+"stopped. Hold two fingers for the horn. While holding a pedal, a second "
+"finger's flicks and holds work the same way. "
 msgstr ""
-"Halte einen Finger eine halbe Sekunde still, um das Lenkrad "
-"geradezustellen. Ist der Tempomat aus, wische nach oben, um ihn "
-"einzuschalten. Tippe doppelt, um eine Ausfahrt zu nehmen, rechts "
-"ranzufahren oder die Ankunft an einem Tor zu bestätigen. Tippe mit zwei "
-"Fingern, um die Sprachausgabe zu stoppen. Drehe zwei Finger wie einen "
-"Schlüssel nach rechts, um den Motor zu starten, und nach links, um ihn bei "
-"stehendem Lkw abzustellen. Halte zwei Finger gedrückt für die Hupe. Während "
-"du ein Pedal hältst, funktionieren Wischen und Halten mit einem zweiten "
-"Finger genauso. "
 
 msgid ""
 "In a manual, hold a pedal and flick up or down with a second finger to "
@@ -29784,6 +29781,11 @@ msgid ""
 msgstr ""
 "So wird gespielt, geöffnet auf der Seite mit den Fahrtasten. Links und "
 "Rechts wechseln die Seite, Hoch und Runter lesen die Zeilen."
+
+msgid ""
+"How to play, opened at the driving gestures page. Flick up or down to "
+"change pages, and right or left to read lines."
+msgstr ""
 
 msgid "Learn game sounds"
 msgstr "Spielgeräusche kennenlernen"
@@ -38592,9 +38594,6 @@ msgstr ""
 "Pfeil hoch und runter wählen eine Option. Enter oder Space wählt sie aus. "
 "Escape geht zurück. Home und End springen zur ersten oder letzten Option."
 
-msgid "Page Up and Page Down move ten options at a time."
-msgstr ""
-
 msgid ""
 "Type a letter to find an option starting with it. F1 explains the selected "
 "option."
@@ -38874,14 +38873,6 @@ msgstr ""
 "Plus und Minus, auch auf dem Ziffernblock, setzen das Ziel auf freier "
 "Strecke auf das nächste Vielfache von fünf. Halte Control, um es um eins zu "
 "ändern."
-
-#. one sentence of a longer line
-msgid ""
-"Cruise slows early for a sharp drop in the posted limit, and never holds "
-"more than five over it."
-msgstr ""
-"Der Tempomat bremst früh vor einer starken Absenkung des ausgeschilderten "
-"Limits und fährt nie mehr als fünf darüber."
 
 #. placeholders: {control_speed}
 msgid ""
@@ -39364,14 +39355,6 @@ msgstr ""
 "Rüttelstreifen- und Schotterklänge kommen von dem Rand, den du erreicht "
 "hast. Korrigier sanft. Wenn du eine Mittellinie ohne Trennung überquerst, "
 "bist du im Gegenverkehr."
-
-#. one sentence of a longer line
-msgid ""
-"The Steering guide setting can reverse which way to steer, and Lane guide "
-"sound can use a soft tone instead of the engine."
-msgstr ""
-"Die Einstellung Lenkhilfe kann umkehren, in welche Richtung du lenkst, und "
-"Spurführungsklang kann statt des Motors einen weichen Ton nutzen."
 
 #. placeholders: {control_lane_locator}
 #. one sentence of a longer line
@@ -41031,8 +41014,74 @@ msgstr ""
 msgid "pad"
 msgstr "pad"
 
+msgid "do"
+msgstr ""
+
+#. placeholders: {page}, {pages}, {title}
+msgid "Page {page} of {pages}: {title}."
+msgstr "Seite {page} von {pages}: {title}."
+
+msgid ""
+"Flick right or left to read one line at a time. Flick up for the next page "
+"and down for the previous one. Double tap reads the whole page, and a flick "
+"down with two fingers goes back."
+msgstr ""
+"Wische nach rechts oder links, um zeilenweise zu lesen. Wische nach oben "
+"für die nächste Seite und nach unten für die vorherige. Doppeltippen liest "
+"die ganze Seite, und Wischen mit zwei Fingern nach unten geht zurück."
+
+msgid ""
+"D-pad Left and Right change pages, Up and Down read one line at a time. A "
+"reads the whole page, Back stops speech, and B goes back."
+msgstr ""
+"D-pad links und rechts wechseln die Seite, hoch und runter lesen eine Zeile "
+"nach der anderen. A liest die ganze Seite vor, Back stoppt die Ansage, und "
+"B geht zurück."
+
+msgid ""
+"Left and Right arrows or Page Up and Page Down change pages. Up and Down "
+"read one line at a time. Enter or Space reads the whole page, either "
+"Control or F1 stops speech, and Escape goes back."
+msgstr ""
+"Pfeil links und rechts oder Page Up und Page Down wechseln die Seite. Pfeil "
+"hoch und runter lesen eine Zeile nach der anderen. Enter oder Space liest "
+"die ganze Seite vor, eine der beiden Control-Tasten oder F1 stoppt die "
+"Ansage, und Escape geht zurück."
+
+#. one sentence of a longer line
+msgid "How to play."
+msgstr "Spielanleitung."
+
+#. placeholders: {controls}, {page_title}
+msgid "How to play. {controls} {page_title}"
+msgstr "Spielanleitung. {controls} {page_title}"
+
+#. placeholders: {title}, {page}, {pages}
+msgid "How to play - {title} ({page}/{pages})"
+msgstr "Spielanleitung, {title}, Seite {page} von {pages}"
+
+msgid "Page Up and Page Down move ten options at a time."
+msgstr ""
+
 msgid ""
 "Flick left or right with three fingers to move ten options back or forward."
+msgstr ""
+
+msgid ""
+"Settings changes driving assistance, sound, speech, and controls. Report a "
+"problem opens the report form in your browser, with your game log attached."
+msgstr ""
+
+msgid ""
+"Jobs name cargo, weight, pay, deadline, facilities, and equipment "
+"requirements. Flick up with two fingers on a job for the details. Fuel adds "
+"weight, so check the weight before filling up on a load near the limit."
+msgstr ""
+
+msgid ""
+"Facilities determine local cargo. Dispatch routes include stops for fuel "
+"and legal rest. Flick up with two fingers on a load for its requirements "
+"before you accept it."
 msgstr ""
 
 msgid ""
@@ -41090,6 +41139,15 @@ msgstr ""
 "der Skala. Echte Streams bleiben, außer der Modus streamer-sicher blendet "
 "sie aus."
 
+msgid ""
+"Gameplay holds driving assistance, difficulty and hours, world and traffic, "
+"and controls. Audio, Speech, and Problem reports have separate choices. F1 "
+"explains the selected setting."
+msgstr ""
+
+msgid "You can choose a separate driving event voice."
+msgstr ""
+
 #. one sentence of a longer line
 msgid "How do I change stations?"
 msgstr "Wie wechsle ich den Sender?"
@@ -41111,48 +41169,501 @@ msgstr ""
 "Fingern nach rechts oder links Sender ein. Radio ein oder aus steht unter "
 "Radio und CB-Funk in der Liste für Tippen mit drei Fingern."
 
-#. placeholders: {page}, {HELP_PAGES}, {title}
-msgid "Page {page} of {HELP_PAGES}: {title}."
-msgstr "Seite {page} von {HELP_PAGES}: {title}."
+msgid ""
+"Controllers work alongside the screen. Button names use the Xbox layout. "
+"Change button assignments under Settings, Gameplay, Controls."
+msgstr ""
 
 msgid ""
-"Flick right or left to read one line at a time. Flick up for the next page "
-"and down for the previous one. Double tap reads the whole page, and a flick "
-"down with two fingers goes back."
+"On newer Xbox controllers, Back is the View button, left of the Xbox "
+"button, and Start is the Menu button on its right."
 msgstr ""
-"Wische nach rechts oder links, um zeilenweise zu lesen. Wische nach oben "
-"für die nächste Seite und nach unten für die vorherige. Doppeltippen liest "
-"die ganze Seite, und Wischen mit zwei Fingern nach unten geht zurück."
 
 msgid ""
-"D-pad Left and Right change pages, Up and Down read one line at a time. A "
-"reads the whole page, Back stops speech, and B goes back."
+"If the controller does nothing, check that Controller is enabled under "
+"Settings, Gameplay, Controls. The game uses the first controller it finds, "
+"so disconnect other controllers."
 msgstr ""
-"D-pad links und rechts wechseln die Seite, hoch und runter lesen eine Zeile "
-"nach der anderen. A liest die ganze Seite vor, Back stoppt die Ansage, und "
-"B geht zurück."
 
 msgid ""
-"Left and Right arrows or Page Up and Page Down change pages. Up and Down "
-"read one line at a time. Enter or Space reads the whole page, either "
-"Control or F1 stops speech, and Escape goes back."
+"Flick right or left to move to the next or previous option. Double tap "
+"chooses it. Tap reads it again."
 msgstr ""
-"Pfeil links und rechts oder Page Up und Page Down wechseln die Seite. Pfeil "
-"hoch und runter lesen eine Zeile nach der anderen. Enter oder Space liest "
-"die ganze Seite vor, eine der beiden Control-Tasten oder F1 stoppt die "
-"Ansage, und Escape geht zurück."
+
+msgid ""
+"Flick down with two fingers to go back. Flick up or down with three fingers "
+"to jump to the first or last option."
+msgstr ""
+
+msgid ""
+"On a setting, flick up for its next value and down for the previous one."
+msgstr ""
+
+msgid "Flick up with two fingers to hear what the selected option does."
+msgstr ""
+
+msgid ""
+"Flick left with two fingers to repeat the latest message, then step back. "
+"Flick right with two fingers to move forward."
+msgstr ""
+
+msgid "Tap with two fingers to stop speech."
+msgstr ""
+
+msgid ""
+"In How to play, flick right or left to read one line at a time. Flick up "
+"for the next page and down for the previous one. Double tap reads the whole "
+"page."
+msgstr ""
+
+msgid ""
+"Flick up with three fingers for the first page, and down for the last."
+msgstr ""
+
+msgid ""
+"Practice gestures names each gesture without moving the truck. It is on the "
+"main and pause menus. Flick down with two fingers twice to leave."
+msgstr ""
+
+msgid ""
+"Turn two fingers right to start the engine. Turn them left to stop it once "
+"the truck has stopped."
+msgstr ""
+
+msgid ""
+"Wait for air pressure to reach 100 psi, then swipe up and hold to release "
+"the parking brake. Repeated hard braking uses air."
+msgstr ""
+
+msgid ""
+"Swipe up and hold to accelerate. Lift to coast. Swipe down and hold to "
+"brake."
+msgstr ""
+
+msgid ""
+"A deep swipe down, about three flicks long, is the hardest stop. Under one "
+"mile per hour it sets the parking brake."
+msgstr ""
+
+msgid ""
+"In automatic, stop fully, lift, then swipe down and hold again to reverse. "
+"A quick swipe or a brake held through the stop keeps the truck stopped."
+msgstr ""
+
+msgid ""
+"While reversing, stop with a swipe up and hold, lift, then swipe up and "
+"hold again for forward."
+msgstr ""
+
+msgid ""
+"With Latching brake on, brake briefly, then swipe down and hold again for "
+"half a second. A click and announcement confirm the latch."
+msgstr ""
+
+msgid ""
+"Brake again or accelerate to release the latch. The gas never latches."
+msgstr ""
 
 #. one sentence of a longer line
-msgid "How to play."
-msgstr "Spielanleitung."
+msgid ""
+"Applying the parking brake at speed causes a hard stop and tire damage."
+msgstr ""
 
-#. placeholders: {controls}, {page_title}
-msgid "How to play. {controls} {page_title}"
-msgstr "Spielanleitung. {controls} {page_title}"
+#. placeholders: {do_cruise}
+msgid ""
+"Applying the parking brake at speed causes a hard stop and tire damage. "
+"Parked with the parking brake set, {do_cruise} to run the engine at a fast "
+"idle."
+msgstr ""
 
-#. placeholders: {title}, {page}, {HELP_PAGES}
-msgid "How to play - {title} ({page}/{HELP_PAGES})"
-msgstr "Spielanleitung, {title}, Seite {page} von {HELP_PAGES}"
+#. placeholders: {do_cruise}
+#. one sentence of a longer line
+msgid ""
+"Parked with the parking brake set, {do_cruise} to run the engine at a fast "
+"idle."
+msgstr ""
+
+msgid ""
+"In a manual, hold a pedal and flick up or down with a second finger to "
+"shift. The flick works the clutch."
+msgstr ""
+
+msgid ""
+"Slowing in a tall gear takes neutral. A flick up from neutral takes the "
+"gear that fits your speed."
+msgstr ""
+
+msgid ""
+"Neutral, Reverse, and Automatic or manual shifting are under Gears and "
+"engine brake on the three-finger tap list."
+msgstr ""
+
+msgid "Hold two fingers to sound the horn."
+msgstr ""
+
+#. placeholders: {do_cruise}
+#. one sentence of a longer line
+msgid "With cruise off, {do_cruise} to turn it on."
+msgstr ""
+
+#. placeholders: {do_cruise}
+msgid ""
+"With cruise off, {do_cruise} to turn it on. On open roads it follows "
+"traffic. On low-speed roads it follows local limits, queues and corners."
+msgstr ""
+
+#. placeholders: {do_cruise_up}, {do_cruise_down}
+msgid ""
+"With cruise on, {do_cruise_up} or {do_cruise_down} to move the cruise speed "
+"to the next multiple of five."
+msgstr ""
+
+msgid ""
+"That changes the open-road cruise speed, even while cruise holds a lower "
+"limit."
+msgstr ""
+
+msgid ""
+"Cruise slows early for a sharp drop in the posted limit, and never holds "
+"more than five over it."
+msgstr ""
+"Der Tempomat bremst früh vor einer starken Absenkung des ausgeschilderten "
+"Limits und fährt nie mehr als fünf darüber."
+
+#. placeholders: {do_speed}
+msgid "{do_speed} for the active speed-control mode and cruise speed."
+msgstr ""
+
+msgid ""
+"Touch the brakes to cancel cruise. Turned on again, it resumes the previous "
+"target. Cruise pauses at the pickup and comes back on after you leave with "
+"the load."
+msgstr ""
+
+#. placeholders: {do_engine_brake}
+msgid "{do_engine_brake} to turn the engine brake on or off."
+msgstr ""
+
+msgid ""
+"Engine brake stage 1, 2 and 3, and Automatic engine brake on or off, are "
+"under Gears and engine brake on the three-finger tap list."
+msgstr ""
+
+msgid ""
+"Hot brakes lose stopping power. Safe speed, under Speed and cruise on the "
+"list, gives a safe speed for the load, grade, weather, and bend. Strong "
+"engine braking can break traction on ice."
+msgstr ""
+
+msgid "Driving gestures"
+msgstr ""
+
+#. placeholders: {do_speed}
+#. one sentence of a longer line
+msgid "{do_speed} for your speed, gear, and speed-control mode."
+msgstr ""
+
+#. placeholders: {do_speed}
+msgid ""
+"{do_speed} for your speed, gear, and speed-control mode. With a manual "
+"transmission it adds RPM. It also adds air or brakes when they need "
+"attention, and the distance to an exit you signaled for."
+msgstr ""
+
+#. placeholders: {do_route}
+#. one sentence of a longer line
+msgid ""
+"{do_route} for how far along you are, distance remaining, and your location."
+msgstr ""
+
+#. placeholders: {do_route}
+msgid ""
+"{do_route} for how far along you are, distance remaining, and your "
+"location. A planned stop changes the distance to that stop."
+msgstr ""
+
+#. placeholders: {do_upcoming}
+msgid ""
+"{do_upcoming} for what is coming up: your signaled exit, the light or stop "
+"sign at the end of the ramp, the next lower speed limit, the next stop, and "
+"the next bend you need to slow for."
+msgstr ""
+
+msgid "Double tap to signal for an announced exit or cancel the signal."
+msgstr ""
+
+msgid ""
+"Everything else is on the three-finger tap list. Tap with three fingers, "
+"flick to a command, and double tap to run it."
+msgstr ""
+
+msgid ""
+"Its first row is the Status menu, with Route, Driver, Map, and Radio "
+"reports, plus Driver apps."
+msgstr ""
+
+msgid ""
+"Under Speed and cruise, Posted speed limit reads the limit, the zone, and "
+"how far over you are. Safe speed is there too."
+msgstr ""
+
+msgid ""
+"Under Road and stops are Grade, Weather, and Lane position, which also says "
+"whether the lane beside you is open."
+msgstr ""
+
+msgid ""
+"Rest stop, also under Road and stops, plans rest while moving or opens a "
+"nearby stop when fully stopped."
+msgstr ""
+
+msgid ""
+"Repeat the last announcement is on the list. Repeat the last CB chatter, "
+"under Radio and CB, gives its current distance."
+msgstr ""
+
+msgid ""
+"Where am I has the state, the road, the town or nearest town, the "
+"direction, and the county."
+msgstr ""
+
+msgid "Under Truck, Fuel reads fuel and range."
+msgstr ""
+
+msgid ""
+"Under Hours and clock, Clock reads the clock, deadline, and nearest hours "
+"limit. Time at the wheel adds time on duty. What ends this shift adds "
+"reachable legal rest."
+msgstr ""
+
+msgid ""
+"Tap with two fingers to stop the driving event voice. Flick down with two "
+"fingers to pause. Flick up with two fingers for the wheel's help."
+msgstr ""
+
+msgid ""
+"Flick left or right with two fingers to review messages. Flick left or "
+"right with three fingers to tune the radio."
+msgstr ""
+
+msgid ""
+"Most gestures can be moved under Settings, Gameplay, Controls, then Touch "
+"gestures. These pages follow your assignments."
+msgstr ""
+
+msgid ""
+"Full lane keeping centers the truck, follows bends, and takes route exits "
+"including the destination. Flick left or right to change one lane."
+msgstr ""
+
+msgid ""
+"Partial follows bends with gentle drift. Off leaves steering to you unless "
+"curve assistance is enabled. Swipe left or right and hold to steer."
+msgstr ""
+
+msgid ""
+"With partial or off, hold the swipe across the lane line to change lanes. A "
+"flick changes one lane with any lane keeping."
+msgstr ""
+
+msgid ""
+"With Tilt steering on under Touch gestures, tilting the phone steers too. "
+"With lane keeping on full, a tilt changes one lane."
+msgstr ""
+
+msgid ""
+"With lane keeping off and curve assistance off, swipe and hold toward a "
+"called bend to follow the road. Lifting straightens the truck with the road."
+msgstr ""
+
+msgid ""
+"Hold one finger still for half a second to straighten the wheel. Your "
+"position within the lane remains yours to correct."
+msgstr ""
+
+msgid ""
+"Lane locator, under Road and stops on the three-finger tap list, is a soft "
+"tock that follows your place in the lane, with lane keeping partial or off."
+msgstr ""
+
+msgid ""
+"The Steering guide setting can reverse which way to steer, and Lane guide "
+"sound can use a soft tone instead of the engine."
+msgstr ""
+"Die Einstellung Lenkhilfe kann umkehren, in welche Richtung du lenkst, und "
+"Spurführungsklang kann statt des Motors einen weichen Ton nutzen."
+
+msgid ""
+"While rolling, Rest stop asks what the stop is for: fuel, a break, sleep, "
+"fuel and sleep, or food. It is under Road and stops on the three-finger tap "
+"list."
+msgstr ""
+
+msgid ""
+"With hours-planning hints on, a break or sleep plan takes the recommended "
+"stop. Run Rest stop again to cancel the plan."
+msgstr ""
+
+msgid ""
+"Planning a stop does not signal for it. Double tap to signal for the "
+"announced exit or cancel the signal."
+msgstr ""
+
+msgid ""
+"When clear, pull ahead as instructed. Facility stopping assistance can take "
+"the pedals to the gate. Braking ends it."
+msgstr ""
+
+msgid ""
+"Follow the local street and yard guidance, stop at the gate, then double "
+"tap to confirm arrival. At the receiver choose Dock and deliver."
+msgstr ""
+
+msgid ""
+"Fully stopped at a route stop, double tap to open its services. Fully "
+"stopped elsewhere, Rest stop on the list offers emergency sleep on the "
+"shoulder. A nearby stop always comes first."
+msgstr ""
+
+msgid ""
+"Nearby vehicles merge, slow, pass, and queue. Lane position, under Road and "
+"stops on the three-finger tap list, tells you which neighboring lanes are "
+"available. Check before changing lanes or returning after a pass."
+msgstr ""
+
+msgid ""
+"Weather changes grip, visibility, safe speed, following distance, and fuel "
+"use. Weather, under Road and stops on the list, reports conditions. Snow "
+"and ice need gentler braking and steering."
+msgstr ""
+
+msgid ""
+"When a trooper signals you, double tap and brake to a stop for a license "
+"and logbook check. Ignoring the lights escalates to a forced stop or "
+"pursuit."
+msgstr ""
+
+msgid ""
+"CB chatter is what other drivers say they saw, and it is not always right. "
+"It can be stale and never claims the road is clear. Repeat the last CB "
+"chatter, under Radio and CB on the list, repeats it with updated distance."
+msgstr ""
+
+msgid ""
+"At an open scale, slow into its lane and double tap to signal. Stop on the "
+"scale, then double tap again to check in."
+msgstr ""
+
+msgid ""
+"Time at the wheel, When the break is due, and What ends this shift are "
+"under Hours and clock on the three-finger tap list. Check again as traffic "
+"or weather changes."
+msgstr ""
+
+msgid ""
+"Away from route points and fully stopped, Rest stop under Road and stops, "
+"or the pause menu, offers emergency sleep on the shoulder. Ten hours pass "
+"with poor rest, and you may get a parking ticket or minor damage."
+msgstr ""
+
+msgid ""
+"Open driving status with a three-finger tap, then a double tap, and choose "
+"Driver apps."
+msgstr ""
+
+msgid ""
+"Flick right or left to choose an app, and double tap to open it. Flick down "
+"with two fingers to return."
+msgstr ""
+
+msgid ""
+"In a report, flick right or left to move through the information, and "
+"double tap to repeat what you selected. Flick down with two fingers to "
+"return to Driver apps, then to driving status."
+msgstr ""
+
+msgid ""
+"Road chatter gives informal driver reports that may be stale. With hours "
+"enforcement off, there are no enforcement reports. Repeat the last CB "
+"chatter, under Radio and CB on the three-finger tap list, repeats the last "
+"chatter with its distance updated."
+msgstr ""
+
+msgid ""
+"Settings save as you change them. Flick right or left to choose a setting, "
+"then flick up for its next value or down for the previous one."
+msgstr ""
+
+msgid ""
+"Gameplay holds driving assistance, difficulty and hours, world and traffic, "
+"and controls. Audio, Speech, and Problem reports have separate choices."
+msgstr ""
+
+msgid "Flick up with two fingers on a setting to hear what it does."
+msgstr ""
+
+msgid ""
+"Relaxed pacing passes about ten minutes of road and clock each real minute, "
+"with more response time and gentler consequences. Standard moves twice as "
+"fast. Real time follows the clock at real speed."
+msgstr ""
+
+msgid ""
+"Driving speech chooses Standard, Quiet, or Urgent only announcements. "
+"Readouts still answer when asked. Place names and roadside chatter have "
+"separate controls."
+msgstr ""
+
+msgid ""
+"Drivers on duty refreshes about once a minute. Double tap a driver for "
+"their public profile. Driver directory includes drivers who are not "
+"currently playing; Check again refreshes it."
+msgstr ""
+
+msgid ""
+"Why can I not accept a load? It may need a certificate, endorsement, or "
+"trailer you do not have. Flick up with two fingers on the load for its "
+"requirements, and Licenses and training offers the courses."
+msgstr ""
+
+msgid ""
+"Why did I get a citation at a weigh station? When an open weigh station is "
+"called, every truck must pull in. Double tap to signal, stop on the scale, "
+"then double tap again to check in."
+msgstr ""
+
+msgid ""
+"Why is the limit 55 on a fast highway? Some states hold trucks below the "
+"car limit. Posted speed limit, under Speed and cruise on the three-finger "
+"tap list, names the state when it does."
+msgstr ""
+
+#. placeholders: {do_route}
+msgid ""
+"I missed my exit. What now? Keep driving and follow the turnaround "
+"guidance. {do_route} for the distance left."
+msgstr ""
+
+#. placeholders: {do_route}
+#. one sentence of a longer line
+msgid "{do_route} for the distance left."
+msgstr ""
+
+msgid ""
+"How do I know when a hill ends? Grade, under Road and stops on the list, "
+"reads the grade under the wheels and the next one worth planning for."
+msgstr ""
+
+msgid ""
+"How do I change stations? With the engine running, a three-finger flick "
+"right or left tunes. Radio on or off is under Radio and CB on the list."
+msgstr ""
+
+msgid ""
+"Can I hear a weather warning again? With live weather on, the Weather app "
+"under Driver apps lists active alerts. A two-finger flick left also steps "
+"back through recent messages."
+msgstr ""
 
 msgid ""
 "Enter opens an item or changes a setting to its next value. Right also "
@@ -44472,6 +44983,24 @@ msgstr ""
 "Halte den left bumper für eine zweite Ebene von Tasten. {pad_engine} "
 "steuert den Motor, {pad_fuel} liest den Kraftstoff vor und "
 "{pad_speed_limit} das Limit."
+
+#~ msgid ""
+#~ "Hold one finger still for half a second to straighten the wheel. With "
+#~ "cruise off, flick up to turn it on. Double tap to take an exit, pull over, "
+#~ "or confirm arrival at a gate. Tap with two fingers to stop speech. Turn two "
+#~ "fingers right like a key to start the engine, and left to stop it once the "
+#~ "truck has stopped. Hold two fingers for the horn. While holding a pedal, a "
+#~ "second finger's flicks and holds work the same way. "
+#~ msgstr ""
+#~ "Halte einen Finger eine halbe Sekunde still, um das Lenkrad "
+#~ "geradezustellen. Ist der Tempomat aus, wische nach oben, um ihn "
+#~ "einzuschalten. Tippe doppelt, um eine Ausfahrt zu nehmen, rechts "
+#~ "ranzufahren oder die Ankunft an einem Tor zu bestätigen. Tippe mit zwei "
+#~ "Fingern, um die Sprachausgabe zu stoppen. Drehe zwei Finger wie einen "
+#~ "Schlüssel nach rechts, um den Motor zu starten, und nach links, um ihn bei "
+#~ "stehendem Lkw abzustellen. Halte zwei Finger gedrückt für die Hupe. Während "
+#~ "du ein Pedal hältst, funktionieren Wischen und Halten mit einem zweiten "
+#~ "Finger genauso. "
 
 #~ msgid "On the keyboard: {key_name}."
 #~ msgstr "Auf der Tastatur: {key_name}."

@@ -88,7 +88,7 @@ static PATHISH: LazyLock<Regex> = LazyLock::new(|| {
     )
 });
 static HELP_TOKEN_RE: LazyLock<Regex> =
-    LazyLock::new(|| re(r"\{\{(?:(pad|key):)?([a-z_][a-z0-9_]*)\}\}"));
+    LazyLock::new(|| re(r"\{\{(?:(pad|key|do):)?([a-z_][a-z0-9_]*)\}\}"));
 
 #[derive(Clone, Copy, PartialEq, Eq, Debug)]
 enum Kind {
