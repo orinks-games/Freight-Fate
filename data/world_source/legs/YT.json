@@ -1911,6 +1911,16 @@
             "source": "derived: name and category read from the OpenStreetMap tags of relation 9561308 (Kluane National Park and Reserve); placed at the first road vertex inside it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           },
           {
+            "name": "Kluane Museum of History (westbound, Whitehorse to Tok)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 66.8,
+            "spoken": "Billboard: The Kluane Museum of History, ahead in Burwash Landing. Yukon wildlife in glass cases, holding very still. The ones outside do not.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Duke River",
             "category": "river",
             "kind": "point",
@@ -4575,6 +4585,26 @@
             "lon": -135.7417,
             "spoken": "Crossing the Takhini River",
             "source": "derived: name and category read from the OpenStreetMap tags of way 1292173286 (Takhini River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "name": "Yukon Beringia Interpretive Centre (eastbound, Tok to Whitehorse)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 86.0,
+            "spoken": "Billboard: The Yukon Beringia Interpretive Centre, ahead in Whitehorse. Ice Age Yukon, and a full-size cast of the largest woolly mammoth found in North America. He would not fit in your trailer.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
+            "name": "Yukon Transportation Museum (eastbound, Tok to Whitehorse)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 90.0,
+            "spoken": "Billboard: The Yukon Transportation Museum, ahead in Whitehorse. Out front, an old airliner on a pedestal turns to face the wind, billed as the world's largest weathervane. It is never wrong.",
+            "directions": [
+              "forward"
+            ]
           }
         ],
         "interchanges": [],
@@ -5685,6 +5715,16 @@
             "source": "derived: name and category read from the OpenStreetMap tags of way 222171892 (Smith River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           },
           {
+            "name": "Liard River Hot Springs (eastbound, Watson Lake to Fort Nelson)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 120.0,
+            "spoken": "Billboard: Liard River Hot Springs, ahead. Canada's second largest hot springs, down a boardwalk through a warm swamp. Open all year. At forty below, nobody gets out first.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Liard River",
             "category": "river",
             "kind": "point",
@@ -5693,6 +5733,16 @@
             "lon": -126.09544,
             "spoken": "Crossing the Liard River",
             "source": "derived: name and category read from the OpenStreetMap tags of way 28929985 (Liard River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "name": "Northern Rockies Lodge (eastbound, Watson Lake to Fort Nelson)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 138.0,
+            "spoken": "Billboard: Northern Rockies Lodge, ahead at Muncho Lake. Floatplanes at the dock, for fishing where no road goes. The truck stays behind.",
+            "directions": [
+              "forward"
+            ]
           },
           {
             "name": "Trout River",
@@ -5725,6 +5775,26 @@
             "source": "derived: name and category read from the OpenStreetMap tags of way 221687965 (Toad River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           },
           {
+            "name": "Toad River Lodge (eastbound, Watson Lake to Fort Nelson)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 199.0,
+            "spoken": "Billboard: Toad River Lodge, ahead on the Alaska Highway. Feeding highway travelers since nineteen forty-seven. Toad is not on the menu.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
+            "name": "Tetsa River Lodge (eastbound, Watson Lake to Fort Nelson)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 224.0,
+            "spoken": "Billboard: Tetsa River Lodge, ahead on the Alaska Highway. A log lodge famous for its cinnamon buns, baked by the hundred in summer. One is a meal. Nobody buys one.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Summit Pass",
             "category": "mountain_pass",
             "kind": "point",
@@ -5733,6 +5803,16 @@
             "lon": -124.7015,
             "spoken": "Approaching Summit Pass",
             "source": "derived: name and category read from the OpenStreetMap tags of node 10209732259 (Summit Pass); placed at the nearest projection of it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "name": "Fort Nelson Heritage Museum (southbound, Watson Lake to Fort Nelson)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 308.0,
+            "spoken": "Billboard: The Fort Nelson Heritage Museum, ahead. Old highway machinery, and a nineteen oh-eight Buick that drove to Whitehorse and back at a hundred years old. It did not complain.",
+            "directions": [
+              "forward"
+            ]
           }
         ],
         "interchanges": [],
@@ -8765,6 +8845,16 @@
             "source": "derived: name and category read from the OpenStreetMap tags of way 1334869741 (Morley River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           },
           {
+            "name": "George Johnston Museum (westbound, Watson Lake to Whitehorse)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 152.0,
+            "spoken": "Billboard: The George Johnston Museum, ahead in Teslin. He shipped in Teslin's first car by riverboat in nineteen twenty-eight, before any road. He drove it on the frozen lake.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Teslin",
             "at_mi": 162.4,
             "off_mi": 0.18,
@@ -8784,6 +8874,26 @@
             "source": "derived: name and category read from the OpenStreetMap tags of way 23387061 (Teslin River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           },
           {
+            "name": "Yukon Beringia Interpretive Centre (westbound, Watson Lake to Whitehorse)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 248.0,
+            "spoken": "Billboard: The Yukon Beringia Interpretive Centre, ahead in Whitehorse. Ice Age Yukon, and a full-size cast of the largest woolly mammoth found in North America. He would not fit in your trailer.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
+            "name": "SS Klondike (westbound, Watson Lake to Whitehorse)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 254.0,
+            "spoken": "Billboard: The sternwheeler Klondike, ahead on the riverbank in Whitehorse. She made her last trip in nineteen fifty-five and has been parked ever since. Longest layover in the Yukon.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Mount Lorne",
             "at_mi": 257.2,
             "off_mi": 10.12,
@@ -8791,6 +8901,16 @@
             "kind": "point",
             "source": "OpenStreetMap place=village node 9953772917, projected onto the leg's checked-in route geometry",
             "spoken": "Passing Mount Lorne"
+          },
+          {
+            "name": "Miles Canyon (westbound, Watson Lake to Whitehorse)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 260.0,
+            "spoken": "Billboard: Miles Canyon, ahead near Whitehorse. Its rapids wrecked the boats of the Klondike gold rush. A footbridge crosses it now. Take the bridge.",
+            "directions": [
+              "forward"
+            ]
           }
         ],
         "interchanges": [
@@ -11761,6 +11881,16 @@
             "lon": -137.06433,
             "spoken": "Crossing the Aishihik River",
             "source": "derived: name and category read from the OpenStreetMap tags of way 1205733082 (Aishihik River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "name": "Da Ku Cultural Centre (westbound, Whitehorse to Tok)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 85.7,
+            "spoken": "Billboard: Da K\u0173 Cultural Centre, ahead in Haines Junction. The name is Southern Tutchone for Our House, and it belongs to the Champagne and Aishihik First Nations. Guests welcome in summer.",
+            "directions": [
+              "forward"
+            ]
           }
         ],
         "interchanges": [],
@@ -14238,6 +14368,16 @@
             "source": "derived: name and category read from the OpenStreetMap tags of way 23387061 (Teslin River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           },
           {
+            "name": "George Johnston Museum (eastbound, Whitehorse to Watson Lake)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 101.0,
+            "spoken": "Billboard: The George Johnston Museum, ahead in Teslin. He shipped in Teslin's first car by riverboat in nineteen twenty-eight, before any road. He drove it on the frozen lake.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Teslin",
             "at_mi": 110.7,
             "off_mi": 0.18,
@@ -14304,6 +14444,16 @@
             "kind": "point",
             "source": "OpenStreetMap place=village node 107351102, projected onto the leg's checked-in route geometry",
             "spoken": "Entering Rancheria"
+          },
+          {
+            "name": "Sign Post Forest (eastbound, Whitehorse to Watson Lake)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 262.0,
+            "spoken": "Billboard: The Sign Post Forest, ahead in Watson Lake. An army private put up a sign for Danville, Illinois, in nineteen forty-two. Tens of thousands have followed. Yours is missing.",
+            "directions": [
+              "forward"
+            ]
           },
           {
             "name": "Upper Liard",

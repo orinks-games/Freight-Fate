@@ -2764,6 +2764,16 @@
             "spoken": "Passing Gravenhurst"
           },
           {
+            "name": "Gravenhurst",
+            "category": "highway_marker",
+            "kind": "point",
+            "at_mi": 46.5,
+            "spoken": "Passing Bethune Memorial House, in Gravenhurst.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "South Branch Muskoka River",
             "category": "river",
             "kind": "point",
@@ -4855,6 +4865,16 @@
             "kind": "point",
             "source": "OpenStreetMap place=village node 1463990868, projected onto the leg's checked-in route geometry",
             "spoken": "Passing Orrville"
+          },
+          {
+            "name": "Bobby Orr Hall of Fame (Barrie to Parry Sound)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 76.2,
+            "spoken": "Billboard: The Bobby Orr Hall of Fame, ahead in Parry Sound, on Georgian Bay. It calls itself a small museum. The name on the door is not a small one.",
+            "directions": [
+              "forward"
+            ]
           },
           {
             "name": "Nobel",
@@ -8961,6 +8981,16 @@
             "spoken": "Passing Haydon"
           },
           {
+            "name": "Canadian Automotive Museum (Belleville to Oshawa)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 74.0,
+            "spoken": "Billboard: The Canadian Automotive Museum, ahead in Oshawa. It lives in a nineteen twenties car dealership, and the original elevator still lifts cars to the second floor. It will not lift a truck.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Courtice",
             "at_mi": 76.5,
             "off_mi": 2.36,
@@ -11926,6 +11956,16 @@
             "spoken": "Passing Willetsholme"
           },
           {
+            "name": "Fort Henry (Brockville to Kingston)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 39.5,
+            "spoken": "Billboard: Fort Henry, ahead in Kingston. Built in the eighteen thirties. Its own plaque says it never saw action. A perfect record.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Perth Road Village",
             "at_mi": 42.3,
             "off_mi": 11.66,
@@ -13348,6 +13388,16 @@
             "lon": -75.79482,
             "spoken": "Entering NCC Greenbelt",
             "source": "derived: name and category read from the OpenStreetMap tags of relation 7804906 (NCC Greenbelt); placed at the first road vertex inside it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "name": "Parliament Hill (Brockville to Ottawa)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 63.0,
+            "spoken": "Billboard: Parliament Hill, ahead in Ottawa. The Centre Block is closed for a renovation of several billion dollars, and is due back in the early twenty thirties. Your delivery is due sooner.",
+            "directions": [
+              "forward"
+            ]
           },
           {
             "name": "Chelsea",
@@ -18216,6 +18266,16 @@
             "kind": "point",
             "source": "OpenStreetMap place=village node 5059418172, projected onto the leg's checked-in route geometry",
             "spoken": "Passing Maynard"
+          },
+          {
+            "name": "Brockville Railway Tunnel (Cornwall to Brockville)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 53.5,
+            "spoken": "Billboard: The Brockville Railway Tunnel, ahead. Canada's first railway tunnel. The railway's first train left town nearly two years before the tunnel was finished. The schedule did not wait.",
+            "directions": [
+              "forward"
+            ]
           },
           {
             "name": "Maitland",
@@ -36955,6 +37015,16 @@
             "spoken": "Passing Athens"
           },
           {
+            "name": "Brockville Railway Tunnel (Kingston to Brockville)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 43.9,
+            "spoken": "Billboard: The Brockville Railway Tunnel, ahead. Canada's first railway tunnel. The railway's first train left town nearly two years before the tunnel was finished. The schedule did not wait.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Lyn",
             "at_mi": 47.0,
             "off_mi": 2.69,
@@ -43814,6 +43884,16 @@
             "spoken": "Passing Ingersoll"
           },
           {
+            "name": "Springbank Snow Countess (London to Woodstock)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 25.2,
+            "spoken": "Billboard: The Springbank Snow Countess, ahead in Woodstock. A statue of a Holstein who set the world record for butterfat in nineteen thirty-three and held it twenty-one years. Still outstanding in her field.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Beachville",
             "at_mi": 27.4,
             "off_mi": 2.33,
@@ -50337,6 +50417,16 @@
             "spoken": "Passing Oakville"
           },
           {
+            "name": "Royal Botanical Gardens (Mississauga to Hamilton)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 20.1,
+            "spoken": "Billboard: The Royal Botanical Gardens, ahead in Burlington. The Royal came from King George the Fifth. A plant called the bashful bulrush grows here and nowhere else in Canada. Please do not stare.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Burlington",
             "at_mi": 23.9,
             "off_mi": 1.7,
@@ -51612,6 +51702,16 @@
             "kind": "point",
             "source": "OpenStreetMap place=city node 36576733, projected onto the leg's checked-in route geometry",
             "spoken": "Passing Guelph"
+          },
+          {
+            "name": "Doon Heritage Village (Mississauga to Kitchener)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 38.9,
+            "spoken": "Billboard: Doon Heritage Village, ahead in Kitchener. It opened in nineteen fifty-seven with a barn raising, and inside it is always nineteen fourteen. The news has not arrived.",
+            "directions": [
+              "forward"
+            ]
           },
           {
             "name": "Branchton",
@@ -60190,6 +60290,16 @@
             "spoken": "Passing Gravenhurst"
           },
           {
+            "name": "Gravenhurst",
+            "category": "highway_marker",
+            "kind": "point",
+            "at_mi": 109.9,
+            "spoken": "Passing Bethune Memorial House, in Gravenhurst.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Severn River",
             "category": "river",
             "kind": "point",
@@ -61821,6 +61931,16 @@
             "lon": -78.90434,
             "spoken": "Crossing the Amable du Fond River",
             "source": "derived: name and category read from the OpenStreetMap tags of way 1541438036 (Amable du Fond River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "name": "Big Joe Mufferaw (North Bay to Pembroke)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 30.3,
+            "spoken": "Billboard: Big Joe Mufferaw, ahead in Mattawa. A lumberjack carved from pine, for a real man the tall tales made bigger. The stories say he kicked a tavern roof. The statue keeps both feet down.",
+            "directions": [
+              "forward"
+            ]
           },
           {
             "name": "Mattawa",
@@ -67270,6 +67390,16 @@
             "spoken": "Passing Vaughan"
           },
           {
+            "name": "CN Tower (Oshawa to Toronto)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 30.7,
+            "spoken": "Billboard: The CN Tower, ahead in Toronto. The world's tallest freestanding structure from nineteen seventy-six until two thousand seven. The stairs have one thousand seven hundred seventy-six steps. There is an elevator.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Don River",
             "category": "river",
             "kind": "point",
@@ -68457,6 +68587,16 @@
             "kind": "point",
             "source": "OpenStreetMap place=village node 5059418172, projected onto the leg's checked-in route geometry",
             "spoken": "Passing Maynard"
+          },
+          {
+            "name": "Brockville Railway Tunnel (Ottawa to Brockville)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 61.5,
+            "spoken": "Billboard: The Brockville Railway Tunnel, ahead. Canada's first railway tunnel. The railway's first train left town nearly two years before the tunnel was finished. The schedule did not wait.",
+            "directions": [
+              "forward"
+            ]
           },
           {
             "name": "Maitland",
@@ -72269,6 +72409,16 @@
             "source": "derived: name and category read from the OpenStreetMap tags of relation 7804906 (NCC Greenbelt); placed at the first road vertex inside it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           },
           {
+            "name": "Diefenbunker (Ottawa to Pembroke)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 13.0,
+            "spoken": "Billboard: The Diefenbunker, ahead in Carp. Four storeys underground, built to shelter the government from a nuclear war. Tours all year. Now anybody can get in.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Carp River",
             "category": "river",
             "kind": "point",
@@ -74506,6 +74656,16 @@
             "kind": "point",
             "source": "OpenStreetMap place=village node 1751924960, projected onto the leg's checked-in route geometry",
             "spoken": "Passing Warsaw"
+          },
+          {
+            "name": "Peterborough Lift Lock (Ottawa to Peterborough)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 158.1,
+            "spoken": "Billboard: The Peterborough Lift Lock, ahead. Since nineteen oh-four it has lifted boats with no power but gravity. Cheapest lift on the route.",
+            "directions": [
+              "forward"
+            ]
           },
           {
             "name": "Keene",
@@ -77981,6 +78141,16 @@
             "source": "derived: name and category read from the OpenStreetMap tags of way 1553630548 (Wanapitei River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           },
           {
+            "name": "The Big Nickel (Parry Sound to Sudbury)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 88.9,
+            "spoken": "Billboard: The Big Nickel, ahead in Sudbury. Called the world's largest coin. It was built just past the city line, so it never needed a city permit. Thrifty, for a coin.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Wahnapitae",
             "at_mi": 91.2,
             "off_mi": 6.03,
@@ -79765,6 +79935,16 @@
             "spoken": "Entering Rolphton"
           },
           {
+            "name": "Big Joe Mufferaw (Pembroke to North Bay)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 87.5,
+            "spoken": "Billboard: Big Joe Mufferaw, ahead in Mattawa. A lumberjack carved from pine, for a real man the tall tales made bigger. The stories say he kicked a tavern roof. The statue keeps both feet down.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Mattawa",
             "at_mi": 97.2,
             "off_mi": 0.04,
@@ -81434,6 +81614,16 @@
             "spoken": "Passing Almonte"
           },
           {
+            "name": "Diefenbunker (Pembroke to Ottawa)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 64.3,
+            "spoken": "Billboard: The Diefenbunker, ahead in Carp. Four storeys underground, built to shelter the government from a nuclear war. Tours all year. Now anybody can get in.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Carp",
             "at_mi": 68.7,
             "off_mi": 2.41,
@@ -81497,6 +81687,16 @@
             "lon": -75.83768,
             "spoken": "Entering NCC Greenbelt",
             "source": "derived: name and category read from the OpenStreetMap tags of relation 7804906 (NCC Greenbelt); placed at the first road vertex inside it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "name": "Parliament Hill (Pembroke to Ottawa)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 83.6,
+            "spoken": "Billboard: Parliament Hill, ahead in Ottawa. The Centre Block is closed for a renovation of several billion dollars, and is due back in the early twenty thirties. Your delivery is due sooner.",
+            "directions": [
+              "forward"
+            ]
           },
           {
             "name": "Chelsea",
@@ -83490,6 +83690,16 @@
             "kind": "point",
             "source": "OpenStreetMap place=village node 293306455, projected onto the leg's checked-in route geometry",
             "spoken": "Passing Carp"
+          },
+          {
+            "name": "Parliament Hill (Peterborough to Ottawa)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 161.0,
+            "spoken": "Billboard: Parliament Hill, ahead in Ottawa. The Centre Block is closed for a renovation of several billion dollars, and is due back in the early twenty thirties. Your delivery is due sooner.",
+            "directions": [
+              "forward"
+            ]
           }
         ],
         "hpms_terrain": {
@@ -85383,6 +85593,16 @@
             "kind": "point",
             "source": "OpenStreetMap place=city node 319266313, projected onto the leg's checked-in route geometry",
             "spoken": "Passing Vaughan"
+          },
+          {
+            "name": "CN Tower (Peterborough to Toronto)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 77.8,
+            "spoken": "Billboard: The CN Tower, ahead in Toronto. The world's tallest freestanding structure from nineteen seventy-six until two thousand seven. The stairs have one thousand seven hundred seventy-six steps. There is an elevator.",
+            "directions": [
+              "forward"
+            ]
           },
           {
             "name": "Don River",
@@ -92058,6 +92278,16 @@
             "spoken": "Entering Grimsby"
           },
           {
+            "name": "Royal Botanical Gardens (St. Catharines to Hamilton)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 32.1,
+            "spoken": "Billboard: The Royal Botanical Gardens, ahead in Burlington. The Royal came from King George the Fifth. A plant called the bashful bulrush grows here and nowhere else in Canada. Please do not stare.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Burlington",
             "at_mi": 34.4,
             "off_mi": 0.86,
@@ -92632,6 +92862,26 @@
             "kind": "point",
             "source": "OpenStreetMap place=town node 1613626128, projected onto the leg's checked-in route geometry",
             "spoken": "Passing Beamsville"
+          },
+          {
+            "name": "Welland Canals Centre (St. Catharines to Niagara Falls)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 5.7,
+            "spoken": "Billboard: The Welland Canals Centre at Lock Three, ahead in Saint Catharines. A viewing platform where lake freighters climb the Niagara Escarpment. They carry more than you do. They are also slower.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
+            "name": "Horseshoe Falls (St. Catharines to Niagara Falls)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 7.8,
+            "spoken": "Billboard: The Horseshoe Falls, ahead at Niagara Falls. About half the river is diverted to make power, and most of the rest goes over here. It has never taken a ten-hour break.",
+            "directions": [
+              "forward"
+            ]
           },
           {
             "name": "Virgil",
@@ -95448,6 +95698,16 @@
             "lon": -80.44799,
             "spoken": "Crossing the Harris River",
             "source": "derived: name and category read from the OpenStreetMap tags of way 479993995 (Harris River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "name": "Bobby Orr Hall of Fame (Sudbury to Parry Sound)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 91.0,
+            "spoken": "Billboard: The Bobby Orr Hall of Fame, ahead in Parry Sound, on Georgian Bay. It calls itself a small museum. The name on the door is not a small one.",
+            "directions": [
+              "forward"
+            ]
           },
           {
             "name": "McKellar",
@@ -116655,6 +116915,16 @@
             "spoken": "Entering Ajax"
           },
           {
+            "name": "Canadian Automotive Museum (Toronto to Oshawa)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 36.2,
+            "spoken": "Billboard: The Canadian Automotive Museum, ahead in Oshawa. It lives in a nineteen twenties car dealership, and the original elevator still lifts cars to the second floor. It will not lift a truck.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Courtice",
             "at_mi": 44.0,
             "off_mi": 4.48,
@@ -118623,6 +118893,16 @@
             "spoken": "Entering Ajax"
           },
           {
+            "name": "Canadian Automotive Museum (Toronto to Peterborough)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 36.4,
+            "spoken": "Billboard: The Canadian Automotive Museum, ahead in Oshawa. It lives in a nineteen twenties car dealership, and the original elevator still lifts cars to the second floor. It will not lift a truck.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Oshawa Community Museum",
             "category": "museum",
             "kind": "point",
@@ -118811,6 +119091,16 @@
             "kind": "point",
             "source": "OpenStreetMap place=village node 1378089210, projected onto the leg's checked-in route geometry",
             "spoken": "Passing Omemee"
+          },
+          {
+            "name": "Canadian Canoe Museum (Toronto to Peterborough)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 82.5,
+            "spoken": "Billboard: The Canadian Canoe Museum, ahead in Peterborough. More than six hundred canoes, kayaks and paddled craft, which it calls the largest collection in the world. Not one has a sleeper berth.",
+            "directions": [
+              "forward"
+            ]
           },
           {
             "name": "Otonabee River",
