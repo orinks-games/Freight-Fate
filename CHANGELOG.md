@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### Added
+
+- **Page Up and Page Down now move ten rows in every menu.** In the Radio app's Stations in range list they move a hundred.
+
 ## 1.9.7 - 2026-11-21
 
 ### Compatibility

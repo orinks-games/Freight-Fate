@@ -573,6 +573,15 @@ impl Menu for RadioStationListState {
         items
     }
 
+    /// Stations in range runs to thousands of rows, so its jumps are 100.
+    fn page_rows(&self) -> usize {
+        if self.kind == "range" {
+            100
+        } else {
+            10
+        }
+    }
+
     fn handle_extra_key(&mut self, ctx: &mut GameContext, key: Key) -> bool {
         if !self.paged() {
             return false;

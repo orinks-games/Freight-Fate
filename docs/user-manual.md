@@ -181,7 +181,7 @@ A menu gives its title, the selected option, and the option's position in the li
 
 ### Menu navigation
 
-Use Up and Down to find the option you want, then Enter or Space to select it. Escape usually takes you back. On a long list, Home and End reach its ends, and a letter or number jumps to a matching choice.
+Use Up and Down to find the option you want, then Enter or Space to select it. Escape usually takes you back. On a long list, Home and End reach its ends, Page Up and Page Down move ten choices at a time, and a letter or number jumps to a matching choice.
 
 | Key | Action |
 | --- | --- |
@@ -189,6 +189,7 @@ Use Up and Down to find the option you want, then Enter or Space to select it. E
 | Enter or Space | Activate the selected choice. |
 | Escape | Go back, cancel, or repeat a status message when leaving is not useful. |
 | Home or End | Jump to the first or last choice. |
+| Page Up or Page Down | Move ten choices back or forward, stopping at the first or last. |
 | Letter or number | Jump to the next choice starting with that character. |
 | F1 | Show help for the current item. |
 | Comma | Review earlier speech, except while typing text. |
@@ -788,7 +789,7 @@ Press Tab while driving, or the right bumper and Start on a controller, and choo
 
 ### Radio app
 
-Radio opens a menu where you can switch the radio on or off, check whether streamer-safe mode is on, tune a station, save or remove a favorite, browse stations, and suggest a station. Local stations lists every Freight Fate station, your playlists and favorites, and the terrestrial stations in range, with how far off each one is. Stations in range adds the web and satellite streams too. Search stations lets you type part of a name, call sign, or format and press Enter for results. Results show 25 at a time; use the Next page and Previous page rows, or PageDown and PageUp, to reach the rest. Browse by category lists all stations or one category, such as Terrestrial or Web radio, in the same 25-row pages. Stations in range come first, local terrestrial ahead of web radio, and a station that repeats is listed once; out-of-range stations follow. Choose a result and press Enter to tune it. A station marked out of range here cannot be tuned from your current location.
+Radio opens a menu where you can switch the radio on or off, check whether streamer-safe mode is on, tune a station, save or remove a favorite, browse stations, and suggest a station. Local stations lists every Freight Fate station, your playlists and favorites, and the terrestrial stations in range, with how far off each one is. Stations in range adds the web and satellite streams too; there, Page Up and Page Down move a hundred stations at a time. Search stations lets you type part of a name, call sign, or format and press Enter for results. Results show 25 at a time; use the Next page and Previous page rows, or PageDown and PageUp, to reach the rest. Browse by category lists all stations or one category, such as Terrestrial or Web radio, in the same 25-row pages. Stations in range come first, local terrestrial ahead of web radio, and a station that repeats is listed once; out-of-range stations follow. Choose a result and press Enter to tune it. A station marked out of range here cannot be tuned from your current location.
 
 Favorites gives you a shorter list of stations you've saved. The [radio guide](#radio-and-playlists) explains the dial, signal changes, personal music, and music settings.
 

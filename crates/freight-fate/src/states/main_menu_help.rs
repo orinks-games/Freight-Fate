@@ -45,6 +45,7 @@ pub static HELP_PAGES: &[(&str, &[&str])] = &[
         "Menus and message review",
         &[
             "Up and Down choose an option. Enter or Space selects it. Escape goes back. Home and End jump to the first or last option.",
+            "Page Up and Page Down move ten options at a time.",
             "Type a letter to find an option starting with it. F1 explains the selected option.",
             "Comma repeats the latest message, then steps backward. Period moves forward. Control with either jumps to the oldest or newest message.",
             "The brackets choose all, general, or driving messages. Control C copies the selected message. Control Shift C copies the last thing the game said. Review keys type normally inside text fields.",
