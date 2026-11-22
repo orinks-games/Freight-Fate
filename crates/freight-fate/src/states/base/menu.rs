@@ -314,6 +314,11 @@ pub trait Menu: Sized + 'static {
 
     fn on_controller_disconnect(&mut self, _ctx: &mut GameContext) {}
 
+    /// [`State::on_app_return`]: the focused row again.
+    fn on_app_return(&mut self, ctx: &mut GameContext) {
+        self.speak_current(ctx);
+    }
+
     fn presence(&self, _ctx: &GameContext) -> Option<PresenceState> {
         None
     }
@@ -580,6 +585,9 @@ macro_rules! impl_state_for_menu {
             }
             fn on_controller_disconnect(&mut self, ctx: &mut $crate::app::GameContext) {
                 <Self as $crate::states::base::Menu>::on_controller_disconnect(self, ctx)
+            }
+            fn on_app_return(&mut self, ctx: &mut $crate::app::GameContext) {
+                <Self as $crate::states::base::Menu>::on_app_return(self, ctx)
             }
             fn update(&mut self, ctx: &mut $crate::app::GameContext, dt: f64) {
                 <Self as $crate::states::base::Menu>::update(self, ctx, dt)

@@ -209,6 +209,13 @@ impl DrivingState {
     ///
     /// Pause so an unplugged pad mid-drive does not leave the truck rolling.
     pub fn handle_controller_disconnect(&mut self, ctx: &mut GameContext) {
+        self.pause_for_leaving(ctx);
+    }
+
+    /// The pause a lost control asks for: an unplugged pad, or a phone app
+    /// leaving the foreground or losing its sound. The horn stops and the
+    /// pause menu opens, as Escape does.
+    pub fn pause_for_leaving(&mut self, ctx: &mut GameContext) {
         ctx.audio.horn_stop();
         self.trip.truck.horn_on = false;
         self.push_pause_menu(ctx);

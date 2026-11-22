@@ -99,6 +99,9 @@ pub enum InputEvent {
     /// A touch gesture on iPhone or iPad. The state takes it with
     /// [`State::handle_gesture`], or the app presses the key it stands for.
     Gesture(Gesture),
+    /// A phone app leaving or coming back, or its sound taken or lost
+    /// (`ff_core::app_lifecycle`). The app takes it; no state sees it.
+    App(ff_core::app_lifecycle::AppEvent),
 }
 
 impl InputEvent {
@@ -263,6 +266,16 @@ pub trait State: AsAny {
     /// Called when the active controller is unplugged. The driving state
     /// pauses; menus keep going on the keyboard.
     fn on_controller_disconnect(&mut self, _ctx: &mut GameContext) {}
+
+    /// Called when a phone app stops being active, or its sound is taken
+    /// or its output goes away (`ff_core::app_lifecycle`). The driving
+    /// state pauses; every other screen is already still.
+    fn on_app_leaving(&mut self, _ctx: &mut GameContext) {}
+
+    /// Called when a phone app is active again: whatever was being said
+    /// when the player left was cut off, so the screen says itself again.
+    /// Menus read the focused row; the pause menu reads from its title.
+    fn on_app_return(&mut self, _ctx: &mut GameContext) {}
 
     /// Per-frame update. Overrides MUST call `ctx.update_music_rotation(dt)`
     /// (the Python `super().update(dt)`).
