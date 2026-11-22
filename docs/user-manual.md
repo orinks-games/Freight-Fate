@@ -116,11 +116,11 @@ If you drive for a company, your carrier shapes what dispatch sends you and how 
 
 No matter which path you pick, you start at level 1. A company driver starts with 5,000 dollars, a full tank, and carrier equipment. A leased-on owner starts with 18,000 dollars and a new truck, along with all of its operating costs. You can keep the suggested home terminal or pick another city.
 
-When you arrive at your terminal, read the first-day briefing. It lays out your first goal and what costs to expect. After you take your first dispatch, **Career plan** tracks your next milestone. From there, the core loop stays steady: pick up freight, haul it safely, read the settlement, and grab your next load. Always leave room in that plan for fuel and legal rest.
+When you arrive at your terminal, read the first-day briefing. It lays out your first goal and what costs to expect. After you take your first dispatch, **Career plan** tracks your next milestone. From there, each job follows the same steps: pick up freight, haul it safely, read the settlement, and grab your next load. Always leave room in that plan for fuel and legal rest.
 
 ### Finding your first load
 
-Open **Dispatch board** at the terminal and accept a load. Keep in mind you do not have the freight yet: your first drive is an empty run over to the shipper to pick it up.
+Open **Dispatch board** at the terminal and accept a load. You do not have the freight yet: your first drive is an empty run over to the shipper to pick it up.
 
 ### Getting the truck moving
 
@@ -153,7 +153,7 @@ On a controller, any readout without its own button lives in **Driving commands*
 
 Do not wait until the tank is dry or your hours are gone to think about stopping. While rolling, press **T** (controller: **right bumper + D-pad down**) to plan a stop for fuel, a break, sleep, or food, and press **X** (controller: **D-pad down**) to signal for its exit. Keep tabs on your legal hours alongside the delivery deadline: **Alt+A** reads time used at the wheel and on duty, **Alt+S** tells you when your 30-minute break is due, and **Alt+D** reads both shift clocks along with reachable legal rest stops.
 
-When a break is due, pull in and take it before pushing on. Do not assume you always have 11 hours of driving ahead of you: your 8-hour break can come due earlier, and your 14-hour duty window can close before you finish 11 hours at the wheel. Remember too that a short break does not reset a shift. Check [Hours of service and fatigue](#hours-of-service-and-fatigue) whenever you are deciding between a quick break and a full sleep.
+When a break is due, pull in and take it before pushing on. Do not assume you always have 11 hours of driving ahead of you: your 8-hour break can come due earlier, and your 14-hour duty window can close before you finish 11 hours at the wheel. A short break does not reset a shift. Check [Hours of service and fatigue](#hours-of-service-and-fatigue) whenever you are deciding between a quick break and a full sleep.
 
 ### Reaching the receiver
 
@@ -264,7 +264,7 @@ Before you grab another load, take a quick look at **Truck status** to see where
 
 Inside **Garage** you can fuel up, repair damage, replace worn tires, reline brakes, overhaul the engine, buy snow chains, and wash the truck. Company drivers get carrier-paid routine equipment care. Owner-operators pay out of pocket, so always make sure you leave enough cash for fuel and service between settlements.
 
-Owners can also choose tire compounds and install upgrades for torque, aerodynamics, fuel capacity, and stronger brakes. Match your upgrades to the lanes you run: a bigger tank pays off on long western stretches, while reinforced brakes earn their keep in the mountains. Check your truck and business status before spending money you will need on the next run.
+Owners can also choose tire compounds and install upgrades for torque, aerodynamics, fuel capacity, and stronger brakes. Match your upgrades to the lanes you run: a bigger tank pays off on long western stretches, while reinforced brakes help most in the mountains. Check your truck and business status before spending money you will need on the next run.
 
 ### Choosing equipment and work
 
@@ -274,7 +274,7 @@ If a local dispatch board looks dry, **Drive to a nearby city without a trailer*
 
 ### Licenses and training
 
-See a locked load on the board? Open **Licenses and training** to qualify for it. Some certificates are sponsored by your carrier once you reach the right level, or you can pay out of pocket to earn them a level early. Endorsements and port cards unlock specialized freight. Keep in mind that **Hazmat** and **TWIC** require background checks that take game days to clear, so apply ahead of time. Bulk fuel requires both tank vehicle and hazmat endorsements together (the X combination). Training also uses time, so check your hours and fatigue before heading straight out on a run afterward.
+See a locked load on the board? Open **Licenses and training** to qualify for it. Some certificates are sponsored by your carrier once you reach the right level, or you can pay out of pocket to earn them a level early. Endorsements and port cards unlock specialized freight. **Hazmat** and **TWIC** require background checks that take game days to clear, so apply ahead of time. Bulk fuel requires both tank vehicle and hazmat endorsements together (the X combination). Training also uses time, so check your hours and fatigue before heading straight out on a run afterward.
 
 | Credential | Unlocks | How you get it |
 | --- | --- | --- |
@@ -311,11 +311,11 @@ Before level 9, dispatch matches a spare truck to each load (a sleeper for a lon
 
 Want to run your own iron? The **owner-operator buy-in** opens at **level 18**, provided you have at least 35 deliveries, a reputation of 80, no unpaid advance, and enough cash to cover the 35,000-dollar buy-in while still keeping 10,000 dollars in working capital. **Business status** lists whichever requirements you still need.
 
-If ownership is not your style, choose **Stay a company driver** to switch your goals and rank titles to the company track. You can always bring the ownership track back later with **Reopen the owner-operator plan**.
+If you do not want to own a truck, choose **Stay a company driver** to switch your goals and rank titles to the company track. You can always bring the ownership track back later with **Reopen the owner-operator plan**.
 
 Already an owner and want to go back to company driving? Choosing **Go back to company driving** asks you to confirm twice before selling anything. The game buys back your tractors and trailers at the stated values (your buy-in tractor returns its full purchase price; later tractors sell at used value) and puts you back in carrier equipment. Your driving record comes with you.
 
-Remember that owning a truck means paying for fuel, repairs, maintenance and insurance reserves, trailer costs, truck reserves, and fees. A bigger gross payout is not all take-home pay.
+Owning a truck means paying for fuel, repairs, maintenance and insurance reserves, trailer costs, truck reserves, and fees. A bigger gross payout is not all take-home pay.
 
 Further up the road, **authority preparation** opens at **level 21**, and **own authority** opens at **level 25** once you have 75 deliveries, a reputation of 92, at least one specialty program, no unpaid advance, and the startup cash plus working capital. Direct freight pays higher gross rates, with deductions for insurance, compliance, trailers, trucks, and billing fees. Once you own a trailer that matches the freight, its reserve replaces the trailer program charge.
 
@@ -351,7 +351,7 @@ If you run out of cash, you can request a capped **pay advance** against your ne
 
 Early in a company career, dispatch assigns your loads. You can turn one down, but each refusal costs reputation and uses up one of your limited refusals. Once you hit **level 8** (assuming your trust is in good shape), you get to pick from the board yourself. Even then, the company still sets your route; owner-operators choose their own routes.
 
-Before you say yes to any load, press **F1** (controller: **Back**) to read the full job sheet. It covers cargo, weight and gross-weight margin, facilities, distance, gross pay, estimated take-home, deadline, and required equipment. Keep in mind that diesel adds weight too. The market note tells you whether rates for that cargo are tight or loose, and the deadline details explain how much break and sleep time is built into the schedule.
+Before you say yes to any load, press **F1** (controller: **Back**) to read the full job sheet. It covers cargo, weight and gross-weight margin, facilities, distance, gross pay, estimated take-home, deadline, and required equipment. Diesel adds weight too. The market note tells you whether rates for that cargo are tight or loose, and the deadline details explain how much break and sleep time is built into the schedule.
 
 Your carrier provides trailers for any freight you are cleared to haul. Owner-operators start with dry van access and add specialty programs as they grow. If a job is locked, its description tells you exactly what is missing. Direct freight also notes when an owned trailer matches the load and lowers your charges.
 
@@ -573,7 +573,7 @@ With the default steering guide, steer **toward** the side the engine leans.
 - **Partial lane keeping or curve assistance on:** The truck tracks the curve while you correct drift.
 - **Full lane keeping on:** The truck steers for you; arrow taps (or left-stick pushes) request lane changes.
 
-Remember the difference between the two sound cues: the **steering guide** tells you which way to steer, while **road noise** tells you where the truck is sitting. Road noise on the right means you are drifting right of center. You can reverse the steering-guide direction in **Settings, Audio**, or switch it from the engine to a soft tone with **Lane guide sound**. Press **I** to toggle a steady lane-position tock whenever lane keeping is on partial or off.
+There are two sound cues: the **steering guide** tells you which way to steer, while **road noise** tells you where the truck is sitting. Road noise on the right means you are drifting right of center. You can reverse the steering-guide direction in **Settings, Audio**, or switch it from the engine to a soft tone with **Lane guide sound**. Press **I** to toggle a steady lane-position tock whenever lane keeping is on partial or off.
 
 Listen for the road-edge progression: warning-bar thuds before a hairpin, a side-marker thump when a tire crosses the line, then rumble-strip stutter, buzz, and gravel as you drift farther off. Ease back gently. Slamming the brakes with trailer wheels in dirt makes recovery harder.
 
@@ -683,7 +683,7 @@ If a trooper lights you up, press **X** (controller: **D-pad down**) and brake t
 
 After the final warning, twelve seconds of highway-speed driving or accelerating without braking triggers a pursuit. Fleeing can damage your truck, cancel the load, burn time in processing, and put a major offense on your record.
 
-CB chatter shares what other drivers spotted and how sure they were. Treat it as helpful heads-up, not gospel, since patrols move. Press **Alt+C** to repeat the last CB report with an updated distance, and **U** for fixed road features.
+CB chatter shares what other drivers spotted and how sure they were. Treat it as a tip, not a certainty, since patrols move. Press **Alt+C** to repeat the last CB report with an updated distance, and **U** for fixed road features.
 
 ### What a citation costs
 
@@ -750,7 +750,7 @@ Check your clocks before committing to the next stretch:
 
 Before each limit runs out, you get a warning: 1 hour out in Relaxed driving mode, 2 hours out in Standard, and at 2 hours, 1 hour, and 30 minutes in Real time (no warning if your delivery ends before the limit). When you depart with a load, the departure line summarizes your driving time left, fuel, whether you need a break or sleep, and how much of the run falls at night between 9 PM and 5 AM if you drive straight through (for example, "About 4 hours of night driving"; daytime runs omit night).
 
-Remember: a 30-minute break will not fix an expiring shift, and slow traffic or bad weather can push a planned stop out of reach. Recheck reachability whenever conditions slow you down.
+A 30-minute break will not fix an expiring shift, and slow traffic or bad weather can push a planned stop out of reach. Recheck reachability whenever conditions slow you down.
 
 ### Sleeping and sleeper-berth splits
 
@@ -811,7 +811,7 @@ Your co-driver drives with every assist, stops for fuel when low, pulls into ope
 - at the receiver's gate so you can dock and deliver;
 - whenever the truck takes damage or something needs your call.
 
-Want the wheel back early? Pause and pick **Take the wheel back**. Keep in mind your 10 hours must be unbroken, so driving early restarts your rest clock.
+Want the wheel back early? Pause and pick **Take the wheel back**. Your 10 hours must be unbroken, so driving early restarts your rest clock.
 
 ### Co-driver pay, hours, and history
 
@@ -920,7 +920,7 @@ Press **Escape** (controller: **Start**) anytime to pause the drive; press **Sta
 | Abandon job | Pay a penalty and return to the origin city. |
 | Quit to main menu | Return to the title screen. Resumes from your last saved stop, not mid-highway; quitting while moving asks you to confirm first. |
 
-The game saves automatically at terminals, supported road stops, and major trip transitions. If you quit while moving, it asks to confirm, and when you come back you resume at your last saved stop rather than the exact milepost where you quit. Pickups, approaches, facility visits, and loaded hauls all resume cleanly from saves.
+The game saves automatically at terminals, supported road stops, and major trip transitions. If you quit while moving, it asks to confirm, and when you come back you resume at your last saved stop rather than the exact milepost where you quit. Pickups, approaches, facility visits, and loaded hauls all resume from saves.
 
 ## Destination and settlement
 
@@ -1118,8 +1118,6 @@ You can resize the window or run full screen and everything scales smoothly. Tur
 
 ## Radio and playlists
 
-Nothing makes a long interstate stretch fly by like the right station, or your own music.
-
 ### Switching on and tuning
 
 With the engine running, press **M** to turn the radio on or off. Tune forward with **Page Down** or **apostrophe**, and backward with **Page Up** or **semicolon**. Hold **Ctrl** with any tune key to jump between dial categories instead of stepping one station at a time.
@@ -1132,7 +1130,7 @@ On a controller, the **right stick** runs the radio: push left or right to tune,
 
 Holding **Ctrl** while tuning jumps across categories: route music, Freight Fate stations, your playlists, favorites, terrestrial stations, AFN, satellite, international, fallback, web radio, and other stations. If you already know what you want or prefer searching by name, open the [Radio app](#radio-app).
 
-Regional terrestrial stations naturally fade as you drive out of transmitter range. **Favorites** never fade out. Once the local signal thins, the radio switches cleanly to the station's stream and reports its signal as streaming. If a non-favorite station drops out, the radio looks for a clear local station or a fallback; a stream that fails to connect leaves the dial for the rest of that session. **Roadhouse** and **Night Line** stay tuned everywhere on the map.
+Regional terrestrial stations fade as you drive out of transmitter range. **Favorites** never fade out. Once the local signal thins, the radio switches to the station's stream and reports its signal as streaming. If a non-favorite station drops out, the radio looks for a clear local station or a fallback; a stream that fails to connect leaves the dial for the rest of that session. **Roadhouse** and **Night Line** stay tuned everywhere on the map.
 
 ### Choosing music for your drive
 
@@ -1147,7 +1145,7 @@ Want your own playlist in the cab? Drop an **M3U**, **M3U8**, or **PLS** file in
 
 Entries can point to local files, network paths, or stream URLs in **mp3, ogg, opus, flac, aac, wma**, or tracker formats (**.it, .xm, .s3m, .mod, .mo3**). Stations remember where you left off when you tune away. Your playlists play in order by default, or you can enable **Shuffle personal playlists** in Audio settings to hear every track once in a fresh random order each pass. Unreadable entries are skipped, slow streams get time to buffer, and if nothing can play, the game tells you why and names the folder.
 
-Playlists can also include **YouTube links and livestreams**. Because Freight Fate does not bundle `yt-dlp`, install it yourself: drop `yt-dlp.exe` into your **Playlists** folder or put `yt-dlp` on your system PATH (on macOS, Homebrew works well). Expect YouTube links to take a few extra seconds to start, and keep `yt-dlp` updated; an older copy can drop livestreams after about 30 seconds, and updating usually fixes streams that stop playing.
+Playlists can also include **YouTube links and livestreams**. Because Freight Fate does not bundle `yt-dlp`, install it yourself: drop `yt-dlp.exe` into your **Playlists** folder or put `yt-dlp` on your system PATH (on macOS, you can install it with Homebrew). Expect YouTube links to take a few extra seconds to start, and keep `yt-dlp` updated; an older copy can drop livestreams after about 30 seconds, and updating usually fixes streams that stop playing.
 
 ### Suggesting a station
 
