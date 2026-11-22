@@ -283,3 +283,129 @@ fn cross_border_probe() {
         }
     }
 }
+
+/// What a company driver with no endorsements, one delivery behind them,
+/// sees on the board in `city`: the local loads, else a relay, else the
+/// carrier's reposition. Empty only when all three are.
+fn company_board(city: &str, carrier: &str, level: i64, seed: i64) -> Vec<Job> {
+    use super::relay::{fallback_reposition, relay_load, RelayRequest};
+    let world = get_world();
+    let none: &[&str] = &[];
+    let local = JobBoard::seeded(world, seed).offers(
+        city,
+        none,
+        OfferOptions {
+            count: board_offer_count(level),
+            level,
+            carrier_key: Some(carrier),
+            ..Default::default()
+        },
+    );
+    if !local.is_empty() {
+        return local;
+    }
+    let mut nearby = reachable_cities(world, city);
+    nearby.sort_by(|a, b| a.1.total_cmp(&b.1));
+    let request = RelayRequest {
+        here: city,
+        endorsements: none,
+        level,
+        market: None,
+        carrier_key: Some(carrier),
+        direct_freight: false,
+        seed,
+    };
+    relay_load(world, &request, &local, &nearby)
+        .map(|relay| relay.job)
+        .or_else(|| fallback_reposition(world, &request, &nearby))
+        .into_iter()
+        .collect()
+}
+
+/// Every (Canadian city, carrier, level) where a company driver who
+/// delivered there would be stuck: an empty board, or a reposition to a
+/// city whose own board is empty. A carrier "delivers there" when one of
+/// its US boards can reach the city inside its run band at that level.
+fn stranded_in_canada() -> Vec<String> {
+    let world = get_world();
+    let receives = |key: &str| {
+        world.cities.get(key).is_some_and(|city| {
+            city.locations
+                .iter()
+                .any(|loc| !JobBoard::cargo_for_location(loc, "receives", None).is_empty())
+        })
+    };
+    let mut canadian: Vec<String> = world
+        .cities
+        .iter()
+        .filter(|(key, city)| city.country == "CA" && receives(key))
+        .map(|(key, _)| key.clone())
+        .collect();
+    canadian.sort();
+    let carriers: Vec<&str> = crate::models::carriers::carrier_catalog()
+        .iter()
+        .filter(|(_, c)| c.cross_border)
+        .map(|(key, _)| key.as_str())
+        .collect();
+    let mut stranded = Vec::new();
+    for city in &canadian {
+        let nearby = reachable_cities(world, city);
+        // An owner-operator's Bobtail lists the nearest reachable cities,
+        // whatever the range.
+        if nearby.is_empty() {
+            stranded.push(format!("{city}: owner-operator, no city to bobtail to"));
+        }
+        let nearest_us = nearby
+            .iter()
+            .filter(|c| c.1 >= MIN_JOB_DISTANCE_MI && country(&c.0) == "US")
+            .map(|c| c.1)
+            .fold(f64::INFINITY, f64::min);
+        for level in [1, 8] {
+            for carrier in &carriers {
+                if nearest_us > JobBoard::distance_cap_for_carrier(level, carrier) {
+                    continue;
+                }
+                for seed in 0..3 {
+                    let board = company_board(city, carrier, level, seed);
+                    let Some(first) = board.first() else {
+                        stranded.push(format!(
+                            "{city}, {carrier}, level {level}, seed {seed}: empty board"
+                        ));
+                        continue;
+                    };
+                    if first.bobtail
+                        && company_board(&first.destination, carrier, level, seed)
+                            .iter()
+                            .all(|job| job.bobtail)
+                    {
+                        stranded.push(format!(
+                            "{city}, {carrier}, level {level}, seed {seed}: reposition to {} finds no load",
+                            first.destination
+                        ));
+                    }
+                }
+            }
+        }
+    }
+    stranded
+}
+
+#[test]
+#[cfg_attr(
+    not(feature = "slow-tests"),
+    ignore = "every Canadian city, carrier and level; run with cargo test-all"
+)]
+fn no_driver_is_left_without_a_load_in_canada() {
+    let stranded = stranded_in_canada();
+    assert!(stranded.is_empty(), "{}", stranded.join("\n"));
+}
+
+#[test]
+fn a_driver_who_delivers_to_whitehorse_is_sent_on_empty() {
+    let board = company_board("whitehorse_yt_ca", "northstar", 1, 0);
+    assert_eq!(board.len(), 1, "{board:?}");
+    let reposition = &board[0];
+    assert!(reposition.bobtail && reposition.assigned, "{reposition:?}");
+    assert!(reposition.pay > 0.0);
+    assert!(!company_board(&reposition.destination, "northstar", 1, 0).is_empty());
+}

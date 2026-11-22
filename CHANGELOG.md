@@ -41,7 +41,7 @@
 - **Alaska's spring weight limits now apply.** From April to mid-June, loads on thawing Alaska highways are lighter, and offers name the road setting the limit.
 - **Diesel in British Columbia and the Yukon now costs what it does there,** and Canadian pumps also say the price in Canadian dollars a liter.
 - **Heavy trucks in British Columbia are now held to 105 kilometers per hour, as the law requires.**
-- **Dispatch now offers loads into Canada and back.** Cities from Vancouver to Winnipeg and up the Alaska Highway to Whitehorse take deliveries from US cities.
+- **Dispatch now offers loads into Canada and back.** Canadian cities from Vancouver to Quebec City, and up the Alaska Highway to Whitehorse, take deliveries from US cities.
 - **A board in Canada offers loads back to the United States only.** A US carrier may not haul between two Canadian towns.
 - **Deadlines for a load across the border include time at customs.**
 - **The Yukon now keeps Mountain Time.**
@@ -71,6 +71,7 @@
 
 ### Changed
 
+- **When a company driver's board has no load, dispatch now sends the truck empty to the nearest city that has one,** paid at the empty-mile rate.
 - **Alaska's highways now have their real bends, grades, lane counts and towns.** The road between Palmer and Wasilla is now called the Palmer-Wasilla Highway.
 - **Simulated weather in Alaska and Canada now gets as cold as the real winters there.** A January morning in Fairbanks now reads below zero Fahrenheit.
 - **Museums by the road are now said as you pass them.** "Gwinnett History Museum ahead" is now "Passing Gwinnett History Museum."

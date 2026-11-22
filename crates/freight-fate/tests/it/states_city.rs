@@ -1277,7 +1277,9 @@ fn find_relay(
         }
         app.ctx.profile = Some(p.clone());
         let key = dispatch_cache_key(&p);
-        if let Some(job) = relay_load_for_board(&app.ctx, &key, local) {
+        // A town with no load anywhere near gets the carrier's reposition
+        // instead; this search wants a relayed load.
+        if let Some(job) = relay_load_for_board(&app.ctx, &key, local).filter(|j| !j.bobtail) {
             return Some((p, job));
         }
     }
@@ -1307,6 +1309,29 @@ fn test_a_thin_board_relays_a_load_for_a_company_driver_never_an_owner_operator(
     // The same search never turns one up for an owner-operator: the
     // gate is unconditional, not a thin board they happened to miss.
     assert!(find_relay(&mut app, true, 60, &[]).is_none());
+}
+
+/// Whitehorse receives freight but ships none, and no relay town is in a
+/// new driver's range, so the board holds the carrier's reposition.
+#[test]
+fn a_board_with_no_load_in_whitehorse_sends_the_truck_on_empty() {
+    let mut app = TestApp::new();
+    career(&mut app, "Yukon Driver", "Whitehorse");
+    {
+        let p = profile_mut(&mut app);
+        p.carrier_key = "northstar".to_string();
+        p.career.deliveries = 1;
+        p.achievements.push("first_day".to_string());
+    }
+    open_freight_market(&mut app.ctx);
+    let rows = labels::<JobBoardState>(&app);
+    assert!(
+        rows[0].starts_with("Job 1 of 1: Reposition, empty, to "),
+        "{rows:?}"
+    );
+    assert!(rows[0].contains(" dollars."), "{rows:?}");
+    let job = with_state::<JobBoardState, _>(&app, |b, _| b.jobs[0].clone());
+    assert!(job.bobtail && job.assigned && job.pay > 0.0, "{job:?}");
 }
 
 #[test]
