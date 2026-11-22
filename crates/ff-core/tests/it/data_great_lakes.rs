@@ -131,11 +131,7 @@ fn the_mackinac_bridge_is_paid_both_ways_on_the_new_legs() {
     ] {
         for cities in [[a, b], [b, a]] {
             let trip = drive(&cities);
-            let names: Vec<&str> = trip
-                .toll_events()
-                .iter()
-                .map(|t| t.name.as_str())
-                .collect();
+            let names: Vec<&str> = trip.toll_events().iter().map(|t| t.name.as_str()).collect();
             assert_eq!(names, ["Mackinac Bridge toll"], "{cities:?}");
             assert!((trip.estimated_tolls() - 25.0).abs() < 1e-9);
         }
