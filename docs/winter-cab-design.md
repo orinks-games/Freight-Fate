@@ -59,7 +59,15 @@ so `classify_region` keeps driving freight, hazards and market tags.
   by temperature), the cab's starting mode. Run `cargo test-all` and the
   battery; drive Fairbanks to Tok in January and Whitehorse to Watson Lake
   in January with Facility streets off.
-- Later, not this step: live weather for Canada.
+- The table is for simulated weather (owner, 2026-11-22). With live
+  weather on, the real reading decides the temperature, and so frost; the
+  table is used when live weather is off, when a reading cannot be
+  fetched, and in Canada until it has live weather.
+- Later, not this step: live weather for Canada, from Environment and
+  Climate Change Canada's free public weather service (api.weather.gc.ca),
+  the owner's pick over Open-Meteo, whose free tier is non-commercial
+  only. The National Weather Service stays for the United States and
+  Alaska.
 
 ## Step 2: the windshield and wipers
 
@@ -94,6 +102,8 @@ One state, in `ff-core`: how clear the windshield is, 0 to 1.
 
 ## Step 3: frost, fog and the heat
 
+- Frost follows the weather system's temperature: the live reading when
+  there is one, the climate table otherwise.
 - Frost lowers clarity when the outside is below freezing and the fan is
   off or on air conditioning; faster the colder it is. Fog on the inside
   lowers it in cold wet weather (rain, snow or fog, below about 10 °C)
