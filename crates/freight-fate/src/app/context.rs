@@ -911,6 +911,15 @@ impl GameContext {
         }
     }
 
+    /// [`Self::touch_instruction`] for a sentence about a held pedal, where
+    /// a second-finger slot is named before the plain gesture.
+    pub fn touch_instruction_while_pedal(&self, action: crate::bindings::Action) -> String {
+        match self.bindings.touch_instruction_while_pedal(action) {
+            Some(gesture) => gesture.to_string(),
+            None => self.touch_instruction(action),
+        }
+    }
+
     /// [`Self::touch_instruction`] for the middle of a sentence.
     pub fn touch_instruction_mid(&self, action: crate::bindings::Action) -> String {
         let text = self.touch_instruction(action);
