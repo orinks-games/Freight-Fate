@@ -199,7 +199,11 @@ fn whitehorse_tok_drive() -> PlaytestHarness {
     harness.start_route(
         "whitehorse_yt_ca",
         "tok_ak_us",
-        RouteSetup::seeded(2202).cities(&["whitehorse_yt_ca", "tok_ak_us"]),
+        RouteSetup::seeded(2202).cities(&[
+            "whitehorse_yt_ca",
+            "haines_junction_yt_ca",
+            "tok_ak_us",
+        ]),
     );
     harness.with_drive(|drive, _| {
         drive.departure_checked = true;
