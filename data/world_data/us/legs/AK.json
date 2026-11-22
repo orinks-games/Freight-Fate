@@ -43334,6 +43334,16 @@
             "source": "derived: name and category read from the OpenStreetMap tags of way 159127303 (Donjek River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           },
           {
+            "name": "Kluane Museum of History (eastbound, Tok to Whitehorse)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 206.3,
+            "spoken": "Billboard: The Kluane Museum of History, ahead in Burwash Landing. Yukon wildlife in glass cases, holding very still. The ones outside do not.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Duke River",
             "category": "river",
             "kind": "point",
@@ -43352,6 +43362,16 @@
             "lon": -138.55392,
             "spoken": "Entering Kluane National Park and Reserve",
             "source": "derived: name and category read from the OpenStreetMap tags of relation 9561308 (Kluane National Park and Reserve); placed at the first road vertex inside it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "name": "Da Ku Cultural Centre (eastbound, Tok to Whitehorse)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 281.8,
+            "spoken": "Billboard: Da K\u0173 Cultural Centre, ahead in Haines Junction. The name is Southern Tutchone for Our House, and it belongs to the Champagne and Aishihik First Nations. Guests welcome in summer.",
+            "directions": [
+              "forward"
+            ]
           }
         ],
         "interchanges": [],
