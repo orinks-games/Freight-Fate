@@ -7299,7 +7299,7 @@ msgstr ""
 msgid "a swipe down and hold"
 msgstr ""
 
-#: crates/ff-core/src/input_hints.rs crates/freight-fate/src/bindings/touch.rs crates/freight-fate/src/bindings.rs crates/freight-fate/src/states/driving/snapshot.rs
+#: crates/ff-core/src/input_hints.rs crates/ff-core/src/touch/recognizer.rs crates/freight-fate/src/bindings/touch.rs crates/freight-fate/src/bindings.rs
 msgid "brake"
 msgstr ""
 
@@ -7311,7 +7311,7 @@ msgstr ""
 msgid "a two-finger hold"
 msgstr ""
 
-#: crates/ff-core/src/input_hints.rs crates/freight-fate/src/bindings.rs
+#: crates/ff-core/src/input_hints.rs crates/ff-core/src/touch/recognizer.rs crates/freight-fate/src/bindings.rs
 msgid "horn"
 msgstr ""
 
@@ -17919,6 +17919,30 @@ msgstr ""
 msgid "Passing "
 msgstr ""
 
+#: crates/ff-core/src/touch.rs crates/freight-fate/src/bindings/touch.rs
+msgid "tap"
+msgstr ""
+
+#: crates/ff-core/src/touch.rs
+msgid "lift"
+msgstr ""
+
+#: crates/ff-core/src/touch/recognizer.rs
+msgid "idle"
+msgstr ""
+
+#: crates/ff-core/src/touch/recognizer.rs
+msgid "deciding"
+msgstr ""
+
+#: crates/ff-core/src/touch/recognizer.rs crates/freight-fate/src/bindings/touch.rs
+msgid "gas"
+msgstr ""
+
+#: crates/ff-core/src/touch/recognizer.rs
+msgid "spent"
+msgstr ""
+
 #: crates/ff-core/src/touch_mode.rs crates/freight-fate/src/states/city/terminal.rs crates/freight-fate/src/states/city_pickup.rs crates/freight-fate/src/states/driving_menu_states/facility_arrival.rs
 msgid "menu"
 msgstr ""
@@ -18944,10 +18968,6 @@ msgstr ""
 msgid "Tap"
 msgstr ""
 
-#: crates/freight-fate/src/bindings/touch.rs crates/freight-fate/src/touch.rs
-msgid "tap"
-msgstr ""
-
 #: crates/freight-fate/src/bindings/touch.rs crates/freight-fate/src/states/main_menu/touch_practice.rs
 msgid "Flick up"
 msgstr ""
@@ -19043,10 +19063,6 @@ msgstr ""
 
 #: crates/freight-fate/src/bindings/touch.rs
 msgid "a three-finger flick down"
-msgstr ""
-
-#: crates/freight-fate/src/bindings/touch.rs
-msgid "gas"
 msgstr ""
 
 #: crates/freight-fate/src/bindings/touch.rs
@@ -42472,6 +42488,19 @@ msgid "Puts every gesture on this screen back where it started."
 msgstr ""
 
 #: crates/freight-fate/src/states/main_menu/touch_gestures.rs
+msgid "New gesture reading: On"
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu/touch_gestures.rs
+msgid "New gesture reading: Off"
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu/touch_gestures.rs
+msgid ""
+"A trial. Every gesture should work as before. Turn it off if one does not."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu/touch_gestures.rs
 msgid ""
 "Up and Down pick a command or a group, and Enter opens a group. Enter on a "
 "command puts it on the gesture. Escape keeps the one it has."
@@ -47923,10 +47952,6 @@ msgstr ""
 
 #: crates/freight-fate/src/states/update.rs
 msgid "Escape cancels, Tab reads progress."
-msgstr ""
-
-#: crates/freight-fate/src/touch.rs
-msgid "lift"
 msgstr ""
 
 #. placeholders: {lane_assist}

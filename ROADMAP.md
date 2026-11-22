@@ -1632,12 +1632,17 @@ Everything found before 2026-09-25 moved to
       Second layer bumper on left, the instructions that name a bumper are
       new catalog entries (some in `lang/extra.pot`), spoken in English
       until each language translates them.
-- [ ] (Found along the way) iPhone gesture plan step 7: the stroke
-      recogniser moved into `ff-core`, and the default deep swipe set from
-      lengths measured on a phone. Android's recogniser
-      (`freight-fate/src/touch/recognizer.rs`) is already a Rust port of
-      `ff_touch.m` over raw finger events, tested on the desktop, and could
-      be the one both phones share.
+- [x] (Found along the way) iPhone gesture plan step 7: the gesture
+      recogniser moved into `ff-core` (`ff_core::touch`), and iPhone and
+      iPad can read raw fingers with it, the one Android uses, behind the
+      last row of Touch gestures, "New gesture reading", off by default
+      (2026-11-22). The agent server's `fingers` tool drives it, and the
+      differences found against `ff_touch.m` are in `docs/ios/README.md`.
+- [ ] (Found along the way) Once Orinks has played New gesture reading on
+      a phone: delete the native recognisers in `ff_touch.m` and the row,
+      so both phones read gestures one way.
+- [ ] (Found along the way) The default deep swipe still waits on swipe
+      lengths measured on a phone (Practice gestures reads them).
 - [x] Freight Fate builds for Android phones, Android 14 or newer
       (2026-11-18): the same Rust game under SDL2's Android backend, speech
       through Prism's Android text to speech, and the iPhone's gestures

@@ -178,6 +178,15 @@ impl TouchGesturesState {
         ctx.say("Every touch gesture is back to its default.");
     }
 
+    /// Switch between the native and the shared gesture recognizer, save,
+    /// and read the row again. The touch surface lets go of any held
+    /// pedal as it switches.
+    fn toggle_shared_recogniser(&mut self, ctx: &mut GameContext) {
+        ctx.settings.touch_shared_recogniser = !ctx.settings.touch_shared_recogniser;
+        save_settings(&ctx.settings);
+        self.speak_current(ctx);
+    }
+
     fn toggle_haptics(&mut self, ctx: &mut GameContext) {
         ctx.settings.touch_haptics = !ctx.settings.touch_haptics;
         crate::app::sdl_shell::set_touch_haptics(ctx.settings.touch_haptics);
@@ -306,6 +315,22 @@ impl Menu for TouchGesturesState {
             )
             .help("Puts every gesture on this screen back where it started."),
         );
+        // iPhone and iPad only: Android has only the shared recognizer.
+        if crate::device::iphone() {
+            items.push(
+                MenuItem::new(
+                    Label::dynamic(|_s: &Self, ctx| {
+                        if ctx.settings.touch_shared_recogniser {
+                            "New gesture reading: On".to_string()
+                        } else {
+                            "New gesture reading: Off".to_string()
+                        }
+                    }),
+                    |s: &mut Self, ctx| s.toggle_shared_recogniser(ctx),
+                )
+                .help("A trial. Every gesture should work as before. Turn it off if one does not."),
+            );
+        }
         items.push(MenuItem::new("Back", |s: &mut Self, ctx| s.go_back(ctx)));
         items
     }

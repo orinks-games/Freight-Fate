@@ -116,6 +116,9 @@ pub struct SdlShell {
     /// natively instead).
     #[cfg(target_os = "android")]
     android_touch: super::android_touch::AndroidTouch,
+    /// The raw fingers, for New gesture reading.
+    #[cfg(target_os = "ios")]
+    fingers: ios::SharedFingers,
     #[cfg(touch_screen)]
     keyboard_shown: bool,
     #[cfg(touch_screen)]
@@ -283,6 +286,8 @@ impl SdlShell {
             touch: crate::touch::TouchInput::new(),
             #[cfg(target_os = "android")]
             android_touch: super::android_touch::AndroidTouch::new(),
+            #[cfg(target_os = "ios")]
+            fingers: ios::SharedFingers::new(),
             #[cfg(touch_screen)]
             keyboard_shown: false,
             #[cfg(touch_screen)]
@@ -423,7 +428,10 @@ impl SdlShell {
         if on != self.report_travel {
             self.report_travel = on;
             #[cfg(target_os = "ios")]
-            ios::set_report_travel(on);
+            {
+                ios::set_report_travel(on);
+                self.fingers.set_report_travel(on);
+            }
             #[cfg(target_os = "android")]
             self.android_touch.set_report_travel(on);
         }
@@ -432,6 +440,13 @@ impl SdlShell {
     /// Only a phone or tablet's touch surface measures swipes.
     #[cfg(not(touch_screen))]
     pub fn set_report_travel(&mut self, _on: bool) {}
+
+    /// Follow Touch gestures, New gesture reading: on iPhone and iPad the
+    /// shared recognizer reads the raw fingers instead of UIKit's.
+    pub fn set_shared_recogniser(&mut self, _on: bool) {
+        #[cfg(target_os = "ios")]
+        self.fingers.want(_on);
+    }
 
     /// This frame's motion sensor reading for tilt steering; `running` is
     /// the switch on with the app in the foreground, and without it the
@@ -461,10 +476,12 @@ impl SdlShell {
             .any(|event| matches!(event, InputEvent::WindowFocusLost))
         {
             self.touch.release_into(&mut events);
+            self.fingers.cancel();
         }
         while let Some(gesture) = next_gesture() {
             events.extend(self.touch.handle(gesture).events);
         }
+        self.fingers.read(&mut self.touch, &mut events);
         // The sound session's interruptions and lost outputs.
         while let Some(event) = super::lifecycle::native::next_event() {
             events.push(InputEvent::App(event));
