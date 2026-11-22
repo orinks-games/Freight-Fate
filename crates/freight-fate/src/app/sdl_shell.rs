@@ -28,6 +28,8 @@ use crate::controller::sdl::{axis_from_sdl, button_from_sdl};
 use crate::states::base::{InputEvent, Key, Mods};
 #[cfg(feature = "visuals")]
 use crate::visuals::Visuals;
+#[cfg(touch_screen)]
+use ff_core::app_lifecycle::AppEvent;
 
 use super::context::Clipboard;
 use super::WINDOW_SIZE;
@@ -443,6 +445,10 @@ impl SdlShell {
         while let Some(gesture) = next_gesture() {
             events.extend(self.touch.handle(gesture).events);
         }
+        // The sound session's interruptions and lost outputs.
+        while let Some(event) = super::lifecycle::native::next_event() {
+            events.push(InputEvent::App(event));
+        }
         events
     }
 
@@ -585,6 +591,26 @@ pub fn translate_events_with(raw: Vec<Event>, soft_keyboard: bool) -> Vec<InputE
                 win_event: WindowEvent::FocusLost,
                 ..
             } => out.push(InputEvent::WindowFocusLost),
+            // A phone app leaving and coming back (`ff_core::app_lifecycle`).
+            // SDL names iOS's resign-active "will enter background" and its
+            // become-active "did enter foreground"; Android sends all four
+            // on pause and resume. A desktop never sends them.
+            #[cfg(touch_screen)]
+            Event::AppWillEnterBackground { .. } => {
+                out.push(InputEvent::App(AppEvent::WillResignActive));
+            }
+            #[cfg(touch_screen)]
+            Event::AppDidEnterBackground { .. } => {
+                out.push(InputEvent::App(AppEvent::DidEnterBackground));
+            }
+            #[cfg(touch_screen)]
+            Event::AppWillEnterForeground { .. } => {
+                out.push(InputEvent::App(AppEvent::WillEnterForeground));
+            }
+            #[cfg(touch_screen)]
+            Event::AppDidEnterForeground { .. } => {
+                out.push(InputEvent::App(AppEvent::DidBecomeActive));
+            }
             Event::Quit { .. } => out.push(InputEvent::Quit),
             _ => {}
         }

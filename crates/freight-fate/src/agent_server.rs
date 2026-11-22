@@ -66,6 +66,8 @@ const MAX_PEDAL_SECONDS: f64 = 30.0;
 const PEDAL_SETTLE_SECONDS: f64 = 0.5;
 /// How long `status` waits for the readouts it asked for before replying.
 const STATUS_SETTLE_SECONDS: f64 = 3.0;
+/// Long enough for a screen read again on return to be heard.
+const APP_EVENT_SETTLE_SECONDS: f64 = 2.0;
 /// Frames between a K tap and reading what cruise captured, and after the
 /// last dial tap before the reply: a tap is two frames, the drive answers
 /// on the next.
@@ -176,6 +178,11 @@ pub enum Command {
     Cruise {
         target: CruiseTarget,
     },
+    /// A phone app's lifecycle notification (`ff_core::app_lifecycle`),
+    /// with the window focus change SDL sends beside it on iOS.
+    AppEvent {
+        event: ff_core::app_lifecycle::AppEvent,
+    },
     /// The wheel's readouts in one call: speed, limit, grade, what is ahead,
     /// the route, the clock, fuel.
     Status,
@@ -257,8 +264,24 @@ struct Waiting {
     reply: Reply,
 }
 
+/// What the phone delivers for one app notification: on iOS SDL sends the
+/// window's focus change beside the resign and the return, lost before the
+/// app event and gained after it.
+fn app_event_inputs(event: ff_core::app_lifecycle::AppEvent) -> Vec<InputEvent> {
+    use ff_core::app_lifecycle::AppEvent;
+    match event {
+        AppEvent::WillResignActive => vec![InputEvent::WindowFocusLost, InputEvent::App(event)],
+        AppEvent::DidBecomeActive => vec![InputEvent::App(event), InputEvent::WindowFocusGained],
+        _ => vec![InputEvent::App(event)],
+    }
+}
+
 /// The fatigue machines as `status` reports them, by their field names.
-fn fatigue_state_line(o: &crate::app::DrivingObservation, mode: crate::touch::TouchMode) -> String {
+fn fatigue_state_line(
+    o: &crate::app::DrivingObservation,
+    mode: crate::touch::TouchMode,
+    place: ff_core::app_lifecycle::AppLifecycle,
+) -> String {
     let (timer, unit) = o.nod.timer();
     let lift = match o.lift_owed {
         Some((amount, due_in_h)) => format!("{amount:.1} due in {due_in_h:.2} h"),
@@ -277,7 +300,7 @@ fn fatigue_state_line(o: &crate::app::DrivingObservation, mode: crate::touch::To
     format!(
         "STATE: alertness {}; nod {} ({timer:.2} {unit}); nod_misses {}; lift_owed {lift}; \
          rest_call {rest_call}; runaway {}{gate}{co_driver}; jake_zone {}; touch_mode {}; road_offer {}; \
-         touch_clutch {}; window {}; outside {} ({}, {}); water {}; road_surface {}, {}; structure {}; chain_control {}; chains {}.",
+         touch_clutch {}; window {}; outside {} ({}, {}); water {}; road_surface {}, {}; structure {}; chain_control {}; chains {}; app {}.",
         o.alertness.key(),
         o.nod.key(),
         o.nod.misses,
@@ -297,7 +320,8 @@ fn fatigue_state_line(o: &crate::app::DrivingObservation, mode: crate::touch::To
         o.structure
             .map_or("none".to_string(), |(kind, mi)| format!("{} {mi:.2} mi", kind.name())),
         o.chain_control.key(),
-        o.chains.key()
+        o.chains.key(),
+        place.key()
     )
 }
 
@@ -651,12 +675,14 @@ impl AgentPolicy {
             if waiting.fatigue_state {
                 text.push('\n');
                 let mode = input.touch_mode();
+                let place = input.app_lifecycle();
                 match input.driving_observation() {
-                    Some(o) => text.push_str(&fatigue_state_line(&o, mode)),
+                    Some(o) => text.push_str(&fatigue_state_line(&o, mode, place)),
                     None => text.push_str(&format!(
-                        "STATE: touch_mode {}{}.",
+                        "STATE: touch_mode {}{}; app {}.",
                         mode.key(),
-                        input.dispatch_board_state().unwrap_or_default()
+                        input.dispatch_board_state().unwrap_or_default(),
+                        place.key()
                     )),
                 }
                 let (choice, main, event) = input.speech_state();
@@ -854,6 +880,13 @@ impl AgentPolicy {
                     });
                     break;
                 }
+                Command::AppEvent { event } => {
+                    for queued in app_event_inputs(event) {
+                        input.queue_player_input(queued);
+                    }
+                    self.wait_until(APP_EVENT_SETTLE_SECONDS, Until::Elapsed, false, reply);
+                    break;
+                }
                 Command::Status => {
                     // On the dispatch board the readout keys are menu keys
                     // (Space accepts, letters jump), so nothing is pressed
@@ -924,7 +957,7 @@ impl AgentPolicy {
                             o.off_pavement,
                             o.truck_damage_pct,
                             o.cargo_damage_pct,
-                            fatigue_state_line(&o, input.touch_mode()),
+                            fatigue_state_line(&o, input.touch_mode(), input.app_lifecycle()),
                         ),
                         None => {
                             "INSPECTOR: not at the wheel (a menu or stop screen is up).".to_string()

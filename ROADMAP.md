@@ -1143,12 +1143,14 @@ Everything found before 2026-09-25 moved to
       to about 0.5 dB at the top settings.
 - [ ] (Found along the way) Hearken follow-ups from the M6 review: poll the
       default output device on macOS and swap the backend when it changes;
-      let the engine bands' gain go above 1.0 (or rescale them); set the
-      iOS `AVAudioSession` category to Playback before Kira opens (cpal
-      0.18 sets none, so under the default SoloAmbient the ring/silent
-      switch would mute the game; unverified on a device) and run
+      let the engine bands' gain go above 1.0 (or rescale them); run
       `ios-build.yml` on the ported tree; consider bundling `libasound` in
-      the AppImage.
+      the AppImage. The iOS `AVAudioSession` category is now set to
+      Playback by the game (`ios/ff_lifecycle.m`) before Kira opens; it
+      could move into Hearken with a call to reopen the device at once, so
+      the sound comes back after an interruption that cpal does not resume
+      itself (one with no "should resume") without waiting for the
+      device watcher's stall check, which can take up to 16 s.
 - [ ] (Found along the way) Before release, run
       `test_hearken_music_never_loops_catalog_tracks` with `music.pak`
       present: no M6 run had the pack, so no shipped catalog track has been
@@ -1626,10 +1628,17 @@ Everything found before 2026-09-25 moved to
       category. The iPhone has one now; Android keeps it off until a
       report has been sent from a phone and the log screen suits a log in
       the app's private storage.
-- [ ] (Found along the way) Android: a drive in progress is lost back to
-      its last stop when Android ends the game in the background, which it
-      does without warning. Consider saving the drive as the game leaves
-      the foreground.
+- [x] Leaving a phone app at the wheel pauses the drive, and the
+      background saves the drive where it is, so the system ending the app
+      loses nothing (iPhone, 2026-11-22). Coming back reads the screen
+      again; a call, an alarm or headphones out pause the drive too.
+- [ ] (Found along the way) Android: the same save is in, but SDL2 holds
+      the game's thread while Android has it paused (its block-on-pause
+      default), so the four app events
+      reach the loop only on the way back, after the moment Android could
+      have ended the app. A real save on pause needs SDL's event filter
+      (which runs on Android's own thread) to hand the save to the loop and
+      wait for it, within Android's limit.
 - [ ] (Found along the way) Android: the TalkBack reminder is English only;
       it is sent from the activity, outside the game's translations.
 - [ ] (Found along the way) Android: strokes that start at a screen edge
@@ -1678,8 +1687,9 @@ Everything found before 2026-09-25 moved to
       module; it could not land here once speech moved (2026-10-20).
 - [ ] iOS runs from TestFlight on a real iPhone (2026-10-03) but still
       needs a real controller, Hearken sound on hardware (no iOS build of
-      the Hearken-based tree has run yet, and the audio session category
-      is still unset; see the M6 follow-ups), and VoiceOver's scrub and
+      the Hearken-based tree has run yet; the audio session category is
+      Playback since 2026-11-22 and wants the silent switch tried on a
+      device), and VoiceOver's scrub and
       on-screen-keyboard typing on hardware. For the App Store: a real app
       icon (TestFlight has a placeholder), a privacy manifest, and a title
       screen or review note for the blank game screen.

@@ -622,6 +622,7 @@ fn the_tool_list_carries_the_driving_tools() {
         "operator_keys",
         "lockstep",
         "key_probe",
+        "app_event",
     ] {
         assert!(names.iter().any(|n| n == name), "{name} in {names:?}");
     }

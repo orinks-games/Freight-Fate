@@ -48,6 +48,7 @@ mod crash_log;
 pub mod held_keys;
 pub mod key_probe;
 pub mod language;
+mod lifecycle;
 pub mod logging;
 pub mod loop_watch;
 pub mod sdl_shell;
@@ -212,6 +213,11 @@ pub struct App {
     /// The watch that logs a frame part holding the loop (see
     /// `app::loop_watch`); only the windowed loop starts one.
     loop_watch: Option<loop_watch::LoopWatch>,
+    /// Where a phone app is (`ff_core::app_lifecycle`); moved only by
+    /// `handle_app_event`.
+    app_lifecycle: ff_core::app_lifecycle::AppLifecycle,
+    /// The drive saved as the app reached the background, until it returns.
+    background_save: Option<lifecycle::BackgroundSave>,
 }
 
 /// Read-only driving facts available to a normal-input policy.
@@ -312,6 +318,12 @@ impl PlayerInputFrame<'_> {
     /// How a touch gesture is read on the screen on top.
     pub fn touch_mode(&self) -> crate::touch::TouchMode {
         self.app.touch_mode()
+    }
+
+    /// Where a phone app is, and whether its sound is taken
+    /// (`ff_core::app_lifecycle`).
+    pub fn app_lifecycle(&self) -> ff_core::app_lifecycle::AppLifecycle {
+        self.app.app_lifecycle()
     }
 
     /// The dispatch board's state for `status`, when the board is on top:
@@ -811,6 +823,8 @@ impl App {
             touch_bound_hold: None,
             co_driver: co_driver::CoDriverHands::default(),
             loop_watch: None,
+            app_lifecycle: Default::default(),
+            background_save: None,
         }
     }
 
@@ -1304,6 +1318,7 @@ impl App {
                 self.dispatch_to_state(event);
             }
             InputEvent::Quit => self.handle_close_request(),
+            InputEvent::App(event) => self.handle_app_event(*event),
             InputEvent::Gesture(gesture) => self.dispatch_gesture(*gesture),
             InputEvent::KeyDown { key, mods, .. } => {
                 self.ctx.input.press(*key, *mods);
@@ -1842,8 +1857,10 @@ pub fn main_with(options: CliOptions) -> i32 {
     // The crash marker: set now, cleared on the way out, so a run that
     // ends any other way is offered as a report next time.
     crate::problem_reports::begin_session(&ff_core::settings::data_dir());
+    // Before the audio engine opens: the sound session plays through the
+    // silent switch, and its interruptions reach the loop.
     #[cfg(target_os = "ios")]
-    crate::problem_reports::observe_app_lifecycle();
+    lifecycle::native::install();
     let code = run_game(&options);
     crate::problem_reports::end_session();
     guard.release();
