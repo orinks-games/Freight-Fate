@@ -4804,8 +4804,10 @@ offerability and hiring-radius rule (`is_offerable_home_city`; regionals
 home drivers only within their radius). Slice 2 made the new-career picker
 enforce it: region, then offerable home city, then the carriers hiring
 there, with the truck starting at that carrier's terminal. Slice 3 is also
-landed: the catalog now has **24 carriers: 3 national, 18 regional, and
-3 local**. `home_time_policy` remains `inert` for all 24.
+landed: the catalog had **24 carriers: 3 national, 18 regional, and
+3 local**. The 2.0 carrier spread (brief 12, 2026-11-22) takes it to **54:
+6 national, 32 regional, 16 local**. `home_time_policy` remains `inert` for
+all of them.
 
 Automated evidence: [`carrier_slice3.rs`](crates/ff-core/tests/it/carrier_slice3.rs)
 checks the catalog, hiring areas, coverage, terminal cities, and fallback
@@ -4868,6 +4870,37 @@ in the audited Windows run.
       never a world pin, so Fairbanks having no world `company_yard` or
       `terminal` pin is not a gap. The slice 3 test checks that terminal
       cities are real map cities with carrier-owned terminals.
+- [x] **2.0 carrier spread (brief 12).** Three specialist nationals
+      (Winterset Refrigerated Lines, Double Springs Linehaul, Conemaugh
+      Flatbed Lines, 12 terminals each), fourteen regionals and thirteen
+      locals. Lower-48 freight cities in reach of regionals, before then
+      after: one 248 / two 258 / three 101 / four 19, then two 141 / three
+      286 / four 154 / five 45. Locals hire in 45 cities (was 10). The start
+      picker lists 8 to 12 carriers in every lower-48 city (was 4 to 7);
+      New York 10, Chicago 12, Dallas 11, Billings 8, Anchorage 2. Worst
+      nearest-terminal distance per national: Conemaugh 512 mi (Shelby, MT),
+      Summit 482, Double Springs 474, Great Lakes Training 468, Winterset
+      455, Northstar 441. Bismarck, Twin Falls and Albuquerque each hold at
+      most two nationals' terminals. The picker sorts local, regional,
+      national, nearest terminal first, owner-operator last.
+      `tests/it/carrier_spread.rs` pins the coverage. Names were checked
+      against FMCSA and web listings; the record is in the carriers report.
+- [ ] **No Canadian carrier yet (Found along the way).** BC and YT stay
+      closed as home bases; a Canadian carrier joins when the Canadian
+      roads open for hiring.
+- [ ] **A second Alaska regional waits for new Alaska lanes (Found along
+      the way).** Chatanika covers every hirable Alaska city today; add a
+      second only when the map adds Alaska freight a second carrier would
+      run.
+- [ ] **Carrier start rows in other languages (Found along the way).**
+      The generated start rows ("{name}: regional company driver, {area}",
+      the national specialty rows, their summaries and help) and every
+      carrier's lane area and specialty phrase have no translations yet, so
+      a Spanish player in Chicago hears the local and regional rows in
+      English. Only the four hand-written starts are translated.
+- [ ] **The three original nationals' start rows do not say "national"
+      (Found along the way).** Their hand-written labels ("balanced company
+      driver" and so on) stayed; new wording goes to the director.
 - [ ] **Great Lakes Training `short_haul_bias` 0.8 conflicts with its 400 mi
       national run band.** The dispatch bias asks for short rookie loads the
       band minimum would forbid once enforced. Revisit in slice 4.

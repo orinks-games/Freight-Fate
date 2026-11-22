@@ -694,10 +694,11 @@ impl PlaytestHarness {
             self.key(key_event(key, Some(ch)));
         }
         self.key(key_event(Key::Return, None));
-        // Career start, home terminal, home city: three confirmations.
+        // Home region and home city take their defaults; the career start
+        // is Northstar, the default start, wherever the picker sorts it.
         self.key(key_event(Key::Return, None));
         self.key(key_event(Key::Return, None));
-        self.key(key_event(Key::Return, None));
+        self.select_menu_item_starting("Northstar");
         assert!(
             self.state_is::<CityMenuState>(),
             "the new-career flow did not land at the terminal"

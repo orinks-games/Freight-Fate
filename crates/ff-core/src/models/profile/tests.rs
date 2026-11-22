@@ -1232,11 +1232,12 @@ fn test_chicago_save_migrates_home_to_carrier_terminal_city() {
 #[test]
 fn test_healy_save_migrates_home_to_carrier_nearest_terminal() {
     use serde_json::Value;
-    // Northstar is national with one terminal: Chicago. No 250 mi pin
-    // search, no Nenana stand-in, no Healy fuel stop.
+    // Northstar is national: its terminal nearest Healy is Portland, Oregon
+    // (no national has an Alaska terminal). No 250 mi pin search, no Nenana
+    // stand-in, no Healy fuel stop.
     let mut data = old_save("healy_ak_us", "northstar");
     let loaded = Profile::from_dict(&data);
-    assert_eq!(loaded.home_terminal_city, "chicago_il_us");
+    assert_eq!(loaded.home_terminal_city, "portland_or_us");
     assert_eq!(
         loaded.current_city, "healy_ak_us",
         "the truck stays in Healy"
@@ -1245,14 +1246,14 @@ fn test_healy_save_migrates_home_to_carrier_nearest_terminal() {
     data.insert("home_terminal_city".into(), Value::from("nenana_ak_us"));
     assert_eq!(
         Profile::from_dict(&data).home_terminal_city,
-        "chicago_il_us"
+        "portland_or_us"
     );
     // A regional never homes a driver outside its hiring radius: Healy is
     // far out of Prairie Link's range, so the national fallback carrier's
     // terminal city stands in, never KC, Omaha, or Wichita.
     let data = old_save("healy_ak_us", "prairie_link");
     let loaded = Profile::from_dict(&data);
-    assert_eq!(loaded.home_terminal_city, "milwaukee_wi_us");
+    assert_eq!(loaded.home_terminal_city, "spokane_wa_us");
     // Parked in Healy away from home: the Healy travel center, not a yard.
     let parked = loaded.parked_at(crate::data::world::get_world());
     assert_eq!(parked.kind, crate::models::home_base::ParkedKind::PublicLot);
@@ -1273,7 +1274,8 @@ fn test_a_corrected_stale_home_is_written_back() {
         let mut d = p.to_dict();
         d.insert("home_terminal_city".into(), Value::from("nenana_ak_us"));
         let fixed = Profile::from_dict(&d);
-        assert_eq!(fixed.home_terminal_city, "chicago_il_us");
+        // Northstar's terminal nearest the stale Alaska home.
+        assert_eq!(fixed.home_terminal_city, "portland_or_us");
         assert!(fixed.needs_migration_resave, "the correction is resaved");
     });
 }
@@ -1294,4 +1296,28 @@ fn test_home_terminal_city_round_trips_unchanged() {
         assert_eq!(back.home_city, p.home_city);
         assert_eq!(back.current_city, "Milwaukee");
     });
+}
+
+#[test]
+fn test_a_save_without_a_home_terminal_homes_at_the_nearest_terminal() {
+    use serde_json::Value;
+    // A 1.9 career copied forward saves no home at all: it keys on the
+    // truck's city, and the truck stays where it is.
+    let data = old_save("seattle_wa_us", "northstar");
+    let loaded = Profile::from_dict(&data);
+    assert_eq!(loaded.home_terminal_city, "portland_or_us");
+    assert_eq!(loaded.current_city, "seattle_wa_us");
+    // A saved home city wins over the truck's city.
+    let mut data = old_save("chicago_il_us", "northstar");
+    data.insert("home_city".into(), Value::from("miami_fl_us"));
+    let loaded = Profile::from_dict(&data);
+    assert_eq!(loaded.home_terminal_city, "jacksonville_fl_us");
+    assert_eq!(loaded.current_city, "chicago_il_us");
+    // A saved home terminal that is still one of the carrier's stays put.
+    let mut data = old_save("seattle_wa_us", "northstar");
+    data.insert("home_terminal_city".into(), Value::from("chicago_il_us"));
+    assert_eq!(
+        Profile::from_dict(&data).home_terminal_city,
+        "chicago_il_us"
+    );
 }

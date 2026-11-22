@@ -344,12 +344,6 @@ fn generated_start_options() -> &'static [CareerStartOption] {
             .filter(|c| !START_OPTIONS.iter().any(|o| o.key == c.key))
             .map(|c| {
                 let leak = |text: String| -> &'static str { Box::leak(text.into_boxed_str()) };
-                let tier = if c.is_local() { "local" } else { "regional" };
-                let area = if c.lane_area.is_empty() {
-                    "its home region".to_string()
-                } else {
-                    c.lane_area.clone()
-                };
                 let max = fmt_miles(c.run_band.max_mi);
                 let default_city = c
                     .terminal_city_keys
@@ -357,19 +351,14 @@ fn generated_start_options() -> &'static [CareerStartOption] {
                     .and_then(|k| world.cities.get(k))
                     .map(|city| city.name.clone())
                     .unwrap_or_else(|| "Chicago".to_string());
+                let (label, menu_summary, help_text) = generated_start_words(c, &max);
                 CareerStartOption {
                     key: leak(c.key.clone()),
-                    label: leak(format!("{}: {tier} company driver, {area}", c.name)),
+                    label: leak(label),
                     carrier_name: leak(c.name.clone()),
                     mode: START_MODE_COMPANY,
-                    menu_summary: leak(format!(
-                        "A {tier} carrier in {area}, with loads of up to {max} miles."
-                    )),
-                    help_text: leak(format!(
-                        "A {tier} company-driver start in {area}. Dispatch offers loads of \
-                         up to {max} miles. The carrier assigns and maintains the tractor \
-                         and pays fuel and routine repairs."
-                    )),
+                    menu_summary: leak(menu_summary),
+                    help_text: leak(help_text),
                     default_city: leak(default_city),
                     company_pay: Some(c.company_pay),
                     dispatch: c.dispatch,
@@ -378,6 +367,61 @@ fn generated_start_options() -> &'static [CareerStartOption] {
             })
             .collect()
     })
+}
+
+/// Label, menu summary and help line of a generated start: a national names
+/// the freight it mostly hauls and what those loads need; a regional or
+/// local names its lane area.
+fn generated_start_words(c: &carriers::Carrier, max: &str) -> (String, String, String) {
+    let equipment = "The carrier assigns and maintains the tractor and pays fuel and routine \
+                     repairs.";
+    if c.is_national() && !c.specialty.is_empty() {
+        let specialty = &c.specialty;
+        let needs = specialty_credential_clause(c)
+            .map(|clause| format!(" Those loads need {clause}."))
+            .unwrap_or_default();
+        return (
+            format!("{}: national company driver, {specialty}", c.name),
+            format!("A national carrier that mostly hauls {specialty}, with loads of up to {max} miles."),
+            format!(
+                "A national company-driver start. Dispatch leans toward {specialty} and offers \
+                 loads of up to {max} miles.{needs} {equipment}"
+            ),
+        );
+    }
+    let tier = if c.is_national() {
+        "national"
+    } else if c.is_local() {
+        "local"
+    } else {
+        "regional"
+    };
+    let area = if c.lane_area.is_empty() {
+        "its home region".to_string()
+    } else {
+        c.lane_area.clone()
+    };
+    (
+        format!("{}: {tier} company driver, {area}", c.name),
+        format!("A {tier} carrier in {area}, with loads of up to {max} miles."),
+        format!(
+            "A {tier} company-driver start in {area}. Dispatch offers loads of up to {max} \
+             miles. {equipment}"
+        ),
+    )
+}
+
+/// What a national's specialty freight needs, as the game speaks it ("the
+/// refrigerated certificate"): the credentials of the cargo it favors most,
+/// read from the cargo catalog. `None` when that cargo needs nothing.
+fn specialty_credential_clause(c: &carriers::Carrier) -> Option<String> {
+    let (cargo_key, _) = c
+        .cargo_weight_bonus
+        .iter()
+        .max_by(|a, b| a.1.total_cmp(&b.1).then_with(|| b.0.cmp(&a.0)))?;
+    let cargo = crate::models::jobs::cargo_type(cargo_key)?;
+    let clause = crate::models::jobs::credentials_clause(cargo.credentials);
+    (!clause.is_empty()).then_some(clause)
 }
 
 fn fmt_miles(miles: f64) -> String {
@@ -533,12 +577,46 @@ pub fn start_options_for_home_city(
     world: &crate::data::world::World,
     city_key: &str,
 ) -> Vec<&'static CareerStartOption> {
+    let mut options = hiring_options_in_catalog_order(world, city_key);
+    sort_for_start_picker(&mut options, |option| {
+        let carrier = hiring_carrier_for_option(option)?;
+        Some((carrier, carrier.hiring_distance_mi(world, city_key)?))
+    });
+    options
+}
+
+/// Start options whose carrier hires in `city_key`, in catalog order (the
+/// hand-written starts, then `carriers.json`, then owner-operator).
+fn hiring_options_in_catalog_order(
+    world: &crate::data::world::World,
+    city_key: &str,
+) -> Vec<&'static CareerStartOption> {
     all_start_options()
         .into_iter()
         .filter(|option| {
             hiring_carrier_for_option(option).is_some_and(|c| c.hires_in(world, city_key))
         })
         .collect()
+}
+
+/// The start picker's order: company starts by tier (locals, regionals,
+/// nationals), nearest hiring terminal first within a tier, ties by carrier
+/// key; the owner-operator start last. `hire` gives an option's carrier and
+/// the air miles to the terminal it would hire into.
+fn sort_for_start_picker<'a>(
+    options: &mut [&'a CareerStartOption],
+    hire: impl Fn(&CareerStartOption) -> Option<(&'static carriers::Carrier, f64)>,
+) {
+    options.sort_by_cached_key(|option| {
+        let owner = option.is_owner_operator();
+        let (rank, miles, key) = match hire(option) {
+            Some((carrier, miles)) => (carrier.tier_rank(), miles, carrier.key.as_str()),
+            None => (carriers::CARRIER_TIERS.len(), f64::INFINITY, option.key),
+        };
+        // Whole hundredths of a mile keep the key `Ord`; no two terminals a
+        // driver could pick between sit closer than that apart.
+        (owner, rank, (miles * 100.0).round() as i64, key, option.key)
+    });
 }
 
 /// How many distinct carriers hire in `city_key`. The owner-operator start
@@ -652,7 +730,7 @@ pub fn reset_start_for_no_carrier(
         .filter(|city| !city.trim().is_empty())
         .find_map(|city| {
             let key = world.resolve_city_key(city);
-            start_options_for_home_city(world, &key)
+            hiring_options_in_catalog_order(world, &key)
                 .into_iter()
                 .filter(|option| option.is_company_driver())
                 .filter_map(|option| {
