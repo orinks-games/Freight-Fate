@@ -335,13 +335,20 @@ twin trailer, cattle or placarded load crosses; Great Lakes and local
 carriers offer no Canadian loads; and the deadline leaves time for
 customs.
 
-### 4.6 A board that leaves you stranded [waits on PR 758]
+### 4.6 A town that ships nothing [waits on PR 758]
+
+Setup: a company career.
 
 Do: deliver to Whitehorse, Watson Lake or Prince George, which ship
-nothing.
+nothing, then open the dispatch board.
 
-Pass when: dispatch still gives a company driver a way out. An empty
-board with no way to leave is a bug.
+Listen for: an assigned empty run to the nearest city with a load, such
+as "Assigned load: Reposition, empty, to Skagway, Alaska, 177
+kilometers. Pays 54 dollars."
+
+Pass when: the empty run parks and settles when you arrive, with no dock
+menu, and the next board has a load. An empty board with no way to leave
+is a bug.
 
 ## Chapter 5. Units, fuel and money
 
