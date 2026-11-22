@@ -642,6 +642,11 @@ impl State for TimedMessageState {
         ctx.say(&self.message);
     }
 
+    /// The message again, without its sound.
+    fn on_app_return(&mut self, ctx: &mut GameContext) {
+        ctx.say(&self.message);
+    }
+
     fn handle_event(&mut self, ctx: &mut GameContext, event: &InputEvent) {
         let Some((key, _, _)) = event.key_down() else {
             return;

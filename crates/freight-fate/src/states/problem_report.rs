@@ -145,6 +145,12 @@ impl State for ProblemReportLinkState {
         }
     }
 
+    /// Where the report stands, as Enter reads it: coming back from the
+    /// browser the form opened in is the usual way back here.
+    fn on_app_return(&mut self, ctx: &mut GameContext) {
+        ctx.say(&self.status);
+    }
+
     fn handle_event(&mut self, ctx: &mut GameContext, event: &InputEvent) {
         let Some((key, _, _)) = event.key_down() else {
             return;

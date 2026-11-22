@@ -215,7 +215,7 @@ pub struct App {
     loop_watch: Option<loop_watch::LoopWatch>,
     /// Where a phone app is (`ff_core::app_lifecycle`); moved only by
     /// `handle_app_event`.
-    app_place: ff_core::app_lifecycle::AppPlace,
+    app_lifecycle: ff_core::app_lifecycle::AppLifecycle,
     /// The drive saved as the app reached the background, until it returns.
     background_save: Option<lifecycle::BackgroundSave>,
 }
@@ -320,9 +320,10 @@ impl PlayerInputFrame<'_> {
         self.app.touch_mode()
     }
 
-    /// Where a phone app is (`ff_core::app_lifecycle`).
-    pub fn app_place(&self) -> ff_core::app_lifecycle::AppPlace {
-        self.app.app_place()
+    /// Where a phone app is, and whether its sound is taken
+    /// (`ff_core::app_lifecycle`).
+    pub fn app_lifecycle(&self) -> ff_core::app_lifecycle::AppLifecycle {
+        self.app.app_lifecycle()
     }
 
     /// The dispatch board's state for `status`, when the board is on top:
@@ -822,7 +823,7 @@ impl App {
             touch_bound_hold: None,
             co_driver: co_driver::CoDriverHands::default(),
             loop_watch: None,
-            app_place: Default::default(),
+            app_lifecycle: Default::default(),
             background_save: None,
         }
     }

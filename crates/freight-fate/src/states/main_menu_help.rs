@@ -503,6 +503,11 @@ impl State for HelpState {
         ctx.say(&format!("How to play. {controls} {}", self.page_title()));
     }
 
+    /// The opening line again: the controls and the page.
+    fn on_app_return(&mut self, ctx: &mut GameContext) {
+        self.enter(ctx);
+    }
+
     fn handle_event(&mut self, ctx: &mut GameContext, event: &InputEvent) {
         let Some((key, _, _)) = event.key_down() else {
             return;

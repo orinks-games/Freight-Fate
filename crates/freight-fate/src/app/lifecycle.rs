@@ -10,7 +10,7 @@
 
 use std::time::Instant;
 
-use ff_core::app_lifecycle::{AppAction, AppEvent, AppPlace};
+use ff_core::app_lifecycle::{AppAction, AppEvent, AppLifecycle, AppPlace};
 use serde_json::Value;
 
 use super::App;
@@ -29,19 +29,24 @@ pub(crate) struct BackgroundSave {
 impl App {
     /// Where the app is, for the agent server's `status`.
     pub fn app_place(&self) -> AppPlace {
-        self.app_place
+        self.app_lifecycle.place
+    }
+
+    /// The place and whether the system holds the sound, for `status`.
+    pub fn app_lifecycle(&self) -> AppLifecycle {
+        self.app_lifecycle
     }
 
     /// One platform notification, through the place's transition.
     pub(crate) fn handle_app_event(&mut self, event: AppEvent) {
-        let (next, actions) = self.app_place.next(event);
+        let (next, actions) = self.app_lifecycle.next(event);
         log::info!(
             "app lifecycle: {} while {} -> {}",
             event.key(),
-            self.app_place.key(),
+            self.app_lifecycle.key(),
             next.key()
         );
-        self.app_place = next;
+        self.app_lifecycle = next;
         for &action in actions {
             self.apply_app_action(action);
         }

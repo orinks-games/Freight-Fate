@@ -280,7 +280,7 @@ fn app_event_inputs(event: ff_core::app_lifecycle::AppEvent) -> Vec<InputEvent> 
 fn fatigue_state_line(
     o: &crate::app::DrivingObservation,
     mode: crate::touch::TouchMode,
-    place: ff_core::app_lifecycle::AppPlace,
+    place: ff_core::app_lifecycle::AppLifecycle,
 ) -> String {
     let (timer, unit) = o.nod.timer();
     let lift = match o.lift_owed {
@@ -675,7 +675,7 @@ impl AgentPolicy {
             if waiting.fatigue_state {
                 text.push('\n');
                 let mode = input.touch_mode();
-                let place = input.app_place();
+                let place = input.app_lifecycle();
                 match input.driving_observation() {
                     Some(o) => text.push_str(&fatigue_state_line(&o, mode, place)),
                     None => text.push_str(&format!(
@@ -957,7 +957,7 @@ impl AgentPolicy {
                             o.off_pavement,
                             o.truck_damage_pct,
                             o.cargo_damage_pct,
-                            fatigue_state_line(&o, input.touch_mode(), input.app_place()),
+                            fatigue_state_line(&o, input.touch_mode(), input.app_lifecycle()),
                         ),
                         None => {
                             "INSPECTOR: not at the wheel (a menu or stop screen is up).".to_string()

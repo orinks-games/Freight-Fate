@@ -7,7 +7,7 @@
 //! Center and the notification shade make it inactive and active again
 //! without ever reaching the background; an app ended from the switcher
 //! gets nothing more after the background. Each arrives here as one
-//! [`AppEvent`], and [`AppPlace::next`] answers with the new place and the
+//! [`AppEvent`], and [`AppLifecycle::next`] answers with the new state and the
 //! [`AppAction`]s the game takes, in order. Nothing else moves the place.
 //!
 //! The rules the actions keep:
@@ -85,8 +85,77 @@ pub enum AppAction {
 
 use AppAction::*;
 
+/// Where the app is, and whether the system holds its sound.
+///
+/// `sound_taken` is set by an interruption beginning, in any place, and
+/// cleared when the app becomes active again or the interruption ends. It
+/// decides who reads the screen after a call: iOS sends the interruption's
+/// end before or after the app becomes active, or not at all (Apple does not
+/// promise an end for every begin), so becoming active always reads, and an
+/// end reads only when the app is active and the sound was still taken (an
+/// alarm, where the app never left). Each return is read exactly once.
+#[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
+pub struct AppLifecycle {
+    pub place: AppPlace,
+    pub sound_taken: bool,
+}
+
+impl AppLifecycle {
+    /// The state after `event`, and what to do about it.
+    pub fn next(self, event: AppEvent) -> (Self, &'static [AppAction]) {
+        use AppEvent::*;
+        let active = self.place == AppPlace::Active;
+        match event {
+            AudioInterruptionBegan => {
+                let next = Self {
+                    sound_taken: true,
+                    ..self
+                };
+                let actions: &'static [AppAction] = if active {
+                    &[ReleaseControls, PauseDrive]
+                } else {
+                    &[]
+                };
+                (next, actions)
+            }
+            AudioInterruptionEnded => {
+                let next = Self {
+                    sound_taken: false,
+                    ..self
+                };
+                let actions: &'static [AppAction] = if active && self.sound_taken {
+                    &[WakeAudio, ReadScreenAgain]
+                } else {
+                    &[WakeAudio]
+                };
+                (next, actions)
+            }
+            _ => {
+                let (place, actions) = self.place.next(event);
+                let sound_taken = if event == DidBecomeActive && !active {
+                    false
+                } else {
+                    self.sound_taken
+                };
+                (Self { place, sound_taken }, actions)
+            }
+        }
+    }
+
+    /// `status`: the place, and `sound_taken` while the system holds it.
+    pub fn key(self) -> String {
+        if self.sound_taken {
+            format!("{}, sound_taken", self.place.key())
+        } else {
+            self.place.key().to_string()
+        }
+    }
+}
+
 impl AppPlace {
-    /// The place after `event`, and what to do about it.
+    /// The place after one of the four app events, and what to do about
+    /// it. The sound's events belong to [`AppLifecycle::next`]; here they
+    /// change nothing.
     pub fn next(self, event: AppEvent) -> (Self, &'static [AppAction]) {
         use AppEvent::*;
         use AppPlace::*;
@@ -122,18 +191,12 @@ impl AppPlace {
             ),
             // Back from inactive, whether or not it reached the background.
             (Inactive, DidBecomeActive) => (Active, &[WakeAudio, ReadScreenAgain]),
-            // The sound taken or its output gone while playing: the drive
-            // pauses as it does when the player leaves.
-            (Active, AudioInterruptionBegan | OutputDeviceLost) => {
-                (Active, &[ReleaseControls, PauseDrive])
-            }
-            (Active, AudioInterruptionEnded) => (Active, &[WakeAudio, ReadScreenAgain]),
-            // Not in the foreground, the sound coming back is woken; the
-            // screen is read when the app is active again.
-            (Inactive | Background, AudioInterruptionEnded) => (self, &[WakeAudio]),
+            // The output gone while playing: the drive pauses as it does
+            // when the player leaves.
+            (Active, OutputDeviceLost) => (Active, &[ReleaseControls, PauseDrive]),
             // Everything else repeats what the place already says, or is
-            // sound news away from the foreground, where leaving already
-            // paused the drive.
+            // news away from the foreground, where leaving already paused
+            // the drive.
             _ => (self, &[]),
         }
     }
@@ -191,109 +254,123 @@ mod tests {
     use super::AppPlace::*;
     use super::*;
 
-    /// Every place against every event.
+    const NONE: &[AppAction] = &[];
+    const LEAVE: &[AppAction] = &[ReleaseControls, PauseDrive];
+    const BACK: &[AppAction] = &[WakeAudio, ReadScreenAgain];
+    const WAKE: &[AppAction] = &[WakeAudio];
+    const SAVE: &[AppAction] = &[SaveForBackground, EndReportSession];
+    const LEAVE_AND_SAVE: &[AppAction] = &[
+        ReleaseControls,
+        PauseDrive,
+        SaveForBackground,
+        EndReportSession,
+    ];
+    const FOREGROUND: &[AppAction] = &[ResumeReportSession, RestoreStopSave];
+    const BACK_FROM_BACKGROUND: &[AppAction] = &[
+        ResumeReportSession,
+        RestoreStopSave,
+        WakeAudio,
+        ReadScreenAgain,
+    ];
+
+    fn at(place: AppPlace, sound_taken: bool) -> AppLifecycle {
+        AppLifecycle { place, sound_taken }
+    }
+
+    /// Every place, with the sound held and not, against every event.
     #[test]
     fn transition_table() {
-        let leave: &[AppAction] = &[ReleaseControls, PauseDrive];
-        let none: &[AppAction] = &[];
-        let table: [(AppPlace, AppEvent, AppPlace, &[AppAction]); 21] = [
-            (Active, WillResignActive, Inactive, leave),
-            (
-                Active,
-                DidEnterBackground,
-                Background,
-                &[
-                    ReleaseControls,
-                    PauseDrive,
-                    SaveForBackground,
-                    EndReportSession,
-                ],
-            ),
-            (Active, WillEnterForeground, Active, none),
-            (Active, DidBecomeActive, Active, none),
-            (Active, AudioInterruptionBegan, Active, leave),
-            (
-                Active,
-                AudioInterruptionEnded,
-                Active,
-                &[WakeAudio, ReadScreenAgain],
-            ),
-            (Active, OutputDeviceLost, Active, leave),
-            (Inactive, WillResignActive, Inactive, none),
-            (
-                Inactive,
-                DidEnterBackground,
-                Background,
-                &[SaveForBackground, EndReportSession],
-            ),
-            (Inactive, WillEnterForeground, Inactive, none),
-            (
-                Inactive,
-                DidBecomeActive,
-                Active,
-                &[WakeAudio, ReadScreenAgain],
-            ),
-            (Inactive, AudioInterruptionBegan, Inactive, none),
-            (Inactive, AudioInterruptionEnded, Inactive, &[WakeAudio]),
-            (Inactive, OutputDeviceLost, Inactive, none),
-            (Background, WillResignActive, Background, none),
-            (Background, DidEnterBackground, Background, none),
-            (
-                Background,
-                WillEnterForeground,
-                Inactive,
-                &[ResumeReportSession, RestoreStopSave],
-            ),
-            (
-                Background,
-                DidBecomeActive,
-                Active,
-                &[
-                    ResumeReportSession,
-                    RestoreStopSave,
-                    WakeAudio,
-                    ReadScreenAgain,
-                ],
-            ),
-            (Background, AudioInterruptionBegan, Background, none),
-            (Background, AudioInterruptionEnded, Background, &[WakeAudio]),
-            (Background, OutputDeviceLost, Background, none),
+        #[rustfmt::skip]
+        let table: [(AppPlace, bool, AppEvent, AppPlace, bool, &[AppAction]); 42] = [
+            (Active, false, WillResignActive, Inactive, false, LEAVE),
+            (Active, false, DidEnterBackground, Background, false, LEAVE_AND_SAVE),
+            (Active, false, WillEnterForeground, Active, false, NONE),
+            (Active, false, DidBecomeActive, Active, false, NONE),
+            (Active, false, AudioInterruptionBegan, Active, true, LEAVE),
+            (Active, false, AudioInterruptionEnded, Active, false, WAKE),
+            (Active, false, OutputDeviceLost, Active, false, LEAVE),
+            (Active, true, WillResignActive, Inactive, true, LEAVE),
+            (Active, true, DidEnterBackground, Background, true, LEAVE_AND_SAVE),
+            (Active, true, WillEnterForeground, Active, true, NONE),
+            (Active, true, DidBecomeActive, Active, true, NONE),
+            (Active, true, AudioInterruptionBegan, Active, true, LEAVE),
+            (Active, true, AudioInterruptionEnded, Active, false, BACK),
+            (Active, true, OutputDeviceLost, Active, true, LEAVE),
+            (Inactive, false, WillResignActive, Inactive, false, NONE),
+            (Inactive, false, DidEnterBackground, Background, false, SAVE),
+            (Inactive, false, WillEnterForeground, Inactive, false, NONE),
+            (Inactive, false, DidBecomeActive, Active, false, BACK),
+            (Inactive, false, AudioInterruptionBegan, Inactive, true, NONE),
+            (Inactive, false, AudioInterruptionEnded, Inactive, false, WAKE),
+            (Inactive, false, OutputDeviceLost, Inactive, false, NONE),
+            (Inactive, true, WillResignActive, Inactive, true, NONE),
+            (Inactive, true, DidEnterBackground, Background, true, SAVE),
+            (Inactive, true, WillEnterForeground, Inactive, true, NONE),
+            (Inactive, true, DidBecomeActive, Active, false, BACK),
+            (Inactive, true, AudioInterruptionBegan, Inactive, true, NONE),
+            (Inactive, true, AudioInterruptionEnded, Inactive, false, WAKE),
+            (Inactive, true, OutputDeviceLost, Inactive, true, NONE),
+            (Background, false, WillResignActive, Background, false, NONE),
+            (Background, false, DidEnterBackground, Background, false, NONE),
+            (Background, false, WillEnterForeground, Inactive, false, FOREGROUND),
+            (Background, false, DidBecomeActive, Active, false, BACK_FROM_BACKGROUND),
+            (Background, false, AudioInterruptionBegan, Background, true, NONE),
+            (Background, false, AudioInterruptionEnded, Background, false, WAKE),
+            (Background, false, OutputDeviceLost, Background, false, NONE),
+            (Background, true, WillResignActive, Background, true, NONE),
+            (Background, true, DidEnterBackground, Background, true, NONE),
+            (Background, true, WillEnterForeground, Inactive, true, FOREGROUND),
+            (Background, true, DidBecomeActive, Active, false, BACK_FROM_BACKGROUND),
+            (Background, true, AudioInterruptionBegan, Background, true, NONE),
+            (Background, true, AudioInterruptionEnded, Background, false, WAKE),
+            (Background, true, OutputDeviceLost, Background, true, NONE),
         ];
-        for (from, event, to, actions) in table {
-            assert_eq!(from.next(event), (to, actions), "{from:?} + {event:?}");
+        for (place, taken, event, to, to_taken, actions) in table {
+            assert_eq!(
+                at(place, taken).next(event),
+                (at(to, to_taken), actions),
+                "{place:?} (sound taken {taken}) + {event:?}"
+            );
         }
-        // The table covers every pair.
-        for from in [Active, Inactive, Background] {
-            for event in AppEvent::ALL {
-                assert!(
-                    table.iter().any(|(f, e, _, _)| *f == from && *e == event),
-                    "{from:?} + {event:?} is missing"
-                );
+        for place in [Active, Inactive, Background] {
+            for taken in [false, true] {
+                for event in AppEvent::ALL {
+                    assert!(
+                        table
+                            .iter()
+                            .any(|row| row.0 == place && row.1 == taken && row.2 == event),
+                        "{place:?} (sound taken {taken}) + {event:?} is missing"
+                    );
+                }
             }
         }
     }
 
     /// Runs a sequence of events from active, gathering every action.
-    fn run(events: &[AppEvent]) -> (AppPlace, Vec<AppAction>) {
-        let mut place = Active;
+    fn run(events: &[AppEvent]) -> (AppLifecycle, Vec<AppAction>) {
+        let mut state = AppLifecycle::default();
         let mut done = Vec::new();
         for &event in events {
-            let (next, actions) = place.next(event);
-            place = next;
+            let (next, actions) = state.next(event);
+            state = next;
             done.extend_from_slice(actions);
         }
-        (place, done)
+        (state, done)
+    }
+
+    fn count(actions: &[AppAction], action: AppAction) -> usize {
+        actions.iter().filter(|a| **a == action).count()
     }
 
     #[test]
     fn a_call_or_the_lock_button_pauses_saves_and_comes_back_read() {
-        let (place, actions) = run(&[
+        let (state, actions) = run(&[
             WillResignActive,
             DidEnterBackground,
             WillEnterForeground,
             DidBecomeActive,
         ]);
-        assert_eq!(place, Active);
+        assert_eq!(state, AppLifecycle::default());
         assert_eq!(
             actions,
             [
@@ -311,51 +388,80 @@ mod tests {
 
     #[test]
     fn control_center_pauses_without_a_save() {
-        let (place, actions) = run(&[WillResignActive, DidBecomeActive]);
-        assert_eq!(place, Active);
+        let (state, actions) = run(&[WillResignActive, DidBecomeActive]);
+        assert_eq!(state, AppLifecycle::default());
         assert_eq!(
             actions,
             [ReleaseControls, PauseDrive, WakeAudio, ReadScreenAgain]
         );
     }
 
+    /// A call, in every order iOS may send its pieces, and with the end
+    /// missing: one pause and exactly one reading on the way back.
     #[test]
-    fn a_call_taking_the_sound_pauses_once() {
-        // iOS sends the interruption and the resign in either order.
-        for events in [
-            [AudioInterruptionBegan, WillResignActive],
-            [WillResignActive, AudioInterruptionBegan],
-        ] {
-            let (_, actions) = run(&events);
-            let pauses = actions.iter().filter(|a| **a == PauseDrive).count();
-            // The second pause lands on the pause menu, which ignores it;
-            // the table only promises that the drive is paused.
-            assert!(pauses >= 1, "{events:?}");
+    fn a_call_is_read_once_on_return_in_every_order() {
+        let orders: [&[AppEvent]; 7] = [
+            &[
+                AudioInterruptionBegan,
+                WillResignActive,
+                DidBecomeActive,
+                AudioInterruptionEnded,
+            ],
+            &[
+                AudioInterruptionBegan,
+                WillResignActive,
+                AudioInterruptionEnded,
+                DidBecomeActive,
+            ],
+            &[
+                WillResignActive,
+                AudioInterruptionBegan,
+                DidBecomeActive,
+                AudioInterruptionEnded,
+            ],
+            &[
+                WillResignActive,
+                AudioInterruptionBegan,
+                AudioInterruptionEnded,
+                DidBecomeActive,
+            ],
+            // No end at all.
+            &[WillResignActive, AudioInterruptionBegan, DidBecomeActive],
+            // Through the background.
+            &[
+                WillResignActive,
+                AudioInterruptionBegan,
+                DidEnterBackground,
+                WillEnterForeground,
+                DidBecomeActive,
+                AudioInterruptionEnded,
+            ],
+            // An alarm: the app never leaves.
+            &[AudioInterruptionBegan, AudioInterruptionEnded],
+        ];
+        for events in orders {
+            let (state, actions) = run(events);
+            assert_eq!(
+                count(&actions, ReadScreenAgain),
+                1,
+                "{events:?}: {actions:?}"
+            );
+            assert!(count(&actions, PauseDrive) >= 1, "{events:?}");
+            assert_eq!(state, AppLifecycle::default(), "{events:?}");
         }
-        let (place, actions) = run(&[
-            WillResignActive,
-            AudioInterruptionBegan,
-            AudioInterruptionEnded,
-            DidBecomeActive,
-        ]);
-        assert_eq!(place, Active);
-        assert_eq!(
-            actions,
-            [
-                ReleaseControls,
-                PauseDrive,
-                WakeAudio,
-                WakeAudio,
-                ReadScreenAgain
-            ]
-        );
     }
 
     #[test]
     fn a_background_with_no_resign_still_pauses_first() {
-        let (place, actions) = run(&[DidEnterBackground]);
-        assert_eq!(place, Background);
+        let (state, actions) = run(&[DidEnterBackground]);
+        assert_eq!(state.place, Background);
         assert_eq!(actions[..2], [ReleaseControls, PauseDrive]);
+    }
+
+    #[test]
+    fn status_names_the_sound_taken() {
+        assert_eq!(AppLifecycle::default().key(), "active");
+        assert_eq!(at(Inactive, true).key(), "inactive, sound_taken");
     }
 
     #[test]

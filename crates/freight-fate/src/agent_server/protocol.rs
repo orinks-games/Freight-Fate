@@ -271,7 +271,8 @@ fn tools_list() -> Value {
              truck), chain_control (clear, level_1 or level_2: the chain law posted \
              at the truck, which follows snow or ice on the road) and chains \
              (stowed, on_snow, on_bare or broken), and app (active, inactive or \
-             background: where a phone app is, moved by app_event). \
+             background: where a phone app is, moved by app_event, with \
+             sound_taken after it while an interruption holds the sound). \
              Off the wheel the \
              STATE line carries touch_mode and app, and on the dispatch board also \
              board_mode (assigned or browse), board_offer (the row dispatch \
@@ -297,7 +298,8 @@ fn tools_list() -> Value {
              is will_resign_active then did_enter_background; coming back is \
              will_enter_foreground then did_become_active; Control Center is \
              will_resign_active then did_become_active. status reports app (active, \
-             inactive or background).",
+             inactive or background, and sound_taken while an interruption holds the \
+             sound).",
             json!({"name": {"type": "string"}}),
             &["name"],
         ),
