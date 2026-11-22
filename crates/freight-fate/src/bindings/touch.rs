@@ -547,6 +547,13 @@ mod tests {
             b.touch_noun(Action::SpeedLimit),
             "Posted speed limit from the three-finger tap list"
         );
+        // The engine brake has a default slot; emptied, it is named by its
+        // row in the list.
+        assert_eq!(
+            b.hint_touch_phrase("engine_brake").as_deref(),
+            Some("a second-finger tap while holding brake")
+        );
+        b.set_touch_command(Gesture::LowerHoldTap, TouchCommand::Nothing);
         assert_eq!(
             b.hint_touch_phrase("engine_brake").as_deref(),
             Some("Engine brake from the three-finger tap list")

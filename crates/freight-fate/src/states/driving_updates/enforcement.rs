@@ -14,7 +14,7 @@ use ff_core::speech_text::{overspeed_nag, SpokenMessage};
 use crate::app::{GameContext, SayEvent};
 use crate::states::driving::DrivingState;
 use crate::states::driving_core::*;
-use crate::states::driving_enforcement::SCALE_REMINDER_REAL_LEAD_S;
+use crate::states::driving_enforcement::{SCALE_NAMED_GRACE_S, SCALE_REMINDER_REAL_LEAD_S};
 use crate::states::driving_team::notes::NoteWeight;
 use crate::states::driving_updates::{limit_drop_speech_latency_s, live};
 
@@ -449,6 +449,12 @@ impl DrivingState {
                             left > 0.0 && short_distance_text_for(left, imperial) == announced
                         }),
                 );
+                // Standard speech named the scale and its distance just now;
+                // the quiet rungs heard the earcon alone.
+                if !self.terse_speech(ctx) {
+                    self.scale_named_key = key.clone();
+                    self.scale_named_s = SCALE_NAMED_GRACE_S;
+                }
                 // The verdict line itself queues right behind the notice
                 // (both ROUTE, interrupt=False): green says keep rolling,
                 // red says pull in.
