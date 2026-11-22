@@ -213,6 +213,14 @@ impl DrivingState {
             .city(local_city)
             .map(|city| city.state.clone())
             .unwrap_or_default();
+        // The date the player hears (the real one while live weather keeps
+        // the calendar), as whole days from the career clock: what the
+        // board priced spring weight limits on, and what the tunnel's
+        // seasons read.
+        let calendar_shift_h = {
+            let calendar = crate::states::city::dispatch_calendar_hours(ctx);
+            ((calendar / 24.0).floor() - (profile_of(ctx).game_hours / 24.0).floor()) * 24.0
+        };
         let mut trip = Trip::new(
             route.clone(),
             truck,
@@ -224,6 +232,7 @@ impl DrivingState {
                 imperial: ctx.settings.imperial(),
                 hazard_scale,
                 career_hours: Some(profile_of(ctx).game_hours),
+                calendar_shift_h,
                 live_calendar: profile_of(ctx).live_calendar,
                 traffic_provider: live_traffic_provider(ctx),
                 parking_provider: live_parking_provider(ctx),
