@@ -5853,8 +5853,11 @@ a carrier slice (owner, 2026-10-26).
       director's copy, baked on the legs; merges on Orinks's approval.
 - [ ] The sheet's 13 Highway 1 and 97 boards (Hope to Barkerville) move to
       the West corridor's sheet, same copy, once its chain legs merge.
-- [ ] Billboard sheets for each Canadian corridor as its PR merges, West
-      first; French attraction names listed for Orinks's ear.
+- [ ] Billboard sheets for each Canadian corridor and the new Alaska
+      routes, once the routing is in (owner, 2026-11-22: iconic real places
+      and landmarks, the way the 1.9 attraction expansion did it), West
+      first; French attraction names listed for Orinks's ear, copy to
+      Orinks for approval.
 - [ ] (Found along the way) New Brunswick is read attractions only
       province-wide because its freight routes are Level I and II
       highways; its ordinary highways license commercial boards. A per-leg
