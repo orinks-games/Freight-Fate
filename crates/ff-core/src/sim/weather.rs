@@ -199,7 +199,12 @@ pub trait WeatherProvider {
 /// weather keeps running underneath as an offline fallback.
 pub struct WeatherSystem {
     rng: PyRandom,
+    /// Freight region: which weather kinds are drawn, and how often.
     pub region: String,
+    /// Climate key for the simulated temperature (`data::climate`). The
+    /// same as `region` in the lower 48; its own row in Alaska and Canada,
+    /// which share freight regions with warmer places.
+    pub climate: String,
     pub provider: Option<Box<dyn WeatherProvider>>,
     pub live_weather_controls_calendar: bool,
     /// Career clock at this point in the trip. When provided, weather is
@@ -254,6 +259,26 @@ impl WeatherSystem {
         game_hours: Option<f64>,
         live_weather_controls_calendar: bool,
     ) -> Self {
+        Self::with_climate(
+            region,
+            region,
+            seed,
+            provider,
+            game_hours,
+            live_weather_controls_calendar,
+        )
+    }
+
+    /// [`new`](Self::new) with a climate key of its own, so the first
+    /// condition is already reconciled with the right temperature.
+    pub fn with_climate(
+        region: &str,
+        climate: &str,
+        seed: Option<i64>,
+        provider: Option<Box<dyn WeatherProvider>>,
+        game_hours: Option<f64>,
+        live_weather_controls_calendar: bool,
+    ) -> Self {
         let rng = match seed {
             Some(seed) => PyRandom::new_from_i64(seed),
             None => PyRandom::new_unseeded(),
@@ -266,6 +291,7 @@ impl WeatherSystem {
         let mut system = WeatherSystem {
             rng,
             region: region.to_string(),
+            climate: climate.to_string(),
             provider,
             live_weather_controls_calendar,
             game_hours,
@@ -349,7 +375,7 @@ impl WeatherSystem {
             return Some(observed);
         }
         let clock = self.season_clock()?;
-        Some(temperature_c(&self.region, clock))
+        Some(temperature_c(&self.climate, clock))
     }
 
     /// Reconcile a simulated condition with the season's temperature.
@@ -360,7 +386,7 @@ impl WeatherSystem {
         // season thunderstorms in the career's independent calendar.
         let temp = if self.provider.is_some() && !self.live_weather_controls_calendar {
             self.season_clock()
-                .map(|clock| temperature_c(&self.region, clock))
+                .map(|clock| temperature_c(&self.climate, clock))
         } else {
             self.temperature()
         };
@@ -426,8 +452,17 @@ impl WeatherSystem {
         self.rng.choices(&kinds, Some(&values), None, 1)[0]
     }
 
+    /// Move to a freight region. The climate follows it until
+    /// [`set_climate`](Self::set_climate) names its own.
     pub fn set_region(&mut self, region: &str) {
         self.region = region.to_string();
+        self.climate = region.to_string();
+    }
+
+    /// The climate key the simulated temperature reads. A live reading
+    /// still wins over it whenever there is one.
+    pub fn set_climate(&mut self, climate: &str) {
+        self.climate = climate.to_string();
     }
 
     /// Advance by game minutes. Returns the new condition if it changed.

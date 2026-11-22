@@ -198,6 +198,8 @@ impl Trip {
         self.weather.set_region(&region);
         let covered = self.live_weather_covers(self.position_mi);
         self.weather.set_live_coverage(covered);
+        let climate = self.climate_at(self.position_mi);
+        self.weather.set_climate(&climate);
         if let Some((weather_key, lat, lon)) = self.weather_location() {
             let previous_weather_key = self.weather.city.clone();
             let location_changed = previous_weather_key.as_deref() != Some(weather_key.as_str());

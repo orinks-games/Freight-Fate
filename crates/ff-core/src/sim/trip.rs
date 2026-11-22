@@ -29,6 +29,7 @@ use crate::sim::vehicle::TruckState;
 use crate::sim::weather::WeatherSystem;
 use crate::units::{distance_unit, spoken_distance, spoken_gap, to_distance};
 
+mod climate;
 pub mod destination_exit;
 mod exit_ramps;
 mod limits;

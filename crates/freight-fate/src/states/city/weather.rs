@@ -26,15 +26,16 @@ struct LiveReading {
 
 pub(crate) fn time_and_weather_lines(ctx: &mut GameContext) -> Vec<String> {
     let world = ctx.world;
-    let (city_key, city_name, region, lat, lon, covered, game_hours, calendar_hours, day) = {
+    let (city_key, city_name, region, climate, lat, lon, covered, game_hours, calendar_hours, day) = {
         let p = profile(ctx);
         let city = world.city(&p.current_city);
-        let (key, name, region, lat, lon, covered) = match city {
+        let (key, name, region, climate, lat, lon, covered) = match city {
             // The Weather Service answers for the United States only.
             Ok(c) => (
                 c.key.clone(),
                 c.name.clone(),
                 c.region.clone(),
+                c.climate().to_string(),
                 c.lat,
                 c.lon,
                 c.country.eq_ignore_ascii_case("US"),
@@ -42,6 +43,7 @@ pub(crate) fn time_and_weather_lines(ctx: &mut GameContext) -> Vec<String> {
             Err(_) => (
                 p.current_city.clone(),
                 p.current_city.clone(),
+                String::new(),
                 String::new(),
                 0.0,
                 0.0,
@@ -52,6 +54,7 @@ pub(crate) fn time_and_weather_lines(ctx: &mut GameContext) -> Vec<String> {
             key,
             name,
             region,
+            climate,
             lat,
             lon,
             covered,
@@ -119,7 +122,7 @@ pub(crate) fn time_and_weather_lines(ctx: &mut GameContext) -> Vec<String> {
         // never replaces a real station temperature with a modeled one.
         let guard_temp = match observed {
             Some(t) if live_calendar_setting => t,
-            _ => temperature_c(&region, season_hours),
+            _ => temperature_c(&climate, season_hours),
         };
         let mut parts = vec![
             adjust_for_calendar(kind, Some(guard_temp), Some(season_hours))
@@ -146,8 +149,9 @@ pub(crate) fn time_and_weather_lines(ctx: &mut GameContext) -> Vec<String> {
             None => {
                 // deterministic per city and hour, so asking twice agrees
                 let seed = crc32(format!("{city_key}:{}", game_hours_int(game_hours)).as_bytes());
-                WeatherSystem::new(
+                WeatherSystem::with_climate(
                     &region,
+                    &climate,
                     Some(i64::from(seed)),
                     None,
                     Some(season_hours),

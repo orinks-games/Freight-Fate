@@ -429,6 +429,28 @@ fn test_leg_heading_follows_route_numbering() {
 }
 
 #[test]
+fn test_canadian_legs_are_signed_the_way_the_road_runs() {
+    // Ontario's 400 runs north to Barrie and the 401 east to Kingston,
+    // whatever their numbers' parity; BC's Highway 1 runs east to Hope.
+    let w = world();
+    for (highway, from, to, heading) in [
+        ("Hwy 400", "toronto_on_ca", "barrie_on_ca", "North"),
+        ("Hwy 400", "barrie_on_ca", "toronto_on_ca", "South"),
+        ("Hwy 401", "toronto_on_ca", "kingston_on_ca", "East"),
+        ("Hwy 401", "london_on_ca", "windsor_on_ca", "West"),
+        ("A-20", "montreal_qc_ca", "quebec_city_qc_ca", "East"),
+        (
+            "A-55",
+            "trois_rivieres_qc_ca",
+            "drummondville_qc_ca",
+            "South",
+        ),
+    ] {
+        assert_eq!(leg_heading(w, highway, from, to), heading, "{from} to {to}");
+    }
+}
+
+#[test]
 fn test_nearest_exit_label_respects_tolerance() {
     let base = first_route_option(world(), "Chicago", "Indianapolis").legs[0].clone();
     let leg = with_corridor(&base, |detail| {
