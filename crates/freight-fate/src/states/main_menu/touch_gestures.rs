@@ -55,10 +55,58 @@ fn deep_swipe_help(ctx: &GameContext) -> &'static str {
     }
 }
 
+/// The tilt steering row's help, in each input's own words.
+fn tilt_help(ctx: &GameContext) -> &'static str {
+    match ctx.controller.device() {
+        ff_core::input_hints::TOUCH => {
+            "On, tilting the phone left or right steers, and the screen stops turning with \
+             the phone while you drive. With lane keeping on full, a tilt changes one lane. \
+             Swipes and flicks still steer. Flick up or down to change it."
+        }
+        ff_core::input_hints::CONTROLLER => {
+            "On, tilting the phone left or right steers, and the screen stops turning with \
+             the phone while you drive. With lane keeping on full, a tilt changes one lane. \
+             Swipes and flicks still steer. D-pad Right or Left changes it."
+        }
+        _ => {
+            "On, tilting the phone left or right steers, and the screen stops turning with \
+             the phone while you drive. With lane keeping on full, a tilt changes one lane. \
+             Swipes and flicks still steer. Right or Left arrow changes it."
+        }
+    }
+}
+
+/// The tilt for full steering row's help, in each input's own words.
+fn tilt_full_help(ctx: &GameContext) -> &'static str {
+    match ctx.controller.device() {
+        ff_core::input_hints::TOUCH => {
+            "How far the phone tilts for full steering. A smaller number steers harder. \
+             Flick up or down to change it."
+        }
+        ff_core::input_hints::CONTROLLER => {
+            "How far the phone tilts for full steering. A smaller number steers harder. \
+             D-pad Right or Left changes it."
+        }
+        _ => {
+            "How far the phone tilts for full steering. A smaller number steers harder. \
+             Right or Left arrow changes it."
+        }
+    }
+}
+
+/// Whether tilt steering is steering: on, on a device with a motion sensor.
+fn tilt_on(ctx: &GameContext) -> bool {
+    crate::app::tilt::wanted(&ctx.settings)
+        && ctx.tilt.state() != ff_core::sim::tilt_steering::TiltSteering::NoSensor
+}
+
 pub struct TouchGesturesState {
     menu: MenuCore<Self>,
-    /// Where the deep swipe row sits, the one row Left and Right change.
+    /// Where the deep swipe row sits, one of the rows Left and Right change.
     deep_swipe_row: usize,
+    /// Where the two tilt steering rows sit; the second only while it is on.
+    tilt_row: usize,
+    tilt_full_row: usize,
 }
 
 impl TouchGesturesState {
@@ -68,7 +116,49 @@ impl TouchGesturesState {
                 .with_intro_help(GESTURES_HELP)
                 .with_touch_help(GESTURES_TOUCH_HELP),
             deep_swipe_row: usize::MAX,
+            tilt_row: usize::MAX,
+            tilt_full_row: usize::MAX,
         }
+    }
+
+    /// Turn tilt steering on or off, save, and read the row again. A
+    /// device with no motion sensor keeps it off and says so.
+    fn toggle_tilt(&mut self, ctx: &mut GameContext) {
+        let turning_on = !tilt_on(ctx);
+        if turning_on && ctx.tilt.sensor_present == Some(false) {
+            ctx.settings.touch_tilt_steering = false;
+            save_settings(&ctx.settings);
+            ctx.say(ff_core::sim::tilt_steering::TiltLine::NoSensor.text());
+            return;
+        }
+        ctx.settings.touch_tilt_steering = turning_on;
+        save_settings(&ctx.settings);
+        ctx.audio.play("ui/menu_select");
+        self.refresh(ctx, true);
+        self.speak_current(ctx);
+    }
+
+    /// Move the tilt for full steering one step, save, and read the row.
+    fn step_tilt_full(&mut self, ctx: &mut GameContext, direction: i64) {
+        ctx.settings.step_touch_tilt_full(direction.signum());
+        save_settings(&ctx.settings);
+        ctx.audio.play("ui/menu_select");
+        self.speak_current(ctx);
+    }
+
+    /// Left and Right, or a flick up and down, on a row that changes.
+    fn step_row(&mut self, ctx: &mut GameContext, direction: i64) -> bool {
+        let index = self.menu.index;
+        if index == self.deep_swipe_row {
+            self.step_deep_swipe(ctx, direction);
+        } else if index == self.tilt_row {
+            self.toggle_tilt(ctx);
+        } else if index == self.tilt_full_row {
+            self.step_tilt_full(ctx, direction);
+        } else {
+            return false;
+        }
+        true
     }
 
     /// Move where the deep swipe starts one step, hand it to the touch
@@ -79,10 +169,6 @@ impl TouchGesturesState {
         save_settings(&ctx.settings);
         ctx.audio.play("ui/menu_select");
         self.speak_current(ctx);
-    }
-
-    fn on_deep_swipe_row(&self) -> bool {
-        self.menu.index == self.deep_swipe_row
     }
 
     fn reset_all(&mut self, ctx: &mut GameContext) {
@@ -111,6 +197,18 @@ impl Default for TouchGesturesState {
 }
 
 impl Menu for TouchGesturesState {
+    fn update(&mut self, ctx: &mut GameContext, dt: f64) {
+        ctx.update_music_rotation(dt);
+        // The switch can go off without a press: a phone with no motion
+        // sensor, found once it was on. The angle row goes with it.
+        if (self.tilt_full_row != usize::MAX) != tilt_on(ctx) {
+            if self.menu.index == self.tilt_full_row {
+                self.menu.index = self.tilt_row;
+            }
+            self.refresh(ctx, true);
+        }
+    }
+
     fn menu(&self) -> &MenuCore<Self> {
         &self.menu
     }
@@ -119,20 +217,51 @@ impl Menu for TouchGesturesState {
         &mut self.menu
     }
 
-    fn build_items(&mut self, _ctx: &mut GameContext) -> Vec<MenuItem<Self>> {
-        let mut items: Vec<MenuItem<Self>> = touch_slots()
-            .map(|gesture| {
+    fn build_items(&mut self, ctx: &mut GameContext) -> Vec<MenuItem<Self>> {
+        let mut items: Vec<MenuItem<Self>> = Vec::new();
+        self.tilt_row = items.len();
+        items.push(
+            MenuItem::new(
+                Label::dynamic(|_s: &Self, ctx| {
+                    if tilt_on(ctx) {
+                        "Tilt steering: On".to_string()
+                    } else {
+                        "Tilt steering: Off".to_string()
+                    }
+                }),
+                |s: &mut Self, ctx| s.toggle_tilt(ctx),
+            )
+            .help(Label::dynamic(|_s: &Self, ctx| tilt_help(ctx).to_string())),
+        );
+        self.tilt_full_row = usize::MAX;
+        if tilt_on(ctx) {
+            self.tilt_full_row = items.len();
+            items.push(
                 MenuItem::new(
-                    Label::dynamic(move |_s: &Self, ctx| {
-                        format!("{}: {}", gesture_name(gesture), command_name(ctx, gesture))
+                    Label::dynamic(|_s: &Self, ctx| {
+                        format!(
+                            "Tilt for full steering: {} degrees",
+                            ctx.settings.touch_tilt_full()
+                        )
                     }),
-                    move |_s: &mut Self, ctx: &mut GameContext| {
-                        let picker = TouchCommandPickerState::new(ctx, gesture);
-                        ctx.push_state(picker);
-                    },
+                    |s: &mut Self, ctx| s.step_tilt_full(ctx, 1),
                 )
-            })
-            .collect();
+                .help(Label::dynamic(|_s: &Self, ctx| {
+                    tilt_full_help(ctx).to_string()
+                })),
+            );
+        }
+        items.extend(touch_slots().map(|gesture| {
+            MenuItem::new(
+                Label::dynamic(move |_s: &Self, ctx| {
+                    format!("{}: {}", gesture_name(gesture), command_name(ctx, gesture))
+                }),
+                move |_s: &mut Self, ctx: &mut GameContext| {
+                    let picker = TouchCommandPickerState::new(ctx, gesture);
+                    ctx.push_state(picker);
+                },
+            )
+        }));
         self.deep_swipe_row = items.len();
         items.push(
             MenuItem::new(
@@ -197,24 +326,18 @@ impl Menu for TouchGesturesState {
         }
     }
 
-    /// Right and Left change the deep swipe row; a flick up or down on
-    /// touch arrives as the same keys.
+    /// Right and Left change the deep swipe and tilt rows; a flick up or
+    /// down on touch arrives as the same keys.
     fn handle_extra_key(&mut self, ctx: &mut GameContext, key: Key) -> bool {
-        if !self.on_deep_swipe_row() {
-            return false;
-        }
         match key {
-            Key::Right => self.step_deep_swipe(ctx, 1),
-            Key::Left => self.step_deep_swipe(ctx, -1),
-            _ => return false,
+            Key::Right => self.step_row(ctx, 1),
+            Key::Left => self.step_row(ctx, -1),
+            _ => false,
         }
-        true
     }
 
     fn adjust(&mut self, ctx: &mut GameContext, direction: i64) {
-        if self.on_deep_swipe_row() {
-            self.step_deep_swipe(ctx, direction);
-        }
+        self.step_row(ctx, direction);
     }
 
     fn go_back(&mut self, ctx: &mut GameContext) {
@@ -244,17 +367,15 @@ fn picker_rows() -> Vec<PickerRow> {
     let mut rows = vec![PickerRow::Command(TouchCommand::Nothing)];
     for row in command_list_rows() {
         match row {
-            CommandListRow::Command(action) => {
-                let command = TouchCommand::Action(action);
+            CommandListRow::Command(command) => {
                 if runnable.contains(&command) && !placed.contains(&command) {
                     placed.push(command);
                     rows.push(PickerRow::Command(command));
                 }
             }
-            CommandListRow::Group(label, actions) => {
-                let commands: Vec<TouchCommand> = actions
+            CommandListRow::Group(label, commands) => {
+                let commands: Vec<TouchCommand> = commands
                     .into_iter()
-                    .map(TouchCommand::Action)
                     .filter(|command| runnable.contains(command) && !placed.contains(command))
                     .collect();
                 if !commands.is_empty() {

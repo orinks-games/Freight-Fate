@@ -14,7 +14,7 @@
 //! to its own row in the top list.
 
 use crate::app::{GameContext, Say};
-use crate::bindings::Action;
+use crate::bindings::{Action, TouchCommand};
 use crate::impl_state_for_menu;
 use crate::states::base::{
     default_announce_entry, default_handle_event, InputEvent, Key, Label, Menu, MenuCore, MenuItem,
@@ -34,6 +34,8 @@ enum Fixed {
     NextStation,
     PreviousStation,
     Help,
+    /// Tilt steering takes level again. Listed only while it is on.
+    SetTiltLevel,
 }
 
 impl Fixed {
@@ -44,16 +46,19 @@ impl Fixed {
             Fixed::NextStation => "Next radio station",
             Fixed::PreviousStation => "Previous radio station",
             Fixed::Help => "Driving help",
+            Fixed::SetTiltLevel => "Set tilt level",
         }
     }
 
-    fn key_name(self) -> &'static str {
+    /// Its key; `None` for a phone's command, which has no key.
+    fn key_name(self) -> Option<&'static str> {
         match self {
-            Fixed::CruiseUp => "Plus",
-            Fixed::CruiseDown => "Minus",
-            Fixed::NextStation => "Page Down",
-            Fixed::PreviousStation => "Page Up",
-            Fixed::Help => "F1",
+            Fixed::CruiseUp => Some("Plus"),
+            Fixed::CruiseDown => Some("Minus"),
+            Fixed::NextStation => Some("Page Down"),
+            Fixed::PreviousStation => Some("Page Up"),
+            Fixed::Help => Some("F1"),
+            Fixed::SetTiltLevel => None,
         }
     }
 
@@ -65,6 +70,12 @@ impl Fixed {
             Fixed::NextStation => Some("a three-finger flick right".to_string()),
             Fixed::PreviousStation => Some("a three-finger flick left".to_string()),
             Fixed::Help => Some("a two-finger flick up".to_string()),
+            Fixed::SetTiltLevel => crate::bindings::touch_slots()
+                .find(|gesture| {
+                    ctx.bindings.touch_command(*gesture)
+                        == Some(crate::bindings::TouchCommand::SetTiltLevel)
+                })
+                .and_then(crate::bindings::touch_gesture_noun),
         }
     }
 
@@ -75,6 +86,7 @@ impl Fixed {
             Fixed::NextStation => drive.tune_radio(ctx, 1),
             Fixed::PreviousStation => drive.tune_radio(ctx, -1),
             Fixed::Help => drive.speak_driving_help(ctx),
+            Fixed::SetTiltLevel => drive.set_tilt_level(ctx),
         }
     }
 }
@@ -172,40 +184,42 @@ pub fn command_group_label(action: Action) -> Option<&'static str> {
 /// lists commands the same way (the command picker of Touch gestures).
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub enum CommandListRow {
-    Command(Action),
-    /// A group by its spoken name, with the actions its rows run.
-    Group(&'static str, Vec<Action>),
+    Command(TouchCommand),
+    /// A group by its spoken name, with the commands its rows run.
+    Group(&'static str, Vec<TouchCommand>),
 }
 
 /// The driving command list's top level in its order: its commands and its
-/// groups. Rows that run no action of their own (Driving help, Back) are
-/// left out, and a row that changes a value gives both of its actions.
+/// groups. Rows that run no command a gesture can hold (Driving help, Back)
+/// are left out, and a row that changes a value gives both of its commands.
 pub fn command_list_rows() -> Vec<CommandListRow> {
     TOP.iter()
         .filter_map(|entry| match entry {
-            Run(action) => Some(CommandListRow::Command(*action)),
+            Run(action) => Some(CommandListRow::Command(TouchCommand::Action(*action))),
             Open(group) => Some(CommandListRow::Group(
                 group.label(),
-                group.entries().iter().flat_map(entry_actions).collect(),
+                group.entries().iter().flat_map(entry_commands).collect(),
             )),
             _ => None,
         })
         .collect()
 }
 
-fn entry_actions(entry: &Entry) -> Vec<Action> {
-    match entry {
+fn entry_commands(entry: &Entry) -> Vec<TouchCommand> {
+    let actions = match entry {
         Run(action) => vec![*action],
         F(Fixed::CruiseUp) => vec![Action::CruiseUp],
         F(Fixed::CruiseDown) => vec![Action::CruiseDown],
         F(Fixed::NextStation) => vec![Action::RadioTuneNext],
         F(Fixed::PreviousStation) => vec![Action::RadioTunePrev],
+        F(Fixed::SetTiltLevel) => return vec![TouchCommand::SetTiltLevel],
         Entry::Value(value) => {
             let (raise, lower) = value.actions();
             vec![raise, lower]
         }
         _ => Vec::new(),
-    }
+    };
+    actions.into_iter().map(TouchCommand::Action).collect()
 }
 
 impl Group {
@@ -257,6 +271,9 @@ impl Group {
                 Run(Action::DriverWindow),
                 Run(Action::Fan),
                 Run(Action::Climate),
+                // Last, so leaving it out with tilt steering off moves no
+                // other row.
+                F(Fixed::SetTiltLevel),
             ],
             Group::Gears => &[
                 Run(Action::ShiftUp),
@@ -369,13 +386,21 @@ impl DrivingCommandsState {
         match entry {
             Run(action) => action_item(ctx, action),
             F(fixed) => {
-                let touch = fixed
-                    .touch_noun(ctx)
-                    .map_or(String::new(), |noun| format!("At the wheel: {noun}."));
+                // Set tilt level has no key and no gesture until the player
+                // gives it one, so its help says what it does instead.
+                const TILT_LEVEL_HELP: &str =
+                    "Tilt steering treats the way you hold the phone now as level.";
+                let touch = fixed.touch_noun(ctx).map_or_else(
+                    || TILT_LEVEL_HELP.to_string(),
+                    |noun| format!("At the wheel: {noun}."),
+                );
                 MenuItem::new(fixed.label(), move |s: &mut Self, ctx: &mut GameContext| {
                     s.run_on_drive(ctx, |drive, ctx| fixed.run(drive, ctx));
                 })
-                .help(format!("On the keyboard: {}.", fixed.key_name()))
+                .help(fixed.key_name().map_or_else(
+                    || TILT_LEVEL_HELP.to_string(),
+                    |key| format!("On the keyboard: {key}."),
+                ))
                 .touch_help(touch)
             }
             Entry::Value(value) => value_item(ctx, value),
@@ -465,8 +490,10 @@ impl Menu for DrivingCommandsState {
     }
 
     fn build_items(&mut self, ctx: &mut GameContext) -> Vec<MenuItem<Self>> {
+        let tilt = crate::app::tilt::wanted(&ctx.settings);
         self.entries()
             .iter()
+            .filter(|entry| tilt || **entry != F(Fixed::SetTiltLevel))
             .map(|entry| self.item(ctx, *entry))
             .collect()
     }
@@ -577,6 +604,7 @@ mod tests {
             Fixed::NextStation,
             Fixed::PreviousStation,
             Fixed::Help,
+            Fixed::SetTiltLevel,
         ] {
             assert_eq!(entries.iter().filter(|e| **e == F(fixed)).count(), 1);
         }

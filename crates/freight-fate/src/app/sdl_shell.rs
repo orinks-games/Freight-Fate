@@ -39,6 +39,7 @@ pub use hearken::sdl_shell::{key_from_keycode, mods_from};
 mod display;
 #[cfg(target_os = "ios")]
 mod ios;
+mod tilt_sensor;
 #[cfg(target_os = "ios")]
 use ios::{install_touch_surface, next_gesture};
 #[cfg(target_os = "ios")]
@@ -107,6 +108,8 @@ pub struct SdlShell {
     geometry_failed: bool,
     #[cfg(target_os = "windows")]
     window_handle: Option<isize>,
+    /// The motion sensor and the screen lock, for tilt steering.
+    tilt: tilt_sensor::TiltSensor,
     #[cfg(touch_screen)]
     touch: crate::touch::TouchInput,
     /// SDL's finger events through the gesture recognizer (iOS recognizes
@@ -197,10 +200,7 @@ impl SdlShell {
         // keep swipe directions matching their hand. (Android reads the
         // same hint.)
         #[cfg(touch_screen)]
-        sdl2::hint::set(
-            "SDL_IOS_ORIENTATIONS",
-            "Portrait PortraitUpsideDown LandscapeLeft LandscapeRight",
-        );
+        sdl2::hint::set("SDL_IOS_ORIENTATIONS", tilt_sensor::ALL_ORIENTATIONS);
         let sdl = sdl2::init()?;
         let video = sdl.video()?;
         // Resizable, and drawn at the display's own resolution (Retina on
@@ -278,6 +278,7 @@ impl SdlShell {
             geometry_failed: false,
             #[cfg(target_os = "windows")]
             window_handle,
+            tilt: tilt_sensor::TiltSensor::default(),
             #[cfg(touch_screen)]
             touch: crate::touch::TouchInput::new(),
             #[cfg(target_os = "android")]
@@ -431,6 +432,25 @@ impl SdlShell {
     /// Only a phone or tablet's touch surface measures swipes.
     #[cfg(not(touch_screen))]
     pub fn set_report_travel(&mut self, _on: bool) {}
+
+    /// This frame's motion sensor reading for tilt steering; `running` is
+    /// the switch on with the app in the foreground, and without it the
+    /// sensor stops.
+    pub fn read_tilt(&mut self, running: bool) -> crate::app::tilt::TiltRead {
+        self.tilt.read(&self.sdl, running)
+    }
+
+    /// Hold the screen's orientation while tilt steering is at the wheel.
+    /// Only iPhone and iPad can change it once the window is up.
+    pub fn lock_orientation(&mut self, lock: bool) {
+        if !cfg!(target_os = "ios") {
+            return;
+        }
+        if self.tilt.lock(lock).is_some() {
+            #[cfg(target_os = "ios")]
+            ios::refresh_orientations(self.canvas.window());
+        }
+    }
 
     /// Append this frame's gestures to the SDL events. A
     /// lost focus (the app leaving the foreground) lets go of a held pedal.

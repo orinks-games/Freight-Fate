@@ -384,6 +384,7 @@ impl State for InputPracticeState {
     fn update(&mut self, ctx: &mut GameContext, dt: f64) {
         ctx.update_music_rotation(dt);
         self.poll_analog(ctx);
+        self.gestures.poll_tilt(ctx);
     }
 
     /// Every key is practiced here, the review keys included.
