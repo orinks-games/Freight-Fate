@@ -65,9 +65,9 @@ Not sure what a warning chime or road cue means? Open **Learn game sounds** from
 
 ### Practice keys and buttons
 
-**Practice keys and buttons** lets you test any key, controller button, trigger, or stick without sending it to the truck. Press something and the game tells you what it does—for example, "E: Engine on or off" or "Right bumper plus X: Posted speed limit." It always reflects your own bindings from Settings, Gameplay, Controls.
+**Practice keys and buttons** lets you test any key, controller button, trigger, or stick without sending it to the truck. Press something and the game tells you what it does. For example, "E: Engine on or off" or "Right bumper plus X: Posted speed limit." It always reflects your own bindings from Settings, Gameplay, Controls.
 
-You can open practice from any screen—even in the middle of a drive—with **Shift+F1**, or by holding **Back** and pressing **Start** on a controller. The drive pauses while you practice. Press **Escape** twice, or **Start** twice, to leave.
+You can open practice from any screen, even in the middle of a drive, with **Shift+F1**, or by holding **Back** and pressing **Start** on a controller. The drive pauses while you practice. Press **Escape** twice, or **Start** twice, to leave.
 
 ### Settings
 
@@ -116,11 +116,11 @@ If you drive for a company, your carrier shapes what dispatch sends you and how 
 
 No matter which path you pick, you start at level 1. A company driver starts with 5,000 dollars, a full tank, and carrier equipment. A leased-on owner starts with 18,000 dollars and a new truck, along with all of its operating costs. You can keep the suggested home terminal or pick another city.
 
-When you arrive at your terminal, read the first-day briefing—it lays out your first goal and what costs to expect. After you take your first dispatch, **Career plan** tracks your next milestone. From there, the core loop stays steady: pick up freight, haul it safely, read the settlement, and grab your next load. Always leave room in that plan for fuel and legal rest.
+When you arrive at your terminal, read the first-day briefing. It lays out your first goal and what costs to expect. After you take your first dispatch, **Career plan** tracks your next milestone. From there, the core loop stays steady: pick up freight, haul it safely, read the settlement, and grab your next load. Always leave room in that plan for fuel and legal rest.
 
 ### Finding your first load
 
-Open **Dispatch board** at the terminal and accept a load. Keep in mind you do not have the freight yet—your first drive is an empty run over to the shipper to pick it up.
+Open **Dispatch board** at the terminal and accept a load. Keep in mind you do not have the freight yet: your first drive is an empty run over to the shipper to pick it up.
 
 ### Getting the truck moving
 
@@ -153,7 +153,7 @@ On a controller, any readout without its own button lives in **Driving commands*
 
 Do not wait until the tank is dry or your hours are gone to think about stopping. While rolling, press **T** (controller: **right bumper + D-pad down**) to plan a stop for fuel, a break, sleep, or food, and press **X** (controller: **D-pad down**) to signal for its exit. Keep tabs on your legal hours alongside the delivery deadline: **Alt+A** reads time used at the wheel and on duty, **Alt+S** tells you when your 30-minute break is due, and **Alt+D** reads both shift clocks along with reachable legal rest stops.
 
-When a break is due, pull in and take it before pushing on. Do not assume you always have 11 hours of driving ahead of you—your 8-hour break can come due earlier, and your 14-hour duty window can close before you finish 11 hours at the wheel. Remember too that a short break does not reset a shift. Check [Hours of service and fatigue](#hours-of-service-and-fatigue) whenever you are deciding between a quick break and a full sleep.
+When a break is due, pull in and take it before pushing on. Do not assume you always have 11 hours of driving ahead of you: your 8-hour break can come due earlier, and your 14-hour duty window can close before you finish 11 hours at the wheel. Remember too that a short break does not reset a shift. Check [Hours of service and fatigue](#hours-of-service-and-fatigue) whenever you are deciding between a quick break and a full sleep.
 
 ### Reaching the receiver
 
@@ -169,7 +169,7 @@ Need a breather at any point? **Escape** (controller: **Start**) pauses the driv
 
 ## Menu controls
 
-Every menu tells you its title, the item you are on, and where you are in the list—such as "3 of 10." Press **F1** anytime to hear what the highlighted option does. If you would rather skip the "3 of 10" counts, turn off **Menu position announcements** in Speech settings.
+Every menu tells you its title, the item you are on, and where you are in the list, such as "3 of 10." Press **F1** anytime to hear what the highlighted option does. If you would rather skip the "3 of 10" counts, turn off **Menu position announcements** in Speech settings.
 
 ### Menu navigation
 
@@ -264,7 +264,7 @@ Before you grab another load, take a quick look at **Truck status** to see where
 
 Inside **Garage** you can fuel up, repair damage, replace worn tires, reline brakes, overhaul the engine, buy snow chains, and wash the truck. Company drivers get carrier-paid routine equipment care. Owner-operators pay out of pocket, so always make sure you leave enough cash for fuel and service between settlements.
 
-Owners can also choose tire compounds and install upgrades for torque, aerodynamics, fuel capacity, and stronger brakes. Match your upgrades to the lanes you run—a bigger tank pays off on long western stretches, while reinforced brakes earn their keep in the mountains. Check your truck and business status before spending money you will need on the next run.
+Owners can also choose tire compounds and install upgrades for torque, aerodynamics, fuel capacity, and stronger brakes. Match your upgrades to the lanes you run: a bigger tank pays off on long western stretches, while reinforced brakes earn their keep in the mountains. Check your truck and business status before spending money you will need on the next run.
 
 ### Choosing equipment and work
 
@@ -297,7 +297,7 @@ Your career spans 30 levels, and you decide whether to climb the ladder as a com
 
 As a company driver, you earn wages and bonuses based on what the carrier makes, and the carrier supplies the truck and pays for routine upkeep. Each carrier sets its own wage floor, stop pay, pay share, bonuses, deadlines, and freight mix.
 
-You never buy a truck as a company driver—instead, dispatch moves you up through better carrier fleets as you level up, at no cost to you:
+You never buy a truck as a company driver. Instead, dispatch moves you up through better carrier fleets as you level up, at no cost to you:
 
 - **Level 1:** Yard standard truck.
 - **Level 4:** Regional fleet.
@@ -305,13 +305,13 @@ You never buy a truck as a company driver—instead, dispatch moves you up throu
 - **Level 13:** Premium fleet.
 - **Level 17:** First pick of the yard.
 
-Before level 9, dispatch matches a spare truck to each load—a sleeper for a long run, a heavy-spec tractor for heavy freight, or a day cab for a short turn—and each spare keeps its own fuel, wear, and damage. **Career stats** always tells you which fleet you are in and when the next one opens.
+Before level 9, dispatch matches a spare truck to each load (a sleeper for a long run, a heavy-spec tractor for heavy freight, or a day cab for a short turn), and each spare keeps its own fuel, wear, and damage. **Career stats** always tells you which fleet you are in and when the next one opens.
 
 ### Becoming an owner-operator and own authority
 
 Want to run your own iron? The **owner-operator buy-in** opens at **level 18**, provided you have at least 35 deliveries, a reputation of 80, no unpaid advance, and enough cash to cover the 35,000-dollar buy-in while still keeping 10,000 dollars in working capital. **Business status** lists whichever requirements you still need.
 
-If ownership is not your style, choose **Stay a company driver** to switch your goals and rank titles to the company track—you can always bring the ownership track back later with **Reopen the owner-operator plan**.
+If ownership is not your style, choose **Stay a company driver** to switch your goals and rank titles to the company track. You can always bring the ownership track back later with **Reopen the owner-operator plan**.
 
 Already an owner and want to go back to company driving? Choosing **Go back to company driving** asks you to confirm twice before selling anything. The game buys back your tractors and trailers at the stated values (your buy-in tractor returns its full purchase price; later tractors sell at used value) and puts you back in carrier equipment. Your driving record comes with you.
 
@@ -355,7 +355,7 @@ Before you say yes to any load, press **F1** (controller: **Back**) to read the 
 
 Your carrier provides trailers for any freight you are cleared to haul. Owner-operators start with dry van access and add specialty programs as they grow. If a job is locked, its description tells you exactly what is missing. Direct freight also notes when an owned trailer matches the load and lowers your charges.
 
-A destination city is a whole metro freight area, not a single dock—you might pull into a port, warehouse, farm, rail yard, or manufacturing plant. Some approaches follow mapped city streets, while representative locations use the guidance available for them.
+A destination city is a whole metro freight area, not a single dock; you might pull into a port, warehouse, farm, rail yard, or manufacturing plant. Some approaches follow mapped city streets, while representative locations use the guidance available for them.
 
 Every delivery earns experience for service and mileage, plus bonuses for undamaged cargo, specialty freight, and on-time streaks. Refrigerated freight opens at level 2, heavy haul at level 3, and high-value freight at level 4. As you level up, routes stretch longer, boards grow wider, and new equipment and business paths open up.
 
@@ -363,7 +363,7 @@ Protect your record along the way. A citation costs 4 reputation points for 30 g
 
 ## Pickup, loading, and route planning
 
-Every job starts with an empty drive to the shipper. Pull up to the gate, stop, and check in—that takes 15 on-duty minutes. Live loading takes around 60 minutes of game time, which passes in a quick wait.
+Every job starts with an empty drive to the shipper. Pull up to the gate, stop, and check in. That takes 15 on-duty minutes. Live loading takes around 60 minutes of game time, which passes in a quick wait.
 
 ### Drop and hook, and the walk-around
 
@@ -383,7 +383,7 @@ Want to test what a key does without hitting it on the highway? Press **Shift+F1
 
 This manual assumes the default bumper layout (right bumper for the second layer, left bumper for the clutch). If you flip **Second layer bumper** in Controls settings, those two bumpers trade places and the game names them accordingly.
 
-Whenever a row says **Driving commands**, that action has no dedicated controller button. Hold **right bumper** and press **Start** to open Driving status, choose **Driving commands**, and pick the action from the list—it runs right away and puts you back on the road.
+Whenever a row says **Driving commands**, that action has no dedicated controller button. Hold **right bumper** and press **Start** to open Driving status, choose **Driving commands**, and pick the action from the list. It runs right away and puts you back on the road.
 
 | Key | Controller | Action |
 | --- | --- | --- |
@@ -392,17 +392,17 @@ Whenever a row says **Driving commands**, that action has no dedicated controlle
 | Down arrow, tap then press and hold | Not on the controller | Latch the brake hands-free. After about half a second, a click and spoken line confirm it is latched. Tap Down arrow to release it, or touch the throttle to release it instantly. The throttle never latches. You can turn this gesture off under Settings, Driving assistance, Latching brake. |
 | B, hold | Left trigger, all the way down | Emergency brake. |
 | E | Right bumper plus A | Start the engine. You can only shut it off below 5 miles per hour. |
-| P | Right bumper plus Y | Release or set the parking brake. Only use this when stopped—pulling it above a crawl slams the spring brakes on with a screech, a violent stop, and permanent flat spots on your tires. |
+| P | Right bumper plus Y | Release or set the parking brake. Only use this when stopped. Pulling it above a crawl slams the spring brakes on with a screech, a violent stop, and permanent flat spots on your tires. |
 | K | Y | Start or cancel automatic speed control. Uses adaptive cruise on highways (including work zones and heavy traffic) and speed keeper on streets and facility approaches. Pauses automatically through pickup and resumes once you roll out loaded. Braking cancels it. While parked with the parking brake set, K latches high idle instead. |
 | Shift+K | Driving commands | Resume automatic speed control at your last set speed after braking cancelled it. |
 | Plus / Minus | Right bumper plus D-pad right or left | Raise or lower your cruise target while speed control is on, snapping outward to the next multiple of 5 mph (for example, 32 jumps to 35, then 40). Keypad Plus and Minus work too. |
 | Ctrl+Plus / Ctrl+Minus | Not on the controller | Adjust the cruise target by exactly 1 mph with no snapping. |
 | X | D-pad down | Signal for (or cancel) the next announced exit. The truck takes the ramp when your speed, lane, and intent line up. |
-| T | Right bumper plus D-pad down | While rolling: pick a stop purpose (fuel, break, sleep, fuel and sleep, or food and coffee) to hear distance, exit, and stopping-assist status. T never signals for the exit—use X for that. While stopped at a supported stop: opens its services menu. Stopped away from route points: opens emergency shoulder-sleep confirmation. |
+| T | Right bumper plus D-pad down | While rolling: pick a stop purpose (fuel, break, sleep, fuel and sleep, or food and coffee) to hear distance, exit, and stopping-assist status. T never signals for the exit; use X for that. While stopped at a supported stop: opens its services menu. Stopped away from route points: opens emergency shoulder-sleep confirmation. |
 | J | Right stick click | Toggle the engine brake on or off at the last stage you picked, like a real dash switch. In an automatic, J arms the truck's own retarder management unless you turned that off. |
 | Alt+J | Driving commands | In an automatic, switch between automatic retarder management and picking engine-brake stages yourself. |
 | Alt+T | Driving commands | Switch between automatic and manual transmission on the road. Changes your driving control scheme immediately. |
-| 1 / 2 / 3 | Right bumper plus right stick click steps to the next stage | Pick the engine brake stage—two, four, or six cylinders—while the engine brake is on. Does nothing when it is off. |
+| 1 / 2 / 3 | Right bumper plus right stick click steps to the next stage | Pick the engine brake stage (two, four, or six cylinders) while the engine brake is on. Does nothing when it is off. |
 | H | Left stick click, hold | Hold to sound the horn; release to stop. |
 | Z | Not on the controller | Roll the driver window down or up. Down lets in wind, louder road noise, and outside birds, insects, or rivers on your side; up muffles them. Resets closed at the start of every drive. |
 | Alt+Z | Not on the controller | Step the cab fan: off, low, medium, high. Runs while the engine is on. |
@@ -410,7 +410,7 @@ Whenever a row says **Driving commands**, that action has no dedicated controlle
 | Space | B | Read speed, gear, and active speed-control mode and target. Adds RPM in a manual, and mentions air pressure or the parking brake only when they need attention. When you are signaled for an exit, ends with that exit and its distance. Tab has full air and brake details. |
 | S | Right bumper plus X | Read the posted speed limit, any zone, and how far over you are. In curve country it adds the bend's advisory speed. On a delivery ramp approaching a traffic light, S reports the light and distance to the stop bar instead. |
 | D | Driving commands | Read one safe-speed number for right now, factoring in weather grip, steep downgrades, and the next bend. On an exit ramp, it gives the exit speed. |
-| G | Driving commands | Read the grade under your wheels—slope, length, and whether the truck is holding, pulling, or losing it (including whether the engine brake can hold the descent). Also names the next grade worth planning for, or a gentler pull that predictive cruise is building speed for. |
+| G | Driving commands | Read the grade under your wheels: slope, length, and whether the truck is holding, pulling, or losing it (including whether the engine brake can hold the descent). Also names the next grade worth planning for, or a gentler pull that predictive cruise is building speed for. |
 | I | Driving commands | Toggle the lane locator: a soft tock, once a beat, panned to your position inside the lane. Requires lane keeping on partial or off. |
 | Enter | A | Confirm arrival once you are fully stopped at a facility gate. |
 | Tab | Right bumper plus Start | Open the driving status menu. |
@@ -427,9 +427,9 @@ Whenever a row says **Driving commands**, that action has no dedicated controlle
 | Alt+5 | Driving commands | Read the county you are in ("In Lake County"), including Louisiana parishes and Virginia independent cities. On city streets, names the city's county. |
 | V | D-pad left | Read weather and forecast. |
 | L | Driving commands | Read your current lane, whether you are centered, drifting, or near an edge, and whether the lane beside you is open or blocked. |
-| Left / Right arrow | Left stick (with full lane keeping, push left or right to change one lane) | With partial lane keeping or lane keeping off: steer, and cross the line to change lanes. Holding angles over just enough for a lane change (about two and a half seconds across), while a tap nudges. Releasing squares the truck with the road right where you put it—no wheel to unwind. Once a bend, ramp curve, or corner is called, hold toward the turn and the truck follows the road until you release; steering the opposite way widens your line. On a controller, the left stick steers proportionally and follows called turns the same way. With full lane keeping: tap to change one lane, with the turn signal clicking as you move over. |
+| Left / Right arrow | Left stick (with full lane keeping, push left or right to change one lane) | With partial lane keeping or lane keeping off: steer, and cross the line to change lanes. Holding angles over just enough for a lane change (about two and a half seconds across), while a tap nudges. Releasing squares the truck with the road right where you put it, no wheel to unwind. Once a bend, ramp curve, or corner is called, hold toward the turn and the truck follows the road until you release; steering the opposite way widens your line. On a controller, the left stick steers proportionally and follows called turns the same way. With full lane keeping: tap to change one lane, with the turn signal clicking as you move over. |
 | Slash, hold | Let go of the left stick | Square the truck with the road and stop drifting across the lane, without moving back to center. Letting go of the arrows does the same; Slash is handy when you are holding another key. |
-| A | Driving commands | Repeat the last route announcement—the last thing with consequences—even if other speech came after it. |
+| A | Driving commands | Repeat the last route announcement (the last thing with consequences) even if other speech came after it. |
 | Alt+C | Driving commands | Repeat the last CB report with its distance updated to where you are now, or say if you have already passed it. |
 | U | Driving commands | Read the road ahead that other keys do not cover: your signaled exit first, then upcoming ramp controls, the next lower speed limit, the next stop, and the next bend that requires slowing with its advisory speed (up to four short clauses). Police reports come on the CB, not here. |
 | F1 | Back (when nothing is speaking; stops speech if something is) | Show the driving controls list and your current objective. |
@@ -456,9 +456,9 @@ On a controller, **A** and **X** step through gears in sequence: pressing **X** 
 
 You can use a controller right alongside your keyboard at any time. Button names here follow the Xbox layout. In menus, move with the **D-pad**, select with **A**, and go back with **B**. **Back** reads help (at the wheel, it cuts off driving speech if something is playing, and reads help otherwise). **Start** pauses.
 
-On the road, **right trigger** is throttle and **left trigger** is brake—pulling the left trigger all the way down engages the emergency brake. The **left stick** steers; with full lane keeping on, push it left or right to change one lane, then let it return to center before requesting another. To switch an automatic between drive and reverse, stop completely and give the opposite trigger a fresh hold. **Left bumper** is the clutch, and **right bumper** activates the second layer of button bindings.
+On the road, **right trigger** is throttle and **left trigger** is brake; pulling the left trigger all the way down engages the emergency brake. The **left stick** steers; with full lane keeping on, push it left or right to change one lane, then let it return to center before requesting another. To switch an automatic between drive and reverse, stop completely and give the opposite trigger a fresh hold. **Left bumper** is the clutch, and **right bumper** activates the second layer of button bindings.
 
-Most actions have a direct button. For the remaining readouts—such as grade, lane check, and road ahead—hold **right bumper** and press **Start**, then open **Driving commands** and pick what you want.
+Most actions have a direct button. For the remaining readouts (such as grade, lane check, and road ahead), hold **right bumper** and press **Start**, then open **Driving commands** and pick what you want.
 
 To check what any button does on the fly, hold **Back** and press **Start** for key and button practice. Press any button, trigger, or stick to hear its job, then press **Start** twice to get back to driving.
 
@@ -468,7 +468,7 @@ Inside **How to play**, **D-pad left/right** turns pages, **D-pad up/down** read
 
 On newer Xbox controllers, **Back** is the View button (just left of the Xbox button, marked with two overlapping squares) and **Start** is the Menu button (on the right side, marked with three lines). The **bumpers** are the long shoulder buttons on top, and the **triggers** sit behind them under your index fingers. A **stick click** means pressing a thumbstick straight down until it clicks.
 
-Freight Fate does not use the Xbox button. On Windows, pressing it opens the Xbox Game Bar and steals window focus—press it again to come back, or turn off that shortcut under Windows Settings, Gaming, Xbox Game Bar.
+Freight Fate does not use the Xbox button. On Windows, pressing it opens the Xbox Game Bar and steals window focus. Press it again to come back, or turn off that shortcut under Windows Settings, Gaming, Xbox Game Bar.
 
 #### Default buttons
 
@@ -501,7 +501,7 @@ Most of these can be remapped under **Settings, Gameplay, Controls, Controller b
 - The game uses the first controller it finds, which can sometimes be a second gamepad or a virtual controller from Steam or a remapping tool. Unplug other controllers, and close Steam (or disable Steam Input for Freight Fate) if it is running.
 - If the Xbox button opens Steam Big Picture, press **B** to close it and return to the game. You can disable that Guide-button shortcut in Steam's controller settings.
 - The controller only works while the game window has focus. If buttons stop answering after you switched apps, **Alt+Tab** back to Freight Fate.
-- If some buttons work but triggers or bumpers do not, attach your game log to a bug report—it logs your controller name and any unmapped inputs. Running `FreightFate.exe --controller-diagnostics` from a command prompt in the game folder also logs every button press to `controller-diagnostics.log`.
+- If some buttons work but triggers or bumpers do not, attach your game log to a bug report; it logs your controller name and any unmapped inputs. Running `FreightFate.exe --controller-diagnostics` from a command prompt in the game folder also logs every button press to `controller-diagnostics.log`.
 
 ## Truck behavior
 
@@ -521,7 +521,7 @@ Only set the parking brake (**P**, or **right bumper + Y**) once you are complet
 
 On the open highway at 20 miles per hour or faster, **K** (controller: **Y**) starts **adaptive cruise**. On city streets and facility approaches, **K** starts **speed keeper** instead. Cruise automatically respects work zones and heavy traffic limits, follows vehicles ahead, and opens up a wider gap in bad weather.
 
-Adjust your cruise target with **Plus** and **Minus** (controller: **right bumper + D-pad right or left**), which snaps outward to the next multiple of 5 mph—from 32, Plus jumps to 35, then 40. Hold **Ctrl** with Plus or Minus to nudge it 1 mph at a time. Press **Space** to hear which mode is active, what speed is set, and whether road or traffic conditions are holding you below it.
+Adjust your cruise target with **Plus** and **Minus** (controller: **right bumper + D-pad right or left**), which snaps outward to the next multiple of 5 mph: from 32, Plus jumps to 35, then 40. Hold **Ctrl** with Plus or Minus to nudge it 1 mph at a time. Press **Space** to hear which mode is active, what speed is set, and whether road or traffic conditions are holding you below it.
 
 Touching the brake cancels speed control; **Shift+K** resumes at your last target. At a planned pickup, speed control pauses through loading and saving, then picks right back up once you roll out loaded.
 
@@ -529,11 +529,11 @@ Touching the brake cancels speed control; **Shift+K** resumes at your last targe
 
 Press **J** (controller: **right stick click**) to toggle the engine brake, and use **1**, **2**, or **3** (controller: **right bumper + right stick click** to step) to choose two, four, or six cylinders of braking while it is on. A lower gear and higher RPM give the engine brake more holding power. Press **Alt+J** in an automatic to toggle between automatic stage management and picking stages yourself.
 
-Listen for town noise restrictions—the game warns you before writing a ticket for using the engine brake in a restricted zone, with exceptions for downhill grades and emergencies. When you clear a restricted area, you will hear "End of no engine brake zone."
+Listen for town noise restrictions: the game warns you before writing a ticket for using the engine brake in a restricted zone, with exceptions for downhill grades and emergencies. When you clear a restricted area, you will hear "End of no engine brake zone."
 
 ## Truck damage and being out of service
 
-Stay ahead of wear before it strands you on the shoulder. Worn tires lose grip, worn brakes fade faster on grades, and a worn engine loses pulling power. Each tractor tracks its own wear, damage, fuel, and winter gear. Plan a garage visit when any component hits **80 percent wear**—at **100 percent**, that component puts the truck out of service. The garage can replace tires, reline brakes, and overhaul engines.
+Stay ahead of wear before it strands you on the shoulder. Worn tires lose grip, worn brakes fade faster on grades, and a worn engine loses pulling power. Each tractor tracks its own wear, damage, fuel, and winter gear. Plan a garage visit when any component hits **80 percent wear**. At **100 percent**, that component puts the truck out of service. The garage can replace tires, reline brakes, and overhaul engines.
 
 | Damage | What the truck does |
 | --- | --- |
@@ -545,21 +545,21 @@ Stay ahead of wear before it strands you on the shoulder. Worn tires lose grip, 
 
 The damage readout gives both the percentage and the current band.
 
-Whenever something damages the truck on the road, a spoken line tells you what happened and your current damage—for example, "Off the road on the right! Damage 1 percent." While you stay off the pavement, further hits are signaled by the rumble strip alone, and once you are back on asphalt you hear the updated total: "Back on the pavement. Damage 3 percent." Pushing past 90 miles per hour puts the truck into a runaway that deals damage every second. You hear "Runaway! The truck is taking damage." when it begins, and "Back under control." with the damage total once you drop a few miles per hour below 90.
+Whenever something damages the truck on the road, a spoken line tells you what happened and your current damage, for example, "Off the road on the right! Damage 1 percent." While you stay off the pavement, further hits are signaled by the rumble strip alone, and once you are back on asphalt you hear the updated total: "Back on the pavement. Damage 3 percent." Pushing past 90 miles per hour puts the truck into a runaway that deals damage every second. You hear "Runaway! The truck is taking damage." when it begins, and "Back under control." with the damage total once you drop a few miles per hour below 90.
 
 If you break down on the road, owner-operators pay for roadside repairs, lose several hours, and still need proper garage service afterward. Company drivers get carrier-paid service and a yard spare, though preventable equipment trouble still dings your record and dispatch trust.
 
-Preventable damage can also cost your safety bonus and add a deductible—and fixing it on the road does not erase that hit, because settlement scores the worst damage band reached during the trip. Correct reactions to road hazards do not count as preventable damage. Visible unsafe equipment can also draw a roadside inspection. For company drivers, any tractor at 40 percent damage or higher automatically goes through the carrier shop when you accept your next load, at no charge and one hour on duty.
+Preventable damage can also cost your safety bonus and add a deductible, and fixing it on the road does not erase that hit, because settlement scores the worst damage band reached during the trip. Correct reactions to road hazards do not count as preventable damage. Visible unsafe equipment can also draw a roadside inspection. For company drivers, any tractor at 40 percent damage or higher automatically goes through the carrier shop when you accept your next load, at no charge and one hour on duty.
 
 ## Mountain driving
 
 Hills are won before you crest them. Press **G** (controller: **Driving commands**) to hear the current grade, its length, how the truck is handling it, and the next hill worth preparing for. Sustained grades of three percent over three quarters of a mile are normally announced ahead. If you use **Quiet** or **Urgent only** driving speech, check grades yourself with **G**.
 
-Get your speed and gear set before you tip over the top of a downgrade. Let the engine brake hold a steady pace, and use the service brakes in short, firm applications with time to cool in between. Riding the service brakes heats them up and causes fade—if you hear hot-brake warnings, slow down and let them cool right away.
+Get your speed and gear set before you tip over the top of a downgrade. Let the engine brake hold a steady pace, and use the service brakes in short, firm applications with time to cool in between. Riding the service brakes heats them up and causes fade. If you hear hot-brake warnings, slow down and let them cool right away.
 
 Press **D** anytime for a safe descent speed tailored to your truck and load. If descent control and cruise are on, they coordinate speed, gear, engine braking, and short service-brake taps for you. Just be careful on ice: a heavy engine-brake setting can break your drive tires loose.
 
-**Predictive cruise** scans ahead for hills—it builds momentum for a climb, lets speed bleed slightly over the crest, and holds back from accelerating right before a descent. If a climb is too steep to hold your set speed, it warns you.
+**Predictive cruise** scans ahead for hills: it builds momentum for a climb, lets speed bleed slightly over the crest, and holds back from accelerating right before a descent. If a climb is too steep to hold your set speed, it warns you.
 
 ## Taking curves
 
@@ -575,13 +575,13 @@ With the default steering guide, steer **toward** the side the engine leans.
 
 Remember the difference between the two sound cues: the **steering guide** tells you which way to steer, while **road noise** tells you where the truck is sitting. Road noise on the right means you are drifting right of center. You can reverse the steering-guide direction in **Settings, Audio**, or switch it from the engine to a soft tone with **Lane guide sound**. Press **I** to toggle a steady lane-position tock whenever lane keeping is on partial or off.
 
-Listen for the road-edge progression: warning-bar thuds before a hairpin, a side-marker thump when a tire crosses the line, then rumble-strip stutter, buzz, and gravel as you drift farther off. Ease back gently—slamming the brakes with trailer wheels in dirt makes recovery harder.
+Listen for the road-edge progression: warning-bar thuds before a hairpin, a side-marker thump when a tire crosses the line, then rumble-strip stutter, buzz, and gravel as you drift farther off. Ease back gently. Slamming the brakes with trailer wheels in dirt makes recovery harder.
 
 On undivided two-lane roads, crossing the centerline puts you into oncoming traffic. At the end of a bend, the verdict tells you whether you held your line, caught the edge, or came in too hot.
 
 ## Winter driving
 
-Snow, ice, and freezing rain cut your grip, especially on worn tires. Steer and brake smoothly, and go easy on the engine brake—a strong setting can break the drive tires loose on slick pavement.
+Snow, ice, and freezing rain cut your grip, especially on worn tires. Steer and brake smoothly, and go easy on the engine brake; a strong setting can break the drive tires loose on slick pavement.
 
 ### Winter tires and snow chains
 
@@ -607,21 +607,21 @@ Traffic around you slows, merges, passes, and backs up into queues. Build in ext
 
 ### Following and passing
 
-Before you move over, press **L** (controller: **Driving commands, Lane position**) to check your lane and the space beside you, and listen for clearance before pulling back in after a pass. Nearby traffic sounds alert you that someone is there, but they never replace a proper lane check—a car can sit quietly beside your trailer while your mind is on an exit or curve.
+Before you move over, press **L** (controller: **Driving commands, Lane position**) to check your lane and the space beside you, and listen for clearance before pulling back in after a pass. Nearby traffic sounds alert you that someone is there, but they never replace a proper lane check; a car can sit quietly beside your trailer while your mind is on an exit or curve.
 
 **Adaptive cruise** paces traffic ahead and stretches your following gap in bad weather, though it does not steer. With **full lane keeping** on, the truck can pass slow traffic on its own and return when clear (it will not start a pass within two miles of an exit), and it moves over for road debris or a car stopped on the shoulder when an adjacent lane is open. If you missed the clearance call, press **L** to check again.
 
 ### Listening to nearby vehicles
 
-A passing vehicle builds in volume as it pulls alongside and fades as it moves ahead, panning across the stereo field so you hear which side it is on. At controlled ramp intersections, cross traffic moves across the sound field—stop for the control and wait for a clear gap before pulling out.
+A passing vehicle builds in volume as it pulls alongside and fades as it moves ahead, panning across the stereo field so you hear which side it is on. At controlled ramp intersections, cross traffic moves across the sound field. Stop for the control and wait for a clear gap before pulling out.
 
 On an on-ramp, mainline highway traffic stays to your left and fades as the ramp separates. Distant freeway sound also reflects real traffic volume, so a packed commuter belt sounds very different from a quiet highway at 2 AM. Open **Learn game sounds** anytime if you want to hear a cue by itself before meeting it in traffic.
 
 ### Traffic reports and hazards
 
-Check the [Traffic app](#traffic-app) or listen to GPS calls for slowdowns ahead, though a clear report never guarantees every lane is empty—keep checking with **L**.
+Check the [Traffic app](#traffic-app) or listen to GPS calls for slowdowns ahead, though a clear report never guarantees every lane is empty. Keep checking with **L**.
 
-When the game calls **Brake now**, hit the brakes right away; some hazards require dropping below 25 miles per hour. A **Change lanes or brake** call names an open lane—take it if you can. When no lane is open:
+When the game calls **Brake now**, hit the brakes right away; some hazards require dropping below 25 miles per hour. A **Change lanes or brake** call names an open lane. Take it if you can. When no lane is open:
 
 - **Ladders, lumber, mattresses, or spilled boxes:** Survivable with no damage at 30 miles per hour or under; faster than that costs damage.
 - **Rockfalls or a spun-out car ahead:** Require a full stop.
@@ -639,11 +639,11 @@ Slow down as work-zone speed limits step down, and merge out of a closing lane w
 
 To plan a stop while rolling, press **T** (controller: **right bumper + D-pad down**) and pick what you need: fuel, a break, sleep, fuel and sleep, or food and coffee. Each option reads the distance to its stop, and **Enter** locks it in. With planning hints on, a break or sleep plan selects the recommended stop; when your tank is low or will not reach the next pumps, the menu opens directly on fuel. Press **T** again to cancel the plan.
 
-Planning a stop does **not** signal for its exit—press **X** (controller: **D-pad down**) to set or cancel the exit signal separately. The call names the exit and its ramp control, and the turn signal starts clicking about half a mile out.
+Planning a stop does **not** signal for its exit. Press **X** (controller: **D-pad down**) to set or cancel the exit signal separately. The call names the exit and its ramp control, and the turn signal starts clicking about half a mile out.
 
 With partial lane keeping or lane keeping off, move into the right lane and steer into the exit lane once it opens. Hold highway speed until you are in the exit lane, then brake down to exit speed before the ramp curve. Full lane keeping handles both the lane moves and the destination exit.
 
-Missed your destination exit? Do not force a move across a blocked lane—keep rolling and follow the next safe turnaround guidance.
+Missed your destination exit? Do not force a move across a blocked lane. Keep rolling and follow the next safe turnaround guidance.
 
 ### Ramp ends and gates
 
@@ -651,7 +651,7 @@ At a ramp traffic light, stop on red. On yellow, stop if you safely can (enterin
 
 Once clear, pull forward as directed. **Facility stopping assistance** can manage the pedals all the way to the gate while **speed keeper** handles the city streets in between; pressing your brake cancels pedal assistance whenever you want to take over.
 
-Local streets have their own speed limits and corner calls. Each turn is called with its distance and target speed, accompanied by a chime on the side you are turning. Take a corner more than about 3 miles per hour over that speed and you miss the turn—the truck loops around the block and brings you back onto the street a few minutes later. Traffic controls are not modeled on every side street. A yard driveway enters at 15 miles per hour; where there is no driveway, the gate sits right on the street.
+Local streets have their own speed limits and corner calls. Each turn is called with its distance and target speed, accompanied by a chime on the side you are turning. Take a corner more than about 3 miles per hour over that speed and you miss the turn: the truck loops around the block and brings you back onto the street a few minutes later. Traffic controls are not modeled on every side street. A yard driveway enters at 15 miles per hour; where there is no driveway, the gate sits right on the street.
 
 ### Stop services
 
@@ -677,17 +677,17 @@ In accelerated modes, the game speaks the truck's local time and announces time-
 
 ## Enforcement, your record, and your CDL
 
-Troopers and inspectors cite violations they observe. The dash alert that chimes when you are more than 7 miles per hour over the limit is a free warning—brake down and it quiets with no fine. When a speed limit drops, get off the throttle and slow toward the new limit during the grace allowance.
+Troopers and inspectors cite violations they observe. The dash alert that chimes when you are more than 7 miles per hour over the limit is a free warning; brake down and it quiets with no fine. When a speed limit drops, get off the throttle and slow toward the new limit during the grace allowance.
 
 If a trooper lights you up, press **X** (controller: **D-pad down**) and brake to a stop for the license and logbook check. Ignoring the lights brings escalating warnings, and merely slowing down can end in a forced stop plus a failure-to-stop citation.
 
 After the final warning, twelve seconds of highway-speed driving or accelerating without braking triggers a pursuit. Fleeing can damage your truck, cancel the load, burn time in processing, and put a major offense on your record.
 
-CB chatter shares what other drivers spotted and how sure they were—treat it as helpful heads-up, not gospel, since patrols move. Press **Alt+C** to repeat the last CB report with an updated distance, and **U** for fixed road features.
+CB chatter shares what other drivers spotted and how sure they were. Treat it as helpful heads-up, not gospel, since patrols move. Press **Alt+C** to repeat the last CB report with an updated distance, and **U** for fixed road features.
 
 ### What a citation costs
 
-While you are below **level 10**, officers let you off with a warning for most tickets—no fine, no reputation loss, and nothing on your record. The big ones are still cited even early on: speeding 15 or more over, driving through construction barrels, failing to pull over, running an open scale, and anything that puts you out of service.
+While you are below **level 10**, officers let you off with a warning for most tickets: no fine, no reputation loss, and nothing on your record. The big ones are still cited even early on: speeding 15 or more over, driving through construction barrels, failing to pull over, running an open scale, and anything that puts you out of service.
 
 | Citation | Base fine |
 | --- | --- |
@@ -725,7 +725,7 @@ You get warnings when debt starts, when it crosses halfway, and when it nears th
 - **Company driver ceiling:** Eight average settlements or 6,000 dollars, whichever is higher.
 - **Owner-operator ceiling:** Sixty percent of tractor resale value or 12,000 dollars, whichever is higher.
 
-Hit the ceiling and the lender or carrier steps in. A company driver loses their carrier job and moves to Great Lakes Training Transport. An owner-operator's lender repossesses the tractors and returns the driver to company work. Your debt zeroes out along with your cash, while you keep your level, experience, endorsements, driving record, and other belongings. If you are already at Great Lakes, debt stops growing at the ceiling—anything over is written off while repayments continue, and a report summarizes the outcome.
+Hit the ceiling and the lender or carrier steps in. A company driver loses their carrier job and moves to Great Lakes Training Transport. An owner-operator's lender repossesses the tractors and returns the driver to company work. Your debt zeroes out along with your cash, while you keep your level, experience, endorsements, driving record, and other belongings. If you are already at Great Lakes, debt stops growing at the ceiling; anything over is written off while repayments continue, and a report summarizes the outcome.
 
 ## Hours of service and fatigue
 
@@ -733,13 +733,13 @@ Managing your clocks and your energy is half the job of trucking.
 
 ### Legal hours of service
 
-Your legal limits are the same in both hours modes—**Relaxed** eases enforcement pressure, it does not add hours to your clock:
+Your legal limits are the same in both hours modes; **Relaxed** eases enforcement pressure, it does not add hours to your clock:
 
 - **11-hour driving limit:** Up to 11 hours behind the wheel after 10 hours off duty.
 - **14-hour duty window:** All driving must happen within 14 hours of starting your shift.
 - **30-minute break:** Required after 8 cumulative hours of driving.
 
-Any 30 consecutive minutes not driving satisfies the break—loading and inspections count—though they do not pause or reset the 14-hour duty window. Moving the truck for work counts as driving even without a trailer.
+Any 30 consecutive minutes not driving satisfies the break (loading and inspections count), though they do not pause or reset the 14-hour duty window. Moving the truck for work counts as driving even without a trailer.
 
 Check your clocks before committing to the next stretch:
 
@@ -748,13 +748,13 @@ Check your clocks before committing to the next stretch:
 - **Alt+D:** Both shift clocks plus reachable legal rest stops.
 - **C** (controller: **D-pad right** reads the clock and all three limits together): Clock, deadline, and nearest limit.
 
-Before each limit runs out, you get a warning: 1 hour out in Relaxed driving mode, 2 hours out in Standard, and at 2 hours, 1 hour, and 30 minutes in Real time (no warning if your delivery ends before the limit). When you depart with a load, the departure line summarizes your driving time left, fuel, whether you need a break or sleep, and how much of the run falls at night between 9 PM and 5 AM if you drive straight through (for example, "About 4 hours of night driving"—daytime runs omit night).
+Before each limit runs out, you get a warning: 1 hour out in Relaxed driving mode, 2 hours out in Standard, and at 2 hours, 1 hour, and 30 minutes in Real time (no warning if your delivery ends before the limit). When you depart with a load, the departure line summarizes your driving time left, fuel, whether you need a break or sleep, and how much of the run falls at night between 9 PM and 5 AM if you drive straight through (for example, "About 4 hours of night driving"; daytime runs omit night).
 
-Remember: a 30-minute break will not fix an expiring shift, and slow traffic or bad weather can push a planned stop out of reach—recheck reachability whenever conditions slow you down.
+Remember: a 30-minute break will not fix an expiring shift, and slow traffic or bad weather can push a planned stop out of reach. Recheck reachability whenever conditions slow you down.
 
 ### Sleeping and sleeper-berth splits
 
-Ten hours of sleep resets your legal hours. At supported parking, you can also split rest in the sleeper berth—**8+2** or **7+3** hours (choosing 2, 3, 7, or 8 hours in the berth). The long half pauses your 14-hour duty window. The short half counts against the window until you complete the matching half, at which point the game recalculates duty between rests. If a nap leaves your duty window ticking, the menu tells you when it closes.
+Ten hours of sleep resets your legal hours. At supported parking, you can also split rest in the sleeper berth: **8+2** or **7+3** hours (choosing 2, 3, 7, or 8 hours in the berth). The long half pauses your 14-hour duty window. The short half counts against the window until you complete the matching half, at which point the game recalculates duty between rests. If a nap leaves your duty window ticking, the menu tells you when it closes.
 
 Open **Logbook** at a terminal or the **ELD app** on the road to check your current duty, limits, daily totals, and reachable stops. If a roadside inspection catches you over hours, the officer orders a 10-hour hold and tells you what it does to your delivery deadline.
 
@@ -762,11 +762,11 @@ Open **Logbook** at a terminal or the **ELD app** on the road to check your curr
 
 Fatigue sits in four bands: **rested**, **worn** (40 percent), **drowsy** (60 percent), and **severe** (80 percent). A quiet yawn announces worn; a yawn plus "Getting drowsy." announces drowsy. From worn upward, **Tab** status screens name the band alongside the percentage ("Fatigue: 64 percent, drowsy."). To drop back out of a band, fatigue must fall 5 points below where that band started.
 
-Night driving builds fatigue faster and trims your reaction time. Non-driving on-duty work—fueling, walk-arounds, docks, scales, inspections, waiting on repairs, chaining up, and sitting stopped at the wheel—builds fatigue at a third of the driving rate. Off-duty and sleeper time builds none.
+Night driving builds fatigue faster and trims your reaction time. Non-driving on-duty work (fueling, walk-arounds, docks, scales, inspections, waiting on repairs, chaining up, and sitting stopped at the wheel) builds fatigue at a third of the driving rate. Off-duty and sleeper time builds none.
 
 When a **nod-off warning** sounds, answer it by steering or braking (left stick or left trigger on a controller). Miss it and the truck drifts onto the shoulder; three misses in a row force a stop. The first asleep departure counts as a preventable incident, and later ones become serious fatigued-driving violations.
 
-Being tired slows down hands-on chores too: fueling, walk-arounds, chain work, and pulling into a stop take 10 percent longer when worn, 25 percent longer when drowsy, and 50 percent longer when severe (Relaxed pacing halves the extra time), and the menus reflect the longer minutes. Work done by someone else—docks, mechanics, officers—takes its usual time.
+Being tired slows down hands-on chores too: fueling, walk-arounds, chain work, and pulling into a stop take 10 percent longer when worn, 25 percent longer when drowsy, and 50 percent longer when severe (Relaxed pacing halves the extra time), and the menus reflect the longer minutes. Work done by someone else (docks, mechanics, officers) takes its usual time.
 
 Inspectors and troopers notice severe fatigue. Any inspection, log check, or traffic stop while you are severe finishes with a **fatigue out-of-service order**: ten hours off duty right where you stand (with Relaxed pacing, your first one in a career is a warning instead).
 
@@ -799,7 +799,7 @@ The pickup menu offers the same pair once you are loaded: **Depart with Dan driv
 
 ### While your co-driver is driving
 
-Driving keys do nothing while you are out of the seat, though readout keys, **Tab**, driver apps, and the pause menu all stay active. If the radio is on, your co-driver might change the station or switch it off for a bit—once you change it yourself, they leave it alone. A radio you turned off stays off.
+Driving keys do nothing while you are out of the seat, though readout keys, **Tab**, driver apps, and the pause menu all stay active. If the radio is on, your co-driver might change the station or switch it off for a bit. Once you change it yourself, they leave it alone. A radio you turned off stays off.
 
 The first time a load can be shared, the game tells you once at the shipper's dock or in the pause menu. After that, long loads note it on the dispatch board: "Co-driver: offered at the shipper's dock or from the pause menu, on your current hours."
 
@@ -817,7 +817,7 @@ Want the wheel back early? Pause and pick **Take the wheel back**. Keep in mind 
 
 - **Who they are:** Once you run a team load, **Career stats** adds a **Co-drivers** list showing everyone you have teamed with, loads run together, and a short note about each. **Driver status** reads the same bio for your current co-driver. Nothing reads it automatically unless you open it.
 - **What it costs:** Company drivers earn half pay on miles the co-driver drives. Owner-operators pay the co-driver 30 percent of settlement for those miles while still covering fuel, tolls, and upkeep. Co-driver miles earn half career experience, settlement itemizes their miles and share, driving-style badges (such as a long no-toll run) do not unlock on team loads, and the road journal notes who drove.
-- **Your hours:** Time while your co-driver drives counts as sleeper-berth time whether you ride along or sleep—10 hours resets your legal clocks and clears 8 points of fatigue per hour, just like parked sleeper rest. Your co-driver keeps their own logbook. **Driver status**, **C**, and the **Take the wheel back** row tell you how much rest you have logged and when they hand back (for example, "Rest: 3.5 hours of 10 hours. Dan hands back in about 6.5 hours."), and the **ELD app** reads both logbooks. If you hand over while already rested, your co-driver drives until their own hours run out.
+- **Your hours:** Time while your co-driver drives counts as sleeper-berth time whether you ride along or sleep; 10 hours resets your legal clocks and clears 8 points of fatigue per hour, just like parked sleeper rest. Your co-driver keeps their own logbook. **Driver status**, **C**, and the **Take the wheel back** row tell you how much rest you have logged and when they hand back (for example, "Rest: 3.5 hours of 10 hours. Dan hands back in about 6.5 hours."), and the **ELD app** reads both logbooks. If you hand over while already rested, your co-driver drives until their own hours run out.
 
 ## Status screens
 
@@ -852,7 +852,7 @@ Inside the **Tab** menu, you have five screens:
 | Driver | Driver name, cash, load, objective, truck fuel and damage, transmission, fatigue, hours, and deadline. |
 | Map | Route cities, highways, progress, next guidance, upcoming stops, map points, and toll exposure. |
 | Driver apps | A tablet-style menu for Radio, Navigation, Weather, Traffic, Truck stops, Road chatter, and ELD. |
-| Driving commands | Every driving command by name—pick one to run it and jump back to the road. This is how controller players reach commands without a dedicated button. |
+| Driving commands | Every driving command by name. Pick one to run it and jump back to the road. This is how controller players reach commands without a dedicated button. |
 
 Inside any status report, move with **Up** and **Down**, press **Enter** to repeat the highlighted line, and press **Escape** to go back (controller: **D-pad**, **A**, and **B**).
 
@@ -866,7 +866,7 @@ The **Radio app** lets you turn the radio on or off, check whether streamer-safe
 
 - **Local stations:** Lists every Freight Fate station, your playlists and favorites, and terrestrial stations in range, with how far away each transmitter is.
 - **Stations in range:** Adds web and satellite streams alongside local stations.
-- **Search stations:** Type part of a name, call sign, or format and press **Enter**. Results come 25 at a time—use **Next page** / **Previous page** (or **Page Down** / **Page Up**) to see more.
+- **Search stations:** Type part of a name, call sign, or format and press **Enter**. Results come 25 at a time; use **Next page** / **Previous page** (or **Page Down** / **Page Up**) to see more.
 - **Browse by category:** Lists all stations or a single category (such as Terrestrial or Web radio) in 25-row pages. In-range stations come first (local terrestrial ahead of web radio), duplicates appear once, and out-of-range stations follow. Stations marked out of range cannot be tuned from where you are.
 - **Favorites:** Your shorter list of saved stations.
 
@@ -874,17 +874,17 @@ See [Radio and playlists](#radio-and-playlists) for the full guide to tuning, re
 
 ### Navigation app
 
-**Navigation** shows your next turn or exit, route progress, and next listed exit—useful whenever you want to double-check an instruction without waiting for the GPS. For the bigger picture of cities, highways, and upcoming stops, open **Map** under Driving status.
+**Navigation** shows your next turn or exit, route progress, and next listed exit, useful whenever you want to double-check an instruction without waiting for the GPS. For the bigger picture of cities, highways, and upcoming stops, open **Map** under Driving status.
 
 ### Weather app
 
-**Weather** tells you where the report comes from, how old it is, current conditions, and the suggested safe speed. With live weather enabled, it also lists any active weather alerts so you can replay a warning after it first sounded. Simulated weather includes a forecast of what is coming next (live reports may not have one). If a live update is still fetching or failed, the app tells you—check the report's age before trusting it.
+**Weather** tells you where the report comes from, how old it is, current conditions, and the suggested safe speed. With live weather enabled, it also lists any active weather alerts so you can replay a warning after it first sounded. Simulated weather includes a forecast of what is coming next (live reports may not have one). If a live update is still fetching or failed, the app tells you. Check the report's age before trusting it.
 
 Pair the weather's safe speed with curves, grades, traffic, and tire wear. When you just want a quick check without opening a menu, press **V**.
 
 ### Traffic app
 
-**Traffic** reports vehicles and slowdowns ahead, including distance and speed. If the road looks clear, it tells you there is no reported pinch in the next 20 miles. That is not a promise of an empty highway—keep listening and check **L** before changing lanes.
+**Traffic** reports vehicles and slowdowns ahead, including distance and speed. If the road looks clear, it tells you there is no reported pinch in the next 20 miles. That is not a promise of an empty highway. Keep listening and check **L** before changing lanes.
 
 ### Truck stops app
 
@@ -894,7 +894,7 @@ Once you pick a stop, press **T** while rolling to plan it and **X** to signal f
 
 ### Road chatter app
 
-**Road chatter** collects informal CB reports from other drivers, including possible patrols ahead. Treat them as tips that can go stale—a patrol does not stay parked forever. In hours modes without enforcement, these reports stay quiet. Press **Alt+C** on the road to repeat the last CB report with an updated distance.
+**Road chatter** collects informal CB reports from other drivers, including possible patrols ahead. Treat them as tips that can go stale: a patrol does not stay parked forever. In hours modes without enforcement, these reports stay quiet. Press **Alt+C** on the road to repeat the last CB report with an updated distance.
 
 ### ELD app
 
@@ -936,7 +936,7 @@ Unloading uses on-duty time. Once it wraps up, settlement walks through cargo co
 
 Arriving on time earns a **10 percent bonus** (arriving even earlier does not add more, while late freight pays less). Company tolls and approved extra charges do not come out of your wages, and fines you already paid on the road are not deducted a second time.
 
-Damaged cargo can trigger an exception deduction, a claim, or a rejected load with no delivery pay—fragile freight tolerates far less rough handling than bulk cargo. Hard braking, fast curves, and collisions all rattle what is in the trailer. Any charges your cash cannot cover become debt.
+Damaged cargo can trigger an exception deduction, a claim, or a rejected load with no delivery pay; fragile freight tolerates far less rough handling than bulk cargo. Hard braking, fast curves, and collisions all rattle what is in the trailer. Any charges your cash cannot cover become debt.
 
 ## Settings walkthrough
 
@@ -956,10 +956,10 @@ Tweaking any individual assist switches the preset label to **Custom** without t
 
 Individual assist options include **Downhill assistance** (Off, Light, Standard, Strong), **Following gap** (close, normal, far), emergency braking, lane-departure warnings, stop-and-go, exit speed, facility stopping, curves, and ramps.
 
-- **Exit speed and facility stopping:** Exit speed assistance brakes once you enter the exit lane for your signaled exit (stopping or transition assistance can also provide that braking depending on your setup). Near a facility entrance, facility stopping manages throttle and brake and can pull away when a ramp light or stop sign clears. Touching the brake hands the pedals straight back to you—and you always pick optional stops and confirm delivery yourself.
+- **Exit speed and facility stopping:** Exit speed assistance brakes once you enter the exit lane for your signaled exit (stopping or transition assistance can also provide that braking depending on your setup). Near a facility entrance, facility stopping manages throttle and brake and can pull away when a ramp light or stop sign clears. Touching the brake hands the pedals straight back to you, and you always pick optional stops and confirm delivery yourself.
 - **Curve assistance:** Slows you before mapped bends and helps steer through them even when lane keeping is off (you still correct drift). Once clear, it lets you accelerate again. Braking overrides the slowing for that bend while steering help stays active. Cruise can pause for a tight bend and resume afterward. Assists generally use the engine brake for big speed drops or descents, switching to service brakes inside engine-brake noise zones.
 - **Lane keeping:** **Full** keeps you centered and takes route exits while arrow taps (or left-stick pushes) request lane changes. **Partial** follows the road with gentle drift, leaving lane changes and exit entry to you. **Off** puts bends fully in your hands unless curve assistance is on. Letting go of the arrows or left stick squares the truck with the road (as does **Slash** while another key is held).
-- **Speed keeper:** Handles low-speed stretches—local limits, corners, and queues—and hands off to adaptive cruise once you hit open road. With it off, work the pedals yourself until cruise can engage at 20 miles per hour.
+- **Speed keeper:** Handles low-speed stretches (local limits, corners, and queues) and hands off to adaptive cruise once you hit open road. With it off, work the pedals yourself until cruise can engage at 20 miles per hour.
 - **Predictive cruise and curve callouts:** Predictive cruise reads roughly a mile and a half ahead for hills. Curve callouts can be turned off; **U** and **D** still answer either way.
 - **Latching brake:** On by default for the keyboard brake (the controller left trigger does not latch). Tap Down, then press and hold for half a second until a click and spoken confirmation lock it on; tap Down or touch the throttle to release it. The throttle never latches, and changing presets leaves this setting and your cue volumes untouched.
 
@@ -976,10 +976,10 @@ Set your **driving pace** and your **hours-of-service enforcement** separately.
 #### Choosing your driving pace
 
 - **Relaxed:** Runs about 10 minutes of game time per real minute. Every driving system stays active, with fewer random hazards, more reaction time, calmer routine speech, and gentler fatigue and collision penalties.
-- **Standard:** Runs twice as fast—about 20 minutes per real minute—so a full driving day takes half the real time, with decisions coming quicker and no extra forgiveness.
+- **Standard:** Runs twice as fast (about 20 minutes per real minute), so a full driving day takes half the real time, with decisions coming quicker and no extra forgiveness.
 - **Real time:** Uses Standard's challenge level while matching your computer's clock and date on the road and while parked. Pair it with live weather if you want the highway to match the sky outside. Matching your clock never changes your delivery time remaining, career progress, or legal hours.
 
-In Relaxed and Standard, time eases toward real time when you are crawling slowly, and waiting deliberately while parked runs at double your chosen pace. Taking breaks and sleep at stops advances time the same way in all three modes. You can switch driving modes from the pause menu mid-trip—the new pace kicks in the next time the truck stops.
+In Relaxed and Standard, time eases toward real time when you are crawling slowly, and waiting deliberately while parked runs at double your chosen pace. Taking breaks and sleep at stops advances time the same way in all three modes. You can switch driving modes from the pause menu mid-trip; the new pace kicks in the next time the truck stops.
 
 ### World and traffic
 
@@ -1011,7 +1011,7 @@ Set your units, transmission, controller options, visual display, and custom bin
 
 ### Audio settings
 
-If one sound is stepping on another, dial back that single slider instead of turning down the whole game. Music, radio, engine, weather, and road cues all have separate controls—and **Lane and edge cue volume** lets you boost lane guidance without disturbing the rest of your mix.
+If one sound is stepping on another, dial back that single slider instead of turning down the whole game. Music, radio, engine, weather, and road cues all have separate controls, and **Lane and edge cue volume** lets you boost lane guidance without disturbing the rest of your mix.
 
 | Setting | Purpose |
 | --- | --- |
@@ -1037,7 +1037,7 @@ If one sound is stepping on another, dial back that single slider instead of tur
 
 ### Speech settings
 
-**Driving speech** lets you choose how chatty the cab is automatically. Lowering it never mutes your readout keys—they always answer when you press them—and roadside chatter and town names keep their own switches.
+**Driving speech** lets you choose how chatty the cab is automatically. Lowering it never mutes your readout keys (they always answer when you press them), and roadside chatter and town names keep their own switches.
 
 | Setting | Purpose |
 | --- | --- |
@@ -1050,7 +1050,7 @@ If one sound is stepping on another, dial back that single slider instead of tur
 | Main voice | Voice for menus and readouts. **Automatic** (default) uses your running screen reader, or a system voice if none is running. You can also pick any available voice directly (running screen reader, SAPI, Windows OneCore, or built-in voice). Narrator appears while running, though it cannot be interrupted, so fast menu browsing can lag. When Driving event voice uses the same voice, road events go through Main voice. |
 | Driving event voice | Routes road events through Main voice or a separate software voice when available. |
 | Output | **Speech and braille** (default) speaks messages and sends them to your braille display with NVDA or JAWS. **Braille only** plays without speech, routing menus, readouts, and road events to the display (requires NVDA or JAWS; otherwise the game keeps speaking and explains why, and if your screen reader closes mid-drive, speech returns automatically until it is back). |
-| JAWS arrow keys | Shown only when running JAWS. JAWS normally waits for screen changes on arrow keys, which slows menus and makes held driving arrows lag. **Faster** installs a small game-specific script in your JAWS user folder so arrows answer immediately; **Default** removes it (touches only its own two files and never overwrites a user script of the same name). Restart JAWS if nothing changes. With JAWS, tapping another key while holding an arrow holds briefly, though the truck may still stop accelerating after a few seconds—tap the arrow again to keep rolling. |
+| JAWS arrow keys | Shown only when running JAWS. JAWS normally waits for screen changes on arrow keys, which slows menus and makes held driving arrows lag. **Faster** installs a small game-specific script in your JAWS user folder so arrows answer immediately; **Default** removes it (touches only its own two files and never overwrites a user script of the same name). Restart JAWS if nothing changes. With JAWS, tapping another key while holding an arrow holds briefly, though the truck may still stop accelerating after a few seconds; tap the arrow again to keep rolling. |
 | Speech rate | Shown when the active voice supports rate adjustments. |
 | Speech pitch | Shown when the active voice supports pitch adjustments. |
 | Speech volume | Shown when the active voice supports volume adjustments. |
@@ -1098,9 +1098,9 @@ Anytime a road sound catches you off guard, open **Learn game sounds**, select i
 The game window renders both menus and the live drive for sighted and low-vision players, or anyone watching along:
 
 - **Menus and screens:** Drawn as a large-print panel with the active row highlighted and a position count such as "3 of 9."
-- **While driving:** Shows the road from behind your rig—your lane and neighboring lanes, traffic with brake lights and turn signals, hills and curves as they arrive, and road signs (speed limits, yellow curve advisories, work zones, exits, rest areas, weigh stations, state lines, and billboards). The sky matches local time of day, and rain, snow, fog, and storms appear live.
+- **While driving:** Shows the road from behind your rig: your lane and neighboring lanes, traffic with brake lights and turn signals, hills and curves as they arrive, and road signs (speed limits, yellow curve advisories, work zones, exits, rest areas, weigh stations, state lines, and billboards). The sky matches local time of day, and rain, snow, fog, and storms appear live.
 - **Dashboard:** Displays speed with the posted limit and cruise target marked, RPM and gear, fuel, air pressure, truck and cargo damage, warning lights (parking brake, low air, and more), turn signals, next bend and turn, time and weather, distance remaining, and a traffic view of every vehicle within half a mile.
-- **Blind-spot lights:** Glow amber on the mirrors—and shade that lane on the traffic display—whenever a vehicle occupies the lane beside you. Wait for the light to go out before moving over, just like the "lane open" call and the **L** key.
+- **Blind-spot lights:** Glow amber on the mirrors (and shade that lane on the traffic display) whenever a vehicle occupies the lane beside you. Wait for the light to go out before moving over, just like the "lane open" call and the **L** key.
 - **Captions:** Display each spoken announcement on screen for a few seconds.
 
 You can resize the window or run full screen and everything scales smoothly. Turn **Visual display** off under **Settings, Gameplay, Controls** to keep the window dark and save battery; the game also stops drawing automatically while minimized or (on macOS) hidden behind other windows.
@@ -1118,7 +1118,7 @@ You can resize the window or run full screen and everything scales smoothly. Tur
 
 ## Radio and playlists
 
-Nothing makes a long interstate stretch fly by like the right station—or your own music.
+Nothing makes a long interstate stretch fly by like the right station, or your own music.
 
 ### Switching on and tuning
 
@@ -1132,14 +1132,14 @@ On a controller, the **right stick** runs the radio: push left or right to tune,
 
 Holding **Ctrl** while tuning jumps across categories: route music, Freight Fate stations, your playlists, favorites, terrestrial stations, AFN, satellite, international, fallback, web radio, and other stations. If you already know what you want or prefer searching by name, open the [Radio app](#radio-app).
 
-Regional terrestrial stations naturally fade as you drive out of transmitter range. **Favorites** never fade out—once the local signal thins, the radio switches cleanly to the station's stream and reports its signal as streaming. If a non-favorite station drops out, the radio looks for a clear local station or a fallback; a stream that fails to connect leaves the dial for the rest of that session. **Roadhouse** and **Night Line** stay tuned everywhere on the map.
+Regional terrestrial stations naturally fade as you drive out of transmitter range. **Favorites** never fade out. Once the local signal thins, the radio switches cleanly to the station's stream and reports its signal as streaming. If a non-favorite station drops out, the radio looks for a clear local station or a fallback; a stream that fails to connect leaves the dial for the rest of that session. **Roadhouse** and **Night Line** stay tuned everywhere on the map.
 
 ### Choosing music for your drive
 
 - **Original (default):** Plays licensed menu and Roadhouse music.
 - **Synthesized:** Uses music composed by the game along with the three classic tracks from Freight Fate 1.5, removing voiced breaks and fictional regional stations. Real radio streams and your own playlists still work unless streamer-safe mode hides them.
 
-**Streamer-safe mode** restricts the dial to built-in safe stations. Paired with Synthesized music, only the synthesized Roadhouse remains—you can still toggle power, change volume, and check what is playing, while tuning keys do nothing.
+**Streamer-safe mode** restricts the dial to built-in safe stations. Paired with Synthesized music, only the synthesized Roadhouse remains; you can still toggle power, change volume, and check what is playing, while tuning keys do nothing.
 
 ### Playing your own music
 
@@ -1147,19 +1147,19 @@ Want your own playlist in the cab? Drop an **M3U**, **M3U8**, or **PLS** file in
 
 Entries can point to local files, network paths, or stream URLs in **mp3, ogg, opus, flac, aac, wma**, or tracker formats (**.it, .xm, .s3m, .mod, .mo3**). Stations remember where you left off when you tune away. Your playlists play in order by default, or you can enable **Shuffle personal playlists** in Audio settings to hear every track once in a fresh random order each pass. Unreadable entries are skipped, slow streams get time to buffer, and if nothing can play, the game tells you why and names the folder.
 
-Playlists can also include **YouTube links and livestreams**. Because Freight Fate does not bundle `yt-dlp`, install it yourself: drop `yt-dlp.exe` into your **Playlists** folder or put `yt-dlp` on your system PATH (on macOS, Homebrew works well). Expect YouTube links to take a few extra seconds to start, and keep `yt-dlp` updated—an older copy can drop livestreams after about 30 seconds, and updating usually fixes streams that stop playing.
+Playlists can also include **YouTube links and livestreams**. Because Freight Fate does not bundle `yt-dlp`, install it yourself: drop `yt-dlp.exe` into your **Playlists** folder or put `yt-dlp` on your system PATH (on macOS, Homebrew works well). Expect YouTube links to take a few extra seconds to start, and keep `yt-dlp` updated; an older copy can drop livestreams after about 30 seconds, and updating usually fixes streams that stop playing.
 
 ### Suggesting a station
 
 Missing a favorite station? Open **Suggest a station** inside the Radio app (requires a connected account and Online services enabled). Pick its type, enter the name and stream URL (**Ctrl+V** pastes), and for AM/FM include the call sign and state (city and frequency are optional).
 
-The service checks that the stream actually plays and is not already in the directory before queuing it for review. Approved stations appear on a later launch with no game update needed—matched transmitters play within reception range, and stations without a matched license location appear under web radio. You can also submit through the [station suggestion page](https://orinks.net/freight-fate/suggest-a-station), and [streamurl.link](https://streamurl.link) can help you track down stream URLs.
+The service checks that the stream actually plays and is not already in the directory before queuing it for review. Approved stations appear on a later launch with no game update needed: matched transmitters play within reception range, and stations without a matched license location appear under web radio. You can also submit through the [station suggestion page](https://orinks.net/freight-fate/suggest-a-station), and [streamurl.link](https://streamurl.link) can help you track down stream URLs.
 
 ## Achievements and career progress
 
 Open **Achievements** from the main menu and pick a saved career, or open it directly from the terminal or pause menu to see your current driver's progress. The screen announces how many achievements that driver has unlocked, organized by category. Move with **Up/Down**, press **Enter** to repeat, and **Escape** to step back (controller: **D-pad**, **A**, **B**).
 
-The top row, **Sort**, changes how categories and entries are ordered—earned first (default), newest first, locked first, A to Z, or original order—using **Left/Right** or **Enter**, and remembers your preference. Each category also has its own Sort row that applies to that category until you leave. **Account achievements** under Online sorts the same way.
+The top row, **Sort**, changes how categories and entries are ordered: earned first (default), newest first, locked first, A to Z, or original order, using **Left/Right** or **Enter**, and remembers your preference. Each category also has its own Sort row that applies to that category until you leave. **Account achievements** under Online sorts the same way.
 
 Earned achievements include full descriptions; locked ones hold back some detail, and hidden achievements keep their names under wraps until you unlock them. You can browse achievements anytime without loading or changing a career.
 
@@ -1178,7 +1178,7 @@ To connect, choose **Set up orinks.net account**. The game opens the sign-in pag
 
 ### Do I have to buy a truck?
 
-Not at all. Company drivers drive carrier trucks with fuel, repairs, and insurance covered. Buying your own truck opens with the owner-operator buy-in at level 18—check **Business status** in the game or [Business status](#business-status) here for the full list of requirements and costs.
+Not at all. Company drivers drive carrier trucks with fuel, repairs, and insurance covered. Buying your own truck opens with the owner-operator buy-in at level 18. Check **Business status** in the game or [Business status](#business-status) here for the full list of requirements and costs.
 
 ### What are the fleets on Career stats?
 
@@ -1186,7 +1186,7 @@ As a company driver, dispatch moves you into better carrier fleets as you level 
 
 ### Why am I in a different truck on some loads?
 
-Before level 9, dispatch assigns whichever spare fits the load—a sleeper for a long haul, a heavy-spec tractor for heavy freight, or a day cab for a short hop—and each spare keeps its own fuel and wear. Once you reach level 9, you keep one tractor for every load until you step up to the next fleet at level 13 and level 17.
+Before level 9, dispatch assigns whichever spare fits the load (a sleeper for a long haul, a heavy-spec tractor for heavy freight, or a day cab for a short hop), and each spare keeps its own fuel and wear. Once you reach level 9, you keep one tractor for every load until you step up to the next fleet at level 13 and level 17.
 
 ### Why am I not in the truck my level earns?
 
@@ -1194,9 +1194,9 @@ Low dispatch trust, a suspended CDL, debt, or your driving record can put a hold
 
 ### What is the difference between reputation and dispatch trust?
 
-**Reputation** is a 0-to-100 score built from clean deliveries and dented by violations, grouped into tiers: Outstanding (90+), Well regarded (75 to 89), Established (60 to 74), Unproven (40 to 59—every new driver starts at 50), Shaky, Damaged, and Ruined. Dispatch trust lines include it, such as "Dispatch trust: full. Reputation 85 out of 100." Under **Settings, Speech, Score display**, you can hear both description and number, percentage only, or description only.
+**Reputation** is a 0-to-100 score built from clean deliveries and dented by violations, grouped into tiers: Outstanding (90+), Well regarded (75 to 89), Established (60 to 74), Unproven (40 to 59; every new driver starts at 50), Shaky, Damaged, and Ruined. Dispatch trust lines include it, such as "Dispatch trust: full. Reputation 85 out of 100." Under **Settings, Speech, Score display**, you can hear both description and number, percentage only, or description only.
 
-**Dispatch trust** is what the carrier lets you do right now—how much of the board you see, how many refusals you get, and which truck you drive. It weighs your CDL, driving record, and debt alongside reputation. See [Dispatch trust](#dispatch-trust).
+**Dispatch trust** is what the carrier lets you do right now: how much of the board you see, how many refusals you get, and which truck you drive. It weighs your CDL, driving record, and debt alongside reputation. See [Dispatch trust](#dispatch-trust).
 
 ### How many levels are there?
 
@@ -1208,15 +1208,15 @@ It likely requires a certificate, endorsement, or trailer program you do not hav
 
 ### Why did I get a citation at a weigh station?
 
-When you hear "Open weigh station" (or the weigh-station cue with Quiet or Urgent only speech), every truck must pull in. Signal with **X**, stop at the scale, and press **T** to check in. With full lane keeping, the truck signals for the scale on its own, and with facility stopping assistance on it stops there for you too. Closed scales are never announced—just roll right past them.
+When you hear "Open weigh station" (or the weigh-station cue with Quiet or Urgent only speech), every truck must pull in. Signal with **X**, stop at the scale, and press **T** to check in. With full lane keeping, the truck signals for the scale on its own, and with facility stopping assistance on it stops there for you too. Closed scales are never announced; just roll right past them.
 
 ### Why is the speed limit 55 on a fast highway?
 
-Some states—California among them—set a lower speed limit for trucks than for cars. Pressing **S** names the state whenever you are under a truck speed limit.
+Some states, California among them, set a lower speed limit for trucks than for cars. Pressing **S** names the state whenever you are under a truck speed limit.
 
 ### Why do I keep getting speeding tickets?
 
-Press **S** to check the posted limit and how far over you are. The dash overspeed chime is a free warning—slow down when you hear it. Automatic speed control stays at most 5 mph over the limit and prepares ahead for sharp limit drops.
+Press **S** to check the posted limit and how far over you are. The dash overspeed chime is a free warning; slow down when you hear it. Automatic speed control stays at most 5 mph over the limit and prepares ahead for sharp limit drops.
 
 ### I missed my exit. What now?
 
@@ -1240,15 +1240,15 @@ With the engine running, press **M** to turn the radio on and **Page Up** or **P
 
 ### Can I hear a weather warning again?
 
-Yes—with live weather on, the **Weather app** under Driver apps lists active alerts, and **Comma** steps back through recent spoken messages.
+Yes. With live weather on, the **Weather app** under Driver apps lists active alerts, and **Comma** steps back through recent spoken messages.
 
 ### Can I steer the truck myself?
 
-Yes. Pick the **Realistic** preset—or set lane keeping to **Off**—under **Settings, Gameplay, Driving assistance**. See [Taking curves](#taking-curves) for how steering by sound works.
+Yes. Pick the **Realistic** preset (or set lane keeping to **Off**) under **Settings, Gameplay, Driving assistance**. See [Taking curves](#taking-curves) for how steering by sound works.
 
 ### Can I play in braille only?
 
-Yes—set **Output** to **Braille only** under **Settings, Speech**. This requires NVDA or JAWS.
+Yes. Set **Output** to **Braille only** under **Settings, Speech**. This requires NVDA or JAWS.
 
 ## When you need help
 
@@ -1258,5 +1258,5 @@ If your controller is not responding, walk through [If the controller doesn't re
 
 Trying to rest? **T** plans a stop while rolling and opens a supported stop's services once you are stopped. For emergency shoulder sleep, come to a complete stop first. If you missed a destination exit, follow the turnaround guidance.
 
-Still stuck, or ran into a bug? Open **Problem reports** in Settings or **Report a problem** on the main menu. **Where the game log is saved** shows where your session transcript and log live—they stay on your computer unless you choose to send a report.
+Still stuck, or ran into a bug? Open **Problem reports** in Settings or **Report a problem** on the main menu. **Where the game log is saved** shows where your session transcript and log live. They stay on your computer unless you choose to send a report.
 
