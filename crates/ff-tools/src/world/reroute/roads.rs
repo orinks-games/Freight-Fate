@@ -219,6 +219,7 @@ pub fn read(paths: &[impl AsRef<Path>], cells: &HashSet<Cell>) -> Result<Network
             hgv: false,
             ca_mph: None,
             ca_hgv: false,
+            ca_kmh: None,
             coords,
         });
         classes.insert(id, road);
@@ -262,21 +263,6 @@ impl Network {
             .into_iter()
             .filter_map(|(w, d)| self.roads.get(&w.id).map(|r| (r, d)))
             .min_by(|a, b| a.1.total_cmp(&b.1))
-    }
-
-    /// Any road within `tol_m` whose `ref` passes `test`.
-    pub fn any_ref_near(
-        &self,
-        lat: f64,
-        lon: f64,
-        tol_m: f64,
-        test: impl Fn(&str) -> bool,
-    ) -> bool {
-        let coslat = lat.to_radians().cos();
-        self.index
-            .near(lat, lon, tol_m, coslat)
-            .into_iter()
-            .any(|(w, _)| w.route_ref.split(';').any(|r| test(r.trim())))
     }
 }
 

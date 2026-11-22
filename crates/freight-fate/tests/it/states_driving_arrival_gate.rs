@@ -165,6 +165,52 @@ fn test_delivery_requires_parking_at_destination() {
 }
 
 #[test]
+fn test_a_delivered_load_leaves_the_road_and_the_dock_in_the_logbook() {
+    // 2.0 review drive, 2026-11-22: after Chicago to Gary the logbook read
+    // "Today: driving 0 minutes" and still opened on the shipper's dock.
+    let mut harness = a_drive("Logged Road");
+    let start = harness
+        .app
+        .ctx
+        .profile
+        .as_ref()
+        .expect("a career")
+        .game_hours;
+    // Checked in at the dock 165 minutes out, unloaded by 200: the same two
+    // instants the dock hands the settlement.
+    let check_in_hours = 165.0 / 60.0;
+    harness.with_drive(|drive, ctx| {
+        drive.trip.game_minutes = 200.0;
+        drive.truck_mut().velocity_mps = 0.0;
+        assert!(settlement_hours(drive) > check_in_hours);
+        drive.replace_with_arrival_state_at(ctx, check_in_hours);
+    });
+    harness.finish_timed_state();
+    assert!(harness.state_is::<ArrivalState>());
+
+    let p = harness.app.ctx.profile.as_ref().expect("a career");
+    let segments = &p.duty_log.segments;
+    let driving = segments
+        .iter()
+        .find(|s| s.status == "driving")
+        .unwrap_or_else(|| panic!("no driving entry: {segments:#?}"));
+    assert!((driving.start_hour - start).abs() < 1e-9, "{driving:?}");
+    assert!(
+        (driving.end_hour - (start + check_in_hours)).abs() < 1e-6,
+        "{driving:?}"
+    );
+    assert!(!driving.location.contains("_us"), "{driving:?}");
+    let last = segments.last().expect("entries");
+    assert_eq!(last.status, "on_duty_not_driving", "{segments:#?}");
+    assert_eq!(last.note, "receiver unloading");
+    assert!(
+        (last.start_hour - (start + check_in_hours)).abs() < 1e-6,
+        "{last:?}"
+    );
+    assert!((last.end_hour - p.game_hours).abs() < 1e-6, "{last:?}");
+}
+
+#[test]
 fn test_arrival_gate_repeats_after_overshoot() {
     // Rolling past the destination gate keeps the stop instruction alive.
     //
@@ -375,6 +421,36 @@ fn test_brake_or_enter_inside_the_delay_never_hears_the_brake_line() {
         harness.finish_timed_state();
         assert!(harness.state_is::<FacilityArrivalState>(), "enter {enter}");
         assert_eq!(said_count(&harness, "Set the parking brake to"), 0);
+    }
+}
+
+#[test]
+fn test_setting_the_brake_after_the_brake_line_does_not_hear_it_again() {
+    // 2.0 sync drive, 2026-11-21: "Set the parking brake to check in. Press
+    // P." was cut by the driver's own P press and handed back right after
+    // "Parking brake set."
+    for pickup in [false, true] {
+        let mut harness = stopped_at_gate("Brake After The Line", pickup);
+        frame(&mut harness);
+        hold_until_quiet(&mut harness);
+        while said_count(&harness, "Set the parking brake to") == 0 {
+            hold_at(&mut harness, 0.0, DT);
+        }
+        // The line has just started; the driver presses P under it.
+        harness.with_drive(|drive, ctx| drive.toggle_parking_brake(ctx));
+        assert!(harness.read_drive(|d| d.truck().parking_brake));
+        for _ in 0..(10.0 / DT) as usize {
+            if !harness.has_drive() {
+                break;
+            }
+            frame(&mut harness);
+        }
+        assert_eq!(
+            said_count(&harness, "Set the parking brake to"),
+            1,
+            "pickup {pickup}: {:#?}",
+            harness.app.event_lines()
+        );
     }
 }
 
@@ -704,4 +780,28 @@ fn test_moving_in_automatic_marks_the_run_and_a_save_keeps_it() {
             .drove_automatic
     });
     assert!(resumed);
+}
+
+#[test]
+fn test_s_off_the_destination_exit_reads_the_approach_not_the_interstate() {
+    // R1 review drive, Chicago to Gary, 2026-11-22: off exit 14A, S said
+    // "Truck limit 65 miles per hour." with the gate 0.1 miles ahead at 15.
+    let mut harness = a_drive("Approach Limit");
+    harness.with_drive(|drive, _| {
+        mark_destination_exit_taken(drive);
+        drive.ramp_mi = Some(1.5);
+        drive.truck_mut().velocity_mps = 30.0 / freight_fate::states::driving_core::MPH_PER_MPS;
+    });
+    harness.clear_speech();
+    harness.with_drive(|drive, ctx| drive.speak_speed_limit(ctx));
+    assert_eq!(last_main(&harness), "Speed limit 45 miles per hour.");
+
+    // Inside the gate's own half mile, the gate's 15 is the number.
+    harness.with_drive(|drive, _| drive.ramp_mi = Some(0.1));
+    harness.clear_speech();
+    harness.with_drive(|drive, ctx| drive.speak_speed_limit(ctx));
+    assert_eq!(
+        last_main(&harness),
+        "Speed limit 15 miles per hour. About 15 miles per hour over."
+    );
 }

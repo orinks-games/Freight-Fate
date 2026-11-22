@@ -721,6 +721,8 @@ impl DrivingState {
         self.update_lane_gap(ctx, dt);
 
         self.update_hours_and_fatigue(ctx, dt);
+        // After the hours, which can queue a line for after the crossing call.
+        self.update_after_crossing(ctx, dt);
         self.update_audio(ctx, dt);
         self.update_announcements(ctx, dt);
         self.update_ambient_events(ctx, dt);
@@ -805,6 +807,7 @@ impl DrivingState {
             0
         });
         live::set_arrival_menu_open(self.arrival_menu_open);
+        live::set_parking_brake_set(self.trip.truck.parking_brake);
         live::set_gate_stop_prompted(self.gate.stop_prompted());
         live::set_on_ramp(self.ramp_mi.is_some());
         live::set_posted_limit_mph(match self.trip.entered_zone.as_ref() {

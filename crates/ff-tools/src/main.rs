@@ -194,6 +194,12 @@ const COMMANDS: &[(&str, &str, Command)] = &[
     ),
     #[cfg(feature = "world")]
     (
+        "osm-stops",
+        "list stop leads near a leg from OpenStreetMap, or place a curated stop list on the legs",
+        world::layers::stops::main,
+    ),
+    #[cfg(feature = "world")]
+    (
         "hpms-traffic",
         "re-read every leg's traffic volumes and lane count from FHWA HPMS",
         world::layers::hpms::traffic::main,
@@ -209,6 +215,12 @@ const COMMANDS: &[(&str, &str, Command)] = &[
         "hpms-pavement",
         "re-read every leg's surface type, bridges and tunnels from FHWA HPMS",
         world::layers::hpms::pavement::main,
+    ),
+    #[cfg(feature = "world")]
+    (
+        "bake-billboards",
+        "place an approved sign sheet's billboards on the legs, checking sign law and spacing",
+        world::billboards::main,
     ),
     #[cfg(feature = "world")]
     (

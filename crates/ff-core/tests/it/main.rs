@@ -17,6 +17,7 @@ mod data_support;
 mod sim_support;
 
 mod carrier_slice3;
+mod carrier_spread;
 mod data_border_yards;
 mod data_canada;
 mod data_city_keys;
@@ -47,6 +48,7 @@ mod economy;
 mod profile_integrity_export;
 mod sim_bends_hold_their_advisory;
 mod sim_billboard_facing;
+mod sim_billboard_law;
 mod sim_billboard_placement;
 mod sim_chain_law;
 mod sim_congestion;

@@ -34,7 +34,7 @@ pub fn dispatch_decline_budget() -> Outcome {
     harness.expect_state::<HomeCityState>("after the home region");
     harness.key(key_event(Key::Return, None));
     harness.expect_state::<CareerStartState>("after the home city");
-    harness.key(key_event(Key::Return, None));
+    harness.select_menu_item_starting("Northstar");
     harness.expect_state::<CityMenuState>("after the career start");
     harness.key(key_event(Key::Return, None));
     harness.expect_state::<JobBoardState>("the dispatch board");

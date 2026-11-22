@@ -99,6 +99,10 @@ pub const TRUCK_STOP_NAME_WORDS: &[&str] = &[
     "traffic center",
     "fuel center",
     "welcome center",
+    // A commercial cardlock is a fleet fuelling site built for trucks; the
+    // name says what the site is (Smith Fuels: "easy access to all types of
+    // commercial trucks").
+    "cardlock",
 ];
 
 /// The access level a stop's own record supports.
@@ -170,6 +174,20 @@ mod screen_tests {
             &services,
             DEFAULT_VEHICLE_ACCESS,
         )
+    }
+
+    #[test]
+    fn a_commercial_cardlock_keeps_its_truck_access() {
+        assert_eq!(
+            screen(
+                "Smith Fuels Sasquatch Crossing cardlock",
+                "fuel_station",
+                "unknown",
+                0,
+                &["diesel"]
+            ),
+            DEFAULT_VEHICLE_ACCESS
+        );
     }
 
     #[test]

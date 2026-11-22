@@ -15,6 +15,27 @@ use crate::app::{GameContext, SayEvent};
 use crate::bindings::Action;
 use crate::states::driving::DrivingState;
 use crate::states::driving_core::*;
+use crate::states::driving_updates::after_crossing::AfterCrossing;
+
+/// The line spoken when a jurisdiction's hours rules take over, after the
+/// crossing call. One shape for all four (director, 2026-11-22).
+pub fn hours_rules_line(rules: HosRules) -> &'static str {
+    match rules {
+        HosRules::Us => {
+            "US hours rules: 11 hours of driving in a 14-hour window, and a 30-minute break \
+             after 8 hours of driving."
+        }
+        HosRules::Alaska => {
+            "Alaska hours rules: 15 hours of driving and 20 on duty, with no 30-minute break."
+        }
+        HosRules::CanadaSouth60 => {
+            "Canadian hours rules: 13 hours of driving and 14 on duty in a 16-hour window."
+        }
+        HosRules::CanadaNorth60 => {
+            "North of 60 hours rules: 15 hours of driving and 18 on duty in a 20-hour window."
+        }
+    }
+}
 
 impl DrivingState {
     /// Advance the HOS shift clock and fatigue on game time, not wall time.
@@ -31,32 +52,11 @@ impl DrivingState {
             && !first_jurisdiction_frame
             && !hos::HOS_NON_ENFORCED_MODES.contains(&mode.as_str())
         {
-            let announcement = match rules {
-                HosRules::Us => {
-                    "US hours rules again: 11 hours of driving in a 14-hour window, and a \
-                     30-minute break after 8 hours of driving."
-                }
-                HosRules::Alaska => {
-                    "Alaska hours rules now apply: up to 15 hours of driving and 20 on duty \
-                     after 10 hours off, with no 30-minute break."
-                }
-                HosRules::CanadaSouth60 => {
-                    "Canadian hours rules now apply. Up to 13 hours of driving and 14 on duty \
-                     after 8 hours off. No driving once 16 hours have passed since that \
-                     break."
-                }
-                HosRules::CanadaNorth60 => {
-                    "Canadian north-of-60 hours rules now apply. Up to 15 hours of driving and \
-                     18 on duty after 8 hours off. No driving once 20 hours have passed since \
-                     that break."
-                }
-            };
-            ctx.say_event_with(
-                announcement,
-                SayEvent::queued()
-                    .interrupt(false)
-                    .priority(EventPriority::Important)
-                    .category(SpeechCategory::Status),
+            // Spoken after the crossing call has finished, never over it.
+            self.queue_after_crossing(
+                AfterCrossing::HoursRules,
+                hours_rules_line(rules),
+                Some(SpeechCategory::Status),
             );
         }
 
@@ -77,6 +77,8 @@ impl DrivingState {
         }
         if cattle_aboard {
             hos_mut_of(ctx).waive_break();
+        } else if hos_of(ctx).break_waived {
+            hos_mut_of(ctx).restore_break();
         }
         if !hos::HOS_NON_ENFORCED_MODES.contains(&mode.as_str()) && self.hazard_deadline.is_none() {
             let marks = tuning_for_time_scale(self.trip.time_scale).hos_warning_marks_min;

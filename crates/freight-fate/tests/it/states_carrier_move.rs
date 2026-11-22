@@ -63,8 +63,18 @@ fn a_qualified_trainee_moves_on_the_second_press() {
         "{rows:?}"
     );
 
+    app.clear_speech();
     select::<BusinessStatusState>(&mut app, "Move to Summit Value Logistics");
     assert_eq!(profile(&app).carrier_key, LAST_CHANCE_CARRIER_KEY);
+    // The first press names where the truck will start, before a move that
+    // cannot be undone (R1 review, 2026-11-22).
+    assert!(
+        app.main_lines().iter().any(|l| l.contains(
+            "Truck starts at Summit Value Logistics Milwaukee terminal. Press Enter again to move."
+        )),
+        "{:?}",
+        app.main_lines()
+    );
     assert!(current_label::<BusinessStatusState>(&app).contains("press Enter again"));
 
     app.clear_speech();
