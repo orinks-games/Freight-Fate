@@ -2194,7 +2194,15 @@
           "name": "rolling",
           "sections": 0,
           "source": "DERIVED, not read: Canada has no national inventory like HPMS, so the class is the terrain the leg's own grade profile spends the most miles in (the reroute-enrich rule: sustained grade of 5 percent, or 4 percent with 1,000 ft of relief within 5 miles, is mountain; 1.5 percent or 400 ft of relief is hills; else flat), mapped flat to level, hills to rolling and mountain to mountainous. It reads the same elevation as the grade, so it is no independent check on it."
-        }
+        },
+        "billboard_bans": [
+          {
+            "from_mi": 6.55,
+            "to_mi": 7.55,
+            "name": "Parc provincial de la R\u00e9publique",
+            "source": "derived 2026-11-22: OpenStreetMap relation 9583336 (Parc provincial de la R\u00e9publique) boundary from the Atlantic cut of the planet extract of 2026-11-16; the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on); widened to the one-mile minimum"
+          }
+        ]
       },
       "rerouted": true
     },
@@ -5926,7 +5934,15 @@
           "name": "level",
           "sections": 0,
           "source": "DERIVED, not read: Canada has no national inventory like HPMS, so the class is the terrain the leg's own grade profile spends the most miles in (the reroute-enrich rule: sustained grade of 5 percent, or 4 percent with 1,000 ft of relief within 5 miles, is mountain; 1.5 percent or 400 ft of relief is hills; else flat), mapped flat to level, hills to rolling and mountain to mountainous. It reads the same elevation as the grade, so it is no independent check on it."
-        }
+        },
+        "billboard_bans": [
+          {
+            "from_mi": 1.9,
+            "to_mi": 2.9,
+            "name": "Fredericton Wildlife Refuge",
+            "source": "derived 2026-11-22: OpenStreetMap way 1362624552 (Fredericton Wildlife Refuge) boundary from the Atlantic cut of the planet extract of 2026-11-16; the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on); widened to the one-mile minimum"
+          }
+        ]
       },
       "rerouted": true
     },
@@ -7831,7 +7847,21 @@
           "name": "level",
           "sections": 0,
           "source": "DERIVED, not read: Canada has no national inventory like HPMS, so the class is the terrain the leg's own grade profile spends the most miles in (the reroute-enrich rule: sustained grade of 5 percent, or 4 percent with 1,000 ft of relief within 5 miles, is mountain; 1.5 percent or 400 ft of relief is hills; else flat), mapped flat to level, hills to rolling and mountain to mountainous. It reads the same elevation as the grade, so it is no independent check on it."
-        }
+        },
+        "billboard_bans": [
+          {
+            "from_mi": 2.8,
+            "to_mi": 3.8,
+            "name": "University of New Brunswick Wildlife Refuge",
+            "source": "derived 2026-11-22: OpenStreetMap relation 20219989 (University of New Brunswick Wildlife Refuge) boundary from the Atlantic cut of the planet extract of 2026-11-16; the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on); widened to the one-mile minimum"
+          },
+          {
+            "from_mi": 32.4,
+            "to_mi": 35.8,
+            "name": "Grand Lake Protected Natural Area",
+            "source": "derived 2026-11-22: OpenStreetMap relation 19393783 (Grand Lake Protected Natural Area) boundary from the Atlantic cut of the planet extract of 2026-11-16; the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
+          }
+        ]
       },
       "rerouted": true
     },
@@ -9444,7 +9474,15 @@
           "name": "rolling",
           "sections": 0,
           "source": "DERIVED, not read: Canada has no national inventory like HPMS, so the class is the terrain the leg's own grade profile spends the most miles in (the reroute-enrich rule: sustained grade of 5 percent, or 4 percent with 1,000 ft of relief within 5 miles, is mountain; 1.5 percent or 400 ft of relief is hills; else flat), mapped flat to level, hills to rolling and mountain to mountainous. It reads the same elevation as the grade, so it is no independent check on it."
-        }
+        },
+        "billboard_bans": [
+          {
+            "from_mi": 2.8,
+            "to_mi": 3.8,
+            "name": "University of New Brunswick Wildlife Refuge",
+            "source": "derived 2026-11-22: OpenStreetMap relation 20219989 (University of New Brunswick Wildlife Refuge) boundary from the Atlantic cut of the planet extract of 2026-11-16; the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on); widened to the one-mile minimum"
+          }
+        ]
       },
       "rerouted": true
     },
@@ -13125,7 +13163,15 @@
           "name": "level",
           "sections": 0,
           "source": "DERIVED, not read: Canada has no national inventory like HPMS, so the class is the terrain the leg's own grade profile spends the most miles in (the reroute-enrich rule: sustained grade of 5 percent, or 4 percent with 1,000 ft of relief within 5 miles, is mountain; 1.5 percent or 400 ft of relief is hills; else flat), mapped flat to level, hills to rolling and mountain to mountainous. It reads the same elevation as the grade, so it is no independent check on it."
-        }
+        },
+        "billboard_bans": [
+          {
+            "from_mi": 108.0,
+            "to_mi": 109.0,
+            "name": "Fredericton Wildlife Refuge",
+            "source": "derived 2026-11-22: OpenStreetMap way 1362624552 (Fredericton Wildlife Refuge) boundary from the Atlantic cut of the planet extract of 2026-11-16; the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on); widened to the one-mile minimum"
+          }
+        ]
       },
       "rerouted": true
     },
@@ -14682,7 +14728,15 @@
           "name": "level",
           "sections": 0,
           "source": "DERIVED, not read: Canada has no national inventory like HPMS, so the class is the terrain the leg's own grade profile spends the most miles in (the reroute-enrich rule: sustained grade of 5 percent, or 4 percent with 1,000 ft of relief within 5 miles, is mountain; 1.5 percent or 400 ft of relief is hills; else flat), mapped flat to level, hills to rolling and mountain to mountainous. It reads the same elevation as the grade, so it is no independent check on it."
-        }
+        },
+        "billboard_bans": [
+          {
+            "from_mi": 30.05,
+            "to_mi": 31.05,
+            "name": "Kouchibouguac National Park",
+            "source": "derived 2026-11-22: OpenStreetMap relation 2246702 (Kouchibouguac National Park) boundary from the Atlantic cut of the planet extract of 2026-11-16; the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on); widened to the one-mile minimum"
+          }
+        ]
       },
       "rerouted": true
     },
@@ -17340,7 +17394,15 @@
           "name": "level",
           "sections": 0,
           "source": "DERIVED, not read: Canada has no national inventory like HPMS, so the class is the terrain the leg's own grade profile spends the most miles in (the reroute-enrich rule: sustained grade of 5 percent, or 4 percent with 1,000 ft of relief within 5 miles, is mountain; 1.5 percent or 400 ft of relief is hills; else flat), mapped flat to level, hills to rolling and mountain to mountainous. It reads the same elevation as the grade, so it is no independent check on it."
-        }
+        },
+        "billboard_bans": [
+          {
+            "from_mi": 56.6,
+            "to_mi": 59.1,
+            "name": "Cape Jourimain National Wildlife Area",
+            "source": "derived 2026-11-22: OpenStreetMap relation 21602238 (Cape Jourimain National Wildlife Area) boundary from the Atlantic cut of the planet extract of 2026-11-16; the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
+          }
+        ]
       },
       "rerouted": true
     },
@@ -19177,7 +19239,21 @@
           "name": "level",
           "sections": 0,
           "source": "DERIVED, not read: Canada has no national inventory like HPMS, so the class is the terrain the leg's own grade profile spends the most miles in (the reroute-enrich rule: sustained grade of 5 percent, or 4 percent with 1,000 ft of relief within 5 miles, is mountain; 1.5 percent or 400 ft of relief is hills; else flat), mapped flat to level, hills to rolling and mountain to mountainous. It reads the same elevation as the grade, so it is no independent check on it."
-        }
+        },
+        "billboard_bans": [
+          {
+            "from_mi": 76.7,
+            "to_mi": 80.1,
+            "name": "Grand Lake Protected Natural Area",
+            "source": "derived 2026-11-22: OpenStreetMap relation 19393783 (Grand Lake Protected Natural Area) boundary from the Atlantic cut of the planet extract of 2026-11-16; the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
+          },
+          {
+            "from_mi": 108.4,
+            "to_mi": 109.4,
+            "name": "University of New Brunswick Wildlife Refuge",
+            "source": "derived 2026-11-22: OpenStreetMap relation 20219989 (University of New Brunswick Wildlife Refuge) boundary from the Atlantic cut of the planet extract of 2026-11-16; the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on); widened to the one-mile minimum"
+          }
+        ]
       },
       "rerouted": true
     },
@@ -20643,7 +20719,15 @@
           "name": "level",
           "sections": 0,
           "source": "DERIVED, not read: Canada has no national inventory like HPMS, so the class is the terrain the leg's own grade profile spends the most miles in (the reroute-enrich rule: sustained grade of 5 percent, or 4 percent with 1,000 ft of relief within 5 miles, is mountain; 1.5 percent or 400 ft of relief is hills; else flat), mapped flat to level, hills to rolling and mountain to mountainous. It reads the same elevation as the grade, so it is no independent check on it."
-        }
+        },
+        "billboard_bans": [
+          {
+            "from_mi": 60.15,
+            "to_mi": 61.15,
+            "name": "Kouchibouguac National Park",
+            "source": "derived 2026-11-22: OpenStreetMap relation 2246702 (Kouchibouguac National Park) boundary from the Atlantic cut of the planet extract of 2026-11-16; the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on); widened to the one-mile minimum"
+          }
+        ]
       },
       "rerouted": true
     },
@@ -23821,7 +23905,15 @@
           "name": "level",
           "sections": 0,
           "source": "DERIVED, not read: Canada has no national inventory like HPMS, so the class is the terrain the leg's own grade profile spends the most miles in (the reroute-enrich rule: sustained grade of 5 percent, or 4 percent with 1,000 ft of relief within 5 miles, is mountain; 1.5 percent or 400 ft of relief is hills; else flat), mapped flat to level, hills to rolling and mountain to mountainous. It reads the same elevation as the grade, so it is no independent check on it."
-        }
+        },
+        "billboard_bans": [
+          {
+            "from_mi": 56.8,
+            "to_mi": 59.3,
+            "name": "Cape Jourimain National Wildlife Area",
+            "source": "derived 2026-11-22: OpenStreetMap relation 21602238 (Cape Jourimain National Wildlife Area) boundary from the Atlantic cut of the planet extract of 2026-11-16; the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
+          }
+        ]
       },
       "rerouted": true
     },
@@ -25400,7 +25492,15 @@
           "name": "rolling",
           "sections": 0,
           "source": "DERIVED, not read: Canada has no national inventory like HPMS, so the class is the terrain the leg's own grade profile spends the most miles in (the reroute-enrich rule: sustained grade of 5 percent, or 4 percent with 1,000 ft of relief within 5 miles, is mountain; 1.5 percent or 400 ft of relief is hills; else flat), mapped flat to level, hills to rolling and mountain to mountainous. It reads the same elevation as the grade, so it is no independent check on it."
-        }
+        },
+        "billboard_bans": [
+          {
+            "from_mi": 66.4,
+            "to_mi": 67.4,
+            "name": "University of New Brunswick Wildlife Refuge",
+            "source": "derived 2026-11-22: OpenStreetMap relation 20219989 (University of New Brunswick Wildlife Refuge) boundary from the Atlantic cut of the planet extract of 2026-11-16; the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on); widened to the one-mile minimum"
+          }
+        ]
       },
       "rerouted": true
     },
@@ -28665,7 +28765,21 @@
           "name": "level",
           "sections": 0,
           "source": "DERIVED, not read: Canada has no national inventory like HPMS, so the class is the terrain the leg's own grade profile spends the most miles in (the reroute-enrich rule: sustained grade of 5 percent, or 4 percent with 1,000 ft of relief within 5 miles, is mountain; 1.5 percent or 400 ft of relief is hills; else flat), mapped flat to level, hills to rolling and mountain to mountainous. It reads the same elevation as the grade, so it is no independent check on it."
-        }
+        },
+        "billboard_bans": [
+          {
+            "from_mi": 15.35,
+            "to_mi": 16.35,
+            "name": "Musquash Estuary Marine Protected Area",
+            "source": "derived 2026-11-22: OpenStreetMap relation 19415595 (Musquash Estuary Marine Protected Area) boundary from the Atlantic cut of the planet extract of 2026-11-16; the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on); widened to the one-mile minimum"
+          },
+          {
+            "from_mi": 27.8,
+            "to_mi": 28.8,
+            "name": "New River Beach Provincial Park",
+            "source": "derived 2026-11-22: OpenStreetMap relation 9556343 (New River Beach Provincial Park) boundary from the Atlantic cut of the planet extract of 2026-11-16; the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
+          }
+        ]
       },
       "rerouted": true
     },
@@ -32062,7 +32176,21 @@
           "name": "level",
           "sections": 0,
           "source": "DERIVED, not read: Canada has no national inventory like HPMS, so the class is the terrain the leg's own grade profile spends the most miles in (the reroute-enrich rule: sustained grade of 5 percent, or 4 percent with 1,000 ft of relief within 5 miles, is mountain; 1.5 percent or 400 ft of relief is hills; else flat), mapped flat to level, hills to rolling and mountain to mountainous. It reads the same elevation as the grade, so it is no independent check on it."
-        }
+        },
+        "billboard_bans": [
+          {
+            "from_mi": 41.2,
+            "to_mi": 42.3,
+            "name": "New River Beach Provincial Park",
+            "source": "derived 2026-11-22: OpenStreetMap relation 9556343 (New River Beach Provincial Park) boundary from the Atlantic cut of the planet extract of 2026-11-16; the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
+          },
+          {
+            "from_mi": 53.65,
+            "to_mi": 54.65,
+            "name": "Musquash Estuary Marine Protected Area",
+            "source": "derived 2026-11-22: OpenStreetMap relation 19415595 (Musquash Estuary Marine Protected Area) boundary from the Atlantic cut of the planet extract of 2026-11-16; the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on); widened to the one-mile minimum"
+          }
+        ]
       },
       "rerouted": true
     },

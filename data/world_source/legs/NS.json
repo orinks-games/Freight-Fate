@@ -2242,6 +2242,20 @@
             "amount_local": 15.0,
             "currency": "CAD"
           }
+        ],
+        "billboard_bans": [
+          {
+            "from_mi": 17.35,
+            "to_mi": 18.35,
+            "name": "Slade Lake Nature Reserve",
+            "source": "derived 2026-11-22: OpenStreetMap way 479607495 (Slade Lake Nature Reserve) boundary from the Atlantic cut of the planet extract of 2026-11-16; the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on); widened to the one-mile minimum"
+          },
+          {
+            "from_mi": 36.75,
+            "to_mi": 37.75,
+            "name": "Portapique River Wilderness Area",
+            "source": "derived 2026-11-22: OpenStreetMap way 342147152 (Portapique River Wilderness Area) boundary from the Atlantic cut of the planet extract of 2026-11-16; the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on); widened to the one-mile minimum"
+          }
         ]
       },
       "rerouted": true
@@ -4029,7 +4043,39 @@
           "name": "level",
           "sections": 0,
           "source": "DERIVED, not read: Canada has no national inventory like HPMS, so the class is the terrain the leg's own grade profile spends the most miles in (the reroute-enrich rule: sustained grade of 5 percent, or 4 percent with 1,000 ft of relief within 5 miles, is mountain; 1.5 percent or 400 ft of relief is hills; else flat), mapped flat to level, hills to rolling and mountain to mountainous. It reads the same elevation as the grade, so it is no independent check on it."
-        }
+        },
+        "billboard_bans": [
+          {
+            "from_mi": 27.55,
+            "to_mi": 28.55,
+            "name": "South Panuke Wilderness Area",
+            "source": "derived 2026-11-22: OpenStreetMap relation 7058272 (South Panuke Wilderness Area) boundary from the Atlantic cut of the planet extract of 2026-11-16; the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on); widened to the one-mile minimum"
+          },
+          {
+            "from_mi": 46.15,
+            "to_mi": 47.15,
+            "name": "Upper Tantallon Provincial Park",
+            "source": "derived 2026-11-22: OpenStreetMap way 343472058 (Upper Tantallon Provincial Park) boundary from the Atlantic cut of the planet extract of 2026-11-16; the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on); widened to the one-mile minimum"
+          },
+          {
+            "from_mi": 46.95,
+            "to_mi": 47.95,
+            "name": "Jerry Lawrence Provincial Park",
+            "source": "derived 2026-11-22: OpenStreetMap relation 17836562 (Jerry Lawrence Provincial Park) boundary from the Atlantic cut of the planet extract of 2026-11-16; the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on); widened to the one-mile minimum"
+          },
+          {
+            "from_mi": 51.7,
+            "to_mi": 54.0,
+            "name": "Five Bridge Lakes Wilderness Area",
+            "source": "derived 2026-11-22: OpenStreetMap relation 4854438 (Five Bridge Lakes Wilderness Area) boundary from the Atlantic cut of the planet extract of 2026-11-16; the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
+          },
+          {
+            "from_mi": 55.8,
+            "to_mi": 57.9,
+            "name": "Western Commons Wilderness Area",
+            "source": "derived 2026-11-22: OpenStreetMap relation 4866524 (Western Commons Wilderness Area) boundary from the Atlantic cut of the planet extract of 2026-11-16; the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
+          }
+        ]
       },
       "rerouted": true
     },
@@ -5792,7 +5838,39 @@
           "name": "level",
           "sections": 0,
           "source": "DERIVED, not read: Canada has no national inventory like HPMS, so the class is the terrain the leg's own grade profile spends the most miles in (the reroute-enrich rule: sustained grade of 5 percent, or 4 percent with 1,000 ft of relief within 5 miles, is mountain; 1.5 percent or 400 ft of relief is hills; else flat), mapped flat to level, hills to rolling and mountain to mountainous. It reads the same elevation as the grade, so it is no independent check on it."
-        }
+        },
+        "billboard_bans": [
+          {
+            "from_mi": 4.5,
+            "to_mi": 6.6,
+            "name": "Western Commons Wilderness Area",
+            "source": "derived 2026-11-22: OpenStreetMap relation 4866524 (Western Commons Wilderness Area) boundary from the Atlantic cut of the planet extract of 2026-11-16; the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
+          },
+          {
+            "from_mi": 9.7,
+            "to_mi": 10.7,
+            "name": "Five Bridge Lakes Wilderness Area",
+            "source": "derived 2026-11-22: OpenStreetMap relation 4854438 (Five Bridge Lakes Wilderness Area) boundary from the Atlantic cut of the planet extract of 2026-11-16; the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on); widened to the one-mile minimum"
+          },
+          {
+            "from_mi": 14.25,
+            "to_mi": 15.25,
+            "name": "Jerry Lawrence Provincial Park",
+            "source": "derived 2026-11-22: OpenStreetMap relation 17836562 (Jerry Lawrence Provincial Park) boundary from the Atlantic cut of the planet extract of 2026-11-16; the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on); widened to the one-mile minimum"
+          },
+          {
+            "from_mi": 15.05,
+            "to_mi": 16.05,
+            "name": "Upper Tantallon Provincial Park",
+            "source": "derived 2026-11-22: OpenStreetMap way 343472058 (Upper Tantallon Provincial Park) boundary from the Atlantic cut of the planet extract of 2026-11-16; the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on); widened to the one-mile minimum"
+          },
+          {
+            "from_mi": 33.45,
+            "to_mi": 34.45,
+            "name": "South Panuke Wilderness Area",
+            "source": "derived 2026-11-22: OpenStreetMap relation 7058272 (South Panuke Wilderness Area) boundary from the Atlantic cut of the planet extract of 2026-11-16; the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on); widened to the one-mile minimum"
+          }
+        ]
       },
       "rerouted": true
     },
@@ -7283,7 +7361,15 @@
           "name": "rolling",
           "sections": 0,
           "source": "DERIVED, not read: Canada has no national inventory like HPMS, so the class is the terrain the leg's own grade profile spends the most miles in (the reroute-enrich rule: sustained grade of 5 percent, or 4 percent with 1,000 ft of relief within 5 miles, is mountain; 1.5 percent or 400 ft of relief is hills; else flat), mapped flat to level, hills to rolling and mountain to mountainous. It reads the same elevation as the grade, so it is no independent check on it."
-        }
+        },
+        "billboard_bans": [
+          {
+            "from_mi": 38.6,
+            "to_mi": 39.6,
+            "name": "Fort Edward National Historic Site",
+            "source": "derived 2026-11-22: OpenStreetMap relation 13045220 (Fort Edward National Historic Site) boundary from the Atlantic cut of the planet extract of 2026-11-16; the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on); widened to the one-mile minimum"
+          }
+        ]
       },
       "rerouted": true
     },
@@ -8891,7 +8977,15 @@
           "name": "level",
           "sections": 0,
           "source": "DERIVED, not read: Canada has no national inventory like HPMS, so the class is the terrain the leg's own grade profile spends the most miles in (the reroute-enrich rule: sustained grade of 5 percent, or 4 percent with 1,000 ft of relief within 5 miles, is mountain; 1.5 percent or 400 ft of relief is hills; else flat), mapped flat to level, hills to rolling and mountain to mountainous. It reads the same elevation as the grade, so it is no independent check on it."
-        }
+        },
+        "billboard_bans": [
+          {
+            "from_mi": 5.0,
+            "to_mi": 8.4,
+            "name": "Shubenacadie Canal Provincial Park",
+            "source": "derived 2026-11-22: OpenStreetMap relation 13670865 (Shubenacadie Canal Provincial Park) boundary from the Atlantic cut of the planet extract of 2026-11-16; the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
+          }
+        ]
       },
       "rerouted": true
     },
@@ -10378,7 +10472,15 @@
           "name": "rolling",
           "sections": 0,
           "source": "DERIVED, not read: Canada has no national inventory like HPMS, so the class is the terrain the leg's own grade profile spends the most miles in (the reroute-enrich rule: sustained grade of 5 percent, or 4 percent with 1,000 ft of relief within 5 miles, is mountain; 1.5 percent or 400 ft of relief is hills; else flat), mapped flat to level, hills to rolling and mountain to mountainous. It reads the same elevation as the grade, so it is no independent check on it."
-        }
+        },
+        "billboard_bans": [
+          {
+            "from_mi": 22.3,
+            "to_mi": 23.3,
+            "name": "Fort Edward National Historic Site",
+            "source": "derived 2026-11-22: OpenStreetMap relation 13045220 (Fort Edward National Historic Site) boundary from the Atlantic cut of the planet extract of 2026-11-16; the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on); widened to the one-mile minimum"
+          }
+        ]
       },
       "rerouted": true
     },
@@ -12086,7 +12188,15 @@
           "name": "rolling",
           "sections": 0,
           "source": "DERIVED, not read: Canada has no national inventory like HPMS, so the class is the terrain the leg's own grade profile spends the most miles in (the reroute-enrich rule: sustained grade of 5 percent, or 4 percent with 1,000 ft of relief within 5 miles, is mountain; 1.5 percent or 400 ft of relief is hills; else flat), mapped flat to level, hills to rolling and mountain to mountainous. It reads the same elevation as the grade, so it is no independent check on it."
-        }
+        },
+        "billboard_bans": [
+          {
+            "from_mi": 64.8,
+            "to_mi": 65.8,
+            "name": "Aulds Cove protected area",
+            "source": "derived 2026-11-22: OpenStreetMap relation 5011738 (Aulds Cove protected area) boundary from the Atlantic cut of the planet extract of 2026-11-16; the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on); widened to the one-mile minimum"
+          }
+        ]
       },
       "rerouted": true
     },
@@ -12960,7 +13070,15 @@
           "name": "rolling",
           "sections": 0,
           "source": "DERIVED, not read: Canada has no national inventory like HPMS, so the class is the terrain the leg's own grade profile spends the most miles in (the reroute-enrich rule: sustained grade of 5 percent, or 4 percent with 1,000 ft of relief within 5 miles, is mountain; 1.5 percent or 400 ft of relief is hills; else flat), mapped flat to level, hills to rolling and mountain to mountainous. It reads the same elevation as the grade, so it is no independent check on it."
-        }
+        },
+        "billboard_bans": [
+          {
+            "from_mi": 13.15,
+            "to_mi": 14.15,
+            "name": "Salt Springs Provincial Park",
+            "source": "derived 2026-11-22: OpenStreetMap relation 5011617 (Salt Springs Provincial Park) boundary from the Atlantic cut of the planet extract of 2026-11-16; the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on); widened to the one-mile minimum"
+          }
+        ]
       },
       "rerouted": true
     },
@@ -15232,7 +15350,15 @@
           "name": "rolling",
           "sections": 0,
           "source": "DERIVED, not read: Canada has no national inventory like HPMS, so the class is the terrain the leg's own grade profile spends the most miles in (the reroute-enrich rule: sustained grade of 5 percent, or 4 percent with 1,000 ft of relief within 5 miles, is mountain; 1.5 percent or 400 ft of relief is hills; else flat), mapped flat to level, hills to rolling and mountain to mountainous. It reads the same elevation as the grade, so it is no independent check on it."
-        }
+        },
+        "billboard_bans": [
+          {
+            "from_mi": 5.15,
+            "to_mi": 6.15,
+            "name": "Aulds Cove protected area",
+            "source": "derived 2026-11-22: OpenStreetMap relation 5011738 (Aulds Cove protected area) boundary from the Atlantic cut of the planet extract of 2026-11-16; the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on); widened to the one-mile minimum"
+          }
+        ]
       },
       "rerouted": true
     },
@@ -16725,7 +16851,27 @@
           "name": "level",
           "sections": 0,
           "source": "DERIVED, not read: Canada has no national inventory like HPMS, so the class is the terrain the leg's own grade profile spends the most miles in (the reroute-enrich rule: sustained grade of 5 percent, or 4 percent with 1,000 ft of relief within 5 miles, is mountain; 1.5 percent or 400 ft of relief is hills; else flat), mapped flat to level, hills to rolling and mountain to mountainous. It reads the same elevation as the grade, so it is no independent check on it."
-        }
+        },
+        "billboard_bans": [
+          {
+            "from_mi": 27.2,
+            "to_mi": 28.2,
+            "name": "Battery Provincial Park",
+            "source": "derived 2026-11-22: OpenStreetMap way 342237333 (Battery Provincial Park) boundary from the Atlantic cut of the planet extract of 2026-11-16; the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on); widened to the one-mile minimum"
+          },
+          {
+            "from_mi": 46.6,
+            "to_mi": 47.6,
+            "name": "Irish Cove Nature Reserve",
+            "source": "derived 2026-11-22: OpenStreetMap way 358720236 (Irish Cove Nature Reserve) boundary from the Atlantic cut of the planet extract of 2026-11-16; the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on); widened to the one-mile minimum"
+          },
+          {
+            "from_mi": 62.2,
+            "to_mi": 63.2,
+            "name": "Ben Eoin Provincial Park",
+            "source": "derived 2026-11-22: OpenStreetMap relation 17763163 (Ben Eoin Provincial Park) boundary from the Atlantic cut of the planet extract of 2026-11-16; the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on); widened to the one-mile minimum"
+          }
+        ]
       },
       "rerouted": true
     },
@@ -18950,7 +19096,27 @@
           "name": "level",
           "sections": 0,
           "source": "DERIVED, not read: Canada has no national inventory like HPMS, so the class is the terrain the leg's own grade profile spends the most miles in (the reroute-enrich rule: sustained grade of 5 percent, or 4 percent with 1,000 ft of relief within 5 miles, is mountain; 1.5 percent or 400 ft of relief is hills; else flat), mapped flat to level, hills to rolling and mountain to mountainous. It reads the same elevation as the grade, so it is no independent check on it."
-        }
+        },
+        "billboard_bans": [
+          {
+            "from_mi": 17.65,
+            "to_mi": 18.65,
+            "name": "Ben Eoin Provincial Park",
+            "source": "derived 2026-11-22: OpenStreetMap relation 17763163 (Ben Eoin Provincial Park) boundary from the Atlantic cut of the planet extract of 2026-11-16; the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on); widened to the one-mile minimum"
+          },
+          {
+            "from_mi": 33.2,
+            "to_mi": 34.2,
+            "name": "Irish Cove Nature Reserve",
+            "source": "derived 2026-11-22: OpenStreetMap way 358720236 (Irish Cove Nature Reserve) boundary from the Atlantic cut of the planet extract of 2026-11-16; the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on); widened to the one-mile minimum"
+          },
+          {
+            "from_mi": 52.45,
+            "to_mi": 53.45,
+            "name": "Battery Provincial Park",
+            "source": "derived 2026-11-22: OpenStreetMap way 342237333 (Battery Provincial Park) boundary from the Atlantic cut of the planet extract of 2026-11-16; the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on); widened to the one-mile minimum"
+          }
+        ]
       },
       "rerouted": true
     },
@@ -20057,6 +20223,20 @@
             "source": "Cobequid Pass toll plaza: CAD 3.00 per axle for a vehicle not registered in Nova Scotia, so CAD 15.00 for a five-axle rig, charged each way (cobequidpass.com rates and FAQ, as cited on Wikipedia's Nova Scotia Highway 104 page, read 2026-11-22); amount derived at 1.3978 CAD per USD, the rate the game uses for Canadian fines. A 2025-03-04 announcement of doubled rates for US-plated trucks is not confirmed as in force and is not modelled. Position read from the OpenStreetMap toll booth node 270846896 (westbound booth), projected on the leg's archived road. Canadian price read: CAD 3.00 per axle, CAD 15.00 for five axles, at the Cobequid Pass plaza.",
             "amount_local": 15.0,
             "currency": "CAD"
+          }
+        ],
+        "billboard_bans": [
+          {
+            "from_mi": 27.35,
+            "to_mi": 28.35,
+            "name": "Portapique River Wilderness Area",
+            "source": "derived 2026-11-22: OpenStreetMap way 342147152 (Portapique River Wilderness Area) boundary from the Atlantic cut of the planet extract of 2026-11-16; the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on); widened to the one-mile minimum"
+          },
+          {
+            "from_mi": 46.75,
+            "to_mi": 47.75,
+            "name": "Slade Lake Nature Reserve",
+            "source": "derived 2026-11-22: OpenStreetMap way 479607495 (Slade Lake Nature Reserve) boundary from the Atlantic cut of the planet extract of 2026-11-16; the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on); widened to the one-mile minimum"
           }
         ]
       },
@@ -21531,7 +21711,15 @@
           "name": "level",
           "sections": 0,
           "source": "DERIVED, not read: Canada has no national inventory like HPMS, so the class is the terrain the leg's own grade profile spends the most miles in (the reroute-enrich rule: sustained grade of 5 percent, or 4 percent with 1,000 ft of relief within 5 miles, is mountain; 1.5 percent or 400 ft of relief is hills; else flat), mapped flat to level, hills to rolling and mountain to mountainous. It reads the same elevation as the grade, so it is no independent check on it."
-        }
+        },
+        "billboard_bans": [
+          {
+            "from_mi": 53.1,
+            "to_mi": 56.0,
+            "name": "Shubenacadie Canal Provincial Park",
+            "source": "derived 2026-11-22: OpenStreetMap relation 13670865 (Shubenacadie Canal Provincial Park) boundary from the Atlantic cut of the planet extract of 2026-11-16; the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
+          }
+        ]
       },
       "rerouted": true
     },
@@ -22383,7 +22571,15 @@
           "name": "rolling",
           "sections": 0,
           "source": "DERIVED, not read: Canada has no national inventory like HPMS, so the class is the terrain the leg's own grade profile spends the most miles in (the reroute-enrich rule: sustained grade of 5 percent, or 4 percent with 1,000 ft of relief within 5 miles, is mountain; 1.5 percent or 400 ft of relief is hills; else flat), mapped flat to level, hills to rolling and mountain to mountainous. It reads the same elevation as the grade, so it is no independent check on it."
-        }
+        },
+        "billboard_bans": [
+          {
+            "from_mi": 23.0,
+            "to_mi": 24.0,
+            "name": "Salt Springs Provincial Park",
+            "source": "derived 2026-11-22: OpenStreetMap relation 5011617 (Salt Springs Provincial Park) boundary from the Atlantic cut of the planet extract of 2026-11-16; the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on); widened to the one-mile minimum"
+          }
+        ]
       },
       "rerouted": true
     }
