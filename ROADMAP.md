@@ -6107,7 +6107,28 @@ a carrier slice (owner, 2026-10-26).
       that does exists (2026-11-22), so Detroit to Buffalo does not take
       the 401 through Ontario as real carriers often do. A later feature
       with the paperwork to go with it.
-- [ ] Winnipeg to Thunder Bay over 17 and 1, Kenora and Dryden as fuel.
+- [x] Winnipeg to Thunder Bay and northern Ontario, first pass (2026-11-22):
+      15 cities (Kenora, Dryden, Thunder Bay, Fort Frances, Sault Ste.
+      Marie, Hearst, Kapuskasing, Timmins and Temiskaming Shores, with
+      Ignace, Nipigon, Marathon, Wawa, Longlac and Cochrane as fuel towns)
+      and 44 legs on 1, 17, 71, 11, 655, 144 and 65, joining the West at
+      Winnipeg and Ontario at Sudbury, North Bay and Rouyn-Noranda. Two
+      crossings: Pigeon River to Grand Portage (Duluth) and the Sault Ste.
+      Marie International Bridge, whose toll is the published five-axle
+      rate both ways. Stops from `docs/stops/northern-ontario.json`.
+      Report: `career-2.0-alpha/corridor-3-report.md`.
+- [ ] (Found along the way) Kenora, Hearst and Kapuskasing have no named
+      freight site in OpenStreetMap; each uses its unnamed industrial land.
+      The Hearst and Kapuskasing sawmills and mill, Thunder Bay's grain
+      elevators and the Marathon gold mine want real locations.
+- [ ] (Found along the way) Timmins to Sudbury (183 miles on 144) has fuel
+      at Gogama but no 10-hour stop with a source; eight northern Ontario
+      stops are town stations or unnamed rest areas with truck access
+      assumed. Ontario's rest area rules and operator pages would read them.
+- [ ] (Found along the way) Not built in the first pass: Fort Frances to
+      International Falls (CBSA and CBP both 24 hours), and Highway 101
+      from Wawa through Chapleau to Timmins, which needs Chapleau as a
+      fuel town.
 - [ ] Atlantic Canada to Halifax, Charlottetown and Sydney; Houlton,
       Calais and St. Stephen crossings.
 - [ ] The north: 63 to Fort McMurray, 16 to Prince Rupert, 37 to the
