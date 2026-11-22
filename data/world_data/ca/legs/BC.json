@@ -86773,7 +86773,18 @@
             "lon": -130.02765
           }
         ],
-        "checkpoints": [],
+        "checkpoints": [
+          {
+            "name": "Stewart Port of Entry",
+            "at_mi": 4.3,
+            "type": "border",
+            "state": "British Columbia",
+            "highway": "Hwy 37A / Premier Avenue",
+            "lat": 55.91196,
+            "lon": -130.01634,
+            "source": "Canada Border Services Agency Stewart, # 1 Highway 37A; no commercial hours published: the CBSA Stewart office lists traveller hours only, 08:00 to 24:00 October to April and 07:00 to 24:00 May to September, seven days a week, with telephone reporting overnight (CBSA Directory of Offices and Services open data (https://www.cbsa-asfc.gc.ca/data/offices-bureaux-en.csv, read 2026-11-22)). Position read from OpenStreetMap way 532973966 (barrier=border_control, government=customs, Canada Border Services Agency - Stewart), OpenStreetMap planet file of 2026-11-16."
+          }
+        ],
         "source": "New leg for the northern corridor, west (Career 2.0, 2026-11-22): laid out between the two city pins, then routed by Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de) along Hwy 37A and, in Hyder, Premier Avenue.",
         "elevation_samples": [
           {
