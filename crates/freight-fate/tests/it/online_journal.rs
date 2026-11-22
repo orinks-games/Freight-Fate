@@ -33,6 +33,7 @@ fn facts(deliveries: i64) -> DeliveryFacts {
         distance_mi: 1000.0,
         weight_tons: 20.0,
         team_note: None,
+        conditions: None,
     }
 }
 
@@ -197,6 +198,95 @@ fn test_delivery_payload_is_structured_and_duplicate_completion_is_suppressed() 
     assert!(payload.get("summary").is_none());
     assert_eq!(payload["payload"]["distanceMiles"], 1000.0);
     assert_eq!(payload["payload"]["cargo"], "General freight");
+    assert_eq!(payload["payload"]["version"], 2);
+    assert_eq!(payload["payload"]["cargoKey"], "general");
+    assert_eq!(payload["payload"]["originKey"], "chicago_il_us");
+    assert_eq!(payload["payload"]["destinationKey"], "denver_co_us");
+    assert!(payload["payload"].get("conditions").is_none());
+}
+
+/// Version 2 carries the road conditions the drive tallied, and nothing
+/// for a quiet trip; the keys are the ones the catalog export lists.
+#[test]
+fn test_delivery_v2_carries_conditions_and_catalog_keys() {
+    let dir = tempfile::tempdir().unwrap();
+    let outbox = outbox_in(&dir, ok_transport());
+    let mut tally = ff_core::sim::road_tally::RoadTally::starting_at(4);
+    tally.note_weather(ff_core::sim::weather::WeatherKind::HeavyRain.key());
+    tally.note_chain_law();
+    tally.note_work_zone("a".into());
+    tally.note_scale("b".into());
+    let mut facts = facts(3);
+    facts.conditions = tally.conditions(5);
+    assert!(queue_delivery(
+        &outbox,
+        &facts,
+        "Chicago, Illinois",
+        "Denver, Colorado",
+        true,
+        1,
+        false
+    ));
+    let payload = outbox.items()[0].payload["payload"].clone();
+    assert_eq!(
+        payload["conditions"],
+        json!({"weather": ["heavy_rain"], "chainLaw": true, "workZones": 1, "scales": 1, "inspections": 1})
+    );
+    let invariants = ff_core::profile_integrity_invariants::current_invariant_data().unwrap();
+    assert!(invariants["cargoLabels"]
+        .get(payload["cargoKey"].as_str().unwrap())
+        .is_some());
+    assert!(invariants["cityLabels"]
+        .get(payload["originKey"].as_str().unwrap())
+        .is_some());
+    assert!(invariants["cityLabels"]
+        .get(payload["destinationKey"].as_str().unwrap())
+        .is_some());
+    assert!(invariants["weatherKeys"]
+        .as_array()
+        .unwrap()
+        .contains(&json!("heavy_rain")));
+}
+
+/// A delivery still waiting in the outbox as version 1 (queued by an older
+/// build) keeps its event id, so the same delivery is not queued again.
+#[test]
+fn test_a_version_1_delivery_in_the_outbox_is_not_queued_twice() {
+    let dir = tempfile::tempdir().unwrap();
+    let path = dir.path().join("outbox.json");
+    let facts = facts(2);
+    // The event id version 1 built, from the same parts.
+    let event_id = stable_event_id(
+        "delivery",
+        &[
+            json!("Road Star"),
+            json!(2),
+            json!("general"),
+            json!("chicago_il_us"),
+            json!("denver_co_us"),
+            json!(1000.0),
+        ],
+    );
+    {
+        let old = JournalOutbox::with(Some(identity()), true, &path, ok_transport(), wall_clock());
+        old.insert_item(OutboxItem::new(
+            "/api/freight-fate/events/delivery",
+            json!({"eventId": event_id, "occurredAt": 1, "payload": {"version": 1, "cargo": "General freight"}}),
+            &event_id,
+        ));
+    }
+    let outbox = JournalOutbox::with(Some(identity()), true, &path, ok_transport(), wall_clock());
+    assert!(!queue_delivery(
+        &outbox,
+        &facts,
+        "Chicago, Illinois",
+        "Denver, Colorado",
+        true,
+        2,
+        true
+    ));
+    assert_eq!(outbox.items().len(), 1);
+    assert_eq!(outbox.items()[0].payload["payload"]["version"], 1);
 }
 
 #[test]

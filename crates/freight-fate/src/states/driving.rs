@@ -128,6 +128,9 @@ pub struct DrivingState {
     pub rig_buffs: RigBuffs,
     /// See [`StopVisit`]; read and written through `stop_visit`.
     pub stop_visit: StopVisit,
+    /// What the drive met on the road, for the delivery the road journal
+    /// posts (`ff_core::sim::road_tally`).
+    pub road_tally: ff_core::sim::road_tally::RoadTally,
     /// The truck moved in automatic at some point on this run, so the gate
     /// pays no manual-spec differential however the run ends.
     pub drove_automatic: bool,

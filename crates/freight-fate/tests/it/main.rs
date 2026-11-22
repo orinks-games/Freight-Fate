@@ -94,6 +94,7 @@ mod playtest_sandbox;
 mod playtest_scenario;
 mod playtest_state_lines;
 mod problem_reports;
+mod road_tally;
 mod save_dir_guard;
 mod sdl_shell;
 mod secret_store_guard;

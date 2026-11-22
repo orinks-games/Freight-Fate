@@ -465,3 +465,17 @@ fn every_shipped_language_says_the_whole_resume_line() {
         }
     }
 }
+
+#[test]
+fn shipped_catalogs_keep_the_direction_in_curve_calls() {
+    // "{chain_repair_links} left." once took every left curve call and said
+    // "Sharp remaining" with no direction. It is marked "leave empty" in
+    // every language until curve calls get whole templates.
+    for (code, tr) in shipped_catalogs() {
+        let curve = tr.translate("Sharp left, half a mile. Advise 35 miles per hour.");
+        assert!(
+            curve.starts_with("Sharp left, half a mile."),
+            "{code} lost the curve direction: {curve}"
+        );
+    }
+}

@@ -1129,6 +1129,38 @@ pub fn policy_with_lifeline(
     }
 }
 
+/// Where the sandbox's road journal keeps what it queued, for an agent to
+/// read a delivery's payload after a drive.
+pub const JOURNAL_CAPTURE_FILE: &str = "journal-capture.json";
+
+/// The road journal in the sandbox: events are queued as a signed-in game
+/// queues them, so a drive can be checked against the payload, and nothing
+/// is ever sent. The identity is a placeholder no site knows, and the
+/// transport refuses every call before anything reaches the network.
+fn journal_capture(dir: &std::path::Path) -> crate::online_journal::JournalOutbox {
+    use crate::net::{NetError, SharedTransport};
+    let never_sends: SharedTransport = std::sync::Arc::new(crate::net::testing::ClosureTransport(
+        |_url: &str,
+         _payload: Option<&serde_json::Value>,
+         _headers: &[(String, String)],
+         _method: Option<&str>| {
+            Err(NetError::Connection(
+                "the agent sandbox never posts".to_string(),
+            ))
+        },
+    ));
+    crate::online_journal::JournalOutbox::with(
+        Some(crate::online_presence::OnlineIdentity::new(
+            "agent-sandbox",
+            "ffd_agent_sandbox_placeholder",
+        )),
+        true,
+        &dir.join(JOURNAL_CAPTURE_FILE),
+        never_sends,
+        ff_core::sim::real_traffic::wall_clock(),
+    )
+}
+
 /// The whole `--agent-server` mode: sandbox, real game, MCP on stdio.
 /// With `launch`, the session boots straight into a staged drive at the
 /// found feature -- no menu ever exists. With `operator_keys`, the window
@@ -1355,7 +1387,12 @@ fn boot(
     }
     sandbox::open_session(&dir, &log_path);
     match App::new() {
-        Ok(app) => Ok((app, guard)),
+        Ok(mut app) => {
+            if !staging {
+                app.ctx.services.journal = journal_capture(&dir);
+            }
+            Ok((app, guard))
+        }
         Err(e) => {
             guard.release();
             sandbox::close_session();

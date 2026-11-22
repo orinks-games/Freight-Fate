@@ -324,6 +324,9 @@ impl DrivingState {
             start_engine_wear,
             rig_buffs: RigBuffs::new(),
             stop_visit: Default::default(),
+            road_tally: ff_core::sim::road_tally::RoadTally::starting_at(
+                crate::states::driving_updates::road_tally::career_inspections(ctx),
+            ),
             drove_automatic: false,
             weather_source_real: ctx.settings.real_weather,
             alerts_next_poll_mi: 0.0,
