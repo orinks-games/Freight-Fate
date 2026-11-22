@@ -67,6 +67,7 @@
 
 - **Alaska's highways now have their real bends, grades, lane counts and towns.** The road between Palmer and Wasilla is now called the Palmer-Wasilla Highway.
 - **Simulated weather in Alaska and Canada now gets as cold as the real winters there.** A January morning in Fairbanks now reads below zero Fahrenheit.
+- **Museums by the road are now said as you pass them.** "Gwinnett History Museum ahead" is now "Passing Gwinnett History Museum."
 - **A 1.9 Units choice of imperial becomes Automatic in 2.0.** A choice of metric stays metric.
 - **The career start list now runs local, regional, then national carriers, nearest terminal first.** The owner-operator start stays last.
 - **The British Columbia and Yukon highways now follow the real roads, with their bends, hills, exits and towns.** Surrey to Blaine is now 15 miles, 14 northbound.
@@ -89,6 +90,10 @@
 
 - **Exits in Ontario and Quebec now name the road they lead to,** such as Route 255 or Highway 8, with directions in English.
 - **Canadian highways are now given the direction they run,** so Highway 400 to Barrie is north and the 401 to Kingston is east.
+- **Toll lines no longer say the word toll twice,** as in toll at Gordie Howe International Bridge toll.
+- **Place names written partly in Cree syllabics now say only the English part,** such as Pasqua First Nation.
+- **Crossing into Canada or the United States now puts that country's speed limit in force at the line.** North of Coutts the truck no longer keeps Montana's 70.
+- **Mountain passes are now named only where the road goes over them.** Trail passes beside the highway, such as Saddleback Pass near Lake Louise, stay quiet.
 - **Toll booths in Canada now say the Canadian price,** such as 35 Canadian dollars at the Blue Water Bridge. The carrier is still billed in US dollars.
 - **Cruise no longer sets a speed over the limit for an exit.** On a slow road before a ramp, it now holds the posted limit, so no speeding warning plays.
 - **A stop with only fuel pumps no longer offers a motel room or a night in the lot.**

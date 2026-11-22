@@ -134,7 +134,7 @@
             "at_mi": 55.4,
             "lat": 43.71178,
             "lon": -73.29773,
-            "spoken": "Benson Museum ahead",
+            "spoken": "Passing Benson Museum",
             "source": "derived 2026-10-01: name, category and kind read from OpenStreetMap tags via classify_narratable_feature; spoken text derived via spoken_landmark_text; nearest projection of OSM node 5761771163 (Benson Museum) onto the leg's archived dense route geometry; at_mi = interpolated cumulative distance at the projection, rescaled to leg miles. OpenStreetMap via Overpass: https://www.openstreetmap.org/."
           },
           {
@@ -6151,13 +6151,6 @@
             "spoken": "Entering Middlesex"
           },
           {
-            "name": "Moretown Gap",
-            "category": "mountain_pass",
-            "kind": "point",
-            "at_mi": 37.8,
-            "spoken": "Approaching Moretown Gap"
-          },
-          {
             "name": "Northfield",
             "at_mi": 46.7,
             "off_mi": 2.87,
@@ -8164,7 +8157,7 @@
             "at_mi": 28.0,
             "lat": 44.80862,
             "lon": -73.06422,
-            "spoken": "Saint Albans Historical Museum ahead",
+            "spoken": "Passing Saint Albans Historical Museum",
             "source": "derived: name and category read from the OpenStreetMap tags of node 366668021 (Saint Albans Historical Museum); placed at the nearest projection of it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           },
           {
@@ -15002,7 +14995,7 @@
             "category": "museum",
             "kind": "point",
             "at_mi": 48.07,
-            "spoken": "Topping Tavern Museum ahead"
+            "spoken": "Passing Topping Tavern Museum"
           },
           {
             "name": "Bennington",
@@ -16903,7 +16896,7 @@
             "category": "museum",
             "kind": "point",
             "at_mi": 31.75,
-            "spoken": "Middlebury College Museum of Art ahead"
+            "spoken": "Passing Middlebury College Museum of Art"
           },
           {
             "name": "New Haven River",
@@ -20008,7 +20001,7 @@
             "at_mi": 48.4,
             "lat": 45.0028,
             "lon": -72.09167,
-            "spoken": "Museum ahead: Granit Central",
+            "spoken": "Passing Granit Central, a museum",
             "source": "derived: name and category read from the OpenStreetMap tags of node 1695389135 (Granit Central); placed at the nearest projection of it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           },
           {

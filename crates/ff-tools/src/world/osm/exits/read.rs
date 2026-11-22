@@ -111,6 +111,7 @@ fn tagged_node<'a>(
     tags: impl Iterator<Item = (&'a str, &'a str)>,
 ) -> Option<TaggedNode> {
     let (mut highway, mut barrier, mut signals, mut exit_ref, mut name) = ("", "", "", "", "");
+    let mut name_en = None;
     for (k, v) in tags {
         match k {
             "highway" => highway = v,
@@ -118,6 +119,7 @@ fn tagged_node<'a>(
             "traffic_signals" => signals = v,
             "ref" => exit_ref = v,
             "name" => name = v,
+            "name:en" => name_en = Some(v),
             _ => {}
         }
     }
@@ -131,7 +133,7 @@ fn tagged_node<'a>(
                 lat,
                 lon,
                 exit_ref: exit_ref.trim().to_string(),
-                name: name.to_string(),
+                name: crate::world::spoken_name::spoken_name(name, name_en),
             }))
         }
         "traffic_signals" => "signal",
@@ -200,7 +202,10 @@ fn motorway_ways_of(block: &PrimitiveBlock) -> Vec<MotorwayWay> {
                     out.push(MotorwayWay::Link(LinkWay {
                         refs: way.refs().collect(),
                         oneway: Oneway::parse(get("oneway")),
-                        destination: get("destination").to_string(),
+                        destination: crate::world::spoken_name::spoken_name(
+                            get("destination"),
+                            Some(get("destination:en")),
+                        ),
                         destination_ref: get("destination:ref").trim().to_string(),
                         advisory_along: advisory("forward"),
                         advisory_against: advisory("backward"),

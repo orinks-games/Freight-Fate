@@ -13,7 +13,10 @@
 //!   inside its outer ring, spoken "Entering ...";
 //! * a river where the road first crosses it (only names ending in
 //!   "River", so creeks mistagged as rivers stay quiet);
-//! * a pass or museum at its projection on the road, within 4 miles.
+//! * a museum at its projection on the road, within 4 miles;
+//! * a pass only where the road goes over it: its node
+//!   lies within 0.4 mile of the leg's road, so trail passes and
+//!   summits off the road stay quiet.
 //!
 //! Museums cluster in cities, so endpoint museums are dropped and at most
 //! one mid-route museum is kept. Then the highest-ranked eight stay. The
@@ -38,6 +41,18 @@ const USAGE: &str = "usage: osm-landmarks --pbf FILE [--pbf FILE ...] [--only fr
 /// Landmark categories other tools own; a re-bake keeps them.
 pub const CURATED: &[&str] = &["highway_marker", "billboard_sign", "village"];
 pub const POINT_OFF_MI: f64 = 4.0;
+/// A pass is spoken only when the road goes over it: its node lies within
+/// this distance of the leg's archived road. Calibrated on 2026-11-22
+/// against the 338 passes then on the map, each node read from
+/// OpenStreetMap and measured to its leg's road: 189 sat within 100 m (the
+/// node on the driven way, or the archive cutting a curve), and the passes
+/// the road is known to cross whose saddle node is mapped at the terrain low
+/// point beside the alignment reach 554 m (Cajon Summit 436 m, Monida Pass
+/// 486 m, Campbell Pass 554 m). The trail passes start past 900 m, most
+/// past 2 km (Saddleback Pass by Lake Louise is 3.9 km off). 0.4 mile
+/// (644 m) sits in that gap. A pass named for a road farther away than
+/// that contradicts itself, so it is screened here, not by height.
+pub const PASS_ON_ROAD_MI: f64 = 0.4;
 const DEFAULT_PER_LEG: usize = 8;
 
 const RAW_NAME_MARKERS: &[&str] = &[
@@ -129,7 +144,10 @@ impl Category {
 /// The category of an element, name-led for protected areas (the name's
 /// suffix is more reliable than the boundary tag), tag-led for points.
 pub fn classify(tags: &Tags) -> Option<(Category, String)> {
-    let name = clean_name(tag(tags, "name").unwrap_or(""));
+    let name = clean_name(&crate::world::spoken_name::spoken_name(
+        tag(tags, "name").unwrap_or(""),
+        tag(tags, "name:en"),
+    ));
     if name.is_empty() {
         return None;
     }
@@ -165,12 +183,12 @@ pub fn spoken(category: Category, name: &str) -> String {
         return format!("Entering {name}");
     }
     match category {
-        Category::Museum if low.contains("museum") => format!("{name} ahead"),
-        Category::Museum => format!("Museum ahead: {name}"),
+        Category::Museum if low.contains("museum") => format!("Passing {name}"),
+        Category::Museum => format!("Passing {name}, a museum"),
         Category::River if low.contains("river") => format!("Crossing the {name}"),
         Category::River => format!("Crossing the {name} River"),
         Category::MountainPass => format!("Approaching {name}"),
-        _ => format!("{name} ahead"),
+        _ => format!("Passing {name}"),
     }
 }
 
@@ -458,7 +476,12 @@ impl Catalog {
             let (placed, how) = match &f.shape {
                 Shape::Point(lat, lon) => {
                     let (at, off, plat, plon) = route.project(*lat, *lon);
-                    if off > POINT_OFF_MI {
+                    let reach = if f.category == Category::MountainPass {
+                        PASS_ON_ROAD_MI
+                    } else {
+                        POINT_OFF_MI
+                    };
+                    if off > reach {
                         continue;
                     }
                     ((round(at, 1), plat, plon), "nearest projection of")
@@ -669,7 +692,10 @@ mod tests {
         assert_eq!(spoken(c, &n), "Crossing the Flint River");
         let museum = tags(&[("tourism", "museum"), ("name", "Route 66 Museum")]);
         let (c, n) = classify(&museum).unwrap();
-        assert_eq!(spoken(c, &n), "Route 66 Museum ahead");
+        assert_eq!(spoken(c, &n), "Passing Route 66 Museum");
+        let house = tags(&[("tourism", "museum"), ("name", "Bledsoe-Green House")]);
+        let (c, n) = classify(&house).unwrap();
+        assert_eq!(spoken(c, &n), "Passing Bledsoe-Green House, a museum");
     }
 
     #[test]
@@ -716,5 +742,26 @@ mod tests {
         assert!((placed[0].at_mi - 13.8).abs() < 0.2, "{}", placed[0].at_mi);
         assert_eq!(placed[1].category, Category::NationalForest);
         assert!((placed[1].at_mi - 34.5).abs() < 0.2, "{}", placed[1].at_mi);
+    }
+
+    #[test]
+    fn a_pass_beside_the_road_is_not_spoken_but_a_museum_there_is() {
+        let line = LegLine::new((0..=40).map(|i| (30.0 + 0.025 * i as f64, -97.0)).collect());
+        let route = Route::new(&line, 69.0);
+        // 0.01 degree of longitude here is about 0.6 mile off the road.
+        let point = |osm: &str, category, name: &str, lon| Feature {
+            osm: osm.into(),
+            category,
+            name: name.into(),
+            shape: Shape::Point(30.3, lon),
+        };
+        let features = vec![
+            point("node 1", Category::MountainPass, "Trail Pass", -97.01),
+            point("node 2", Category::MountainPass, "Road Pass", -97.0005),
+            point("node 3", Category::Museum, "Depot Museum", -97.01),
+        ];
+        let placed = Catalog::new(features).bake(&route, 8, "");
+        let names: Vec<&str> = placed.iter().map(|p| p.name.as_str()).collect();
+        assert_eq!(names, ["Depot Museum", "Road Pass"]);
     }
 }

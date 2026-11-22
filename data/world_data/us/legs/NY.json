@@ -225,7 +225,7 @@
             "at_mi": 22.9,
             "lat": 42.448,
             "lon": -73.57114,
-            "spoken": "Shaker Museum ahead",
+            "spoken": "Passing Shaker Museum",
             "source": "derived 2026-10-01: name, category and kind read from OpenStreetMap tags via classify_narratable_feature; spoken text derived via spoken_landmark_text; nearest projection of OSM node 368061835 (Shaker Museum) onto the leg's archived dense route geometry; at_mi = interpolated cumulative distance at the projection, rescaled to leg miles. OpenStreetMap via Overpass: https://www.openstreetmap.org/."
           },
           {
@@ -5262,7 +5262,7 @@
             "category": "museum",
             "kind": "point",
             "at_mi": 37.2,
-            "spoken": "Museum ahead: Studio"
+            "spoken": "Passing Studio, a museum"
           },
           {
             "name": "Norman Rockwell Museum (eastbound)",
@@ -8105,13 +8105,6 @@
             "kind": "point",
             "source": "OpenStreetMap place=village node 158798402, projected onto the leg's OpenRouteService driving-hgv route, placed ahead of the speed zone it explains",
             "spoken": "Entering Pittsfield"
-          },
-          {
-            "name": "Rochester Gap",
-            "category": "mountain_pass",
-            "kind": "point",
-            "at_mi": 119.4,
-            "spoken": "Approaching Rochester Gap"
           },
           {
             "name": "Bethel",
@@ -14715,7 +14708,7 @@
             "category": "museum",
             "kind": "point",
             "at_mi": 58.6,
-            "spoken": "Chester Historical Museum (Old Jail) ahead"
+            "spoken": "Passing Chester Historical Museum (Old Jail)"
           },
           {
             "name": "Chester",
@@ -18038,7 +18031,7 @@
             "category": "museum",
             "kind": "point",
             "at_mi": 57.1,
-            "spoken": "Museum ahead: Oneonta History Centre"
+            "spoken": "Passing Oneonta History Centre, a museum"
           },
           {
             "name": "Maryland",
@@ -20221,7 +20214,7 @@
             "category": "museum",
             "kind": "point",
             "at_mi": 39.3,
-            "spoken": "Museum ahead: 1890 House"
+            "spoken": "Passing 1890 House, a museum"
           },
           {
             "name": "East Branch Tioughnioga River",
@@ -20800,7 +20793,7 @@
             "at_mi": 41.2,
             "lat": 42.53635,
             "lon": -75.52423,
-            "spoken": "Northeast Classic Car Museum ahead",
+            "spoken": "Passing Northeast Classic Car Museum",
             "source": "derived 2026-10-01: name, category and kind read from OpenStreetMap tags via classify_narratable_feature; spoken text derived via spoken_landmark_text; nearest projection of OSM node 805687848 (Northeast Classic Car Museum) onto the leg's archived dense route geometry; at_mi = interpolated cumulative distance at the projection, rescaled to leg miles. OpenStreetMap via Overpass: https://www.openstreetmap.org/."
           },
           {
@@ -24946,7 +24939,7 @@
             "category": "museum",
             "kind": "point",
             "at_mi": 85.7,
-            "spoken": "Museum ahead: Lawrence Park Historical Society"
+            "spoken": "Passing Lawrence Park Historical Society, a museum"
           },
           {
             "name": "McKean",
@@ -35762,7 +35755,7 @@
             "category": "museum",
             "kind": "point",
             "at_mi": 39.7,
-            "spoken": "Holland Land Office Museum ahead"
+            "spoken": "Passing Holland Land Office Museum"
           },
           {
             "name": "Elba",
@@ -37233,7 +37226,7 @@
             "category": "museum",
             "kind": "point",
             "at_mi": 55.85,
-            "spoken": "Museum ahead: Kazoo Factory"
+            "spoken": "Passing Kazoo Factory, a museum"
           },
           {
             "name": "Wanakah",
@@ -41426,7 +41419,7 @@
             "category": "museum",
             "kind": "point",
             "at_mi": 87.9,
-            "spoken": "Hurley Heritage Museum ahead"
+            "spoken": "Passing Hurley Heritage Museum"
           },
           {
             "name": "Stockade District",
@@ -53029,7 +53022,7 @@
             "category": "museum",
             "kind": "point",
             "at_mi": 57.1,
-            "spoken": "Museum ahead: Cranbury Barn Park"
+            "spoken": "Passing Cranbury Barn Park, a museum"
           },
           {
             "name": "Cranbury",
@@ -57612,7 +57605,7 @@
             "at_mi": 24.2,
             "lat": 45.04081,
             "lon": -73.45336,
-            "spoken": "Museum ahead: Animalium",
+            "spoken": "Passing Animalium, a museum",
             "source": "derived: name and category read from the OpenStreetMap tags of node 12118426775 (Animalium); placed at the nearest projection of it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           },
           {
@@ -66713,7 +66706,7 @@
             "category": "museum",
             "kind": "point",
             "at_mi": 88.0,
-            "spoken": "Fort Plain Museum and Historical Park ahead"
+            "spoken": "Passing Fort Plain Museum and Historical Park"
           },
           {
             "name": "Nelliston",
@@ -69697,7 +69690,7 @@
             "category": "museum",
             "kind": "point",
             "at_mi": 83.2,
-            "spoken": "Museum ahead: Cybersecurity Experience Center"
+            "spoken": "Passing Cybersecurity Experience Center, a museum"
           },
           {
             "name": "Genesee River",
@@ -71905,7 +71898,7 @@
             "category": "museum",
             "kind": "point",
             "at_mi": 52.1,
-            "spoken": "Museum ahead: Marbletown Historical Schoolhouse"
+            "spoken": "Passing Marbletown Historical Schoolhouse, a museum"
           },
           {
             "name": "Clifton Springs",
@@ -72866,7 +72859,7 @@
             "category": "museum",
             "kind": "point",
             "at_mi": 32.5,
-            "spoken": "Museum ahead: Oneida Community Mansion House"
+            "spoken": "Passing Oneida Community Mansion House, a museum"
           },
           {
             "name": "Sherrill",
@@ -74799,7 +74792,7 @@
             "category": "museum",
             "kind": "point",
             "at_mi": 40.3,
-            "spoken": "Arkell Museum ahead"
+            "spoken": "Passing Arkell Museum"
           },
           {
             "name": "Fonda",

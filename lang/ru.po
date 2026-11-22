@@ -15073,10 +15073,6 @@ msgstr " Проезд {amount} {amount:доллар|доллара|доллар�
 msgid "toll"
 msgstr "платная дорога"
 
-#. placeholders: {method_label}, {name}, {toll_text}
-msgid "{method_label} toll point, {name}.{toll_text}"
-msgstr "Пункт оплаты, {method_label}, {name}.{toll_text}"
-
 msgid "restriction"
 msgstr "ограничение"
 
@@ -17186,6 +17182,10 @@ msgid "Toll, {amount_text} dollars, carrier."
 msgstr ""
 "Плата за проезд, {amount_text} {amount_text:доллар|доллара|долларов}, за "
 "счёт перевозчика."
+
+#. placeholders: {method_label}, {name}, {toll_text}
+msgid "{method_label} toll point, {name}.{toll_text}"
+msgstr "Пункт оплаты, {method_label}, {name}.{toll_text}"
 
 #. placeholders: {limit_speed_text}
 msgid "Over the limit of {limit_speed_text}."
@@ -45926,6 +45926,14 @@ msgstr "{stop_name} через {distance}."
 
 msgid "Passing {city}."
 msgstr "Проезжаем {city}."
+
+#. A landmark beside the road. {name} is the landmark's own name; the
+#. second form is a museum whose name does not say museum.
+msgid "Passing {name}"
+msgstr "Проезжаем {name}"
+
+msgid "Passing {name}, a museum"
+msgstr "Проезжаем {name}, музей"
 
 msgid "Entering {place}."
 msgstr "Въезжаем в {place}."
