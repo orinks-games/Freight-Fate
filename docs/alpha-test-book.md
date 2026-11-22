@@ -14,10 +14,6 @@ When something fails, write down three things: what you did, what you
 heard, and what you expected to hear. Quote a wrong spoken line as closely
 as you can; the exact wording is often the whole bug.
 
-Passages marked `[waits on PR N]` describe work that is reviewed but not
-yet merged. If your build doesn't do what one describes, check the build
-date before reporting it.
-
 ## Chapter 0. Before your first drive
 
 ### 0.1 Back up your saves first
@@ -101,7 +97,7 @@ The full list of rough edges is [Known gaps](#chapter-11-known-gaps).
 Deadhorse, Anchorage, the Kenai Peninsula, Valdez, Whittier, Skagway and
 Haines. Canada across British Columbia, the Yukon, Alberta, Saskatchewan,
 Manitoba, Ontario and Quebec, and New Brunswick, Nova Scotia and Prince
-Edward Island [waits on PR 756]. Chapters 3 and 7.
+Edward Island. Chapters 3 and 7.
 
 **The border is a stop.** Every crossing has a customs booth both ways,
 with a chance of secondary inspection and a penalty for driving past.
@@ -455,19 +451,23 @@ the voice gets badly wrong.
 
 Listen for: the local time line crossing into Saskatchewan and Manitoba
 (Central), Alberta (Mountain), Kenora (Central to Eastern), the Peace
-country around Dawson Creek (Mountain), the Yukon (Mountain), and the Maritimes (Atlantic) [waits on PR 756].
+country around Dawson Creek (Mountain), the Yukon (Mountain), and New Brunswick, Nova Scotia and Prince Edward
+Island (Atlantic).
 
 Pass when: the clock after each line matches the zone, and the delivery
 appointment still uses the receiver's time.
 
-### 7.4 Atlantic Canada [waits on PR 756]
+### 7.4 Atlantic Canada
 
-Setup: a load across Houlton or Calais.
+Setup: a load across Houlton or Calais into Nova Scotia, then one to
+Prince Edward Island and back.
 
-Listen for: the booth, the Cobequid Pass toll, the Confederation Bridge
-toll to Prince Edward Island.
+Listen for: the customs booth, the Cobequid Pass toll in each direction,
+and the Confederation Bridge toll on the way off the island.
 
-Pass when: both tolls are charged once, in Canadian dollars at the booth.
+Pass when: the Cobequid Pass toll is charged each way, the bridge charges
+nothing going onto the island and once leaving it, and each toll is in
+Canadian dollars at the booth.
 
 ## Chapter 8. Weather and billboards
 

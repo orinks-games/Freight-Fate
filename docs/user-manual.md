@@ -423,7 +423,7 @@ The map reaches past the lower 48:
 - **British Columbia and the Yukon**, along the Alaska Highway from Dawson Creek, Fort St. John and Fort Nelson to Watson Lake, Whitehorse and Haines Junction, across southern BC from Vancouver and Surrey through Hope, Kamloops, Kelowna and Cranbrook, and north through Williams Lake and Quesnel to Prince George.
 - **Alberta, Saskatchewan and Manitoba**, on the Trans-Canada and Yellowhead highways through Calgary, Edmonton, Regina, Saskatoon and on to Winnipeg.
 - **Ontario and Quebec**, from Windsor and Sarnia through London, Toronto, Ottawa and Montréal to Quebec City, and across the north on Highways 17 and 11 from Kenora and Thunder Bay to Sault Ste. Marie, Timmins and North Bay.
-- **New Brunswick, Nova Scotia and Prince Edward Island**, through the Houlton and Calais crossings, with the Cobequid Pass and Confederation Bridge tolls. [waits on PR 756]
+- **New Brunswick, Nova Scotia and Prince Edward Island**, through the Houlton and Calais crossings, with the Cobequid Pass toll each way and the Confederation Bridge toll, which is charged only leaving Prince Edward Island.
 
 Some places have no road yet. Juneau, Ketchikan, Sitka, Kodiak, Cordova, Nome and Bethel are reached only by sea or air, and Newfoundland only by ferry, so none of them is on the map. The Taylor and Top of the World highways close for winter and are not on the map either.
 
@@ -454,7 +454,7 @@ The C key, the ELD app and the logbook read the rules you are under, starting "C
 
 ### Time zones on the map
 
-The map uses Eastern, Central, Mountain, Pacific and Alaska Time, plus Atlantic Time in the Maritimes [waits on PR 756]. Alberta is Mountain, Saskatchewan and Manitoba are Central, and Ontario and Quebec are Eastern, except northwestern Ontario around Kenora, which is Central. In British Columbia, the East Kootenay and the Peace country around Dawson Creek are Mountain; the rest is Pacific. The Yukon keeps Mountain Time. Daylight saving isn't modeled, so every zone keeps standard time all year.
+The map uses Eastern, Central, Mountain, Pacific and Alaska Time, plus Atlantic Time in the Maritimes. Alberta is Mountain, Saskatchewan and Manitoba are Central, and Ontario and Quebec are Eastern, except northwestern Ontario around Kenora, which is Central. In British Columbia, the East Kootenay and the Peace country around Dawson Creek are Mountain; the rest is Pacific. The Yukon keeps Mountain Time. Daylight saving isn't modeled, so every zone keeps standard time all year.
 
 ### Weather in the north
 
@@ -466,7 +466,7 @@ Billboards follow each state's, province's and territory's sign law. Maine, Verm
 
 ## Crossing the border
 
-Trucks cross the border at the Pacific Highway at Blaine, Sumas, Osoyoos, Kingsgate, Coutts, North Portal, Emerson, Pigeon River, the Sault Ste. Marie International Bridge, the Gordie Howe and Blue Water bridges, Lewiston-Queenston, the Thousand Islands, Lacolle, Stanstead, the Klondike and Haines highways, and the Alcan port on the Alaska Highway, with Beaver Creek on the Canadian side, plus Houlton and Calais [waits on PR 756]. Every truck stops for customs at each crossing, in both directions.
+Trucks cross the border at the Pacific Highway at Blaine, Sumas, Osoyoos, Kingsgate, Coutts, North Portal, Emerson, Pigeon River, the Sault Ste. Marie International Bridge, the Gordie Howe and Blue Water bridges, Lewiston-Queenston, the Thousand Islands, Lacolle, Stanstead, the Klondike and Haines highways, and the Alcan port on the Alaska Highway, with Beaver Creek on the Canadian side, plus Houlton and Calais. Every truck stops for customs at each crossing, in both directions.
 
 As you cross the line, the GPS names the province or state you're entering, then, in this order, the time zone if it changes, the units line if Automatic changes them, and the new hours rules. Each waits for the one before it to finish. The new country's speed limit applies from the line.
 
