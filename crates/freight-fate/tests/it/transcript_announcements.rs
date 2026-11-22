@@ -552,10 +552,11 @@ fn test_zone_entry_no_longer_destroys_pending_ambient_chatter() {
             TripEventData::default(),
         ),
     );
-    assert_eq!(
-        d.pending_ambient_events.back().unwrap().priority,
-        Some(EventPriority::Important)
-    );
+    // The crossing waits for the weather line to finish, in the queue that
+    // never drops a line at a state line.
+    let waiting = d.after_crossing.last().expect("the crossing call waits");
+    assert_eq!(waiting.text, "Crossing Ohio.");
+    assert_eq!(waiting.kind.priority(), Some(EventPriority::Important));
     assert_eq!(
         app.event_calls(),
         vec![("Weather: rain.".to_string(), false)]
@@ -578,7 +579,7 @@ fn test_zone_entry_no_longer_destroys_pending_ambient_chatter() {
     // behind a backlog before flushing it and speaking fresh. That flush is
     // the pacer working, and it is invisible from where Python recorded.
     // What the case is actually about survives it -- the crossing waiting in
-    // the ambient queue is untouched, and still speaks.
+    // its queue is untouched, and still speaks.
     assert_eq!(
         app.event_calls().last().cloned(),
         Some(("Construction ahead. Speed limit 45.".to_string(), true))
@@ -586,6 +587,7 @@ fn test_zone_entry_no_longer_destroys_pending_ambient_chatter() {
 
     let spacing = tuning_for_time_scale(d.trip.time_scale).ambient_spacing_s;
     advance_ambient(&mut app, &mut d, &clock, spacing);
+    d.update_after_crossing(&mut app.ctx, spacing);
     assert_eq!(
         app.event_calls().last().cloned(),
         Some(("Crossing Ohio.".to_string(), false))

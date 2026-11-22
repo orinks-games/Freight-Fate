@@ -319,7 +319,8 @@ fn tools_list() -> Value {
              scale, curve, interchange, toll, chain-law, destination, departure, river, \
              bridge (one with joints, longest first), jointed (road with seams, longest \
              first), border (a customs booth at a land crossing; pass origin and \
-             destination, e.g. bellingham_wa_us and surrey_bc_ca). \
+             destination, e.g. bellingham_wa_us and surrey_bc_ca), state-line (a state \
+             or province line, in the order driven). \
              Same seed, same road. pick chooses among multiple matches (1-based). \
              unit plants a staffed enforcement unit unit_ahead_mi up the road (default \
              3) so an encounter can be staged on purpose; the road's own seeded posts \
