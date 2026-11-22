@@ -81,8 +81,10 @@ Don't report these as missing; they are planned:
 - No Canadian carrier, so no home city or career start in Canada.
 - No ferries: Juneau, Kodiak, Newfoundland and the other places with no
   road are not on the map.
-- Not yet built: the Dempster Highway to Inuvik, the Liard Highway, and
-  the Taylor and Top of the World highways.
+- Not yet built: Route 138 east of Sept-Îles, The Pas and Flin Flon,
+  Route 389 and Labrador, the James Bay Road, the Dempster Highway to
+  Inuvik, the Liard Highway, and the Taylor and Top of the World
+  highways.
 - No wipers, frost or ice roads yet.
 - Cattle have no recorded sounds yet.
 - About 600 new spoken lines per language have no translation. Play in
@@ -98,7 +100,8 @@ Haines. Canada across British Columbia, the Yukon, the Northwest Territories,
 Alberta, Saskatchewan, Manitoba, Ontario and Quebec, and New Brunswick,
 Nova Scotia and Prince Edward Island. The north reaches Fort McMurray,
 Yellowknife, Prince Rupert, the Stewart-Cassiar Highway with Stewart and
-Hyder, Alaska, and Dawson City. Chapters 3 and 7.
+Hyder, Alaska, Dawson City, Thompson, Baie-Comeau, Sept-Îles and
+Chibougamau. Chapters 3 and 7.
 
 **The border is a stop.** Every crossing has a customs booth both ways,
 with a chance of secondary inspection and a penalty for driving past.
@@ -656,7 +659,10 @@ Known and recorded. Report them only if one costs you a load or a drive.
   sourced overnight stop; five Prairie and Rockies links under 200 miles
   have no 10-hour stop; Slave Lake to Peace River has fuel at High
   Prairie but no sleep stop; Fort Providence to Yellowknife has no fuel
-  on the road, as in life, and one rest area.
+  on the road, as in life, and one rest area; Highway 6 has no 10-hour
+  stop with a source between Ashern and Thompson; Route 167 has no fuel
+  for 118 miles south of Chibougamau, and Route 113 none for 128 miles
+  between Senneterre and Waswanipi.
 - Several northern stops are town stations or unnamed rest areas whose
   truck access is assumed.
 - Kenora, Hearst and Kapuskasing use unnamed industrial land for freight.
