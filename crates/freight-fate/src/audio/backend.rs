@@ -12,11 +12,15 @@ use super::{
     AudioError, CH_ENGINE, CH_OUTSIDE, CH_SIREN, CH_WEATHER, CH_WEATHER_B, ENGINE_RPM_IDLE,
 };
 
-/// The mix bus a sound rides: one of the seven volume settings.
+/// The mix bus a sound rides: one of the volume settings.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub enum Category {
     Engine,
     Weather,
+    /// The beds outside the truck: birds, insects, rivers.
+    Outside,
+    /// Pavement seams and bridge joints under the wheels.
+    Road,
     Ui,
     Siren,
     Sfx,
@@ -28,6 +32,8 @@ impl Category {
         match self {
             Category::Engine => "engine",
             Category::Weather => "weather",
+            Category::Outside => "outside",
+            Category::Road => "road",
             Category::Ui => "ui",
             Category::Siren => "siren",
             Category::Sfx => "sfx",
@@ -40,6 +46,8 @@ impl Category {
         match name {
             "engine" => Category::Engine,
             "weather" => Category::Weather,
+            "outside" => Category::Outside,
+            "road" => Category::Road,
             "ui" => Category::Ui,
             "siren" => Category::Siren,
             _ => Category::Sfx,
@@ -57,18 +65,27 @@ pub fn one_shot_category(key: &str) -> Category {
         Category::Weather
     } else if key.starts_with("engine/") {
         Category::Engine
+    } else if is_road_surface(key) {
+        Category::Road
     } else {
         Category::Sfx
     }
+}
+
+/// The seam and bridge joint cuts (`vehicle/seam_steer_03`, ...). The
+/// debris strike `vehicle/road_joint` stays a gameplay cue.
+fn is_road_surface(key: &str) -> bool {
+    key.starts_with("vehicle/seam_") || key.starts_with("vehicle/bridge_joint")
 }
 
 /// The bus a loop rides, by reserved slot.
 pub fn loop_category(channel: u32) -> Category {
     if CH_ENGINE.contains(&channel) {
         Category::Engine
-    } else if channel == CH_WEATHER || channel == CH_WEATHER_B || CH_OUTSIDE.contains(&channel) {
-        // The outside beds ride the Weather volume and its speech duck.
+    } else if channel == CH_WEATHER || channel == CH_WEATHER_B {
         Category::Weather
+    } else if CH_OUTSIDE.contains(&channel) {
+        Category::Outside
     } else if channel == CH_SIREN {
         // Off the shared sfx bus on purpose: a siren behind you is the one
         // sound in the game that must be raisable without dragging every
@@ -88,6 +105,8 @@ pub struct VolumeUpdate {
     pub sfx: Option<f64>,
     pub music: Option<f64>,
     pub weather: Option<f64>,
+    pub outside: Option<f64>,
+    pub road: Option<f64>,
     pub engine: Option<f64>,
     pub ui: Option<f64>,
     pub siren: Option<f64>,
@@ -108,6 +127,14 @@ impl VolumeUpdate {
     }
     pub fn weather(mut self, v: f64) -> Self {
         self.weather = Some(v);
+        self
+    }
+    pub fn outside(mut self, v: f64) -> Self {
+        self.outside = Some(v);
+        self
+    }
+    pub fn road(mut self, v: f64) -> Self {
+        self.road = Some(v);
         self
     }
     pub fn engine(mut self, v: f64) -> Self {
@@ -142,6 +169,10 @@ impl fmt::Display for VolumeUpdate {
         f.write_str(" ")?;
         fmt_level(f, "weather", self.weather)?;
         f.write_str(" ")?;
+        fmt_level(f, "outside", self.outside)?;
+        f.write_str(" ")?;
+        fmt_level(f, "road", self.road)?;
+        f.write_str(" ")?;
         fmt_level(f, "engine", self.engine)?;
         f.write_str(" ")?;
         fmt_level(f, "ui", self.ui)?;
@@ -150,10 +181,11 @@ impl fmt::Display for VolumeUpdate {
     }
 }
 
-/// The seven volume buses plus the speech duck that rides on top of them.
+/// The volume buses plus the speech duck that rides on top of them.
 ///
 /// `speech_duck` is not a setting value: settings own the volumes, this
-/// multiplies engine, weather and music while the event voice speaks (see
+/// multiplies engine, weather, the outside beds and music while the event
+/// voice speaks (see
 /// `AudioEngine::set_speech_duck`).
 #[derive(Debug, Clone, Copy, PartialEq)]
 pub struct Buses {
@@ -161,6 +193,8 @@ pub struct Buses {
     pub sfx: f64,
     pub music: f64,
     pub weather: f64,
+    pub outside: f64,
+    pub road: f64,
     pub engine: f64,
     pub ui: f64,
     pub siren: f64,
@@ -181,6 +215,8 @@ impl Buses {
             sfx: 0.8,
             music: 0.5,
             weather: 0.65,
+            outside: 0.65,
+            road: 0.8,
             engine: 0.55,
             ui: 0.9,
             siren: 1.0,
@@ -189,18 +225,22 @@ impl Buses {
     }
 
     /// The bus level for a category, with the speech duck applied to the
-    /// two buses it covers (the music slot is ducked separately, through
+    /// beds it covers: engine, weather and the outside beds, which ducked
+    /// with weather before they had a volume of their own. The road surface
+    /// hits are cues and, like the rest of the cues, never duck (the music slot is ducked separately, through
     /// [`Buses::music_level`]).
     pub fn category_volume(&self, category: Category) -> f64 {
         let volume = match category {
             Category::Engine => self.engine,
             Category::Weather => self.weather,
+            Category::Outside => self.outside,
+            Category::Road => self.road,
             Category::Ui => self.ui,
             Category::Siren => self.siren,
             Category::Sfx => self.sfx,
         };
         match category {
-            Category::Engine | Category::Weather => volume * self.speech_duck,
+            Category::Engine | Category::Weather | Category::Outside => volume * self.speech_duck,
             _ => volume,
         }
     }
@@ -223,6 +263,12 @@ impl Buses {
         }
         if let Some(v) = update.weather {
             self.weather = v.clamp(0.0, 1.0);
+        }
+        if let Some(v) = update.outside {
+            self.outside = v.clamp(0.0, 1.0);
+        }
+        if let Some(v) = update.road {
+            self.road = v.clamp(0.0, 1.0);
         }
         if let Some(v) = update.engine {
             self.engine = v.clamp(0.0, 1.0);
@@ -339,7 +385,8 @@ pub trait AudioBackend {
     fn stop_music(&mut self, _fade_ms: u32) {}
 
     // -- volume control ---------------------------------------------------------------
-    /// Scale engine, weather, and music under the event voice, live.
+    /// Scale engine, weather, the outside beds and music under the event
+    /// voice, live.
     fn set_speech_duck(&mut self, duck: f64) {
         let duck = duck.clamp(0.0, 1.0);
         if duck == self.buses().speech_duck {
@@ -380,17 +427,47 @@ mod tests {
         assert_eq!(loop_category(CH_JAKE), Category::Sfx);
         assert_eq!(loop_category(CH_ALERT), Category::Sfx);
         for ch in super::CH_OUTSIDE {
-            assert_eq!(loop_category(ch), Category::Weather);
+            assert_eq!(loop_category(ch), Category::Outside);
         }
     }
 
     #[test]
-    fn the_duck_reaches_engine_and_weather_only() {
+    fn seams_and_bridge_joints_ride_the_road_surface_volume() {
+        assert_eq!(one_shot_category("vehicle/seam_steer_01"), Category::Road);
+        assert_eq!(one_shot_category("vehicle/seam_drive_04"), Category::Road);
+        assert_eq!(one_shot_category("vehicle/bridge_joint_02"), Category::Road);
+        // The debris strike is a gameplay cue, not road texture.
+        assert_eq!(one_shot_category("vehicle/road_joint"), Category::Sfx);
+    }
+
+    #[test]
+    fn the_new_volumes_start_at_the_mix_they_split_from() {
+        let buses = Buses::new();
+        assert_eq!(buses.outside, buses.weather);
+        assert_eq!(buses.road, buses.sfx);
+    }
+
+    #[test]
+    fn outside_and_road_follow_their_own_volumes() {
+        let mut buses = Buses::new();
+        buses.apply(&VolumeUpdate::default().outside(0.2).road(0.3));
+        assert_eq!(buses.category_volume(Category::Outside), 0.2);
+        assert_eq!(buses.category_volume(Category::Road), 0.3);
+        assert_eq!(buses.category_volume(Category::Weather), 0.65);
+        assert_eq!(buses.category_volume(Category::Sfx), 0.8);
+    }
+
+    #[test]
+    fn the_duck_reaches_engine_weather_and_outside_only() {
         let mut buses = Buses::new();
         let engine = buses.category_volume(Category::Engine);
+        let outside = buses.category_volume(Category::Outside);
+        let road = buses.category_volume(Category::Road);
         let ui = buses.category_volume(Category::Ui);
         buses.speech_duck = 0.5;
         assert!((buses.category_volume(Category::Engine) - engine * 0.5).abs() < 1e-12);
+        assert!((buses.category_volume(Category::Outside) - outside * 0.5).abs() < 1e-12);
+        assert_eq!(buses.category_volume(Category::Road), road);
         assert_eq!(buses.category_volume(Category::Ui), ui);
         assert!((buses.music_level() - 0.25).abs() < 1e-12);
     }
@@ -404,7 +481,8 @@ mod tests {
         assert_eq!(buses.music, 0.5);
         assert_eq!(
             VolumeUpdate::default().master(0.5).to_string(),
-            "master=0.5 sfx=None music=None weather=None engine=None ui=None siren=None"
+            "master=0.5 sfx=None music=None weather=None outside=None road=None engine=None \
+             ui=None siren=None"
         );
     }
 }

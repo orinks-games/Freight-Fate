@@ -16460,6 +16460,9 @@ msgstr "xm"
 msgid "Sound assets are missing or unreadable: ui/menu_select"
 msgstr "Klangdateien fehlen oder sind nicht lesbar: ui/menu_select"
 
+msgid "outside"
+msgstr ""
+
 msgid "ui"
 msgstr "ui"
 
@@ -37341,6 +37344,20 @@ msgid "Rain, wind, thunder, snow, and fog sounds."
 msgstr "Regen, Wind, Donner, Schnee und Nebel."
 
 #. placeholders: {pct}
+msgid "Outside sounds volume: {pct} percent"
+msgstr ""
+
+msgid "Birds by day, insects at night, and the rivers you pass."
+msgstr ""
+
+#. placeholders: {pct}
+msgid "Road surface volume: {pct} percent"
+msgstr ""
+
+msgid "The thump of pavement seams and bridge joints under the wheels."
+msgstr ""
+
+#. placeholders: {pct}
 msgid "Engine sounds volume: {pct} percent"
 msgstr "Lautstärke der Motorklänge: {pct} Prozent"
 
@@ -37459,11 +37476,9 @@ msgid "Lower game sounds during speech: {on_off}"
 msgstr "Spielklänge treten für Ansagen zurück: {on_off}"
 
 msgid ""
-"While the road voice speaks, the engine, weather, and radio drop to half "
-"volume, then come back."
+"While the road voice speaks, the engine, weather, outside sounds, and radio "
+"drop to half volume, then come back."
 msgstr ""
-"Während die Fahrstimme spricht, sinken Motor, Wetter und Radio auf halbe "
-"Lautstärke und kommen dann zurück."
 
 #. placeholders: {pct}
 msgid "Menu and UI sounds volume: {pct} percent"
@@ -45317,6 +45332,13 @@ msgstr ""
 #~ msgstr ""
 #~ "Geh nach oben und unten, um einen Befehl zu wählen, und bestätige, um ihn "
 #~ "auf die Geste zu legen. Zurückgehen behält den bisherigen."
+
+#~ msgid ""
+#~ "While the road voice speaks, the engine, weather, and radio drop to half "
+#~ "volume, then come back."
+#~ msgstr ""
+#~ "Während die Fahrstimme spricht, sinken Motor, Wetter und Radio auf halbe "
+#~ "Lautstärke und kommen dann zurück."
 
 #~ msgid ""
 #~ "Hold one finger still for half a second to straighten the wheel. With "

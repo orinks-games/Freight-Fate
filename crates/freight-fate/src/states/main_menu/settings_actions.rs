@@ -329,6 +329,8 @@ impl SettingsCategoryState {
             "music_volume" => &mut s.music_volume,
             "radio_volume" => &mut s.radio_volume,
             "weather_volume" => &mut s.weather_volume,
+            "outside_volume" => &mut s.outside_volume,
+            "road_surface_volume" => &mut s.road_surface_volume,
             "engine_volume" => &mut s.engine_volume,
             "ui_volume" => &mut s.ui_volume,
             "speech_rate" => &mut s.speech_rate,
