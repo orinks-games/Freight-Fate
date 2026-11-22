@@ -193,7 +193,10 @@ pub fn format_route_ref(value: &str) -> String {
             continue;
         }
         let mut parts: Vec<String> = reference.split(' ').map(str::to_string).collect();
-        if parts.len() >= 2 && parts[1].chars().next().is_some_and(|c| c.is_numeric()) {
+        // A shield abbreviation joins its number ("US 31" is "US-31"); a
+        // road named in words keeps the space ("Route 255", "Highway 8").
+        let worded = matches!(parts[0].as_str(), "Route" | "Highway");
+        if parts.len() >= 2 && !worded && parts[1].chars().next().is_some_and(|c| c.is_numeric()) {
             let joined = format!("{}-{}", parts[0], parts[1]);
             parts.splice(0..2, [joined]);
         }

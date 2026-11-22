@@ -85,6 +85,8 @@
 
 ### Fixed
 
+- **Exits in Ontario and Quebec now name the road they lead to,** such as Route 255 or Highway 8, with directions in English.
+- **Canadian highways are now given the direction they run,** so Highway 400 to Barrie is north and the 401 to Kingston is east.
 - **A stop with only fuel pumps no longer offers a motel room or a night in the lot.**
 - **Moving up from the training fleet now only offers carriers that hire where you live.** Your truck waits at the new carrier's terminal.
 - **A translated game no longer leaves half a line in English** on the dispatch board or in any line naming a carrier's terminal.
