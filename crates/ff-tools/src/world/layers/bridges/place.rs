@@ -103,6 +103,39 @@ fn named(tags: &Tags, key: &str) -> Option<String> {
     (!name.trim().is_empty()).then_some(name)
 }
 
+/// A bridge's name as it is said: a deck or a bracketed note is dropped
+/// ("George Washington Bridge Upper Level" is the George Washington
+/// Bridge, "I-70 Missouri River (Rocheport) Bridge" loses the bracket).
+/// `None` when what is left names no bridge ("Jubilee Parkway", the road
+/// over one), so an OSM name is spoken only when it is a bridge's.
+pub fn bridge_name(name: &str) -> Option<String> {
+    let mut out = String::with_capacity(name.len());
+    let mut depth = 0usize;
+    for c in name.chars() {
+        match c {
+            '(' => depth += 1,
+            ')' => depth = depth.saturating_sub(1),
+            _ if depth == 0 => out.push(c),
+            _ => {}
+        }
+    }
+    let mut out = out.split_whitespace().collect::<Vec<_>>().join(" ");
+    for deck in [" Upper Level", " Lower Level", " Upper Deck", " Lower Deck"] {
+        if let Some(stem) = out.strip_suffix(deck) {
+            out = stem.to_string();
+        }
+    }
+    let words: Vec<&str> = out
+        .split(|c: char| c.is_whitespace() || c == '-')
+        .filter(|w| !w.is_empty())
+        .collect();
+    let says_bridge = words
+        .iter()
+        .any(|w| BRIDGE_WORDS.contains(w) || *w == "Crossing")
+        || out.contains("Bridge of Honor");
+    says_bridge.then_some(out)
+}
+
 struct Outline {
     id: i64,
     name: String,
@@ -177,7 +210,7 @@ impl Catalog {
             if is_carrier(&pairs) {
                 raw_carriers.push(w);
             } else if is_outline(&pairs) {
-                if let Some(name) = named(&w.tags, "name") {
+                if let Some(name) = named(&w.tags, "name").and_then(|n| bridge_name(&n)) {
                     outlines.push(Outline {
                         id: w.id,
                         name,
@@ -194,7 +227,7 @@ impl Catalog {
         // A type=bridge relation names its member ways.
         let mut by_relation: HashMap<i64, (String, i64)> = HashMap::new();
         for r in &found.relations {
-            if let Some(name) = named(&r.tags, "name") {
+            if let Some(name) = named(&r.tags, "name").and_then(|n| bridge_name(&n)) {
                 for id in &r.member_ids {
                     by_relation.insert(*id, (name.clone(), r.id));
                 }
@@ -209,10 +242,14 @@ impl Catalog {
             .map(|w| {
                 let mid = w.coords[w.coords.len() / 2];
                 let name = named(&w.tags, "bridge:name")
+                    .and_then(|n| bridge_name(&n))
                     .map(|n| (n, format!("read from the bridge:name tag of way {}", w.id)))
                     .or_else(|| {
                         // The way's own name, only where it is the bridge's.
-                        named(&w.tags, "name").filter(|n| reads_as_bridge(n)).map(|n| {
+                        named(&w.tags, "name")
+                            .filter(|n| reads_as_bridge(n))
+                            .and_then(|n| bridge_name(&n))
+                            .map(|n| {
                             (n, format!("read from the name of way {}, a bridge's name", w.id))
                         })
                     })
@@ -317,6 +354,9 @@ pub struct Placed {
     /// Real length in feet (leg miles back to measured).
     pub length_ft: f64,
     pub source: String,
+    /// The one carriageway it was found on when that side stands for
+    /// both (1 forward, -1 reverse), else 0.
+    pub found_on: i8,
 }
 
 impl Placed {
@@ -386,7 +426,7 @@ pub fn bake(
         let (name, how) = match (curated, &c.name) {
             (Some(entry), _) => (
                 entry.name.clone(),
-                format!("named by the curated sheet ({})", entry.citation),
+                format!("read from the curated sheet ({})", entry.citation),
             ),
             (None, Some((n, how))) if !labels_a_ramp(n) => (n.clone(), how.clone()),
             // The survey lists unnamed bridges by the way's own name, to
@@ -448,6 +488,11 @@ pub fn bake(
         let (fwd, rev) = (side(1), side(-1));
         // Each carriageway's spans; one side found alone stands for both
         // (its twin runs alongside, off the archived road).
+        let found_on: i8 = match (fwd.is_empty(), rev.is_empty()) {
+            (true, false) => -1,
+            (false, true) => 1,
+            _ => 0,
+        };
         let records: Vec<((f64, f64), &'static str)> = if fwd.is_empty() || rev.is_empty() {
             let one = if fwd.is_empty() { &rev } else { &fwd };
             one.iter().map(|s| (*s, "both")).collect()
@@ -528,6 +573,7 @@ pub fn bake(
                 ),
                 osm,
                 name: name.clone(),
+                found_on,
             });
         }
     }
@@ -545,8 +591,31 @@ pub fn bake(
         .collect();
     let mut keep = keep.into_iter();
     out.retain(|_| keep.next().unwrap_or(true));
+    split_twins(&mut out);
     out.sort_by(|a, b| a.from_mi.total_cmp(&b.from_mi));
     out
+}
+
+/// Two bridges under different names, each found on one carriageway only
+/// and side by side, are the two directions' own bridges (the I-90
+/// floating bridges: the Lacey V. Murrow carries the eastbound road, the
+/// Homer M. Hadley the westbound), so each holds only for the side it was
+/// found on instead of standing for both.
+fn split_twins(out: &mut [Placed]) {
+    for i in 0..out.len() {
+        for j in 0..out.len() {
+            let (a, b) = (&out[i], &out[j]);
+            if a.found_on != 1 || b.found_on != -1 || a.name == b.name {
+                continue;
+            }
+            let overlap = a.to_mi.min(b.to_mi) - a.from_mi.max(b.from_mi);
+            let shorter = (a.to_mi - a.from_mi).min(b.to_mi - b.from_mi);
+            if overlap > 0.5 * shorter {
+                out[i].ways = "forward";
+                out[j].ways = "reverse";
+            }
+        }
+    }
 }
 
 /// A piece under this share of the longest piece of the same name on the
@@ -581,6 +650,24 @@ mod tests {
         assert!(!reads_as_bridge("Trans-Canada Highway"));
         assert!(labels_a_ramp("Highway 118 Overpass at Akerley Blvd."));
         assert!(!is_water(&[("waterway", "ditch")]));
+    }
+
+    #[test]
+    fn a_bridge_name_is_said_without_its_deck_or_bracket() {
+        assert_eq!(
+            bridge_name("George Washington Bridge Upper Level").as_deref(),
+            Some("George Washington Bridge")
+        );
+        assert_eq!(
+            bridge_name("Lance Corporal Leon Deraps I-70 Missouri River (Rocheport) Bridge")
+                .as_deref(),
+            Some("Lance Corporal Leon Deraps I-70 Missouri River Bridge")
+        );
+        assert_eq!(
+            bridge_name("Saint John River High Level Crossing").as_deref(),
+            Some("Saint John River High Level Crossing")
+        );
+        assert_eq!(bridge_name("Jubilee Parkway"), None);
     }
 
     #[test]

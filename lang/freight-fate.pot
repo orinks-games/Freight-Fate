@@ -46,7 +46,7 @@ msgstr ""
 msgid "Some badges stay secret until you earn them. Keep driving."
 msgstr ""
 
-#: crates/ff-core/src/achievements/catalog.rs
+#: crates/ff-core/src/achievements/catalog.rs crates/ff-core/src/sim/bridges.rs
 msgid "road"
 msgstr ""
 
@@ -5468,6 +5468,28 @@ msgstr ""
 msgid "truck"
 msgstr ""
 
+#. placeholders: {from_city}, {to_city}
+#: crates/ff-core/src/data/bridges.rs
+msgid "{from_city} to {to_city} bridges must be a list"
+msgstr ""
+
+#. placeholders: {from_city}, {to_city}, {item}, {e}
+#: crates/ff-core/src/data/bridges.rs
+msgid "{from_city} to {to_city} bridge {item}: {e}"
+msgstr ""
+
+#. placeholders: {from_city}, {to_city}, {name}, {w}
+#: crates/ff-core/src/data/bridges.rs
+msgid ""
+"{from_city} to {to_city} bridge {name} holds for {w}, not both, forward or "
+"reverse"
+msgstr ""
+
+#. placeholders: {from_city}, {to_city}, {from_mi}
+#: crates/ff-core/src/data/bridges.rs
+msgid "{from_city} to {to_city} bridge at {from_mi} has no name"
+msgstr ""
+
 #: crates/ff-core/src/data/buffs.rs crates/ff-core/src/input_hints.rs crates/freight-fate/src/audio/backend.rs crates/freight-fate/src/audio/hearken_backend.rs
 msgid "engine"
 msgstr ""
@@ -5689,7 +5711,7 @@ msgstr ""
 msgid "other"
 msgstr ""
 
-#: crates/ff-core/src/data/pavement.rs
+#: crates/ff-core/src/data/pavement.rs crates/ff-core/src/settings.rs crates/ff-core/src/sim/trip/bridges.rs
 msgid "bridge"
 msgstr ""
 
@@ -14897,6 +14919,16 @@ msgstr ""
 
 #: crates/ff-core/src/sim/arrival_gate.rs crates/freight-fate/src/states/driving_events/cruise_loop.rs
 msgid "holding"
+msgstr ""
+
+#. placeholders: {name}
+#: crates/ff-core/src/sim/bridges.rs
+msgid "Crossing {name}."
+msgstr ""
+
+#. placeholders: {name}
+#: crates/ff-core/src/sim/bridges.rs
+msgid "Crossing the {name}."
 msgstr ""
 
 #: crates/ff-core/src/sim/cab.rs crates/freight-fate/src/app/key_probe.rs crates/freight-fate/src/controller/diagnostics.rs
@@ -44506,11 +44538,11 @@ msgstr ""
 
 #. placeholders: {on_off}
 #: crates/freight-fate/src/states/main_menu/settings_items.rs
-msgid "Speak river crossings: {on_off}"
+msgid "Speak rivers and bridges: {on_off}"
 msgstr ""
 
 #: crates/freight-fate/src/states/main_menu/settings_items.rs
-msgid "Callouts crossing a named river."
+msgid "Callouts crossing a named river or a big bridge."
 msgstr ""
 
 #. placeholders: {on_off}

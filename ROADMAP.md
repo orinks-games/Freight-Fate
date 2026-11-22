@@ -6420,6 +6420,34 @@ a carrier slice (owner, 2026-10-26).
       highways; its ordinary highways license commercial boards. A per-leg
       law would let a pool line stand on those.
 
+### Named bridges (November 22)
+
+- [x] Big bridges on the map by name (2026-11-22): `corridor.bridges`,
+      built by `cargo tools osm-bridges` from the 2026-11-16 planet and the
+      curated sheet in `docs/bridges/curated.json` (27 border, Canadian,
+      Alaska and Keys bridges with citations). 397 bridges on 263 legs,
+      370 over water. The truck says "Crossing the X Bridge." once as it
+      drives onto one (the rivers and bridges chatter switch), hears joints
+      at each end and the river bed for the bridge's real length, and the
+      river's own line gives way inside the span. One name per 5 route
+      miles, the longer bridge keeping it; a toll that names the bridge
+      within 3 miles before (or on it, or a mile past) speaks for it, so
+      the tolled border bridges and the Confederation Bridge leaving the
+      island are named by their toll. The bar for an uncurated bridge is
+      3,000 feet, calibrated on the sheet (no US or Canadian standard
+      defines a major bridge by total length). The Seven Mile Bridge and
+      Alexandra Bridge landmark lines moved into the layer.
+- [ ] (Found along the way) Water under a bridge is read from river,
+      canal, tidal channel and coastline lines only, so a bridge over a
+      lake or bay (Nisutlin Bay, the W. R. Bennett floating bridge) plays
+      no water unless the sheet says so. Reading `natural=water` areas
+      would catch them.
+- [ ] (Found along the way) No leg drives the Seaway International,
+      Ogdensburg-Prescott, Baudette-Rainy River, International
+      Falls-Fort Frances, Ambassador, Peace, Alex Fraser or Angus L.
+      Macdonald bridges, so they are not on the sheet; a leg over any of
+      them gets its bridge from the next `osm-bridges` run.
+
 ### Winter cab, wipers and ice roads (designed November 22)
 
 The owner asked for heat and air that do something (frost with the heat

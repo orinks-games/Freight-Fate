@@ -86,16 +86,19 @@ pub fn choose_spoken(bridges: &mut [RouteBridge], tolls: &[(f64, String)]) {
             b.line = None;
         }
     }
-    // The toll that named it.
-    for b in bridges.iter_mut() {
+    // The toll that named it. A bridge the toll named still holds its five
+    // miles: the name was said.
+    let mut toll_named = vec![false; bridges.len()];
+    for (i, b) in bridges.iter_mut().enumerate() {
         let name = b.name.to_lowercase();
         let named = tolls.iter().any(|(at, toll)| {
             *at >= b.from_mi - TOLL_NAMED_BEFORE_MI
                 && *at <= b.to_mi + TOLL_NAMED_AFTER_MI
                 && toll.to_lowercase().contains(&name)
         });
-        if named {
+        if named && b.line.is_some() {
             b.line = None;
+            toll_named[i] = true;
         }
     }
     // The spacing guard, longest first; the same bridge's other piece never
@@ -107,7 +110,7 @@ pub fn choose_spoken(bridges: &mut [RouteBridge], tolls: &[(f64, String)]) {
             .total_cmp(&bridges[a].length_mi())
             .then(a.cmp(&b))
     });
-    let mut kept: Vec<usize> = Vec::new();
+    let mut kept: Vec<usize> = (0..bridges.len()).filter(|&i| toll_named[i]).collect();
     for i in order {
         if bridges[i].line.is_none() {
             continue;
@@ -281,5 +284,13 @@ mod tests {
         );
         assert!(b[0].line.is_none(), "toll two miles before names it");
         assert!(b[1].line.is_some(), "toll ten miles before is another stretch");
+
+        // The toll's name holds the five miles against a shorter bridge.
+        let mut b = vec![
+            bridge(10.0, 11.0, "Blue Water Bridge", true),
+            bridge(13.0, 13.2, "Black River Bridge", true),
+        ];
+        choose_spoken(&mut b, &[(9.0, "Blue Water Bridge toll".into())]);
+        assert!(b[0].line.is_none() && b[1].line.is_none());
     }
 }

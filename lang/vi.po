@@ -5142,6 +5142,24 @@ msgstr "trạm dừng xe"
 msgid "truck"
 msgstr "xe tải"
 
+#. placeholders: {from_city}, {to_city}
+msgid "{from_city} to {to_city} bridges must be a list"
+msgstr ""
+
+#. placeholders: {from_city}, {to_city}, {item}, {e}
+msgid "{from_city} to {to_city} bridge {item}: {e}"
+msgstr ""
+
+#. placeholders: {from_city}, {to_city}, {name}, {w}
+msgid ""
+"{from_city} to {to_city} bridge {name} holds for {w}, not both, forward or "
+"reverse"
+msgstr ""
+
+#. placeholders: {from_city}, {to_city}, {from_mi}
+msgid "{from_city} to {to_city} bridge at {from_mi} has no name"
+msgstr ""
+
 msgid "engine"
 msgstr "động cơ"
 
@@ -13509,6 +13527,14 @@ msgstr "stopped"
 
 msgid "holding"
 msgstr "holding"
+
+#. placeholders: {name}
+msgid "Crossing {name}."
+msgstr ""
+
+#. placeholders: {name}
+msgid "Crossing the {name}."
+msgstr ""
 
 msgid "up"
 msgstr "đã thả"
