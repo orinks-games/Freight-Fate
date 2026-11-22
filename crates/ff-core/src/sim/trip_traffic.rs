@@ -362,7 +362,7 @@ impl Trip {
             // REAL road today; the simulation does not act on them at all
             // (Brandon, 2026-08-21; owner call the same day).
             let distance = self.ahead_text(ahead_mi);
-            let mut message = format!("Live road report, {distance} ahead: {text}");
+            let mut message = format!("Live road report, {distance}: {text}");
             if !message.ends_with('.') {
                 message.push('.');
             }

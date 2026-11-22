@@ -36,6 +36,7 @@ use crate::states::main_menu::{
     opens_input_practice, opens_input_practice_pad, ConfirmQuitState, InputPracticeState,
 };
 use crate::touch::Gesture;
+use crate::touch::GestureKeys;
 
 mod ambient;
 #[cfg(target_os = "android")]
@@ -323,6 +324,11 @@ impl PlayerInputFrame<'_> {
     /// How a touch gesture is read on the screen on top.
     pub fn touch_mode(&self) -> crate::touch::TouchMode {
         self.app.touch_mode()
+    }
+
+    /// The gesture thresholds from the Touch gestures settings.
+    pub fn touch_tuning(&self) -> crate::touch::recognizer::Tuning {
+        crate::touch::fingers::tuning(&self.app.ctx.settings)
     }
 
     /// Where a phone app is, and whether its sound is taken
@@ -1631,8 +1637,10 @@ impl App {
         });
         shell.set_text_field(open);
         let practice = self.touch_mode() == crate::touch::TouchMode::Practice;
+        let shared = self.ctx.settings.touch_shared_recogniser;
         if let Some(shell) = self.shell.as_mut() {
             shell.set_report_travel(practice);
+            shell.set_shared_recogniser(shared);
         }
     }
 

@@ -7862,6 +7862,9 @@ msgstr " 背景调查大约需要{wait_days}天，会在你开车期间完成。
 msgid " Enter books it."
 msgstr " 按 Enter 预订。"
 
+msgid " Double tap books it."
+msgstr ""
+
 #. placeholders: {grouped}
 msgid "{grouped} dollars"
 msgstr "{grouped}美元"
@@ -12191,12 +12194,12 @@ msgid "Current grade {f} percent {direction}{terrain_text}"
 msgstr "当前{direction}坡度百分之{f}{terrain_text}"
 
 #. placeholders: {destination_label}
-msgid "Destination {destination_label} ahead."
-msgstr "前方是目的地{destination_label}。"
+msgid "Destination {destination_label}."
+msgstr "目的地{destination_label}。"
 
 #. placeholders: {city}
-msgid "Destination {city} ahead."
-msgstr "前方是目的地{city}。"
+msgid "Destination {city}."
+msgstr "目的地{city}。"
 
 #. placeholders: {ahead_text}, {text}
 msgid "Next stop in {ahead_text}: {text}."
@@ -12983,8 +12986,8 @@ msgid "an enforcement post {where_} in {distance}"
 msgstr "{distance}后{where_}有一个执法点"
 
 #. placeholders: {distance}, {text}
-msgid "Live road report, {distance} ahead: {text}"
-msgstr "实时路况报告，前方{distance}：{text}"
+msgid "Live road report, {distance}: {text}"
+msgstr "实时路况报告，{distance}处：{text}"
 
 #. placeholders: {lanes}
 msgid "{lanes} affected."
@@ -14194,6 +14197,24 @@ msgstr "进入 "
 msgid "Passing "
 msgstr "经过 "
 
+msgid "tap"
+msgstr "轻点"
+
+msgid "lift"
+msgstr "提神效果"
+
+msgid "idle"
+msgstr ""
+
+msgid "deciding"
+msgstr ""
+
+msgid "gas"
+msgstr "油门"
+
+msgid "spent"
+msgstr ""
+
 msgid "menu"
 msgstr "menu"
 
@@ -15002,9 +15023,6 @@ msgstr "无"
 msgid "Tap"
 msgstr "轻点"
 
-msgid "tap"
-msgstr "轻点"
-
 msgid "Flick up"
 msgstr "向上轻扫"
 
@@ -15077,9 +15095,6 @@ msgstr "三指向上轻扫"
 
 msgid "a three-finger flick down"
 msgstr "三指向下轻扫"
-
-msgid "gas"
-msgstr "油门"
 
 msgid "double tap"
 msgstr "双击"
@@ -17555,10 +17570,6 @@ msgstr "保存这段职业生涯。"
 
 msgid "Settings"
 msgstr "设置"
-
-msgid ""
-"Units, transmission, volumes, weather, voices, update channel, and pacing."
-msgstr "单位、变速箱、音量、天气、语音、更新渠道和节奏。"
 
 msgid "Quit to main menu"
 msgstr "退出到主菜单"
@@ -21642,13 +21653,6 @@ msgstr "发动机运转中。{instruction}"
 msgid "The engine will not start."
 msgstr "发动机无法启动。"
 
-msgid "Air ready."
-msgstr "气压就绪。"
-
-#. placeholders: {psi}
-msgid "Air {psi} psi."
-msgstr "气压{psi} psi。"
-
 msgid "Air ready. Swipe up and hold to drive."
 msgstr "气压就绪。向上滑动并按住起步。"
 
@@ -21692,6 +21696,13 @@ msgstr "空气准备好了。按住{control_hint}即可驱动。"
 #. one sentence of a longer line
 msgid "Hold {control_hint} to drive."
 msgstr "按住{control_hint}开车。"
+
+msgid "Air ready."
+msgstr "气压就绪。"
+
+#. placeholders: {psi}
+msgid "Air {psi} psi."
+msgstr "气压{psi} psi。"
 
 msgid "Parking brake released."
 msgstr "驻车制动已松开。"
@@ -21773,162 +21784,6 @@ msgstr "列出的服务：{join_phrase}"
 
 msgid "services not listed"
 msgstr "未列出服务"
-
-msgid "Your first run. Turn two fingers right to start the engine."
-msgstr "你的第一趟行程。双指向右旋转，启动发动机。"
-
-#. one sentence of a longer line
-msgid "Your first run."
-msgstr "你的第一趟行程。"
-
-#. placeholders: {control_hint}
-msgid "Your first run. Press {control_hint} to start the engine."
-msgstr "你的第一趟行程。按{control_hint}启动发动机。"
-
-msgid ""
-"At air ready, swipe up and hold to release the parking brake, then flick up "
-"with a second finger for first gear."
-msgstr "气压就绪后，向上滑动并按住，松开驻车制动，再用另一根手指向上轻扫挂入1档。"
-
-#. placeholders: {control_hint}, {control_hint2}
-msgid ""
-"At air ready, press {control_hint} to release the parking brake, then hold "
-"{control_hint2} to accelerate."
-msgstr "气压就绪后，按{control_hint}松开驻车制动，然后按住{control_hint2}加速。"
-
-#. placeholders: {control_hint}, {control_hint2}, {control_hint3}
-msgid ""
-"At air ready, press {control_hint} to release the parking brake, then hold "
-"{control_hint2}, select {control_hint3} for first gear, and release the "
-"clutch."
-msgstr ""
-"气压就绪后，按{control_hint}松开驻车制动，然后按住{control_hint2}，选择{control_hint3}挂一档，再松开离合。"
-
-#. placeholders: {control_hint}
-#. one sentence of a longer line
-msgid "Hold {control_hint} to accelerate."
-msgstr "按住{control_hint}加速。"
-
-#. placeholders: {control_hint}
-msgid "Parking brake released. Hold {control_hint} to accelerate."
-msgstr "驻车制动已松开。按住{control_hint}加速。"
-
-msgid "Parking brake released. Shift into first gear."
-msgstr "驻车制动已松开。挂上一档。"
-
-msgid "In gear. Swipe up and hold to accelerate."
-msgstr "已挂档。向上滑动并按住加速。"
-
-#. one sentence of a longer line
-msgid "In gear."
-msgstr "已挂档。"
-
-#. placeholders: {control_hint}
-msgid "In gear. Hold {control_hint} to accelerate."
-msgstr "已挂档。按住{control_hint}加速。"
-
-#. one sentence of a longer line
-msgid "Brake hard at a hazard warning."
-msgstr "听到危险警告时用力刹车。"
-
-#. one sentence of a longer line
-msgid "Flick up with two fingers for all the controls."
-msgstr "双指向上轻扫查看所有操作。"
-
-#. one sentence of a longer line
-msgid "Rolling."
-msgstr "开起来了。"
-
-#. placeholders: {touch_instruction}
-msgid ""
-"Rolling. {touch_instruction} for your speed. Tap with three fingers, then "
-"double tap, for a full report. Flick up with two fingers for all the "
-"controls. Brake hard at a hazard warning. Swipe down deep and hold to stop "
-"fast."
-msgstr ""
-"已起步。{touch_instruction}查看车速。三指轻点后双击，听取完整报告。双指向上轻扫查看所有操作。听到危险警告时用力刹车。向下长滑并按住可"
-"快速停车。"
-
-#. one sentence of a longer line
-msgid "Swipe down deep and hold to stop fast."
-msgstr "向下长滑并按住可快速停车。"
-
-#. one sentence of a longer line
-msgid "Tap with three fingers, then double tap, for a full report."
-msgstr "三指轻点后双击，听取完整报告。"
-
-#. placeholders: {touch_instruction}
-#. one sentence of a longer line
-msgid "{touch_instruction} for your speed."
-msgstr "{touch_instruction}查看车速。"
-
-#. placeholders: {control_hint}, {control_hint2}, {control_hint3}, {control_hint4}
-msgid ""
-"Rolling. {control_hint} for your speed, {control_hint2} for a full report, "
-"{control_hint3} for all the controls. Brake hard at a hazard warning. "
-"{control_hint4} stops fast."
-msgstr ""
-"已经起步。按{control_hint}播报车速，按{control_hint2}播报完整状态，按{control_hint3}查看全部控制。听到危险警"
-"告时用力制动。{control_hint4}可快速停车。"
-
-#. placeholders: {control_hint4}
-#. one sentence of a longer line
-msgid "{control_hint4} stops fast."
-msgstr "{control_hint4}可快速停车。"
-
-#. placeholders: {control_hint}, {control_hint2}, {control_hint3}
-#. one sentence of a longer line
-msgid ""
-"{control_hint} for your speed, {control_hint2} for a full report, "
-"{control_hint3} for all the controls."
-msgstr "{control_hint}听车速，{control_hint2}听完整报告，{control_hint3}听所有操作。"
-
-msgid "Reminder: turn two fingers right to start the engine."
-msgstr "提醒：双指向右旋转，启动发动机。"
-
-#. placeholders: {control_hint}
-msgid "Reminder: press {control_hint} to start the engine."
-msgstr "提醒：按{control_hint}启动发动机。"
-
-msgid ""
-"Reminder: air is ready. Swipe up and hold to release the parking brake and "
-"drive."
-msgstr "提醒：气压就绪。向上滑动并按住，松开驻车制动并起步。"
-
-#. placeholders: {control_hint}
-#. one sentence of a longer line
-msgid "Press {control_hint} to release the parking brake."
-msgstr "按{control_hint}松开驻车制动。"
-
-#. one sentence of a longer line
-msgid "Reminder: air is ready."
-msgstr "提醒：气压已就绪。"
-
-#. placeholders: {control_hint}
-msgid ""
-"Reminder: air is ready. Press {control_hint} to release the parking brake."
-msgstr "提醒：气压已就绪。按{control_hint}松开驻车制动。"
-
-msgid ""
-"Reminder: wait for air pressure to reach 100 psi, then swipe up and hold to "
-"release the parking brake and drive."
-msgstr "提醒：等气压达到100 psi，再向上滑动并按住，松开驻车制动并起步。"
-
-#. placeholders: {control_hint}
-msgid ""
-"Reminder: wait for air pressure to reach 100 psi, then press {control_hint} "
-"to release the parking brake."
-msgstr "提醒：等气压升到100 psi，然后按{control_hint}松开驻车制动。"
-
-msgid ""
-"Reminder: hold a pedal and flick up with a second finger for first gear."
-msgstr "提醒：按住踏板，用另一根手指向上轻扫挂入1档。"
-
-#. placeholders: {control_hint}, {control_hint2}
-msgid ""
-"Reminder: hold {control_hint}, select {control_hint2}, then release the "
-"clutch."
-msgstr "提醒：按住{control_hint}，选择{control_hint2}，然后松开离合。"
 
 #. placeholders: {display_name}
 #. one sentence of a longer line
@@ -22080,6 +21935,162 @@ msgid ""
 "Roadside debris and wake turbulence added {SHOULDER_DAMAGE_PCT} percent "
 "truck damage."
 msgstr "路边碎片和过往车辆的气流让卡车增加了百分之{SHOULDER_DAMAGE_PCT}的损伤。"
+
+msgid ""
+"At air ready, swipe up and hold to release the parking brake, then flick up "
+"with a second finger for first gear."
+msgstr "气压就绪后，向上滑动并按住，松开驻车制动，再用另一根手指向上轻扫挂入1档。"
+
+#. placeholders: {control_hint}, {control_hint2}
+msgid ""
+"At air ready, press {control_hint} to release the parking brake, then hold "
+"{control_hint2} to accelerate."
+msgstr "气压就绪后，按{control_hint}松开驻车制动，然后按住{control_hint2}加速。"
+
+#. placeholders: {control_hint}, {control_hint2}, {control_hint3}
+msgid ""
+"At air ready, press {control_hint} to release the parking brake, then hold "
+"{control_hint2}, select {control_hint3} for first gear, and release the "
+"clutch."
+msgstr ""
+"气压就绪后，按{control_hint}松开驻车制动，然后按住{control_hint2}，选择{control_hint3}挂一档，再松开离合。"
+
+#. placeholders: {control_hint}
+#. one sentence of a longer line
+msgid "Hold {control_hint} to accelerate."
+msgstr "按住{control_hint}加速。"
+
+#. placeholders: {control_hint}
+msgid "Parking brake released. Hold {control_hint} to accelerate."
+msgstr "驻车制动已松开。按住{control_hint}加速。"
+
+msgid "Parking brake released. Shift into first gear."
+msgstr "驻车制动已松开。挂上一档。"
+
+msgid "In gear. Swipe up and hold to accelerate."
+msgstr "已挂档。向上滑动并按住加速。"
+
+#. one sentence of a longer line
+msgid "In gear."
+msgstr "已挂档。"
+
+#. placeholders: {control_hint}
+msgid "In gear. Hold {control_hint} to accelerate."
+msgstr "已挂档。按住{control_hint}加速。"
+
+#. one sentence of a longer line
+msgid "Brake hard at a hazard warning."
+msgstr "听到危险警告时用力刹车。"
+
+#. one sentence of a longer line
+msgid "Flick up with two fingers for all the controls."
+msgstr "双指向上轻扫查看所有操作。"
+
+#. one sentence of a longer line
+msgid "Rolling."
+msgstr "开起来了。"
+
+#. placeholders: {touch_instruction}
+msgid ""
+"Rolling. {touch_instruction} for your speed. Tap with three fingers, then "
+"double tap, for a full report. Flick up with two fingers for all the "
+"controls. Brake hard at a hazard warning. Swipe down deep and hold to stop "
+"fast."
+msgstr ""
+"已起步。{touch_instruction}查看车速。三指轻点后双击，听取完整报告。双指向上轻扫查看所有操作。听到危险警告时用力刹车。向下长滑并按住可"
+"快速停车。"
+
+#. one sentence of a longer line
+msgid "Swipe down deep and hold to stop fast."
+msgstr "向下长滑并按住可快速停车。"
+
+#. one sentence of a longer line
+msgid "Tap with three fingers, then double tap, for a full report."
+msgstr "三指轻点后双击，听取完整报告。"
+
+#. placeholders: {touch_instruction}
+#. one sentence of a longer line
+msgid "{touch_instruction} for your speed."
+msgstr "{touch_instruction}查看车速。"
+
+#. placeholders: {control_hint}, {control_hint2}, {control_hint3}, {control_hint4}
+msgid ""
+"Rolling. {control_hint} for your speed, {control_hint2} for a full report, "
+"{control_hint3} for all the controls. Brake hard at a hazard warning. "
+"{control_hint4} stops fast."
+msgstr ""
+"已经起步。按{control_hint}播报车速，按{control_hint2}播报完整状态，按{control_hint3}查看全部控制。听到危险警"
+"告时用力制动。{control_hint4}可快速停车。"
+
+#. placeholders: {control_hint4}
+#. one sentence of a longer line
+msgid "{control_hint4} stops fast."
+msgstr "{control_hint4}可快速停车。"
+
+#. placeholders: {control_hint}, {control_hint2}, {control_hint3}
+#. one sentence of a longer line
+msgid ""
+"{control_hint} for your speed, {control_hint2} for a full report, "
+"{control_hint3} for all the controls."
+msgstr "{control_hint}听车速，{control_hint2}听完整报告，{control_hint3}听所有操作。"
+
+msgid "Reminder: turn two fingers right to start the engine."
+msgstr "提醒：双指向右旋转，启动发动机。"
+
+#. placeholders: {control_hint}
+msgid "Reminder: press {control_hint} to start the engine."
+msgstr "提醒：按{control_hint}启动发动机。"
+
+msgid ""
+"Reminder: air is ready. Swipe up and hold to release the parking brake and "
+"drive."
+msgstr "提醒：气压就绪。向上滑动并按住，松开驻车制动并起步。"
+
+#. placeholders: {control_hint}
+#. one sentence of a longer line
+msgid "Press {control_hint} to release the parking brake."
+msgstr "按{control_hint}松开驻车制动。"
+
+#. one sentence of a longer line
+msgid "Reminder: air is ready."
+msgstr "提醒：气压已就绪。"
+
+#. placeholders: {control_hint}
+msgid ""
+"Reminder: air is ready. Press {control_hint} to release the parking brake."
+msgstr "提醒：气压已就绪。按{control_hint}松开驻车制动。"
+
+msgid ""
+"Reminder: wait for air pressure to reach 100 psi, then swipe up and hold to "
+"release the parking brake and drive."
+msgstr "提醒：等气压达到100 psi，再向上滑动并按住，松开驻车制动并起步。"
+
+#. placeholders: {control_hint}
+msgid ""
+"Reminder: wait for air pressure to reach 100 psi, then press {control_hint} "
+"to release the parking brake."
+msgstr "提醒：等气压升到100 psi，然后按{control_hint}松开驻车制动。"
+
+msgid ""
+"Reminder: hold a pedal and flick up with a second finger for first gear."
+msgstr "提醒：按住踏板，用另一根手指向上轻扫挂入1档。"
+
+#. placeholders: {control_hint}, {control_hint2}
+msgid ""
+"Reminder: hold {control_hint}, select {control_hint2}, then release the "
+"clutch."
+msgstr "提醒：按住{control_hint}，选择{control_hint2}，然后松开离合。"
+
+msgid "Your first run. Turn two fingers right to start the engine."
+msgstr "你的第一趟行程。双指向右旋转，启动发动机。"
+
+#. one sentence of a longer line
+msgid "Your first run."
+msgstr "你的第一趟行程。"
+
+#. placeholders: {control_hint}
+msgid "Your first run. Press {control_hint} to start the engine."
+msgstr "你的第一趟行程。按{control_hint}启动发动机。"
 
 msgid "out of service"
 msgstr "停驶"
@@ -23309,12 +23320,12 @@ msgstr "所有卡车必须停车。"
 
 #. placeholders: {name}, {distance}
 #. one sentence of a longer line
-msgid "Weigh station first, {name}, {distance} ahead."
-msgstr "先过称重站，{name}，前方{distance}。"
+msgid "Weigh station first, {name}, {distance}."
+msgstr "先过称重站，{name}，{distance}处。"
 
 #. placeholders: {name}, {distance}
-msgid "Weigh station first, {name}, {distance} ahead. All trucks must stop."
-msgstr "先到称重站，{name}在前方{distance}处。所有卡车必须停车。"
+msgid "Weigh station first, {name}, {distance}. All trucks must stop."
+msgstr "先到称重站，{name}，{distance}处。所有卡车必须停车。"
 
 msgid "select"
 msgstr "select"
@@ -23477,9 +23488,8 @@ msgstr "续航里程{range_text}，下一个加油点{ahead_text}。"
 
 #. placeholders: {range_text}, {ahead_text}
 msgid ""
-"Fuel range about {range_text}, short of the next fuel stop, {ahead_text} "
-"ahead."
-msgstr "续航里程大约{range_text}，到不了下一个加油点，它在前方{ahead_text}。"
+"Fuel range about {range_text}, short of the next fuel stop, {ahead_text}."
+msgstr "续航约{range_text}，到不了下一个加油站，还有{ahead_text}。"
 
 #. placeholders: {range_text}
 msgid "Fuel range {range_text}, short of the destination."
@@ -24335,6 +24345,10 @@ msgstr " 匝道尽头是红绿灯。"
 msgid " Ramp ends at a stop sign."
 msgstr " 匝道尽头是停车标志。"
 
+#. placeholders: {signal}
+msgid "{signal} for the scale exit."
+msgstr "{signal}，驶向称重站出口。"
+
 msgid " Stop at the entrance."
 msgstr " 在入口处停车。"
 
@@ -25017,11 +25031,6 @@ msgstr "{name}的出口转向灯已打开。"
 msgid "The exit for {name} is already selected."
 msgstr "已经选定了{name}的出口。"
 
-#. placeholders: {prefix}, {name}, {distance}, {exit_text}, {note}, {next_step}, {assist}
-msgid ""
-"{prefix}, {name}, {distance} ahead{exit_text}.{note}{next_step}{assist}"
-msgstr "{prefix}，{name}，前方{distance}{exit_text}。{note}{next_step}{assist}"
-
 msgid "Pulling into stop"
 msgstr "正在驶入停靠点"
 
@@ -25342,8 +25351,8 @@ msgid "Facility gate in {distance}. Slow to {target}."
 msgstr "{distance}后是厂区大门。减速到{target}。"
 
 #. placeholders: {facility}, {closing_text}
-msgid "Gate at {facility}, {closing_text} ahead."
-msgstr "登机口位于{facility}，前方为{closing_text}。"
+msgid "Gate at {facility}, {closing_text}."
+msgstr "{facility}大门，{closing_text}处。"
 
 #. one sentence of a longer line
 msgid "Missed the gate, too fast."
@@ -27277,6 +27286,11 @@ msgid ""
 "Freight Fate stations, your playlists and favorites, and stations nearby. "
 "Double tap one to tune it."
 msgstr "Freight Fate电台、你的播放列表和收藏，以及附近的电台。双击一个电台调到它。"
+
+msgid ""
+"Freight Fate stations, your favorites, and stations nearby. Double tap one "
+"to tune it."
+msgstr ""
 
 #. placeholders: {in_range}
 msgid "Stations in range: {in_range}"
@@ -29570,10 +29584,6 @@ msgstr "停靠点：{planned_prefix}{name}。"
 msgid "Exit: {exit_label}."
 msgstr "出口：{exit_label}。"
 
-#. placeholders: {distance_text}
-msgid "Distance: {distance_text} ahead."
-msgstr "距离：前方{distance_text}。"
-
 #. placeholders: {join_phrase}
 msgid "Offers: {join_phrase}."
 msgstr "提供：{join_phrase}。"
@@ -29658,10 +29668,6 @@ msgstr "不，保留在{keep_name}的计划停靠点"
 
 msgid "Return to the stop details without moving your plan."
 msgstr "返回停靠点详情，不更改计划。"
-
-#. placeholders: {name}, {ahead_text}
-msgid "{name}, {ahead_text} ahead"
-msgstr "{name}，前方{ahead_text}"
 
 #. placeholders: {target}, {ahead}
 #. one sentence of a longer line
@@ -31940,6 +31946,9 @@ msgid ""
 "Enter offers to delete this save. It still works in Freight Fate 1.8."
 msgstr "按Enter可以删除这个存档。它在Freight Fate 1.8中仍然能用。"
 
+msgid "Double tap offers to delete this save."
+msgstr ""
+
 msgid ""
 "Double tap offers to delete this save. It still works in Freight Fate 1.8."
 msgstr "双击可选择删除此存档。它仍可在Freight Fate 1.8中使用。"
@@ -32198,6 +32207,10 @@ msgid "Online"
 msgstr "在线"
 
 msgid ""
+"Drivers on duty, your orinks.net account, and cloud backup and restore."
+msgstr ""
+
+msgid ""
 "Drivers on duty, your orinks.net account, cloud backup and restore, and "
 "Discord presence."
 msgstr "查看在岗司机、orinks.net账户、云备份与恢复，以及Discord状态。"
@@ -32437,12 +32450,15 @@ msgstr "问题报告"
 msgid "reports"
 msgstr "reports"
 
-#. placeholders: {label}
-msgid "Open {label} settings."
-msgstr "打开{label}设置。"
-
 msgid "Settings saved."
 msgstr "设置已保存。"
+
+msgid ""
+"Units, transmission, volumes, weather, voices, update channel, and pacing."
+msgstr "单位、变速箱、音量、天气、语音、更新渠道和节奏。"
+
+msgid "Units, transmission, volumes, weather, voices, and pacing."
+msgstr ""
 
 msgid ""
 "Gameplay is now a category with its own submenu: Driving assistance, "
@@ -32498,6 +32514,10 @@ msgstr "controls"
 msgid ""
 "Four screens. Up and Down pick one, Enter opens it, Escape goes back."
 msgstr "四个界面。Up和Down选择一个，Enter打开，Escape返回。"
+
+#. placeholders: {label}
+msgid "Open {label} settings."
+msgstr "打开{label}设置。"
 
 msgid ""
 "Up and Down pick a setting. Right arrow or Enter changes it forward, Left "
@@ -32632,9 +32652,9 @@ msgid "every time"
 msgstr "每次"
 
 msgid ""
-"Lane keeping full: the truck holds the lane, swipe left or right to change "
+"Lane keeping full: the truck holds the lane, flick left or right to change "
 "lanes."
-msgstr "车道保持完全：卡车保持车道，向左或向右滑动即可变道。"
+msgstr ""
 
 #. placeholders: {control_name}, {control_name2}
 msgid ""
@@ -32695,16 +32715,6 @@ msgstr "驾驶室扬声器"
 msgid "Clean"
 msgstr "原声"
 
-msgid "Controller: disabled"
-msgstr "手柄：已禁用"
-
-#. placeholders: {name}
-msgid "Controller: enabled, {name} connected"
-msgstr "手柄：已启用，已连接 {name}"
-
-msgid "Controller: enabled, none connected"
-msgstr "手柄：已启用，未连接"
-
 msgid ""
 "Off plays the full dial, including real public streams and personal "
 "playlists. On keeps the radio to built-in safe stations, for streaming or "
@@ -32723,6 +32733,20 @@ msgstr ""
 "关闭时播放整个频段，包括真实的公共电台流。开启时收音机只播内置的安全电台，适合直播或录制。音乐来源设为合成时，开启会让收音机停留在Roadhouse，调"
 "台不起作用。"
 
+msgid ""
+"On, driving lines name the key for the next step, like Press X to signal "
+"for the exit. Off, they leave the key out. Driving school always names it."
+msgstr "开启时，驾驶播报会说出下一步的按键，例如按X打转向灯驶出。关闭时不说按键。驾驶学校始终会说出按键。"
+
+msgid ""
+"Extra callouts between directions: parks, rivers, mountain passes, museums "
+"and billboards. Right arrow turns all on, Left arrow all off, and the "
+"switches below pick each kind. Safety and navigation are never affected. "
+"Town names are the Place callouts row below."
+msgstr ""
+"指示之间的额外播报：公园、河流、山口、博物馆和广告牌。右方向键全部打开，左方向键全部关闭，下面的开关分别选择每一类。安全和导航从不受影响。城镇名称在下面"
+"的地名播报一行。"
+
 msgid "a soft tone leans"
 msgstr "轻柔的提示音会"
 
@@ -32738,14 +32762,6 @@ msgstr "朝"
 #. placeholders: {what}, {way}
 msgid "{what} {way} where the wheel should go, so steer {way} it"
 msgstr "{what}{way}方向盘该去的方向偏，所以要{way}它转"
-
-msgid "Touch gestures"
-msgstr "触摸手势"
-
-msgid ""
-"Choose which driving command each touch gesture runs, including a second "
-"finger while holding gas or brake."
-msgstr "选择每个触摸手势执行哪个驾驶命令，包括按住油门或刹车时用第二根手指的手势。"
 
 msgid "Automatic emergency braking"
 msgstr "自动紧急制动"
@@ -32840,10 +32856,6 @@ msgid ""
 msgstr "按一下{control_brake}会松开它，踩油门也会。"
 
 #. one sentence of a longer line
-msgid "Presets never change this."
-msgstr "预设永远不会改变这一项。"
-
-#. one sentence of a longer line
 msgid "Tap the brake, then press it again and hold half a second."
 msgstr "点一下刹车，然后再按住半秒。"
 
@@ -32869,12 +32881,6 @@ msgstr "巡航会提前读取前方一英里半的道路：爬坡前稍微提速
 msgid "Curve callouts"
 msgstr "弯道播报"
 
-#. one sentence of a longer line
-msgid ""
-"Bends that demand slowing are called before they arrive, like Sharp left, "
-"half a mile, advise 35."
-msgstr "需要减速的弯道会在到达前播报，比如“急左弯，半英里，建议35”。"
-
 #. placeholders: {control_upcoming}
 msgid ""
 "Bends that demand slowing are called before they arrive, like Sharp left, "
@@ -32884,10 +32890,6 @@ msgid ""
 msgstr ""
 "需要减速的弯道会在到达前播报，比如“急左弯，半英里，建议35”。你的车速已经够慢的弯道不会播报。无论哪种情况，按{control_upcoming}都能"
 "列出接下来的几个弯道。预设永远不会改变这一项。"
-
-#. one sentence of a longer line
-msgid "Bends you are already slow enough for stay silent."
-msgstr "你的车速已经够慢的弯道不会播报。"
 
 #. placeholders: {control_upcoming}
 #. one sentence of a longer line
@@ -32914,10 +32916,6 @@ msgid ""
 msgstr ""
 "在厂区道路、大门和施工区等低速区，{control_cruise}保持你当前的速度，到开阔道路上再交回普通巡航。它会为下一个转弯或下一个更低限速提前减速"
 "。刹车会取消它。预设从不改变这一点。"
-
-#. one sentence of a longer line
-msgid "It eases off early for the next turn or the next lower limit."
-msgstr "遇到下一个转弯或下一个更低的限速，它会提前收油。"
 
 #. placeholders: {language_label}
 msgid "Language: {language_label}"
@@ -32961,23 +32959,9 @@ msgstr ""
 msgid "Driving hints: {on_off}"
 msgstr "驾驶提示：{on_off}"
 
-msgid ""
-"On, driving lines name the key for the next step, like Press X to signal "
-"for the exit. Off, they leave the key out. Driving school always names it."
-msgstr "开启时，驾驶播报会说出下一步的按键，例如按X打转向灯驶出。关闭时不说按键。驾驶学校始终会说出按键。"
-
 #. placeholders: {chatter_summary}
 msgid "Roadside chatter: {chatter_summary}"
 msgstr "沿途见闻：{chatter_summary}"
-
-msgid ""
-"Extra callouts between directions: parks, rivers, mountain passes, museums "
-"and billboards. Right arrow turns all on, Left arrow all off, and the "
-"switches below pick each kind. Safety and navigation are never affected. "
-"Town names are the Place callouts row below."
-msgstr ""
-"指示之间的额外播报：公园、河流、山口、博物馆和广告牌。右方向键全部打开，左方向键全部关闭，下面的开关分别选择每一类。安全和导航从不受影响。城镇名称在下面"
-"的地名播报一行。"
 
 #. placeholders: {on_off}
 msgid "Speak parks and forests: {on_off}"
@@ -33134,6 +33118,17 @@ msgid ""
 "ten minutes of road and clock each real minute, with more time to react to "
 "hazards, gentler damage and fatigue, and calmer speech. Standard keeps "
 "normal pressure at about twenty minutes each real minute. Real time keeps "
+"Standard's pressure and runs the clock at real speed, matched to this "
+"device's date and time. Switching never changes your hours of service or "
+"the time left on a delivery. You can also switch from the pause menu during "
+"a drive. The change starts when the truck next stops."
+msgstr ""
+
+msgid ""
+"How fast the clock runs and how hard the road pushes. Relaxed passes about "
+"ten minutes of road and clock each real minute, with more time to react to "
+"hazards, gentler damage and fatigue, and calmer speech. Standard keeps "
+"normal pressure at about twenty minutes each real minute. Real time keeps "
 "Standard's pressure and runs the clock at real speed, matched to your "
 "computer's date and time. Switching never changes your hours of service or "
 "the time left on a delivery. You can also switch from the pause menu during "
@@ -33164,18 +33159,6 @@ msgstr "关闭"
 msgid "On"
 msgstr "开启"
 
-#. one sentence of a longer line
-msgid ""
-"At the dispatch board, it warns when the load crosses a road that needs "
-"chains and the terminal garage can still sell you a set."
-msgstr "在调度板上，当货物要经过需要链条的道路、而总站车库还能卖给你一套时，它会提醒。"
-
-#. one sentence of a longer line
-msgid ""
-"Early advice to stop for a break or sleep while you still have time, plus "
-"the last stop you can legally reach."
-msgstr "在你还有时间时提前建议停下中途休息或睡觉，并说出你依法能到达的最后一个停靠点。"
-
 #. placeholders: {control_rest}
 msgid ""
 "Early advice to stop for a break or sleep while you still have time, plus "
@@ -33196,34 +33179,12 @@ msgstr ""
 msgid "Hours warnings and readout keys work whether this is on or off."
 msgstr "无论这项打开还是关闭，工时警告和朗读键都照常工作。"
 
-#. one sentence of a longer line
-msgid "It also warns about chain laws."
-msgstr "它也会提醒链条管制。"
-
-#. one sentence of a longer line
-msgid "It never buys anything."
-msgstr "它从不购买任何东西。"
-
-#. one sentence of a longer line
-msgid "On Quiet or Urgent only, there is no hint."
-msgstr "安静或仅紧急时，没有提示。"
-
-#. one sentence of a longer line
-msgid "On the road, it warns when a posted chain law covers your truck."
-msgstr "在路上，当张贴的链条管制适用于你的卡车时，它会提醒。"
-
 #. placeholders: {control_rest}
 #. one sentence of a longer line
 msgid ""
 "While rolling, {control_rest} plans the recommended stop, and pressing it "
 "again cancels."
 msgstr "行驶中，{control_rest}会规划推荐的停靠点，再按一次取消。"
-
-#. one sentence of a longer line
-msgid ""
-"With Driving speech on Standard, one hint comes before the next hours "
-"warning."
-msgstr "驾驶播报为标准时，下一次工时警告之前会有一条提示。"
 
 #. placeholders: {else}
 msgid "Weather source: {else}"
@@ -33287,6 +33248,13 @@ msgstr "厂区街道：{on_off}"
 
 msgid ""
 "On, you drive the real streets between the highway and a facility, turn by "
+"turn. Off, the exit ramp ends at the facility gate, and no exit has a light "
+"or stop sign. A loaded run leaves straight onto the highway, and a pickup "
+"in town is one stretch of road. The change applies from your next drive."
+msgstr ""
+
+msgid ""
+"On, you drive the real streets between the highway and a facility, turn by "
 "turn. Off works as in version 1.8. The exit ramp ends at the facility gate, "
 "and no exit has a light or stop sign. A loaded run leaves straight onto the "
 "highway, and a pickup in town is one stretch of road. The change applies "
@@ -33295,115 +33263,14 @@ msgstr ""
 "开启时，你会在高速公路和厂区之间的真实街道上逐个转弯行驶。关闭时和1.8版一样。出口匝道在厂区大门结束，没有出口有红绿灯或停车标志。装货后的行程直接上高"
 "速，城里的提货是一整段道路。改动从你的下一次行驶开始生效。"
 
-#. placeholders: {else}
-msgid "Units: {else}"
-msgstr "单位：{else}"
-
-msgid "imperial, miles"
-msgstr "英制，英里"
-
-msgid "metric, kilometers"
-msgstr "公制，公里"
-
-msgid "Distance and speed in miles or kilometers."
-msgstr "距离和速度用英里还是公里。"
-
-#. placeholders: {else}
-msgid "Transmission: {else}"
-msgstr "变速箱：{else}"
-
-#. one sentence of a longer line
-msgid "Automatic shifts for you."
-msgstr "自动挡替你换挡。"
-
-#. placeholders: {control_shift_up}, {control_shift_down}
-msgid ""
-"Automatic shifts for you. Manual: hold the clutch, then {control_shift_up} "
-"shifts up and {control_shift_down} shifts down."
-msgstr "自动挡替你换挡。手动挡：按住离合，然后用{control_shift_up}升档，用{control_shift_down}降档。"
-
-#. placeholders: {control_shift_up}, {control_shift_down}
-#. one sentence of a longer line
-msgid ""
-"Manual: hold the clutch, then {control_shift_up} shifts up and "
-"{control_shift_down} shifts down."
-msgstr "手动挡：按住离合，然后用{control_shift_up}升档，用{control_shift_down}降档。"
-
-msgid ""
-"Game-controller input alongside the keyboard, which always stays active. "
-"The first connected controller is used."
-msgstr "在键盘之外使用游戏手柄输入，键盘始终有效。使用第一个连接的手柄。"
-
-#. placeholders: {else}
-msgid "Haptics: {else}"
-msgstr "震动反馈：{else}"
-
-msgid "enabled"
-msgstr "已启用"
-
-msgid "disabled"
-msgstr "已禁用"
-
-msgid ""
-"Controller rumble for hazards, hard braking, the rumble strip, and road "
-"seams. Needs a controller connected."
-msgstr "遇到危险、急刹车、振动带和路面接缝时手柄会震动。需要连接手柄。"
-
-#. placeholders: {else}
-msgid "Second layer bumper: {else}"
-msgstr "第二层肩键：{else}"
-
-msgid ""
-"Which bumper you hold for the second layer of controller buttons. The other "
-"bumper is the clutch."
-msgstr "按住哪个肩键使用手柄的第二层按键。另一个肩键是离合器。"
-
-#. placeholders: {on_off}
-msgid "Visual display: {on_off}"
-msgstr "画面显示：{on_off}"
-
-msgid ""
-"Draws the road, the dashboard, menus and captions of what is spoken in the "
-"game window, for sighted and low-vision players. Off keeps the window dark "
-"and saves battery. Speech and sound are the same either way."
-msgstr "在游戏窗口绘制道路、仪表板、菜单和语音字幕，供有视力及低视力玩家使用。关闭后窗口保持黑屏并节省电量。两种设置的语音和音效相同。"
-
-#. placeholders: {on_off}
-msgid "Letters run menu items: {on_off}"
-msgstr "字母键执行菜单项：{on_off}"
-
-msgid ""
-"On, typing the first letter of an item runs it when no other item starts "
-"with that letter. When several share it, the letter moves between them and "
-"Enter runs the one you are on. Off, letters only move to the item."
-msgstr ""
-"打开时，输入某项的首字母，如果没有其他项以这个字母开头，就会执行这一项。如果有几项共用这个字母，字母会在它们之间切换，按 Enter "
-"执行当前所在的一项。关闭时，字母只会移到该项。"
-
-msgid "Keyboard shortcuts"
-msgstr "快捷键"
-
-msgid ""
-"Move any driving key to another key. Enter on a control, then press the key "
-"you want for it."
-msgstr "把任何驾驶按键移到另一个键。在一个控制项上按Enter，然后按你想用的键。"
-
-msgid "Controller buttons"
-msgstr "手柄按键"
-
-msgid ""
-"Move any driving control to another pad button, plain or with the left "
-"bumper held."
-msgstr "把任何驾驶控制项移到手柄的另一个按键上，可以单按，也可以按住left bumper。"
-
-msgid ""
-"Move any driving control to another pad button, plain or with the right "
-"bumper held."
-msgstr "把任何驾驶控制移到另一个手柄按键，可以单按，也可以在按住right bumper时按。"
-
 #. placeholders: {on_off}
 msgid "Ask to report a problem after a crash: {on_off}"
 msgstr "崩溃后询问是否报告问题：{on_off}"
+
+msgid ""
+"On, the main menu offers to send a report if the game stopped while you "
+"were playing last time, with that run's log attached."
+msgstr ""
 
 msgid ""
 "On, the main menu offers to send a report when the game closed without "
@@ -33633,6 +33500,161 @@ msgstr "菜单和界面声音音量：百分之{pct}"
 msgid "Menu movement, selection, warning, and cash sounds."
 msgstr "菜单移动、选择、警告和现金的声音。"
 
+msgid "Controller: disabled"
+msgstr "手柄：已禁用"
+
+#. placeholders: {name}
+msgid "Controller: enabled, {name} connected"
+msgstr "手柄：已启用，已连接 {name}"
+
+msgid "Controller: enabled, none connected"
+msgstr "手柄：已启用，未连接"
+
+msgid "Touch gestures"
+msgstr "触摸手势"
+
+msgid ""
+"Choose which driving command each touch gesture runs, including a second "
+"finger while holding gas or brake."
+msgstr "选择每个触摸手势执行哪个驾驶命令，包括按住油门或刹车时用第二根手指的手势。"
+
+#. one sentence of a longer line
+msgid "Automatic shifts for you."
+msgstr "自动挡替你换挡。"
+
+#. placeholders: {up}, {down}
+msgid ""
+"Automatic shifts for you. In manual, the clutch works itself. {up} to shift "
+"up. {down} to shift down."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "In manual, the clutch works itself."
+msgstr ""
+
+#. placeholders: {down}
+#. one sentence of a longer line
+msgid "{down} to shift down."
+msgstr ""
+
+#. placeholders: {up}
+#. one sentence of a longer line
+msgid "{up} to shift up."
+msgstr ""
+
+#. placeholders: {else}
+msgid "Units: {else}"
+msgstr "单位：{else}"
+
+msgid "imperial, miles"
+msgstr "英制，英里"
+
+msgid "metric, kilometers"
+msgstr "公制，公里"
+
+msgid "Distance and speed in miles or kilometers."
+msgstr "距离和速度用英里还是公里。"
+
+#. placeholders: {else}
+msgid "Transmission: {else}"
+msgstr "变速箱：{else}"
+
+#. placeholders: {control_shift_up}, {control_shift_down}
+msgid ""
+"Automatic shifts for you. Manual: hold the clutch, then {control_shift_up} "
+"shifts up and {control_shift_down} shifts down."
+msgstr "自动挡替你换挡。手动挡：按住离合，然后用{control_shift_up}升档，用{control_shift_down}降档。"
+
+#. placeholders: {control_shift_up}, {control_shift_down}
+#. one sentence of a longer line
+msgid ""
+"Manual: hold the clutch, then {control_shift_up} shifts up and "
+"{control_shift_down} shifts down."
+msgstr "手动挡：按住离合，然后用{control_shift_up}升档，用{control_shift_down}降档。"
+
+msgid ""
+"Game-controller input alongside the touch screen, which always stays "
+"active. The first connected controller is used."
+msgstr ""
+
+msgid ""
+"Game-controller input alongside the keyboard, which always stays active. "
+"The first connected controller is used."
+msgstr "在键盘之外使用游戏手柄输入，键盘始终有效。使用第一个连接的手柄。"
+
+#. placeholders: {else}
+msgid "Haptics: {else}"
+msgstr "震动反馈：{else}"
+
+msgid "enabled"
+msgstr "已启用"
+
+msgid "disabled"
+msgstr "已禁用"
+
+msgid ""
+"Controller rumble for hazards, hard braking, the rumble strip, and road "
+"seams. Needs a controller connected."
+msgstr "遇到危险、急刹车、振动带和路面接缝时手柄会震动。需要连接手柄。"
+
+#. placeholders: {else}
+msgid "Second layer bumper: {else}"
+msgstr "第二层肩键：{else}"
+
+msgid ""
+"Which bumper you hold for the second layer of controller buttons. The other "
+"bumper is the clutch."
+msgstr "按住哪个肩键使用手柄的第二层按键。另一个肩键是离合器。"
+
+#. placeholders: {on_off}
+msgid "Visual display: {on_off}"
+msgstr "画面显示：{on_off}"
+
+msgid ""
+"Draws the road, the dashboard, menus and captions of what is spoken on the "
+"screen, for sighted and low-vision players. Off keeps the screen dark and "
+"saves battery. Speech and sound are the same either way."
+msgstr ""
+
+msgid ""
+"Draws the road, the dashboard, menus and captions of what is spoken in the "
+"game window, for sighted and low-vision players. Off keeps the window dark "
+"and saves battery. Speech and sound are the same either way."
+msgstr "在游戏窗口绘制道路、仪表板、菜单和语音字幕，供有视力及低视力玩家使用。关闭后窗口保持黑屏并节省电量。两种设置的语音和音效相同。"
+
+#. placeholders: {on_off}
+msgid "Letters run menu items: {on_off}"
+msgstr "字母键执行菜单项：{on_off}"
+
+msgid ""
+"On, typing the first letter of an item runs it when no other item starts "
+"with that letter. When several share it, the letter moves between them and "
+"Enter runs the one you are on. Off, letters only move to the item."
+msgstr ""
+"打开时，输入某项的首字母，如果没有其他项以这个字母开头，就会执行这一项。如果有几项共用这个字母，字母会在它们之间切换，按 Enter "
+"执行当前所在的一项。关闭时，字母只会移到该项。"
+
+msgid "Keyboard shortcuts"
+msgstr "快捷键"
+
+msgid ""
+"Move any driving key to another key. Enter on a control, then press the key "
+"you want for it."
+msgstr "把任何驾驶按键移到另一个键。在一个控制项上按Enter，然后按你想用的键。"
+
+msgid "Controller buttons"
+msgstr "手柄按键"
+
+msgid ""
+"Move any driving control to another pad button, plain or with the left "
+"bumper held."
+msgstr "把任何驾驶控制项移到手柄的另一个按键上，可以单按，也可以按住left bumper。"
+
+msgid ""
+"Move any driving control to another pad button, plain or with the right "
+"bumper held."
+msgstr "把任何驾驶控制移到另一个手柄按键，可以单按，也可以在按住right bumper时按。"
+
 #. placeholders: {_}
 msgid "Update channel: {_}"
 msgstr "更新频道：{_}"
@@ -33783,6 +33805,183 @@ msgid ""
 "whichever you pick. All three stay clear of a following-too-close citation. "
 "The preset above never changes it."
 msgstr "巡航与前车保持的空间。近为两秒半，正常为三秒，远为三秒半。无论选哪个，天气都会拉大车距。三种都不会被罚跟车过近。上方的预设从不改变它。"
+
+msgid ""
+"Realistic turns on every assist except facility stopping assistance, sets "
+"descent speed control to Light, and leaves lane keeping off. Balanced adds "
+"partial lane keeping, Standard descent speed control, and facility stopping "
+"assistance. All assists turns on every assist, sets descent speed control "
+"to Strong, and sets lane keeping to full: the truck holds the lane, a flick "
+"left or right changes lanes, and your destination exit is taken for you. "
+"Changing one assist makes this Custom. You still choose routes and handle "
+"yards and docks. Presets never change pacing, hours rules, transmission, "
+"weather, or hazards."
+msgstr ""
+
+msgid ""
+"Brake briefly, lift, then swipe down and hold again for half a second. A "
+"click means the brake now holds by itself. Brake again or accelerate to "
+"release it. The gas never latches. Presets never change this."
+msgstr ""
+
+#. one sentence of a longer line
+msgid ""
+"Bends that demand slowing are called before they arrive, like Sharp left, "
+"half a mile, advise 35."
+msgstr "需要减速的弯道会在到达前播报，比如“急左弯，半英里，建议35”。"
+
+#. placeholders: {upcoming}
+msgid ""
+"Bends that demand slowing are called before they arrive, like Sharp left, "
+"half a mile, advise 35. Bends you are already slow enough for stay silent. "
+"{upcoming} to list the next few either way. Presets never change this."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Bends you are already slow enough for stay silent."
+msgstr "你的车速已经够慢的弯道不会播报。"
+
+#. one sentence of a longer line
+msgid "Presets never change this."
+msgstr "预设永远不会改变这一项。"
+
+#. placeholders: {upcoming}
+#. one sentence of a longer line
+msgid "{upcoming} to list the next few either way."
+msgstr ""
+
+#. one sentence of a longer line
+msgid ""
+"In low-speed zones, like facility roads, gates, and construction zones, "
+"cruise can hold your current speed."
+msgstr ""
+
+#. placeholders: {cruise}
+msgid ""
+"In low-speed zones, like facility roads, gates, and construction zones, "
+"cruise can hold your current speed. {cruise} to set it. It hands back to "
+"normal cruise on open roads. It eases off early for the next turn or the "
+"next lower limit. Braking cancels it. Presets never change this."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "It eases off early for the next turn or the next lower limit."
+msgstr "遇到下一个转弯或下一个更低的限速，它会提前收油。"
+
+#. one sentence of a longer line
+msgid "It hands back to normal cruise on open roads."
+msgstr ""
+
+#. placeholders: {cruise}
+#. one sentence of a longer line
+msgid "{cruise} to set it."
+msgstr ""
+
+#. placeholders: {lean}
+msgid ""
+"How much of the steering the truck does. Full holds the lane, leaves a lane "
+"that a work zone closes, and takes your exits and open weigh stations "
+"without a signal, including the destination exit. On full, flick left or "
+"right to change lanes. Partial follows bends but lets the truck drift, and "
+"lane changes and speed are yours. Off drifts like a real truck. Bends are "
+"yours unless curve assistance is on, and every exit needs a signal and the "
+"exit lane. On partial or off, {lean}. Road noise sits where you are in the "
+"lane. At the lane's edge you hear a stutter as a tire touches the rumble "
+"strip, a buzz when it is fully on it, and gravel off the pavement. The "
+"Steering guide and Lane guide sound rows, under Audio, change which way to "
+"steer and what leans. Realistic sets this off, Balanced partial, All "
+"assists full."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "On full, flick left or right to change lanes."
+msgstr ""
+
+#. one sentence of a longer line
+msgid ""
+"At the dispatch board, it warns when the load crosses a road that needs "
+"chains and the terminal garage can still sell you a set."
+msgstr "在调度板上，当货物要经过需要链条的道路、而总站车库还能卖给你一套时，它会提醒。"
+
+#. one sentence of a longer line
+msgid "Do it again to cancel."
+msgstr ""
+
+#. one sentence of a longer line
+msgid ""
+"Early advice to stop for a break or sleep while you still have time, plus "
+"the last stop you can legally reach."
+msgstr "在你还有时间时提前建议停下中途休息或睡觉，并说出你依法能到达的最后一个停靠点。"
+
+#. placeholders: {rest}
+msgid ""
+"Early advice to stop for a break or sleep while you still have time, plus "
+"the last stop you can legally reach. {rest} to plan the recommended stop "
+"while rolling. Do it again to cancel. With Driving speech on Standard, one "
+"hint comes before the next hours warning. On Quiet or Urgent only, there is "
+"no hint. It also warns about chain laws. At the dispatch board, it warns "
+"when the load crosses a road that needs chains and the terminal garage can "
+"still sell you a set. On the road, it warns when a posted chain law covers "
+"your truck. It never buys anything. Hours warnings and readouts work "
+"whether this is on or off."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Hours warnings and readouts work whether this is on or off."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "It also warns about chain laws."
+msgstr "它也会提醒链条管制。"
+
+#. one sentence of a longer line
+msgid "It never buys anything."
+msgstr "它从不购买任何东西。"
+
+#. one sentence of a longer line
+msgid "On Quiet or Urgent only, there is no hint."
+msgstr "安静或仅紧急时，没有提示。"
+
+#. one sentence of a longer line
+msgid "On the road, it warns when a posted chain law covers your truck."
+msgstr "在路上，当张贴的链条管制适用于你的卡车时，它会提醒。"
+
+#. one sentence of a longer line
+msgid ""
+"With Driving speech on Standard, one hint comes before the next hours "
+"warning."
+msgstr "驾驶播报为标准时，下一次工时警告之前会有一条提示。"
+
+#. placeholders: {rest}
+#. one sentence of a longer line
+msgid "{rest} to plan the recommended stop while rolling."
+msgstr ""
+
+msgid ""
+"How loud the lane and edge cues are next to everything else: the rumble "
+"strip, the gravel off the pavement, the lane locator, and the transverse "
+"strips before a dangerous bend. It adjusts only these cues, on top of "
+"Gameplay cues volume. Quieter sits under the engine, standard matches it, "
+"louder cuts through."
+msgstr ""
+
+msgid ""
+"Double tap to type a seed, a whole number. Flick up or down to roll a new "
+"one. Every synthesized piece changes with it."
+msgstr ""
+
+msgid ""
+"On, driving lines name the gesture for the next step, like Double tap to "
+"signal for the exit. Off, they leave the gesture out. Driving school always "
+"names it."
+msgstr ""
+
+msgid ""
+"Extra callouts between directions: parks, rivers, mountain passes, museums "
+"and billboards. Flick up to turn all on, or down to turn all off. The "
+"switches below pick each kind. Safety and navigation are never affected. "
+"Town names are the Place callouts row below."
+msgstr ""
 
 #. placeholders: {engine_label}
 msgid "Voice engine: {engine_label}"
@@ -33964,6 +34163,9 @@ msgid ""
 "it runs while driving. Go back to leave."
 msgstr "上下移动选择一个手势，然后确认，选择它在驾驶时执行的命令。返回即可离开。"
 
+msgid "Double tap a gesture to choose the command it runs while driving."
+msgstr ""
+
 msgid "Gesture"
 msgstr "手势"
 
@@ -34037,9 +34239,6 @@ msgstr ""
 msgid "Tilt for full steering: {touch_tilt_full} degrees"
 msgstr ""
 
-msgid "Confirm, then choose the command this gesture runs while driving."
-msgstr "确认，然后选择这个手势在驾驶时执行的命令。"
-
 #. placeholders: {touch_deep_swipe_points}
 msgid "Deep swipe starts at: {touch_deep_swipe_points}"
 msgstr "长滑起点：{touch_deep_swipe_points}"
@@ -34062,10 +34261,25 @@ msgstr "把所有触摸手势恢复默认"
 msgid "Puts every gesture on this screen back where it started."
 msgstr "把这个界面上的每个手势都恢复到最初的设置。"
 
+msgid "New gesture reading: On"
+msgstr ""
+
+msgid "New gesture reading: Off"
+msgstr ""
+
 msgid ""
-"Move up and down to pick a command and confirm to put it on the gesture. "
-"Going back keeps the one it has."
-msgstr "上下移动选择一个命令，确认后把它放到这个手势上。返回会保留原来的命令。"
+"A trial. Every gesture should work as before. Turn it off if one does not."
+msgstr ""
+
+msgid ""
+"Up and Down pick a command or a group, and Enter opens a group. Enter on a "
+"command puts it on the gesture. Escape keeps the one it has."
+msgstr ""
+
+msgid ""
+"Double tap a command to put it on the gesture, or a group to open it. Flick "
+"down with two fingers to keep the one it has."
+msgstr ""
 
 #. placeholders: {gesture_name}, {label}
 msgid "{gesture_name} now runs {label}."
@@ -34273,17 +34487,9 @@ msgstr "你在{carrier_name}的职业生涯所在地区。"
 msgid "{place}, 1 city"
 msgstr "{place}，1个城市"
 
-#. placeholders: {place}
-msgid "{place}, 1 city."
-msgstr "{place}，1个城市。"
-
 #. placeholders: {place}, {count}
 msgid "{place}, {count} cities"
 msgstr "{place}，{count}个城市"
-
-#. placeholders: {place}, {count}
-msgid "{place}, {count} cities."
-msgstr "{place}，{count}个城市。"
 
 msgid "Home terminal"
 msgstr "基地"
@@ -34430,6 +34636,9 @@ msgid ""
 "Up and Down choose an option. Enter or Space selects it. Escape goes back. "
 "Home and End jump to the first or last option."
 msgstr "Up和Down选择选项。Enter或Space选中。Escape返回。Home和End跳到第一个或最后一个选项。"
+
+msgid "Page Up and Page Down move ten options at a time."
+msgstr ""
 
 msgid ""
 "Type a letter to find an option starting with it. F1 explains the selected "
@@ -36326,9 +36535,6 @@ msgstr "玩法说明。{controls}{page_title}"
 msgid "How to play - {title} ({page}/{pages})"
 msgstr "玩法说明：{title}，第{page}页，共{pages}页"
 
-msgid "Page Up and Page Down move ten options at a time."
-msgstr ""
-
 msgid ""
 "Flick left or right with three fingers to move ten options back or forward."
 msgstr ""
@@ -37009,8 +37215,40 @@ msgstr "有{waiting}段职业生涯正在等你选择保留哪一份"
 
 msgid ""
 "The careers backed up to your orinks.net account, to bring one onto this "
+"device."
+msgstr ""
+
+msgid ""
+"The careers backed up to your orinks.net account, to bring one onto this "
 "computer."
 msgstr "备份在你orinks.net账户里的职业生涯，可以把其中一段放到这台电脑上。"
+
+#. one sentence of a longer line
+msgid ""
+"A career here changed on another device, and it is not backing up until you "
+"pick."
+msgstr ""
+
+#. one sentence of a longer line
+msgid ""
+"Choosing this device's save keeps what you have played and sends it up."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Nothing is overwritten until you choose."
+msgstr "在你选择之前，什么都不会被覆盖。"
+
+#. one sentence of a longer line
+msgid "Open this to choose which copy to keep."
+msgstr "打开这一项来选择保留哪一份。"
+
+#. placeholders: {base}
+msgid ""
+"Open this to choose which copy to keep. A career here changed on another "
+"device, and it is not backing up until you pick. Choosing this device's "
+"save keeps what you have played and sends it up. Nothing is overwritten "
+"until you choose. {base}"
+msgstr ""
 
 #. one sentence of a longer line
 msgid ""
@@ -37022,14 +37260,6 @@ msgstr "这里有一段职业生涯在另一台电脑上被改动了，在你做
 msgid ""
 "Choosing this computer's save keeps what you have played and sends it up."
 msgstr "选择这台电脑的存档，会保留你玩过的内容并上传。"
-
-#. one sentence of a longer line
-msgid "Nothing is overwritten until you choose."
-msgstr "在你选择之前，什么都不会被覆盖。"
-
-#. one sentence of a longer line
-msgid "Open this to choose which copy to keep."
-msgstr "打开这一项来选择保留哪一份。"
 
 #. placeholders: {base}
 msgid ""
@@ -37050,6 +37280,12 @@ msgid ""
 "about you."
 msgstr "每一位有公开主页的司机，无论是否在岗，以及每人最后一次在岗的时间。在一位司机上按Enter会读出他的主页。查看不会分享你的任何信息。"
 
+msgid ""
+"Every driver with a public profile, on duty or not, and when each was last "
+"on duty. Double tap a driver to read their profile. Viewing it shares "
+"nothing about you."
+msgstr ""
+
 #. placeholders: {on_off}
 msgid "Say when drivers go on or off duty: {on_off}"
 msgstr "司机上下班时提示：{on_off}"
@@ -37060,6 +37296,11 @@ msgid ""
 "nothing about you."
 msgstr ""
 "类似“Road Star正在岗”的提示，在游戏中任何地方都能听到。大约每分钟检查一次公开的司机列表，不需要账户，也不会分享你的任何信息。"
+
+msgid ""
+"Achievements earned across every career on this device. The main menu's "
+"Achievements is per career."
+msgstr ""
 
 msgid ""
 "Achievements earned across every career on this installation. The main "
@@ -37077,6 +37318,13 @@ msgstr "你的公开司机主页，读法和任何玩家从司机列表里听到
 #. placeholders: {on_off}
 msgid "Online services: {on_off}"
 msgstr "在线服务：{on_off}"
+
+msgid ""
+"Master switch for the orinks.net and sharing services. Off stops the "
+"drivers list, profile sharing, cloud backup and station suggestions without "
+"losing their settings. Live weather, traffic, and parking have their own "
+"toggles under Settings."
+msgstr ""
 
 msgid ""
 "Master switch for the orinks.net and sharing services. Off stops the "
@@ -37099,6 +37347,12 @@ msgstr "设置orinks.net账户"
 msgid ""
 "Connects the game to your orinks.net account, which turns Profile sharing "
 "on and starts backing your careers up. Each has its own item on this menu. "
+"Driver name and signed-in devices are on Open my driver setup page."
+msgstr ""
+
+msgid ""
+"Connects the game to your orinks.net account, which turns Profile sharing "
+"on and starts backing your careers up. Each has its own item on this menu. "
 "Driver name and signed-in computers are on Open my driver setup page."
 msgstr ""
 "把游戏连接到你的orinks.net账户，这会开启主页分享并开始备份你的职业生涯。这两项在这个菜单上各有自己的选项。司机名称和已登录的电脑在“打开我的司"
@@ -37114,6 +37368,11 @@ msgstr "无需账户，以orinks.net分配的名称登上司机榜。司机主�
 
 msgid "Open my driver setup page"
 msgstr "打开我的司机设置页面"
+
+msgid ""
+"Opens your orinks.net driver setup page in a browser, for your driver name, "
+"profile sharing, and the devices signed in to your account."
+msgstr ""
 
 msgid ""
 "Opens your orinks.net driver setup page in a browser, for your driver name, "
@@ -37149,6 +37408,13 @@ msgstr "把存档备份到你的orinks.net账户：未设置"
 
 msgid ""
 "Uploads each saved career to your orinks.net account, to restore on another "
+"device. Backups are private and never public downloads. Comes on when you "
+"connect the account. Public profile statistics are read from these backups, "
+"so turning this off empties them."
+msgstr ""
+
+msgid ""
+"Uploads each saved career to your orinks.net account, to restore on another "
 "computer. Backups are private and never public downloads. Comes on when you "
 "connect the account. Public profile statistics are read from these backups, "
 "so turning this off empties them."
@@ -37181,12 +37447,42 @@ msgid ""
 "Choose Set up now to connect this computer, or Not now to start driving."
 msgstr "选择“现在设置”来连接这台电脑，或选择“暂不”开始驾驶。"
 
-msgid "Online on the main menu connects any time."
-msgstr "主菜单上的在线随时连接。"
+msgid ""
+"Choose Set up now to connect this device, or Not now to start driving."
+msgstr ""
 
 #. one sentence of a longer line
 msgid "Before you set off."
 msgstr "出发之前。"
+
+#. placeholders: {current}
+msgid ""
+"Before you set off. You can connect this device to an orinks.net account. "
+"That backs your career up so you can bring it to another device, and puts "
+"your driver profile and on-duty activity on the public site. You can turn "
+"either of those off afterwards from Online on the main menu. It takes a "
+"code and your browser, and you can do it any time instead. {current}"
+msgstr ""
+
+#. one sentence of a longer line
+msgid ""
+"It takes a code and your browser, and you can do it any time instead."
+msgstr "这需要一个代码和你的浏览器，你也可以改在任何时候再做。"
+
+#. one sentence of a longer line
+msgid ""
+"That backs your career up so you can bring it to another device, and puts "
+"your driver profile and on-duty activity on the public site."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "You can connect this device to an orinks.net account."
+msgstr ""
+
+#. one sentence of a longer line
+msgid ""
+"You can turn either of those off afterwards from Online on the main menu."
+msgstr "之后你可以从主菜单的“在线”里关闭其中任何一项。"
 
 #. placeholders: {current}
 msgid ""
@@ -37201,11 +37497,6 @@ msgstr ""
 
 #. one sentence of a longer line
 msgid ""
-"It takes a code and your browser, and you can do it any time instead."
-msgstr "这需要一个代码和你的浏览器，你也可以改在任何时候再做。"
-
-#. one sentence of a longer line
-msgid ""
 "That backs your career up so you can bring it to another computer, and puts "
 "your driver profile and on-duty activity on the public site."
 msgstr "这样会备份你的职业生涯，让你能把它带到另一台电脑上，同时把你的司机主页和在岗活动放到公开网站上。"
@@ -37213,11 +37504,6 @@ msgstr "这样会备份你的职业生涯，让你能把它带到另一台电脑
 #. one sentence of a longer line
 msgid "You can connect this computer to an orinks.net account."
 msgstr "你可以把这台电脑连接到一个orinks.net账户。"
-
-#. one sentence of a longer line
-msgid ""
-"You can turn either of those off afterwards from Online on the main menu."
-msgstr "之后你可以从主菜单的“在线”里关闭其中任何一项。"
 
 msgid "Not now"
 msgstr "暂不"
@@ -37227,6 +37513,11 @@ msgstr "开始驾驶。你以后可以从“在线”里连接。"
 
 msgid "Set up now"
 msgstr "现在设置"
+
+msgid ""
+"Connect this device to an orinks.net account, which turns on cloud backup "
+"and your public driver profile."
+msgstr ""
 
 msgid ""
 "Connect this computer to an orinks.net account, which turns on cloud backup "
@@ -37993,6 +38284,9 @@ msgstr "orinks.net未接受报告。"
 msgid "The report could not be prepared."
 msgstr "无法准备报告。"
 
+msgid "orinks.net could not be reached."
+msgstr "无法连接 orinks.net。"
+
 msgid "problem-report"
 msgstr "问题报告"
 
@@ -38005,9 +38299,13 @@ msgid ""
 "Could not open a web browser. Report problems at github.com/{REPO}/issues."
 msgstr "无法打开网页浏览器。请到github.com/{REPO}/issues报告问题。"
 
+#. one sentence of a longer line
+msgid "The report form could not be opened."
+msgstr "无法打开报告表。"
+
 #. placeholders: {reason}
-msgid "The report form could not be opened: {reason}"
-msgstr "无法打开报告表：{reason}"
+msgid "The report form could not be opened. {reason}"
+msgstr "无法打开报告表。{reason}"
 
 msgid "Report the last crash?"
 msgstr "报告上次崩溃？"
@@ -38064,6 +38362,25 @@ msgstr "按Enter继续你的职业生涯。"
 
 #. one sentence of a longer line
 msgid ""
+"This save was changed outside the game, or copied from another device, so "
+"it is marked as modified."
+msgstr ""
+
+#. placeholders: {current_text}
+msgid ""
+"This save was changed outside the game, or copied from another device, so "
+"it is marked as modified. Your career still works on this device, but "
+"profile sharing may not accept a modified profile. {current_text}"
+msgstr ""
+
+#. one sentence of a longer line
+msgid ""
+"Your career still works on this device, but profile sharing may not accept "
+"a modified profile."
+msgstr ""
+
+#. one sentence of a longer line
+msgid ""
 "This save was changed outside the game, or copied from another computer, so "
 "it is marked as modified."
 msgstr "这个存档在游戏外被改动过，或者是从另一台电脑复制来的，所以被标记为已修改。"
@@ -38095,10 +38412,8 @@ msgid ""
 msgstr "这段职业生涯无法在1.9版本中继续。按Escape返回职业生涯列表。"
 
 #. one sentence of a longer line
-msgid ""
-"Nothing was lost: the save is still on this computer, untouched, and it "
-"still works in Freight Fate 1.8."
-msgstr "什么都没有丢失：存档还在这台电脑上，没有被改动，在Freight Fate 1.8中仍然能用。"
+msgid "Nothing was lost: the save is still on this device, untouched."
+msgstr ""
 
 #. one sentence of a longer line
 msgid ""
@@ -38110,6 +38425,20 @@ msgstr "1.9版本重新平衡了整个职业生涯，从报酬到卡车再到等
 #. one sentence of a longer line
 msgid "{driver_name} was made in an earlier version of Freight Fate."
 msgstr "{driver_name}是在Freight Fate的早期版本中创建的。"
+
+#. placeholders: {driver_name}, {current_text}
+msgid ""
+"{driver_name} was made in an earlier version of Freight Fate. Version 1.9 "
+"rebalances the whole career, from pay to trucks to levels, so every driver "
+"starts fresh. Nothing was lost: the save is still on this device, "
+"untouched. {current_text}"
+msgstr ""
+
+#. one sentence of a longer line
+msgid ""
+"Nothing was lost: the save is still on this computer, untouched, and it "
+"still works in Freight Fate 1.8."
+msgstr "什么都没有丢失：存档还在这台电脑上，没有被改动，在Freight Fate 1.8中仍然能用。"
 
 #. placeholders: {driver_name}, {current_text}
 msgid ""
@@ -38609,9 +38938,6 @@ msgstr "正在下载{title}"
 
 msgid "Escape cancels, Tab reads progress."
 msgstr "Escape取消，Tab读出进度。"
-
-msgid "lift"
-msgstr "提神效果"
 
 #. placeholders: {lane_assist}
 msgid "Middle lane  ·  lane keeping {lane_assist}"
@@ -39874,6 +40200,64 @@ msgid ""
 "the engine, {pad_fuel} reads fuel, and {pad_speed_limit} reads the limit."
 msgstr ""
 "按住左肩键使用第二层按键。{pad_engine}控制发动机，{pad_fuel}读出燃油，{pad_speed_limit}读出限速。"
+
+#~ msgid ""
+#~ "Lane keeping full: the truck holds the lane, swipe left or right to change "
+#~ "lanes."
+#~ msgstr "车道保持完全：卡车保持车道，向左或向右滑动即可变道。"
+
+#~ msgid "Confirm, then choose the command this gesture runs while driving."
+#~ msgstr "确认，然后选择这个手势在驾驶时执行的命令。"
+
+#~ msgid ""
+#~ "Move up and down to pick a command and confirm to put it on the gesture. "
+#~ "Going back keeps the one it has."
+#~ msgstr "上下移动选择一个命令，确认后把它放到这个手势上。返回会保留原来的命令。"
+
+#~ msgid "Destination {destination_label} ahead."
+#~ msgstr "前方是目的地{destination_label}。"
+
+#~ msgid "Destination {city} ahead."
+#~ msgstr "前方是目的地{city}。"
+
+#~ msgid "Live road report, {distance} ahead: {text}"
+#~ msgstr "实时路况报告，前方{distance}：{text}"
+
+#~ msgid "Weigh station first, {name}, {distance} ahead."
+#~ msgstr "先过称重站，{name}，前方{distance}。"
+
+#~ msgid "Weigh station first, {name}, {distance} ahead. All trucks must stop."
+#~ msgstr "先到称重站，{name}在前方{distance}处。所有卡车必须停车。"
+
+#~ msgid ""
+#~ "Fuel range about {range_text}, short of the next fuel stop, {ahead_text} "
+#~ "ahead."
+#~ msgstr "续航里程大约{range_text}，到不了下一个加油点，它在前方{ahead_text}。"
+
+#~ msgid ""
+#~ "{prefix}, {name}, {distance} ahead{exit_text}.{note}{next_step}{assist}"
+#~ msgstr "{prefix}，{name}，前方{distance}{exit_text}。{note}{next_step}{assist}"
+
+#~ msgid "Gate at {facility}, {closing_text} ahead."
+#~ msgstr "登机口位于{facility}，前方为{closing_text}。"
+
+#~ msgid "Distance: {distance_text} ahead."
+#~ msgstr "距离：前方{distance_text}。"
+
+#~ msgid "{name}, {ahead_text} ahead"
+#~ msgstr "{name}，前方{ahead_text}"
+
+#~ msgid "{place}, 1 city."
+#~ msgstr "{place}，1个城市。"
+
+#~ msgid "{place}, {count} cities."
+#~ msgstr "{place}，{count}个城市。"
+
+#~ msgid "Online on the main menu connects any time."
+#~ msgstr "主菜单上的在线随时连接。"
+
+#~ msgid "The report form could not be opened: {reason}"
+#~ msgstr "无法打开报告表：{reason}"
 
 #~ msgid ""
 #~ "While the road voice speaks, the engine, weather, and radio drop to half "

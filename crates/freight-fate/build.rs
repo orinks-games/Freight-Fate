@@ -127,8 +127,10 @@ fn link_prism_system_libraries() {
     }
 }
 
-/// Compile the UIKit keyboard, gesture and VoiceOver bridges, and the
-/// sound session and background time (`ios/ff_lifecycle.m`).
+/// Compile the UIKit keyboard, gesture and VoiceOver bridges, the raw finger
+/// queue for the shared recognizer (`ios/ff_fingers.m`), the window and
+/// scene (`ios/ff_window.m`), and the sound session and background time
+/// (`ios/ff_lifecycle.m`).
 ///
 /// It is the one piece of the iOS port that has to be Objective-C: a view
 /// over SDL's own, carrying the gesture recognizers and the accessibility
@@ -137,6 +139,8 @@ fn link_prism_system_libraries() {
 fn build_ios_bridge() {
     let sources = [
         "ios/ff_touch.m",
+        "ios/ff_fingers.m",
+        "ios/ff_window.m",
         "ios/ff_keyboard.m",
         "ios/ff_lifecycle.m",
         "ios/ff_orientation.m",

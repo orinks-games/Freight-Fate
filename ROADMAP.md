@@ -73,6 +73,8 @@ bookmarks usable.
 - [x] (Found along the way) A truck stopped at a facility gate could not dock with Facility stopping assistance off unless the parking brake was set (first player problem report, 2026-11-13, Fort Worth Cross-Dock: "I arrived at my destination, pressed enter but could not dock"). Enter did nothing there, though the manual says it accepts the arrival; the one line that names the parking brake was cut 4.5 seconds later by the "Still at" reminder; and a stopped truck heard nothing more. Fixed 2026-11-14: Enter or controller A accepts the arrival from a full stop at a delivery or pickup gate, a truck at rest with the brake off hears "Set the parking brake to dock" once per stop after 3 seconds of quiet (counted from the end of the stop line since the recorded drive of 2026-11-14, where a truck that stopped under that line heard the brake named twice back to back), the reminder waits its 10 seconds after the line that names the brake, and the speed limit key, the route key, the status screen and the pause menu's Trip status say what the gate is waiting for. The gate's stop is one state enum (`ff_core::sim::arrival_gate`), and the agent server's `status` reports it.
 - [x] (Found along the way) Three things left from issue 520 (2026-11-14). The brake fade badge went to the player 26 ms after they took the wheel back on drums the co-driver had heated; it is now earned only when the drums cross into fade with the player driving. A driver who switched the engine brake off for a town could not tell when the zone ended; a zone the driver was told about now says "End of no engine brake zone." on the way out, and what the driver has heard about a zone is one state enum (`ff_core::sim::jake_zone`) that the agent server's `status` reports. Taking the wheel back before a 10-hour rest is in starts the rest over, as the rule says it must be unbroken; the Take the wheel back help now says so.
 - [ ] (Found along the way) The dock at the end of an exit ramp, with Facility streets off, still opens on a full stop without going through the gate's state enum. Move it onto the enum so both arrivals share one rule.
+- [x] (Found along the way) Doubled and late lines the iPhone walk heard (2026-11-21), none phone only. Fixed 2026-11-22: "Air ready." is no longer followed at once by its own reminder, the engine start no longer says the air-ready step the first-run line says next, a line about reaching a rest area or scale is dropped once its menu opens, leaving Settings says "Settings saved." before the menu row, Not now on the online offer adds no line, Report a problem says "orinks.net could not be reached" in place of the raw error, and the agent sandbox's report goes nowhere instead of out through a proxy. The first-run walkthrough is one state enum (`ff_core::first_run`). The facility gate heads-up heard twice was an engine start cutting it mid-sentence and the cut line handed back, as the event voice is meant to do; left to finish, it is said once. Exit, planned stop, scale-first, gate, fuel range and live road report calls, the Navigation destination line and the stop details no longer end in "ahead".
+- [x] (Found along the way) An open scale was called three times in its first seconds: the stop callout ("I-84 Weigh Station in 4 miles. Open."), the scale notice with its earcon ("Open weigh station in 4.3 miles, ... All trucks must pull in.") and the exit signal ("Signal set for the I-84 Weigh Station exit, 4.3 miles."). Now the notice is the one call for an open scale (a planned scale keeps its callout, and a closed one keeps "Closed."), and a signal set within 15 seconds of a spoken notice says "Signal set for the scale exit." alone. On quiet and urgent only, where the notice is its earcon, the signal line stays whole.
 - [x] (Found along the way) Speed limits flip-flopped where the map has no posting (owner's Kenosha to Traverse City drive, 2026-11-04: 60, 70, 55 on the Tri-State in Lake County inside two minutes). An untagged stretch longer than four miles fell back to the open-road number, and 263 of them sat between two lower postings. Fixed 2026-11-05: a gap takes at most the higher posting around it when both are 55 or more, or both are 45 or more and the gap is at most 10 miles. Calibrated on the October profile itself: on tagged road between two postings of 55 or more, the stretch between was posted higher than both for most of its length 0.1% of the time over 5 miles and 1.9% over 40; with a 45 or 50 at one end, 5.1% over 10 miles and 13.4% over 40. A gap leaving a town limit under 45 still reads the open-road number. The state truck caps (California 55, Oregon 55, Arizona 65 and the rest) now bind in gaps and on legs with no profile; they used to apply to postings only.
 - [x] (Found along the way) Kenosha and Milwaukee to Chicago leave I-94 just past the state line and run about 25 miles down US-41 (Skokie Highway, with signals) to Lake Cook Road, while the game still calls the road I-94; checked against OpenStreetMap 2026-11-05. The 55, 45, 55 and 50 heard there are US-41's real limits. Re-route both legs onto the Tri-State and re-read their limits, then check which other legs leave their named interstate the same way (the limit-artifact screen's off-route verdicts are a start). Fixed 2026-11-05: both legs re-routed with `cargo tools reroute-leg` and rebuilt with `reroute-enrich` and the layer builders, from the OpenStreetMap planet of 2026-10-26; they now ride I-94 (the Tri-State, then the Edens and the Kennedy) into Chicago. The other legs that leave their named road are listed in the route audit of 2026-11-05.
 - [ ] (Found along the way) Toll events on the Tri-State: Kenosha and Milwaukee to Chicago now ride the Illinois Tollway and carry no toll events. Curate the plazas and truck rates.
@@ -1593,6 +1595,22 @@ Everything found before 2026-09-25 moved to
       are two `ff-core` machines (`sim::tilt_steering`, `sim::lane_push`),
       and the agent server's `tilt` tool stands in for the sensor. Driven
       by agent only; nothing was tried on a phone.
+- [x] Settings, Online and the name field on a phone (2026-11-22, the
+      whole-game iPhone pass, brief 5): Controls lists the keyboard rows
+      only while a hardware keyboard is connected and the controller rows
+      only while a controller is (the Controller row stays while support is
+      off), puts Touch gestures first, and follows a keyboard or pad coming
+      and going with the focused row kept. Online has no Discord row on a
+      phone. Settings help that named keys has a touch sentence; help on a
+      phone says "this device", not "computer", and leaves out version 1.8
+      and the update channel. The Touch gestures command picker uses the
+      driving command list's groups, and its gesture rows share the
+      screen's help. Help in a name field reads its opening line again.
+      Driven by agent only; nothing was tried on a phone.
+- [ ] (Found along the way) A controller on a phone: the Controls rows
+      that need one could not be staged through the agent server, which
+      has no controller; a test covers them. Worth one pass with a real
+      pad on an iPhone.
 - [ ] (Found along the way) Tilt steering on a real iPhone: which way is
       left, whether 30 degrees feels right, whether the screen stays put at
       the wheel and turns again in menus (the lock goes through SDL's
@@ -1614,12 +1632,17 @@ Everything found before 2026-09-25 moved to
       Second layer bumper on left, the instructions that name a bumper are
       new catalog entries (some in `lang/extra.pot`), spoken in English
       until each language translates them.
-- [ ] (Found along the way) iPhone gesture plan step 7: the stroke
-      recogniser moved into `ff-core`, and the default deep swipe set from
-      lengths measured on a phone. Android's recogniser
-      (`freight-fate/src/touch/recognizer.rs`) is already a Rust port of
-      `ff_touch.m` over raw finger events, tested on the desktop, and could
-      be the one both phones share.
+- [x] (Found along the way) iPhone gesture plan step 7: the gesture
+      recogniser moved into `ff-core` (`ff_core::touch`), and iPhone and
+      iPad can read raw fingers with it, the one Android uses, behind the
+      last row of Touch gestures, "New gesture reading", off by default
+      (2026-11-22). The agent server's `fingers` tool drives it, and the
+      differences found against `ff_touch.m` are in `docs/ios/README.md`.
+- [ ] (Found along the way) Once Orinks has played New gesture reading on
+      a phone: delete the native recognisers in `ff_touch.m` and the row,
+      so both phones read gestures one way.
+- [ ] (Found along the way) The default deep swipe still waits on swipe
+      lengths measured on a phone (Practice gestures reads them).
 - [x] Freight Fate builds for Android phones, Android 14 or newer
       (2026-11-18): the same Rust game under SDL2's Android backend, speech
       through Prism's Android text to speech, and the iPhone's gestures

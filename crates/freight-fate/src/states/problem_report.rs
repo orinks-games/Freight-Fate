@@ -69,8 +69,9 @@ impl ProblemReportLinkState {
             )
         };
         self.status = line.clone();
-        ctx.say(&line);
-        ctx.pop_state();
+        // The result first, the revealed menu queued behind it: popped after
+        // the line, the menu's title cut it off (agent drive, 2026-11-22).
+        ctx.say_result_then(&line, |ctx| ctx.pop_state());
     }
 
     /// Why the form did not open, in a sentence for the player.
@@ -81,13 +82,13 @@ impl ProblemReportLinkState {
                 "orinks.net did not accept the report.".to_string()
             }
             SendError::Invalid(_) => "The report could not be prepared.".to_string(),
+            // The detail is for the log, never for the player: it was read
+            // aloud whole ("CONNECT proxy failed: proxy server responded
+            // 502/502", phone walk), and a status code tells a player
+            // nothing they can act on.
             SendError::Failed(reason) => {
-                let reason = reason.trim();
-                if reason.ends_with(['.', '!', '?']) {
-                    reason.to_string()
-                } else {
-                    format!("{reason}.")
-                }
+                log::warn!("problem report: the relay could not be reached: {reason}");
+                "orinks.net could not be reached.".to_string()
             }
         }
     }
@@ -120,8 +121,7 @@ impl State for ProblemReportLinkState {
         match outcome {
             Ok(opened) if open_url(&opened.url) => {
                 self.status = OPENED.to_string();
-                ctx.say(OPENED);
-                ctx.pop_state();
+                ctx.say_result_then(OPENED, |ctx| ctx.pop_state());
             }
             Ok(_) => {
                 // A browser that would not open the page will not open the
@@ -132,14 +132,13 @@ impl State for ProblemReportLinkState {
                     updater::REPO
                 );
                 self.status = line.clone();
-                ctx.say(&line);
-                ctx.pop_state();
+                ctx.say_result_then(&line, |ctx| ctx.pop_state());
             }
             Err(error) => {
                 let reason = Self::reason(error);
                 self.fall_back(
                     ctx,
-                    &format!("The report form could not be opened: {reason}"),
+                    &format!("The report form could not be opened. {reason}"),
                 );
             }
         }

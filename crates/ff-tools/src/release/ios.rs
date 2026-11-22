@@ -119,7 +119,7 @@ fn info_plist(version: &str, target: Target, build_number: Option<&str>) -> Plis
         ),
         ("UILaunchScreen", Plist::Dict(Vec::new())),
         // iOS 27 will not launch an app built against its SDK without a
-        // scene lifecycle; `FFSceneDelegate` (in `ff_touch.m`) puts SDL2's
+        // scene lifecycle; `FFSceneDelegate` (in `ff_window.m`) puts SDL2's
         // windows on the scene.
         (
             "UIApplicationSceneManifest",

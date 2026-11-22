@@ -7896,6 +7896,9 @@ msgstr " 身元調査には約{wait_days}日かかり、運転している間に
 msgid " Enter books it."
 msgstr " Enterで予約します。"
 
+msgid " Double tap books it."
+msgstr ""
+
 #. placeholders: {grouped}
 msgid "{grouped} dollars"
 msgstr "{grouped}ドル"
@@ -12281,12 +12284,12 @@ msgid "Current grade {f} percent {direction}{terrain_text}"
 msgstr "現在の勾配は{direction}{f}パーセント{terrain_text}"
 
 #. placeholders: {destination_label}
-msgid "Destination {destination_label} ahead."
-msgstr "前方に目的地、{destination_label}。"
+msgid "Destination {destination_label}."
+msgstr "目的地、{destination_label}。"
 
 #. placeholders: {city}
-msgid "Destination {city} ahead."
-msgstr "前方に目的地、{city}。"
+msgid "Destination {city}."
+msgstr "目的地、{city}。"
 
 #. placeholders: {ahead_text}, {text}
 msgid "Next stop in {ahead_text}: {text}."
@@ -13073,7 +13076,7 @@ msgid "an enforcement post {where_} in {distance}"
 msgstr "{distance}先に取り締まりの拠点、{where_}"
 
 #. placeholders: {distance}, {text}
-msgid "Live road report, {distance} ahead: {text}"
+msgid "Live road report, {distance}: {text}"
 msgstr "道路情報、{distance}先：{text}"
 
 #. placeholders: {lanes}
@@ -14336,6 +14339,24 @@ msgstr "進入中： "
 msgid "Passing "
 msgstr "通過中： "
 
+msgid "tap"
+msgstr "タップ"
+
+msgid "lift"
+msgstr "効き目"
+
+msgid "idle"
+msgstr ""
+
+msgid "deciding"
+msgstr ""
+
+msgid "gas"
+msgstr "アクセル"
+
+msgid "spent"
+msgstr ""
+
 msgid "menu"
 msgstr "menu"
 
@@ -15154,9 +15175,6 @@ msgstr "なし"
 msgid "Tap"
 msgstr "タップ"
 
-msgid "tap"
-msgstr "タップ"
-
 msgid "Flick up"
 msgstr "上にフリック"
 
@@ -15229,9 +15247,6 @@ msgstr "3本指で上にフリック"
 
 msgid "a three-finger flick down"
 msgstr "3本指で下にフリック"
-
-msgid "gas"
-msgstr "アクセル"
 
 msgid "double tap"
 msgstr "ダブルタップ"
@@ -17734,10 +17749,6 @@ msgstr "キャリアを保存します。"
 
 msgid "Settings"
 msgstr "設定"
-
-msgid ""
-"Units, transmission, volumes, weather, voices, update channel, and pacing."
-msgstr "単位、変速機、音量、天気、声、アップデートのチャンネル、ペース。"
 
 msgid "Quit to main menu"
 msgstr "メインメニューに戻る"
@@ -21874,13 +21885,6 @@ msgstr "エンジンがかかりました。{instruction}"
 msgid "The engine will not start."
 msgstr "エンジンがかかりません。"
 
-msgid "Air ready."
-msgstr "エア準備完了。"
-
-#. placeholders: {psi}
-msgid "Air {psi} psi."
-msgstr "エア圧{psi} psi。"
-
 msgid "Air ready. Swipe up and hold to drive."
 msgstr "エア準備完了。上にスワイプして長押しで走り出します。"
 
@@ -21924,6 +21928,13 @@ msgstr "エアの準備ができました。{control_hint}を押し続けると�
 #. one sentence of a longer line
 msgid "Hold {control_hint} to drive."
 msgstr "{control_hint}を押し続けると走ります。"
+
+msgid "Air ready."
+msgstr "エア準備完了。"
+
+#. placeholders: {psi}
+msgid "Air {psi} psi."
+msgstr "エア圧{psi} psi。"
 
 msgid "Parking brake released."
 msgstr "駐車ブレーキを解除しました。"
@@ -22005,164 +22016,6 @@ msgstr "掲載のサービス：{join_phrase}"
 
 msgid "services not listed"
 msgstr "サービスの掲載なし"
-
-msgid "Your first run. Turn two fingers right to start the engine."
-msgstr "最初の運行です。2本指を右に回してエンジンをかけます。"
-
-#. one sentence of a longer line
-msgid "Your first run."
-msgstr "最初の運行です。"
-
-#. placeholders: {control_hint}
-msgid "Your first run. Press {control_hint} to start the engine."
-msgstr "最初の運行です。{control_hint}でエンジンをかけます。"
-
-msgid ""
-"At air ready, swipe up and hold to release the parking brake, then flick up "
-"with a second finger for first gear."
-msgstr "エアが準備できたら、上にスワイプして長押しで駐車ブレーキを解除し、2本目の指で上にフリックして1速に入れます。"
-
-#. placeholders: {control_hint}, {control_hint2}
-msgid ""
-"At air ready, press {control_hint} to release the parking brake, then hold "
-"{control_hint2} to accelerate."
-msgstr "エアの準備ができたら、{control_hint}で駐車ブレーキを解除し、{control_hint2}を押し続けて加速します。"
-
-#. placeholders: {control_hint}, {control_hint2}, {control_hint3}
-msgid ""
-"At air ready, press {control_hint} to release the parking brake, then hold "
-"{control_hint2}, select {control_hint3} for first gear, and release the "
-"clutch."
-msgstr ""
-"エアの準備ができたら、{control_hint}で駐車ブレーキを解除し、{control_hint2}を押し続けて、{control_hint3}で1"
-"速を選び、クラッチを離します。"
-
-#. placeholders: {control_hint}
-#. one sentence of a longer line
-msgid "Hold {control_hint} to accelerate."
-msgstr "{control_hint}を押し続けて加速します。"
-
-#. placeholders: {control_hint}
-msgid "Parking brake released. Hold {control_hint} to accelerate."
-msgstr "駐車ブレーキを解除しました。{control_hint}を押し続けて加速します。"
-
-msgid "Parking brake released. Shift into first gear."
-msgstr "駐車ブレーキを解除しました。1速に入れてください。"
-
-msgid "In gear. Swipe up and hold to accelerate."
-msgstr "ギアが入っています。上にスワイプして長押しで加速します。"
-
-#. one sentence of a longer line
-msgid "In gear."
-msgstr "ギアが入りました。"
-
-#. placeholders: {control_hint}
-msgid "In gear. Hold {control_hint} to accelerate."
-msgstr "ギアが入りました。{control_hint}を押し続けて加速します。"
-
-#. one sentence of a longer line
-msgid "Brake hard at a hazard warning."
-msgstr "危険の警告では強くブレーキをかけてください。"
-
-#. one sentence of a longer line
-msgid "Flick up with two fingers for all the controls."
-msgstr "2本指で上にフリックすると、すべての操作が聞けます。"
-
-#. one sentence of a longer line
-msgid "Rolling."
-msgstr "走り出しました。"
-
-#. placeholders: {touch_instruction}
-msgid ""
-"Rolling. {touch_instruction} for your speed. Tap with three fingers, then "
-"double tap, for a full report. Flick up with two fingers for all the "
-"controls. Brake hard at a hazard warning. Swipe down deep and hold to stop "
-"fast."
-msgstr ""
-"走行中。{touch_instruction}で速度です。3本指でタップしてからダブルタップすると、詳しい報告です。2本指で上にフリックすると、すべての"
-"操作が聞けます。危険の警告ではしっかりブレーキを。下に深くスワイプして長押しで急停止します。"
-
-#. one sentence of a longer line
-msgid "Swipe down deep and hold to stop fast."
-msgstr "下に深くスワイプして長押しで急停止します。"
-
-#. one sentence of a longer line
-msgid "Tap with three fingers, then double tap, for a full report."
-msgstr "3本指でタップしてからダブルタップすると、詳しい報告です。"
-
-#. placeholders: {touch_instruction}
-#. one sentence of a longer line
-msgid "{touch_instruction} for your speed."
-msgstr "{touch_instruction}で速度です。"
-
-#. placeholders: {control_hint}, {control_hint2}, {control_hint3}, {control_hint4}
-msgid ""
-"Rolling. {control_hint} for your speed, {control_hint2} for a full report, "
-"{control_hint3} for all the controls. Brake hard at a hazard warning. "
-"{control_hint4} stops fast."
-msgstr ""
-"走り出しました。{control_hint}で速度、{control_hint2}で詳しい報告、{control_hint3}ですべての操作を聞けます。"
-"危険の警告では強くブレーキをかけてください。{control_hint4}ですばやく停まります。"
-
-#. placeholders: {control_hint4}
-#. one sentence of a longer line
-msgid "{control_hint4} stops fast."
-msgstr "{control_hint4}ですばやく停まります。"
-
-#. placeholders: {control_hint}, {control_hint2}, {control_hint3}
-#. one sentence of a longer line
-msgid ""
-"{control_hint} for your speed, {control_hint2} for a full report, "
-"{control_hint3} for all the controls."
-msgstr ""
-"{control_hint}で速度、{control_hint2}で詳しい報告、{control_hint3}ですべての操作を聞けます。"
-
-msgid "Reminder: turn two fingers right to start the engine."
-msgstr "お知らせ：2本指を右に回してエンジンをかけてください。"
-
-#. placeholders: {control_hint}
-msgid "Reminder: press {control_hint} to start the engine."
-msgstr "お知らせ：{control_hint}でエンジンをかけます。"
-
-msgid ""
-"Reminder: air is ready. Swipe up and hold to release the parking brake and "
-"drive."
-msgstr "お知らせ：エアの準備ができました。上にスワイプして長押しで駐車ブレーキを解除して走り出します。"
-
-#. placeholders: {control_hint}
-#. one sentence of a longer line
-msgid "Press {control_hint} to release the parking brake."
-msgstr "{control_hint}で駐車ブレーキを解除します。"
-
-#. one sentence of a longer line
-msgid "Reminder: air is ready."
-msgstr "お知らせ：エアの準備ができています。"
-
-#. placeholders: {control_hint}
-msgid ""
-"Reminder: air is ready. Press {control_hint} to release the parking brake."
-msgstr "お知らせ：エアの準備ができています。{control_hint}で駐車ブレーキを解除します。"
-
-msgid ""
-"Reminder: wait for air pressure to reach 100 psi, then swipe up and hold to "
-"release the parking brake and drive."
-msgstr "お知らせ：エア圧が100 psiになるのを待ってから、上にスワイプして長押しで駐車ブレーキを解除して走り出します。"
-
-#. placeholders: {control_hint}
-msgid ""
-"Reminder: wait for air pressure to reach 100 psi, then press {control_hint} "
-"to release the parking brake."
-msgstr "お知らせ：エア圧が100 psiになるのを待ってから、{control_hint}で駐車ブレーキを解除してください。"
-
-msgid ""
-"Reminder: hold a pedal and flick up with a second finger for first gear."
-msgstr "お知らせ：ペダルを押さえたまま2本目の指で上にフリックして1速に入れてください。"
-
-#. placeholders: {control_hint}, {control_hint2}
-msgid ""
-"Reminder: hold {control_hint}, select {control_hint2}, then release the "
-"clutch."
-msgstr "お知らせ：{control_hint}を押し続け、{control_hint2}を選んでから、クラッチを離してください。"
 
 #. placeholders: {display_name}
 #. one sentence of a longer line
@@ -22317,6 +22170,164 @@ msgid ""
 "Roadside debris and wake turbulence added {SHOULDER_DAMAGE_PCT} percent "
 "truck damage."
 msgstr "路肩の散乱物と通過車両の風圧で、トラックの損傷が{SHOULDER_DAMAGE_PCT}パーセント増えました。"
+
+msgid ""
+"At air ready, swipe up and hold to release the parking brake, then flick up "
+"with a second finger for first gear."
+msgstr "エアが準備できたら、上にスワイプして長押しで駐車ブレーキを解除し、2本目の指で上にフリックして1速に入れます。"
+
+#. placeholders: {control_hint}, {control_hint2}
+msgid ""
+"At air ready, press {control_hint} to release the parking brake, then hold "
+"{control_hint2} to accelerate."
+msgstr "エアの準備ができたら、{control_hint}で駐車ブレーキを解除し、{control_hint2}を押し続けて加速します。"
+
+#. placeholders: {control_hint}, {control_hint2}, {control_hint3}
+msgid ""
+"At air ready, press {control_hint} to release the parking brake, then hold "
+"{control_hint2}, select {control_hint3} for first gear, and release the "
+"clutch."
+msgstr ""
+"エアの準備ができたら、{control_hint}で駐車ブレーキを解除し、{control_hint2}を押し続けて、{control_hint3}で1"
+"速を選び、クラッチを離します。"
+
+#. placeholders: {control_hint}
+#. one sentence of a longer line
+msgid "Hold {control_hint} to accelerate."
+msgstr "{control_hint}を押し続けて加速します。"
+
+#. placeholders: {control_hint}
+msgid "Parking brake released. Hold {control_hint} to accelerate."
+msgstr "駐車ブレーキを解除しました。{control_hint}を押し続けて加速します。"
+
+msgid "Parking brake released. Shift into first gear."
+msgstr "駐車ブレーキを解除しました。1速に入れてください。"
+
+msgid "In gear. Swipe up and hold to accelerate."
+msgstr "ギアが入っています。上にスワイプして長押しで加速します。"
+
+#. one sentence of a longer line
+msgid "In gear."
+msgstr "ギアが入りました。"
+
+#. placeholders: {control_hint}
+msgid "In gear. Hold {control_hint} to accelerate."
+msgstr "ギアが入りました。{control_hint}を押し続けて加速します。"
+
+#. one sentence of a longer line
+msgid "Brake hard at a hazard warning."
+msgstr "危険の警告では強くブレーキをかけてください。"
+
+#. one sentence of a longer line
+msgid "Flick up with two fingers for all the controls."
+msgstr "2本指で上にフリックすると、すべての操作が聞けます。"
+
+#. one sentence of a longer line
+msgid "Rolling."
+msgstr "走り出しました。"
+
+#. placeholders: {touch_instruction}
+msgid ""
+"Rolling. {touch_instruction} for your speed. Tap with three fingers, then "
+"double tap, for a full report. Flick up with two fingers for all the "
+"controls. Brake hard at a hazard warning. Swipe down deep and hold to stop "
+"fast."
+msgstr ""
+"走行中。{touch_instruction}で速度です。3本指でタップしてからダブルタップすると、詳しい報告です。2本指で上にフリックすると、すべての"
+"操作が聞けます。危険の警告ではしっかりブレーキを。下に深くスワイプして長押しで急停止します。"
+
+#. one sentence of a longer line
+msgid "Swipe down deep and hold to stop fast."
+msgstr "下に深くスワイプして長押しで急停止します。"
+
+#. one sentence of a longer line
+msgid "Tap with three fingers, then double tap, for a full report."
+msgstr "3本指でタップしてからダブルタップすると、詳しい報告です。"
+
+#. placeholders: {touch_instruction}
+#. one sentence of a longer line
+msgid "{touch_instruction} for your speed."
+msgstr "{touch_instruction}で速度です。"
+
+#. placeholders: {control_hint}, {control_hint2}, {control_hint3}, {control_hint4}
+msgid ""
+"Rolling. {control_hint} for your speed, {control_hint2} for a full report, "
+"{control_hint3} for all the controls. Brake hard at a hazard warning. "
+"{control_hint4} stops fast."
+msgstr ""
+"走り出しました。{control_hint}で速度、{control_hint2}で詳しい報告、{control_hint3}ですべての操作を聞けます。"
+"危険の警告では強くブレーキをかけてください。{control_hint4}ですばやく停まります。"
+
+#. placeholders: {control_hint4}
+#. one sentence of a longer line
+msgid "{control_hint4} stops fast."
+msgstr "{control_hint4}ですばやく停まります。"
+
+#. placeholders: {control_hint}, {control_hint2}, {control_hint3}
+#. one sentence of a longer line
+msgid ""
+"{control_hint} for your speed, {control_hint2} for a full report, "
+"{control_hint3} for all the controls."
+msgstr ""
+"{control_hint}で速度、{control_hint2}で詳しい報告、{control_hint3}ですべての操作を聞けます。"
+
+msgid "Reminder: turn two fingers right to start the engine."
+msgstr "お知らせ：2本指を右に回してエンジンをかけてください。"
+
+#. placeholders: {control_hint}
+msgid "Reminder: press {control_hint} to start the engine."
+msgstr "お知らせ：{control_hint}でエンジンをかけます。"
+
+msgid ""
+"Reminder: air is ready. Swipe up and hold to release the parking brake and "
+"drive."
+msgstr "お知らせ：エアの準備ができました。上にスワイプして長押しで駐車ブレーキを解除して走り出します。"
+
+#. placeholders: {control_hint}
+#. one sentence of a longer line
+msgid "Press {control_hint} to release the parking brake."
+msgstr "{control_hint}で駐車ブレーキを解除します。"
+
+#. one sentence of a longer line
+msgid "Reminder: air is ready."
+msgstr "お知らせ：エアの準備ができています。"
+
+#. placeholders: {control_hint}
+msgid ""
+"Reminder: air is ready. Press {control_hint} to release the parking brake."
+msgstr "お知らせ：エアの準備ができています。{control_hint}で駐車ブレーキを解除します。"
+
+msgid ""
+"Reminder: wait for air pressure to reach 100 psi, then swipe up and hold to "
+"release the parking brake and drive."
+msgstr "お知らせ：エア圧が100 psiになるのを待ってから、上にスワイプして長押しで駐車ブレーキを解除して走り出します。"
+
+#. placeholders: {control_hint}
+msgid ""
+"Reminder: wait for air pressure to reach 100 psi, then press {control_hint} "
+"to release the parking brake."
+msgstr "お知らせ：エア圧が100 psiになるのを待ってから、{control_hint}で駐車ブレーキを解除してください。"
+
+msgid ""
+"Reminder: hold a pedal and flick up with a second finger for first gear."
+msgstr "お知らせ：ペダルを押さえたまま2本目の指で上にフリックして1速に入れてください。"
+
+#. placeholders: {control_hint}, {control_hint2}
+msgid ""
+"Reminder: hold {control_hint}, select {control_hint2}, then release the "
+"clutch."
+msgstr "お知らせ：{control_hint}を押し続け、{control_hint2}を選んでから、クラッチを離してください。"
+
+msgid "Your first run. Turn two fingers right to start the engine."
+msgstr "最初の運行です。2本指を右に回してエンジンをかけます。"
+
+#. one sentence of a longer line
+msgid "Your first run."
+msgstr "最初の運行です。"
+
+#. placeholders: {control_hint}
+msgid "Your first run. Press {control_hint} to start the engine."
+msgstr "最初の運行です。{control_hint}でエンジンをかけます。"
 
 msgid "out of service"
 msgstr "走行禁止"
@@ -23565,11 +23576,11 @@ msgstr "トラックはすべて停車が必要です。"
 
 #. placeholders: {name}, {distance}
 #. one sentence of a longer line
-msgid "Weigh station first, {name}, {distance} ahead."
+msgid "Weigh station first, {name}, {distance}."
 msgstr "まず計量所です。{name}、{distance}先。"
 
 #. placeholders: {name}, {distance}
-msgid "Weigh station first, {name}, {distance} ahead. All trucks must stop."
+msgid "Weigh station first, {name}, {distance}. All trucks must stop."
 msgstr "まず計量所です。{name}、{distance}先。すべてのトラックは停車が必要です。"
 
 msgid "select"
@@ -23744,9 +23755,8 @@ msgstr "航続距離{range_text}、次の給油は{ahead_text}。"
 
 #. placeholders: {range_text}, {ahead_text}
 msgid ""
-"Fuel range about {range_text}, short of the next fuel stop, {ahead_text} "
-"ahead."
-msgstr "航続距離は約{range_text}で、{ahead_text}先の次の給油地点まで届きません。"
+"Fuel range about {range_text}, short of the next fuel stop, {ahead_text}."
+msgstr "航続距離は約{range_text}で、{ahead_text}先の次の給油ポイントに届きません。"
 
 #. placeholders: {range_text}
 msgid "Fuel range {range_text}, short of the destination."
@@ -24605,6 +24615,10 @@ msgstr " ランプの先は信号です。"
 msgid " Ramp ends at a stop sign."
 msgstr " ランプの先は一時停止の標識です。"
 
+#. placeholders: {signal}
+msgid "{signal} for the scale exit."
+msgstr "{signal}、計量所の出口。"
+
 msgid " Stop at the entrance."
 msgstr " 入口で停まってください。"
 
@@ -25288,11 +25302,6 @@ msgstr "{name}への出口のウインカーが出ています。"
 msgid "The exit for {name} is already selected."
 msgstr "{name}への出口はもう選ばれています。"
 
-#. placeholders: {prefix}, {name}, {distance}, {exit_text}, {note}, {next_step}, {assist}
-msgid ""
-"{prefix}, {name}, {distance} ahead{exit_text}.{note}{next_step}{assist}"
-msgstr "{prefix}、{name}、{distance}先{exit_text}。{note}{next_step}{assist}"
-
 msgid "Pulling into stop"
 msgstr "停車地に入ります"
 
@@ -25613,7 +25622,7 @@ msgid "Facility gate in {distance}. Slow to {target}."
 msgstr "{distance}先に施設のゲート。{target}まで減速してください。"
 
 #. placeholders: {facility}, {closing_text}
-msgid "Gate at {facility}, {closing_text} ahead."
+msgid "Gate at {facility}, {closing_text}."
 msgstr "{facility}のゲート、{closing_text}先です。"
 
 #. one sentence of a longer line
@@ -27561,6 +27570,11 @@ msgid ""
 "Freight Fate stations, your playlists and favorites, and stations nearby. "
 "Double tap one to tune it."
 msgstr "Freight Fateの局、自分のプレイリストとお気に入り、近くの局です。ダブルタップで選局します。"
+
+msgid ""
+"Freight Fate stations, your favorites, and stations nearby. Double tap one "
+"to tune it."
+msgstr ""
 
 #. placeholders: {in_range}
 msgid "Stations in range: {in_range}"
@@ -29894,10 +29908,6 @@ msgstr "停車地：{planned_prefix}{name}。"
 msgid "Exit: {exit_label}."
 msgstr "出口：{exit_label}。"
 
-#. placeholders: {distance_text}
-msgid "Distance: {distance_text} ahead."
-msgstr "距離：{distance_text}先。"
-
 #. placeholders: {join_phrase}
 msgid "Offers: {join_phrase}."
 msgstr "提供：{join_phrase}。"
@@ -29982,10 +29992,6 @@ msgstr "いいえ、計画した停車地は{keep_name}のままにします"
 
 msgid "Return to the stop details without moving your plan."
 msgstr "計画を移さずに停車地の詳細に戻ります。"
-
-#. placeholders: {name}, {ahead_text}
-msgid "{name}, {ahead_text} ahead"
-msgstr "{name}、{ahead_text}先"
 
 #. placeholders: {target}, {ahead}
 #. one sentence of a longer line
@@ -32290,6 +32296,9 @@ msgid ""
 "Enter offers to delete this save. It still works in Freight Fate 1.8."
 msgstr "Enter でこのセーブの削除を選べます。Freight Fate 1.8では今も使えます。"
 
+msgid "Double tap offers to delete this save."
+msgstr ""
+
 msgid ""
 "Double tap offers to delete this save. It still works in Freight Fate 1.8."
 msgstr "ダブルタップでこのセーブの削除を提案します。Freight Fate 1.8ではまだ使えます。"
@@ -32557,6 +32566,10 @@ msgid "Online"
 msgstr "オンライン"
 
 msgid ""
+"Drivers on duty, your orinks.net account, and cloud backup and restore."
+msgstr ""
+
+msgid ""
 "Drivers on duty, your orinks.net account, cloud backup and restore, and "
 "Discord presence."
 msgstr "運行中のドライバー、orinks.netのアカウント、クラウドのバックアップと復元、Discordのプレゼンス。"
@@ -32798,12 +32811,15 @@ msgstr "問題の報告"
 msgid "reports"
 msgstr "問題の報告"
 
-#. placeholders: {label}
-msgid "Open {label} settings."
-msgstr "{label}の設定を開きます。"
-
 msgid "Settings saved."
 msgstr "設定を保存しました。"
+
+msgid ""
+"Units, transmission, volumes, weather, voices, update channel, and pacing."
+msgstr "単位、変速機、音量、天気、声、アップデートのチャンネル、ペース。"
+
+msgid "Units, transmission, volumes, weather, voices, and pacing."
+msgstr ""
 
 msgid ""
 "Gameplay is now a category with its own submenu: Driving assistance, "
@@ -32860,6 +32876,10 @@ msgstr "操作"
 msgid ""
 "Four screens. Up and Down pick one, Enter opens it, Escape goes back."
 msgstr "4つの画面があります。上下で選び、Enter で開き、Escape で戻ります。"
+
+#. placeholders: {label}
+msgid "Open {label} settings."
+msgstr "{label}の設定を開きます。"
 
 msgid ""
 "Up and Down pick a setting. Right arrow or Enter changes it forward, Left "
@@ -32996,9 +33016,9 @@ msgid "every time"
 msgstr "毎回"
 
 msgid ""
-"Lane keeping full: the truck holds the lane, swipe left or right to change "
+"Lane keeping full: the truck holds the lane, flick left or right to change "
 "lanes."
-msgstr "レーンキープ：フル。トラックが車線を保ちます。左右にスワイプして車線を変えます。"
+msgstr ""
 
 #. placeholders: {control_name}, {control_name2}
 msgid ""
@@ -33059,16 +33079,6 @@ msgstr "キャブのスピーカー"
 msgid "Clean"
 msgstr "クリーン"
 
-msgid "Controller: disabled"
-msgstr "コントローラー: 無効"
-
-#. placeholders: {name}
-msgid "Controller: enabled, {name} connected"
-msgstr "コントローラー: 有効、{name} が接続済み"
-
-msgid "Controller: enabled, none connected"
-msgstr "コントローラー: 有効、未接続"
-
 msgid ""
 "Off plays the full dial, including real public streams and personal "
 "playlists. On keeps the radio to built-in safe stations, for streaming or "
@@ -33087,6 +33097,22 @@ msgstr ""
 "オフでは、実際の公開ストリームも含め、すべての局が流れます。オンでは、配信や録音のために、ラジオを組み込みの安全な局だけにします。音楽の種類が合成のとき"
 "にオンにすると、ラジオはRoadhouseのままで、選局しても何も変わりません。"
 
+msgid ""
+"On, driving lines name the key for the next step, like Press X to signal "
+"for the exit. Off, they leave the key out. Driving school always names it."
+msgstr ""
+"オンでは、運転中の案内が次の操作のキーを言います。例えば「X "
+"を押して出口のウインカーを出します」。オフではキーを言いません。教習所では常にキーを言います。"
+
+msgid ""
+"Extra callouts between directions: parks, rivers, mountain passes, museums "
+"and billboards. Right arrow turns all on, Left arrow all off, and the "
+"switches below pick each kind. Safety and navigation are never affected. "
+"Town names are the Place callouts row below."
+msgstr ""
+"案内と案内の間の追加の知らせです。公園、川、峠、博物館、看板があります。右矢印ですべてオン、左矢印ですべてオフになり、下のスイッチで種類ごとに選べます。"
+"安全とナビには影響しません。町の名前は、下の地名案内の行です。"
+
 msgid "a soft tone leans"
 msgstr "柔らかいトーンが"
 
@@ -33102,14 +33128,6 @@ msgstr "方へ"
 #. placeholders: {what}, {way}
 msgid "{what} {way} where the wheel should go, so steer {way} it"
 msgstr "{what}ハンドルを切るべき方向の{way}傾くので、傾きの{way}ハンドルを切ってください"
-
-msgid "Touch gestures"
-msgstr "タッチジェスチャー"
-
-msgid ""
-"Choose which driving command each touch gesture runs, including a second "
-"finger while holding gas or brake."
-msgstr "各タッチジェスチャーで実行する運転の操作を選びます。アクセルやブレーキを押さえたままの2本目の指の操作も含みます。"
 
 msgid "Automatic emergency braking"
 msgstr "自動緊急ブレーキ"
@@ -33205,10 +33223,6 @@ msgid ""
 msgstr "{control_brake}を一回押すと解除されます。アクセルでも解除されます。"
 
 #. one sentence of a longer line
-msgid "Presets never change this."
-msgstr "プリセットでは変わりません。"
-
-#. one sentence of a longer line
 msgid "Tap the brake, then press it again and hold half a second."
 msgstr "ブレーキを軽く押し、もう一度押して0.5秒押し続けます。"
 
@@ -33235,12 +33249,6 @@ msgstr ""
 msgid "Curve callouts"
 msgstr "カーブの案内"
 
-#. one sentence of a longer line
-msgid ""
-"Bends that demand slowing are called before they arrive, like Sharp left, "
-"half a mile, advise 35."
-msgstr "減速が必要なカーブは、「左急カーブ、半マイル、推奨35」のように、手前で案内します。"
-
 #. placeholders: {control_upcoming}
 msgid ""
 "Bends that demand slowing are called before they arrive, like Sharp left, "
@@ -33250,10 +33258,6 @@ msgid ""
 msgstr ""
 "減速が必要なカーブは、「左急カーブ、半マイル、推奨35」のように、手前で案内します。すでに十分遅いカーブは案内しません。どちらの場合も、{control"
 "_upcoming}でこの先のいくつかを一覧にできます。プリセットでは変わりません。"
-
-#. one sentence of a longer line
-msgid "Bends you are already slow enough for stay silent."
-msgstr "すでに十分遅いカーブは案内しません。"
 
 #. placeholders: {control_upcoming}
 #. one sentence of a longer line
@@ -33281,10 +33285,6 @@ msgid ""
 msgstr ""
 "施設内の道路、ゲート、工事区間などの低速区間では、{control_cruise}が今の速度を保ち、開けた道路では通常のクルーズに戻します。次の曲がり角"
 "や次の低い制限の手前で早めに減速します。ブレーキで解除されます。プリセットはこれを変えません。"
-
-#. one sentence of a longer line
-msgid "It eases off early for the next turn or the next lower limit."
-msgstr "次の曲がり角や次の低い制限速度に向けて早めに減速します。"
 
 #. placeholders: {language_label}
 msgid "Language: {language_label}"
@@ -33329,25 +33329,9 @@ msgstr ""
 msgid "Driving hints: {on_off}"
 msgstr "運転のヒント：{on_off}"
 
-msgid ""
-"On, driving lines name the key for the next step, like Press X to signal "
-"for the exit. Off, they leave the key out. Driving school always names it."
-msgstr ""
-"オンでは、運転中の案内が次の操作のキーを言います。例えば「X "
-"を押して出口のウインカーを出します」。オフではキーを言いません。教習所では常にキーを言います。"
-
 #. placeholders: {chatter_summary}
 msgid "Roadside chatter: {chatter_summary}"
 msgstr "沿道の話題：{chatter_summary}"
-
-msgid ""
-"Extra callouts between directions: parks, rivers, mountain passes, museums "
-"and billboards. Right arrow turns all on, Left arrow all off, and the "
-"switches below pick each kind. Safety and navigation are never affected. "
-"Town names are the Place callouts row below."
-msgstr ""
-"案内と案内の間の追加の知らせです。公園、川、峠、博物館、看板があります。右矢印ですべてオン、左矢印ですべてオフになり、下のスイッチで種類ごとに選べます。"
-"安全とナビには影響しません。町の名前は、下の地名案内の行です。"
 
 #. placeholders: {on_off}
 msgid "Speak parks and forests: {on_off}"
@@ -33508,6 +33492,17 @@ msgid ""
 "ten minutes of road and clock each real minute, with more time to react to "
 "hazards, gentler damage and fatigue, and calmer speech. Standard keeps "
 "normal pressure at about twenty minutes each real minute. Real time keeps "
+"Standard's pressure and runs the clock at real speed, matched to this "
+"device's date and time. Switching never changes your hours of service or "
+"the time left on a delivery. You can also switch from the pause menu during "
+"a drive. The change starts when the truck next stops."
+msgstr ""
+
+msgid ""
+"How fast the clock runs and how hard the road pushes. Relaxed passes about "
+"ten minutes of road and clock each real minute, with more time to react to "
+"hazards, gentler damage and fatigue, and calmer speech. Standard keeps "
+"normal pressure at about twenty minutes each real minute. Real time keeps "
 "Standard's pressure and runs the clock at real speed, matched to your "
 "computer's date and time. Switching never changes your hours of service or "
 "the time left on a delivery. You can also switch from the pause menu during "
@@ -33540,18 +33535,6 @@ msgstr "オフ"
 msgid "On"
 msgstr "オン"
 
-#. one sentence of a longer line
-msgid ""
-"At the dispatch board, it warns when the load crosses a road that needs "
-"chains and the terminal garage can still sell you a set."
-msgstr "配車ボードでは、積み荷がチェーンの必要な道路を通り、ターミナルのガレージでまだチェーンを買えるときに知らせます。"
-
-#. one sentence of a longer line
-msgid ""
-"Early advice to stop for a break or sleep while you still have time, plus "
-"the last stop you can legally reach."
-msgstr "時間に余裕があるうちに休憩か睡眠をとるよう早めに勧め、法律の範囲で着ける最後の停車地も伝えます。"
-
 #. placeholders: {control_rest}
 msgid ""
 "Early advice to stop for a break or sleep while you still have time, plus "
@@ -33574,34 +33557,12 @@ msgstr ""
 msgid "Hours warnings and readout keys work whether this is on or off."
 msgstr "運転時間の警告と読み上げキーは、これがオンでもオフでも使えます。"
 
-#. one sentence of a longer line
-msgid "It also warns about chain laws."
-msgstr "チェーン規制についても知らせます。"
-
-#. one sentence of a longer line
-msgid "It never buys anything."
-msgstr "何かを買うことはありません。"
-
-#. one sentence of a longer line
-msgid "On Quiet or Urgent only, there is no hint."
-msgstr "控えめか緊急のみでは、ヒントはありません。"
-
-#. one sentence of a longer line
-msgid "On the road, it warns when a posted chain law covers your truck."
-msgstr "道路では、掲示されたチェーン規制が自分のトラックに当てはまるときに知らせます。"
-
 #. placeholders: {control_rest}
 #. one sentence of a longer line
 msgid ""
 "While rolling, {control_rest} plans the recommended stop, and pressing it "
 "again cancels."
 msgstr "走行中は{control_rest}で推奨の停車地を計画し、もう一度押すと取り消します。"
-
-#. one sentence of a longer line
-msgid ""
-"With Driving speech on Standard, one hint comes before the next hours "
-"warning."
-msgstr "運転中の読み上げが標準のときは、次の時間の警告の前にヒントが一回あります。"
 
 #. placeholders: {else}
 msgid "Weather source: {else}"
@@ -33668,6 +33629,13 @@ msgstr "施設までの街路：{on_off}"
 
 msgid ""
 "On, you drive the real streets between the highway and a facility, turn by "
+"turn. Off, the exit ramp ends at the facility gate, and no exit has a light "
+"or stop sign. A loaded run leaves straight onto the highway, and a pickup "
+"in town is one stretch of road. The change applies from your next drive."
+msgstr ""
+
+msgid ""
+"On, you drive the real streets between the highway and a facility, turn by "
 "turn. Off works as in version 1.8. The exit ramp ends at the facility gate, "
 "and no exit has a light or stop sign. A loaded run leaves straight onto the "
 "highway, and a pickup in town is one stretch of road. The change applies "
@@ -33676,120 +33644,14 @@ msgstr ""
 "オンでは、高速道路と施設の間の実際の街路を、曲がり角ごとに運転します。オフはバージョン1.8と同じです。出口のランプは施設の入口で終わり、どの出口にも信"
 "号や一時停止の標識はありません。積み荷を載せた便はそのまま高速道路に出て、街での集荷は一つながりの道路です。変更は次の運転から反映されます。"
 
-#. placeholders: {else}
-msgid "Units: {else}"
-msgstr "単位：{else}"
-
-msgid "imperial, miles"
-msgstr "ヤード・ポンド法、マイル"
-
-msgid "metric, kilometers"
-msgstr "メートル法、キロメートル"
-
-msgid "Distance and speed in miles or kilometers."
-msgstr "距離と速度をマイルかキロメートルで表します。"
-
-#. placeholders: {else}
-msgid "Transmission: {else}"
-msgstr "変速機：{else}"
-
-#. one sentence of a longer line
-msgid "Automatic shifts for you."
-msgstr "オートマは自動で変速します。"
-
-#. placeholders: {control_shift_up}, {control_shift_down}
-msgid ""
-"Automatic shifts for you. Manual: hold the clutch, then {control_shift_up} "
-"shifts up and {control_shift_down} shifts down."
-msgstr ""
-"オートマは自動で変速します。マニュアル：クラッチを押したまま、{control_shift_up}でシフトアップ、{control_shift_down"
-"}でシフトダウンします。"
-
-#. placeholders: {control_shift_up}, {control_shift_down}
-#. one sentence of a longer line
-msgid ""
-"Manual: hold the clutch, then {control_shift_up} shifts up and "
-"{control_shift_down} shifts down."
-msgstr ""
-"マニュアル：クラッチを押したまま、{control_shift_up}でシフトアップ、{control_shift_down}でシフトダウンします。"
-
-msgid ""
-"Game-controller input alongside the keyboard, which always stays active. "
-"The first connected controller is used."
-msgstr "キーボードに加えて、ゲームコントローラーで入力します。キーボードはいつでも使えます。最初につながったコントローラーを使います。"
-
-#. placeholders: {else}
-msgid "Haptics: {else}"
-msgstr "振動：{else}"
-
-msgid "enabled"
-msgstr "有効"
-
-msgid "disabled"
-msgstr "無効"
-
-msgid ""
-"Controller rumble for hazards, hard braking, the rumble strip, and road "
-"seams. Needs a controller connected."
-msgstr "危険、急ブレーキ、ランブルストリップ、路面の継ぎ目でコントローラーが振動します。コントローラーの接続が必要です。"
-
-#. placeholders: {else}
-msgid "Second layer bumper: {else}"
-msgstr "2段目のバンパー：{else}"
-
-msgid ""
-"Which bumper you hold for the second layer of controller buttons. The other "
-"bumper is the clutch."
-msgstr "コントローラーのボタンの2段目に使うとき、どちらのバンパーを押し続けるかです。もう一方のバンパーはクラッチです。"
-
-#. placeholders: {on_off}
-msgid "Visual display: {on_off}"
-msgstr "画面表示：{on_off}"
-
-msgid ""
-"Draws the road, the dashboard, menus and captions of what is spoken in the "
-"game window, for sighted and low-vision players. Off keeps the window dark "
-"and saves battery. Speech and sound are the same either way."
-msgstr ""
-"ゲームのウィンドウに、道路、ダッシュボード、メニュー、読み上げた内容の字幕を表示します。目の見えるプレイヤーと弱視のプレイヤー向けです。オフではウィンド"
-"ウが暗いままで、バッテリーを節約します。読み上げと音はどちらでも同じです。"
-
-#. placeholders: {on_off}
-msgid "Letters run menu items: {on_off}"
-msgstr "文字キーでメニュー項目を実行：{on_off}"
-
-msgid ""
-"On, typing the first letter of an item runs it when no other item starts "
-"with that letter. When several share it, the letter moves between them and "
-"Enter runs the one you are on. Off, letters only move to the item."
-msgstr ""
-"オンでは、項目の最初の文字を入力すると、その文字で始まる項目がほかにないときにその項目を実行します。同じ文字の項目がいくつかあるときは、その文字で項目の"
-"間を移動し、Enterで今いる項目を実行します。オフでは、文字キーは項目へ移動するだけです。"
-
-msgid "Keyboard shortcuts"
-msgstr "ショートカットキー"
-
-msgid ""
-"Move any driving key to another key. Enter on a control, then press the key "
-"you want for it."
-msgstr "運転のキーを別のキーに変えます。操作の上で Enter を押し、割り当てたいキーを押してください。"
-
-msgid "Controller buttons"
-msgstr "コントローラーのボタン"
-
-msgid ""
-"Move any driving control to another pad button, plain or with the left "
-"bumper held."
-msgstr "運転の操作を、別のボタン単体か、left bumper を押さえながらのボタンに変えます。"
-
-msgid ""
-"Move any driving control to another pad button, plain or with the right "
-"bumper held."
-msgstr "運転の操作を、別のボタン単体か、right bumper を押さえながらのボタンに変えます。"
-
 #. placeholders: {on_off}
 msgid "Ask to report a problem after a crash: {on_off}"
 msgstr "クラッシュ後に問題の報告を尋ねる：{on_off}"
+
+msgid ""
+"On, the main menu offers to send a report if the game stopped while you "
+"were playing last time, with that run's log attached."
+msgstr ""
 
 msgid ""
 "On, the main menu offers to send a report when the game closed without "
@@ -34027,6 +33889,166 @@ msgstr "メニューとUIの音量：{pct}パーセント"
 msgid "Menu movement, selection, warning, and cash sounds."
 msgstr "メニューの移動、選択、警告、お金の音です。"
 
+msgid "Controller: disabled"
+msgstr "コントローラー: 無効"
+
+#. placeholders: {name}
+msgid "Controller: enabled, {name} connected"
+msgstr "コントローラー: 有効、{name} が接続済み"
+
+msgid "Controller: enabled, none connected"
+msgstr "コントローラー: 有効、未接続"
+
+msgid "Touch gestures"
+msgstr "タッチジェスチャー"
+
+msgid ""
+"Choose which driving command each touch gesture runs, including a second "
+"finger while holding gas or brake."
+msgstr "各タッチジェスチャーで実行する運転の操作を選びます。アクセルやブレーキを押さえたままの2本目の指の操作も含みます。"
+
+#. one sentence of a longer line
+msgid "Automatic shifts for you."
+msgstr "オートマは自動で変速します。"
+
+#. placeholders: {up}, {down}
+msgid ""
+"Automatic shifts for you. In manual, the clutch works itself. {up} to shift "
+"up. {down} to shift down."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "In manual, the clutch works itself."
+msgstr ""
+
+#. placeholders: {down}
+#. one sentence of a longer line
+msgid "{down} to shift down."
+msgstr ""
+
+#. placeholders: {up}
+#. one sentence of a longer line
+msgid "{up} to shift up."
+msgstr ""
+
+#. placeholders: {else}
+msgid "Units: {else}"
+msgstr "単位：{else}"
+
+msgid "imperial, miles"
+msgstr "ヤード・ポンド法、マイル"
+
+msgid "metric, kilometers"
+msgstr "メートル法、キロメートル"
+
+msgid "Distance and speed in miles or kilometers."
+msgstr "距離と速度をマイルかキロメートルで表します。"
+
+#. placeholders: {else}
+msgid "Transmission: {else}"
+msgstr "変速機：{else}"
+
+#. placeholders: {control_shift_up}, {control_shift_down}
+msgid ""
+"Automatic shifts for you. Manual: hold the clutch, then {control_shift_up} "
+"shifts up and {control_shift_down} shifts down."
+msgstr ""
+"オートマは自動で変速します。マニュアル：クラッチを押したまま、{control_shift_up}でシフトアップ、{control_shift_down"
+"}でシフトダウンします。"
+
+#. placeholders: {control_shift_up}, {control_shift_down}
+#. one sentence of a longer line
+msgid ""
+"Manual: hold the clutch, then {control_shift_up} shifts up and "
+"{control_shift_down} shifts down."
+msgstr ""
+"マニュアル：クラッチを押したまま、{control_shift_up}でシフトアップ、{control_shift_down}でシフトダウンします。"
+
+msgid ""
+"Game-controller input alongside the touch screen, which always stays "
+"active. The first connected controller is used."
+msgstr ""
+
+msgid ""
+"Game-controller input alongside the keyboard, which always stays active. "
+"The first connected controller is used."
+msgstr "キーボードに加えて、ゲームコントローラーで入力します。キーボードはいつでも使えます。最初につながったコントローラーを使います。"
+
+#. placeholders: {else}
+msgid "Haptics: {else}"
+msgstr "振動：{else}"
+
+msgid "enabled"
+msgstr "有効"
+
+msgid "disabled"
+msgstr "無効"
+
+msgid ""
+"Controller rumble for hazards, hard braking, the rumble strip, and road "
+"seams. Needs a controller connected."
+msgstr "危険、急ブレーキ、ランブルストリップ、路面の継ぎ目でコントローラーが振動します。コントローラーの接続が必要です。"
+
+#. placeholders: {else}
+msgid "Second layer bumper: {else}"
+msgstr "2段目のバンパー：{else}"
+
+msgid ""
+"Which bumper you hold for the second layer of controller buttons. The other "
+"bumper is the clutch."
+msgstr "コントローラーのボタンの2段目に使うとき、どちらのバンパーを押し続けるかです。もう一方のバンパーはクラッチです。"
+
+#. placeholders: {on_off}
+msgid "Visual display: {on_off}"
+msgstr "画面表示：{on_off}"
+
+msgid ""
+"Draws the road, the dashboard, menus and captions of what is spoken on the "
+"screen, for sighted and low-vision players. Off keeps the screen dark and "
+"saves battery. Speech and sound are the same either way."
+msgstr ""
+
+msgid ""
+"Draws the road, the dashboard, menus and captions of what is spoken in the "
+"game window, for sighted and low-vision players. Off keeps the window dark "
+"and saves battery. Speech and sound are the same either way."
+msgstr ""
+"ゲームのウィンドウに、道路、ダッシュボード、メニュー、読み上げた内容の字幕を表示します。目の見えるプレイヤーと弱視のプレイヤー向けです。オフではウィンド"
+"ウが暗いままで、バッテリーを節約します。読み上げと音はどちらでも同じです。"
+
+#. placeholders: {on_off}
+msgid "Letters run menu items: {on_off}"
+msgstr "文字キーでメニュー項目を実行：{on_off}"
+
+msgid ""
+"On, typing the first letter of an item runs it when no other item starts "
+"with that letter. When several share it, the letter moves between them and "
+"Enter runs the one you are on. Off, letters only move to the item."
+msgstr ""
+"オンでは、項目の最初の文字を入力すると、その文字で始まる項目がほかにないときにその項目を実行します。同じ文字の項目がいくつかあるときは、その文字で項目の"
+"間を移動し、Enterで今いる項目を実行します。オフでは、文字キーは項目へ移動するだけです。"
+
+msgid "Keyboard shortcuts"
+msgstr "ショートカットキー"
+
+msgid ""
+"Move any driving key to another key. Enter on a control, then press the key "
+"you want for it."
+msgstr "運転のキーを別のキーに変えます。操作の上で Enter を押し、割り当てたいキーを押してください。"
+
+msgid "Controller buttons"
+msgstr "コントローラーのボタン"
+
+msgid ""
+"Move any driving control to another pad button, plain or with the left "
+"bumper held."
+msgstr "運転の操作を、別のボタン単体か、left bumper を押さえながらのボタンに変えます。"
+
+msgid ""
+"Move any driving control to another pad button, plain or with the right "
+"bumper held."
+msgstr "運転の操作を、別のボタン単体か、right bumper を押さえながらのボタンに変えます。"
+
 #. placeholders: {_}
 msgid "Update channel: {_}"
 msgstr "アップデートのチャンネル：{_}"
@@ -34184,6 +34206,183 @@ msgid ""
 msgstr ""
 "クルーズが前の車との間に取る余裕です。近いは2.5秒、普通は3秒、遠いは3.5秒です。天候はどれを選んでも車間を広げます。3つとも車間距離不保持の違反に"
 "はなりません。上のプリセットはこれを変えません。"
+
+msgid ""
+"Realistic turns on every assist except facility stopping assistance, sets "
+"descent speed control to Light, and leaves lane keeping off. Balanced adds "
+"partial lane keeping, Standard descent speed control, and facility stopping "
+"assistance. All assists turns on every assist, sets descent speed control "
+"to Strong, and sets lane keeping to full: the truck holds the lane, a flick "
+"left or right changes lanes, and your destination exit is taken for you. "
+"Changing one assist makes this Custom. You still choose routes and handle "
+"yards and docks. Presets never change pacing, hours rules, transmission, "
+"weather, or hazards."
+msgstr ""
+
+msgid ""
+"Brake briefly, lift, then swipe down and hold again for half a second. A "
+"click means the brake now holds by itself. Brake again or accelerate to "
+"release it. The gas never latches. Presets never change this."
+msgstr ""
+
+#. one sentence of a longer line
+msgid ""
+"Bends that demand slowing are called before they arrive, like Sharp left, "
+"half a mile, advise 35."
+msgstr "減速が必要なカーブは、「左急カーブ、半マイル、推奨35」のように、手前で案内します。"
+
+#. placeholders: {upcoming}
+msgid ""
+"Bends that demand slowing are called before they arrive, like Sharp left, "
+"half a mile, advise 35. Bends you are already slow enough for stay silent. "
+"{upcoming} to list the next few either way. Presets never change this."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Bends you are already slow enough for stay silent."
+msgstr "すでに十分遅いカーブは案内しません。"
+
+#. one sentence of a longer line
+msgid "Presets never change this."
+msgstr "プリセットでは変わりません。"
+
+#. placeholders: {upcoming}
+#. one sentence of a longer line
+msgid "{upcoming} to list the next few either way."
+msgstr ""
+
+#. one sentence of a longer line
+msgid ""
+"In low-speed zones, like facility roads, gates, and construction zones, "
+"cruise can hold your current speed."
+msgstr ""
+
+#. placeholders: {cruise}
+msgid ""
+"In low-speed zones, like facility roads, gates, and construction zones, "
+"cruise can hold your current speed. {cruise} to set it. It hands back to "
+"normal cruise on open roads. It eases off early for the next turn or the "
+"next lower limit. Braking cancels it. Presets never change this."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "It eases off early for the next turn or the next lower limit."
+msgstr "次の曲がり角や次の低い制限速度に向けて早めに減速します。"
+
+#. one sentence of a longer line
+msgid "It hands back to normal cruise on open roads."
+msgstr ""
+
+#. placeholders: {cruise}
+#. one sentence of a longer line
+msgid "{cruise} to set it."
+msgstr ""
+
+#. placeholders: {lean}
+msgid ""
+"How much of the steering the truck does. Full holds the lane, leaves a lane "
+"that a work zone closes, and takes your exits and open weigh stations "
+"without a signal, including the destination exit. On full, flick left or "
+"right to change lanes. Partial follows bends but lets the truck drift, and "
+"lane changes and speed are yours. Off drifts like a real truck. Bends are "
+"yours unless curve assistance is on, and every exit needs a signal and the "
+"exit lane. On partial or off, {lean}. Road noise sits where you are in the "
+"lane. At the lane's edge you hear a stutter as a tire touches the rumble "
+"strip, a buzz when it is fully on it, and gravel off the pavement. The "
+"Steering guide and Lane guide sound rows, under Audio, change which way to "
+"steer and what leans. Realistic sets this off, Balanced partial, All "
+"assists full."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "On full, flick left or right to change lanes."
+msgstr ""
+
+#. one sentence of a longer line
+msgid ""
+"At the dispatch board, it warns when the load crosses a road that needs "
+"chains and the terminal garage can still sell you a set."
+msgstr "配車ボードでは、積み荷がチェーンの必要な道路を通り、ターミナルのガレージでまだチェーンを買えるときに知らせます。"
+
+#. one sentence of a longer line
+msgid "Do it again to cancel."
+msgstr ""
+
+#. one sentence of a longer line
+msgid ""
+"Early advice to stop for a break or sleep while you still have time, plus "
+"the last stop you can legally reach."
+msgstr "時間に余裕があるうちに休憩か睡眠をとるよう早めに勧め、法律の範囲で着ける最後の停車地も伝えます。"
+
+#. placeholders: {rest}
+msgid ""
+"Early advice to stop for a break or sleep while you still have time, plus "
+"the last stop you can legally reach. {rest} to plan the recommended stop "
+"while rolling. Do it again to cancel. With Driving speech on Standard, one "
+"hint comes before the next hours warning. On Quiet or Urgent only, there is "
+"no hint. It also warns about chain laws. At the dispatch board, it warns "
+"when the load crosses a road that needs chains and the terminal garage can "
+"still sell you a set. On the road, it warns when a posted chain law covers "
+"your truck. It never buys anything. Hours warnings and readouts work "
+"whether this is on or off."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Hours warnings and readouts work whether this is on or off."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "It also warns about chain laws."
+msgstr "チェーン規制についても知らせます。"
+
+#. one sentence of a longer line
+msgid "It never buys anything."
+msgstr "何かを買うことはありません。"
+
+#. one sentence of a longer line
+msgid "On Quiet or Urgent only, there is no hint."
+msgstr "控えめか緊急のみでは、ヒントはありません。"
+
+#. one sentence of a longer line
+msgid "On the road, it warns when a posted chain law covers your truck."
+msgstr "道路では、掲示されたチェーン規制が自分のトラックに当てはまるときに知らせます。"
+
+#. one sentence of a longer line
+msgid ""
+"With Driving speech on Standard, one hint comes before the next hours "
+"warning."
+msgstr "運転中の読み上げが標準のときは、次の時間の警告の前にヒントが一回あります。"
+
+#. placeholders: {rest}
+#. one sentence of a longer line
+msgid "{rest} to plan the recommended stop while rolling."
+msgstr ""
+
+msgid ""
+"How loud the lane and edge cues are next to everything else: the rumble "
+"strip, the gravel off the pavement, the lane locator, and the transverse "
+"strips before a dangerous bend. It adjusts only these cues, on top of "
+"Gameplay cues volume. Quieter sits under the engine, standard matches it, "
+"louder cuts through."
+msgstr ""
+
+msgid ""
+"Double tap to type a seed, a whole number. Flick up or down to roll a new "
+"one. Every synthesized piece changes with it."
+msgstr ""
+
+msgid ""
+"On, driving lines name the gesture for the next step, like Double tap to "
+"signal for the exit. Off, they leave the gesture out. Driving school always "
+"names it."
+msgstr ""
+
+msgid ""
+"Extra callouts between directions: parks, rivers, mountain passes, museums "
+"and billboards. Flick up to turn all on, or down to turn all off. The "
+"switches below pick each kind. Safety and navigation are never affected. "
+"Town names are the Place callouts row below."
+msgstr ""
 
 #. placeholders: {engine_label}
 msgid "Voice engine: {engine_label}"
@@ -34372,6 +34571,9 @@ msgid ""
 "it runs while driving. Go back to leave."
 msgstr "上下に移動してジェスチャーを選び、確定すると、運転中に実行する操作を選べます。戻ると抜けます。"
 
+msgid "Double tap a gesture to choose the command it runs while driving."
+msgstr ""
+
 msgid "Gesture"
 msgstr "ジェスチャー"
 
@@ -34451,9 +34653,6 @@ msgstr ""
 msgid "Tilt for full steering: {touch_tilt_full} degrees"
 msgstr ""
 
-msgid "Confirm, then choose the command this gesture runs while driving."
-msgstr "確定してから、このジェスチャーで運転中に実行する操作を選びます。"
-
 #. placeholders: {touch_deep_swipe_points}
 msgid "Deep swipe starts at: {touch_deep_swipe_points}"
 msgstr "深いスワイプの開始位置：{touch_deep_swipe_points}"
@@ -34476,10 +34675,25 @@ msgstr "すべてのタッチジェスチャーを既定に戻す"
 msgid "Puts every gesture on this screen back where it started."
 msgstr "この画面のすべてのジェスチャーを最初の状態に戻します。"
 
+msgid "New gesture reading: On"
+msgstr ""
+
+msgid "New gesture reading: Off"
+msgstr ""
+
 msgid ""
-"Move up and down to pick a command and confirm to put it on the gesture. "
-"Going back keeps the one it has."
-msgstr "上下に移動して操作を選び、確定するとジェスチャーに割り当てます。戻ると今の操作のままです。"
+"A trial. Every gesture should work as before. Turn it off if one does not."
+msgstr ""
+
+msgid ""
+"Up and Down pick a command or a group, and Enter opens a group. Enter on a "
+"command puts it on the gesture. Escape keeps the one it has."
+msgstr ""
+
+msgid ""
+"Double tap a command to put it on the gesture, or a group to open it. Flick "
+"down with two fingers to keep the one it has."
+msgstr ""
 
 #. placeholders: {gesture_name}, {label}
 msgid "{gesture_name} now runs {label}."
@@ -34688,17 +34902,9 @@ msgstr "{carrier_name}でのキャリアの拠点の地域。"
 msgid "{place}, 1 city"
 msgstr "{place}、1都市"
 
-#. placeholders: {place}
-msgid "{place}, 1 city."
-msgstr "{place}、1都市。"
-
 #. placeholders: {place}, {count}
 msgid "{place}, {count} cities"
 msgstr "{place}、{count}都市"
-
-#. placeholders: {place}, {count}
-msgid "{place}, {count} cities."
-msgstr "{place}、{count}都市。"
 
 msgid "Home terminal"
 msgstr "本拠地"
@@ -34851,6 +35057,9 @@ msgid ""
 "Home and End jump to the first or last option."
 msgstr ""
 "上下で項目を選びます。Enter か Space で決定します。Escape で戻ります。Home と End で最初と最後の項目に移ります。"
+
+msgid "Page Up and Page Down move ten options at a time."
+msgstr ""
 
 msgid ""
 "Type a letter to find an option starting with it. F1 explains the selected "
@@ -36896,9 +37105,6 @@ msgstr "遊び方。{controls} {page_title}"
 msgid "How to play - {title} ({page}/{pages})"
 msgstr "遊び方、{title}、{pages}ページ中{page}ページ目"
 
-msgid "Page Up and Page Down move ten options at a time."
-msgstr ""
-
 msgid ""
 "Flick left or right with three fingers to move ten options back or forward."
 msgstr ""
@@ -37588,8 +37794,40 @@ msgstr "{waiting}個のキャリアが、どちらのコピーを残すかの選
 
 msgid ""
 "The careers backed up to your orinks.net account, to bring one onto this "
+"device."
+msgstr ""
+
+msgid ""
+"The careers backed up to your orinks.net account, to bring one onto this "
 "computer."
 msgstr "orinks.netのアカウントにバックアップされたキャリアです。一つをこのコンピューターに持ってこられます。"
+
+#. one sentence of a longer line
+msgid ""
+"A career here changed on another device, and it is not backing up until you "
+"pick."
+msgstr ""
+
+#. one sentence of a longer line
+msgid ""
+"Choosing this device's save keeps what you have played and sends it up."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Nothing is overwritten until you choose."
+msgstr "選ぶまで何も上書きされません。"
+
+#. one sentence of a longer line
+msgid "Open this to choose which copy to keep."
+msgstr "これを開いて、どちらのコピーを残すか選んでください。"
+
+#. placeholders: {base}
+msgid ""
+"Open this to choose which copy to keep. A career here changed on another "
+"device, and it is not backing up until you pick. Choosing this device's "
+"save keeps what you have played and sends it up. Nothing is overwritten "
+"until you choose. {base}"
+msgstr ""
 
 #. one sentence of a longer line
 msgid ""
@@ -37601,14 +37839,6 @@ msgstr "ここにあるキャリアが別のコンピューターで変わった
 msgid ""
 "Choosing this computer's save keeps what you have played and sends it up."
 msgstr "このコンピューターのセーブを選ぶと、プレイした内容が残り、アップロードされます。"
-
-#. one sentence of a longer line
-msgid "Nothing is overwritten until you choose."
-msgstr "選ぶまで何も上書きされません。"
-
-#. one sentence of a longer line
-msgid "Open this to choose which copy to keep."
-msgstr "これを開いて、どちらのコピーを残すか選んでください。"
 
 #. placeholders: {base}
 msgid ""
@@ -37631,6 +37861,12 @@ msgstr ""
 "公開プロフィールを持つすべてのドライバーと、それぞれが最後に勤務していた時刻です。勤務中かどうかは問いません。ドライバーの上で Enter "
 "を押すとプロフィールを読み上げます。見ても、自分の情報は何も共有されません。"
 
+msgid ""
+"Every driver with a public profile, on duty or not, and when each was last "
+"on duty. Double tap a driver to read their profile. Viewing it shares "
+"nothing about you."
+msgstr ""
+
 #. placeholders: {on_off}
 msgid "Say when drivers go on or off duty: {on_off}"
 msgstr "ドライバーの勤務開始と終了を知らせる：{on_off}"
@@ -37643,6 +37879,11 @@ msgstr ""
 "「Road "
 "Starが勤務中です」のような知らせが、ゲームのどこにいても聞こえます。公開のドライバー一覧をおよそ1分ごとに確認し、アカウントは不要で、自分の情報は何"
 "も共有しません。"
+
+msgid ""
+"Achievements earned across every career on this device. The main menu's "
+"Achievements is per career."
+msgstr ""
 
 msgid ""
 "Achievements earned across every career on this installation. The main "
@@ -37665,6 +37906,13 @@ msgstr "オンラインサービス：{on_off}"
 
 msgid ""
 "Master switch for the orinks.net and sharing services. Off stops the "
+"drivers list, profile sharing, cloud backup and station suggestions without "
+"losing their settings. Live weather, traffic, and parking have their own "
+"toggles under Settings."
+msgstr ""
+
+msgid ""
+"Master switch for the orinks.net and sharing services. Off stops the "
 "drivers list, profile sharing, cloud backup, station suggestions, and "
 "Discord presence without losing their settings. Live weather, traffic, and "
 "parking have their own toggles under Settings."
@@ -37680,6 +37928,12 @@ msgstr "orinks.netのアカウント：接続済み"
 
 msgid "Set up orinks.net account"
 msgstr "orinks.netのアカウントを設定"
+
+msgid ""
+"Connects the game to your orinks.net account, which turns Profile sharing "
+"on and starts backing your careers up. Each has its own item on this menu. "
+"Driver name and signed-in devices are on Open my driver setup page."
+msgstr ""
 
 msgid ""
 "Connects the game to your orinks.net account, which turns Profile sharing "
@@ -37700,6 +37954,11 @@ msgstr ""
 
 msgid "Open my driver setup page"
 msgstr "ドライバー設定ページを開く"
+
+msgid ""
+"Opens your orinks.net driver setup page in a browser, for your driver name, "
+"profile sharing, and the devices signed in to your account."
+msgstr ""
 
 msgid ""
 "Opens your orinks.net driver setup page in a browser, for your driver name, "
@@ -37734,6 +37993,13 @@ msgstr "セーブをorinks.netのアカウントにバックアップ：{on_off}
 
 msgid "Back up saves to your orinks.net account: not set up"
 msgstr "セーブをorinks.netのアカウントにバックアップ：未設定"
+
+msgid ""
+"Uploads each saved career to your orinks.net account, to restore on another "
+"device. Backups are private and never public downloads. Comes on when you "
+"connect the account. Public profile statistics are read from these backups, "
+"so turning this off empties them."
+msgstr ""
 
 msgid ""
 "Uploads each saved career to your orinks.net account, to restore on another "
@@ -37773,12 +38039,42 @@ msgid ""
 "Choose Set up now to connect this computer, or Not now to start driving."
 msgstr "このコンピューターをつなぐなら「今すぐ設定」を、運転を始めるなら「後で」を選んでください。"
 
-msgid "Online on the main menu connects any time."
-msgstr "メインメニューのオンラインから、いつでもつなげます。"
+msgid ""
+"Choose Set up now to connect this device, or Not now to start driving."
+msgstr ""
 
 #. one sentence of a longer line
 msgid "Before you set off."
 msgstr "出発する前に。"
+
+#. placeholders: {current}
+msgid ""
+"Before you set off. You can connect this device to an orinks.net account. "
+"That backs your career up so you can bring it to another device, and puts "
+"your driver profile and on-duty activity on the public site. You can turn "
+"either of those off afterwards from Online on the main menu. It takes a "
+"code and your browser, and you can do it any time instead. {current}"
+msgstr ""
+
+#. one sentence of a longer line
+msgid ""
+"It takes a code and your browser, and you can do it any time instead."
+msgstr "コードとブラウザーが必要で、代わりにいつでも行えます。"
+
+#. one sentence of a longer line
+msgid ""
+"That backs your career up so you can bring it to another device, and puts "
+"your driver profile and on-duty activity on the public site."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "You can connect this device to an orinks.net account."
+msgstr ""
+
+#. one sentence of a longer line
+msgid ""
+"You can turn either of those off afterwards from Online on the main menu."
+msgstr "どちらも後からメインメニューのオンラインでオフにできます。"
 
 #. placeholders: {current}
 msgid ""
@@ -37794,11 +38090,6 @@ msgstr ""
 
 #. one sentence of a longer line
 msgid ""
-"It takes a code and your browser, and you can do it any time instead."
-msgstr "コードとブラウザーが必要で、代わりにいつでも行えます。"
-
-#. one sentence of a longer line
-msgid ""
 "That backs your career up so you can bring it to another computer, and puts "
 "your driver profile and on-duty activity on the public site."
 msgstr ""
@@ -37808,11 +38099,6 @@ msgstr ""
 msgid "You can connect this computer to an orinks.net account."
 msgstr "このコンピューターをorinks.netのアカウントにつなげます。"
 
-#. one sentence of a longer line
-msgid ""
-"You can turn either of those off afterwards from Online on the main menu."
-msgstr "どちらも後からメインメニューのオンラインでオフにできます。"
-
 msgid "Not now"
 msgstr "後で"
 
@@ -37821,6 +38107,11 @@ msgstr "運転を始めます。後からオンラインでつなげます。"
 
 msgid "Set up now"
 msgstr "今すぐ設定"
+
+msgid ""
+"Connect this device to an orinks.net account, which turns on cloud backup "
+"and your public driver profile."
+msgstr ""
 
 msgid ""
 "Connect this computer to an orinks.net account, which turns on cloud backup "
@@ -38610,6 +38901,9 @@ msgstr "orinks.netが報告を受け付けませんでした。"
 msgid "The report could not be prepared."
 msgstr "報告を準備できませんでした。"
 
+msgid "orinks.net could not be reached."
+msgstr "orinks.netに接続できませんでした。"
+
 msgid "problem-report"
 msgstr "problem-report"
 
@@ -38622,9 +38916,13 @@ msgid ""
 "Could not open a web browser. Report problems at github.com/{REPO}/issues."
 msgstr "ウェブブラウザーを開けませんでした。問題は github.com/{REPO}/issues で報告してください。"
 
+#. one sentence of a longer line
+msgid "The report form could not be opened."
+msgstr "報告フォームを開けませんでした。"
+
 #. placeholders: {reason}
-msgid "The report form could not be opened: {reason}"
-msgstr "報告フォームを開けませんでした：{reason}"
+msgid "The report form could not be opened. {reason}"
+msgstr "報告フォームを開けませんでした。{reason}"
 
 msgid "Report the last crash?"
 msgstr "前回のクラッシュを報告しますか？"
@@ -38685,6 +38983,25 @@ msgstr "Enter でキャリアに進みます。"
 
 #. one sentence of a longer line
 msgid ""
+"This save was changed outside the game, or copied from another device, so "
+"it is marked as modified."
+msgstr ""
+
+#. placeholders: {current_text}
+msgid ""
+"This save was changed outside the game, or copied from another device, so "
+"it is marked as modified. Your career still works on this device, but "
+"profile sharing may not accept a modified profile. {current_text}"
+msgstr ""
+
+#. one sentence of a longer line
+msgid ""
+"Your career still works on this device, but profile sharing may not accept "
+"a modified profile."
+msgstr ""
+
+#. one sentence of a longer line
+msgid ""
 "This save was changed outside the game, or copied from another computer, so "
 "it is marked as modified."
 msgstr "このセーブはゲームの外で変更されたか、別のコンピューターからコピーされたため、変更済みとして記録されています。"
@@ -38716,10 +39033,8 @@ msgid ""
 msgstr "このキャリアはバージョン1.9では続けられません。Escape でキャリアの一覧に戻ります。"
 
 #. one sentence of a longer line
-msgid ""
-"Nothing was lost: the save is still on this computer, untouched, and it "
-"still works in Freight Fate 1.8."
-msgstr "何も失われていません。セーブは手を加えずにこのコンピューターに残っていて、Freight Fate 1.8では今も使えます。"
+msgid "Nothing was lost: the save is still on this device, untouched."
+msgstr ""
 
 #. one sentence of a longer line
 msgid ""
@@ -38731,6 +39046,20 @@ msgstr "バージョン1.9では、報酬からトラック、レベルまでキ
 #. one sentence of a longer line
 msgid "{driver_name} was made in an earlier version of Freight Fate."
 msgstr "{driver_name}は、Freight Fateの以前のバージョンで作られました。"
+
+#. placeholders: {driver_name}, {current_text}
+msgid ""
+"{driver_name} was made in an earlier version of Freight Fate. Version 1.9 "
+"rebalances the whole career, from pay to trucks to levels, so every driver "
+"starts fresh. Nothing was lost: the save is still on this device, "
+"untouched. {current_text}"
+msgstr ""
+
+#. one sentence of a longer line
+msgid ""
+"Nothing was lost: the save is still on this computer, untouched, and it "
+"still works in Freight Fate 1.8."
+msgstr "何も失われていません。セーブは手を加えずにこのコンピューターに残っていて、Freight Fate 1.8では今も使えます。"
 
 #. placeholders: {driver_name}, {current_text}
 msgid ""
@@ -39245,9 +39574,6 @@ msgstr "{title}をダウンロード中"
 
 msgid "Escape cancels, Tab reads progress."
 msgstr "Escape で取り消し、Tab で進み具合を読み上げます。"
-
-msgid "lift"
-msgstr "効き目"
 
 #. placeholders: {lane_assist}
 msgid "Middle lane  ·  lane keeping {lane_assist}"
@@ -40524,6 +40850,64 @@ msgid ""
 msgstr ""
 "左バンパーを押したままにすると、ボタンの2段目を使えます。{pad_engine}でエンジンを操作し、{pad_fuel}で燃料を、{pad_speed"
 "_limit}で制限速度を読み上げます。"
+
+#~ msgid ""
+#~ "Lane keeping full: the truck holds the lane, swipe left or right to change "
+#~ "lanes."
+#~ msgstr "レーンキープ：フル。トラックが車線を保ちます。左右にスワイプして車線を変えます。"
+
+#~ msgid "Confirm, then choose the command this gesture runs while driving."
+#~ msgstr "確定してから、このジェスチャーで運転中に実行する操作を選びます。"
+
+#~ msgid ""
+#~ "Move up and down to pick a command and confirm to put it on the gesture. "
+#~ "Going back keeps the one it has."
+#~ msgstr "上下に移動して操作を選び、確定するとジェスチャーに割り当てます。戻ると今の操作のままです。"
+
+#~ msgid "Destination {destination_label} ahead."
+#~ msgstr "前方に目的地、{destination_label}。"
+
+#~ msgid "Destination {city} ahead."
+#~ msgstr "前方に目的地、{city}。"
+
+#~ msgid "Live road report, {distance} ahead: {text}"
+#~ msgstr "道路情報、{distance}先：{text}"
+
+#~ msgid "Weigh station first, {name}, {distance} ahead."
+#~ msgstr "まず計量所です。{name}、{distance}先。"
+
+#~ msgid "Weigh station first, {name}, {distance} ahead. All trucks must stop."
+#~ msgstr "まず計量所です。{name}、{distance}先。すべてのトラックは停車が必要です。"
+
+#~ msgid ""
+#~ "Fuel range about {range_text}, short of the next fuel stop, {ahead_text} "
+#~ "ahead."
+#~ msgstr "航続距離は約{range_text}で、{ahead_text}先の次の給油地点まで届きません。"
+
+#~ msgid ""
+#~ "{prefix}, {name}, {distance} ahead{exit_text}.{note}{next_step}{assist}"
+#~ msgstr "{prefix}、{name}、{distance}先{exit_text}。{note}{next_step}{assist}"
+
+#~ msgid "Gate at {facility}, {closing_text} ahead."
+#~ msgstr "{facility}のゲート、{closing_text}先です。"
+
+#~ msgid "Distance: {distance_text} ahead."
+#~ msgstr "距離：{distance_text}先。"
+
+#~ msgid "{name}, {ahead_text} ahead"
+#~ msgstr "{name}、{ahead_text}先"
+
+#~ msgid "{place}, 1 city."
+#~ msgstr "{place}、1都市。"
+
+#~ msgid "{place}, {count} cities."
+#~ msgstr "{place}、{count}都市。"
+
+#~ msgid "Online on the main menu connects any time."
+#~ msgstr "メインメニューのオンラインから、いつでもつなげます。"
+
+#~ msgid "The report form could not be opened: {reason}"
+#~ msgstr "報告フォームを開けませんでした：{reason}"
 
 #~ msgid ""
 #~ "While the road voice speaks, the engine, weather, and radio drop to half "

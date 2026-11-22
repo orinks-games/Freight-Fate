@@ -258,10 +258,12 @@ impl Menu for MainMenuState {
                 let hub = OnlineHubState::new(ctx);
                 ctx.push_state(hub)
             })
-            .help(
+            .help(if crate::device::phone() {
+                "Drivers on duty, your orinks.net account, and cloud backup and restore."
+            } else {
                 "Drivers on duty, your orinks.net account, cloud backup \
-                 and restore, and Discord presence.",
-            ),
+                 and restore, and Discord presence."
+            }),
         );
         items.push(
             MenuItem::new("How to play", |_s: &mut Self, ctx| {
@@ -280,7 +282,7 @@ impl Menu for MainMenuState {
             MenuItem::new("Settings", |_s: &mut Self, ctx| {
                 ctx.push_state(SettingsState::new())
             })
-            .help(if !updater::self_updates() {
+            .help(if !super::settings::updates_category() {
                 "Units, transmission mode, volumes, weather, voices, and trip pacing."
             } else {
                 "Units, transmission mode, volumes, weather, voices, \

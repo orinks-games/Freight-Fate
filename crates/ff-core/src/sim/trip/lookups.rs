@@ -816,10 +816,10 @@ impl Trip {
     pub fn next_navigation_context(&self, imperial: bool) -> String {
         let Some(cue) = self.next_navigation_cue() else {
             if self.is_facility_approach_route() && !self.destination_label.is_empty() {
-                return format!("Destination {} ahead.", self.destination_label);
+                return format!("Destination {}.", self.destination_label);
             }
             return format!(
-                "Destination {} ahead.",
+                "Destination {}.",
                 self.world.spoken_city(
                     self.route.cities.last().map(String::as_str).unwrap_or(""),
                     None
