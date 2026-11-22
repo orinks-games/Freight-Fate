@@ -38,6 +38,11 @@ pub(super) static PHONE_LINES: &[(&str, Option<&str>, Option<&str>)] = &[
         Some("Facilities determine local cargo. Dispatch routes include stops for fuel and legal rest. Flick up with two fingers on a load for its requirements before you accept it."),
     ),
     (
+        "Partial follows bends with gentle drift. Off leaves steering to you unless curve assistance is enabled. Hold a steering control across the lane line to change lanes.",
+        Some("Partial follows bends with gentle drift. Off leaves steering to you unless curve assistance is enabled. Hold a steering control across the lane line to change lanes. With Tilt steering on under Touch gestures, tilting the phone steers too, and with lane keeping on full a tilt changes one lane."),
+        None,
+    ),
+    (
         "With the engine running, {{radio}} switches the radio on or off. Page Down or apostrophe tunes forward. Page Up or semicolon tunes backward.",
         Some("With the engine running, {{radio}} switches the radio on or off. Page Down or apostrophe tunes forward. Page Up or semicolon tunes backward."),
         Some("The radio plays while the engine runs. A three-finger flick right tunes forward, and a three-finger flick left tunes backward."),
@@ -205,6 +210,7 @@ pub(super) static TOUCH_PAGES: &[(&str, &str, &[&str])] = &[
             "Full lane keeping centers the truck, follows bends, and takes route exits including the destination. Flick left or right to change one lane.",
             "Partial follows bends with gentle drift. Off leaves steering to you unless curve assistance is enabled. Swipe left or right and hold to steer.",
             "With partial or off, hold the swipe across the lane line to change lanes. A flick changes one lane with any lane keeping.",
+            "With Tilt steering on under Touch gestures, tilting the phone steers too. With lane keeping on full, a tilt changes one lane.",
             "With the default steering guide, steer toward the side the engine sound moves to. Road noise tells you position: sound to the right means the truck sits right of center.",
             "With lane keeping off and curve assistance off, swipe and hold toward a called bend to follow the road. Lifting straightens the truck with the road.",
             "Hold one finger still for half a second to straighten the wheel. Your position within the lane remains yours to correct.",

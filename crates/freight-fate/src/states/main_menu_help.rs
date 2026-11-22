@@ -337,9 +337,11 @@ pub fn render_help_line(ctx: &GameContext, template: &str) -> String {
         let instruction = token.starts_with("do:");
         let name = match Action::from_id(id) {
             Some(action) if instruction && ctx.touch_hints() => {
-                let text = ctx.touch_instruction(action);
-                if out.is_empty() {
-                    text
+                // A sentence start takes the capital: the line's start, or
+                // after a full stop or question mark.
+                let opens = out.trim_end().is_empty() || out.trim_end().ends_with(['.', '?', '!']);
+                if opens {
+                    ctx.touch_instruction(action)
                 } else {
                     ctx.touch_instruction_mid(action)
                 }

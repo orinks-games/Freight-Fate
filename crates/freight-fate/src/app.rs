@@ -55,6 +55,7 @@ pub mod sdl_shell;
 pub mod speech_delivery;
 pub mod synth_music;
 pub mod testing;
+pub mod tilt;
 #[cfg(any(windows, test))]
 mod win_keys;
 
@@ -291,6 +292,10 @@ pub struct DrivingObservation {
     /// The chain law posted at the truck, and the chains against the road.
     pub chain_control: ff_core::sim::chain_control::ChainControl,
     pub chains: ff_core::sim::chain_control::ChainSet,
+    /// The lane the truck is in, by its spoken name, and whether a stick or
+    /// a tilt has asked for one lane and not come back yet.
+    pub lane: &'static str,
+    pub lane_push: ff_core::sim::lane_push::LanePush,
 }
 
 /// The only capability a windowed input policy receives for one frame.
@@ -392,6 +397,22 @@ impl PlayerInputFrame<'_> {
 
     /// The player's own shortcut table, for a tool call that names a
     /// control rather than a key.
+    /// Tilt steering's state, level and last angle, as `status` reports it.
+    pub fn tilt_status(&self) -> String {
+        self.app.ctx.tilt.status_line()
+    }
+
+    /// The agent server holds the phone at this angle from flat, or sends
+    /// no samples for `None` (it stands in for the motion sensor).
+    pub fn set_tilt_pose(&mut self, degrees: Option<f64>) {
+        self.app.ctx.tilt.set_agent_pose(degrees);
+    }
+
+    /// The pose the agent server holds the phone in, once it holds one.
+    pub fn tilt_pose(&self) -> Option<Option<f64>> {
+        self.app.ctx.tilt.agent_pose()
+    }
+
     pub fn bindings(&self) -> &crate::bindings::KeyBindings {
         &self.app.ctx.bindings
     }
@@ -1019,6 +1040,8 @@ impl App {
             structure: drive.trip.structure_at_mile(drive.trip.position_mi),
             chain_control: drive.trip.chain_control,
             chains: drive.chain_set,
+            lane: drive.lane.lane_name(),
+            lane_push: drive.lane_push,
         })
     }
 
@@ -1587,6 +1610,7 @@ impl App {
             probe.end_frame(&self.ctx.input);
         }
         self.mark(loop_watch::Phase::Update);
+        self.update_tilt(dt);
         self.tick(dt);
         self.co_driver_fast_forward();
         self.sync_text_field();

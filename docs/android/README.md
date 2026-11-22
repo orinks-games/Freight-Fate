@@ -35,6 +35,11 @@ The haptics match the iPhone's: a tick for one step, a bump when a hold
 starts or ends, a heavy click for the deep swipe, and a double click for the
 engine key. Touch gestures in Settings turns them off.
 
+[Tilt steering](../ios/README.md#tilt-steering) reads the accelerometer
+through the same SDL path as on iPhone, but it has not been tried on an
+Android phone, and the screen keeps turning with the phone at the wheel:
+SDL reads Android's orientation setting only when the window is made.
+
 ## Voices
 
 Settings, Speech has three rows for the voice on Android, in place of the

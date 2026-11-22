@@ -89,6 +89,7 @@ fn the_touch_pages_name_the_plain_gesture() {
         "Tap for your speed, gear, and speed-control mode.",
         "Flick up with three fingers for how far along you are",
         "With cruise on, flick up or flick down to move the cruise speed to the next multiple of five.",
+        "Keep driving and follow the turnaround guidance. Flick up with three fingers for the distance left.",
     ] {
         assert!(text.contains(line), "missing: {line}");
     }

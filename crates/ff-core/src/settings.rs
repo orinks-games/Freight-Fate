@@ -765,6 +765,10 @@ settings_fields! {
     /// the clutch, instead of the other way round (the Settings > Controls
     /// row "Second layer bumper").
     left_bumper_layer: bool = false => bool_strict,
+    /// Tilting the phone steers too (Touch gestures, Tilt steering), and
+    /// how many degrees from level steer fully, 15 to 45.
+    touch_tilt_steering: bool = false => bool_strict,
+    touch_tilt_full_degrees: f64 = 30.0 => float_plain,
 }
 
 impl Settings {

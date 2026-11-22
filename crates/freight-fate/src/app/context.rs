@@ -133,6 +133,8 @@ pub struct GameContext {
     pub speech: Box<dyn SpeechSink>,
     pub audio: Box<dyn Audio>,
     pub controller: ControllerManager,
+    /// Tilt steering: the motion sensor's reading and the machine it feeds.
+    pub tilt: super::tilt::TiltInput,
     pub settings: Settings,
     /// Which key and pad button does what at the wheel, rebuilt from
     /// `settings` by `apply_bindings` whenever the player moves one.
@@ -295,6 +297,7 @@ impl GameContext {
             speech: parts.speech,
             audio: parts.audio,
             controller: parts.controller,
+            tilt: super::tilt::TiltInput::default(),
             bindings: KeyBindings::from_settings(&parts.settings),
             settings: parts.settings,
             world: parts.world,

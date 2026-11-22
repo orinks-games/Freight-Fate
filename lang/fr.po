@@ -12680,6 +12680,9 @@ msgstr "sens inverse"
 msgid "shoulder"
 msgstr "accotement"
 
+msgid "centred"
+msgstr ""
+
 msgid "quiet"
 msgstr "discret"
 
@@ -13316,6 +13319,27 @@ msgstr "peu chargée"
 
 msgid "bunk"
 msgstr "couchette"
+
+msgid "Level set."
+msgstr ""
+
+msgid "This device has no motion sensor."
+msgstr ""
+
+msgid "No tilt reading. Swipe to steer."
+msgstr ""
+
+msgid "Tilt steering back."
+msgstr ""
+
+msgid "waiting"
+msgstr ""
+
+msgid "settling"
+msgstr ""
+
+msgid "live"
+msgstr "en direct"
 
 msgid "eastern"
 msgstr "eastern"
@@ -14682,9 +14706,6 @@ msgstr ""
 
 msgid "simulated"
 msgstr "simulée"
-
-msgid "live"
-msgstr "en direct"
 
 msgid "loading"
 msgstr "chargement"
@@ -16509,11 +16530,25 @@ msgstr ""
 "Maintenez chaque flèche pendant quelques secondes ; elle se termine toute "
 "seule."
 
+msgid "Portrait PortraitUpsideDown LandscapeLeft LandscapeRight"
+msgstr "Portrait PortraitUpsideDown LandscapeLeft LandscapeRight"
+
+#. placeholders: {count}
+msgid "{count} sensors, no accelerometer"
+msgstr ""
+
+msgid "Portrait"
+msgstr ""
+
 msgid "ff-rust-app"
 msgstr "ff-rust-app"
 
 msgid "recording"
 msgstr "recording"
+
+#. placeholders: {key}, {angle}, {angle2}
+msgid "tilt {key}; tilt_level {angle}; tilt_angle {angle2}"
+msgstr ""
 
 msgid "title"
 msgstr "title"
@@ -16835,6 +16870,9 @@ msgstr "Pause"
 
 msgid "Driving command list"
 msgstr "Liste des commandes de conduite"
+
+msgid "Set tilt level"
+msgstr ""
 
 msgid "Nothing"
 msgstr "Rien"
@@ -23695,12 +23733,23 @@ msgstr ""
 "Donnez un coup vers la gauche ou la droite pour changer de voie. Avec le "
 "maintien de voie sur complet, les coups sont la seule commande de voie. "
 
+msgid "Flick left or right to change lanes. "
+msgstr ""
+
 msgid ""
 "Flick left or right to change lanes, or swipe left or right and hold to "
 "steer. "
 msgstr ""
 "Donnez un coup vers la gauche ou la droite pour changer de voie, ou balayez "
 "vers la gauche ou la droite et maintenez pour diriger. "
+
+msgid ""
+"Tilt the phone left or right to change one lane, and bring it back level "
+"before the next. "
+msgstr ""
+
+msgid "Tilt the phone left or right to steer. "
+msgstr ""
 
 msgid ""
 "Hold one finger still for half a second to straighten the wheel. With "
@@ -29515,13 +29564,16 @@ msgstr "Heures et horloge"
 msgid "Driving commands"
 msgstr "Commandes de conduite"
 
+msgid "Tilt steering treats the way you hold the phone now as level."
+msgstr ""
+
 #. placeholders: {noun}
 msgid "At the wheel: {noun}."
 msgstr "Au volant : {noun}."
 
-#. placeholders: {key_name}
-msgid "On the keyboard: {key_name}."
-msgstr "Au clavier : {key_name}."
+#. placeholders: {key}
+msgid "On the keyboard: {key}."
+msgstr ""
 
 msgid "Back to driving"
 msgstr "Retour à la conduite"
@@ -38336,6 +38388,39 @@ msgstr ""
 "lit la longueur de chaque balayage vers le bas. Flèche Droite ou Gauche la "
 "change."
 
+msgid ""
+"On, tilting the phone left or right steers, and the screen stops turning "
+"with the phone while you drive. With lane keeping on full, a tilt changes "
+"one lane. Swipes and flicks still steer. Flick up or down to change it."
+msgstr ""
+
+msgid ""
+"On, tilting the phone left or right steers, and the screen stops turning "
+"with the phone while you drive. With lane keeping on full, a tilt changes "
+"one lane. Swipes and flicks still steer. D-pad Right or Left changes it."
+msgstr ""
+
+msgid ""
+"On, tilting the phone left or right steers, and the screen stops turning "
+"with the phone while you drive. With lane keeping on full, a tilt changes "
+"one lane. Swipes and flicks still steer. Right or Left arrow changes it."
+msgstr ""
+
+msgid ""
+"How far the phone tilts for full steering. A smaller number steers harder. "
+"Flick up or down to change it."
+msgstr ""
+
+msgid ""
+"How far the phone tilts for full steering. A smaller number steers harder. "
+"D-pad Right or Left changes it."
+msgstr ""
+
+msgid ""
+"How far the phone tilts for full steering. A smaller number steers harder. "
+"Right or Left arrow changes it."
+msgstr ""
+
 msgid "Every touch gesture is back to its default."
 msgstr "Tous les gestes tactiles sont revenus à leur valeur par défaut."
 
@@ -38344,6 +38429,16 @@ msgstr "Retour haptique tactile activé."
 
 msgid "Touch haptics disabled."
 msgstr "Retour haptique tactile désactivé."
+
+msgid "Tilt steering: On"
+msgstr ""
+
+msgid "Tilt steering: Off"
+msgstr ""
+
+#. placeholders: {touch_tilt_full}
+msgid "Tilt for full steering: {touch_tilt_full} degrees"
+msgstr ""
 
 msgid "Confirm, then choose the command this gesture runs while driving."
 msgstr ""
@@ -38390,6 +38485,36 @@ msgstr "Fin de l'entraînement aux gestes."
 
 msgid "Again to leave practice."
 msgstr "Encore une fois pour quitter l'entraînement."
+
+#. one sentence of a longer line
+msgid "Steers left, or changes one lane with lane keeping on full."
+msgstr ""
+
+#. placeholders: {whole}
+#. one sentence of a longer line
+msgid "Tilt left, {whole} degrees."
+msgstr ""
+
+#. placeholders: {whole}
+msgid ""
+"Tilt left, {whole} degrees. Steers left, or changes one lane with lane "
+"keeping on full."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Steers right, or changes one lane with lane keeping on full."
+msgstr ""
+
+#. placeholders: {whole}
+#. one sentence of a longer line
+msgid "Tilt right, {whole} degrees."
+msgstr ""
+
+#. placeholders: {whole}
+msgid ""
+"Tilt right, {whole} degrees. Steers right, or changes one lane with lane "
+"keeping on full."
+msgstr ""
 
 #. one sentence of a longer line
 msgid "Deep swipe."
@@ -41284,6 +41409,13 @@ msgid ""
 msgstr ""
 
 msgid ""
+"Partial follows bends with gentle drift. Off leaves steering to you unless "
+"curve assistance is enabled. Hold a steering control across the lane line "
+"to change lanes. With Tilt steering on under Touch gestures, tilting the "
+"phone steers too, and with lane keeping on full a tilt changes one lane."
+msgstr ""
+
+msgid ""
 "The radio plays while the engine runs. A three-finger flick right tunes "
 "forward, and a three-finger flick left tunes backward."
 msgstr ""
@@ -41664,6 +41796,11 @@ msgstr ""
 msgid ""
 "With partial or off, hold the swipe across the lane line to change lanes. A "
 "flick changes one lane with any lane keeping."
+msgstr ""
+
+msgid ""
+"With Tilt steering on under Touch gestures, tilting the phone steers too. "
+"With lane keeping on full, a tilt changes one lane."
 msgstr ""
 
 msgid ""
@@ -45193,6 +45330,9 @@ msgstr ""
 "Maintenez le left bumper pour une deuxième couche de boutons. {pad_engine} "
 "commande le moteur, {pad_fuel} lit le carburant, et {pad_speed_limit} lit "
 "la limitation."
+
+#~ msgid "On the keyboard: {key_name}."
+#~ msgstr "Au clavier : {key_name}."
 
 #~ msgid ""
 #~ "Resuming {drive_name}: {destination}. {progress} {hours_used} of "
@@ -60674,9 +60814,6 @@ msgstr ""
 
 #~ msgid "matches"
 #~ msgstr "résultats"
-
-#~ msgid "Portrait PortraitUpsideDown LandscapeLeft LandscapeRight"
-#~ msgstr "Portrait PortraitUpsideDown LandscapeLeft LandscapeRight"
 
 #~ msgid "Reputation: {f} out of 100"
 #~ msgstr "Réputation : {f} sur 100"

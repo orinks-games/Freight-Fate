@@ -498,12 +498,26 @@ impl DrivingState {
              sets the parking brake, and gas releases it. ",
         );
         let lane_full = ctx.settings.lane_is_automated();
-        text.push_str(if lane_full {
-            "Flick left or right to change lanes. With lane keeping on full, flicks are the \
-             only lane control. "
-        } else {
-            "Flick left or right to change lanes, or swipe left or right and hold to steer. "
+        let tilt = crate::app::tilt::wanted(&ctx.settings);
+        // With tilt on, the flicks are not the only lane control any more.
+        text.push_str(match (lane_full, tilt) {
+            (true, false) => {
+                "Flick left or right to change lanes. With lane keeping on full, flicks are the \
+                 only lane control. "
+            }
+            (true, true) => "Flick left or right to change lanes. ",
+            (false, _) => {
+                "Flick left or right to change lanes, or swipe left or right and hold to steer. "
+            }
         });
+        if tilt {
+            text.push_str(if lane_full {
+                "Tilt the phone left or right to change one lane, and bring it back level \
+                 before the next. "
+            } else {
+                "Tilt the phone left or right to steer. "
+            });
+        }
         text.push_str(
             "Hold one finger still for half a second to straighten the wheel. With cruise \
              off, flick up to turn it on. Double tap to take an exit, pull over, or confirm \
