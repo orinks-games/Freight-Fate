@@ -140,12 +140,6 @@ pub struct Hauling<'a> {
     pub carrier: Option<&'a str>,
 }
 
-impl Hauling<'_> {
-    fn is_empty(&self) -> bool {
-        !self.cattle && !self.reefer && !self.doubles && self.carrier.is_none()
-    }
-}
-
 /// The lines each kind of load can hear. A carrier line holds `{carrier}`
 /// where the carrier's name is read.
 #[derive(Debug, Clone, Copy, Default, PartialEq, Eq)]
@@ -156,14 +150,43 @@ pub struct CargoPools {
     pub carrier: &'static [&'static str],
 }
 
-/// Signs for a cattle hauler. The director writes these; empty until then.
-pub const CATTLE_LINES: &[&str] = &[];
-/// Signs for a reefer load. The director writes these; empty until then.
-pub const REEFER_LINES: &[&str] = &[];
-/// Signs for a set of doubles. The director writes these; empty until then.
-pub const DOUBLES_LINES: &[&str] = &[];
-/// Signs that name the driver's carrier. The director writes these.
-pub const CARRIER_LINES: &[&str] = &[];
+/// Signs for a cattle hauler.
+pub const CATTLE_LINES: &[&str] = &[
+    "Welcome to cattle country. Your passengers already know.",
+    "Easy on the brakes, driver. Everyone behind you is standing.",
+    "Garden Gate Vegetarian Cafe. Endorsed by every passenger in your trailer.",
+    "Big Earl's Steakhouse. If your trailer is mooing, keep driving. It upsets the customers.",
+    "Leather goods outlet. Please park the trailer facing away.",
+    "Cowboy church, Sundays. The herd is welcome. The herd stays in the trailer.",
+];
+/// Signs for a reefer load.
+pub const REEFER_LINES: &[&str] = &[
+    "Hauling cold? Somebody's ice cream is counting on you. No pressure.",
+    "That hum behind your cab is a grocery store's whole weekend. Keep it cold.",
+    "Lettuce does not care about your schedule. Lettuce cares about the temperature.",
+    "Polar Pete's Ice Cream. Colder than your trailer. We checked.",
+    "Fresh, never frozen, says the diner. Your trailer says otherwise.",
+    "Frozen custard stand. Our freezer is older than yours, and it never complains.",
+];
+/// Signs for a set of doubles.
+pub const DOUBLES_LINES: &[&str] = &[
+    "Two trailers? Show-off.",
+    "Buy one trailer, get one free. Looks like you already did.",
+    "Backing lessons, by appointment. Doubles drivers, we cannot help you either.",
+    "The second trailer goes where the first one went. That is the theory.",
+    "Twin trailers: because one was not enough to worry about.",
+];
+/// Signs that name the driver's carrier.
+pub const CARRIER_LINES: &[&str] = &[
+    "{carrier} is hiring. You already work there. Tell a friend.",
+    "Drive for {carrier}. Ask the driver in front of this sign how it is going.",
+    "{carrier}: on time since this morning.",
+    "How is my driving? {carrier} would also like to know.",
+    "{carrier} salutes its drivers. This sign was cheaper than a raise.",
+    "Proud home of {carrier}. Our drivers get home eventually.",
+    "Big Jim Tolliver has never sued {carrier}. Keep it that way.",
+    "This mile of highway is sponsored by {carrier}. The litter is not ours.",
+];
 
 /// The cargo lines that ship.
 pub const CARGO_POOLS: CargoPools = CargoPools {
@@ -178,34 +201,52 @@ pub const CARGO_POOLS: CargoPools = CargoPools {
 pub const CARGO_EVERY: usize = 3;
 const CARGO_PHASE: usize = 1;
 
+/// Of the cargo slots, the carrier takes one in this many (one pool sign in
+/// nine), so a company driver is not read the carrier's name all career.
+pub const CARRIER_EVERY: usize = 3;
+const CARRIER_PHASE: usize = 2;
+
 /// The cargo line for this sign, from these pools, or None.
+///
+/// Every third pool sign is a cargo slot. Every third cargo slot is the
+/// carrier's, when the driver has one; the others draw only from the load
+/// aboard (cattle, reefer, doubles), and stay everyday signs without one.
 fn cargo_line(pools: &CargoPools, hauling: Hauling, nth: usize, offset: usize) -> Option<String> {
-    if hauling.is_empty() || nth % CARGO_EVERY != CARGO_PHASE {
+    if nth % CARGO_EVERY != CARGO_PHASE {
         return None;
     }
-    let mut here: Vec<String> = Vec::new();
+    let slot = nth / CARGO_EVERY;
+    let carrier = hauling
+        .carrier
+        .map(str::trim)
+        .filter(|name| !name.is_empty() && !pools.carrier.is_empty());
+    if let Some(name) = carrier {
+        if slot % CARRIER_EVERY == CARRIER_PHASE {
+            let line = pools.carrier[(slot / CARRIER_EVERY + offset) % pools.carrier.len()];
+            return Some(line.replace("{carrier}", name));
+        }
+    }
+    let mut here: Vec<&str> = Vec::new();
     for (applies, pool) in [
         (hauling.cattle, pools.cattle),
         (hauling.reefer, pools.reefer),
         (hauling.doubles, pools.doubles),
     ] {
         if applies {
-            here.extend(pool.iter().map(|line| (*line).to_string()));
+            here.extend_from_slice(pool);
         }
-    }
-    if let Some(name) = hauling.carrier.map(str::trim).filter(|n| !n.is_empty()) {
-        here.extend(
-            pools
-                .carrier
-                .iter()
-                .map(|line| line.replace("{carrier}", name)),
-        );
     }
     if here.is_empty() {
         return None;
     }
-    let i = (nth / CARGO_EVERY + offset) % here.len();
-    Some(here.swap_remove(i))
+    // Count only the slots the load gets, so its pool is walked in order
+    // around the carrier's.
+    let ordinal = if carrier.is_some() {
+        slot - (slot + CARRIER_EVERY - CARRIER_PHASE) / CARRIER_EVERY
+    } else {
+        slot
+    };
+    Some(here[(ordinal + offset) % here.len()].to_string())
 }
 
 /// Every sign a holiday puts up, wherever each one is true.
@@ -266,7 +307,8 @@ pub struct BillboardMoment<'a> {
 /// The line to read in place of an everyday pool sign, or None to read it.
 ///
 /// Big Jim answers every incident, once, at the next sign. The small hours
-/// take every other sign, the load every third and a holiday every fourth,
+/// take every other sign, the load every third (the carrier's name one in
+/// nine) and a holiday every fourth,
 /// so the ordinary roadside still shows through. Each pool is walked in order
 /// from the trip's offset, so no line comes back until the rest of its pool
 /// has been read.
@@ -516,16 +558,89 @@ mod tests {
             ..Default::default()
         };
         assert_eq!(cargo_at(reefer, 1).as_deref(), Some("Reefer one."));
-        let carrier = Hauling {
-            carrier: Some("Mesa Freight"),
-            ..Default::default()
-        };
-        assert_eq!(cargo_at(carrier, 1).as_deref(), Some("Mesa Freight sign."));
         let blank = Hauling {
             carrier: Some("  "),
             ..Default::default()
         };
-        assert_eq!(cargo_at(blank, 1), None);
+        assert_eq!(cargo_at(blank, 7), None);
+    }
+
+    /// Which pool each of the first eighteen pool signs is read from:
+    /// '.' an everyday sign, 'L' the load's, 'C' the carrier's.
+    fn cadence(hauling: Hauling) -> String {
+        (0..18)
+            .map(|n| match cargo_at(hauling, n) {
+                None => '.',
+                Some(line) if line.contains("Mesa Freight") => 'C',
+                Some(_) => 'L',
+            })
+            .collect()
+    }
+
+    #[test]
+    fn the_carrier_takes_one_pool_sign_in_nine() {
+        let mesa = Some("Mesa Freight");
+        let table = [
+            // A company driver with nothing special aboard.
+            (
+                Hauling {
+                    carrier: mesa,
+                    ..Default::default()
+                },
+                ".......C........C.",
+            ),
+            // Cattle for a company: the load's slots around the carrier's.
+            (
+                Hauling {
+                    cattle: true,
+                    carrier: mesa,
+                    ..Default::default()
+                },
+                ".L..L..C..L..L..C.",
+            ),
+            // Cattle on one's own authority: every cargo slot is the load's.
+            (
+                Hauling {
+                    cattle: true,
+                    ..Default::default()
+                },
+                ".L..L..L..L..L..L.",
+            ),
+            (Hauling::default(), ".................."),
+        ];
+        for (hauling, want) in table {
+            assert_eq!(cadence(hauling), want, "{hauling:?}");
+        }
+    }
+
+    #[test]
+    fn carrier_lines_never_mix_into_the_load() {
+        let both = Hauling {
+            reefer: true,
+            carrier: Some("Mesa Freight"),
+            ..Default::default()
+        };
+        for n in [1, 4, 10, 13] {
+            assert_eq!(cargo_at(both, n).as_deref(), Some("Reefer one."));
+        }
+        assert_eq!(cargo_at(both, 7).as_deref(), Some("Mesa Freight sign."));
+    }
+
+    #[test]
+    fn the_load_walks_its_pool_around_the_carrier() {
+        let cattle = Hauling {
+            cattle: true,
+            carrier: Some("Mesa Freight"),
+            ..Default::default()
+        };
+        let heard: Vec<_> = [1, 4, 10, 13]
+            .iter()
+            .map(|&n| cargo_at(cattle, n).unwrap())
+            .collect();
+        assert_eq!(
+            heard,
+            ["Cattle one.", "Cattle two.", "Cattle one.", "Cattle two."]
+        );
     }
 
     #[test]
@@ -561,6 +676,11 @@ mod tests {
         for line in [CATTLE_LINES, REEFER_LINES, DOUBLES_LINES, CARRIER_LINES].concat() {
             assert!(!line.chars().any(|c| c.is_ascii_digit()), "{line}");
             assert!(line.split_whitespace().count() <= 25, "{line}");
+            let lower = line.to_lowercase();
+            for claim in ["next exit", "miles ahead", "exit ", "turn off"] {
+                assert!(!lower.contains(claim), "{line} names a stop");
+            }
         }
+        assert!(CARRIER_LINES.iter().all(|line| line.contains("{carrier}")));
     }
 }

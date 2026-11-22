@@ -469,11 +469,12 @@ bookmarks usable.
       Thanksgiving week.
 - [ ] Billboards could also react to the cargo in the trailer and to the
       weather (owner, 2026-09-30: "at least one and two" shipped first).
-      The cargo half is built on `feat/career-2.0` (2026-11-22): a load of
-      cattle, a reefer load, a set of doubles and the carrier on the door
-      each have a pool that takes one everyday sign in three, after Big
-      Jim and the small hours. The pools are empty until the director's
-      lines land. Weather is still open.
+      The cargo half is built on `feat/career-2.0` (2026-11-22): every
+      third everyday sign is a cargo slot, after Big Jim and the small
+      hours. A load of cattle, a reefer load or a set of doubles fills it
+      from its own pool; every third slot (one sign in nine) is instead
+      the carrier on the door, for a company or leased-on driver. The
+      director's lines are in. Weather is still open.
 
 - [x] Placed billboards face one way (owner, 2026-09-30): every placed
       attraction sign was heard from both sides of the road, and 128 of the
@@ -5846,9 +5847,12 @@ a carrier slice (owner, 2026-10-26).
       `docs/billboard-spider-methodology.md` section 11, the same rows in
       `data/billboard_law.rs`. `cargo tools bake-billboards` (the Python
       sheet bake, ported) refuses a sign where the law or a park says no.
-- [ ] Billboards along the Alaska Highway and Highway 97: the sign sheet
-      (`data/spider/signsheets/alaska-highway-bc-yukon-2026-11-22.md`)
-      waits for the director's copy and Orinks's approval before it bakes.
+- [x] Billboards along the Hart and Alaska Highways: 30 attraction boards
+      from the sign sheet
+      (`data/spider/signsheets/alaska-highway-bc-yukon-2026-11-22.md`),
+      director's copy, baked on the legs; merges on Orinks's approval.
+- [ ] The sheet's 13 Highway 1 and 97 boards (Hope to Barkerville) move to
+      the West corridor's sheet, same copy, once its chain legs merge.
 - [ ] Billboard sheets for each Canadian corridor as its PR merges, West
       first; French attraction names listed for Orinks's ear.
 - [ ] (Found along the way) New Brunswick is read attractions only

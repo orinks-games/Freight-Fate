@@ -75,6 +75,8 @@ impl DrivingState {
         let date = calendar_date(profile.player_calendar_hours());
         let local_hour = self.trip.local_hour().rem_euclid(24.0);
         let state = self.trip.state_code_at(self.trip.position_mi);
+        // The name on the door: a 2.0 career may name its carrier by key only.
+        let carrier = ff_core::models::career::carrier_name_of(profile);
         let moment = BillboardMoment {
             incident: now.incident_since(self.billboard_watch),
             tired: Alertness::from_fatigue(profile.fatigue) >= Alertness::Drowsy
@@ -83,7 +85,7 @@ impl DrivingState {
             nth: self.pool_billboards_heard,
             offset: self.billboard_offset,
             state: state.as_deref(),
-            hauling: self.hauling(profile.business_status.as_str(), &profile.carrier_name),
+            hauling: self.hauling(profile.business_status.as_str(), &carrier),
         };
         self.billboard_watch = now;
         self.pool_billboards_heard += 1;
