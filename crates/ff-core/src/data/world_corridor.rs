@@ -24,7 +24,7 @@ use super::grades::screen_grade_segments;
 use super::line_weave::{miles_from_crossings, screen_weave};
 use super::pavement::parse_pavement;
 use super::world_constants::{LIMIT_ARTIFACT_PLACE_CHECKPOINTS, LIMIT_EXPLAINING_CATEGORIES};
-use super::world_models::{CorridorDetail, DataError, TunnelData};
+use super::world_models::{name_provincial_routes, CorridorDetail, DataError, TunnelData};
 use super::world_parsing::{
     fold_limit_artifacts, is_province, list_field, parse_billboard_bans, parse_checkpoint,
     parse_elevation_sample, parse_grade_segment, parse_hpms_terrain, parse_interchange,
@@ -164,10 +164,20 @@ pub fn build_leg_corridor(
         .iter()
         .map(|e| parse_toll_event(e, miles, leg_from, leg_to, highway))
         .collect::<Result<Vec<_>, _>>()?;
-    let interchanges = list_field(corridor, "interchanges")
+    let mut interchanges = list_field(corridor, "interchanges")
         .iter()
         .map(|x| parse_interchange(x, miles, leg_from, leg_to, highway))
         .collect::<Result<Vec<_>, _>>()?;
+    // A Canadian exit signed with a bare route number ("255") speaks the
+    // province's word for it ("Route 255"); the stored record stays as read.
+    for exit in &mut interchanges {
+        let province = state_crossings
+            .iter()
+            .take_while(|c| c.at_mi <= exit.at_mi)
+            .last()
+            .map_or(from_state, |c| c.state.as_str());
+        exit.via = name_provincial_routes(province, &exit.via);
+    }
     let traffic_volumes = parse_traffic_volumes(
         list_field(corridor, "traffic_aadt"),
         miles,

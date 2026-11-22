@@ -37,8 +37,8 @@ use crate::pyjson::{Object, Value};
 use crate::util::Result;
 use crate::world::{load_world, save_world, source_root};
 
-const USAGE: &str =
-    "usage: reroute-leg --leg from:to [--accept-miles] [--write] | reroute-leg --check";
+const USAGE: &str = "usage: reroute-leg --leg from:to [--accept-miles] [--height-m M] [--write] \
+                     | reroute-leg --check";
 
 /// A reroute must put at least this share of the leg on its own shield,
 /// unless a curated pin says the route rides a signed connector there.
@@ -190,7 +190,7 @@ pub fn main(argv: &[String]) -> Result<i32> {
     let args = Args::parse(
         argv,
         &Spec {
-            values: &["leg"],
+            values: &["leg", "height-m"],
             flags: &["write", "check", "accept-miles"],
         },
     )
@@ -222,7 +222,14 @@ pub fn main(argv: &[String]) -> Result<i32> {
     let highway = leg.get("highway").map(Value::py_str).unwrap_or_default();
     let old_miles = leg.get("miles").and_then(Value::as_f64).unwrap_or(0.0);
 
-    let Some(route) = valhalla::route(start, end, &super::route_via(&leg))? else {
+    let height_m = match args.value("height-m") {
+        Some(v) => Some(
+            v.parse::<f64>()
+                .map_err(|_| format!("--height-m wants metres, got {v}\n{USAGE}"))?,
+        ),
+        None => None,
+    };
+    let Some(route) = valhalla::route(start, end, &super::route_via(&leg), height_m)? else {
         println!("the router returned no route");
         return Ok(1);
     };
