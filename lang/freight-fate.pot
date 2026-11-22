@@ -14062,7 +14062,7 @@ msgstr ""
 msgid "centred"
 msgstr ""
 
-#: crates/ff-core/src/sim/outside.rs crates/ff-core/src/speech_pacing.rs
+#: crates/ff-core/src/sim/outside.rs crates/ff-core/src/sim/road_texture/song.rs crates/ff-core/src/speech_pacing.rs
 msgid "quiet"
 msgstr ""
 
@@ -14523,6 +14523,40 @@ msgstr ""
 
 #: crates/ff-core/src/sim/road_texture.rs crates/freight-fate/src/app/key_probe.rs
 msgid "held"
+msgstr ""
+
+#: crates/ff-core/src/sim/road_texture/song.rs
+msgid "derived from build year"
+msgstr ""
+
+#: crates/ff-core/src/sim/road_texture/song.rs
+msgid "assumed, concrete deck"
+msgstr ""
+
+#: crates/ff-core/src/sim/road_texture/song.rs
+msgid "whine"
+msgstr ""
+
+#: crates/ff-core/src/sim/road_texture/song.rs
+msgid "hum"
+msgstr ""
+
+#: crates/ff-core/src/sim/road_texture/song.rs
+msgid ", holding"
+msgstr ""
+
+#. placeholders: {grooves_origin}, {holding}
+#: crates/ff-core/src/sim/road_texture/song.rs
+msgid "whine ({grooves_origin}{holding})"
+msgstr ""
+
+#: crates/ff-core/src/sim/road_texture/song.rs
+msgid "hum (holding)"
+msgstr ""
+
+#. placeholders: {name}
+#: crates/ff-core/src/sim/road_texture/song.rs
+msgid "held {name}"
 msgstr ""
 
 #: crates/ff-core/src/sim/roadside_inspection.rs
@@ -17617,6 +17651,14 @@ msgstr ""
 
 #: crates/ff-core/src/sound_catalog.rs
 msgid "The joint at a bridge end: texture, not a decision."
+msgstr ""
+
+#: crates/ff-core/src/sound_catalog.rs
+msgid "Tires on concrete grooved across the lane: texture, not a decision."
+msgstr ""
+
+#: crates/ff-core/src/sound_catalog.rs
+msgid "Tires on a steel grate bridge deck: texture, not a decision."
 msgstr ""
 
 #: crates/ff-core/src/sound_catalog.rs
@@ -41497,7 +41539,9 @@ msgid "Road surface volume: {pct} percent"
 msgstr ""
 
 #: crates/freight-fate/src/states/main_menu/settings_items.rs
-msgid "The thump of pavement seams and bridge joints under the wheels."
+msgid ""
+"The thump of pavement seams and bridge joints under the wheels, and the "
+"tires' whine on grooved concrete and hum on steel grate decks."
 msgstr ""
 
 #. placeholders: {pct}

@@ -12887,6 +12887,32 @@ msgstr "inventado"
 msgid "held"
 msgstr "segurada"
 
+msgid "derived from build year"
+msgstr ""
+
+msgid "assumed, concrete deck"
+msgstr ""
+
+msgid "whine"
+msgstr ""
+
+msgid "hum"
+msgstr ""
+
+msgid ", holding"
+msgstr ""
+
+#. placeholders: {grooves_origin}, {holding}
+msgid "whine ({grooves_origin}{holding})"
+msgstr ""
+
+msgid "hum (holding)"
+msgstr ""
+
+#. placeholders: {name}
+msgid "held {name}"
+msgstr ""
+
 msgid "Level 1 full inspection"
 msgstr "Inspeção completa de nível 1"
 
@@ -15564,6 +15590,12 @@ msgstr "Como a emenda sob o eixo dianteiro."
 
 msgid "The joint at a bridge end: texture, not a decision."
 msgstr "A junta no fim de uma ponte: textura, não decisão."
+
+msgid "Tires on concrete grooved across the lane: texture, not a decision."
+msgstr ""
+
+msgid "Tires on a steel grate bridge deck: texture, not a decision."
+msgstr ""
 
 msgid "A door."
 msgstr "Uma porta."
@@ -37138,7 +37170,9 @@ msgstr ""
 msgid "Road surface volume: {pct} percent"
 msgstr ""
 
-msgid "The thump of pavement seams and bridge joints under the wheels."
+msgid ""
+"The thump of pavement seams and bridge joints under the wheels, and the "
+"tires' whine on grooved concrete and hum on steel grate decks."
 msgstr ""
 
 #. placeholders: {pct}
