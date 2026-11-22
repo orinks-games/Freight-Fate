@@ -227,7 +227,10 @@ fn continue_after_the_app_was_ended_resumes_the_drive_where_it_left() {
     let at_dispatch = with_drive(&shared, |d| d.snapshot(&app.ctx));
     app.ctx.profile.as_mut().unwrap().active_trip = Some(at_dispatch);
     app.ctx.save_profile();
-    with_drive(&shared, |d| d.trip.position_mi = 21.5);
+    with_drive(&shared, |d| {
+        d.trip.position_mi = 21.5;
+        d.trip.truck.parking_brake = false;
+    });
     send(
         &mut app,
         &[AppEvent::WillResignActive, AppEvent::DidEnterBackground],
@@ -241,13 +244,16 @@ fn continue_after_the_app_was_ended_resumes_the_drive_where_it_left() {
     // The next launch, on the same data, and Continue.
     app.ctx.profile = Some(on_disk);
     let resumed = freight_fate::states::main_menu::world_entry_state(&mut app.ctx, false);
-    let position = resumed
+    let (position, parked) = resumed
         .borrow()
         .as_any()
         .downcast_ref::<DrivingState>()
-        .map(|d| d.trip.position_mi)
+        .map(|d| (d.trip.position_mi, d.trip.truck.parking_brake))
         .expect("Continue resumes the drive, not the terminal");
     assert!((position - 21.5).abs() < 0.01, "{position}");
+    // It resumes stopped, so it resumes with the parking brake set, as the
+    // resume line says.
+    assert!(parked);
     app.shutdown();
 }
 

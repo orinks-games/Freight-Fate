@@ -35,7 +35,10 @@ static int32_t ff_lifecycle_queue[FF_LIFECYCLE_CAPACITY];
 static unsigned ff_lifecycle_head = 0;
 static unsigned ff_lifecycle_len = 0;
 static os_unfair_lock ff_lifecycle_lock = OS_UNFAIR_LOCK_INIT;
-static UIBackgroundTaskIdentifier ff_background_task = UIBackgroundTaskInvalid;
+// UIBackgroundTaskInvalid is an extern constant, not a compile-time one, so
+// whether a task is held is its own flag.
+static UIBackgroundTaskIdentifier ff_background_task;
+static BOOL ff_background_task_held = NO;
 
 static void ff_lifecycle_push(int32_t code) {
     os_unfair_lock_lock(&ff_lifecycle_lock);
@@ -60,9 +63,9 @@ int32_t ff_lifecycle_next(void) {
 }
 
 static void ff_end_background_task(void) {
-    if (ff_background_task != UIBackgroundTaskInvalid) {
+    if (ff_background_task_held) {
+        ff_background_task_held = NO;
         [UIApplication.sharedApplication endBackgroundTask:ff_background_task];
-        ff_background_task = UIBackgroundTaskInvalid;
     }
 }
 
@@ -121,12 +124,16 @@ void ff_lifecycle_install(void (*terminating)(void)) {
                         object:nil
                          queue:main
                     usingBlock:^(__unused NSNotification *note) {
-                        if (ff_background_task != UIBackgroundTaskInvalid) {
+                        if (ff_background_task_held) {
                             return;
                         }
-                        ff_background_task = [UIApplication.sharedApplication
+                        UIBackgroundTaskIdentifier task = [UIApplication.sharedApplication
                             beginBackgroundTaskWithName:@"Save the drive"
                                       expirationHandler:^{ ff_end_background_task(); }];
+                        if (task != UIBackgroundTaskInvalid) {
+                            ff_background_task = task;
+                            ff_background_task_held = YES;
+                        }
                     }];
     [center addObserverForName:UIApplicationWillTerminateNotification
                         object:nil

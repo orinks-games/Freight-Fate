@@ -101,7 +101,7 @@ impl App {
                 .find_map(|state| {
                     let state = state.try_borrow().ok()?;
                     let drive = state.as_any().downcast_ref::<DrivingState>()?;
-                    Some(drive.snapshot(&self.ctx))
+                    Some(parked(drive.snapshot(&self.ctx)))
                 });
             if let (Some(snapshot), Some(profile)) = (drive, self.ctx.profile.as_mut()) {
                 let stop = profile.active_trip.replace(snapshot.clone());
@@ -142,6 +142,16 @@ impl App {
         self.ctx.save_profile();
         log::info!("app lifecycle: the save is back at the last stop");
     }
+}
+
+/// A drive saved mid-road resumes stopped, so it is saved with the parking
+/// brake set: the resume line then tells the truth about the brake, and the
+/// truck holds where it was until the player drives off.
+fn parked(mut snapshot: Value) -> Value {
+    if let Some(air) = snapshot.get_mut("air_brake").and_then(Value::as_object_mut) {
+        air.insert("parking_brake".to_string(), Value::Bool(true));
+    }
+    snapshot
 }
 
 /// The iOS sound session and background time (`ios/ff_lifecycle.m`).
