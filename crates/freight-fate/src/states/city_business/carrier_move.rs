@@ -93,6 +93,8 @@ impl BusinessStatusState {
         save_business_change(ctx);
         ctx.audio.play("ui/notify");
         ctx.say(&line);
+        ctx.award_achievement("carrier_step_up");
+        ctx.award_rehire_badge();
         self.refresh(ctx, false);
     }
 }

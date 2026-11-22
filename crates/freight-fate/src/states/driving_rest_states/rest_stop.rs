@@ -716,6 +716,7 @@ impl RestStopState {
         ctx.say(&text);
         // No Five-by-Two here: the badge is a full ten hours asleep in the
         // lot, and a split rest is the night broken in two.
+        ctx.award_restart_badges(false);
         self.refresh(ctx, true);
     }
 
@@ -773,6 +774,7 @@ impl RestStopState {
         if Alertness::from_fatigue(before_fatigue) < Alertness::Severe {
             ctx.award_achievement("sleep_before_exhaustion");
         }
+        ctx.award_restart_badges(false);
         self.refresh(ctx, true);
     }
 
@@ -830,6 +832,7 @@ impl RestStopState {
         // motel bed is the night you specifically did not spend in it (owner
         // report, 2026-08-20). The cramped-lot sleep keeps the award -- the
         // stop has no beds, so the lot night IS a bunk night.
+        ctx.award_restart_badges(false);
     }
 
     /// Bed down in a break/fuel stop's lot when out of hours: a legal HOS
@@ -864,6 +867,7 @@ impl RestStopState {
         ctx.audio.play("ui/notify");
         ctx.say(&text);
         ctx.award_achievement("slept_on_route");
+        ctx.award_restart_badges(false);
     }
 
     fn repair(&mut self, ctx: &mut GameContext) {

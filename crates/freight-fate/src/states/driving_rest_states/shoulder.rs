@@ -87,6 +87,7 @@ impl ShoulderSleepConfirmationState {
             ctx.pop_state_with(true, false);
         }
         ctx.say(&text);
+        ctx.award_restart_badges(false);
     }
 }
 

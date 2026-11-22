@@ -411,6 +411,13 @@ impl CityMenuState {
         if Alertness::from_fatigue(before_fatigue) < Alertness::Severe {
             ctx.award_achievement("sleep_before_exhaustion");
         }
+        let at_home = {
+            let p = profile(ctx);
+            !p.carrier_key.is_empty()
+                && ctx.world.resolve_city_key(&p.current_city)
+                    == ctx.world.resolve_city_key(&p.home_terminal_city)
+        };
+        ctx.award_restart_badges(at_home);
     }
 
     /// Sit out the rest of a CDL suspension in one go.
@@ -833,6 +840,9 @@ impl Menu for CityMenuState {
         ctx.say_with(current, Say::queued().review(false));
         self.check_standing(ctx);
         self.check_credentials(ctx);
+        // After a let-go line, or on a career that was let go and taken on
+        // before the badge existed.
+        ctx.award_rehire_badge();
     }
 
     fn build_items(&mut self, ctx: &mut GameContext) -> Vec<MenuItem<Self>> {

@@ -540,6 +540,12 @@ impl HosClock {
         (self.restart_threshold_min() - self.restart_off_min).max(0.0)
     }
 
+    /// The off-duty time since the driver was last on duty has restarted
+    /// the cycle under the selected rules (34 hours, or 36 in Canada).
+    pub fn restart_complete(&self) -> bool {
+        self.restart_off_min >= self.restart_threshold_min()
+    }
+
     /// Select new rules and clear limit warnings so the next thresholds fire.
     pub fn set_rules(&mut self, rules: HosRules) -> bool {
         if self.rules == rules {
