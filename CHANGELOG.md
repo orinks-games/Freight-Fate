@@ -92,7 +92,8 @@
 - **The sleep that finishes a 34-hour restart now says your cycle clock reset.**
 - **A repossession with no carrier to take you on now names the city it looked near.**
 - **Cruise coming back after a slowdown now says it once,** with the speed it will hold.
-- **The S key off the destination exit now reads the approach or gate limit,** not the interstate's.
+- **The S key off the destination exit now reads the approach limit,** not the interstate's.
+- **Past the destination exit, the assists and the speed warning go by the approach limit.** Well over it on the ramp, you now hear the warning.
 - **The delivery screen now reads the receiver's cattle count and any freight claim.** Both had gone missing from the screen.
 - **A reefer box left off on the road now warms at the same rate as at a stop.** It had been warming ten times slower while driving.
 - **Sleeping with cattle aboard now warns when they would pass the 28-hour limit,** and the hours readouts stop naming a 30-minute break that cannot come due.
