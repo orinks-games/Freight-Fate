@@ -16149,27 +16149,6 @@ msgstr "ready"
 msgid "token"
 msgstr "token"
 
-msgid "online-journal"
-msgstr "online-journal"
-
-msgid "items"
-msgstr "items"
-
-msgid "delivery"
-msgstr "配達"
-
-msgid "Delivered without new truck damage"
-msgstr "新たなトラックの損傷なしで配達"
-
-msgid "payload"
-msgstr "payload"
-
-msgid "achievement"
-msgstr "achievement"
-
-msgid "level"
-msgstr "level"
-
 msgid "Freight Fate"
 msgstr "Freight Fate"
 
@@ -16673,6 +16652,9 @@ msgid ""
 "As a new hire, dispatch assigns your load and route, and refusing an "
 "assignment goes on your service record."
 msgstr "新人のうちは配車係が積荷とルートを割り当て、割り当てを断ると仕事の記録に残ります。"
+
+msgid "level"
+msgstr "level"
 
 msgid "endorsements"
 msgstr "endorsements"
@@ -20551,6 +20533,9 @@ msgstr "運転席です。現在{now}。{engine}"
 #. one sentence of a longer line
 msgid "It is {now}."
 msgstr "{now}です。"
+
+msgid "delivery"
+msgstr "配達"
 
 msgid "alertness"
 msgstr "覚醒度"
@@ -40851,6 +40836,21 @@ msgid ""
 msgstr ""
 "左バンパーを押したままにすると、ボタンの2段目を使えます。{pad_engine}でエンジンを操作し、{pad_fuel}で燃料を、{pad_speed"
 "_limit}で制限速度を読み上げます。"
+
+#~ msgid "online-journal"
+#~ msgstr "online-journal"
+
+#~ msgid "items"
+#~ msgstr "items"
+
+#~ msgid "Delivered without new truck damage"
+#~ msgstr "新たなトラックの損傷なしで配達"
+
+#~ msgid "payload"
+#~ msgstr "payload"
+
+#~ msgid "achievement"
+#~ msgstr "achievement"
 
 #~ msgid ""
 #~ "Lane keeping full: the truck holds the lane, swipe left or right to change "

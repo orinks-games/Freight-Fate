@@ -55,6 +55,7 @@ pub mod pending;
 pub mod radio;
 pub mod radio_channel3000;
 pub mod radio_synth;
+pub mod road_tally;
 pub mod road_texture;
 pub mod runaway;
 pub mod stops;

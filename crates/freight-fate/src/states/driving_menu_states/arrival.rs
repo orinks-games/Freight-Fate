@@ -678,6 +678,9 @@ impl ArrivalState {
             distance_mi: job.distance_mi,
             weight_tons: job.weight_tons,
             team_note: self.team_note.clone(),
+            conditions: d
+                .road_tally
+                .conditions(crate::states::driving_updates::road_tally::career_inspections(ctx)),
         };
         let origin_name = ctx.world.spoken_city(&job.origin, None);
         let destination_name = ctx.world.spoken_city(&job.destination, None);

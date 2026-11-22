@@ -10825,15 +10825,15 @@ msgstr ""
 msgid "Requires {required_program_text} trailer program."
 msgstr ""
 
-#: crates/ff-core/src/models/jobs.rs crates/freight-fate/src/online_journal.rs
+#: crates/ff-core/src/models/jobs.rs
 msgid "cargo"
 msgstr ""
 
-#: crates/ff-core/src/models/jobs.rs crates/ff-core/src/models/profile/tests_origin.rs crates/freight-fate/src/online_journal.rs crates/freight-fate/src/states/main_menu.rs
+#: crates/ff-core/src/models/jobs.rs crates/ff-core/src/models/profile/tests_origin.rs crates/freight-fate/src/states/main_menu.rs
 msgid "origin"
 msgstr ""
 
-#: crates/ff-core/src/models/jobs.rs crates/freight-fate/src/online_journal.rs
+#: crates/ff-core/src/models/jobs.rs
 msgid "destination"
 msgstr ""
 
@@ -11396,19 +11396,19 @@ msgstr ""
 msgid "achievements"
 msgstr ""
 
-#: crates/ff-core/src/models/profile/signing.rs crates/freight-fate/src/online_journal.rs
+#: crates/ff-core/src/models/profile/signing.rs
 msgid "null"
 msgstr ""
 
-#: crates/ff-core/src/models/profile/signing.rs crates/freight-fate/src/online_journal.rs
+#: crates/ff-core/src/models/profile/signing.rs
 msgid "true"
 msgstr ""
 
-#: crates/ff-core/src/models/profile/signing.rs crates/freight-fate/src/online_journal.rs
+#: crates/ff-core/src/models/profile/signing.rs
 msgid "false"
 msgstr ""
 
-#: crates/ff-core/src/models/profile/signing.rs crates/freight-fate/src/online_journal.rs
+#: crates/ff-core/src/models/profile/signing.rs
 msgid "Infinity"
 msgstr ""
 
@@ -14416,7 +14416,7 @@ msgstr ""
 msgid "headline"
 msgstr ""
 
-#: crates/ff-core/src/sim/real_weather_alerts.rs crates/ff-core/src/sim/truck_parking.rs crates/freight-fate/src/online_journal.rs crates/freight-fate/src/states/online_states/profile.rs
+#: crates/ff-core/src/sim/real_weather_alerts.rs crates/ff-core/src/sim/truck_parking.rs crates/freight-fate/src/states/online_states/profile.rs
 msgid "description"
 msgstr ""
 
@@ -20100,34 +20100,6 @@ msgstr ""
 msgid "token"
 msgstr ""
 
-#: crates/freight-fate/src/online_journal.rs
-msgid "online-journal"
-msgstr ""
-
-#: crates/freight-fate/src/online_journal.rs
-msgid "items"
-msgstr ""
-
-#: crates/freight-fate/src/online_journal.rs crates/freight-fate/src/states/driving/snapshot.rs crates/freight-fate/src/states/driving_core/constants.rs crates/freight-fate/src/states/driving_pause_states.rs
-msgid "delivery"
-msgstr ""
-
-#: crates/freight-fate/src/online_journal.rs
-msgid "Delivered without new truck damage"
-msgstr ""
-
-#: crates/freight-fate/src/online_journal.rs
-msgid "payload"
-msgstr ""
-
-#: crates/freight-fate/src/online_journal.rs
-msgid "achievement"
-msgstr ""
-
-#: crates/freight-fate/src/online_journal.rs crates/freight-fate/src/states/city.rs crates/freight-fate/src/states/online_states/profile.rs
-msgid "level"
-msgstr ""
-
 #: crates/freight-fate/src/problem_reports.rs crates/freight-fate/src/states/main_menu.rs crates/freight-fate/src/visuals/screens.rs
 msgid "Freight Fate"
 msgstr ""
@@ -20753,6 +20725,10 @@ msgstr ""
 msgid ""
 "As a new hire, dispatch assigns your load and route, and refusing an "
 "assignment goes on your service record."
+msgstr ""
+
+#: crates/freight-fate/src/states/city.rs crates/freight-fate/src/states/online_states/profile.rs
+msgid "level"
 msgstr ""
 
 #: crates/freight-fate/src/states/city.rs
@@ -25479,6 +25455,10 @@ msgstr ""
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/driving/lifecycle.rs
 msgid "It is {now}."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving/snapshot.rs crates/freight-fate/src/states/driving_core/constants.rs crates/freight-fate/src/states/driving_pause_states.rs
+msgid "delivery"
 msgstr ""
 
 #: crates/freight-fate/src/states/driving/snapshot.rs
