@@ -22063,6 +22063,16 @@
             "kind": "point",
             "source": "OpenStreetMap place=town node 51971628, projected onto the leg's checked-in route geometry, placed ahead of the speed zone it explains",
             "spoken": "Entering Grimshaw"
+          },
+          {
+            "name": "Grimshaw",
+            "category": "highway_marker",
+            "kind": "point",
+            "at_mi": 109.7,
+            "spoken": "Entering Grimshaw, mile zero of the Mackenzie Highway.",
+            "directions": [
+              "forward"
+            ]
           }
         ],
         "hpms_terrain": {
@@ -26330,6 +26340,16 @@
             "lon": -117.63645,
             "spoken": "Crossing the Hay River",
             "source": "derived: name and category read from the OpenStreetMap tags of way 801706022 (Hay River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "name": "Alexandra Falls (High Level to Hay River)",
+            "category": "highway_marker",
+            "kind": "point",
+            "at_mi": 164.3,
+            "spoken": "Passing Alexandra Falls.",
+            "directions": [
+              "forward"
+            ]
           }
         ],
         "hpms_terrain": {
@@ -40928,6 +40948,16 @@
             "kind": "point",
             "source": "OpenStreetMap place=town node 51971628, projected onto the leg's checked-in route geometry",
             "spoken": "Entering Grimshaw"
+          },
+          {
+            "name": "Grimshaw",
+            "category": "highway_marker",
+            "kind": "point",
+            "at_mi": 10.3,
+            "spoken": "Entering Grimshaw, mile zero of the Mackenzie Highway.",
+            "directions": [
+              "forward"
+            ]
           },
           {
             "name": "Berwyn",

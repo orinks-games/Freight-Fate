@@ -1,8 +1,8 @@
 # The north, east half (corridor 5 east) -- 2026-11-22
 
 Copy by the director (`career-2.0-alpha/billboards-copy-corridor-5-east.md` in
-the project files), waiting on Orinks's approval; nothing here bakes until he
-says yes. Manitoba and Quebec allow boards, so a place outside a park gets a
+the project files), approved by Orinks on 2026-11-22 ("I approve all
+billboards."). Manitoba and Quebec allow boards, so a place outside a park gets a
 board 4 to 15 miles before it, at the mile nearest ten miles before the place
 that is outside the park bans and two miles clear of the map's own lines and
 of the boards placed before it. Paint Lake Provincial Park gets a plain line.

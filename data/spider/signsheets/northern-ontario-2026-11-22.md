@@ -1,8 +1,8 @@
 # Northern Ontario (corridor 3) -- 2026-11-22
 
 Copy by the director (`career-2.0-alpha/billboards-copy-corridor-3.md` in the
-project files), waiting on Orinks's approval; nothing here bakes until he
-says yes. Ontario and Manitoba license boards, so a place outside a park gets
+project files), approved by Orinks on 2026-11-22 ("I approve all
+billboards."). Ontario and Manitoba license boards, so a place outside a park gets
 a board 4 to 15 miles before it on each road in, inside the window the places
 file (`corridor-3-places.md`) found clear of the map's own lines and the park
 bans. Inside a park, and on Minnesota's North Shore Scenic Drive, a place gets
