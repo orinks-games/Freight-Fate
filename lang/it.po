@@ -5687,13 +5687,9 @@ msgstr "Id struttura sconosciuto: {facility_id}"
 msgid "terminal"
 msgstr "terminal"
 
-#. placeholders: {start}
-msgid "Unknown city: {start}"
-msgstr "Città sconosciuta: {start}"
-
-#. placeholders: {end}
-msgid "Unknown city: {end}"
-msgstr "Città sconosciuta: {end}"
+#. placeholders: {missing}
+msgid "Unknown city: {missing}"
+msgstr ""
 
 #. placeholders: {city}
 msgid "{city} has no freight facilities"
@@ -9635,6 +9631,12 @@ msgstr ""
 
 msgid "Manitoba"
 msgstr ""
+
+msgid "Ontario"
+msgstr ""
+
+msgid "Quebec"
+msgstr "Quebec"
 
 msgid "Pay advance already taken for this load. Deliver it first."
 msgstr ""
@@ -19207,9 +19209,6 @@ msgstr "Oscar"
 
 msgid "Papa"
 msgstr "Papa"
-
-msgid "Quebec"
-msgstr "Quebec"
 
 msgid "Romeo"
 msgstr "Romeo"
@@ -46336,6 +46335,12 @@ msgstr ""
 "Tieni premuto il left bumper per un secondo livello di pulsanti. "
 "{pad_engine} controlla il motore, {pad_fuel} legge il carburante e "
 "{pad_speed_limit} legge il limite."
+
+#~ msgid "Unknown city: {start}"
+#~ msgstr "Città sconosciuta: {start}"
+
+#~ msgid "Unknown city: {end}"
+#~ msgstr "Città sconosciuta: {end}"
 
 #~ msgid "Cruise resuming."
 #~ msgstr "Cruise control in ripresa."

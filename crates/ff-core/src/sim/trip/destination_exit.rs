@@ -53,16 +53,30 @@ pub fn scan_destination_exit(
         }
         let forward = route.cities.get(i).map(String::as_str) == Some(leg.a.as_str());
         let target = if forward { leg.miles } else { 0.0 };
+        let along = |at_mi: f64| if forward { at_mi } else { leg.miles - at_mi };
+        // On a leg that crosses into another country, an exit before the
+        // last line is still in the country being left: Detroit's exit 47B
+        // sits nearer the Windsor end than any numbered exit in Windsor, and
+        // taking it would end the trip short of the bridge and the customs
+        // booth. Only exits past the line can be the destination exit.
+        let country = |key: &str| world.cities.get(key).map(|c| c.country.as_str());
+        let border_floor = if country(&leg.a) != country(&leg.b) {
+            leg.state_crossings()
+                .iter()
+                .map(|crossing| along(crossing.at_mi))
+                .fold(0.0, f64::max)
+        } else {
+            0.0
+        };
         for ix in leg.interchanges() {
             let exit_label = ix.exit_label();
             if exit_label.is_empty() {
                 continue;
             }
-            let offset = if forward {
-                ix.at_mi
-            } else {
-                leg.miles - ix.at_mi
-            };
+            let offset = along(ix.at_mi);
+            if offset < border_floor {
+                continue;
+            }
             let route_mile = trip.leg_starts[i] + offset;
             if route_mile < scan_floor {
                 continue;

@@ -45,7 +45,10 @@
 - **Live weather no longer carries a US reading into Canada.** North of the border the sky is simulated, and weather alerts stay quiet.
 - **The map now reaches Alaska and northern Canada along the Alaska Highway,** from Blaine and Bellingham through Prince George, Dawson Creek and Whitehorse to Tok and Fairbanks.
 - **The map now reaches Alberta, Saskatchewan and Manitoba,** on the Trans-Canada and Yellowhead highways from Vancouver to Winnipeg, with six more border crossings.
-- **Diesel in Alberta, Saskatchewan and Manitoba now costs what it does there.**
+- **Diesel in Alberta, Saskatchewan, Manitoba, Ontario and Quebec now costs what it does there.**
+- **The map now reaches Ontario and Quebec,** from Windsor and Sarnia through Toronto, Ottawa and Montreal to Quebec City, with seven border crossings.
+- **The Gordie Howe, Blue Water, Lewiston-Queenston and Thousand Islands bridges charge their published truck tolls.**
+- **A route between two US cities stays in the United States when a US road exists.** Alaska routes still run through Canada.
 - **Alaska roads now reach the Kenai Peninsula, Valdez and Deadhorse.** Seward, Valdez and Kenai offer only their real freight sites, and Deadhorse sells diesel.
 - **Hours of service now follow Alaska and Canadian rules where you drive.** You hear the new limits as you cross into each place.
 - **Billboards in Canada follow each province's sign law.** The everyday roadside signs no longer stand in the Yukon or in parks along the Alaska Highway.

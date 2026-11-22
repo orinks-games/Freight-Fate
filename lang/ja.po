@@ -4954,13 +4954,9 @@ msgstr "不明な施設ID：{facility_id}"
 msgid "terminal"
 msgstr "ターミナル"
 
-#. placeholders: {start}
-msgid "Unknown city: {start}"
-msgstr "不明な都市：{start}"
-
-#. placeholders: {end}
-msgid "Unknown city: {end}"
-msgstr "不明な都市：{end}"
+#. placeholders: {missing}
+msgid "Unknown city: {missing}"
+msgstr ""
 
 #. placeholders: {city}
 msgid "{city} has no freight facilities"
@@ -8548,6 +8544,12 @@ msgstr ""
 
 msgid "Manitoba"
 msgstr ""
+
+msgid "Ontario"
+msgstr ""
+
+msgid "Quebec"
+msgstr "ケベック"
 
 msgid "Pay advance already taken for this load. Deliver it first."
 msgstr "この積荷の前払いはすでに受け取っています。先に届けてください。"
@@ -17550,9 +17552,6 @@ msgstr "オスカー"
 
 msgid "Papa"
 msgstr "パパ"
-
-msgid "Quebec"
-msgstr "ケベック"
 
 msgid "Romeo"
 msgstr "ロメオ"
@@ -42010,6 +42009,12 @@ msgid ""
 msgstr ""
 "左バンパーを押したままにすると、ボタンの2段目を使えます。{pad_engine}でエンジンを操作し、{pad_fuel}で燃料を、{pad_speed"
 "_limit}で制限速度を読み上げます。"
+
+#~ msgid "Unknown city: {start}"
+#~ msgstr "不明な都市：{start}"
+
+#~ msgid "Unknown city: {end}"
+#~ msgstr "不明な都市：{end}"
 
 #~ msgid "Cruise resuming."
 #~ msgstr "クルーズ再開。"
