@@ -6345,6 +6345,11 @@ a carrier slice (owner, 2026-10-26).
       approved board was dropped (heard on Belleville to Kingston, and
       the Ottawa boards lost at 20x). A placed sign still spends the
       budget once read.
+- [x] A sheet line that names its town takes the town's own line
+      (2026-11-22, Found along the way): the bake added Bethune Memorial
+      House and Wembley's museum beside the village records, and the
+      village line won the spacing, so neither was heard. The words now go
+      into the village record, which keeps explaining the town's limit.
 - [ ] (Found along the way) Brock's Monument is still skipped: on
       Niagara Falls to Buffalo it sits within two miles of "Entering
       Queenston" and "Passing Lewiston". No park bans are derived for

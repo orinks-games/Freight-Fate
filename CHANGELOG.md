@@ -105,6 +105,7 @@
 
 ### Fixed
 
+- **Town lines that name a landmark now play.** Passing Gravenhurst names Bethune Memorial House, and Wembley names its dinosaur museum.
 - **A roadside attraction board is no longer skipped when a joke board came just before it.** Boards like Kingston Penitentiary's now play as you pass.
 - **An empty run now parks and settles when it arrives,** without offering to drop a loaded trailer it never had.
 - **The sleep forecast in Canada now counts Canadian hours:** 13 hours of driving and a 16-hour shift.
