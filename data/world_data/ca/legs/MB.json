@@ -2691,7 +2691,7 @@
           "services": [
             "parking"
           ],
-          "parking": "unknown",
+          "parking": "limited",
           "source": "Position read from OSM way 1132008506 (highway=rest_area, no name), OpenStreetMap planet extract 2026-11-16; named for Churchbridge, the town beside it. ASSUMED: truck room and an overnight stay. No source found that says trucks may stay here; it is placed so the 231 miles between Portage la Prairie and Yorkton have one 10-hour stop (director, 2026-11-22). Year round is assumed. Leg mile projected onto the leg's road.",
           "directions": [
             "both"
@@ -3853,7 +3853,7 @@
           "services": [
             "parking"
           ],
-          "parking": "unknown",
+          "parking": "limited",
           "source": "Read: highway rest area from OSM node 12272039057 (highway=rest_area) (opening_hours=24/7), OpenStreetMap planet extract 2026-11-16. Year round and truck room are assumed, not verified; no overnight stay is claimed. Leg mile projected onto the leg's road.",
           "directions": [
             "both"
