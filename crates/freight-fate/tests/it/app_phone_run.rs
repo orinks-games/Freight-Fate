@@ -224,7 +224,7 @@ fn settings_help_names_gestures_on_a_phone() {
 
     app.push_state(SettingsCategoryState::new("assistance"));
     for (row, wanted) in [
-        ("Latching brake", "Swipe down and hold"),
+        ("Latching brake", "swipe down and hold again"),
         ("Curve callouts", "to list the next few"),
         ("Lane keeping", "flick left or right to change lanes"),
         (
