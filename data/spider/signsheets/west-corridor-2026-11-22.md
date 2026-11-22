@@ -1,8 +1,7 @@
 # The West corridor: British Columbia, Alberta, Saskatchewan and Manitoba -- 2026-11-22
 
-Copy by the director, waiting on Orinks's approval; only then does
-`cargo tools bake-billboards --sheet <this file> --write` put it on the
-legs. Both directions of an attraction read the same line.
+Copy by the director, approved by Orinks on 2026-11-22 and baked with
+`cargo tools bake-billboards --sheet <this file> --write`. Both directions of an attraction read the same line.
 
 Part one, below: the thirteen Highway 1 and 97 signs from the Alaska
 Highway sheet, re-placed on the legs the West corridor split the old

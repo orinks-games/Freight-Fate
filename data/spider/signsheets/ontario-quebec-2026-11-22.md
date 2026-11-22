@@ -1,8 +1,7 @@
 # Ontario and Quebec -- 2026-11-22
 
-Copy by the director, waiting on Orinks's approval (the "Ontario and
-Quebec sheet" section of the approval doc); nothing here bakes until he
-says yes. Facts and sources for every place are in the places file the
+Copy by the director, approved by Orinks on 2026-11-22 (the "Ontario and
+Quebec sheet" section of the approval doc). Facts and sources for every place are in the places file the
 director wrote from (`career-2.0-alpha/ontario-quebec-places.md` in the
 project files), summarised under each place. Ontario and Quebec license
 boards, so a place gets a billboard about ten miles before it on each
