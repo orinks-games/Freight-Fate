@@ -22,6 +22,7 @@ mod data_canada;
 mod data_city_keys;
 mod data_counties;
 mod data_curve_management;
+mod data_domestic_routes;
 mod data_facility_approaches;
 mod data_facility_endpoints;
 mod data_interchanges;

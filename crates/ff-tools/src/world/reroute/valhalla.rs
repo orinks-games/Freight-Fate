@@ -289,6 +289,8 @@ pub fn shield_key(name: &str) -> Option<(&'static str, String)> {
         // ("TCH 1") and the Yellowhead ("YH 16") are their provinces' routes
         // of the same number.
         "TCH" | "YH" => "STATE",
+        // Quebec's autoroutes ("A-20", "Autoroute 20").
+        "A" | "AUTOROUTE" => "STATE",
         "CR" | "COUNTY ROAD" | "COUNTY ROUTE" => "CR",
         p if p.ends_with(" ROUTE") || p.ends_with(" HIGHWAY") || p.ends_with(" ROAD") => "STATE",
         p if p.len() == 2 && p.chars().all(|c| c.is_ascii_alphabetic()) => "STATE",
@@ -310,9 +312,17 @@ pub fn matches_shield(name: &str, highway: &str) -> bool {
         .filter(|part| !part.is_empty())
         .any(|part| match (shield_key(part), shield_key(name)) {
             (Some(a), Some(b)) => a == b,
+            // Ontario and Quebec routes carry a bare number as their ref
+            // ("401", "20"): a provincial route of that number.
+            (Some((class, number)), None) => class == "STATE" && bare_number(name) == Some(number),
             (None, _) => same_name(name, part),
-            _ => false,
         })
+}
+
+/// `"20"` to `Some("20")`; anything with words in it to `None`.
+fn bare_number(name: &str) -> Option<String> {
+    let name = name.trim();
+    (!name.is_empty() && name.chars().all(|c| c.is_ascii_digit())).then(|| name.to_string())
 }
 
 fn same_name(a: &str, b: &str) -> bool {
@@ -379,5 +389,12 @@ mod tests {
         assert!(matches_shield("I-5", "I-5 / US-97"));
         assert!(matches_shield("TCH 1 West", "Hwy 1 / Hwy 97"));
         assert!(matches_shield("YH 16", "Hwy 16"));
+        assert!(matches_shield("Highway 401", "Hwy 401"));
+        assert!(matches_shield("401", "Hwy 401"));
+        assert!(matches_shield("20", "A-20"));
+        assert!(matches_shield("Autoroute 40", "A-40"));
+        assert!(!matches_shield("20", "A-40"));
+        assert!(!matches_shield("94", "I-94"));
+        assert!(!matches_shield("Autoroute Jean-Lesage", "A-20"));
     }
 }

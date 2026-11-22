@@ -8649,6 +8649,968 @@
           "source_note": "CONFIRMED: US Foods lists Manassas location 5O at 11994 Livingston Road, Manassas, VA 20109. Source: https://suppliers.usfood.com/usf_documents/U.S.%20FOODSERVICE%20%28USF%29%20LOCATION%20INFORMATION.pdf (accessed 2026-10-07). Coordinate read from the addressed OpenStreetMap building at development time."
         }
       ]
+    },
+    "windsor_on_ca": {
+      "spoken_city": "Windsor",
+      "state": "ON",
+      "country": "CA",
+      "region": "great_lakes",
+      "locations": [
+        {
+          "name": "Stellantis Windsor Assembly Plant",
+          "type": "automotive_plant",
+          "cargo": [
+            "machinery",
+            "general"
+          ],
+          "lat": 42.296195,
+          "lon": -82.986519,
+          "source_note": "Stellantis minivan assembly plant. Name and position read from OpenStreetMap relation 19441662 (\"Stellantis Chrysler Windsor Assembly Plant;Stellantis Chrysler Windsor Assembly\"), OpenStreetMap planet file of 2026-11-16; the pin is the centroid of its mapped outline. Type and cargo are assigned from the game's facility classes (derived)."
+        },
+        {
+          "name": "CPKC Windsor Yard",
+          "type": "rail",
+          "cargo": [
+            "container",
+            "general"
+          ],
+          "lat": 42.301343,
+          "lon": -83.039042,
+          "source_note": "CPKC rail yard. Name and position read from OpenStreetMap way 554940143 (\"CPKC Windsor Yard\"), OpenStreetMap planet file of 2026-11-16; the pin is the centroid of its mapped outline. Type and cargo are assigned from the game's facility classes (derived)."
+        }
+      ],
+      "lat": 42.3149,
+      "lon": -83.0364
+    },
+    "chatham_on_ca": {
+      "spoken_city": "Chatham",
+      "state": "ON",
+      "country": "CA",
+      "region": "great_lakes",
+      "locations": [
+        {
+          "name": "Greenfield Global Chatham Distillery",
+          "type": "manufacturing_plant",
+          "cargo": [
+            "bulk"
+          ],
+          "lat": 42.384285,
+          "lon": -82.220466,
+          "source_note": "Ethanol distillery. Name and position read from OpenStreetMap way 750615801 (\"Greenfield Global - Chatham Distillery\"), OpenStreetMap planet file of 2026-11-16; the pin is the centroid of its mapped outline. Type and cargo are assigned from the game's facility classes (derived)."
+        },
+        {
+          "name": "Dana Canada Chatham Plant",
+          "type": "manufacturing_plant",
+          "cargo": [
+            "machinery"
+          ],
+          "lat": 42.380335,
+          "lon": -82.213607,
+          "source_note": "Auto parts plant. Name and position read from OpenStreetMap node 11558197627 (\"Dana Canada Corporation\"), OpenStreetMap planet file of 2026-11-16; the pin is the centroid of its mapped outline. Type and cargo are assigned from the game's facility classes (derived)."
+        }
+      ],
+      "lat": 42.4048,
+      "lon": -82.191
+    },
+    "london_on_ca": {
+      "spoken_city": "London",
+      "state": "ON",
+      "country": "CA",
+      "region": "great_lakes",
+      "locations": [
+        {
+          "name": "Amazon London Fulfillment Centre",
+          "type": "distribution",
+          "cargo": [
+            "retail",
+            "general"
+          ],
+          "lat": 42.829401,
+          "lon": -81.256896,
+          "source_note": "Amazon fulfillment centre YXU1. Name and position read from OpenStreetMap way 1212623000 (\"YXU1 - Amazon Fulfillment Distribution Centre\"), OpenStreetMap planet file of 2026-11-16; the pin is the centroid of its mapped outline. Type and cargo are assigned from the game's facility classes (derived)."
+        },
+        {
+          "name": "Maple Leaf Foods London",
+          "type": "food_processor",
+          "cargo": [
+            "food",
+            "refrigerated"
+          ],
+          "lat": 42.92768,
+          "lon": -81.164412,
+          "source_note": "Maple Leaf Foods plant. Name and position read from OpenStreetMap way 129556396 (\"Maple Leaf Foods\"), OpenStreetMap planet file of 2026-11-16; the pin is the centroid of its mapped outline. Type and cargo are assigned from the game's facility classes (derived)."
+        }
+      ],
+      "lat": 42.9849,
+      "lon": -81.2453
+    },
+    "sarnia_on_ca": {
+      "spoken_city": "Sarnia",
+      "state": "ON",
+      "country": "CA",
+      "region": "great_lakes",
+      "locations": [
+        {
+          "name": "Suncor Sarnia Refinery",
+          "type": "chemical_petroleum_terminal",
+          "cargo": [
+            "bulk"
+          ],
+          "lat": 42.932006,
+          "lon": -82.443627,
+          "source_note": "Oil refinery. Name and position read from OpenStreetMap way 614086706 (\"Suncor Sarnia Refinery\"), OpenStreetMap planet file of 2026-11-16; the pin is the centroid of its mapped outline. Type and cargo are assigned from the game's facility classes (derived)."
+        },
+        {
+          "name": "Shell Chemicals Sarnia",
+          "type": "chemical_petroleum_terminal",
+          "cargo": [
+            "bulk"
+          ],
+          "lat": 42.908331,
+          "lon": -82.434329,
+          "source_note": "Chemical plant. Name and position read from OpenStreetMap way 161826997 (\"Shell Chemicals Sarnia\"), OpenStreetMap planet file of 2026-11-16; the pin is the centroid of its mapped outline. Type and cargo are assigned from the game's facility classes (derived)."
+        }
+      ],
+      "lat": 42.9745,
+      "lon": -82.4066
+    },
+    "woodstock_on_ca": {
+      "spoken_city": "Woodstock",
+      "state": "ON",
+      "country": "CA",
+      "region": "great_lakes",
+      "locations": [
+        {
+          "name": "Toyota Woodstock Plant",
+          "type": "automotive_plant",
+          "cargo": [
+            "machinery",
+            "general"
+          ],
+          "lat": 43.142875,
+          "lon": -80.69691,
+          "source_note": "Toyota assembly plant. Name and position read from OpenStreetMap way 183248743 (\"Toyota Motor Manufacturing Canada - Woodstock Plant\"), OpenStreetMap planet file of 2026-11-16; the pin is the centroid of its mapped outline. Type and cargo are assigned from the game's facility classes (derived)."
+        },
+        {
+          "name": "ArcelorMittal Tubular Products Woodstock",
+          "type": "steel_industrial",
+          "cargo": [
+            "bulk",
+            "machinery"
+          ],
+          "lat": 43.133744,
+          "lon": -80.771329,
+          "source_note": "Steel tube mill. Name and position read from OpenStreetMap way 803133309 (\"ArcelorMittal Tubular Products Woodstock\"), OpenStreetMap planet file of 2026-11-16; the pin is the centroid of its mapped outline. Type and cargo are assigned from the game's facility classes (derived)."
+        }
+      ],
+      "lat": 43.1315,
+      "lon": -80.7467
+    },
+    "kitchener_on_ca": {
+      "spoken_city": "Kitchener",
+      "state": "ON",
+      "country": "CA",
+      "region": "great_lakes",
+      "locations": [
+        {
+          "name": "Toyota Cambridge Plant",
+          "type": "automotive_plant",
+          "cargo": [
+            "machinery",
+            "general"
+          ],
+          "lat": 43.420078,
+          "lon": -80.370768,
+          "source_note": "Toyota assembly plant in Cambridge. Name and position read from OpenStreetMap way 29290397 (\"Toyota Cambridge Plant\"), OpenStreetMap planet file of 2026-11-16; the pin is the centroid of its mapped outline. Type and cargo are assigned from the game's facility classes (derived)."
+        },
+        {
+          "name": "Loblaw Cambridge Distribution Centre",
+          "type": "grocery_retail_dc",
+          "cargo": [
+            "food",
+            "retail",
+            "refrigerated"
+          ],
+          "lat": 43.429033,
+          "lon": -80.377223,
+          "source_note": "Loblaw grocery distribution centre in Cambridge. Name and position read from OpenStreetMap way 144801797 (\"Loblaws Distribution\"), OpenStreetMap planet file of 2026-11-16; the pin is the centroid of its mapped outline. Type and cargo are assigned from the game's facility classes (derived)."
+        }
+      ],
+      "lat": 43.4516,
+      "lon": -80.4925
+    },
+    "hamilton_on_ca": {
+      "spoken_city": "Hamilton",
+      "state": "ON",
+      "country": "CA",
+      "region": "great_lakes",
+      "locations": [
+        {
+          "name": "ArcelorMittal Dofasco",
+          "type": "steel_industrial",
+          "cargo": [
+            "bulk",
+            "machinery"
+          ],
+          "lat": 43.270453,
+          "lon": -79.799793,
+          "source_note": "Integrated steel mill. Name and position read from OpenStreetMap way 24397288 (\"ArcelorMittal Dofasco\"), OpenStreetMap planet file of 2026-11-16; the pin is the centroid of its mapped outline. Type and cargo are assigned from the game's facility classes (derived)."
+        },
+        {
+          "name": "Stelco Hamilton Works",
+          "type": "steel_industrial",
+          "cargo": [
+            "bulk"
+          ],
+          "lat": 43.276545,
+          "lon": -79.81549,
+          "source_note": "Steel works. Name and position read from OpenStreetMap way 320882733 (\"Stelco\"), OpenStreetMap planet file of 2026-11-16; the pin is the centroid of its mapped outline. Type and cargo are assigned from the game's facility classes (derived)."
+        },
+        {
+          "name": "National Steel Car",
+          "type": "manufacturing_plant",
+          "cargo": [
+            "machinery"
+          ],
+          "lat": 43.261138,
+          "lon": -79.798927,
+          "source_note": "Railcar plant. Name and position read from OpenStreetMap way 24397811 (\"National Steel Car\"), OpenStreetMap planet file of 2026-11-16; the pin is the centroid of its mapped outline. Type and cargo are assigned from the game's facility classes (derived)."
+        }
+      ],
+      "lat": 43.2557,
+      "lon": -79.8711
+    },
+    "st_catharines_on_ca": {
+      "spoken_city": "St. Catharines",
+      "state": "ON",
+      "country": "CA",
+      "region": "great_lakes",
+      "locations": [
+        {
+          "name": "GM St. Catharines Propulsion Plant",
+          "type": "automotive_plant",
+          "cargo": [
+            "machinery"
+          ],
+          "lat": 43.14121,
+          "lon": -79.186554,
+          "source_note": "GM engine and transmission plant. Name and position read from OpenStreetMap way 491898790 (\"General Motors St. Catharines Powertrain\"), OpenStreetMap planet file of 2026-11-16; the pin is the centroid of its mapped outline. Type and cargo are assigned from the game's facility classes (derived)."
+        },
+        {
+          "name": "Chemtrade Chemicals Thorold",
+          "type": "chemical_petroleum_terminal",
+          "cargo": [
+            "bulk"
+          ],
+          "lat": 43.110309,
+          "lon": -79.211452,
+          "source_note": "Chemical plant. Name and position read from OpenStreetMap way 162904559 (\"Chemtrade Chemicals Canada Ltd.\"), OpenStreetMap planet file of 2026-11-16; the pin is the centroid of its mapped outline. Type and cargo are assigned from the game's facility classes (derived)."
+        }
+      ],
+      "lat": 43.1594,
+      "lon": -79.2469
+    },
+    "niagara_falls_on_ca": {
+      "spoken_city": "Niagara Falls",
+      "state": "ON",
+      "country": "CA",
+      "region": "great_lakes",
+      "locations": [
+        {
+          "name": "Post Foods Niagara Falls",
+          "type": "food_processor",
+          "cargo": [
+            "food"
+          ],
+          "lat": 43.093899,
+          "lon": -79.080559,
+          "source_note": "Cereal plant. Name and position read from OpenStreetMap way 387917102 (\"Post Foods Canada\"), OpenStreetMap planet file of 2026-11-16; the pin is the centroid of its mapped outline. Type and cargo are assigned from the game's facility classes (derived)."
+        },
+        {
+          "name": "Washington Mills Niagara Falls",
+          "type": "manufacturing_plant",
+          "cargo": [
+            "bulk"
+          ],
+          "lat": 43.064803,
+          "lon": -79.080724,
+          "source_note": "Abrasives plant. Name and position read from OpenStreetMap way 232242133 (\"Washington Mills Electro Minerals Corporation\"), OpenStreetMap planet file of 2026-11-16; the pin is the centroid of its mapped outline. Type and cargo are assigned from the game's facility classes (derived)."
+        }
+      ],
+      "lat": 43.0896,
+      "lon": -79.0849
+    },
+    "mississauga_on_ca": {
+      "spoken_city": "Mississauga",
+      "state": "ON",
+      "country": "CA",
+      "region": "great_lakes",
+      "locations": [
+        {
+          "name": "Walmart Mississauga Distribution Centre",
+          "type": "retail_distribution",
+          "cargo": [
+            "retail",
+            "general"
+          ],
+          "lat": 43.635392,
+          "lon": -79.703995,
+          "source_note": "Walmart Canada distribution centre. Name and position read from OpenStreetMap way 33729961 (\"Walmart Logistics\"), OpenStreetMap planet file of 2026-11-16; the pin is the centroid of its mapped outline. Type and cargo are assigned from the game's facility classes (derived)."
+        },
+        {
+          "name": "Petro-Canada Lubricants Mississauga",
+          "type": "chemical_petroleum_terminal",
+          "cargo": [
+            "bulk"
+          ],
+          "lat": 43.502818,
+          "lon": -79.609373,
+          "source_note": "Lubricants refinery. Name and position read from OpenStreetMap way 270605414 (\"Petro-Canada Lubricants\"), OpenStreetMap planet file of 2026-11-16; the pin is the centroid of its mapped outline. Type and cargo are assigned from the game's facility classes (derived)."
+        }
+      ],
+      "lat": 43.589,
+      "lon": -79.6441
+    },
+    "brampton_on_ca": {
+      "spoken_city": "Brampton",
+      "state": "ON",
+      "country": "CA",
+      "region": "great_lakes",
+      "locations": [
+        {
+          "name": "CN Brampton Intermodal Terminal",
+          "type": "intermodal",
+          "cargo": [
+            "container",
+            "general"
+          ],
+          "lat": 43.740941,
+          "lon": -79.684478,
+          "source_note": "CN intermodal terminal. Name and position read from OpenStreetMap way 48949532 (\"CN Brampton Intermodal Terminal\"), OpenStreetMap planet file of 2026-11-16; the pin is the centroid of its mapped outline. Type and cargo are assigned from the game's facility classes (derived)."
+        },
+        {
+          "name": "Stellantis Brampton Assembly Plant",
+          "type": "automotive_plant",
+          "cargo": [
+            "machinery",
+            "general"
+          ],
+          "lat": 43.752586,
+          "lon": -79.714425,
+          "source_note": "Stellantis assembly plant. Name and position read from OpenStreetMap way 62252195 (\"Chrysler Brampton Assembly Plant\"), OpenStreetMap planet file of 2026-11-16; the pin is the centroid of its mapped outline. Type and cargo are assigned from the game's facility classes (derived)."
+        }
+      ],
+      "lat": 43.7315,
+      "lon": -79.7624
+    },
+    "toronto_on_ca": {
+      "spoken_city": "Toronto",
+      "state": "ON",
+      "country": "CA",
+      "region": "great_lakes",
+      "locations": [
+        {
+          "name": "Ontario Food Terminal",
+          "type": "food_terminal",
+          "cargo": [
+            "food",
+            "refrigerated"
+          ],
+          "lat": 43.628466,
+          "lon": -79.48521,
+          "source_note": "Wholesale produce terminal at 165 The Queensway. Name and position read from OpenStreetMap way 23613433 (\"Ontario Food Terminal\"), OpenStreetMap planet file of 2026-11-16; the pin is the centroid of its mapped outline. Type and cargo are assigned from the game's facility classes (derived). The city pin is the terminal, so a load to Toronto ends at a truck-reachable dock rather than the downtown square."
+        }
+      ],
+      "lat": 43.629,
+      "lon": -79.4898
+    },
+    "oshawa_on_ca": {
+      "spoken_city": "Oshawa",
+      "state": "ON",
+      "country": "CA",
+      "region": "great_lakes",
+      "locations": [
+        {
+          "name": "GM Oshawa Assembly",
+          "type": "automotive_plant",
+          "cargo": [
+            "machinery",
+            "general"
+          ],
+          "lat": 43.866837,
+          "lon": -78.860173,
+          "source_note": "General Motors assembly plant. Name and position read from OpenStreetMap way 40699185 (\"Oshawa Assembly\"), OpenStreetMap planet file of 2026-11-16; the pin is the centroid of its mapped outline. Type and cargo are assigned from the game's facility classes (derived)."
+        }
+      ],
+      "lat": 43.8971,
+      "lon": -78.8658
+    },
+    "belleville_on_ca": {
+      "spoken_city": "Belleville",
+      "state": "ON",
+      "country": "CA",
+      "region": "great_lakes",
+      "locations": [
+        {
+          "name": "Procter and Gamble Belleville Plant",
+          "type": "manufacturing_plant",
+          "cargo": [
+            "retail",
+            "general"
+          ],
+          "lat": 44.199293,
+          "lon": -77.362751,
+          "source_note": "Procter & Gamble plant (OSM spells it Proctor). Name and position read from OpenStreetMap way 72944484 (\"Proctor & Gamble Inc.\"), OpenStreetMap planet file of 2026-11-16; the pin is the centroid of its mapped outline. Type and cargo are assigned from the game's facility classes (derived)."
+        }
+      ],
+      "lat": 44.1628,
+      "lon": -77.3832
+    },
+    "kingston_on_ca": {
+      "spoken_city": "Kingston",
+      "state": "ON",
+      "country": "CA",
+      "region": "great_lakes",
+      "locations": [
+        {
+          "name": "Frulact Kingston",
+          "type": "food_processor",
+          "cargo": [
+            "food",
+            "refrigerated"
+          ],
+          "lat": 44.273695,
+          "lon": -76.560508,
+          "source_note": "Fruit preparations plant. Name and position read from OpenStreetMap way 533557506 (\"Frulact Canad\u00e1\"), OpenStreetMap planet file of 2026-11-16; the pin is the centroid of its mapped outline. Type and cargo are assigned from the game's facility classes (derived)."
+        }
+      ],
+      "lat": 44.2312,
+      "lon": -76.486
+    },
+    "brockville_on_ca": {
+      "spoken_city": "Brockville",
+      "state": "ON",
+      "country": "CA",
+      "region": "northeast",
+      "locations": [
+        {
+          "name": "Canadian Milk Manufacturing Brockville",
+          "type": "food_processor",
+          "cargo": [
+            "food",
+            "refrigerated"
+          ],
+          "lat": 44.59933,
+          "lon": -75.677659,
+          "source_note": "Dairy plant. Name and position read from OpenStreetMap way 206940362 (\"Canadian Milk Manufacturing\"), OpenStreetMap planet file of 2026-11-16; the pin is the centroid of its mapped outline. Type and cargo are assigned from the game's facility classes (derived)."
+        },
+        {
+          "name": "Invista Maitland",
+          "type": "chemical_petroleum_terminal",
+          "cargo": [
+            "bulk"
+          ],
+          "lat": 44.662211,
+          "lon": -75.582914,
+          "source_note": "Chemical plant at Maitland. Name and position read from OpenStreetMap way 1218112008 (\"Invista Maitland\"), OpenStreetMap planet file of 2026-11-16; the pin is the centroid of its mapped outline. Type and cargo are assigned from the game's facility classes (derived)."
+        }
+      ],
+      "lat": 44.5895,
+      "lon": -75.6843
+    },
+    "cornwall_on_ca": {
+      "spoken_city": "Cornwall",
+      "state": "ON",
+      "country": "CA",
+      "region": "northeast",
+      "locations": [
+        {
+          "name": "Thyssenkrupp Aerospace Cornwall",
+          "type": "distribution",
+          "cargo": [
+            "machinery",
+            "general"
+          ],
+          "lat": 45.03276,
+          "lon": -74.862345,
+          "source_note": "Metals distribution centre. Name and position read from OpenStreetMap way 320386104 (\"Thyssenkrupp Aerospace Canada\"), OpenStreetMap planet file of 2026-11-16; the pin is the centroid of its mapped outline. Type and cargo are assigned from the game's facility classes (derived)."
+        }
+      ],
+      "lat": 45.0213,
+      "lon": -74.7303
+    },
+    "ottawa_on_ca": {
+      "spoken_city": "Ottawa",
+      "state": "ON",
+      "country": "CA",
+      "region": "northeast",
+      "locations": [
+        {
+          "name": "CN Walkley Yard",
+          "type": "rail",
+          "cargo": [
+            "general",
+            "bulk"
+          ],
+          "lat": 45.368739,
+          "lon": -75.643922,
+          "source_note": "CN rail yard. Name and position read from OpenStreetMap way 618898772 (\"CN Walkley Yard\"), OpenStreetMap planet file of 2026-11-16; the pin is the centroid of its mapped outline. Type and cargo are assigned from the game's facility classes (derived)."
+        }
+      ],
+      "lat": 45.4215,
+      "lon": -75.6972
+    },
+    "peterborough_on_ca": {
+      "spoken_city": "Peterborough",
+      "state": "ON",
+      "country": "CA",
+      "region": "great_lakes",
+      "locations": [
+        {
+          "name": "Quaker Oats Peterborough",
+          "type": "food_processor",
+          "cargo": [
+            "food"
+          ],
+          "lat": 44.308095,
+          "lon": -78.31477,
+          "source_note": "PepsiCo Quaker plant. Name and position read from OpenStreetMap way 764450189 (\"Quaker Oats\"), OpenStreetMap planet file of 2026-11-16; the pin is the centroid of its mapped outline. Type and cargo are assigned from the game's facility classes (derived)."
+        }
+      ],
+      "lat": 44.3091,
+      "lon": -78.3197
+    },
+    "barrie_on_ca": {
+      "spoken_city": "Barrie",
+      "state": "ON",
+      "country": "CA",
+      "region": "great_lakes",
+      "locations": [
+        {
+          "name": "Unilock Barrie",
+          "type": "construction_materials_yard",
+          "cargo": [
+            "construction",
+            "bulk"
+          ],
+          "lat": 44.312725,
+          "lon": -79.725721,
+          "source_note": "Paving stone plant. Name and position read from OpenStreetMap way 770902665 (\"Unilock\"), OpenStreetMap planet file of 2026-11-16; the pin is the centroid of its mapped outline. Type and cargo are assigned from the game's facility classes (derived)."
+        },
+        {
+          "name": "Matsu Manufacturing Barrie",
+          "type": "manufacturing_plant",
+          "cargo": [
+            "machinery"
+          ],
+          "lat": 44.334283,
+          "lon": -79.697726,
+          "source_note": "Auto parts stamping plant. Name and position read from OpenStreetMap way 116509491 (\"Matsu Manufacturing (Barrie) Inc.\"), OpenStreetMap planet file of 2026-11-16; the pin is the centroid of its mapped outline. Type and cargo are assigned from the game's facility classes (derived)."
+        }
+      ],
+      "lat": 44.3894,
+      "lon": -79.6903
+    },
+    "parry_sound_on_ca": {
+      "spoken_city": "Parry Sound",
+      "state": "ON",
+      "country": "CA",
+      "region": "great_lakes",
+      "locations": [],
+      "lat": 45.3473,
+      "lon": -80.035
+    },
+    "sudbury_on_ca": {
+      "spoken_city": "Sudbury",
+      "state": "ON",
+      "country": "CA",
+      "region": "upper_midwest",
+      "locations": [
+        {
+          "name": "Vale Copper Cliff",
+          "type": "mine_quarry",
+          "cargo": [
+            "bulk"
+          ],
+          "lat": 46.457768,
+          "lon": -81.068036,
+          "source_note": "Vale smelter and refinery complex at Copper Cliff. Name and position read from OpenStreetMap relation 2844630 (\"Vale\"), OpenStreetMap planet file of 2026-11-16; the pin is the centroid of its mapped outline. Type and cargo are assigned from the game's facility classes (derived)."
+        }
+      ],
+      "lat": 46.4917,
+      "lon": -80.993
+    },
+    "north_bay_on_ca": {
+      "spoken_city": "North Bay",
+      "state": "ON",
+      "country": "CA",
+      "region": "upper_midwest",
+      "locations": [
+        {
+          "name": "Canelec Manufacturing North Bay",
+          "type": "manufacturing_plant",
+          "cargo": [
+            "machinery"
+          ],
+          "lat": 46.266922,
+          "lon": -79.404558,
+          "source_note": "Electrical manufacturing plant. Name and position read from OpenStreetMap way 807017434 (\"Canelec Manufacturing\"), OpenStreetMap planet file of 2026-11-16; the pin is the centroid of its mapped outline. Type and cargo are assigned from the game's facility classes (derived)."
+        }
+      ],
+      "lat": 46.3091,
+      "lon": -79.4608
+    },
+    "pembroke_on_ca": {
+      "spoken_city": "Pembroke",
+      "state": "ON",
+      "country": "CA",
+      "region": "great_lakes",
+      "locations": [
+        {
+          "name": "Samuel, Son and Co. Pembroke",
+          "type": "steel_industrial",
+          "cargo": [
+            "bulk",
+            "machinery"
+          ],
+          "lat": 45.811437,
+          "lon": -77.121583,
+          "source_note": "Metals processor. Name and position read from OpenStreetMap way 799532096 (\"Samuel, Son & Co.\"), OpenStreetMap planet file of 2026-11-16; the pin is the centroid of its mapped outline. Type and cargo are assigned from the game's facility classes (derived)."
+        }
+      ],
+      "lat": 45.8263,
+      "lon": -77.1103
+    },
+    "montreal_qc_ca": {
+      "spoken_city": "Montreal",
+      "state": "QC",
+      "country": "CA",
+      "region": "northeast",
+      "locations": [
+        {
+          "name": "Port of Montreal Laurier Terminal",
+          "type": "port",
+          "cargo": [
+            "container",
+            "bulk",
+            "general"
+          ],
+          "lat": 45.535041,
+          "lon": -73.537708,
+          "source_note": "Port de Montr\u00e9al terminal run by Logistec. Name and position read from OpenStreetMap way 842371037 (\"Terminal Laurier - Logistec\"), OpenStreetMap planet file of 2026-11-16; the pin is the centroid of its mapped outline. Type and cargo are assigned from the game's facility classes (derived)."
+        },
+        {
+          "name": "CPKC Saint-Luc Yard",
+          "type": "rail",
+          "cargo": [
+            "container",
+            "general"
+          ],
+          "lat": 45.471312,
+          "lon": -73.674595,
+          "source_note": "CPKC rail yard. Name and position read from OpenStreetMap relation 13260447 (\"CPKC Cour de triage Saint-Luc\"), OpenStreetMap planet file of 2026-11-16; the pin is the centroid of its mapped outline. Type and cargo are assigned from the game's facility classes (derived)."
+        }
+      ],
+      "lat": 45.5019,
+      "lon": -73.5674
+    },
+    "gatineau_qc_ca": {
+      "spoken_city": "Gatineau",
+      "state": "QC",
+      "country": "CA",
+      "region": "northeast",
+      "locations": [
+        {
+          "name": "Resolute Gatineau Mill",
+          "type": "lumber_paper",
+          "cargo": [
+            "lumber_paper",
+            "bulk"
+          ],
+          "lat": 45.480641,
+          "lon": -75.655995,
+          "source_note": "Resolute Forest Products paper mill. Name and position read from OpenStreetMap way 40833325 (\"Produits Forestiers R\u00e9solu\"), OpenStreetMap planet file of 2026-11-16; the pin is the centroid of its mapped outline. Type and cargo are assigned from the game's facility classes (derived)."
+        }
+      ],
+      "lat": 45.4765,
+      "lon": -75.7013
+    },
+    "drummondville_qc_ca": {
+      "spoken_city": "Drummondville",
+      "state": "QC",
+      "country": "CA",
+      "region": "northeast",
+      "locations": [
+        {
+          "name": "Soprema Drummondville",
+          "type": "manufacturing_plant",
+          "cargo": [
+            "construction",
+            "general"
+          ],
+          "lat": 45.880592,
+          "lon": -72.518194,
+          "source_note": "Roofing and insulation plant. Name and position read from OpenStreetMap way 834294581 (\"Soprema\"), OpenStreetMap planet file of 2026-11-16; the pin is the centroid of its mapped outline. Type and cargo are assigned from the game's facility classes (derived)."
+        },
+        {
+          "name": "Essity Drummondville",
+          "type": "manufacturing_plant",
+          "cargo": [
+            "retail",
+            "general"
+          ],
+          "lat": 45.881989,
+          "lon": -72.51526,
+          "source_note": "Hygiene products plant. Name and position read from OpenStreetMap way 834301835 (\"SCA Produits d'hygi\u00e8ne\"), OpenStreetMap planet file of 2026-11-16; the pin is the centroid of its mapped outline. Type and cargo are assigned from the game's facility classes (derived)."
+        }
+      ],
+      "lat": 45.8838,
+      "lon": -72.4843
+    },
+    "trois_rivieres_qc_ca": {
+      "spoken_city": "Trois-Rivi\u00e8res",
+      "state": "QC",
+      "country": "CA",
+      "region": "northeast",
+      "locations": [
+        {
+          "name": "Kruger Wayagamack Mill",
+          "type": "lumber_paper",
+          "cargo": [
+            "lumber_paper",
+            "bulk"
+          ],
+          "lat": 46.357548,
+          "lon": -72.518529,
+          "source_note": "Kruger paper mill. Name and position read from OpenStreetMap way 100244812 (\"Kruger Wayagamack\"), OpenStreetMap planet file of 2026-11-16; the pin is the centroid of its mapped outline. Type and cargo are assigned from the game's facility classes (derived)."
+        }
+      ],
+      "lat": 46.3432,
+      "lon": -72.5477
+    },
+    "quebec_city_qc_ca": {
+      "spoken_city": "Quebec City",
+      "state": "QC",
+      "country": "CA",
+      "region": "northeast",
+      "locations": [
+        {
+          "name": "Port of Quebec Anse au Foulon",
+          "type": "port",
+          "cargo": [
+            "container",
+            "bulk",
+            "general"
+          ],
+          "lat": 46.794093,
+          "lon": -71.224793,
+          "source_note": "Port of Qu\u00e9bec terminal. Name and position read from OpenStreetMap way 38947677 (\"Port de Qu\u00e9bec - Secteur Anse au Foulon / Port of Qu\u00e9bec - Anse au Foulon Sector\"), OpenStreetMap planet file of 2026-11-16; the pin is the centroid of its mapped outline. Type and cargo are assigned from the game's facility classes (derived)."
+        }
+      ],
+      "lat": 46.8139,
+      "lon": -71.208
+    },
+    "sherbrooke_qc_ca": {
+      "spoken_city": "Sherbrooke",
+      "state": "QC",
+      "country": "CA",
+      "region": "northeast",
+      "locations": [
+        {
+          "name": "Soucy Techno Sherbrooke",
+          "type": "manufacturing_plant",
+          "cargo": [
+            "machinery"
+          ],
+          "lat": 45.347496,
+          "lon": -71.995371,
+          "source_note": "Rubber tracks plant. Name and position read from OpenStreetMap way 596235447 (\"Soucy Techno\"), OpenStreetMap planet file of 2026-11-16; the pin is the centroid of its mapped outline. Type and cargo are assigned from the game's facility classes (derived)."
+        }
+      ],
+      "lat": 45.4042,
+      "lon": -71.8929
+    },
+    "saint_jean_sur_richelieu_qc_ca": {
+      "spoken_city": "Saint-Jean-sur-Richelieu",
+      "state": "QC",
+      "country": "CA",
+      "region": "northeast",
+      "locations": [
+        {
+          "name": "Rheinmetall Saint-Jean-sur-Richelieu",
+          "type": "manufacturing_plant",
+          "cargo": [
+            "machinery"
+          ],
+          "lat": 45.285704,
+          "lon": -73.267436,
+          "source_note": "Defence equipment plant. Name and position read from OpenStreetMap way 360434873 (\"Rheinmetall\"), OpenStreetMap planet file of 2026-11-16; the pin is the centroid of its mapped outline. Type and cargo are assigned from the game's facility classes (derived)."
+        }
+      ],
+      "lat": 45.3071,
+      "lon": -73.2625
+    },
+    "riviere_du_loup_qc_ca": {
+      "spoken_city": "Rivi\u00e8re-du-Loup",
+      "state": "QC",
+      "country": "CA",
+      "region": "northeast",
+      "locations": [
+        {
+          "name": "White Birch Paper Rivi\u00e8re-du-Loup",
+          "type": "lumber_paper",
+          "cargo": [
+            "lumber_paper",
+            "bulk"
+          ],
+          "lat": 47.820145,
+          "lon": -69.518234,
+          "source_note": "Paper mill. Name and position read from OpenStreetMap way 352917656 (\"Papiers White Birch\"), OpenStreetMap planet file of 2026-11-16; the pin is the centroid of its mapped outline. Type and cargo are assigned from the game's facility classes (derived)."
+        },
+        {
+          "name": "Premier Tech Rivi\u00e8re-du-Loup",
+          "type": "manufacturing_plant",
+          "cargo": [
+            "machinery",
+            "general"
+          ],
+          "lat": 47.807521,
+          "lon": -69.490692,
+          "source_note": "Premier Tech campus. Name and position read from OpenStreetMap way 841291969 (\"Campus Premier Tech\"), OpenStreetMap planet file of 2026-11-16; the pin is the centroid of its mapped outline. Type and cargo are assigned from the game's facility classes (derived)."
+        }
+      ],
+      "lat": 47.8356,
+      "lon": -69.5363
+    },
+    "saguenay_qc_ca": {
+      "spoken_city": "Saguenay",
+      "state": "QC",
+      "country": "CA",
+      "region": "northeast",
+      "locations": [
+        {
+          "name": "Elkem Chicoutimi",
+          "type": "manufacturing_plant",
+          "cargo": [
+            "bulk"
+          ],
+          "lat": 48.413342,
+          "lon": -71.130884,
+          "source_note": "Silicon products plant. Name and position read from OpenStreetMap way 418084510 (\"Elkem Chicoutimi\"), OpenStreetMap planet file of 2026-11-16; the pin is the centroid of its mapped outline. Type and cargo are assigned from the game's facility classes (derived)."
+        },
+        {
+          "name": "Rio Tinto Laterri\u00e8re Smelter",
+          "type": "steel_industrial",
+          "cargo": [
+            "bulk"
+          ],
+          "lat": 48.300514,
+          "lon": -71.132576,
+          "source_note": "Aluminum smelter at Laterri\u00e8re. Name and position read from OpenStreetMap way 389396319 (\"Rio Tinto Alcan - Usine Laterri\u00e8re\"), OpenStreetMap planet file of 2026-11-16; the pin is the centroid of its mapped outline. Type and cargo are assigned from the game's facility classes (derived)."
+        }
+      ],
+      "lat": 48.428,
+      "lon": -71.0686
+    },
+    "mont_laurier_qc_ca": {
+      "spoken_city": "Mont-Laurier",
+      "state": "QC",
+      "country": "CA",
+      "region": "northeast",
+      "locations": [
+        {
+          "name": "Uniboard Mont-Laurier",
+          "type": "lumber_paper",
+          "cargo": [
+            "lumber_paper"
+          ],
+          "lat": 46.558442,
+          "lon": -75.479539,
+          "source_note": "Panelboard plant. Name and position read from OpenStreetMap way 763177680 (\"Uniboard\"), OpenStreetMap planet file of 2026-11-16; the pin is the centroid of its mapped outline. Type and cargo are assigned from the game's facility classes (derived)."
+        }
+      ],
+      "lat": 46.552,
+      "lon": -75.4987
+    },
+    "val_d_or_qc_ca": {
+      "spoken_city": "Val-d'Or",
+      "state": "QC",
+      "country": "CA",
+      "region": "upper_midwest",
+      "locations": [
+        {
+          "name": "Eldorado Lamaque Mine",
+          "type": "mine_quarry",
+          "cargo": [
+            "bulk"
+          ],
+          "lat": 48.079687,
+          "lon": -77.739382,
+          "source_note": "Gold mine. Name and position read from OpenStreetMap way 883384359 (\"Eldorado Gold Lamaque - Mine Lamaque\"), OpenStreetMap planet file of 2026-11-16; the pin is the centroid of its mapped outline. Type and cargo are assigned from the game's facility classes (derived)."
+        }
+      ],
+      "lat": 48.0975,
+      "lon": -77.7828
+    },
+    "rouyn_noranda_qc_ca": {
+      "spoken_city": "Rouyn-Noranda",
+      "state": "QC",
+      "country": "CA",
+      "region": "upper_midwest",
+      "locations": [
+        {
+          "name": "Horne Smelter",
+          "type": "steel_industrial",
+          "cargo": [
+            "bulk"
+          ],
+          "lat": 48.25182,
+          "lon": -79.010742,
+          "source_note": "Glencore copper smelter. Name and position read from OpenStreetMap way 958915255 (\"Fonderie Horne\"), OpenStreetMap planet file of 2026-11-16; the pin is the centroid of its mapped outline. Type and cargo are assigned from the game's facility classes (derived)."
+        }
+      ],
+      "lat": 48.2366,
+      "lon": -79.023
+    },
+    "plattsburgh_ny_us": {
+      "spoken_city": "Plattsburgh",
+      "state": "NY",
+      "country": "US",
+      "region": "northeast",
+      "locations": [
+        {
+          "name": "Alstom Plattsburgh Plant",
+          "type": "manufacturing_plant",
+          "cargo": [
+            "machinery"
+          ],
+          "lat": 44.677403,
+          "lon": -73.469701,
+          "source_note": "Railcar plant; OSM still names it Bombardier, which sold it to Alstom in 2021. Name and position read from OpenStreetMap way 594685326 (\"Bombardier\"), OpenStreetMap planet file of 2026-11-16; the pin is the centroid of its mapped outline. Type and cargo are assigned from the game's facility classes (derived)."
+        }
+      ],
+      "lat": 44.6995,
+      "lon": -73.4529
+    },
+    "st_johnsbury_vt_us": {
+      "spoken_city": "St. Johnsbury",
+      "state": "VT",
+      "country": "US",
+      "region": "northeast",
+      "locations": [
+        {
+          "name": "Fairbanks Scales St. Johnsbury",
+          "type": "manufacturing_plant",
+          "cargo": [
+            "machinery"
+          ],
+          "lat": 44.427578,
+          "lon": -71.976442,
+          "source_note": "Scale works. Name and position read from OpenStreetMap way 484040013 (\"Fairbanks Scales\"), OpenStreetMap planet file of 2026-11-16; the pin is the centroid of its mapped outline. Type and cargo are assigned from the game's facility classes (derived)."
+        }
+      ],
+      "lat": 44.4192,
+      "lon": -72.0151
     }
   }
 }
