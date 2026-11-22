@@ -15,6 +15,7 @@
 //! cargo tools hpms-traffic     [--only a:b;c:d] [--write]
 //! cargo tools hpms-terrain     [--only a:b;c:d] [--write]
 //! cargo tools hpms-pavement    [--only a:b;c:d] [--write]
+//! cargo tools nbi-decks        [--only a:b;c:d] [--write]
 //! ```
 //!
 //! What changed from the Python, for all of them: every leg reads its road
@@ -31,6 +32,7 @@ pub mod features;
 pub mod hpms;
 pub mod landmarks;
 pub mod lanes;
+pub mod nbi;
 pub mod restrictions;
 pub mod villages;
 
