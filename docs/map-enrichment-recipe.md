@@ -563,7 +563,10 @@ list, never straight from OpenStreetMap. Two steps:
    derived and what was assumed. Then `cargo tools osm-stops --stops FILE
    --only "$L" --write` puts each stop on every leg whose road passes
    within its `reach_mi` (0.5 mile by default) and replaces that leg's
-   stops of the same name. A stop on one side of a divided road carries
+   stops of the same name. A stop of a listed name on a leg the listed
+   stop is not within reach of is another stop and is kept, so a run
+   without `--only` touches only the legs the list covers; `--only` still
+   keeps a run to the corridor at hand. A stop on one side of a divided road carries
    `heading` ("Northbound") and lands only on the legs headed that way.
    Re-run it after a reroute; the miles follow the new road.
 
