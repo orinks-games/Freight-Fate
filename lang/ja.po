@@ -10382,13 +10382,11 @@ msgstr "予約時間の余裕が多め"
 msgid "balanced dispatch"
 msgstr "バランス型の配車"
 
-msgid "Northstar Freight Lines: balanced company driver"
-msgstr "Northstar Freight Lines：バランス型の社員ドライバー"
+msgid "Northstar Freight Lines: national company driver"
+msgstr "Northstar Freight Lines：全国の社員ドライバー"
 
-msgid ""
-"Balanced company-driver start with steady wages, normal training support, "
-"and assigned carrier equipment."
-msgstr "安定した給料、標準的な研修サポート、運送会社の割り当て装備で始める、バランス型の社員ドライバー。"
+msgid "Steady wages and no specialty, with loads of up to 3000 miles."
+msgstr "安定した賃金で専門分野はなく、積荷は最長3000マイル。"
 
 msgid ""
 "A balanced company-driver path. The carrier assigns and maintains the "
@@ -10396,13 +10394,13 @@ msgid ""
 "specialty."
 msgstr "バランス型の社員ドライバーの道です。運送会社がトラクターを割り当てて整備し、燃料と日常の修理を払い、特色のない安定した給料を払います。"
 
-msgid "Great Lakes Training Transport: trainer-friendly company driver"
-msgstr "Great Lakes Training Transport：研修に手厚い社員ドライバー"
+msgid "Great Lakes Training Transport: national company driver"
+msgstr "Great Lakes Training Transport：全国の社員ドライバー"
 
 msgid ""
-"Trainer-friendly company start with stronger stop pay, more short rookie "
-"loads, and a little more appointment slack."
-msgstr "停車手当が多めで、新人向けの短い積荷が多く、予約時間に少し余裕のある、研修に手厚い社員ドライバーのスタート。"
+"A training fleet with stronger stop pay, more short rookie loads, and a "
+"little more appointment slack."
+msgstr "停車手当が多めで、新人向けの短い積荷が多く、予約時間に少し余裕のある研修フリート。"
 
 msgid ""
 "A practical training-fleet start. Stop pay is better on short loads, and "
@@ -10416,16 +10414,16 @@ msgstr ""
 msgid "Milwaukee"
 msgstr "Milwaukee"
 
-msgid "Prairie Link Regional: mile-focused company driver"
-msgstr "Prairie Link Regional：距離重視の社員ドライバー"
+msgid "Prairie Link Regional: regional company driver"
+msgstr "Prairie Link Regional：地域の社員ドライバー"
 
 msgid "Prairie Link Regional"
 msgstr "Prairie Link Regional"
 
 msgid ""
-"Regional carrier with a better per-mile floor, lower stop pay, and more "
-"same-region grain and bulk lanes."
-msgstr "1マイルあたりの最低額が高く、停車手当は低めで、同じ地域の穀物とバルクのルートが多い地域の運送会社。"
+"A better per-mile floor, lower stop pay, and more same-region grain and "
+"bulk lanes."
+msgstr "1マイルあたりの最低額が高く、停車手当は低めで、同じ地域の穀物とバルクのルートが多い。"
 
 msgid ""
 "A mile-focused company start. The per-mile wage floor is higher, but stop "
@@ -10436,8 +10434,8 @@ msgstr ""
 "距離重視の社員ドライバーのスタートです。1マイルあたりの最低給は高い一方で停車手当は低いので、ごく短い移動より安定した地域の走行距離が有利です。配車は同"
 "じ地域の穀物とバルクの仕事が中心です。トラクターの割り当てと整備は今も運送会社がします。"
 
-msgid "Summit Value Logistics: appointment-bonus company driver"
-msgstr "Summit Value Logistics：予約時間ボーナス型の社員ドライバー"
+msgid "Summit Value Logistics: national company driver"
+msgstr "Summit Value Logistics：全国の社員ドライバー"
 
 msgid "Summit Value Logistics"
 msgstr "Summit Value Logistics"
@@ -10479,6 +10477,40 @@ msgstr ""
 "、積立、精算手数料といった運行費用は運送会社ではなく自分の資金から出ます。それでもレベル1から始まり、ほかのみんなと同じキャリアを登ります。変わるのは誰"
 "が払うかで、どこまで進んでいるかではありません。"
 
+msgid ""
+"The carrier assigns and maintains the tractor and pays fuel and routine "
+"repairs."
+msgstr ""
+
+#. placeholders: {clause}
+msgid " Those loads need {clause}."
+msgstr ""
+
+#. placeholders: {name}
+msgid "{name}: national company driver"
+msgstr ""
+
+#. placeholders: {specialty}, {max}
+msgid "Mostly {specialty}, with loads of up to {max} miles."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "A national company-driver start."
+msgstr ""
+
+#. placeholders: {specialty}, {max}, {needs}, {equipment}
+msgid ""
+"A national company-driver start. Dispatch leans toward {specialty} and "
+"offers loads of up to {max} miles.{needs} {equipment}"
+msgstr ""
+
+#. placeholders: {specialty}, {max}, {needs}, {equipment}
+#. one sentence of a longer line
+msgid ""
+"Dispatch leans toward {specialty} and offers loads of up to {max} "
+"miles.{needs} {equipment}"
+msgstr ""
+
 msgid "its home region"
 msgstr ""
 
@@ -10495,22 +10527,15 @@ msgstr ""
 msgid "A {tier} company-driver start in {area}."
 msgstr ""
 
-#. placeholders: {tier}, {area}, {max}
+#. placeholders: {tier}, {area}, {max}, {equipment}
 msgid ""
 "A {tier} company-driver start in {area}. Dispatch offers loads of up to "
-"{max} miles. The carrier assigns and maintains the tractor and pays fuel "
-"and routine repairs."
+"{max} miles. {equipment}"
 msgstr ""
 
 #. placeholders: {max}
 #. one sentence of a longer line
 msgid "Dispatch offers loads of up to {max} miles."
-msgstr ""
-
-#. one sentence of a longer line
-msgid ""
-"The carrier assigns and maintains the tractor and pays fuel and routine "
-"repairs."
 msgstr ""
 
 msgid "in good shape"
@@ -41973,6 +41998,33 @@ msgstr ""
 
 #~ msgid "Cruise resuming."
 #~ msgstr "クルーズ再開。"
+
+#~ msgid "Northstar Freight Lines: balanced company driver"
+#~ msgstr "Northstar Freight Lines：バランス型の社員ドライバー"
+
+#~ msgid ""
+#~ "Balanced company-driver start with steady wages, normal training support, "
+#~ "and assigned carrier equipment."
+#~ msgstr "安定した給料、標準的な研修サポート、運送会社の割り当て装備で始める、バランス型の社員ドライバー。"
+
+#~ msgid "Great Lakes Training Transport: trainer-friendly company driver"
+#~ msgstr "Great Lakes Training Transport：研修に手厚い社員ドライバー"
+
+#~ msgid ""
+#~ "Trainer-friendly company start with stronger stop pay, more short rookie "
+#~ "loads, and a little more appointment slack."
+#~ msgstr "停車手当が多めで、新人向けの短い積荷が多く、予約時間に少し余裕のある、研修に手厚い社員ドライバーのスタート。"
+
+#~ msgid "Prairie Link Regional: mile-focused company driver"
+#~ msgstr "Prairie Link Regional：距離重視の社員ドライバー"
+
+#~ msgid ""
+#~ "Regional carrier with a better per-mile floor, lower stop pay, and more "
+#~ "same-region grain and bulk lanes."
+#~ msgstr "1マイルあたりの最低額が高く、停車手当は低めで、同じ地域の穀物とバルクのルートが多い地域の運送会社。"
+
+#~ msgid "Summit Value Logistics: appointment-bonus company driver"
+#~ msgstr "Summit Value Logistics：予約時間ボーナス型の社員ドライバー"
 
 #~ msgid "Slept 10 hours. It is {clock_text}, {time_of_day}."
 #~ msgstr "10時間眠りました。{clock_text}、{time_of_day}です。"

@@ -42,7 +42,8 @@
 - **Alaska roads now reach the Kenai Peninsula, Valdez and Deadhorse.** Seward, Valdez and Kenai offer only their real freight sites, and Deadhorse sells diesel.
 - **Hours of service now follow Alaska and Canadian rules where you drive.** You hear the new limits as you cross into each place.
 - **Billboards in Canada follow each province's sign law.** The everyday roadside signs no longer stand in the Yukon or in parks along the Alaska Highway.
-- **Twenty new carriers hire across the map, including Alaska.** Every lower-48 city now has a regional carrier, and three local carriers run short loads around Chicago, Los Angeles and Anchorage.
+- **Fifty-four carriers now hire across the map, including Alaska.** Every lower-48 city has at least two regional carriers, and local carriers work 16 big cities and ports.
+- **Three new national carriers lean toward refrigerated freight, doubles, or steel, machinery and lumber.**
 - **Fairbanks job boards now use real freight sites,** such as Costco, Fred Meyer and Spenard Builders Supply.
 - **Twin parcel trailers now stay on the Interstates.** Dispatch drops a lane that leaves them, and says so when no lane is left.
 - **The reefer and the APU now have their own keys,** Alt+R and Alt+U. Cold freight warms slowly with the reefer off, and the engine must be off to fuel.
@@ -54,6 +55,7 @@
 
 ### Changed
 
+- **The career start list now runs local, regional, then national carriers, nearest terminal first.** The owner-operator start stays last.
 - **The British Columbia and Yukon highways now follow the real roads, with their bends, hills, exits and towns.** Surrey to Blaine is now 15 miles, 14 northbound.
 - **Alaska, Yukon and British Columbia roads now use October's posted speed limits too.** Towns along the Alaska Highway slow you down, and the Glenn Highway runs at 65.
 - **A CDL pulled at speed now ends the run.** The truck stops on the shoulder, and a relief driver takes it back to the city the run left from.
