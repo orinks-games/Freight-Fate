@@ -5061,13 +5061,9 @@ msgstr "未知设施编号：{facility_id}"
 msgid "terminal"
 msgstr "terminal"
 
-#. placeholders: {start}
-msgid "Unknown city: {start}"
-msgstr "未知城市：{start}"
-
-#. placeholders: {end}
-msgid "Unknown city: {end}"
-msgstr "未知城市：{end}"
+#. placeholders: {missing}
+msgid "Unknown city: {missing}"
+msgstr ""
 
 #. placeholders: {city}
 msgid "{city} has no freight facilities"
@@ -8671,6 +8667,12 @@ msgstr ""
 
 msgid "Manitoba"
 msgstr ""
+
+msgid "Ontario"
+msgstr ""
+
+msgid "Quebec"
+msgstr "Quebec"
 
 msgid "Pay advance already taken for this load. Deliver it first."
 msgstr "这单货物已经预支过工资了。先把它送达。"
@@ -17548,9 +17550,6 @@ msgstr "Oscar"
 
 msgid "Papa"
 msgstr "Papa"
-
-msgid "Quebec"
-msgstr "Quebec"
 
 msgid "Romeo"
 msgstr "Romeo"
@@ -41531,6 +41530,12 @@ msgid ""
 "the engine, {pad_fuel} reads fuel, and {pad_speed_limit} reads the limit."
 msgstr ""
 "按住左肩键使用第二层按键。{pad_engine}控制发动机，{pad_fuel}读出燃油，{pad_speed_limit}读出限速。"
+
+#~ msgid "Unknown city: {start}"
+#~ msgstr "未知城市：{start}"
+
+#~ msgid "Unknown city: {end}"
+#~ msgstr "未知城市：{end}"
 
 #~ msgid "Cruise resuming."
 #~ msgstr "巡航恢复。"

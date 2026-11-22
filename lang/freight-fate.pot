@@ -6417,14 +6417,9 @@ msgstr ""
 msgid "terminal"
 msgstr ""
 
-#. placeholders: {start}
+#. placeholders: {missing}
 #: crates/ff-core/src/data/world.rs
-msgid "Unknown city: {start}"
-msgstr ""
-
-#. placeholders: {end}
-#: crates/ff-core/src/data/world.rs
-msgid "Unknown city: {end}"
+msgid "Unknown city: {missing}"
 msgstr ""
 
 #. placeholders: {city}
@@ -10968,6 +10963,14 @@ msgstr ""
 
 #: crates/ff-core/src/models/economy.rs crates/ff-core/src/sim/timezones.rs
 msgid "Manitoba"
+msgstr ""
+
+#: crates/ff-core/src/models/economy.rs crates/ff-core/src/sim/timezones.rs
+msgid "Ontario"
+msgstr ""
+
+#: crates/ff-core/src/models/economy.rs crates/ff-core/src/sim/timezones.rs crates/freight-fate/src/online_activation.rs
+msgid "Quebec"
 msgstr ""
 
 #: crates/ff-core/src/models/economy.rs
@@ -22085,10 +22088,6 @@ msgstr ""
 
 #: crates/freight-fate/src/online_activation.rs
 msgid "Papa"
-msgstr ""
-
-#: crates/freight-fate/src/online_activation.rs
-msgid "Quebec"
 msgstr ""
 
 #: crates/freight-fate/src/online_activation.rs

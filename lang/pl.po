@@ -5754,13 +5754,9 @@ msgstr "Nieznany identyfikator zakładu: {facility_id}"
 msgid "terminal"
 msgstr "terminal"
 
-#. placeholders: {start}
-msgid "Unknown city: {start}"
-msgstr "Nieznane miasto: {start}"
-
-#. placeholders: {end}
-msgid "Unknown city: {end}"
-msgstr "Nieznane miasto: {end}"
+#. placeholders: {missing}
+msgid "Unknown city: {missing}"
+msgstr ""
 
 #. placeholders: {city}
 msgid "{city} has no freight facilities"
@@ -9666,6 +9662,12 @@ msgstr ""
 
 msgid "Manitoba"
 msgstr ""
+
+msgid "Ontario"
+msgstr ""
+
+msgid "Quebec"
+msgstr "Quebec"
 
 msgid "Pay advance already taken for this load. Deliver it first."
 msgstr "Zaliczka na ten ładunek już pobrana. Najpierw go dostarcz."
@@ -19194,9 +19196,6 @@ msgstr "Oscar"
 
 msgid "Papa"
 msgstr "Papa"
-
-msgid "Quebec"
-msgstr "Quebec"
 
 msgid "Romeo"
 msgstr "Romeo"
@@ -46394,6 +46393,12 @@ msgstr ""
 "Przytrzymaj left bumper, aby użyć drugiej warstwy przycisków. {pad_engine} "
 "steruje silnikiem, {pad_fuel} podaje paliwo, a {pad_speed_limit} "
 "ograniczenie prędkości."
+
+#~ msgid "Unknown city: {start}"
+#~ msgstr "Nieznane miasto: {start}"
+
+#~ msgid "Unknown city: {end}"
+#~ msgstr "Nieznane miasto: {end}"
 
 #~ msgid "Cruise resuming."
 #~ msgstr "Tempomat się wznawia."
