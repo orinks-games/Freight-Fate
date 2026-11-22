@@ -5315,12 +5315,12 @@ msgstr ""
 
 #: crates/ff-core/src/data/national_network.rs
 msgid ""
-"Dispatch can't clear twin trailers on that run. It leaves the National "
-"Network."
+"Dispatch can't clear twin trailers on that run. Every route crosses a road "
+"closed to them."
 msgstr ""
 
 #: crates/ff-core/src/data/national_network.rs
-msgid "Dispatch dropped a lane that leaves the National Network."
+msgid "Dispatch dropped a lane with a road closed to twin trailers."
 msgstr ""
 
 #: crates/ff-core/src/data/national_network.rs
@@ -7658,6 +7658,11 @@ msgstr ""
 
 #: crates/ff-core/src/data/world_models/crossing.rs
 msgid "a miscellaneous hazardous material"
+msgstr ""
+
+#. placeholders: {spoken}, {name}
+#: crates/ff-core/src/data/world_models/crossing.rs
+msgid "This load is {spoken}, which may not use the {name}."
 msgstr ""
 
 #. placeholders: {spoken}
@@ -11773,16 +11778,6 @@ msgstr ""
 #. placeholders: {tons}, {cargo}, {origin}, {destination}
 #: crates/ff-core/src/models/jobs.rs
 msgid "{tons} tons of {cargo} from {origin} to {destination}."
-msgstr ""
-
-#. placeholders: {head_text}
-#: crates/ff-core/src/models/jobs.rs
-msgid " {head_text}. They can ride 28 hours."
-msgstr ""
-
-#. one sentence of a longer line
-#: crates/ff-core/src/models/jobs.rs
-msgid "They can ride 28 hours."
 msgstr ""
 
 #. placeholders: {highway}, {percent}
@@ -22833,6 +22828,11 @@ msgstr ""
 msgid "Playtest lever: the board already offers {spoken}."
 msgstr ""
 
+#. placeholders: {dest}, {spoken}
+#: crates/freight-fate/src/states/city.rs
+msgid "{dest} in {spoken}"
+msgstr ""
+
 #. placeholders: {spoken}
 #: crates/freight-fate/src/states/city.rs
 msgid "Playtest lever: no supported dispatch from here to {spoken}."
@@ -23436,6 +23436,22 @@ msgstr ""
 #. placeholders: {f}, {appointment_text}
 #: crates/freight-fate/src/states/city/board/details.rs
 msgid "Deadline {f} hours after loading, about {appointment_text}."
+msgstr ""
+
+#. placeholders: {head}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/city/board/details.rs
+msgid "Cattle: {head}."
+msgstr ""
+
+#. placeholders: {head}
+#: crates/freight-fate/src/states/city/board/details.rs
+msgid "Cattle: {head}. They can ride 28 hours."
+msgstr ""
+
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/city/board/details.rs
+msgid "They can ride 28 hours."
 msgstr ""
 
 #. placeholders: {equipment_text}
@@ -26332,6 +26348,11 @@ msgstr ""
 #. placeholders: {destination}
 #: crates/freight-fate/src/states/city_pickup.rs
 msgid "Dispatch routed you to {destination}. "
+msgstr ""
+
+#. placeholders: {distance_text}, {grouped}
+#: crates/freight-fate/src/states/city_pickup.rs
+msgid "The load now pays for {distance_text}, {grouped} dollars. "
 msgstr ""
 
 #: crates/freight-fate/src/states/city_pickup.rs
@@ -34657,9 +34678,14 @@ msgstr ""
 msgid "{head} head."
 msgstr ""
 
-#. placeholders: {spoken}, {head}, {aboard_text}, {limit}
+#. placeholders: {head}, {aboard_text}, {limit}
 #: crates/freight-fate/src/states/driving_livestock.rs
-msgid "{spoken}. {head} head. {aboard_text} aboard, {limit}."
+msgid "{head} head. {aboard_text} aboard, {limit}."
+msgstr ""
+
+#. placeholders: {spoken}, {condition}
+#: crates/freight-fate/src/states/driving_livestock.rs
+msgid "{spoken}, {condition} percent"
 msgstr ""
 
 #. placeholders: {minutes}
@@ -36086,11 +36112,21 @@ msgstr ""
 msgid "{f} hours before the deadline, due {deadline_appointment}"
 msgstr ""
 
-#. placeholders: {tons_text}, {cargo_label}, {tons_text2}, {cargo_status_clause}
+#. placeholders: {tons}, {cargo_label}, {gross}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_menu_states/status.rs
+msgid "Load: {tons} of {cargo_label}, gross {gross}."
+msgstr ""
+
+#. placeholders: {tons}, {cargo_label}, {gross}, {cattle}
+#: crates/freight-fate/src/states/driving_menu_states/status.rs
+msgid "Load: {tons} of {cargo_label}, gross {gross}. {cattle}"
+msgstr ""
+
+#. placeholders: {tons}, {cargo_label}, {gross}, {cargo_status_clause}
 #: crates/freight-fate/src/states/driving_menu_states/status.rs
 msgid ""
-"Load: {tons_text} of {cargo_label}, gross {tons_text2}, freight "
-"{cargo_status_clause}"
+"Load: {tons} of {cargo_label}, gross {gross}, freight {cargo_status_clause}"
 msgstr ""
 
 #. placeholders: {clock}, {deadline_text}
@@ -38864,9 +38900,7 @@ msgid "{outcome} {safety_record_line} It is {clock_text}."
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
-msgid ""
-"Nothing to write up: tires, brakes, lights, both trailers and the converter "
-"dolly would all pass."
+msgid "Nothing to write up."
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs

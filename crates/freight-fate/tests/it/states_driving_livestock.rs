@@ -61,7 +61,11 @@ fn a_cattle_delivery_leaves_with_the_load_aboard_and_the_clock_running() {
     assert_eq!(load.head, 89);
     assert_eq!(
         d.livestock_status_clause(),
-        "Cattle settled. 89 head. 1 minute aboard, 28 hours left."
+        "89 head. 1 minute aboard, 28 hours left."
+    );
+    assert_eq!(
+        d.livestock_condition_clause().as_deref(),
+        Some("Cattle settled")
     );
 }
 

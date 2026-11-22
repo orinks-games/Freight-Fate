@@ -5690,31 +5690,54 @@ with Facility streets off (transcripts in the project's
 - [x] A refused reverse with doubles played the gear-shift sound first;
       the doubles hook-up and break-the-set times were each spoken twice in
       a row. (Found along the way)
-- [ ] *(Found along the way)* The other lines `summary_parts` carries for
-      a loaded delivery (a preventable-damage deductible, on-the-spot
-      tickets, a balance a load could not cover) are not on the delivery
-      screen either; check each against the itemized rows.
+- [x] The other lines the delivery summary carried (a preventable-damage
+      deductible, a balance a load could not cover, on-the-spot speeding
+      tickets and engine brake citations) now sit on the delivery screen
+      beside the charges they explain. (Found along the way)
 - [ ] *(Found along the way)* Past the 28-hour limit the game only says
       "The cattle have been aboard 28 hours." and keeps costing condition;
       there is no way to unload, feed and water for 5 hours as the law
-      requires. Decide whether a feed-and-water stop belongs in 2.0.
-- [ ] *(Found along the way)* The cattle condition line on the road
-      reuses the boxed-freight sentence ("The load has shifted hard and is
-      injured ... the carrier pays for what you broke"); cattle need their
-      own wording.
-- [ ] *(Found along the way)* Every cattle load on the board says "They
-      can ride 28 hours.", which never changes; a candidate for removal.
-- [ ] *(Found along the way)* A tunnel refusal reads the whole rule,
-      including the bulk-flammable clause, to a packaged poison-gas load
-      the clause does not concern.
-- [ ] *(Found along the way)* The doubles route lines say "National
-      Network", a regulation's name a player may not know.
-- [ ] *(Found along the way)* A cattle board load from Dodge City to
-      Liberal posted 83 miles, but dispatch routed it 120 miles around
-      construction; the settlement credits the posted 83.
-- [ ] *(Found along the way)* The agent server cannot stage a southbound
-      load to a Laredo transfer yard or a rear-trailer whip under partial
-      lane keeping; both were checked by tests only.
+      requires. A feed-and-water stop comes after the alpha.
+- [x] The Load row of the status readout says the cattle's state in the
+      words their events use ("Load: 19 tons of live cattle, gross 33
+      tons. Cattle restless, 12 percent"), and the cattle row after it
+      carries the head count and the limit. (Found along the way)
+- [ ] *(Found along the way)* The cattle condition line spoken on the road
+      when the load takes damage still uses the boxed-freight sentence
+      ("The load has shifted hard ..."); cattle need their own wording.
+- [x] "They can ride 28 hours." is off the cattle board row; the load's
+      details say it once, after the head count. (Found along the way)
+- [x] A class banned outright at a tunnel or bridge is refused in its own
+      words ("This load is poison gas, which may not use the Pennsylvania
+      Turnpike tunnels."); bulk and tank loads still hear the whole rule.
+      (Found along the way)
+- [x] The doubles lines no longer name the National Network: "Dispatch
+      dropped a lane with a road closed to doubles." and "... Every way
+      there has a road closed to doubles." (Found along the way)
+- [x] Posted miles, paid miles and the road driven agree. A twin-trailer
+      board load posted the open road (23 of 6,350 board loads, two seeds
+      at every city, more than 5 percent short of the lane dispatch
+      sends; after the change only the Globe parcel load below), so the board
+      now posts the doubles lane. When
+      construction or weather sends a company driver a longer road
+      (Dodge City to Liberal: 83 posted, 120 driven), pay, wages and the
+      miles credited follow the road and the deadline gains the extra
+      driving time; a shorter road keeps the posted pay. (Found along
+      the way)
+- [ ] *(Found along the way)* US-54 from Dodge City to Liberal plans at
+      3.2 hours for 83 miles, about 26 mph, slower than the 120-mile
+      US-50 and US-83 way; check the leg's speed data.
+- [ ] *(Found along the way)* One parcel load (Globe to Silverthorne)
+      posts 854 miles where dispatch's first option is 751; the board's
+      route and dispatch's first option disagree for it.
+- [x] The agent server's `scenario` takes `board_load_to`, a city or a
+      facility by name ("SCI Cross Dock"), and the next board adds a load
+      delivered there: the southbound Laredo yard load can be driven. A
+      rear-trailer whip under partial lane keeping still cannot be staged.
+      (Found along the way)
+- [x] Live cattle are never dropped or picked up in a yard: drop and hook
+      is not offered for a cattle load at either end. (Found along the
+      way)
 
 ### The first 2.0 nightly
 
