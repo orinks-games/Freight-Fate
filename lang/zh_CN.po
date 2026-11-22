@@ -11505,6 +11505,32 @@ msgstr "推测"
 msgid "held"
 msgstr "按住"
 
+msgid "derived from build year"
+msgstr ""
+
+msgid "assumed, concrete deck"
+msgstr ""
+
+msgid "whine"
+msgstr ""
+
+msgid "hum"
+msgstr ""
+
+msgid ", holding"
+msgstr ""
+
+#. placeholders: {grooves_origin}, {holding}
+msgid "whine ({grooves_origin}{holding})"
+msgstr ""
+
+msgid "hum (holding)"
+msgstr ""
+
+#. placeholders: {name}
+msgid "held {name}"
+msgstr ""
+
 msgid "Level 1 full inspection"
 msgstr "1级全面检查"
 
@@ -13962,6 +13988,12 @@ msgstr "如同前轴压过的接缝。"
 
 msgid "The joint at a bridge end: texture, not a decision."
 msgstr "桥头的伸缩缝：是质感，不需要作出决定。"
+
+msgid "Tires on concrete grooved across the lane: texture, not a decision."
+msgstr ""
+
+msgid "Tires on a steel grate bridge deck: texture, not a decision."
+msgstr ""
 
 msgid "A door."
 msgstr "一扇门。"
@@ -33423,7 +33455,9 @@ msgstr ""
 msgid "Road surface volume: {pct} percent"
 msgstr ""
 
-msgid "The thump of pavement seams and bridge joints under the wheels."
+msgid ""
+"The thump of pavement seams and bridge joints under the wheels, and the "
+"tires' whine on grooved concrete and hum on steel grate decks."
 msgstr ""
 
 #. placeholders: {pct}
