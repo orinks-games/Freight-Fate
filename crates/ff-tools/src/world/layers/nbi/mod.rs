@@ -246,6 +246,23 @@ fn read_leg(client: &Client, route: &Route, layer: &Value) -> Result<Option<LegR
     }))
 }
 
+/// Every open grating near the road, kept or not: few, and each is heard,
+/// so the whole-map run lists them too for the hand check.
+fn gratings(id: &str, r: &LegResult) {
+    for (rec, at, off, fate) in &r.gratings {
+        println!(
+            "    {id}: open grating {} ({} over {}, {:.0} m, type {}): mile {at:.2}, {off:.0} m \
+             off, {}",
+            rec.id,
+            rec.carried,
+            rec.over,
+            rec.length_m.unwrap_or(0.0),
+            rec.type_43b,
+            fate.map_or("KEPT", Reject::name)
+        );
+    }
+}
+
 fn report(id: &str, r: &LegResult, verbose: bool) {
     let t = &r.tally;
     let decks: Vec<String> = t.decks.iter().map(|(k, v)| format!("{k} {v}")).collect();
@@ -267,17 +284,7 @@ fn report(id: &str, r: &LegResult, verbose: bool) {
         t.split,
         rejects.join(", ")
     );
-    for (rec, at, off, fate) in &r.gratings {
-        println!(
-            "    open grating {} ({} over {}, {:.0} m, type {}): mile {at:.2}, {off:.0} m off, {}",
-            rec.id,
-            rec.carried,
-            rec.over,
-            rec.length_m.unwrap_or(0.0),
-            rec.type_43b,
-            fate.map_or("KEPT", Reject::name)
-        );
-    }
+    gratings(id, r);
     if verbose {
         for l in &r.lines {
             if l.contains("deck=") {
@@ -342,8 +349,11 @@ pub fn main(argv: &[String]) -> Result<i32> {
         gratings_kept += r.gratings.iter().filter(|g| g.3.is_none()).count();
         if only.is_some() {
             report(&id, &r, args.flag("verbose"));
-        } else if (done + 1) % 100 == 0 {
-            println!("  [{}/{total}] {id}", done + 1);
+        } else {
+            gratings(&id, &r);
+            if (done + 1) % 100 == 0 {
+                println!("  [{}/{total}] {id}", done + 1);
+            }
         }
         let corridor = corridor_mut(&mut legs[i])?;
         let Some(Value::Object(layer)) = corridor.get_mut("pavement") else {
