@@ -173,3 +173,60 @@ fn a_trail_pass_beside_the_highway_is_not_named() {
     }
     assert!(found.is_empty(), "{found:#?}");
 }
+
+/// No spoken name carries a slipped shift key (2026-11-22): "JIm River" was
+/// read letter by letter. Only the slip is caught, a word of two capitals
+/// and then lower case; McBride, DeKalb and all-capital words like "US" are
+/// real spellings. ONroute is a brand.
+#[test]
+fn no_spoken_name_has_a_slipped_capital() {
+    let slipped = |word: &str| {
+        let c: Vec<char> = word.chars().collect();
+        c.len() >= 3
+            && c[0].is_uppercase()
+            && c[1].is_uppercase()
+            && c[2..].iter().all(|c| c.is_lowercase())
+            && word != "ONroute"
+    };
+    let mut found = Vec::new();
+    for leg in &world().legs {
+        let names = leg
+            .landmarks()
+            .iter()
+            .flat_map(|l| [l.name.as_str(), l.spoken.as_str()])
+            .chain(leg.checkpoints().iter().map(|c| c.name.as_str()))
+            .chain(leg.stops.iter().map(|s| s.name.as_str()));
+        for name in names {
+            if name.split(' ').any(slipped) {
+                found.push(format!("{}:{} {name}", leg.a, leg.b));
+            }
+        }
+    }
+    found.sort();
+    found.dedup();
+    assert!(found.is_empty(), "{found:#?}");
+}
+
+/// A First Nations reserve is named without its reserve number
+/// (2026-11-22): "Passing Okanagan 1" read the map's number as part of the
+/// name. A number after "Lot" is a Prince Edward Island lot name and stays.
+#[test]
+fn no_village_is_named_with_a_reserve_number() {
+    let mut found = Vec::new();
+    for leg in &world().legs {
+        for l in leg.landmarks() {
+            if l.category != "village" {
+                continue;
+            }
+            let Some((head, last)) = l.name.rsplit_once(' ') else {
+                continue;
+            };
+            let digits = last.trim_end_matches(|c: char| c.is_ascii_alphabetic());
+            let numbered = !digits.is_empty() && digits.chars().all(|c| c.is_ascii_digit());
+            if numbered && !head.ends_with("Lot") {
+                found.push(format!("{}:{} {}", leg.a, leg.b, l.name));
+            }
+        }
+    }
+    assert!(found.is_empty(), "{found:#?}");
+}

@@ -57,6 +57,15 @@ impl DrivingState {
                 // A synthetic route with no geometry has nowhere to ask about.
                 return;
             }
+            if !self.trip.live_weather_covers(position) {
+                // The Weather Service answers nothing north of the border;
+                // no alert is said there, and nothing is asked.
+                if !self.trip.live_alerts.is_empty() {
+                    self.trip.live_alerts.clear();
+                    self.trip.refresh_chain_control();
+                }
+                return;
+            }
             provider.request(lat, lon);
             self.alerts_pending = Some((lat, lon, position));
         }
@@ -122,7 +131,7 @@ impl DrivingState {
             return;
         };
         let (lat, lon) = self.trip.latlon_at(None);
-        if lat == 0.0 && lon == 0.0 {
+        if lat == 0.0 && lon == 0.0 || !self.trip.live_weather_covers(self.trip.position_mi) {
             return;
         }
         provider.request(lat, lon);

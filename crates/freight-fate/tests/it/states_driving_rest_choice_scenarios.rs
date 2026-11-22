@@ -155,6 +155,29 @@ fn full_sleep_resets_hos_but_spends_ten_delivery_hours() {
 }
 
 #[test]
+fn full_sleep_forecast_in_canada_counts_canadian_hours() {
+    let (mut app, _drive, mut state) = setup();
+    app.ctx
+        .profile
+        .as_mut()
+        .unwrap()
+        .hos
+        .set_rules(hos::HosRules::CanadaSouth60);
+    Menu::enter(&mut state, &mut app.ctx);
+    app.clear_speech();
+    activate(&mut state, &mut app.ctx, "Sleep 10 hours");
+    let preview = app.main_lines().join(" ");
+    assert!(
+        preview.contains("driving allowance is 13.0 hours"),
+        "{preview}"
+    );
+    assert!(
+        preview.contains("legal driving window closes in 16.0 hours"),
+        "{preview}"
+    );
+}
+
+#[test]
 fn consecutive_three_and_seven_hours_are_a_full_reset_in_either_order() {
     for (first, second) in [(3, 7), (7, 3)] {
         let (mut app, drive, mut state) = setup();

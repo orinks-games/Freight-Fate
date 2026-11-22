@@ -56,11 +56,14 @@ pub struct HosPlan {
     pub sleeps: i64,
     pub break_stop_count: i64,
     pub sleep_stop_count: i64,
+    /// Hours booked at the border: on duty, not driving, at each customs
+    /// booth the route stops at (`cross_border::CUSTOMS_PLANNED_H`).
+    pub customs_h: f64,
 }
 
 impl HosPlan {
     pub fn total_h(&self) -> f64 {
-        self.drive_h + self.breaks as f64 * 0.5 + self.sleeps as f64 * 10.0
+        self.drive_h + self.breaks as f64 * 0.5 + self.sleeps as f64 * 10.0 + self.customs_h
     }
 
     /// The plan in one short line; a break or sleep the route does not need
@@ -104,6 +107,15 @@ impl HosPlan {
 /// hours, a 14-hour window, and a 30-minute break after 8 cumulative driving
 /// hours. Split sleeper and 60/70-hour cycle limits are intentionally not
 /// modeled in this route estimate.
+///
+/// A route into Canada is planned on these US rules the whole way. They are
+/// the stricter of the two on what the plan counts: the Canadian clock the
+/// drive runs there (`sim::hos`, SOR/2005-313 ss.13 and 39) allows 13
+/// driving hours in a 16-hour shift south of 60 and 15 in 20 north of it,
+/// after an 8-hour rest, so a deadline planned on US rules never asks for
+/// less time than either country's law needs. Each customs booth adds
+/// `customs_h`. Planning each side on its own rules is the ROADMAP's
+/// route-wide HOS item.
 pub fn plan_hos(
     miles: f64,
     route: Option<&Route>,
@@ -189,6 +201,7 @@ fn plan_hos_for_drive_hours(
         sleeps,
         break_stop_count: break_stops,
         sleep_stop_count: sleep_stops,
+        customs_h: crate::models::jobs::cross_border::route_customs_hours(route),
     }
 }
 
@@ -257,6 +270,7 @@ pub fn team_required_hours(miles: f64, route: Option<&Route>, world: Option<&Wor
     plan.drive_h
         + plan.breaks as f64 * 0.5
         + plan.sleeps as f64 * crate::models::co_driver::TEAM_CHANGE_H
+        + plan.customs_h
 }
 
 /// [`dispatch_deadline_hours`] for a team load.

@@ -5251,7 +5251,7 @@ msgstr ""
 msgid "lon"
 msgstr ""
 
-#: crates/ff-core/src/data/border_yards.rs crates/ff-core/src/models/jobs/board.rs
+#: crates/ff-core/src/data/border_yards.rs crates/ff-core/src/models/jobs/board.rs crates/ff-core/src/models/jobs/relay.rs
 msgid "ships"
 msgstr ""
 
@@ -5462,7 +5462,7 @@ msgstr ""
 msgid "Contents"
 msgstr ""
 
-#: crates/ff-core/src/data/data_resources.rs crates/ff-core/src/data/grades.rs crates/ff-core/src/models/carriers.rs crates/ff-core/src/sim/hos.rs
+#: crates/ff-core/src/data/data_resources.rs crates/ff-core/src/data/grades.rs crates/ff-core/src/models/carriers.rs crates/ff-core/src/models/jobs/cross_border.rs
 msgid "us"
 msgstr ""
 
@@ -10993,7 +10993,7 @@ msgstr ""
 msgid "British Columbia"
 msgstr ""
 
-#: crates/ff-core/src/models/economy.rs
+#: crates/ff-core/src/models/economy.rs crates/ff-core/src/sim/timezones.rs
 msgid "Yukon"
 msgstr ""
 
@@ -12549,10 +12549,10 @@ msgstr ""
 msgid "Loyalty points: {f}."
 msgstr ""
 
-#. placeholders: {f}, {f2}, {shower_credits}
+#. placeholders: {f}, {volume}, {shower_credits}
 #: crates/ff-core/src/models/loyalty.rs
 msgid ""
-"Loyalty points: {f}. Total gallons fueled: {f2}. Shower credits available: "
+"Loyalty points: {f}. Total fueled: {volume}. Shower credits available: "
 "{shower_credits}."
 msgstr ""
 
@@ -12560,6 +12560,19 @@ msgstr ""
 #. one sentence of a longer line
 #: crates/ff-core/src/models/loyalty.rs
 msgid "Shower credits available: {shower_credits}."
+msgstr ""
+
+#. placeholders: {volume}
+#. one sentence of a longer line
+#: crates/ff-core/src/models/loyalty.rs
+msgid "Total fueled: {volume}."
+msgstr ""
+
+#. placeholders: {f}, {f2}, {shower_credits}
+#: crates/ff-core/src/models/loyalty.rs
+msgid ""
+"Loyalty points: {f}. Total gallons fueled: {f2}. Shower credits available: "
+"{shower_credits}."
 msgstr ""
 
 #. placeholders: {f2}
