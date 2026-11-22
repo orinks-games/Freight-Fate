@@ -46,6 +46,7 @@
 - **Diesel in Alberta, Saskatchewan, Manitoba, Ontario and Quebec now costs what it does there.**
 - **The map now reaches Ontario and Quebec,** from Windsor and Sarnia through Toronto, Ottawa and Montreal to Quebec City, with seven border crossings.
 - **The Gordie Howe, Blue Water, Lewiston-Queenston and Thousand Islands bridges charge their published truck tolls.**
+- **The map now reaches Fort McMurray, Yellowknife, Prince Rupert, Stewart and Dawson City.** The Deh Cho Bridge charges its toll, and trucks leaving Hyder clear customs at Stewart.
 - **The map now joins Winnipeg to Thunder Bay, Sault Ste. Marie, Timmins and North Bay** on Highways 17 and 11, with crossings at Pigeon River and the Sault Ste. Marie International Bridge, which charges its truck toll.
 - **A route between two US cities stays in the United States when a US road exists.** Alaska routes still run through Canada.
 - **Alaska roads now reach the Kenai Peninsula, Valdez and Deadhorse.** Seward, Valdez and Kenai offer only their real freight sites, and Deadhorse sells diesel.
