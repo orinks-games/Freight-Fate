@@ -71,6 +71,20 @@ pub fn cargo_may_cross(national_network: bool, livestock: bool, placarded: bool)
     !(national_network || livestock || placarded)
 }
 
+/// Whether a catalog cargo may be booked across the border: the same rule
+/// as [`cargo_may_cross`], read from the cargo itself. Placarded freight is
+/// any cargo the hazmat table names a material for, whatever the lane.
+pub fn cargo_type_may_cross(cargo: &super::catalog::CargoType) -> bool {
+    let placarded = super::hazmat::HAZMAT_COMMODITIES
+        .iter()
+        .any(|commodity| commodity.cargo == cargo.key);
+    cargo_may_cross(
+        cargo.national_network,
+        cargo.key == crate::sim::livestock::LIVESTOCK_CARGO_KEY,
+        placarded,
+    )
+}
+
 /// Border crossings on a route: each leg whose two cities are in different
 /// countries is one customs stop, at the inbound country's booth.
 pub fn route_crossings(route: &Route) -> usize {

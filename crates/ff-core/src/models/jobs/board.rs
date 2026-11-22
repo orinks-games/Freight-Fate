@@ -289,7 +289,24 @@ impl<'w> JobBoard<'w> {
                 }
                 continue;
             }
-            let (destination, miles, _legs) = dest_cycle[jobs.len() % dest_cycle.len()].clone();
+            let slot = jobs.len() % dest_cycle.len();
+            let (mut destination, mut miles, _legs) = dest_cycle[slot].clone();
+            // Freight that stays home (twins, cattle, placards) drawn for a
+            // slot across the border takes the next home destination in the
+            // spread instead of being dropped, so the border does not thin
+            // that freight out of a board near it.
+            if !cross_border::cargo_type_may_cross(cargo)
+                && self.crosses_border(&city, &destination)
+            {
+                let home = (1..dest_cycle.len())
+                    .map(|step| &dest_cycle[(slot + step) % dest_cycle.len()])
+                    .find(|c| !self.crosses_border(&city, &c.0));
+                let Some((home_destination, home_miles, _)) = home else {
+                    continue;
+                };
+                destination = home_destination.clone();
+                miles = *home_miles;
+            }
             // LCV freight only runs where the frozen network reaches: both
             // ends of the lane must sit in states that allow the combination.
             if cargo.lcv_lanes && !self.lcv_lane(&city, &destination) {

@@ -1680,7 +1680,14 @@ fn cargo_mix(
 ) -> (usize, std::collections::BTreeMap<&'static str, usize>) {
     let mut mix = std::collections::BTreeMap::new();
     let mut total = 0usize;
-    for (index, key) in world().cities.keys().enumerate().step_by(8) {
+    // US boards only: a Canadian board posts only loads to the United
+    // States, and placarded freight does not cross the border yet
+    // (`cross_border::cargo_may_cross`), so it never shows one.
+    let us_cities = world()
+        .cities
+        .iter()
+        .filter(|(_, city)| city.country == "US");
+    for (index, (key, _)) in us_cities.enumerate().step_by(8) {
         for job in offers(index as i64 * 7 + 1, key, endorsements, level) {
             *mix.entry(job.cargo.key).or_insert(0) += 1;
             total += 1;
