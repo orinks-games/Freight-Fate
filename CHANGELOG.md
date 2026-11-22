@@ -20,7 +20,7 @@
 - **Alaska's spring weight limits now apply.** From April to mid-June, offers on thawing highways carry lighter loads and name the road.
 - **The map now follows the Alaska Highway from Blaine through Prince George and Dawson Creek to Whitehorse,** on the real roads, bends and towns.
 - **The map now reaches Fort McMurray, Yellowknife, Prince Rupert, Stewart and Dawson City.** The Deh Cho Bridge charges trucks going north.
-- **The map now reaches Alberta, Saskatchewan and Manitoba,** on the Trans-Canada and Yellowhead highways to Winnipeg, with six more border crossings.
+- **The map now crosses western Canada,** from Vancouver to Winnipeg on the Trans-Canada and Yellowhead highways, with six more border crossings.
 - **The map now joins Winnipeg to Thunder Bay, Sault Ste. Marie, Timmins and North Bay** on Highways 17 and 11.
 - **The map now reaches Ontario and Quebec,** from Windsor and Sarnia through Toronto, Ottawa and Montreal to Quebec City.
 - **The map now reaches Thompson, Baie-Comeau, Sept-Îles and Chibougamau,** on Manitoba's Highway 6 and Quebec's northern routes.
@@ -83,7 +83,7 @@
 
 ### Fixed
 
-- **Driving into the Northwest Territories now says "the Northwest Territories."** The District of Columbia gets its "the" too.
+- **Crossing into the District of Columbia now says "the District of Columbia."**
 - **Toll lines no longer say the word toll twice,** as in toll at Alligator Alley commercial toll.
 - **A roadside attraction board is no longer skipped when a joke board came just before it.**
 - **An empty run now parks and settles when it arrives,** without offering to drop a loaded trailer it never had.
