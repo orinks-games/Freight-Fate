@@ -30,6 +30,13 @@ pub struct TimeZone {
     pub offset_h: f64,
 }
 
+/// New Brunswick, Nova Scotia and Prince Edward Island: an hour ahead of
+/// Eastern.
+pub const ATLANTIC: TimeZone = TimeZone {
+    key: "atlantic",
+    name: "Atlantic Time",
+    offset_h: 1.0,
+};
 pub const EASTERN: TimeZone = TimeZone {
     key: "eastern",
     name: "Eastern Time",
@@ -61,8 +68,11 @@ pub const HAWAII: TimeZone = TimeZone {
     offset_h: -5.0,
 };
 
-/// Every zone, in the order the Python `ZONES` dict listed them.
-pub const ZONES: [TimeZone; 6] = [EASTERN, CENTRAL, MOUNTAIN, PACIFIC, ALASKA, HAWAII];
+/// Every zone, in the order the Python `ZONES` dict listed them, then the
+/// Canadian zone the Python game never reached.
+pub const ZONES: [TimeZone; 7] = [
+    EASTERN, CENTRAL, MOUNTAIN, PACIFIC, ALASKA, HAWAII, ATLANTIC,
+];
 
 /// `ZONES[key]`.
 pub fn zone_by_key(key: &str) -> Option<TimeZone> {
@@ -106,6 +116,7 @@ fn state_zone(state: &str) -> Option<TimeZone> {
         "Yukon" | "YT" => MOUNTAIN,
         // Quebec west of the Lower North Shore, which is all the map reaches.
         "Quebec" | "QC" => EASTERN,
+        "New Brunswick" | "NB" | "Nova Scotia" | "NS" | "Prince Edward Island" | "PE" => ATLANTIC,
         _ => return None,
     })
 }
@@ -465,6 +476,15 @@ mod tests {
             ("Kenora", 49.77, -94.49, "Ontario", CENTRAL),
             ("Montreal", 45.50, -73.57, "Quebec", EASTERN),
             ("Rouyn-Noranda", 48.24, -79.02, "Quebec", EASTERN),
+            ("Edmundston", 47.37, -68.33, "New Brunswick", ATLANTIC),
+            ("Halifax", 44.65, -63.58, "Nova Scotia", ATLANTIC),
+            (
+                "Charlottetown",
+                46.24,
+                -63.13,
+                "Prince Edward Island",
+                ATLANTIC,
+            ),
             ("Chetwynd", 55.70, -121.63, "British Columbia", MOUNTAIN),
             ("Jasper", 52.88, -118.08, "Alberta", MOUNTAIN),
             ("Grande Prairie", 55.17, -118.8, "Alberta", MOUNTAIN),
@@ -494,13 +514,14 @@ mod tests {
     #[test]
     fn test_every_world_city_resolves_to_a_known_us_zone() {
         // CONUS cities stay on the four continental clocks; Phase A ALCAN
-        // Fairbanks/Tok land on Alaska Time (already modeled). Hawaii is
-        // listed for completeness even though no HI cities ship yet.
+        // Fairbanks/Tok land on Alaska Time (already modeled); the Maritimes
+        // on Atlantic Time. Hawaii is listed for completeness even though no
+        // HI cities ship yet.
         let world = crate::data::world::World::load().expect("the shipped world loads");
         for (key, city) in world.cities.iter() {
             let zone = zone_for(city.lat, city.lon, &city.state);
             assert!(
-                [EASTERN, CENTRAL, MOUNTAIN, PACIFIC, ALASKA, HAWAII].contains(&zone),
+                ZONES.contains(&zone),
                 "{key} in {} landed outside the known US zones",
                 city.state
             );

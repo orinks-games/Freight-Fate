@@ -50,6 +50,9 @@
 - **The map now reaches Alberta, Saskatchewan and Manitoba,** on the Trans-Canada and Yellowhead highways from Vancouver to Winnipeg, with six more border crossings.
 - **Diesel in Alberta, Saskatchewan, Manitoba, Ontario and Quebec now costs what it does there.**
 - **The map now reaches Ontario and Quebec,** from Windsor and Sarnia through Toronto, Ottawa and Montreal to Quebec City, with seven border crossings.
+- **The map now reaches New Brunswick, Nova Scotia and Prince Edward Island,** from Rivière-du-Loup to Halifax, Sydney and Charlottetown, with border crossings at Houlton and Calais.
+- **The Cobequid Pass and the Confederation Bridge now charge their tolls.** The bridge charges only when you leave Prince Edward Island.
+- **The clock now tells Atlantic Time in the Maritimes, and diesel there costs what it does there.**
 - **The Gordie Howe, Blue Water, Lewiston-Queenston and Thousand Islands bridges charge their published truck tolls.**
 - **The map now joins Winnipeg to Thunder Bay, Sault Ste. Marie, Timmins and North Bay** on Highways 17 and 11, with crossings at Pigeon River and the Sault Ste. Marie International Bridge, which charges its truck toll.
 - **A route between two US cities stays in the United States when a US road exists.** Alaska routes still run through Canada.

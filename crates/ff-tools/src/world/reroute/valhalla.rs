@@ -35,9 +35,14 @@ fn base(var: &str) -> String {
 /// truck up the Tri-State and the Pennsylvania Turnpike; the old router left
 /// this at its 0.5 default and put legs on parallel surface roads to dodge
 /// them (Orinks, 2026-11-05).
-fn truck_options() -> serde_json::Value {
+///
+/// `height_m` replaces the 4.11 m height where a network carries its legal
+/// height as a clearance: Maine and the Maritimes tag `maxheight=4.1` on
+/// whole road networks (see `osm-restrictions`), which at 4.11 m leaves New
+/// Brunswick and Nova Scotia with no truck road at all.
+fn truck_options(height_m: Option<f64>) -> serde_json::Value {
     serde_json::json!({
-        "height": 4.11,
+        "height": height_m.unwrap_or(4.11),
         "width": 2.59,
         "length": 21.64,
         "weight": 36.29,
@@ -124,7 +129,12 @@ pub struct Route {
 }
 
 /// The truck route between two points through the curated `via` pins.
-pub fn route(start: (f64, f64), end: (f64, f64), via: &[(f64, f64)]) -> Result<Option<Route>> {
+pub fn route(
+    start: (f64, f64),
+    end: (f64, f64),
+    via: &[(f64, f64)],
+    height_m: Option<f64>,
+) -> Result<Option<Route>> {
     if via.len() + 2 > 10 {
         return Err("Valhalla routes at most 10 locations, endpoints included".into());
     }
@@ -139,7 +149,7 @@ pub fn route(start: (f64, f64), end: (f64, f64), via: &[(f64, f64)]) -> Result<O
     let body = serde_json::json!({
         "locations": locations,
         "costing": "truck",
-        "costing_options": {"truck": truck_options()},
+        "costing_options": {"truck": truck_options(height_m)},
         "directions_options": {"units": "miles"},
     });
     let Some(result) = post(&base("FF_VALHALLA_URL"), "/route", &body)? else {
@@ -290,6 +300,8 @@ pub fn shield_key(name: &str) -> Option<(&'static str, String)> {
         // of the same number.
         // Manitoba signs its primary roads Provincial Trunk Highways.
         "TCH" | "YH" | "PTH" => "STATE",
+        // Nova Scotia's trunks ("Trunk 4"), its routes below the 100-series.
+        "TRUNK" => "STATE",
         // Quebec's autoroutes ("A-20", "Autoroute 20").
         "A" | "AUTOROUTE" => "STATE",
         "CR" | "COUNTY ROAD" | "COUNTY ROUTE" => "CR",

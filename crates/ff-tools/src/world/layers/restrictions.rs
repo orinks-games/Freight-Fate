@@ -35,6 +35,15 @@ pub const ALIGN_DEG: f64 = 35.0;
 pub const MERGE_MI: f64 = 0.3;
 const HEIGHT_MAX_FT: f64 = 16.0;
 const HEIGHT_MIN_FT: f64 = 9.0;
+/// The legal height of a tractor-trailer in Maine and the Maritimes, 13 ft
+/// 6 in (4.15 m in New Brunswick and Nova Scotia law), as OpenStreetMap
+/// writes it on whole road networks: `maxheight=4.1` or `13'6"`. In the
+/// 2026-11-16 Atlantic cut 14,700 ways carry one of the two, residential
+/// streets and every carriageway of Highway 104 among them, often beside
+/// `maxwidth=8'6"` and `hgv=designated`: the dimension law, not a structure.
+/// A tag that parses into this band is skipped; a real low bridge there is
+/// signed below it (the cut's other values run 1.8 to 4.0 m).
+const LEGAL_HEIGHT_FT: std::ops::RangeInclusive<f64> = 13.44..=13.5;
 const WEIGHT_MAX_TONS: f64 = 40.0;
 const WEIGHT_MIN_TONS: f64 = 3.0;
 const M_TO_FT: f64 = 3.28084;
@@ -125,7 +134,7 @@ impl Kind {
 pub fn way_restrictions(tags: &Tags) -> Vec<(Kind, f64)> {
     let mut out = Vec::new();
     if let Some(ft) = tag(tags, "maxheight").and_then(parse_maxheight_ft) {
-        if (HEIGHT_MIN_FT..=HEIGHT_MAX_FT).contains(&ft) {
+        if (HEIGHT_MIN_FT..=HEIGHT_MAX_FT).contains(&ft) && !LEGAL_HEIGHT_FT.contains(&ft) {
             out.push((Kind::LowClearance, round(ft, 2)));
         }
     }
@@ -396,6 +405,15 @@ mod tests {
         assert!((parse_maxheight_ft("4.1").unwrap() - 13.451).abs() < 1e-3);
         assert_eq!(parse_maxheight_ft("13.5 ft"), Some(13.5));
         assert_eq!(parse_maxheight_ft("default"), None);
+    }
+
+    #[test]
+    fn the_legal_height_tag_is_not_a_low_bridge() {
+        let tags = |v: &str| -> Tags { vec![("maxheight".to_string(), v.to_string())] };
+        assert!(way_restrictions(&tags("4.1")).is_empty());
+        assert!(way_restrictions(&tags("13'6\"")).is_empty());
+        assert_eq!(way_restrictions(&tags("4.0")).len(), 1);
+        assert_eq!(way_restrictions(&tags("13'4\"")).len(), 1);
         assert!((parse_maxweight_tons("10").unwrap() - 11.023).abs() < 1e-3);
         assert_eq!(parse_maxweight_tons("20 st"), Some(20.0));
         assert_eq!(parse_maxweight_tons("40000 lbs"), Some(20.0));
