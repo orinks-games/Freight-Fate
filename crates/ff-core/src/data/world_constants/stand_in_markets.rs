@@ -71,6 +71,8 @@ pub const STAND_IN_MARKET_CITY_KEYS: &[&str] = &[
     "globe_az_us",
     "grants_pass_or_us",
     "green_river_ut_us",
+    "haines_ak_us",
+    "haines_junction_yt_ca",
     "havre_mt_us",
     "hazard_ky_us",
     "healy_ak_us",

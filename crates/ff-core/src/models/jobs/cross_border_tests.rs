@@ -181,6 +181,21 @@ fn the_western_crossings_carry_loads_both_ways() {
     }
 }
 
+/// Skagway's only road out runs through Canada: its board still posts
+/// loads, Whitehorse among them, and every route to a US city is allowed to
+/// pass through.
+#[test]
+fn skagway_posts_loads_over_the_klondike() {
+    let jobs: Vec<Job> = (0..40)
+        .flat_map(|seed| board_at("skagway_ak_us", seed, 8, "chatanika_freight"))
+        .collect();
+    assert!(!jobs.is_empty(), "Skagway posted nothing in 40 seeds");
+    assert!(
+        jobs.iter().any(|job| country(&job.destination) == "CA"),
+        "no load from Skagway into Canada in 40 seeds"
+    );
+}
+
 /// The board numbers in the cross-border report: how often a border load is
 /// posted at a few cities, over seeds. Run by hand:
 /// `cargo test -p ff-core cross_border_probe -- --ignored --nocapture`.

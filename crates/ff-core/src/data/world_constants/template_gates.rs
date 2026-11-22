@@ -394,8 +394,13 @@ pub const STAND_IN_MARKET_FACILITY_TYPE: &str = "company_yard";
 /// 2026-11-22; Surrey is curated for the port, not complete).
 pub const CURATED_COMPLETE_MARKET_CITY_KEYS: &[&str] = &[
     "fairbanks_ak_us",
+    "fort_knox_ak_us",
     "kenai_ak_us",
+    "nikiski_ak_us",
+    "north_pole_ak_us",
+    "port_mackenzie_ak_us",
     "seward_ak_us",
+    "skagway_ak_us",
     "valdez_ak_us",
     "surrey_bc_ca",
     "prince_george_bc_ca",

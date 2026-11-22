@@ -8905,6 +8905,178 @@
         }
       ]
     },
+    "north_pole_ak_us": {
+      "spoken_city": "North Pole",
+      "state": "AK",
+      "country": "US",
+      "region": "pacific_northwest",
+      "lat": 64.750997,
+      "lon": -147.349319,
+      "source_note": "Place name and coordinates read from the OpenStreetMap place node for North Pole (place=village, GNIS 1407230), OpenStreetMap planet file of 2026-11-16; state and country read as Alaska, US; region assigned from the game's pacific_northwest classification.",
+      "locations": [
+        {
+          "name": "Petro Star North Pole Refinery",
+          "type": "chemical_petroleum_terminal",
+          "lat": 64.73212,
+          "lon": -147.349286,
+          "ships": [
+            "fuel_bulk"
+          ],
+          "receives": [
+            "general"
+          ],
+          "source_note": "Read: OpenStreetMap way 743711655 (industrial=refinery, name Petro Star Refinery) south of North Pole, OpenStreetMap planet file of 2026-11-16; Petro Star names its refineries in North Pole and Valdez and says the North Pole refinery makes heating oil, jet fuel and diesel (https://www.petrostar.com/locations, read 2026-11-22). Position is the centre of the mapped site. Roles derived: bulk fuel out by truck, general supplies in; crude arrives by pipeline, so no crude role."
+        }
+      ]
+    },
+    "nikiski_ak_us": {
+      "spoken_city": "Nikiski",
+      "state": "AK",
+      "country": "US",
+      "region": "pacific_northwest",
+      "lat": 60.690278,
+      "lon": -151.288889,
+      "source_note": "Place name and coordinates read from the OpenStreetMap place node for Nikiski (place=hamlet, GNIS 1416651), OpenStreetMap planet file of 2026-11-16; region pacific_northwest.",
+      "locations": [
+        {
+          "name": "Marathon Kenai Refinery",
+          "type": "chemical_petroleum_terminal",
+          "lat": 60.685369,
+          "lon": -151.372228,
+          "ships": [
+            "fuel_bulk"
+          ],
+          "receives": [
+            "general"
+          ],
+          "source_note": "Read: OpenStreetMap way 573930303 (industrial=refinery, name Kenai Refinery, operator Marathon Petroleum) at Port Nikiski on the Kenai Spur Highway, OpenStreetMap planet file of 2026-11-16; Marathon Petroleum lists Kenai, Alaska among its refineries at 68,000 barrels a day (https://www.marathonpetroleum.com/Operations/Refining/, read 2026-11-22). Position is the centre of the mapped site. Roles derived: bulk fuel out by truck, general supplies in."
+        }
+      ]
+    },
+    "port_mackenzie_ak_us": {
+      "spoken_city": "Port MacKenzie",
+      "state": "AK",
+      "country": "US",
+      "region": "pacific_northwest",
+      "lat": 61.26891,
+      "lon": -149.918858,
+      "source_note": "Coordinates read from the OpenStreetMap relation 16916230 for Port Mackenzie (industrial=port, port=cargo, deep water), OpenStreetMap planet file of 2026-11-16; the place is the Matanuska-Susitna Borough's deep-water port on Knik Arm, with no town around it. Region pacific_northwest.",
+      "locations": [
+        {
+          "name": "Port MacKenzie",
+          "type": "port",
+          "lat": 61.26891,
+          "lon": -149.918858,
+          "ships": [
+            "bulk",
+            "construction"
+          ],
+          "receives": [
+            "bulk",
+            "construction",
+            "steel"
+          ],
+          "source_note": "Read: OpenStreetMap relation 16916230 (industrial=port, port=cargo, port:type=deep_water, name Port Mackenzie) on Knik Arm, OpenStreetMap planet file of 2026-11-16. Roles assumed from a deep-water bulk port with no published cargo list read: aggregate and construction material both ways, steel and pipe in; no container or food roles claimed."
+        }
+      ]
+    },
+    "fort_knox_ak_us": {
+      "spoken_city": "Fort Knox Mine",
+      "state": "AK",
+      "country": "US",
+      "region": "pacific_northwest",
+      "lat": 64.998699,
+      "lon": -147.338569,
+      "source_note": "Coordinates read from the OpenStreetMap way 599467167 for the Fort Knox Mine (industrial=mine, operator Kinross Gold Corporation), OpenStreetMap planet file of 2026-11-16. A mine site, not a town: reached from Fairbanks by the Steese Highway and the Fort Knox mine access road. Region pacific_northwest.",
+      "locations": [
+        {
+          "name": "Kinross Fort Knox Mine",
+          "type": "mine_quarry",
+          "lat": 64.998699,
+          "lon": -147.338569,
+          "ships": [],
+          "receives": [
+            "fuel_bulk",
+            "chemicals",
+            "machinery"
+          ],
+          "source_note": "Read: OpenStreetMap way 599467167 (industrial=mine, resource=gold, operator Kinross Gold Corporation, name Fort Knox Mine) at the end of the Fort Knox Mine Access Road off the Steese Highway, OpenStreetMap planet file of 2026-11-16. Roles assumed for a working open-pit mine and mill: fuel, process chemicals and equipment in; the gold does not leave by truck, so nothing ships."
+        }
+      ]
+    },
+    "skagway_ak_us": {
+      "spoken_city": "Skagway",
+      "state": "AK",
+      "country": "US",
+      "region": "pacific_northwest",
+      "lat": 59.455391,
+      "lon": -135.315334,
+      "source_note": "Place name and coordinates read from the OpenStreetMap place node 150920839 for Skagway (place=town, GNIS 1414754), OpenStreetMap planet file of 2026-11-16; region pacific_northwest.",
+      "locations": [
+        {
+          "name": "Alaska Marine Lines Skagway",
+          "type": "cross_dock",
+          "lat": 59.45265,
+          "lon": -135.32249,
+          "ships": [
+            "general"
+          ],
+          "receives": [
+            "general"
+          ],
+          "source_note": "Read: OpenStreetMap way 244181925 (building=industrial, name Alaska Marine Lines) at the Skagway waterfront, OpenStreetMap planet file of 2026-11-16; Alaska Marine Lines, a Lynden company, names Skagway among its Southeast Alaska barge stops (https://www.lynden.com/aml/solutions/southeast-alaska/, read 2026-11-22). General freight only."
+        },
+        {
+          "name": "Petro Marine Services Skagway",
+          "type": "chemical_petroleum_terminal",
+          "lat": 59.45361,
+          "lon": -135.32563,
+          "ships": [
+            "fuel_bulk"
+          ],
+          "receives": [
+            "fuel_bulk"
+          ],
+          "source_note": "Read: OpenStreetMap way 280302361 (building=industrial, name Petro Marine Services) beside the waterfront tank farm (storage tank ways 280302366 to 280302369), OpenStreetMap planet file of 2026-11-16; Petro Marine Services lists its Skagway Plant and Marina at 10 Terminal Road (https://petromarineservices.com/plants-marinas, read 2026-11-22). Roles derived: bulk fuel comes in by sea and leaves by truck."
+        }
+      ]
+    },
+    "haines_ak_us": {
+      "spoken_city": "Haines",
+      "state": "AK",
+      "country": "US",
+      "region": "pacific_northwest",
+      "lat": 59.235833,
+      "lon": -135.445,
+      "source_note": "Place name and coordinates read from the OpenStreetMap place node 150921918 for Haines (place=town, GNIS 1422400), OpenStreetMap planet file of 2026-11-16; region pacific_northwest. Haines's freight comes in by barge and ferry at the Lutak dock, which no source places well enough to pin, so the town is a fuel and rest stop with no freight of its own.",
+      "locations": [
+        {
+          "name": "Delta Western Haines",
+          "type": "travel_center",
+          "lat": 59.23564,
+          "lon": -135.463908,
+          "source_note": "Read: OpenStreetMap node 2058194642 (amenity=fuel, fuel:diesel=yes, name Delta Western, checked 2026-07-10), OpenStreetMap planet file of 2026-11-16. Diesel is read; truck parking and tractor-trailer access are not claimed."
+        }
+      ]
+    },
+    "haines_junction_yt_ca": {
+      "spoken_city": "Haines Junction",
+      "state": "YT",
+      "country": "CA",
+      "region": "pacific_northwest",
+      "lat": 60.752721,
+      "lon": -137.510038,
+      "source_note": "Place name and coordinates read from the OpenStreetMap place node 1715159941 for Haines Junction (place=town, source NRCan CanVec 8.0), OpenStreetMap planet file of 2026-11-16; the village where the Haines Road meets the Alaska Highway. Region pacific_northwest. A fuel and rest town with no freight.",
+      "locations": [
+        {
+          "name": "North 60 Petro Express",
+          "type": "travel_center",
+          "lat": 60.753326,
+          "lon": -137.511891,
+          "source_note": "Read: OpenStreetMap way 392434012 (amenity=fuel, fuel:diesel=yes, large_vehicles=yes, name North 60 Petro Express, Mile 1060 Alaska Highway, checked 2026-07-08), OpenStreetMap planet file of 2026-11-16. Diesel and large-vehicle access are read; parking capacity is not claimed."
+        }
+      ]
+    },
     "vancouver_bc_ca": {
       "spoken_city": "Vancouver",
       "state": "BC",

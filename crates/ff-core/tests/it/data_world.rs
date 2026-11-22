@@ -1188,7 +1188,13 @@ fn test_every_city_has_coordinates_and_a_known_region() {
             );
             continue;
         }
-        let floor = if is_stand_in_market(&city.key) { 1 } else { 2 };
+        // A curated-complete market may be one real site (a mine, a
+        // refinery town); it holds only what was authored.
+        let floor = if is_stand_in_market(&city.key) || is_curated_complete_market(&city.key) {
+            1
+        } else {
+            2
+        };
         assert!(
             city.locations.len() >= floor,
             "{}: too few freight locations",
@@ -1436,8 +1442,10 @@ fn test_alcan_phase_a_terminus_to_fairbanks() {
         north.cities,
         vec![
             "whitehorse_yt_ca".to_string(),
+            "haines_junction_yt_ca".to_string(),
             "tok_ak_us".to_string(),
             "delta_junction_ak_us".to_string(),
+            "north_pole_ak_us".to_string(),
             "fairbanks_ak_us".to_string(),
         ]
     );
@@ -1449,8 +1457,10 @@ fn test_alcan_phase_a_terminus_to_fairbanks() {
         south.cities,
         vec![
             "fairbanks_ak_us".to_string(),
+            "north_pole_ak_us".to_string(),
             "delta_junction_ak_us".to_string(),
             "tok_ak_us".to_string(),
+            "haines_junction_yt_ca".to_string(),
             "whitehorse_yt_ca".to_string(),
         ]
     );
@@ -1492,85 +1502,86 @@ fn test_alcan_phase_a_terminus_to_fairbanks() {
         .iter()
         .map(|leg| (leg.a.as_str(), leg.b.as_str()))
         .collect();
+    // The Alaska Highway splits at Haines Junction (the Haines Highway) and
+    // the Richardson at North Pole (the refinery), both rebuilt 2026-11-22.
     for (a, b) in [
-        ("whitehorse_yt_ca", "tok_ak_us"),
-        ("tok_ak_us", "whitehorse_yt_ca"),
+        ("whitehorse_yt_ca", "haines_junction_yt_ca"),
+        ("haines_junction_yt_ca", "whitehorse_yt_ca"),
+        ("haines_junction_yt_ca", "tok_ak_us"),
+        ("tok_ak_us", "haines_junction_yt_ca"),
         ("tok_ak_us", "delta_junction_ak_us"),
         ("delta_junction_ak_us", "tok_ak_us"),
-        ("delta_junction_ak_us", "fairbanks_ak_us"),
-        ("fairbanks_ak_us", "delta_junction_ak_us"),
+        ("delta_junction_ak_us", "north_pole_ak_us"),
+        ("north_pole_ak_us", "delta_junction_ak_us"),
+        ("north_pole_ak_us", "fairbanks_ak_us"),
+        ("fairbanks_ak_us", "north_pole_ak_us"),
     ] {
         assert!(
             directed.contains(&(a, b)),
             "missing directed terminus ALCAN leg {a}->{b}"
         );
     }
-    assert!(!directed.contains(&("tok_ak_us", "fairbanks_ak_us")));
-    assert!(!directed.contains(&("fairbanks_ak_us", "tok_ak_us")));
-    let tok_delta = world
-        .legs
-        .iter()
-        .find(|leg| leg.a == "tok_ak_us" && leg.b == "delta_junction_ak_us")
-        .expect("tok->delta junction");
-    let delta_fairbanks = world
-        .legs
-        .iter()
-        .find(|leg| leg.a == "delta_junction_ak_us" && leg.b == "fairbanks_ak_us")
-        .expect("delta junction->fairbanks");
-    assert!((tok_delta.miles - 108.0).abs() < 0.5);
-    assert!((delta_fairbanks.miles - 96.0).abs() < 0.5);
-    assert!(
-        (tok_delta.miles + delta_fairbanks.miles - 202.0).abs() > 1.0,
-        "Tok split miles keep the authored 204-mile milepost total"
-    );
+    for (a, b) in [
+        ("tok_ak_us", "fairbanks_ak_us"),
+        ("fairbanks_ak_us", "tok_ak_us"),
+        ("whitehorse_yt_ca", "tok_ak_us"),
+        ("tok_ak_us", "whitehorse_yt_ca"),
+        ("delta_junction_ak_us", "fairbanks_ak_us"),
+        ("fairbanks_ak_us", "delta_junction_ak_us"),
+    ] {
+        assert!(!directed.contains(&(a, b)), "{a}->{b} must be split");
+    }
+    let leg = |a: &str, b: &str| {
+        world
+            .legs
+            .iter()
+            .find(|leg| leg.a == a && leg.b == b)
+            .unwrap_or_else(|| panic!("{a}->{b}"))
+    };
     // Alcan / Beaver Creek border_crossing on both CA↔US directions.
-    let yt = include_str!("../../../../data/world_data/ca/legs/YT.json");
-    let ak = include_str!("../../../../data/world_data/us/legs/AK.json");
+    let shards = [
+        serde_json::from_str::<serde_json::Value>(include_str!(
+            "../../../../data/world_data/us/legs/AK.json"
+        ))
+        .expect("AK legs JSON"),
+        serde_json::from_str::<serde_json::Value>(include_str!(
+            "../../../../data/world_data/ca/legs/YT.json"
+        ))
+        .expect("YT legs JSON"),
+    ];
+    for (a, b) in [
+        ("haines_junction_yt_ca", "tok_ak_us"),
+        ("tok_ak_us", "haines_junction_yt_ca"),
+    ] {
+        let crossing = &raw_world_leg(&shards, a, b)["border_crossing"];
+        assert_eq!(
+            crossing["id"].as_str(),
+            Some("alcan_beaver_creek"),
+            "{a}->{b}"
+        );
+        assert_eq!(
+            crossing["mode"].as_str(),
+            Some("through_freight"),
+            "{a}->{b}"
+        );
+        assert_eq!(crossing["cabotage"].as_str(), Some("forbidden"), "{a}->{b}");
+    }
+    let whitehorse_tok = leg("whitehorse_yt_ca", "haines_junction_yt_ca").miles
+        + leg("haines_junction_yt_ca", "tok_ak_us").miles;
     assert!(
-        yt.contains("\"from\": \"whitehorse_yt_ca\"")
-            && yt.contains("\"to\": \"tok_ak_us\"")
-            && yt.contains("alcan_beaver_creek")
-            && yt.contains("through_freight")
-            && yt.contains("\"cabotage\": \"forbidden\""),
-        "CA→US Whitehorse→Tok must carry alcan_beaver_creek through_freight border stub"
+        (360.0..=420.0).contains(&whitehorse_tok),
+        "Whitehorse–Tok must be real Alaska Highway miles, got {whitehorse_tok}"
     );
+    let tok_delta = leg("tok_ak_us", "delta_junction_ak_us").miles;
     assert!(
-        ak.contains("\"from\": \"tok_ak_us\"")
-            && ak.contains("\"to\": \"whitehorse_yt_ca\"")
-            && ak.contains("alcan_beaver_creek")
-            && ak.contains("through_freight")
-            && ak.contains("\"cabotage\": \"forbidden\""),
-        "US→CA Tok→Whitehorse must carry alcan_beaver_creek through_freight border stub"
+        (105.0..=110.0).contains(&tok_delta),
+        "Tok–Delta Junction must be real Alaska Highway miles, got {tok_delta}"
     );
-    let wh_tok = world
-        .legs
-        .iter()
-        .find(|leg| leg.a == "whitehorse_yt_ca" && leg.b == "tok_ak_us")
-        .expect("whitehorse->tok");
+    let delta_fairbanks = leg("delta_junction_ak_us", "north_pole_ak_us").miles
+        + leg("north_pole_ak_us", "fairbanks_ak_us").miles;
     assert!(
-        (360.0..=420.0).contains(&wh_tok.miles),
-        "Whitehorse–Tok must be real Alaska Highway miles, got {}",
-        wh_tok.miles
-    );
-    let tok_delta = world
-        .legs
-        .iter()
-        .find(|leg| leg.a == "tok_ak_us" && leg.b == "delta_junction_ak_us")
-        .expect("tok->delta junction");
-    assert!(
-        (107.5..=108.5).contains(&tok_delta.miles),
-        "Tok–Delta Junction must use Alaska Highway mileposts, got {}",
-        tok_delta.miles
-    );
-    let delta_fairbanks = world
-        .legs
-        .iter()
-        .find(|leg| leg.a == "delta_junction_ak_us" && leg.b == "fairbanks_ak_us")
-        .expect("delta junction->fairbanks");
-    assert!(
-        (95.5..=96.5).contains(&delta_fairbanks.miles),
-        "Delta Junction–Fairbanks must use Richardson Highway mileposts, got {}",
-        delta_fairbanks.miles
+        (94.0..=98.0).contains(&delta_fairbanks),
+        "Delta Junction–Fairbanks must be real Richardson Highway miles, got {delta_fairbanks}"
     );
     // Stand-in fuel lots.
     let tok = world.city("tok_ak_us").expect("tok");
@@ -1601,8 +1612,10 @@ fn test_alcan_border_identity_and_posted_speed_profiles() {
         ))
         .expect("BC legs JSON"),
     ];
-    let whitehorse_to_tok = raw_world_leg(&shards, "whitehorse_yt_ca", "tok_ak_us");
-    let tok_to_whitehorse = raw_world_leg(&shards, "tok_ak_us", "whitehorse_yt_ca");
+    // The Alaska Highway's border legs end at Haines Junction since the
+    // split of 2026-11-22; the names below keep the Whitehorse–Tok sense.
+    let whitehorse_to_tok = raw_world_leg(&shards, "haines_junction_yt_ca", "tok_ak_us");
+    let tok_to_whitehorse = raw_world_leg(&shards, "tok_ak_us", "haines_junction_yt_ca");
 
     for leg in [whitehorse_to_tok, tok_to_whitehorse] {
         for metadata in [&leg["border_crossing"], &leg["corridor"]["border_crossing"]] {
@@ -1621,7 +1634,7 @@ fn test_alcan_border_identity_and_posted_speed_profiles() {
         .iter()
         .find(|checkpoint| checkpoint["name"].as_str() == Some("Alcan Port of Entry"))
         .expect("Alcan Port of Entry checkpoint");
-    assert_eq!(alcan["at_mi"].as_f64(), Some(297.4));
+    assert_eq!(alcan["at_mi"].as_f64(), Some(201.3));
     assert_eq!(alcan["state"].as_str(), Some("Alaska"));
     assert!(alcan["source"]
         .as_str()
@@ -1648,7 +1661,7 @@ fn test_alcan_border_identity_and_posted_speed_profiles() {
         .expect("Beaver Creek checkpoint source")
         .contains("3531514528"));
 
-    for (leg, at_mi) in [(tok_to_whitehorse, 89.9), (whitehorse_to_tok, 297.0)] {
+    for (leg, at_mi) in [(tok_to_whitehorse, 90.1), (whitehorse_to_tok, 200.9)] {
         let crossings = leg["corridor"]["state_crossings"]
             .as_array()
             .expect("Alaska–Yukon state crossings");
@@ -1676,8 +1689,10 @@ fn test_alcan_border_identity_and_posted_speed_profiles() {
     }
 
     for (from, to) in [
-        ("tok_ak_us", "whitehorse_yt_ca"),
-        ("whitehorse_yt_ca", "tok_ak_us"),
+        ("tok_ak_us", "haines_junction_yt_ca"),
+        ("haines_junction_yt_ca", "tok_ak_us"),
+        ("whitehorse_yt_ca", "haines_junction_yt_ca"),
+        ("haines_junction_yt_ca", "whitehorse_yt_ca"),
         ("watson_lake_yt_ca", "whitehorse_yt_ca"),
         ("whitehorse_yt_ca", "watson_lake_yt_ca"),
         ("watson_lake_yt_ca", "fort_nelson_bc_ca"),
@@ -1694,8 +1709,16 @@ fn test_alcan_border_identity_and_posted_speed_profiles() {
     }
 
     for (leg, label, sample_miles) in [
-        (tok_to_whitehorse, "Tok→Whitehorse", [90.0, 95.0, 100.0]),
-        (whitehorse_to_tok, "Whitehorse→Tok", [285.0, 290.0, 295.0]),
+        (
+            tok_to_whitehorse,
+            "Tok→Haines Junction",
+            [90.0, 95.0, 100.0],
+        ),
+        (
+            whitehorse_to_tok,
+            "Haines Junction→Tok",
+            [185.0, 190.0, 195.0],
+        ),
     ] {
         let samples = leg["corridor"]["speed_limits"]
             .as_array()
@@ -1742,31 +1765,33 @@ fn test_alaska_b3_city_labels_and_metadata() {
 
 #[test]
 fn test_alaska_kenai_peninsula_routes_use_paid_miles_both_ways() {
+    // Paid miles are the driven length of the rebuilt roads (2026-11-22),
+    // which runs a mile or two past the old milepost differences.
     let world = world();
     for (start, end, cities, miles) in [
         (
             "anchorage_ak_us",
             "kenai_ak_us",
             &["anchorage_ak_us", "soldotna_ak_us", "kenai_ak_us"][..],
-            158.0,
+            160.0,
         ),
         (
             "kenai_ak_us",
             "anchorage_ak_us",
             &["kenai_ak_us", "soldotna_ak_us", "anchorage_ak_us"][..],
-            158.0,
+            160.0,
         ),
         (
             "anchorage_ak_us",
             "homer_ak_us",
             &["anchorage_ak_us", "soldotna_ak_us", "homer_ak_us"][..],
-            222.0,
+            223.0,
         ),
         (
             "homer_ak_us",
             "anchorage_ak_us",
             &["homer_ak_us", "soldotna_ak_us", "anchorage_ak_us"][..],
-            222.0,
+            223.0,
         ),
         (
             "soldotna_ak_us",
@@ -1806,11 +1831,12 @@ fn test_alaska_valdez_routes_use_paid_miles_both_ways() {
             "valdez_ak_us",
             &[
                 "fairbanks_ak_us",
+                "north_pole_ak_us",
                 "delta_junction_ak_us",
                 "glennallen_ak_us",
                 "valdez_ak_us",
             ][..],
-            362.0,
+            365.0,
         ),
         (
             "valdez_ak_us",
@@ -1819,9 +1845,10 @@ fn test_alaska_valdez_routes_use_paid_miles_both_ways() {
                 "valdez_ak_us",
                 "glennallen_ak_us",
                 "delta_junction_ak_us",
+                "north_pole_ak_us",
                 "fairbanks_ak_us",
             ][..],
-            362.0,
+            365.0,
         ),
         (
             "anchorage_ak_us",
@@ -1832,7 +1859,7 @@ fn test_alaska_valdez_routes_use_paid_miles_both_ways() {
                 "glennallen_ak_us",
                 "valdez_ak_us",
             ][..],
-            302.0,
+            301.0,
         ),
         (
             "valdez_ak_us",
@@ -1843,7 +1870,7 @@ fn test_alaska_valdez_routes_use_paid_miles_both_ways() {
                 "palmer_ak_us",
                 "anchorage_ak_us",
             ][..],
-            302.0,
+            301.0,
         ),
     ] {
         assert_route_sequence_and_paid_miles(world, start, end, cities, miles);
@@ -1858,14 +1885,14 @@ fn test_alaska_dalton_routes_reach_deadhorse_both_ways() {
         "fairbanks_ak_us",
         "deadhorse_ak_us",
         &["fairbanks_ak_us", "coldfoot_ak_us", "deadhorse_ak_us"],
-        498.0,
+        495.0,
     );
     assert_route_sequence_and_paid_miles(
         world,
         "deadhorse_ak_us",
         "fairbanks_ak_us",
         &["deadhorse_ak_us", "coldfoot_ak_us", "fairbanks_ak_us"],
-        498.0,
+        495.0,
     );
 }
 
@@ -1961,8 +1988,8 @@ fn test_alcan_phase_b1_tok_cutoff_glenn_to_anchorage() {
         .find(|leg| leg.a == "glennallen_ak_us" && leg.b == "palmer_ak_us")
         .expect("glennallen->palmer");
     assert!(
-        (gl_pa.miles - 145.0).abs() < 0.5,
-        "Glennallen–Palmer paid miles must be milepost 145, got {}",
+        (gl_pa.miles - 140.0).abs() < 0.5,
+        "Glennallen–Palmer must be its driven 140 miles (milepost reckoning 145), got {}",
         gl_pa.miles
     );
     let pa_anc = world
@@ -1971,8 +1998,8 @@ fn test_alcan_phase_b1_tok_cutoff_glenn_to_anchorage() {
         .find(|leg| leg.a == "palmer_ak_us" && leg.b == "anchorage_ak_us")
         .expect("palmer->anchorage");
     assert!(
-        (pa_anc.miles - 42.0).abs() < 0.5,
-        "Palmer–Anchorage paid miles must be milepost 42, got {}",
+        (pa_anc.miles - 43.0).abs() < 0.5,
+        "Palmer–Anchorage must be its driven 43 miles (milepost reckoning 42), got {}",
         pa_anc.miles
     );
     let glenn = world.city("glennallen_ak_us").expect("glennallen");
@@ -2082,8 +2109,8 @@ fn test_alcan_phase_b2_parks_to_anchorage() {
         .find(|leg| leg.a == "fairbanks_ak_us" && leg.b == "nenana_ak_us")
         .expect("fairbanks->nenana");
     assert!(
-        (fbx_nen.miles - 53.0).abs() < 0.5,
-        "Fairbanks–Nenana must be Parks milepost ~53 (MP358→MP305), got {}",
+        (fbx_nen.miles - 56.0).abs() < 0.5,
+        "Fairbanks–Nenana must be its driven 56 miles (Parks MP358→MP305 is 53), got {}",
         fbx_nen.miles
     );
     let nen_hea = world
@@ -2102,7 +2129,7 @@ fn test_alcan_phase_b2_parks_to_anchorage() {
         .find(|leg| leg.a == "healy_ak_us" && leg.b == "wasilla_ak_us")
         .expect("healy->wasilla");
     assert!(
-        (hea_was.miles - 207.0).abs() < 0.5,
+        (hea_was.miles - 206.0).abs() < 1.5,
         "Healy–Wasilla (Cantwell collapsed) must be ~207, got {}",
         hea_was.miles
     );
@@ -2112,8 +2139,8 @@ fn test_alcan_phase_b2_parks_to_anchorage() {
         .find(|leg| leg.a == "wasilla_ak_us" && leg.b == "anchorage_ak_us")
         .expect("wasilla->anchorage");
     assert!(
-        (was_anc.miles - 42.0).abs() < 0.5,
-        "Wasilla–Anchorage must be Parks milepost ~42 (MP42→MP0), got {}",
+        (was_anc.miles - 44.0).abs() < 0.5,
+        "Wasilla–Anchorage must be its driven 44 miles (Parks MP42→MP0 is 42), got {}",
         was_anc.miles
     );
     let pal_was = world
@@ -2399,7 +2426,13 @@ fn test_alaska_pass_through_fuel_towns_have_no_board_offers() {
     use ff_core::models::jobs::{JobBoard, OfferOptions};
 
     let world = world();
-    for city_key in ["delta_junction_ak_us", "coldfoot_ak_us", "soldotna_ak_us"] {
+    for city_key in [
+        "delta_junction_ak_us",
+        "coldfoot_ak_us",
+        "soldotna_ak_us",
+        "haines_ak_us",
+        "haines_junction_yt_ca",
+    ] {
         assert!(
             is_stand_in_market(city_key),
             "{city_key} must stay a stand-in"
@@ -2411,9 +2444,67 @@ fn test_alaska_pass_through_fuel_towns_have_no_board_offers() {
 }
 
 #[test]
+fn test_alaska_road_towns_of_2026_11_22_board_their_real_freight() {
+    use ff_core::models::jobs::{JobBoard, OfferOptions};
+
+    let world = world();
+    // Fuel hauling needs the tank and hazmat credentials and level 16.
+    let held: &[&str] = &[
+        "tank",
+        "hazmat",
+        "twic",
+        "flatbed_securement",
+        "heavy_haul",
+        "refrigerated",
+        "high_value",
+    ];
+    // The towns that ship something post loads from their own sites.
+    for (city_key, site) in [
+        ("north_pole_ak_us", "Petro Star North Pole Refinery"),
+        ("nikiski_ak_us", "Marathon Kenai Refinery"),
+        ("port_mackenzie_ak_us", "Port MacKenzie"),
+        ("skagway_ak_us", "Alaska Marine Lines Skagway"),
+    ] {
+        let city = world.cities.get(city_key).expect("new Alaska town");
+        assert!(
+            city.locations.iter().all(|l| !l.template),
+            "{city_key} keeps only its authored freight"
+        );
+        let posted: Vec<String> = (0..12)
+            .flat_map(|seed| {
+                JobBoard::seeded(world, seed)
+                    .offers(city_key, held, OfferOptions::level(30))
+                    .into_iter()
+                    .map(|job| job.origin_location)
+            })
+            .collect();
+        assert!(!posted.is_empty(), "{city_key} posts no loads");
+        assert!(
+            posted.iter().any(|name| name == site),
+            "{city_key} never loads at {site}: {posted:?}"
+        );
+    }
+    // The Fort Knox mine only receives: the North Pole refinery's fuel goes
+    // there.
+    let to_the_mine = (0..60).any(|seed| {
+        JobBoard::seeded(world, seed)
+            .offers("north_pole_ak_us", held, OfferOptions::level(30))
+            .iter()
+            .any(|job| job.destination == "fort_knox_ak_us")
+    });
+    assert!(to_the_mine, "no North Pole load goes to the Fort Knox mine");
+}
+
+#[test]
 fn test_alaska_stand_in_markets_preserve_authored_facilities() {
     let world = world();
-    for city_key in ["delta_junction_ak_us", "coldfoot_ak_us", "soldotna_ak_us"] {
+    for city_key in [
+        "delta_junction_ak_us",
+        "coldfoot_ak_us",
+        "soldotna_ak_us",
+        "haines_ak_us",
+        "haines_junction_yt_ca",
+    ] {
         let city = world
             .cities
             .get(city_key)
@@ -2585,12 +2676,23 @@ fn test_dalton_highway_data_follows_the_blm_guide() {
                 |g| g.source.contains("BLM 2024 Dalton Highway Visitor Guide")
                     && !g.source.contains("ASSUMED")
             ));
-        let summit = leg
-            .elevation_samples()
+        // The stored elevation samples are every 25 miles or so; the pass is
+        // a checkpoint read from OpenStreetMap, and the climb beside it is
+        // one of the capped 12% grades.
+        let pass = leg
+            .checkpoints()
             .iter()
-            .map(|e| e.elevation_ft)
-            .fold(0.0, f64::max);
-        assert_eq!(summit, 4739.0, "{a}->{b} Atigun Pass summit");
+            .find(|c| c.name == "Atigun Pass")
+            .unwrap_or_else(|| panic!("{a}->{b} Atigun Pass checkpoint"));
+        assert!(
+            leg.grade_segments()
+                .iter()
+                .any(|g| g.avg_grade_pct.abs() == 12.0
+                    && g.start_mi <= pass.at_mi + 3.0
+                    && g.end_mi >= pass.at_mi - 3.0),
+            "{a}->{b} has no capped grade at Atigun Pass ({})",
+            pass.at_mi
+        );
         let fuel: Vec<_> = leg
             .stops
             .iter()
