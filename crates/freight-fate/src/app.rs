@@ -243,6 +243,9 @@ pub struct DrivingObservation {
     pub cruise_set_mph: Option<f64>,
     /// The speed keeper's hold, when it has the zone.
     pub keeper_mph: Option<f64>,
+    /// Whether the readouts and the cruise dial are in miles (the
+    /// effective units), so a tool walks the dial in the unit heard.
+    pub imperial: bool,
     /// Live cattle's five machines, on a cattle load.
     pub livestock: Option<LivestockObservation>,
     /// Whether the keeper is matching a slower vehicle ahead.
@@ -369,6 +372,22 @@ impl PlayerInputFrame<'_> {
             "main voice".to_string()
         };
         (choice, ctx.speech.backend_name(), event)
+    }
+
+    /// The units as `status` reports them: the row's mode, the country they
+    /// are judged in, and the units every readout uses right now.
+    pub fn units_state(&self) -> String {
+        let settings = &self.app.ctx.settings;
+        format!(
+            "mode {}; country {}; effective {}",
+            settings.units_mode().key(),
+            settings.units_place.country(),
+            if settings.imperial() {
+                "miles"
+            } else {
+                "kilometers"
+            }
+        )
     }
 
     /// The player's own shortcut table, for a tool call that names a
@@ -959,6 +978,7 @@ impl App {
             speed_limit_mph: drive.enforced_limit_prev,
             cruise_set_mph: drive.cruise_mph,
             keeper_mph: drive.keeper_mph,
+            imperial: self.ctx.settings.imperial(),
             livestock: drive.livestock().map(|load| LivestockObservation {
                 phase: load.phase,
                 footing: load.footing,

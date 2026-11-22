@@ -9,6 +9,9 @@ use ff_core::pyrandom::PyRandom;
 use ff_core::sim::hos;
 use ff_core::sim::trip_models::BorderBooth;
 use ff_core::speech_pacing::SpeechCategory;
+use ff_core::units::{effective, UnitsEvent};
+
+use crate::states::driving_updates::after_crossing::AfterCrossing;
 
 use crate::app::{GameContext, SayEvent};
 use crate::impl_state_for_menu;
@@ -22,10 +25,65 @@ use crate::states::driving_core::{
 use crate::states::driving_menu_states::{push_over_drive, DriveRef};
 use crate::states::driving_updates::live;
 
+/// How far past a change of country the units wait for the crossing call
+/// to carry their line, and how long a crossing call holds them against a
+/// map that places the line a little differently.
+const UNITS_LINE_GRACE_MI: f64 = 0.3;
+
 const US_BORDER_STAT: &str = "border_reports_missed_us";
 const CA_BORDER_STAT: &str = "border_reports_missed_ca";
 
 impl DrivingState {
+    /// Move the Automatic units to the country under the truck. The line
+    /// that the units changed follows the crossing call (see
+    /// `units_line_for_crossing`); this says it on its own only when the
+    /// map changed country with no crossing call within
+    /// [`UNITS_LINE_GRACE_MI`]. The trip's spoken distances follow.
+    pub fn follow_units(&mut self, ctx: &mut GameContext) {
+        let position = self.trip.position_mi;
+        if position >= self.units_hold_mi {
+            let country = self.trip.country_at(position);
+            let mode = ctx.settings.units_mode();
+            let changes = !country.is_empty() && effective(mode, &country) != ctx.settings.units();
+            if !changes {
+                self.units_due_mi = None;
+                ctx.settings.move_units(UnitsEvent::TruckIn(country));
+            } else {
+                let due = *self.units_due_mi.get_or_insert(position);
+                if position - due >= UNITS_LINE_GRACE_MI {
+                    self.units_due_mi = None;
+                    if let Some(line) = ctx.settings.move_units(UnitsEvent::TruckIn(country)) {
+                        self.queue_after_crossing(
+                            AfterCrossing::Units,
+                            line,
+                            Some(SpeechCategory::Navigation),
+                        );
+                    }
+                }
+            }
+        }
+        self.trip.set_imperial(ctx.settings.imperial());
+    }
+
+    /// The units line to queue after a crossing call into `into_state`, when
+    /// Automatic changes the units there. Moves the units at once, so every
+    /// readout after the call is in the new ones.
+    pub fn units_line_for_crossing(
+        &mut self,
+        ctx: &mut GameContext,
+        into_state: &str,
+    ) -> Option<&'static str> {
+        let country = self.trip.country_of_state(into_state);
+        if country.is_empty() || country == ctx.settings.units_place.country() {
+            return None;
+        }
+        self.units_due_mi = None;
+        self.units_hold_mi = self.trip.position_mi + UNITS_LINE_GRACE_MI;
+        let line = ctx.settings.move_units(UnitsEvent::TruckIn(country));
+        self.trip.set_imperial(ctx.settings.imperial());
+        line
+    }
+
     pub fn check_border_approach(&mut self, ctx: &mut GameContext) {
         let position = self.trip.position_mi;
         let lookahead = self.scale_notice_lookahead_mi(ctx).max(2.0);
@@ -68,7 +126,10 @@ impl DrivingState {
                 self.refresh_live_facts();
                 let at_mi = booth.at_mi;
                 ctx.say_event_with(
-                    "Customs booth in half a mile. Stop at the booth.",
+                    format!(
+                        "Customs booth in {}. Stop at the booth.",
+                        ctx.settings.short_distance_text(0.5)
+                    ),
                     SayEvent::queued()
                         .priority(EventPriority::Important)
                         .category(SpeechCategory::Navigation)

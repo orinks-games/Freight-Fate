@@ -1116,7 +1116,7 @@ fn test_short_distance_text_units() {
     assert_eq!(s.short_distance_text(0.74), "three quarters of a mile");
     assert_eq!(s.short_distance_text(1.0), "one mile");
     let m = Settings {
-        imperial_units: false,
+        units: "metric".to_string(),
         ..Default::default()
     };
     assert_eq!(m.short_distance_text(0.25), "400 meters");

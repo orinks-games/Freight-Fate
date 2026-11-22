@@ -285,7 +285,7 @@ fn switch_announcement(mut harness: PlaytestHarness, from: HosRules, to: HosRule
 }
 
 /// The order at a line is a rule: the crossing call is spoken and finishes,
-/// then the time zone, then the hours line. Spoken the moment the rules
+/// then the time zone, then the units (Automatic), then the hours line. Spoken the moment the rules
 /// changed, the hours line flushed the crossing call mid-sentence at the
 /// Yukon line, and the time zone line was dropped as stale behind it.
 #[test]
@@ -340,7 +340,21 @@ fn hours_line_follows_the_crossing_call_once_it_finishes() {
         .iter()
         .position(|(text, _)| text.starts_with("Crossing into Alaska Time"))
         .unwrap_or_else(|| panic!("no time zone line: {calls:?}"));
-    assert!(crossing < time_zone && time_zone < hours, "{calls:?}");
+    // Automatic units leave kilometers at the Alaska line: that line comes
+    // after the time zone and before the hours rules, and cuts neither.
+    let units = calls
+        .iter()
+        .position(|(text, _)| text == "Speeds and distances are in miles now.")
+        .unwrap_or_else(|| panic!("no units line: {calls:?}"));
+    assert!(
+        crossing < time_zone && time_zone < units && units < hours,
+        "{calls:?}"
+    );
+    assert!(!calls[units].1, "the units line must not cut in: {calls:?}");
+    assert!(
+        at("Speeds and distances") - at("Crossing into Alaska Time") >= 1.0,
+        "{handed_at:?}"
+    );
     assert!(!calls[hours].1, "the hours line must not cut in: {calls:?}");
     assert_eq!(
         calls

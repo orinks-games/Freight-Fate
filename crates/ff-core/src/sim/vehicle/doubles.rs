@@ -265,12 +265,38 @@ impl TruckState {
     /// its gross against this set's legal gross for the route and nothing
     /// else; a real ticket prints each platform, which is a ROADMAP debt.
     pub fn scale_ticket_text(&self) -> String {
+        self.scale_ticket_text_in(true)
+    }
+
+    /// [`Self::scale_ticket_text`] in kilograms when the readouts are
+    /// metric.
+    pub fn scale_ticket_text_in(&self, imperial: bool) -> String {
         if !self.doubles_hooked() {
-            return self.axle_loads().ticket_text();
+            return self.axle_loads().ticket_text_in(imperial);
         }
         let lb = |kg: f64| (kg / KG_PER_LB).round();
         let gross = lb(self.gross_mass_kg());
         let limit = self.trailer_set.legal_gvw_lb().round();
+        if !imperial {
+            let gross_kg = self.gross_mass_kg().round();
+            let limit_kg = (limit * KG_PER_LB).round();
+            let verdict = if gross > limit {
+                format!(
+                    "{} kilograms over the {} kilogram gross limit for this set on this route.",
+                    fmt_grouped((gross_kg - limit_kg).max(1.0), 0),
+                    fmt_grouped(limit_kg, 0)
+                )
+            } else {
+                format!(
+                    "Legal under the {} kilogram gross limit for this set on this route.",
+                    fmt_grouped(limit_kg, 0)
+                )
+            };
+            return format!(
+                "Gross {} kilograms, both trailers and the converter dolly included. {verdict}",
+                fmt_grouped(gross_kg, 0)
+            );
+        }
         let verdict = if gross > limit {
             format!(
                 "{} pounds over the {} pound gross limit for this set on this route.",

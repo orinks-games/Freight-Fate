@@ -53,7 +53,7 @@ impl BusinessStatusState {
                     }),
                     move |s: &mut Self, ctx| s.move_to_carrier(ctx, option),
                 )
-                .help(option.menu_summary)
+                .help(option.summary_in(&ctx.settings))
             })
             .collect()
     }
@@ -73,15 +73,16 @@ impl BusinessStatusState {
                 })
                 .map(|t| format!(" Truck starts at {t}."))
                 .unwrap_or_default();
+            let menu_summary = option.summary_in(&ctx.settings);
             if ctx.touch_hints() {
                 ctx.say(&format!(
                     "{}. {}{starts} Double tap again to move.",
-                    option.carrier_name, option.menu_summary
+                    option.carrier_name, menu_summary
                 ));
             } else {
                 ctx.say(&format!(
                     "{}. {}{starts} Press Enter again to move.",
-                    option.carrier_name, option.menu_summary
+                    option.carrier_name, menu_summary
                 ));
             }
             self.refresh(ctx, true);

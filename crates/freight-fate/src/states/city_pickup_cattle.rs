@@ -4,6 +4,7 @@
 use ff_core::pyfmt::fmt_grouped;
 use ff_core::sim::livestock::{danger_temp_f, head_text, pounds, CattleKind, LIVESTOCK_CARGO_KEY};
 use ff_core::sim::season::temperature_c;
+use ff_core::sim::vehicle::KG_PER_LB;
 
 use crate::app::GameContext;
 use crate::states::base::MenuItem;
@@ -24,7 +25,7 @@ impl PickupFacilityState {
 
     /// "Loaded for Dodge City. 89 head of feeder calves, about 48,900 pounds.
     /// Health papers are in the cab." None for any other freight.
-    pub(crate) fn cattle_loaded_line(&self) -> Option<String> {
+    pub(crate) fn cattle_loaded_line(&self, imperial: bool) -> Option<String> {
         if !self.is_cattle() {
             return None;
         }
@@ -37,6 +38,15 @@ impl PickupFacilityState {
         } else {
             ""
         };
+        if !imperial {
+            let kg = pounds(self.job.weight_tons) * KG_PER_LB;
+            return Some(format!(
+                "Loaded for {}. {}, about {} kilograms.{papers}",
+                self.job.spoken_destination(),
+                head_text(head, kind),
+                fmt_grouped((kg / 100.0).round() * 100.0, 0)
+            ));
+        }
         Some(format!(
             "Loaded for {}. {}, about {} pounds.{papers}",
             self.job.spoken_destination(),

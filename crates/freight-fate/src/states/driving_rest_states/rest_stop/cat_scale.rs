@@ -99,7 +99,7 @@ impl RestStopState {
                 let now = d.absolute_game_hour(ctx, None);
                 d.stop_visit(&stop).full_weigh_h = Some(now);
             }
-            let ticket = d.trip.truck.scale_ticket_text();
+            let ticket = d.trip.truck.scale_ticket_text_in(ctx.settings.imperial());
             advance_on_duty_clock(
                 d,
                 ctx,

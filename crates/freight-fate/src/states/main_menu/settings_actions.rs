@@ -12,6 +12,7 @@ use ff_core::settings::{
 use ff_core::sim::hos::clock_text;
 use ff_core::sim::season::{date_text, real_clock_game_hours};
 use ff_core::speech_pacing::DRIVING_SPEECH_MODES;
+use ff_core::units::UnitsMode;
 
 use super::settings::{save_settings, SettingsCategoryState};
 use super::settings_items::assist_flag;
@@ -279,8 +280,10 @@ impl SettingsCategoryState {
         self.announce(ctx);
     }
 
-    pub(super) fn toggle_units(&mut self, ctx: &mut GameContext, _d: i64) {
-        ctx.settings.imperial_units = !ctx.settings.imperial_units;
+    pub(super) fn cycle_units(&mut self, ctx: &mut GameContext, d: i64) {
+        let order: Vec<&str> = UnitsMode::ALL.iter().map(|mode| mode.key()).collect();
+        let i = cycle_index(&order, &ctx.settings.units, d, 0);
+        ctx.settings.set_units_mode(UnitsMode::ALL[i]);
         self.announce(ctx);
     }
 

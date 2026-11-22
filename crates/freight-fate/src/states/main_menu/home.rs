@@ -22,6 +22,9 @@ impl Menu for MainMenuState {
     }
 
     fn enter(&mut self, ctx: &mut GameContext) {
+        // No career open: the menus speak in the home country's units.
+        ctx.settings
+            .move_units(ff_core::units::UnitsEvent::NoCareer);
         ctx.cloud_saves_service()
             .check_resume(ctx.online_enabled(ctx.settings.cloud_resume));
         let (sequence, ambience) = reuse_loadable_saves_scan(|| {

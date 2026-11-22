@@ -261,7 +261,21 @@ impl LoyaltyAccount {
 
 /// Generate spoken text for loyalty earnings after fueling.
 pub fn loyalty_earnings_text(gallons: f64, points_earned: f64, rewards: &[String]) -> String {
-    let mut parts = vec![format!("{} gallons fueled", fmt_f(gallons, 0))];
+    loyalty_earnings_text_in(gallons, points_earned, rewards, None)
+}
+
+/// [`loyalty_earnings_text`] with the fuel in the player's units:
+/// `volume` is the amount as spoken ("341 liters"); `None` keeps gallons.
+pub fn loyalty_earnings_text_in(
+    gallons: f64,
+    points_earned: f64,
+    rewards: &[String],
+    volume: Option<&str>,
+) -> String {
+    let mut parts = vec![match volume {
+        Some(volume) => format!("{volume} fueled"),
+        None => format!("{} gallons fueled", fmt_f(gallons, 0)),
+    }];
     if points_earned > 0.0 {
         parts.push(format!("{} loyalty points earned", fmt_f(points_earned, 0)));
     }
@@ -567,4 +581,11 @@ mod tests {
 
     // The five `tests/test_loyalty_integration.py` cases run against the real
     // `Profile` in `models::profile::tests` (same names).
+
+    #[test]
+    fn metric_earnings_name_the_fuel_in_the_players_units() {
+        let text = loyalty_earnings_text_in(50.0, 50.0, &[], Some("189 liters"));
+        assert!(text.starts_with("189 liters fueled"), "{text}");
+        assert!(!text.contains("gallon"), "{text}");
+    }
 }
