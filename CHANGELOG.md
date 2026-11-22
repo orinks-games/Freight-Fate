@@ -65,6 +65,7 @@
 - **Highway 97 and the Alaska Highway have billboards for their attractions.** From Hope and Barkerville to the Sign Post Forest and Kluane, each board tells you a little about the place.
 - **Ontario and Quebec have billboards for their attractions.** From the Big Nickel to the Château Frontenac, each board tells you a little about the place.
 - **Canadian roads keep Canada's holidays.** Canada Day and October's Thanksgiving get their own boards, and the Fourth of July stays south of the border.
+- **Western Canada has billboards for its attractions.** From the Othello Tunnels to Vegreville's giant egg, boards stand outside the parks and plain lines name places inside them.
 - **Billboards notice what you haul.** Cattle, a reefer load or doubles get their own signs, and now and then a board names your carrier.
 - **Fifty-four carriers now hire across the map, including Alaska.** Every lower-48 city has at least two regional carriers, and local carriers work 16 big cities and ports.
 - **Three new national carriers lean toward refrigerated freight, doubles, or steel, machinery and lumber.**
@@ -105,6 +106,8 @@
 
 ### Fixed
 
+- **Driving into the Northwest Territories now says "the Northwest Territories."** The District of Columbia gets its "the" too.
+- **A roadside attraction board is no longer skipped when a joke board came just before it.** Boards like Kingston Penitentiary's now play as you pass.
 - **An empty run now parks and settles when it arrives,** without offering to drop a loaded trailer it never had.
 - **The sleep forecast in Canada now counts Canadian hours:** 13 hours of driving and a 16-hour shift.
 - **The loyalty readout now gives fuel in liters when distances are in kilometers.**

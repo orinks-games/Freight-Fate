@@ -1,8 +1,7 @@
 # Ontario and Quebec -- 2026-11-22
 
-Copy by the director, waiting on Orinks's approval (the "Ontario and
-Quebec sheet" section of the approval doc); nothing here bakes until he
-says yes. Facts and sources for every place are in the places file the
+Copy by the director, approved by Orinks on 2026-11-22 (the "Ontario and
+Quebec sheet" section of the approval doc). Facts and sources for every place are in the places file the
 director wrote from (`career-2.0-alpha/ontario-quebec-places.md` in the
 project files), summarised under each place. Ontario and Quebec license
 boards, so a place gets a billboard about ten miles before it on each
@@ -18,20 +17,20 @@ board.
 Sources: tourismoxford.ca; directory.oxfordcounty.ca. OpenStreetMap node 1744638685; 0.91 miles off the road.
 
 ### Springbank Snow Countess (Hamilton to Woodstock)
-- treatment: skip
+- treatment: billboard
 - leg: hamilton_on_ca -> woodstock_on_ca
-- at_mi: 49.0
+- at_mi: 39.0
 - spoken: Billboard: The Springbank Snow Countess, ahead in Woodstock. A statue of a Holstein who set the world record for butterfat in nineteen thirty-three and held it twenty-one years. Still outstanding in her field.
 
-Not placed: within two miles of a line the map already speaks (Passing Plattsville @38.8; Passing Drumbo @38.4), so one would be silenced.
+Placed on the second pass (2026-11-22): a village too far off the road to be spoken no longer crowds a sign, and a board may stand 4 to 15 miles before its place (director's rule).
 
 ### Springbank Snow Countess (Kitchener to Woodstock)
-- treatment: skip
+- treatment: billboard
 - leg: kitchener_on_ca -> woodstock_on_ca
-- at_mi: 34.1
+- at_mi: 24.4
 - spoken: Billboard: The Springbank Snow Countess, ahead in Woodstock. A statue of a Holstein who set the world record for butterfat in nineteen thirty-three and held it twenty-one years. Still outstanding in her field.
 
-Not placed: within two miles of a line the map already speaks (Passing Princeton @25.3; Drumbo and District Museum ahead @22.3), so one would be silenced.
+Placed on the second pass (2026-11-22): a village too far off the road to be spoken no longer crowds a sign, and a board may stand 4 to 15 miles before its place (director's rule).
 
 ### Springbank Snow Countess (London to Woodstock)
 - treatment: billboard
@@ -51,12 +50,12 @@ Sources: Wikipedia (Doon Heritage Village); regionofwaterloomuseums.ca. OpenStre
 - spoken: Billboard: Doon Heritage Village, ahead in Kitchener. It opened in nineteen fifty-seven with a barn raising, and inside it is always nineteen fourteen. The news has not arrived.
 
 ### Doon Heritage Village (Woodstock to Kitchener)
-- treatment: skip
+- treatment: billboard
 - leg: woodstock_on_ca -> kitchener_on_ca
-- at_mi: 31.3
+- at_mi: 21.3
 - spoken: Billboard: Doon Heritage Village, ahead in Kitchener. It opened in nineteen fifty-seven with a barn raising, and inside it is always nineteen fourteen. The news has not arrived.
 
-Not placed: within two miles of a line the map already speaks (Passing New Dundee @20.9; Passing Ayr @19.1), so one would be silenced.
+Placed on the second pass (2026-11-22): a village too far off the road to be spoken no longer crowds a sign, and a board may stand 4 to 15 miles before its place (director's rule).
 
 
 ## Royal Botanical Gardens
@@ -81,12 +80,12 @@ Sources: Wikipedia. OpenStreetMap relation 18431920; 1.21 miles off the road.
 Sources: visitniagaracanada.com. OpenStreetMap way 232429551; 0.84 miles off the road.
 
 ### Welland Canals Centre (Niagara Falls to St. Catharines)
-- treatment: skip
+- treatment: billboard
 - leg: niagara_falls_on_ca -> st_catharines_on_ca
-- at_mi: 8.6
+- at_mi: 1.0
 - spoken: Billboard: The Welland Canals Centre at Lock Three, ahead in Saint Catharines. A viewing platform where lake freighters climb the Niagara Escarpment. They carry more than you do. They are also slower.
 
-Not placed: within two miles of a line the map already speaks (Passing Sanborn @0.5; Passing Grand Island @0.0), so one would be silenced.
+Placed on the second pass (2026-11-22): a village too far off the road to be spoken no longer crowds a sign, and a board may stand 4 to 15 miles before its place (director's rule).
 
 ### Welland Canals Centre (St. Catharines to Niagara Falls)
 - treatment: billboard
@@ -162,12 +161,12 @@ Sources: Parks Canada directory. OpenStreetMap relation 286910; 0.54 miles off t
 Sources: Wikipedia. OpenStreetMap way 4969919; 1.4 miles off the road.
 
 ### Kingston Penitentiary (Belleville to Kingston)
-- treatment: skip
+- treatment: billboard
 - leg: belleville_on_ca -> kingston_on_ca
-- at_mi: 50.5
+- at_mi: 40.5
 - spoken: Billboard: Kingston Penitentiary, ahead. Opened in eighteen thirty-five, closed in twenty thirteen, and now toured. Charles Dickens visited in eighteen forty-two and praised it. He was allowed to leave.
 
-Not placed: within two miles of a line the map already speaks (Passing Harrowsmith @40.0; Passing Sydenham @43.7), so one would be silenced.
+Placed on the second pass (2026-11-22): a village too far off the road to be spoken no longer crowds a sign, and a board may stand 4 to 15 miles before its place (director's rule).
 
 
 ## Brockville Railway Tunnel
@@ -198,20 +197,20 @@ Sources: Wikipedia (Brockville Tunnel). OpenStreetMap way 624230373; 0.09 miles 
 Sources: Wikipedia. OpenStreetMap way 233145686; 1.47 miles off the road.
 
 ### Upper Canada Village (Brockville to Cornwall)
-- treatment: skip
+- treatment: billboard
 - leg: brockville_on_ca -> cornwall_on_ca
-- at_mi: 40.7
+- at_mi: 30.7
 - spoken: Billboard: Upper Canada Village, ahead near Morrisburg. More than forty buildings where it is always eighteen sixty-six, with working mills for wool, flour and lumber. Nobody there has heard of diesel.
 
-Not placed: within two miles of a line the map already speaks (Passing Brinston @30.2; Passing Waddington @31.5), so one would be silenced.
+Placed on the second pass (2026-11-22): a village too far off the road to be spoken no longer crowds a sign, and a board may stand 4 to 15 miles before its place (director's rule).
 
 ### Upper Canada Village (Cornwall to Brockville)
-- treatment: skip
+- treatment: billboard
 - leg: cornwall_on_ca -> brockville_on_ca
-- at_mi: 22.4
+- at_mi: 9.5
 - spoken: Billboard: Upper Canada Village, ahead near Morrisburg. More than forty buildings where it is always eighteen sixty-six, with working mills for wool, flour and lumber. Nobody there has heard of diesel.
 
-Not placed: within two miles of a line the map already speaks (Passing Newington @12.3; Passing Long Sault @11.6), so one would be silenced.
+Placed on the second pass (2026-11-22): a village too far off the road to be spoken no longer crowds a sign, and a board may stand 4 to 15 miles before its place (director's rule).
 
 
 ## Parliament Hill
@@ -298,6 +297,21 @@ Sources: Wikipedia. OpenStreetMap node 771719820; 1.72 miles off the road.
 - at_mi: 88.9
 - spoken: Billboard: The Big Nickel, ahead in Sudbury. Called the world's largest coin. It was built just past the city line, so it never needed a city permit. Thrifty, for a coin.
 
+### The Big Nickel (Sault Ste. Marie to Sudbury)
+- treatment: billboard
+- leg: sault_ste_marie_on_ca -> sudbury_on_ca
+- at_mi: 183.0
+- spoken: Billboard: The Big Nickel, ahead in Sudbury. Called the world's largest coin. It was built just past the city line, so it never needed a city permit. Thrifty, for a coin.
+
+The place is at mile 194.3; the board stands 11.3 miles before it. The same approved line on a new approach to Sudbury (director's ruling, 2026-11-22).
+
+### The Big Nickel (Timmins to Sudbury)
+- treatment: billboard
+- leg: timmins_on_ca -> sudbury_on_ca
+- at_mi: 169.1
+- spoken: Billboard: The Big Nickel, ahead in Sudbury. Called the world's largest coin. It was built just past the city line, so it never needed a city permit. Thrifty, for a coin.
+
+The place is at mile 181.6; the board stands 12.5 miles before it. The same approved line on a new approach to Sudbury (director's ruling, 2026-11-22).
 
 ## Peterborough Lift Lock
 
@@ -377,12 +391,12 @@ Sources: Wikipedia. OpenStreetMap way 109746490; 2.55 miles off the road.
 - spoken: Billboard: Fort Chambly, ahead. First built in sixteen sixty-five, rebuilt in stone, taken by American forces in seventeen seventy-five and burned the next year. It is in better shape now.
 
 ### Fort Chambly (Sherbrooke to Montréal)
-- treatment: skip
+- treatment: billboard
 - leg: sherbrooke_qc_ca -> montreal_qc_ca
-- at_mi: 79.1
+- at_mi: 67.6
 - spoken: Billboard: Fort Chambly, ahead. First built in sixteen sixty-five, rebuilt in stone, taken by American forces in seventeen seventy-five and burned the next year. It is in better shape now.
 
-Not placed: within two miles of a line the map already speaks (Passing Sainte-Angèle-de-Monnoir @69.7; Passing Rougemont @70.5), so one would be silenced.
+Placed on the second pass (2026-11-22): a village too far off the road to be spoken no longer crowds a sign, and a board may stand 4 to 15 miles before its place (director's rule).
 
 
 ## Village Québécois d'Antan
@@ -431,12 +445,12 @@ Sources: Britannica; WorldAtlas. OpenStreetMap relation 32580; 0.2 miles off the
 - spoken: Billboard: The Château Frontenac, ahead in Quebec City. Six hundred eleven rooms, open since eighteen ninety-three. It claims to be the world's most photographed hotel. No truck parking in any of the photographs.
 
 ### Château Frontenac (Saguenay to Quebec City)
-- treatment: skip
+- treatment: billboard
 - leg: saguenay_qc_ca -> quebec_city_qc_ca
-- at_mi: 131.0
+- at_mi: 121.0
 - spoken: Billboard: The Château Frontenac, ahead in Quebec City. Six hundred eleven rooms, open since eighteen ninety-three. It claims to be the world's most photographed hotel. No truck parking in any of the photographs.
 
-Not placed: within two miles of a line the map already speaks (Passing Shannon @120.5; Passing Lac-Beauport @119.1), so one would be silenced.
+Placed on the second pass (2026-11-22): a village too far off the road to be spoken no longer crowds a sign, and a board may stand 4 to 15 miles before its place (director's rule).
 
 ### Château Frontenac (Trois-Rivières to Quebec City)
 - treatment: billboard
@@ -497,12 +511,12 @@ Not placed: within two miles of a line the map already speaks (Passing Youngstow
 Sources: canada.ca (Parks Canada); tourismnorthbay.com. OpenStreetMap way 813258938; 0.1 miles off the road.
 
 ### Dionne Quintuplets Home Museum (Sudbury to North Bay)
-- treatment: skip
+- treatment: landmark
 - leg: sudbury_on_ca -> north_bay_on_ca
 - at_mi: 78.3
 - spoken: Passing the Dionne Quintuplets Home Museum.
 
-Not placed: within two miles of a line the map already speaks (Passing Callander @78.8; Passing Corbeil Corners @78.8), so one would be silenced.
+Placed on the second pass (2026-11-22): a village too far off the road to be spoken no longer crowds a sign, and a board may stand 4 to 15 miles before its place (director's rule).
 
 
 ## Bethune Memorial House

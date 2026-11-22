@@ -10209,7 +10209,21 @@
           "name": "level",
           "sections": 0,
           "source": "DERIVED, not read: Canada has no national inventory like HPMS, so the class is the terrain the leg's own grade profile spends the most miles in (the reroute-enrich rule: sustained grade of 5 percent, or 4 percent with 1,000 ft of relief within 5 miles, is mountain; 1.5 percent or 400 ft of relief is hills; else flat), mapped flat to level, hills to rolling and mountain to mountainous. It reads the same elevation as the grade, so it is no independent check on it."
-        }
+        },
+        "billboard_bans": [
+          {
+            "from_mi": 0.0,
+            "to_mi": 151.7,
+            "name": "North Shore Scenic Drive",
+            "source": "read: MnDOT North Shore Scenic Drive corridor management plan and the FHWA byways map (Minnesota Highway 61, an All-American Road since 2000, Duluth to the Canadian border at Grand Portage), read 2026-11-22; span derived as the leg's Minnesota stretch on its archived route; national scenic byways ban boards as in the West (director's ruling, 2026-11-22)"
+          },
+          {
+            "from_mi": 151.3,
+            "to_mi": 154.5,
+            "name": "Pigeon River Provincial Park and Grand Portage State Park",
+            "source": "derived 2026-11-22: OpenStreetMap park polygons (Pigeon River Provincial Park and Grand Portage State Park) boundary from the planet extract of 2026-11-16; the stretch of the leg's archived route inside the park or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
+          }
+        ]
       },
       "rerouted": true,
       "border_crossing": {

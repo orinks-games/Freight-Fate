@@ -238,7 +238,8 @@ impl Trip {
                 let crossing = if city_state != prev_state
                     && !self.leg_maps_crossing_into(i - 1, &city_state)
                 {
-                    format!("Crossing into {city_state}. ")
+                    let name = crate::data::place_article::with_article(&city_state);
+                    format!("Crossing into {name}. ")
                 } else {
                     String::new()
                 };

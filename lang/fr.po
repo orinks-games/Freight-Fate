@@ -5282,6 +5282,18 @@ msgstr ""
 "{from_city} à {to_city} : la part lue du revêtement, {py_str_float}, n'est "
 "pas entre 0 et 1"
 
+msgid "Northwest Territories"
+msgstr ""
+
+msgid "the Northwest Territories"
+msgstr "Northwest Territories"
+
+msgid "District of Columbia"
+msgstr "District of Columbia"
+
+msgid "the District of Columbia"
+msgstr "District of Columbia"
+
 msgid "northeast"
 msgstr "northeast"
 
@@ -5441,9 +5453,6 @@ msgid ""
 msgstr ""
 "Bienvenue dans le Delaware, le Premier État, le premier à ratifier la "
 "Constitution et assez fier pour l'écrire sur le panneau."
-
-msgid "District of Columbia"
-msgstr "District of Columbia"
 
 msgid ""
 "Welcome to the District of Columbia, the nation's capital. Monuments, "
@@ -10026,9 +10035,6 @@ msgstr ""
 
 msgid "Quebec"
 msgstr "Quebec"
-
-msgid "Northwest Territories"
-msgstr ""
 
 msgid "New Brunswick"
 msgstr ""
@@ -15639,9 +15645,9 @@ msgstr "Vous entrez dans {name}."
 msgid "crossing from {from_state} into {into_state} near {place}"
 msgstr "passage de {from_state} à {into_state} près de {place}"
 
-#. placeholders: {into_state}, {place}
-msgid "Crossing into {into_state} near {place}."
-msgstr "Vous entrez dans l'État de {into_state} près de {place}."
+#. placeholders: {name}, {place}
+msgid "Crossing into {name} near {place}."
+msgstr "Vous entrez dans l'État de {name} près de {place}."
 
 msgid "checkpoint"
 msgstr "point de passage"
@@ -16135,9 +16141,9 @@ msgstr "circulation qui s'insère pour {highway}"
 msgid "traffic merging for roadwork"
 msgstr "circulation qui se rabat à cause de travaux"
 
-#. placeholders: {city_state}
-msgid "Crossing into {city_state}. "
-msgstr "Vous entrez dans {city_state}. "
+#. placeholders: {name}
+msgid "Crossing into {name}. "
+msgstr "Vous entrez dans {name}. "
 
 #. placeholders: {crossing}, {city}, {city_state}
 msgid "{crossing}Passing {city}, {city_state}."

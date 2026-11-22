@@ -1,8 +1,7 @@
 # The West corridor: British Columbia, Alberta, Saskatchewan and Manitoba -- 2026-11-22
 
-Copy by the director, waiting on Orinks's approval; only then does
-`cargo tools bake-billboards --sheet <this file> --write` put it on the
-legs. Both directions of an attraction read the same line.
+Copy by the director, approved by Orinks on 2026-11-22 and baked with
+`cargo tools bake-billboards --sheet <this file> --write`. Both directions of an attraction read the same line.
 
 Part one, below: the thirteen Highway 1 and 97 signs from the Alaska
 Highway sheet, re-placed on the legs the West corridor split the old
@@ -171,7 +170,7 @@ Kettle Valley Railway tunnels, 1914; stations named for Shakespeare characters, 
 ### Othello Tunnels (Merritt to Hope)
 - treatment: billboard
 - leg: merritt_bc_ca -> hope_bc_ca
-- at_mi: 61.4
+- at_mi: 62
 - spoken: Billboard: The Othello Tunnels, ahead near Hope. Railway tunnels cut through a canyon in nineteen fourteen, on a line whose stations were named for Shakespeare characters. The engineer chose the names. The rock got no say.
 
 
@@ -754,20 +753,20 @@ A giant pysanka, 1975, that turns with the wind. Source: Wikipedia. OpenStreetMa
 The battlefield of 1885. Sources: Parks Canada; Canadian Encyclopedia. About 6 miles off Highway 11, so the line says 'near'. OpenStreetMap way 493471366.
 
 ### Batoche
-- treatment: skip
+- treatment: landmark
 - leg: prince_albert_sk_ca -> saskatoon_sk_ca
 - at_mi: 37.7
 - spoken: Passing near Batoche National Historic Site, the battlefield of eighteen eighty-five.
 
-Skipped this pass. The director ruled that this line replaces the town's own "Passing Batoche" at mile 37.7, but even in its place it stands within two miles of "Passing ᓃᐱᓰᐦᑯᐹᐏᔨᓃᓈᕽ Beardy's and Okemasis'" 1.4 miles before, so one would be silenced.
+Placed on the second pass (2026-11-22): a village too far off the road to be spoken no longer crowds a sign, so Carlton (11 miles off) and Beardy's and Okemasis' (4.4 miles off) are not lines here. The line replaces the town's own "Passing Batoche" (director's ruling).
 
 ### Batoche
-- treatment: skip
+- treatment: landmark
 - leg: saskatoon_sk_ca -> prince_albert_sk_ca
 - at_mi: 48.4
 - spoken: Passing near Batoche National Historic Site, the battlefield of eighteen eighty-five.
 
-Skipped this pass. The director ruled that this line replaces the town's own "Passing Batoche" at mile 48.4, but even in its place it stands within two miles of "Passing Carlton" 1.8 miles and "Passing ᓃᐱᓰᐦᑯᐹᐏᔨᓃᓈᕽ Beardy's and Okemasis'" 1.3 miles away, so one would be silenced.
+Placed on the second pass (2026-11-22): a village too far off the road to be spoken no longer crowds a sign, so Carlton (11 miles off) and Beardy's and Okemasis' (4.4 miles off) are not lines here. The line replaces the town's own "Passing Batoche" (director's ruling).
 
 ## Fort Battleford
 

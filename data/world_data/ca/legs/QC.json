@@ -34522,7 +34522,15 @@
           "name": "rolling",
           "sections": 0,
           "source": "DERIVED, not read: Canada has no national inventory like HPMS, so the class is the terrain the leg's own grade profile spends the most miles in (the reroute-enrich rule: sustained grade of 5 percent, or 4 percent with 1,000 ft of relief within 5 miles, is mountain; 1.5 percent or 400 ft of relief is hills; else flat), mapped flat to level, hills to rolling and mountain to mountainous. It reads the same elevation as the grade, so it is no independent check on it."
-        }
+        },
+        "billboard_bans": [
+          {
+            "from_mi": 65.5,
+            "to_mi": 66.5,
+            "name": "Parc provincial de la R\u00e9publique",
+            "source": "derived 2026-11-22: OpenStreetMap relation 9583336 (Parc provincial de la R\u00e9publique) boundary from the Atlantic cut of the planet extract of 2026-11-16; the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on); widened to the one-mile minimum"
+          }
+        ]
       },
       "rerouted": true
     },
@@ -39898,6 +39906,16 @@
             "kind": "point",
             "source": "OpenStreetMap place=town node 501241349, projected onto the leg's checked-in route geometry",
             "spoken": "Passing Shannon"
+          },
+          {
+            "name": "Ch\u00e2teau Frontenac (Saguenay to Quebec City)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 121.0,
+            "spoken": "Billboard: The Ch\u00e2teau Frontenac, ahead in Quebec City. Six hundred eleven rooms, open since eighteen ninety-three. It claims to be the world's most photographed hotel. No truck parking in any of the photographs.",
+            "directions": [
+              "forward"
+            ]
           },
           {
             "name": "Wendake",
@@ -46230,6 +46248,16 @@
             "kind": "point",
             "source": "OpenStreetMap place=village node 252013045, projected onto the leg's checked-in route geometry",
             "spoken": "Passing Sainte-Brigide-d'Iberville"
+          },
+          {
+            "name": "Fort Chambly (Sherbrooke to Montr\u00e9al)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 67.6,
+            "spoken": "Billboard: Fort Chambly, ahead. First built in sixteen sixty-five, rebuilt in stone, taken by American forces in seventeen seventy-five and burned the next year. It is in better shape now.",
+            "directions": [
+              "forward"
+            ]
           },
           {
             "name": "Sainte-Ang\u00e8le-de-Monnoir",

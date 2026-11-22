@@ -7,6 +7,7 @@ use crate::data::billboard_law::{board_law, jurisdiction, BoardLaw};
 use crate::data::billboards::{corridor_signs, random_billboard, regional_genre_signs, SignAnchor};
 use crate::data::curves::{bend_bank, route_curves, superelevation_at, RouteCurve};
 use crate::data::national_network::city_key_state_country;
+use crate::data::place_article::with_article;
 use crate::data::world_models::{Leg, RouteCheckpoint};
 use crate::pyfmt::{fmt_f, py_str_float};
 use crate::pyrandom::PyRandom;
@@ -310,15 +311,19 @@ impl Trip {
                 let (label, spoken) = if place.is_empty() {
                     // Worded as the time-zone line's first sentence, so it
                     // shares that translation.
-                    let name = into_state;
+                    let name = with_article(into_state);
                     (
                         format!("crossing from {from_state} into {into_state}"),
                         format!("Crossing into {name}."),
                     )
                 } else {
+                    // `name`, not `into_state`: the catalog translates this
+                    // hole, so "the Northwest Territories" reads in each
+                    // language's own grammar.
+                    let name = with_article(into_state);
                     (
                         format!("crossing from {from_state} into {into_state} near {place}"),
-                        format!("Crossing into {into_state} near {place}."),
+                        format!("Crossing into {name} near {place}."),
                     )
                 };
                 cues.push(NavigationCue::new(
@@ -1176,7 +1181,7 @@ impl Trip {
             // sitting budget like CB_CALLS_PER_RUN: skip extras rather than
             // let 20x multiply pokes. Villages and limit-explaining names
             // are places -- once per milepost, no budget.
-            if !callout.is_place_callout() && !self.chatter_ready() {
+            if callout.waits_for_chatter_budget() && !self.chatter_ready() {
                 announced.insert(callout.key.clone());
                 continue;
             }

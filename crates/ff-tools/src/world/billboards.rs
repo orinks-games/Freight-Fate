@@ -27,7 +27,7 @@
 //! nothing.
 
 use ff_core::data::billboard_law::board_law;
-use ff_core::sim::trip_models::LANDMARK_MIN_SPACING_MI;
+use ff_core::sim::trip_models::{LANDMARK_MIN_SPACING_MI, VILLAGE_PASS_OFF_MI};
 
 use super::layers::{corridor_mut, leg_id, leg_miles, round, Run};
 use crate::cli::{Args, Spec};
@@ -151,6 +151,15 @@ fn heard(record: &Value) -> (bool, bool) {
     )
 }
 
+/// Whether the drive can speak this landmark record at all. A village set
+/// farther off the road than the game passes villages at is never read (the
+/// trip's placement skips it), so it cannot crowd a sign.
+fn can_speak(record: &Value) -> bool {
+    let village = record.get("category").map(Value::py_str).as_deref() == Some("village");
+    let off_mi = record.get("off_mi").and_then(Value::as_f64).unwrap_or(0.0);
+    !(village && off_mi > VILLAGE_PASS_OFF_MI)
+}
+
 /// A built record, ready to merge.
 struct Placed {
     leg_index: usize,
@@ -250,6 +259,7 @@ fn crowding(placed: &Placed, legs: &[Value], others: &[&Placed]) -> Vec<String> 
         .into_iter()
         .chain(fresh)
         .filter(|other| other.get("name").map(Value::py_str).as_deref() != Some(name.as_str()))
+        .filter(can_speak)
         .filter(|other| {
             let (f, r) = heard(other);
             (fwd && f) || (rev && r)
@@ -422,6 +432,29 @@ mod tests {
         let mut l = Object::new();
         l.insert("corridor", Value::Object(corridor));
         Value::Object(l)
+    }
+
+    fn landmark(category: &str, off_mi: f64) -> Value {
+        let mut o = Object::new();
+        o.insert("category", Value::Str(category.into()));
+        o.insert("off_mi", Value::Float(off_mi));
+        Value::Object(o)
+    }
+
+    #[test]
+    fn a_village_too_far_off_the_road_to_be_passed_cannot_crowd_a_sign() {
+        assert!(can_speak(&landmark("village", VILLAGE_PASS_OFF_MI)));
+        assert!(!can_speak(&landmark("village", VILLAGE_PASS_OFF_MI + 0.1)));
+        assert!(
+            can_speak(&landmark("museum", 8.0)),
+            "only villages are passed by distance"
+        );
+        let mut no_off = Object::new();
+        no_off.insert("category", Value::Str("village".into()));
+        assert!(
+            can_speak(&Value::Object(no_off)),
+            "a village with no offset is on the road"
+        );
     }
 
     #[test]
