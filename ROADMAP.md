@@ -4809,8 +4809,10 @@ offerability and hiring-radius rule (`is_offerable_home_city`; regionals
 home drivers only within their radius). Slice 2 made the new-career picker
 enforce it: region, then offerable home city, then the carriers hiring
 there, with the truck starting at that carrier's terminal. Slice 3 is also
-landed: the catalog now has **24 carriers: 3 national, 18 regional, and
-3 local**. `home_time_policy` remains `inert` for all 24.
+landed: the catalog had **24 carriers: 3 national, 18 regional, and
+3 local**. The 2.0 carrier spread (brief 12, 2026-11-22) takes it to **54:
+6 national, 32 regional, 16 local**. `home_time_policy` remains `inert` for
+all of them.
 
 Automated evidence: [`carrier_slice3.rs`](crates/ff-core/tests/it/carrier_slice3.rs)
 checks the catalog, hiring areas, coverage, terminal cities, and fallback
@@ -4873,6 +4875,38 @@ in the audited Windows run.
       never a world pin, so Fairbanks having no world `company_yard` or
       `terminal` pin is not a gap. The slice 3 test checks that terminal
       cities are real map cities with carrier-owned terminals.
+- [x] **2.0 carrier spread (brief 12).** Three specialist nationals
+      (Winterset Refrigerated Lines, Double Springs Linehaul, Open Hearth
+      Flatbed Lines, 12 terminals each), fourteen regionals and thirteen
+      locals. Lower-48 freight cities in reach of regionals, before then
+      after: one 248 / two 258 / three 101 / four 19, then two 141 / three
+      286 / four 154 / five 45. Locals hire in 45 cities (was 10). The start
+      picker lists 8 to 12 carriers in every lower-48 city (was 4 to 7);
+      New York 10, Chicago 12, Dallas 11, Billings 8, Anchorage 2. Worst
+      nearest-terminal distance per national: Open Hearth 512 mi (Shelby, MT),
+      Summit 482, Double Springs 474, Great Lakes Training 468, Winterset
+      455, Northstar 441. Bismarck, Twin Falls and Albuquerque each hold at
+      most two nationals' terminals. The picker sorts local, regional,
+      national, nearest terminal first, owner-operator last.
+      `tests/it/carrier_spread.rs` pins the coverage. Names were checked
+      against FMCSA and web listings; the record is in the carriers report.
+- [ ] **No Canadian carrier yet (Found along the way).** BC and YT stay
+      closed as home bases; a Canadian carrier joins when the Canadian
+      roads open for hiring.
+- [ ] **A second Alaska regional waits for new Alaska lanes (Found along
+      the way).** Chatanika covers every hirable Alaska city today; add a
+      second only when the map adds Alaska freight a second carrier would
+      run.
+- [ ] **Carrier start rows in other languages (Found along the way).**
+      The generated start rows ("{name}: regional company driver, {area}",
+      the national specialty rows, their summaries and help) and every
+      carrier's lane area and specialty phrase have no translations yet, so
+      a Spanish player in Chicago hears the local and regional rows in
+      English. Only the four hand-written starts are translated.
+- [x] **The hand-written company start rows say their kind.** Northstar,
+      Great Lakes Training and Summit Value say "national company driver",
+      Prairie Link "regional company driver", and their summaries no longer
+      repeat it (director's wording, 2026-11-22).
 - [ ] **Great Lakes Training `short_haul_bias` 0.8 conflicts with its 400 mi
       national run band.** The dispatch bias asks for short rookie loads the
       band minimum would forbid once enforced. Revisit in slice 4.
@@ -5833,6 +5867,14 @@ a carrier slice (owner, 2026-10-26).
       hold one unit everywhere. Fuel, weights, load tons, sign heights and
       the cruise dial follow the effective units. A 1.9 true becomes
       Automatic, false becomes Metric.
+- [ ] (Found along the way) A 1.9 build that saves the shared settings
+      file writes only the keys it knows, so it drops `units`. 2.0 then reads
+      1.9's `imperial_units: true` as Automatic, and a player's explicit
+      Imperial comes back as Automatic. Metric survives, since false still
+      maps to Metric.
+- [ ] (Found along the way) Once brief 5's per-sign km/h is in, drive one
+      Canadian 100 km/h sign: it should speak 100 in kilometers and 62 in
+      miles, and cruise to the limit should hold it.
 - [ ] The rules before the first corridor merges: postings follow the
       Units setting (Automatic speaks km/h in Canada); cycle 1 and 2 hours of service
       with the Canadian rest menus; provincial weights, the 25 m length,

@@ -463,9 +463,10 @@ fn test_start_options_for_a_city_are_only_carriers_that_hire_there() {
         assert!(keys(blocked).is_empty(), "{blocked}");
     }
     // Alaska homes see only the Alaska carriers, never a lower-48 one.
+    // The local first, then the regional (the picker's tier order).
     assert_eq!(
         keys("anchorage_ak_us"),
-        ["chatanika_freight", "knik_arm_cartage"]
+        ["knik_arm_cartage", "chatanika_freight"]
     );
     assert_eq!(keys("healy_ak_us"), ["chatanika_freight"]);
 }
@@ -485,4 +486,112 @@ fn a_generated_carrier_names_its_longest_load_in_the_players_units() {
     let km = option.summary_in(&settings);
     assert!(km.contains(" kilometers") && !km.contains(" miles"), "{km}");
     assert!(!option.help_in(&settings).contains(" miles"));
+    // A national's generated row converts the same way.
+    let reefer = start_option(Some("winterset_refrigerated"));
+    assert_eq!(
+        reefer.summary_in(&settings),
+        "Mostly refrigerated freight, with loads of up to 4828 kilometers."
+    );
+    // A hand-written row has no run band to convert, so it names no distance.
+    for option in all_start_options() {
+        if option.run_max_mi <= 0.0 {
+            assert!(
+                !option.menu_summary.contains(" miles"),
+                "{}: {}",
+                option.key,
+                option.menu_summary
+            );
+        }
+    }
+}
+
+#[test]
+fn test_the_start_picker_lists_locals_then_regionals_then_nationals_nearest_first() {
+    let world = crate::data::world::get_world();
+    for city in [
+        "new_york_ny_us",
+        "chicago_il_us",
+        "dallas_tx_us",
+        "billings_mt_us",
+        "seattle_wa_us",
+        "miami_fl_us",
+        "hutchinson_ks_us",
+    ] {
+        let options = start_options_for_home_city(world, city);
+        let owner_at = options.iter().position(|o| o.is_owner_operator());
+        assert_eq!(
+            owner_at,
+            Some(options.len() - 1),
+            "{city}: owner-operator last"
+        );
+        let rows: Vec<(usize, f64)> = options
+            .iter()
+            .filter(|o| o.is_company_driver())
+            .map(|o| {
+                let c = hiring_carrier_for_option(o).expect("company start has a carrier");
+                (c.tier_rank(), c.hiring_distance_mi(world, city).unwrap())
+            })
+            .collect();
+        for pair in rows.windows(2) {
+            assert!(
+                pair[0].0 < pair[1].0 || (pair[0].0 == pair[1].0 && pair[0].1 <= pair[1].1),
+                "{city}: {rows:?}"
+            );
+        }
+    }
+    // Chicago: the Chicagoland local leads, a national with its terminal in
+    // the city leads the nationals.
+    let chicago = start_options_for_home_city(world, "chicago_il_us");
+    assert_eq!(chicago[0].key, "des_plaines_cartage");
+    let first_national = chicago
+        .iter()
+        .find(|o| hiring_carrier_for_option(o).is_some_and(|c| c.is_national()))
+        .unwrap();
+    assert_eq!(first_national.key, DEFAULT_START_KEY);
+}
+
+#[test]
+fn test_a_generated_national_start_says_national_and_names_its_freight() {
+    let reefer = start_option(Some("winterset_refrigerated"));
+    assert_eq!(reefer.key, "winterset_refrigerated");
+    assert_eq!(
+        reefer.label,
+        "Winterset Refrigerated Lines: national company driver"
+    );
+    assert_eq!(
+        reefer.menu_summary,
+        "Mostly refrigerated freight, with loads of up to 3000 miles."
+    );
+    assert_eq!(
+        reefer.help_text,
+        "A national company-driver start. Dispatch leans toward refrigerated freight and offers \
+         loads of up to 3000 miles. Those loads need the refrigerated certificate. The carrier \
+         assigns and maintains the tractor and pays fuel and routine repairs."
+    );
+    let doubles = start_option(Some("double_springs_linehaul"));
+    assert!(
+        doubles
+            .help_text
+            .contains("Those loads need the doubles endorsement."),
+        "{}",
+        doubles.help_text
+    );
+    let flatbed = start_option(Some("open_hearth_flatbed"));
+    assert!(
+        flatbed
+            .help_text
+            .contains("Those loads need the flatbed securement certificate."),
+        "{}",
+        flatbed.help_text
+    );
+    // A regional's generated row keeps the area in its summary.
+    let regional = start_option(Some("chehalis_freight"));
+    assert_eq!(
+        regional.label,
+        "Chehalis Freight Lines: regional company driver"
+    );
+    assert_eq!(
+        regional.menu_summary,
+        "Loads of up to 600 miles in the Pacific Northwest."
+    );
 }

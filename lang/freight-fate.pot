@@ -10149,7 +10149,7 @@ msgstr ""
 msgid "local"
 msgstr ""
 
-#: crates/ff-core/src/models/carriers.rs crates/freight-fate/src/states/city/extras.rs
+#: crates/ff-core/src/models/carriers.rs crates/ff-core/src/models/start_options.rs crates/freight-fate/src/states/city/extras.rs
 msgid "national"
 msgstr ""
 
@@ -13050,13 +13050,11 @@ msgid "balanced dispatch"
 msgstr ""
 
 #: crates/ff-core/src/models/start_options.rs
-msgid "Northstar Freight Lines: balanced company driver"
+msgid "Northstar Freight Lines: national company driver"
 msgstr ""
 
 #: crates/ff-core/src/models/start_options.rs
-msgid ""
-"Balanced company-driver start with steady wages, normal training support, "
-"and assigned carrier equipment."
+msgid "Steady wages and no specialty."
 msgstr ""
 
 #: crates/ff-core/src/models/start_options.rs
@@ -13067,13 +13065,13 @@ msgid ""
 msgstr ""
 
 #: crates/ff-core/src/models/start_options.rs
-msgid "Great Lakes Training Transport: trainer-friendly company driver"
+msgid "Great Lakes Training Transport: national company driver"
 msgstr ""
 
 #: crates/ff-core/src/models/start_options.rs
 msgid ""
-"Trainer-friendly company start with stronger stop pay, more short rookie "
-"loads, and a little more appointment slack."
+"A training fleet with stronger stop pay, more short rookie loads, and a "
+"little more appointment slack."
 msgstr ""
 
 #: crates/ff-core/src/models/start_options.rs
@@ -13089,7 +13087,7 @@ msgid "Milwaukee"
 msgstr ""
 
 #: crates/ff-core/src/models/start_options.rs
-msgid "Prairie Link Regional: mile-focused company driver"
+msgid "Prairie Link Regional: regional company driver"
 msgstr ""
 
 #: crates/ff-core/src/models/start_options.rs
@@ -13098,8 +13096,8 @@ msgstr ""
 
 #: crates/ff-core/src/models/start_options.rs
 msgid ""
-"Regional carrier with a better per-mile floor, lower stop pay, and more "
-"same-region grain and bulk lanes."
+"A better per-mile floor, lower stop pay, and more same-region grain and "
+"bulk lanes."
 msgstr ""
 
 #: crates/ff-core/src/models/start_options.rs
@@ -13111,7 +13109,7 @@ msgid ""
 msgstr ""
 
 #: crates/ff-core/src/models/start_options.rs
-msgid "Summit Value Logistics: appointment-bonus company driver"
+msgid "Summit Value Logistics: national company driver"
 msgstr ""
 
 #: crates/ff-core/src/models/start_options.rs
@@ -13157,6 +13155,47 @@ msgid ""
 msgstr ""
 
 #: crates/ff-core/src/models/start_options.rs
+msgid ""
+"The carrier assigns and maintains the tractor and pays fuel and routine "
+"repairs."
+msgstr ""
+
+#. placeholders: {clause}
+#: crates/ff-core/src/models/start_options.rs
+msgid " Those loads need {clause}."
+msgstr ""
+
+#. placeholders: {name}
+#: crates/ff-core/src/models/start_options.rs
+msgid "{name}: national company driver"
+msgstr ""
+
+#. placeholders: {specialty}, {max}
+#: crates/ff-core/src/models/start_options.rs
+msgid "Mostly {specialty}, with loads of up to {max} miles."
+msgstr ""
+
+#. one sentence of a longer line
+#: crates/ff-core/src/models/start_options.rs
+msgid "A national company-driver start."
+msgstr ""
+
+#. placeholders: {specialty}, {max}, {needs}, {equipment}
+#: crates/ff-core/src/models/start_options.rs
+msgid ""
+"A national company-driver start. Dispatch leans toward {specialty} and "
+"offers loads of up to {max} miles.{needs} {equipment}"
+msgstr ""
+
+#. placeholders: {specialty}, {max}, {needs}, {equipment}
+#. one sentence of a longer line
+#: crates/ff-core/src/models/start_options.rs
+msgid ""
+"Dispatch leans toward {specialty} and offers loads of up to {max} "
+"miles.{needs} {equipment}"
+msgstr ""
+
+#: crates/ff-core/src/models/start_options.rs
 msgid "its home region"
 msgstr ""
 
@@ -13176,25 +13215,17 @@ msgstr ""
 msgid "A {tier} company-driver start in {area}."
 msgstr ""
 
-#. placeholders: {tier}, {area}, {max}
+#. placeholders: {tier}, {area}, {max}, {equipment}
 #: crates/ff-core/src/models/start_options.rs
 msgid ""
 "A {tier} company-driver start in {area}. Dispatch offers loads of up to "
-"{max} miles. The carrier assigns and maintains the tractor and pays fuel "
-"and routine repairs."
+"{max} miles. {equipment}"
 msgstr ""
 
 #. placeholders: {max}
 #. one sentence of a longer line
 #: crates/ff-core/src/models/start_options.rs
 msgid "Dispatch offers loads of up to {max} miles."
-msgstr ""
-
-#. one sentence of a longer line
-#: crates/ff-core/src/models/start_options.rs
-msgid ""
-"The carrier assigns and maintains the tractor and pays fuel and routine "
-"repairs."
 msgstr ""
 
 #. placeholders: {miles}
