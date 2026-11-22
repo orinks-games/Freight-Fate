@@ -1565,7 +1565,7 @@ impl RouteSelectState {
                 };
                 let kind = adjust_for_calendar(
                     kind,
-                    Some(observed.unwrap_or_else(|| temperature_c(&city.region, hours))),
+                    Some(observed.unwrap_or_else(|| temperature_c(city.climate(), hours))),
                     Some(hours),
                 );
                 parts.push(format!("{spoken_city}: {}", kind.value()));

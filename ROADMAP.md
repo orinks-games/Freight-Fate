@@ -5975,8 +5975,17 @@ a carrier slice (owner, 2026-10-26).
 - [ ] (Found along the way) Second pass of Quebec and northern Ontario
       stops: Petro-Canada and Ultramar truck stops on the 20 and 40, and
       fuel on 11 and 17; those links are short and end in towns with fuel.
-- [ ] (Found along the way) Quebec exit lines say a route number bare
-      ("exit 185 for 255"); the Route prefix is missing.
+- [x] (Found along the way) Quebec and Ontario exit lines named a road by
+      its bare number ("exit 185 for 255"). `cargo tools osm-exit-routes`
+      (2026-11-22) matches each bare number to the OpenStreetMap road
+      route relation nearest the exit and speaks its kind: Route 255,
+      A-20, Highway 8, County Road 31, Regional Road 60.
+- [ ] (Found along the way) A provincial traffic table for Ontario (MTO
+      AADT) and Quebec (MTMD DJMA); traffic on the Ontario and Quebec legs
+      is assumed until then.
+- [ ] (Found along the way) Highway 407 ETR as an electronic toll road;
+      the Kitchener and Hamilton legs into Mississauga are pinned to 401,
+      403 and the QEW to stay off it.
 - [ ] (Found along the way) The Ambassador Bridge, the Peace Bridge (with a
       Fort Erie city), Cornwall to Massena and Ogdensburg to Prescott are
       not on the map; each city pair has one crossing.
@@ -6047,12 +6056,41 @@ first is wanted before the first alpha; the rest follow as alpha updates,
 before 2.0 goes stable. Five questions for the owner are at the end of the
 design, each with the director's pick.
 
-- [ ] Step 1, before the alpha: real winter temperatures for Alaska and
-      Canada. Alaska, Yukon and British Columbia borrow the Pacific
+- [x] Step 1, before the alpha: real winter temperatures for Alaska and
+      Canada. Alaska, Yukon and British Columbia borrowed the Pacific
       Northwest's climate, so the coldest moment of the year in Fairbanks
-      or Deadhorse is about minus 3 Celsius; the prairies borrow
-      Missouri's. A climate table separate from the freight region, each
-      row derived from the 1991 to 2020 normals of a named station.
+      or Deadhorse was about minus 3 Celsius; the prairies borrowed
+      Missouri's. Built 2026-11-22: fifteen climate rows apart from the
+      freight regions (`data/climate.rs`), each derived from a named
+      station's 1991 to 2020 normals (NOAA for Alaska, Environment and
+      Climate Change Canada for Canada), with a test that each row's
+      January and July means land within 1 °C of the station's. The BC
+      coast, southern Ontario and the Thunder Bay to North Bay belt keep
+      a lower-48 row that the normals match within 2 °C. Simulated weather
+      only: a live reading still decides the temperature.
+- [ ] (Found along the way) Cattle have heat stress and no cold stress, so
+      a January load to Fairbanks at minus 30 costs them nothing. Wind
+      chill on an open livestock trailer is the real risk.
+- [ ] (Found along the way) The route forecast at the shipper names the
+      freight region, so an Alaska or Yukon route is read as "pacific
+      northwest". Name the place instead.
+- [ ] (Found along the way) The simulated day's warmest hour is 3 PM on
+      the career clock, which is Eastern time, so out west and in Alaska
+      the afternoon peak lands near 11 AM and the coldest hour near
+      midnight local. Read the hour in the place's own time zone.
+- [ ] (Found along the way) A climate line is a step: driving from
+      Whitehorse toward Watson Lake on a January morning, the temperature
+      fell from -13 to -16 Celsius within a minute at the line between the
+      two rows.
+      Blend across a few miles of each line.
+- [x] (Found along the way) A drive staged by the agent server's
+      `start_at` read the temperature for the career's own hour of day,
+      not the staged hour. Fixed 2026-11-22: the weather's clock moves to
+      the staged hour with the trip's.
+- [ ] (Found along the way) Terrace, BC reads January -3.3 against its
+      row's -7.8 (Prince George). The Skeena valley is milder than the
+      rest of the north-central interior; a row of its own if Terrace
+      gets freight.
 - [ ] Step 2: the windshield and wipers. One clarity state; rain and wet
       snow lower it, wipers (off, intermittent, low, high on one key)
       restore it; a glass that is not clear blurs the lane sound and, if
