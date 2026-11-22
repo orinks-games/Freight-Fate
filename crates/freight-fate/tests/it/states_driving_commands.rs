@@ -319,3 +319,22 @@ fn clock_on_a_controller_does_not_point_at_the_keyboard_hours_keys() {
         last_main(&harness)
     );
 }
+
+#[test]
+fn every_group_ends_with_back_on_a_touch_screen() {
+    let mut harness = a_drive("Command Back Rows");
+    harness
+        .app
+        .dispatch_gesture(freight_fate::touch::Gesture::KeyboardDisconnected);
+    press(&mut harness, Key::F2);
+    for group in &TOP[1..8] {
+        open_group(&mut harness, group);
+        let labels = harness.menu_labels();
+        assert_eq!(
+            labels.last().map(String::as_str),
+            Some("Back"),
+            "{group}: {labels:#?}"
+        );
+        press(&mut harness, Key::Escape);
+    }
+}

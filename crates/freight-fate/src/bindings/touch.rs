@@ -161,7 +161,7 @@ const SLOTS: &[(Gesture, &str, &str, TouchCommand)] = &[
         Gesture::LowerHoldTap,
         "bottom_hold_tap",
         "Brake hold, tap with a second finger",
-        TouchCommand::Nothing,
+        run(Action::EngineBrake),
     ),
     (
         Gesture::LowerHoldDoubleTap,
@@ -568,7 +568,7 @@ mod tests {
         let b = KeyBindings::default();
         let on = |g| b.touch_command(g);
         assert_eq!(on(Gesture::UpperHoldTap), Some(run(Action::Cruise)));
-        assert_eq!(on(Gesture::LowerHoldTap), Some(TouchCommand::Nothing));
+        assert_eq!(on(Gesture::LowerHoldTap), Some(run(Action::EngineBrake)));
         assert_eq!(on(Gesture::LowerHoldDoubleTap), Some(TouchCommand::Nothing));
         assert_eq!(on(Gesture::UpperHoldDoubleTap), Some(TouchCommand::Nothing));
         assert_eq!(on(Gesture::UpperHoldSwipeUp), Some(run(Action::ShiftUp)));
@@ -676,5 +676,45 @@ mod tests {
         assert_eq!(b.touch_spoken(Action::Cruise), None);
         b.set_touch_command(Gesture::Tap, run(Action::Cruise));
         assert_eq!(b.touch_spoken(Action::Cruise), Some("Tap"));
+    }
+
+    #[test]
+    fn the_brake_hold_tap_defaults_to_the_engine_brake_and_keeps_a_saved_choice() {
+        // Only moved slots are saved, so a file from before this default
+        // has no entry for the slot and now gets the engine brake.
+        let b = KeyBindings::from_settings(&Settings::default());
+        assert_eq!(
+            b.touch_command(Gesture::LowerHoldTap),
+            Some(run(Action::EngineBrake))
+        );
+        assert_eq!(
+            b.touch_instruction(Action::EngineBrake),
+            Some("Hold the brake and tap with a second finger")
+        );
+        // A command the player put there stays.
+        let saved = Settings {
+            touch_bindings: "bottom_hold_tap=fuel".into(),
+            ..Settings::default()
+        };
+        let b = KeyBindings::from_settings(&saved);
+        assert_eq!(
+            b.touch_command(Gesture::LowerHoldTap),
+            Some(run(Action::Fuel))
+        );
+        assert_eq!(
+            b.touch_instruction(Action::EngineBrake),
+            None,
+            "with the slot moved, only the command list has it"
+        );
+        // Nothing chosen from now on is saved, and survives a reload.
+        let mut b = KeyBindings::default();
+        b.set_touch_command(Gesture::LowerHoldTap, TouchCommand::Nothing);
+        let mut settings = Settings::default();
+        b.store(&mut settings);
+        assert_eq!(settings.touch_bindings, "bottom_hold_tap=none");
+        assert_eq!(
+            KeyBindings::from_settings(&settings).touch_command(Gesture::LowerHoldTap),
+            Some(TouchCommand::Nothing)
+        );
     }
 }

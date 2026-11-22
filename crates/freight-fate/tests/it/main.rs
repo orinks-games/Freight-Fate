@@ -276,3 +276,4 @@ mod visuals_l10n;
 mod visuals_play;
 
 mod menu_accelerators;
+mod menu_page_jumps;

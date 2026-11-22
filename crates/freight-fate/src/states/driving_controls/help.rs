@@ -522,7 +522,7 @@ impl DrivingState {
             "Hold one finger still for half a second to straighten the wheel. With cruise \
              off, flick up to turn it on. Double tap to take an exit, pull over, or confirm \
              arrival at a gate. Tap with two fingers to stop speech. Turn two fingers right \
-             like a key to start the engine, and left to stop it once the truck has stopped. \
+             to start the engine, and left to stop it once the truck has stopped. \
              Hold two fingers for the horn. While holding a pedal, a second finger's flicks \
              and holds work the same way. ",
         );

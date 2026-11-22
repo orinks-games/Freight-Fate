@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### Added
+
+- **Page Up and Page Down now move ten options at a time in every menu.**
+
 ## 1.9.7 - 2026-11-21
 
 ### Compatibility
