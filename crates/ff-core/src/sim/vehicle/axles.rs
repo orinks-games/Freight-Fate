@@ -61,21 +61,29 @@ impl AxleLoads {
     /// (Metric, or Automatic in Canada): the same limits, converted.
     pub fn ticket_text_in(&self, imperial: bool) -> String {
         let lb = |kg: f64| (kg / KG_PER_LB).round();
-        let weight = |kg: f64| {
-            if imperial {
-                format!("{} pounds", fmt_grouped(lb(kg), 0))
-            } else {
-                format!("{} kilograms", fmt_grouped(kg.round(), 0))
+        let pounds = |kg: f64| format!("{} pounds", fmt_grouped(lb(kg), 0));
+        let kilograms = |kg: f64| format!("{} kilograms", fmt_grouped(kg.round(), 0));
+        let mut parts = if imperial {
+            let mut parts = vec![
+                format!("Steer axle {}.", pounds(self.steer_kg)),
+                format!("Drive axles {}.", pounds(self.drive_kg)),
+            ];
+            if self.trailer_kg > 0.0 {
+                parts.push(format!("Trailer axles {}.", pounds(self.trailer_kg)));
             }
+            parts.push(format!("Gross {}.", pounds(self.gross_kg())));
+            parts
+        } else {
+            let mut parts = vec![
+                format!("Steer axle {}.", kilograms(self.steer_kg)),
+                format!("Drive axles {}.", kilograms(self.drive_kg)),
+            ];
+            if self.trailer_kg > 0.0 {
+                parts.push(format!("Trailer axles {}.", kilograms(self.trailer_kg)));
+            }
+            parts.push(format!("Gross {}.", kilograms(self.gross_kg())));
+            parts
         };
-        let mut parts = vec![
-            format!("Steer axle {}.", weight(self.steer_kg)),
-            format!("Drive axles {}.", weight(self.drive_kg)),
-        ];
-        if self.trailer_kg > 0.0 {
-            parts.push(format!("Trailer axles {}.", weight(self.trailer_kg)));
-        }
-        parts.push(format!("Gross {}.", weight(self.gross_kg())));
         let limits = [
             ("Drive axles", self.drive_kg, TANDEM_LIMIT_LB),
             ("Trailer axles", self.trailer_kg, TANDEM_LIMIT_LB),

@@ -12351,6 +12351,11 @@ msgstr ""
 msgid "Total gallons fueled: {f2}."
 msgstr ""
 
+#. placeholders: {volume}
+#: crates/ff-core/src/models/loyalty.rs
+msgid "{volume} fueled"
+msgstr ""
+
 #. placeholders: {f}
 #: crates/ff-core/src/models/loyalty.rs
 msgid "{f} gallons fueled"
@@ -14411,7 +14416,7 @@ msgid "{grouped} pounds"
 msgstr ""
 
 #. placeholders: {grouped}
-#: crates/ff-core/src/settings/units.rs
+#: crates/ff-core/src/settings/units.rs crates/ff-core/src/sim/vehicle/axles.rs
 msgid "{grouped} kilograms"
 msgstr ""
 
@@ -18479,6 +18484,26 @@ msgstr ""
 msgid "Gross {pounds}."
 msgstr ""
 
+#. placeholders: {kilograms}
+#: crates/ff-core/src/sim/vehicle/axles.rs
+msgid "Steer axle {kilograms}."
+msgstr ""
+
+#. placeholders: {kilograms}
+#: crates/ff-core/src/sim/vehicle/axles.rs
+msgid "Drive axles {kilograms}."
+msgstr ""
+
+#. placeholders: {kilograms}
+#: crates/ff-core/src/sim/vehicle/axles.rs
+msgid "Trailer axles {kilograms}."
+msgstr ""
+
+#. placeholders: {kilograms}
+#: crates/ff-core/src/sim/vehicle/axles.rs
+msgid "Gross {kilograms}."
+msgstr ""
+
 #: crates/ff-core/src/sim/vehicle/axles.rs
 msgid "Drive axles"
 msgstr ""
@@ -18496,12 +18521,44 @@ msgstr ""
 msgid "{name} {grouped} pounds over the {grouped2} pound limit."
 msgstr ""
 
+#. placeholders: {name}, {grouped}, {grouped2}
+#: crates/ff-core/src/sim/vehicle/axles.rs
+msgid "{name} {grouped} kilograms over the {grouped2} kilogram limit."
+msgstr ""
+
 #: crates/ff-core/src/sim/vehicle/axles.rs
 msgid "Legal on every axle."
 msgstr ""
 
 #: crates/ff-core/src/sim/vehicle/condition.rs
 msgid "Reverse will not go in at this speed. Stop the truck first."
+msgstr ""
+
+#. placeholders: {grouped}, {grouped2}
+#: crates/ff-core/src/sim/vehicle/doubles.rs
+msgid ""
+"{grouped} kilograms over the {grouped2} kilogram gross limit for this set "
+"on this route."
+msgstr ""
+
+#. placeholders: {grouped}
+#: crates/ff-core/src/sim/vehicle/doubles.rs
+msgid ""
+"Legal under the {grouped} kilogram gross limit for this set on this route."
+msgstr ""
+
+#. placeholders: {grouped}
+#. one sentence of a longer line
+#: crates/ff-core/src/sim/vehicle/doubles.rs
+msgid ""
+"Gross {grouped} kilograms, both trailers and the converter dolly included."
+msgstr ""
+
+#. placeholders: {grouped}, {verdict}
+#: crates/ff-core/src/sim/vehicle/doubles.rs
+msgid ""
+"Gross {grouped} kilograms, both trailers and the converter dolly included. "
+"{verdict}"
 msgstr ""
 
 #. placeholders: {grouped}, {grouped2}
@@ -26736,6 +26793,18 @@ msgstr ""
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/city_pickup_cattle.rs
 msgid "Loaded for {destination}."
+msgstr ""
+
+#. placeholders: {destination}, {head_text}, {grouped}, {papers}
+#: crates/freight-fate/src/states/city_pickup_cattle.rs
+msgid ""
+"Loaded for {destination}. {head_text}, about {grouped} kilograms.{papers}"
+msgstr ""
+
+#. placeholders: {head_text}, {grouped}, {papers}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/city_pickup_cattle.rs
+msgid "{head_text}, about {grouped} kilograms.{papers}"
 msgstr ""
 
 #. placeholders: {destination}, {head_text}, {grouped}, {papers}

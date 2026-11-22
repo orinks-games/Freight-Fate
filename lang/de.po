@@ -10997,6 +10997,10 @@ msgstr "Verfügbare Duschgutscheine: {shower_credits}."
 msgid "Total gallons fueled: {f2}."
 msgstr "Getankte Gallonen insgesamt: {f2}."
 
+#. placeholders: {volume}
+msgid "{volume} fueled"
+msgstr ""
+
 #. placeholders: {f}
 msgid "{f} gallons fueled"
 msgstr "{f} Gallonen getankt"
@@ -16079,6 +16083,22 @@ msgstr "Aufliegerachsen {pounds}."
 msgid "Gross {pounds}."
 msgstr "Gesamt {pounds}."
 
+#. placeholders: {kilograms}
+msgid "Steer axle {kilograms}."
+msgstr ""
+
+#. placeholders: {kilograms}
+msgid "Drive axles {kilograms}."
+msgstr ""
+
+#. placeholders: {kilograms}
+msgid "Trailer axles {kilograms}."
+msgstr ""
+
+#. placeholders: {kilograms}
+msgid "Gross {kilograms}."
+msgstr ""
+
 msgid "Drive axles"
 msgstr "Antriebsachsen"
 
@@ -16092,12 +16112,39 @@ msgstr "Gesamtgewicht"
 msgid "{name} {grouped} pounds over the {grouped2} pound limit."
 msgstr "{name} {grouped} Pfund über dem Limit von {grouped2} Pfund."
 
+#. placeholders: {name}, {grouped}, {grouped2}
+msgid "{name} {grouped} kilograms over the {grouped2} kilogram limit."
+msgstr ""
+
 msgid "Legal on every axle."
 msgstr "Auf jeder Achse legal."
 
 msgid "Reverse will not go in at this speed. Stop the truck first."
 msgstr ""
 "Bei diesem Tempo geht der Rückwärtsgang nicht rein. Halt zuerst den Lkw an."
+
+#. placeholders: {grouped}, {grouped2}
+msgid ""
+"{grouped} kilograms over the {grouped2} kilogram gross limit for this set "
+"on this route."
+msgstr ""
+
+#. placeholders: {grouped}
+msgid ""
+"Legal under the {grouped} kilogram gross limit for this set on this route."
+msgstr ""
+
+#. placeholders: {grouped}
+#. one sentence of a longer line
+msgid ""
+"Gross {grouped} kilograms, both trailers and the converter dolly included."
+msgstr ""
+
+#. placeholders: {grouped}, {verdict}
+msgid ""
+"Gross {grouped} kilograms, both trailers and the converter dolly included. "
+"{verdict}"
+msgstr ""
 
 #. placeholders: {grouped}, {grouped2}
 msgid ""
@@ -23529,6 +23576,16 @@ msgstr ""
 #. one sentence of a longer line
 msgid "Loaded for {destination}."
 msgstr "Beladen für {destination}."
+
+#. placeholders: {destination}, {head_text}, {grouped}, {papers}
+msgid ""
+"Loaded for {destination}. {head_text}, about {grouped} kilograms.{papers}"
+msgstr ""
+
+#. placeholders: {head_text}, {grouped}, {papers}
+#. one sentence of a longer line
+msgid "{head_text}, about {grouped} kilograms.{papers}"
+msgstr ""
 
 #. placeholders: {destination}, {head_text}, {grouped}, {papers}
 msgid ""

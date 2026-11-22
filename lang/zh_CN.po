@@ -9783,6 +9783,10 @@ msgstr "可用淋浴券：{shower_credits}张。"
 msgid "Total gallons fueled: {f2}."
 msgstr "累计加油：{f2}加仑。"
 
+#. placeholders: {volume}
+msgid "{volume} fueled"
+msgstr ""
+
 #. placeholders: {f}
 msgid "{f} gallons fueled"
 msgstr "加油{f}加仑"
@@ -14589,6 +14593,22 @@ msgstr "挂车轴{pounds}。"
 msgid "Gross {pounds}."
 msgstr "总重{pounds}。"
 
+#. placeholders: {kilograms}
+msgid "Steer axle {kilograms}."
+msgstr ""
+
+#. placeholders: {kilograms}
+msgid "Drive axles {kilograms}."
+msgstr ""
+
+#. placeholders: {kilograms}
+msgid "Trailer axles {kilograms}."
+msgstr ""
+
+#. placeholders: {kilograms}
+msgid "Gross {kilograms}."
+msgstr ""
+
 msgid "Drive axles"
 msgstr "驱动轴"
 
@@ -14602,11 +14622,38 @@ msgstr "总重"
 msgid "{name} {grouped} pounds over the {grouped2} pound limit."
 msgstr "{name}超出{grouped2}磅限重{grouped}磅。"
 
+#. placeholders: {name}, {grouped}, {grouped2}
+msgid "{name} {grouped} kilograms over the {grouped2} kilogram limit."
+msgstr ""
+
 msgid "Legal on every axle."
 msgstr "每个轴都合法。"
 
 msgid "Reverse will not go in at this speed. Stop the truck first."
 msgstr "这个速度挂不进倒挡。先把卡车停下。"
+
+#. placeholders: {grouped}, {grouped2}
+msgid ""
+"{grouped} kilograms over the {grouped2} kilogram gross limit for this set "
+"on this route."
+msgstr ""
+
+#. placeholders: {grouped}
+msgid ""
+"Legal under the {grouped} kilogram gross limit for this set on this route."
+msgstr ""
+
+#. placeholders: {grouped}
+#. one sentence of a longer line
+msgid ""
+"Gross {grouped} kilograms, both trailers and the converter dolly included."
+msgstr ""
+
+#. placeholders: {grouped}, {verdict}
+msgid ""
+"Gross {grouped} kilograms, both trailers and the converter dolly included. "
+"{verdict}"
+msgstr ""
 
 #. placeholders: {grouped}, {grouped2}
 msgid ""
@@ -21298,6 +21345,16 @@ msgstr ""
 #. one sentence of a longer line
 msgid "Loaded for {destination}."
 msgstr "已装货，送往{destination}。"
+
+#. placeholders: {destination}, {head_text}, {grouped}, {papers}
+msgid ""
+"Loaded for {destination}. {head_text}, about {grouped} kilograms.{papers}"
+msgstr ""
+
+#. placeholders: {head_text}, {grouped}, {papers}
+#. one sentence of a longer line
+msgid "{head_text}, about {grouped} kilograms.{papers}"
+msgstr ""
 
 #. placeholders: {destination}, {head_text}, {grouped}, {papers}
 msgid ""

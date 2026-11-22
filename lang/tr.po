@@ -10635,6 +10635,10 @@ msgstr "Kullanılabilir duş hakkı: {shower_credits}."
 msgid "Total gallons fueled: {f2}."
 msgstr "Toplam alınan yakıt: {f2} galon."
 
+#. placeholders: {volume}
+msgid "{volume} fueled"
+msgstr ""
+
 #. placeholders: {f}
 msgid "{f} gallons fueled"
 msgstr "{f} galon yakıt alındı"
@@ -15664,6 +15668,22 @@ msgstr "Dorse aksları {pounds}."
 msgid "Gross {pounds}."
 msgstr "Toplam {pounds}."
 
+#. placeholders: {kilograms}
+msgid "Steer axle {kilograms}."
+msgstr ""
+
+#. placeholders: {kilograms}
+msgid "Drive axles {kilograms}."
+msgstr ""
+
+#. placeholders: {kilograms}
+msgid "Trailer axles {kilograms}."
+msgstr ""
+
+#. placeholders: {kilograms}
+msgid "Gross {kilograms}."
+msgstr ""
+
 msgid "Drive axles"
 msgstr "Çekiş aksları"
 
@@ -15677,11 +15697,38 @@ msgstr "Toplam"
 msgid "{name} {grouped} pounds over the {grouped2} pound limit."
 msgstr "{name}, {grouped2} librelik sınırı {grouped} libre aşıyor."
 
+#. placeholders: {name}, {grouped}, {grouped2}
+msgid "{name} {grouped} kilograms over the {grouped2} kilogram limit."
+msgstr ""
+
 msgid "Legal on every axle."
 msgstr "Her aks yasal sınırda."
 
 msgid "Reverse will not go in at this speed. Stop the truck first."
 msgstr "Bu hızda geri vites girmez. Önce tırı durdurun."
+
+#. placeholders: {grouped}, {grouped2}
+msgid ""
+"{grouped} kilograms over the {grouped2} kilogram gross limit for this set "
+"on this route."
+msgstr ""
+
+#. placeholders: {grouped}
+msgid ""
+"Legal under the {grouped} kilogram gross limit for this set on this route."
+msgstr ""
+
+#. placeholders: {grouped}
+#. one sentence of a longer line
+msgid ""
+"Gross {grouped} kilograms, both trailers and the converter dolly included."
+msgstr ""
+
+#. placeholders: {grouped}, {verdict}
+msgid ""
+"Gross {grouped} kilograms, both trailers and the converter dolly included. "
+"{verdict}"
+msgstr ""
 
 #. placeholders: {grouped}, {grouped2}
 msgid ""
@@ -22966,6 +23013,16 @@ msgstr ""
 #. one sentence of a longer line
 msgid "Loaded for {destination}."
 msgstr "Yüklendi, varış: {destination}."
+
+#. placeholders: {destination}, {head_text}, {grouped}, {papers}
+msgid ""
+"Loaded for {destination}. {head_text}, about {grouped} kilograms.{papers}"
+msgstr ""
+
+#. placeholders: {head_text}, {grouped}, {papers}
+#. one sentence of a longer line
+msgid "{head_text}, about {grouped} kilograms.{papers}"
+msgstr ""
 
 #. placeholders: {destination}, {head_text}, {grouped}, {papers}
 msgid ""
