@@ -41,6 +41,11 @@
 - **Alaska's spring weight limits now apply.** From April to mid-June, loads on thawing Alaska highways are lighter, and offers name the road setting the limit.
 - **Diesel in British Columbia and the Yukon now costs what it does there,** and Canadian pumps also say the price in Canadian dollars a liter.
 - **Heavy trucks in British Columbia are now held to 105 kilometers per hour, as the law requires.**
+- **Dispatch now offers loads into Canada and back.** Canadian cities from Vancouver to Quebec City, and up the Alaska Highway to Whitehorse, take deliveries from US cities.
+- **A board in Canada offers loads back to the United States only.** A US carrier may not haul between two Canadian towns.
+- **Deadlines for a load across the border include time at customs.**
+- **The Yukon now keeps Mountain Time.**
+- **Live weather no longer carries a US reading into Canada.** North of the border the sky is simulated, and weather alerts stay quiet.
 - **The map now reaches Alaska and northern Canada along the Alaska Highway,** from Blaine and Bellingham through Prince George, Dawson Creek and Whitehorse to Tok and Fairbanks.
 - **The map now reaches Alberta, Saskatchewan and Manitoba,** on the Trans-Canada and Yellowhead highways from Vancouver to Winnipeg, with six more border crossings.
 - **Diesel in Alberta, Saskatchewan, Manitoba, Ontario and Quebec now costs what it does there.**
@@ -70,6 +75,7 @@
 
 ### Changed
 
+- **When a company driver's board has no load, dispatch now sends the truck empty to the nearest city that has one,** paid at the empty-mile rate.
 - **A company driver now loses only their own pay for a refused or damaged load,** not the load's full price. The damage deductible still applies.
 - **Alaska's highways now have their real bends, grades, lane counts and towns.** The road between Palmer and Wasilla is now called the Palmer-Wasilla Highway.
 - **Simulated weather in Alaska and Canada now gets as cold as the real winters there.** A January morning in Fairbanks now reads below zero Fahrenheit.
@@ -90,10 +96,12 @@
 - **If a carrier lets you go, a carrier that hires near your home takes you on.** If none can, choose Apply to a carrier at the terminal.
 - **After a felony roadside stop the truck is towed to an impound lot in that city.** You post bond and are released after 12 hours of booking, logged off duty.
 - **Travel centers and truck parking lots are now for fuel, parking and rest only.** They never ship or receive freight.
-- **Job boards in the United States no longer offer loads into Canada.**
 
 ### Fixed
 
+- **An empty run now parks and settles when it arrives,** without offering to drop a loaded trailer it never had.
+- **The sleep forecast in Canada now counts Canadian hours:** 13 hours of driving and a 16-hour shift.
+- **The loyalty readout now gives fuel in liters when distances are in kilometers.**
 - **Exits in Ontario and Quebec now name the road they lead to,** such as Route 255 or Highway 8, with directions in English.
 - **Canadian highways are now given the direction they run,** so Highway 400 to Barrie is north and the 401 to Kingston is east.
 - **A Canadian road with no speed sign on the map now takes the province's default limit,** such as 80 kilometers per hour in Ontario, instead of an American figure like 97.

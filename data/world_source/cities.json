@@ -8024,6 +8024,51 @@
           "lat": 49.176804,
           "lon": -122.7300234,
           "source_note": "City of Surrey commercial truck parking site at 17768 96 Avenue (Anniedale-Tynehead), Hwy 15 / Pacific Highway corridor. City news and corporate reports advance this City-owned lot (~41 truck spaces) under Temporary Use Permit / licence with Prudential Transportation. Pin matches the Phase A Surrey stand-in coordinates. Retyped from company_yard to truck_parking (ALCAN public lot class)."
+        },
+        {
+          "name": "DP World Fraser Surrey Docks",
+          "type": "port_terminal",
+          "lat": 49.18687,
+          "lon": -122.91125,
+          "ships": [
+            "container",
+            "port_container",
+            "lumber_paper",
+            "steel"
+          ],
+          "receives": [
+            "container",
+            "port_container",
+            "lumber_paper",
+            "steel"
+          ],
+          "cargo": [
+            "container",
+            "port_container",
+            "lumber_paper",
+            "steel"
+          ],
+          "source_note": "DP World Fraser Surrey container, steel and lumber terminal at 11060 Elevator Road, Surrey BC, on the Fraser River (Port of Vancouver). Operator: https://www.dpworld.com/canada/projects/fraser-surrey; CBSA office 'Fraser Surrey Dock' https://www.cbsa-asfc.gc.ca/do-rb/offices-bureaux/320-eng.html. Pin is the centre of OSM way 1309448444 (landuse=port, 'DP World Fraser Surrey - Containers', addr 11060 Elevator Road), Overpass API (maps.mail.ru mirror) read 2026-11-22. Ships and receives: a marine terminal trucks import boxes out and export lumber and steel in."
+        },
+        {
+          "name": "Costco Surrey (7423 King George Boulevard)",
+          "type": "retail_distribution",
+          "lat": 49.13818,
+          "lon": -122.84723,
+          "ships": [],
+          "receives": [
+            "food",
+            "retail",
+            "refrigerated",
+            "general"
+          ],
+          "cargo": [
+            "food",
+            "retail",
+            "refrigerated",
+            "general"
+          ],
+          "source_note": "Costco Wholesale warehouse at 7423 King George Boulevard, Surrey BC. Pin is the centre of OSM way 181931202 (shop=wholesale, operator Costco Wholesale, addr 7423 King George Boulevard), Overpass API (maps.mail.ru mirror) read 2026-11-22. Receive-only big-box retail (no outbound ship role)."
         }
       ],
       "lat": 49.176804,
@@ -8043,6 +8088,46 @@
           "lat": 53.8722547,
           "lon": -122.7361198,
           "source_note": "Husky/Esso travel centre at 1148 Pacific Street, Prince George BC (Hwy 97 corridor). Truck-stop directories list ~20\u201325 truck parking spaces, diesel, and 24/7 amenities. Stand-in fuel/parking pin for ALCAN Phase A through-freight (no CA domestic career board). Retyped from company_yard to travel_center (ALCAN public lot class)."
+        },
+        {
+          "name": "Costco Prince George (2555 Range Road)",
+          "type": "retail_distribution",
+          "lat": 53.8839,
+          "lon": -122.7719,
+          "ships": [],
+          "receives": [
+            "food",
+            "retail",
+            "refrigerated",
+            "general"
+          ],
+          "cargo": [
+            "food",
+            "retail",
+            "refrigerated",
+            "general"
+          ],
+          "source_note": "Costco warehouse at 2555 Range Road, Prince George BC. Pin is the centre of OSM way 251879851 (shop=wholesale, name Costco, addr 2555 Range Road), Overpass API (maps.mail.ru mirror) read 2026-11-22. Receive-only big-box retail. The Canfor Northwood pulp mill was not used: Canfor announced its permanent closure in July 2026 (CKPG Today, 2026-07-14)."
+        },
+        {
+          "name": "Real Canadian Superstore Prince George (2155 Ferry Avenue)",
+          "type": "retail_distribution",
+          "lat": 53.88727,
+          "lon": -122.76916,
+          "ships": [],
+          "receives": [
+            "food",
+            "retail",
+            "refrigerated",
+            "general"
+          ],
+          "cargo": [
+            "food",
+            "retail",
+            "refrigerated",
+            "general"
+          ],
+          "source_note": "Real Canadian Superstore (Loblaw) at 2155 Ferry Avenue, Prince George BC. Pin is the centre of OSM way 251879848 (shop=supermarket, addr 2155 Ferry Avenue), Overpass API (maps.mail.ru mirror) read 2026-11-22. Receive-only grocery and retail."
         }
       ]
     },
@@ -8060,6 +8145,44 @@
           "lat": 55.766161,
           "lon": -120.2510583,
           "source_note": "Husky fuel at 1700 Alaska Highway, Dawson Creek BC, near Mile 0 of the Alaska Highway. City pin is the Alaska Highway Mile 0 milepost on 102 Avenue. Stand-in fuel/parking for ALCAN Phase A Mile 0 (through-freight only; no CA domestic career board). Retyped from company_yard to travel_center (ALCAN public lot class)."
+        },
+        {
+          "name": "Safeway Dawson Creek (11200 8 Street)",
+          "type": "retail_distribution",
+          "lat": 55.74856,
+          "lon": -120.22176,
+          "ships": [],
+          "receives": [
+            "food",
+            "retail",
+            "refrigerated",
+            "general"
+          ],
+          "cargo": [
+            "food",
+            "retail",
+            "refrigerated",
+            "general"
+          ],
+          "source_note": "Safeway at 11200 8 Street, Dawson Creek BC (Highway 2 / 8 Street). Pin is the centre of OSM way 184829668 (shop=supermarket, addr 11200 8 Street), Overpass API (maps.mail.ru mirror) read 2026-11-22. Receive-only grocery."
+        },
+        {
+          "name": "Home Hardware Building Centre Dawson Creek (1628 Alaska Highway)",
+          "type": "construction_materials_yard",
+          "lat": 55.76533,
+          "lon": -120.24863,
+          "ships": [],
+          "receives": [
+            "construction",
+            "lumber_paper",
+            "steel"
+          ],
+          "cargo": [
+            "construction",
+            "lumber_paper",
+            "steel"
+          ],
+          "source_note": "Home Hardware Building Centre at 1628 Alaska Highway, Dawson Creek BC. Pin is the centre of OSM way 178540005 (shop=doityourself, addr 1628 Alaska Highway), Overpass API (maps.mail.ru mirror) read 2026-11-22. Receive-only building materials."
         }
       ]
     },
@@ -8077,6 +8200,44 @@
           "lat": 56.2418833,
           "lon": -120.8066055,
           "source_note": "Smith Fuel Services commercial fuel at 9516 78 Street / Northern Lights Drive, Fort St. John BC, on the Alaska Highway approach. Stand-in fuel/parking pass-through north of Dawson Creek Mile 0 for ALCAN Phase A through-freight (no CA domestic career board). Retyped from company_yard to travel_center (ALCAN public lot class)."
+        },
+        {
+          "name": "Save-On-Foods Fort St. John (10345 100 Street)",
+          "type": "retail_distribution",
+          "lat": 56.2496,
+          "lon": -120.84613,
+          "ships": [],
+          "receives": [
+            "food",
+            "retail",
+            "refrigerated",
+            "general"
+          ],
+          "cargo": [
+            "food",
+            "retail",
+            "refrigerated",
+            "general"
+          ],
+          "source_note": "Save-On-Foods at 10345 100 Street, Fort St. John BC. Pin is the centre of OSM way 116538856 (shop=supermarket, addr 10345 100 Street), Overpass API (maps.mail.ru mirror) read 2026-11-22. Receive-only grocery."
+        },
+        {
+          "name": "Rona Fort St. John (11611 Alaska Highway)",
+          "type": "construction_materials_yard",
+          "lat": 56.24558,
+          "lon": -120.87549,
+          "ships": [],
+          "receives": [
+            "construction",
+            "lumber_paper",
+            "steel"
+          ],
+          "cargo": [
+            "construction",
+            "lumber_paper",
+            "steel"
+          ],
+          "source_note": "Rona building centre at 11611 Alaska Highway, Fort St. John BC. Pin is the centre of OSM way 1282093905 (shop=doityourself, addr 11611 Alaska Highway), Overpass API (maps.mail.ru mirror) read 2026-11-22. Receive-only building materials."
         }
       ]
     },
@@ -8094,6 +8255,26 @@
           "lat": 58.802163,
           "lon": -122.7036488,
           "source_note": "Esso / Ft Nelson Bulk Sales cardlock and diesel at 5303 48th Avenue, Fort Nelson BC (Alaska Highway corridor; operator also lists Mile 293 Gasoline Alley). Stand-in fuel/parking for ALCAN Phase A through-freight (no CA domestic career board). Retyped from company_yard to travel_center (ALCAN public lot class)."
+        },
+        {
+          "name": "Save-On-Foods Fort Nelson (5104 Airport Drive)",
+          "type": "retail_distribution",
+          "lat": 58.80656,
+          "lon": -122.69854,
+          "ships": [],
+          "receives": [
+            "food",
+            "retail",
+            "refrigerated",
+            "general"
+          ],
+          "cargo": [
+            "food",
+            "retail",
+            "refrigerated",
+            "general"
+          ],
+          "source_note": "Save-On-Foods at 5104 Airport Drive, Fort Nelson BC; address read from the store's pharmacy listing (https://medimap.ca/clinic/pharmacies/bc/fort-nelson/save-on-foods-pharmacy-2217). Pin is the centre of OSM way 161731543 (shop=supermarket, Save-On-Foods; no address tags), Overpass API (maps.mail.ru mirror) read 2026-11-22. Receive-only grocery."
         }
       ]
     },
@@ -8111,6 +8292,44 @@
           "lat": 60.0524072,
           "lon": -128.6662836,
           "source_note": "Petro-Canada / Petro-Pass fuel on Hwy 1 at 137 Frank Trail, Watson Lake YT (Alaska Highway). Truck-stop directories list ~5 truck parking spaces and diesel. Stand-in fuel/parking for ALCAN Phase A through-freight (no CA domestic career board). Retyped from company_yard to travel_center (ALCAN public lot class)."
+        },
+        {
+          "name": "Super A Foods Watson Lake (718 Adela Trail)",
+          "type": "retail_distribution",
+          "lat": 60.06305,
+          "lon": -128.70586,
+          "ships": [],
+          "receives": [
+            "food",
+            "retail",
+            "refrigerated",
+            "general"
+          ],
+          "cargo": [
+            "food",
+            "retail",
+            "refrigerated",
+            "general"
+          ],
+          "source_note": "Super A Foods (Yukon's Super A chain) at 718 Adela Trail, Watson Lake YT. Pin is the centre of OSM way 616926654 (shop=supermarket, addr 718 Adela Trail), Overpass API (maps.mail.ru mirror) read 2026-11-22. Receive-only grocery."
+        },
+        {
+          "name": "Home Building Centre Watson Lake (1001 Centennial Avenue)",
+          "type": "construction_materials_yard",
+          "lat": 60.06034,
+          "lon": -128.71666,
+          "ships": [],
+          "receives": [
+            "construction",
+            "lumber_paper",
+            "steel"
+          ],
+          "cargo": [
+            "construction",
+            "lumber_paper",
+            "steel"
+          ],
+          "source_note": "Home Building Centre at 1001 Centennial Avenue, Watson Lake YT. Pin is the centre of OSM way 616926672 (shop=doityourself, addr 1001 Centennial Avenue), Overpass API (maps.mail.ru mirror) read 2026-11-22. Receive-only building materials."
         }
       ]
     },
@@ -8128,6 +8347,42 @@
           "lat": 60.6387178,
           "lon": -135.0021221,
           "source_note": "McCrae Petro-Canada at 91007 Alaska Highway, Whitehorse YT (south approach / McRae). Truck-stop directories list ~10 truck parking spaces, diesel, and driver amenities. City pin stays downtown Whitehorse; lot pin is the ALCAN stand-in fuel/parking for Phase A through-freight (no CA domestic career board). Retyped from company_yard to travel_center (ALCAN public lot class)."
+        },
+        {
+          "name": "Real Canadian Superstore Whitehorse (2270 Second Avenue)",
+          "type": "retail_distribution",
+          "lat": 60.72764,
+          "lon": -135.06228,
+          "ships": [],
+          "receives": [
+            "food",
+            "retail",
+            "refrigerated",
+            "general"
+          ],
+          "cargo": [
+            "food",
+            "retail",
+            "refrigerated",
+            "general"
+          ],
+          "source_note": "Real Canadian Superstore (Loblaw) at 2270 Second Avenue, Whitehorse YT. Pin is the centre of OSM way 217160980 (shop=supermarket, addr 2270 Second Avenue), Overpass API (maps.mail.ru mirror) read 2026-11-22. Receive-only grocery and retail."
+        },
+        {
+          "name": "Ajax Steel Whitehorse (143 Industrial Road)",
+          "type": "construction_materials_yard",
+          "lat": 60.73917,
+          "lon": -135.07598,
+          "ships": [],
+          "receives": [
+            "steel",
+            "construction"
+          ],
+          "cargo": [
+            "steel",
+            "construction"
+          ],
+          "source_note": "Ajax Steel Limited at 143 Industrial Road, Whitehorse YT (Marwell industrial area). Pin is the centre of OSM way 523966863 (shop=hardware, name Ajax Steel Limited, addr 143 Industrial Road), Overpass API (maps.mail.ru mirror) read 2026-11-22. Receive-only steel and building materials."
         }
       ]
     },

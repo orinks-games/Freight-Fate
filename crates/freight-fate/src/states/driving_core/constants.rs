@@ -815,12 +815,13 @@ pub const WEIGH_STATION_NOTICE_MI: f64 = 2.0;
 // The sim layer owns the number: the scale reminder's real-time hold lets go
 // at the same speed a crossing stops counting as a bypass.
 pub const WEIGH_STATION_BYPASS_MPH: f64 = SCALE_BYPASS_MPH;
-// ASSUMPTION: CBP's wait-times feed has no Alcan entry; no per-port commercial processing time is published.
-pub const BORDER_PRIMARY_MIN: f64 = 10.0;
-// ASSUMPTION: no published per-port secondary-inspection processing time exists.
-pub const BORDER_SECONDARY_EXTRA_MIN: f64 = 45.0;
-// ASSUMPTION: CBP's wait-times feed has no Alcan entry or published referral rate.
-pub const BORDER_SECONDARY_REFERRAL_CHANCE: f64 = 0.1;
+// Customs times live with the deadline that books them; their provenance
+// is there (`ff_core::models::jobs::cross_border`).
+pub const BORDER_PRIMARY_MIN: f64 = ff_core::models::jobs::cross_border::CUSTOMS_PRIMARY_MIN;
+pub const BORDER_SECONDARY_EXTRA_MIN: f64 =
+    ff_core::models::jobs::cross_border::CUSTOMS_SECONDARY_EXTRA_MIN;
+pub const BORDER_SECONDARY_REFERRAL_CHANCE: f64 =
+    ff_core::models::jobs::cross_border::CUSTOMS_SECONDARY_REFERRAL_CHANCE;
 // A bypass is caught, not certain. The scale house has plate readers and
 // weigh-in-motion sensors watching the bypass lane, and dispatches a unit up
 // the corridor after a truck that ran it -- but a unit still has to catch up,
