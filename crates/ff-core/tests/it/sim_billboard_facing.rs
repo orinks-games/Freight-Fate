@@ -374,7 +374,6 @@ fn test_the_keys_hear_their_sights_but_carry_no_billboards() {
     for sight in [
         "Giant Lobster Betsy",
         "Theater of the Sea",
-        "Seven Mile Bridge",
         "No Name Pub",
         "Key Lime Pie on a Stick",
         "Hemingway House",
@@ -387,6 +386,17 @@ fn test_the_keys_hear_their_sights_but_carry_no_billboards() {
             .unwrap_or_else(|| panic!("{sight} is never heard"));
         assert!(!heard.spoken.starts_with("Billboard"), "{}", heard.spoken);
     }
+    // The Seven Mile Bridge is named by the bridge layer as the truck
+    // drives onto it.
+    let seven = trip
+        .bridges
+        .iter()
+        .find(|b| b.name == "Seven Mile Bridge")
+        .expect("the Seven Mile Bridge is on the route");
+    assert_eq!(
+        seven.line.as_deref(),
+        Some("Crossing the Seven Mile Bridge.")
+    );
 }
 
 #[test]

@@ -6438,7 +6438,10 @@ a carrier slice (owner, 2026-10-26).
       island are named by their toll. The bar for an uncurated bridge is
       3,000 feet, calibrated on the sheet (no US or Canadian standard
       defines a major bridge by total length). The Seven Mile Bridge and
-      Alexandra Bridge landmark lines moved into the layer.
+      Alexandra Bridge landmark lines moved into the layer. A bridge the
+      pavement layer measured for less than half its length takes its own
+      joints at its real ends; the I-90 floating bridges each name only
+      the direction they carry.
 - [ ] (Found along the way) Water under a bridge is read from river,
       canal, tidal channel and coastline lines only, so a bridge over a
       lake or bay (Nisutlin Bay, the W. R. Bennett floating bridge) plays
