@@ -3768,6 +3768,16 @@
             "source": "derived: name and category read from the OpenStreetMap tags of way 1120602936 (LaHave River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           },
           {
+            "name": "Oak Island (Bridgewater to Halifax)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 3.9,
+            "spoken": "Billboard: Oak Island, ahead. The story goes that people started digging for treasure in the Money Pit in seventeen ninety-five. They have found coins, a brooch and a lead cross. They have spent rather more.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Maitland",
             "at_mi": 6.0,
             "off_mi": 0.12,
@@ -5704,6 +5714,16 @@
             "kind": "point",
             "source": "OpenStreetMap place=village node 1080039132, projected onto the leg's checked-in route geometry",
             "spoken": "Passing East River"
+          },
+          {
+            "name": "Oak Island (Halifax to Bridgewater)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 36.0,
+            "spoken": "Billboard: Oak Island, ahead. The story goes that people started digging for treasure in the Money Pit in seventeen ninety-five. They have found coins, a brooch and a lead cross. They have spent rather more.",
+            "directions": [
+              "forward"
+            ]
           },
           {
             "name": "East Chester",
@@ -8878,6 +8898,16 @@
             "kind": "point",
             "source": "OpenStreetMap place=village node 1246361942, projected onto the leg's checked-in route geometry",
             "spoken": "Passing Dutch Settlement"
+          },
+          {
+            "name": "Shubenacadie Wildlife Park (Halifax to Truro)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 36.3,
+            "spoken": "Billboard: Shubenacadie Wildlife Park, ahead. Home of Shubenacadie Sam, the groundhog who gives his forecast every February second. The park calls it the earliest in North America. Early is not the same as right.",
+            "directions": [
+              "forward"
+            ]
           },
           {
             "name": "Hardwood Lands",
@@ -12241,6 +12271,16 @@
             "kind": "point",
             "source": "OpenStreetMap place=village node 2407436516, projected onto the leg's checked-in route geometry",
             "spoken": "Entering Monastery"
+          },
+          {
+            "name": "Canso Causeway (New Glasgow to Port Hawkesbury)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 56.1,
+            "spoken": "Billboard: The Canso Causeway, ahead. About ten million tonnes of rock, laid across the Strait of Canso in nineteen fifty-five to join Cape Breton to the mainland. Cape Breton is still deciding how it feels about that.",
+            "directions": [
+              "forward"
+            ]
           },
           {
             "name": "West Havre Boucher",
@@ -19218,6 +19258,16 @@
             "kind": "point",
             "source": "OpenStreetMap place=village node 1917913074, projected onto the leg's checked-in route geometry",
             "spoken": "Passing Port Malcolm"
+          },
+          {
+            "name": "Canso Causeway (westbound, Sydney to Port Hawkesbury)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 77.5,
+            "spoken": "Billboard: The Canso Causeway, ahead. About ten million tonnes of rock, laid across the Strait of Canso in nineteen fifty-five to join Cape Breton to the mainland. Cape Breton is still deciding how it feels about that.",
+            "directions": [
+              "forward"
+            ]
           }
         ],
         "hpms_terrain": {
@@ -21580,6 +21630,16 @@
             "spoken": "Passing Shortts Lake"
           },
           {
+            "name": "Shubenacadie Wildlife Park (Truro to Halifax)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 16.5,
+            "spoken": "Billboard: Shubenacadie Wildlife Park, ahead. Home of Shubenacadie Sam, the groundhog who gives his forecast every February second. The park calls it the earliest in North America. Early is not the same as right.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Riverside",
             "at_mi": 17.8,
             "off_mi": 2.76,
@@ -21824,6 +21884,16 @@
             "kind": "point",
             "source": "OpenStreetMap place=village node 1216895501, projected onto the leg's checked-in route geometry",
             "spoken": "Passing Lakeview"
+          },
+          {
+            "name": "Halifax Citadel (Truro to Halifax)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 51.1,
+            "spoken": "Billboard: The Halifax Citadel, ahead. A fort on the hill above the harbor, where a gun is fired every day at noon. It is the one deadline in town that is never late.",
+            "directions": [
+              "forward"
+            ]
           },
           {
             "name": "Montague Gold Mines",

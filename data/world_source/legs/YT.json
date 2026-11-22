@@ -1711,6 +1711,16 @@
             "source": "derived: name and category read from the OpenStreetMap tags of way 29700266 (Yukon River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           },
           {
+            "name": "Five Finger Rapids (Carmacks to Dawson City)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 4.3,
+            "spoken": "Billboard: Five Finger Rapids, ahead. Four pillars of rock split the Yukon River into five channels, and the sternwheelers bound for Dawson could use only one. Lane discipline is older than the highway.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Pelly Crossing",
             "at_mi": 65.3,
             "off_mi": 0.14,
@@ -1757,6 +1767,16 @@
             "lon": -137.4134,
             "spoken": "Crossing the McQuesten River",
             "source": "derived: name and category read from the OpenStreetMap tags of way 1125701862 (McQuesten River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "name": "Tintina Trench (Carmacks to Dawson City)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 173.8,
+            "spoken": "Billboard: The Tintina Trench, ahead. A fault valley that runs across the Yukon, and a flyway for sandhill cranes every May and September. They make the trip without a logbook.",
+            "directions": [
+              "forward"
+            ]
           },
           {
             "name": "Klondike River",
@@ -2976,6 +2996,16 @@
         ],
         "restrictions": [],
         "landmarks": [
+          {
+            "name": "Montague Roadhouse (Carmacks to Whitehorse)",
+            "category": "highway_marker",
+            "kind": "point",
+            "at_mi": 20.6,
+            "spoken": "Passing the Montague Roadhouse.",
+            "directions": [
+              "forward"
+            ]
+          },
           {
             "name": "Takhini River",
             "category": "river",
@@ -4687,6 +4717,16 @@
             "source": "derived: name and category read from the OpenStreetMap tags of way 126336474 (Klondike River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           },
           {
+            "name": "Tintina Trench (Dawson City to Carmacks)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 25.2,
+            "spoken": "Billboard: The Tintina Trench, ahead. A fault valley that runs across the Yukon, and a flyway for sandhill cranes every May and September. They make the trip without a logbook.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "McQuesten River",
             "category": "river",
             "kind": "point",
@@ -4733,6 +4773,16 @@
             "kind": "point",
             "source": "OpenStreetMap place=village node 2682751746, projected onto the leg's checked-in route geometry",
             "spoken": "Entering Pelly Crossing"
+          },
+          {
+            "name": "Five Finger Rapids (Dawson City to Carmacks)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 194.7,
+            "spoken": "Billboard: Five Finger Rapids, ahead. Four pillars of rock split the Yukon River into five channels, and the sternwheelers bound for Dawson could use only one. Lane discipline is older than the highway.",
+            "directions": [
+              "forward"
+            ]
           },
           {
             "name": "Yukon River",
@@ -4920,6 +4970,26 @@
             "source": "derived: name and category read from the OpenStreetMap tags of way 207975679 (Kathleen River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           },
           {
+            "name": "Dezadeash Lake (Haines Junction to Haines)",
+            "category": "highway_marker",
+            "kind": "point",
+            "at_mi": 28.4,
+            "spoken": "Passing Dezadeash Lake.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
+            "name": "Million Dollar Falls (Haines Junction to Haines)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 44.0,
+            "spoken": "Billboard: Million Dollar Falls, ahead. A boardwalk leads to a lookout over the falls on the Takhanne River. The name comes from an army camp of the nineteen forties, said to have cost a million dollars and never used. The falls came free.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Takhanne River",
             "category": "river",
             "kind": "point",
@@ -4985,6 +5055,16 @@
             "kind": "point",
             "source": "OpenStreetMap place=village node 150919082, projected onto the leg's checked-in route geometry",
             "spoken": "Entering Klukwan"
+          },
+          {
+            "name": "Alaska Chilkat Bald Eagle Preserve (Haines Junction to Haines)",
+            "category": "highway_marker",
+            "kind": "point",
+            "at_mi": 129.5,
+            "spoken": "Passing the Alaska Chilkat Bald Eagle Preserve.",
+            "directions": [
+              "forward"
+            ]
           }
         ],
         "interchanges": [],
@@ -19146,6 +19226,16 @@
             "lon": -135.1872,
             "spoken": "Crossing the Takhini River",
             "source": "derived: name and category read from the OpenStreetMap tags of way 1292173286 (Takhini River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "name": "Montague Roadhouse (Whitehorse to Carmacks)",
+            "category": "highway_marker",
+            "kind": "point",
+            "at_mi": 89.4,
+            "spoken": "Passing the Montague Roadhouse.",
+            "directions": [
+              "forward"
+            ]
           }
         ],
         "hpms_terrain": {
@@ -20275,6 +20365,16 @@
             "spoken": "Entering Mount Lorne"
           },
           {
+            "name": "Carcross Desert (Whitehorse to Skagway)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 34.0,
+            "spoken": "Billboard: The Carcross Desert, ahead. Sand dunes left on the bed of an ice age lake, billed as the world's smallest desert. It gets too much rain to be a real desert. Nobody told the sand.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Carcross",
             "at_mi": 44.4,
             "off_mi": 0.21,
@@ -20292,6 +20392,16 @@
             "lon": -134.69805,
             "spoken": "Crossing the Nares River",
             "source": "derived: name and category read from the OpenStreetMap tags of way 938635542 (Nares River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "name": "Yukon Suspension Bridge (Whitehorse to Skagway)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 71.0,
+            "spoken": "Billboard: The Yukon Suspension Bridge, ahead. A footbridge over the Tutshi River canyon, finished in two thousand six. A helicopter set the far towers, because that side of the canyon had no way in. It has one now.",
+            "directions": [
+              "forward"
+            ]
           },
           {
             "name": "Klondike Gold Rush National Historical Park",

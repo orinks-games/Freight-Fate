@@ -118,6 +118,16 @@
             "source": "derived: name and category read from the OpenStreetMap tags of relation 12188016 (Chugach State Park); placed at the first road vertex inside it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           },
           {
+            "name": "Beluga Point (Anchorage to Bear Valley)",
+            "category": "highway_marker",
+            "kind": "point",
+            "at_mi": 18.2,
+            "spoken": "Passing Beluga Point, on Turnagain Arm.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Hope",
             "at_mi": 22.2,
             "off_mi": 4.77,
@@ -1661,6 +1671,16 @@
             "lon": -149.79426,
             "spoken": "Entering Chugach State Park",
             "source": "derived: name and category read from the OpenStreetMap tags of relation 12188016 (Chugach State Park); placed at the first road vertex inside it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "name": "Beluga Point (Anchorage to Seward)",
+            "category": "highway_marker",
+            "kind": "point",
+            "at_mi": 18.2,
+            "spoken": "Passing Beluga Point, on Turnagain Arm.",
+            "directions": [
+              "forward"
+            ]
           },
           {
             "name": "Hope",
@@ -3496,6 +3516,16 @@
             "lon": -149.79426,
             "spoken": "Entering Chugach State Park",
             "source": "derived: name and category read from the OpenStreetMap tags of relation 12188016 (Chugach State Park); placed at the first road vertex inside it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "name": "Beluga Point (Anchorage to Soldotna)",
+            "category": "highway_marker",
+            "kind": "point",
+            "at_mi": 18.2,
+            "spoken": "Passing Beluga Point, on Turnagain Arm.",
+            "directions": [
+              "forward"
+            ]
           },
           {
             "name": "Hope",
@@ -6232,6 +6262,16 @@
             "source": "derived: name and category read from the OpenStreetMap tags of way 221777256 (Hammond River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           },
           {
+            "name": "Sukakpak Mountain (Coldfoot to Deadhorse)",
+            "category": "highway_marker",
+            "kind": "point",
+            "at_mi": 29.0,
+            "spoken": "Passing Sukakpak Mountain.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Dietrich River",
             "category": "river",
             "kind": "point",
@@ -7574,6 +7614,16 @@
             "source": "derived: name and category read from the OpenStreetMap tags of way 506100216 (Kanuti River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           },
           {
+            "name": "Finger Mountain (Coldfoot to Fairbanks)",
+            "category": "highway_marker",
+            "kind": "point",
+            "at_mi": 77.1,
+            "spoken": "Passing Finger Mountain.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Yukon River",
             "category": "river",
             "kind": "point",
@@ -7602,6 +7652,16 @@
             "lon": -147.72577,
             "spoken": "Crossing the Chatanika River",
             "source": "derived: name and category read from the OpenStreetMap tags of way 120854430 (Chatanika River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "name": "Trans-Alaska Pipeline viewpoint (Coldfoot to Fairbanks)",
+            "category": "highway_marker",
+            "kind": "point",
+            "at_mi": 245.5,
+            "spoken": "Passing the Trans-Alaska Pipeline viewpoint.",
+            "directions": [
+              "forward"
+            ]
           },
           {
             "name": "Badger",
@@ -13457,6 +13517,16 @@
             "spoken": "Passing Badger"
           },
           {
+            "name": "Trans-Alaska Pipeline viewpoint (Fairbanks to Coldfoot)",
+            "category": "highway_marker",
+            "kind": "point",
+            "at_mi": 8.5,
+            "spoken": "Passing the Trans-Alaska Pipeline viewpoint.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Chatanika River",
             "category": "river",
             "kind": "point",
@@ -13485,6 +13555,16 @@
             "lon": -149.72171,
             "spoken": "Crossing the Yukon River",
             "source": "derived: name and category read from the OpenStreetMap tags of way 400962447 (Yukon River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "name": "Finger Mountain (Fairbanks to Coldfoot)",
+            "category": "highway_marker",
+            "kind": "point",
+            "at_mi": 176.9,
+            "spoken": "Passing Finger Mountain.",
+            "directions": [
+              "forward"
+            ]
           },
           {
             "name": "Kanuti River",
@@ -15745,6 +15825,16 @@
             "kind": "point",
             "source": "OpenStreetMap place=town node 7351401477, projected onto the leg's checked-in route geometry",
             "spoken": "Passing Badger"
+          },
+          {
+            "name": "Trans-Alaska Pipeline viewpoint (Fairbanks to Fort Knox Mine)",
+            "category": "highway_marker",
+            "kind": "point",
+            "at_mi": 8.6,
+            "spoken": "Passing the Trans-Alaska Pipeline viewpoint.",
+            "directions": [
+              "forward"
+            ]
           }
         ],
         "interchanges": [],
@@ -16696,6 +16786,16 @@
             "kind": "point",
             "source": "OpenStreetMap place=town node 7351401477, projected onto the leg's checked-in route geometry",
             "spoken": "Passing Badger"
+          },
+          {
+            "name": "Santa Claus House (Fairbanks to North Pole)",
+            "category": "highway_marker",
+            "kind": "point",
+            "at_mi": 13.0,
+            "spoken": "Passing Santa Claus House.",
+            "directions": [
+              "forward"
+            ]
           }
         ],
         "interchanges": [],
@@ -16888,6 +16988,16 @@
         "checkpoints": [],
         "source": "Scaffold from city pins, 2026-11-22, replaced by reroute-leg.",
         "landmarks": [
+          {
+            "name": "Trans-Alaska Pipeline viewpoint (Fort Knox Mine to Fairbanks)",
+            "category": "highway_marker",
+            "kind": "point",
+            "at_mi": 18.4,
+            "spoken": "Passing the Trans-Alaska Pipeline viewpoint.",
+            "directions": [
+              "forward"
+            ]
+          },
           {
             "name": "Badger",
             "at_mi": 22.2,
@@ -18361,6 +18471,16 @@
             "source": "derived: name and category read from the OpenStreetMap tags of node 65851931 (Tahneta Pass); placed at the nearest projection of it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           },
           {
+            "name": "Matanuska Glacier (Glennallen to Palmer)",
+            "category": "highway_marker",
+            "kind": "point",
+            "at_mi": 86.8,
+            "spoken": "Passing the Matanuska Glacier.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Chickaloon River",
             "category": "river",
             "kind": "point",
@@ -18388,6 +18508,16 @@
             "kind": "point",
             "source": "OpenStreetMap place=village node 150917910, projected onto the leg's checked-in route geometry, placed ahead of the speed zone it explains",
             "spoken": "Entering Sutton"
+          },
+          {
+            "name": "Musk Ox Farm (Glennallen to Palmer)",
+            "category": "highway_marker",
+            "kind": "point",
+            "at_mi": 137.1,
+            "spoken": "Passing the Musk Ox Farm.",
+            "directions": [
+              "forward"
+            ]
           }
         ],
         "interchanges": [],
@@ -20971,6 +21101,16 @@
             "source": "derived: name and category read from the OpenStreetMap tags of way 1188163273 (Tazlina River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           },
           {
+            "name": "Wrangell-Saint Elias visitor center (Glennallen to Valdez)",
+            "category": "highway_marker",
+            "kind": "point",
+            "at_mi": 8.2,
+            "spoken": "Passing the Wrangell-Saint Elias National Park visitor center.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Klutina River",
             "category": "river",
             "kind": "point",
@@ -21854,6 +21994,16 @@
         "source": "Scaffold from city pins, 2026-11-22, replaced by reroute-leg.",
         "landmarks": [
           {
+            "name": "Alaska Chilkat Bald Eagle Preserve (Haines to Haines Junction)",
+            "category": "highway_marker",
+            "kind": "point",
+            "at_mi": 18.5,
+            "spoken": "Passing the Alaska Chilkat Bald Eagle Preserve.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Klukwan",
             "at_mi": 21.5,
             "off_mi": 0.21,
@@ -21921,6 +22071,16 @@
             "source": "derived: name and category read from the OpenStreetMap tags of way 936136347 (Blanchard River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           },
           {
+            "name": "Million Dollar Falls (Haines to Haines Junction)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 88.5,
+            "spoken": "Billboard: Million Dollar Falls, ahead. A boardwalk leads to a lookout over the falls on the Takhanne River. The name comes from an army camp of the nineteen forties, said to have cost a million dollars and never used. The falls came free.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Takhanne River",
             "category": "river",
             "kind": "point",
@@ -21939,6 +22099,16 @@
             "lon": -137.02499,
             "spoken": "Entering Kluane National Park and Reserve",
             "source": "derived: name and category read from the OpenStreetMap tags of relation 9561308 (Kluane National Park and Reserve); placed at the first road vertex inside it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "name": "Dezadeash Lake (Haines to Haines Junction)",
+            "category": "highway_marker",
+            "kind": "point",
+            "at_mi": 119.6,
+            "spoken": "Passing Dezadeash Lake.",
+            "directions": [
+              "forward"
+            ]
           },
           {
             "name": "Kathleen River",
@@ -24001,6 +24171,16 @@
             "lon": -149.2539,
             "spoken": "Crossing the Middle Fork Chulitna River",
             "source": "derived: name and category read from the OpenStreetMap tags of way 192934461 (Middle Fork Chulitna River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "name": "Igloo City (Healy to Wasilla)",
+            "category": "highway_marker",
+            "kind": "point",
+            "at_mi": 60.0,
+            "spoken": "Passing Igloo City, an igloo-shaped hotel that never opened.",
+            "directions": [
+              "forward"
+            ]
           },
           {
             "name": "East Fork Chulitna River",
@@ -30203,6 +30383,16 @@
         "source": "Development-time public Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de, loaded-semi options), sampled 2026-09-24. Router reported 139.8 mi; paid miles 145. Glenn Highway (AK-1). Glenn Highway via Eureka Summit; paid milepost Glenn MP187 to MP42 (Valhalla truck shape densified; router undercount not shipped). Reverse edge mirrored from forward densify (Phase A ALCAN pattern).",
         "landmarks": [
           {
+            "name": "Musk Ox Farm (Palmer to Glennallen)",
+            "category": "highway_marker",
+            "kind": "point",
+            "at_mi": 2.8,
+            "spoken": "Passing the Musk Ox Farm.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Sutton",
             "at_mi": 13.9,
             "off_mi": 0.1,
@@ -30230,6 +30420,16 @@
             "lon": -148.45369,
             "spoken": "Crossing the Chickaloon River",
             "source": "derived: name and category read from the OpenStreetMap tags of way 614108537 (Chickaloon River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "name": "Matanuska Glacier (Palmer to Glennallen)",
+            "category": "highway_marker",
+            "kind": "point",
+            "at_mi": 53.1,
+            "spoken": "Passing the Matanuska Glacier.",
+            "directions": [
+              "forward"
+            ]
           },
           {
             "name": "Tahneta Pass",
@@ -31970,6 +32170,16 @@
             "kind": "point",
             "source": "OpenStreetMap place=village node 150916758, projected onto the leg's checked-in route geometry",
             "spoken": "Passing Houston"
+          },
+          {
+            "name": "Iditarod headquarters (Port MacKenzie to Wasilla)",
+            "category": "highway_marker",
+            "kind": "point",
+            "at_mi": 36.7,
+            "spoken": "Passing the Iditarod headquarters.",
+            "directions": [
+              "forward"
+            ]
           }
         ],
         "interchanges": [],
@@ -32719,6 +32929,16 @@
             "kind": "point",
             "source": "OpenStreetMap place=village node 150917859, projected onto the leg's checked-in route geometry",
             "spoken": "Passing Hope"
+          },
+          {
+            "name": "Beluga Point (Seward to Anchorage)",
+            "category": "highway_marker",
+            "kind": "point",
+            "at_mi": 108.8,
+            "spoken": "Passing Beluga Point, on Turnagain Arm.",
+            "directions": [
+              "forward"
+            ]
           }
         ],
         "interchanges": [],
@@ -35501,6 +35721,26 @@
             "source": "derived: name and category read from the OpenStreetMap tags of way 151443810 (Skagway River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           },
           {
+            "name": "Yukon Suspension Bridge (Skagway to Whitehorse)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 18.0,
+            "spoken": "Billboard: The Yukon Suspension Bridge, ahead. A footbridge over the Tutshi River canyon, finished in two thousand six. A helicopter set the far towers, because that side of the canyon had no way in. It has one now.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
+            "name": "Carcross Desert (Skagway to Whitehorse)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 56.0,
+            "spoken": "Billboard: The Carcross Desert, ahead. Sand dunes left on the bed of an ice age lake, billed as the world's smallest desert. It gets too much rain to be a real desert. Nobody told the sand.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Carcross",
             "at_mi": 64.4,
             "off_mi": 0.21,
@@ -37124,6 +37364,16 @@
             "kind": "point",
             "source": "OpenStreetMap place=village node 150917859, projected onto the leg's checked-in route geometry",
             "spoken": "Passing Hope"
+          },
+          {
+            "name": "Beluga Point (Soldotna to Anchorage)",
+            "category": "highway_marker",
+            "kind": "point",
+            "at_mi": 129.9,
+            "spoken": "Passing Beluga Point, on Turnagain Arm.",
+            "directions": [
+              "forward"
+            ]
           }
         ],
         "interchanges": [],
@@ -45986,6 +46236,16 @@
             "source": "derived: name and category read from the OpenStreetMap tags of way 51315898 (Klutina River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           },
           {
+            "name": "Wrangell-Saint Elias visitor center (Valdez to Glennallen)",
+            "category": "highway_marker",
+            "kind": "point",
+            "at_mi": 109.8,
+            "spoken": "Passing the Wrangell-Saint Elias National Park visitor center.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Tazlina River",
             "category": "river",
             "kind": "point",
@@ -47728,6 +47988,16 @@
             "lon": -149.42133,
             "spoken": "Crossing the East Fork Chulitna River",
             "source": "derived: name and category read from the OpenStreetMap tags of way 192934460 (East Fork Chulitna River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "name": "Igloo City (Wasilla to Healy)",
+            "category": "highway_marker",
+            "kind": "point",
+            "at_mi": 146.0,
+            "spoken": "Passing Igloo City, an igloo-shaped hotel that never opened.",
+            "directions": [
+              "forward"
+            ]
           },
           {
             "name": "Middle Fork Chulitna River",
@@ -49957,6 +50227,16 @@
         "checkpoints": [],
         "source": "Scaffold from city pins, 2026-11-22, replaced by reroute-leg.",
         "landmarks": [
+          {
+            "name": "Iditarod headquarters (Wasilla to Port MacKenzie)",
+            "category": "highway_marker",
+            "kind": "point",
+            "at_mi": 2.3,
+            "spoken": "Passing the Iditarod headquarters.",
+            "directions": [
+              "forward"
+            ]
+          },
           {
             "name": "Houston",
             "at_mi": 7.1,

@@ -6401,12 +6401,13 @@ a carrier slice (owner, 2026-10-26).
       Saskatchewan River). Calgary Tower, Kootenay Pass, Rogers Pass, Banff
       and Elk Island are left out: the map already speaks them, or the road
       reaches the tower only at Calgary's arrival point.
-- [ ] Billboard sheets for each Canadian corridor and the new Alaska
+- [x] Billboard sheets for each Canadian corridor and the new Alaska
       routes, once the routing is in (owner, 2026-11-22: iconic real places
       and landmarks, the way the 1.9 attraction expansion did it), West
       first; French attraction names listed for Orinks's ear, copy to
       Orinks for approval.
-      Placed and dry run, waiting on approval: the Alaska roads sheet
+      Baked 2026-11-22 after Orinks approved all of them ("I approve all
+      billboards."): the Alaska roads sheet
       (`alaska-roads-2026-11-22.md`, 33 placed) and the northern Ontario
       sheet (`northern-ontario-2026-11-22.md`, 51 placed, with corridor 3's
       park bans and the North Shore Scenic Drive ban on the legs), and the

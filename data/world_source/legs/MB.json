@@ -368,6 +368,16 @@
             "spoken": "Passing Gypsumville"
           },
           {
+            "name": "Grand Rapids (Ashern to Grand Rapids)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 145.0,
+            "spoken": "Billboard: Grand Rapids, ahead, where the Saskatchewan River comes down into Lake Winnipeg. In eighteen seventy-seven a railway of horse-drawn tramcars was built around the rapids here. The horses have been replaced.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Saskatchewan River",
             "category": "river",
             "kind": "point",
@@ -764,6 +774,16 @@
             "kind": "point",
             "source": "OpenStreetMap place=town node 52562603, projected onto the leg's checked-in route geometry, placed ahead of the speed zone it explains",
             "spoken": "Entering Eriksdale"
+          },
+          {
+            "name": "Lundar's Canada goose (Ashern to Winnipeg)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 27.9,
+            "spoken": "Billboard: Lundar, ahead, home of a giant Canada goose. The statue was unveiled in nineteen seventy-eight, designed by a local naturalist, and the real ones gather at a refuge nearby. It is the only goose in town that stays the winter.",
+            "directions": [
+              "forward"
+            ]
           },
           {
             "name": "Lundar",
@@ -3554,6 +3574,36 @@
             "lon": -98.44945,
             "spoken": "Entering Sasagiu Rapids Provincial Park",
             "source": "derived: name and category read from the OpenStreetMap tags of way 150289217 (Sasagiu Rapids Provincial Park); placed at the first road vertex inside it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "name": "Paint Lake Provincial Park (Grand Rapids to Thompson)",
+            "category": "highway_marker",
+            "kind": "point",
+            "at_mi": 184.5,
+            "spoken": "Passing Paint Lake Provincial Park.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
+            "name": "King Miner statue (Grand Rapids to Thompson)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 188.7,
+            "spoken": "Billboard: The King Miner statue, ahead in Thompson. He went up in nineteen eighty-one for the town's twenty-fifth anniversary, and a retired miner posed for the sculptor. He has not missed a shift since.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
+            "name": "Thompson's wolf mural (Grand Rapids to Thompson)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 197.7,
+            "spoken": "Billboard: Thompson, ahead. A wolf ten stories tall is painted on the side of Highland Tower, after a sketch by Robert Bateman, and dozens of painted wolf statues stand around town. Count them if you have the hours.",
+            "directions": [
+              "forward"
+            ]
           }
         ],
         "hpms_terrain": {
@@ -6553,6 +6603,16 @@
         "restrictions": [],
         "landmarks": [
           {
+            "name": "Paint Lake Provincial Park (Thompson to Grand Rapids)",
+            "category": "highway_marker",
+            "kind": "point",
+            "at_mi": 19.5,
+            "spoken": "Passing Paint Lake Provincial Park.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Sasagiu Rapids Provincial Park",
             "category": "protected_area",
             "kind": "zone",
@@ -6600,6 +6660,16 @@
             "lon": -99.17359,
             "spoken": "Crossing the Minago River",
             "source": "derived: name and category read from the OpenStreetMap tags of way 1133486232 (Minago River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "name": "Grand Rapids (Thompson to Grand Rapids)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 194.0,
+            "spoken": "Billboard: Grand Rapids, ahead, where the Saskatchewan River comes down into Lake Winnipeg. In eighteen seventy-seven a railway of horse-drawn tramcars was built around the rapids here. The horses have been replaced.",
+            "directions": [
+              "forward"
+            ]
           }
         ],
         "hpms_terrain": {
@@ -7199,6 +7269,16 @@
             "kind": "point",
             "source": "OpenStreetMap place=village node 52562465, projected onto the leg's checked-in route geometry",
             "spoken": "Passing Oak Point"
+          },
+          {
+            "name": "Lundar's Canada goose (Winnipeg to Ashern)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 74.0,
+            "spoken": "Billboard: Lundar, ahead, home of a giant Canada goose. The statue was unveiled in nineteen seventy-eight, designed by a local naturalist, and the real ones gather at a refuge nearby. It is the only goose in town that stays the winter.",
+            "directions": [
+              "forward"
+            ]
           },
           {
             "name": "Lundar",
@@ -9669,6 +9749,16 @@
             "lon": -94.92947,
             "spoken": "Crossing the Whiteshell River",
             "source": "derived: name and category read from the OpenStreetMap tags of way 1351676354 (Whiteshell River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "name": "Husky the Muskie (Winnipeg to Kenora)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 116.5,
+            "spoken": "Billboard: Husky the Muskie, ahead in Kenora. A giant muskellunge in McLeod Park, built for Canada's centennial in nineteen sixty-seven. Every angler in town has caught one bigger.",
+            "directions": [
+              "forward"
+            ]
           }
         ],
         "hpms_terrain": {
