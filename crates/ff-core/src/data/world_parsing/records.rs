@@ -776,6 +776,19 @@ pub fn parse_toll_event(
             "{from_city} to {to_city} toll event {rname} has no source"
         )));
     }
+    let currency = get_str(raw, "currency");
+    let amount_local = get_float(raw, "amount_local", 0.0)?;
+    if !matches!(currency.as_str(), "" | "CAD") {
+        return Err(DataError::value(format!(
+            "{from_city} to {to_city} toll event {rname} has unknown currency {}",
+            py_repr_str(&currency)
+        )));
+    }
+    if currency.is_empty() != (amount_local == 0.0) || !(0.0..=1000.0).contains(&amount_local) {
+        return Err(DataError::value(format!(
+            "{from_city} to {to_city} toll event {rname} needs both amount_local and currency"
+        )));
+    }
     Ok(TollEvent {
         name,
         at_mi,
@@ -787,6 +800,8 @@ pub fn parse_toll_event(
         source,
         amount_plate,
         directions,
+        amount_local,
+        currency,
     })
 }
 

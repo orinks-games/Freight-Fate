@@ -139,14 +139,26 @@ pub fn bare_chunk(chunk: &str) -> Option<(String, String)> {
 }
 
 pub fn english_cardinal(word: &str) -> String {
-    match word {
-        "Est" => "East",
-        "Ouest" => "West",
-        "Nord" => "North",
-        "Sud" => "South",
-        other => other,
+    // Signs and OSM write them either way: "20 Est", "A-55 nord".
+    match word.to_lowercase().as_str() {
+        "est" => "East",
+        "ouest" => "West",
+        "nord" => "North",
+        "sud" => "South",
+        _ => word,
     }
     .to_string()
+}
+
+/// An Ontario emergency detour route ("401 EDR"): a marker for the road to
+/// follow when a 400-series highway closes, not a road the exit leads to.
+const DETOUR_NOTE: &str = "Emergency detour route refs (EDR) dropped: they mark a \
+     detour, not the road the exit leads to";
+
+fn is_detour_ref(chunk: &str) -> bool {
+    chunk
+        .split_whitespace()
+        .any(|w| w.eq_ignore_ascii_case("EDR"))
 }
 
 fn distance_m(lat: f64, lon: f64, lines: &[Vec<(f64, f64)>]) -> f64 {
@@ -194,6 +206,9 @@ pub fn rewrite_via(
     let mut out = Vec::new();
     for chunk in via.split(';') {
         let chunk = chunk.trim();
+        if is_detour_ref(chunk) {
+            continue;
+        }
         let rewritten = match bare_chunk(chunk) {
             Some((number, rest)) => match match_road(rels, &number, lat, lon) {
                 Some((road, rel)) => {
@@ -306,17 +321,25 @@ pub fn main(argv: &[String]) -> Result<i32> {
                     for n in &networks {
                         *by_network.entry(n.clone()).or_default() += 1;
                     }
+                    let detour = via.split(';').any(is_detour_ref);
                     obj.insert("via", Value::from(new_via.clone()));
-                    let source = obj.get("source").and_then(Value::as_str).unwrap_or("");
+                    let mut source = obj
+                        .get("source")
+                        .and_then(Value::as_str)
+                        .unwrap_or("")
+                        .to_string();
                     if !source.contains(NOTE_MARK) {
-                        let note = format!(
+                        source = format!(
                             "{source} {NOTE_MARK}: each bare route number matched to the \
                              OpenStreetMap road route relation of that number nearest the exit \
                              (within 6 km), its network or name giving the kind of road, from \
                              the {snapshot} of {date}; French cardinals in English."
                         );
-                        obj.insert("source", Value::from(note.trim().to_string()));
                     }
+                    if detour && !source.contains(DETOUR_NOTE) {
+                        source = format!("{source} {DETOUR_NOTE}.");
+                    }
+                    obj.insert("source", Value::from(source.trim().to_string()));
                 }
                 None => {
                     if via.split(';').any(|c| bare_chunk(c.trim()).is_some()) {
@@ -369,6 +392,29 @@ mod tests {
                 .unwrap()
                 .0,
             "A-20 East;Route 255"
+        );
+    }
+
+    #[test]
+    fn detour_refs_are_dropped_and_lower_case_directions_read_in_english() {
+        let rels = [rel("CA:QC:A", "55", "Autoroute 55", (45.9, -72.5))];
+        assert_eq!(
+            rewrite_via("Route 161;A-55 nord;A-955", &rels, 45.9, -72.5)
+                .unwrap()
+                .0,
+            "Route 161;A-55 North;A-955"
+        );
+        assert_eq!(
+            rewrite_via("Highway 3;Highway 401 EDR", &rels, 45.9, -72.5)
+                .unwrap()
+                .0,
+            "Highway 3"
+        );
+        assert_eq!(
+            rewrite_via("County Road 11 EDR", &rels, 45.9, -72.5)
+                .unwrap()
+                .0,
+            ""
         );
     }
 

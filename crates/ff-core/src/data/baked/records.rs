@@ -87,7 +87,7 @@ mirror!(BakedStateMileage => StateMileage { state: String, miles: f64 });
 mirror!(BakedTollEvent => TollEvent {
     name: String, at_mi: f64, road: String, authority: String, method: String,
     amount: f64, estimated: bool, source: String, amount_plate: f64,
-    directions: Vec<String>,
+    directions: Vec<String>, amount_local: f64, currency: String,
 });
 
 mirror!(BakedInterchange => Interchange {

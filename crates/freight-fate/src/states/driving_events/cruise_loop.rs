@@ -526,6 +526,13 @@ impl DrivingState {
         if exit_capped {
             target_mph = exit_cap.expect("checked above");
         }
+        // Never over the posting the truck is in while an exit is armed: the
+        // exit's number is read off the road at the gore, and a slower
+        // stretch before it (the Blue Water Bridge approach, 50 km/h) must not
+        // be driven over its limit "for the exit" (agent drive, 2026-11-22).
+        if self.cruise_exit_mph.is_some() {
+            target_mph = target_mph.min(self.trip.speed_limit_at(self.trip.position_mi).0);
+        }
         // A pacenote capped cruise for a bend: hold the advisory until the
         // curve's footprint is behind the truck, then climb back silently --
         // announcing every release would chant through a curve cluster.

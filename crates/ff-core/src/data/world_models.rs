@@ -859,6 +859,12 @@ pub struct TollEvent {
     /// road really costs. Defaults to both, which is right for turnpikes and
     /// mainline barriers.
     pub directions: Vec<String>,
+    /// The price on the booth's own sign when it is not in US dollars, and
+    /// its currency ("CAD"). `amount` stays the US dollar charge the
+    /// settlement carries; this is what the driver hears at the booth.
+    /// Zero and empty for a booth that posts US dollars.
+    pub amount_local: f64,
+    pub currency: String,
 }
 
 impl Default for TollEvent {
@@ -874,6 +880,8 @@ impl Default for TollEvent {
             source: String::new(),
             amount_plate: 0.0,
             directions: strings(&["both"]),
+            amount_local: 0.0,
+            currency: String::new(),
         }
     }
 }
@@ -890,6 +898,12 @@ impl TollEvent {
 
     pub fn applies_to_direction(&self, forward: bool) -> bool {
         applies_to_direction(&self.directions, forward)
+    }
+
+    /// The booth's price in its own currency, when that is Canadian dollars:
+    /// a Canadian booth says the Canadian price (Orinks, 2026-11-22).
+    pub fn canadian_amount(&self) -> Option<f64> {
+        (self.currency == "CAD" && self.amount_local > 0.0).then_some(self.amount_local)
     }
 
     pub fn method_label(&self) -> String {

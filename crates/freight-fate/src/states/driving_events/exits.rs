@@ -361,6 +361,12 @@ impl DrivingState {
     /// a 70 lane for the last half mile (owner-approved redesign,
     /// 2026-09-24). Road speed is read at the gore, so a work zone there
     /// counts.
+    ///
+    /// Never over road speed either. The ramp number floors at the design
+    /// minimum, so on a slow road it can sit above the posting: at the Blue
+    /// Water Bridge approach, posted 50 km/h, cruise set 56 "for the exit"
+    /// and the game then warned the driver twice about a speed it chose
+    /// itself (agent drive, 2026-11-22).
     pub fn exit_approach_floor_mph(&mut self, stop: Option<&RoadStop>) -> f64 {
         let ramp_cruise = self.armed_ramp_cruise_mph(stop);
         let gore_mi = stop
@@ -371,7 +377,7 @@ impl DrivingState {
             return ramp_cruise;
         };
         let (road, _) = self.trip.speed_limit_at(gore_mi);
-        ramp_cruise.max(road - EXIT_MAINLINE_EASE_MPH)
+        ramp_cruise.max(road - EXIT_MAINLINE_EASE_MPH).min(road)
     }
 
     /// The speed route-transition assistance stays engaged down to, once it
