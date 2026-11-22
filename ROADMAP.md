@@ -5924,17 +5924,25 @@ a carrier slice (owner, 2026-10-26).
 - [x] Loads across the border (2026-11-22, brief 7): a US carrier's board
       offers loads from the United States into Canada and from Canada back
       to the United States, never between two Canadian points (cabotage).
-      The carriers that run to Canada are data (`cross_border` in
-      `carriers.json`: Northstar, Summit Value, Androscoggin, Olentangy
-      Valley, Loonwater, Musselshell, Chehalis, Chatanika). Twin parcel,
-      cattle and placarded loads stay home. A border load's deadline books
-      55 minutes at each customs booth, planned on US hours rules (the
-      stricter on driving hours both sides of 60). The seven BC and Yukon
-      towns carry real receivers and Surrey ships from the Fraser Surrey
-      container terminal; the Peace River and Northern Rockies towns and
-      Yukon keep Mountain Time; live weather and alerts do not ask the US
-      Weather Service north of the border. Per-city checklist: "Building a
-      Canadian corridor" in `docs/map-enrichment-recipe.md`.
+      Every Canadian city on the map is open, the West corridor's 48 on
+      their template markets and the seven Alcan towns on surveyed
+      receivers. The carriers that run to Canada are data (`cross_border`
+      in `carriers.json`: the nationals except Great Lakes Training, and the
+      regionals whose terminals sit near the border). Twin parcel, cattle
+      and placarded loads stay home. A border load's deadline books 55
+      minutes at each customs booth, planned on US hours rules (the stricter
+      on driving hours both sides of 60). Yukon keeps Mountain Time; live
+      weather and alerts do not ask the US Weather Service north of the
+      border. Per-city checklist: "What a Canadian city needs before a load
+      can end there" in `docs/map-enrichment-recipe.md`.
+- [ ] (Found along the way) Border loads near the line are frequent: about
+      28 percent of Seattle's and half of Bellingham's posted loads go to
+      Canada once the West opened. A weight on loads that cross (0.4 would
+      roughly halve it) is a balance call for the owner.
+- [ ] (Found along the way) The hours rules line at a border is spoken a
+      second time after a customs booth or police stop interrupts it.
+- [ ] (Found along the way) Shipping containers are hooked on a flatbed or
+      a dry van at the Surrey and Bellingham terminals.
 - [ ] Canadian carriers and home bases, and loads inside Canada for them:
       the next dispatch slice after loads across the border.
 - [ ] (Found along the way) Placarded loads across the border: Canada's

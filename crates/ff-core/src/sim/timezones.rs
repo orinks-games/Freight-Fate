@@ -258,7 +258,6 @@ fn split_state_zone(state: &str) -> Option<fn(f64, f64) -> TimeZone> {
         "Idaho" => idaho,
         "Oregon" => oregon,
         "Nevada" => nevada,
-        "British Columbia" => british_columbia,
         _ => return None,
     })
 }

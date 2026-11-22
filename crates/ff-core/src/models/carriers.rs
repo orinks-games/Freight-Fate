@@ -266,6 +266,7 @@ struct RawCarrier {
     lane_area: String,
     #[serde(default)]
     cross_border: bool,
+    #[serde(default)]
     specialty: String,
 }
 

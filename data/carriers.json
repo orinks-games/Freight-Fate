@@ -783,7 +783,8 @@
       "refrigerated": 0.3
     },
     "lane_area": "the lower 48",
-    "specialty": "refrigerated freight"
+    "specialty": "refrigerated freight",
+    "cross_border": true
   },
   "double_springs_linehaul": {
     "name": "Double Springs Linehaul",
@@ -826,7 +827,8 @@
       "parcel": 0.2
     },
     "lane_area": "the lower 48",
-    "specialty": "doubles"
+    "specialty": "doubles",
+    "cross_border": true
   },
   "open_hearth_flatbed": {
     "name": "Open Hearth Flatbed Lines",
@@ -870,7 +872,8 @@
       "construction": 0.15
     },
     "lane_area": "the lower 48",
-    "specialty": "steel, machinery and lumber"
+    "specialty": "steel, machinery and lumber",
+    "cross_border": true
   },
   "elochoman_freight": {
     "name": "Elochoman Freight Lines",
@@ -903,7 +906,8 @@
       "lumber_paper": 0.2,
       "food": 0.15
     },
-    "lane_area": "the Cascades, from Puget Sound to central Oregon"
+    "lane_area": "the Cascades, from Puget Sound to central Oregon",
+    "cross_border": true
   },
   "cosumnes_freight": {
     "name": "Cosumnes Freight",
@@ -1036,7 +1040,8 @@
       "livestock": 0.2,
       "bulk": 0.1
     },
-    "lane_area": "Montana, Wyoming and the Black Hills"
+    "lane_area": "Montana, Wyoming and the Black Hills",
+    "cross_border": true
   },
   "lake_traverse_freight": {
     "name": "Lake Traverse Freight",
@@ -1068,7 +1073,8 @@
       "grain": 0.25,
       "farm_inputs": 0.2
     },
-    "lane_area": "the Dakotas and Nebraska"
+    "lane_area": "the Dakotas and Nebraska",
+    "cross_border": true
   },
   "tahquamenon_freight": {
     "name": "Tahquamenon Freight",
@@ -1101,7 +1107,8 @@
       "lumber_paper": 0.25,
       "food": 0.1
     },
-    "lane_area": "Wisconsin, central Minnesota and the Upper Peninsula"
+    "lane_area": "Wisconsin, central Minnesota and the Upper Peninsula",
+    "cross_border": true
   },
   "kishwaukee_transport": {
     "name": "Kishwaukee Transport",
@@ -1167,7 +1174,8 @@
       "automotive": 0.25,
       "steel": 0.15
     },
-    "lane_area": "Michigan, northern Indiana and northwest Ohio"
+    "lane_area": "Michigan, northern Indiana and northwest Ohio",
+    "cross_border": true
   },
   "laguna_madre_freight": {
     "name": "Laguna Madre Freight Lines",
@@ -1330,7 +1338,8 @@
       "lumber_paper": 0.25,
       "food": 0.1
     },
-    "lane_area": "Maine, Vermont and upstate New York"
+    "lane_area": "Maine, Vermont and upstate New York",
+    "cross_border": true
   },
   "bergen_point_drayage": {
     "name": "Bergen Point Drayage",

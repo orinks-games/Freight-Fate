@@ -630,10 +630,14 @@ against this list on 2026-11-22.
   cross-dock). A site that has closed is not a site: check the news.
   Fuel and parking pins (`travel_center`, `truck_parking`) ship and
   receive nothing, as before.
-- **No stamped warehouses.** Add the city key to
-  `CURATED_COMPLETE_MARKET_CITY_KEYS`
-  (`data/world_constants/template_gates.rs`) so the loader stamps no
-  template grain elevator or cross-dock nobody surveyed.
+- **Stamped warehouses, or none.** A city with no surveyed freight site
+  gets the template market a US city gets (a dry warehouse, a cross-dock
+  and what its market tags add), so it takes and ships loads from the day
+  it lands; the West corridor's 48 cities work this way. Once a city has
+  real freight sites, add its key to `CURATED_COMPLETE_MARKET_CITY_KEYS`
+  (`data/world_constants/template_gates.rs`) so the loader stops stamping
+  a template grain elevator or cross-dock nobody surveyed beside them; the
+  seven BC and Yukon towns are listed.
 - **Time zone.** `sim/timezones.rs` resolves the province by name. The
   model has no daylight time, so Saskatchewan's year-round Central
   Standard Time is plain Central and Yukon's year-round UTC-7 is plain

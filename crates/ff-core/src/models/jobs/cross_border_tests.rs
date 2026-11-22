@@ -137,6 +137,44 @@ fn a_long_haul_to_whitehorse_plans_enough_for_either_country() {
     assert_eq!(cross_border::route_crossings(&route), 1);
 }
 
+/// The West corridor's prairie and mountain cities are as open as the Alcan
+/// towns: a board on the Montana or North Dakota side posts loads into
+/// Alberta, Saskatchewan or Manitoba, and a board there posts only US loads.
+#[test]
+fn the_western_crossings_carry_loads_both_ways() {
+    let western: usize = ["great_falls_mt_us", "minot_nd_us"]
+        .iter()
+        .flat_map(|city| (0..40).flat_map(move |seed| board_at(city, seed, 8, "northstar")))
+        .filter(|job| {
+            matches!(
+                get_world()
+                    .city(&job.destination)
+                    .ok()
+                    .map(|c| c.state.as_str()),
+                Some("AB" | "SK" | "MB" | "Alberta" | "Saskatchewan" | "Manitoba")
+            )
+        })
+        .count();
+    assert!(
+        western > 0,
+        "no prairie load from Great Falls or Minot in 40 seeds"
+    );
+    for city in ["calgary_ab_ca", "regina_sk_ca", "winnipeg_mb_ca"] {
+        let mut seen = 0;
+        for seed in 0..20 {
+            for job in board_at(city, seed, 8, "northstar") {
+                assert_eq!(
+                    country(&job.destination),
+                    "US",
+                    "{city} seed {seed}: {job:?}"
+                );
+                seen += 1;
+            }
+        }
+        assert!(seen > 0, "{city} posted no loads");
+    }
+}
+
 /// The board numbers in the cross-border report: how often a border load is
 /// posted at a few cities, over seeds. Run by hand:
 /// `cargo test -p ff-core cross_border_probe -- --ignored --nocapture`.
@@ -153,7 +191,32 @@ fn cross_border_probe() {
         ("dallas_tx_us", "northstar"),
         ("surrey_bc_ca", "northstar"),
         ("whitehorse_yt_ca", "northstar"),
+        ("great_falls_mt_us", "musselshell_freight"),
+        ("minot_nd_us", "loonwater_regional"),
+        ("fargo_nd_us", "loonwater_regional"),
+        ("vancouver_bc_ca", "northstar"),
+        ("calgary_ab_ca", "northstar"),
+        ("winnipeg_mb_ca", "northstar"),
     ];
+    let world = get_world();
+    let mut dest: std::collections::BTreeMap<String, usize> = Default::default();
+    for city in world.cities.values().filter(|c| c.country == "CA") {
+        let receives = city
+            .locations
+            .iter()
+            .filter(|l| !l.receives.is_empty())
+            .count();
+        let ships = city
+            .locations
+            .iter()
+            .filter(|l| !l.ships.is_empty())
+            .count();
+        let templates = city.locations.iter().filter(|l| l.template).count();
+        println!(
+            "site {} receives {receives} ships {ships} templates {templates}",
+            city.key
+        );
+    }
     for level in [3, 8, 14] {
         for (city, carrier) in cities {
             let (mut boards, mut with, mut loads, mut border) = (0, 0, 0, 0);
@@ -165,6 +228,11 @@ fn cross_border_probe() {
                     .filter(|j| country(&j.origin) != country(&j.destination))
                     .count();
                 loads += jobs.len();
+                for j in &jobs {
+                    if country(&j.destination) == "CA" && level == 8 {
+                        *dest.entry(j.destination.clone()).or_default() += 1;
+                    }
+                }
                 border += n;
                 with += usize::from(n > 0);
             }
@@ -174,6 +242,7 @@ fn cross_border_probe() {
             );
         }
     }
+    println!("canadian destinations at level 8: {dest:?}");
     for (city, seed) in [
         ("bellingham_wa_us", 1),
         ("spokane_wa_us", 2),

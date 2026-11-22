@@ -38,10 +38,10 @@
 - **Alaska's spring weight limits now apply.** From April to mid-June, loads on thawing Alaska highways are lighter, and offers name the road setting the limit.
 - **Diesel in British Columbia and the Yukon now costs what it does there,** and Canadian pumps also say the price in Canadian dollars a liter.
 - **Heavy trucks in British Columbia are now held to 105 kilometers per hour, as the law requires.**
-- **Dispatch now offers loads into Canada and back.** Surrey, Prince George, Dawson Creek, Fort St. John, Fort Nelson, Watson Lake and Whitehorse take deliveries from US cities.
+- **Dispatch now offers loads into Canada and back.** Cities from Vancouver to Winnipeg and up the Alaska Highway to Whitehorse take deliveries from US cities.
 - **A board in Canada offers loads back to the United States only.** A US carrier may not haul between two Canadian towns.
 - **Deadlines for a load across the border include time at customs.**
-- **Dawson Creek, Fort St. John, Fort Nelson and the Yukon now keep Mountain Time.**
+- **The Yukon now keeps Mountain Time.**
 - **Live weather no longer carries a US reading into Canada.** North of the border the sky is simulated, and weather alerts stay quiet.
 - **The map now reaches Alaska and northern Canada along the Alaska Highway,** from Blaine and Bellingham through Prince George, Dawson Creek and Whitehorse to Tok and Fairbanks.
 - **The map now reaches Alberta, Saskatchewan and Manitoba,** on the Trans-Canada and Yellowhead highways from Vancouver to Winnipeg, with six more border crossings.
