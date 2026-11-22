@@ -40,7 +40,7 @@ In menus, and the readers and prompts outside the drive:
 | Two-finger flick down, or two-finger scrub | Back | Escape |
 | Two-finger flick left / right | Previous / next message | Comma / Period |
 | Three-finger flick up / down | Top / bottom of the list | Home / End |
-| Three-finger flick left / right | Previous / next page | Page Up / Page Down |
+| Three-finger flick left / right | Ten rows back / forward, or the previous / next page where a list has pages | Page Up / Page Down |
 | Three-finger tap | What the screen can tell you: the job board's market summary, the weather along a route on the route picker, a download's progress | Tab |
 
 In a name field the flicks keep the keys they had: flick left and right
@@ -94,7 +94,7 @@ A second finger while holding a pedal:
 | While holding a pedal, flick up / down | Shift up / down in manual, working the clutch for you; nothing in automatic |
 | While holding a pedal, flick left / right | Change one lane |
 | While holding a pedal, swipe left / right and hold | Steer until you lift (lane keeping off or partial) |
-| While holding brake, tap | Nothing; assign a command in Touch gestures |
+| While holding brake, tap | Engine brake (on or off) |
 | While holding brake, double tap | Nothing; assign a command in Touch gestures |
 
 Other driving gestures:
@@ -368,6 +368,8 @@ frameworks it and SDL2 need, plus clang's iOS runtime for `@available` checks.
 - Three-finger tap at the wheel, then double tap: the Status menu opens. In the list, double tap a group, flick through it, and two-finger flick down: the list is back on that group's row. On Radio volume, flick up twice: the volume rises twice and the list stays open. On the job board, a three-finger tap reads the market summary; on the route picker, the weather along the route.
 - Deep swipe down while moving for the emergency brake; stopped, it says "Parking brake set", and gas then says "Parking brake released".
 - Turn two fingers right to start the engine and left to stop it while stopped; at speed the turn left does nothing. Hold two fingers for the horn, then turn them and confirm the horn stops.
+- On a downgrade with the engine brake off: hear "Set the jake. Hold the brake and tap with a second finger." Hold the brake, tap with a second finger: the engine brake comes on, and the same tap turns it off. A player who had put a command on that slot keeps it.
+- In a long menu (the home terminal list, Stations in range in the Radio app), three-finger flicks right and left jump ten rows and read the row; at the first or last row the row is read again.
 - While holding gas: second-finger tap sets cruise, flicks up and down shift in manual and do nothing in automatic, side flicks change lanes, side holds steer.
 - In a manual truck (Automatic or manual shifting, in Gears and engine brake): pull away with a brake hold and a second-finger flick up for first, then shift up through several gears on the gas with no grinding. Brake to a stop in tenth: hear "Neutral." with the gear sentence on the way down, lift, and the engine keeps running; hold a pedal and flick up for first. Slow to about 10 miles per hour in tenth, hear "Neutral.", and flick up while rolling: a gear that fits the speed goes in, not first.
 - In a Driving School lesson: the deep swipe while moving is the emergency brake, the still hold straightens, and gas releases the parking brake, as in a delivery.

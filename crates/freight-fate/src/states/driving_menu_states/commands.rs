@@ -383,6 +383,17 @@ impl DrivingCommandsState {
     }
 
     fn item(&self, ctx: &GameContext, entry: Entry) -> MenuItem<Self> {
+        let mut item = self.entry_item(ctx, entry);
+        // A command row closes the list only to run, so a label like
+        // "Resume the last cruise speed" must not count as the group's way
+        // back: the touch Back row belongs on every group.
+        if !matches!(entry, Entry::Back) {
+            item.leaves = false;
+        }
+        item
+    }
+
+    fn entry_item(&self, ctx: &GameContext, entry: Entry) -> MenuItem<Self> {
         match entry {
             Run(action) => action_item(ctx, action),
             F(fixed) => {
