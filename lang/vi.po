@@ -29682,10 +29682,11 @@ msgstr "Dùng một mắt xích sửa chữa dự phòng."
 msgid "Uses a spare repair link. {chain_repair_links} left."
 msgstr "Dùng một mắt xích sửa chữa dự phòng. Còn {chain_repair_links} mắt."
 
+# leave empty: one hole before "left"; it took every left curve call ("Sharp left, half a mile.") and dropped the direction
 #. placeholders: {chain_repair_links}
 #. one sentence of a longer line
 msgid "{chain_repair_links} left."
-msgstr "Còn {chain_repair_links} mắt."
+msgstr ""
 
 #. placeholders: {f}
 msgid "Remove snow chains: about {f} minutes"
