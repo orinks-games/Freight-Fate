@@ -50,9 +50,33 @@ pub fn leg_pair(a: &str, b: &str) -> String {
     }
 }
 
-/// Every Alaska Highway leg the map carries, as [`leg_pair`]s: the road
-/// from Dawson Creek to Delta Junction. Read from the map, so a corridor
-/// that adds a town along the way adds its legs here too.
+/// The Alaska Highway's two ends.
+pub const ALASKA_HIGHWAY_START: &str = "dawson_creek_bc_ca";
+pub const ALASKA_HIGHWAY_END: &str = "delta_junction_ak_us";
+
+/// Whether the Alaska Highway legs driven (as [`leg_pair`]s) join Dawson
+/// Creek to Delta Junction end to end. A road the map carries both as one
+/// through leg and as the legs it splits into is driven either way.
+pub fn alaska_highway_joined(driven: &BTreeSet<String>) -> bool {
+    let mut reached: BTreeSet<&str> = BTreeSet::from([ALASKA_HIGHWAY_START]);
+    let mut grew = true;
+    while grew {
+        grew = false;
+        for pair in driven {
+            let Some((a, b)) = pair.split_once('|') else {
+                continue;
+            };
+            if reached.contains(a) != reached.contains(b) {
+                reached.insert(a);
+                reached.insert(b);
+                grew = true;
+            }
+        }
+    }
+    reached.contains(ALASKA_HIGHWAY_END)
+}
+
+/// Every Alaska Highway leg the map carries, as [`leg_pair`]s.
 pub fn alaska_highway_pairs(world: &World) -> BTreeSet<String> {
     world
         .legs
@@ -128,11 +152,10 @@ pub fn drive_end_badges(
                 add_unique_stat(profile, ALASKA_HIGHWAY_STAT, &leg_pair(from, to));
             }
         }
-        let wanted = alaska_highway_pairs(world);
         let driven: BTreeSet<String> = list_stat(profile, ALASKA_HIGHWAY_STAT)
             .into_iter()
             .collect();
-        if !wanted.is_empty() && wanted.is_subset(&driven) {
+        if alaska_highway_joined(&driven) {
             ids.push("alaska_highway_whole");
         }
     }

@@ -17,7 +17,7 @@ use super::{Achievement, AchievementCategory};
 /// sha256 over every category and achievement field, as the generator
 /// computed it from the Python catalog (see `catalog_digest` in the
 /// tests for the exact framing).
-pub const CATALOG_DIGEST: &str = "41a7bf5e90cb9a3571d24d4229b0e20b860350850912ea9534ed45d0ca8114ec";
+pub const CATALOG_DIGEST: &str = "c1889b63b6a5bef7dbd09cc03aaffd61df870b1f69d37c6e76217023f2f01cac";
 
 /// What a locked, hidden achievement speaks in place of its real name and
 /// description. Keeps a hidden badge's surprise -- the joke, the calendar
@@ -1634,7 +1634,7 @@ pub static ACHIEVEMENTS: [Achievement; 201] = [
     Achievement {
         id: "carrier_first_week",
         name: "Workin' for a Livin'",
-        description: "Five loads or more for one carrier, the first and the last a full week apart.",
+        description: "Five loads for one carrier, the first and last a week or more apart.",
         category: "career",
         inspiration: "Huey Lewis and the News - Workin' for a Livin'",
         hidden: false,

@@ -1,5 +1,7 @@
 //! Each 2.0 badge, earned from the event that awards it, on the real map.
 
+use std::collections::BTreeSet;
+
 use serde_json::{Map, Value};
 
 use super::*;
@@ -139,25 +141,56 @@ fn whittier_is_reached_only_through_the_tunnel() {
 #[test]
 fn the_alaska_highway_counts_every_leg_across_drives() {
     let world = get_world();
-    let pairs = alaska_highway_pairs(world);
-    assert_eq!(
-        pairs.len(),
-        6,
-        "Dawson Creek, Fort St. John, Fort Nelson, Watson Lake, Whitehorse, Tok, Delta Junction: {pairs:?}"
-    );
     let mut profile = TestProfile::default();
     // Half the road on one drive, the rest on another, the second one
     // driven the other way.
-    let south = route("dawson_creek_bc_ca", "watson_lake_yt_ca");
+    let south = route(ALASKA_HIGHWAY_START, "watson_lake_yt_ca");
     let ids = drive_end_badges(&mut profile, world, &delivery(&south, "summer"));
     assert!(!ids.contains(&"alaska_highway_whole"));
-    let north = route("delta_junction_ak_us", "watson_lake_yt_ca");
+    let north = route(ALASKA_HIGHWAY_END, "watson_lake_yt_ca");
     let ids = drive_end_badges(&mut profile, world, &delivery(&north, "summer"));
     assert!(
         ids.contains(&"alaska_highway_whole"),
         "{:?}",
         profile.achievement_stats
     );
+}
+
+#[test]
+fn a_through_leg_and_its_split_legs_both_join_the_road() {
+    let pairs = |legs: &[(&str, &str)]| -> BTreeSet<String> {
+        legs.iter().map(|(a, b)| leg_pair(a, b)).collect()
+    };
+    let south = [
+        (ALASKA_HIGHWAY_START, "fort_st_john_bc_ca"),
+        ("fort_st_john_bc_ca", "fort_nelson_bc_ca"),
+        ("fort_nelson_bc_ca", "watson_lake_yt_ca"),
+        ("watson_lake_yt_ca", "whitehorse_yt_ca"),
+    ];
+    let north = ("tok_ak_us", ALASKA_HIGHWAY_END);
+    // Whitehorse to Tok by the through leg.
+    let mut through = pairs(&south);
+    through.extend(pairs(&[("whitehorse_yt_ca", "tok_ak_us"), north]));
+    assert!(alaska_highway_joined(&through));
+    // The same stretch by the split legs, with the through leg never driven.
+    let mut split = pairs(&south);
+    split.extend(pairs(&[
+        ("whitehorse_yt_ca", "haines_junction_yt_ca"),
+        ("haines_junction_yt_ca", "tok_ak_us"),
+        north,
+    ]));
+    assert!(alaska_highway_joined(&split));
+    // A gap anywhere is not the whole road, nor is a side road.
+    let mut gap = pairs(&south);
+    gap.extend(pairs(&[("haines_junction_yt_ca", "tok_ak_us"), north]));
+    assert!(!alaska_highway_joined(&gap));
+    assert!(!alaska_highway_joined(&pairs(&south)));
+}
+
+#[test]
+fn the_map_carries_the_whole_alaska_highway() {
+    let all = alaska_highway_pairs(get_world());
+    assert!(alaska_highway_joined(&all), "{all:?}");
 }
 
 #[test]
