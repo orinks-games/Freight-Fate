@@ -13575,36 +13575,40 @@ msgstr "Çalışma ve dinlenme süreleri: {cycle_text}. {advice}"
 
 #. one sentence of a longer line
 msgid "Hours of service: past your limit."
-msgstr ""
+msgstr "Çalışma ve dinlenme süreleri: sınır aşıldı."
 
 #. placeholders: {advice}
 msgid "Hours of service: past your limit. {advice}"
-msgstr ""
+msgstr "Çalışma ve dinlenme süreleri: sınır aşıldı. {advice}"
 
 #. one sentence of a longer line
 msgid "Alaska hours rules."
-msgstr ""
+msgstr "Alaska çalışma süresi kuralları."
 
 #. placeholders: {duration_text}, {duration_text2}
 msgid ""
 "Alaska hours rules. {duration_text} of driving and {duration_text2} on duty "
 "left."
 msgstr ""
+"Alaska çalışma süresi kuralları. {duration_text} sürüş ve {duration_text2} "
+"görev süresi kaldı."
 
 #. placeholders: {duration_text}, {duration_text2}
 #. one sentence of a longer line
 msgid "{duration_text} of driving and {duration_text2} on duty left."
-msgstr ""
+msgstr "{duration_text} sürüş ve {duration_text2} görev süresi kaldı."
 
 #. one sentence of a longer line
 msgid "Canadian hours rules."
-msgstr ""
+msgstr "Kanada çalışma süresi kuralları."
 
 #. placeholders: {duration_text}, {duration_text2}, {duration_text3}
 msgid ""
 "Canadian hours rules. {duration_text} of driving, {duration_text2} on duty, "
 "and {duration_text3} of shift left."
 msgstr ""
+"Kanada çalışma süresi kuralları. {duration_text} sürüş, {duration_text2} "
+"görev ve {duration_text3} görev penceresi kaldı."
 
 #. placeholders: {duration_text}, {duration_text2}, {duration_text3}
 #. one sentence of a longer line
@@ -13612,25 +13616,31 @@ msgid ""
 "{duration_text} of driving, {duration_text2} on duty, and {duration_text3} "
 "of shift left."
 msgstr ""
+"{duration_text} sürüş, {duration_text2} görev ve {duration_text3} görev "
+"penceresi kaldı."
 
 #. one sentence of a longer line
 msgid "North of 60 hours rules."
-msgstr ""
+msgstr "60. paralelin kuzeyi çalışma süresi kuralları."
 
 #. placeholders: {duration_text}, {duration_text2}, {duration_text3}
 msgid ""
 "North of 60 hours rules. {duration_text} of driving, {duration_text2} on "
 "duty, and {duration_text3} of shift left."
 msgstr ""
+"60. paralelin kuzeyi çalışma süresi kuralları. {duration_text} sürüş, "
+"{duration_text2} görev ve {duration_text3} görev penceresi kaldı."
 
 #. placeholders: {duration_text}, {duration_text2}, {duration_text3}
 msgid ""
 " Cycle: {duration_text} used of {duration_text2}, {duration_text3} left."
 msgstr ""
+" Döngü: {duration_text2} içinde {duration_text} kullanıldı, "
+"{duration_text3} kaldı."
 
 #. placeholders: {lead}, {status}, {cycle_clause}, {suffix}
 msgid "{lead} ELD status {status}.{cycle_clause}{suffix}"
-msgstr ""
+msgstr "{lead} ELD durumu: {status}.{cycle_clause}{suffix}"
 
 #. placeholders: {duration_text}
 msgid "Driving left: {duration_text}."
@@ -13699,20 +13709,20 @@ msgstr "Mola: gerekmiyor. {ENFORCEMENT_OFF}"
 
 #. one sentence of a longer line
 msgid "No 30-minute break is required."
-msgstr ""
+msgstr "30 dakikalık mola gerekmiyor."
 
 #. placeholders: {shift_over}, {reset_advice}
 msgid "No 30-minute break is required. {shift_over} {reset_advice}"
-msgstr ""
+msgstr "30 dakikalık mola gerekmiyor. {shift_over} {reset_advice}"
 
 msgid "No 30-minute break is required under Alaska hours rules."
-msgstr ""
+msgstr "Alaska kurallarına göre 30 dakikalık mola gerekmiyor."
 
 msgid "No 30-minute break is required under Canadian hours rules."
-msgstr ""
+msgstr "Kanada kurallarına göre 30 dakikalık mola gerekmiyor."
 
 msgid "No 30-minute break is required with cattle aboard."
-msgstr ""
+msgstr "Yükte sığır varken 30 dakikalık mola gerekmiyor."
 
 msgid "Break overdue"
 msgstr "Mola gecikti"
@@ -13752,7 +13762,7 @@ msgstr "{answer}, ancak {shift_over}."
 
 #. placeholders: {answer}, {shift_over}, {reset_advice}
 msgid "{answer}, but you are {shift_over}. {reset_advice}"
-msgstr ""
+msgstr "{answer}, ancak {shift_over}. {reset_advice}"
 
 #. placeholders: {else}
 msgid "Driving time left: no limit{else}"
@@ -13771,11 +13781,11 @@ msgstr "Kalan sürüş süresi: {duration_text}"
 
 #. placeholders: {duration_text}
 msgid "On-duty time left: {duration_text}"
-msgstr ""
+msgstr "Kalan görev süresi: {duration_text}"
 
 #. placeholders: {duration_text}
 msgid "Shift time left: {duration_text}"
-msgstr ""
+msgstr "Kalan vardiya süresi: {duration_text}"
 
 #. placeholders: {duration_text}
 msgid "Duty window closes in {duration_text}"
@@ -13800,58 +13810,59 @@ msgid ". Your 30-minute break is overdue and comes first"
 msgstr ". 30 dakikalık molanız gecikti, önce o gelir"
 
 msgid "your Alaska driving limit runs out"
-msgstr ""
+msgstr "Alaska sürüş sınırınız doluyor"
 
 msgid "your 20-hour on-duty limit runs out"
-msgstr ""
+msgstr "20 saatlik görev süresi sınırınız doluyor"
 
 msgid "your 80-hour cycle runs out"
-msgstr ""
+msgstr "80 saatlik döngünüz doluyor"
 
 msgid "80-hour cycle"
-msgstr ""
+msgstr "80 saatlik döngü"
 
 msgid "your Canadian driving limit runs out"
-msgstr ""
+msgstr "Kanada sürüş sınırınız doluyor"
 
 msgid "your Canadian on-duty limit runs out"
-msgstr ""
+msgstr "Kanada görev süresi sınırınız doluyor"
 
 msgid "your 70-hour Canadian cycle runs out"
-msgstr ""
+msgstr "70 saatlik Kanada döngünüz doluyor"
 
 msgid "70-hour Canadian cycle"
-msgstr ""
+msgstr "70 saatlik Kanada döngüsü"
 
 msgid "your 80-hour Canadian cycle runs out"
-msgstr ""
+msgstr "80 saatlik Kanada döngünüz doluyor"
 
 msgid "80-hour Canadian cycle"
-msgstr ""
+msgstr "80 saatlik Kanada döngüsü"
 
 msgid "driving limit"
-msgstr ""
+msgstr "sürüş sınırı"
 
 msgid "on-duty limit"
-msgstr ""
+msgstr "görev sınırı"
 
 msgid "your shift reaches 16 hours after your last 8 hours off"
-msgstr ""
+msgstr "son 8 saatlik aranızdan 16 saat sonra vardiyanız doluyor"
 
 msgid "your shift reaches 20 hours after your last 8 hours off"
-msgstr ""
+msgstr "son 8 saatlik aranızdan 20 saat sonra vardiyanız doluyor"
 
 msgid "shift limit"
-msgstr ""
+msgstr "vardiya sınırı"
 
 #. placeholders: {nearest}
 msgid " You would arrive before {nearest}."
-msgstr ""
+msgstr " Bundan önce varırsınız: {nearest}."
 
 #. placeholders: {nearest}, {duration_text}
 msgid ""
 " Your {nearest} comes about {duration_text} before you would reach it."
 msgstr ""
+" Varmadan yaklaşık {duration_text} önce sınıra geliyorsunuz: {nearest}."
 
 msgid "your driving time for this shift runs out"
 msgstr "bu vardiyadaki sürüş süreniz biter"
@@ -13860,7 +13871,7 @@ msgid "your duty window closes"
 msgstr "görev pencereniz kapanır"
 
 msgid "your 70-hour cycle runs out"
-msgstr ""
+msgstr "70 saatlik döngünüz doluyor"
 
 msgid "your 30-minute break is due"
 msgstr "30 dakikalık mola vaktiniz gelir"
@@ -13876,7 +13887,7 @@ msgid "duty window"
 msgstr "görev penceresi"
 
 msgid "70-hour cycle"
-msgstr ""
+msgstr "70 saatlik döngü"
 
 #. placeholders: {limit_name}, {duration_text}
 msgid ""
@@ -14006,28 +14017,28 @@ msgid "shoulder"
 msgstr "emniyet şeridi"
 
 msgid "counting"
-msgstr ""
+msgstr "sayılıyor"
 
 msgid "restless"
-msgstr ""
+msgstr "huzursuz"
 
 msgid "scrambling"
-msgstr ""
+msgstr "ayakları kayıyor"
 
 msgid "Cattle settled"
-msgstr ""
+msgstr "Sığırlar yatıştı"
 
 msgid "Cattle restless"
-msgstr ""
+msgstr "Sığırlar huzursuz"
 
 msgid "Cattle losing their footing"
-msgstr ""
+msgstr "Sığırlar dengesini kaybediyor"
 
 msgid "One of the cattle is down"
-msgstr ""
+msgstr "Sığırlardan biri düştü"
 
 msgid "cool"
-msgstr ""
+msgstr "serin"
 
 msgid "running"
 msgstr "çalışıyor"
@@ -14036,103 +14047,105 @@ msgid "over"
 msgstr "üstünde"
 
 msgid "2 hours left on the 28-hour limit."
-msgstr ""
+msgstr "28 saatlik sınıra 2 saat kaldı."
 
 msgid "1 hour left on the 28-hour limit."
-msgstr ""
+msgstr "28 saatlik sınıra 1 saat kaldı."
 
 msgid "30 minutes left on the 28-hour limit."
-msgstr ""
+msgstr "28 saatlik sınıra 30 dakika kaldı."
 
 msgid "The cattle have been aboard 28 hours."
-msgstr ""
+msgstr "Sığırlar 28 saattir yükte."
 
 msgid "booked"
-msgstr ""
+msgstr "ayrıldı"
 
 msgid "loading"
 msgstr "yükleniyor"
 
 msgid "aboard"
-msgstr ""
+msgstr "yüklendi"
 
 msgid "unloading"
-msgstr ""
+msgstr "boşaltılıyor"
 
 msgid "delivered"
-msgstr ""
+msgstr "teslim edildi"
 
 msgid "feeder calves"
-msgstr ""
+msgstr "besilik buzağı"
 
 msgid "fed cattle"
-msgstr ""
+msgstr "besilenmiş sığır"
 
 #. placeholders: {head}, {noun}
 msgid "{head} head of {noun}"
-msgstr ""
+msgstr "{head} baş {noun}"
 
 msgid "injured"
-msgstr ""
+msgstr "yaralı"
 
 msgid "bruised"
-msgstr ""
+msgstr "ezilmiş"
 
 #. one sentence of a longer line
 msgid "The owner refuses to pay for the haul."
-msgstr ""
+msgstr "Sahibi nakliye ücretini ödemeyi reddediyor."
 
 #. placeholders: {dead}
 #. one sentence of a longer line
 msgid "{dead} dead on arrival."
-msgstr ""
+msgstr "Varışta ölü sayısı: {dead}."
 
 #. placeholders: {dead}
 msgid "{dead} dead on arrival. The owner refuses to pay for the haul."
 msgstr ""
+"Varışta ölü sayısı: {dead}. Sahibi nakliye ücretini ödemeyi reddediyor."
 
 msgid "1 could not walk off. The carrier pays a claim."
-msgstr ""
+msgstr "1 hayvan kendi başına inemedi. Taşıyıcı firma tazminat ödüyor."
 
 #. one sentence of a longer line
 msgid "The carrier pays a claim."
-msgstr ""
+msgstr "Taşıyıcı firma tazminat ödüyor."
 
 #. placeholders: {hurt}
 #. one sentence of a longer line
 msgid "{hurt} could not walk off."
-msgstr ""
+msgstr "Kendi başına inemeyen: {hurt}."
 
 #. placeholders: {hurt}
 msgid "{hurt} could not walk off. The carrier pays a claim."
-msgstr ""
+msgstr "Kendi başına inemeyen: {hurt}. Taşıyıcı firma tazminat ödüyor."
 
 msgid "Bruising noted on the bill of lading."
-msgstr ""
+msgstr "Ezikler konşimentoda not edildi."
 
 msgid "hour"
-msgstr ""
+msgstr "saat"
 
 msgid "hours"
 msgstr "süreler"
 
 #. placeholders: {head}
 msgid "{head} head off, 1 helped to its feet"
-msgstr ""
+msgstr "{head} baş indi, 1 tanesi ayağa kaldırıldı"
 
 #. placeholders: {head}
 msgid "{head} head off, all walking"
-msgstr ""
+msgstr "{head} baş indi, hepsi yürüyor"
 
 #. placeholders: {hours}, {hours_word}, {shrink}
 #. one sentence of a longer line
 msgid "{hours} {hours_word} aboard, shrink about {shrink} percent."
-msgstr ""
+msgstr "{hours} {hours_word} yükte, kilo kaybı yaklaşık yüzde {shrink}."
 
 #. placeholders: {walking}, {hours}, {hours_word}, {shrink}
 msgid ""
 "{walking}. {hours} {hours_word} aboard, shrink about {shrink} percent."
 msgstr ""
+"{walking}. {hours} {hours_word} yükte, kilo kaybı yaklaşık yüzde {shrink}."
 
 msgid "quiet"
 msgstr "sessiz"
@@ -14960,7 +14973,7 @@ msgid "scale reminder"
 msgstr "kantar hatırlatması"
 
 msgid "border booth"
-msgstr ""
+msgstr "sınır kulübesi"
 
 msgid "miles per hour"
 msgstr "mil hız"
@@ -15328,7 +15341,7 @@ msgstr "{shield} için sağda kalın"
 
 #. placeholders: {from_state}, {into_state}
 msgid "crossing from {from_state} into {into_state}"
-msgstr ""
+msgstr "{from_state} - {into_state} geçişi"
 
 #. placeholders: {name}
 msgid "Crossing into {name}."
@@ -15356,7 +15369,7 @@ msgstr "Geçilen yer: {place}{state}."
 
 #. placeholders: {f}
 msgid " Toll {f} Canadian dollars."
-msgstr ""
+msgstr " Geçiş ücreti {f} Kanada doları."
 
 #. placeholders: {amount}
 msgid " Toll about {amount} dollars."
@@ -15379,11 +15392,13 @@ msgstr "kavşak"
 msgid "{label} off {interchange}"
 msgstr "{label}, {interchange} kavşağında"
 
+# same as English
 msgid "U.S. Customs and Border Protection"
-msgstr ""
+msgstr "U.S. Customs and Border Protection"
 
+# same as English
 msgid "Canada Border Services Agency"
-msgstr ""
+msgstr "Canada Border Services Agency"
 
 #. placeholders: {text}
 msgid "Billboard: {text}"
@@ -16085,78 +16100,86 @@ msgstr "dakika"
 #. placeholders: {clock_text}
 #. one sentence of a longer line
 msgid "The next opening is at {clock_text}."
-msgstr ""
+msgstr "Bir sonraki açılış {clock_text}."
 
 #. one sentence of a longer line
 msgid "The tunnel is closed for the night."
-msgstr ""
+msgstr "Tünel geceleyin kapalı."
 
 #. placeholders: {clock_text}
 msgid ""
 "The tunnel is closed for the night. The next opening is at {clock_text}."
-msgstr ""
+msgstr "Tünel geceleyin kapalı. Bir sonraki açılış {clock_text}."
 
+# same as English
 msgid "Whittier"
-msgstr ""
+msgstr "Whittier"
 
 msgid "the staging area"
-msgstr ""
+msgstr "bekleme alanı"
 
 #. placeholders: {target}, {clock_text}
 #. one sentence of a longer line
 msgid "Next opening toward {target} at {clock_text}."
-msgstr ""
+msgstr "{target} yönüne bir sonraki açılış {clock_text}."
 
 #. placeholders: {target}, {clock_text}, {wait_text}
 msgid ""
 "Next opening toward {target} at {clock_text}. You wait about {wait_text}."
 msgstr ""
+"{target} yönüne bir sonraki açılış {clock_text}. Yaklaşık {wait_text} "
+"beklersiniz."
 
 #. placeholders: {wait_text}
 #. one sentence of a longer line
 msgid "You wait about {wait_text}."
-msgstr ""
+msgstr "Yaklaşık {wait_text} beklersiniz."
 
 #. placeholders: {text}, {wait_text}, {clock_text}
 msgid "{text} You wait {wait_text} on duty, until {clock_text}."
 msgstr ""
+"{text} Görevde {wait_text} beklersiniz, saat {clock_text} olana kadar."
 
 #. placeholders: {text}, {wait_text}
 msgid "{text} You wait {wait_text} on duty."
-msgstr ""
+msgstr "{text} Görevde {wait_text} beklersiniz."
 
 #. placeholders: {text}, {text2}, {clock_text}, {wait_text}, {clock_text2}
 msgid ""
 "{text} {text2} You wait on duty until {clock_text}, then {wait_text} for "
 "the escort, and may cross at {clock_text2}."
 msgstr ""
+"{text} {text2} Görevde {clock_text} saatine kadar beklersiniz, sonra eskort "
+"için {wait_text} daha beklersiniz ve {clock_text2} saatinde geçebilirsiniz."
 
 msgid "The wind has dropped. You may cross."
-msgstr ""
+msgstr "Rüzgâr dindi. Geçebilirsiniz."
 
 #. placeholders: {text}, {wait_text}
 msgid "{text} You wait {wait_text} on duty for the wind to drop."
-msgstr ""
+msgstr "{text} Rüzgârın dinmesi için görevde {wait_text} beklersiniz."
 
 #. placeholders: {city}
 #. one sentence of a longer line
 msgid "Dispatch reroutes you from {city}."
-msgstr ""
+msgstr "Sevkiyat sizi {city} şehrinden başka yöne yönlendiriyor."
 
 #. one sentence of a longer line
 msgid "The wind is still too strong."
-msgstr ""
+msgstr "Rüzgâr hâlâ çok güçlü."
 
 #. placeholders: {city}
 msgid "The wind is still too strong. Dispatch reroutes you from {city}."
 msgstr ""
+"Rüzgâr hâlâ çok güçlü. Sevkiyat sizi {city} şehrinden başka yöne "
+"yönlendiriyor."
 
 msgid "There is no other road. You hold here until the wind drops."
-msgstr ""
+msgstr "Başka yol yok. Rüzgâr dinene kadar burada beklersiniz."
 
 #. placeholders: {reason}, {city}
 msgid "{reason} Dispatch reroutes you from {city}."
-msgstr ""
+msgstr "{reason} Sevkiyat sizi {city} şehrinden başka yöne yönlendiriyor."
 
 msgid "schema"
 msgstr "şema"
@@ -16179,19 +16202,19 @@ msgstr "Toplam {pounds}."
 
 #. placeholders: {kilograms}
 msgid "Steer axle {kilograms}."
-msgstr ""
+msgstr "Ön aks {kilograms}."
 
 #. placeholders: {kilograms}
 msgid "Drive axles {kilograms}."
-msgstr ""
+msgstr "Çekiş aksları {kilograms}."
 
 #. placeholders: {kilograms}
 msgid "Trailer axles {kilograms}."
-msgstr ""
+msgstr "Dorse aksları {kilograms}."
 
 #. placeholders: {kilograms}
 msgid "Gross {kilograms}."
-msgstr ""
+msgstr "Toplam {kilograms}."
 
 msgid "Drive axles"
 msgstr "Çekiş aksları"
@@ -16208,7 +16231,7 @@ msgstr "{name}, {grouped2} librelik sınırı {grouped} libre aşıyor."
 
 #. placeholders: {name}, {grouped}, {grouped2}
 msgid "{name} {grouped} kilograms over the {grouped2} kilogram limit."
-msgstr ""
+msgstr "{name}, {grouped2} kilogramlık sınırı {grouped} kilogram aşıyor."
 
 msgid "Legal on every axle."
 msgstr "Her aks yasal sınırda."
@@ -16221,50 +16244,58 @@ msgid ""
 "{grouped} kilograms over the {grouped2} kilogram gross limit for this set "
 "on this route."
 msgstr ""
+"Bu takım için bu güzergâhta {grouped2} kilogramlık toplam ağırlık sınırını "
+"{grouped} kilogram aşıyor."
 
 #. placeholders: {grouped}
 msgid ""
 "Legal under the {grouped} kilogram gross limit for this set on this route."
 msgstr ""
+"Bu takım için bu güzergâhtaki {grouped} kilogramlık toplam ağırlık "
+"sınırının altında, yasal."
 
 #. placeholders: {grouped}
 #. one sentence of a longer line
 msgid ""
 "Gross {grouped} kilograms, both trailers and the converter dolly included."
-msgstr ""
+msgstr "Toplam {grouped} kilogram, iki dorse ve dolly dahil."
 
 #. placeholders: {grouped}, {verdict}
 msgid ""
 "Gross {grouped} kilograms, both trailers and the converter dolly included. "
 "{verdict}"
-msgstr ""
+msgstr "Toplam {grouped} kilogram, iki dorse ve dolly dahil. {verdict}"
 
 #. placeholders: {grouped}, {grouped2}
 msgid ""
 "{grouped} pounds over the {grouped2} pound gross limit for this set on this "
 "route."
 msgstr ""
+"Bu takım için bu güzergâhta {grouped2} librelik toplam ağırlık sınırını "
+"{grouped} libre aşıyor."
 
 #. placeholders: {grouped}
 msgid ""
 "Legal under the {grouped} pound gross limit for this set on this route."
 msgstr ""
+"Bu takım için bu güzergâhtaki {grouped} librelik toplam ağırlık sınırının "
+"altında, yasal."
 
 #. placeholders: {grouped}
 #. one sentence of a longer line
 msgid ""
 "Gross {grouped} pounds, both trailers and the converter dolly included."
-msgstr ""
+msgstr "Toplam {grouped} libre, iki dorse ve dolly dahil."
 
 #. placeholders: {grouped}, {verdict}
 msgid ""
 "Gross {grouped} pounds, both trailers and the converter dolly included. "
 "{verdict}"
-msgstr ""
+msgstr "Toplam {grouped} libre, iki dorse ve dolly dahil. {verdict}"
 
 #. placeholders: {cargo_temp_degrees}
 msgid "Cargo temperature {cargo_temp_degrees}"
-msgstr ""
+msgstr "Yük sıcaklığı {cargo_temp_degrees}"
 
 #. placeholders: {f}
 msgid "{f} degrees"
@@ -16272,11 +16303,11 @@ msgstr "{f} derece"
 
 #. placeholders: {temp_c}
 msgid "{temp_c} degrees Celsius"
-msgstr ""
+msgstr "{temp_c} derece Celsius"
 
 #. placeholders: {cargo_temp_degrees}
 msgid "Reefer running at {cargo_temp_degrees}."
-msgstr ""
+msgstr "Frigo {cargo_temp_degrees} değerinde çalışıyor."
 
 msgid "simulated"
 msgstr "simüle"
@@ -17436,10 +17467,12 @@ msgid ""
 "{method_label} toll at {name}, {estimate}{cad} Canadian dollars, billed to "
 "carrier settlement."
 msgstr ""
+"{method_label} ücreti, {name}, {estimate}{cad} Kanada doları, taşıyıcının "
+"hesabına yazıldı."
 
 #. placeholders: {cad}
 msgid "Toll, {cad} Canadian dollars, carrier."
-msgstr ""
+msgstr "Geçiş ücreti, {cad} Kanada doları, taşıyıcı."
 
 #. placeholders: {method_label}, {name}, {estimate}, {amount_text}
 msgid ""
@@ -17589,17 +17622,18 @@ msgstr "saatte {f} mil"
 msgid "automatic"
 msgstr "otomatik"
 
+# same as English
 msgid "imperial"
-msgstr ""
+msgstr "imperial"
 
 msgid "metric"
-msgstr ""
+msgstr "metrik"
 
 msgid "Speeds and distances are in kilometers now."
-msgstr ""
+msgstr "Hızlar ve mesafeler artık kilometre cinsinden."
 
 msgid "Speeds and distances are in miles now."
-msgstr ""
+msgstr "Hızlar ve mesafeler artık mil cinsinden."
 
 #. placeholders: {achievement_id}
 msgid "unknown achievement id {achievement_id}"
@@ -18144,13 +18178,13 @@ msgid "Engine on or off"
 msgstr "Motoru çalıştır veya durdur"
 
 msgid "Reefer on or off"
-msgstr ""
+msgstr "Frigo aç veya kapat"
 
 msgid "apu"
 msgstr ""
 
 msgid "APU on or off"
-msgstr ""
+msgstr "APU aç veya kapat"
 
 msgid "Parking brake"
 msgstr "Park freni"
@@ -18642,7 +18676,7 @@ msgstr "sürüm numarası"
 
 #. placeholders: {release}
 msgid " (Career {release})"
-msgstr ""
+msgstr " (Kariyer {release})"
 
 msgid "slots"
 msgstr "yuvalar"
@@ -19962,35 +19996,36 @@ msgstr "Sicilinizde ceza ya da ihlal yok."
 #. placeholders: {prefix}
 #. one sentence of a longer line
 msgid "{prefix}You have no carrier right now."
-msgstr ""
+msgstr "{prefix}Şu anda taşıyıcı firmanız yok."
 
 #. placeholders: {prefix}, {NO_CARRIER_OBJECTIVE}
 msgid "{prefix}You have no carrier right now. {NO_CARRIER_OBJECTIVE}"
-msgstr ""
+msgstr "{prefix}Şu anda taşıyıcı firmanız yok. {NO_CARRIER_OBJECTIVE}"
 
 #. placeholders: {name}
 msgid "Lease orientation and your truck are at {name}."
-msgstr ""
+msgstr "Kiralama oryantasyonu ve tırınız {name} noktasında."
 
 #. placeholders: {name}
 msgid "Orientation and your truck are at {name}."
-msgstr ""
+msgstr "Oryantasyon ve tırınız {name} noktasında."
 
 #. placeholders: {first_day_parked_location}
 msgid "Truck parked {first_day_parked_location}."
-msgstr ""
+msgstr "Tır park edildi: {first_day_parked_location}."
 
 #. placeholders: {prefix}, {carrier_name}
 msgid "{prefix}First-day briefing: leased to {carrier_name}."
 msgstr ""
+"{prefix}İlk gün bilgilendirmesi: bağlı olduğunuz taşıyıcı {carrier_name}."
 
 #. placeholders: {grouped}
 msgid ""
 "New truck with a full tank, and {grouped} dollars of working capital."
-msgstr ""
+msgstr "Dolu depolu yeni bir tır ve {grouped} dolar işletme sermayesi."
 
 msgid "Fuel, repairs, wear, trailers, and reserves come out of your cash."
-msgstr ""
+msgstr "Yakıt, onarım, aşınma, dorseler ve yedekler nakitinizden ödenir."
 
 msgid "Next: the dispatch board."
 msgstr "Sıradaki: iş panosu."
@@ -20001,7 +20036,7 @@ msgstr "{prefix}İlk gün bilgilendirmesi: {carrier_name}."
 
 #. placeholders: {home}
 msgid "The carrier paid your travel from {home} and a hotel."
-msgstr ""
+msgstr "Taşıyıcı firma {home} çıkışlı yol masrafınızı ve otelinizi ödedi."
 
 msgid "Carrier covers fuel, repairs, insurance, and trailers."
 msgstr "Yakıt, onarım, sigorta ve dorseleri taşıyıcı firma karşılar."
@@ -20011,7 +20046,7 @@ msgid "Dispatch style: {summary}."
 msgstr "Sevkiyat tarzı: {summary}."
 
 msgid "Dispatch assigns your loads. A refusal goes on your record."
-msgstr ""
+msgstr "Sevkiyat yüklerinizi atar. Ret, sicilinize işlenir."
 
 msgid "endorsements"
 msgstr "ehliyet ekleri"
@@ -20026,6 +20061,8 @@ msgid ""
 "You have no carrier, so there is no dispatch board. Choose Apply to a "
 "carrier at the terminal to take a seat."
 msgstr ""
+"Taşıyıcı firmanız olmadığı için iş panosu yok. Koltuk almak için terminalde "
+"Taşıyıcı firmaya başvur seçeneğini seçin."
 
 msgid "key"
 msgstr "anahtar"
@@ -20046,7 +20083,7 @@ msgstr "Test kolu: panoda zaten var: {spoken}."
 
 #. placeholders: {dest}, {spoken}
 msgid "{dest} in {spoken}"
-msgstr ""
+msgstr "{dest}, {spoken}"
 
 #. placeholders: {spoken}
 msgid "Playtest lever: no supported dispatch from here to {spoken}."
@@ -20179,6 +20216,9 @@ msgid ""
 "pickup. After pickup, Route planning lists rest, fuel, tolls, weather and "
 "restrictions."
 msgstr ""
+"Bu yükü sevkiyat atadı. Kabul ettiğinizde yükleme noktasına boş sürüş "
+"başlar. Yüklemeden sonra Güzergâh planlama; mola, yakıt, geçiş ücretleri, "
+"hava durumu ve kısıtlamaları listeler."
 
 #. placeholders: {describe}
 msgid "Assigned load: {describe}"
@@ -20224,7 +20264,7 @@ msgstr "{destination} yönünde boş yer değiştirme, {distance_text}, yük yok
 
 #. placeholders: {tons_text}, {cargo_label}, {destination}, {distance_text}
 msgid "{tons_text} of {cargo_label} to {destination}, {distance_text}"
-msgstr ""
+msgstr "{destination} için {tons_text} {cargo_label}, {distance_text}"
 
 #. placeholders: {join}
 msgid "Also posted today: {join}."
@@ -20583,7 +20623,7 @@ msgstr "İş ayrıntıları"
 
 #. placeholders: {cargo_label}
 msgid "Cargo: {cargo_label}."
-msgstr ""
+msgstr "Yük: {cargo_label}."
 
 #. placeholders: {origin_facility_text}
 msgid "Origin: {origin_facility_text}."
@@ -20613,15 +20653,15 @@ msgstr ""
 #. placeholders: {head}
 #. one sentence of a longer line
 msgid "Cattle: {head}."
-msgstr ""
+msgstr "Sığır: {head}."
 
 #. placeholders: {head}
 msgid "Cattle: {head}. They can ride 28 hours."
-msgstr ""
+msgstr "Sığır: {head}. 28 saat yolculuk edebilirler."
 
 #. one sentence of a longer line
 msgid "They can ride 28 hours."
-msgstr ""
+msgstr "28 saat yolculuk edebilirler."
 
 #. placeholders: {equipment_text}
 msgid "Equipment: {equipment_text}."
@@ -20635,7 +20675,7 @@ msgstr "Piyasa: gevşek, bu yüzden bu yük her zamankinden az ödüyor."
 
 #. placeholders: {card_text}
 msgid "Material: {card_text}."
-msgstr ""
+msgstr "Madde: {card_text}."
 
 #. placeholders: {trailer}
 msgid "Trailer: {trailer}"
@@ -20705,6 +20745,8 @@ msgid ""
 "Load weight: this set of doubles is not legal on any lane dispatch can "
 "offer between these cities."
 msgstr ""
+"Yük ağırlığı: bu çift dorse, sevkiyatın bu şehirler arasında sunabileceği "
+"hiçbir hatta yasal değil."
 
 #. placeholders: {grouped}
 msgid ""
@@ -20717,18 +20759,24 @@ msgstr ""
 msgid ""
 "Load weight: {weight_text} over the gross-weight limit with current fuel."
 msgstr ""
+"Yük ağırlığı: mevcut yakıtla toplam ağırlık sınırının {weight_text} "
+"üzerinde."
 
 #. placeholders: {weight_text}
 msgid ""
 " The limit for this set of doubles on the lanes offered is {weight_text}, "
 "counting both trailers and the converter dolly."
 msgstr ""
+" Sunulan hatlarda bu çift dorse için sınır {weight_text}; iki dorse ve "
+"dolly dahil."
 
 #. placeholders: {highway}, {weight_text}
 msgid ""
 " Spring weight limits on the {highway} hold this truck to {weight_text} "
 "gross."
 msgstr ""
+" {highway} üzerindeki ilkbahar ağırlık sınırları bu tırı toplam "
+"{weight_text} ile sınırlıyor."
 
 msgid "Close out this career"
 msgstr "Bu kariyeri kapat"
@@ -20948,29 +20996,31 @@ msgid "A quarter of every settlement also keeps paying it down."
 msgstr "Her hesap kesiminin dörtte biri de onu azaltmaya devam eder."
 
 msgid "Apply to a carrier"
-msgstr ""
+msgstr "Taşıyıcı firmaya başvur"
 
 msgid ""
 "Carriers that would take you on from your home. Choosing one puts you on "
 "their payroll at the terminal named. Escape returns to the terminal."
 msgstr ""
+"Evinizden sizi alabilecek taşıyıcı firmalar. Birini seçmek sizi belirtilen "
+"terminalde onun kadrosuna alır. Escape terminale döner."
 
 #. placeholders: {name}, {tier}, {city}
 msgid "{name}: {tier} carrier, hires into its {city} terminal"
-msgstr ""
+msgstr "{name}: taşıyıcı firma, {tier}, {city} terminaline alıyor"
 
 #. placeholders: {city}
 msgid ", moves your home to {city}"
-msgstr ""
+msgstr ", eviniz {city} şehrine taşınır"
 
 #. placeholders: {city}
 #. one clause of a longer line
 msgid "moves your home to {city}"
-msgstr ""
+msgstr "eviniz {city} şehrine taşınır"
 
 #. placeholders: {city}
 msgid " Your home is now {city}."
-msgstr ""
+msgstr " Eviniz artık {city}."
 
 #. placeholders: {city}, {moved}
 #. one sentence of a longer line
@@ -20978,41 +21028,47 @@ msgid ""
 "You start at their {city} terminal, where your assigned truck is "
 "waiting.{moved} The dispatch board is open again."
 msgstr ""
+"{city} terminalinde başlıyorsunuz; size verilen tır orada bekliyor.{moved} "
+"İş panosu yeniden açık."
 
 #. placeholders: {name}
 #. one sentence of a longer line
 msgid "{name} has taken you on."
-msgstr ""
+msgstr "{name} sizi işe aldı."
 
 #. placeholders: {name}, {city}, {moved}
 msgid ""
 "{name} has taken you on. You start at their {city} terminal, where your "
 "assigned truck is waiting.{moved} The dispatch board is open again."
 msgstr ""
+"{name} sizi işe aldı. {city} terminalinde başlıyorsunuz; size verilen tır "
+"orada bekliyor.{moved} İş panosu yeniden açık."
 
 msgid "Hires across the lower 48."
-msgstr ""
+msgstr "Alt 48 eyaletin tamamında işe alım yapar."
 
 #. placeholders: {lane_area}
 msgid "Based in {lane_area}."
-msgstr ""
+msgstr "Merkezi: {lane_area}."
 
 msgid "No carrier hires near your home or in your state right now"
 msgstr ""
+"Şu anda evinizin yakınında ya da eyaletinizde işe alım yapan taşıyıcı firma "
+"yok"
 
 msgid "Returns to the terminal."
-msgstr ""
+msgstr "Terminale döner."
 
 msgid "job"
 msgstr "iş"
 
 #. placeholders: {city_name}
 msgid "You are in {city_name}."
-msgstr ""
+msgstr "{city_name} şehrindesiniz."
 
 #. placeholders: {city_name}, {city_state}
 msgid "You are in {city_name}, {city_state}."
-msgstr ""
+msgstr "{city_name}, {city_state} şehrindesiniz."
 
 msgid "Terminal"
 msgstr "Terminal"
@@ -21035,7 +21091,7 @@ msgstr "bu haftanın fiyatı"
 
 #. placeholders: {diesel_price_text}, {live}
 msgid "Garage: fuel {diesel_price_text}{live}"
-msgstr ""
+msgstr "Servis: yakıt {diesel_price_text}{live}"
 
 #. placeholders: {f}, {f2}, {live}
 msgid "Garage: fuel {f} per gallon, {f2} Canadian dollars a liter{live}"
@@ -21102,12 +21158,12 @@ msgid "terminal sleep"
 msgstr "terminalde uyku"
 
 msgid " Cycle clock reset."
-msgstr ""
+msgstr " Döngü saati sıfırlandı."
 
 #. placeholders: {clock_text}, {time_of_day}, {cycle}
 #. one sentence of a longer line
 msgid "It is {clock_text}, {time_of_day}.{cycle}"
-msgstr ""
+msgstr "Saat {clock_text}, {time_of_day}.{cycle}"
 
 #. one sentence of a longer line
 msgid "Slept 10 hours."
@@ -21115,7 +21171,7 @@ msgstr "10 saat uyudunuz."
 
 #. placeholders: {clock_text}, {time_of_day}, {cycle}
 msgid "Slept 10 hours. It is {clock_text}, {time_of_day}.{cycle}"
-msgstr ""
+msgstr "10 saat uyudunuz. Saat {clock_text}, {time_of_day}.{cycle}"
 
 msgid "Your CDL is clear. Nothing to wait out."
 msgstr "CDL'niz temiz. Beklenecek bir şey yok."
@@ -21128,12 +21184,13 @@ msgstr "Saat {clock_text}, {time_of_day}."
 #. placeholders: {py_capitalize}
 #. one sentence of a longer line
 msgid "{py_capitalize} served, CDL clear."
-msgstr ""
+msgstr "{py_capitalize} tamamlandı, CDL temiz."
 
 #. placeholders: {py_capitalize}, {clock_text}, {time_of_day}
 msgid ""
 "{py_capitalize} served, CDL clear. It is {clock_text}, {time_of_day}."
 msgstr ""
+"{py_capitalize} tamamlandı, CDL temiz. Saat {clock_text}, {time_of_day}."
 
 #. placeholders: {former}
 msgid "{former} ended your employment over your safety record."
@@ -21146,40 +21203,53 @@ msgstr "Paranız, seviyeleriniz ve eşyalarınız sizde kalır."
 #. one sentence of a longer line
 msgid "{opening} You now drive for {name}: lower pay, shorter freight."
 msgstr ""
+"{opening} Artık {name} için sürüyorsunuz: daha düşük ücret, daha kısa "
+"yükler."
 
 #. placeholders: {opening}, {name}, {kept}
 msgid ""
 "{opening} You now drive for {name}: lower pay, shorter freight. {kept}"
 msgstr ""
+"{opening} Artık {name} için sürüyorsunuz: daha düşük ücret, daha kısa "
+"yükler. {kept}"
 
 #. placeholders: {opening}, {name}, {near}
 #. one sentence of a longer line
 msgid ""
 "{opening} {name}, which hires near {near}, took you on knowing your record."
 msgstr ""
+"{opening} {near} yakınında işe alım yapan {name}, sicilinizi bilerek sizi "
+"aldı."
 
 #. placeholders: {opening}, {name}, {near}, {kept}
 msgid ""
 "{opening} {name}, which hires near {near}, took you on knowing your record. "
 "{kept}"
 msgstr ""
+"{opening} {near} yakınında işe alım yapan {name}, sicilinizi bilerek sizi "
+"aldı. {kept}"
 
 #. placeholders: {kept}
 #. one sentence of a longer line
 msgid "{kept} Choose Apply to a carrier when you are ready."
-msgstr ""
+msgstr "{kept} Hazır olduğunuzda Taşıyıcı firmaya başvur seçeneğini seçin."
 
 #. placeholders: {opening}, {near}
 #. one sentence of a longer line
 msgid ""
 "{opening} No carrier that hires near {near} can take you on right now."
 msgstr ""
+"{opening} {near} yakınında işe alım yapan hiçbir taşıyıcı firma şu anda "
+"sizi alamaz."
 
 #. placeholders: {opening}, {near}, {kept}
 msgid ""
 "{opening} No carrier that hires near {near} can take you on right now. "
 "{kept} Choose Apply to a carrier when you are ready."
 msgstr ""
+"{opening} {near} yakınında işe alım yapan hiçbir taşıyıcı firma şu anda "
+"sizi alamaz. {kept} Hazır olduğunuzda Taşıyıcı firmaya başvur seçeneğini "
+"seçin."
 
 msgid "Progress saved."
 msgstr "İlerleme kaydedildi."
@@ -21202,16 +21272,20 @@ msgid ""
 "{no_truck_location_line} No carrier and no truck until a carrier assigns "
 "you one."
 msgstr ""
+"{no_truck_location_line} Bir taşıyıcı firma size tır verene kadar ne "
+"taşıyıcı firma ne tır var."
 
 #. placeholders: {no_truck_location_line}, {grouped}, {cdl}, {record}
 msgid ""
 "{no_truck_location_line} No carrier and no truck until a carrier assigns "
 "you one. {grouped} dollars.{cdl}{record}"
 msgstr ""
+"{no_truck_location_line} Bir taşıyıcı firma size tır verene kadar ne "
+"taşıyıcı firma ne tır var. {grouped} dolar.{cdl}{record}"
 
 #. placeholders: {upper_first}, {grouped}, {cdl}, {record}
 msgid "{upper_first}. {grouped} dollars.{cdl}{record}"
-msgstr ""
+msgstr "{upper_first}. {grouped} dolar.{cdl}{record}"
 
 #. placeholders: {city_name}, {grouped}, {cdl}, {record}
 msgid "{city_name}. {grouped} dollars.{cdl}{record}"
@@ -21229,6 +21303,8 @@ msgid ""
 "Carriers that would take you on from your home. There is no dispatch board "
 "until one does."
 msgstr ""
+"Evinizden sizi alabilecek taşıyıcı firmalar. Biri sizi alana kadar iş "
+"panosu yok."
 
 msgid ""
 "Loads from local freight facilities. New company hires get an assigned "
@@ -21379,22 +21455,24 @@ msgstr "Sıradaki kariyer hedefi ve önerdiği iş."
 
 #. one sentence of a longer line
 msgid "The clock jumps to the day it ends."
-msgstr ""
+msgstr "Saat, bitiş gününe atlar."
 
 #. placeholders: {status_noun}
 #. one sentence of a longer line
 msgid "Waits out the {status_noun} in one go."
-msgstr ""
+msgstr "{status_noun} süresini tek seferde bekler."
 
 #. placeholders: {status_noun}
 msgid ""
 "Waits out the {status_noun} in one go. The clock jumps to the day it ends. "
 "Your money, truck and record stay as they are."
 msgstr ""
+"{status_noun} süresini tek seferde bekler. Saat, bitiş gününe atlar. "
+"Paranız, tırınız ve sicilinizde değişiklik olmaz."
 
 #. one sentence of a longer line
 msgid "Your money, truck and record stay as they are."
-msgstr ""
+msgstr "Paranız, tırınız ve sicilinizde değişiklik olmaz."
 
 msgid ""
 "Removes this career's save from this computer and its cloud backups from "
@@ -21461,7 +21539,7 @@ msgstr "Kar zinciri: tırda ve yeni."
 
 msgid ""
 "Assignment: none. You have no carrier, so no tractor is assigned to you."
-msgstr ""
+msgstr "Atama: yok. Taşıyıcı firmanız olmadığı için size çekici atanmadı."
 
 #. placeholders: {label}
 msgid "Assignment: owned tractor, {label}."
@@ -21507,7 +21585,7 @@ msgstr "Yakıt: yüzde {f}, {f3} galonun {f2} galonu."
 
 #. placeholders: {f}, {volume_value}, {volume_text}
 msgid "Fuel: {f} percent, {volume_value} of {volume_text}."
-msgstr ""
+msgstr "Yakıt: yüzde {f}, {volume_text} içinde {volume_value}."
 
 #. placeholders: {condition}, {f}
 msgid "Tractor condition: {condition}, {f} percent damage."
@@ -21563,7 +21641,7 @@ msgid "Current status: {status_label}"
 msgstr "Şu anki durum: {status_label}"
 
 msgid "Staying on the company-driver path."
-msgstr ""
+msgstr "Firma şoförü yolunda kalıyorsunuz."
 
 msgid "Staying a company driver."
 msgstr "Firma şoförü olarak kalıyorsunuz."
@@ -21986,6 +22064,9 @@ msgid ""
 "Truck ownership starts with the leased-on owner-operator buy-in, and that "
 "needs a carrier to lease to. Apply to a carrier first."
 msgstr ""
+"Tır sahipliği, bir taşıyıcıya bağlı kendi tırının sahibi şoför geçişiyle "
+"başlar ve bunun için kiralayacağınız bir taşıyıcı firma gerekir. Önce bir "
+"taşıyıcı firmaya başvurun."
 
 msgid "Trucks"
 msgstr "Tırlar"
@@ -22068,7 +22149,7 @@ msgid "{dealer}Trucks. You have {grouped} dollars. {current}"
 msgstr "{dealer}Tırlar. {grouped} dolarınız var. {current}"
 
 msgid "Truck ownership locked: no carrier"
-msgstr ""
+msgstr "Tır sahipliği kilitli: taşıyıcı firma yok"
 
 msgid "Truck ownership locked: carrier-assigned tractor"
 msgstr "Tır sahipliği kilitli: tır taşıyıcı firmanın"
@@ -22228,13 +22309,13 @@ msgstr "yeterlilik kursu"
 #. placeholders: {gate_label}
 #. one sentence of a longer line
 msgid "Course complete, and you earned the {gate_label}."
-msgstr ""
+msgstr "Kurs tamamlandı. Kazanılan: {gate_label}."
 
 #. placeholders: {gate_label}
 msgid ""
 "Course complete, and you earned the {gate_label}. Matching freight is "
 "unlocked."
-msgstr ""
+msgstr "Kurs tamamlandı. Kazanılan: {gate_label}. Uygun yükler açıldı."
 
 #. one sentence of a longer line
 msgid "Matching freight is unlocked."
@@ -22374,25 +22455,28 @@ msgstr "Şuraya geç: {label}"
 
 #. placeholders: {t}
 msgid " Truck starts at {t}."
-msgstr ""
+msgstr " Tır şuradan başlıyor: {t}."
 
 #. placeholders: {carrier_name}, {menu_summary}, {starts}
 msgid "{carrier_name}. {menu_summary}{starts} Double tap again to move."
 msgstr ""
+"{carrier_name}. {menu_summary}{starts} Geçmek için tekrar iki kez dokunun."
 
 #. placeholders: {menu_summary}, {starts}
 #. one sentence of a longer line
 msgid "{menu_summary}{starts} Double tap again to move."
-msgstr ""
+msgstr "{menu_summary}{starts} Geçmek için tekrar iki kez dokunun."
 
 #. placeholders: {carrier_name}, {menu_summary}, {starts}
 msgid "{carrier_name}. {menu_summary}{starts} Press Enter again to move."
 msgstr ""
+"{carrier_name}. {menu_summary}{starts} Geçmek için tekrar Enter tuşuna "
+"basın."
 
 #. placeholders: {menu_summary}, {starts}
 #. one sentence of a longer line
 msgid "{menu_summary}{starts} Press Enter again to move."
-msgstr ""
+msgstr "{menu_summary}{starts} Geçmek için tekrar Enter tuşuna basın."
 
 msgid "carrier shop repair"
 msgstr "taşıyıcı firma atölyesinde onarım"
@@ -22428,7 +22512,7 @@ msgstr "Yakıt al: {f} galon"
 
 #. placeholders: {volume_text}
 msgid "Refuel: {volume_text}"
-msgstr ""
+msgstr "Yakıt al: {volume_text}"
 
 #. placeholders: {f2}
 #. one sentence of a longer line
@@ -22455,22 +22539,24 @@ msgstr "{grouped} dolara {f} galon yakıt al"
 #. placeholders: {diesel_price_text}
 #. one sentence of a longer line
 msgid "Diesel here is {diesel_price_text}."
-msgstr ""
+msgstr "Burada dizel {diesel_price_text}."
 
 #. placeholders: {volume_text}, {grouped}
 #. one sentence of a longer line
 msgid "Refuel {volume_text} for {grouped} dollars."
-msgstr ""
+msgstr "{volume_text} yakıt almak {grouped} dolar tutar."
 
 #. placeholders: {volume_text}, {grouped}, {diesel_price_text}
 msgid ""
 "Refuel {volume_text} for {grouped} dollars. Diesel here is "
 "{diesel_price_text}."
 msgstr ""
+"{volume_text} yakıt almak {grouped} dolar tutar. Burada dizel "
+"{diesel_price_text}."
 
 #. placeholders: {volume_text}, {grouped}
 msgid "Refuel {volume_text} for {grouped} dollars"
-msgstr ""
+msgstr "{volume_text} yakıt almak {grouped} dolar tutar"
 
 msgid "Repairs: no damage"
 msgstr "Onarım: hasar yok"
@@ -22794,12 +22880,14 @@ msgid "Shut down the engine"
 msgstr "Motoru kapat"
 
 msgid "The tractor must be off before this bay will fuel."
-msgstr ""
+msgstr "Bu bölme yakıt vermeden önce çekici kapalı olmalı."
 
 msgid ""
 "Company drivers bill the carrier. Owner-operators pay the regional diesel "
 "price. Shut the engine off first."
 msgstr ""
+"Firma şoförleri taşıyıcı firmaya fatura keser. Kendi tırının sahibi "
+"şoförler bölgesel mazot fiyatını öder. Önce motoru kapatın."
 
 msgid "Company drivers bill the carrier, owner-operators pay the shop."
 msgstr ""
@@ -22883,7 +22971,7 @@ msgstr ""
 "Özel dorse programları ekleyin. Kendi yetki belgesiyle dorse satın alınır."
 
 msgid "The engine is already off."
-msgstr ""
+msgstr "Motor zaten kapalı."
 
 msgid "Engine off."
 msgstr "Motor kapandı."
@@ -22915,7 +23003,7 @@ msgid "Not enough money for one gallon of fuel."
 msgstr "Bir galon yakıta bile paranız yetmiyor."
 
 msgid "Not enough money for fuel."
-msgstr ""
+msgstr "Yakıt için yeterli para yok."
 
 #. placeholders: {f}, {grouped}
 #. one sentence of a longer line
@@ -22932,18 +23020,22 @@ msgstr ""
 #. placeholders: {volume_text}, {grouped}
 #. one sentence of a longer line
 msgid "Partial fuel: added {volume_text} for {grouped} dollars."
-msgstr ""
+msgstr "Kısmi yakıt alımı: {grouped} dolara {volume_text} eklendi."
 
 #. placeholders: {volume_text}, {grouped}, {grouped2}
 msgid ""
 "Partial fuel: added {volume_text} for {grouped} dollars. You have "
 "{grouped2} dollars left."
 msgstr ""
+"Kısmi yakıt alımı: {grouped} dolara {volume_text} eklendi. {grouped2} "
+"dolarınız kaldı."
 
 msgid ""
 "Routes where spring weight limits would make this load overweight are not "
 "offered."
 msgstr ""
+"İlkbahar ağırlık sınırlarının bu yükü aşırı ağır yapacağı güzergâhlar "
+"sunulmaz."
 
 msgid "loaded"
 msgstr "yüklü"
@@ -23014,6 +23106,7 @@ msgid ""
 "{py_capitalize}, both trailers and the converter dolly, check "
 "out.{tank_walk_around_clause}"
 msgstr ""
+"{py_capitalize}, iki dorse ve dolly sorunsuz.{tank_walk_around_clause}"
 
 #. placeholders: {py_capitalize}, {tank_walk_around_clause}
 msgid "{py_capitalize} checks out.{tank_walk_around_clause}"
@@ -23085,15 +23178,16 @@ msgid "shipper check-in"
 msgstr "yükleyicide kayıt"
 
 msgid "waiting on trailer paperwork"
-msgstr ""
+msgstr "dorse evrakları bekleniyor"
 
 #. placeholders: {paperwork}, {map}, {doubles}
 msgid "Checked in.{paperwork} Load on {map} in the drop yard.{doubles}"
 msgstr ""
+"Giriş yapıldı.{paperwork} Yük, bırakma sahasında {map} üzerinde.{doubles}"
 
 #. placeholders: {paperwork}, {doubles}
 msgid "Checked in.{paperwork} Dock assigned.{doubles}"
-msgstr ""
+msgstr "Giriş yapıldı.{paperwork} Rampa atandı.{doubles}"
 
 msgid "Check in at the shipping office before loading."
 msgstr "Yüklemeden önce sevkiyat ofisinde kayıt yaptırın."
@@ -23109,12 +23203,16 @@ msgid ""
 "Dropping your empty at {facility} and hooking {map}, loaded with {f} tons "
 "of {cargo_label}."
 msgstr ""
+"Boş dorsenizi {facility} noktasında bırakıp {map} dorsesini bağlıyorsunuz; "
+"yükü: {f} ton {cargo_label}."
 
 #. placeholders: {facility}, {map}, {tons_text}, {cargo_label}
 msgid ""
 "Dropping your empty at {facility} and hooking {map}, loaded with "
 "{tons_text} of {cargo_label}."
 msgstr ""
+"Boş dorsenizi {facility} noktasında bırakıp {map} dorsesini bağlıyorsunuz; "
+"yükü: {tons_text} {cargo_label}."
 
 msgid "Dropping and hooking."
 msgstr "Dorse bırakılıp bağlanıyor."
@@ -23124,37 +23222,37 @@ msgstr "Yük alınıyor"
 
 #. placeholders: {tons_text}, {cargo_label}, {facility}
 msgid "Loading {tons_text} of {cargo_label} at {facility}."
-msgstr ""
+msgstr "{facility} noktasında {tons_text} {cargo_label} yükleniyor."
 
 msgid "Loading cargo."
 msgstr "Yük alınıyor."
 
 msgid "dropping and hooking a set of doubles"
-msgstr ""
+msgstr "çift dorse bırakılıp bağlanıyor"
 
 msgid "dropping and hooking"
 msgstr "dorse bırakıp bağlama"
 
 msgid "loading and hooking a set of doubles"
-msgstr ""
+msgstr "çift dorse yükleniyor ve bağlanıyor"
 
 msgid "Load the cargo before departing."
 msgstr "Yola çıkmadan önce yükü alın."
 
 #. one sentence of a longer line
 msgid "Dispatch cannot find a legal route for this load."
-msgstr ""
+msgstr "Sevkiyat bu yük için yasal bir güzergâh bulamıyor."
 
 #. placeholders: {reason}
 msgid "Dispatch cannot find a legal route for this load. {reason}"
-msgstr ""
+msgstr "Sevkiyat bu yük için yasal bir güzergâh bulamıyor. {reason}"
 
 msgid "Dispatch cannot find a route for this load."
 msgstr "Sevkiyat bu yük için güzergâh bulamıyor."
 
 #. placeholders: {name}
 msgid "Routed around the {name}."
-msgstr ""
+msgstr "Güzergâh {name} etrafından geçiyor."
 
 #. placeholders: {destination}
 msgid "Dispatch routed you to {destination}. "
@@ -23162,7 +23260,7 @@ msgstr "Sevkiyat sizi {destination} konumuna yönlendirdi. "
 
 #. placeholders: {distance_text}, {grouped}
 msgid "The load now pays for {distance_text}, {grouped} dollars. "
-msgstr ""
+msgstr "Yük artık {distance_text} için ödeniyor, {grouped} dolar. "
 
 msgid "Back to pickup facility"
 msgstr "Yükleme tesisine dön"
@@ -23204,16 +23302,19 @@ msgid ""
 "{destination_facility_text}. {speed_text}. {engine}. Air {f2} psi, "
 "{brake}.{speed_control_pause_text}"
 msgstr ""
+"Yükleme {facility}: {state}. {destination_facility_text} için {f} ton "
+"{cargo_label}. {speed_text}. {engine}. Hava basıncı {f2} psi, "
+"{brake}.{speed_control_pause_text}"
 
 #. placeholders: {f}, {cargo_label}, {destination_facility_text}
 #. one sentence of a longer line
 msgid "{f} tons of {cargo_label} for {destination_facility_text}."
-msgstr ""
+msgstr "{destination_facility_text} için {f} ton {cargo_label}."
 
 #. placeholders: {f}, {brake}, {speed_control_pause_text}
 #. one sentence of a longer line
 msgid "Air {f} psi, {brake}.{speed_control_pause_text}"
-msgstr ""
+msgstr "Hava basıncı {f} psi, {brake}.{speed_control_pause_text}"
 
 #. placeholders: {facility}, {state}, {tons_text}, {cargo_label}, {destination_facility_text}, {speed_text}, {engine}, {f}, {brake}, {speed_control_pause_text}
 msgid ""
@@ -23221,11 +23322,14 @@ msgid ""
 "{destination_facility_text}. {speed_text}. {engine}. Air {f} psi, "
 "{brake}.{speed_control_pause_text}"
 msgstr ""
+"Yükleme {facility}: {state}. {destination_facility_text} için {tons_text} "
+"{cargo_label}. {speed_text}. {engine}. Hava basıncı {f} psi, "
+"{brake}.{speed_control_pause_text}"
 
 #. placeholders: {tons_text}, {cargo_label}, {destination_facility_text}
 #. one sentence of a longer line
 msgid "{tons_text} of {cargo_label} for {destination_facility_text}."
-msgstr ""
+msgstr "{destination_facility_text} için {tons_text} {cargo_label}."
 
 #. placeholders: {f}
 msgid " Idling here burned {f} gallons."
@@ -23233,7 +23337,7 @@ msgstr " Burada rölanti {f} galon yaktı."
 
 #. placeholders: {f}
 msgid " Idling here burned {f} liters."
-msgstr ""
+msgstr " Burada rölanti {f} litre yaktı."
 
 msgid "Saved. The pickup resumes here."
 msgstr "Kaydedildi. Yükleme buradan devam eder."
@@ -23241,7 +23345,7 @@ msgstr "Kaydedildi. Yükleme buradan devam eder."
 #. placeholders: {phrase}
 #. one sentence of a longer line
 msgid "Parked {phrase}."
-msgstr ""
+msgstr "Park edildi: {phrase}."
 
 #. one sentence of a longer line
 msgid "Pickup canceled."
@@ -23249,7 +23353,7 @@ msgstr "Yükleme iptal edildi."
 
 #. placeholders: {phrase}
 msgid "Pickup canceled. Parked {phrase}."
-msgstr ""
+msgstr "Yükleme iptal edildi. Park edildi: {phrase}."
 
 msgid "No fuel burned and no idle noise while parked."
 msgstr "Park halindeyken yakıt yanmaz, rölanti sesi olmaz."
@@ -23268,7 +23372,7 @@ msgstr "Yükleme tesisinde"
 
 #. placeholders: {cargo_label}, {destination}
 msgid "{cargo_label} for {destination}"
-msgstr ""
+msgstr "{destination} için {cargo_label}"
 
 #. placeholders: {destination}
 msgid "Loaded and sealed for {destination}."
@@ -23415,7 +23519,7 @@ msgstr "Tesis: {facility}"
 
 #. placeholders: {tons_text}, {cargo_label}
 msgid "Cargo: {tons_text} of {cargo_label}"
-msgstr ""
+msgstr "Yük: {tons_text} {cargo_label}"
 
 #. placeholders: {destination}
 msgid "Destination: {destination}"
@@ -23430,6 +23534,8 @@ msgid ""
 "Doubles: two hook-ups and a walk-around of both trailers and the dolly, {f} "
 "extra minutes on duty"
 msgstr ""
+"Çift dorse: iki bağlama ve iki dorsenin ile dolly'nin çevre kontrolü, "
+"görevde {f} dakika fazla"
 
 #. placeholders: {hud_speed_text}
 msgid "Speed: {hud_speed_text}"
@@ -23548,7 +23654,7 @@ msgid "Via {join}. Tap with three fingers for weather."
 msgstr "{join} üzerinden. Hava durumu için üç parmakla dokunun."
 
 msgid " Health papers are in the cab."
-msgstr ""
+msgstr " Sağlık belgeleri kabinde."
 
 #. placeholders: {destination}
 #. one sentence of a longer line
@@ -23559,32 +23665,37 @@ msgstr "Yüklendi, varış: {destination}."
 msgid ""
 "Loaded for {destination}. {head_text}, about {grouped} kilograms.{papers}"
 msgstr ""
+"{destination} için yüklendi. {head_text}, yaklaşık {grouped} "
+"kilogram.{papers}"
 
 #. placeholders: {head_text}, {grouped}, {papers}
 #. one sentence of a longer line
 msgid "{head_text}, about {grouped} kilograms.{papers}"
-msgstr ""
+msgstr "{head_text}, yaklaşık {grouped} kilogram.{papers}"
 
 #. placeholders: {destination}, {head_text}, {grouped}, {papers}
 msgid ""
 "Loaded for {destination}. {head_text}, about {grouped} pounds.{papers}"
 msgstr ""
+"{destination} için yüklendi. {head_text}, yaklaşık {grouped} libre.{papers}"
 
 #. placeholders: {head_text}, {grouped}, {papers}
 #. one sentence of a longer line
 msgid "{head_text}, about {grouped} pounds.{papers}"
-msgstr ""
+msgstr "{head_text}, yaklaşık {grouped} libre.{papers}"
 
 msgid "Load this evening"
-msgstr ""
+msgstr "Akşam yükle"
 
 msgid ""
 "Wait off duty until 8 in the evening, then load. The cattle ride cooler, "
 "and the 28 hours start later."
 msgstr ""
+"Görev dışında akşam 8'e kadar bekleyin, sonra yükleyin. Sığırlar daha serin "
+"yolculuk eder ve 28 saat daha geç başlar."
 
 msgid "waiting for the evening"
-msgstr ""
+msgstr "akşam bekleniyor"
 
 #. placeholders: {name}
 msgid "Depart with {name} driving, and ride along"
@@ -23717,7 +23828,7 @@ msgid ""
 msgstr "Bulut yedeği açıkken oyun kayıt yapınca yedekler burada görünür."
 
 msgid "1.9 backup"
-msgstr ""
+msgstr "1.9 yedeği"
 
 msgid "your public career"
 msgstr "herkese açık kariyeriniz"
@@ -24473,7 +24584,7 @@ msgstr "yerel yol, varış: {pickup_facility_text}"
 
 #. placeholders: {highway}, {city}
 msgid "{highway} in {city}"
-msgstr ""
+msgstr "{city}, {highway}"
 
 #. placeholders: {highway}, {start}, {end}
 msgid "{highway} from {start} to {end}"
