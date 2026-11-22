@@ -243,6 +243,9 @@ pub struct DrivingObservation {
     pub cruise_set_mph: Option<f64>,
     /// The speed keeper's hold, when it has the zone.
     pub keeper_mph: Option<f64>,
+    /// Whether the readouts and the cruise dial are in miles (the
+    /// effective units), so a tool walks the dial in the unit heard.
+    pub imperial: bool,
     /// Live cattle's five machines, on a cattle load.
     pub livestock: Option<LivestockObservation>,
     /// Whether the keeper is matching a slower vehicle ahead.
@@ -975,6 +978,7 @@ impl App {
             speed_limit_mph: drive.enforced_limit_prev,
             cruise_set_mph: drive.cruise_mph,
             keeper_mph: drive.keeper_mph,
+            imperial: self.ctx.settings.imperial(),
             livestock: drive.livestock().map(|load| LivestockObservation {
                 phase: load.phase,
                 footing: load.footing,
