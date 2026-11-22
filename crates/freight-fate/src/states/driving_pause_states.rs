@@ -133,6 +133,10 @@ impl PauseMenuState {
             .help(
                 "How to play, opened at the driving keys page. Left and Right change pages, Up \
                  and Down read lines.",
+            )
+            .touch_help(
+                "How to play, opened at the driving gestures page. Flick up or down to change \
+                 pages, and right or left to read lines.",
             ),
             MenuItem::new("Learn game sounds", |_s: &mut Self, ctx: &mut GameContext| {
                 let state = LearnSoundsState::new();
