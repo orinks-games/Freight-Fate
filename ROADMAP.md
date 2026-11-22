@@ -82,7 +82,7 @@ bookmarks usable.
 - [ ] (Found along the way) An RV and a coach bus run at car speed and climb like one: neither has a governor band or climb numbers yet. Give them one with the realistic-traffic speed work.
 - [ ] (Found along the way) Resuming cruise to a remembered 85 on a 12 percent downgrade with the automatic and a 21-ton load peaks 7 rpm past the over-rev line (2,317 against 2,310), and charges the over-rev wear. The resume test was written against a 15.6-ton load, and the new Chicago career's first load grew when the Chicago legs were re-routed (2026-11-09); the test now pins the old load. Check whether the automatic should upshift or the cruise should brake sooner with a heavy trailer.
 - [x] (Found along the way) Gary and South Bend to Chicago left I-90 for Cline Avenue around the Chicago Skyway, and Philadelphia, Harrisburg and Baltimore to Pittsburgh left the Pennsylvania Turnpike for US-30 near Breezewood and Bedford: the old truck router avoided tolls (route audit of 2026-11-05). Re-routed 2026-11-05 onto the toll roads, every layer rebuilt from the planet file of 2026-11-03, and the toll booths re-placed: the Skyway's 5-axle toll is read from its operator's table, and Harrisburg's and Baltimore's Turnpike tolls are pro-rated by miles from Philadelphia's estimate.
-- [ ] (Found along the way) Four legs store a straight line across a stretch of their road: Newark to Trenton (38 miles between miles 8 and 46, where the New Jersey Turnpike is; re-routed onto the Turnpike on `feat/career-2.0` 2026-11-22, the South Jersey roads), Portland to Salt Lake City (28 miles near mile 166), Knoxville to Atlanta (17 miles near mile 44) and Springfield to St. Louis (12 miles near mile 49). Curves, limits and exits there are read off a line that is not the road. The truck router puts each back on its interstate (69 to 96% of the miles); re-route them the same way.
+- [ ] (Found along the way) Four legs store a straight line across a stretch of their road: Newark to Trenton (38 miles between miles 8 and 46, where the New Jersey Turnpike is; re-routed onto the Turnpike on `feat/career-2.0` 2026-11-22, the South Jersey roads), Portland to Salt Lake City (28 miles near mile 166), Knoxville to Atlanta (17 miles near mile 44) and Springfield to St. Louis (12 miles near mile 49; re-routed onto I-55 on `feat/career-2.0` 2026-11-22, the Great Lakes roads). Curves, limits and exits there are read off a line that is not the road. The truck router puts each back on its interstate (69 to 96% of the miles); re-route them the same way.
 - [ ] (Found along the way) Five legs ride other roads for 5 to 16 miles beside their interstate: Charlotte to Knoxville (US-321 and US-221 Business near Hickory and Marion), Erie to Meadville (PA-98), Rapid City to Sioux Falls (SD-50), Paducah to Clarksville (US-60 and US-62) and Sacramento to Portland (OR-99). The truck router keeps 77 to 97% of each on the interstate. Erie to Meadville reads 0% on I-79 in the router's own report, which needs a look before re-routing it.
 - [ ] (Found along the way) Six Florida legs named I-95 ride Florida's Turnpike for about 13 miles (West Palm Beach, Port St. Lucie, Coral Springs and Jacksonville to Miami and Palm Bay). The route is a reasonable truck choice; the label is what is wrong. Name the road the legs drive, or split the highway name where they change roads.
 - [ ] (Found along the way) A whole-map run of the new layer builders (2026-11-05, dry run) would change most legs: lane counts and landmarks mostly by their source notes, villages by about 160 places, and low clearances from 118 legs to 543, mostly real posted bridges under 16 feet in the Northeast. Decide whether to apply it. The low clearances need no listening pass: the GPS no longer speaks them (2026-11-22).
@@ -6488,6 +6488,46 @@ a carrier slice (owner, 2026-10-26).
 - [ ] (Found along the way) orinks.net's Career 2.0 catalog export
       (`data/freight-fate-profile-invariants-career-2.json`) lists 651
       cities against the branch's 805; refresh it before 2.0 cloud saves.
+
+### Great Lakes roads (missing roads brief 3, November 22)
+
+- [x] Joliet, Alpena, Ashtabula and Sandusky are cities. Joliet has the
+      Union Pacific, BNSF and CN intermodal yards and the Pilot on Laraway
+      Road; Alpena the Amrize cement plant and Alro Steel; Ashtabula Pinney
+      Dock and R.W. Sidley; Sandusky LEWCO and Huron Cement. Each keeps only
+      those sites.
+- [x] 61 new legs between neighbours the map routed far around, routed by
+      the truck router over the OpenStreetMap planet of 2026-11-16 and built
+      with every layer. The detours that shrank most: Chillicothe to
+      Parkersburg (425 miles to 106), Columbus to Parkersburg (377 to 111)
+      and La Crosse to Waterloo (404 to 139).
+- [x] Five long legs split at a city they pass, with saves on the old leg
+      resuming on the pieces: Chicago to St. Louis through Joliet,
+      Bloomington and Springfield; Bloomington to Chicago at Joliet; Eau
+      Claire to Wausau at Chippewa Falls; Indianapolis to South Bend at
+      Kokomo; Ann Arbor to Fort Wayne at Jackson.
+- [x] Re-routed onto their roads: Kokomo to Lafayette, Peoria to
+      Springfield, Springfield to St. Louis (the straight line near mile 49
+      is gone) and Cleveland to Toledo. Fourteen legs renamed for the road
+      they ride, and their towns' roads read again.
+- [x] Great Lakes stops list (`docs/stops/great-lakes.json`), with Love's
+      Monmouth, the Superior rest area and Eagle Express on legs that had
+      no truck stop.
+- [x] Tolls: the Ohio Turnpike from its 2026 class 5 schedule on Mansfield
+      to Toledo and Cleveland to Toledo, charged at the exit booth each way;
+      the Mackinac Bridge on Alpena to Sault Ste. Marie and Escanaba to
+      Traverse City.
+- [ ] (Found along the way) Billboards on the new legs: a sheet needs
+      Orinks's approval.
+- [ ] (Found along the way) Tolls still missing: the Jane Addams Tollway
+      on Kenosha to Rockford, the Reagan Tollway (I-88) on Aurora to
+      Davenport and the Indiana Toll Road on Gary to Muskegon; the
+      tollways' sites refuse automated reads.
+- [ ] (Found along the way) The older Ohio Turnpike legs cite "class 6"
+      from the retired fare calculator; the 2026 schedule calls a high
+      five-axle truck class 5. Re-price them from the schedule.
+- [ ] (Found along the way) Youngstown to DuBois (I-80) waits for the
+      Northeast build, where DuBois becomes a city.
 
 ### Winter cab, wipers and ice roads (designed November 22)
 
