@@ -64,7 +64,7 @@
 - **Hours of service now follow Alaska and Canadian rules where you drive.** You hear the new limits as you cross into each place.
 - **Billboards in Canada follow each province's sign law.** The everyday roadside signs no longer stand in the Yukon or in parks along the Alaska Highway.
 - **Highway 97 and the Alaska Highway have billboards for their attractions.** From Hope and Barkerville to the Sign Post Forest and Kluane, each board tells you a little about the place.
-- **Ontario and Quebec have billboards for their attractions.** From the Big Nickel to the Château Frontenac, each board tells you a little about the place.
+- **Ontario and Quebec have billboards for their attractions.** From the Big Nickel to the Château Frontenac and the Cité de l'Or, each board tells you a little about the place.
 - **Canadian roads keep Canada's holidays.** Canada Day and October's Thanksgiving get their own boards, and the Fourth of July stays south of the border.
 - **Western Canada has billboards for its attractions.** From the Othello Tunnels to Vegreville's giant egg, boards stand outside the parks and plain lines name places inside them.
 - **Billboards notice what you haul.** Cattle, a reefer load or doubles get their own signs, and now and then a board names your carrier.

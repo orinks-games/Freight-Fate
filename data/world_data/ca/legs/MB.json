@@ -3561,7 +3561,21 @@
           "name": "level",
           "sections": 0,
           "source": "DERIVED, not read: Canada has no national inventory like HPMS, so the class is the terrain the leg's own grade profile spends the most miles in (the reroute-enrich rule: sustained grade of 5 percent, or 4 percent with 1,000 ft of relief within 5 miles, is mountain; 1.5 percent or 400 ft of relief is hills; else flat), mapped flat to level, hills to rolling and mountain to mountainous. It reads the same elevation as the grade, so it is no independent check on it."
-        }
+        },
+        "billboard_bans": [
+          {
+            "from_mi": 154.45,
+            "to_mi": 155.45,
+            "name": "Sasagiu Rapids Provincial Park",
+            "source": "derived 2026-11-22: OpenStreetMap protected-area polygon (Sasagiu Rapids Provincial Park) boundary from the planet extract of 2026-11-16 (corridor-5-east-places.md); the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on); widened to the one-mile minimum"
+          },
+          {
+            "from_mi": 184.0,
+            "to_mi": 185.0,
+            "name": "Paint Lake Provincial Park",
+            "source": "derived 2026-11-22: OpenStreetMap protected-area polygon (Paint Lake Provincial Park) boundary from the planet extract of 2026-11-16 (corridor-5-east-places.md); the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on); widened to the one-mile minimum"
+          }
+        ]
       },
       "rerouted": true
     },
@@ -6593,7 +6607,21 @@
           "name": "level",
           "sections": 0,
           "source": "DERIVED, not read: Canada has no national inventory like HPMS, so the class is the terrain the leg's own grade profile spends the most miles in (the reroute-enrich rule: sustained grade of 5 percent, or 4 percent with 1,000 ft of relief within 5 miles, is mountain; 1.5 percent or 400 ft of relief is hills; else flat), mapped flat to level, hills to rolling and mountain to mountainous. It reads the same elevation as the grade, so it is no independent check on it."
-        }
+        },
+        "billboard_bans": [
+          {
+            "from_mi": 19.0,
+            "to_mi": 20.0,
+            "name": "Paint Lake Provincial Park",
+            "source": "derived 2026-11-22: OpenStreetMap protected-area polygon (Paint Lake Provincial Park) boundary from the planet extract of 2026-11-16 (corridor-5-east-places.md); the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on); widened to the one-mile minimum"
+          },
+          {
+            "from_mi": 48.55,
+            "to_mi": 49.55,
+            "name": "Sasagiu Rapids Provincial Park",
+            "source": "derived 2026-11-22: OpenStreetMap protected-area polygon (Sasagiu Rapids Provincial Park) boundary from the planet extract of 2026-11-16 (corridor-5-east-places.md); the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on); widened to the one-mile minimum"
+          }
+        ]
       },
       "rerouted": true
     },
