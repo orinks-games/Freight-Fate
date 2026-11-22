@@ -488,8 +488,9 @@ and live weather returns at the US line.
 Setup: Speak billboards on.
 
 Listen for: new boards and plain landmark lines along the Canadian and
-Alaska roads; no everyday boards in Alaska, Alberta or parks the road
-crosses; holiday boards by country, Canada Day and October's Thanksgiving
+Alaska roads; no boards at all in Maine, Vermont, Alaska, Alberta, Prince Edward
+Island, the Northwest Territories or parks the road crosses; only boards
+for places to visit in the Yukon, New Brunswick and Nova Scotia; holiday boards by country, Canada Day and October's Thanksgiving
 only in Canada [waits on PR 751].
 
 Pass when: a board names a real place you are near, none plays where
@@ -549,7 +550,7 @@ never owes more than their own pay for the load [waits on PR 759].
 
 ## Chapter 10. Achievements
 
-Seventeen new badges: North to Alaska, Anchorage, Top of the World,
+Seventeen new achievements: North to Alaska, Anchorage, Top of the World,
 Tunnel of Love, The Long and Winding Road, When It's Springtime in
 Alaska, Cold as Ice, Travelin' Light, Borderline, Sunday Morning Coming
 Down, Take Me Home, Country Roads, Workin' for a Livin', Get Back, Takin'

@@ -420,7 +420,7 @@ Laredo has two border transfer yards for freight to and from Mexico. A southboun
 The map reaches past the lower 48:
 
 - **Alaska**, from the Alaska Highway at Tok and Delta Junction to Fairbanks, North Pole and the Fort Knox mine, up the Dalton Highway through Coldfoot to Deadhorse, and south to Anchorage, Palmer, Wasilla, Port MacKenzie, the Kenai Peninsula (Kenai, Nikiski, Soldotna, Homer, Seward), Valdez and Glennallen. Whittier is reached only through the Anton Anderson Memorial Tunnel, with its one-lane gate and toll. Skagway and Haines connect to the Yukon by road.
-- **British Columbia and the Yukon**, along the Alaska Highway from Dawson Creek, Fort St. John and Fort Nelson to Watson Lake, Whitehorse and Haines Junction, and across southern BC from Vancouver and Surrey through Hope, Kamloops, Kelowna, Cranbrook and Prince George.
+- **British Columbia and the Yukon**, along the Alaska Highway from Dawson Creek, Fort St. John and Fort Nelson to Watson Lake, Whitehorse and Haines Junction, across southern BC from Vancouver and Surrey through Hope, Kamloops, Kelowna and Cranbrook, and north through Williams Lake and Quesnel to Prince George.
 - **Alberta, Saskatchewan and Manitoba**, on the Trans-Canada and Yellowhead highways through Calgary, Edmonton, Regina, Saskatoon and on to Winnipeg.
 - **Ontario and Quebec**, from Windsor and Sarnia through London, Toronto, Ottawa and Montréal to Quebec City, and across the north on Highways 17 and 11 from Kenora and Thunder Bay to Sault Ste. Marie, Timmins and North Bay.
 - **New Brunswick, Nova Scotia and Prince Edward Island**, through the Houlton and Calais crossings, with the Cobequid Pass and Confederation Bridge tolls. [waits on PR 756]
@@ -448,9 +448,9 @@ Hours of service follow the place the truck is in, and you hear the new rules as
 | The lower 48 | 11 hours of driving in a 14-hour window, a 30-minute break after 8 hours of driving, and 70 hours on duty in 8 days. |
 | Alaska | 15 hours of driving and 20 on duty, no 30-minute break, and 80 hours in 8 days. |
 | Canada south of 60 degrees north | 13 hours of driving and 14 on duty in a 16-hour window, and 70 hours in 7 days. |
-| North of 60: the Yukon, the Northwest Territories and Nunavut | 15 hours of driving and 18 on duty in a 20-hour window, and 80 hours in 7 days. |
+| North of 60 degrees north: the Yukon | 15 hours of driving and 18 on duty in a 20-hour window, and 80 hours in 7 days. |
 
-The C key, the ELD app and the logbook read the rules you are under, starting "Canadian hours rules" or "Alaska hours rules". In the United States 34 hours off in a row restart your cycle; in Canada it takes 36. Rest menus offer the same rests in Canada as in the United States. A load's deadline is planned on US rules for the whole route, which are the strictest, so a deadline you can make in the United States you can also make in Canada.
+The C key, the ELD app and the logbook read the rules you are under, starting "Canadian hours rules" or "Alaska hours rules". In the United States 34 hours off in a row restart your cycle; in Canada it takes 36. Rest menus offer the same rests in Canada as in the United States. A load's deadline is planned on the lower-48 daily rules for the whole route: 11 hours of driving, the 14-hour window and the 30-minute break. The work cycle isn't part of that plan.
 
 ### Time zones on the map
 
@@ -462,11 +462,11 @@ Simulated weather in Alaska and Canada gets as cold as the real winters there: a
 
 ### Billboards
 
-Billboards follow each state's, province's and territory's sign law. Alaska and Alberta ban them, the Yukon keeps only boards for places to visit, and no board stands in a park the road crosses. Where boards are banned, some landmarks are named plainly as you pass. Holiday boards follow the country you're in: Canada Day and October's Thanksgiving in Canada, the Fourth of July and November's Thanksgiving in the United States [waits on PR 751]. To turn billboards off, set Speak billboards to off under Settings, Speech.
+Billboards follow each state's, province's and territory's sign law. Maine, Vermont, Alaska, Alberta, Prince Edward Island and the Northwest Territories ban them. The Yukon, New Brunswick and Nova Scotia keep only boards for places to visit. No board stands in a park the road crosses. Where boards are banned, some landmarks are named plainly as you pass. Holiday boards follow the country you're in: Canada Day and October's Thanksgiving in Canada, the Fourth of July and November's Thanksgiving in the United States [waits on PR 751]. To turn billboards off, set Speak billboards to off under Settings, Speech.
 
 ## Crossing the border
 
-The border has 19 truck crossings, 21 with Houlton and Calais [waits on PR 756], among them the Pacific Highway at Blaine, Sumas, Osoyoos, Kingsgate, Coutts, North Portal, Emerson, Pigeon River, the Sault Ste. Marie International Bridge, the Gordie Howe and Blue Water bridges, Lewiston-Queenston, the Thousand Islands, Lacolle, Stanstead, the Klondike and Haines highways, and the Alcan port on the Alaska Highway, with Beaver Creek on the Canadian side. Every truck stops for customs at each one, in both directions.
+Trucks cross the border at the Pacific Highway at Blaine, Sumas, Osoyoos, Kingsgate, Coutts, North Portal, Emerson, Pigeon River, the Sault Ste. Marie International Bridge, the Gordie Howe and Blue Water bridges, Lewiston-Queenston, the Thousand Islands, Lacolle, Stanstead, the Klondike and Haines highways, and the Alcan port on the Alaska Highway, with Beaver Creek on the Canadian side, plus Houlton and Calais [waits on PR 756]. Every truck stops for customs at each crossing, in both directions.
 
 As you cross the line, the GPS names the province or state you're entering, then, in this order, the time zone if it changes, the units line if Automatic changes them, and the new hours rules. Each waits for the one before it to finish. The new country's speed limit applies from the line.
 
