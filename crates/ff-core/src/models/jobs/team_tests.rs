@@ -74,3 +74,44 @@ fn a_team_load_keeps_its_flag_through_a_save() {
     let payload = job_payload(&solo);
     assert!(!job_from_payload(&payload).unwrap().team);
 }
+
+#[test]
+fn a_team_deadline_never_leaves_room_for_a_solo_sleep_at_any_urgency() {
+    use crate::models::jobs::board::{team_load_deadline_hours, TEAM_SOLO_MARGIN_H};
+    use crate::models::jobs::urgency::{
+        FLEXIBLE_LOAD_SLACK_RANGE, HOT_LOAD_SLACK, STANDARD_LOAD_SLACK_RANGE,
+    };
+    let world = get_world();
+    // Chicago to Lamar: one sleep for a solo driver, and the standard load
+    // the Ontario and Quebec cities brought onto Chicago's board was booked
+    // at 33.3 hours against a solo 32.0.
+    let route = world
+        .supported_route("chicago_il_us", "lamar_co_us", None)
+        .unwrap()
+        .expect("Chicago reaches Lamar");
+    let miles = route.miles();
+    assert!(plan_hos(miles, Some(&route), Some(world), None).sleeps > 0);
+    let solo = required_hours(miles, Some(&route), Some(world), None);
+    // (urgency, widest slack, carrier deadline slack): the widest window each
+    // class can draw, under the plain carrier and the most generous one.
+    for (urgency, slack) in [
+        ("hot", HOT_LOAD_SLACK),
+        ("standard", STANDARD_LOAD_SLACK_RANGE.1),
+        ("flexible", FLEXIBLE_LOAD_SLACK_RANGE.1),
+    ] {
+        for carrier_slack in [1.0, 1.08] {
+            let hours = round_py_n(
+                team_load_deadline_hours(miles, slack, carrier_slack, Some(&route), world),
+                1,
+            );
+            assert!(
+                hours <= solo - TEAM_SOLO_MARGIN_H + 0.05,
+                "{urgency} team load at carrier slack {carrier_slack}: {hours} h against a solo {solo} h"
+            );
+            assert!(
+                hours >= team_required_hours(miles, Some(&route), Some(world)),
+                "{urgency}: {hours} h is short of the team's own hours"
+            );
+        }
+    }
+}

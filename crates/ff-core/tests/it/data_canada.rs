@@ -323,3 +323,26 @@ fn quebec_exits_give_their_directions_in_english() {
         }
     }
 }
+
+#[test]
+fn every_long_western_canada_leg_has_fuel_a_loaded_truck_can_use() {
+    // The West corridor: a leg over 200 miles that starts or ends in
+    // British Columbia, Alberta, Saskatchewan or Manitoba.
+    let west = |city: &str| {
+        ["_bc_ca", "_ab_ca", "_sk_ca", "_mb_ca"]
+            .iter()
+            .any(|p| city.ends_with(p))
+    };
+    let dry: Vec<String> = world()
+        .legs
+        .iter()
+        .filter(|l| l.miles > 200.0 && (west(&l.a) || west(&l.b)))
+        .filter(|l| {
+            !l.stops
+                .iter()
+                .any(|s| s.actions.iter().any(|a| a == "fuel") && s.accessible_to(false))
+        })
+        .map(|l| format!("{}:{} ({} mi)", l.a, l.b, l.miles))
+        .collect();
+    assert!(dry.is_empty(), "no loaded-truck fuel on {dry:#?}");
+}
