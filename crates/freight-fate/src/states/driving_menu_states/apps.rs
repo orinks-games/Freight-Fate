@@ -10,6 +10,7 @@ use crate::impl_state_for_menu;
 use crate::states::base::{Menu, MenuCore, MenuItem};
 use crate::states::driving_menu_states::DriveRef;
 use crate::states::driving_radio_app::RadioAppState;
+use crate::states::newspaper::{NewspaperState, OpenedFrom, NEWSPAPER_HELP, NEWSPAPER_LABEL};
 
 /// Accessible driver tablet launcher.
 pub struct DriverAppsState {
@@ -77,7 +78,7 @@ impl Menu for DriverAppsState {
         &mut self.menu
     }
 
-    fn build_items(&mut self, _ctx: &mut GameContext) -> Vec<MenuItem<Self>> {
+    fn build_items(&mut self, ctx: &mut GameContext) -> Vec<MenuItem<Self>> {
         let mut items: Vec<MenuItem<Self>> = APPS
             .iter()
             .map(|(label, key, help_text)| {
@@ -88,6 +89,17 @@ impl Menu for DriverAppsState {
                 .help(*help_text)
             })
             .collect();
+        // Only while the game holds an issue the site published.
+        if ctx.services.newspaper.holding() {
+            items.push(
+                MenuItem::new(NEWSPAPER_LABEL, |_s: &mut Self, ctx: &mut GameContext| {
+                    if let Some(state) = NewspaperState::open(ctx, OpenedFrom::DriverApps) {
+                        ctx.push_state(state);
+                    }
+                })
+                .help(NEWSPAPER_HELP),
+            );
+        }
         items.push(
             MenuItem::new("Back to status screens", |s: &mut Self, ctx| s.go_back(ctx))
                 .help("Return to the status screen list."),

@@ -107,6 +107,7 @@ fn scenario_properties() -> Value {
         "market_seed": {"type": "integer"},
         "board_seed": {"type": "integer"},
         "came_from": {"type": "string"},
+        "newspaper": {"type": "string", "description": "a file holding a driver newspaper issue in the site's body (crates/ff-core/src/newspaper/fixture_issue.json is a made-up one) for the game to hold, or none for no issue"},
         "settings": {"type": "object"},
     });
     for key in [

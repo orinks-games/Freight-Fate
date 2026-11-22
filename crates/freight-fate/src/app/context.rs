@@ -115,6 +115,8 @@ pub struct Services {
     pub jaws_script: JawsScript,
     pub cloud: CloudSaves,
     pub journal: JournalOutbox,
+    /// The driver newspaper the site published, when the game holds one.
+    pub newspaper: crate::newspaper::Newspaper,
 }
 
 /// A career achievement and whether this installation can publish it publicly.
@@ -808,6 +810,13 @@ impl GameContext {
     pub fn apply_presence(&mut self) {
         let enabled = self.online_enabled(self.settings.discord_presence);
         self.services.presence.set_enabled(enabled);
+    }
+
+    /// Reflect the Online services switch on the newspaper's fetch.
+    pub fn apply_newspaper(&mut self) {
+        self.services
+            .newspaper
+            .set_enabled(self.settings.online_services);
     }
 
     /// Reflect the drivers-board setting (e.g. after a settings change).

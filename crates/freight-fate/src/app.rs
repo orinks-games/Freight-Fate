@@ -313,6 +313,11 @@ fn staged_road_handoff(description: &str, start_mi: f64) -> String {
 }
 
 impl PlayerInputFrame<'_> {
+    /// The driver newspaper's state: "no_issue" or "holding issue N".
+    pub fn newspaper_state(&self) -> String {
+        self.app.ctx.services.newspaper.status()
+    }
+
     pub fn cloud_resume_state(&self) -> ff_core::cloud_resume::CheckState {
         self.app.ctx.cloud_saves_service().resume_state()
     }
@@ -814,6 +819,11 @@ impl App {
                 backup.queue_backup(&profile.name, serde_json::Value::Object(profile.to_dict()));
             },
         )));
+        let newspaper = crate::newspaper::Newspaper::new(crate::newspaper::NewspaperOptions {
+            enabled: settings.online_services,
+            cache_path: Some(data_dir.join(ff_core::newspaper::PAPER_FILE)),
+            ..Default::default()
+        });
         boot_timing::mark("online services");
         let pads_allowed = crate::controller::pads_allowed(
             settings.controller_enabled,
@@ -851,6 +861,7 @@ impl App {
                 jaws_script: JawsScript::new(),
                 cloud,
                 journal,
+                newspaper,
             },
         });
         // The windowed game speaks the player's language. Headless runs (the
@@ -1670,6 +1681,7 @@ impl App {
         self.ctx.services.online.start(); // opt-in drivers board; dormant unless confirmed
         self.ctx.services.duty.start(); // opt-in on/off duty notices; dormant unless on
         self.ctx.services.cloud.start(); // opt-in save backup; dormant unless confirmed
+        self.ctx.services.newspaper.start(); // one read; holds nothing until the site publishes
         boot_timing::mark("background services started");
         self.loop_watch = loop_watch::LoopWatch::start();
         let mut frames = 0u32;
@@ -1741,6 +1753,7 @@ impl App {
         let online = self.ctx.services.online.clone();
         let duty = self.ctx.services.duty.clone();
         let cloud = self.ctx.services.cloud.clone();
+        let newspaper = self.ctx.services.newspaper.clone();
         run_while_pumping(
             move || {
                 let started = Instant::now();
@@ -1761,6 +1774,9 @@ impl App {
                 let started = Instant::now();
                 cloud.shutdown(); // flushes the final save's backup, bounded
                 log::info!("quit: cloud backup in {} ms", started.elapsed().as_millis());
+                let started = Instant::now();
+                newspaper.shutdown();
+                log::info!("quit: newspaper in {} ms", started.elapsed().as_millis());
             },
             &mut pump,
         );
