@@ -11,6 +11,8 @@ use ff_core::sim::trip_models::BorderBooth;
 use ff_core::speech_pacing::SpeechCategory;
 use ff_core::units::{effective, UnitsEvent};
 
+use crate::states::driving_updates::after_crossing::AfterCrossing;
+
 use crate::app::{GameContext, SayEvent};
 use crate::impl_state_for_menu;
 use crate::speech::EventPriority;
@@ -33,7 +35,7 @@ const CA_BORDER_STAT: &str = "border_reports_missed_ca";
 
 impl DrivingState {
     /// Move the Automatic units to the country under the truck. The line
-    /// that the units changed rides the crossing call (see
+    /// that the units changed follows the crossing call (see
     /// `units_line_for_crossing`); this says it on its own only when the
     /// map changed country with no crossing call within
     /// [`UNITS_LINE_GRACE_MI`]. The trip's spoken distances follow.
@@ -51,9 +53,10 @@ impl DrivingState {
                 if position - due >= UNITS_LINE_GRACE_MI {
                     self.units_due_mi = None;
                     if let Some(line) = ctx.settings.move_units(UnitsEvent::TruckIn(country)) {
-                        ctx.say_event_with(
+                        self.queue_after_crossing(
+                            AfterCrossing::Units,
                             line,
-                            SayEvent::queued().category(SpeechCategory::Navigation),
+                            Some(SpeechCategory::Navigation),
                         );
                     }
                 }
@@ -62,7 +65,7 @@ impl DrivingState {
         self.trip.set_imperial(ctx.settings.imperial());
     }
 
-    /// The units line to add after a crossing call into `into_state`, when
+    /// The units line to queue after a crossing call into `into_state`, when
     /// Automatic changes the units there. Moves the units at once, so every
     /// readout after the call is in the new ones.
     pub fn units_line_for_crossing(
@@ -316,8 +319,8 @@ impl BorderClearanceState {
 
     fn opening_line(&self) -> String {
         format!(
-            "{}, {}. The officer asks for your passport and checks the eManifest your carrier \
-             filed before arrival.",
+            "{}, {}. The officer asks for your passport and checks the eManifest filed for this \
+             load.",
             self.booth.name, self.booth.agency
         )
     }

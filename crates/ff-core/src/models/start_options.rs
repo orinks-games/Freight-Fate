@@ -363,12 +363,12 @@ fn generated_start_options() -> &'static [CareerStartOption] {
                     .unwrap_or_else(|| "Chicago".to_string());
                 CareerStartOption {
                     key: leak(c.key.clone()),
-                    label: leak(format!("{}: {tier} company driver, {area}", c.name)),
+                    // The area is said once, in the summary: the start row
+                    // reads the label and the summary together.
+                    label: leak(format!("{}: {tier} company driver", c.name)),
                     carrier_name: leak(c.name.clone()),
                     mode: START_MODE_COMPANY,
-                    menu_summary: leak(format!(
-                        "A {tier} carrier in {area}, with loads of up to {max} miles."
-                    )),
+                    menu_summary: leak(format!("Loads of up to {max} miles in {area}.")),
                     help_text: leak(format!(
                         "A {tier} company-driver start in {area}. Dispatch offers loads of \
                          up to {max} miles. The carrier assigns and maintains the tractor \

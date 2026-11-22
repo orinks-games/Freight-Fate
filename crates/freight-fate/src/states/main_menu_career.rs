@@ -24,6 +24,9 @@ use crate::states::main_menu::{first_day_orientation_message, first_state_after_
 /// list where every entry starts with "the" defeats type-ahead, so the
 /// leading article is dropped for menu display.
 pub fn region_menu_name(region: &str) -> String {
+    if region == ALASKA_PICKER_REGION {
+        return "Alaska".to_string();
+    }
     let label = region_label(region)
         .map(str::to_string)
         .unwrap_or_else(|| region.replace('_', " "));
@@ -182,6 +185,9 @@ impl Menu for CareerStartState {
                     format!("{}. {}{starts}", option.label, menu_summary),
                     move |s: &mut Self, ctx| s.pick(ctx, key),
                 )
+                // `pick` plays the select sound, or the error sound when a
+                // same-named older or newer career refuses the start.
+                .select_sound(None)
                 .help(format!("{}{starts}", option.help_in(&ctx.settings)))
             })
             .collect()
@@ -195,8 +201,9 @@ impl_state_for_menu!(CareerStartState);
 /// Region selection is the first of three levels: choosing a region opens a
 /// [`HomeCityState`] listing only that region's offerable home cities, then
 /// the carriers that hire there. Only cities where some carrier hires
-/// (`is_offerable_home_city`) are listed, so Alaska, British Columbia, and
-/// Yukon are not offered; a region with no offerable city is left out.
+/// (`is_offerable_home_city`) are listed, so British Columbia and Yukon are
+/// not offered; Alaska has its own row ([`ALASKA_PICKER_REGION`]); a region
+/// with no offerable city is left out.
 pub struct HomeTerminalState {
     menu: MenuCore<Self>,
     pub driver_name: String,
@@ -209,7 +216,7 @@ impl HomeTerminalState {
         let cities_by_region = offerable_cities_by_region(ctx);
         let mut regions: Vec<String> = cities_by_region.keys().cloned().collect();
         regions.sort_by_key(|r| region_menu_name(r));
-        let default = ctx.world.cities.get(DEFAULT_CITY).map(|c| c.region.clone());
+        let default = ctx.world.cities.get(DEFAULT_CITY).map(picker_region);
         let mut menu = MenuCore::new("Home region").with_intro_help(
             "Up and Down, Home and End, or a typed letter pick a region. Enter opens its home cities, Escape goes back.",
         );
@@ -239,8 +246,22 @@ impl HomeTerminalState {
     }
 }
 
-/// Offerable home cities (some carrier hires there), grouped by region and
-/// sorted by name.
+/// The home region picker's row for Alaska. The map files Alaska under the
+/// Pacific Northwest for weather, so a player looking for Anchorage found it
+/// only inside that region; the picker gives it a row of its own.
+pub const ALASKA_PICKER_REGION: &str = "alaska";
+
+/// The region a home city is listed under in the picker.
+fn picker_region(city: &ff_core::data::world_models::City) -> String {
+    if city.state_code.eq_ignore_ascii_case("AK") {
+        ALASKA_PICKER_REGION.to_string()
+    } else {
+        city.region.clone()
+    }
+}
+
+/// Offerable home cities (some carrier hires there), grouped by picker
+/// region ([`picker_region`]) and sorted by name.
 pub fn offerable_cities_by_region(ctx: &GameContext) -> BTreeMap<String, Vec<String>> {
     let mut by_region: BTreeMap<String, Vec<String>> = BTreeMap::new();
     for city in ctx.world.cities.values() {
@@ -251,7 +272,7 @@ pub fn offerable_cities_by_region(ctx: &GameContext) -> BTreeMap<String, Vec<Str
             continue;
         }
         by_region
-            .entry(city.region.clone())
+            .entry(picker_region(city))
             .or_default()
             .push(city.key.clone());
     }
@@ -340,7 +361,6 @@ impl HomeCityState {
     }
 
     fn pick(&mut self, ctx: &mut GameContext, city: &str) {
-        ctx.audio.play("ui/menu_select");
         ctx.push_state(CareerStartState::new(ctx, &self.driver_name, city));
     }
 }

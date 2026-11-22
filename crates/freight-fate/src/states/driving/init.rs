@@ -802,6 +802,7 @@ impl DrivingState {
             keep_right_nags: 0,
             ambient_event_cooldown_s: 0.0,
             pending_ambient_events: VecDeque::new(),
+            after_crossing: Vec::new(),
             road_joint_accumulator_m: 0.0,
             next_joint_distance_m,
             lane_guidance: LaneGuidance::new(),

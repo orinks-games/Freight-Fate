@@ -469,6 +469,11 @@ bookmarks usable.
       Thanksgiving week.
 - [ ] Billboards could also react to the cargo in the trailer and to the
       weather (owner, 2026-09-30: "at least one and two" shipped first).
+      The cargo half is built on `feat/career-2.0` (2026-11-22): a load of
+      cattle, a reefer load, a set of doubles and the carrier on the door
+      each have a pool that takes one everyday sign in three, after Big
+      Jim and the small hours. The pools are empty until the director's
+      lines land. Weather is still open.
 
 - [x] Placed billboards face one way (owner, 2026-09-30): every placed
       attraction sign was heard from both sides of the road, and 128 of the
@@ -5186,6 +5191,17 @@ branch. The older Phase A/B plan checklists are not a live completion list.
       so the Canadian diesel price and the liter line at the pump cannot be
       met on a drive yet (stops on northern legs are the Canada map tools
       thread's work).
+- [x] (Found along the way) At a state, province or country line the hours
+      rules line cut the crossing call mid-sentence (the north-of-60 line at
+      the Yukon line, R2 drive, 2026-11-22). The order at a line is now a
+      rule: the crossing call finishes, then the units line, then a shorter
+      hours line.
+- [ ] (Found along the way) The customs booth approach is an implicit state
+      machine: three string keys in the enforcement events (notice,
+      reminder, booth), the pending clearance and the reminder's real-time
+      hold. Make it one `BoothApproach` enum in `ff-core` (Ahead, Noticed,
+      Reminded, Stopped, Ran, Cleared) so the agent server's `status` reports
+      it and a scenario can set it. No defect came from it yet.
 
 Automated evidence: the four `test_alcan_phase_a_*` cases (including the
 Tok–Delta Junction–Fairbanks split), `test_alcan_phase_b1_tok_cutoff_glenn_to_anchorage`,
@@ -5548,6 +5564,57 @@ Honesty debts for this v1 slice (do not paper over):
       November, both coasts, every province). Each waits for the
       cross-border loads PR and for its city or road to exist on the map.
 
+### November 22 freight review: doubles, Laredo, cattle, reefer, hazmat
+
+Read the 2.0-only freight code and drove each kind on the agent server
+with Facility streets off (transcripts in the project's
+`career-2.0-alpha` folder).
+
+- [x] The delivery screen dropped the receiver's lines: the cattle count
+      ("2 could not walk off ...") and the cargo claim line were composed
+      but never reached the rows the player reads, because the screen reads
+      its own itemized list. Both rows now follow the Load row. The same
+      gap exists on dev (1.9.x) and needs the same fix there. (Found along
+      the way)
+- [x] A reefer box on the road ran its temperature and spoilage on real
+      seconds while the game clock ran at the pace, so a box with the unit
+      off warmed ten times slower driving than parked. Both clocks are now
+      game seconds. (Found along the way)
+- [x] A sleep's forecast now says when the cattle would pass the 28-hour
+      limit before the driver wakes. (Found along the way)
+- [x] With cattle aboard the hours readouts named a 30-minute break that
+      never comes due; Alt S now says no break is required with cattle
+      aboard, and the break drops out of the other readouts. (Found along
+      the way)
+- [x] A refused reverse with doubles played the gear-shift sound first;
+      the doubles hook-up and break-the-set times were each spoken twice in
+      a row. (Found along the way)
+- [ ] *(Found along the way)* The other lines `summary_parts` carries for
+      a loaded delivery (a preventable-damage deductible, on-the-spot
+      tickets, a balance a load could not cover) are not on the delivery
+      screen either; check each against the itemized rows.
+- [ ] *(Found along the way)* Past the 28-hour limit the game only says
+      "The cattle have been aboard 28 hours." and keeps costing condition;
+      there is no way to unload, feed and water for 5 hours as the law
+      requires. Decide whether a feed-and-water stop belongs in 2.0.
+- [ ] *(Found along the way)* The cattle condition line on the road
+      reuses the boxed-freight sentence ("The load has shifted hard and is
+      injured ... the carrier pays for what you broke"); cattle need their
+      own wording.
+- [ ] *(Found along the way)* Every cattle load on the board says "They
+      can ride 28 hours.", which never changes; a candidate for removal.
+- [ ] *(Found along the way)* A tunnel refusal reads the whole rule,
+      including the bulk-flammable clause, to a packaged poison-gas load
+      the clause does not concern.
+- [ ] *(Found along the way)* The doubles route lines say "National
+      Network", a regulation's name a player may not know.
+- [ ] *(Found along the way)* A cattle board load from Dodge City to
+      Liberal posted 83 miles, but dispatch routed it 120 miles around
+      construction; the settlement credits the posted 83.
+- [ ] *(Found along the way)* The agent server cannot stage a southbound
+      load to a Laredo transfer yard or a rear-trailer whip under partial
+      lane keeping; both were checked by tests only.
+
 ### The first 2.0 nightly
 
 Plumbing before the merge, none of it gameplay (agreed 2026-10-26; the
@@ -5773,6 +5840,26 @@ a carrier slice (owner, 2026-10-26).
       customs with hours, FAST and cabotage at every listed port;
       Newfoundland's half hour and Saskatchewan's standard time; Quebec
       signs read as written; the Coquihalla, Rogers Pass and 17 closures.
+- [x] Billboards follow each province's and territory's sign law
+      (2026-11-22). Alberta, Prince Edward Island, Newfoundland and
+      Labrador, the Northwest Territories and Nunavut ban commercial
+      boards, as Alaska does; the Yukon, Nova Scotia and New Brunswick
+      license only boards for traveler attractions and services, so placed
+      attraction signs stand there and the everyday pool does not; the
+      rest license boards off the right of way. Parks the road crosses are
+      billboard bans on the legs. Table and sources in
+      `docs/billboard-spider-methodology.md` section 11, the same rows in
+      `data/billboard_law.rs`. `cargo tools bake-billboards` (the Python
+      sheet bake, ported) refuses a sign where the law or a park says no.
+- [ ] Billboards along the Alaska Highway and Highway 97: the sign sheet
+      (`data/spider/signsheets/alaska-highway-bc-yukon-2026-11-22.md`)
+      waits for the director's copy and Orinks's approval before it bakes.
+- [ ] Billboard sheets for each Canadian corridor as its PR merges, West
+      first; French attraction names listed for Orinks's ear.
+- [ ] (Found along the way) New Brunswick is read attractions only
+      province-wide because its freight routes are Level I and II
+      highways; its ordinary highways license commercial boards. A per-leg
+      law would let a pool line stand on those.
 
 ### Personal conveyance and duty-purpose correction
 
@@ -6016,6 +6103,19 @@ here 2026-09-25. Details stay in the linked dated sections.
       wait. Neither holds on the Dalton Highway or other remote Alaska and
       Canadian roads, where a callout takes far longer; scale both by road
       and remoteness.
+- [ ] (Found along the way) **A 1.9 career copied into 2.0 can carry a
+      home terminal its carrier does not run.** A Prairie Link driver who
+      lives in Miami comes over with the Milwaukee fallback terminal and no
+      home city, so a later let-go looks for carriers near Milwaukee. Pick
+      from the current city when the copied terminal is not one of the
+      carrier's own (R1 review, 2026-11-22).
+- [ ] (Found along the way) **Employment is an implicit state machine.**
+      `carrier_key`, `carrier_name`, `business_status`,
+      `sufferance_carrier_key` and `let_go_by` move together across hiring,
+      being let go, applying and own authority. Make it one `Employment`
+      enum in `ff-core` (hired, on sufferance, unassigned, own authority)
+      with one `next(event)` and a transition table, reported by the agent
+      server's `status` (R1 review, 2026-11-22).
 - [ ] **Route calls to a remote dispatcher when one is available.** Deliver
       the same structured request asynchronously, with a short wait and the
       local dispatcher as the automatic fallback.

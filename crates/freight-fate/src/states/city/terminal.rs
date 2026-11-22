@@ -389,19 +389,27 @@ impl CityMenuState {
             (before_fatigue, start, p.game_hours)
         };
         record_city_duty(ctx, "sleeper_berth", start, end, "terminal sleep");
-        {
+        let cycle_restarted = {
             let p = profile_mut(ctx);
+            let cycle_before = p.hos.cycle_used_min();
             p.hos.sleep();
             p.fatigue = hos::rest_sleep(p.fatigue, hos::SLEEP_MIN);
             let day = p.market_day();
             p.market.advance_to(day);
-        }
+            p.hos.cycle_restarted_since(cycle_before)
+        };
         ctx.save_profile();
         ctx.audio.play("ui/notify");
         let zone = local_zone(ctx);
         let hour = to_local(profile(ctx).game_hours, zone).rem_euclid(24.0);
+        // The week starting over is news; every other night is not.
+        let cycle = if cycle_restarted {
+            " Cycle clock reset."
+        } else {
+            ""
+        };
         ctx.say(&format!(
-            "Slept 10 hours. It is {}, {}.",
+            "Slept 10 hours. It is {}, {}.{cycle}",
             clock_text(hour),
             time_of_day(hour)
         ));

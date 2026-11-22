@@ -233,20 +233,21 @@ impl FacilityArrivalState {
             });
         };
 
-        let doubles = self.doubles_clause();
+        // Breaking a set of doubles was said on arrival and stays on the
+        // screen; the work itself does not say it again.
         let (title, message, status) = if drop_hook {
             (
                 "Dropping the trailer",
                 if ctx.settings.imperial() {
                     format!(
                         "Dropping the loaded trailer at {facility}, {} tons of {cargo_label}. \
-                         Hooking an empty.{doubles}",
+                         Hooking an empty.",
                         fmt_f(weight_tons, 0)
                     )
                 } else {
                     format!(
                         "Dropping the loaded trailer at {facility}, {} of {cargo_label}. \
-                         Hooking an empty.{doubles}",
+                         Hooking an empty.",
                         ctx.settings.tons_text(weight_tons)
                     )
                 },
@@ -256,7 +257,7 @@ impl FacilityArrivalState {
             (
                 "Unloading cargo",
                 format!(
-                    "Docked at {facility}. Unloading {} of {cargo_label}.{doubles}",
+                    "Docked at {facility}. Unloading {} of {cargo_label}.",
                     ctx.settings.tons_text(weight_tons)
                 ),
                 "Unloading cargo.",

@@ -44,6 +44,7 @@
 - **The map now reaches Alaska and northern Canada along the Alaska Highway,** from Blaine and Bellingham through Prince George, Dawson Creek and Whitehorse to Tok and Fairbanks.
 - **Alaska roads now reach the Kenai Peninsula, Valdez and Deadhorse.** Seward, Valdez and Kenai offer only their real freight sites, and Deadhorse sells diesel.
 - **Hours of service now follow Alaska and Canadian rules where you drive.** You hear the new limits as you cross into each place.
+- **Billboards in Canada follow each province's sign law.** The everyday roadside signs no longer stand in the Yukon or in parks along the Alaska Highway.
 - **Twenty new carriers hire across the map, including Alaska.** Every lower-48 city now has a regional carrier, and three local carriers run short loads around Chicago, Los Angeles and Anchorage.
 - **Fairbanks job boards now use real freight sites,** such as Costco, Fred Meyer and Spenard Builders Supply.
 - **Twin parcel trailers now stay on the Interstates.** Dispatch drops a lane that leaves them, and says so when no lane is left.
@@ -79,6 +80,18 @@
 - **The Alaska Highway border crossing now has its real name, the Alcan port.** Heading into Canada, you pass the Beaver Creek border post.
 - **Save notices now show their text on screen,** not only their title and OK.
 - **Training classes now leave you tired, at about half the rate of driving.**
+- **Setting the parking brake at a gate no longer repeats the reminder to set it.**
+- **Picking a home city or a carrier plays one select sound,** not two.
+- **Alaska is now its own region when you pick a home city.**
+- **The logbook now shows the hours you drove and unloaded on a delivery,** with the city names spoken.
+- **Each carrier row in a new career names its area once,** then the longest load it gives.
+- **Moving up to another carrier now says where your truck will start** before you confirm.
+- **The sleep that finishes a 34-hour restart now says your cycle clock reset.**
+- **A repossession with no carrier to take you on now names the city it looked near.**
+- **The delivery screen now reads the receiver's cattle count and any freight claim.** Both had gone missing from the screen.
+- **A reefer box left off on the road now warms at the same rate as at a stop.** It had been warming ten times slower while driving.
+- **Sleeping with cattle aboard now warns when they would pass the 28-hour limit,** and the hours readouts stop naming a 30-minute break that cannot come due.
+- **A refused reverse with doubles no longer plays the gear-shift sound,** and the doubles hook-up time is spoken once at the shipper and once at the receiver.
 
 ## 1.9.7 - 2026-11-21
 
