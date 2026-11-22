@@ -1571,6 +1571,14 @@ Everything found before 2026-09-25 moved to
       swipe starts at 90.", "Deep swipe. Length 112."). Touch gestures has a
       "Deep swipe starts at" row, 60 to 180 points in tens; the settings
       file keeps `touch_deep_swipe_factor`. Nothing was tried on a phone.
+- [x] A cloud run can play as an iPhone (2026-11-22, the iPhone whole-game
+      pass, task 1): "this is a phone" is a run-time fact
+      (`freight_fate::device`), and the agent server's `scenario` takes
+      `phone: true`, so the phone's menus, rows and help can be walked
+      where no phone build compiles. The input prompts name (keyboard,
+      controller or touch) is one machine, `ff_core::input_device`, and
+      `status` reports it on an INPUT line. The walk's findings are in the
+      project's `ios-ui-pass/findings.md`.
 - [x] Second layer bumper (2026-11-18, a player's request): Settings,
       Gameplay, Controls swaps the bumpers, so the left bumper holds the
       second layer and the right bumper is the clutch. The pad's presses

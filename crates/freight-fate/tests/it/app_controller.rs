@@ -60,7 +60,7 @@ fn force_controller(app: &mut TestApp) {
     c.set_enabled(true);
     c.bind_device(Box::new(FakePad::new(0)), "test pad");
     c.set_id_pending(false);
-    c.active_device = CONTROLLER;
+    c.note_controller();
 }
 
 // -- pure hint table ---------------------------------------------------------

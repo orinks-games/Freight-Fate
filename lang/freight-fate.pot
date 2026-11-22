@@ -17964,6 +17964,17 @@ msgid ""
 "board_gate {key}"
 msgstr ""
 
+#. placeholders: {phone}, {key}, {key2}, {else}, {else2}
+#: crates/freight-fate/src/app.rs
+msgid ""
+"phone {phone}; device {key}; last_used {key2}; keyboard {else}; controller "
+"{else2}"
+msgstr ""
+
+#: crates/freight-fate/src/app.rs
+msgid "connected"
+msgstr ""
+
 #: crates/freight-fate/src/app.rs crates/freight-fate/src/states/driving/lifecycle.rs crates/freight-fate/src/states/driving_menu_states/status.rs crates/freight-fate/src/states/driving_updates/frame.rs
 msgid "automatic"
 msgstr ""
