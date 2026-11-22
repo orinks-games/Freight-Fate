@@ -5758,7 +5758,7 @@ a carrier slice (owner, 2026-10-26).
       Prince George is retired for its chain through Hope and the Cariboo;
       saves on it resume on the chain. Hanna is a fuel town on Highways 9
       and 7. Report: `career-2.0-alpha/corridor-west-report.md`.
-- [ ] (Found along the way) West stops are thin on ten long legs (Kamloops
+- [ ] (Found along the way) West stops are thin on nine long links (Kamloops
       to Valemount, the Yellowhead east of Saskatoon, Regina to Brandon and
       Saskatoon, Calgary and Cranbrook to Golden, Lethbridge to Cranbrook,
       Grande Prairie to Whitecourt): town stations have no reading of
