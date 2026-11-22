@@ -19,6 +19,7 @@
 - **Kilometers now reach fuel, weights and signs.** Fuel is in liters, loads in tonnes, weights in kilograms and low bridges in meters.
 - **The cruise dial steps in the units you hear.** In kilometers it walks 95, 100, 105.
 - **Seventeen new achievements.** Earn them in Alaska, on the Alaska Highway, at customs, on a restart, with a carrier, hauling cattle and at the Laredo yards.
+- **Nine new achievements in Canada.** Earn them in Alberta, Saskatoon, Sudbury, Nova Scotia and Quebec, on both coasts and in every province.
 - **Live cattle are a new freight class from level 5.** Haul feeder calves from sale barns to feed yards, and fed cattle to beef plants, on a livestock trailer.
 - **Cattle react to hard braking and sharp turns.** Too much and they lose their footing or go down. Stop and choose Check the cattle to get one up.
 - **Cattle loads must arrive within the 28-hour limit.** You hear when 2 hours, 1 hour and 30 minutes are left, and the receiver names the shrink.

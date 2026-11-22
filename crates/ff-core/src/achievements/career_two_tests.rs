@@ -38,9 +38,13 @@ fn delivery<'a>(route: &'a Route, season: &'a str) -> DriveEnd<'a> {
     DriveEnd {
         route,
         destination: route.cities.last().map(String::as_str).unwrap_or(""),
+        origin: route.cities.first().map(String::as_str).unwrap_or(""),
         bobtail: false,
         team: false,
         season,
+        month: "June",
+        local_weekday: "Wednesday",
+        local_hour: 12.0,
         spring_weight_limit: false,
         border_yard_drop: false,
         cattle: None,
@@ -73,6 +77,15 @@ fn every_new_badge_is_in_the_catalog() {
         "cattle_load",
         "cattle_ten",
         "laredo_transfer",
+        "canada_delivery",
+        "alberta_delivery",
+        "saskatoon_delivery",
+        "sudbury_saturday",
+        "nova_scotia_out",
+        "quebec_winter",
+        "superior_november",
+        "both_coasts_canada",
+        "every_province",
     ] {
         assert!(achievement_by_id(id).is_some(), "{id}");
     }
@@ -319,4 +332,195 @@ fn a_restart_takes_thirty_four_hours_off_in_a_row() {
     // Any time on duty starts the count over.
     clock.on_duty(15.0);
     assert!(!clock.restart_complete());
+}
+
+// -- Wave 2: Canada ---------------------------------------------------------
+
+#[test]
+fn a_load_into_windsor_is_across_the_border() {
+    let r = route("detroit_mi_us", "windsor_on_ca");
+    assert!(earned(&delivery(&r, "summer")).contains(&"canada_delivery"));
+    // The way back is a US delivery.
+    let back = route("windsor_on_ca", "detroit_mi_us");
+    assert!(!earned(&delivery(&back, "summer")).contains(&"canada_delivery"));
+    // An empty run delivers nothing.
+    let mut bobtail = delivery(&r, "summer");
+    bobtail.bobtail = true;
+    assert!(!earned(&bobtail).contains(&"canada_delivery"));
+}
+
+#[test]
+fn alberta_and_saskatoon_follow_the_destination() {
+    let calgary = route("regina_sk_ca", "calgary_ab_ca");
+    let ids = earned(&delivery(&calgary, "summer"));
+    assert!(ids.contains(&"alberta_delivery"));
+    assert!(!ids.contains(&"saskatoon_delivery"));
+    let saskatoon = route("regina_sk_ca", SASKATOON);
+    let ids = earned(&delivery(&saskatoon, "summer"));
+    assert!(ids.contains(&"saskatoon_delivery"));
+    assert!(!ids.contains(&"alberta_delivery"));
+}
+
+#[test]
+fn sudbury_counts_on_a_saturday_evening_only() {
+    let r = route("north_bay_on_ca", SUDBURY);
+    let at = |weekday: &'static str, hour: f64| {
+        let mut end = delivery(&r, "summer");
+        end.local_weekday = weekday;
+        end.local_hour = hour;
+        earned(&end).contains(&"sudbury_saturday")
+    };
+    assert!(at("Saturday", 18.0));
+    assert!(at("Saturday", 23.9));
+    assert!(!at("Saturday", 17.9));
+    assert!(!at("Sunday", 0.5));
+    assert!(!at("Friday", 21.0));
+}
+
+#[test]
+fn a_load_out_of_nova_scotia_is_farewell() {
+    let out = route("halifax_ns_ca", "moncton_nb_ca");
+    assert!(earned(&delivery(&out, "summer")).contains(&"nova_scotia_out"));
+    // Into Nova Scotia is not out of it.
+    let into = route("moncton_nb_ca", "halifax_ns_ca");
+    assert!(!earned(&delivery(&into, "summer")).contains(&"nova_scotia_out"));
+}
+
+#[test]
+fn quebec_counts_in_winter_across_the_province() {
+    let r = route("ottawa_on_ca", "montreal_qc_ca");
+    assert!(earned(&delivery(&r, "winter")).contains(&"quebec_winter"));
+    assert!(!earned(&delivery(&r, "autumn")).contains(&"quebec_winter"));
+    let city = route("montreal_qc_ca", "quebec_city_qc_ca");
+    assert!(earned(&delivery(&city, "winter")).contains(&"quebec_winter"));
+}
+
+#[test]
+fn the_map_carries_the_whole_superior_shore() {
+    let all = superior_shore_pairs(get_world());
+    assert!(legs_join(&all, SUPERIOR_START, SUPERIOR_END), "{all:?}");
+    // The road east of the Sault is not the shore.
+    assert!(
+        !all.iter().any(|pair| pair.contains("sudbury_on_ca")),
+        "{all:?}"
+    );
+}
+
+#[test]
+fn the_superior_shore_counts_november_pieces_only() {
+    let world = get_world();
+    let mut profile = TestProfile::default();
+    // The Sault to Marathon in November, empty.
+    let east = route(SUPERIOR_START, "marathon_on_ca");
+    let mut end = delivery(&east, "autumn");
+    end.month = "November";
+    end.bobtail = true;
+    assert!(!drive_end_badges(&mut profile, world, &end).contains(&"superior_november"));
+    // Thunder Bay to Marathon in October does not finish it.
+    let west = route(SUPERIOR_END, "marathon_on_ca");
+    let mut end = delivery(&west, "autumn");
+    end.month = "October";
+    assert!(!drive_end_badges(&mut profile, world, &end).contains(&"superior_november"));
+    // A team load in November does not either.
+    end.month = "November";
+    end.team = true;
+    assert!(!drive_end_badges(&mut profile, world, &end).contains(&"superior_november"));
+    // The same run driven alone in November does, either way round.
+    end.team = false;
+    assert!(
+        drive_end_badges(&mut profile, world, &end).contains(&"superior_november"),
+        "{:?}",
+        profile.achievement_stats
+    );
+}
+
+#[test]
+fn northwest_passage_takes_both_coasts() {
+    let world = get_world();
+    let mut profile = TestProfile::default();
+    let pacific = route("kamloops_bc_ca", "surrey_bc_ca");
+    let ids = drive_end_badges(&mut profile, world, &delivery(&pacific, "summer"));
+    assert!(!ids.contains(&"both_coasts_canada"));
+    // The prairies are neither coast.
+    let prairie = route("regina_sk_ca", "calgary_ab_ca");
+    let ids = drive_end_badges(&mut profile, world, &delivery(&prairie, "summer"));
+    assert!(!ids.contains(&"both_coasts_canada"));
+    let atlantic = route("moncton_nb_ca", "halifax_ns_ca");
+    let ids = drive_end_badges(&mut profile, world, &delivery(&atlantic, "summer"));
+    assert!(ids.contains(&"both_coasts_canada"));
+}
+
+#[test]
+fn this_land_takes_every_province_with_freight() {
+    let world = get_world();
+    let provinces = provinces_with_freight(world);
+    for province in ["AB", "BC", "MB", "NB", "NS", "ON", "PE", "QC", "SK"] {
+        assert!(provinces.contains(province), "{province}: {provinces:?}");
+    }
+    assert!(!provinces.contains("YT"));
+    // One freight city in each province, delivered to in turn.
+    let mut profile = TestProfile::default();
+    let mut cities: Vec<&str> = provinces
+        .iter()
+        .filter_map(|province| {
+            world
+                .cities
+                .values()
+                .find(|c| c.country == "CA" && &c.state_code == province && !c.no_freight)
+        })
+        .map(|c| c.key.as_str())
+        .collect();
+    let last = cities.pop().expect("at least one province");
+    // The road does not matter to this achievement, only where it ends.
+    let r = route("detroit_mi_us", "windsor_on_ca");
+    for city in cities {
+        let mut end = delivery(&r, "summer");
+        end.destination = city;
+        assert!(!drive_end_badges(&mut profile, world, &end).contains(&"every_province"));
+    }
+    let mut end = delivery(&r, "summer");
+    end.destination = last;
+    assert!(drive_end_badges(&mut profile, world, &end).contains(&"every_province"));
+}
+
+#[test]
+fn the_alaska_highway_joins_across_the_haines_junction_and_north_pole_splits() {
+    let world = get_world();
+    let all = alaska_highway_pairs(world);
+    for split in [
+        ("whitehorse_yt_ca", "haines_junction_yt_ca"),
+        ("haines_junction_yt_ca", "tok_ak_us"),
+    ] {
+        assert!(
+            all.contains(&leg_pair(split.0, split.1)),
+            "{split:?}: {all:?}"
+        );
+    }
+    // The North Pole split is the Richardson Highway, past the road's end at
+    // Delta Junction: Fairbanks to Tok still drives only the last Alaska
+    // Highway leg.
+    let mut profile = TestProfile::default();
+    let fairbanks = route(FAIRBANKS, "tok_ak_us");
+    assert!(fairbanks.cities.iter().any(|c| c == "north_pole_ak_us"));
+    drive_end_badges(&mut profile, world, &delivery(&fairbanks, "summer"));
+    assert_eq!(
+        list_stat(&mut profile, ALASKA_HIGHWAY_STAT),
+        vec![leg_pair("tok_ak_us", ALASKA_HIGHWAY_END)]
+    );
+    // Drive the rest of the road from Dawson Creek by the Haines Junction
+    // split legs.
+    let mut ids = Vec::new();
+    for (from, to) in [
+        (ALASKA_HIGHWAY_START, "whitehorse_yt_ca"),
+        ("whitehorse_yt_ca", "haines_junction_yt_ca"),
+        ("haines_junction_yt_ca", "tok_ak_us"),
+    ] {
+        let r = route(from, to);
+        ids = drive_end_badges(&mut profile, world, &delivery(&r, "summer"));
+    }
+    assert!(
+        ids.contains(&"alaska_highway_whole"),
+        "{:?}",
+        profile.achievement_stats
+    );
 }
