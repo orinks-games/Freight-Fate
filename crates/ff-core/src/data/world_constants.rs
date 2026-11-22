@@ -50,6 +50,12 @@ pub const VEHICLE_ACCESS_LEVELS: &[&str] = &["tractor_trailer", "bobtail_only", 
 
 pub const DEFAULT_VEHICLE_ACCESS: &str = "tractor_trailer";
 
+/// How a stop's `vehicle_access` was decided, when its source says: `read`
+/// (a source says trucks are served there) or `assumed` (no source says
+/// either way, and the `source` note gives the reason). Empty means the
+/// record does not say, and the load-time screen judges it.
+pub const VEHICLE_ACCESS_BASES: &[&str] = &["", "read", "assumed"];
+
 /// Whether a stop with this access level is usable by the current rig.
 ///
 /// One rule, shared by the world data model and the runtime road stop, so
@@ -117,7 +123,9 @@ pub const TRUCK_STOP_NAME_WORDS: &[&str] = &[
 /// services, no truck-stop chain at the head of its name and no truck word
 /// in it is read as `bobtail_only`, which is what the same tool gave the
 /// stations it did recognise as generic. Everything else is returned as
-/// recorded, explicit values included.
+/// recorded, explicit values included, and so is a record that says how its
+/// access was decided (`access_basis`): a curated `assumed` carries its
+/// reason in `source`, so it is a labelled fill, not the silent default.
 pub fn screened_vehicle_access<'a>(
     name: &str,
     stop_type: &str,
@@ -125,8 +133,9 @@ pub fn screened_vehicle_access<'a>(
     parking_spaces: i64,
     services: &[String],
     vehicle_access: &'a str,
+    access_basis: &str,
 ) -> &'a str {
-    if vehicle_access != DEFAULT_VEHICLE_ACCESS {
+    if vehicle_access != DEFAULT_VEHICLE_ACCESS || !access_basis.is_empty() {
         return vehicle_access;
     }
     if !matches!(
@@ -173,7 +182,37 @@ mod screen_tests {
             spaces,
             &services,
             DEFAULT_VEHICLE_ACCESS,
+            "",
         )
+    }
+
+    #[test]
+    fn a_stated_access_basis_is_kept() {
+        let services = vec!["diesel".to_string()];
+        for basis in ["read", "assumed"] {
+            assert_eq!(
+                screened_vehicle_access(
+                    "Toad River Lodge",
+                    "travel_center",
+                    "limited",
+                    0,
+                    &services,
+                    DEFAULT_VEHICLE_ACCESS,
+                    basis,
+                ),
+                DEFAULT_VEHICLE_ACCESS
+            );
+        }
+        assert_eq!(
+            screen(
+                "Toad River Lodge",
+                "travel_center",
+                "limited",
+                0,
+                &["diesel"]
+            ),
+            "bobtail_only"
+        );
     }
 
     #[test]
@@ -277,12 +316,21 @@ mod screen_tests {
                 "limited",
                 0,
                 &services,
-                "bobtail_only"
+                "bobtail_only",
+                ""
             ),
             "bobtail_only"
         );
         assert_eq!(
-            screened_vehicle_access("Circle K", "fuel_station", "limited", 0, &services, "none"),
+            screened_vehicle_access(
+                "Circle K",
+                "fuel_station",
+                "limited",
+                0,
+                &services,
+                "none",
+                ""
+            ),
             "none"
         );
     }

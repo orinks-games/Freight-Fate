@@ -594,18 +594,23 @@ only when it is open year round. Give a seasonal or unconfirmed stop a
 and prints it. Many Alaska Highway lodges close in winter or have closed
 for good; never place one on an old guidebook's word.
 
-**Truck access must be read.** The game screens a fuel stop whose
-parking is not confirmed and whose name carries no truck word (truck,
-travel, plaza, cardlock and the like) to bobtail only, because an assumed
-`tractor_trailer` is not a reading. A lodge with no source for truck
-parking is still placed, but a tractor-trailer is not offered it. Find
-the reading (an operator page, a provincial list) before calling it a
-truck stop.
+**Truck access says how it was decided.** The game screens a fuel stop
+whose parking is not confirmed and whose name carries no truck word
+(truck, travel, plaza, cardlock and the like) to bobtail only, because a
+silent `tractor_trailer` is not a reading. A curated stop says which kind
+its access is with `vehicle_access_basis`: `read` when a source says
+trucks are served (an operator page, a provincial list, a truck stop
+directory), `assumed` when none says either way, with the reason in
+`source` (on a remote highway: its freight moves by tractor-trailer and
+these are its only diesel between the towns). The screen keeps a stated
+basis. `osm-stops` prints the read to assumed count and says so when most
+are assumed; the list keeps the count under `truck_access`. Look for the
+reading first.
 
 **A 10-hour break needs `sleep`.** Lodges and motels with fuel get
 `sleep` (`parking: "limited"`); a fuel-only station or a cardlock does
 not. A cardlock sells to account holders only; its `actions` are
-`fuel` alone.
+`fuel` alone, and its stop menu has no lot sleep and no motel.
 
 ### Time
 

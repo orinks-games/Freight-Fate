@@ -53,7 +53,8 @@
           ],
           "curation": "curated",
           "vehicle_access": "tractor_trailer",
-          "source": "Position and diesel read from OSM node 12173889431 (operator Liard Hot Springs Lodge, fuel:diesel=yes, opening_hours=08:00-20:00), OpenStreetMap planet extract 2026-11-16. Year round read from Public Services and Procurement Canada's Alaska Highway page (https://www.canada.ca/en/public-services-procurement/services/infrastructure-buildings/bridges-docks-dams/alaska-highway/information-motorists-trucking-traffic.html), which lists it for both summer and winter fuel as of July 2025. Tractor-trailer access is assumed for a highway fuel stop, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+          "vehicle_access_basis": "assumed",
+          "source": "Position and diesel read from OSM node 12173889431 (operator Liard Hot Springs Lodge, fuel:diesel=yes, opening_hours=08:00-20:00), OpenStreetMap planet extract 2026-11-16. Year round read from Public Services and Procurement Canada's Alaska Highway page (https://www.canada.ca/en/public-services-procurement/services/infrastructure-buildings/bridges-docks-dams/alaska-highway/information-motorists-trucking-traffic.html), which lists it for both summer and winter fuel as of July 2025. Tractor-trailer access is assumed, because no source found says either way: freight on this highway moves by tractor-trailer, and its few diesel stations between the towns are where those trucks fuel. Parking capacity is not claimed. Leg mile projected onto the leg's road.",
           "at_mi": 129.2
         },
         {
@@ -80,7 +81,8 @@
           ],
           "curation": "curated",
           "vehicle_access": "tractor_trailer",
-          "source": "Position and diesel read from OSM node 11380729463 (fuel:diesel=yes, opening_hours=07:00-23:00), OpenStreetMap planet extract 2026-11-16. Listed for winter fuel by Public Services and Procurement Canada's Alaska Highway page (as of July 2025). Year round read from the operator's pages: \"both gas stations are opened year-round\" (https://northernrockieslodge.squarespace.com/toadriver) and \"The hotel is open year round\" (https://northernrockieslodge.squarespace.com/hotelrooms). Tractor-trailer access is assumed for a highway fuel stop, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+          "vehicle_access_basis": "assumed",
+          "source": "Position and diesel read from OSM node 11380729463 (fuel:diesel=yes, opening_hours=07:00-23:00), OpenStreetMap planet extract 2026-11-16. Listed for winter fuel by Public Services and Procurement Canada's Alaska Highway page (as of July 2025). Year round read from the operator's pages: \"both gas stations are opened year-round\" (https://northernrockieslodge.squarespace.com/toadriver) and \"The hotel is open year round\" (https://northernrockieslodge.squarespace.com/hotelrooms). Tractor-trailer access is assumed, because no source found says either way: freight on this highway moves by tractor-trailer, and its few diesel stations between the towns are where those trucks fuel. Parking capacity is not claimed. Leg mile projected onto the leg's road.",
           "at_mi": 164.3
         },
         {
@@ -107,7 +109,8 @@
           ],
           "curation": "curated",
           "vehicle_access": "tractor_trailer",
-          "source": "Position and diesel read from OSM node 13978004858 (G&B Fuels, fuel:diesel=yes, opening_hours=06:30-21:00, beside node 4365600782 Toad River Lodge Gas), OpenStreetMap planet extract 2026-11-16. Year round read from the operator's page https://northernrockieslodge.squarespace.com/toadriver (\"both gas stations are opened year-round\") and from Public Services and Procurement Canada's Alaska Highway page (https://www.canada.ca/en/public-services-procurement/services/infrastructure-buildings/bridges-docks-dams/alaska-highway/information-motorists-trucking-traffic.html), which lists it for winter fuel as of July 2025. Tractor-trailer access is assumed for a highway fuel stop, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+          "vehicle_access_basis": "assumed",
+          "source": "Position and diesel read from OSM node 13978004858 (G&B Fuels, fuel:diesel=yes, opening_hours=06:30-21:00, beside node 4365600782 Toad River Lodge Gas), OpenStreetMap planet extract 2026-11-16. Year round read from the operator's page https://northernrockieslodge.squarespace.com/toadriver (\"both gas stations are opened year-round\") and from Public Services and Procurement Canada's Alaska Highway page (https://www.canada.ca/en/public-services-procurement/services/infrastructure-buildings/bridges-docks-dams/alaska-highway/information-motorists-trucking-traffic.html), which lists it for winter fuel as of July 2025. Tractor-trailer access is assumed, because no source found says either way: freight on this highway moves by tractor-trailer, and its few diesel stations between the towns are where those trucks fuel. Parking capacity is not claimed. Leg mile projected onto the leg's road.",
           "at_mi": 201.8
         }
       ],
@@ -3053,7 +3056,8 @@
           ],
           "curation": "curated",
           "vehicle_access": "tractor_trailer",
-          "source": "Position and diesel read from OSM node 12170922080 (G&B Fuels, fuel:diesel=yes, opening_hours=24/7), OpenStreetMap planet extract 2026-11-16. Year-round diesel in Watson Lake: read from the Government of Yukon fuel price survey, which prices diesel there in February 2025 (https://yukon.ca/sites/default/files/2025-02/fin-yukon-fuel-price-survey-february-2025_0.pdf), April 2026 and July 2026; the survey names no station, so which station is derived from the OSM tags. Tractor-trailer access is assumed for a highway fuel stop, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+          "vehicle_access_basis": "read",
+          "source": "Position and diesel read from OSM node 12170922080 (G&B Fuels, fuel:diesel=yes, opening_hours=24/7), OpenStreetMap planet extract 2026-11-16. Year-round diesel in Watson Lake: read from the Government of Yukon fuel price survey, which prices diesel there in February 2025 (https://yukon.ca/sites/default/files/2025-02/fin-yukon-fuel-price-survey-february-2025_0.pdf), April 2026 and July 2026; the survey names no station, so which station is derived from the OSM tags. Tractor-trailer access read from FindFuelStops' Yukon truck stop directory (https://www.findfuelstops.com/truck-stop-in-YT, read 2026-11-22), which lists it among the territory's truck fuel stops; parking capacity is not claimed. Leg mile projected onto the leg's road.",
           "at_mi": 0.4
         },
         {
@@ -3076,7 +3080,8 @@
           ],
           "curation": "curated",
           "vehicle_access": "tractor_trailer",
-          "source": "Position and diesel read from OSM way 531712261 (Fas Gas, fuel:diesel=yes, opening_hours=24/7), OpenStreetMap planet extract 2026-11-16. Open 24/7 read from OSM; the Yukon fuel price survey does not cover the junction, so year round is assumed. Tractor-trailer access is assumed for a highway fuel stop, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+          "vehicle_access_basis": "read",
+          "source": "Position and diesel read from OSM way 531712261 (Fas Gas, fuel:diesel=yes, opening_hours=24/7), OpenStreetMap planet extract 2026-11-16. Open 24/7 read from OSM; the Yukon fuel price survey does not cover the junction, so year round is assumed. Tractor-trailer access read from FindFuelStops' Yukon truck stop directory (https://www.findfuelstops.com/truck-stop-in-YT, read 2026-11-22), which lists it among the territory's truck fuel stops; parking capacity is not claimed. Leg mile projected onto the leg's road.",
           "at_mi": 13.6
         },
         {
@@ -3143,7 +3148,8 @@
           ],
           "curation": "curated",
           "vehicle_access": "tractor_trailer",
-          "source": "Position and diesel read from OSM node 9230876584 (fuel:diesel=yes, opening_hours=24/7, website yukonmotel.com), OpenStreetMap planet extract 2026-11-16. Year-round diesel in Teslin: read from the Government of Yukon fuel price survey, which prices diesel there in February 2025 (https://yukon.ca/sites/default/files/2025-02/fin-yukon-fuel-price-survey-february-2025_0.pdf), April 2026 and July 2026; the survey names no station, so which station is derived from the OSM tags. Tractor-trailer access is assumed for a highway fuel stop, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+          "vehicle_access_basis": "read",
+          "source": "Position and diesel read from OSM node 9230876584 (fuel:diesel=yes, opening_hours=24/7, website yukonmotel.com), OpenStreetMap planet extract 2026-11-16. Year-round diesel in Teslin: read from the Government of Yukon fuel price survey, which prices diesel there in February 2025 (https://yukon.ca/sites/default/files/2025-02/fin-yukon-fuel-price-survey-february-2025_0.pdf), April 2026 and July 2026; the survey names no station, so which station is derived from the OSM tags. Tractor-trailer access read from FindFuelStops' Yukon truck stop directory (https://www.findfuelstops.com/truck-stop-in-YT, read 2026-11-22), which lists it among the territory's truck fuel stops; parking capacity is not claimed. Leg mile projected onto the leg's road.",
           "at_mi": 161.8
         },
         {
@@ -3166,7 +3172,8 @@
           ],
           "curation": "curated",
           "vehicle_access": "tractor_trailer",
-          "source": "Position and diesel read from OSM way 531709934 (fuel:diesel=yes, opening_hours=24/7, website nisutlintradingpost.ca), OpenStreetMap planet extract 2026-11-16. Year-round diesel in Teslin: read from the Government of Yukon fuel price survey, which prices diesel there in February 2025 (https://yukon.ca/sites/default/files/2025-02/fin-yukon-fuel-price-survey-february-2025_0.pdf), April 2026 and July 2026; the survey names no station, so which station is derived from the OSM tags. Tractor-trailer access is assumed for a highway fuel stop, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+          "vehicle_access_basis": "assumed",
+          "source": "Position and diesel read from OSM way 531709934 (fuel:diesel=yes, opening_hours=24/7, website nisutlintradingpost.ca), OpenStreetMap planet extract 2026-11-16. Year-round diesel in Teslin: read from the Government of Yukon fuel price survey, which prices diesel there in February 2025 (https://yukon.ca/sites/default/files/2025-02/fin-yukon-fuel-price-survey-february-2025_0.pdf), April 2026 and July 2026; the survey names no station, so which station is derived from the OSM tags. Tractor-trailer access is assumed, because no source found says either way: freight on this highway moves by tractor-trailer, and its few diesel stations between the towns are where those trucks fuel. Parking capacity is not claimed. Leg mile projected onto the leg's road.",
           "at_mi": 162.0
         },
         {
@@ -3189,7 +3196,8 @@
           ],
           "curation": "curated",
           "vehicle_access": "tractor_trailer",
-          "source": "Position and diesel read from OSM node 6396361434 (fuel:diesel=yes, website north60petro.ca fueling site North 60 Jake's Corner), OpenStreetMap planet extract 2026-11-16. Year-round diesel in Jake's Corner: read from the Government of Yukon fuel price survey, which prices diesel there in February 2025 (https://yukon.ca/sites/default/files/2025-02/fin-yukon-fuel-price-survey-february-2025_0.pdf), April 2026 and July 2026; the survey names no station, so which station is derived from the OSM tags. Tractor-trailer access is assumed for a highway fuel stop, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+          "vehicle_access_basis": "assumed",
+          "source": "Position and diesel read from OSM node 6396361434 (fuel:diesel=yes, website north60petro.ca fueling site North 60 Jake's Corner), OpenStreetMap planet extract 2026-11-16. Year-round diesel in Jake's Corner: read from the Government of Yukon fuel price survey, which prices diesel there in February 2025 (https://yukon.ca/sites/default/files/2025-02/fin-yukon-fuel-price-survey-february-2025_0.pdf), April 2026 and July 2026; the survey names no station, so which station is derived from the OSM tags. Tractor-trailer access is assumed, because no source found says either way: freight on this highway moves by tractor-trailer, and its few diesel stations between the towns are where those trucks fuel. Parking capacity is not claimed. Leg mile projected onto the leg's road.",
           "at_mi": 222.1
         }
       ],
@@ -6342,7 +6350,8 @@
           ],
           "curation": "curated",
           "vehicle_access": "tractor_trailer",
-          "source": "Position and diesel read from OSM way 507396026 (fuel:diesel=yes, opening_hours=24/7), OpenStreetMap planet extract 2026-11-16. Year-round diesel in Haines Junction: read from the Government of Yukon fuel price survey, which prices diesel there in February 2025 (https://yukon.ca/sites/default/files/2025-02/fin-yukon-fuel-price-survey-february-2025_0.pdf), April 2026 and July 2026; the survey names no station, so which station is derived from the OSM tags. Tractor-trailer access is assumed for a highway fuel stop, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+          "vehicle_access_basis": "read",
+          "source": "Position and diesel read from OSM way 507396026 (fuel:diesel=yes, opening_hours=24/7), OpenStreetMap planet extract 2026-11-16. Year-round diesel in Haines Junction: read from the Government of Yukon fuel price survey, which prices diesel there in February 2025 (https://yukon.ca/sites/default/files/2025-02/fin-yukon-fuel-price-survey-february-2025_0.pdf), April 2026 and July 2026; the survey names no station, so which station is derived from the OSM tags. Tractor-trailer access read from FindFuelStops' Yukon truck stop directory (https://www.findfuelstops.com/truck-stop-in-YT, read 2026-11-22), which lists it among the territory's truck fuel stops; parking capacity is not claimed. Leg mile projected onto the leg's road.",
           "at_mi": 97.1
         },
         {
@@ -6365,7 +6374,8 @@
           ],
           "curation": "curated",
           "vehicle_access": "tractor_trailer",
-          "source": "Position and diesel read from OSM way 376013233 (Fas Gas, fuel:diesel=yes, opening_hours=07:00-23:00), OpenStreetMap planet extract 2026-11-16. Year-round diesel in Destruction Bay: read from the Government of Yukon fuel price survey, which prices diesel there in February 2025 (https://yukon.ca/sites/default/files/2025-02/fin-yukon-fuel-price-survey-february-2025_0.pdf), April 2026 and July 2026; the survey names no station, so which station is derived from the OSM tags. Tractor-trailer access is assumed for a highway fuel stop, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+          "vehicle_access_basis": "assumed",
+          "source": "Position and diesel read from OSM way 376013233 (Fas Gas, fuel:diesel=yes, opening_hours=07:00-23:00), OpenStreetMap planet extract 2026-11-16. Year-round diesel in Destruction Bay: read from the Government of Yukon fuel price survey, which prices diesel there in February 2025 (https://yukon.ca/sites/default/files/2025-02/fin-yukon-fuel-price-survey-february-2025_0.pdf), April 2026 and July 2026; the survey names no station, so which station is derived from the OSM tags. Tractor-trailer access is assumed, because no source found says either way: freight on this highway moves by tractor-trailer, and its few diesel stations between the towns are where those trucks fuel. Parking capacity is not claimed. Leg mile projected onto the leg's road.",
           "at_mi": 162.0
         },
         {
@@ -6388,7 +6398,8 @@
           ],
           "curation": "curated",
           "vehicle_access": "tractor_trailer",
-          "source": "Position and diesel read from OSM node 12007478131 (fuel:diesel=yes, opening_hours=24/7), OpenStreetMap planet extract 2026-11-16. Year-round diesel in Burwash Landing: read from the Government of Yukon fuel price survey, which prices diesel there in February 2025 (https://yukon.ca/sites/default/files/2025-02/fin-yukon-fuel-price-survey-february-2025_0.pdf), April 2026 and July 2026; the survey names no station, so which station is derived from the OSM tags. Tractor-trailer access is assumed for a highway fuel stop, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+          "vehicle_access_basis": "assumed",
+          "source": "Position and diesel read from OSM node 12007478131 (fuel:diesel=yes, opening_hours=24/7), OpenStreetMap planet extract 2026-11-16. Year-round diesel in Burwash Landing: read from the Government of Yukon fuel price survey, which prices diesel there in February 2025 (https://yukon.ca/sites/default/files/2025-02/fin-yukon-fuel-price-survey-february-2025_0.pdf), April 2026 and July 2026; the survey names no station, so which station is derived from the OSM tags. Tractor-trailer access is assumed, because no source found says either way: freight on this highway moves by tractor-trailer, and its few diesel stations between the towns are where those trucks fuel. Parking capacity is not claimed. Leg mile projected onto the leg's road.",
           "at_mi": 172.0
         },
         {
@@ -6411,7 +6422,8 @@
           ],
           "curation": "curated",
           "vehicle_access": "tractor_trailer",
-          "source": "Position and diesel read from OSM node 12010033873 (Fas Gas, fuel:diesel=yes), OpenStreetMap planet extract 2026-11-16. Year-round diesel in Beaver Creek: read from the Government of Yukon fuel price survey, which prices diesel there in February 2025 (https://yukon.ca/sites/default/files/2025-02/fin-yukon-fuel-price-survey-february-2025_0.pdf), April 2026 and July 2026; the survey names no station, so which station is derived from the OSM tags. Tractor-trailer access is assumed for a highway fuel stop, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+          "vehicle_access_basis": "assumed",
+          "source": "Position and diesel read from OSM node 12010033873 (Fas Gas, fuel:diesel=yes), OpenStreetMap planet extract 2026-11-16. Year-round diesel in Beaver Creek: read from the Government of Yukon fuel price survey, which prices diesel there in February 2025 (https://yukon.ca/sites/default/files/2025-02/fin-yukon-fuel-price-survey-february-2025_0.pdf), April 2026 and July 2026; the survey names no station, so which station is derived from the OSM tags. Tractor-trailer access is assumed, because no source found says either way: freight on this highway moves by tractor-trailer, and its few diesel stations between the towns are where those trucks fuel. Parking capacity is not claimed. Leg mile projected onto the leg's road.",
           "at_mi": 277.6
         },
         {
@@ -6434,7 +6446,8 @@
           ],
           "curation": "curated",
           "vehicle_access": "tractor_trailer",
-          "source": "Position and diesel read from OSM way 455287948 (fuel:diesel=yes, opening_hours=24/7), OpenStreetMap planet extract 2026-11-16. Open 24/7 read from OSM; year round is assumed. Tractor-trailer access is assumed for a highway fuel stop, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+          "vehicle_access_basis": "assumed",
+          "source": "Position and diesel read from OSM way 455287948 (fuel:diesel=yes, opening_hours=24/7), OpenStreetMap planet extract 2026-11-16. Open 24/7 read from OSM; year round is assumed. Tractor-trailer access is assumed, because no source found says either way: freight on this highway moves by tractor-trailer, and its few diesel stations between the towns are where those trucks fuel. Parking capacity is not claimed. Leg mile projected onto the leg's road.",
           "at_mi": 338.1
         }
       ],
@@ -9912,7 +9925,8 @@
           ],
           "curation": "curated",
           "vehicle_access": "tractor_trailer",
-          "source": "Position and diesel read from OSM node 6396361434 (fuel:diesel=yes, website north60petro.ca fueling site North 60 Jake's Corner), OpenStreetMap planet extract 2026-11-16. Year-round diesel in Jake's Corner: read from the Government of Yukon fuel price survey, which prices diesel there in February 2025 (https://yukon.ca/sites/default/files/2025-02/fin-yukon-fuel-price-survey-february-2025_0.pdf), April 2026 and July 2026; the survey names no station, so which station is derived from the OSM tags. Tractor-trailer access is assumed for a highway fuel stop, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+          "vehicle_access_basis": "assumed",
+          "source": "Position and diesel read from OSM node 6396361434 (fuel:diesel=yes, website north60petro.ca fueling site North 60 Jake's Corner), OpenStreetMap planet extract 2026-11-16. Year-round diesel in Jake's Corner: read from the Government of Yukon fuel price survey, which prices diesel there in February 2025 (https://yukon.ca/sites/default/files/2025-02/fin-yukon-fuel-price-survey-february-2025_0.pdf), April 2026 and July 2026; the survey names no station, so which station is derived from the OSM tags. Tractor-trailer access is assumed, because no source found says either way: freight on this highway moves by tractor-trailer, and its few diesel stations between the towns are where those trucks fuel. Parking capacity is not claimed. Leg mile projected onto the leg's road.",
           "at_mi": 50.9
         },
         {
@@ -9935,7 +9949,8 @@
           ],
           "curation": "curated",
           "vehicle_access": "tractor_trailer",
-          "source": "Position and diesel read from OSM way 531709934 (fuel:diesel=yes, opening_hours=24/7, website nisutlintradingpost.ca), OpenStreetMap planet extract 2026-11-16. Year-round diesel in Teslin: read from the Government of Yukon fuel price survey, which prices diesel there in February 2025 (https://yukon.ca/sites/default/files/2025-02/fin-yukon-fuel-price-survey-february-2025_0.pdf), April 2026 and July 2026; the survey names no station, so which station is derived from the OSM tags. Tractor-trailer access is assumed for a highway fuel stop, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+          "vehicle_access_basis": "assumed",
+          "source": "Position and diesel read from OSM way 531709934 (fuel:diesel=yes, opening_hours=24/7, website nisutlintradingpost.ca), OpenStreetMap planet extract 2026-11-16. Year-round diesel in Teslin: read from the Government of Yukon fuel price survey, which prices diesel there in February 2025 (https://yukon.ca/sites/default/files/2025-02/fin-yukon-fuel-price-survey-february-2025_0.pdf), April 2026 and July 2026; the survey names no station, so which station is derived from the OSM tags. Tractor-trailer access is assumed, because no source found says either way: freight on this highway moves by tractor-trailer, and its few diesel stations between the towns are where those trucks fuel. Parking capacity is not claimed. Leg mile projected onto the leg's road.",
           "at_mi": 111.0
         },
         {
@@ -9962,7 +9977,8 @@
           ],
           "curation": "curated",
           "vehicle_access": "tractor_trailer",
-          "source": "Position and diesel read from OSM node 9230876584 (fuel:diesel=yes, opening_hours=24/7, website yukonmotel.com), OpenStreetMap planet extract 2026-11-16. Year-round diesel in Teslin: read from the Government of Yukon fuel price survey, which prices diesel there in February 2025 (https://yukon.ca/sites/default/files/2025-02/fin-yukon-fuel-price-survey-february-2025_0.pdf), April 2026 and July 2026; the survey names no station, so which station is derived from the OSM tags. Tractor-trailer access is assumed for a highway fuel stop, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+          "vehicle_access_basis": "read",
+          "source": "Position and diesel read from OSM node 9230876584 (fuel:diesel=yes, opening_hours=24/7, website yukonmotel.com), OpenStreetMap planet extract 2026-11-16. Year-round diesel in Teslin: read from the Government of Yukon fuel price survey, which prices diesel there in February 2025 (https://yukon.ca/sites/default/files/2025-02/fin-yukon-fuel-price-survey-february-2025_0.pdf), April 2026 and July 2026; the survey names no station, so which station is derived from the OSM tags. Tractor-trailer access read from FindFuelStops' Yukon truck stop directory (https://www.findfuelstops.com/truck-stop-in-YT, read 2026-11-22), which lists it among the territory's truck fuel stops; parking capacity is not claimed. Leg mile projected onto the leg's road.",
           "at_mi": 111.2
         },
         {
@@ -10025,7 +10041,8 @@
           ],
           "curation": "curated",
           "vehicle_access": "tractor_trailer",
-          "source": "Position and diesel read from OSM way 531712261 (Fas Gas, fuel:diesel=yes, opening_hours=24/7), OpenStreetMap planet extract 2026-11-16. Open 24/7 read from OSM; the Yukon fuel price survey does not cover the junction, so year round is assumed. Tractor-trailer access is assumed for a highway fuel stop, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+          "vehicle_access_basis": "read",
+          "source": "Position and diesel read from OSM way 531712261 (Fas Gas, fuel:diesel=yes, opening_hours=24/7), OpenStreetMap planet extract 2026-11-16. Open 24/7 read from OSM; the Yukon fuel price survey does not cover the junction, so year round is assumed. Tractor-trailer access read from FindFuelStops' Yukon truck stop directory (https://www.findfuelstops.com/truck-stop-in-YT, read 2026-11-22), which lists it among the territory's truck fuel stops; parking capacity is not claimed. Leg mile projected onto the leg's road.",
           "at_mi": 259.4
         },
         {
@@ -10048,7 +10065,8 @@
           ],
           "curation": "curated",
           "vehicle_access": "tractor_trailer",
-          "source": "Position and diesel read from OSM node 12170922080 (G&B Fuels, fuel:diesel=yes, opening_hours=24/7), OpenStreetMap planet extract 2026-11-16. Year-round diesel in Watson Lake: read from the Government of Yukon fuel price survey, which prices diesel there in February 2025 (https://yukon.ca/sites/default/files/2025-02/fin-yukon-fuel-price-survey-february-2025_0.pdf), April 2026 and July 2026; the survey names no station, so which station is derived from the OSM tags. Tractor-trailer access is assumed for a highway fuel stop, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+          "vehicle_access_basis": "read",
+          "source": "Position and diesel read from OSM node 12170922080 (G&B Fuels, fuel:diesel=yes, opening_hours=24/7), OpenStreetMap planet extract 2026-11-16. Year-round diesel in Watson Lake: read from the Government of Yukon fuel price survey, which prices diesel there in February 2025 (https://yukon.ca/sites/default/files/2025-02/fin-yukon-fuel-price-survey-february-2025_0.pdf), April 2026 and July 2026; the survey names no station, so which station is derived from the OSM tags. Tractor-trailer access read from FindFuelStops' Yukon truck stop directory (https://www.findfuelstops.com/truck-stop-in-YT, read 2026-11-22), which lists it among the territory's truck fuel stops; parking capacity is not claimed. Leg mile projected onto the leg's road.",
           "at_mi": 272.6
         }
       ],
