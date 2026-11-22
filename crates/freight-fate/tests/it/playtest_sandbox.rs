@@ -180,6 +180,32 @@ fn test_the_plain_sandbox_cannot_reach_any_orinks_site() {
     assert!(sandbox::OFFLINE_URL.ends_with(".invalid"));
 }
 
+/// Report a problem from a plain sandbox sends nothing. The relay's address
+/// already named the `.invalid` host, but the request still went out: in a
+/// cloud agent drive the proxy took the CONNECT and its 502 was read aloud
+/// (phone walk, 2026-11-21). The real sender now fails at once, offline. A
+/// test process has no network capability, so a send that reached for the
+/// wire would panic here rather than return.
+#[test]
+fn test_report_a_problem_from_the_sandbox_sends_nothing() {
+    use freight_fate::problem_reports::{self, RelaySender, Sender};
+    let _guard = sandbox_env();
+    let root = TempDir::new("ff-sandbox");
+    let source = fake_real_saves(root.path());
+    let sandbox = root.path().join("sandbox");
+
+    sandbox::prepare(&sandbox, false, true, &source).unwrap();
+
+    let endpoint = problem_reports::endpoint();
+    assert!(endpoint.starts_with(sandbox::OFFLINE_URL), "{endpoint}");
+    let open = format!("{endpoint}/open");
+    let sent = RelaySender.post(&open, b"{}");
+    assert!(sent.is_err(), "{sent:?}");
+    assert!(!freight_fate::net::refused_requests()
+        .iter()
+        .any(|request| request.contains(sandbox::OFFLINE_URL)));
+}
+
 #[test]
 fn test_the_seeded_settings_have_every_publishing_switch_off() {
     let _guard = sandbox_env();

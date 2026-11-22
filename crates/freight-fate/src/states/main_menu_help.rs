@@ -47,6 +47,7 @@ pub static HELP_PAGES: &[(&str, &[&str])] = &[
         "Menus and message review",
         &[
             "Up and Down choose an option. Enter or Space selects it. Escape goes back. Home and End jump to the first or last option.",
+            "Page Up and Page Down move ten options at a time.",
             "Type a letter to find an option starting with it. F1 explains the selected option.",
             "Comma repeats the latest message, then steps backward. Period moves forward. Control with either jumps to the oldest or newest message.",
             "The brackets choose all, general, or driving messages. Control C copies the selected message. Control Shift C copies the last thing the game said. Review keys type normally inside text fields.",
@@ -612,6 +613,23 @@ mod tests {
                 "no manual line reads: {desktop}"
             );
         }
+    }
+
+    /// The ten-option jump is said once on each page that teaches menus: the
+    /// Page keys on the desktop page, the three-finger flick on the touch
+    /// page, which replaces the desktop page whole.
+    #[test]
+    fn the_ten_option_jump_is_taught_once() {
+        let desktop = HELP_PAGES
+            .iter()
+            .find(|(title, _)| *title == "Menus and message review")
+            .map(|(_, lines)| *lines)
+            .expect("the menus page");
+        let page_keys = "Page Up and Page Down move ten options at a time.";
+        assert_eq!(desktop.iter().filter(|line| **line == page_keys).count(), 1);
+        let (_, touch) = touch_page("Menus and message review").expect("the touch menus page");
+        let flick = "Flick left or right with three fingers to move ten options back or forward.";
+        assert_eq!(touch.iter().filter(|line| **line == flick).count(), 1);
     }
 
     /// A touch page keyed on a title the manual no longer has would quietly
