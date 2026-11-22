@@ -535,7 +535,9 @@ Alaska roads; no boards at all in Maine, Vermont, Alaska, Alberta, Prince
 Edward Island, the Northwest Territories or parks the road crosses, so in
 Alberta places are named plainly as you pass; only boards for places to
 visit in the Yukon, New Brunswick and Nova Scotia; holiday boards by
-country, Canada Day and October's Thanksgiving only in Canada.
+country, Canada Day and October's Thanksgiving only in Canada. Between
+Barrie and North Bay, listen for "Passing Bethune Memorial House, in
+Gravenhurst." in place of the town's own name.
 
 Pass when: a board names a real place you are near, none plays where
 boards are banned, and a US holiday board never plays in Canada.
