@@ -81,10 +81,10 @@ impl Menu for SettingsState {
             // AG Now updates the game itself, so the update channel and the
             // manual check have nothing to do there either.
             .filter(|(_, key)| *key != "updates" || crate::updater::self_updates())
-            .map(|(label, key)| {
-                MenuItem::new(*label, move |s: &mut Self, ctx| s.open(ctx, key))
-                    .help(format!("Open {} settings.", label.to_lowercase()))
-            })
+            // No row help: the help key reads a row without one back, and
+            // "Open gameplay settings." said no more than that (phone walk
+            // S10).
+            .map(|(label, key)| MenuItem::new(*label, move |s: &mut Self, ctx| s.open(ctx, key)))
             .collect();
         items.push(MenuItem::new("Back", |s: &mut Self, ctx| s.go_back(ctx)));
         items
@@ -93,11 +93,10 @@ impl Menu for SettingsState {
     fn go_back(&mut self, ctx: &mut GameContext) {
         save_settings(&ctx.settings);
         ctx.audio.play("ui/menu_back");
-        // Popping first lets the revealed menu's own entry announcement play,
-        // then "Settings saved." interrupts and wins -- said after the pop,
-        // not before it, so it is not the one left cancelled by the other.
-        ctx.pop_state();
-        ctx.say("Settings saved.");
+        // The result first, then the revealed menu's own entry line queued
+        // behind it (phone walk S11: said after the pop, it landed once the
+        // row had been read).
+        ctx.say_result_then("Settings saved.", |ctx| ctx.pop_state());
     }
 }
 

@@ -900,10 +900,10 @@ fn test_exactly_one_driving_assistance_preset_selector() {
 }
 
 #[test]
-fn test_settings_saved_is_heard_and_not_cancelled_by_the_main_menu_welcome() {
-    // Backing all the way out of Settings must not swallow "Settings saved.":
-    // it must be the last line spoken and the one that wins, not the one
-    // cut off.
+fn test_settings_saved_comes_first_then_the_main_menu_row() {
+    // Backing out of Settings says the result first and then where the
+    // player is, the row queued behind it: said after the pop, "Settings
+    // saved." landed once the row had already been read (phone walk S11).
     let mut app = TestApp::new();
     app.push_state(MainMenuState::new());
     select::<MainMenuState>(&mut app, "Settings");
@@ -912,12 +912,18 @@ fn test_settings_saved_is_heard_and_not_cancelled_by_the_main_menu_welcome() {
     key(&mut app, Key::Escape);
     let calls = app.main_calls();
     assert!(
-        !calls.is_empty(),
-        "nothing was spoken on the way out of Settings"
+        calls.len() >= 2,
+        "the result and the row on the way out of Settings: {calls:?}"
     );
-    let (text, interrupt) = calls.last().unwrap();
-    assert_eq!(text, "Settings saved.");
-    assert!(*interrupt);
+    assert_eq!(calls[0], ("Settings saved.".to_string(), true));
+    assert!(
+        calls[1..].iter().all(|(_, interrupt)| !interrupt),
+        "the revealed menu queues behind the result: {calls:?}"
+    );
+    assert!(
+        calls.last().unwrap().0.contains("Settings."),
+        "the row comes last: {calls:?}"
+    );
 }
 
 #[test]

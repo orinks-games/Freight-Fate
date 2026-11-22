@@ -13238,12 +13238,12 @@ msgid "Current grade {f} percent {direction}{terrain_text}"
 msgstr "Şu anki eğim yüzde {f} {direction}{terrain_text}"
 
 #. placeholders: {destination_label}
-msgid "Destination {destination_label} ahead."
-msgstr "İleride varış noktası: {destination_label}."
+msgid "Destination {destination_label}."
+msgstr "Varış noktası: {destination_label}."
 
 #. placeholders: {city}
-msgid "Destination {city} ahead."
-msgstr "İleride varış noktası: {city}."
+msgid "Destination {city}."
+msgstr "Varış noktası: {city}."
 
 #. placeholders: {ahead_text}, {text}
 msgid "Next stop in {ahead_text}: {text}."
@@ -14048,8 +14048,8 @@ msgid "an enforcement post {where_} in {distance}"
 msgstr "{distance} sonra {where_} bir denetim noktası"
 
 #. placeholders: {distance}, {text}
-msgid "Live road report, {distance} ahead: {text}"
-msgstr "Canlı yol raporu, {distance} ileride: {text}"
+msgid "Live road report, {distance}: {text}"
+msgstr "Canlı yol raporu, {distance} sonra: {text}"
 
 #. placeholders: {lanes}
 msgid "{lanes} affected."
@@ -23522,13 +23522,6 @@ msgstr "Motor çalışıyor. {instruction}"
 msgid "The engine will not start."
 msgstr "Motor çalışmıyor."
 
-msgid "Air ready."
-msgstr "Hava hazır."
-
-#. placeholders: {psi}
-msgid "Air {psi} psi."
-msgstr "Hava {psi} psi."
-
 msgid "Air ready. Swipe up and hold to drive."
 msgstr ""
 "Hava basıncı hazır. Hareket etmek için yukarı kaydırıp basılı tutun."
@@ -23579,6 +23572,13 @@ msgstr "Hava hazır. Sürmek için {control_hint} tuşunu basılı tutun."
 #. one sentence of a longer line
 msgid "Hold {control_hint} to drive."
 msgstr "Sürmek için {control_hint} tuşunu basılı tutun."
+
+msgid "Air ready."
+msgstr "Hava hazır."
+
+#. placeholders: {psi}
+msgid "Air {psi} psi."
+msgstr "Hava {psi} psi."
 
 msgid "Parking brake released."
 msgstr "Park freni indirildi."
@@ -23669,17 +23669,173 @@ msgstr "listelenen hizmetler: {join_phrase}"
 msgid "services not listed"
 msgstr "hizmetler listelenmemiş"
 
-msgid "Your first run. Turn two fingers right to start the engine."
-msgstr ""
-"İlk seferiniz. Motoru çalıştırmak için iki parmağınızı sağa çevirin."
-
+#. placeholders: {display_name}
 #. one sentence of a longer line
-msgid "Your first run."
-msgstr "İlk seferiniz."
+msgid ""
+"{display_name} needs yt-dlp for its YouTube links, and it is not installed."
+msgstr ""
+"{display_name} istasyonunun YouTube bağlantıları yt-dlp gerektiriyor, ancak "
+"kurulu değil."
 
-#. placeholders: {control_hint}
-msgid "Your first run. Press {control_hint} to start the engine."
-msgstr "İlk seferiniz. Motoru çalıştırmak için {control_hint} tuşuna basın."
+#. placeholders: {display_name}
+msgid ""
+"{display_name} needs yt-dlp for its YouTube links, and it is not installed. "
+"It is off the dial for the rest of this session."
+msgstr ""
+"{display_name} istasyonunun YouTube bağlantıları yt-dlp gerektiriyor, ancak "
+"kurulu değil. Bu oturumun sonuna kadar radyoda bu istasyon yok."
+
+msgid "station has no stream URL"
+msgstr "istasyonun yayın adresi yok"
+
+msgid "external stream playback failed"
+msgstr "harici yayın çalınamadı"
+
+msgid ""
+"Engine off while parked, no fuel burned. Start it again before pulling out."
+msgstr ""
+"Park halinde motor kapalı, yakıt yanmıyor. Yola çıkmadan önce yeniden "
+"çalıştırın."
+
+msgid "Starts the engine. The parking brake releases at 100 psi."
+msgstr "Motoru çalıştırır. Park freni 100 psi'de iner."
+
+msgid "Stop before touching the engine."
+msgstr "Motora dokunmadan önce durun."
+
+#. placeholders: {psi}
+msgid "Engine running. Air pressure {psi} psi."
+msgstr "Motor çalışıyor. Hava basıncı {psi} psi."
+
+msgid "open road"
+msgstr "açık yol"
+
+msgid "school"
+msgstr "okul"
+
+msgid "lights"
+msgstr "ışıklar"
+
+msgid "Shut down the engine"
+msgstr "Motoru kapat"
+
+msgid "Start the engine"
+msgstr "Motoru çalıştır"
+
+msgid "save point"
+msgstr "kayıt noktası"
+
+msgid "food and coffee"
+msgstr "yemek ve kahve"
+
+msgid "30-minute rest break"
+msgstr "30 dakikalık dinlenme molası"
+
+msgid "sleep or long rest"
+msgstr "uyku ya da uzun dinlenme"
+
+msgid "repairs"
+msgstr "onarım"
+
+msgid "roadside assistance"
+msgstr "yol yardımı"
+
+msgid "inspection check-in"
+msgstr "denetim kaydı"
+
+msgid "diesel"
+msgstr "mazot"
+
+msgid "restrooms"
+msgstr "tuvaletler"
+
+msgid "CAT Scale"
+msgstr "CAT Scale"
+
+msgid "scale"
+msgstr "kantar"
+
+msgid "You shut down the engine. "
+msgstr "Motoru kapattınız. "
+
+#. placeholders: {psi}
+msgid " Air {psi} psi."
+msgstr " Hava {psi} psi."
+
+#. placeholders: {psi}
+msgid " Engine off, air {psi} psi."
+msgstr " Motor kapalı, hava {psi} psi."
+
+#. placeholders: {remaining}, {deadline_appointment}
+msgid "{remaining} hours left to deliver, by {deadline_appointment}."
+msgstr "Teslime {remaining} saat kaldı, son saat {deadline_appointment}."
+
+#. placeholders: {remaining}
+msgid "You are now {remaining} hours past the deadline."
+msgstr "Teslim süresini {remaining} saat geçtiniz."
+
+#. placeholders: {wake_air_instruction}
+#. one sentence of a longer line
+msgid ""
+"Driving and duty clocks reset, but you are still "
+"tired.{wake_air_instruction}"
+msgstr ""
+"Sürüş ve görev saatleri sıfırlandı, ama hâlâ "
+"yorgunsunuz.{wake_air_instruction}"
+
+#. placeholders: {engine_off}
+#. one sentence of a longer line
+msgid ""
+"{engine_off}You sleep poorly at the chain control, woken again and again by "
+"passing trucks."
+msgstr ""
+"{engine_off}Denetim noktasının alanında kötü uyudunuz, geçen tırlar sizi "
+"tekrar tekrar uyandırdı."
+
+#. placeholders: {engine_off}, {clock_text}, {wake_air_instruction}
+msgid ""
+"{engine_off}You sleep poorly at the chain control, woken again and again by "
+"passing trucks. It is {clock_text}. Driving and duty clocks reset, but you "
+"are still tired.{wake_air_instruction}"
+msgstr ""
+"{engine_off}Denetim noktasının alanında kötü uyudunuz, geçen tırlar sizi "
+"tekrar tekrar uyandırdı. Saat {clock_text}. Sürüş ve görev saatleri "
+"sıfırlandı, ama hâlâ yorgunsunuz.{wake_air_instruction}"
+
+#. placeholders: {engine_off}
+#. one sentence of a longer line
+msgid ""
+"{engine_off}You sleep poorly on the shoulder, woken again and again by "
+"passing trucks."
+msgstr ""
+"{engine_off}Emniyet şeridinde kötü uyudunuz, geçen tırlar sizi tekrar "
+"tekrar uyandırdı."
+
+#. placeholders: {engine_off}, {clock_text}, {wake_air_instruction}
+msgid ""
+"{engine_off}You sleep poorly on the shoulder, woken again and again by "
+"passing trucks. It is {clock_text}. Driving and duty clocks reset, but you "
+"are still tired.{wake_air_instruction}"
+msgstr ""
+"{engine_off}Emniyet şeridinde kötü uyudunuz, geçen tırlar sizi tekrar "
+"tekrar uyandırdı. Saat {clock_text}. Sürüş ve görev saatleri sıfırlandı, "
+"ama hâlâ yorgunsunuz.{wake_air_instruction}"
+
+#. placeholders: {grouped}, {construction_zone_fine_clause}, {grouped2}
+msgid ""
+"A trooper ticketed you for illegal parking, {grouped} "
+"dollars.{construction_zone_fine_clause} You have {grouped2} dollars."
+msgstr ""
+"Bir trafik polisi yasak yere park için size {grouped} dolar ceza "
+"yazdı.{construction_zone_fine_clause} {grouped2} dolarınız var."
+
+#. placeholders: {SHOULDER_DAMAGE_PCT}
+msgid ""
+"Roadside debris and wake turbulence added {SHOULDER_DAMAGE_PCT} percent "
+"truck damage."
+msgstr ""
+"Yol kenarındaki döküntüler ve geçen araçların hava akımı tıra yüzde "
+"{SHOULDER_DAMAGE_PCT} hasar verdi."
 
 msgid ""
 "At air ready, swipe up and hold to release the parking brake, then flick up "
@@ -23851,173 +24007,17 @@ msgstr ""
 "Hatırlatma: {control_hint} tuşunu basılı tutun, {control_hint2} seçin, "
 "sonra debriyajı bırakın."
 
-#. placeholders: {display_name}
+msgid "Your first run. Turn two fingers right to start the engine."
+msgstr ""
+"İlk seferiniz. Motoru çalıştırmak için iki parmağınızı sağa çevirin."
+
 #. one sentence of a longer line
-msgid ""
-"{display_name} needs yt-dlp for its YouTube links, and it is not installed."
-msgstr ""
-"{display_name} istasyonunun YouTube bağlantıları yt-dlp gerektiriyor, ancak "
-"kurulu değil."
+msgid "Your first run."
+msgstr "İlk seferiniz."
 
-#. placeholders: {display_name}
-msgid ""
-"{display_name} needs yt-dlp for its YouTube links, and it is not installed. "
-"It is off the dial for the rest of this session."
-msgstr ""
-"{display_name} istasyonunun YouTube bağlantıları yt-dlp gerektiriyor, ancak "
-"kurulu değil. Bu oturumun sonuna kadar radyoda bu istasyon yok."
-
-msgid "station has no stream URL"
-msgstr "istasyonun yayın adresi yok"
-
-msgid "external stream playback failed"
-msgstr "harici yayın çalınamadı"
-
-msgid ""
-"Engine off while parked, no fuel burned. Start it again before pulling out."
-msgstr ""
-"Park halinde motor kapalı, yakıt yanmıyor. Yola çıkmadan önce yeniden "
-"çalıştırın."
-
-msgid "Starts the engine. The parking brake releases at 100 psi."
-msgstr "Motoru çalıştırır. Park freni 100 psi'de iner."
-
-msgid "Stop before touching the engine."
-msgstr "Motora dokunmadan önce durun."
-
-#. placeholders: {psi}
-msgid "Engine running. Air pressure {psi} psi."
-msgstr "Motor çalışıyor. Hava basıncı {psi} psi."
-
-msgid "open road"
-msgstr "açık yol"
-
-msgid "school"
-msgstr "okul"
-
-msgid "lights"
-msgstr "ışıklar"
-
-msgid "Shut down the engine"
-msgstr "Motoru kapat"
-
-msgid "Start the engine"
-msgstr "Motoru çalıştır"
-
-msgid "save point"
-msgstr "kayıt noktası"
-
-msgid "food and coffee"
-msgstr "yemek ve kahve"
-
-msgid "30-minute rest break"
-msgstr "30 dakikalık dinlenme molası"
-
-msgid "sleep or long rest"
-msgstr "uyku ya da uzun dinlenme"
-
-msgid "repairs"
-msgstr "onarım"
-
-msgid "roadside assistance"
-msgstr "yol yardımı"
-
-msgid "inspection check-in"
-msgstr "denetim kaydı"
-
-msgid "diesel"
-msgstr "mazot"
-
-msgid "restrooms"
-msgstr "tuvaletler"
-
-msgid "CAT Scale"
-msgstr "CAT Scale"
-
-msgid "scale"
-msgstr "kantar"
-
-msgid "You shut down the engine. "
-msgstr "Motoru kapattınız. "
-
-#. placeholders: {psi}
-msgid " Air {psi} psi."
-msgstr " Hava {psi} psi."
-
-#. placeholders: {psi}
-msgid " Engine off, air {psi} psi."
-msgstr " Motor kapalı, hava {psi} psi."
-
-#. placeholders: {remaining}, {deadline_appointment}
-msgid "{remaining} hours left to deliver, by {deadline_appointment}."
-msgstr "Teslime {remaining} saat kaldı, son saat {deadline_appointment}."
-
-#. placeholders: {remaining}
-msgid "You are now {remaining} hours past the deadline."
-msgstr "Teslim süresini {remaining} saat geçtiniz."
-
-#. placeholders: {wake_air_instruction}
-#. one sentence of a longer line
-msgid ""
-"Driving and duty clocks reset, but you are still "
-"tired.{wake_air_instruction}"
-msgstr ""
-"Sürüş ve görev saatleri sıfırlandı, ama hâlâ "
-"yorgunsunuz.{wake_air_instruction}"
-
-#. placeholders: {engine_off}
-#. one sentence of a longer line
-msgid ""
-"{engine_off}You sleep poorly at the chain control, woken again and again by "
-"passing trucks."
-msgstr ""
-"{engine_off}Denetim noktasının alanında kötü uyudunuz, geçen tırlar sizi "
-"tekrar tekrar uyandırdı."
-
-#. placeholders: {engine_off}, {clock_text}, {wake_air_instruction}
-msgid ""
-"{engine_off}You sleep poorly at the chain control, woken again and again by "
-"passing trucks. It is {clock_text}. Driving and duty clocks reset, but you "
-"are still tired.{wake_air_instruction}"
-msgstr ""
-"{engine_off}Denetim noktasının alanında kötü uyudunuz, geçen tırlar sizi "
-"tekrar tekrar uyandırdı. Saat {clock_text}. Sürüş ve görev saatleri "
-"sıfırlandı, ama hâlâ yorgunsunuz.{wake_air_instruction}"
-
-#. placeholders: {engine_off}
-#. one sentence of a longer line
-msgid ""
-"{engine_off}You sleep poorly on the shoulder, woken again and again by "
-"passing trucks."
-msgstr ""
-"{engine_off}Emniyet şeridinde kötü uyudunuz, geçen tırlar sizi tekrar "
-"tekrar uyandırdı."
-
-#. placeholders: {engine_off}, {clock_text}, {wake_air_instruction}
-msgid ""
-"{engine_off}You sleep poorly on the shoulder, woken again and again by "
-"passing trucks. It is {clock_text}. Driving and duty clocks reset, but you "
-"are still tired.{wake_air_instruction}"
-msgstr ""
-"{engine_off}Emniyet şeridinde kötü uyudunuz, geçen tırlar sizi tekrar "
-"tekrar uyandırdı. Saat {clock_text}. Sürüş ve görev saatleri sıfırlandı, "
-"ama hâlâ yorgunsunuz.{wake_air_instruction}"
-
-#. placeholders: {grouped}, {construction_zone_fine_clause}, {grouped2}
-msgid ""
-"A trooper ticketed you for illegal parking, {grouped} "
-"dollars.{construction_zone_fine_clause} You have {grouped2} dollars."
-msgstr ""
-"Bir trafik polisi yasak yere park için size {grouped} dolar ceza "
-"yazdı.{construction_zone_fine_clause} {grouped2} dolarınız var."
-
-#. placeholders: {SHOULDER_DAMAGE_PCT}
-msgid ""
-"Roadside debris and wake turbulence added {SHOULDER_DAMAGE_PCT} percent "
-"truck damage."
-msgstr ""
-"Yol kenarındaki döküntüler ve geçen araçların hava akımı tıra yüzde "
-"{SHOULDER_DAMAGE_PCT} hasar verdi."
+#. placeholders: {control_hint}
+msgid "Your first run. Press {control_hint} to start the engine."
+msgstr "İlk seferiniz. Motoru çalıştırmak için {control_hint} tuşuna basın."
 
 msgid "out of service"
 msgstr "hizmet dışı"
@@ -25350,14 +25350,13 @@ msgstr "Tüm tırlar durmak zorunda."
 
 #. placeholders: {name}, {distance}
 #. one sentence of a longer line
-msgid "Weigh station first, {name}, {distance} ahead."
-msgstr "Önce kantar istasyonu, {name}, {distance} ileride."
+msgid "Weigh station first, {name}, {distance}."
+msgstr "Önce kantar istasyonu, {name}, {distance} sonra."
 
 #. placeholders: {name}, {distance}
-msgid "Weigh station first, {name}, {distance} ahead. All trucks must stop."
+msgid "Weigh station first, {name}, {distance}. All trucks must stop."
 msgstr ""
-"Önce kantar istasyonu, {name}, {distance} ileride. Tüm tırlar durmak "
-"zorunda."
+"Önce kantar istasyonu, {name}, {distance} sonra. Tüm tırlar durmak zorunda."
 
 msgid "select"
 msgstr "seç"
@@ -25552,11 +25551,9 @@ msgstr "Yakıt menzili {range_text}, bir sonraki yakıt {ahead_text}."
 
 #. placeholders: {range_text}, {ahead_text}
 msgid ""
-"Fuel range about {range_text}, short of the next fuel stop, {ahead_text} "
-"ahead."
+"Fuel range about {range_text}, short of the next fuel stop, {ahead_text}."
 msgstr ""
-"Yakıt menzili yaklaşık {range_text}, bir sonraki yakıt molasına yetmiyor, o "
-"da {ahead_text} ileride."
+"Menzil yaklaşık {range_text}, {ahead_text} sonraki yakıt molasına yetmiyor."
 
 #. placeholders: {range_text}
 msgid "Fuel range {range_text}, short of the destination."
@@ -27167,12 +27164,6 @@ msgstr "Çıkış sinyali açık: {name}."
 msgid "The exit for {name} is already selected."
 msgstr "Bu çıkış zaten seçili: {name}."
 
-#. placeholders: {prefix}, {name}, {distance}, {exit_text}, {note}, {next_step}, {assist}
-msgid ""
-"{prefix}, {name}, {distance} ahead{exit_text}.{note}{next_step}{assist}"
-msgstr ""
-"{prefix}, {name}, {distance} ileride{exit_text}.{note}{next_step}{assist}"
-
 msgid "Pulling into stop"
 msgstr "Mola yerine giriliyor"
 
@@ -27501,8 +27492,8 @@ msgid "Facility gate in {distance}. Slow to {target}."
 msgstr "Tesis kapısına {distance}. {target} hıza yavaşlayın."
 
 #. placeholders: {facility}, {closing_text}
-msgid "Gate at {facility}, {closing_text} ahead."
-msgstr "Kapı: {facility}, {closing_text} ileride."
+msgid "Gate at {facility}, {closing_text}."
+msgstr "Kapı: {facility}, {closing_text} sonra."
 
 #. one sentence of a longer line
 msgid "Missed the gate, too fast."
@@ -32089,10 +32080,6 @@ msgstr "Mola yeri: {planned_prefix}{name}."
 msgid "Exit: {exit_label}."
 msgstr "Çıkış: {exit_label}."
 
-#. placeholders: {distance_text}
-msgid "Distance: {distance_text} ahead."
-msgstr "Mesafe: {distance_text} ileride."
-
 #. placeholders: {join_phrase}
 msgid "Offers: {join_phrase}."
 msgstr "Sunduğu hizmetler: {join_phrase}."
@@ -32179,10 +32166,6 @@ msgstr "Hayır, planlanan mola yerini koru: {keep_name}"
 
 msgid "Return to the stop details without moving your plan."
 msgstr "Planınızı taşımadan mola yeri ayrıntılarına dönün."
-
-#. placeholders: {name}, {ahead_text}
-msgid "{name}, {ahead_text} ahead"
-msgstr "{name}, {ahead_text} ileride"
 
 #. placeholders: {target}, {ahead}
 #. one sentence of a longer line
@@ -35261,10 +35244,6 @@ msgstr "Sorun bildirimleri"
 msgid "reports"
 msgstr "bildirimler"
 
-#. placeholders: {label}
-msgid "Open {label} settings."
-msgstr "Ayarları aç: {label}."
-
 msgid "Settings saved."
 msgstr "Ayarlar kaydedildi."
 
@@ -35333,6 +35312,10 @@ msgid ""
 "Four screens. Up and Down pick one, Enter opens it, Escape goes back."
 msgstr ""
 "Dört ekran. Yukarı ve Aşağı birini seçer, Enter açar, Escape geri döner."
+
+#. placeholders: {label}
+msgid "Open {label} settings."
+msgstr "Ayarları aç: {label}."
 
 msgid ""
 "Up and Down pick a setting. Right arrow or Enter changes it forward, Left "
@@ -37301,17 +37284,9 @@ msgstr "{carrier_name} kariyeriniz için ana bölge."
 msgid "{place}, 1 city"
 msgstr "{place}, 1 şehir"
 
-#. placeholders: {place}
-msgid "{place}, 1 city."
-msgstr "{place}, 1 şehir."
-
 #. placeholders: {place}, {count}
 msgid "{place}, {count} cities"
 msgstr "{place}, {count} şehir"
-
-#. placeholders: {place}, {count}
-msgid "{place}, {count} cities."
-msgstr "{place}, {count} şehir."
 
 msgid "Home terminal"
 msgstr "Ana terminal"
@@ -40288,9 +40263,6 @@ msgstr ""
 "Bu bilgisayarı bağlamak için Şimdi kur'u, sürmeye başlamak için Şimdi "
 "değil'i seçin."
 
-msgid "Online on the main menu connects any time."
-msgstr "Ana menüdeki Çevrim içi her zaman bağlanabilir."
-
 #. one sentence of a longer line
 msgid "Before you set off."
 msgstr "Yola çıkmadan önce."
@@ -41189,6 +41161,9 @@ msgstr "orinks.net raporu kabul etmedi."
 msgid "The report could not be prepared."
 msgstr "Rapor hazırlanamadı."
 
+msgid "orinks.net could not be reached."
+msgstr "orinks.net'e ulaşılamadı."
+
 msgid "problem-report"
 msgstr "sorun bildirimi"
 
@@ -41203,9 +41178,13 @@ msgstr ""
 "Web tarayıcısı açılamadı. Sorunları github.com/{REPO}/issues adresine "
 "bildirin."
 
+#. one sentence of a longer line
+msgid "The report form could not be opened."
+msgstr "Bildirim formu açılamadı."
+
 #. placeholders: {reason}
-msgid "The report form could not be opened: {reason}"
-msgstr "Bildirim formu açılamadı: {reason}"
+msgid "The report form could not be opened. {reason}"
+msgstr "Bildirim formu açılamadı. {reason}"
 
 msgid "Report the last crash?"
 msgstr "Son çökme bildirilsin mi?"
@@ -43226,6 +43205,56 @@ msgstr ""
 "İkinci bir düğme katmanı için sol omuz tuşunu basılı tutun. {pad_engine} "
 "motoru kontrol eder, {pad_fuel} yakıtı okur ve {pad_speed_limit} hız "
 "sınırını okur."
+
+#~ msgid "Destination {destination_label} ahead."
+#~ msgstr "İleride varış noktası: {destination_label}."
+
+#~ msgid "Destination {city} ahead."
+#~ msgstr "İleride varış noktası: {city}."
+
+#~ msgid "Live road report, {distance} ahead: {text}"
+#~ msgstr "Canlı yol raporu, {distance} ileride: {text}"
+
+#~ msgid "Weigh station first, {name}, {distance} ahead."
+#~ msgstr "Önce kantar istasyonu, {name}, {distance} ileride."
+
+#~ msgid "Weigh station first, {name}, {distance} ahead. All trucks must stop."
+#~ msgstr ""
+#~ "Önce kantar istasyonu, {name}, {distance} ileride. Tüm tırlar durmak "
+#~ "zorunda."
+
+#~ msgid ""
+#~ "Fuel range about {range_text}, short of the next fuel stop, {ahead_text} "
+#~ "ahead."
+#~ msgstr ""
+#~ "Yakıt menzili yaklaşık {range_text}, bir sonraki yakıt molasına yetmiyor, o "
+#~ "da {ahead_text} ileride."
+
+#~ msgid ""
+#~ "{prefix}, {name}, {distance} ahead{exit_text}.{note}{next_step}{assist}"
+#~ msgstr ""
+#~ "{prefix}, {name}, {distance} ileride{exit_text}.{note}{next_step}{assist}"
+
+#~ msgid "Gate at {facility}, {closing_text} ahead."
+#~ msgstr "Kapı: {facility}, {closing_text} ileride."
+
+#~ msgid "Distance: {distance_text} ahead."
+#~ msgstr "Mesafe: {distance_text} ileride."
+
+#~ msgid "{name}, {ahead_text} ahead"
+#~ msgstr "{name}, {ahead_text} ileride"
+
+#~ msgid "{place}, 1 city."
+#~ msgstr "{place}, 1 şehir."
+
+#~ msgid "{place}, {count} cities."
+#~ msgstr "{place}, {count} şehir."
+
+#~ msgid "Online on the main menu connects any time."
+#~ msgstr "Ana menüdeki Çevrim içi her zaman bağlanabilir."
+
+#~ msgid "The report form could not be opened: {reason}"
+#~ msgstr "Bildirim formu açılamadı: {reason}"
 
 #~ msgid ""
 #~ "Resuming {drive_name}: {destination}. {progress} {hours_used} of "

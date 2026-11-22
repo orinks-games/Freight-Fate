@@ -402,7 +402,7 @@ impl DrivingState {
         };
         let distance = ctx.settings.distance_text(ahead, true);
         let text = format!(
-            "Weigh station first, {}, {distance} ahead. All trucks must stop.",
+            "Weigh station first, {}, {distance}. All trucks must stop.",
             stop.name
         );
         ctx.say_event_with(

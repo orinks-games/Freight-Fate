@@ -135,10 +135,21 @@ fn test_the_github_page_is_the_fallback_when_the_site_cannot_be_reached() {
     let said = said(&app);
     assert!(
         said.contains(
-            "The report form could not be opened: The connection timed out. Opening the \
-             bug report page on GitHub instead. Attach your game log: game.log in"
+            "The report form could not be opened. orinks.net could not be reached. Opening \
+             the bug report page on GitHub instead. Attach your game log: game.log in"
         ),
         "{said}"
+    );
+    assert!(!said.contains("timed out"), "{said}");
+    // The result is not cut off by the main menu it returns to.
+    let calls = app.main_calls();
+    let result = calls
+        .iter()
+        .position(|(text, _)| text.starts_with("The report form could not be opened."))
+        .expect("the result was said");
+    assert!(
+        calls[result + 1..].iter().all(|(_, interrupt)| !interrupt),
+        "{calls:?}"
     );
     assert!(menus::is::<MainMenuState>(&app));
 }

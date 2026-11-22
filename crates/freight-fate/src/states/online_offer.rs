@@ -56,19 +56,17 @@ impl OnlineOfferState {
         }
     }
 
-    fn enter_world(&mut self, ctx: &mut GameContext) {
-        // The city menu queues its own announcement, so a line spoken on the
-        // way out of here -- "Online on the main menu connects any time" -- is
-        // heard in full instead of being cut off by the terminal's own line.
-        let city = CityMenuState::new(ctx, true);
+    fn enter_world(&mut self, ctx: &mut GameContext, queue_entry: bool) {
+        let city = CityMenuState::new(ctx, queue_entry);
         ctx.replace_state(city);
     }
 
     /// `_decline`: Not now.
     pub fn decline(&mut self, ctx: &mut GameContext) {
+        // No parting line: the offer's own help already said Online connects
+        // later, and the terminal speaks at once (phone walk N4).
         self.spend_the_offer(ctx);
-        ctx.say("Online on the main menu connects any time.");
-        self.enter_world(ctx);
+        self.enter_world(ctx, false);
     }
 
     /// `_accept`: Set up now.
@@ -79,7 +77,7 @@ impl OnlineOfferState {
         // city menu goes underneath (replace, not push) so that backing out
         // of setup lands the player in the world, not back on this offer.
         self.spend_the_offer(ctx);
-        self.enter_world(ctx);
+        self.enter_world(ctx, true);
         let setup = OnlineSetupState::with_autostart(ctx, true);
         ctx.push_state(setup);
     }

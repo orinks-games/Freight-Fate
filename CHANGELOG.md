@@ -2,6 +2,15 @@
 
 ## Unreleased
 
+### Fixed
+
+- **Spoken lines that came twice or too late are now said once, in order.** This covers the first run, stop arrivals, leaving Settings and the online offer.
+- **Report a problem says in plain words when orinks.net cannot be reached.** It no longer reads out the error.
+
+### Changed
+
+- **Exit, stop, fuel and road report calls no longer end in "ahead".** "Signal set for exit 323, 5 miles."
+
 ## 1.9.7 - 2026-11-21
 
 ### Compatibility

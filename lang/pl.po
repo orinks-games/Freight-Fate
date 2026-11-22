@@ -13500,12 +13500,12 @@ msgid "Current grade {f} percent {direction}{terrain_text}"
 msgstr "Obecne nachylenie {f} procent {direction}{terrain_text}"
 
 #. placeholders: {destination_label}
-msgid "Destination {destination_label} ahead."
-msgstr "Przed tobą cel: {destination_label}."
+msgid "Destination {destination_label}."
+msgstr "Cel: {destination_label}."
 
 #. placeholders: {city}
-msgid "Destination {city} ahead."
-msgstr "Przed tobą cel: {city}."
+msgid "Destination {city}."
+msgstr "Cel: {city}."
 
 #. placeholders: {ahead_text}, {text}
 msgid "Next stop in {ahead_text}: {text}."
@@ -14306,8 +14306,8 @@ msgid "an enforcement post {where_} in {distance}"
 msgstr "punkt kontroli {where_} za {distance}"
 
 #. placeholders: {distance}, {text}
-msgid "Live road report, {distance} ahead: {text}"
-msgstr "Komunikat drogowy na żywo, {distance} przed tobą: {text}"
+msgid "Live road report, {distance}: {text}"
+msgstr "Komunikat drogowy na żywo, za {distance}: {text}"
 
 #. placeholders: {lanes}
 msgid "{lanes} affected."
@@ -24027,13 +24027,6 @@ msgstr "Silnik pracuje. {instruction}"
 msgid "The engine will not start."
 msgstr "Silnik nie chce zapalić."
 
-msgid "Air ready."
-msgstr "Powietrze gotowe."
-
-#. placeholders: {psi}
-msgid "Air {psi} psi."
-msgstr "Ciśnienie powietrza {psi} psi."
-
 msgid "Air ready. Swipe up and hold to drive."
 msgstr "Ciśnienie gotowe. Przesuń w górę i przytrzymaj, aby ruszyć."
 
@@ -24085,6 +24078,13 @@ msgstr "Powietrze gotowe. Przytrzymaj {control_hint}, żeby jechać."
 #. one sentence of a longer line
 msgid "Hold {control_hint} to drive."
 msgstr "Przytrzymaj {control_hint}, żeby jechać."
+
+msgid "Air ready."
+msgstr "Powietrze gotowe."
+
+#. placeholders: {psi}
+msgid "Air {psi} psi."
+msgstr "Ciśnienie powietrza {psi} psi."
 
 msgid "Parking brake released."
 msgstr "Hamulec postojowy zwolniony."
@@ -24175,16 +24175,177 @@ msgstr "podane usługi: {join_phrase}"
 msgid "services not listed"
 msgstr "usługi nie są podane"
 
-msgid "Your first run. Turn two fingers right to start the engine."
-msgstr "Twój pierwszy kurs. Obróć dwa palce w prawo, aby uruchomić silnik."
-
+#. placeholders: {display_name}
 #. one sentence of a longer line
-msgid "Your first run."
-msgstr "Twój pierwszy kurs."
+msgid ""
+"{display_name} needs yt-dlp for its YouTube links, and it is not installed."
+msgstr ""
+"{display_name} wymaga yt-dlp do łączy YouTube, a ten program nie jest "
+"zainstalowany."
 
-#. placeholders: {control_hint}
-msgid "Your first run. Press {control_hint} to start the engine."
-msgstr "Twój pierwszy kurs. Naciśnij {control_hint}, żeby uruchomić silnik."
+#. placeholders: {display_name}
+msgid ""
+"{display_name} needs yt-dlp for its YouTube links, and it is not installed. "
+"It is off the dial for the rest of this session."
+msgstr ""
+"{display_name} wymaga yt-dlp do łączy YouTube, a ten program nie jest "
+"zainstalowany. Ta stacja znika ze skali do końca tej sesji."
+
+msgid "station has no stream URL"
+msgstr "stacja nie ma adresu strumienia"
+
+msgid "external stream playback failed"
+msgstr "odtwarzanie zewnętrznego strumienia nie powiodło się"
+
+msgid ""
+"Engine off while parked, no fuel burned. Start it again before pulling out."
+msgstr ""
+"Silnik wyłączony na postoju, bez spalania paliwa. Uruchom go ponownie przed "
+"wyjazdem."
+
+msgid "Starts the engine. The parking brake releases at 100 psi."
+msgstr "Uruchamia silnik. Hamulec postojowy zwalnia się przy 100 psi."
+
+msgid "Stop before touching the engine."
+msgstr "Zatrzymaj się, zanim zajmiesz się silnikiem."
+
+#. placeholders: {psi}
+msgid "Engine running. Air pressure {psi} psi."
+msgstr "Silnik pracuje. Ciśnienie powietrza {psi} psi."
+
+msgid "open road"
+msgstr "otwarta droga"
+
+msgid "school"
+msgstr "szkoła"
+
+msgid "lights"
+msgstr "światła"
+
+msgid "Shut down the engine"
+msgstr "Wyłącz silnik"
+
+msgid "Start the engine"
+msgstr "Uruchom silnik"
+
+msgid "save point"
+msgstr "punkt zapisu"
+
+msgid "food and coffee"
+msgstr "jedzenie i kawa"
+
+msgid "30-minute rest break"
+msgstr "30-minutowa przerwa"
+
+msgid "sleep or long rest"
+msgstr "sen lub dłuższy odpoczynek"
+
+msgid "repairs"
+msgstr "naprawy"
+
+msgid "roadside assistance"
+msgstr "pomoc drogowa"
+
+msgid "inspection check-in"
+msgstr "zgłoszenie do kontroli"
+
+msgid "diesel"
+msgstr "olej napędowy"
+
+msgid "restrooms"
+msgstr "toalety"
+
+msgid "CAT Scale"
+msgstr "CAT Scale"
+
+msgid "scale"
+msgstr "waga"
+
+msgid "You shut down the engine. "
+msgstr "Silnik wyłączony. "
+
+#. placeholders: {psi}
+msgid " Air {psi} psi."
+msgstr " Ciśnienie powietrza {psi} psi."
+
+#. placeholders: {psi}
+msgid " Engine off, air {psi} psi."
+msgstr " Silnik wyłączony, ciśnienie powietrza {psi} psi."
+
+#. placeholders: {remaining}, {deadline_appointment}
+msgid "{remaining} hours left to deliver, by {deadline_appointment}."
+msgstr ""
+"Na dostawę {remaining:została|zostały|zostało} {remaining} "
+"{remaining:godzina|godziny|godzin}, do {deadline_appointment}."
+
+#. placeholders: {remaining}
+msgid "You are now {remaining} hours past the deadline."
+msgstr ""
+"Jesteś teraz {remaining} {remaining:godzinę|godziny|godzin} po terminie."
+
+#. placeholders: {wake_air_instruction}
+#. one sentence of a longer line
+msgid ""
+"Driving and duty clocks reset, but you are still "
+"tired.{wake_air_instruction}"
+msgstr ""
+"Czas jazdy i okno służby wyzerowane, ale zmęczenie nie "
+"minęło.{wake_air_instruction}"
+
+#. placeholders: {engine_off}
+#. one sentence of a longer line
+msgid ""
+"{engine_off}You sleep poorly at the chain control, woken again and again by "
+"passing trucks."
+msgstr ""
+"{engine_off}Na placu przy punkcie kontrolnym śpi się kiepsko, raz po raz "
+"budzą cię przejeżdżające ciężarówki."
+
+#. placeholders: {engine_off}, {clock_text}, {wake_air_instruction}
+msgid ""
+"{engine_off}You sleep poorly at the chain control, woken again and again by "
+"passing trucks. It is {clock_text}. Driving and duty clocks reset, but you "
+"are still tired.{wake_air_instruction}"
+msgstr ""
+"{engine_off}Na placu przy punkcie kontrolnym śpi się kiepsko, raz po raz "
+"budzą cię przejeżdżające ciężarówki. Jest {clock_text}. Czas jazdy i okno "
+"służby wyzerowane, ale zmęczenie nie minęło.{wake_air_instruction}"
+
+#. placeholders: {engine_off}
+#. one sentence of a longer line
+msgid ""
+"{engine_off}You sleep poorly on the shoulder, woken again and again by "
+"passing trucks."
+msgstr ""
+"{engine_off}Na poboczu śpi się kiepsko, raz po raz budzą cię przejeżdżające "
+"ciężarówki."
+
+#. placeholders: {engine_off}, {clock_text}, {wake_air_instruction}
+msgid ""
+"{engine_off}You sleep poorly on the shoulder, woken again and again by "
+"passing trucks. It is {clock_text}. Driving and duty clocks reset, but you "
+"are still tired.{wake_air_instruction}"
+msgstr ""
+"{engine_off}Na poboczu śpi się kiepsko, raz po raz budzą cię przejeżdżające "
+"ciężarówki. Jest {clock_text}. Czas jazdy i okno służby wyzerowane, ale "
+"zmęczenie nie minęło.{wake_air_instruction}"
+
+#. placeholders: {grouped}, {construction_zone_fine_clause}, {grouped2}
+msgid ""
+"A trooper ticketed you for illegal parking, {grouped} "
+"dollars.{construction_zone_fine_clause} You have {grouped2} dollars."
+msgstr ""
+"Policjant wlepił ci mandat za nielegalne parkowanie, {grouped} "
+"{grouped:dolar|dolary|dolarów}.{construction_zone_fine_clause} Masz "
+"{grouped2} {grouped2:dolar|dolary|dolarów}."
+
+#. placeholders: {SHOULDER_DAMAGE_PCT}
+msgid ""
+"Roadside debris and wake turbulence added {SHOULDER_DAMAGE_PCT} percent "
+"truck damage."
+msgstr ""
+"Śmieci na poboczu i podmuchy od przejeżdżających pojazdów dodały "
+"{SHOULDER_DAMAGE_PCT} procent uszkodzeń ciężarówki."
 
 msgid ""
 "At air ready, swipe up and hold to release the parking brake, then flick up "
@@ -24359,177 +24520,16 @@ msgstr ""
 "Przypomnienie: przytrzymaj {control_hint}, wybierz {control_hint2}, a potem "
 "puść sprzęgło."
 
-#. placeholders: {display_name}
+msgid "Your first run. Turn two fingers right to start the engine."
+msgstr "Twój pierwszy kurs. Obróć dwa palce w prawo, aby uruchomić silnik."
+
 #. one sentence of a longer line
-msgid ""
-"{display_name} needs yt-dlp for its YouTube links, and it is not installed."
-msgstr ""
-"{display_name} wymaga yt-dlp do łączy YouTube, a ten program nie jest "
-"zainstalowany."
+msgid "Your first run."
+msgstr "Twój pierwszy kurs."
 
-#. placeholders: {display_name}
-msgid ""
-"{display_name} needs yt-dlp for its YouTube links, and it is not installed. "
-"It is off the dial for the rest of this session."
-msgstr ""
-"{display_name} wymaga yt-dlp do łączy YouTube, a ten program nie jest "
-"zainstalowany. Ta stacja znika ze skali do końca tej sesji."
-
-msgid "station has no stream URL"
-msgstr "stacja nie ma adresu strumienia"
-
-msgid "external stream playback failed"
-msgstr "odtwarzanie zewnętrznego strumienia nie powiodło się"
-
-msgid ""
-"Engine off while parked, no fuel burned. Start it again before pulling out."
-msgstr ""
-"Silnik wyłączony na postoju, bez spalania paliwa. Uruchom go ponownie przed "
-"wyjazdem."
-
-msgid "Starts the engine. The parking brake releases at 100 psi."
-msgstr "Uruchamia silnik. Hamulec postojowy zwalnia się przy 100 psi."
-
-msgid "Stop before touching the engine."
-msgstr "Zatrzymaj się, zanim zajmiesz się silnikiem."
-
-#. placeholders: {psi}
-msgid "Engine running. Air pressure {psi} psi."
-msgstr "Silnik pracuje. Ciśnienie powietrza {psi} psi."
-
-msgid "open road"
-msgstr "otwarta droga"
-
-msgid "school"
-msgstr "szkoła"
-
-msgid "lights"
-msgstr "światła"
-
-msgid "Shut down the engine"
-msgstr "Wyłącz silnik"
-
-msgid "Start the engine"
-msgstr "Uruchom silnik"
-
-msgid "save point"
-msgstr "punkt zapisu"
-
-msgid "food and coffee"
-msgstr "jedzenie i kawa"
-
-msgid "30-minute rest break"
-msgstr "30-minutowa przerwa"
-
-msgid "sleep or long rest"
-msgstr "sen lub dłuższy odpoczynek"
-
-msgid "repairs"
-msgstr "naprawy"
-
-msgid "roadside assistance"
-msgstr "pomoc drogowa"
-
-msgid "inspection check-in"
-msgstr "zgłoszenie do kontroli"
-
-msgid "diesel"
-msgstr "olej napędowy"
-
-msgid "restrooms"
-msgstr "toalety"
-
-msgid "CAT Scale"
-msgstr "CAT Scale"
-
-msgid "scale"
-msgstr "waga"
-
-msgid "You shut down the engine. "
-msgstr "Silnik wyłączony. "
-
-#. placeholders: {psi}
-msgid " Air {psi} psi."
-msgstr " Ciśnienie powietrza {psi} psi."
-
-#. placeholders: {psi}
-msgid " Engine off, air {psi} psi."
-msgstr " Silnik wyłączony, ciśnienie powietrza {psi} psi."
-
-#. placeholders: {remaining}, {deadline_appointment}
-msgid "{remaining} hours left to deliver, by {deadline_appointment}."
-msgstr ""
-"Na dostawę {remaining:została|zostały|zostało} {remaining} "
-"{remaining:godzina|godziny|godzin}, do {deadline_appointment}."
-
-#. placeholders: {remaining}
-msgid "You are now {remaining} hours past the deadline."
-msgstr ""
-"Jesteś teraz {remaining} {remaining:godzinę|godziny|godzin} po terminie."
-
-#. placeholders: {wake_air_instruction}
-#. one sentence of a longer line
-msgid ""
-"Driving and duty clocks reset, but you are still "
-"tired.{wake_air_instruction}"
-msgstr ""
-"Czas jazdy i okno służby wyzerowane, ale zmęczenie nie "
-"minęło.{wake_air_instruction}"
-
-#. placeholders: {engine_off}
-#. one sentence of a longer line
-msgid ""
-"{engine_off}You sleep poorly at the chain control, woken again and again by "
-"passing trucks."
-msgstr ""
-"{engine_off}Na placu przy punkcie kontrolnym śpi się kiepsko, raz po raz "
-"budzą cię przejeżdżające ciężarówki."
-
-#. placeholders: {engine_off}, {clock_text}, {wake_air_instruction}
-msgid ""
-"{engine_off}You sleep poorly at the chain control, woken again and again by "
-"passing trucks. It is {clock_text}. Driving and duty clocks reset, but you "
-"are still tired.{wake_air_instruction}"
-msgstr ""
-"{engine_off}Na placu przy punkcie kontrolnym śpi się kiepsko, raz po raz "
-"budzą cię przejeżdżające ciężarówki. Jest {clock_text}. Czas jazdy i okno "
-"służby wyzerowane, ale zmęczenie nie minęło.{wake_air_instruction}"
-
-#. placeholders: {engine_off}
-#. one sentence of a longer line
-msgid ""
-"{engine_off}You sleep poorly on the shoulder, woken again and again by "
-"passing trucks."
-msgstr ""
-"{engine_off}Na poboczu śpi się kiepsko, raz po raz budzą cię przejeżdżające "
-"ciężarówki."
-
-#. placeholders: {engine_off}, {clock_text}, {wake_air_instruction}
-msgid ""
-"{engine_off}You sleep poorly on the shoulder, woken again and again by "
-"passing trucks. It is {clock_text}. Driving and duty clocks reset, but you "
-"are still tired.{wake_air_instruction}"
-msgstr ""
-"{engine_off}Na poboczu śpi się kiepsko, raz po raz budzą cię przejeżdżające "
-"ciężarówki. Jest {clock_text}. Czas jazdy i okno służby wyzerowane, ale "
-"zmęczenie nie minęło.{wake_air_instruction}"
-
-#. placeholders: {grouped}, {construction_zone_fine_clause}, {grouped2}
-msgid ""
-"A trooper ticketed you for illegal parking, {grouped} "
-"dollars.{construction_zone_fine_clause} You have {grouped2} dollars."
-msgstr ""
-"Policjant wlepił ci mandat za nielegalne parkowanie, {grouped} "
-"{grouped:dolar|dolary|dolarów}.{construction_zone_fine_clause} Masz "
-"{grouped2} {grouped2:dolar|dolary|dolarów}."
-
-#. placeholders: {SHOULDER_DAMAGE_PCT}
-msgid ""
-"Roadside debris and wake turbulence added {SHOULDER_DAMAGE_PCT} percent "
-"truck damage."
-msgstr ""
-"Śmieci na poboczu i podmuchy od przejeżdżających pojazdów dodały "
-"{SHOULDER_DAMAGE_PCT} procent uszkodzeń ciężarówki."
+#. placeholders: {control_hint}
+msgid "Your first run. Press {control_hint} to start the engine."
+msgstr "Twój pierwszy kurs. Naciśnij {control_hint}, żeby uruchomić silnik."
 
 msgid "out of service"
 msgstr "unieruchomiona"
@@ -25921,14 +25921,14 @@ msgstr "Wszystkie ciężarówki muszą się zatrzymać."
 
 #. placeholders: {name}, {distance}
 #. one sentence of a longer line
-msgid "Weigh station first, {name}, {distance} ahead."
-msgstr "Najpierw stacja ważenia, {name}, {distance} przed tobą."
+msgid "Weigh station first, {name}, {distance}."
+msgstr "Najpierw stacja ważenia, {name}, za {distance}."
 
 #. placeholders: {name}, {distance}
-msgid "Weigh station first, {name}, {distance} ahead. All trucks must stop."
+msgid "Weigh station first, {name}, {distance}. All trucks must stop."
 msgstr ""
-"Najpierw stacja ważenia, {name}, {distance} przed tobą. Wszystkie "
-"ciężarówki muszą się zatrzymać."
+"Najpierw stacja ważenia, {name}, za {distance}. Wszystkie ciężarówki muszą "
+"się zatrzymać."
 
 msgid "select"
 msgstr "select"
@@ -26125,11 +26125,10 @@ msgstr "Zasięg {range_text}, następne tankowanie {ahead_text}."
 
 #. placeholders: {range_text}, {ahead_text}
 msgid ""
-"Fuel range about {range_text}, short of the next fuel stop, {ahead_text} "
-"ahead."
+"Fuel range about {range_text}, short of the next fuel stop, {ahead_text}."
 msgstr ""
-"Zasięg około {range_text}, za mało do następnej stacji paliw, która jest "
-"{ahead_text} przed tobą."
+"Zasięg około {range_text}, nie starczy do następnego postoju na tankowanie "
+"za {ahead_text}."
 
 #. placeholders: {range_text}
 msgid "Fuel range {range_text}, short of the destination."
@@ -27774,12 +27773,6 @@ msgstr "Kierunkowskaz na zjazd do {name} włączony."
 msgid "The exit for {name} is already selected."
 msgstr "Zjazd do {name} jest już wybrany."
 
-#. placeholders: {prefix}, {name}, {distance}, {exit_text}, {note}, {next_step}, {assist}
-msgid ""
-"{prefix}, {name}, {distance} ahead{exit_text}.{note}{next_step}{assist}"
-msgstr ""
-"{prefix}, {name}, za {distance}{exit_text}.{note}{next_step}{assist}"
-
 msgid "Pulling into stop"
 msgstr "Wjazd na postój"
 
@@ -28110,8 +28103,8 @@ msgid "Facility gate in {distance}. Slow to {target}."
 msgstr "Brama zakładu za {distance}. Zwolnij do {target}."
 
 #. placeholders: {facility}, {closing_text}
-msgid "Gate at {facility}, {closing_text} ahead."
-msgstr "Brama zakładu {facility}, {closing_text} przed tobą."
+msgid "Gate at {facility}, {closing_text}."
+msgstr "Brama zakładu {facility}, za {closing_text}."
 
 #. one sentence of a longer line
 msgid "Missed the gate, too fast."
@@ -32865,10 +32858,6 @@ msgstr "Postój: {planned_prefix}{name}."
 msgid "Exit: {exit_label}."
 msgstr "Zjazd: {exit_label}."
 
-#. placeholders: {distance_text}
-msgid "Distance: {distance_text} ahead."
-msgstr "Odległość: {distance_text} przed tobą."
-
 #. placeholders: {join_phrase}
 msgid "Offers: {join_phrase}."
 msgstr "Oferta: {join_phrase}."
@@ -32957,10 +32946,6 @@ msgstr "Nie, zostaw zaplanowany postój: {keep_name}"
 
 msgid "Return to the stop details without moving your plan."
 msgstr "Wróć do szczegółów postoju bez przenoszenia planu."
-
-#. placeholders: {name}, {ahead_text}
-msgid "{name}, {ahead_text} ahead"
-msgstr "{name}, {ahead_text} przed tobą"
 
 #. placeholders: {target}, {ahead}
 #. one sentence of a longer line
@@ -36072,10 +36057,6 @@ msgstr "Zgłaszanie problemów"
 msgid "reports"
 msgstr "reports"
 
-#. placeholders: {label}
-msgid "Open {label} settings."
-msgstr "Otwórz ustawienia: {label}."
-
 msgid "Settings saved."
 msgstr "Ustawienia zapisane."
 
@@ -36147,6 +36128,10 @@ msgid ""
 msgstr ""
 "Cztery ekrany. Strzałki w górę i w dół wybierają jeden, Enter go otwiera, "
 "Escape cofa."
+
+#. placeholders: {label}
+msgid "Open {label} settings."
+msgstr "Otwórz ustawienia: {label}."
 
 msgid ""
 "Up and Down pick a setting. Right arrow or Enter changes it forward, Left "
@@ -38146,17 +38131,9 @@ msgstr "Region macierzysty twojej kariery w {carrier_name}."
 msgid "{place}, 1 city"
 msgstr "{place}, 1 miasto"
 
-#. placeholders: {place}
-msgid "{place}, 1 city."
-msgstr "{place}, 1 miasto."
-
 #. placeholders: {place}, {count}
 msgid "{place}, {count} cities"
 msgstr "{place}, {count} {count:miasto|miasta|miast}"
-
-#. placeholders: {place}, {count}
-msgid "{place}, {count} cities."
-msgstr "{place}, {count} {count:miasto|miasta|miast}."
 
 msgid "Home terminal"
 msgstr "Baza macierzysta"
@@ -41194,9 +41171,6 @@ msgstr ""
 "Wybierz Skonfiguruj teraz, żeby połączyć ten komputer, albo Nie teraz, żeby "
 "zacząć jazdę."
 
-msgid "Online on the main menu connects any time."
-msgstr "Opcja Online w menu głównym łączy w dowolnej chwili."
-
 #. one sentence of a longer line
 msgid "Before you set off."
 msgstr "Zanim ruszysz."
@@ -42102,6 +42076,9 @@ msgstr "orinks.net nie przyjęło zgłoszenia."
 msgid "The report could not be prepared."
 msgstr "Nie udało się przygotować zgłoszenia."
 
+msgid "orinks.net could not be reached."
+msgstr "Nie udało się połączyć z orinks.net."
+
 msgid "problem-report"
 msgstr "zgłoszenie-problemu"
 
@@ -42116,9 +42093,13 @@ msgstr ""
 "Nie udało się otworzyć przeglądarki. Problemy zgłaszaj na "
 "github.com/{REPO}/issues."
 
+#. one sentence of a longer line
+msgid "The report form could not be opened."
+msgstr "Nie udało się otworzyć formularza zgłoszenia."
+
 #. placeholders: {reason}
-msgid "The report form could not be opened: {reason}"
-msgstr "Nie udało się otworzyć formularza zgłoszenia: {reason}"
+msgid "The report form could not be opened. {reason}"
+msgstr "Nie udało się otworzyć formularza zgłoszenia. {reason}"
 
 msgid "Report the last crash?"
 msgstr "Zgłosić ostatnią awarię?"
@@ -44153,6 +44134,56 @@ msgstr ""
 "Przytrzymaj left bumper, aby użyć drugiej warstwy przycisków. {pad_engine} "
 "steruje silnikiem, {pad_fuel} podaje paliwo, a {pad_speed_limit} "
 "ograniczenie prędkości."
+
+#~ msgid "Destination {destination_label} ahead."
+#~ msgstr "Przed tobą cel: {destination_label}."
+
+#~ msgid "Destination {city} ahead."
+#~ msgstr "Przed tobą cel: {city}."
+
+#~ msgid "Live road report, {distance} ahead: {text}"
+#~ msgstr "Komunikat drogowy na żywo, {distance} przed tobą: {text}"
+
+#~ msgid "Weigh station first, {name}, {distance} ahead."
+#~ msgstr "Najpierw stacja ważenia, {name}, {distance} przed tobą."
+
+#~ msgid "Weigh station first, {name}, {distance} ahead. All trucks must stop."
+#~ msgstr ""
+#~ "Najpierw stacja ważenia, {name}, {distance} przed tobą. Wszystkie "
+#~ "ciężarówki muszą się zatrzymać."
+
+#~ msgid ""
+#~ "Fuel range about {range_text}, short of the next fuel stop, {ahead_text} "
+#~ "ahead."
+#~ msgstr ""
+#~ "Zasięg około {range_text}, za mało do następnej stacji paliw, która jest "
+#~ "{ahead_text} przed tobą."
+
+#~ msgid ""
+#~ "{prefix}, {name}, {distance} ahead{exit_text}.{note}{next_step}{assist}"
+#~ msgstr ""
+#~ "{prefix}, {name}, za {distance}{exit_text}.{note}{next_step}{assist}"
+
+#~ msgid "Gate at {facility}, {closing_text} ahead."
+#~ msgstr "Brama zakładu {facility}, {closing_text} przed tobą."
+
+#~ msgid "Distance: {distance_text} ahead."
+#~ msgstr "Odległość: {distance_text} przed tobą."
+
+#~ msgid "{name}, {ahead_text} ahead"
+#~ msgstr "{name}, {ahead_text} przed tobą"
+
+#~ msgid "{place}, 1 city."
+#~ msgstr "{place}, 1 miasto."
+
+#~ msgid "{place}, {count} cities."
+#~ msgstr "{place}, {count} {count:miasto|miasta|miast}."
+
+#~ msgid "Online on the main menu connects any time."
+#~ msgstr "Opcja Online w menu głównym łączy w dowolnej chwili."
+
+#~ msgid "The report form could not be opened: {reason}"
+#~ msgstr "Nie udało się otworzyć formularza zgłoszenia: {reason}"
 
 #~ msgid ""
 #~ "Resuming {drive_name}: {destination}. {progress} {hours_used} of "

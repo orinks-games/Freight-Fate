@@ -228,7 +228,7 @@ impl DrivingState {
             // No lane hint: lane keeping moves to the right lane itself
             // (`keep_right_for_exit`), and what it does is the manual's to
             // explain, not the callout's (owner, 2026-10-14).
-            format!("{head} {ahead_text} ahead.{ending}")
+            format!("{head} {ahead_text}.{ending}")
         } else {
             // The right lane now; the exit lane itself where it opens, which
             // the cab calls at the taper. Nothing at all when the truck is
@@ -239,7 +239,7 @@ impl DrivingState {
             } else {
                 " Move to the right lane."
             };
-            format!("{head} {ahead_text} ahead.{lane_hint}{ending}")
+            format!("{head} {ahead_text}.{lane_hint}{ending}")
         };
         if self.is_selected_stop(Some(&stop)) {
             self.selected_stop_assist_armed = ctx.settings.destination_approach_assist;

@@ -202,6 +202,9 @@ pub struct GameContext {
     /// handled. See `player_asked`: a readout somebody asked for cuts the
     /// line in progress even at the wheel, where unasked-for lines queue.
     pub(crate) speech_requested: bool,
+    /// True while [`GameContext::say_result_then`] runs the step after a
+    /// result: every interrupting main-channel line queues behind it.
+    pub(crate) result_leads: bool,
     /// The co-driver has the wheel and the player is in the sleeper: the
     /// road, the co-driver's own controls and the screens they work say
     /// nothing aloud (the transcript still gets every line). Answers to
@@ -321,6 +324,7 @@ impl GameContext {
             running: false,
             speech_ducked: false,
             speech_requested: false,
+            result_leads: false,
             co_driver_away: false,
             co_driver_fast_forward: false,
             copy_focus_key: None,

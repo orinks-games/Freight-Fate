@@ -203,7 +203,18 @@ impl DrivingState {
                 self.low_air_said = true;
             }
             self.set_status("Engine running.");
-            let instruction = self.air_start_instruction(ctx);
+            // The walkthrough's own line says what to do at air ready, so the
+            // plain line keeps the readout and the step is said once (phone
+            // walk W2).
+            let instruction = if self
+                .tutorial
+                .as_ref()
+                .is_some_and(|tutorial| tutorial.speaks_engine_start())
+            {
+                self.air_readout()
+            } else {
+                self.air_start_instruction(ctx)
+            };
             ctx.say_with(
                 format!("Engine running. {instruction}"),
                 start_line.category(SpeechCategory::Confirmation),
@@ -229,10 +240,7 @@ impl DrivingState {
     pub fn air_start_instruction(&self, ctx: &mut GameContext) -> String {
         let psi = self.trip.truck.air_pressure_psi();
         if self.terse_speech(ctx) || self.instruction_retired(ctx, "parking_brake") {
-            if self.trip.truck.air_ready() {
-                return "Air ready.".to_string();
-            }
-            return format!("Air {psi:.0} psi.");
+            return self.air_readout();
         }
         // On touch, gas releases the parking brake and drives.
         if ctx.touch_hints() {
@@ -262,6 +270,16 @@ impl DrivingState {
             "Air ready. Hold {} to drive.",
             ctx.control_hint("accelerate")
         )
+    }
+
+    /// The air as a readout alone: "Air ready." or "Air 55 psi."
+    pub fn air_readout(&self) -> String {
+        if self.trip.truck.air_ready() {
+            "Air ready.".to_string()
+        } else {
+            let psi = self.trip.truck.air_pressure_psi();
+            format!("Air {psi:.0} psi.")
+        }
     }
 
     /// `_toggle_parking_brake()`: P.
