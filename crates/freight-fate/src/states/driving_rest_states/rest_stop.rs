@@ -305,13 +305,16 @@ impl RestStopState {
                 ),
             };
             items.push(MenuItem::new(label, |s: &mut Self, ctx| s.sleep(ctx)).help(help));
-        } else if !is_scale {
+        } else if !is_scale && (has("park") || has("break")) {
             // No proper sleeper facility here, but you can always bed down in
             // the lot -- a legal reset, just cramped and poor rest. Except at
             // a scale: nobody sleeps in an active inspection facility, and
             // there is no motel on the far side of the platform (the scale
             // was offering both, plus a loyalty program -- owner playtest,
-            // 2026-08-20).
+            // 2026-08-20). And only where the stop has a lot to stand in (it
+            // parks or takes a break): a fuel-only stop, a cardlock or a lone
+            // pump, has neither a lot to sleep in nor a motel, so both rows
+            // are absent and nothing is said.
             items.push(
                 MenuItem::new("Sleep 10 hours in the lot", |s: &mut Self, ctx| {
                     s.emergency_lot_sleep(ctx)
