@@ -196,6 +196,9 @@ pub struct MenuCore<S> {
     pub index: usize,
 }
 
+/// How many rows Page Up and Page Down move in a menu, every menu alike.
+pub const PAGE_ROWS: usize = 10;
+
 pub const DEFAULT_INTRO_HELP: &str =
     "Enter selects, Escape goes back. Control stops the current speech.";
 
@@ -489,13 +492,8 @@ pub trait Menu: Sized + 'static {
         self.speak_current(ctx);
     }
 
-    /// How many rows Page Up and Page Down move (a three-finger flick left
-    /// or right on touch). A menu with thousands of rows takes bigger steps.
-    fn page_rows(&self) -> usize {
-        10
-    }
-
-    /// Page Up and Page Down: [`Self::page_rows`] rows back or forward,
+    /// Page Up and Page Down (a three-finger flick left or right on touch):
+    /// [`PAGE_ROWS`] rows back or forward,
     /// stopping at the first and last row, where the row is read again.
     /// Nothing wraps, so a jump never lands somewhere the player cannot
     /// place. A menu whose pages are its own takes the keys first
@@ -505,11 +503,10 @@ pub trait Menu: Sized + 'static {
         if core.items.is_empty() {
             return;
         }
-        let step = self.page_rows().max(1);
         let target = if forward {
-            (core.index + step).min(core.items.len() - 1)
+            (core.index + PAGE_ROWS).min(core.items.len() - 1)
         } else {
-            core.index.saturating_sub(step)
+            core.index.saturating_sub(PAGE_ROWS)
         };
         self.jump(ctx, target);
     }

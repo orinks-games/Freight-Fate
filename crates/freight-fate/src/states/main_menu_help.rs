@@ -361,6 +361,11 @@ pub fn render_help_line(ctx: &GameContext, template: &str) -> String {
 /// and a touch player tunes with three-finger flicks, not the Page keys.
 static PHONE_LINES: &[(&str, Option<&str>, Option<&str>)] = &[
     (
+        "Page Up and Page Down move ten options at a time.",
+        Some("Flick left or right with three fingers to move ten options back or forward."),
+        Some("Flick left or right with three fingers to move ten options back or forward."),
+    ),
+    (
         "Partial follows bends with gentle drift. Off leaves steering to you unless curve assistance is enabled. Hold a steering control across the lane line to change lanes.",
         Some("Partial follows bends with gentle drift. Off leaves steering to you unless curve assistance is enabled. Hold a steering control across the lane line to change lanes. With Tilt steering on under Touch gestures, tilting the phone steers too, and with lane keeping on full a tilt changes one lane."),
         Some("Partial follows bends with gentle drift. Off leaves steering to you unless curve assistance is enabled. Hold a steering control across the lane line to change lanes. With Tilt steering on under Touch gestures, tilting the phone steers too, and with lane keeping on full a tilt changes one lane."),
