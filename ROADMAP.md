@@ -6410,7 +6410,11 @@ a carrier slice (owner, 2026-10-26).
       sheet (`northern-ontario-2026-11-22.md`, 51 placed, with corridor 3's
       park bans and the North Shore Scenic Drive ban on the legs), and the
       Atlantic Canada sheet (`atlantic-canada-2026-11-22.md`, 30 placed,
-      with corridor 4's government park bans on the legs).
+      with corridor 4's government park bans on the legs), the northern
+      west sheet (`north-west-2026-11-22.md`, 16 placed) and the northern
+      east sheet (`north-east-2026-11-22.md`, 18 placed, with corridor 5
+      east's park, reserve and ZEC bans on the legs). The approved Cité de
+      l'Or board also stands on the road from Chibougamau.
 - [ ] (Found along the way) New Brunswick is read attractions only
       province-wide because its freight routes are Level I and II
       highways; its ordinary highways license commercial boards. A per-leg
