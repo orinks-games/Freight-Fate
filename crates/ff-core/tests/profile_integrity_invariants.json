@@ -1298,7 +1298,6 @@
     "carquinez_drayage": "Carquinez Drayage",
     "chatanika_freight": "Chatanika Freight Lines",
     "chehalis_freight": "Chehalis Freight Lines",
-    "conemaugh_flatbed": "Conemaugh Flatbed Lines",
     "cosumnes_freight": "Cosumnes Freight",
     "cuyama_transport": "Cuyama Transport",
     "des_plaines_cartage": "Des Plaines River Cartage",
@@ -1321,6 +1320,7 @@
     "nonconnah_cartage": "Nonconnah Cartage",
     "northstar": "Northstar Freight Lines",
     "olentangy_valley": "Olentangy Valley Freight",
+    "open_hearth_flatbed": "Open Hearth Flatbed Lines",
     "pasquotank_freight": "Pasquotank Freight Lines",
     "pinyon_basin": "Pinyon Basin Transport",
     "prairie_link": "Prairie Link Regional",
@@ -1474,19 +1474,6 @@
         "stopPay": 135
       },
       "suggestedHomeTerminal": "Seattle"
-    },
-    "conemaugh_flatbed": {
-      "description": "A national company-driver start. Dispatch leans toward steel, machinery and lumber and offers loads of up to 3000 miles. Those loads need the flatbed securement certificate. The carrier assigns and maintains the tractor and pays fuel and routine repairs.",
-      "dispatch": "more longer lanes",
-      "favoredFreight": [],
-      "name": "Conemaugh Flatbed Lines",
-      "pay": {
-        "minPerMile": 0.86,
-        "onTimeBonusShare": 0.03,
-        "payShare": 0.37,
-        "stopPay": 185
-      },
-      "suggestedHomeTerminal": "Pittsburgh"
     },
     "cosumnes_freight": {
       "description": "A regional company-driver start in northern California and northern Nevada. Dispatch offers loads of up to 500 miles. The carrier assigns and maintains the tractor and pays fuel and routine repairs.",
@@ -1773,6 +1760,19 @@
         "stopPay": 135
       },
       "suggestedHomeTerminal": "Columbus"
+    },
+    "open_hearth_flatbed": {
+      "description": "A national company-driver start. Dispatch leans toward steel, machinery and lumber and offers loads of up to 3000 miles. Those loads need the flatbed securement certificate. The carrier assigns and maintains the tractor and pays fuel and routine repairs.",
+      "dispatch": "more longer lanes",
+      "favoredFreight": [],
+      "name": "Open Hearth Flatbed Lines",
+      "pay": {
+        "minPerMile": 0.86,
+        "onTimeBonusShare": 0.03,
+        "payShare": 0.37,
+        "stopPay": 185
+      },
+      "suggestedHomeTerminal": "Pittsburgh"
     },
     "pasquotank_freight": {
       "description": "A regional company-driver start in the Carolina and Virginia coast. Dispatch offers loads of up to 500 miles. The carrier assigns and maintains the tractor and pays fuel and routine repairs.",

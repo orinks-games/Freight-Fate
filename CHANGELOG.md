@@ -42,7 +42,7 @@
 - **Alaska roads now reach the Kenai Peninsula, Valdez and Deadhorse.** Seward, Valdez and Kenai offer only their real freight sites, and Deadhorse sells diesel.
 - **Hours of service now follow Alaska and Canadian rules where you drive.** You hear the new limits as you cross into each place.
 - **Billboards in Canada follow each province's sign law.** The everyday roadside signs no longer stand in the Yukon or in parks along the Alaska Highway.
-- **54 carriers now hire across the map, including Alaska.** Every lower-48 city has at least two regional carriers, and local carriers work 16 big cities and ports.
+- **Fifty-four carriers now hire across the map, including Alaska.** Every lower-48 city has at least two regional carriers, and local carriers work 16 big cities and ports.
 - **Three new national carriers lean toward refrigerated freight, doubles, or steel, machinery and lumber.**
 - **Fairbanks job boards now use real freight sites,** such as Costco, Fred Meyer and Spenard Builders Supply.
 - **Twin parcel trailers now stay on the Interstates.** Dispatch drops a lane that leaves them, and says so when no lane is left.

@@ -542,7 +542,7 @@ fn test_a_generated_national_start_says_national_and_names_its_freight() {
         "{}",
         doubles.help_text
     );
-    let flatbed = start_option(Some("conemaugh_flatbed"));
+    let flatbed = start_option(Some("open_hearth_flatbed"));
     assert!(
         flatbed
             .help_text

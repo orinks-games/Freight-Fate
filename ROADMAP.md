@@ -4876,14 +4876,14 @@ in the audited Windows run.
       `terminal` pin is not a gap. The slice 3 test checks that terminal
       cities are real map cities with carrier-owned terminals.
 - [x] **2.0 carrier spread (brief 12).** Three specialist nationals
-      (Winterset Refrigerated Lines, Double Springs Linehaul, Conemaugh
+      (Winterset Refrigerated Lines, Double Springs Linehaul, Open Hearth
       Flatbed Lines, 12 terminals each), fourteen regionals and thirteen
       locals. Lower-48 freight cities in reach of regionals, before then
       after: one 248 / two 258 / three 101 / four 19, then two 141 / three
       286 / four 154 / five 45. Locals hire in 45 cities (was 10). The start
       picker lists 8 to 12 carriers in every lower-48 city (was 4 to 7);
       New York 10, Chicago 12, Dallas 11, Billings 8, Anchorage 2. Worst
-      nearest-terminal distance per national: Conemaugh 512 mi (Shelby, MT),
+      nearest-terminal distance per national: Open Hearth 512 mi (Shelby, MT),
       Summit 482, Double Springs 474, Great Lakes Training 468, Winterset
       455, Northstar 441. Bismarck, Twin Falls and Albuquerque each hold at
       most two nationals' terminals. The picker sorts local, regional,
@@ -4903,9 +4903,10 @@ in the audited Windows run.
       carrier's lane area and specialty phrase have no translations yet, so
       a Spanish player in Chicago hears the local and regional rows in
       English. Only the four hand-written starts are translated.
-- [ ] **The three original nationals' start rows do not say "national"
-      (Found along the way).** Their hand-written labels ("balanced company
-      driver" and so on) stayed; new wording goes to the director.
+- [x] **The hand-written company start rows say their kind.** Northstar,
+      Great Lakes Training and Summit Value say "national company driver",
+      Prairie Link "regional company driver", and their summaries no longer
+      repeat it (director's wording, 2026-11-22).
 - [ ] **Great Lakes Training `short_haul_bias` 0.8 conflicts with its 400 mi
       national run band.** The dispatch bias asks for short rookie loads the
       band minimum would forbid once enforced. Revisit in slice 4.

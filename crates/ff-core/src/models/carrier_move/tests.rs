@@ -86,7 +86,7 @@ fn the_move_up_list_is_the_other_carriers_that_hire_at_home() {
             "loonwater_regional",
             "winterset_refrigerated",
             "double_springs_linehaul",
-            "conemaugh_flatbed",
+            "open_hearth_flatbed",
             "tahquamenon_freight",
             "kishwaukee_transport",
             "shiawassee_freight",

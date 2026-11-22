@@ -201,11 +201,10 @@ pub const NORTHSTAR_PAY: CompanyPayPlan = CompanyPayPlan {
 pub const START_OPTIONS: [CareerStartOption; 5] = [
     CareerStartOption {
         key: DEFAULT_START_KEY,
-        label: "Northstar Freight Lines: balanced company driver",
+        label: "Northstar Freight Lines: national company driver",
         carrier_name: STARTER_CARRIER_NAME,
         mode: START_MODE_COMPANY,
-        menu_summary: "Balanced company-driver start with steady wages, normal training \
-                       support, and assigned carrier equipment.",
+        menu_summary: "Steady wages and no specialty, with loads of up to 3000 miles.",
         help_text: "A balanced company-driver path. The carrier assigns and maintains \
                     the tractor, pays fuel and routine repairs, and pays steady wages \
                     with no specialty.",
@@ -215,11 +214,11 @@ pub const START_OPTIONS: [CareerStartOption; 5] = [
     },
     CareerStartOption {
         key: "great_lakes_training",
-        label: "Great Lakes Training Transport: trainer-friendly company driver",
+        label: "Great Lakes Training Transport: national company driver",
         carrier_name: "Great Lakes Training Transport",
         mode: START_MODE_COMPANY,
-        menu_summary: "Trainer-friendly company start with stronger stop pay, more short \
-                       rookie loads, and a little more appointment slack.",
+        menu_summary: "A training fleet with stronger stop pay, more short rookie loads, \
+                       and a little more appointment slack.",
         help_text: "A practical training-fleet start. Stop pay is better on short \
                     loads, and dispatch leans toward shorter training work with a \
                     little more deadline room. Equipment and routine costs stay \
@@ -241,11 +240,11 @@ pub const START_OPTIONS: [CareerStartOption; 5] = [
     },
     CareerStartOption {
         key: "prairie_link",
-        label: "Prairie Link Regional: mile-focused company driver",
+        label: "Prairie Link Regional: regional company driver",
         carrier_name: "Prairie Link Regional",
         mode: START_MODE_COMPANY,
-        menu_summary: "Regional carrier with a better per-mile floor, lower stop pay, \
-                       and more same-region grain and bulk lanes.",
+        menu_summary: "A better per-mile floor, lower stop pay, and more same-region grain \
+                       and bulk lanes.",
         help_text: "A mile-focused company start. The per-mile wage floor is higher, \
                     but stop pay is lower, so it favors steady regional mileage over \
                     very short hops. Dispatch leans toward same-region grain and \
@@ -267,7 +266,7 @@ pub const START_OPTIONS: [CareerStartOption; 5] = [
     },
     CareerStartOption {
         key: "summit_value",
-        label: "Summit Value Logistics: appointment-bonus company driver",
+        label: "Summit Value Logistics: national company driver",
         carrier_name: "Summit Value Logistics",
         mode: START_MODE_COMPANY,
         menu_summary: "Higher percentage and on-time bonus for careful freight, with a \
