@@ -271,9 +271,11 @@ fn tools_list() -> Value {
              lugging in a tall gear: the clutch a touch shift works in a manual \
              truck), chain_control (clear, level_1 or level_2: the chain law posted \
              at the truck, which follows snow or ice on the road) and chains \
-             (stowed, on_snow, on_bare or broken). \
+             (stowed, on_snow, on_bare or broken), and app (active, inactive or \
+             background: where a phone app is, moved by app_event, with \
+             sound_taken after it while an interruption holds the sound). \
              Off the wheel the \
-             STATE line carries touch_mode alone, and on the dispatch board also \
+             STATE line carries touch_mode and app, and on the dispatch board also \
              board_mode (assigned or browse), board_offer (the row dispatch \
              assigned or recommends, or none), board_reason (assigned, none, \
              training, best_pay_for_hours, best_net_for_hours, \
@@ -288,6 +290,22 @@ fn tools_list() -> Value {
              and controller (connected or none).",
             json!({}),
             &[],
+        ),
+        tool(
+            "app_event",
+            "Send a phone app's lifecycle notification, as an iPhone delivers it, then \
+             reply with what was heard. Names: will_resign_active (a call, Siri, \
+             Control Center, the app switcher, the lock button; the window's focus is \
+             lost with it), did_enter_background, will_enter_foreground, \
+             did_become_active (focus comes back with it), audio_interruption_began, \
+             audio_interruption_ended and output_device_lost (headphones out). Leaving \
+             is will_resign_active then did_enter_background; coming back is \
+             will_enter_foreground then did_become_active; Control Center is \
+             will_resign_active then did_become_active. status reports app (active, \
+             inactive or background, and sound_taken while an interruption holds the \
+             sound).",
+            json!({"name": {"type": "string"}}),
+            &["name"],
         ),
         tool(
             "listen",
@@ -766,6 +784,25 @@ pub fn build_command(name: &str, args: &Map<String, Value>) -> Result<Command, S
             Ok(Command::Cruise { target })
         }
         "status" => Ok(Command::Status),
+        "app_event" => {
+            let name = args
+                .get("name")
+                .and_then(Value::as_str)
+                .unwrap_or("")
+                .trim()
+                .to_ascii_lowercase();
+            let event = ff_core::app_lifecycle::AppEvent::from_key(&name).ok_or_else(|| {
+                format!(
+                    "{name:?} is not an app event. The names are: {}.",
+                    ff_core::app_lifecycle::AppEvent::ALL
+                        .iter()
+                        .map(|event| event.key())
+                        .collect::<Vec<_>>()
+                        .join(", ")
+                )
+            })?;
+            Ok(Command::AppEvent { event })
+        }
         "listen" => Ok(Command::Listen),
         "menu" => Ok(Command::Menu),
         "observe" => Ok(Command::Observe),

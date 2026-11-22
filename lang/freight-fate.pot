@@ -2411,6 +2411,23 @@ msgstr ""
 msgid "Sort: Original order"
 msgstr ""
 
+#. placeholders: {key}
+#: crates/ff-core/src/app_lifecycle.rs
+msgid "{key}, sound_taken"
+msgstr ""
+
+#: crates/ff-core/src/app_lifecycle.rs
+msgid "active"
+msgstr ""
+
+#: crates/ff-core/src/app_lifecycle.rs
+msgid "inactive"
+msgstr ""
+
+#: crates/ff-core/src/app_lifecycle.rs
+msgid "background"
+msgstr ""
+
 #. placeholders: {path}
 #: crates/ff-core/src/assets_pack.rs
 msgid "Not a Freight Fate sound pack: {path}"

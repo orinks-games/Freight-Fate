@@ -787,6 +787,12 @@ impl Menu for PauseMenuState {
         self.announce_entry(ctx);
     }
 
+    /// Back in a phone app the drive was paused for: the menu from its
+    /// title, since its opening was cut off as the player left.
+    fn on_app_return(&mut self, ctx: &mut GameContext) {
+        self.announce_entry(ctx);
+    }
+
     fn announce_entry(&mut self, ctx: &mut GameContext) {
         // Pausing and resuming is where the player is, not something that
         // happened on the road. Logging it would leave a "Paused." between

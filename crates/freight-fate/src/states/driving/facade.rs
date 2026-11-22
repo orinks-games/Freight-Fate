@@ -110,6 +110,10 @@ impl State for DrivingState {
         self.handle_controller_disconnect(ctx);
     }
 
+    fn on_app_leaving(&mut self, ctx: &mut GameContext) {
+        self.pause_for_leaving(ctx);
+    }
+
     fn update(&mut self, ctx: &mut GameContext, dt: f64) {
         self.update_frame(ctx, dt);
     }

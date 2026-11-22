@@ -302,6 +302,10 @@ macro_rules! impl_state_for_text_entry {
             fn enter(&mut self, ctx: &mut $crate::app::GameContext) {
                 <Self as $crate::states::text_entry::TextEntry>::enter(self, ctx)
             }
+            fn on_app_return(&mut self, ctx: &mut $crate::app::GameContext) {
+                // The field's own prompt, as it says on opening.
+                <Self as $crate::states::text_entry::TextEntry>::enter(self, ctx)
+            }
             fn exit(&mut self, ctx: &mut $crate::app::GameContext) {
                 <Self as $crate::states::text_entry::TextEntry>::exit(self, ctx)
             }

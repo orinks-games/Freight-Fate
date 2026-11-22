@@ -553,6 +553,15 @@ impl Menu for OnlineSetupState {
         ));
     }
 
+    fn on_app_return(&mut self, ctx: &mut GameContext) {
+        // Waiting on the browser, the window's focus coming back already
+        // says where the player is (below); a second reading would talk
+        // over it.
+        if self.phase != SetupPhase::Waiting {
+            self.speak_current(ctx);
+        }
+    }
+
     fn handle_event(&mut self, ctx: &mut GameContext, event: &InputEvent) {
         // Re-orient after the browser round trip: this flow is a two-app
         // dance, and "where was I" is the first question on every return.
