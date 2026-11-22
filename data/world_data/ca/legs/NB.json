@@ -7861,6 +7861,26 @@
             "name": "Grand Lake Protected Natural Area",
             "source": "derived 2026-11-22: OpenStreetMap relation 19393783 (Grand Lake Protected Natural Area) boundary from the Atlantic cut of the planet extract of 2026-11-16; the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
           }
+        ],
+        "bridges": [
+          {
+            "from_mi": 31.674,
+            "to_mi": 32.342,
+            "name": "Saint John River High Level Crossing",
+            "over": "Saint John River",
+            "water": true,
+            "osm": "way/109669490 way/109669628",
+            "source": "Name read from the bridge:name tag of way 109669490; span derived by projecting its ways (way/109669490 way/109669628) onto the leg's archived road, rescaled to leg miles (over the length bar, 3525 ft); water derived from a waterway or coastline the bridge ways cross. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "from_mi": 35.432,
+            "to_mi": 36.041,
+            "name": "Jemseg River Bridge",
+            "over": "Jemseg River",
+            "water": true,
+            "osm": "way/109763894 way/361556569",
+            "source": "Name read from the bridge:name tag of way 109763894; span derived by projecting its ways (way/109763894 way/361556569) onto the leg's archived road, rescaled to leg miles (over the length bar, 3211 ft); water derived from a waterway or coastline the bridge ways cross. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          }
         ]
       },
       "rerouted": true
@@ -9481,6 +9501,18 @@
             "to_mi": 3.8,
             "name": "University of New Brunswick Wildlife Refuge",
             "source": "derived 2026-11-22: OpenStreetMap relation 20219989 (University of New Brunswick Wildlife Refuge) boundary from the Atlantic cut of the planet extract of 2026-11-16; the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on); widened to the one-mile minimum"
+          }
+        ],
+        "bridges": [
+          {
+            "from_mi": 67.567,
+            "to_mi": 68.305,
+            "name": "Saint John Harbour Bridge",
+            "over": "Saint John River",
+            "water": true,
+            "curated": true,
+            "osm": "way/61697642 way/61697647 way/609535708 way/893084759",
+            "source": "Name named by the curated sheet (New Brunswick Department of Transportation and Infrastructure, Saint John Harbour Bridge (Route 1)); span derived by projecting its ways (way/61697642 way/61697647 way/609535708 way/893084759) onto the leg's archived road, rescaled to leg miles (curated, 3888 ft); what it spans read from the curated sheet. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           }
         ]
       },
@@ -13170,6 +13202,17 @@
             "to_mi": 109.0,
             "name": "Fredericton Wildlife Refuge",
             "source": "derived 2026-11-22: OpenStreetMap way 1362624552 (Fredericton Wildlife Refuge) boundary from the Atlantic cut of the planet extract of 2026-11-16; the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on); widened to the one-mile minimum"
+          }
+        ],
+        "bridges": [
+          {
+            "from_mi": 108.13,
+            "to_mi": 108.812,
+            "name": "Princess Margaret Bridge",
+            "over": "Saint John River",
+            "water": true,
+            "osm": "way/4949426",
+            "source": "Name read from the name of way 4949426, a bridge's name; span derived by projecting its ways (way/4949426) onto the leg's archived road, rescaled to leg miles (over the length bar, 3591 ft); water derived from a waterway or coastline the bridge ways cross. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           }
         ]
       },
@@ -17402,6 +17445,18 @@
             "name": "Cape Jourimain National Wildlife Area",
             "source": "derived 2026-11-22: OpenStreetMap relation 21602238 (Cape Jourimain National Wildlife Area) boundary from the Atlantic cut of the planet extract of 2026-11-16; the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
           }
+        ],
+        "bridges": [
+          {
+            "from_mi": 59.037,
+            "to_mi": 67.07,
+            "name": "Confederation Bridge",
+            "over": "Northumberland Strait",
+            "water": true,
+            "curated": true,
+            "osm": "way/4233040 way/646650186",
+            "source": "Name named by the curated sheet (Strait Crossing Bridge Limited, confederationbridge.com (12.9 km)); span derived by projecting its ways (way/4233040 way/646650186) onto the leg's archived road, rescaled to leg miles (curated, 42411 ft); what it spans read from the curated sheet. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          }
         ]
       },
       "rerouted": true
@@ -19252,6 +19307,26 @@
             "to_mi": 109.4,
             "name": "University of New Brunswick Wildlife Refuge",
             "source": "derived 2026-11-22: OpenStreetMap relation 20219989 (University of New Brunswick Wildlife Refuge) boundary from the Atlantic cut of the planet extract of 2026-11-16; the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on); widened to the one-mile minimum"
+          }
+        ],
+        "bridges": [
+          {
+            "from_mi": 76.482,
+            "to_mi": 77.084,
+            "name": "Jemseg River Bridge",
+            "over": "Jemseg River",
+            "water": true,
+            "osm": "way/109763894 way/361556569",
+            "source": "Name read from the bridge:name tag of way 109763894; span derived by projecting its ways (way/109763894 way/361556569) onto the leg's archived road, rescaled to leg miles (over the length bar, 3176 ft); water derived from a waterway or coastline the bridge ways cross. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "from_mi": 80.175,
+            "to_mi": 80.841,
+            "name": "Saint John River High Level Crossing",
+            "over": "Saint John River",
+            "water": true,
+            "osm": "way/109669490 way/109669628",
+            "source": "Name read from the bridge:name tag of way 109669490; span derived by projecting its ways (way/109669490 way/109669628) onto the leg's archived road, rescaled to leg miles (over the length bar, 3516 ft); water derived from a waterway or coastline the bridge ways cross. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           }
         ]
       },
@@ -23913,6 +23988,18 @@
             "name": "Cape Jourimain National Wildlife Area",
             "source": "derived 2026-11-22: OpenStreetMap relation 21602238 (Cape Jourimain National Wildlife Area) boundary from the Atlantic cut of the planet extract of 2026-11-16; the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
           }
+        ],
+        "bridges": [
+          {
+            "from_mi": 59.207,
+            "to_mi": 67.255,
+            "name": "Confederation Bridge",
+            "over": "Northumberland Strait",
+            "water": true,
+            "curated": true,
+            "osm": "way/4233040 way/646650186",
+            "source": "Name named by the curated sheet (Strait Crossing Bridge Limited, confederationbridge.com (12.9 km)); span derived by projecting its ways (way/4233040 way/646650186) onto the leg's archived road, rescaled to leg miles (curated, 42411 ft); what it spans read from the curated sheet. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          }
         ]
       },
       "rerouted": true
@@ -25499,6 +25586,18 @@
             "to_mi": 67.4,
             "name": "University of New Brunswick Wildlife Refuge",
             "source": "derived 2026-11-22: OpenStreetMap relation 20219989 (University of New Brunswick Wildlife Refuge) boundary from the Atlantic cut of the planet extract of 2026-11-16; the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on); widened to the one-mile minimum"
+          }
+        ],
+        "bridges": [
+          {
+            "from_mi": 0.8,
+            "to_mi": 1.544,
+            "name": "Saint John Harbour Bridge",
+            "over": "Saint John River",
+            "water": true,
+            "curated": true,
+            "osm": "way/61697642 way/61697647 way/609535708 way/893084759",
+            "source": "Name named by the curated sheet (New Brunswick Department of Transportation and Infrastructure, Saint John Harbour Bridge (Route 1)); span derived by projecting its ways (way/61697642 way/61697647 way/609535708 way/893084759) onto the leg's archived road, rescaled to leg miles (curated, 3921 ft); what it spans read from the curated sheet. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           }
         ]
       },
@@ -28779,6 +28878,18 @@
             "name": "New River Beach Provincial Park",
             "source": "derived 2026-11-22: OpenStreetMap relation 9556343 (New River Beach Provincial Park) boundary from the Atlantic cut of the planet extract of 2026-11-16; the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
           }
+        ],
+        "bridges": [
+          {
+            "from_mi": 0.798,
+            "to_mi": 1.539,
+            "name": "Saint John Harbour Bridge",
+            "over": "Saint John River",
+            "water": true,
+            "curated": true,
+            "osm": "way/61697642 way/61697647 way/609535708 way/893084759",
+            "source": "Name named by the curated sheet (New Brunswick Department of Transportation and Infrastructure, Saint John Harbour Bridge (Route 1)); span derived by projecting its ways (way/61697642 way/61697647 way/609535708 way/893084759) onto the leg's archived road, rescaled to leg miles (curated, 3921 ft); what it spans read from the curated sheet. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          }
         ]
       },
       "rerouted": true
@@ -30663,7 +30774,19 @@
           "name": "rolling",
           "sections": 0,
           "source": "DERIVED, not read: Canada has no national inventory like HPMS, so the class is the terrain the leg's own grade profile spends the most miles in (the reroute-enrich rule: sustained grade of 5 percent, or 4 percent with 1,000 ft of relief within 5 miles, is mountain; 1.5 percent or 400 ft of relief is hills; else flat), mapped flat to level, hills to rolling and mountain to mountainous. It reads the same elevation as the grade, so it is no independent check on it."
-        }
+        },
+        "bridges": [
+          {
+            "from_mi": 6.569,
+            "to_mi": 6.677,
+            "name": "International Avenue Bridge",
+            "over": "St. Croix River",
+            "water": true,
+            "curated": true,
+            "osm": "way/89809947 way/155227613 way/326488337",
+            "source": "Name named by the curated sheet (Maine DOT, Calais-St. Stephen International Avenue Bridge (opened 2009, the truck crossing)); span derived by projecting its ways (way/89809947 way/155227613 way/326488337) onto the leg's archived road, rescaled to leg miles (curated, 568 ft); what it spans read from the curated sheet. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          }
+        ]
       },
       "rerouted": true
     },
@@ -32189,6 +32312,18 @@
             "to_mi": 54.65,
             "name": "Musquash Estuary Marine Protected Area",
             "source": "derived 2026-11-22: OpenStreetMap relation 19415595 (Musquash Estuary Marine Protected Area) boundary from the Atlantic cut of the planet extract of 2026-11-16; the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on); widened to the one-mile minimum"
+          }
+        ],
+        "bridges": [
+          {
+            "from_mi": 68.568,
+            "to_mi": 69.305,
+            "name": "Saint John Harbour Bridge",
+            "over": "Saint John River",
+            "water": true,
+            "curated": true,
+            "osm": "way/61697642 way/61697647 way/609535708 way/893084759",
+            "source": "Name named by the curated sheet (New Brunswick Department of Transportation and Infrastructure, Saint John Harbour Bridge (Route 1)); span derived by projecting its ways (way/61697642 way/61697647 way/609535708 way/893084759) onto the leg's archived road, rescaled to leg miles (curated, 3888 ft); what it spans read from the curated sheet. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           }
         ]
       },

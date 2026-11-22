@@ -22,6 +22,7 @@ use serde_json::{Map, Value};
 use super::counties::parse_county_runs;
 use super::grades::screen_grade_segments;
 use super::line_weave::{miles_from_crossings, screen_weave};
+use super::bridges::parse_bridges;
 use super::pavement::parse_pavement;
 use super::world_constants::{LIMIT_ARTIFACT_PLACE_CHECKPOINTS, LIMIT_EXPLAINING_CATEGORIES};
 use super::world_models::{name_provincial_routes, CorridorDetail, DataError, TunnelData};
@@ -244,6 +245,7 @@ pub fn build_leg_corridor(
     )?;
     let counties = parse_county_runs(list_field(corridor, "counties"), miles, leg_from, leg_to)?;
     let pavement = parse_pavement(corridor.get("pavement"), miles, leg_from, leg_to)?;
+    let bridges = parse_bridges(corridor.get("bridges"), miles, leg_from, leg_to)?;
     Ok(CorridorDetail {
         route_points,
         elevation_samples,
@@ -264,5 +266,6 @@ pub fn build_leg_corridor(
         billboard_bans,
         counties,
         pavement,
+        bridges,
     })
 }

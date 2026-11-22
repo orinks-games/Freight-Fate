@@ -57,6 +57,7 @@ impl Trip {
             }
         }
         self.latch_passed_roadside();
+        self.settle_bridge();
         for (i, (start, leg)) in self
             .leg_starts
             .iter()
@@ -374,6 +375,7 @@ impl Trip {
         self.check_lane_changes();
         self.check_stops();
         self.check_roadside_callouts();
+        self.check_bridges();
         self.check_tolls();
         self.check_cities();
         self.check_timezone();

@@ -1467,6 +1467,18 @@
             "name": "Matanuska-Susitna Borough",
             "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
           }
+        ],
+        "bridges": [
+          {
+            "from_mi": 31.31,
+            "to_mi": 31.616,
+            "name": "Staff Sergeant James L. Bondsteel Bridge of Honor",
+            "over": "Knik River",
+            "water": true,
+            "curated": true,
+            "osm": "way/61042189 way/61042197",
+            "source": "Name named by the curated sheet (Alaska DOT&PF, the Glenn Highway Knik River bridge, named in OpenStreetMap as SSG James L. Bondsteel Bridge of Honor (rank spelled out for speech)); span derived by projecting its ways (way/61042189 way/61042197) onto the leg's archived road, rescaled to leg miles (curated, 1620 ft); what it spans read from the curated sheet. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          }
         ]
       },
       "route_via": [
@@ -5827,6 +5839,18 @@
             "name": "Matanuska-Susitna Borough",
             "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
           }
+        ],
+        "bridges": [
+          {
+            "from_mi": 31.522,
+            "to_mi": 31.83,
+            "name": "Staff Sergeant James L. Bondsteel Bridge of Honor",
+            "over": "Knik River",
+            "water": true,
+            "curated": true,
+            "osm": "way/61042189 way/61042197",
+            "source": "Name named by the curated sheet (Alaska DOT&PF, the Glenn Highway Knik River bridge, named in OpenStreetMap as SSG James L. Bondsteel Bridge of Honor (rank spelled out for speech)); span derived by projecting its ways (way/61042189 way/61042197) onto the leg's archived road, rescaled to leg miles (curated, 1620 ft); what it spans read from the curated sheet. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          }
         ]
       },
       "route_via": [
@@ -9695,6 +9719,18 @@
             "at_mi": 213.7,
             "name": "Fairbanks North Star Borough",
             "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          }
+        ],
+        "bridges": [
+          {
+            "from_mi": 119.057,
+            "to_mi": 119.465,
+            "name": "E. L. Patton Yukon River Bridge",
+            "over": "Yukon River",
+            "water": true,
+            "curated": true,
+            "osm": "way/45458428",
+            "source": "Name named by the curated sheet (Alaska DOT&PF, E. L. Patton Yukon River Bridge (Dalton Highway)); span derived by projecting its ways (way/45458428) onto the leg's archived road, rescaled to leg miles (curated, 2145 ft); what it spans read from the curated sheet. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           }
         ]
       },
@@ -15604,6 +15640,18 @@
             "name": "Yukon-Koyukuk Census Area",
             "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
           }
+        ],
+        "bridges": [
+          {
+            "from_mi": 134.54,
+            "to_mi": 134.948,
+            "name": "E. L. Patton Yukon River Bridge",
+            "over": "Yukon River",
+            "water": true,
+            "curated": true,
+            "osm": "way/45458428",
+            "source": "Name named by the curated sheet (Alaska DOT&PF, E. L. Patton Yukon River Bridge (Dalton Highway)); span derived by projecting its ways (way/45458428) onto the leg's archived road, rescaled to leg miles (curated, 2145 ft); what it spans read from the curated sheet. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          }
         ]
       },
       "rerouted": true
@@ -16576,6 +16624,18 @@
             "at_mi": 35.9,
             "name": "Yukon-Koyukuk Census Area",
             "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          }
+        ],
+        "bridges": [
+          {
+            "from_mi": 55.129,
+            "to_mi": 55.367,
+            "name": "Alaska Natives Veterans' Honor Bridge",
+            "over": "Tanana River",
+            "water": true,
+            "curated": true,
+            "osm": "way/271529049",
+            "source": "Name named by the curated sheet (Alaska DOT&PF, the Tanana River bridge at Nenana (George Parks Highway), named in OpenStreetMap); span derived by projecting its ways (way/271529049) onto the leg's archived road, rescaled to leg miles (curated, 1260 ft); what it spans read from the curated sheet. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           }
         ]
       },
@@ -25724,6 +25784,18 @@
             "name": "Matanuska-Susitna Borough",
             "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
           }
+        ],
+        "bridges": [
+          {
+            "from_mi": 144.236,
+            "to_mi": 144.427,
+            "name": "Susitna River Bridge",
+            "over": "Susitna River",
+            "water": true,
+            "curated": true,
+            "osm": "way/271035292",
+            "source": "Name named by the curated sheet (Alaska DOT&PF, Susitna River bridge (George Parks Highway, milepost 104); the way carries no bridge name in OpenStreetMap); span derived by projecting its ways (way/271035292) onto the leg's archived road, rescaled to leg miles (curated, 1008 ft); what it spans read from the curated sheet. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          }
         ]
       },
       "rerouted": true
@@ -28045,6 +28117,18 @@
             "name": "Fairbanks North Star Borough",
             "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
           }
+        ],
+        "bridges": [
+          {
+            "from_mi": 0.642,
+            "to_mi": 0.883,
+            "name": "Alaska Natives Veterans' Honor Bridge",
+            "over": "Tanana River",
+            "water": true,
+            "curated": true,
+            "osm": "way/271529049",
+            "source": "Name named by the curated sheet (Alaska DOT&PF, the Tanana River bridge at Nenana (George Parks Highway), named in OpenStreetMap); span derived by projecting its ways (way/271529049) onto the leg's archived road, rescaled to leg miles (curated, 1260 ft); what it spans read from the curated sheet. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          }
         ]
       },
       "rerouted": true
@@ -29965,6 +30049,18 @@
             "at_mi": 11.4,
             "name": "Anchorage Municipality",
             "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          }
+        ],
+        "bridges": [
+          {
+            "from_mi": 11.421,
+            "to_mi": 11.722,
+            "name": "Staff Sergeant James L. Bondsteel Bridge of Honor",
+            "over": "Knik River",
+            "water": true,
+            "curated": true,
+            "osm": "way/61042189 way/61042197",
+            "source": "Name named by the curated sheet (Alaska DOT&PF, the Glenn Highway Knik River bridge, named in OpenStreetMap as SSG James L. Bondsteel Bridge of Honor (rank spelled out for speech)); span derived by projecting its ways (way/61042189 way/61042197) onto the leg's archived road, rescaled to leg miles (curated, 1584 ft); what it spans read from the curated sheet. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           }
         ]
       },
@@ -47295,6 +47391,18 @@
             "name": "Anchorage Municipality",
             "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
           }
+        ],
+        "bridges": [
+          {
+            "from_mi": 12.202,
+            "to_mi": 12.505,
+            "name": "Staff Sergeant James L. Bondsteel Bridge of Honor",
+            "over": "Knik River",
+            "water": true,
+            "curated": true,
+            "osm": "way/61042189 way/61042197",
+            "source": "Name named by the curated sheet (Alaska DOT&PF, the Glenn Highway Knik River bridge, named in OpenStreetMap as SSG James L. Bondsteel Bridge of Honor (rank spelled out for speech)); span derived by projecting its ways (way/61042189 way/61042197) onto the leg's archived road, rescaled to leg miles (curated, 1584 ft); what it spans read from the curated sheet. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          }
         ]
       },
       "rerouted": true
@@ -49463,6 +49571,18 @@
             "at_mi": 159.0,
             "name": "Denali Borough",
             "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          }
+        ],
+        "bridges": [
+          {
+            "from_mi": 61.613,
+            "to_mi": 61.804,
+            "name": "Susitna River Bridge",
+            "over": "Susitna River",
+            "water": true,
+            "curated": true,
+            "osm": "way/271035292",
+            "source": "Name named by the curated sheet (Alaska DOT&PF, Susitna River bridge (George Parks Highway, milepost 104); the way carries no bridge name in OpenStreetMap); span derived by projecting its ways (way/271035292) onto the leg's archived road, rescaled to leg miles (curated, 1009 ft); what it spans read from the curated sheet. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           }
         ]
       },

@@ -194,6 +194,12 @@ const COMMANDS: &[(&str, &str, Command)] = &[
     ),
     #[cfg(feature = "world")]
     (
+        "osm-bridges",
+        "place the named bridges every leg drives over, with their real span, from OpenStreetMap",
+        world::layers::bridges::main,
+    ),
+    #[cfg(feature = "world")]
+    (
         "osm-exit-routes",
         "name the Canadian roads exits sign by bare number (Route 255, Highway 8), from OpenStreetMap",
         world::layers::exit_routes::main,

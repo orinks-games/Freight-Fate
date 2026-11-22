@@ -55,7 +55,9 @@ impl Trip {
     /// order (see `sim::road_texture::joints`). A leg with the layer gives
     /// its bridges and causeways, and an assumed span at each river point
     /// with no structure within [`RIVER_SPAN_MI`]; a leg without it gives an
-    /// assumed span at every river point. Empty on a facility approach.
+    /// assumed span at every river point. A named bridge with no structure
+    /// under it gives its own whole span, and a river point on it no
+    /// assumed one. Empty on a facility approach.
     pub fn bridge_joint_spans(&self) -> Vec<JointSpan> {
         if self.is_facility_approach_route() {
             return Vec::new();
@@ -79,6 +81,20 @@ impl Trip {
                     spans.push(span);
                 }
             }
+            // A named bridge the layer reads no structure under, for its
+            // whole span.
+            let named: Vec<(f64, f64)> = leg
+                .bridges()
+                .for_direction(forward)
+                .map(|b| (b.from_mi, b.to_mi))
+                .collect();
+            for &(from, to) in &named {
+                let covered = structures.iter().any(|s| s.0 < to && from < s.1);
+                if !covered {
+                    let (a, b) = (route(from), route(to));
+                    spans.push(JointSpan::named_bridge(a.min(b), a.max(b)));
+                }
+            }
             for landmark in leg.landmarks() {
                 if landmark.category != "river" || !landmark.applies_to_direction(forward) {
                     continue;
@@ -86,7 +102,9 @@ impl Trip {
                 let at = landmark.at_mi;
                 let near = structures
                     .iter()
-                    .any(|s| s.0 - RIVER_SPAN_MI <= at && at <= s.1 + RIVER_SPAN_MI);
+                    .map(|s| (s.0, s.1))
+                    .chain(named.iter().copied())
+                    .any(|(a, b)| a - RIVER_SPAN_MI <= at && at <= b + RIVER_SPAN_MI);
                 if !near {
                     spans.push(JointSpan::river(route(at)));
                 }

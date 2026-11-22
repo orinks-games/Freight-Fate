@@ -698,6 +698,42 @@ For the 16 pilot legs together: routing 1 to 4 seconds a leg, enrich about
 (one read of each cut per tool). The cut, about 25 minutes, is the long
 pole.
 
+## Named bridges (`corridor.bridges`)
+
+The big bridges a leg drives over, by name, with their real span. The game
+puts a bridge joint at each end of the span (where the pavement layer has no
+structure there already), plays the river bed for the whole span when it is
+over water, and says "Crossing the Confederation Bridge." once as the truck
+drives onto it, under the rivers chatter switch.
+
+The cut needs the bridge tags a roads-only filter drops:
+
+```sh
+osmium tags-filter na.osm.pbf w/bridge w/man_made=bridge r/type=bridge \
+  w/waterway=river,canal,tidal_channel w/natural=coastline -o bridges.osm.pbf
+cargo tools osm-bridges --pbf bridges.osm.pbf --extract-date 2026-11-16          # dry run
+cargo tools osm-bridges --pbf bridges.osm.pbf --extract-date 2026-11-16 --write  # north legs
+```
+
+- A bridge is named by its own `bridge:name`, the `type=bridge` relation it
+  belongs to, or the `man_made=bridge` outline around it. Never by the way's
+  `name`: that is usually the road's.
+- It is written when it is on the curated sheet, `docs/bridges/*.json`
+  (name, what it spans, its OpenStreetMap ways, relation or outline, the
+  legs expected to cross it, a citation), or when its real length reaches
+  the bar (`--bar-ft`, default in `world/layers/bridges/mod.rs`, with how it
+  was set). The dry run prints the counts by length band, how often the
+  game's five-mile spacing guard would silence one, and the sheet entries
+  no leg crosses. Add a bridge to the sheet rather than lowering the bar.
+- `--scope north` (the default) writes legs touching Canada or Alaska;
+  `--scope all` the whole map.
+- The span is derived by projecting the bridge's ways onto the leg's
+  archived road (every vertex within 80 m, and running along it). After a
+  reroute, re-run it with `--only from:to`.
+- It removes the leg's hand-written `highway_marker` line that names a
+  bridge it writes, so one bridge has one line.
+- Re-bake and `ff-bake --check` afterwards.
+
 ## Spidering the network (finding new legs and cities)
 
 Distinct from enriching existing legs: this fills GAPS in the graph where a

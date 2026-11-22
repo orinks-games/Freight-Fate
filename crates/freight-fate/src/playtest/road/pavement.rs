@@ -49,6 +49,11 @@ pub fn bridge_hits(trip: &mut Trip, origin: &str, destination: &str) -> Vec<Hit>
                 s.to_mi - s.from_mi,
                 format!("{} {:.2} mi", kind.name(), s.to_mi - s.from_mi),
             )),
+            SpanOrigin::NamedBridge => Some((
+                s.from_mi,
+                s.to_mi - s.from_mi,
+                format!("named bridge {:.2} mi", s.to_mi - s.from_mi),
+            )),
             SpanOrigin::RiverAssumed => None,
         })
         .collect();

@@ -26436,7 +26436,31 @@
           "name": "level",
           "sections": 0,
           "source": "DERIVED, not read: Canada has no national inventory like HPMS, so the class is the terrain the leg's own grade profile spends the most miles in (the reroute-enrich rule: sustained grade of 5 percent, or 4 percent with 1,000 ft of relief within 5 miles, is mountain; 1.5 percent or 400 ft of relief is hills; else flat), mapped flat to level, hills to rolling and mountain to mountainous. It reads the same elevation as the grade, so it is no independent check on it."
-        }
+        },
+        "bridges": [
+          {
+            "from_mi": 10.385,
+            "to_mi": 11.979,
+            "name": "Burlington Bay James N. Allan Skyway",
+            "over": "Burlington Bay canal",
+            "water": true,
+            "ways": "reverse",
+            "curated": true,
+            "osm": "way/24383647 way/24383761 way/24384193 way/24690493 way/25514592 way/155736565",
+            "source": "Name named by the curated sheet (Ontario Ministry of Transportation, Burlington Bay James N. Allan Skyway (QEW)); span derived by projecting its ways (way/24383647 way/24383761 way/24384193 way/24690493 way/25514592 way/155736565) onto the leg's archived road, rescaled to leg miles (curated, 8445 ft); what it spans read from the curated sheet. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "from_mi": 10.502,
+            "to_mi": 11.882,
+            "name": "Burlington Bay James N. Allan Skyway",
+            "over": "Burlington Bay canal",
+            "water": true,
+            "ways": "forward",
+            "curated": true,
+            "osm": "way/24383647 way/24383761 way/24384193 way/24690493 way/25514592 way/155736565",
+            "source": "Name named by the curated sheet (Ontario Ministry of Transportation, Burlington Bay James N. Allan Skyway (QEW)); span derived by projecting its ways (way/24383647 way/24383761 way/24384193 way/24690493 way/25514592 way/155736565) onto the leg's archived road, rescaled to leg miles (curated, 7310 ft); what it spans read from the curated sheet. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          }
+        ]
       },
       "rerouted": true
     },
@@ -38290,6 +38314,28 @@
             "estimated": false,
             "source": "https://regulations.justia.com/states/new-york/title-21/chapter-lxiii/part-5502/section-5502-1 (21 NYCRR 5502.1, Thousand Islands Bridge Authority tolls effective 2021-04-01) (two-axle commercial USD 8.00 plus USD 2.00 per added axle; a five-axle rig pays USD 14.00 each way), accessed 2026-11-22. Position read from the OpenStreetMap toll booth node 9094662438 at the Ivy Lea plaza, projected on the leg's archived road."
           }
+        ],
+        "bridges": [
+          {
+            "from_mi": 30.831,
+            "to_mi": 31.464,
+            "name": "Thousand Islands Bridge",
+            "over": "St. Lawrence River",
+            "water": true,
+            "curated": true,
+            "osm": "way/22777208 way/1073236018 way/1073236019 way/1073236020 way/1073236021",
+            "source": "Name named by the curated sheet (Thousand Islands Bridge Authority, tibridge.org (the American and Canadian spans)); span derived by projecting its ways (way/22777208 way/1073236018 way/1073236019 way/1073236020 way/1073236021) onto the leg's archived road, rescaled to leg miles (curated, 3335 ft); what it spans read from the curated sheet. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "from_mi": 36.526,
+            "to_mi": 37.378,
+            "name": "Thousand Islands Bridge",
+            "over": "St. Lawrence River",
+            "water": true,
+            "curated": true,
+            "osm": "way/22777387",
+            "source": "Name named by the curated sheet (Thousand Islands Bridge Authority, tibridge.org (the American and Canadian spans)); span derived by projecting its ways (way/22777387) onto the leg's archived road, rescaled to leg miles (curated, 4488 ft); what it spans read from the curated sheet. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          }
         ]
       },
       "rerouted": true
@@ -45841,6 +45887,18 @@
             "name": "MacLeod Provincial Park",
             "source": "derived 2026-11-22: OpenStreetMap relation 2623790684 (MacLeod Provincial Park) boundary from the planet extract of 2026-11-16; the stretch of the leg's archived route inside the park or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on); widened to the one-mile minimum"
           }
+        ],
+        "bridges": [
+          {
+            "from_mi": 118.832,
+            "to_mi": 119.003,
+            "name": "Nipigon River Bridge",
+            "over": "Nipigon River",
+            "water": true,
+            "curated": true,
+            "osm": "way/72161474 way/475639466",
+            "source": "Name named by the curated sheet (Ontario Ministry of Transportation, Nipigon River Bridge (Highway 11/17)); span derived by projecting its ways (way/72161474 way/475639466) onto the leg's archived road, rescaled to leg miles (curated, 902 ft); what it spans read from the curated sheet. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          }
         ]
       },
       "rerouted": true
@@ -47580,6 +47638,18 @@
             "to_mi": 102.95,
             "name": "Ruby Lake Provincial Park",
             "source": "derived 2026-11-22: OpenStreetMap relation 2133569532 (Ruby Lake Provincial Park) boundary from the planet extract of 2026-11-16; the stretch of the leg's archived route inside the park or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on); widened to the one-mile minimum"
+          }
+        ],
+        "bridges": [
+          {
+            "from_mi": 110.825,
+            "to_mi": 110.995,
+            "name": "Nipigon River Bridge",
+            "over": "Nipigon River",
+            "water": true,
+            "curated": true,
+            "osm": "way/72161474 way/475639466",
+            "source": "Name named by the curated sheet (Ontario Ministry of Transportation, Nipigon River Bridge (Highway 11/17)); span derived by projecting its ways (way/72161474 way/475639466) onto the leg's archived road, rescaled to leg miles (curated, 894 ft); what it spans read from the curated sheet. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           }
         ]
       },
@@ -52974,7 +53044,37 @@
             "hpms_year": 2020,
             "source": "FHWA Highway Performance Monitoring System (HPMS) Surface_Type (Item 49) and Structure_Type (Item 4), codes per the HPMS Field Manual, Chapter 4 (https://www.fhwa.dot.gov/policyinformation/hpms/fieldmanual/page06.cfm and page04.cfm), read from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view), accessed 2026-11-22. The class and the structure are READ. Mileage is DERIVED: each section's longest geometry piece projected onto the archived leg road and rescaled to the leg's miles, read in 0.005-mile bins, the highest functional class nearest the road winning where rows overlap. A run marked inventory_side is ASSUMED: the leg drives the non-inventory carriageway there, which HPMS gives no surface of its own, and the inventory carriageway's reading within 250 m is applied to it (meta inventory_share_* gives how much of the leg). A structure's hpms_mi is READ: the milepoint length of the HPMS sections behind it, each once. mile_scale is leg miles per measured mile of the archived road. Each surface entry reads 'from_mi to_mi class', then forward or reverse when it holds one way only, then iri=, faulting= and inventory_side where they apply; each structure reads 'from_mi to_mi kind', the way, then hpms= (its HPMS length). iri (inches per mile) and faulting (inches) are DERIVED: the mean of the section readings inside the run. Where HPMS has no reading nothing is written. HPMS reports bridge-sized culverts as bridges."
           }
-        }
+        },
+        "bridges": [
+          {
+            "from_mi": 6.423,
+            "to_mi": 6.727,
+            "name": "Lewiston-Queenston Bridge",
+            "over": "Niagara River",
+            "water": true,
+            "curated": true,
+            "osm": "way/55793714 way/77453613 way/77453614 way/77457626",
+            "source": "Name named by the curated sheet (Niagara Falls Bridge Commission, niagarafallsbridges.com (Lewiston-Queenston Bridge)); span derived by projecting its ways (way/55793714 way/77453613 way/77453614 way/77457626) onto the leg's archived road, rescaled to leg miles (curated, 1593 ft); what it spans read from the curated sheet. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "from_mi": 13.806,
+            "to_mi": 14.589,
+            "name": "North Grand Island Bridge",
+            "over": "Niagara River \u2013 Tonawanda Channel",
+            "water": true,
+            "osm": "way/4374895 way/93788323 way/93788359 way/1070088836",
+            "source": "Name read from the name of way 4374895, a bridge's name; span derived by projecting its ways (way/4374895 way/93788323 way/93788359 way/1070088836) onto the leg's archived road, rescaled to leg miles (over the length bar, 4111 ft); water derived from a waterway or coastline the bridge ways cross. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "from_mi": 19.957,
+            "to_mi": 20.634,
+            "name": "South Grand Island Bridge",
+            "over": "Niagara River \u2013 Tonawanda Channel",
+            "water": true,
+            "osm": "way/4374883 way/35209515",
+            "source": "Name read from the name of way 4374883, a bridge's name; span derived by projecting its ways (way/4374883 way/35209515) onto the leg's archived road, rescaled to leg miles (over the length bar, 3552 ft); water derived from a waterway or coastline the bridge ways cross. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          }
+        ]
       },
       "rerouted": true
     },
@@ -53414,7 +53514,19 @@
           "name": "level",
           "sections": 0,
           "source": "DERIVED, not read: Canada has no national inventory like HPMS, so the class is the terrain the leg's own grade profile spends the most miles in (the reroute-enrich rule: sustained grade of 5 percent, or 4 percent with 1,000 ft of relief within 5 miles, is mountain; 1.5 percent or 400 ft of relief is hills; else flat), mapped flat to level, hills to rolling and mountain to mountainous. It reads the same elevation as the grade, so it is no independent check on it."
-        }
+        },
+        "bridges": [
+          {
+            "from_mi": 8.345,
+            "to_mi": 9.708,
+            "name": "Garden City Skyway",
+            "over": "Welland Canal",
+            "water": true,
+            "curated": true,
+            "osm": "way/35893946 way/148586331 way/148586332",
+            "source": "Name named by the curated sheet (Ontario Ministry of Transportation, Garden City Skyway (QEW)); span derived by projecting its ways (way/35893946 way/148586331 way/148586332) onto the leg's archived road, rescaled to leg miles (curated, 7157 ft); what it spans read from the curated sheet. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          }
+        ]
       },
       "route_via": [
         {
@@ -54785,6 +54897,18 @@
             "to_mi": 102.8,
             "name": "MacLeod Provincial Park",
             "source": "derived 2026-11-22: OpenStreetMap relation 2623790684 (MacLeod Provincial Park) boundary from the planet extract of 2026-11-16; the stretch of the leg's archived route inside the park or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on); widened to the one-mile minimum"
+          }
+        ],
+        "bridges": [
+          {
+            "from_mi": 1.998,
+            "to_mi": 2.168,
+            "name": "Nipigon River Bridge",
+            "over": "Nipigon River",
+            "water": true,
+            "curated": true,
+            "osm": "way/72161474 way/475639466",
+            "source": "Name named by the curated sheet (Ontario Ministry of Transportation, Nipigon River Bridge (Highway 11/17)); span derived by projecting its ways (way/72161474 way/475639466) onto the leg's archived road, rescaled to leg miles (curated, 901 ft); what it spans read from the curated sheet. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           }
         ]
       },
@@ -56377,6 +56501,18 @@
             "to_mi": 102.65,
             "name": "Neys Provincial Park",
             "source": "derived 2026-11-22: OpenStreetMap relation 23435879 (Neys Provincial Park) boundary from the planet extract of 2026-11-16; the stretch of the leg's archived route inside the park or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on); widened to the one-mile minimum"
+          }
+        ],
+        "bridges": [
+          {
+            "from_mi": 2.006,
+            "to_mi": 2.176,
+            "name": "Nipigon River Bridge",
+            "over": "Nipigon River",
+            "water": true,
+            "curated": true,
+            "osm": "way/72161474 way/475639466",
+            "source": "Name named by the curated sheet (Ontario Ministry of Transportation, Nipigon River Bridge (Highway 11/17)); span derived by projecting its ways (way/72161474 way/475639466) onto the leg's archived road, rescaled to leg miles (curated, 894 ft); what it spans read from the curated sheet. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           }
         ]
       },
@@ -70840,6 +70976,17 @@
             "state": "Quebec",
             "place": "Ontario-Quebec line on Hwy 417 / A-40",
             "source": "derived 2026-11-05: the leg's archived route geometry intersected with OpenStreetMap state and province boundary relations (boundary=administrative, admin_level=4); at_mi = cumulative geometry distance at each boundary crossing, rescaled to leg miles; state miles = differences of those boundaries. OpenStreetMap, boundary relations read from the OpenStreetMap API on 2026-11-16: https://www.openstreetmap.org/."
+          }
+        ],
+        "bridges": [
+          {
+            "from_mi": 98.652,
+            "to_mi": 99.862,
+            "name": "Pont de l'\u00cele-aux-Tourtes",
+            "over": "Rivi\u00e8re des Outaouais",
+            "water": true,
+            "osm": "way/20944955 way/627193937",
+            "source": "Name read from the bridge:name tag of way 20944955; span derived by projecting its ways (way/20944955 way/627193937) onto the leg's archived road, rescaled to leg miles (over the length bar, 6391 ft); water derived from a waterway or coastline the bridge ways cross. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           }
         ]
       },
@@ -86676,6 +86823,18 @@
             "amount_local": 35.0,
             "currency": "CAD"
           }
+        ],
+        "bridges": [
+          {
+            "from_mi": 1.845,
+            "to_mi": 2.923,
+            "name": "Blue Water Bridge",
+            "over": "St. Clair River",
+            "water": true,
+            "curated": true,
+            "osm": "way/4625049 way/4704932 way/39422064 way/39422065 way/360804481 way/615253709 way/624694034",
+            "source": "Name named by the curated sheet (Michigan DOT and the Federal Bridge Corporation, Blue Water Bridge (Port Huron to Point Edward)); span derived by projecting its ways (way/4625049 way/4704932 way/39422064 way/39422065 way/360804481 way/615253709 way/624694034) onto the leg's archived road, rescaled to leg miles (curated, 5618 ft); what it spans read from the curated sheet. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          }
         ]
       },
       "rerouted": true
@@ -86971,7 +87130,19 @@
           "name": "level",
           "sections": 0,
           "source": "DERIVED, not read: Canada has no national inventory like HPMS, so the class is the terrain the leg's own grade profile spends the most miles in (the reroute-enrich rule: sustained grade of 5 percent, or 4 percent with 1,000 ft of relief within 5 miles, is mountain; 1.5 percent or 400 ft of relief is hills; else flat), mapped flat to level, hills to rolling and mountain to mountainous. It reads the same elevation as the grade, so it is no independent check on it."
-        }
+        },
+        "bridges": [
+          {
+            "from_mi": 4.256,
+            "to_mi": 5.979,
+            "name": "Sault Ste. Marie International Bridge",
+            "over": "St. Marys River",
+            "water": true,
+            "curated": true,
+            "osm": "way/17365421 way/17765499",
+            "source": "Name named by the curated sheet (International Bridge Administration, saultbridge.com); span derived by projecting its ways (way/17365421 way/17765499) onto the leg's archived road, rescaled to leg miles (curated, 9269 ft); what it spans read from the curated sheet. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          }
+        ]
       },
       "route_via": [
         {
@@ -92018,7 +92189,31 @@
           "name": "level",
           "sections": 0,
           "source": "DERIVED, not read: Canada has no national inventory like HPMS, so the class is the terrain the leg's own grade profile spends the most miles in (the reroute-enrich rule: sustained grade of 5 percent, or 4 percent with 1,000 ft of relief within 5 miles, is mountain; 1.5 percent or 400 ft of relief is hills; else flat), mapped flat to level, hills to rolling and mountain to mountainous. It reads the same elevation as the grade, so it is no independent check on it."
-        }
+        },
+        "bridges": [
+          {
+            "from_mi": 32.306,
+            "to_mi": 33.92,
+            "name": "Burlington Bay James N. Allan Skyway",
+            "over": "Burlington Bay canal",
+            "water": true,
+            "ways": "forward",
+            "curated": true,
+            "osm": "way/24383647 way/24383761 way/24384193 way/24690493 way/25514592 way/155736565",
+            "source": "Name named by the curated sheet (Ontario Ministry of Transportation, Burlington Bay James N. Allan Skyway (QEW)); span derived by projecting its ways (way/24383647 way/24383761 way/24384193 way/24690493 way/25514592 way/155736565) onto the leg's archived road, rescaled to leg miles (curated, 8439 ft); what it spans read from the curated sheet. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "from_mi": 32.404,
+            "to_mi": 33.801,
+            "name": "Burlington Bay James N. Allan Skyway",
+            "over": "Burlington Bay canal",
+            "water": true,
+            "ways": "reverse",
+            "curated": true,
+            "osm": "way/24383647 way/24383761 way/24384193 way/24690493 way/25514592 way/155736565",
+            "source": "Name named by the curated sheet (Ontario Ministry of Transportation, Burlington Bay James N. Allan Skyway (QEW)); span derived by projecting its ways (way/24383647 way/24383761 way/24384193 way/24690493 way/25514592 way/155736565) onto the leg's archived road, rescaled to leg miles (curated, 7305 ft); what it spans read from the curated sheet. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          }
+        ]
       },
       "rerouted": true
     },
@@ -92650,7 +92845,19 @@
           "name": "level",
           "sections": 0,
           "source": "DERIVED, not read: Canada has no national inventory like HPMS, so the class is the terrain the leg's own grade profile spends the most miles in (the reroute-enrich rule: sustained grade of 5 percent, or 4 percent with 1,000 ft of relief within 5 miles, is mountain; 1.5 percent or 400 ft of relief is hills; else flat), mapped flat to level, hills to rolling and mountain to mountainous. It reads the same elevation as the grade, so it is no independent check on it."
-        }
+        },
+        "bridges": [
+          {
+            "from_mi": 7.62,
+            "to_mi": 8.937,
+            "name": "Garden City Skyway",
+            "over": "Welland Canal",
+            "water": true,
+            "curated": true,
+            "osm": "way/35893946 way/148586331 way/148586332",
+            "source": "Name named by the curated sheet (Ontario Ministry of Transportation, Garden City Skyway (QEW)); span derived by projecting its ways (way/35893946 way/148586331 way/148586332) onto the leg's archived road, rescaled to leg miles (curated, 7142 ft); what it spans read from the curated sheet. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          }
+        ]
       },
       "route_via": [
         {
@@ -123099,6 +123306,18 @@
             "source": "https://gordiehoweinternationalbridge.com/toll/toll-rates/ and https://gordiehoweinternationalbridge.com/toll/faq/ (commercial vehicles USD 8.75 or CAD 12.00 per axle, the same from either side; a five-axle rig pays USD 43.75), accessed 2026-11-22. Position read from the OpenStreetMap toll booth nodes at the Canadian port plaza (node 13897248738), where tolls are collected in both directions, projected on the leg's archived road. Canadian price read: CAD 12.00 per axle, CAD 60.00 for five axles, at the toll plaza in the Canadian port of entry.",
             "amount_local": 60.0,
             "currency": "CAD"
+          }
+        ],
+        "bridges": [
+          {
+            "from_mi": 6.957,
+            "to_mi": 8.511,
+            "name": "Gordie Howe International Bridge",
+            "over": "Detroit River",
+            "water": true,
+            "curated": true,
+            "osm": "way/168055476 way/1152542218 way/1545225837",
+            "source": "Name named by the curated sheet (Windsor-Detroit Bridge Authority, gordiehoweinternationalbridge.com); span derived by projecting its ways (way/168055476 way/1152542218 way/1545225837) onto the leg's archived road, rescaled to leg miles (curated, 8332 ft); what it spans read from the curated sheet. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           }
         ]
       },

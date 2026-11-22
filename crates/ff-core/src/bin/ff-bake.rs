@@ -100,6 +100,10 @@ fn run(args: &Args) -> Result<(), String> {
             report.structures_flagged,
             report.structures
         );
+        println!(
+            "{} named bridges on {} legs; {} bridge records screened out",
+            report.bridges, report.bridge_legs, report.bridges_screened
+        );
     }
     Ok(())
 }

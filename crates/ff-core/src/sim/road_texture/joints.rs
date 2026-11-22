@@ -40,6 +40,9 @@ pub enum SpanOrigin {
     /// A river point with no structure the layer reads near it: a joint at
     /// each edge of the river span, assumed.
     RiverAssumed,
+    /// A named bridge (`corridor.bridges`) where the layer reads no
+    /// structure: its whole derived span, a joint at each end.
+    NamedBridge,
 }
 
 /// A stretch with a joint at each end, in route miles.
@@ -57,6 +60,15 @@ impl JointSpan {
             from_mi: at_mi - RIVER_SPAN_MI,
             to_mi: at_mi + RIVER_SPAN_MI,
             origin: SpanOrigin::RiverAssumed,
+        }
+    }
+
+    /// A named bridge's whole span.
+    pub fn named_bridge(from_mi: f64, to_mi: f64) -> JointSpan {
+        JointSpan {
+            from_mi,
+            to_mi,
+            origin: SpanOrigin::NamedBridge,
         }
     }
 
@@ -110,7 +122,9 @@ pub fn joints_heard(
     reached.sort_by(|a, b| a.at_mi.total_cmp(&b.at_mi));
     let mut heard = Vec::new();
     for joint in reached {
-        if since >= MIN_JOINT_GAP_S || joint.origin == SpanOrigin::RiverAssumed {
+        if since >= MIN_JOINT_GAP_S
+            || matches!(joint.origin, SpanOrigin::RiverAssumed | SpanOrigin::NamedBridge)
+        {
             heard.push(joint);
             since = 0.0;
         }

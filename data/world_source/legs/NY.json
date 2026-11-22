@@ -8894,7 +8894,18 @@
             "hpms_year": 2020,
             "source": "FHWA Highway Performance Monitoring System (HPMS) Surface_Type (Item 49) and Structure_Type (Item 4), codes per the HPMS Field Manual, Chapter 4 (https://www.fhwa.dot.gov/policyinformation/hpms/fieldmanual/page06.cfm and page04.cfm), read from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view), accessed 2026-11-20. The class and the structure are READ. Mileage is DERIVED: each section's longest geometry piece projected onto the archived leg road and rescaled to the leg's miles, read in 0.005-mile bins, the highest functional class nearest the road winning where rows overlap. A run marked inventory_side is ASSUMED: the leg drives the non-inventory carriageway there, which HPMS gives no surface of its own, and the inventory carriageway's reading within 250 m is applied to it (meta inventory_share_* gives how much of the leg). A structure's hpms_mi is READ: the milepoint length of the HPMS sections behind it, each once. mile_scale is leg miles per measured mile of the archived road. Each surface entry reads 'from_mi to_mi class', then forward or reverse when it holds one way only, then iri=, faulting= and inventory_side where they apply; each structure reads 'from_mi to_mi kind', the way, then hpms= (its HPMS length). iri (inches per mile) and faulting (inches) are DERIVED: the mean of the section readings inside the run. Where HPMS has no reading nothing is written. HPMS reports bridge-sized culverts as bridges."
           }
-        }
+        },
+        "bridges": [
+          {
+            "from_mi": 8.016,
+            "to_mi": 8.666,
+            "name": "Collar City Bridge",
+            "over": "Hudson River",
+            "water": true,
+            "osm": "way/31929600 way/47414212 way/53309136 way/53309137 way/236338198 way/236338199 way/318328981 way/318328982 way/669453496 way/1374877323 way/1374877324",
+            "source": "Name read from the name of bridge outline way 986493921; span derived by projecting its ways (way/31929600 way/47414212 way/53309136 way/53309137 way/236338198 way/236338199 way/318328981 way/318328982 way/669453496 way/1374877323 way/1374877324) onto the leg's archived road, rescaled to leg miles (over the length bar, 3432 ft); water derived from a waterway or coastline the bridge ways cross. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          }
+        ]
       },
       "stops": [
         {
@@ -25705,7 +25716,18 @@
             "hpms_year": 2020,
             "source": "FHWA Highway Performance Monitoring System (HPMS) Surface_Type (Item 49) and Structure_Type (Item 4), codes per the HPMS Field Manual, Chapter 4 (https://www.fhwa.dot.gov/policyinformation/hpms/fieldmanual/page06.cfm and page04.cfm), read from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view), accessed 2026-11-20. The class and the structure are READ. Mileage is DERIVED: each section's longest geometry piece projected onto the archived leg road and rescaled to the leg's miles, read in 0.005-mile bins, the highest functional class nearest the road winning where rows overlap. A run marked inventory_side is ASSUMED: the leg drives the non-inventory carriageway there, which HPMS gives no surface of its own, and the inventory carriageway's reading within 250 m is applied to it (meta inventory_share_* gives how much of the leg). A structure's hpms_mi is READ: the milepoint length of the HPMS sections behind it, each once. mile_scale is leg miles per measured mile of the archived road. Each surface entry reads 'from_mi to_mi class', then forward or reverse when it holds one way only, then iri=, faulting= and inventory_side where they apply; each structure reads 'from_mi to_mi kind', the way, then hpms= (its HPMS length). iri (inches per mile) and faulting (inches) are DERIVED: the mean of the section readings inside the run. Where HPMS has no reading nothing is written. HPMS reports bridge-sized culverts as bridges."
           }
-        }
+        },
+        "bridges": [
+          {
+            "from_mi": 0.366,
+            "to_mi": 1.482,
+            "name": "Buffalo Skyway",
+            "over": "City Ship Canal",
+            "water": true,
+            "osm": "way/31679706 way/139260068 way/296974407 way/947058661 way/1103506757 way/1103511252 way/1103511253 way/1383352386 way/1383352387 way/1383352388",
+            "source": "Name read from the name of way 25655426, a bridge's name; span derived by projecting its ways (way/31679706 way/139260068 way/296974407 way/947058661 way/1103506757 way/1103511252 way/1103511253 way/1383352386 way/1383352387 way/1383352388) onto the leg's archived road, rescaled to leg miles (over the length bar, 5894 ft); water derived from a waterway or coastline the bridge ways cross. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          }
+        ]
       },
       "stops": [
         {
@@ -32911,7 +32933,18 @@
             "hpms_year": 2020,
             "source": "FHWA Highway Performance Monitoring System (HPMS) Surface_Type (Item 49) and Structure_Type (Item 4), codes per the HPMS Field Manual, Chapter 4 (https://www.fhwa.dot.gov/policyinformation/hpms/fieldmanual/page06.cfm and page04.cfm), read from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view), accessed 2026-11-20. The class and the structure are READ. Mileage is DERIVED: each section's longest geometry piece projected onto the archived leg road and rescaled to the leg's miles, read in 0.005-mile bins, the highest functional class nearest the road winning where rows overlap. A run marked inventory_side is ASSUMED: the leg drives the non-inventory carriageway there, which HPMS gives no surface of its own, and the inventory carriageway's reading within 250 m is applied to it (meta inventory_share_* gives how much of the leg). A structure's hpms_mi is READ: the milepoint length of the HPMS sections behind it, each once. mile_scale is leg miles per measured mile of the archived road. Each surface entry reads 'from_mi to_mi class', then forward or reverse when it holds one way only, then iri=, faulting= and inventory_side where they apply; each structure reads 'from_mi to_mi kind', the way, then hpms= (its HPMS length). iri (inches per mile) and faulting (inches) are DERIVED: the mean of the section readings inside the run. Where HPMS has no reading nothing is written. HPMS reports bridge-sized culverts as bridges."
           }
-        }
+        },
+        "bridges": [
+          {
+            "from_mi": 436.41,
+            "to_mi": 439.441,
+            "name": "Tappan Zee Bridge",
+            "over": "Hudson River",
+            "water": true,
+            "osm": "way/549576862 way/804529723 way/1011581939 way/1011581940 way/1011581941 way/1011633355",
+            "source": "Name read from the bridge:name tag of way 549576862; span derived by projecting its ways (way/549576862 way/804529723 way/1011581939 way/1011581940 way/1011581941 way/1011633355) onto the leg's archived road, rescaled to leg miles (over the length bar, 15937 ft); water derived from a waterway or coastline the bridge ways cross. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          }
+        ]
       },
       "stops": [
         {
@@ -34398,6 +34431,36 @@
             "source": "https://www.niagarafallsbridges.com/crossing-info/toll-cost-vehicle-definitions, rates effective 2025-05-01 (commercial, five axles USD 34.00 or CAD 48.50; tolls are paid one way into Canada, at a booth in Canada), accessed 2026-11-22. Position read from the OpenStreetMap toll booth node 4358007540 at the Queenston plaza, projected on the leg's archived road. Canadian price read: CAD 48.50 at the booth in Canada.",
             "amount_local": 48.5,
             "currency": "CAD"
+          }
+        ],
+        "bridges": [
+          {
+            "from_mi": 9.293,
+            "to_mi": 9.957,
+            "name": "South Grand Island Bridge",
+            "over": "Niagara River \u2013 Tonawanda Channel",
+            "water": true,
+            "osm": "way/4374883 way/35209515",
+            "source": "Name read from the name of way 4374883, a bridge's name; span derived by projecting its ways (way/4374883 way/35209515) onto the leg's archived road, rescaled to leg miles (over the length bar, 3549 ft); water derived from a waterway or coastline the bridge ways cross. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "from_mi": 15.204,
+            "to_mi": 15.973,
+            "name": "North Grand Island Bridge",
+            "over": "Niagara River \u2013 Tonawanda Channel",
+            "water": true,
+            "osm": "way/4374895 way/93788323 way/93788359 way/1070088836",
+            "source": "Name read from the name of way 4374895, a bridge's name; span derived by projecting its ways (way/4374895 way/93788323 way/93788359 way/1070088836) onto the leg's archived road, rescaled to leg miles (over the length bar, 4111 ft); water derived from a waterway or coastline the bridge ways cross. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "from_mi": 22.968,
+            "to_mi": 23.266,
+            "name": "Lewiston-Queenston Bridge",
+            "over": "Niagara River",
+            "water": true,
+            "curated": true,
+            "osm": "way/55793714 way/77453613 way/77453614 way/77457626",
+            "source": "Name named by the curated sheet (Niagara Falls Bridge Commission, niagarafallsbridges.com (Lewiston-Queenston Bridge)); span derived by projecting its ways (way/55793714 way/77453613 way/77453614 way/77457626) onto the leg's archived road, rescaled to leg miles (curated, 1594 ft); what it spans read from the curated sheet. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           }
         ]
       },
@@ -37699,7 +37762,18 @@
             "hpms_year": 2020,
             "source": "FHWA Highway Performance Monitoring System (HPMS) Surface_Type (Item 49) and Structure_Type (Item 4), codes per the HPMS Field Manual, Chapter 4 (https://www.fhwa.dot.gov/policyinformation/hpms/fieldmanual/page06.cfm and page04.cfm), read from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view), accessed 2026-11-20. The class and the structure are READ. Mileage is DERIVED: each section's longest geometry piece projected onto the archived leg road and rescaled to the leg's miles, read in 0.005-mile bins, the highest functional class nearest the road winning where rows overlap. A run marked inventory_side is ASSUMED: the leg drives the non-inventory carriageway there, which HPMS gives no surface of its own, and the inventory carriageway's reading within 250 m is applied to it (meta inventory_share_* gives how much of the leg). A structure's hpms_mi is READ: the milepoint length of the HPMS sections behind it, each once. mile_scale is leg miles per measured mile of the archived road. Each surface entry reads 'from_mi to_mi class', then forward or reverse when it holds one way only, then iri=, faulting= and inventory_side where they apply; each structure reads 'from_mi to_mi kind', the way, then hpms= (its HPMS length). iri (inches per mile) and faulting (inches) are DERIVED: the mean of the section readings inside the run. Where HPMS has no reading nothing is written. HPMS reports bridge-sized culverts as bridges."
           }
-        }
+        },
+        "bridges": [
+          {
+            "from_mi": 70.467,
+            "to_mi": 71.579,
+            "name": "Buffalo Skyway",
+            "over": "City Ship Canal",
+            "water": true,
+            "osm": "way/31679706 way/139260068 way/296974407 way/947058661 way/1103506757 way/1103511252 way/1103511253 way/1383352386 way/1383352387 way/1383352388",
+            "source": "Name read from the name of way 25655426, a bridge's name; span derived by projecting its ways (way/31679706 way/139260068 way/296974407 way/947058661 way/1103506757 way/1103511252 way/1103511253 way/1383352386 way/1383352387 way/1383352388) onto the leg's archived road, rescaled to leg miles (over the length bar, 5892 ft); water derived from a waterway or coastline the bridge ways cross. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          }
+        ]
       },
       "stops": [
         {
@@ -39167,7 +39241,25 @@
             "hpms_year": 2020,
             "source": "FHWA Highway Performance Monitoring System (HPMS) Surface_Type (Item 49) and Structure_Type (Item 4), codes per the HPMS Field Manual, Chapter 4 (https://www.fhwa.dot.gov/policyinformation/hpms/fieldmanual/page06.cfm and page04.cfm), read from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view), accessed 2026-11-20. The class and the structure are READ. Mileage is DERIVED: each section's longest geometry piece projected onto the archived leg road and rescaled to the leg's miles, read in 0.005-mile bins, the highest functional class nearest the road winning where rows overlap. A run marked inventory_side is ASSUMED: the leg drives the non-inventory carriageway there, which HPMS gives no surface of its own, and the inventory carriageway's reading within 250 m is applied to it (meta inventory_share_* gives how much of the leg). A structure's hpms_mi is READ: the milepoint length of the HPMS sections behind it, each once. mile_scale is leg miles per measured mile of the archived road. Each surface entry reads 'from_mi to_mi class', then forward or reverse when it holds one way only, then iri=, faulting= and inventory_side where they apply; each structure reads 'from_mi to_mi kind', the way, then hpms= (its HPMS length). iri (inches per mile) and faulting (inches) are DERIVED: the mean of the section readings inside the run. Where HPMS has no reading nothing is written. HPMS reports bridge-sized culverts as bridges."
           }
-        }
+        },
+        "bridges": [
+          {
+            "from_mi": 9.677,
+            "to_mi": 10.695,
+            "name": "Chautauqua County Veterans' Memorial Bridge",
+            "ways": "reverse",
+            "osm": "way/172918291 way/172918294",
+            "source": "Name read from the bridge:name tag of way 172918291; span derived by projecting its ways (way/172918291 way/172918294) onto the leg's archived road, rescaled to leg miles (over the length bar, 5431 ft); no waterway or coastline found under it (assumed dry). OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "from_mi": 9.883,
+            "to_mi": 10.697,
+            "name": "Chautauqua County Veterans' Memorial Bridge",
+            "ways": "forward",
+            "osm": "way/172918291 way/172918294",
+            "source": "Name read from the bridge:name tag of way 172918291; span derived by projecting its ways (way/172918291 way/172918294) onto the leg's archived road, rescaled to leg miles (over the length bar, 4341 ft); no waterway or coastline found under it (assumed dry). OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          }
+        ]
       },
       "stops": [
         {
@@ -42523,7 +42615,35 @@
             "hpms_year": 2020,
             "source": "FHWA Highway Performance Monitoring System (HPMS) Surface_Type (Item 49) and Structure_Type (Item 4), codes per the HPMS Field Manual, Chapter 4 (https://www.fhwa.dot.gov/policyinformation/hpms/fieldmanual/page06.cfm and page04.cfm), read from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view), accessed 2026-11-20. The class and the structure are READ. Mileage is DERIVED: each section's longest geometry piece projected onto the archived leg road and rescaled to the leg's miles, read in 0.005-mile bins, the highest functional class nearest the road winning where rows overlap. A run marked inventory_side is ASSUMED: the leg drives the non-inventory carriageway there, which HPMS gives no surface of its own, and the inventory carriageway's reading within 250 m is applied to it (meta inventory_share_* gives how much of the leg). A structure's hpms_mi is READ: the milepoint length of the HPMS sections behind it, each once. mile_scale is leg miles per measured mile of the archived road. Each surface entry reads 'from_mi to_mi class', then forward or reverse when it holds one way only, then iri=, faulting= and inventory_side where they apply; each structure reads 'from_mi to_mi kind', the way, then hpms= (its HPMS length). iri (inches per mile) and faulting (inches) are DERIVED: the mean of the section readings inside the run. Where HPMS has no reading nothing is written. HPMS reports bridge-sized culverts as bridges."
           }
-        }
+        },
+        "bridges": [
+          {
+            "from_mi": 5.783,
+            "to_mi": 6.838,
+            "name": "George Washington Bridge Lower Level",
+            "water": true,
+            "osm": "way/46590477 way/46590816 way/46618199 way/46618200 way/49032029 way/232473896",
+            "source": "Name read from the name of way 46590477, a bridge's name; span derived by projecting its ways (way/46590477 way/46590816 way/46618199 way/46618200 way/49032029 way/232473896) onto the leg's archived road, rescaled to leg miles (over the length bar, 5537 ft); water derived from a waterway or coastline the bridge ways cross. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "from_mi": 5.789,
+            "to_mi": 6.39,
+            "name": "George Washington Bridge Upper Level",
+            "water": true,
+            "ways": "forward",
+            "osm": "way/9702602 way/16586045 way/44763891 way/49032026 way/1339765258 way/1339765260",
+            "source": "Name read from the name of way 9702602, a bridge's name; span derived by projecting its ways (way/9702602 way/16586045 way/44763891 way/49032026 way/1339765258 way/1339765260) onto the leg's archived road, rescaled to leg miles (over the length bar, 3159 ft); water derived from a waterway or coastline the bridge ways cross. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "from_mi": 5.789,
+            "to_mi": 6.393,
+            "name": "George Washington Bridge Upper Level",
+            "water": true,
+            "ways": "reverse",
+            "osm": "way/9702602 way/16586045 way/44763891 way/49032026 way/1339765258 way/1339765260",
+            "source": "Name read from the name of way 9702602, a bridge's name; span derived by projecting its ways (way/9702602 way/16586045 way/44763891 way/49032026 way/1339765258 way/1339765260) onto the leg's archived road, rescaled to leg miles (over the length bar, 3168 ft); water derived from a waterway or coastline the bridge ways cross. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          }
+        ]
       },
       "stops": [
         {
@@ -48517,7 +48637,28 @@
             "hpms_year": 2020,
             "source": "FHWA Highway Performance Monitoring System (HPMS) Surface_Type (Item 49) and Structure_Type (Item 4), codes per the HPMS Field Manual, Chapter 4 (https://www.fhwa.dot.gov/policyinformation/hpms/fieldmanual/page06.cfm and page04.cfm), read from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view), accessed 2026-11-20. The class and the structure are READ. Mileage is DERIVED: each section's longest geometry piece projected onto the archived leg road and rescaled to the leg's miles, read in 0.005-mile bins, the highest functional class nearest the road winning where rows overlap. A run marked inventory_side is ASSUMED: the leg drives the non-inventory carriageway there, which HPMS gives no surface of its own, and the inventory carriageway's reading within 250 m is applied to it (meta inventory_share_* gives how much of the leg). A structure's hpms_mi is READ: the milepoint length of the HPMS sections behind it, each once. mile_scale is leg miles per measured mile of the archived road. Each surface entry reads 'from_mi to_mi class', then forward or reverse when it holds one way only, then iri=, faulting= and inventory_side where they apply; each structure reads 'from_mi to_mi kind', the way, then hpms= (its HPMS length). iri (inches per mile) and faulting (inches) are DERIVED: the mean of the section readings inside the run. Where HPMS has no reading nothing is written. HPMS reports bridge-sized culverts as bridges."
           }
-        }
+        },
+        "bridges": [
+          {
+            "from_mi": 54.935,
+            "to_mi": 55.525,
+            "name": "Moses Wheeler Bridge",
+            "over": "Housatonic River",
+            "water": true,
+            "ways": "reverse",
+            "osm": "way/44080939 way/44080960 way/858365459",
+            "source": "Name read from the name of bridge outline way 1089700935; span derived by projecting its ways (way/44080939 way/44080960 way/858365459) onto the leg's archived road, rescaled to leg miles (over the length bar, 3123 ft); water derived from a waterway or coastline the bridge ways cross. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "from_mi": 104.903,
+            "to_mi": 105.539,
+            "name": "Charter Oak Bridge",
+            "over": "Hockanum River",
+            "water": true,
+            "osm": "way/22819611 way/121861105 way/254453501 way/254453831 way/1211707646 way/1359725027 way/1455025952 way/1486732554",
+            "source": "Name read from the name of bridge outline way 588643041; span derived by projecting its ways (way/22819611 way/121861105 way/254453501 way/254453831 way/1211707646 way/1359725027 way/1455025952 way/1486732554) onto the leg's archived road, rescaled to leg miles (over the length bar, 3367 ft); water derived from a waterway or coastline the bridge ways cross. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          }
+        ]
       },
       "stops": [
         {
@@ -53648,7 +53789,44 @@
             "hpms_year": 2020,
             "source": "FHWA Highway Performance Monitoring System (HPMS) Surface_Type (Item 49) and Structure_Type (Item 4), codes per the HPMS Field Manual, Chapter 4 (https://www.fhwa.dot.gov/policyinformation/hpms/fieldmanual/page06.cfm and page04.cfm), read from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view), accessed 2026-11-20. The class and the structure are READ. Mileage is DERIVED: each section's longest geometry piece projected onto the archived leg road and rescaled to the leg's miles, read in 0.005-mile bins, the highest functional class nearest the road winning where rows overlap. A run marked inventory_side is ASSUMED: the leg drives the non-inventory carriageway there, which HPMS gives no surface of its own, and the inventory carriageway's reading within 250 m is applied to it (meta inventory_share_* gives how much of the leg). A structure's hpms_mi is READ: the milepoint length of the HPMS sections behind it, each once. mile_scale is leg miles per measured mile of the archived road. Each surface entry reads 'from_mi to_mi class', then forward or reverse when it holds one way only, then iri=, faulting= and inventory_side where they apply; each structure reads 'from_mi to_mi kind', the way, then hpms= (its HPMS length). iri (inches per mile) and faulting (inches) are DERIVED: the mean of the section readings inside the run. Where HPMS has no reading nothing is written. HPMS reports bridge-sized culverts as bridges."
           }
-        }
+        },
+        "bridges": [
+          {
+            "from_mi": 5.769,
+            "to_mi": 6.82,
+            "name": "George Washington Bridge Lower Level",
+            "water": true,
+            "osm": "way/46590477 way/46590816 way/46618199 way/46618200 way/49032029 way/232473896",
+            "source": "Name read from the name of way 46590477, a bridge's name; span derived by projecting its ways (way/46590477 way/46590816 way/46618199 way/46618200 way/49032029 way/232473896) onto the leg's archived road, rescaled to leg miles (over the length bar, 5537 ft); water derived from a waterway or coastline the bridge ways cross. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "from_mi": 5.775,
+            "to_mi": 6.374,
+            "name": "George Washington Bridge Upper Level",
+            "water": true,
+            "ways": "forward",
+            "osm": "way/9702602 way/16586045 way/44763891 way/49032026 way/1339765258 way/1339765260",
+            "source": "Name read from the name of way 9702602, a bridge's name; span derived by projecting its ways (way/9702602 way/16586045 way/44763891 way/49032026 way/1339765258 way/1339765260) onto the leg's archived road, rescaled to leg miles (over the length bar, 3159 ft); water derived from a waterway or coastline the bridge ways cross. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "from_mi": 5.775,
+            "to_mi": 6.377,
+            "name": "George Washington Bridge Upper Level",
+            "water": true,
+            "ways": "reverse",
+            "osm": "way/9702602 way/16586045 way/44763891 way/49032026 way/1339765258 way/1339765260",
+            "source": "Name read from the name of way 9702602, a bridge's name; span derived by projecting its ways (way/9702602 way/16586045 way/44763891 way/49032026 way/1339765258 way/1339765260) onto the leg's archived road, rescaled to leg miles (over the length bar, 3168 ft); water derived from a waterway or coastline the bridge ways cross. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "from_mi": 103.848,
+            "to_mi": 105.372,
+            "name": "Benjamin Franklin Bridge",
+            "over": "Delaware River",
+            "water": true,
+            "osm": "way/45333094 way/45333096 way/45333099 way/51015453 way/62154291 way/584038580 way/1225129208 way/1422180060",
+            "source": "Name read from the bridge:name tag of way 45333094; span derived by projecting its ways (way/45333094 way/45333096 way/45333099 way/51015453 way/62154291 way/584038580 way/1225129208 way/1422180060) onto the leg's archived road, rescaled to leg miles (over the length bar, 8030 ft); water derived from a waterway or coastline the bridge ways cross. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          }
+        ]
       },
       "divided": true,
       "lanes": 3
@@ -64140,7 +64318,18 @@
             "hpms_year": 2020,
             "source": "FHWA Highway Performance Monitoring System (HPMS) Surface_Type (Item 49) and Structure_Type (Item 4), codes per the HPMS Field Manual, Chapter 4 (https://www.fhwa.dot.gov/policyinformation/hpms/fieldmanual/page06.cfm and page04.cfm), read from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view), accessed 2026-11-20. The class and the structure are READ. Mileage is DERIVED: each section's longest geometry piece projected onto the archived leg road and rescaled to the leg's miles, read in 0.005-mile bins, the highest functional class nearest the road winning where rows overlap. A run marked inventory_side is ASSUMED: the leg drives the non-inventory carriageway there, which HPMS gives no surface of its own, and the inventory carriageway's reading within 250 m is applied to it (meta inventory_share_* gives how much of the leg). A structure's hpms_mi is READ: the milepoint length of the HPMS sections behind it, each once. mile_scale is leg miles per measured mile of the archived road. Each surface entry reads 'from_mi to_mi class', then forward or reverse when it holds one way only, then iri=, faulting= and inventory_side where they apply; each structure reads 'from_mi to_mi kind', the way, then hpms= (its HPMS length). iri (inches per mile) and faulting (inches) are DERIVED: the mean of the section readings inside the run. Where HPMS has no reading nothing is written. HPMS reports bridge-sized culverts as bridges."
           }
-        }
+        },
+        "bridges": [
+          {
+            "from_mi": 369.435,
+            "to_mi": 372.463,
+            "name": "Tappan Zee Bridge",
+            "over": "Hudson River",
+            "water": true,
+            "osm": "way/549576862 way/804529723 way/1011581939 way/1011581940 way/1011581941 way/1011633355",
+            "source": "Name read from the bridge:name tag of way 549576862; span derived by projecting its ways (way/549576862 way/804529723 way/1011581939 way/1011581940 way/1011581941 way/1011633355) onto the leg's archived road, rescaled to leg miles (over the length bar, 15937 ft); water derived from a waterway or coastline the bridge ways cross. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          }
+        ]
       },
       "stops": [
         {
@@ -77087,6 +77276,28 @@
             "amount_plate": 14.0,
             "estimated": false,
             "source": "https://regulations.justia.com/states/new-york/title-21/chapter-lxiii/part-5502/section-5502-1 (21 NYCRR 5502.1, Thousand Islands Bridge Authority tolls effective 2021-04-01) (two-axle commercial USD 8.00 plus USD 2.00 per added axle; a five-axle rig pays USD 14.00 each way), accessed 2026-11-22. Position read from the OpenStreetMap toll booth node 937484216 at the Collins Landing plaza, projected on the leg's archived road."
+          }
+        ],
+        "bridges": [
+          {
+            "from_mi": 25.634,
+            "to_mi": 26.487,
+            "name": "Thousand Islands Bridge",
+            "over": "St. Lawrence River",
+            "water": true,
+            "curated": true,
+            "osm": "way/22777387",
+            "source": "Name named by the curated sheet (Thousand Islands Bridge Authority, tibridge.org (the American and Canadian spans)); span derived by projecting its ways (way/22777387) onto the leg's archived road, rescaled to leg miles (curated, 4490 ft); what it spans read from the curated sheet. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "from_mi": 31.553,
+            "to_mi": 32.187,
+            "name": "Thousand Islands Bridge",
+            "over": "St. Lawrence River",
+            "water": true,
+            "curated": true,
+            "osm": "way/22777208 way/1073236018 way/1073236019 way/1073236020 way/1073236021",
+            "source": "Name named by the curated sheet (Thousand Islands Bridge Authority, tibridge.org (the American and Canadian spans)); span derived by projecting its ways (way/22777208 way/1073236018 way/1073236019 way/1073236020 way/1073236021) onto the leg's archived road, rescaled to leg miles (curated, 3336 ft); what it spans read from the curated sheet. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           }
         ]
       },

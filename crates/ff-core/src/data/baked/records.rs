@@ -15,6 +15,7 @@
 
 use serde::{Deserialize, Serialize};
 
+use crate::data::bridges::{Bridges, NamedBridge};
 use crate::data::counties::CountyRun;
 use crate::data::curves::CurveRecord;
 use crate::data::pavement::{Pavement, Structure, StructureKind, Surface, SurfaceRun, Ways};
@@ -253,6 +254,72 @@ impl From<BakedPavement> for Pavement {
     }
 }
 
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct BakedNamedBridge {
+    pub from_mi: f64,
+    pub to_mi: f64,
+    pub name: String,
+    pub over: String,
+    pub water: bool,
+    pub ways: String,
+    pub curated: bool,
+    pub osm: String,
+    pub source: String,
+}
+
+/// Holds bridges with an enum, so it is spelled out.
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
+pub struct BakedBridges {
+    pub bridges: Vec<BakedNamedBridge>,
+    pub screened: u32,
+}
+
+impl From<&Bridges> for BakedBridges {
+    fn from(b: &Bridges) -> Self {
+        BakedBridges {
+            bridges: b
+                .bridges
+                .iter()
+                .map(|x| BakedNamedBridge {
+                    from_mi: x.from_mi,
+                    to_mi: x.to_mi,
+                    name: x.name.clone(),
+                    over: x.over.clone(),
+                    water: x.water,
+                    ways: x.ways.name().to_string(),
+                    curated: x.curated,
+                    osm: x.osm.clone(),
+                    source: x.source.clone(),
+                })
+                .collect(),
+            screened: u32::try_from(b.screened).unwrap_or(u32::MAX),
+        }
+    }
+}
+
+impl From<BakedBridges> for Bridges {
+    fn from(b: BakedBridges) -> Self {
+        Bridges {
+            bridges: b
+                .bridges
+                .into_iter()
+                .map(|x| NamedBridge {
+                    from_mi: x.from_mi,
+                    to_mi: x.to_mi,
+                    name: x.name,
+                    over: x.over,
+                    water: x.water,
+                    ways: Ways::from_name(&x.ways).unwrap_or_default(),
+                    curated: x.curated,
+                    osm: x.osm,
+                    source: x.source,
+                })
+                .collect(),
+            screened: b.screened as usize,
+        }
+    }
+}
+
 /// The whole deferred half of one leg: the per-mile record lists
 /// `CorridorDetail` holds, in one blob.
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -280,6 +347,8 @@ pub struct BakedCorridor {
     pub counties: Vec<BakedCountyRun>,
     #[serde(default)]
     pub pavement: Option<BakedPavement>,
+    #[serde(default)]
+    pub bridges: BakedBridges,
 }
 
 impl From<&CorridorDetail> for BakedCorridor {
@@ -304,6 +373,7 @@ impl From<&CorridorDetail> for BakedCorridor {
             speed_limits_folded: u32::try_from(detail.speed_limits_folded).unwrap_or(u32::MAX),
             counties: to_mirror(&detail.counties),
             pavement: detail.pavement.as_ref().map(BakedPavement::from),
+            bridges: BakedBridges::from(&detail.bridges),
         }
     }
 }
@@ -330,6 +400,7 @@ impl From<BakedCorridor> for CorridorDetail {
             speed_limits_folded: baked.speed_limits_folded as usize,
             counties: from_mirror(baked.counties),
             pavement: baked.pavement.map(Pavement::from),
+            bridges: Bridges::from(baked.bridges),
         }
     }
 }

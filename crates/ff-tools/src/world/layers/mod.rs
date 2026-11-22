@@ -12,6 +12,7 @@
 //! cargo tools osm-restrictions --pbf FILE [--only a:b;c:d] [--write]
 //! cargo tools osm-landmarks    --pbf FILE [--only a:b;c:d] [--write]
 //! cargo tools osm-villages     --pbf FILE [--only a:b;c:d] [--write]
+//! cargo tools osm-bridges      --pbf FILE [--only a:b;c:d] [--scope north|all] [--write]
 //! cargo tools osm-stops        (--pbf FILE | --stops FILE) [--only a:b;c:d] [--write]
 //! cargo tools hpms-traffic     [--only a:b;c:d] [--write]
 //! cargo tools hpms-terrain     [--only a:b;c:d] [--write]
@@ -29,6 +30,7 @@
 //! re-bake `world.ffdata` afterwards.
 
 pub mod border;
+pub mod bridges;
 pub mod exit_routes;
 pub mod features;
 pub mod hpms;

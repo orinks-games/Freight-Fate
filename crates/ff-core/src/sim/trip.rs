@@ -29,6 +29,7 @@ use crate::sim::vehicle::TruckState;
 use crate::sim::weather::WeatherSystem;
 use crate::units::{distance_unit, spoken_distance, spoken_gap, to_distance};
 
+mod bridges;
 mod climate;
 pub mod destination_exit;
 mod exit_ramps;
@@ -317,6 +318,9 @@ pub struct Trip {
     pub navigation_cues: Vec<NavigationCue>,
     pub border_booths: Vec<BorderBooth>,
     pub landmarks: Vec<RoadsideCallout>,
+    /// The named bridges on the route, and whether the truck is on one.
+    pub bridges: Vec<crate::sim::bridges::RouteBridge>,
+    pub bridge: crate::sim::bridges::BridgeCrossing,
     pub billboards: Vec<RoadsideCallout>,
     pub chain_law_areas: Vec<(f64, f64)>,
     pub posts: Vec<EnforcementPost>,
@@ -535,6 +539,8 @@ impl Trip {
             navigation_cues: Vec::new(),
             border_booths: Vec::new(),
             landmarks: Vec::new(),
+            bridges: Vec::new(),
+            bridge: Default::default(),
             billboards: Vec::new(),
             chain_law_areas: Vec::new(),
             posts: Vec::new(),
@@ -609,6 +615,7 @@ impl Trip {
         let (navigation_cues, border_booths) = trip.build_navigation_cues_and_border_booths();
         trip.navigation_cues = navigation_cues;
         trip.border_booths = border_booths;
+        trip.bridges = trip.place_bridges();
         trip.landmarks = trip.place_landmarks();
         trip.billboards = trip.place_billboards();
         trip.chain_law_areas = trip.place_chain_law_areas();
@@ -905,6 +912,7 @@ impl Trip {
         self.check_tolls();
         self.check_cities();
         self.check_roadside_callouts();
+        self.settle_bridge();
         self.events.truncate(events);
         self.toll_charges.truncate(tolls);
         let position = self.position_mi;

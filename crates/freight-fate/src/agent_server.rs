@@ -339,7 +339,7 @@ fn fatigue_state_line(o: &crate::app::DrivingObservation, mode: crate::touch::To
     format!(
         "STATE: alertness {}; nod {} ({timer:.2} {unit}); nod_misses {}; lift_owed {lift}; \
          rest_call {rest_call}; runaway {}{gate}{co_driver}; jake_zone {}; touch_mode {}; road_offer {}; \
-         touch_clutch {}; window {}; outside {} ({}, {}); water {}; road_surface {}, {}; structure {}; chain_control {}; chains {}.",
+         touch_clutch {}; window {}; outside {} ({}, {}); water {}; bridge {}; road_surface {}, {}; structure {}; chain_control {}; chains {}.",
         o.alertness.key(),
         o.nod.key(),
         o.nod.misses,
@@ -354,6 +354,10 @@ fn fatigue_state_line(o: &crate::app::DrivingObservation, mode: crate::touch::To
         o.outside_temperature_c
             .map_or("seasons off".to_string(), |t| format!("{t:.1} C")),
         o.water.name(),
+        match &o.bridge {
+            (state, Some((from, to))) => format!("{} (mile {from:.1} to {to:.1})", state.key()),
+            (state, None) => state.key().to_string(),
+        },
         o.road_surface.name(),
         o.road_surface.origin(),
         o.structure

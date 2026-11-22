@@ -12,6 +12,7 @@ use super::{
     LaneSegment, RouteCheckpoint, RoutePoint, RouteRestriction, SpeedLimitSample, StateCrossing,
     StateMileage, Stop, StreetControl, StreetLimit, TollEvent, TrafficVolumeSample, TunnelData,
 };
+use crate::data::bridges::Bridges;
 use crate::data::counties::CountyRun;
 use crate::data::pavement::Pavement;
 use crate::data::world::World;
@@ -55,6 +56,8 @@ pub struct CorridorDetail {
     pub counties: Vec<CountyRun>,
     /// Surface and structures from HPMS, when the leg has a reading.
     pub pavement: Option<Pavement>,
+    /// The named bridges the leg drives over (`corridor.bridges`).
+    pub bridges: Bridges,
 }
 
 /// The raw corridor JSON plus its parse context, held by a lazy leg until the
@@ -424,6 +427,12 @@ impl Leg {
     /// [`Pavement::structures_for`]. `None` where HPMS reads nothing.
     pub fn pavement(&self) -> Option<&Pavement> {
         self.corridor().pavement.as_ref()
+    }
+
+    /// The named bridges on the leg; resolve by direction with
+    /// [`Bridges::for_direction`].
+    pub fn bridges(&self) -> &Bridges {
+        &self.corridor().bridges
     }
 
     pub fn restrictions(&self) -> &[RouteRestriction] {

@@ -54,6 +54,8 @@ pub struct Relation {
     pub tags: Tags,
     /// `(role, coords)` of every way member whose nodes were found.
     pub members: Vec<(String, Vec<(f64, f64)>)>,
+    /// The ids of every way member, found or not, in member order.
+    pub member_ids: Vec<i64>,
 }
 
 #[derive(Debug, Default)]
@@ -268,6 +270,7 @@ pub fn read(paths: &[PathBuf], select: &Select) -> Result<Features> {
         .into_values()
         .map(|r| Relation {
             id: r.id,
+            member_ids: r.members.iter().map(|m| m.1).collect(),
             members: r
                 .members
                 .iter()

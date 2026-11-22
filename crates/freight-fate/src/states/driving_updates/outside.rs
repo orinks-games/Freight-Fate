@@ -71,7 +71,8 @@ impl DrivingState {
         o.nature = o.nature.next(want, dt, SCENE_FADE_S, SCENE_FADE_S);
         o.water = o.water.next(WaterEvent::Tick {
             dt_real_s: dt,
-            near: near_river(&o.rivers, self.trip.position_mi),
+            // A named bridge over water is water its whole length.
+            near: near_river(&o.rivers, self.trip.position_mi) || self.trip.bridge.over_water(),
         });
         let river = o.water.is_over().then_some(RIVER);
         o.river = o.river.next(river, dt, WATER_FADE_IN_S, WATER_FADE_OUT_S);
