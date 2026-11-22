@@ -125,15 +125,6 @@ impl AndroidTouch {
                     let (x, y) = self.points(x * width, y * height);
                     self.recognizer.up(finger_id, x, y, seconds(timestamp));
                 }
-                // Android ends a backgrounded app's process whenever it
-                // wants the memory, with no warning, so a game left in the
-                // background is not running in any sense a crash report
-                // cares about: the run counts as ended cleanly while it is
-                // away, and begins again when it comes back.
-                Event::AppDidEnterBackground { .. } => crate::problem_reports::end_session(),
-                Event::AppWillEnterForeground { .. } => {
-                    crate::problem_reports::begin_session(&ff_core::settings::data_dir());
-                }
                 // Android's back (the back gesture or button), trapped so it
                 // does not close the game: it goes back, as the two-finger
                 // scrub does.

@@ -307,7 +307,19 @@ frameworks it and SDL2 need, plus clang's iOS runtime for `@available` checks.
   so Settings has no Updates category. The main menu has no Quit (iOS closes
   apps, they do not quit themselves), and a two-finger flick down there does
   nothing. Backgrounding the app clears the crash marker; returning to the
-  app starts tracking again. Settings, Problem reports lets you turn crash
+  app starts tracking again.
+- Leaving the app at the wheel (a call, Siri, Control Center, the
+  notification banner pulled down, the app switcher, the Home gesture, the
+  lock button) pauses the drive: the horn stops, held pedals let go, and the
+  pause menu opens. A call or alarm that takes the sound, or headphones or a
+  Bluetooth device going away, pauses it too. Coming back reads the pause
+  menu from its title; any other screen reads its focused row again. The
+  rules are `ff_core::app_lifecycle`.
+- Going to the background saves the career, with the drive in progress
+  where it was, so iOS ending the app there loses nothing: Continue resumes
+  the drive at that spot, parked. When the app comes back the save points at
+  the last stop again, so the pause menu's "the drive resumes from the last
+  stop" stays true. Settings, Problem reports lets you turn crash
   prompts back on. The log-location row is left out because the log is in the
   sandbox, and the braille-only Output row needs NVDA or JAWS.
 - The radio has no personal playlists on iPhone or Android. Their Playlists
@@ -320,11 +332,27 @@ frameworks it and SDL2 need, plus clang's iOS runtime for `@available` checks.
   key on a hardware keyboard, or a controller button, switches them back to
   key or button names until the screen is touched again.
 - Game audio in the Simulator has not been checked since Hearken replaced
-  BASS (which had no Simulator device); speech is heard there. Neither the
-  game nor Hearken sets an `AVAudioSession` category yet, so on a device
-  the ring/silent switch may mute game sound until one is set (Playback).
+  BASS (which had no Simulator device); speech is heard there. The game
+  sets the `AVAudioSession` category to Playback before the audio engine
+  opens (`ios/ff_lifecycle.m`), so it plays with the ring/silent switch on
+  silent, and stops other apps' audio while it plays. cpal stops and resumes
+  its stream around an interruption; the game asks for the session again
+  when it is active.
 
 ## Manual VoiceOver test checklist
+
+- Leaving and coming back, mid-drive at speed: take a call, pull down
+  Control Center, press the lock button, and swipe up to the Home screen.
+  Each time the truck stops where it was, and coming back reads "Paused."
+  and the focused row. Do it again from a menu (Status, the terminal): the
+  focused row is read once.
+- An alarm or timer going off mid-drive pauses the drive; the game's sound
+  comes back when it is dismissed.
+- With the ring/silent switch on silent, the game's sound plays.
+- Unplug wired headphones or switch off Bluetooth headphones mid-drive: the
+  drive pauses, as a controller unplugged does.
+- Mid-drive, swipe up to the app switcher and swipe the game away. Open it
+  again and Continue: the drive resumes where it was, not at the last stop.
 
 - Test with VoiceOver on and off; on iOS 17 or later, confirm direct touch is silent when the screen is touched.
 - Help and practice say the core rule first: a flick is one step, a swipe and hold is continuous.

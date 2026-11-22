@@ -38,6 +38,7 @@ mod app_info_keys;
 mod app_input_practice;
 mod app_key_bindings;
 mod app_language;
+mod app_lifecycle;
 mod app_main_channel_pacing;
 mod app_message_review;
 mod app_name_entry;

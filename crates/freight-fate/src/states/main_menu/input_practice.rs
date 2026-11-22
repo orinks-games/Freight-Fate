@@ -341,6 +341,11 @@ impl State for InputPracticeState {
         TouchMode::Practice
     }
 
+    /// The opening line again: how to practise and how to leave.
+    fn on_app_return(&mut self, ctx: &mut GameContext) {
+        self.enter(ctx);
+    }
+
     fn handle_gesture(&mut self, ctx: &mut GameContext, gesture: Gesture) -> bool {
         if !matches!(
             gesture,

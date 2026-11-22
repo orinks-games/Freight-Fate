@@ -34,8 +34,6 @@ pub struct TiltInput {
     degrees: Option<f64>,
     /// Whether the device has a motion sensor, once known.
     pub sensor_present: Option<bool>,
-    /// Whether the app is in the foreground.
-    pub focused: bool,
     /// The agent server stands in for the sensor: the pose it holds the
     /// phone in, `None` while it sends no samples.
     agent_pose: Option<Option<f64>>,
@@ -56,7 +54,6 @@ impl Default for TiltInput {
             at_wheel: false,
             degrees: None,
             sensor_present: None,
-            focused: true,
             agent_pose: None,
             agent_no_sensor: false,
             lines: Vec::new(),
@@ -184,11 +181,12 @@ impl App {
     /// drive that just resumed is at the wheel this frame.
     pub(super) fn update_tilt(&mut self, dt: f64) {
         let setting = self.ctx.settings.touch_tilt_steering;
-        // The agent server's window is minimized and never focused; the
-        // phone it stands in for is in the foreground.
-        let focused = self.ctx.tilt.focused || self.ctx.tilt.agent_pose().is_some();
-        let running = setting && focused;
-        let at_wheel = focused && self.touch_mode() == crate::touch::TouchMode::Wheel;
+        // Only in the foreground. Leaving the wheel for the app switcher, a
+        // call or the home screen is leaving the wheel, so the return takes
+        // level again.
+        let active = self.app_place() == ff_core::app_lifecycle::AppPlace::Active;
+        let running = setting && active;
+        let at_wheel = active && self.touch_mode() == crate::touch::TouchMode::Wheel;
         let read = match self.ctx.tilt.agent_read(running) {
             Some(read) => read,
             None => match self.shell.as_mut() {

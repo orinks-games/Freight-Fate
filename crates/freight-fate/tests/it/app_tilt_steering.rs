@@ -244,3 +244,26 @@ fn a_sensor_found_missing_once_on_turns_the_switch_off() {
         .iter()
         .any(|l| l.starts_with("Tilt for full steering")));
 }
+
+#[test]
+fn leaving_the_app_stops_tilt_and_the_return_takes_level() {
+    use ff_core::app_lifecycle::AppEvent;
+    use freight_fate::states::base::InputEvent;
+    let mut harness = a_tilt_drive("Tilt Leave App", "full");
+    assert_eq!(harness.app.ctx.tilt.state().level(), Some(0.0));
+    harness
+        .app
+        .handle_event(&InputEvent::App(AppEvent::WillResignActive));
+    tilt(&mut harness, Some(-25.0), 0.5);
+    assert_eq!(harness.app.ctx.tilt.state().key(), "waiting");
+    assert_eq!(harness.read_drive(|drive| drive.lane_change_target), None);
+    harness
+        .app
+        .handle_event(&InputEvent::App(AppEvent::DidBecomeActive));
+    tilt(&mut harness, Some(12.0), 0.1);
+    // Leaving at the wheel paused the drive; resuming takes level.
+    harness.app.ctx.pop_state();
+    frames(&mut harness, 0.5);
+    assert_eq!(harness.app.ctx.tilt.state().key(), "live");
+    assert_eq!(harness.app.ctx.tilt.state().level(), Some(12.0));
+}
