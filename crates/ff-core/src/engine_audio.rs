@@ -68,6 +68,82 @@ pub const STOP_MPS: f64 = 0.3;
 pub const LAUNCH_MPS: f64 = 2.5;
 pub const LAUNCH_THROTTLE: f64 = 0.15;
 
+// The Mack start settles near 700 RPM. Give the running sound a moment
+// there before blending up to the simulated fast idle.
+const CAB_START_SETTLE_RPM: f64 = 700.0;
+const CAB_IDLE_HOLD_S: f64 = 0.30;
+const CAB_IDLE_RISE_S: f64 = 0.65;
+const CAB_IDLE_RISE_END_S: f64 = CAB_IDLE_HOLD_S + CAB_IDLE_RISE_S;
+const CAB_IDLE_MAX_RPM: f64 = 1100.0;
+const CAB_IDLE_MAX_LOAD: f64 = 0.02;
+
+/// Ignition playback phases. The backend supplies the starter handle and
+/// reports its completion. Prepared cab loops already have their own
+/// playback position when that cue ends.
+#[derive(Debug, Clone, Copy, PartialEq)]
+pub enum IgnitionPlayback<H> {
+    Inactive,
+    OneShot(H),
+    CabStarter(H),
+    CabIdleRise { elapsed_s: f64 },
+}
+
+#[derive(Debug, Clone, Copy)]
+pub enum IgnitionEvent<H> {
+    PlayOneShot(H),
+    PlayCabStarter(H),
+    StarterFinished,
+    Update { dt: f64, rpm: f64, load: f64 },
+    Stop,
+}
+
+impl<H: Copy> IgnitionPlayback<H> {
+    pub fn next(self, event: IgnitionEvent<H>) -> Self {
+        use IgnitionEvent as Event;
+        match (self, event) {
+            (_, Event::Stop) | (Self::OneShot(_), Event::StarterFinished) => Self::Inactive,
+            (Self::Inactive, Event::PlayOneShot(handle)) => Self::OneShot(handle),
+            (Self::Inactive, Event::PlayCabStarter(handle)) => Self::CabStarter(handle),
+            (Self::CabStarter(_), Event::StarterFinished) => Self::CabIdleRise { elapsed_s: 0.0 },
+            (Self::CabIdleRise { elapsed_s }, Event::Update { dt, rpm, load }) => {
+                let elapsed_s = elapsed_s + dt.max(0.0);
+                if elapsed_s >= CAB_IDLE_RISE_END_S
+                    || rpm > CAB_IDLE_MAX_RPM
+                    || load > CAB_IDLE_MAX_LOAD
+                {
+                    Self::Inactive
+                } else {
+                    Self::CabIdleRise { elapsed_s }
+                }
+            }
+            _ => self,
+        }
+    }
+
+    pub fn starter(self) -> Option<H> {
+        match self {
+            Self::OneShot(sound) | Self::CabStarter(sound) => Some(sound),
+            Self::Inactive | Self::CabIdleRise { .. } => None,
+        }
+    }
+
+    /// Pitch and band selection for the brief transition out of the cab
+    /// startup recording. The caller also retains the unmodified live RPM.
+    pub fn audible_rpm(self, rpm: f64, load: f64) -> f64 {
+        if rpm > CAB_IDLE_MAX_RPM || load > CAB_IDLE_MAX_LOAD {
+            return rpm;
+        }
+        let elapsed_s = match self {
+            Self::CabStarter(_) => 0.0,
+            Self::CabIdleRise { elapsed_s } => elapsed_s,
+            Self::Inactive | Self::OneShot(_) => return rpm,
+        };
+        let parked = rpm.min(CAB_START_SETTLE_RPM);
+        let t = ((elapsed_s - CAB_IDLE_HOLD_S) / CAB_IDLE_RISE_S).clamp(0.0, 1.0);
+        parked + (rpm - parked) * t * t * (3.0 - 2.0 * t)
+    }
+}
+
 /// The physical signals the engine sound depends on, as plain values.
 #[derive(Debug, Clone, Copy, PartialEq)]
 pub struct EngineReading {
@@ -190,6 +266,49 @@ mod tests {
     //! Engine-audio state classifier: the contract the engine voice and the
     //! parking/backing feature both read.
     use super::*;
+
+    #[test]
+    fn ignition_playback_transitions() {
+        use IgnitionEvent as Event;
+        use IgnitionPlayback::{CabIdleRise, CabStarter, Inactive, OneShot};
+
+        let update = |dt, rpm, load| Event::Update { dt, rpm, load };
+        let initial_rise = CabIdleRise { elapsed_s: 0.0 };
+        for (phase, event, expected) in [
+            (Inactive, Event::PlayOneShot(1), OneShot(1)),
+            (OneShot(1), Event::PlayOneShot(2), OneShot(1)),
+            (OneShot(1), Event::StarterFinished, Inactive),
+            (Inactive, Event::PlayCabStarter(1), CabStarter(1)),
+            (CabStarter(1), Event::PlayCabStarter(2), CabStarter(1)),
+            (CabStarter(1), Event::StarterFinished, initial_rise),
+            (CabStarter(1), Event::Stop, Inactive),
+            (
+                initial_rise,
+                update(0.3, 900.0, 0.0),
+                CabIdleRise { elapsed_s: 0.3 },
+            ),
+            (initial_rise, update(1.0, 900.0, 0.0), Inactive),
+            (initial_rise, update(0.0, 900.0, 0.5), Inactive),
+            (initial_rise, Event::Stop, Inactive),
+        ] {
+            assert_eq!(phase.next(event), expected, "{phase:?} and {event:?}");
+        }
+    }
+
+    #[test]
+    fn cab_start_holds_then_rises_toward_fast_idle_without_delaying_throttle() {
+        let crank = IgnitionPlayback::CabStarter(1);
+        assert_eq!(crank.audible_rpm(900.0, 0.0), 700.0);
+        let rise = crank.next(IgnitionEvent::StarterFinished);
+        assert_eq!(rise.audible_rpm(600.0, 0.0), 600.0);
+        assert_eq!(rise.audible_rpm(900.0, 0.5), 900.0);
+        let midpoint = rise.next(IgnitionEvent::Update {
+            dt: CAB_IDLE_HOLD_S + CAB_IDLE_RISE_S / 2.0,
+            rpm: 900.0,
+            load: 0.0,
+        });
+        assert!((midpoint.audible_rpm(900.0, 0.0) - 800.0).abs() < 1e-6);
+    }
 
     fn reading() -> EngineReading {
         EngineReading {

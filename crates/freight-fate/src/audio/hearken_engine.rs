@@ -5,6 +5,7 @@
 use std::rc::Rc;
 
 use ff_core::audio_fades::Fade;
+use ff_core::engine_audio::{IgnitionEvent, IgnitionPlayback};
 use hearken::audio::{Bus, LoopRegion, Sound, Start};
 
 use super::assets::{asset_bytes, stereo_engine_available};
@@ -65,18 +66,17 @@ impl HearkenBackend {
         if play_start_sound {
             let bus = bus_of(Category::Engine);
             let start = Start::ONCE.volume(level(&self.buses, Category::Engine, 1.0));
+            let mut intro = None;
             if !self.engine_voice_classic && stereo_engine_available() {
                 if self.start_stereo_ignition(bus, start) {
                     return;
                 }
                 if asset_bytes(STEREO_ENGINE_START_KEY, SFX_EXTENSIONS).is_some() {
-                    self.engine_intro_sound = self.start_sfx(STEREO_ENGINE_START_KEY, bus, start);
+                    intro = self.start_sfx(STEREO_ENGINE_START_KEY, bus, start);
                 }
             }
-            if self.engine_intro_sound.is_none() {
-                self.engine_intro_sound = self.start_sfx("engine/start", bus, start);
-            }
-            if self.engine_intro_sound.is_some() {
+            if let Some(sound) = intro.or_else(|| self.start_sfx("engine/start", bus, start)) {
+                self.engine_ignition = self.engine_ignition.next(IgnitionEvent::PlayOneShot(sound));
                 self.engine_intro_gain.set(0.0);
                 return;
             }
@@ -116,7 +116,9 @@ impl HearkenBackend {
             requested.push(STEREO_ENGINE_START_KEY.into());
             requested.extend(STEREO_ENGINE_BANDS.map(|(key, _)| key.to_string()));
         }
-        self.engine_intro_sound = sounds.first().copied();
+        self.engine_ignition = self
+            .engine_ignition
+            .next(IgnitionEvent::PlayCabStarter(sounds[0]));
         self.engine_bands
             .extend(
                 STEREO_ENGINE_BANDS
@@ -205,19 +207,34 @@ impl HearkenBackend {
         self.follow_open();
         self.collect_radio_stream();
         self.fades.update(dt);
-        if self
-            .engine_intro_sound
-            .is_some_and(|sound| !self.audio.is_playing(sound))
-        {
-            self.engine_intro_sound = None;
-            if self.engine_bands.is_empty() {
-                self.start_running_engine(EngineLoopEntry::AfterIgnition);
-            } else {
-                self.set_engine_rpm(self.engine_last_rpm, self.engine_last_throttle);
+        let rpm = self.engine_last_rpm;
+        let load = self.engine_last_throttle;
+        match self.engine_ignition {
+            IgnitionPlayback::OneShot(sound) | IgnitionPlayback::CabStarter(sound)
+                if !self.audio.is_playing(sound) =>
+            {
+                self.engine_ignition = self.engine_ignition.next(IgnitionEvent::StarterFinished);
+                if matches!(self.engine_ignition, IgnitionPlayback::CabIdleRise { .. })
+                    && !self.engine_bands.is_empty()
+                {
+                    self.set_engine_rpm(rpm, load);
+                } else {
+                    // The fallback may also be needed if the device lost a
+                    // prepared band while the starter was still running.
+                    self.engine_ignition = self.engine_ignition.next(IgnitionEvent::Stop);
+                    self.start_running_engine(EngineLoopEntry::AfterIgnition);
+                }
             }
-        }
-        if self.engine_running && self.engine_intro_gain.get() != self.intro_applied {
-            self.set_engine_rpm(self.engine_last_rpm, self.engine_last_throttle);
+            IgnitionPlayback::CabIdleRise { .. } => {
+                self.engine_ignition =
+                    self.engine_ignition
+                        .next(IgnitionEvent::Update { dt, rpm, load });
+                self.set_engine_rpm(rpm, load);
+            }
+            _ if self.engine_running && self.engine_intro_gain.get() != self.intro_applied => {
+                self.set_engine_rpm(rpm, load);
+            }
+            _ => {}
         }
         // Advance the per-band anti-repetition walks; set_engine_rpm
         // applies them.
@@ -232,7 +249,8 @@ impl HearkenBackend {
         self.engine_running = false;
         self.fades.clear();
         self.engine_intro_gain.set(1.0);
-        let intro = self.engine_intro_sound.take();
+        let intro = self.engine_ignition.starter();
+        self.engine_ignition = self.engine_ignition.next(IgnitionEvent::Stop);
         if let Some(sound) = intro {
             self.audio.stop(sound, 0);
         }
@@ -292,6 +310,12 @@ impl HearkenBackend {
         };
         self.engine_last_rpm = rpm;
         self.engine_last_throttle = throttle;
+        self.engine_ignition = self.engine_ignition.next(IgnitionEvent::Update {
+            dt: 0.0,
+            rpm,
+            load: throttle,
+        });
+        let rpm = self.engine_ignition.audible_rpm(rpm, throttle);
         let intro_gain = self.engine_intro_gain.get();
         self.intro_applied = intro_gain;
         let level = (ENGINE_LOOP_GAIN
@@ -326,7 +350,7 @@ impl HearkenBackend {
                     (rpm / band.native).clamp(ENGINE_BAND_RATE_MIN, ENGINE_BAND_RATE_MAX);
                 rate *= 1.0 + wob[0];
                 let volume = level * w * (1.0 + wob[1]);
-                if self.engine_intro_sound.is_none() {
+                if self.engine_ignition.starter().is_none() {
                     self.audio.set_pitch_over(band.sound, rate as f32, slide_ms);
                     band.last_rate = rate;
                 }
@@ -335,7 +359,9 @@ impl HearkenBackend {
                 band.last_volume = volume;
             }
             if failed {
-                self.engine_bands.clear();
+                for band in self.engine_bands.drain(..) {
+                    self.audio.stop(band.sound, 0);
+                }
             }
             return;
         }

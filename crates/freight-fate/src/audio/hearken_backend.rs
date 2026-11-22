@@ -209,8 +209,7 @@ pub struct HearkenBackend {
     pub(super) engine_bands: Vec<EngineBand>,
     pub(super) engine_stereo_ring: bool,
     pub(super) engine_voice_classic: bool,
-    /// While present, the ignition one-shot is the audible engine voice.
-    pub(super) engine_intro_sound: Option<Sound>,
+    pub(super) engine_ignition: ff_core::engine_audio::IgnitionPlayback<Sound>,
     pub(super) engine_intro_gain: Rc<Cell<f64>>,
     pub(super) intro_applied: f64,
     pub(super) engine_last_rpm: f64,
@@ -312,7 +311,7 @@ impl HearkenBackend {
             engine_bands: Vec::new(),
             engine_stereo_ring: false,
             engine_voice_classic: false,
-            engine_intro_sound: None,
+            engine_ignition: ff_core::engine_audio::IgnitionPlayback::Inactive,
             engine_intro_gain: Rc::new(Cell::new(1.0)),
             intro_applied: 1.0,
             engine_last_rpm: ENGINE_RPM_IDLE,
