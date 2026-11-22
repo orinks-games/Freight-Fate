@@ -51,10 +51,10 @@ fn is_alaska_carrier(world: &World, c: &Carrier) -> bool {
 fn test_catalog_counts_by_tier() {
     let catalog = carrier_catalog();
     let count = |tier: &str| catalog.values().filter(|c| c.tier == tier).count();
-    assert_eq!(catalog.len(), 24);
-    assert_eq!(count("national"), 3);
-    assert_eq!(count("regional"), 18);
-    assert_eq!(count("local"), 3);
+    assert_eq!(catalog.len(), 54);
+    assert_eq!(count("national"), 6);
+    assert_eq!(count("regional"), 32);
+    assert_eq!(count("local"), 16);
     let world = world();
     let alaska: Vec<&str> = catalog
         .values()
@@ -250,34 +250,33 @@ fn test_fallback_examples() {
 
 #[test]
 fn test_tier_distance_bands() {
+    // Each tier's radius is fixed; a carrier's run band sits inside its
+    // tier's envelope. Specialists may narrow it: the doubles national runs
+    // shorter linehaul lanes, so the national envelope starts at 250 miles.
+    let inside = |c: &ff_core::models::carriers::Carrier, lo: f64, hi: f64| {
+        assert!(
+            c.run_band.min_mi >= lo
+                && c.run_band.max_mi <= hi
+                && c.run_band.min_mi < c.run_band.max_mi,
+            "{} runs {}..{}, outside {lo}..{hi}",
+            c.key,
+            c.run_band.min_mi,
+            c.run_band.max_mi
+        );
+    };
     for c in carrier_catalog().values() {
         match c.tier.as_str() {
             "local" => {
                 assert_eq!(c.hiring_radius_mi, Some(50.0), "{}", c.key);
-                assert_eq!(
-                    (c.run_band.min_mi, c.run_band.max_mi),
-                    (25.0, 150.0),
-                    "{}",
-                    c.key
-                );
+                inside(c, 25.0, 150.0);
             }
             "regional" => {
                 assert_eq!(c.hiring_radius_mi, Some(250.0), "{}", c.key);
-                assert_eq!(
-                    (c.run_band.min_mi, c.run_band.max_mi),
-                    (150.0, 600.0),
-                    "{}",
-                    c.key
-                );
+                inside(c, 150.0, 600.0);
             }
             "national" => {
                 assert_eq!(c.hiring_radius_mi, None, "{}", c.key);
-                assert_eq!(
-                    (c.run_band.min_mi, c.run_band.max_mi),
-                    (400.0, 3000.0),
-                    "{}",
-                    c.key
-                );
+                inside(c, 250.0, 3000.0);
             }
             other => panic!("{} has unknown tier {other}", c.key),
         }

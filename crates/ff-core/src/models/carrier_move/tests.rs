@@ -74,16 +74,22 @@ fn the_move_up_list_is_the_other_carriers_that_hire_at_home() {
         .iter()
         .map(|o| o.key)
         .collect();
-    // The two nationals and the regionals whose radius reaches Milwaukee;
-    // never the training fleet, Prairie Link (out of range) or a local or
-    // Alaska carrier.
+    // The other nationals and the regionals whose radius reaches
+    // Milwaukee; never the training fleet, Prairie Link (out of range) or a
+    // local or Alaska carrier.
     assert_eq!(
         keys,
         vec![
             "northstar",
             "summit_value",
             "olentangy_valley",
-            "loonwater_regional"
+            "loonwater_regional",
+            "winterset_refrigerated",
+            "double_springs_linehaul",
+            "open_hearth_flatbed",
+            "tahquamenon_freight",
+            "kishwaukee_transport",
+            "shiawassee_freight",
         ]
     );
 }

@@ -11482,15 +11482,11 @@ msgstr "więcej luzu w terminach"
 msgid "balanced dispatch"
 msgstr "zrównoważone zlecenia"
 
-msgid "Northstar Freight Lines: balanced company driver"
-msgstr "Northstar Freight Lines: zrównoważony kierowca etatowy"
+msgid "Northstar Freight Lines: national company driver"
+msgstr "Northstar Freight Lines: kierowca etatowy, przewoźnik krajowy"
 
-msgid ""
-"Balanced company-driver start with steady wages, normal training support, "
-"and assigned carrier equipment."
-msgstr ""
-"Zrównoważony start jako kierowca etatowy: stała pensja, zwykłe wsparcie "
-"szkoleniowe i przydzielony sprzęt przewoźnika."
+msgid "Steady wages and no specialty, with loads of up to 3000 miles."
+msgstr "Stała pensja i brak specjalizacji, ładunki do 3000 mil."
 
 msgid ""
 "A balanced company-driver path. The carrier assigns and maintains the "
@@ -11501,17 +11497,16 @@ msgstr ""
 "ciągnik, płaci za paliwo i bieżące naprawy oraz wypłaca stałą pensję, bez "
 "specjalizacji."
 
-msgid "Great Lakes Training Transport: trainer-friendly company driver"
+msgid "Great Lakes Training Transport: national company driver"
 msgstr ""
-"Great Lakes Training Transport: kierowca etatowy z dobrym wsparciem "
-"instruktora"
+"Great Lakes Training Transport: kierowca etatowy, przewoźnik krajowy"
 
 msgid ""
-"Trainer-friendly company start with stronger stop pay, more short rookie "
-"loads, and a little more appointment slack."
+"A training fleet with stronger stop pay, more short rookie loads, and a "
+"little more appointment slack."
 msgstr ""
-"Start etatowy z dobrym wsparciem instruktora: wyższa stawka za postój, "
-"więcej krótkich ładunków dla nowicjuszy i trochę więcej luzu w terminach."
+"Flota szkoleniowa z wyższą stawką za postój, większą liczbą krótkich "
+"ładunków dla nowicjuszy i trochę większym luzem w terminach."
 
 msgid ""
 "A practical training-fleet start. Stop pay is better on short loads, and "
@@ -11528,18 +11523,18 @@ msgstr ""
 msgid "Milwaukee"
 msgstr "Milwaukee"
 
-msgid "Prairie Link Regional: mile-focused company driver"
-msgstr "Prairie Link Regional: kierowca etatowy nastawiony na mile"
+msgid "Prairie Link Regional: regional company driver"
+msgstr "Prairie Link Regional: kierowca etatowy, przewoźnik regionalny"
 
 msgid "Prairie Link Regional"
 msgstr "Prairie Link Regional"
 
 msgid ""
-"Regional carrier with a better per-mile floor, lower stop pay, and more "
-"same-region grain and bulk lanes."
+"A better per-mile floor, lower stop pay, and more same-region grain and "
+"bulk lanes."
 msgstr ""
-"Regionalny przewoźnik z wyższym minimum za milę, niższą stawką za postój i "
-"większą liczbą regionalnych tras ze zbożem i ładunkami luzem."
+"Wyższe minimum za milę, niższa stawka za postój i więcej regionalnych tras "
+"ze zbożem i ładunkami luzem."
 
 msgid ""
 "A mile-focused company start. The per-mile wage floor is higher, but stop "
@@ -11552,8 +11547,8 @@ msgstr ""
 "nie bardzo krótkie skoki. Dyspozytor skłania się ku regionalnej pracy ze "
 "zbożem i ładunkami luzem. Przewoźnik nadal przydziela i serwisuje ciągnik."
 
-msgid "Summit Value Logistics: appointment-bonus company driver"
-msgstr "Summit Value Logistics: kierowca etatowy z premią za terminy"
+msgid "Summit Value Logistics: national company driver"
+msgstr "Summit Value Logistics: kierowca etatowy, przewoźnik krajowy"
 
 msgid "Summit Value Logistics"
 msgstr "Summit Value Logistics"
@@ -11607,6 +11602,40 @@ msgstr ""
 "tej samej drabinie kariery co wszyscy: zmienia się to, kto płaci, a nie to, "
 "jak daleko jesteś."
 
+msgid ""
+"The carrier assigns and maintains the tractor and pays fuel and routine "
+"repairs."
+msgstr ""
+
+#. placeholders: {clause}
+msgid " Those loads need {clause}."
+msgstr ""
+
+#. placeholders: {name}
+msgid "{name}: national company driver"
+msgstr ""
+
+#. placeholders: {specialty}, {max}
+msgid "Mostly {specialty}, with loads of up to {max} miles."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "A national company-driver start."
+msgstr ""
+
+#. placeholders: {specialty}, {max}, {needs}, {equipment}
+msgid ""
+"A national company-driver start. Dispatch leans toward {specialty} and "
+"offers loads of up to {max} miles.{needs} {equipment}"
+msgstr ""
+
+#. placeholders: {specialty}, {max}, {needs}, {equipment}
+#. one sentence of a longer line
+msgid ""
+"Dispatch leans toward {specialty} and offers loads of up to {max} "
+"miles.{needs} {equipment}"
+msgstr ""
+
 msgid "its home region"
 msgstr ""
 
@@ -11623,22 +11652,15 @@ msgstr ""
 msgid "A {tier} company-driver start in {area}."
 msgstr ""
 
-#. placeholders: {tier}, {area}, {max}
+#. placeholders: {tier}, {area}, {max}, {equipment}
 msgid ""
 "A {tier} company-driver start in {area}. Dispatch offers loads of up to "
-"{max} miles. The carrier assigns and maintains the tractor and pays fuel "
-"and routine repairs."
+"{max} miles. {equipment}"
 msgstr ""
 
 #. placeholders: {max}
 #. one sentence of a longer line
 msgid "Dispatch offers loads of up to {max} miles."
-msgstr ""
-
-#. one sentence of a longer line
-msgid ""
-"The carrier assigns and maintains the tractor and pays fuel and routine "
-"repairs."
 msgstr ""
 
 msgid "in good shape"
@@ -46197,6 +46219,41 @@ msgstr ""
 "Przytrzymaj left bumper, aby użyć drugiej warstwy przycisków. {pad_engine} "
 "steruje silnikiem, {pad_fuel} podaje paliwo, a {pad_speed_limit} "
 "ograniczenie prędkości."
+
+#~ msgid "Northstar Freight Lines: balanced company driver"
+#~ msgstr "Northstar Freight Lines: zrównoważony kierowca etatowy"
+
+#~ msgid ""
+#~ "Balanced company-driver start with steady wages, normal training support, "
+#~ "and assigned carrier equipment."
+#~ msgstr ""
+#~ "Zrównoważony start jako kierowca etatowy: stała pensja, zwykłe wsparcie "
+#~ "szkoleniowe i przydzielony sprzęt przewoźnika."
+
+#~ msgid "Great Lakes Training Transport: trainer-friendly company driver"
+#~ msgstr ""
+#~ "Great Lakes Training Transport: kierowca etatowy z dobrym wsparciem "
+#~ "instruktora"
+
+#~ msgid ""
+#~ "Trainer-friendly company start with stronger stop pay, more short rookie "
+#~ "loads, and a little more appointment slack."
+#~ msgstr ""
+#~ "Start etatowy z dobrym wsparciem instruktora: wyższa stawka za postój, "
+#~ "więcej krótkich ładunków dla nowicjuszy i trochę więcej luzu w terminach."
+
+#~ msgid "Prairie Link Regional: mile-focused company driver"
+#~ msgstr "Prairie Link Regional: kierowca etatowy nastawiony na mile"
+
+#~ msgid ""
+#~ "Regional carrier with a better per-mile floor, lower stop pay, and more "
+#~ "same-region grain and bulk lanes."
+#~ msgstr ""
+#~ "Regionalny przewoźnik z wyższym minimum za milę, niższą stawką za postój i "
+#~ "większą liczbą regionalnych tras ze zbożem i ładunkami luzem."
+
+#~ msgid "Summit Value Logistics: appointment-bonus company driver"
+#~ msgstr "Summit Value Logistics: kierowca etatowy z premią za terminy"
 
 #~ msgid "Slept 10 hours. It is {clock_text}, {time_of_day}."
 #~ msgstr "Przespane 10 godzin. Jest {clock_text}, {time_of_day}."
