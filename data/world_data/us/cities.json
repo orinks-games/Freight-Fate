@@ -8932,6 +8932,20 @@
             "steel"
           ],
           "source_note": "Read: OpenStreetMap way 1243245090 at 901 Commerce Drive, Alpena (industrial=manufacturing, name Alro Steel), OpenStreetMap planet file of 2026-11-16. Alro Steel is a metals service centre chain; this branch is not confirmed from a second source. Roles derived: a service centre receives steel and ships cut steel."
+        },
+        {
+          "name": "Thunder Bay Shopping Center",
+          "type": "shopping_mall",
+          "lat": 45.04389,
+          "lon": -83.45406,
+          "ships": [],
+          "receives": [
+            "retail",
+            "general",
+            "food",
+            "refrigerated"
+          ],
+          "source_note": "Read: OpenStreetMap way 1525526827 (landuse=retail, name Thunder Bay Shopping Center) on US 23 South beside the Gordon Food Service Store at 2400 US 23 South (way 1447553284), OpenStreetMap planet file of 2026-11-16; pin is the centroid of that outline. Roles derived: store deliveries of dry and chilled freight, as the mall type receives; it ships nothing."
         }
       ]
     },
@@ -8973,6 +8987,20 @@
             "bulk"
           ],
           "source_note": "Read: OpenStreetMap way 894940626 at 508 Front Street, Ashtabula harbor (landuse=industrial, name R.W. Sidley, Inc.), OpenStreetMap planet file of 2026-11-16. R.W. Sidley is a northeast Ohio aggregates and ready-mix company; this yard is not confirmed from a second source. Roles derived: a materials yard by the docks receives stone and sand and ships aggregate."
+        },
+        {
+          "name": "Marketplace Shopping Center",
+          "type": "shopping_mall",
+          "lat": 41.88031,
+          "lon": -80.7461,
+          "ships": [],
+          "receives": [
+            "retail",
+            "general",
+            "food",
+            "refrigerated"
+          ],
+          "source_note": "Read: OpenStreetMap way 876255970 (landuse=retail, name Marketplace Shopping Center) off North Ridge Road East, with The Home Depot at 3200 Market Place Drive (node 8155419893) and the Walmart Supercenter at 3551 North Ridge Road East (way 818184054) beside it, OpenStreetMap planet file of 2026-11-16; pin is the centroid of that outline. Roles derived: store deliveries of dry and chilled freight, as the mall type receives; it ships nothing."
         }
       ]
     },
@@ -9010,6 +9038,20 @@
             "steel"
           ],
           "source_note": "Read: OpenStreetMap way 487758514 at 2925 Venice Road, Sandusky (landuse=industrial, name Huron Cement Building Supplies), OpenStreetMap planet file of 2026-11-16. Not confirmed from a second source. Roles derived: a building supply yard receives construction material."
+        },
+        {
+          "name": "Sandusky Mall",
+          "type": "shopping_mall",
+          "lat": 41.41849,
+          "lon": -82.66935,
+          "ships": [],
+          "receives": [
+            "retail",
+            "general",
+            "food",
+            "refrigerated"
+          ],
+          "source_note": "Read: OpenStreetMap way 297170658 at 4314 Milan Road (shop=mall, name Sandusky Mall, operator Cafaro Company), OpenStreetMap planet file of 2026-11-16; pin is the centroid of that outline. Roles derived: store deliveries of dry and chilled freight, as the mall type receives; it ships nothing."
         }
       ]
     }
