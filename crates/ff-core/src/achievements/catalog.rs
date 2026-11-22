@@ -17,7 +17,7 @@ use super::{Achievement, AchievementCategory};
 /// sha256 over every category and achievement field, as the generator
 /// computed it from the Python catalog (see `catalog_digest` in the
 /// tests for the exact framing).
-pub const CATALOG_DIGEST: &str = "0d1ef66aa07a21edfdbe06552d3e79fd3230b52c8f9b6b3a66c92da98835c942";
+pub const CATALOG_DIGEST: &str = "41a7bf5e90cb9a3571d24d4229b0e20b860350850912ea9534ed45d0ca8114ec";
 
 /// What a locked, hidden achievement speaks in place of its real name and
 /// description. Keeps a hidden badge's surprise -- the joke, the calendar
@@ -70,7 +70,7 @@ pub const CATEGORIES: [AchievementCategory; 7] = [
 
 /// Every badge, in the Python catalog's order (the achievements menu and
 /// the cloud validator's allow-list both walk it in this order).
-pub const ACHIEVEMENTS: [Achievement; 184] = [
+pub static ACHIEVEMENTS: [Achievement; 201] = [
     Achievement {
         id: "first_dispatch",
         name: "Breaker, Breaker",
@@ -1542,5 +1542,141 @@ pub const ACHIEVEMENTS: [Achievement; 184] = [
         category: "hidden",
         inspiration: "Crosby, Stills, Nash & Young - Teach Your Children",
         hidden: true,
+    },
+    Achievement {
+        id: "alaska_delivery",
+        name: "North to Alaska",
+        description: "A load delivered in Alaska.",
+        category: "places",
+        inspiration: "Johnny Horton - North to Alaska",
+        hidden: false,
+    },
+    Achievement {
+        id: "anchorage_delivery",
+        name: "Anchorage",
+        description: "A load delivered in Anchorage.",
+        category: "places",
+        inspiration: "Michelle Shocked - Anchorage",
+        hidden: false,
+    },
+    Achievement {
+        id: "deadhorse_delivery",
+        name: "Top of the World",
+        description: "A load delivered in Deadhorse, at the end of the Dalton Highway.",
+        category: "places",
+        inspiration: "Carpenters - Top of the World",
+        hidden: false,
+    },
+    Achievement {
+        id: "whittier_tunnel",
+        name: "Tunnel of Love",
+        description: "You drove the tunnel to Whittier.",
+        category: "places",
+        inspiration: "Bruce Springsteen - Tunnel of Love",
+        hidden: false,
+    },
+    Achievement {
+        id: "alaska_highway_whole",
+        name: "The Long and Winding Road",
+        description: "Every leg of the Alaska Highway, Dawson Creek to Delta Junction, driven in one career.",
+        category: "road",
+        inspiration: "The Beatles - The Long and Winding Road",
+        hidden: false,
+    },
+    Achievement {
+        id: "fairbanks_spring",
+        name: "When It's Springtime in Alaska",
+        description: "A load delivered in Fairbanks in spring.",
+        category: "weather_seasons",
+        inspiration: "Johnny Horton - When It's Springtime in Alaska (It's Forty Below)",
+        hidden: false,
+    },
+    Achievement {
+        id: "dalton_winter",
+        name: "Cold as Ice",
+        description: "A load taken up the Dalton Highway in winter.",
+        category: "weather_seasons",
+        inspiration: "Foreigner - Cold as Ice",
+        hidden: false,
+    },
+    Achievement {
+        id: "spring_weight_load",
+        name: "Travelin' Light",
+        description: "A load delivered under Alaska's spring weight limits.",
+        category: "road",
+        inspiration: "J.J. Cale - Travelin' Light",
+        hidden: false,
+    },
+    Achievement {
+        id: "first_customs",
+        name: "Borderline",
+        description: "You cleared customs for the first time.",
+        category: "road",
+        inspiration: "Madonna - Borderline",
+        hidden: false,
+    },
+    Achievement {
+        id: "restart_34",
+        name: "Sunday Morning Coming Down",
+        description: "You took a 34-hour restart.",
+        category: "working_day",
+        inspiration: "Johnny Cash - Sunday Mornin' Comin' Down",
+        hidden: false,
+    },
+    Achievement {
+        id: "restart_at_home",
+        name: "Take Me Home, Country Roads",
+        description: "You took a restart at your home terminal.",
+        category: "working_day",
+        inspiration: "John Denver - Take Me Home, Country Roads",
+        hidden: false,
+    },
+    Achievement {
+        id: "carrier_first_week",
+        name: "Workin' for a Livin'",
+        description: "Five loads or more for one carrier, the first and the last a full week apart.",
+        category: "career",
+        inspiration: "Huey Lewis and the News - Workin' for a Livin'",
+        hidden: false,
+    },
+    Achievement {
+        id: "carrier_rehired",
+        name: "Get Back",
+        description: "A carrier let you go, and another one hired you.",
+        category: "career",
+        inspiration: "The Beatles - Get Back",
+        hidden: false,
+    },
+    Achievement {
+        id: "carrier_step_up",
+        name: "Takin' Care of Business",
+        description: "You moved up from the training fleet to another carrier.",
+        category: "career",
+        inspiration: "Bachman-Turner Overdrive - Takin' Care of Business",
+        hidden: false,
+    },
+    Achievement {
+        id: "cattle_load",
+        name: "Rawhide",
+        description: "A cattle load delivered inside the 28-hour limit with every animal standing.",
+        category: "road",
+        inspiration: "Frankie Laine - Rawhide",
+        hidden: false,
+    },
+    Achievement {
+        id: "cattle_ten",
+        name: "Cattle Call",
+        description: "Ten cattle loads delivered.",
+        category: "road",
+        inspiration: "Eddy Arnold - Cattle Call",
+        hidden: false,
+    },
+    Achievement {
+        id: "laredo_transfer",
+        name: "South of the Border",
+        description: "A trailer handed off at a Laredo transfer yard.",
+        category: "road",
+        inspiration: "Gene Autry - South of the Border",
+        hidden: false,
     },
 ];

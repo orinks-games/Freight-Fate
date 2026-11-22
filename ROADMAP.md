@@ -5497,6 +5497,27 @@ Honesty debts for this v1 slice (do not paper over):
       would give the synth mode a real band. genny is Python, so it is a port,
       not an embed.
 
+### Achievements for 2.0 (wave 1 built, wave 2 waits for Canada)
+
+- [x] Seventeen badges (catalog 184 to 201): Alaska, Anchorage,
+      Deadhorse, the Whittier tunnel, the whole Alaska Highway, Fairbanks in
+      spring, the Dalton in winter, spring weight limits, first customs, a
+      34-hour restart and one at the home terminal, a week for one carrier,
+      rehired after a let-go, the move up from the training fleet, two
+      cattle badges and the Laredo transfer yard. Rules and tests:
+      `ff_core::achievements::career_two`. Awarded from now on, except
+      Get Back, which reads the record at the next terminal visit.
+- [ ] (Found along the way) The Whittier tunnel badge is only reachable by
+      an owner-operator's empty run until Whittier gets a freight market
+      (Alaska routes brief).
+- [ ] (Found along the way) Waiting out a CDL suspension at the terminal
+      logs one 10-hour sleep on the hours clock however long the wait, so a
+      multi-day wait does not restart the cycle.
+- [ ] Wave 2, Canada: nine badges (Across the Border, Alberta Bound,
+      Saskatoon, Sudbury, Halifax, Quebec in winter, Lake Superior in
+      November, both coasts, every province). Each waits for the
+      cross-border loads PR and for its city or road to exist on the map.
+
 ### The first 2.0 nightly
 
 Plumbing before the merge, none of it gameplay (agreed 2026-10-26; the

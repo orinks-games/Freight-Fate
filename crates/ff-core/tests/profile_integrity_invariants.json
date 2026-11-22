@@ -38,6 +38,14 @@
       "category": "road",
       "description": "You built full air before releasing the parking brake."
     },
+    "alaska_delivery": {
+      "category": "places",
+      "description": "A load delivered in Alaska."
+    },
+    "alaska_highway_whole": {
+      "category": "road",
+      "description": "Every leg of the Alaska Highway, Dawson Creek to Delta Junction, driven in one career."
+    },
     "all_regions": {
       "category": "places",
       "description": "You have hauled in every region on the map."
@@ -53,6 +61,10 @@
     "amarillo_arrival": {
       "category": "places",
       "description": "A load delivered in Amarillo in the morning."
+    },
+    "anchorage_delivery": {
+      "category": "places",
+      "description": "A load delivered in Anchorage."
     },
     "appalachia_delivery": {
       "category": "places",
@@ -98,6 +110,26 @@
       "category": "working_day",
       "description": "Your first 30-minute break, taken."
     },
+    "carrier_first_week": {
+      "category": "career",
+      "description": "Five loads or more for one carrier, the first and the last a full week apart."
+    },
+    "carrier_rehired": {
+      "category": "career",
+      "description": "A carrier let you go, and another one hired you."
+    },
+    "carrier_step_up": {
+      "category": "career",
+      "description": "You moved up from the training fleet to another carrier."
+    },
+    "cattle_load": {
+      "category": "road",
+      "description": "A cattle load delivered inside the 28-hour limit with every animal standing."
+    },
+    "cattle_ten": {
+      "category": "road",
+      "description": "Ten cattle loads delivered."
+    },
     "chattanooga_arrival": {
       "category": "radio_songs",
       "description": "A load delivered in Chattanooga."
@@ -126,9 +158,17 @@
       "category": "places",
       "description": "A load delivered in the Dakotas."
     },
+    "dalton_winter": {
+      "category": "weather_seasons",
+      "description": "A load taken up the Dalton Highway in winter."
+    },
     "dawn_run": {
       "category": "road",
       "description": "You pulled out before first light."
+    },
+    "deadhorse_delivery": {
+      "category": "places",
+      "description": "A load delivered in Deadhorse, at the end of the Dalton Highway."
     },
     "deadline_squeaker": {
       "category": "road",
@@ -174,6 +214,10 @@
       "category": "career",
       "description": "You have driven every tier of the fleet, from the trainer truck to first pick."
     },
+    "fairbanks_spring": {
+      "category": "weather_seasons",
+      "description": "A load delivered in Fairbanks in spring."
+    },
     "farm_load": {
       "category": "road",
       "description": "A load of farm freight, delivered."
@@ -193,6 +237,10 @@
     "fifty_thousand_miles": {
       "category": "career",
       "description": "Fifty thousand miles driven. The road will not let you go."
+    },
+    "first_customs": {
+      "category": "road",
+      "description": "You cleared customs for the first time."
     },
     "first_day": {
       "category": "career",
@@ -373,6 +421,10 @@
     "laredo_arrival": {
       "category": "places",
       "description": "A load delivered in Laredo, on the border."
+    },
+    "laredo_transfer": {
+      "category": "road",
+      "description": "A trailer handed off at a Laredo transfer yard."
     },
     "lcv_load": {
       "category": "road",
@@ -562,6 +614,14 @@
       "category": "career",
       "description": "Reputation 90 or better."
     },
+    "restart_34": {
+      "category": "working_day",
+      "description": "You took a 34-hour restart."
+    },
+    "restart_at_home": {
+      "category": "working_day",
+      "description": "You took a restart at your home terminal."
+    },
     "return_trip": {
       "category": "road",
       "description": "Your next load went straight back to the city you came from."
@@ -637,6 +697,10 @@
     "spotless_long": {
       "category": "road",
       "description": "Over 300 miles, on time, with almost no damage and no tickets."
+    },
+    "spring_weight_load": {
+      "category": "road",
+      "description": "A load delivered under Alaska's spring weight limits."
     },
     "state_crossing": {
       "category": "road",
@@ -746,6 +810,10 @@
       "category": "places",
       "description": "A load hauled west and delivered."
     },
+    "whittier_tunnel": {
+      "category": "places",
+      "description": "You drove the tunnel to Whittier."
+    },
     "wichita_arrival": {
       "category": "places",
       "description": "A load delivered in Wichita. A lineman waved."
@@ -770,10 +838,13 @@
   "achievementIds": [
     "abilene_arrival",
     "air_ready",
+    "alaska_delivery",
+    "alaska_highway_whole",
     "all_regions",
     "all_terrain_route",
     "all_upgrades",
     "amarillo_arrival",
+    "anchorage_delivery",
     "appalachia_delivery",
     "appreciation_week",
     "april_first",
@@ -785,6 +856,11 @@
     "bobtail_done",
     "brake_smoke",
     "break_taken",
+    "carrier_first_week",
+    "carrier_rehired",
+    "carrier_step_up",
+    "cattle_load",
+    "cattle_ten",
     "chattanooga_arrival",
     "christmas_delivery",
     "clean_delivery",
@@ -792,7 +868,9 @@
     "coffee_regular",
     "construction_zone",
     "dakota_delivery",
+    "dalton_winter",
     "dawn_run",
+    "deadhorse_delivery",
     "deadline_squeaker",
     "deep_repair",
     "desert_summer",
@@ -804,11 +882,13 @@
     "eighty_eight_mph",
     "el_paso_arrival",
     "every_fleet_tier",
+    "fairbanks_spring",
     "farm_load",
     "fifteen_states",
     "fifty_deliveries",
     "fifty_five_mph",
     "fifty_thousand_miles",
+    "first_customs",
     "first_day",
     "first_delivery",
     "first_delivery_drop",
@@ -854,6 +934,7 @@
     "kansas_city_arrival",
     "kentucky_delivery",
     "laredo_arrival",
+    "laredo_transfer",
     "lcv_load",
     "level_fifteen",
     "level_five",
@@ -901,6 +982,8 @@
     "reefer_load",
     "refused_the_trailer",
     "rep_ninety",
+    "restart_34",
+    "restart_at_home",
     "return_trip",
     "roadside_fix",
     "route66_run",
@@ -920,6 +1003,7 @@
     "southbound_run",
     "speed_limit_saint",
     "spotless_long",
+    "spring_weight_load",
     "state_crossing",
     "storm_driving",
     "tank_load",
@@ -947,6 +1031,7 @@
     "waco_survivor",
     "weather_collector",
     "westbound_delivery",
+    "whittier_tunnel",
     "wichita_arrival",
     "winslow_arrival",
     "winter_delivery",
@@ -956,10 +1041,13 @@
   "achievementLabels": {
     "abilene_arrival": "Abilene",
     "air_ready": "Under Pressure",
+    "alaska_delivery": "North to Alaska",
+    "alaska_highway_whole": "The Long and Winding Road",
     "all_regions": "Been Everywhere",
     "all_terrain_route": "Roller Coaster",
     "all_upgrades": "Fully Loaded",
     "amarillo_arrival": "Amarillo by Morning",
+    "anchorage_delivery": "Anchorage",
     "appalachia_delivery": "Back to the Holler",
     "appreciation_week": "Somebody Said Thank You",
     "april_first": "Nobody's Fool",
@@ -971,6 +1059,11 @@
     "bobtail_done": "Forty Acres to Turn Around",
     "brake_smoke": "Smoke, Smoke, Smoke",
     "break_taken": "Coffee Break, Driver",
+    "carrier_first_week": "Workin' for a Livin'",
+    "carrier_rehired": "Get Back",
+    "carrier_step_up": "Takin' Care of Business",
+    "cattle_load": "Rawhide",
+    "cattle_ten": "Cattle Call",
     "chattanooga_arrival": "Chattanooga Choo Choo",
     "christmas_delivery": "Hard Candy Christmas",
     "clean_delivery": "Pretty as a Billboard",
@@ -978,7 +1071,9 @@
     "coffee_regular": "Forty Cups of Coffee",
     "construction_zone": "Forty Miles of Bad Road",
     "dakota_delivery": "Black Hills of Dakota",
+    "dalton_winter": "Cold as Ice",
     "dawn_run": "Here Comes the Sun",
+    "deadhorse_delivery": "Top of the World",
     "deadline_squeaker": "Coming In Hot",
     "deep_repair": "Up from Rock Bottom",
     "desert_summer": "Cool Water",
@@ -990,11 +1085,13 @@
     "eighty_eight_mph": "Where We're Going, We Need Roads",
     "el_paso_arrival": "El Paso City",
     "every_fleet_tier": "Step by Step",
+    "fairbanks_spring": "When It's Springtime in Alaska",
     "farm_load": "On the Ranch",
     "fifteen_states": "Fifteen State Lines",
     "fifty_deliveries": "Big Wheels Rolling",
     "fifty_five_mph": "Can't Drive 55",
     "fifty_thousand_miles": "Prisoner of the Highway",
+    "first_customs": "Borderline",
     "first_day": "First Day",
     "first_delivery": "Truck Driving Man",
     "first_delivery_drop": "Release Me",
@@ -1040,6 +1137,7 @@
     "kansas_city_arrival": "Kansas City",
     "kentucky_delivery": "Kentucky Blue",
     "laredo_arrival": "Streets of Laredo",
+    "laredo_transfer": "South of the Border",
     "lcv_load": "Long Train Running",
     "level_fifteen": "Halfway There",
     "level_five": "Son of a Gun",
@@ -1087,6 +1185,8 @@
     "reefer_load": "Cold, Cold Freight",
     "refused_the_trailer": "Take This Trailer and Shove It",
     "rep_ninety": "Strutting Your Stuff",
+    "restart_34": "Sunday Morning Coming Down",
+    "restart_at_home": "Take Me Home, Country Roads",
     "return_trip": "Right Back Where You Started",
     "roadside_fix": "Breakdown",
     "route66_run": "Kicks on 66",
@@ -1106,6 +1206,7 @@
     "southbound_run": "Southbound",
     "speed_limit_saint": "Nothing for the Highway Patrol",
     "spotless_long": "Clean Getaway",
+    "spring_weight_load": "Travelin' Light",
     "state_crossing": "Promised Land",
     "storm_driving": "Riders on the Storm",
     "tank_load": "Nitro Express",
@@ -1133,6 +1234,7 @@
     "waco_survivor": "Made It to Waco",
     "weather_collector": "Storms Never Last",
     "westbound_delivery": "West Bound and Down",
+    "whittier_tunnel": "Tunnel of Love",
     "wichita_arrival": "Wichita, On the Line",
     "winslow_arrival": "A Corner in Winslow",
     "winter_delivery": "Made It Through December",

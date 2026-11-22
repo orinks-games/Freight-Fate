@@ -309,6 +309,7 @@ impl BorderClearanceState {
         };
         ctx.pop_state();
         ctx.say(&result);
+        ctx.award_achievement("first_customs");
     }
 }
 

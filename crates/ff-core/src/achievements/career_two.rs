@@ -1,0 +1,241 @@
+//! The rules behind the 2.0 career's badges: Alaska and the Alcan, the
+//! border, the working week, the carriers and live cattle.
+//!
+//! Each rule is a plain function of what the game already knows at the
+//! moment it fires (a delivery, a rest, a hire), so the tests can prove a
+//! badge is earnable without a window. The trigger sites in the game crate
+//! gather the facts and call these; nothing here speaks or saves.
+
+use std::collections::BTreeSet;
+
+use serde_json::Value;
+
+use super::{add_unique_stat, increment_stat, list_stat, AchievementProfile};
+use crate::data::world::World;
+use crate::data::world_models::Route;
+
+pub const ANCHORAGE: &str = "anchorage_ak_us";
+pub const FAIRBANKS: &str = "fairbanks_ak_us";
+pub const DEADHORSE: &str = "deadhorse_ak_us";
+pub const WHITTIER: &str = "whittier_ak_us";
+
+/// The highway names the road badges read off a leg.
+pub const ALASKA_HIGHWAY: &str = "Alaska Highway";
+pub const DALTON_HIGHWAY: &str = "Dalton Highway";
+
+/// The stat holding every Alaska Highway leg driven, as city pairs.
+pub const ALASKA_HIGHWAY_STAT: &str = "alaska_highway_legs";
+/// Cattle loads delivered, for Cattle Call.
+pub const CATTLE_LOADS_STAT: &str = "cattle_loads";
+/// The carrier the current run of loads is for, when the first of them
+/// was delivered (career hours), and how many there have been.
+pub const CARRIER_RUN_KEY_STAT: &str = "carrier_run_key";
+pub const CARRIER_RUN_START_STAT: &str = "carrier_run_start_hours";
+pub const CARRIER_RUN_LOADS_STAT: &str = "carrier_run_loads";
+
+/// Workin' for a Livin': this many loads for one carrier...
+pub const CARRIER_WEEK_LOADS: i64 = 5;
+/// ...the last at least a week of career time after the first.
+pub const CARRIER_WEEK_HOURS: f64 = 7.0 * 24.0;
+/// Cattle Call's count.
+pub const CATTLE_CALL_LOADS: i64 = 10;
+
+/// A leg's two cities as one order-free stat value, so a leg driven either
+/// way counts once.
+pub fn leg_pair(a: &str, b: &str) -> String {
+    if a <= b {
+        format!("{a}|{b}")
+    } else {
+        format!("{b}|{a}")
+    }
+}
+
+/// Every Alaska Highway leg the map carries, as [`leg_pair`]s: the road
+/// from Dawson Creek to Delta Junction. Read from the map, so a corridor
+/// that adds a town along the way adds its legs here too.
+pub fn alaska_highway_pairs(world: &World) -> BTreeSet<String> {
+    world
+        .legs
+        .iter()
+        .filter(|leg| leg.highway == ALASKA_HIGHWAY)
+        .map(|leg| leg_pair(&leg.a, &leg.b))
+        .collect()
+}
+
+/// Each leg of `route` with the city it was driven from and to.
+fn driven_legs(route: &Route) -> impl Iterator<Item = (&str, &str, &str)> {
+    route.legs.iter().enumerate().filter_map(|(i, leg)| {
+        let from = route.cities.get(i)?;
+        let to = route.cities.get(i + 1)?;
+        Some((from.as_str(), to.as_str(), leg.highway.as_str()))
+    })
+}
+
+/// How the cattle came off at the receiver, read before unloading.
+#[derive(Debug, Clone, Copy, PartialEq)]
+pub struct CattleDelivery {
+    pub hours_aboard: f64,
+    pub limit_hours: f64,
+    /// An animal was down when the truck reached the receiver.
+    pub one_down: bool,
+    /// The receiver found the load clean: no bruising, claim or refusal.
+    pub clean: bool,
+}
+
+/// What a finished drive tells the 2.0 badges.
+#[derive(Debug, Clone, Copy)]
+pub struct DriveEnd<'a> {
+    pub route: &'a Route,
+    /// The city the drive ended in (the route's last city).
+    pub destination: &'a str,
+    /// An empty run with no trailer: it can drive a road, not deliver.
+    pub bobtail: bool,
+    /// The co-driver drove some of it, so the road badges are not the
+    /// player's to earn.
+    pub team: bool,
+    /// The season of the calendar the player hears, at arrival.
+    pub season: &'a str,
+    /// The load was booked under Alaska's spring weight limits.
+    pub spring_weight_limit: bool,
+    /// The trailer was dropped at a border transfer yard.
+    pub border_yard_drop: bool,
+    pub cattle: Option<CattleDelivery>,
+    /// The carrier the load was hauled for; empty under the driver's own
+    /// authority.
+    pub carrier_key: &'a str,
+    /// Career hours at arrival.
+    pub game_hours: f64,
+}
+
+/// The 2.0 badges a finished drive earns, updating the tallies they keep.
+/// Badges already held come back too; the award skips them.
+pub fn drive_end_badges(
+    profile: &mut dyn AchievementProfile,
+    world: &World,
+    end: &DriveEnd,
+) -> Vec<&'static str> {
+    let mut ids: Vec<&'static str> = Vec::new();
+    let dest_city = world.city(end.destination).ok();
+    let in_alaska = dest_city.is_some_and(|c| c.state_code == "AK" && c.country == "US");
+
+    // The road, which an empty run drives as much as a loaded one.
+    if !end.team {
+        if end.destination == WHITTIER {
+            ids.push("whittier_tunnel");
+        }
+        for (from, to, highway) in driven_legs(end.route) {
+            if highway == ALASKA_HIGHWAY {
+                add_unique_stat(profile, ALASKA_HIGHWAY_STAT, &leg_pair(from, to));
+            }
+        }
+        let wanted = alaska_highway_pairs(world);
+        let driven: BTreeSet<String> = list_stat(profile, ALASKA_HIGHWAY_STAT)
+            .into_iter()
+            .collect();
+        if !wanted.is_empty() && wanted.is_subset(&driven) {
+            ids.push("alaska_highway_whole");
+        }
+    }
+    if end.bobtail {
+        return ids;
+    }
+
+    // Deliveries.
+    if in_alaska {
+        ids.push("alaska_delivery");
+    }
+    match end.destination {
+        ANCHORAGE => ids.push("anchorage_delivery"),
+        DEADHORSE => ids.push("deadhorse_delivery"),
+        FAIRBANKS if end.season == "spring" => ids.push("fairbanks_spring"),
+        _ => {}
+    }
+    if end.season == "winter" && dalton_northbound(world, end.route) {
+        ids.push("dalton_winter");
+    }
+    if end.spring_weight_limit {
+        ids.push("spring_weight_load");
+    }
+    if end.border_yard_drop {
+        ids.push("laredo_transfer");
+    }
+    if let Some(cattle) = end.cattle {
+        if increment_stat(profile, CATTLE_LOADS_STAT) >= CATTLE_CALL_LOADS {
+            ids.push("cattle_ten");
+        }
+        if cattle.clean && !cattle.one_down && cattle.hours_aboard <= cattle.limit_hours {
+            ids.push("cattle_load");
+        }
+    }
+    if carrier_run(profile, end.carrier_key, end.game_hours) {
+        ids.push("carrier_first_week");
+    }
+    ids
+}
+
+/// The route drives a Dalton Highway leg north.
+fn dalton_northbound(world: &World, route: &Route) -> bool {
+    driven_legs(route).any(|(from, to, highway)| {
+        if !highway.contains(DALTON_HIGHWAY) {
+            return false;
+        }
+        match (world.city(from), world.city(to)) {
+            (Ok(from), Ok(to)) => to.lat > from.lat,
+            _ => false,
+        }
+    })
+}
+
+/// Count a delivery toward Workin' for a Livin': a run of loads for one
+/// carrier starts over when the carrier changes. True once the run holds
+/// [`CARRIER_WEEK_LOADS`] loads and spans [`CARRIER_WEEK_HOURS`].
+pub fn carrier_run(
+    profile: &mut dyn AchievementProfile,
+    carrier_key: &str,
+    game_hours: f64,
+) -> bool {
+    if carrier_key.is_empty() {
+        return false;
+    }
+    let stats = profile.achievement_stats_mut();
+    let same = stats.get(CARRIER_RUN_KEY_STAT).and_then(Value::as_str) == Some(carrier_key);
+    let start = stats.get(CARRIER_RUN_START_STAT).and_then(Value::as_f64);
+    let (start, loads) = match (same, start) {
+        (true, Some(start)) => {
+            let loads = stats
+                .get(CARRIER_RUN_LOADS_STAT)
+                .and_then(Value::as_i64)
+                .unwrap_or(0)
+                + 1;
+            (start, loads)
+        }
+        _ => (game_hours, 1),
+    };
+    stats.insert(CARRIER_RUN_KEY_STAT.to_string(), Value::from(carrier_key));
+    stats.insert(CARRIER_RUN_START_STAT.to_string(), Value::from(start));
+    stats.insert(CARRIER_RUN_LOADS_STAT.to_string(), Value::from(loads));
+    loads >= CARRIER_WEEK_LOADS && game_hours - start >= CARRIER_WEEK_HOURS
+}
+
+/// Get Back: a driver a carrier let go who is on another carrier's payroll
+/// now. Read from the record, so a career that was let go and taken on
+/// before this badge existed earns it at its next terminal visit.
+pub fn rehired_after_let_go(carrier_terminations: i64, carrier_key: &str, let_go_by: &str) -> bool {
+    carrier_terminations > 0 && !carrier_key.is_empty() && carrier_key != let_go_by
+}
+
+/// The restart badges a finished rest earns: `restart_complete` is the
+/// hours-of-service clock's word that the cycle has restarted, and
+/// `at_home_terminal` that the driver rested at their own carrier's
+/// terminal.
+pub fn restart_badges(restart_complete: bool, at_home_terminal: bool) -> Vec<&'static str> {
+    match (restart_complete, at_home_terminal) {
+        (false, _) => Vec::new(),
+        (true, false) => vec!["restart_34"],
+        (true, true) => vec!["restart_34", "restart_at_home"],
+    }
+}
+
+#[cfg(test)]
+#[path = "career_two_tests.rs"]
+mod tests;
