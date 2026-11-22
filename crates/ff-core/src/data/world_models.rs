@@ -1072,6 +1072,14 @@ pub struct City {
 }
 
 impl City {
+    /// The climate row the simulated temperature reads here
+    /// ([`climate_region`](crate::data::climate::climate_region)), or the
+    /// freight region for a city it cannot place.
+    pub fn climate(&self) -> &str {
+        crate::data::climate::climate_region(&self.state_code, self.lat, self.lon)
+            .unwrap_or(&self.region)
+    }
+
     pub fn spoken_qualified(&self) -> String {
         if self.state.is_empty() {
             self.name.clone()

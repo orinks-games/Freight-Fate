@@ -36,6 +36,14 @@ drive.
 A climate table for Alaska and Canada, separate from the freight region,
 so `classify_region` keeps driving freight, hazards and market tags.
 
+The table is for simulated weather. With live weather on, the real
+reading decides the temperature, and later frost, exactly as it does now.
+
+Built as `data/climate.rs`: fifteen rows, each derived in code from the
+station's published January and July normals (`NORTHERN_STATIONS`), and
+`climate_region` beside them. `WeatherSystem` carries the climate key
+next to the freight region.
+
 - A new `climate_region(state, lat, lon)` in `data/regions.rs` returns a
   climate key; United States states outside Alaska return their region
   unchanged. `temperature_c` and every caller that passes a region for
@@ -116,6 +124,8 @@ One state, in `ff-core`: how clear the windshield is, 0 to 1.
 - Calls at standard speech, one per transition, each over its own sound:
   "Windshield frosting.", "Windshield fogging.", "Windshield clear."
   Quiet and urgent-only verbosity play the sound alone.
+- Frost follows the weather system's temperature: the live reading when
+  there is one, the climate table otherwise.
 - Driving assistance: a climate row, as for wipers.
 
 ## Step 4: resting in the cold, the winter package, winter trucks

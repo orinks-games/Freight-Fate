@@ -75,8 +75,8 @@ impl PickupFacilityState {
         if !(HOT_DAY_FROM_HOUR..EVENING_LOAD_HOUR).contains(&hour) {
             return None;
         }
-        let region = &ctx.world.city(&self.job.origin).ok()?.region;
-        let temp_f = temperature_c(region, hours) * 9.0 / 5.0 + 32.0;
+        let climate = ctx.world.city(&self.job.origin).ok()?.climate();
+        let temp_f = temperature_c(climate, hours) * 9.0 / 5.0 + 32.0;
         (temp_f >= danger_temp_f()).then_some(EVENING_LOAD_HOUR - hour)
     }
 
