@@ -176,9 +176,11 @@ impl Menu for ManageCareersState {
                     },
                 )
                 .help("Enter offers to delete this save. It still works in Freight Fate 1.8.")
-                .touch_help(
-                    "Double tap offers to delete this save. It still works in Freight Fate 1.8.",
-                ),
+                .touch_help(if crate::device::phone() {
+                    "Double tap offers to delete this save."
+                } else {
+                    "Double tap offers to delete this save. It still works in Freight Fate 1.8."
+                }),
             );
         }
         for newer in newer_saves() {

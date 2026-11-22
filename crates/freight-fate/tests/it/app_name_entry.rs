@@ -332,3 +332,38 @@ fn the_field_caps_at_max_len() {
     );
     app.shutdown();
 }
+
+#[test]
+fn help_in_the_name_field_reads_its_opening_line_again() {
+    let mut app = TestApp::new();
+    app.dispatch_gesture(Gesture::KeyboardDisconnected);
+    open_name_entry(&mut app);
+    app.clear_speech();
+    app.dispatch_gesture(Gesture::TwoFingerSwipeUp);
+    assert_eq!(
+        app.main_lines(),
+        vec![format!(
+            "New career. Type your driver name. {TOUCH_FIELD_HELP}"
+        )]
+    );
+    // Flick up and down stay silent.
+    app.clear_speech();
+    app.dispatch_gesture(Gesture::SwipeUp);
+    app.dispatch_gesture(Gesture::SwipeDown);
+    assert!(app.main_lines().is_empty(), "{:?}", app.main_lines());
+    assert_eq!(name(&app), "");
+}
+
+#[test]
+fn an_empty_name_starts_the_career_as_driver() {
+    let mut app = TestApp::new();
+    open_name_entry(&mut app);
+    app.dispatch_to_state(&key_event(Key::Return));
+    let start = app.state().unwrap();
+    let start = start.borrow();
+    let start = start
+        .as_any()
+        .downcast_ref::<freight_fate::states::main_menu::CareerStartState>()
+        .expect("Career start opens");
+    assert_eq!(start.driver_name, "Driver");
+}

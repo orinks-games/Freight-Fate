@@ -2,7 +2,10 @@
 //! that mirrors them (`SettingsCategoryState.build_items`, `_adjust`,
 //! `_speech_control_specs`, `_driving_assist_specs` in `main_menu.py`).
 
+mod controls;
+pub(super) use controls::{row_key, ControlsHardware};
 mod dynamic;
+mod touch_help;
 mod voice_groups;
 
 use std::rc::Rc;
@@ -16,11 +19,9 @@ use super::settings_actions::{
     descent_level_label, hos_label, lane_keeping_label, language_label, output_label, pace_label,
     score_display_label, update_channel,
 };
-use super::shortcuts::{ShortcutDevice, ShortcutsState};
 use super::speech_voices::{
     event_voice_help, event_voice_label, main_voice_label, speech_voice_label,
 };
-use super::touch_gestures::TouchGesturesState;
 use crate::app::GameContext;
 use crate::states::base::{Label, Menu, MenuItem};
 use crate::states::main_menu_help::render_help_line;
@@ -61,19 +62,6 @@ fn dyn_label(f: impl Fn(&Settings) -> String + 'static) -> Label<SettingsCategor
     Label::dynamic(move |_s, ctx| f(&ctx.settings))
 }
 
-/// The Controller row: the setting, and while it is on, the pad the game
-/// is listening to, so a player can tell whether their controller was found.
-fn controller_label(ctx: &GameContext) -> String {
-    if !ctx.settings.controller_enabled {
-        return "Controller: disabled".to_string();
-    }
-    if ctx.controller.connected() {
-        format!("Controller: enabled, {} connected", ctx.controller.name())
-    } else {
-        "Controller: enabled, none connected".to_string()
-    }
-}
-
 fn adjust(f: impl Fn(&mut SettingsCategoryState, &mut GameContext, i64) + 'static) -> Adjust {
     Rc::new(f)
 }
@@ -90,6 +78,27 @@ const STREAMER_SAFE_HELP_PHONE: &str =
     "Off plays the full dial, including real public streams. On \
      keeps the radio to built-in safe stations, for streaming or recording. With Music source \
      set to Synthesized, On keeps the radio on the Roadhouse and tuning does nothing.";
+
+const DRIVING_HINTS_HELP: &str = "On, driving lines name the key for the next step, like \
+     Press X to signal for the exit. Off, they leave the key \
+     out. Driving school always names it.";
+
+const CHATTER_HELP: &str = "Extra callouts between directions: parks, rivers, mountain \
+     passes, museums and billboards. Right arrow turns all \
+     on, Left arrow all off, and the switches below pick each \
+     kind. Safety and navigation are never affected. Town \
+     names are the Place callouts row below.";
+
+/// The touch help of a Speech row whose help names keys.
+fn speech_touch_help(help: &str) -> Option<&'static str> {
+    if help == DRIVING_HINTS_HELP {
+        Some(touch_help::DRIVING_HINTS)
+    } else if help == CHATTER_HELP {
+        Some(touch_help::CHATTER)
+    } else {
+        None
+    }
+}
 
 /// A settings row. Its help may name a control as `{{id}}`, read in the
 /// player's own keys the way the help pages read them.
@@ -127,20 +136,6 @@ fn steering_lean_text(s: &Settings) -> String {
         "toward"
     };
     format!("{what} {way} where the wheel should go, so steer {way} it")
-}
-
-/// Only the iPhone and iPad game has a touch surface to bind.
-fn touch_gestures_row() -> Row {
-    MenuItem::new(
-        "Touch gestures",
-        |_s: &mut SettingsCategoryState, ctx: &mut GameContext| {
-            ctx.push_state(TouchGesturesState::new())
-        },
-    )
-    .help(
-        "Choose which driving command each touch gesture runs, including a second \
-         finger while holding gas or brake.",
-    )
 }
 
 fn back_row() -> Row {
@@ -284,18 +279,12 @@ impl SettingsCategoryState {
             SpeechSpec {
                 label: dyn_label(|s| format!("Driving hints: {}", on_off(s.driving_hints))),
                 action: adjust(|s, ctx, d| s.toggle_driving_hints(ctx, d)),
-                help: "On, driving lines name the key for the next step, like \
-                       Press X to signal for the exit. Off, they leave the key \
-                       out. Driving school always names it.",
+                help: DRIVING_HINTS_HELP,
             },
             SpeechSpec {
                 label: dyn_label(|s| format!("Roadside chatter: {}", s.chatter_summary())),
                 action: adjust(|s, ctx, d| s.set_all_chatter(ctx, d)),
-                help: "Extra callouts between directions: parks, rivers, mountain \
-                       passes, museums and billboards. Right arrow turns all \
-                       on, Left arrow all off, and the switches below pick each \
-                       kind. Safety and navigation are never affected. Town \
-                       names are the Place callouts row below.",
+                help: CHATTER_HELP,
             },
             SpeechSpec {
                 label: dyn_label(|s| {
@@ -497,16 +486,12 @@ impl SettingsCategoryState {
                 adjust(|s, ctx, d| s.toggle_live_weather_calendar(ctx, d)),
                 adjust(|s, ctx, d| s.toggle_facility_streets(ctx, d)),
             ],
-            "controls" => vec![
-                adjust(|s, ctx, d| s.toggle_units(ctx, d)),
-                adjust(|s, ctx, d| s.toggle_transmission(ctx, d)),
-                adjust(|s, ctx, d| s.toggle_controller(ctx, d)),
-                adjust(|s, ctx, d| s.toggle_haptics(ctx, d)),
-                adjust(|s, ctx, d| s.toggle_left_bumper_layer(ctx, d)),
-                #[cfg(feature = "visuals")]
-                adjust(|s, ctx, d| s.toggle_visual_display(ctx, d)),
-                adjust(|s, ctx, d| s.toggle_menu_accelerator_keys(ctx, d)),
-            ],
+            // A row with no value to step (a screen it opens) does nothing.
+            "controls" => self
+                .controls_rows(ctx)
+                .into_iter()
+                .map(|(_, action)| action.unwrap_or_else(|| adjust(|_s, _ctx, _d| {})))
+                .collect(),
             "assistance" => {
                 let mut actions = vec![adjust(|s, ctx, d| s.cycle_assist_preset(ctx, d))];
                 for (field, _, _) in DRIVING_ASSIST_SPECS {
@@ -579,7 +564,19 @@ impl SettingsCategoryState {
                 row(
                     dyn_label(|s| format!("Driving mode: {}", pace_label(s))),
                     adjust(|s, ctx, d| s.cycle_pace(ctx, d)),
-                    "How fast the clock runs and how hard the road pushes. \
+                    if crate::device::phone() {
+                        "How fast the clock runs and how hard the road pushes. \
+                     Relaxed passes about ten minutes of road and clock each \
+                     real minute, with more time to react to hazards, gentler \
+                     damage and fatigue, and calmer speech. Standard keeps \
+                     normal pressure at about twenty minutes each real minute. \
+                     Real time keeps Standard's pressure and runs the clock at \
+                     real speed, matched to this device's date and time. \
+                     Switching never changes your hours of service or the time \
+                     left on a delivery. You can also switch from the pause \
+                     menu during a drive. The change starts when the truck next stops."
+                    } else {
+                        "How fast the clock runs and how hard the road pushes. \
                      Relaxed passes about ten minutes of road and clock each \
                      real minute, with more time to react to hazards, gentler \
                      damage and fatigue, and calmer speech. Standard keeps \
@@ -588,7 +585,8 @@ impl SettingsCategoryState {
                      real speed, matched to your computer's date and time. \
                      Switching never changes your hours of service or the time \
                      left on a delivery. You can also switch from the pause \
-                     menu during a drive. The change starts when the truck next stops.",
+                     menu during a drive. The change starts when the truck next stops."
+                    },
                 ),
                 row(
                     dyn_label(|s| format!("Hours of service: {}", hos_label(s))),
@@ -598,15 +596,16 @@ impl SettingsCategoryState {
                      30-minute break, with lighter fines, fewer inspections, and \
                      rare road hazards.",
                 ),
-                row(
-                    dyn_label(|s| {
-                        format!(
-                            "Hours of service planning hints: {}",
-                            if s.hos_planning_hints { "On" } else { "Off" }
-                        )
-                    }),
-                    adjust(|s, ctx, d| s.toggle_hos_planning_hints(ctx, d)),
-                    "Early advice to stop for a break or sleep while you still have time, \
+                touch_help::with_touch(
+                    row(
+                        dyn_label(|s| {
+                            format!(
+                                "Hours of service planning hints: {}",
+                                if s.hos_planning_hints { "On" } else { "Off" }
+                            )
+                        }),
+                        adjust(|s, ctx, d| s.toggle_hos_planning_hints(ctx, d)),
+                        "Early advice to stop for a break or sleep while you still have time, \
                      plus the last stop you can legally reach. While rolling, {{rest}} \
                      plans the recommended stop, and pressing it again cancels. With \
                      Driving speech on Standard, one hint comes before the next hours \
@@ -616,6 +615,8 @@ impl SettingsCategoryState {
                      sell you a set. On the road, it warns when a posted chain law covers \
                      your truck. It never buys anything. Hours warnings and readout keys \
                      work whether this is on or off.",
+                    ),
+                    touch_help::hos_hints,
                 ),
                 // The overspeed warning no longer has a row. It armed at the
                 // same 5-over pace predictive cruise itself holds, so it
@@ -704,136 +705,42 @@ impl SettingsCategoryState {
                 row(
                     dyn_label(|s| format!("Facility streets: {}", on_off(s.facility_streets))),
                     adjust(|s, ctx, d| s.toggle_facility_streets(ctx, d)),
-                    "On, you drive the real streets between the highway and a \
+                    if crate::device::phone() {
+                        "On, you drive the real streets between the highway and a \
+                     facility, turn by turn. Off, the exit \
+                     ramp ends at the facility gate, and no exit has a light or \
+                     stop sign. A loaded run leaves straight onto the highway, \
+                     and a pickup in town is one stretch of road. \
+                     The change applies from your next drive."
+                    } else {
+                        "On, you drive the real streets between the highway and a \
                      facility, turn by turn. Off works as in version 1.8. The exit \
                      ramp ends at the facility gate, and no exit has a light or \
                      stop sign. A loaded run leaves straight onto the highway, \
                      and a pickup in town is one stretch of road. \
-                     The change applies from your next drive.",
+                     The change applies from your next drive."
+                    },
                 ),
                 back_row(),
             ],
-            "controls" => vec![
-                row(
-                    dyn_label(|s| {
-                        format!(
-                            "Units: {}",
-                            if s.imperial_units {
-                                "imperial, miles"
-                            } else {
-                                "metric, kilometers"
-                            }
-                        )
-                    }),
-                    adjust(|s, ctx, d| s.toggle_units(ctx, d)),
-                    "Distance and speed in miles or kilometers.",
-                ),
-                row(
-                    dyn_label(|s| {
-                        format!(
-                            "Transmission: {}",
-                            if s.automatic_transmission {
-                                "automatic"
-                            } else {
-                                "manual"
-                            }
-                        )
-                    }),
-                    adjust(|s, ctx, d| s.toggle_transmission(ctx, d)),
-                    "Automatic shifts for you. Manual: hold the clutch, \
-                     then {{shift_up}} shifts up and {{shift_down}} shifts down.",
-                ),
-                row(
-                    Label::dynamic(|_s, ctx| controller_label(ctx)),
-                    adjust(|s, ctx, d| s.toggle_controller(ctx, d)),
-                    "Game-controller input alongside the keyboard, which \
-                     always stays active. The first connected controller is \
-                     used.",
-                ),
-                row(
-                    dyn_label(|s| {
-                        format!(
-                            "Haptics: {}",
-                            if s.haptics_enabled {
-                                "enabled"
-                            } else {
-                                "disabled"
-                            }
-                        )
-                    }),
-                    adjust(|s, ctx, d| s.toggle_haptics(ctx, d)),
-                    "Controller rumble for hazards, hard braking, the rumble \
-                     strip, and road seams. Needs a controller connected.",
-                ),
-                row(
-                    dyn_label(|s| {
-                        format!(
-                            "Second layer bumper: {}",
-                            if s.left_bumper_layer { "left" } else { "right" }
-                        )
-                    }),
-                    adjust(|s, ctx, d| s.toggle_left_bumper_layer(ctx, d)),
-                    "Which bumper you hold for the second layer of controller \
-                     buttons. The other bumper is the clutch.",
-                ),
-                // A build without the visual display has nothing to turn off.
-                #[cfg(feature = "visuals")]
-                row(
-                    dyn_label(|s| format!("Visual display: {}", on_off(s.visual_display))),
-                    adjust(|s, ctx, d| s.toggle_visual_display(ctx, d)),
-                    "Draws the road, the dashboard, menus and captions of what \
-                     is spoken in the game window, for sighted and low-vision \
-                     players. Off keeps the window dark and saves battery. \
-                     Speech and sound are the same either way.",
-                ),
-                row(
-                    dyn_label(|s| format!("Letters run menu items: {}", on_off(s.menu_accelerator_keys))),
-                    adjust(|s, ctx, d| s.toggle_menu_accelerator_keys(ctx, d)),
-                    "On, typing the first letter of an item runs it when no other item starts with that letter. When several share it, the letter moves between them and Enter runs the one you are on. Off, letters only move to the item.",
-                ),
-                // Enter opens each; Left and Right have nothing to step through,
-                // and the adjust table above stops before these rows.
-                MenuItem::new(
-                    "Keyboard shortcuts",
-                    |_s: &mut SettingsCategoryState, ctx| {
-                        ctx.push_state(ShortcutsState::new(ShortcutDevice::Keyboard))
-                    },
-                )
-                .help(
-                    "Move any driving key to another key. Enter on a control, then \
-                     press the key you want for it.",
-                ),
-                MenuItem::new(
-                    "Controller buttons",
-                    |_s: &mut SettingsCategoryState, ctx| {
-                        ctx.push_state(ShortcutsState::new(ShortcutDevice::Controller))
-                    },
-                )
-                .help(Label::dynamic(|_s, ctx| {
-                    if ctx.settings.left_bumper_layer {
-                        "Move any driving control to another pad button, plain or with \
-                         the left bumper held."
-                    } else {
-                        "Move any driving control to another pad button, plain or with \
-                         the right bumper held."
-                    }
-                    .to_string()
-                })),
-                // The speed keeper moved to Driving assistance: it holds a speed
-                // for you, which is what every other row on that screen does.
-                // Controls is the keyboard, the controller, and the units the
-                // numbers arrive in.
-            ]
-            .into_iter()
-            .chain(crate::device::phone().then(touch_gestures_row))
-            .chain([back_row()])
-            .collect(),
+            "controls" => self
+                .controls_rows(ctx)
+                .into_iter()
+                .map(|(row, _)| row)
+                .collect(),
             "audio" => self.audio_items(),
             "speech" => {
                 let mut items: Vec<Row> = self
                     .speech_control_specs(ctx)
                     .into_iter()
-                    .map(|spec| row(spec.label, spec.action, spec.help))
+                    .map(|spec| {
+                        let touch = speech_touch_help(spec.help);
+                        let row = row(spec.label, spec.action, spec.help);
+                        match touch {
+                            Some(touch) => row.touch_help(touch),
+                            None => row,
+                        }
+                    })
                     .collect();
                 items.push(back_row());
                 items
@@ -847,8 +754,13 @@ impl SettingsCategoryState {
                         )
                     }),
                     adjust(|s, ctx, d| s.toggle_crash_report_offer(ctx, d)),
-                    "On, the main menu offers to send a report when the game closed \
-                     without quitting the last time, with that run's log attached.",
+                    if crate::device::phone() {
+                        "On, the main menu offers to send a report when the game stopped \
+                         while in use the last time, with that run's log attached."
+                    } else {
+                        "On, the main menu offers to send a report when the game closed \
+                         without quitting the last time, with that run's log attached."
+                    },
                 )];
                 if !crate::device::iphone() {
                     items.push(
@@ -881,7 +793,7 @@ impl SettingsCategoryState {
                 adjust(|s, ctx, d| s.volume(ctx, "sfx_volume", 0.1 * d as f64)),
                 "Horn, alerts, road, facility, and gameplay cue sounds.",
             ),
-            row(
+            touch_help::with_touch(row(
                 dyn_label(|s| format!("Lane and edge cue volume: {}", cue_loudness_label(s))),
                 adjust(|s, ctx, d| s.cycle_cue_loudness(ctx, d)),
                 "How loud the lane and edge cues are next to everything \
@@ -890,7 +802,7 @@ impl SettingsCategoryState {
                  dangerous bend. It adjusts only these cues, on top of Gameplay \
                  cues volume. Quieter sits under the engine, standard matches \
                  it, louder cuts through.",
-            ),
+            ), |_| touch_help::CUE_VOLUME.to_string()),
             row(
                 dyn_label(|s| {
                     format!(
@@ -980,7 +892,8 @@ impl SettingsCategoryState {
             .help(
                 "Enter types a seed, a whole number. Left or Right rolls a new one. \
                  Every synthesized piece changes with it.",
-            ),
+            )
+            .touch_help(touch_help::MUSIC_SEED),
             row(
                 dyn_label(|s| format!("In-cab radio volume: {} percent", pct(s.radio_volume))),
                 adjust(|s, ctx, d| s.volume(ctx, "radio_volume", 0.1 * d as f64)),

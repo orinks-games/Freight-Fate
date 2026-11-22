@@ -168,6 +168,46 @@ pub fn command_group_label(action: Action) -> Option<&'static str> {
     })
 }
 
+/// One row of the driving command list's top level, for a screen that
+/// lists commands the same way (the command picker of Touch gestures).
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub enum CommandListRow {
+    Command(Action),
+    /// A group by its spoken name, with the actions its rows run.
+    Group(&'static str, Vec<Action>),
+}
+
+/// The driving command list's top level in its order: its commands and its
+/// groups. Rows that run no action of their own (Driving help, Back) are
+/// left out, and a row that changes a value gives both of its actions.
+pub fn command_list_rows() -> Vec<CommandListRow> {
+    TOP.iter()
+        .filter_map(|entry| match entry {
+            Run(action) => Some(CommandListRow::Command(*action)),
+            Open(group) => Some(CommandListRow::Group(
+                group.label(),
+                group.entries().iter().flat_map(entry_actions).collect(),
+            )),
+            _ => None,
+        })
+        .collect()
+}
+
+fn entry_actions(entry: &Entry) -> Vec<Action> {
+    match entry {
+        Run(action) => vec![*action],
+        F(Fixed::CruiseUp) => vec![Action::CruiseUp],
+        F(Fixed::CruiseDown) => vec![Action::CruiseDown],
+        F(Fixed::NextStation) => vec![Action::RadioTuneNext],
+        F(Fixed::PreviousStation) => vec![Action::RadioTunePrev],
+        Entry::Value(value) => {
+            let (raise, lower) = value.actions();
+            vec![raise, lower]
+        }
+        _ => Vec::new(),
+    }
+}
+
 impl Group {
     fn label(self) -> &'static str {
         match self {

@@ -148,7 +148,7 @@ impl PauseMenuState {
                 let state = SettingsState::new();
                 ctx.push_state(state);
             })
-            .help("Units, transmission, volumes, weather, voices, update channel, and pacing."),
+            .help(crate::states::main_menu::settings_help()),
         ];
         let team_rows = self.team_rows(ctx, d);
         let team_count = team_rows.len();

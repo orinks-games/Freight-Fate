@@ -442,6 +442,37 @@ fn the_touch_gestures_screen_moves_a_gesture_and_saves_it() {
             .all(|l| l != Action::Accelerate.label()),
         "a held control cannot go on a tap"
     );
+    let picker = harness.menu_labels();
+    assert_eq!(picker.first().map(String::as_str), Some("Nothing"));
+    let groups = [
+        "Speed and cruise",
+        "Road and stops",
+        "Where am I",
+        "Truck",
+        "Gears and engine brake",
+        "Radio and CB",
+        "Hours and clock",
+    ];
+    let at: Vec<usize> = groups
+        .iter()
+        .map(|group| {
+            picker
+                .iter()
+                .position(|row| row == group)
+                .unwrap_or_else(|| panic!("{group:?} not in {picker:#?}"))
+        })
+        .collect();
+    assert!(at.windows(2).all(|pair| pair[0] < pair[1]), "{picker:#?}");
+    assert!(
+        !picker.iter().any(|row| row == Action::Fuel.label()),
+        "Fuel sits in its group"
+    );
+    harness.select_menu_item("Truck");
+    assert!(harness.state_is::<TouchCommandPickerState>());
+    assert!(harness
+        .menu_labels()
+        .iter()
+        .any(|row| row == Action::Fuel.label()));
     harness.select_menu_item(Action::Fuel.label());
     assert!(harness.state_is::<TouchGesturesState>());
     assert_eq!(harness.app.ctx.settings.touch_bindings, "tap=fuel");
