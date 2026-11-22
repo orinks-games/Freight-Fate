@@ -5917,6 +5917,47 @@ a carrier slice (owner, 2026-10-26).
       highways; its ordinary highways license commercial boards. A per-leg
       law would let a pool line stand on those.
 
+### Winter cab, wipers and ice roads (designed November 22)
+
+The owner asked for heat and air that do something (frost with the heat
+off in the cold), windshield wipers, and trucks for Alaska ice and frozen
+lakes, on Canada's roads too (2026-11-22). The design is
+`docs/winter-cab-design.md`; it builds on the July wiper notes in
+`docs/weather-wiper-audio-notes.md`. Six steps, each its own PR. Only the
+first is wanted before the first alpha; the rest follow as alpha updates,
+before 2.0 goes stable. Five questions for the owner are at the end of the
+design, each with the director's pick.
+
+- [ ] Step 1, before the alpha: real winter temperatures for Alaska and
+      Canada. Alaska, Yukon and British Columbia borrow the Pacific
+      Northwest's climate, so the coldest moment of the year in Fairbanks
+      or Deadhorse is about minus 3 Celsius; the prairies borrow
+      Missouri's. A climate table separate from the freight region, each
+      row derived from the 1991 to 2020 normals of a named station.
+- [ ] Step 2: the windshield and wipers. One clarity state; rain and wet
+      snow lower it, wipers (off, intermittent, low, high on one key)
+      restore it; a glass that is not clear blurs the lane sound and, if
+      the owner agrees, shortens sight as fog does. A driving assistance
+      row runs the wipers for a driver who wants help.
+- [ ] Step 3: frost, fog and the heat. The fan on heat clears and
+      prevents frost, the fan on heat or air clears fog; a truck parked
+      cold with the engine off starts frosted.
+- [ ] Step 4: resting in the cold. A rest in the truck in hard cold or
+      heat idles the engine and the fuel is charged, said once at waking.
+      A winter package upgrade (block heater, bunk heater, heated glass)
+      and two catalog trucks, a northern spec conventional and a tri-drive
+      heavy hauler.
+- [ ] Step 5: ice roads. Seasonal legs, ice that answers speed with
+      sound, convoys on the CB, the road's own security; first the
+      Tibbitt to Contwoyto Winter Road from Yellowknife, which needs the
+      northern Canada corridor.
+- [ ] Step 6: more winter roads, one at a time: an oil field ice road
+      from Deadhorse, the Mackenzie Valley winter road and the Dempster
+      ice crossings, Manitoba, northern Ontario.
+- [ ] Live weather for Canada, so Canadian temperatures can be real
+      readings as Alaska's are.
+- [ ] Headlights as a control, on the same clarity model (July notes).
+
 ### Personal conveyance and duty-purpose correction
 
 Regulatory baseline: [FMCSA personal-conveyance guidance](https://www.fmcsa.dot.gov/regulations/hours-service/personal-conveyance)
