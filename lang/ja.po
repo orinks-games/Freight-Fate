@@ -11193,6 +11193,9 @@ msgstr "対向車線"
 msgid "shoulder"
 msgstr "路肩"
 
+msgid "centred"
+msgstr ""
+
 msgid "quiet"
 msgstr "控えめ"
 
@@ -11824,6 +11827,27 @@ msgstr "少なめの積載"
 
 msgid "bunk"
 msgstr "寝台"
+
+msgid "Level set."
+msgstr ""
+
+msgid "This device has no motion sensor."
+msgstr ""
+
+msgid "No tilt reading. Swipe to steer."
+msgstr ""
+
+msgid "Tilt steering back."
+msgstr ""
+
+msgid "waiting"
+msgstr ""
+
+msgid "settling"
+msgstr ""
+
+msgid "live"
+msgstr "実際"
 
 msgid "eastern"
 msgstr "eastern"
@@ -13163,9 +13187,6 @@ msgstr "この速度ではリバースに入りません。まずトラックを
 
 msgid "simulated"
 msgstr "シミュレーション"
-
-msgid "live"
-msgstr "実際"
 
 msgid "loading"
 msgstr "読み込み中"
@@ -14780,11 +14801,25 @@ msgstr "Freight Fate キー計測"
 msgid "Hold each arrow key for a few seconds; it finishes by itself."
 msgstr "矢印キーを一つずつ数秒間押し続けてください。自動的に終わります。"
 
+msgid "Portrait PortraitUpsideDown LandscapeLeft LandscapeRight"
+msgstr "Portrait PortraitUpsideDown LandscapeLeft LandscapeRight"
+
+#. placeholders: {count}
+msgid "{count} sensors, no accelerometer"
+msgstr ""
+
+msgid "Portrait"
+msgstr ""
+
 msgid "ff-rust-app"
 msgstr "ff-rust-app"
 
 msgid "recording"
 msgstr "recording"
+
+#. placeholders: {key}, {angle}, {angle2}
+msgid "tilt {key}; tilt_level {angle}; tilt_angle {angle2}"
+msgstr ""
 
 msgid "title"
 msgstr "title"
@@ -15106,6 +15141,9 @@ msgstr "一時停止"
 
 msgid "Driving command list"
 msgstr "運転の操作の一覧"
+
+msgid "Set tilt level"
+msgstr ""
 
 msgid "Nothing"
 msgstr "なし"
@@ -21175,6 +21213,14 @@ msgid ""
 msgstr "左右にフリックすると車線を変え、左右にスワイプして長押しすると操舵します。 "
 
 msgid ""
+"Tilt the phone left or right to change one lane, and bring it back level "
+"before the next. "
+msgstr ""
+
+msgid "Tilt the phone left or right to steer. "
+msgstr ""
+
+msgid ""
 "Hold one finger still for half a second to straighten the wheel. With "
 "cruise off, flick up to turn it on. Double tap to take an exit, pull over, "
 "or confirm arrival at a gate. Tap with two fingers to stop speech. Turn two "
@@ -26555,13 +26601,16 @@ msgstr "運転時間と時刻"
 msgid "Driving commands"
 msgstr "運転の操作"
 
+msgid "Tilt steering treats the way you hold the phone now as level."
+msgstr ""
+
 #. placeholders: {noun}
 msgid "At the wheel: {noun}."
 msgstr "運転中は{noun}。"
 
-#. placeholders: {key_name}
-msgid "On the keyboard: {key_name}."
-msgstr "キーボードでは{key_name}。"
+#. placeholders: {key}
+msgid "On the keyboard: {key}."
+msgstr ""
 
 msgid "Back to driving"
 msgstr "運転に戻る"
@@ -34325,6 +34374,39 @@ msgstr ""
 "下へのスワイプがどこまで進むと非常ブレーキに、停車中なら駐車ブレーキになるかです。「ジェスチャーの練習」で、下へのスワイプの長さを読み上げます。右か左の"
 "矢印キーで変えます。"
 
+msgid ""
+"On, tilting the phone left or right steers, and the screen stops turning "
+"with the phone while you drive. With lane keeping on full, a tilt changes "
+"one lane. Swipes and flicks still steer. Flick up or down to change it."
+msgstr ""
+
+msgid ""
+"On, tilting the phone left or right steers, and the screen stops turning "
+"with the phone while you drive. With lane keeping on full, a tilt changes "
+"one lane. Swipes and flicks still steer. D-pad Right or Left changes it."
+msgstr ""
+
+msgid ""
+"On, tilting the phone left or right steers, and the screen stops turning "
+"with the phone while you drive. With lane keeping on full, a tilt changes "
+"one lane. Swipes and flicks still steer. Right or Left arrow changes it."
+msgstr ""
+
+msgid ""
+"How far the phone tilts for full steering. A smaller number steers harder. "
+"Flick up or down to change it."
+msgstr ""
+
+msgid ""
+"How far the phone tilts for full steering. A smaller number steers harder. "
+"D-pad Right or Left changes it."
+msgstr ""
+
+msgid ""
+"How far the phone tilts for full steering. A smaller number steers harder. "
+"Right or Left arrow changes it."
+msgstr ""
+
 msgid "Every touch gesture is back to its default."
 msgstr "すべてのタッチジェスチャーを既定に戻しました。"
 
@@ -34333,6 +34415,16 @@ msgstr "タッチの振動を有効にしました。"
 
 msgid "Touch haptics disabled."
 msgstr "タッチの振動を無効にしました。"
+
+msgid "Tilt steering: On"
+msgstr ""
+
+msgid "Tilt steering: Off"
+msgstr ""
+
+#. placeholders: {touch_tilt_full}
+msgid "Tilt for full steering: {touch_tilt_full} degrees"
+msgstr ""
 
 msgid "Confirm, then choose the command this gesture runs while driving."
 msgstr "確定してから、このジェスチャーで運転中に実行する操作を選びます。"
@@ -34373,6 +34465,36 @@ msgstr "ジェスチャーの練習を終わります。"
 
 msgid "Again to leave practice."
 msgstr "もう一度で練習を終わります。"
+
+#. one sentence of a longer line
+msgid "Steers left, or changes one lane with lane keeping on full."
+msgstr ""
+
+#. placeholders: {whole}
+#. one sentence of a longer line
+msgid "Tilt left, {whole} degrees."
+msgstr ""
+
+#. placeholders: {whole}
+msgid ""
+"Tilt left, {whole} degrees. Steers left, or changes one lane with lane "
+"keeping on full."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Steers right, or changes one lane with lane keeping on full."
+msgstr ""
+
+#. placeholders: {whole}
+#. one sentence of a longer line
+msgid "Tilt right, {whole} degrees."
+msgstr ""
+
+#. placeholders: {whole}
+msgid ""
+"Tilt right, {whole} degrees. Steers right, or changes one lane with lane "
+"keeping on full."
+msgstr ""
 
 #. one sentence of a longer line
 msgid "Deep swipe."
@@ -36723,6 +36845,13 @@ msgstr ""
 
 msgid "pad"
 msgstr "pad"
+
+msgid ""
+"Partial follows bends with gentle drift. Off leaves steering to you unless "
+"curve assistance is enabled. Hold a steering control across the lane line "
+"to change lanes. With Tilt steering on under Touch gestures, tilting the "
+"phone steers too, and with lane keeping on full a tilt changes one lane."
+msgstr ""
 
 msgid ""
 "The radio plays while the engine runs. A three-finger flick right tunes "
@@ -39857,6 +39986,9 @@ msgid ""
 msgstr ""
 "左バンパーを押したままにすると、ボタンの2段目を使えます。{pad_engine}でエンジンを操作し、{pad_fuel}で燃料を、{pad_speed"
 "_limit}で制限速度を読み上げます。"
+
+#~ msgid "On the keyboard: {key_name}."
+#~ msgstr "キーボードでは{key_name}。"
 
 #~ msgid ""
 #~ "Resuming {drive_name}: {destination}. {progress} {hours_used} of "
@@ -52283,9 +52415,6 @@ msgstr ""
 
 #~ msgid "matches"
 #~ msgstr "一致した結果"
-
-#~ msgid "Portrait PortraitUpsideDown LandscapeLeft LandscapeRight"
-#~ msgstr "Portrait PortraitUpsideDown LandscapeLeft LandscapeRight"
 
 #~ msgid "Reputation: {f} out of 100"
 #~ msgstr "評判：100中{f}"

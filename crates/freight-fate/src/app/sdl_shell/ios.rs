@@ -5,6 +5,7 @@
 extern "C" {
     fn ff_use_hardware_vertical_arrows(window: *mut std::ffi::c_void);
     fn ff_touch_install(window: *mut std::ffi::c_void) -> i32;
+    fn ff_refresh_orientations(window: *mut std::ffi::c_void);
     #[cfg(feature = "visuals")]
     fn ff_phone_safe_top_fraction(window: *mut std::ffi::c_void) -> f64;
     fn ff_touch_next() -> i32;
@@ -52,6 +53,16 @@ fn ui_window(window: &sdl2::video::Window) -> Option<*mut std::ffi::c_void> {
         Ok(RawWindowHandle::UiKit(handle)) => Some(handle.ui_view.as_ptr()),
         _ => None,
     }
+}
+
+/// Ask UIKit to read the supported orientations again, after tilt steering
+/// changed the hint SDL answers them from (`ios/ff_orientation.m`).
+pub(super) fn refresh_orientations(window: &sdl2::video::Window) {
+    let Some(ui_window) = ui_window(window) else {
+        return;
+    };
+    // SAFETY: the pointer is SDL's live UIWindow, on the main thread.
+    unsafe { ff_refresh_orientations(ui_window) };
 }
 
 /// Set up the keyboard path and lay the gesture surface over SDL's view.

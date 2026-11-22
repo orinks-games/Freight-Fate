@@ -24,6 +24,8 @@ pub enum TouchCommand {
     /// The grouped driving command list the three-finger tap opens, for a
     /// player whose three-finger tap lands as one finger.
     CommandList,
+    /// Tilt steering takes level again from the pose the phone is in.
+    SetTiltLevel,
     Nothing,
 }
 
@@ -33,6 +35,7 @@ impl TouchCommand {
             TouchCommand::Action(action) => action.label(),
             TouchCommand::Pause => "Pause",
             TouchCommand::CommandList => "Driving command list",
+            TouchCommand::SetTiltLevel => "Set tilt level",
             TouchCommand::Nothing => "Nothing",
         }
     }
@@ -42,6 +45,7 @@ impl TouchCommand {
             TouchCommand::Action(action) => action.id(),
             TouchCommand::Pause => "pause",
             TouchCommand::CommandList => "command_list",
+            TouchCommand::SetTiltLevel => "set_tilt_level",
             TouchCommand::Nothing => "none",
         }
     }
@@ -50,6 +54,7 @@ impl TouchCommand {
         match text {
             "pause" => Some(TouchCommand::Pause),
             "command_list" => Some(TouchCommand::CommandList),
+            "set_tilt_level" => Some(TouchCommand::SetTiltLevel),
             "none" => Some(TouchCommand::Nothing),
             id => Action::from_id(id)
                 .filter(|action| {
@@ -66,6 +71,7 @@ impl TouchCommand {
             TouchCommand::Nothing,
             TouchCommand::Pause,
             TouchCommand::CommandList,
+            TouchCommand::SetTiltLevel,
         ]
         .into_iter()
         .chain(

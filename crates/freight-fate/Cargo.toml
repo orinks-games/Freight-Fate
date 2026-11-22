@@ -84,7 +84,9 @@ keyring.workspace = true
 discord-rich-presence.workspace = true
 once_cell.workspace = true
 regex.workspace = true
-sdl2 = { workspace = true, features = ["raw-window-handle"] }
+# `hidapi` is an empty feature of the sdl2 crate that turns on its Rust
+# `sensor` module (tilt steering reads the phone's accelerometer through it).
+sdl2 = { workspace = true, features = ["raw-window-handle", "hidapi"] }
 ab_glyph = { workspace = true, optional = true }
 memmap2 = { workspace = true, optional = true }
 url.workspace = true

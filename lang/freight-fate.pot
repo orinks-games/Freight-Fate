@@ -9145,7 +9145,7 @@ msgstr ""
 msgid "rejected"
 msgstr ""
 
-#: crates/ff-core/src/models/cargo_condition.rs
+#: crates/ff-core/src/models/cargo_condition.rs crates/ff-core/src/sim/tilt_steering.rs
 msgid "lost"
 msgstr ""
 
@@ -13996,6 +13996,10 @@ msgstr ""
 msgid "shoulder"
 msgstr ""
 
+#: crates/ff-core/src/sim/lane_push.rs
+msgid "centred"
+msgstr ""
+
 #: crates/ff-core/src/sim/outside.rs crates/ff-core/src/speech_pacing.rs
 msgid "quiet"
 msgstr ""
@@ -14815,6 +14819,34 @@ msgstr ""
 
 #: crates/ff-core/src/sim/team_shift.rs
 msgid "bunk"
+msgstr ""
+
+#: crates/ff-core/src/sim/tilt_steering.rs
+msgid "Level set."
+msgstr ""
+
+#: crates/ff-core/src/sim/tilt_steering.rs
+msgid "This device has no motion sensor."
+msgstr ""
+
+#: crates/ff-core/src/sim/tilt_steering.rs
+msgid "No tilt reading. Swipe to steer."
+msgstr ""
+
+#: crates/ff-core/src/sim/tilt_steering.rs
+msgid "Tilt steering back."
+msgstr ""
+
+#: crates/ff-core/src/sim/tilt_steering.rs
+msgid "waiting"
+msgstr ""
+
+#: crates/ff-core/src/sim/tilt_steering.rs
+msgid "settling"
+msgstr ""
+
+#: crates/ff-core/src/sim/tilt_steering.rs crates/ff-core/src/sim/weather.rs crates/freight-fate/src/states/driving_menu_states/facility_arrival.rs
+msgid "live"
 msgstr ""
 
 #: crates/ff-core/src/sim/timezones.rs
@@ -16539,10 +16571,6 @@ msgstr ""
 
 #: crates/ff-core/src/sim/weather.rs crates/freight-fate/src/states/main_menu/settings_items.rs
 msgid "simulated"
-msgstr ""
-
-#: crates/ff-core/src/sim/weather.rs crates/freight-fate/src/states/driving_menu_states/facility_arrival.rs
-msgid "live"
 msgstr ""
 
 #: crates/ff-core/src/sim/weather.rs crates/freight-fate/src/states/city_pickup.rs
@@ -18443,12 +18471,30 @@ msgstr ""
 msgid "Hold each arrow key for a few seconds; it finishes by itself."
 msgstr ""
 
+#: crates/freight-fate/src/app/sdl_shell/tilt_sensor.rs
+msgid "Portrait PortraitUpsideDown LandscapeLeft LandscapeRight"
+msgstr ""
+
+#. placeholders: {count}
+#: crates/freight-fate/src/app/sdl_shell/tilt_sensor.rs
+msgid "{count} sensors, no accelerometer"
+msgstr ""
+
+#: crates/freight-fate/src/app/sdl_shell/tilt_sensor.rs
+msgid "Portrait"
+msgstr ""
+
 #: crates/freight-fate/src/app/testing.rs
 msgid "ff-rust-app"
 msgstr ""
 
 #: crates/freight-fate/src/app/testing.rs
 msgid "recording"
+msgstr ""
+
+#. placeholders: {key}, {angle}, {angle2}
+#: crates/freight-fate/src/app/tilt.rs
+msgid "tilt {key}; tilt_level {angle}; tilt_angle {angle2}"
 msgstr ""
 
 #: crates/freight-fate/src/audio.rs
@@ -18876,6 +18922,10 @@ msgstr ""
 
 #: crates/freight-fate/src/bindings/touch.rs crates/freight-fate/src/states/main_menu/touch_practice.rs
 msgid "Driving command list"
+msgstr ""
+
+#: crates/freight-fate/src/bindings/touch.rs crates/freight-fate/src/states/driving_menu_states/commands.rs
+msgid "Set tilt level"
 msgstr ""
 
 #: crates/freight-fate/src/bindings/touch.rs
@@ -26223,6 +26273,16 @@ msgstr ""
 
 #: crates/freight-fate/src/states/driving_controls/help.rs
 msgid ""
+"Tilt the phone left or right to change one lane, and bring it back level "
+"before the next. "
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_controls/help.rs
+msgid "Tilt the phone left or right to steer. "
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_controls/help.rs
+msgid ""
 "Hold one finger still for half a second to straighten the wheel. With "
 "cruise off, flick up to turn it on. Double tap to take an exit, pull over, "
 "or confirm arrival at a gate. Tap with two fingers to stop speech. Turn two "
@@ -32796,14 +32856,18 @@ msgstr ""
 msgid "Driving commands"
 msgstr ""
 
+#: crates/freight-fate/src/states/driving_menu_states/commands.rs
+msgid "Tilt steering treats the way you hold the phone now as level."
+msgstr ""
+
 #. placeholders: {noun}
 #: crates/freight-fate/src/states/driving_menu_states/commands.rs
 msgid "At the wheel: {noun}."
 msgstr ""
 
-#. placeholders: {key_name}
+#. placeholders: {key}
 #: crates/freight-fate/src/states/driving_menu_states/commands.rs
-msgid "On the keyboard: {key_name}."
+msgid "On the keyboard: {key}."
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_menu_states/commands.rs crates/freight-fate/src/states/driving_menu_states/status.rs
@@ -42059,6 +42123,45 @@ msgid ""
 msgstr ""
 
 #: crates/freight-fate/src/states/main_menu/touch_gestures.rs
+msgid ""
+"On, tilting the phone left or right steers, and the screen stops turning "
+"with the phone while you drive. With lane keeping on full, a tilt changes "
+"one lane. Swipes and flicks still steer. Flick up or down to change it."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu/touch_gestures.rs
+msgid ""
+"On, tilting the phone left or right steers, and the screen stops turning "
+"with the phone while you drive. With lane keeping on full, a tilt changes "
+"one lane. Swipes and flicks still steer. D-pad Right or Left changes it."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu/touch_gestures.rs
+msgid ""
+"On, tilting the phone left or right steers, and the screen stops turning "
+"with the phone while you drive. With lane keeping on full, a tilt changes "
+"one lane. Swipes and flicks still steer. Right or Left arrow changes it."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu/touch_gestures.rs
+msgid ""
+"How far the phone tilts for full steering. A smaller number steers harder. "
+"Flick up or down to change it."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu/touch_gestures.rs
+msgid ""
+"How far the phone tilts for full steering. A smaller number steers harder. "
+"D-pad Right or Left changes it."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu/touch_gestures.rs
+msgid ""
+"How far the phone tilts for full steering. A smaller number steers harder. "
+"Right or Left arrow changes it."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu/touch_gestures.rs
 msgid "Every touch gesture is back to its default."
 msgstr ""
 
@@ -42068,6 +42171,19 @@ msgstr ""
 
 #: crates/freight-fate/src/states/main_menu/touch_gestures.rs
 msgid "Touch haptics disabled."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu/touch_gestures.rs
+msgid "Tilt steering: On"
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu/touch_gestures.rs
+msgid "Tilt steering: Off"
+msgstr ""
+
+#. placeholders: {touch_tilt_full}
+#: crates/freight-fate/src/states/main_menu/touch_gestures.rs
+msgid "Tilt for full steering: {touch_tilt_full} degrees"
 msgstr ""
 
 #: crates/freight-fate/src/states/main_menu/touch_gestures.rs
@@ -42119,6 +42235,42 @@ msgstr ""
 
 #: crates/freight-fate/src/states/main_menu/touch_practice.rs
 msgid "Again to leave practice."
+msgstr ""
+
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/main_menu/touch_practice.rs
+msgid "Steers left, or changes one lane with lane keeping on full."
+msgstr ""
+
+#. placeholders: {whole}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/main_menu/touch_practice.rs
+msgid "Tilt left, {whole} degrees."
+msgstr ""
+
+#. placeholders: {whole}
+#: crates/freight-fate/src/states/main_menu/touch_practice.rs
+msgid ""
+"Tilt left, {whole} degrees. Steers left, or changes one lane with lane "
+"keeping on full."
+msgstr ""
+
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/main_menu/touch_practice.rs
+msgid "Steers right, or changes one lane with lane keeping on full."
+msgstr ""
+
+#. placeholders: {whole}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/main_menu/touch_practice.rs
+msgid "Tilt right, {whole} degrees."
+msgstr ""
+
+#. placeholders: {whole}
+#: crates/freight-fate/src/states/main_menu/touch_practice.rs
+msgid ""
+"Tilt right, {whole} degrees. Steers right, or changes one lane with lane "
+"keeping on full."
 msgstr ""
 
 #. one sentence of a longer line
@@ -44601,6 +44753,14 @@ msgstr ""
 
 #: crates/freight-fate/src/states/main_menu_help.rs
 msgid "pad"
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu_help.rs
+msgid ""
+"Partial follows bends with gentle drift. Off leaves steering to you unless "
+"curve assistance is enabled. Hold a steering control across the lane line "
+"to change lanes. With Tilt steering on under Touch gestures, tilting the "
+"phone steers too, and with lane keeping on full a tilt changes one lane."
 msgstr ""
 
 #: crates/freight-fate/src/states/main_menu_help.rs
