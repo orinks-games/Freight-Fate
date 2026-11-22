@@ -26805,10 +26805,11 @@ msgstr "使用一个备用维修链节。"
 msgid "Uses a spare repair link. {chain_repair_links} left."
 msgstr "使用一个备用维修链节。还剩{chain_repair_links}个。"
 
+# leave empty: one hole before "left"; it took every left curve call ("Sharp left, half a mile.") and dropped the direction
 #. placeholders: {chain_repair_links}
 #. one sentence of a longer line
 msgid "{chain_repair_links} left."
-msgstr "{chain_repair_links} 左。"
+msgstr ""
 
 #. placeholders: {f}
 msgid "Remove snow chains: about {f} minutes"
