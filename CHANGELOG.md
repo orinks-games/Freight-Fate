@@ -65,6 +65,7 @@
 
 ### Changed
 
+- **The GPS no longer calls out low bridges and weight limits.** Your route already clears every one of them.
 - **The player manual now covers 2.0,** including Alaska and Canada, the border, units, carriers and the hours rules in each place.
 - **The new roads, loads and achievements are translated in all eleven languages.**
 - **A new career starts at your carrier's terminal.** Pick a region, a home city, then a carrier hiring there.

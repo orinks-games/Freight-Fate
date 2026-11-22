@@ -336,10 +336,10 @@ impl JobBoardState {
         let job = &self.jobs[index];
         let assignment_help = if job.bobtail {
             "Dispatch is sending you empty, with no pickup. After you accept, Route \
-             planning lists rest, fuel, tolls, weather and restrictions."
+             planning lists rest, fuel, tolls and weather."
         } else {
             "Dispatch assigned this load. Accepting starts the empty drive to the pickup. \
-             After pickup, Route planning lists rest, fuel, tolls, weather and restrictions."
+             After pickup, Route planning lists rest, fuel, tolls and weather."
         };
         let mut items = vec![MenuItem::new(
             format!("Assigned load: {}", self.describe(ctx, job, None)),
@@ -914,15 +914,15 @@ impl Menu for JobBoardState {
             let help_text = if job.bobtail {
                 format!(
                     "Dispatch is sending you empty to {}. After you \
-                     accept, Route planning lists rest, fuel, tolls, \
-                     weather and restrictions.",
+                     accept, Route planning lists rest, fuel, tolls \
+                     and weather.",
                     job.spoken_destination()
                 )
             } else {
                 format!(
                     "Load offer from {} to \
                      {}. After pickup, Route planning lists rest, \
-                     fuel, tolls, weather and restrictions.",
+                     fuel, tolls and weather.",
                     job.origin_facility_text(),
                     job.destination_facility_text()
                 )

@@ -7043,58 +7043,6 @@ msgstr "место на маршруте"
 msgid "toll point: {name}"
 msgstr "пункт оплаты: {name}"
 
-#. placeholders: {py_str_float}
-msgid "{py_str_float} meters"
-msgstr "{py_str_float} {py_str_float:метр|метра|метров}"
-
-#. placeholders: {py_int}
-msgid "{py_int} tonnes"
-msgstr "{py_int} {py_int:тонна|тонны|тонн}"
-
-#. placeholders: {py_str_float}
-msgid "{py_str_float} tonnes"
-msgstr "{py_str_float} {py_str_float:тонна|тонны|тонн}"
-
-#. placeholders: {whole}, {inches}
-msgid "{whole} feet {inches} inches"
-msgstr "{whole} {whole:фут|фута|футов} {inches} {inches:дюйм|дюйма|дюймов}"
-
-#. placeholders: {whole}
-msgid "{whole} feet"
-msgstr "{whole} {whole:фут|фута|футов}"
-
-#. placeholders: {py_int}
-msgid "{py_int} tons"
-msgstr "{py_int} {py_int:тонна|тонны|тонн}"
-
-#. placeholders: {py_str_float}
-msgid "{py_str_float} tons"
-msgstr "{py_str_float} {py_str_float:тонна|тонны|тонн}"
-
-msgid "low bridge"
-msgstr "низкий мост"
-
-msgid "weight limit"
-msgstr "ограничение массы"
-
-#. one sentence of a longer line
-msgid "Your route clears it"
-msgstr "Ваш маршрут проходит без проблем"
-
-#. placeholders: {kind_label}, {value_text}
-#. one sentence of a longer line
-msgid "a {kind_label}, signed {value_text}."
-msgstr "{kind_label}, обозначено {value_text}."
-
-#. placeholders: {kind_label}, {value_text}
-msgid "a {kind_label}, signed {value_text}. Your route clears it"
-msgstr ""
-"{kind_label}, обозначено {value_text}. Ваш маршрут проходит без проблем"
-
-#. placeholders: {py_capitalize}, {value_text}
-msgid "{py_capitalize}, signed {value_text}."
-msgstr "{py_capitalize}, обозначено {value_text}."
-
 msgid "explosives"
 msgstr "взрывчатые вещества"
 
@@ -15511,10 +15459,6 @@ msgid "Toll point in {ahead_text}: {text}."
 msgstr "Пункт оплаты через {ahead_text}: {text}."
 
 #. placeholders: {ahead_text}, {text}
-msgid "In {ahead_text}, {text}."
-msgstr "Через {ahead_text} {text}."
-
-#. placeholders: {ahead_text}, {text}
 msgid "Next guidance in {ahead_text}: {text}."
 msgstr "Следующая подсказка через {ahead_text}: {text}."
 
@@ -15648,9 +15592,6 @@ msgstr " Проезд {amount} {amount:доллар|доллара|доллар�
 msgid "toll"
 msgstr "платная дорога"
 
-msgid "restriction"
-msgstr "ограничение"
-
 msgid "interchange"
 msgstr "развязка"
 
@@ -15729,6 +15670,10 @@ msgstr "План отменён."
 #. placeholders: {ahead_text}, {text}, {speed}
 msgid "Traffic slowing in {ahead_text}, {text}{speed}."
 msgstr "Замедление через {ahead_text}, {text}{speed}."
+
+#. placeholders: {ahead_text}, {text}
+msgid "In {ahead_text}, {text}."
+msgstr "Через {ahead_text} {text}."
 
 #. placeholders: {distance}
 #. one sentence of a longer line
@@ -20544,20 +20489,19 @@ msgstr "Доска заказов. {current}{hos_note}"
 
 msgid ""
 "Dispatch is sending you empty, with no pickup. After you accept, Route "
-"planning lists rest, fuel, tolls, weather and restrictions."
+"planning lists rest, fuel, tolls and weather."
 msgstr ""
 "Диспетчер отправляет вас порожняком, без погрузки. После того как вы "
-"примете, Планирование маршрута перечислит отдых, топливо, платные дороги, "
-"погоду и ограничения."
+"примете, Планирование маршрута перечислит отдых, топливо, платные дороги и "
+"погоду."
 
 msgid ""
 "Dispatch assigned this load. Accepting starts the empty drive to the "
-"pickup. After pickup, Route planning lists rest, fuel, tolls, weather and "
-"restrictions."
+"pickup. After pickup, Route planning lists rest, fuel, tolls and weather."
 msgstr ""
 "Диспетчер назначил этот груз. Принятие начинает порожний пробег к месту "
 "погрузки. После погрузки в планировании маршрута перечислены отдых, "
-"топливо, платные участки, погода и ограничения."
+"топливо, платные участки и погода."
 
 #. placeholders: {describe}
 msgid "Assigned load: {describe}"
@@ -20786,11 +20730,10 @@ msgstr "Закрытый заказ "
 
 #. one sentence of a longer line
 msgid ""
-"After you accept, Route planning lists rest, fuel, tolls, weather and "
-"restrictions."
+"After you accept, Route planning lists rest, fuel, tolls and weather."
 msgstr ""
 "После того как вы примете, Планирование маршрута перечислит отдых, топливо, "
-"платные дороги, погоду и ограничения."
+"платные дороги и погоду."
 
 #. placeholders: {destination}
 #. one sentence of a longer line
@@ -20800,19 +20743,17 @@ msgstr "Диспетчер отправляет вас порожняком в {
 #. placeholders: {destination}
 msgid ""
 "Dispatch is sending you empty to {destination}. After you accept, Route "
-"planning lists rest, fuel, tolls, weather and restrictions."
+"planning lists rest, fuel, tolls and weather."
 msgstr ""
 "Диспетчер отправляет вас порожняком в {destination}. После того как вы "
-"примете, Планирование маршрута перечислит отдых, топливо, платные дороги, "
-"погоду и ограничения."
+"примете, Планирование маршрута перечислит отдых, топливо, платные дороги и "
+"погоду."
 
 #. one sentence of a longer line
-msgid ""
-"After pickup, Route planning lists rest, fuel, tolls, weather and "
-"restrictions."
+msgid "After pickup, Route planning lists rest, fuel, tolls and weather."
 msgstr ""
 "После погрузки Планирование маршрута перечислит отдых, топливо, платные "
-"дороги, погоду и ограничения."
+"дороги и погоду."
 
 #. placeholders: {origin_facility_text}, {destination_facility_text}
 #. one sentence of a longer line
@@ -20824,12 +20765,11 @@ msgstr ""
 #. placeholders: {origin_facility_text}, {destination_facility_text}
 msgid ""
 "Load offer from {origin_facility_text} to {destination_facility_text}. "
-"After pickup, Route planning lists rest, fuel, tolls, weather and "
-"restrictions."
+"After pickup, Route planning lists rest, fuel, tolls and weather."
 msgstr ""
 "Предложение груза из {origin_facility_text} в {destination_facility_text}. "
 "После погрузки Планирование маршрута перечислит отдых, топливо, платные "
-"дороги, погоду и ограничения."
+"дороги и погоду."
 
 #. placeholders: {hours}
 msgid ""
@@ -47652,6 +47592,97 @@ msgstr ""
 "Удерживайте left bumper для второго слоя кнопок. {pad_engine} управляет "
 "двигателем, {pad_fuel} называет топливо, а {pad_speed_limit} ограничение "
 "скорости."
+
+#~ msgid "{py_str_float} meters"
+#~ msgstr "{py_str_float} {py_str_float:метр|метра|метров}"
+
+#~ msgid "{py_int} tonnes"
+#~ msgstr "{py_int} {py_int:тонна|тонны|тонн}"
+
+#~ msgid "{py_str_float} tonnes"
+#~ msgstr "{py_str_float} {py_str_float:тонна|тонны|тонн}"
+
+#~ msgid "{whole} feet {inches} inches"
+#~ msgstr "{whole} {whole:фут|фута|футов} {inches} {inches:дюйм|дюйма|дюймов}"
+
+#~ msgid "{whole} feet"
+#~ msgstr "{whole} {whole:фут|фута|футов}"
+
+#~ msgid "{py_int} tons"
+#~ msgstr "{py_int} {py_int:тонна|тонны|тонн}"
+
+#~ msgid "{py_str_float} tons"
+#~ msgstr "{py_str_float} {py_str_float:тонна|тонны|тонн}"
+
+#~ msgid "low bridge"
+#~ msgstr "низкий мост"
+
+#~ msgid "weight limit"
+#~ msgstr "ограничение массы"
+
+#~ msgid "Your route clears it"
+#~ msgstr "Ваш маршрут проходит без проблем"
+
+#~ msgid "a {kind_label}, signed {value_text}."
+#~ msgstr "{kind_label}, обозначено {value_text}."
+
+#~ msgid "a {kind_label}, signed {value_text}. Your route clears it"
+#~ msgstr ""
+#~ "{kind_label}, обозначено {value_text}. Ваш маршрут проходит без проблем"
+
+#~ msgid "{py_capitalize}, signed {value_text}."
+#~ msgstr "{py_capitalize}, обозначено {value_text}."
+
+#~ msgid "restriction"
+#~ msgstr "ограничение"
+
+#~ msgid ""
+#~ "Dispatch is sending you empty, with no pickup. After you accept, Route "
+#~ "planning lists rest, fuel, tolls, weather and restrictions."
+#~ msgstr ""
+#~ "Диспетчер отправляет вас порожняком, без погрузки. После того как вы "
+#~ "примете, Планирование маршрута перечислит отдых, топливо, платные дороги, "
+#~ "погоду и ограничения."
+
+#~ msgid ""
+#~ "Dispatch assigned this load. Accepting starts the empty drive to the "
+#~ "pickup. After pickup, Route planning lists rest, fuel, tolls, weather and "
+#~ "restrictions."
+#~ msgstr ""
+#~ "Диспетчер назначил этот груз. Принятие начинает порожний пробег к месту "
+#~ "погрузки. После погрузки в планировании маршрута перечислены отдых, "
+#~ "топливо, платные участки, погода и ограничения."
+
+#~ msgid ""
+#~ "After you accept, Route planning lists rest, fuel, tolls, weather and "
+#~ "restrictions."
+#~ msgstr ""
+#~ "После того как вы примете, Планирование маршрута перечислит отдых, топливо, "
+#~ "платные дороги, погоду и ограничения."
+
+#~ msgid ""
+#~ "Dispatch is sending you empty to {destination}. After you accept, Route "
+#~ "planning lists rest, fuel, tolls, weather and restrictions."
+#~ msgstr ""
+#~ "Диспетчер отправляет вас порожняком в {destination}. После того как вы "
+#~ "примете, Планирование маршрута перечислит отдых, топливо, платные дороги, "
+#~ "погоду и ограничения."
+
+#~ msgid ""
+#~ "After pickup, Route planning lists rest, fuel, tolls, weather and "
+#~ "restrictions."
+#~ msgstr ""
+#~ "После погрузки Планирование маршрута перечислит отдых, топливо, платные "
+#~ "дороги, погоду и ограничения."
+
+#~ msgid ""
+#~ "Load offer from {origin_facility_text} to {destination_facility_text}. "
+#~ "After pickup, Route planning lists rest, fuel, tolls, weather and "
+#~ "restrictions."
+#~ msgstr ""
+#~ "Предложение груза из {origin_facility_text} в {destination_facility_text}. "
+#~ "После погрузки Планирование маршрута перечислит отдых, топливо, платные "
+#~ "дороги, погоду и ограничения."
 
 #~ msgid ""
 #~ "Charges {grouped2}: tolls {grouped3}, extra charges {charge_summary}."

@@ -83,7 +83,6 @@ list that comes up in almost every screen.
 | passing | Lane keeping moving around a slow vehicle. |
 | hazard | Something in the truck's path that needs a reaction now. |
 | stopping distance | Road the truck needs to stop from here. |
-| low bridge | A posted height restriction. |
 | weight limit | A posted weight restriction. |
 | exit speed | The speed a ramp's curve is built for. |
 | ramp curve | The bend at the end of an exit lane. |

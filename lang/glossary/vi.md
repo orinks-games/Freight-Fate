@@ -88,7 +88,6 @@ Dùng tiếng Việt phổ thông, tự nhiên như người Việt nói chuyệ
 | small debris | mảnh lốp / mảnh vỡ | Rác/mảnh vỡ nhỏ có thể chạy đè qua. |
 | big debris | vật cản rơi vãi | Vật lớn rơi trên đường (thang, gỗ, đệm, thùng hàng...). |
 | stopping distance | quãng đường phanh | Quãng đường cần để dừng hẳn xe. |
-| low bridge | cầu thấp | Giới hạn chiều cao gầm cầu. |
 | weight limit | giới hạn tải trọng | Giới hạn khối lượng cho phép. |
 | exit speed | tốc độ lối ra | Tốc độ khuyến nghị cho khúc cua của đường dẫn ra. |
 | ramp curve | khúc cua đường dẫn | Đoạn cua cuối làn rẽ ra. |

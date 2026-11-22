@@ -6333,57 +6333,6 @@ msgstr "沿線の地点"
 msgid "toll point: {name}"
 msgstr "料金所：{name}"
 
-#. placeholders: {py_str_float}
-msgid "{py_str_float} meters"
-msgstr "{py_str_float}メートル"
-
-#. placeholders: {py_int}
-msgid "{py_int} tonnes"
-msgstr "{py_int}トン"
-
-#. placeholders: {py_str_float}
-msgid "{py_str_float} tonnes"
-msgstr "{py_str_float}トン"
-
-#. placeholders: {whole}, {inches}
-msgid "{whole} feet {inches} inches"
-msgstr "{whole}フィート{inches}インチ"
-
-#. placeholders: {whole}
-msgid "{whole} feet"
-msgstr "{whole}フィート"
-
-#. placeholders: {py_int}
-msgid "{py_int} tons"
-msgstr "{py_int}トン"
-
-#. placeholders: {py_str_float}
-msgid "{py_str_float} tons"
-msgstr "{py_str_float}トン"
-
-msgid "low bridge"
-msgstr "低い橋"
-
-msgid "weight limit"
-msgstr "重量制限"
-
-#. one sentence of a longer line
-msgid "Your route clears it"
-msgstr "このルートなら通れます"
-
-#. placeholders: {kind_label}, {value_text}
-#. one sentence of a longer line
-msgid "a {kind_label}, signed {value_text}."
-msgstr "{kind_label}、表示は{value_text}です。"
-
-#. placeholders: {kind_label}, {value_text}
-msgid "a {kind_label}, signed {value_text}. Your route clears it"
-msgstr "{kind_label}、表示は{value_text}です。このルートなら通れます"
-
-#. placeholders: {py_capitalize}, {value_text}
-msgid "{py_capitalize}, signed {value_text}."
-msgstr "{py_capitalize}、表示は{value_text}です。"
-
 msgid "explosives"
 msgstr "爆発物"
 
@@ -14178,10 +14127,6 @@ msgid "Toll point in {ahead_text}: {text}."
 msgstr "{ahead_text}先に料金所：{text}。"
 
 #. placeholders: {ahead_text}, {text}
-msgid "In {ahead_text}, {text}."
-msgstr "{ahead_text}先、{text}。"
-
-#. placeholders: {ahead_text}, {text}
 msgid "Next guidance in {ahead_text}: {text}."
 msgstr "{ahead_text}先に次の案内：{text}。"
 
@@ -14313,9 +14258,6 @@ msgstr "通行料は{amount}ドル。"
 msgid "toll"
 msgstr "通行料"
 
-msgid "restriction"
-msgstr "規制"
-
 msgid "interchange"
 msgstr "インターチェンジ"
 
@@ -14390,6 +14332,10 @@ msgstr "計画を取り消しました。"
 #. placeholders: {ahead_text}, {text}, {speed}
 msgid "Traffic slowing in {ahead_text}, {text}{speed}."
 msgstr "{ahead_text}先で車の流れが遅くなっています。{text}{speed}。"
+
+#. placeholders: {ahead_text}, {text}
+msgid "In {ahead_text}, {text}."
+msgstr "{ahead_text}先、{text}。"
 
 #. placeholders: {distance}
 #. one sentence of a longer line
@@ -18839,16 +18785,14 @@ msgstr "配車ボード。{current}{hos_note}"
 
 msgid ""
 "Dispatch is sending you empty, with no pickup. After you accept, Route "
-"planning lists rest, fuel, tolls, weather and restrictions."
-msgstr "配車係が、荷積みなしの空車であなたを送ります。受けたあと、ルート計画で休憩、燃料、通行料、天気、規制が確認できます。"
+"planning lists rest, fuel, tolls and weather."
+msgstr "配車係が、荷積みなしの空車であなたを送ります。受けたあと、ルート計画で休憩、燃料、通行料、天気が確認できます。"
 
 msgid ""
 "Dispatch assigned this load. Accepting starts the empty drive to the "
-"pickup. After pickup, Route planning lists rest, fuel, tolls, weather and "
-"restrictions."
+"pickup. After pickup, Route planning lists rest, fuel, tolls and weather."
 msgstr ""
-"この積荷は配車係が割り当てたものです。受けると、まず空荷で積み込み先へ向かいます。積み込み後は、「ルート計画」で休憩、給油、通行料、天気、規制を確認でき"
-"ます。"
+"この積荷は配車係が割り当てたものです。受けると、まず空荷で積み込み先へ向かいます。積み込み後は、「ルート計画」で休憩、給油、通行料、天気を確認できます。"
 
 #. placeholders: {describe}
 msgid "Assigned load: {describe}"
@@ -19050,9 +18994,8 @@ msgstr "ロック中の依頼 "
 
 #. one sentence of a longer line
 msgid ""
-"After you accept, Route planning lists rest, fuel, tolls, weather and "
-"restrictions."
-msgstr "受けたあと、ルート計画で休憩、燃料、通行料、天気、規制が確認できます。"
+"After you accept, Route planning lists rest, fuel, tolls and weather."
+msgstr "受けたあと、ルート計画で休憩、燃料、通行料、天気が確認できます。"
 
 #. placeholders: {destination}
 #. one sentence of a longer line
@@ -19062,14 +19005,12 @@ msgstr "配車係が、空車で{destination}へあなたを送ります。"
 #. placeholders: {destination}
 msgid ""
 "Dispatch is sending you empty to {destination}. After you accept, Route "
-"planning lists rest, fuel, tolls, weather and restrictions."
-msgstr "配車係が、空車で{destination}へあなたを送ります。受けたあと、ルート計画で休憩、燃料、通行料、天気、規制が確認できます。"
+"planning lists rest, fuel, tolls and weather."
+msgstr "配車係が、空車で{destination}へあなたを送ります。受けたあと、ルート計画で休憩、燃料、通行料、天気が確認できます。"
 
 #. one sentence of a longer line
-msgid ""
-"After pickup, Route planning lists rest, fuel, tolls, weather and "
-"restrictions."
-msgstr "荷積みのあと、ルート計画で休憩、燃料、通行料、天気、規制が確認できます。"
+msgid "After pickup, Route planning lists rest, fuel, tolls and weather."
+msgstr "荷積みのあと、ルート計画で休憩、燃料、通行料、天気が確認できます。"
 
 #. placeholders: {origin_facility_text}, {destination_facility_text}
 #. one sentence of a longer line
@@ -19080,11 +19021,10 @@ msgstr "{origin_facility_text}から{destination_facility_text}への積荷の�
 #. placeholders: {origin_facility_text}, {destination_facility_text}
 msgid ""
 "Load offer from {origin_facility_text} to {destination_facility_text}. "
-"After pickup, Route planning lists rest, fuel, tolls, weather and "
-"restrictions."
+"After pickup, Route planning lists rest, fuel, tolls and weather."
 msgstr ""
 "{origin_facility_text}から{destination_facility_text}への貨物の依頼です。荷積みのあと、ルート計画で休憩"
-"、燃料、通行料、天気、規制が確認できます。"
+"、燃料、通行料、天気が確認できます。"
 
 #. placeholders: {hours}
 msgid ""
@@ -42914,6 +42854,84 @@ msgid ""
 msgstr ""
 "左バンパーを押したままにすると、ボタンの2段目を使えます。{pad_engine}でエンジンを操作し、{pad_fuel}で燃料を、{pad_speed"
 "_limit}で制限速度を読み上げます。"
+
+#~ msgid "{py_str_float} meters"
+#~ msgstr "{py_str_float}メートル"
+
+#~ msgid "{py_int} tonnes"
+#~ msgstr "{py_int}トン"
+
+#~ msgid "{py_str_float} tonnes"
+#~ msgstr "{py_str_float}トン"
+
+#~ msgid "{whole} feet {inches} inches"
+#~ msgstr "{whole}フィート{inches}インチ"
+
+#~ msgid "{whole} feet"
+#~ msgstr "{whole}フィート"
+
+#~ msgid "{py_int} tons"
+#~ msgstr "{py_int}トン"
+
+#~ msgid "{py_str_float} tons"
+#~ msgstr "{py_str_float}トン"
+
+#~ msgid "low bridge"
+#~ msgstr "低い橋"
+
+#~ msgid "weight limit"
+#~ msgstr "重量制限"
+
+#~ msgid "Your route clears it"
+#~ msgstr "このルートなら通れます"
+
+#~ msgid "a {kind_label}, signed {value_text}."
+#~ msgstr "{kind_label}、表示は{value_text}です。"
+
+#~ msgid "a {kind_label}, signed {value_text}. Your route clears it"
+#~ msgstr "{kind_label}、表示は{value_text}です。このルートなら通れます"
+
+#~ msgid "{py_capitalize}, signed {value_text}."
+#~ msgstr "{py_capitalize}、表示は{value_text}です。"
+
+#~ msgid "restriction"
+#~ msgstr "規制"
+
+#~ msgid ""
+#~ "Dispatch is sending you empty, with no pickup. After you accept, Route "
+#~ "planning lists rest, fuel, tolls, weather and restrictions."
+#~ msgstr "配車係が、荷積みなしの空車であなたを送ります。受けたあと、ルート計画で休憩、燃料、通行料、天気、規制が確認できます。"
+
+#~ msgid ""
+#~ "Dispatch assigned this load. Accepting starts the empty drive to the "
+#~ "pickup. After pickup, Route planning lists rest, fuel, tolls, weather and "
+#~ "restrictions."
+#~ msgstr ""
+#~ "この積荷は配車係が割り当てたものです。受けると、まず空荷で積み込み先へ向かいます。積み込み後は、「ルート計画」で休憩、給油、通行料、天気、規制を確認でき"
+#~ "ます。"
+
+#~ msgid ""
+#~ "After you accept, Route planning lists rest, fuel, tolls, weather and "
+#~ "restrictions."
+#~ msgstr "受けたあと、ルート計画で休憩、燃料、通行料、天気、規制が確認できます。"
+
+#~ msgid ""
+#~ "Dispatch is sending you empty to {destination}. After you accept, Route "
+#~ "planning lists rest, fuel, tolls, weather and restrictions."
+#~ msgstr "配車係が、空車で{destination}へあなたを送ります。受けたあと、ルート計画で休憩、燃料、通行料、天気、規制が確認できます。"
+
+#~ msgid ""
+#~ "After pickup, Route planning lists rest, fuel, tolls, weather and "
+#~ "restrictions."
+#~ msgstr "荷積みのあと、ルート計画で休憩、燃料、通行料、天気、規制が確認できます。"
+
+#~ msgid ""
+#~ "Load offer from {origin_facility_text} to {destination_facility_text}. "
+#~ "After pickup, Route planning lists rest, fuel, tolls, weather and "
+#~ "restrictions."
+#~ msgstr ""
+#~ "{origin_facility_text}から{destination_facility_text}への貨物の依頼です。荷積みのあと、ルート計画で休憩"
+#~ "、燃料、通行料、天気、規制が確認できます。"
 
 #~ msgid ""
 #~ "Charges {grouped2}: tolls {grouped3}, extra charges {charge_summary}."

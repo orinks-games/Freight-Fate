@@ -6927,57 +6927,6 @@ msgstr "koridor noktası"
 msgid "toll point: {name}"
 msgstr "geçiş ücreti noktası: {name}"
 
-#. placeholders: {py_str_float}
-msgid "{py_str_float} meters"
-msgstr "{py_str_float} metre"
-
-#. placeholders: {py_int}
-msgid "{py_int} tonnes"
-msgstr "{py_int} ton"
-
-#. placeholders: {py_str_float}
-msgid "{py_str_float} tonnes"
-msgstr "{py_str_float} ton"
-
-#. placeholders: {whole}, {inches}
-msgid "{whole} feet {inches} inches"
-msgstr "{whole} fit {inches} inç"
-
-#. placeholders: {whole}
-msgid "{whole} feet"
-msgstr "{whole} fit"
-
-#. placeholders: {py_int}
-msgid "{py_int} tons"
-msgstr "{py_int} ton"
-
-#. placeholders: {py_str_float}
-msgid "{py_str_float} tons"
-msgstr "{py_str_float} ton"
-
-msgid "low bridge"
-msgstr "alçak köprü"
-
-msgid "weight limit"
-msgstr "ağırlık sınırı"
-
-#. one sentence of a longer line
-msgid "Your route clears it"
-msgstr "Rotanız bundan etkilenmiyor"
-
-#. placeholders: {kind_label}, {value_text}
-#. one sentence of a longer line
-msgid "a {kind_label}, signed {value_text}."
-msgstr "{kind_label}, tabelada {value_text}."
-
-#. placeholders: {kind_label}, {value_text}
-msgid "a {kind_label}, signed {value_text}. Your route clears it"
-msgstr "{kind_label}, tabelada {value_text}. Rotanız bundan etkilenmiyor"
-
-#. placeholders: {py_capitalize}, {value_text}
-msgid "{py_capitalize}, signed {value_text}."
-msgstr "{py_capitalize}, tabelada {value_text}."
-
 msgid "explosives"
 msgstr "patlayıcı maddeler"
 
@@ -15278,10 +15227,6 @@ msgid "Toll point in {ahead_text}: {text}."
 msgstr "{ahead_text} sonra gişe: {text}."
 
 #. placeholders: {ahead_text}, {text}
-msgid "In {ahead_text}, {text}."
-msgstr "{ahead_text} sonra {text}."
-
-#. placeholders: {ahead_text}, {text}
 msgid "Next guidance in {ahead_text}: {text}."
 msgstr "{ahead_text} sonra sıradaki yönlendirme: {text}."
 
@@ -15414,9 +15359,6 @@ msgstr " Geçiş ücreti {amount} dolar."
 msgid "toll"
 msgstr "geçiş ücreti"
 
-msgid "restriction"
-msgstr "kısıtlama"
-
 msgid "interchange"
 msgstr "kavşak"
 
@@ -15494,6 +15436,10 @@ msgstr "Plan iptal edildi."
 #. placeholders: {ahead_text}, {text}, {speed}
 msgid "Traffic slowing in {ahead_text}, {text}{speed}."
 msgstr "{ahead_text} sonra trafik yavaşlıyor, {text}{speed}."
+
+#. placeholders: {ahead_text}, {text}
+msgid "In {ahead_text}, {text}."
+msgstr "{ahead_text} sonra {text}."
 
 #. placeholders: {distance}
 #. one sentence of a longer line
@@ -20237,20 +20183,18 @@ msgstr "İş panosu. {current}{hos_note}"
 
 msgid ""
 "Dispatch is sending you empty, with no pickup. After you accept, Route "
-"planning lists rest, fuel, tolls, weather and restrictions."
+"planning lists rest, fuel, tolls and weather."
 msgstr ""
 "Sevkiyat sizi yük almadan boş gönderiyor. Kabul ettikten sonra Güzergâh "
-"planlama molaları, yakıtı, geçiş ücretlerini, havayı ve kısıtlamaları "
-"listeler."
+"planlama molaları, yakıtı, geçiş ücretlerini ve havayı listeler."
 
 msgid ""
 "Dispatch assigned this load. Accepting starts the empty drive to the "
-"pickup. After pickup, Route planning lists rest, fuel, tolls, weather and "
-"restrictions."
+"pickup. After pickup, Route planning lists rest, fuel, tolls and weather."
 msgstr ""
 "Bu yükü sevkiyat atadı. Kabul ettiğinizde yükleme noktasına boş sürüş "
-"başlar. Yüklemeden sonra Güzergâh planlama; mola, yakıt, geçiş ücretleri, "
-"hava durumu ve kısıtlamaları listeler."
+"başlar. Yüklemeden sonra Güzergâh planlama; mola, yakıt, geçiş ücretleri ve "
+"hava durumu listeler."
 
 #. placeholders: {describe}
 msgid "Assigned load: {describe}"
@@ -20471,11 +20415,10 @@ msgstr "Kilitli iş "
 
 #. one sentence of a longer line
 msgid ""
-"After you accept, Route planning lists rest, fuel, tolls, weather and "
-"restrictions."
+"After you accept, Route planning lists rest, fuel, tolls and weather."
 msgstr ""
-"Kabul ettikten sonra Güzergâh planlama molaları, yakıtı, geçiş ücretlerini, "
-"havayı ve kısıtlamaları listeler."
+"Kabul ettikten sonra Güzergâh planlama molaları, yakıtı, geçiş ücretlerini "
+"ve havayı listeler."
 
 #. placeholders: {destination}
 #. one sentence of a longer line
@@ -20485,19 +20428,16 @@ msgstr "Sevkiyat sizi {destination} yönüne boş gönderiyor."
 #. placeholders: {destination}
 msgid ""
 "Dispatch is sending you empty to {destination}. After you accept, Route "
-"planning lists rest, fuel, tolls, weather and restrictions."
+"planning lists rest, fuel, tolls and weather."
 msgstr ""
 "Sevkiyat sizi {destination} yönüne boş gönderiyor. Kabul ettikten sonra "
-"Güzergâh planlama molaları, yakıtı, geçiş ücretlerini, havayı ve "
-"kısıtlamaları listeler."
+"Güzergâh planlama molaları, yakıtı, geçiş ücretlerini ve havayı listeler."
 
 #. one sentence of a longer line
-msgid ""
-"After pickup, Route planning lists rest, fuel, tolls, weather and "
-"restrictions."
+msgid "After pickup, Route planning lists rest, fuel, tolls and weather."
 msgstr ""
-"Yüklemeden sonra Güzergâh planlama molaları, yakıtı, geçiş ücretlerini, "
-"havayı ve kısıtlamaları listeler."
+"Yüklemeden sonra Güzergâh planlama molaları, yakıtı, geçiş ücretlerini ve "
+"havayı listeler."
 
 #. placeholders: {origin_facility_text}, {destination_facility_text}
 #. one sentence of a longer line
@@ -20510,12 +20450,11 @@ msgstr ""
 #. placeholders: {origin_facility_text}, {destination_facility_text}
 msgid ""
 "Load offer from {origin_facility_text} to {destination_facility_text}. "
-"After pickup, Route planning lists rest, fuel, tolls, weather and "
-"restrictions."
+"After pickup, Route planning lists rest, fuel, tolls and weather."
 msgstr ""
 "Yük teklifi: {origin_facility_text} çıkışlı, {destination_facility_text} "
 "varışlı. Yüklemeden sonra Güzergâh planlama molaları, yakıtı, geçiş "
-"ücretlerini, havayı ve kısıtlamaları listeler."
+"ücretlerini ve havayı listeler."
 
 #. placeholders: {hours}
 msgid ""
@@ -46523,6 +46462,96 @@ msgstr ""
 "İkinci bir düğme katmanı için sol omuz tuşunu basılı tutun. {pad_engine} "
 "motoru kontrol eder, {pad_fuel} yakıtı okur ve {pad_speed_limit} hız "
 "sınırını okur."
+
+#~ msgid "{py_str_float} meters"
+#~ msgstr "{py_str_float} metre"
+
+#~ msgid "{py_int} tonnes"
+#~ msgstr "{py_int} ton"
+
+#~ msgid "{py_str_float} tonnes"
+#~ msgstr "{py_str_float} ton"
+
+#~ msgid "{whole} feet {inches} inches"
+#~ msgstr "{whole} fit {inches} inç"
+
+#~ msgid "{whole} feet"
+#~ msgstr "{whole} fit"
+
+#~ msgid "{py_int} tons"
+#~ msgstr "{py_int} ton"
+
+#~ msgid "{py_str_float} tons"
+#~ msgstr "{py_str_float} ton"
+
+#~ msgid "low bridge"
+#~ msgstr "alçak köprü"
+
+#~ msgid "weight limit"
+#~ msgstr "ağırlık sınırı"
+
+#~ msgid "Your route clears it"
+#~ msgstr "Rotanız bundan etkilenmiyor"
+
+#~ msgid "a {kind_label}, signed {value_text}."
+#~ msgstr "{kind_label}, tabelada {value_text}."
+
+#~ msgid "a {kind_label}, signed {value_text}. Your route clears it"
+#~ msgstr "{kind_label}, tabelada {value_text}. Rotanız bundan etkilenmiyor"
+
+#~ msgid "{py_capitalize}, signed {value_text}."
+#~ msgstr "{py_capitalize}, tabelada {value_text}."
+
+#~ msgid "restriction"
+#~ msgstr "kısıtlama"
+
+#~ msgid ""
+#~ "Dispatch is sending you empty, with no pickup. After you accept, Route "
+#~ "planning lists rest, fuel, tolls, weather and restrictions."
+#~ msgstr ""
+#~ "Sevkiyat sizi yük almadan boş gönderiyor. Kabul ettikten sonra Güzergâh "
+#~ "planlama molaları, yakıtı, geçiş ücretlerini, havayı ve kısıtlamaları "
+#~ "listeler."
+
+#~ msgid ""
+#~ "Dispatch assigned this load. Accepting starts the empty drive to the "
+#~ "pickup. After pickup, Route planning lists rest, fuel, tolls, weather and "
+#~ "restrictions."
+#~ msgstr ""
+#~ "Bu yükü sevkiyat atadı. Kabul ettiğinizde yükleme noktasına boş sürüş "
+#~ "başlar. Yüklemeden sonra Güzergâh planlama; mola, yakıt, geçiş ücretleri, "
+#~ "hava durumu ve kısıtlamaları listeler."
+
+#~ msgid ""
+#~ "After you accept, Route planning lists rest, fuel, tolls, weather and "
+#~ "restrictions."
+#~ msgstr ""
+#~ "Kabul ettikten sonra Güzergâh planlama molaları, yakıtı, geçiş ücretlerini, "
+#~ "havayı ve kısıtlamaları listeler."
+
+#~ msgid ""
+#~ "Dispatch is sending you empty to {destination}. After you accept, Route "
+#~ "planning lists rest, fuel, tolls, weather and restrictions."
+#~ msgstr ""
+#~ "Sevkiyat sizi {destination} yönüne boş gönderiyor. Kabul ettikten sonra "
+#~ "Güzergâh planlama molaları, yakıtı, geçiş ücretlerini, havayı ve "
+#~ "kısıtlamaları listeler."
+
+#~ msgid ""
+#~ "After pickup, Route planning lists rest, fuel, tolls, weather and "
+#~ "restrictions."
+#~ msgstr ""
+#~ "Yüklemeden sonra Güzergâh planlama molaları, yakıtı, geçiş ücretlerini, "
+#~ "havayı ve kısıtlamaları listeler."
+
+#~ msgid ""
+#~ "Load offer from {origin_facility_text} to {destination_facility_text}. "
+#~ "After pickup, Route planning lists rest, fuel, tolls, weather and "
+#~ "restrictions."
+#~ msgstr ""
+#~ "Yük teklifi: {origin_facility_text} çıkışlı, {destination_facility_text} "
+#~ "varışlı. Yüklemeden sonra Güzergâh planlama molaları, yakıtı, geçiş "
+#~ "ücretlerini, havayı ve kısıtlamaları listeler."
 
 #~ msgid ""
 #~ "Charges {grouped2}: tolls {grouped3}, extra charges {charge_summary}."

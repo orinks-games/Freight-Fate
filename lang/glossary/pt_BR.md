@@ -65,7 +65,6 @@ Space, Tab, Page Up, F1...) and place names stay in English.
 | passing | ultrapassagem | |
 | hazard | perigo | |
 | stopping distance | distância de parada | |
-| low bridge | ponte baixa | |
 | weight limit | limite de peso | |
 | exit speed | velocidade da saída | |
 | ramp curve | curva da saída | |

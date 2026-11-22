@@ -398,20 +398,9 @@ impl Trip {
                     ),
                 ));
             }
-            for restriction in leg.restrictions() {
-                let offset = stop_offset_for_direction(restriction.at_mi, leg.miles, forward);
-                cues.push(NavigationCue::new(
-                    &format!(
-                        "restriction:{i}:{}:{}",
-                        py_str_float(restriction.at_mi),
-                        restriction.kind
-                    ),
-                    "restriction",
-                    start + offset,
-                    &restriction.spoken_ahead_in(self.imperial()),
-                    &restriction.spoken_near_in(self.imperial()),
-                ));
-            }
+            // `leg.restrictions()` (low bridges, weight limits) makes no
+            // cue: routing already avoids anything a legal truck cannot pass,
+            // so a call about one told the driver nothing (owner, 2026-11-22).
             for ix in leg.interchanges() {
                 // Destinations the leg's other exits sign too are the
                 // mainline's own promise, not this exit's: on I-35 south the
