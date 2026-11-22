@@ -17,7 +17,15 @@ fn mph_to_mps(mph: f64) -> f64 {
 
 fn border_drive(origin: &str, destination: &str) -> PlaytestHarness {
     let mut harness = PlaytestHarness::new();
-    harness.start_route(origin, destination, RouteSetup::default());
+    // The Alaska Highway splits at Haines Junction (2026-11-22), so a Tok
+    // to Whitehorse run is two legs.
+    let setup = match (origin, destination) {
+        ("tok_ak_us", "whitehorse_yt_ca") | ("whitehorse_yt_ca", "tok_ak_us") => {
+            RouteSetup::default().cities(&[origin, "haines_junction_yt_ca", destination])
+        }
+        _ => RouteSetup::default(),
+    };
+    harness.start_route(origin, destination, setup);
     harness.prepare_for_driving(12.0);
     harness
 }

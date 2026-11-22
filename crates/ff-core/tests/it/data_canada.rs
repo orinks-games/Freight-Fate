@@ -100,7 +100,7 @@ fn province_and_border_lines_are_read_with_their_names() {
         "{:?}",
         yukon.state_crossings()
     );
-    let border = leg("whitehorse_yt_ca:tok_ak_us");
+    let border = leg("haines_junction_yt_ca:tok_ak_us");
     assert!(
         border
             .state_crossings()
@@ -226,11 +226,11 @@ fn canadian_postings_are_driven_at_the_number_on_the_sign() {
     }
     assert!(signs > 5);
     // Alaska's side of the border stays in mph.
-    let tok = leg("whitehorse_yt_ca:tok_ak_us");
+    let tok = leg("haines_junction_yt_ca:tok_ak_us");
     let alaska: Vec<f64> = tok
         .speed_limits()
         .iter()
-        .filter(|s| s.at_mi > 298.0)
+        .filter(|s| s.at_mi > 202.0)
         .filter_map(|s| s.mph)
         .collect();
     assert!(!alaska.is_empty());

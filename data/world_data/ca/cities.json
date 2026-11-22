@@ -119,6 +119,24 @@
         }
       ]
     },
+    "haines_junction_yt_ca": {
+      "spoken_city": "Haines Junction",
+      "state": "YT",
+      "country": "CA",
+      "region": "pacific_northwest",
+      "lat": 60.752721,
+      "lon": -137.510038,
+      "source_note": "Place name and coordinates read from the OpenStreetMap place node 1715159941 for Haines Junction (place=town, source NRCan CanVec 8.0), OpenStreetMap planet file of 2026-11-16; the village where the Haines Road meets the Alaska Highway. Region pacific_northwest. A fuel and rest town with no freight.",
+      "locations": [
+        {
+          "name": "North 60 Petro Express",
+          "type": "travel_center",
+          "lat": 60.753326,
+          "lon": -137.511891,
+          "source_note": "Read: OpenStreetMap way 392434012 (amenity=fuel, fuel:diesel=yes, large_vehicles=yes, name North 60 Petro Express, Mile 1060 Alaska Highway, checked 2026-07-08), OpenStreetMap planet file of 2026-11-16. Diesel and large-vehicle access are read; parking capacity is not claimed."
+        }
+      ]
+    },
     "vancouver_bc_ca": {
       "spoken_city": "Vancouver",
       "state": "BC",
