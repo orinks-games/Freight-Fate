@@ -250,6 +250,7 @@ mod transcript_menu_stop_speech;
 mod transcript_online_clipboard;
 mod transcript_rest_stop_assist;
 mod transcript_settlement_accounting;
+mod transcript_settlement_wrecked_load;
 mod transcript_shane_deadline;
 mod transcript_spoken_truth;
 mod transcript_truck_status;

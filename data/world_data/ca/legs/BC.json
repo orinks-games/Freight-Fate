@@ -1216,15 +1216,6 @@
         ],
         "landmarks": [
           {
-            "name": "Lynden",
-            "at_mi": 0.1,
-            "off_mi": 10.47,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=town node 141077822, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Lynden"
-          },
-          {
             "name": "Steelhead",
             "at_mi": 0.7,
             "off_mi": 11.26,
@@ -1241,33 +1232,6 @@
             "kind": "point",
             "source": "OpenStreetMap place=town node 273649926, projected onto the leg's checked-in route geometry",
             "spoken": "Passing Mission"
-          },
-          {
-            "name": "Nooksack",
-            "at_mi": 3.1,
-            "off_mi": 7.9,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 5301472548, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Nooksack"
-          },
-          {
-            "name": "Everson",
-            "at_mi": 3.1,
-            "off_mi": 8.47,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 5302349179, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Everson"
-          },
-          {
-            "name": "Maple Falls",
-            "at_mi": 5.0,
-            "off_mi": 10.26,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 150941993, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Maple Falls"
           },
           {
             "name": "Sumas",
@@ -2021,33 +1985,6 @@
             "kind": "point",
             "source": "OpenStreetMap place=village node 1143136034, projected onto the leg's checked-in route geometry",
             "spoken": "Passing Durieu"
-          },
-          {
-            "name": "Nooksack",
-            "at_mi": 2.4,
-            "off_mi": 7.74,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 5301472548, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Nooksack"
-          },
-          {
-            "name": "Everson",
-            "at_mi": 3.2,
-            "off_mi": 8.07,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 5302349179, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Everson"
-          },
-          {
-            "name": "Lynden",
-            "at_mi": 3.4,
-            "off_mi": 8.3,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=town node 141077822, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Lynden"
           },
           {
             "name": "Steelhead",
@@ -3193,33 +3130,6 @@
             "kind": "point",
             "source": "OpenStreetMap place=village node 1143136034, projected onto the leg's checked-in route geometry",
             "spoken": "Passing Durieu"
-          },
-          {
-            "name": "Nooksack",
-            "at_mi": 2.5,
-            "off_mi": 7.74,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 5301472548, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Nooksack"
-          },
-          {
-            "name": "Everson",
-            "at_mi": 3.3,
-            "off_mi": 8.07,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 5302349179, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Everson"
-          },
-          {
-            "name": "Lynden",
-            "at_mi": 3.5,
-            "off_mi": 8.3,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=town node 141077822, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Lynden"
           },
           {
             "name": "Steelhead",
@@ -4983,6 +4893,16 @@
             "source": "derived: name and category read from the OpenStreetMap tags of node 5080137065 (Jackass Mountain Summit); placed at the nearest projection of it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           },
           {
+            "name": "Hell's Gate Airtram (southbound, Cache Creek to Hope)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 74.0,
+            "spoken": "Billboard: Hell's Gate Airtram, ahead in the Fraser Canyon. A cable car down to where the whole river squeezes through its narrowest gap. Summer only. The river never closes.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Joan Blakeborough Museum",
             "category": "museum",
             "kind": "point",
@@ -5022,6 +4942,16 @@
             "source": "derived: name and category read from the OpenStreetMap tags of way 482528911 (Fraser River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           },
           {
+            "name": "Yale Historic Site (southbound, Cache Creek to Hope)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 97.0,
+            "spoken": "Billboard: Yale Historic Site, ahead. In the gold rush of eighteen fifty-eight the steamboats stopped here and the wagon road began. Gold panning in summer. Keep the day job.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Yale",
             "at_mi": 104.2,
             "off_mi": 0.03,
@@ -5029,6 +4959,16 @@
             "kind": "point",
             "source": "OpenStreetMap place=village node 52556072, projected onto the leg's checked-in route geometry, placed ahead of the speed zone it explains",
             "spoken": "Entering Yale"
+          },
+          {
+            "name": "Fort Hope (southbound, Cache Creek to Hope)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 112.0,
+            "spoken": "Billboard: Hope, ahead. More than eighty chainsaw carvings stand around town. Every driver says they are beyond Hope on the way out. The locals have heard it.",
+            "directions": [
+              "forward"
+            ]
           },
           {
             "name": "Sunshine Valley",
@@ -7407,6 +7347,16 @@
             "kind": "point",
             "source": "OpenStreetMap place=town node 52553491, projected onto the leg's checked-in route geometry, placed ahead of the speed zone it explains",
             "spoken": "Entering 100 Mile House"
+          },
+          {
+            "name": "One Hundred and Eight Mile Heritage Site (northbound, Cache Creek to Williams Lake)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 73.0,
+            "spoken": "Billboard: One Hundred and Eight Mile Heritage Site, ahead. Wagon road roadhouses and a huge log barn built in nineteen oh-eight for Clydesdales. The original horsepower lived well.",
+            "directions": [
+              "forward"
+            ]
           },
           {
             "name": "Forest Grove",
@@ -10029,15 +9979,6 @@
             "source": "derived: name and category read from the OpenStreetMap tags of node 8493225761 (Anarchist Summit); placed at the nearest projection of it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           },
           {
-            "name": "Oroville",
-            "at_mi": 135.9,
-            "off_mi": 5.09,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=town node 5767498419, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Oroville"
-          },
-          {
             "name": "Okanagan River",
             "category": "river",
             "kind": "point",
@@ -10636,33 +10577,6 @@
             "spoken": "Entering Sumas"
           },
           {
-            "name": "Maple Falls",
-            "at_mi": 16.0,
-            "off_mi": 10.27,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 150941993, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Maple Falls"
-          },
-          {
-            "name": "Nooksack",
-            "at_mi": 17.8,
-            "off_mi": 8.08,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 5301472548, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Nooksack"
-          },
-          {
-            "name": "Everson",
-            "at_mi": 18.0,
-            "off_mi": 8.66,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 5302349179, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Everson"
-          },
-          {
             "name": "Mission",
             "at_mi": 20.2,
             "off_mi": 6.93,
@@ -10679,15 +10593,6 @@
             "kind": "point",
             "source": "OpenStreetMap place=village node 1143143728, projected onto the leg's checked-in route geometry",
             "spoken": "Passing Steelhead"
-          },
-          {
-            "name": "Lynden",
-            "at_mi": 20.9,
-            "off_mi": 10.47,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=town node 141077822, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Lynden"
           }
         ],
         "hpms_terrain": {
@@ -11349,6 +11254,16 @@
             "spoken": "Passing Harrison Mills"
           },
           {
+            "name": "Bridal Veil Falls (eastbound, Chilliwack to Hope)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 5.0,
+            "spoken": "Billboard: Bridal Veil Falls, ahead near Chilliwack. A tall fall of water sliding down smooth rock like a veil. Nobody has located the groom.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Rosedale",
             "at_mi": 9.3,
             "off_mi": 1.37,
@@ -11402,6 +11317,16 @@
             "kind": "point",
             "source": "OpenStreetMap place=village node 717574983, projected onto the leg's checked-in route geometry",
             "spoken": "Passing Harrison Hot Springs"
+          },
+          {
+            "name": "Fort Hope (eastbound, Chilliwack to Hope)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 25.0,
+            "spoken": "Billboard: Hope, ahead. More than eighty chainsaw carvings stand around town. Every driver says they are beyond Hope on the way out. The locals have heard it.",
+            "directions": [
+              "forward"
+            ]
           }
         ],
         "hpms_terrain": {
@@ -19447,6 +19372,16 @@
             "source": "derived: name and category read from the OpenStreetMap tags of way 222718151 (Kiskatinaw River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           },
           {
+            "name": "North Peace Museum (northbound, Dawson Creek to Fort St. John)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 31.0,
+            "spoken": "Billboard: The North Peace Museum, ahead in Fort Saint John. A trapper's cabin, a blacksmith shop and a schoolroom from nineteen twenty-one. Class is dismissed.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Peace River",
             "category": "river",
             "kind": "point",
@@ -20988,6 +20923,16 @@
             "source": "derived: name and category read from the OpenStreetMap tags of way 762121958 (Pine River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           },
           {
+            "name": "Chetwynd chainsaw carvings (westbound, Dawson Creek to Prince George)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 53.0,
+            "spoken": "Billboard: Chetwynd, ahead, with more than a hundred and twenty chainsaw carvings around town. Every June the carvers come back and make more. The trees are nervous.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Little Prairie Heritage Museum",
             "category": "museum",
             "kind": "point",
@@ -21071,6 +21016,16 @@
             "lon": -122.67959,
             "spoken": "Crossing the Salmon River",
             "source": "derived: name and category read from the OpenStreetMap tags of way 1222759337 (Salmon River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "name": "The Exploration Place (southbound, Dawson Creek to Prince George)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 242.0,
+            "spoken": "Billboard: The Exploration Place, ahead in Prince George. Fossils inside, and outside, what the museum calls Canada's shortest passenger railway. It hauls no freight.",
+            "directions": [
+              "forward"
+            ]
           },
           {
             "name": "Nechako River",
@@ -23520,6 +23475,16 @@
             "spoken": "Passing Blueberry River"
           },
           {
+            "name": "North Peace Museum (southbound, Fort Nelson to Fort St. John)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 226.0,
+            "spoken": "Billboard: The North Peace Museum, ahead in Fort Saint John. A trapper's cabin, a blacksmith shop and a schoolroom from nineteen twenty-one. Class is dismissed.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Charlie Lake",
             "at_mi": 231.7,
             "off_mi": 0.04,
@@ -25483,6 +25448,16 @@
         "source": "Development-time public Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de, loaded-semi options matching tools/reroute_leg.py), sampled 2026-09-22. Router reported 318.7 mi; paid miles 319. Alaska Highway ALCAN Phase A through-freight filament (no border on this leg; the Alcan / Beaver Creek crossing is represented on the Whitehorse\u2194Tok legs).",
         "landmarks": [
           {
+            "name": "Tetsa River Lodge (westbound, Fort Nelson to Watson Lake)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 60.0,
+            "spoken": "Billboard: Tetsa River Lodge, ahead on the Alaska Highway. A log lodge famous for its cinnamon buns, baked by the hundred in summer. One is a meal. Nobody buys one.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Summit Pass",
             "category": "mountain_pass",
             "kind": "point",
@@ -25493,6 +25468,16 @@
             "source": "derived: name and category read from the OpenStreetMap tags of node 10209732259 (Summit Pass); placed at the nearest projection of it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           },
           {
+            "name": "Toad River Lodge (westbound, Fort Nelson to Watson Lake)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 109.0,
+            "spoken": "Billboard: Toad River Lodge, ahead on the Alaska Highway. Feeding highway travelers since nineteen forty-seven. Toad is not on the menu.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Racing River",
             "category": "river",
             "kind": "point",
@@ -25501,6 +25486,16 @@
             "lon": -125.13733,
             "spoken": "Crossing the Racing River",
             "source": "derived: name and category read from the OpenStreetMap tags of way 221920841 (Racing River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "name": "Northern Rockies Lodge (westbound, Fort Nelson to Watson Lake)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 119.0,
+            "spoken": "Billboard: Northern Rockies Lodge, ahead at Muncho Lake. Floatplanes at the dock, for fishing where no road goes. The truck stays behind.",
+            "directions": [
+              "forward"
+            ]
           },
           {
             "name": "Toad River",
@@ -25531,6 +25526,16 @@
             "lon": -125.94366,
             "spoken": "Crossing the Trout River",
             "source": "derived: name and category read from the OpenStreetMap tags of way 222000550 (Trout River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "name": "Liard River Hot Springs (westbound, Fort Nelson to Watson Lake)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 180.0,
+            "spoken": "Billboard: Liard River Hot Springs, ahead. Canada's second largest hot springs, down a boardwalk through a warm swamp. Open all year. At forty below, nobody gets out first.",
+            "directions": [
+              "forward"
+            ]
           },
           {
             "name": "Liard River",
@@ -25570,6 +25575,16 @@
             "kind": "point",
             "source": "OpenStreetMap place=village node 1694835160, projected onto the leg's checked-in route geometry",
             "spoken": "Passing Lower Post"
+          },
+          {
+            "name": "Sign Post Forest (westbound, Fort Nelson to Watson Lake)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 309.0,
+            "spoken": "Billboard: The Sign Post Forest, ahead in Watson Lake. An army private put up a sign for Danville, Illinois, in nineteen forty-two. Tens of thousands have followed. Yours is missing.",
+            "directions": [
+              "forward"
+            ]
           },
           {
             "name": "Upper Liard",
@@ -28496,6 +28511,16 @@
             "source": "derived: name and category read from the OpenStreetMap tags of way 222718151 (Kiskatinaw River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           },
           {
+            "name": "Mile Zero of the Alaska Highway (southbound, Fort St. John to Dawson Creek)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 37.0,
+            "spoken": "Billboard: Mile Zero of the Alaska Highway, ahead in Dawson Creek. The first post was stolen, set alight, and once swapped for an outhouse. The new one is metal.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Rolla",
             "at_mi": 40.3,
             "off_mi": 9.48,
@@ -29141,6 +29166,16 @@
             "lon": -122.85444,
             "spoken": "Crossing the Buckinghorse River",
             "source": "derived: name and category read from the OpenStreetMap tags of way 221637942 (Buckinghorse River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "name": "Fort Nelson Heritage Museum (northbound, Fort St. John to Fort Nelson)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 228.0,
+            "spoken": "Billboard: The Fort Nelson Heritage Museum, ahead. Old highway machinery, and a nineteen oh-eight Buick that drove to Whitehorse and back at a hundred years old. It did not complain.",
+            "directions": [
+              "forward"
+            ]
           },
           {
             "name": "Muskwa River",
@@ -37339,6 +37374,16 @@
             "source": "derived: name and category read from the OpenStreetMap tags of way 482528911 (Fraser River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           },
           {
+            "name": "Yale Historic Site (northbound, Hope to Cache Creek)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 8.0,
+            "spoken": "Billboard: Yale Historic Site, ahead. In the gold rush of eighteen fifty-eight the steamboats stopped here and the wagon road began. Gold panning in summer. Keep the day job.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Yale",
             "at_mi": 17.2,
             "off_mi": 0.03,
@@ -37346,6 +37391,16 @@
             "kind": "point",
             "source": "OpenStreetMap place=village node 52556072, projected onto the leg's checked-in route geometry, placed ahead of the speed zone it explains",
             "spoken": "Entering Yale"
+          },
+          {
+            "name": "Hell's Gate Airtram (northbound, Hope to Cache Creek)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 25.0,
+            "spoken": "Billboard: Hell's Gate Airtram, ahead in the Fraser Canyon. A cable car down to where the whole river squeezes through its narrowest gap. Summer only. The river never closes.",
+            "directions": [
+              "forward"
+            ]
           },
           {
             "name": "Anderson River",
@@ -38000,6 +38055,16 @@
             "kind": "point",
             "source": "OpenStreetMap place=village node 717574983, projected onto the leg's checked-in route geometry",
             "spoken": "Passing Harrison Hot Springs"
+          },
+          {
+            "name": "Bridal Veil Falls (westbound, Hope to Chilliwack)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 14.0,
+            "spoken": "Billboard: Bridal Veil Falls, ahead near Chilliwack. A tall fall of water sliding down smooth rock like a veil. Nobody has located the groom.",
+            "directions": [
+              "forward"
+            ]
           },
           {
             "name": "Agassiz Harrison Museum",
@@ -43594,13 +43659,13 @@
             "source": "derived: name and category read from the OpenStreetMap tags of node 1989149221 (Chase Museum); placed at the nearest projection of it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           },
           {
-            "name": "Sahhaltkum 4",
+            "name": "Sahhaltkum",
             "at_mi": 42.8,
             "off_mi": 1.23,
             "category": "village",
             "kind": "point",
             "source": "OpenStreetMap place=village node 8430532078, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Sahhaltkum 4"
+            "spoken": "Passing Sahhaltkum"
           },
           {
             "name": "Squilax",
@@ -47032,13 +47097,13 @@
             "spoken": "Passing Armstrong"
           },
           {
-            "name": "Okanagan 1",
+            "name": "Okanagan",
             "at_mi": 70.8,
             "off_mi": 0.49,
             "category": "village",
             "kind": "point",
             "source": "OpenStreetMap place=village node 8414530661, projected onto the leg's checked-in route geometry",
-            "spoken": "Entering Okanagan 1"
+            "spoken": "Entering Okanagan"
           },
           {
             "name": "Silver Star Mountain Resort",
@@ -49339,13 +49404,13 @@
             "spoken": "Passing Lavington"
           },
           {
-            "name": "Okanagan 1",
+            "name": "Okanagan",
             "at_mi": 33.0,
             "off_mi": 5.99,
             "category": "village",
             "kind": "point",
             "source": "OpenStreetMap place=village node 8414530661, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Okanagan 1"
+            "spoken": "Passing Okanagan"
           },
           {
             "name": "Silver Star Mountain Resort",
@@ -56219,15 +56284,6 @@
             "source": "derived: name and category read from the OpenStreetMap tags of way 1036454527 (Okanagan River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           },
           {
-            "name": "Oroville",
-            "at_mi": 5.1,
-            "off_mi": 5.09,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=town node 5767498419, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Oroville"
-          },
-          {
             "name": "Anarchist Summit",
             "category": "mountain_pass",
             "kind": "point",
@@ -56810,15 +56866,6 @@
         ],
         "restrictions": [],
         "landmarks": [
-          {
-            "name": "Oroville",
-            "at_mi": 0.0,
-            "off_mi": 6.75,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=town node 5767498419, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Oroville"
-          },
           {
             "name": "Keremeos",
             "at_mi": 10.1,
@@ -57678,15 +57725,6 @@
         ],
         "restrictions": [],
         "landmarks": [
-          {
-            "name": "Oroville",
-            "at_mi": 0.0,
-            "off_mi": 6.75,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=town node 5767498419, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Oroville"
-          },
           {
             "name": "Oliver",
             "at_mi": 6.8,
@@ -60646,15 +60684,6 @@
             "kind": "point",
             "source": "OpenStreetMap place=village node 51972201, projected onto the leg's checked-in route geometry",
             "spoken": "Passing Keremeos"
-          },
-          {
-            "name": "Oroville",
-            "at_mi": 39.0,
-            "off_mi": 6.75,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=town node 5767498419, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Oroville"
           }
         ],
         "hpms_terrain": {
@@ -61055,6 +61084,16 @@
             "source": "derived: name and category read from the OpenStreetMap tags of way 79785795 (Pine River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           },
           {
+            "name": "Chetwynd chainsaw carvings (eastbound, Prince George to Dawson Creek)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 180.0,
+            "spoken": "Billboard: Chetwynd, ahead, with more than a hundred and twenty chainsaw carvings around town. Every June the carvers come back and make more. The trees are nervous.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Oetco Flats",
             "at_mi": 183.5,
             "off_mi": 10.89,
@@ -61082,6 +61121,16 @@
             "lon": -120.55217,
             "spoken": "Crossing the Kiskatinaw River",
             "source": "derived: name and category read from the OpenStreetMap tags of way 222718151 (Kiskatinaw River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "name": "Mile Zero of the Alaska Highway (southbound, Prince George to Dawson Creek)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 244.0,
+            "spoken": "Billboard: Mile Zero of the Alaska Highway, ahead in Dawson Creek. The first post was stolen, set alight, and once swapped for an outhouse. The new one is metal.",
+            "directions": [
+              "forward"
+            ]
           },
           {
             "name": "Rolla",
@@ -65293,6 +65342,16 @@
             "spoken": "Entering Hixon"
           },
           {
+            "name": "Barkerville Historic Town (southbound, Prince George to Quesnel)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 48.0,
+            "spoken": "Billboard: Barkerville Historic Town, east of Quesnel. Billy Barker struck gold in eighteen sixty-two. The town burned in eighteen sixty-eight and was rebuilt in six weeks. Contractors, take note.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Cottonwood River",
             "category": "river",
             "kind": "point",
@@ -67355,15 +67414,6 @@
             "kind": "point",
             "source": "OpenStreetMap place=town node 51971734, projected onto the leg's checked-in route geometry",
             "spoken": "Passing Oliver"
-          },
-          {
-            "name": "Oroville",
-            "at_mi": 71.0,
-            "off_mi": 6.75,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=town node 5767498419, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Oroville"
           }
         ],
         "hpms_terrain": {
@@ -68072,6 +68122,16 @@
             "kind": "point",
             "source": "OpenStreetMap place=village node 52556464, projected onto the leg's checked-in route geometry",
             "spoken": "Entering Hixon"
+          },
+          {
+            "name": "The Exploration Place (northbound, Quesnel to Prince George)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 61.0,
+            "spoken": "Billboard: The Exploration Place, ahead in Prince George. Fossils inside, and outside, what the museum calls Canada's shortest passenger railway. It hauls no freight.",
+            "directions": [
+              "forward"
+            ]
           }
         ],
         "hpms_terrain": {
@@ -72223,13 +72283,13 @@
             "spoken": "Entering Chase"
           },
           {
-            "name": "Sahhaltkum 4",
+            "name": "Sahhaltkum",
             "at_mi": 33.0,
             "off_mi": 1.31,
             "category": "village",
             "kind": "point",
             "source": "OpenStreetMap place=village node 8430532078, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Sahhaltkum 4"
+            "spoken": "Passing Sahhaltkum"
           },
           {
             "name": "Sun Peaks",
@@ -73715,13 +73775,13 @@
             "spoken": "Passing Silver Star Mountain Resort"
           },
           {
-            "name": "Okanagan 1",
+            "name": "Okanagan",
             "at_mi": 30.2,
             "off_mi": 2.07,
             "category": "village",
             "kind": "point",
             "source": "OpenStreetMap place=village node 8414530661, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Okanagan 1"
+            "spoken": "Passing Okanagan"
           },
           {
             "name": "Oyama",
@@ -74388,33 +74448,6 @@
             "kind": "point",
             "source": "OpenStreetMap place=village node 1143143728, projected onto the leg's checked-in route geometry",
             "spoken": "Passing Steelhead"
-          },
-          {
-            "name": "Lynden",
-            "at_mi": 21.3,
-            "off_mi": 8.29,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=town node 141077822, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Lynden"
-          },
-          {
-            "name": "Everson",
-            "at_mi": 21.6,
-            "off_mi": 8.03,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 5302349179, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Everson"
-          },
-          {
-            "name": "Nooksack",
-            "at_mi": 23.5,
-            "off_mi": 7.68,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 5301472548, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Nooksack"
           },
           {
             "name": "Sumas",
@@ -80087,33 +80120,6 @@
             "spoken": "Passing Steelhead"
           },
           {
-            "name": "Lynden",
-            "at_mi": 42.4,
-            "off_mi": 8.29,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=town node 141077822, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Lynden"
-          },
-          {
-            "name": "Everson",
-            "at_mi": 42.7,
-            "off_mi": 8.03,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 5302349179, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Everson"
-          },
-          {
-            "name": "Nooksack",
-            "at_mi": 44.5,
-            "off_mi": 7.68,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 5301472548, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Nooksack"
-          },
-          {
             "name": "Sumas",
             "at_mi": 46.0,
             "off_mi": 4.31,
@@ -81861,13 +81867,13 @@
             "spoken": "Passing Silver Star Mountain Resort"
           },
           {
-            "name": "Okanagan 1",
+            "name": "Okanagan",
             "at_mi": 9.1,
             "off_mi": 0.49,
             "category": "village",
             "kind": "point",
             "source": "OpenStreetMap place=village node 8414530661, projected onto the leg's checked-in route geometry, placed ahead of the speed zone it explains",
-            "spoken": "Entering Okanagan 1"
+            "spoken": "Entering Okanagan"
           },
           {
             "name": "Armstrong",
@@ -82437,13 +82443,13 @@
         "restrictions": [],
         "landmarks": [
           {
-            "name": "Okanagan 1",
+            "name": "Okanagan",
             "at_mi": 0.0,
             "off_mi": 5.99,
             "category": "village",
             "kind": "point",
             "source": "OpenStreetMap place=village node 8414530661, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Okanagan 1"
+            "spoken": "Passing Okanagan"
           },
           {
             "name": "Silver Star Mountain Resort",
@@ -82946,13 +82952,13 @@
             "spoken": "Passing Oyama"
           },
           {
-            "name": "Okanagan 1",
+            "name": "Okanagan",
             "at_mi": 6.8,
             "off_mi": 2.08,
             "category": "village",
             "kind": "point",
             "source": "OpenStreetMap place=village node 8414530661, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Okanagan 1"
+            "spoken": "Passing Okanagan"
           },
           {
             "name": "Silver Star Mountain Resort",
@@ -84445,6 +84451,16 @@
             "source": "derived: name and category read from the OpenStreetMap tags of way 167411579 (Lac La Hache Provincial Park); placed at the first road vertex inside it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           },
           {
+            "name": "One Hundred and Eight Mile Heritage Site (southbound, Williams Lake to Cache Creek)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 39.0,
+            "spoken": "Billboard: One Hundred and Eight Mile Heritage Site, ahead. Wagon road roadhouses and a huge log barn built in nineteen oh-eight for Clydesdales. The original horsepower lived well.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Forest Grove",
             "at_mi": 51.0,
             "off_mi": 10.06,
@@ -85279,6 +85295,16 @@
             "kind": "point",
             "source": "OpenStreetMap place=village node 2149482509, projected onto the leg's checked-in route geometry",
             "spoken": "Entering Kersley"
+          },
+          {
+            "name": "Barkerville Historic Town (northbound, Williams Lake to Quesnel)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 67.0,
+            "spoken": "Billboard: Barkerville Historic Town, east of Quesnel. Billy Barker struck gold in eighteen sixty-two. The town burned in eighteen sixty-eight and was rebuilt in six weeks. Contractors, take note.",
+            "directions": [
+              "forward"
+            ]
           },
           {
             "name": "Quesnel River",

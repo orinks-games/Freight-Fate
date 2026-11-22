@@ -469,11 +469,12 @@ bookmarks usable.
       Thanksgiving week.
 - [ ] Billboards could also react to the cargo in the trailer and to the
       weather (owner, 2026-09-30: "at least one and two" shipped first).
-      The cargo half is built on `feat/career-2.0` (2026-11-22): a load of
-      cattle, a reefer load, a set of doubles and the carrier on the door
-      each have a pool that takes one everyday sign in three, after Big
-      Jim and the small hours. The pools are empty until the director's
-      lines land. Weather is still open.
+      The cargo half is built on `feat/career-2.0` (2026-11-22): every
+      third everyday sign is a cargo slot, after Big Jim and the small
+      hours. A load of cattle, a reefer load or a set of doubles fills it
+      from its own pool; every third slot (one sign in nine) is instead
+      the carrier on the door, for a company or leased-on driver. The
+      director's lines are in. Weather is still open.
 
 - [x] Placed billboards face one way (owner, 2026-09-30): every placed
       attraction sign was heard from both sides of the road, and 128 of the
@@ -4942,8 +4943,8 @@ branch. The older Phase A/B plan checklists are not a live completion list.
       Fairbanks. Both crossings carry through-freight metadata in both
       directions. The Alaska Highway line is identified as Alcan, with the
       Beaver Creek post represented on the Tok-to-Whitehorse approach.
-      Canadian towns are pass-through fuel/rest stops; US dispatch still
-      offers US destinations, allowing US-to-US routes through Canada.
+      Canadian towns were pass-through fuel/rest stops until loads across
+      the border opened them (see "Canada: all routes in and baked").
 - [x] **Posted speed profiles on the Yukon and northern BC legs.** Canadian
       bare OSM speed values are interpreted as km/h; Alaska's 55 mph fallback
       applies only to the Alaska stretch of a cross-border leg.
@@ -6003,6 +6004,29 @@ a carrier slice (owner, 2026-10-26).
       heard as "Truck limit 113 kilometers per hour". Lines with no sign in
       the extract: Lacolle (first Quebec posting 4 miles in), Derby Line
       to Stanstead, Osoyoos southbound, Pembina southbound.
+- [x] Villages are named from the road's side of the border (2026-11-22):
+      `osm-villages --boundaries` reads the province polygons and drops a
+      place in the other country from the road at its mile, except within
+      a mile of the road's own crossing. 145 stored records dropped (ON 95,
+      BC 26, MI 15, NY 4, ND 2, SK 2, QC 1), none within the 1.5 miles a
+      drive names, so the change is heard in Alt+3: Youngstown from the
+      QEW, Waddington and Ogdensburg from the 401, Wyandotte from Windsor,
+      Oroville from Osoyoos. Grand Island stays.
+- [x] A First Nations reserve's number is not spoken (2026-11-22):
+      "Okanagan 1" is "Okanagan"; a number after "Lot" stays for Prince
+      Edward Island. 12 records. Slipped capitals are undone in spoken
+      names ("JIm River", "PIcnic Area"; ONroute kept as a brand).
+      Steele Creek and Farmers Loop, Fairbanks neighbourhoods mapped as
+      villages, are not named on Fairbanks legs (16 records): a 5-mile
+      circle round each end city would have dropped 1,516 records, most
+      of them real towns beside small cities (Muscle Shoals, Pouce Coupe),
+      so they are a named list (`CITY_NEIGHBOURHOODS`).
+- [ ] (Found along the way) A village across water from the road on the
+      same side of the border is still named for Alt+3: Hope (across the
+      Fraser) and Waddington (across the St. Lawrence) were the reports.
+      Needs coastline and water areas in the extract the village tool
+      reads, and a check that the line from the road to the place crosses
+      water.
 - [ ] (Found along the way) Simonson Travel Center (Grand Forks) is in the
       West list and within reach of two North Dakota legs it was never
       placed on; a run without `--only` adds it there.
@@ -6044,6 +6068,64 @@ a carrier slice (owner, 2026-10-26).
 - [ ] (Found along the way) Huntingdon is closed to commercial traffic at
       weekends (CBSA); the hours are stored on the crossing, but on a
       Saturday the booth still clears a truck as on a weekday.
+- [x] Loads across the border (2026-11-22, brief 7): a US carrier's board
+      offers loads from the United States into Canada and from Canada back
+      to the United States, never between two Canadian points (cabotage).
+      Every Canadian city on the map is open, the West corridor's 48 on
+      their template markets and the seven Alcan towns on surveyed
+      receivers. The carriers that run to Canada are data (`cross_border`
+      in `carriers.json`: the nationals except Great Lakes Training, and the
+      regionals whose terminals sit near the border). Twin parcel, cattle
+      and placarded loads stay home. A border load's deadline books 55
+      minutes at each customs booth, planned on US hours rules (the stricter
+      on driving hours both sides of 60). Yukon keeps Mountain Time; live
+      weather and alerts do not ask the US Weather Service north of the
+      border. Per-city checklist: "What a Canadian city needs before a load
+      can end there" in `docs/map-enrichment-recipe.md`.
+- [ ] (Found along the way) Border loads near the line are frequent: about
+      28 percent of Seattle's and half of Bellingham's posted loads go to
+      Canada once the West opened. A weight on loads that cross (0.4 would
+      roughly halve it) is a balance call for the owner.
+- [ ] (Found along the way) The crossing call and the hours rules line at
+      a border are spoken a second time when a status readout, a customs
+      booth or a police stop cuts them.
+- [ ] (Found along the way) Converted limits at Blaine: northbound
+      (Bellingham to Surrey) "Speed limit reduced to 19 leaving Blaine for
+      one mile" is 30 km/h in miles before the line; southbound (Surrey to
+      Bellingham) "reduced to 64 approaching Blaine" is 40 mph in
+      kilometers.
+- [ ] (Found along the way) Stop names start lowercase in the approach
+      call: "truck fuel station: McLeod Lake Petro-Canada in 7 kilometers",
+      "travel center: Speed Pro Truck Stop". The Gordie Howe toll line
+      also starts lowercase and is said twice.
+- [ ] (Found along the way) Pigeon River and the Sault Ste. Marie bridge
+      take loads but were not driven for loads across the border.
+- [ ] (Found along the way) Shipping containers are hooked on a flatbed or
+      a dry van at the Surrey and Bellingham terminals.
+- [ ] Canadian carriers and home bases, and loads inside Canada for them:
+      the next dispatch slice after loads across the border.
+- [ ] (Found along the way) Placarded loads across the border: Canada's
+      Transportation of Dangerous Goods papers and the placard rules at the
+      port are not modeled, so hazmat stays off Canadian lanes for now.
+- [ ] (Found along the way) Canadian shippers outside Surrey: Prince
+      George, the Peace River towns, Fort Nelson, Watson Lake and Whitehorse
+      receive freight but ship none yet (the Northwood pulp mill closed in
+      2026). Until each has a verified sawmill, cross-dock or fuel
+      terminal, a company driver there is sent on empty to the nearest city
+      with a load (the reposition fallback, 2026-11-22).
+- [x] A company driver's board is never empty: with no load and no relay,
+      dispatch assigns a reposition to the nearest city whose board has a
+      load for that driver. Slow test over every Canadian city, carrier and
+      level 1 and 8. An empty run now parks and settles on arrival instead
+      of opening the dock menu.
+- [ ] (Found along the way) The reposition's accept line says "177.0
+      kilometers", with a decimal the board line does not have.
+- [ ] (Found along the way) The load card's hours plan does not say it
+      counts customs time; a border load's plan reads the same as a home
+      one. Wording for the director.
+- [ ] (Found along the way) Atlantic and Newfoundland time zones: the
+      clock knows Pacific to Central in Canada; the Atlantic provinces and
+      Newfoundland's half hour arrive with their corridors.
 - [ ] The Ontario and Quebec trunk (401, 400, 11, 17, 20, 40), Windsor to
       Quebec City and Thunder Bay, with the Detroit, Sarnia, Niagara,
       Lansdowne, Cornwall, Lacolle and Stanstead crossings.
@@ -6213,11 +6295,47 @@ a carrier slice (owner, 2026-10-26).
       `docs/billboard-spider-methodology.md` section 11, the same rows in
       `data/billboard_law.rs`. `cargo tools bake-billboards` (the Python
       sheet bake, ported) refuses a sign where the law or a park says no.
-- [ ] Billboards along the Alaska Highway and Highway 97: the sign sheet
-      (`data/spider/signsheets/alaska-highway-bc-yukon-2026-11-22.md`)
-      waits for the director's copy and Orinks's approval before it bakes.
-- [ ] Billboard sheets for each Canadian corridor as its PR merges, West
-      first; French attraction names listed for Orinks's ear.
+- [x] Billboards along the Hart and Alaska Highways: 30 attraction boards
+      from the sign sheet
+      (`data/spider/signsheets/alaska-highway-bc-yukon-2026-11-22.md`),
+      director's copy, baked on the legs; approved by Orinks 2026-11-22.
+- [x] The sheet's 13 Highway 1 and 97 boards (Hope to Barkerville) moved
+      to the West corridor's sheet
+      (`data/spider/signsheets/west-corridor-2026-11-22.md`), same copy,
+      re-placed on the chain legs; approved by Orinks 2026-11-22.
+- [x] Billboards across Ontario and Quebec (2026-11-22): 46 signs from
+      `data/spider/signsheets/ontario-quebec-2026-11-22.md`, the director's
+      copy approved by Orinks, Quebec boards in English with names as
+      signed; Bethune Memorial House takes Gravenhurst's own line.
+- [ ] (Found along the way) Ontario and Quebec sheet lines skipped, each
+      within two miles of a line the map already speaks: Kingston
+      Penitentiary, Upper Canada Village both ways, Brock's Monument, the
+      Dionne home, and one direction each of the Snow Countess (two),
+      Doon, the Welland Canals Centre, Fort Chambly and the Château
+      Frontenac. The St. Catharines to Niagara Falls leg speaks towns that
+      are not on it (Vineland, Beamsville, Youngstown, Lewiston, the
+      Tonawandas), which crowds the Niagara boards. No park bans are
+      derived for Ontario and Quebec legs yet.
+- [x] Holiday boards follow the country (2026-11-22): New Year,
+      Halloween and Christmas read in both countries, the Fourth of July
+      and November's Thanksgiving only in the United States; Canada Day
+      and October's Thanksgiving read only in Canada.
+- [ ] (Found along the way) West sheet lines skipped this pass, each
+      within two miles of a line the map already speaks: Alexandra Bridge
+      southbound (Fraser River crossing), Lake Louise both ways ("Approaching
+      Saddleback Pass", a hiking pass, and the Pipestone and Bow rivers),
+      Drumheller's tyrannosaur both ways ("Entering Drumheller" stays for its
+      speed zone), the Lethbridge viaduct departures (Oldman River) and Fort
+      Battleford from North Battleford toward Lloydminster (North
+      Saskatchewan River). Batoche both ways: even in place of the
+      town's own line it crowds the Carlton and Beardy's and Okemasis' lines. Calgary Tower, Kootenay Pass, Rogers Pass, Banff
+      and Elk Island are left out: the map already speaks them, or the road
+      reaches the tower only at Calgary's arrival point.
+- [ ] Billboard sheets for each Canadian corridor and the new Alaska
+      routes, once the routing is in (owner, 2026-11-22: iconic real places
+      and landmarks, the way the 1.9 attraction expansion did it), West
+      first; French attraction names listed for Orinks's ear, copy to
+      Orinks for approval.
 - [ ] (Found along the way) New Brunswick is read attractions only
       province-wide because its freight routes are Level I and II
       highways; its ordinary highways license commercial boards. A per-leg

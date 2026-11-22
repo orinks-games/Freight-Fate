@@ -621,6 +621,76 @@ reading first.
 not. A cardlock sells to account holders only; its `actions` are
 `fuel` alone, and its stop menu has no lot sleep and no motel.
 
+### What a Canadian city needs before a load can end there
+
+Dispatch offers a Canadian city to a US carrier's board (loads into Canada
+and back out; never Canada to Canada, see `models/jobs/cross_border.rs`),
+so every new city is a delivery the moment it lands. Fill each item for
+every city in the corridor PR; the seven BC and Yukon towns were checked
+against this list on 2026-11-22.
+
+- **A real freight site.** At least one `locations` entry that receives
+  freight, with `lat`/`lon`, explicit `ships` and `receives` and a
+  `source_note` naming the operator, the address and where the pin was
+  read (an OpenStreetMap way through Overpass is fine). A receive-only big
+  box (`retail_distribution`) or building centre
+  (`construction_materials_yard`) is enough for loads to end there; a
+  board in that city needs a site that ships (a port, a mill, a
+  cross-dock). A site that has closed is not a site: check the news.
+  Fuel and parking pins (`travel_center`, `truck_parking`) ship and
+  receive nothing, as before.
+- **Stamped warehouses, or none.** A city with no surveyed freight site
+  gets the template market a US city gets (a dry warehouse, a cross-dock
+  and what its market tags add), so it takes and ships loads from the day
+  it lands; the West corridor's 48 cities work this way. Once a city has
+  real freight sites, add its key to `CURATED_COMPLETE_MARKET_CITY_KEYS`
+  (`data/world_constants/template_gates.rs`) so the loader stops stamping
+  a template grain elevator or cross-dock nobody surveyed beside them; the
+  seven BC and Yukon towns are listed.
+- **Time zone.** `sim/timezones.rs` resolves the province by name. The
+  model has no daylight time, so Saskatchewan's year-round Central
+  Standard Time is plain Central and Yukon's year-round UTC-7 is plain
+  Mountain. A province split by a zone line (British Columbia's Peace
+  River and Northern Rockies districts keep Mountain Standard Time) gets a
+  split function with a test per side. Atlantic and Newfoundland time are
+  not in the table yet: the corridor that reaches them adds the zones.
+- **Diesel.** A row in `CANADA_DIESEL_CENTS_PER_L` (`models/economy.rs`)
+  for the province, from Statistics Canada table 18-10-0001-01 (the city
+  average the table names, labelled read or derived). The pump then says
+  the Canadian dollars a liter on its own.
+- **Weather.** Nothing to add. North of the border the trip runs simulated
+  weather, reported as simulated, and never asks the US Weather Service
+  for weather or alerts; the terminal's weather line says "Simulated
+  weather". Crossing back, live weather is fetched again.
+- **Services, garage and parking.** The city's `travel_center` or
+  `truck_parking` pin with its spaces in the source note, as for the
+  Alaska Highway towns; `data/city_services.json` only if the city has a
+  source-backed service the pins do not cover.
+- **Customs, per crossing.** Every leg that crosses the border carries,
+  in both directions: a `border_crossing` record (`id`, `from_country`,
+  `to_country`, `ports`, `mode`, `cabotage`), and one `border` checkpoint
+  per side on the corridor (`name` as the port signs it, `at_mi`, `state`
+  of the side it stands on, `highway`, `lat`/`lon`, and a `source` with the
+  agency's office page and its commercial hours read). The booth is the
+  inbound country's checkpoint; the agency follows from the country. A
+  port whose commercial hours are not 24 hours goes in the source and on
+  the ROADMAP: the booth does not yet close.
+- **Region.** The table "Regions for Canadian cities" in the project's
+  `career-2.0-alpha/canada-network.md` is the one mapping; add your
+  provinces' rows to `classify_region` (`data/regions.rs`) exactly as
+  written there, with a test line per split. No new region key and no
+  spoken label: no picker reads a Canadian region until Canadian home
+  bases exist.
+- **Carriers.** Nothing per city: which carriers run to Canada is
+  `cross_border` in `data/carriers.json`. A new regional whose lanes reach
+  the new corridor's crossings gets the flag in the same PR.
+- **The save and the site.** A delivery records the city key; the public
+  profile reads city names from the game's export. Re-run
+  `cargo run -p ff-core --bin ff-invariants --
+  crates/ff-core/tests/profile_integrity_invariants.json` after adding
+  cities and say in the PR whether it changed, so orinks.net gets the
+  fresh file before testers back up.
+
 ### Time
 
 For the 16 pilot legs together: routing 1 to 4 seconds a leg, enrich about

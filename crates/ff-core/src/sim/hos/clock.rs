@@ -947,6 +947,30 @@ impl HosClock {
         statuses
     }
 
+    /// Driving time left and time left in the legal driving window, in game
+    /// minutes, under the rules the truck is under now: the 11 and 14 hours
+    /// in the US, 13 hours and the 16-hour shift in Canada. None when the
+    /// mode enforces nothing.
+    pub fn drive_and_window_left_min(&self, mode: &str) -> Option<(f64, f64)> {
+        let (drive_limit, duty_limit, _) = limits(mode)?;
+        Some(match self.non_us_limits() {
+            None => (
+                (drive_limit - self.driving_min).max(0.0),
+                (duty_limit - self.duty_min).max(0.0),
+            ),
+            Some(rule) => {
+                let window = match rule.shift_limit {
+                    Some(limit) => limit - rule.shift_used,
+                    None => rule.duty_limit - rule.duty_used,
+                };
+                (
+                    (rule.drive_limit - rule.drive_used).max(0.0),
+                    window.max(0.0),
+                )
+            }
+        })
+    }
+
     /// Game minutes until the nearest limit, or None when not enforced.
     pub fn remaining_min(&self, mode: &str) -> Option<f64> {
         self.next_limit(mode).map(|limit| limit.remaining_min)

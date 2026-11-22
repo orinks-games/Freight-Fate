@@ -2764,6 +2764,16 @@
             "spoken": "Passing Gravenhurst"
           },
           {
+            "name": "Gravenhurst",
+            "category": "highway_marker",
+            "kind": "point",
+            "at_mi": 46.5,
+            "spoken": "Passing Bethune Memorial House, in Gravenhurst.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "South Branch Muskoka River",
             "category": "river",
             "kind": "point",
@@ -4855,6 +4865,16 @@
             "kind": "point",
             "source": "OpenStreetMap place=village node 1463990868, projected onto the leg's checked-in route geometry",
             "spoken": "Passing Orrville"
+          },
+          {
+            "name": "Bobby Orr Hall of Fame (Barrie to Parry Sound)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 76.2,
+            "spoken": "Billboard: The Bobby Orr Hall of Fame, ahead in Parry Sound, on Georgian Bay. It calls itself a small museum. The name on the door is not a small one.",
+            "directions": [
+              "forward"
+            ]
           },
           {
             "name": "Nobel",
@@ -7263,15 +7283,6 @@
             "kind": "point",
             "source": "OpenStreetMap place=village node 30088321, projected onto the leg's checked-in route geometry",
             "spoken": "Passing Inverary"
-          },
-          {
-            "name": "Cape Vincent",
-            "at_mi": 51.0,
-            "off_mi": 10.31,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 9921117811, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Cape Vincent"
           }
         ],
         "hpms_terrain": {
@@ -8959,6 +8970,16 @@
             "kind": "point",
             "source": "OpenStreetMap place=village node 4935688958, projected onto the leg's checked-in route geometry",
             "spoken": "Passing Haydon"
+          },
+          {
+            "name": "Canadian Automotive Museum (Belleville to Oshawa)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 74.0,
+            "spoken": "Billboard: The Canadian Automotive Museum, ahead in Oshawa. It lives in a nineteen twenties car dealership, and the original elevator still lifts cars to the second floor. It will not lift a truck.",
+            "directions": [
+              "forward"
+            ]
           },
           {
             "name": "Courtice",
@@ -10832,15 +10853,6 @@
             "spoken": "Passing Prescott"
           },
           {
-            "name": "Ogdensburg",
-            "at_mi": 13.2,
-            "off_mi": 2.37,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=city node 158297998, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Ogdensburg"
-          },
-          {
             "name": "Domville",
             "at_mi": 13.2,
             "off_mi": 3.08,
@@ -10886,15 +10898,6 @@
             "spoken": "Passing Cardinal"
           },
           {
-            "name": "Lisbon",
-            "at_mi": 23.3,
-            "off_mi": 7.37,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 158318203, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Lisbon"
-          },
-          {
             "name": "Iroquois",
             "at_mi": 27.2,
             "off_mi": 0.92,
@@ -10921,15 +10924,6 @@
             "kind": "point",
             "source": "OpenStreetMap place=village node 4978085494, projected onto the leg's checked-in route geometry",
             "spoken": "Passing Brinston"
-          },
-          {
-            "name": "Waddington",
-            "at_mi": 31.5,
-            "off_mi": 3.04,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 158269019, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Waddington"
           },
           {
             "name": "Mariatown",
@@ -10959,15 +10953,6 @@
             "spoken": "Passing Williamsburg"
           },
           {
-            "name": "Louisville",
-            "at_mi": 40.7,
-            "off_mi": 5.64,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 158269602, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Louisville"
-          },
-          {
             "name": "Ingleside",
             "at_mi": 46.5,
             "off_mi": 1.23,
@@ -10984,15 +10969,6 @@
             "kind": "point",
             "source": "OpenStreetMap place=village node 1070525720, projected onto the leg's checked-in route geometry",
             "spoken": "Passing Lunenburg"
-          },
-          {
-            "name": "Massena",
-            "at_mi": 49.8,
-            "off_mi": 7.61,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=town node 158822097, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Massena"
           },
           {
             "name": "Newington",
@@ -11031,15 +11007,6 @@
             "spoken": "Passing Martintown"
           },
           {
-            "name": "St. Regis",
-            "at_mi": 62.0,
-            "off_mi": 4.15,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 9459545545, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing St. Regis"
-          },
-          {
             "name": "Glen Walter",
             "at_mi": 62.0,
             "off_mi": 4.49,
@@ -11047,15 +11014,6 @@
             "kind": "point",
             "source": "OpenStreetMap place=village node 1069868024, projected onto the leg's checked-in route geometry",
             "spoken": "Passing Glen Walter"
-          },
-          {
-            "name": "Hogansburg",
-            "at_mi": 62.0,
-            "off_mi": 4.63,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 158855514, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Hogansburg"
           },
           {
             "name": "Snye",
@@ -11853,15 +11811,6 @@
             "spoken": "Passing Rockport"
           },
           {
-            "name": "Alexandria Bay",
-            "at_mi": 20.9,
-            "off_mi": 4.22,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 158418746, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Alexandria Bay"
-          },
-          {
             "name": "Lansdowne",
             "at_mi": 23.6,
             "off_mi": 1.89,
@@ -11878,15 +11827,6 @@
             "kind": "point",
             "source": "OpenStreetMap place=village node 471530033, projected onto the leg's checked-in route geometry",
             "spoken": "Passing Outlet"
-          },
-          {
-            "name": "Clayton",
-            "at_mi": 29.7,
-            "off_mi": 7.56,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 158473876, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Clayton"
           },
           {
             "name": "Gananoque",
@@ -11926,6 +11866,16 @@
             "spoken": "Passing Willetsholme"
           },
           {
+            "name": "Fort Henry (Brockville to Kingston)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 39.5,
+            "spoken": "Billboard: Fort Henry, ahead in Kingston. Built in the eighteen thirties. Its own plaque says it never saw action. A perfect record.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Perth Road Village",
             "at_mi": 42.3,
             "off_mi": 11.66,
@@ -11951,15 +11901,6 @@
             "kind": "point",
             "source": "OpenStreetMap place=village node 251279659, projected onto the leg's checked-in route geometry",
             "spoken": "Passing Sydenham"
-          },
-          {
-            "name": "Cape Vincent",
-            "at_mi": 49.3,
-            "off_mi": 9.82,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 9921117811, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Cape Vincent"
           },
           {
             "name": "Cataraqui River",
@@ -13102,24 +13043,6 @@
             "spoken": "Passing Prescott"
           },
           {
-            "name": "Ogdensburg",
-            "at_mi": 13.2,
-            "off_mi": 2.39,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=city node 158297998, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Ogdensburg"
-          },
-          {
-            "name": "Heuvelton",
-            "at_mi": 13.2,
-            "off_mi": 9.24,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 158584380, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Heuvelton"
-          },
-          {
             "name": "Johnstown",
             "at_mi": 16.0,
             "off_mi": 1.15,
@@ -13127,15 +13050,6 @@
             "kind": "point",
             "source": "OpenStreetMap place=village node 1583464848, projected onto the leg's checked-in route geometry",
             "spoken": "Passing Johnstown"
-          },
-          {
-            "name": "Lisbon",
-            "at_mi": 16.0,
-            "off_mi": 8.31,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 158318203, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Lisbon"
           },
           {
             "name": "Cardinal",
@@ -13348,6 +13262,16 @@
             "lon": -75.79482,
             "spoken": "Entering NCC Greenbelt",
             "source": "derived: name and category read from the OpenStreetMap tags of relation 7804906 (NCC Greenbelt); placed at the first road vertex inside it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "name": "Parliament Hill (Brockville to Ottawa)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 63.0,
+            "spoken": "Billboard: Parliament Hill, ahead in Ottawa. The Centre Block is closed for a renovation of several billion dollars, and is due back in the early twenty thirties. Your delivery is due sooner.",
+            "directions": [
+              "forward"
+            ]
           },
           {
             "name": "Chelsea",
@@ -14901,15 +14825,6 @@
             "spoken": "Passing McGregor"
           },
           {
-            "name": "Wyandotte",
-            "at_mi": 49.5,
-            "off_mi": 8.47,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=town node 154392967, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Wyandotte"
-          },
-          {
             "name": "LaSalle",
             "at_mi": 50.3,
             "off_mi": 3.0,
@@ -14917,114 +14832,6 @@
             "kind": "point",
             "source": "OpenStreetMap place=town node 254023814, projected onto the leg's checked-in route geometry",
             "spoken": "Passing LaSalle"
-          },
-          {
-            "name": "Ecorse",
-            "at_mi": 51.5,
-            "off_mi": 6.95,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=town node 154174657, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Ecorse"
-          },
-          {
-            "name": "Lincoln Park",
-            "at_mi": 51.5,
-            "off_mi": 8.41,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=town node 154092311, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Lincoln Park"
-          },
-          {
-            "name": "River Rouge",
-            "at_mi": 53.7,
-            "off_mi": 5.77,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=town node 6915922110, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing River Rouge"
-          },
-          {
-            "name": "Dearborn",
-            "at_mi": 53.9,
-            "off_mi": 7.15,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=town node 153857034, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Dearborn"
-          },
-          {
-            "name": "Melvindale",
-            "at_mi": 53.9,
-            "off_mi": 7.4,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=town node 154327562, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Melvindale"
-          },
-          {
-            "name": "Allen Park",
-            "at_mi": 53.9,
-            "off_mi": 9.66,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=town node 154305365, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Allen Park"
-          },
-          {
-            "name": "Hamtramck",
-            "at_mi": 54.0,
-            "off_mi": 5.43,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=town node 154344025, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Hamtramck"
-          },
-          {
-            "name": "Highland Park",
-            "at_mi": 54.0,
-            "off_mi": 6.98,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=town node 154303518, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Highland Park"
-          },
-          {
-            "name": "Grosse Pointe Park",
-            "at_mi": 54.0,
-            "off_mi": 7.09,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=town node 154305410, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Grosse Pointe Park"
-          },
-          {
-            "name": "Grosse Pointe",
-            "at_mi": 54.0,
-            "off_mi": 8.06,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=town node 154124551, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Grosse Pointe"
-          },
-          {
-            "name": "Grosse Pointe Farms",
-            "at_mi": 54.0,
-            "off_mi": 9.85,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=town node 154310590, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Grosse Pointe Farms"
-          },
-          {
-            "name": "Harper Woods",
-            "at_mi": 54.0,
-            "off_mi": 10.01,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=town node 154047815, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Harper Woods"
           }
         ],
         "hpms_terrain": {
@@ -16727,13 +16534,13 @@
             "spoken": "Passing Belle Vall\u00e9e"
           },
           {
-            "name": "R\u00e9serve indienne Timiskaming 19",
+            "name": "R\u00e9serve indienne Timiskaming",
             "at_mi": 128.0,
             "off_mi": 9.33,
             "category": "village",
             "kind": "point",
             "source": "OpenStreetMap place=village node 1990550611, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing R\u00e9serve indienne Timiskaming 19"
+            "spoken": "Passing R\u00e9serve indienne Timiskaming"
           },
           {
             "name": "Notre-Dame-du-Nord",
@@ -17965,24 +17772,6 @@
         ],
         "landmarks": [
           {
-            "name": "Hogansburg",
-            "at_mi": 0.7,
-            "off_mi": 4.4,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 158855514, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Hogansburg"
-          },
-          {
-            "name": "St. Regis",
-            "at_mi": 0.8,
-            "off_mi": 3.65,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 9459545545, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing St. Regis"
-          },
-          {
             "name": "Glen Walter",
             "at_mi": 0.8,
             "off_mi": 3.75,
@@ -18064,15 +17853,6 @@
             "spoken": "Passing Ingleside"
           },
           {
-            "name": "Louisville",
-            "at_mi": 22.5,
-            "off_mi": 5.66,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 158269602, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Louisville"
-          },
-          {
             "name": "Williamsburg",
             "at_mi": 28.2,
             "off_mi": 4.61,
@@ -18098,15 +17878,6 @@
             "kind": "point",
             "source": "OpenStreetMap place=village node 1583464851, projected onto the leg's checked-in route geometry",
             "spoken": "Passing Mariatown"
-          },
-          {
-            "name": "Waddington",
-            "at_mi": 31.6,
-            "off_mi": 3.05,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 158269019, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Waddington"
           },
           {
             "name": "Brinston",
@@ -18135,15 +17906,6 @@
             "kind": "point",
             "source": "OpenStreetMap place=village node 1583464847, projected onto the leg's checked-in route geometry",
             "spoken": "Passing Iroquois"
-          },
-          {
-            "name": "Lisbon",
-            "at_mi": 39.8,
-            "off_mi": 7.38,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 158318203, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Lisbon"
           },
           {
             "name": "Cardinal",
@@ -18191,15 +17953,6 @@
             "spoken": "Passing Prescott"
           },
           {
-            "name": "Ogdensburg",
-            "at_mi": 50.0,
-            "off_mi": 2.39,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=city node 158297998, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Ogdensburg"
-          },
-          {
             "name": "Domville",
             "at_mi": 50.0,
             "off_mi": 3.09,
@@ -18216,6 +17969,16 @@
             "kind": "point",
             "source": "OpenStreetMap place=village node 5059418172, projected onto the leg's checked-in route geometry",
             "spoken": "Passing Maynard"
+          },
+          {
+            "name": "Brockville Railway Tunnel (Cornwall to Brockville)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 53.5,
+            "spoken": "Billboard: The Brockville Railway Tunnel, ahead. Canada's first railway tunnel. The railway's first train left town nearly two years before the tunnel was finished. The schedule did not wait.",
+            "directions": [
+              "forward"
+            ]
           },
           {
             "name": "Maitland",
@@ -19239,15 +19002,6 @@
           }
         ],
         "landmarks": [
-          {
-            "name": "St. Regis",
-            "at_mi": 0.8,
-            "off_mi": 3.65,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 9459545545, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing St. Regis"
-          },
           {
             "name": "Glen Walter",
             "at_mi": 7.4,
@@ -24873,15 +24627,6 @@
             "spoken": "Passing Mitaanjigamiing"
           },
           {
-            "name": "Island View",
-            "at_mi": 14.8,
-            "off_mi": 6.51,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 7877364669, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Island View"
-          },
-          {
             "name": "Nigigoonsiminikaaning",
             "at_mi": 28.5,
             "off_mi": 0.22,
@@ -26605,15 +26350,6 @@
             "spoken": "Passing Queenston"
           },
           {
-            "name": "Lewiston",
-            "at_mi": 43.0,
-            "off_mi": 10.64,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 158340902, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Lewiston"
-          },
-          {
             "name": "Niagara-on-the-Lake",
             "at_mi": 43.0,
             "off_mi": 10.99,
@@ -26621,15 +26357,6 @@
             "kind": "point",
             "source": "OpenStreetMap place=town node 1829283475, projected onto the leg's checked-in route geometry",
             "spoken": "Passing Niagara-on-the-Lake"
-          },
-          {
-            "name": "Youngstown",
-            "at_mi": 43.0,
-            "off_mi": 11.6,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 158239338, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Youngstown"
           }
         ],
         "hpms_terrain": {
@@ -35853,15 +35580,6 @@
         "restrictions": [],
         "landmarks": [
           {
-            "name": "Cape Vincent",
-            "at_mi": 0.0,
-            "off_mi": 10.32,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 9921117811, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Cape Vincent"
-          },
-          {
             "name": "Inverary",
             "at_mi": 3.1,
             "off_mi": 8.24,
@@ -36810,15 +36528,6 @@
             "source": "derived: name and category read from the OpenStreetMap tags of way 42902433 (Cataraqui River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           },
           {
-            "name": "Cape Vincent",
-            "at_mi": 2.0,
-            "off_mi": 9.82,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 9921117811, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Cape Vincent"
-          },
-          {
             "name": "Sydenham",
             "at_mi": 6.0,
             "off_mi": 11.8,
@@ -36883,15 +36592,6 @@
             "spoken": "Passing Gananoque"
           },
           {
-            "name": "Clayton",
-            "at_mi": 21.5,
-            "off_mi": 7.54,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 158473876, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Clayton"
-          },
-          {
             "name": "Outlet",
             "at_mi": 27.3,
             "off_mi": 7.13,
@@ -36908,15 +36608,6 @@
             "kind": "point",
             "source": "OpenStreetMap place=village node 529684954, projected onto the leg's checked-in route geometry",
             "spoken": "Passing Lansdowne"
-          },
-          {
-            "name": "Alexandria Bay",
-            "at_mi": 30.4,
-            "off_mi": 4.2,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 158418746, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Alexandria Bay"
           },
           {
             "name": "Rockport",
@@ -36953,6 +36644,16 @@
             "kind": "point",
             "source": "OpenStreetMap place=village node 366310314, projected onto the leg's checked-in route geometry",
             "spoken": "Passing Athens"
+          },
+          {
+            "name": "Brockville Railway Tunnel (Kingston to Brockville)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 43.9,
+            "spoken": "Billboard: The Brockville Railway Tunnel, ahead. Canada's first railway tunnel. The railway's first train left town nearly two years before the tunnel was finished. The schedule did not wait.",
+            "directions": [
+              "forward"
+            ]
           },
           {
             "name": "Lyn",
@@ -38169,15 +37870,6 @@
             "lon": -76.47438,
             "spoken": "Crossing the Cataraqui River",
             "source": "derived: name and category read from the OpenStreetMap tags of way 42902433 (Cataraqui River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
-          },
-          {
-            "name": "Cape Vincent",
-            "at_mi": 2.0,
-            "off_mi": 9.82,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 9921117811, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Cape Vincent"
           },
           {
             "name": "Sydenham",
@@ -43051,15 +42743,6 @@
             "spoken": "Passing Mooretown"
           },
           {
-            "name": "Saint Clair",
-            "at_mi": 73.0,
-            "off_mi": 11.06,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=town node 153833228, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Saint Clair"
-          },
-          {
             "name": "Courtright",
             "at_mi": 73.0,
             "off_mi": 11.25,
@@ -43812,6 +43495,16 @@
             "kind": "point",
             "source": "OpenStreetMap place=town node 240997771, projected onto the leg's checked-in route geometry",
             "spoken": "Passing Ingersoll"
+          },
+          {
+            "name": "Springbank Snow Countess (London to Woodstock)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 25.2,
+            "spoken": "Billboard: The Springbank Snow Countess, ahead in Woodstock. A statue of a Holstein who set the world record for butterfat in nineteen thirty-three and held it twenty-one years. Still outstanding in her field.",
+            "directions": [
+              "forward"
+            ]
           },
           {
             "name": "Beachville",
@@ -50337,6 +50030,16 @@
             "spoken": "Passing Oakville"
           },
           {
+            "name": "Royal Botanical Gardens (Mississauga to Hamilton)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 20.1,
+            "spoken": "Billboard: The Royal Botanical Gardens, ahead in Burlington. The Royal came from King George the Fifth. A plant called the bashful bulrush grows here and nowhere else in Canada. Please do not stare.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Burlington",
             "at_mi": 23.9,
             "off_mi": 1.7,
@@ -51614,6 +51317,16 @@
             "spoken": "Passing Guelph"
           },
           {
+            "name": "Doon Heritage Village (Mississauga to Kitchener)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 38.9,
+            "spoken": "Billboard: Doon Heritage Village, ahead in Kitchener. It opened in nineteen fifty-seven with a barn raising, and inside it is always nineteen fourteen. The news has not arrived.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Branchton",
             "at_mi": 42.0,
             "off_mi": 7.52,
@@ -52850,15 +52563,6 @@
             "spoken": "Entering Grand Island"
           },
           {
-            "name": "Stevensville",
-            "at_mi": 18.3,
-            "off_mi": 6.46,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 6646940071, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Stevensville"
-          },
-          {
             "name": "Grandyle Village",
             "at_mi": 19.4,
             "off_mi": 0.68,
@@ -52929,24 +52633,6 @@
             "kind": "point",
             "source": "OpenStreetMap place=town node 158307739, projected onto the leg's checked-in route geometry",
             "spoken": "Passing Williamsville"
-          },
-          {
-            "name": "Ridgeway",
-            "at_mi": 28.0,
-            "off_mi": 7.63,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 3813859883, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Ridgeway"
-          },
-          {
-            "name": "Crystal Beach",
-            "at_mi": 28.1,
-            "off_mi": 8.51,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 2024605298, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Crystal Beach"
           },
           {
             "name": "Sloan",
@@ -53421,24 +53107,6 @@
         "restrictions": [],
         "landmarks": [
           {
-            "name": "Grand Island",
-            "at_mi": 0.0,
-            "off_mi": 7.86,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=town node 9194104758, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Grand Island"
-          },
-          {
-            "name": "Grandyle Village",
-            "at_mi": 0.0,
-            "off_mi": 9.19,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 158553960, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Grandyle Village"
-          },
-          {
             "name": "Stevensville",
             "at_mi": 0.0,
             "off_mi": 10.13,
@@ -53446,33 +53114,6 @@
             "kind": "point",
             "source": "OpenStreetMap place=village node 6646940071, projected onto the leg's checked-in route geometry",
             "spoken": "Passing Stevensville"
-          },
-          {
-            "name": "Tonawanda",
-            "at_mi": 0.0,
-            "off_mi": 11.46,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=city node 157622106, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Tonawanda"
-          },
-          {
-            "name": "North Tonawanda",
-            "at_mi": 0.0,
-            "off_mi": 11.55,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=city node 158609076, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing North Tonawanda"
-          },
-          {
-            "name": "Sanborn",
-            "at_mi": 0.5,
-            "off_mi": 10.49,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 158516151, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Sanborn"
           },
           {
             "name": "Welland",
@@ -53502,15 +53143,6 @@
             "spoken": "Passing Queenston"
           },
           {
-            "name": "Lewiston",
-            "at_mi": 4.1,
-            "off_mi": 5.45,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 158340902, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Lewiston"
-          },
-          {
             "name": "St. Davids",
             "at_mi": 6.0,
             "off_mi": 2.25,
@@ -53527,15 +53159,6 @@
             "kind": "point",
             "source": "OpenStreetMap place=town node 1829283475, projected onto the leg's checked-in route geometry",
             "spoken": "Passing Niagara-on-the-Lake"
-          },
-          {
-            "name": "Youngstown",
-            "at_mi": 6.4,
-            "off_mi": 8.31,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 158239338, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Youngstown"
           },
           {
             "name": "Virgil",
@@ -60190,6 +59813,16 @@
             "spoken": "Passing Gravenhurst"
           },
           {
+            "name": "Gravenhurst",
+            "category": "highway_marker",
+            "kind": "point",
+            "at_mi": 109.9,
+            "spoken": "Passing Bethune Memorial House, in Gravenhurst.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Severn River",
             "category": "river",
             "kind": "point",
@@ -61821,6 +61454,16 @@
             "lon": -78.90434,
             "spoken": "Crossing the Amable du Fond River",
             "source": "derived: name and category read from the OpenStreetMap tags of way 1541438036 (Amable du Fond River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "name": "Big Joe Mufferaw (North Bay to Pembroke)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 30.3,
+            "spoken": "Billboard: Big Joe Mufferaw, ahead in Mattawa. A lumberjack carved from pine, for a real man the tall tales made bigger. The stories say he kicked a tavern roof. The statue keeps both feet down.",
+            "directions": [
+              "forward"
+            ]
           },
           {
             "name": "Mattawa",
@@ -67270,6 +66913,16 @@
             "spoken": "Passing Vaughan"
           },
           {
+            "name": "CN Tower (Oshawa to Toronto)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 30.7,
+            "spoken": "Billboard: The CN Tower, ahead in Toronto. The world's tallest freestanding structure from nineteen seventy-six until two thousand seven. The stairs have one thousand seven hundred seventy-six steps. There is an elevator.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Don River",
             "category": "river",
             "kind": "point",
@@ -68405,15 +68058,6 @@
             "spoken": "Passing Cardinal"
           },
           {
-            "name": "Lisbon",
-            "at_mi": 55.2,
-            "off_mi": 8.42,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 158318203, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Lisbon"
-          },
-          {
             "name": "Johnstown",
             "at_mi": 55.3,
             "off_mi": 1.25,
@@ -68432,24 +68076,6 @@
             "spoken": "Passing Prescott"
           },
           {
-            "name": "Ogdensburg",
-            "at_mi": 58.0,
-            "off_mi": 2.4,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=city node 158297998, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Ogdensburg"
-          },
-          {
-            "name": "Heuvelton",
-            "at_mi": 58.0,
-            "off_mi": 9.26,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 158584380, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Heuvelton"
-          },
-          {
             "name": "Maynard",
             "at_mi": 59.5,
             "off_mi": 1.35,
@@ -68457,6 +68083,16 @@
             "kind": "point",
             "source": "OpenStreetMap place=village node 5059418172, projected onto the leg's checked-in route geometry",
             "spoken": "Passing Maynard"
+          },
+          {
+            "name": "Brockville Railway Tunnel (Ottawa to Brockville)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 61.5,
+            "spoken": "Billboard: The Brockville Railway Tunnel, ahead. Canada's first railway tunnel. The railway's first train left town nearly two years before the tunnel was finished. The schedule did not wait.",
+            "directions": [
+              "forward"
+            ]
           },
           {
             "name": "Maitland",
@@ -72269,6 +71905,16 @@
             "source": "derived: name and category read from the OpenStreetMap tags of relation 7804906 (NCC Greenbelt); placed at the first road vertex inside it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           },
           {
+            "name": "Diefenbunker (Ottawa to Pembroke)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 13.0,
+            "spoken": "Billboard: The Diefenbunker, ahead in Carp. Four storeys underground, built to shelter the government from a nuclear war. Tours all year. Now anybody can get in.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Carp River",
             "category": "river",
             "kind": "point",
@@ -74506,6 +74152,16 @@
             "kind": "point",
             "source": "OpenStreetMap place=village node 1751924960, projected onto the leg's checked-in route geometry",
             "spoken": "Passing Warsaw"
+          },
+          {
+            "name": "Peterborough Lift Lock (Ottawa to Peterborough)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 158.1,
+            "spoken": "Billboard: The Peterborough Lift Lock, ahead. Since nineteen oh-four it has lifted boats with no power but gravity. Cheapest lift on the route.",
+            "directions": [
+              "forward"
+            ]
           },
           {
             "name": "Keene",
@@ -77981,6 +77637,16 @@
             "source": "derived: name and category read from the OpenStreetMap tags of way 1553630548 (Wanapitei River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           },
           {
+            "name": "The Big Nickel (Parry Sound to Sudbury)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 88.9,
+            "spoken": "Billboard: The Big Nickel, ahead in Sudbury. Called the world's largest coin. It was built just past the city line, so it never needed a city permit. Thrifty, for a coin.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Wahnapitae",
             "at_mi": 91.2,
             "off_mi": 6.03,
@@ -79765,6 +79431,16 @@
             "spoken": "Entering Rolphton"
           },
           {
+            "name": "Big Joe Mufferaw (Pembroke to North Bay)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 87.5,
+            "spoken": "Billboard: Big Joe Mufferaw, ahead in Mattawa. A lumberjack carved from pine, for a real man the tall tales made bigger. The stories say he kicked a tavern roof. The statue keeps both feet down.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Mattawa",
             "at_mi": 97.2,
             "off_mi": 0.04,
@@ -81434,6 +81110,16 @@
             "spoken": "Passing Almonte"
           },
           {
+            "name": "Diefenbunker (Pembroke to Ottawa)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 64.3,
+            "spoken": "Billboard: The Diefenbunker, ahead in Carp. Four storeys underground, built to shelter the government from a nuclear war. Tours all year. Now anybody can get in.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Carp",
             "at_mi": 68.7,
             "off_mi": 2.41,
@@ -81497,6 +81183,16 @@
             "lon": -75.83768,
             "spoken": "Entering NCC Greenbelt",
             "source": "derived: name and category read from the OpenStreetMap tags of relation 7804906 (NCC Greenbelt); placed at the first road vertex inside it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "name": "Parliament Hill (Pembroke to Ottawa)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 83.6,
+            "spoken": "Billboard: Parliament Hill, ahead in Ottawa. The Centre Block is closed for a renovation of several billion dollars, and is due back in the early twenty thirties. Your delivery is due sooner.",
+            "directions": [
+              "forward"
+            ]
           },
           {
             "name": "Chelsea",
@@ -83490,6 +83186,16 @@
             "kind": "point",
             "source": "OpenStreetMap place=village node 293306455, projected onto the leg's checked-in route geometry",
             "spoken": "Passing Carp"
+          },
+          {
+            "name": "Parliament Hill (Peterborough to Ottawa)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 161.0,
+            "spoken": "Billboard: Parliament Hill, ahead in Ottawa. The Centre Block is closed for a renovation of several billion dollars, and is due back in the early twenty thirties. Your delivery is due sooner.",
+            "directions": [
+              "forward"
+            ]
           }
         ],
         "hpms_terrain": {
@@ -85385,6 +85091,16 @@
             "spoken": "Passing Vaughan"
           },
           {
+            "name": "CN Tower (Peterborough to Toronto)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 77.8,
+            "spoken": "Billboard: The CN Tower, ahead in Toronto. The world's tallest freestanding structure from nineteen seventy-six until two thousand seven. The stairs have one thousand seven hundred seventy-six steps. There is an elevator.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Don River",
             "category": "river",
             "kind": "point",
@@ -86150,15 +85866,6 @@
             "spoken": "Passing Mooretown"
           },
           {
-            "name": "Saint Clair",
-            "at_mi": 0.0,
-            "off_mi": 11.06,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=town node 153833228, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Saint Clair"
-          },
-          {
             "name": "Courtright",
             "at_mi": 0.0,
             "off_mi": 11.25,
@@ -86651,24 +86358,6 @@
             "source": "derived: name and category read from the OpenStreetMap tags of way 157092283 (Black River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           },
           {
-            "name": "Corunna",
-            "at_mi": 6.0,
-            "off_mi": 5.87,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=town node 1327587146, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Corunna"
-          },
-          {
-            "name": "Mooretown",
-            "at_mi": 6.0,
-            "off_mi": 9.29,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 2209009229, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Mooretown"
-          },
-          {
             "name": "Saint Clair",
             "at_mi": 6.0,
             "off_mi": 10.52,
@@ -86676,15 +86365,6 @@
             "kind": "point",
             "source": "OpenStreetMap place=town node 153833228, projected onto the leg's checked-in route geometry",
             "spoken": "Passing Saint Clair"
-          },
-          {
-            "name": "Courtright",
-            "at_mi": 6.0,
-            "off_mi": 10.77,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 2209008497, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Courtright"
           }
         ],
         "hpms_terrain": {
@@ -87015,15 +86695,6 @@
         ],
         "restrictions": [],
         "landmarks": [
-          {
-            "name": "Bay Mills",
-            "at_mi": 0.0,
-            "off_mi": 10.6,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 154338595, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Bay Mills"
-          },
           {
             "name": "St. Marys River",
             "category": "river",
@@ -91021,33 +90692,6 @@
         ],
         "landmarks": [
           {
-            "name": "Bay Mills",
-            "at_mi": 0.0,
-            "off_mi": 10.6,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 154338595, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Bay Mills"
-          },
-          {
-            "name": "Dafter",
-            "at_mi": 0.0,
-            "off_mi": 10.75,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 154305286, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Dafter"
-          },
-          {
-            "name": "Brimley",
-            "at_mi": 0.0,
-            "off_mi": 11.43,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 154192250, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Brimley"
-          },
-          {
             "name": "Root River",
             "category": "river",
             "kind": "point",
@@ -91940,15 +91584,6 @@
             "spoken": "Passing Queenston"
           },
           {
-            "name": "Lewiston",
-            "at_mi": 0.4,
-            "off_mi": 10.4,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 158340902, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Lewiston"
-          },
-          {
             "name": "Niagara-on-the-Lake",
             "at_mi": 0.4,
             "off_mi": 10.85,
@@ -91956,15 +91591,6 @@
             "kind": "point",
             "source": "OpenStreetMap place=town node 1829283475, projected onto the leg's checked-in route geometry",
             "spoken": "Passing Niagara-on-the-Lake"
-          },
-          {
-            "name": "Youngstown",
-            "at_mi": 0.4,
-            "off_mi": 11.44,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 158239338, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Youngstown"
           },
           {
             "name": "Allanburg",
@@ -92056,6 +91682,16 @@
             "kind": "point",
             "source": "OpenStreetMap place=town node 1133347635, projected onto the leg's checked-in route geometry",
             "spoken": "Entering Grimsby"
+          },
+          {
+            "name": "Royal Botanical Gardens (St. Catharines to Hamilton)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 32.1,
+            "spoken": "Billboard: The Royal Botanical Gardens, ahead in Burlington. The Royal came from King George the Fifth. A plant called the bashful bulrush grows here and nowhere else in Canada. Please do not stare.",
+            "directions": [
+              "forward"
+            ]
           },
           {
             "name": "Burlington",
@@ -92634,6 +92270,26 @@
             "spoken": "Passing Beamsville"
           },
           {
+            "name": "Welland Canals Centre (St. Catharines to Niagara Falls)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 5.7,
+            "spoken": "Billboard: The Welland Canals Centre at Lock Three, ahead in Saint Catharines. A viewing platform where lake freighters climb the Niagara Escarpment. They carry more than you do. They are also slower.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
+            "name": "Horseshoe Falls (St. Catharines to Niagara Falls)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 7.8,
+            "spoken": "Billboard: The Horseshoe Falls, ahead at Niagara Falls. About half the river is diverted to make power, and most of the rest goes over here. It has never taken a ten-hour break.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Virgil",
             "at_mi": 10.7,
             "off_mi": 4.98,
@@ -92650,15 +92306,6 @@
             "kind": "point",
             "source": "OpenStreetMap place=town node 1829283475, projected onto the leg's checked-in route geometry",
             "spoken": "Passing Niagara-on-the-Lake"
-          },
-          {
-            "name": "Youngstown",
-            "at_mi": 11.0,
-            "off_mi": 8.32,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 158239338, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Youngstown"
           },
           {
             "name": "St. Davids",
@@ -92679,15 +92326,6 @@
             "spoken": "Passing Queenston"
           },
           {
-            "name": "Lewiston",
-            "at_mi": 12.9,
-            "off_mi": 5.43,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 158340902, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Lewiston"
-          },
-          {
             "name": "Allanburg",
             "at_mi": 14.8,
             "off_mi": 4.82,
@@ -92706,33 +92344,6 @@
             "spoken": "Passing Welland"
           },
           {
-            "name": "Sanborn",
-            "at_mi": 16.6,
-            "off_mi": 10.5,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 158516151, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Sanborn"
-          },
-          {
-            "name": "Grand Island",
-            "at_mi": 17.0,
-            "off_mi": 7.86,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=town node 9194104758, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Grand Island"
-          },
-          {
-            "name": "Grandyle Village",
-            "at_mi": 17.0,
-            "off_mi": 9.19,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 158553960, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Grandyle Village"
-          },
-          {
             "name": "Stevensville",
             "at_mi": 17.0,
             "off_mi": 10.13,
@@ -92740,24 +92351,6 @@
             "kind": "point",
             "source": "OpenStreetMap place=village node 6646940071, projected onto the leg's checked-in route geometry",
             "spoken": "Passing Stevensville"
-          },
-          {
-            "name": "Tonawanda",
-            "at_mi": 17.0,
-            "off_mi": 11.46,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=city node 157622106, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Tonawanda"
-          },
-          {
-            "name": "North Tonawanda",
-            "at_mi": 17.0,
-            "off_mi": 11.55,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=city node 158609076, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing North Tonawanda"
           }
         ],
         "hpms_terrain": {
@@ -95448,6 +95041,16 @@
             "lon": -80.44799,
             "spoken": "Crossing the Harris River",
             "source": "derived: name and category read from the OpenStreetMap tags of way 479993995 (Harris River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "name": "Bobby Orr Hall of Fame (Sudbury to Parry Sound)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 91.0,
+            "spoken": "Billboard: The Bobby Orr Hall of Fame, ahead in Parry Sound, on Georgian Bay. It calls itself a small museum. The name on the door is not a small one.",
+            "directions": [
+              "forward"
+            ]
           },
           {
             "name": "McKellar",
@@ -101145,13 +100748,13 @@
             "spoken": "Passing Notre-Dame-du-Nord"
           },
           {
-            "name": "R\u00e9serve indienne Timiskaming 19",
+            "name": "R\u00e9serve indienne Timiskaming",
             "at_mi": 7.9,
             "off_mi": 9.33,
             "category": "village",
             "kind": "point",
             "source": "OpenStreetMap place=village node 1990550611, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing R\u00e9serve indienne Timiskaming 19"
+            "spoken": "Passing R\u00e9serve indienne Timiskaming"
           },
           {
             "name": "Belle Vall\u00e9e",
@@ -103550,13 +103153,13 @@
             "spoken": "Entering Notre-Dame-du-Nord"
           },
           {
-            "name": "R\u00e9serve indienne Timiskaming 19",
+            "name": "R\u00e9serve indienne Timiskaming",
             "at_mi": 18.8,
             "off_mi": 0.05,
             "category": "village",
             "kind": "point",
             "source": "OpenStreetMap place=village node 1990550611, projected onto the leg's checked-in route geometry",
-            "spoken": "Entering R\u00e9serve indienne Timiskaming 19"
+            "spoken": "Entering R\u00e9serve indienne Timiskaming"
           },
           {
             "name": "Saint-Eug\u00e8ne-de-Guigues",
@@ -108240,15 +107843,6 @@
             "kind": "point",
             "source": "OpenStreetMap place=village node 9919347591, projected onto the leg's checked-in route geometry",
             "spoken": "Entering Nigigoonsiminikaaning"
-          },
-          {
-            "name": "Island View",
-            "at_mi": 202.2,
-            "off_mi": 6.51,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 7877364669, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Island View"
           },
           {
             "name": "Mitaanjigamiing",
@@ -116655,6 +116249,16 @@
             "spoken": "Entering Ajax"
           },
           {
+            "name": "Canadian Automotive Museum (Toronto to Oshawa)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 36.2,
+            "spoken": "Billboard: The Canadian Automotive Museum, ahead in Oshawa. It lives in a nineteen twenties car dealership, and the original elevator still lifts cars to the second floor. It will not lift a truck.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Courtice",
             "at_mi": 44.0,
             "off_mi": 4.48,
@@ -118623,6 +118227,16 @@
             "spoken": "Entering Ajax"
           },
           {
+            "name": "Canadian Automotive Museum (Toronto to Peterborough)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 36.4,
+            "spoken": "Billboard: The Canadian Automotive Museum, ahead in Oshawa. It lives in a nineteen twenties car dealership, and the original elevator still lifts cars to the second floor. It will not lift a truck.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Oshawa Community Museum",
             "category": "museum",
             "kind": "point",
@@ -118811,6 +118425,16 @@
             "kind": "point",
             "source": "OpenStreetMap place=village node 1378089210, projected onto the leg's checked-in route geometry",
             "spoken": "Passing Omemee"
+          },
+          {
+            "name": "Canadian Canoe Museum (Toronto to Peterborough)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 82.5,
+            "spoken": "Billboard: The Canadian Canoe Museum, ahead in Peterborough. More than six hundred canoes, kayaks and paddled craft, which it calls the largest collection in the world. Not one has a sleeper berth.",
+            "directions": [
+              "forward"
+            ]
           },
           {
             "name": "Otonabee River",
@@ -121611,33 +121235,6 @@
             "lon": -84.32111,
             "spoken": "Crossing the Root River",
             "source": "derived: name and category read from the OpenStreetMap tags of way 264938236 (Root River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
-          },
-          {
-            "name": "Bay Mills",
-            "at_mi": 143.0,
-            "off_mi": 10.6,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 154338595, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Bay Mills"
-          },
-          {
-            "name": "Dafter",
-            "at_mi": 143.0,
-            "off_mi": 10.75,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 154305286, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Dafter"
-          },
-          {
-            "name": "Brimley",
-            "at_mi": 143.0,
-            "off_mi": 11.43,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 154192250, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Brimley"
           }
         ],
         "hpms_terrain": {
@@ -122225,114 +121822,6 @@
         ],
         "landmarks": [
           {
-            "name": "Hamtramck",
-            "at_mi": 0.0,
-            "off_mi": 5.41,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=town node 154344025, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Hamtramck"
-          },
-          {
-            "name": "Highland Park",
-            "at_mi": 0.0,
-            "off_mi": 6.96,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=town node 154303518, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Highland Park"
-          },
-          {
-            "name": "Grosse Pointe Park",
-            "at_mi": 0.0,
-            "off_mi": 7.08,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=town node 154305410, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Grosse Pointe Park"
-          },
-          {
-            "name": "Grosse Pointe",
-            "at_mi": 0.0,
-            "off_mi": 8.05,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=town node 154124551, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Grosse Pointe"
-          },
-          {
-            "name": "Grosse Pointe Farms",
-            "at_mi": 0.0,
-            "off_mi": 9.85,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=town node 154310590, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Grosse Pointe Farms"
-          },
-          {
-            "name": "Harper Woods",
-            "at_mi": 0.0,
-            "off_mi": 10.0,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=town node 154047815, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Harper Woods"
-          },
-          {
-            "name": "Dearborn",
-            "at_mi": 0.1,
-            "off_mi": 7.12,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=town node 153857034, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Dearborn"
-          },
-          {
-            "name": "Melvindale",
-            "at_mi": 0.1,
-            "off_mi": 7.39,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=town node 154327562, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Melvindale"
-          },
-          {
-            "name": "Allen Park",
-            "at_mi": 0.1,
-            "off_mi": 9.66,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=town node 154305365, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Allen Park"
-          },
-          {
-            "name": "River Rouge",
-            "at_mi": 0.2,
-            "off_mi": 5.77,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=town node 6915922110, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing River Rouge"
-          },
-          {
-            "name": "Ecorse",
-            "at_mi": 2.5,
-            "off_mi": 6.95,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=town node 154174657, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Ecorse"
-          },
-          {
-            "name": "Lincoln Park",
-            "at_mi": 2.5,
-            "off_mi": 8.41,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=town node 154092311, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Lincoln Park"
-          },
-          {
             "name": "LaSalle",
             "at_mi": 4.2,
             "off_mi": 3.0,
@@ -122340,15 +121829,6 @@
             "kind": "point",
             "source": "OpenStreetMap place=town node 254023814, projected onto the leg's checked-in route geometry",
             "spoken": "Passing LaSalle"
-          },
-          {
-            "name": "Wyandotte",
-            "at_mi": 4.4,
-            "off_mi": 8.47,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=town node 154392967, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Wyandotte"
           },
           {
             "name": "McGregor",
@@ -122906,51 +122386,6 @@
             "kind": "point",
             "source": "OpenStreetMap place=town node 254023814, projected onto the leg's checked-in route geometry",
             "spoken": "Passing LaSalle"
-          },
-          {
-            "name": "Ecorse",
-            "at_mi": 6.6,
-            "off_mi": 3.54,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=town node 154174657, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Ecorse"
-          },
-          {
-            "name": "Wyandotte",
-            "at_mi": 6.6,
-            "off_mi": 5.99,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=town node 154392967, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Wyandotte"
-          },
-          {
-            "name": "Southgate",
-            "at_mi": 6.6,
-            "off_mi": 7.74,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=town node 154046631, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Southgate"
-          },
-          {
-            "name": "Riverview",
-            "at_mi": 6.6,
-            "off_mi": 8.3,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=town node 153937595, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Riverview"
-          },
-          {
-            "name": "Trenton",
-            "at_mi": 6.6,
-            "off_mi": 10.33,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=town node 154077502, projected onto the leg's checked-in route geometry",
-            "spoken": "Passing Trenton"
           },
           {
             "name": "Detroit River",
