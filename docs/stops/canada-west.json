@@ -1,0 +1,3059 @@
+{
+  "about": "Curated stops for the western Canada corridor (Alberta, Saskatchewan, Manitoba and southern BC fuel), placed by cargo tools osm-stops --stops. Built 2026-11-22 from osm-stops leads over the 2026-11-16 planet; BC rest areas come from canada-alaska.json (DataBC). lat, lon, reach_mi, season and heading steer placement; every other key is the stop as the game reads it.",
+  "stops": [
+    {
+      "name": "Simonson Travel Center",
+      "lat": 47.93369,
+      "lon": -97.09616,
+      "reach_mi": 0.5,
+      "type": "travel_center",
+      "actions": [
+        "park",
+        "save",
+        "fuel",
+        "food",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "parking",
+        "diesel",
+        "gasoline",
+        "food",
+        "restrooms"
+      ],
+      "parking": "limited",
+      "source": "Position read from OSM node 11189263081, OpenStreetMap planet extract 2026-11-16. Truck access assumed from the truck stop name, not verified. Diesel assumed for a truck stop, not tagged. Year round is assumed. Food, restrooms and an overnight stay are assumed for a highway truck stop; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Alexander Henry Rest Area",
+      "lat": 48.45878,
+      "lon": -97.19365,
+      "reach_mi": 0.5,
+      "type": "public_rest_area",
+      "actions": [
+        "park",
+        "save",
+        "break"
+      ],
+      "services": [
+        "parking"
+      ],
+      "parking": "unknown",
+      "source": "Read: highway rest area from OSM node 12272039057 (highway=rest_area) (opening_hours=24/7), OpenStreetMap planet extract 2026-11-16. Year round and truck room are assumed, not verified; no overnight stay is claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Speed Pro Truck Stop",
+      "lat": 48.94576,
+      "lon": -122.48573,
+      "reach_mi": 0.5,
+      "type": "travel_center",
+      "actions": [
+        "park",
+        "save",
+        "fuel",
+        "food",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "parking",
+        "diesel",
+        "gasoline",
+        "food",
+        "restrooms"
+      ],
+      "parking": "limited",
+      "source": "Position read from OSM node 12747259322, OpenStreetMap planet extract 2026-11-16. Truck access assumed from the truck stop name, not verified. Diesel assumed for a truck stop, not tagged. Year round is assumed. Food, restrooms and an overnight stay are assumed for a highway truck stop; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Truck parking near Winnipeg",
+      "lat": 48.96866,
+      "lon": -97.25567,
+      "reach_mi": 0.5,
+      "type": "truck_parking",
+      "actions": [
+        "park",
+        "save",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "parking"
+      ],
+      "parking": "confirmed",
+      "source": "Read: truck parking from OSM node 12676728366 (amenity=parking, hgv=yes), OpenStreetMap planet extract 2026-11-16. Overnight parking is assumed for a lot tagged for trucks; year round is assumed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Truck parking near Winnipeg",
+      "lat": 48.99806,
+      "lon": -97.2396,
+      "reach_mi": 0.5,
+      "type": "truck_parking",
+      "actions": [
+        "park",
+        "save",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "parking"
+      ],
+      "parking": "confirmed",
+      "source": "Read: truck parking from OSM way 1149128708 (amenity=parking, hgv=designated), OpenStreetMap planet extract 2026-11-16. Overnight parking is assumed for a lot tagged for trucks; year round is assumed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Truck parking near Estevan",
+      "lat": 48.99928,
+      "lon": -102.55599,
+      "reach_mi": 0.5,
+      "type": "truck_parking",
+      "actions": [
+        "park",
+        "save",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "parking"
+      ],
+      "parking": "confirmed",
+      "source": "Read: truck parking from OSM way 1148193872 (amenity=parking, hgv=designated), OpenStreetMap planet extract 2026-11-16. Overnight parking is assumed for a lot tagged for trucks; year round is assumed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Truck parking near Winnipeg",
+      "lat": 48.99968,
+      "lon": -97.23677,
+      "reach_mi": 0.5,
+      "type": "truck_parking",
+      "actions": [
+        "park",
+        "save",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "parking"
+      ],
+      "parking": "confirmed",
+      "source": "Read: truck parking from OSM way 1148888952 (amenity=parking, hgv=designated), OpenStreetMap planet extract 2026-11-16. Overnight parking is assumed for a lot tagged for trucks; year round is assumed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Truck parking near Winnipeg",
+      "lat": 49.00217,
+      "lon": -97.2363,
+      "reach_mi": 0.5,
+      "type": "truck_parking",
+      "actions": [
+        "park",
+        "save",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "parking"
+      ],
+      "parking": "confirmed",
+      "source": "Read: truck parking from OSM way 1148971617 (amenity=parking, hgv=designated), OpenStreetMap planet extract 2026-11-16. Overnight parking is assumed for a lot tagged for trucks; year round is assumed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Truck parking near Abbotsford",
+      "lat": 49.00509,
+      "lon": -122.2668,
+      "reach_mi": 0.5,
+      "type": "truck_parking",
+      "actions": [
+        "park",
+        "save",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "parking"
+      ],
+      "parking": "confirmed",
+      "source": "Read: truck parking from OSM way 420090967 (amenity=parking, hgv=yes), OpenStreetMap planet extract 2026-11-16. Overnight parking is assumed for a lot tagged for trucks; year round is assumed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Chevron Abbotsford Commercial Cardlock",
+      "lat": 49.01637,
+      "lon": -122.26595,
+      "reach_mi": 0.5,
+      "type": "fuel_station",
+      "actions": [
+        "fuel"
+      ],
+      "services": [
+        "diesel"
+      ],
+      "parking": "unknown",
+      "source": "Position read from OSM way 387961009 (fuel:diesel=yes, website=http://www.chevron.ca/our-businesses/retail-commercial/cardlock-directory), OpenStreetMap planet extract 2026-11-16. Diesel read from OSM. A cardlock sells to account holders only. Year round is assumed. Tractor-trailer access is assumed for a highway cardlock, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Flying J",
+      "lat": 49.01961,
+      "lon": -122.2659,
+      "reach_mi": 0.5,
+      "type": "travel_center",
+      "actions": [
+        "park",
+        "save",
+        "fuel",
+        "food",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "parking",
+        "diesel",
+        "gasoline",
+        "food",
+        "restrooms"
+      ],
+      "parking": "limited",
+      "source": "Position read from OSM way 387943961 (fuel:diesel=yes), OpenStreetMap planet extract 2026-11-16. Truck access assumed from the truck stop name, not verified. Diesel read from OSM. Year round is assumed. Food, restrooms and an overnight stay are assumed for a highway truck stop; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Cardlock Station",
+      "lat": 49.03098,
+      "lon": -118.46361,
+      "reach_mi": 0.5,
+      "type": "fuel_station",
+      "actions": [
+        "fuel"
+      ],
+      "services": [
+        "diesel"
+      ],
+      "parking": "unknown",
+      "source": "Position read from OSM way 419191861, OpenStreetMap planet extract 2026-11-16. Diesel is assumed from the cardlock name, not tagged. A cardlock sells to account holders only. Year round is assumed. Tractor-trailer access is assumed for a highway cardlock, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Petro-Canada Commercial Cardlock",
+      "lat": 49.05463,
+      "lon": -122.37629,
+      "reach_mi": 0.5,
+      "type": "fuel_station",
+      "actions": [
+        "fuel"
+      ],
+      "services": [
+        "diesel"
+      ],
+      "parking": "unknown",
+      "source": "Position read from OSM way 390578242, OpenStreetMap planet extract 2026-11-16. Diesel is assumed from the cardlock name, not tagged. A cardlock sells to account holders only. Year round is assumed. Tractor-trailer access is assumed for a highway cardlock, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Flying J Cardlock",
+      "lat": 49.11242,
+      "lon": -116.52444,
+      "reach_mi": 0.5,
+      "type": "fuel_station",
+      "actions": [
+        "fuel"
+      ],
+      "services": [
+        "diesel"
+      ],
+      "parking": "unknown",
+      "source": "Position read from OSM way 1429825183 (fuel:diesel=yes), OpenStreetMap planet extract 2026-11-16. Diesel read from OSM. A cardlock sells to account holders only. Year round is assumed. Tractor-trailer access is assumed for a highway cardlock, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Petro-Canada",
+      "lat": 49.12862,
+      "lon": -122.07807,
+      "reach_mi": 0.5,
+      "type": "travel_center",
+      "actions": [
+        "park",
+        "save",
+        "fuel",
+        "food",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "parking",
+        "diesel",
+        "gasoline",
+        "food",
+        "restrooms"
+      ],
+      "parking": "limited",
+      "source": "Position read from OSM node 4638971689 (hgv=yes), OpenStreetMap planet extract 2026-11-16. Truck access read from OSM hgv=yes. Diesel assumed for a truck stop, not tagged. Year round is assumed. Food, restrooms and an overnight stay are assumed for a highway truck stop; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Truck parking near Chilliwack",
+      "lat": 49.12909,
+      "lon": -122.07823,
+      "reach_mi": 0.5,
+      "type": "truck_parking",
+      "actions": [
+        "park",
+        "save",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "parking"
+      ],
+      "parking": "confirmed",
+      "source": "Read: truck parking from OSM way 1459536326 (amenity=parking, hgv=designated), OpenStreetMap planet extract 2026-11-16. Overnight parking is assumed for a lot tagged for trucks; year round is assumed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Esso Commercial Cardlock",
+      "lat": 49.14089,
+      "lon": -121.95884,
+      "reach_mi": 0.5,
+      "type": "fuel_station",
+      "actions": [
+        "fuel"
+      ],
+      "services": [
+        "diesel"
+      ],
+      "parking": "unknown",
+      "source": "Position read from OSM way 470897117 (website=https://www.esso.ca/en-ca/find-station/chilliwack-bc-chilliwackhuskytc1422-200323534), OpenStreetMap planet extract 2026-11-16. Diesel is assumed from the cardlock name, not tagged. A cardlock sells to account holders only. Year round is assumed. Tractor-trailer access is assumed for a highway cardlock, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Truck parking near Chilliwack",
+      "lat": 49.1409,
+      "lon": -121.95862,
+      "reach_mi": 0.5,
+      "type": "truck_parking",
+      "actions": [
+        "park",
+        "save",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "parking"
+      ],
+      "parking": "confirmed",
+      "source": "Read: truck parking from OSM way 621504449 (amenity=parking, hgv=designated), OpenStreetMap planet extract 2026-11-16. Overnight parking is assumed for a lot tagged for trucks; year round is assumed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Petro-Pass",
+      "lat": 49.23037,
+      "lon": -122.81784,
+      "reach_mi": 0.5,
+      "type": "fuel_station",
+      "actions": [
+        "fuel"
+      ],
+      "services": [
+        "diesel"
+      ],
+      "parking": "unknown",
+      "source": "Position read from OSM way 527165243 (fuel:diesel=yes), OpenStreetMap planet extract 2026-11-16. Diesel read from OSM. A cardlock sells to account holders only. Year round is assumed. Tractor-trailer access is assumed for a highway cardlock, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Petro Pass",
+      "lat": 49.28295,
+      "lon": -123.07364,
+      "reach_mi": 0.5,
+      "type": "fuel_station",
+      "actions": [
+        "fuel"
+      ],
+      "services": [
+        "diesel"
+      ],
+      "parking": "unknown",
+      "source": "Position read from OSM way 1178374530, OpenStreetMap planet extract 2026-11-16. Diesel is assumed from the cardlock name, not tagged. A cardlock sells to account holders only. Year round is assumed. Tractor-trailer access is assumed for a highway cardlock, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Co-Op Cardlock",
+      "lat": 49.34287,
+      "lon": -97.36533,
+      "reach_mi": 0.5,
+      "type": "fuel_station",
+      "actions": [
+        "fuel"
+      ],
+      "services": [
+        "diesel"
+      ],
+      "parking": "unknown",
+      "source": "Position read from OSM way 539104911, OpenStreetMap planet extract 2026-11-16. Diesel is assumed from the cardlock name, not tagged. A cardlock sells to account holders only. Year round is assumed. Tractor-trailer access is assumed for a highway cardlock, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Warner North Rest Area",
+      "lat": 49.36033,
+      "lon": -112.26128,
+      "reach_mi": 0.5,
+      "type": "public_rest_area",
+      "actions": [
+        "park",
+        "save",
+        "break"
+      ],
+      "services": [
+        "parking"
+      ],
+      "parking": "unknown",
+      "source": "Read: highway rest area from OSM way 985381299 (highway=rest_area), OpenStreetMap planet extract 2026-11-16. Year round and truck room are assumed, not verified; no overnight stay is claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Silver Creek Travel Centre",
+      "lat": 49.3636,
+      "lon": -121.47924,
+      "reach_mi": 0.5,
+      "type": "travel_center",
+      "actions": [
+        "park",
+        "save",
+        "fuel",
+        "food",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "parking",
+        "diesel",
+        "gasoline",
+        "food",
+        "restrooms"
+      ],
+      "parking": "limited",
+      "source": "Position read from OSM node 9107335215 (fuel:diesel=yes, website=https://www.esso.ca/en-ca/find-station/hope-bc-silvercreektravelcentre-200327262), OpenStreetMap planet extract 2026-11-16. Truck access assumed from the truck stop name, not verified. Diesel read from OSM. Year round is assumed. Food, restrooms and an overnight stay are assumed for a highway truck stop; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Flying J",
+      "lat": 49.36545,
+      "lon": -121.48324,
+      "reach_mi": 0.5,
+      "type": "travel_center",
+      "actions": [
+        "park",
+        "save",
+        "fuel",
+        "food",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "parking",
+        "diesel",
+        "gasoline",
+        "food",
+        "restrooms"
+      ],
+      "parking": "limited",
+      "source": "Position read from OSM way 486119835 (hgv=yes), OpenStreetMap planet extract 2026-11-16. Truck access read from OSM hgv=yes. Diesel assumed for a truck stop, not tagged. Year round is assumed. Food, restrooms and an overnight stay are assumed for a highway truck stop; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Truck parking near Hope",
+      "lat": 49.36554,
+      "lon": -121.4843,
+      "reach_mi": 0.5,
+      "type": "truck_parking",
+      "actions": [
+        "park",
+        "save",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "parking"
+      ],
+      "parking": "confirmed",
+      "source": "Read: truck parking from OSM node 12687190155 (amenity=parking, hgv=yes), OpenStreetMap planet extract 2026-11-16. Overnight parking is assumed for a lot tagged for trucks; year round is assumed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Esso Cardlock",
+      "lat": 49.45355,
+      "lon": -120.51085,
+      "reach_mi": 0.5,
+      "type": "fuel_station",
+      "actions": [
+        "fuel"
+      ],
+      "services": [
+        "diesel"
+      ],
+      "parking": "unknown",
+      "source": "Position read from OSM node 11450646448 (fuel:diesel=yes, website=https://essocardlocks.ca/en/sites/princeton/), OpenStreetMap planet extract 2026-11-16. Diesel read from OSM. A cardlock sells to account holders only. Year round is assumed. Tractor-trailer access is assumed for a highway cardlock, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Flying J Cardlock",
+      "lat": 49.68362,
+      "lon": -112.77778,
+      "reach_mi": 0.5,
+      "type": "fuel_station",
+      "actions": [
+        "fuel"
+      ],
+      "services": [
+        "diesel"
+      ],
+      "parking": "unknown",
+      "source": "Position read from OSM node 4943295721, OpenStreetMap planet extract 2026-11-16. Diesel is assumed from the cardlock name, not tagged. A cardlock sells to account holders only. Year round is assumed. Tractor-trailer access is assumed for a highway cardlock, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "UFA Cardlock",
+      "lat": 49.70129,
+      "lon": -112.79488,
+      "reach_mi": 0.5,
+      "type": "fuel_station",
+      "actions": [
+        "fuel"
+      ],
+      "services": [
+        "diesel"
+      ],
+      "parking": "unknown",
+      "source": "Position read from OSM node 5833638185, OpenStreetMap planet extract 2026-11-16. Diesel is assumed from the cardlock name, not tagged. A cardlock sells to account holders only. Year round is assumed. Tractor-trailer access is assumed for a highway cardlock, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "UFA Cardlock",
+      "lat": 49.71649,
+      "lon": -113.40838,
+      "reach_mi": 0.5,
+      "type": "fuel_station",
+      "actions": [
+        "fuel"
+      ],
+      "services": [
+        "diesel"
+      ],
+      "parking": "unknown",
+      "source": "Position read from OSM node 5680734129, OpenStreetMap planet extract 2026-11-16. Diesel is assumed from the cardlock name, not tagged. A cardlock sells to account holders only. Year round is assumed. Tractor-trailer access is assumed for a highway cardlock, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Truck parking near Winnipeg",
+      "lat": 49.77424,
+      "lon": -97.31992,
+      "reach_mi": 0.5,
+      "type": "truck_parking",
+      "actions": [
+        "park",
+        "save",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "parking"
+      ],
+      "parking": "confirmed",
+      "source": "Read: truck parking from OSM way 806259630 (amenity=parking, hgv=yes), OpenStreetMap planet extract 2026-11-16. Overnight parking is assumed for a lot tagged for trucks; year round is assumed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Petro-Pass Cardlock",
+      "lat": 49.79202,
+      "lon": -112.12801,
+      "reach_mi": 0.5,
+      "type": "fuel_station",
+      "actions": [
+        "fuel"
+      ],
+      "services": [
+        "diesel"
+      ],
+      "parking": "unknown",
+      "source": "Position read from OSM node 12013170559, OpenStreetMap planet extract 2026-11-16. Diesel is assumed from the cardlock name, not tagged. A cardlock sells to account holders only. Year round is assumed. Tractor-trailer access is assumed for a highway cardlock, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Petro-Pass",
+      "lat": 49.85762,
+      "lon": -119.59262,
+      "reach_mi": 0.5,
+      "type": "fuel_station",
+      "actions": [
+        "fuel"
+      ],
+      "services": [
+        "diesel"
+      ],
+      "parking": "unknown",
+      "source": "Position read from OSM node 5449415226, OpenStreetMap planet extract 2026-11-16. Diesel is assumed from the cardlock name, not tagged. A cardlock sells to account holders only. Year round is assumed. Tractor-trailer access is assumed for a highway cardlock, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "UFA Cardlock",
+      "lat": 49.8661,
+      "lon": -111.38808,
+      "reach_mi": 0.5,
+      "type": "fuel_station",
+      "actions": [
+        "fuel"
+      ],
+      "services": [
+        "diesel"
+      ],
+      "parking": "unknown",
+      "source": "Position read from OSM node 8980772452, OpenStreetMap planet extract 2026-11-16. Diesel is assumed from the cardlock name, not tagged. A cardlock sells to account holders only. Year round is assumed. Tractor-trailer access is assumed for a highway cardlock, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Headingley Husky Travel Centre",
+      "lat": 49.87616,
+      "lon": -97.39107,
+      "reach_mi": 0.5,
+      "type": "travel_center",
+      "actions": [
+        "park",
+        "save",
+        "fuel",
+        "food",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "parking",
+        "diesel",
+        "gasoline",
+        "food",
+        "restrooms"
+      ],
+      "parking": "limited",
+      "source": "Position read from OSM way 379693630 (fuel:diesel=yes, opening_hours=06:00-10:00, website=https://www.esso.ca/en-ca/find-station/headingley-mb-headingleyhuskytc3860-200323543), OpenStreetMap planet extract 2026-11-16. Truck access assumed from the truck stop name, not verified. Diesel read from OSM. Year round is assumed. Food, restrooms and an overnight stay are assumed for a highway truck stop; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Truck parking near Winnipeg",
+      "lat": 49.87673,
+      "lon": -97.33972,
+      "reach_mi": 0.5,
+      "type": "truck_parking",
+      "actions": [
+        "park",
+        "save",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "parking"
+      ],
+      "parking": "confirmed",
+      "source": "Read: truck parking from OSM way 99197233 (amenity=parking, hgv=yes), OpenStreetMap planet extract 2026-11-16. Overnight parking is assumed for a lot tagged for trucks; year round is assumed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Cummings Rest Area",
+      "lat": 49.95586,
+      "lon": -110.00171,
+      "reach_mi": 0.5,
+      "type": "public_rest_area",
+      "actions": [
+        "park",
+        "save",
+        "break"
+      ],
+      "services": [
+        "parking"
+      ],
+      "parking": "unknown",
+      "source": "Read: highway rest area from OSM way 1295451032 (highway=rest_area), OpenStreetMap planet extract 2026-11-16. Year round and truck room are assumed, not verified; no overnight stay is claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Truck parking near Portage la Prairie",
+      "lat": 49.97364,
+      "lon": -98.21044,
+      "reach_mi": 0.5,
+      "type": "truck_parking",
+      "actions": [
+        "park",
+        "save",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "parking"
+      ],
+      "parking": "confirmed",
+      "source": "Read: truck parking from OSM way 665940553 (amenity=parking, hgv=yes), OpenStreetMap planet extract 2026-11-16. Overnight parking is assumed for a lot tagged for trucks; year round is assumed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Dunmore UFA Cardlock",
+      "lat": 49.97384,
+      "lon": -110.55051,
+      "reach_mi": 0.5,
+      "type": "fuel_station",
+      "actions": [
+        "fuel"
+      ],
+      "services": [
+        "diesel"
+      ],
+      "parking": "unknown",
+      "source": "Position read from OSM node 12303484319, OpenStreetMap planet extract 2026-11-16. Diesel is assumed from the cardlock name, not tagged. A cardlock sells to account holders only. Year round is assumed. Tractor-trailer access is assumed for a highway cardlock, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Husky Travel Center",
+      "lat": 50.02479,
+      "lon": -110.69961,
+      "reach_mi": 0.5,
+      "type": "travel_center",
+      "actions": [
+        "park",
+        "save",
+        "fuel",
+        "food",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "parking",
+        "diesel",
+        "gasoline",
+        "food",
+        "restrooms"
+      ],
+      "parking": "limited",
+      "source": "Position read from OSM node 5278015760 (opening_hours=Mo-Su 00:00-12:00, website=https://www.esso.ca/en-ca/find-station/medicinehat-ab-medhathuskytcesso5229-200323550), OpenStreetMap planet extract 2026-11-16. Truck access assumed from the truck stop name, not verified. Diesel assumed for a truck stop, not tagged. Year round is assumed. Food, restrooms and an overnight stay are assumed for a highway truck stop; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Petro Canada Cardlock",
+      "lat": 50.07673,
+      "lon": -110.76152,
+      "reach_mi": 0.5,
+      "type": "fuel_station",
+      "actions": [
+        "fuel"
+      ],
+      "services": [
+        "diesel"
+      ],
+      "parking": "unknown",
+      "source": "Position read from OSM node 5680733808, OpenStreetMap planet extract 2026-11-16. Diesel is assumed from the cardlock name, not tagged. A cardlock sells to account holders only. Year round is assumed. Tractor-trailer access is assumed for a highway cardlock, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "CO-OP Cardlock",
+      "lat": 50.07734,
+      "lon": -110.7637,
+      "reach_mi": 0.5,
+      "type": "fuel_station",
+      "actions": [
+        "fuel"
+      ],
+      "services": [
+        "diesel"
+      ],
+      "parking": "unknown",
+      "source": "Position read from OSM node 5650168731 (website=http://www.coopconnection.ca/), OpenStreetMap planet extract 2026-11-16. Diesel is assumed from the cardlock name, not tagged. A cardlock sells to account holders only. Year round is assumed. Tractor-trailer access is assumed for a highway cardlock, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Esso Commercial Cardlock",
+      "lat": 50.12368,
+      "lon": -120.74863,
+      "reach_mi": 0.5,
+      "type": "fuel_station",
+      "actions": [
+        "fuel"
+      ],
+      "services": [
+        "diesel"
+      ],
+      "parking": "unknown",
+      "source": "Position read from OSM way 135719638, OpenStreetMap planet extract 2026-11-16. Diesel is assumed from the cardlock name, not tagged. A cardlock sells to account holders only. Year round is assumed. Tractor-trailer access is assumed for a highway cardlock, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Co-op Cardlock",
+      "lat": 50.22488,
+      "lon": -99.4227,
+      "reach_mi": 0.5,
+      "type": "fuel_station",
+      "actions": [
+        "fuel"
+      ],
+      "services": [
+        "diesel"
+      ],
+      "parking": "unknown",
+      "source": "Position read from OSM way 1308007564, OpenStreetMap planet extract 2026-11-16. Diesel is assumed from the cardlock name, not tagged. A cardlock sells to account holders only. Year round is assumed. Tractor-trailer access is assumed for a highway cardlock, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Petro-Pass",
+      "lat": 50.22589,
+      "lon": -99.47907,
+      "reach_mi": 0.5,
+      "type": "fuel_station",
+      "actions": [
+        "fuel"
+      ],
+      "services": [
+        "diesel"
+      ],
+      "parking": "unknown",
+      "source": "Position read from OSM node 5212486510, OpenStreetMap planet extract 2026-11-16. Diesel is assumed from the cardlock name, not tagged. A cardlock sells to account holders only. Year round is assumed. Tractor-trailer access is assumed for a highway cardlock, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Petro-Canada Cardlock",
+      "lat": 50.28588,
+      "lon": -107.83172,
+      "reach_mi": 0.5,
+      "type": "fuel_station",
+      "actions": [
+        "fuel"
+      ],
+      "services": [
+        "diesel"
+      ],
+      "parking": "unknown",
+      "source": "Position read from OSM node 5045115874, OpenStreetMap planet extract 2026-11-16. Diesel is assumed from the cardlock name, not tagged. A cardlock sells to account holders only. Year round is assumed. Tractor-trailer access is assumed for a highway cardlock, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "UFA Petroleum Agency & Cardlock",
+      "lat": 50.28637,
+      "lon": -107.82571,
+      "reach_mi": 0.5,
+      "type": "fuel_station",
+      "actions": [
+        "fuel"
+      ],
+      "services": [
+        "diesel"
+      ],
+      "parking": "unknown",
+      "source": "Position read from OSM way 812916498, OpenStreetMap planet extract 2026-11-16. Diesel is assumed from the cardlock name, not tagged. A cardlock sells to account holders only. Year round is assumed. Tractor-trailer access is assumed for a highway cardlock, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Truck parking near Calgary",
+      "lat": 50.34141,
+      "lon": -113.76511,
+      "reach_mi": 0.5,
+      "type": "truck_parking",
+      "actions": [
+        "park",
+        "save",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "parking"
+      ],
+      "parking": "confirmed",
+      "source": "Read: truck parking from OSM way 1311872209 (amenity=parking, hgv=yes), OpenStreetMap planet extract 2026-11-16. Overnight parking is assumed for a lot tagged for trucks; year round is assumed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "UFA Cardlock",
+      "lat": 50.35099,
+      "lon": -113.77416,
+      "reach_mi": 0.5,
+      "type": "fuel_station",
+      "actions": [
+        "fuel"
+      ],
+      "services": [
+        "diesel"
+      ],
+      "parking": "unknown",
+      "source": "Position read from OSM node 5245733950 (fuel:diesel=yes), OpenStreetMap planet extract 2026-11-16. Diesel read from OSM. A cardlock sells to account holders only. Year round is assumed. Tractor-trailer access is assumed for a highway cardlock, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Kininvie Rest Area",
+      "lat": 50.39848,
+      "lon": -111.48997,
+      "reach_mi": 0.5,
+      "type": "public_rest_area",
+      "actions": [
+        "park",
+        "save",
+        "break"
+      ],
+      "services": [
+        "parking"
+      ],
+      "parking": "unknown",
+      "source": "Read: highway rest area from OSM way 413230597 (highway=rest_area), OpenStreetMap planet extract 2026-11-16. Year round and truck room are assumed, not verified; no overnight stay is claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Co-op Cardlock",
+      "lat": 50.42424,
+      "lon": -107.21957,
+      "reach_mi": 0.5,
+      "type": "fuel_station",
+      "actions": [
+        "fuel"
+      ],
+      "services": [
+        "diesel"
+      ],
+      "parking": "unknown",
+      "source": "Position read from OSM node 4757112783, OpenStreetMap planet extract 2026-11-16. Diesel is assumed from the cardlock name, not tagged. A cardlock sells to account holders only. Year round is assumed. Tractor-trailer access is assumed for a highway cardlock, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Regina Husky Travel Center",
+      "lat": 50.44959,
+      "lon": -104.53165,
+      "reach_mi": 0.5,
+      "type": "travel_center",
+      "actions": [
+        "park",
+        "save",
+        "fuel",
+        "food",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "parking",
+        "diesel",
+        "gasoline",
+        "food",
+        "restrooms"
+      ],
+      "parking": "limited",
+      "source": "Position read from OSM way 268957889 (website=https://www.esso.ca/en-ca/find-station/regina-sk-reginahuskytcesso682-200323560), OpenStreetMap planet extract 2026-11-16. Truck access assumed from the truck stop name, not verified. Diesel assumed for a truck stop, not tagged. Year round is assumed. Food, restrooms and an overnight stay are assumed for a highway truck stop; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Flying J Truckstop",
+      "lat": 50.46452,
+      "lon": -104.56284,
+      "reach_mi": 0.5,
+      "type": "travel_center",
+      "actions": [
+        "park",
+        "save",
+        "fuel",
+        "food",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "parking",
+        "diesel",
+        "gasoline",
+        "food",
+        "restrooms"
+      ],
+      "parking": "limited",
+      "source": "Position read from OSM node 12167171501, OpenStreetMap planet extract 2026-11-16. Truck access assumed from the truck stop name, not verified. Diesel assumed for a truck stop, not tagged. Year round is assumed. Food, restrooms and an overnight stay are assumed for a highway truck stop; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Truck parking near Regina",
+      "lat": 50.47845,
+      "lon": -104.28982,
+      "reach_mi": 0.5,
+      "type": "truck_parking",
+      "actions": [
+        "park",
+        "save",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "parking"
+      ],
+      "parking": "confirmed",
+      "source": "Read: truck parking from OSM way 482747054 (amenity=parking, hgv=yes), OpenStreetMap planet extract 2026-11-16. Overnight parking is assumed for a lot tagged for trucks; year round is assumed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Shell",
+      "lat": 50.57281,
+      "lon": -111.86751,
+      "reach_mi": 0.5,
+      "type": "travel_center",
+      "actions": [
+        "park",
+        "save",
+        "fuel",
+        "food",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "parking",
+        "diesel",
+        "gasoline",
+        "food",
+        "restrooms"
+      ],
+      "parking": "limited",
+      "source": "Position read from OSM node 1906176262 (hgv=yes), OpenStreetMap planet extract 2026-11-16. Truck access read from OSM hgv=yes. Diesel assumed for a truck stop, not tagged. Year round is assumed. Food, restrooms and an overnight stay are assumed for a highway truck stop; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Flying J",
+      "lat": 50.64731,
+      "lon": -119.98156,
+      "reach_mi": 0.5,
+      "type": "travel_center",
+      "actions": [
+        "park",
+        "save",
+        "fuel",
+        "food",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "parking",
+        "diesel",
+        "gasoline",
+        "food",
+        "restrooms"
+      ],
+      "parking": "limited",
+      "source": "Position read from OSM way 1415747871, OpenStreetMap planet extract 2026-11-16. Truck access assumed from the truck stop name, not verified. Diesel assumed for a truck stop, not tagged. Year round is assumed. Food, restrooms and an overnight stay are assumed for a highway truck stop; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Bulyea Co-op Cardlock",
+      "lat": 50.65359,
+      "lon": -104.86016,
+      "reach_mi": 0.5,
+      "type": "fuel_station",
+      "actions": [
+        "fuel"
+      ],
+      "services": [
+        "diesel"
+      ],
+      "parking": "unknown",
+      "source": "Position read from OSM way 1532915050 (fuel:diesel=yes), OpenStreetMap planet extract 2026-11-16. Diesel read from OSM. A cardlock sells to account holders only. Year round is assumed. Tractor-trailer access is assumed for a highway cardlock, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Petro Canada Truck Stop",
+      "lat": 50.65964,
+      "lon": -120.39779,
+      "reach_mi": 0.5,
+      "type": "travel_center",
+      "actions": [
+        "park",
+        "save",
+        "fuel",
+        "food",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "parking",
+        "diesel",
+        "gasoline",
+        "food",
+        "restrooms"
+      ],
+      "parking": "limited",
+      "source": "Position read from OSM way 125581976, OpenStreetMap planet extract 2026-11-16. Truck access assumed from the truck stop name, not verified. Diesel assumed for a truck stop, not tagged. Year round is assumed. Food, restrooms and an overnight stay are assumed for a highway truck stop; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Esso Cardlock",
+      "lat": 50.65998,
+      "lon": -120.40089,
+      "reach_mi": 0.5,
+      "type": "fuel_station",
+      "actions": [
+        "fuel"
+      ],
+      "services": [
+        "diesel"
+      ],
+      "parking": "unknown",
+      "source": "Position read from OSM node 1470603504 (fuel:diesel=yes, website=https://essocardlocks.ca/en/sites/kamloops-south/), OpenStreetMap planet extract 2026-11-16. Diesel read from OSM. A cardlock sells to account holders only. Year round is assumed. Tractor-trailer access is assumed for a highway cardlock, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Petro PaSS",
+      "lat": 50.67317,
+      "lon": -120.29437,
+      "reach_mi": 0.5,
+      "type": "fuel_station",
+      "actions": [
+        "fuel"
+      ],
+      "services": [
+        "diesel"
+      ],
+      "parking": "unknown",
+      "source": "Position read from OSM node 1422283346, OpenStreetMap planet extract 2026-11-16. Diesel is assumed from the cardlock name, not tagged. A cardlock sells to account holders only. Year round is assumed. Tractor-trailer access is assumed for a highway cardlock, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Truck parking near Brooks",
+      "lat": 50.68463,
+      "lon": -112.17181,
+      "reach_mi": 0.5,
+      "type": "truck_parking",
+      "actions": [
+        "park",
+        "save",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "parking"
+      ],
+      "parking": "confirmed",
+      "source": "Read: truck parking from OSM way 257025693 (amenity=parking, hgv=designated), OpenStreetMap planet extract 2026-11-16. Overnight parking is assumed for a lot tagged for trucks; year round is assumed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Petro-Pass Cardlock",
+      "lat": 50.69527,
+      "lon": -113.88468,
+      "reach_mi": 0.5,
+      "type": "fuel_station",
+      "actions": [
+        "fuel"
+      ],
+      "services": [
+        "diesel"
+      ],
+      "parking": "unknown",
+      "source": "Position read from OSM way 544328907, OpenStreetMap planet extract 2026-11-16. Diesel is assumed from the cardlock name, not tagged. A cardlock sells to account holders only. Year round is assumed. Tractor-trailer access is assumed for a highway cardlock, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Co-op Cardlock",
+      "lat": 50.76565,
+      "lon": -103.78558,
+      "reach_mi": 0.5,
+      "type": "fuel_station",
+      "actions": [
+        "fuel"
+      ],
+      "services": [
+        "diesel"
+      ],
+      "parking": "unknown",
+      "source": "Position read from OSM node 4855555372, OpenStreetMap planet extract 2026-11-16. Diesel is assumed from the cardlock name, not tagged. A cardlock sells to account holders only. Year round is assumed. Tractor-trailer access is assumed for a highway cardlock, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Big Sky Cardlock",
+      "lat": 50.77036,
+      "lon": -120.94433,
+      "reach_mi": 0.5,
+      "type": "fuel_station",
+      "actions": [
+        "fuel"
+      ],
+      "services": [
+        "diesel"
+      ],
+      "parking": "unknown",
+      "source": "Position read from OSM node 12069857778 (fuel:diesel=yes), OpenStreetMap planet extract 2026-11-16. Diesel read from OSM. A cardlock sells to account holders only. Year round is assumed. Tractor-trailer access is assumed for a highway cardlock, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Esso & Truck Stop",
+      "lat": 50.79124,
+      "lon": -112.44955,
+      "reach_mi": 0.5,
+      "type": "travel_center",
+      "actions": [
+        "park",
+        "save",
+        "fuel",
+        "food",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "parking",
+        "diesel",
+        "gasoline",
+        "food",
+        "restrooms"
+      ],
+      "parking": "limited",
+      "source": "Position read from OSM node 4448430789 (website=https://www.esso.ca/en-ca/find-station/esso-bassano-ab-esso-200304131), OpenStreetMap planet extract 2026-11-16. Truck access assumed from the truck stop name, not verified. Diesel assumed for a truck stop, not tagged. Year round is assumed. Food, restrooms and an overnight stay are assumed for a highway truck stop; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Co-op Cardlock",
+      "lat": 50.8041,
+      "lon": -121.32536,
+      "reach_mi": 0.5,
+      "type": "fuel_station",
+      "actions": [
+        "fuel"
+      ],
+      "services": [
+        "diesel"
+      ],
+      "parking": "unknown",
+      "source": "Position read from OSM node 5275348793 (opening_hours=24/7, website=https://www.otterco-op.crs/), OpenStreetMap planet extract 2026-11-16. Diesel is assumed from the cardlock name, not tagged. A cardlock sells to account holders only. Year round is assumed. Tractor-trailer access is assumed for a highway cardlock, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Esso",
+      "lat": 50.84599,
+      "lon": -118.95497,
+      "reach_mi": 0.5,
+      "type": "travel_center",
+      "actions": [
+        "park",
+        "save",
+        "fuel",
+        "food",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "parking",
+        "diesel",
+        "gasoline",
+        "food",
+        "restrooms"
+      ],
+      "parking": "limited",
+      "source": "Position read from OSM way 89471074 (hgv=yes, website=https://www.esso.ca/en-ca/find-station/sicamous-bc-sicamoushuskytc7580-200323563), OpenStreetMap planet extract 2026-11-16. Truck access read from OSM hgv=yes. Diesel assumed for a truck stop, not tagged. Year round is assumed. Food, restrooms and an overnight stay are assumed for a highway truck stop; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Flying J",
+      "lat": 50.94883,
+      "lon": -113.97942,
+      "reach_mi": 0.5,
+      "type": "travel_center",
+      "actions": [
+        "park",
+        "save",
+        "fuel",
+        "food",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "parking",
+        "diesel",
+        "gasoline",
+        "food",
+        "restrooms"
+      ],
+      "parking": "limited",
+      "source": "Position read from OSM node 4558645789 (hgv=yes, opening_hours=24/7), OpenStreetMap planet extract 2026-11-16. Truck access read from OSM hgv=yes. Diesel assumed for a truck stop, not tagged. Year round is assumed. Food, restrooms and an overnight stay are assumed for a highway truck stop; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Gleichen East Rest Area",
+      "lat": 50.98872,
+      "lon": -113.07558,
+      "reach_mi": 0.5,
+      "type": "public_rest_area",
+      "actions": [
+        "park",
+        "save",
+        "break"
+      ],
+      "services": [
+        "parking"
+      ],
+      "parking": "unknown",
+      "source": "Read: highway rest area from OSM way 984504840 (highway=rest_area), OpenStreetMap planet extract 2026-11-16. Year round and truck room are assumed, not verified; no overnight stay is claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Flying J",
+      "lat": 51.01076,
+      "lon": -114.00317,
+      "reach_mi": 0.5,
+      "type": "travel_center",
+      "actions": [
+        "park",
+        "save",
+        "fuel",
+        "food",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "parking",
+        "diesel",
+        "gasoline",
+        "food",
+        "restrooms"
+      ],
+      "parking": "limited",
+      "source": "Position read from OSM node 4377375155 (fuel:diesel=yes, hgv=yes), OpenStreetMap planet extract 2026-11-16. Truck access read from OSM hgv=yes. Diesel read from OSM. Year round is assumed. Food, restrooms and an overnight stay are assumed for a highway truck stop; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Truck parking near Calgary",
+      "lat": 51.01179,
+      "lon": -114.00385,
+      "reach_mi": 0.5,
+      "type": "truck_parking",
+      "actions": [
+        "park",
+        "save",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "parking"
+      ],
+      "parking": "confirmed",
+      "source": "Read: truck parking from OSM node 12670988813 (amenity=parking, hgv=yes), OpenStreetMap planet extract 2026-11-16. Overnight parking is assumed for a lot tagged for trucks; year round is assumed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Public Rest Area",
+      "lat": 51.03859,
+      "lon": -113.57858,
+      "reach_mi": 0.5,
+      "type": "public_rest_area",
+      "actions": [
+        "park",
+        "save",
+        "break"
+      ],
+      "services": [
+        "parking"
+      ],
+      "parking": "unknown",
+      "source": "Read: highway rest area from OSM way 1545546910 (highway=rest_area), OpenStreetMap planet extract 2026-11-16. Year round and truck room are assumed, not verified; no overnight stay is claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Petro-Pass",
+      "lat": 51.15138,
+      "lon": -114.00746,
+      "reach_mi": 0.5,
+      "type": "fuel_station",
+      "actions": [
+        "fuel"
+      ],
+      "services": [
+        "diesel"
+      ],
+      "parking": "unknown",
+      "source": "Position read from OSM node 1030273382, OpenStreetMap planet extract 2026-11-16. Diesel is assumed from the cardlock name, not tagged. A cardlock sells to account holders only. Year round is assumed. Tractor-trailer access is assumed for a highway cardlock, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Castle Mountain Rest Area",
+      "lat": 51.22656,
+      "lon": -115.82585,
+      "reach_mi": 0.5,
+      "type": "public_rest_area",
+      "actions": [
+        "park",
+        "save",
+        "break"
+      ],
+      "services": [
+        "parking"
+      ],
+      "parking": "unknown",
+      "source": "Read: highway rest area from OSM way 299532565 (highway=rest_area), OpenStreetMap planet extract 2026-11-16. Year round and truck room are assumed, not verified; no overnight stay is claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Co-op Cardlock",
+      "lat": 51.2906,
+      "lon": -113.98993,
+      "reach_mi": 0.5,
+      "type": "fuel_station",
+      "actions": [
+        "fuel"
+      ],
+      "services": [
+        "diesel"
+      ],
+      "parking": "unknown",
+      "source": "Position read from OSM way 813342109, OpenStreetMap planet extract 2026-11-16. Diesel is assumed from the cardlock name, not tagged. A cardlock sells to account holders only. Year round is assumed. Tractor-trailer access is assumed for a highway cardlock, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Flying J",
+      "lat": 51.29266,
+      "lon": -113.99795,
+      "reach_mi": 0.5,
+      "type": "travel_center",
+      "actions": [
+        "park",
+        "save",
+        "fuel",
+        "food",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "parking",
+        "diesel",
+        "gasoline",
+        "food",
+        "restrooms"
+      ],
+      "parking": "limited",
+      "source": "Position read from OSM way 684298297 (fuel:diesel=yes, website=https://locations.pilotflyingj.com/ca/ab/airdrie), OpenStreetMap planet extract 2026-11-16. Truck access assumed from the truck stop name, not verified. Diesel read from OSM. Year round is assumed. Food, restrooms and an overnight stay are assumed for a highway truck stop; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "UFA Cardlock",
+      "lat": 51.30347,
+      "lon": -113.99686,
+      "reach_mi": 0.5,
+      "type": "fuel_station",
+      "actions": [
+        "fuel"
+      ],
+      "services": [
+        "diesel"
+      ],
+      "parking": "unknown",
+      "source": "Position read from OSM way 743380333, OpenStreetMap planet extract 2026-11-16. Diesel is assumed from the cardlock name, not tagged. A cardlock sells to account holders only. Year round is assumed. Tractor-trailer access is assumed for a highway cardlock, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Esso Commercial Cardlock",
+      "lat": 51.31192,
+      "lon": -116.97013,
+      "reach_mi": 0.5,
+      "type": "fuel_station",
+      "actions": [
+        "fuel"
+      ],
+      "services": [
+        "diesel"
+      ],
+      "parking": "unknown",
+      "source": "Position read from OSM way 166907039 (website=https://www.esso.ca/en-ca/find-station/golden-bc-goldenhuskytcesso3388-200323540), OpenStreetMap planet extract 2026-11-16. Diesel is assumed from the cardlock name, not tagged. A cardlock sells to account holders only. Year round is assumed. Tractor-trailer access is assumed for a highway cardlock, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "UFA Cardlock",
+      "lat": 51.38058,
+      "lon": -113.53114,
+      "reach_mi": 0.5,
+      "type": "fuel_station",
+      "actions": [
+        "fuel"
+      ],
+      "services": [
+        "diesel"
+      ],
+      "parking": "unknown",
+      "source": "Position read from OSM node 9550877203 (opening_hours=24/7), OpenStreetMap planet extract 2026-11-16. Diesel is assumed from the cardlock name, not tagged. A cardlock sells to account holders only. Year round is assumed. Tractor-trailer access is assumed for a highway cardlock, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Alsask Rest Area",
+      "lat": 51.38796,
+      "lon": -109.99048,
+      "reach_mi": 0.5,
+      "type": "public_rest_area",
+      "actions": [
+        "park",
+        "save",
+        "break"
+      ],
+      "services": [
+        "parking"
+      ],
+      "parking": "unknown",
+      "source": "Read: highway rest area from OSM way 255282333 (highway=rest_area), OpenStreetMap planet extract 2026-11-16. Year round and truck room are assumed, not verified; no overnight stay is claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Esso Commercial/Diesel Cardlock",
+      "lat": 51.41212,
+      "lon": -114.00008,
+      "reach_mi": 0.5,
+      "type": "fuel_station",
+      "actions": [
+        "fuel"
+      ],
+      "services": [
+        "diesel"
+      ],
+      "parking": "unknown",
+      "source": "Position read from OSM node 8960903045 (fuel:diesel=yes), OpenStreetMap planet extract 2026-11-16. Diesel read from OSM. A cardlock sells to account holders only. Year round is assumed. Tractor-trailer access is assumed for a highway cardlock, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Petro-Pass Cardlock",
+      "lat": 51.41482,
+      "lon": -114.00051,
+      "reach_mi": 0.5,
+      "type": "fuel_station",
+      "actions": [
+        "fuel"
+      ],
+      "services": [
+        "diesel"
+      ],
+      "parking": "unknown",
+      "source": "Position read from OSM way 968573352 (fuel:diesel=yes), OpenStreetMap planet extract 2026-11-16. Diesel read from OSM. A cardlock sells to account holders only. Year round is assumed. Tractor-trailer access is assumed for a highway cardlock, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Cactus Corner Truck Stop",
+      "lat": 51.61811,
+      "lon": -111.81159,
+      "reach_mi": 0.5,
+      "type": "travel_center",
+      "actions": [
+        "park",
+        "save",
+        "fuel",
+        "food",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "parking",
+        "diesel",
+        "gasoline",
+        "food",
+        "restrooms"
+      ],
+      "parking": "limited",
+      "source": "Position read from OSM node 4432874249 (fuel:diesel=yes, hgv=yes), OpenStreetMap planet extract 2026-11-16. Truck access read from OSM hgv=yes. Diesel read from OSM. Year round is assumed. Food, restrooms and an overnight stay are assumed for a highway truck stop; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Cactus Corner Truck Stop",
+      "lat": 51.61848,
+      "lon": -111.81161,
+      "reach_mi": 0.5,
+      "type": "travel_center",
+      "actions": [
+        "park",
+        "save",
+        "fuel",
+        "food",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "parking",
+        "diesel",
+        "gasoline",
+        "food",
+        "restrooms"
+      ],
+      "parking": "limited",
+      "source": "Position read from OSM way 445943366 (fuel:diesel=yes), OpenStreetMap planet extract 2026-11-16. Truck access assumed from the truck stop name, not verified. Diesel read from OSM. Year round is assumed. Food, restrooms and an overnight stay are assumed for a highway truck stop; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Foam Lake Rest Area",
+      "lat": 51.63812,
+      "lon": -103.44949,
+      "reach_mi": 0.5,
+      "type": "public_rest_area",
+      "actions": [
+        "park",
+        "save",
+        "break"
+      ],
+      "services": [
+        "parking"
+      ],
+      "parking": "unknown",
+      "source": "Read: highway rest area from OSM way 746708966 (highway=rest_area), OpenStreetMap planet extract 2026-11-16. Year round and truck room are assumed, not verified; no overnight stay is claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "UFA Cardlock",
+      "lat": 51.639,
+      "lon": -111.94116,
+      "reach_mi": 0.5,
+      "type": "fuel_station",
+      "actions": [
+        "fuel"
+      ],
+      "services": [
+        "diesel"
+      ],
+      "parking": "unknown",
+      "source": "Position read from OSM node 6696155885, OpenStreetMap planet extract 2026-11-16. Diesel is assumed from the cardlock name, not tagged. A cardlock sells to account holders only. Year round is assumed. Tractor-trailer access is assumed for a highway cardlock, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Co-op Cardlock",
+      "lat": 51.8487,
+      "lon": -105.04488,
+      "reach_mi": 0.5,
+      "type": "fuel_station",
+      "actions": [
+        "fuel"
+      ],
+      "services": [
+        "diesel"
+      ],
+      "parking": "unknown",
+      "source": "Position read from OSM node 7762120869, OpenStreetMap planet extract 2026-11-16. Diesel is assumed from the cardlock name, not tagged. A cardlock sells to account holders only. Year round is assumed. Tractor-trailer access is assumed for a highway cardlock, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Lanigan Rest Area",
+      "lat": 51.85804,
+      "lon": -105.09825,
+      "reach_mi": 0.5,
+      "type": "public_rest_area",
+      "actions": [
+        "park",
+        "save",
+        "break"
+      ],
+      "services": [
+        "parking"
+      ],
+      "parking": "unknown",
+      "source": "Read: highway rest area from OSM node 9017837693 (highway=rest_area) (opening_hours=Mo-Su 12:00-23:59), OpenStreetMap planet extract 2026-11-16. Year round and truck room are assumed, not verified; no overnight stay is claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "UFA Cardlock",
+      "lat": 52.0289,
+      "lon": -113.93144,
+      "reach_mi": 0.5,
+      "type": "fuel_station",
+      "actions": [
+        "fuel"
+      ],
+      "services": [
+        "diesel"
+      ],
+      "parking": "unknown",
+      "source": "Position read from OSM node 13291217002 (opening_hours=24/7, website=https://ufa.com/myUFA/locations/innisfail), OpenStreetMap planet extract 2026-11-16. Diesel is assumed from the cardlock name, not tagged. A cardlock sells to account holders only. Year round is assumed. Tractor-trailer access is assumed for a highway cardlock, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Petro-Pass",
+      "lat": 52.14399,
+      "lon": -113.82107,
+      "reach_mi": 0.5,
+      "type": "fuel_station",
+      "actions": [
+        "fuel"
+      ],
+      "services": [
+        "diesel"
+      ],
+      "parking": "unknown",
+      "source": "Position read from OSM way 981026876, OpenStreetMap planet extract 2026-11-16. Diesel is assumed from the cardlock name, not tagged. A cardlock sells to account holders only. Year round is assumed. Tractor-trailer access is assumed for a highway cardlock, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Saskatoon Co-op Cardlock",
+      "lat": 52.19046,
+      "lon": -106.69703,
+      "reach_mi": 0.5,
+      "type": "fuel_station",
+      "actions": [
+        "fuel"
+      ],
+      "services": [
+        "diesel"
+      ],
+      "parking": "unknown",
+      "source": "Position read from OSM way 241775152, OpenStreetMap planet extract 2026-11-16. Diesel is assumed from the cardlock name, not tagged. A cardlock sells to account holders only. Year round is assumed. Tractor-trailer access is assumed for a highway cardlock, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Truck parking near Saskatoon",
+      "lat": 52.19657,
+      "lon": -106.66801,
+      "reach_mi": 0.5,
+      "type": "truck_parking",
+      "actions": [
+        "park",
+        "save",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "parking"
+      ],
+      "parking": "confirmed",
+      "source": "Read: truck parking from OSM way 1220381885 (amenity=parking, hgv=yes), OpenStreetMap planet extract 2026-11-16. Overnight parking is assumed for a lot tagged for trucks; year round is assumed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "UFA Cardlock",
+      "lat": 52.21504,
+      "lon": -113.81162,
+      "reach_mi": 0.5,
+      "type": "fuel_station",
+      "actions": [
+        "fuel"
+      ],
+      "services": [
+        "diesel"
+      ],
+      "parking": "unknown",
+      "source": "Position read from OSM way 563468176, OpenStreetMap planet extract 2026-11-16. Diesel is assumed from the cardlock name, not tagged. A cardlock sells to account holders only. Year round is assumed. Tractor-trailer access is assumed for a highway cardlock, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Co-op Cardlock",
+      "lat": 52.40239,
+      "lon": -107.2337,
+      "reach_mi": 0.5,
+      "type": "fuel_station",
+      "actions": [
+        "fuel"
+      ],
+      "services": [
+        "diesel"
+      ],
+      "parking": "unknown",
+      "source": "Position read from OSM node 6179367086, OpenStreetMap planet extract 2026-11-16. Diesel is assumed from the cardlock name, not tagged. A cardlock sells to account holders only. Year round is assumed. Tractor-trailer access is assumed for a highway cardlock, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Co-Op Cardlock",
+      "lat": 52.82875,
+      "lon": -119.27655,
+      "reach_mi": 0.5,
+      "type": "fuel_station",
+      "actions": [
+        "fuel"
+      ],
+      "services": [
+        "diesel"
+      ],
+      "parking": "unknown",
+      "source": "Position read from OSM node 5272361423, OpenStreetMap planet extract 2026-11-16. Diesel is assumed from the cardlock name, not tagged. A cardlock sells to account holders only. Year round is assumed. Tractor-trailer access is assumed for a highway cardlock, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Sands Distribution Cardlock",
+      "lat": 52.86806,
+      "lon": -119.30103,
+      "reach_mi": 0.5,
+      "type": "fuel_station",
+      "actions": [
+        "fuel"
+      ],
+      "services": [
+        "diesel"
+      ],
+      "parking": "unknown",
+      "source": "Position read from OSM node 5272361424, OpenStreetMap planet extract 2026-11-16. Diesel is assumed from the cardlock name, not tagged. A cardlock sells to account holders only. Year round is assumed. Tractor-trailer access is assumed for a highway cardlock, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Wetaskiwin Rest Centre",
+      "lat": 52.89555,
+      "lon": -113.64222,
+      "reach_mi": 0.5,
+      "type": "public_rest_area",
+      "actions": [
+        "park",
+        "save",
+        "break"
+      ],
+      "services": [
+        "parking"
+      ],
+      "parking": "unknown",
+      "source": "Read: highway rest area from OSM way 413233094 (highway=rest_area), OpenStreetMap planet extract 2026-11-16. Year round and truck room are assumed, not verified; no overnight stay is claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Petro-Pass Cardlock",
+      "lat": 52.99416,
+      "lon": -122.50626,
+      "reach_mi": 0.5,
+      "type": "fuel_station",
+      "actions": [
+        "fuel"
+      ],
+      "services": [
+        "diesel"
+      ],
+      "parking": "unknown",
+      "source": "Position read from OSM node 5272712757, OpenStreetMap planet extract 2026-11-16. Diesel is assumed from the cardlock name, not tagged. A cardlock sells to account holders only. Year round is assumed. Tractor-trailer access is assumed for a highway cardlock, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Co-op Cardlock",
+      "lat": 53.01124,
+      "lon": -122.5035,
+      "reach_mi": 0.5,
+      "type": "fuel_station",
+      "actions": [
+        "fuel"
+      ],
+      "services": [
+        "diesel"
+      ],
+      "parking": "unknown",
+      "source": "Position read from OSM way 545565380, OpenStreetMap planet extract 2026-11-16. Diesel is assumed from the cardlock name, not tagged. A cardlock sells to account holders only. Year round is assumed. Tractor-trailer access is assumed for a highway cardlock, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Petro-Pass",
+      "lat": 53.20099,
+      "lon": -105.73714,
+      "reach_mi": 0.5,
+      "type": "fuel_station",
+      "actions": [
+        "fuel"
+      ],
+      "services": [
+        "diesel"
+      ],
+      "parking": "unknown",
+      "source": "Position read from OSM node 4484822095, OpenStreetMap planet extract 2026-11-16. Diesel is assumed from the cardlock name, not tagged. A cardlock sells to account holders only. Year round is assumed. Tractor-trailer access is assumed for a highway cardlock, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Folding Mountain Westbound Rest Area",
+      "lat": 53.23898,
+      "lon": -117.79522,
+      "reach_mi": 0.5,
+      "type": "public_rest_area",
+      "actions": [
+        "park",
+        "save",
+        "break"
+      ],
+      "services": [
+        "parking"
+      ],
+      "parking": "unknown",
+      "source": "Read: highway rest area from OSM way 414052649 (highway=rest_area) (hgv=yes), OpenStreetMap planet extract 2026-11-16. Year round and truck room are assumed, not verified; no overnight stay is claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "heading": "Westbound"
+    },
+    {
+      "name": "Petro Pass",
+      "lat": 53.27891,
+      "lon": -110.03087,
+      "reach_mi": 0.5,
+      "type": "fuel_station",
+      "actions": [
+        "fuel"
+      ],
+      "services": [
+        "diesel"
+      ],
+      "parking": "unknown",
+      "source": "Position read from OSM way 616842622 (website=https://www.petro-canada.ca/default.aspx), OpenStreetMap planet extract 2026-11-16. Diesel is assumed from the cardlock name, not tagged. A cardlock sells to account holders only. Year round is assumed. Tractor-trailer access is assumed for a highway cardlock, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Co-op Cardlock",
+      "lat": 53.27958,
+      "lon": -110.10459,
+      "reach_mi": 0.5,
+      "type": "fuel_station",
+      "actions": [
+        "fuel"
+      ],
+      "services": [
+        "diesel"
+      ],
+      "parking": "unknown",
+      "source": "Position read from OSM way 1221114684, OpenStreetMap planet extract 2026-11-16. Diesel is assumed from the cardlock name, not tagged. A cardlock sells to account holders only. Year round is assumed. Tractor-trailer access is assumed for a highway cardlock, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "UFA Cardlock",
+      "lat": 53.28121,
+      "lon": -113.54055,
+      "reach_mi": 0.5,
+      "type": "fuel_station",
+      "actions": [
+        "fuel"
+      ],
+      "services": [
+        "diesel"
+      ],
+      "parking": "unknown",
+      "source": "Position read from OSM node 9359756088, OpenStreetMap planet extract 2026-11-16. Diesel is assumed from the cardlock name, not tagged. A cardlock sells to account holders only. Year round is assumed. Tractor-trailer access is assumed for a highway cardlock, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Co-op Cardlock",
+      "lat": 53.28477,
+      "lon": -109.99213,
+      "reach_mi": 0.5,
+      "type": "fuel_station",
+      "actions": [
+        "fuel"
+      ],
+      "services": [
+        "diesel"
+      ],
+      "parking": "unknown",
+      "source": "Position read from OSM way 617728223 (opening_hours=24/7, website=http://www.lloydminstercoop.com/petroleum), OpenStreetMap planet extract 2026-11-16. Diesel is assumed from the cardlock name, not tagged. A cardlock sells to account holders only. Year round is assumed. Tractor-trailer access is assumed for a highway cardlock, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Flying J Cardlock",
+      "lat": 53.28569,
+      "lon": -110.03538,
+      "reach_mi": 0.5,
+      "type": "fuel_station",
+      "actions": [
+        "fuel"
+      ],
+      "services": [
+        "diesel"
+      ],
+      "parking": "unknown",
+      "source": "Position read from OSM node 5277779606 (fuel:diesel=yes, website=https://locations.pilotflyingj.com/ca/ab/lloydminster/5109-63-st-ave), OpenStreetMap planet extract 2026-11-16. Diesel read from OSM. A cardlock sells to account holders only. Year round is assumed. Tractor-trailer access is assumed for a highway cardlock, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Esso Cardlock",
+      "lat": 53.30315,
+      "lon": -113.54333,
+      "reach_mi": 0.5,
+      "type": "fuel_station",
+      "actions": [
+        "fuel"
+      ],
+      "services": [
+        "diesel"
+      ],
+      "parking": "unknown",
+      "source": "Position read from OSM way 1350081334, OpenStreetMap planet extract 2026-11-16. Diesel is assumed from the cardlock name, not tagged. A cardlock sells to account holders only. Year round is assumed. Tractor-trailer access is assumed for a highway cardlock, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Petro-Pass Cardlock",
+      "lat": 53.33696,
+      "lon": -113.54333,
+      "reach_mi": 0.5,
+      "type": "fuel_station",
+      "actions": [
+        "fuel"
+      ],
+      "services": [
+        "diesel"
+      ],
+      "parking": "unknown",
+      "source": "Position read from OSM node 1450392049 (fuel:diesel=yes), OpenStreetMap planet extract 2026-11-16. Diesel read from OSM. A cardlock sells to account holders only. Year round is assumed. Tractor-trailer access is assumed for a highway cardlock, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Flying J",
+      "lat": 53.33947,
+      "lon": -113.54268,
+      "reach_mi": 0.5,
+      "type": "travel_center",
+      "actions": [
+        "park",
+        "save",
+        "fuel",
+        "food",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "parking",
+        "diesel",
+        "gasoline",
+        "food",
+        "restrooms"
+      ],
+      "parking": "limited",
+      "source": "Position read from OSM node 1450392033 (hgv=yes), OpenStreetMap planet extract 2026-11-16. Truck access read from OSM hgv=yes. Diesel assumed for a truck stop, not tagged. Year round is assumed. Food, restrooms and an overnight stay are assumed for a highway truck stop; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Petro-Pass",
+      "lat": 53.39704,
+      "lon": -117.60099,
+      "reach_mi": 0.5,
+      "type": "fuel_station",
+      "actions": [
+        "fuel"
+      ],
+      "services": [
+        "diesel"
+      ],
+      "parking": "unknown",
+      "source": "Position read from OSM way 298735753 (fuel:diesel=yes), OpenStreetMap planet extract 2026-11-16. Diesel read from OSM. A cardlock sells to account holders only. Year round is assumed. Tractor-trailer access is assumed for a highway cardlock, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Flying J",
+      "lat": 53.4054,
+      "lon": -117.58616,
+      "reach_mi": 0.5,
+      "type": "travel_center",
+      "actions": [
+        "park",
+        "save",
+        "fuel",
+        "food",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "parking",
+        "diesel",
+        "gasoline",
+        "food",
+        "restrooms"
+      ],
+      "parking": "limited",
+      "source": "Position read from OSM way 541572618, OpenStreetMap planet extract 2026-11-16. Truck access assumed from the truck stop name, not verified. Diesel assumed for a truck stop, not tagged. Year round is assumed. Food, restrooms and an overnight stay are assumed for a highway truck stop; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Obed Mountain Rest Area",
+      "lat": 53.4976,
+      "lon": -117.35049,
+      "reach_mi": 0.5,
+      "type": "public_rest_area",
+      "actions": [
+        "park",
+        "save",
+        "break"
+      ],
+      "services": [
+        "parking"
+      ],
+      "parking": "unknown",
+      "source": "Read: highway rest area from OSM way 413244688 (highway=rest_area), OpenStreetMap planet extract 2026-11-16. Year round and truck room are assumed, not verified; no overnight stay is claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Medicine Lodge East Rest Area",
+      "lat": 53.54181,
+      "lon": -116.97777,
+      "reach_mi": 0.5,
+      "type": "public_rest_area",
+      "actions": [
+        "park",
+        "save",
+        "break"
+      ],
+      "services": [
+        "parking"
+      ],
+      "parking": "unknown",
+      "source": "Read: highway rest area from OSM way 413244063 (highway=rest_area), OpenStreetMap planet extract 2026-11-16. Year round and truck room are assumed, not verified; no overnight stay is claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "heading": "Eastbound"
+    },
+    {
+      "name": "Medicine Lodge West Rest Area",
+      "lat": 53.54282,
+      "lon": -116.99117,
+      "reach_mi": 0.5,
+      "type": "public_rest_area",
+      "actions": [
+        "park",
+        "save",
+        "break"
+      ],
+      "services": [
+        "parking"
+      ],
+      "parking": "unknown",
+      "source": "Read: highway rest area from OSM way 413244064 (highway=rest_area), OpenStreetMap planet extract 2026-11-16. Year round and truck room are assumed, not verified; no overnight stay is claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "heading": "Westbound"
+    },
+    {
+      "name": "Flying J",
+      "lat": 53.56659,
+      "lon": -113.31791,
+      "reach_mi": 0.5,
+      "type": "travel_center",
+      "actions": [
+        "park",
+        "save",
+        "fuel",
+        "food",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "parking",
+        "diesel",
+        "gasoline",
+        "food",
+        "restrooms"
+      ],
+      "parking": "limited",
+      "source": "Position read from OSM way 174528241 (hgv=yes), OpenStreetMap planet extract 2026-11-16. Truck access read from OSM hgv=yes. Diesel assumed for a truck stop, not tagged. Year round is assumed. Food, restrooms and an overnight stay are assumed for a highway truck stop; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Ross Creek East Rest Area",
+      "lat": 53.56981,
+      "lon": -112.61863,
+      "reach_mi": 0.5,
+      "type": "public_rest_area",
+      "actions": [
+        "park",
+        "save",
+        "break"
+      ],
+      "services": [
+        "parking"
+      ],
+      "parking": "unknown",
+      "source": "Read: highway rest area from OSM way 363394595 (highway=rest_area), OpenStreetMap planet extract 2026-11-16. Year round and truck room are assumed, not verified; no overnight stay is claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "heading": "Eastbound"
+    },
+    {
+      "name": "Ross Creek West Rest Area",
+      "lat": 53.57117,
+      "lon": -112.61973,
+      "reach_mi": 0.5,
+      "type": "public_rest_area",
+      "actions": [
+        "park",
+        "save",
+        "break"
+      ],
+      "services": [
+        "parking"
+      ],
+      "parking": "unknown",
+      "source": "Read: highway rest area from OSM way 363394614 (highway=rest_area), OpenStreetMap planet extract 2026-11-16. Year round and truck room are assumed, not verified; no overnight stay is claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "heading": "Westbound"
+    },
+    {
+      "name": "Flying J",
+      "lat": 53.57163,
+      "lon": -113.61366,
+      "reach_mi": 0.5,
+      "type": "travel_center",
+      "actions": [
+        "park",
+        "save",
+        "fuel",
+        "food",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "parking",
+        "diesel",
+        "gasoline",
+        "food",
+        "restrooms"
+      ],
+      "parking": "limited",
+      "source": "Position read from OSM way 652442089 (opening_hours=24/7), OpenStreetMap planet extract 2026-11-16. Truck access assumed from the truck stop name, not verified. Diesel assumed for a truck stop, not tagged. Year round is assumed. Food, restrooms and an overnight stay are assumed for a highway truck stop; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Edson Rest Area",
+      "lat": 53.5766,
+      "lon": -116.15496,
+      "reach_mi": 0.5,
+      "type": "public_rest_area",
+      "actions": [
+        "park",
+        "save",
+        "break"
+      ],
+      "services": [
+        "parking"
+      ],
+      "parking": "unknown",
+      "source": "Read: highway rest area from OSM way 413235519 (highway=rest_area), OpenStreetMap planet extract 2026-11-16. Year round and truck room are assumed, not verified; no overnight stay is claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Flying J Cardlock",
+      "lat": 53.59094,
+      "lon": -116.38613,
+      "reach_mi": 0.5,
+      "type": "fuel_station",
+      "actions": [
+        "fuel"
+      ],
+      "services": [
+        "diesel"
+      ],
+      "parking": "unknown",
+      "source": "Position read from OSM node 5238127585, OpenStreetMap planet extract 2026-11-16. Diesel is assumed from the cardlock name, not tagged. A cardlock sells to account holders only. Year round is assumed. Tractor-trailer access is assumed for a highway cardlock, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Nojack Eastbound Rest Area",
+      "lat": 53.61361,
+      "lon": -115.46202,
+      "reach_mi": 0.5,
+      "type": "public_rest_area",
+      "actions": [
+        "park",
+        "save",
+        "break"
+      ],
+      "services": [
+        "parking"
+      ],
+      "parking": "unknown",
+      "source": "Read: highway rest area from OSM way 414293833 (highway=rest_area), OpenStreetMap planet extract 2026-11-16. Year round and truck room are assumed, not verified; no overnight stay is claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "heading": "Eastbound"
+    },
+    {
+      "name": "Nojack Westbound Rest Area",
+      "lat": 53.62182,
+      "lon": -115.55932,
+      "reach_mi": 0.5,
+      "type": "public_rest_area",
+      "actions": [
+        "park",
+        "save",
+        "break"
+      ],
+      "services": [
+        "parking"
+      ],
+      "parking": "unknown",
+      "source": "Read: highway rest area from OSM way 1047001699 (highway=rest_area), OpenStreetMap planet extract 2026-11-16. Year round and truck room are assumed, not verified; no overnight stay is claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "heading": "Westbound"
+    },
+    {
+      "name": "Lisburn Rest Area",
+      "lat": 53.86514,
+      "lon": -114.82427,
+      "reach_mi": 0.5,
+      "type": "public_rest_area",
+      "actions": [
+        "park",
+        "save",
+        "break"
+      ],
+      "services": [
+        "parking"
+      ],
+      "parking": "unknown",
+      "source": "Read: highway rest area from OSM way 978576251 (highway=rest_area), OpenStreetMap planet extract 2026-11-16. Year round and truck room are assumed, not verified; no overnight stay is claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "heading": "Westbound"
+    },
+    {
+      "name": "Roadside Rest Area",
+      "lat": 53.86525,
+      "lon": -114.82415,
+      "reach_mi": 0.5,
+      "type": "public_rest_area",
+      "actions": [
+        "park",
+        "save",
+        "break"
+      ],
+      "services": [
+        "parking"
+      ],
+      "parking": "unknown",
+      "source": "Read: highway rest area from OSM node 14078900956 (highway=rest_area), OpenStreetMap planet extract 2026-11-16. Year round and truck room are assumed, not verified; no overnight stay is claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "heading": "Westbound"
+    },
+    {
+      "name": "Mayerthorpe Rest Area",
+      "lat": 53.9335,
+      "lon": -115.10871,
+      "reach_mi": 0.5,
+      "type": "public_rest_area",
+      "actions": [
+        "park",
+        "save",
+        "break"
+      ],
+      "services": [
+        "parking"
+      ],
+      "parking": "unknown",
+      "source": "Read: highway rest area from OSM way 298587379 (highway=rest_area), OpenStreetMap planet extract 2026-11-16. Year round and truck room are assumed, not verified; no overnight stay is claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Co-Op Cardlock",
+      "lat": 53.94824,
+      "lon": -115.14126,
+      "reach_mi": 0.5,
+      "type": "fuel_station",
+      "actions": [
+        "fuel"
+      ],
+      "services": [
+        "diesel"
+      ],
+      "parking": "unknown",
+      "source": "Position read from OSM node 5235153900 (fuel:diesel=yes, opening_hours=24/7, website=https://www.pembinawestco-op.crs/sites/pembinawest/), OpenStreetMap planet extract 2026-11-16. Diesel read from OSM. A cardlock sells to account holders only. Year round is assumed. Tractor-trailer access is assumed for a highway cardlock, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Petro-Pass Whitecourt Downtown",
+      "lat": 54.14562,
+      "lon": -115.71278,
+      "reach_mi": 0.5,
+      "type": "fuel_station",
+      "actions": [
+        "fuel"
+      ],
+      "services": [
+        "diesel"
+      ],
+      "parking": "unknown",
+      "source": "Position read from OSM node 3183787761, OpenStreetMap planet extract 2026-11-16. Diesel is assumed from the cardlock name, not tagged. A cardlock sells to account holders only. Year round is assumed. Tractor-trailer access is assumed for a highway cardlock, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Chickadee Creek Rest Area",
+      "lat": 54.20262,
+      "lon": -115.91093,
+      "reach_mi": 0.5,
+      "type": "public_rest_area",
+      "actions": [
+        "park",
+        "save",
+        "break"
+      ],
+      "services": [
+        "parking"
+      ],
+      "parking": "unknown",
+      "source": "Read: highway rest area from OSM way 991774832 (highway=rest_area), OpenStreetMap planet extract 2026-11-16. Year round and truck room are assumed, not verified; no overnight stay is claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Virginia Hills Road Rest Area",
+      "lat": 54.29308,
+      "lon": -116.21332,
+      "reach_mi": 0.5,
+      "type": "public_rest_area",
+      "actions": [
+        "park",
+        "save",
+        "break"
+      ],
+      "services": [
+        "parking"
+      ],
+      "parking": "unknown",
+      "source": "Read: highway rest area from OSM way 982300567 (highway=rest_area), OpenStreetMap planet extract 2026-11-16. Year round and truck room are assumed, not verified; no overnight stay is claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Two Creeks Rest Area",
+      "lat": 54.30606,
+      "lon": -116.4105,
+      "reach_mi": 0.5,
+      "type": "public_rest_area",
+      "actions": [
+        "park",
+        "save",
+        "break"
+      ],
+      "services": [
+        "parking"
+      ],
+      "parking": "unknown",
+      "source": "Read: highway rest area from OSM way 680245163 (highway=rest_area), OpenStreetMap planet extract 2026-11-16. Year round and truck room are assumed, not verified; no overnight stay is claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Petro-Pass Fox Creek",
+      "lat": 54.39306,
+      "lon": -116.8,
+      "reach_mi": 0.5,
+      "type": "fuel_station",
+      "actions": [
+        "fuel"
+      ],
+      "services": [
+        "diesel"
+      ],
+      "parking": "unknown",
+      "source": "Position read from OSM node 3181898661, OpenStreetMap planet extract 2026-11-16. Diesel is assumed from the cardlock name, not tagged. A cardlock sells to account holders only. Year round is assumed. Tractor-trailer access is assumed for a highway cardlock, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Little Smoky Northbound Rest Area",
+      "lat": 54.58506,
+      "lon": -117.03904,
+      "reach_mi": 0.5,
+      "type": "public_rest_area",
+      "actions": [
+        "park",
+        "save",
+        "break"
+      ],
+      "services": [
+        "parking"
+      ],
+      "parking": "unknown",
+      "source": "Read: highway rest area from OSM way 815904969 (highway=rest_area), OpenStreetMap planet extract 2026-11-16. Year round and truck room are assumed, not verified; no overnight stay is claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "heading": "Northbound"
+    },
+    {
+      "name": "Little Smoky Southbound Rest Area",
+      "lat": 54.59184,
+      "lon": -117.04516,
+      "reach_mi": 0.5,
+      "type": "public_rest_area",
+      "actions": [
+        "park",
+        "save",
+        "break"
+      ],
+      "services": [
+        "parking"
+      ],
+      "parking": "unknown",
+      "source": "Read: highway rest area from OSM way 815904970 (highway=rest_area), OpenStreetMap planet extract 2026-11-16. Year round and truck room are assumed, not verified; no overnight stay is claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "heading": "Southbound"
+    },
+    {
+      "name": "Petro-Pass",
+      "lat": 55.05139,
+      "lon": -117.27966,
+      "reach_mi": 0.5,
+      "type": "fuel_station",
+      "actions": [
+        "fuel"
+      ],
+      "services": [
+        "diesel"
+      ],
+      "parking": "unknown",
+      "source": "Position read from OSM way 540195716, OpenStreetMap planet extract 2026-11-16. Diesel is assumed from the cardlock name, not tagged. A cardlock sells to account holders only. Year round is assumed. Tractor-trailer access is assumed for a highway cardlock, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Co-op Cardlock",
+      "lat": 55.06199,
+      "lon": -117.27923,
+      "reach_mi": 0.5,
+      "type": "fuel_station",
+      "actions": [
+        "fuel"
+      ],
+      "services": [
+        "diesel"
+      ],
+      "parking": "unknown",
+      "source": "Position read from OSM node 14138154495 (fuel:diesel=yes, opening_hours=24/7, website=https://www.newhorizonco-op.crs/sites/newhorizon/), OpenStreetMap planet extract 2026-11-16. Diesel read from OSM. A cardlock sells to account holders only. Year round is assumed. Tractor-trailer access is assumed for a highway cardlock, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Co-op Cardlock",
+      "lat": 55.16056,
+      "lon": -118.82235,
+      "reach_mi": 0.5,
+      "type": "fuel_station",
+      "actions": [
+        "fuel"
+      ],
+      "services": [
+        "diesel"
+      ],
+      "parking": "unknown",
+      "source": "Position read from OSM node 14138129716 (fuel:diesel=yes, opening_hours=24/7, website=https://www.newhorizonco-op.crs/), OpenStreetMap planet extract 2026-11-16. Diesel read from OSM. A cardlock sells to account holders only. Year round is assumed. Tractor-trailer access is assumed for a highway cardlock, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    },
+    {
+      "name": "Co-op Cardlock",
+      "lat": 55.73714,
+      "lon": -120.22598,
+      "reach_mi": 0.5,
+      "type": "fuel_station",
+      "actions": [
+        "fuel"
+      ],
+      "services": [
+        "diesel"
+      ],
+      "parking": "unknown",
+      "source": "Position read from OSM way 184829733 (fuel:diesel=yes, opening_hours=24/7, website=https://www.dawsonco-op.crs/sites/dawson), OpenStreetMap planet extract 2026-11-16. Diesel read from OSM. A cardlock sells to account holders only. Year round is assumed. Tractor-trailer access is assumed for a highway cardlock, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer"
+    }
+  ]
+}

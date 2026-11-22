@@ -5750,9 +5750,28 @@ a carrier slice (owner, 2026-10-26).
 - [ ] (Found along the way) A province line with no cited name is spoken
       "Crossing into Yukon near British Columbia-Yukon line."; the place
       half names the line itself. Wording for the director.
-- [ ] Trans-Canada and Yellowhead, Vancouver to Winnipeg (1, 5, 16, 2),
-      joining the Alcan at Prince George and Dawson Creek and the US at
-      Blaine, Sumas, Osoyoos, Kingsgate, Coutts, North Portal, Emerson.
+- [x] Trans-Canada and Yellowhead, Vancouver to Winnipeg (2026-11-22): 48
+      cities and 140 legs over BC, Alberta, Saskatchewan and Manitoba on
+      1, 5, 16, 2, 3, 97 and the Cariboo, joining the Alcan at Prince George
+      and Dawson Creek and the US at Blaine, Sumas, Osoyoos, Kingsgate,
+      Coutts, North Portal and Emerson (CBSA hours on each). Surrey to
+      Prince George is retired for its chain through Hope and the Cariboo;
+      saves on it resume on the chain. Hanna is a fuel town on Highways 9
+      and 7. Report: `career-2.0-alpha/corridor-west-report.md`.
+- [ ] (Found along the way) West stops are thin on ten long legs (Kamloops
+      to Valemount, the Yellowhead east of Saskatoon, Regina to Brandon and
+      Saskatoon, Calgary and Cranbrook to Golden, Lethbridge to Cranbrook,
+      Grande Prairie to Whitecourt): town stations have no reading of
+      truck access, and Prairie rest areas have no source for an overnight
+      stay. Operator pages and the provincial rest area rules would fill
+      them.
+- [ ] (Found along the way) US port hours for Eastport, Pembina, Sumas and
+      Oroville: the CBP pages did not load from the cloud.
+- [ ] (Found along the way) Huntingdon is closed to commercial traffic at
+      weekends (CBSA); the hours are stored on the crossing, but nothing
+      holds a truck there on a Saturday yet.
+- [ ] (Found along the way) Yukon is on Mountain Standard time all year
+      since 2020; the game still puts Whitehorse on Pacific time.
 - [ ] The Ontario and Quebec trunk (401, 400, 11, 17, 20, 40), Windsor to
       Quebec City and Thunder Bay, with the Detroit, Sarnia, Niagara,
       Lansdowne, Cornwall, Lacolle and Stanstead crossings.
