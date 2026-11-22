@@ -98,12 +98,12 @@ fn state_zone(state: &str) -> Option<TimeZone> {
         "California" | "Washington" => PACIFIC,
         "Alaska" => ALASKA,
         "Hawaii" => HAWAII,
-        // Canada. With no daylight time in the model, Saskatchewan's year-round
-        // Central Standard Time is plain Central, and Yukon's year-round
-        // UTC-7 (since November 2020) is plain Mountain.
-        "Alberta" => MOUNTAIN,
-        "Saskatchewan" | "Manitoba" => CENTRAL,
-        "Yukon" => MOUNTAIN,
+        // Canada, on the same fixed standard offsets. Saskatchewan keeps
+        // Central Standard Time all year, which is what a fixed offset says.
+        "Alberta" | "AB" => MOUNTAIN,
+        "Saskatchewan" | "SK" | "Manitoba" | "MB" => CENTRAL,
+        // Yukon keeps UTC-7 all year (since November 2020): plain Mountain.
+        "Yukon" | "YT" => MOUNTAIN,
         _ => return None,
     })
 }
@@ -227,23 +227,24 @@ fn nevada(_lat: f64, lon: f64) -> TimeZone {
     }
 }
 
+/// British Columbia is Pacific except two corners on Mountain Standard Time:
+/// the East Kootenay (Golden, Cranbrook, Creston; the line crosses Highway 1
+/// at the east side of Glacier National Park and Highway 3 at Kootenay Pass)
+/// and the Peace and Northern Rockies country (Chetwynd, Dawson Creek, Fort
+/// St. John, Fort Nelson), which keep Mountain Standard Time all year.
 fn british_columbia(lat: f64, lon: f64) -> TimeZone {
-    // The Peace River Regional District (Dawson Creek, Fort St. John,
-    // Chetwynd, from Pine Pass east) and the Northern Rockies (Fort Nelson,
-    // west to the Yukon line near Contact Creek) keep Mountain Standard Time
-    // all year; the rest of the province, Lower Post included, is Pacific.
-    // Read: the IANA tz database (America/Dawson_Creek; America/Fort_Nelson,
-    // on MST since 2015-03-08). The line is the two districts' western edge
-    // at game fidelity, derived, not read.
-    if lat >= 55.3 && lon >= -127.6 {
-        MOUNTAIN
-    } else {
-        PACIFIC
+    if lat < 52.5 && lon >= -117.2 {
+        return MOUNTAIN;
     }
+    if lat >= 55.5 && lon >= -123.5 {
+        return MOUNTAIN;
+    }
+    PACIFIC
 }
 
 fn split_state_zone(state: &str) -> Option<fn(f64, f64) -> TimeZone> {
     Some(match state {
+        "British Columbia" | "BC" => british_columbia,
         "Florida" => florida,
         "Indiana" => indiana,
         "Kentucky" => kentucky,
@@ -431,6 +432,27 @@ mod tests {
             ("Winnipeg", 49.90, -97.14, "Manitoba", CENTRAL),
         ];
         for (place, lat, lon, state, expected) in cases {
+            assert_eq!(zone_for(lat, lon, state), expected, "{place}");
+        }
+    }
+
+    #[test]
+    fn test_western_canada_zones() {
+        for (place, lat, lon, state, expected) in [
+            ("Vancouver", 49.28, -123.12, "British Columbia", PACIFIC),
+            ("Revelstoke", 51.0, -118.2, "British Columbia", PACIFIC),
+            ("Golden", 51.3, -116.96, "British Columbia", MOUNTAIN),
+            ("Cranbrook", 49.51, -115.77, "British Columbia", MOUNTAIN),
+            ("Castlegar", 49.32, -117.66, "British Columbia", PACIFIC),
+            ("Prince George", 53.92, -122.75, "British Columbia", PACIFIC),
+            ("Dawson Creek", 55.76, -120.24, "British Columbia", MOUNTAIN),
+            ("Chetwynd", 55.70, -121.63, "British Columbia", MOUNTAIN),
+            ("Jasper", 52.88, -118.08, "Alberta", MOUNTAIN),
+            ("Grande Prairie", 55.17, -118.8, "Alberta", MOUNTAIN),
+            ("Swift Current", 50.29, -107.79, "Saskatchewan", CENTRAL),
+            ("Regina", 50.45, -104.61, "Saskatchewan", CENTRAL),
+            ("Winnipeg", 49.9, -97.14, "Manitoba", CENTRAL),
+        ] {
             assert_eq!(zone_for(lat, lon, state), expected, "{place}");
         }
     }

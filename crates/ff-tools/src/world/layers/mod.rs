@@ -12,6 +12,7 @@
 //! cargo tools osm-restrictions --pbf FILE [--only a:b;c:d] [--write]
 //! cargo tools osm-landmarks    --pbf FILE [--only a:b;c:d] [--write]
 //! cargo tools osm-villages     --pbf FILE [--only a:b;c:d] [--write]
+//! cargo tools osm-stops        (--pbf FILE | --stops FILE) [--only a:b;c:d] [--write]
 //! cargo tools hpms-traffic     [--only a:b;c:d] [--write]
 //! cargo tools hpms-terrain     [--only a:b;c:d] [--write]
 //! cargo tools hpms-pavement    [--only a:b;c:d] [--write]
@@ -32,6 +33,7 @@ pub mod hpms;
 pub mod landmarks;
 pub mod lanes;
 pub mod restrictions;
+pub mod stops;
 pub mod villages;
 
 use std::collections::{HashMap, HashSet};

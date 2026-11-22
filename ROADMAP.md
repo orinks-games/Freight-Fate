@@ -4809,8 +4809,10 @@ offerability and hiring-radius rule (`is_offerable_home_city`; regionals
 home drivers only within their radius). Slice 2 made the new-career picker
 enforce it: region, then offerable home city, then the carriers hiring
 there, with the truck starting at that carrier's terminal. Slice 3 is also
-landed: the catalog now has **24 carriers: 3 national, 18 regional, and
-3 local**. `home_time_policy` remains `inert` for all 24.
+landed: the catalog had **24 carriers: 3 national, 18 regional, and
+3 local**. The 2.0 carrier spread (brief 12, 2026-11-22) takes it to **54:
+6 national, 32 regional, 16 local**. `home_time_policy` remains `inert` for
+all of them.
 
 Automated evidence: [`carrier_slice3.rs`](crates/ff-core/tests/it/carrier_slice3.rs)
 checks the catalog, hiring areas, coverage, terminal cities, and fallback
@@ -4873,6 +4875,38 @@ in the audited Windows run.
       never a world pin, so Fairbanks having no world `company_yard` or
       `terminal` pin is not a gap. The slice 3 test checks that terminal
       cities are real map cities with carrier-owned terminals.
+- [x] **2.0 carrier spread (brief 12).** Three specialist nationals
+      (Winterset Refrigerated Lines, Double Springs Linehaul, Open Hearth
+      Flatbed Lines, 12 terminals each), fourteen regionals and thirteen
+      locals. Lower-48 freight cities in reach of regionals, before then
+      after: one 248 / two 258 / three 101 / four 19, then two 141 / three
+      286 / four 154 / five 45. Locals hire in 45 cities (was 10). The start
+      picker lists 8 to 12 carriers in every lower-48 city (was 4 to 7);
+      New York 10, Chicago 12, Dallas 11, Billings 8, Anchorage 2. Worst
+      nearest-terminal distance per national: Open Hearth 512 mi (Shelby, MT),
+      Summit 482, Double Springs 474, Great Lakes Training 468, Winterset
+      455, Northstar 441. Bismarck, Twin Falls and Albuquerque each hold at
+      most two nationals' terminals. The picker sorts local, regional,
+      national, nearest terminal first, owner-operator last.
+      `tests/it/carrier_spread.rs` pins the coverage. Names were checked
+      against FMCSA and web listings; the record is in the carriers report.
+- [ ] **No Canadian carrier yet (Found along the way).** BC and YT stay
+      closed as home bases; a Canadian carrier joins when the Canadian
+      roads open for hiring.
+- [ ] **A second Alaska regional waits for new Alaska lanes (Found along
+      the way).** Chatanika covers every hirable Alaska city today; add a
+      second only when the map adds Alaska freight a second carrier would
+      run.
+- [ ] **Carrier start rows in other languages (Found along the way).**
+      The generated start rows ("{name}: regional company driver, {area}",
+      the national specialty rows, their summaries and help) and every
+      carrier's lane area and specialty phrase have no translations yet, so
+      a Spanish player in Chicago hears the local and regional rows in
+      English. Only the four hand-written starts are translated.
+- [x] **The hand-written company start rows say their kind.** Northstar,
+      Great Lakes Training and Summit Value say "national company driver",
+      Prairie Link "regional company driver", and their summaries no longer
+      repeat it (director's wording, 2026-11-22).
 - [ ] **Great Lakes Training `short_haul_bias` 0.8 conflicts with its 400 mi
       national run band.** The dispatch bias asks for short rookie loads the
       band minimum would forbid once enforced. Revisit in slice 4.
@@ -5119,9 +5153,9 @@ branch. The older Phase A/B plan checklists are not a live completion list.
       unverified. Seward and Valdez seafood plant owners were verified as
       Silver Bay Seafoods on 2026-10-07, but the OSM endpoint names still read
       Icicle and Peter Pan until the next Alaska endpoint re-sweep.
-- [ ] (Found along the way) Yukon km/h speeds are rounded to the nearest 5 mph
-      when baked (100 km/h reads 60 mph, 90 km/h reads 55); exact conversion
-      (62 and 56) needs the maxspeed parser and a Yukon/BC re-bake.
+- [x] (Found along the way) Yukon km/h speeds are rounded to the nearest 5 mph
+      when baked. Fixed 2026-11-22: postings keep their km/h and convert
+      exactly (100 reads 62, 90 reads 56); see the Canada tools pilot.
 - [ ] (Found along the way) Border processing times and the secondary-referral
       chance are gameplay assumptions.
 - [ ] (Found along the way) Passport and FAST documents are not modeled.
@@ -5196,6 +5230,13 @@ branch. The older Phase A/B plan checklists are not a live completion list.
       the Yukon line, R2 drive, 2026-11-22). The order at a line is now a
       rule: the crossing call finishes, then the units line, then a shorter
       hours line.
+- [x] (Found along the way) A crossing call could be lost: a long ice
+      hazard held the road's chatter queue past its 12-second age limit and
+      "Crossing into Yukon" was never said (Canada corridor drives,
+      2026-11-22). A state or province line and the lines after it carry
+      rule changes, so they now wait for the road to go quiet however long
+      it takes, and play once each, in order. The agent server can stage a
+      drive before a line (`start_at` feature `state-line`).
 - [ ] (Found along the way) The customs booth approach is an implicit state
       machine: three string keys in the enforcement events (notice,
       reminder, booth), the pending clearance and the reminder's real-time
@@ -5801,9 +5842,13 @@ a carrier slice (owner, 2026-10-26).
       driven. Recipe: "Building a Canadian corridor" in
       `docs/map-enrichment-recipe.md`; report in the project files
       (`career-2.0-alpha/canada-tools-report.md`).
-- [ ] (Found along the way) Keep a Canadian posting in km/h: a 100 km/h
-      sign is stored as 60 mph and read back as 97. Needs a raw `kmh`
-      field and a reader that speaks it as signed.
+- [x] Canadian postings keep their km/h (2026-11-22): each posting stores
+      the sign's `kmh` beside its `mph`, and the game drives the sign
+      exactly (kmh / 1.609344), so a 100 sign speaks 100 in metric and 62 in
+      imperial; cruise to the limit, the speed keeper, speeding and the U
+      readout all use that value. Canadian ramp advisories keep their km/h
+      (the US bare-number screen is skipped there). The visual speed sign in
+      the drive scene still draws whole mph.
 - [ ] (Found along the way) Provincial traffic counts: no table is read,
       so Canadian legs take the game's road-class estimate. BC publishes
       counts in TRADAS; Alberta and Ontario have their own.
@@ -5812,11 +5857,70 @@ a carrier slice (owner, 2026-10-26).
       profile; a relief class from the Canadian Digital Elevation Model
       would. It also reads level one way and rolling the other between
       Watson Lake and Whitehorse, a near tie.
-- [ ] (Found along the way) Census divisions for Canadian county lines,
-      and truck stops on the BC and Yukon legs (none yet).
-- [ ] (Found along the way) A province line with no cited name is spoken
-      "Crossing into Yukon near British Columbia-Yukon line."; the place
-      half names the line itself. Wording for the director.
+- [ ] (Found along the way) Census divisions for Canadian county lines.
+- [x] Stops on the BC, Yukon and Alaska legs (2026-11-22): 108 stops on 32
+      legs from a curated list (`docs/stops/canada-alaska.json`) placed by
+      `cargo tools osm-stops`. BC rest areas from the province's open data
+      (trucks accommodated, open year round); fuel from operator pages, the
+      Government of Yukon fuel price survey and OSM. Glennallen to Tok,
+      Delta Junction to Glennallen and Glennallen to Valdez still have no
+      mid-leg stop.
+- [ ] (Found along the way) A stop has no closed season, so seasonal and
+      unconfirmed stops are left out: Contact Creek (diesel unconfirmed), Coal
+      River (summer only), Buckinghorse River, Continental Divide and Yukon River Camp, and
+      the seasonal BC rest areas. A `season` field the game honours would
+      let them in for the months they are open.
+- [ ] (Found along the way) Yukon rest areas come from OSM: 511 Yukon's
+      rest-area feed needs a developer key.
+- [x] Truck access at the Alaska Highway lodges and the Yukon and Alaska
+      town stations (2026-11-22): each fuel stop in the list now says how
+      its access was decided (`vehicle_access_basis`), and the load-time
+      screen keeps a stated basis. 4 read (Watson Lake Tags, Junction 37,
+      Teslin's Yukon Motel and Haines Junction's Source Motors, from
+      FindFuelStops' Yukon truck stop directory), 24 assumed: no operator
+      page, the PSPC Alaska Highway page or the BC fleet fuel list says
+      either way, so `source` gives the reason (the highway's freight moves
+      by tractor-trailer and these are its diesel between the towns). A
+      loaded truck is now offered them; Fort Nelson to Watson Lake has
+      Toad River, Northern Rockies and Liard Hot Springs.
+- [ ] (Found along the way) Read truck access for the 24 assumed northern
+      fuel stops: an operator answer or a listing per stop turns each into
+      a reading (`osm-stops` prints the read to assumed count).
+- [x] The stop menu follows the stop's actions (2026-11-22): a stop that
+      neither parks nor takes a break (a cardlock, a lone pump) offers no
+      lot sleep and no motel. In the US this changes 2 stops, both
+      fuel-only travel centers; no stop that parks loses a row.
+- [x] Province lines speak short (2026-11-22): a line with no cited place
+      is "Crossing into Yukon.", cited places are plain phrases ("the Alcan
+      border crossing", "Lower Post"), and a leg that crosses one line more
+      than twice drops stays under 5 miles at load with their returns
+      (`ff_core::data::line_weave`). Calibrated on the Lower Post weave:
+      its short stays are 1.3 to 4.8 miles, the next real stays 27.7 and 40.
+      A leg crossing a line once or twice, and every US leg, is untouched.
+      Fort Nelson to Watson Lake now enters Yukon once, near Lower Post.
+- [x] Trans-Canada and Yellowhead, Vancouver to Winnipeg (2026-11-22): 48
+      cities and 140 legs over BC, Alberta, Saskatchewan and Manitoba on
+      1, 5, 16, 2, 3, 97 and the Cariboo, joining the Alcan at Prince George
+      and Dawson Creek and the US at Blaine, Sumas, Osoyoos, Kingsgate,
+      Coutts, North Portal and Emerson (CBSA hours on each). Surrey to
+      Prince George is retired for its chain through Hope and the Cariboo;
+      saves on it resume on the chain. Hanna is a fuel town on Highways 9
+      and 7. Report: `career-2.0-alpha/corridor-west-report.md`.
+- [ ] (Found along the way) West stops are still thin on five links under
+      200 miles (Calgary and Cranbrook to Golden, Lethbridge to Cranbrook,
+      Grande Prairie to Whitecourt, Regina to Saskatoon): no 10-hour stop
+      inside 150 miles, because town stations have no reading of truck
+      access and Prairie rest areas have no source for an overnight stay.
+      Operator pages and the provincial rest area rules would fill them.
+      Every link over 200 miles has fuel and a 10-hour stop.
+- [ ] (Found along the way) Three West stops are assumed, not read:
+      Churchbridge and Foam Lake rest areas as overnight stops, and the
+      position of the Whitewood Co-op cardlock. Each says so in its source.
+- [ ] (Found along the way) US port hours for Eastport, Pembina, Sumas and
+      Oroville: the CBP pages did not load from the cloud.
+- [ ] (Found along the way) Huntingdon is closed to commercial traffic at
+      weekends (CBSA); the hours are stored on the crossing, but on a
+      Saturday the booth still clears a truck as on a weekday.
 - [x] Loads across the border (2026-11-22, brief 7): a US carrier's board
       offers loads from the United States into Canada and from Canada back
       to the United States, never between two Canadian points (cabotage).
@@ -5847,9 +5951,6 @@ a carrier slice (owner, 2026-10-26).
 - [ ] (Found along the way) Atlantic and Newfoundland time zones: the
       clock knows Pacific to Central in Canada; the Atlantic provinces and
       Newfoundland's half hour arrive with their corridors.
-- [ ] Trans-Canada and Yellowhead, Vancouver to Winnipeg (1, 5, 16, 2),
-      joining the Alcan at Prince George and Dawson Creek and the US at
-      Blaine, Sumas, Osoyoos, Kingsgate, Coutts, North Portal, Emerson.
 - [ ] The Ontario and Quebec trunk (401, 400, 11, 17, 20, 40), Windsor to
       Quebec City and Thunder Bay, with the Detroit, Sarnia, Niagara,
       Lansdowne, Cornwall, Lacolle and Stanstead crossings.
@@ -5858,8 +5959,9 @@ a carrier slice (owner, 2026-10-26).
       Calais and St. Stephen crossings.
 - [ ] The north: 63 to Fort McMurray, 16 to Prince Rupert, 37 to the
       Yukon, 3 to Yellowknife, freight nodes only.
-- [ ] The rules before the first corridor merges: postings spoken in km/h
-      in Canada whatever the unit setting; cycle 1 and 2 hours of service
+- [ ] The rules before the first corridor merges: postings in the
+      player's units from the sign's own number (done; an Automatic units
+      setting is its own brief); cycle 1 and 2 hours of service
       with the Canadian rest menus; provincial weights, the 25 m length,
       B-trains, spring bans; the 105 km/h limiters; CAD at the pump;
       customs with hours, FAST and cabotage at every listed port;
@@ -5885,6 +5987,54 @@ a carrier slice (owner, 2026-10-26).
       province-wide because its freight routes are Level I and II
       highways; its ordinary highways license commercial boards. A per-leg
       law would let a pool line stand on those.
+
+### Winter cab, wipers and ice roads (designed November 22)
+
+The owner asked for heat and air that do something (frost with the heat
+off in the cold), windshield wipers, and trucks for Alaska ice and frozen
+lakes, on Canada's roads too (2026-11-22). The design is
+`docs/winter-cab-design.md`; it builds on the July wiper notes in
+`docs/weather-wiper-audio-notes.md`. Six steps, each its own PR. Only the
+first is wanted before the first alpha; the rest follow as alpha updates,
+before 2.0 goes stable. Five questions for the owner are at the end of the
+design, each with the director's pick.
+
+- [ ] Step 1, before the alpha: real winter temperatures for Alaska and
+      Canada. Alaska, Yukon and British Columbia borrow the Pacific
+      Northwest's climate, so the coldest moment of the year in Fairbanks
+      or Deadhorse is about minus 3 Celsius; the prairies borrow
+      Missouri's. A climate table separate from the freight region, each
+      row derived from the 1991 to 2020 normals of a named station.
+- [ ] Step 2: the windshield and wipers. One clarity state; rain and wet
+      snow lower it, wipers (off, intermittent, low, high on one key)
+      restore it; a glass that is not clear blurs the lane sound and, if
+      the owner agrees, shortens sight as fog does. A driving assistance
+      row runs the wipers for a driver who wants help.
+- [ ] Step 3: frost, fog and the heat. The fan on heat clears and
+      prevents frost, the fan on heat or air clears fog; a truck parked
+      cold with the engine off starts frosted.
+- [ ] Step 4: resting in the cold. A rest in the truck in hard cold or
+      heat idles the engine and the fuel is charged, said once at waking.
+      A winter package upgrade (block heater, bunk heater, heated glass)
+      and two catalog trucks, a northern spec conventional and a tri-drive
+      heavy hauler.
+- [ ] Step 5: ice roads. Seasonal legs, ice that answers speed with
+      sound, convoys on the CB, the road's own security; first the
+      Tibbitt to Contwoyto Winter Road from Yellowknife, which needs the
+      northern Canada corridor.
+- [ ] Step 6: more winter roads, one at a time: an oil field ice road
+      from Deadhorse, the Mackenzie Valley winter road and the Dempster
+      ice crossings, Manitoba, northern Ontario.
+- [ ] Live weather for Canada, so Canadian temperatures can be real
+      readings as Alaska's are. Source: Environment and Climate Change
+      Canada's free public weather service (the Meteorological Service of
+      Canada's API, api.weather.gc.ca), the owner's pick on 2026-11-22
+      over Open-Meteo, whose free tier is for non-commercial use only. The
+      National Weather Service stays the source for the United States and
+      Alaska. Confirm the endpoints and terms of use before building. With
+      live weather on, the real reading decides the temperature and so
+      when frost forms; the climate table is for simulated weather.
+- [ ] Headlights as a control, on the same clarity model (July notes).
 
 ### Personal conveyance and duty-purpose correction
 
@@ -6141,6 +6291,15 @@ here 2026-09-25. Details stay in the linked dated sections.
       enum in `ff-core` (hired, on sufferance, unassigned, own authority)
       with one `next(event)` and a transition table, reported by the agent
       server's `status` (R1 review, 2026-11-22).
+- [x] (Found along the way) **The destination approach has a limit in
+      force.** Off the destination exit the ramp to the facility goes by the
+      number S speaks, the approach's 45 (never above the corridor's): the
+      ramp cap the assists hold, the dash overspeed warning past the
+      deceleration lane, and the pacer's posted limit all read it. The
+      gate's 15 stays off the ramp, because its half mile reached back over
+      the stop sign a plain ramp ends with; it is back on the map once the
+      ramp ends. Cruise was already paused for the whole destination ramp
+      and stays so; the ramp stays unpatrolled (R1 follow-up, 2026-11-22).
 - [ ] **Route calls to a remote dispatcher when one is available.** Deliver
       the same structured request asynchronously, with a short wait and the
       local dispatcher as the automatic fallback.

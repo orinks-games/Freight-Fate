@@ -38,7 +38,13 @@ static DIGITS: LazyLock<Regex> = LazyLock::new(|| Regex::new(r"\d+").unwrap());
 /// An OSM `maxspeed` value in mph, rounded to the nearest 5 (half to even,
 /// as Python's `round`), or `None` when it carries no posted number. A bare
 /// number is mph, as in the United States, unless `bare_kmh` (Canada).
+#[cfg(test)]
 pub fn parse_maxspeed_in(raw: &str, bare_kmh: bool) -> Option<f64> {
+    read_maxspeed(raw, bare_kmh).map(|(mph, _)| mph)
+}
+
+/// `parse_maxspeed_in`, plus the number on the sign when it is in km/h.
+fn read_maxspeed(raw: &str, bare_kmh: bool) -> Option<(f64, Option<i64>)> {
     for token in raw.split([';', ',']) {
         let token = token.trim().to_lowercase();
         if token.is_empty() || NON_NUMERIC.contains(&token.as_str()) || token.contains("knots") {
@@ -50,34 +56,44 @@ pub fn parse_maxspeed_in(raw: &str, bare_kmh: bool) -> Option<f64> {
         let Ok(value) = m[1].parse::<f64>() else {
             continue;
         };
-        let mph = if token.contains("mph") {
-            value
+        let (mph, kmh) = if token.contains("mph") {
+            (value, None)
         } else if bare_kmh || ["km/h", "kmh", "kph"].iter().any(|u| token.contains(u)) {
-            value * KMH_TO_MPH
+            (value * KMH_TO_MPH, Some(value.round() as i64))
         } else {
-            value
+            (value, None)
         };
         let mph = (mph / 5.0).round_ties_even() * 5.0;
         if mph < 5.0 {
             continue;
         }
-        return Some(mph.min(85.0));
+        return Some((mph.min(85.0), kmh));
     }
     None
 }
 
 /// A way's limit: the truck tag when it parses, else the general one;
 /// bare numbers are km/h when `bare_kmh`.
+#[cfg(test)]
 pub fn way_limit_in(
     maxspeed: Option<&str>,
     maxspeed_hgv: Option<&str>,
     bare_kmh: bool,
 ) -> Option<(f64, bool)> {
-    let parse = |raw: &str| parse_maxspeed_in(raw, bare_kmh);
-    if let Some(mph) = maxspeed_hgv.and_then(parse) {
-        return Some((mph, true));
+    way_reading_in(maxspeed, maxspeed_hgv, bare_kmh).map(|(mph, hgv, _)| (mph, hgv))
+}
+
+/// `way_limit_in`, plus the km/h on the sign when the tag read is in km/h.
+pub fn way_reading_in(
+    maxspeed: Option<&str>,
+    maxspeed_hgv: Option<&str>,
+    bare_kmh: bool,
+) -> Option<(f64, bool, Option<i64>)> {
+    let parse = |raw: &str| read_maxspeed(raw, bare_kmh);
+    if let Some((mph, kmh)) = maxspeed_hgv.and_then(parse) {
+        return Some((mph, true, kmh));
     }
-    maxspeed.and_then(parse).map(|mph| (mph, false))
+    maxspeed.and_then(parse).map(|(mph, kmh)| (mph, false, kmh))
 }
 
 fn digit_groups(text: &str) -> Vec<&str> {
@@ -102,6 +118,9 @@ pub struct Sample {
     pub mph: Option<i64>,
     pub hgv: bool,
     pub assumed: Option<&'static str>,
+    /// The number on a km/h sign, as read (Canada); `mph` is its rounded
+    /// conversion, kept for readers that want one.
+    pub kmh: Option<i64>,
 }
 
 /// How far past a country border the first posting read can sit and still
@@ -151,7 +170,8 @@ pub fn bake_leg(
         let canada = regions.in_canada(at_mi);
         // The nearest way that carries the leg's route number, else the
         // nearest of any; ways whose tag has no number do not count.
-        let mut best: Option<(f64, bool, bool, f64)> = None; // mph, hgv, on_shield, dist
+        // mph, hgv, on_shield, dist, sign km/h
+        let mut best: Option<(f64, bool, bool, f64, Option<i64>)> = None;
         for (way, d) in index.near(lat, lon, MATCH_CORRIDOR_M + 1e-9, coslat) {
             let Some((mph, hgv)) = way.limit(canada) else {
                 continue;
@@ -159,22 +179,23 @@ pub fn bake_leg(
             let on_shield = ref_matches_shield(&way.route_ref, &shield);
             let better = match best {
                 None => true,
-                Some((_, _, b_on, b_d)) => (on_shield && !b_on) || (on_shield == b_on && d < b_d),
+                Some((_, _, b_on, b_d, _)) => {
+                    (on_shield && !b_on) || (on_shield == b_on && d < b_d)
+                }
             };
             if better {
-                best = Some((mph, hgv, on_shield, d));
+                best = Some((mph, hgv, on_shield, d, way.sign_kmh(canada)));
             }
         }
         let read = best
             .filter(|b| !(interstate && b.0 < INTERSTATE_MIN_PLAUSIBLE_MPH))
-            .map(|(mph, hgv, _, _)| (mph as i64, hgv, false));
-        let read = read.map(|(mph, hgv, _)| (mph, hgv, None));
+            .map(|(mph, hgv, _, _, kmh)| (mph as i64, hgv, None, kmh));
         let unposted = || {
             regions
                 .unposted_default(at_mi)
-                .map(|(mph, source)| (mph, false, Some(source)))
+                .map(|(mph, source)| (mph, false, Some(source), None))
         };
-        let Some((mph, hgv, assumed)) = read.or_else(unposted) else {
+        let Some((mph, hgv, assumed, kmh)) = read.or_else(unposted) else {
             hole_start.get_or_insert(at_mi);
             continue;
         };
@@ -185,13 +206,13 @@ pub fn bake_leg(
                     mph: None,
                     hgv: false,
                     assumed: None,
+                    kmh: None,
                 });
             }
         }
-        if samples
-            .last()
-            .is_some_and(|s| s.mph == Some(mph) && s.hgv == hgv && s.assumed == assumed)
-        {
+        if samples.last().is_some_and(|s| {
+            s.mph == Some(mph) && s.hgv == hgv && s.assumed == assumed && s.kmh == kmh
+        }) {
             continue;
         }
         // The new limit is posted at the border, not where the next sample
@@ -206,6 +227,7 @@ pub fn bake_leg(
             mph: Some(mph),
             hgv,
             assumed,
+            kmh,
         };
         match samples.last_mut() {
             Some(last) if last.at_mi == at_mi => *last = row,
@@ -219,6 +241,7 @@ pub fn bake_leg(
                 mph: None,
                 hgv: false,
                 assumed: None,
+                kmh: None,
             });
         }
     }
@@ -279,6 +302,9 @@ pub fn world_rows(samples: &[Sample], source: &str) -> Vec<Value> {
             match s.mph {
                 Some(mph) => {
                     row.insert("mph", Value::Int(i128::from(mph)));
+                    if let Some(kmh) = s.kmh {
+                        row.insert("kmh", Value::Int(i128::from(kmh)));
+                    }
                     let source = s.assumed.unwrap_or(source);
                     row.insert("source", Value::Str(source.to_string()));
                     row.insert("hgv", Value::Bool(s.hgv));
@@ -334,6 +360,7 @@ mod tests {
             hgv: false,
             ca_mph: Some(mph),
             ca_hgv: false,
+            ca_kmh: None,
             coords: vec![(lat, lon0), (lat, lon1)],
         }
     }
@@ -370,6 +397,7 @@ mod tests {
     fn bare_ninety(id: i64, lon0: f64, lon1: f64) -> OsmWay {
         OsmWay {
             ca_mph: Some(55.0),
+            ca_kmh: Some(90),
             ..way(id, "1", 85.0, 40.0, lon0, lon1)
         }
     }
@@ -380,7 +408,21 @@ mod tests {
         let samples = bake_in(vec![bare_ninety(1, -100.1, -99.5)], "AK-2", yukon);
         assert_eq!(samples.len(), 1, "{samples:?}");
         assert_eq!(samples[0].mph, Some(55));
+        // The sign's own number is kept beside its rounded conversion.
+        assert_eq!(samples[0].kmh, Some(90));
         assert!(samples[0].assumed.is_none());
+    }
+
+    #[test]
+    fn a_kmh_reading_keeps_the_number_on_the_sign() {
+        assert_eq!(read_maxspeed("100", true), Some((60.0, Some(100))));
+        assert_eq!(read_maxspeed("70 km/h", false), Some((45.0, Some(70))));
+        assert_eq!(read_maxspeed("55 mph", true), Some((55.0, None)));
+        assert_eq!(read_maxspeed("55", false), Some((55.0, None)));
+        assert_eq!(
+            way_reading_in(Some("100"), Some("90"), true),
+            Some((55.0, true, Some(90)))
+        );
     }
 
     #[test]
@@ -467,6 +509,7 @@ mod tests {
             mph: Some(mph),
             hgv: false,
             assumed: None,
+            kmh: None,
         };
         let mut samples = vec![s(0.0, 25), s(22.0, 65)];
         assert_eq!(repair("US-60", 40.0, &mut samples), 1);
@@ -486,18 +529,28 @@ mod tests {
                     mph: Some(65),
                     hgv: true,
                     assumed: None,
+                    kmh: None,
+                },
+                Sample {
+                    at_mi: 3.0,
+                    mph: Some(60),
+                    hgv: false,
+                    assumed: None,
+                    kmh: Some(100),
                 },
                 Sample {
                     at_mi: 6.5,
                     mph: None,
                     hgv: false,
                     assumed: None,
+                    kmh: None,
                 },
                 Sample {
                     at_mi: 9.0,
                     mph: Some(55),
                     hgv: false,
                     assumed: Some("assumed"),
+                    kmh: None,
                 },
             ],
             "src",
@@ -510,6 +563,7 @@ mod tests {
             text,
             vec![
                 r#"{"at_mi": 0.0, "mph": 65, "source": "src", "hgv": true}"#,
+                r#"{"at_mi": 3.0, "mph": 60, "kmh": 100, "source": "src", "hgv": false}"#,
                 r#"{"at_mi": 6.5, "mph": null}"#,
                 r#"{"at_mi": 9.0, "mph": 55, "source": "assumed", "hgv": false}"#,
             ]

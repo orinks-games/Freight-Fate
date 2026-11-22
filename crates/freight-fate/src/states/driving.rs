@@ -799,6 +799,15 @@ pub struct DrivingState {
     // speed has nothing to bridge it, so the cab says once what the session
     // is waiting for. Reset when cruise engages or the session disarms.
     pub speed_control_floor_said: bool,
+    // The number the open-road bridge already said ("Cruise resuming, 45."),
+    // so cruise taking over from the keeper at that same number stays quiet
+    // instead of saying the resume a second time.
+    pub bridge_resume_said_mph: Option<f64>,
+    // The limit in force on the ramp past the destination exit (the
+    // destination approach's), read once a frame from `approach_limit_after_exit` so the
+    // ramp cap, the dash and the pacer go by the number S speaks. None on
+    // the highway and on streets that post their own limits.
+    pub after_exit_limit_mph: Option<f64>,
     // The posted number the keeper last took its target from, so a street
     // that posts a HIGHER one can hand the keeper back up to street speed.
     pub keeper_zone_limit: Option<f64>,

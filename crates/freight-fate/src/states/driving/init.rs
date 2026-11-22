@@ -710,6 +710,8 @@ impl DrivingState {
             keeper_throttle: 0.0,
             keeper_zone: String::new(),
             speed_control_floor_said: false,
+            bridge_resume_said_mph: None,
+            after_exit_limit_mph: None,
             keeper_zone_limit: None,
             keeper_ease_said: None,
             keeper_ease_target: None,

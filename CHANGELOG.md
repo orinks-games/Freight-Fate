@@ -44,10 +44,13 @@
 - **Dawson Creek, Fort St. John, Fort Nelson and the Yukon now keep Mountain Time.**
 - **Live weather no longer carries a US reading into Canada.** North of the border the sky is simulated, and weather alerts stay quiet.
 - **The map now reaches Alaska and northern Canada along the Alaska Highway,** from Blaine and Bellingham through Prince George, Dawson Creek and Whitehorse to Tok and Fairbanks.
+- **The map now reaches Alberta, Saskatchewan and Manitoba,** on the Trans-Canada and Yellowhead highways from Vancouver to Winnipeg, with six more border crossings.
+- **Diesel in Alberta, Saskatchewan and Manitoba now costs what it does there.**
 - **Alaska roads now reach the Kenai Peninsula, Valdez and Deadhorse.** Seward, Valdez and Kenai offer only their real freight sites, and Deadhorse sells diesel.
 - **Hours of service now follow Alaska and Canadian rules where you drive.** You hear the new limits as you cross into each place.
 - **Billboards in Canada follow each province's sign law.** The everyday roadside signs no longer stand in the Yukon or in parks along the Alaska Highway.
-- **Twenty new carriers hire across the map, including Alaska.** Every lower-48 city now has a regional carrier, and three local carriers run short loads around Chicago, Los Angeles and Anchorage.
+- **Fifty-four carriers now hire across the map, including Alaska.** Every lower-48 city has at least two regional carriers, and local carriers work 16 big cities and ports.
+- **Three new national carriers lean toward refrigerated freight, doubles, or steel, machinery and lumber.**
 - **Fairbanks job boards now use real freight sites,** such as Costco, Fred Meyer and Spenard Builders Supply.
 - **Twin parcel trailers now stay on the Interstates.** Dispatch drops a lane that leaves them, and says so when no lane is left.
 - **The reefer and the APU now have their own keys,** Alt+R and Alt+U. Cold freight warms slowly with the reefer off, and the engine must be off to fuel.
@@ -56,10 +59,14 @@
 - **Hooking or breaking a set of doubles adds time on duty,** and the walk-around takes 25 minutes instead of 15.
 - **The rear trailer of a set of doubles can whip on a hard swerve at 40 miles per hour and up.** You hear it when it starts. Reverse is refused with doubles hooked.
 - **The ELD now tracks your 70-hour, 8-day work cycle.** When a day of cycle hours is left the status line says so, and a 34-hour rest starts a fresh week.
+- **Fuel stops, lodges and rest areas now line the Alaska Highway and the roads of British Columbia and Alaska.** A loaded truck can fuel at the lodges and town stations, and only stops open all year are offered.
 
 ### Changed
 
+- **The career start list now runs local, regional, then national carriers, nearest terminal first.** The owner-operator start stays last.
 - **The British Columbia and Yukon highways now follow the real roads, with their bends, hills, exits and towns.** Surrey to Blaine is now 15 miles, 14 northbound.
+- **Canadian speed limits are now said as signed.** A 100 sign is 100 in kilometers and 62 in miles, and cruise holds that speed.
+- **Crossing into Yukon from Fort Nelson is now said once, near Lower Post.** A province line with no named place says just "Crossing into Yukon."
 - **Alaska, Yukon and British Columbia roads now use October's posted speed limits too.** Towns along the Alaska Highway slow you down, and the Glenn Highway runs at 65.
 - **A CDL pulled at speed now ends the run.** The truck stops on the shoulder, and a relief driver takes it back to the city the run left from.
 - **Dispatch trust no longer says the carrier may let you go while your CDL is pulled.** It says the seat is held until the suspension or disqualification ends.
@@ -75,6 +82,7 @@
 
 ### Fixed
 
+- **A stop with only fuel pumps no longer offers a motel room or a night in the lot.**
 - **Moving up from the training fleet now only offers carriers that hire where you live.** Your truck waits at the new carrier's terminal.
 - **A translated game no longer leaves half a line in English** on the dispatch board or in any line naming a carrier's terminal.
 - **Dispatch calls now read cargo damage, hours and distance cleanly,** and no longer call a sound load damaged.
@@ -89,6 +97,9 @@
 - **Moving up to another carrier now says where your truck will start** before you confirm.
 - **The sleep that finishes a 34-hour restart now says your cycle clock reset.**
 - **A repossession with no carrier to take you on now names the city it looked near.**
+- **Cruise coming back after a slowdown now says it once,** with the speed it will hold.
+- **The S key off the destination exit now reads the approach limit,** not the interstate's.
+- **Past the destination exit, the assists and the speed warning go by the approach limit.** Well over it on the ramp, you now hear the warning.
 - **The delivery screen now reads the receiver's cattle count and any freight claim.** Both had gone missing from the screen.
 - **A reefer box left off on the road now warms at the same rate as at a stop.** It had been warming ten times slower while driving.
 - **Sleeping with cattle aboard now warns when they would pass the 28-hour limit,** and the hours readouts stop naming a 30-minute break that cannot come due.
