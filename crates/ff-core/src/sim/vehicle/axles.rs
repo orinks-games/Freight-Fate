@@ -54,16 +54,28 @@ impl AxleLoads {
     /// The ticket as spoken: each group and the gross in pounds, then
     /// either the groups that are over and by how much, or that it is legal.
     pub fn ticket_text(&self) -> String {
+        self.ticket_text_in(true)
+    }
+
+    /// [`Self::ticket_text`] in kilograms when the readouts are metric
+    /// (Metric, or Automatic in Canada): the same limits, converted.
+    pub fn ticket_text_in(&self, imperial: bool) -> String {
         let lb = |kg: f64| (kg / KG_PER_LB).round();
-        let pounds = |kg: f64| format!("{} pounds", fmt_grouped(lb(kg), 0));
+        let weight = |kg: f64| {
+            if imperial {
+                format!("{} pounds", fmt_grouped(lb(kg), 0))
+            } else {
+                format!("{} kilograms", fmt_grouped(kg.round(), 0))
+            }
+        };
         let mut parts = vec![
-            format!("Steer axle {}.", pounds(self.steer_kg)),
-            format!("Drive axles {}.", pounds(self.drive_kg)),
+            format!("Steer axle {}.", weight(self.steer_kg)),
+            format!("Drive axles {}.", weight(self.drive_kg)),
         ];
         if self.trailer_kg > 0.0 {
-            parts.push(format!("Trailer axles {}.", pounds(self.trailer_kg)));
+            parts.push(format!("Trailer axles {}.", weight(self.trailer_kg)));
         }
-        parts.push(format!("Gross {}.", pounds(self.gross_kg())));
+        parts.push(format!("Gross {}.", weight(self.gross_kg())));
         let limits = [
             ("Drive axles", self.drive_kg, TANDEM_LIMIT_LB),
             ("Trailer axles", self.trailer_kg, TANDEM_LIMIT_LB),
@@ -73,11 +85,20 @@ impl AxleLoads {
             .iter()
             .filter(|(_, kg, limit)| lb(*kg) > *limit)
             .map(|(name, kg, limit)| {
-                format!(
-                    "{name} {} pounds over the {} pound limit.",
-                    fmt_grouped(lb(*kg) - limit, 0),
-                    fmt_grouped(*limit, 0)
-                )
+                if imperial {
+                    format!(
+                        "{name} {} pounds over the {} pound limit.",
+                        fmt_grouped(lb(*kg) - limit, 0),
+                        fmt_grouped(*limit, 0)
+                    )
+                } else {
+                    let limit_kg = (limit * KG_PER_LB).round();
+                    format!(
+                        "{name} {} kilograms over the {} kilogram limit.",
+                        fmt_grouped((*kg - limit_kg).max(1.0).round(), 0),
+                        fmt_grouped(limit_kg, 0)
+                    )
+                }
             })
             .collect();
         if over.is_empty() {
@@ -265,5 +286,23 @@ mod tests {
         assert!(lb(axles.steer_kg) <= 17_000.0);
         assert!(cap / KG_PER_LB < 80_000.0);
         assert!((seasonal_gvw_cap_kg(&stock, 100) - LEGAL_GVW_KG).abs() < 1e-6);
+    }
+
+    #[test]
+    fn a_metric_ticket_reads_kilograms_and_the_limits_converted() {
+        let axles = AxleLoads {
+            steer_kg: 5_000.0,
+            drive_kg: 16_000.0,
+            trailer_kg: 15_000.0,
+        };
+        let text = axles.ticket_text_in(false);
+        assert!(text.starts_with("Steer axle 5,000 kilograms."), "{text}");
+        assert!(text.contains("Gross 36,000 kilograms."), "{text}");
+        assert!(
+            text.contains("Drive axles 578 kilograms over the 15,422 kilogram limit."),
+            "{text}"
+        );
+        assert!(!text.contains("pound"), "{text}");
+        assert_eq!(axles.ticket_text(), axles.ticket_text_in(true));
     }
 }

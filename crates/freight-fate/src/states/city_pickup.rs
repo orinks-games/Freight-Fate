@@ -1191,7 +1191,7 @@ impl Menu for PickupFacilityState {
         let lead = if self.loaded {
             let destination = self.job.spoken_destination();
             let mut lead = self
-                .cattle_loaded_line()
+                .cattle_loaded_line(ctx.settings.imperial())
                 .unwrap_or_else(|| format!("Loaded and sealed for {destination}."));
             if self.just_loaded {
                 let minutes = fmt_f(plan.minutes, 0);

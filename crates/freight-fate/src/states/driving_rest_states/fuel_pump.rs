@@ -10,7 +10,7 @@
 //! dry.
 
 use ff_core::models::economy::{cad_per_litre, canada_diesel_usd_per_gal};
-use ff_core::models::loyalty::loyalty_earnings_text;
+use ff_core::models::loyalty::loyalty_earnings_text_in;
 use ff_core::pyfmt::{fmt_f, fmt_grouped};
 use ff_core::sim::trip_models::RoadStop;
 use ff_core::sim::vehicle::KG_PER_LB;
@@ -174,7 +174,13 @@ pub trait FuelPump: Menu {
             let result = profile_mut_of(ctx)
                 .loyalty
                 .add_fueling(need, None, &stop.name, &region);
-            loyalty_earnings_text(need, result.points_earned, &result.rewards)
+            let volume = (!ctx.settings.imperial()).then(|| ctx.settings.volume_text(need));
+            loyalty_earnings_text_in(
+                need,
+                result.points_earned,
+                &result.rewards,
+                volume.as_deref(),
+            )
         };
         self.save_here(ctx, true);
 
