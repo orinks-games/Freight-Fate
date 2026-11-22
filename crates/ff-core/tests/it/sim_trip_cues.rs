@@ -435,7 +435,10 @@ fn class_rules_pass_allowed_classes_and_route_banned_ones_around() {
         "non-bulk paint"
     );
     let gas = refused(&packaged(HazardClass::PoisonGas)).expect("poison gas refused");
-    assert!(gas.starts_with("This load is poison gas. "), "{gas}");
+    assert_eq!(
+        gas, "This load is poison gas, which may not use the Hampton Roads Bridge-Tunnel.",
+        "only the clause that turns this load away"
+    );
     let legal = world
         .legal_route(
             "norfolk_va_us",
@@ -467,7 +470,7 @@ fn class_rules_pass_allowed_classes_and_route_banned_ones_around() {
         .refusal_spoken(&packaged(HazardClass::DangerousWhenWet))
         .expect("4.3 is banned outright");
     assert!(
-        banned.starts_with("This load is dangerous when wet. Explosives, poison gas"),
+        banned == "This load is dangerous when wet, which may not use the Chesapeake Bay Bridge-Tunnel.",
         "{banned}"
     );
     for class in [
@@ -488,6 +491,35 @@ fn class_rules_pass_allowed_classes_and_route_banned_ones_around() {
         .crossings
         .iter()
         .any(|c| c.name == "Golden Gate Bridge" && c.refusal(&blast).is_none())));
+}
+
+/// Chlorine is told why it is turned away from the Pennsylvania Turnpike
+/// tunnels, not about the bulk flammable rule that does not apply to it; a
+/// fuel tanker still hears the rule that does.
+#[test]
+fn the_tunnel_refusal_speaks_the_clause_for_the_loads_class() {
+    use ff_core::data::world_models::HazardClass;
+    let pa = world()
+        .legs
+        .iter()
+        .flat_map(|leg| leg.crossings.iter())
+        .find(|c| c.name == "Pennsylvania Turnpike tunnels")
+        .expect("the turnpike tunnels");
+    let chlorine = CrossingLoad::standard_rig(true)
+        .with_cargo("hazardous", false, 30_000)
+        .with_hazard_class(Some(HazardClass::PoisonGas));
+    assert_eq!(
+        pa.refusal_spoken(&chlorine).as_deref(),
+        Some("This load is poison gas, which may not use the Pennsylvania Turnpike tunnels.")
+    );
+    let gasoline = CrossingLoad::standard_rig(true).with_cargo("fuel_bulk", true, 50_000);
+    let fuel = pa
+        .refusal_spoken(&gasoline)
+        .expect("a fuel tanker is refused");
+    assert!(
+        fuel.contains("flammable liquids may not go through in bulk"),
+        "{fuel}"
+    );
 }
 
 fn golden_gate_trip(

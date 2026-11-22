@@ -127,6 +127,9 @@ pub struct Scenario {
     pub clear_load: bool,
     pub market_seed: Option<i64>,
     pub board_seed: Option<i64>,
+    /// A load the next dispatch board adds as its last row: a city, or a
+    /// facility by name ("SCI Cross Dock") for a load delivered there.
+    pub board_load_to: Option<String>,
     /// The city the truck delivered from to get here: the lane memory reads
     /// as one delivery from there to the parked city, which is what shapes
     /// the next board (the straight return damped, lanes recent both ways).
@@ -381,6 +384,7 @@ impl Scenario {
                 .unwrap_or(false),
             market_seed: integer(args, "market_seed")?,
             board_seed: integer(args, "board_seed")?,
+            board_load_to: text(args, "board_load_to")?,
             came_from: text(args, "came_from")?,
             settings,
             window_down,
@@ -667,6 +671,14 @@ pub fn apply(ctx: &mut GameContext, scenario: &Scenario) -> Result<Vec<String>, 
     if let Some(seed) = scenario.board_seed {
         ctx.dispatch_board_seed = Some(seed);
         notes.push(format!("Dispatch board seed {seed}."));
+    }
+    if let Some(to) = &scenario.board_load_to {
+        // A fresh board, so the cached one does not hide the added row.
+        if let Some(p) = ctx.profile.as_mut() {
+            p.dispatch_board_cache = None;
+        }
+        ctx.playtest_board_load_to = Some(to.clone());
+        notes.push(format!("Dispatch boards add a load to {to}."));
     }
     for (name, value) in &scenario.settings {
         if !ctx.settings.set_field(name, value) {

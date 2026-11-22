@@ -4722,11 +4722,11 @@ msgid "Dispatch dropped a lane that leaves the turnpike."
 msgstr ""
 
 msgid ""
-"Dispatch can't clear twin trailers on that run. It leaves the National "
-"Network."
+"Dispatch can't clear twin trailers on that run. Every route crosses a road "
+"closed to them."
 msgstr ""
 
-msgid "Dispatch dropped a lane that leaves the National Network."
+msgid "Dispatch dropped a lane with a road closed to twin trailers."
 msgstr ""
 
 msgid "Dispatch doesn't run twins on that lane."
@@ -6724,6 +6724,10 @@ msgid "corrosive"
 msgstr ""
 
 msgid "a miscellaneous hazardous material"
+msgstr ""
+
+#. placeholders: {spoken}, {name}
+msgid "This load is {spoken}, which may not use the {name}."
 msgstr ""
 
 #. placeholders: {spoken}
@@ -10323,14 +10327,6 @@ msgstr ""
 msgid "{tons} tons of {cargo} from {origin} to {destination}."
 msgstr ""
 "{cargo}, {tons} {tons:тонна|тонны|тонн}, из {origin} в {destination}."
-
-#. placeholders: {head_text}
-msgid " {head_text}. They can ride 28 hours."
-msgstr ""
-
-#. one sentence of a longer line
-msgid "They can ride 28 hours."
-msgstr ""
 
 #. placeholders: {highway}, {percent}
 msgid ""
@@ -19811,6 +19807,10 @@ msgstr "Рычаг плейтеста: нет города {dest}, куда мо
 msgid "Playtest lever: the board already offers {spoken}."
 msgstr "Рычаг плейтеста: на доске уже есть {spoken}."
 
+#. placeholders: {dest}, {spoken}
+msgid "{dest} in {spoken}"
+msgstr ""
+
 #. placeholders: {spoken}
 msgid "Playtest lever: no supported dispatch from here to {spoken}."
 msgstr "Рычаг плейтеста: отсюда нет поддерживаемого заказа до {spoken}."
@@ -20390,6 +20390,19 @@ msgid "Deadline {f} hours after loading, about {appointment_text}."
 msgstr ""
 "Срок доставки {f} {f:час|часа|часов} после погрузки, примерно к "
 "{appointment_text}."
+
+#. placeholders: {head}
+#. one sentence of a longer line
+msgid "Cattle: {head}."
+msgstr ""
+
+#. placeholders: {head}
+msgid "Cattle: {head}. They can ride 28 hours."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "They can ride 28 hours."
+msgstr ""
 
 #. placeholders: {equipment_text}
 msgid "Equipment: {equipment_text}."
@@ -23100,6 +23113,10 @@ msgstr ""
 #. placeholders: {destination}
 msgid "Dispatch routed you to {destination}. "
 msgstr "Диспетчер отправил вас в {destination}. "
+
+#. placeholders: {distance_text}, {grouped}
+msgid "The load now pays for {distance_text}, {grouped} dollars. "
+msgstr ""
 
 msgid "Back to pickup facility"
 msgstr "Назад к месту погрузки"
@@ -30626,8 +30643,12 @@ msgstr ""
 msgid "{head} head."
 msgstr ""
 
-#. placeholders: {spoken}, {head}, {aboard_text}, {limit}
-msgid "{spoken}. {head} head. {aboard_text} aboard, {limit}."
+#. placeholders: {head}, {aboard_text}, {limit}
+msgid "{head} head. {aboard_text} aboard, {limit}."
+msgstr ""
+
+#. placeholders: {spoken}, {condition}
+msgid "{spoken}, {condition} percent"
 msgstr ""
 
 #. placeholders: {minutes}
@@ -31891,10 +31912,18 @@ msgid "{f} hours before the deadline, due {deadline_appointment}"
 msgstr ""
 "до срока доставки {f} {f:час|часа|часов}, срок: {deadline_appointment}"
 
-#. placeholders: {tons_text}, {cargo_label}, {tons_text2}, {cargo_status_clause}
+#. placeholders: {tons}, {cargo_label}, {gross}
+#. one sentence of a longer line
+msgid "Load: {tons} of {cargo_label}, gross {gross}."
+msgstr ""
+
+#. placeholders: {tons}, {cargo_label}, {gross}, {cattle}
+msgid "Load: {tons} of {cargo_label}, gross {gross}. {cattle}"
+msgstr ""
+
+#. placeholders: {tons}, {cargo_label}, {gross}, {cargo_status_clause}
 msgid ""
-"Load: {tons_text} of {cargo_label}, gross {tons_text2}, freight "
-"{cargo_status_clause}"
+"Load: {tons} of {cargo_label}, gross {gross}, freight {cargo_status_clause}"
 msgstr ""
 
 #. placeholders: {clock}, {deadline_text}
@@ -34451,9 +34480,7 @@ msgstr "Инспекторы направляют вас на полосу пр�
 msgid "{outcome} {safety_record_line} It is {clock_text}."
 msgstr "{outcome} {safety_record_line} Сейчас {clock_text}."
 
-msgid ""
-"Nothing to write up: tires, brakes, lights, both trailers and the converter "
-"dolly would all pass."
+msgid "Nothing to write up."
 msgstr ""
 
 msgid ""
