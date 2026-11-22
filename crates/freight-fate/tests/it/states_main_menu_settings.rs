@@ -686,6 +686,22 @@ fn test_settings_menu_f1_has_help_for_every_item() {
 }
 
 #[test]
+fn test_outside_and_road_surface_rows_step_their_own_volume() {
+    let mut app = TestApp::new();
+    open_settings_category(&mut app, "Audio");
+    move_to::<Cat>(&mut app, "Outside sounds volume");
+    key(&mut app, Key::Left);
+    assert_eq!(app.ctx.settings.outside_volume, 0.55);
+    move_to::<Cat>(&mut app, "Road surface volume");
+    key(&mut app, Key::Right);
+    assert_eq!(app.ctx.settings.road_surface_volume, 0.9);
+    // The volumes they split from stay where they were.
+    assert_eq!(app.ctx.settings.weather_volume, 0.65);
+    assert_eq!(app.ctx.settings.sfx_volume, 0.8);
+    assert_eq!(Settings::load().outside_volume, 0.55, "the change is saved");
+}
+
+#[test]
 fn test_haptics_help_explains_road_seam_feedback() {
     let mut app = TestApp::new();
     open_settings_category(&mut app, "Controls");

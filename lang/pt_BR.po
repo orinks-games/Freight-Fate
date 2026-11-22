@@ -16352,6 +16352,9 @@ msgstr "xm"
 msgid "Sound assets are missing or unreadable: ui/menu_select"
 msgstr "Arquivos de som ausentes ou ilegíveis: ui/menu_select"
 
+msgid "outside"
+msgstr ""
+
 msgid "ui"
 msgstr "ui"
 
@@ -37252,6 +37255,20 @@ msgid "Rain, wind, thunder, snow, and fog sounds."
 msgstr "Sons de chuva, vento, trovão, neve e neblina."
 
 #. placeholders: {pct}
+msgid "Outside sounds volume: {pct} percent"
+msgstr ""
+
+msgid "Birds by day, insects at night, and the rivers you pass."
+msgstr ""
+
+#. placeholders: {pct}
+msgid "Road surface volume: {pct} percent"
+msgstr ""
+
+msgid "The thump of pavement seams and bridge joints under the wheels."
+msgstr ""
+
+#. placeholders: {pct}
 msgid "Engine sounds volume: {pct} percent"
 msgstr "Volume dos sons do motor: {pct} por cento"
 
@@ -37367,11 +37384,9 @@ msgid "Lower game sounds during speech: {on_off}"
 msgstr "Sons do jogo abaixam para a fala: {on_off}"
 
 msgid ""
-"While the road voice speaks, the engine, weather, and radio drop to half "
-"volume, then come back."
+"While the road voice speaks, the engine, weather, outside sounds, and radio "
+"drop to half volume, then come back."
 msgstr ""
-"Enquanto a voz da estrada fala, o motor, o clima e o rádio caem para a "
-"metade do volume e depois voltam."
 
 #. placeholders: {pct}
 msgid "Menu and UI sounds volume: {pct} percent"
@@ -44716,6 +44731,13 @@ msgstr ""
 
 #~ msgid "The report form could not be opened: {reason}"
 #~ msgstr "Não foi possível abrir o formulário de relato: {reason}"
+
+#~ msgid ""
+#~ "While the road voice speaks, the engine, weather, and radio drop to half "
+#~ "volume, then come back."
+#~ msgstr ""
+#~ "Enquanto a voz da estrada fala, o motor, o clima e o rádio caem para a "
+#~ "metade do volume e depois voltam."
 
 #~ msgid ""
 #~ "Hold one finger still for half a second to straighten the wheel. With "

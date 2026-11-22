@@ -793,6 +793,8 @@ impl GameContext {
             .sfx(self.settings.sfx_volume)
             .music(self.settings.music_volume)
             .weather(self.settings.weather_volume)
+            .outside(self.settings.outside_volume)
+            .road(self.settings.road_surface_volume)
             .engine(self.settings.engine_volume)
             .ui(self.settings.ui_volume);
         self.audio.set_volumes(&update);
