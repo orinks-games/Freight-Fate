@@ -266,6 +266,13 @@ OpenStreetMap: ways 4722573, 164815009, 465713726.
 
 The place is at mile 66.4; the board stands 10.3 miles before it.
 
+### Canso Causeway (westbound, Sydney to Port Hawkesbury)
+- treatment: billboard
+- leg: sydney_ns_ca -> port_hawkesbury_ns_ca
+- at_mi: 77.5
+- spoken: Billboard: The Canso Causeway, ahead. About ten million tonnes of rock, laid across the Strait of Canso in nineteen fifty-five to join Cape Breton to the mainland. Cape Breton is still deciding how it feels about that.
+
+The causeway is 4.4 miles into Port Hawkesbury to New Glasgow; the board stands 7.9 miles before it, at the end of the road in from Sydney (director's ruling, 2026-11-22: try westbound too).
 
 ## Shubenacadie Wildlife Park
 
@@ -306,7 +313,7 @@ The place is at mile 61.0; the board stands 9.9 miles before it.
 - at_mi: 62.0
 - spoken: Billboard: The Halifax Citadel, ahead. A fort on the hill above the harbor, where a gun is fired every day at noon. It is the one deadline in town that is never late.
 
-Not placed: no mile 4 to 15 before the place is outside the bans and two miles clear of the map's lines.
+Not placed: no mile 4 to 15 before the place is outside the bans and two miles clear of the map's lines. The Citadel's board stands on Truro to Halifax only (director's ruling, 2026-11-22).
 
 
 ## Oak Island
@@ -338,7 +345,7 @@ The place is at mile 15.9; the board stands 12.0 miles before it.
 - at_mi: 66.6
 - spoken: Crossing the Canso Causeway.
 
-Not placed: within two miles of a line the map already speaks ("Passing Newtown" 0.4 mile away), so one would be silenced.
+Not placed: within two miles of a line the map already speaks ("Passing Newtown" 0.4 mile away), so one would be silenced. Dropped: the map's own town and river lines win (director's ruling, 2026-11-22).
 
 ### Canso Causeway (Port Hawkesbury to New Glasgow)
 - treatment: skip
@@ -346,7 +353,7 @@ Not placed: within two miles of a line the map already speaks ("Passing Newtown"
 - at_mi: 4.4
 - spoken: Crossing the Canso Causeway.
 
-Not placed: within two miles of lines the map already speaks ("Passing Newtown" 0.4 mile and "Passing Auld's Cove" 1.7 miles away), so one would be silenced.
+Not placed: within two miles of lines the map already speaks ("Passing Newtown" 0.4 mile and "Passing Auld's Cove" 1.7 miles away), so one would be silenced. Dropped: the map's own town and river lines win (director's ruling, 2026-11-22).
 
 
 ## Paul Bunyan statue
@@ -357,5 +364,5 @@ Not placed: within two miles of lines the map already speaks ("Passing Newtown" 
 - at_mi: 100.9
 - spoken: Passing the Paul Bunyan statue.
 
-Not placed: within two miles of a line the map already speaks ("Crossing the Penobscot River" 0.4 mile away), so one would be silenced.
+Not placed: within two miles of a line the map already speaks ("Crossing the Penobscot River" 0.4 mile away), so one would be silenced. Dropped: the map's own town and river lines win (director's ruling, 2026-11-22).
 
