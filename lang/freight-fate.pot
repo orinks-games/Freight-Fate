@@ -15253,6 +15253,10 @@ msgid "No 30-minute break is required under Canadian hours rules."
 msgstr ""
 
 #: crates/ff-core/src/sim/hos/clock.rs
+msgid "No 30-minute break is required with cattle aboard."
+msgstr ""
+
+#: crates/ff-core/src/sim/hos/clock.rs
 msgid "Break overdue"
 msgstr ""
 
@@ -26024,11 +26028,11 @@ msgstr ""
 msgid "Hooking the loaded trailer"
 msgstr ""
 
-#. placeholders: {facility}, {map}, {f}, {cargo_label}, {doubles_clause}
+#. placeholders: {facility}, {map}, {f}, {cargo_label}
 #: crates/freight-fate/src/states/city_pickup.rs
 msgid ""
 "Dropping your empty at {facility} and hooking {map}, loaded with {f} tons "
-"of {cargo_label}.{doubles_clause}"
+"of {cargo_label}."
 msgstr ""
 
 #: crates/freight-fate/src/states/city_pickup.rs
@@ -26039,9 +26043,9 @@ msgstr ""
 msgid "Loading cargo"
 msgstr ""
 
-#. placeholders: {f}, {cargo_label}, {facility}, {doubles_clause}
+#. placeholders: {f}, {cargo_label}, {facility}
 #: crates/freight-fate/src/states/city_pickup.rs
-msgid "Loading {f} tons of {cargo_label} at {facility}.{doubles_clause}"
+msgid "Loading {f} tons of {cargo_label} at {facility}."
 msgstr ""
 
 #: crates/freight-fate/src/states/city_pickup.rs
@@ -27756,15 +27760,15 @@ msgstr ""
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/driving_border.rs
 msgid ""
-"The officer asks for your passport and checks the eManifest your carrier "
-"filed before arrival."
+"The officer asks for your passport and checks the eManifest filed for this "
+"load."
 msgstr ""
 
 #. placeholders: {name}, {agency}
 #: crates/freight-fate/src/states/driving_border.rs
 msgid ""
 "{name}, {agency}. The officer asks for your passport and checks the "
-"eManifest your carrier filed before arrival."
+"eManifest filed for this load."
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_border.rs
@@ -35553,17 +35557,16 @@ msgid ""
 "Dropping the loaded trailer at {facility}, {f} tons of {cargo_label}."
 msgstr ""
 
-#. placeholders: {facility}, {f}, {cargo_label}, {doubles}
+#. placeholders: {facility}, {f}, {cargo_label}
 #: crates/freight-fate/src/states/driving_menu_states/facility_arrival.rs
 msgid ""
 "Dropping the loaded trailer at {facility}, {f} tons of {cargo_label}. "
-"Hooking an empty.{doubles}"
+"Hooking an empty."
 msgstr ""
 
-#. placeholders: {doubles}
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/driving_menu_states/facility_arrival.rs
-msgid "Hooking an empty.{doubles}"
+msgid "Hooking an empty."
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_menu_states/facility_arrival.rs
@@ -35580,15 +35583,15 @@ msgstr ""
 msgid "Docked at {facility}."
 msgstr ""
 
-#. placeholders: {facility}, {f}, {cargo_label}, {doubles}
+#. placeholders: {facility}, {f}, {cargo_label}
 #: crates/freight-fate/src/states/driving_menu_states/facility_arrival.rs
-msgid "Docked at {facility}. Unloading {f} tons of {cargo_label}.{doubles}"
+msgid "Docked at {facility}. Unloading {f} tons of {cargo_label}."
 msgstr ""
 
-#. placeholders: {f}, {cargo_label}, {doubles}
+#. placeholders: {f}, {cargo_label}
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/driving_menu_states/facility_arrival.rs
-msgid "Unloading {f} tons of {cargo_label}.{doubles}"
+msgid "Unloading {f} tons of {cargo_label}."
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_menu_states/facility_arrival.rs
@@ -37583,6 +37586,10 @@ msgid ""
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_rest_states/rest_preview.rs
+msgid "The cattle pass the 28-hour limit while you sleep."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_rest_states/rest_preview.rs
 msgid "the lot"
 msgstr ""
 
@@ -37676,17 +37683,17 @@ msgstr ""
 msgid "Sleep {span}{more} at {name}."
 msgstr ""
 
-#. placeholders: {span}, {more}, {name}, {effect}, {legal}, {f}, {f2}, {deadline}, {pending}, {cost}
+#. placeholders: {span}, {more}, {name}, {effect}, {legal}, {f}, {f2}, {deadline}, {cattle}, {pending}, {cost}
 #: crates/freight-fate/src/states/driving_rest_states/rest_preview.rs
 msgid ""
 "Sleep {span}{more} at {name}. {effect} {legal} Fatigue {f} to {f2}. Clock "
-"moves ahead {span}. {deadline}{pending}{cost} Select again to sleep."
+"moves ahead {span}. {deadline}{cattle}{pending}{cost} Select again to sleep."
 msgstr ""
 
-#. placeholders: {deadline}, {pending}, {cost}
+#. placeholders: {deadline}, {cattle}, {pending}, {cost}
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/driving_rest_states/rest_preview.rs
-msgid "{deadline}{pending}{cost} Select again to sleep."
+msgid "{deadline}{cattle}{pending}{cost} Select again to sleep."
 msgstr ""
 
 #. placeholders: {effect}, {legal}, {f}, {f2}
@@ -41124,27 +41131,26 @@ msgstr ""
 
 #: crates/freight-fate/src/states/driving_updates/fatigue.rs
 msgid ""
-"US hours rules again: 11 hours of driving in a 14-hour window, and a "
-"30-minute break after 8 hours of driving."
+"US hours rules: 11 hours of driving in a 14-hour window, and a 30-minute "
+"break after 8 hours of driving."
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_updates/fatigue.rs
 msgid ""
-"Alaska hours rules now apply: up to 15 hours of driving and 20 on duty "
-"after 10 hours off, with no 30-minute break."
+"Alaska hours rules: 15 hours of driving and 20 on duty, with no 30-minute "
+"break."
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_updates/fatigue.rs
 msgid ""
-"Canadian hours rules now apply. Up to 13 hours of driving and 14 on duty "
-"after 8 hours off. No driving once 16 hours have passed since that break."
+"Canadian hours rules: 13 hours of driving and 14 on duty in a 16-hour "
+"window."
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_updates/fatigue.rs
 msgid ""
-"Canadian north-of-60 hours rules now apply. Up to 15 hours of driving and "
-"18 on duty after 8 hours off. No driving once 20 hours have passed since "
-"that break."
+"North of 60 hours rules: 15 hours of driving and 18 on duty in a 20-hour "
+"window."
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_updates/fatigue.rs

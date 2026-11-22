@@ -298,3 +298,56 @@ the rest are this session's drafted corridors:
 - **Big Buck's** — its own approach pool already drafted in
   `BIG_BUCKS_BILLBOARDS`; place as a `countdown` at each Big Buck's landmark
   once those are sited in the world.
+
+## 11. Where a board may stand: Canada
+
+The United States pass applied every state's sign law; this is the same pass
+for the provinces and territories, read 2026-11-22 from each one's statute
+or official page. The table is data: `crates/ff-core/src/data/billboard_law.rs`
+holds the same rows, and a test fails if the two disagree. Three answers:
+
+- **open**: commercial boards are licensed on private land beside the
+  highway. Every kind of billboard may stand: placed attraction signs, the
+  anywhere pool, Big Jim.
+- **attractions only**: the law licenses boards only for businesses that
+  serve travelers (a museum, a lodge, a hot spring, a restaurant). Placed
+  attraction signs stand; the pool and Big Jim stay off the road.
+- **none**: no commercial boards. The road is silent, and that is correct.
+
+Alaska stays **none**, as Maine, Vermont and Hawaii do. Everywhere, a board
+never stands on the highway right of way, and a park the road runs through
+has no private land to put one on: those stretches are `billboard_bans`
+spans on the legs that cross them, as the United States scenic byways are.
+
+| Jurisdiction | Boards | Where they may not stand | Source |
+|---|---|---|---|
+| British Columbia | open | The right of way; within 300 m of a provincial highway outside towns; provincial and national parks | BC Ministry of Transportation, Permits and Approvals Manual s 1.6.2; gov.bc.ca highway signs page |
+| Alberta | none | Anywhere along a provincial highway; a permit covers 300 m from the highway and 800 m from an intersection | Highways Development and Protection Act ss 11 to 19; alberta.ca: "off-premise advertising billboards are not permitted along highways" |
+| Saskatchewan | open | The right of way; 500 m from a junction of two provincial highways; permit within 400 m | Provincial Highway Sign Control Regulations; Roadside Management Manual 1220-00 and 1240-85 |
+| Manitoba | open | The right of way; permit outside it | Transportation Infrastructure Act; gov.mb.ca private advertising signs page |
+| Ontario | open | Permit within 400 m of a provincial highway; Crown land with a significant scenic view | Public Transportation and Highway Improvement Act; MTO Corridor Signing Policy; Crown land policy PL 4.06.02 |
+| Quebec | open | Within 30 m of the right of way, 75 m of an autoroute, 180 m of a junction; within 300 m of a designated scenic, heritage or safety site; permit within 300 m | Roadside Advertising Act, CQLR c P-44 ss 6, 7, 13, 17 |
+| New Brunswick | attractions only | Level I and II highways (the trucking routes) carry tourism businesses only; regulated area 500 m on those, 150 m elsewhere; 1 km from an interchange | Highway Act, Highway Advertisements Regulation 97-143 ss 2 to 5 |
+| Nova Scotia | attractions only | Within 1,000 m of a highway, unless licensed for lodging, restaurants, attractions and similar traveler businesses within 50 km | Public Highways Act s 49, Advertising Signs Regulations ss 4, 5, 12 |
+| Prince Edward Island | none | Any off-premises sign within view of a highway, outside municipalities | Highway Signage Act; Highway Signage Act Regulations s 3.1 |
+| Newfoundland and Labrador | none | Permits only for government tourism panels in Corridor 2, never a billboard | Highway Sign Regulations NLR 85/99; Off-Site Promotional Highway Signage Policy and its FAQ |
+| Yukon | attractions only | Within 10 m of the road, 250 m of another board or a junction; only visitor services, facilities or attractions; up to three boards per business outside communities | Highways Act; Visitor Information Sign Regulation, Schedule B (as printed on the 2026 sign permit form) |
+| Northwest Territories | none | No permit is issued for a sign advertising a commercial business | Public Highways Act, Highway Signs Regulations s 6(2) |
+| Nunavut | none | Same regulation as the Northwest Territories | Public Highways Act, Highway Signs Regulations s 6 |
+
+Calls made reading these:
+
+- **British Columbia** is the weakest reading: the manual sets a 300 m
+  setback for rural boards rather than a permit scheme, and the province's
+  sign page says private signs along highways are not permitted. Boards do
+  stand back from the road on private and reserve land, so the answer is
+  open, with every provincial park on the route banned by span.
+- **New Brunswick** licenses commercial boards on ordinary highways, but the
+  freight routes are its Level I and II highways, where only tourism
+  businesses may sign. The whole province is read attractions only, so no
+  pool line stands on Route 2.
+- **Newfoundland and Labrador**'s off-site promotional signs are small
+  government panels listing tourism businesses, not billboards, so the
+  answer is none.
+- Agricultural zones (Quebec's Act A-7.0001 covers urban highways only) and
+  First Nations reserves did not change any answer.

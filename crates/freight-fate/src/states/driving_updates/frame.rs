@@ -721,6 +721,8 @@ impl DrivingState {
         self.update_lane_gap(ctx, dt);
 
         self.update_hours_and_fatigue(ctx, dt);
+        // After the hours, which can queue a line for after the crossing call.
+        self.update_after_crossing(ctx, dt);
         self.update_audio(ctx, dt);
         self.update_announcements(ctx, dt);
         self.update_ambient_events(ctx, dt);

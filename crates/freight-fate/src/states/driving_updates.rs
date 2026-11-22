@@ -37,6 +37,7 @@
 //! block names the module that owns it; that module's task deletes its block
 //! when it lands.
 
+pub mod after_crossing;
 pub mod air;
 pub mod cab;
 pub mod conditions;

@@ -3,6 +3,7 @@
 //! plus the per-tick checks that walk those schedules (the placement half of
 //! `trip.py`).
 
+use crate::data::billboard_law::{board_law, jurisdiction, BoardLaw};
 use crate::data::billboards::{corridor_signs, random_billboard, regional_genre_signs, SignAnchor};
 use crate::data::curves::{bend_bank, route_curves, superelevation_at, RouteCurve};
 use crate::data::national_network::city_key_state_country;
@@ -520,7 +521,7 @@ impl Trip {
                 let offset = stop_offset_for_direction(landmark.at_mi, leg.miles, forward);
                 let at_mi = start + offset;
                 if landmark.category == "billboard_sign"
-                    && self.commercial_billboards_banned_at(at_mi)
+                    && !self.board_law_at(at_mi).allows_placed()
                 {
                     continue;
                 }
@@ -636,10 +637,11 @@ impl Trip {
         let mut used: Vec<&'static str> = Vec::new();
         let mut at = BILLBOARD_LEAD_IN_MI + rng.uniform(0.0, BILLBOARD_MIN_GAP_MI);
         while at < self.total_miles() - 5.0 {
-            // Scenic America / FHWA: ME, VT, AK, and HI opted out of commercial
-            // billboards entirely. Keep the mile cadence but place nothing there
-            // so I-95 Maine cannot carry a joke board.
-            if self.commercial_billboards_banned_at(at) {
+            // Keep the mile cadence but place nothing where the sign law
+            // stands no everyday board (Maine, Alberta, the Yukon's
+            // attractions-only rule, a park), so I-95 Maine cannot carry a
+            // joke board.
+            if !self.board_law_at(at).allows_pool() {
                 at += rng.uniform(BILLBOARD_MIN_GAP_MI, BILLBOARD_MAX_GAP_MI);
                 continue;
             }
@@ -713,16 +715,11 @@ impl Trip {
         }
     }
 
-    /// Maine, Vermont, Alaska, and Hawaii ban commercial billboards (Scenic
-    /// America / FHWA). Scenic-byway spans are stored in each leg's own
-    /// direction and are mirrored for reverse travel.
-    fn commercial_billboards_banned_at(&self, at: f64) -> bool {
-        if matches!(
-            self.state_code_at(at).as_deref(),
-            Some("ME") | Some("VT") | Some("AK") | Some("HI")
-        ) {
-            return true;
-        }
+    /// What the sign law lets stand at a trip milepost: the state's or
+    /// province's answer (`data/billboard_law.rs`), or nothing inside a
+    /// park or scenic-byway span on the leg. Spans are stored in each leg's
+    /// own direction and are mirrored for reverse travel.
+    pub fn board_law_at(&self, at: f64) -> BoardLaw {
         let (leg_index, leg_start) = self.leg_at_mile(at);
         let leg = &self.route.legs[leg_index];
         let local_mi = at - leg_start;
@@ -731,9 +728,21 @@ impl Trip {
         } else {
             leg.miles - local_mi
         };
-        leg.billboard_bans()
+        if leg
+            .billboard_bans()
             .iter()
             .any(|ban| ban.from_mi <= local_mi && local_mi < ban.to_mi)
+        {
+            return BoardLaw::Banned;
+        }
+        // The bake's own name first ("Yukon"), so a leg that weaves across
+        // a line answers for the side it is on; the code fallback otherwise.
+        let name = self.state_at(Some(at));
+        if !name.is_empty() && jurisdiction(&name).is_some() {
+            return board_law(&name);
+        }
+        self.state_code_at(at)
+            .map_or(BoardLaw::Open, |code| board_law(&code))
     }
 
     /// The two-letter state code at a trip milepost, or None where the bake is

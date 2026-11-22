@@ -41,6 +41,7 @@
 - **The map now reaches Alaska and northern Canada along the Alaska Highway,** from Blaine and Bellingham through Prince George, Dawson Creek and Whitehorse to Tok and Fairbanks.
 - **Alaska roads now reach the Kenai Peninsula, Valdez and Deadhorse.** Seward, Valdez and Kenai offer only their real freight sites, and Deadhorse sells diesel.
 - **Hours of service now follow Alaska and Canadian rules where you drive.** You hear the new limits as you cross into each place.
+- **Billboards in Canada follow each province's sign law.** The everyday roadside signs no longer stand in the Yukon or in parks along the Alaska Highway.
 - **54 carriers now hire across the map, including Alaska.** Every lower-48 city has at least two regional carriers, and local carriers work 16 big cities and ports.
 - **Three new national carriers lean toward refrigerated freight, doubles, or steel, machinery and lumber.**
 - **Fairbanks job boards now use real freight sites,** such as Costco, Fred Meyer and Spenard Builders Supply.
@@ -85,6 +86,10 @@
 - **Moving up to another carrier now says where your truck will start** before you confirm.
 - **The sleep that finishes a 34-hour restart now says your cycle clock reset.**
 - **A repossession with no carrier to take you on now names the city it looked near.**
+- **The delivery screen now reads the receiver's cattle count and any freight claim.** Both had gone missing from the screen.
+- **A reefer box left off on the road now warms at the same rate as at a stop.** It had been warming ten times slower while driving.
+- **Sleeping with cattle aboard now warns when they would pass the 28-hour limit,** and the hours readouts stop naming a 30-minute break that cannot come due.
+- **A refused reverse with doubles no longer plays the gear-shift sound,** and the doubles hook-up time is spoken once at the shipper and once at the receiver.
 
 ## 1.9.7 - 2026-11-21
 
