@@ -16019,6 +16019,24 @@ msgstr "Vous entrez dans "
 msgid "Passing "
 msgstr "Vous passez "
 
+msgid "tap"
+msgstr "toucher"
+
+msgid "lift"
+msgstr "relâcher"
+
+msgid "idle"
+msgstr ""
+
+msgid "deciding"
+msgstr ""
+
+msgid "gas"
+msgstr "l'accélérateur"
+
+msgid "spent"
+msgstr ""
+
 msgid "menu"
 msgstr "menu"
 
@@ -16880,9 +16898,6 @@ msgstr "Rien"
 msgid "Tap"
 msgstr "Toucher"
 
-msgid "tap"
-msgstr "toucher"
-
 msgid "Flick up"
 msgstr "Coup vers le haut"
 
@@ -16955,9 +16970,6 @@ msgstr "un coup vers le haut à trois doigts"
 
 msgid "a three-finger flick down"
 msgstr "un coup vers le bas à trois doigts"
-
-msgid "gas"
-msgstr "l'accélérateur"
 
 msgid "double tap"
 msgstr "double toucher"
@@ -38458,6 +38470,17 @@ msgstr "Remettre tous les gestes tactiles par défaut"
 msgid "Puts every gesture on this screen back where it started."
 msgstr "Remet chaque geste de cet écran à sa place d'origine."
 
+msgid "New gesture reading: On"
+msgstr ""
+
+msgid "New gesture reading: Off"
+msgstr ""
+
+msgid ""
+"Reads your gestures the way the Android version does. Turn it off if a "
+"gesture stops working."
+msgstr ""
+
 msgid ""
 "Move up and down to pick a command and confirm to put it on the gesture. "
 "Going back keeps the one it has."
@@ -43457,9 +43480,6 @@ msgstr "Téléchargement de {title}"
 
 msgid "Escape cancels, Tab reads progress."
 msgstr "Escape annule, Tab lit la progression."
-
-msgid "lift"
-msgstr "relâcher"
 
 #. placeholders: {lane_assist}
 msgid "Middle lane  ·  lane keeping {lane_assist}"

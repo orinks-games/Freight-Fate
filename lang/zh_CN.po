@@ -14194,6 +14194,24 @@ msgstr "进入 "
 msgid "Passing "
 msgstr "经过 "
 
+msgid "tap"
+msgstr "轻点"
+
+msgid "lift"
+msgstr "提神效果"
+
+msgid "idle"
+msgstr ""
+
+msgid "deciding"
+msgstr ""
+
+msgid "gas"
+msgstr "油门"
+
+msgid "spent"
+msgstr ""
+
 msgid "menu"
 msgstr "menu"
 
@@ -14999,9 +15017,6 @@ msgstr "无"
 msgid "Tap"
 msgstr "轻点"
 
-msgid "tap"
-msgstr "轻点"
-
 msgid "Flick up"
 msgstr "向上轻扫"
 
@@ -15074,9 +15089,6 @@ msgstr "三指向上轻扫"
 
 msgid "a three-finger flick down"
 msgstr "三指向下轻扫"
-
-msgid "gas"
-msgstr "油门"
 
 msgid "double tap"
 msgstr "双击"
@@ -34036,6 +34048,17 @@ msgstr "把所有触摸手势恢复默认"
 msgid "Puts every gesture on this screen back where it started."
 msgstr "把这个界面上的每个手势都恢复到最初的设置。"
 
+msgid "New gesture reading: On"
+msgstr ""
+
+msgid "New gesture reading: Off"
+msgstr ""
+
+msgid ""
+"Reads your gestures the way the Android version does. Turn it off if a "
+"gesture stops working."
+msgstr ""
+
 msgid ""
 "Move up and down to pick a command and confirm to put it on the gesture. "
 "Going back keeps the one it has."
@@ -38067,9 +38090,6 @@ msgstr "正在下载{title}"
 
 msgid "Escape cancels, Tab reads progress."
 msgstr "Escape取消，Tab读出进度。"
-
-msgid "lift"
-msgstr "提神效果"
 
 #. placeholders: {lane_assist}
 msgid "Middle lane  ·  lane keeping {lane_assist}"

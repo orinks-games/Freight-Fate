@@ -14336,6 +14336,24 @@ msgstr "進入中： "
 msgid "Passing "
 msgstr "通過中： "
 
+msgid "tap"
+msgstr "タップ"
+
+msgid "lift"
+msgstr "効き目"
+
+msgid "idle"
+msgstr ""
+
+msgid "deciding"
+msgstr ""
+
+msgid "gas"
+msgstr "アクセル"
+
+msgid "spent"
+msgstr ""
+
 msgid "menu"
 msgstr "menu"
 
@@ -15151,9 +15169,6 @@ msgstr "なし"
 msgid "Tap"
 msgstr "タップ"
 
-msgid "tap"
-msgstr "タップ"
-
 msgid "Flick up"
 msgstr "上にフリック"
 
@@ -15226,9 +15241,6 @@ msgstr "3本指で上にフリック"
 
 msgid "a three-finger flick down"
 msgstr "3本指で下にフリック"
-
-msgid "gas"
-msgstr "アクセル"
 
 msgid "double tap"
 msgstr "ダブルタップ"
@@ -34451,6 +34463,17 @@ msgstr "すべてのタッチジェスチャーを既定に戻す"
 msgid "Puts every gesture on this screen back where it started."
 msgstr "この画面のすべてのジェスチャーを最初の状態に戻します。"
 
+msgid "New gesture reading: On"
+msgstr ""
+
+msgid "New gesture reading: Off"
+msgstr ""
+
+msgid ""
+"Reads your gestures the way the Android version does. Turn it off if a "
+"gesture stops working."
+msgstr ""
+
 msgid ""
 "Move up and down to pick a command and confirm to put it on the gesture. "
 "Going back keeps the one it has."
@@ -38704,9 +38727,6 @@ msgstr "{title}をダウンロード中"
 
 msgid "Escape cancels, Tab reads progress."
 msgstr "Escape で取り消し、Tab で進み具合を読み上げます。"
-
-msgid "lift"
-msgstr "効き目"
 
 #. placeholders: {lane_assist}
 msgid "Middle lane  ·  lane keeping {lane_assist}"

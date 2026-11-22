@@ -15456,6 +15456,24 @@ msgstr "Girilen yer: "
 msgid "Passing "
 msgstr "Geçilen yer: "
 
+msgid "tap"
+msgstr "dokunma"
+
+msgid "lift"
+msgstr "canlanma"
+
+msgid "idle"
+msgstr ""
+
+msgid "deciding"
+msgstr ""
+
+msgid "gas"
+msgstr "gaz"
+
+msgid "spent"
+msgstr ""
+
 msgid "menu"
 msgstr "menü"
 
@@ -16293,9 +16311,6 @@ msgstr "Hiçbiri"
 msgid "Tap"
 msgstr "Dokunma"
 
-msgid "tap"
-msgstr "dokunma"
-
 msgid "Flick up"
 msgstr "Yukarı fiske"
 
@@ -16368,9 +16383,6 @@ msgstr "üç parmakla yukarı kısa kaydırma"
 
 msgid "a three-finger flick down"
 msgstr "üç parmakla aşağı kısa kaydırma"
-
-msgid "gas"
-msgstr "gaz"
 
 msgid "double tap"
 msgstr "çift dokunma"
@@ -37212,6 +37224,17 @@ msgstr "Tüm dokunma hareketlerini varsayılana sıfırla"
 msgid "Puts every gesture on this screen back where it started."
 msgstr "Bu ekrandaki her hareketi başlangıçtaki yerine döndürür."
 
+msgid "New gesture reading: On"
+msgstr ""
+
+msgid "New gesture reading: Off"
+msgstr ""
+
+msgid ""
+"Reads your gestures the way the Android version does. Turn it off if a "
+"gesture stops working."
+msgstr ""
+
 msgid ""
 "Move up and down to pick a command and confirm to put it on the gesture. "
 "Going back keeps the one it has."
@@ -42027,9 +42050,6 @@ msgstr "İndiriliyor: {title}"
 
 msgid "Escape cancels, Tab reads progress."
 msgstr "Escape iptal eder, Tab ilerlemeyi okur."
-
-msgid "lift"
-msgstr "canlanma"
 
 #. placeholders: {lane_assist}
 msgid "Middle lane  ·  lane keeping {lane_assist}"

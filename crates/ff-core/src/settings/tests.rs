@@ -102,12 +102,13 @@ fn the_struct_carries_the_persisted_fields_in_python_order() {
     // radio_cab_speakers (2026-10-18), achievement_sort (2026-10-28) and
     // driving_hints (2026-11-08) and crash_report_offer (2026-11-13), and
     // main_backend (2026-11-17), cloud_resume, and left_bumper_layer
-    // (2026-11-18).
-    assert_eq!(Settings::FIELD_NAMES.len(), 107);
+    // (2026-11-18), the two tilt fields and touch_shared_recogniser
+    // (2026-11-22).
+    assert_eq!(Settings::FIELD_NAMES.len(), 108);
     assert_eq!(Settings::FIELD_NAMES[0], "online_services");
     assert_eq!(Settings::FIELD_NAMES[84], "settings_layout_notice_from");
     let pairs = Settings::default().ordered_values();
-    assert_eq!(pairs.len(), 107);
+    assert_eq!(pairs.len(), 108);
     for ((name, _), field) in pairs.iter().zip(Settings::FIELD_NAMES) {
         assert_eq!(name, field);
     }
@@ -174,7 +175,7 @@ fn the_defaults_match_the_python_dataclass() {
     let Value::Object(expected) = expected else {
         unreachable!()
     };
-    assert_eq!(expected.len(), 107);
+    assert_eq!(expected.len(), 108);
     for (name, value) in s.ordered_values() {
         assert_eq!(Some(&value), expected.get(name), "{name}");
     }

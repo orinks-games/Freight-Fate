@@ -15700,6 +15700,24 @@ msgstr "Въезжаем в"
 msgid "Passing "
 msgstr "Проезжаем"
 
+msgid "tap"
+msgstr "касание"
+
+msgid "lift"
+msgstr "бодрость"
+
+msgid "idle"
+msgstr ""
+
+msgid "deciding"
+msgstr ""
+
+msgid "gas"
+msgstr "газ"
+
+msgid "spent"
+msgstr ""
+
 msgid "menu"
 msgstr "menu"
 
@@ -16553,9 +16571,6 @@ msgstr "Ничего"
 msgid "Tap"
 msgstr "Касание"
 
-msgid "tap"
-msgstr "касание"
-
 msgid "Flick up"
 msgstr "Смахивание вверх"
 
@@ -16628,9 +16643,6 @@ msgstr "смахивание тремя пальцами вверх"
 
 msgid "a three-finger flick down"
 msgstr "смахивание тремя пальцами вниз"
-
-msgid "gas"
-msgstr "газ"
 
 msgid "double tap"
 msgstr "двойное касание"
@@ -38194,6 +38206,17 @@ msgstr "Вернуть все жесты касания по умолчанию"
 msgid "Puts every gesture on this screen back where it started."
 msgstr "Возвращает каждый жест на этом экране туда, где он был изначально."
 
+msgid "New gesture reading: On"
+msgstr ""
+
+msgid "New gesture reading: Off"
+msgstr ""
+
+msgid ""
+"Reads your gestures the way the Android version does. Turn it off if a "
+"gesture stops working."
+msgstr ""
+
 msgid ""
 "Move up and down to pick a command and confirm to put it on the gesture. "
 "Going back keeps the one it has."
@@ -43093,9 +43116,6 @@ msgstr "Скачиваем {title}"
 
 msgid "Escape cancels, Tab reads progress."
 msgstr "Escape отменяет, Tab зачитывает ход загрузки."
-
-msgid "lift"
-msgstr "бодрость"
 
 #. placeholders: {lane_assist}
 msgid "Middle lane  ·  lane keeping {lane_assist}"
