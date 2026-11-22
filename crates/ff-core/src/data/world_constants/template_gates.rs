@@ -409,6 +409,9 @@ pub const CURATED_COMPLETE_MARKET_CITY_KEYS: &[&str] = &[
     "fort_nelson_bc_ca",
     "watson_lake_yt_ca",
     "whitehorse_yt_ca",
+    "thompson_mb_ca",
+    "baie_comeau_qc_ca",
+    "sept_iles_qc_ca",
 ];
 
 /// Whether this city keeps only its authored freight locations. See
