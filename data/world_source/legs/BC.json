@@ -569,7 +569,8 @@
           ],
           "curation": "curated",
           "vehicle_access": "tractor_trailer",
-          "source": "Position and diesel read from OSM way 98567772 (Petro-Canada, fuel:diesel=yes, opening_hours=24/7), OpenStreetMap planet extract 2026-11-16. Open 24/7 read from OSM; year round is assumed. Tractor-trailer access is assumed for a highway fuel stop, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+          "vehicle_access_basis": "assumed",
+          "source": "Position and diesel read from OSM way 98567772 (Petro-Canada, fuel:diesel=yes, opening_hours=24/7), OpenStreetMap planet extract 2026-11-16. Open 24/7 read from OSM; year round is assumed. Tractor-trailer access is assumed, because no source found says either way: freight on this highway moves by tractor-trailer, and its few diesel stations between the towns are where those trucks fuel. Parking capacity is not claimed. Leg mile projected onto the leg's road.",
           "at_mi": 63.1
         },
         {
@@ -614,7 +615,8 @@
           ],
           "curation": "curated",
           "vehicle_access": "tractor_trailer",
-          "source": "Position and diesel read from OSM way 98243472 (Petro-Canada, fuel:diesel=yes, opening_hours=Mo-Fr 06:00-22:00; Sa-Su 06:00-21:00), OpenStreetMap planet extract 2026-11-16. Open year round is assumed for a staffed station in a town on a through highway; not verified. Tractor-trailer access is assumed for a highway fuel stop, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+          "vehicle_access_basis": "assumed",
+          "source": "Position and diesel read from OSM way 98243472 (Petro-Canada, fuel:diesel=yes, opening_hours=Mo-Fr 06:00-22:00; Sa-Su 06:00-21:00), OpenStreetMap planet extract 2026-11-16. Open year round is assumed for a staffed station in a town on a through highway; not verified. Tractor-trailer access is assumed, because no source found says either way: freight on this highway moves by tractor-trailer, and its few diesel stations between the towns are where those trucks fuel. Parking capacity is not claimed. Leg mile projected onto the leg's road.",
           "at_mi": 154.8
         },
         {
@@ -3146,7 +3148,7 @@
           ],
           "curation": "curated",
           "vehicle_access": "tractor_trailer",
-          "source": "Position and diesel read from OSM node 14361373747 (fuel:diesel=yes, opening_hours=24/7, website afdpetroleum.com/location/wonowon-cardlock), OpenStreetMap planet extract 2026-11-16. Open 24/7 read from OSM; year round is assumed. A cardlock sells to account holders only. Tractor-trailer access is assumed for a highway fuel stop, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+          "source": "Position and diesel read from OSM node 14361373747 (fuel:diesel=yes, opening_hours=24/7, website afdpetroleum.com/location/wonowon-cardlock), OpenStreetMap planet extract 2026-11-16. Open 24/7 read from OSM; year round is assumed. A cardlock sells to account holders only. Tractor-trailer access is assumed, because no source found says either way: freight on this highway moves by tractor-trailer, and its few diesel stations between the towns are where those trucks fuel. Parking capacity is not claimed. Leg mile projected onto the leg's road.",
           "at_mi": 181.4
         },
         {
@@ -3195,7 +3197,8 @@
           ],
           "curation": "curated",
           "vehicle_access": "tractor_trailer",
-          "source": "Position and diesel read from OSM node 13624019384 (fuel:diesel=yes, opening_hours=Mo-Su 06:00-21:00, website theshepherdsinn.ca), OpenStreetMap planet extract 2026-11-16. Open hours read from OSM with no seasonal tag; year round is assumed. Tractor-trailer access is assumed for a highway fuel stop, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+          "vehicle_access_basis": "assumed",
+          "source": "Position and diesel read from OSM node 13624019384 (fuel:diesel=yes, opening_hours=Mo-Su 06:00-21:00, website theshepherdsinn.ca), OpenStreetMap planet extract 2026-11-16. Open hours read from OSM with no seasonal tag; year round is assumed. Tractor-trailer access is assumed, because no source found says either way: freight on this highway moves by tractor-trailer, and its few diesel stations between the towns are where those trucks fuel. Parking capacity is not claimed. Leg mile projected onto the leg's road.",
           "at_mi": 210.5
         }
       ],
@@ -5109,7 +5112,8 @@
           ],
           "curation": "curated",
           "vehicle_access": "tractor_trailer",
-          "source": "Position and diesel read from OSM node 13978004858 (G&B Fuels, fuel:diesel=yes, opening_hours=06:30-21:00, beside node 4365600782 Toad River Lodge Gas), OpenStreetMap planet extract 2026-11-16. Year round read from the operator's page https://northernrockieslodge.squarespace.com/toadriver (\"both gas stations are opened year-round\") and from Public Services and Procurement Canada's Alaska Highway page (https://www.canada.ca/en/public-services-procurement/services/infrastructure-buildings/bridges-docks-dams/alaska-highway/information-motorists-trucking-traffic.html), which lists it for winter fuel as of July 2025. Tractor-trailer access is assumed for a highway fuel stop, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+          "vehicle_access_basis": "assumed",
+          "source": "Position and diesel read from OSM node 13978004858 (G&B Fuels, fuel:diesel=yes, opening_hours=06:30-21:00, beside node 4365600782 Toad River Lodge Gas), OpenStreetMap planet extract 2026-11-16. Year round read from the operator's page https://northernrockieslodge.squarespace.com/toadriver (\"both gas stations are opened year-round\") and from Public Services and Procurement Canada's Alaska Highway page (https://www.canada.ca/en/public-services-procurement/services/infrastructure-buildings/bridges-docks-dams/alaska-highway/information-motorists-trucking-traffic.html), which lists it for winter fuel as of July 2025. Tractor-trailer access is assumed, because no source found says either way: freight on this highway moves by tractor-trailer, and its few diesel stations between the towns are where those trucks fuel. Parking capacity is not claimed. Leg mile projected onto the leg's road.",
           "at_mi": 117.2
         },
         {
@@ -5136,7 +5140,8 @@
           ],
           "curation": "curated",
           "vehicle_access": "tractor_trailer",
-          "source": "Position and diesel read from OSM node 11380729463 (fuel:diesel=yes, opening_hours=07:00-23:00), OpenStreetMap planet extract 2026-11-16. Listed for winter fuel by Public Services and Procurement Canada's Alaska Highway page (as of July 2025). Year round read from the operator's pages: \"both gas stations are opened year-round\" (https://northernrockieslodge.squarespace.com/toadriver) and \"The hotel is open year round\" (https://northernrockieslodge.squarespace.com/hotelrooms). Tractor-trailer access is assumed for a highway fuel stop, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+          "vehicle_access_basis": "assumed",
+          "source": "Position and diesel read from OSM node 11380729463 (fuel:diesel=yes, opening_hours=07:00-23:00), OpenStreetMap planet extract 2026-11-16. Listed for winter fuel by Public Services and Procurement Canada's Alaska Highway page (as of July 2025). Year round read from the operator's pages: \"both gas stations are opened year-round\" (https://northernrockieslodge.squarespace.com/toadriver) and \"The hotel is open year round\" (https://northernrockieslodge.squarespace.com/hotelrooms). Tractor-trailer access is assumed, because no source found says either way: freight on this highway moves by tractor-trailer, and its few diesel stations between the towns are where those trucks fuel. Parking capacity is not claimed. Leg mile projected onto the leg's road.",
           "at_mi": 154.7
         },
         {
@@ -5163,7 +5168,8 @@
           ],
           "curation": "curated",
           "vehicle_access": "tractor_trailer",
-          "source": "Position and diesel read from OSM node 12173889431 (operator Liard Hot Springs Lodge, fuel:diesel=yes, opening_hours=08:00-20:00), OpenStreetMap planet extract 2026-11-16. Year round read from Public Services and Procurement Canada's Alaska Highway page (https://www.canada.ca/en/public-services-procurement/services/infrastructure-buildings/bridges-docks-dams/alaska-highway/information-motorists-trucking-traffic.html), which lists it for both summer and winter fuel as of July 2025. Tractor-trailer access is assumed for a highway fuel stop, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+          "vehicle_access_basis": "assumed",
+          "source": "Position and diesel read from OSM node 12173889431 (operator Liard Hot Springs Lodge, fuel:diesel=yes, opening_hours=08:00-20:00), OpenStreetMap planet extract 2026-11-16. Year round read from Public Services and Procurement Canada's Alaska Highway page (https://www.canada.ca/en/public-services-procurement/services/infrastructure-buildings/bridges-docks-dams/alaska-highway/information-motorists-trucking-traffic.html), which lists it for both summer and winter fuel as of July 2025. Tractor-trailer access is assumed, because no source found says either way: freight on this highway moves by tractor-trailer, and its few diesel stations between the towns are where those trucks fuel. Parking capacity is not claimed. Leg mile projected onto the leg's road.",
           "at_mi": 189.7
         },
         {
@@ -8748,7 +8754,8 @@
           ],
           "curation": "curated",
           "vehicle_access": "tractor_trailer",
-          "source": "Position and diesel read from OSM node 13624019384 (fuel:diesel=yes, opening_hours=Mo-Su 06:00-21:00, website theshepherdsinn.ca), OpenStreetMap planet extract 2026-11-16. Open hours read from OSM with no seasonal tag; year round is assumed. Tractor-trailer access is assumed for a highway fuel stop, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+          "vehicle_access_basis": "assumed",
+          "source": "Position and diesel read from OSM node 13624019384 (fuel:diesel=yes, opening_hours=Mo-Su 06:00-21:00, website theshepherdsinn.ca), OpenStreetMap planet extract 2026-11-16. Open hours read from OSM with no seasonal tag; year round is assumed. Tractor-trailer access is assumed, because no source found says either way: freight on this highway moves by tractor-trailer, and its few diesel stations between the towns are where those trucks fuel. Parking capacity is not claimed. Leg mile projected onto the leg's road.",
           "at_mi": 27.5
         },
         {
@@ -8788,7 +8795,7 @@
           ],
           "curation": "curated",
           "vehicle_access": "tractor_trailer",
-          "source": "Position and diesel read from OSM node 14361373747 (fuel:diesel=yes, opening_hours=24/7, website afdpetroleum.com/location/wonowon-cardlock), OpenStreetMap planet extract 2026-11-16. Open 24/7 read from OSM; year round is assumed. A cardlock sells to account holders only. Tractor-trailer access is assumed for a highway fuel stop, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+          "source": "Position and diesel read from OSM node 14361373747 (fuel:diesel=yes, opening_hours=24/7, website afdpetroleum.com/location/wonowon-cardlock), OpenStreetMap planet extract 2026-11-16. Open 24/7 read from OSM; year round is assumed. A cardlock sells to account holders only. Tractor-trailer access is assumed, because no source found says either way: freight on this highway moves by tractor-trailer, and its few diesel stations between the towns are where those trucks fuel. Parking capacity is not claimed. Leg mile projected onto the leg's road.",
           "at_mi": 56.6
         },
         {
@@ -10689,7 +10696,8 @@
           ],
           "curation": "curated",
           "vehicle_access": "tractor_trailer",
-          "source": "Position and diesel read from OSM way 98243472 (Petro-Canada, fuel:diesel=yes, opening_hours=Mo-Fr 06:00-22:00; Sa-Su 06:00-21:00), OpenStreetMap planet extract 2026-11-16. Open year round is assumed for a staffed station in a town on a through highway; not verified. Tractor-trailer access is assumed for a highway fuel stop, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+          "vehicle_access_basis": "assumed",
+          "source": "Position and diesel read from OSM way 98243472 (Petro-Canada, fuel:diesel=yes, opening_hours=Mo-Fr 06:00-22:00; Sa-Su 06:00-21:00), OpenStreetMap planet extract 2026-11-16. Open year round is assumed for a staffed station in a town on a through highway; not verified. Tractor-trailer access is assumed, because no source found says either way: freight on this highway moves by tractor-trailer, and its few diesel stations between the towns are where those trucks fuel. Parking capacity is not claimed. Leg mile projected onto the leg's road.",
           "at_mi": 99.2
         },
         {
@@ -10734,7 +10742,8 @@
           ],
           "curation": "curated",
           "vehicle_access": "tractor_trailer",
-          "source": "Position and diesel read from OSM way 98567772 (Petro-Canada, fuel:diesel=yes, opening_hours=24/7), OpenStreetMap planet extract 2026-11-16. Open 24/7 read from OSM; year round is assumed. Tractor-trailer access is assumed for a highway fuel stop, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+          "vehicle_access_basis": "assumed",
+          "source": "Position and diesel read from OSM way 98567772 (Petro-Canada, fuel:diesel=yes, opening_hours=24/7), OpenStreetMap planet extract 2026-11-16. Open 24/7 read from OSM; year round is assumed. Tractor-trailer access is assumed, because no source found says either way: freight on this highway moves by tractor-trailer, and its few diesel stations between the towns are where those trucks fuel. Parking capacity is not claimed. Leg mile projected onto the leg's road.",
           "at_mi": 191.0
         },
         {
