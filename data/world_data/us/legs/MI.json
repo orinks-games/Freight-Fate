@@ -75413,6 +75413,53 @@
     },
     {
       "from": "sault_ste_marie_mi_us",
+      "to": "sault_ste_marie_on_ca",
+      "miles": 8,
+      "highway": "I-75 / International Bridge",
+      "terrain": "flat",
+      "divided": false,
+      "lanes": 2,
+      "stops": [],
+      "corridor": {
+        "tollway_detected": true,
+        "route_points": [
+          {
+            "at_mi": 0.0,
+            "lat": 46.49504,
+            "lon": -84.34551
+          },
+          {
+            "at_mi": 8.0,
+            "lat": 46.51356,
+            "lon": -84.39074
+          }
+        ],
+        "checkpoints": [],
+        "source": "New leg for the Winnipeg to Thunder Bay and northern Ontario corridor (Career 2.0, 2026-11-22): laid out between the two city pins, then routed by Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de) along I-75 / International Bridge.",
+        "elevation_samples": [
+          {
+            "at_mi": 0.0,
+            "elevation_ft": 616.8,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 8.0,
+            "elevation_ft": 616.8,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          }
+        ]
+      },
+      "rerouted": true,
+      "route_via": [
+        {
+          "lat": 46.508473,
+          "lon": -84.360723,
+          "note": "Sault Ste. Marie International Bridge deck, the commercial crossing; ref I 75"
+        }
+      ]
+    },
+    {
+      "from": "sault_ste_marie_mi_us",
       "to": "traverse_city_mi_us",
       "miles": 160,
       "highway": "I-75",

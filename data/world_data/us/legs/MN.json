@@ -7867,6 +7867,116 @@
       "lanes": 2
     },
     {
+      "from": "duluth_mn_us",
+      "to": "thunder_bay_on_ca",
+      "miles": 186,
+      "highway": "Hwy 61 / MN 61",
+      "terrain": "flat",
+      "divided": false,
+      "lanes": 2,
+      "stops": [],
+      "corridor": {
+        "tollway_detected": false,
+        "route_points": [
+          {
+            "at_mi": 0.0,
+            "lat": 46.78317,
+            "lon": -92.10638
+          },
+          {
+            "at_mi": 25.98,
+            "lat": 47.01798,
+            "lon": -91.70162
+          },
+          {
+            "at_mi": 51.19,
+            "lat": 47.24662,
+            "lon": -91.31849
+          },
+          {
+            "at_mi": 77.88,
+            "lat": 47.52052,
+            "lon": -90.93224
+          },
+          {
+            "at_mi": 102.92,
+            "lat": 47.71678,
+            "lon": -90.48801
+          },
+          {
+            "at_mi": 128.0,
+            "lat": 47.82908,
+            "lon": -89.99105
+          },
+          {
+            "at_mi": 153.04,
+            "lat": 48.01662,
+            "lon": -89.59282
+          },
+          {
+            "at_mi": 181.08,
+            "lat": 48.3077,
+            "lon": -89.37766
+          },
+          {
+            "at_mi": 186.0,
+            "lat": 48.35844,
+            "lon": -89.31362
+          }
+        ],
+        "checkpoints": [],
+        "source": "New leg for the Winnipeg to Thunder Bay and northern Ontario corridor (Career 2.0, 2026-11-22): laid out between the two city pins, then routed by Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de) along Hwy 61 / MN 61.",
+        "elevation_samples": [
+          {
+            "at_mi": 0.0,
+            "elevation_ft": 692.3,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 25.98,
+            "elevation_ft": 764.4,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 51.19,
+            "elevation_ft": 718.5,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 77.88,
+            "elevation_ft": 685.7,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 102.92,
+            "elevation_ft": 695.5,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 128.0,
+            "elevation_ft": 672.6,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 153.04,
+            "elevation_ft": 813.6,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 181.08,
+            "elevation_ft": 787.4,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 186.0,
+            "elevation_ft": 646.3,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          }
+        ]
+      },
+      "rerouted": true
+    },
+    {
       "from": "grand_rapids_mn_us",
       "to": "duluth_mn_us",
       "miles": 83,

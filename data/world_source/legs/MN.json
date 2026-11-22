@@ -7867,6 +7867,185 @@
       "lanes": 2
     },
     {
+      "from": "duluth_mn_us",
+      "to": "thunder_bay_on_ca",
+      "miles": 186,
+      "highway": "Hwy 61 / MN 61",
+      "terrain": "flat",
+      "divided": false,
+      "lanes": 2,
+      "stops": [],
+      "corridor": {
+        "tollway_detected": false,
+        "route_points": [
+          {
+            "at_mi": 0.0,
+            "lat": 46.78317,
+            "lon": -92.10638
+          },
+          {
+            "at_mi": 25.98,
+            "lat": 47.01798,
+            "lon": -91.70162
+          },
+          {
+            "at_mi": 51.19,
+            "lat": 47.24662,
+            "lon": -91.31849
+          },
+          {
+            "at_mi": 77.88,
+            "lat": 47.52052,
+            "lon": -90.93224
+          },
+          {
+            "at_mi": 102.92,
+            "lat": 47.71678,
+            "lon": -90.48801
+          },
+          {
+            "at_mi": 128.0,
+            "lat": 47.82908,
+            "lon": -89.99105
+          },
+          {
+            "at_mi": 153.04,
+            "lat": 48.01662,
+            "lon": -89.59282
+          },
+          {
+            "at_mi": 181.08,
+            "lat": 48.3077,
+            "lon": -89.37766
+          },
+          {
+            "at_mi": 186.0,
+            "lat": 48.35844,
+            "lon": -89.31362
+          }
+        ],
+        "checkpoints": [
+          {
+            "name": "Grand Portage Port of Entry",
+            "at_mi": 0.0,
+            "type": "border",
+            "state": "Minnesota",
+            "highway": "Hwy 61 / MN 61",
+            "lat": 48.00006,
+            "lon": -89.588929,
+            "source": "U.S. Customs and Border Protection Grand Portage, Minnesota, on MN 61; commercial hours not read (not in the CBP border wait times feed, and the CBP port page refused the cloud on 2026-11-22). Position read from OpenStreetMap way 1152833992 (border_control booth canopy beside the CBP building, way 475551186), OpenStreetMap planet file of 2026-11-16."
+          },
+          {
+            "name": "Pigeon River Port of Entry",
+            "at_mi": 0.0,
+            "type": "border",
+            "state": "Ontario",
+            "highway": "Hwy 61 / MN 61",
+            "lat": 48.003206,
+            "lon": -89.581542,
+            "source": "Canada Border Services Agency Pigeon River, 7690 Highway 61, Neebing; commercial hours read from the CBSA Directory of Offices and Services open data (https://www.cbsa-asfc.gc.ca/data/offices-bureaux-en.csv, read 2026-11-22): commercial 24 hours, 7 days a week. Position read from OpenStreetMap way 1152692462 (border_control booth canopy beside the CBSA building, way 475551188), OpenStreetMap planet file of 2026-11-16."
+          }
+        ],
+        "source": "New leg for the Winnipeg to Thunder Bay and northern Ontario corridor (Career 2.0, 2026-11-22): laid out between the two city pins, then routed by Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de) along Hwy 61 / MN 61.",
+        "elevation_samples": [
+          {
+            "at_mi": 0.0,
+            "elevation_ft": 692.3,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 25.98,
+            "elevation_ft": 764.4,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 51.19,
+            "elevation_ft": 718.5,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 77.88,
+            "elevation_ft": 685.7,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 102.92,
+            "elevation_ft": 695.5,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 128.0,
+            "elevation_ft": 672.6,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 153.04,
+            "elevation_ft": 813.6,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 181.08,
+            "elevation_ft": 787.4,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 186.0,
+            "elevation_ft": 646.3,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          }
+        ],
+        "border_crossing": {
+          "id": "pigeon_river_grand_portage",
+          "from_country": "US",
+          "to_country": "CA",
+          "ports": [
+            "pigeon_river_grand_portage"
+          ],
+          "mode": "through_freight",
+          "cabotage": "forbidden",
+          "port_names": {
+            "CA": "Pigeon River Port of Entry",
+            "US": "Grand Portage Port of Entry"
+          },
+          "agencies": {
+            "CA": "Canada Border Services Agency",
+            "US": "U.S. Customs and Border Protection"
+          },
+          "commercial_hours": {
+            "CA": "commercial 24 hours, 7 days a week",
+            "US": "not published in the CBP border wait times feed (https://bwt.cbp.gov/api/bwtnew, read 2026-11-22), and the CBP port page refused the cloud (https://www.cbp.gov/contact/ports/grand-portage, HTTP 403, tried 2026-11-22)"
+          },
+          "fast_lane": false,
+          "source": "Canadian side: CBSA office Pigeon River, 7690 Highway 61, Neebing, Ontario, US port Grand Portage MN; commercial hours read from the CBSA Directory of Offices and Services open data (https://www.cbsa-asfc.gc.ca/data/offices-bureaux-en.csv, read 2026-11-22). US side: CBP port Grand Portage, Minnesota; hours not read (see commercial_hours). Booth positions read from OpenStreetMap (OpenStreetMap planet file of 2026-11-16)."
+        }
+      },
+      "rerouted": true,
+      "border_crossing": {
+        "id": "pigeon_river_grand_portage",
+        "from_country": "US",
+        "to_country": "CA",
+        "ports": [
+          "pigeon_river_grand_portage"
+        ],
+        "mode": "through_freight",
+        "cabotage": "forbidden",
+        "port_names": {
+          "CA": "Pigeon River Port of Entry",
+          "US": "Grand Portage Port of Entry"
+        },
+        "agencies": {
+          "CA": "Canada Border Services Agency",
+          "US": "U.S. Customs and Border Protection"
+        },
+        "commercial_hours": {
+          "CA": "commercial 24 hours, 7 days a week",
+          "US": "not published in the CBP border wait times feed (https://bwt.cbp.gov/api/bwtnew, read 2026-11-22), and the CBP port page refused the cloud (https://www.cbp.gov/contact/ports/grand-portage, HTTP 403, tried 2026-11-22)"
+        },
+        "fast_lane": false,
+        "source": "Canadian side: CBSA office Pigeon River, 7690 Highway 61, Neebing, Ontario, US port Grand Portage MN; commercial hours read from the CBSA Directory of Offices and Services open data (https://www.cbsa-asfc.gc.ca/data/offices-bureaux-en.csv, read 2026-11-22). US side: CBP port Grand Portage, Minnesota; hours not read (see commercial_hours). Booth positions read from OpenStreetMap (OpenStreetMap planet file of 2026-11-16)."
+      }
+    },
+    {
       "from": "grand_rapids_mn_us",
       "to": "duluth_mn_us",
       "miles": 83,

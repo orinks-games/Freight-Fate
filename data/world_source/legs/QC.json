@@ -34942,6 +34942,83 @@
     },
     {
       "from": "rouyn_noranda_qc_ca",
+      "to": "temiskaming_shores_on_ca",
+      "miles": 82,
+      "highway": "Hwy 65 / Route 101",
+      "terrain": "flat",
+      "divided": false,
+      "lanes": 2,
+      "stops": [],
+      "corridor": {
+        "tollway_detected": false,
+        "route_points": [
+          {
+            "at_mi": 0.0,
+            "lat": 48.23652,
+            "lon": -79.023
+          },
+          {
+            "at_mi": 25.01,
+            "lat": 48.03345,
+            "lon": -79.24854
+          },
+          {
+            "at_mi": 50.41,
+            "lat": 47.76066,
+            "lon": -79.40931
+          },
+          {
+            "at_mi": 77.01,
+            "lat": 47.52547,
+            "lon": -79.60984
+          },
+          {
+            "at_mi": 82.0,
+            "lat": 47.50579,
+            "lon": -79.68533
+          }
+        ],
+        "checkpoints": [],
+        "source": "New leg for the Winnipeg to Thunder Bay and northern Ontario corridor (Career 2.0, 2026-11-22): laid out between the two city pins, then routed by Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de) along Hwy 65 / Route 101.",
+        "elevation_samples": [
+          {
+            "at_mi": 0.0,
+            "elevation_ft": 981.0,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 25.01,
+            "elevation_ft": 925.2,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 50.41,
+            "elevation_ft": 961.3,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 77.01,
+            "elevation_ft": 813.6,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 82.0,
+            "elevation_ft": 639.8,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          }
+        ]
+      },
+      "route_via": [
+        {
+          "lat": 47.6,
+          "lon": -79.48,
+          "note": "Highway 65 east of New Liskeard, the provincial route from Route 101 rather than the Highway 624 secondary road the router prefers; ref 65"
+        }
+      ],
+      "rerouted": true
+    },
+    {
+      "from": "rouyn_noranda_qc_ca",
       "to": "val_d_or_qc_ca",
       "miles": 67,
       "highway": "Route 117",

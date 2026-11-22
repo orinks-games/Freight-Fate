@@ -75413,6 +75413,135 @@
     },
     {
       "from": "sault_ste_marie_mi_us",
+      "to": "sault_ste_marie_on_ca",
+      "miles": 8,
+      "highway": "I-75 / International Bridge",
+      "terrain": "flat",
+      "divided": false,
+      "lanes": 2,
+      "stops": [],
+      "corridor": {
+        "tollway_detected": true,
+        "route_points": [
+          {
+            "at_mi": 0.0,
+            "lat": 46.49504,
+            "lon": -84.34551
+          },
+          {
+            "at_mi": 8.0,
+            "lat": 46.51356,
+            "lon": -84.39074
+          }
+        ],
+        "checkpoints": [
+          {
+            "name": "Sault Ste. Marie Port of Entry",
+            "at_mi": 0.0,
+            "type": "border",
+            "state": "Michigan",
+            "highway": "I-75 / International Bridge",
+            "lat": 46.494824,
+            "lon": -84.367643,
+            "source": "U.S. Customs and Border Protection port 380301 Sault Ste. Marie, International Bridge - SSM, 24 hrs/day with two commercial vehicle lanes (CBP border wait times API, https://bwt.cbp.gov/api/bwtnew, read 2026-11-22). Position read from OpenStreetMap way 1153061243 (border_control booth canopy at the Michigan bridge plaza), OpenStreetMap planet file of 2026-11-16."
+          },
+          {
+            "name": "Sault Ste. Marie Bridge Port of Entry",
+            "at_mi": 0.0,
+            "type": "border",
+            "state": "Ontario",
+            "highway": "I-75 / International Bridge",
+            "lat": 46.518964,
+            "lon": -84.349378,
+            "source": "Canada Border Services Agency Sault Ste. Marie Bridge, 125 Huron Street; commercial hours read from the CBSA Directory of Offices and Services open data (https://www.cbsa-asfc.gc.ca/data/offices-bureaux-en.csv, read 2026-11-22): commercial 24 hours, 7 days a week. Position read from OpenStreetMap way 1153253774 (border_control booth canopy at the Ontario bridge plaza), OpenStreetMap planet file of 2026-11-16."
+          }
+        ],
+        "source": "New leg for the Winnipeg to Thunder Bay and northern Ontario corridor (Career 2.0, 2026-11-22): laid out between the two city pins, then routed by Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de) along I-75 / International Bridge.",
+        "elevation_samples": [
+          {
+            "at_mi": 0.0,
+            "elevation_ft": 616.8,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 8.0,
+            "elevation_ft": 616.8,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          }
+        ],
+        "border_crossing": {
+          "id": "sault_ste_marie_international_bridge",
+          "from_country": "US",
+          "to_country": "CA",
+          "ports": [
+            "sault_ste_marie_international_bridge"
+          ],
+          "mode": "through_freight",
+          "cabotage": "forbidden",
+          "port_names": {
+            "CA": "Sault Ste. Marie Bridge Port of Entry",
+            "US": "Sault Ste. Marie Port of Entry"
+          },
+          "agencies": {
+            "CA": "Canada Border Services Agency",
+            "US": "U.S. Customs and Border Protection"
+          },
+          "commercial_hours": {
+            "CA": "commercial 24 hours, 7 days a week",
+            "US": "24 hours a day, two commercial lanes"
+          },
+          "fast_lane": false,
+          "source": "Canadian side: CBSA office Sault Ste. Marie Bridge, 125 Huron Street, Sault Ste. Marie, Ontario; commercial hours read from the CBSA Directory of Offices and Services open data (https://www.cbsa-asfc.gc.ca/data/offices-bureaux-en.csv, read 2026-11-22). US side: CBP port 380301 Sault Ste. Marie, International Bridge - SSM, 24 hrs/day with two commercial vehicle lanes, read from the CBP border wait times API (https://bwt.cbp.gov/api/bwtnew, read 2026-11-22). Booth positions read from OpenStreetMap (OpenStreetMap planet file of 2026-11-16)."
+        },
+        "toll_events": [
+          {
+            "name": "International Bridge toll",
+            "at_mi": 0.0,
+            "road": "Sault Ste. Marie International Bridge",
+            "authority": "International Bridge Administration",
+            "method": "cash_card",
+            "amount": 33.75,
+            "amount_plate": 33.75,
+            "estimated": false,
+            "source": "https://www.saultbridge.com/toll-rates-commercial/ (class 9, commercial truck with 5 axles, USD 33.75 or CAD 46.75 from 2026-10-01; cash, credit and debit at the booth) and https://www.saultbridge.com/effective-toll-rate-schedule/ (USD 6.75 per axle from 2026-10-01), accessed 2026-11-22. Position read from the OpenStreetMap toll booth nodes at the Michigan plaza (node 472232480, operator MDOT), the bridge's only toll plaza, projected on the leg's archived road; the pages do not say which direction pays, and the plaza's booths sit across both directions' lanes, so the toll is charged both ways (derived from the booth positions)."
+          }
+        ]
+      },
+      "rerouted": true,
+      "route_via": [
+        {
+          "lat": 46.508473,
+          "lon": -84.360723,
+          "note": "Sault Ste. Marie International Bridge deck, the commercial crossing; ref I 75"
+        }
+      ],
+      "border_crossing": {
+        "id": "sault_ste_marie_international_bridge",
+        "from_country": "US",
+        "to_country": "CA",
+        "ports": [
+          "sault_ste_marie_international_bridge"
+        ],
+        "mode": "through_freight",
+        "cabotage": "forbidden",
+        "port_names": {
+          "CA": "Sault Ste. Marie Bridge Port of Entry",
+          "US": "Sault Ste. Marie Port of Entry"
+        },
+        "agencies": {
+          "CA": "Canada Border Services Agency",
+          "US": "U.S. Customs and Border Protection"
+        },
+        "commercial_hours": {
+          "CA": "commercial 24 hours, 7 days a week",
+          "US": "24 hours a day, two commercial lanes"
+        },
+        "fast_lane": false,
+        "source": "Canadian side: CBSA office Sault Ste. Marie Bridge, 125 Huron Street, Sault Ste. Marie, Ontario; commercial hours read from the CBSA Directory of Offices and Services open data (https://www.cbsa-asfc.gc.ca/data/offices-bureaux-en.csv, read 2026-11-22). US side: CBP port 380301 Sault Ste. Marie, International Bridge - SSM, 24 hrs/day with two commercial vehicle lanes, read from the CBP border wait times API (https://bwt.cbp.gov/api/bwtnew, read 2026-11-22). Booth positions read from OpenStreetMap (OpenStreetMap planet file of 2026-11-16)."
+      }
+    },
+    {
+      "from": "sault_ste_marie_mi_us",
       "to": "traverse_city_mi_us",
       "miles": 160,
       "highway": "I-75",

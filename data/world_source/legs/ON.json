@@ -15037,6 +15037,223 @@
       "rerouted": true
     },
     {
+      "from": "cochrane_on_ca",
+      "to": "kapuskasing_on_ca",
+      "miles": 74,
+      "highway": "Hwy 11",
+      "terrain": "flat",
+      "divided": false,
+      "lanes": 2,
+      "stops": [],
+      "corridor": {
+        "tollway_detected": false,
+        "route_points": [
+          {
+            "at_mi": 0.0,
+            "lat": 49.05169,
+            "lon": -81.03109
+          },
+          {
+            "at_mi": 25.22,
+            "lat": 49.18899,
+            "lon": -81.44711
+          },
+          {
+            "at_mi": 51.67,
+            "lat": 49.30059,
+            "lon": -81.98261
+          },
+          {
+            "at_mi": 74.0,
+            "lat": 49.40704,
+            "lon": -82.42636
+          }
+        ],
+        "checkpoints": [],
+        "source": "New leg for the Winnipeg to Thunder Bay and northern Ontario corridor (Career 2.0, 2026-11-22): laid out between the two city pins, then routed by Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de) along Hwy 11.",
+        "elevation_samples": [
+          {
+            "at_mi": 0.0,
+            "elevation_ft": 889.1,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 25.22,
+            "elevation_ft": 853.0,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 51.67,
+            "elevation_ft": 738.2,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 74.0,
+            "elevation_ft": 734.9,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          }
+        ]
+      },
+      "rerouted": true
+    },
+    {
+      "from": "cochrane_on_ca",
+      "to": "temiskaming_shores_on_ca",
+      "miles": 136,
+      "highway": "Hwy 11",
+      "terrain": "flat",
+      "divided": false,
+      "lanes": 2,
+      "stops": [],
+      "corridor": {
+        "tollway_detected": false,
+        "route_points": [
+          {
+            "at_mi": 0.0,
+            "lat": 49.05169,
+            "lon": -81.03109
+          },
+          {
+            "at_mi": 25.13,
+            "lat": 48.75371,
+            "lon": -80.7971
+          },
+          {
+            "at_mi": 51.66,
+            "lat": 48.49986,
+            "lon": -80.43305
+          },
+          {
+            "at_mi": 76.75,
+            "lat": 48.18775,
+            "lon": -80.26378
+          },
+          {
+            "at_mi": 106.77,
+            "lat": 47.8376,
+            "lon": -79.90311
+          },
+          {
+            "at_mi": 133.28,
+            "lat": 47.53275,
+            "lon": -79.67446
+          },
+          {
+            "at_mi": 136.0,
+            "lat": 47.50579,
+            "lon": -79.68533
+          }
+        ],
+        "checkpoints": [],
+        "source": "New leg for the Winnipeg to Thunder Bay and northern Ontario corridor (Career 2.0, 2026-11-22): laid out between the two city pins, then routed by Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de) along Hwy 11.",
+        "elevation_samples": [
+          {
+            "at_mi": 0.0,
+            "elevation_ft": 889.1,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 25.13,
+            "elevation_ft": 987.5,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 51.66,
+            "elevation_ft": 908.8,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 76.75,
+            "elevation_ft": 1063.0,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 106.77,
+            "elevation_ft": 649.6,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 133.28,
+            "elevation_ft": 646.3,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 136.0,
+            "elevation_ft": 639.8,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          }
+        ]
+      },
+      "route_via": [
+        {
+          "lat": 48.19118,
+          "lon": -80.26378,
+          "note": "Highway 11 south of Matheson; ref 11"
+        }
+      ],
+      "rerouted": true
+    },
+    {
+      "from": "cochrane_on_ca",
+      "to": "timmins_on_ca",
+      "miles": 75,
+      "highway": "Hwy 11 / Hwy 655",
+      "terrain": "flat",
+      "divided": false,
+      "lanes": 2,
+      "stops": [],
+      "corridor": {
+        "tollway_detected": false,
+        "route_points": [
+          {
+            "at_mi": 0.0,
+            "lat": 49.05169,
+            "lon": -81.03109
+          },
+          {
+            "at_mi": 25.01,
+            "lat": 48.75371,
+            "lon": -80.7971
+          },
+          {
+            "at_mi": 50.6,
+            "lat": 48.54294,
+            "lon": -80.85876
+          },
+          {
+            "at_mi": 75.0,
+            "lat": 48.47726,
+            "lon": -81.33041
+          }
+        ],
+        "checkpoints": [],
+        "source": "New leg for the Winnipeg to Thunder Bay and northern Ontario corridor (Career 2.0, 2026-11-22): laid out between the two city pins, then routed by Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de) along Hwy 11 / Hwy 655.",
+        "elevation_samples": [
+          {
+            "at_mi": 0.0,
+            "elevation_ft": 889.1,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 25.01,
+            "elevation_ft": 987.5,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 50.6,
+            "elevation_ft": 974.4,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 75.0,
+            "elevation_ft": 981.0,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          }
+        ]
+      },
+      "rerouted": true
+    },
+    {
       "from": "cornwall_on_ca",
       "to": "brockville_on_ca",
       "miles": 63,
@@ -17261,6 +17478,336 @@
             "state": "Quebec",
             "place": "Ontario-Quebec line on Hwy 401 / A-20",
             "source": "derived 2026-11-05: the leg's archived route geometry intersected with OpenStreetMap state and province boundary relations (boundary=administrative, admin_level=4); at_mi = cumulative geometry distance at each boundary crossing, rescaled to leg miles; state miles = differences of those boundaries. OpenStreetMap, boundary relations read from the OpenStreetMap API on 2026-11-16: https://www.openstreetmap.org/."
+          }
+        ]
+      },
+      "rerouted": true
+    },
+    {
+      "from": "dryden_on_ca",
+      "to": "ignace_on_ca",
+      "miles": 67,
+      "highway": "Hwy 17",
+      "terrain": "flat",
+      "divided": false,
+      "lanes": 2,
+      "stops": [],
+      "corridor": {
+        "tollway_detected": false,
+        "route_points": [
+          {
+            "at_mi": 0.0,
+            "lat": 49.7745,
+            "lon": -92.85852
+          },
+          {
+            "at_mi": 25.47,
+            "lat": 49.62991,
+            "lon": -92.43982
+          },
+          {
+            "at_mi": 50.83,
+            "lat": 49.48526,
+            "lon": -91.98197
+          },
+          {
+            "at_mi": 67.0,
+            "lat": 49.41754,
+            "lon": -91.67064
+          }
+        ],
+        "checkpoints": [],
+        "source": "New leg for the Winnipeg to Thunder Bay and northern Ontario corridor (Career 2.0, 2026-11-22): laid out between the two city pins, then routed by Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de) along Hwy 17.",
+        "elevation_samples": [
+          {
+            "at_mi": 0.0,
+            "elevation_ft": 1250.0,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 25.47,
+            "elevation_ft": 1276.2,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 50.83,
+            "elevation_ft": 1437.0,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 67.0,
+            "elevation_ft": 1479.7,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          }
+        ]
+      },
+      "rerouted": true
+    },
+    {
+      "from": "dryden_on_ca",
+      "to": "kenora_on_ca",
+      "miles": 87,
+      "highway": "Hwy 17",
+      "terrain": "flat",
+      "divided": false,
+      "lanes": 2,
+      "stops": [],
+      "corridor": {
+        "tollway_detected": false,
+        "route_points": [
+          {
+            "at_mi": 0.0,
+            "lat": 49.7745,
+            "lon": -92.85852
+          },
+          {
+            "at_mi": 25.5,
+            "lat": 49.84395,
+            "lon": -93.33991
+          },
+          {
+            "at_mi": 50.56,
+            "lat": 49.84705,
+            "lon": -93.84355
+          },
+          {
+            "at_mi": 75.61,
+            "lat": 49.72999,
+            "lon": -94.3059
+          },
+          {
+            "at_mi": 87.0,
+            "lat": 49.77341,
+            "lon": -94.48124
+          }
+        ],
+        "checkpoints": [],
+        "source": "New leg for the Winnipeg to Thunder Bay and northern Ontario corridor (Career 2.0, 2026-11-22): laid out between the two city pins, then routed by Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de) along Hwy 17.",
+        "elevation_samples": [
+          {
+            "at_mi": 0.0,
+            "elevation_ft": 1250.0,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 25.5,
+            "elevation_ft": 1250.0,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 50.56,
+            "elevation_ft": 1414.0,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 75.61,
+            "elevation_ft": 1118.8,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 87.0,
+            "elevation_ft": 1108.9,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          }
+        ]
+      },
+      "rerouted": true
+    },
+    {
+      "from": "fort_frances_on_ca",
+      "to": "kenora_on_ca",
+      "miles": 134,
+      "highway": "Hwy 71",
+      "terrain": "flat",
+      "divided": false,
+      "lanes": 2,
+      "stops": [],
+      "corridor": {
+        "tollway_detected": false,
+        "route_points": [
+          {
+            "at_mi": 0.0,
+            "lat": 48.61454,
+            "lon": -93.42751
+          },
+          {
+            "at_mi": 35.13,
+            "lat": 48.80564,
+            "lon": -93.91805
+          },
+          {
+            "at_mi": 60.17,
+            "lat": 49.14755,
+            "lon": -93.92398
+          },
+          {
+            "at_mi": 85.19,
+            "lat": 49.40754,
+            "lon": -94.09434
+          },
+          {
+            "at_mi": 110.54,
+            "lat": 49.64221,
+            "lon": -94.13339
+          },
+          {
+            "at_mi": 134.0,
+            "lat": 49.77341,
+            "lon": -94.48124
+          }
+        ],
+        "checkpoints": [],
+        "source": "New leg for the Winnipeg to Thunder Bay and northern Ontario corridor (Career 2.0, 2026-11-22): laid out between the two city pins, then routed by Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de) along Hwy 71.",
+        "elevation_samples": [
+          {
+            "at_mi": 0.0,
+            "elevation_ft": 1122.0,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 35.13,
+            "elevation_ft": 1236.9,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 60.17,
+            "elevation_ft": 1161.4,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 85.19,
+            "elevation_ft": 1095.8,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 110.54,
+            "elevation_ft": 1220.5,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 134.0,
+            "elevation_ft": 1108.9,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          }
+        ]
+      },
+      "rerouted": true
+    },
+    {
+      "from": "fort_frances_on_ca",
+      "to": "thunder_bay_on_ca",
+      "miles": 217,
+      "highway": "Hwy 11",
+      "terrain": "flat",
+      "divided": false,
+      "lanes": 2,
+      "stops": [],
+      "corridor": {
+        "tollway_detected": false,
+        "route_points": [
+          {
+            "at_mi": 0.0,
+            "lat": 48.61454,
+            "lon": -93.42751
+          },
+          {
+            "at_mi": 25.01,
+            "lat": 48.68741,
+            "lon": -93.00796
+          },
+          {
+            "at_mi": 51.68,
+            "lat": 48.74799,
+            "lon": -92.45811
+          },
+          {
+            "at_mi": 76.79,
+            "lat": 48.72637,
+            "lon": -91.93474
+          },
+          {
+            "at_mi": 102.25,
+            "lat": 48.73514,
+            "lon": -91.40654
+          },
+          {
+            "at_mi": 128.28,
+            "lat": 48.68008,
+            "lon": -90.88416
+          },
+          {
+            "at_mi": 153.38,
+            "lat": 48.66564,
+            "lon": -90.35748
+          },
+          {
+            "at_mi": 179.28,
+            "lat": 48.58714,
+            "lon": -89.85241
+          },
+          {
+            "at_mi": 206.0,
+            "lat": 48.38066,
+            "lon": -89.50619
+          },
+          {
+            "at_mi": 217.0,
+            "lat": 48.35844,
+            "lon": -89.31362
+          }
+        ],
+        "checkpoints": [],
+        "source": "New leg for the Winnipeg to Thunder Bay and northern Ontario corridor (Career 2.0, 2026-11-22): laid out between the two city pins, then routed by Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de) along Hwy 11.",
+        "elevation_samples": [
+          {
+            "at_mi": 0.0,
+            "elevation_ft": 1122.0,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 25.01,
+            "elevation_ft": 1141.7,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 51.68,
+            "elevation_ft": 1177.8,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 76.79,
+            "elevation_ft": 1299.2,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 102.25,
+            "elevation_ft": 1450.1,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 128.28,
+            "elevation_ft": 1643.7,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 153.38,
+            "elevation_ft": 1594.5,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 179.28,
+            "elevation_ft": 1394.4,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 206.0,
+            "elevation_ft": 780.8,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 217.0,
+            "elevation_ft": 646.3,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
           }
         ]
       },
@@ -19759,6 +20306,656 @@
           "sections": 0,
           "source": "DERIVED, not read: Canada has no national inventory like HPMS, so the class is the terrain the leg's own grade profile spends the most miles in (the reroute-enrich rule: sustained grade of 5 percent, or 4 percent with 1,000 ft of relief within 5 miles, is mountain; 1.5 percent or 400 ft of relief is hills; else flat), mapped flat to level, hills to rolling and mountain to mountainous. It reads the same elevation as the grade, so it is no independent check on it."
         }
+      },
+      "rerouted": true
+    },
+    {
+      "from": "hearst_on_ca",
+      "to": "kapuskasing_on_ca",
+      "miles": 60,
+      "highway": "Hwy 11",
+      "terrain": "flat",
+      "divided": false,
+      "lanes": 2,
+      "stops": [],
+      "corridor": {
+        "tollway_detected": false,
+        "route_points": [
+          {
+            "at_mi": 0.0,
+            "lat": 49.69319,
+            "lon": -83.66644
+          },
+          {
+            "at_mi": 25.61,
+            "lat": 49.58443,
+            "lon": -83.12348
+          },
+          {
+            "at_mi": 51.68,
+            "lat": 49.46028,
+            "lon": -82.58134
+          },
+          {
+            "at_mi": 60.0,
+            "lat": 49.40704,
+            "lon": -82.42636
+          }
+        ],
+        "checkpoints": [],
+        "source": "New leg for the Winnipeg to Thunder Bay and northern Ontario corridor (Career 2.0, 2026-11-22): laid out between the two city pins, then routed by Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de) along Hwy 11.",
+        "elevation_samples": [
+          {
+            "at_mi": 0.0,
+            "elevation_ft": 797.2,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 25.61,
+            "elevation_ft": 807.1,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 51.68,
+            "elevation_ft": 751.3,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 60.0,
+            "elevation_ft": 734.9,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          }
+        ]
+      },
+      "rerouted": true
+    },
+    {
+      "from": "hearst_on_ca",
+      "to": "longlac_on_ca",
+      "miles": 131,
+      "highway": "Hwy 11",
+      "terrain": "flat",
+      "divided": false,
+      "lanes": 2,
+      "stops": [],
+      "corridor": {
+        "tollway_detected": false,
+        "route_points": [
+          {
+            "at_mi": 0.0,
+            "lat": 49.69319,
+            "lon": -83.66644
+          },
+          {
+            "at_mi": 26.15,
+            "lat": 49.73472,
+            "lon": -84.23371
+          },
+          {
+            "at_mi": 60.18,
+            "lat": 49.75494,
+            "lon": -84.98426
+          },
+          {
+            "at_mi": 85.99,
+            "lat": 49.76816,
+            "lon": -85.55741
+          },
+          {
+            "at_mi": 111.68,
+            "lat": 49.78573,
+            "lon": -86.11924
+          },
+          {
+            "at_mi": 131.0,
+            "lat": 49.77317,
+            "lon": -86.53463
+          }
+        ],
+        "checkpoints": [],
+        "source": "New leg for the Winnipeg to Thunder Bay and northern Ontario corridor (Career 2.0, 2026-11-22): laid out between the two city pins, then routed by Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de) along Hwy 11.",
+        "elevation_samples": [
+          {
+            "at_mi": 0.0,
+            "elevation_ft": 797.2,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 26.15,
+            "elevation_ft": 849.7,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 60.18,
+            "elevation_ft": 885.8,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 85.99,
+            "elevation_ft": 866.1,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 111.68,
+            "elevation_ft": 1072.8,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 131.0,
+            "elevation_ft": 1043.3,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          }
+        ]
+      },
+      "rerouted": true
+    },
+    {
+      "from": "ignace_on_ca",
+      "to": "dryden_on_ca",
+      "miles": 67,
+      "highway": "Hwy 17",
+      "terrain": "flat",
+      "divided": false,
+      "lanes": 2,
+      "stops": [],
+      "corridor": {
+        "tollway_detected": false,
+        "route_points": [
+          {
+            "at_mi": 0.0,
+            "lat": 49.41754,
+            "lon": -91.67064
+          },
+          {
+            "at_mi": 25.29,
+            "lat": 49.53893,
+            "lon": -92.16091
+          },
+          {
+            "at_mi": 50.63,
+            "lat": 49.70372,
+            "lon": -92.57809
+          },
+          {
+            "at_mi": 67.0,
+            "lat": 49.7745,
+            "lon": -92.85852
+          }
+        ],
+        "checkpoints": [],
+        "source": "New leg for the Winnipeg to Thunder Bay and northern Ontario corridor (Career 2.0, 2026-11-22): laid out between the two city pins, then routed by Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de) along Hwy 17.",
+        "elevation_samples": [
+          {
+            "at_mi": 0.0,
+            "elevation_ft": 1479.7,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 25.29,
+            "elevation_ft": 1374.7,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 50.63,
+            "elevation_ft": 1253.3,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 67.0,
+            "elevation_ft": 1250.0,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          }
+        ]
+      },
+      "rerouted": true
+    },
+    {
+      "from": "ignace_on_ca",
+      "to": "thunder_bay_on_ca",
+      "miles": 153,
+      "highway": "Hwy 17",
+      "terrain": "flat",
+      "divided": false,
+      "lanes": 2,
+      "stops": [],
+      "corridor": {
+        "tollway_detected": false,
+        "route_points": [
+          {
+            "at_mi": 0.0,
+            "lat": 49.41754,
+            "lon": -91.67064
+          },
+          {
+            "at_mi": 25.21,
+            "lat": 49.258,
+            "lon": -91.18892
+          },
+          {
+            "at_mi": 50.86,
+            "lat": 49.1272,
+            "lon": -90.72918
+          },
+          {
+            "at_mi": 75.92,
+            "lat": 48.96141,
+            "lon": -90.3052
+          },
+          {
+            "at_mi": 101.0,
+            "lat": 48.76946,
+            "lon": -89.87727
+          },
+          {
+            "at_mi": 126.07,
+            "lat": 48.5296,
+            "lon": -89.64817
+          },
+          {
+            "at_mi": 152.41,
+            "lat": 48.36249,
+            "lon": -89.30737
+          },
+          {
+            "at_mi": 153.0,
+            "lat": 48.35844,
+            "lon": -89.31362
+          }
+        ],
+        "checkpoints": [],
+        "source": "New leg for the Winnipeg to Thunder Bay and northern Ontario corridor (Career 2.0, 2026-11-22): laid out between the two city pins, then routed by Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de) along Hwy 17.",
+        "elevation_samples": [
+          {
+            "at_mi": 0.0,
+            "elevation_ft": 1479.7,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 25.21,
+            "elevation_ft": 1548.6,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 50.86,
+            "elevation_ft": 1548.6,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 75.92,
+            "elevation_ft": 1512.5,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 101.0,
+            "elevation_ft": 1656.8,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 126.07,
+            "elevation_ft": 1253.3,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 152.41,
+            "elevation_ft": 639.8,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 153.0,
+            "elevation_ft": 646.3,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          }
+        ]
+      },
+      "rerouted": true
+    },
+    {
+      "from": "kapuskasing_on_ca",
+      "to": "cochrane_on_ca",
+      "miles": 74,
+      "highway": "Hwy 11",
+      "terrain": "flat",
+      "divided": false,
+      "lanes": 2,
+      "stops": [],
+      "corridor": {
+        "tollway_detected": false,
+        "route_points": [
+          {
+            "at_mi": 0.0,
+            "lat": 49.40704,
+            "lon": -82.42636
+          },
+          {
+            "at_mi": 27.78,
+            "lat": 49.28817,
+            "lon": -81.86494
+          },
+          {
+            "at_mi": 55.38,
+            "lat": 49.12682,
+            "lon": -81.38624
+          },
+          {
+            "at_mi": 74.0,
+            "lat": 49.05169,
+            "lon": -81.03109
+          }
+        ],
+        "checkpoints": [],
+        "source": "New leg for the Winnipeg to Thunder Bay and northern Ontario corridor (Career 2.0, 2026-11-22): laid out between the two city pins, then routed by Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de) along Hwy 11.",
+        "elevation_samples": [
+          {
+            "at_mi": 0.0,
+            "elevation_ft": 734.9,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 27.78,
+            "elevation_ft": 784.1,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 55.38,
+            "elevation_ft": 895.7,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 74.0,
+            "elevation_ft": 889.1,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          }
+        ]
+      },
+      "rerouted": true
+    },
+    {
+      "from": "kapuskasing_on_ca",
+      "to": "hearst_on_ca",
+      "miles": 60,
+      "highway": "Hwy 11",
+      "terrain": "flat",
+      "divided": false,
+      "lanes": 2,
+      "stops": [],
+      "corridor": {
+        "tollway_detected": false,
+        "route_points": [
+          {
+            "at_mi": 0.0,
+            "lat": 49.40704,
+            "lon": -82.42636
+          },
+          {
+            "at_mi": 28.52,
+            "lat": 49.55263,
+            "lon": -83.0021
+          },
+          {
+            "at_mi": 56.7,
+            "lat": 49.67853,
+            "lon": -83.59712
+          },
+          {
+            "at_mi": 60.0,
+            "lat": 49.69319,
+            "lon": -83.66644
+          }
+        ],
+        "checkpoints": [],
+        "source": "New leg for the Winnipeg to Thunder Bay and northern Ontario corridor (Career 2.0, 2026-11-22): laid out between the two city pins, then routed by Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de) along Hwy 11.",
+        "elevation_samples": [
+          {
+            "at_mi": 0.0,
+            "elevation_ft": 734.9,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 28.52,
+            "elevation_ft": 820.2,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 56.7,
+            "elevation_ft": 784.1,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 60.0,
+            "elevation_ft": 797.2,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          }
+        ]
+      },
+      "rerouted": true
+    },
+    {
+      "from": "kenora_on_ca",
+      "to": "dryden_on_ca",
+      "miles": 87,
+      "highway": "Hwy 17",
+      "terrain": "flat",
+      "divided": false,
+      "lanes": 2,
+      "stops": [],
+      "corridor": {
+        "tollway_detected": false,
+        "route_points": [
+          {
+            "at_mi": 0.0,
+            "lat": 49.77341,
+            "lon": -94.48124
+          },
+          {
+            "at_mi": 25.08,
+            "lat": 49.78832,
+            "lon": -94.06094
+          },
+          {
+            "at_mi": 50.28,
+            "lat": 49.82774,
+            "lon": -93.55174
+          },
+          {
+            "at_mi": 83.78,
+            "lat": 49.8151,
+            "lon": -92.85307
+          },
+          {
+            "at_mi": 87.0,
+            "lat": 49.7745,
+            "lon": -92.85852
+          }
+        ],
+        "checkpoints": [],
+        "source": "New leg for the Winnipeg to Thunder Bay and northern Ontario corridor (Career 2.0, 2026-11-22): laid out between the two city pins, then routed by Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de) along Hwy 17.",
+        "elevation_samples": [
+          {
+            "at_mi": 0.0,
+            "elevation_ft": 1108.9,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 25.08,
+            "elevation_ft": 1397.6,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 50.28,
+            "elevation_ft": 1295.9,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 83.78,
+            "elevation_ft": 1223.8,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 87.0,
+            "elevation_ft": 1250.0,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          }
+        ]
+      },
+      "rerouted": true
+    },
+    {
+      "from": "kenora_on_ca",
+      "to": "fort_frances_on_ca",
+      "miles": 134,
+      "highway": "Hwy 71",
+      "terrain": "flat",
+      "divided": false,
+      "lanes": 2,
+      "stops": [],
+      "corridor": {
+        "tollway_detected": false,
+        "route_points": [
+          {
+            "at_mi": 0.0,
+            "lat": 49.77341,
+            "lon": -94.48124
+          },
+          {
+            "at_mi": 25.02,
+            "lat": 49.6359,
+            "lon": -94.10075
+          },
+          {
+            "at_mi": 50.35,
+            "lat": 49.39761,
+            "lon": -94.06595
+          },
+          {
+            "at_mi": 75.36,
+            "lat": 49.12568,
+            "lon": -93.9304
+          },
+          {
+            "at_mi": 110.08,
+            "lat": 48.6439,
+            "lon": -93.91597
+          },
+          {
+            "at_mi": 134.0,
+            "lat": 48.61454,
+            "lon": -93.42751
+          }
+        ],
+        "checkpoints": [],
+        "source": "New leg for the Winnipeg to Thunder Bay and northern Ontario corridor (Career 2.0, 2026-11-22): laid out between the two city pins, then routed by Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de) along Hwy 71.",
+        "elevation_samples": [
+          {
+            "at_mi": 0.0,
+            "elevation_ft": 1108.9,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 25.02,
+            "elevation_ft": 1207.3,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 50.35,
+            "elevation_ft": 1079.4,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 75.36,
+            "elevation_ft": 1086.0,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 110.08,
+            "elevation_ft": 1125.3,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 134.0,
+            "elevation_ft": 1122.0,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          }
+        ]
+      },
+      "rerouted": true
+    },
+    {
+      "from": "kenora_on_ca",
+      "to": "winnipeg_mb_ca",
+      "miles": 127,
+      "highway": "Hwy 1 / Hwy 17",
+      "terrain": "flat",
+      "divided": false,
+      "lanes": 2,
+      "stops": [],
+      "corridor": {
+        "tollway_detected": false,
+        "route_points": [
+          {
+            "at_mi": 0.0,
+            "lat": 49.77341,
+            "lon": -94.48124
+          },
+          {
+            "at_mi": 26.05,
+            "lat": 49.73076,
+            "lon": -95.0087
+          },
+          {
+            "at_mi": 52.21,
+            "lat": 49.63533,
+            "lon": -95.53774
+          },
+          {
+            "at_mi": 77.82,
+            "lat": 49.66709,
+            "lon": -96.09855
+          },
+          {
+            "at_mi": 108.84,
+            "lat": 49.74351,
+            "lon": -96.75195
+          },
+          {
+            "at_mi": 127.0,
+            "lat": 49.86774,
+            "lon": -97.05838
+          }
+        ],
+        "checkpoints": [],
+        "source": "New leg for the Winnipeg to Thunder Bay and northern Ontario corridor (Career 2.0, 2026-11-22): laid out between the two city pins, then routed by Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de) along Hwy 1 / Hwy 17.",
+        "elevation_samples": [
+          {
+            "at_mi": 0.0,
+            "elevation_ft": 1108.9,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 26.05,
+            "elevation_ft": 1213.9,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 52.21,
+            "elevation_ft": 1040.0,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 77.82,
+            "elevation_ft": 1017.1,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 108.84,
+            "elevation_ft": 800.5,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 127.0,
+            "elevation_ft": 744.8,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          }
+        ]
       },
       "rerouted": true
     },
@@ -28590,6 +29787,326 @@
       "rerouted": true
     },
     {
+      "from": "longlac_on_ca",
+      "to": "hearst_on_ca",
+      "miles": 131,
+      "highway": "Hwy 11",
+      "terrain": "flat",
+      "divided": false,
+      "lanes": 2,
+      "stops": [],
+      "corridor": {
+        "tollway_detected": false,
+        "route_points": [
+          {
+            "at_mi": 0.0,
+            "lat": 49.77317,
+            "lon": -86.53463
+          },
+          {
+            "at_mi": 28.01,
+            "lat": 49.79035,
+            "lon": -85.92537
+          },
+          {
+            "at_mi": 54.79,
+            "lat": 49.76134,
+            "lon": -85.34094
+          },
+          {
+            "at_mi": 83.5,
+            "lat": 49.77281,
+            "lon": -84.70141
+          },
+          {
+            "at_mi": 111.02,
+            "lat": 49.74295,
+            "lon": -84.09954
+          },
+          {
+            "at_mi": 131.0,
+            "lat": 49.69319,
+            "lon": -83.66644
+          }
+        ],
+        "checkpoints": [],
+        "source": "New leg for the Winnipeg to Thunder Bay and northern Ontario corridor (Career 2.0, 2026-11-22): laid out between the two city pins, then routed by Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de) along Hwy 11.",
+        "elevation_samples": [
+          {
+            "at_mi": 0.0,
+            "elevation_ft": 1043.3,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 28.01,
+            "elevation_ft": 915.4,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 54.79,
+            "elevation_ft": 800.5,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 83.5,
+            "elevation_ft": 853.0,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 111.02,
+            "elevation_ft": 820.2,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 131.0,
+            "elevation_ft": 797.2,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          }
+        ]
+      },
+      "rerouted": true
+    },
+    {
+      "from": "longlac_on_ca",
+      "to": "nipigon_on_ca",
+      "miles": 121,
+      "highway": "Hwy 11",
+      "terrain": "flat",
+      "divided": false,
+      "lanes": 2,
+      "stops": [],
+      "corridor": {
+        "tollway_detected": false,
+        "route_points": [
+          {
+            "at_mi": 0.0,
+            "lat": 49.77317,
+            "lon": -86.53463
+          },
+          {
+            "at_mi": 26.47,
+            "lat": 49.69354,
+            "lon": -87.05073
+          },
+          {
+            "at_mi": 51.63,
+            "lat": 49.67828,
+            "lon": -87.57975
+          },
+          {
+            "at_mi": 77.23,
+            "lat": 49.52016,
+            "lon": -88.02444
+          },
+          {
+            "at_mi": 104.3,
+            "lat": 49.2075,
+            "lon": -88.2072
+          },
+          {
+            "at_mi": 121.0,
+            "lat": 49.0231,
+            "lon": -88.29505
+          }
+        ],
+        "checkpoints": [],
+        "source": "New leg for the Winnipeg to Thunder Bay and northern Ontario corridor (Career 2.0, 2026-11-22): laid out between the two city pins, then routed by Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de) along Hwy 11.",
+        "elevation_samples": [
+          {
+            "at_mi": 0.0,
+            "elevation_ft": 1043.3,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 26.47,
+            "elevation_ft": 1118.8,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 51.63,
+            "elevation_ft": 1072.8,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 77.23,
+            "elevation_ft": 1263.1,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 104.3,
+            "elevation_ft": 925.2,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 121.0,
+            "elevation_ft": 885.8,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          }
+        ]
+      },
+      "rerouted": true
+    },
+    {
+      "from": "marathon_on_ca",
+      "to": "nipigon_on_ca",
+      "miles": 113,
+      "highway": "Hwy 17",
+      "terrain": "flat",
+      "divided": false,
+      "lanes": 2,
+      "stops": [],
+      "corridor": {
+        "tollway_detected": false,
+        "route_points": [
+          {
+            "at_mi": 0.0,
+            "lat": 48.76258,
+            "lon": -86.36194
+          },
+          {
+            "at_mi": 25.47,
+            "lat": 48.79375,
+            "lon": -86.80572
+          },
+          {
+            "at_mi": 52.04,
+            "lat": 48.79299,
+            "lon": -87.21764
+          },
+          {
+            "at_mi": 77.06,
+            "lat": 48.90727,
+            "lon": -87.65424
+          },
+          {
+            "at_mi": 102.13,
+            "lat": 49.01033,
+            "lon": -88.07646
+          },
+          {
+            "at_mi": 113.0,
+            "lat": 49.0231,
+            "lon": -88.29505
+          }
+        ],
+        "checkpoints": [],
+        "source": "New leg for the Winnipeg to Thunder Bay and northern Ontario corridor (Career 2.0, 2026-11-22): laid out between the two city pins, then routed by Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de) along Hwy 17.",
+        "elevation_samples": [
+          {
+            "at_mi": 0.0,
+            "elevation_ft": 987.5,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 25.47,
+            "elevation_ft": 731.6,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 52.04,
+            "elevation_ft": 1007.2,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 77.06,
+            "elevation_ft": 1315.6,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 102.13,
+            "elevation_ft": 616.8,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 113.0,
+            "elevation_ft": 885.8,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          }
+        ]
+      },
+      "rerouted": true
+    },
+    {
+      "from": "marathon_on_ca",
+      "to": "wawa_on_ca",
+      "miles": 115,
+      "highway": "Hwy 17",
+      "terrain": "flat",
+      "divided": false,
+      "lanes": 2,
+      "stops": [],
+      "corridor": {
+        "tollway_detected": false,
+        "route_points": [
+          {
+            "at_mi": 0.0,
+            "lat": 48.76258,
+            "lon": -86.36194
+          },
+          {
+            "at_mi": 25.96,
+            "lat": 48.70209,
+            "lon": -85.86565
+          },
+          {
+            "at_mi": 50.98,
+            "lat": 48.63057,
+            "lon": -85.39148
+          },
+          {
+            "at_mi": 76.63,
+            "lat": 48.38159,
+            "lon": -85.08644
+          },
+          {
+            "at_mi": 101.92,
+            "lat": 48.11928,
+            "lon": -84.80852
+          },
+          {
+            "at_mi": 115.0,
+            "lat": 47.98744,
+            "lon": -84.77815
+          }
+        ],
+        "checkpoints": [],
+        "source": "New leg for the Winnipeg to Thunder Bay and northern Ontario corridor (Career 2.0, 2026-11-22): laid out between the two city pins, then routed by Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de) along Hwy 17.",
+        "elevation_samples": [
+          {
+            "at_mi": 0.0,
+            "elevation_ft": 987.5,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 25.96,
+            "elevation_ft": 1049.9,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 50.98,
+            "elevation_ft": 1266.4,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 76.63,
+            "elevation_ft": 1427.2,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 101.92,
+            "elevation_ft": 1059.7,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 115.0,
+            "elevation_ft": 948.2,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          }
+        ]
+      },
+      "rerouted": true
+    },
+    {
       "from": "mississauga_on_ca",
       "to": "brampton_on_ca",
       "miles": 13,
@@ -33090,6 +34607,226 @@
           "note": "Queen Elizabeth Way east of Highway 406; ref QEW"
         }
       ],
+      "rerouted": true
+    },
+    {
+      "from": "nipigon_on_ca",
+      "to": "longlac_on_ca",
+      "miles": 121,
+      "highway": "Hwy 11",
+      "terrain": "flat",
+      "divided": false,
+      "lanes": 2,
+      "stops": [],
+      "corridor": {
+        "tollway_detected": false,
+        "route_points": [
+          {
+            "at_mi": 0.0,
+            "lat": 49.0231,
+            "lon": -88.29505
+          },
+          {
+            "at_mi": 25.36,
+            "lat": 49.30425,
+            "lon": -88.10004
+          },
+          {
+            "at_mi": 50.63,
+            "lat": 49.60473,
+            "lon": -87.95736
+          },
+          {
+            "at_mi": 75.88,
+            "lat": 49.69769,
+            "lon": -87.44224
+          },
+          {
+            "at_mi": 100.95,
+            "lat": 49.68663,
+            "lon": -86.92223
+          },
+          {
+            "at_mi": 121.0,
+            "lat": 49.77317,
+            "lon": -86.53463
+          }
+        ],
+        "checkpoints": [],
+        "source": "New leg for the Winnipeg to Thunder Bay and northern Ontario corridor (Career 2.0, 2026-11-22): laid out between the two city pins, then routed by Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de) along Hwy 11.",
+        "elevation_samples": [
+          {
+            "at_mi": 0.0,
+            "elevation_ft": 885.8,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 25.36,
+            "elevation_ft": 882.5,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 50.63,
+            "elevation_ft": 1000.7,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 75.88,
+            "elevation_ft": 1115.5,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 100.95,
+            "elevation_ft": 1082.7,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 121.0,
+            "elevation_ft": 1043.3,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          }
+        ]
+      },
+      "rerouted": true
+    },
+    {
+      "from": "nipigon_on_ca",
+      "to": "marathon_on_ca",
+      "miles": 113,
+      "highway": "Hwy 17",
+      "terrain": "flat",
+      "divided": false,
+      "lanes": 2,
+      "stops": [],
+      "corridor": {
+        "tollway_detected": false,
+        "route_points": [
+          {
+            "at_mi": 0.0,
+            "lat": 49.0231,
+            "lon": -88.29505
+          },
+          {
+            "at_mi": 25.32,
+            "lat": 48.93241,
+            "lon": -87.86135
+          },
+          {
+            "at_mi": 50.35,
+            "lat": 48.83944,
+            "lon": -87.4071
+          },
+          {
+            "at_mi": 75.46,
+            "lat": 48.85619,
+            "lon": -86.97338
+          },
+          {
+            "at_mi": 100.49,
+            "lat": 48.77624,
+            "lon": -86.57369
+          },
+          {
+            "at_mi": 113.0,
+            "lat": 48.76258,
+            "lon": -86.36194
+          }
+        ],
+        "checkpoints": [],
+        "source": "New leg for the Winnipeg to Thunder Bay and northern Ontario corridor (Career 2.0, 2026-11-22): laid out between the two city pins, then routed by Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de) along Hwy 17.",
+        "elevation_samples": [
+          {
+            "at_mi": 0.0,
+            "elevation_ft": 885.8,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 25.32,
+            "elevation_ft": 636.5,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 50.35,
+            "elevation_ft": 757.9,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 75.46,
+            "elevation_ft": 941.6,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 100.49,
+            "elevation_ft": 889.1,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 113.0,
+            "elevation_ft": 987.5,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          }
+        ]
+      },
+      "rerouted": true
+    },
+    {
+      "from": "nipigon_on_ca",
+      "to": "thunder_bay_on_ca",
+      "miles": 73,
+      "highway": "Hwy 11 / Hwy 17",
+      "terrain": "flat",
+      "divided": false,
+      "lanes": 2,
+      "stops": [],
+      "corridor": {
+        "tollway_detected": false,
+        "route_points": [
+          {
+            "at_mi": 0.0,
+            "lat": 49.0231,
+            "lon": -88.29505
+          },
+          {
+            "at_mi": 25.77,
+            "lat": 48.74157,
+            "lon": -88.58076
+          },
+          {
+            "at_mi": 52.59,
+            "lat": 48.51766,
+            "lon": -89.01974
+          },
+          {
+            "at_mi": 73.0,
+            "lat": 48.35844,
+            "lon": -89.31362
+          }
+        ],
+        "checkpoints": [],
+        "source": "New leg for the Winnipeg to Thunder Bay and northern Ontario corridor (Career 2.0, 2026-11-22): laid out between the two city pins, then routed by Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de) along Hwy 11 / Hwy 17.",
+        "elevation_samples": [
+          {
+            "at_mi": 0.0,
+            "elevation_ft": 885.8,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 25.77,
+            "elevation_ft": 784.1,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 52.59,
+            "elevation_ft": 787.4,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 73.0,
+            "elevation_ft": 646.3,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          }
+        ]
+      },
       "rerouted": true
     },
     {
@@ -38707,6 +40444,83 @@
           "note": "Highway 17 near Markstay; ref 17"
         }
       ]
+    },
+    {
+      "from": "north_bay_on_ca",
+      "to": "temiskaming_shores_on_ca",
+      "miles": 97,
+      "highway": "Hwy 11",
+      "terrain": "flat",
+      "divided": false,
+      "lanes": 2,
+      "stops": [],
+      "corridor": {
+        "tollway_detected": false,
+        "route_points": [
+          {
+            "at_mi": 0.0,
+            "lat": 46.30894,
+            "lon": -79.46118
+          },
+          {
+            "at_mi": 27.41,
+            "lat": 46.64202,
+            "lon": -79.69678
+          },
+          {
+            "at_mi": 52.48,
+            "lat": 46.95969,
+            "lon": -79.77984
+          },
+          {
+            "at_mi": 78.6,
+            "lat": 47.28961,
+            "lon": -79.79036
+          },
+          {
+            "at_mi": 97.0,
+            "lat": 47.50579,
+            "lon": -79.68533
+          }
+        ],
+        "checkpoints": [],
+        "source": "New leg for the Winnipeg to Thunder Bay and northern Ontario corridor (Career 2.0, 2026-11-22): laid out between the two city pins, then routed by Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de) along Hwy 11.",
+        "elevation_samples": [
+          {
+            "at_mi": 0.0,
+            "elevation_ft": 672.6,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 27.41,
+            "elevation_ft": 1020.3,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 52.48,
+            "elevation_ft": 1053.1,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 78.6,
+            "elevation_ft": 1076.1,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 97.0,
+            "elevation_ft": 639.8,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          }
+        ]
+      },
+      "route_via": [
+        {
+          "lat": 46.99851,
+          "lon": -79.82012,
+          "note": "Highway 11 near Temagami; ref 11"
+        }
+      ],
+      "rerouted": true
     },
     {
       "from": "oshawa_on_ca",
@@ -61061,6 +62875,335 @@
       "rerouted": true
     },
     {
+      "from": "sault_ste_marie_on_ca",
+      "to": "sault_ste_marie_mi_us",
+      "miles": 8,
+      "highway": "I-75 / International Bridge",
+      "terrain": "flat",
+      "divided": false,
+      "lanes": 2,
+      "stops": [],
+      "corridor": {
+        "tollway_detected": true,
+        "route_points": [
+          {
+            "at_mi": 0.0,
+            "lat": 46.51356,
+            "lon": -84.39074
+          },
+          {
+            "at_mi": 8.0,
+            "lat": 46.49504,
+            "lon": -84.34551
+          }
+        ],
+        "checkpoints": [
+          {
+            "name": "Sault Ste. Marie Bridge Port of Entry",
+            "at_mi": 0.0,
+            "type": "border",
+            "state": "Ontario",
+            "highway": "I-75 / International Bridge",
+            "lat": 46.518964,
+            "lon": -84.349378,
+            "source": "Canada Border Services Agency Sault Ste. Marie Bridge, 125 Huron Street; commercial hours read from the CBSA Directory of Offices and Services open data (https://www.cbsa-asfc.gc.ca/data/offices-bureaux-en.csv, read 2026-11-22): commercial 24 hours, 7 days a week. Position read from OpenStreetMap way 1153253774 (border_control booth canopy at the Ontario bridge plaza), OpenStreetMap planet file of 2026-11-16."
+          },
+          {
+            "name": "Sault Ste. Marie Port of Entry",
+            "at_mi": 0.0,
+            "type": "border",
+            "state": "Michigan",
+            "highway": "I-75 / International Bridge",
+            "lat": 46.494824,
+            "lon": -84.367643,
+            "source": "U.S. Customs and Border Protection port 380301 Sault Ste. Marie, International Bridge - SSM, 24 hrs/day with two commercial vehicle lanes (CBP border wait times API, https://bwt.cbp.gov/api/bwtnew, read 2026-11-22). Position read from OpenStreetMap way 1153061243 (border_control booth canopy at the Michigan bridge plaza), OpenStreetMap planet file of 2026-11-16."
+          }
+        ],
+        "source": "New leg for the Winnipeg to Thunder Bay and northern Ontario corridor (Career 2.0, 2026-11-22): laid out between the two city pins, then routed by Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de) along I-75 / International Bridge.",
+        "elevation_samples": [
+          {
+            "at_mi": 0.0,
+            "elevation_ft": 616.8,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 8.0,
+            "elevation_ft": 616.8,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          }
+        ],
+        "border_crossing": {
+          "id": "sault_ste_marie_international_bridge",
+          "from_country": "CA",
+          "to_country": "US",
+          "ports": [
+            "sault_ste_marie_international_bridge"
+          ],
+          "mode": "through_freight",
+          "cabotage": "forbidden",
+          "port_names": {
+            "CA": "Sault Ste. Marie Bridge Port of Entry",
+            "US": "Sault Ste. Marie Port of Entry"
+          },
+          "agencies": {
+            "CA": "Canada Border Services Agency",
+            "US": "U.S. Customs and Border Protection"
+          },
+          "commercial_hours": {
+            "CA": "commercial 24 hours, 7 days a week",
+            "US": "24 hours a day, two commercial lanes"
+          },
+          "fast_lane": false,
+          "source": "Canadian side: CBSA office Sault Ste. Marie Bridge, 125 Huron Street, Sault Ste. Marie, Ontario; commercial hours read from the CBSA Directory of Offices and Services open data (https://www.cbsa-asfc.gc.ca/data/offices-bureaux-en.csv, read 2026-11-22). US side: CBP port 380301 Sault Ste. Marie, International Bridge - SSM, 24 hrs/day with two commercial vehicle lanes, read from the CBP border wait times API (https://bwt.cbp.gov/api/bwtnew, read 2026-11-22). Booth positions read from OpenStreetMap (OpenStreetMap planet file of 2026-11-16)."
+        },
+        "toll_events": [
+          {
+            "name": "International Bridge toll",
+            "at_mi": 0.0,
+            "road": "Sault Ste. Marie International Bridge",
+            "authority": "International Bridge Administration",
+            "method": "cash_card",
+            "amount": 33.75,
+            "amount_plate": 33.75,
+            "estimated": false,
+            "source": "https://www.saultbridge.com/toll-rates-commercial/ (class 9, commercial truck with 5 axles, USD 33.75 or CAD 46.75 from 2026-10-01; cash, credit and debit at the booth) and https://www.saultbridge.com/effective-toll-rate-schedule/ (USD 6.75 per axle from 2026-10-01), accessed 2026-11-22. Position read from the OpenStreetMap toll booth nodes at the Michigan plaza (node 472232480, operator MDOT), the bridge's only toll plaza, projected on the leg's archived road; the pages do not say which direction pays, and the plaza's booths sit across both directions' lanes, so the toll is charged both ways (derived from the booth positions)."
+          }
+        ]
+      },
+      "route_via": [
+        {
+          "lat": 46.508473,
+          "lon": -84.360723,
+          "note": "Sault Ste. Marie International Bridge deck, the commercial crossing; ref I 75"
+        }
+      ],
+      "rerouted": true,
+      "border_crossing": {
+        "id": "sault_ste_marie_international_bridge",
+        "from_country": "CA",
+        "to_country": "US",
+        "ports": [
+          "sault_ste_marie_international_bridge"
+        ],
+        "mode": "through_freight",
+        "cabotage": "forbidden",
+        "port_names": {
+          "CA": "Sault Ste. Marie Bridge Port of Entry",
+          "US": "Sault Ste. Marie Port of Entry"
+        },
+        "agencies": {
+          "CA": "Canada Border Services Agency",
+          "US": "U.S. Customs and Border Protection"
+        },
+        "commercial_hours": {
+          "CA": "commercial 24 hours, 7 days a week",
+          "US": "24 hours a day, two commercial lanes"
+        },
+        "fast_lane": false,
+        "source": "Canadian side: CBSA office Sault Ste. Marie Bridge, 125 Huron Street, Sault Ste. Marie, Ontario; commercial hours read from the CBSA Directory of Offices and Services open data (https://www.cbsa-asfc.gc.ca/data/offices-bureaux-en.csv, read 2026-11-22). US side: CBP port 380301 Sault Ste. Marie, International Bridge - SSM, 24 hrs/day with two commercial vehicle lanes, read from the CBP border wait times API (https://bwt.cbp.gov/api/bwtnew, read 2026-11-22). Booth positions read from OpenStreetMap (OpenStreetMap planet file of 2026-11-16)."
+      }
+    },
+    {
+      "from": "sault_ste_marie_on_ca",
+      "to": "sudbury_on_ca",
+      "miles": 197,
+      "highway": "Hwy 17",
+      "terrain": "flat",
+      "divided": false,
+      "lanes": 2,
+      "stops": [],
+      "corridor": {
+        "tollway_detected": false,
+        "route_points": [
+          {
+            "at_mi": 0.0,
+            "lat": 46.51356,
+            "lon": -84.39074
+          },
+          {
+            "at_mi": 25.86,
+            "lat": 46.45655,
+            "lon": -84.05926
+          },
+          {
+            "at_mi": 51.59,
+            "lat": 46.29149,
+            "lon": -83.73662
+          },
+          {
+            "at_mi": 76.64,
+            "lat": 46.2808,
+            "lon": -83.25531
+          },
+          {
+            "at_mi": 101.67,
+            "lat": 46.18924,
+            "lon": -82.80676
+          },
+          {
+            "at_mi": 126.83,
+            "lat": 46.2045,
+            "lon": -82.30169
+          },
+          {
+            "at_mi": 151.86,
+            "lat": 46.28345,
+            "lon": -81.81251
+          },
+          {
+            "at_mi": 178.09,
+            "lat": 46.39679,
+            "lon": -81.32238
+          },
+          {
+            "at_mi": 197.0,
+            "lat": 46.4917,
+            "lon": -80.99303
+          }
+        ],
+        "checkpoints": [],
+        "source": "New leg for the Winnipeg to Thunder Bay and northern Ontario corridor (Career 2.0, 2026-11-22): laid out between the two city pins, then routed by Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de) along Hwy 17.",
+        "elevation_samples": [
+          {
+            "at_mi": 0.0,
+            "elevation_ft": 616.8,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 25.86,
+            "elevation_ft": 610.2,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 51.59,
+            "elevation_ft": 590.6,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 76.64,
+            "elevation_ft": 629.9,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 101.67,
+            "elevation_ft": 600.4,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 126.83,
+            "elevation_ft": 643.0,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 151.86,
+            "elevation_ft": 675.9,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 178.09,
+            "elevation_ft": 830.1,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 197.0,
+            "elevation_ft": 862.9,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          }
+        ]
+      },
+      "rerouted": true
+    },
+    {
+      "from": "sault_ste_marie_on_ca",
+      "to": "wawa_on_ca",
+      "miles": 143,
+      "highway": "Hwy 17",
+      "terrain": "flat",
+      "divided": false,
+      "lanes": 2,
+      "stops": [],
+      "corridor": {
+        "tollway_detected": false,
+        "route_points": [
+          {
+            "at_mi": 0.0,
+            "lat": 46.51356,
+            "lon": -84.39074
+          },
+          {
+            "at_mi": 25.34,
+            "lat": 46.79984,
+            "lon": -84.39768
+          },
+          {
+            "at_mi": 50.77,
+            "lat": 46.97028,
+            "lon": -84.6972
+          },
+          {
+            "at_mi": 75.8,
+            "lat": 47.23155,
+            "lon": -84.65176
+          },
+          {
+            "at_mi": 101.56,
+            "lat": 47.47382,
+            "lon": -84.7916
+          },
+          {
+            "at_mi": 127.0,
+            "lat": 47.79311,
+            "lon": -84.8995
+          },
+          {
+            "at_mi": 143.0,
+            "lat": 47.98744,
+            "lon": -84.77815
+          }
+        ],
+        "checkpoints": [],
+        "source": "New leg for the Winnipeg to Thunder Bay and northern Ontario corridor (Career 2.0, 2026-11-22): laid out between the two city pins, then routed by Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de) along Hwy 17.",
+        "elevation_samples": [
+          {
+            "at_mi": 0.0,
+            "elevation_ft": 616.8,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 25.34,
+            "elevation_ft": 741.5,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 50.77,
+            "elevation_ft": 613.5,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 75.8,
+            "elevation_ft": 626.6,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 101.56,
+            "elevation_ft": 613.5,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 127.0,
+            "elevation_ft": 603.7,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 143.0,
+            "elevation_ft": 948.2,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          }
+        ]
+      },
+      "rerouted": true
+    },
+    {
       "from": "st_catharines_on_ca",
       "to": "hamilton_on_ca",
       "miles": 45,
@@ -65396,6 +67539,1113 @@
           "note": "Highway 69 near Britt, southbound; ref 69"
         }
       ],
+      "rerouted": true
+    },
+    {
+      "from": "sudbury_on_ca",
+      "to": "sault_ste_marie_on_ca",
+      "miles": 196,
+      "highway": "Hwy 17",
+      "terrain": "flat",
+      "divided": false,
+      "lanes": 2,
+      "stops": [],
+      "corridor": {
+        "tollway_detected": false,
+        "route_points": [
+          {
+            "at_mi": 0.0,
+            "lat": 46.4917,
+            "lon": -80.99303
+          },
+          {
+            "at_mi": 25.26,
+            "lat": 46.35215,
+            "lon": -81.44101
+          },
+          {
+            "at_mi": 51.02,
+            "lat": 46.24927,
+            "lon": -81.92619
+          },
+          {
+            "at_mi": 76.89,
+            "lat": 46.20481,
+            "lon": -82.4426
+          },
+          {
+            "at_mi": 103.06,
+            "lat": 46.192,
+            "lon": -82.96853
+          },
+          {
+            "at_mi": 128.1,
+            "lat": 46.28259,
+            "lon": -83.41217
+          },
+          {
+            "at_mi": 153.58,
+            "lat": 46.34123,
+            "lon": -83.88467
+          },
+          {
+            "at_mi": 178.88,
+            "lat": 46.53951,
+            "lon": -84.12661
+          },
+          {
+            "at_mi": 196.0,
+            "lat": 46.51356,
+            "lon": -84.39074
+          }
+        ],
+        "checkpoints": [],
+        "source": "New leg for the Winnipeg to Thunder Bay and northern Ontario corridor (Career 2.0, 2026-11-22): laid out between the two city pins, then routed by Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de) along Hwy 17.",
+        "elevation_samples": [
+          {
+            "at_mi": 0.0,
+            "elevation_ft": 862.9,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 25.26,
+            "elevation_ft": 771.0,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 51.02,
+            "elevation_ft": 643.0,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 76.89,
+            "elevation_ft": 636.5,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 103.06,
+            "elevation_ft": 590.6,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 128.1,
+            "elevation_ft": 689.0,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 153.58,
+            "elevation_ft": 600.4,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 178.88,
+            "elevation_ft": 616.8,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 196.0,
+            "elevation_ft": 616.8,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          }
+        ]
+      },
+      "rerouted": true
+    },
+    {
+      "from": "sudbury_on_ca",
+      "to": "timmins_on_ca",
+      "miles": 183,
+      "highway": "Hwy 144",
+      "terrain": "flat",
+      "divided": false,
+      "lanes": 2,
+      "stops": [],
+      "corridor": {
+        "tollway_detected": false,
+        "route_points": [
+          {
+            "at_mi": 0.0,
+            "lat": 46.4917,
+            "lon": -80.99303
+          },
+          {
+            "at_mi": 25.01,
+            "lat": 46.60404,
+            "lon": -81.40949
+          },
+          {
+            "at_mi": 50.44,
+            "lat": 46.88892,
+            "lon": -81.62968
+          },
+          {
+            "at_mi": 76.61,
+            "lat": 47.2284,
+            "lon": -81.72762
+          },
+          {
+            "at_mi": 102.23,
+            "lat": 47.56241,
+            "lon": -81.86057
+          },
+          {
+            "at_mi": 130.09,
+            "lat": 47.84355,
+            "lon": -81.60624
+          },
+          {
+            "at_mi": 156.7,
+            "lat": 48.21629,
+            "lon": -81.57162
+          },
+          {
+            "at_mi": 181.8,
+            "lat": 48.47635,
+            "lon": -81.35477
+          },
+          {
+            "at_mi": 183.0,
+            "lat": 48.47726,
+            "lon": -81.33041
+          }
+        ],
+        "checkpoints": [],
+        "source": "New leg for the Winnipeg to Thunder Bay and northern Ontario corridor (Career 2.0, 2026-11-22): laid out between the two city pins, then routed by Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de) along Hwy 144.",
+        "elevation_samples": [
+          {
+            "at_mi": 0.0,
+            "elevation_ft": 862.9,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 25.01,
+            "elevation_ft": 1099.1,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 50.44,
+            "elevation_ft": 1364.8,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 76.61,
+            "elevation_ft": 1417.3,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 102.23,
+            "elevation_ft": 1299.2,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 130.09,
+            "elevation_ft": 1207.3,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 156.7,
+            "elevation_ft": 1099.1,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 181.8,
+            "elevation_ft": 889.1,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 183.0,
+            "elevation_ft": 981.0,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          }
+        ]
+      },
+      "route_via": [
+        {
+          "lat": 47.06515,
+          "lon": -81.64879,
+          "note": "Highway 144 south of Gogama; ref 144"
+        }
+      ],
+      "rerouted": true
+    },
+    {
+      "from": "temiskaming_shores_on_ca",
+      "to": "cochrane_on_ca",
+      "miles": 136,
+      "highway": "Hwy 11",
+      "terrain": "flat",
+      "divided": false,
+      "lanes": 2,
+      "stops": [],
+      "corridor": {
+        "tollway_detected": false,
+        "route_points": [
+          {
+            "at_mi": 0.0,
+            "lat": 47.50579,
+            "lon": -79.68533
+          },
+          {
+            "at_mi": 26.41,
+            "lat": 47.81893,
+            "lon": -79.85473
+          },
+          {
+            "at_mi": 52.07,
+            "lat": 48.098,
+            "lon": -80.19306
+          },
+          {
+            "at_mi": 77.84,
+            "lat": 48.43444,
+            "lon": -80.33338
+          },
+          {
+            "at_mi": 105.44,
+            "lat": 48.68736,
+            "lon": -80.76749
+          },
+          {
+            "at_mi": 135.86,
+            "lat": 49.05021,
+            "lon": -81.03024
+          },
+          {
+            "at_mi": 136.0,
+            "lat": 49.05169,
+            "lon": -81.03109
+          }
+        ],
+        "checkpoints": [],
+        "source": "New leg for the Winnipeg to Thunder Bay and northern Ontario corridor (Career 2.0, 2026-11-22): laid out between the two city pins, then routed by Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de) along Hwy 11.",
+        "elevation_samples": [
+          {
+            "at_mi": 0.0,
+            "elevation_ft": 639.8,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 26.41,
+            "elevation_ft": 685.7,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 52.07,
+            "elevation_ft": 1013.8,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 77.84,
+            "elevation_ft": 925.2,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 105.44,
+            "elevation_ft": 938.3,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 135.86,
+            "elevation_ft": 879.3,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 136.0,
+            "elevation_ft": 889.1,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          }
+        ]
+      },
+      "rerouted": true
+    },
+    {
+      "from": "temiskaming_shores_on_ca",
+      "to": "north_bay_on_ca",
+      "miles": 98,
+      "highway": "Hwy 11",
+      "terrain": "flat",
+      "divided": false,
+      "lanes": 2,
+      "stops": [],
+      "corridor": {
+        "tollway_detected": false,
+        "route_points": [
+          {
+            "at_mi": 0.0,
+            "lat": 47.50579,
+            "lon": -79.68533
+          },
+          {
+            "at_mi": 25.31,
+            "lat": 47.20434,
+            "lon": -79.72977
+          },
+          {
+            "at_mi": 50.81,
+            "lat": 46.88211,
+            "lon": -79.76137
+          },
+          {
+            "at_mi": 76.4,
+            "lat": 46.56822,
+            "lon": -79.62131
+          },
+          {
+            "at_mi": 98.0,
+            "lat": 46.30894,
+            "lon": -79.46118
+          }
+        ],
+        "checkpoints": [],
+        "source": "New leg for the Winnipeg to Thunder Bay and northern Ontario corridor (Career 2.0, 2026-11-22): laid out between the two city pins, then routed by Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de) along Hwy 11.",
+        "elevation_samples": [
+          {
+            "at_mi": 0.0,
+            "elevation_ft": 639.8,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 25.31,
+            "elevation_ft": 1079.4,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 50.81,
+            "elevation_ft": 1063.0,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 76.4,
+            "elevation_ft": 1141.7,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 98.0,
+            "elevation_ft": 672.6,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          }
+        ]
+      },
+      "rerouted": true
+    },
+    {
+      "from": "temiskaming_shores_on_ca",
+      "to": "rouyn_noranda_qc_ca",
+      "miles": 82,
+      "highway": "Hwy 65 / Route 101",
+      "terrain": "flat",
+      "divided": false,
+      "lanes": 2,
+      "stops": [],
+      "corridor": {
+        "tollway_detected": false,
+        "route_points": [
+          {
+            "at_mi": 0.0,
+            "lat": 47.50579,
+            "lon": -79.68533
+          },
+          {
+            "at_mi": 29.7,
+            "lat": 47.73838,
+            "lon": -79.42318
+          },
+          {
+            "at_mi": 56.79,
+            "lat": 48.02789,
+            "lon": -79.25105
+          },
+          {
+            "at_mi": 81.84,
+            "lat": 48.23745,
+            "lon": -79.02424
+          },
+          {
+            "at_mi": 82.0,
+            "lat": 48.23652,
+            "lon": -79.023
+          }
+        ],
+        "checkpoints": [],
+        "source": "New leg for the Winnipeg to Thunder Bay and northern Ontario corridor (Career 2.0, 2026-11-22): laid out between the two city pins, then routed by Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de) along Hwy 65 / Route 101.",
+        "elevation_samples": [
+          {
+            "at_mi": 0.0,
+            "elevation_ft": 639.8,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 29.7,
+            "elevation_ft": 925.2,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 56.79,
+            "elevation_ft": 918.6,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 81.84,
+            "elevation_ft": 977.7,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 82.0,
+            "elevation_ft": 981.0,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          }
+        ]
+      },
+      "route_via": [
+        {
+          "lat": 47.6,
+          "lon": -79.48,
+          "note": "Highway 65 east of New Liskeard, the provincial route to Route 101 rather than the Highway 624 secondary road the router prefers; ref 65"
+        }
+      ],
+      "rerouted": true
+    },
+    {
+      "from": "thunder_bay_on_ca",
+      "to": "duluth_mn_us",
+      "miles": 186,
+      "highway": "Hwy 61 / MN 61",
+      "terrain": "flat",
+      "divided": false,
+      "lanes": 2,
+      "stops": [],
+      "corridor": {
+        "tollway_detected": false,
+        "route_points": [
+          {
+            "at_mi": 0.0,
+            "lat": 48.35844,
+            "lon": -89.31362
+          },
+          {
+            "at_mi": 25.05,
+            "lat": 48.08941,
+            "lon": -89.48227
+          },
+          {
+            "at_mi": 51.36,
+            "lat": 47.8745,
+            "lon": -89.87219
+          },
+          {
+            "at_mi": 76.66,
+            "lat": 47.74938,
+            "lon": -90.36334
+          },
+          {
+            "at_mi": 102.29,
+            "lat": 47.57425,
+            "lon": -90.83596
+          },
+          {
+            "at_mi": 127.62,
+            "lat": 47.32208,
+            "lon": -91.21655
+          },
+          {
+            "at_mi": 152.62,
+            "lat": 47.081,
+            "lon": -91.58443
+          },
+          {
+            "at_mi": 178.51,
+            "lat": 46.84827,
+            "lon": -91.99417
+          },
+          {
+            "at_mi": 186.0,
+            "lat": 46.78317,
+            "lon": -92.10638
+          }
+        ],
+        "checkpoints": [
+          {
+            "name": "Pigeon River Port of Entry",
+            "at_mi": 0.0,
+            "type": "border",
+            "state": "Ontario",
+            "highway": "Hwy 61 / MN 61",
+            "lat": 48.003206,
+            "lon": -89.581542,
+            "source": "Canada Border Services Agency Pigeon River, 7690 Highway 61, Neebing; commercial hours read from the CBSA Directory of Offices and Services open data (https://www.cbsa-asfc.gc.ca/data/offices-bureaux-en.csv, read 2026-11-22): commercial 24 hours, 7 days a week. Position read from OpenStreetMap way 1152692462 (border_control booth canopy beside the CBSA building, way 475551188), OpenStreetMap planet file of 2026-11-16."
+          },
+          {
+            "name": "Grand Portage Port of Entry",
+            "at_mi": 0.0,
+            "type": "border",
+            "state": "Minnesota",
+            "highway": "Hwy 61 / MN 61",
+            "lat": 48.00006,
+            "lon": -89.588929,
+            "source": "U.S. Customs and Border Protection Grand Portage, Minnesota, on MN 61; commercial hours not read (not in the CBP border wait times feed, and the CBP port page refused the cloud on 2026-11-22). Position read from OpenStreetMap way 1152833992 (border_control booth canopy beside the CBP building, way 475551186), OpenStreetMap planet file of 2026-11-16."
+          }
+        ],
+        "source": "New leg for the Winnipeg to Thunder Bay and northern Ontario corridor (Career 2.0, 2026-11-22): laid out between the two city pins, then routed by Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de) along Hwy 61 / MN 61.",
+        "elevation_samples": [
+          {
+            "at_mi": 0.0,
+            "elevation_ft": 646.3,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 25.05,
+            "elevation_ft": 797.2,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 51.36,
+            "elevation_ft": 620.1,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 76.66,
+            "elevation_ft": 777.6,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 102.29,
+            "elevation_ft": 623.4,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 127.62,
+            "elevation_ft": 685.7,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 152.62,
+            "elevation_ft": 689.0,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 178.51,
+            "elevation_ft": 741.5,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 186.0,
+            "elevation_ft": 692.3,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          }
+        ],
+        "border_crossing": {
+          "id": "pigeon_river_grand_portage",
+          "from_country": "CA",
+          "to_country": "US",
+          "ports": [
+            "pigeon_river_grand_portage"
+          ],
+          "mode": "through_freight",
+          "cabotage": "forbidden",
+          "port_names": {
+            "CA": "Pigeon River Port of Entry",
+            "US": "Grand Portage Port of Entry"
+          },
+          "agencies": {
+            "CA": "Canada Border Services Agency",
+            "US": "U.S. Customs and Border Protection"
+          },
+          "commercial_hours": {
+            "CA": "commercial 24 hours, 7 days a week",
+            "US": "not published in the CBP border wait times feed (https://bwt.cbp.gov/api/bwtnew, read 2026-11-22), and the CBP port page refused the cloud (https://www.cbp.gov/contact/ports/grand-portage, HTTP 403, tried 2026-11-22)"
+          },
+          "fast_lane": false,
+          "source": "Canadian side: CBSA office Pigeon River, 7690 Highway 61, Neebing, Ontario, US port Grand Portage MN; commercial hours read from the CBSA Directory of Offices and Services open data (https://www.cbsa-asfc.gc.ca/data/offices-bureaux-en.csv, read 2026-11-22). US side: CBP port Grand Portage, Minnesota; hours not read (see commercial_hours). Booth positions read from OpenStreetMap (OpenStreetMap planet file of 2026-11-16)."
+        }
+      },
+      "rerouted": true,
+      "border_crossing": {
+        "id": "pigeon_river_grand_portage",
+        "from_country": "CA",
+        "to_country": "US",
+        "ports": [
+          "pigeon_river_grand_portage"
+        ],
+        "mode": "through_freight",
+        "cabotage": "forbidden",
+        "port_names": {
+          "CA": "Pigeon River Port of Entry",
+          "US": "Grand Portage Port of Entry"
+        },
+        "agencies": {
+          "CA": "Canada Border Services Agency",
+          "US": "U.S. Customs and Border Protection"
+        },
+        "commercial_hours": {
+          "CA": "commercial 24 hours, 7 days a week",
+          "US": "not published in the CBP border wait times feed (https://bwt.cbp.gov/api/bwtnew, read 2026-11-22), and the CBP port page refused the cloud (https://www.cbp.gov/contact/ports/grand-portage, HTTP 403, tried 2026-11-22)"
+        },
+        "fast_lane": false,
+        "source": "Canadian side: CBSA office Pigeon River, 7690 Highway 61, Neebing, Ontario, US port Grand Portage MN; commercial hours read from the CBSA Directory of Offices and Services open data (https://www.cbsa-asfc.gc.ca/data/offices-bureaux-en.csv, read 2026-11-22). US side: CBP port Grand Portage, Minnesota; hours not read (see commercial_hours). Booth positions read from OpenStreetMap (OpenStreetMap planet file of 2026-11-16)."
+      }
+    },
+    {
+      "from": "thunder_bay_on_ca",
+      "to": "fort_frances_on_ca",
+      "miles": 217,
+      "highway": "Hwy 11",
+      "terrain": "flat",
+      "divided": false,
+      "lanes": 2,
+      "stops": [],
+      "corridor": {
+        "tollway_detected": false,
+        "route_points": [
+          {
+            "at_mi": 0.0,
+            "lat": 48.35844,
+            "lon": -89.31362
+          },
+          {
+            "at_mi": 25.39,
+            "lat": 48.50953,
+            "lon": -89.65073
+          },
+          {
+            "at_mi": 50.55,
+            "lat": 48.63546,
+            "lon": -90.10755
+          },
+          {
+            "at_mi": 75.72,
+            "lat": 48.64972,
+            "lon": -90.61105
+          },
+          {
+            "at_mi": 101.17,
+            "lat": 48.68074,
+            "lon": -91.14038
+          },
+          {
+            "at_mi": 126.44,
+            "lat": 48.72889,
+            "lon": -91.6503
+          },
+          {
+            "at_mi": 151.88,
+            "lat": 48.74121,
+            "lon": -92.17865
+          },
+          {
+            "at_mi": 177.44,
+            "lat": 48.74996,
+            "lon": -92.71323
+          },
+          {
+            "at_mi": 202.91,
+            "lat": 48.68812,
+            "lon": -93.20112
+          },
+          {
+            "at_mi": 217.0,
+            "lat": 48.61454,
+            "lon": -93.42751
+          }
+        ],
+        "checkpoints": [],
+        "source": "New leg for the Winnipeg to Thunder Bay and northern Ontario corridor (Career 2.0, 2026-11-22): laid out between the two city pins, then routed by Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de) along Hwy 11.",
+        "elevation_samples": [
+          {
+            "at_mi": 0.0,
+            "elevation_ft": 646.3,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 25.39,
+            "elevation_ft": 1315.6,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 50.55,
+            "elevation_ft": 1558.4,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 75.72,
+            "elevation_ft": 1584.6,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 101.17,
+            "elevation_ft": 1463.3,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 126.44,
+            "elevation_ft": 1374.7,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 151.88,
+            "elevation_ft": 1207.3,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 177.44,
+            "elevation_ft": 1266.4,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 202.91,
+            "elevation_ft": 1177.8,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 217.0,
+            "elevation_ft": 1122.0,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          }
+        ]
+      },
+      "rerouted": true
+    },
+    {
+      "from": "thunder_bay_on_ca",
+      "to": "ignace_on_ca",
+      "miles": 153,
+      "highway": "Hwy 17",
+      "terrain": "flat",
+      "divided": false,
+      "lanes": 2,
+      "stops": [],
+      "corridor": {
+        "tollway_detected": false,
+        "route_points": [
+          {
+            "at_mi": 0.0,
+            "lat": 48.35844,
+            "lon": -89.31362
+          },
+          {
+            "at_mi": 25.45,
+            "lat": 48.50953,
+            "lon": -89.65073
+          },
+          {
+            "at_mi": 51.88,
+            "lat": 48.76729,
+            "lon": -89.87684
+          },
+          {
+            "at_mi": 77.1,
+            "lat": 48.96141,
+            "lon": -90.3052
+          },
+          {
+            "at_mi": 102.15,
+            "lat": 49.1272,
+            "lon": -90.72918
+          },
+          {
+            "at_mi": 127.23,
+            "lat": 49.25924,
+            "lon": -91.17647
+          },
+          {
+            "at_mi": 152.23,
+            "lat": 49.41608,
+            "lon": -91.65368
+          },
+          {
+            "at_mi": 153.0,
+            "lat": 49.41754,
+            "lon": -91.67064
+          }
+        ],
+        "checkpoints": [],
+        "source": "New leg for the Winnipeg to Thunder Bay and northern Ontario corridor (Career 2.0, 2026-11-22): laid out between the two city pins, then routed by Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de) along Hwy 17.",
+        "elevation_samples": [
+          {
+            "at_mi": 0.0,
+            "elevation_ft": 646.3,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 25.45,
+            "elevation_ft": 1315.6,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 51.88,
+            "elevation_ft": 1637.1,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 77.1,
+            "elevation_ft": 1512.5,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 102.15,
+            "elevation_ft": 1548.6,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 127.23,
+            "elevation_ft": 1571.5,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 152.23,
+            "elevation_ft": 1492.8,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 153.0,
+            "elevation_ft": 1479.7,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          }
+        ]
+      },
+      "route_via": [
+        {
+          "lat": 48.8458,
+          "lon": -89.94526,
+          "note": "Highway 17 west of Shabaqua Corners; ref 17"
+        }
+      ],
+      "rerouted": true
+    },
+    {
+      "from": "thunder_bay_on_ca",
+      "to": "nipigon_on_ca",
+      "miles": 73,
+      "highway": "Hwy 11 / Hwy 17",
+      "terrain": "flat",
+      "divided": false,
+      "lanes": 2,
+      "stops": [],
+      "corridor": {
+        "tollway_detected": false,
+        "route_points": [
+          {
+            "at_mi": 0.0,
+            "lat": 48.35844,
+            "lon": -89.31362
+          },
+          {
+            "at_mi": 25.37,
+            "lat": 48.54496,
+            "lon": -88.91936
+          },
+          {
+            "at_mi": 51.33,
+            "lat": 48.79413,
+            "lon": -88.54116
+          },
+          {
+            "at_mi": 73.0,
+            "lat": 49.0231,
+            "lon": -88.29505
+          }
+        ],
+        "checkpoints": [],
+        "source": "New leg for the Winnipeg to Thunder Bay and northern Ontario corridor (Career 2.0, 2026-11-22): laid out between the two city pins, then routed by Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de) along Hwy 11 / Hwy 17.",
+        "elevation_samples": [
+          {
+            "at_mi": 0.0,
+            "elevation_ft": 646.3,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 25.37,
+            "elevation_ft": 784.1,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 51.33,
+            "elevation_ft": 675.9,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 73.0,
+            "elevation_ft": 885.8,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          }
+        ]
+      },
+      "route_via": [
+        {
+          "lat": 48.71712,
+          "lon": -88.62047,
+          "note": "Highways 11 and 17 east of Pass Lake, northbound carriageway; ref 11"
+        }
+      ],
+      "rerouted": true
+    },
+    {
+      "from": "timmins_on_ca",
+      "to": "cochrane_on_ca",
+      "miles": 75,
+      "highway": "Hwy 11 / Hwy 655",
+      "terrain": "flat",
+      "divided": false,
+      "lanes": 2,
+      "stops": [],
+      "corridor": {
+        "tollway_detected": false,
+        "route_points": [
+          {
+            "at_mi": 0.0,
+            "lat": 48.47726,
+            "lon": -81.33041
+          },
+          {
+            "at_mi": 25.52,
+            "lat": 48.5414,
+            "lon": -80.83387
+          },
+          {
+            "at_mi": 50.55,
+            "lat": 48.76135,
+            "lon": -80.80236
+          },
+          {
+            "at_mi": 75.0,
+            "lat": 49.05169,
+            "lon": -81.03109
+          }
+        ],
+        "checkpoints": [],
+        "source": "New leg for the Winnipeg to Thunder Bay and northern Ontario corridor (Career 2.0, 2026-11-22): laid out between the two city pins, then routed by Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de) along Hwy 11 / Hwy 655.",
+        "elevation_samples": [
+          {
+            "at_mi": 0.0,
+            "elevation_ft": 981.0,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 25.52,
+            "elevation_ft": 964.6,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 50.55,
+            "elevation_ft": 1003.9,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 75.0,
+            "elevation_ft": 889.1,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          }
+        ]
+      },
+      "rerouted": true
+    },
+    {
+      "from": "timmins_on_ca",
+      "to": "sudbury_on_ca",
+      "miles": 183,
+      "highway": "Hwy 144",
+      "terrain": "flat",
+      "divided": false,
+      "lanes": 2,
+      "stops": [],
+      "corridor": {
+        "tollway_detected": false,
+        "route_points": [
+          {
+            "at_mi": 0.0,
+            "lat": 48.47726,
+            "lon": -81.33041
+          },
+          {
+            "at_mi": 25.07,
+            "lat": 48.23349,
+            "lon": -81.57623
+          },
+          {
+            "at_mi": 50.79,
+            "lat": 47.87354,
+            "lon": -81.60257
+          },
+          {
+            "at_mi": 76.09,
+            "lat": 47.62208,
+            "lon": -81.83901
+          },
+          {
+            "at_mi": 101.67,
+            "lat": 47.28911,
+            "lon": -81.75774
+          },
+          {
+            "at_mi": 127.4,
+            "lat": 46.96065,
+            "lon": -81.64122
+          },
+          {
+            "at_mi": 152.45,
+            "lat": 46.64367,
+            "lon": -81.49104
+          },
+          {
+            "at_mi": 177.67,
+            "lat": 46.53017,
+            "lon": -81.07497
+          },
+          {
+            "at_mi": 183.0,
+            "lat": 46.4917,
+            "lon": -80.99303
+          }
+        ],
+        "checkpoints": [],
+        "source": "New leg for the Winnipeg to Thunder Bay and northern Ontario corridor (Career 2.0, 2026-11-22): laid out between the two city pins, then routed by Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de) along Hwy 144.",
+        "elevation_samples": [
+          {
+            "at_mi": 0.0,
+            "elevation_ft": 981.0,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 25.07,
+            "elevation_ft": 1092.5,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 50.79,
+            "elevation_ft": 1253.3,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 76.09,
+            "elevation_ft": 1286.1,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 101.67,
+            "elevation_ft": 1417.3,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 127.4,
+            "elevation_ft": 1407.5,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 152.45,
+            "elevation_ft": 1269.7,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 177.67,
+            "elevation_ft": 964.6,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 183.0,
+            "elevation_ft": 862.9,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          }
+        ]
+      },
       "rerouted": true
     },
     {
@@ -71335,6 +74585,176 @@
           "note": "Highway 115 north of the 401; ref 115"
         }
       ]
+    },
+    {
+      "from": "wawa_on_ca",
+      "to": "marathon_on_ca",
+      "miles": 115,
+      "highway": "Hwy 17",
+      "terrain": "flat",
+      "divided": false,
+      "lanes": 2,
+      "stops": [],
+      "corridor": {
+        "tollway_detected": false,
+        "route_points": [
+          {
+            "at_mi": 0.0,
+            "lat": 47.98744,
+            "lon": -84.77815
+          },
+          {
+            "at_mi": 25.85,
+            "lat": 48.28676,
+            "lon": -84.88898
+          },
+          {
+            "at_mi": 51.46,
+            "lat": 48.54301,
+            "lon": -85.18976
+          },
+          {
+            "at_mi": 76.48,
+            "lat": 48.71361,
+            "lon": -85.61143
+          },
+          {
+            "at_mi": 101.97,
+            "lat": 48.68166,
+            "lon": -86.13926
+          },
+          {
+            "at_mi": 115.0,
+            "lat": 48.76258,
+            "lon": -86.36194
+          }
+        ],
+        "checkpoints": [],
+        "source": "New leg for the Winnipeg to Thunder Bay and northern Ontario corridor (Career 2.0, 2026-11-22): laid out between the two city pins, then routed by Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de) along Hwy 17.",
+        "elevation_samples": [
+          {
+            "at_mi": 0.0,
+            "elevation_ft": 948.2,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 25.85,
+            "elevation_ft": 1486.2,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 51.46,
+            "elevation_ft": 1355.0,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 76.48,
+            "elevation_ft": 1181.1,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 101.97,
+            "elevation_ft": 856.3,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 115.0,
+            "elevation_ft": 987.5,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          }
+        ]
+      },
+      "rerouted": true
+    },
+    {
+      "from": "wawa_on_ca",
+      "to": "sault_ste_marie_on_ca",
+      "miles": 143,
+      "highway": "Hwy 17",
+      "terrain": "flat",
+      "divided": false,
+      "lanes": 2,
+      "stops": [],
+      "corridor": {
+        "tollway_detected": false,
+        "route_points": [
+          {
+            "at_mi": 0.0,
+            "lat": 47.98744,
+            "lon": -84.77815
+          },
+          {
+            "at_mi": 25.08,
+            "lat": 47.6917,
+            "lon": -84.81672
+          },
+          {
+            "at_mi": 50.39,
+            "lat": 47.3732,
+            "lon": -84.68891
+          },
+          {
+            "at_mi": 75.78,
+            "lat": 47.12638,
+            "lon": -84.69431
+          },
+          {
+            "at_mi": 100.78,
+            "lat": 46.93357,
+            "lon": -84.53128
+          },
+          {
+            "at_mi": 126.81,
+            "lat": 46.68005,
+            "lon": -84.34326
+          },
+          {
+            "at_mi": 143.0,
+            "lat": 46.51356,
+            "lon": -84.39074
+          }
+        ],
+        "checkpoints": [],
+        "source": "New leg for the Winnipeg to Thunder Bay and northern Ontario corridor (Career 2.0, 2026-11-22): laid out between the two city pins, then routed by Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de) along Hwy 17.",
+        "elevation_samples": [
+          {
+            "at_mi": 0.0,
+            "elevation_ft": 948.2,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 25.08,
+            "elevation_ft": 1269.7,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 50.39,
+            "elevation_ft": 823.5,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 75.78,
+            "elevation_ft": 869.4,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 100.78,
+            "elevation_ft": 607.0,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 126.81,
+            "elevation_ft": 872.7,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 143.0,
+            "elevation_ft": 616.8,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          }
+        ]
+      },
+      "rerouted": true
     },
     {
       "from": "windsor_on_ca",

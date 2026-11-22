@@ -10679,6 +10679,312 @@
       ],
       "lat": 44.4192,
       "lon": -72.0151
+    },
+    "kenora_on_ca": {
+      "spoken_city": "Kenora",
+      "state": "ON",
+      "country": "CA",
+      "region": "upper_midwest",
+      "locations": [
+        {
+          "name": "Kenora Industrial Area",
+          "type": "industrial_park",
+          "lat": 49.7734,
+          "lon": -94.48124,
+          "source_note": "Industrial land on the Highway 17 side of Kenora. Position read from OpenStreetMap way 386130013 (landuse=industrial, no name) in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/386130013); OpenStreetMap names no freight facility in the town, so the name is descriptive and the kind is assumed."
+        }
+      ],
+      "lat": 49.7734,
+      "lon": -94.48124
+    },
+    "dryden_on_ca": {
+      "spoken_city": "Dryden",
+      "state": "ON",
+      "country": "CA",
+      "region": "upper_midwest",
+      "locations": [
+        {
+          "name": "Domtar Dryden Pulp Mill",
+          "type": "lumber_paper",
+          "cargo": [
+            "bulk"
+          ],
+          "lat": 49.7745,
+          "lon": -92.85825,
+          "source_note": "Domtar kraft pulp mill on the Wabigoon River. Name, kind and position read from OpenStreetMap way 250894778 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/250894778)."
+        },
+        {
+          "name": "Manitoulin Transport Dryden",
+          "type": "cross_dock",
+          "lat": 49.81386,
+          "lon": -92.84542,
+          "source_note": "Manitoulin Transport freight terminal. Name, kind and position read from OpenStreetMap way 744816647 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/744816647)."
+        }
+      ],
+      "lat": 49.7745,
+      "lon": -92.85825
+    },
+    "ignace_on_ca": {
+      "spoken_city": "Ignace",
+      "state": "ON",
+      "country": "CA",
+      "region": "upper_midwest",
+      "locations": [
+        {
+          "name": "Petro-Pass Ignace",
+          "type": "travel_center",
+          "lat": 49.4183,
+          "lon": -91.67047,
+          "source_note": "Petro-Pass commercial fuel on Highway 17 at Ignace (hgv=yes). Name, kind and position read from OpenStreetMap node 5198337730 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/node/5198337730)."
+        }
+      ],
+      "lat": 49.4183,
+      "lon": -91.67047
+    },
+    "thunder_bay_on_ca": {
+      "spoken_city": "Thunder Bay",
+      "state": "ON",
+      "country": "CA",
+      "region": "upper_midwest",
+      "locations": [
+        {
+          "name": "Thunder Bay Pulp and Paper",
+          "type": "lumber_paper",
+          "cargo": [
+            "bulk"
+          ],
+          "lat": 48.35839,
+          "lon": -89.3135,
+          "source_note": "Pulp and paper mill on the Kaministiquia River (industrial=paper_mill). Name, kind and position read from OpenStreetMap way 299165594 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/299165594)."
+        },
+        {
+          "name": "Alstom Thunder Bay",
+          "type": "manufacturing_plant",
+          "cargo": [
+            "machinery"
+          ],
+          "lat": 48.35925,
+          "lon": -89.30255,
+          "source_note": "Rail car plant, the former Bombardier Transportation works, owned by Alstom since 2021. Name, kind and position read from OpenStreetMap way 373214332 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/373214332)."
+        },
+        {
+          "name": "CN Neebing Yard",
+          "type": "intermodal",
+          "lat": 48.35923,
+          "lon": -89.36834,
+          "source_note": "Canadian National rail yard (landuse=railway). Name, kind and position read from OpenStreetMap way 23478101 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/23478101)."
+        }
+      ],
+      "lat": 48.35839,
+      "lon": -89.3135
+    },
+    "fort_frances_on_ca": {
+      "spoken_city": "Fort Frances",
+      "state": "ON",
+      "country": "CA",
+      "region": "upper_midwest",
+      "locations": [
+        {
+          "name": "CN Fort Frances Yard",
+          "type": "intermodal",
+          "lat": 48.61454,
+          "lon": -93.4274,
+          "source_note": "Canadian National rail yard at the Fort Frances border crossing (landuse=railway). The paper mill across the river is in International Falls, Minnesota, and is not used here. Name, kind and position read from OpenStreetMap way 1308507342 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/1308507342)."
+        }
+      ],
+      "lat": 48.61454,
+      "lon": -93.4274
+    },
+    "nipigon_on_ca": {
+      "spoken_city": "Nipigon",
+      "state": "ON",
+      "country": "CA",
+      "region": "upper_midwest",
+      "locations": [
+        {
+          "name": "Petro-Pass Nipigon",
+          "type": "travel_center",
+          "lat": 49.02296,
+          "lon": -88.29509,
+          "source_note": "Petro-Pass commercial fuel on Highways 11 and 17 at Nipigon (hgv=yes, diesel=yes). Name, kind and position read from OpenStreetMap node 2476128273 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/node/2476128273)."
+        }
+      ],
+      "lat": 49.02296,
+      "lon": -88.29509
+    },
+    "marathon_on_ca": {
+      "spoken_city": "Marathon",
+      "state": "ON",
+      "country": "CA",
+      "region": "upper_midwest",
+      "locations": [
+        {
+          "name": "Petro-Canada Marathon",
+          "type": "travel_center",
+          "lat": 48.7626,
+          "lon": -86.36192,
+          "source_note": "Petro-Canada station on Highway 17 at the Marathon turnoff. Name, kind and position read from OpenStreetMap node 4107994418 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/node/4107994418)."
+        }
+      ],
+      "lat": 48.7626,
+      "lon": -86.36192
+    },
+    "wawa_on_ca": {
+      "spoken_city": "Wawa",
+      "state": "ON",
+      "country": "CA",
+      "region": "upper_midwest",
+      "locations": [
+        {
+          "name": "Petro-Canada Wawa",
+          "type": "travel_center",
+          "lat": 47.98739,
+          "lon": -84.77821,
+          "source_note": "Petro-Canada station on Mission Road, Wawa. Name, kind and position read from OpenStreetMap way 1004818384 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/1004818384)."
+        }
+      ],
+      "lat": 47.98739,
+      "lon": -84.77821
+    },
+    "sault_ste_marie_on_ca": {
+      "spoken_city": "Sault Ste. Marie",
+      "state": "ON",
+      "country": "CA",
+      "region": "upper_midwest",
+      "locations": [
+        {
+          "name": "Algoma Steel",
+          "type": "steel_industrial",
+          "cargo": [
+            "bulk",
+            "machinery"
+          ],
+          "lat": 46.51336,
+          "lon": -84.38655,
+          "source_note": "Algoma Steel integrated steel mill on the St. Marys River (industrial=steel_mill, operator Algoma Steel Inc). Name, kind and position read from OpenStreetMap way 803065927 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/803065927)."
+        }
+      ],
+      "lat": 46.51336,
+      "lon": -84.38655
+    },
+    "longlac_on_ca": {
+      "spoken_city": "Longlac",
+      "state": "ON",
+      "country": "CA",
+      "region": "upper_midwest",
+      "locations": [
+        {
+          "name": "Husky Route Commander Longlac",
+          "type": "travel_center",
+          "lat": 49.77334,
+          "lon": -86.53444,
+          "source_note": "Husky Route Commander commercial fuel at Longlac. Name, kind and position read from OpenStreetMap node 5046706052 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/node/5046706052)."
+        }
+      ],
+      "lat": 49.77334,
+      "lon": -86.53444
+    },
+    "hearst_on_ca": {
+      "spoken_city": "Hearst",
+      "state": "ON",
+      "country": "CA",
+      "region": "upper_midwest",
+      "locations": [
+        {
+          "name": "Hearst Industrial Area",
+          "type": "industrial_park",
+          "lat": 49.69252,
+          "lon": -83.6667,
+          "source_note": "Industrial land beside Highway 11 in Hearst, a sawmill town. Position read from OpenStreetMap way 240207699 (landuse=industrial, no name) in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/240207699); OpenStreetMap names no freight facility in the town, so the name is descriptive and the kind is assumed."
+        }
+      ],
+      "lat": 49.69252,
+      "lon": -83.6667
+    },
+    "kapuskasing_on_ca": {
+      "spoken_city": "Kapuskasing",
+      "state": "ON",
+      "country": "CA",
+      "region": "upper_midwest",
+      "locations": [
+        {
+          "name": "Kapuskasing Mill Area",
+          "type": "industrial_park",
+          "lat": 49.40688,
+          "lon": -82.42415,
+          "source_note": "Industrial land on the Kapuskasing River at the town's paper mill site. Position read from OpenStreetMap way 653890623 (landuse=industrial, no name) in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/653890623); OpenStreetMap names no freight facility in the town, so the name is descriptive and the kind is assumed."
+        }
+      ],
+      "lat": 49.40688,
+      "lon": -82.42415
+    },
+    "cochrane_on_ca": {
+      "spoken_city": "Cochrane",
+      "state": "ON",
+      "country": "CA",
+      "region": "upper_midwest",
+      "locations": [
+        {
+          "name": "Esso Cochrane",
+          "type": "travel_center",
+          "lat": 49.05169,
+          "lon": -81.03122,
+          "source_note": "Esso station on Highway 11 South at Cochrane (fuel:HGV_diesel=yes). Name, kind and position read from OpenStreetMap node 12686259947 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/node/12686259947)."
+        }
+      ],
+      "lat": 49.05169,
+      "lon": -81.03122
+    },
+    "timmins_on_ca": {
+      "spoken_city": "Timmins",
+      "state": "ON",
+      "country": "CA",
+      "region": "upper_midwest",
+      "locations": [
+        {
+          "name": "Bell Creek Mine",
+          "type": "mine_quarry",
+          "cargo": [
+            "bulk"
+          ],
+          "lat": 48.5539,
+          "lon": -81.1876,
+          "source_note": "Gold mine east of Timmins (industrial=mine). Name, kind and position read from OpenStreetMap relation 19859923 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/relation/19859923)."
+        },
+        {
+          "name": "Dome Mine",
+          "type": "mine_quarry",
+          "cargo": [
+            "bulk"
+          ],
+          "lat": 48.4455,
+          "lon": -81.22601,
+          "source_note": "Gold mine at South Porcupine. Name, kind and position read from OpenStreetMap way 159588317 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/159588317)."
+        }
+      ],
+      "lat": 48.47747,
+      "lon": -81.33041
+    },
+    "temiskaming_shores_on_ca": {
+      "spoken_city": "Temiskaming Shores",
+      "state": "ON",
+      "country": "CA",
+      "region": "upper_midwest",
+      "locations": [
+        {
+          "name": "Wabi Iron and Steel",
+          "type": "steel_industrial",
+          "cargo": [
+            "bulk",
+            "machinery"
+          ],
+          "lat": 47.50579,
+          "lon": -79.68533,
+          "source_note": "Steel foundry in New Liskeard (Wabi Iron & Steel Corp, landuse=industrial). Name, kind and position read from OpenStreetMap way 544418043 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/544418043)."
+        }
+      ],
+      "lat": 47.50579,
+      "lon": -79.68533
     }
   }
 }

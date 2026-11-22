@@ -5225,6 +5225,86 @@
     },
     {
       "from": "winnipeg_mb_ca",
+      "to": "kenora_on_ca",
+      "miles": 128,
+      "highway": "Hwy 1 / Hwy 17",
+      "terrain": "flat",
+      "divided": false,
+      "lanes": 2,
+      "stops": [],
+      "corridor": {
+        "tollway_detected": false,
+        "route_points": [
+          {
+            "at_mi": 0.0,
+            "lat": 49.86774,
+            "lon": -97.05838
+          },
+          {
+            "at_mi": 28.51,
+            "lat": 49.66573,
+            "lon": -96.5584
+          },
+          {
+            "at_mi": 55.05,
+            "lat": 49.64841,
+            "lon": -95.97267
+          },
+          {
+            "at_mi": 82.1,
+            "lat": 49.65911,
+            "lon": -95.39984
+          },
+          {
+            "at_mi": 107.11,
+            "lat": 49.7213,
+            "lon": -94.8943
+          },
+          {
+            "at_mi": 128.0,
+            "lat": 49.77341,
+            "lon": -94.48124
+          }
+        ],
+        "checkpoints": [],
+        "source": "New leg for the Winnipeg to Thunder Bay and northern Ontario corridor (Career 2.0, 2026-11-22): laid out between the two city pins, then routed by Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de) along Hwy 1 / Hwy 17.",
+        "elevation_samples": [
+          {
+            "at_mi": 0.0,
+            "elevation_ft": 744.8,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 28.51,
+            "elevation_ft": 899.0,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 55.05,
+            "elevation_ft": 1017.1,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 82.1,
+            "elevation_ft": 1092.5,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 107.11,
+            "elevation_ft": 1200.8,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          },
+          {
+            "at_mi": 128.0,
+            "elevation_ft": 1108.9,
+            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+          }
+        ]
+      },
+      "rerouted": true
+    },
+    {
+      "from": "winnipeg_mb_ca",
       "to": "portage_la_prairie_mb_ca",
       "miles": 70,
       "highway": "Hwy 1 / Trans-Canada Highway",
