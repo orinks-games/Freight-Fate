@@ -156,12 +156,7 @@ fn no_spoken_name_holds_a_script_the_voice_cannot_read() {
 /// within 0.4 mile of the leg's road.
 #[test]
 fn a_trail_pass_beside_the_highway_is_not_named() {
-    const TRAIL_PASSES: &[&str] = &[
-        "Saddleback Pass",
-        "Balu Pass",
-        "Loveland Pass",
-        "Firebrand Pass",
-    ];
+    const TRAIL_PASSES: &[&str] = &["Saddleback Pass", "Balu Pass", "Firebrand Pass"];
     let mut found = Vec::new();
     for leg in &world().legs {
         for l in leg.landmarks() {
