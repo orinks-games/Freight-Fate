@@ -12684,6 +12684,54 @@ msgstr ""
 msgid "synth-music"
 msgstr ""
 
+#. placeholders: {masthead}, {issue}
+#. one sentence of a longer line
+#: crates/ff-core/src/newspaper.rs
+msgid "{masthead}, issue {issue}."
+msgstr ""
+
+#. placeholders: {masthead}, {issue}, {dates}
+#: crates/ff-core/src/newspaper.rs
+msgid "{masthead}, issue {issue}. {dates}."
+msgstr ""
+
+#: crates/ff-core/src/newspaper.rs
+msgid "line"
+msgstr ""
+
+#: crates/ff-core/src/newspaper.rs
+msgid "heading"
+msgstr ""
+
+#: crates/ff-core/src/newspaper.rs
+msgid "lines"
+msgstr ""
+
+#: crates/ff-core/src/newspaper.rs
+msgid "issue"
+msgstr ""
+
+#: crates/ff-core/src/newspaper.rs
+msgid "sentence"
+msgstr ""
+
+#: crates/ff-core/src/newspaper.rs
+msgid "sections"
+msgstr ""
+
+#: crates/ff-core/src/newspaper.rs
+msgid "masthead"
+msgstr ""
+
+#: crates/ff-core/src/newspaper.rs
+msgid "dates"
+msgstr ""
+
+#. placeholders: {issue}
+#: crates/ff-core/src/newspaper.rs
+msgid "holding issue {issue}"
+msgstr ""
+
 #: crates/ff-core/src/pyfmt.rs crates/ff-core/src/sim/enforcement_posts.rs crates/ff-core/src/sim/weather.rs
 msgid "nan"
 msgstr ""
@@ -19964,6 +20012,24 @@ msgstr ""
 msgid "downgrade"
 msgstr ""
 
+#: crates/freight-fate/src/newspaper.rs
+msgid "newspaper"
+msgstr ""
+
+#: crates/freight-fate/src/newspaper.rs
+msgid "body"
+msgstr ""
+
+#. placeholders: {path}, {e}
+#: crates/freight-fate/src/newspaper.rs
+msgid "could not read {path}: {e}"
+msgstr ""
+
+#. placeholders: {path}, {why}
+#: crates/freight-fate/src/newspaper.rs
+msgid "{path} is not a version 1 issue: {why}"
+msgstr ""
+
 #: crates/freight-fate/src/online_activation.rs
 msgid "Alpha"
 msgstr ""
@@ -20419,7 +20485,7 @@ msgstr ""
 msgid "{position} of {count}."
 msgstr ""
 
-#: crates/freight-fate/src/states/base/menu.rs crates/freight-fate/src/states/career_setback.rs
+#: crates/freight-fate/src/states/base/menu.rs crates/freight-fate/src/states/career_setback.rs crates/freight-fate/src/states/newspaper.rs
 msgid "Repeat this line."
 msgstr ""
 
@@ -32150,11 +32216,11 @@ msgstr ""
 msgid "Repeat this app line."
 msgstr ""
 
-#: crates/freight-fate/src/states/driving_menu_states/apps.rs crates/freight-fate/src/states/driving_radio_app.rs
+#: crates/freight-fate/src/states/driving_menu_states/apps.rs crates/freight-fate/src/states/driving_radio_app.rs crates/freight-fate/src/states/newspaper.rs
 msgid "Back to Driver apps"
 msgstr ""
 
-#: crates/freight-fate/src/states/driving_menu_states/apps.rs crates/freight-fate/src/states/driving_radio_app.rs
+#: crates/freight-fate/src/states/driving_menu_states/apps.rs crates/freight-fate/src/states/driving_radio_app.rs crates/freight-fate/src/states/newspaper.rs
 msgid "Return to the driver tablet app list."
 msgstr ""
 
@@ -45746,6 +45812,32 @@ msgid ""
 "Can I hear a weather warning again? With live weather on, the Weather app "
 "under Driver apps lists active alerts. A two-finger flick left also steps "
 "back through recent messages."
+msgstr ""
+
+#: crates/freight-fate/src/states/newspaper.rs
+msgid "Newspaper"
+msgstr ""
+
+#: crates/freight-fate/src/states/newspaper.rs
+msgid "Driver news, records and carrier standings from orinks.net."
+msgstr ""
+
+#: crates/freight-fate/src/states/newspaper.rs
+msgid "Enter opens a section. Escape goes back."
+msgstr ""
+
+#: crates/freight-fate/src/states/newspaper.rs
+msgid ""
+"Up and down review the lines. Enter repeats a line. Escape returns to the "
+"sections."
+msgstr ""
+
+#: crates/freight-fate/src/states/newspaper.rs
+msgid "Back to sections"
+msgstr ""
+
+#: crates/freight-fate/src/states/newspaper.rs
+msgid "Return to the sections."
 msgstr ""
 
 #: crates/freight-fate/src/states/online_hub.rs

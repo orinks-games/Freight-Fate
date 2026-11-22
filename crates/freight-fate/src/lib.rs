@@ -19,6 +19,7 @@ pub mod duty_watch;
 pub mod jaws_script;
 pub mod meaningful_play;
 pub mod net;
+pub mod newspaper;
 pub mod online_activation;
 pub mod online_guest;
 pub mod online_journal;

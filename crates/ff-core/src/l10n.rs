@@ -367,6 +367,36 @@ impl Catalog {
     }
 }
 
+/// Text from outside the game that is spoken as it arrives, in English:
+/// the driver newspaper's lines, which the site writes. Kept out of the
+/// catalog the way a name in a `{station}` hole is, and never logged as a
+/// miss, since no translator could supply them. Stored without a final full
+/// stop, because a menu row is spoken with one added.
+static KEPT_VERBATIM: std::sync::RwLock<Option<HashSet<String>>> = std::sync::RwLock::new(None);
+
+fn verbatim_key(line: &str) -> &str {
+    line.trim().trim_end_matches('.')
+}
+
+/// Speak `lines` untranslated from now on, in place of the last set kept.
+/// An empty list keeps nothing.
+pub fn keep_verbatim(lines: impl IntoIterator<Item = String>) {
+    let set: HashSet<String> = lines
+        .into_iter()
+        .map(|line| verbatim_key(&line).to_string())
+        .filter(|line| !line.is_empty())
+        .collect();
+    let mut kept = KEPT_VERBATIM.write().unwrap_or_else(|e| e.into_inner());
+    *kept = if set.is_empty() { None } else { Some(set) };
+}
+
+/// Whether `line` is one of the lines [`keep_verbatim`] holds.
+pub fn is_kept_verbatim(line: &str) -> bool {
+    let kept = KEPT_VERBATIM.read().unwrap_or_else(|e| e.into_inner());
+    kept.as_ref()
+        .is_some_and(|set| set.contains(verbatim_key(line)))
+}
+
 /// Translates finished English lines into the player's language.
 pub struct Translator {
     catalog: Option<Catalog>,
@@ -429,6 +459,9 @@ impl Translator {
         let Some(catalog) = &self.catalog else {
             return Cow::Borrowed(line);
         };
+        if is_kept_verbatim(line) {
+            return Cow::Borrowed(line);
+        }
         if let Some(hit) = self.cache.lock().get(line) {
             return Cow::Owned(hit.clone());
         }

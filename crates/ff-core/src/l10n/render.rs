@@ -136,14 +136,18 @@ pub(super) fn translate(catalog: &Catalog, line: &str, missed: &mut Vec<String>)
     let mut verbatim = Verbatim::new(line);
     let out = match split_position_cue(line) {
         Some((row, position, count)) => {
-            let row = Pass {
-                catalog,
-                missed,
-                memo: &mut memo,
-                verbatim: &mut verbatim,
-            }
-            .line(row, 0)
-            .unwrap_or_else(|| row.to_string());
+            let row = if super::is_kept_verbatim(row) {
+                row.to_string()
+            } else {
+                Pass {
+                    catalog,
+                    missed,
+                    memo: &mut memo,
+                    verbatim: &mut verbatim,
+                }
+                .line(row, 0)
+                .unwrap_or_else(|| row.to_string())
+            };
             let cue = catalog.position_cue(position, count);
             let sep = if ends_full_width(&row) { "" } else { " " };
             format!("{row}{sep}{cue}")

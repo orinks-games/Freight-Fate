@@ -18,6 +18,7 @@ use crate::states::account_achievements::AccountAchievementsState;
 use crate::states::base::default_handle_event;
 use crate::states::base::{InputEvent, Key, Label, Menu, MenuCore, MenuItem};
 use crate::states::cloud_save_states::{CloudBackupConsentState, CloudBackupState};
+use crate::states::newspaper::{NewspaperState, OpenedFrom, NEWSPAPER_HELP, NEWSPAPER_LABEL};
 use crate::states::online_states::{
     current_guest, load_identity, open_url, DriverDirectoryState, DriverProfileState,
     DriversOnlineState, GuestNameState, GuestSetupState, OnlineSetupState, ProfileSharingSyncState,
@@ -25,18 +26,26 @@ use crate::states::online_states::{
 
 pub struct OnlineHubState {
     pub menu: MenuCore<Self>,
+    /// Whether the last build put the Newspaper row in, at
+    /// [`Self::NEWSPAPER_ROW`]. Read by `adjust_row`, so the toggles below it
+    /// answer from their own rows whether it is there or not.
+    newspaper_row: bool,
 }
 
 impl Default for OnlineHubState {
     fn default() -> Self {
         Self {
             menu: MenuCore::new(Self::TITLE).with_intro_help(Self::INTRO_HELP),
+            newspaper_row: false,
         }
     }
 }
 
 impl OnlineHubState {
     pub const TITLE: &'static str = "Online";
+    /// The Newspaper row's place: with the other things to read that share
+    /// nothing, after the duty notice that belongs to the list above it.
+    const NEWSPAPER_ROW: usize = 3;
     pub const INTRO_HELP: &'static str =
         "Enter opens an item or changes a setting to its next value. Right also moves it \
          forward, Left backward. Escape goes back. Drivers on duty, the Driver directory, the duty \
@@ -64,7 +73,12 @@ impl OnlineHubState {
         // positional: a row added to build_items has to be added here at the
         // same index, or every toggle below it starts answering for its
         // neighbour.
-        match self.menu.index {
+        let index = match self.menu.index {
+            index if self.newspaper_row && index == Self::NEWSPAPER_ROW => return,
+            index if self.newspaper_row && index > Self::NEWSPAPER_ROW => index - 1,
+            index => index,
+        };
+        match index {
             2 => self.toggle_duty_notifications(ctx, direction),
             5 => self.toggle_online_services(ctx, direction),
             9 => self.toggle_online_presence(ctx, direction),
@@ -147,6 +161,7 @@ impl OnlineHubState {
         ctx.apply_online_presence();
         ctx.apply_duty_notifications();
         ctx.apply_cloud_saves();
+        ctx.apply_newspaper();
         self.announce(ctx);
     }
 
@@ -566,6 +581,19 @@ impl Menu for OnlineHubState {
                 Label::dynamic(|_: &Self, ctx| format!("Resume careers from other devices: {}", Self::on_off(ctx.settings.cloud_resume))),
                 |s: &mut Self, ctx| s.toggle_cloud_resume(ctx),
             ).help("Checks for newer progress when you return to the main menu. Restore each career here once first; conflicting saves need your choice in Cloud backup."));
+        }
+        // Only while the game holds an issue the site published.
+        self.newspaper_row = ctx.services.newspaper.holding();
+        if self.newspaper_row {
+            items.insert(
+                Self::NEWSPAPER_ROW,
+                MenuItem::new(NEWSPAPER_LABEL, |_s: &mut Self, ctx: &mut GameContext| {
+                    if let Some(state) = NewspaperState::open(ctx, OpenedFrom::OnlineMenu) {
+                        ctx.push_state(state);
+                    }
+                })
+                .help(NEWSPAPER_HELP),
+            );
         }
         items
     }

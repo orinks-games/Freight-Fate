@@ -146,6 +146,9 @@ pub struct Scenario {
     /// The simulated sky every drive from here on starts under:
     /// `Some(Some(kind))` forced, `Some(None)` free (`parse_weather`).
     pub weather: Option<Option<WeatherKind>>,
+    /// The driver newspaper: `Some(Some(path))` holds the issue in that file
+    /// (the site's body, version 1), `Some(None)` holds none.
+    pub newspaper: Option<Option<String>>,
 }
 
 /// A `weather` field: a condition by name ("snow", "ice", "cloudy",
@@ -364,6 +367,10 @@ impl Scenario {
             window_down,
             road_jointed,
             weather,
+            newspaper: text(args, "newspaper")?.map(|value| match value.as_str() {
+                "none" => None,
+                _ => Some(value),
+            }),
         })
     }
 
@@ -637,6 +644,19 @@ pub fn apply(ctx: &mut GameContext, scenario: &Scenario) -> Result<Vec<String>, 
             ));
         }
         notes.push(format!("Setting {name} is now {value}."));
+    }
+    if let Some(paper) = &scenario.newspaper {
+        match paper {
+            Some(path) => {
+                let issue = crate::newspaper::issue_from_file(std::path::Path::new(path))?;
+                notes.push(format!("The game holds newspaper issue {}.", issue.issue));
+                ctx.services.newspaper.stage(Some(issue));
+            }
+            None => {
+                ctx.services.newspaper.stage(None);
+                notes.push("The game holds no newspaper.".to_string());
+            }
+        }
     }
     ctx.save_profile();
     Ok(notes)
