@@ -10669,7 +10669,7 @@ msgid "free"
 msgstr ""
 
 #. placeholders: {grouped}
-#: crates/ff-core/src/models/credentials.rs crates/ff-core/src/models/solvency.rs crates/freight-fate/src/states/driving_rest_states/rest_stop/cat_scale.rs crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
+#: crates/ff-core/src/models/credentials.rs crates/ff-core/src/models/solvency.rs crates/freight-fate/src/states/driving_menu_states/arrival.rs crates/freight-fate/src/states/driving_rest_states/rest_stop/cat_scale.rs
 msgid "{grouped} dollars"
 msgstr ""
 
@@ -35358,17 +35358,16 @@ msgstr ""
 msgid "Billed to the carrier, not deducted from driver pay."
 msgstr ""
 
-#. placeholders: {grouped2}, {grouped3}, {charge_summary}
+#. placeholders: {grouped}, {grouped2}, {charge_summary}
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid ""
-"Charges {grouped2}: tolls {grouped3}, extra charges {charge_summary}."
+msgid "Charges {grouped}: tolls {grouped2}, extra charges {charge_summary}."
 msgstr ""
 
-#. placeholders: {grouped4}
+#. placeholders: {grouped3}
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid "Costs {grouped4}."
+msgid "Costs {grouped3}."
 msgstr ""
 
 #. placeholders: {tons_text}, {cargo_label}, {destination}, {f}, {else}, {yard_drop}, {receiver_service_clause}, {clock_text}
@@ -35379,33 +35378,37 @@ msgid ""
 "{else}.{yard_drop}{receiver_service_clause} {clock_text}."
 msgstr ""
 
-#. placeholders: {tons_text}, {cargo_label}, {destination}, {f}, {else}, {yard_drop}, {receiver_service_clause}, {clock_text}, {pay_label}, {grouped}, {grouped2}, {grouped3}, {charge_summary}, {accessorial_clause}, {status_label}, {grouped4}, {grouped5}, {grouped6}, {grouped7}, {service_area_phrase}
+#. placeholders: {tons_text}, {cargo_label}, {destination}, {f}, {else}, {yard_drop}, {receiver_service_clause}, {clock_text}, {pay_label}, {format}, {grouped}, {grouped2}, {charge_summary}, {accessorial_clause}, {status_label}, {grouped3}, {grouped4}, {grouped5}, {grouped6}, {service_area_phrase}
 #: crates/freight-fate/src/states/driving_menu_states/arrival.rs
 msgid ""
 "Delivered {tons_text} of {cargo_label} to {destination} in {f} hours, "
 "{else}.{yard_drop}{receiver_service_clause} {clock_text}. {pay_label}: "
-"{grouped} dollars. Charges {grouped2}: tolls {grouped3}, extra charges "
+"{format}. Charges {grouped}: tolls {grouped2}, extra charges "
 "{charge_summary}. {accessorial_clause} Business status: {status_label}. "
-"Costs {grouped4}. Fines {grouped5}. Net {grouped6}, you have {grouped7}. "
+"Costs {grouped3}. Fines {grouped4}. Net {grouped5}, you have {grouped6}. "
 "Parked {service_area_phrase}."
 msgstr ""
 
-#. placeholders: {grouped5}
+#. placeholders: {grouped4}
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid "Fines {grouped5}."
+msgid "Fines {grouped4}."
 msgstr ""
 
-#. placeholders: {grouped6}, {grouped7}
+#. placeholders: {grouped5}, {grouped6}
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid "Net {grouped6}, you have {grouped7}."
+msgid "Net {grouped5}, you have {grouped6}."
 msgstr ""
 
 #. placeholders: {accessorial_clause}, {status_label}
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/driving_menu_states/arrival.rs
 msgid "{accessorial_clause} Business status: {status_label}."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
+msgid "refused by the receiver"
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_menu_states/arrival.rs
@@ -35504,6 +35507,17 @@ msgstr ""
 msgid "Business cost detail: {business_charge_summary}."
 msgstr ""
 
+#. placeholders: {destination}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
+msgid "Load refused in {destination}."
+msgstr ""
+
+#. placeholders: {destination}, {grouped}
+#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
+msgid "Load refused in {destination}. Net {grouped} dollars."
+msgstr ""
+
 #. placeholders: {grouped}
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/driving_menu_states/arrival.rs
@@ -35552,6 +35566,22 @@ msgstr ""
 msgid "Parked {service_area_phrase}."
 msgstr ""
 
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
+msgid "The receiver refused it."
+msgstr ""
+
+#. placeholders: {pay_label}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
+msgid "{pay_label}: none."
+msgstr ""
+
+#. placeholders: {pay_label}
+#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
+msgid "{pay_label}: none. The receiver refused it."
+msgstr ""
+
 #. placeholders: {status_label}
 #: crates/freight-fate/src/states/driving_menu_states/arrival.rs
 msgid "Business status: {status_label}."
@@ -35585,6 +35615,10 @@ msgstr ""
 #. placeholders: {distance_text}
 #: crates/freight-fate/src/states/driving_menu_states/arrival.rs
 msgid "Distance credited: {distance_text}."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
+msgid "Load refused"
 msgstr ""
 
 #. one sentence of a longer line
