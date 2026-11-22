@@ -35507,15 +35507,9 @@ msgstr ""
 msgid "Business cost detail: {business_charge_summary}."
 msgstr ""
 
-#. placeholders: {destination}
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid "Load refused in {destination}."
-msgstr ""
-
 #. placeholders: {destination}, {grouped}
 #: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid "Load refused in {destination}. Net {grouped} dollars."
+msgid "In {destination}. Net {grouped} dollars."
 msgstr ""
 
 #. placeholders: {grouped}

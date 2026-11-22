@@ -653,7 +653,7 @@ fn a_refused_load_reads_no_pay_and_no_bonus() {
         let rows = arrival.summary_lines.join(" | ");
         assert_eq!(arrival.title(), "Load refused", "{status}");
         assert!(
-            arrival.summary_lines[0].starts_with("Load refused in Philadelphia"),
+            arrival.summary_lines[0].starts_with("In Philadelphia. Net "),
             "{status}: {rows}"
         );
         assert!(

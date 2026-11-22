@@ -1024,8 +1024,9 @@ impl ArrivalState {
             // time, and what it paid. The rows below itemize it.
             // The screen's title already says "Delivery complete".
             if refused {
+                // The screen's title already says "Load refused".
                 format!(
-                    "Load refused in {}. Net {} dollars.",
+                    "In {}. Net {} dollars.",
                     job.spoken_destination(),
                     fmt_grouped(net_pay, 0)
                 )
