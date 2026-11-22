@@ -251,3 +251,34 @@ fn a_canadian_ramp_advisory_keeps_its_km_h() {
     assert!(!advisories.is_empty());
     assert!(advisories.iter().all(|mph| *mph < 40.0), "{advisories:?}");
 }
+
+#[test]
+fn a_loaded_truck_is_offered_fuel_between_fort_nelson_and_watson_lake() {
+    for id in [
+        "fort_nelson_bc_ca:watson_lake_yt_ca",
+        "watson_lake_yt_ca:fort_nelson_bc_ca",
+    ] {
+        let fuel: Vec<&str> = leg(id)
+            .stops
+            .iter()
+            .filter(|s| s.actions.iter().any(|a| a == "fuel") && s.accessible_to(false))
+            .map(|s| s.name.as_str())
+            .collect();
+        assert!(
+            fuel.contains(&"Toad River Lodge") && fuel.contains(&"Liard Hot Springs Lodge"),
+            "{id}: {fuel:?}"
+        );
+        // Each says how its truck access was decided.
+        for s in leg(id)
+            .stops
+            .iter()
+            .filter(|s| fuel.contains(&s.name.as_str()))
+        {
+            assert!(
+                s.vehicle_access_basis == "read" || s.vehicle_access_basis == "assumed",
+                "{id}: {} has no access basis",
+                s.name
+            );
+        }
+    }
+}

@@ -55,7 +55,7 @@
 - **Hooking or breaking a set of doubles adds time on duty,** and the walk-around takes 25 minutes instead of 15.
 - **The rear trailer of a set of doubles can whip on a hard swerve at 40 miles per hour and up.** You hear it when it starts. Reverse is refused with doubles hooked.
 - **The ELD now tracks your 70-hour, 8-day work cycle.** When a day of cycle hours is left the status line says so, and a 34-hour rest starts a fresh week.
-- **Fuel stops, lodges and rest areas now line the Alaska Highway and the roads of British Columbia and Alaska.** Only stops open all year are offered.
+- **Fuel stops, lodges and rest areas now line the Alaska Highway and the roads of British Columbia and Alaska.** A loaded truck can fuel at the lodges and town stations, and only stops open all year are offered.
 
 ### Changed
 
@@ -79,6 +79,7 @@
 
 ### Fixed
 
+- **A stop with only fuel pumps no longer offers a motel room or a night in the lot.**
 - **Moving up from the training fleet now only offers carriers that hire where you live.** Your truck waits at the new carrier's terminal.
 - **A translated game no longer leaves half a line in English** on the dispatch board or in any line naming a carrier's terminal.
 - **Dispatch calls now read cargo damage, hours and distance cleanly,** and no longer call a sound load damaged.

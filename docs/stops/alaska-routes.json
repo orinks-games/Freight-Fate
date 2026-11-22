@@ -1,5 +1,10 @@
 {
   "about": "Town fuel on the Alaska routes rebuilt 2026-11-22 (the towns a through route passes), placed by cargo tools osm-stops --stops like canada-alaska.json. lat, lon, reach_mi, season and heading steer placement; every other key is the stop as the game reads it.",
+  "truck_access": {
+    "read": 2,
+    "assumed": 14,
+    "about": "Stops whose tractor-trailer access was read from a source, and those where it is assumed with the reason in source. The two rest areas read it from OpenStreetMap's large_vehicles tag; no town station's page says either way."
+  },
   "stops": [
     {
       "name": "Coldfoot Camp",
@@ -23,7 +28,8 @@
       ],
       "curation": "curated",
       "vehicle_access": "tractor_trailer",
-      "source": "Position and diesel read from OSM node 410734041 (fuel:diesel=yes), OpenStreetMap planet extract 2026-11-16. Open 24/7 read from its OSM opening_hours; open year round is assumed, not verified. Tractor-trailer access is assumed for a highway fuel stop, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road."
+      "vehicle_access_basis": "assumed",
+      "source": "Position and diesel read from OSM node 410734041 (fuel:diesel=yes), OpenStreetMap planet extract 2026-11-16. Open 24/7 read from its OSM opening_hours; open year round is assumed, not verified. Tractor-trailer access is assumed, because no source found says either way: freight on these roads moves by tractor-trailer, and a town's diesel on the through highway is where those trucks fuel. Parking capacity is not claimed. Leg mile projected onto the leg's road."
     },
     {
       "name": "Delta Petro-Wash, Delta Junction",
@@ -47,7 +53,8 @@
       ],
       "curation": "curated",
       "vehicle_access": "tractor_trailer",
-      "source": "Position and diesel read from OSM way 479370738 (fuel:diesel=yes), OpenStreetMap planet extract 2026-11-16. Open 24/7 read from its OSM opening_hours; open year round is assumed, not verified. Tractor-trailer access is assumed for a highway fuel stop, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road."
+      "vehicle_access_basis": "assumed",
+      "source": "Position and diesel read from OSM way 479370738 (fuel:diesel=yes), OpenStreetMap planet extract 2026-11-16. Open 24/7 read from its OSM opening_hours; open year round is assumed, not verified. Tractor-trailer access is assumed, because no source found says either way: freight on these roads moves by tractor-trailer, and a town's diesel on the through highway is where those trucks fuel. Parking capacity is not claimed. Leg mile projected onto the leg's road."
     },
     {
       "name": "Marathon, Glennallen",
@@ -71,7 +78,8 @@
       ],
       "curation": "curated",
       "vehicle_access": "tractor_trailer",
-      "source": "Position and diesel read from OSM way 264289701 (fuel:diesel=yes), OpenStreetMap planet extract 2026-11-16. Open year round is assumed for a staffed station in a town on a through highway; not verified. Tractor-trailer access is assumed for a highway fuel stop, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road."
+      "vehicle_access_basis": "assumed",
+      "source": "Position and diesel read from OSM way 264289701 (fuel:diesel=yes), OpenStreetMap planet extract 2026-11-16. Open year round is assumed for a staffed station in a town on a through highway; not verified. Tractor-trailer access is assumed, because no source found says either way: freight on these roads moves by tractor-trailer, and a town's diesel on the through highway is where those trucks fuel. Parking capacity is not claimed. Leg mile projected onto the leg's road."
     },
     {
       "name": "Vitus, Tok",
@@ -95,7 +103,8 @@
       ],
       "curation": "curated",
       "vehicle_access": "tractor_trailer",
-      "source": "Position and diesel read from OSM way 1314691144 (fuel:diesel=yes), OpenStreetMap planet extract 2026-11-16. Open 24/7 read from its OSM opening_hours; open year round is assumed, not verified. Tractor-trailer access is assumed for a highway fuel stop, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road."
+      "vehicle_access_basis": "assumed",
+      "source": "Position and diesel read from OSM way 1314691144 (fuel:diesel=yes), OpenStreetMap planet extract 2026-11-16. Open 24/7 read from its OSM opening_hours; open year round is assumed, not verified. Tractor-trailer access is assumed, because no source found says either way: freight on these roads moves by tractor-trailer, and a town's diesel on the through highway is where those trucks fuel. Parking capacity is not claimed. Leg mile projected onto the leg's road."
     },
     {
       "name": "Shell, Healy",
@@ -119,7 +128,8 @@
       ],
       "curation": "curated",
       "vehicle_access": "tractor_trailer",
-      "source": "Position and diesel read from OSM way 835397927 (fuel:diesel=yes), OpenStreetMap planet extract 2026-11-16. Open 24/7 read from its OSM opening_hours; open year round is assumed, not verified. Tractor-trailer access is assumed for a highway fuel stop, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road."
+      "vehicle_access_basis": "assumed",
+      "source": "Position and diesel read from OSM way 835397927 (fuel:diesel=yes), OpenStreetMap planet extract 2026-11-16. Open 24/7 read from its OSM opening_hours; open year round is assumed, not verified. Tractor-trailer access is assumed, because no source found says either way: freight on these roads moves by tractor-trailer, and a town's diesel on the through highway is where those trucks fuel. Parking capacity is not claimed. Leg mile projected onto the leg's road."
     },
     {
       "name": "Vitus, Cantwell",
@@ -143,7 +153,8 @@
       ],
       "curation": "curated",
       "vehicle_access": "tractor_trailer",
-      "source": "Position and diesel read from OSM way 1271885123 (fuel:diesel=yes), OpenStreetMap planet extract 2026-11-16. Open 24/7 read from its OSM opening_hours; open year round is assumed, not verified. Tractor-trailer access is assumed for a highway fuel stop, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road."
+      "vehicle_access_basis": "assumed",
+      "source": "Position and diesel read from OSM way 1271885123 (fuel:diesel=yes), OpenStreetMap planet extract 2026-11-16. Open 24/7 read from its OSM opening_hours; open year round is assumed, not verified. Tractor-trailer access is assumed, because no source found says either way: freight on these roads moves by tractor-trailer, and a town's diesel on the through highway is where those trucks fuel. Parking capacity is not claimed. Leg mile projected onto the leg's road."
     },
     {
       "name": "Chevron, Nenana",
@@ -167,7 +178,8 @@
       ],
       "curation": "curated",
       "vehicle_access": "tractor_trailer",
-      "source": "Position and diesel read from OSM way 519190492 (fuel:diesel=yes), OpenStreetMap planet extract 2026-11-16. Open year round is assumed for a staffed station in a town on a through highway; not verified. Tractor-trailer access is assumed for a highway fuel stop, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road."
+      "vehicle_access_basis": "assumed",
+      "source": "Position and diesel read from OSM way 519190492 (fuel:diesel=yes), OpenStreetMap planet extract 2026-11-16. Open year round is assumed for a staffed station in a town on a through highway; not verified. Tractor-trailer access is assumed, because no source found says either way: freight on these roads moves by tractor-trailer, and a town's diesel on the through highway is where those trucks fuel. Parking capacity is not claimed. Leg mile projected onto the leg's road."
     },
     {
       "name": "Tesoro, Fox",
@@ -191,7 +203,8 @@
       ],
       "curation": "curated",
       "vehicle_access": "tractor_trailer",
-      "source": "Position and diesel read from OSM node 4946680605 (fuel:diesel=yes), OpenStreetMap planet extract 2026-11-16. Open year round is assumed for a staffed station in a town on a through highway; not verified. Tractor-trailer access is assumed for a highway fuel stop, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road."
+      "vehicle_access_basis": "assumed",
+      "source": "Position and diesel read from OSM node 4946680605 (fuel:diesel=yes), OpenStreetMap planet extract 2026-11-16. Open year round is assumed for a staffed station in a town on a through highway; not verified. Tractor-trailer access is assumed, because no source found says either way: freight on these roads moves by tractor-trailer, and a town's diesel on the through highway is where those trucks fuel. Parking capacity is not claimed. Leg mile projected onto the leg's road."
     },
     {
       "name": "Tesoro, Valdez",
@@ -215,7 +228,8 @@
       ],
       "curation": "curated",
       "vehicle_access": "tractor_trailer",
-      "source": "Position and diesel read from OSM way 514570800 (fuel:diesel=yes), OpenStreetMap planet extract 2026-11-16. Open year round is assumed for a staffed station in a town on a through highway; not verified. Tractor-trailer access is assumed for a highway fuel stop, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road."
+      "vehicle_access_basis": "assumed",
+      "source": "Position and diesel read from OSM way 514570800 (fuel:diesel=yes), OpenStreetMap planet extract 2026-11-16. Open year round is assumed for a staffed station in a town on a through highway; not verified. Tractor-trailer access is assumed, because no source found says either way: freight on these roads moves by tractor-trailer, and a town's diesel on the through highway is where those trucks fuel. Parking capacity is not claimed. Leg mile projected onto the leg's road."
     },
     {
       "name": "Trails North, Whitehorse",
@@ -239,7 +253,8 @@
       ],
       "curation": "curated",
       "vehicle_access": "tractor_trailer",
-      "source": "Position and diesel read from OSM way 469609783 (fuel:diesel=yes), OpenStreetMap planet extract 2026-11-16. Open year round is assumed for a staffed station in a town on a through highway; not verified. Tractor-trailer access is assumed for a highway fuel stop, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road."
+      "vehicle_access_basis": "assumed",
+      "source": "Position and diesel read from OSM way 469609783 (fuel:diesel=yes), OpenStreetMap planet extract 2026-11-16. Open year round is assumed for a staffed station in a town on a through highway; not verified. Tractor-trailer access is assumed, because no source found says either way: freight on these roads moves by tractor-trailer, and a town's diesel on the through highway is where those trucks fuel. Parking capacity is not claimed. Leg mile projected onto the leg's road."
     },
     {
       "name": "Petro-Canada, Carcross Corner",
@@ -263,7 +278,8 @@
       ],
       "curation": "curated",
       "vehicle_access": "tractor_trailer",
-      "source": "Position and diesel read from OSM way 531703577 (fuel:diesel=yes), OpenStreetMap planet extract 2026-11-16. Open year round is assumed for a staffed station in a town on a through highway; not verified. Tractor-trailer access is assumed for a highway fuel stop, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road."
+      "vehicle_access_basis": "assumed",
+      "source": "Position and diesel read from OSM way 531703577 (fuel:diesel=yes), OpenStreetMap planet extract 2026-11-16. Open year round is assumed for a staffed station in a town on a through highway; not verified. Tractor-trailer access is assumed, because no source found says either way: freight on these roads moves by tractor-trailer, and a town's diesel on the through highway is where those trucks fuel. Parking capacity is not claimed. Leg mile projected onto the leg's road."
     },
     {
       "name": "Family Fuel, Skagway",
@@ -287,7 +303,8 @@
       ],
       "curation": "curated",
       "vehicle_access": "tractor_trailer",
-      "source": "Position and diesel read from OSM node 11933744869 (fuel:diesel=yes), OpenStreetMap planet extract 2026-11-16. Open year round is assumed for a staffed station in a town on a through highway; not verified. Tractor-trailer access is assumed for a highway fuel stop, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road."
+      "vehicle_access_basis": "assumed",
+      "source": "Position and diesel read from OSM node 11933744869 (fuel:diesel=yes), OpenStreetMap planet extract 2026-11-16. Open year round is assumed for a staffed station in a town on a through highway; not verified. Tractor-trailer access is assumed, because no source found says either way: freight on these roads moves by tractor-trailer, and a town's diesel on the through highway is where those trucks fuel. Parking capacity is not claimed. Leg mile projected onto the leg's road."
     },
     {
       "name": "Delta Western, Haines",
@@ -311,7 +328,8 @@
       ],
       "curation": "curated",
       "vehicle_access": "tractor_trailer",
-      "source": "Position and diesel read from OSM node 2058194642 (fuel:diesel=yes), OpenStreetMap planet extract 2026-11-16. Open year round is assumed for a staffed station in a town on a through highway; not verified. Tractor-trailer access is assumed for a highway fuel stop, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road."
+      "vehicle_access_basis": "assumed",
+      "source": "Position and diesel read from OSM node 2058194642 (fuel:diesel=yes), OpenStreetMap planet extract 2026-11-16. Open year round is assumed for a staffed station in a town on a through highway; not verified. Tractor-trailer access is assumed, because no source found says either way: freight on these roads moves by tractor-trailer, and a town's diesel on the through highway is where those trucks fuel. Parking capacity is not claimed. Leg mile projected onto the leg's road."
     },
     {
       "name": "Fas Gas, Haines Junction",
@@ -335,7 +353,8 @@
       ],
       "curation": "curated",
       "vehicle_access": "tractor_trailer",
-      "source": "Position and diesel read from OSM way 507557944 (brand Fas Gas, fuel:diesel=yes, opening_hours 07:00-21:00), OpenStreetMap planet extract 2026-11-16. Daily hours read from its OSM opening_hours; open year round is assumed for a staffed station in a town on a through highway, not verified. Tractor-trailer access is assumed for a highway fuel stop, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road."
+      "vehicle_access_basis": "assumed",
+      "source": "Position and diesel read from OSM way 507557944 (brand Fas Gas, fuel:diesel=yes, opening_hours 07:00-21:00), OpenStreetMap planet extract 2026-11-16. Daily hours read from its OSM opening_hours; open year round is assumed for a staffed station in a town on a through highway, not verified. Tractor-trailer access is assumed, because no source found says either way: freight on these roads moves by tractor-trailer, and a town's diesel on the through highway is where those trucks fuel. Parking capacity is not claimed. Leg mile projected onto the leg's road."
     },
     {
       "name": "Farthest North Spruce wayside",
@@ -359,6 +378,7 @@
       ],
       "curation": "curated",
       "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "read",
       "source": "Read: Farthest North Spruce Wayside, Dalton Highway milepost 235, OSM way 692147972 (highway=rest_area, large_vehicles=yes, toilets=yes, opening_hours=24/7), OpenStreetMap planet extract 2026-11-16. Tractor-trailer access read from its large_vehicles tag. Sleep: Alaska's rule for rest stops and pullouts on the state highway system, 17 AAC 05.045 (read from https://www.law.cornell.edu/regulations/alaska/17-AAC-05.045), limits parking only to what is posted; no posted limit under 10 hours at this site is assumed, not verified. Open in winter is assumed: the BLM 2024 Dalton Highway Visitor Guide says the road is maintained year round but names no wayside plowing. Leg mile projected onto the leg's road."
     },
     {
@@ -383,6 +403,7 @@
       ],
       "curation": "curated",
       "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "read",
       "source": "Read: East Fork Campground and Rest Area on the Parks Highway, OSM way 504848833 (highway=rest_area, operator State of Alaska, Department of Natural Resources, large_vehicles=yes, toilets=yes), OpenStreetMap planet extract 2026-11-16. Tractor-trailer access read from its large_vehicles tag. Sleep: Alaska's rule for rest stops and pullouts on the state highway system, 17 AAC 05.045 (read from https://www.law.cornell.edu/regulations/alaska/17-AAC-05.045), limits parking only to what is posted; the site is run by the Department of Natural Resources, whose posted limit was not checked, and a stay of 10 hours is assumed allowed. Open in winter is assumed, not verified. Leg mile projected onto the leg's road."
     }
   ]
