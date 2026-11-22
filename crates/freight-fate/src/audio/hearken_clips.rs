@@ -14,6 +14,12 @@ use std::sync::Arc;
 use hearken::audio::ClipSource;
 
 use super::assets::{asset_bytes, playback_bytes, AssetBytes, MUSIC_EXTENSIONS, SFX_EXTENSIONS};
+use super::STEREO_ENGINE_BANDS;
+
+pub(super) const CAB_SAMPLE_RATE: u32 = 48_000;
+pub(super) const CAB_START_MAX_FRAMES: usize = CAB_SAMPLE_RATE as usize * 10;
+pub(super) const CAB_LOOP_FADE_FRAMES: usize = 384;
+const CAB_FRAME_BYTES: usize = 4;
 
 /// The game's sound lookup as a Hearken [`ClipSource`]. Stateless, so it
 /// caches nothing, misses included.
@@ -39,8 +45,77 @@ impl FfClips {
 
 impl ClipSource for FfClips {
     fn load(&mut self, key: &str) -> Option<Arc<[u8]>> {
+        if let Some((band, frames)) = key.split_once('@') {
+            if STEREO_ENGINE_BANDS.iter().any(|(key, _)| *key == band) {
+                let frames = frames.parse::<usize>().ok()?;
+                let (bytes, _) = Self::sfx(band)?;
+                return cab_band_with_preroll(&bytes, frames);
+            }
+        }
         FfClips::sfx(key).map(|(bytes, _ext)| bytes)
     }
+}
+
+/// The cab overlay uses stereo PCM16 at 48 kHz. Read chunks so a WAV
+/// with producer metadata before its samples still works.
+fn cab_wav_samples(bytes: &[u8]) -> Option<&[u8]> {
+    if bytes.get(..4)? != b"RIFF" || bytes.get(8..12)? != b"WAVE" {
+        return None;
+    }
+    let mut position = 12;
+    let mut pcm = false;
+    while let Some(header) = bytes.get(position..position + 8) {
+        let size = u32::from_le_bytes(header[4..8].try_into().ok()?) as usize;
+        let start = position + 8;
+        let chunk = bytes.get(start..start.checked_add(size)?)?;
+        match &header[..4] {
+            b"fmt " => {
+                pcm = chunk.get(..4)? == [1, 0, 2, 0]
+                    && chunk.get(4..8)? == CAB_SAMPLE_RATE.to_le_bytes()
+                    && chunk.get(12..16)? == [4, 0, 16, 0];
+            }
+            b"data" => {
+                return (pcm && !chunk.is_empty() && chunk.len() % CAB_FRAME_BYTES == 0)
+                    .then_some(chunk);
+            }
+            _ => {}
+        }
+        position = start + size + (size & 1);
+    }
+    None
+}
+
+pub(super) fn cab_start_frames(bytes: &[u8]) -> Option<usize> {
+    let frames = cab_wav_samples(bytes)?.len() / CAB_FRAME_BYTES;
+    (frames <= CAB_START_MAX_FRAMES).then_some(frames)
+}
+
+fn cab_band_with_preroll(bytes: &[u8], frames: usize) -> Option<Arc<[u8]>> {
+    if !(1..=CAB_START_MAX_FRAMES).contains(&frames) {
+        return None;
+    }
+    let samples = cab_wav_samples(bytes)?;
+    let fade_bytes = CAB_LOOP_FADE_FRAMES * CAB_FRAME_BYTES;
+    let head = samples.get(..fade_bytes)?;
+    let silence_bytes = frames * CAB_FRAME_BYTES;
+    let mut out = ff_core::wav::pcm16_header(
+        (silence_bytes + samples.len() + fade_bytes) / 2,
+        2,
+        CAB_SAMPLE_RATE,
+    );
+    out.resize(out.len() + silence_bytes, 0);
+    for (i, frame) in head.as_chunks::<CAB_FRAME_BYTES>().0.iter().enumerate() {
+        let gain = i as f64 / (CAB_LOOP_FADE_FRAMES - 1) as f64;
+        for &sample in frame.as_chunks::<2>().0 {
+            let value = i16::from_le_bytes(sample);
+            out.extend_from_slice(&((f64::from(value) * gain).round() as i16).to_le_bytes());
+        }
+    }
+    // The repeated region starts after the faded entry and wraps from
+    // the original head to the replay of its next sample.
+    out.extend_from_slice(&samples[fade_bytes..]);
+    out.extend_from_slice(head);
+    Some(out.into())
 }
 
 /// The sample rate a clip was recorded at, read from its own headers: what
@@ -83,6 +158,30 @@ mod tests {
         let wav = hearken::synth::wav_bytes(&[0.0; 100], 22_050);
         assert_eq!(clip_sample_rate(&wav), Some(22_050.0));
         assert_eq!(clip_sample_rate(b"not audio"), None);
+    }
+
+    #[test]
+    fn cab_band_is_silent_for_the_intro_and_repeats_the_original_samples() {
+        let intro_frames = 960;
+        let pcm: Vec<i16> = (0..1200).flat_map(|i| [100 + i, -100 - i]).collect();
+        let wav = ff_core::wav::pcm16_wav(&pcm, 2, CAB_SAMPLE_RATE);
+        assert_eq!(cab_start_frames(&wav), Some(1200));
+        let prepared = cab_band_with_preroll(&wav, intro_frames).unwrap();
+        let source = cab_wav_samples(&wav).unwrap();
+        let samples = cab_wav_samples(&prepared).unwrap();
+        let silence_end = intro_frames * CAB_FRAME_BYTES;
+        let fade_end = silence_end + CAB_LOOP_FADE_FRAMES * CAB_FRAME_BYTES;
+        let wrap = CAB_LOOP_FADE_FRAMES * CAB_FRAME_BYTES;
+        assert!(samples[..silence_end].iter().all(|&byte| byte == 0));
+        assert_eq!(
+            &samples[silence_end..silence_end + CAB_FRAME_BYTES],
+            &[0; 4]
+        );
+        assert_eq!(
+            &samples[fade_end..silence_end + source.len()],
+            &source[wrap..]
+        );
+        assert_eq!(&samples[silence_end + source.len()..], &source[..wrap]);
     }
 
     #[test]

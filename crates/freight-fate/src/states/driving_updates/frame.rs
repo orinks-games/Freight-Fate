@@ -13,7 +13,7 @@ use crate::states::base::Key;
 use crate::states::driving::DrivingState;
 use crate::states::driving_core::*;
 use crate::states::driving_pacenotes::PACENOTE_MARGIN_MPH;
-use crate::states::driving_updates::{live, PAD_EMERGENCY_BRAKE};
+use crate::states::driving_updates::{live, AUTO_SHIFT_START_CLUNK_VOLUME, PAD_EMERGENCY_BRAKE};
 
 impl DrivingState {
     /// Re-speak a safety call the player silenced before it finished.
@@ -538,8 +538,12 @@ impl DrivingState {
         if self.trip.truck.transmission.automatic && self.trip.truck.engine_on {
             let new_gear = self.trip.truck.auto_shift();
             if new_gear.is_some() {
-                ctx.audio
-                    .play_bank_with("vehicle/shift_auto", "vehicle/gear_shift", 0.65, 0.0);
+                ctx.audio.play_bank_with(
+                    "vehicle/shift_auto",
+                    "vehicle/gear_shift",
+                    AUTO_SHIFT_START_CLUNK_VOLUME,
+                    0.0,
+                );
             }
         }
 

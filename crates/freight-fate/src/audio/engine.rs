@@ -22,6 +22,9 @@ use super::{
 /// asks for no more than `1.0 / BANK_JITTER.1`.
 pub const BANK_JITTER: (f64, f64) = (0.85, 1.17);
 
+const SHIFT_AUTO_BANK: &str = "vehicle/shift_auto";
+const SHIFT_CAB_BANK: &str = "vehicle/shift_cab";
+
 /// Facade over the active backend; the rest of the game talks only to this.
 pub struct AudioEngine {
     backend: Box<dyn AudioBackend>,
@@ -347,6 +350,11 @@ impl Audio for AudioEngine {
         if self.cues_muted && crate::audio::is_game_cue(base) {
             return;
         }
+        let base = if base == SHIFT_AUTO_BANK && !self.bank_keys(SHIFT_CAB_BANK).is_empty() {
+            SHIFT_CAB_BANK
+        } else {
+            base
+        };
         let keys = self.bank_keys(base);
         if keys.is_empty() {
             self.play_with(fallback, volume, pan);
