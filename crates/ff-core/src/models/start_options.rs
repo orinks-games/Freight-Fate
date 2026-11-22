@@ -401,9 +401,11 @@ fn generated_start_words(c: &carriers::Carrier, max: &str) -> (String, String, S
     } else {
         c.lane_area.clone()
     };
+    // The area is said once, in the summary: the start row reads the label
+    // and the summary together.
     (
-        format!("{}: {tier} company driver, {area}", c.name),
-        format!("A {tier} carrier in {area}, with loads of up to {max} miles."),
+        format!("{}: {tier} company driver", c.name),
+        format!("Loads of up to {max} miles in {area}."),
         format!(
             "A {tier} company-driver start in {area}. Dispatch offers loads of up to {max} \
              miles. {equipment}"

@@ -707,13 +707,23 @@ impl Profile {
         );
     }
 
-    /// Switch to another carrier: its terminal becomes home (the truck stays
-    /// put) and the last delivered/dropped facility no longer applies.
+    /// Switch to another carrier: its terminal for where the driver lives
+    /// becomes home (the truck stays put) and the last delivered/dropped
+    /// facility no longer applies. Picked from the home city (else where
+    /// the truck is), never from the old terminal: a Fairbanks driver moved
+    /// to Chatanika Freight Lines kept the Milwaukee fallback terminal,
+    /// which is out of a regional's radius (2.0 review, 2026-11-21).
     pub fn change_carrier(&mut self, key: &str, name: &str) {
         self.carrier_key = key.to_string();
         self.carrier_name = name.to_string();
         self.parked_facility.clear();
-        self.rehome_to_carrier();
+        let lives = if self.home_city.trim().is_empty() {
+            self.current_city.clone()
+        } else {
+            self.home_city.clone()
+        };
+        self.home_terminal_city =
+            serialize::migrate_home_terminal_city(self.hiring_carrier(), "", &lives);
     }
 
     /// Where this driver lives: `home_city`, else the home terminal city,

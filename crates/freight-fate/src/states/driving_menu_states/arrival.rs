@@ -38,8 +38,9 @@ use crate::states::city::CityMenuState;
 use crate::states::driving::DrivingState;
 use crate::states::driving_core::{
     carrier_accessorial_charges, charge_summary, charge_total, clock_text,
-    has_weigh_station_transponder, is_owner_operator, pay_label, profile_mut_of, profile_of,
-    reputation_pay_bonus, unique_consecutive, wallet_delta, xp_class_multiplier, xp_streak_bonus,
+    has_weigh_station_transponder, is_owner_operator, log_driving_until, pay_label, profile_mut_of,
+    profile_of, reputation_pay_bonus, unique_consecutive, wallet_delta, xp_class_multiplier,
+    xp_streak_bonus,
 };
 use crate::states::driving_damage::{damage_summary_line, preventable_damage_charge};
 use crate::states::driving_menu_states::badges::{
@@ -214,6 +215,8 @@ impl ArrivalState {
         } else {
             "No load and no pay. ".to_string()
         };
+        let trip_start = profile_of(ctx).game_hours;
+        log_driving_until(d, ctx, trip_start + hours);
         let (game_hours, market_day) = {
             let p = profile_mut_of(ctx);
             p.game_hours += hours;
@@ -679,6 +682,17 @@ impl ArrivalState {
                 enforcement::reputation_text(reputation_before, ctx.settings.score_display)
             ));
         }
+        // The logbook: the road up to check-in, then the receiver's dock.
+        let trip_start = profile_of(ctx).game_hours;
+        log_driving_until(d, ctx, trip_start + hours);
+        let facility = d.destination_facility_text(ctx);
+        profile_mut_of(ctx).duty_log.record(
+            "on_duty_not_driving",
+            trip_start + hours,
+            trip_start + elapsed_hours,
+            &facility,
+            "receiver unloading",
+        );
         let (game_hours, market_day) = {
             let p = profile_mut_of(ctx);
             p.game_hours += elapsed_hours;

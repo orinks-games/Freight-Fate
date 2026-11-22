@@ -550,10 +550,14 @@ fn test_a_generated_national_start_says_national_and_names_its_freight() {
         "{}",
         flatbed.help_text
     );
-    // A regional's generated row is worded as before.
+    // A regional's generated row keeps the area in its summary.
     let regional = start_option(Some("chehalis_freight"));
     assert_eq!(
         regional.label,
-        "Chehalis Freight Lines: regional company driver, the Pacific Northwest"
+        "Chehalis Freight Lines: regional company driver"
+    );
+    assert_eq!(
+        regional.menu_summary,
+        "Loads of up to 600 miles in the Pacific Northwest."
     );
 }

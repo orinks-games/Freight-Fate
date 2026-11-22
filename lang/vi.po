@@ -11803,14 +11803,12 @@ msgstr ""
 msgid " Those loads need {clause}."
 msgstr ""
 
-#. placeholders: {name}, {specialty}
-msgid "{name}: national company driver, {specialty}"
+#. placeholders: {name}
+msgid "{name}: national company driver"
 msgstr ""
 
 #. placeholders: {specialty}, {max}
-msgid ""
-"A national carrier that mostly hauls {specialty}, with loads of up to {max} "
-"miles."
+msgid "Mostly {specialty}, with loads of up to {max} miles."
 msgstr ""
 
 #. one sentence of a longer line
@@ -11833,12 +11831,12 @@ msgstr ""
 msgid "its home region"
 msgstr ""
 
-#. placeholders: {name}, {tier}, {area}
-msgid "{name}: {tier} company driver, {area}"
+#. placeholders: {name}, {tier}
+msgid "{name}: {tier} company driver"
 msgstr ""
 
-#. placeholders: {tier}, {area}, {max}
-msgid "A {tier} carrier in {area}, with loads of up to {max} miles."
+#. placeholders: {max}, {area}
+msgid "Loads of up to {max} miles in {area}."
 msgstr ""
 
 #. placeholders: {tier}, {area}
@@ -20928,21 +20926,29 @@ msgstr "Bạn đã nghỉ đủ giấc rồi. Nhấn Enter lần nữa nếu v�
 msgid "terminal sleep"
 msgstr "ngủ nghỉ tại trạm"
 
-#. placeholders: {clock_text}, {time_of_day}
+msgid " Cycle clock reset."
+msgstr ""
+
+#. placeholders: {clock_text}, {time_of_day}, {cycle}
 #. one sentence of a longer line
-msgid "It is {clock_text}, {time_of_day}."
-msgstr "Bây giờ là {clock_text}, {time_of_day}."
+msgid "It is {clock_text}, {time_of_day}.{cycle}"
+msgstr ""
 
 #. one sentence of a longer line
 msgid "Slept 10 hours."
 msgstr "Đã ngủ 10 giờ."
 
-#. placeholders: {clock_text}, {time_of_day}
-msgid "Slept 10 hours. It is {clock_text}, {time_of_day}."
-msgstr "Đã ngủ 10 giờ. Bây giờ là {clock_text}, {time_of_day}."
+#. placeholders: {clock_text}, {time_of_day}, {cycle}
+msgid "Slept 10 hours. It is {clock_text}, {time_of_day}.{cycle}"
+msgstr ""
 
 msgid "Your CDL is clear. Nothing to wait out."
 msgstr "Bằng CDL của bạn đang sạch, không có án treo bằng nào cần chờ."
+
+#. placeholders: {clock_text}, {time_of_day}
+#. one sentence of a longer line
+msgid "It is {clock_text}, {time_of_day}."
+msgstr "Bây giờ là {clock_text}, {time_of_day}."
 
 #. placeholders: {py_capitalize}
 #. one sentence of a longer line
@@ -22206,23 +22212,27 @@ msgstr "Chuyển sang {carrier_name}: nhấn Enter lần nữa để xác nhận
 msgid "Move to {label}"
 msgstr "Chuyển sang {label}"
 
-#. placeholders: {carrier_name}, {menu_summary}
-msgid "{carrier_name}. {menu_summary} Double tap again to move."
-msgstr "{carrier_name}. {menu_summary} Chạm đúp lần nữa để chuyển."
+#. placeholders: {t}
+msgid " Truck starts at {t}."
+msgstr ""
 
-#. placeholders: {menu_summary}
+#. placeholders: {carrier_name}, {menu_summary}, {starts}
+msgid "{carrier_name}. {menu_summary}{starts} Double tap again to move."
+msgstr ""
+
+#. placeholders: {menu_summary}, {starts}
 #. one sentence of a longer line
-msgid "{menu_summary} Double tap again to move."
-msgstr "{menu_summary} Chạm đúp lần nữa để chuyển."
+msgid "{menu_summary}{starts} Double tap again to move."
+msgstr ""
 
-#. placeholders: {carrier_name}, {menu_summary}
-msgid "{carrier_name}. {menu_summary} Press Enter again to move."
-msgstr "{carrier_name}. {menu_summary} Nhấn Enter lần nữa để chuyển hãng."
+#. placeholders: {carrier_name}, {menu_summary}, {starts}
+msgid "{carrier_name}. {menu_summary}{starts} Press Enter again to move."
+msgstr ""
 
-#. placeholders: {menu_summary}
+#. placeholders: {menu_summary}, {starts}
 #. one sentence of a longer line
-msgid "{menu_summary} Press Enter again to move."
-msgstr "{menu_summary} Nhấn Enter lần nữa để chuyển hãng."
+msgid "{menu_summary}{starts} Press Enter again to move."
+msgstr ""
 
 msgid "carrier shop repair"
 msgstr "sửa chữa tại xưởng hãng"
@@ -24240,13 +24250,9 @@ msgstr "Đã quay lại cao tốc. Chú ý tốc độ."
 msgid "local route to {pickup_facility_text}"
 msgstr "tuyến nội thành tới {pickup_facility_text}"
 
-#. placeholders: {highway}, {destination}
-msgid "{highway} in {destination}"
-msgstr "{highway} tại {destination}"
-
-#. placeholders: {highway}, {origin}
-msgid "{highway} in {origin}"
-msgstr "{highway} tại {origin}"
+#. placeholders: {highway}, {city}
+msgid "{highway} in {city}"
+msgstr ""
 
 #. placeholders: {highway}, {start}, {end}
 msgid "{highway} from {start} to {end}"
@@ -30779,6 +30785,9 @@ msgstr ""
 "Thưởng tín nhiệm điều phối: {grouped} đô la cho mức uy tín của bạn: "
 "{reputation_text}"
 
+msgid "receiver unloading"
+msgstr ""
+
 #. placeholders: {f}
 msgid " Receiver service after check-in took {f} hours."
 msgstr " Thời gian làm thủ tục dỡ hàng sau khi trình diện mất {f} giờ."
@@ -33009,10 +33018,6 @@ msgstr ""
 msgid "A motel room costs {grouped} dollars and you have {grouped2}."
 msgstr "Phòng nhà nghỉ giá {grouped} đô la mà bạn chỉ có {grouped2}."
 
-#. one sentence of a longer line
-msgid "Driving and duty clocks reset."
-msgstr "Đồng hồ giờ lái và khung giờ làm việc đã được đặt lại."
-
 #. placeholders: {engine_off}, {grouped}
 #. one sentence of a longer line
 msgid "{engine_off}Motel, {grouped} dollars, 10 hours."
@@ -33543,40 +33548,38 @@ msgstr "Bạn đã ngủ đủ 10 tiếng nhưng thức dậy vẫn thấy mệt
 msgid "{engine_off}{slept} It is {clock_text}."
 msgstr "{engine_off}{slept} Bây giờ là {clock_text}."
 
-#. placeholders: {engine_off}, {slept}, {clock_text}, {deadline_text}, {wake_air_instruction}
+#. placeholders: {engine_off}, {slept}, {clock_text}, {clocks}, {deadline_text}, {wake_air_instruction}
 msgid ""
-"{engine_off}{slept} It is {clock_text}. Driving and duty clocks reset. "
+"{engine_off}{slept} It is {clock_text}. {clocks} "
 "{deadline_text}{wake_air_instruction}"
 msgstr ""
-"{engine_off}{slept} Bây giờ là {clock_text}. Đồng hồ giờ lái và khung giờ "
-"làm việc đã được đặt lại. {deadline_text}{wake_air_instruction}"
 
-#. placeholders: {engine_off}, {grouped}, {clock_text}, {grouped2}, {deadline_text}, {wake_air_instruction}
-msgid ""
-"{engine_off}Motel, {grouped} dollars, 10 hours. {clock_text}. Driving and "
-"duty clocks reset. {grouped2} dollars. {deadline_text}{wake_air_instruction}"
-msgstr ""
-"{engine_off}Nhà nghỉ, {grouped} đô la, 10 giờ. Bây giờ là {clock_text}. "
-"Đồng hồ giờ lái và khung giờ làm việc đã được đặt lại. Còn {grouped2} đô "
-"la. {deadline_text}{wake_air_instruction}"
-
+#. placeholders: {clocks}, {grouped2}
 #. one sentence of a longer line
-msgid "Rest was poor."
-msgstr "Giấc ngủ không được sâu."
+msgid "{clocks} {grouped2} dollars."
+msgstr ""
+
+#. placeholders: {engine_off}, {grouped}, {clock_text}, {clocks}, {grouped2}, {deadline_text}, {wake_air_instruction}
+msgid ""
+"{engine_off}Motel, {grouped} dollars, 10 hours. {clock_text}. {clocks} "
+"{grouped2} dollars. {deadline_text}{wake_air_instruction}"
+msgstr ""
+
+#. placeholders: {clocks}
+#. one sentence of a longer line
+msgid "{clocks} Rest was poor."
+msgstr ""
 
 #. placeholders: {engine_off}
 #. one sentence of a longer line
 msgid "{engine_off}Slept 10 hours in the lot."
 msgstr "{engine_off}Đã ngủ 10 giờ ngoài bãi xe."
 
-#. placeholders: {engine_off}, {clock_text}, {deadline_text}, {wake_air_instruction}
+#. placeholders: {engine_off}, {clock_text}, {clocks}, {deadline_text}, {wake_air_instruction}
 msgid ""
-"{engine_off}Slept 10 hours in the lot. {clock_text}. Driving and duty "
-"clocks reset. Rest was poor. {deadline_text}{wake_air_instruction}"
+"{engine_off}Slept 10 hours in the lot. {clock_text}. {clocks} Rest was "
+"poor. {deadline_text}{wake_air_instruction}"
 msgstr ""
-"{engine_off}Đã ngủ 10 giờ ngoài bãi xe. Bây giờ là {clock_text}. Đồng hồ "
-"giờ lái và khung giờ làm việc đã được đặt lại. Giấc ngủ không được sâu. "
-"{deadline_text}{wake_air_instruction}"
 
 msgid "The truck does not need repair."
 msgstr "Xe đầu kéo không cần sửa chữa."
@@ -33916,6 +33919,12 @@ msgstr "Làm lại phanh: mòn {f} phần trăm, ghi sổ cho hãng"
 
 msgid "Resting at a stop"
 msgstr "Đang nghỉ tại điểm dừng"
+
+msgid "Driving, duty and cycle clocks reset."
+msgstr ""
+
+msgid "Driving and duty clocks reset."
+msgstr "Đồng hồ giờ lái và khung giờ làm việc đã được đặt lại."
 
 #. placeholders: {grouped}, {rest}
 msgid "{grouped} dollars and {rest} cents"
@@ -40032,10 +40041,6 @@ msgstr "Bắt đầu sự nghiệp."
 msgid "Career start. {count} {noun} in {place}."
 msgstr ""
 
-#. placeholders: {t}
-msgid " Truck starts at {t}."
-msgstr ""
-
 msgid "Home region"
 msgstr "Vùng đặt trạm chính"
 
@@ -45985,6 +45990,53 @@ msgid ""
 msgstr ""
 "Giữ nút vai trái để mở lớp nút thứ hai. {pad_engine} bật tắt động cơ, "
 "{pad_fuel} đọc nhiên liệu và {pad_speed_limit} đọc tốc độ giới hạn."
+
+#~ msgid "Slept 10 hours. It is {clock_text}, {time_of_day}."
+#~ msgstr "Đã ngủ 10 giờ. Bây giờ là {clock_text}, {time_of_day}."
+
+#~ msgid "{carrier_name}. {menu_summary} Double tap again to move."
+#~ msgstr "{carrier_name}. {menu_summary} Chạm đúp lần nữa để chuyển."
+
+#~ msgid "{menu_summary} Double tap again to move."
+#~ msgstr "{menu_summary} Chạm đúp lần nữa để chuyển."
+
+#~ msgid "{carrier_name}. {menu_summary} Press Enter again to move."
+#~ msgstr "{carrier_name}. {menu_summary} Nhấn Enter lần nữa để chuyển hãng."
+
+#~ msgid "{menu_summary} Press Enter again to move."
+#~ msgstr "{menu_summary} Nhấn Enter lần nữa để chuyển hãng."
+
+#~ msgid "{highway} in {destination}"
+#~ msgstr "{highway} tại {destination}"
+
+#~ msgid "{highway} in {origin}"
+#~ msgstr "{highway} tại {origin}"
+
+#~ msgid ""
+#~ "{engine_off}{slept} It is {clock_text}. Driving and duty clocks reset. "
+#~ "{deadline_text}{wake_air_instruction}"
+#~ msgstr ""
+#~ "{engine_off}{slept} Bây giờ là {clock_text}. Đồng hồ giờ lái và khung giờ "
+#~ "làm việc đã được đặt lại. {deadline_text}{wake_air_instruction}"
+
+#~ msgid ""
+#~ "{engine_off}Motel, {grouped} dollars, 10 hours. {clock_text}. Driving and "
+#~ "duty clocks reset. {grouped2} dollars. {deadline_text}{wake_air_instruction}"
+#~ msgstr ""
+#~ "{engine_off}Nhà nghỉ, {grouped} đô la, 10 giờ. Bây giờ là {clock_text}. "
+#~ "Đồng hồ giờ lái và khung giờ làm việc đã được đặt lại. Còn {grouped2} đô "
+#~ "la. {deadline_text}{wake_air_instruction}"
+
+#~ msgid "Rest was poor."
+#~ msgstr "Giấc ngủ không được sâu."
+
+#~ msgid ""
+#~ "{engine_off}Slept 10 hours in the lot. {clock_text}. Driving and duty "
+#~ "clocks reset. Rest was poor. {deadline_text}{wake_air_instruction}"
+#~ msgstr ""
+#~ "{engine_off}Đã ngủ 10 giờ ngoài bãi xe. Bây giờ là {clock_text}. Đồng hồ "
+#~ "giờ lái và khung giờ làm việc đã được đặt lại. Giấc ngủ không được sâu. "
+#~ "{deadline_text}{wake_air_instruction}"
 
 #~ msgid ", which your carrier pays"
 #~ msgstr ", do hãng vận tải của bạn trả"

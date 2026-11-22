@@ -11736,14 +11736,12 @@ msgstr ""
 msgid " Those loads need {clause}."
 msgstr ""
 
-#. placeholders: {name}, {specialty}
-msgid "{name}: national company driver, {specialty}"
+#. placeholders: {name}
+msgid "{name}: national company driver"
 msgstr ""
 
 #. placeholders: {specialty}, {max}
-msgid ""
-"A national carrier that mostly hauls {specialty}, with loads of up to {max} "
-"miles."
+msgid "Mostly {specialty}, with loads of up to {max} miles."
 msgstr ""
 
 #. one sentence of a longer line
@@ -11766,12 +11764,12 @@ msgstr ""
 msgid "its home region"
 msgstr ""
 
-#. placeholders: {name}, {tier}, {area}
-msgid "{name}: {tier} company driver, {area}"
+#. placeholders: {name}, {tier}
+msgid "{name}: {tier} company driver"
 msgstr ""
 
-#. placeholders: {tier}, {area}, {max}
-msgid "A {tier} carrier in {area}, with loads of up to {max} miles."
+#. placeholders: {max}, {area}
+msgid "Loads of up to {max} miles in {area}."
 msgstr ""
 
 #. placeholders: {tier}, {area}
@@ -20928,21 +20926,29 @@ msgstr "Sei già riposato. Premi di nuovo Enter per dormire comunque."
 msgid "terminal sleep"
 msgstr "dormita alla sede"
 
-#. placeholders: {clock_text}, {time_of_day}
+msgid " Cycle clock reset."
+msgstr ""
+
+#. placeholders: {clock_text}, {time_of_day}, {cycle}
 #. one sentence of a longer line
-msgid "It is {clock_text}, {time_of_day}."
-msgstr "Sono le {clock_text}, {time_of_day}."
+msgid "It is {clock_text}, {time_of_day}.{cycle}"
+msgstr ""
 
 #. one sentence of a longer line
 msgid "Slept 10 hours."
 msgstr "Hai dormito 10 ore."
 
-#. placeholders: {clock_text}, {time_of_day}
-msgid "Slept 10 hours. It is {clock_text}, {time_of_day}."
-msgstr "Hai dormito 10 ore. Sono le {clock_text}, {time_of_day}."
+#. placeholders: {clock_text}, {time_of_day}, {cycle}
+msgid "Slept 10 hours. It is {clock_text}, {time_of_day}.{cycle}"
+msgstr ""
 
 msgid "Your CDL is clear. Nothing to wait out."
 msgstr "La tua CDL è a posto. Non c'è niente da aspettare."
+
+#. placeholders: {clock_text}, {time_of_day}
+#. one sentence of a longer line
+msgid "It is {clock_text}, {time_of_day}."
+msgstr "Sono le {clock_text}, {time_of_day}."
 
 #. placeholders: {py_capitalize}
 #. one sentence of a longer line
@@ -22215,24 +22221,27 @@ msgstr "Passa a {carrier_name}: premi di nuovo Enter per confermare"
 msgid "Move to {label}"
 msgstr "Passa a {label}"
 
-#. placeholders: {carrier_name}, {menu_summary}
-msgid "{carrier_name}. {menu_summary} Double tap again to move."
+#. placeholders: {t}
+msgid " Truck starts at {t}."
 msgstr ""
-"{carrier_name}. {menu_summary} Tocca di nuovo due volte per passare."
 
-#. placeholders: {menu_summary}
+#. placeholders: {carrier_name}, {menu_summary}, {starts}
+msgid "{carrier_name}. {menu_summary}{starts} Double tap again to move."
+msgstr ""
+
+#. placeholders: {menu_summary}, {starts}
 #. one sentence of a longer line
-msgid "{menu_summary} Double tap again to move."
-msgstr "{menu_summary} Tocca di nuovo due volte per passare."
+msgid "{menu_summary}{starts} Double tap again to move."
+msgstr ""
 
-#. placeholders: {carrier_name}, {menu_summary}
-msgid "{carrier_name}. {menu_summary} Press Enter again to move."
-msgstr "{carrier_name}. {menu_summary} Premi di nuovo Enter per passare."
+#. placeholders: {carrier_name}, {menu_summary}, {starts}
+msgid "{carrier_name}. {menu_summary}{starts} Press Enter again to move."
+msgstr ""
 
-#. placeholders: {menu_summary}
+#. placeholders: {menu_summary}, {starts}
 #. one sentence of a longer line
-msgid "{menu_summary} Press Enter again to move."
-msgstr "{menu_summary} Premi di nuovo Enter per passare."
+msgid "{menu_summary}{starts} Press Enter again to move."
+msgstr ""
 
 msgid "carrier shop repair"
 msgstr "riparazione nell'officina dell'azienda"
@@ -24303,13 +24312,9 @@ msgstr "Di nuovo in autostrada. Attento alla velocità."
 msgid "local route to {pickup_facility_text}"
 msgstr "percorso locale verso {pickup_facility_text}"
 
-#. placeholders: {highway}, {destination}
-msgid "{highway} in {destination}"
-msgstr "{highway} a {destination}"
-
-#. placeholders: {highway}, {origin}
-msgid "{highway} in {origin}"
-msgstr "{highway} a {origin}"
+#. placeholders: {highway}, {city}
+msgid "{highway} in {city}"
+msgstr ""
 
 #. placeholders: {highway}, {start}, {end}
 msgid "{highway} from {start} to {end}"
@@ -30920,6 +30925,9 @@ msgstr ""
 "Bonus fiducia della centrale: {grouped} dollari per la tua reputazione: "
 "{reputation_text}"
 
+msgid "receiver unloading"
+msgstr ""
+
 #. placeholders: {f}
 msgid " Receiver service after check-in took {f} hours."
 msgstr ""
@@ -33178,10 +33186,6 @@ msgstr ""
 msgid "A motel room costs {grouped} dollars and you have {grouped2}."
 msgstr "Una stanza di motel costa {grouped} dollari e tu ne hai {grouped2}."
 
-#. one sentence of a longer line
-msgid "Driving and duty clocks reset."
-msgstr "Orologi di guida e di servizio azzerati."
-
 #. placeholders: {engine_off}, {grouped}
 #. one sentence of a longer line
 msgid "{engine_off}Motel, {grouped} dollars, 10 hours."
@@ -33723,40 +33727,38 @@ msgstr "Hai dormito 10 ore e ti sei svegliato ancora stanco."
 msgid "{engine_off}{slept} It is {clock_text}."
 msgstr "{engine_off}{slept} Sono le {clock_text}."
 
-#. placeholders: {engine_off}, {slept}, {clock_text}, {deadline_text}, {wake_air_instruction}
+#. placeholders: {engine_off}, {slept}, {clock_text}, {clocks}, {deadline_text}, {wake_air_instruction}
 msgid ""
-"{engine_off}{slept} It is {clock_text}. Driving and duty clocks reset. "
+"{engine_off}{slept} It is {clock_text}. {clocks} "
 "{deadline_text}{wake_air_instruction}"
 msgstr ""
-"{engine_off}{slept} Sono le {clock_text}. Orologi di guida e di servizio "
-"azzerati. {deadline_text}{wake_air_instruction}"
 
-#. placeholders: {engine_off}, {grouped}, {clock_text}, {grouped2}, {deadline_text}, {wake_air_instruction}
-msgid ""
-"{engine_off}Motel, {grouped} dollars, 10 hours. {clock_text}. Driving and "
-"duty clocks reset. {grouped2} dollars. {deadline_text}{wake_air_instruction}"
-msgstr ""
-"{engine_off}Motel, {grouped} dollari, 10 ore. {clock_text}. Orologi di "
-"guida e di servizio azzerati. {grouped2} dollari. "
-"{deadline_text}{wake_air_instruction}"
-
+#. placeholders: {clocks}, {grouped2}
 #. one sentence of a longer line
-msgid "Rest was poor."
-msgstr "Hai riposato male."
+msgid "{clocks} {grouped2} dollars."
+msgstr ""
+
+#. placeholders: {engine_off}, {grouped}, {clock_text}, {clocks}, {grouped2}, {deadline_text}, {wake_air_instruction}
+msgid ""
+"{engine_off}Motel, {grouped} dollars, 10 hours. {clock_text}. {clocks} "
+"{grouped2} dollars. {deadline_text}{wake_air_instruction}"
+msgstr ""
+
+#. placeholders: {clocks}
+#. one sentence of a longer line
+msgid "{clocks} Rest was poor."
+msgstr ""
 
 #. placeholders: {engine_off}
 #. one sentence of a longer line
 msgid "{engine_off}Slept 10 hours in the lot."
 msgstr "{engine_off}Hai dormito 10 ore nel parcheggio."
 
-#. placeholders: {engine_off}, {clock_text}, {deadline_text}, {wake_air_instruction}
+#. placeholders: {engine_off}, {clock_text}, {clocks}, {deadline_text}, {wake_air_instruction}
 msgid ""
-"{engine_off}Slept 10 hours in the lot. {clock_text}. Driving and duty "
-"clocks reset. Rest was poor. {deadline_text}{wake_air_instruction}"
+"{engine_off}Slept 10 hours in the lot. {clock_text}. {clocks} Rest was "
+"poor. {deadline_text}{wake_air_instruction}"
 msgstr ""
-"{engine_off}Hai dormito 10 ore nel parcheggio. {clock_text}. Orologi di "
-"guida e di servizio azzerati. Hai riposato male. "
-"{deadline_text}{wake_air_instruction}"
 
 msgid "The truck does not need repair."
 msgstr "Il camion non ha bisogno di riparazioni."
@@ -34099,6 +34101,12 @@ msgstr "Intervento ai freni: usura al {f} percento, a carico della ditta"
 
 msgid "Resting at a stop"
 msgstr "A riposo a una sosta"
+
+msgid "Driving, duty and cycle clocks reset."
+msgstr ""
+
+msgid "Driving and duty clocks reset."
+msgstr "Orologi di guida e di servizio azzerati."
 
 #. placeholders: {grouped}, {rest}
 msgid "{grouped} dollars and {rest} cents"
@@ -40286,10 +40294,6 @@ msgstr "Inizio della carriera."
 msgid "Career start. {count} {noun} in {place}."
 msgstr ""
 
-#. placeholders: {t}
-msgid " Truck starts at {t}."
-msgstr ""
-
 msgid "Home region"
 msgstr "Regione di partenza"
 
@@ -46312,6 +46316,54 @@ msgstr ""
 "Tieni premuto il left bumper per un secondo livello di pulsanti. "
 "{pad_engine} controlla il motore, {pad_fuel} legge il carburante e "
 "{pad_speed_limit} legge il limite."
+
+#~ msgid "Slept 10 hours. It is {clock_text}, {time_of_day}."
+#~ msgstr "Hai dormito 10 ore. Sono le {clock_text}, {time_of_day}."
+
+#~ msgid "{carrier_name}. {menu_summary} Double tap again to move."
+#~ msgstr ""
+#~ "{carrier_name}. {menu_summary} Tocca di nuovo due volte per passare."
+
+#~ msgid "{menu_summary} Double tap again to move."
+#~ msgstr "{menu_summary} Tocca di nuovo due volte per passare."
+
+#~ msgid "{carrier_name}. {menu_summary} Press Enter again to move."
+#~ msgstr "{carrier_name}. {menu_summary} Premi di nuovo Enter per passare."
+
+#~ msgid "{menu_summary} Press Enter again to move."
+#~ msgstr "{menu_summary} Premi di nuovo Enter per passare."
+
+#~ msgid "{highway} in {destination}"
+#~ msgstr "{highway} a {destination}"
+
+#~ msgid "{highway} in {origin}"
+#~ msgstr "{highway} a {origin}"
+
+#~ msgid ""
+#~ "{engine_off}{slept} It is {clock_text}. Driving and duty clocks reset. "
+#~ "{deadline_text}{wake_air_instruction}"
+#~ msgstr ""
+#~ "{engine_off}{slept} Sono le {clock_text}. Orologi di guida e di servizio "
+#~ "azzerati. {deadline_text}{wake_air_instruction}"
+
+#~ msgid ""
+#~ "{engine_off}Motel, {grouped} dollars, 10 hours. {clock_text}. Driving and "
+#~ "duty clocks reset. {grouped2} dollars. {deadline_text}{wake_air_instruction}"
+#~ msgstr ""
+#~ "{engine_off}Motel, {grouped} dollari, 10 ore. {clock_text}. Orologi di "
+#~ "guida e di servizio azzerati. {grouped2} dollari. "
+#~ "{deadline_text}{wake_air_instruction}"
+
+#~ msgid "Rest was poor."
+#~ msgstr "Hai riposato male."
+
+#~ msgid ""
+#~ "{engine_off}Slept 10 hours in the lot. {clock_text}. Driving and duty "
+#~ "clocks reset. Rest was poor. {deadline_text}{wake_air_instruction}"
+#~ msgstr ""
+#~ "{engine_off}Hai dormito 10 ore nel parcheggio. {clock_text}. Orologi di "
+#~ "guida e di servizio azzerati. Hai riposato male. "
+#~ "{deadline_text}{wake_air_instruction}"
 
 #~ msgid ", which your carrier pays"
 #~ msgstr ", pagata dalla tua azienda di trasporti"

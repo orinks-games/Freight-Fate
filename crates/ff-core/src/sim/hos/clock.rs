@@ -527,6 +527,14 @@ impl HosClock {
             .map(|limit| limit - self.cycle_used_min_within(self.cycle_window_min()))
     }
 
+    /// Whether the rest just taken finished a cycle restart: hours were on
+    /// the ledger before it (`used_before_min`, from [`Self::cycle_used_min`])
+    /// and the restart's off-duty time has now cleared them. A ledger that
+    /// only aged off is not a restart.
+    pub fn cycle_restarted_since(&self, used_before_min: f64) -> bool {
+        used_before_min > 0.0 && self.cycle_used_min() <= 0.0 && self.restart_remaining_min() <= 0.0
+    }
+
     /// Minutes of off-duty time still needed for the selected restart.
     pub fn restart_remaining_min(&self) -> f64 {
         (self.restart_threshold_min() - self.restart_off_min).max(0.0)

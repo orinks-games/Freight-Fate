@@ -13142,16 +13142,14 @@ msgstr ""
 msgid " Those loads need {clause}."
 msgstr ""
 
-#. placeholders: {name}, {specialty}
+#. placeholders: {name}
 #: crates/ff-core/src/models/start_options.rs
-msgid "{name}: national company driver, {specialty}"
+msgid "{name}: national company driver"
 msgstr ""
 
 #. placeholders: {specialty}, {max}
 #: crates/ff-core/src/models/start_options.rs
-msgid ""
-"A national carrier that mostly hauls {specialty}, with loads of up to {max} "
-"miles."
+msgid "Mostly {specialty}, with loads of up to {max} miles."
 msgstr ""
 
 #. one sentence of a longer line
@@ -13178,14 +13176,14 @@ msgstr ""
 msgid "its home region"
 msgstr ""
 
-#. placeholders: {name}, {tier}, {area}
+#. placeholders: {name}, {tier}
 #: crates/ff-core/src/models/start_options.rs
-msgid "{name}: {tier} company driver, {area}"
+msgid "{name}: {tier} company driver"
 msgstr ""
 
-#. placeholders: {tier}, {area}, {max}
+#. placeholders: {max}, {area}
 #: crates/ff-core/src/models/start_options.rs
-msgid "A {tier} carrier in {area}, with loads of up to {max} miles."
+msgid "Loads of up to {max} miles in {area}."
 msgstr ""
 
 #. placeholders: {tier}, {area}
@@ -14724,7 +14722,7 @@ msgstr ""
 msgid "newfoundland and labrador"
 msgstr ""
 
-#: crates/ff-core/src/sim/hos.rs crates/ff-core/src/sim/timezones.rs
+#: crates/ff-core/src/sim/hos.rs crates/ff-core/src/sim/timezones.rs crates/freight-fate/src/states/main_menu_career.rs
 msgid "alaska"
 msgstr ""
 
@@ -14903,7 +14901,7 @@ msgstr ""
 msgid "Your hours limit has been reached."
 msgstr ""
 
-#: crates/ff-core/src/sim/hos/clock.rs crates/ff-core/src/sim/hos.rs crates/ff-core/src/sim/team_shift.rs
+#: crates/ff-core/src/sim/hos/clock.rs crates/ff-core/src/sim/hos.rs crates/ff-core/src/sim/team_shift.rs crates/freight-fate/src/states/driving_core/state_helpers.rs
 msgid "driving"
 msgstr ""
 
@@ -16637,7 +16635,7 @@ msgstr ""
 msgid "Hawaii Time"
 msgstr ""
 
-#: crates/ff-core/src/sim/timezones.rs
+#: crates/ff-core/src/sim/timezones.rs crates/freight-fate/src/states/main_menu_career.rs
 msgid "Alaska"
 msgstr ""
 
@@ -23819,10 +23817,14 @@ msgstr ""
 msgid "terminal sleep"
 msgstr ""
 
-#. placeholders: {clock_text}, {time_of_day}
+#: crates/freight-fate/src/states/city/terminal.rs
+msgid " Cycle clock reset."
+msgstr ""
+
+#. placeholders: {clock_text}, {time_of_day}, {cycle}
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/city/terminal.rs
-msgid "It is {clock_text}, {time_of_day}."
+msgid "It is {clock_text}, {time_of_day}.{cycle}"
 msgstr ""
 
 #. one sentence of a longer line
@@ -23830,13 +23832,19 @@ msgstr ""
 msgid "Slept 10 hours."
 msgstr ""
 
-#. placeholders: {clock_text}, {time_of_day}
+#. placeholders: {clock_text}, {time_of_day}, {cycle}
 #: crates/freight-fate/src/states/city/terminal.rs
-msgid "Slept 10 hours. It is {clock_text}, {time_of_day}."
+msgid "Slept 10 hours. It is {clock_text}, {time_of_day}.{cycle}"
 msgstr ""
 
 #: crates/freight-fate/src/states/city/terminal.rs
 msgid "Your CDL is clear. Nothing to wait out."
+msgstr ""
+
+#. placeholders: {clock_text}, {time_of_day}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/city/terminal.rs
+msgid "It is {clock_text}, {time_of_day}."
 msgstr ""
 
 #. placeholders: {py_capitalize}
@@ -25232,26 +25240,31 @@ msgstr ""
 msgid "Move to {label}"
 msgstr ""
 
-#. placeholders: {carrier_name}, {menu_summary}
-#: crates/freight-fate/src/states/city_business/carrier_move.rs
-msgid "{carrier_name}. {menu_summary} Double tap again to move."
+#. placeholders: {t}
+#: crates/freight-fate/src/states/city_business/carrier_move.rs crates/freight-fate/src/states/main_menu_career.rs
+msgid " Truck starts at {t}."
 msgstr ""
 
-#. placeholders: {menu_summary}
+#. placeholders: {carrier_name}, {menu_summary}, {starts}
+#: crates/freight-fate/src/states/city_business/carrier_move.rs
+msgid "{carrier_name}. {menu_summary}{starts} Double tap again to move."
+msgstr ""
+
+#. placeholders: {menu_summary}, {starts}
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/city_business/carrier_move.rs
-msgid "{menu_summary} Double tap again to move."
+msgid "{menu_summary}{starts} Double tap again to move."
 msgstr ""
 
-#. placeholders: {carrier_name}, {menu_summary}
+#. placeholders: {carrier_name}, {menu_summary}, {starts}
 #: crates/freight-fate/src/states/city_business/carrier_move.rs
-msgid "{carrier_name}. {menu_summary} Press Enter again to move."
+msgid "{carrier_name}. {menu_summary}{starts} Press Enter again to move."
 msgstr ""
 
-#. placeholders: {menu_summary}
+#. placeholders: {menu_summary}, {starts}
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/city_business/carrier_move.rs
-msgid "{menu_summary} Press Enter again to move."
+msgid "{menu_summary}{starts} Press Enter again to move."
 msgstr ""
 
 #: crates/freight-fate/src/states/city_garage.rs
@@ -27537,14 +27550,9 @@ msgstr ""
 msgid "local route to {pickup_facility_text}"
 msgstr ""
 
-#. placeholders: {highway}, {destination}
+#. placeholders: {highway}, {city}
 #: crates/freight-fate/src/states/driving/lifecycle.rs
-msgid "{highway} in {destination}"
-msgstr ""
-
-#. placeholders: {highway}, {origin}
-#: crates/freight-fate/src/states/driving/lifecycle.rs
-msgid "{highway} in {origin}"
+msgid "{highway} in {city}"
 msgstr ""
 
 #. placeholders: {highway}, {start}, {end}
@@ -34983,6 +34991,10 @@ msgid ""
 "{reputation_text}"
 msgstr ""
 
+#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
+msgid "receiver unloading"
+msgstr ""
+
 #. placeholders: {f}
 #: crates/freight-fate/src/states/driving_menu_states/arrival.rs
 msgid " Receiver service after check-in took {f} hours."
@@ -37536,11 +37548,6 @@ msgstr ""
 msgid "A motel room costs {grouped} dollars and you have {grouped2}."
 msgstr ""
 
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/driving_rest_states/parking_full.rs
-msgid "Driving and duty clocks reset."
-msgstr ""
-
 #. placeholders: {engine_off}, {grouped}
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/driving_rest_states/parking_full.rs
@@ -38112,23 +38119,30 @@ msgstr ""
 msgid "{engine_off}{slept} It is {clock_text}."
 msgstr ""
 
-#. placeholders: {engine_off}, {slept}, {clock_text}, {deadline_text}, {wake_air_instruction}
+#. placeholders: {engine_off}, {slept}, {clock_text}, {clocks}, {deadline_text}, {wake_air_instruction}
 #: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
 msgid ""
-"{engine_off}{slept} It is {clock_text}. Driving and duty clocks reset. "
+"{engine_off}{slept} It is {clock_text}. {clocks} "
 "{deadline_text}{wake_air_instruction}"
 msgstr ""
 
-#. placeholders: {engine_off}, {grouped}, {clock_text}, {grouped2}, {deadline_text}, {wake_air_instruction}
-#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
-msgid ""
-"{engine_off}Motel, {grouped} dollars, 10 hours. {clock_text}. Driving and "
-"duty clocks reset. {grouped2} dollars. {deadline_text}{wake_air_instruction}"
-msgstr ""
-
+#. placeholders: {clocks}, {grouped2}
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
-msgid "Rest was poor."
+msgid "{clocks} {grouped2} dollars."
+msgstr ""
+
+#. placeholders: {engine_off}, {grouped}, {clock_text}, {clocks}, {grouped2}, {deadline_text}, {wake_air_instruction}
+#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
+msgid ""
+"{engine_off}Motel, {grouped} dollars, 10 hours. {clock_text}. {clocks} "
+"{grouped2} dollars. {deadline_text}{wake_air_instruction}"
+msgstr ""
+
+#. placeholders: {clocks}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
+msgid "{clocks} Rest was poor."
 msgstr ""
 
 #. placeholders: {engine_off}
@@ -38137,11 +38151,11 @@ msgstr ""
 msgid "{engine_off}Slept 10 hours in the lot."
 msgstr ""
 
-#. placeholders: {engine_off}, {clock_text}, {deadline_text}, {wake_air_instruction}
+#. placeholders: {engine_off}, {clock_text}, {clocks}, {deadline_text}, {wake_air_instruction}
 #: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
 msgid ""
-"{engine_off}Slept 10 hours in the lot. {clock_text}. Driving and duty "
-"clocks reset. Rest was poor. {deadline_text}{wake_air_instruction}"
+"{engine_off}Slept 10 hours in the lot. {clock_text}. {clocks} Rest was "
+"poor. {deadline_text}{wake_air_instruction}"
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
@@ -38521,6 +38535,14 @@ msgstr ""
 
 #: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
 msgid "Resting at a stop"
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
+msgid "Driving, duty and cycle clocks reset."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
+msgid "Driving and duty clocks reset."
 msgstr ""
 
 #. placeholders: {grouped}, {rest}
@@ -45073,11 +45095,6 @@ msgstr ""
 #. placeholders: {count}, {noun}, {place}
 #: crates/freight-fate/src/states/main_menu_career.rs
 msgid "Career start. {count} {noun} in {place}."
-msgstr ""
-
-#. placeholders: {t}
-#: crates/freight-fate/src/states/main_menu_career.rs
-msgid " Truck starts at {t}."
 msgstr ""
 
 #: crates/freight-fate/src/states/main_menu_career.rs
