@@ -16,6 +16,7 @@
 ### Changed
 
 - **Exit, stop, fuel and road report calls no longer end in "ahead".** "Signal set for exit 323, 5 miles."
+- **F1 in a text field now repeats how the field works.**
 
 ## 1.9.7 - 2026-11-21
 

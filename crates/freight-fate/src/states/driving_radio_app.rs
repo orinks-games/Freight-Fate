@@ -287,10 +287,13 @@ impl Menu for RadioAppState {
                 "Freight Fate stations, your playlists and favorites, and stations nearby. Enter \
                  on one tunes it.",
             )
-            .touch_help(
+            .touch_help(if crate::device::personal_playlists() {
                 "Freight Fate stations, your playlists and favorites, and stations nearby. \
-                 Double tap one to tune it.",
-            ),
+                 Double tap one to tune it."
+            } else {
+                "Freight Fate stations, your favorites, and stations nearby. Double tap one to \
+                 tune it."
+            }),
             MenuItem::new(
                 format!("Stations in range: {in_range}"),
                 |s: &mut Self, ctx| s.open_list(ctx, "range"),
