@@ -61,12 +61,15 @@ pub const REGION_CLIMATE: [(&str, (f64, f64, f64)); 16] = [
 /// `REGION_CLIMATE["heartland"]`.
 pub const DEFAULT_CLIMATE: (f64, f64, f64) = (11.0, 14.0, 7.0);
 
-/// `REGION_CLIMATE.get(region, DEFAULT_CLIMATE)`.
+/// `REGION_CLIMATE.get(region, DEFAULT_CLIMATE)`, with the Alaska and
+/// Canada rows of [`crate::data::climate`] (derived from station normals)
+/// after the lower-48 ones.
 pub fn region_climate(region: &str) -> (f64, f64, f64) {
     REGION_CLIMATE
         .iter()
         .find(|(name, _)| *name == region)
         .map(|(_, climate)| *climate)
+        .or_else(|| crate::data::climate::northern_climate(region))
         .unwrap_or(DEFAULT_CLIMATE)
 }
 
