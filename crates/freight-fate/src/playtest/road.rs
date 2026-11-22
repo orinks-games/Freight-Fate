@@ -47,6 +47,7 @@ pub mod border;
 pub mod destination;
 pub mod pavement;
 pub mod river;
+pub mod state_line;
 
 /// `--routes random` is a bounded, seeded sample from the world. Departure
 /// discovery uses this by default; `--routes all` remains available for an
@@ -62,7 +63,7 @@ pub const RANDOM_SAMPLE: usize = 6;
 /// launched later. It does not choose a facility or corridor.
 const DEPARTURE_TRIP_SEED: i64 = 0;
 
-pub const FEATURES: [&str; 16] = [
+pub const FEATURES: [&str; 17] = [
     "downgrade",
     "upgrade",
     "zone",
@@ -79,6 +80,7 @@ pub const FEATURES: [&str; 16] = [
     "bridge",
     "jointed",
     "border",
+    "state-line",
 ];
 const SCAN_STEP_MI: f64 = 0.1;
 /// How far before the feature the SEARCH looks back to report a posted
@@ -608,6 +610,11 @@ pub fn find_feature(
             "bridge" => hits.extend(self::pavement::bridge_hits(&mut trip, origin, destination)),
             "jointed" => hits.extend(self::pavement::jointed_hits(&mut trip, origin, destination)),
             "border" => hits.extend(self::border::border_hits(&mut trip, origin, destination)),
+            "state-line" => hits.extend(self::state_line::state_line_hits(
+                &mut trip,
+                origin,
+                destination,
+            )),
             _ => {}
         }
     }

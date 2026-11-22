@@ -630,6 +630,22 @@ impl DrivingState {
                 }
             }
         }
+        // Never dropped: the line carries the rule changes that follow it,
+        // so it waits for the road to go quiet however long a hazard holds
+        // it (an ice hazard aged it out of the ambient queue, 2026-11-22),
+        // and the lines after it wait behind it.
+        self.log_ambient_event(ctx, &message, category);
+        let text = message.render(self.terse_speech(ctx)).to_string();
+        if text.is_empty() {
+            if let Some(sound) = sound {
+                ctx.play_event_cue(category, sound, 1.0, 0.0);
+            }
+        } else {
+            self.queue_crossing_call(text, category, sound);
+            // On a quiet road it goes now, ahead of the badge below: where
+            // the truck is comes first.
+            self.update_after_crossing(ctx, 0.0);
+        }
         // Automatic units changing at this line say so once the call is done.
         if let Some(cue) = event.data.cue.as_ref() {
             let into_state = cue.key.rsplit(':').next().unwrap_or("").to_string();
@@ -641,14 +657,6 @@ impl DrivingState {
                 );
             }
         }
-        self.speak_ambient_event(
-            ctx,
-            message,
-            Ambient::new()
-                .sound(sound)
-                .category(category)
-                .priority(EventPriority::Important),
-        );
         ctx.award_driving_achievement("state_crossing");
     }
 
