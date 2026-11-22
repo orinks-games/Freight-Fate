@@ -1,4 +1,4 @@
-{"meta": {"counts": {"candidates": 407, "fold_ratio": 0.194, "folds": 79, "mixed": 2, "named": 239, "on_highway": 166, "place_guarded": 160, "skipped_candidates": 0}, "data_version": "sha256:30c1b70dd933", "inputs": {"extract_date": "2026-10-19", "extracts": ["us-conus.osm.pbf"]}, "kind": "derived", "layer": "limit_artifacts", "params": {"max_run_mi": 2.5, "near_m": 40.0, "on_highway_min": 0.3, "place_guard_mi": 0.25, "step_mi": 0.02, "verdict_min": 0.5}, "reasons": {"no_road": "no mainline way within 40 m of the route there (an interchange ramp)", "off_route": "the route there runs on a different road than the leg's highway", "other_limit": "the leg's highway posts a different limit there"}, "schema": 1, "source": "Derived: OpenStreetMap highway ways carrying maxspeed (maxspeed:hgv preferred), OpenStreetMap planet file cut to the lower 48 of 2026-10-19, matched to the checked-in route geometry archive; a posting is named when the nearest way along it is not the leg's highway posting that limit. Thresholds calibrated on a hand-checked sample of 100 postings, 2026-10-17. Development-time screen, see `cargo tools osm-speed-limits`."}}
+{"meta": {"counts": {"candidates": 453, "fold_ratio": 0.188, "folds": 85, "mixed": 2, "named": 282, "on_highway": 169, "place_guarded": 197, "skipped_candidates": 0}, "data_version": "sha256:5aa4ea77ca2a", "inputs": {"extract_date": "2026-10-19", "extracts": ["us-conus.osm.pbf"]}, "kind": "derived", "layer": "limit_artifacts", "params": {"max_run_mi": 2.5, "near_m": 40.0, "on_highway_min": 0.3, "place_guard_mi": 0.25, "step_mi": 0.02, "verdict_min": 0.5}, "reasons": {"no_road": "no mainline way within 40 m of the route there (an interchange ramp)", "off_route": "the route there runs on a different road than the leg's highway", "other_limit": "the leg's highway posts a different limit there"}, "schema": 1, "source": "Derived: OpenStreetMap highway ways carrying maxspeed (maxspeed:hgv preferred), OpenStreetMap planet file cut to the lower 48 of 2026-10-19, matched to the checked-in route geometry archive; a posting is named when the nearest way along it is not the leg's highway posting that limit. Thresholds calibrated on a hand-checked sample of 100 postings, 2026-10-17. Development-time screen, see `cargo tools osm-speed-limits`."}}
 {"at_mi": 0.3, "fractions": {"off_route": 1.0}, "from_mph": 30.0, "highway": "Hwy 1 / Trans-Canada Highway", "leg": "abbotsford_bc_ca:surrey_bc_ca", "mph": 20.0, "run_mi": 0.9, "why": "off_route"}
 {"at_mi": 0.3, "fractions": {"off_route": 1.0}, "from_mph": 30.0, "highway": "Hwy 1 / Trans-Canada Highway", "leg": "abbotsford_bc_ca:vancouver_bc_ca", "mph": 20.0, "run_mi": 0.9, "why": "off_route"}
 {"at_mi": 50.5, "fractions": {"other_limit": 1.0}, "from_mph": 70.0, "highway": "Hwy 1 / Trans-Canada Highway", "leg": "brandon_mb_ca:regina_sk_ca", "mph": 50.0, "run_mi": 2.2, "why": "other_limit"}
@@ -10,9 +10,16 @@
 {"at_mi": 87.1, "fractions": {"other_limit": 1.0}, "from_mph": 45.0, "highway": "Hwy 9", "leg": "calgary_ab_ca:hanna_ab_ca", "mph": 30.0, "run_mi": 1.7, "why": "other_limit"}
 {"at_mi": 55.9, "fractions": {"off_route": 0.025, "other_limit": 0.975}, "from_mph": 70.0, "highway": "Hwy 2", "leg": "calgary_ab_ca:lethbridge_ab_ca", "mph": 45.0, "run_mi": 1.7, "why": "other_limit"}
 {"at_mi": 88.2, "fractions": {"no_road": 0.216, "other_limit": 0.784}, "from_mph": 60.0, "highway": "Hwy 3", "leg": "castlegar_bc_ca:osoyoos_bc_ca", "mph": 30.0, "run_mi": 2.3, "why": "other_limit"}
+{"at_mi": 54.2, "fractions": {"other_limit": 1.0}, "from_mph": 55.0, "highway": "Hwy 11", "leg": "cochrane_on_ca:kapuskasing_on_ca", "mph": 30.0, "run_mi": 0.6, "why": "other_limit"}
+{"at_mi": 83.3, "fractions": {"other_limit": 1.0}, "from_mph": 55.0, "highway": "Hwy 11", "leg": "cochrane_on_ca:temiskaming_shores_on_ca", "mph": 45.0, "run_mi": 1.6, "why": "other_limit"}
 {"at_mi": 67.3, "fractions": {"other_limit": 1.0}, "from_mph": 60.0, "highway": "Hwy 3", "leg": "cranbrook_bc_ca:lethbridge_ab_ca", "mph": 50.0, "run_mi": 1.8, "why": "other_limit"}
 {"at_mi": 20.0, "fractions": {"no_road": 0.139, "off_route": 0.257, "other_limit": 0.604}, "from_mph": 60.0, "highway": "A-55", "leg": "drummondville_qc_ca:trois_rivieres_qc_ca", "mph": 55.0, "run_mi": 2.1, "why": "other_limit"}
+{"at_mi": 14.7, "fractions": {"other_limit": 1.0}, "from_mph": 55.0, "highway": "Hwy 17", "leg": "dryden_on_ca:ignace_on_ca", "mph": 35.0, "run_mi": 0.9, "why": "other_limit"}
+{"at_mi": 27.0, "fractions": {"no_road": 0.208, "other_limit": 0.792}, "from_mph": 55.0, "highway": "Hwy 17", "leg": "dryden_on_ca:kenora_on_ca", "mph": 35.0, "run_mi": 2.1, "why": "other_limit"}
 {"at_mi": 59.0, "fractions": {"off_route": 0.017, "other_limit": 0.983}, "from_mph": 70.0, "highway": "Hwy 16 / Yellowhead Highway", "leg": "edson_ab_ca:edmonton_ab_ca", "mph": 60.0, "run_mi": 2.4, "why": "other_limit"}
+{"at_mi": 61.9, "fractions": {"no_road": 0.122, "off_route": 0.098, "other_limit": 0.78}, "from_mph": 50.0, "highway": "Hwy 71", "leg": "fort_frances_on_ca:kenora_on_ca", "mph": 35.0, "run_mi": 0.9, "why": "other_limit"}
+{"at_mi": 84.8, "fractions": {"off_route": 0.066, "other_limit": 0.934}, "from_mph": 50.0, "highway": "Hwy 71", "leg": "fort_frances_on_ca:kenora_on_ca", "mph": 35.0, "run_mi": 1.6, "why": "other_limit"}
+{"at_mi": 199.8, "fractions": {"other_limit": 1.0}, "from_mph": 55.0, "highway": "Hwy 11", "leg": "fort_frances_on_ca:thunder_bay_on_ca", "mph": 30.0, "run_mi": 2.1, "why": "other_limit"}
 {"at_mi": 181.9, "fractions": {"off_route": 1.0}, "from_mph": 60.0, "highway": "Alaska Highway", "leg": "fort_nelson_bc_ca:fort_st_john_bc_ca", "mph": 45.0, "run_mi": 0.9, "why": "off_route"}
 {"at_mi": 5.1, "fractions": {"off_route": 1.0}, "from_mph": 55.0, "highway": "Alaska Highway", "leg": "fort_st_john_bc_ca:dawson_creek_bc_ca", "mph": 45.0, "run_mi": 1.7, "why": "off_route"}
 {"at_mi": 10.4, "fractions": {"off_route": 1.0}, "from_mph": 55.0, "highway": "Alaska Highway", "leg": "fort_st_john_bc_ca:dawson_creek_bc_ca", "mph": 45.0, "run_mi": 1.5, "why": "off_route"}
@@ -20,14 +27,22 @@
 {"at_mi": 124.6, "fractions": {"no_road": 0.048, "off_route": 0.952}, "from_mph": 45.0, "highway": "A-50", "leg": "gatineau_qc_ca:montreal_qc_ca", "mph": 25.0, "run_mi": 0.5, "why": "off_route"}
 {"at_mi": 72.6, "fractions": {"off_route": 0.009, "other_limit": 0.991}, "from_mph": 70.0, "highway": "Hwy 43", "leg": "grande_prairie_ab_ca:whitecourt_ab_ca", "mph": 45.0, "run_mi": 2.3, "why": "other_limit"}
 {"at_mi": 86.4, "fractions": {"no_road": 0.099, "other_limit": 0.901}, "from_mph": 60.0, "highway": "Hwy 9", "leg": "hanna_ab_ca:calgary_ab_ca", "mph": 45.0, "run_mi": 1.5, "why": "other_limit"}
+{"at_mi": 37.6, "fractions": {"other_limit": 1.0}, "from_mph": 55.0, "highway": "Hwy 11", "leg": "hearst_on_ca:kapuskasing_on_ca", "mph": 35.0, "run_mi": 1.4, "why": "other_limit"}
+{"at_mi": 54.2, "fractions": {"other_limit": 1.0}, "from_mph": 55.0, "highway": "Hwy 11", "leg": "hearst_on_ca:kapuskasing_on_ca", "mph": 35.0, "run_mi": 0.5, "why": "other_limit"}
 {"at_mi": 42.7, "fractions": {"other_limit": 1.0}, "from_mph": 55.0, "highway": "Hwy 1 / Trans-Canada Highway", "leg": "hope_bc_ca:cache_creek_bc_ca", "mph": 35.0, "run_mi": 0.9, "why": "other_limit"}
 {"at_mi": 69.2, "fractions": {"no_road": 0.047, "other_limit": 0.953}, "from_mph": 60.0, "highway": "Hwy 1 / Trans-Canada Highway", "leg": "hope_bc_ca:cache_creek_bc_ca", "mph": 45.0, "run_mi": 1.8, "why": "other_limit"}
 {"at_mi": 92.9, "fractions": {"no_road": 0.22, "other_limit": 0.78}, "from_mph": 60.0, "highway": "Hwy 1 / Trans-Canada Highway", "leg": "hope_bc_ca:cache_creek_bc_ca", "mph": 45.0, "run_mi": 0.9, "why": "other_limit"}
 {"at_mi": 25.2, "fractions": {"other_limit": 1.0}, "from_mph": 60.0, "highway": "Hwy 3", "leg": "hope_bc_ca:princeton_bc_ca", "mph": 50.0, "run_mi": 2.2, "why": "other_limit"}
+{"at_mi": 52.1, "fractions": {"other_limit": 1.0}, "from_mph": 55.0, "highway": "Hwy 17", "leg": "ignace_on_ca:dryden_on_ca", "mph": 30.0, "run_mi": 1.0, "why": "other_limit"}
+{"at_mi": 135.8, "fractions": {"other_limit": 1.0}, "from_mph": 55.0, "highway": "Hwy 17", "leg": "ignace_on_ca:thunder_bay_on_ca", "mph": 30.0, "run_mi": 2.0, "why": "other_limit"}
 {"at_mi": 22.3, "fractions": {"other_limit": 1.0}, "from_mph": 55.0, "highway": "Hwy 16 / Yellowhead Highway", "leg": "jasper_ab_ca:hinton_ab_ca", "mph": 45.0, "run_mi": 2.2, "why": "other_limit"}
 {"at_mi": 54.1, "fractions": {"other_limit": 1.0}, "from_mph": 55.0, "highway": "Hwy 1 / Trans-Canada Highway", "leg": "kamloops_bc_ca:salmon_arm_bc_ca", "mph": 35.0, "run_mi": 1.7, "why": "other_limit"}
 {"at_mi": 78.1, "fractions": {"no_road": 0.281, "other_limit": 0.719}, "from_mph": 60.0, "highway": "Hwy 5", "leg": "kamloops_bc_ca:valemount_bc_ca", "mph": 35.0, "run_mi": 2.0, "why": "other_limit"}
 {"at_mi": 144.5, "fractions": {"other_limit": 1.0}, "from_mph": 60.0, "highway": "Hwy 5", "leg": "kamloops_bc_ca:valemount_bc_ca", "mph": 45.0, "run_mi": 2.2, "why": "other_limit"}
+{"at_mi": 14.1, "fractions": {"other_limit": 1.0}, "from_mph": 55.0, "highway": "Hwy 11", "leg": "kapuskasing_on_ca:cochrane_on_ca", "mph": 30.0, "run_mi": 1.2, "why": "other_limit"}
+{"at_mi": 40.4, "fractions": {"other_limit": 1.0}, "from_mph": 55.0, "highway": "Hwy 11", "leg": "kapuskasing_on_ca:hearst_on_ca", "mph": 35.0, "run_mi": 1.2, "why": "other_limit"}
+{"at_mi": 59.4, "fractions": {"other_limit": 1.0}, "from_mph": 55.0, "highway": "Hwy 17", "leg": "kenora_on_ca:dryden_on_ca", "mph": 35.0, "run_mi": 2.1, "why": "other_limit"}
+{"at_mi": 48.0, "fractions": {"off_route": 0.066, "other_limit": 0.934}, "from_mph": 50.0, "highway": "Hwy 71", "leg": "kenora_on_ca:fort_frances_on_ca", "mph": 35.0, "run_mi": 1.6, "why": "other_limit"}
 {"at_mi": 51.5, "fractions": {"other_limit": 1.0}, "from_mph": 60.0, "highway": "Hwy 7", "leg": "kindersley_sk_ca:saskatoon_sk_ca", "mph": 30.0, "run_mi": 1.8, "why": "other_limit"}
 {"at_mi": 30.3, "fractions": {"off_route": 1.0}, "from_mph": 65.0, "highway": "Hwy 401 / I-81", "leg": "kingston_on_ca:watertown_ny_us", "mph": 30.0, "run_mi": 2.0, "why": "off_route"}
 {"at_mi": 82.9, "fractions": {"other_limit": 1.0}, "from_mph": 70.0, "highway": "Hwy 2", "leg": "lethbridge_ab_ca:calgary_ab_ca", "mph": 30.0, "run_mi": 0.6, "why": "other_limit"}
@@ -36,6 +51,9 @@
 {"at_mi": 149.7, "fractions": {"other_limit": 1.0}, "from_mph": 60.0, "highway": "Hwy 3", "leg": "lethbridge_ab_ca:cranbrook_bc_ca", "mph": 35.0, "run_mi": 1.3, "why": "other_limit"}
 {"at_mi": 160.7, "fractions": {"no_road": 0.078, "off_route": 0.017, "other_limit": 0.905}, "from_mph": 60.0, "highway": "Hwy 3", "leg": "lethbridge_ab_ca:cranbrook_bc_ca", "mph": 45.0, "run_mi": 2.4, "why": "other_limit"}
 {"at_mi": 65.9, "fractions": {"other_limit": 1.0}, "from_mph": 60.0, "highway": "Hwy 3", "leg": "lethbridge_ab_ca:medicine_hat_ab_ca", "mph": 30.0, "run_mi": 1.5, "why": "other_limit"}
+{"at_mi": 70.2, "fractions": {"other_limit": 1.0}, "from_mph": 55.0, "highway": "Hwy 11", "leg": "longlac_on_ca:nipigon_on_ca", "mph": 35.0, "run_mi": 1.1, "why": "other_limit"}
+{"at_mi": 54.8, "fractions": {"other_limit": 1.0}, "from_mph": 45.0, "highway": "Hwy 17", "leg": "marathon_on_ca:nipigon_on_ca", "mph": 35.0, "run_mi": 0.8, "why": "other_limit"}
+{"at_mi": 71.6, "fractions": {"no_road": 0.488, "other_limit": 0.512}, "from_mph": 55.0, "highway": "Hwy 17", "leg": "marathon_on_ca:nipigon_on_ca", "mph": 45.0, "run_mi": 1.8, "why": "other_limit"}
 {"at_mi": 19.9, "fractions": {"off_route": 1.0}, "from_mph": 55.0, "highway": "A-15 / Route 117", "leg": "mont_laurier_qc_ca:montreal_qc_ca", "mph": 30.0, "run_mi": 1.3, "why": "off_route"}
 {"at_mi": 66.2, "fractions": {"off_route": 1.0}, "from_mph": 55.0, "highway": "A-15 / Route 117", "leg": "mont_laurier_qc_ca:montreal_qc_ca", "mph": 45.0, "run_mi": 1.1, "why": "off_route"}
 {"at_mi": 151.6, "fractions": {"no_road": 0.095, "off_route": 0.905}, "from_mph": 45.0, "highway": "A-15 / Route 117", "leg": "mont_laurier_qc_ca:montreal_qc_ca", "mph": 25.0, "run_mi": 0.5, "why": "off_route"}
@@ -44,8 +62,11 @@
 {"at_mi": 126.7, "fractions": {"off_route": 1.0}, "from_mph": 55.0, "highway": "A-15 / Route 117", "leg": "montreal_qc_ca:mont_laurier_qc_ca", "mph": 30.0, "run_mi": 1.2, "why": "off_route"}
 {"at_mi": 139.5, "fractions": {"off_route": 1.0}, "from_mph": 55.0, "highway": "A-15 / Route 117", "leg": "montreal_qc_ca:mont_laurier_qc_ca", "mph": 30.0, "run_mi": 2.3, "why": "off_route"}
 {"at_mi": 16.1, "fractions": {"off_route": 1.0}, "from_mph": 60.0, "highway": "A-10 / A-35", "leg": "montreal_qc_ca:saint_jean_sur_richelieu_qc_ca", "mph": 45.0, "run_mi": 2.3, "why": "off_route"}
+{"at_mi": 71.1, "fractions": {"other_limit": 1.0}, "from_mph": 55.0, "highway": "Hwy 11", "leg": "nipigon_on_ca:longlac_on_ca", "mph": 45.0, "run_mi": 2.2, "why": "other_limit"}
 {"at_mi": 21.4, "fractions": {"other_limit": 1.0}, "from_mph": 55.0, "highway": "Hwy 17", "leg": "north_bay_on_ca:pembroke_on_ca", "mph": 45.0, "run_mi": 1.0, "why": "other_limit"}
 {"at_mi": 47.8, "fractions": {"other_limit": 1.0}, "from_mph": 55.0, "highway": "Hwy 17", "leg": "north_bay_on_ca:sudbury_on_ca", "mph": 45.0, "run_mi": 1.1, "why": "other_limit"}
+{"at_mi": 60.4, "fractions": {"other_limit": 1.0}, "from_mph": 55.0, "highway": "Hwy 11", "leg": "north_bay_on_ca:temiskaming_shores_on_ca", "mph": 30.0, "run_mi": 1.1, "why": "other_limit"}
+{"at_mi": 81.2, "fractions": {"other_limit": 1.0}, "from_mph": 55.0, "highway": "Hwy 11", "leg": "north_bay_on_ca:temiskaming_shores_on_ca", "mph": 35.0, "run_mi": 1.6, "why": "other_limit"}
 {"at_mi": 90.8, "fractions": {"other_limit": 1.0}, "from_mph": 60.0, "highway": "Hwy 3", "leg": "osoyoos_bc_ca:castlegar_bc_ca", "mph": 45.0, "run_mi": 1.9, "why": "other_limit"}
 {"at_mi": 28.7, "fractions": {"other_limit": 1.0}, "from_mph": 60.0, "highway": "Hwy 3", "leg": "osoyoos_bc_ca:princeton_bc_ca", "mph": 30.0, "run_mi": 2.4, "why": "other_limit"}
 {"at_mi": 46.9, "fractions": {"other_limit": 1.0}, "from_mph": 60.0, "highway": "Hwy 3", "leg": "osoyoos_bc_ca:princeton_bc_ca", "mph": 30.0, "run_mi": 1.1, "why": "other_limit"}
@@ -76,6 +97,7 @@
 {"at_mi": 44.8, "fractions": {"off_route": 0.012, "other_limit": 0.988}, "from_mph": 60.0, "highway": "Hwy 10", "leg": "regina_sk_ca:yorkton_sk_ca", "mph": 50.0, "run_mi": 1.7, "why": "other_limit"}
 {"at_mi": 91.0, "fractions": {"other_limit": 1.0}, "from_mph": 60.0, "highway": "Hwy 10", "leg": "regina_sk_ca:yorkton_sk_ca", "mph": 45.0, "run_mi": 1.0, "why": "other_limit"}
 {"at_mi": 45.9, "fractions": {"other_limit": 1.0}, "from_mph": 60.0, "highway": "Hwy 1 / Trans-Canada Highway", "leg": "revelstoke_bc_ca:salmon_arm_bc_ca", "mph": 35.0, "run_mi": 1.4, "why": "other_limit"}
+{"at_mi": 5.5, "fractions": {"off_route": 1.0}, "from_mph": 55.0, "highway": "Hwy 65 / Route 101", "leg": "rouyn_noranda_qc_ca:temiskaming_shores_on_ca", "mph": 30.0, "run_mi": 1.0, "why": "off_route"}
 {"at_mi": 39.5, "fractions": {"other_limit": 1.0}, "from_mph": 55.0, "highway": "Route 117", "leg": "rouyn_noranda_qc_ca:val_d_or_qc_ca", "mph": 30.0, "run_mi": 0.9, "why": "other_limit"}
 {"at_mi": 48.9, "fractions": {"other_limit": 1.0}, "from_mph": 55.0, "highway": "Route 117", "leg": "rouyn_noranda_qc_ca:val_d_or_qc_ca", "mph": 30.0, "run_mi": 1.4, "why": "other_limit"}
 {"at_mi": 92.6, "fractions": {"other_limit": 1.0}, "from_mph": 60.0, "highway": "Route 175", "leg": "saguenay_qc_ca:quebec_city_qc_ca", "mph": 55.0, "run_mi": 1.9, "why": "other_limit"}
@@ -83,6 +105,21 @@
 {"at_mi": 20.8, "fractions": {"no_road": 0.424, "other_limit": 0.576}, "from_mph": 55.0, "highway": "Hwy 1 / Trans-Canada Highway", "leg": "salmon_arm_bc_ca:kamloops_bc_ca", "mph": 35.0, "run_mi": 1.4, "why": "other_limit"}
 {"at_mi": 18.8, "fractions": {"other_limit": 1.0}, "from_mph": 60.0, "highway": "Hwy 1 / Trans-Canada Highway", "leg": "salmon_arm_bc_ca:revelstoke_bc_ca", "mph": 35.0, "run_mi": 0.5, "why": "other_limit"}
 {"at_mi": 74.3, "fractions": {"other_limit": 1.0}, "from_mph": 60.0, "highway": "Hwy 7", "leg": "saskatoon_sk_ca:kindersley_sk_ca", "mph": 30.0, "run_mi": 0.7, "why": "other_limit"}
+{"at_mi": 40.1, "fractions": {"other_limit": 1.0}, "from_mph": 55.0, "highway": "Hwy 17", "leg": "sault_ste_marie_on_ca:sudbury_on_ca", "mph": 45.0, "run_mi": 1.5, "why": "other_limit"}
+{"at_mi": 48.5, "fractions": {"no_road": 0.286, "other_limit": 0.714}, "from_mph": 55.0, "highway": "Hwy 17", "leg": "sault_ste_marie_on_ca:sudbury_on_ca", "mph": 30.0, "run_mi": 1.9, "why": "other_limit"}
+{"at_mi": 78.4, "fractions": {"other_limit": 1.0}, "from_mph": 55.0, "highway": "Hwy 17", "leg": "sault_ste_marie_on_ca:sudbury_on_ca", "mph": 35.0, "run_mi": 0.6, "why": "other_limit"}
+{"at_mi": 119.0, "fractions": {"no_road": 0.519, "other_limit": 0.481}, "from_mph": 55.0, "highway": "Hwy 17", "leg": "sault_ste_marie_on_ca:sudbury_on_ca", "mph": 45.0, "run_mi": 2.2, "why": "no_road"}
+{"at_mi": 125.1, "fractions": {"other_limit": 1.0}, "from_mph": 55.0, "highway": "Hwy 17", "leg": "sault_ste_marie_on_ca:sudbury_on_ca", "mph": 45.0, "run_mi": 1.7, "why": "other_limit"}
+{"at_mi": 147.6, "fractions": {"other_limit": 1.0}, "from_mph": 55.0, "highway": "Hwy 17", "leg": "sault_ste_marie_on_ca:sudbury_on_ca", "mph": 35.0, "run_mi": 1.0, "why": "other_limit"}
+{"at_mi": 154.0, "fractions": {"no_road": 0.327, "other_limit": 0.673}, "from_mph": 55.0, "highway": "Hwy 17", "leg": "sault_ste_marie_on_ca:sudbury_on_ca", "mph": 45.0, "run_mi": 2.1, "why": "other_limit"}
+{"at_mi": 42.0, "fractions": {"other_limit": 1.0}, "from_mph": 55.0, "highway": "Hwy 17", "leg": "sudbury_on_ca:sault_ste_marie_on_ca", "mph": 45.0, "run_mi": 1.8, "why": "other_limit"}
+{"at_mi": 48.3, "fractions": {"other_limit": 1.0}, "from_mph": 55.0, "highway": "Hwy 17", "leg": "sudbury_on_ca:sault_ste_marie_on_ca", "mph": 35.0, "run_mi": 1.2, "why": "other_limit"}
+{"at_mi": 58.2, "fractions": {"off_route": 0.009, "other_limit": 0.991}, "from_mph": 55.0, "highway": "Hwy 17", "leg": "sudbury_on_ca:sault_ste_marie_on_ca", "mph": 45.0, "run_mi": 2.2, "why": "other_limit"}
+{"at_mi": 71.6, "fractions": {"no_road": 0.444, "other_limit": 0.556}, "from_mph": 55.0, "highway": "Hwy 17", "leg": "sudbury_on_ca:sault_ste_marie_on_ca", "mph": 35.0, "run_mi": 1.7, "why": "other_limit"}
+{"at_mi": 118.1, "fractions": {"other_limit": 1.0}, "from_mph": 55.0, "highway": "Hwy 17", "leg": "sudbury_on_ca:sault_ste_marie_on_ca", "mph": 35.0, "run_mi": 1.4, "why": "other_limit"}
+{"at_mi": 147.3, "fractions": {"other_limit": 1.0}, "from_mph": 55.0, "highway": "Hwy 17", "leg": "sudbury_on_ca:sault_ste_marie_on_ca", "mph": 30.0, "run_mi": 1.3, "why": "other_limit"}
+{"at_mi": 155.3, "fractions": {"other_limit": 1.0}, "from_mph": 55.0, "highway": "Hwy 17", "leg": "sudbury_on_ca:sault_ste_marie_on_ca", "mph": 45.0, "run_mi": 1.3, "why": "other_limit"}
+{"at_mi": 18.4, "fractions": {"other_limit": 1.0}, "from_mph": 50.0, "highway": "Hwy 144", "leg": "sudbury_on_ca:timmins_on_ca", "mph": 35.0, "run_mi": 2.0, "why": "other_limit"}
 {"at_mi": 113.7, "fractions": {"other_limit": 1.0}, "from_mph": 55.0, "highway": "Hwy 1 / Hwy 97", "leg": "surrey_bc_ca:prince_george_bc_ca", "mph": 35.0, "run_mi": 0.9, "why": "other_limit"}
 {"at_mi": 140.2, "fractions": {"no_road": 0.047, "other_limit": 0.953}, "from_mph": 60.0, "highway": "Hwy 1 / Hwy 97", "leg": "surrey_bc_ca:prince_george_bc_ca", "mph": 45.0, "run_mi": 1.8, "why": "other_limit"}
 {"at_mi": 164.0, "fractions": {"no_road": 0.25, "other_limit": 0.75}, "from_mph": 60.0, "highway": "Hwy 1 / Hwy 97", "leg": "surrey_bc_ca:prince_george_bc_ca", "mph": 45.0, "run_mi": 0.8, "why": "other_limit"}
@@ -90,6 +127,12 @@
 {"at_mi": 309.8, "fractions": {"off_route": 1.0}, "from_mph": 60.0, "highway": "Hwy 1 / Hwy 97", "leg": "surrey_bc_ca:prince_george_bc_ca", "mph": 45.0, "run_mi": 1.0, "why": "off_route"}
 {"at_mi": 346.2, "fractions": {"no_road": 0.361, "off_route": 0.639}, "from_mph": 60.0, "highway": "Hwy 1 / Hwy 97", "leg": "surrey_bc_ca:prince_george_bc_ca", "mph": 35.0, "run_mi": 1.3, "why": "off_route"}
 {"at_mi": 429.9, "fractions": {"off_route": 1.0}, "from_mph": 60.0, "highway": "Hwy 1 / Hwy 97", "leg": "surrey_bc_ca:prince_george_bc_ca", "mph": 35.0, "run_mi": 1.9, "why": "off_route"}
+{"at_mi": 86.9, "fractions": {"other_limit": 1.0}, "from_mph": 55.0, "highway": "Hwy 11", "leg": "temiskaming_shores_on_ca:cochrane_on_ca", "mph": 35.0, "run_mi": 1.3, "why": "other_limit"}
+{"at_mi": 15.1, "fractions": {"other_limit": 1.0}, "from_mph": 55.0, "highway": "Hwy 11", "leg": "temiskaming_shores_on_ca:north_bay_on_ca", "mph": 35.0, "run_mi": 1.2, "why": "other_limit"}
+{"at_mi": 36.2, "fractions": {"other_limit": 1.0}, "from_mph": 55.0, "highway": "Hwy 11", "leg": "temiskaming_shores_on_ca:north_bay_on_ca", "mph": 30.0, "run_mi": 1.2, "why": "other_limit"}
+{"at_mi": 76.2, "fractions": {"off_route": 1.0}, "from_mph": 55.0, "highway": "Hwy 65 / Route 101", "leg": "temiskaming_shores_on_ca:rouyn_noranda_qc_ca", "mph": 30.0, "run_mi": 1.6, "why": "off_route"}
+{"at_mi": 17.0, "fractions": {"other_limit": 1.0}, "from_mph": 55.0, "highway": "Hwy 11", "leg": "thunder_bay_on_ca:fort_frances_on_ca", "mph": 30.0, "run_mi": 0.8, "why": "other_limit"}
+{"at_mi": 163.2, "fractions": {"other_limit": 1.0}, "from_mph": 50.0, "highway": "Hwy 144", "leg": "timmins_on_ca:sudbury_on_ca", "mph": 35.0, "run_mi": 1.6, "why": "other_limit"}
 {"at_mi": 175.1, "fractions": {"other_limit": 1.0}, "from_mph": 55.0, "highway": "Route 117", "leg": "val_d_or_qc_ca:mont_laurier_qc_ca", "mph": 45.0, "run_mi": 0.7, "why": "other_limit"}
 {"at_mi": 27.3, "fractions": {"other_limit": 1.0}, "from_mph": 55.0, "highway": "Route 117", "leg": "val_d_or_qc_ca:rouyn_noranda_qc_ca", "mph": 30.0, "run_mi": 0.6, "why": "other_limit"}
 {"at_mi": 55.5, "fractions": {"no_road": 0.531, "other_limit": 0.469}, "from_mph": 60.0, "highway": "Hwy 5", "leg": "valemount_bc_ca:kamloops_bc_ca", "mph": 45.0, "run_mi": 1.7, "why": "no_road"}

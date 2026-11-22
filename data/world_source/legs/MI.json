@@ -75437,23 +75437,23 @@
         "checkpoints": [
           {
             "name": "Sault Ste. Marie Port of Entry",
-            "at_mi": 0.0,
+            "at_mi": 1.9,
             "type": "border",
             "state": "Michigan",
             "highway": "I-75 / International Bridge",
             "lat": 46.494824,
             "lon": -84.367643,
-            "source": "U.S. Customs and Border Protection port 380301 Sault Ste. Marie, International Bridge - SSM, 24 hrs/day with two commercial vehicle lanes (CBP border wait times API, https://bwt.cbp.gov/api/bwtnew, read 2026-11-22). Position read from OpenStreetMap way 1153061243 (border_control booth canopy at the Michigan bridge plaza), OpenStreetMap planet file of 2026-11-16."
+            "source": "U.S. Customs and Border Protection port 380301 Sault Ste. Marie, International Bridge - SSM, 24 hrs/day with two commercial vehicle lanes (CBP border wait times API, https://bwt.cbp.gov/api/bwtnew, read 2026-11-22). Position read from OpenStreetMap way 1153061243 (border_control booth canopy at the Michigan bridge plaza), OpenStreetMap planet file of 2026-11-16. Re-placed on the rerouted road by its own coordinates (0.02 mi off-route at closest approach)."
           },
           {
             "name": "Sault Ste. Marie Bridge Port of Entry",
-            "at_mi": 0.0,
+            "at_mi": 3.9,
             "type": "border",
             "state": "Ontario",
             "highway": "I-75 / International Bridge",
             "lat": 46.518964,
             "lon": -84.349378,
-            "source": "Canada Border Services Agency Sault Ste. Marie Bridge, 125 Huron Street; commercial hours read from the CBSA Directory of Offices and Services open data (https://www.cbsa-asfc.gc.ca/data/offices-bureaux-en.csv, read 2026-11-22): commercial 24 hours, 7 days a week. Position read from OpenStreetMap way 1153253774 (border_control booth canopy at the Ontario bridge plaza), OpenStreetMap planet file of 2026-11-16."
+            "source": "Canada Border Services Agency Sault Ste. Marie Bridge, 125 Huron Street; commercial hours read from the CBSA Directory of Offices and Services open data (https://www.cbsa-asfc.gc.ca/data/offices-bureaux-en.csv, read 2026-11-22): commercial 24 hours, 7 days a week. Position read from OpenStreetMap way 1153253774 (border_control booth canopy at the Ontario bridge plaza), OpenStreetMap planet file of 2026-11-16. Re-placed on the rerouted road by its own coordinates (0.01 mi off-route at closest approach)."
           }
         ],
         "source": "New leg for the Winnipeg to Thunder Bay and northern Ontario corridor (Career 2.0, 2026-11-22): laid out between the two city pins, then routed by Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de) along I-75 / International Bridge.",
@@ -75461,12 +75461,12 @@
           {
             "at_mi": 0.0,
             "elevation_ft": 616.8,
-            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+            "source": "Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
           },
           {
             "at_mi": 8.0,
             "elevation_ft": 616.8,
-            "source": "Valhalla truck route over OpenStreetMap, resampled at development time (replaces the route this leg was first baked from)."
+            "source": "Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
           }
         ],
         "border_crossing": {
@@ -75496,7 +75496,7 @@
         "toll_events": [
           {
             "name": "International Bridge toll",
-            "at_mi": 0.0,
+            "at_mi": 1.8,
             "road": "Sault Ste. Marie International Bridge",
             "authority": "International Bridge Administration",
             "method": "cash_card",
@@ -75505,7 +75505,234 @@
             "estimated": false,
             "source": "https://www.saultbridge.com/toll-rates-commercial/ (class 9, commercial truck with 5 axles, USD 33.75 or CAD 46.75 from 2026-10-01; cash, credit and debit at the booth) and https://www.saultbridge.com/effective-toll-rate-schedule/ (USD 6.75 per axle from 2026-10-01), accessed 2026-11-22. Position read from the OpenStreetMap toll booth nodes at the Michigan plaza (node 472232480, operator MDOT), the bridge's only toll plaza, projected on the leg's archived road; the pages do not say which direction pays, and the plaza's booths sit across both directions' lanes, so the toll is charged both ways (derived from the booth positions)."
           }
-        ]
+        ],
+        "grade_segments": [
+          {
+            "start_mi": 0.0,
+            "end_mi": 0.8,
+            "avg_grade_pct": 0.05,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 0.8,
+            "end_mi": 1.1,
+            "avg_grade_pct": 5.35,
+            "terrain": "mountain",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 1.1,
+            "end_mi": 1.4,
+            "avg_grade_pct": -0.76,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 1.4,
+            "end_mi": 1.7,
+            "avg_grade_pct": -3.9,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 1.7,
+            "end_mi": 2.6,
+            "avg_grade_pct": -0.7,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 2.6,
+            "end_mi": 2.9,
+            "avg_grade_pct": -2.05,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 2.9,
+            "end_mi": 3.2,
+            "avg_grade_pct": 0.0,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 3.2,
+            "end_mi": 3.6,
+            "avg_grade_pct": 1.58,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 3.6,
+            "end_mi": 4.1,
+            "avg_grade_pct": -0.35,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 4.1,
+            "end_mi": 4.4,
+            "avg_grade_pct": 1.7,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 4.4,
+            "end_mi": 6.8,
+            "avg_grade_pct": -0.13,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 6.8,
+            "end_mi": 7.1,
+            "avg_grade_pct": -2.0,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 7.1,
+            "end_mi": 7.4,
+            "avg_grade_pct": 0.92,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 7.4,
+            "end_mi": 7.6,
+            "avg_grade_pct": 2.03,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 7.6,
+            "end_mi": 8.0,
+            "avg_grade_pct": -0.17,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          }
+        ],
+        "state_miles": [
+          {
+            "state": "Michigan",
+            "miles": 2.9,
+            "source": "derived 2026-11-05: the leg's archived route geometry intersected with OpenStreetMap state and province boundary relations (boundary=administrative, admin_level=4); at_mi = cumulative geometry distance at each boundary crossing, rescaled to leg miles; state miles = differences of those boundaries. OpenStreetMap, boundary relations read from the OpenStreetMap API on 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "state": "Ontario",
+            "miles": 5.1,
+            "source": "derived 2026-11-05: the leg's archived route geometry intersected with OpenStreetMap state and province boundary relations (boundary=administrative, admin_level=4); at_mi = cumulative geometry distance at each boundary crossing, rescaled to leg miles; state miles = differences of those boundaries. OpenStreetMap, boundary relations read from the OpenStreetMap API on 2026-11-16: https://www.openstreetmap.org/."
+          }
+        ],
+        "state_crossings": [
+          {
+            "at_mi": 2.9,
+            "from_state": "Michigan",
+            "state": "Ontario",
+            "place": "",
+            "source": "derived 2026-11-05: the leg's archived route geometry intersected with OpenStreetMap state and province boundary relations (boundary=administrative, admin_level=4); at_mi = cumulative geometry distance at each boundary crossing, rescaled to leg miles; state miles = differences of those boundaries. OpenStreetMap, boundary relations read from the OpenStreetMap API on 2026-11-16: https://www.openstreetmap.org/."
+          }
+        ],
+        "interchanges": [
+          {
+            "at_mi": 1.8,
+            "exit_ref": "394",
+            "name": "",
+            "destinations": [
+              "Sault Ste Marie",
+              "Soo Locks"
+            ],
+            "via": "",
+            "highway": "I-75 / International Bridge",
+            "source": "Exit ref, name and destination signs read from OpenStreetMap highway=motorway_junction nodes on a motorway or trunk way running along the leg's archived route, and the destination tags of this exit's own motorway_link ramps, Geofabrik extract of 2026-11-16. at_mi derived: the mean of the exit's junction nodes (one per carriageway) projected onto that route, rescaled to the leg's miles: https://www.openstreetmap.org/",
+            "ramp_control": "stop",
+            "ramp_control_source": "OpenStreetMap highway=traffic_signals/highway=stop/highway=give_way node within 120 m of the walked terminal node where this exit's ramp chain ends (read; the walk supplies the node, the tag supplies the control), Geofabrik extract of 2026-11-16: https://www.openstreetmap.org/",
+            "ramp_far_end": "surface",
+            "ramp_far_end_source": "derived: this exit's motorway_link chains walked from every gore within 500 m of its junction nodes, both carriageways, in the Geofabrik extract of 2026-11-16. 'motorway' means every chain merges onto a highway=motorway way; 'surface' means at least one chain ends off the motorway network: https://www.openstreetmap.org/",
+            "ramp_length_ft_backward": 593.6,
+            "ramp_terminal_backward": {
+              "node": 1105793570,
+              "lat": 46.493477,
+              "lon": -84.3712967
+            },
+            "ramp_length_source": "derived from OpenStreetMap geometry: summed node-to-node distance along this exit's motorway_link way(s), from the gore node where the ramp leaves the motorway to the nearest node where it ends (a public road -- trunk to residential, not a service or private way -- or a dead end, else a motorway merge). Per direction of travel: the gore nearest the exit's junction nodes whose first ramp edge runs that way. Starts at the OSM diverge, at or near the gore, so any deceleration lane before it is not included. Screened: under 300 ft or over 1.5 mi dropped, not clamped. Geofabrik extract of 2026-11-16: https://www.openstreetmap.org/",
+            "ramp_terminal_source": "read from OpenStreetMap topology: the node where the same walk that measures ramp_length ends (the public crossroad or dead end the motorway_link way reaches), per direction of travel. Only baked beside a length that passed its screen, and never for a ramp that ends in a merge. Geofabrik extract of 2026-11-16: https://www.openstreetmap.org/"
+          }
+        ],
+        "lane_segments": [
+          {
+            "start_mi": 1.8,
+            "end_mi": 2.1,
+            "lanes": 1,
+            "oneway": true,
+            "source": "OpenStreetMap lanes tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; total per the OSM lanes semantics (directional on oneway carriageways). ODbL, (c) OpenStreetMap contributors."
+          },
+          {
+            "start_mi": 2.1,
+            "end_mi": 3.8,
+            "lanes": 2,
+            "source": "OpenStreetMap lanes tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; total per the OSM lanes semantics (directional on oneway carriageways). ODbL, (c) OpenStreetMap contributors."
+          },
+          {
+            "start_mi": 4.1,
+            "end_mi": 4.4,
+            "lanes": 2,
+            "source": "OpenStreetMap lanes tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; total per the OSM lanes semantics (directional on oneway carriageways). ODbL, (c) OpenStreetMap contributors."
+          },
+          {
+            "start_mi": 4.4,
+            "end_mi": 4.9,
+            "lanes": 3,
+            "source": "OpenStreetMap lanes tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; total per the OSM lanes semantics (directional on oneway carriageways). ODbL, (c) OpenStreetMap contributors."
+          }
+        ],
+        "restrictions": [],
+        "landmarks": [
+          {
+            "name": "Dafter",
+            "at_mi": 1.7,
+            "off_mi": 9.52,
+            "category": "village",
+            "kind": "point",
+            "source": "OpenStreetMap place=village node 154305286, projected onto the leg's checked-in route geometry",
+            "spoken": "Passing Dafter"
+          },
+          {
+            "name": "Brimley",
+            "at_mi": 1.7,
+            "off_mi": 11.37,
+            "category": "village",
+            "kind": "point",
+            "source": "OpenStreetMap place=village node 154192250, projected onto the leg's checked-in route geometry",
+            "spoken": "Passing Brimley"
+          },
+          {
+            "name": "St. Marys River",
+            "category": "river",
+            "kind": "point",
+            "at_mi": 2.5,
+            "lat": 46.5023,
+            "lon": -84.36311,
+            "spoken": "Crossing the St. Marys River",
+            "source": "derived: name and category read from the OpenStreetMap tags of way 164115533 (St. Marys River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "name": "Bay Mills",
+            "at_mi": 8.0,
+            "off_mi": 10.6,
+            "category": "village",
+            "kind": "point",
+            "source": "OpenStreetMap place=village node 154338595, projected onto the leg's checked-in route geometry",
+            "spoken": "Passing Bay Mills"
+          }
+        ],
+        "hpms_terrain": {
+          "type": 1,
+          "name": "level",
+          "sections": 0,
+          "source": "DERIVED, not read: Canada has no national inventory like HPMS, so the class is the terrain the leg's own grade profile spends the most miles in (the reroute-enrich rule: sustained grade of 5 percent, or 4 percent with 1,000 ft of relief within 5 miles, is mountain; 1.5 percent or 400 ft of relief is hills; else flat), mapped flat to level, hills to rolling and mountain to mountainous. It reads the same elevation as the grade, so it is no independent check on it."
+        }
       },
       "rerouted": true,
       "route_via": [
