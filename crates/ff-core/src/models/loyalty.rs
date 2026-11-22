@@ -250,12 +250,25 @@ impl LoyaltyAccount {
 
     /// Generate a spoken summary of loyalty status.
     pub fn summary(&self) -> String {
-        format!(
-            "Loyalty points: {}. Total gallons fueled: {}. Shower credits available: {}.",
-            fmt_f(self.total_points, 0),
-            fmt_f(self.total_gallons_fueled, 0),
-            self.shower_credits
-        )
+        self.summary_in(None)
+    }
+
+    /// [`Self::summary`] with the fuel in the player's units: `volume` is
+    /// the total as spoken ("341 liters"); `None` keeps gallons.
+    pub fn summary_in(&self, volume: Option<&str>) -> String {
+        match volume {
+            Some(volume) => format!(
+                "Loyalty points: {}. Total fueled: {volume}. Shower credits available: {}.",
+                fmt_f(self.total_points, 0),
+                self.shower_credits
+            ),
+            None => format!(
+                "Loyalty points: {}. Total gallons fueled: {}. Shower credits available: {}.",
+                fmt_f(self.total_points, 0),
+                fmt_f(self.total_gallons_fueled, 0),
+                self.shower_credits
+            ),
+        }
     }
 }
 
@@ -440,6 +453,16 @@ mod tests {
         assert_eq!(
             summary,
             "Loyalty points: 50. Total gallons fueled: 50. Shower credits available: 1."
+        );
+    }
+
+    #[test]
+    fn loyalty_summary_names_the_fuel_in_liters_when_asked() {
+        let mut account = LoyaltyAccount::new();
+        fuel(&mut account, 50.0, "Pilot Travel Center");
+        assert_eq!(
+            account.summary_in(Some("189 liters")),
+            "Loyalty points: 50. Total fueled: 189 liters. Shower credits available: 1."
         );
     }
 

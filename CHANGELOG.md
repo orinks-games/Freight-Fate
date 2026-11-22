@@ -88,10 +88,11 @@
 - **If a carrier lets you go, a carrier that hires near your home takes you on.** If none can, choose Apply to a carrier at the terminal.
 - **After a felony roadside stop the truck is towed to an impound lot in that city.** You post bond and are released after 12 hours of booking, logged off duty.
 - **Travel centers and truck parking lots are now for fuel, parking and rest only.** They never ship or receive freight.
-- **Job boards in the United States no longer offer loads into Canada.**
 
 ### Fixed
 
+- **The sleep forecast in Canada now counts Canadian hours:** 13 hours of driving and a 16-hour shift.
+- **The loyalty readout now gives fuel in liters when distances are in kilometers.**
 - **Exits in Ontario and Quebec now name the road they lead to,** such as Route 255 or Highway 8, with directions in English.
 - **Canadian highways are now given the direction they run,** so Highway 400 to Barrie is north and the 401 to Kingston is east.
 - **A stop with only fuel pumps no longer offers a motel room or a night in the lot.**
