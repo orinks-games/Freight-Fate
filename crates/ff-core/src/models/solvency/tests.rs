@@ -303,6 +303,19 @@ fn test_an_owner_operator_in_good_standing_keeps_their_own_carrier() {
         .contains("on the payroll at Great Plains Freight"));
 }
 
+#[test]
+fn test_a_repossession_with_no_carrier_names_where_it_looked() {
+    let mut p = owner_operator("highline_sleeper");
+    p.carrier_name.clear();
+    p.carrier_key.clear();
+    p.money = -repossession_threshold(&p) - 1.0;
+    let joined = apply_repossession(&mut p).join(" ");
+    assert!(
+        joined.contains("No carrier that hires near your home in Buffalo can take you on"),
+        "{joined}"
+    );
+}
+
 // --- the pay advance cannot become the debt spiral -------------------------
 
 #[test]

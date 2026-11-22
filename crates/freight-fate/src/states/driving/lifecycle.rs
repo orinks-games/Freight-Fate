@@ -36,18 +36,25 @@ impl DrivingState {
         // The surface chain once off the highway.
         let route = &self.trip.route;
         if route.legs.is_empty() {
-            return self.job.destination.clone();
+            return ctx.world.spoken_city(&self.job.destination, None);
         }
         let index = self.trip.current_leg_index().min(route.legs.len() - 1);
         let leg = &route.legs[index];
+        // Cities by their spoken names: the route and the job hold keys
+        // ("gary_in_us"), which a logbook line read out loud.
+        let city = |key: &str| ctx.world.spoken_city(key, None);
         if self.surface_chain {
-            return format!("{} in {}", leg.highway, self.job.destination);
+            return format!("{} in {}", leg.highway, city(&self.job.destination));
         }
         if self.departure_chain {
-            return format!("{} in {}", leg.highway, self.job.origin);
+            return format!("{} in {}", leg.highway, city(&self.job.origin));
         }
-        let start = route.cities.get(index).cloned().unwrap_or_default();
-        let end = route.cities.get(index + 1).cloned().unwrap_or_default();
+        let start = route.cities.get(index).map(|c| city(c)).unwrap_or_default();
+        let end = route
+            .cities
+            .get(index + 1)
+            .map(|c| city(c))
+            .unwrap_or_default();
         format!("{} from {start} to {end}", leg.highway)
     }
 

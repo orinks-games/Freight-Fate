@@ -733,7 +733,9 @@ impl RestStopState {
             let minutes = owed.unwrap_or(hos::SLEEP_MIN);
             advance_rest_clock(d, ctx, minutes, None, "");
             settle_lift_before_sleep(d, ctx);
+            let cycle_before = hos_of(ctx).cycle_used_min();
             hos_mut_of(ctx).sleep();
+            let clocks = clocks_reset_text(hos_of(ctx).cycle_restarted_since(cycle_before));
             // Sleep takes fatigue off by the hour, so a driver who went to
             // bed exhausted can wake with some left.
             let rested = {
@@ -754,7 +756,7 @@ impl RestStopState {
                 (None, false) => "You slept 10 hours and woke still tired.".to_string(),
             };
             format!(
-                "{engine_off}{slept} It is {}. Driving and duty clocks reset. {}{}",
+                "{engine_off}{slept} It is {}. {clocks} {}{}",
                 clock_text(d.trip.local_hour()),
                 deadline_text(d, ctx),
                 wake_air_instruction(d)
@@ -801,14 +803,16 @@ impl RestStopState {
             let engine_off = shut_down_engine(d, ctx);
             advance_rest_clock(d, ctx, hos::SLEEP_MIN, None, "");
             settle_lift_before_sleep(d, ctx);
+            let cycle_before = hos_of(ctx).cycle_used_min();
             hos_mut_of(ctx).sleep();
+            let clocks = clocks_reset_text(hos_of(ctx).cycle_restarted_since(cycle_before));
             {
                 let p = profile_mut_of(ctx);
                 p.fatigue = hos::rest_sleep(p.fatigue, hos::SLEEP_MIN);
             }
             let money = profile_of(ctx).money();
             format!(
-                "{engine_off}Motel, {} dollars, 10 hours. {}. Driving and duty clocks reset. \
+                "{engine_off}Motel, {} dollars, 10 hours. {}. {clocks} \
                  {} dollars. {}{}",
                 fmt_grouped(MOTEL_COST, 0),
                 clock_text(d.trip.local_hour()),
@@ -839,13 +843,15 @@ impl RestStopState {
             let engine_off = shut_down_engine(d, ctx);
             advance_rest_clock(d, ctx, hos::SLEEP_MIN, None, "");
             settle_lift_before_sleep(d, ctx);
+            let cycle_before = hos_of(ctx).cycle_used_min();
             hos_mut_of(ctx).sleep();
+            let clocks = clocks_reset_text(hos_of(ctx).cycle_restarted_since(cycle_before));
             {
                 let p = profile_mut_of(ctx);
                 p.fatigue = hos::rest_poor_sleep(p.fatigue, hos::SLEEP_MIN);
             }
             format!(
-                "{engine_off}Slept 10 hours in the lot. {}. Driving and duty clocks reset. Rest was poor. \
+                "{engine_off}Slept 10 hours in the lot. {}. {clocks} Rest was poor. \
                  {}{}",
                 clock_text(d.trip.local_hour()),
                 deadline_text(d, ctx),
@@ -1697,4 +1703,15 @@ pub fn walk_around_minutes(d: &DrivingState) -> f64 {
         1
     };
     WALK_AROUND_MIN + ff_core::models::doubles::walk_around_extra_min(units)
+}
+
+/// What a full night resets. A sleep that finished a cycle restart says so
+/// (R1 review, 2026-11-22): before, the cycle cleared without a word, and
+/// the logbook was the only place to learn the week had started over.
+fn clocks_reset_text(cycle_restarted: bool) -> &'static str {
+    if cycle_restarted {
+        "Driving, duty and cycle clocks reset."
+    } else {
+        "Driving and duty clocks reset."
+    }
 }

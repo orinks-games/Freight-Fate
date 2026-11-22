@@ -797,6 +797,7 @@ impl DrivingState {
             0
         });
         live::set_arrival_menu_open(self.arrival_menu_open);
+        live::set_parking_brake_set(self.trip.truck.parking_brake);
         live::set_gate_stop_prompted(self.gate.stop_prompted());
         live::set_on_ramp(self.ramp_mi.is_some());
         live::set_posted_limit_mph(match self.trip.entered_zone.as_ref() {

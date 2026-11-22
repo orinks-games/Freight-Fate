@@ -5926,6 +5926,19 @@ here 2026-09-25. Details stay in the linked dated sections.
       wait. Neither holds on the Dalton Highway or other remote Alaska and
       Canadian roads, where a callout takes far longer; scale both by road
       and remoteness.
+- [ ] (Found along the way) **A 1.9 career copied into 2.0 can carry a
+      home terminal its carrier does not run.** A Prairie Link driver who
+      lives in Miami comes over with the Milwaukee fallback terminal and no
+      home city, so a later let-go looks for carriers near Milwaukee. Pick
+      from the current city when the copied terminal is not one of the
+      carrier's own (R1 review, 2026-11-22).
+- [ ] (Found along the way) **Employment is an implicit state machine.**
+      `carrier_key`, `carrier_name`, `business_status`,
+      `sufferance_carrier_key` and `let_go_by` move together across hiring,
+      being let go, applying and own authority. Make it one `Employment`
+      enum in `ff-core` (hired, on sufferance, unassigned, own authority)
+      with one `next(event)` and a transition table, reported by the agent
+      server's `status` (R1 review, 2026-11-22).
 - [ ] **Route calls to a remote dispatcher when one is available.** Deliver
       the same structured request asynchronously, with a short wait and the
       local dispatcher as the automatic fallback.

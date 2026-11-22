@@ -101,6 +101,7 @@ fn scenario_properties() -> Value {
         "hos_driving_min": {"type": "number"},
         "hos_duty_min": {"type": "number"},
         "hos_since_break_min": {"type": "number"},
+        "hos_cycle_min": {"type": "number", "description": "on-duty minutes on the 70-hour, 8-day cycle, all ending now"},
         "clear_load": {"type": "boolean"},
         "market_seed": {"type": "integer"},
         "board_seed": {"type": "integer"},
@@ -362,7 +363,8 @@ fn tools_list() -> Value {
              walkthrough on the next drive), touch_gestures (true opens the iPhone \
              Touch gestures settings screen over the terminal), fatigue (0 to 100, set after rested; \
              the next drive starts in that band and gives its cue), hos_driving_min, hos_duty_min and \
-             hos_since_break_min (sandbox HOS counters in game minutes), \
+             hos_since_break_min (sandbox HOS counters in game minutes), hos_cycle_min \
+             (on-duty minutes on the 70-hour, 8-day cycle, all ending now), \
              co_driver_driving_min, co_driver_duty_min, co_driver_since_break_min and \
              co_driver_rest_min (the co-driver's own logbook in game minutes, rest being \
              their unbroken sleeper time toward 10 hours: put on the load in progress \
