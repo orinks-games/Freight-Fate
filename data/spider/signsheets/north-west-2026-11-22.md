@@ -163,7 +163,7 @@ The Mile Zero marker of the Mackenzie Highway stands in Grimshaw. Alberta bans b
 - at_mi: 109.7
 - spoken: Entering Grimshaw, mile zero of the Mackenzie Highway.
 
-Replaces the map's own village line "Entering Grimshaw" at mile 109.7: the record is named for the town, so the bake swaps the words into the village record, which keeps its part in explaining the town's speed limit.
+Stands at the map's own village line "Entering Grimshaw" at mile 109.7 and is named for the town, so the drive gives the town's slot to this line; the town keeps its part in explaining the speed limit.
 
 ### Grimshaw
 - treatment: landmark
@@ -171,7 +171,7 @@ Replaces the map's own village line "Entering Grimshaw" at mile 109.7: the recor
 - at_mi: 10.3
 - spoken: Entering Grimshaw, mile zero of the Mackenzie Highway.
 
-Replaces "Entering Grimshaw" at mile 10.3 the same way.
+Stands at "Entering Grimshaw" at mile 10.3 the same way.
 
 ## Alexandra Falls
 
