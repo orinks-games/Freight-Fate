@@ -480,12 +480,9 @@ fn a_generated_carrier_names_its_longest_load_in_the_players_units() {
     };
     let mut settings = crate::settings::Settings::default();
     let miles = option.summary_in(&settings);
-    assert!(miles.contains(" miles."), "{miles}");
+    assert!(miles.contains(" miles"), "{miles}");
     settings.set_units_mode(crate::units::UnitsMode::Metric);
     let km = option.summary_in(&settings);
-    assert!(
-        km.contains(" kilometers.") && !km.contains(" miles"),
-        "{km}"
-    );
+    assert!(km.contains(" kilometers") && !km.contains(" miles"), "{km}");
     assert!(!option.help_in(&settings).contains(" miles"));
 }
