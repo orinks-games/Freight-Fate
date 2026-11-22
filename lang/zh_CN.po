@@ -13824,10 +13824,6 @@ msgstr "收费{amount}元。"
 msgid "toll"
 msgstr "toll"
 
-#. placeholders: {method_label}, {name}, {toll_text}
-msgid "{method_label} toll point, {name}.{toll_text}"
-msgstr "{method_label} 收费站，{name}.{toll_text}"
-
 msgid "restriction"
 msgstr "restriction"
 
@@ -15726,6 +15722,10 @@ msgstr "{method_label}收费，{name}，{estimate}{amount_text}美元，计入�
 #. placeholders: {amount_text}
 msgid "Toll, {amount_text} dollars, carrier."
 msgstr "通行费{amount_text}美元，由承运商支付。"
+
+#. placeholders: {method_label}, {name}, {toll_text}
+msgid "{method_label} toll point, {name}.{toll_text}"
+msgstr "{method_label} 收费站，{name}.{toll_text}"
 
 #. placeholders: {limit_speed_text}
 msgid "Over the limit of {limit_speed_text}."
@@ -40970,6 +40970,14 @@ msgstr "{stop_name}，还有{distance}。"
 
 msgid "Passing {city}."
 msgstr "经过{city}。"
+
+#. A landmark beside the road. {name} is the landmark's own name; the
+#. second form is a museum whose name does not say museum.
+msgid "Passing {name}"
+msgstr "经过 {name}"
+
+msgid "Passing {name}, a museum"
+msgstr "经过 {name}（博物馆）"
 
 msgid "Entering {place}."
 msgstr "进入{place}。"

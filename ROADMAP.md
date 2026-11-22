@@ -5972,6 +5972,37 @@ a carrier slice (owner, 2026-10-26).
       a leg its list does not cover just because it shares a listed name
       (a run of the West list without `--only` was dropping US
       Petro-Canada stops and others).
+- [x] Spoken names keep only what a voice can read (2026-11-22): a name
+      is spoken as signed when all of it is readable (Quebec stays in
+      French); otherwise `name:en` where OpenStreetMap has one, else `name`
+      with any run of non-Latin script taken out, and a name with nothing
+      left is not spoken. Landmarks, villages, exits and stop lists
+      follow it (`world/spoken_name.rs` in `ff-tools`); 11 stored names
+      changed (Cree syllabics in Alberta, Saskatchewan and Manitoba, the
+      IPA glottal stop in "ʔEsdilagh", a box-drawing dash in one North
+      Carolina stop).
+- [x] Mountain passes are named only within 0.4 mile of the leg's road
+      (2026-11-22). Calibrated on the 338 stored passes, each node read
+      from OpenStreetMap: 189 within 100 m, the known road passes mapped at
+      their saddle reach 554 m (Campbell Pass), trail passes start past
+      900 m; 140 dropped, 223 kept (the Alaska rebuild's 25 included). 179
+      of the old records carried no node id and were matched by name
+      through Nominatim to the nearest node.
+- [ ] (Found along the way) White Pass (Skagway to Whitehorse) is dropped
+      by that rule: the OpenStreetMap node is the railway summit, 1.5 km
+      from the Klondike Highway's own summit. Curate the highway's crossing
+      if it should be named.
+- [ ] (Found along the way) "pic de Melette" (Quebec, 2 legs) is a peak
+      tagged as a pass on a cycleway 300 m from the road, and stays in
+      under the 0.4-mile rule.
+- [x] A country line keeps its first speed sign (2026-11-22): the
+      loader moves the first posting in the new country's unit to the line
+      itself and keeps it however short; a line with no such posting
+      within 1.5 miles starts a gap, so the region default answers. North
+      of Coutts the truck had kept Montana's 70 for trucks into Alberta,
+      heard as "Truck limit 113 kilometers per hour". Lines with no sign in
+      the extract: Lacolle (first Quebec posting 4 miles in), Derby Line
+      to Stanstead, Osoyoos southbound, Pembina southbound.
 - [ ] (Found along the way) Simonson Travel Center (Grand Forks) is in the
       West list and within reach of two North Dakota legs it was never
       placed on; a run without `--only` adds it there.

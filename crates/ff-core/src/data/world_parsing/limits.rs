@@ -14,6 +14,37 @@ use crate::data::world_constants::{
     LIMIT_DWELL_REFERENCE_SCALE, LIMIT_PLACE_DWELL_REAL_S, LIMIT_PLACE_NEAR_MI,
     LIMIT_PLACE_TOWN_MPH,
 };
+
+/// How far before a country line its first sign may sit on the stored
+/// mileage, and how far past it, in miles. The line is placed from boundary
+/// geometry and the postings from way geometry, both rescaled to leg miles,
+/// so they disagree by a tenth or two; a sign more than a mile and a half in
+/// is another posting, not the border's.
+const BORDER_SIGN_BEFORE_MI: f64 = 0.3;
+const BORDER_SIGN_REACH_MI: f64 = 1.5;
+
+/// The provinces and territories, as the boundary relations name them: a
+/// line between one of these and a state is a country line.
+const PROVINCES: &[&str] = &[
+    "Alberta",
+    "British Columbia",
+    "Manitoba",
+    "New Brunswick",
+    "Newfoundland and Labrador",
+    "Northwest Territories",
+    "Nova Scotia",
+    "Nunavut",
+    "Ontario",
+    "Prince Edward Island",
+    "Quebec",
+    "Saskatchewan",
+    "Yukon",
+];
+
+/// Whether `state` (a crossing's state name) is in Canada.
+pub fn is_province(state: &str) -> bool {
+    PROVINCES.contains(&state)
+}
 use crate::data::world_models::{DataError, SpeedLimitSample};
 use crate::pyfmt::py_str_float;
 use crate::units::MILES_TO_KM;
@@ -69,14 +100,90 @@ pub fn parse_speed_limits(
     from_city: &str,
     to_city: &str,
     places: &[f64],
+    crossings: &[f64],
 ) -> Result<Vec<SpeedLimitSample>, DataError> {
-    let mut samples: Vec<SpeedLimitSample> = raw_samples
+    let mut samples: Vec<(SpeedLimitSample, bool)> = raw_samples
         .iter()
-        .map(|s| parse_speed_limit(s, leg_miles, from_city, to_city))
+        .map(|s| {
+            let kmh = s.get("kmh").and_then(Value::as_f64).is_some();
+            parse_speed_limit(s, leg_miles, from_city, to_city).map(|p| (p, kmh))
+        })
         .collect::<Result<_, _>>()?;
     // Python's sort is stable; so is `sort_by`.
+    samples.sort_by(|a, b| a.0.at_mi.partial_cmp(&b.0.at_mi).expect("finite at_mi"));
+    let (moves, gaps) = border_signs(&samples, crossings);
+    let mut samples: Vec<SpeedLimitSample> = samples.into_iter().map(|(s, _)| s).collect();
+    // The country's first sign stands at the line: a tenth of a mile left
+    // between the two (geometry, not road) held the other country's number
+    // there, and "Truck limit 113 kilometers per hour" was Montana's 70 in
+    // Alberta.
+    let mut signs = Vec::new();
+    for (sign_at, line) in moves {
+        // Anything between the line and the sign is the other country's.
+        samples.retain(|s| !(s.at_mi > line && s.at_mi < sign_at));
+        if let Some(s) = samples.iter_mut().find(|s| s.at_mi == sign_at) {
+            s.at_mi = s.at_mi.min(line);
+            signs.push(s.at_mi);
+        }
+    }
+    // A line with no sign of its own near it is unposted from the line on:
+    // a gap marker there hands the stretch to the region's default instead
+    // of letting the other country's number hold.
+    for &at_mi in &gaps {
+        samples.push(SpeedLimitSample {
+            at_mi,
+            mph: None,
+            source: "assumed: no posting in this country's unit near the line".into(),
+            hgv: false,
+        });
+    }
     samples.sort_by(|a, b| a.at_mi.partial_cmp(&b.at_mi).expect("finite at_mi"));
-    Ok(dwell_filter_speed_limits(&samples, leg_miles, places))
+    let keep: Vec<f64> = signs.iter().chain(&gaps).copied().collect();
+    Ok(dwell_filter_with_signs(&samples, leg_miles, places, &keep))
+}
+
+/// The postings a country line puts up, by mile: at each crossing where the
+/// unit on the signs changes (km/h on one side, mph on the other), the first
+/// posting in the new unit from `BORDER_SIGN_BEFORE_MI` before the line to
+/// `BORDER_SIGN_REACH_MI` past it.
+///
+/// Every country posts its limit at the line, but the postings there are
+/// short (the port of entry's lanes, a town at the line), so the dwell
+/// filter dropped them and the last posting from the other country held on:
+/// north of Coutts the truck kept Montana's 70 mph into Alberta and spoke it
+/// as 113 km/h (2.0 alpha drive, 2026-11-22). The line is a little early or
+/// late against the stored mileage, hence the window before it.
+///
+/// Returns each sign with its line, and the lines with no sign in the new unit inside the
+/// window (Lacolle, where the first Quebec posting is four miles in).
+fn border_signs(
+    samples: &[(SpeedLimitSample, bool)],
+    crossings: &[f64],
+) -> (Vec<(f64, f64)>, Vec<f64>) {
+    let mut out = Vec::new();
+    let mut gaps = Vec::new();
+    for &line in crossings {
+        let from = line - BORDER_SIGN_BEFORE_MI;
+        let Some(before_kmh) = samples
+            .iter()
+            .rev()
+            .find(|(s, _)| s.at_mi < from && s.mph.is_some())
+            .map(|&(_, kmh)| kmh)
+        else {
+            continue;
+        };
+        if let Some((sign, _)) = samples.iter().find(|(s, kmh)| {
+            s.mph.is_some()
+                && *kmh != before_kmh
+                && s.at_mi >= from
+                && s.at_mi <= line + BORDER_SIGN_REACH_MI
+        }) {
+            out.push((sign.at_mi, line));
+        } else {
+            gaps.push(line);
+        }
+    }
+    (out, gaps)
 }
 
 /// How much road `seconds` of real time is, at a posting's own speed.
@@ -131,12 +238,27 @@ pub fn dwell_filter_speed_limits(
     leg_miles: f64,
     places: &[f64],
 ) -> Vec<SpeedLimitSample> {
+    dwell_filter_with_signs(samples, leg_miles, places, &[])
+}
+
+/// [`dwell_filter_speed_limits`], keeping the postings at `signs` (miles)
+/// however short: a country line's first sign (see [`border_signs`]).
+pub fn dwell_filter_with_signs(
+    samples: &[SpeedLimitSample],
+    leg_miles: f64,
+    places: &[f64],
+    signs: &[f64],
+) -> Vec<SpeedLimitSample> {
     let Some(first) = samples.first() else {
         return Vec::new();
     };
     let mut kept: Vec<SpeedLimitSample> = vec![first.clone()];
     for (i, sample) in samples.iter().enumerate().skip(1) {
         let run_end = samples.get(i + 1).map(|s| s.at_mi).unwrap_or(leg_miles);
+        if signs.contains(&sample.at_mi) {
+            kept.push(sample.clone());
+            continue;
+        }
         // A place explains a REDUCTION TO A TOWN SPEED and nothing else.
         // Passing through Strawberry is why the number drops to 35; it is never
         // why the road briefly allows more, and never why an 80 becomes a 75.
@@ -314,6 +436,39 @@ mod tests {
             kept.iter().map(|s| s.mph).collect::<Vec<_>>(),
             vec![Some(80.0), Some(35.0), Some(80.0)]
         );
+    }
+
+    #[test]
+    fn a_country_line_keeps_its_first_sign_in_each_direction() {
+        let row = |at: f64, mph: i64, kmh: Option<i64>| match kmh {
+            Some(k) => serde_json::json!({"at_mi": at, "mph": mph, "kmh": k}),
+            None => serde_json::json!({"at_mi": at, "mph": mph}),
+        };
+        // Shelby to Lethbridge: the line at 35.5, Montana's 70 for trucks,
+        // the port's short postings, then Alberta's 50 and 110.
+        let north = [
+            row(3.1, 70, None),
+            row(35.0, 55, None),
+            row(35.4, 25, None),
+            row(35.6, 30, Some(50)),
+            row(36.8, 70, Some(110)),
+        ];
+        let kept = parse_speed_limits(&north, 101.0, "a", "b", &[], &[35.5]).unwrap();
+        // Alberta's 50 km/h starts at the line, not a tenth of a mile in.
+        let at_line = kept.iter().find(|s| s.at_mi == 35.5).and_then(|s| s.mph);
+        assert_eq!(at_line.map(|m| (m * MILES_TO_KM).round()), Some(50.0));
+        // Without the line Montana's 70 held from 35.5 to 35.6.
+        let kept = parse_speed_limits(&north, 101.0, "a", "b", &[], &[]).unwrap();
+        assert!(kept.iter().any(|s| s.at_mi == 35.6));
+        // Southbound the first mph posting is the line's.
+        let south = [
+            row(5.2, 70, Some(110)),
+            row(64.8, 20, Some(30)),
+            row(65.4, 25, None),
+            row(65.6, 70, None),
+        ];
+        let kept = parse_speed_limits(&south, 101.0, "a", "b", &[], &[65.5]).unwrap();
+        assert!(kept.iter().any(|s| s.at_mi == 65.4 && s.mph == Some(25.0)));
     }
 
     fn flag(at_mi: f64, mph: f64) -> FlaggedLimit {

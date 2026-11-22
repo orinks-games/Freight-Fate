@@ -3174,7 +3174,7 @@ fn test_zero_amount_toll_entry_marker_does_not_record_expense() {
     trip.position_mi = 16.3;
     assert_eq!(
         gps_messages(&trip.update(0.0)),
-        vec!["ticket system toll point, Pennsylvania Turnpike eastern ticket entry."]
+        vec!["Ticket system toll point, Pennsylvania Turnpike eastern ticket entry."]
     );
     trip.position_mi = 18.2;
     let entry = trip.update(0.0);
