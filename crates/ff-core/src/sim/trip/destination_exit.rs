@@ -85,6 +85,14 @@ pub fn scan_destination_exit(
                 continue;
             }
             let dist_from_destination = (ix.at_mi - target).abs();
+            // An exit nearer the city the leg leaves than the one it reaches
+            // is the leaving city's exit: on a short leg the scan window
+            // reaches back to it. Flagstaff to Sedona (29 miles) crowned
+            // I-17 exit 337, 4.7 miles out of Flagstaff, and the drive
+            // would have settled 24 miles short (2026-11-22).
+            if dist_from_destination > leg.miles - dist_from_destination {
+                continue;
+            }
             let matches_destination = ix
                 .destinations
                 .iter()
