@@ -404,8 +404,8 @@ fn test_the_low_fuel_warning_names_only_fuel_this_rig_can_reach_on_the_route() {
 }
 
 /// The Dalton's real gap: Coldfoot is the last diesel for 240 miles, and a
-/// tank that will not reach Deadhorse hears so leaving Coldfoot, with the
-/// distance to the Colville pumps (Alaska routes, 2026-11-22).
+/// tank that will not reach Deadhorse hears so leaving Coldfoot (Alaska
+/// routes, 2026-11-22).
 #[test]
 fn test_the_dalton_warns_past_coldfoot_with_the_real_gap() {
     let mut app = TestApp::new();
@@ -457,7 +457,9 @@ fn test_the_dalton_warns_past_coldfoot_with_the_real_gap() {
     let lines = range_lines(&app);
     assert_eq!(lines.len(), 1, "{:?}", app.event_lines());
     assert!(
-        lines[0].starts_with("Fuel range about 210 miles, short of the next fuel stop"),
+        // The Colville pumps sit past the Deadhorse exit, so the warning
+        // holds the range to the destination, 240 miles on.
+        lines[0].starts_with("Fuel range about 210 miles, short of the destination"),
         "{lines:?}"
     );
 }
