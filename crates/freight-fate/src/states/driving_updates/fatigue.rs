@@ -47,11 +47,16 @@ impl DrivingState {
                 // The clock running down is the drive, not colour: even the
                 // non-urgent countdown must not queue behind chatter, and if
                 // something cuts it off it comes back. The alarm and the
-                // rumble are for a violation only; a notice is calm.
+                // rumble are for a violation only; a notice gets the soft
+                // chime, so a countdown spoken under other speech is still
+                // noticed (player report, 2026-11-22: the countdown had no
+                // tone at all after the alarm was kept for violations).
                 let urgent = hos::warning_is_urgent(&message);
                 if urgent {
                     ctx.audio.play("ui/warning");
                     ctx.controller.rumble.alert();
+                } else {
+                    ctx.audio.play_with("ui/notify", 0.7, 0.0);
                 }
                 let opts = SayEvent::new()
                     .interrupt(urgent)

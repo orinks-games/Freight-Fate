@@ -149,6 +149,7 @@ impl DrivingState {
             self.ladder_leg_index = leg;
             ctx.reset_ladder_leg_memory();
         }
+        self.scale_named_s = (self.scale_named_s - dt).max(0.0);
         if self.destination_exit_response_s > 0.0 {
             self.destination_exit_response_s = (self.destination_exit_response_s - dt).max(0.0);
             if self.destination_exit_response_s == 0.0 && self.exit_stop.is_none() {
@@ -795,6 +796,7 @@ impl DrivingState {
             0
         });
         live::set_arrival_menu_open(self.arrival_menu_open);
+        live::set_stop_menu_open(false);
         live::set_gate_stop_prompted(self.gate.stop_prompted());
         live::set_on_ramp(self.ramp_mi.is_some());
         live::set_posted_limit_mph(match self.trip.entered_zone.as_ref() {

@@ -466,6 +466,8 @@ impl DrivingState {
             record_events: Vec::new(),
             fatigue_events: 0,
             weigh_station_noticed: HashSet::new(),
+            scale_named_key: String::new(),
+            scale_named_s: 0.0,
             weigh_station_reminder_key: String::new(),
             weigh_station_reminder_age_s: 0.0,
             scale_reminder_held_by_game: HashSet::new(),

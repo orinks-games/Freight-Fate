@@ -211,6 +211,40 @@ fn tools_list() -> Value {
             &["name"],
         ),
         tool(
+            "fingers",
+            "Touch the screen with raw fingers, read by the shared gesture recognizer \
+             (Android's, and the iPhone's with Touch gestures, New gesture reading on), \
+             then reply with what was heard. events is a list of {finger, kind, x, y, \
+             at_ms}: finger is any id that stays the same from down to up; kind is down, \
+             move, up or cancel; x and y are points (y grows downwards, an iPhone screen \
+             is about 390 by 844); at_ms is milliseconds from the start of the call, in \
+             order. Each event is handed over at its own time and the recognizer ticks \
+             every frame, so a stroke held past the flick window becomes a hold. Moves \
+             are not filled in: send one every 16 ms or so for a stroke. A finger left \
+             down stays down until a later call lifts it. In lockstep the clock runs \
+             only inside calls. A desktop run, phone: true included, has no native \
+             recognizer, so this tool always uses the shared one, whatever the setting \
+             says; gesture sends a recognized gesture by name instead. status reports \
+             the recognizer's phase on the STATE line.",
+            json!({
+                "events": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "finger": {"type": "integer"},
+                            "kind": {"type": "string", "enum": ["down", "move", "up", "cancel"]},
+                            "x": {"type": "number"},
+                            "y": {"type": "number"},
+                            "at_ms": {"type": "number"},
+                        },
+                        "required": ["finger", "kind", "at_ms"],
+                    },
+                },
+            }),
+            &["events"],
+        ),
+        tool(
             "tilt",
             "Hold the phone at an angle, standing in for its motion sensor the way \
              gesture stands in for the screen: degrees from flat, right edge down \
@@ -747,6 +781,9 @@ pub fn build_command(name: &str, args: &Map<String, Value>) -> Result<Command, S
                 length,
             })
         }
+        "fingers" => Ok(Command::Fingers {
+            events: fingers_arg(args)?,
+        }),
         "tilt" => {
             let seconds = args.get("seconds").and_then(Value::as_f64).unwrap_or(0.0);
             if seconds <= 0.0 {
@@ -1053,6 +1090,65 @@ pub(super) fn discover(
     let hit = hits[index].clone();
     let found = hits.len();
     Ok((hit, opts, found, index + 1))
+}
+
+/// The `fingers` tool's events, checked: known kinds, finite points, and
+/// times in order within the call's limit.
+fn fingers_arg(args: &Map<String, Value>) -> Result<Vec<super::fingers::ScriptedFinger>, String> {
+    let Some(list) = args.get("events").and_then(Value::as_array) else {
+        return Err("fingers needs events, a list of {finger, kind, x, y, at_ms}".to_string());
+    };
+    if list.is_empty() {
+        return Err("fingers needs at least one event".to_string());
+    }
+    let mut events = Vec::with_capacity(list.len());
+    let mut last_ms = 0.0;
+    for (i, event) in list.iter().enumerate() {
+        let n = i + 1;
+        let finger = event
+            .get("finger")
+            .and_then(Value::as_i64)
+            .ok_or_else(|| format!("event {n}: finger must be a whole number"))?;
+        let kind_name = event.get("kind").and_then(Value::as_str).unwrap_or("");
+        let kind = crate::touch::FingerKind::from_name(kind_name)
+            .ok_or_else(|| format!("event {n}: kind must be down, move, up or cancel"))?;
+        let point = |name: &str| -> Result<f32, String> {
+            match event.get(name) {
+                None | Some(Value::Null) if kind == crate::touch::FingerKind::Cancel => Ok(0.0),
+                None | Some(Value::Null) => Err(format!("event {n}: {name} is missing")),
+                Some(value) => match value.as_f64() {
+                    Some(v) if v.is_finite() => Ok(v as f32),
+                    _ => Err(format!("event {n}: {name} must be a number of points")),
+                },
+            }
+        };
+        let (x, y) = (point("x")?, point("y")?);
+        let at_ms = event
+            .get("at_ms")
+            .and_then(Value::as_f64)
+            .filter(|ms| ms.is_finite() && *ms >= 0.0)
+            .ok_or_else(|| format!("event {n}: at_ms must be 0 or more"))?;
+        if at_ms < last_ms {
+            return Err(format!(
+                "event {n}: at_ms {at_ms} comes before the event ahead of it ({last_ms})"
+            ));
+        }
+        if at_ms > super::fingers::MAX_FINGERS_MS {
+            return Err(format!(
+                "event {n}: at_ms is past {} ms; split it into calls",
+                super::fingers::MAX_FINGERS_MS
+            ));
+        }
+        last_ms = at_ms;
+        events.push(super::fingers::ScriptedFinger {
+            finger,
+            kind,
+            x,
+            y,
+            at_ms,
+        });
+    }
+    Ok(events)
 }
 
 #[cfg(test)]

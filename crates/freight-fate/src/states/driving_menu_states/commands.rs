@@ -14,7 +14,7 @@
 //! to its own row in the top list.
 
 use crate::app::{GameContext, Say};
-use crate::bindings::Action;
+use crate::bindings::{Action, TouchCommand};
 use crate::impl_state_for_menu;
 use crate::states::base::{
     default_announce_entry, default_handle_event, InputEvent, Key, Label, Menu, MenuCore, MenuItem,
@@ -178,6 +178,48 @@ pub fn command_group_label(action: Action) -> Option<&'static str> {
             .then(|| group.label()),
         _ => None,
     })
+}
+
+/// One row of the driving command list's top level, for a screen that
+/// lists commands the same way (the command picker of Touch gestures).
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub enum CommandListRow {
+    Command(TouchCommand),
+    /// A group by its spoken name, with the commands its rows run.
+    Group(&'static str, Vec<TouchCommand>),
+}
+
+/// The driving command list's top level in its order: its commands and its
+/// groups. Rows that run no command a gesture can hold (Driving help, Back)
+/// are left out, and a row that changes a value gives both of its commands.
+pub fn command_list_rows() -> Vec<CommandListRow> {
+    TOP.iter()
+        .filter_map(|entry| match entry {
+            Run(action) => Some(CommandListRow::Command(TouchCommand::Action(*action))),
+            Open(group) => Some(CommandListRow::Group(
+                group.label(),
+                group.entries().iter().flat_map(entry_commands).collect(),
+            )),
+            _ => None,
+        })
+        .collect()
+}
+
+fn entry_commands(entry: &Entry) -> Vec<TouchCommand> {
+    let actions = match entry {
+        Run(action) => vec![*action],
+        F(Fixed::CruiseUp) => vec![Action::CruiseUp],
+        F(Fixed::CruiseDown) => vec![Action::CruiseDown],
+        F(Fixed::NextStation) => vec![Action::RadioTuneNext],
+        F(Fixed::PreviousStation) => vec![Action::RadioTunePrev],
+        F(Fixed::SetTiltLevel) => return vec![TouchCommand::SetTiltLevel],
+        Entry::Value(value) => {
+            let (raise, lower) = value.actions();
+            vec![raise, lower]
+        }
+        _ => Vec::new(),
+    };
+    actions.into_iter().map(TouchCommand::Action).collect()
 }
 
 impl Group {

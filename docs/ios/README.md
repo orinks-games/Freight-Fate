@@ -192,6 +192,48 @@ mid-stroke. VoiceOver's adjustable swipes (up and down with VoiceOver focus on
 the game and direct touch off) move through a menu's rows, since they are then
 the only way through a list.
 
+## How gestures are recognised
+
+Two recognisers read the same gestures, and Settings, Gameplay, Controls,
+Touch gestures has a row at the end to choose between them, iPhone and iPad
+only: "New gesture reading", off by default.
+
+- Off, the touch surface's UIKit recognisers read the gestures
+  (`ios/ff_touch.m`) and queue a code for each.
+- On, every UIKit recogniser on the surface is disabled, and the surface
+  queues its raw finger events instead (`ios/ff_fingers.m`): a finger id,
+  where it is in points, and the touch's own timestamp. The game hands them
+  to the recogniser Android uses (`ff_core::touch::recognizer`) at those
+  timestamps and ticks it on the same clock each frame, so a slow frame
+  cannot turn a flick into a hold. The haptics are the same table either
+  way. VoiceOver's own actions (double tap with direct touch off, the
+  adjustable swipes, the escape scrub, the magic tap, the three-finger
+  scroll) are not finger events and arrive the same way with the row on or
+  off.
+- Switching lets go of anything a finger was holding first: a pedal, the
+  horn, the straighten hold.
+
+The shared recogniser was ported rule for rule from `ff_touch.m`, and where
+the two differ the iPhone's behaviour is kept. Its rules are tested on the
+desktop (`crates/ff-core/src/touch/recognizer_tests.rs`), and the agent
+server's `fingers` tool plays raw fingers through it. Read against each
+other on 2026-11-22, they differ in:
+
+- The two-finger scrub's second: now timed from the second finger landing,
+  as UIKit's is (it was timed from the first).
+- UIKit's own taps, double taps and multi-finger flicks, whose distances and
+  windows Apple does not publish: the shared one uses 0.4 seconds for the
+  longest tap, 0.28 for a double tap's partner and a flick distance within
+  half a second.
+- The two-finger flick left or right is decided as the first finger lifts,
+  not the last, and a scrub cannot be finished with one finger.
+- A third finger during the horn leaves the horn on until the fingers lift. The row and the native
+recognisers go once the shared one has been played on a phone.
+
+To check on a phone with the row on: every gesture in Practice gestures
+with VoiceOver on and off, a drive, and turning the row on and off in the
+middle of a drive with a pedal held.
+
 ## Tilt steering
 
 Settings, Gameplay, Controls, Touch gestures starts with "Tilt steering",
@@ -387,4 +429,8 @@ frameworks it and SDL2 need, plus clang's iOS runtime for `@available` checks.
 - Open a list that had no way back, such as Call dispatch on the pause menu: its last row is Back, and double tapping it goes back. A list that already had one, such as Manage careers, has no second Back.
 - Tap with three fingers many times at the wheel: the command list opens every time, and no undo banner or shortcut bar appears.
 - In Practice gestures, swipe down and hold, then lift: hear the length and where the deep swipe starts. Carry a swipe into the deep swipe and lift: hear "Deep swipe." with its length. Try an ordinary brake swipe several times and note the lengths.
+- Turn on "New gesture reading" (the last row of Touch gestures) and run
+  this whole list again, VoiceOver on and off. Then, mid-drive with gas
+  held, pause, turn the row off and back on, and resume: the gas has let
+  go, and the next swipe and hold is read.
 - On Touch gestures, flick up and down on "Deep swipe starts at": it moves in tens between 60 and 180, and a swipe in practice then needs that length to become the deep swipe.

@@ -79,6 +79,7 @@ const MAX_CRUISE_TAPS: i64 = 60;
 
 mod bed_levels;
 mod ears;
+mod fingers;
 mod gestures;
 mod holder;
 mod lifeline;
@@ -162,6 +163,11 @@ pub enum Command {
         /// How far the finger travelled, in points, sent as it lifts the
         /// way the phone does while Practice gestures is open.
         length: Option<u16>,
+    },
+    /// Raw finger events through the shared recognizer, each at its time
+    /// from the call's start.
+    Fingers {
+        events: Vec<fingers::ScriptedFinger>,
     },
     /// Hold the phone at `degrees` from flat for `seconds`, or send no
     /// samples (`None`), then hold it at `then`, or where it was. It stands
@@ -289,6 +295,7 @@ fn app_event_inputs(event: ff_core::app_lifecycle::AppEvent) -> Vec<InputEvent> 
 fn fatigue_state_line(
     o: &crate::app::DrivingObservation,
     mode: crate::touch::TouchMode,
+    recognizer: &str,
     place: ff_core::app_lifecycle::AppLifecycle,
 ) -> String {
     let (timer, unit) = o.nod.timer();
@@ -308,7 +315,7 @@ fn fatigue_state_line(
     });
     format!(
         "STATE: alertness {}; nod {} ({timer:.2} {unit}); nod_misses {}; lift_owed {lift}; \
-         rest_call {rest_call}; runaway {}{gate}{co_driver}; jake_zone {}; touch_mode {}; road_offer {}; \
+         rest_call {rest_call}; runaway {}{gate}{co_driver}; jake_zone {}; touch_mode {}; recognizer {recognizer}; road_offer {}; \
          touch_clutch {}; lane {}; lane_push {}; window {}; outside {} ({}, {}); water {}; road_surface {}, {}; structure {}; chain_control {}; chains {}; app {}.",
         o.alertness.key(),
         o.nod.key(),
@@ -434,6 +441,8 @@ pub struct AgentPolicy {
     gesture_lift: Option<(crate::touch::Gesture, f64, Option<u16>)>,
     /// A timed `tilt`: the real seconds left, and the pose after.
     tilt_hold: Option<(f64, f64)>,
+    /// The `fingers` tool's recognizer, clock and events still to come.
+    fingers: fingers::FingerPlay,
     /// Key events scripted frame by frame, front first. A tap is two
     /// frames -- down, then up -- because the held-key tracker reads a
     /// press and release inside ONE frame as a screen reader's re-injected
@@ -633,6 +642,7 @@ impl AgentPolicy {
             input.assert_held(*key);
         }
         self.advance_touch(input, dt);
+        self.advance_fingers(input, dt);
         self.hold_phone(input);
         self.advance_tilt(input, dt);
         if let Some((key, remaining)) = self.timed_hold.take() {
@@ -692,10 +702,16 @@ impl AgentPolicy {
                 let mode = input.touch_mode();
                 let place = input.app_lifecycle();
                 match input.driving_observation() {
-                    Some(o) => text.push_str(&fatigue_state_line(&o, mode, place)),
+                    Some(o) => text.push_str(&fatigue_state_line(
+                        &o,
+                        mode,
+                        self.fingers.phase_key(),
+                        place,
+                    )),
                     None => text.push_str(&format!(
-                        "STATE: touch_mode {}{}; app {}.",
+                        "STATE: touch_mode {}; recognizer {}{}; app {}.",
                         mode.key(),
+                        self.fingers.phase_key(),
                         input.dispatch_board_state().unwrap_or_default(),
                         place.key()
                     )),
@@ -830,6 +846,11 @@ impl AgentPolicy {
                     length,
                 } => {
                     if self.send_gesture(gesture, seconds, length, reply) {
+                        break;
+                    }
+                }
+                Command::Fingers { events } => {
+                    if self.send_fingers(events, reply) {
                         break;
                     }
                 }
@@ -983,7 +1004,12 @@ impl AgentPolicy {
                             o.off_pavement,
                             o.truck_damage_pct,
                             o.cargo_damage_pct,
-                            fatigue_state_line(&o, input.touch_mode(), input.app_lifecycle()),
+                            fatigue_state_line(
+                                &o,
+                                input.touch_mode(),
+                                self.fingers.phase_key(),
+                                input.app_lifecycle()
+                            ),
                         ),
                         None => {
                             "INSPECTOR: not at the wheel (a menu or stop screen is up).".to_string()
@@ -1047,6 +1073,7 @@ impl AgentPolicy {
             || self.timed_hold.is_some()
             || self.gesture_lift.is_some()
             || self.tilt_hold.is_some()
+            || self.fingers.playing()
             || self.cruise_plan.is_some()
             || !self.scripted.is_empty();
         if self.lockstep && !working {
@@ -1093,6 +1120,7 @@ pub fn policy_with_lifeline(
         touch: crate::touch::TouchInput::new(),
         gesture_lift: None,
         tilt_hold: None,
+        fingers: fingers::FingerPlay::default(),
         scripted: std::collections::VecDeque::new(),
         lockstep: false,
         quit: false,

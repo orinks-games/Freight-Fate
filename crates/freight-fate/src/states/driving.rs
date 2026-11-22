@@ -396,6 +396,10 @@ pub struct DrivingState {
     pub fatigue_events: i64, // run-off-road microsleeps this trip
     // Every open scale whose notice has been spoken this trip, by key.
     pub weigh_station_noticed: HashSet<String>,
+    /// The scale the weigh station notice last named in words, and the real
+    /// seconds left in which the exit signal can call it "the scale exit".
+    pub scale_named_key: String,
+    pub scale_named_s: f64,
     // The half-mile "slow for the scale" nudge, latched separately so it
     // speaks once per announced scale and never re-fires on a re-approach.
     pub weigh_station_reminder_key: String,

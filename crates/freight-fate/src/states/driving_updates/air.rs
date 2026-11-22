@@ -170,6 +170,9 @@ impl DrivingState {
                     .priority(EventPriority::Important)
                     .category(SpeechCategory::Status),
             );
+            if let Some(tutorial) = self.tutorial.as_mut() {
+                tutorial.on_air_ready();
+            }
             // air_ready is retired as an award (folded into "first_day" at
             // pickup completion, see city_pickup.py); the catalog entry and
             // id stay so the cloud validator's allow-list never sees a
