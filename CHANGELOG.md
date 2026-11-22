@@ -29,6 +29,7 @@
 - **Dispatch now offers loads into Canada and back,** with customs time in the deadline. A US carrier may not haul between Canadian towns.
 - **A route between two US cities stays in the United States when a US road exists.** Alaska routes still run through Canada.
 - **South Jersey has new roads.** Drive the Turnpike or I-295 to Carneys Point, cross the Delaware Memorial Bridge, or haul to Cape May.
+- **Florida and Georgia have 50 new roads.** Sebring, Port Canaveral, Crystal River and Gainesville, Georgia join the map.
 - **Units has a new Automatic choice, the default in 2.0:** miles in the United States, kilometers in Canada, said once at the border.
 - **Kilometers now reach fuel, weights and signs.** Fuel is in liters, loads in tonnes, weights in kilograms and low bridges in meters.
 - **The cruise dial steps in the units you hear.** In kilometers it walks 95, 100, 105.
@@ -86,6 +87,7 @@
 
 ### Fixed
 
+- **Alligator Alley now charges one toll per trip.** It was charging for both plazas.
 - **Toll estimates no longer charge a one-way bridge in both directions.** The estimate now matches what the drive charges.
 - **Left curve calls say "left" again in every language.** They are spoken in English for now.
 - **Crossing into the District of Columbia now says "the District of Columbia."**

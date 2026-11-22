@@ -84,7 +84,8 @@ bookmarks usable.
 - [x] (Found along the way) Gary and South Bend to Chicago left I-90 for Cline Avenue around the Chicago Skyway, and Philadelphia, Harrisburg and Baltimore to Pittsburgh left the Pennsylvania Turnpike for US-30 near Breezewood and Bedford: the old truck router avoided tolls (route audit of 2026-11-05). Re-routed 2026-11-05 onto the toll roads, every layer rebuilt from the planet file of 2026-11-03, and the toll booths re-placed: the Skyway's 5-axle toll is read from its operator's table, and Harrisburg's and Baltimore's Turnpike tolls are pro-rated by miles from Philadelphia's estimate.
 - [ ] (Found along the way) Four legs store a straight line across a stretch of their road: Newark to Trenton (38 miles between miles 8 and 46, where the New Jersey Turnpike is; re-routed onto the Turnpike on `feat/career-2.0` 2026-11-22, the South Jersey roads), Portland to Salt Lake City (28 miles near mile 166), Knoxville to Atlanta (17 miles near mile 44) and Springfield to St. Louis (12 miles near mile 49). Curves, limits and exits there are read off a line that is not the road. The truck router puts each back on its interstate (69 to 96% of the miles); re-route them the same way.
 - [ ] (Found along the way) Five legs ride other roads for 5 to 16 miles beside their interstate: Charlotte to Knoxville (US-321 and US-221 Business near Hickory and Marion), Erie to Meadville (PA-98), Rapid City to Sioux Falls (SD-50), Paducah to Clarksville (US-60 and US-62) and Sacramento to Portland (OR-99). The truck router keeps 77 to 97% of each on the interstate. Erie to Meadville reads 0% on I-79 in the router's own report, which needs a look before re-routing it.
-- [ ] (Found along the way) Six Florida legs named I-95 ride Florida's Turnpike for about 13 miles (West Palm Beach, Port St. Lucie, Coral Springs and Jacksonville to Miami and Palm Bay). The route is a reasonable truck choice; the label is what is wrong. Name the road the legs drive, or split the highway name where they change roads.
+- [ ] (Found along the way) Six Florida legs named I-95 ride Florida's Turnpike for about 13 miles (West Palm Beach, Port St. Lucie, Coral Springs and Jacksonville to Miami and Palm Bay). The route is a reasonable truck choice; the label is what is wrong. Name the road the legs drive, or split the highway name where they change roads. On `feat/career-2.0` (2026-11-22, Florida and Georgia roads) Port Saint Lucie to Coral Springs and to Miami are renamed Florida's Turnpike, and West Palm Beach to Palm Bay is split at Port Saint Lucie with its southern piece on the Turnpike.
+- [ ] (Found along the way) Florida and Georgia roads (2026-11-22): billboards for the new legs, four tolls still unpriced, and seventeen long legs with no stop a tractor-trailer can use. Detail under "Florida and Georgia roads".
 - [ ] (Found along the way) A whole-map run of the new layer builders (2026-11-05, dry run) would change most legs: lane counts and landmarks mostly by their source notes, villages by about 160 places, and low clearances from 118 legs to 543, mostly real posted bridges under 16 feet in the Northeast. Decide whether to apply it. The low clearances need no listening pass: the GPS no longer speaks them (2026-11-22).
 - [ ] (Found along the way) The terrain class reads at most 800 HPMS sections per leg, so a long leg is judged on whichever 800 the server returns first: Harrisburg to Pittsburgh across the Alleghenies reads level. Count every section in the leg's own corridor instead.
 - [x] (Found along the way) What the road is made of, and where it leaves the ground, is on the map (2026-11-20; the owner asked whether pavement data could make the planned road seams accurate). `cargo tools hpms-pavement` reads FHWA HPMS surface type and bridges, tunnels and causeways along every leg's archived road, each way; the road seams and bridge joints use it. Coverage and method: [November 20](#november-20-pavement-and-structures-from-hpms-found-along-the-way).
@@ -6488,6 +6489,55 @@ a carrier slice (owner, 2026-10-26).
 - [ ] (Found along the way) orinks.net's Career 2.0 catalog export
       (`data/freight-fate-profile-invariants-career-2.json`) lists 651
       cities against the branch's 805; refresh it before 2.0 cloud saves.
+
+### Florida and Georgia roads (missing roads, Florida and Georgia region, November 22)
+
+- [x] Four new cities. Port Canaveral has the Canaveral Cargo Terminal,
+      Seaport Canaveral's fuel terminal, Heidelberg Materials and Morton
+      Salt; Gainesville, Georgia has Kubota's plant, Fieldale Farms and
+      Eskimo Cold Storage. Sebring and Crystal River take the template
+      market: no freight site there could be sourced yet.
+- [x] Fifty new legs, routed by the truck router over the OpenStreetMap
+      planet of 2026-11-16 and built with every layer, posted limits last.
+      West Palm Beach to Palm Bay split at Port Saint Lucie: the new piece
+      is West Palm Beach to Port Saint Lucie on Florida's Turnpike, the
+      other piece was already a leg, and a save on the old leg resumes on
+      the chain.
+- [x] Five legs re-routed and nineteen renamed to the road they ride, with
+      their checkpoints' roads.
+- [x] Florida and Georgia stops list (`docs/stops/florida-georgia.json`),
+      seeded from the stops the region's legs already carry, plus the
+      Brunswick truck stops, Love's at Evergreen and Mims, the Thomasville
+      Travel Center, Circle K at Waycross and the rest areas on I-65 and
+      I-85.
+- [x] Tolls from the authorities' 5-axle tables: the Suncoast Parkway,
+      the Turnpike from Wildwood to Orlando, Lantana and West Palm Beach to
+      Port Saint Lucie, the Sawgrass Expressway, the Beachline, GreeneWay
+      and East-West Expressway, and Alligator Alley, one plaza each way.
+- [ ] (Found along the way) Billboards on the region's new legs: a sheet
+      needs Orinks's approval.
+- [ ] (Found along the way) Tolls still missing: Lakeland to Tampa (the
+      Selmon Expressway ramp; the Tampa Hillsborough Expressway Authority
+      table was not read), Coral Springs to Miami (two ramp gantries no
+      table row matches), Augusta to Greenville on the Southern Connector
+      (only a rate study is published), and the Becker Road gantry on the
+      Turnpike near Port Saint Lucie (newer than the table). The express
+      lanes on I-4 and I-95 are left out: tractor-trailers may not use them.
+- [ ] (Found along the way) No tool writes the curve artifact list
+      (`curve_artifacts.jsonl`) since `screen_curve_artifacts.py` was
+      deleted, so a rename that moves a leg between the interstate and the
+      US-route curve screens needs a hand edit (Spring Hill to Ocala, renamed
+      I-75, lost its one flag on 2026-11-22). Port the screen to cargo tools.
+- [ ] (Found along the way) Sebring and Crystal River, Florida are on the
+      template market: they still need real freight sites with sources.
+- [ ] (Found along the way) Seventeen legs of 60 miles or more still have no
+      stop a tractor-trailer can use; the leads found none with a name or a
+      source: Crystal River to Gainesville, Daytona Beach and Palm Coast to
+      Ocala on SR-40, Fort Myers and Sebring to Port Saint Lucie on SR-70,
+      Orlando to Spring Hill, Panama City to Pensacola, Sebring to Fort
+      Myers and to Sarasota, West Palm Beach to Miami, Americus to Columbus
+      and to Troy, Augusta to Greenville, Hinesville to Brunswick and to
+      Tifton, LaGrange to Rome and Rome to Chattanooga.
 
 ### Winter cab, wipers and ice roads (designed November 22)
 
