@@ -131,12 +131,17 @@ fn is_career_name_hole(template: &Template, name: &str) -> bool {
 // progress inside it, and the distance inside that.
 const MAX_DEPTH: usize = 6;
 
-pub(super) fn translate(catalog: &Catalog, line: &str, missed: &mut Vec<String>) -> String {
+pub(super) fn translate(
+    catalog: &Catalog,
+    line: &str,
+    missed: &mut Vec<String>,
+    kept: &dyn Fn(&str) -> bool,
+) -> String {
     let mut memo = Memo::new();
     let mut verbatim = Verbatim::new(line);
     let out = match split_position_cue(line) {
         Some((row, position, count)) => {
-            let row = if super::is_kept_verbatim(row) {
+            let row = if kept(row) {
                 row.to_string()
             } else {
                 Pass {

@@ -5,13 +5,16 @@
 //! exists only while the game holds an issue (`crate::newspaper`). Menu
 //! speech only: nothing about the paper is ever said at the wheel on its
 //! own. The issue's text is the site's English, kept out of the
-//! translation catalog (`ff_core::l10n::keep_verbatim`).
+//! translation catalog (`Translator::keep_verbatim`) only while the app is
+//! open: its headings ("Records", "Achievements") are also rows of the
+//! game's own menus, which must translate again once the player leaves.
 
 use ff_core::newspaper::{PaperIssue, PaperSection};
 
 use crate::app::GameContext;
+use crate::app::Say;
 use crate::impl_state_for_menu;
-use crate::states::base::{Menu, MenuCore, MenuItem};
+use crate::states::base::{default_enter, end_sentence, Menu, MenuCore, MenuItem};
 
 /// The row's label, in Driver apps and on the Online menu.
 pub const NEWSPAPER_LABEL: &str = "Newspaper";
@@ -34,6 +37,9 @@ pub struct NewspaperState {
     menu: MenuCore<Self>,
     issue: PaperIssue,
     from: OpenedFrom,
+    /// False until the first announcement: opening says the whole title,
+    /// coming back from a section the masthead alone.
+    announced: bool,
 }
 
 impl NewspaperState {
@@ -43,11 +49,11 @@ impl NewspaperState {
     pub fn open(ctx: &mut GameContext, from: OpenedFrom) -> Option<Self> {
         let issue = ctx.services.newspaper.issue()?;
         ctx.services.newspaper.refresh_if_stale();
-        ff_core::l10n::keep_verbatim(issue.spoken_text());
         Some(Self {
             menu: MenuCore::new(&issue.title()).with_intro_help(SECTIONS_HELP),
             issue,
             from,
+            announced: false,
         })
     }
 
@@ -78,6 +84,7 @@ impl Menu for NewspaperState {
                 MenuItem::new(section.heading.clone(), move |s: &mut Self, ctx| {
                     s.open_section(ctx, index)
                 })
+                .help(SECTIONS_HELP)
             })
             .collect();
         items.push(match self.from {
@@ -88,6 +95,31 @@ impl Menu for NewspaperState {
             OpenedFrom::OnlineMenu => MenuItem::new("Back", |s: &mut Self, ctx| s.go_back(ctx)),
         });
         items
+    }
+
+    /// Entered on opening and again on coming back from a section: the
+    /// issue's text stays untranslated for as long as the app is open.
+    fn enter(&mut self, ctx: &mut GameContext) {
+        ctx.translator.keep_verbatim(self.issue.spoken_text());
+        default_enter(self, ctx);
+    }
+
+    /// Every way out of the app pops this screen, so this is where the
+    /// game's own menus get their translations back.
+    fn exit(&mut self, ctx: &mut GameContext) {
+        ctx.translator.keep_verbatim(Vec::new());
+    }
+
+    fn announce_entry(&mut self, ctx: &mut GameContext) {
+        let title = if self.announced {
+            end_sentence(&self.issue.masthead)
+        } else {
+            end_sentence(&self.menu.title)
+        };
+        self.announced = true;
+        ctx.say(&title);
+        let current = self.current_text(ctx);
+        ctx.say_with(current, Say::queued().review(false));
     }
 }
 

@@ -239,3 +239,127 @@ fn test_the_online_menu_row_sits_with_the_reading_rows_and_the_toggles_keep_thei
     let sections = labels::<NewspaperState>(&top, &app.ctx);
     assert_eq!(sections.last().map(String::as_str), Some("Back"));
 }
+
+// -- the follow-up: translation scope, the title on return, row help ---------------------
+
+const SPANISH: &str = r#"
+msgid ""
+msgstr ""
+"Language: es\n"
+
+msgid "Achievements"
+msgstr "Logros"
+"#;
+
+fn spanish() -> Arc<ff_core::l10n::Translator> {
+    Arc::new(ff_core::l10n::Translator::new(
+        ff_core::l10n::Catalog::from_po("es", SPANISH).expect("test catalog parses"),
+    ))
+}
+
+/// The issue's headings are the site's English while the app is open, and
+/// the game's own rows of the same name translate again once it is left.
+#[test]
+fn test_the_issue_stays_english_only_while_the_app_is_open() {
+    let mut app = TestApp::new();
+    app.ctx.translator = spanish();
+    app.ctx.services.newspaper.stage(Some(fixture()));
+    assert_eq!(app.ctx.tr("Achievements"), "Logros");
+
+    let hub = OnlineHubState::new(&mut app.ctx);
+    let hub = push(&mut app, hub);
+    online::move_to::<OnlineHubState>(&mut app, &hub, "Newspaper");
+    online::press(&mut app, Key::Return);
+    let paper = app.state().expect("a screen");
+    assert!(online::is_state::<NewspaperState>(&paper));
+    online::move_to::<NewspaperState>(&mut app, &paper, "Achievements");
+    assert!(
+        drive::last(&app).starts_with("Achievements."),
+        "{}",
+        drive::last(&app)
+    );
+    assert_eq!(app.ctx.tr("Achievements"), "Achievements");
+
+    // Into a section and back: still the site's text.
+    online::press(&mut app, Key::Return);
+    assert!(drive::top_is::<NewspaperSectionState>(&app));
+    assert_eq!(app.ctx.tr("Achievements"), "Achievements");
+    online::press(&mut app, Key::Escape);
+    assert!(drive::top_is::<NewspaperState>(&app));
+    assert_eq!(app.ctx.tr("Achievements"), "Achievements");
+
+    // Out of the app: the game's row translates again.
+    online::press(&mut app, Key::Escape);
+    assert!(drive::top_is::<OnlineHubState>(&app));
+    assert_eq!(app.ctx.tr("Achievements"), "Logros");
+    assert_eq!(app.ctx.tr("Achievements. 4 of 14."), "Logros. 4 of 14.");
+}
+
+#[test]
+fn test_leaving_by_the_back_row_also_ends_the_english_text() {
+    let mut app = TestApp::new();
+    app.ctx.translator = spanish();
+    app.ctx.services.newspaper.stage(Some(fixture()));
+    let hub = OnlineHubState::new(&mut app.ctx);
+    let hub = push(&mut app, hub);
+    online::move_to::<OnlineHubState>(&mut app, &hub, "Newspaper");
+    online::press(&mut app, Key::Return);
+    assert_eq!(app.ctx.tr("Achievements"), "Achievements");
+    online::press(&mut app, Key::End);
+    online::press(&mut app, Key::Return);
+    assert!(drive::top_is::<OnlineHubState>(&app));
+    assert_eq!(app.ctx.tr("Achievements"), "Logros");
+}
+
+#[test]
+fn test_opening_says_the_whole_title_and_coming_back_the_masthead() {
+    let mut app = TestApp::new();
+    app.ctx.services.newspaper.stage(Some(fixture()));
+    let hub = OnlineHubState::new(&mut app.ctx);
+    let hub = push(&mut app, hub);
+    online::move_to::<OnlineHubState>(&mut app, &hub, "Newspaper");
+    online::press(&mut app, Key::Return);
+    let opened = app.main_lines();
+    assert!(
+        opened
+            .iter()
+            .any(|line| line == "The Mile Marker, issue 25. November 16 to 22, 2026."),
+        "{opened:?}"
+    );
+
+    online::press(&mut app, Key::Down);
+    online::press(&mut app, Key::Return);
+    assert!(drive::top_is::<NewspaperSectionState>(&app));
+    let before = app.main_lines().len();
+    online::press(&mut app, Key::Escape);
+    let back: Vec<String> = app.main_lines()[before..].to_vec();
+    assert_eq!(
+        back.first().map(String::as_str),
+        Some("The Mile Marker."),
+        "{back:?}"
+    );
+    assert!(
+        back.iter().any(|line| line.starts_with("Front page.")),
+        "{back:?}"
+    );
+    assert!(
+        !back.iter().any(|line| line.contains("issue 25")),
+        "{back:?}"
+    );
+}
+
+#[test]
+fn test_f1_on_a_section_row_says_how_to_open_it() {
+    let mut app = TestApp::new();
+    app.ctx.services.newspaper.stage(Some(fixture()));
+    let hub = OnlineHubState::new(&mut app.ctx);
+    let hub = push(&mut app, hub);
+    online::move_to::<OnlineHubState>(&mut app, &hub, "Newspaper");
+    online::press(&mut app, Key::Return);
+    online::press(&mut app, Key::Down);
+    online::press(&mut app, Key::F1);
+    assert_eq!(
+        drive::last(&app),
+        "Enter opens a section. Escape goes back."
+    );
+}

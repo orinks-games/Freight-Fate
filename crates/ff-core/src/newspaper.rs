@@ -12,7 +12,7 @@
 //! The issue's text comes from the site in English and is spoken as it
 //! arrives. [`PaperIssue::spoken_text`] lists every line of it, so the
 //! speech boundary can keep those lines out of the translation catalog
-//! (`crate::l10n::keep_verbatim`).
+//! (`crate::l10n::Translator::keep_verbatim`).
 
 use serde_json::Value;
 
@@ -22,8 +22,11 @@ pub const PAPER_VERSION: u64 = 1;
 pub const MAX_LINE_CHARS: usize = 600;
 /// The most lines one issue may hold, headings not counted.
 pub const MAX_ISSUE_LINES: usize = 400;
-/// A held issue older than this is fetched again when the app opens.
-pub const REFRESH_AFTER_S: f64 = 6.0 * 60.0 * 60.0;
+/// A held issue older than this is fetched again when the app opens: the
+/// length of the site's cached read, so a driver who turns Profile sharing
+/// off leaves the game's copy about as fast as the site's page, and an
+/// opening sooner than that would only get the same answer.
+pub const REFRESH_AFTER_S: f64 = 5.0 * 60.0;
 /// Where the last issue is kept, under the data directory.
 pub const PAPER_FILE: &str = "newspaper.json";
 
@@ -61,10 +64,10 @@ impl PaperIssue {
             .collect()
     }
 
-    /// Every piece of the site's text the game may speak: the title, each
-    /// heading and each line.
+    /// Every piece of the site's text the game may speak: the title, the
+    /// masthead alone, each heading and each line.
     pub fn spoken_text(&self) -> Vec<String> {
-        let mut out = vec![self.title()];
+        let mut out = vec![self.title(), self.masthead.clone()];
         for section in self.reading_order() {
             out.push(section.heading.clone());
             out.extend(section.lines.iter().cloned());

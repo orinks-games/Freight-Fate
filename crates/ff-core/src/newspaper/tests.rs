@@ -71,8 +71,9 @@ fn transitions() {
 }
 
 #[test]
-fn a_refresh_is_due_with_nothing_held_or_after_six_hours() {
+fn a_refresh_is_due_with_nothing_held_or_after_five_minutes() {
     assert!(PaperState::NoIssue.refresh_due(0.0));
+    assert_eq!(REFRESH_AFTER_S, 300.0);
     let held = PaperState::NoIssue.next(small(1000.0));
     assert!(!held.refresh_due(1000.0 + REFRESH_AFTER_S));
     assert!(held.refresh_due(1000.0 + REFRESH_AFTER_S + 1.0));

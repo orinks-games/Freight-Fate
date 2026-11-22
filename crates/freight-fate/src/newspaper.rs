@@ -7,7 +7,7 @@
 //! game mentions a newspaper. There is no setting of its own.
 //!
 //! A worker thread does the fetch, at launch and again when the app is
-//! opened and the held issue is more than six hours old; the game loop only
+//! opened and the held issue is more than five minutes old; the game loop only
 //! reads the state under a lock. A failed fetch keeps what is held and says
 //! nothing. The fetch needs Online services on and a process that is the
 //! game (`net::real_network_allowed`); the agent and playtest sandboxes point
@@ -142,7 +142,7 @@ impl Newspaper {
         self.inner.fetch();
     }
 
-    /// Opening the app: fetch again if the held issue is over six hours old.
+    /// Opening the app: fetch again if the held issue is over five minutes old.
     /// What is held now is what the screen shows; a newer issue is there
     /// the next time it opens.
     pub fn refresh_if_stale(&self) {
