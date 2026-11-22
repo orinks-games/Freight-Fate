@@ -207,6 +207,7 @@ pub struct HearkenBackend {
     /// The legacy single pitched loop, when that model is running.
     pub(super) engine_sound: Option<Sound>,
     pub(super) engine_bands: Vec<EngineBand>,
+    pub(super) engine_stereo_ring: bool,
     pub(super) engine_voice_classic: bool,
     /// The ignition one-shot, its level before the crossfade, and the
     /// crossfade multiplier the fade writes.
@@ -315,6 +316,7 @@ impl HearkenBackend {
             engine_running: false,
             engine_sound: None,
             engine_bands: Vec::new(),
+            engine_stereo_ring: false,
             engine_voice_classic: false,
             engine_intro_sound: None,
             crank_base: 0.0,

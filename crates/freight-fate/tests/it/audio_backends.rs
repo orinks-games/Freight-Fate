@@ -1015,6 +1015,22 @@ fn test_play_bank_falls_back_to_the_classic_cue() {
 }
 
 #[test]
+fn test_truck_shift_prefers_the_cab_bank_and_keeps_the_existing_fallbacks() {
+    for (available, expected) in [
+        (
+            &["vehicle/shift_auto_01", "vehicle/shift_cab_01"][..],
+            "vehicle/shift_cab_01",
+        ),
+        (&["vehicle/shift_auto_01"][..], "vehicle/shift_auto_01"),
+        (&[][..], "vehicle/gear_shift"),
+    ] {
+        let (mut audio, played) = bank_facade(available);
+        audio.play_bank_with("vehicle/shift_auto", "vehicle/gear_shift", 0.4, 0.0);
+        assert_eq!(played.borrow()[0].0, expected);
+    }
+}
+
+#[test]
 fn test_has_asset_caches_the_lookup() {
     let (mut a, _played) = bank_facade(&["vehicle/ebrake"]);
     assert!(a.has_asset("vehicle/ebrake"));

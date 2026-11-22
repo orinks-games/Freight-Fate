@@ -150,7 +150,17 @@ pub const ENGINE_BANDS: [(&str, f64); 5] = [
     ("engine/high", 1900.0),
 ];
 
-/// Whether `key` is one of the five engine band cuts (`ENGINE_BAND_KEYS`).
+/// The cab stereo cuts have their own keys so the existing recordings keep
+/// their own pitch calibration in older packs.
+pub const STEREO_ENGINE_BANDS: [(&str, f64); 5] = [
+    ("engine_stereo/idle", 650.0),
+    ("engine_stereo/low", 898.0),
+    ("engine_stereo/mid", 1279.0),
+    ("engine_stereo/midhigh", 1473.0),
+    ("engine_stereo/high", 1988.0),
+];
+
+/// Whether `key` is one of the original five engine band cuts.
 pub fn is_engine_band_key(key: &str) -> bool {
     ENGINE_BANDS.iter().any(|(band, _native)| *band == key)
 }
