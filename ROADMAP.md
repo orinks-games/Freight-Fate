@@ -5967,9 +5967,26 @@ a carrier slice (owner, 2026-10-26).
       Calais and St. Stephen crossings.
 - [ ] The north: 63 to Fort McMurray, 16 to Prince Rupert, 37 to the
       Yukon, 3 to Yellowknife, freight nodes only.
+- [x] Units: Automatic (miles in the United States, kilometers in Canada,
+      one spoken line at the crossing), the 2.0 default; Imperial and Metric
+      hold one unit everywhere. Fuel, weights, load tons, sign heights and
+      the cruise dial follow the effective units. A 1.9 true becomes
+      Automatic, false becomes Metric.
+- [ ] (Found along the way) A 1.9 build that saves the shared settings
+      file writes only the keys it knows, so it drops `units`. 2.0 then reads
+      1.9's `imperial_units: true` as Automatic, and a player's explicit
+      Imperial comes back as Automatic. Metric survives, since false still
+      maps to Metric.
+- [x] (Found along the way) A Canadian 100 km/h sign speaks 100 in
+      kilometers and 62 in miles, and cruise to the limit holds 100 (driven
+      Surrey to Prince George, 2026-11-22).
+- [ ] (Found along the way) Hear a Canadian road pump in Automatic in a
+      drive (liters, the per liter price, "N liters fueled"). Covered so far
+      by tests and the Surrey terminal garage drive; the Whitewood cardlock
+      on Regina to Brandon is the nearest pump to stage.
 - [ ] The rules before the first corridor merges: postings in the
-      player's units from the sign's own number (done; an Automatic units
-      setting is its own brief); cycle 1 and 2 hours of service
+      player's units from the sign's own number (done; Automatic speaks
+      km/h in Canada); cycle 1 and 2 hours of service
       with the Canadian rest menus; provincial weights, the 25 m length,
       B-trains, spring bans; the 105 km/h limiters; CAD at the pump;
       customs with hours, FAST and cabotage at every listed port;

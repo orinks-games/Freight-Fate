@@ -180,14 +180,15 @@ impl Menu for CareerStartState {
                 let starts = terminal
                     .map(|t| format!(" Truck starts at {t}."))
                     .unwrap_or_default();
+                let menu_summary = option.summary_in(&ctx.settings);
                 MenuItem::new(
-                    format!("{}. {}{starts}", option.label, option.menu_summary),
+                    format!("{}. {}{starts}", option.label, menu_summary),
                     move |s: &mut Self, ctx| s.pick(ctx, key),
                 )
                 // `pick` plays the select sound, or the error sound when a
                 // same-named older or newer career refuses the start.
                 .select_sound(None)
-                .help(format!("{}{starts}", option.help_text))
+                .help(format!("{}{starts}", option.help_in(&ctx.settings)))
             })
             .collect()
     }

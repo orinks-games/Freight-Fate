@@ -455,7 +455,9 @@ fn test_the_bar_tone_lapses_the_moment_the_terminal_is_done() {
 fn test_the_bar_milestones_stay_outside_the_tick_range() {
     let mut app = TestApp::new();
     let d = a_real_drive(&mut app);
-    app.ctx.settings.imperial_units = true;
+    app.ctx
+        .settings
+        .set_units_mode(ff_core::units::UnitsMode::Imperial);
 
     let standard = d.ramp_bar_milestones(&app.ctx);
     assert!(!standard.is_empty());
@@ -469,7 +471,9 @@ fn test_quiet_keeps_the_far_call_and_the_handoff_to_the_tick() {
     // the stop bar beeps come in, so the sound will do the guiding".
     let mut app = TestApp::new();
     let d = a_real_drive(&mut app);
-    app.ctx.settings.imperial_units = true;
+    app.ctx
+        .settings
+        .set_units_mode(ff_core::units::UnitsMode::Imperial);
     app.ctx.settings.driving_speech = "quiet".to_string();
 
     let quiet = d.ramp_bar_milestones(&app.ctx);
@@ -1272,7 +1276,9 @@ fn test_exit_traffic_is_news_only_to_a_driver_taking_that_exit() {
 fn test_the_dial_answers_with_the_figure_alone_at_quiet() {
     let mut app = TestApp::new();
     let d = a_real_drive(&mut app);
-    app.ctx.settings.imperial_units = true;
+    app.ctx
+        .settings
+        .set_units_mode(ff_core::units::UnitsMode::Imperial);
     assert_eq!(d.speed_number(&app.ctx, 62.0), "62");
 }
 
@@ -1760,7 +1766,9 @@ fn test_a_ramp_terminal_call_never_speaks_a_limit_it_does_not_have() {
     for control in ["signal", "stop", "yield", "roundabout"] {
         let mut app = TestApp::new();
         let mut d = a_real_drive(&mut app);
-        app.ctx.settings.imperial_units = true;
+        app.ctx
+            .settings
+            .set_units_mode(ff_core::units::UnitsMode::Imperial);
         app.ctx.settings.driving_speech = "quiet".to_string();
         d.trip.position_mi = 50.0;
         d.trip.zones.clear();
@@ -1837,7 +1845,9 @@ fn test_the_upcoming_readout_never_says_zero_miles() {
     // did not.
     let mut app = TestApp::new();
     let mut d = a_real_drive(&mut app);
-    app.ctx.settings.imperial_units = true;
+    app.ctx
+        .settings
+        .set_units_mode(ff_core::units::UnitsMode::Imperial);
     d.trip.position_mi = 50.0;
     d.trip.zones.clear();
     d.trip.curves.clear();
@@ -1865,7 +1875,9 @@ fn test_the_upcoming_readout_leaves_highway_stops_on_the_highway() {
     // truck had left the road for, and a ramp end it was already at.
     let mut app = TestApp::new();
     let mut d = a_real_drive(&mut app);
-    app.ctx.settings.imperial_units = true;
+    app.ctx
+        .settings
+        .set_units_mode(ff_core::units::UnitsMode::Imperial);
     d.trip.position_mi = 50.0;
     d.trip.zones.clear();
     d.trip.curves.clear();
@@ -1892,7 +1904,9 @@ fn test_the_upcoming_readout_moves_as_the_truck_closes() {
     // minutes at a time, which reads as a readout that has stopped working.
     let mut app = TestApp::new();
     let mut d = a_real_drive(&mut app);
-    app.ctx.settings.imperial_units = true;
+    app.ctx
+        .settings
+        .set_units_mode(ff_core::units::UnitsMode::Imperial);
     d.trip.position_mi = 50.0;
     d.trip.zones.clear();
     d.trip.curves.clear();

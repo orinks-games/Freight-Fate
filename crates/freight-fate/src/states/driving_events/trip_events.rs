@@ -646,6 +646,17 @@ impl DrivingState {
             // the truck is comes first.
             self.update_after_crossing(ctx, 0.0);
         }
+        // Automatic units changing at this line say so once the call is done.
+        if let Some(cue) = event.data.cue.as_ref() {
+            let into_state = cue.key.rsplit(':').next().unwrap_or("").to_string();
+            if let Some(line) = self.units_line_for_crossing(ctx, &into_state) {
+                self.queue_after_crossing(
+                    AfterCrossing::Units,
+                    line,
+                    Some(SpeechCategory::Navigation),
+                );
+            }
+        }
         ctx.award_driving_achievement("state_crossing");
     }
 

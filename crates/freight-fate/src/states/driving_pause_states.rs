@@ -725,8 +725,8 @@ pub fn trip_status_lines(d: &DrivingState, ctx: &GameContext) -> Vec<String> {
         return vec![
             format!("Driving to pickup at {}.", d.pickup_facility_text(ctx)),
             format!(
-                "{} tons of {} are assigned for {}.",
-                fmt_f(d.job.weight_tons, 0),
+                "{} of {} are assigned for {}.",
+                ctx.settings.tons_text(d.job.weight_tons),
                 d.job.spoken_cargo_label(),
                 d.job.spoken_destination()
             ),
@@ -737,12 +737,12 @@ pub fn trip_status_lines(d: &DrivingState, ctx: &GameContext) -> Vec<String> {
     }
     vec![
         format!(
-            "Hauling {} tons of {} to {}.",
-            fmt_f(d.job.weight_tons, 0),
+            "Hauling {} of {} to {}.",
+            ctx.settings.tons_text(d.job.weight_tons),
             d.job.spoken_cargo_label(),
             d.job.spoken_destination()
         ),
-        arrived.unwrap_or_else(|| d.trip.progress_summary(ctx.settings.imperial_units)),
+        arrived.unwrap_or_else(|| d.trip.progress_summary(ctx.settings.imperial())),
         format!(
             "{} used of {}.",
             duration_text(hours_used),
