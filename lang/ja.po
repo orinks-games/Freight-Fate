@@ -13225,6 +13225,9 @@ msgstr "案内された出口"
 msgid "scale reminder"
 msgstr "計量所の注意"
 
+msgid "border booth"
+msgstr ""
+
 msgid "miles per hour"
 msgstr "マイル毎時"
 
@@ -22104,18 +22107,11 @@ msgstr ""
 msgid "Customs booth in half a mile. Stop at the booth."
 msgstr ""
 
-msgid ", which your carrier pays"
-msgstr "、運送会社が支払います"
-
-#. one clause of a longer line
-msgid "which your carrier pays"
-msgstr "運送会社が支払います"
-
-#. placeholders: {name}, {agency}, {penalty}, {payer}
+#. placeholders: {name}, {agency}, {penalty}
 msgid ""
 "At {name}, {agency} stopped the truck for running the customs booth: "
-"{penalty}{payer}."
-msgstr "{name}で、税関を通過せずに走ったため{agency}がトラックを止めました：{penalty}{payer}。"
+"{penalty}."
+msgstr "{name}で、税関を通過せずに走ったため{agency}がトラックを止めました：{penalty}。"
 
 #. placeholders: {border_chase_line}, {control_hint}
 msgid ""
@@ -41797,6 +41793,17 @@ msgid ""
 msgstr ""
 "左バンパーを押したままにすると、ボタンの2段目を使えます。{pad_engine}でエンジンを操作し、{pad_fuel}で燃料を、{pad_speed"
 "_limit}で制限速度を読み上げます。"
+
+#~ msgid ", which your carrier pays"
+#~ msgstr "、運送会社が支払います"
+
+#~ msgid "which your carrier pays"
+#~ msgstr "運送会社が支払います"
+
+#~ msgid ""
+#~ "At {name}, {agency} stopped the truck for running the customs booth: "
+#~ "{penalty}{payer}."
+#~ msgstr "{name}で、税関を通過せずに走ったため{agency}がトラックを止めました：{penalty}{payer}。"
 
 #~ msgid "{name} Company Yard"
 #~ msgstr "{name}の会社ヤード"

@@ -14589,6 +14589,9 @@ msgstr "uscita segnalata"
 msgid "scale reminder"
 msgstr "promemoria pesa"
 
+msgid "border booth"
+msgstr ""
+
 msgid "miles per hour"
 msgstr "miglia orarie"
 
@@ -24252,20 +24255,13 @@ msgstr ""
 msgid "Customs booth in half a mile. Stop at the booth."
 msgstr ""
 
-msgid ", which your carrier pays"
-msgstr ", pagata dalla tua azienda di trasporti"
-
-#. one clause of a longer line
-msgid "which your carrier pays"
-msgstr "pagata dalla tua azienda di trasporti"
-
-#. placeholders: {name}, {agency}, {penalty}, {payer}
+#. placeholders: {name}, {agency}, {penalty}
 msgid ""
 "At {name}, {agency} stopped the truck for running the customs booth: "
-"{penalty}{payer}."
+"{penalty}."
 msgstr ""
 "A {name}, {agency} ha fermato il camion per aver saltato la dogana: "
-"{penalty}{payer}."
+"{penalty}."
 
 #. placeholders: {border_chase_line}, {control_hint}
 msgid ""
@@ -46128,6 +46124,19 @@ msgstr ""
 "Tieni premuto il left bumper per un secondo livello di pulsanti. "
 "{pad_engine} controlla il motore, {pad_fuel} legge il carburante e "
 "{pad_speed_limit} legge il limite."
+
+#~ msgid ", which your carrier pays"
+#~ msgstr ", pagata dalla tua azienda di trasporti"
+
+#~ msgid "which your carrier pays"
+#~ msgstr "pagata dalla tua azienda di trasporti"
+
+#~ msgid ""
+#~ "At {name}, {agency} stopped the truck for running the customs booth: "
+#~ "{penalty}{payer}."
+#~ msgstr ""
+#~ "A {name}, {agency} ha fermato il camion per aver saltato la dogana: "
+#~ "{penalty}{payer}."
 
 #~ msgid "{name} Company Yard"
 #~ msgstr "Piazzale aziendale di {name}"
