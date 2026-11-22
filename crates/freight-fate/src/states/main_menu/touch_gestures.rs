@@ -321,10 +321,7 @@ impl Menu for TouchGesturesState {
                     }),
                     |s: &mut Self, ctx| s.toggle_shared_recogniser(ctx),
                 )
-                .help(
-                    "Reads your gestures the way the Android version does. Turn it off if a \
-                     gesture stops working.",
-                ),
+                .help("A trial. Every gesture should work as before. Turn it off if one does not."),
             );
         }
         items.push(MenuItem::new("Back", |s: &mut Self, ctx| s.go_back(ctx)));
