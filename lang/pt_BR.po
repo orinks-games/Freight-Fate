@@ -25347,6 +25347,14 @@ msgstr "a saída {name}"
 msgid "the destination exit for {name}"
 msgstr "a saída do destino para {name}"
 
+#. placeholders: {speed_text}
+msgid " About {speed_text} over."
+msgstr " Cerca de {speed_text} acima."
+
+#. placeholders: {limit_text}, {comparison}
+msgid "Speed limit {limit_text}.{comparison}"
+msgstr ""
+
 #. placeholders: {reason}
 msgid ", in a {reason} zone"
 msgstr ", numa zona de {reason}"
@@ -25355,10 +25363,6 @@ msgstr ", numa zona de {reason}"
 #. one clause of a longer line
 msgid "in a {reason} zone"
 msgstr "numa zona de {reason}"
-
-#. placeholders: {speed_text}
-msgid " About {speed_text} over."
-msgstr " Cerca de {speed_text} acima."
 
 #. placeholders: {state}
 msgid " {state} holds trucks to this."
@@ -34800,8 +34804,9 @@ msgstr "O piloto automático volta a {floor}. Os pedais são seus."
 msgid "Pedals are yours."
 msgstr "Os pedais são seus."
 
-msgid "Cruise resuming."
-msgstr "Piloto automático retomando."
+#. placeholders: {speed_value}
+msgid "Cruise resuming, {speed_value}."
+msgstr "Piloto automático retomando, {speed_value}."
 
 msgid "turn"
 msgstr "turn"
@@ -46090,6 +46095,9 @@ msgstr ""
 "Segure o left bumper para uma segunda camada de botões. {pad_engine} "
 "controla o motor, {pad_fuel} lê o combustível e {pad_speed_limit} lê o "
 "limite."
+
+#~ msgid "Cruise resuming."
+#~ msgstr "Piloto automático retomando."
 
 #~ msgid "Northstar Freight Lines: balanced company driver"
 #~ msgstr "Northstar Freight Lines: motorista da transportadora equilibrado"
@@ -59426,9 +59434,6 @@ msgstr ""
 
 #~ msgid "Following gap {gap} seconds."
 #~ msgstr "Distância de seguimento de {gap} segundos."
-
-#~ msgid "Cruise resuming, {speed_value}."
-#~ msgstr "Piloto automático retomando, {speed_value}."
 
 #~ msgid "Adaptive cruise off. Press {key} to set it."
 #~ msgstr "Piloto automático adaptativo desligado. Pressione {key} para ligar."

@@ -25502,6 +25502,14 @@ msgstr "die Ausfahrt {name}"
 msgid "the destination exit for {name}"
 msgstr "die Zielausfahrt für {name}"
 
+#. placeholders: {speed_text}
+msgid " About {speed_text} over."
+msgstr " Etwa {speed_text} zu schnell."
+
+#. placeholders: {limit_text}, {comparison}
+msgid "Speed limit {limit_text}.{comparison}"
+msgstr ""
+
 #. placeholders: {reason}
 msgid ", in a {reason} zone"
 msgstr ", im Bereich {reason}"
@@ -25510,10 +25518,6 @@ msgstr ", im Bereich {reason}"
 #. one clause of a longer line
 msgid "in a {reason} zone"
 msgstr "in einer Zone mit {reason}"
-
-#. placeholders: {speed_text}
-msgid " About {speed_text} over."
-msgstr " Etwa {speed_text} zu schnell."
 
 #. placeholders: {state}
 msgid " {state} holds trucks to this."
@@ -35013,8 +35017,9 @@ msgstr "Der Tempomat setzt bei {floor} wieder ein. Die Pedale gehören dir."
 msgid "Pedals are yours."
 msgstr "Die Pedale gehören dir."
 
-msgid "Cruise resuming."
-msgstr "Tempomat läuft weiter."
+#. placeholders: {speed_value}
+msgid "Cruise resuming, {speed_value}."
+msgstr "Tempomat wieder aktiv, {speed_value}."
 
 msgid "turn"
 msgstr "turn"
@@ -46389,6 +46394,9 @@ msgstr ""
 "Halte den left bumper für eine zweite Ebene von Tasten. {pad_engine} "
 "steuert den Motor, {pad_fuel} liest den Kraftstoff vor und "
 "{pad_speed_limit} das Limit."
+
+#~ msgid "Cruise resuming."
+#~ msgstr "Tempomat läuft weiter."
 
 #~ msgid "Northstar Freight Lines: balanced company driver"
 #~ msgstr "Northstar Freight Lines: ausgewogener angestellter Fahrer"
@@ -59927,9 +59935,6 @@ msgstr ""
 
 #~ msgid "Following gap {gap} seconds."
 #~ msgstr "Zeitabstand {gap} {gap:Sekunde|Sekunden}."
-
-#~ msgid "Cruise resuming, {speed_value}."
-#~ msgstr "Tempomat wieder aktiv, {speed_value}."
 
 #~ msgid "Adaptive cruise off. Press {key} to set it."
 #~ msgstr "Abstandstempomat aus. Drück {key}, um ihn einzustellen."

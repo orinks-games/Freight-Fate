@@ -25512,6 +25512,14 @@ msgstr "la salida de {name}"
 msgid "the destination exit for {name}"
 msgstr "la salida de destino para {name}"
 
+#. placeholders: {speed_text}
+msgid " About {speed_text} over."
+msgstr " Unas {speed_text} por encima."
+
+#. placeholders: {limit_text}, {comparison}
+msgid "Speed limit {limit_text}.{comparison}"
+msgstr ""
+
 #. placeholders: {reason}
 msgid ", in a {reason} zone"
 msgstr ", en una zona de {reason}"
@@ -25520,10 +25528,6 @@ msgstr ", en una zona de {reason}"
 #. one clause of a longer line
 msgid "in a {reason} zone"
 msgstr "en una zona de {reason}"
-
-#. placeholders: {speed_text}
-msgid " About {speed_text} over."
-msgstr " Unas {speed_text} por encima."
 
 #. placeholders: {state}
 msgid " {state} holds trucks to this."
@@ -35039,8 +35043,9 @@ msgstr "El crucero se reanuda a {floor}. Los pedales son tuyos."
 msgid "Pedals are yours."
 msgstr "Los pedales son tuyos."
 
-msgid "Cruise resuming."
-msgstr "Crucero reanudándose."
+#. placeholders: {speed_value}
+msgid "Cruise resuming, {speed_value}."
+msgstr "Crucero reanudándose, {speed_value}."
 
 msgid "turn"
 msgstr "turn"
@@ -46414,6 +46419,9 @@ msgstr ""
 "Mantén el botón superior izquierdo para una segunda capa de botones. "
 "{pad_engine} controla el motor, {pad_fuel} lee el combustible y "
 "{pad_speed_limit} lee el límite."
+
+#~ msgid "Cruise resuming."
+#~ msgstr "Crucero reanudándose."
 
 #~ msgid "Northstar Freight Lines: balanced company driver"
 #~ msgstr "Northstar Freight Lines: conductor de empresa equilibrado"
@@ -60553,9 +60561,6 @@ msgstr ""
 #~ msgid "Plus and minus adjust it; releasing the parking brake cancels."
 #~ msgstr ""
 #~ "Más y menos lo ajustan; soltar el freno de estacionamiento lo cancela."
-
-#~ msgid "Cruise resuming, {speed_value}."
-#~ msgstr "Crucero reanudándose, {speed_value}."
 
 #~ msgid "No adaptive cruise {place}."
 #~ msgstr "No hay control de crucero adaptativo {place}."

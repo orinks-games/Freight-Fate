@@ -23189,6 +23189,14 @@ msgstr "{name}出口"
 msgid "the destination exit for {name}"
 msgstr "{name}への目的地の出口"
 
+#. placeholders: {speed_text}
+msgid " About {speed_text} over."
+msgstr " 約{speed_text}超過しています。"
+
+#. placeholders: {limit_text}, {comparison}
+msgid "Speed limit {limit_text}.{comparison}"
+msgstr ""
+
 #. placeholders: {reason}
 msgid ", in a {reason} zone"
 msgstr "、{reason}区間"
@@ -23197,10 +23205,6 @@ msgstr "、{reason}区間"
 #. one clause of a longer line
 msgid "in a {reason} zone"
 msgstr "{reason}区間"
-
-#. placeholders: {speed_text}
-msgid " About {speed_text} over."
-msgstr " 約{speed_text}超過しています。"
 
 #. placeholders: {state}
 msgid " {state} holds trucks to this."
@@ -31956,8 +31960,9 @@ msgstr "クルーズは{floor}で再開します。それまではペダルを�
 msgid "Pedals are yours."
 msgstr "ペダルは自分で操作してください。"
 
-msgid "Cruise resuming."
-msgstr "クルーズ再開。"
+#. placeholders: {speed_value}
+msgid "Cruise resuming, {speed_value}."
+msgstr "クルーズ再開、{speed_value}。"
 
 msgid "turn"
 msgstr "turn"
@@ -41990,6 +41995,9 @@ msgid ""
 msgstr ""
 "左バンパーを押したままにすると、ボタンの2段目を使えます。{pad_engine}でエンジンを操作し、{pad_fuel}で燃料を、{pad_speed"
 "_limit}で制限速度を読み上げます。"
+
+#~ msgid "Cruise resuming."
+#~ msgstr "クルーズ再開。"
 
 #~ msgid "Northstar Freight Lines: balanced company driver"
 #~ msgstr "Northstar Freight Lines：バランス型の社員ドライバー"
@@ -52913,9 +52921,6 @@ msgstr ""
 
 #~ msgid "Following gap {gap} seconds."
 #~ msgstr "車間時間{gap}秒。"
-
-#~ msgid "Cruise resuming, {speed_value}."
-#~ msgstr "クルーズ再開、{speed_value}。"
 
 #~ msgid "Adaptive cruise off. Press {key} to set it."
 #~ msgstr "アダプティブクルーズオフ。{key}で設定します。"
