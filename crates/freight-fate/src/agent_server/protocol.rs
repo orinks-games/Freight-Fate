@@ -97,6 +97,7 @@ fn scenario_properties() -> Value {
         "rested": {"type": "boolean"},
         "first_run": {"type": "boolean"},
         "touch_gestures": {"type": "boolean"},
+        "tilt_steering": {"type": "boolean"},
         "fatigue": {"type": "number", "description": "0 to 100; 40 worn, 60 drowsy, 80 severe"},
         "hos_driving_min": {"type": "number"},
         "hos_duty_min": {"type": "number"},
@@ -207,6 +208,24 @@ fn tools_list() -> Value {
                 "length": {"type": "integer", "description": "for a one-finger hold, deep_swipe or lift: points travelled, sent as the finger lifts"},
             }),
             &["name"],
+        ),
+        tool(
+            "tilt",
+            "Hold the phone at an angle, standing in for its motion sensor the way \
+             gesture stands in for the screen: degrees from flat, right edge down \
+             positive, for seconds (0.05 to 30), then back to where it was, or to \
+             then. silent sends no readings for the seconds instead. The phone is \
+             held level (0) from the start. With tilt steering on (scenario \
+             tilt_steering), level is taken from the pose when the drive starts or \
+             resumes, and status reports the tilt state, level and angle. Replies \
+             with what was heard once the time is up.",
+            json!({
+                "degrees": {"type": "number", "description": "angle from flat, -90 to 90; right edge down is positive"},
+                "seconds": {"type": "number", "description": "real seconds to hold it, 0.05 to 30"},
+                "then": {"type": "number", "description": "the angle to hold afterwards; default: where it was before"},
+                "silent": {"type": "boolean", "description": "send no readings for the seconds"},
+            }),
+            &["seconds"],
         ),
         tool(
             "wait_for",
@@ -351,7 +370,8 @@ fn tools_list() -> Value {
              safety band that decides who is pulled into the inspection lane), \
              rested (true takes a full sleep), first_run (true teaches the first-run \
              walkthrough on the next drive), touch_gestures (true opens the iPhone \
-             Touch gestures settings screen over the terminal), fatigue (0 to 100, set after rested; \
+             Touch gestures settings screen over the terminal), tilt_steering (true or false: \
+             the Touch gestures switch; the tilt tool is the phone's motion sensor), fatigue (0 to 100, set after rested; \
              the next drive starts in that band and gives its cue), hos_driving_min, hos_duty_min and \
              hos_since_break_min (sandbox HOS counters in game minutes), \
              co_driver_driving_min, co_driver_duty_min, co_driver_since_break_min and \
@@ -701,6 +721,33 @@ pub fn build_command(name: &str, args: &Map<String, Value>) -> Result<Command, S
                 gesture,
                 seconds,
                 length,
+            })
+        }
+        "tilt" => {
+            let seconds = args.get("seconds").and_then(Value::as_f64).unwrap_or(0.0);
+            if seconds <= 0.0 {
+                return Err("tilt needs a positive number of seconds".to_string());
+            }
+            let angle = |name: &str| -> Result<Option<f64>, String> {
+                match args.get(name) {
+                    None | Some(Value::Null) => Ok(None),
+                    Some(value) => match value.as_f64() {
+                        Some(degrees) if degrees.is_finite() => {
+                            Ok(Some(degrees.clamp(-90.0, 90.0)))
+                        }
+                        _ => Err(format!("{name} must be a number of degrees")),
+                    },
+                }
+            };
+            let silent = args.get("silent").and_then(Value::as_bool).unwrap_or(false);
+            let degrees = angle("degrees")?;
+            if silent == degrees.is_some() {
+                return Err("tilt needs degrees, or silent: true, but not both".to_string());
+            }
+            Ok(Command::Tilt {
+                degrees,
+                seconds,
+                then: angle("then")?,
             })
         }
         "wait_for" => {

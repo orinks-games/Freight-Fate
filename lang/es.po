@@ -12567,6 +12567,9 @@ msgstr "sentido contrario"
 msgid "shoulder"
 msgstr "arcén"
 
+msgid "centred"
+msgstr ""
+
 msgid "quiet"
 msgstr "silencioso"
 
@@ -13202,6 +13205,27 @@ msgstr "con poca carga"
 
 msgid "bunk"
 msgstr "litera"
+
+msgid "Level set."
+msgstr ""
+
+msgid "This device has no motion sensor."
+msgstr ""
+
+msgid "No tilt reading. Swipe to steer."
+msgstr ""
+
+msgid "Tilt steering back."
+msgstr ""
+
+msgid "waiting"
+msgstr ""
+
+msgid "settling"
+msgstr ""
+
+msgid "live"
+msgstr "en directo"
 
 msgid "eastern"
 msgstr "eastern"
@@ -14566,9 +14590,6 @@ msgstr "La marcha atrás no entra a esta velocidad. Detén el camión primero."
 
 msgid "simulated"
 msgstr "simulado"
-
-msgid "live"
-msgstr "en directo"
 
 msgid "loading"
 msgstr "cargando"
@@ -16365,11 +16386,25 @@ msgstr "Prueba de teclas de Freight Fate"
 msgid "Hold each arrow key for a few seconds; it finishes by itself."
 msgstr "Mantén pulsada cada flecha unos segundos; termina sola."
 
+msgid "Portrait PortraitUpsideDown LandscapeLeft LandscapeRight"
+msgstr "Portrait PortraitUpsideDown LandscapeLeft LandscapeRight"
+
+#. placeholders: {count}
+msgid "{count} sensors, no accelerometer"
+msgstr ""
+
+msgid "Portrait"
+msgstr ""
+
 msgid "ff-rust-app"
 msgstr "ff-rust-app"
 
 msgid "recording"
 msgstr "recording"
+
+#. placeholders: {key}, {angle}, {angle2}
+msgid "tilt {key}; tilt_level {angle}; tilt_angle {angle2}"
+msgstr ""
 
 msgid "title"
 msgstr "title"
@@ -16691,6 +16726,9 @@ msgstr "Pausa"
 
 msgid "Driving command list"
 msgstr "Lista de controles de conducción"
+
+msgid "Set tilt level"
+msgstr ""
 
 msgid "Nothing"
 msgstr "Nada"
@@ -23477,6 +23515,14 @@ msgstr ""
 "un lado y mantén para girar. "
 
 msgid ""
+"Tilt the phone left or right to change one lane, and bring it back level "
+"before the next. "
+msgstr ""
+
+msgid "Tilt the phone left or right to steer. "
+msgstr ""
+
+msgid ""
 "Hold one finger still for half a second to straighten the wheel. With "
 "cruise off, flick up to turn it on. Double tap to take an exit, pull over, "
 "or confirm arrival at a gate. Tap with two fingers to stop speech. Turn two "
@@ -29269,13 +29315,16 @@ msgstr "Horas y reloj"
 msgid "Driving commands"
 msgstr "Órdenes de conducción"
 
+msgid "Tilt steering takes level from how the phone is held now."
+msgstr ""
+
 #. placeholders: {noun}
 msgid "At the wheel: {noun}."
 msgstr "Al volante: {noun}."
 
-#. placeholders: {key_name}
-msgid "On the keyboard: {key_name}."
-msgstr "En el teclado: {key_name}."
+#. placeholders: {key}
+msgid "On the keyboard: {key}."
+msgstr ""
 
 msgid "Back to driving"
 msgstr "Volver a la conducción"
@@ -38021,6 +38070,39 @@ msgstr ""
 "anuncia la longitud de cada deslizamiento hacia abajo. Usa las flechas "
 "Right o Left para cambiarla."
 
+msgid ""
+"On, tilting the phone left or right steers, and the screen stops turning "
+"with the phone while you drive. With lane keeping on full, a tilt changes "
+"one lane. Swipes and flicks still steer. Flick up or down to change it."
+msgstr ""
+
+msgid ""
+"On, tilting the phone left or right steers, and the screen stops turning "
+"with the phone while you drive. With lane keeping on full, a tilt changes "
+"one lane. Swipes and flicks still steer. D-pad Right or Left changes it."
+msgstr ""
+
+msgid ""
+"On, tilting the phone left or right steers, and the screen stops turning "
+"with the phone while you drive. With lane keeping on full, a tilt changes "
+"one lane. Swipes and flicks still steer. Right or Left arrow changes it."
+msgstr ""
+
+msgid ""
+"How far the phone tilts for full steering. A smaller number steers harder. "
+"Flick up or down to change it."
+msgstr ""
+
+msgid ""
+"How far the phone tilts for full steering. A smaller number steers harder. "
+"D-pad Right or Left changes it."
+msgstr ""
+
+msgid ""
+"How far the phone tilts for full steering. A smaller number steers harder. "
+"Right or Left arrow changes it."
+msgstr ""
+
 msgid "Every touch gesture is back to its default."
 msgstr "Todos los gestos táctiles han vuelto a su valor predeterminado."
 
@@ -38029,6 +38111,16 @@ msgstr "Vibración táctil activada."
 
 msgid "Touch haptics disabled."
 msgstr "Vibración táctil desactivada."
+
+msgid "Tilt steering: On"
+msgstr ""
+
+msgid "Tilt steering: Off"
+msgstr ""
+
+#. placeholders: {touch_tilt_full}
+msgid "Tilt for full steering: {touch_tilt_full} degrees"
+msgstr ""
 
 msgid "Confirm, then choose the command this gesture runs while driving."
 msgstr ""
@@ -38075,6 +38167,36 @@ msgstr "Saliendo de la práctica de gestos."
 
 msgid "Again to leave practice."
 msgstr "Otra vez para salir de la práctica."
+
+#. one sentence of a longer line
+msgid "Steers left, or changes one lane with lane keeping on full."
+msgstr ""
+
+#. placeholders: {whole}
+#. one sentence of a longer line
+msgid "Tilt left, {whole} degrees."
+msgstr ""
+
+#. placeholders: {whole}
+msgid ""
+"Tilt left, {whole} degrees. Steers left, or changes one lane with lane "
+"keeping on full."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Steers right, or changes one lane with lane keeping on full."
+msgstr ""
+
+#. placeholders: {whole}
+#. one sentence of a longer line
+msgid "Tilt right, {whole} degrees."
+msgstr ""
+
+#. placeholders: {whole}
+msgid ""
+"Tilt right, {whole} degrees. Steers right, or changes one lane with lane "
+"keeping on full."
+msgstr ""
 
 #. one sentence of a longer line
 msgid "Deep swipe."
@@ -40891,6 +41013,13 @@ msgstr ""
 
 msgid "pad"
 msgstr "pad"
+
+msgid ""
+"Partial follows bends with gentle drift. Off leaves steering to you unless "
+"curve assistance is enabled. Hold a steering control across the lane line "
+"to change lanes. With Tilt steering on under Touch gestures, tilting the "
+"phone steers too, and with lane keeping on full a tilt changes one lane."
+msgstr ""
 
 msgid ""
 "The radio plays while the engine runs. A three-finger flick right tunes "
@@ -44330,6 +44459,9 @@ msgstr ""
 "Mantén el botón superior izquierdo para una segunda capa de botones. "
 "{pad_engine} controla el motor, {pad_fuel} lee el combustible y "
 "{pad_speed_limit} lee el límite."
+
+#~ msgid "On the keyboard: {key_name}."
+#~ msgstr "En el teclado: {key_name}."
 
 #~ msgid ""
 #~ "Resuming {drive_name}: {destination}. {progress} {hours_used} of "
@@ -59771,9 +59903,6 @@ msgstr ""
 
 #~ msgid "matches"
 #~ msgstr "resultados"
-
-#~ msgid "Portrait PortraitUpsideDown LandscapeLeft LandscapeRight"
-#~ msgstr "Portrait PortraitUpsideDown LandscapeLeft LandscapeRight"
 
 #~ msgid "Reputation: {f} out of 100"
 #~ msgstr "Reputación: {f} de 100"

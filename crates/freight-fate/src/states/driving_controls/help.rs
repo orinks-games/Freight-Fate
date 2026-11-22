@@ -503,6 +503,14 @@ impl DrivingState {
         } else {
             "Flick left or right to change lanes, or swipe left or right and hold to steer. "
         });
+        if ctx.settings.touch_tilt_steering {
+            text.push_str(if ctx.settings.lane_is_automated() {
+                "Tilt the phone left or right to change one lane, and bring it back level \
+                 before the next. "
+            } else {
+                "Tilt the phone left or right to steer. "
+            });
+        }
         text.push_str(
             "Hold one finger still for half a second to straighten the wheel. With cruise \
              off, flick up to turn it on. Double tap to take an exit, pull over, or confirm \

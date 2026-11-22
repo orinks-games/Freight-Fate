@@ -155,6 +155,7 @@ impl DrivingState {
                 self.push_pause_menu(ctx);
             }
             TouchCommand::CommandList => self.push_driving_commands(ctx),
+            TouchCommand::SetTiltLevel => self.set_tilt_level(ctx),
             TouchCommand::Nothing => {}
         }
         true
@@ -257,3 +258,14 @@ impl DrivingState {
 /// The instruction the touch neutral line carries, retired after three
 /// touch shifts from neutral into a gear.
 pub const TOUCH_GEAR_FROM_NEUTRAL: &str = "gear_from_neutral";
+
+impl DrivingState {
+    /// "Set tilt level": tilt steering takes level again from the pose the
+    /// phone is in, and says "Level set." once it has. With tilt steering
+    /// off it does nothing and says nothing.
+    pub fn set_tilt_level(&mut self, ctx: &mut GameContext) {
+        if ctx.settings.touch_tilt_steering {
+            ctx.tilt.request_level();
+        }
+    }
+}

@@ -134,7 +134,11 @@ fn link_prism_system_libraries() {
 /// element VoiceOver focuses. Everything it sees is queued as a plain gesture
 /// code that `touch` turns into the same key events the desktop game reads.
 fn build_ios_bridge() {
-    let sources = ["ios/ff_touch.m", "ios/ff_keyboard.m"];
+    let sources = [
+        "ios/ff_touch.m",
+        "ios/ff_keyboard.m",
+        "ios/ff_orientation.m",
+    ];
     for source in sources {
         println!("cargo:rerun-if-changed={source}");
     }

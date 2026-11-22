@@ -47,6 +47,7 @@ mod app_speech_audio;
 mod app_speech_ducking;
 mod app_speech_hold;
 mod app_state_stack;
+mod app_tilt_steering;
 mod app_touch_clutch;
 mod app_touch_gestures;
 mod app_touch_menus;

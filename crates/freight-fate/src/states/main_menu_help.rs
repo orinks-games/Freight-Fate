@@ -361,6 +361,11 @@ pub fn render_help_line(ctx: &GameContext, template: &str) -> String {
 #[cfg_attr(not(touch_screen), allow(dead_code))]
 static PHONE_LINES: &[(&str, Option<&str>, Option<&str>)] = &[
     (
+        "Partial follows bends with gentle drift. Off leaves steering to you unless curve assistance is enabled. Hold a steering control across the lane line to change lanes.",
+        Some("Partial follows bends with gentle drift. Off leaves steering to you unless curve assistance is enabled. Hold a steering control across the lane line to change lanes. With Tilt steering on under Touch gestures, tilting the phone steers too, and with lane keeping on full a tilt changes one lane."),
+        Some("Partial follows bends with gentle drift. Off leaves steering to you unless curve assistance is enabled. Hold a steering control across the lane line to change lanes. With Tilt steering on under Touch gestures, tilting the phone steers too, and with lane keeping on full a tilt changes one lane."),
+    ),
+    (
         "With the engine running, {{radio}} switches the radio on or off. Page Down or apostrophe tunes forward. Page Up or semicolon tunes backward.",
         Some("With the engine running, {{radio}} switches the radio on or off. Page Down or apostrophe tunes forward. Page Up or semicolon tunes backward."),
         Some("The radio plays while the engine runs. A three-finger flick right tunes forward, and a three-finger flick left tunes backward."),

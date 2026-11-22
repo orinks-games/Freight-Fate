@@ -701,7 +701,7 @@ impl DrivingState {
             overrev_s: 0.0,
             overrev_warn_due: OVERREV_GRACE_S,
             lane_change_target: None,
-            stick_lane_request: 0,
+            lane_push: ff_core::sim::lane_push::LanePush::Centred,
             lane_change_timer: 0.0,
             lane_signal_timer: 0.0,
             passing: None,
