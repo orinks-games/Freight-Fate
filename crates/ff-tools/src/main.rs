@@ -118,6 +118,12 @@ const COMMANDS: &[(&str, &str, Command)] = &[
         "check every language file for mistakes the game cannot fix (--stats)",
         l10n::check::main,
     ),
+    #[cfg(feature = "world")]
+    (
+        "l10n-diff",
+        "translate the tests' English lines with lang/ at --base and now, list what changed",
+        l10n::diff::main,
+    ),
     (
         "fold-community-stations",
         "copy the accepted community radio stations into data/radio_community.json",
