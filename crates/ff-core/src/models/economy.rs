@@ -15,8 +15,21 @@ use crate::pyrandom::PyRandom;
 ///   price stands for the province rather than the TransLink region. B.C.
 ///   charges 27.50 cents a liter on clear diesel in the Vancouver area and
 ///   15.00 elsewhere; taking the 12.50 difference out of 174.1 gives 161.6.
-pub const CANADA_DIESEL_CENTS_PER_L: &[(&str, &str, f64)] =
-    &[("BC", "British Columbia", 161.6), ("YT", "Yukon", 162.9)];
+/// - Alberta, derived: the mean of Calgary's (138.2) and Edmonton's (135.2)
+///   April to December 2025 averages, 136.7.
+/// - Saskatchewan, derived: the mean of Regina's (139.1) and Saskatoon's
+///   (141.6) April to December 2025 averages, 140.4.
+/// - Manitoba, read: Winnipeg's April to December 2025 average, 144.8.
+///
+/// Alberta, Saskatchewan and Manitoba read from the table's CSV as
+/// downloaded 2026-11-22 (data through October 2026).
+pub const CANADA_DIESEL_CENTS_PER_L: &[(&str, &str, f64)] = &[
+    ("BC", "British Columbia", 161.6),
+    ("YT", "Yukon", 162.9),
+    ("AB", "Alberta", 136.7),
+    ("SK", "Saskatchewan", 140.4),
+    ("MB", "Manitoba", 144.8),
+];
 
 /// Litres in one US gallon.
 pub const LITRES_PER_US_GALLON: f64 = 3.785411784;

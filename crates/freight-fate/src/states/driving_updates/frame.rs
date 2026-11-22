@@ -111,6 +111,9 @@ impl DrivingState {
         // music bed; a drive clears the rotation on entry, so the call is a
         // no-op here and stays only because every `State::update` owes it.
         ctx.update_music_rotation(dt);
+        // Before the live facts and every assist: the pacer's posted limit
+        // and the ramp cap both read it this frame.
+        self.after_exit_limit_mph = self.approach_limit_after_exit();
         self.refresh_live_facts();
         // A keyboard or controller picked up, or put down, mid-drive: the
         // exit prompts name the control in hand now.
@@ -814,10 +817,13 @@ impl DrivingState {
         live::set_parking_brake_set(self.trip.truck.parking_brake);
         live::set_gate_stop_prompted(self.gate.stop_prompted());
         live::set_on_ramp(self.ramp_mi.is_some());
-        live::set_posted_limit_mph(match self.trip.entered_zone.as_ref() {
-            Some(zone) => zone.limit_mph,
-            None => self.trip.corridor_limit_at(self.trip.position_mi),
-        });
+        live::set_posted_limit_mph(
+            match (self.after_exit_limit_mph, self.trip.entered_zone.as_ref()) {
+                (Some(limit), _) => limit,
+                (None, Some(zone)) => zone.limit_mph,
+                (None, None) => self.trip.corridor_limit_at(self.trip.position_mi),
+            },
+        );
         live::set_ramp_holding(
             self.ramp_mi.is_some()
                 && !self.ramp_terminal_done

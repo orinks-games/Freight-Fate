@@ -892,9 +892,26 @@ impl World {
         Ok(Some(Route::new(cities, legs)))
     }
 
+    /// A saved trip's city keys, resolved, with any hop the map retired
+    /// swapped for the legs that replaced it (see [`retired_legs`]).
+    ///
+    /// [`retired_legs`]: crate::data::retired_legs
+    fn resolve_route_cities<S: AsRef<str>>(&self, cities: &[S]) -> Vec<String> {
+        let cities: Vec<String> = cities
+            .iter()
+            .map(|c| self.resolve_city_key(c.as_ref()))
+            .collect();
+        crate::data::retired_legs::expand_retired_hops(cities, |a, b| {
+            self.adjacency
+                .get(a)
+                .is_some_and(|legs| pick_hop(legs, a, b, |_| true).is_some())
+        })
+    }
+
     /// Rebuild a route from its city sequence (used by saved trips).
     ///
-    /// Returns None if any hop is missing, so callers can fall back
+    /// A hop the map retired is rebuilt on the legs that replaced it.
+    /// Returns None if any other hop is missing, so callers can fall back
     /// gracefully when a save references a road that no longer exists. This is
     /// intentionally the legacy/full graph path; new freight uses supported
     /// route helpers so missing metadata cannot silently invent conditions.
@@ -902,10 +919,7 @@ impl World {
         if cities.len() < 2 {
             return None;
         }
-        let cities: Vec<String> = cities
-            .iter()
-            .map(|c| self.resolve_city_key(c.as_ref()))
-            .collect();
+        let cities = self.resolve_route_cities(cities);
         let mut legs: Vec<Arc<Leg>> = Vec::new();
         for pair in cities.windows(2) {
             let (a, b) = (&pair[0], &pair[1]);
@@ -929,10 +943,7 @@ impl World {
         if cities.len() < 2 {
             return None;
         }
-        let cities: Vec<String> = cities
-            .iter()
-            .map(|c| self.resolve_city_key(c.as_ref()))
-            .collect();
+        let cities = self.resolve_route_cities(cities);
         let mut legs: Vec<Arc<Leg>> = Vec::new();
         for pair in cities.windows(2) {
             let (a, b) = (&pair[0], &pair[1]);

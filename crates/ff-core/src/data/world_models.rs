@@ -436,6 +436,9 @@ pub struct Stop {
     /// Whether a combination vehicle can physically get in here. Defaults to
     /// tractor_trailer so unclassified data keeps behaving as it always has.
     pub vehicle_access: String,
+    /// How `vehicle_access` was decided: "read", "assumed", or "" when the
+    /// record does not say (see `world_constants::VEHICLE_ACCESS_BASES`).
+    pub vehicle_access_basis: String,
     /// Signed exit number of the interchange that serves this stop, decided
     /// once at bake time (`tools/snap_stops_to_interchanges.py`); "" when
     /// nothing decided it and the mile-marker lookup still stands in.
@@ -464,6 +467,7 @@ impl Default for Stop {
             curation: "curated".to_string(),
             parking_spaces: 0,
             vehicle_access: DEFAULT_VEHICLE_ACCESS.to_string(),
+            vehicle_access_basis: String::new(),
             exit_ref: String::new(),
             interchange_mi: None,
             approach_chains: Vec::new(),
@@ -495,6 +499,7 @@ impl Stop {
             self.parking_spaces,
             &self.services,
             &self.vehicle_access,
+            &self.vehicle_access_basis,
         )
     }
 

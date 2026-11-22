@@ -20,7 +20,7 @@ use super::world_constants::{
     POI_DENSITY_SHORT_LEG_MILES, RAW_FACILITY_TEXT_MARKERS, RAW_POI_TEXT_MARKERS,
     REGION_MARKET_TAGS, SOURCE_BACKED_POI_ACTIONS, STAND_IN_MARKET_FACILITY_TYPE,
     STATE_MARKET_TAGS, STOP_CURATION_LEVELS, STOP_DIRECTIONS, STOP_TYPE_LABELS,
-    VEHICLE_ACCESS_LEVELS,
+    VEHICLE_ACCESS_BASES, VEHICLE_ACCESS_LEVELS,
 };
 use super::world_loader::{RawCity, RawLeg, WorldData};
 use super::world_models::{DataError, Location, Stop};
@@ -703,6 +703,13 @@ pub fn parse_stop(
             py_repr_str(&vehicle_access)
         )));
     }
+    let vehicle_access_basis = get_str(raw, "vehicle_access_basis");
+    if !set_contains(VEHICLE_ACCESS_BASES, &vehicle_access_basis) {
+        return Err(err(format!(
+            "stop {rname} has unknown vehicle_access_basis {}",
+            py_repr_str(&vehicle_access_basis)
+        )));
+    }
     let mut curation = get_str(raw, "curation");
     if curation.is_empty() {
         curation = infer_stop_curation(&name, &source).to_string();
@@ -782,6 +789,7 @@ pub fn parse_stop(
         curation,
         parking_spaces,
         vehicle_access,
+        vehicle_access_basis,
         exit_ref: get_str(raw, "exit_ref"),
         interchange_mi,
         approach_chains,

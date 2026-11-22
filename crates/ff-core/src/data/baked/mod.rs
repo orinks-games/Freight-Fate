@@ -132,7 +132,10 @@ pub const MAGIC: &[u8; 8] = b"FFDATA\0\0";
 /// 15: a corridor carries the county each stretch runs through (`counties`).
 ///
 /// 16: a corridor carries its HPMS surface runs and structures (`pavement`).
-pub const FORMAT_VERSION: u32 = 16;
+///
+/// 17: a stop says how its vehicle access was decided
+/// (`vehicle_access_basis`).
+pub const FORMAT_VERSION: u32 = 17;
 
 const HEADER_LEN: usize = 32;
 
