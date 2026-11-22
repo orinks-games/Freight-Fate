@@ -12,7 +12,10 @@
 //! - its `network`: `CA:QC:A` is an autoroute ("A-20"), `CA:QC:R` a Quebec
 //!   route ("Route 255"), `CA:ON:primary`, `secondary` and `tertiary` a
 //!   King's or secondary highway ("Highway 8"), and Manitoba's `PTH` and
-//!   `PR` their trunk highways and provincial roads;
+//!   `PR` their trunk highways and provincial roads, New Brunswick's
+//!   `primary` to `tertiary` and Prince Edward Island's network its Routes,
+//!   and Nova Scotia's `H`, `T` and `R` its 100-series Highways, Trunks
+//!   and Routes;
 //! - otherwise its own `name` ("Lambton County Road 31", "Durham Regional
 //!   Road 60") gives the kind ("County Road 31", "Regional Road 60"), and
 //!   an unnamed one its Ontario network (a county, a region, Ottawa).
@@ -59,6 +62,14 @@ pub fn road_kind(network: &str, name: &str) -> Option<(&'static str, u8)> {
         }
         "CA:MB:PTH" => return Some(("PTH ", 0)),
         "CA:MB:PR" => return Some(("PR ", 0)),
+        // New Brunswick signs every provincial road a Route; Nova Scotia
+        // splits its 100-series highways, trunks and routes; Prince Edward
+        // Island has one network of Routes.
+        "CA:NB:primary" | "CA:NB:secondary" | "CA:NB:tertiary" | "CA:PE" | "CA:NS:R" => {
+            return Some(("Route ", 0))
+        }
+        "CA:NS:H" | "CA:NS:H:toll" => return Some(("Highway ", 0)),
+        "CA:NS:T" => return Some(("Trunk ", 0)),
         _ => {}
     }
     if !network.starts_with("CA:") {
@@ -438,6 +449,25 @@ mod tests {
             "County Road 50"
         );
         assert_eq!(rewrite_via("20", &rels, 43.2, -79.9), None);
+    }
+
+    #[test]
+    fn the_maritime_networks_name_their_roads() {
+        let rels = [
+            rel("CA:NB:secondary", "126", "Route 126", (46.1, -64.8)),
+            rel("CA:NS:H", "102", "Highway 102", (44.9, -63.5)),
+            rel("CA:NS:T", "2", "Trunk 2", (44.9, -63.5)),
+            rel("CA:PE", "2", "Route 2", (46.3, -63.4)),
+        ];
+        assert_eq!(
+            rewrite_via("126", &rels, 46.1, -64.8).unwrap().0,
+            "Route 126"
+        );
+        assert_eq!(
+            rewrite_via("102;2", &rels, 44.9, -63.5).unwrap().0,
+            "Highway 102;Trunk 2"
+        );
+        assert_eq!(rewrite_via("2", &rels, 46.3, -63.4).unwrap().0, "Route 2");
     }
 
     #[test]

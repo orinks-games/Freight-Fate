@@ -1175,7 +1175,7 @@ fn test_every_city_has_coordinates_and_a_known_region() {
             city.lat
         );
         assert!(
-            -170.0 < city.lon && city.lon < -66.0,
+            -170.0 < city.lon && city.lon < -52.0,
             "{}: lon {}",
             city.name,
             city.lon
