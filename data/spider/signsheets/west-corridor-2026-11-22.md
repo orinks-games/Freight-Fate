@@ -171,7 +171,7 @@ Kettle Valley Railway tunnels, 1914; stations named for Shakespeare characters, 
 ### Othello Tunnels (Merritt to Hope)
 - treatment: billboard
 - leg: merritt_bc_ca -> hope_bc_ca
-- at_mi: 61.4
+- at_mi: 62
 - spoken: Billboard: The Othello Tunnels, ahead near Hope. Railway tunnels cut through a canyon in nineteen fourteen, on a line whose stations were named for Shakespeare characters. The engineer chose the names. The rock got no say.
 
 

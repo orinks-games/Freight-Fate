@@ -2632,7 +2632,15 @@
           "name": "level",
           "sections": 0,
           "source": "DERIVED, not read: Canada has no national inventory like HPMS, so the class is the terrain the leg's own grade profile spends the most miles in (the reroute-enrich rule: sustained grade of 5 percent, or 4 percent with 1,000 ft of relief within 5 miles, is mountain; 1.5 percent or 400 ft of relief is hills; else flat), mapped flat to level, hills to rolling and mountain to mountainous. It reads the same elevation as the grade, so it is no independent check on it."
-        }
+        },
+        "billboard_bans": [
+          {
+            "from_mi": 36.95,
+            "to_mi": 37.95,
+            "name": "Beaudry Provincial Park",
+            "source": "derived 2026-11-22: OpenStreetMap relation 14699803 (Beaudry Provincial Park) boundary from the OSM API; the stretch of the leg's archived route inside the park or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on); widened to the one-mile minimum"
+          }
+        ]
       },
       "source": "Career 2.0 western Canada corridor (canada-network.md corridor 1), first pass built 2026-11-22 with cargo tools over the OpenStreetMap planet file of 2026-11-16.",
       "rerouted": true
