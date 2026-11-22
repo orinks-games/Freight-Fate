@@ -57,6 +57,10 @@
 - **The map now reaches Skagway, Haines, North Pole, Nikiski, Port MacKenzie and the Fort Knox mine.** Skagway and Haines cross into the Yukon, with fuel at Haines Junction.
 - **Hours of service now follow Alaska and Canadian rules where you drive.** You hear the new limits as you cross into each place.
 - **Billboards in Canada follow each province's sign law.** The everyday roadside signs no longer stand in the Yukon or in parks along the Alaska Highway.
+- **Highway 97 and the Alaska Highway have billboards for their attractions.** From Hope and Barkerville to the Sign Post Forest and Kluane, each board tells you a little about the place.
+- **Ontario and Quebec have billboards for their attractions.** From the Big Nickel to the Château Frontenac, each board tells you a little about the place.
+- **Canadian roads keep Canada's holidays.** Canada Day and October's Thanksgiving get their own boards, and the Fourth of July stays south of the border.
+- **Billboards notice what you haul.** Cattle, a reefer load or doubles get their own signs, and now and then a board names your carrier.
 - **Fifty-four carriers now hire across the map, including Alaska.** Every lower-48 city has at least two regional carriers, and local carriers work 16 big cities and ports.
 - **Three new national carriers lean toward refrigerated freight, doubles, or steel, machinery and lumber.**
 - **Fairbanks job boards now use real freight sites,** such as Costco, Fred Meyer and Spenard Builders Supply.
@@ -72,6 +76,7 @@
 ### Changed
 
 - **When a company driver's board has no load, dispatch now sends the truck empty to the nearest city that has one,** paid at the empty-mile rate.
+- **A company driver now loses only their own pay for a refused or damaged load,** not the load's full price. The damage deductible still applies.
 - **Alaska's highways now have their real bends, grades, lane counts and towns.** The road between Palmer and Wasilla is now called the Palmer-Wasilla Highway.
 - **Simulated weather in Alaska and Canada now gets as cold as the real winters there.** A January morning in Fairbanks now reads below zero Fahrenheit.
 - **Museums by the road are now said as you pass them.** "Gwinnett History Museum ahead" is now "Passing Gwinnett History Museum."

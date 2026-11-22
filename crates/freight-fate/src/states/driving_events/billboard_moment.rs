@@ -15,8 +15,6 @@ use ff_core::sim::livestock::LIVESTOCK_CARGO_KEY;
 use ff_core::sim::season::calendar_date;
 use ff_core::speech_text::SpokenMessage;
 
-use chrono::Datelike;
-
 use crate::app::GameContext;
 use crate::states::driving::DrivingState;
 use crate::states::driving_core::{profile_of, DRIVE_PHASE_DELIVERY};
@@ -75,15 +73,17 @@ impl DrivingState {
         let date = calendar_date(profile.player_calendar_hours());
         let local_hour = self.trip.local_hour().rem_euclid(24.0);
         let state = self.trip.state_code_at(self.trip.position_mi);
+        // The name on the door: a 2.0 career may name its carrier by key only.
+        let carrier = ff_core::models::career::carrier_name_of(profile);
         let moment = BillboardMoment {
             incident: now.incident_since(self.billboard_watch),
             tired: Alertness::from_fatigue(profile.fatigue) >= Alertness::Drowsy
                 || SMALL_HOURS.contains(&local_hour),
-            holiday: holiday_on(date.month(), date.day()),
+            holiday: holiday_on(date, state.as_deref()),
             nth: self.pool_billboards_heard,
             offset: self.billboard_offset,
             state: state.as_deref(),
-            hauling: self.hauling(profile.business_status.as_str(), &profile.carrier_name),
+            hauling: self.hauling(profile.business_status.as_str(), &carrier),
         };
         self.billboard_watch = now;
         self.pool_billboards_heard += 1;
