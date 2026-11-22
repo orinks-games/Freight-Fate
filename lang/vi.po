@@ -6492,46 +6492,6 @@ msgstr "địa điểm trên tuyến"
 msgid "toll point: {name}"
 msgstr "trạm thu phí: {name}"
 
-#. placeholders: {whole}, {inches}
-msgid "{whole} feet {inches} inches"
-msgstr "{whole} feet {inches} inch"
-
-#. placeholders: {whole}
-msgid "{whole} feet"
-msgstr "{whole} feet"
-
-#. placeholders: {py_int}
-msgid "{py_int} tons"
-msgstr "{py_int} tấn"
-
-#. placeholders: {py_str_float}
-msgid "{py_str_float} tons"
-msgstr "{py_str_float} tấn"
-
-msgid "low bridge"
-msgstr "cầu thấp"
-
-msgid "weight limit"
-msgstr "giới hạn tải trọng"
-
-#. one sentence of a longer line
-msgid "Your route clears it"
-msgstr "Tuyến đường của bạn đi qua an toàn"
-
-#. placeholders: {kind_label}, {value_text}
-#. one sentence of a longer line
-msgid "a {kind_label}, signed {value_text}."
-msgstr "{kind_label}, biển báo {value_text}."
-
-#. placeholders: {kind_label}, {value_text}
-msgid "a {kind_label}, signed {value_text}. Your route clears it"
-msgstr ""
-"{kind_label}, biển báo {value_text}. Tuyến đường của bạn đi qua an toàn"
-
-#. placeholders: {py_capitalize}, {value_text}
-msgid "{py_capitalize}, signed {value_text}."
-msgstr "{py_capitalize}, biển báo {value_text}."
-
 msgid "exit"
 msgstr "lối ra"
 
@@ -13758,10 +13718,6 @@ msgid "Toll point in {ahead_text}: {text}."
 msgstr "Trạm thu phí cách {ahead_text}: {text}."
 
 #. placeholders: {ahead_text}, {text}
-msgid "In {ahead_text}, {text}."
-msgstr "Phía trước {ahead_text}, {text}."
-
-#. placeholders: {ahead_text}, {text}
 msgid "Next guidance in {ahead_text}: {text}."
 msgstr "Chỉ dẫn tiếp theo cách {ahead_text}: {text}."
 
@@ -13886,9 +13842,6 @@ msgstr "trạm thu phí"
 msgid "{method_label} toll point, {name}.{toll_text}"
 msgstr "Trạm thu phí {method_label}, {name}.{toll_text}"
 
-msgid "restriction"
-msgstr "hạn chế"
-
 msgid "interchange"
 msgstr "nút giao khác mức"
 
@@ -13957,6 +13910,10 @@ msgstr "Đã hủy kế hoạch dừng."
 #. placeholders: {ahead_text}, {text}, {speed}
 msgid "Traffic slowing in {ahead_text}, {text}{speed}."
 msgstr "Xe cộ giảm tốc phía trước cách {ahead_text}, {text}{speed}."
+
+#. placeholders: {ahead_text}, {text}
+msgid "In {ahead_text}, {text}."
+msgstr "Phía trước {ahead_text}, {text}."
 
 #. placeholders: {distance}
 #. one sentence of a longer line
@@ -18538,20 +18495,20 @@ msgstr "Bảng đơn hàng. {current}{hos_note}"
 
 msgid ""
 "Dispatch is sending you empty, with no pickup. After you accept, Route "
-"planning lists rest, fuel, tolls, weather and restrictions."
+"planning lists rest, fuel, tolls and weather."
 msgstr ""
 "Điều phối đang điều bạn chạy xe rỗng, không nhận hàng. Sau khi nhận đơn, "
-"mục Lập kế hoạch lộ trình sẽ liệt kê điểm nghỉ, dầu, phí cầu đường, thời "
-"tiết và các hạn chế."
+"mục Lập kế hoạch lộ trình sẽ liệt kê điểm nghỉ, dầu, phí cầu đường và thời "
+"tiết."
 
 msgid ""
 "Dispatch assigned this load. Accepting starts the empty drive from your "
 "terminal to the pickup. After pickup, Route planning lists rest, fuel, "
-"tolls, weather and restrictions."
+"tolls and weather."
 msgstr ""
 "Điều phối đã giao lô hàng này cho bạn. Nhận đơn sẽ bắt đầu chặng chạy xe "
 "rỗng từ trạm chính đến nơi lấy hàng. Sau khi lấy hàng, mục Lập kế hoạch lộ "
-"trình sẽ liệt kê điểm nghỉ, dầu, phí cầu đường, thời tiết và các hạn chế."
+"trình sẽ liệt kê điểm nghỉ, dầu, phí cầu đường và thời tiết."
 
 #. placeholders: {describe}
 msgid "Assigned load: {describe}"
@@ -18778,11 +18735,10 @@ msgstr "Đơn hàng bị khóa "
 
 #. one sentence of a longer line
 msgid ""
-"After you accept, Route planning lists rest, fuel, tolls, weather and "
-"restrictions."
+"After you accept, Route planning lists rest, fuel, tolls and weather."
 msgstr ""
 "Sau khi nhận đơn, mục Lập kế hoạch lộ trình sẽ liệt kê điểm nghỉ, dầu, phí "
-"cầu đường, thời tiết và các hạn chế."
+"cầu đường và thời tiết."
 
 #. placeholders: {destination}
 #. one sentence of a longer line
@@ -18792,19 +18748,17 @@ msgstr "Điều phối đang điều bạn chạy xe rỗng tới {destination}.
 #. placeholders: {destination}
 msgid ""
 "Dispatch is sending you empty to {destination}. After you accept, Route "
-"planning lists rest, fuel, tolls, weather and restrictions."
+"planning lists rest, fuel, tolls and weather."
 msgstr ""
 "Điều phối đang điều bạn chạy xe rỗng tới {destination}. Sau khi nhận đơn, "
-"mục Lập kế hoạch lộ trình sẽ liệt kê điểm nghỉ, dầu, phí cầu đường, thời "
-"tiết và các hạn chế."
+"mục Lập kế hoạch lộ trình sẽ liệt kê điểm nghỉ, dầu, phí cầu đường và thời "
+"tiết."
 
 #. one sentence of a longer line
-msgid ""
-"After pickup, Route planning lists rest, fuel, tolls, weather and "
-"restrictions."
+msgid "After pickup, Route planning lists rest, fuel, tolls and weather."
 msgstr ""
 "Sau khi lấy hàng, mục Lập kế hoạch lộ trình sẽ liệt kê điểm nghỉ, dầu, phí "
-"cầu đường, thời tiết và các hạn chế."
+"cầu đường và thời tiết."
 
 #. placeholders: {origin_facility_text}, {destination_facility_text}
 #. one sentence of a longer line
@@ -18817,12 +18771,11 @@ msgstr ""
 #. placeholders: {origin_facility_text}, {destination_facility_text}
 msgid ""
 "Load offer from {origin_facility_text} to {destination_facility_text}. "
-"After pickup, Route planning lists rest, fuel, tolls, weather and "
-"restrictions."
+"After pickup, Route planning lists rest, fuel, tolls and weather."
 msgstr ""
 "Đề nghị chở lô hàng từ {origin_facility_text} đến "
 "{destination_facility_text}. Sau khi lấy hàng, mục Lập kế hoạch lộ trình sẽ "
-"liệt kê điểm nghỉ, dầu, phí cầu đường, thời tiết và các hạn chế."
+"liệt kê điểm nghỉ, dầu, phí cầu đường và thời tiết."
 
 #. placeholders: {hours}
 msgid ""
@@ -44908,6 +44861,88 @@ msgid ""
 msgstr ""
 "Giữ nút vai trái để mở lớp nút thứ hai. {pad_engine} bật tắt động cơ, "
 "{pad_fuel} đọc nhiên liệu và {pad_speed_limit} đọc tốc độ giới hạn."
+
+#~ msgid "{whole} feet {inches} inches"
+#~ msgstr "{whole} feet {inches} inch"
+
+#~ msgid "{whole} feet"
+#~ msgstr "{whole} feet"
+
+#~ msgid "{py_int} tons"
+#~ msgstr "{py_int} tấn"
+
+#~ msgid "{py_str_float} tons"
+#~ msgstr "{py_str_float} tấn"
+
+#~ msgid "low bridge"
+#~ msgstr "cầu thấp"
+
+#~ msgid "weight limit"
+#~ msgstr "giới hạn tải trọng"
+
+#~ msgid "Your route clears it"
+#~ msgstr "Tuyến đường của bạn đi qua an toàn"
+
+#~ msgid "a {kind_label}, signed {value_text}."
+#~ msgstr "{kind_label}, biển báo {value_text}."
+
+#~ msgid "a {kind_label}, signed {value_text}. Your route clears it"
+#~ msgstr ""
+#~ "{kind_label}, biển báo {value_text}. Tuyến đường của bạn đi qua an toàn"
+
+#~ msgid "{py_capitalize}, signed {value_text}."
+#~ msgstr "{py_capitalize}, biển báo {value_text}."
+
+#~ msgid "restriction"
+#~ msgstr "hạn chế"
+
+#~ msgid ""
+#~ "Dispatch is sending you empty, with no pickup. After you accept, Route "
+#~ "planning lists rest, fuel, tolls, weather and restrictions."
+#~ msgstr ""
+#~ "Điều phối đang điều bạn chạy xe rỗng, không nhận hàng. Sau khi nhận đơn, "
+#~ "mục Lập kế hoạch lộ trình sẽ liệt kê điểm nghỉ, dầu, phí cầu đường, thời "
+#~ "tiết và các hạn chế."
+
+#~ msgid ""
+#~ "Dispatch assigned this load. Accepting starts the empty drive from your "
+#~ "terminal to the pickup. After pickup, Route planning lists rest, fuel, "
+#~ "tolls, weather and restrictions."
+#~ msgstr ""
+#~ "Điều phối đã giao lô hàng này cho bạn. Nhận đơn sẽ bắt đầu chặng chạy xe "
+#~ "rỗng từ trạm chính đến nơi lấy hàng. Sau khi lấy hàng, mục Lập kế hoạch lộ "
+#~ "trình sẽ liệt kê điểm nghỉ, dầu, phí cầu đường, thời tiết và các hạn chế."
+
+#~ msgid ""
+#~ "After you accept, Route planning lists rest, fuel, tolls, weather and "
+#~ "restrictions."
+#~ msgstr ""
+#~ "Sau khi nhận đơn, mục Lập kế hoạch lộ trình sẽ liệt kê điểm nghỉ, dầu, phí "
+#~ "cầu đường, thời tiết và các hạn chế."
+
+#~ msgid ""
+#~ "Dispatch is sending you empty to {destination}. After you accept, Route "
+#~ "planning lists rest, fuel, tolls, weather and restrictions."
+#~ msgstr ""
+#~ "Điều phối đang điều bạn chạy xe rỗng tới {destination}. Sau khi nhận đơn, "
+#~ "mục Lập kế hoạch lộ trình sẽ liệt kê điểm nghỉ, dầu, phí cầu đường, thời "
+#~ "tiết và các hạn chế."
+
+#~ msgid ""
+#~ "After pickup, Route planning lists rest, fuel, tolls, weather and "
+#~ "restrictions."
+#~ msgstr ""
+#~ "Sau khi lấy hàng, mục Lập kế hoạch lộ trình sẽ liệt kê điểm nghỉ, dầu, phí "
+#~ "cầu đường, thời tiết và các hạn chế."
+
+#~ msgid ""
+#~ "Load offer from {origin_facility_text} to {destination_facility_text}. "
+#~ "After pickup, Route planning lists rest, fuel, tolls, weather and "
+#~ "restrictions."
+#~ msgstr ""
+#~ "Đề nghị chở lô hàng từ {origin_facility_text} đến "
+#~ "{destination_facility_text}. Sau khi lấy hàng, mục Lập kế hoạch lộ trình sẽ "
+#~ "liệt kê điểm nghỉ, dầu, phí cầu đường, thời tiết và các hạn chế."
 
 #~ msgid "online-journal"
 #~ msgstr "online-journal"

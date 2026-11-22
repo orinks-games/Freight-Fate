@@ -65,7 +65,6 @@ Page Up, F1 and the rest) and place names stay in English.
 | passing | adelantamiento | Understood in both Spain and Latin America. |
 | hazard | peligro | |
 | stopping distance | distancia de frenado | |
-| low bridge | puente bajo | |
 | weight limit | límite de peso | |
 | exit speed | velocidad de salida | |
 | ramp curve | curva de la rampa | |

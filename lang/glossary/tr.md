@@ -75,7 +75,6 @@ name. Rephrase so the name stands alone: "Varış: {city}." or
 | passing | sollama | |
 | hazard | tehlike | |
 | stopping distance | durma mesafesi | |
-| low bridge | alçak köprü | |
 | weight limit | ağırlık sınırı | |
 | exit speed | çıkış hızı | |
 | ramp curve | rampa virajı | |
