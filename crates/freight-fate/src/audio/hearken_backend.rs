@@ -746,7 +746,7 @@ impl HearkenBackend {
         self.exclusive_cues.get(key).copied()
     }
 
-    /// Fades still running (the ignition crossfade schedules three).
+    /// Fades still running on the game thread.
     pub fn fade_count(&self) -> usize {
         self.fades.len()
     }

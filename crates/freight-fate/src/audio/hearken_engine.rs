@@ -13,18 +13,24 @@ use super::hearken_backend::{bus_of, level, EngineBand, HearkenBackend};
 use super::{
     advance_engine_wobble, engine_band_weights, engine_band_weights_with_width, engine_freq_mult,
     engine_load_gain, ENGINE_BANDS, ENGINE_BAND_RATE_MAX, ENGINE_BAND_RATE_MIN,
-    ENGINE_CLASSIC_LOOP_KEY, ENGINE_IGNITION_IDLE_FADE_S, ENGINE_LOOP_GAIN, ENGINE_LOOP_KEY,
-    ENGINE_RESUME_FADE_S, ENGINE_RPM_IDLE, ENGINE_SLIDE_MS, ENGINE_SLIDE_SNAP_MS,
-    ENGINE_SLIDE_SNAP_RPM, SFX_EXTENSIONS, STEREO_ENGINE_BANDS, STEREO_ENGINE_START_KEY,
+    ENGINE_CLASSIC_LOOP_KEY, ENGINE_LOOP_GAIN, ENGINE_LOOP_KEY, ENGINE_RESUME_FADE_S,
+    ENGINE_RPM_IDLE, ENGINE_SLIDE_MS, ENGINE_SLIDE_SNAP_MS, ENGINE_SLIDE_SNAP_RPM, SFX_EXTENSIONS,
+    STEREO_ENGINE_BANDS, STEREO_ENGINE_START_KEY,
 };
 
 // The recorded cab engine follows the live clutch-out rev fall closely.
 // Blend level separately so differently recorded bands enter smoothly.
 const STEREO_REV_SLIDE_MS: u32 = 55;
 const STEREO_GAIN_SLIDE_MS: u32 = 30;
+const IGNITION_HANDOFF_GAIN_MS: u32 = 10;
 // The cab takes differ in tone. Blend a little longer while keeping all
 // audible cuts inside the rate clamp, even across the widest band gap.
 const STEREO_XFADE_LOG_FRAC: f64 = 0.40;
+
+enum EngineLoopEntry {
+    AfterIgnition,
+    Resume,
+}
 
 impl HearkenBackend {
     /// One engine loop, silent, at the engine's pan.
@@ -72,13 +78,28 @@ impl HearkenBackend {
                 return;
             }
         }
-        self.start_running_engine(ENGINE_RESUME_FADE_S);
+        self.start_running_engine(EngineLoopEntry::Resume);
     }
 
-    fn start_running_engine(&mut self, fade_s: f64) {
-        let gain = Rc::clone(&self.engine_intro_gain);
-        self.fades
-            .add(Fade::new(move |value| gain.set(value), 0.0, 1.0, fade_s));
+    fn start_running_engine(&mut self, entry: EngineLoopEntry) {
+        let initial_gain_ms = match entry {
+            EngineLoopEntry::AfterIgnition => {
+                // Send the running gain this frame. A single audio-thread ramp
+                // avoids waiting for a second game update after the crank ends.
+                self.engine_intro_gain.set(1.0);
+                Some(IGNITION_HANDOFF_GAIN_MS)
+            }
+            EngineLoopEntry::Resume => {
+                let gain = Rc::clone(&self.engine_intro_gain);
+                self.fades.add(Fade::new(
+                    move |value| gain.set(value),
+                    0.0,
+                    1.0,
+                    ENGINE_RESUME_FADE_S,
+                ));
+                None
+            }
+        };
         self.engine_stereo_ring = false;
         if !self.engine_voice_classic {
             if stereo_engine_available() {
@@ -115,7 +136,11 @@ impl HearkenBackend {
             self.engine_sound = sound;
         }
         self.engine_wobble.resize(self.engine_bands.len(), [0.0; 2]);
-        self.set_engine_rpm(self.engine_last_rpm, self.engine_last_throttle);
+        self.apply_engine_rpm(
+            self.engine_last_rpm,
+            self.engine_last_throttle,
+            initial_gain_ms,
+        );
     }
 
     pub(super) fn update(&mut self, dt: f64) {
@@ -130,7 +155,7 @@ impl HearkenBackend {
             .is_some_and(|sound| !self.audio.is_playing(sound))
         {
             self.engine_intro_sound = None;
-            self.start_running_engine(ENGINE_IGNITION_IDLE_FADE_S);
+            self.start_running_engine(EngineLoopEntry::AfterIgnition);
         }
         if self.engine_running && self.engine_intro_gain.get() != self.intro_applied {
             self.set_engine_rpm(self.engine_last_rpm, self.engine_last_throttle);
@@ -184,6 +209,10 @@ impl HearkenBackend {
     /// `rpm / native_rpm` (clamped) so the pitch is continuous through a
     /// crossfade instead of stepping between the cuts' recorded speeds.
     pub(super) fn set_engine_rpm(&mut self, rpm: f64, throttle: f64) {
+        self.apply_engine_rpm(rpm, throttle, None);
+    }
+
+    fn apply_engine_rpm(&mut self, rpm: f64, throttle: f64, gain_ramp_ms: Option<u32>) {
         if !self.engine_running {
             return;
         }
@@ -210,11 +239,11 @@ impl HearkenBackend {
             * intro_gain)
             .clamp(0.0, 1.0);
         if !self.engine_bands.is_empty() {
-            let gain_ms = if self.engine_stereo_ring {
+            let gain_ms = gain_ramp_ms.unwrap_or(if self.engine_stereo_ring {
                 STEREO_GAIN_SLIDE_MS
             } else {
                 0
-            };
+            });
             let natives: Vec<f64> = self.engine_bands.iter().map(|band| band.native).collect();
             let weights = if self.engine_stereo_ring {
                 engine_band_weights_with_width(rpm, &natives, STEREO_XFADE_LOG_FRAC)
@@ -253,7 +282,8 @@ impl HearkenBackend {
         }
         self.audio
             .set_pitch_over(sound, engine_freq_mult(rpm) as f32, slide_ms);
-        self.audio.set_volume_over(sound, level as f32, 0);
+        self.audio
+            .set_volume_over(sound, level as f32, gain_ramp_ms.unwrap_or(0));
     }
 
     /// Shift-gap disengage: scale the engine bed below the load floor.

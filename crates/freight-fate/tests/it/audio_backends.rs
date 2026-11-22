@@ -693,10 +693,14 @@ fn test_running_engine_starts_only_after_crank_finishes() {
     assert!(r.hearken().engine_bands().is_empty());
     assert!(r.hearken().engine_sound().is_none());
     r.rec.finish(crank);
-    r.engine.update(0.05);
+    let before = r.rec.calls().len();
+    r.engine.update(0.0);
     assert!(!r.engine.engine_starting());
     assert!(!r.hearken().engine_bands().is_empty() || r.hearken().engine_sound().is_some());
-    r.engine.update(0.025);
+    assert!(r.rec.calls()[before..].iter().any(|call| matches!(
+        call,
+        Call::SetMixRamped { mix, ramps, .. } if mix.gain > 0.0 && ramps.gain_ms == 10
+    )));
     let h = r.hearken();
     assert_eq!(h.engine_intro_gain(), 1.0);
     assert_eq!(h.fade_count(), 0); // finished fades are dropped
