@@ -6523,6 +6523,11 @@ a carrier slice (owner, 2026-10-26).
 - [x] Stops list `docs/stops/southwest-california.json`: the stops the
       region's legs already carried, plus 39 travel centers and state rest
       areas read from OpenStreetMap (23 with truck access read, 16 assumed).
+- [x] Two game fixes the new roads needed: a board thin only because a big
+      market is in range relays from that market (Tonopah's new neighbours
+      Bishop and Austin are as thin as Tonopah), and an exit nearer the
+      city being left is never the destination exit (Flagstaff to Sedona
+      would have ended at I-17 exit 337, 24 miles short).
 - [ ] (Found along the way) Still no stop a tractor-trailer can use on
       Austin to Fallon, Eureka to Austin, Phoenix to Payson, Oxnard to Los
       Angeles, Santa Rosa to Ukiah, Carson City to Fallon, Lancaster to Los
