@@ -32,12 +32,14 @@ use crate::data::world_models::{City, Leg, Route};
 pub const REASONABLE_ACCESS_MAX_MI: f64 = 1.0;
 
 /// Spoken when no twin-legal National Network route remains.
-pub const STAA_DOUBLES_ROUTE_REFUSAL: &str = "Dispatch can't clear twin trailers on that run. It \
-     leaves the National Network.";
+/// The player hears what the road does to the set, not the federal
+/// network's name.
+pub const STAA_DOUBLES_ROUTE_REFUSAL: &str = "Dispatch can't clear twin trailers on that run. \
+     Every way there has a road closed to doubles.";
 
 /// Spoken when dispatch drops one or more lanes that leave the NN.
 pub const STAA_DOUBLES_REROUTE_NOTE: &str =
-    "Dispatch dropped a lane that leaves the National Network.";
+    "Dispatch dropped a lane with a road closed to doubles.";
 
 /// Spoken when the lane is outside the lower-48 US (ALCAN, Canada, Alaska).
 pub const STAA_DOUBLES_CORRIDOR_REFUSAL: &str = "Dispatch doesn't run twins on that lane.";

@@ -174,22 +174,30 @@ impl DrivingStatusScreenState {
                 } else {
                     format!("{} hours past the deadline", fmt_f(-deadline, 1))
                 };
-                let load_line = format!(
-                    "Load: {} tons of {}, gross {} tons, freight {}",
-                    fmt_f(d.job.weight_tons, 0),
-                    d.job.spoken_cargo_label(),
-                    fmt_f(d.trip.truck.gross_mass_kg() / KG_PER_TON, 0),
-                    // The player cannot see the trailer; the dock's verdict
-                    // must not be the first they hear of what the freight is
-                    // in.
-                    crate::states::driving_damage::cargo_status_clause(&d.trip.truck)
-                );
+                // The player cannot see the trailer; the dock's verdict must
+                // not be the first they hear of what the freight is in. Live
+                // cattle are told in the words their events use.
+                let load_line = match d.livestock_condition_clause() {
+                    Some(cattle) => format!(
+                        "Load: {} tons of {}, gross {} tons. {cattle}",
+                        fmt_f(d.job.weight_tons, 0),
+                        d.job.spoken_cargo_label(),
+                        fmt_f(d.trip.truck.gross_mass_kg() / KG_PER_TON, 0),
+                    ),
+                    None => format!(
+                        "Load: {} tons of {}, gross {} tons, freight {}",
+                        fmt_f(d.job.weight_tons, 0),
+                        d.job.spoken_cargo_label(),
+                        fmt_f(d.trip.truck.gross_mass_kg() / KG_PER_TON, 0),
+                        crate::states::driving_damage::cargo_status_clause(&d.trip.truck)
+                    ),
+                };
                 // A tank load behaves unlike anything else on the roster, and
                 // the driver cannot see the trailer -- so how it will behave
                 // is answerable here, on demand, rather than only at pickup.
                 // Empty for other freight.
                 let tank_line = d.liquid_status_clause();
-                // Live cattle: the footing, the head count and the limit.
+                // Live cattle: the head count and the limit.
                 let cattle_line = d.livestock_status_clause();
                 // The clock and its zone are one reading ("8:02 AM Central
                 // Time"), so a translation finds the zone as a whole.

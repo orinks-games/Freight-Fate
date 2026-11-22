@@ -623,13 +623,27 @@ fn add_forced_board_job(
     board: &mut JobBoard<'_>,
     jobs: &mut Vec<Job>,
 ) -> String {
-    let dest = forced_dispatch_destination();
+    let dest = ctx
+        .playtest_board_load_to
+        .clone()
+        .unwrap_or_else(forced_dispatch_destination);
     if dest.is_empty() {
         return String::new();
     }
     let world = ctx.world;
     let p = profile(ctx);
-    let key = resolve_city_forgiving(world, &dest);
+    // A facility by name ("SCI Cross Dock") stands for its city, and the
+    // load is the one delivered to that facility.
+    let facility = world.cities.iter().find_map(|(city_key, city)| {
+        city.locations
+            .iter()
+            .find(|loc| loc.name.eq_ignore_ascii_case(dest.trim()))
+            .map(|loc| (city_key.clone(), loc.id.clone()))
+    });
+    let key = match &facility {
+        Some((city_key, _)) => city_key.clone(),
+        None => resolve_city_forgiving(world, &dest),
+    };
     if !world.cities.contains_key(&key) {
         return format!("Playtest lever: no city called {dest} to dispatch to.");
     }
@@ -637,26 +651,38 @@ fn add_forced_board_job(
         return String::new();
     }
     let spoken = world.spoken_city(&key, Some(true));
-    if jobs
-        .iter()
-        .any(|job| world.resolve_city_key(&job.destination) == key)
-    {
+    let delivers_here = |job: &Job| match &facility {
+        Some((_, id)) => &job.destination_facility_id == id,
+        None => world.resolve_city_key(&job.destination) == key,
+    };
+    if jobs.iter().any(delivers_here) {
         return format!("Playtest lever: the board already offers {spoken}.");
     }
+    let spoken = match &facility {
+        Some(_) => format!("{} in {spoken}", dest.trim()),
+        None => spoken,
+    };
     let endorsements: Vec<&str> = p.career.endorsements().into_iter().collect();
-    let job = board.offer_to(
-        &p.current_city,
-        &key,
-        &endorsements,
-        OfferOptions {
-            count: 0,
-            level: p.career.level(),
-            market: Some(&p.market),
-            carrier_key: Some(&p.carrier_key),
-            direct_freight: p.business_status == INDEPENDENT_AUTHORITY,
-            came_from: None,
-        },
-    );
+    // The board picks the receiver among the city's; a named facility is
+    // drawn for until it comes up.
+    let tries = if facility.is_some() { 200 } else { 1 };
+    let job = (0..tries)
+        .filter_map(|_| {
+            board.offer_to(
+                &p.current_city,
+                &key,
+                &endorsements,
+                OfferOptions {
+                    count: 0,
+                    level: p.career.level(),
+                    market: Some(&p.market),
+                    carrier_key: Some(&p.carrier_key),
+                    direct_freight: p.business_status == INDEPENDENT_AUTHORITY,
+                    came_from: None,
+                },
+            )
+        })
+        .find(delivers_here);
     let Some(job) = job else {
         return format!("Playtest lever: no supported dispatch from here to {spoken}.");
     };

@@ -76,6 +76,11 @@
 - **Save notices now show their text on screen,** not only their title and OK.
 - **Training classes now leave you tired, at about half the rate of driving.**
 - **The delivery screen now reads the receiver's cattle count and any freight claim.** Both had gone missing from the screen.
+- **A longer road from dispatch is now paid by the mile.** When construction sends a company driver the long way, pay and the miles credited follow the road.
+- **Twin-trailer loads now post the miles of the road they must take.** The board had posted the shorter road doubles may not use.
+- **The delivery screen now reads deductibles, an uncovered balance and road tickets.** They had only reached the spoken summary.
+- **Live cattle are no longer dropped in a yard.** A cattle load always unloads at the receiver.
+- **A hazardous load turned away at a tunnel now hears only why.** Chlorine is no longer told the bulk fuel rule.
 - **A reefer box left off on the road now warms at the same rate as at a stop.** It had been warming ten times slower while driving.
 - **Sleeping with cattle aboard now warns when they would pass the 28-hour limit,** and the hours readouts stop naming a 30-minute break that cannot come due.
 - **A refused reverse with doubles no longer plays the gear-shift sound,** and the doubles hook-up time is spoken once at the shipper and once at the receiver.

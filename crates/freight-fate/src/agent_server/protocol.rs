@@ -105,6 +105,7 @@ fn scenario_properties() -> Value {
         "clear_load": {"type": "boolean"},
         "market_seed": {"type": "integer"},
         "board_seed": {"type": "integer"},
+        "board_load_to": {"type": "string", "description": "a city or a facility by name (SCI Cross Dock): the next dispatch board adds a load delivered there as its last row"},
         "came_from": {"type": "string"},
         "settings": {"type": "object"},
     });

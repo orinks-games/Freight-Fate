@@ -2036,3 +2036,33 @@ fn test_board_line_names_the_shared_state_once() {
         "Chicago, Illinois"
     );
 }
+
+#[test]
+fn a_longer_dispatched_road_is_paid_and_a_shorter_one_keeps_the_posted_pay() {
+    let mut job = Job::new(
+        general(),
+        19.0,
+        "Dodge City",
+        "Yard",
+        "Liberal",
+        83.0,
+        461.0,
+        7.0,
+    );
+    assert!(job.rerate_for_dispatched_miles(120.0, -0.9));
+    assert_eq!(job.distance_mi, 83.0, "the posted miles seed the yard");
+    assert_eq!(job.credited_mi(), 120.0);
+    assert!((job.pay - 666.51).abs() < 0.01, "{}", job.pay);
+    let saved = job_from_payload(&job_payload(&job)).expect("a payload");
+    assert_eq!(saved.credited_mi(), 120.0);
+    assert_eq!(job.deadline_game_h, 7.0, "a faster road needs no more time");
+    let mut slower = Job::new(general(), 19.0, "A", "Yard", "B", 100.0, 500.0, 6.0);
+    assert!(slower.rerate_for_dispatched_miles(130.0, 0.5));
+    assert_eq!(slower.deadline_game_h, 6.5);
+    let mut shorter = Job::new(general(), 19.0, "A", "Yard", "B", 100.0, 500.0, 6.0);
+    assert!(!shorter.rerate_for_dispatched_miles(90.0, 0.0));
+    assert_eq!((shorter.credited_mi(), shorter.pay), (100.0, 500.0));
+    let mut empty = shorter.clone();
+    empty.bobtail = true;
+    assert!(!empty.rerate_for_dispatched_miles(150.0, 1.0));
+}

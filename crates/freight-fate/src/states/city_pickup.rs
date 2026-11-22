@@ -25,7 +25,7 @@ use ff_core::models::border_freight::paperwork_wait_line;
 use ff_core::models::business_constants::is_owner_operator;
 use ff_core::models::dispatch_policy::dispatch_policy;
 use ff_core::models::doubles::{doubles_hook_extra_min, doubles_hook_text, is_doubles_cargo};
-use ff_core::models::jobs::{job_from_payload, job_payload, plan_hos, Job};
+use ff_core::models::jobs::{job_from_payload, job_payload, plan_hos, route_drive_hours, Job};
 use ff_core::models::trailer_yard::{
     pickup_plan, replacement_trailer, PickupPlan, TrailerUnit, TRAILER_SWAP_MIN,
 };
@@ -916,6 +916,15 @@ impl PickupFacilityState {
             // is an owner-operator freedom.
             let construction = dispatch_route_line(&routes, &routing, ctx.world, &ctx.settings);
             let route = routes[routing.pick()].clone();
+            // The board posted the first lane; construction or weather can
+            // send the truck a longer one, and the carrier pays the miles
+            // it sends.
+            let rerated = routing.pick() != 0 && {
+                let extra_drive_h = route_drive_hours(Some(&route), 0.0, Some(ctx.world))
+                    - route_drive_hours(routes.first(), 0.0, Some(ctx.world));
+                self.job
+                    .rerate_for_dispatched_miles(route.miles(), extra_drive_h)
+            };
             let mut lead = String::new();
             if let Some(note) = reroute_note.as_deref() {
                 lead.push_str(note);
@@ -931,6 +940,13 @@ impl PickupFacilityState {
                 "Dispatch routed you to {}. ",
                 self.job.spoken_destination()
             ));
+            if rerated {
+                lead.push_str(&format!(
+                    "The load now pays for {}, {} dollars. ",
+                    ctx.settings.distance_text(self.job.credited_mi(), false),
+                    fmt_grouped(self.job.pay, 0)
+                ));
+            }
             start_loaded_drive(
                 ctx,
                 self.job.clone(),

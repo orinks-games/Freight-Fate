@@ -160,6 +160,11 @@ impl JobDetailState {
         if !urgency.is_empty() {
             lines.push(urgency.to_string());
         }
+        // The board row gives the head count; the limit the deadline answers
+        // to is said here, once.
+        if let Some(head) = job.cattle_head_text() {
+            lines.push(format!("Cattle: {head}. They can ride 28 hours."));
+        }
         lines.extend(briefing::hours_lines(ctx, job));
         lines.push(briefing::fuel_line(ctx, job));
         lines.push(format!("Equipment: {}.", job.equipment_text()));
