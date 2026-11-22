@@ -5968,9 +5968,13 @@ a carrier slice (owner, 2026-10-26).
       1.9's `imperial_units: true` as Automatic, and a player's explicit
       Imperial comes back as Automatic. Metric survives, since false still
       maps to Metric.
-- [ ] (Found along the way) Once brief 5's per-sign km/h is in, drive one
-      Canadian 100 km/h sign: it should speak 100 in kilometers and 62 in
-      miles, and cruise to the limit should hold it.
+- [x] (Found along the way) A Canadian 100 km/h sign speaks 100 in
+      kilometers and 62 in miles, and cruise to the limit holds 100 (driven
+      Surrey to Prince George, 2026-11-22).
+- [ ] (Found along the way) Hear a Canadian road pump in Automatic in a
+      drive (liters, the per liter price, "N liters fueled"). Covered so far
+      by tests and the Surrey terminal garage drive; the Whitewood cardlock
+      on Regina to Brandon is the nearest pump to stage.
 - [ ] The rules before the first corridor merges: postings in the
       player's units from the sign's own number (done; Automatic speaks
       km/h in Canada); cycle 1 and 2 hours of service
