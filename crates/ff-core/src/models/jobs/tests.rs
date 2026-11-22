@@ -1957,22 +1957,27 @@ fn every_offered_turnpike_doubles_lane_has_a_cap_in_every_state() {
     // for an offered load must touch only states with a recorded cap.
     use crate::data::lcv_turnpikes::{filter_lcv_turnpike_routes, lcv_turnpike_gvw_cap_lb};
     let every_credential: Vec<&str> = crate::models::credentials::credential_keys().collect();
+    // Turnpike doubles come up on about one board in 70 across these
+    // cities, so a fixed handful of seeds proves nothing once the map grows
+    // and the seeded draws move (Ontario and Quebec took every one of seeds
+    // 0 to 7). Walk the seeds until three loads have been checked.
+    const WANTED: usize = 3;
     let mut checked = 0;
-    for city in [
-        "Toledo",
-        "Elkhart",
-        "Gary",
-        "South Bend",
-        "Buffalo",
-        "Syracuse",
-        "Albany",
-        "Rochester",
-        "Wichita",
-        "Topeka",
-        "Boston",
-        "Springfield",
-    ] {
-        for seed in 0..8 {
+    'seeds: for seed in 0..64 {
+        for city in [
+            "Toledo",
+            "Elkhart",
+            "Gary",
+            "South Bend",
+            "Buffalo",
+            "Syracuse",
+            "Albany",
+            "Rochester",
+            "Wichita",
+            "Topeka",
+            "Boston",
+            "Springfield",
+        ] {
             let jobs = board(seed).offers(
                 city,
                 &every_credential,
@@ -2009,8 +2014,14 @@ fn every_offered_turnpike_doubles_lane_has_a_cap_in_every_state() {
                 checked += 1;
             }
         }
+        if checked >= WANTED {
+            break 'seeds;
+        }
     }
-    assert!(checked > 0, "no seeded board offered turnpike doubles");
+    assert!(
+        checked >= WANTED,
+        "{checked} turnpike doubles loads on 64 seeded boards"
+    );
 }
 
 #[test]

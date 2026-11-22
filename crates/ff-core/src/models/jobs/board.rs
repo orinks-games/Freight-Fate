@@ -10,7 +10,7 @@ use crate::data::lcv_turnpikes::{cargo_requires_lcv_turnpike, filter_lcv_turnpik
 use crate::data::national_network::{cargo_requires_national_network, filter_staa_doubles_routes};
 use crate::data::seasonal_weight::{seasonal_gvw_cap_kg, strictest_on_route};
 use crate::data::world::{max_alternate_miles, World};
-use crate::data::world_models::{City, CrossingLoad, Location};
+use crate::data::world_models::{City, CrossingLoad, Location, Route};
 use crate::models::business_constants::DIRECT_FREIGHT_PAY_MULT;
 use crate::models::carriers::carrier;
 use crate::models::co_driver::{load_seed, team_load_drawn, TEAM_LOAD_PAY_MULT};
@@ -36,10 +36,33 @@ use crate::sim::vehicle::{
 
 mod cattle;
 
-/// A flexible team load's deadline stays this far short of the solo
-/// driver's legal hours, so it never leaves room for the 10-hour sleep a
-/// team load skips. A design margin, not a measurement.
-const TEAM_FLEXIBLE_SOLO_MARGIN_H: f64 = 0.5;
+/// A team load's deadline stays this far short of the solo driver's legal
+/// hours, whatever its urgency, so it never leaves room for the 10-hour
+/// sleep a team load skips. A design margin, not a measurement.
+pub(crate) const TEAM_SOLO_MARGIN_H: f64 = 0.5;
+
+/// A team load's deadline in hours, before rounding: the team's honest
+/// hours with the shipper's `slack` and the carrier's `carrier_slack`, never
+/// wide enough for the 10-hour sleep a team load skips, and never tighter
+/// than the tightest team window.
+///
+/// The cap covers every urgency. A standard window's slack, or the
+/// carrier's, used to pass a solo driver's legal hours on a run with one
+/// sleep (Chicago to Lamar: 33.3 hours against a solo 32.0), so a solo
+/// driver could take the team's pay with a full night's sleep.
+pub(crate) fn team_load_deadline_hours(
+    miles: f64,
+    slack: f64,
+    carrier_slack: f64,
+    route: Option<&Route>,
+    world: &World,
+) -> f64 {
+    let team_hours = |slack: f64| team_deadline_hours(miles, slack, route, Some(world));
+    let solo = required_hours(miles, route, Some(world), None);
+    (team_hours(slack) * carrier_slack)
+        .min(solo - TEAM_SOLO_MARGIN_H)
+        .max(team_hours(DEADLINE_DISPATCH_SLACK_RANGE.0))
+}
 
 /// `(destination, route miles, route leg count)`.
 pub type Candidate = (String, f64, usize);
@@ -1050,22 +1073,11 @@ impl<'w> JobBoard<'w> {
             job.team = true;
             job.deadline_covers_rest = false;
             job.pay = round_py_n(job.pay * TEAM_LOAD_PAY_MULT, 2);
-            let team_hours =
-                |slack: f64| team_deadline_hours(miles, slack, route.as_ref(), Some(self.world));
-            let mut hours = team_hours(slack);
-            if urgency == LoadUrgency::Flexible {
-                // Wide, but never wide enough for the 10-hour sleep a team
-                // load skips, and never tighter than the tightest window.
-                let solo = required_hours(miles, route.as_ref(), Some(self.world), None);
-                hours = hours
-                    .min(solo - TEAM_FLEXIBLE_SOLO_MARGIN_H)
-                    .max(team_hours(DEADLINE_DISPATCH_SLACK_RANGE.0));
-            }
+            let carrier_slack = start_option(Some(carrier_key))
+                .dispatch_profile()
+                .deadline_slack;
             job.deadline_game_h = round_py_n(
-                hours
-                    * start_option(Some(carrier_key))
-                        .dispatch_profile()
-                        .deadline_slack,
+                team_load_deadline_hours(miles, slack, carrier_slack, route.as_ref(), self.world),
                 1,
             );
         }
