@@ -4354,6 +4354,16 @@
             "spoken": "Passing Balzac Industrial Park"
           },
           {
+            "name": "Canada Olympic Park (Calgary to Golden)",
+            "category": "highway_marker",
+            "kind": "point",
+            "at_mi": 9.2,
+            "spoken": "Passing Canada Olympic Park, from the nineteen eighty-eight Winter Games.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Artists View Park West",
             "at_mi": 11.4,
             "off_mi": 0.73,
@@ -4540,6 +4550,16 @@
             "source": "derived: name and category read from the OpenStreetMap tags of relation 9368703 (Yoho National Park); placed at the first road vertex inside it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           },
           {
+            "name": "Spiral Tunnels (Calgary to Golden)",
+            "category": "highway_marker",
+            "kind": "point",
+            "at_mi": 125.0,
+            "spoken": "Passing the Spiral Tunnels, where the railway loops inside the mountain.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Field",
             "at_mi": 129.5,
             "off_mi": 0.21,
@@ -4547,6 +4567,16 @@
             "kind": "point",
             "source": "OpenStreetMap place=village node 51970759, projected onto the leg's checked-in route geometry, placed ahead of the speed zone it explains",
             "spoken": "Entering Field"
+          },
+          {
+            "name": "Kicking Horse Pedestrian Bridge (Calgary to Golden)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 153.1,
+            "spoken": "Billboard: The Kicking Horse Pedestrian Bridge, ahead in Golden. Billed as the longest freestanding timber frame bridge in Canada, raised by more than a hundred timber framers. Pedestrians only. That means you, driver.",
+            "directions": [
+              "forward"
+            ]
           }
         ],
         "hpms_terrain": {
@@ -7558,6 +7588,16 @@
             "kind": "point",
             "source": "OpenStreetMap place=town node 29661168, projected onto the leg's checked-in route geometry",
             "spoken": "Passing Coalhurst"
+          },
+          {
+            "name": "Lethbridge Viaduct (Calgary to Lethbridge)",
+            "category": "highway_marker",
+            "kind": "point",
+            "at_mi": 135.5,
+            "spoken": "Passing the High Level Bridge, Lethbridge's railway viaduct.",
+            "directions": [
+              "forward"
+            ]
           },
           {
             "name": "Coaldale",
@@ -11110,6 +11150,16 @@
             "lon": -112.04831,
             "spoken": "Crossing the Vermilion River",
             "source": "derived: name and category read from the OpenStreetMap tags of way 193381519 (Vermilion River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "name": "Vegreville egg (Edmonton to Lloydminster)",
+            "category": "highway_marker",
+            "kind": "point",
+            "at_mi": 66.7,
+            "spoken": "Passing Vegreville's giant Ukrainian Easter egg.",
+            "directions": [
+              "forward"
+            ]
           },
           {
             "name": "Lavoy",
@@ -17929,6 +17979,16 @@
             "spoken": "Passing Wembley"
           },
           {
+            "name": "Wembley",
+            "category": "highway_marker",
+            "kind": "point",
+            "at_mi": 14.2,
+            "spoken": "Passing Wembley, home of the Philip J. Currie Dinosaur Museum.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Beaverlodge",
             "at_mi": 26.7,
             "off_mi": 0.1,
@@ -24417,6 +24477,16 @@
             "source": "derived: name and category read from the OpenStreetMap tags of way 254280413 (Moose River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           },
           {
+            "name": "Mount Robson (Jasper to McBride)",
+            "category": "highway_marker",
+            "kind": "point",
+            "at_mi": 53.3,
+            "spoken": "Passing Mount Robson, the highest peak in the Canadian Rockies.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Robson River",
             "category": "river",
             "kind": "point",
@@ -25316,6 +25386,16 @@
             "lon": -118.80223,
             "spoken": "Crossing the Moose River",
             "source": "derived: name and category read from the OpenStreetMap tags of way 254280413 (Moose River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "name": "Mount Robson (Jasper to Valemount)",
+            "category": "highway_marker",
+            "kind": "point",
+            "at_mi": 53.4,
+            "spoken": "Passing Mount Robson, the highest peak in the Canadian Rockies.",
+            "directions": [
+              "forward"
+            ]
           },
           {
             "name": "Robson River",
@@ -29090,6 +29170,16 @@
             "source": "derived: name and category read from the OpenStreetMap tags of way 598639517 (Crowsnest River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           },
           {
+            "name": "Frank Slide (Lethbridge to Cranbrook)",
+            "category": "highway_marker",
+            "kind": "point",
+            "at_mi": 85.4,
+            "spoken": "Passing the Frank Slide, Canada's deadliest rockslide.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Crowsnest Pass",
             "at_mi": 90.3,
             "off_mi": 0.06,
@@ -29816,6 +29906,16 @@
             "kind": "point",
             "source": "OpenStreetMap place=town node 51973292, projected onto the leg's checked-in route geometry",
             "spoken": "Passing Redcliff"
+          },
+          {
+            "name": "Saamis Tepee (Lethbridge to Medicine Hat)",
+            "category": "highway_marker",
+            "kind": "point",
+            "at_mi": 102.3,
+            "spoken": "Passing the Saamis Tepee, the world's tallest.",
+            "directions": [
+              "forward"
+            ]
           }
         ],
         "hpms_terrain": {
@@ -31310,6 +31410,16 @@
             "spoken": "Entering Lavoy"
           },
           {
+            "name": "Vegreville egg (Lloydminster to Edmonton)",
+            "category": "highway_marker",
+            "kind": "point",
+            "at_mi": 88.3,
+            "spoken": "Passing Vegreville's giant Ukrainian Easter egg.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Vermilion River",
             "category": "river",
             "kind": "point",
@@ -32405,6 +32515,16 @@
             "spoken": "Passing Prince"
           },
           {
+            "name": "Fort Battleford (Lloydminster to North Battleford)",
+            "category": "highway_marker",
+            "kind": "point",
+            "at_mi": 84.3,
+            "spoken": "Passing Fort Battleford National Historic Site.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "North Saskatchewan River",
             "category": "river",
             "kind": "point",
@@ -33422,6 +33542,16 @@
           }
         ],
         "landmarks": [
+          {
+            "name": "Saamis Tepee (Medicine Hat to Lethbridge)",
+            "category": "highway_marker",
+            "kind": "point",
+            "at_mi": 2.5,
+            "spoken": "Passing the Saamis Tepee, the world's tallest.",
+            "directions": [
+              "forward"
+            ]
+          },
           {
             "name": "Redcliff",
             "at_mi": 4.5,

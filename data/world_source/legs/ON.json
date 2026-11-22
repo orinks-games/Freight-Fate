@@ -7267,6 +7267,16 @@
             "spoken": "Passing Harrowsmith"
           },
           {
+            "name": "Kingston Penitentiary (Belleville to Kingston)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 40.5,
+            "spoken": "Billboard: Kingston Penitentiary, ahead. Opened in eighteen thirty-five, closed in twenty thirteen, and now toured. Charles Dickens visited in eighteen forty-two and praised it. He was allowed to leave.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Sydenham",
             "at_mi": 43.7,
             "off_mi": 8.38,
@@ -10924,6 +10934,16 @@
             "kind": "point",
             "source": "OpenStreetMap place=village node 4978085494, projected onto the leg's checked-in route geometry",
             "spoken": "Passing Brinston"
+          },
+          {
+            "name": "Upper Canada Village (Brockville to Cornwall)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 30.7,
+            "spoken": "Billboard: Upper Canada Village, ahead near Morrisburg. More than forty buildings where it is always eighteen sixty-six, with working mills for wool, flour and lumber. Nobody there has heard of diesel.",
+            "directions": [
+              "forward"
+            ]
           },
           {
             "name": "Mariatown",
@@ -17815,6 +17835,16 @@
             "kind": "point",
             "source": "OpenStreetMap place=village node 1070408337, projected onto the leg's checked-in route geometry",
             "spoken": "Passing Saint Andrews West"
+          },
+          {
+            "name": "Upper Canada Village (Cornwall to Brockville)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 9.5,
+            "spoken": "Billboard: Upper Canada Village, ahead near Morrisburg. More than forty buildings where it is always eighteen sixty-six, with working mills for wool, flour and lumber. Nobody there has heard of diesel.",
+            "directions": [
+              "forward"
+            ]
           },
           {
             "name": "Long Sault",
@@ -27198,6 +27228,16 @@
             "kind": "point",
             "source": "OpenStreetMap place=village node 479846073, projected onto the leg's checked-in route geometry",
             "spoken": "Passing Plattsville"
+          },
+          {
+            "name": "Springbank Snow Countess (Hamilton to Woodstock)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 39.0,
+            "spoken": "Billboard: The Springbank Snow Countess, ahead in Woodstock. A statue of a Holstein who set the world record for butterfat in nineteen thirty-three and held it twenty-one years. Still outstanding in her field.",
+            "directions": [
+              "forward"
+            ]
           },
           {
             "name": "Norwich",
@@ -40778,6 +40818,16 @@
             "spoken": "Passing Drumbo"
           },
           {
+            "name": "Springbank Snow Countess (Kitchener to Woodstock)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 24.4,
+            "spoken": "Billboard: The Springbank Snow Countess, ahead in Woodstock. A statue of a Holstein who set the world record for butterfat in nineteen thirty-three and held it twenty-one years. Still outstanding in her field.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Princeton",
             "at_mi": 25.3,
             "off_mi": 5.06,
@@ -53248,6 +53298,16 @@
             "kind": "point",
             "source": "OpenStreetMap place=village node 6646940071, projected onto the leg's checked-in route geometry",
             "spoken": "Passing Stevensville"
+          },
+          {
+            "name": "Welland Canals Centre (Niagara Falls to St. Catharines)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 1.0,
+            "spoken": "Billboard: The Welland Canals Centre at Lock Three, ahead in Saint Catharines. A viewing platform where lake freighters climb the Niagara Escarpment. They carry more than you do. They are also slower.",
+            "directions": [
+              "forward"
+            ]
           },
           {
             "name": "Welland",
@@ -89352,6 +89412,16 @@
             "source": "derived: name and category read from the OpenStreetMap tags of way 1134805034 (Vermilion River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           },
           {
+            "name": "The Big Nickel (Sault Ste. Marie to Sudbury)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 183.0,
+            "spoken": "Billboard: The Big Nickel, ahead in Sudbury. Called the world's largest coin. It was built just past the city line, so it never needed a city permit. Thrifty, for a coin.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Naughton",
             "at_mi": 185.0,
             "off_mi": 0.97,
@@ -93610,6 +93680,16 @@
             "lon": -79.74641,
             "spoken": "Crossing the Little Sturgeon River",
             "source": "derived: name and category read from the OpenStreetMap tags of way 409824633 (Little Sturgeon River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "name": "Dionne Quintuplets Home Museum (Sudbury to North Bay)",
+            "category": "highway_marker",
+            "kind": "point",
+            "at_mi": 78.3,
+            "spoken": "Passing the Dionne Quintuplets Home Museum.",
+            "directions": [
+              "forward"
+            ]
           },
           {
             "name": "Callander",
@@ -112700,6 +112780,16 @@
             "source": "derived: name and category read from the OpenStreetMap tags of way 1391864554 (Vermilion River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           },
           {
+            "name": "The Big Nickel (Timmins to Sudbury)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 169.1,
+            "spoken": "Billboard: The Big Nickel, ahead in Sudbury. Called the world's largest coin. It was built just past the city line, so it never needed a city permit. Thrifty, for a coin.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Chelmsford",
             "at_mi": 171.2,
             "off_mi": 0.01,
@@ -124731,6 +124821,16 @@
             "kind": "point",
             "source": "OpenStreetMap place=village node 479846074, projected onto the leg's checked-in route geometry",
             "spoken": "Passing New Dundee"
+          },
+          {
+            "name": "Doon Heritage Village (Woodstock to Kitchener)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 21.3,
+            "spoken": "Billboard: Doon Heritage Village, ahead in Kitchener. It opened in nineteen fifty-seven with a barn raising, and inside it is always nineteen fourteen. The news has not arrived.",
+            "directions": [
+              "forward"
+            ]
           },
           {
             "name": "Glen Morris",
