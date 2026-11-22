@@ -63504,6 +63504,16 @@
             "spoken": "Entering Gitanyow"
           },
           {
+            "name": "Gitwangak Battle Hill (Meziadin Junction to Terrace)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 84.6,
+            "spoken": "Billboard: Gitwangak Battle Hill, ahead near Kitwanga. A national historic site. The hill was a fortified village of the Gitwangak, defended from the seventeen hundreds until eighteen thirty-five.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Kitwanga",
             "at_mi": 96.8,
             "off_mi": 0.28,
@@ -85988,6 +85998,16 @@
             "spoken": "Passing Telkwa"
           },
           {
+            "name": "Witset Canyon (Smithers to Terrace)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 12.2,
+            "spoken": "Billboard: Witset Canyon, ahead. The Bulkley River drops through a narrow gorge here, and fishers from the village net salmon below the falls. The salmon have the harder commute.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "New Hazelton",
             "at_mi": 44.4,
             "off_mi": 0.1,
@@ -87963,6 +87983,16 @@
             "kind": "point",
             "source": "OpenStreetMap place=village node 1717218993, projected onto the leg's checked-in route geometry, placed ahead of the speed zone it explains",
             "spoken": "Entering Telkwa"
+          },
+          {
+            "name": "World's largest fly rod (Smithers to Vanderhoof)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 30.3,
+            "spoken": "Billboard: Houston, ahead, home of a fly rod billed as the world's largest. It went up in nineteen ninety, paid for by selling five-dollar shares. The shareholders are still waiting on the fish.",
+            "directions": [
+              "forward"
+            ]
           },
           {
             "name": "Houston",
@@ -92565,6 +92595,16 @@
             "source": "derived: name and category read from the OpenStreetMap tags of relation 2236730 (Seven Sisters Protected Area); placed at the first road vertex inside it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           },
           {
+            "name": "Gitwangak Battle Hill (Terrace to Meziadin Junction)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 52.3,
+            "spoken": "Billboard: Gitwangak Battle Hill, ahead near Kitwanga. A national historic site. The hill was a fortified village of the Gitwangak, defended from the seventeen hundreds until eighteen thirty-five.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Kitwanga",
             "at_mi": 60.2,
             "off_mi": 0.28,
@@ -95205,6 +95245,16 @@
             "kind": "point",
             "source": "OpenStreetMap place=village node 52553453, projected onto the leg's checked-in route geometry",
             "spoken": "Entering New Hazelton"
+          },
+          {
+            "name": "Witset Canyon (Terrace to Smithers)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 98.8,
+            "spoken": "Billboard: Witset Canyon, ahead. The Bulkley River drops through a narrow gorge here, and fishers from the village net salmon below the falls. The salmon have the harder commute.",
+            "directions": [
+              "forward"
+            ]
           },
           {
             "name": "Telkwa",
@@ -102981,6 +103031,16 @@
             "kind": "point",
             "source": "OpenStreetMap place=town node 1718087855, projected onto the leg's checked-in route geometry",
             "spoken": "Entering Burns Lake"
+          },
+          {
+            "name": "World's largest fly rod (Vanderhoof to Smithers)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 118.7,
+            "spoken": "Billboard: Houston, ahead, home of a fly rod billed as the world's largest. It went up in nineteen ninety, paid for by selling five-dollar shares. The shareholders are still waiting on the fish.",
+            "directions": [
+              "forward"
+            ]
           },
           {
             "name": "Houston",

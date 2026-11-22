@@ -1,8 +1,8 @@
 # Alaska roads -- 2026-11-22
 
 Copy by the director (`career-2.0-alpha/billboards-copy-alaska-routes.md` in the
-project files), waiting on Orinks's approval; nothing here bakes until he
-says yes. Alaska bans billboards, so every Alaska place is a plain landmark
+project files), approved by Orinks on 2026-11-22 ("I approve all
+billboards."). Alaska bans billboards, so every Alaska place is a plain landmark
 line at its place. The Yukon and British Columbia get boards, placed 4 to
 15 miles before the place where they are two miles clear of the map's own
 lines and outside the park bans (director's rule, 2026-11-22). Every point

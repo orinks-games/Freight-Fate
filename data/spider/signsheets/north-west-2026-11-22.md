@@ -1,8 +1,8 @@
 # The north, west half (corridor 5 west) -- 2026-11-22
 
 Copy by the director (`career-2.0-alpha/billboards-copy-corridor-5-west.md` in
-the project files), waiting on Orinks's approval; nothing here bakes until he
-says yes. Alberta and British Columbia allow boards, and the Yukon allows
+the project files), approved by Orinks on 2026-11-22 ("I approve all
+billboards."). Alberta and British Columbia allow boards, and the Yukon allows
 boards for places to visit, so a place outside a park gets a board 4 to 15
 miles before it, at the mile nearest ten miles before the place that is
 outside the park bans and two miles clear of the map's own lines. The

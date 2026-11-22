@@ -15283,6 +15283,16 @@
             "spoken": "Entering Moonbeam"
           },
           {
+            "name": "Kapuskasing (Cochrane to Kapuskasing)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 62.6,
+            "spoken": "Billboard: Kapuskasing, ahead. Ontario hired planners to lay out the whole town, the first one-industry town the province ever planned. The black bear by the highway is a statue. The others out here are not.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Val Rita",
             "at_mi": 73.6,
             "off_mi": 5.7,
@@ -16452,6 +16462,16 @@
             "spoken": "Entering Ramore"
           },
           {
+            "name": "The Arctic watershed (Cochrane to Temiskaming Shores)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 63.4,
+            "spoken": "Billboard: The Arctic watershed, ahead. On one side of this height of land the rivers run north to Hudson Bay. On the other they run south to the Great Lakes. Your load goes where the paperwork says.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Whiteclay River",
             "category": "river",
             "kind": "point",
@@ -17116,6 +17136,16 @@
             "lon": -81.05479,
             "spoken": "Crossing the Porcupine River",
             "source": "derived: name and category read from the OpenStreetMap tags of way 299379966 (Porcupine River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "name": "Timmins (Cochrane to Timmins)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 63.8,
+            "spoken": "Billboard: Timmins, ahead, in the Porcupine gold camp. Benny Hollinger found gold in quartz here in nineteen oh-nine. The mine took his name. The city took the name of one of the men who bought him out.",
+            "directions": [
+              "forward"
+            ]
           },
           {
             "name": "Porcupine",
@@ -21078,6 +21108,16 @@
             "kind": "point",
             "source": "OpenStreetMap place=village node 1365927584, projected onto the leg's checked-in route geometry",
             "spoken": "Entering Vermilion Bay"
+          },
+          {
+            "name": "Husky the Muskie (Dryden to Kenora)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 78.5,
+            "spoken": "Billboard: Husky the Muskie, ahead in Kenora. A giant muskellunge in McLeod Park, built for Canada's centennial in nineteen sixty-seven. Every angler in town has caught one bigger.",
+            "directions": [
+              "forward"
+            ]
           }
         ],
         "hpms_terrain": {
@@ -22589,6 +22629,16 @@
             "lon": -94.23616,
             "spoken": "Crossing the Rushing River",
             "source": "derived: name and category read from the OpenStreetMap tags of way 128288502 (Rushing River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "name": "Husky the Muskie (Fort Frances to Kenora)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 125.5,
+            "spoken": "Billboard: Husky the Muskie, ahead in Kenora. A giant muskellunge in McLeod Park, built for Canada's centennial in nineteen sixty-seven. Every angler in town has caught one bigger.",
+            "directions": [
+              "forward"
+            ]
           }
         ],
         "hpms_terrain": {
@@ -24743,6 +24793,16 @@
             "source": "derived: name and category read from the OpenStreetMap tags of way 1483536972 (French River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           },
           {
+            "name": "Arctic watershed (Fort Frances to Thunder Bay)",
+            "category": "highway_marker",
+            "kind": "point",
+            "at_mi": 133.1,
+            "spoken": "Crossing the Arctic watershed.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Kashabowie River",
             "category": "river",
             "kind": "point",
@@ -24761,6 +24821,16 @@
             "lon": -89.68073,
             "spoken": "Crossing the Shebandowan River",
             "source": "derived: name and category read from the OpenStreetMap tags of way 256451574 (Shebandowan River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "name": "Kakabeka Falls (Fort Frances to Thunder Bay)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 191.8,
+            "spoken": "Billboard: Kakabeka Falls, ahead. The Kaministiquia River drops in two steps into a gorge, and people call it the Niagara of the North. Niagara has not returned the compliment.",
+            "directions": [
+              "forward"
+            ]
           },
           {
             "name": "Military and Police Museum",
@@ -27614,6 +27684,16 @@
             "source": "derived: name and category read from the OpenStreetMap tags of way 1540053880 (Opasatika River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           },
           {
+            "name": "Kapuskasing (Hearst to Kapuskasing)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 48.0,
+            "spoken": "Billboard: Kapuskasing, ahead. Ontario hired planners to lay out the whole town, the first one-industry town the province ever planned. The black bear by the highway is a statue. The others out here are not.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Lost River",
             "category": "river",
             "kind": "point",
@@ -29318,6 +29398,16 @@
         "restrictions": [],
         "landmarks": [
           {
+            "name": "Max the Moose (Ignace to Dryden)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 54.2,
+            "spoken": "Billboard: Max the Moose, ahead in Dryden. He has stood beside the highway since nineteen sixty-two. Dryden says he came before the big moose in Moose Jaw. Moose Jaw has a different view.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Wabigoon River",
             "category": "river",
             "kind": "point",
@@ -30532,6 +30622,26 @@
             "source": "derived: name and category read from the OpenStreetMap tags of way 398230122 (Firesteel River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           },
           {
+            "name": "The Arctic watershed (Ignace to Thunder Bay)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 86.0,
+            "spoken": "Billboard: The Arctic watershed, ahead. On one side of this height of land the rivers run north to Hudson Bay. On the other they run south to the Great Lakes. Your load goes where the paperwork says.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
+            "name": "Arctic watershed (Ignace to Thunder Bay)",
+            "category": "highway_marker",
+            "kind": "point",
+            "at_mi": 97.0,
+            "spoken": "Crossing the Arctic watershed.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Shebandowan River",
             "category": "river",
             "kind": "point",
@@ -30540,6 +30650,16 @@
             "lon": -89.68073,
             "spoken": "Crossing the Shebandowan River",
             "source": "derived: name and category read from the OpenStreetMap tags of way 256451574 (Shebandowan River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "name": "Kakabeka Falls (Ignace to Thunder Bay)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 127.8,
+            "spoken": "Billboard: Kakabeka Falls, ahead. The Kaministiquia River drops in two steps into a gorge, and people call it the Niagara of the North. Niagara has not returned the compliment.",
+            "directions": [
+              "forward"
+            ]
           },
           {
             "name": "Military and Police Museum",
@@ -30997,6 +31117,16 @@
             "lon": -81.43788,
             "spoken": "Crossing the North Driftwood River",
             "source": "derived: name and category read from the OpenStreetMap tags of way 322339522 (North Driftwood River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "name": "Cochrane (Kapuskasing to Cochrane)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 60.9,
+            "spoken": "Billboard: Cochrane, ahead, home of Chimo the polar bear. A statue of him has stood at the highway since nineteen seventy, and the Polar Bear Habitat in town keeps the live kind. Only one of them holds still.",
+            "directions": [
+              "forward"
+            ]
           },
           {
             "name": "Buskegau River",
@@ -32554,6 +32684,16 @@
             "lon": -93.22099,
             "spoken": "Crossing the Eagle River",
             "source": "derived: name and category read from the OpenStreetMap tags of way 340222208 (Eagle River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "name": "Max the Moose (Kenora to Dryden)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 78.6,
+            "spoken": "Billboard: Max the Moose, ahead in Dryden. He has stood beside the highway since nineteen sixty-two. Dryden says he came before the big moose in Moose Jaw. Moose Jaw has a different view.",
+            "directions": [
+              "forward"
+            ]
           },
           {
             "name": "Wabigoon River",
@@ -45809,6 +45949,16 @@
             "source": "derived: name and category read from the OpenStreetMap tags of way 1365812880 (Postagoni River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           },
           {
+            "name": "Nipigon River Bridge (Longlac to Nipigon)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 109.0,
+            "spoken": "Billboard: The Nipigon River Bridge, ahead. Highways eleven and seventeen share it, and no other road joins eastern Canada to the west. In twenty sixteen it closed for most of a day. The detour ran through the United States.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Nipigon River",
             "category": "river",
             "kind": "point",
@@ -47474,6 +47624,16 @@
             "source": "derived: name and category read from the OpenStreetMap tags of way 430636815 (Steel River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           },
           {
+            "name": "Aguasabon Falls and Gorge (Marathon to Nipigon)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 37.7,
+            "spoken": "Billboard: Aguasabon Falls and Gorge, ahead in Terrace Bay. The river drops into a gorge cut in rock more than two and a half billion years old. The boardwalk is newer.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Terrace Bay",
             "at_mi": 46.1,
             "off_mi": 0.06,
@@ -47519,6 +47679,16 @@
             "kind": "point",
             "source": "OpenStreetMap place=village node 855617945, projected onto the leg's checked-in route geometry",
             "spoken": "Entering Rossport"
+          },
+          {
+            "name": "Nipigon River Bridge (Marathon to Nipigon)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 99.8,
+            "spoken": "Billboard: The Nipigon River Bridge, ahead. Highways eleven and seventeen share it, and no other road joins eastern Canada to the west. In twenty sixteen it closed for most of a day. The detour ran through the United States.",
+            "directions": [
+              "forward"
+            ]
           },
           {
             "name": "Jackfish River",
@@ -48929,6 +49099,26 @@
             "lon": -85.5063,
             "spoken": "Crossing the White River",
             "source": "derived: name and category read from the OpenStreetMap tags of way 72003673 (White River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "name": "White River (Marathon to Wawa)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 47.8,
+            "spoken": "Billboard: White River, ahead, where Winnie-the-Pooh began. In nineteen fourteen a soldier bought a bear cub at the train stop here for twenty dollars and named her Winnipeg. She went on to do well in books.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
+            "name": "The Wawa Goose (Marathon to Wawa)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 104.0,
+            "spoken": "Billboard: The Wawa Goose, ahead. A giant Canada goose has stood at the highway turn-off since nineteen sixty. The first was plaster, the second steel, and this one is bronze. Wawa keeps upgrading the goose.",
+            "directions": [
+              "forward"
+            ]
           },
           {
             "name": "Hawk Junction",
@@ -56289,6 +56479,16 @@
             "source": "derived: name and category read from the OpenStreetMap tags of relation 11748880 (Rainbow Falls Provincial Park); placed at the first road vertex inside it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           },
           {
+            "name": "Aguasabon Falls and Gorge (Nipigon to Marathon)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 54.5,
+            "spoken": "Billboard: Aguasabon Falls and Gorge, ahead in Terrace Bay. The river drops into a gorge cut in rock more than two and a half billion years old. The boardwalk is newer.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Schreiber",
             "at_mi": 57.7,
             "off_mi": 0.01,
@@ -57197,6 +57397,16 @@
             "source": "derived: name and category read from the OpenStreetMap tags of way 406539738 (Black Sturgeon River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           },
           {
+            "name": "The amethyst mines (Nipigon to Thunder Bay)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 14.8,
+            "spoken": "Billboard: The amethyst mines, ahead. Amethyst has been Ontario's official mineral since nineteen seventy-five, and these hills are where it is dug. The scale house weighs it like any other rock.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Wolf River",
             "category": "river",
             "kind": "point",
@@ -57214,6 +57424,16 @@
             "kind": "point",
             "source": "OpenStreetMap place=village node 937473619, projected onto the leg's checked-in route geometry",
             "spoken": "Entering Dorion"
+          },
+          {
+            "name": "Terry Fox Memorial and Lookout (Nipigon to Thunder Bay)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 50.2,
+            "spoken": "Billboard: The Terry Fox Memorial and Lookout, ahead. His Marathon of Hope ended near here in nineteen eighty. The lookout faces Lake Superior and the Sleeping Giant.",
+            "directions": [
+              "forward"
+            ]
           },
           {
             "name": "Current River",
@@ -64159,6 +64379,16 @@
             "source": "derived: name and category read from the OpenStreetMap tags of way 1569215274 (Marten River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           },
           {
+            "name": "Temagami Fire Tower (North Bay to Temiskaming Shores)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 51.5,
+            "spoken": "Billboard: The Temagami Fire Tower, ahead. A steel lookout from nineteen fifty-one, the third tower on Caribou Mountain since nineteen ten. It used to watch for smoke. Now it mostly gets looked at.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Temagami",
             "at_mi": 60.2,
             "off_mi": 0.02,
@@ -64175,6 +64405,26 @@
             "kind": "point",
             "source": "OpenStreetMap place=village node 2644975284, projected onto the leg's checked-in route geometry",
             "spoken": "Entering Temagami North"
+          },
+          {
+            "name": "Latchford (North Bay to Temiskaming Shores)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 72.4,
+            "spoken": "Billboard: Latchford, ahead, home of a covered bridge billed as the world's shortest. It went up in nineteen seventy-six. Your truck is longer than the bridge.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
+            "name": "Cobalt (North Bay to Temiskaming Shores)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 78.4,
+            "spoken": "Billboard: Cobalt, ahead. Railway workers found silver here in nineteen oh-three and set off a rush. The headframes still stand over town. The silver left.",
+            "directions": [
+              "forward"
+            ]
           },
           {
             "name": "Latchford",
@@ -90982,6 +91232,16 @@
             "source": "derived: name and category read from the OpenStreetMap tags of way 304334951 (Chippewa River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           },
           {
+            "name": "Edmund Fitzgerald Lookout (Sault Ste. Marie to Wawa)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 40.9,
+            "spoken": "Billboard: The Edmund Fitzgerald Lookout, ahead at Pancake Bay. A trail climbs to a view over Whitefish Bay, toward where the freighter went down with her crew in nineteen seventy-five.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Batchawana Bay",
             "at_mi": 46.0,
             "off_mi": 1.18,
@@ -91011,6 +91271,16 @@
             "source": "derived: name and category read from the OpenStreetMap tags of way 71617218 (Agawa River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           },
           {
+            "name": "Agawa Rock pictographs (Sault Ste. Marie to Wawa)",
+            "category": "highway_marker",
+            "kind": "point",
+            "at_mi": 92.5,
+            "spoken": "Passing the Agawa Rock pictographs.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Sand River",
             "category": "river",
             "kind": "point",
@@ -91019,6 +91289,26 @@
             "lon": -84.73096,
             "spoken": "Crossing the Sand River",
             "source": "derived: name and category read from the OpenStreetMap tags of way 1547221782 (Sand River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "name": "Old Woman Bay (Sault Ste. Marie to Wawa)",
+            "category": "highway_marker",
+            "kind": "point",
+            "at_mi": 126.8,
+            "spoken": "Passing Old Woman Bay.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
+            "name": "The Wawa Goose (Sault Ste. Marie to Wawa)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 134.4,
+            "spoken": "Billboard: The Wawa Goose, ahead. A giant Canada goose has stood at the highway turn-off since nineteen sixty. The first was plaster, the second steel, and this one is bronze. Wawa keeps upgrading the goose.",
+            "directions": [
+              "forward"
+            ]
           },
           {
             "name": "Michipicoten Provincial Park",
@@ -99771,6 +100061,16 @@
             "spoken": "Entering Chelmsford"
           },
           {
+            "name": "A. Y. Jackson Lookout (Sudbury to Timmins)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 14.4,
+            "spoken": "Billboard: The A. Y. Jackson Lookout, ahead. The Group of Seven painter came to sketch the Onaping River in the spring of nineteen fifty-three. He finished in a season. The river is still at it.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Vermilion River",
             "category": "river",
             "kind": "point",
@@ -99863,6 +100163,16 @@
             "lon": -81.57983,
             "spoken": "Crossing the Tatachikapika River",
             "source": "derived: name and category read from the OpenStreetMap tags of way 297437979 (Tatachikapika River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "name": "Timmins (Sudbury to Timmins)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 173.3,
+            "spoken": "Billboard: Timmins, ahead, in the Porcupine gold camp. Benny Hollinger found gold in quartz here in nineteen oh-nine. The mine took his name. The city took the name of one of the men who bought him out.",
+            "directions": [
+              "forward"
+            ]
           },
           {
             "name": "Mattagami River",
@@ -101163,6 +101473,16 @@
             "spoken": "Passing Kirkland Lake"
           },
           {
+            "name": "The Arctic watershed (Temiskaming Shores to Cochrane)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 50.4,
+            "spoken": "Billboard: The Arctic watershed, ahead. On one side of this height of land the rivers run north to Hudson Bay. On the other they run south to the Great Lakes. Your load goes where the paperwork says.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Blanche River",
             "category": "river",
             "kind": "point",
@@ -101265,6 +101585,16 @@
             "kind": "point",
             "source": "OpenStreetMap place=town node 1583464846, projected onto the leg's checked-in route geometry",
             "spoken": "Passing Iroquois Falls"
+          },
+          {
+            "name": "Cochrane (Temiskaming Shores to Cochrane)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 126.5,
+            "spoken": "Billboard: Cochrane, ahead, home of Chimo the polar bear. A statue of him has stood at the highway since nineteen seventy, and the Polar Bear Habitat in town keeps the live kind. Only one of them holds still.",
+            "directions": [
+              "forward"
+            ]
           }
         ],
         "hpms_terrain": {
@@ -102567,6 +102897,16 @@
             "spoken": "Passing North Cobalt"
           },
           {
+            "name": "Latchford (Temiskaming Shores to North Bay)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 5.6,
+            "spoken": "Billboard: Latchford, ahead, home of a covered bridge billed as the world's shortest. It went up in nineteen seventy-six. Your truck is longer than the bridge.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Cobalt",
             "at_mi": 8.8,
             "off_mi": 2.86,
@@ -102593,6 +102933,16 @@
             "lon": -79.80995,
             "spoken": "Crossing the Montreal River",
             "source": "derived: name and category read from the OpenStreetMap tags of way 1573933383 (Montreal River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "name": "Temagami Fire Tower (Temiskaming Shores to North Bay)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 26.5,
+            "spoken": "Billboard: The Temagami Fire Tower, ahead. A steel lookout from nineteen fifty-one, the third tower on Caribou Mountain since nineteen ten. It used to watch for smoke. Now it mostly gets looked at.",
+            "directions": [
+              "forward"
+            ]
           },
           {
             "name": "Temagami North",
@@ -105846,6 +106196,16 @@
             "spoken": "Entering Beaver Bay"
           },
           {
+            "name": "Split Rock Lighthouse (Thunder Bay to Duluth)",
+            "category": "highway_marker",
+            "kind": "point",
+            "at_mi": 139.7,
+            "spoken": "Passing Split Rock Lighthouse.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Silver Creek",
             "at_mi": 151.6,
             "off_mi": 1.8,
@@ -108081,6 +108441,16 @@
         "restrictions": [],
         "landmarks": [
           {
+            "name": "Kakabeka Falls (Thunder Bay to Fort Frances)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 5.5,
+            "spoken": "Billboard: Kakabeka Falls, ahead. The Kaministiquia River drops in two steps into a gorge, and people call it the Niagara of the North. Niagara has not returned the compliment.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Kakabeka Falls",
             "at_mi": 16.8,
             "off_mi": 0.01,
@@ -108137,6 +108507,16 @@
             "lon": -90.41816,
             "spoken": "Crossing the Kashabowie River",
             "source": "derived: name and category read from the OpenStreetMap tags of way 1534601635 (Kashabowie River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "name": "Arctic watershed (Thunder Bay to Fort Frances)",
+            "category": "highway_marker",
+            "kind": "point",
+            "at_mi": 83.9,
+            "spoken": "Crossing the Arctic watershed.",
+            "directions": [
+              "forward"
+            ]
           },
           {
             "name": "Quetico Provincial Park",
@@ -109380,6 +109760,16 @@
         "restrictions": [],
         "landmarks": [
           {
+            "name": "Kakabeka Falls (Thunder Bay to Ignace)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 5.5,
+            "spoken": "Billboard: Kakabeka Falls, ahead. The Kaministiquia River drops in two steps into a gorge, and people call it the Niagara of the North. Niagara has not returned the compliment.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Kakabeka Falls",
             "at_mi": 16.9,
             "off_mi": 0.01,
@@ -109426,6 +109816,26 @@
             "lon": -89.68071,
             "spoken": "Crossing the Shebandowan River",
             "source": "derived: name and category read from the OpenStreetMap tags of way 256451574 (Shebandowan River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "name": "The Arctic watershed (Thunder Bay to Ignace)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 46.0,
+            "spoken": "Billboard: The Arctic watershed, ahead. On one side of this height of land the rivers run north to Hudson Bay. On the other they run south to the Great Lakes. Your load goes where the paperwork says.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
+            "name": "Arctic watershed (Thunder Bay to Ignace)",
+            "category": "highway_marker",
+            "kind": "point",
+            "at_mi": 56.0,
+            "spoken": "Crossing the Arctic watershed.",
+            "directions": [
+              "forward"
+            ]
           },
           {
             "name": "Firesteel River",
@@ -110333,6 +110743,16 @@
             "source": "derived: name and category read from the OpenStreetMap tags of way 776504276 (Current River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           },
           {
+            "name": "The amethyst mines (Thunder Bay to Nipigon)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 30.4,
+            "spoken": "Billboard: The amethyst mines, ahead. Amethyst has been Ontario's official mineral since nineteen seventy-five, and these hills are where it is dug. The scale house weighs it like any other rock.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Dorion",
             "at_mi": 50.1,
             "off_mi": 0.5,
@@ -110360,6 +110780,16 @@
             "lon": -88.37815,
             "spoken": "Crossing the Black Sturgeon River",
             "source": "derived: name and category read from the OpenStreetMap tags of way 406539738 (Black Sturgeon River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "name": "Nipigon River Bridge (Thunder Bay to Nipigon)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 66.1,
+            "spoken": "Billboard: The Nipigon River Bridge, ahead. Highways eleven and seventeen share it, and no other road joins eastern Canada to the west. In twenty sixteen it closed for most of a day. The detour ran through the United States.",
+            "directions": [
+              "forward"
+            ]
           },
           {
             "name": "Red Rock",
@@ -110876,6 +111306,16 @@
             "kind": "point",
             "source": "OpenStreetMap place=town node 1583464846, projected onto the leg's checked-in route geometry",
             "spoken": "Passing Iroquois Falls"
+          },
+          {
+            "name": "Cochrane (Timmins to Cochrane)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 65.5,
+            "spoken": "Billboard: Cochrane, ahead, home of Chimo the polar bear. A statue of him has stood at the highway since nineteen seventy, and the Polar Bear Habitat in town keeps the live kind. Only one of them holds still.",
+            "directions": [
+              "forward"
+            ]
           }
         ],
         "hpms_terrain": {
@@ -112741,6 +113181,16 @@
             "kind": "point",
             "source": "OpenStreetMap place=town node 2565575631, projected onto the leg's checked-in route geometry",
             "spoken": "Entering Cartier"
+          },
+          {
+            "name": "A. Y. Jackson Lookout (Timmins to Sudbury)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 151.0,
+            "spoken": "Billboard: The A. Y. Jackson Lookout, ahead. The Group of Seven painter came to sketch the Onaping River in the spring of nineteen fifty-three. He finished in a season. The river is still at it.",
+            "directions": [
+              "forward"
+            ]
           },
           {
             "name": "Onaping",
@@ -120120,6 +120570,16 @@
             "spoken": "Passing Hawk Junction"
           },
           {
+            "name": "White River (Wawa to Marathon)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 47.2,
+            "spoken": "Billboard: White River, ahead, where Winnie-the-Pooh began. In nineteen fourteen a soldier bought a bear cub at the train stop here for twenty dollars and named her Winnipeg. She went on to do well in books.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "White River",
             "category": "river",
             "kind": "point",
@@ -121580,6 +122040,16 @@
             "source": "derived: name and category read from the OpenStreetMap tags of way 745388007 (Michipicoten Provincial Park); placed at the first road vertex inside it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           },
           {
+            "name": "Old Woman Bay (Wawa to Sault Ste. Marie)",
+            "category": "highway_marker",
+            "kind": "point",
+            "at_mi": 16.2,
+            "spoken": "Passing Old Woman Bay.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Sand River",
             "category": "river",
             "kind": "point",
@@ -121588,6 +122058,16 @@
             "lon": -84.73096,
             "spoken": "Crossing the Sand River",
             "source": "derived: name and category read from the OpenStreetMap tags of way 1547221782 (Sand River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "name": "Agawa Rock pictographs (Wawa to Sault Ste. Marie)",
+            "category": "highway_marker",
+            "kind": "point",
+            "at_mi": 50.5,
+            "spoken": "Passing the Agawa Rock pictographs.",
+            "directions": [
+              "forward"
+            ]
           },
           {
             "name": "Agawa River",
@@ -121608,6 +122088,16 @@
             "lon": -84.64524,
             "spoken": "Crossing the Montreal River",
             "source": "derived: name and category read from the OpenStreetMap tags of way 267595004 (Montreal River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "name": "Edmund Fitzgerald Lookout (Wawa to Sault Ste. Marie)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 82.2,
+            "spoken": "Billboard: The Edmund Fitzgerald Lookout, ahead at Pancake Bay. A trail climbs to a view over Whitefish Bay, toward where the freighter went down with her crew in nineteen seventy-five.",
+            "directions": [
+              "forward"
+            ]
           },
           {
             "name": "Batchawana Bay",

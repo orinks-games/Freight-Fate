@@ -1,8 +1,8 @@
 # The north, east half (corridor 5 east) -- 2026-11-22
 
 Copy by the director (`career-2.0-alpha/billboards-copy-corridor-5-east.md` in
-the project files), waiting on Orinks's approval; nothing here bakes until he
-says yes. Manitoba and Quebec allow boards, so a place outside a park gets a
+the project files), approved by Orinks on 2026-11-22 ("I approve all
+billboards."). Manitoba and Quebec allow boards, so a place outside a park gets a
 board 4 to 15 miles before it, at the mile nearest ten miles before the place
 that is outside the park bans and two miles clear of the map's own lines and
 of the boards placed before it. Paint Lake Provincial Park gets a plain line.
@@ -52,10 +52,10 @@ The place is at mile 204.0; the board stands 10.0 miles before it.
 ### King Miner statue (Grand Rapids to Thompson)
 - treatment: billboard
 - leg: grand_rapids_mb_ca -> thompson_mb_ca
-- at_mi: 192.7
+- at_mi: 188.7
 - spoken: Billboard: The King Miner statue, ahead in Thompson. He went up in nineteen eighty-one for the town's twenty-fifth anniversary, and a retired miner posed for the sculptor. He has not missed a shift since.
 
-The place is at mile 202.7; the board stands 10.0 miles before it.
+The place is at mile 202.7; the board stands 14.0 miles before it. The King Miner and wolf mural boards stand nine miles apart (director, 2026-11-22: at least eight).
 
 ### King Miner statue (Thompson to Grand Rapids)
 - treatment: skip
@@ -71,10 +71,10 @@ Not placed: the place is 1.3 miles into the leg, so no mile 4 to 15 before it is
 ### Thompson's wolf mural (Grand Rapids to Thompson)
 - treatment: billboard
 - leg: grand_rapids_mb_ca -> thompson_mb_ca
-- at_mi: 194.8
+- at_mi: 197.7
 - spoken: Billboard: Thompson, ahead. A wolf ten stories tall is painted on the side of Highland Tower, after a sketch by Robert Bateman, and dozens of painted wolf statues stand around town. Count them if you have the hours.
 
-The place is at mile 203.0; the board stands 8.2 miles before it.
+The place is at mile 203.0; the board stands 5.3 miles before it. The King Miner and wolf mural boards stand nine miles apart (director, 2026-11-22: at least eight).
 
 ### Thompson's wolf mural (Thompson to Grand Rapids)
 - treatment: skip

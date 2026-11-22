@@ -58,7 +58,7 @@
 - **Simulated high winds now vary and ease off over a few hours.** Live weather reads the wind at the bridge itself.
 - **You can call dispatch while stopped about the trip.** Report a delay, your hours, road conditions, truck trouble or load trouble.
 - **Twenty-six new achievements,** earned in Alaska and Canada, at customs, with cattle, with one carrier, on a restart and at the Laredo yards.
-- **Billboards follow each state's and province's sign law,** with attraction boards across Canada and plain lines where boards are banned.
+- **Billboards follow each state's and province's sign law,** with attraction boards across Canada and plain lines in Alaska and wherever else boards are banned.
 - **Billboards notice what you haul.** Cattle, a reefer load or doubles get their own signs, and now and then a board names your carrier.
 - **Canadian roads keep Canada's holidays.** Canada Day and October's Thanksgiving get their own boards.
 

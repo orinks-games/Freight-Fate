@@ -1,8 +1,8 @@
 # Atlantic Canada (corridor 4) -- 2026-11-22
 
 Copy by the director (`career-2.0-alpha/billboards-copy-corridor-4.md` in the
-project files), waiting on Orinks's approval; nothing here bakes until he
-says yes. New Brunswick, Nova Scotia and Quebec allow attraction boards, so
+project files), approved by Orinks on 2026-11-22 ("I approve all
+billboards."). New Brunswick, Nova Scotia and Quebec allow attraction boards, so
 a place outside a park gets a board 4 to 15 miles before it, at the mile
 nearest ten miles before the place that is outside the government park bans
 and two miles clear of the map's own lines. Prince Edward Island and Maine
