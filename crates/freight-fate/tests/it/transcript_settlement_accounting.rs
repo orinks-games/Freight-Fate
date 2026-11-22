@@ -616,3 +616,95 @@ fn tickets_paid_on_the_road_are_read_on_the_settlement_rows() {
         "{rows}"
     );
 }
+
+/// Settle a New York to Philadelphia load whose freight arrived at
+/// `cargo_damage` percent, for `business_status`, and hand back the screen.
+fn settle_with_cargo_damage(business_status: &'static str, cargo_damage: f64) -> ArrivalState {
+    let mut app = TestApp::new();
+    let job = a_job(JobSpec::default());
+    let mut profile = Profile::named_in("Refused Load", &job.origin);
+    profile.business_status = business_status.to_string();
+    app.ctx.profile = Some(profile);
+    let route = app
+        .ctx
+        .world
+        .route_from_cities(&["New York".to_string(), "Philadelphia".to_string()])
+        .expect("a route");
+    let mut driving = DrivingState::new(
+        &mut app.ctx,
+        job,
+        route,
+        Some(4),
+        DRIVE_PHASE_DELIVERY,
+        None,
+    );
+    driving.trip.truck.cargo_damage_pct = cargo_damage;
+    driving.trip.position_mi = driving.trip.total_miles();
+    driving.trip.update(0.0);
+    ArrivalState::new(&mut app.ctx, &mut driving)
+}
+
+/// A refused load pays nothing, and every row says so: no pay figure, no
+/// bonus, and an arrival line that names the refusal instead of the clock.
+#[test]
+fn a_refused_load_reads_no_pay_and_no_bonus() {
+    for status in [COMPANY_DRIVER, LEASED_OWNER_OPERATOR] {
+        let arrival = settle_with_cargo_damage(status, 100.0);
+        let rows = arrival.summary_lines.join(" | ");
+        assert_eq!(arrival.title(), "Load refused", "{status}");
+        assert!(
+            arrival.summary_lines[0].starts_with("In Philadelphia. Net "),
+            "{status}: {rows}"
+        );
+        assert!(
+            rows.contains("Pay for the load: none. The receiver refused it."),
+            "{status}: {rows}"
+        );
+        assert!(
+            rows.contains("Receiver refused the load"),
+            "{status}: {rows}"
+        );
+        for word in [
+            "On time",
+            "Late in",
+            "bonus",
+            "Pay for the load: 1",
+            "Pay for the load: 2",
+        ] {
+            assert!(!rows.contains(word), "{status} read {word:?}: {rows}");
+        }
+        let summary = arrival.summary_parts.join(" ");
+        assert!(summary.contains("refused by the receiver"), "{summary}");
+        assert!(summary.contains("Pay for the load: none."), "{summary}");
+    }
+}
+
+/// A load the receiver takes with a claim is still paid: its pay and bonus
+/// rows stand, and the claim row says what came off.
+#[test]
+fn a_claimed_load_reads_its_pay_bonus_and_what_came_off() {
+    for status in [COMPANY_DRIVER, LEASED_OWNER_OPERATOR] {
+        let arrival = settle_with_cargo_damage(status, 40.0);
+        let rows = arrival.summary_lines.join(" | ");
+        assert_eq!(arrival.title(), "Delivery complete", "{status}");
+        assert!(
+            arrival.summary_lines[0].starts_with("On time in Philadelphia"),
+            "{status}: {rows}"
+        );
+        let pay = arrival
+            .summary_lines
+            .iter()
+            .find(|row| row.starts_with("Pay for the load: "))
+            .expect("a pay row");
+        assert!(pay.ends_with(" dollars."), "{status}: {pay}");
+        assert!(
+            rows.contains("On-time delivery bonus: "),
+            "{status}: {rows}"
+        );
+        assert!(rows.contains("off this settlement"), "{status}: {rows}");
+        assert!(
+            !rows.contains("none. The receiver refused it"),
+            "{status}: {rows}"
+        );
+    }
+}

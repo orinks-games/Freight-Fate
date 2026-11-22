@@ -129,6 +129,7 @@
 - **Sleeping with cattle aboard now warns when they would pass the 28-hour limit,** and the hours readouts stop naming a 30-minute break that cannot come due.
 - **A refused reverse with doubles no longer plays the gear-shift sound,** and the doubles hook-up time is spoken once at the shipper and once at the receiver.
 - **A team load's deadline no longer leaves room for a 10-hour sleep,** at any urgency.
+- **A refused load's settlement no longer reads a pay figure or an on-time bonus.** It says the receiver refused it.
 
 ## 1.9.7 - 2026-11-21
 
