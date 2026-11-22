@@ -364,7 +364,7 @@ fn test_the_rest_key_short_of_the_gate_names_the_gate() {
         .gate_short_hint(&app.ctx)
         .expect("a gate is a truck length ahead");
     assert!(hint.starts_with("Gate at "), "{hint}");
-    assert!(hint.ends_with(" ahead."), "{hint}");
+    assert!(!hint.contains("ahead"), "{hint}");
     let parked_before = d.trip.truck.parking_brake;
     d.try_rest_stop(&mut app.ctx);
     let said = app.main_lines().join(" ");

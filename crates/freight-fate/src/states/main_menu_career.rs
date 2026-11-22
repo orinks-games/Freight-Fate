@@ -186,20 +186,19 @@ impl Menu for HomeTerminalState {
         let mut items = Vec::new();
         for region in &self.regions {
             // The region is a name; the count is words a catalog has whole.
+            // No row help: the help key reads a row without one back, which
+            // is all this help said (phone walk N6).
             let place = region_menu_name(region);
             let count = self.cities_by_region[region].len();
-            let (label, help) = if count == 1 {
-                (format!("{place}, 1 city"), format!("{place}, 1 city."))
+            let label = if count == 1 {
+                format!("{place}, 1 city")
             } else {
-                (
-                    format!("{place}, {count} cities"),
-                    format!("{place}, {count} cities."),
-                )
+                format!("{place}, {count} cities")
             };
             let r = region.clone();
-            items.push(
-                MenuItem::new(label, move |s: &mut Self, ctx| s.pick_region(ctx, &r)).help(help),
-            );
+            items.push(MenuItem::new(label, move |s: &mut Self, ctx| {
+                s.pick_region(ctx, &r)
+            }));
         }
         items
     }

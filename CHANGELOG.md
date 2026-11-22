@@ -7,6 +7,16 @@
 - **Settings, Audio now has Outside sounds volume and Road surface volume.** Birds, insects, rivers, seams and bridge joints no longer share a volume with weather or gameplay cues.
 - **Page Up and Page Down now move ten options at a time in every menu.**
 
+### Fixed
+
+- **Lines that were said twice or late are now said once, in order.** This covers the first drive, stop arrivals and leaving Settings.
+- **An open weigh station is announced once, then its exit signal.** The stop callout that repeated it is gone.
+- **Report a problem now says plainly when orinks.net cannot be reached.** It used to read the error text aloud.
+
+### Changed
+
+- **Exit, stop, fuel and road report calls no longer end in "ahead".** "Signal set for exit 323, 5 miles."
+
 ## 1.9.7 - 2026-11-21
 
 ### Compatibility
