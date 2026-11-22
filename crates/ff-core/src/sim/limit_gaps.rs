@@ -19,9 +19,14 @@
 //!   leaves town.
 //! - **The state's truck cap binds the heuristic too.** A California rig is
 //!   held to 55 on every road, posted or not.
+//!
+//! In Canada the open-road number is not the road-class heuristic but the
+//! province's statutory default (`data::province_limits`), so an unposted
+//! Canadian mile speaks a round kilometers-per-hour figure.
 
+use crate::data::province_limits::province_limit;
 use crate::data::world_models::{Leg, SpeedLimitSample};
-use crate::sim::trip_models::{leg_state_at, statutory_truck_caps};
+use crate::sim::trip_models::{corridor_speed_limit, leg_state_at, statutory_truck_caps};
 
 /// Both postings around a gap at or above this: the gap is highway between
 /// them, whatever its length.
@@ -61,6 +66,21 @@ pub fn gap_ceiling_mph(leg: &Leg, offset_mi: f64) -> Option<f64> {
     let held = low >= GAP_HOLD_HIGHWAY_MPH
         || (low >= GAP_HOLD_SHORT_MIN_MPH && length <= GAP_HOLD_SHORT_MAX_MI);
     held.then(|| before.max(after_mph))
+}
+
+/// The open-road limit where a leg has no posting, before the gap ceiling:
+/// the province's statutory default in Canada, else the highway/region
+/// heuristic.
+pub fn open_road_mph(leg: &Leg, offset_mi: f64, region: &str) -> f64 {
+    match province_limit(&leg_state_at(leg, offset_mi)) {
+        Some(row) => row.mph_for(&leg.highway),
+        None => corridor_speed_limit(&leg.highway, region),
+    }
+}
+
+/// Whether a leg offset lies in a Canadian province or territory.
+pub fn in_canada_at(leg: &Leg, offset_mi: f64) -> bool {
+    province_limit(&leg_state_at(leg, offset_mi)).is_some()
 }
 
 /// The heuristic limit where a leg has no posting, with the gap ceiling

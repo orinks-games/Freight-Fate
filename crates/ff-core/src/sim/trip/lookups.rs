@@ -7,7 +7,9 @@ use crate::data::regions::classify_region;
 use crate::data::street_limits::load_street_limits;
 use crate::data::world_models::{lane_word, py_capitalize, Interchange, Leg, Stop};
 use crate::pyfmt::{fmt_f, round_py_int};
-use crate::sim::limit_gaps::{is_unposted, unposted_limit, unposted_truck_cap};
+use crate::sim::limit_gaps::{
+    in_canada_at, is_unposted, open_road_mph, unposted_limit, unposted_truck_cap,
+};
 use crate::sim::traffic_manager::{
     TrafficVehicle, DODGE_CLEARANCE_AHEAD_MI, DODGE_CLEARANCE_BEHIND_MI, LANE_GAP_ACT_REAL_S,
     LANE_GAP_MARGIN_MI,
@@ -403,12 +405,14 @@ impl Trip {
     }
 
     /// The limit a car would be given where the leg has no posting: the
-    /// highway/region heuristic, held to the postings around a coverage gap
-    /// and to the urban limit near a city. No truck cap.
+    /// highway/region heuristic (the province's statutory default in
+    /// Canada), held to the postings around a coverage gap and, in the United
+    /// States, to the urban limit near a city. No truck cap. The urban limit
+    /// is a miles-per-hour figure, so Canada keeps its round default there.
     fn unposted_heuristic_at(&self, mile: f64, leg: &Leg, leg_offset: f64) -> f64 {
-        let base = corridor_speed_limit(&leg.highway, &self.region_at(mile));
+        let base = open_road_mph(leg, leg_offset, &self.region_at(mile));
         let base = unposted_limit(leg, leg_offset, base);
-        if self.near_city(mile) {
+        if self.near_city(mile) && !in_canada_at(leg, leg_offset) {
             return base.min(URBAN_LIMIT_MPH);
         }
         base

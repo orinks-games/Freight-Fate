@@ -1,0 +1,448 @@
+{
+  "about": "Curated stops for the Winnipeg to Thunder Bay and northern Ontario legs, placed by cargo tools osm-stops --stops. lat, lon, reach_mi, season and heading steer placement; every other key is the stop as the game reads it. A stop whose season is not 'year round' is left out.",
+  "truck_access": {
+    "read": 10,
+    "assumed": 8,
+    "about": "Stops whose tractor-trailer access was read from a source (an hgv tag, a truck stop brand, or a truck stop or cardlock name), and those where it is assumed with the reason in source. The assumed ones are town stations and unnamed rest areas on long links with no truck source either way."
+  },
+  "stops": [
+    {
+      "name": "Flying J Travel Center Shuniah",
+      "type": "travel_center",
+      "lat": 48.60404,
+      "lon": -88.7826,
+      "reach_mi": 0.5,
+      "actions": [
+        "park",
+        "save",
+        "fuel",
+        "food",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "parking",
+        "diesel",
+        "gasoline",
+        "food",
+        "restrooms"
+      ],
+      "parking": "confirmed",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "read",
+      "source": "Position and truck access read from OSM way 437310725 (highway=services, brand Flying J, hgv=yes, website https://locations.pilotflyingj.com/ca/on/shuniah/3200-hwy-11-17), OpenStreetMap planet extract 2026-11-16, on Highways 11 and 17 east of Thunder Bay. Diesel and truck parking read from the brand: a Flying J travel center is a truck stop. Open year round and around the clock is assumed, not read. Leg mile projected onto the leg's road."
+    },
+    {
+      "name": "Flying J Travel Center Kapuskasing",
+      "type": "travel_center",
+      "lat": 49.3972,
+      "lon": -82.3689,
+      "reach_mi": 0.5,
+      "actions": [
+        "park",
+        "save",
+        "fuel",
+        "food",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "parking",
+        "diesel",
+        "gasoline",
+        "food",
+        "restrooms"
+      ],
+      "parking": "confirmed",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "read",
+      "source": "Position and truck access read from OSM way 225361942 (highway=services, brand Flying J, hgv=yes, website https://locations.pilotflyingj.com/ca/on/kapuskasing/410-government-rd-), OpenStreetMap planet extract 2026-11-16, on Highway 11 east of Kapuskasing. Diesel and truck parking read from the brand. Open year round and around the clock is assumed, not read. Leg mile projected onto the leg's road."
+    },
+    {
+      "name": "Flying J Travel Center Sault Ste. Marie",
+      "type": "travel_center",
+      "lat": 46.55683,
+      "lon": -84.31876,
+      "reach_mi": 0.8,
+      "actions": [
+        "park",
+        "save",
+        "fuel",
+        "food",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "parking",
+        "diesel",
+        "gasoline",
+        "food",
+        "restrooms"
+      ],
+      "parking": "confirmed",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "read",
+      "source": "Position and truck access read from OSM way 480751979 (highway=services, brand Flying J, hgv=yes, website https://locations.pilotflyingj.com/ca/on/sault-ste.-marie/996-great-northern-rd), OpenStreetMap planet extract 2026-11-16, on Great Northern Road (Highway 17 North). Diesel and truck parking read from the brand. Open year round and around the clock is assumed, not read. Leg mile projected onto the leg's road. It sits about 0.7 mile off the leg's road."
+    },
+    {
+      "name": "Butler Lake Truck Stop",
+      "type": "travel_center",
+      "lat": 48.34247,
+      "lon": -80.25203,
+      "reach_mi": 0.5,
+      "actions": [
+        "park",
+        "save",
+        "fuel",
+        "food",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "parking",
+        "diesel",
+        "gasoline",
+        "food",
+        "restrooms"
+      ],
+      "parking": "limited",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "read",
+      "source": "Position and name read from OSM way 298615890 (amenity=fuel, Butler Lake Truck Stop, 6378 Highway 11, Ramore), OpenStreetMap planet extract 2026-11-16. Truck service read from its name, a truck stop on Highway 11; diesel, food, truck parking and an overnight stay are assumed from that, not read. Open year round is assumed, not read. Leg mile projected onto the leg's road."
+    },
+    {
+      "name": "Cobalt Truck Stop",
+      "type": "travel_center",
+      "lat": 47.37169,
+      "lon": -79.76066,
+      "reach_mi": 0.5,
+      "actions": [
+        "park",
+        "save",
+        "fuel",
+        "food",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "parking",
+        "diesel",
+        "gasoline",
+        "food",
+        "restrooms"
+      ],
+      "parking": "limited",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "read",
+      "source": "Position and name read from OSM node 4959196800 (amenity=fuel, Cobalt Truck Stop, 994449 Highway 11, Cobalt), OpenStreetMap planet extract 2026-11-16. Truck service read from its name, a truck stop on Highway 11; diesel, food, truck parking and an overnight stay are assumed from that, not read. Open year round is assumed, not read. Leg mile projected onto the leg's road."
+    },
+    {
+      "name": "Esso Cardlock North Bay",
+      "type": "fuel_station",
+      "lat": 46.35751,
+      "lon": -79.46724,
+      "reach_mi": 0.5,
+      "actions": [
+        "fuel"
+      ],
+      "services": [
+        "diesel"
+      ],
+      "parking": "unknown",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "read",
+      "source": "Position and truck access read from OSM way 1276245385 (amenity=fuel, Esso Cardlock, hgv=yes, website https://local.myhusky.ca/on/north-bay/3090-hwy-11-n/), OpenStreetMap planet extract 2026-11-16. A cardlock sells to account holders only. Open year round is assumed, not read. Leg mile projected onto the leg's road."
+    },
+    {
+      "name": "Bluewave Cardlock Schreiber",
+      "type": "fuel_station",
+      "lat": 48.80404,
+      "lon": -87.25874,
+      "reach_mi": 0.5,
+      "actions": [
+        "fuel"
+      ],
+      "services": [
+        "diesel"
+      ],
+      "parking": "unknown",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "read",
+      "source": "Position and name read from OSM node 5052331185 (amenity=fuel, Bluewave Cardlock, Highway 17, Schreiber), OpenStreetMap planet extract 2026-11-16. Truck service read from its name, a cardlock; diesel assumed. Open year round is assumed, not read. Leg mile projected onto the leg's road."
+    },
+    {
+      "name": "CO-OP Hadashville Cardlock",
+      "type": "fuel_station",
+      "lat": 49.65125,
+      "lon": -95.90808,
+      "reach_mi": 0.5,
+      "actions": [
+        "fuel"
+      ],
+      "services": [
+        "diesel"
+      ],
+      "parking": "unknown",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "read",
+      "source": "Position read from OSM node 4346151710 (amenity=fuel, CO-OP Hadashville Cardlock, operator Ste. Anne Co-op, fuel:diesel=yes, opening_hours=24/7), OpenStreetMap planet extract 2026-11-16, on Trans-Canada Highway 1. Diesel and hours read; truck service read from its name, a cardlock. Leg mile projected onto the leg's road."
+    },
+    {
+      "name": "Hearst Ryland rest area",
+      "type": "public_rest_area",
+      "lat": 49.73181,
+      "lon": -83.91348,
+      "reach_mi": 0.5,
+      "actions": [
+        "park",
+        "save",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "parking"
+      ],
+      "parking": "limited",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "read",
+      "source": "Position and name read from OSM way 297163771 (highway=rest_area, Hearst (Ryland) Rest Area, toilets=yes), OpenStreetMap planet extract 2026-11-16, with a truck lot beside it read from OSM way 1190280595 (amenity=parking, hgv=designated). Truck parking read; an overnight stay is assumed, not read. Open year round is assumed, not read. Leg mile projected onto the leg's road."
+    },
+    {
+      "name": "Serpent River rest stop",
+      "type": "public_rest_area",
+      "lat": 46.21067,
+      "lon": -82.51427,
+      "reach_mi": 0.5,
+      "actions": [
+        "park",
+        "save",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "parking"
+      ],
+      "parking": "limited",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "assumed",
+      "source": "Position and name read from OSM way 973147354 (highway=rest_area, Serpent River Rest Stop), OpenStreetMap planet extract 2026-11-16, on Highway 17 between Blind River and Spanish. Truck parking and an overnight stay are assumed, not read: Highway 17's freight moves by tractor-trailer and this is the only rest area on the link. Open year round is assumed, not read. Leg mile projected onto the leg's road."
+    },
+    {
+      "name": "Upsala rest area",
+      "type": "public_rest_area",
+      "lat": 48.90247,
+      "lon": -90.02848,
+      "reach_mi": 0.5,
+      "actions": [
+        "park",
+        "save",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "parking"
+      ],
+      "parking": "limited",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "assumed",
+      "source": "Position read from OSM way 1297520982 (highway=rest_area, unnamed), OpenStreetMap planet extract 2026-11-16, on Highway 17 near Upsala; the name is descriptive. Truck parking and an overnight stay are assumed, not read: it is the rest area nearest the middle of the 153-mile Ignace to Thunder Bay link. Open year round is assumed, not read. Leg mile projected onto the leg's road."
+    },
+    {
+      "name": "Shabaqua rest area",
+      "type": "public_rest_area",
+      "lat": 48.53395,
+      "lon": -89.65079,
+      "reach_mi": 0.5,
+      "actions": [
+        "park",
+        "save",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "parking"
+      ],
+      "parking": "limited",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "assumed",
+      "source": "Position read from OSM way 1297520960 (highway=rest_area, unnamed), OpenStreetMap planet extract 2026-11-16, at Shabaqua Corners where Highways 11 and 17 meet; the name is descriptive. Truck parking and an overnight stay are assumed, not read: it is the 10-hour stop for the 217-mile Fort Frances to Thunder Bay link. Open year round is assumed, not read. Leg mile projected onto the leg's road."
+    },
+    {
+      "name": "Petro-Canada Shabaqua",
+      "type": "fuel_station",
+      "lat": 48.53389,
+      "lon": -89.65024,
+      "reach_mi": 0.5,
+      "actions": [
+        "fuel"
+      ],
+      "services": [
+        "diesel"
+      ],
+      "parking": "unknown",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "assumed",
+      "source": "Position read from OSM way 302863516 (amenity=fuel, brand Petro-Canada), OpenStreetMap planet extract 2026-11-16, at Shabaqua Corners. Diesel and truck access are assumed, not read: it is one of the few fuel stops on Highway 11 between Atikokan and Thunder Bay. Open year round is assumed, not read. Leg mile projected onto the leg's road."
+    },
+    {
+      "name": "Quetico North Atikokan",
+      "type": "fuel_station",
+      "lat": 48.68895,
+      "lon": -91.17724,
+      "reach_mi": 0.5,
+      "actions": [
+        "fuel"
+      ],
+      "services": [
+        "diesel"
+      ],
+      "parking": "unknown",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "assumed",
+      "source": "Position and name read from OSM way 518811389 (amenity=fuel, brand CAN-OP, Quetico North, Highway 11, Atikokan), OpenStreetMap planet extract 2026-11-16. Diesel and truck access are assumed, not read: it is the only fuel on Highway 11 for about 70 miles either way. Open year round is assumed, not read. Leg mile projected onto the leg's road."
+    },
+    {
+      "name": "Esso Blind River",
+      "type": "fuel_station",
+      "lat": 46.18509,
+      "lon": -82.92778,
+      "reach_mi": 0.5,
+      "actions": [
+        "fuel"
+      ],
+      "services": [
+        "diesel"
+      ],
+      "parking": "unknown",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "assumed",
+      "source": "Position read from OSM node 9000015848 (amenity=fuel, brand Esso, website https://www.esso.ca/en-ca/find-station/esso-blindriver-on-esso-200319913), OpenStreetMap planet extract 2026-11-16, on Highway 17. Diesel and truck access are assumed, not read: it is the fuel stop nearest the middle of the 197-mile Sault Ste. Marie to Sudbury link. Open year round is assumed, not read. Leg mile projected onto the leg's road."
+    },
+    {
+      "name": "Esso Gogama",
+      "type": "fuel_station",
+      "lat": 47.47168,
+      "lon": -81.84669,
+      "reach_mi": 0.5,
+      "actions": [
+        "fuel"
+      ],
+      "services": [
+        "diesel"
+      ],
+      "parking": "unknown",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "assumed",
+      "source": "Position read from OSM node 5057091506 (amenity=fuel, brand Esso, fuel:diesel=yes, Highway 144, Gogama), OpenStreetMap planet extract 2026-11-16. Diesel read; truck access assumed, not read: it is the only fuel on Highway 144 between Chelmsford and Timmins. Open year round is assumed, not read. Leg mile projected onto the leg's road."
+    },
+    {
+      "name": "Marathon Grand Marais",
+      "type": "fuel_station",
+      "lat": 47.7515,
+      "lon": -90.33129,
+      "reach_mi": 0.5,
+      "actions": [
+        "fuel"
+      ],
+      "services": [
+        "diesel"
+      ],
+      "parking": "unknown",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "assumed",
+      "source": "Position read from OSM way 293890169 (amenity=fuel, brand Marathon, fuel:diesel=yes), OpenStreetMap planet extract 2026-11-16, on MN 61 in Grand Marais, Minnesota. Diesel read; truck access assumed, not read: it is the fuel stop nearest the middle of the North Shore. Open year round is assumed, not read. Leg mile projected onto the leg's road."
+    },
+    {
+      "name": "Truck parking Two Harbors",
+      "type": "truck_parking",
+      "lat": 47.02438,
+      "lon": -91.68084,
+      "reach_mi": 0.5,
+      "actions": [
+        "park",
+        "save",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "parking"
+      ],
+      "parking": "confirmed",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "read",
+      "source": "Position and truck access read from OSM way 767605088 (amenity=parking, hgv=yes, capacity=10), OpenStreetMap planet extract 2026-11-16, beside the Kwik Trip on MN 61 in Two Harbors, Minnesota. An overnight stay is assumed, not read. Leg mile projected onto the leg's road."
+    }
+  ]
+}
