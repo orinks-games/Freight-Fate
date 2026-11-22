@@ -48,6 +48,7 @@
 - **The Gordie Howe, Blue Water, Lewiston-Queenston and Thousand Islands bridges charge their published truck tolls.**
 - **A route between two US cities stays in the United States when a US road exists.** Alaska routes still run through Canada.
 - **Alaska roads now reach the Kenai Peninsula, Valdez and Deadhorse.** Seward, Valdez and Kenai offer only their real freight sites, and Deadhorse sells diesel.
+- **The map now reaches Skagway, Haines, North Pole, Nikiski, Port MacKenzie and the Fort Knox mine.** Skagway and Haines cross into the Yukon, with fuel at Haines Junction.
 - **Hours of service now follow Alaska and Canadian rules where you drive.** You hear the new limits as you cross into each place.
 - **Billboards in Canada follow each province's sign law.** The everyday roadside signs no longer stand in the Yukon or in parks along the Alaska Highway.
 - **Fifty-four carriers now hire across the map, including Alaska.** Every lower-48 city has at least two regional carriers, and local carriers work 16 big cities and ports.
@@ -64,6 +65,7 @@
 
 ### Changed
 
+- **Alaska's highways now have their real bends, grades, lane counts and towns.** The road between Palmer and Wasilla is now called the Palmer-Wasilla Highway.
 - **Simulated weather in Alaska and Canada now gets as cold as the real winters there.** A January morning in Fairbanks now reads below zero Fahrenheit.
 - **A 1.9 Units choice of imperial becomes Automatic in 2.0.** A choice of metric stays metric.
 - **The career start list now runs local, regional, then national carriers, nearest terminal first.** The owner-operator start stays last.

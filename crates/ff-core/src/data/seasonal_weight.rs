@@ -63,6 +63,25 @@ pub const ALASKA_2026_SPRING_BREAKUP: &[SeasonalWeightRestriction] = &[
         start: (4, 17),
         end: (5, 29),
     },
+    // North Pole sits on the same Richardson Highway stretch the notice
+    // lists between Delta Junction and Fairbanks, so both legs it splits
+    // that road into carry the same window.
+    SeasonalWeightRestriction {
+        a: "delta_junction_ak_us",
+        b: "north_pole_ak_us",
+        highway: "Richardson Highway",
+        percent: 85,
+        start: (4, 17),
+        end: (5, 29),
+    },
+    SeasonalWeightRestriction {
+        a: "north_pole_ak_us",
+        b: "fairbanks_ak_us",
+        highway: "Richardson Highway",
+        percent: 85,
+        start: (4, 17),
+        end: (5, 29),
+    },
     SeasonalWeightRestriction {
         a: "delta_junction_ak_us",
         b: "tok_ak_us",
@@ -90,6 +109,16 @@ pub const ALASKA_2026_SPRING_BREAKUP: &[SeasonalWeightRestriction] = &[
     SeasonalWeightRestriction {
         a: "tok_ak_us",
         b: "whitehorse_yt_ca",
+        highway: "Alaska Highway",
+        percent: 85,
+        start: (4, 17),
+        end: (5, 29),
+    },
+    // The Alaska end of the Alaska Highway, Tok to the border, is the same
+    // notice whichever Yukon town the leg ends in.
+    SeasonalWeightRestriction {
+        a: "tok_ak_us",
+        b: "haines_junction_yt_ca",
         highway: "Alaska Highway",
         percent: 85,
         start: (4, 17),

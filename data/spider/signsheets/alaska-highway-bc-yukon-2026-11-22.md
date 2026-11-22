@@ -34,6 +34,10 @@ the road runs through is a billboard ban on the leg, so no sign stands
 there; a few signs stand farther out than usual because of that, and each
 says so.
 
+The Whitehorse to Tok leg was split at Haines Junction on 2026-11-22
+(the Alaska routes rebuild), so its six signs now name the split legs:
+a mile past Haines Junction counts from there, the same place on the road.
+
 For Orinks's ear: **Da Kų** (Haines Junction) is written with a u
 with an ogonek, Southern Tutchone for "Our House". Placeholder text says
 "Da Ku" until the copy is written. No French names on these roads.
@@ -268,8 +272,8 @@ Ice Age Beringia; a full-size cast of the largest woolly mammoth found in North 
 
 ### Yukon Beringia Interpretive Centre (eastbound, Tok to Whitehorse)
 - treatment: billboard
-- leg: tok_ak_us -> whitehorse_yt_ca
-- at_mi: 377
+- leg: haines_junction_yt_ca -> whitehorse_yt_ca
+- at_mi: 86
 - spoken: Billboard: Yukon Beringia Interpretive Centre.
 
 ## Yukon Transportation Museum -- Whitehorse, beside the airport
@@ -278,8 +282,8 @@ Its DC-3, CF-CPY, is billed as the world's largest weathervane: it turns on its 
 
 ### Yukon Transportation Museum (eastbound, Tok to Whitehorse)
 - treatment: billboard
-- leg: tok_ak_us -> whitehorse_yt_ca
-- at_mi: 381
+- leg: haines_junction_yt_ca -> whitehorse_yt_ca
+- at_mi: 90
 - spoken: Billboard: Yukon Transportation Museum.
 
 ## Da Kų Cultural Centre -- Haines Junction, Yukon
@@ -288,13 +292,13 @@ Written **Da Kų** (Southern Tutchone for Our House), owned by the Champagne and
 
 ### Da Ku Cultural Centre (westbound, Whitehorse to Tok)
 - treatment: billboard
-- leg: whitehorse_yt_ca -> tok_ak_us
+- leg: whitehorse_yt_ca -> haines_junction_yt_ca
 - at_mi: 86
 - spoken: Billboard: Da Ku Cultural Centre.
 
 ### Da Ku Cultural Centre (eastbound, Tok to Whitehorse)
 - treatment: billboard
-- leg: tok_ak_us -> whitehorse_yt_ca
+- leg: tok_ak_us -> haines_junction_yt_ca
 - at_mi: 282
 - spoken: Billboard: Da Ku Cultural Centre.
 
@@ -304,13 +308,13 @@ Formerly the Kluane Museum of Natural History: wildlife dioramas, First Nations 
 
 ### Kluane Museum of History (westbound, Whitehorse to Tok)
 - treatment: billboard
-- leg: whitehorse_yt_ca -> tok_ak_us
-- at_mi: 163
+- leg: haines_junction_yt_ca -> tok_ak_us
+- at_mi: 67
 - spoken: Billboard: Kluane Museum of History.
 
 ### Kluane Museum of History (eastbound, Tok to Whitehorse)
 - treatment: billboard
-- leg: tok_ak_us -> whitehorse_yt_ca
+- leg: tok_ak_us -> haines_junction_yt_ca
 - at_mi: 206
 - spoken: Billboard: Kluane Museum of History.
 

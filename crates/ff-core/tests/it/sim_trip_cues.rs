@@ -1000,20 +1000,20 @@ fn test_border_booths_follow_inbound_country_crossings() {
     let cases = [
         (
             "tok_ak_us",
-            "whitehorse_yt_ca",
+            "haines_junction_yt_ca",
             Some((
                 "Beaver Creek Port of Entry",
-                107.7,
+                107.9,
                 "CA",
                 "Canada Border Services Agency",
             )),
         ),
         (
-            "whitehorse_yt_ca",
+            "haines_junction_yt_ca",
             "tok_ak_us",
             Some((
                 "Alcan Port of Entry",
-                297.4,
+                201.3,
                 "US",
                 "U.S. Customs and Border Protection",
             )),
@@ -1085,30 +1085,36 @@ fn test_border_booths_follow_inbound_country_crossings() {
         }
     }
 
+    // The Alaska Highway splits at Haines Junction (2026-11-22): the
+    // Whitehorse to Tok run is two legs and the Alcan booth is on the second.
     for route in [
         world
-            .route_from_cities(&["whitehorse_yt_ca", "tok_ak_us"])
-            .expect("legacy Whitehorse to Tok route"),
+            .route_from_cities(&["whitehorse_yt_ca", "haines_junction_yt_ca", "tok_ak_us"])
+            .expect("Whitehorse to Tok by Haines Junction"),
         world
             .supported_route("whitehorse_yt_ca", "tok_ak_us", None)
             .expect("supported Whitehorse to Tok route")
             .expect("supported route exists"),
     ] {
-        assert_eq!(route.legs.len(), 1);
-        assert_eq!(route.legs[0].a, "whitehorse_yt_ca");
-        assert_eq!(route.legs[0].b, "tok_ak_us");
-        assert_eq!(route.legs[0].checkpoints()[0].name, "Alcan Port of Entry");
+        assert_eq!(route.legs.len(), 2);
+        let last = &route.legs[1];
+        assert_eq!(last.a, "haines_junction_yt_ca");
+        assert_eq!(last.b, "tok_ak_us");
+        assert!(last
+            .checkpoints()
+            .iter()
+            .any(|c| c.name == "Alcan Port of Entry"));
     }
 
     let forward_leg = world
         .legs
         .iter()
-        .find(|leg| leg.a == "tok_ak_us" && leg.b == "whitehorse_yt_ca")
-        .expect("Tok to Whitehorse leg exists")
+        .find(|leg| leg.a == "tok_ak_us" && leg.b == "haines_junction_yt_ca")
+        .expect("Tok to Haines Junction leg exists")
         .as_ref()
         .clone();
     let reversed_route = Route::from_legs(
-        vec!["whitehorse_yt_ca".to_string(), "tok_ak_us".to_string()],
+        vec!["haines_junction_yt_ca".to_string(), "tok_ak_us".to_string()],
         vec![forward_leg],
     );
     let mut truck = TruckState::default();
