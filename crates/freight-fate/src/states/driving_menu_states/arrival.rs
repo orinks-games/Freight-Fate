@@ -54,7 +54,7 @@ use crate::states::driving_menu_states::{
 /// truck can actually hold.
 pub fn settlement_hours(driving: &DrivingState) -> f64 {
     let driven_hours = driving.trip.game_minutes / 60.0;
-    let minimum_hours = driving.job.distance_mi / DELIVERY_SETTLEMENT_MAX_AVERAGE_MPH;
+    let minimum_hours = driving.job.credited_mi() / DELIVERY_SETTLEMENT_MAX_AVERAGE_MPH;
     driven_hours.max(minimum_hours)
 }
 
@@ -189,7 +189,7 @@ impl ArrivalState {
             };
             let standing = enforcement::standing_band(profile_of(ctx));
             announcements = profile_mut_of(ctx).career.record_delivery(
-                job.distance_mi,
+                job.credited_mi(),
                 job.pay,
                 on_time,
                 trip_damage,
@@ -477,45 +477,57 @@ impl ArrivalState {
         // A balance carried from an earlier load is NOT reported here. It is
         // recovered further down at the capped share, and says so there --
         // billing it in both places is what used to zero a settlement twice.
+        // The deductible, a balance the load could not cover and the tickets
+        // paid on the road also go on the rows the player reads, next to
+        // the charges they explain; the composed summary alone is never heard.
+        let mut charge_detail_lines: Vec<String> = Vec::new();
         if damage_deductible >= 1.0 {
             {
                 let p = profile_mut_of(ctx);
                 p.career.reputation = (p.career.reputation - damage_reputation_hit).max(0.0);
             }
             d.record_equipment_event(ctx);
-            self.summary_parts.push(format!(
+            let line = format!(
                 "Preventable damage, {damage_reason}. Carrier covers the repair. Deductible {} \
                  dollars, safety bonus void. Reputation down {}.",
                 fmt_grouped(damage_deductible, 0),
                 fmt_f(damage_reputation_hit, 0)
-            ));
+            );
+            charge_detail_lines.push(line.clone());
+            self.summary_parts.push(line);
         }
         if business.uncollected_charges > 0.0 {
             let paid_now = driver_charges - business.uncollected_charges;
-            self.summary_parts.push(format!(
+            let line = format!(
                 "This load covered {} dollars of those charges. {} dollars stays owed, paid \
                  down at a quarter of each settlement at most.",
                 fmt_grouped(paid_now, 0),
                 fmt_grouped(business.uncollected_charges, 0)
-            ));
+            );
+            charge_detail_lines.push(line.clone());
+            self.summary_parts.push(line);
         }
         // Tickets from being pulled over were already paid on the spot;
         // report them for transparency but don't deduct again at settlement.
         if d.speeding_tickets != 0 {
-            self.summary_parts.push(format!(
+            let line = format!(
                 "On-the-spot speeding tickets this trip: {}, already paid, {} dollars.",
                 d.speeding_tickets,
                 fmt_grouped(d.ticket_fines_paid, 0)
-            ));
+            );
+            charge_detail_lines.push(line.clone());
+            self.summary_parts.push(line);
         }
         // Engine brake citations were also paid on the spot; reported here
         // for the same transparency, never deducted again.
         if d.jake_zone_fines != 0 {
-            self.summary_parts.push(format!(
+            let line = format!(
                 "Engine brake citations this trip: {}, already paid, {} dollars.",
                 d.jake_zone_fines,
                 fmt_grouped(d.jake_fines_paid, 0)
-            ));
+            );
+            charge_detail_lines.push(line.clone());
+            self.summary_parts.push(line);
         }
         // Anything the trip did to your standing is said once more here, so a
         // suspension heard out on the road is not the last word on it.
@@ -618,7 +630,7 @@ impl ArrivalState {
         // physics accrued them mile by mile during the run. Grime stays a
         // simple per-mile film; it has no physics to earn it.
         profile_mut_of(ctx).store_truck_condition(&d.trip.truck);
-        let road_grime_added = (job.distance_mi * ROAD_GRIME_PER_MILE).min(100.0);
+        let road_grime_added = (job.credited_mi() * ROAD_GRIME_PER_MILE).min(100.0);
         {
             let p = profile_mut_of(ctx);
             let grime = (p.road_grime_pct() + road_grime_added).min(100.0);
@@ -629,7 +641,7 @@ impl ArrivalState {
         // moved so a settlement that pays the balance down counts immediately.
         let standing = enforcement::standing_band(profile_of(ctx));
         let mut announcements = profile_mut_of(ctx).career.record_delivery(
-            job.distance_mi,
+            job.credited_mi(),
             // The whole settlement, not what survived the advance repayment.
             settled_pay,
             on_time,
@@ -739,7 +751,7 @@ impl ArrivalState {
             cargo_label: job.spoken_cargo_label().to_string(),
             job_origin: job.origin.clone(),
             job_destination: job.destination.clone(),
-            distance_mi: job.distance_mi,
+            distance_mi: job.credited_mi(),
             weight_tons: job.weight_tons,
             team_note: self.team_note.clone(),
         };
@@ -955,6 +967,7 @@ impl ArrivalState {
                 fmt_grouped(driver_charges, 0)
             ));
         }
+        charge_lines.extend(charge_detail_lines);
         if collected >= 1.0 {
             charge_lines.push(format!(
                 "Balance owed: {} dollars of this settlement paid it down, leaving {} dollars owed.",
@@ -1070,7 +1083,7 @@ impl ArrivalState {
         lines.push(format!("Route: {}.", cities.join(" to ")));
         lines.push(format!(
             "Distance credited: {}.",
-            ctx.settings.distance_text(job.distance_mi, false)
+            ctx.settings.distance_text(job.credited_mi(), false)
         ));
         lines.extend(condition_lines);
         lines.extend(career_lines);

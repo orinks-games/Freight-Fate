@@ -1408,13 +1408,6 @@
         "checkpoints": [],
         "landmarks": [
           {
-            "name": "Austin Summit",
-            "category": "mountain_pass",
-            "kind": "point",
-            "at_mi": 0.0,
-            "spoken": "Approaching Austin Summit"
-          },
-          {
             "name": "Reese River",
             "category": "river",
             "kind": "point",
@@ -9532,7 +9525,7 @@
             "category": "museum",
             "kind": "point",
             "at_mi": 161.7,
-            "spoken": "Twin Falls County Museum ahead"
+            "spoken": "Passing Twin Falls County Museum"
           },
           {
             "name": "Kimberly",
@@ -20146,7 +20139,7 @@
             "category": "museum",
             "kind": "point",
             "at_mi": 162.0,
-            "spoken": "Museum ahead: Desert Discovery Center"
+            "spoken": "Passing Desert Discovery Center, a museum"
           },
           {
             "name": "Elmer's Bottle Tree Ranch (southbound)",
@@ -20176,13 +20169,6 @@
             "kind": "point",
             "source": "OpenStreetMap place=town node 150946209, projected onto the leg's OpenRouteService driving-hgv route",
             "spoken": "Passing Oak Hills"
-          },
-          {
-            "name": "Cajon Pass",
-            "category": "mountain_pass",
-            "kind": "point",
-            "at_mi": 209.7,
-            "spoken": "Approaching Cajon Pass"
           },
           {
             "name": "San Bernardino National Forest",
@@ -23978,7 +23964,7 @@
             "category": "museum",
             "kind": "point",
             "at_mi": 24.95,
-            "spoken": "Boulder City-Hoover Dam Museum ahead"
+            "spoken": "Passing Boulder City-Hoover Dam Museum"
           },
           {
             "name": "Boulder City",
@@ -30436,7 +30422,7 @@
             "category": "museum",
             "kind": "point",
             "at_mi": 318.0,
-            "spoken": "Beatty Museum & Historical Society ahead"
+            "spoken": "Passing Beatty Museum & Historical Society"
           },
           {
             "name": "Amargosa River",
@@ -30447,13 +30433,6 @@
             "lat": 36.97646,
             "lon": -116.72377,
             "source": "derived 2026-10-01: placed by tools/place_river_crossings.py at the crossing of OSM waterway way 353969984 (Amargosa River) with the leg's archived dense route geometry; at_mi = cum[i-1] + t*(cum[i]-cum[i-1]) rescaled to leg miles, taking the crossing nearest the previous at_mi when the river crosses more than once. OpenStreetMap, Geofabrik us-latest extract 2026-09-30: https://www.openstreetmap.org/."
-          },
-          {
-            "name": "Secret Pass",
-            "category": "mountain_pass",
-            "kind": "point",
-            "at_mi": 324.1,
-            "spoken": "Approaching Secret Pass"
           },
           {
             "name": "Rhyolite (northbound)",

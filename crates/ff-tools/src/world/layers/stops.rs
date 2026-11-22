@@ -259,6 +259,15 @@ pub fn parse_curated(text: &str) -> Result<Vec<Curated>> {
                 record.insert(k.as_str(), v.clone());
             }
         }
+        // The name is spoken: script a voice cannot read comes out, and a
+        // name left with nothing readable is an error in the list.
+        let spoken = crate::world::spoken_name::latin_only(&name);
+        if spoken.is_empty() {
+            return Err(format!("stop {name:?} has no name a voice can read"));
+        }
+        if spoken != name {
+            record.insert("name", Value::Str(spoken));
+        }
         out.push(Curated {
             record,
             lat,

@@ -578,3 +578,41 @@ fn test_repaid_advance_still_counts_as_lifetime_earnings() {
         -headroom
     );
 }
+
+/// Tickets paid on the road reach the settlement rows the player arrows
+/// through, next to the charges, not only the composed summary.
+#[test]
+fn tickets_paid_on_the_road_are_read_on_the_settlement_rows() {
+    let mut app = TestApp::new();
+    let job = a_job(JobSpec::default());
+    app.ctx.profile = Some(Profile::named_in("Settlement Rows", &job.origin));
+    let route = app
+        .ctx
+        .world
+        .route_from_cities(&["New York".to_string(), "Philadelphia".to_string()])
+        .expect("a route");
+    let mut driving = DrivingState::new(
+        &mut app.ctx,
+        job,
+        route,
+        Some(4),
+        DRIVE_PHASE_DELIVERY,
+        None,
+    );
+    driving.speeding_tickets = 2;
+    driving.ticket_fines_paid = 450.0;
+    driving.jake_zone_fines = 1;
+    driving.jake_fines_paid = 200.0;
+    driving.trip.position_mi = driving.trip.total_miles();
+    driving.trip.update(0.0);
+    let arrival = ArrivalState::new(&mut app.ctx, &mut driving);
+    let rows = arrival.summary_lines.join(" | ");
+    assert!(
+        rows.contains("On-the-spot speeding tickets this trip: 2, already paid, 450 dollars."),
+        "{rows}"
+    );
+    assert!(
+        rows.contains("Engine brake citations this trip: 1, already paid, 200 dollars."),
+        "{rows}"
+    );
+}

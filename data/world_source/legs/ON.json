@@ -1619,9 +1619,9 @@
               "Severn",
               "West Street"
             ],
-            "via": "County Road 11 EDR",
+            "via": "",
             "highway": "Hwy 11",
-            "source": "Exit ref, name and destination signs read from OpenStreetMap highway=motorway_junction nodes on a motorway or trunk way running along the leg's archived route, and the destination tags of this exit's own motorway_link ramps, OpenStreetMap planet file of 2026-11-16. at_mi derived: the mean of the exit's junction nodes (one per carriageway) projected onto that route, rescaled to the leg's miles: https://www.openstreetmap.org/ Road kind in via derived: each bare route number matched to the OpenStreetMap road route relation of that number nearest the exit (within 6 km), its network or name giving the kind of road, from the OpenStreetMap planet file of 2026-11-16; French cardinals in English.",
+            "source": "Exit ref, name and destination signs read from OpenStreetMap highway=motorway_junction nodes on a motorway or trunk way running along the leg's archived route, and the destination tags of this exit's own motorway_link ramps, OpenStreetMap planet file of 2026-11-16. at_mi derived: the mean of the exit's junction nodes (one per carriageway) projected onto that route, rescaled to the leg's miles: https://www.openstreetmap.org/ Road kind in via derived: each bare route number matched to the OpenStreetMap road route relation of that number nearest the exit (within 6 km), its network or name giving the kind of road, from the OpenStreetMap planet file of 2026-11-16; French cardinals in English. Emergency detour route refs (EDR) dropped: they mark a detour, not the road the exit leads to.",
             "ramp_control": "signal",
             "ramp_control_source": "OpenStreetMap highway=traffic_signals/highway=stop/highway=give_way node within 120 m of the walked terminal node where this exit's ramp chain ends (read; the walk supplies the node, the tag supplies the control), OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/",
             "ramp_far_end": "surface",
@@ -2790,7 +2790,7 @@
             "at_mi": 56.5,
             "lat": 45.03485,
             "lon": -79.29265,
-            "spoken": "Museum ahead: Woodchester Villa",
+            "spoken": "Passing Woodchester Villa, a museum",
             "source": "derived: name and category read from the OpenStreetMap tags of node 1178640464 (Woodchester Villa); placed at the nearest projection of it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           },
           {
@@ -4679,7 +4679,7 @@
             "at_mi": 27.7,
             "lat": 44.69669,
             "lon": -79.64829,
-            "spoken": "Museum ahead: Coldwater Canadiana [woodrow homestead]",
+            "spoken": "Passing Coldwater Canadiana [woodrow homestead], a museum",
             "source": "derived: name and category read from the OpenStreetMap tags of node 939907940 (Coldwater Canadiana [woodrow homestead]); placed at the nearest projection of it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           },
           {
@@ -8768,7 +8768,7 @@
             "at_mi": 12.8,
             "lat": 44.13835,
             "lon": -77.57055,
-            "spoken": "NATONAL AIR FORCE MUSEUM OF CANADA ahead",
+            "spoken": "Passing NATONAL AIR FORCE MUSEUM OF CANADA",
             "source": "derived: name and category read from the OpenStreetMap tags of node 14158291501 (NATONAL AIR FORCE MUSEUM OF CANADA); placed at the nearest projection of it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           },
           {
@@ -10156,7 +10156,7 @@
             "at_mi": 9.2,
             "lat": 43.63908,
             "lon": -79.65891,
-            "spoken": "Museum ahead: Art Gallery of Mississauga",
+            "spoken": "Passing Art Gallery of Mississauga, a museum",
             "source": "derived: name and category read from the OpenStreetMap tags of node 432302003 (Art Gallery of Mississauga); placed at the nearest projection of it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           },
           {
@@ -10940,7 +10940,7 @@
             "at_mi": 28.7,
             "lat": 44.87484,
             "lon": -75.29614,
-            "spoken": "Doran Bay Model Ship Museum ahead",
+            "spoken": "Passing Doran Bay Model Ship Museum",
             "source": "derived: name and category read from the OpenStreetMap tags of node 6587864004 (Doran Bay Model Ship Museum); placed at the nearest projection of it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           },
           {
@@ -13275,7 +13275,7 @@
             "at_mi": 36.2,
             "lat": 45.01569,
             "lon": -75.62775,
-            "spoken": "Museum ahead: North Grenville Archives",
+            "spoken": "Passing North Grenville Archives, a museum",
             "source": "derived: name and category read from the OpenStreetMap tags of node 5832509481 (North Grenville Archives); placed at the nearest projection of it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           },
           {
@@ -15892,7 +15892,7 @@
             "at_mi": 34.4,
             "lat": 44.87506,
             "lon": -75.29623,
-            "spoken": "Doran Bay Model Ship Museum ahead",
+            "spoken": "Passing Doran Bay Model Ship Museum",
             "source": "derived: name and category read from the OpenStreetMap tags of node 6587864004 (Doran Bay Model Ship Museum); placed at the nearest projection of it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           },
           {
@@ -17133,7 +17133,7 @@
             "at_mi": 36.1,
             "lat": 45.3036,
             "lon": -74.17563,
-            "spoken": "Museum ahead: Mus\u00e9e Yves-Abran",
+            "spoken": "Passing Mus\u00e9e Yves-Abran, a museum",
             "source": "derived: name and category read from the OpenStreetMap tags of node 6334147511 (Mus\u00e9e Yves-Abran); placed at the nearest projection of it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           },
           {
@@ -18028,7 +18028,7 @@
             "at_mi": 8.4,
             "lat": 43.3373,
             "lon": -79.82707,
-            "spoken": "Joseph Brant Museum ahead",
+            "spoken": "Passing Joseph Brant Museum",
             "source": "derived: name and category read from the OpenStreetMap tags of node 367786839 (Joseph Brant Museum); placed at the nearest projection of it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           },
           {
@@ -18812,7 +18812,7 @@
             "at_mi": 25.8,
             "lat": 43.19795,
             "lon": -79.55856,
-            "spoken": "Museum ahead: Grimsby Historical Society Archives",
+            "spoken": "Passing Grimsby Historical Society Archives, a museum",
             "source": "derived: name and category read from the OpenStreetMap tags of node 4308105448 (Grimsby Historical Society Archives); placed at the nearest projection of it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           },
           {
@@ -19683,7 +19683,7 @@
             "at_mi": 28.5,
             "lat": 43.16221,
             "lon": -80.37474,
-            "spoken": "Paris Museum & Historical Society ahead",
+            "spoken": "Passing Paris Museum & Historical Society",
             "source": "derived: name and category read from the OpenStreetMap tags of node 6448572018 (Paris Museum & Historical Society); placed at the nearest projection of it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           },
           {
@@ -25760,7 +25760,7 @@
             "at_mi": 22.3,
             "lat": 43.24272,
             "lon": -80.57392,
-            "spoken": "Drumbo and District Museum ahead",
+            "spoken": "Passing Drumbo and District Museum",
             "source": "derived: name and category read from the OpenStreetMap tags of node 7728742246 (Drumbo and District Museum); placed at the nearest projection of it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           },
           {
@@ -29926,7 +29926,7 @@
             "at_mi": 24.1,
             "lat": 43.3457,
             "lon": -79.81417,
-            "spoken": "Joseph Brant Museum ahead",
+            "spoken": "Passing Joseph Brant Museum",
             "source": "derived: name and category read from the OpenStreetMap tags of node 367786839 (Joseph Brant Museum); placed at the nearest projection of it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           },
           {
@@ -35451,9 +35451,9 @@
               "Severn",
               "West Street"
             ],
-            "via": "County Road 11 EDR",
+            "via": "",
             "highway": "Hwy 11",
-            "source": "Exit ref, name and destination signs read from OpenStreetMap highway=motorway_junction nodes on a motorway or trunk way running along the leg's archived route, and the destination tags of this exit's own motorway_link ramps, OpenStreetMap planet file of 2026-11-16. at_mi derived: the mean of the exit's junction nodes (one per carriageway) projected onto that route, rescaled to the leg's miles: https://www.openstreetmap.org/ Road kind in via derived: each bare route number matched to the OpenStreetMap road route relation of that number nearest the exit (within 6 km), its network or name giving the kind of road, from the OpenStreetMap planet file of 2026-11-16; French cardinals in English.",
+            "source": "Exit ref, name and destination signs read from OpenStreetMap highway=motorway_junction nodes on a motorway or trunk way running along the leg's archived route, and the destination tags of this exit's own motorway_link ramps, OpenStreetMap planet file of 2026-11-16. at_mi derived: the mean of the exit's junction nodes (one per carriageway) projected onto that route, rescaled to the leg's miles: https://www.openstreetmap.org/ Road kind in via derived: each bare route number matched to the OpenStreetMap road route relation of that number nearest the exit (within 6 km), its network or name giving the kind of road, from the OpenStreetMap planet file of 2026-11-16; French cardinals in English. Emergency detour route refs (EDR) dropped: they mark a detour, not the road the exit leads to.",
             "ramp_control": "signal",
             "ramp_control_source": "OpenStreetMap highway=traffic_signals/highway=stop/highway=give_way node within 120 m of the walked terminal node where this exit's ramp chain ends (read; the walk supplies the node, the tag supplies the control), OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/",
             "ramp_far_end": "surface",
@@ -35956,7 +35956,7 @@
             "at_mi": 99.6,
             "lat": 45.03818,
             "lon": -79.29154,
-            "spoken": "Museum ahead: Woodchester Villa",
+            "spoken": "Passing Woodchester Villa, a museum",
             "source": "derived: name and category read from the OpenStreetMap tags of node 1178640464 (Woodchester Villa); placed at the nearest projection of it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           },
           {
@@ -37712,7 +37712,7 @@
             "at_mi": 121.9,
             "lat": 45.87377,
             "lon": -77.29956,
-            "spoken": "Museum ahead: Petawawa Heritage Village",
+            "spoken": "Passing Petawawa Heritage Village, a museum",
             "source": "derived: name and category read from the OpenStreetMap tags of node 3809000913 (Petawawa Heritage Village); placed at the nearest projection of it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           },
           {
@@ -41663,7 +41663,7 @@
             "at_mi": 22.9,
             "lat": 43.78742,
             "lon": -79.2296,
-            "spoken": "Museum ahead: Guildwood Pillar Archs",
+            "spoken": "Passing Guildwood Pillar Archs, a museum",
             "source": "derived: name and category read from the OpenStreetMap tags of node 11692341818 (Guildwood Pillar Archs); placed at the nearest projection of it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           },
           {
@@ -42735,7 +42735,7 @@
             "at_mi": 35.2,
             "lat": 45.01566,
             "lon": -75.62824,
-            "spoken": "Museum ahead: North Grenville Archives",
+            "spoken": "Passing North Grenville Archives, a museum",
             "source": "derived: name and category read from the OpenStreetMap tags of node 5832509481 (North Grenville Archives); placed at the nearest projection of it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           },
           {
@@ -45163,7 +45163,7 @@
             "at_mi": 48.2,
             "lat": 45.3799,
             "lon": -74.81891,
-            "spoken": "Glengarry Pioneer Museum ahead",
+            "spoken": "Passing Glengarry Pioneer Museum",
             "source": "derived: name and category read from the OpenStreetMap tags of node 6294362657 (Glengarry Pioneer Museum); placed at the nearest projection of it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           },
           {
@@ -46867,7 +46867,7 @@
             "at_mi": 40.3,
             "lat": 45.42058,
             "lon": -76.3533,
-            "spoken": "Arnprior & District Museum ahead",
+            "spoken": "Passing Arnprior & District Museum",
             "source": "derived: name and category read from the OpenStreetMap tags of node 1332545461 (Arnprior & District Museum); placed at the nearest projection of it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           },
           {
@@ -50721,7 +50721,7 @@
             "at_mi": 57.9,
             "lat": 44.69673,
             "lon": -79.64888,
-            "spoken": "Museum ahead: Coldwater Canadiana [woodrow homestead]",
+            "spoken": "Passing Coldwater Canadiana [woodrow homestead], a museum",
             "source": "derived: name and category read from the OpenStreetMap tags of node 939907940 (Coldwater Canadiana [woodrow homestead]); placed at the nearest projection of it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           },
           {
@@ -54179,7 +54179,7 @@
             "at_mi": 14.1,
             "lat": 45.87377,
             "lon": -77.29956,
-            "spoken": "Museum ahead: Petawawa Heritage Village",
+            "spoken": "Passing Petawawa Heritage Village, a museum",
             "source": "derived: name and category read from the OpenStreetMap tags of node 3809000913 (Petawawa Heritage Village); placed at the nearest projection of it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           },
           {
@@ -55822,7 +55822,7 @@
             "at_mi": 51.4,
             "lat": 45.4202,
             "lon": -76.35301,
-            "spoken": "Arnprior & District Museum ahead",
+            "spoken": "Passing Arnprior & District Museum",
             "source": "derived: name and category read from the OpenStreetMap tags of node 1332545461 (Arnprior & District Museum); placed at the nearest projection of it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           },
           {
@@ -59831,7 +59831,7 @@
             "at_mi": 48.2,
             "lat": 43.88651,
             "lon": -78.82588,
-            "spoken": "Oshawa Community Museum ahead",
+            "spoken": "Passing Oshawa Community Museum",
             "source": "derived: name and category read from the OpenStreetMap tags of node 1277771585 (Oshawa Community Museum); placed at the nearest projection of it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           },
           {
@@ -61274,7 +61274,9 @@
             "amount": 25.04,
             "amount_plate": 25.04,
             "estimated": false,
-            "source": "https://bluewaterbridge.ca/toll-rates/ (US-bound commercial vehicles CAD 7.00 per axle; a five-axle rig pays CAD 35.00), accessed 2026-11-22. Amount derived: CAD 35.00 at 1.3978 CAD per USD, the rate the game uses for Canadian fines. Position read from the OpenStreetMap toll booth node 27079443 at the Sarnia plaza, projected on the leg's archived road."
+            "source": "https://bluewaterbridge.ca/toll-rates/ (US-bound commercial vehicles CAD 7.00 per axle; a five-axle rig pays CAD 35.00), accessed 2026-11-22. Amount derived: CAD 35.00 at 1.3978 CAD per USD, the rate the game uses for Canadian fines. Position read from the OpenStreetMap toll booth node 27079443 at the Sarnia plaza, projected on the leg's archived road. Canadian price read: CAD 35.00 posted at the Sarnia plaza.",
+            "amount_local": 35.0,
+            "currency": "CAD"
           }
         ]
       },
@@ -62170,7 +62172,7 @@
             "at_mi": 18.3,
             "lat": 43.19811,
             "lon": -79.55852,
-            "spoken": "Museum ahead: Grimsby Historical Society Archives",
+            "spoken": "Passing Grimsby Historical Society Archives, a museum",
             "source": "derived: name and category read from the OpenStreetMap tags of node 4308105448 (Grimsby Historical Society Archives); placed at the nearest projection of it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           },
           {
@@ -67712,7 +67714,7 @@
             "at_mi": 12.4,
             "lat": 43.64144,
             "lon": -79.6586,
-            "spoken": "Museum ahead: Art Gallery of Mississauga",
+            "spoken": "Passing Art Gallery of Mississauga, a museum",
             "source": "derived: name and category read from the OpenStreetMap tags of node 432302003 (Art Gallery of Mississauga); placed at the nearest projection of it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           },
           {
@@ -69325,7 +69327,7 @@
             "at_mi": 22.6,
             "lat": 43.78876,
             "lon": -79.22606,
-            "spoken": "Museum ahead: Guildwood Pillar Archs",
+            "spoken": "Passing Guildwood Pillar Archs, a museum",
             "source": "derived: name and category read from the OpenStreetMap tags of node 11692341818 (Guildwood Pillar Archs); placed at the nearest projection of it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           },
           {
@@ -71360,7 +71362,7 @@
             "at_mi": 44.7,
             "lat": 43.88638,
             "lon": -78.82266,
-            "spoken": "Oshawa Community Museum ahead",
+            "spoken": "Passing Oshawa Community Museum",
             "source": "derived: name and category read from the OpenStreetMap tags of node 1277771585 (Oshawa Community Museum); placed at the nearest projection of it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           },
           {
@@ -72596,9 +72598,9 @@
               "Ambassador Bridge",
               "USA"
             ],
-            "via": "Highway 3;Highway 401 EDR",
+            "via": "Highway 3",
             "highway": "Hwy 401 / I-75",
-            "source": "Exit ref, name and destination signs read from OpenStreetMap highway=motorway_junction nodes on a motorway or trunk way running along the leg's archived route, and the destination tags of this exit's own motorway_link ramps, OpenStreetMap planet file of 2026-11-16. at_mi derived: the mean of the exit's junction nodes (one per carriageway) projected onto that route, rescaled to the leg's miles: https://www.openstreetmap.org/ Road kind in via derived: each bare route number matched to the OpenStreetMap road route relation of that number nearest the exit (within 6 km), its network or name giving the kind of road, from the OpenStreetMap planet file of 2026-11-16; French cardinals in English.",
+            "source": "Exit ref, name and destination signs read from OpenStreetMap highway=motorway_junction nodes on a motorway or trunk way running along the leg's archived route, and the destination tags of this exit's own motorway_link ramps, OpenStreetMap planet file of 2026-11-16. at_mi derived: the mean of the exit's junction nodes (one per carriageway) projected onto that route, rescaled to the leg's miles: https://www.openstreetmap.org/ Road kind in via derived: each bare route number matched to the OpenStreetMap road route relation of that number nearest the exit (within 6 km), its network or name giving the kind of road, from the OpenStreetMap planet file of 2026-11-16; French cardinals in English. Emergency detour route refs (EDR) dropped: they mark a detour, not the road the exit leads to.",
             "ramp_control": "signal",
             "ramp_control_source": "OpenStreetMap highway=traffic_signals/highway=stop/highway=give_way node within 120 m of the walked terminal node where this exit's ramp chain ends (read; the walk supplies the node, the tag supplies the control), OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/",
             "ramp_far_end": "surface",
@@ -73194,7 +73196,9 @@
             "amount": 43.75,
             "amount_plate": 43.75,
             "estimated": false,
-            "source": "https://gordiehoweinternationalbridge.com/toll/toll-rates/ and https://gordiehoweinternationalbridge.com/toll/faq/ (commercial vehicles USD 8.75 or CAD 12.00 per axle, the same from either side; a five-axle rig pays USD 43.75), accessed 2026-11-22. Position read from the OpenStreetMap toll booth nodes at the Canadian port plaza (node 13897248738), where tolls are collected in both directions, projected on the leg's archived road."
+            "source": "https://gordiehoweinternationalbridge.com/toll/toll-rates/ and https://gordiehoweinternationalbridge.com/toll/faq/ (commercial vehicles USD 8.75 or CAD 12.00 per axle, the same from either side; a five-axle rig pays USD 43.75), accessed 2026-11-22. Position read from the OpenStreetMap toll booth nodes at the Canadian port plaza (node 13897248738), where tolls are collected in both directions, projected on the leg's archived road. Canadian price read: CAD 12.00 per axle, CAD 60.00 for five axles, at the toll plaza in the Canadian port of entry.",
+            "amount_local": 60.0,
+            "currency": "CAD"
           }
         ]
       },
@@ -74007,7 +74011,7 @@
             "at_mi": 19.9,
             "lat": 43.16188,
             "lon": -80.3747,
-            "spoken": "Paris Museum & Historical Society ahead",
+            "spoken": "Passing Paris Museum & Historical Society",
             "source": "derived: name and category read from the OpenStreetMap tags of node 6448572018 (Paris Museum & Historical Society); placed at the nearest projection of it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           },
           {
@@ -74851,7 +74855,7 @@
             "at_mi": 13.1,
             "lat": 43.24385,
             "lon": -80.57282,
-            "spoken": "Drumbo and District Museum ahead",
+            "spoken": "Passing Drumbo and District Museum",
             "source": "derived: name and category read from the OpenStreetMap tags of node 7728742246 (Drumbo and District Museum); placed at the nearest projection of it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           },
           {

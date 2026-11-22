@@ -154,16 +154,6 @@
             "lon": -148.98843,
             "spoken": "Crossing the Twentymile River",
             "source": "derived: name and category read from the OpenStreetMap tags of way 263775817 (Twentymile River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
-          },
-          {
-            "name": "Portage Pass",
-            "category": "mountain_pass",
-            "kind": "point",
-            "at_mi": 56.0,
-            "lat": 60.79013,
-            "lon": -148.8147,
-            "spoken": "Approaching Portage Pass",
-            "source": "derived: name and category read from the OpenStreetMap tags of node 3758685242 (Portage Pass); placed at the nearest projection of it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           }
         ],
         "interchanges": [],
@@ -7530,16 +7520,6 @@
         "source": "Development-time public Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de, loaded-semi options matching tools/reroute_leg.py), accessed 2026-10-07. Router-reported 253.6685 mi; paid miles 259 from mileposts: BLM Alaska 2024 Dalton Highway Visitor Guide: Livengood/Dalton MP 0 is 84 miles north of Fairbanks and Coldfoot is MP 175; derived paid miles 84+175=259. Route points and Open-Meteo elevation positions are sampled from the Valhalla shape and scaled to paid miles. The road is within Alaska; state miles are derived from the paid total. Overall terrain is derived from the dominant Open-Meteo grade-segment classifier. The two-lane, undivided summary is an assumed corridor-level default, not a claim that every urban segment has only two lanes. BLM describes the Dalton as mostly gravel; separate gravel-surface gameplay is not modeled. Where no posted OSM speed sample exists, 55 mph is explicitly assumed under 13 AAC 02.275. Unverified truck parking and capacity are not claimed.",
         "landmarks": [
           {
-            "name": "Rosie Creek Pass",
-            "category": "mountain_pass",
-            "kind": "point",
-            "at_mi": 6.5,
-            "lat": 67.17896,
-            "lon": -150.30743,
-            "spoken": "Approaching Rosie Creek Pass",
-            "source": "derived: name and category read from the OpenStreetMap tags of node 6239037236 (Rosie Creek Pass); placed at the nearest projection of it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
-          },
-          {
             "name": "South Fork Koyukuk River",
             "category": "river",
             "kind": "point",
@@ -13535,16 +13515,6 @@
             "lon": -150.28924,
             "spoken": "Crossing the South Fork Koyukuk River",
             "source": "derived: name and category read from the OpenStreetMap tags of way 479619107 (South Fork Koyukuk River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
-          },
-          {
-            "name": "Rosie Creek Pass",
-            "category": "mountain_pass",
-            "kind": "point",
-            "at_mi": 247.4,
-            "lat": 67.1784,
-            "lon": -150.30898,
-            "spoken": "Approaching Rosie Creek Pass",
-            "source": "derived: name and category read from the OpenStreetMap tags of node 6239037236 (Rosie Creek Pass); placed at the nearest projection of it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           }
         ],
         "interchanges": [],
@@ -18429,16 +18399,6 @@
             "source": "derived: name and category read from the OpenStreetMap tags of way 264397968 (Little Nelchina River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           },
           {
-            "name": "Belanger Pass",
-            "category": "mountain_pass",
-            "kind": "point",
-            "at_mi": 64.7,
-            "lat": 61.90673,
-            "lon": -147.2965,
-            "spoken": "Approaching Belanger Pass",
-            "source": "derived: name and category read from the OpenStreetMap tags of node 4400608329 (Belanger Pass); placed at the nearest projection of it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
-          },
-          {
             "name": "Tahneta Pass",
             "category": "mountain_pass",
             "kind": "point",
@@ -21941,16 +21901,6 @@
         ],
         "source": "Scaffold from city pins, 2026-11-22, replaced by reroute-leg.",
         "landmarks": [
-          {
-            "name": "Sevenmile Saddle",
-            "category": "mountain_pass",
-            "kind": "point",
-            "at_mi": 6.1,
-            "lat": 59.26582,
-            "lon": -135.59365,
-            "spoken": "Approaching Sevenmile Saddle",
-            "source": "derived: name and category read from the OpenStreetMap tags of node 10180002596 (Sevenmile Saddle); placed at the nearest projection of it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
-          },
           {
             "name": "Klukwan",
             "at_mi": 21.5,
@@ -30096,16 +30046,6 @@
             "source": "derived: name and category read from the OpenStreetMap tags of node 65851931 (Tahneta Pass); placed at the nearest projection of it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           },
           {
-            "name": "Belanger Pass",
-            "category": "mountain_pass",
-            "kind": "point",
-            "at_mi": 75.2,
-            "lat": 61.90673,
-            "lon": -147.2965,
-            "spoken": "Approaching Belanger Pass",
-            "source": "derived: name and category read from the OpenStreetMap tags of node 4400608329 (Belanger Pass); placed at the nearest projection of it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
-          },
-          {
             "name": "Little Nelchina River",
             "category": "river",
             "kind": "point",
@@ -35363,16 +35303,6 @@
             "lon": -135.30208,
             "spoken": "Crossing the Skagway River",
             "source": "derived: name and category read from the OpenStreetMap tags of way 151443810 (Skagway River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
-          },
-          {
-            "name": "White Pass",
-            "category": "mountain_pass",
-            "kind": "point",
-            "at_mi": 13.8,
-            "lat": 59.62238,
-            "lon": -135.16363,
-            "spoken": "Approaching White Pass",
-            "source": "derived: name and category read from the OpenStreetMap tags of node 10119021763 (White Pass); placed at the nearest projection of it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           },
           {
             "name": "Carcross",

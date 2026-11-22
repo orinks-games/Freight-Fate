@@ -351,3 +351,22 @@ fn test_breaking_a_set_of_doubles_adds_time_at_the_receiver() {
     assert!(doubles_break_text("parcel_doubles").contains("converter dolly"));
     assert!(doubles_break_text("general").is_empty());
 }
+
+#[test]
+fn live_cattle_are_never_dropped_or_picked_up_in_a_yard() {
+    // A cross-dock keeps a drop yard, but a trailer of live cattle loads at
+    // the chute and walks off at the receiver's, with the truck there.
+    let mut cattle = job("cross_dock", "fac-1", "livestock", 400.0);
+    cattle.destination_type = "cross_dock".to_string();
+    cattle.destination_facility_id = "fac-2".to_string();
+    let freight = {
+        let mut j = cattle.clone();
+        j.cargo_key = "general".to_string();
+        j
+    };
+    assert!(delivery_plan(&freight, &CompanyDriver).is_drop_hook());
+    let delivery = delivery_plan(&cattle, &CompanyDriver);
+    assert_eq!(delivery.mode, MODE_LIVE);
+    assert!(delivery.keeps_trailer);
+    assert!(!pickup_plan(&cattle, &CompanyDriver).is_drop_hook());
+}

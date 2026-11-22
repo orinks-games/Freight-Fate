@@ -13,7 +13,7 @@ use freight_fate::playtest::harness::{PlaytestHarness, StartDelivery};
 use freight_fate::states::base::Key;
 use freight_fate::states::driving_core::EXIT_MAINLINE_EASE_MPH;
 
-use crate::transcript_cruise_support::{bench_road, MPS_PER_MPH};
+use crate::transcript_cruise_support::{bench_road, bench_road_with, MPS_PER_MPH};
 
 const DT: f64 = 1.0 / 30.0;
 const STOP_MI: f64 = 40.0;
@@ -166,6 +166,115 @@ fn test_the_mainline_never_sheds_more_than_ten_under_road_speed() {
         let text = harness.transcript_text();
         assert!(!text.contains("slow to"), "{text}");
         assert!(!text.contains("Stay under"), "{text}");
+    }
+}
+
+#[test]
+fn test_cruise_for_the_exit_never_sits_over_the_posted_limit() {
+    // The Blue Water Bridge approach: the road drops to 50 km/h (30 mph)
+    // before the destination exit, and the ramp's number, taken off the
+    // faster road at its interchange, is higher. Cruise set 56 km/h "for the
+    // exit", then "Over the limit of 50 kilometers per hour" played twice
+    // for a speed the game chose (agent drive, 2026-11-22).
+    let mut harness = PlaytestHarness::new();
+    harness.start_delivery(StartDelivery::named("Deceleration Lane"));
+    harness.app.ctx.settings.time_scale = 1.0;
+    harness.app.ctx.settings.lane_keeping = "full".to_string();
+    harness.app.ctx.settings.automatic_transmission = true;
+    harness.app.ctx.settings.exit_speed_assist = false;
+    harness.app.ctx.settings.route_transition_assist = false;
+    harness.with_drive(|d, _| {
+        d.departure_checked = true;
+        bench_road_with(d, &[(0.0, 55.0), (STOP_MI - 1.0, 30.0)], 0.0, 1.0);
+        d.truck_mut().set_air_ready(false);
+    });
+    harness.press_key(Key::E, None);
+    let mut stop = RoadStop::new("Bridge Plaza", STOP_MI, "truck_stop");
+    stop.interchange_mi = Some(STOP_MI - 1.5);
+    stop.exit_label = "exit 1".to_string();
+    let staged = stop.clone();
+    harness.with_drive(move |d, _| {
+        d.trip.stops = vec![staged.clone()];
+        d.truck_mut().transmission.gear = 10;
+        d.truck_mut().velocity_mps = 30.0 * MPS_PER_MPH;
+        d.trip.position_mi = staged.at_mi - 0.8;
+    });
+    harness.press_key(Key::K, None);
+    harness.press_key(Key::X, None);
+    let probe = stop.clone();
+    let (ramp_cruise, floor) = harness.with_drive(move |d, _| {
+        (
+            d.armed_ramp_cruise_mph(Some(&probe)),
+            d.exit_approach_floor_mph(Some(&probe)),
+        )
+    });
+    assert!(
+        ramp_cruise > 30.0,
+        "the case needs a ramp number over the road"
+    );
+    assert!(floor <= 30.0, "exit cruise floor {floor} over a 30 posting");
+    let capped = harness.read_drive(|d| d.cruise_exit_mph);
+    assert!(
+        capped.is_some_and(|mph| mph <= 30.0),
+        "cruise took {capped:?} for the exit on a 30 road\n{}",
+        harness.transcript_text()
+    );
+    drive_to_the_gore(&mut harness, &stop);
+    let text = harness.transcript_text();
+    assert!(!text.contains("Over the limit"), "{text}");
+}
+
+#[test]
+fn test_cruise_for_the_exit_holds_the_slower_posting_before_the_gore() {
+    // The other half of the Blue Water approach: the truck is in the 50 km/h
+    // (30 mph) stretch and the gore sits back on faster road, so the exit's
+    // own number (35 mph, 56 km/h) is legal at the gore and not where the
+    // truck is. Cruise engaged there names the posting and holds it.
+    let mut harness = PlaytestHarness::new();
+    harness.start_delivery(StartDelivery::named("Deceleration Lane"));
+    harness.app.ctx.settings.time_scale = 1.0;
+    harness.app.ctx.settings.lane_keeping = "full".to_string();
+    harness.app.ctx.settings.automatic_transmission = true;
+    harness.app.ctx.settings.exit_speed_assist = false;
+    harness.app.ctx.settings.route_transition_assist = false;
+    harness.with_drive(|d, _| {
+        d.departure_checked = true;
+        bench_road_with(
+            d,
+            &[(0.0, 55.0), (STOP_MI - 3.0, 30.0), (STOP_MI - 1.0, 45.0)],
+            0.0,
+            1.0,
+        );
+        d.truck_mut().set_air_ready(false);
+    });
+    harness.press_key(Key::E, None);
+    let mut stop = RoadStop::new("Bridge Plaza", STOP_MI, "truck_stop");
+    stop.exit_label = "exit 1".to_string();
+    let staged = stop.clone();
+    harness.with_drive(move |d, _| {
+        d.trip.stops = vec![staged.clone()];
+        d.truck_mut().transmission.gear = 10;
+        d.truck_mut().velocity_mps = 30.0 * MPS_PER_MPH;
+        d.trip.position_mi = staged.at_mi - 2.5;
+    });
+    harness.press_key(Key::X, None);
+    harness.clear_speech();
+    harness.with_drive(|d, ctx| d.engage_cruise(ctx, 60.0, false));
+    let exit = harness.read_drive(|d| d.cruise_exit_mph);
+    assert!(exit.is_some_and(|mph| mph > 30.0), "exit cap {exit:?}");
+    let text = harness.transcript_text();
+    assert!(text.contains("Cruise set at 30 miles per hour"), "{text}");
+    for _ in 0..(30 * 60) {
+        frame(&mut harness);
+        let (speed, mile) = harness.read_drive(|d| (d.truck().speed_mph(), d.trip.position_mi));
+        if mile >= STOP_MI - 1.0 {
+            break;
+        }
+        assert!(
+            speed <= 31.5, // the cruise loop's brake deadband
+            "{speed:.1} mph at mile {mile:.2} in the 30\n{}",
+            harness.transcript_text()
+        );
     }
 }
 

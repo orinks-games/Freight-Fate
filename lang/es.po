@@ -5018,11 +5018,11 @@ msgid "Dispatch dropped a lane that leaves the turnpike."
 msgstr ""
 
 msgid ""
-"Dispatch can't clear twin trailers on that run. It leaves the National "
-"Network."
+"Dispatch can't clear twin trailers on that run. Every route crosses a road "
+"closed to them."
 msgstr ""
 
-msgid "Dispatch dropped a lane that leaves the National Network."
+msgid "Dispatch dropped a lane with a road closed to twin trailers."
 msgstr ""
 
 msgid "Dispatch doesn't run twins on that lane."
@@ -7052,6 +7052,10 @@ msgid "corrosive"
 msgstr ""
 
 msgid "a miscellaneous hazardous material"
+msgstr ""
+
+#. placeholders: {spoken}, {name}
+msgid "This load is {spoken}, which may not use the {name}."
 msgstr ""
 
 #. placeholders: {spoken}
@@ -10685,14 +10689,6 @@ msgstr ""
 #. placeholders: {tons}, {cargo}, {origin}, {destination}
 msgid "{tons} tons of {cargo} from {origin} to {destination}."
 msgstr "{tons} toneladas de {cargo} de {origin} a {destination}."
-
-#. placeholders: {head_text}
-msgid " {head_text}. They can ride 28 hours."
-msgstr ""
-
-#. one sentence of a longer line
-msgid "They can ride 28 hours."
-msgstr ""
 
 #. placeholders: {highway}, {percent}
 msgid ""
@@ -15433,6 +15429,10 @@ msgstr "{place}{state} en {highway}"
 msgid "Passing {place}{state}."
 msgstr "Pasando por {place}{state}."
 
+#. placeholders: {f}
+msgid " Toll {f} Canadian dollars."
+msgstr ""
+
 #. placeholders: {amount}
 msgid " Toll about {amount} dollars."
 msgstr " Peaje de unos {amount} dólares."
@@ -15443,10 +15443,6 @@ msgstr " Peaje de {amount} dólares."
 
 msgid "toll"
 msgstr "toll"
-
-#. placeholders: {method_label}, {name}, {toll_text}
-msgid "{method_label} toll point, {name}.{toll_text}"
-msgstr "Punto de peaje {method_label}, {name}.{toll_text}"
 
 msgid "restriction"
 msgstr "restriction"
@@ -17553,6 +17549,16 @@ msgstr "{terse} Pulsa {exit_hint} para activar el intermitente."
 msgid "estimated "
 msgstr "unos "
 
+#. placeholders: {method_label}, {name}, {estimate}, {cad}
+msgid ""
+"{method_label} toll at {name}, {estimate}{cad} Canadian dollars, billed to "
+"carrier settlement."
+msgstr ""
+
+#. placeholders: {cad}
+msgid "Toll, {cad} Canadian dollars, carrier."
+msgstr ""
+
 #. placeholders: {method_label}, {name}, {estimate}, {amount_text}
 msgid ""
 "{method_label} toll at {name}, {estimate}{amount_text} dollars, billed to "
@@ -17564,6 +17570,10 @@ msgstr ""
 #. placeholders: {amount_text}
 msgid "Toll, {amount_text} dollars, carrier."
 msgstr "Peaje, {amount_text} dólares, empresa."
+
+#. placeholders: {method_label}, {name}, {toll_text}
+msgid "{method_label} toll point, {name}.{toll_text}"
+msgstr "Punto de peaje {method_label}, {name}.{toll_text}"
 
 #. placeholders: {limit_speed_text}
 msgid "Over the limit of {limit_speed_text}."
@@ -20198,6 +20208,10 @@ msgstr ""
 msgid "Playtest lever: the board already offers {spoken}."
 msgstr "Palanca de prueba: el tablón ya ofrece {spoken}."
 
+#. placeholders: {dest}, {spoken}
+msgid "{dest} in {spoken}"
+msgstr ""
+
 #. placeholders: {spoken}
 msgid "Playtest lever: no supported dispatch from here to {spoken}."
 msgstr "Palanca de prueba: no hay despacho posible de aquí a {spoken}."
@@ -20779,6 +20793,19 @@ msgstr "Dólares por {distance_unit_text}: {f}."
 msgid "Deadline {f} hours after loading, about {appointment_text}."
 msgstr ""
 "Plazo de entrega: {f} horas desde la carga, hacia {appointment_text}."
+
+#. placeholders: {head}
+#. one sentence of a longer line
+msgid "Cattle: {head}."
+msgstr ""
+
+#. placeholders: {head}
+msgid "Cattle: {head}. They can ride 28 hours."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "They can ride 28 hours."
+msgstr ""
 
 #. placeholders: {equipment_text}
 msgid "Equipment: {equipment_text}."
@@ -23388,6 +23415,10 @@ msgstr ""
 #. placeholders: {destination}
 msgid "Dispatch routed you to {destination}. "
 msgstr "Despacho te envió a {destination}. "
+
+#. placeholders: {distance_text}, {grouped}
+msgid "The load now pays for {distance_text}, {grouped} dollars. "
+msgstr ""
 
 msgid "Back to pickup facility"
 msgstr "Volver a la instalación de recogida"
@@ -29220,6 +29251,10 @@ msgstr "Carril de aceleración"
 msgid " for the exit"
 msgstr " para la salida"
 
+#. placeholders: {speed_value}
+msgid " for the {speed_value} limit"
+msgstr " por el límite de {speed_value}"
+
 msgid " through the construction zone"
 msgstr " por la zona de obras"
 
@@ -29229,10 +29264,6 @@ msgstr " por el tráfico denso"
 #. placeholders: {speed_value}
 msgid " for the {speed_value} limit ahead"
 msgstr " por el límite de {speed_value} más adelante"
-
-#. placeholders: {speed_value}
-msgid " for the {speed_value} limit"
-msgstr " por el límite de {speed_value}"
 
 #. placeholders: {value}
 msgid " in the {value}"
@@ -30804,8 +30835,12 @@ msgstr ""
 msgid "{head} head."
 msgstr ""
 
-#. placeholders: {spoken}, {head}, {aboard_text}, {limit}
-msgid "{spoken}. {head} head. {aboard_text} aboard, {limit}."
+#. placeholders: {head}, {aboard_text}, {limit}
+msgid "{head} head. {aboard_text} aboard, {limit}."
+msgstr ""
+
+#. placeholders: {spoken}, {condition}
+msgid "{spoken}, {condition} percent"
 msgstr ""
 
 #. placeholders: {minutes}
@@ -32032,10 +32067,18 @@ msgstr "Estado"
 msgid "{f} hours before the deadline, due {deadline_appointment}"
 msgstr "{f} horas antes del plazo de entrega, vence {deadline_appointment}"
 
-#. placeholders: {tons_text}, {cargo_label}, {tons_text2}, {cargo_status_clause}
+#. placeholders: {tons}, {cargo_label}, {gross}
+#. one sentence of a longer line
+msgid "Load: {tons} of {cargo_label}, gross {gross}."
+msgstr ""
+
+#. placeholders: {tons}, {cargo_label}, {gross}, {cattle}
+msgid "Load: {tons} of {cargo_label}, gross {gross}. {cattle}"
+msgstr ""
+
+#. placeholders: {tons}, {cargo_label}, {gross}, {cargo_status_clause}
 msgid ""
-"Load: {tons_text} of {cargo_label}, gross {tons_text2}, freight "
-"{cargo_status_clause}"
+"Load: {tons} of {cargo_label}, gross {gross}, freight {cargo_status_clause}"
 msgstr ""
 
 #. placeholders: {clock}, {deadline_text}
@@ -34581,9 +34624,7 @@ msgstr "Los agentes te hacen pasar al carril de inspección."
 msgid "{outcome} {safety_record_line} It is {clock_text}."
 msgstr "{outcome} {safety_record_line} Son las {clock_text}."
 
-msgid ""
-"Nothing to write up: tires, brakes, lights, both trailers and the converter "
-"dolly would all pass."
+msgid "Nothing to write up."
 msgstr ""
 
 msgid ""
@@ -46108,6 +46149,14 @@ msgstr "{stop_name} en {distance}."
 
 msgid "Passing {city}."
 msgstr "Pasando por {city}."
+
+#. A landmark beside the road. {name} is the landmark's own name; the
+#. second form is a museum whose name does not say museum.
+msgid "Passing {name}"
+msgstr "Pasando por {name}"
+
+msgid "Passing {name}, a museum"
+msgstr "Pasando por {name}, un museo"
 
 msgid "Entering {place}."
 msgstr "Entrando en {place}."

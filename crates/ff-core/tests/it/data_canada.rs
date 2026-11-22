@@ -318,8 +318,27 @@ fn quebec_exits_give_their_directions_in_english() {
             let french = x
                 .via
                 .split(|c: char| c == ';' || c.is_whitespace())
-                .any(|w| matches!(w, "Est" | "Ouest" | "Nord" | "Sud"));
+                .any(|w| matches!(w.to_lowercase().as_str(), "est" | "ouest" | "nord" | "sud"));
             assert!(!french, "{} to {} exit {}: {}", l.a, l.b, x.exit_ref, x.via);
+        }
+    }
+}
+
+#[test]
+fn ontario_exits_do_not_name_an_emergency_detour_as_their_road() {
+    // "Highway 401 EDR" marks the detour to take when the 401 closes; the
+    // exit leads to Highway 3.
+    for l in world()
+        .legs
+        .iter()
+        .filter(|l| l.a.ends_with("_on_ca") || l.b.ends_with("_on_ca"))
+    {
+        for x in l.interchanges() {
+            let detour = x
+                .via
+                .split_whitespace()
+                .any(|w| w.eq_ignore_ascii_case("EDR"));
+            assert!(!detour, "{} to {} exit {}: {}", l.a, l.b, x.exit_ref, x.via);
         }
     }
 }
@@ -345,4 +364,104 @@ fn every_long_western_canada_leg_has_fuel_a_loaded_truck_can_use() {
         .map(|l| format!("{}:{} ({} mi)", l.a, l.b, l.miles))
         .collect();
     assert!(dry.is_empty(), "no loaded-truck fuel on {dry:#?}");
+}
+
+const PROVINCES: &[&str] = &[
+    "Alberta",
+    "British Columbia",
+    "Manitoba",
+    "New Brunswick",
+    "Newfoundland and Labrador",
+    "Northwest Territories",
+    "Nova Scotia",
+    "Nunavut",
+    "Ontario",
+    "Prince Edward Island",
+    "Quebec",
+    "Saskatchewan",
+    "Yukon",
+];
+
+/// A km/h sign: the stored mph is the sign's own number over 1.609344.
+fn is_kmh_sign(mph: f64) -> bool {
+    let kmh = mph * 1.609_344;
+    (kmh / 5.0 - (kmh / 5.0).round()).abs() * 5.0 < 0.05 && (mph - mph.round()).abs() > 0.01
+}
+
+/// Past a country line the limit in force is that country's sign
+/// (2026-11-22): north of Coutts the port's short postings were dropped and
+/// Montana's 70 mph held into Alberta, spoken as 113 km/h. Just past each
+/// line, a mile and a half past it, and at every posting on the Canadian
+/// side, the limit is a posted km/h number; on the United States side it is a
+/// whole mph. An unposted stretch (a gap) is the region's default and passes.
+#[test]
+fn past_a_country_line_the_limit_is_that_countrys_sign() {
+    let mut bad = Vec::new();
+    for leg in &world().legs {
+        let crossings = leg.state_crossings();
+        let limits = leg.speed_limits();
+        let in_force = |mi: f64| {
+            limits
+                .iter()
+                .rev()
+                .find(|s| s.at_mi <= mi)
+                .and_then(|s| s.mph)
+        };
+        for (i, c) in crossings.iter().enumerate() {
+            let into_canada = PROVINCES.contains(&c.state.as_str());
+            let from_canada = PROVINCES.contains(&c.from_state.as_str());
+            if into_canada == from_canada {
+                continue;
+            }
+            let end = crossings.get(i + 1).map_or(leg.miles, |n| n.at_mi);
+            let probe = (c.at_mi + 1.5).min(end);
+            let mut points = vec![(c.at_mi + 0.05).min(end), probe];
+            if into_canada {
+                points.extend(
+                    limits
+                        .iter()
+                        .filter(|s| s.at_mi > probe && s.at_mi < end)
+                        .map(|s| s.at_mi),
+                );
+            }
+            for mi in points {
+                let Some(mph) = in_force(mi) else { continue };
+                let ok = if into_canada {
+                    is_kmh_sign(mph)
+                } else {
+                    (mph - mph.round()).abs() < 0.01
+                };
+                if !ok {
+                    bad.push(format!(
+                        "{}:{} at {mi:.1} ({} side): {mph:.2} mph",
+                        leg.a, leg.b, c.state
+                    ));
+                }
+            }
+        }
+    }
+    assert!(bad.is_empty(), "{} places: {bad:#?}", bad.len());
+}
+
+#[test]
+fn canadian_booths_say_the_canadian_price_and_bill_us_dollars() {
+    // Orinks, 2026-11-22: a Canadian booth says the Canadian price. The
+    // settlement keeps the one currency the career runs in.
+    let toll = &leg("sarnia_on_ca:port_huron_mi_us").toll_events()[0];
+    assert_eq!(toll.canadian_amount(), Some(35.0));
+    assert!((toll.amount - 25.04).abs() < 0.005, "{}", toll.amount);
+    let line = ff_core::speech_text::toll_charged(
+        &toll.method_label(),
+        &toll.name,
+        &ff_core::speech_text::toll_amount_text(toll),
+        toll.estimated,
+    );
+    assert_eq!(
+        line.normal,
+        "Cash or card toll at Blue Water Bridge, 35 Canadian dollars, billed to carrier settlement."
+    );
+    // The US-side booth into Canada still posts US dollars.
+    let back = &leg("port_huron_mi_us:sarnia_on_ca").toll_events()[0];
+    assert_eq!(back.canadian_amount(), None);
+    assert_eq!(ff_core::speech_text::toll_amount_text(back), "26");
 }

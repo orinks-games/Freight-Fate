@@ -367,7 +367,11 @@ impl Trip {
                 // (agent playtest, 2026-09-02). Who pays is the career's
                 // standing arrangement, not news at every booth, and an
                 // entry with no amount yet says nothing past its name.
-                let toll_text = if toll.amount > 0.0 {
+                let toll_text = if let Some(cad) = toll.canadian_amount() {
+                    // A Canadian booth says the Canadian price (Orinks,
+                    // 2026-11-22); the settlement still carries US dollars.
+                    format!(" Toll {} Canadian dollars.", fmt_f(cad, 0))
+                } else if toll.amount > 0.0 {
                     let amount = fmt_f(toll.amount, 0);
                     if toll.estimated {
                         format!(" Toll about {amount} dollars.")
@@ -382,10 +386,10 @@ impl Trip {
                     "toll",
                     start + offset,
                     &toll.road,
-                    &format!(
-                        "{} toll point, {}.{toll_text}",
-                        toll.method_label(),
-                        toll.name
+                    &crate::speech_text::toll_point_notice(
+                        &toll.method_label(),
+                        &toll.name,
+                        &toll_text,
                     ),
                 ));
             }

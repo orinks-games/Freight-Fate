@@ -778,13 +778,6 @@
             "kind": "point",
             "source": "OpenStreetMap place=village node 150939624, projected onto the leg's checked-in route geometry",
             "spoken": "Passing Creswell"
-          },
-          {
-            "name": "Coryell Pass",
-            "category": "mountain_pass",
-            "kind": "point",
-            "at_mi": 45.0,
-            "spoken": "Approaching Coryell Pass"
           }
         ],
         "traffic_aadt": [
@@ -4350,7 +4343,7 @@
             "category": "museum",
             "kind": "point",
             "at_mi": 36.9,
-            "spoken": "Camp 18 Logging Museum ahead"
+            "spoken": "Passing Camp 18 Logging Museum"
           },
           {
             "name": "Coast Range Summit",
@@ -8291,7 +8284,7 @@
             "category": "museum",
             "kind": "point",
             "at_mi": 23.5,
-            "spoken": "Sisters Museum ahead"
+            "spoken": "Passing Sisters Museum"
           },
           {
             "name": "Deschutes National Forest",
@@ -11005,7 +10998,7 @@
             "category": "museum",
             "kind": "point",
             "at_mi": 19.8,
-            "spoken": "Linn County Historical Museum ahead"
+            "spoken": "Passing Linn County Historical Museum"
           },
           {
             "name": "Brownsville",
@@ -12262,7 +12255,7 @@
             "category": "museum",
             "kind": "point",
             "at_mi": 21.3,
-            "spoken": "Bohemia Gold Mining Museum ahead"
+            "spoken": "Passing Bohemia Gold Mining Museum"
           },
           {
             "name": "Cottage Grove (northbound)",
@@ -18313,13 +18306,6 @@
             "source": "derived 2026-10-01: placed by tools/place_river_crossings.py at the crossing of OSM waterway way 886351753 (Santiam River) with the leg's archived dense route geometry; at_mi = cum[i-1] + t*(cum[i]-cum[i-1]) rescaled to leg miles, taking the crossing nearest the previous at_mi when the river crosses more than once. OpenStreetMap, Geofabrik us-latest extract 2026-09-30: https://www.openstreetmap.org/."
           },
           {
-            "name": "Parrish Gap",
-            "category": "mountain_pass",
-            "kind": "point",
-            "at_mi": 56.4,
-            "spoken": "Approaching Parrish Gap"
-          },
-          {
             "name": "Brooks",
             "at_mi": 72.2,
             "off_mi": 0.75,
@@ -18546,13 +18532,6 @@
             "kind": "point",
             "source": "OpenStreetMap place=village node 150954144, projected onto the leg's OpenRouteService driving-hgv route",
             "spoken": "Passing Wishram"
-          },
-          {
-            "name": "Fairbanks Gap",
-            "category": "mountain_pass",
-            "kind": "point",
-            "at_mi": 207.0,
-            "spoken": "Approaching Fairbanks Gap"
           },
           {
             "name": "Maryhill Stonehenge (eastbound)",
@@ -24175,13 +24154,6 @@
             "spoken": "Approaching Willamette Pass"
           },
           {
-            "name": "Pengra Pass",
-            "category": "mountain_pass",
-            "kind": "point",
-            "at_mi": 107.5,
-            "spoken": "Approaching Pengra Pass"
-          },
-          {
             "name": "Salt Creek Falls (eastbound)",
             "category": "billboard_sign",
             "kind": "point",
@@ -26890,7 +26862,7 @@
             "category": "museum",
             "kind": "point",
             "at_mi": 20.5,
-            "spoken": "Woodville Museum ahead"
+            "spoken": "Passing Woodville Museum"
           }
         ],
         "speed_limits": [
@@ -28950,7 +28922,7 @@
             "category": "museum",
             "kind": "point",
             "at_mi": 8.6,
-            "spoken": "Yamhill County Museum ahead"
+            "spoken": "Passing Yamhill County Museum"
           },
           {
             "name": "Amity",
@@ -30062,13 +30034,6 @@
             "directions": [
               "reverse"
             ]
-          },
-          {
-            "name": "Pioneer Summit",
-            "category": "mountain_pass",
-            "kind": "point",
-            "at_mi": 9.5,
-            "spoken": "Approaching Pioneer Summit"
           },
           {
             "name": "Siletz",
@@ -32433,7 +32398,7 @@
             "category": "museum",
             "kind": "point",
             "at_mi": 78.8,
-            "spoken": "Museum ahead: Oregon Coast Scenic Railroad"
+            "spoken": "Passing Oregon Coast Scenic Railroad, a museum"
           },
           {
             "name": "Rockaway Beach",
@@ -34232,13 +34197,6 @@
             "spoken": "Passing Toledo"
           },
           {
-            "name": "Pioneer Summit",
-            "category": "mountain_pass",
-            "kind": "point",
-            "at_mi": 9.8,
-            "spoken": "Approaching Pioneer Summit"
-          },
-          {
             "name": "Siletz",
             "at_mi": 10.3,
             "off_mi": 3.53,
@@ -35296,7 +35254,7 @@
             "category": "museum",
             "kind": "point",
             "at_mi": 30.0,
-            "spoken": "Orma J. Smith Museum of Natural History ahead"
+            "spoken": "Passing Orma J. Smith Museum of Natural History"
           },
           {
             "name": "Middleton",
@@ -38045,7 +38003,7 @@
             "category": "museum",
             "kind": "point",
             "at_mi": 36.7,
-            "spoken": "Umatilla Museum ahead"
+            "spoken": "Passing Umatilla Museum"
           },
           {
             "name": "Horse Heaven Pass",
@@ -39169,13 +39127,6 @@
             "kind": "point",
             "source": "OpenStreetMap place=town node 4872325557, projected onto the leg's OpenRouteService driving-hgv route",
             "spoken": "Passing Fairview"
-          },
-          {
-            "name": "Sylvan Hill",
-            "category": "mountain_pass",
-            "kind": "point",
-            "at_mi": 3.0,
-            "spoken": "Approaching Sylvan Hill"
           },
           {
             "name": "Milwaukie",
@@ -51059,13 +51010,6 @@
             "spoken": "Passing Lyle"
           },
           {
-            "name": "Fairbanks Gap",
-            "category": "mountain_pass",
-            "kind": "point",
-            "at_mi": 89.7,
-            "spoken": "Approaching Fairbanks Gap"
-          },
-          {
             "name": "Celilo Village",
             "at_mi": 95.3,
             "off_mi": 0.06,
@@ -51167,13 +51111,6 @@
             "kind": "point",
             "at_mi": 225.3,
             "spoken": "Approaching Deadman Pass"
-          },
-          {
-            "name": "Red Saddle",
-            "category": "mountain_pass",
-            "kind": "point",
-            "at_mi": 238.7,
-            "spoken": "Approaching Red Saddle"
           },
           {
             "name": "Oregon Trail Interpretive Center (eastbound)",
@@ -59988,13 +59925,6 @@
         ],
         "landmarks": [
           {
-            "name": "Sylvan Hill",
-            "category": "mountain_pass",
-            "kind": "point",
-            "at_mi": 0.0,
-            "spoken": "Approaching Sylvan Hill"
-          },
-          {
             "name": "Durham",
             "at_mi": 0.0,
             "off_mi": 9.14,
@@ -60233,7 +60163,7 @@
             "category": "museum",
             "kind": "point",
             "at_mi": 43.6,
-            "spoken": "Cascade Locks Historical Museum ahead"
+            "spoken": "Passing Cascade Locks Historical Museum"
           },
           {
             "name": "Stevenson",
@@ -61678,13 +61608,6 @@
             "spoken": "Passing Fairview"
           },
           {
-            "name": "Sylvan Hill",
-            "category": "mountain_pass",
-            "kind": "point",
-            "at_mi": 3.0,
-            "spoken": "Approaching Sylvan Hill"
-          },
-          {
             "name": "Happy Valley",
             "at_mi": 3.3,
             "off_mi": 9.23,
@@ -61852,7 +61775,7 @@
             "category": "museum",
             "kind": "point",
             "at_mi": 21.7,
-            "spoken": "Old Aurora Colony Museum ahead"
+            "spoken": "Passing Old Aurora Colony Museum"
           },
           {
             "name": "Butteville",
@@ -63662,18 +63585,11 @@
             "spoken": "Approaching Sexton Mountain Pass"
           },
           {
-            "name": "Bear Pen Gap",
-            "category": "mountain_pass",
-            "kind": "point",
-            "at_mi": 76.1,
-            "spoken": "Approaching Bear Pen Gap"
-          },
-          {
             "name": "Woodville Museum",
             "category": "museum",
             "kind": "point",
             "at_mi": 76.1,
-            "spoken": "Woodville Museum ahead"
+            "spoken": "Passing Woodville Museum"
           },
           {
             "name": "Rogue River",
@@ -67526,27 +67442,6 @@
             "spoken": "Entering Gates"
           },
           {
-            "name": "Arrowhead Saddle",
-            "category": "mountain_pass",
-            "kind": "point",
-            "at_mi": 46.9,
-            "spoken": "Approaching Arrowhead Saddle"
-          },
-          {
-            "name": "Steampot Saddle",
-            "category": "mountain_pass",
-            "kind": "point",
-            "at_mi": 47.2,
-            "spoken": "Approaching Steampot Saddle"
-          },
-          {
-            "name": "Knutson Saddle",
-            "category": "mountain_pass",
-            "kind": "point",
-            "at_mi": 49.7,
-            "spoken": "Approaching Knutson Saddle"
-          },
-          {
             "name": "Detroit",
             "at_mi": 52.4,
             "off_mi": 0.04,
@@ -67563,13 +67458,6 @@
             "kind": "point",
             "source": "OpenStreetMap place=village node 150970849, projected onto the leg's OpenRouteService driving-hgv route",
             "spoken": "Entering Idanha"
-          },
-          {
-            "name": "Beard Saddle",
-            "category": "mountain_pass",
-            "kind": "point",
-            "at_mi": 58.0,
-            "spoken": "Approaching Beard Saddle"
           },
           {
             "name": "Willamette National Forest",
@@ -68510,13 +68398,6 @@
             "kind": "point",
             "source": "OpenStreetMap place=village node 150969376, projected onto the leg's OpenRouteService driving-hgv route",
             "spoken": "Entering Adair Village"
-          },
-          {
-            "name": "Lewisburg Saddle",
-            "category": "mountain_pass",
-            "kind": "point",
-            "at_mi": 32.5,
-            "spoken": "Approaching Lewisburg Saddle"
           },
           {
             "name": "Tangent",
@@ -69749,13 +69630,6 @@
             "spoken": "Passing Dufur"
           },
           {
-            "name": "Fairbanks Gap",
-            "category": "mountain_pass",
-            "kind": "point",
-            "at_mi": 9.07,
-            "spoken": "Approaching Fairbanks Gap"
-          },
-          {
             "name": "Celilo Village",
             "at_mi": 12.5,
             "off_mi": 0.06,
@@ -69782,13 +69656,6 @@
             "directions": [
               "forward"
             ]
-          },
-          {
-            "name": "Davies Pass",
-            "category": "mountain_pass",
-            "kind": "point",
-            "at_mi": 20.06,
-            "spoken": "Approaching Davies Pass"
           },
           {
             "name": "Maryhill",
@@ -69924,7 +69791,7 @@
             "category": "museum",
             "kind": "point",
             "at_mi": 104.53,
-            "spoken": "Echo Museum ahead"
+            "spoken": "Passing Echo Museum"
           },
           {
             "name": "Echo",

@@ -424,16 +424,29 @@ impl RoadCrossing {
     }
 
     /// `refusal`, naming the load's class first where a class rule turned
-    /// a packaged load away, since the rule lists several.
+    /// a packaged load away, since the rule lists several. A class banned in
+    /// any packaging is said on its own: the crossing's whole rule also
+    /// names bulk and tank limits that are not why this load is refused.
     pub fn refusal_spoken(&self, load: &CrossingLoad) -> Option<String> {
         let reason = self.refusal(load)?;
         match load.hazard_class {
             Some(class)
                 if self.hazmat == HazmatRule::Classes
                     && !load.tank
-                    && ((reason == self.hazmat_text && self.banned_classes.contains(&class))
-                        || (reason == self.limited_text
-                            && self.limited_classes.contains(&class))) =>
+                    && reason == self.hazmat_text
+                    && self.banned_classes.contains(&class) =>
+            {
+                Some(format!(
+                    "This load is {}, which may not use the {}.",
+                    class.spoken(),
+                    self.name
+                ))
+            }
+            Some(class)
+                if self.hazmat == HazmatRule::Classes
+                    && !load.tank
+                    && reason == self.limited_text
+                    && self.limited_classes.contains(&class) =>
             {
                 Some(format!("This load is {}. {reason}", class.spoken()))
             }
@@ -657,7 +670,7 @@ mod tests {
         );
         assert_eq!(
             c.refusal_spoken(&load(HazardClass::PoisonGas)).as_deref(),
-            Some("This load is poison gas. No hazardous materials.")
+            Some("This load is poison gas, which may not use the Test Tunnel.")
         );
         assert!(c.refusal(&load(HazardClass::NonflammableGas)).is_none());
         assert_eq!(
@@ -679,12 +692,12 @@ mod tests {
             .with_hazard_class(Some(HazardClass::PoisonGas));
         assert_eq!(
             c.refusal_spoken(&gas).as_deref(),
-            Some("This load is poison gas. No hazardous materials.")
+            Some("This load is poison gas, which may not use the Test Tunnel.")
         );
         let blast = gas.with_hazard_class(Some(HazardClass::Explosive11));
         assert_eq!(
             c.refusal_spoken(&blast).as_deref(),
-            Some("This load is explosives. No hazardous materials.")
+            Some("This load is explosives, which may not use the Test Tunnel.")
         );
         let unknown = rig()
             .with_cargo("hazardous", false, 20_000)

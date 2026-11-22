@@ -250,6 +250,34 @@ fn road_staging_moves_the_career_clock_to_the_staged_hour() {
     }
 }
 
+/// `board_load_to` puts a load for a named facility on the board: here the
+/// southbound trailer for a Laredo transfer yard, its Mexican consignee
+/// named on the board row.
+#[test]
+fn board_load_to_adds_a_southbound_yard_load_to_the_board() {
+    use ff_core::models::border_freight::southbound_consignee;
+    use freight_fate::states::city::open_freight_market;
+
+    let mut app = TestApp::new();
+    apply(
+        &mut app.ctx,
+        &scenario(json!({
+            "city": "San Antonio",
+            "level": 4,
+            "board_seed": 1,
+            "board_load_to": "SCI Cross Dock",
+        })),
+    )
+    .expect("the scenario applies");
+    let jobs = open_freight_market(&mut app.ctx);
+    let last = jobs.last().expect("a board");
+    assert_eq!(
+        last.destination_facility_id,
+        "laredo-tx-us:cross_dock:sci-cross-dock"
+    );
+    assert!(southbound_consignee(last).is_some(), "{last:?}");
+}
+
 /// `hos_cycle_min` puts a working week on the cycle ledger, so a drive can
 /// start near the 70-hour limit or out of it.
 #[test]

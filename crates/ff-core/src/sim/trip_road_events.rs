@@ -4,7 +4,7 @@
 //! conditions incidents.
 
 use crate::data::world_models::py_capitalize;
-use crate::pyfmt::{fmt_f, py_str_float};
+use crate::pyfmt::py_str_float;
 use crate::sim::hos::is_night;
 use crate::sim::trip::Trip;
 use crate::sim::trip_models::*;
@@ -172,7 +172,7 @@ impl Trip {
                     toll_charged(
                         &toll.method_label(),
                         &toll.name,
-                        &fmt_f(toll.amount, 0),
+                        &crate::speech_text::toll_amount_text(toll),
                         toll.estimated,
                     )
                 };
