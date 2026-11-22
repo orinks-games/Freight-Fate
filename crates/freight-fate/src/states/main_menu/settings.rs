@@ -80,7 +80,9 @@ impl Menu for SettingsState {
             .filter(|(_, key)| *key != "reports" || !cfg!(target_os = "android"))
             // AG Now updates the game itself, so the update channel and the
             // manual check have nothing to do there either.
-            .filter(|(_, key)| *key != "updates" || crate::updater::self_updates())
+            .filter(|(_, key)| {
+                *key != "updates" || (crate::updater::self_updates() && !crate::device::iphone())
+            })
             .map(|(label, key)| {
                 MenuItem::new(*label, move |s: &mut Self, ctx| s.open(ctx, key))
                     .help(format!("Open {} settings.", label.to_lowercase()))
@@ -561,7 +563,7 @@ impl Menu for SettingsCategoryState {
             let marker = if i == core.index { "> " } else { "  " };
             out.push(format!("{marker}{}", item.text(self, ctx)));
         }
-        if self.category == "reports" && !cfg!(target_os = "ios") {
+        if self.category == "reports" && !crate::device::iphone() {
             out.push(String::new());
             out.extend(self.log_location_lines());
         }

@@ -295,7 +295,7 @@ impl Menu for MainMenuState {
         );
         // A phone or tablet app is never quit from inside; the system
         // closes it.
-        if !cfg!(touch_screen) {
+        if !crate::device::phone() {
             items
                 .push(MenuItem::new("Quit", |_s: &mut Self, ctx| quit(ctx)).help("Exit the game."));
         }
@@ -303,7 +303,7 @@ impl Menu for MainMenuState {
     }
 
     fn go_back(&mut self, ctx: &mut GameContext) {
-        if cfg!(touch_screen) {
+        if crate::device::phone() {
             return;
         }
         ctx.audio.play("ui/menu_back");

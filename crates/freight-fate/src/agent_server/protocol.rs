@@ -97,6 +97,7 @@ fn scenario_properties() -> Value {
         "rested": {"type": "boolean"},
         "first_run": {"type": "boolean"},
         "touch_gestures": {"type": "boolean"},
+        "phone": {"type": "boolean", "description": "true plays this run as an iPhone with no hardware keyboard: the phone's menus, settings rows and help, and prompts that name gestures; false goes back to the desktop"},
         "fatigue": {"type": "number", "description": "0 to 100; 40 worn, 60 drowsy, 80 severe"},
         "hos_driving_min": {"type": "number"},
         "hos_duty_min": {"type": "number"},
@@ -281,7 +282,10 @@ fn tools_list() -> Value {
              no keys, since they are menu keys. A SPEECH line follows it \
              everywhere: main_backend (the saved Main voice choice, automatic \
              when none), main (the voice bound now) and event (the event \
-             voice bound now, or main voice when events share it).",
+             voice bound now, or main voice when events share it). An INPUT line \
+             ends it: phone (whether this run plays as a phone), device (keyboard, \
+             controller or touch: the input prompts name), last_used, and keyboard \
+             and controller (connected or none).",
             json!({}),
             &[],
         ),
@@ -351,7 +355,9 @@ fn tools_list() -> Value {
              safety band that decides who is pulled into the inspection lane), \
              rested (true takes a full sleep), first_run (true teaches the first-run \
              walkthrough on the next drive), touch_gestures (true opens the iPhone \
-             Touch gestures settings screen over the terminal), fatigue (0 to 100, set after rested; \
+             Touch gestures settings screen over the terminal), phone (true plays the \
+             run as an iPhone with no hardware keyboard, false as the desktop again; \
+             applied first), fatigue (0 to 100, set after rested; \
              the next drive starts in that band and gives its cue), hos_driving_min, hos_duty_min and \
              hos_since_break_min (sandbox HOS counters in game minutes), \
              co_driver_driving_min, co_driver_duty_min, co_driver_since_break_min and \

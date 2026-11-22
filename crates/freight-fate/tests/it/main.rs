@@ -41,6 +41,7 @@ mod app_language;
 mod app_main_channel_pacing;
 mod app_message_review;
 mod app_name_entry;
+mod app_phone_run;
 mod app_playtest_levers;
 mod app_smoke;
 mod app_speech_audio;
