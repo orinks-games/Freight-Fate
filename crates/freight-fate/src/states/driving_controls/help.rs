@@ -497,7 +497,8 @@ impl DrivingState {
              brake. Swipe down three times as deep for the emergency brake. Stopped, that \
              sets the parking brake, and gas releases it. ",
         );
-        text.push_str(if ctx.settings.lane_is_automated() {
+        let lane_full = ctx.settings.lane_is_automated();
+        text.push_str(if lane_full {
             "Flick left or right to change lanes. With lane keeping on full, flicks are the \
              only lane control. "
         } else {
@@ -518,7 +519,21 @@ impl DrivingState {
             ) else {
                 continue;
             };
-            if command != crate::bindings::TouchCommand::Nothing {
+            use crate::bindings::{Action, TouchCommand};
+            // An automatic picks its own gears, and with lane keeping on
+            // full the flicks above are the lane control, so neither has
+            // its second-finger rows read here.
+            let skip = match command {
+                TouchCommand::Nothing => true,
+                TouchCommand::Action(Action::ShiftUp | Action::ShiftDown) => {
+                    self.trip.truck.transmission.automatic
+                }
+                TouchCommand::Action(Action::SteerLeft | Action::SteerRight) => {
+                    lane_full && crate::bindings::touch_second_finger(gesture)
+                }
+                _ => false,
+            };
+            if !skip {
                 text.push_str(&format!("{name}: {}. ", command.label()));
             }
         }

@@ -283,72 +283,129 @@ pub fn touch_gesture_instruction(gesture: Gesture) -> Option<&'static str> {
     })
 }
 
+/// Where a touch name looks for a command first.
+#[derive(Clone, Copy, PartialEq, Eq)]
+enum Reach {
+    /// The plain gesture first: the fixed wheel gestures, then a one-finger
+    /// or multi-finger slot, then a second-finger slot.
+    Plain,
+    /// A pedal is held, so a second-finger slot comes before the rest.
+    PedalHeld,
+}
+
+/// Whether a slot gesture needs a pedal held.
+pub fn touch_second_finger(gesture: Gesture) -> bool {
+    matches!(
+        gesture,
+        Gesture::UpperHoldTap
+            | Gesture::UpperHoldDoubleTap
+            | Gesture::UpperHoldSwipeUp
+            | Gesture::UpperHoldSwipeDown
+            | Gesture::UpperHoldSwipeLeft
+            | Gesture::UpperHoldSwipeRight
+            | Gesture::LowerHoldTap
+            | Gesture::LowerHoldDoubleTap
+            | Gesture::LowerHoldSwipeUp
+            | Gesture::LowerHoldSwipeDown
+            | Gesture::LowerHoldSwipeLeft
+            | Gesture::LowerHoldSwipeRight
+    )
+}
+
+/// The fixed wheel gesture for `action`, as `(instruction, noun)`.
+/// `cruise_flick` is whether flick up still holds Raise the cruise target,
+/// which is what turns cruise on from off.
+fn fixed_gesture(action: Action, cruise_flick: bool) -> Option<(&'static str, &'static str)> {
+    Some(match action {
+        Action::Engine => ("Turn two fingers right", "a two-finger turn to the right"),
+        Action::Accelerate => ("Swipe up and hold", "a swipe up and hold"),
+        Action::Brake => ("Swipe down and hold", "a swipe down and hold"),
+        Action::EmergencyBrake => ("Swipe down deep and hold", "a deep swipe down"),
+        Action::Horn => ("Hold two fingers", "a two-finger hold"),
+        Action::SteerLeft => ("Flick left", "a flick left"),
+        Action::SteerRight => ("Flick right", "a flick right"),
+        Action::Straighten => (
+            "Hold one finger still for half a second",
+            "a still hold for half a second",
+        ),
+        Action::TakeExit => ("Double tap", "a double tap"),
+        Action::Status => (
+            "Tap with three fingers, then double tap",
+            "a three-finger tap then a double tap",
+        ),
+        Action::Cruise | Action::CruiseResume if cruise_flick => ("Flick up", "a flick up"),
+        _ => return None,
+    })
+}
+
 impl KeyBindings {
+    /// The slot gesture that runs `action`, searched in `reach` order.
+    fn slot_for(&self, action: Action, reach: Reach) -> Option<Gesture> {
+        let on =
+            |gesture: &Gesture| self.touch_command(*gesture) == Some(TouchCommand::Action(action));
+        let slots = || SLOTS.iter().map(|(gesture, ..)| *gesture);
+        let plain = slots().find(|g| !touch_second_finger(*g) && on(g));
+        let held = slots().find(|g| touch_second_finger(*g) && on(g));
+        match reach {
+            Reach::Plain => plain.or(held),
+            Reach::PedalHeld => held.or(plain),
+        }
+    }
+
+    fn cruise_flick(&self) -> bool {
+        self.touch_command(Gesture::SwipeUp) == Some(TouchCommand::Action(Action::CruiseUp))
+    }
+
+    fn instruction_in(&self, action: Action, reach: Reach) -> Option<&'static str> {
+        let fixed = fixed_gesture(action, self.cruise_flick()).map(|(instruction, _)| instruction);
+        let slot = || {
+            self.slot_for(action, reach)
+                .and_then(touch_gesture_instruction)
+        };
+        match reach {
+            Reach::Plain => fixed.or_else(slot),
+            Reach::PedalHeld => slot().or(fixed),
+        }
+    }
+
+    fn noun_in(&self, action: Action, reach: Reach) -> Option<String> {
+        let fixed = fixed_gesture(action, self.cruise_flick()).map(|(_, noun)| noun.to_string());
+        let slot = || self.slot_for(action, reach).and_then(touch_gesture_noun);
+        match reach {
+            Reach::Plain => fixed.or_else(slot),
+            Reach::PedalHeld => slot().or(fixed),
+        }
+    }
+
     /// How a touch player runs `action`, as an instruction that opens a
-    /// sentence: the first slot gesture it is on, else its fixed gesture;
-    /// `None` when only the driving command list has it.
+    /// sentence. The plain gesture comes first: the fixed wheel gesture
+    /// (flick left or right for a lane, flick up for cruise on, the pedals),
+    /// then a one-finger slot, then a second-finger slot. `None` when only
+    /// the driving command list has it.
     pub fn touch_instruction(&self, action: Action) -> Option<&'static str> {
-        if action == Action::Engine {
-            return Some("Turn two fingers right");
-        }
-        let on_gesture = SLOTS
-            .iter()
-            .map(|(gesture, ..)| *gesture)
-            .find(|gesture| self.touch_command(*gesture) == Some(TouchCommand::Action(action)))
-            .and_then(touch_gesture_instruction);
-        if on_gesture.is_some() {
-            return on_gesture;
-        }
-        Some(match action {
-            Action::Accelerate => "Swipe up and hold",
-            Action::Brake => "Swipe down and hold",
-            Action::EmergencyBrake => "Swipe down deep and hold",
-            Action::Horn => "Hold two fingers",
-            Action::SteerLeft => "Flick left",
-            Action::SteerRight => "Flick right",
-            Action::TakeExit => "Double tap",
-            Action::Status => "Tap with three fingers, then double tap",
-            _ => return None,
-        })
+        self.instruction_in(action, Reach::Plain)
+    }
+
+    /// [`Self::touch_instruction`] for a sentence about a held pedal: a
+    /// second-finger slot comes first ("Cruise paused. Hold gas and tap
+    /// with a second finger to cancel it.").
+    pub fn touch_instruction_while_pedal(&self, action: Action) -> Option<&'static str> {
+        self.instruction_in(action, Reach::PedalHeld)
     }
 
     /// How a touch player runs `action`, as a noun for a spoken prompt:
-    /// the first gesture it is on, else the fixed pedal and steering
-    /// gestures, else its row on the driving command list.
+    /// the gesture [`Self::touch_gesture_for`] names, else its row on the
+    /// driving command list.
     pub fn touch_noun(&self, action: Action) -> String {
         self.touch_gesture_for(action)
             .unwrap_or_else(|| format!("{} from the three-finger tap list", action.label()))
     }
 
-    /// The gesture that runs `action` at the wheel, as a noun; `None` when
-    /// only the driving command list has it.
+    /// The gesture that runs `action` at the wheel, as a noun, in the same
+    /// order as [`Self::touch_instruction`]; `None` when only the driving
+    /// command list has it.
     pub fn touch_gesture_for(&self, action: Action) -> Option<String> {
-        if action == Action::Engine {
-            return Some("a two-finger turn to the right".to_string());
-        }
-        let on_gesture = SLOTS
-            .iter()
-            .map(|(gesture, ..)| *gesture)
-            .find(|gesture| self.touch_command(*gesture) == Some(TouchCommand::Action(action)))
-            .and_then(touch_gesture_noun);
-        if on_gesture.is_some() {
-            return on_gesture;
-        }
-        Some(
-            match action {
-                Action::Accelerate => "a swipe up and hold",
-                Action::Brake => "a swipe down and hold",
-                Action::EmergencyBrake => "a deep swipe down",
-                Action::Horn => "a two-finger hold",
-                Action::SteerLeft => "a flick left",
-                Action::SteerRight => "a flick right",
-                Action::Straighten => "a still hold for half a second",
-                Action::TakeExit => "a double tap",
-                Action::Status => "a three-finger tap then a double tap",
-                _ => return None,
-            }
-            .to_string(),
-        )
+        self.noun_in(action, Reach::Plain)
     }
 
     /// The touch phrase for a `control_hint` action id; `None` leaves the
@@ -430,11 +487,74 @@ mod tests {
             b.touch_noun(Action::Rest),
             "Rest stop from the three-finger tap list"
         );
+        // A command with a fixed gesture keeps naming it when a slot holds
+        // it too; a list command names the slot it was moved to.
         b.set_touch_command(Gesture::UpperHoldDoubleTap, run(Action::TakeExit));
         assert_eq!(
             b.hint_touch_phrase("take_exit").as_deref(),
+            Some("a double tap")
+        );
+        b.set_touch_command(Gesture::UpperHoldDoubleTap, run(Action::Rest));
+        assert_eq!(
+            b.hint_touch_phrase("rest").as_deref(),
             Some("a second-finger double tap while holding gas")
         );
+    }
+
+    /// A phone player changes lanes with a plain flick and turns cruise on
+    /// with a flick up, so those are named before the second-finger slots.
+    #[test]
+    fn the_plain_gesture_is_named_first() {
+        let mut b = KeyBindings::default();
+        for (action, instruction, noun) in [
+            (Action::SteerLeft, "Flick left", "a flick left"),
+            (Action::SteerRight, "Flick right", "a flick right"),
+            (Action::Cruise, "Flick up", "a flick up"),
+            (Action::CruiseUp, "Flick up", "a flick up"),
+            (Action::CruiseDown, "Flick down", "a flick down"),
+        ] {
+            assert_eq!(b.touch_instruction(action), Some(instruction), "{action:?}");
+            assert_eq!(
+                b.touch_gesture_for(action).as_deref(),
+                Some(noun),
+                "{action:?}"
+            );
+            assert_eq!(b.touch_noun(action), noun, "{action:?}");
+        }
+        assert_eq!(
+            b.hint_touch_phrase("cruise_set").as_deref(),
+            Some("a flick up")
+        );
+        // A sentence about a held pedal names the second-finger slot.
+        assert_eq!(
+            b.touch_instruction_while_pedal(Action::Cruise),
+            Some("Hold gas and tap with a second finger")
+        );
+        assert_eq!(
+            b.touch_instruction_while_pedal(Action::SteerLeft),
+            Some("Hold gas and flick left with a second finger")
+        );
+        // A command only the list has is named by its row, everywhere.
+        assert_eq!(b.touch_instruction(Action::SpeedLimit), None);
+        assert_eq!(b.touch_gesture_for(Action::SpeedLimit), None);
+        assert_eq!(
+            b.touch_noun(Action::SpeedLimit),
+            "Posted speed limit from the three-finger tap list"
+        );
+        assert_eq!(
+            b.hint_touch_phrase("engine_brake").as_deref(),
+            Some("Engine brake from the three-finger tap list")
+        );
+        // Flick up moved elsewhere: cruise is the second-finger tap again.
+        b.set_touch_command(Gesture::SwipeUp, run(Action::Fuel));
+        assert_eq!(
+            b.touch_instruction(Action::Cruise),
+            Some("Hold gas and tap with a second finger")
+        );
+        assert_eq!(b.touch_instruction(Action::Fuel), Some("Flick up"));
+        // A one-finger slot comes before a second-finger one.
+        b.set_touch_command(Gesture::Tap, run(Action::Cruise));
+        assert_eq!(b.touch_instruction(Action::Cruise), Some("Tap"));
     }
 
     #[test]
