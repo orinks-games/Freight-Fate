@@ -5243,7 +5243,7 @@ msgstr ""
 msgid "Contents"
 msgstr ""
 
-#: crates/ff-core/src/data/data_resources.rs crates/ff-core/src/data/grades.rs crates/ff-core/src/models/carriers.rs crates/ff-core/src/sim/hos.rs
+#: crates/ff-core/src/data/data_resources.rs crates/ff-core/src/data/grades.rs crates/ff-core/src/models/carriers.rs crates/ff-core/src/models/jobs/cross_border.rs
 msgid "us"
 msgstr ""
 
@@ -10769,7 +10769,7 @@ msgstr ""
 msgid "British Columbia"
 msgstr ""
 
-#: crates/ff-core/src/models/economy.rs
+#: crates/ff-core/src/models/economy.rs crates/ff-core/src/sim/timezones.rs
 msgid "Yukon"
 msgstr ""
 

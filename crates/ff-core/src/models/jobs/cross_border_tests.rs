@@ -159,7 +159,13 @@ fn the_western_crossings_carry_loads_both_ways() {
         western > 0,
         "no prairie load from Great Falls or Minot in 40 seeds"
     );
-    for city in ["calgary_ab_ca", "regina_sk_ca", "winnipeg_mb_ca"] {
+    for city in [
+        "calgary_ab_ca",
+        "regina_sk_ca",
+        "winnipeg_mb_ca",
+        "toronto_on_ca",
+        "montreal_qc_ca",
+    ] {
         let mut seen = 0;
         for seed in 0..20 {
             for job in board_at(city, seed, 8, "northstar") {
@@ -197,6 +203,11 @@ fn cross_border_probe() {
         ("vancouver_bc_ca", "northstar"),
         ("calgary_ab_ca", "northstar"),
         ("winnipeg_mb_ca", "northstar"),
+        ("detroit_mi_us", "olentangy_valley"),
+        ("buffalo_ny_us", "northstar"),
+        ("plattsburgh_ny_us", "sebasticook_freight"),
+        ("toronto_on_ca", "northstar"),
+        ("montreal_qc_ca", "northstar"),
     ];
     let world = get_world();
     let mut dest: std::collections::BTreeMap<String, usize> = Default::default();
