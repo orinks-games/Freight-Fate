@@ -1185,6 +1185,30 @@
     "Veteran Independent Operator",
     "Freight Fate Independent"
   ],
+  "cargoLabels": {
+    "automotive": "automotive parts",
+    "bulk": "bulk materials",
+    "chemicals": "packaged industrial chemicals",
+    "construction": "construction materials",
+    "container": "shipping containers",
+    "electronics": "electronics",
+    "farm_inputs": "farm inputs",
+    "food": "fresh food",
+    "fuel_bulk": "bulk fuel",
+    "general": "general freight",
+    "grain": "grain",
+    "hazardous": "placarded hazardous materials",
+    "liquid_food": "liquid food products",
+    "lumber_paper": "lumber and paper products",
+    "machinery": "heavy machinery",
+    "parcel": "parcel freight",
+    "parcel_doubles": "twin-trailer parcel freight",
+    "port_container": "port containers",
+    "refrigerated": "refrigerated goods",
+    "retail": "retail goods",
+    "steel": "steel products",
+    "turnpike_doubles": "turnpike doubles freight"
+  },
   "carrierLabels": {
     "great_lakes_training": "Great Lakes Training Transport",
     "northstar": "Northstar Freight Lines",
@@ -2212,6 +2236,28 @@
     "reinforced_brakes": [
       6500
     ]
+  },
+  "weatherKeys": [
+    "clear",
+    "cloudy",
+    "fog",
+    "heavy_rain",
+    "ice",
+    "rain",
+    "snow",
+    "thunderstorm",
+    "wind"
+  ],
+  "weatherLabels": {
+    "clear": "clear",
+    "cloudy": "cloudy",
+    "fog": "fog",
+    "heavy_rain": "heavy rain",
+    "ice": "freezing rain",
+    "rain": "rain",
+    "snow": "snow",
+    "thunderstorm": "thunderstorm",
+    "wind": "high winds"
   },
   "xpFlatPerDelivery": 250.12499999999997,
   "xpPerMileMax": 4.002
