@@ -608,10 +608,9 @@ pub fn parse_state_crossing(
     if from_state.is_empty() {
         from_state = default_from_state.to_string();
     }
-    let mut place = get_str(raw, "place");
-    if place.is_empty() {
-        place = "state line".to_string();
-    }
+    // An empty place is a line with no cited name: the call is the short
+    // "Crossing into {state}." form.
+    let place = get_str(raw, "place");
     Ok(StateCrossing {
         at_mi,
         from_state,
@@ -869,8 +868,11 @@ pub fn parse_interchange(
             "{from_city} to {to_city} {label} has unknown ramp_far_end"
         )));
     }
-    let ramp_advisory_mph_forward = parse_advisory_field(raw, "ramp_advisory_forward");
-    let ramp_advisory_mph_backward = parse_advisory_field(raw, "ramp_advisory_backward");
+    // Canada signs advisories in km/h, so a whole km/h step converted is the
+    // sign there, not the US bare-number misread the screen corrects.
+    let metric = [from_city, to_city].iter().any(|c| c.ends_with("_ca"));
+    let ramp_advisory_mph_forward = parse_advisory_field(raw, "ramp_advisory_forward", metric);
+    let ramp_advisory_mph_backward = parse_advisory_field(raw, "ramp_advisory_backward", metric);
     let ramp_advisory_source = get_str(raw, "ramp_advisory_source");
     if (ramp_advisory_mph_forward.is_some() || ramp_advisory_mph_backward.is_some())
         && ramp_advisory_source.is_empty()
@@ -972,13 +974,21 @@ pub fn ramp_advisory_from_osm_tags(
         .find_map(|key| tags.get(key)?.as_str().and_then(parse_osm_advisory_speed))
 }
 
-fn parse_advisory_field(raw: &Map<String, Value>, key: &str) -> Option<f64> {
+/// A stored ramp advisory in mph. `metric` is a leg with a Canadian end
+/// (a city slug ending `_ca`), where the bare-km/h screen does not apply.
+fn parse_advisory_field(raw: &Map<String, Value>, key: &str, metric: bool) -> Option<f64> {
     raw.get(key).and_then(|value| match value {
         Value::String(text) => parse_osm_advisory_speed(text),
         Value::Number(number) => number
             .as_f64()
             .filter(|speed| speed.is_finite() && (5.0..=100.0).contains(speed))
-            .map(super::advisory::screen_bare_kmh_advisory),
+            .map(|mph| {
+                if metric {
+                    mph
+                } else {
+                    super::advisory::screen_bare_kmh_advisory(mph)
+                }
+            }),
         _ => None,
     })
 }

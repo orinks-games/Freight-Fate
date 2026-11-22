@@ -5617,6 +5617,9 @@ msgstr "fuel center"
 msgid "welcome center"
 msgstr "welcome center"
 
+msgid "cardlock"
+msgstr ""
+
 msgid "village"
 msgstr "köy"
 
@@ -14540,11 +14543,6 @@ msgstr "{reason} bölgesi bitti."
 msgid "End of {reason} zone. Speed limit {speed_value}."
 msgstr "{reason} bölgesi bitti. Hız sınırı {speed_value}."
 
-#. placeholders: {name}
-#. one sentence of a longer line
-msgid "Crossing into {name}."
-msgstr "{name} sınırını geçiyorsunuz."
-
 #. placeholders: {name}, {clock_text}
 msgid "Crossing into {name}. It is now {clock_text}."
 msgstr "{name} sınırını geçiyorsunuz. Saat şimdi {clock_text}."
@@ -14753,6 +14751,14 @@ msgstr "manevra"
 #. placeholders: {shield}
 msgid "keep right for {shield}"
 msgstr "{shield} için sağda kalın"
+
+#. placeholders: {from_state}, {into_state}
+msgid "crossing from {from_state} into {into_state}"
+msgstr ""
+
+#. placeholders: {name}
+msgid "Crossing into {name}."
+msgstr "{name} sınırını geçiyorsunuz."
 
 #. placeholders: {from_state}, {into_state}, {place}
 msgid "crossing from {from_state} into {into_state} near {place}"

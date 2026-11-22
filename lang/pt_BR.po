@@ -5768,6 +5768,9 @@ msgstr "centro de abastecimento"
 msgid "welcome center"
 msgstr "centro de boas-vindas"
 
+msgid "cardlock"
+msgstr ""
+
 msgid "village"
 msgstr "vila"
 
@@ -14852,11 +14855,6 @@ msgstr "Fim da zona de {reason}."
 msgid "End of {reason} zone. Speed limit {speed_value}."
 msgstr "Fim da zona de {reason}. Limite de velocidade de {speed_value}."
 
-#. placeholders: {name}
-#. one sentence of a longer line
-msgid "Crossing into {name}."
-msgstr "Entrando em {name}."
-
 #. placeholders: {name}, {clock_text}
 msgid "Crossing into {name}. It is now {clock_text}."
 msgstr "Entrando em {name}. Agora são {clock_text}."
@@ -15066,6 +15064,14 @@ msgstr "manobra"
 #. placeholders: {shield}
 msgid "keep right for {shield}"
 msgstr "mantenha a direita para a {shield}"
+
+#. placeholders: {from_state}, {into_state}
+msgid "crossing from {from_state} into {into_state}"
+msgstr ""
+
+#. placeholders: {name}
+msgid "Crossing into {name}."
+msgstr "Entrando em {name}."
 
 #. placeholders: {from_state}, {into_state}, {place}
 msgid "crossing from {from_state} into {into_state} near {place}"

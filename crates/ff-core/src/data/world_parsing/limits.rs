@@ -16,6 +16,7 @@ use crate::data::world_constants::{
 };
 use crate::data::world_models::{DataError, SpeedLimitSample};
 use crate::pyfmt::py_str_float;
+use crate::units::MILES_TO_KM;
 
 pub fn parse_speed_limit(
     raw: &Value,
@@ -40,6 +41,14 @@ pub fn parse_speed_limit(
             }
             Some(mph)
         }
+    };
+    // A km/h sign keeps its own number (`kmh`, as read); the stored `mph` is
+    // that number rounded to 5 for readers that want one. The game drives
+    // the sign: 100 km/h is 62.14 mph here, which speaks as 100 in metric
+    // and 62 in imperial, and is the limit cruise and tickets hold to.
+    let mph = match (mph, raw.get("kmh").and_then(Value::as_f64)) {
+        (Some(_), Some(kmh)) if (10.0..=140.0).contains(&kmh) => Some(kmh / MILES_TO_KM),
+        (mph, _) => mph,
     };
     Ok(SpeedLimitSample {
         at_mi,
@@ -214,10 +223,13 @@ pub fn fold_limit_artifacts(
     while i < kept.len() {
         let sample = &kept[i];
         if let (Some(before), Some(after)) = (out.last(), kept.get(i + 1)) {
+            // A flagged row stores the posting's mph rounded to 5; a km/h
+            // sign is driven at its own conversion (100 is 62.14), so the two
+            // name the same posting within half a step.
             let named = sample.mph.is_some_and(|mph| {
                 flagged
                     .iter()
-                    .any(|f| f.mph == mph && (f.at_mi - sample.at_mi).abs() < 0.005)
+                    .any(|f| (f.mph - mph).abs() < 2.5 && (f.at_mi - sample.at_mi).abs() < 0.005)
             });
             let returns = before.mph.is_some()
                 && before.mph == after.mph
@@ -250,6 +262,26 @@ mod tests {
             source: String::new(),
             hgv: false,
         }
+    }
+
+    #[test]
+    fn a_kmh_sign_is_driven_at_its_own_number() {
+        let raw = serde_json::json!({"at_mi": 1.0, "mph": 60, "kmh": 100, "source": "read"});
+        let mph = parse_speed_limit(&raw, 10.0, "a", "b")
+            .unwrap()
+            .mph
+            .unwrap();
+        assert!((mph * MILES_TO_KM - 100.0).abs() < 1e-9, "{mph}");
+        assert_eq!(mph.round(), 62.0);
+        // A posting with no sign number keeps its mph.
+        let raw = serde_json::json!({"at_mi": 1.0, "mph": 55, "source": "read"});
+        assert_eq!(
+            parse_speed_limit(&raw, 10.0, "a", "b").unwrap().mph,
+            Some(55.0)
+        );
+        // A gap stays a gap.
+        let raw = serde_json::json!({"at_mi": 1.0, "mph": null, "kmh": 100});
+        assert_eq!(parse_speed_limit(&raw, 10.0, "a", "b").unwrap().mph, None);
     }
 
     #[test]
