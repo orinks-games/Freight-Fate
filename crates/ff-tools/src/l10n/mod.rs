@@ -3,6 +3,8 @@
 //! line must pass.
 
 pub mod check;
+#[cfg(feature = "world")]
+pub mod diff;
 pub mod extract;
 mod po;
 mod rust_strings;

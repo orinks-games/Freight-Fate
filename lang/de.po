@@ -6828,8 +6828,9 @@ msgstr "Kühlhaus {city}"
 msgid "{city} Company Yard"
 msgstr "Firmenhof {city}"
 
+# leave empty: real truck stops are named this way (Pilot Travel Center), and the frame speaks the brand as a city
 msgid "{city} Travel Center"
-msgstr "{city} Rasthof"
+msgstr ""
 
 msgid "{city} Truck Parking"
 msgstr "{city} Lkw-Parkplatz"
@@ -7286,6 +7287,7 @@ msgstr "Ladung: {spoken}."
 msgid "This load is {spoken}. {reason}"
 msgstr "Ladung: {spoken}. {reason}"
 
+# leave empty: a map data error message, never spoken; it took "A deer crossing the road" apart
 #. placeholders: {context}, {what}
 msgid "{context} crossing {what}"
 msgstr ""
@@ -9525,9 +9527,10 @@ msgstr "lokal"
 msgid "national"
 msgstr "landesweit"
 
+# leave empty: two holes side by side; the split between them falls inside the carrier name
 #. placeholders: {name}, {name2}
 msgid "{name} {name2} terminal"
-msgstr "{name} {name2} Terminal"
+msgstr ""
 
 msgid "inert"
 msgstr ""
@@ -14031,9 +14034,10 @@ msgstr "dein kanadischer 80-Stunden-Zyklus ist aufgebraucht"
 msgid "Hours of service: {cycle_text}."
 msgstr "Lenk- und Ruhezeiten: {cycle_text}."
 
+# leave empty: a frame around whole sentences; "Hours of service: ... left in the duty window." translates whole without it, and the frame left "hours of" English
 #. placeholders: {cycle_text}, {advice}
 msgid "Hours of service: {cycle_text}. {advice}"
-msgstr "Lenk- und Ruhezeiten: {cycle_text}. {advice}"
+msgstr ""
 
 #. one sentence of a longer line
 msgid "Hours of service: past your limit."
@@ -14100,9 +14104,10 @@ msgstr ""
 " Zyklus: {duration_text} von {duration_text2} verbraucht, noch "
 "{duration_text3}."
 
+# leave empty: a frame around whole sentences; the ELD status and hours sentences translate whole without it, and the frame left "ELD:" in front
 #. placeholders: {lead}, {status}, {cycle_clause}, {suffix}
 msgid "{lead} ELD status {status}.{cycle_clause}{suffix}"
-msgstr "{lead} ELD-Status: {status}.{cycle_clause}{suffix}"
+msgstr ""
 
 #. placeholders: {duration_text}
 msgid "Driving left: {duration_text}."
@@ -21874,9 +21879,10 @@ msgstr ""
 "{no_truck_location_line} Keine Spedition und kein Lkw, bis dir eine "
 "Spedition einen zuweist. {grouped} Dollar.{cdl}{record}"
 
+# leave empty: a frame around whole sentences; the sentences translate whole without it, and it left "Pays" English
 #. placeholders: {upper_first}, {grouped}, {cdl}, {record}
 msgid "{upper_first}. {grouped} dollars.{cdl}{record}"
-msgstr "{upper_first}. {grouped} Dollar.{cdl}{record}"
+msgstr ""
 
 #. placeholders: {city_name}, {grouped}, {cdl}, {record}
 msgid "{city_name}. {grouped} dollars.{cdl}{record}"
@@ -24011,9 +24017,10 @@ msgstr "Beladung an der Rampe"
 msgid "At a pickup facility"
 msgstr "An einem Abholort"
 
+# leave empty: two open holes around "for"; it matches any line with "for" in it and leaves half of it English
 #. placeholders: {cargo_label}, {destination}
 msgid "{cargo_label} for {destination}"
-msgstr "{cargo_label} für {destination}"
+msgstr ""
 
 #. placeholders: {destination}
 msgid "Loaded and sealed for {destination}."
@@ -31288,8 +31295,7 @@ msgstr "{behaviour} Ein Schwappzyklus dauert etwa {period_s} Sekunden."
 msgid "1 down in the rear compartment. You got it back on its feet."
 msgstr ""
 "1 Rind lag im hinteren Abteil am Boden. Du hast es wieder auf die Beine "
-"gebracht.Ein Rind lag im hinteren Abteil am Boden. Du hast es wieder auf "
-"die Beine gebracht."
+"gebracht."
 
 msgid "All standing."
 msgstr "Alle stehen."
@@ -31366,9 +31372,10 @@ msgstr "Noch {hours_text} bis zur 28-Stunden-Grenze."
 msgid "past the 28-hour limit"
 msgstr "über der 28-Stunden-Grenze"
 
+# leave empty: one hole before "left"; it takes "Sharp left" and "Driving left" and the hours lines apart
 #. placeholders: {hours_text}
 msgid "{hours_text} left"
-msgstr "noch {hours_text}"
+msgstr ""
 
 #. placeholders: {aboard_text}, {limit}
 #. one sentence of a longer line
@@ -32868,10 +32875,11 @@ msgstr "Verbraucht ein Reparaturglied."
 msgid "Uses a spare repair link. {chain_repair_links} left."
 msgstr "Verbraucht ein Reparaturglied. Noch {chain_repair_links} übrig."
 
+# leave empty: one hole before "left"; it took every left curve call ("Sharp left, half a mile.") and dropped the direction
 #. placeholders: {chain_repair_links}
 #. one sentence of a longer line
 msgid "{chain_repair_links} left."
-msgstr "Noch {chain_repair_links} übrig."
+msgstr ""
 
 #. placeholders: {f}
 msgid "Remove snow chains: about {f} minutes"

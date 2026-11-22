@@ -493,3 +493,34 @@ fn every_shipped_language_says_the_whole_resume_line() {
         }
     }
 }
+
+#[test]
+fn shipped_catalogs_keep_loose_frames_off_whole_lines() {
+    // Loose frames like "{chain_repair_links} left." and "{city} Travel
+    // Center" once took lines they were never written for: a left curve call
+    // said "Sharp remaining" with no direction, a brand stop became a city,
+    // and a carrier name was cut in two. Those entries are marked "leave
+    // empty" in every language; these lines pin what they broke.
+    for (code, tr) in shipped_catalogs() {
+        let curve = tr.translate("Sharp left, half a mile. Advise 35 miles per hour.");
+        assert!(
+            curve.starts_with("Sharp left, half a mile."),
+            "{code} lost the curve direction: {curve}"
+        );
+        let start = tr.translate("Truck starts at Northstar Freight Lines Chicago terminal.");
+        assert!(
+            start.contains("Northstar Freight Lines Chicago terminal"),
+            "{code} cut the terminal name apart: {start}"
+        );
+        let fuel = tr.translate("Fuel low: 15 percent. Next fuel: Pilot Travel Center, 23 miles.");
+        assert!(
+            fuel.contains("Pilot Travel Center"),
+            "{code} renamed the truck stop: {fuel}"
+        );
+        let deer = tr.translate("Brake now! A deer crossing the road.");
+        assert!(
+            !deer.contains("A deer"),
+            "{code} left the hazard half English: {deer}"
+        );
+    }
+}
