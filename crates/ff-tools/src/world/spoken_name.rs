@@ -1,6 +1,7 @@
 //! The name a layer speaks for an OpenStreetMap element.
 //!
-//! A spoken name uses `name:en` when the element has one. Otherwise it is
+//! A spoken name is `name` as signed when a voice can read all of it. When it
+//! holds other script, `name:en` is used where the element has one, else
 //! `name` with every run of characters outside the Latin script taken out,
 //! so "ᐸᐢᒁᐤ Pasqua First Nation" is said as "Pasqua First Nation". Accented
 //! letters are Latin and stay ("Québec", "Thérèse"). When nothing readable is
@@ -53,15 +54,22 @@ pub fn latin_only(raw: &str) -> String {
     }
 }
 
-/// The spoken name from an element's `name` and `name:en` tags.
+/// The spoken name from an element's `name` and `name:en` tags: `name` as
+/// signed when a voice can read all of it, so Quebec stays "Montréal" and
+/// "Québec" (by ruling, 2026-11-22); `name:en` only when `name` holds script
+/// a voice cannot read; else the readable part of `name`.
 pub fn spoken_name(name: &str, name_en: Option<&str>) -> String {
+    let name = name.trim();
+    if name.chars().all(is_readable) {
+        return name.to_string();
+    }
     if let Some(en) = name_en.map(str::trim).filter(|n| !n.is_empty()) {
         let en = latin_only(en);
         if !en.is_empty() {
             return en;
         }
     }
-    latin_only(name.trim())
+    latin_only(name)
 }
 
 #[cfg(test)]
@@ -105,9 +113,15 @@ mod tests {
     }
 
     #[test]
-    fn the_english_name_wins_when_there_is_one() {
+    fn the_english_name_stands_in_for_unreadable_script() {
         assert_eq!(spoken_name("ᒪᐢᑿᒌᐢ", Some("Maskwacis")), "Maskwacis");
         assert_eq!(spoken_name("Maskwacis", Some("  ")), "Maskwacis");
         assert_eq!(spoken_name("ᒪᐢᑿᒌᐢ Maskwacis", None), "Maskwacis");
+    }
+
+    #[test]
+    fn a_readable_name_is_kept_as_signed_over_its_english_one() {
+        assert_eq!(spoken_name("Montréal", Some("Montreal")), "Montréal");
+        assert_eq!(spoken_name("Québec", Some("Quebec City")), "Québec");
     }
 }

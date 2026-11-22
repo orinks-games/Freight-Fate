@@ -5950,9 +5950,10 @@ a carrier slice (owner, 2026-10-26).
       (a run of the West list without `--only` was dropping US
       Petro-Canada stops and others).
 - [x] Spoken names keep only what a voice can read (2026-11-22): a name
-      uses `name:en` when OpenStreetMap has one, else `name` with any run
-      of non-Latin script taken out (accents stay), and a name with
-      nothing left is not spoken. Landmarks, villages, exits and stop lists
+      is spoken as signed when all of it is readable (Quebec stays in
+      French); otherwise `name:en` where OpenStreetMap has one, else `name`
+      with any run of non-Latin script taken out, and a name with nothing
+      left is not spoken. Landmarks, villages, exits and stop lists
       follow it (`world/spoken_name.rs` in `ff-tools`); 11 stored names
       changed (Cree syllabics in Alberta, Saskatchewan and Manitoba, the
       IPA glottal stop in "ʔEsdilagh", a box-drawing dash in one North
