@@ -14637,6 +14637,9 @@ msgstr "lối ra có biển báo"
 msgid "scale reminder"
 msgstr "nhắc trạm cân"
 
+msgid "border booth"
+msgstr ""
+
 msgid "miles per hour"
 msgstr "dặm/giờ"
 
@@ -24186,20 +24189,12 @@ msgstr ""
 msgid "Customs booth in half a mile. Stop at the booth."
 msgstr ""
 
-msgid ", which your carrier pays"
-msgstr ", do hãng vận tải của bạn trả"
-
-#. one clause of a longer line
-msgid "which your carrier pays"
-msgstr "do hãng vận tải của bạn trả"
-
-#. placeholders: {name}, {agency}, {penalty}, {payer}
+#. placeholders: {name}, {agency}, {penalty}
 msgid ""
 "At {name}, {agency} stopped the truck for running the customs booth: "
-"{penalty}{payer}."
+"{penalty}."
 msgstr ""
-"Tại {name}, {agency} đã chặn xe tải vì chạy qua trạm hải quan: "
-"{penalty}{payer}."
+"Tại {name}, {agency} đã chặn xe tải vì chạy qua trạm hải quan: {penalty}."
 
 #. placeholders: {border_chase_line}, {control_hint}
 msgid ""
@@ -45802,6 +45797,19 @@ msgid ""
 msgstr ""
 "Giữ nút vai trái để mở lớp nút thứ hai. {pad_engine} bật tắt động cơ, "
 "{pad_fuel} đọc nhiên liệu và {pad_speed_limit} đọc tốc độ giới hạn."
+
+#~ msgid ", which your carrier pays"
+#~ msgstr ", do hãng vận tải của bạn trả"
+
+#~ msgid "which your carrier pays"
+#~ msgstr "do hãng vận tải của bạn trả"
+
+#~ msgid ""
+#~ "At {name}, {agency} stopped the truck for running the customs booth: "
+#~ "{penalty}{payer}."
+#~ msgstr ""
+#~ "Tại {name}, {agency} đã chặn xe tải vì chạy qua trạm hải quan: "
+#~ "{penalty}{payer}."
 
 #~ msgid "{name} Company Yard"
 #~ msgstr "Bãi xe công ty {name}"

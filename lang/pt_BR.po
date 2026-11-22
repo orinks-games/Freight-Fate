@@ -14510,6 +14510,9 @@ msgstr "saída sinalizada"
 msgid "scale reminder"
 msgstr "lembrete da balança"
 
+msgid "border booth"
+msgstr ""
+
 msgid "miles per hour"
 msgstr "milhas por hora"
 
@@ -24128,20 +24131,13 @@ msgstr ""
 msgid "Customs booth in half a mile. Stop at the booth."
 msgstr ""
 
-msgid ", which your carrier pays"
-msgstr ", paga pela sua transportadora"
-
-#. one clause of a longer line
-msgid "which your carrier pays"
-msgstr "paga pela sua transportadora"
-
-#. placeholders: {name}, {agency}, {penalty}, {payer}
+#. placeholders: {name}, {agency}, {penalty}
 msgid ""
 "At {name}, {agency} stopped the truck for running the customs booth: "
-"{penalty}{payer}."
+"{penalty}."
 msgstr ""
 "Em {name}, {agency} parou o caminhão por furar a cabine da alfândega: "
-"{penalty}{payer}."
+"{penalty}."
 
 #. placeholders: {border_chase_line}, {control_hint}
 msgid ""
@@ -45902,6 +45898,19 @@ msgstr ""
 "Segure o left bumper para uma segunda camada de botões. {pad_engine} "
 "controla o motor, {pad_fuel} lê o combustível e {pad_speed_limit} lê o "
 "limite."
+
+#~ msgid ", which your carrier pays"
+#~ msgstr ", paga pela sua transportadora"
+
+#~ msgid "which your carrier pays"
+#~ msgstr "paga pela sua transportadora"
+
+#~ msgid ""
+#~ "At {name}, {agency} stopped the truck for running the customs booth: "
+#~ "{penalty}{payer}."
+#~ msgstr ""
+#~ "Em {name}, {agency} parou o caminhão por furar a cabine da alfândega: "
+#~ "{penalty}{payer}."
 
 #~ msgid "{name} Company Yard"
 #~ msgstr "Pátio da empresa {name}"

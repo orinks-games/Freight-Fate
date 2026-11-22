@@ -671,6 +671,14 @@ impl DrivingState {
             // running this frame: the real-time hold ends at the scale.
             self.trip.scale_reminder_hold_mi = None;
         }
+        if self
+            .trip
+            .border_reminder_hold_mi
+            .is_some_and(|mi| self.trip.position_mi >= mi)
+        {
+            // At the booth: the real-time hold for its reminder ends here.
+            self.trip.border_reminder_hold_mi = None;
+        }
         if self.check_border_booth_crossing(ctx, pos_before) {
             return;
         }

@@ -16617,6 +16617,10 @@ msgid "scale reminder"
 msgstr ""
 
 #: crates/ff-core/src/sim/trip.rs
+msgid "border booth"
+msgstr ""
+
+#: crates/ff-core/src/sim/trip.rs
 msgid "miles per hour"
 msgstr ""
 
@@ -27455,20 +27459,11 @@ msgstr ""
 msgid "Customs booth in half a mile. Stop at the booth."
 msgstr ""
 
-#: crates/freight-fate/src/states/driving_border.rs
-msgid ", which your carrier pays"
-msgstr ""
-
-#. one clause of a longer line
-#: crates/freight-fate/src/states/driving_border.rs
-msgid "which your carrier pays"
-msgstr ""
-
-#. placeholders: {name}, {agency}, {penalty}, {payer}
+#. placeholders: {name}, {agency}, {penalty}
 #: crates/freight-fate/src/states/driving_border.rs
 msgid ""
 "At {name}, {agency} stopped the truck for running the customs booth: "
-"{penalty}{payer}."
+"{penalty}."
 msgstr ""
 
 #. placeholders: {border_chase_line}, {control_hint}
