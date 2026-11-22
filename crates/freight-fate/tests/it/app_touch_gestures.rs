@@ -782,3 +782,28 @@ fn right(harness: &mut PlaytestHarness) {
         harness.app.handle_event(&event);
     }
 }
+
+#[test]
+fn back_from_a_picker_group_returns_to_its_row() {
+    let mut harness = PlaytestHarness::new();
+    harness.app.push_state(TouchGesturesState::new());
+    harness.select_menu_item("Tap: Speed");
+    assert!(harness.state_is::<TouchCommandPickerState>());
+    harness.select_menu_item("Truck");
+    assert!(harness
+        .menu_labels()
+        .iter()
+        .any(|row| row == Action::Fuel.label()));
+    harness.key(InputEvent::key(Key::Escape));
+    harness.app.ctx.run_deferred();
+    assert!(harness.state_is::<TouchCommandPickerState>());
+    assert_eq!(harness.focused_label().as_deref(), Some("Truck"));
+    harness.key(InputEvent::key(Key::Escape));
+    harness.app.ctx.run_deferred();
+    assert!(harness.state_is::<TouchGesturesState>());
+    assert_eq!(
+        harness.app.ctx.bindings.touch_command(Gesture::Tap),
+        Some(TouchCommand::Action(Action::Speed)),
+        "going back keeps the command the gesture had"
+    );
+}

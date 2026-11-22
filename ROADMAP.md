@@ -1592,6 +1592,22 @@ Everything found before 2026-09-25 moved to
       are two `ff-core` machines (`sim::tilt_steering`, `sim::lane_push`),
       and the agent server's `tilt` tool stands in for the sensor. Driven
       by agent only; nothing was tried on a phone.
+- [x] Settings, Online and the name field on a phone (2026-11-22, the
+      whole-game iPhone pass, brief 5): Controls lists the keyboard rows
+      only while a hardware keyboard is connected and the controller rows
+      only while a controller is (the Controller row stays while support is
+      off), puts Touch gestures first, and follows a keyboard or pad coming
+      and going with the focused row kept. Online has no Discord row on a
+      phone. Settings help that named keys has a touch sentence; help on a
+      phone says "this device", not "computer", and leaves out version 1.8
+      and the update channel. The Touch gestures command picker uses the
+      driving command list's groups, and its gesture rows share the
+      screen's help. Help in a name field reads its opening line again.
+      Driven by agent only; nothing was tried on a phone.
+- [ ] (Found along the way) A controller on a phone: the Controls rows
+      that need one could not be staged through the agent server, which
+      has no controller; a test covers them. Worth one pass with a real
+      pad on an iPhone.
 - [ ] (Found along the way) Tilt steering on a real iPhone: which way is
       left, whether 30 degrees feels right, whether the screen stays put at
       the wheel and turns again in menus (the lock goes through SDL's

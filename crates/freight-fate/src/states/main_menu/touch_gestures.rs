@@ -313,14 +313,17 @@ impl Menu for TouchGesturesState {
     /// A gesture row has no help of its own: all eighteen would say the same
     /// thing, so each reads the screen's help.
     fn current_help(&self, ctx: &GameContext) -> String {
-        let help = self
-            .menu
-            .items
-            .get(self.menu.index)
-            .map(|item| item.help_text(self, ctx))
-            .unwrap_or_default();
+        let gestures =
+            self.deep_swipe_row.saturating_sub(touch_slots().count())..self.deep_swipe_row;
+        if gestures.contains(&self.menu.index) {
+            return self.menu.intro(ctx);
+        }
+        let Some(item) = self.menu.items.get(self.menu.index) else {
+            return self.menu.intro(ctx);
+        };
+        let help = item.help_text(self, ctx);
         if help.is_empty() {
-            self.menu.intro(ctx)
+            format!("{}.", item.text(self, ctx))
         } else {
             help
         }
