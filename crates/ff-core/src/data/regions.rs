@@ -143,6 +143,12 @@ pub const STATE_REGION: &[(&str, &str)] = &[
     // share PNW weather/hazard flavor until a Canada region taxonomy lands.
     ("BC", "pacific_northwest"),
     ("YT", "pacific_northwest"),
+    // Career 2.0 western corridor (director's region table in the Canada
+    // network plan, 2026-11-22): Alberta shares Montana's Rockies flavor,
+    // the Prairie provinces North Dakota's Heartland.
+    ("AB", "rockies"),
+    ("SK", "heartland"),
+    ("MB", "heartland"),
     // Phase A ALCAN Fairbanks terminus: AK shares PNW weather/hazard flavor
     // until a dedicated Alaska region taxonomy lands.
     ("AK", "pacific_northwest"),
@@ -347,6 +353,13 @@ mod tests {
         assert_eq!(classify_region("NY", 40.71, -74.01).unwrap(), "northeast"); // New York
         assert_eq!(classify_region("TN", 35.96, -83.92).unwrap(), "appalachia"); // Knoxville
         assert_eq!(classify_region("TN", 36.16, -86.78).unwrap(), "mid_south"); // Nashville
+    }
+
+    #[test]
+    fn test_classifier_maps_the_prairie_provinces() {
+        assert_eq!(classify_region("AB", 51.05, -114.07).unwrap(), "rockies"); // Calgary
+        assert_eq!(classify_region("SK", 50.45, -104.61).unwrap(), "heartland"); // Regina
+        assert_eq!(classify_region("MB", 49.90, -97.14).unwrap(), "heartland"); // Winnipeg
     }
 
     #[test]
