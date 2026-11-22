@@ -288,7 +288,8 @@ pub fn shield_key(name: &str) -> Option<(&'static str, String)> {
         // Canada's shields as OpenStreetMap writes them: the Trans-Canada
         // ("TCH 1") and the Yellowhead ("YH 16") are their provinces' routes
         // of the same number.
-        "TCH" | "YH" => "STATE",
+        // Manitoba signs its primary roads Provincial Trunk Highways.
+        "TCH" | "YH" | "PTH" => "STATE",
         "CR" | "COUNTY ROAD" | "COUNTY ROUTE" => "CR",
         p if p.ends_with(" ROUTE") || p.ends_with(" HIGHWAY") || p.ends_with(" ROAD") => "STATE",
         p if p.len() == 2 && p.chars().all(|c| c.is_ascii_alphabetic()) => "STATE",
@@ -311,8 +312,17 @@ pub fn matches_shield(name: &str, highway: &str) -> bool {
         .any(|part| match (shield_key(part), shield_key(name)) {
             (Some(a), Some(b)) => a == b,
             (None, _) => same_name(name, part),
-            _ => false,
+            (Some((class, number)), None) => class == "STATE" && bare_number(name) == Some(number),
         })
+}
+
+/// A road OpenStreetMap names by its bare number ("2", "16"), as the
+/// Prairie provinces' primary highways are: the number, so a provincial
+/// shield of that number matches. "16B" or "16A" (a business or alternate
+/// route) is not bare, so it matches nothing.
+fn bare_number(name: &str) -> Option<String> {
+    let name = name.trim();
+    (!name.is_empty() && name.chars().all(|c| c.is_ascii_digit())).then(|| name.to_string())
 }
 
 fn same_name(a: &str, b: &str) -> bool {
@@ -379,5 +389,11 @@ mod tests {
         assert!(matches_shield("I-5", "I-5 / US-97"));
         assert!(matches_shield("TCH 1 West", "Hwy 1 / Hwy 97"));
         assert!(matches_shield("YH 16", "Hwy 16"));
+        assert!(matches_shield("16", "Hwy 16 / Yellowhead Highway"));
+        assert!(matches_shield("2", "Hwy 2"));
+        assert!(!matches_shield("16B", "Hwy 16"));
+        assert!(!matches_shield("2", "Hwy 16"));
+        assert!(!matches_shield("94", "I-94"));
+        assert!(matches_shield("PTH 1 West", "Hwy 1 / Trans-Canada Highway"));
     }
 }

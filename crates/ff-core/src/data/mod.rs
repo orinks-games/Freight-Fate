@@ -17,6 +17,7 @@ pub mod legacy_aliases;
 pub mod national_network;
 pub mod pavement;
 pub mod regions;
+pub mod retired_legs;
 pub mod seasonal_weight;
 pub mod state_welcome;
 pub mod stop_bounds;
