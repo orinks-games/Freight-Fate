@@ -5820,9 +5820,31 @@ a carrier slice (owner, 2026-10-26).
 - [ ] Trans-Canada and Yellowhead, Vancouver to Winnipeg (1, 5, 16, 2),
       joining the Alcan at Prince George and Dawson Creek and the US at
       Blaine, Sumas, Osoyoos, Kingsgate, Coutts, North Portal, Emerson.
-- [ ] The Ontario and Quebec trunk (401, 400, 11, 17, 20, 40), Windsor to
-      Quebec City and Thunder Bay, with the Detroit, Sarnia, Niagara,
-      Lansdowne, Cornwall, Lacolle and Stanstead crossings.
+- [x] The Ontario and Quebec trunk, first pass (2026-11-22): 36 cities
+      from Windsor to Rivière-du-Loup, Saguenay and Rouyn-Noranda over the
+      401, 400, 11, 17, 417, 20, 40 and 117, plus Plattsburgh and St.
+      Johnsbury on the US side; 108 legs, both directions, every layer the
+      Canadian recipe builds. Seven crossings: Gordie Howe (Detroit),
+      Blue Water (Port Huron), Queenston-Lewiston, Thousand Islands
+      (Lansdowne), Lacolle-Champlain, Saint-Armand-Highgate Springs and
+      Stanstead-Derby Line, each with its ports, agencies and hours; the
+      four bridge tolls are the published five-axle rates. Thunder Bay
+      belongs to the Winnipeg corridor. Report:
+      `career-2.0-alpha/corridor-ontario-quebec-report.md`.
+- [ ] (Found along the way) Rest and fuel stops on the Ontario and Quebec
+      legs, from the Canada stops list (`osm-stops`) once it merges; no
+      leg there has a stop yet. Mont-Laurier to Val-d'Or is 180 miles.
+- [ ] (Found along the way) Re-read the Ontario and Quebec postings with
+      `osm-speed-limits` once postings keep their km/h; they were read
+      before that change and are rounded to 5 mph.
+- [ ] (Found along the way) The Ambassador Bridge, the Peace Bridge (with a
+      Fort Erie city), Cornwall to Massena and Ogdensburg to Prescott are
+      not on the map; each city pair has one crossing.
+- [ ] (Found along the way) In-bond transit through the other country:
+      a route between two cities of one country stays in it when a road
+      that does exists (2026-11-22), so Detroit to Buffalo does not take
+      the 401 through Ontario as real carriers often do. A later feature
+      with the paperwork to go with it.
 - [ ] Winnipeg to Thunder Bay over 17 and 1, Kenora and Dryden as fuel.
 - [ ] Atlantic Canada to Halifax, Charlottetown and Sydney; Houlton,
       Calais and St. Stephen crossings.
