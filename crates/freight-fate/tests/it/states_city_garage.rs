@@ -293,9 +293,15 @@ fn test_whitehorse_garage_quotes_and_charges_the_yukon_diesel_price() {
         "YT",
         profile(&app).truck_specs().fuel_tank_gal,
     );
+    // In town the terminal moves the units to Canada; Automatic is liters.
+    app.ctx
+        .settings
+        .move_units(ff_core::units::UnitsEvent::ScreenAt("CA".into()));
     let expected_label = format!(
-        "Refuel {} gallons for {} dollars. Diesel here is {} Canadian dollars a liter.",
-        fmt_f(profile(&app).truck_specs().fuel_tank_gal, 0),
+        "Refuel {} for {} dollars. Diesel here is {} Canadian dollars a liter.",
+        app.ctx
+            .settings
+            .volume_text(profile(&app).truck_specs().fuel_tank_gal),
         fmt_grouped(cost, 0),
         fmt_f(cad_per_litre(price), 2)
     );

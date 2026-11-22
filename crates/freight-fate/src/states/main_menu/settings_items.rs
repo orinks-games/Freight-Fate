@@ -9,6 +9,7 @@ use std::rc::Rc;
 
 use ff_core::pyfmt::round_py_int;
 use ff_core::settings::Settings;
+use ff_core::units::UnitsMode;
 
 use super::settings::{Adjust, SettingsCategoryState};
 use super::settings_actions::{
@@ -498,7 +499,7 @@ impl SettingsCategoryState {
                 adjust(|s, ctx, d| s.toggle_facility_streets(ctx, d)),
             ],
             "controls" => vec![
-                adjust(|s, ctx, d| s.toggle_units(ctx, d)),
+                adjust(|s, ctx, d| s.cycle_units(ctx, d)),
                 adjust(|s, ctx, d| s.toggle_transmission(ctx, d)),
                 adjust(|s, ctx, d| s.toggle_controller(ctx, d)),
                 adjust(|s, ctx, d| s.toggle_haptics(ctx, d)),
@@ -712,15 +713,15 @@ impl SettingsCategoryState {
                     dyn_label(|s| {
                         format!(
                             "Units: {}",
-                            if s.imperial_units {
-                                "imperial, miles"
-                            } else {
-                                "metric, kilometers"
+                            match s.units_mode() {
+                                UnitsMode::Automatic => "automatic",
+                                UnitsMode::Imperial => "imperial, miles",
+                                UnitsMode::Metric => "metric, kilometers",
                             }
                         )
                     }),
-                    adjust(|s, ctx, d| s.toggle_units(ctx, d)),
-                    "Distance and speed in miles or kilometers.",
+                    adjust(|s, ctx, d| s.cycle_units(ctx, d)),
+                    "Automatic uses miles in the United States and kilometers in Canada.",
                 ),
                 row(
                     dyn_label(|s| {

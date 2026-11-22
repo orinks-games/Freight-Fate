@@ -50,7 +50,7 @@ impl DrivingState {
     pub fn status_lines(&mut self, ctx: &mut GameContext) -> Vec<String> {
         let position = self.trip.position_mi;
         let (limit, reason) = self.trip.speed_limit_at(position);
-        let imperial = ctx.settings.imperial_units;
+        let imperial = ctx.settings.imperial();
         let progress = if self.phase == DRIVE_PHASE_PICKUP {
             self.pickup_progress_summary(ctx)
         } else {

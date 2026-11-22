@@ -377,7 +377,7 @@ impl DrivingState {
         // A countdown mark already behind the truck when the call lands is
         // not a distance that is true (the ramp's rule).
         if let Some(gap_mi) = self.terminal_gap_mi() {
-            let unit_mi = if ctx.settings.imperial_units {
+            let unit_mi = if ctx.settings.imperial() {
                 1.0 / 5280.0
             } else {
                 1.0 / 1609.344

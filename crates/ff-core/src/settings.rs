@@ -305,6 +305,11 @@ macro_rules! settings_fields {
             /// they take the wheel again. Never saved itself.
             #[serde(skip)]
             pub co_driver_stash: Option<Box<AssistStash>>,
+            /// The country the units are judged in right now. Never saved:
+            /// a drive, a city screen or the main menu moves it through
+            /// `Settings::move_units`.
+            #[serde(skip)]
+            pub units_place: crate::units::UnitsPlace,
         }
 
         impl Default for Settings {
@@ -313,6 +318,7 @@ macro_rules! settings_fields {
                     $( $name: ($default).into(), )*
                     lane_keeping_unreadable: false,
                     co_driver_stash: None,
+                    units_place: crate::units::UnitsPlace::default(),
                 }
             }
         }
@@ -354,7 +360,12 @@ settings_fields! {
     /// 2026-08-08: two testers lost real weather to this switch with no
     /// explanation at the weather toggle).
     online_services: bool = true => bool_truthy,
-    imperial_units: bool = true => bool_truthy,
+    /// The Units row: "automatic" (miles in the United States, kilometers
+    /// in Canada), "imperial" or "metric". Read it through
+    /// `Settings::imperial()` or `units()`, which add where the truck is;
+    /// never compare the string. The 1.9 key `imperial_units` is read once
+    /// by the loader and still written for a 1.9 build sharing the file.
+    units: String = "automatic" => str_checked,
     /// The engine voice: "real" plays the multisample recorded-cab ring
     /// (release builds carry the licensed cuts); "classic" keeps the
     /// original single pitched loop for players who prefer the familiar
@@ -780,7 +791,23 @@ impl Settings {
     /// coercion the loader applies (`setattr(settings, name, value)`).
     /// `false` when `name` is not a field.
     pub fn set_field(&mut self, name: &str, value: &Value) -> bool {
-        self.assign_raw(name, value)
+        if name == "imperial_units" {
+            // The 1.9 key, still accepted from old scenario scripts: true
+            // holds miles everywhere, false kilometers.
+            let mut imperial = true;
+            migrate::coerce::bool_truthy(&mut imperial, value, name);
+            self.set_units_mode(if imperial {
+                crate::units::UnitsMode::Imperial
+            } else {
+                crate::units::UnitsMode::Metric
+            });
+            return true;
+        }
+        let known = self.assign_raw(name, value);
+        if name == "units" {
+            self.normalize_units();
+        }
+        known
     }
 
     /// Whether the truck holds the lane -- and takes the exits -- itself.

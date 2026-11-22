@@ -66,7 +66,7 @@ pub(crate) fn time_and_weather_lines(ctx: &mut GameContext) -> Vec<String> {
     };
     let hour = to_local(game_hours, zone).rem_euclid(24.0);
     let live_calendar_setting = ctx.settings.live_weather_controls_calendar;
-    let imperial = ctx.settings.imperial_units;
+    let imperial = ctx.settings.imperial();
     let live_selected = ctx.real_weather_provider().is_some();
     let reading: Option<LiveReading> =
         ctx.real_weather_provider()

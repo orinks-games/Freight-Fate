@@ -1534,9 +1534,10 @@ fn test_canadian_pump_label_and_charge_use_the_local_diesel_price() {
         .into_iter()
         .find(|line| line.starts_with("Refuel "))
         .expect("the pump row");
+    // The drive starts in British Columbia, so Automatic speaks liters.
     assert!(
         label.starts_with(&format!(
-            "Refuel 10 gallons for {} dollars. Diesel here is ",
+            "Refuel 38 liters for {} dollars. Diesel here is ",
             fmt_grouped(cost, 0)
         )),
         "{label}"

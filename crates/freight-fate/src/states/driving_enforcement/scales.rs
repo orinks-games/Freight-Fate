@@ -368,7 +368,7 @@ impl DrivingState {
                 ""
             };
         let scale_mi = stop.at_mi;
-        let imperial = ctx.settings.imperial_units;
+        let imperial = ctx.settings.imperial();
         self.refresh_live_facts();
         ctx.say_event_with(
             format!("{lead}{name} is still ahead, open, {announced}.{instruction}"),

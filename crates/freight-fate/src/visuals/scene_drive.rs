@@ -381,7 +381,7 @@ impl DriveView {
             weather_name: capitalize(trip.weather.current.value()),
             lane_name: capitalize(d.lane.lane_name()),
             lane_assist: settings.lane_keeping.clone(),
-            imperial: settings.imperial_units,
+            imperial: settings.imperial(),
             siren: d.siren.active,
             pulled_over: d.pull_over.is_some(),
             deadhead: d.phase == DRIVE_PHASE_PICKUP,

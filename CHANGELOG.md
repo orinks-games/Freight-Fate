@@ -15,6 +15,9 @@
 
 ### Added
 
+- **Units has a new Automatic choice, the default in 2.0.** Miles in the United States, kilometers in Canada, with one line when a drive crosses.
+- **Kilometers now reach fuel, weights and signs.** Fuel is in liters, loads in tonnes, weights in kilograms and low bridges in meters.
+- **The cruise dial steps in the units you hear.** In kilometers it walks 95, 100, 105.
 - **Seventeen new achievements.** Earn them in Alaska, on the Alaska Highway, at customs, on a restart, with a carrier, hauling cattle and at the Laredo yards.
 - **Live cattle are a new freight class from level 5.** Haul feeder calves from sale barns to feed yards, and fed cattle to beef plants, on a livestock trailer.
 - **Cattle react to hard braking and sharp turns.** Too much and they lose their footing or go down. Stop and choose Check the cattle to get one up.
@@ -66,6 +69,7 @@
 
 ### Changed
 
+- **A 1.9 Units choice of imperial becomes Automatic in 2.0.** A choice of metric stays metric.
 - **The career start list now runs local, regional, then national carriers, nearest terminal first.** The owner-operator start stays last.
 - **The British Columbia and Yukon highways now follow the real roads, with their bends, hills, exits and towns.** Surrey to Blaine is now 15 miles, 14 northbound.
 - **Canadian speed limits are now said as signed.** A 100 sign is 100 in kilometers and 62 in miles, and cruise holds that speed.

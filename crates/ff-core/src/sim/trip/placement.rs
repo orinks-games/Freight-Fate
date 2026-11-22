@@ -399,8 +399,8 @@ impl Trip {
                     ),
                     "restriction",
                     start + offset,
-                    &restriction.spoken_ahead(),
-                    &restriction.spoken_near(),
+                    &restriction.spoken_ahead_in(self.imperial()),
+                    &restriction.spoken_near_in(self.imperial()),
                 ));
             }
             for ix in leg.interchanges() {
@@ -503,6 +503,37 @@ impl Trip {
             entering_country: entering_country.to_string(),
             agency: agency.to_string(),
         })
+    }
+
+    /// The two-letter country the truck is in at a trip milepost, for the
+    /// Automatic units. Empty where the map cannot say, which keeps the
+    /// country the truck was last placed in.
+    pub fn country_at(&self, at: f64) -> String {
+        let name = self.state_at(Some(at));
+        let code = self.state_code_at(at).unwrap_or_default();
+        self.world
+            .cities
+            .values()
+            .find(|city| {
+                (!name.is_empty() && city.state.eq_ignore_ascii_case(&name))
+                    || (!code.is_empty() && city.state_code.eq_ignore_ascii_case(&code))
+            })
+            .map(|city| city.country.to_ascii_uppercase())
+            .unwrap_or_default()
+    }
+
+    /// The two-letter country of a state or province by name or code, as
+    /// the crossing calls name them; empty when no city on the map is there.
+    pub fn country_of_state(&self, state: &str) -> String {
+        self.world
+            .cities
+            .values()
+            .find(|city| {
+                city.state.eq_ignore_ascii_case(state)
+                    || city.state_code.eq_ignore_ascii_case(state)
+            })
+            .map(|city| city.country.to_ascii_uppercase())
+            .unwrap_or_default()
     }
 
     pub(crate) fn country_for_state(&self, state: &str) -> Option<&str> {
