@@ -162,8 +162,9 @@ pub const SHIFT_LOAD_CAP: f64 = 0.45;
 // one-second downshift at that level was "the engine cuts out when it
 // shifts" (testers, 2026-09-03).
 pub const SHIFT_DISENGAGE_DUCK: f64 = 0.65;
-// The gear taking at the end of an auto shift: a soft pick from the shift
-// bank, quieter than the interrupt clunk (0.65) that opened the shift.
+// On an automatic shift, let the RPM drop carry the interruption and give
+// the engagement clunk more presence than the initial release.
+pub const AUTO_SHIFT_START_CLUNK_VOLUME: f64 = 0.22;
 pub const SHIFT_END_CLUNK_VOLUME: f64 = 0.4;
 // When the shift completes the cap eases from SHIFT_LOAD_CAP back to full over
 // this window. The curve (a key into audio_fades.CURVES) shapes the return: an

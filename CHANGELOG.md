@@ -87,6 +87,7 @@
 ### Fixed
 
 - **The truck's starter gives way to a brief idle before the engine revs up to build air.**
+- **Automatic gear changes start with a softer clunk so the drop in revs is easier to hear.**
 - **Left curve calls say "left" again in every language.** They are spoken in English for now.
 - **Crossing into the District of Columbia now says "the District of Columbia."**
 - **Toll lines no longer say the word toll twice,** as in toll at Alligator Alley commercial toll.

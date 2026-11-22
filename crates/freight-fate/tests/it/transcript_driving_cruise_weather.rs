@@ -962,9 +962,8 @@ fn test_automatic_shift_uses_shift_cue_not_brake_air() {
 
     frame(&mut harness, 0.0);
 
-    // The shift cue is the auto-shift bank when the licensed cuts are
-    // installed (volume carries a small per-trigger jitter around 0.65), the
-    // classic gear_shift on a clean clone.
+    // The opening cue is deliberately quiet. The rev drop and the later
+    // engagement clunk carry most of the sound of the shift.
     let played = log.borrow().played.clone();
     let shifts: Vec<(String, f64)> = played
         .iter()
@@ -973,7 +972,7 @@ fn test_automatic_shift_uses_shift_cue_not_brake_air() {
         .collect();
     assert!(!shifts.is_empty(), "{played:?}");
     assert!(
-        shifts.iter().all(|(_, vol)| (0.5..=0.8).contains(vol)),
+        shifts.iter().all(|(_, vol)| (0.18..=0.26).contains(vol)),
         "{shifts:?}"
     );
     assert!(played.iter().all(|(key, _, _)| key != "vehicle/brake_air"));
