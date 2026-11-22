@@ -25,6 +25,18 @@ pub enum AfterCrossing {
     HoursRules,
 }
 
+impl AfterCrossing {
+    /// The priority the line is released at. Only the hours rules are
+    /// Important; the time zone and units lines keep the default (ambient)
+    /// priority they had, so neither can cut an exit or merge call.
+    pub fn priority(self) -> Option<EventPriority> {
+        match self {
+            AfterCrossing::HoursRules => Some(EventPriority::Important),
+            AfterCrossing::TimeZone | AfterCrossing::Units => None,
+        }
+    }
+}
+
 /// The longest a follow-up waits for a quiet voice, in real seconds. Past
 /// it the line queues behind whatever is speaking rather than be lost.
 pub const AFTER_CROSSING_MAX_WAIT_S: f64 = 20.0;
@@ -71,7 +83,8 @@ impl DrivingState {
             return;
         }
         let line = self.after_crossing.remove(0);
-        let mut opts = SayEvent::queued().priority(EventPriority::Important);
+        let mut opts = SayEvent::queued();
+        opts.priority = line.kind.priority();
         opts.category = line.category;
         ctx.say_event_with(line.text, opts);
     }

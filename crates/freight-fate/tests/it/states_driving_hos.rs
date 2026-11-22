@@ -25,6 +25,7 @@ use ff_core::models::enforcement;
 use ff_core::sim::hos::{self, HosRules};
 use ff_core::sim::trip_models::{RoadStop, TripEvent, TripEventData, TripEventKind};
 use ff_core::sim::weather::WeatherKind;
+use ff_core::speech_pacing::SpeechCategory;
 use freight_fate::controller::ControllerButton;
 use freight_fate::playtest::harness::{PlaytestHarness, RouteSetup, StartDelivery};
 use freight_fate::states::base::{InputEvent, Key, Menu};
@@ -348,6 +349,72 @@ fn hours_line_follows_the_crossing_call_once_it_finishes() {
             .count(),
         1,
         "{calls:?}"
+    );
+}
+
+/// A time zone line keeps the default priority it had before the queue, so
+/// even released late it waits behind a navigation call rather than cut it.
+/// It is spoken at every zone change in the lower 48, where an exit call can
+/// be on the voice.
+#[test]
+fn a_queued_time_zone_line_does_not_cut_a_navigation_call() {
+    use freight_fate::app::SayEvent;
+    use freight_fate::speech::EventPriority;
+    use freight_fate::states::driving_updates::after_crossing::{
+        AfterCrossing, AFTER_CROSSING_MAX_WAIT_S,
+    };
+    let mut harness = whitehorse_tok_drive();
+    let exit_call = "In half a mile, take exit 12 on the right for Route 9 toward \
+                     Fairbanks, then keep left at the fork and merge onto the \
+                     highway heading north toward the city.";
+    harness.with_drive(|drive, ctx| {
+        ctx.say_event_with(
+            exit_call,
+            SayEvent::queued()
+                .priority(EventPriority::Important)
+                .category(SpeechCategory::Navigation),
+        );
+        // A second line behind it, so the voice holds a backlog that an
+        // Important line arriving late would flush, exit call and all.
+        ctx.say_event_with(
+            "Speed limit 45 in one mile.",
+            SayEvent::queued()
+                .priority(EventPriority::Important)
+                .category(SpeechCategory::Navigation),
+        );
+        drive.queue_after_crossing(
+            AfterCrossing::TimeZone,
+            "Crossing into Alaska Time. It is now 2 AM.",
+            None,
+        );
+    });
+    harness.advance_clock(1.5);
+    harness.with_drive(|drive, ctx| {
+        assert!(ctx.event_voice_busy());
+        // Waited its longest, so it goes now, with the exit call speaking.
+        drive.update_after_crossing(ctx, AFTER_CROSSING_MAX_WAIT_S);
+    });
+    let calls = harness.app.event_calls();
+    let exit = calls
+        .iter()
+        .position(|(text, _)| text == exit_call)
+        .unwrap_or_else(|| panic!("{calls:?}"));
+    assert!(
+        calls[exit + 1..]
+            .iter()
+            .all(|(_, interrupting)| !interrupting),
+        "the time zone line cut the exit call: {calls:?}"
+    );
+    assert_eq!(
+        calls.iter().filter(|(text, _)| text == exit_call).count(),
+        1,
+        "the exit call was cut and handed back: {calls:?}"
+    );
+    assert_eq!(AfterCrossing::TimeZone.priority(), None);
+    assert_eq!(AfterCrossing::Units.priority(), None);
+    assert_eq!(
+        AfterCrossing::HoursRules.priority(),
+        Some(EventPriority::Important)
     );
 }
 
