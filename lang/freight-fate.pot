@@ -19134,6 +19134,10 @@ msgid "Swipe up and hold"
 msgstr ""
 
 #: crates/freight-fate/src/bindings/touch.rs
+msgid "a swipe up and hold"
+msgstr ""
+
+#: crates/freight-fate/src/bindings/touch.rs
 msgid "Swipe down and hold"
 msgstr ""
 
@@ -19149,8 +19153,24 @@ msgstr ""
 msgid "Flick left"
 msgstr ""
 
+#: crates/freight-fate/src/bindings/touch.rs
+msgid "a flick left"
+msgstr ""
+
 #: crates/freight-fate/src/bindings/touch.rs crates/freight-fate/src/states/main_menu/touch_practice.rs
 msgid "Flick right"
+msgstr ""
+
+#: crates/freight-fate/src/bindings/touch.rs
+msgid "a flick right"
+msgstr ""
+
+#: crates/freight-fate/src/bindings/touch.rs
+msgid "Hold one finger still for half a second"
+msgstr ""
+
+#: crates/freight-fate/src/bindings/touch.rs
+msgid "a still hold for half a second"
 msgstr ""
 
 #: crates/freight-fate/src/bindings/touch.rs crates/freight-fate/src/states/main_menu/touch_practice.rs
@@ -19161,29 +19181,13 @@ msgstr ""
 msgid "Tap with three fingers, then double tap"
 msgstr ""
 
+#: crates/freight-fate/src/bindings/touch.rs
+msgid "a three-finger tap then a double tap"
+msgstr ""
+
 #. placeholders: {label}
 #: crates/freight-fate/src/bindings/touch.rs
 msgid "{label} from the three-finger tap list"
-msgstr ""
-
-#: crates/freight-fate/src/bindings/touch.rs
-msgid "a swipe up and hold"
-msgstr ""
-
-#: crates/freight-fate/src/bindings/touch.rs
-msgid "a flick left"
-msgstr ""
-
-#: crates/freight-fate/src/bindings/touch.rs
-msgid "a flick right"
-msgstr ""
-
-#: crates/freight-fate/src/bindings/touch.rs
-msgid "a still hold for half a second"
-msgstr ""
-
-#: crates/freight-fate/src/bindings/touch.rs
-msgid "a three-finger tap then a double tap"
 msgstr ""
 
 #. placeholders: {touch_noun}, {touch_noun2}
@@ -26270,6 +26274,10 @@ msgid ""
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_controls/help.rs
+msgid "Flick left or right to change lanes. "
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_controls/help.rs
 msgid ""
 "Flick left or right to change lanes, or swipe left or right and hold to "
 "steer. "
@@ -26290,9 +26298,9 @@ msgid ""
 "Hold one finger still for half a second to straighten the wheel. With "
 "cruise off, flick up to turn it on. Double tap to take an exit, pull over, "
 "or confirm arrival at a gate. Tap with two fingers to stop speech. Turn two "
-"fingers right like a key to start the engine, and left to stop it once the "
-"truck has stopped. Hold two fingers for the horn. While holding a pedal, a "
-"second finger's flicks and holds work the same way. "
+"fingers right to start the engine, and left to stop it once the truck has "
+"stopped. Hold two fingers for the horn. While holding a pedal, a second "
+"finger's flicks and holds work the same way. "
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_controls/help.rs
@@ -31990,7 +31998,7 @@ msgstr ""
 msgid "Enter opens the app. Escape returns to the status screens."
 msgstr ""
 
-#: crates/freight-fate/src/states/driving_menu_states/apps.rs crates/freight-fate/src/states/driving_menu_states/status.rs crates/freight-fate/src/states/main_menu_help.rs
+#: crates/freight-fate/src/states/driving_menu_states/apps.rs crates/freight-fate/src/states/driving_menu_states/status.rs crates/freight-fate/src/states/main_menu_help.rs crates/freight-fate/src/states/main_menu_help_phone.rs
 msgid "Driver apps"
 msgstr ""
 
@@ -33398,6 +33406,12 @@ msgstr ""
 msgid ""
 "How to play, opened at the driving keys page. Left and Right change pages, "
 "Up and Down read lines."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_pause_states.rs
+msgid ""
+"How to play, opened at the driving gestures page. Flick up or down to "
+"change pages, and right or left to read lines."
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_pause_states.rs crates/freight-fate/src/states/learn_sounds.rs crates/freight-fate/src/states/main_menu/home.rs
@@ -42605,7 +42619,7 @@ msgstr ""
 msgid "Learn game sounds plays each road cue and explains it."
 msgstr ""
 
-#: crates/freight-fate/src/states/main_menu_help.rs
+#: crates/freight-fate/src/states/main_menu_help.rs crates/freight-fate/src/states/main_menu_help_phone.rs
 msgid ""
 "Settings changes driving assistance, sound, speech, and controls. Report a "
 "problem opens the report form in your browser, with your game log attached. "
@@ -42686,7 +42700,7 @@ msgid ""
 "Change it under Settings, Gameplay, Driving assistance."
 msgstr ""
 
-#: crates/freight-fate/src/states/main_menu_help.rs
+#: crates/freight-fate/src/states/main_menu_help.rs crates/freight-fate/src/states/main_menu_help_phone.rs
 msgid "Menus and message review"
 msgstr ""
 
@@ -42694,10 +42708,6 @@ msgstr ""
 msgid ""
 "Up and Down choose an option. Enter or Space selects it. Escape goes back. "
 "Home and End jump to the first or last option."
-msgstr ""
-
-#: crates/freight-fate/src/states/main_menu_help.rs
-msgid "Page Up and Page Down move ten options at a time."
 msgstr ""
 
 #: crates/freight-fate/src/states/main_menu_help.rs
@@ -42726,7 +42736,7 @@ msgid ""
 "Control key or F1 stops speech."
 msgstr ""
 
-#: crates/freight-fate/src/states/main_menu_help.rs
+#: crates/freight-fate/src/states/main_menu_help.rs crates/freight-fate/src/states/main_menu_help_phone.rs
 msgid ""
 "Learn game sounds plays road cues and explains their meaning. It is "
 "available on the main and pause menus."
@@ -42740,7 +42750,7 @@ msgid ""
 "pause menus. Press Escape or Start twice to leave."
 msgstr ""
 
-#: crates/freight-fate/src/states/main_menu_help.rs
+#: crates/freight-fate/src/states/main_menu_help.rs crates/freight-fate/src/states/main_menu_help_phone.rs
 msgid "Starting and stopping the truck"
 msgstr ""
 
@@ -42911,7 +42921,7 @@ msgid ""
 "{control_horn} sounds the horn while held."
 msgstr ""
 
-#: crates/freight-fate/src/states/main_menu_help.rs
+#: crates/freight-fate/src/states/main_menu_help.rs crates/freight-fate/src/states/main_menu_help_phone.rs
 msgid "Cruise and hills"
 msgstr ""
 
@@ -42938,7 +42948,7 @@ msgid ""
 "low-speed roads it follows local limits, queues and corners."
 msgstr ""
 
-#: crates/freight-fate/src/states/main_menu_help.rs
+#: crates/freight-fate/src/states/main_menu_help.rs crates/freight-fate/src/states/main_menu_help_phone.rs
 msgid ""
 "Cruise follows traffic. Its normal gap is three seconds in clear weather "
 "and longer in poor weather. It does not steer."
@@ -42948,13 +42958,6 @@ msgstr ""
 msgid ""
 "Plus and Minus, including keypad keys, move the cruise speed to the next "
 "multiple of five. Hold Control to change it by one."
-msgstr ""
-
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/main_menu_help.rs
-msgid ""
-"Cruise slows early for a sharp drop in the posted limit, and never holds "
-"more than five over it."
 msgstr ""
 
 #. placeholders: {control_speed}
@@ -43004,7 +43007,7 @@ msgstr ""
 msgid "{control_cruise_resume} resumes the previous target."
 msgstr ""
 
-#: crates/freight-fate/src/states/main_menu_help.rs
+#: crates/freight-fate/src/states/main_menu_help.rs crates/freight-fate/src/states/main_menu_help_phone.rs
 msgid ""
 "Before a descent, reduce speed and choose a lower gear. Hold speed with the "
 "engine brake. Use the brakes in short presses, with time to cool between "
@@ -43066,13 +43069,13 @@ msgid ""
 "bend."
 msgstr ""
 
-#: crates/freight-fate/src/states/main_menu_help.rs
+#: crates/freight-fate/src/states/main_menu_help.rs crates/freight-fate/src/states/main_menu_help_phone.rs
 msgid ""
 "Towns that restrict engine braking warn you before they fine it. Downhill "
 "grades and emergencies are exempt."
 msgstr ""
 
-#: crates/freight-fate/src/states/main_menu_help.rs
+#: crates/freight-fate/src/states/main_menu_help.rs crates/freight-fate/src/states/main_menu_help_phone.rs
 msgid "Driving information keys"
 msgstr ""
 
@@ -43309,7 +43312,7 @@ msgid ""
 "assignments."
 msgstr ""
 
-#: crates/freight-fate/src/states/main_menu_help.rs
+#: crates/freight-fate/src/states/main_menu_help.rs crates/freight-fate/src/states/main_menu_help_phone.rs
 msgid "Steering and curves"
 msgstr ""
 
@@ -43334,14 +43337,14 @@ msgstr ""
 msgid "Tap {control_steer_left} or {control_steer_right} to change lanes."
 msgstr ""
 
-#: crates/freight-fate/src/states/main_menu_help.rs
+#: crates/freight-fate/src/states/main_menu_help.rs crates/freight-fate/src/states/main_menu_help_phone.rs
 msgid ""
 "Partial follows bends with gentle drift. Off leaves steering to you unless "
 "curve assistance is enabled. Hold a steering control across the lane line "
 "to change lanes."
 msgstr ""
 
-#: crates/freight-fate/src/states/main_menu_help.rs
+#: crates/freight-fate/src/states/main_menu_help.rs crates/freight-fate/src/states/main_menu_help_phone.rs
 msgid ""
 "With the default steering guide, steer toward the side the engine sound "
 "moves to. Road noise tells you position: sound to the right means the truck "
@@ -43373,23 +43376,16 @@ msgstr ""
 msgid "Your position within the lane remains yours to correct."
 msgstr ""
 
-#: crates/freight-fate/src/states/main_menu_help.rs
+#: crates/freight-fate/src/states/main_menu_help.rs crates/freight-fate/src/states/main_menu_help_phone.rs
 msgid ""
 "The curve call gives direction, distance, and advisory speed. Brake to that "
 "speed before the bend. A tone marks the bend's side."
 msgstr ""
 
-#: crates/freight-fate/src/states/main_menu_help.rs
+#: crates/freight-fate/src/states/main_menu_help.rs crates/freight-fate/src/states/main_menu_help_phone.rs
 msgid ""
 "Rumble-strip and gravel sounds come from the edge you reached. Correct "
 "gently. Crossing an undivided centerline puts you in opposing traffic."
-msgstr ""
-
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/main_menu_help.rs
-msgid ""
-"The Steering guide setting can reverse which way to steer, and Lane guide "
-"sound can use a soft tone instead of the engine."
 msgstr ""
 
 #. placeholders: {control_lane_locator}
@@ -43409,13 +43405,13 @@ msgid ""
 "can use a soft tone instead of the engine."
 msgstr ""
 
-#: crates/freight-fate/src/states/main_menu_help.rs
+#: crates/freight-fate/src/states/main_menu_help.rs crates/freight-fate/src/states/main_menu_help_phone.rs
 msgid ""
 "Curve assistance slows and steers through mapped bends. If you brake, it "
 "stops slowing for that bend but keeps steering."
 msgstr ""
 
-#: crates/freight-fate/src/states/main_menu_help.rs
+#: crates/freight-fate/src/states/main_menu_help.rs crates/freight-fate/src/states/main_menu_help_phone.rs
 msgid "Exits, ramps, and arrival"
 msgstr ""
 
@@ -43469,25 +43465,25 @@ msgid ""
 "the signal. Planning a stop does not signal for it."
 msgstr ""
 
-#: crates/freight-fate/src/states/main_menu_help.rs
+#: crates/freight-fate/src/states/main_menu_help.rs crates/freight-fate/src/states/main_menu_help_phone.rs
 msgid ""
 "Unless lane keeping is on full, move to the right lane, then steer right "
 "into the exit lane when it opens."
 msgstr ""
 
-#: crates/freight-fate/src/states/main_menu_help.rs
+#: crates/freight-fate/src/states/main_menu_help.rs crates/freight-fate/src/states/main_menu_help_phone.rs
 msgid ""
 "Keep road speed until the exit lane. Brake to the announced exit speed "
 "before its curve. Full lane keeping makes the lane moves for you."
 msgstr ""
 
-#: crates/freight-fate/src/states/main_menu_help.rs
+#: crates/freight-fate/src/states/main_menu_help.rs crates/freight-fate/src/states/main_menu_help_phone.rs
 msgid ""
 "Most ramps end at a light or stop sign. Stop at red; stop safely for yellow "
 "if possible. At a stop sign, wait for a clear gap after stopping."
 msgstr ""
 
-#: crates/freight-fate/src/states/main_menu_help.rs
+#: crates/freight-fate/src/states/main_menu_help.rs crates/freight-fate/src/states/main_menu_help_phone.rs
 msgid ""
 "The sensor tick speeds up near the stop bar. Cross traffic can hit a truck "
 "that runs the light."
@@ -43505,7 +43501,7 @@ msgid ""
 "arrival. At the receiver choose Dock and deliver."
 msgstr ""
 
-#: crates/freight-fate/src/states/main_menu_help.rs
+#: crates/freight-fate/src/states/main_menu_help.rs crates/freight-fate/src/states/main_menu_help_phone.rs
 msgid ""
 "If you miss the destination exit, follow the safe turnaround. Exits you "
 "have no reason to take are not announced."
@@ -43538,11 +43534,11 @@ msgid ""
 "shoulder."
 msgstr ""
 
-#: crates/freight-fate/src/states/main_menu_help.rs
+#: crates/freight-fate/src/states/main_menu_help.rs crates/freight-fate/src/states/main_menu_help_phone.rs
 msgid "Traffic, weather, and enforcement"
 msgstr ""
 
-#: crates/freight-fate/src/states/main_menu_help.rs
+#: crates/freight-fate/src/states/main_menu_help.rs crates/freight-fate/src/states/main_menu_help_phone.rs
 msgid ""
 "GPS announces state lines, towns, route changes, traffic, work zones, and "
 "useful stops. Grades and terrain come from the route. Weather and traffic "
@@ -43573,33 +43569,33 @@ msgstr ""
 msgid "{control_lane} tells you which neighboring lanes are available."
 msgstr ""
 
-#: crates/freight-fate/src/states/main_menu_help.rs
+#: crates/freight-fate/src/states/main_menu_help.rs crates/freight-fate/src/states/main_menu_help_phone.rs
 msgid ""
 "A passing vehicle grows louder alongside you, then fades ahead. Listen for "
 "which side it is on, but use the lane check before moving over."
 msgstr ""
 
-#: crates/freight-fate/src/states/main_menu_help.rs
+#: crates/freight-fate/src/states/main_menu_help.rs crates/freight-fate/src/states/main_menu_help_phone.rs
 msgid ""
 "Mainline traffic stays to your left on an on-ramp. The distant freeway "
 "sound follows traffic activity, so busy and quiet stretches sound different."
 msgstr ""
 
-#: crates/freight-fate/src/states/main_menu_help.rs
+#: crates/freight-fate/src/states/main_menu_help.rs crates/freight-fate/src/states/main_menu_help_phone.rs
 msgid ""
 "When you hear Brake now, slow down right away. Change lanes or brake means "
 "something is in your lane: move to the open lane it names, or slow to 30 "
 "and take it. Rockfall or a stopped car needs a stop."
 msgstr ""
 
-#: crates/freight-fate/src/states/main_menu_help.rs
+#: crates/freight-fate/src/states/main_menu_help.rs crates/freight-fate/src/states/main_menu_help_phone.rs
 msgid ""
 "Tire debris is called out and driven over. Nothing brakes for it. Full lane "
 "keeping moves over for debris and slow vehicles when a lane is open, and "
 "avoids starting a pass near an exit."
 msgstr ""
 
-#: crates/freight-fate/src/states/main_menu_help.rs
+#: crates/freight-fate/src/states/main_menu_help.rs crates/freight-fate/src/states/main_menu_help_phone.rs
 msgid ""
 "Leave a coned lane when warned. Driving through barrels causes damage, a "
 "citation, and a serious violation."
@@ -43631,7 +43627,7 @@ msgstr ""
 msgid "{control_weather} reports conditions."
 msgstr ""
 
-#: crates/freight-fate/src/states/main_menu_help.rs
+#: crates/freight-fate/src/states/main_menu_help.rs crates/freight-fate/src/states/main_menu_help_phone.rs
 msgid ""
 "The calendar starts in spring and advances with driving and rest. Live "
 "weather can follow the real date or an independent career calendar."
@@ -43683,13 +43679,13 @@ msgstr ""
 msgid "{control_cb} repeats it with updated distance."
 msgstr ""
 
-#: crates/freight-fate/src/states/main_menu_help.rs
+#: crates/freight-fate/src/states/main_menu_help.rs crates/freight-fate/src/states/main_menu_help_phone.rs
 msgid ""
 "Citations cost money and affect your record. Serious violations can suspend "
 "your CDL and remove driving work. Fleeing is a major offense."
 msgstr ""
 
-#: crates/freight-fate/src/states/main_menu_help.rs
+#: crates/freight-fate/src/states/main_menu_help.rs crates/freight-fate/src/states/main_menu_help_phone.rs
 msgid ""
 "The dash overspeed chime is a free warning. Tickets already paid on the "
 "road are not charged again at settlement."
@@ -43702,24 +43698,24 @@ msgid ""
 "stop, then use {control_rest} for inspection check-in."
 msgstr ""
 
-#: crates/freight-fate/src/states/main_menu_help.rs
+#: crates/freight-fate/src/states/main_menu_help.rs crates/freight-fate/src/states/main_menu_help_phone.rs
 msgid "Hours, fatigue, and rest stops"
 msgstr ""
 
-#: crates/freight-fate/src/states/main_menu_help.rs
+#: crates/freight-fate/src/states/main_menu_help.rs crates/freight-fate/src/states/main_menu_help_phone.rs
 msgid ""
 "The hours clock permits eleven driving hours after ten hours off, inside a "
 "fourteen-hour duty window. A thirty-minute break is due after eight "
 "cumulative driving hours."
 msgstr ""
 
-#: crates/freight-fate/src/states/main_menu_help.rs
+#: crates/freight-fate/src/states/main_menu_help.rs crates/freight-fate/src/states/main_menu_help_phone.rs
 msgid ""
 "Any thirty minutes in a row without driving count as that break, including "
 "loading or inspection. They do not necessarily reset the duty window."
 msgstr ""
 
-#: crates/freight-fate/src/states/main_menu_help.rs
+#: crates/freight-fate/src/states/main_menu_help.rs crates/freight-fate/src/states/main_menu_help_phone.rs
 msgid ""
 "Realistic and Relaxed hours use the same limits. Relaxed brings lighter "
 "fines, fewer inspections, and rare road hazards. A warning comes before "
@@ -43749,18 +43745,18 @@ msgid ""
 "traffic or weather changes."
 msgstr ""
 
-#: crates/freight-fate/src/states/main_menu_help.rs
+#: crates/freight-fate/src/states/main_menu_help.rs crates/freight-fate/src/states/main_menu_help_phone.rs
 msgid ""
 "Ten-hour sleep is the simplest reset. Sleeper parking also offers 2, 3, 7 "
 "or 8 hours. Pair 8 with 2, or 7 with 3, for a split rest. The long part "
 "pauses the duty window. The short part does not, until the pair is done."
 msgstr ""
 
-#: crates/freight-fate/src/states/main_menu_help.rs
+#: crates/freight-fate/src/states/main_menu_help.rs crates/freight-fate/src/states/main_menu_help_phone.rs
 msgid "A nap that is not part of a split leaves the duty window running."
 msgstr ""
 
-#: crates/freight-fate/src/states/main_menu_help.rs
+#: crates/freight-fate/src/states/main_menu_help.rs crates/freight-fate/src/states/main_menu_help_phone.rs
 msgid ""
 "Fatigue rises faster at night and reduces reaction time. On-duty time at a "
 "stop, such as fueling, a dock or an inspection, builds it at a third of the "
@@ -43768,26 +43764,26 @@ msgid ""
 "misses can force you off the road."
 msgstr ""
 
-#: crates/freight-fate/src/states/main_menu_help.rs
+#: crates/freight-fate/src/states/main_menu_help.rs crates/freight-fate/src/states/main_menu_help_phone.rs
 msgid ""
 "Job details and the departure line say how many hours of a run fall at "
 "night, between 9 PM and 5 AM."
 msgstr ""
 
-#: crates/freight-fate/src/states/main_menu_help.rs
+#: crates/freight-fate/src/states/main_menu_help.rs crates/freight-fate/src/states/main_menu_help_phone.rs
 msgid ""
 "Fatigue slows work by hand. Fueling, the walk-around, chain work and "
 "pulling into a stop take longer from worn up, and the menus read the longer "
 "minutes."
 msgstr ""
 
-#: crates/freight-fate/src/states/main_menu_help.rs
+#: crates/freight-fate/src/states/main_menu_help.rs crates/freight-fate/src/states/main_menu_help_phone.rs
 msgid ""
 "An inspection or traffic stop while you are severe ends in a ten-hour "
 "fatigue out-of-service order. On Relaxed pacing the first one is a warning."
 msgstr ""
 
-#: crates/freight-fate/src/states/main_menu_help.rs
+#: crates/freight-fate/src/states/main_menu_help.rs crates/freight-fate/src/states/main_menu_help_phone.rs
 msgid ""
 "Drowsy or severe on a load, Call dispatch offers Too tired to drive safely "
 "once per load. The appointment moves for a night's sleep and the load pays "
@@ -43795,7 +43791,7 @@ msgid ""
 "trust."
 msgstr ""
 
-#: crates/freight-fate/src/states/main_menu_help.rs
+#: crates/freight-fate/src/states/main_menu_help.rs crates/freight-fate/src/states/main_menu_help_phone.rs
 msgid ""
 "Meals ease fatigue, and a half-hour meal counts as a break. The lift from "
 "coffee or an energy drink comes back when it wears off, and a second one "
@@ -43804,13 +43800,13 @@ msgid ""
 "tired."
 msgstr ""
 
-#: crates/freight-fate/src/states/main_menu_help.rs
+#: crates/freight-fate/src/states/main_menu_help.rs crates/freight-fate/src/states/main_menu_help_phone.rs
 msgid ""
 "A stop offers only its listed services. A full parking lot can still sell "
 "diesel. A motel may offer full rest at your expense."
 msgstr ""
 
-#: crates/freight-fate/src/states/main_menu_help.rs
+#: crates/freight-fate/src/states/main_menu_help.rs crates/freight-fate/src/states/main_menu_help_phone.rs
 msgid ""
 "Sleeping 10 hours in the lot gives poor rest: 5 points an hour, never below "
 "30. Ten hours in sleeper parking is proper sleep."
@@ -43839,7 +43835,7 @@ msgid ""
 "damage."
 msgstr ""
 
-#: crates/freight-fate/src/states/main_menu_help.rs
+#: crates/freight-fate/src/states/main_menu_help.rs crates/freight-fate/src/states/main_menu_help_phone.rs
 msgid ""
 "The deadline keeps running during all rest. Logbook at the terminal and the "
 "ELD app show your duty time and limits."
@@ -43855,7 +43851,7 @@ msgid ""
 "Declining costs reputation. Low dispatch trust can remove load choice again."
 msgstr ""
 
-#: crates/freight-fate/src/states/main_menu_help.rs
+#: crates/freight-fate/src/states/main_menu_help.rs crates/freight-fate/src/states/main_menu_help_phone.rs
 msgid ""
 "Jobs name cargo, weight, pay, deadline, facilities, and equipment "
 "requirements. F1 reads the details. Fuel adds weight, so check the weight "
@@ -43936,7 +43932,7 @@ msgid ""
 "and other facilities."
 msgstr ""
 
-#: crates/freight-fate/src/states/main_menu_help.rs
+#: crates/freight-fate/src/states/main_menu_help.rs crates/freight-fate/src/states/main_menu_help_phone.rs
 msgid ""
 "Facilities determine local cargo. Dispatch routes include stops for fuel "
 "and legal rest. F1 reads the load's requirements before you accept it."
@@ -44045,34 +44041,34 @@ msgid ""
 "what you selected. Escape returns to Driver apps, then to driving status."
 msgstr ""
 
-#: crates/freight-fate/src/states/main_menu_help.rs
+#: crates/freight-fate/src/states/main_menu_help.rs crates/freight-fate/src/states/main_menu_help_phone.rs
 msgid ""
 "The Radio app turns the radio on or off, tunes, and keeps favorites. You "
 "can also suggest a station there. Search by part of a name, call sign, or "
 "format, then choose a result. Out-of-range stations cannot be tuned here."
 msgstr ""
 
-#: crates/freight-fate/src/states/main_menu_help.rs
+#: crates/freight-fate/src/states/main_menu_help.rs crates/freight-fate/src/states/main_menu_help_phone.rs
 msgid ""
 "Navigation reads your next guidance, progress, and next listed exit. Map "
 "under driving status gives a broader view of the route and stops."
 msgstr ""
 
-#: crates/freight-fate/src/states/main_menu_help.rs
+#: crates/freight-fate/src/states/main_menu_help.rs crates/freight-fate/src/states/main_menu_help_phone.rs
 msgid ""
 "Weather gives conditions, suggested safe speed, how old the report is, and "
 "any active live weather alerts. Simulated weather includes a forecast. A "
 "live report may not."
 msgstr ""
 
-#: crates/freight-fate/src/states/main_menu_help.rs
+#: crates/freight-fate/src/states/main_menu_help.rs crates/freight-fate/src/states/main_menu_help_phone.rs
 msgid ""
 "Traffic reports traffic ahead, including a reported vehicle's distance and "
 "speed. No slowdowns reported in the next twenty miles does not guarantee an "
 "empty road."
 msgstr ""
 
-#: crates/freight-fate/src/states/main_menu_help.rs
+#: crates/freight-fate/src/states/main_menu_help.rs crates/freight-fate/src/states/main_menu_help_phone.rs
 msgid ""
 "Truck stops lists up to three route stops in the next hundred miles, with "
 "distance and services. Check for fuel, repairs, and parking before choosing "
@@ -44103,7 +44099,7 @@ msgstr ""
 msgid "{control_cb} repeats the last chatter with its distance updated."
 msgstr ""
 
-#: crates/freight-fate/src/states/main_menu_help.rs
+#: crates/freight-fate/src/states/main_menu_help.rs crates/freight-fate/src/states/main_menu_help_phone.rs
 msgid ""
 "ELD gives your hours and guidance about reachable legal rest. Check again "
 "if traffic or weather slows your trip."
@@ -44131,20 +44127,20 @@ msgid ""
 msgstr ""
 
 #. placeholders: {control_radio}
-#: crates/freight-fate/src/states/main_menu_help.rs
+#: crates/freight-fate/src/states/main_menu_help.rs crates/freight-fate/src/states/main_menu_help_phone.rs
 msgid ""
 "With the engine running, {control_radio} switches the radio on or off. Page "
 "Down or apostrophe tunes forward. Page Up or semicolon tunes backward."
 msgstr ""
 
-#: crates/freight-fate/src/states/main_menu_help.rs
+#: crates/freight-fate/src/states/main_menu_help.rs crates/freight-fate/src/states/main_menu_help_phone.rs
 msgid ""
 "Hold Control with a tune key to jump between categories, including route "
 "music, Freight Fate stations, your playlists, favorites, and broadcast or "
 "web stations."
 msgstr ""
 
-#: crates/freight-fate/src/states/main_menu_help.rs
+#: crates/freight-fate/src/states/main_menu_help.rs crates/freight-fate/src/states/main_menu_help_phone.rs
 msgid ""
 "Hold Shift to change volume in ten percent steps: Page Up or semicolon "
 "raises it, Page Down or apostrophe lowers it."
@@ -44157,7 +44153,7 @@ msgid "{control_radio_favorite} saves or removes a favorite."
 msgstr ""
 
 #. placeholders: {control_radio_favorite}, {control_radio_status}, {control_radio_now_playing}
-#: crates/freight-fate/src/states/main_menu_help.rs
+#: crates/freight-fate/src/states/main_menu_help.rs crates/freight-fate/src/states/main_menu_help_phone.rs
 msgid ""
 "{control_radio_favorite} saves or removes a favorite. "
 "{control_radio_status} reads station, reception, volume, and streamer-safe "
@@ -44192,21 +44188,21 @@ msgid ""
 "restart the game. Roadhouse and Night Line are available across the map."
 msgstr ""
 
-#: crates/freight-fate/src/states/main_menu_help.rs
+#: crates/freight-fate/src/states/main_menu_help.rs crates/freight-fate/src/states/main_menu_help_phone.rs
 msgid ""
 "Put M3U, M3U8, or PLS playlists in the Playlists folder inside your saves "
 "folder. Radio status gives the folder location and reloads the playlists "
 "when opened. Entries can be audio files, network paths, or stream addresses."
 msgstr ""
 
-#: crates/freight-fate/src/states/main_menu_help.rs
+#: crates/freight-fate/src/states/main_menu_help.rs crates/freight-fate/src/states/main_menu_help_phone.rs
 msgid ""
 "Personal playlists normally play in order and resume where you left them. "
 "Shuffle plays every track once in a random order, then chooses a new order. "
 "Unreadable entries are skipped."
 msgstr ""
 
-#: crates/freight-fate/src/states/main_menu_help.rs
+#: crates/freight-fate/src/states/main_menu_help.rs crates/freight-fate/src/states/main_menu_help_phone.rs
 msgid ""
 "Original uses the licensed menu and Roadhouse tracks. Synthesized plays "
 "music the game composes plus the three original tracks, and takes Freight "
@@ -44234,7 +44230,7 @@ msgid ""
 "stations can appear at a later launch without a game update."
 msgstr ""
 
-#: crates/freight-fate/src/states/main_menu_help.rs
+#: crates/freight-fate/src/states/main_menu_help.rs crates/freight-fate/src/states/main_menu_help_phone.rs
 msgid "Settings and accessibility"
 msgstr ""
 
@@ -44244,14 +44240,14 @@ msgid ""
 "Right or Enter for its next value, or Left for the previous value."
 msgstr ""
 
-#: crates/freight-fate/src/states/main_menu_help.rs
+#: crates/freight-fate/src/states/main_menu_help.rs crates/freight-fate/src/states/main_menu_help_phone.rs
 msgid ""
 "Gameplay holds driving assistance, difficulty and hours, world and traffic, "
 "and controls. Audio, Speech, Updates, and Problem reports have separate "
 "choices where supported. F1 explains the selected setting."
 msgstr ""
 
-#: crates/freight-fate/src/states/main_menu_help.rs
+#: crates/freight-fate/src/states/main_menu_help.rs crates/freight-fate/src/states/main_menu_help_phone.rs
 msgid ""
 "Realistic leaves lane keeping off. Balanced adds partial lane keeping and "
 "facility stops. All assists adds full lane keeping and a fifty-five mile "
@@ -44259,7 +44255,7 @@ msgid ""
 "name to Custom."
 msgstr ""
 
-#: crates/freight-fate/src/states/main_menu_help.rs
+#: crates/freight-fate/src/states/main_menu_help.rs crates/freight-fate/src/states/main_menu_help_phone.rs
 msgid ""
 "Presets leave driving pace, legal hours, transmission, world sources, "
 "latching brake, and cue volumes as they are."
@@ -44272,20 +44268,20 @@ msgid ""
 "fast. Real time follows the computer clock at real speed."
 msgstr ""
 
-#: crates/freight-fate/src/states/main_menu_help.rs
+#: crates/freight-fate/src/states/main_menu_help.rs crates/freight-fate/src/states/main_menu_help_phone.rs
 msgid ""
 "Change pacing mid-drive from the pause menu. It begins when the truck next "
 "stops. Legal hours and time remaining on a deadline stay intact."
 msgstr ""
 
-#: crates/freight-fate/src/states/main_menu_help.rs
+#: crates/freight-fate/src/states/main_menu_help.rs crates/freight-fate/src/states/main_menu_help_phone.rs
 msgid ""
 "Choose simulated or available live weather, traffic, and parking separately "
 "from online sharing. Fuel prices can use the weekly national diesel average "
 "with regional differences or simulated regional prices."
 msgstr ""
 
-#: crates/freight-fate/src/states/main_menu_help.rs
+#: crates/freight-fate/src/states/main_menu_help.rs crates/freight-fate/src/states/main_menu_help_phone.rs
 msgid ""
 "Adjust music, radio, engine, weather, and gameplay cues separately if one "
 "covers another. Lower game sounds during speech turns the engine, weather, "
@@ -44299,25 +44295,25 @@ msgid ""
 "separate controls."
 msgstr ""
 
-#: crates/freight-fate/src/states/main_menu_help.rs
+#: crates/freight-fate/src/states/main_menu_help.rs crates/freight-fate/src/states/main_menu_help_phone.rs
 msgid ""
 "Speech and braille sends messages to both. Braille only requires NVDA or "
 "JAWS. Speech returns if the screen reader closes. You can also choose a "
 "separate driving event voice."
 msgstr ""
 
-#: crates/freight-fate/src/states/main_menu_help.rs
+#: crates/freight-fate/src/states/main_menu_help.rs crates/freight-fate/src/states/main_menu_help_phone.rs
 msgid ""
 "For a problem report, use Where the game log is saved to find the session "
 "record, including spoken messages. It stays on your computer unless you "
 "share it."
 msgstr ""
 
-#: crates/freight-fate/src/states/main_menu_help.rs
+#: crates/freight-fate/src/states/main_menu_help.rs crates/freight-fate/src/states/main_menu_help_phone.rs
 msgid "Online sharing and backups"
 msgstr ""
 
-#: crates/freight-fate/src/states/main_menu_help.rs
+#: crates/freight-fate/src/states/main_menu_help.rs crates/freight-fate/src/states/main_menu_help_phone.rs
 msgid ""
 "In Online you can browse driver profiles and account achievements, connect "
 "an account, choose what you share, and manage private backups. Viewing "
@@ -44331,42 +44327,42 @@ msgid ""
 "playing; Check again refreshes it."
 msgstr ""
 
-#: crates/freight-fate/src/states/main_menu_help.rs
+#: crates/freight-fate/src/states/main_menu_help.rs crates/freight-fate/src/states/main_menu_help_phone.rs
 msgid ""
 "Use an activation code in your browser to connect an existing account and "
 "enable profile sharing and backup. You can turn either off afterward."
 msgstr ""
 
-#: crates/freight-fate/src/states/main_menu_help.rs
+#: crates/freight-fate/src/states/main_menu_help.rs crates/freight-fate/src/states/main_menu_help_phone.rs
 msgid ""
 "Profile sharing includes your activity, achievements, and road journal. "
 "Public profiles omit current cash, full saves, coordinates, and precise "
 "location. Career statistics need an accepted private backup."
 msgstr ""
 
-#: crates/freight-fate/src/states/main_menu_help.rs
+#: crates/freight-fate/src/states/main_menu_help.rs crates/freight-fate/src/states/main_menu_help_phone.rs
 msgid ""
 "Cloud backup keeps the last ten backups of each career, for up to ten "
 "careers. Restoring checks the backup first and keeps your replaced save as "
 "a spare copy. Back up this career now uploads immediately."
 msgstr ""
 
-#: crates/freight-fate/src/states/main_menu_help.rs
+#: crates/freight-fate/src/states/main_menu_help.rs crates/freight-fate/src/states/main_menu_help_phone.rs
 msgid "Discord shows broad activity and clears it after half an hour idle."
 msgstr ""
 
-#: crates/freight-fate/src/states/main_menu_help.rs
+#: crates/freight-fate/src/states/main_menu_help.rs crates/freight-fate/src/states/main_menu_help_phone.rs
 msgid ""
 "Online services switches sharing services off together while remembering "
 "your choices. Live weather, traffic, and parking keep their separate "
 "settings."
 msgstr ""
 
-#: crates/freight-fate/src/states/main_menu_help.rs
+#: crates/freight-fate/src/states/main_menu_help.rs crates/freight-fate/src/states/main_menu_help_phone.rs
 msgid "Common questions"
 msgstr ""
 
-#: crates/freight-fate/src/states/main_menu_help.rs
+#: crates/freight-fate/src/states/main_menu_help.rs crates/freight-fate/src/states/main_menu_help_phone.rs
 msgid ""
 "Do I have to buy a truck? No. The carrier assigns company drivers a truck "
 "and pays its fuel, repairs, and insurance. Buying trucks opens with the "
@@ -44374,7 +44370,7 @@ msgid ""
 "needs."
 msgstr ""
 
-#: crates/freight-fate/src/states/main_menu_help.rs
+#: crates/freight-fate/src/states/main_menu_help.rs crates/freight-fate/src/states/main_menu_help_phone.rs
 msgid ""
 "What are the fleets on Career stats? Each is a set of carrier trucks that "
 "dispatch assigns by level: the yard standard, then the regional fleet at "
@@ -44382,21 +44378,21 @@ msgid ""
 "of the yard at 17. Moving up costs you nothing."
 msgstr ""
 
-#: crates/freight-fate/src/states/main_menu_help.rs
+#: crates/freight-fate/src/states/main_menu_help.rs crates/freight-fate/src/states/main_menu_help_phone.rs
 msgid ""
 "Why am I in a different truck on some loads? Until level 9, dispatch "
 "matches a spare truck to each load. From level 9 you keep one truck for "
 "every load until dispatch moves you up to the next fleet."
 msgstr ""
 
-#: crates/freight-fate/src/states/main_menu_help.rs
+#: crates/freight-fate/src/states/main_menu_help.rs crates/freight-fate/src/states/main_menu_help_phone.rs
 msgid ""
 "Why am I not in the truck my level earns? Low dispatch trust, a suspended "
 "CDL, debt, or your driving record can hold equipment back. Career stats "
 "names the reason and what brings the truck back."
 msgstr ""
 
-#: crates/freight-fate/src/states/main_menu_help.rs
+#: crates/freight-fate/src/states/main_menu_help.rs crates/freight-fate/src/states/main_menu_help_phone.rs
 msgid ""
 "What is the difference between reputation and dispatch trust? Reputation is "
 "a score from your deliveries, lowered by your driving record: Outstanding, "
@@ -44492,7 +44488,7 @@ msgstr ""
 msgid "{control_route} reads the distance left."
 msgstr ""
 
-#: crates/freight-fate/src/states/main_menu_help.rs
+#: crates/freight-fate/src/states/main_menu_help.rs crates/freight-fate/src/states/main_menu_help_phone.rs
 msgid ""
 "The truck will not move. What should I check? Fuel, the engine, air "
 "pressure, and the parking brake. Damage, worn parts, or a suspended CDL can "
@@ -44525,7 +44521,7 @@ msgid "How do I change stations or play my own music?"
 msgstr ""
 
 #. placeholders: {control_radio}
-#: crates/freight-fate/src/states/main_menu_help.rs
+#: crates/freight-fate/src/states/main_menu_help.rs crates/freight-fate/src/states/main_menu_help_phone.rs
 msgid ""
 "How do I change stations or play my own music? With the engine running, "
 "{control_radio} switches the radio on, and Page Up or Page Down tunes. Put "
@@ -44558,13 +44554,13 @@ msgid ""
 "messages."
 msgstr ""
 
-#: crates/freight-fate/src/states/main_menu_help.rs
+#: crates/freight-fate/src/states/main_menu_help.rs crates/freight-fate/src/states/main_menu_help_phone.rs
 msgid ""
 "Can I steer myself? Yes. Choose the Realistic preset, or set lane keeping "
 "to off, under Settings, Gameplay, Driving assistance."
 msgstr ""
 
-#: crates/freight-fate/src/states/main_menu_help.rs
+#: crates/freight-fate/src/states/main_menu_help.rs crates/freight-fate/src/states/main_menu_help_phone.rs
 msgid ""
 "Can I play in braille only? Set Output to braille only under Settings, "
 "Speech. It needs NVDA or JAWS."
@@ -44574,13 +44570,13 @@ msgstr ""
 msgid "Controller"
 msgstr ""
 
-#: crates/freight-fate/src/states/main_menu_help.rs
+#: crates/freight-fate/src/states/main_menu_help.rs crates/freight-fate/src/states/main_menu_help_phone.rs
 msgid ""
 "Controllers work alongside the keyboard. Button names use the Xbox layout. "
 "Change button assignments under Settings, Gameplay, Controls."
 msgstr ""
 
-#: crates/freight-fate/src/states/main_menu_help.rs
+#: crates/freight-fate/src/states/main_menu_help.rs crates/freight-fate/src/states/main_menu_help_phone.rs
 msgid ""
 "On newer Xbox controllers, Back is the View button, left of the Xbox "
 "button, and Start is the Menu button on its right. On Windows, the Xbox "
@@ -44765,7 +44761,7 @@ msgid ""
 "Start twice to leave."
 msgstr ""
 
-#: crates/freight-fate/src/states/main_menu_help.rs
+#: crates/freight-fate/src/states/main_menu_help.rs crates/freight-fate/src/states/main_menu_help_phone.rs
 msgid ""
 "If the controller does nothing, check that Controller is enabled under "
 "Settings, Gameplay, Controls. The game uses the first controller it finds, "
@@ -44778,75 +44774,12 @@ msgid "pad"
 msgstr ""
 
 #: crates/freight-fate/src/states/main_menu_help.rs
-msgid ""
-"Flick left or right with three fingers to move ten options back or forward."
+msgid "do"
 msgstr ""
 
+#. placeholders: {page}, {pages}, {title}
 #: crates/freight-fate/src/states/main_menu_help.rs
-msgid ""
-"Partial follows bends with gentle drift. Off leaves steering to you unless "
-"curve assistance is enabled. Hold a steering control across the lane line "
-"to change lanes. With Tilt steering on under Touch gestures, tilting the "
-"phone steers too, and with lane keeping on full a tilt changes one lane."
-msgstr ""
-
-#: crates/freight-fate/src/states/main_menu_help.rs
-msgid ""
-"The radio plays while the engine runs. A three-finger flick right tunes "
-"forward, and a three-finger flick left tunes backward."
-msgstr ""
-
-#: crates/freight-fate/src/states/main_menu_help.rs
-msgid ""
-"Hold Control with a tune key to jump between categories, including route "
-"music, Freight Fate stations, favorites, and broadcast or web stations."
-msgstr ""
-
-#: crates/freight-fate/src/states/main_menu_help.rs
-msgid ""
-"Radio and CB on the three-finger tap list turns the radio on or off, saves "
-"favorites, and changes the radio volume and category. Categories include "
-"route music, Freight Fate stations, favorites, and broadcast or web "
-"stations."
-msgstr ""
-
-#: crates/freight-fate/src/states/main_menu_help.rs
-msgid ""
-"Radio status reads station, reception, volume, and streamer-safe status. "
-"What the radio is playing reads available song information. Both are under "
-"Radio and CB."
-msgstr ""
-
-#: crates/freight-fate/src/states/main_menu_help.rs
-msgid ""
-"Original uses the licensed menu and Roadhouse tracks. Synthesized plays "
-"music the game composes plus the three original tracks, and takes Freight "
-"Fate's regional stations and voiced breaks off the dial. Real streams "
-"remain unless streamer-safe mode hides them."
-msgstr ""
-
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/main_menu_help.rs
-msgid "How do I change stations?"
-msgstr ""
-
-#. placeholders: {control_radio}
-#: crates/freight-fate/src/states/main_menu_help.rs
-msgid ""
-"How do I change stations? With the engine running, {control_radio} switches "
-"the radio on, and Page Up or Page Down tunes."
-msgstr ""
-
-#: crates/freight-fate/src/states/main_menu_help.rs
-msgid ""
-"How do I change stations? With the engine running, a three-finger flick "
-"right or left tunes. Radio on or off is under Radio and CB on the "
-"three-finger tap list."
-msgstr ""
-
-#. placeholders: {page}, {HELP_PAGES}, {title}
-#: crates/freight-fate/src/states/main_menu_help.rs
-msgid "Page {page} of {HELP_PAGES}: {title}."
+msgid "Page {page} of {pages}: {title}."
 msgstr ""
 
 #: crates/freight-fate/src/states/main_menu_help.rs
@@ -44879,9 +44812,698 @@ msgstr ""
 msgid "How to play. {controls} {page_title}"
 msgstr ""
 
-#. placeholders: {title}, {page}, {HELP_PAGES}
+#. placeholders: {title}, {page}, {pages}
 #: crates/freight-fate/src/states/main_menu_help.rs
-msgid "How to play - {title} ({page}/{HELP_PAGES})"
+msgid "How to play - {title} ({page}/{pages})"
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid "Page Up and Page Down move ten options at a time."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid ""
+"Flick left or right with three fingers to move ten options back or forward."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid ""
+"Settings changes driving assistance, sound, speech, and controls. Report a "
+"problem opens the report form in your browser, with your game log attached."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid ""
+"Jobs name cargo, weight, pay, deadline, facilities, and equipment "
+"requirements. Flick up with two fingers on a job for the details. Fuel adds "
+"weight, so check the weight before filling up on a load near the limit."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid ""
+"Facilities determine local cargo. Dispatch routes include stops for fuel "
+"and legal rest. Flick up with two fingers on a load for its requirements "
+"before you accept it."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid ""
+"Partial follows bends with gentle drift. Off leaves steering to you unless "
+"curve assistance is enabled. Hold a steering control across the lane line "
+"to change lanes. With Tilt steering on under Touch gestures, tilting the "
+"phone steers too, and with lane keeping on full a tilt changes one lane."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid ""
+"The radio plays while the engine runs. A three-finger flick right tunes "
+"forward, and a three-finger flick left tunes backward."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid ""
+"Hold Control with a tune key to jump between categories, including route "
+"music, Freight Fate stations, favorites, and broadcast or web stations."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid ""
+"Radio and CB on the three-finger tap list turns the radio on or off, saves "
+"favorites, and changes the radio volume and category. Categories include "
+"route music, Freight Fate stations, favorites, and broadcast or web "
+"stations."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid ""
+"Radio status reads station, reception, volume, and streamer-safe status. "
+"What the radio is playing reads available song information. Both are under "
+"Radio and CB."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid ""
+"Original uses the licensed menu and Roadhouse tracks. Synthesized plays "
+"music the game composes plus the three original tracks, and takes Freight "
+"Fate's regional stations and voiced breaks off the dial. Real streams "
+"remain unless streamer-safe mode hides them."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid ""
+"Gameplay holds driving assistance, difficulty and hours, world and traffic, "
+"and controls. Audio, Speech, and Problem reports have separate choices. F1 "
+"explains the selected setting."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid "You can choose a separate driving event voice."
+msgstr ""
+
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid "How do I change stations?"
+msgstr ""
+
+#. placeholders: {control_radio}
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid ""
+"How do I change stations? With the engine running, {control_radio} switches "
+"the radio on, and Page Up or Page Down tunes."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid ""
+"How do I change stations? With the engine running, a three-finger flick "
+"right or left tunes. Radio on or off is under Radio and CB on the "
+"three-finger tap list."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid ""
+"Controllers work alongside the screen. Button names use the Xbox layout. "
+"Change button assignments under Settings, Gameplay, Controls."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid ""
+"On newer Xbox controllers, Back is the View button, left of the Xbox "
+"button, and Start is the Menu button on its right."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid ""
+"If the controller does nothing, check that Controller is enabled under "
+"Settings, Gameplay, Controls. The game uses the first controller it finds, "
+"so disconnect other controllers."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid ""
+"Flick right or left to move to the next or previous option. Double tap "
+"chooses it. Tap reads it again."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid ""
+"Flick down with two fingers to go back. Flick up or down with three fingers "
+"to jump to the first or last option."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid ""
+"On a setting, flick up for its next value and down for the previous one."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid "Flick up with two fingers to hear what the selected option does."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid ""
+"Flick left with two fingers to repeat the latest message, then step back. "
+"Flick right with two fingers to move forward."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid "Tap with two fingers to stop speech."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid ""
+"In How to play, flick right or left to read one line at a time. Flick up "
+"for the next page and down for the previous one. Double tap reads the whole "
+"page."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid ""
+"Flick up with three fingers for the first page, and down for the last."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid ""
+"Practice gestures names each gesture without moving the truck. It is on the "
+"main and pause menus. Flick down with two fingers twice to leave."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid ""
+"Turn two fingers right to start the engine. Turn them left to stop it once "
+"the truck has stopped."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid ""
+"Wait for air pressure to reach 100 psi, then swipe up and hold to release "
+"the parking brake. Repeated hard braking uses air."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid ""
+"Swipe up and hold to accelerate. Lift to coast. Swipe down and hold to "
+"brake."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid ""
+"A deep swipe down, about three flicks long, is the hardest stop. Under one "
+"mile per hour it sets the parking brake."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid ""
+"In automatic, stop fully, lift, then swipe down and hold again to reverse. "
+"A quick swipe or a brake held through the stop keeps the truck stopped."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid ""
+"While reversing, stop with a swipe up and hold, lift, then swipe up and "
+"hold again for forward."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid ""
+"With Latching brake on, brake briefly, then swipe down and hold again for "
+"half a second. A click and announcement confirm the latch."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid ""
+"Brake again or accelerate to release the latch. The gas never latches."
+msgstr ""
+
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid ""
+"Applying the parking brake at speed causes a hard stop and tire damage."
+msgstr ""
+
+#. placeholders: {do_cruise}
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid ""
+"Applying the parking brake at speed causes a hard stop and tire damage. "
+"Parked with the parking brake set, {do_cruise} to run the engine at a fast "
+"idle."
+msgstr ""
+
+#. placeholders: {do_cruise}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid ""
+"Parked with the parking brake set, {do_cruise} to run the engine at a fast "
+"idle."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid ""
+"In a manual, hold a pedal and flick up or down with a second finger to "
+"shift. The flick works the clutch."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid ""
+"Slowing in a tall gear takes neutral. A flick up from neutral takes the "
+"gear that fits your speed."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid ""
+"Neutral, Reverse, and Automatic or manual shifting are under Gears and "
+"engine brake on the three-finger tap list."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid "Hold two fingers to sound the horn."
+msgstr ""
+
+#. placeholders: {do_cruise}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid "With cruise off, {do_cruise} to turn it on."
+msgstr ""
+
+#. placeholders: {do_cruise}
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid ""
+"With cruise off, {do_cruise} to turn it on. On open roads it follows "
+"traffic. On low-speed roads it follows local limits, queues and corners."
+msgstr ""
+
+#. placeholders: {do_cruise_up}, {do_cruise_down}
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid ""
+"With cruise on, {do_cruise_up} or {do_cruise_down} to move the cruise speed "
+"to the next multiple of five."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid ""
+"That changes the open-road cruise speed, even while cruise holds a lower "
+"limit."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid ""
+"Cruise slows early for a sharp drop in the posted limit, and never holds "
+"more than five over it."
+msgstr ""
+
+#. placeholders: {do_speed}
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid "{do_speed} for the active speed-control mode and cruise speed."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid ""
+"Touch the brakes to cancel cruise. Turned on again, it resumes the previous "
+"target. Cruise pauses at the pickup and comes back on after you leave with "
+"the load."
+msgstr ""
+
+#. placeholders: {do_engine_brake}
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid "{do_engine_brake} to turn the engine brake on or off."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid ""
+"Engine brake stage 1, 2 and 3, and Automatic engine brake on or off, are "
+"under Gears and engine brake on the three-finger tap list."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid ""
+"Hot brakes lose stopping power. Safe speed, under Speed and cruise on the "
+"list, gives a safe speed for the load, grade, weather, and bend. Strong "
+"engine braking can break traction on ice."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid "Driving gestures"
+msgstr ""
+
+#. placeholders: {do_speed}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid "{do_speed} for your speed, gear, and speed-control mode."
+msgstr ""
+
+#. placeholders: {do_speed}
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid ""
+"{do_speed} for your speed, gear, and speed-control mode. With a manual "
+"transmission it adds RPM. It also adds air or brakes when they need "
+"attention, and the distance to an exit you signaled for."
+msgstr ""
+
+#. placeholders: {do_route}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid ""
+"{do_route} for how far along you are, distance remaining, and your location."
+msgstr ""
+
+#. placeholders: {do_route}
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid ""
+"{do_route} for how far along you are, distance remaining, and your "
+"location. A planned stop changes the distance to that stop."
+msgstr ""
+
+#. placeholders: {do_upcoming}
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid ""
+"{do_upcoming} for what is coming up: your signaled exit, the light or stop "
+"sign at the end of the ramp, the next lower speed limit, the next stop, and "
+"the next bend you need to slow for."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid "Double tap to signal for an announced exit or cancel the signal."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid ""
+"Everything else is on the three-finger tap list. Tap with three fingers, "
+"flick to a command, and double tap to run it."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid ""
+"Its first row is the Status menu, with Route, Driver, Map, and Radio "
+"reports, plus Driver apps."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid ""
+"Under Speed and cruise, Posted speed limit reads the limit, the zone, and "
+"how far over you are. Safe speed is there too."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid ""
+"Under Road and stops are Grade, Weather, and Lane position, which also says "
+"whether the lane beside you is open."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid ""
+"Rest stop, also under Road and stops, plans rest while moving or opens a "
+"nearby stop when fully stopped."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid ""
+"Repeat the last announcement is on the list. Repeat the last CB chatter, "
+"under Radio and CB, gives its current distance."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid ""
+"Where am I has the state, the road, the town or nearest town, the "
+"direction, and the county."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid "Under Truck, Fuel reads fuel and range."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid ""
+"Under Hours and clock, Clock reads the clock, deadline, and nearest hours "
+"limit. Time at the wheel adds time on duty. What ends this shift adds "
+"reachable legal rest."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid ""
+"Tap with two fingers to stop the driving event voice. Flick down with two "
+"fingers to pause. Flick up with two fingers for the wheel's help."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid ""
+"Flick left or right with two fingers to review messages. Flick left or "
+"right with three fingers to tune the radio."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid ""
+"Most gestures can be moved under Settings, Gameplay, Controls, then Touch "
+"gestures. These pages follow your assignments."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid ""
+"Full lane keeping centers the truck, follows bends, and takes route exits "
+"including the destination. Flick left or right to change one lane."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid ""
+"Partial follows bends with gentle drift. Off leaves steering to you unless "
+"curve assistance is enabled. Swipe left or right and hold to steer."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid ""
+"With partial or off, hold the swipe across the lane line to change lanes. A "
+"flick changes one lane with any lane keeping."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid ""
+"With Tilt steering on under Touch gestures, tilting the phone steers too. "
+"With lane keeping on full, a tilt changes one lane."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid ""
+"With lane keeping off and curve assistance off, swipe and hold toward a "
+"called bend to follow the road. Lifting straightens the truck with the road."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid ""
+"Hold one finger still for half a second to straighten the wheel. Your "
+"position within the lane remains yours to correct."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid ""
+"Lane locator, under Road and stops on the three-finger tap list, is a soft "
+"tock that follows your place in the lane, with lane keeping partial or off."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid ""
+"The Steering guide setting can reverse which way to steer, and Lane guide "
+"sound can use a soft tone instead of the engine."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid ""
+"While rolling, Rest stop asks what the stop is for: fuel, a break, sleep, "
+"fuel and sleep, or food. It is under Road and stops on the three-finger tap "
+"list."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid ""
+"With hours-planning hints on, a break or sleep plan takes the recommended "
+"stop. Run Rest stop again to cancel the plan."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid ""
+"Planning a stop does not signal for it. Double tap to signal for the "
+"announced exit or cancel the signal."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid ""
+"When clear, pull ahead as instructed. Facility stopping assistance can take "
+"the pedals to the gate. Braking ends it."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid ""
+"Follow the local street and yard guidance, stop at the gate, then double "
+"tap to confirm arrival. At the receiver choose Dock and deliver."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid ""
+"Fully stopped at a route stop, double tap to open its services. Fully "
+"stopped elsewhere, Rest stop on the list offers emergency sleep on the "
+"shoulder. A nearby stop always comes first."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid ""
+"Nearby vehicles merge, slow, pass, and queue. Lane position, under Road and "
+"stops on the three-finger tap list, tells you which neighboring lanes are "
+"available. Check before changing lanes or returning after a pass."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid ""
+"Weather changes grip, visibility, safe speed, following distance, and fuel "
+"use. Weather, under Road and stops on the list, reports conditions. Snow "
+"and ice need gentler braking and steering."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid ""
+"When a trooper signals you, double tap and brake to a stop for a license "
+"and logbook check. Ignoring the lights escalates to a forced stop or "
+"pursuit."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid ""
+"CB chatter is what other drivers say they saw, and it is not always right. "
+"It can be stale and never claims the road is clear. Repeat the last CB "
+"chatter, under Radio and CB on the list, repeats it with updated distance."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid ""
+"At an open scale, slow into its lane and double tap to signal. Stop on the "
+"scale, then double tap again to check in."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid ""
+"Time at the wheel, When the break is due, and What ends this shift are "
+"under Hours and clock on the three-finger tap list. Check again as traffic "
+"or weather changes."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid ""
+"Away from route points and fully stopped, Rest stop under Road and stops, "
+"or the pause menu, offers emergency sleep on the shoulder. Ten hours pass "
+"with poor rest, and you may get a parking ticket or minor damage."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid ""
+"Open driving status with a three-finger tap, then a double tap, and choose "
+"Driver apps."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid ""
+"Flick right or left to choose an app, and double tap to open it. Flick down "
+"with two fingers to return."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid ""
+"In a report, flick right or left to move through the information, and "
+"double tap to repeat what you selected. Flick down with two fingers to "
+"return to Driver apps, then to driving status."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid ""
+"Road chatter gives informal driver reports that may be stale. With hours "
+"enforcement off, there are no enforcement reports. Repeat the last CB "
+"chatter, under Radio and CB on the three-finger tap list, repeats the last "
+"chatter with its distance updated."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid ""
+"Settings save as you change them. Flick right or left to choose a setting, "
+"then flick up for its next value or down for the previous one."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid ""
+"Gameplay holds driving assistance, difficulty and hours, world and traffic, "
+"and controls. Audio, Speech, and Problem reports have separate choices."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid "Flick up with two fingers on a setting to hear what it does."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid ""
+"Relaxed pacing passes about ten minutes of road and clock each real minute, "
+"with more response time and gentler consequences. Standard moves twice as "
+"fast. Real time follows the clock at real speed."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid ""
+"Driving speech chooses Standard, Quiet, or Urgent only announcements. "
+"Readouts still answer when asked. Place names and roadside chatter have "
+"separate controls."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid ""
+"Drivers on duty refreshes about once a minute. Double tap a driver for "
+"their public profile. Driver directory includes drivers who are not "
+"currently playing; Check again refreshes it."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid ""
+"Why can I not accept a load? It may need a certificate, endorsement, or "
+"trailer you do not have. Flick up with two fingers on the load for its "
+"requirements, and Licenses and training offers the courses."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid ""
+"Why did I get a citation at a weigh station? When an open weigh station is "
+"called, every truck must pull in. Double tap to signal, stop on the scale, "
+"then double tap again to check in."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid ""
+"Why is the limit 55 on a fast highway? Some states hold trucks below the "
+"car limit. Posted speed limit, under Speed and cruise on the three-finger "
+"tap list, names the state when it does."
+msgstr ""
+
+#. placeholders: {do_route}
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid ""
+"I missed my exit. What now? Keep driving and follow the turnaround "
+"guidance. {do_route} for the distance left."
+msgstr ""
+
+#. placeholders: {do_route}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid "{do_route} for the distance left."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid ""
+"How do I know when a hill ends? Grade, under Road and stops on the list, "
+"reads the grade under the wheels and the next one worth planning for."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid ""
+"How do I change stations? With the engine running, a three-finger flick "
+"right or left tunes. Radio on or off is under Radio and CB on the list."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid ""
+"Can I hear a weather warning again? With live weather on, the Weather app "
+"under Driver apps lists active alerts. A two-finger flick left also steps "
+"back through recent messages."
 msgstr ""
 
 #: crates/freight-fate/src/states/online_hub.rs
