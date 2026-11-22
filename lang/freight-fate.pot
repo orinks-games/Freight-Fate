@@ -14,6 +14,30 @@ msgstr ""
 msgid "Dalton Highway"
 msgstr ""
 
+#: crates/ff-core/src/achievements/career_two.rs
+msgid "Hwy 17"
+msgstr ""
+
+#: crates/ff-core/src/achievements/career_two.rs crates/ff-core/src/data/border_yards.rs crates/ff-core/src/models/jobs/board.rs
+msgid "receives"
+msgstr ""
+
+#: crates/ff-core/src/achievements/career_two.rs crates/ff-core/src/sim/season.rs crates/freight-fate/src/online_activation.rs
+msgid "November"
+msgstr ""
+
+#: crates/ff-core/src/achievements/career_two.rs crates/ff-core/src/sim/season.rs
+msgid "Saturday"
+msgstr ""
+
+#: crates/ff-core/src/achievements/career_two.rs crates/ff-core/src/sim/timezones.rs
+msgid "pacific"
+msgstr ""
+
+#: crates/ff-core/src/achievements/career_two.rs crates/ff-core/src/sim/timezones.rs
+msgid "atlantic"
+msgstr ""
+
 #: crates/ff-core/src/achievements/catalog.rs
 msgid "A Secret the Manifest Is Keeping"
 msgstr ""
@@ -2564,6 +2588,117 @@ msgstr ""
 
 #: crates/ff-core/src/achievements/catalog.rs
 msgid "Gene Autry - South of the Border"
+msgstr ""
+
+#: crates/ff-core/src/achievements/catalog.rs
+msgid "Across the Border"
+msgstr ""
+
+#: crates/ff-core/src/achievements/catalog.rs
+msgid "A load delivered in Canada."
+msgstr ""
+
+#: crates/ff-core/src/achievements/catalog.rs
+msgid "Bruce Springsteen - Across the Border"
+msgstr ""
+
+#: crates/ff-core/src/achievements/catalog.rs
+msgid "Alberta Bound"
+msgstr ""
+
+#: crates/ff-core/src/achievements/catalog.rs
+msgid "A load delivered in Alberta."
+msgstr ""
+
+#: crates/ff-core/src/achievements/catalog.rs
+msgid "Gordon Lightfoot - Alberta Bound"
+msgstr ""
+
+#: crates/ff-core/src/achievements/catalog.rs
+msgid "Runnin' Back to Saskatoon"
+msgstr ""
+
+#: crates/ff-core/src/achievements/catalog.rs
+msgid "A load delivered in Saskatoon."
+msgstr ""
+
+#: crates/ff-core/src/achievements/catalog.rs
+msgid "The Guess Who - Runnin' Back to Saskatoon"
+msgstr ""
+
+#: crates/ff-core/src/achievements/catalog.rs
+msgid "Sudbury Saturday Night"
+msgstr ""
+
+#: crates/ff-core/src/achievements/catalog.rs
+msgid ""
+"A load delivered in Sudbury on a Saturday, between 6 PM and midnight."
+msgstr ""
+
+#: crates/ff-core/src/achievements/catalog.rs
+msgid "Stompin' Tom Connors - Sudbury Saturday Night"
+msgstr ""
+
+#: crates/ff-core/src/achievements/catalog.rs
+msgid "Farewell to Nova Scotia"
+msgstr ""
+
+#: crates/ff-core/src/achievements/catalog.rs
+msgid "A load hauled out of Nova Scotia."
+msgstr ""
+
+#: crates/ff-core/src/achievements/catalog.rs
+msgid "Traditional - Farewell to Nova Scotia"
+msgstr ""
+
+#: crates/ff-core/src/achievements/catalog.rs
+msgid "Mon Pays"
+msgstr ""
+
+#: crates/ff-core/src/achievements/catalog.rs
+msgid "A load delivered in the province of Quebec in winter."
+msgstr ""
+
+#: crates/ff-core/src/achievements/catalog.rs
+msgid "Gilles Vigneault - Mon Pays"
+msgstr ""
+
+#: crates/ff-core/src/achievements/catalog.rs
+msgid "The Wreck of the Edmund Fitzgerald"
+msgstr ""
+
+#: crates/ff-core/src/achievements/catalog.rs
+msgid ""
+"Highway 17 along Lake Superior, from Sault Ste. Marie to Thunder Bay, "
+"driven in November."
+msgstr ""
+
+#: crates/ff-core/src/achievements/catalog.rs
+msgid "Gordon Lightfoot - The Wreck of the Edmund Fitzgerald"
+msgstr ""
+
+#: crates/ff-core/src/achievements/catalog.rs
+msgid "Northwest Passage"
+msgstr ""
+
+#: crates/ff-core/src/achievements/catalog.rs
+msgid "Loads delivered in British Columbia and in Atlantic Canada."
+msgstr ""
+
+#: crates/ff-core/src/achievements/catalog.rs
+msgid "Stan Rogers - Northwest Passage"
+msgstr ""
+
+#: crates/ff-core/src/achievements/catalog.rs
+msgid "This Land Is Your Land"
+msgstr ""
+
+#: crates/ff-core/src/achievements/catalog.rs
+msgid "A load delivered in every province on the map."
+msgstr ""
+
+#: crates/ff-core/src/achievements/catalog.rs
+msgid "Woody Guthrie - This Land Is Your Land"
 msgstr ""
 
 #: crates/ff-core/src/achievements/sort.rs
@@ -5253,10 +5388,6 @@ msgstr ""
 
 #: crates/ff-core/src/data/border_yards.rs crates/ff-core/src/models/jobs/board.rs crates/ff-core/src/models/jobs/relay.rs
 msgid "ships"
-msgstr ""
-
-#: crates/ff-core/src/data/border_yards.rs crates/ff-core/src/models/jobs/board.rs
-msgid "receives"
 msgstr ""
 
 #: crates/ff-core/src/data/border_yards.rs crates/ff-core/src/models/jobs.rs crates/freight-fate/src/online_journal.rs
@@ -16817,10 +16948,6 @@ msgid "Friday"
 msgstr ""
 
 #: crates/ff-core/src/sim/season.rs
-msgid "Saturday"
-msgstr ""
-
-#: crates/ff-core/src/sim/season.rs
 msgid "Sunday"
 msgstr ""
 
@@ -16874,10 +17001,6 @@ msgstr ""
 
 #: crates/ff-core/src/sim/season.rs
 msgid "October"
-msgstr ""
-
-#: crates/ff-core/src/sim/season.rs crates/freight-fate/src/online_activation.rs
-msgid "November"
 msgstr ""
 
 #: crates/ff-core/src/sim/season.rs
@@ -16943,10 +17066,6 @@ msgid "bunk"
 msgstr ""
 
 #: crates/ff-core/src/sim/timezones.rs
-msgid "atlantic"
-msgstr ""
-
-#: crates/ff-core/src/sim/timezones.rs
 msgid "Atlantic Time"
 msgstr ""
 
@@ -16968,10 +17087,6 @@ msgstr ""
 
 #: crates/ff-core/src/sim/timezones.rs
 msgid "Mountain Time"
-msgstr ""
-
-#: crates/ff-core/src/sim/timezones.rs
-msgid "pacific"
 msgstr ""
 
 #: crates/ff-core/src/sim/timezones.rs

@@ -46,6 +46,10 @@
       "category": "road",
       "description": "Every leg of the Alaska Highway, Dawson Creek to Delta Junction, driven in one career."
     },
+    "alberta_delivery": {
+      "category": "places",
+      "description": "A load delivered in Alberta."
+    },
     "all_regions": {
       "category": "places",
       "description": "You have hauled in every region on the map."
@@ -102,6 +106,10 @@
       "category": "career",
       "description": "A bobtail move, with no trailer. Turning around takes a lot less room."
     },
+    "both_coasts_canada": {
+      "category": "places",
+      "description": "Loads delivered in British Columbia and in Atlantic Canada."
+    },
     "brake_smoke": {
       "category": "road",
       "description": "You overheated the brakes until they faded. Next hill, pick a lower gear."
@@ -109,6 +117,10 @@
     "break_taken": {
       "category": "working_day",
       "description": "Your first 30-minute break, taken."
+    },
+    "canada_delivery": {
+      "category": "places",
+      "description": "A load delivered in Canada."
     },
     "carrier_first_week": {
       "category": "career",
@@ -213,6 +225,10 @@
     "every_fleet_tier": {
       "category": "career",
       "description": "You have driven every tier of the fleet, from the trainer truck to first pick."
+    },
+    "every_province": {
+      "category": "places",
+      "description": "A load delivered in every province on the map."
     },
     "fairbanks_spring": {
       "category": "weather_seasons",
@@ -550,6 +566,10 @@
       "category": "places",
       "description": "A load delivered in far Northern California, where the redwoods make a trailer look small."
     },
+    "nova_scotia_out": {
+      "category": "places",
+      "description": "A load hauled out of Nova Scotia."
+    },
     "one_for_the_road": {
       "category": "road",
       "description": "Delivered on time after midnight, low on fuel, on a slick road."
@@ -581,6 +601,10 @@
     "quarter_million_bank": {
       "category": "career",
       "description": "250,000 dollars banked."
+    },
+    "quebec_winter": {
+      "category": "weather_seasons",
+      "description": "A load delivered in the province of Quebec in winter."
     },
     "radio_dial_wanderer": {
       "category": "radio_songs",
@@ -650,6 +674,10 @@
       "category": "radio_songs",
       "description": "A load delivered in San Antonio."
     },
+    "saskatoon_delivery": {
+      "category": "places",
+      "description": "A load delivered in Saskatoon."
+    },
     "scale_regular": {
       "category": "working_day",
       "description": "Five inspections passed over your career."
@@ -709,6 +737,14 @@
     "storm_driving": {
       "category": "weather_seasons",
       "description": "You drove through a thunderstorm."
+    },
+    "sudbury_saturday": {
+      "category": "places",
+      "description": "A load delivered in Sudbury on a Saturday, between 6 PM and midnight."
+    },
+    "superior_november": {
+      "category": "hidden",
+      "description": "Highway 17 along Lake Superior, from Sault Ste. Marie to Thunder Bay, driven in November."
     },
     "tank_load": {
       "category": "road",
@@ -840,6 +876,7 @@
     "air_ready",
     "alaska_delivery",
     "alaska_highway_whole",
+    "alberta_delivery",
     "all_regions",
     "all_terrain_route",
     "all_upgrades",
@@ -854,8 +891,10 @@
     "big_payday",
     "birmingham_morning",
     "bobtail_done",
+    "both_coasts_canada",
     "brake_smoke",
     "break_taken",
+    "canada_delivery",
     "carrier_first_week",
     "carrier_rehired",
     "carrier_step_up",
@@ -882,6 +921,7 @@
     "eighty_eight_mph",
     "el_paso_arrival",
     "every_fleet_tier",
+    "every_province",
     "fairbanks_spring",
     "farm_load",
     "fifteen_states",
@@ -966,6 +1006,7 @@
     "night_shift_regular",
     "no_toll_long",
     "norcal_giants",
+    "nova_scotia_out",
     "one_for_the_road",
     "owner_operator_buyin",
     "perfect_streak",
@@ -974,6 +1015,7 @@
     "port_load",
     "predictive_crest",
     "quarter_million_bank",
+    "quebec_winter",
     "radio_dial_wanderer",
     "radio_faded_out",
     "radio_fringe_catch",
@@ -991,6 +1033,7 @@
     "sacramento_arrival",
     "saginaw_arrival",
     "san_antonio_arrival",
+    "saskatoon_delivery",
     "scale_regular",
     "second_ticket",
     "securement_load",
@@ -1006,6 +1049,8 @@
     "spring_weight_load",
     "state_crossing",
     "storm_driving",
+    "sudbury_saturday",
+    "superior_november",
     "tank_load",
     "ten_deliveries",
     "ten_four_day",
@@ -1043,6 +1088,7 @@
     "air_ready": "Under Pressure",
     "alaska_delivery": "North to Alaska",
     "alaska_highway_whole": "The Long and Winding Road",
+    "alberta_delivery": "Alberta Bound",
     "all_regions": "Been Everywhere",
     "all_terrain_route": "Roller Coaster",
     "all_upgrades": "Fully Loaded",
@@ -1057,8 +1103,10 @@
     "big_payday": "Big Boss Pay",
     "birmingham_morning": "Birmingham, 8:30 AM",
     "bobtail_done": "Forty Acres to Turn Around",
+    "both_coasts_canada": "Northwest Passage",
     "brake_smoke": "Smoke, Smoke, Smoke",
     "break_taken": "Coffee Break, Driver",
+    "canada_delivery": "Across the Border",
     "carrier_first_week": "Workin' for a Livin'",
     "carrier_rehired": "Get Back",
     "carrier_step_up": "Takin' Care of Business",
@@ -1085,6 +1133,7 @@
     "eighty_eight_mph": "Where We're Going, We Need Roads",
     "el_paso_arrival": "El Paso City",
     "every_fleet_tier": "Step by Step",
+    "every_province": "This Land Is Your Land",
     "fairbanks_spring": "When It's Springtime in Alaska",
     "farm_load": "On the Ranch",
     "fifteen_states": "Fifteen State Lines",
@@ -1169,6 +1218,7 @@
     "night_shift_regular": "Night Moves",
     "no_toll_long": "Free Ride",
     "norcal_giants": "Among the Redwoods",
+    "nova_scotia_out": "Farewell to Nova Scotia",
     "one_for_the_road": "One for the Road",
     "owner_operator_buyin": "Your Name on the Title",
     "perfect_streak": "When You're Hot",
@@ -1177,6 +1227,7 @@
     "port_load": "Harbor Lights",
     "predictive_crest": "No Mountain High Enough",
     "quarter_million_bank": "Breaking the Bank",
+    "quebec_winter": "Mon Pays",
     "radio_dial_wanderer": "Worked the Whole Dial",
     "radio_faded_out": "Somewhere in the Static",
     "radio_fringe_catch": "Mexican Radio",
@@ -1194,6 +1245,7 @@
     "sacramento_arrival": "Past Folsom, Rolling Free",
     "saginaw_arrival": "Saginaw, Michigan",
     "san_antonio_arrival": "San Antonio Rose",
+    "saskatoon_delivery": "Runnin' Back to Saskatoon",
     "scale_regular": "The Weight, Five Times",
     "second_ticket": "Should've Known Better",
     "securement_load": "Chained and Checked",
@@ -1209,6 +1261,8 @@
     "spring_weight_load": "Travelin' Light",
     "state_crossing": "Promised Land",
     "storm_driving": "Riders on the Storm",
+    "sudbury_saturday": "Sudbury Saturday Night",
+    "superior_november": "The Wreck of the Edmund Fitzgerald",
     "tank_load": "Nitro Express",
     "ten_deliveries": "What a Long, Strange Haul",
     "ten_four_day": "Ten-Four Day",
