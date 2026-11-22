@@ -16598,6 +16598,9 @@ msgstr "xm"
 msgid "Sound assets are missing or unreadable: ui/menu_select"
 msgstr "Des fichiers son sont manquants ou illisibles : ui/menu_select"
 
+msgid "outside"
+msgstr ""
+
 msgid "ui"
 msgstr "ui"
 
@@ -37814,6 +37817,20 @@ msgid "Rain, wind, thunder, snow, and fog sounds."
 msgstr "Les sons de pluie, de vent, de tonnerre, de neige et de brouillard."
 
 #. placeholders: {pct}
+msgid "Outside sounds volume: {pct} percent"
+msgstr ""
+
+msgid "Birds by day, insects at night, and the rivers you pass."
+msgstr ""
+
+#. placeholders: {pct}
+msgid "Road surface volume: {pct} percent"
+msgstr ""
+
+msgid "The thump of pavement seams and bridge joints under the wheels."
+msgstr ""
+
+#. placeholders: {pct}
 msgid "Engine sounds volume: {pct} percent"
 msgstr "Volume des sons du moteur : {pct} pour cent"
 
@@ -37931,11 +37948,9 @@ msgid "Lower game sounds during speech: {on_off}"
 msgstr "Les sons du jeu s'effacent devant la parole : {on_off}"
 
 msgid ""
-"While the road voice speaks, the engine, weather, and radio drop to half "
-"volume, then come back."
+"While the road voice speaks, the engine, weather, outside sounds, and radio "
+"drop to half volume, then come back."
 msgstr ""
-"Pendant que la voix de la route parle, le moteur, la météo et la radio "
-"baissent de moitié, puis reviennent."
 
 #. placeholders: {pct}
 msgid "Menu and UI sounds volume: {pct} percent"
@@ -45339,6 +45354,13 @@ msgstr ""
 "Maintenez le left bumper pour une deuxième couche de boutons. {pad_engine} "
 "commande le moteur, {pad_fuel} lit le carburant, et {pad_speed_limit} lit "
 "la limitation."
+
+#~ msgid ""
+#~ "While the road voice speaks, the engine, weather, and radio drop to half "
+#~ "volume, then come back."
+#~ msgstr ""
+#~ "Pendant que la voix de la route parle, le moteur, la météo et la radio "
+#~ "baissent de moitié, puis reviennent."
 
 #~ msgid ""
 #~ "Hold one finger still for half a second to straighten the wheel. With "

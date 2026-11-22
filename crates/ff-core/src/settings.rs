@@ -570,6 +570,15 @@ settings_fields! {
     /// 2026-10-18).
     radio_cab_speakers: bool = true => bool_strict,
     weather_volume: f64 = 0.65 => level,
+    /// The beds outside the truck: birds by day, insects at night, rivers.
+    /// They rode Weather sounds volume until this setting split them off;
+    /// a settings file from before it starts at that player's weather
+    /// level, so the mix they had does not move.
+    outside_volume: f64 = 0.65 => level,
+    /// Pavement seams and bridge joints under the wheels. They rode
+    /// Gameplay cues volume until this setting split them off; a settings
+    /// file from before it starts at that player's cue level.
+    road_surface_volume: f64 = 0.8 => level,
     engine_volume: f64 = 0.55 => level,
     ui_volume: f64 = 0.9 => level,
     /// Step the game sounds back while the road voice speaks: engine,

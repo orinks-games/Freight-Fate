@@ -14869,6 +14869,9 @@ msgstr "xm"
 msgid "Sound assets are missing or unreadable: ui/menu_select"
 msgstr "効果音のファイルが見つからないか読み込めません：ui/menu_select"
 
+msgid "outside"
+msgstr ""
+
 msgid "ui"
 msgstr "ui"
 
@@ -33906,6 +33909,20 @@ msgid "Rain, wind, thunder, snow, and fog sounds."
 msgstr "雨、風、雷、雪、霧の音です。"
 
 #. placeholders: {pct}
+msgid "Outside sounds volume: {pct} percent"
+msgstr ""
+
+msgid "Birds by day, insects at night, and the rivers you pass."
+msgstr ""
+
+#. placeholders: {pct}
+msgid "Road surface volume: {pct} percent"
+msgstr ""
+
+msgid "The thump of pavement seams and bridge joints under the wheels."
+msgstr ""
+
+#. placeholders: {pct}
 msgid "Engine sounds volume: {pct} percent"
 msgstr "エンジンの音量：{pct}パーセント"
 
@@ -34011,9 +34028,9 @@ msgid "Lower game sounds during speech: {on_off}"
 msgstr "読み上げ中はゲームの音を下げる：{on_off}"
 
 msgid ""
-"While the road voice speaks, the engine, weather, and radio drop to half "
-"volume, then come back."
-msgstr "道路の声が話している間、エンジン、天気、ラジオの音量が半分になり、その後元に戻ります。"
+"While the road voice speaks, the engine, weather, outside sounds, and radio "
+"drop to half volume, then come back."
+msgstr ""
 
 #. placeholders: {pct}
 msgid "Menu and UI sounds volume: {pct} percent"
@@ -40526,6 +40543,11 @@ msgid ""
 msgstr ""
 "左バンパーを押したままにすると、ボタンの2段目を使えます。{pad_engine}でエンジンを操作し、{pad_fuel}で燃料を、{pad_speed"
 "_limit}で制限速度を読み上げます。"
+
+#~ msgid ""
+#~ "While the road voice speaks, the engine, weather, and radio drop to half "
+#~ "volume, then come back."
+#~ msgstr "道路の声が話している間、エンジン、天気、ラジオの音量が半分になり、その後元に戻ります。"
 
 #~ msgid ""
 #~ "Hold one finger still for half a second to straighten the wheel. With "
