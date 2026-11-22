@@ -92,6 +92,7 @@
 - **Canadian highways are now given the direction they run,** so Highway 400 to Barrie is north and the 401 to Kingston is east.
 - **Toll lines now start with a capital and say toll once:** "Cash or card toll at Gordie Howe International Bridge, 44 dollars."
 - **Place names written partly in Cree syllabics now say only the English part,** such as Pasqua First Nation.
+- **Crossing into Canada or the United States now puts that country's speed limit in force at the line.** North of Coutts the truck no longer keeps Montana's 70.
 - **Mountain passes are now named only where the road goes over them.** Trail passes beside the highway, such as Saddleback Pass near Lake Louise, stay quiet.
 - **A stop with only fuel pumps no longer offers a motel room or a night in the lot.**
 - **Moving up from the training fleet now only offers carriers that hire where you live.** Your truck waits at the new carrier's terminal.
