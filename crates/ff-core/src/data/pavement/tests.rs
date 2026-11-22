@@ -203,18 +203,21 @@ fn run(surface: Surface, built: Option<i64>, improved: Option<i64>) -> SurfaceRu
     }
 }
 
+/// A deck reading, the run, the state, the answer, and why.
+type Case = (
+    Option<(Deck, f64)>,
+    Option<SurfaceRun>,
+    &'static str,
+    Option<Grooves>,
+    &'static str,
+);
+
 #[test]
 fn the_groove_rule_table() {
     use Grooves::{AssumedDeck, DerivedFromBuildYear};
     let jpc = Surface::JointedPlainConcrete;
     let derived = Some(DerivedFromBuildYear);
-    let cases: &[(
-        Option<(Deck, f64)>,
-        Option<SurfaceRun>,
-        &str,
-        Option<Grooves>,
-        &str,
-    )] = &[
+    let cases: &[Case] = &[
         (
             None,
             Some(run(jpc, Some(1979), None)),
