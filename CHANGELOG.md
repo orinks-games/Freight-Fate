@@ -76,6 +76,14 @@
 - **The Alaska Highway border crossing now has its real name, the Alcan port.** Heading into Canada, you pass the Beaver Creek border post.
 - **Save notices now show their text on screen,** not only their title and OK.
 - **Training classes now leave you tired, at about half the rate of driving.**
+- **Setting the parking brake at a gate no longer repeats the reminder to set it.**
+- **Picking a home city or a carrier plays one select sound,** not two.
+- **Alaska is now its own region when you pick a home city.**
+- **The logbook now shows the hours you drove and unloaded on a delivery,** with the city names spoken.
+- **Each carrier row in a new career names its area once,** then the longest load it gives.
+- **Moving up to another carrier now says where your truck will start** before you confirm.
+- **The sleep that finishes a 34-hour restart now says your cycle clock reset.**
+- **A repossession with no carrier to take you on now names the city it looked near.**
 - **The delivery screen now reads the receiver's cattle count and any freight claim.** Both had gone missing from the screen.
 - **A reefer box left off on the road now warms at the same rate as at a stop.** It had been warming ten times slower while driving.
 - **Sleeping with cattle aboard now warns when they would pass the 28-hour limit,** and the hours readouts stop naming a 30-minute break that cannot come due.

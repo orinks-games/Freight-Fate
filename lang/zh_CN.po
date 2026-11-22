@@ -10434,12 +10434,12 @@ msgstr ""
 msgid "its home region"
 msgstr ""
 
-#. placeholders: {name}, {tier}, {area}
-msgid "{name}: {tier} company driver, {area}"
+#. placeholders: {name}, {tier}
+msgid "{name}: {tier} company driver"
 msgstr ""
 
-#. placeholders: {tier}, {area}, {max}
-msgid "A {tier} carrier in {area}, with loads of up to {max} miles."
+#. placeholders: {max}, {area}
+msgid "Loads of up to {max} miles in {area}."
 msgstr ""
 
 #. placeholders: {tier}, {area}
@@ -18919,21 +18919,29 @@ msgstr "已经休息过。仍要睡觉，请再次按Enter。"
 msgid "terminal sleep"
 msgstr "terminal sleep"
 
-#. placeholders: {clock_text}, {time_of_day}
+msgid " Cycle clock reset."
+msgstr ""
+
+#. placeholders: {clock_text}, {time_of_day}, {cycle}
 #. one sentence of a longer line
-msgid "It is {clock_text}, {time_of_day}."
-msgstr "现在是{clock_text}，{time_of_day}。"
+msgid "It is {clock_text}, {time_of_day}.{cycle}"
+msgstr ""
 
 #. one sentence of a longer line
 msgid "Slept 10 hours."
 msgstr "睡了10个小时。"
 
-#. placeholders: {clock_text}, {time_of_day}
-msgid "Slept 10 hours. It is {clock_text}, {time_of_day}."
-msgstr "睡了10个小时。是{clock_text}、{time_of_day}。"
+#. placeholders: {clock_text}, {time_of_day}, {cycle}
+msgid "Slept 10 hours. It is {clock_text}, {time_of_day}.{cycle}"
+msgstr ""
 
 msgid "Your CDL is clear. Nothing to wait out."
 msgstr "你的CDL没有问题。没有什么要等的。"
+
+#. placeholders: {clock_text}, {time_of_day}
+#. one sentence of a longer line
+msgid "It is {clock_text}, {time_of_day}."
+msgstr "现在是{clock_text}，{time_of_day}。"
 
 #. placeholders: {py_capitalize}
 #. one sentence of a longer line
@@ -20067,23 +20075,27 @@ msgstr "换到{carrier_name}：再按一次Enter确认"
 msgid "Move to {label}"
 msgstr "换到{label}"
 
-#. placeholders: {carrier_name}, {menu_summary}
-msgid "{carrier_name}. {menu_summary} Double tap again to move."
-msgstr "{carrier_name}。{menu_summary}再次双击转入。"
+#. placeholders: {t}
+msgid " Truck starts at {t}."
+msgstr ""
 
-#. placeholders: {menu_summary}
+#. placeholders: {carrier_name}, {menu_summary}, {starts}
+msgid "{carrier_name}. {menu_summary}{starts} Double tap again to move."
+msgstr ""
+
+#. placeholders: {menu_summary}, {starts}
 #. one sentence of a longer line
-msgid "{menu_summary} Double tap again to move."
-msgstr "{menu_summary}再次双击转入。"
+msgid "{menu_summary}{starts} Double tap again to move."
+msgstr ""
 
-#. placeholders: {carrier_name}, {menu_summary}
-msgid "{carrier_name}. {menu_summary} Press Enter again to move."
-msgstr "{carrier_name}。{menu_summary}再按一次Enter换过去。"
+#. placeholders: {carrier_name}, {menu_summary}, {starts}
+msgid "{carrier_name}. {menu_summary}{starts} Press Enter again to move."
+msgstr ""
 
-#. placeholders: {menu_summary}
+#. placeholders: {menu_summary}, {starts}
 #. one sentence of a longer line
-msgid "{menu_summary} Press Enter again to move."
-msgstr "{menu_summary}再按一次Enter换过去。"
+msgid "{menu_summary}{starts} Press Enter again to move."
+msgstr ""
 
 msgid "carrier shop repair"
 msgstr "承运商维修厂维修"
@@ -21916,13 +21928,9 @@ msgstr "回到公路上了。注意车速。"
 msgid "local route to {pickup_facility_text}"
 msgstr "去{pickup_facility_text}的本地路线"
 
-#. placeholders: {highway}, {destination}
-msgid "{highway} in {destination}"
-msgstr "{destination}的{highway}"
-
-#. placeholders: {highway}, {origin}
-msgid "{highway} in {origin}"
-msgstr "{origin}的{highway}"
+#. placeholders: {highway}, {city}
+msgid "{highway} in {city}"
+msgstr ""
 
 #. placeholders: {highway}, {start}, {end}
 msgid "{highway} from {start} to {end}"
@@ -27957,6 +27965,9 @@ msgid ""
 "{reputation_text}"
 msgstr "调度信任度奖励：{grouped}美元，来自你的声誉：{reputation_text}"
 
+msgid "receiver unloading"
+msgstr ""
+
 #. placeholders: {f}
 msgid " Receiver service after check-in took {f} hours."
 msgstr " 报到后收货方服务用了{f}小时。"
@@ -30004,10 +30015,6 @@ msgstr "十小时睡不好的觉。重置驾驶工时。有被罚停车费或卡
 msgid "A motel room costs {grouped} dollars and you have {grouped2}."
 msgstr "汽车旅馆房间要{grouped}美元，你只有{grouped2}。"
 
-#. one sentence of a longer line
-msgid "Driving and duty clocks reset."
-msgstr "驾驶和值班时钟重置。"
-
 #. placeholders: {engine_off}, {grouped}
 #. one sentence of a longer line
 msgid "{engine_off}Motel, {grouped} dollars, 10 hours."
@@ -30482,38 +30489,38 @@ msgstr "你睡了10小时，醒来仍然疲惫。"
 msgid "{engine_off}{slept} It is {clock_text}."
 msgstr "{engine_off}{slept}现在是{clock_text}。"
 
-#. placeholders: {engine_off}, {slept}, {clock_text}, {deadline_text}, {wake_air_instruction}
+#. placeholders: {engine_off}, {slept}, {clock_text}, {clocks}, {deadline_text}, {wake_air_instruction}
 msgid ""
-"{engine_off}{slept} It is {clock_text}. Driving and duty clocks reset. "
+"{engine_off}{slept} It is {clock_text}. {clocks} "
 "{deadline_text}{wake_air_instruction}"
 msgstr ""
-"{engine_off}{slept} 是 "
-"{clock_text}。驾驶和值班时钟重置。{deadline_text}{wake_air_instruction}"
 
-#. placeholders: {engine_off}, {grouped}, {clock_text}, {grouped2}, {deadline_text}, {wake_air_instruction}
-msgid ""
-"{engine_off}Motel, {grouped} dollars, 10 hours. {clock_text}. Driving and "
-"duty clocks reset. {grouped2} dollars. {deadline_text}{wake_air_instruction}"
-msgstr ""
-"{engine_off}Motel，{grouped} 元，10小时。{clock_text}。驾驶和值班时钟重置。{grouped2} "
-"美元。{deadline_text}{wake_air_instruction}"
-
+#. placeholders: {clocks}, {grouped2}
 #. one sentence of a longer line
-msgid "Rest was poor."
-msgstr "休息很差。"
+msgid "{clocks} {grouped2} dollars."
+msgstr ""
+
+#. placeholders: {engine_off}, {grouped}, {clock_text}, {clocks}, {grouped2}, {deadline_text}, {wake_air_instruction}
+msgid ""
+"{engine_off}Motel, {grouped} dollars, 10 hours. {clock_text}. {clocks} "
+"{grouped2} dollars. {deadline_text}{wake_air_instruction}"
+msgstr ""
+
+#. placeholders: {clocks}
+#. one sentence of a longer line
+msgid "{clocks} Rest was poor."
+msgstr ""
 
 #. placeholders: {engine_off}
 #. one sentence of a longer line
 msgid "{engine_off}Slept 10 hours in the lot."
 msgstr "{engine_off}在停车场睡了10个小时。"
 
-#. placeholders: {engine_off}, {clock_text}, {deadline_text}, {wake_air_instruction}
+#. placeholders: {engine_off}, {clock_text}, {clocks}, {deadline_text}, {wake_air_instruction}
 msgid ""
-"{engine_off}Slept 10 hours in the lot. {clock_text}. Driving and duty "
-"clocks reset. Rest was poor. {deadline_text}{wake_air_instruction}"
+"{engine_off}Slept 10 hours in the lot. {clock_text}. {clocks} Rest was "
+"poor. {deadline_text}{wake_air_instruction}"
 msgstr ""
-"{engine_off}在停车场睡了10个小时。{clock_text}。驾驶和值班时钟重置。休息很差。{deadline_text}{wake_air"
-"_instruction}"
 
 msgid "The truck does not need repair."
 msgstr "卡车不需要维修。"
@@ -30826,6 +30833,12 @@ msgstr "刹车维修：磨损百分之{f}，记承运商的账"
 
 msgid "Resting at a stop"
 msgstr "在停靠点休息"
+
+msgid "Driving, duty and cycle clocks reset."
+msgstr ""
+
+msgid "Driving and duty clocks reset."
+msgstr "驾驶和值班时钟重置。"
 
 #. placeholders: {grouped}, {rest}
 msgid "{grouped} dollars and {rest} cents"
@@ -36250,10 +36263,6 @@ msgstr "职业生涯起步。"
 msgid "Career start. {count} {noun} in {place}."
 msgstr ""
 
-#. placeholders: {t}
-msgid " Truck starts at {t}."
-msgstr ""
-
 msgid "Home region"
 msgstr "所在地区"
 
@@ -41322,6 +41331,51 @@ msgid ""
 "the engine, {pad_fuel} reads fuel, and {pad_speed_limit} reads the limit."
 msgstr ""
 "按住左肩键使用第二层按键。{pad_engine}控制发动机，{pad_fuel}读出燃油，{pad_speed_limit}读出限速。"
+
+#~ msgid "Slept 10 hours. It is {clock_text}, {time_of_day}."
+#~ msgstr "睡了10个小时。是{clock_text}、{time_of_day}。"
+
+#~ msgid "{carrier_name}. {menu_summary} Double tap again to move."
+#~ msgstr "{carrier_name}。{menu_summary}再次双击转入。"
+
+#~ msgid "{menu_summary} Double tap again to move."
+#~ msgstr "{menu_summary}再次双击转入。"
+
+#~ msgid "{carrier_name}. {menu_summary} Press Enter again to move."
+#~ msgstr "{carrier_name}。{menu_summary}再按一次Enter换过去。"
+
+#~ msgid "{menu_summary} Press Enter again to move."
+#~ msgstr "{menu_summary}再按一次Enter换过去。"
+
+#~ msgid "{highway} in {destination}"
+#~ msgstr "{destination}的{highway}"
+
+#~ msgid "{highway} in {origin}"
+#~ msgstr "{origin}的{highway}"
+
+#~ msgid ""
+#~ "{engine_off}{slept} It is {clock_text}. Driving and duty clocks reset. "
+#~ "{deadline_text}{wake_air_instruction}"
+#~ msgstr ""
+#~ "{engine_off}{slept} 是 "
+#~ "{clock_text}。驾驶和值班时钟重置。{deadline_text}{wake_air_instruction}"
+
+#~ msgid ""
+#~ "{engine_off}Motel, {grouped} dollars, 10 hours. {clock_text}. Driving and "
+#~ "duty clocks reset. {grouped2} dollars. {deadline_text}{wake_air_instruction}"
+#~ msgstr ""
+#~ "{engine_off}Motel，{grouped} 元，10小时。{clock_text}。驾驶和值班时钟重置。{grouped2} "
+#~ "美元。{deadline_text}{wake_air_instruction}"
+
+#~ msgid "Rest was poor."
+#~ msgstr "休息很差。"
+
+#~ msgid ""
+#~ "{engine_off}Slept 10 hours in the lot. {clock_text}. Driving and duty "
+#~ "clocks reset. Rest was poor. {deadline_text}{wake_air_instruction}"
+#~ msgstr ""
+#~ "{engine_off}在停车场睡了10个小时。{clock_text}。驾驶和值班时钟重置。休息很差。{deadline_text}{wake_air"
+#~ "_instruction}"
 
 #~ msgid ""
 #~ "Sleep {span}{more} at {name}. {effect} {legal} Fatigue {f} to {f2}. Clock "

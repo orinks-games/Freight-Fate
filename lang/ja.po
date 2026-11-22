@@ -10482,12 +10482,12 @@ msgstr ""
 msgid "its home region"
 msgstr ""
 
-#. placeholders: {name}, {tier}, {area}
-msgid "{name}: {tier} company driver, {area}"
+#. placeholders: {name}, {tier}
+msgid "{name}: {tier} company driver"
 msgstr ""
 
-#. placeholders: {tier}, {area}, {max}
-msgid "A {tier} carrier in {area}, with loads of up to {max} miles."
+#. placeholders: {max}, {area}
+msgid "Loads of up to {max} miles in {area}."
 msgstr ""
 
 #. placeholders: {tier}, {area}
@@ -19090,21 +19090,29 @@ msgstr "もう十分休んでいます。それでも寝るなら、もう一度
 msgid "terminal sleep"
 msgstr "ターミナルでの睡眠"
 
-#. placeholders: {clock_text}, {time_of_day}
+msgid " Cycle clock reset."
+msgstr ""
+
+#. placeholders: {clock_text}, {time_of_day}, {cycle}
 #. one sentence of a longer line
-msgid "It is {clock_text}, {time_of_day}."
-msgstr "{clock_text}、{time_of_day}です。"
+msgid "It is {clock_text}, {time_of_day}.{cycle}"
+msgstr ""
 
 #. one sentence of a longer line
 msgid "Slept 10 hours."
 msgstr "10時間眠りました。"
 
-#. placeholders: {clock_text}, {time_of_day}
-msgid "Slept 10 hours. It is {clock_text}, {time_of_day}."
-msgstr "10時間眠りました。{clock_text}、{time_of_day}です。"
+#. placeholders: {clock_text}, {time_of_day}, {cycle}
+msgid "Slept 10 hours. It is {clock_text}, {time_of_day}.{cycle}"
+msgstr ""
 
 msgid "Your CDL is clear. Nothing to wait out."
 msgstr "CDLに問題はありません。待つ必要はありません。"
+
+#. placeholders: {clock_text}, {time_of_day}
+#. one sentence of a longer line
+msgid "It is {clock_text}, {time_of_day}."
+msgstr "{clock_text}、{time_of_day}です。"
 
 #. placeholders: {py_capitalize}
 #. one sentence of a longer line
@@ -20253,23 +20261,27 @@ msgstr "{carrier_name}に移る：確定するにはもう一度 Enter を押し
 msgid "Move to {label}"
 msgstr "{label}に移る"
 
-#. placeholders: {carrier_name}, {menu_summary}
-msgid "{carrier_name}. {menu_summary} Double tap again to move."
-msgstr "{carrier_name}。{menu_summary} もう一度ダブルタップで移ります。"
+#. placeholders: {t}
+msgid " Truck starts at {t}."
+msgstr ""
 
-#. placeholders: {menu_summary}
+#. placeholders: {carrier_name}, {menu_summary}, {starts}
+msgid "{carrier_name}. {menu_summary}{starts} Double tap again to move."
+msgstr ""
+
+#. placeholders: {menu_summary}, {starts}
 #. one sentence of a longer line
-msgid "{menu_summary} Double tap again to move."
-msgstr "{menu_summary} もう一度ダブルタップで移ります。"
+msgid "{menu_summary}{starts} Double tap again to move."
+msgstr ""
 
-#. placeholders: {carrier_name}, {menu_summary}
-msgid "{carrier_name}. {menu_summary} Press Enter again to move."
-msgstr "{carrier_name}。{menu_summary}移るにはもう一度 Enter を押してください。"
+#. placeholders: {carrier_name}, {menu_summary}, {starts}
+msgid "{carrier_name}. {menu_summary}{starts} Press Enter again to move."
+msgstr ""
 
-#. placeholders: {menu_summary}
+#. placeholders: {menu_summary}, {starts}
 #. one sentence of a longer line
-msgid "{menu_summary} Press Enter again to move."
-msgstr "{menu_summary}移るにはもう一度 Enter を押してください。"
+msgid "{menu_summary}{starts} Press Enter again to move."
+msgstr ""
 
 msgid "carrier shop repair"
 msgstr "運送会社の整備工場での修理"
@@ -22132,13 +22144,9 @@ msgstr "幹線道路に戻りました。速度に気をつけてください。
 msgid "local route to {pickup_facility_text}"
 msgstr "{pickup_facility_text}への一般道のルート"
 
-#. placeholders: {highway}, {destination}
-msgid "{highway} in {destination}"
-msgstr "{destination}の{highway}"
-
-#. placeholders: {highway}, {origin}
-msgid "{highway} in {origin}"
-msgstr "{origin}の{highway}"
+#. placeholders: {highway}, {city}
+msgid "{highway} in {city}"
+msgstr ""
 
 #. placeholders: {highway}, {start}, {end}
 msgid "{highway} from {start} to {end}"
@@ -28230,6 +28238,9 @@ msgid ""
 "{reputation_text}"
 msgstr "配車係の信頼ボーナス：{grouped}ドル。評判：{reputation_text}"
 
+msgid "receiver unloading"
+msgstr ""
+
 #. placeholders: {f}
 msgid " Receiver service after check-in took {f} hours."
 msgstr " 受付後の荷受けの作業に{f}時間かかりました。"
@@ -30289,10 +30300,6 @@ msgstr "10時間の浅い眠りです。運転時間規制はリセットされ�
 msgid "A motel room costs {grouped} dollars and you have {grouped2}."
 msgstr "モーテルの部屋は{grouped}ドルで、所持金は{grouped2}ドルです。"
 
-#. one sentence of a longer line
-msgid "Driving and duty clocks reset."
-msgstr "運転と勤務の時計がリセットされました。"
-
 #. placeholders: {engine_off}, {grouped}
 #. one sentence of a longer line
 msgid "{engine_off}Motel, {grouped} dollars, 10 hours."
@@ -30777,38 +30784,38 @@ msgstr "10時間眠りましたが、目覚めてもまだ疲れています。"
 msgid "{engine_off}{slept} It is {clock_text}."
 msgstr "{engine_off}{slept}今は{clock_text}です。"
 
-#. placeholders: {engine_off}, {slept}, {clock_text}, {deadline_text}, {wake_air_instruction}
+#. placeholders: {engine_off}, {slept}, {clock_text}, {clocks}, {deadline_text}, {wake_air_instruction}
 msgid ""
-"{engine_off}{slept} It is {clock_text}. Driving and duty clocks reset. "
+"{engine_off}{slept} It is {clock_text}. {clocks} "
 "{deadline_text}{wake_air_instruction}"
 msgstr ""
-"{engine_off}{slept}{clock_text}です。運転と勤務の時計がリセットされました。{deadline_text}{wake_ai"
-"r_instruction}"
 
-#. placeholders: {engine_off}, {grouped}, {clock_text}, {grouped2}, {deadline_text}, {wake_air_instruction}
-msgid ""
-"{engine_off}Motel, {grouped} dollars, 10 hours. {clock_text}. Driving and "
-"duty clocks reset. {grouped2} dollars. {deadline_text}{wake_air_instruction}"
-msgstr ""
-"{engine_off}モーテル、{grouped}ドル、10時間。{clock_text}。運転と勤務の時計がリセットされました。手持ちは{group"
-"ed2}ドル。{deadline_text}{wake_air_instruction}"
-
+#. placeholders: {clocks}, {grouped2}
 #. one sentence of a longer line
-msgid "Rest was poor."
-msgstr "眠りは浅かったです。"
+msgid "{clocks} {grouped2} dollars."
+msgstr ""
+
+#. placeholders: {engine_off}, {grouped}, {clock_text}, {clocks}, {grouped2}, {deadline_text}, {wake_air_instruction}
+msgid ""
+"{engine_off}Motel, {grouped} dollars, 10 hours. {clock_text}. {clocks} "
+"{grouped2} dollars. {deadline_text}{wake_air_instruction}"
+msgstr ""
+
+#. placeholders: {clocks}
+#. one sentence of a longer line
+msgid "{clocks} Rest was poor."
+msgstr ""
 
 #. placeholders: {engine_off}
 #. one sentence of a longer line
 msgid "{engine_off}Slept 10 hours in the lot."
 msgstr "{engine_off}駐車場で10時間眠りました。"
 
-#. placeholders: {engine_off}, {clock_text}, {deadline_text}, {wake_air_instruction}
+#. placeholders: {engine_off}, {clock_text}, {clocks}, {deadline_text}, {wake_air_instruction}
 msgid ""
-"{engine_off}Slept 10 hours in the lot. {clock_text}. Driving and duty "
-"clocks reset. Rest was poor. {deadline_text}{wake_air_instruction}"
+"{engine_off}Slept 10 hours in the lot. {clock_text}. {clocks} Rest was "
+"poor. {deadline_text}{wake_air_instruction}"
 msgstr ""
-"{engine_off}駐車場で10時間眠りました。{clock_text}。運転と勤務の時計はリセットされました。眠りは浅かったです。{deadlin"
-"e_text}{wake_air_instruction}"
 
 msgid "The truck does not need repair."
 msgstr "トラックに修理は必要ありません。"
@@ -31127,6 +31134,12 @@ msgstr "ブレーキ整備：摩耗{f}パーセント、運送会社に請求"
 
 msgid "Resting at a stop"
 msgstr "停車地で休息中"
+
+msgid "Driving, duty and cycle clocks reset."
+msgstr ""
+
+msgid "Driving and duty clocks reset."
+msgstr "運転と勤務の時計がリセットされました。"
 
 #. placeholders: {grouped}, {rest}
 msgid "{grouped} dollars and {rest} cents"
@@ -36655,10 +36668,6 @@ msgstr "キャリアの始め方。"
 msgid "Career start. {count} {noun} in {place}."
 msgstr ""
 
-#. placeholders: {t}
-msgid " Truck starts at {t}."
-msgstr ""
-
 msgid "Home region"
 msgstr "拠点の地域"
 
@@ -41956,6 +41965,51 @@ msgid ""
 msgstr ""
 "左バンパーを押したままにすると、ボタンの2段目を使えます。{pad_engine}でエンジンを操作し、{pad_fuel}で燃料を、{pad_speed"
 "_limit}で制限速度を読み上げます。"
+
+#~ msgid "Slept 10 hours. It is {clock_text}, {time_of_day}."
+#~ msgstr "10時間眠りました。{clock_text}、{time_of_day}です。"
+
+#~ msgid "{carrier_name}. {menu_summary} Double tap again to move."
+#~ msgstr "{carrier_name}。{menu_summary} もう一度ダブルタップで移ります。"
+
+#~ msgid "{menu_summary} Double tap again to move."
+#~ msgstr "{menu_summary} もう一度ダブルタップで移ります。"
+
+#~ msgid "{carrier_name}. {menu_summary} Press Enter again to move."
+#~ msgstr "{carrier_name}。{menu_summary}移るにはもう一度 Enter を押してください。"
+
+#~ msgid "{menu_summary} Press Enter again to move."
+#~ msgstr "{menu_summary}移るにはもう一度 Enter を押してください。"
+
+#~ msgid "{highway} in {destination}"
+#~ msgstr "{destination}の{highway}"
+
+#~ msgid "{highway} in {origin}"
+#~ msgstr "{origin}の{highway}"
+
+#~ msgid ""
+#~ "{engine_off}{slept} It is {clock_text}. Driving and duty clocks reset. "
+#~ "{deadline_text}{wake_air_instruction}"
+#~ msgstr ""
+#~ "{engine_off}{slept}{clock_text}です。運転と勤務の時計がリセットされました。{deadline_text}{wake_ai"
+#~ "r_instruction}"
+
+#~ msgid ""
+#~ "{engine_off}Motel, {grouped} dollars, 10 hours. {clock_text}. Driving and "
+#~ "duty clocks reset. {grouped2} dollars. {deadline_text}{wake_air_instruction}"
+#~ msgstr ""
+#~ "{engine_off}モーテル、{grouped}ドル、10時間。{clock_text}。運転と勤務の時計がリセットされました。手持ちは{group"
+#~ "ed2}ドル。{deadline_text}{wake_air_instruction}"
+
+#~ msgid "Rest was poor."
+#~ msgstr "眠りは浅かったです。"
+
+#~ msgid ""
+#~ "{engine_off}Slept 10 hours in the lot. {clock_text}. Driving and duty "
+#~ "clocks reset. Rest was poor. {deadline_text}{wake_air_instruction}"
+#~ msgstr ""
+#~ "{engine_off}駐車場で10時間眠りました。{clock_text}。運転と勤務の時計はリセットされました。眠りは浅かったです。{deadlin"
+#~ "e_text}{wake_air_instruction}"
 
 #~ msgid ""
 #~ "Sleep {span}{more} at {name}. {effect} {legal} Fatigue {f} to {f2}. Clock "

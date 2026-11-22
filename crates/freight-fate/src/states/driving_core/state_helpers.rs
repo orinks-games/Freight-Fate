@@ -79,11 +79,41 @@ fn advance_clock(
     });
     let end_hour = driving.absolute_game_hour(ctx, None);
     if let Some(status) = duty_status {
+        log_driving_until(driving, ctx, start_hour);
         let location = driving.logbook_location(ctx);
         profile_mut_of(ctx)
             .duty_log
             .record(status, start_hour, end_hour, &location, note);
     }
+}
+
+/// Write the time at the wheel since the logbook's last entry (or since
+/// the trip began, whichever is later) up to `end_hour`, as driving, or as
+/// sleeper berth while the co-driver drives. Nothing else logs the road:
+/// before this, a day of driving read "Today: driving 0 minutes" in the
+/// logbook, and the last entry was the shipper's dock (2.0 review drive,
+/// 2026-11-22). The clock in [`hos`] already counted the minutes; this is
+/// only the record of them.
+pub fn log_driving_until(driving: &DrivingState, ctx: &mut GameContext, end_hour: f64) {
+    let trip_start = profile_of(ctx).game_hours;
+    let from = profile_of(ctx)
+        .duty_log
+        .segments
+        .last()
+        .map_or(trip_start, |last| last.end_hour)
+        .max(trip_start);
+    if end_hour - from < 1.0 / 60.0 {
+        return;
+    }
+    let status = if driving.co_driver_driving() {
+        "sleeper_berth"
+    } else {
+        "driving"
+    };
+    let location = driving.logbook_location(ctx);
+    profile_mut_of(ctx)
+        .duty_log
+        .record(status, from, end_hour, &location, "");
 }
 
 /// A coffee or energy drink's lift that wore off during a sleep is paid

@@ -231,6 +231,48 @@ fn test_city_sleep_resets_hours_and_advances_the_clock() {
 }
 
 #[test]
+fn test_the_sleep_that_finishes_a_restart_says_the_cycle_reset() {
+    // R1 review, 2026-11-22: four nights in the bunk room cleared a spent
+    // 70-hour week without a word.
+    let mut app = TestApp::new();
+    career(&mut app, "Long Week", "Austin");
+    let city = CityMenuState::new(&app.ctx, false);
+    app.push_state(city);
+    {
+        let p = profile_mut(&mut app);
+        p.hos.drive(600.0);
+        p.hos.cycle_entries = vec![ff_core::sim::hos::CycleEntry {
+            end_min: p.hos.cycle_clock_min,
+            on_duty_min: 69.0 * 60.0,
+        }];
+        p.fatigue = 60.0;
+    }
+    let mut cycle_lines = Vec::new();
+    for night in 1..=4 {
+        app.clear_speech();
+        select::<CityMenuState>(&mut app, "Sleep 10 hours");
+        // Rested after the first night: the second Enter sleeps anyway.
+        if !app
+            .main_lines()
+            .iter()
+            .any(|l| l.starts_with("Slept 10 hours"))
+        {
+            key(&mut app, Key::Return);
+        }
+        let said: Vec<String> = app
+            .main_lines()
+            .into_iter()
+            .filter(|l| l.starts_with("Slept 10 hours"))
+            .collect();
+        assert_eq!(said.len(), 1, "night {night}: {:?}", app.main_lines());
+        cycle_lines.push(said[0].ends_with("Cycle clock reset."));
+    }
+    // 34 hours off finish on the fourth night, and only that night says so.
+    assert_eq!(cycle_lines, vec![false, false, false, true]);
+    assert_eq!(profile(&app).hos.cycle_used_min(), 0.0);
+}
+
+#[test]
 fn test_city_sleep_when_already_rested_needs_a_second_enter() {
     // Pressing Enter on Sleep right after a reset used to quietly burn another
     // 10 hours; a rested driver now gets a warning first.

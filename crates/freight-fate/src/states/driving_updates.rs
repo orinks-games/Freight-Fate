@@ -283,6 +283,7 @@ pub mod live {
         static SPEED_MPH: Cell<f64> = const { Cell::new(0.0) };
         static HAZARD_ACTIVE: Cell<bool> = const { Cell::new(false) };
         static ARRIVAL_MENU_OPEN: Cell<bool> = const { Cell::new(false) };
+        static PARKING_BRAKE_SET: Cell<bool> = const { Cell::new(false) };
         static GATE_STOP_PROMPTED: Cell<bool> = const { Cell::new(false) };
         static STOP_OFFER_OPEN: Cell<bool> = const { Cell::new(false) };
         static ON_RAMP: Cell<bool> = const { Cell::new(false) };
@@ -360,6 +361,18 @@ pub mod live {
 
     pub fn exit_signal_on() -> bool {
         EXIT_SIGNAL_ON.with(|cell| cell.get())
+    }
+
+    /// Whether the parking brake is set. "Set the parking brake to check
+    /// in." cut by the driver's own P press and handed back after "Parking
+    /// brake set." asks for a brake that is already on (2.0 sync drive,
+    /// 2026-11-21).
+    pub fn set_parking_brake_set(value: bool) {
+        PARKING_BRAKE_SET.with(|cell| cell.set(value));
+    }
+
+    pub fn parking_brake_set() -> bool {
+        PARKING_BRAKE_SET.with(|cell| cell.get())
     }
 
     pub fn set_overspeed_active(value: bool) {
