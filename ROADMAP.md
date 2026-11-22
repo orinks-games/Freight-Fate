@@ -1573,6 +1573,36 @@ Everything found before 2026-09-25 moved to
       swipe starts at 90.", "Deep swipe. Length 112."). Touch gestures has a
       "Deep swipe starts at" row, 60 to 180 points in tens; the settings
       file keeps `touch_deep_swipe_factor`. Nothing was tried on a phone.
+- [x] A cloud run can play as an iPhone (2026-11-22, the iPhone whole-game
+      pass, task 1): "this is a phone" is a run-time fact
+      (`freight_fate::device`), and the agent server's `scenario` takes
+      `phone: true`, so the phone's menus, rows and help can be walked
+      where no phone build compiles. The input prompts name (keyboard,
+      controller or touch) is one machine, `ff_core::input_device`, and
+      `status` reports it on an INPUT line. The walk's findings are in the
+      project's `ios-ui-pass/findings.md`.
+- [x] iPhone tilt steering (2026-11-22, the whole-game iPhone pass):
+      Touch gestures has a Tilt steering switch, off by default, and a "Tilt
+      for full steering" row (15 to 45 degrees in fives, 30 by default).
+      On, tilting the phone steers where the controller's left stick does:
+      one lane per tilt past half way with lane keeping on full, in
+      proportion with it off or partial, with a 4 degree dead zone. Level is
+      the pose when the drive starts or resumes, or when "Set tilt level"
+      (Truck group of the driving command list, any gesture slot) asks. The
+      screen stops rotating at the wheel while it is on. The accelerometer
+      comes through SDL's sensor API on iPhone and Android; the decisions
+      are two `ff-core` machines (`sim::tilt_steering`, `sim::lane_push`),
+      and the agent server's `tilt` tool stands in for the sensor. Driven
+      by agent only; nothing was tried on a phone.
+- [ ] (Found along the way) Tilt steering on a real iPhone: which way is
+      left, whether 30 degrees feels right, whether the screen stays put at
+      the wheel and turns again in menus (the lock goes through SDL's
+      orientation hint and `ios/ff_orientation.m`), and tilt with VoiceOver
+      on.
+- [ ] (Found along the way) Tilt steering on Android: the sensor path is
+      shared and compiles, but it was never run on a phone, and the screen
+      does not lock there (SDL reads its orientation hint only when the
+      window is made).
 - [x] Second layer bumper (2026-11-18, a player's request): Settings,
       Gameplay, Controls swaps the bumpers, so the left bumper holds the
       second layer and the right bumper is the clutch. The pad's presses

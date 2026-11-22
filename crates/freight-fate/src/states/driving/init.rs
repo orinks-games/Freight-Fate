@@ -252,7 +252,7 @@ impl DrivingState {
         }
         let community = load_community_stations(&crate::community_stations::cache_path());
         catalog.extend(new_community_stations(&catalog, community));
-        if crate::PERSONAL_PLAYLISTS {
+        if crate::device::personal_playlists() {
             catalog.extend(load_personal_playlists(&personal_playlists_dir()));
         }
         let radio = RadioState::from_settings(
@@ -703,7 +703,7 @@ impl DrivingState {
             overrev_s: 0.0,
             overrev_warn_due: OVERREV_GRACE_S,
             lane_change_target: None,
-            stick_lane_request: 0,
+            lane_push: ff_core::sim::lane_push::LanePush::Centred,
             lane_change_timer: 0.0,
             lane_signal_timer: 0.0,
             passing: None,

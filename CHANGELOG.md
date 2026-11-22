@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### Added
+
+- **Page Up and Page Down now move ten options at a time in every menu.**
+
 ### Fixed
 
 - **Lines that were said twice or late are now said once, in order.** This covers the first drive, stop arrivals and leaving Settings.

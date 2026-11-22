@@ -45,6 +45,7 @@ pub static HELP_PAGES: &[(&str, &[&str])] = &[
         "Menus and message review",
         &[
             "Up and Down choose an option. Enter or Space selects it. Escape goes back. Home and End jump to the first or last option.",
+            "Page Up and Page Down move ten options at a time.",
             "Type a letter to find an option starting with it. F1 explains the selected option.",
             "Comma repeats the latest message, then steps backward. Period moves forward. Control with either jumps to the oldest or newest message.",
             "The brackets choose all, general, or driving messages. Control C copies the selected message. Control Shift C copies the last thing the game said. Review keys type normally inside text fields.",
@@ -358,8 +359,17 @@ pub fn render_help_line(ctx: &GameContext, template: &str) -> String {
 /// keyboard, by touch)`, `None` leaving the line out. Phones have no
 /// personal playlists (their Playlists folder is out of the player's reach),
 /// and a touch player tunes with three-finger flicks, not the Page keys.
-#[cfg_attr(not(touch_screen), allow(dead_code))]
 static PHONE_LINES: &[(&str, Option<&str>, Option<&str>)] = &[
+    (
+        "Page Up and Page Down move ten options at a time.",
+        Some("Flick left or right with three fingers to move ten options back or forward."),
+        Some("Flick left or right with three fingers to move ten options back or forward."),
+    ),
+    (
+        "Partial follows bends with gentle drift. Off leaves steering to you unless curve assistance is enabled. Hold a steering control across the lane line to change lanes.",
+        Some("Partial follows bends with gentle drift. Off leaves steering to you unless curve assistance is enabled. Hold a steering control across the lane line to change lanes. With Tilt steering on under Touch gestures, tilting the phone steers too, and with lane keeping on full a tilt changes one lane."),
+        Some("Partial follows bends with gentle drift. Off leaves steering to you unless curve assistance is enabled. Hold a steering control across the lane line to change lanes. With Tilt steering on under Touch gestures, tilting the phone steers too, and with lane keeping on full a tilt changes one lane."),
+    ),
     (
         "With the engine running, {{radio}} switches the radio on or off. Page Down or apostrophe tunes forward. Page Up or semicolon tunes backward.",
         Some("With the engine running, {{radio}} switches the radio on or off. Page Down or apostrophe tunes forward. Page Up or semicolon tunes backward."),
@@ -404,7 +414,7 @@ static PHONE_LINES: &[(&str, Option<&str>, Option<&str>)] = &[
 
 /// A page title as this build reads it: phones have no playlists.
 fn page_title_text(title: &'static str) -> &'static str {
-    if cfg!(touch_screen) && title == "Radio and playlists" {
+    if crate::device::phone() && title == "Radio and playlists" {
         "Radio"
     } else {
         title
@@ -414,7 +424,7 @@ fn page_title_text(title: &'static str) -> &'static str {
 /// The page's lines as this build and device read them, before control
 /// names are filled in.
 fn page_lines(ctx: &GameContext, lines: &'static [&'static str]) -> Vec<&'static str> {
-    if !cfg!(touch_screen) {
+    if !crate::device::phone() {
         return lines.to_vec();
     }
     let touch = ctx.touch_hints();

@@ -83,6 +83,7 @@ mod gestures;
 mod holder;
 mod lifeline;
 mod protocol;
+mod tilt;
 
 pub use ears::{install_ears, Ears, SharedEars};
 pub use holder::{judge, HolderRecord, HolderVerdict};
@@ -161,6 +162,14 @@ pub enum Command {
         /// How far the finger travelled, in points, sent as it lifts the
         /// way the phone does while Practice gestures is open.
         length: Option<u16>,
+    },
+    /// Hold the phone at `degrees` from flat for `seconds`, or send no
+    /// samples (`None`), then hold it at `then`, or where it was. It stands
+    /// in for the motion sensor, as `gesture` stands in for the screen.
+    Tilt {
+        degrees: Option<f64>,
+        seconds: f64,
+        then: Option<f64>,
     },
     /// Run until a line carrying `text` is heard, or a menu opens, or the
     /// clock runs out -- whichever first. Replies with what was heard.
@@ -300,7 +309,7 @@ fn fatigue_state_line(
     format!(
         "STATE: alertness {}; nod {} ({timer:.2} {unit}); nod_misses {}; lift_owed {lift}; \
          rest_call {rest_call}; runaway {}{gate}{co_driver}; jake_zone {}; touch_mode {}; road_offer {}; \
-         touch_clutch {}; window {}; outside {} ({}, {}); water {}; road_surface {}, {}; structure {}; chain_control {}; chains {}; app {}.",
+         touch_clutch {}; lane {}; lane_push {}; window {}; outside {} ({}, {}); water {}; road_surface {}, {}; structure {}; chain_control {}; chains {}; app {}.",
         o.alertness.key(),
         o.nod.key(),
         o.nod.misses,
@@ -309,6 +318,8 @@ fn fatigue_state_line(
         mode.key(),
         o.road_offer.key(),
         o.touch_clutch.name(),
+        o.lane,
+        o.lane_push.key(),
         o.window.name(),
         o.outside.name(),
         o.outside_bed,
@@ -421,6 +432,8 @@ pub struct AgentPolicy {
     /// A timed `gesture` hold: what lifts it, the real seconds left, and
     /// the length it reports as it lifts.
     gesture_lift: Option<(crate::touch::Gesture, f64, Option<u16>)>,
+    /// A timed `tilt`: the real seconds left, and the pose after.
+    tilt_hold: Option<(f64, f64)>,
     /// Key events scripted frame by frame, front first. A tap is two
     /// frames -- down, then up -- because the held-key tracker reads a
     /// press and release inside ONE frame as a screen reader's re-injected
@@ -620,6 +633,8 @@ impl AgentPolicy {
             input.assert_held(*key);
         }
         self.advance_touch(input, dt);
+        self.hold_phone(input);
+        self.advance_tilt(input, dt);
         if let Some((key, remaining)) = self.timed_hold.take() {
             let remaining = remaining - dt;
             if remaining > 0.0 {
@@ -685,6 +700,7 @@ impl AgentPolicy {
                         place.key()
                     )),
                 }
+                text.push_str(&format!("\nTILT: {}.", input.tilt_status()));
                 let (choice, main, event) = input.speech_state();
                 text.push_str(&format!(
                     "\nCLOUD RESUME: {:?}.",
@@ -693,6 +709,7 @@ impl AgentPolicy {
                 text.push_str(&format!(
                     "\nSPEECH: main_backend {choice}; main {main}; event {event}."
                 ));
+                text.push_str(&format!("\nINPUT: {}.", input.input_state()));
             }
             let _ = waiting.reply.send(Ok(text));
         }
@@ -813,6 +830,15 @@ impl AgentPolicy {
                     length,
                 } => {
                     if self.send_gesture(gesture, seconds, length, reply) {
+                        break;
+                    }
+                }
+                Command::Tilt {
+                    degrees,
+                    seconds,
+                    then,
+                } => {
+                    if self.send_tilt(input, degrees, seconds, then, reply) {
                         break;
                     }
                 }
@@ -1020,6 +1046,7 @@ impl AgentPolicy {
         let working = self.waiting.is_some()
             || self.timed_hold.is_some()
             || self.gesture_lift.is_some()
+            || self.tilt_hold.is_some()
             || self.cruise_plan.is_some()
             || !self.scripted.is_empty();
         if self.lockstep && !working {
@@ -1065,6 +1092,7 @@ pub fn policy_with_lifeline(
         cruise_plan: None,
         touch: crate::touch::TouchInput::new(),
         gesture_lift: None,
+        tilt_hold: None,
         scripted: std::collections::VecDeque::new(),
         lockstep: false,
         quit: false,

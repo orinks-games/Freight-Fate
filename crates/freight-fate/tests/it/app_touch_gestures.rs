@@ -126,21 +126,21 @@ fn the_cruise_tap_below_the_minimum_answers_as_the_key_does() {
 }
 
 #[test]
-fn a_second_finger_on_the_brake_does_nothing_until_assigned() {
+fn a_second_finger_on_the_brake_runs_the_engine_brake_or_what_is_assigned() {
     let parked = |h: &mut PlaytestHarness| {
         h.with_drive(|drive, _| {
             drive.trip.truck.velocity_mps = 0.0;
         });
         h.clear_speech();
     };
-    // The defaults: the brake-hold tap and double tap are free.
+    // The defaults: the brake-hold double tap is free, and the tap is the
+    // engine brake, so a downgrade's "Set the jake" is one gesture.
     let mut harness = a_drive("Touch Brake Free");
     parked(&mut harness);
     let mut input = TouchInput::new();
     touch(&mut harness, &mut input, Gesture::HoldLowerBegan);
     let before = harness.with_drive(|d, _| (d.trip.truck.engine_on, d.trip.truck.parking_brake));
     touch(&mut harness, &mut input, Gesture::LowerHoldDoubleTap);
-    touch(&mut harness, &mut input, Gesture::LowerHoldTap);
     let after = harness.with_drive(|d, _| (d.trip.truck.engine_on, d.trip.truck.parking_brake));
     assert_eq!(before, after);
     assert!(
@@ -148,6 +148,9 @@ fn a_second_finger_on_the_brake_does_nothing_until_assigned() {
         "{:#?}",
         harness.transcript()
     );
+    let jake = harness.with_drive(|d, _| d.trip.truck.engine_brake());
+    touch(&mut harness, &mut input, Gesture::LowerHoldTap);
+    assert_ne!(harness.with_drive(|d, _| d.trip.truck.engine_brake()), jake);
     drop(harness);
 
     let (expected, engine_by_key) = by_key("Touch Engine Key", parked, Action::Engine, |h| {
@@ -607,13 +610,13 @@ fn a_second_finger_shift_flick_in_automatic_does_nothing_and_says_nothing() {
 fn without_a_hardware_keyboard_hints_name_gestures() {
     let mut harness = a_drive("Touch No Keyboard");
     harness.app.dispatch_gesture(Gesture::KeyboardDisconnected);
-    assert!(!harness.app.ctx.controller.hardware_keyboard);
+    assert!(!harness.app.ctx.controller.hardware_keyboard());
     assert_eq!(
         harness.app.ctx.controller.device(),
         ff_core::input_hints::TOUCH
     );
     harness.app.dispatch_gesture(Gesture::KeyboardConnected);
-    assert!(harness.app.ctx.controller.hardware_keyboard);
+    assert!(harness.app.ctx.controller.hardware_keyboard());
 }
 
 /// The cruise flicks with cruise ON: each flick steps the target one notch

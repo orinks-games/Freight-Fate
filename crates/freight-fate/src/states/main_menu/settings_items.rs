@@ -18,7 +18,7 @@ use super::settings_actions::{
 };
 use super::shortcuts::{ShortcutDevice, ShortcutsState};
 use super::speech_voices::{
-    event_voice_label, main_voice_label, speech_voice_label, EVENT_VOICE_HELP,
+    event_voice_help, event_voice_label, main_voice_label, speech_voice_label,
 };
 use super::touch_gestures::TouchGesturesState;
 use crate::app::GameContext;
@@ -79,15 +79,15 @@ fn adjust(f: impl Fn(&mut SettingsCategoryState, &mut GameContext, i64) + 'stati
 }
 
 /// Help for the streamer-safe row. Phones have no personal playlists, and
-/// tune by gesture rather than with station keys.
-#[cfg(not(touch_screen))]
+/// tune by gesture rather than with station keys
+/// ([`STREAMER_SAFE_HELP_PHONE`]).
 const STREAMER_SAFE_HELP: &str = "Off plays the full dial, including real public streams and \
      personal playlists. On keeps the radio to built-in safe \
      stations, for streaming or recording. With Music source set to \
      Synthesized, On keeps the radio on the Roadhouse and station \
      keys do nothing.";
-#[cfg(touch_screen)]
-const STREAMER_SAFE_HELP: &str = "Off plays the full dial, including real public streams. On \
+const STREAMER_SAFE_HELP_PHONE: &str =
+    "Off plays the full dial, including real public streams. On \
      keeps the radio to built-in safe stations, for streaming or recording. With Music source \
      set to Synthesized, On keeps the radio on the Roadhouse and tuning does nothing.";
 
@@ -400,11 +400,11 @@ impl SettingsCategoryState {
                 )
             }),
             action: adjust(|s, ctx, d| s.cycle_event_voice(ctx, d)),
-            help: EVENT_VOICE_HELP,
+            help: event_voice_help(),
         });
         // Braille only needs NVDA or JAWS, which phones and tablets do not
         // have.
-        if !cfg!(touch_screen) {
+        if !crate::device::phone() {
             specs.push(SpeechSpec {
                 label: dyn_label(|s| format!("Output: {}", output_label(s))),
                 action: adjust(|s, ctx, d| s.toggle_braille_only(ctx, d)),
@@ -523,28 +523,34 @@ impl SettingsCategoryState {
                 actions.push(adjust(|s, ctx, d| s.cycle_acc_gap(ctx, d)));
                 actions
             }
-            "audio" => vec![
-                adjust(|s, ctx, d| s.volume(ctx, "master_volume", 0.1 * d as f64)),
-                adjust(|s, ctx, d| s.volume(ctx, "sfx_volume", 0.1 * d as f64)),
-                adjust(|s, ctx, d| s.cycle_cue_loudness(ctx, d)),
-                adjust(|s, ctx, d| s.toggle_steering_guide_inverted(ctx, d)),
-                adjust(|s, ctx, d| s.toggle_lane_guide_tone(ctx, d)),
-                adjust(|s, ctx, d| s.volume(ctx, "weather_volume", 0.1 * d as f64)),
-                adjust(|s, ctx, d| s.volume(ctx, "engine_volume", 0.1 * d as f64)),
-                adjust(|s, ctx, d| s.toggle_engine_voice(ctx, d)),
-                adjust(|s, ctx, d| s.toggle_jake_voice(ctx, d)),
-                adjust(|s, ctx, d| s.volume(ctx, "music_volume", 0.1 * d as f64)),
-                adjust(|s, ctx, d| s.toggle_music_source(ctx, d)),
-                adjust(|s, ctx, d| s.roll_music_seed(ctx, d)),
-                adjust(|s, ctx, d| s.volume(ctx, "radio_volume", 0.1 * d as f64)),
-                adjust(|s, ctx, d| s.toggle_radio_streamer_safe(ctx, d)),
+            "audio" => {
+                let mut actions = vec![
+                    adjust(|s, ctx, d| s.volume(ctx, "master_volume", 0.1 * d as f64)),
+                    adjust(|s, ctx, d| s.volume(ctx, "sfx_volume", 0.1 * d as f64)),
+                    adjust(|s, ctx, d| s.cycle_cue_loudness(ctx, d)),
+                    adjust(|s, ctx, d| s.toggle_steering_guide_inverted(ctx, d)),
+                    adjust(|s, ctx, d| s.toggle_lane_guide_tone(ctx, d)),
+                    adjust(|s, ctx, d| s.volume(ctx, "weather_volume", 0.1 * d as f64)),
+                    adjust(|s, ctx, d| s.volume(ctx, "engine_volume", 0.1 * d as f64)),
+                    adjust(|s, ctx, d| s.toggle_engine_voice(ctx, d)),
+                    adjust(|s, ctx, d| s.toggle_jake_voice(ctx, d)),
+                    adjust(|s, ctx, d| s.volume(ctx, "music_volume", 0.1 * d as f64)),
+                    adjust(|s, ctx, d| s.toggle_music_source(ctx, d)),
+                    adjust(|s, ctx, d| s.roll_music_seed(ctx, d)),
+                    adjust(|s, ctx, d| s.volume(ctx, "radio_volume", 0.1 * d as f64)),
+                    adjust(|s, ctx, d| s.toggle_radio_streamer_safe(ctx, d)),
+                ];
                 // Phones have no personal playlists to shuffle.
-                #[cfg(not(touch_screen))]
-                adjust(|s, ctx, d| s.toggle_radio_shuffle_playlists(ctx, d)),
-                adjust(|s, ctx, d| s.toggle_radio_cab_speakers(ctx, d)),
-                adjust(|s, ctx, d| s.toggle_duck_for_speech(ctx, d)),
-                adjust(|s, ctx, d| s.volume(ctx, "ui_volume", 0.1 * d as f64)),
-            ],
+                if crate::device::personal_playlists() {
+                    actions.push(adjust(|s, ctx, d| s.toggle_radio_shuffle_playlists(ctx, d)));
+                }
+                actions.extend([
+                    adjust(|s, ctx, d| s.toggle_radio_cab_speakers(ctx, d)),
+                    adjust(|s, ctx, d| s.toggle_duck_for_speech(ctx, d)),
+                    adjust(|s, ctx, d| s.volume(ctx, "ui_volume", 0.1 * d as f64)),
+                ]);
+                actions
+            }
             "updates" => {
                 let mut actions = vec![
                     adjust(|s, ctx, d| s.toggle_update_channel(ctx, d)),
@@ -819,7 +825,7 @@ impl SettingsCategoryState {
                 // numbers arrive in.
             ]
             .into_iter()
-            .chain(cfg!(touch_screen).then(touch_gestures_row))
+            .chain(crate::device::phone().then(touch_gestures_row))
             .chain([back_row()])
             .collect(),
             "audio" => self.audio_items(),
@@ -844,7 +850,7 @@ impl SettingsCategoryState {
                     "On, the main menu offers to send a report when the game closed \
                      without quitting the last time, with that run's log attached.",
                 )];
-                if !cfg!(target_os = "ios") {
+                if !crate::device::iphone() {
                     items.push(
                         MenuItem::new(
                             "Where the game log is saved",
@@ -864,7 +870,7 @@ impl SettingsCategoryState {
     }
 
     fn audio_items(&self) -> Vec<Row> {
-        vec![
+        let mut rows = vec![
             row(
                 dyn_label(|s| format!("Master volume: {} percent", pct(s.master_volume))),
                 adjust(|s, ctx, d| s.volume(ctx, "master_volume", 0.1 * d as f64)),
@@ -985,10 +991,16 @@ impl SettingsCategoryState {
                     format!("Radio streamer-safe mode: {}", on_off(s.radio_streamer_safe))
                 }),
                 adjust(|s, ctx, d| s.toggle_radio_streamer_safe(ctx, d)),
-                STREAMER_SAFE_HELP,
+                if crate::device::personal_playlists() {
+                    STREAMER_SAFE_HELP
+                } else {
+                    STREAMER_SAFE_HELP_PHONE
+                },
             ),
-            #[cfg(not(touch_screen))]
-            row(
+        ];
+        // Phones have no personal playlists to shuffle.
+        if crate::device::personal_playlists() {
+            rows.push(row(
                 dyn_label(|s| {
                     format!(
                         "Shuffle personal playlists: {}",
@@ -998,7 +1010,9 @@ impl SettingsCategoryState {
                 adjust(|s, ctx, d| s.toggle_radio_shuffle_playlists(ctx, d)),
                 "On plays each of your playlists in a random order, every track \
                  once before any repeats. Off plays the file top to bottom.",
-            ),
+            ));
+        }
+        rows.extend([
             row(
                 dyn_label(|s| {
                     let sound = radio_sound_name(s.radio_cab_speakers);
@@ -1026,6 +1040,7 @@ impl SettingsCategoryState {
                 "Menu movement, selection, warning, and cash sounds.",
             ),
             back_row(),
-        ]
+        ]);
+        rows
     }
 }

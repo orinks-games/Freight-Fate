@@ -40,7 +40,7 @@ In menus, and the readers and prompts outside the drive:
 | Two-finger flick down, or two-finger scrub | Back | Escape |
 | Two-finger flick left / right | Previous / next message | Comma / Period |
 | Three-finger flick up / down | Top / bottom of the list | Home / End |
-| Three-finger flick left / right | Previous / next page | Page Up / Page Down |
+| Three-finger flick left / right | Ten rows back / forward, or the previous / next page where a list has pages | Page Up / Page Down |
 | Three-finger tap | What the screen can tell you: the job board's market summary, the weather along a route on the route picker, a download's progress | Tab |
 
 In a name field the flicks keep the keys they had: flick left and right
@@ -94,7 +94,7 @@ A second finger while holding a pedal:
 | While holding a pedal, flick up / down | Shift up / down in manual, working the clutch for you; nothing in automatic |
 | While holding a pedal, flick left / right | Change one lane |
 | While holding a pedal, swipe left / right and hold | Steer until you lift (lane keeping off or partial) |
-| While holding brake, tap | Nothing; assign a command in Touch gestures |
+| While holding brake, tap | Engine brake (on or off) |
 | While holding brake, double tap | Nothing; assign a command in Touch gestures |
 
 Other driving gestures:
@@ -191,6 +191,51 @@ two-finger flicks left and right arrive when the fingers lift rather than
 mid-stroke. VoiceOver's adjustable swipes (up and down with VoiceOver focus on
 the game and direct touch off) move through a menu's rows, since they are then
 the only way through a list.
+
+## Tilt steering
+
+Settings, Gameplay, Controls, Touch gestures starts with "Tilt steering",
+off by default. Off, nothing changes: swipes and flicks steer and the phone
+never has to move. On, tilting the phone left or right steers as well, and
+the swipes and flicks keep working.
+
+- The tilt is the angle of the screen's left to right edge from level, so it
+  reads the same with the phone held upright like a wheel or lying flatter in
+  the hands. Right edge down steers right.
+- Level is the pose the phone is in when the truck starts being driven:
+  entering the drive, resuming it from the pause menu or any screen over it,
+  or coming back to the app. The game takes it from a quarter second of
+  steady readings and steers nothing until then. "Set tilt level", last in
+  the Truck group of the driving command list, takes level again and says
+  "Level set."; it has no gesture until one is put on it in Touch gestures,
+  and it is listed only while tilt steering is on.
+- Within 4 degrees of level nothing steers. "Tilt for full steering" (15 to
+  45 degrees in steps of 5, 30 by default, listed only while tilt steering
+  is on) is where steering is full; between the two it rises in a straight
+  line.
+- The tilt goes where a controller's left stick goes. With lane keeping on
+  full, a tilt past half way changes one lane, and the phone has to come back
+  near level before the next. With lane keeping off or partial it steers in
+  proportion. A held steering swipe wins over a tilt, and a controller's
+  stick wins over both.
+- It steers only while you drive: not in menus, while paused, while the
+  co-driver drives, or in Practice gestures.
+- While tilt steering is on and the drive is on top, the screen does not turn
+  with the phone. It holds the orientation it had when the drive came up and
+  turns again once a menu covers the drive.
+- With no motion sensor the row stays Off and says "This device has no motion
+  sensor." If readings stop for a second mid-drive, tilt steers nothing and
+  the game says "No tilt reading. Swipe to steer." once; when they return it
+  takes level again and says "Tilt steering back."
+- In Practice gestures, with tilt steering on, a tilt past half way names
+  itself and its angle from flat once per push ("Tilt left, 18 degrees.
+  Steers left, or changes one lane with lane keeping on full."), so you can
+  check which way the sensor reads.
+
+The accelerometer is read through SDL2's sensor API (the units, axes and
+filtering are written down in `ff-core`'s `sim::tilt_sensor`). The screen
+lock sets SDL's `SDL_IOS_ORIENTATIONS` hint to the current orientation and
+asks UIKit to read it again (`ios/ff_orientation.m`).
 
 ## Controllers
 
@@ -323,10 +368,18 @@ frameworks it and SDL2 need, plus clang's iOS runtime for `@available` checks.
 - Three-finger tap at the wheel, then double tap: the Status menu opens. In the list, double tap a group, flick through it, and two-finger flick down: the list is back on that group's row. On Radio volume, flick up twice: the volume rises twice and the list stays open. On the job board, a three-finger tap reads the market summary; on the route picker, the weather along the route.
 - Deep swipe down while moving for the emergency brake; stopped, it says "Parking brake set", and gas then says "Parking brake released".
 - Turn two fingers right to start the engine and left to stop it while stopped; at speed the turn left does nothing. Hold two fingers for the horn, then turn them and confirm the horn stops.
+- On a downgrade with the engine brake off: hear "Set the jake. Hold the brake and tap with a second finger." Hold the brake, tap with a second finger: the engine brake comes on, and the same tap turns it off. A player who had put a command on that slot keeps it.
+- In a long menu (the home terminal list, Stations in range in the Radio app), three-finger flicks right and left jump ten rows and read the row; at the first or last row the row is read again.
 - While holding gas: second-finger tap sets cruise, flicks up and down shift in manual and do nothing in automatic, side flicks change lanes, side holds steer.
 - In a manual truck (Automatic or manual shifting, in Gears and engine brake): pull away with a brake hold and a second-finger flick up for first, then shift up through several gears on the gas with no grinding. Brake to a stop in tenth: hear "Neutral." with the gear sentence on the way down, lift, and the engine keeps running; hold a pedal and flick up for first. Slow to about 10 miles per hour in tenth, hear "Neutral.", and flick up while rolling: a gear that fits the speed goes in, not first.
 - In a Driving School lesson: the deep swipe while moving is the emergency brake, the still hold straightens, and gas releases the parking brake, as in a delivery.
 - With no hardware keyboard, no help, hint or field prompt names a key; connect one and keys come back.
+- Turn Tilt steering on in Touch gestures and open Practice gestures: tilt the right edge down past about 17 degrees and hear "Tilt right" with the angle, then the left edge for "Tilt left". Back at level, nothing is said.
+- With tilt steering on and lane keeping on full, start a drive holding the phone however is comfortable. Tilt right and hold: one lane change only. Bring it back level and tilt again: one more.
+- With lane keeping off, tilt gently and hear the truck drift that way in proportion; a steering swipe still steers.
+- At the wheel with tilt steering on, turn the phone from portrait to landscape: the screen stays put. Open the pause menu and turn it: the screen turns. Resume holding the phone tilted: the new pose is level.
+- Put "Set tilt level" on a gesture slot, tilt the phone a little at the wheel, run it, and hear "Level set."; the truck no longer drifts.
+- Repeat the tilt checks with VoiceOver on.
 - Verify magic tap pauses, a three-finger hold does nothing, the three-finger double tap does nothing, and the haptics switch changes feedback.
 - Enter Practice gestures from the main menu row, flick up: it is named as a flick, never as an arrow key. Flick down with two fingers, wait ten seconds, and flick down again: practice closes. Verify the first-drive practice offer appears once.
 - Pause the drive: Driving commands is the second row. Open it, choose a radio command: the drive resumes and the command runs.

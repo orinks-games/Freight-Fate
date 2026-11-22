@@ -911,9 +911,9 @@ pub struct DrivingState {
     // Discrete lanes: tap-change progress (assist off), closed-lane
     // policing, hazard-dodge context, and keep-right pressure.
     pub lane_change_target: Option<i64>,
-    /// Full lane keeping: the side the left stick last asked to change
-    /// lanes toward, until it comes back near the center.
-    pub stick_lane_request: i8,
+    /// Full lane keeping: whether the left stick or a tilt of the phone
+    /// has asked for its lane and not come back near the centre yet.
+    pub lane_push: ff_core::sim::lane_push::LanePush,
     pub lane_change_timer: f64,
     pub lane_signal_timer: f64,
     /// Lane keeping on full is passing a slow vehicle: (the lane to come
