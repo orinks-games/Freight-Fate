@@ -73,6 +73,8 @@ const SKIP_PATH_PARTS: &[&str] = &[
     "/data/billboard_law",
     // The climate table: station names and normals sources, never spoken.
     "/data/climate",
+    // The default-limit table: province names and statute citations, never spoken.
+    "/data/province_limits",
 ];
 
 /// The hole an English plural ending ("s", "es") fills; a translation may

@@ -48,6 +48,12 @@ fn test_no_place_is_named_after_a_town_that_is_gone() {
             .map(|c| c.name.as_str())
             .chain(leg.landmarks().iter().map(|l| l.name.as_str()));
         for name in names {
+            // Knife River, Minnesota (on MN 61 up the North Shore) is a real
+            // place; only Montana's retired census name is wrong.
+            let montana = [&leg.a, &leg.b].iter().any(|c| c.ends_with("_mt_us"));
+            if name == "Knife River" && !montana {
+                continue;
+            }
             if let Some((_, why)) = RETIRED.iter().find(|(r, _)| *r == name) {
                 found.push(format!("{}:{} names {name} ({why})", leg.a, leg.b));
             }
