@@ -1536,12 +1536,20 @@ fn test_alcan_phase_a_terminus_to_fairbanks() {
         ("tok_ak_us", "haines_junction_yt_ca"),
     ] {
         let crossing = &raw_world_leg(&shards, a, b)["border_crossing"];
-        assert_eq!(crossing["id"].as_str(), Some("alcan_beaver_creek"), "{a}->{b}");
-        assert_eq!(crossing["mode"].as_str(), Some("through_freight"), "{a}->{b}");
+        assert_eq!(
+            crossing["id"].as_str(),
+            Some("alcan_beaver_creek"),
+            "{a}->{b}"
+        );
+        assert_eq!(
+            crossing["mode"].as_str(),
+            Some("through_freight"),
+            "{a}->{b}"
+        );
         assert_eq!(crossing["cabotage"].as_str(), Some("forbidden"), "{a}->{b}");
     }
-    let whitehorse_tok =
-        leg("whitehorse_yt_ca", "haines_junction_yt_ca").miles + leg("haines_junction_yt_ca", "tok_ak_us").miles;
+    let whitehorse_tok = leg("whitehorse_yt_ca", "haines_junction_yt_ca").miles
+        + leg("haines_junction_yt_ca", "tok_ak_us").miles;
     assert!(
         (360.0..=420.0).contains(&whitehorse_tok),
         "Whitehorse–Tok must be real Alaska Highway miles, got {whitehorse_tok}"
@@ -1551,8 +1559,8 @@ fn test_alcan_phase_a_terminus_to_fairbanks() {
         (105.0..=110.0).contains(&tok_delta),
         "Tok–Delta Junction must be real Alaska Highway miles, got {tok_delta}"
     );
-    let delta_fairbanks =
-        leg("delta_junction_ak_us", "north_pole_ak_us").miles + leg("north_pole_ak_us", "fairbanks_ak_us").miles;
+    let delta_fairbanks = leg("delta_junction_ak_us", "north_pole_ak_us").miles
+        + leg("north_pole_ak_us", "fairbanks_ak_us").miles;
     assert!(
         (94.0..=98.0).contains(&delta_fairbanks),
         "Delta Junction–Fairbanks must be real Richardson Highway miles, got {delta_fairbanks}"
@@ -1683,8 +1691,16 @@ fn test_alcan_border_identity_and_posted_speed_profiles() {
     }
 
     for (leg, label, sample_miles) in [
-        (tok_to_whitehorse, "Tok→Haines Junction", [90.0, 95.0, 100.0]),
-        (whitehorse_to_tok, "Haines Junction→Tok", [185.0, 190.0, 195.0]),
+        (
+            tok_to_whitehorse,
+            "Tok→Haines Junction",
+            [90.0, 95.0, 100.0],
+        ),
+        (
+            whitehorse_to_tok,
+            "Haines Junction→Tok",
+            [185.0, 190.0, 195.0],
+        ),
     ] {
         let samples = leg["corridor"]["speed_limits"]
             .as_array()

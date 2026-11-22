@@ -424,10 +424,16 @@ mod tests {
     fn alaska_named_highways_match_their_route_numbers() {
         assert!(matches_shield("AK 1", "Seward Highway"));
         assert!(matches_shield("AK 9", "Seward Highway"));
-        assert!(matches_shield("AK 3 North", "George Parks Highway / Glenn Highway"));
+        assert!(matches_shield(
+            "AK 3 North",
+            "George Parks Highway / Glenn Highway"
+        ));
         assert!(matches_shield("AK 2", "Richardson Highway"));
         assert!(matches_shield("AK 4", "Richardson Highway"));
-        assert!(matches_shield("AK 1", "Seward Highway and Portage Glacier Highway"));
+        assert!(matches_shield(
+            "AK 1",
+            "Seward Highway and Portage Glacier Highway"
+        ));
         assert!(!matches_shield("AK 3", "Richardson Highway"));
         assert!(!matches_shield("US 1", "Seward Highway"));
         assert!(!matches_shield("AK 2", "Dalton Highway"));
