@@ -6007,11 +6007,39 @@ a carrier slice (owner, 2026-10-26).
 - [x] Billboards along the Hart and Alaska Highways: 30 attraction boards
       from the sign sheet
       (`data/spider/signsheets/alaska-highway-bc-yukon-2026-11-22.md`),
-      director's copy, baked on the legs; merges on Orinks's approval.
+      director's copy, baked on the legs; approved by Orinks 2026-11-22.
 - [x] The sheet's 13 Highway 1 and 97 boards (Hope to Barkerville) moved
       to the West corridor's sheet
       (`data/spider/signsheets/west-corridor-2026-11-22.md`), same copy,
-      re-placed on the chain legs; merges on Orinks's approval.
+      re-placed on the chain legs; approved by Orinks 2026-11-22.
+- [x] Billboards across Ontario and Quebec (2026-11-22): 46 signs from
+      `data/spider/signsheets/ontario-quebec-2026-11-22.md`, the director's
+      copy approved by Orinks, Quebec boards in English with names as
+      signed; Bethune Memorial House takes Gravenhurst's own line.
+- [ ] (Found along the way) Ontario and Quebec sheet lines skipped, each
+      within two miles of a line the map already speaks: Kingston
+      Penitentiary, Upper Canada Village both ways, Brock's Monument, the
+      Dionne home, and one direction each of the Snow Countess (two),
+      Doon, the Welland Canals Centre, Fort Chambly and the Château
+      Frontenac. The St. Catharines to Niagara Falls leg speaks towns that
+      are not on it (Vineland, Beamsville, Youngstown, Lewiston, the
+      Tonawandas), which crowds the Niagara boards. No park bans are
+      derived for Ontario and Quebec legs yet.
+- [x] Holiday boards follow the country (2026-11-22): New Year,
+      Halloween and Christmas read in both countries, the Fourth of July
+      and November's Thanksgiving only in the United States; Canada Day
+      and October's Thanksgiving read only in Canada.
+- [ ] (Found along the way) West sheet lines skipped this pass, each
+      within two miles of a line the map already speaks: Alexandra Bridge
+      southbound (Fraser River crossing), Lake Louise both ways ("Approaching
+      Saddleback Pass", a hiking pass, and the Pipestone and Bow rivers),
+      Drumheller's tyrannosaur both ways ("Entering Drumheller" stays for its
+      speed zone), the Lethbridge viaduct departures (Oldman River) and Fort
+      Battleford from North Battleford toward Lloydminster (North
+      Saskatchewan River). Batoche both ways: even in place of the
+      town's own line it crowds the Carlton and Beardy's and Okemasis' lines. Calgary Tower, Kootenay Pass, Rogers Pass, Banff
+      and Elk Island are left out: the map already speaks them, or the road
+      reaches the tower only at Calgary's arrival point.
 - [ ] Billboard sheets for each Canadian corridor and the new Alaska
       routes, once the routing is in (owner, 2026-11-22: iconic real places
       and landmarks, the way the 1.9 attraction expansion did it), West

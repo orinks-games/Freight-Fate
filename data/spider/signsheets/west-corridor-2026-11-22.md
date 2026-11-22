@@ -514,7 +514,7 @@ The old suspension bridge beside Highway 1, in Alexandra Bridge Provincial Park.
 - at_mi: 92.6
 - spoken: Passing the old Alexandra Bridge.
 
-Not placed: the place is within two miles of a line the map already speaks (Crossing the Fraser River @92.5), so one of the two would be silenced. Waiting on the director.
+Not placed: the place is within two miles of a line the map already speaks (Crossing the Fraser River @92.5), so one of the two would be silenced. Skipped this pass (director's ruling, 2026-11-22).
 
 ### Alexandra Bridge (Hope to Cache Creek)
 - treatment: landmark
@@ -596,7 +596,7 @@ The hamlet on Highway 1. No line the map already speaks says Lake Louise here. O
 - at_mi: 113.6
 - spoken: Passing Lake Louise.
 
-Not placed: the place is within two miles of a line the map already speaks (Crossing the Pipestone River @114.0; Approaching Saddleback Pass @112.7), so one of the two would be silenced. Waiting on the director.
+Not placed: the place is within two miles of a line the map already speaks (Crossing the Pipestone River @114.0; Approaching Saddleback Pass @112.7), so one of the two would be silenced. Skipped this pass (director's ruling, 2026-11-22).
 
 ### Lake Louise (Golden to Calgary)
 - treatment: skip
@@ -604,7 +604,7 @@ Not placed: the place is within two miles of a line the map already speaks (Cros
 - at_mi: 51.0
 - spoken: Passing Lake Louise.
 
-Not placed: the place is within two miles of a line the map already speaks (Approaching Saddleback Pass @52.1; Crossing the Bow River @48.9), so one of the two would be silenced. Waiting on the director.
+Not placed: the place is within two miles of a line the map already speaks (Approaching Saddleback Pass @52.1; Crossing the Bow River @48.9), so one of the two would be silenced. Skipped this pass (director's ruling, 2026-11-22).
 
 
 ## Canada Olympic Park
@@ -663,7 +663,7 @@ CPR viaduct, 1907 to 1909. Source: Wikipedia. The road passes beside it, 0.4 mil
 - at_mi: 3.5
 - spoken: Passing the High Level Bridge, Lethbridge's railway viaduct.
 
-Not placed: the place is within two miles of a line the map already speaks (Crossing the Oldman River @3.5), so one of the two would be silenced. Waiting on the director.
+Not placed: the place is within two miles of a line the map already speaks (Crossing the Oldman River @3.5), so one of the two would be silenced. Skipped this pass (director's ruling, 2026-11-22).
 
 ### Lethbridge Viaduct (Lethbridge to Cranbrook)
 - treatment: skip
@@ -671,7 +671,7 @@ Not placed: the place is within two miles of a line the map already speaks (Cros
 - at_mi: 3.5
 - spoken: Passing the High Level Bridge, Lethbridge's railway viaduct.
 
-Not placed: the place is within two miles of a line the map already speaks (Crossing the Oldman River @3.5), so one of the two would be silenced. Waiting on the director.
+Not placed: the place is within two miles of a line the map already speaks (Crossing the Oldman River @3.5), so one of the two would be silenced. Skipped this pass (director's ruling, 2026-11-22).
 
 
 ## Saamis Tepee
@@ -701,7 +701,7 @@ Built for the 1988 Olympics, 215 feet. Source: medicinehat.ca. OpenStreetMap way
 - at_mi: 88.0
 - spoken: Passing Drumheller's giant tyrannosaur.
 
-Not placed: the place is within two miles of a line the map already speaks (Entering Drumheller @87.9; Crossing the Red Deer River @88.1), so one of the two would be silenced. Waiting on the director.
+Not placed: the place is within two miles of a line the map already speaks (Entering Drumheller @87.9; Crossing the Red Deer River @88.1), so one of the two would be silenced. Skipped this pass: "Entering Drumheller" stays, because it explains the speed zone (director's ruling, 2026-11-22).
 
 ### World's Largest Dinosaur (Hanna to Calgary)
 - treatment: skip
@@ -709,29 +709,28 @@ Not placed: the place is within two miles of a line the map already speaks (Ente
 - at_mi: 46.8
 - spoken: Passing Drumheller's giant tyrannosaur.
 
-Not placed: the place is within two miles of a line the map already speaks (Crossing the Red Deer River @46.7; Entering Drumheller @46.9), so one of the two would be silenced. Waiting on the director.
+Not placed: the place is within two miles of a line the map already speaks (Crossing the Red Deer River @46.7; Entering Drumheller @46.9), so one of the two would be silenced. Skipped this pass (director's ruling, 2026-11-22).
 
 
 ## Philip J. Currie Dinosaur Museum
 
 Opened 2015 at Wembley. Source: Wikipedia. OpenStreetMap way 392493988.
 
-### Philip J. Currie Dinosaur Museum (Dawson Creek to Grande Prairie)
-- treatment: skip
+### Wembley
+- treatment: landmark
 - leg: dawson_creek_bc_ca -> grande_prairie_ab_ca
-- at_mi: 68.1
+- at_mi: 67.8
 - spoken: Passing Wembley, home of the Philip J. Currie Dinosaur Museum.
 
-Not placed: the place is within two miles of a line the map already speaks (Passing Wembley @67.8), so one of the two would be silenced. Waiting on the director.
+Replaces the map's own village line "Passing Wembley" at mile 67.8: the record is named for the town, so the bake swaps it in place (director's ruling, 2026-11-22).
 
-### Philip J. Currie Dinosaur Museum (Grande Prairie to Dawson Creek)
-- treatment: skip
+### Wembley
+- treatment: landmark
 - leg: grande_prairie_ab_ca -> dawson_creek_bc_ca
-- at_mi: 13.9
+- at_mi: 14.2
 - spoken: Passing Wembley, home of the Philip J. Currie Dinosaur Museum.
 
-Not placed: the place is within two miles of a line the map already speaks (Passing Wembley @14.2), so one of the two would be silenced. Waiting on the director.
-
+Replaces the map's own village line "Passing Wembley" at mile 14.2: the record is named for the town, so the bake swaps it in place (director's ruling, 2026-11-22).
 
 ## Vegreville egg
 
@@ -754,22 +753,21 @@ A giant pysanka, 1975, that turns with the wind. Source: Wikipedia. OpenStreetMa
 
 The battlefield of 1885. Sources: Parks Canada; Canadian Encyclopedia. About 6 miles off Highway 11, so the line says 'near'. OpenStreetMap way 493471366.
 
-### Batoche (Prince Albert to Saskatoon)
+### Batoche
 - treatment: skip
 - leg: prince_albert_sk_ca -> saskatoon_sk_ca
 - at_mi: 37.7
 - spoken: Passing near Batoche National Historic Site, the battlefield of eighteen eighty-five.
 
-Not placed: the place is within two miles of a line the map already speaks (Passing Batoche @37.7; Passing ᓃᐱᓰᐦᑯᐹᐏᔨᓃᓈᕽ Beardy's and Okemasis' @36.3), so one of the two would be silenced. Waiting on the director.
+Skipped this pass. The director ruled that this line replaces the town's own "Passing Batoche" at mile 37.7, but even in its place it stands within two miles of "Passing ᓃᐱᓰᐦᑯᐹᐏᔨᓃᓈᕽ Beardy's and Okemasis'" 1.4 miles before, so one would be silenced.
 
-### Batoche (Saskatoon to Prince Albert)
+### Batoche
 - treatment: skip
 - leg: saskatoon_sk_ca -> prince_albert_sk_ca
 - at_mi: 48.4
 - spoken: Passing near Batoche National Historic Site, the battlefield of eighteen eighty-five.
 
-Not placed: the place is within two miles of a line the map already speaks (Passing Batoche @48.4; Passing ᓃᐱᓰᐦᑯᐹᐏᔨᓃᓈᕽ Beardy's and Okemasis' @49.7), so one of the two would be silenced. Waiting on the director.
-
+Skipped this pass. The director ruled that this line replaces the town's own "Passing Batoche" at mile 48.4, but even in its place it stands within two miles of "Passing Carlton" 1.8 miles and "Passing ᓃᐱᓰᐦᑯᐹᐏᔨᓃᓈᕽ Beardy's and Okemasis'" 1.3 miles away, so one would be silenced.
 
 ## Fort Battleford
 
@@ -787,7 +785,7 @@ North-West Mounted Police fort, 1876; national historic site since 1923. Source:
 - at_mi: 2.1
 - spoken: Passing Fort Battleford National Historic Site.
 
-Not placed: the place is within two miles of a line the map already speaks (Crossing the North Saskatchewan River @1.8), so one of the two would be silenced. Waiting on the director.
+Not placed: the place is within two miles of a line the map already speaks (Crossing the North Saskatchewan River @1.8), so one of the two would be silenced. Skipped this pass (director's ruling, 2026-11-22).
 
 ### Fort Battleford (North Battleford to Saskatoon)
 - treatment: landmark

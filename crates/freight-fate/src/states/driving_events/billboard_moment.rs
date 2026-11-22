@@ -15,8 +15,6 @@ use ff_core::sim::livestock::LIVESTOCK_CARGO_KEY;
 use ff_core::sim::season::calendar_date;
 use ff_core::speech_text::SpokenMessage;
 
-use chrono::Datelike;
-
 use crate::app::GameContext;
 use crate::states::driving::DrivingState;
 use crate::states::driving_core::{profile_of, DRIVE_PHASE_DELIVERY};
@@ -81,7 +79,7 @@ impl DrivingState {
             incident: now.incident_since(self.billboard_watch),
             tired: Alertness::from_fatigue(profile.fatigue) >= Alertness::Drowsy
                 || SMALL_HOURS.contains(&local_hour),
-            holiday: holiday_on(date.month(), date.day()),
+            holiday: holiday_on(date, state.as_deref()),
             nth: self.pool_billboards_heard,
             offset: self.billboard_offset,
             state: state.as_deref(),

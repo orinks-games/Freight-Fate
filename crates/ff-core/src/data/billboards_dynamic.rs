@@ -11,6 +11,8 @@
 //! driver who cannot see the road toward a stop that is not there costs the
 //! drive, so each line is true on any road, on its day.
 
+use chrono::{Datelike, NaiveDate, Weekday};
+
 use crate::data::billboard_law::{country_of, Country};
 
 /// What happened since the last pool sign that Big Jim answers.
@@ -25,10 +27,16 @@ pub enum Incident {
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum Holiday {
     NewYear,
+    /// The Fourth of July: the United States only.
     Independence,
     Halloween,
+    /// United States Thanksgiving, in late November.
     Thanksgiving,
     Christmas,
+    /// The first of July: Canada only.
+    CanadaDay,
+    /// Canadian Thanksgiving, the second Monday of October.
+    CanadianThanksgiving,
 }
 
 pub const COLLISION_LINES: &[&str] = &[
@@ -58,43 +66,73 @@ pub const SMALL_HOURS_LINES: &[&str] = &[
     "Sleep is a gift. Unwrap it somewhere legal.",
 ];
 
-/// One holiday sign, and where its copy is true. A holiday belongs to a
-/// country: a United States board is read only on a road in the United
-/// States, so a Thanksgiving pie in late November never turns up in Quebec.
-/// Within its country an empty `states` list is true on any road; a line
+/// One holiday sign, and where its copy is true. A sign belongs to the
+/// countries that keep its holiday: a United States Thanksgiving board is
+/// read only on a road in the United States, so its pie never turns up in
+/// Quebec, while a Christmas board reads on both sides of the border.
+/// Within its countries an empty `states` list is true on any road; a line
 /// naming a region lists the states it holds in, so a Salem sign is never
 /// read in Texas.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct HolidaySign {
     pub text: &'static str,
-    pub country: Country,
+    pub countries: &'static [Country],
     pub states: &'static [&'static str],
 }
 
 impl HolidaySign {
     /// True in this state (a two-letter code). An unanchored line holds
-    /// anywhere in its country, and a road whose state is unknown counts as
-    /// the United States, as the whole map was before 2.0. A regional line is
-    /// never read where the state is unknown.
+    /// anywhere in its countries, and a road whose state is unknown counts
+    /// as the United States, as the whole map was before 2.0. A regional
+    /// line is never read where the state is unknown.
     pub fn holds_in(&self, state: Option<&str>) -> bool {
-        let country = state.map_or(Country::UnitedStates, country_of);
-        country == self.country
+        self.countries.contains(&road_country(state))
             && (self.states.is_empty() || state.is_some_and(|s| self.states.contains(&s)))
     }
 }
 
+/// The country a road's state code is in; unknown counts as the United
+/// States.
+fn road_country(state: Option<&str>) -> Country {
+    state.map_or(Country::UnitedStates, country_of)
+}
+
+const BOTH: &[Country] = &[Country::UnitedStates, Country::Canada];
+const US: &[Country] = &[Country::UnitedStates];
+const CANADA: &[Country] = &[Country::Canada];
+
+/// A line true on any road of either country.
 const fn anywhere(text: &'static str) -> HolidaySign {
     HolidaySign {
         text,
-        country: Country::UnitedStates,
+        countries: BOTH,
         states: &[],
     }
 }
 
+/// A line true on any road in the United States only.
+const fn us_only(text: &'static str) -> HolidaySign {
+    HolidaySign {
+        text,
+        countries: US,
+        states: &[],
+    }
+}
+
+/// A line true on any road in Canada only.
+const fn canada_only(text: &'static str) -> HolidaySign {
+    HolidaySign {
+        text,
+        countries: CANADA,
+        states: &[],
+    }
+}
+
+/// A line true only in the United States states it names.
 const fn in_states(text: &'static str, states: &'static [&'static str]) -> HolidaySign {
     HolidaySign {
         text,
-        country: Country::UnitedStates,
+        countries: US,
         states,
     }
 }
@@ -109,8 +147,8 @@ const NEW_YEAR_SIGNS: &[HolidaySign] = &[
 ];
 
 const INDEPENDENCE_SIGNS: &[HolidaySign] = &[
-    anywhere("Happy Fourth of July. Somewhere a brother-in-law is lighting the loud ones. Mind the smoke."),
-    anywhere("Independence week. Flags on every porch, and a grill going in every yard for a thousand miles."),
+    us_only("Happy Fourth of July. Somewhere a brother-in-law is lighting the loud ones. Mind the smoke."),
+    us_only("Independence week. Flags on every porch, and a grill going in every yard for a thousand miles."),
 ];
 
 const HALLOWEEN_SIGNS: &[HolidaySign] = &[
@@ -132,8 +170,18 @@ const HALLOWEEN_SIGNS: &[HolidaySign] = &[
 ];
 
 const THANKSGIVING_SIGNS: &[HolidaySign] = &[
-    anywhere("Thanksgiving week. Somewhere a turkey is grateful you are hauling freight and not him."),
-    anywhere("Happy Thanksgiving. Every pie case in the country is full, and every pair of pants is worried."),
+    us_only("Thanksgiving week. Somewhere a turkey is grateful you are hauling freight and not him."),
+    us_only("Happy Thanksgiving. Every pie case in the country is full, and every pair of pants is worried."),
+];
+
+const CANADA_DAY_SIGNS: &[HolidaySign] = &[
+    canada_only("Happy Canada Day. The fireworks start at dusk. This far north in July, dusk takes its time."),
+    canada_only("Canada Day week. Fireworks over every lake, and somebody's uncle in charge of the barbecue again."),
+];
+
+const CANADIAN_THANKSGIVING_SIGNS: &[HolidaySign] = &[
+    canada_only("Happy Thanksgiving. It comes in October here, while the leaves are still worth looking at. The turkey has no opinion on the date."),
+    canada_only("Thanksgiving weekend. Canada holds it in October, and gets to the pie weeks ahead of the neighbors."),
 ];
 
 const CHRISTMAS_SIGNS: &[HolidaySign] = &[
@@ -275,6 +323,8 @@ pub fn holiday_signs(holiday: Holiday) -> &'static [HolidaySign] {
         Holiday::Halloween => HALLOWEEN_SIGNS,
         Holiday::Thanksgiving => THANKSGIVING_SIGNS,
         Holiday::Christmas => CHRISTMAS_SIGNS,
+        Holiday::CanadaDay => CANADA_DAY_SIGNS,
+        Holiday::CanadianThanksgiving => CANADIAN_THANKSGIVING_SIGNS,
     }
 }
 
@@ -288,19 +338,34 @@ pub const SMALL_HOURS_EVERY: usize = 2;
 /// Local hours the small-hours signs come out: one in the morning until five.
 pub const SMALL_HOURS: std::ops::Range<f64> = 1.0..5.0;
 
-/// The holiday whose week a calendar date falls in.
+/// The holiday whose week a calendar date falls in, on a road in this
+/// state (a two-letter code; unknown counts as the United States).
 ///
-/// Thanksgiving is the fourth Thursday of November, which always lands
-/// between the 22nd and the 28th, so its week is that span.
-pub fn holiday_on(month: u32, day: u32) -> Option<Holiday> {
-    match (month, day) {
+/// United States Thanksgiving is the fourth Thursday of November, which
+/// always lands between the 22nd and the 28th, so its week is that span.
+/// Canadian Thanksgiving is the second Monday of October; its week is the
+/// seven days ending on it. Canada Day's week runs June 28 to July 1.
+pub fn holiday_on(date: NaiveDate, state: Option<&str>) -> Option<Holiday> {
+    let canada = road_country(state) == Country::Canada;
+    match (date.month(), date.day()) {
         (12, 29..=31) | (1, 1) => Some(Holiday::NewYear),
-        (6, 28..=30) | (7, 1..=4) => Some(Holiday::Independence),
+        (6, 28..=30) | (7, 1) if canada => Some(Holiday::CanadaDay),
+        (6, 28..=30) | (7, 1..=4) if !canada => Some(Holiday::Independence),
         (10, 24..=31) => Some(Holiday::Halloween),
-        (11, 22..=28) => Some(Holiday::Thanksgiving),
+        (11, 22..=28) if !canada => Some(Holiday::Thanksgiving),
         (12, 10..=25) => Some(Holiday::Christmas),
+        (10, _) if canada && canadian_thanksgiving_week(date) => {
+            Some(Holiday::CanadianThanksgiving)
+        }
         _ => None,
     }
+}
+
+/// Whether a date is in the seven days ending on the second Monday of
+/// October.
+fn canadian_thanksgiving_week(date: NaiveDate) -> bool {
+    NaiveDate::from_weekday_of_month_opt(date.year(), 10, Weekday::Mon, 2)
+        .is_some_and(|monday| (0..7).contains(&(monday - date).num_days()))
 }
 
 /// What the drive offers a pool sign to react to.
@@ -380,12 +445,14 @@ fn holiday_billboard(moment: BillboardMoment) -> Option<&'static str> {
 mod tests {
     use super::*;
 
-    const HOLIDAYS: [Holiday; 5] = [
+    const HOLIDAYS: [Holiday; 7] = [
         Holiday::NewYear,
         Holiday::Independence,
         Holiday::Halloween,
         Holiday::Thanksgiving,
         Holiday::Christmas,
+        Holiday::CanadaDay,
+        Holiday::CanadianThanksgiving,
     ];
 
     fn every_line() -> Vec<&'static str> {
@@ -421,9 +488,9 @@ mod tests {
             state,
             ..BillboardMoment::default()
         };
-        for holiday in HOLIDAYS {
+        for holiday in [Holiday::Independence, Holiday::Thanksgiving] {
             for sign in holiday_signs(holiday) {
-                assert_eq!(sign.country, Country::UnitedStates, "{}", sign.text);
+                assert_eq!(sign.countries, US, "{}", sign.text);
             }
         }
         for state in ["QC", "ON", "BC", "YT"] {
@@ -434,20 +501,80 @@ mod tests {
         assert!(holiday_billboard(moment(None)).is_some());
     }
 
+    fn day(y: i32, m: u32, d: u32) -> NaiveDate {
+        NaiveDate::from_ymd_opt(y, m, d).unwrap()
+    }
+
     #[test]
     fn holiday_weeks_cover_the_day_itself() {
-        assert_eq!(holiday_on(1, 1), Some(Holiday::NewYear));
-        assert_eq!(holiday_on(12, 31), Some(Holiday::NewYear));
-        assert_eq!(holiday_on(7, 4), Some(Holiday::Independence));
-        assert_eq!(holiday_on(7, 5), None);
-        assert_eq!(holiday_on(10, 31), Some(Holiday::Halloween));
-        assert_eq!(holiday_on(12, 25), Some(Holiday::Christmas));
-        assert_eq!(holiday_on(12, 26), None);
+        let us = |m, d| holiday_on(day(2026, m, d), Some("NY"));
+        assert_eq!(us(1, 1), Some(Holiday::NewYear));
+        assert_eq!(us(12, 31), Some(Holiday::NewYear));
+        assert_eq!(us(7, 4), Some(Holiday::Independence));
+        assert_eq!(us(7, 5), None);
+        assert_eq!(us(10, 31), Some(Holiday::Halloween));
+        assert_eq!(us(12, 25), Some(Holiday::Christmas));
+        assert_eq!(us(12, 26), None);
         // The fourth Thursday of November: the 26th in 2026, the 22nd in 2029.
-        assert_eq!(holiday_on(11, 26), Some(Holiday::Thanksgiving));
-        assert_eq!(holiday_on(11, 22), Some(Holiday::Thanksgiving));
-        assert_eq!(holiday_on(11, 21), None);
-        assert_eq!(holiday_on(9, 30), None);
+        assert_eq!(us(11, 26), Some(Holiday::Thanksgiving));
+        assert_eq!(us(11, 22), Some(Holiday::Thanksgiving));
+        assert_eq!(us(11, 21), None);
+        assert_eq!(us(9, 30), None);
+        assert_eq!(
+            us(10, 12),
+            None,
+            "no Canadian Thanksgiving south of the line"
+        );
+        assert_eq!(
+            holiday_on(day(2026, 7, 1), None),
+            Some(Holiday::Independence)
+        );
+    }
+
+    #[test]
+    fn canada_keeps_its_own_holidays() {
+        let ca = |y, m, d| holiday_on(day(y, m, d), Some("ON"));
+        assert_eq!(ca(2026, 6, 28), Some(Holiday::CanadaDay));
+        assert_eq!(ca(2026, 7, 1), Some(Holiday::CanadaDay));
+        assert_eq!(ca(2026, 7, 2), None, "the Fourth is not Canada's");
+        assert_eq!(ca(2026, 11, 26), None, "nor is November's Thanksgiving");
+        assert_eq!(ca(2026, 12, 25), Some(Holiday::Christmas));
+        assert_eq!(ca(2026, 1, 1), Some(Holiday::NewYear));
+        assert_eq!(ca(2026, 10, 31), Some(Holiday::Halloween));
+        // The second Monday of October: the 12th in 2026, the 13th in 2025.
+        assert_eq!(ca(2026, 10, 12), Some(Holiday::CanadianThanksgiving));
+        assert_eq!(ca(2026, 10, 6), Some(Holiday::CanadianThanksgiving));
+        assert_eq!(ca(2026, 10, 5), None);
+        assert_eq!(ca(2026, 10, 13), None);
+        assert_eq!(ca(2025, 10, 13), Some(Holiday::CanadianThanksgiving));
+        assert_eq!(ca(2025, 10, 6), None);
+    }
+
+    #[test]
+    fn shared_holidays_read_in_both_countries() {
+        let moment = |holiday, state| BillboardMoment {
+            holiday: Some(holiday),
+            state: Some(state),
+            ..BillboardMoment::default()
+        };
+        for holiday in [Holiday::NewYear, Holiday::Halloween, Holiday::Christmas] {
+            for state in ["NY", "QC", "BC"] {
+                let line = holiday_billboard(moment(holiday, state));
+                assert!(line.is_some(), "{holiday:?} in {state}");
+            }
+        }
+        // A regional Halloween line keeps its states: Salem is never read in Quebec.
+        let regional = holiday_signs(Holiday::Halloween)
+            .iter()
+            .filter(|s| !s.states.is_empty());
+        for sign in regional {
+            assert!(!sign.holds_in(Some("QC")), "{}", sign.text);
+        }
+        // Canada's own holidays read only north of the line.
+        for holiday in [Holiday::CanadaDay, Holiday::CanadianThanksgiving] {
+            assert!(holiday_billboard(moment(holiday, "ON")).is_some());
+            assert_eq!(holiday_billboard(moment(holiday, "NY")), None);
+        }
     }
 
     #[test]
