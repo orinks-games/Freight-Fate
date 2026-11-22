@@ -8,7 +8,101 @@
       "terrain": "flat",
       "divided": false,
       "lanes": 2,
-      "stops": [],
+      "stops": [
+        {
+          "name": "Speed Pro Truck Stop",
+          "type": "travel_center",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "food",
+            "break",
+            "sleep"
+          ],
+          "services": [
+            "parking",
+            "diesel",
+            "gasoline",
+            "food",
+            "restrooms"
+          ],
+          "parking": "limited",
+          "source": "Position read from OSM node 12747259322, OpenStreetMap planet extract 2026-11-16. Truck access assumed from the truck stop name, not verified. Diesel assumed for a truck stop, not tagged. Year round is assumed. Food, restrooms and an overnight stay are assumed for a highway truck stop; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+          "directions": [
+            "both"
+          ],
+          "curation": "curated",
+          "vehicle_access": "tractor_trailer",
+          "at_mi": 15.1
+        },
+        {
+          "name": "Truck parking near Abbotsford",
+          "type": "truck_parking",
+          "actions": [
+            "park",
+            "save",
+            "break",
+            "sleep"
+          ],
+          "services": [
+            "parking"
+          ],
+          "parking": "confirmed",
+          "source": "Read: truck parking from OSM way 420090967 (amenity=parking, hgv=yes), OpenStreetMap planet extract 2026-11-16. Overnight parking is assumed for a lot tagged for trucks; year round is assumed. Leg mile projected onto the leg's road.",
+          "directions": [
+            "both"
+          ],
+          "curation": "curated",
+          "vehicle_access": "tractor_trailer",
+          "at_mi": 29.0
+        },
+        {
+          "name": "Chevron Abbotsford Commercial Cardlock",
+          "type": "fuel_station",
+          "actions": [
+            "fuel"
+          ],
+          "services": [
+            "diesel"
+          ],
+          "parking": "unknown",
+          "source": "Position read from OSM way 387961009 (fuel:diesel=yes, website=http://www.chevron.ca/our-businesses/retail-commercial/cardlock-directory), OpenStreetMap planet extract 2026-11-16. Diesel read from OSM. A cardlock sells to account holders only. Year round is assumed. Tractor-trailer access is assumed for a highway cardlock, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+          "directions": [
+            "both"
+          ],
+          "curation": "curated",
+          "vehicle_access": "tractor_trailer",
+          "at_mi": 29.7
+        },
+        {
+          "name": "Flying J",
+          "type": "travel_center",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "food",
+            "break",
+            "sleep"
+          ],
+          "services": [
+            "parking",
+            "diesel",
+            "gasoline",
+            "food",
+            "restrooms"
+          ],
+          "parking": "limited",
+          "source": "Position read from OSM way 387943961 (fuel:diesel=yes), OpenStreetMap planet extract 2026-11-16. Truck access assumed from the truck stop name, not verified. Diesel read from OSM. Year round is assumed. Food, restrooms and an overnight stay are assumed for a highway truck stop; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+          "directions": [
+            "both"
+          ],
+          "curation": "curated",
+          "vehicle_access": "tractor_trailer",
+          "at_mi": 30.0
+        }
+      ],
       "corridor": {
         "tollway_detected": false,
         "route_points": [
@@ -212,7 +306,7 @@
             "at_mi": 28.8,
             "from_state": "Washington",
             "state": "British Columbia",
-            "place": "Washington-British Columbia line on Hwy 11 / SR 9 / SR 546 / SR 539",
+            "place": "",
             "source": "derived 2026-11-05: the leg's archived route geometry intersected with OpenStreetMap state and province boundary relations (boundary=administrative, admin_level=4); at_mi = cumulative geometry distance at each boundary crossing, rescaled to leg miles; state miles = differences of those boundaries. OpenStreetMap, boundary relations read from the OpenStreetMap API on 2026-11-16: https://www.openstreetmap.org/."
           }
         ],
@@ -311,24 +405,28 @@
           {
             "at_mi": 28.6,
             "mph": 20,
+            "kmh": 30,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 30.7,
             "mph": 30,
+            "kmh": 50,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 31.8,
             "mph": 45,
+            "kmh": 70,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 33.2,
             "mph": 30,
+            "kmh": 50,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           }
@@ -63598,7 +63696,7 @@
             "at_mi": 140.8,
             "from_state": "Washington",
             "state": "British Columbia",
-            "place": "Washington-British Columbia line on Hwy 97 / US 97",
+            "place": "",
             "source": "derived 2026-11-05: the leg's archived route geometry intersected with OpenStreetMap state and province boundary relations (boundary=administrative, admin_level=4); at_mi = cumulative geometry distance at each boundary crossing, rescaled to leg miles; state miles = differences of those boundaries. OpenStreetMap, boundary relations read from the OpenStreetMap API on 2026-11-16: https://www.openstreetmap.org/."
           }
         ],
@@ -63763,18 +63861,21 @@
           {
             "at_mi": 140.8,
             "mph": 50,
+            "kmh": 80,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 142.6,
             "mph": 35,
+            "kmh": 60,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 143.8,
             "mph": 30,
+            "kmh": 50,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           }

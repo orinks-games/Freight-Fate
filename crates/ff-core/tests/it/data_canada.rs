@@ -241,7 +241,7 @@ fn canadian_postings_are_driven_at_the_number_on_the_sign() {
 fn a_canadian_ramp_advisory_keeps_its_km_h() {
     // A 50 km/h ramp sign is 31.07 mph, not the 50 mph the US bare-number
     // screen would make of it.
-    let leg = leg("surrey_bc_ca:prince_george_bc_ca");
+    let leg = leg("vancouver_bc_ca:abbotsford_bc_ca");
     let advisories: Vec<f64> = leg
         .interchanges()
         .iter()

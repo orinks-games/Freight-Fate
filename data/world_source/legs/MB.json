@@ -199,54 +199,63 @@
           {
             "at_mi": 0.8,
             "mph": 35,
+            "kmh": 60,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 2.7,
             "mph": 45,
+            "kmh": 70,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 11.7,
             "mph": 70,
+            "kmh": 110,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 29.6,
             "mph": 60,
+            "kmh": 100,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 33.6,
             "mph": 70,
+            "kmh": 110,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 75.2,
             "mph": 60,
+            "kmh": 100,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 76.9,
             "mph": 55,
+            "kmh": 90,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 77.3,
             "mph": 35,
+            "kmh": 60,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 78.3,
             "mph": 30,
+            "kmh": 50,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           }
@@ -456,7 +465,74 @@
       "terrain": "flat",
       "divided": false,
       "lanes": 2,
-      "stops": [],
+      "stops": [
+        {
+          "name": "Whitewood Co-op Cardlock",
+          "type": "fuel_station",
+          "actions": [
+            "fuel"
+          ],
+          "services": [
+            "diesel"
+          ],
+          "parking": "unknown",
+          "source": "Cardlock read from the Co-op Whitewood Cardlock listing, 1206 Highway 1, Whitewood (https://www.shopping-canada.com/stores-brands/co-op/saskatchewan/whitewood/co-op-whitewood-cardlock-1206-highway-1-s0g-5c0, read 2026-11-22). Position assumed: OSM node 5198674368, the Co-op on Highway 1 at Whitewood, OpenStreetMap planet extract 2026-11-16; the cardlock's own pumps may stand apart from it. Diesel is assumed for a cardlock. A cardlock sells to account holders only. Year round is assumed. Leg mile projected onto the leg's road.",
+          "directions": [
+            "both"
+          ],
+          "curation": "curated",
+          "vehicle_access": "tractor_trailer",
+          "at_mi": 119.7
+        },
+        {
+          "name": "Truck parking near Regina",
+          "type": "truck_parking",
+          "actions": [
+            "park",
+            "save",
+            "break",
+            "sleep"
+          ],
+          "services": [
+            "parking"
+          ],
+          "parking": "confirmed",
+          "source": "Read: truck parking from OSM way 482747054 (amenity=parking, hgv=yes), OpenStreetMap planet extract 2026-11-16. Overnight parking is assumed for a lot tagged for trucks; year round is assumed. Leg mile projected onto the leg's road.",
+          "directions": [
+            "both"
+          ],
+          "curation": "curated",
+          "vehicle_access": "tractor_trailer",
+          "at_mi": 212.8
+        },
+        {
+          "name": "Regina Husky Travel Center",
+          "type": "travel_center",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "food",
+            "break",
+            "sleep"
+          ],
+          "services": [
+            "parking",
+            "diesel",
+            "gasoline",
+            "food",
+            "restrooms"
+          ],
+          "parking": "limited",
+          "source": "Position read from OSM way 268957889 (website=https://www.esso.ca/en-ca/find-station/regina-sk-reginahuskytcesso682-200323560), OpenStreetMap planet extract 2026-11-16. Truck access assumed from the truck stop name, not verified. Diesel assumed for a truck stop, not tagged. Year round is assumed. Food, restrooms and an overnight stay are assumed for a highway truck stop; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+          "directions": [
+            "both"
+          ],
+          "curation": "curated",
+          "vehicle_access": "tractor_trailer",
+          "at_mi": 224.2
+        }
+      ],
       "corridor": {
         "tollway_detected": false,
         "route_points": [
@@ -826,7 +902,7 @@
             "at_mi": 78.2,
             "from_state": "Manitoba",
             "state": "Saskatchewan",
-            "place": "Manitoba-Saskatchewan line on Hwy 1 / Trans-Canada Highway",
+            "place": "",
             "source": "derived 2026-11-05: the leg's archived route geometry intersected with OpenStreetMap state and province boundary relations (boundary=administrative, admin_level=4); at_mi = cumulative geometry distance at each boundary crossing, rescaled to leg miles; state miles = differences of those boundaries. OpenStreetMap, boundary relations read from the OpenStreetMap API on 2026-11-16: https://www.openstreetmap.org/."
           }
         ],
@@ -952,60 +1028,70 @@
           {
             "at_mi": 0.8,
             "mph": 35,
+            "kmh": 60,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 2.7,
             "mph": 45,
+            "kmh": 70,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 7.4,
             "mph": 70,
+            "kmh": 110,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 49.2,
             "mph": 60,
+            "kmh": 100,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 50.5,
             "mph": 50,
+            "kmh": 80,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 52.7,
             "mph": 70,
+            "kmh": 110,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 89.2,
             "mph": 50,
+            "kmh": 80,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 90.9,
             "mph": 70,
+            "kmh": 110,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 223.8,
             "mph": 45,
+            "kmh": 70,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 227.1,
             "mph": 30,
+            "kmh": 50,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           }
@@ -1590,24 +1676,28 @@
           {
             "at_mi": 0.8,
             "mph": 30,
+            "kmh": 50,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 3.4,
             "mph": 35,
+            "kmh": 60,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 4.1,
             "mph": 55,
+            "kmh": 90,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 4.9,
             "mph": 20,
+            "kmh": 30,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
@@ -1618,30 +1708,35 @@
           {
             "at_mi": 10.2,
             "mph": 60,
+            "kmh": 100,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 11.3,
             "mph": 70,
+            "kmh": 110,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 78.1,
             "mph": 50,
+            "kmh": 80,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 79.6,
             "mph": 45,
+            "kmh": 70,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 80.2,
             "mph": 35,
+            "kmh": 60,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           }
@@ -1826,7 +1921,98 @@
       "terrain": "flat",
       "divided": false,
       "lanes": 2,
-      "stops": [],
+      "stops": [
+        {
+          "name": "Truck parking near Portage la Prairie",
+          "type": "truck_parking",
+          "actions": [
+            "park",
+            "save",
+            "break",
+            "sleep"
+          ],
+          "services": [
+            "parking"
+          ],
+          "parking": "confirmed",
+          "source": "Read: truck parking from OSM way 665940553 (amenity=parking, hgv=yes), OpenStreetMap planet extract 2026-11-16. Overnight parking is assumed for a lot tagged for trucks; year round is assumed. Leg mile projected onto the leg's road.",
+          "directions": [
+            "both"
+          ],
+          "curation": "curated",
+          "vehicle_access": "tractor_trailer",
+          "at_mi": 4.5
+        },
+        {
+          "name": "Headingley Husky Travel Centre",
+          "type": "travel_center",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "food",
+            "break",
+            "sleep"
+          ],
+          "services": [
+            "parking",
+            "diesel",
+            "gasoline",
+            "food",
+            "restrooms"
+          ],
+          "parking": "limited",
+          "source": "Position read from OSM way 379693630 (fuel:diesel=yes, opening_hours=06:00-10:00, website=https://www.esso.ca/en-ca/find-station/headingley-mb-headingleyhuskytc3860-200323543), OpenStreetMap planet extract 2026-11-16. Truck access assumed from the truck stop name, not verified. Diesel read from OSM. Year round is assumed. Food, restrooms and an overnight stay are assumed for a highway truck stop; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+          "directions": [
+            "both"
+          ],
+          "curation": "curated",
+          "vehicle_access": "tractor_trailer",
+          "at_mi": 42.0
+        },
+        {
+          "name": "Truck parking near Winnipeg",
+          "type": "truck_parking",
+          "actions": [
+            "park",
+            "save",
+            "break",
+            "sleep"
+          ],
+          "services": [
+            "parking"
+          ],
+          "parking": "confirmed",
+          "source": "Read: truck parking from OSM way 99197233 (amenity=parking, hgv=yes), OpenStreetMap planet extract 2026-11-16. Overnight parking is assumed for a lot tagged for trucks; year round is assumed. Leg mile projected onto the leg's road.",
+          "directions": [
+            "both"
+          ],
+          "curation": "curated",
+          "vehicle_access": "tractor_trailer",
+          "at_mi": 44.3
+        },
+        {
+          "name": "Truck parking near Winnipeg",
+          "type": "truck_parking",
+          "actions": [
+            "park",
+            "save",
+            "break",
+            "sleep"
+          ],
+          "services": [
+            "parking"
+          ],
+          "parking": "confirmed",
+          "source": "Read: truck parking from OSM way 806259630 (amenity=parking, hgv=yes), OpenStreetMap planet extract 2026-11-16. Overnight parking is assumed for a lot tagged for trucks; year round is assumed. Leg mile projected onto the leg's road.",
+          "directions": [
+            "both"
+          ],
+          "curation": "curated",
+          "vehicle_access": "tractor_trailer",
+          "at_mi": 52.3
+        }
+      ],
       "corridor": {
         "tollway_detected": false,
         "route_points": [
@@ -1998,72 +2184,84 @@
           {
             "at_mi": 1.8,
             "mph": 45,
+            "kmh": 70,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 3.3,
             "mph": 55,
+            "kmh": 90,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 3.6,
             "mph": 60,
+            "kmh": 100,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 8.7,
             "mph": 70,
+            "kmh": 110,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 40.9,
             "mph": 45,
+            "kmh": 70,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 45.4,
             "mph": 60,
+            "kmh": 100,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 52.3,
             "mph": 50,
+            "kmh": 80,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 52.6,
             "mph": 60,
+            "kmh": 100,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 58.3,
             "mph": 50,
+            "kmh": 80,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 61.3,
             "mph": 60,
+            "kmh": 100,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 66.0,
             "mph": 55,
+            "kmh": 90,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 67.0,
             "mph": 50,
+            "kmh": 80,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           }
@@ -2444,7 +2642,65 @@
       "terrain": "flat",
       "divided": false,
       "lanes": 2,
-      "stops": [],
+      "stops": [
+        {
+          "name": "Co-op Cardlock",
+          "type": "fuel_station",
+          "actions": [
+            "fuel"
+          ],
+          "services": [
+            "diesel"
+          ],
+          "parking": "unknown",
+          "source": "Position read from OSM way 1308007564, OpenStreetMap planet extract 2026-11-16. Diesel is assumed from the cardlock name, not tagged. A cardlock sells to account holders only. Year round is assumed. Tractor-trailer access is assumed for a highway cardlock, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+          "directions": [
+            "both"
+          ],
+          "curation": "curated",
+          "vehicle_access": "tractor_trailer",
+          "at_mi": 61.9
+        },
+        {
+          "name": "Petro-Pass",
+          "type": "fuel_station",
+          "actions": [
+            "fuel"
+          ],
+          "services": [
+            "diesel"
+          ],
+          "parking": "unknown",
+          "source": "Position read from OSM node 5212486510, OpenStreetMap planet extract 2026-11-16. Diesel is assumed from the cardlock name, not tagged. A cardlock sells to account holders only. Year round is assumed. Tractor-trailer access is assumed for a highway cardlock, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+          "directions": [
+            "both"
+          ],
+          "curation": "curated",
+          "vehicle_access": "tractor_trailer",
+          "at_mi": 64.4
+        },
+        {
+          "name": "Churchbridge rest area",
+          "type": "public_rest_area",
+          "actions": [
+            "park",
+            "save",
+            "break",
+            "sleep"
+          ],
+          "services": [
+            "parking"
+          ],
+          "parking": "unknown",
+          "source": "Position read from OSM way 1132008506 (highway=rest_area, no name), OpenStreetMap planet extract 2026-11-16; named for Churchbridge, the town beside it. ASSUMED: truck room and an overnight stay. No source found that says trucks may stay here; it is placed so the 231 miles between Portage la Prairie and Yorkton have one 10-hour stop (director, 2026-11-22). Year round is assumed. Leg mile projected onto the leg's road.",
+          "directions": [
+            "both"
+          ],
+          "curation": "curated",
+          "vehicle_access": "tractor_trailer",
+          "at_mi": 194.3
+        }
+      ],
       "corridor": {
         "tollway_detected": false,
         "route_points": [
@@ -2821,7 +3077,7 @@
             "at_mi": 175.7,
             "from_state": "Manitoba",
             "state": "Saskatchewan",
-            "place": "Manitoba-Saskatchewan line on Hwy 16 / Yellowhead Highway",
+            "place": "",
             "source": "derived 2026-11-05: the leg's archived route geometry intersected with OpenStreetMap state and province boundary relations (boundary=administrative, admin_level=4); at_mi = cumulative geometry distance at each boundary crossing, rescaled to leg miles; state miles = differences of those boundaries. OpenStreetMap, boundary relations read from the OpenStreetMap API on 2026-11-16: https://www.openstreetmap.org/."
           }
         ],
@@ -2830,24 +3086,28 @@
           {
             "at_mi": 0.8,
             "mph": 30,
+            "kmh": 50,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 3.4,
             "mph": 35,
+            "kmh": 60,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 4.1,
             "mph": 55,
+            "kmh": 90,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 4.9,
             "mph": 20,
+            "kmh": 30,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
@@ -2858,36 +3118,42 @@
           {
             "at_mi": 9.8,
             "mph": 50,
+            "kmh": 80,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 15.1,
             "mph": 60,
+            "kmh": 100,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 40.4,
             "mph": 50,
+            "kmh": 80,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 53.5,
             "mph": 60,
+            "kmh": 100,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 65.4,
             "mph": 50,
+            "kmh": 80,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 66.6,
             "mph": 60,
+            "kmh": 100,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
@@ -2898,6 +3164,7 @@
           {
             "at_mi": 133.1,
             "mph": 60,
+            "kmh": 100,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
@@ -2908,48 +3175,56 @@
           {
             "at_mi": 145.8,
             "mph": 60,
+            "kmh": 100,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 165.4,
             "mph": 45,
+            "kmh": 70,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 166.1,
             "mph": 60,
+            "kmh": 100,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 186.2,
             "mph": 45,
+            "kmh": 70,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 187.8,
             "mph": 60,
+            "kmh": 100,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 227.7,
             "mph": 35,
+            "kmh": 60,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 229.4,
             "mph": 45,
+            "kmh": 70,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 230.2,
             "mph": 30,
+            "kmh": 50,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           }
@@ -3464,7 +3739,130 @@
       "terrain": "flat",
       "divided": false,
       "lanes": 2,
-      "stops": [],
+      "stops": [
+        {
+          "name": "Co-Op Cardlock",
+          "type": "fuel_station",
+          "actions": [
+            "fuel"
+          ],
+          "services": [
+            "diesel"
+          ],
+          "parking": "unknown",
+          "source": "Position read from OSM way 539104911, OpenStreetMap planet extract 2026-11-16. Diesel is assumed from the cardlock name, not tagged. A cardlock sells to account holders only. Year round is assumed. Tractor-trailer access is assumed for a highway cardlock, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+          "directions": [
+            "both"
+          ],
+          "curation": "curated",
+          "vehicle_access": "tractor_trailer",
+          "at_mi": 44.5
+        },
+        {
+          "name": "Truck parking near Winnipeg",
+          "type": "truck_parking",
+          "actions": [
+            "park",
+            "save",
+            "break",
+            "sleep"
+          ],
+          "services": [
+            "parking"
+          ],
+          "parking": "confirmed",
+          "source": "Read: truck parking from OSM way 1148971617 (amenity=parking, hgv=designated), OpenStreetMap planet extract 2026-11-16. Overnight parking is assumed for a lot tagged for trucks; year round is assumed. Leg mile projected onto the leg's road.",
+          "directions": [
+            "both"
+          ],
+          "curation": "curated",
+          "vehicle_access": "tractor_trailer",
+          "at_mi": 69.3
+        },
+        {
+          "name": "Truck parking near Winnipeg",
+          "type": "truck_parking",
+          "actions": [
+            "park",
+            "save",
+            "break",
+            "sleep"
+          ],
+          "services": [
+            "parking"
+          ],
+          "parking": "confirmed",
+          "source": "Read: truck parking from OSM way 1148888952 (amenity=parking, hgv=designated), OpenStreetMap planet extract 2026-11-16. Overnight parking is assumed for a lot tagged for trucks; year round is assumed. Leg mile projected onto the leg's road.",
+          "directions": [
+            "both"
+          ],
+          "curation": "curated",
+          "vehicle_access": "tractor_trailer",
+          "at_mi": 69.5
+        },
+        {
+          "name": "Truck parking near Winnipeg",
+          "type": "truck_parking",
+          "actions": [
+            "park",
+            "save",
+            "break",
+            "sleep"
+          ],
+          "services": [
+            "parking"
+          ],
+          "parking": "confirmed",
+          "source": "Read: truck parking from OSM way 1149128708 (amenity=parking, hgv=designated), OpenStreetMap planet extract 2026-11-16. Overnight parking is assumed for a lot tagged for trucks; year round is assumed. Leg mile projected onto the leg's road.",
+          "directions": [
+            "both"
+          ],
+          "curation": "curated",
+          "vehicle_access": "tractor_trailer",
+          "at_mi": 69.6
+        },
+        {
+          "name": "Truck parking near Winnipeg",
+          "type": "truck_parking",
+          "actions": [
+            "park",
+            "save",
+            "break",
+            "sleep"
+          ],
+          "services": [
+            "parking"
+          ],
+          "parking": "confirmed",
+          "source": "Read: truck parking from OSM node 12676728366 (amenity=parking, hgv=yes), OpenStreetMap planet extract 2026-11-16. Overnight parking is assumed for a lot tagged for trucks; year round is assumed. Leg mile projected onto the leg's road.",
+          "directions": [
+            "both"
+          ],
+          "curation": "curated",
+          "vehicle_access": "tractor_trailer",
+          "at_mi": 71.8
+        },
+        {
+          "name": "Alexander Henry Rest Area",
+          "type": "public_rest_area",
+          "actions": [
+            "park",
+            "save",
+            "break"
+          ],
+          "services": [
+            "parking"
+          ],
+          "parking": "unknown",
+          "source": "Read: highway rest area from OSM node 12272039057 (highway=rest_area) (opening_hours=24/7), OpenStreetMap planet extract 2026-11-16. Year round and truck room are assumed, not verified; no overnight stay is claimed. Leg mile projected onto the leg's road.",
+          "directions": [
+            "both"
+          ],
+          "curation": "curated",
+          "vehicle_access": "tractor_trailer",
+          "at_mi": 108.1
+        }
+      ],
       "corridor": {
         "tollway_detected": false,
         "route_points": [
@@ -3603,7 +4001,7 @@
             "at_mi": 69.4,
             "from_state": "Manitoba",
             "state": "North Dakota",
-            "place": "Manitoba-North Dakota line on Hwy 75 / I-29",
+            "place": "",
             "source": "derived 2026-11-05: the leg's archived route geometry intersected with OpenStreetMap state and province boundary relations (boundary=administrative, admin_level=4); at_mi = cumulative geometry distance at each boundary crossing, rescaled to leg miles; state miles = differences of those boundaries. OpenStreetMap, boundary relations read from the OpenStreetMap API on 2026-11-16: https://www.openstreetmap.org/."
           }
         ],
@@ -4194,42 +4592,49 @@
           {
             "at_mi": 0.8,
             "mph": 50,
+            "kmh": 80,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 5.0,
             "mph": 55,
+            "kmh": 90,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 10.8,
             "mph": 35,
+            "kmh": 60,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 11.7,
             "mph": 30,
+            "kmh": 50,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 12.9,
             "mph": 45,
+            "kmh": 70,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 13.6,
             "mph": 55,
+            "kmh": 90,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 17.5,
             "mph": 60,
+            "kmh": 100,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
@@ -4240,30 +4645,35 @@
           {
             "at_mi": 45.0,
             "mph": 50,
+            "kmh": 80,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 50.2,
             "mph": 60,
+            "kmh": 100,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 57.1,
             "mph": 70,
+            "kmh": 110,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 68.9,
             "mph": 60,
+            "kmh": 100,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 69.2,
             "mph": 30,
+            "kmh": 50,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
@@ -4821,7 +5231,98 @@
       "terrain": "flat",
       "divided": false,
       "lanes": 2,
-      "stops": [],
+      "stops": [
+        {
+          "name": "Truck parking near Winnipeg",
+          "type": "truck_parking",
+          "actions": [
+            "park",
+            "save",
+            "break",
+            "sleep"
+          ],
+          "services": [
+            "parking"
+          ],
+          "parking": "confirmed",
+          "source": "Read: truck parking from OSM way 806259630 (amenity=parking, hgv=yes), OpenStreetMap planet extract 2026-11-16. Overnight parking is assumed for a lot tagged for trucks; year round is assumed. Leg mile projected onto the leg's road.",
+          "directions": [
+            "both"
+          ],
+          "curation": "curated",
+          "vehicle_access": "tractor_trailer",
+          "at_mi": 18.2
+        },
+        {
+          "name": "Truck parking near Winnipeg",
+          "type": "truck_parking",
+          "actions": [
+            "park",
+            "save",
+            "break",
+            "sleep"
+          ],
+          "services": [
+            "parking"
+          ],
+          "parking": "confirmed",
+          "source": "Read: truck parking from OSM way 99197233 (amenity=parking, hgv=yes), OpenStreetMap planet extract 2026-11-16. Overnight parking is assumed for a lot tagged for trucks; year round is assumed. Leg mile projected onto the leg's road.",
+          "directions": [
+            "both"
+          ],
+          "curation": "curated",
+          "vehicle_access": "tractor_trailer",
+          "at_mi": 26.7
+        },
+        {
+          "name": "Headingley Husky Travel Centre",
+          "type": "travel_center",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "food",
+            "break",
+            "sleep"
+          ],
+          "services": [
+            "parking",
+            "diesel",
+            "gasoline",
+            "food",
+            "restrooms"
+          ],
+          "parking": "limited",
+          "source": "Position read from OSM way 379693630 (fuel:diesel=yes, opening_hours=06:00-10:00, website=https://www.esso.ca/en-ca/find-station/headingley-mb-headingleyhuskytc3860-200323543), OpenStreetMap planet extract 2026-11-16. Truck access assumed from the truck stop name, not verified. Diesel read from OSM. Year round is assumed. Food, restrooms and an overnight stay are assumed for a highway truck stop; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+          "directions": [
+            "both"
+          ],
+          "curation": "curated",
+          "vehicle_access": "tractor_trailer",
+          "at_mi": 28.9
+        },
+        {
+          "name": "Truck parking near Portage la Prairie",
+          "type": "truck_parking",
+          "actions": [
+            "park",
+            "save",
+            "break",
+            "sleep"
+          ],
+          "services": [
+            "parking"
+          ],
+          "parking": "confirmed",
+          "source": "Read: truck parking from OSM way 665940553 (amenity=parking, hgv=yes), OpenStreetMap planet extract 2026-11-16. Overnight parking is assumed for a lot tagged for trucks; year round is assumed. Leg mile projected onto the leg's road.",
+          "directions": [
+            "both"
+          ],
+          "curation": "curated",
+          "vehicle_access": "tractor_trailer",
+          "at_mi": 66.2
+        }
+      ],
       "corridor": {
         "tollway_detected": false,
         "route_points": [
@@ -4992,66 +5493,77 @@
           {
             "at_mi": 0.8,
             "mph": 50,
+            "kmh": 80,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 4.9,
             "mph": 55,
+            "kmh": 90,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 8.9,
             "mph": 60,
+            "kmh": 100,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 11.8,
             "mph": 50,
+            "kmh": 80,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 16.7,
             "mph": 60,
+            "kmh": 100,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 25.7,
             "mph": 45,
+            "kmh": 70,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 25.9,
             "mph": 35,
+            "kmh": 60,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 26.7,
             "mph": 45,
+            "kmh": 70,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 32.7,
             "mph": 70,
+            "kmh": 110,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 66.4,
             "mph": 60,
+            "kmh": 100,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 67.4,
             "mph": 55,
+            "kmh": 90,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           }

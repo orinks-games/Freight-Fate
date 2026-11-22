@@ -15315,7 +15315,157 @@
       "terrain": "flat",
       "divided": false,
       "lanes": 2,
-      "stops": [],
+      "stops": [
+        {
+          "name": "Simonson Travel Center",
+          "type": "travel_center",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "food",
+            "break",
+            "sleep"
+          ],
+          "services": [
+            "parking",
+            "diesel",
+            "gasoline",
+            "food",
+            "restrooms"
+          ],
+          "parking": "limited",
+          "source": "Position read from OSM node 11189263081, OpenStreetMap planet extract 2026-11-16. Truck access assumed from the truck stop name, not verified. Diesel assumed for a truck stop, not tagged. Year round is assumed. Food, restrooms and an overnight stay are assumed for a highway truck stop; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+          "directions": [
+            "both"
+          ],
+          "curation": "curated",
+          "vehicle_access": "tractor_trailer",
+          "at_mi": 3.1
+        },
+        {
+          "name": "Alexander Henry Rest Area",
+          "type": "public_rest_area",
+          "actions": [
+            "park",
+            "save",
+            "break"
+          ],
+          "services": [
+            "parking"
+          ],
+          "parking": "unknown",
+          "source": "Read: highway rest area from OSM node 12272039057 (highway=rest_area) (opening_hours=24/7), OpenStreetMap planet extract 2026-11-16. Year round and truck room are assumed, not verified; no overnight stay is claimed. Leg mile projected onto the leg's road.",
+          "directions": [
+            "both"
+          ],
+          "curation": "curated",
+          "vehicle_access": "tractor_trailer",
+          "at_mi": 41.0
+        },
+        {
+          "name": "Truck parking near Winnipeg",
+          "type": "truck_parking",
+          "actions": [
+            "park",
+            "save",
+            "break",
+            "sleep"
+          ],
+          "services": [
+            "parking"
+          ],
+          "parking": "confirmed",
+          "source": "Read: truck parking from OSM node 12676728366 (amenity=parking, hgv=yes), OpenStreetMap planet extract 2026-11-16. Overnight parking is assumed for a lot tagged for trucks; year round is assumed. Leg mile projected onto the leg's road.",
+          "directions": [
+            "both"
+          ],
+          "curation": "curated",
+          "vehicle_access": "tractor_trailer",
+          "at_mi": 77.2
+        },
+        {
+          "name": "Truck parking near Winnipeg",
+          "type": "truck_parking",
+          "actions": [
+            "park",
+            "save",
+            "break",
+            "sleep"
+          ],
+          "services": [
+            "parking"
+          ],
+          "parking": "confirmed",
+          "source": "Read: truck parking from OSM way 1149128708 (amenity=parking, hgv=designated), OpenStreetMap planet extract 2026-11-16. Overnight parking is assumed for a lot tagged for trucks; year round is assumed. Leg mile projected onto the leg's road.",
+          "directions": [
+            "both"
+          ],
+          "curation": "curated",
+          "vehicle_access": "tractor_trailer",
+          "at_mi": 79.4
+        },
+        {
+          "name": "Truck parking near Winnipeg",
+          "type": "truck_parking",
+          "actions": [
+            "park",
+            "save",
+            "break",
+            "sleep"
+          ],
+          "services": [
+            "parking"
+          ],
+          "parking": "confirmed",
+          "source": "Read: truck parking from OSM way 1148888952 (amenity=parking, hgv=designated), OpenStreetMap planet extract 2026-11-16. Overnight parking is assumed for a lot tagged for trucks; year round is assumed. Leg mile projected onto the leg's road.",
+          "directions": [
+            "both"
+          ],
+          "curation": "curated",
+          "vehicle_access": "tractor_trailer",
+          "at_mi": 79.6
+        },
+        {
+          "name": "Truck parking near Winnipeg",
+          "type": "truck_parking",
+          "actions": [
+            "park",
+            "save",
+            "break",
+            "sleep"
+          ],
+          "services": [
+            "parking"
+          ],
+          "parking": "confirmed",
+          "source": "Read: truck parking from OSM way 1148971617 (amenity=parking, hgv=designated), OpenStreetMap planet extract 2026-11-16. Overnight parking is assumed for a lot tagged for trucks; year round is assumed. Leg mile projected onto the leg's road.",
+          "directions": [
+            "both"
+          ],
+          "curation": "curated",
+          "vehicle_access": "tractor_trailer",
+          "at_mi": 79.8
+        },
+        {
+          "name": "Co-Op Cardlock",
+          "type": "fuel_station",
+          "actions": [
+            "fuel"
+          ],
+          "services": [
+            "diesel"
+          ],
+          "parking": "unknown",
+          "source": "Position read from OSM way 539104911, OpenStreetMap planet extract 2026-11-16. Diesel is assumed from the cardlock name, not tagged. A cardlock sells to account holders only. Year round is assumed. Tractor-trailer access is assumed for a highway cardlock, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+          "directions": [
+            "both"
+          ],
+          "curation": "curated",
+          "vehicle_access": "tractor_trailer",
+          "at_mi": 104.5
+        }
+      ],
       "corridor": {
         "tollway_detected": false,
         "route_points": [
@@ -15454,7 +15604,7 @@
             "at_mi": 79.6,
             "from_state": "North Dakota",
             "state": "Manitoba",
-            "place": "North Dakota-Manitoba line on Hwy 75 / I-29",
+            "place": "",
             "source": "derived 2026-11-05: the leg's archived route geometry intersected with OpenStreetMap state and province boundary relations (boundary=administrative, admin_level=4); at_mi = cumulative geometry distance at each boundary crossing, rescaled to leg miles; state miles = differences of those boundaries. OpenStreetMap, boundary relations read from the OpenStreetMap API on 2026-11-16: https://www.openstreetmap.org/."
           }
         ],
@@ -16106,24 +16256,28 @@
           {
             "at_mi": 79.6,
             "mph": 60,
+            "kmh": 100,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 82.0,
             "mph": 70,
+            "kmh": 110,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 98.7,
             "mph": 60,
+            "kmh": 100,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 103.9,
             "mph": 50,
+            "kmh": 80,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
@@ -16134,42 +16288,49 @@
           {
             "at_mi": 114.4,
             "mph": 60,
+            "kmh": 100,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 136.5,
             "mph": 45,
+            "kmh": 70,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 137.2,
             "mph": 30,
+            "kmh": 50,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 137.4,
             "mph": 35,
+            "kmh": 60,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 138.0,
             "mph": 60,
+            "kmh": 100,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 144.0,
             "mph": 55,
+            "kmh": 90,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 145.0,
             "mph": 50,
+            "kmh": 80,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           }
@@ -19269,7 +19430,29 @@
       "terrain": "flat",
       "divided": false,
       "lanes": 2,
-      "stops": [],
+      "stops": [
+        {
+          "name": "Truck parking near Estevan",
+          "type": "truck_parking",
+          "actions": [
+            "park",
+            "save",
+            "break",
+            "sleep"
+          ],
+          "services": [
+            "parking"
+          ],
+          "parking": "confirmed",
+          "source": "Read: truck parking from OSM way 1148193872 (amenity=parking, hgv=designated), OpenStreetMap planet extract 2026-11-16. Overnight parking is assumed for a lot tagged for trucks; year round is assumed. Leg mile projected onto the leg's road.",
+          "directions": [
+            "both"
+          ],
+          "curation": "curated",
+          "vehicle_access": "tractor_trailer",
+          "at_mi": 95.7
+        }
+      ],
       "corridor": {
         "tollway_detected": false,
         "route_points": [
@@ -19657,7 +19840,7 @@
             "at_mi": 95.5,
             "from_state": "North Dakota",
             "state": "Saskatchewan",
-            "place": "North Dakota-Saskatchewan line on Hwy 39 / US 52",
+            "place": "",
             "source": "derived 2026-11-05: the leg's archived route geometry intersected with OpenStreetMap state and province boundary relations (boundary=administrative, admin_level=4); at_mi = cumulative geometry distance at each boundary crossing, rescaled to leg miles; state miles = differences of those boundaries. OpenStreetMap, boundary relations read from the OpenStreetMap API on 2026-11-16: https://www.openstreetmap.org/."
           }
         ],
@@ -19710,6 +19893,7 @@
           {
             "at_mi": 121.0,
             "mph": 60,
+            "kmh": 100,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           }

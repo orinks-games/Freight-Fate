@@ -61386,7 +61386,64 @@
       "terrain": "flat",
       "divided": false,
       "lanes": 2,
-      "stops": [],
+      "stops": [
+        {
+          "name": "Warner North Rest Area",
+          "type": "public_rest_area",
+          "actions": [
+            "park",
+            "save",
+            "break"
+          ],
+          "services": [
+            "parking"
+          ],
+          "parking": "unknown",
+          "source": "Read: highway rest area from OSM way 985381299 (highway=rest_area), OpenStreetMap planet extract 2026-11-16. Year round and truck room are assumed, not verified; no overnight stay is claimed. Leg mile projected onto the leg's road.",
+          "directions": [
+            "both"
+          ],
+          "curation": "curated",
+          "vehicle_access": "tractor_trailer",
+          "at_mi": 65.3
+        },
+        {
+          "name": "Flying J Cardlock",
+          "type": "fuel_station",
+          "actions": [
+            "fuel"
+          ],
+          "services": [
+            "diesel"
+          ],
+          "parking": "unknown",
+          "source": "Position read from OSM node 4943295721, OpenStreetMap planet extract 2026-11-16. Diesel is assumed from the cardlock name, not tagged. A cardlock sells to account holders only. Year round is assumed. Tractor-trailer access is assumed for a highway cardlock, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+          "directions": [
+            "both"
+          ],
+          "curation": "curated",
+          "vehicle_access": "tractor_trailer",
+          "at_mi": 98.6
+        },
+        {
+          "name": "UFA Cardlock",
+          "type": "fuel_station",
+          "actions": [
+            "fuel"
+          ],
+          "services": [
+            "diesel"
+          ],
+          "parking": "unknown",
+          "source": "Position read from OSM node 5833638185, OpenStreetMap planet extract 2026-11-16. Diesel is assumed from the cardlock name, not tagged. A cardlock sells to account holders only. Year round is assumed. Tractor-trailer access is assumed for a highway cardlock, not verified; parking capacity is not claimed. Leg mile projected onto the leg's road.",
+          "directions": [
+            "both"
+          ],
+          "curation": "curated",
+          "vehicle_access": "tractor_trailer",
+          "at_mi": 100.7
+        }
+      ],
       "corridor": {
         "tollway_detected": false,
         "route_points": [
@@ -61832,7 +61889,7 @@
             "at_mi": 35.5,
             "from_state": "Montana",
             "state": "Alberta",
-            "place": "Montana-Alberta line on Hwy 4 / I-15",
+            "place": "",
             "source": "derived 2026-11-05: the leg's archived route geometry intersected with OpenStreetMap state and province boundary relations (boundary=administrative, admin_level=4); at_mi = cumulative geometry distance at each boundary crossing, rescaled to leg miles; state miles = differences of those boundaries. OpenStreetMap, boundary relations read from the OpenStreetMap API on 2026-11-16: https://www.openstreetmap.org/."
           }
         ],
@@ -62090,42 +62147,49 @@
           {
             "at_mi": 35.6,
             "mph": 30,
+            "kmh": 50,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 36.8,
             "mph": 70,
+            "kmh": 110,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 96.2,
             "mph": 50,
+            "kmh": 80,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 98.1,
             "mph": 45,
+            "kmh": 70,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 99.6,
             "mph": 35,
+            "kmh": 60,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 99.9,
             "mph": 50,
+            "kmh": 80,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 100.6,
             "mph": 45,
+            "kmh": 70,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           }
