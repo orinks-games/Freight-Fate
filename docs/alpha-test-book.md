@@ -125,7 +125,7 @@ turnpikes, hazardous loads routed around tunnels that ban them, bridges
 that close in high wind, the Laredo yards, and the reefer and APU keys.
 Chapter 9.
 
-**Seventeen new achievements.** Chapter 10.
+**Twenty-six new achievements.** Chapter 10.
 
 ## Chapter 2. Carriers and the career start
 
@@ -557,16 +557,60 @@ deductible.
 
 ## Chapter 10. Achievements
 
-Seventeen new achievements: North to Alaska, Anchorage, Top of the World,
-Tunnel of Love, The Long and Winding Road, When It's Springtime in
-Alaska, Cold as Ice, Travelin' Light, Borderline, Sunday Morning Coming
-Down, Take Me Home, Country Roads, Workin' for a Livin', Get Back, Takin'
-Care of Business, Rawhide, Cattle Call and South of the Border. The
-checklists above say where most of them come from.
+Twenty-six new achievements. Seventeen come from Alaska, the border and
+the new freight: North to Alaska, Anchorage, Top of the World, Tunnel of
+Love, The Long and Winding Road, When It's Springtime in Alaska, Cold as
+Ice, Travelin' Light, Borderline, Sunday Morning Coming Down, Take Me Home,
+Country Roads, Workin' for a Livin', Get Back, Takin' Care of Business,
+Rawhide, Cattle Call and South of the Border. Nine come from Canada:
+Across the Border, Alberta Bound, Runnin' Back to Saskatoon, Sudbury
+Saturday Night, Farewell to Nova Scotia, Mon Pays, Northwest Passage, This
+Land Is Your Land, and one hidden. The checklists above say where most of
+them come from.
 
 Pass when: each is earned once, at the moment its description says, and
 Achievements reads its description. Past deliveries earn nothing; only
 Get Back reads your saved record.
+
+### 10.1 Across the Border
+
+Setup: a load from Detroit to Windsor.
+
+Do: deliver it.
+
+Listen for: "Across the Border" in the list of new achievements on the
+delivery summary. In Achievements, Places on the Map, the row reads
+"Earned: Across the Border. A load delivered in Canada."
+
+Pass when: it is earned on that first Canadian delivery and not again.
+
+### 10.2 Farewell to Nova Scotia
+
+Setup: a load from Halifax or Truro to the United States.
+
+Do: deliver it.
+
+Listen for: "Farewell to Nova Scotia" on the delivery summary, not at
+pickup.
+
+Pass when: it is earned when the load is delivered.
+
+### 10.3 Mon Pays
+
+Setup: a winter clock, and a load to anywhere in Quebec.
+
+Do: deliver it. Then try a Quebec delivery outside winter on a fresh
+career.
+
+Pass when: only the winter delivery earns it.
+
+### 10.4 The hidden one
+
+Listen for: Deep Cuts in Achievements, where locked hidden rows read
+"Locked: A Secret the Manifest Is Keeping".
+
+Pass when: no locked row gives a hidden achievement's name or
+description.
 
 ## Chapter 11. Known gaps
 

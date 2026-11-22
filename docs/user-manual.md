@@ -1204,7 +1204,7 @@ Open Achievements from the main menu and choose a saved career. While you play, 
 
 The first row, Sort, sets the order of the categories below it and of the entries inside them: earned first, newest first, locked first, A to Z, or the original order. Use Left and Right, or Enter, to change it; the game remembers your choice. Earned first is the default. Each category opens on its own Sort row, which changes that category alone until you leave the achievements. Account achievements under Online sort the same way.
 
-2.0 adds achievements for deliveries in Alaska, the whole Alaska Highway, clearing customs, a restart, a week of loads for one carrier, moving up from the training fleet, cattle, and the Laredo yards.
+2.0 adds achievements for deliveries in Alaska, the whole Alaska Highway, clearing customs, a restart, a week of loads for one carrier, moving up from the training fleet, cattle, and the Laredo yards. Others come from Canada: a first Canadian delivery, deliveries in Alberta, Saskatoon, Sudbury on a Saturday night and Quebec in winter, a load out of Nova Scotia, deliveries on both coasts, and a delivery in every province on the map. One more is hidden.
 
 Earned entries include their descriptions. Locked entries don't give you the same detail, and hidden achievements keep their names secret until earned. You can browse them between trips without starting or changing a career.
 
