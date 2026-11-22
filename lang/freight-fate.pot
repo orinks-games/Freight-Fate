@@ -7760,24 +7760,8 @@ msgstr ""
 msgid "for {name}"
 msgstr ""
 
-#: crates/ff-core/src/data/world_models/interchange.rs crates/ff-core/src/models/economy.rs crates/ff-core/src/sim/timezones.rs crates/freight-fate/src/online_activation.rs
-msgid "Quebec"
-msgstr ""
-
 #: crates/ff-core/src/data/world_models/interchange.rs
 msgid "Route "
-msgstr ""
-
-#: crates/ff-core/src/data/world_models/interchange.rs crates/ff-core/src/models/economy.rs crates/ff-core/src/sim/timezones.rs
-msgid "New Brunswick"
-msgstr ""
-
-#: crates/ff-core/src/data/world_models/interchange.rs crates/ff-core/src/models/economy.rs crates/ff-core/src/sim/timezones.rs
-msgid "Prince Edward Island"
-msgstr ""
-
-#: crates/ff-core/src/data/world_models/interchange.rs crates/ff-core/src/models/economy.rs crates/ff-core/src/sim/timezones.rs
-msgid "Nova Scotia"
 msgstr ""
 
 #: crates/ff-core/src/data/world_models/interchange.rs
@@ -7786,38 +7770,6 @@ msgstr ""
 
 #: crates/ff-core/src/data/world_models/interchange.rs
 msgid "Trunk "
-msgstr ""
-
-#: crates/ff-core/src/data/world_models/interchange.rs crates/ff-core/src/models/economy.rs crates/ff-core/src/sim/timezones.rs
-msgid "Ontario"
-msgstr ""
-
-#: crates/ff-core/src/data/world_models/interchange.rs crates/ff-core/src/models/economy.rs crates/ff-core/src/sim/timezones.rs crates/freight-fate/src/states/driving_core/constants.rs
-msgid "British Columbia"
-msgstr ""
-
-#: crates/ff-core/src/data/world_models/interchange.rs crates/ff-core/src/models/economy.rs crates/ff-core/src/sim/timezones.rs
-msgid "Alberta"
-msgstr ""
-
-#: crates/ff-core/src/data/world_models/interchange.rs crates/ff-core/src/models/economy.rs crates/ff-core/src/sim/timezones.rs
-msgid "Saskatchewan"
-msgstr ""
-
-#: crates/ff-core/src/data/world_models/interchange.rs crates/ff-core/src/models/economy.rs crates/ff-core/src/sim/timezones.rs
-msgid "Manitoba"
-msgstr ""
-
-#: crates/ff-core/src/data/world_models/interchange.rs crates/ff-core/src/models/economy.rs
-msgid "Yukon"
-msgstr ""
-
-#: crates/ff-core/src/data/world_models/interchange.rs
-msgid "Northwest Territories"
-msgstr ""
-
-#: crates/ff-core/src/data/world_models/interchange.rs
-msgid "Newfoundland and Labrador"
 msgstr ""
 
 #. placeholders: {items}, {items2}
@@ -10823,6 +10775,46 @@ msgstr ""
 msgid ""
 "Doubles: drop the rear trailer, park the converter dolly, drop the lead, "
 "{doubles_break_extra_min} extra minutes on duty"
+msgstr ""
+
+#: crates/ff-core/src/models/economy.rs crates/ff-core/src/sim/timezones.rs crates/freight-fate/src/states/driving_core/constants.rs
+msgid "British Columbia"
+msgstr ""
+
+#: crates/ff-core/src/models/economy.rs
+msgid "Yukon"
+msgstr ""
+
+#: crates/ff-core/src/models/economy.rs crates/ff-core/src/sim/timezones.rs
+msgid "Alberta"
+msgstr ""
+
+#: crates/ff-core/src/models/economy.rs crates/ff-core/src/sim/timezones.rs
+msgid "Saskatchewan"
+msgstr ""
+
+#: crates/ff-core/src/models/economy.rs crates/ff-core/src/sim/timezones.rs
+msgid "Manitoba"
+msgstr ""
+
+#: crates/ff-core/src/models/economy.rs crates/ff-core/src/sim/timezones.rs
+msgid "Ontario"
+msgstr ""
+
+#: crates/ff-core/src/models/economy.rs crates/ff-core/src/sim/timezones.rs crates/freight-fate/src/online_activation.rs
+msgid "Quebec"
+msgstr ""
+
+#: crates/ff-core/src/models/economy.rs crates/ff-core/src/sim/timezones.rs
+msgid "New Brunswick"
+msgstr ""
+
+#: crates/ff-core/src/models/economy.rs crates/ff-core/src/sim/timezones.rs
+msgid "Nova Scotia"
+msgstr ""
+
+#: crates/ff-core/src/models/economy.rs crates/ff-core/src/sim/timezones.rs
+msgid "Prince Edward Island"
 msgstr ""
 
 #: crates/ff-core/src/models/economy.rs

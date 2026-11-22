@@ -5972,8 +5972,45 @@ a carrier slice (owner, 2026-10-26).
       the 401 through Ontario as real carriers often do. A later feature
       with the paperwork to go with it.
 - [ ] Winnipeg to Thunder Bay over 17 and 1, Kenora and Dryden as fuel.
-- [ ] Atlantic Canada to Halifax, Charlottetown and Sydney; Houlton,
-      Calais and St. Stephen crossings.
+- [x] Atlantic Canada, Rivière-du-Loup to Halifax, Charlottetown and
+      Sydney (2026-11-22): 19 cities in New Brunswick, Nova Scotia and
+      Prince Edward Island (Kentville and Bridgewater added for the
+      Michelin plants on 101 and 103), 24 links both ways: New Brunswick's
+      Routes 2, 1, 7, 8, 11, 15 and 16, Nova Scotia's 104, 102, 101, 103,
+      125 and Trunk 4, PEI's Routes 1 and 2, and Rivière-du-Loup to
+      Edmundston on A-85. Two crossings to Bangor: Woodstock-Houlton on
+      I-95 and St. Stephen-Calais at the International Avenue bridge, CBSA
+      and CBP ports 24 hours. Cobequid Pass (CAD 15 for five axles, each
+      way) and Confederation Bridge (CAD 20, leaving the island only) at
+      the published rates. Atlantic Time; NB, NS and PE diesel from
+      StatCan. 22 curated stops (`docs/stops/atlantic.json`), 11 with
+      truck access read (the Irving Big Stops, two cardlocks, two OSM
+      truck tags) and 11 assumed (town stations at the city ends). No
+      link is over 150 miles. Report:
+      `career-2.0-alpha/corridor-4-report.md`.
+- [x] (Found along the way) OpenStreetMap tags maxheight=4.1 (and
+      13'6") on about 14,700 Maine and Maritime ways, residential streets
+      included: a legal-height tag, not a structure. The truck router at
+      the game's 4.11 m found no route in NB or NS; `reroute-leg
+      --height-m 4.10` routes under it, and `osm-restrictions` no longer
+      reads 13.44 to 13.5 ft as a low bridge.
+- [x] (Found along the way) Exit lines in the Maritimes name their road:
+      `osm-exit-routes` reads New Brunswick's, Nova Scotia's (Highway,
+      Trunk, Route) and PEI's route networks, and an exit the relations
+      miss speaks its province's word at load ("NS 102" is Highway 102).
+- [ ] (Found along the way) New Brunswick's bilingual exit signs ("Air
+      Cargo / Fret", "Village of/de Gagetown") were cut to English by
+      hand in 13 exits; a re-run of `osm-exits` brings the sign text back.
+      `osm-exits` should keep one language of a bilingual sign.
+- [ ] (Found along the way) The Cobequid Pass announced doubled rates
+      for US-plated trucks on 2025-03-04; the map charges the CAD 3 an
+      axle rate until that is confirmed in force. New Brunswick's planned
+      Aulac toll (by 2028) is not modelled.
+- [ ] (Found along the way) A second Atlantic pass: the St. Stephen
+      Ferry Point bridge and the Edmundston-Madawaska crossing, rest
+      areas from New Brunswick and Nova Scotia (no open list read yet),
+      and a 10-hour stop on Woodstock to Bangor (138 miles, the Irving at
+      Hogan Road the only placed stop).
 - [ ] The north: 63 to Fort McMurray, 16 to Prince Rupert, 37 to the
       Yukon, 3 to Yellowknife, freight nodes only.
 - [x] Units: Automatic (miles in the United States, kilometers in Canada,

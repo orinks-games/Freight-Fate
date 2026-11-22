@@ -207,51 +207,52 @@ pub fn format_route_ref(value: &str) -> String {
     out.join(" and ")
 }
 
+/// The province code ("NB") for a code or an English name ("New
+/// Brunswick"), from the provincial diesel table, which lists every
+/// province and territory the map reaches.
+fn province_code(province: &str) -> Option<&'static str> {
+    crate::models::economy::CANADA_DIESEL_CENTS_PER_L
+        .iter()
+        .find(|(code, name, _)| *code == province || *name == province)
+        .map(|(code, _, _)| *code)
+}
+
 /// The word a province signs its numbered roads with, for a route number
-/// OpenStreetMap gives bare ("255", "143 Sud"): an exit line says "for Route
-/// 255", never "for 255". `province` is the code or the English name;
-/// anywhere else gets `None`, and so does a via that does not start with a
-/// bare number.
+/// OpenStreetMap gives bare ("255", "143 Sud") or behind the province's
+/// code ("NS 102"): an exit line says "for Route 255" or "for Highway 102",
+/// never "for 255" or "for N S 102". `province` is where the exit is, as a
+/// code or the English name; a chunk's own province code wins over it.
+/// Anywhere else gets `None`, and so does a via that does not start with a
+/// route number.
 pub fn provincial_route(province: &str, via: &str) -> Option<String> {
-    let mut words = via.split_whitespace();
-    let first = words.next()?;
-    let number: u32 = first.parse().ok()?;
+    let mut words = via.split_whitespace().peekable();
+    let mut code = province_code(province);
+    if let Some(own) = words.peek().and_then(|w| province_code(w)) {
+        code = Some(own);
+        words.next();
+    }
+    let code = code?;
+    let number: u32 = words.next()?.parse().ok()?;
     let rest: Vec<&str> = words.collect();
-    let word = match province {
+    let word = match code {
         // Quebec: autoroutes carry one or two digits, or a 400-series spur
         // (A-410, A-640, A-955); the numbered routes run 100 to 399.
-        "QC" | "Quebec" => {
+        "QC" => {
             if (100..400).contains(&number) {
                 "Route "
             } else {
                 "A-"
             }
         }
-        "NB" | "New Brunswick" | "PE" | "Prince Edward Island" => "Route ",
+        "NB" | "PE" => "Route ",
         // Nova Scotia: the 100-series highways, the trunks below 100 and the
         // routes from 200.
-        "NS" | "Nova Scotia" => match number {
+        "NS" => match number {
             100..=199 => "Highway ",
             0..=99 => "Trunk ",
             _ => "Route ",
         },
-        "ON"
-        | "Ontario"
-        | "BC"
-        | "British Columbia"
-        | "AB"
-        | "Alberta"
-        | "SK"
-        | "Saskatchewan"
-        | "MB"
-        | "Manitoba"
-        | "YT"
-        | "Yukon"
-        | "NT"
-        | "Northwest Territories"
-        | "NL"
-        | "Newfoundland and Labrador" => "Highway ",
-        _ => return None,
+        _ => "Highway ",
     };
     let mut out = format!("{word}{number}");
     for w in rest {
@@ -392,6 +393,13 @@ mod tests {
         assert_eq!(name_provincial_routes("Nova Scotia", "4"), "Trunk 4");
         assert_eq!(name_provincial_routes("Nova Scotia", "236"), "Route 236");
         assert_eq!(name_provincial_routes("Ontario", "401"), "Highway 401");
+        // A province code on the sign gives way to the province's word.
+        assert_eq!(
+            name_provincial_routes("NB", "NS 102;2"),
+            "Highway 102;Route 2"
+        );
+        assert_eq!(name_provincial_routes("Maine", "NB 1"), "Route 1");
+        assert_eq!(name_provincial_routes("Maine", "ME 9"), "ME 9");
         // Read as written: a signed shield, a name, a US state.
         assert_eq!(name_provincial_routes("Ontario", "QEW"), "QEW");
         assert_eq!(name_provincial_routes("Maine", "1"), "1");
