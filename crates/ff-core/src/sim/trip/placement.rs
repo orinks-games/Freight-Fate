@@ -488,7 +488,7 @@ impl Trip {
         })
     }
 
-    fn country_for_state(&self, state: &str) -> Option<&str> {
+    pub(crate) fn country_for_state(&self, state: &str) -> Option<&str> {
         self.world
             .cities
             .values()

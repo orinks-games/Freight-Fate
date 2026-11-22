@@ -4903,8 +4903,8 @@ branch. The older Phase A/B plan checklists are not a live completion list.
       Fairbanks. Both crossings carry through-freight metadata in both
       directions. The Alaska Highway line is identified as Alcan, with the
       Beaver Creek post represented on the Tok-to-Whitehorse approach.
-      Canadian towns are pass-through fuel/rest stops; US dispatch still
-      offers US destinations, allowing US-to-US routes through Canada.
+      Canadian towns were pass-through fuel/rest stops until loads across
+      the border opened them (see "Canada: all routes in and baked").
 - [x] **Posted speed profiles on the Yukon and northern BC legs.** Canadian
       bare OSM speed values are interpreted as km/h; Alaska's 55 mph fallback
       applies only to the Alaska stretch of a cross-border leg.
@@ -5699,6 +5699,36 @@ a carrier slice (owner, 2026-10-26).
 - [ ] (Found along the way) A province line with no cited name is spoken
       "Crossing into Yukon near British Columbia-Yukon line."; the place
       half names the line itself. Wording for the director.
+- [x] Loads across the border (2026-11-22, brief 7): a US carrier's board
+      offers loads from the United States into Canada and from Canada back
+      to the United States, never between two Canadian points (cabotage).
+      The carriers that run to Canada are data (`cross_border` in
+      `carriers.json`: Northstar, Summit Value, Androscoggin, Olentangy
+      Valley, Loonwater, Musselshell, Chehalis, Chatanika). Twin parcel,
+      cattle and placarded loads stay home. A border load's deadline books
+      55 minutes at each customs booth, planned on US hours rules (the
+      stricter on driving hours both sides of 60). The seven BC and Yukon
+      towns carry real receivers and Surrey ships from the Fraser Surrey
+      container terminal; the Peace River and Northern Rockies towns and
+      Yukon keep Mountain Time; live weather and alerts do not ask the US
+      Weather Service north of the border. Per-city checklist: "Building a
+      Canadian corridor" in `docs/map-enrichment-recipe.md`.
+- [ ] Canadian carriers and home bases, and loads inside Canada for them:
+      the next dispatch slice after loads across the border.
+- [ ] (Found along the way) Placarded loads across the border: Canada's
+      Transportation of Dangerous Goods papers and the placard rules at the
+      port are not modeled, so hazmat stays off Canadian lanes for now.
+- [ ] (Found along the way) Canadian shippers outside Surrey: Prince
+      George, the Peace River towns, Fort Nelson, Watson Lake and Whitehorse
+      receive freight but ship none yet (the Northwood pulp mill closed in
+      2026), so their boards are empty. A verified sawmill, cross-dock or
+      fuel terminal in each would open a US-bound board there.
+- [ ] (Found along the way) The load card's hours plan does not say it
+      counts customs time; a border load's plan reads the same as a home
+      one. Wording for the director.
+- [ ] (Found along the way) Atlantic and Newfoundland time zones: the
+      clock knows Pacific to Central in Canada; the Atlantic provinces and
+      Newfoundland's half hour arrive with their corridors.
 - [ ] Trans-Canada and Yellowhead, Vancouver to Winnipeg (1, 5, 16, 2),
       joining the Alcan at Prince George and Dawson Creek and the US at
       Blaine, Sumas, Osoyoos, Kingsgate, Coutts, North Portal, Emerson.

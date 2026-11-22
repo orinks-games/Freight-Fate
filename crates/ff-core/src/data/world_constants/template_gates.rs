@@ -388,12 +388,22 @@ pub const STAND_IN_MARKET_FACILITY_TYPE: &str = "company_yard";
 /// city is authored by hand, so no template facility is stamped there. A
 /// generic grain elevator, intermodal ramp or warehouse in one of these towns
 /// would be a business the map cannot back (Fairbanks job-board pins; the
-/// Kenai, Seward and Valdez freight endpoints).
+/// Kenai, Seward and Valdez freight endpoints). A Canadian town opened to
+/// loads across the border is listed too: it carries only the real sites a
+/// corridor thread authored for it, never a stamped warehouse (brief 7,
+/// 2026-11-22; Surrey is curated for the port, not complete).
 pub const CURATED_COMPLETE_MARKET_CITY_KEYS: &[&str] = &[
     "fairbanks_ak_us",
     "kenai_ak_us",
     "seward_ak_us",
     "valdez_ak_us",
+    "surrey_bc_ca",
+    "prince_george_bc_ca",
+    "dawson_creek_bc_ca",
+    "fort_st_john_bc_ca",
+    "fort_nelson_bc_ca",
+    "watson_lake_yt_ca",
+    "whitehorse_yt_ca",
 ];
 
 /// Whether this city keeps only its authored freight locations. See

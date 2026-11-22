@@ -1,4 +1,4 @@
-//! United States time zones and the local wall clock.
+//! North American time zones and the local wall clock.
 //!
 //! The career clock (`profile.game_hours`) and the trip clock
 //! (`Trip.current_hour`) are a single absolute timeline defined as Eastern
@@ -98,6 +98,12 @@ fn state_zone(state: &str) -> Option<TimeZone> {
         "California" | "Washington" => PACIFIC,
         "Alaska" => ALASKA,
         "Hawaii" => HAWAII,
+        // Canada. With no daylight time in the model, Saskatchewan's year-round
+        // Central Standard Time is plain Central, and Yukon's year-round
+        // UTC-7 (since November 2020) is plain Mountain.
+        "Alberta" => MOUNTAIN,
+        "Saskatchewan" | "Manitoba" => CENTRAL,
+        "Yukon" => MOUNTAIN,
         _ => return None,
     })
 }
@@ -221,6 +227,21 @@ fn nevada(_lat: f64, lon: f64) -> TimeZone {
     }
 }
 
+fn british_columbia(lat: f64, lon: f64) -> TimeZone {
+    // The Peace River Regional District (Dawson Creek, Fort St. John,
+    // Chetwynd, from Pine Pass east) and the Northern Rockies (Fort Nelson,
+    // west to the Yukon line near Contact Creek) keep Mountain Standard Time
+    // all year; the rest of the province, Lower Post included, is Pacific.
+    // Read: the IANA tz database (America/Dawson_Creek; America/Fort_Nelson,
+    // on MST since 2015-03-08). The line is the two districts' western edge
+    // at game fidelity, derived, not read.
+    if lat >= 55.3 && lon >= -127.6 {
+        MOUNTAIN
+    } else {
+        PACIFIC
+    }
+}
+
 fn split_state_zone(state: &str) -> Option<fn(f64, f64) -> TimeZone> {
     Some(match state {
         "Florida" => florida,
@@ -236,6 +257,7 @@ fn split_state_zone(state: &str) -> Option<fn(f64, f64) -> TimeZone> {
         "Idaho" => idaho,
         "Oregon" => oregon,
         "Nevada" => nevada,
+        "British Columbia" => british_columbia,
         _ => return None,
     })
 }
@@ -381,6 +403,32 @@ mod tests {
             ("Coeur d'Alene", 47.68, -116.78, "Idaho", PACIFIC),
             ("Portland", 45.52, -122.68, "Oregon", PACIFIC),
             ("Ontario", 44.03, -116.96, "Oregon", MOUNTAIN),
+        ];
+        for (place, lat, lon, state, expected) in cases {
+            assert_eq!(zone_for(lat, lon, state), expected, "{place}");
+        }
+    }
+
+    #[test]
+    fn canadian_towns_keep_their_own_clocks() {
+        let cases = [
+            ("Surrey", 49.18, -122.73, "British Columbia", PACIFIC),
+            ("Prince George", 53.87, -122.74, "British Columbia", PACIFIC),
+            ("Dawson Creek", 55.76, -120.23, "British Columbia", MOUNTAIN),
+            (
+                "Fort St. John",
+                56.24,
+                -120.81,
+                "British Columbia",
+                MOUNTAIN,
+            ),
+            ("Fort Nelson", 58.80, -122.70, "British Columbia", MOUNTAIN),
+            ("Lower Post", 59.93, -128.50, "British Columbia", PACIFIC),
+            ("Watson Lake", 60.06, -128.71, "Yukon", MOUNTAIN),
+            ("Whitehorse", 60.72, -135.05, "Yukon", MOUNTAIN),
+            ("Calgary", 51.05, -114.07, "Alberta", MOUNTAIN),
+            ("Regina", 50.45, -104.62, "Saskatchewan", CENTRAL),
+            ("Winnipeg", 49.90, -97.14, "Manitoba", CENTRAL),
         ];
         for (place, lat, lon, state, expected) in cases {
             assert_eq!(zone_for(lat, lon, state), expected, "{place}");

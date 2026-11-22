@@ -237,6 +237,18 @@ impl Trip {
     }
 
     /// The state the truck is in, or empty where the bake is silent.
+    /// Whether the live weather and alert feeds (the US Weather Service)
+    /// answer at this trip milepost: true in the United States and wherever
+    /// the state is unknown, false in Canada.
+    pub fn live_weather_covers(&self, mile: f64) -> bool {
+        if self.route.legs.is_empty() {
+            return true;
+        }
+        let state = self.state_at(Some(mile));
+        self.country_for_state(&state)
+            .is_none_or(|country| country.eq_ignore_ascii_case("US"))
+    }
+
     pub fn state_at(&self, mile: Option<f64>) -> String {
         let sample_mile = mile.unwrap_or(self.position_mi);
         let (leg_i, leg_start) = self.leg_at_mile(sample_mile);

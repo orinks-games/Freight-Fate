@@ -40,6 +40,10 @@ pub struct Carrier {
     /// Spoken lane area for the start picker ("the Pacific Northwest").
     /// Empty for carriers with a hand-written start option.
     pub lane_area: String,
+    /// Holds the authority and the bonded paperwork to haul into Canada and
+    /// back. Data, from `carriers.json`: the nationals and the regionals
+    /// whose lanes reach the border.
+    pub cross_border: bool,
 }
 
 impl Carrier {
@@ -248,6 +252,8 @@ struct RawCarrier {
     solvency_fallback: bool,
     #[serde(default)]
     lane_area: String,
+    #[serde(default)]
+    cross_border: bool,
 }
 
 fn inert_policy() -> String {
@@ -330,6 +336,7 @@ fn parse_catalog(text: &str) -> Result<IndexMap<String, Carrier>, DataError> {
             cargo_weight_bonus: raw.cargo_weight_bonus.into_iter().collect(),
             solvency_fallback: raw.solvency_fallback,
             lane_area: raw.lane_area,
+            cross_border: raw.cross_border,
         };
         catalog.insert(key, carrier);
     }

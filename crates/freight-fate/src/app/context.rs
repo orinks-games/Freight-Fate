@@ -408,7 +408,8 @@ impl GameContext {
         let Some(provider) = self.real_weather_provider() else {
             return;
         };
-        if lat != 0.0 || lon != 0.0 {
+        // The Weather Service answers for the United States only.
+        if (lat != 0.0 || lon != 0.0) && city.country.eq_ignore_ascii_case("US") {
             provider.request(&format!("city:{key}"), lat, lon);
         }
     }

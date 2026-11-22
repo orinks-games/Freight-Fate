@@ -26,16 +26,18 @@ struct LiveReading {
 
 pub(crate) fn time_and_weather_lines(ctx: &mut GameContext) -> Vec<String> {
     let world = ctx.world;
-    let (city_key, city_name, region, lat, lon, game_hours, calendar_hours, day) = {
+    let (city_key, city_name, region, lat, lon, covered, game_hours, calendar_hours, day) = {
         let p = profile(ctx);
         let city = world.city(&p.current_city);
-        let (key, name, region, lat, lon) = match city {
+        let (key, name, region, lat, lon, covered) = match city {
+            // The Weather Service answers for the United States only.
             Ok(c) => (
                 c.key.clone(),
                 c.name.clone(),
                 c.region.clone(),
                 c.lat,
                 c.lon,
+                c.country.eq_ignore_ascii_case("US"),
             ),
             Err(_) => (
                 p.current_city.clone(),
@@ -43,6 +45,7 @@ pub(crate) fn time_and_weather_lines(ctx: &mut GameContext) -> Vec<String> {
                 String::new(),
                 0.0,
                 0.0,
+                true,
             ),
         };
         (
@@ -51,6 +54,7 @@ pub(crate) fn time_and_weather_lines(ctx: &mut GameContext) -> Vec<String> {
             region,
             lat,
             lon,
+            covered,
             p.game_hours,
             p.calendar_game_hours(),
             p.market_day() + 1,
@@ -63,31 +67,36 @@ pub(crate) fn time_and_weather_lines(ctx: &mut GameContext) -> Vec<String> {
     let hour = to_local(game_hours, zone).rem_euclid(24.0);
     let live_calendar_setting = ctx.settings.live_weather_controls_calendar;
     let imperial = ctx.settings.imperial_units;
-    let reading: Option<LiveReading> = ctx.real_weather_provider().map(|provider| {
-        // Keyed by the city key, not the spoken name: two cities can share
-        // a spoken name but they are different places with different skies.
-        provider.request(&city_key, lat, lon);
-        let kind = provider.get(&city_key);
-        match kind {
-            Some(kind) => LiveReading {
-                kind: Some(kind),
-                last_known: provider.stale(&city_key),
-                observation_age: provider.observation_age_s(&city_key),
-                refreshing: provider.refreshing(&city_key),
-                loading: false,
-                observed_temperature: provider.get_temperature(&city_key),
-            },
-            None => LiveReading {
-                kind: None,
-                last_known: false,
-                observation_age: None,
-                refreshing: false,
-                loading: !provider.unavailable(&city_key),
-                observed_temperature: None,
-            },
-        }
-    });
-    let has_provider = reading.is_some();
+    let live_selected = ctx.real_weather_provider().is_some();
+    let reading: Option<LiveReading> =
+        ctx.real_weather_provider()
+            .filter(|_| covered)
+            .map(|provider| {
+                // Keyed by the city key, not the spoken name: two cities can share
+                // a spoken name but they are different places with different skies.
+                provider.request(&city_key, lat, lon);
+                let kind = provider.get(&city_key);
+                match kind {
+                    Some(kind) => LiveReading {
+                        kind: Some(kind),
+                        last_known: provider.stale(&city_key),
+                        observation_age: provider.observation_age_s(&city_key),
+                        refreshing: provider.refreshing(&city_key),
+                        loading: false,
+                        observed_temperature: provider.get_temperature(&city_key),
+                    },
+                    None => LiveReading {
+                        kind: None,
+                        last_known: false,
+                        observation_age: None,
+                        refreshing: false,
+                        loading: !provider.unavailable(&city_key),
+                        observed_temperature: None,
+                    },
+                }
+            });
+    // The calendar follows the live setting even where no station answers.
+    let has_provider = live_selected;
     let live = reading.as_ref().is_some_and(|r| r.kind.is_some());
     let loading = reading.as_ref().is_some_and(|r| r.loading);
     let last_known = reading.as_ref().is_some_and(|r| r.last_known);

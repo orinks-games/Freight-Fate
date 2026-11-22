@@ -23,7 +23,8 @@
       "long_haul_bias": 0.0,
       "deadline_slack": 1.0
     },
-    "cargo_weight_bonus": {}
+    "cargo_weight_bonus": {},
+    "cross_border": true
   },
   "great_lakes_training": {
     "name": "Great Lakes Training Transport",
@@ -113,7 +114,8 @@
       "electronics": 0.2,
       "automotive": 0.15,
       "parcel": 0.15
-    }
+    },
+    "cross_border": true
   },
   "androscoggin_freight": {
     "name": "Androscoggin Freight",
@@ -143,7 +145,8 @@
       "deadline_slack": 1.0
     },
     "cargo_weight_bonus": {},
-    "lane_area": "New England and the upper Hudson"
+    "lane_area": "New England and the upper Hudson",
+    "cross_border": true
   },
   "kittatinny_crossroads": {
     "name": "Kittatinny Crossroads Freight",
@@ -380,7 +383,8 @@
       "deadline_slack": 1.0
     },
     "cargo_weight_bonus": {},
-    "lane_area": "the Ohio Valley and the lower Great Lakes"
+    "lane_area": "the Ohio Valley and the lower Great Lakes",
+    "cross_border": true
   },
   "loonwater_regional": {
     "name": "Loonwater Regional",
@@ -411,7 +415,8 @@
       "deadline_slack": 1.0
     },
     "cargo_weight_bonus": {},
-    "lane_area": "the Upper Midwest, from the Dakotas across Minnesota and Wisconsin to the Upper Peninsula"
+    "lane_area": "the Upper Midwest, from the Dakotas across Minnesota and Wisconsin to the Upper Peninsula",
+    "cross_border": true
   },
   "verdigris_transport": {
     "name": "Verdigris Transport",
@@ -470,7 +475,8 @@
       "deadline_slack": 1.0
     },
     "cargo_weight_bonus": {},
-    "lane_area": "the Front Range and the high plains, from Colorado to Montana"
+    "lane_area": "the Front Range and the high plains, from Colorado to Montana",
+    "cross_border": true
   },
   "pinyon_basin": {
     "name": "Pinyon Basin Transport",
@@ -588,7 +594,8 @@
       "deadline_slack": 1.0
     },
     "cargo_weight_bonus": {},
-    "lane_area": "the Pacific Northwest"
+    "lane_area": "the Pacific Northwest",
+    "cross_border": true
   },
   "chatanika_freight": {
     "name": "Chatanika Freight Lines",
@@ -616,7 +623,8 @@
       "deadline_slack": 1.0
     },
     "cargo_weight_bonus": {},
-    "lane_area": "Alaska, between Anchorage, the Mat-Su valley, the Kenai Peninsula, Valdez, Fairbanks, Tok, and Deadhorse on the Dalton Highway"
+    "lane_area": "Alaska, between Anchorage, the Mat-Su valley, the Kenai Peninsula, Valdez, Fairbanks, Tok, and Deadhorse on the Dalton Highway",
+    "cross_border": true
   },
   "des_plaines_cartage": {
     "name": "Des Plaines River Cartage",

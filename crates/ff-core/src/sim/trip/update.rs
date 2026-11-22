@@ -196,6 +196,8 @@ impl Trip {
         self.game_minutes += game_min;
         let region = self.region_at(self.position_mi);
         self.weather.set_region(&region);
+        let covered = self.live_weather_covers(self.position_mi);
+        self.weather.set_live_coverage(covered);
         if let Some((weather_key, lat, lon)) = self.weather_location() {
             let previous_weather_key = self.weather.city.clone();
             let location_changed = previous_weather_key.as_deref() != Some(weather_key.as_str());

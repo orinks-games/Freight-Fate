@@ -1800,7 +1800,7 @@ fn test_generated_jobs_never_use_travel_center_or_truck_parking_endpoints() {
         }
     }
     // Travel-center-only cities must offer an empty board, not invent freight.
-    for city in ["tok_ak_us", "healy_ak_us", "blaine_wa_us", "surrey_bc_ca"] {
+    for city in ["tok_ak_us", "healy_ak_us", "blaine_wa_us"] {
         assert!(
             offers(1, city, ALL, 8).is_empty(),
             "{city} must not mint jobs from a fuel/parking-only pin"

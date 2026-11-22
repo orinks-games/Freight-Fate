@@ -18,6 +18,9 @@ use crate::pyfmt::{fmt_f, fmt_grouped, py_str_float, round_py_n};
 use crate::speech_text::{the_city, typed_name};
 
 mod board;
+pub mod cross_border;
+#[cfg(test)]
+mod cross_border_tests;
 mod deadline;
 pub mod hazmat;
 pub mod hos_stops;

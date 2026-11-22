@@ -1,0 +1,190 @@
+//! Loads across the Canadian border on the real map: where the board sends
+//! them, who may carry them, and what their deadline books.
+
+use super::*;
+use crate::data::world::get_world;
+
+const ALL: &[&str] = &[
+    "refrigerated",
+    "heavy_haul",
+    "high_value",
+    "hazmat",
+    "doubles_triples",
+    "tanker",
+];
+
+fn board_at(city: &str, seed: i64, level: i64, carrier: &str) -> Vec<Job> {
+    JobBoard::seeded(get_world(), seed).offers(
+        city,
+        ALL,
+        OfferOptions {
+            count: 8,
+            level,
+            carrier_key: Some(carrier),
+            ..Default::default()
+        },
+    )
+}
+
+fn country(city: &str) -> String {
+    get_world().city(city).expect("a map city").country.clone()
+}
+
+#[test]
+fn a_board_near_the_border_offers_canadian_destinations() {
+    let canadian: usize = (0..40)
+        .flat_map(|seed| board_at("bellingham_wa_us", seed, 8, "northstar"))
+        .filter(|job| country(&job.destination) == "CA")
+        .count();
+    assert!(
+        canadian > 0,
+        "40 Bellingham boards offered nothing in Canada"
+    );
+}
+
+#[test]
+fn a_canadian_board_offers_the_united_states_only() {
+    let mut seen = 0;
+    for seed in 0..40 {
+        for job in board_at("surrey_bc_ca", seed, 8, "northstar") {
+            assert_eq!(country(&job.destination), "US", "seed {seed}: {job:?}");
+            seen += 1;
+        }
+    }
+    assert!(seen > 0, "Surrey's port posted no loads");
+}
+
+#[test]
+fn a_carrier_without_canadian_authority_stays_home() {
+    for seed in 0..30 {
+        for job in board_at("seattle_wa_us", seed, 8, "pinyon_basin") {
+            assert_eq!(country(&job.destination), "US", "seed {seed}");
+        }
+    }
+}
+
+#[test]
+fn placards_twins_and_cattle_never_cross() {
+    for city in [
+        "bellingham_wa_us",
+        "seattle_wa_us",
+        "spokane_wa_us",
+        "surrey_bc_ca",
+    ] {
+        for seed in 0..40 {
+            for job in board_at(city, seed, 18, "northstar") {
+                if country(&job.origin) == country(&job.destination) {
+                    continue;
+                }
+                assert!(
+                    job.hazmat.is_none(),
+                    "{city} seed {seed}: placarded {job:?}"
+                );
+                assert!(!job.cargo.national_network, "{city} seed {seed}: twins");
+                assert_ne!(job.cargo.key, "livestock", "{city} seed {seed}: cattle");
+            }
+        }
+    }
+}
+
+#[test]
+fn a_border_load_books_the_customs_booth() {
+    let world = get_world();
+    let route = world
+        .supported_route("seattle_wa_us", "surrey_bc_ca", None)
+        .ok()
+        .flatten()
+        .expect("Seattle reaches Surrey");
+    assert_eq!(cross_border::route_crossings(&route), 1);
+    let plan = plan_hos(route.miles(), Some(&route), Some(world), None);
+    assert!((plan.customs_h - cross_border::CUSTOMS_PLANNED_H).abs() < 1e-9);
+    assert!(
+        (plan.total_h()
+            - plan.drive_h
+            - plan.breaks as f64 * 0.5
+            - plan.sleeps as f64 * 10.0
+            - plan.customs_h)
+            .abs()
+            < 1e-9
+    );
+    // A home lane books none.
+    let home = world
+        .supported_route("seattle_wa_us", "portland_or_us", None)
+        .ok()
+        .flatten()
+        .expect("Seattle reaches Portland");
+    assert_eq!(
+        plan_hos(home.miles(), Some(&home), Some(world), None).customs_h,
+        0.0
+    );
+}
+
+#[test]
+fn a_long_haul_to_whitehorse_plans_enough_for_either_country() {
+    // Seattle to Whitehorse is about 1,500 miles, nearly all in Canada.
+    // Planned on US rules, the sleeps the plan books are at least as many
+    // as the Canadian clock (13 driving hours a shift south of 60) needs.
+    let world = get_world();
+    let route = world
+        .supported_route("seattle_wa_us", "whitehorse_yt_ca", None)
+        .ok()
+        .flatten()
+        .expect("Seattle reaches Whitehorse");
+    let plan = plan_hos(route.miles(), Some(&route), Some(world), None);
+    assert!(plan.sleeps >= 1, "{plan:?}");
+    let canadian_sleeps = ((plan.drive_h / 13.0).ceil() as i64 - 1).max(0);
+    assert!(plan.sleeps >= canadian_sleeps, "{plan:?}");
+    assert_eq!(cross_border::route_crossings(&route), 1);
+}
+
+/// The board numbers in the cross-border report: how often a border load is
+/// posted at a few cities, over seeds. Run by hand:
+/// `cargo test -p ff-core cross_border_probe -- --ignored --nocapture`.
+#[test]
+#[ignore = "a measurement for the report, not a check"]
+fn cross_border_probe() {
+    let cities = [
+        ("bellingham_wa_us", "northstar"),
+        ("seattle_wa_us", "chehalis_freight"),
+        ("seattle_wa_us", "northstar"),
+        ("spokane_wa_us", "chehalis_freight"),
+        ("fairbanks_ak_us", "chatanika_freight"),
+        ("chicago_il_us", "northstar"),
+        ("dallas_tx_us", "northstar"),
+        ("surrey_bc_ca", "northstar"),
+        ("whitehorse_yt_ca", "northstar"),
+    ];
+    for level in [3, 8, 14] {
+        for (city, carrier) in cities {
+            let (mut boards, mut with, mut loads, mut border) = (0, 0, 0, 0);
+            for seed in 0..200 {
+                let jobs = board_at(city, seed, level, carrier);
+                boards += 1;
+                let n = jobs
+                    .iter()
+                    .filter(|j| country(&j.origin) != country(&j.destination))
+                    .count();
+                loads += jobs.len();
+                border += n;
+                with += usize::from(n > 0);
+            }
+            println!(
+                "level {level:>2} {city:<20} {carrier:<18} boards with a border load {:>5.1}%  border loads {border}/{loads}",
+                100.0 * with as f64 / boards as f64
+            );
+        }
+    }
+    for (city, seed) in [
+        ("bellingham_wa_us", 1),
+        ("spokane_wa_us", 2),
+        ("surrey_bc_ca", 3),
+    ] {
+        println!("-- {city} seed {seed}, level 8, Northstar");
+        for job in board_at(city, seed, 8, "northstar") {
+            println!(
+                "   {} to {}, {} mi, {} h, {}",
+                job.origin, job.destination, job.distance_mi, job.deadline_game_h, job.cargo.key
+            );
+        }
+    }
+}
