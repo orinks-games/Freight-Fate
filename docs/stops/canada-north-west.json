@@ -1,0 +1,1470 @@
+{
+  "about": "Curated stops for the northern corridor, west (Highway 63, the Mackenzie and Yellowknife highways, Highway 16 west of Prince George, the Stewart-Cassiar and 37A, the North Klondike Highway), placed by cargo tools osm-stops --stops. Built 2026-11-22 from osm-stops leads over the 2026-11-16 planet; BC rest areas from the DataBC rest area layer. lat, lon, reach_mi, season and heading steer placement; every other key is the stop as the game reads it. A stop whose season is not 'year round' is left out.",
+  "truck_access": {
+    "read": 37,
+    "assumed": 22,
+    "about": "Stops whose tractor-trailer access was read from a source (a provincial list, a truck stop brand, a cardlock name or a large_vehicles tag), and those where it is assumed with the reason in source. The assumed ones are town stations and unnamed rest areas on long links with no truck source either way."
+  },
+  "stops": [
+    {
+      "name": "Flying J Edmonton",
+      "type": "travel_center",
+      "lat": 53.5709,
+      "lon": -113.61275,
+      "reach_mi": 0.5,
+      "actions": [
+        "park",
+        "save",
+        "fuel",
+        "food",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "parking",
+        "diesel",
+        "gasoline",
+        "food",
+        "restrooms"
+      ],
+      "parking": "confirmed",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "read",
+      "source": "Position read from OSM way 652442089 (amenity=fuel, brand Flying J, 16806 118 Avenue NW, opening_hours=24/7), OpenStreetMap planet extract 2026-11-16, beside the hgv=yes fuel lanes (way 186651608). Diesel and truck parking read from the brand: a Flying J is a truck stop. Leg mile projected onto the leg's road."
+    },
+    {
+      "name": "Esso Westlock",
+      "type": "fuel_station",
+      "lat": 54.15257,
+      "lon": -113.8513,
+      "reach_mi": 0.5,
+      "actions": [
+        "park",
+        "save",
+        "fuel",
+        "break"
+      ],
+      "services": [
+        "parking",
+        "diesel",
+        "gasoline"
+      ],
+      "parking": "unknown",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "assumed",
+      "source": "Position read from OSM way 541437646 (amenity=fuel, brand Esso, fuel:diesel=yes, 100 Street, Westlock), OpenStreetMap planet extract 2026-11-16. Diesel read; truck access assumed, not read: it is the diesel stop nearest the middle of Highway 44 and 2 to Slave Lake. Open year round is assumed, not read. Leg mile projected onto the leg's road."
+    },
+    {
+      "name": "Co-op Cardlock Grassland",
+      "type": "fuel_station",
+      "lat": 54.82124,
+      "lon": -112.67906,
+      "reach_mi": 0.5,
+      "actions": [
+        "fuel"
+      ],
+      "services": [
+        "diesel"
+      ],
+      "parking": "unknown",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "read",
+      "source": "Position and name read from OSM way 283164267 (amenity=fuel, brand Federated Co-operatives, Co-op Cardlock), OpenStreetMap planet extract 2026-11-16, at Grassland on Highway 63. Truck service read from its name, a cardlock; diesel assumed. A cardlock sells to account holders only. Open year round is assumed, not read. Leg mile projected onto the leg's road."
+    },
+    {
+      "name": "Esso Grassland",
+      "type": "fuel_station",
+      "lat": 54.82064,
+      "lon": -112.68409,
+      "reach_mi": 0.5,
+      "actions": [
+        "park",
+        "save",
+        "fuel",
+        "break"
+      ],
+      "services": [
+        "parking",
+        "diesel",
+        "gasoline"
+      ],
+      "parking": "unknown",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "assumed",
+      "source": "Position read from OSM way 540256262 (amenity=fuel, brand Esso, operator Husky, AB-63 N, Grassland; Esso's station page names it the Grassland Husky travel centre), OpenStreetMap planet extract 2026-11-16. Diesel and truck access are assumed, not read: it is the open-to-all diesel at the Highway 63 and 55 corner. Open year round is assumed, not read. Leg mile projected onto the leg's road."
+    },
+    {
+      "name": "May Hill Tower rest area",
+      "type": "public_rest_area",
+      "lat": 55.39821,
+      "lon": -112.44199,
+      "reach_mi": 0.5,
+      "actions": [
+        "park",
+        "save",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "parking"
+      ],
+      "parking": "limited",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "assumed",
+      "source": "Position read from OSM way 1233891851 (highway=rest_area, operator Alberta Transportation, named May Hill Tower South Rest Area), OpenStreetMap planet extract 2026-11-16. Truck parking and an overnight stay are assumed, not read: it is the first rest area on Highway 63 north of Wandering River, on a road whose freight moves by tractor-trailer. Open year round is assumed, not read. Leg mile projected onto the leg's road."
+    },
+    {
+      "name": "Algar Tower rest area",
+      "type": "public_rest_area",
+      "lat": 56.06393,
+      "lon": -111.89348,
+      "reach_mi": 0.5,
+      "actions": [
+        "park",
+        "save",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "parking"
+      ],
+      "parking": "limited",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "assumed",
+      "source": "Position read from OSM way 1498850228 (highway=rest_area; highway=services, operator Alberta Transportation, named Algar Tower Northbound Rest Area, toilets=yes), OpenStreetMap planet extract 2026-11-16. Truck parking and an overnight stay are assumed, not read: it is the rest area nearest the middle of Highway 63 between Wandering River and Fort McMurray. Northbound side read from its name. Open year round is assumed, not read. Leg mile projected onto the leg's road."
+    },
+    {
+      "name": "Flying J Rycroft",
+      "type": "fuel_station",
+      "lat": 55.75724,
+      "lon": -118.69971,
+      "reach_mi": 0.5,
+      "actions": [
+        "fuel"
+      ],
+      "services": [
+        "diesel"
+      ],
+      "parking": "unknown",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "read",
+      "source": "Position read from OSM way 374340024 (amenity=fuel, brand Flying J, 4910 43 Street, Rycroft), OpenStreetMap planet extract 2026-11-16, on Highway 2. Truck service read from the brand; diesel assumed. Open year round is assumed, not read. Leg mile projected onto the leg's road."
+    },
+    {
+      "name": "Co-op Fairview Cardlock",
+      "type": "fuel_station",
+      "lat": 56.04993,
+      "lon": -118.38995,
+      "reach_mi": 0.5,
+      "actions": [
+        "fuel"
+      ],
+      "services": [
+        "diesel"
+      ],
+      "parking": "unknown",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "read",
+      "source": "Position and name read from OSM node 13376152301 (amenity=fuel, Co-op Fairview Cardlock, opening_hours=24/7), OpenStreetMap planet extract 2026-11-16, on Highway 2. Hours read; truck service read from its name, a cardlock; diesel assumed. Leg mile projected onto the leg's road."
+    },
+    {
+      "name": "Petro-Pass High Prairie",
+      "type": "fuel_station",
+      "lat": 55.4325,
+      "lon": -116.50761,
+      "reach_mi": 0.5,
+      "actions": [
+        "fuel"
+      ],
+      "services": [
+        "diesel"
+      ],
+      "parking": "unknown",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "read",
+      "source": "Position read from OSM node 5222099686 (amenity=fuel, brand Petro-Canada, Petro-Pass, fuel:diesel=yes, 5401 53 Avenue, High Prairie), OpenStreetMap planet extract 2026-11-16. Diesel read; truck service read from the name, Petro-Canada's commercial cardlock. Open year round is assumed, not read. Leg mile projected onto the leg's road."
+    },
+    {
+      "name": "UFA Cardlock Manning",
+      "type": "fuel_station",
+      "lat": 56.94078,
+      "lon": -117.62311,
+      "reach_mi": 0.5,
+      "actions": [
+        "fuel"
+      ],
+      "services": [
+        "diesel"
+      ],
+      "parking": "unknown",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "read",
+      "source": "Position and name read from OSM way 1125003976 (amenity=fuel, brand UFA, UFA Cardlock), OpenStreetMap planet extract 2026-11-16, at Manning on Highway 35. Truck service read from its name, a cardlock; diesel assumed. Open year round is assumed, not read. Leg mile projected onto the leg's road."
+    },
+    {
+      "name": "Mickey's Gas Bar Paddle Prairie",
+      "type": "fuel_station",
+      "lat": 57.9487,
+      "lon": -117.4879,
+      "reach_mi": 0.5,
+      "actions": [
+        "park",
+        "save",
+        "fuel",
+        "break"
+      ],
+      "services": [
+        "parking",
+        "diesel",
+        "gasoline"
+      ],
+      "parking": "unknown",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "assumed",
+      "source": "Position read from OSM way 1125474921 (amenity=fuel, Mickey's Gas Bar), OpenStreetMap planet extract 2026-11-16, at Paddle Prairie on Highway 35. Diesel and truck access are assumed, not read: it is the only fuel between Manning and High Level. Open year round is assumed, not read. Leg mile projected onto the leg's road."
+    },
+    {
+      "name": "Keg River rest area",
+      "type": "public_rest_area",
+      "lat": 57.53913,
+      "lon": -117.47354,
+      "reach_mi": 0.5,
+      "actions": [
+        "park",
+        "save",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "parking"
+      ],
+      "parking": "limited",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "assumed",
+      "source": "Position read from OSM way 315841430 (highway=rest_area, unnamed), OpenStreetMap planet extract 2026-11-16. Truck parking and an overnight stay are assumed, not read: it is the rest area nearest the middle of Highway 35 between Manning and High Level; the name is descriptive. Open year round is assumed, not read. Leg mile projected onto the leg's road."
+    },
+    {
+      "name": "Paddle Prairie rest area",
+      "type": "public_rest_area",
+      "lat": 58.00119,
+      "lon": -117.40644,
+      "reach_mi": 0.5,
+      "actions": [
+        "park",
+        "save",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "parking"
+      ],
+      "parking": "limited",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "assumed",
+      "source": "Position read from OSM way 1125498740 (highway=rest_area, unnamed), OpenStreetMap planet extract 2026-11-16. Truck parking and an overnight stay are assumed, not read: it is the Highway 35 rest area at Paddle Prairie; the name is descriptive. Open year round is assumed, not read. Leg mile projected onto the leg's road."
+    },
+    {
+      "name": "Hutch Lake rest area",
+      "type": "public_rest_area",
+      "lat": 58.77883,
+      "lon": -117.37149,
+      "reach_mi": 0.5,
+      "actions": [
+        "park",
+        "save",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "parking"
+      ],
+      "parking": "limited",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "assumed",
+      "source": "Position read from OSM way 315841346 (highway=rest_area, unnamed), OpenStreetMap planet extract 2026-11-16. Truck parking and an overnight stay are assumed, not read: it is the first Highway 35 rest area north of High Level; the name is descriptive. Open year round is assumed, not read. Leg mile projected onto the leg's road."
+    },
+    {
+      "name": "Esso Meander River",
+      "type": "fuel_station",
+      "lat": 59.04644,
+      "lon": -117.70732,
+      "reach_mi": 0.5,
+      "actions": [
+        "park",
+        "save",
+        "fuel",
+        "break"
+      ],
+      "services": [
+        "parking",
+        "diesel",
+        "gasoline"
+      ],
+      "parking": "unknown",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "assumed",
+      "source": "Position read from OSM way 1125111834 (amenity=fuel, brand Esso), OpenStreetMap planet extract 2026-11-16, on Highway 35 at Meander River. Diesel and truck access are assumed, not read: it is the only fuel between High Level and Enterprise. Open year round is assumed, not read. Leg mile projected onto the leg's road."
+    },
+    {
+      "name": "Meander River north rest area",
+      "type": "public_rest_area",
+      "lat": 59.12174,
+      "lon": -117.65812,
+      "reach_mi": 0.5,
+      "actions": [
+        "park",
+        "save",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "parking"
+      ],
+      "parking": "limited",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "assumed",
+      "source": "Position read from OSM way 315841345 (highway=rest_area, unnamed), OpenStreetMap planet extract 2026-11-16. Truck parking and an overnight stay are assumed, not read: it is the Highway 35 rest area just north of Meander River; the name is descriptive. Open year round is assumed, not read. Leg mile projected onto the leg's road."
+    },
+    {
+      "name": "Twin Falls Motel Enterprise",
+      "type": "travel_center",
+      "lat": 60.55791,
+      "lon": -116.14296,
+      "reach_mi": 0.5,
+      "actions": [
+        "park",
+        "save",
+        "fuel",
+        "food",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "parking",
+        "diesel",
+        "gasoline",
+        "food",
+        "restrooms"
+      ],
+      "parking": "limited",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "assumed",
+      "source": "Position and name read from OSM way 1442258082 (amenity=fuel, Twin Falls Motel, 30 Northern Lights Road, Enterprise), OpenStreetMap planet extract 2026-11-16, where the Hay River Highway meets the Mackenzie Highway. Diesel, truck room and the motel's rooms are assumed from its name and its place at the junction, not read. Open year round is assumed, not read. Leg mile projected onto the leg's road."
+    },
+    {
+      "name": "Enterprise west rest area",
+      "type": "public_rest_area",
+      "lat": 60.80226,
+      "lon": -116.5936,
+      "reach_mi": 0.5,
+      "actions": [
+        "park",
+        "save",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "parking"
+      ],
+      "parking": "limited",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "assumed",
+      "source": "Position read from OSM way 314670778 (highway=rest_area, unnamed), OpenStreetMap planet extract 2026-11-16. Truck parking and an overnight stay are assumed, not read: it is the Mackenzie Highway rest area between Enterprise and Kakisa; the name is descriptive. Open year round is assumed, not read. Leg mile projected onto the leg's road."
+    },
+    {
+      "name": "Kakisa rest area",
+      "type": "public_rest_area",
+      "lat": 61.07306,
+      "lon": -117.4926,
+      "reach_mi": 0.5,
+      "actions": [
+        "park",
+        "save",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "parking"
+      ],
+      "parking": "limited",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "assumed",
+      "source": "Position read from OSM way 314670624 (highway=rest_area, unnamed), OpenStreetMap planet extract 2026-11-16. Truck parking and an overnight stay are assumed, not read: it is the Mackenzie Highway rest area near the Kakisa turnoff; the name is descriptive. Open year round is assumed, not read. Leg mile projected onto the leg's road."
+    },
+    {
+      "name": "Yellowknife Highway rest area",
+      "type": "public_rest_area",
+      "lat": 62.52129,
+      "lon": -114.89398,
+      "reach_mi": 0.5,
+      "actions": [
+        "park",
+        "save",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "parking"
+      ],
+      "parking": "limited",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "assumed",
+      "source": "Position read from OSM node 4786889822 (highway=rest_area, unnamed), OpenStreetMap planet extract 2026-11-16. Truck parking and an overnight stay are assumed, not read: it is the only rest area OpenStreetMap has on the 191 miles from Fort Providence to Yellowknife; the name is descriptive. Open year round is assumed, not read. Leg mile projected onto the leg's road."
+    },
+    {
+      "name": "Cluculz Lake rest area",
+      "type": "public_rest_area",
+      "lat": 53.90921,
+      "lon": -123.58687,
+      "reach_mi": 0.3,
+      "actions": [
+        "park",
+        "save",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "parking",
+        "restrooms"
+      ],
+      "parking": "confirmed",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "read",
+      "source": "Read: BC provincial rest area R0138 Cluculz Lake on Highway 16, 34 km east of Vanderhoof, from https://openmaps.gov.bc.ca/geo/pub/wfs (layer WHSE_IMAGERY_AND_BASE_MAPS.MOT_REST_AREAS_SP, BC Ministry of Transportation and Transit rest areas, read 2026-11-22): accommodates commercial trucks (field ACCOM_COMMERCIAL_TRUCKS_IND), open year round, 2 toilets, on the eastbound side, access restriction no restriction. Sleep read from the ministry's TranBC answer (https://www.tranbc.ca/?p=28073): \"You are free to use any BC Rest Area to catch some zzzz's\", though it asks stays under eight hours. Leg mile projected onto the leg's road."
+    },
+    {
+      "name": "Savory West rest area",
+      "type": "public_rest_area",
+      "lat": 54.09394,
+      "lon": -125.17631,
+      "reach_mi": 0.3,
+      "actions": [
+        "park",
+        "save",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "parking",
+        "restrooms"
+      ],
+      "parking": "confirmed",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "read",
+      "source": "Read: BC provincial rest area R0143 Savory West on Highway 16, 82 km west of Vanderhoof, from https://openmaps.gov.bc.ca/geo/pub/wfs (layer WHSE_IMAGERY_AND_BASE_MAPS.MOT_REST_AREAS_SP, BC Ministry of Transportation and Transit rest areas, read 2026-11-22): accommodates commercial trucks (field ACCOM_COMMERCIAL_TRUCKS_IND), open year round, 2 toilets, on the eastbound side, access restriction no restriction. Sleep read from the ministry's TranBC answer (https://www.tranbc.ca/?p=28073): \"You are free to use any BC Rest Area to catch some zzzz's\", though it asks stays under eight hours. Leg mile projected onto the leg's road."
+    },
+    {
+      "name": "Sheraton rest area",
+      "type": "public_rest_area",
+      "lat": 54.15045,
+      "lon": -125.4091,
+      "reach_mi": 0.3,
+      "actions": [
+        "park",
+        "save",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "parking",
+        "restrooms"
+      ],
+      "parking": "confirmed",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "read",
+      "source": "Read: BC provincial rest area R0223 Sheraton on Highway 16, 28.0 km east of Burns Lake, from https://openmaps.gov.bc.ca/geo/pub/wfs (layer WHSE_IMAGERY_AND_BASE_MAPS.MOT_REST_AREAS_SP, BC Ministry of Transportation and Transit rest areas, read 2026-11-22): accommodates commercial trucks (field ACCOM_COMMERCIAL_TRUCKS_IND), open year round, 2 toilets, on the eastbound side, access restriction no restriction. Sleep read from the ministry's TranBC answer (https://www.tranbc.ca/?p=28073): \"You are free to use any BC Rest Area to catch some zzzz's\", though it asks stays under eight hours. Leg mile projected onto the leg's road."
+    },
+    {
+      "name": "Tintagel rest area",
+      "type": "public_rest_area",
+      "lat": 54.20522,
+      "lon": -125.60519,
+      "reach_mi": 0.3,
+      "actions": [
+        "park",
+        "save",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "parking",
+        "restrooms"
+      ],
+      "parking": "confirmed",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "read",
+      "source": "Read: BC provincial rest area R0141 Tintagel on Highway 16, 13.0 km east of Burns Lake, from https://openmaps.gov.bc.ca/geo/pub/wfs (layer WHSE_IMAGERY_AND_BASE_MAPS.MOT_REST_AREAS_SP, BC Ministry of Transportation and Transit rest areas, read 2026-11-22): accommodates commercial trucks (field ACCOM_COMMERCIAL_TRUCKS_IND), open year round, 2 toilets, on the eastbound side, access restriction no restriction. Sleep read from the ministry's TranBC answer (https://www.tranbc.ca/?p=28073): \"You are free to use any BC Rest Area to catch some zzzz's\", though it asks stays under eight hours. Leg mile projected onto the leg's road."
+    },
+    {
+      "name": "Palling rest area",
+      "type": "public_rest_area",
+      "lat": 54.35641,
+      "lon": -125.91979,
+      "reach_mi": 0.3,
+      "actions": [
+        "park",
+        "save",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "parking",
+        "restrooms"
+      ],
+      "parking": "confirmed",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "read",
+      "source": "Read: BC provincial rest area R0142 Palling on Highway 16, 17.0 km west of Burns Lake, from https://openmaps.gov.bc.ca/geo/pub/wfs (layer WHSE_IMAGERY_AND_BASE_MAPS.MOT_REST_AREAS_SP, BC Ministry of Transportation and Transit rest areas, read 2026-11-22): accommodates commercial trucks (field ACCOM_COMMERCIAL_TRUCKS_IND), open year round, 2 toilets, on the eastbound side, access restriction no restriction. Sleep read from the ministry's TranBC answer (https://www.tranbc.ca/?p=28073): \"You are free to use any BC Rest Area to catch some zzzz's\", though it asks stays under eight hours. Leg mile projected onto the leg's road."
+    },
+    {
+      "name": "Topley rest area",
+      "type": "public_rest_area",
+      "lat": 54.51046,
+      "lon": -126.31399,
+      "reach_mi": 0.3,
+      "actions": [
+        "park",
+        "save",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "parking",
+        "restrooms"
+      ],
+      "parking": "confirmed",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "read",
+      "source": "Read: BC provincial rest area R0144 Topley on Highway 16, 1.0 km west of Topley, from https://openmaps.gov.bc.ca/geo/pub/wfs (layer WHSE_IMAGERY_AND_BASE_MAPS.MOT_REST_AREAS_SP, BC Ministry of Transportation and Transit rest areas, read 2026-11-22): accommodates commercial trucks (field ACCOM_COMMERCIAL_TRUCKS_IND), open year round, 2 toilets, on the eastbound side, access restriction no restriction. Sleep read from the ministry's TranBC answer (https://www.tranbc.ca/?p=28073): \"You are free to use any BC Rest Area to catch some zzzz's\", though it asks stays under eight hours. Leg mile projected onto the leg's road."
+    },
+    {
+      "name": "Hungry Hill rest area",
+      "type": "public_rest_area",
+      "lat": 54.5352,
+      "lon": -126.77579,
+      "reach_mi": 0.3,
+      "actions": [
+        "park",
+        "save",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "parking",
+        "restrooms"
+      ],
+      "parking": "confirmed",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "read",
+      "source": "Read: BC provincial rest area R0189 Hungry Hill on Highway 16, 21.0 km west of Houston, from https://openmaps.gov.bc.ca/geo/pub/wfs (layer WHSE_IMAGERY_AND_BASE_MAPS.MOT_REST_AREAS_SP, BC Ministry of Transportation and Transit rest areas, read 2026-11-22): accommodates commercial trucks (field ACCOM_COMMERCIAL_TRUCKS_IND), open year round, 2 toilets, on the westbound side, access restriction no restriction. Sleep read from the ministry's TranBC answer (https://www.tranbc.ca/?p=28073): \"You are free to use any BC Rest Area to catch some zzzz's\", though it asks stays under eight hours. Leg mile projected onto the leg's road."
+    },
+    {
+      "name": "Bulkley View rest area",
+      "type": "public_rest_area",
+      "lat": 54.66776,
+      "lon": -126.99576,
+      "reach_mi": 0.3,
+      "actions": [
+        "park",
+        "save",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "parking",
+        "restrooms"
+      ],
+      "parking": "confirmed",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "read",
+      "source": "Read: BC provincial rest area R0146 Bulkley View on Highway 16, 4.5 km east of Telkwa, from https://openmaps.gov.bc.ca/geo/pub/wfs (layer WHSE_IMAGERY_AND_BASE_MAPS.MOT_REST_AREAS_SP, BC Ministry of Transportation and Transit rest areas, read 2026-11-22): accommodates commercial trucks (field ACCOM_COMMERCIAL_TRUCKS_IND), open year round, 2 toilets, on the eastbound side, access restriction westbound. Sleep read from the ministry's TranBC answer (https://www.tranbc.ca/?p=28073): \"You are free to use any BC Rest Area to catch some zzzz's\", though it asks stays under eight hours. Leg mile projected onto the leg's road.",
+      "heading": "Eastbound"
+    },
+    {
+      "name": "Glacier View rest area",
+      "type": "public_rest_area",
+      "lat": 54.84919,
+      "lon": -127.22079,
+      "reach_mi": 0.3,
+      "actions": [
+        "park",
+        "save",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "parking",
+        "restrooms"
+      ],
+      "parking": "confirmed",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "read",
+      "source": "Read: BC provincial rest area R0147 Glacier View on Highway 16, 7.0 km north of Smithers, from https://openmaps.gov.bc.ca/geo/pub/wfs (layer WHSE_IMAGERY_AND_BASE_MAPS.MOT_REST_AREAS_SP, BC Ministry of Transportation and Transit rest areas, read 2026-11-22): accommodates commercial trucks (field ACCOM_COMMERCIAL_TRUCKS_IND), open year round, 2 toilets, on the eastbound side, access restriction no restriction. Sleep read from the ministry's TranBC answer (https://www.tranbc.ca/?p=28073): \"You are free to use any BC Rest Area to catch some zzzz's\", though it asks stays under eight hours. Leg mile projected onto the leg's road."
+    },
+    {
+      "name": "Boulder Creek rest area",
+      "type": "public_rest_area",
+      "lat": 55.07109,
+      "lon": -128.20422,
+      "reach_mi": 0.3,
+      "actions": [
+        "park",
+        "save",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "parking",
+        "restrooms"
+      ],
+      "parking": "confirmed",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "read",
+      "source": "Read: BC provincial rest area R0148 Boulder Creek on Highway 16, 52.8 km west of Hazelton, from https://openmaps.gov.bc.ca/geo/pub/wfs (layer WHSE_IMAGERY_AND_BASE_MAPS.MOT_REST_AREAS_SP, BC Ministry of Transportation and Transit rest areas, read 2026-11-22): accommodates commercial trucks (field ACCOM_COMMERCIAL_TRUCKS_IND), open year round, 2 toilets, on the westbound side, access restriction no restriction. Sleep read from the ministry's TranBC answer (https://www.tranbc.ca/?p=28073): \"You are free to use any BC Rest Area to catch some zzzz's\", though it asks stays under eight hours. Leg mile projected onto the leg's road."
+    },
+    {
+      "name": "Sanderson Point rest area",
+      "type": "public_rest_area",
+      "lat": 54.71472,
+      "lon": -128.31105,
+      "reach_mi": 0.3,
+      "actions": [
+        "park",
+        "save",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "parking",
+        "restrooms"
+      ],
+      "parking": "confirmed",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "read",
+      "source": "Read: BC provincial rest area R0155 Sanderson Point on Highway 16, 30.0 km east of Terrace, from https://openmaps.gov.bc.ca/geo/pub/wfs (layer WHSE_IMAGERY_AND_BASE_MAPS.MOT_REST_AREAS_SP, BC Ministry of Transportation and Transit rest areas, read 2026-11-22): accommodates commercial trucks (field ACCOM_COMMERCIAL_TRUCKS_IND), open year round, 2 toilets, on the westbound side, access restriction no restriction. Sleep read from the ministry's TranBC answer (https://www.tranbc.ca/?p=28073): \"You are free to use any BC Rest Area to catch some zzzz's\", though it asks stays under eight hours. Leg mile projected onto the leg's road."
+    },
+    {
+      "name": "Exstew rest area",
+      "type": "public_rest_area",
+      "lat": 54.40292,
+      "lon": -129.03269,
+      "reach_mi": 0.3,
+      "actions": [
+        "park",
+        "save",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "parking",
+        "restrooms"
+      ],
+      "parking": "confirmed",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "read",
+      "source": "Read: BC provincial rest area R0154 Exstew on Highway 16, 44.0 km west of Terrace, from https://openmaps.gov.bc.ca/geo/pub/wfs (layer WHSE_IMAGERY_AND_BASE_MAPS.MOT_REST_AREAS_SP, BC Ministry of Transportation and Transit rest areas, read 2026-11-22): accommodates commercial trucks (field ACCOM_COMMERCIAL_TRUCKS_IND), open year round, 2 toilets, on the eastbound side, access restriction no restriction. Sleep read from the ministry's TranBC answer (https://www.tranbc.ca/?p=28073): \"You are free to use any BC Rest Area to catch some zzzz's\", though it asks stays under eight hours. Leg mile projected onto the leg's road."
+    },
+    {
+      "name": "Telegraph Point rest area",
+      "type": "public_rest_area",
+      "lat": 54.19184,
+      "lon": -129.65399,
+      "reach_mi": 0.3,
+      "actions": [
+        "park",
+        "save",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "parking",
+        "restrooms"
+      ],
+      "parking": "confirmed",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "read",
+      "source": "Read: BC provincial rest area R0156 Telegraph Point on Highway 16, 58.5 km east of Prince Rupert, from https://openmaps.gov.bc.ca/geo/pub/wfs (layer WHSE_IMAGERY_AND_BASE_MAPS.MOT_REST_AREAS_SP, BC Ministry of Transportation and Transit rest areas, read 2026-11-22): accommodates commercial trucks (field ACCOM_COMMERCIAL_TRUCKS_IND), open year round, 2 toilets, on the eastbound side, access restriction no restriction. Sleep read from the ministry's TranBC answer (https://www.tranbc.ca/?p=28073): \"You are free to use any BC Rest Area to catch some zzzz's\", though it asks stays under eight hours. Leg mile projected onto the leg's road."
+    },
+    {
+      "name": "Chevron Commercial Cardlock Burns Lake",
+      "type": "fuel_station",
+      "lat": 54.22831,
+      "lon": -125.76449,
+      "reach_mi": 0.5,
+      "actions": [
+        "fuel"
+      ],
+      "services": [
+        "diesel"
+      ],
+      "parking": "unknown",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "read",
+      "source": "Position and name read from OSM node 9164465122 (amenity=fuel, brand Chevron, Chevron Commercial Cardlock, 65 Railway Avenue, Burns Lake), OpenStreetMap planet extract 2026-11-16. Truck service read from its name; diesel assumed. A cardlock sells to account holders only. Open year round is assumed, not read. Leg mile projected onto the leg's road."
+    },
+    {
+      "name": "Co-op Cardlock Houston",
+      "type": "fuel_station",
+      "lat": 54.39494,
+      "lon": -126.66239,
+      "reach_mi": 0.5,
+      "actions": [
+        "fuel"
+      ],
+      "services": [
+        "diesel"
+      ],
+      "parking": "unknown",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "read",
+      "source": "Position and name read from OSM way 430660219 (amenity=fuel, Co-op Cardlock, 2920 Hamblin Frontage Road, Highway 16, Houston), OpenStreetMap planet extract 2026-11-16. Truck service read from its name; diesel assumed. A cardlock sells to account holders only. Open year round is assumed, not read. Leg mile projected onto the leg's road."
+    },
+    {
+      "name": "Petro-Canada Kitwanga",
+      "type": "fuel_station",
+      "lat": 55.09616,
+      "lon": -128.07559,
+      "reach_mi": 0.5,
+      "actions": [
+        "park",
+        "save",
+        "fuel",
+        "break"
+      ],
+      "services": [
+        "parking",
+        "diesel",
+        "gasoline"
+      ],
+      "parking": "unknown",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "assumed",
+      "source": "Position read from OSM node 6122658911 (amenity=fuel, brand Petro-Canada, Yellowhead Highway, Kitwanga), OpenStreetMap planet extract 2026-11-16, where Highway 37 leaves Highway 16. Diesel and truck access are assumed, not read: it is the last fuel before the Stewart-Cassiar. Open year round is assumed, not read. Leg mile projected onto the leg's road."
+    },
+    {
+      "name": "Gitanyow Gas Bar",
+      "type": "fuel_station",
+      "lat": 55.26559,
+      "lon": -128.06436,
+      "reach_mi": 0.5,
+      "actions": [
+        "park",
+        "save",
+        "fuel",
+        "break"
+      ],
+      "services": [
+        "parking",
+        "diesel",
+        "gasoline"
+      ],
+      "parking": "unknown",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "assumed",
+      "source": "Position read from OSM node 10972467208 (amenity=fuel, Gitanyow Gas Bar, described as a gas and diesel station, opening_hours Mo-Su 09:00-23:00), OpenStreetMap planet extract 2026-11-16. Diesel and hours read; truck access assumed, not read: it is the only fuel between Kitwanga and Meziadin Junction. Leg mile projected onto the leg's road."
+    },
+    {
+      "name": "Brown Bear rest area",
+      "type": "public_rest_area",
+      "lat": 55.90161,
+      "lon": -129.02399,
+      "reach_mi": 0.3,
+      "actions": [
+        "park",
+        "save",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "parking",
+        "restrooms"
+      ],
+      "parking": "confirmed",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "read",
+      "source": "Read: BC provincial rest area R0149 Brown Bear on Highway 37, 125 km north of Kitwanga, from https://openmaps.gov.bc.ca/geo/pub/wfs (layer WHSE_IMAGERY_AND_BASE_MAPS.MOT_REST_AREAS_SP, BC Ministry of Transportation and Transit rest areas, read 2026-11-22): accommodates commercial trucks (field ACCOM_COMMERCIAL_TRUCKS_IND), open year round, 2 toilets, on the southbound side, access restriction no restriction. Sleep read from the ministry's TranBC answer (https://www.tranbc.ca/?p=28073): \"You are free to use any BC Rest Area to catch some zzzz's\", though it asks stays under eight hours. Leg mile projected onto the leg's road."
+    },
+    {
+      "name": "Nass rest area",
+      "type": "public_rest_area",
+      "lat": 56.03301,
+      "lon": -129.14932,
+      "reach_mi": 0.3,
+      "actions": [
+        "park",
+        "save",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "parking",
+        "restrooms"
+      ],
+      "parking": "confirmed",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "read",
+      "source": "Read: BC provincial rest area R0150 Nass on Highway 37, 143 km north of Kitwanga, from https://openmaps.gov.bc.ca/geo/pub/wfs (layer WHSE_IMAGERY_AND_BASE_MAPS.MOT_REST_AREAS_SP, BC Ministry of Transportation and Transit rest areas, read 2026-11-22): accommodates commercial trucks (field ACCOM_COMMERCIAL_TRUCKS_IND), open year round, 2 toilets, on the northbound side, access restriction no restriction. Sleep read from the ministry's TranBC answer (https://www.tranbc.ca/?p=28073): \"You are free to use any BC Rest Area to catch some zzzz's\", though it asks stays under eight hours. Leg mile projected onto the leg's road."
+    },
+    {
+      "name": "Bell 1 rest area",
+      "type": "public_rest_area",
+      "lat": 56.32787,
+      "lon": -129.2998,
+      "reach_mi": 0.3,
+      "actions": [
+        "park",
+        "save",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "parking",
+        "restrooms"
+      ],
+      "parking": "confirmed",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "read",
+      "source": "Read: BC provincial rest area R0151 Bell 1 on Highway 37, 32 km north of Meziadin Junction, from https://openmaps.gov.bc.ca/geo/pub/wfs (layer WHSE_IMAGERY_AND_BASE_MAPS.MOT_REST_AREAS_SP, BC Ministry of Transportation and Transit rest areas, read 2026-11-22): accommodates commercial trucks (field ACCOM_COMMERCIAL_TRUCKS_IND), open year round, 2 toilets, on the northbound side, access restriction no restriction. Sleep read from the ministry's TranBC answer (https://www.tranbc.ca/?p=28073): \"You are free to use any BC Rest Area to catch some zzzz's\", though it asks stays under eight hours. Leg mile projected onto the leg's road."
+    },
+    {
+      "name": "Mehan Lake rest area",
+      "type": "public_rest_area",
+      "lat": 56.72595,
+      "lon": -129.78073,
+      "reach_mi": 0.3,
+      "actions": [
+        "park",
+        "save",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "parking",
+        "restrooms"
+      ],
+      "parking": "confirmed",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "read",
+      "source": "Read: BC provincial rest area R0165 Mehan Lake on Highway 37, 90 km north of Meziadin Junction, from https://openmaps.gov.bc.ca/geo/pub/wfs (layer WHSE_IMAGERY_AND_BASE_MAPS.MOT_REST_AREAS_SP, BC Ministry of Transportation and Transit rest areas, read 2026-11-22): accommodates commercial trucks (field ACCOM_COMMERCIAL_TRUCKS_IND), open year round, 2 toilets, on the northbound side, access restriction no restriction. Sleep read from the ministry's TranBC answer (https://www.tranbc.ca/?p=28073): \"You are free to use any BC Rest Area to catch some zzzz's\", though it asks stays under eight hours. Leg mile projected onto the leg's road."
+    },
+    {
+      "name": "Bell 2 Lodge",
+      "type": "travel_center",
+      "lat": 56.7443422,
+      "lon": -129.795825,
+      "reach_mi": 0.5,
+      "actions": [
+        "park",
+        "save",
+        "fuel",
+        "food",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "parking",
+        "diesel",
+        "gasoline",
+        "food",
+        "restrooms"
+      ],
+      "parking": "limited",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "read",
+      "source": "Position and name read from OSM node 3619392723 (amenity=fuel, Bell 2 Lodge, BC 37, fuel:diesel=yes, large_vehicles=yes, opening_hours Su-Sa 07:00-21:00, checked 2026-07-14), OpenStreetMap planet extract 2026-11-16. Diesel, large-vehicle access and hours read; the lodge's rooms are read from its name, not its tags. Open year round is assumed, not read. Leg mile projected onto the leg's road."
+    },
+    {
+      "name": "Bob Quinn Airstrip rest area",
+      "type": "public_rest_area",
+      "lat": 56.9676,
+      "lon": -130.24821,
+      "reach_mi": 0.3,
+      "actions": [
+        "park",
+        "save",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "parking",
+        "restrooms"
+      ],
+      "parking": "confirmed",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "read",
+      "source": "Read: BC provincial rest area R0193 Bob Quinn Airstrip on Highway 37, 140 km north of Meziadin Junction, from https://openmaps.gov.bc.ca/geo/pub/wfs (layer WHSE_IMAGERY_AND_BASE_MAPS.MOT_REST_AREAS_SP, BC Ministry of Transportation and Transit rest areas, read 2026-11-22): accommodates commercial trucks (field ACCOM_COMMERCIAL_TRUCKS_IND), open year round, 2 toilets, on the southbound side, access restriction no restriction. Sleep read from the ministry's TranBC answer (https://www.tranbc.ca/?p=28073): \"You are free to use any BC Rest Area to catch some zzzz's\", though it asks stays under eight hours. Leg mile projected onto the leg's road."
+    },
+    {
+      "name": "Eastman Creek rest area",
+      "type": "public_rest_area",
+      "lat": 57.3801,
+      "lon": -130.24527,
+      "reach_mi": 0.3,
+      "actions": [
+        "park",
+        "save",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "parking",
+        "restrooms"
+      ],
+      "parking": "confirmed",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "read",
+      "source": "Read: BC provincial rest area R0160 Eastman Creek on Highway 37, 143 km south of Dease Lake, from https://openmaps.gov.bc.ca/geo/pub/wfs (layer WHSE_IMAGERY_AND_BASE_MAPS.MOT_REST_AREAS_SP, BC Ministry of Transportation and Transit rest areas, read 2026-11-22): accommodates commercial trucks (field ACCOM_COMMERCIAL_TRUCKS_IND), open year round, 2 toilets, on the southbound side, access restriction no restriction. Sleep read from the ministry's TranBC answer (https://www.tranbc.ca/?p=28073): \"You are free to use any BC Rest Area to catch some zzzz's\", though it asks stays under eight hours. Leg mile projected onto the leg's road."
+    },
+    {
+      "name": "Eddontenajon North rest area",
+      "type": "public_rest_area",
+      "lat": 57.7642,
+      "lon": -129.96874,
+      "reach_mi": 0.3,
+      "actions": [
+        "park",
+        "save",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "parking",
+        "restrooms"
+      ],
+      "parking": "confirmed",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "read",
+      "source": "Read: BC provincial rest area R0194 Eddontenajon North on Highway 37, 91 km south of Dease Lake, from https://openmaps.gov.bc.ca/geo/pub/wfs (layer WHSE_IMAGERY_AND_BASE_MAPS.MOT_REST_AREAS_SP, BC Ministry of Transportation and Transit rest areas, read 2026-11-22): accommodates commercial trucks (field ACCOM_COMMERCIAL_TRUCKS_IND), open year round, 2 toilets, on the southbound side, access restriction no restriction. Sleep read from the ministry's TranBC answer (https://www.tranbc.ca/?p=28073): \"You are free to use any BC Rest Area to catch some zzzz's\", though it asks stays under eight hours. Leg mile projected onto the leg's road."
+    },
+    {
+      "name": "Kluachon Store Iskut",
+      "type": "fuel_station",
+      "lat": 57.83768,
+      "lon": -129.99049,
+      "reach_mi": 0.5,
+      "actions": [
+        "park",
+        "save",
+        "fuel",
+        "break"
+      ],
+      "services": [
+        "parking",
+        "diesel",
+        "gasoline"
+      ],
+      "parking": "unknown",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "read",
+      "source": "Position read from OSM node 10979265155 (amenity=fuel, Kluachon Grocery Store and Cafe, Iskut, fuel:diesel=yes, large_vehicles=yes, website iskutdevcorp.com), OpenStreetMap planet extract 2026-11-16. Diesel and large-vehicle access read. Open year round is assumed, not read. Leg mile projected onto the leg's road."
+    },
+    {
+      "name": "Morchuea Lake rest area",
+      "type": "public_rest_area",
+      "lat": 57.96971,
+      "lon": -130.0747,
+      "reach_mi": 0.3,
+      "actions": [
+        "park",
+        "save",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "parking",
+        "restrooms"
+      ],
+      "parking": "confirmed",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "read",
+      "source": "Read: BC provincial rest area R0200 Morchuea Lake on Highway 37, 65 km south of Dease Lake, from https://openmaps.gov.bc.ca/geo/pub/wfs (layer WHSE_IMAGERY_AND_BASE_MAPS.MOT_REST_AREAS_SP, BC Ministry of Transportation and Transit rest areas, read 2026-11-22): accommodates commercial trucks (field ACCOM_COMMERCIAL_TRUCKS_IND), open year round, 2 toilets, on the southbound side, access restriction no restriction. Sleep read from the ministry's TranBC answer (https://www.tranbc.ca/?p=28073): \"You are free to use any BC Rest Area to catch some zzzz's\", though it asks stays under eight hours. Leg mile projected onto the leg's road."
+    },
+    {
+      "name": "Rabid Grizzly rest area",
+      "type": "public_rest_area",
+      "lat": 58.68147,
+      "lon": -130.04823,
+      "reach_mi": 0.3,
+      "actions": [
+        "park",
+        "save",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "parking",
+        "restrooms"
+      ],
+      "parking": "confirmed",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "read",
+      "source": "Read: BC provincial rest area R0163 Rabid Grizzly on Highway 37, 29 km north of Dease Lake, from https://openmaps.gov.bc.ca/geo/pub/wfs (layer WHSE_IMAGERY_AND_BASE_MAPS.MOT_REST_AREAS_SP, BC Ministry of Transportation and Transit rest areas, read 2026-11-22): accommodates commercial trucks (field ACCOM_COMMERCIAL_TRUCKS_IND), open year round, 2 toilets, on the southbound side, access restriction no restriction. Sleep read from the ministry's TranBC answer (https://www.tranbc.ca/?p=28073): \"You are free to use any BC Rest Area to catch some zzzz's\", though it asks stays under eight hours. Leg mile projected onto the leg's road."
+    },
+    {
+      "name": "Dease River First Nation Store and Fuel",
+      "type": "fuel_station",
+      "lat": 59.2952,
+      "lon": -129.2896,
+      "reach_mi": 0.5,
+      "actions": [
+        "park",
+        "save",
+        "fuel",
+        "break"
+      ],
+      "services": [
+        "parking",
+        "diesel",
+        "gasoline"
+      ],
+      "parking": "unknown",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "assumed",
+      "source": "Position and name read from OSM node 4808605260 (amenity=fuel, Dease River First Nation Store & Fuel, website kaskadenacouncil.com), OpenStreetMap planet extract 2026-11-16, at Good Hope Lake. Diesel and truck access are assumed, not read: it is the only fuel between Dease Lake and Junction 37. Open year round is assumed, not read. Leg mile projected onto the leg's road."
+    },
+    {
+      "name": "Beaverdam Creek rest area",
+      "type": "public_rest_area",
+      "lat": 59.44853,
+      "lon": -129.2172,
+      "reach_mi": 0.3,
+      "actions": [
+        "park",
+        "save",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "parking",
+        "restrooms"
+      ],
+      "parking": "confirmed",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "read",
+      "source": "Read: BC provincial rest area R0162 Beaverdam Creek on Highway 37, 48 km north of Jade City, from https://openmaps.gov.bc.ca/geo/pub/wfs (layer WHSE_IMAGERY_AND_BASE_MAPS.MOT_REST_AREAS_SP, BC Ministry of Transportation and Transit rest areas, read 2026-11-22): accommodates commercial trucks (field ACCOM_COMMERCIAL_TRUCKS_IND), open year round, 2 toilets, on the southbound side, access restriction no restriction. Sleep read from the ministry's TranBC answer (https://www.tranbc.ca/?p=28073): \"You are free to use any BC Rest Area to catch some zzzz's\", though it asks stays under eight hours. Leg mile projected onto the leg's road."
+    },
+    {
+      "name": "Border rest area",
+      "type": "public_rest_area",
+      "lat": 59.99852,
+      "lon": -129.0536,
+      "reach_mi": 0.3,
+      "actions": [
+        "park",
+        "save",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "parking",
+        "restrooms"
+      ],
+      "parking": "confirmed",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "read",
+      "source": "Read: BC provincial rest area R0202 Border on Highway 37, at the BC and Yukon border, from https://openmaps.gov.bc.ca/geo/pub/wfs (layer WHSE_IMAGERY_AND_BASE_MAPS.MOT_REST_AREAS_SP, BC Ministry of Transportation and Transit rest areas, read 2026-11-22): accommodates commercial trucks (field ACCOM_COMMERCIAL_TRUCKS_IND), open year round, 2 toilets, on the southbound side, access restriction no restriction. Sleep read from the ministry's TranBC answer (https://www.tranbc.ca/?p=28073): \"You are free to use any BC Rest Area to catch some zzzz's\", though it asks stays under eight hours. Leg mile projected onto the leg's road."
+    },
+    {
+      "name": "Junction 37 Services",
+      "type": "fuel_station",
+      "lat": 60.02666,
+      "lon": -129.06102,
+      "reach_mi": 0.5,
+      "actions": [
+        "park",
+        "save",
+        "fuel",
+        "break"
+      ],
+      "services": [
+        "parking",
+        "diesel",
+        "gasoline"
+      ],
+      "parking": "unknown",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "assumed",
+      "source": "Position read from OSM way 531712261 (amenity=fuel, brand Fas Gas, Junction 37 Services, fuel:diesel=yes, opening_hours=24/7), OpenStreetMap planet extract 2026-11-16, where the Stewart-Cassiar meets the Alaska Highway. Diesel and hours read; truck access assumed, not read: it is the junction's only diesel. Leg mile projected onto the leg's road."
+    },
+    {
+      "name": "Bear Glacier rest area",
+      "type": "public_rest_area",
+      "lat": 56.10807,
+      "lon": -129.67554,
+      "reach_mi": 0.3,
+      "actions": [
+        "park",
+        "save",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "parking",
+        "restrooms"
+      ],
+      "parking": "confirmed",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "read",
+      "source": "Read: BC provincial rest area R0225 Bear Glacier on Highway 37A, 35 km east of Stewart, from https://openmaps.gov.bc.ca/geo/pub/wfs (layer WHSE_IMAGERY_AND_BASE_MAPS.MOT_REST_AREAS_SP, BC Ministry of Transportation and Transit rest areas, read 2026-11-22): accommodates commercial trucks (field ACCOM_COMMERCIAL_TRUCKS_IND), open year round, 2 toilets, on the eastbound side, access restriction no restriction. Sleep read from the ministry's TranBC answer (https://www.tranbc.ca/?p=28073): \"You are free to use any BC Rest Area to catch some zzzz's\", though it asks stays under eight hours. Leg mile projected onto the leg's road."
+    },
+    {
+      "name": "Takhini Gas",
+      "type": "fuel_station",
+      "lat": 60.8577169,
+      "lon": -135.2026598,
+      "reach_mi": 0.5,
+      "actions": [
+        "park",
+        "save",
+        "fuel",
+        "break"
+      ],
+      "services": [
+        "parking",
+        "diesel",
+        "gasoline"
+      ],
+      "parking": "unknown",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "read",
+      "source": "Position read from OSM node 13849499502 (amenity=fuel, Takhini Gas, Klondike Highway, fuel:diesel=yes, large_vehicles=yes), OpenStreetMap planet extract 2026-11-16. Diesel and large-vehicle access read. Open year round is assumed, not read. Leg mile projected onto the leg's road."
+    },
+    {
+      "name": "Cousins rest area",
+      "type": "public_rest_area",
+      "lat": 60.80932,
+      "lon": -135.19523,
+      "reach_mi": 0.5,
+      "actions": [
+        "park",
+        "save",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "parking"
+      ],
+      "parking": "limited",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "assumed",
+      "source": "Position read from OSM way 305369410 (highway=rest_area, Cousins Rest Area, operator Government of Yukon, opening_hours=24/7, toilets=yes), OpenStreetMap planet extract 2026-11-16. Truck parking and an overnight stay are assumed, not read: the Yukon's rest-area list needs a developer key, so OpenStreetMap's Government of Yukon tags are the only reading; hours read, truck room not. Open year round is assumed, not read. Leg mile projected onto the leg's road."
+    },
+    {
+      "name": "Pelly Crossing fuel",
+      "type": "fuel_station",
+      "lat": 62.8251,
+      "lon": -136.57835,
+      "reach_mi": 0.5,
+      "actions": [
+        "park",
+        "save",
+        "fuel",
+        "break"
+      ],
+      "services": [
+        "parking",
+        "diesel",
+        "gasoline"
+      ],
+      "parking": "unknown",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "assumed",
+      "source": "Position read from OSM way 531235626 (amenity=fuel, Klondike Highway km 463, Pelly Crossing), OpenStreetMap planet extract 2026-11-16. Diesel and truck access are assumed, not read: it is one of two fuel stops between Carmacks and Dawson City. Open year round is assumed, not read. Leg mile projected onto the leg's road."
+    },
+    {
+      "name": "60 Petro Express Stewart Crossing",
+      "type": "fuel_station",
+      "lat": 63.37633,
+      "lon": -136.67878,
+      "reach_mi": 0.5,
+      "actions": [
+        "park",
+        "save",
+        "fuel",
+        "break"
+      ],
+      "services": [
+        "parking",
+        "diesel",
+        "gasoline"
+      ],
+      "parking": "unknown",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "assumed",
+      "source": "Position and name read from OSM way 531235105 (amenity=fuel, brand Shell, 60 Petro Express, 213 Klondike Highway, Stewart Crossing), OpenStreetMap planet extract 2026-11-16. Diesel and truck access are assumed, not read: it is the fuel stop at the Silver Trail junction. Open year round is assumed, not read. Leg mile projected onto the leg's road."
+    },
+    {
+      "name": "Stewart Crossing rest area",
+      "type": "public_rest_area",
+      "lat": 63.45421,
+      "lon": -136.94122,
+      "reach_mi": 0.5,
+      "actions": [
+        "park",
+        "save",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "parking"
+      ],
+      "parking": "limited",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "assumed",
+      "source": "Position read from OSM way 305366514 (highway=rest_area, unnamed), OpenStreetMap planet extract 2026-11-16. Truck parking and an overnight stay are assumed, not read: it is the North Klondike Highway rest area nearest the middle of the 219 miles from Carmacks to Dawson City; the name is descriptive. Open year round is assumed, not read. Leg mile projected onto the leg's road."
+    },
+    {
+      "name": "Yukon Cardlock Klondike River",
+      "type": "fuel_station",
+      "lat": 63.99109,
+      "lon": -138.75032,
+      "reach_mi": 0.5,
+      "actions": [
+        "fuel"
+      ],
+      "services": [
+        "diesel"
+      ],
+      "parking": "unknown",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "read",
+      "source": "Position and name read from OSM way 1125224716 (amenity=fuel, Yukon Cardlock), OpenStreetMap planet extract 2026-11-16, on the North Klondike Highway by the AFD Petroleum depot near the Dempster Highway corner. Truck service read from its name; diesel assumed. A cardlock sells to account holders only. Open year round is assumed, not read. Leg mile projected onto the leg's road."
+    }
+  ]
+}

@@ -1,0 +1,2612 @@
+{
+  "legs": [
+    {
+      "from": "fort_providence_nt_ca",
+      "to": "hay_river_nt_ca",
+      "miles": 104,
+      "highway": "Hwy 2 / Hwy 1",
+      "terrain": "flat",
+      "divided": false,
+      "lanes": 2,
+      "stops": [
+        {
+          "name": "Kakisa rest area",
+          "type": "public_rest_area",
+          "actions": [
+            "park",
+            "save",
+            "break",
+            "sleep"
+          ],
+          "services": [
+            "parking"
+          ],
+          "parking": "limited",
+          "directions": [
+            "both"
+          ],
+          "curation": "curated",
+          "vehicle_access": "tractor_trailer",
+          "vehicle_access_basis": "assumed",
+          "source": "Position read from OSM way 314670624 (highway=rest_area, unnamed), OpenStreetMap planet extract 2026-11-16. Truck parking and an overnight stay are assumed, not read: it is the Mackenzie Highway rest area near the Kakisa turnoff; the name is descriptive. Open year round is assumed, not read. Leg mile projected onto the leg's road.",
+          "at_mi": 19.7
+        },
+        {
+          "name": "Enterprise west rest area",
+          "type": "public_rest_area",
+          "actions": [
+            "park",
+            "save",
+            "break",
+            "sleep"
+          ],
+          "services": [
+            "parking"
+          ],
+          "parking": "limited",
+          "directions": [
+            "both"
+          ],
+          "curation": "curated",
+          "vehicle_access": "tractor_trailer",
+          "vehicle_access_basis": "assumed",
+          "source": "Position read from OSM way 314670778 (highway=rest_area, unnamed), OpenStreetMap planet extract 2026-11-16. Truck parking and an overnight stay are assumed, not read: it is the Mackenzie Highway rest area between Enterprise and Kakisa; the name is descriptive. Open year round is assumed, not read. Leg mile projected onto the leg's road.",
+          "at_mi": 58.6
+        },
+        {
+          "name": "Twin Falls Motel Enterprise",
+          "type": "travel_center",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "food",
+            "break",
+            "sleep"
+          ],
+          "services": [
+            "parking",
+            "diesel",
+            "gasoline",
+            "food",
+            "restrooms"
+          ],
+          "parking": "limited",
+          "directions": [
+            "both"
+          ],
+          "curation": "curated",
+          "vehicle_access": "tractor_trailer",
+          "vehicle_access_basis": "assumed",
+          "source": "Position and name read from OSM way 1442258082 (amenity=fuel, Twin Falls Motel, 30 Northern Lights Road, Enterprise), OpenStreetMap planet extract 2026-11-16, where the Hay River Highway meets the Mackenzie Highway. Diesel, truck room and the motel's rooms are assumed from its name and its place at the junction, not read. Open year round is assumed, not read. Leg mile projected onto the leg's road.",
+          "at_mi": 83.2
+        }
+      ],
+      "corridor": {
+        "tollway_detected": false,
+        "route_points": [
+          {
+            "at_mi": 0.0,
+            "lat": 61.30815,
+            "lon": -117.59913
+          },
+          {
+            "at_mi": 25.53,
+            "lat": 61.03321,
+            "lon": -117.34186
+          },
+          {
+            "at_mi": 52.11,
+            "lat": 60.86214,
+            "lon": -116.69426
+          },
+          {
+            "at_mi": 77.18,
+            "lat": 60.60267,
+            "lon": -116.25981
+          },
+          {
+            "at_mi": 102.85,
+            "lat": 60.76235,
+            "lon": -115.85834
+          },
+          {
+            "at_mi": 104.0,
+            "lat": 60.77585,
+            "lon": -115.83852
+          }
+        ],
+        "checkpoints": [],
+        "source": "New leg for the northern corridor, west (Career 2.0, 2026-11-22): laid out between the two city pins, then routed by Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de) along Hwy 2 / Hwy 1.",
+        "elevation_samples": [
+          {
+            "at_mi": 0.0,
+            "elevation_ft": 495.4,
+            "source": "Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "at_mi": 25.21,
+            "elevation_ft": 679.1,
+            "source": "Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "at_mi": 50.21,
+            "elevation_ft": 728.3,
+            "source": "Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "at_mi": 75.29,
+            "elevation_ft": 889.1,
+            "source": "Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "at_mi": 100.52,
+            "elevation_ft": 574.1,
+            "source": "Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "at_mi": 104.0,
+            "elevation_ft": 551.2,
+            "source": "Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          }
+        ],
+        "grade_segments": [
+          {
+            "start_mi": 0.0,
+            "end_mi": 30.0,
+            "avg_grade_pct": 0.1,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 30.0,
+            "end_mi": 30.6,
+            "avg_grade_pct": 0.54,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 30.6,
+            "end_mi": 31.2,
+            "avg_grade_pct": 1.15,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 31.2,
+            "end_mi": 31.5,
+            "avg_grade_pct": 1.89,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 31.5,
+            "end_mi": 50.5,
+            "avg_grade_pct": -0.01,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 50.5,
+            "end_mi": 50.8,
+            "avg_grade_pct": 1.77,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 50.8,
+            "end_mi": 53.9,
+            "avg_grade_pct": 0.46,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 53.9,
+            "end_mi": 54.2,
+            "avg_grade_pct": 2.03,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 54.2,
+            "end_mi": 57.3,
+            "avg_grade_pct": -0.02,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 57.3,
+            "end_mi": 57.9,
+            "avg_grade_pct": 0.31,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 57.9,
+            "end_mi": 59.5,
+            "avg_grade_pct": -0.07,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 59.5,
+            "end_mi": 60.1,
+            "avg_grade_pct": -1.73,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 60.1,
+            "end_mi": 69.3,
+            "avg_grade_pct": 0.1,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 69.3,
+            "end_mi": 69.7,
+            "avg_grade_pct": 1.79,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 69.7,
+            "end_mi": 83.2,
+            "avg_grade_pct": 0.03,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 83.2,
+            "end_mi": 83.9,
+            "avg_grade_pct": -2.83,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 83.9,
+            "end_mi": 84.5,
+            "avg_grade_pct": -0.18,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 84.5,
+            "end_mi": 84.8,
+            "avg_grade_pct": -2.21,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 84.8,
+            "end_mi": 85.2,
+            "avg_grade_pct": -0.55,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 85.2,
+            "end_mi": 85.5,
+            "avg_grade_pct": 1.81,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 85.5,
+            "end_mi": 86.7,
+            "avg_grade_pct": -0.37,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 86.7,
+            "end_mi": 87.1,
+            "avg_grade_pct": -2.7,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 87.1,
+            "end_mi": 87.4,
+            "avg_grade_pct": -0.86,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 87.4,
+            "end_mi": 87.6,
+            "avg_grade_pct": 2.46,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 87.6,
+            "end_mi": 88.3,
+            "avg_grade_pct": -0.14,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 88.3,
+            "end_mi": 88.6,
+            "avg_grade_pct": -2.06,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 88.6,
+            "end_mi": 89.1,
+            "avg_grade_pct": -1.18,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 89.1,
+            "end_mi": 89.4,
+            "avg_grade_pct": 2.56,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 89.4,
+            "end_mi": 89.9,
+            "avg_grade_pct": -0.03,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 89.9,
+            "end_mi": 90.3,
+            "avg_grade_pct": -2.6,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 90.3,
+            "end_mi": 90.5,
+            "avg_grade_pct": 0.94,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 90.5,
+            "end_mi": 90.8,
+            "avg_grade_pct": 2.69,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 90.8,
+            "end_mi": 93.4,
+            "avg_grade_pct": -0.42,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 93.4,
+            "end_mi": 93.6,
+            "avg_grade_pct": 1.81,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 93.6,
+            "end_mi": 94.3,
+            "avg_grade_pct": -0.61,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 94.3,
+            "end_mi": 94.9,
+            "avg_grade_pct": -1.63,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 94.9,
+            "end_mi": 95.8,
+            "avg_grade_pct": 0.26,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 95.8,
+            "end_mi": 96.4,
+            "avg_grade_pct": -0.0,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 96.4,
+            "end_mi": 97.0,
+            "avg_grade_pct": -0.5,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 97.0,
+            "end_mi": 97.2,
+            "avg_grade_pct": -1.61,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 97.2,
+            "end_mi": 104.0,
+            "avg_grade_pct": -0.07,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          }
+        ],
+        "state_miles": [
+          {
+            "state": "Northwest Territories",
+            "miles": 104.0,
+            "source": "derived 2026-11-05: the leg's archived route geometry intersected with OpenStreetMap state and province boundary relations (boundary=administrative, admin_level=4); at_mi = cumulative geometry distance at each boundary crossing, rescaled to leg miles; state miles = differences of those boundaries. OpenStreetMap, boundary relations read from the OpenStreetMap API on 2026-11-16: https://www.openstreetmap.org/."
+          }
+        ],
+        "interchanges": [],
+        "speed_limits": [
+          {
+            "at_mi": 0.0,
+            "mph": 60,
+            "kmh": 100,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 4.8,
+            "mph": 45,
+            "kmh": 70,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 6.3,
+            "mph": 60,
+            "kmh": 100,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 19.3,
+            "mph": 30,
+            "kmh": 50,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 20.1,
+            "mph": 60,
+            "kmh": 100,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 83.1,
+            "mph": 30,
+            "kmh": 50,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 83.5,
+            "mph": 55,
+            "kmh": 90,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          }
+        ],
+        "lane_segments": [
+          {
+            "start_mi": 0.0,
+            "end_mi": 104.0,
+            "lanes": 2,
+            "source": "OpenStreetMap lanes tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; total per the OSM lanes semantics (directional on oneway carriageways). ODbL, (c) OpenStreetMap contributors."
+          }
+        ],
+        "restrictions": [],
+        "landmarks": [
+          {
+            "name": "Mackenzie Bison Sanctuary",
+            "category": "protected_area",
+            "kind": "zone",
+            "at_mi": 0.1,
+            "lat": 61.30764,
+            "lon": -117.59783,
+            "spoken": "Entering Mackenzie Bison Sanctuary",
+            "source": "derived: name and category read from the OpenStreetMap tags of relation 12701151 (Mackenzie Bison Sanctuary); placed at the first road vertex inside it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "name": "Deh-Cho / Mackenzie River",
+            "category": "river",
+            "kind": "point",
+            "at_mi": 4.2,
+            "lat": 61.26482,
+            "lon": -117.52551,
+            "spoken": "Crossing the Deh-Cho / Mackenzie River",
+            "source": "derived: name and category read from the OpenStreetMap tags of way 970461598 (Deh-Cho / Mackenzie River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "name": "Kakisa River",
+            "category": "river",
+            "kind": "point",
+            "at_mi": 30.3,
+            "lat": 60.98454,
+            "lon": -117.24445,
+            "spoken": "Crossing the Kakisa River",
+            "source": "derived: name and category read from the OpenStreetMap tags of way 254894213 (Kakisa River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          }
+        ],
+        "hpms_terrain": {
+          "type": 1,
+          "name": "level",
+          "sections": 0,
+          "source": "DERIVED, not read: Canada has no national inventory like HPMS, so the class is the terrain the leg's own grade profile spends the most miles in (the reroute-enrich rule: sustained grade of 5 percent, or 4 percent with 1,000 ft of relief within 5 miles, is mountain; 1.5 percent or 400 ft of relief is hills; else flat), mapped flat to level, hills to rolling and mountain to mountainous. It reads the same elevation as the grade, so it is no independent check on it."
+        }
+      },
+      "rerouted": true
+    },
+    {
+      "from": "fort_providence_nt_ca",
+      "to": "yellowknife_nt_ca",
+      "miles": 191,
+      "highway": "Hwy 3 / Yellowknife Highway",
+      "terrain": "flat",
+      "divided": false,
+      "lanes": 2,
+      "stops": [
+        {
+          "name": "Yellowknife Highway rest area",
+          "type": "public_rest_area",
+          "actions": [
+            "park",
+            "save",
+            "break",
+            "sleep"
+          ],
+          "services": [
+            "parking"
+          ],
+          "parking": "limited",
+          "directions": [
+            "both"
+          ],
+          "curation": "curated",
+          "vehicle_access": "tractor_trailer",
+          "vehicle_access_basis": "assumed",
+          "source": "Position read from OSM node 4786889822 (highway=rest_area, unnamed), OpenStreetMap planet extract 2026-11-16. Truck parking and an overnight stay are assumed, not read: it is the only rest area OpenStreetMap has on the 191 miles from Fort Providence to Yellowknife; the name is descriptive. Open year round is assumed, not read. Leg mile projected onto the leg's road.",
+          "at_mi": 172.2
+        }
+      ],
+      "corridor": {
+        "tollway_detected": false,
+        "route_points": [
+          {
+            "at_mi": 0.0,
+            "lat": 61.30815,
+            "lon": -117.59913
+          },
+          {
+            "at_mi": 26.32,
+            "lat": 61.61063,
+            "lon": -117.14311
+          },
+          {
+            "at_mi": 52.69,
+            "lat": 61.86303,
+            "lon": -116.60051
+          },
+          {
+            "at_mi": 78.54,
+            "lat": 62.1547,
+            "lon": -116.26742
+          },
+          {
+            "at_mi": 103.54,
+            "lat": 62.48831,
+            "lon": -116.48407
+          },
+          {
+            "at_mi": 129.44,
+            "lat": 62.78018,
+            "lon": -116.02262
+          },
+          {
+            "at_mi": 155.82,
+            "lat": 62.65379,
+            "lon": -115.27754
+          },
+          {
+            "at_mi": 182.19,
+            "lat": 62.46345,
+            "lon": -114.61861
+          },
+          {
+            "at_mi": 191.0,
+            "lat": 62.43047,
+            "lon": -114.41848
+          }
+        ],
+        "checkpoints": [],
+        "source": "New leg for the northern corridor, west (Career 2.0, 2026-11-22): laid out between the two city pins, then routed by Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de) along Hwy 3 / Yellowknife Highway.",
+        "elevation_samples": [
+          {
+            "at_mi": 0.0,
+            "elevation_ft": 495.4,
+            "source": "Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "at_mi": 25.25,
+            "elevation_ft": 649.6,
+            "source": "Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "at_mi": 50.33,
+            "elevation_ft": 754.6,
+            "source": "Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "at_mi": 75.35,
+            "elevation_ft": 721.8,
+            "source": "Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "at_mi": 100.38,
+            "elevation_ft": 892.4,
+            "source": "Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "at_mi": 125.46,
+            "elevation_ft": 534.8,
+            "source": "Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "at_mi": 150.55,
+            "elevation_ft": 557.7,
+            "source": "Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "at_mi": 175.74,
+            "elevation_ft": 590.6,
+            "source": "Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "at_mi": 191.0,
+            "elevation_ft": 587.3,
+            "source": "Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          }
+        ],
+        "grade_segments": [
+          {
+            "start_mi": 0.0,
+            "end_mi": 0.3,
+            "avg_grade_pct": 1.69,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 0.3,
+            "end_mi": 34.1,
+            "avg_grade_pct": 0.1,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 34.1,
+            "end_mi": 34.4,
+            "avg_grade_pct": 2.0,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 34.4,
+            "end_mi": 48.8,
+            "avg_grade_pct": 0.06,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 48.8,
+            "end_mi": 49.1,
+            "avg_grade_pct": -1.64,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 49.1,
+            "end_mi": 53.1,
+            "avg_grade_pct": 0.03,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 53.1,
+            "end_mi": 53.4,
+            "avg_grade_pct": 1.56,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 53.4,
+            "end_mi": 88.9,
+            "avg_grade_pct": 0.03,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 88.9,
+            "end_mi": 89.2,
+            "avg_grade_pct": -2.06,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 89.2,
+            "end_mi": 119.2,
+            "avg_grade_pct": -0.05,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 119.2,
+            "end_mi": 119.5,
+            "avg_grade_pct": 1.84,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 119.5,
+            "end_mi": 119.8,
+            "avg_grade_pct": 0.0,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 119.8,
+            "end_mi": 120.1,
+            "avg_grade_pct": 1.84,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 120.1,
+            "end_mi": 121.1,
+            "avg_grade_pct": -0.5,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 121.1,
+            "end_mi": 121.4,
+            "avg_grade_pct": -3.6,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 121.4,
+            "end_mi": 121.7,
+            "avg_grade_pct": -5.38,
+            "terrain": "mountain",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 121.7,
+            "end_mi": 122.0,
+            "avg_grade_pct": 1.61,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 122.0,
+            "end_mi": 122.6,
+            "avg_grade_pct": 0.1,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 122.6,
+            "end_mi": 123.0,
+            "avg_grade_pct": -1.58,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 123.0,
+            "end_mi": 129.1,
+            "avg_grade_pct": -0.09,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 129.1,
+            "end_mi": 129.4,
+            "avg_grade_pct": -2.62,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 129.4,
+            "end_mi": 153.8,
+            "avg_grade_pct": 0.02,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 153.8,
+            "end_mi": 154.1,
+            "avg_grade_pct": 1.67,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 154.1,
+            "end_mi": 156.0,
+            "avg_grade_pct": -0.4,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 156.0,
+            "end_mi": 156.4,
+            "avg_grade_pct": 1.83,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 156.4,
+            "end_mi": 170.9,
+            "avg_grade_pct": -0.04,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 170.9,
+            "end_mi": 171.2,
+            "avg_grade_pct": 2.68,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 171.2,
+            "end_mi": 190.4,
+            "avg_grade_pct": 0.02,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 190.4,
+            "end_mi": 190.8,
+            "avg_grade_pct": -1.63,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 190.8,
+            "end_mi": 191.0,
+            "avg_grade_pct": -0.28,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          }
+        ],
+        "state_miles": [
+          {
+            "state": "Northwest Territories",
+            "miles": 191.0,
+            "source": "derived 2026-11-05: the leg's archived route geometry intersected with OpenStreetMap state and province boundary relations (boundary=administrative, admin_level=4); at_mi = cumulative geometry distance at each boundary crossing, rescaled to leg miles; state miles = differences of those boundaries. OpenStreetMap, boundary relations read from the OpenStreetMap API on 2026-11-16: https://www.openstreetmap.org/."
+          }
+        ],
+        "interchanges": [],
+        "speed_limits": [
+          {
+            "at_mi": 0.0,
+            "mph": 60,
+            "kmh": 100,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 129.4,
+            "mph": 45,
+            "kmh": 70,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 130.5,
+            "mph": null
+          }
+        ],
+        "lane_segments": [
+          {
+            "start_mi": 0.0,
+            "end_mi": 191.0,
+            "lanes": 2,
+            "source": "OpenStreetMap lanes tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; total per the OSM lanes semantics (directional on oneway carriageways). ODbL, (c) OpenStreetMap contributors."
+          }
+        ],
+        "restrictions": [],
+        "landmarks": [
+          {
+            "name": "Mackenzie Bison Sanctuary",
+            "category": "protected_area",
+            "kind": "zone",
+            "at_mi": 0.1,
+            "lat": 61.30883,
+            "lon": -117.59828,
+            "spoken": "Entering Mackenzie Bison Sanctuary",
+            "source": "derived: name and category read from the OpenStreetMap tags of relation 12701151 (Mackenzie Bison Sanctuary); placed at the first road vertex inside it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "name": "Bluefish River",
+            "category": "river",
+            "kind": "point",
+            "at_mi": 8.0,
+            "lat": 61.39833,
+            "lon": -117.44672,
+            "spoken": "Crossing the Bluefish River",
+            "source": "derived: name and category read from the OpenStreetMap tags of way 1287457741 (Bluefish River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "name": "Behchok\u01eb\u0300",
+            "at_mi": 130.9,
+            "off_mi": 0.34,
+            "category": "village",
+            "kind": "point",
+            "source": "OpenStreetMap place=town node 2903627587, projected onto the leg's checked-in route geometry",
+            "spoken": "Entering Behchok\u01eb\u0300"
+          },
+          {
+            "name": "Stagg River",
+            "category": "river",
+            "kind": "point",
+            "at_mi": 139.8,
+            "lat": 62.74356,
+            "lon": -115.72444,
+            "spoken": "Crossing the Stagg River",
+            "source": "derived: name and category read from the OpenStreetMap tags of way 106851977 (Stagg River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          }
+        ],
+        "hpms_terrain": {
+          "type": 1,
+          "name": "level",
+          "sections": 0,
+          "source": "DERIVED, not read: Canada has no national inventory like HPMS, so the class is the terrain the leg's own grade profile spends the most miles in (the reroute-enrich rule: sustained grade of 5 percent, or 4 percent with 1,000 ft of relief within 5 miles, is mountain; 1.5 percent or 400 ft of relief is hills; else flat), mapped flat to level, hills to rolling and mountain to mountainous. It reads the same elevation as the grade, so it is no independent check on it."
+        }
+      },
+      "rerouted": true
+    },
+    {
+      "from": "hay_river_nt_ca",
+      "to": "fort_providence_nt_ca",
+      "miles": 104,
+      "highway": "Hwy 2 / Hwy 1",
+      "terrain": "flat",
+      "divided": false,
+      "lanes": 2,
+      "stops": [
+        {
+          "name": "Twin Falls Motel Enterprise",
+          "type": "travel_center",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "food",
+            "break",
+            "sleep"
+          ],
+          "services": [
+            "parking",
+            "diesel",
+            "gasoline",
+            "food",
+            "restrooms"
+          ],
+          "parking": "limited",
+          "directions": [
+            "both"
+          ],
+          "curation": "curated",
+          "vehicle_access": "tractor_trailer",
+          "vehicle_access_basis": "assumed",
+          "source": "Position and name read from OSM way 1442258082 (amenity=fuel, Twin Falls Motel, 30 Northern Lights Road, Enterprise), OpenStreetMap planet extract 2026-11-16, where the Hay River Highway meets the Mackenzie Highway. Diesel, truck room and the motel's rooms are assumed from its name and its place at the junction, not read. Open year round is assumed, not read. Leg mile projected onto the leg's road.",
+          "at_mi": 20.8
+        },
+        {
+          "name": "Enterprise west rest area",
+          "type": "public_rest_area",
+          "actions": [
+            "park",
+            "save",
+            "break",
+            "sleep"
+          ],
+          "services": [
+            "parking"
+          ],
+          "parking": "limited",
+          "directions": [
+            "both"
+          ],
+          "curation": "curated",
+          "vehicle_access": "tractor_trailer",
+          "vehicle_access_basis": "assumed",
+          "source": "Position read from OSM way 314670778 (highway=rest_area, unnamed), OpenStreetMap planet extract 2026-11-16. Truck parking and an overnight stay are assumed, not read: it is the Mackenzie Highway rest area between Enterprise and Kakisa; the name is descriptive. Open year round is assumed, not read. Leg mile projected onto the leg's road.",
+          "at_mi": 45.5
+        },
+        {
+          "name": "Kakisa rest area",
+          "type": "public_rest_area",
+          "actions": [
+            "park",
+            "save",
+            "break",
+            "sleep"
+          ],
+          "services": [
+            "parking"
+          ],
+          "parking": "limited",
+          "directions": [
+            "both"
+          ],
+          "curation": "curated",
+          "vehicle_access": "tractor_trailer",
+          "vehicle_access_basis": "assumed",
+          "source": "Position read from OSM way 314670624 (highway=rest_area, unnamed), OpenStreetMap planet extract 2026-11-16. Truck parking and an overnight stay are assumed, not read: it is the Mackenzie Highway rest area near the Kakisa turnoff; the name is descriptive. Open year round is assumed, not read. Leg mile projected onto the leg's road.",
+          "at_mi": 84.3
+        }
+      ],
+      "corridor": {
+        "tollway_detected": true,
+        "route_points": [
+          {
+            "at_mi": 0.0,
+            "lat": 60.77585,
+            "lon": -115.83852
+          },
+          {
+            "at_mi": 25.18,
+            "lat": 60.60813,
+            "lon": -116.21434
+          },
+          {
+            "at_mi": 51.93,
+            "lat": 60.86214,
+            "lon": -116.69426
+          },
+          {
+            "at_mi": 78.3,
+            "lat": 61.03155,
+            "lon": -117.33642
+          },
+          {
+            "at_mi": 103.9,
+            "lat": 61.307,
+            "lon": -117.59726
+          },
+          {
+            "at_mi": 104.0,
+            "lat": 61.30815,
+            "lon": -117.59913
+          }
+        ],
+        "checkpoints": [],
+        "source": "New leg for the northern corridor, west (Career 2.0, 2026-11-22): laid out between the two city pins, then routed by Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de) along Hwy 2 / Hwy 1.",
+        "elevation_samples": [
+          {
+            "at_mi": 0.0,
+            "elevation_ft": 551.2,
+            "source": "Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "at_mi": 25.18,
+            "elevation_ft": 882.5,
+            "source": "Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "at_mi": 50.29,
+            "elevation_ft": 810.4,
+            "source": "Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "at_mi": 75.34,
+            "elevation_ft": 639.8,
+            "source": "Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "at_mi": 100.61,
+            "elevation_ft": 518.4,
+            "source": "Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "at_mi": 104.0,
+            "elevation_ft": 495.4,
+            "source": "Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          }
+        ],
+        "grade_segments": [
+          {
+            "start_mi": 0.0,
+            "end_mi": 6.9,
+            "avg_grade_pct": 0.09,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 6.9,
+            "end_mi": 7.3,
+            "avg_grade_pct": 1.72,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 7.3,
+            "end_mi": 7.6,
+            "avg_grade_pct": -0.46,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 7.6,
+            "end_mi": 8.2,
+            "avg_grade_pct": -0.0,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 8.2,
+            "end_mi": 9.1,
+            "avg_grade_pct": -0.26,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 9.1,
+            "end_mi": 9.8,
+            "avg_grade_pct": 1.63,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 9.8,
+            "end_mi": 10.4,
+            "avg_grade_pct": 0.61,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 10.4,
+            "end_mi": 10.6,
+            "avg_grade_pct": -2.17,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 10.6,
+            "end_mi": 13.2,
+            "avg_grade_pct": 0.37,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 13.2,
+            "end_mi": 13.4,
+            "avg_grade_pct": -2.43,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 13.4,
+            "end_mi": 13.8,
+            "avg_grade_pct": 0.0,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 13.8,
+            "end_mi": 14.2,
+            "avg_grade_pct": 1.75,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 14.2,
+            "end_mi": 15.4,
+            "avg_grade_pct": -0.1,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 15.4,
+            "end_mi": 15.7,
+            "avg_grade_pct": 2.06,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 15.7,
+            "end_mi": 16.3,
+            "avg_grade_pct": 0.55,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 16.3,
+            "end_mi": 16.8,
+            "avg_grade_pct": -0.89,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 16.8,
+            "end_mi": 17.1,
+            "avg_grade_pct": 1.42,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 17.1,
+            "end_mi": 17.4,
+            "avg_grade_pct": 1.69,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 17.4,
+            "end_mi": 20.3,
+            "avg_grade_pct": 0.26,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 20.3,
+            "end_mi": 20.8,
+            "avg_grade_pct": 3.14,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 20.8,
+            "end_mi": 34.4,
+            "avg_grade_pct": -0.01,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 34.4,
+            "end_mi": 34.7,
+            "avg_grade_pct": -1.79,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 34.7,
+            "end_mi": 41.1,
+            "avg_grade_pct": -0.14,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 41.1,
+            "end_mi": 41.4,
+            "avg_grade_pct": 1.52,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 41.4,
+            "end_mi": 44.2,
+            "avg_grade_pct": -0.09,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 44.2,
+            "end_mi": 44.5,
+            "avg_grade_pct": 2.37,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 44.5,
+            "end_mi": 46.1,
+            "avg_grade_pct": 0.11,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 46.1,
+            "end_mi": 46.8,
+            "avg_grade_pct": -0.52,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 46.8,
+            "end_mi": 49.7,
+            "avg_grade_pct": 0.03,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 49.7,
+            "end_mi": 50.0,
+            "avg_grade_pct": -2.03,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 50.0,
+            "end_mi": 53.1,
+            "avg_grade_pct": -0.43,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 53.1,
+            "end_mi": 53.4,
+            "avg_grade_pct": -1.78,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 53.4,
+            "end_mi": 53.7,
+            "avg_grade_pct": 0.0,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 53.7,
+            "end_mi": 54.0,
+            "avg_grade_pct": 1.58,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 54.0,
+            "end_mi": 55.9,
+            "avg_grade_pct": -0.23,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 55.9,
+            "end_mi": 56.2,
+            "avg_grade_pct": 2.02,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 56.2,
+            "end_mi": 72.5,
+            "avg_grade_pct": -0.05,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 72.5,
+            "end_mi": 73.2,
+            "avg_grade_pct": -1.72,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 73.2,
+            "end_mi": 73.5,
+            "avg_grade_pct": -0.71,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 73.5,
+            "end_mi": 74.1,
+            "avg_grade_pct": 0.28,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 74.1,
+            "end_mi": 104.0,
+            "avg_grade_pct": -0.1,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          }
+        ],
+        "state_miles": [
+          {
+            "state": "Northwest Territories",
+            "miles": 104.0,
+            "source": "derived 2026-11-05: the leg's archived route geometry intersected with OpenStreetMap state and province boundary relations (boundary=administrative, admin_level=4); at_mi = cumulative geometry distance at each boundary crossing, rescaled to leg miles; state miles = differences of those boundaries. OpenStreetMap, boundary relations read from the OpenStreetMap API on 2026-11-16: https://www.openstreetmap.org/."
+          }
+        ],
+        "interchanges": [],
+        "speed_limits": [
+          {
+            "at_mi": 0.0,
+            "mph": 55,
+            "kmh": 90,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 20.7,
+            "mph": 30,
+            "kmh": 50,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 22.5,
+            "mph": 60,
+            "kmh": 100,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 98.2,
+            "mph": 45,
+            "kmh": 70,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 100.3,
+            "mph": 20,
+            "kmh": 30,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 102.0,
+            "mph": 60,
+            "kmh": 100,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          }
+        ],
+        "lane_segments": [
+          {
+            "start_mi": 0.0,
+            "end_mi": 99.2,
+            "lanes": 2,
+            "source": "OpenStreetMap lanes tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; total per the OSM lanes semantics (directional on oneway carriageways). ODbL, (c) OpenStreetMap contributors."
+          },
+          {
+            "start_mi": 102.0,
+            "end_mi": 104.0,
+            "lanes": 2,
+            "source": "OpenStreetMap lanes tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; total per the OSM lanes semantics (directional on oneway carriageways). ODbL, (c) OpenStreetMap contributors."
+          }
+        ],
+        "restrictions": [],
+        "landmarks": [
+          {
+            "name": "Kakisa River",
+            "category": "river",
+            "kind": "point",
+            "at_mi": 73.8,
+            "lat": 60.98456,
+            "lon": -117.24444,
+            "spoken": "Crossing the Kakisa River",
+            "source": "derived: name and category read from the OpenStreetMap tags of way 254894213 (Kakisa River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "name": "Deh-Cho / Mackenzie River",
+            "category": "river",
+            "kind": "point",
+            "at_mi": 99.8,
+            "lat": 61.26482,
+            "lon": -117.52551,
+            "spoken": "Crossing the Deh-Cho / Mackenzie River",
+            "source": "derived: name and category read from the OpenStreetMap tags of way 970461598 (Deh-Cho / Mackenzie River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "name": "Mackenzie Bison Sanctuary",
+            "category": "protected_area",
+            "kind": "zone",
+            "at_mi": 100.5,
+            "lat": 61.27489,
+            "lon": -117.5247,
+            "spoken": "Entering Mackenzie Bison Sanctuary",
+            "source": "derived: name and category read from the OpenStreetMap tags of relation 12701151 (Mackenzie Bison Sanctuary); placed at the first road vertex inside it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          }
+        ],
+        "hpms_terrain": {
+          "type": 1,
+          "name": "level",
+          "sections": 0,
+          "source": "DERIVED, not read: Canada has no national inventory like HPMS, so the class is the terrain the leg's own grade profile spends the most miles in (the reroute-enrich rule: sustained grade of 5 percent, or 4 percent with 1,000 ft of relief within 5 miles, is mountain; 1.5 percent or 400 ft of relief is hills; else flat), mapped flat to level, hills to rolling and mountain to mountainous. It reads the same elevation as the grade, so it is no independent check on it."
+        },
+        "toll_events": [
+          {
+            "name": "Deh Cho Bridge toll",
+            "road": "Deh Cho Bridge",
+            "authority": "Government of the Northwest Territories",
+            "method": "transponder",
+            "amount": 120.19,
+            "amount_plate": 133.07,
+            "estimated": false,
+            "amount_local": 168.0,
+            "currency": "CAD",
+            "source": "https://www.idmv.inf.gov.nt.ca/Commercial/Deh-Cho-Bridge-Tolls (read 2026-11-22; the page carries no effective date): commercial vehicles over 4,500 kg pay northbound only; 5 or 6 axles CAD 168 on the monthly remittance account (an approved transponder in each truck) and CAD 186 as a single-use permit bought before the crossing. The carrier rate is the remittance one: CAD 168 at 1.3978 CAD per USD (the rate the game uses for Canadian fines) is USD 120.19, the single-use permit CAD 186 is USD 133.07 (derived). Canadian price read: CAD 168. Position: the bridge's midpoint on OpenStreetMap way with bridge:name Deh Cho Bridge (toll:hgv=yes), NWT Highway 3, projected on the leg's archived road; there is no booth, the toll is charged on crossing (derived).",
+            "at_mi": 99.8
+          }
+        ]
+      },
+      "rerouted": true
+    },
+    {
+      "from": "hay_river_nt_ca",
+      "to": "high_level_ab_ca",
+      "miles": 192,
+      "highway": "Hwy 35 / Mackenzie Highway",
+      "terrain": "flat",
+      "divided": false,
+      "lanes": 2,
+      "stops": [
+        {
+          "name": "Twin Falls Motel Enterprise",
+          "type": "travel_center",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "food",
+            "break",
+            "sleep"
+          ],
+          "services": [
+            "parking",
+            "diesel",
+            "gasoline",
+            "food",
+            "restrooms"
+          ],
+          "parking": "limited",
+          "directions": [
+            "both"
+          ],
+          "curation": "curated",
+          "vehicle_access": "tractor_trailer",
+          "vehicle_access_basis": "assumed",
+          "source": "Position and name read from OSM way 1442258082 (amenity=fuel, Twin Falls Motel, 30 Northern Lights Road, Enterprise), OpenStreetMap planet extract 2026-11-16, where the Hay River Highway meets the Mackenzie Highway. Diesel, truck room and the motel's rooms are assumed from its name and its place at the junction, not read. Open year round is assumed, not read. Leg mile projected onto the leg's road.",
+          "at_mi": 20.7
+        },
+        {
+          "name": "Meander River north rest area",
+          "type": "public_rest_area",
+          "actions": [
+            "park",
+            "save",
+            "break",
+            "sleep"
+          ],
+          "services": [
+            "parking"
+          ],
+          "parking": "limited",
+          "directions": [
+            "both"
+          ],
+          "curation": "curated",
+          "vehicle_access": "tractor_trailer",
+          "vehicle_access_basis": "assumed",
+          "source": "Position read from OSM way 315841345 (highway=rest_area, unnamed), OpenStreetMap planet extract 2026-11-16. Truck parking and an overnight stay are assumed, not read: it is the Highway 35 rest area just north of Meander River; the name is descriptive. Open year round is assumed, not read. Leg mile projected onto the leg's road.",
+          "at_mi": 140.3
+        },
+        {
+          "name": "Esso Meander River",
+          "type": "fuel_station",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "break"
+          ],
+          "services": [
+            "parking",
+            "diesel",
+            "gasoline"
+          ],
+          "parking": "unknown",
+          "directions": [
+            "both"
+          ],
+          "curation": "curated",
+          "vehicle_access": "tractor_trailer",
+          "vehicle_access_basis": "assumed",
+          "source": "Position read from OSM way 1125111834 (amenity=fuel, brand Esso), OpenStreetMap planet extract 2026-11-16, on Highway 35 at Meander River. Diesel and truck access are assumed, not read: it is the only fuel between High Level and Enterprise. Open year round is assumed, not read. Leg mile projected onto the leg's road.",
+          "at_mi": 146.0
+        },
+        {
+          "name": "Hutch Lake rest area",
+          "type": "public_rest_area",
+          "actions": [
+            "park",
+            "save",
+            "break",
+            "sleep"
+          ],
+          "services": [
+            "parking"
+          ],
+          "parking": "limited",
+          "directions": [
+            "both"
+          ],
+          "curation": "curated",
+          "vehicle_access": "tractor_trailer",
+          "vehicle_access_basis": "assumed",
+          "source": "Position read from OSM way 315841346 (highway=rest_area, unnamed), OpenStreetMap planet extract 2026-11-16. Truck parking and an overnight stay are assumed, not read: it is the first Highway 35 rest area north of High Level; the name is descriptive. Open year round is assumed, not read. Leg mile projected onto the leg's road.",
+          "at_mi": 168.8
+        }
+      ],
+      "corridor": {
+        "tollway_detected": false,
+        "route_points": [
+          {
+            "at_mi": 0.0,
+            "lat": 60.77585,
+            "lon": -115.83852
+          },
+          {
+            "at_mi": 26.35,
+            "lat": 60.50463,
+            "lon": -116.25499
+          },
+          {
+            "at_mi": 52.77,
+            "lat": 60.20454,
+            "lon": -116.66135
+          },
+          {
+            "at_mi": 79.15,
+            "lat": 59.90766,
+            "lon": -117.04072
+          },
+          {
+            "at_mi": 105.42,
+            "lat": 59.54192,
+            "lon": -117.1852
+          },
+          {
+            "at_mi": 132.5,
+            "lat": 59.20333,
+            "lon": -117.52365
+          },
+          {
+            "at_mi": 158.67,
+            "lat": 58.90813,
+            "lon": -117.48973
+          },
+          {
+            "at_mi": 185.5,
+            "lat": 58.58468,
+            "lon": -117.12675
+          },
+          {
+            "at_mi": 192.0,
+            "lat": 58.49991,
+            "lon": -117.13258
+          }
+        ],
+        "checkpoints": [],
+        "source": "New leg for the northern corridor, west (Career 2.0, 2026-11-22): laid out between the two city pins, then routed by Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de) along Hwy 35 / Mackenzie Highway.",
+        "elevation_samples": [
+          {
+            "at_mi": 0.0,
+            "elevation_ft": 551.2,
+            "source": "Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "at_mi": 25.03,
+            "elevation_ft": 912.1,
+            "source": "Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "at_mi": 50.28,
+            "elevation_ft": 935.0,
+            "source": "Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "at_mi": 75.5,
+            "elevation_ft": 984.3,
+            "source": "Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "at_mi": 100.55,
+            "elevation_ft": 1003.9,
+            "source": "Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "at_mi": 125.59,
+            "elevation_ft": 1099.1,
+            "source": "Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "at_mi": 150.63,
+            "elevation_ft": 1102.4,
+            "source": "Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "at_mi": 175.66,
+            "elevation_ft": 1112.2,
+            "source": "Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "at_mi": 192.0,
+            "elevation_ft": 1079.4,
+            "source": "Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          }
+        ],
+        "grade_segments": [
+          {
+            "start_mi": 0.0,
+            "end_mi": 6.9,
+            "avg_grade_pct": 0.09,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 6.9,
+            "end_mi": 7.3,
+            "avg_grade_pct": 1.72,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 7.3,
+            "end_mi": 7.6,
+            "avg_grade_pct": -0.46,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 7.6,
+            "end_mi": 8.2,
+            "avg_grade_pct": -0.0,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 8.2,
+            "end_mi": 9.1,
+            "avg_grade_pct": -0.26,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 9.1,
+            "end_mi": 9.7,
+            "avg_grade_pct": 1.63,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 9.7,
+            "end_mi": 10.4,
+            "avg_grade_pct": 0.61,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 10.4,
+            "end_mi": 10.6,
+            "avg_grade_pct": -2.17,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 10.6,
+            "end_mi": 13.2,
+            "avg_grade_pct": 0.38,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 13.2,
+            "end_mi": 13.4,
+            "avg_grade_pct": -2.42,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 13.4,
+            "end_mi": 13.8,
+            "avg_grade_pct": 0.0,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 13.8,
+            "end_mi": 14.2,
+            "avg_grade_pct": 1.75,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 14.2,
+            "end_mi": 15.4,
+            "avg_grade_pct": -0.1,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 15.4,
+            "end_mi": 15.7,
+            "avg_grade_pct": 2.06,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 15.7,
+            "end_mi": 16.3,
+            "avg_grade_pct": 0.56,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 16.3,
+            "end_mi": 16.8,
+            "avg_grade_pct": -0.89,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 16.8,
+            "end_mi": 17.1,
+            "avg_grade_pct": 1.42,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 17.1,
+            "end_mi": 17.4,
+            "avg_grade_pct": 1.7,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 17.4,
+            "end_mi": 20.2,
+            "avg_grade_pct": 0.26,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 20.2,
+            "end_mi": 20.5,
+            "avg_grade_pct": 3.58,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 20.5,
+            "end_mi": 21.6,
+            "avg_grade_pct": -0.26,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 21.6,
+            "end_mi": 22.2,
+            "avg_grade_pct": 3.13,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 22.2,
+            "end_mi": 22.7,
+            "avg_grade_pct": -1.36,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 22.7,
+            "end_mi": 23.1,
+            "avg_grade_pct": 1.66,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 23.1,
+            "end_mi": 26.5,
+            "avg_grade_pct": -0.13,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 26.5,
+            "end_mi": 26.8,
+            "avg_grade_pct": -2.21,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 26.8,
+            "end_mi": 27.1,
+            "avg_grade_pct": -1.05,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 27.1,
+            "end_mi": 27.4,
+            "avg_grade_pct": 3.11,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 27.4,
+            "end_mi": 102.7,
+            "avg_grade_pct": 0.03,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 102.7,
+            "end_mi": 103.4,
+            "avg_grade_pct": -0.4,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 103.4,
+            "end_mi": 115.6,
+            "avg_grade_pct": 0.08,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 115.6,
+            "end_mi": 116.2,
+            "avg_grade_pct": -0.3,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 116.2,
+            "end_mi": 125.0,
+            "avg_grade_pct": 0.05,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 125.0,
+            "end_mi": 125.3,
+            "avg_grade_pct": 1.82,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 125.3,
+            "end_mi": 132.6,
+            "avg_grade_pct": -0.07,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 132.6,
+            "end_mi": 133.2,
+            "avg_grade_pct": -0.1,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 133.2,
+            "end_mi": 138.0,
+            "avg_grade_pct": -0.04,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 138.0,
+            "end_mi": 138.9,
+            "avg_grade_pct": 0.41,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 138.9,
+            "end_mi": 143.2,
+            "avg_grade_pct": -0.07,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 143.2,
+            "end_mi": 143.5,
+            "avg_grade_pct": 1.85,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 143.5,
+            "end_mi": 150.6,
+            "avg_grade_pct": 0.04,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 150.6,
+            "end_mi": 150.9,
+            "avg_grade_pct": 1.71,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 150.9,
+            "end_mi": 156.3,
+            "avg_grade_pct": 0.14,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 156.3,
+            "end_mi": 156.7,
+            "avg_grade_pct": -1.62,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 156.7,
+            "end_mi": 158.5,
+            "avg_grade_pct": 0.0,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 158.5,
+            "end_mi": 158.7,
+            "avg_grade_pct": 2.66,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 158.7,
+            "end_mi": 159.3,
+            "avg_grade_pct": 0.35,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 159.3,
+            "end_mi": 159.6,
+            "avg_grade_pct": -1.83,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 159.6,
+            "end_mi": 160.5,
+            "avg_grade_pct": -0.75,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 160.5,
+            "end_mi": 161.1,
+            "avg_grade_pct": 0.0,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 161.1,
+            "end_mi": 161.7,
+            "avg_grade_pct": -0.2,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 161.7,
+            "end_mi": 162.0,
+            "avg_grade_pct": 2.04,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 162.0,
+            "end_mi": 174.1,
+            "avg_grade_pct": -0.01,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 174.1,
+            "end_mi": 174.4,
+            "avg_grade_pct": -1.75,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 174.4,
+            "end_mi": 175.0,
+            "avg_grade_pct": 0.2,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 175.0,
+            "end_mi": 175.4,
+            "avg_grade_pct": -1.55,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 175.4,
+            "end_mi": 192.0,
+            "avg_grade_pct": -0.02,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          }
+        ],
+        "state_miles": [
+          {
+            "state": "Northwest Territories",
+            "miles": 72.4,
+            "source": "derived 2026-11-05: the leg's archived route geometry intersected with OpenStreetMap state and province boundary relations (boundary=administrative, admin_level=4); at_mi = cumulative geometry distance at each boundary crossing, rescaled to leg miles; state miles = differences of those boundaries. OpenStreetMap, boundary relations read from the OpenStreetMap API on 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "state": "Alberta",
+            "miles": 119.6,
+            "source": "derived 2026-11-05: the leg's archived route geometry intersected with OpenStreetMap state and province boundary relations (boundary=administrative, admin_level=4); at_mi = cumulative geometry distance at each boundary crossing, rescaled to leg miles; state miles = differences of those boundaries. OpenStreetMap, boundary relations read from the OpenStreetMap API on 2026-11-16: https://www.openstreetmap.org/."
+          }
+        ],
+        "state_crossings": [
+          {
+            "at_mi": 72.4,
+            "from_state": "Northwest Territories",
+            "state": "Alberta",
+            "place": "",
+            "source": "derived 2026-11-05: the leg's archived route geometry intersected with OpenStreetMap state and province boundary relations (boundary=administrative, admin_level=4); at_mi = cumulative geometry distance at each boundary crossing, rescaled to leg miles; state miles = differences of those boundaries. OpenStreetMap, boundary relations read from the OpenStreetMap API on 2026-11-16: https://www.openstreetmap.org/."
+          }
+        ],
+        "interchanges": [],
+        "speed_limits": [
+          {
+            "at_mi": 0.0,
+            "mph": 55,
+            "kmh": 90,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 20.6,
+            "mph": 30,
+            "kmh": 50,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 21.6,
+            "mph": 55,
+            "kmh": 90,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 76.1,
+            "mph": 60,
+            "kmh": 100,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 189.3,
+            "mph": 45,
+            "kmh": 70,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 189.6,
+            "mph": 30,
+            "kmh": 50,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          }
+        ],
+        "lane_segments": [
+          {
+            "start_mi": 0.0,
+            "end_mi": 189.6,
+            "lanes": 2,
+            "source": "OpenStreetMap lanes tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; total per the OSM lanes semantics (directional on oneway carriageways). ODbL, (c) OpenStreetMap contributors."
+          },
+          {
+            "start_mi": 189.6,
+            "end_mi": 191.0,
+            "lanes": 1,
+            "oneway": true,
+            "source": "OpenStreetMap lanes tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; total per the OSM lanes semantics (directional on oneway carriageways). ODbL, (c) OpenStreetMap contributors."
+          },
+          {
+            "start_mi": 191.0,
+            "end_mi": 191.6,
+            "lanes": 2,
+            "source": "OpenStreetMap lanes tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; total per the OSM lanes semantics (directional on oneway carriageways). ODbL, (c) OpenStreetMap contributors."
+          }
+        ],
+        "restrictions": [],
+        "landmarks": [
+          {
+            "name": "Hay River",
+            "category": "river",
+            "kind": "point",
+            "at_mi": 138.2,
+            "lat": 59.14895,
+            "lon": -117.63605,
+            "spoken": "Crossing the Hay River",
+            "source": "derived: name and category read from the OpenStreetMap tags of way 801706022 (Hay River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          }
+        ],
+        "hpms_terrain": {
+          "type": 1,
+          "name": "level",
+          "sections": 0,
+          "source": "DERIVED, not read: Canada has no national inventory like HPMS, so the class is the terrain the leg's own grade profile spends the most miles in (the reroute-enrich rule: sustained grade of 5 percent, or 4 percent with 1,000 ft of relief within 5 miles, is mountain; 1.5 percent or 400 ft of relief is hills; else flat), mapped flat to level, hills to rolling and mountain to mountainous. It reads the same elevation as the grade, so it is no independent check on it."
+        }
+      },
+      "rerouted": true
+    },
+    {
+      "from": "yellowknife_nt_ca",
+      "to": "fort_providence_nt_ca",
+      "miles": 191,
+      "highway": "Hwy 3 / Yellowknife Highway",
+      "terrain": "flat",
+      "divided": false,
+      "lanes": 2,
+      "stops": [
+        {
+          "name": "Yellowknife Highway rest area",
+          "type": "public_rest_area",
+          "actions": [
+            "park",
+            "save",
+            "break",
+            "sleep"
+          ],
+          "services": [
+            "parking"
+          ],
+          "parking": "limited",
+          "directions": [
+            "both"
+          ],
+          "curation": "curated",
+          "vehicle_access": "tractor_trailer",
+          "vehicle_access_basis": "assumed",
+          "source": "Position read from OSM node 4786889822 (highway=rest_area, unnamed), OpenStreetMap planet extract 2026-11-16. Truck parking and an overnight stay are assumed, not read: it is the only rest area OpenStreetMap has on the 191 miles from Fort Providence to Yellowknife; the name is descriptive. Open year round is assumed, not read. Leg mile projected onto the leg's road.",
+          "at_mi": 18.8
+        }
+      ],
+      "corridor": {
+        "tollway_detected": false,
+        "route_points": [
+          {
+            "at_mi": 0.0,
+            "lat": 62.43047,
+            "lon": -114.41848
+          },
+          {
+            "at_mi": 25.52,
+            "lat": 62.55875,
+            "lon": -115.0763
+          },
+          {
+            "at_mi": 50.54,
+            "lat": 62.74173,
+            "lon": -115.70525
+          },
+          {
+            "at_mi": 76.88,
+            "lat": 62.61128,
+            "lon": -116.31086
+          },
+          {
+            "at_mi": 104.11,
+            "lat": 62.26395,
+            "lon": -116.37806
+          },
+          {
+            "at_mi": 130.19,
+            "lat": 61.95962,
+            "lon": -116.48315
+          },
+          {
+            "at_mi": 158.34,
+            "lat": 61.67563,
+            "lon": -117.03918
+          },
+          {
+            "at_mi": 190.81,
+            "lat": 61.31059,
+            "lon": -117.59668
+          },
+          {
+            "at_mi": 191.0,
+            "lat": 61.30815,
+            "lon": -117.59913
+          }
+        ],
+        "checkpoints": [],
+        "source": "New leg for the northern corridor, west (Career 2.0, 2026-11-22): laid out between the two city pins, then routed by Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de) along Hwy 3 / Yellowknife Highway.",
+        "elevation_samples": [
+          {
+            "at_mi": 0.0,
+            "elevation_ft": 587.3,
+            "source": "Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "at_mi": 25.21,
+            "elevation_ft": 551.2,
+            "source": "Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "at_mi": 50.49,
+            "elevation_ft": 531.5,
+            "source": "Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "at_mi": 75.56,
+            "elevation_ft": 777.6,
+            "source": "Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "at_mi": 100.79,
+            "elevation_ft": 797.2,
+            "source": "Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "at_mi": 125.81,
+            "elevation_ft": 705.4,
+            "source": "Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "at_mi": 150.97,
+            "elevation_ft": 754.6,
+            "source": "Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "at_mi": 176.23,
+            "elevation_ft": 528.2,
+            "source": "Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "at_mi": 191.0,
+            "elevation_ft": 495.4,
+            "source": "Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          }
+        ],
+        "grade_segments": [
+          {
+            "start_mi": 0.0,
+            "end_mi": 19.8,
+            "avg_grade_pct": 0.02,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 19.8,
+            "end_mi": 20.1,
+            "avg_grade_pct": -2.44,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 20.1,
+            "end_mi": 61.5,
+            "avg_grade_pct": -0.0,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 61.5,
+            "end_mi": 61.8,
+            "avg_grade_pct": 2.56,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 61.8,
+            "end_mi": 68.1,
+            "avg_grade_pct": 0.13,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 68.1,
+            "end_mi": 68.4,
+            "avg_grade_pct": 1.86,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 68.4,
+            "end_mi": 69.3,
+            "avg_grade_pct": -0.2,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 69.3,
+            "end_mi": 69.7,
+            "avg_grade_pct": 5.5,
+            "terrain": "mountain",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 69.7,
+            "end_mi": 70.0,
+            "avg_grade_pct": 2.85,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 70.0,
+            "end_mi": 101.7,
+            "avg_grade_pct": 0.01,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 101.7,
+            "end_mi": 102.0,
+            "avg_grade_pct": 1.65,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 102.0,
+            "end_mi": 121.4,
+            "avg_grade_pct": -0.18,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 121.4,
+            "end_mi": 121.7,
+            "avg_grade_pct": 2.02,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 121.7,
+            "end_mi": 137.6,
+            "avg_grade_pct": 0.11,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 137.6,
+            "end_mi": 137.9,
+            "avg_grade_pct": -1.56,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 137.9,
+            "end_mi": 141.9,
+            "avg_grade_pct": -0.03,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 141.9,
+            "end_mi": 142.2,
+            "avg_grade_pct": 1.64,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 142.2,
+            "end_mi": 156.1,
+            "avg_grade_pct": -0.09,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 156.1,
+            "end_mi": 157.0,
+            "avg_grade_pct": -0.48,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 157.0,
+            "end_mi": 191.0,
+            "avg_grade_pct": -0.11,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          }
+        ],
+        "state_miles": [
+          {
+            "state": "Northwest Territories",
+            "miles": 191.0,
+            "source": "derived 2026-11-05: the leg's archived route geometry intersected with OpenStreetMap state and province boundary relations (boundary=administrative, admin_level=4); at_mi = cumulative geometry distance at each boundary crossing, rescaled to leg miles; state miles = differences of those boundaries. OpenStreetMap, boundary relations read from the OpenStreetMap API on 2026-11-16: https://www.openstreetmap.org/."
+          }
+        ],
+        "interchanges": [],
+        "speed_limits": [
+          {
+            "at_mi": 61.5,
+            "mph": 45,
+            "kmh": 70,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 63.2,
+            "mph": 60,
+            "kmh": 100,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          }
+        ],
+        "lane_segments": [
+          {
+            "start_mi": 0.0,
+            "end_mi": 191.0,
+            "lanes": 2,
+            "source": "OpenStreetMap lanes tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; total per the OSM lanes semantics (directional on oneway carriageways). ODbL, (c) OpenStreetMap contributors."
+          }
+        ],
+        "restrictions": [],
+        "landmarks": [
+          {
+            "name": "Stagg River",
+            "category": "river",
+            "kind": "point",
+            "at_mi": 51.2,
+            "lat": 62.74367,
+            "lon": -115.72453,
+            "spoken": "Crossing the Stagg River",
+            "source": "derived: name and category read from the OpenStreetMap tags of way 106851977 (Stagg River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "name": "Behchok\u01eb\u0300",
+            "at_mi": 61.3,
+            "off_mi": 0.34,
+            "category": "village",
+            "kind": "point",
+            "source": "OpenStreetMap place=town node 2903627587, projected onto the leg's checked-in route geometry, placed ahead of the speed zone it explains",
+            "spoken": "Entering Behchok\u01eb\u0300"
+          },
+          {
+            "name": "Mackenzie Bison Sanctuary",
+            "category": "protected_area",
+            "kind": "zone",
+            "at_mi": 123.7,
+            "lat": 62.00806,
+            "lon": -116.31409,
+            "spoken": "Entering Mackenzie Bison Sanctuary",
+            "source": "derived: name and category read from the OpenStreetMap tags of relation 12701151 (Mackenzie Bison Sanctuary); placed at the first road vertex inside it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "name": "Bluefish River",
+            "category": "river",
+            "kind": "point",
+            "at_mi": 183.0,
+            "lat": 61.39833,
+            "lon": -117.44672,
+            "spoken": "Crossing the Bluefish River",
+            "source": "derived: name and category read from the OpenStreetMap tags of way 1287457741 (Bluefish River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          }
+        ],
+        "hpms_terrain": {
+          "type": 1,
+          "name": "level",
+          "sections": 0,
+          "source": "DERIVED, not read: Canada has no national inventory like HPMS, so the class is the terrain the leg's own grade profile spends the most miles in (the reroute-enrich rule: sustained grade of 5 percent, or 4 percent with 1,000 ft of relief within 5 miles, is mountain; 1.5 percent or 400 ft of relief is hills; else flat), mapped flat to level, hills to rolling and mountain to mountainous. It reads the same elevation as the grade, so it is no independent check on it."
+        }
+      },
+      "rerouted": true
+    }
+  ]
+}

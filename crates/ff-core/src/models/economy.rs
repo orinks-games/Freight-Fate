@@ -24,6 +24,8 @@ use crate::pyrandom::PyRandom;
 /// - Saskatchewan, derived: the mean of Regina's (139.1) and Saskatoon's
 ///   (141.6) April to December 2025 averages, 140.4.
 /// - Manitoba, read: Winnipeg's April to December 2025 average, 144.8.
+/// - Northwest Territories, read: Yellowknife's April to December 2025
+///   average, 155.8 (table read 2026-11-22).
 ///
 /// Alberta, Saskatchewan and Manitoba read from the table's CSV as
 /// downloaded 2026-11-22 (data through October 2026).
@@ -35,6 +37,7 @@ pub const CANADA_DIESEL_CENTS_PER_L: &[(&str, &str, f64)] = &[
     ("MB", "Manitoba", 144.8),
     ("ON", "Ontario", 138.1),
     ("QC", "Quebec", 172.2),
+    ("NT", "Northwest Territories", 155.8),
 ];
 
 /// Litres in one US gallon.

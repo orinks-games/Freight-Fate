@@ -149,6 +149,9 @@ pub const STATE_REGION: &[(&str, &str)] = &[
     ("AB", "rockies"),
     ("SK", "heartland"),
     ("MB", "heartland"),
+    // Career 2.0 northern corridor (same table): the Northwest Territories
+    // take Alberta's row, the road north runs out of the Peace country.
+    ("NT", "rockies"),
     // Phase A ALCAN Fairbanks terminus: AK shares PNW weather/hazard flavor
     // until a dedicated Alaska region taxonomy lands.
     ("AK", "pacific_northwest"),
@@ -391,6 +394,7 @@ mod tests {
         assert_eq!(classify_region("AB", 51.05, -114.07).unwrap(), "rockies"); // Calgary
         assert_eq!(classify_region("SK", 50.45, -104.61).unwrap(), "heartland"); // Regina
         assert_eq!(classify_region("MB", 49.90, -97.14).unwrap(), "heartland"); // Winnipeg
+        assert_eq!(classify_region("NT", 62.45, -114.37).unwrap(), "rockies"); // Yellowknife
     }
 
     #[test]
