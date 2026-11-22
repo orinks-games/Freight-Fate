@@ -13,22 +13,20 @@
 
 /// `(from, to, replacement chain from first to last, both ends included)`.
 /// Each entry is also read backwards for the reverse direction.
-pub const RETIRED_LEGS: &[(&str, &str, &[&str])] = &[
-    (
+pub const RETIRED_LEGS: &[(&str, &str, &[&str])] = &[(
+    "surrey_bc_ca",
+    "prince_george_bc_ca",
+    &[
         "surrey_bc_ca",
+        "abbotsford_bc_ca",
+        "chilliwack_bc_ca",
+        "hope_bc_ca",
+        "cache_creek_bc_ca",
+        "williams_lake_bc_ca",
+        "quesnel_bc_ca",
         "prince_george_bc_ca",
-        &[
-            "surrey_bc_ca",
-            "abbotsford_bc_ca",
-            "chilliwack_bc_ca",
-            "hope_bc_ca",
-            "cache_creek_bc_ca",
-            "williams_lake_bc_ca",
-            "quesnel_bc_ca",
-            "prince_george_bc_ca",
-        ],
-    ),
-];
+    ],
+)];
 
 /// The replacement chain for a retired hop `a` to `b`, in travel order.
 pub fn replacement_chain(a: &str, b: &str) -> Option<Vec<String>> {
@@ -45,7 +43,10 @@ pub fn replacement_chain(a: &str, b: &str) -> Option<Vec<String>> {
 
 /// `cities` with every retired hop the map cannot build swapped for its
 /// replacement chain. `has_hop` says whether the map has a direct leg.
-pub fn expand_retired_hops(cities: Vec<String>, has_hop: impl Fn(&str, &str) -> bool) -> Vec<String> {
+pub fn expand_retired_hops(
+    cities: Vec<String>,
+    has_hop: impl Fn(&str, &str) -> bool,
+) -> Vec<String> {
     let Some(first) = cities.first().cloned() else {
         return cities;
     };
@@ -105,8 +106,10 @@ mod tests {
 
     #[test]
     fn a_chain_with_a_missing_link_is_not_used() {
-        let has = |a: &str, b: &str| !(a == "surrey_bc_ca" && b == "prince_george_bc_ca")
-            && !(a == "hope_bc_ca" && b == "cache_creek_bc_ca");
+        let has = |a: &str, b: &str| {
+            !(a == "surrey_bc_ca" && b == "prince_george_bc_ca")
+                && !(a == "hope_bc_ca" && b == "cache_creek_bc_ca")
+        };
         let out = expand_retired_hops(s(&["surrey_bc_ca", "prince_george_bc_ca"]), has);
         assert_eq!(out, s(&["surrey_bc_ca", "prince_george_bc_ca"]));
     }
