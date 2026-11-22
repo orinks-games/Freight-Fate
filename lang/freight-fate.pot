@@ -27502,15 +27502,15 @@ msgstr ""
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/driving_border.rs
 msgid ""
-"The officer asks for your passport and checks the eManifest your carrier "
-"filed before arrival."
+"The officer asks for your passport and checks the eManifest filed for this "
+"load."
 msgstr ""
 
 #. placeholders: {name}, {agency}
 #: crates/freight-fate/src/states/driving_border.rs
 msgid ""
 "{name}, {agency}. The officer asks for your passport and checks the "
-"eManifest your carrier filed before arrival."
+"eManifest filed for this load."
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_border.rs
@@ -40856,27 +40856,26 @@ msgstr ""
 
 #: crates/freight-fate/src/states/driving_updates/fatigue.rs
 msgid ""
-"US hours rules again: 11 hours of driving in a 14-hour window, and a "
-"30-minute break after 8 hours of driving."
+"US hours rules: 11 hours of driving in a 14-hour window, and a 30-minute "
+"break after 8 hours of driving."
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_updates/fatigue.rs
 msgid ""
-"Alaska hours rules now apply: up to 15 hours of driving and 20 on duty "
-"after 10 hours off, with no 30-minute break."
+"Alaska hours rules: 15 hours of driving and 20 on duty, with no 30-minute "
+"break."
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_updates/fatigue.rs
 msgid ""
-"Canadian hours rules now apply. Up to 13 hours of driving and 14 on duty "
-"after 8 hours off. No driving once 16 hours have passed since that break."
+"Canadian hours rules: 13 hours of driving and 14 on duty in a 16-hour "
+"window."
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_updates/fatigue.rs
 msgid ""
-"Canadian north-of-60 hours rules now apply. Up to 15 hours of driving and "
-"18 on duty after 8 hours off. No driving once 20 hours have passed since "
-"that break."
+"North of 60 hours rules: 15 hours of driving and 18 on duty in a 20-hour "
+"window."
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_updates/fatigue.rs

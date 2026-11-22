@@ -258,8 +258,8 @@ impl BorderClearanceState {
 
     fn opening_line(&self) -> String {
         format!(
-            "{}, {}. The officer asks for your passport and checks the eManifest your carrier \
-             filed before arrival.",
+            "{}, {}. The officer asks for your passport and checks the eManifest filed for this \
+             load.",
             self.booth.name, self.booth.agency
         )
     }

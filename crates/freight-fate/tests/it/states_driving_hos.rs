@@ -187,7 +187,10 @@ fn press_t(harness: &mut PlaytestHarness) {
 /// `driving._update_hours_and_fatigue(dt)`.
 fn hours_frame(harness: &mut PlaytestHarness, dt: f64) {
     harness.advance_clock(dt);
-    harness.with_drive(move |d, ctx| d.update_hours_and_fatigue(ctx, dt));
+    harness.with_drive(move |d, ctx| {
+        d.update_hours_and_fatigue(ctx, dt);
+        d.update_after_crossing(ctx, dt);
+    });
 }
 
 fn whitehorse_tok_drive() -> PlaytestHarness {
@@ -224,7 +227,9 @@ fn hos_jurisdiction_switches_at_alcan_checkpoint_and_announces_once() {
     harness.with_drive(|drive, ctx| {
         drive.trip.position_mi = 297.6;
         drive.update_hours_and_fatigue(ctx, 0.0);
+        drive.update_after_crossing(ctx, 0.0);
         drive.update_hours_and_fatigue(ctx, 0.0);
+        drive.update_after_crossing(ctx, 0.0);
     });
     assert_eq!(
         harness.app.ctx.profile.as_ref().unwrap().hos.rules,
@@ -235,15 +240,13 @@ fn hos_jurisdiction_switches_at_alcan_checkpoint_and_announces_once() {
         .event_calls()
         .into_iter()
         .filter(|(text, _)| {
-            text == "Alaska hours rules now apply: up to 15 hours of driving and 20 on duty \
-                     after 10 hours off, with no 30-minute break."
+            text == "Alaska hours rules: 15 hours of driving and 20 on duty, with no 30-minute break."
         })
         .collect();
     assert_eq!(
         announcements,
         vec![(
-            "Alaska hours rules now apply: up to 15 hours of driving and 20 on duty \
-         after 10 hours off, with no 30-minute break."
+            "Alaska hours rules: 15 hours of driving and 20 on duty, with no 30-minute break."
                 .to_string(),
             false,
         )]
@@ -264,7 +267,10 @@ fn switch_announcement(mut harness: PlaytestHarness, from: HosRules, to: HosRule
         .hos
         .set_rules(from);
     harness.clear_speech();
-    harness.with_drive(|drive, ctx| drive.update_hours_and_fatigue(ctx, 0.0));
+    harness.with_drive(|drive, ctx| {
+        drive.update_hours_and_fatigue(ctx, 0.0);
+        drive.update_after_crossing(ctx, 0.0);
+    });
     assert_eq!(harness.app.ctx.profile.as_ref().unwrap().hos.rules, to);
     let spoken: Vec<_> = harness
         .app
@@ -277,6 +283,74 @@ fn switch_announcement(mut harness: PlaytestHarness, from: HosRules, to: HosRule
     spoken[0].clone()
 }
 
+/// The order at a line is a rule: the crossing call is spoken and finishes,
+/// then the time zone, then the hours line. Spoken the moment the rules
+/// changed, the hours line flushed the crossing call mid-sentence at the
+/// Yukon line, and the time zone line was dropped as stale behind it.
+#[test]
+fn hours_line_follows_the_crossing_call_once_it_finishes() {
+    let mut harness = whitehorse_tok_drive();
+    hours_frame(&mut harness, 0.0);
+    harness.with_drive(|drive, _| drive.trip.truck.velocity_mps = 45.0 * 0.44704);
+    harness.clear_speech();
+    let hours_line =
+        "Alaska hours rules: 15 hours of driving and 20 on duty, with no 30-minute break.";
+    // When each line was handed to the voice, on the harness clock. The
+    // harness frame drains the queue, as the real frame does.
+    let mut handed_at: Vec<(String, f64)> = Vec::new();
+    for _ in 0..60 * 60 {
+        let before = harness.app.event_calls().len();
+        harness.drive_frames(1);
+        harness.with_drive(|drive, ctx| drive.update_hours_and_fatigue(ctx, 1.0 / 60.0));
+        let now = harness.clock_now();
+        let calls = harness.app.event_calls();
+        handed_at.extend(calls[before..].iter().map(|(text, _)| (text.clone(), now)));
+        if calls[before..].iter().any(|(text, _)| text == hours_line) {
+            break;
+        }
+    }
+    let at = |prefix: &str| {
+        handed_at
+            .iter()
+            .find(|(text, _)| text.starts_with(prefix))
+            .map(|(_, at)| *at)
+            .unwrap_or_else(|| panic!("no {prefix:?}: {handed_at:?}"))
+    };
+    // A line of a dozen words takes seconds to say; handed over in the
+    // same frame, the next one cut it.
+    assert!(
+        at("Crossing into Alaska Time") - at("Crossing into Alaska near") >= 1.0,
+        "{handed_at:?}"
+    );
+    assert!(
+        at(hours_line) - at("Crossing into Alaska Time") >= 1.0,
+        "{handed_at:?}"
+    );
+    let calls = harness.app.event_calls();
+    let crossing = calls
+        .iter()
+        .position(|(text, _)| text.starts_with("Crossing into Alaska near"))
+        .unwrap_or_else(|| panic!("no crossing call: {calls:?}"));
+    let hours = calls
+        .iter()
+        .position(|(text, _)| text == hours_line)
+        .unwrap_or_else(|| panic!("no hours line: {calls:?}"));
+    let time_zone = calls
+        .iter()
+        .position(|(text, _)| text.starts_with("Crossing into Alaska Time"))
+        .unwrap_or_else(|| panic!("no time zone line: {calls:?}"));
+    assert!(crossing < time_zone && time_zone < hours, "{calls:?}");
+    assert!(!calls[hours].1, "the hours line must not cut in: {calls:?}");
+    assert_eq!(
+        calls
+            .iter()
+            .filter(|(text, _)| text.starts_with("Crossing into Alaska near"))
+            .count(),
+        1,
+        "{calls:?}"
+    );
+}
+
 #[test]
 fn hos_north_of_60_notice_names_the_federal_canadian_rules() {
     let spoken = switch_announcement(
@@ -286,8 +360,7 @@ fn hos_north_of_60_notice_names_the_federal_canadian_rules() {
     );
     assert_eq!(
         spoken,
-        "Canadian north-of-60 hours rules now apply. Up to 15 hours of driving and 18 on duty \
-         after 8 hours off. No driving once 20 hours have passed since that break."
+        "North of 60 hours rules: 15 hours of driving and 18 on duty in a 20-hour window."
     );
     assert!(!spoken.contains("Yukon"), "{spoken}");
 }
@@ -307,8 +380,7 @@ fn hos_south_of_60_notice_counts_sixteen_hours_from_the_break() {
     let spoken = switch_announcement(harness, HosRules::Us, HosRules::CanadaSouth60);
     assert_eq!(
         spoken,
-        "Canadian hours rules now apply. Up to 13 hours of driving and 14 on duty after 8 hours \
-         off. No driving once 16 hours have passed since that break."
+        "Canadian hours rules: 13 hours of driving and 14 on duty in a 16-hour window."
     );
 }
 
@@ -333,7 +405,7 @@ fn hos_jurisdiction_switches_silently_when_not_enforced() {
         .app
         .event_calls()
         .iter()
-        .all(|(text, _)| !text.contains("hours rules now apply")));
+        .all(|(text, _)| !text.contains("hours rules")));
 }
 
 // -- the warnings the drive speaks ---------------------------------------------------

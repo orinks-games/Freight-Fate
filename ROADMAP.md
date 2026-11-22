@@ -5186,6 +5186,17 @@ branch. The older Phase A/B plan checklists are not a live completion list.
       so the Canadian diesel price and the liter line at the pump cannot be
       met on a drive yet (stops on northern legs are the Canada map tools
       thread's work).
+- [x] (Found along the way) At a state, province or country line the hours
+      rules line cut the crossing call mid-sentence (the north-of-60 line at
+      the Yukon line, R2 drive, 2026-11-22). The order at a line is now a
+      rule: the crossing call finishes, then the units line, then a shorter
+      hours line.
+- [ ] (Found along the way) The customs booth approach is an implicit state
+      machine: three string keys in the enforcement events (notice,
+      reminder, booth), the pending clearance and the reminder's real-time
+      hold. Make it one `BoothApproach` enum in `ff-core` (Ahead, Noticed,
+      Reminded, Stopped, Ran, Cleared) so the agent server's `status` reports
+      it and a scenario can set it. No defect came from it yet.
 
 Automated evidence: the four `test_alcan_phase_a_*` cases (including the
 Tok–Delta Junction–Fairbanks split), `test_alcan_phase_b1_tok_cutoff_glenn_to_anchorage`,

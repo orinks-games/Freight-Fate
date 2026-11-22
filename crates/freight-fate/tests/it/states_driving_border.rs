@@ -150,7 +150,7 @@ fn beaver_creek_approach_and_clearance_charge_ten_on_duty_minutes() {
     let opening = harness.transcript_text();
     assert!(
         opening.contains(
-            "Beaver Creek Port of Entry, Canada Border Services Agency. The officer asks for your passport and checks the eManifest your carrier filed before arrival."
+            "Beaver Creek Port of Entry, Canada Border Services Agency. The officer asks for your passport and checks the eManifest filed for this load."
         ),
         "{opening}"
     );
