@@ -16253,6 +16253,9 @@ msgstr "xm"
 msgid "Sound assets are missing or unreadable: ui/menu_select"
 msgstr "Звуковые файлы отсутствуют или не читаются: ui/menu_select"
 
+msgid "outside"
+msgstr ""
+
 msgid "ui"
 msgstr "ui"
 
@@ -37545,6 +37548,20 @@ msgid "Rain, wind, thunder, snow, and fog sounds."
 msgstr "Звуки дождя, ветра, грома, снега и тумана."
 
 #. placeholders: {pct}
+msgid "Outside sounds volume: {pct} percent"
+msgstr ""
+
+msgid "Birds by day, insects at night, and the rivers you pass."
+msgstr ""
+
+#. placeholders: {pct}
+msgid "Road surface volume: {pct} percent"
+msgstr ""
+
+msgid "The thump of pavement seams and bridge joints under the wheels."
+msgstr ""
+
+#. placeholders: {pct}
 msgid "Engine sounds volume: {pct} percent"
 msgstr "Громкость двигателя: {pct} {pct:процент|процента|процентов}"
 
@@ -37661,11 +37678,9 @@ msgid "Lower game sounds during speech: {on_off}"
 msgstr "Звуки игры отступают перед речью: {on_off}"
 
 msgid ""
-"While the road voice speaks, the engine, weather, and radio drop to half "
-"volume, then come back."
+"While the road voice speaks, the engine, weather, outside sounds, and radio "
+"drop to half volume, then come back."
 msgstr ""
-"Пока говорит дорожный голос, двигатель, погода и радио приглушаются вдвое, "
-"а потом возвращаются."
 
 #. placeholders: {pct}
 msgid "Menu and UI sounds volume: {pct} percent"
@@ -44441,6 +44456,13 @@ msgstr ""
 "Удерживайте left bumper для второго слоя кнопок. {pad_engine} управляет "
 "двигателем, {pad_fuel} называет топливо, а {pad_speed_limit} ограничение "
 "скорости."
+
+#~ msgid ""
+#~ "While the road voice speaks, the engine, weather, and radio drop to half "
+#~ "volume, then come back."
+#~ msgstr ""
+#~ "Пока говорит дорожный голос, двигатель, погода и радио приглушаются вдвое, "
+#~ "а потом возвращаются."
 
 #~ msgid "On the keyboard: {key_name}."
 #~ msgstr "На клавиатуре: {key_name}."

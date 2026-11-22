@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### Added
+
+- **Settings, Audio now has Outside sounds volume and Road surface volume.** Birds, insects, rivers, seams and bridge joints no longer share a volume with weather or gameplay cues.
+
 ## 1.9.7 - 2026-11-21
 
 ### Compatibility

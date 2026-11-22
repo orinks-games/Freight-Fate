@@ -14699,6 +14699,9 @@ msgstr "xm"
 msgid "Sound assets are missing or unreadable: ui/menu_select"
 msgstr "声音资源缺失或无法读取：ui/menu_select"
 
+msgid "outside"
+msgstr ""
+
 msgid "ui"
 msgstr "ui"
 
@@ -33496,6 +33499,20 @@ msgid "Rain, wind, thunder, snow, and fog sounds."
 msgstr "雨、风、雷、雪和雾的声音。"
 
 #. placeholders: {pct}
+msgid "Outside sounds volume: {pct} percent"
+msgstr ""
+
+msgid "Birds by day, insects at night, and the rivers you pass."
+msgstr ""
+
+#. placeholders: {pct}
+msgid "Road surface volume: {pct} percent"
+msgstr ""
+
+msgid "The thump of pavement seams and bridge joints under the wheels."
+msgstr ""
+
+#. placeholders: {pct}
 msgid "Engine sounds volume: {pct} percent"
 msgstr "发动机声音音量：百分之{pct}"
 
@@ -33596,9 +33613,9 @@ msgid "Lower game sounds during speech: {on_off}"
 msgstr "语音播报时降低游戏声音：{on_off}"
 
 msgid ""
-"While the road voice speaks, the engine, weather, and radio drop to half "
-"volume, then come back."
-msgstr "道路语音说话时，发动机、天气和收音机降到一半音量，说完再恢复。"
+"While the road voice speaks, the engine, weather, outside sounds, and radio "
+"drop to half volume, then come back."
+msgstr ""
 
 #. placeholders: {pct}
 msgid "Menu and UI sounds volume: {pct} percent"
@@ -39332,6 +39349,11 @@ msgid ""
 "the engine, {pad_fuel} reads fuel, and {pad_speed_limit} reads the limit."
 msgstr ""
 "按住左肩键使用第二层按键。{pad_engine}控制发动机，{pad_fuel}读出燃油，{pad_speed_limit}读出限速。"
+
+#~ msgid ""
+#~ "While the road voice speaks, the engine, weather, and radio drop to half "
+#~ "volume, then come back."
+#~ msgstr "道路语音说话时，发动机、天气和收音机降到一半音量，说完再恢复。"
 
 #~ msgid "On the keyboard: {key_name}."
 #~ msgstr "键盘：{key_name}。"

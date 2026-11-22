@@ -531,6 +531,8 @@ impl SettingsCategoryState {
                     adjust(|s, ctx, d| s.toggle_steering_guide_inverted(ctx, d)),
                     adjust(|s, ctx, d| s.toggle_lane_guide_tone(ctx, d)),
                     adjust(|s, ctx, d| s.volume(ctx, "weather_volume", 0.1 * d as f64)),
+                    adjust(|s, ctx, d| s.volume(ctx, "outside_volume", 0.1 * d as f64)),
+                    adjust(|s, ctx, d| s.volume(ctx, "road_surface_volume", 0.1 * d as f64)),
                     adjust(|s, ctx, d| s.volume(ctx, "engine_volume", 0.1 * d as f64)),
                     adjust(|s, ctx, d| s.toggle_engine_voice(ctx, d)),
                     adjust(|s, ctx, d| s.toggle_jake_voice(ctx, d)),
@@ -929,6 +931,18 @@ impl SettingsCategoryState {
                 "Rain, wind, thunder, snow, and fog sounds.",
             ),
             row(
+                dyn_label(|s| format!("Outside sounds volume: {} percent", pct(s.outside_volume))),
+                adjust(|s, ctx, d| s.volume(ctx, "outside_volume", 0.1 * d as f64)),
+                "Birds by day, insects at night, and the rivers you pass.",
+            ),
+            row(
+                dyn_label(|s| {
+                    format!("Road surface volume: {} percent", pct(s.road_surface_volume))
+                }),
+                adjust(|s, ctx, d| s.volume(ctx, "road_surface_volume", 0.1 * d as f64)),
+                "The thump of pavement seams and bridge joints under the wheels.",
+            ),
+            row(
                 dyn_label(|s| format!("Engine sounds volume: {} percent", pct(s.engine_volume))),
                 adjust(|s, ctx, d| s.volume(ctx, "engine_volume", 0.1 * d as f64)),
                 "Engine start, shutdown, and running engine sounds.",
@@ -1031,8 +1045,8 @@ impl SettingsCategoryState {
                     )
                 }),
                 adjust(|s, ctx, d| s.toggle_duck_for_speech(ctx, d)),
-                "While the road voice speaks, the engine, weather, and \
-                 radio drop to half volume, then come back.",
+                "While the road voice speaks, the engine, weather, outside \
+                 sounds, and radio drop to half volume, then come back.",
             ),
             row(
                 dyn_label(|s| format!("Menu and UI sounds volume: {} percent", pct(s.ui_volume))),

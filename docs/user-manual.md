@@ -955,6 +955,8 @@ If one sound is covering another, adjust that sound's volume rather than lowerin
 | Steering guide | Which way to steer when the engine sound moves to one side. Steer toward the engine, the default, or steer away from the engine, for drivers used to that from audio racing games. |
 | Lane guide sound | What leans toward the side to steer: the engine, the default, or a soft tone panned the same way, for setups where the engine is hard to place. |
 | Weather sounds volume | Rain, wind, thunder, snow, and fog sounds. |
+| Outside sounds volume | Birds by day, insects at night, and the rivers you pass. Raising the driver window muffles them. |
+| Road surface volume | The thump of pavement seams and bridge joints under the wheels. |
 | Engine sounds volume | Engine start, shutdown, and running engine sounds. |
 | Engine sound | Real plays the engine recorded from a working truck cab, following the RPM through its range. Classic keeps the original engine sound. Changes apply immediately, even while driving. |
 | Engine brake sound | Recorded, the default, plays the real engine brake growl. Classic plays the synthesized growl from earlier versions. Changes apply at once, even while driving. |
@@ -964,7 +966,7 @@ If one sound is covering another, adjust that sound's volume rather than lowerin
 | In-cab radio volume | Driving radio music volume. It defaults lower than speech and safety cues. |
 | Radio streamer-safe mode | Limit the radio to built-in safe stations while streaming or recording. Off by default. See [Choosing music for your drive](#choosing-music-for-your-drive) for how it works with Synthesized music. |
 | Shuffle personal playlists | Play your music in a random order. Off by default; see [Playing your own music](#playing-your-own-music). |
-| Lower game sounds during speech | Off by default. On, the engine, weather, and radio drop to half volume while the road voice speaks, then come back. |
+| Lower game sounds during speech | Off by default. On, the engine, weather, outside sounds, and radio drop to half volume while the road voice speaks, then come back. |
 | Menu and UI sounds volume | Menu movement, selection, warning, and cash sounds. |
 
 ### Speech settings
