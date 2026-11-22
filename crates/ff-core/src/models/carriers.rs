@@ -40,6 +40,9 @@ pub struct Carrier {
     /// Spoken lane area for the start picker ("the Pacific Northwest").
     /// Empty for carriers with a hand-written start option.
     pub lane_area: String,
+    /// Spoken freight the carrier is known for ("refrigerated freight"),
+    /// named in a generated national start row. Empty when it has none.
+    pub specialty: String,
 }
 
 impl Carrier {
@@ -67,6 +70,15 @@ impl Carrier {
 
     pub fn is_local(&self) -> bool {
         self.tier == "local"
+    }
+
+    /// Start-picker order of the tiers: locals, then regionals, then
+    /// nationals.
+    pub fn tier_rank(&self) -> usize {
+        CARRIER_TIERS
+            .iter()
+            .position(|t| *t == self.tier)
+            .unwrap_or(CARRIER_TIERS.len())
     }
 
     /// Air miles from `city_key` to the terminal this carrier would hire a
@@ -248,6 +260,8 @@ struct RawCarrier {
     solvency_fallback: bool,
     #[serde(default)]
     lane_area: String,
+    #[serde(default)]
+    specialty: String,
 }
 
 fn inert_policy() -> String {
@@ -330,6 +344,7 @@ fn parse_catalog(text: &str) -> Result<IndexMap<String, Carrier>, DataError> {
             cargo_weight_bonus: raw.cargo_weight_bonus.into_iter().collect(),
             solvency_fallback: raw.solvency_fallback,
             lane_area: raw.lane_area,
+            specialty: raw.specialty,
         };
         catalog.insert(key, carrier);
     }
@@ -594,7 +609,7 @@ mod tests {
     #[test]
     fn test_carriers_json_loads_and_retiers() {
         let catalog = carrier_catalog();
-        assert_eq!(catalog.len(), 24);
+        assert_eq!(catalog.len(), 54);
         let northstar = carrier("northstar").expect("northstar");
         assert_eq!(northstar.tier, "national");
         assert_eq!(northstar.run_band.min_mi, 400.0);
@@ -662,7 +677,7 @@ mod tests {
             assert_eq!(prairie.home_terminal_city(world, city), None, "{city}");
             assert_eq!(
                 home_terminal_city_or_fallback(Some(prairie), world, city),
-                "milwaukee_wi_us",
+                "spokane_wa_us",
                 "{city}"
             );
         }
@@ -693,6 +708,7 @@ mod tests {
         assert_eq!(t.spoken_name(), "Northstar Freight Lines Chicago terminal");
         // Not a terminal city for this carrier: no yard is invented.
         assert!(northstar.home_terminal(world, "milwaukee_wi_us").is_none());
+        assert!(northstar.home_terminal(world, "seattle_wa_us").is_none());
         let prairie = carrier("prairie_link").unwrap();
         assert_eq!(
             prairie.terminal_name(world, "omaha_ne_us").as_deref(),
@@ -739,7 +755,7 @@ mod tests {
             northstar
                 .hiring_terminal_city(world, "seattle_wa_us")
                 .as_deref(),
-            Some("chicago_il_us")
+            Some("portland_or_us")
         );
     }
 

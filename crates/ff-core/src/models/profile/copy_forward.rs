@@ -197,14 +197,21 @@ mod tests {
     #[test]
     fn copy_applies_normal_migrations_and_never_overwrites_an_existing_counterpart() {
         with_data_dir(|_| {
+            // A 1.9 save holds neither a home city nor a home terminal, so
+            // the copy homes at the carrier's terminal nearest the truck.
             let (path, mut data) = old_save("Migrant", true);
             data.remove("home_terminal_city");
+            data.remove("home_city");
+            data.insert("carrier_key".into(), json!("northstar"));
+            data.insert("current_city".into(), json!("seattle_wa_us"));
+            data.remove(SIGNATURE_FIELD);
             data.insert(SIGNATURE_FIELD.into(), json!(signature_for(&data, None)));
             std::fs::write(&path, serde_json::to_vec(&data).unwrap()).unwrap();
             let before = std::fs::read(&path).unwrap();
             assert_eq!(copy_forward_1_9_careers().unwrap(), 1);
             let loaded = Profile::load(&save_path_for("Migrant")).unwrap();
-            assert!(!loaded.home_terminal_city.is_empty());
+            assert_eq!(loaded.home_terminal_city, "portland_or_us");
+            assert_eq!(loaded.current_city, "seattle_wa_us");
             assert!(!loaded.needs_migration_resave);
             assert_eq!(std::fs::read(&path).unwrap(), before);
 

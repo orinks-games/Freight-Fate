@@ -1638,7 +1638,7 @@ fn test_alcan_border_identity_and_posted_speed_profiles() {
         assert_eq!(crossings[0]["at_mi"].as_f64(), Some(at_mi));
         assert_eq!(
             crossings[0]["place"].as_str(),
-            Some("Alaska–Yukon border on the Alaska Highway at Alcan, Alaska")
+            Some("the Alcan border crossing")
         );
     }
 

@@ -5,16 +5,12 @@ use ff_core::pyfmt::round_py_n;
 
 use super::super::osm::geo::M_PER_MI;
 use super::roads::{Boundary, Network};
-use super::valhalla::matches_shield;
 
 /// How far a reroute may move a line and still keep the name the leg
 /// carried for it. A new road seldom moves a crossing more than a few
 /// miles; past this, a same-named pair is a different crossing (the British
 /// Columbia and Yukon line is crossed five times near Lower Post).
 const CARRY_PLACE_MI: f64 = 10.0;
-
-/// A crossing's road is read within this distance of the line.
-const PLACE_ROAD_M: f64 = 150.0;
 
 #[derive(Debug, Clone, PartialEq)]
 pub struct Crossing {
@@ -73,14 +69,12 @@ fn events(coords: &[(f64, f64)], cum_m: &[f64], borders: &[Boundary]) -> Vec<(f6
 }
 
 /// `(state miles, crossings)` for the road, starting in `start_state`.
-#[allow(clippy::too_many_arguments)]
 pub fn state_context(
     coords: &[(f64, f64)],
     cum_m: &[f64],
     leg_miles: f64,
     start_state: &str,
     network: &Network,
-    highway: &str,
     old_places: &[Crossing],
 ) -> (Vec<(String, f64)>, Vec<Crossing>) {
     let raw_mi = cum_m[cum_m.len() - 1] / M_PER_MI;
@@ -109,8 +103,6 @@ pub fn state_context(
                 continue;
             }
         }
-        let (lon, lat) = point_at(coords, cum_m, m);
-        let on_label = network.any_ref_near(lat, lon, PLACE_ROAD_M, |r| matches_shield(r, highway));
         // A name the leg already carried for this line (often hand-cited,
         // such as a port of entry) outlives the reroute: the nearest one of
         // the same pair within `CARRY_PLACE_MI`, each once.
@@ -125,13 +117,15 @@ pub fn state_context(
             })
             .min_by(|(_, a), (_, b)| (a.at_mi - at_mi).abs().total_cmp(&(b.at_mi - at_mi).abs()))
             .map(|(k, c)| (k, c.place.clone()));
+        // With no cited name the place stays empty and the game says the
+        // short "Crossing into {state}." over the crossing sound; the line's
+        // own name is never written as its place.
         let place = match carried {
             Some((k, place)) => {
                 used.push(k);
                 place
             }
-            None if on_label => format!("{current}-{next} line on {highway}"),
-            None => format!("{current}-{next} line"),
+            None => String::new(),
         };
         crossings.push(Crossing {
             at_mi,
@@ -177,18 +171,6 @@ pub fn fold_short_excursions(crossings: Vec<Crossing>) -> Vec<Crossing> {
         out.push(c);
     }
     out
-}
-
-fn point_at(coords: &[(f64, f64)], cum_m: &[f64], m: f64) -> (f64, f64) {
-    let i = cum_m.partition_point(|c| *c < m).clamp(1, coords.len() - 1);
-    let span = cum_m[i] - cum_m[i - 1];
-    let t = if span > 0.0 {
-        ((m - cum_m[i - 1]) / span).clamp(0.0, 1.0)
-    } else {
-        0.0
-    };
-    let (a, b) = (coords[i - 1], coords[i]);
-    (a.0 + t * (b.0 - a.0), a.1 + t * (b.1 - a.1))
 }
 
 #[cfg(test)]
@@ -254,25 +236,16 @@ mod tests {
             place: "the I-94 state line at Russell".into(),
         };
         let miles = cum[cum.len() - 1] / M_PER_MI;
-        let (_, kept) = state_context(
-            &coords,
-            &cum,
-            miles,
-            "Wisconsin",
-            &network,
-            "I-94",
-            &[cited],
-        );
+        let (_, kept) = state_context(&coords, &cum, miles, "Wisconsin", &network, &[cited]);
         assert_eq!(kept.len(), 1);
         assert_eq!(kept[0].place, "the I-94 state line at Russell");
-        let (_, fresh) = state_context(&coords, &cum, miles, "Wisconsin", &network, "I-94", &[]);
-        assert_eq!(fresh[0].place, "Wisconsin-Illinois line");
+        let (_, fresh) = state_context(&coords, &cum, miles, "Wisconsin", &network, &[]);
+        assert_eq!(fresh[0].place, "");
         let far = Crossing {
             at_mi: 40.0,
             ..kept[0].clone()
         };
-        let (_, elsewhere) =
-            state_context(&coords, &cum, miles, "Wisconsin", &network, "I-94", &[far]);
-        assert_eq!(elsewhere[0].place, "Wisconsin-Illinois line");
+        let (_, elsewhere) = state_context(&coords, &cum, miles, "Wisconsin", &network, &[far]);
+        assert_eq!(elsewhere[0].place, "");
     }
 }

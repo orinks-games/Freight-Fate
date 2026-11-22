@@ -5828,6 +5828,9 @@ msgstr "centro carburante"
 msgid "welcome center"
 msgstr "centro di benvenuto"
 
+msgid "cardlock"
+msgstr ""
+
 msgid "village"
 msgstr "village"
 
@@ -11602,15 +11605,11 @@ msgstr "più margine sugli appuntamenti"
 msgid "balanced dispatch"
 msgstr "incarichi equilibrati"
 
-msgid "Northstar Freight Lines: balanced company driver"
-msgstr "Northstar Freight Lines: autista dipendente equilibrato"
+msgid "Northstar Freight Lines: national company driver"
+msgstr "Northstar Freight Lines: autista dipendente nazionale"
 
-msgid ""
-"Balanced company-driver start with steady wages, normal training support, "
-"and assigned carrier equipment."
-msgstr ""
-"Partenza equilibrata da autista dipendente, con stipendio costante, normale "
-"supporto alla formazione e mezzi assegnati dalla ditta."
+msgid "Steady wages and no specialty, with loads of up to 3000 miles."
+msgstr "Paga stabile e nessuna specialità, con carichi fino a 3000 miglia."
 
 msgid ""
 "A balanced company-driver path. The carrier assigns and maintains the "
@@ -11621,18 +11620,15 @@ msgstr ""
 "la motrice, paga carburante e riparazioni ordinarie, e paga uno stipendio "
 "regolare senza specialità."
 
-msgid "Great Lakes Training Transport: trainer-friendly company driver"
-msgstr ""
-"Great Lakes Training Transport: autista dipendente con supporto alla "
-"formazione"
+msgid "Great Lakes Training Transport: national company driver"
+msgstr "Great Lakes Training Transport: autista dipendente nazionale"
 
 msgid ""
-"Trainer-friendly company start with stronger stop pay, more short rookie "
-"loads, and a little more appointment slack."
+"A training fleet with stronger stop pay, more short rookie loads, and a "
+"little more appointment slack."
 msgstr ""
-"Partenza da dipendente con supporto alla formazione, paga per fermata più "
-"alta, più carichi brevi da principiante e un po' più di margine sugli "
-"appuntamenti."
+"Una flotta di formazione con paga per fermata più alta, più carichi brevi "
+"da principiante e un po' più di margine sugli appuntamenti."
 
 msgid ""
 "A practical training-fleet start. Stop pay is better on short loads, and "
@@ -11649,18 +11645,18 @@ msgstr ""
 msgid "Milwaukee"
 msgstr "Milwaukee"
 
-msgid "Prairie Link Regional: mile-focused company driver"
-msgstr "Prairie Link Regional: autista dipendente pagato a miglio"
+msgid "Prairie Link Regional: regional company driver"
+msgstr "Prairie Link Regional: autista dipendente regionale"
 
 msgid "Prairie Link Regional"
 msgstr "Prairie Link Regional"
 
 msgid ""
-"Regional carrier with a better per-mile floor, lower stop pay, and more "
-"same-region grain and bulk lanes."
+"A better per-mile floor, lower stop pay, and more same-region grain and "
+"bulk lanes."
 msgstr ""
-"Ditta regionale con un minimo al miglio migliore, paga per fermata più "
-"bassa e più rotte di cereali e rinfuse nella stessa regione."
+"Un minimo al miglio migliore, paga per fermata più bassa e più rotte di "
+"cereali e rinfuse nella stessa regione."
 
 msgid ""
 "A mile-focused company start. The per-mile wage floor is higher, but stop "
@@ -11674,8 +11670,8 @@ msgstr ""
 "preferisce lavori di cereali e rinfuse nella stessa regione. La ditta "
 "assegna e mantiene comunque la motrice."
 
-msgid "Summit Value Logistics: appointment-bonus company driver"
-msgstr "Summit Value Logistics: autista dipendente con premio puntualità"
+msgid "Summit Value Logistics: national company driver"
+msgstr "Summit Value Logistics: autista dipendente nazionale"
 
 msgid "Summit Value Logistics"
 msgstr "Summit Value Logistics"
@@ -11727,6 +11723,40 @@ msgstr ""
 "e sali la stessa carriera di tutti gli altri: cambia chi paga, non quanto "
 "sei avanti."
 
+msgid ""
+"The carrier assigns and maintains the tractor and pays fuel and routine "
+"repairs."
+msgstr ""
+
+#. placeholders: {clause}
+msgid " Those loads need {clause}."
+msgstr ""
+
+#. placeholders: {name}
+msgid "{name}: national company driver"
+msgstr ""
+
+#. placeholders: {specialty}, {max}
+msgid "Mostly {specialty}, with loads of up to {max} miles."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "A national company-driver start."
+msgstr ""
+
+#. placeholders: {specialty}, {max}, {needs}, {equipment}
+msgid ""
+"A national company-driver start. Dispatch leans toward {specialty} and "
+"offers loads of up to {max} miles.{needs} {equipment}"
+msgstr ""
+
+#. placeholders: {specialty}, {max}, {needs}, {equipment}
+#. one sentence of a longer line
+msgid ""
+"Dispatch leans toward {specialty} and offers loads of up to {max} "
+"miles.{needs} {equipment}"
+msgstr ""
+
 msgid "its home region"
 msgstr ""
 
@@ -11743,22 +11773,15 @@ msgstr ""
 msgid "A {tier} company-driver start in {area}."
 msgstr ""
 
-#. placeholders: {tier}, {area}, {max}
+#. placeholders: {tier}, {area}, {max}, {equipment}
 msgid ""
 "A {tier} company-driver start in {area}. Dispatch offers loads of up to "
-"{max} miles. The carrier assigns and maintains the tractor and pays fuel "
-"and routine repairs."
+"{max} miles. {equipment}"
 msgstr ""
 
 #. placeholders: {max}
 #. one sentence of a longer line
 msgid "Dispatch offers loads of up to {max} miles."
-msgstr ""
-
-#. one sentence of a longer line
-msgid ""
-"The carrier assigns and maintains the tractor and pays fuel and routine "
-"repairs."
 msgstr ""
 
 msgid "in good shape"
@@ -14909,11 +14932,6 @@ msgstr "Fine zona {reason}."
 msgid "End of {reason} zone. Speed limit {speed_value}."
 msgstr "Fine zona {reason}. Limite di velocità {speed_value}."
 
-#. placeholders: {name}
-#. one sentence of a longer line
-msgid "Crossing into {name}."
-msgstr "Entri in {name}."
-
 #. placeholders: {name}, {clock_text}
 msgid "Crossing into {name}. It is now {clock_text}."
 msgstr "Entri in {name}. Adesso l'orologio segna {clock_text}."
@@ -15122,6 +15140,14 @@ msgstr "manovra"
 #. placeholders: {shield}
 msgid "keep right for {shield}"
 msgstr "tieni la destra per {shield}"
+
+#. placeholders: {from_state}, {into_state}
+msgid "crossing from {from_state} into {into_state}"
+msgstr ""
+
+#. placeholders: {name}
+msgid "Crossing into {name}."
+msgstr "Entri in {name}."
 
 #. placeholders: {from_state}, {into_state}, {place}
 msgid "crossing from {from_state} into {into_state} near {place}"
@@ -25451,6 +25477,14 @@ msgstr "l'uscita {name}"
 msgid "the destination exit for {name}"
 msgstr "l'uscita di destinazione per {name}"
 
+#. placeholders: {speed_text}
+msgid " About {speed_text} over."
+msgstr " Circa {speed_text} oltre."
+
+#. placeholders: {limit_text}, {comparison}
+msgid "Speed limit {limit_text}.{comparison}"
+msgstr ""
+
 #. placeholders: {reason}
 msgid ", in a {reason} zone"
 msgstr ", in zona {reason}"
@@ -25459,10 +25493,6 @@ msgstr ", in zona {reason}"
 #. one clause of a longer line
 msgid "in a {reason} zone"
 msgstr "in una zona {reason}"
-
-#. placeholders: {speed_text}
-msgid " About {speed_text} over."
-msgstr " Circa {speed_text} oltre."
 
 #. placeholders: {state}
 msgid " {state} holds trucks to this."
@@ -34957,8 +34987,9 @@ msgstr "Il cruise control riprende a {floor}. I pedali sono tuoi."
 msgid "Pedals are yours."
 msgstr "I pedali sono tuoi."
 
-msgid "Cruise resuming."
-msgstr "Cruise control in ripresa."
+#. placeholders: {speed_value}
+msgid "Cruise resuming, {speed_value}."
+msgstr "Cruise control in ripresa, {speed_value}."
 
 msgid "turn"
 msgstr "turn"
@@ -46296,6 +46327,45 @@ msgstr ""
 "Tieni premuto il left bumper per un secondo livello di pulsanti. "
 "{pad_engine} controlla il motore, {pad_fuel} legge il carburante e "
 "{pad_speed_limit} legge il limite."
+
+#~ msgid "Cruise resuming."
+#~ msgstr "Cruise control in ripresa."
+
+#~ msgid "Northstar Freight Lines: balanced company driver"
+#~ msgstr "Northstar Freight Lines: autista dipendente equilibrato"
+
+#~ msgid ""
+#~ "Balanced company-driver start with steady wages, normal training support, "
+#~ "and assigned carrier equipment."
+#~ msgstr ""
+#~ "Partenza equilibrata da autista dipendente, con stipendio costante, normale "
+#~ "supporto alla formazione e mezzi assegnati dalla ditta."
+
+#~ msgid "Great Lakes Training Transport: trainer-friendly company driver"
+#~ msgstr ""
+#~ "Great Lakes Training Transport: autista dipendente con supporto alla "
+#~ "formazione"
+
+#~ msgid ""
+#~ "Trainer-friendly company start with stronger stop pay, more short rookie "
+#~ "loads, and a little more appointment slack."
+#~ msgstr ""
+#~ "Partenza da dipendente con supporto alla formazione, paga per fermata più "
+#~ "alta, più carichi brevi da principiante e un po' più di margine sugli "
+#~ "appuntamenti."
+
+#~ msgid "Prairie Link Regional: mile-focused company driver"
+#~ msgstr "Prairie Link Regional: autista dipendente pagato a miglio"
+
+#~ msgid ""
+#~ "Regional carrier with a better per-mile floor, lower stop pay, and more "
+#~ "same-region grain and bulk lanes."
+#~ msgstr ""
+#~ "Ditta regionale con un minimo al miglio migliore, paga per fermata più "
+#~ "bassa e più rotte di cereali e rinfuse nella stessa regione."
+
+#~ msgid "Summit Value Logistics: appointment-bonus company driver"
+#~ msgstr "Summit Value Logistics: autista dipendente con premio puntualità"
 
 #~ msgid "Slept 10 hours. It is {clock_text}, {time_of_day}."
 #~ msgstr "Hai dormito 10 ore. Sono le {clock_text}, {time_of_day}."
@@ -59751,9 +59821,6 @@ msgstr ""
 
 #~ msgid "Following gap {gap} seconds."
 #~ msgstr "Distanza di sicurezza {gap} secondi."
-
-#~ msgid "Cruise resuming, {speed_value}."
-#~ msgstr "Cruise control in ripresa, {speed_value}."
 
 #~ msgid "Adaptive cruise off. Press {key} to set it."
 #~ msgstr "Cruise control adattivo spento. Premi {key} per impostarlo."

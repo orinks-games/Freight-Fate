@@ -15,6 +15,7 @@ pub mod data_resources;
 pub mod grades;
 pub mod lcv_turnpikes;
 pub mod legacy_aliases;
+pub mod line_weave;
 pub mod national_network;
 pub mod pavement;
 pub mod regions;
