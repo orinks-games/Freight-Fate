@@ -4562,6 +4562,18 @@ msgid ""
 "0 and 1"
 msgstr "{from_city}到{to_city}：路面读取比例{py_str_float}不在0到1之间"
 
+msgid "Northwest Territories"
+msgstr ""
+
+msgid "the Northwest Territories"
+msgstr "Northwest Territories"
+
+msgid "District of Columbia"
+msgstr "District of Columbia"
+
+msgid "the District of Columbia"
+msgstr "District of Columbia"
+
 msgid "northeast"
 msgstr "northeast"
 
@@ -4705,9 +4717,6 @@ msgid ""
 "Welcome to Delaware, the First State, first to ratify the Constitution and "
 "proud enough to say so right on the sign."
 msgstr "欢迎来到Delaware，第一州，第一个批准宪法的州，骄傲到直接写在了牌子上。"
-
-msgid "District of Columbia"
-msgstr "District of Columbia"
 
 msgid ""
 "Welcome to the District of Columbia, the nation's capital. Monuments, "
@@ -8817,9 +8826,6 @@ msgstr ""
 
 msgid "Quebec"
 msgstr "Quebec"
-
-msgid "Northwest Territories"
-msgstr ""
 
 msgid "New Brunswick"
 msgstr ""
@@ -14070,9 +14076,9 @@ msgstr "进入{name}。"
 msgid "crossing from {from_state} into {into_state} near {place}"
 msgstr "在{place}附近从{from_state}进入{into_state}"
 
-#. placeholders: {into_state}, {place}
-msgid "Crossing into {into_state} near {place}."
-msgstr "在{place}附近进入{into_state}。"
+#. placeholders: {name}, {place}
+msgid "Crossing into {name} near {place}."
+msgstr "在{place}附近进入{name}。"
 
 msgid "checkpoint"
 msgstr "checkpoint"
@@ -14557,9 +14563,9 @@ msgstr "并入{highway}的车流"
 msgid "traffic merging for roadwork"
 msgstr "因道路施工而并入的车流"
 
-#. placeholders: {city_state}
-msgid "Crossing into {city_state}. "
-msgstr "进入{city_state}。 "
+#. placeholders: {name}
+msgid "Crossing into {name}. "
+msgstr "进入{name}。 "
 
 #. placeholders: {crossing}, {city}, {city_state}
 msgid "{crossing}Passing {city}, {city_state}."

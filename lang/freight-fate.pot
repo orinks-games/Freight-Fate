@@ -5794,6 +5794,22 @@ msgid ""
 "0 and 1"
 msgstr ""
 
+#: crates/ff-core/src/data/place_article.rs crates/ff-core/src/models/economy.rs crates/ff-core/src/sim/timezones.rs
+msgid "Northwest Territories"
+msgstr ""
+
+#: crates/ff-core/src/data/place_article.rs
+msgid "the Northwest Territories"
+msgstr ""
+
+#: crates/ff-core/src/data/place_article.rs crates/ff-core/src/data/state_welcome.rs crates/ff-core/src/sim/timezones.rs
+msgid "District of Columbia"
+msgstr ""
+
+#: crates/ff-core/src/data/place_article.rs
+msgid "the District of Columbia"
+msgstr ""
+
 #: crates/ff-core/src/data/regions.rs crates/ff-core/src/data/world_constants.rs crates/ff-core/src/models/economy.rs crates/ff-core/src/sim/season.rs
 msgid "northeast"
 msgstr ""
@@ -5976,10 +5992,6 @@ msgstr ""
 msgid ""
 "Welcome to Delaware, the First State, first to ratify the Constitution and "
 "proud enough to say so right on the sign."
-msgstr ""
-
-#: crates/ff-core/src/data/state_welcome.rs crates/ff-core/src/sim/timezones.rs
-msgid "District of Columbia"
 msgstr ""
 
 #: crates/ff-core/src/data/state_welcome.rs
@@ -11158,10 +11170,6 @@ msgstr ""
 
 #: crates/ff-core/src/models/economy.rs crates/ff-core/src/sim/timezones.rs crates/freight-fate/src/online_activation.rs
 msgid "Quebec"
-msgstr ""
-
-#: crates/ff-core/src/models/economy.rs crates/ff-core/src/sim/timezones.rs
-msgid "Northwest Territories"
 msgstr ""
 
 #: crates/ff-core/src/models/economy.rs crates/ff-core/src/sim/timezones.rs
@@ -17805,9 +17813,9 @@ msgstr ""
 msgid "crossing from {from_state} into {into_state} near {place}"
 msgstr ""
 
-#. placeholders: {into_state}, {place}
+#. placeholders: {name}, {place}
 #: crates/ff-core/src/sim/trip/placement.rs
-msgid "Crossing into {into_state} near {place}."
+msgid "Crossing into {name} near {place}."
 msgstr ""
 
 #: crates/ff-core/src/sim/trip/placement.rs crates/ff-core/src/sim/trip_models.rs
@@ -18437,9 +18445,9 @@ msgstr ""
 msgid "traffic merging for roadwork"
 msgstr ""
 
-#. placeholders: {city_state}
+#. placeholders: {name}
 #: crates/ff-core/src/sim/trip_road_events.rs
-msgid "Crossing into {city_state}. "
+msgid "Crossing into {name}. "
 msgstr ""
 
 #. placeholders: {crossing}, {city}, {city_state}

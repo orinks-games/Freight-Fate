@@ -5329,6 +5329,18 @@ msgstr ""
 "{from_city} đến {to_city}: tỷ lệ mặt đường đọc được là {py_str_float}, "
 "không nằm trong khoảng 0 đến 1"
 
+msgid "Northwest Territories"
+msgstr ""
+
+msgid "the Northwest Territories"
+msgstr "Northwest Territories"
+
+msgid "District of Columbia"
+msgstr "District of Columbia"
+
+msgid "the District of Columbia"
+msgstr "District of Columbia"
+
 msgid "northeast"
 msgstr "northeast"
 
@@ -5489,9 +5501,6 @@ msgid ""
 msgstr ""
 "Chào mừng đến với Delaware, bang Đầu Tiên, nơi đầu tiên phê chuẩn Hiến pháp "
 "và tự hào đến mức ghi thẳng điều đó lên biển chào."
-
-msgid "District of Columbia"
-msgstr "District of Columbia"
 
 msgid ""
 "Welcome to the District of Columbia, the nation's capital. Monuments, "
@@ -9998,9 +10007,6 @@ msgstr ""
 
 msgid "Quebec"
 msgstr "Quebec"
-
-msgid "Northwest Territories"
-msgstr ""
 
 msgid "New Brunswick"
 msgstr ""
@@ -15571,9 +15577,9 @@ msgstr "Sang múi giờ {name}."
 msgid "crossing from {from_state} into {into_state} near {place}"
 msgstr "sang bang từ {from_state} vào {into_state} gần {place}"
 
-#. placeholders: {into_state}, {place}
-msgid "Crossing into {into_state} near {place}."
-msgstr "Đang vào địa phận {into_state} gần {place}."
+#. placeholders: {name}, {place}
+msgid "Crossing into {name} near {place}."
+msgstr "Đang vào địa phận {name} gần {place}."
 
 msgid "checkpoint"
 msgstr "trạm kiểm soát"
@@ -16065,9 +16071,9 @@ msgstr "xe nhập làn từ {highway}"
 msgid "traffic merging for roadwork"
 msgstr "xe nhập làn do thi công đường"
 
-#. placeholders: {city_state}
-msgid "Crossing into {city_state}. "
-msgstr "Đang vào địa phận {city_state}. "
+#. placeholders: {name}
+msgid "Crossing into {name}. "
+msgstr "Đang vào địa phận {name}. "
 
 #. placeholders: {crossing}, {city}, {city_state}
 msgid "{crossing}Passing {city}, {city_state}."
