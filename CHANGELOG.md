@@ -103,6 +103,7 @@
 - **If a carrier lets you go, a carrier that hires near your home takes you on.** If none can, choose Apply to a carrier at the terminal.
 - **After a felony roadside stop the truck is towed to an impound lot in that city.** You post bond and are released after 12 hours of booking, logged off duty.
 - **Travel centers and truck parking lots are now for fuel, parking and rest only.** They never ship or receive freight.
+- **The new roads, loads and achievements are translated in all eleven languages.**
 
 ### Fixed
 
