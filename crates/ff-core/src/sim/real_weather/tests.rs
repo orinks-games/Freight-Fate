@@ -687,6 +687,34 @@ fn test_weather_system_reports_real_observed_temperature() {
 }
 
 #[test]
+fn test_live_reading_wins_over_the_northern_climate_table() {
+    use crate::sim::weather::WeatherSystem;
+
+    // The climate table is for simulated weather. A live -30 C at Fairbanks
+    // is the temperature, on either calendar and in any season: the table
+    // would say about -22 in mid-January and about +22 on a July afternoon.
+    for live_calendar in [true, false] {
+        for clock in [Some(300.0 * 24.0 + 4.0), Some(116.0 * 24.0 + 15.0), None] {
+            let provider = sync_provider(Arc::new(|_, _| {
+                Ok(obs("Clear", 0.0, Some(-30.0), Some(10.0)))
+            }));
+            let mut ws = WeatherSystem::with_climate(
+                "pacific_northwest",
+                "alaska_interior",
+                Some(1),
+                Some(Box::new(provider)),
+                clock,
+                live_calendar,
+            );
+            ws.set_city("Fairbanks", 64.84, -147.72);
+            ws.update(1.0);
+            assert!(ws.live);
+            assert_eq!(ws.temperature_c(), Some(-30.0), "{live_calendar} {clock:?}");
+        }
+    }
+}
+
+#[test]
 fn test_live_report_omits_modeled_temperature_when_observation_has_none() {
     use crate::sim::weather::{WeatherProvider, WeatherSystem};
 

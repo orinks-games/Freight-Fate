@@ -481,6 +481,7 @@ cargo tools osm-villages     --pbf canada-alaska-raw.osm.pbf --only "$L" --extra
 cargo tools osm-speed-limits --pbf roads.osm.pbf --only "$L" --extract-date D \
     --snapshot "OpenStreetMap planet file" --write
 cargo tools osm-exits        --pbf roads.osm.pbf --only "$L" --write
+cargo tools osm-exit-routes  --pbf canada-alaska-raw.osm.pbf --only "$L" --extract-date D --write
 cargo tools osm-stops        --pbf canada-alaska-raw.osm.pbf --only "$L"   # leads only
 cargo tools osm-stops        --stops docs/stops/canada-alaska.json --only "$L" --write
 cargo tools hpms-terrain     --only "$L" --write
@@ -488,6 +489,11 @@ cargo tools hpms-traffic     --only "$L" --write
 cargo tools index-world --check
 cargo run -p ff-core --bin ff-bake -- --data-dir data --out dist/freight_fate/data/world.ffdata
 ```
+
+`osm-exit-routes` runs after anything that rewrites exits (`osm-exits`,
+`reroute-enrich`): Ontario and Quebec sign a bare number ("255"), so it
+reads the raw cut's road route relations and names the road an exit
+signs (Route 255, A-20, Highway 8, County Road 31). Rerun it after either.
 
 `census-counties` is not run: Canada speaks province lines and no county
 lines for now. A leg with no `counties` is quiet, not broken.
