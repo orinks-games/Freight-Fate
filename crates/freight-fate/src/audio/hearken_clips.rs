@@ -104,10 +104,10 @@ fn cab_band_with_preroll(bytes: &[u8], frames: usize) -> Option<Arc<[u8]>> {
         CAB_SAMPLE_RATE,
     );
     out.resize(out.len() + silence_bytes, 0);
-    for (i, frame) in head.chunks_exact(CAB_FRAME_BYTES).enumerate() {
+    for (i, frame) in head.as_chunks::<CAB_FRAME_BYTES>().0.iter().enumerate() {
         let gain = i as f64 / (CAB_LOOP_FADE_FRAMES - 1) as f64;
-        for sample in frame.chunks_exact(2) {
-            let value = i16::from_le_bytes([sample[0], sample[1]]);
+        for &sample in frame.as_chunks::<2>().0 {
+            let value = i16::from_le_bytes(sample);
             out.extend_from_slice(&((f64::from(value) * gain).round() as i16).to_le_bytes());
         }
     }
