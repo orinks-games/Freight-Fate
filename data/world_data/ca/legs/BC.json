@@ -2848,7 +2848,51 @@
           "name": "level",
           "sections": 0,
           "source": "DERIVED, not read: Canada has no national inventory like HPMS, so the class is the terrain the leg's own grade profile spends the most miles in (the reroute-enrich rule: sustained grade of 5 percent, or 4 percent with 1,000 ft of relief within 5 miles, is mountain; 1.5 percent or 400 ft of relief is hills; else flat), mapped flat to level, hills to rolling and mountain to mountainous. It reads the same elevation as the grade, so it is no independent check on it."
-        }
+        },
+        "billboard_bans": [
+          {
+            "from_mi": 42.65,
+            "to_mi": 43.65,
+            "name": "East Pine Provincial Park",
+            "source": "derived 2026-11-22: OpenStreetMap relation 2225782 (East Pine Provincial Park) boundary from the OSM API; the stretch of the leg's archived route inside the park or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on); widened to the one-mile minimum"
+          },
+          {
+            "from_mi": 107.7,
+            "to_mi": 112.3,
+            "name": "Pine Le Moray Provincial Park",
+            "source": "derived 2026-11-22: OpenStreetMap relation 2225790 (Pine Le Moray Provincial Park) boundary from the OSM API; the stretch of the leg's archived route inside the park or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
+          },
+          {
+            "from_mi": 114.5,
+            "to_mi": 115.5,
+            "name": "Pine Le Moray Provincial Park",
+            "source": "derived 2026-11-22: OpenStreetMap relation 2225790 (Pine Le Moray Provincial Park) boundary from the OSM API; the stretch of the leg's archived route inside the park or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
+          },
+          {
+            "from_mi": 122.5,
+            "to_mi": 126.6,
+            "name": "Pine Le Moray Provincial Park",
+            "source": "derived 2026-11-22: OpenStreetMap relation 2225790 (Pine Le Moray Provincial Park) boundary from the OSM API; the stretch of the leg's archived route inside the park or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
+          },
+          {
+            "from_mi": 171.9,
+            "to_mi": 173.0,
+            "name": "Whiskers Point Provincial Park",
+            "source": "derived 2026-11-22: OpenStreetMap relation 2233268 (Whiskers Point Provincial Park) boundary from the OSM API; the stretch of the leg's archived route inside the park or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
+          },
+          {
+            "from_mi": 204.9,
+            "to_mi": 207.3,
+            "name": "Crooked River Provincial Park",
+            "source": "derived 2026-11-22: OpenStreetMap relation 2233262 (Crooked River Provincial Park) boundary from the OSM API; the stretch of the leg's archived route inside the park or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
+          },
+          {
+            "from_mi": 221.4,
+            "to_mi": 222.4,
+            "name": "Giscome Portage Trail Protected Area",
+            "source": "derived 2026-11-22: OpenStreetMap relation 22204780 (Giscome Portage Trail Protected Area) boundary from the OSM API; the stretch of the leg's archived route inside the park or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on); widened to the one-mile minimum"
+          }
+        ]
       },
       "rerouted": true
     },
@@ -7710,7 +7754,39 @@
           "name": "rolling",
           "sections": 0,
           "source": "DERIVED, not read: Canada has no national inventory like HPMS, so the class is the terrain the leg's own grade profile spends the most miles in (the reroute-enrich rule: sustained grade of 5 percent, or 4 percent with 1,000 ft of relief within 5 miles, is mountain; 1.5 percent or 400 ft of relief is hills; else flat), mapped flat to level, hills to rolling and mountain to mountainous. It reads the same elevation as the grade, so it is no independent check on it."
-        }
+        },
+        "billboard_bans": [
+          {
+            "from_mi": 73.0,
+            "to_mi": 84.7,
+            "name": "Northern Rocky Mountains Protected Area",
+            "source": "derived 2026-11-22: OpenStreetMap relation 2226565 (Northern Rocky Mountains Protected Area) boundary from the OSM API; the stretch of the leg's archived route inside the park or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
+          },
+          {
+            "from_mi": 84.6,
+            "to_mi": 93.4,
+            "name": "Stone Mountain Provincial Park",
+            "source": "derived 2026-11-22: OpenStreetMap relation 2226568 (Stone Mountain Provincial Park) boundary from the OSM API; the stretch of the leg's archived route inside the park or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
+          },
+          {
+            "from_mi": 121.9,
+            "to_mi": 173.1,
+            "name": "Muncho Lake Provincial Park",
+            "source": "derived 2026-11-22: OpenStreetMap relation 2225665 (Muncho Lake Provincial Park) boundary from the OSM API; the stretch of the leg's archived route inside the park or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
+          },
+          {
+            "from_mi": 188.8,
+            "to_mi": 190.6,
+            "name": "Liard River Hot Springs Provincial Park",
+            "source": "derived 2026-11-22: OpenStreetMap relation 2225662 (Liard River Hot Springs Provincial Park) boundary from the OSM API; the stretch of the leg's archived route inside the park or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
+          },
+          {
+            "from_mi": 221.3,
+            "to_mi": 225.6,
+            "name": "Portage Brule Rapids Protected Area",
+            "source": "derived 2026-11-22: OpenStreetMap relation 2226680 (Portage Brule Rapids Protected Area) boundary from the OSM API; the stretch of the leg's archived route inside the park or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
+          }
+        ]
       },
       "rerouted": true
     },
@@ -12330,7 +12406,51 @@
           "name": "level",
           "sections": 0,
           "source": "DERIVED, not read: Canada has no national inventory like HPMS, so the class is the terrain the leg's own grade profile spends the most miles in (the reroute-enrich rule: sustained grade of 5 percent, or 4 percent with 1,000 ft of relief within 5 miles, is mountain; 1.5 percent or 400 ft of relief is hills; else flat), mapped flat to level, hills to rolling and mountain to mountainous. It reads the same elevation as the grade, so it is no independent check on it."
-        }
+        },
+        "billboard_bans": [
+          {
+            "from_mi": 31.65,
+            "to_mi": 32.65,
+            "name": "Giscome Portage Trail Protected Area",
+            "source": "derived 2026-11-22: OpenStreetMap relation 22204780 (Giscome Portage Trail Protected Area) boundary from the OSM API; the stretch of the leg's archived route inside the park or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on); widened to the one-mile minimum"
+          },
+          {
+            "from_mi": 46.8,
+            "to_mi": 49.1,
+            "name": "Crooked River Provincial Park",
+            "source": "derived 2026-11-22: OpenStreetMap relation 2233262 (Crooked River Provincial Park) boundary from the OSM API; the stretch of the leg's archived route inside the park or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
+          },
+          {
+            "from_mi": 81.0,
+            "to_mi": 82.1,
+            "name": "Whiskers Point Provincial Park",
+            "source": "derived 2026-11-22: OpenStreetMap relation 2233268 (Whiskers Point Provincial Park) boundary from the OSM API; the stretch of the leg's archived route inside the park or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
+          },
+          {
+            "from_mi": 127.4,
+            "to_mi": 132.0,
+            "name": "Pine Le Moray Provincial Park",
+            "source": "derived 2026-11-22: OpenStreetMap relation 2225790 (Pine Le Moray Provincial Park) boundary from the OSM API; the stretch of the leg's archived route inside the park or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
+          },
+          {
+            "from_mi": 138.8,
+            "to_mi": 139.8,
+            "name": "Pine Le Moray Provincial Park",
+            "source": "derived 2026-11-22: OpenStreetMap relation 2225790 (Pine Le Moray Provincial Park) boundary from the OSM API; the stretch of the leg's archived route inside the park or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on); widened to the one-mile minimum"
+          },
+          {
+            "from_mi": 141.7,
+            "to_mi": 146.4,
+            "name": "Pine Le Moray Provincial Park",
+            "source": "derived 2026-11-22: OpenStreetMap relation 2225790 (Pine Le Moray Provincial Park) boundary from the OSM API; the stretch of the leg's archived route inside the park or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
+          },
+          {
+            "from_mi": 210.35,
+            "to_mi": 211.35,
+            "name": "East Pine Provincial Park",
+            "source": "derived 2026-11-22: OpenStreetMap relation 2225782 (East Pine Provincial Park) boundary from the OSM API; the stretch of the leg's archived route inside the park or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on); widened to the one-mile minimum"
+          }
+        ]
       },
       "rerouted": true
     },
@@ -17691,7 +17811,51 @@
           "name": "rolling",
           "sections": 0,
           "source": "DERIVED, not read: Canada has no national inventory like HPMS, so the class is the terrain the leg's own grade profile spends the most miles in (the reroute-enrich rule: sustained grade of 5 percent, or 4 percent with 1,000 ft of relief within 5 miles, is mountain; 1.5 percent or 400 ft of relief is hills; else flat), mapped flat to level, hills to rolling and mountain to mountainous. It reads the same elevation as the grade, so it is no independent check on it."
-        }
+        },
+        "billboard_bans": [
+          {
+            "from_mi": 63.6,
+            "to_mi": 65.3,
+            "name": "Ten Mile Lake Provincial Park",
+            "source": "derived 2026-11-22: OpenStreetMap relation 2233288 (Ten Mile Lake Provincial Park) boundary from the OSM API; the stretch of the leg's archived route inside the park or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
+          },
+          {
+            "from_mi": 175.0,
+            "to_mi": 176.0,
+            "name": "Cariboo Nature Provincial Park",
+            "source": "derived 2026-11-22: OpenStreetMap relation 2233283 (Cariboo Nature Provincial Park) boundary from the OSM API; the stretch of the leg's archived route inside the park or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on); widened to the one-mile minimum"
+          },
+          {
+            "from_mi": 288.9,
+            "to_mi": 289.9,
+            "name": "Epsom Provincial Park",
+            "source": "derived 2026-11-22: OpenStreetMap relation 2230703 (Epsom Provincial Park) boundary from the OSM API; the stretch of the leg's archived route inside the park or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on); widened to the one-mile minimum"
+          },
+          {
+            "from_mi": 319.0,
+            "to_mi": 320.2,
+            "name": "Skihist Provincial Park",
+            "source": "derived 2026-11-22: OpenStreetMap relation 2230710 (Skihist Provincial Park) boundary from the OSM API; the stretch of the leg's archived route inside the park or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
+          },
+          {
+            "from_mi": 363.65,
+            "to_mi": 364.65,
+            "name": "Alexandra Bridge Provincial Park",
+            "source": "derived 2026-11-22: OpenStreetMap relation 2230642 (Alexandra Bridge Provincial Park) boundary from the OSM API; the stretch of the leg's archived route inside the park or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on); widened to the one-mile minimum"
+          },
+          {
+            "from_mi": 380.5,
+            "to_mi": 381.5,
+            "name": "Emory Creek Provincial Park",
+            "source": "derived 2026-11-22: OpenStreetMap relation 14990252 (Emory Creek Provincial Park) boundary from the OSM API; the stretch of the leg's archived route inside the park or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on); widened to the one-mile minimum"
+          },
+          {
+            "from_mi": 401.7,
+            "to_mi": 402.8,
+            "name": "F.H. Barber Provincial Park",
+            "source": "derived 2026-11-22: OpenStreetMap relation 8634843 (F.H. Barber Provincial Park) boundary from the OSM API; the stretch of the leg's archived route inside the park or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
+          }
+        ]
       },
       "rerouted": true
     },
@@ -23550,7 +23714,51 @@
           "name": "rolling",
           "sections": 0,
           "source": "DERIVED, not read: Canada has no national inventory like HPMS, so the class is the terrain the leg's own grade profile spends the most miles in (the reroute-enrich rule: sustained grade of 5 percent, or 4 percent with 1,000 ft of relief within 5 miles, is mountain; 1.5 percent or 400 ft of relief is hills; else flat), mapped flat to level, hills to rolling and mountain to mountainous. It reads the same elevation as the grade, so it is no independent check on it."
-        }
+        },
+        "billboard_bans": [
+          {
+            "from_mi": 62.1,
+            "to_mi": 63.3,
+            "name": "F.H. Barber Provincial Park",
+            "source": "derived 2026-11-22: OpenStreetMap relation 8634843 (F.H. Barber Provincial Park) boundary from the OSM API; the stretch of the leg's archived route inside the park or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
+          },
+          {
+            "from_mi": 83.55,
+            "to_mi": 84.55,
+            "name": "Emory Creek Provincial Park",
+            "source": "derived 2026-11-22: OpenStreetMap relation 14990252 (Emory Creek Provincial Park) boundary from the OSM API; the stretch of the leg's archived route inside the park or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on); widened to the one-mile minimum"
+          },
+          {
+            "from_mi": 100.4,
+            "to_mi": 101.4,
+            "name": "Alexandra Bridge Provincial Park",
+            "source": "derived 2026-11-22: OpenStreetMap relation 2230642 (Alexandra Bridge Provincial Park) boundary from the OSM API; the stretch of the leg's archived route inside the park or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on); widened to the one-mile minimum"
+          },
+          {
+            "from_mi": 144.9,
+            "to_mi": 146.1,
+            "name": "Skihist Provincial Park",
+            "source": "derived 2026-11-22: OpenStreetMap relation 2230710 (Skihist Provincial Park) boundary from the OSM API; the stretch of the leg's archived route inside the park or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
+          },
+          {
+            "from_mi": 175.15,
+            "to_mi": 176.15,
+            "name": "Epsom Provincial Park",
+            "source": "derived 2026-11-22: OpenStreetMap relation 2230703 (Epsom Provincial Park) boundary from the OSM API; the stretch of the leg's archived route inside the park or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on); widened to the one-mile minimum"
+          },
+          {
+            "from_mi": 289.0,
+            "to_mi": 290.0,
+            "name": "Cariboo Nature Provincial Park",
+            "source": "derived 2026-11-22: OpenStreetMap relation 2233283 (Cariboo Nature Provincial Park) boundary from the OSM API; the stretch of the leg's archived route inside the park or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on); widened to the one-mile minimum"
+          },
+          {
+            "from_mi": 399.7,
+            "to_mi": 401.4,
+            "name": "Ten Mile Lake Provincial Park",
+            "source": "derived 2026-11-22: OpenStreetMap relation 2233288 (Ten Mile Lake Provincial Park) boundary from the OSM API; the stretch of the leg's archived route inside the park or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
+          }
+        ]
       },
       "rerouted": true
     }

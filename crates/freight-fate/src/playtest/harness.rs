@@ -1532,6 +1532,9 @@ impl PlaytestHarness {
         // unreachable and got written up as a strict xfail against the game
         // rather than against this loop.
         self.with_drive(|drive, ctx| {
+            // The lines that follow a crossing call (time zone, units,
+            // hours) wait in their own queue, which the real frame drains.
+            drive.update_after_crossing(ctx, DT);
             drive.update_ambient_events(ctx, DT);
             drive.update_hazard(ctx, DT);
             if drive.hazard_deadline.is_some() {

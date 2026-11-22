@@ -102,15 +102,15 @@ impl DrivingState {
         };
         ctx.audio.play_with("ui/notify", 0.7, 0.0);
         // Same contract as the creep line, and only while the gate is still
-        // waiting: handed back after Enter opened the dock, it would ask for
-        // a brake the opening has already set.
+        // waiting: handed back after Enter opened the dock, or after the
+        // driver's own P press, it would ask for a brake already set.
         self.refresh_live_facts();
         ctx.say_event_with(
             message,
             SayEvent::queued()
                 .priority(EventPriority::Important)
                 .category(SpeechCategory::Navigation)
-                .valid(|| !live::arrival_menu_open()),
+                .valid(|| !live::arrival_menu_open() && !live::parking_brake_set()),
         );
     }
 }

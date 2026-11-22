@@ -18,6 +18,7 @@ use serde_json::{Map, Value};
 use crate::pyfmt::py_str_float;
 use crate::speech_text::{achievement_unlocked, SpokenMessage};
 
+pub mod career_two;
 pub mod catalog;
 pub mod sort;
 

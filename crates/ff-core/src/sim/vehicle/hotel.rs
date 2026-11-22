@@ -90,10 +90,10 @@ impl TruckState {
 
     /// Burn hotel diesel and advance coarse cargo temp.
     ///
-    /// `burn_seconds` follows the fuel clock (`dt * fuel_burn_mult` on the
-    /// frame loop). `thermo_seconds` is the cargo/spoil clock and must not
-    /// use `fuel_burn_mult` -- rest advances pass the same game-seconds for
-    /// both.
+    /// Both clocks are game seconds: the frame loop passes
+    /// `dt * fuel_burn_mult` (the trip's time compression) for each, and rest
+    /// advances pass the minutes slept. They are separate arguments so a
+    /// caller can advance one without the other.
     pub fn advance_hotel_power(&mut self, burn_seconds: f64, thermo_seconds: f64) -> HotelEvents {
         let mut events = HotelEvents::default();
         if burn_seconds <= 0.0 && thermo_seconds <= 0.0 {
@@ -322,33 +322,32 @@ mod tests {
     }
 
     #[test]
-    fn spoil_timing_ignores_fuel_burn_mult() {
-        let mut low = truck();
-        low.stop_reefer();
-        low.ambient_temp_c = 30.0;
-        low.cargo_temp_c = 30.0;
-        low.fuel_burn_mult = 1.0;
-        low.engine_on = false;
-
-        let mut high = truck();
-        high.stop_reefer();
-        high.ambient_temp_c = 30.0;
-        high.cargo_temp_c = 30.0;
-        high.fuel_burn_mult = 100.0;
-        high.engine_on = false;
-
-        // Same wall-clock updates: thermo must match even when burn mult differs.
-        for _ in 0..3_600 {
-            low.update(1.0);
-            high.update(1.0);
+    fn box_temperature_follows_the_game_clock_on_the_road() {
+        // Ten minutes of frames at the relaxed pace (10x) are 100 game
+        // minutes: the box warms as far as 100 minutes at a stop would.
+        let mut road = truck();
+        road.stop_reefer();
+        road.ambient_temp_c = 30.0;
+        road.cargo_temp_c = REEFER_SETPOINT_C;
+        road.fuel_burn_mult = 10.0;
+        road.engine_on = false;
+        for _ in 0..600 {
+            road.update(1.0);
         }
+
+        let mut parked = truck();
+        parked.stop_reefer();
+        parked.ambient_temp_c = 30.0;
+        parked.cargo_temp_c = REEFER_SETPOINT_C;
+        parked.advance_hotel_power(0.0, 100.0 * 60.0);
+
         assert!(
-            (low.reefer_out_of_range_min - high.reefer_out_of_range_min).abs() < 1e-6,
-            "low={} high={}",
-            low.reefer_out_of_range_min,
-            high.reefer_out_of_range_min
+            (road.cargo_temp_c - parked.cargo_temp_c).abs() < 0.05,
+            "road={} parked={}",
+            road.cargo_temp_c,
+            parked.cargo_temp_c
         );
-        assert_eq!(low.cargo_damage_pct > 0.0, high.cargo_damage_pct > 0.0);
+        assert!(road.cargo_temp_c > REEFER_SETPOINT_C + 1.0);
     }
 
     #[test]

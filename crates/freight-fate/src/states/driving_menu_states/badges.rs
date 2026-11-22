@@ -3,10 +3,14 @@
 //! so the settlement arithmetic stays readable.
 
 use chrono::{Datelike, Local};
+use ff_core::achievements::career_two::{drive_end_badges, CattleDelivery, DriveEnd};
 use ff_core::achievements::{add_unique_stat, increment_stat, reset_stat};
 use ff_core::data::regions::REGIONS;
+use ff_core::models::border_freight::yard_drop_line;
+use ff_core::models::cargo_condition::{cargo_outcome, CARGO_OUTCOME_CLEAN};
 use ff_core::models::carrier_fleet::{fleet_tier_for_level, FLEET_TIERS};
 use ff_core::models::co_driver;
+use ff_core::sim::livestock::Footing;
 use ff_core::sim::season::{
     date_text, is_friday_the_thirteenth, is_truck_driver_appreciation_week, player_calendar_hours,
     season,
@@ -597,6 +601,31 @@ pub(crate) fn award_arrival_achievements(
         }
     }
 
+    // -- 2.0: Alaska and the Alcan, the border yard, cattle, the carrier --
+    let cattle = d.trip.truck.livestock.as_ref().map(|load| CattleDelivery {
+        hours_aboard: load.hours_aboard(),
+        limit_hours: load.limit_h,
+        one_down: load.footing == Footing::OneDown,
+        clean: cargo_outcome(d.trip.truck.cargo_damage_pct) == CARGO_OUTCOME_CLEAN,
+    });
+    let carrier_key = profile_of(ctx).carrier_key.clone();
+    let game_hours = profile_of(ctx).game_hours;
+    let end = DriveEnd {
+        route,
+        destination: &dest,
+        bobtail: false,
+        team: state.team_miles > 0.0,
+        season: career_season,
+        spring_weight_limit: job.seasonal_weight_limit.is_some(),
+        border_yard_drop: yard_drop_line(job).is_some(),
+        cattle,
+        carrier_key: &carrier_key,
+        game_hours,
+    };
+    for badge in drive_end_badges(profile_mut_of(ctx), world, &end) {
+        push(&mut ids, badge);
+    }
+
     // A team load: the badges for driving the haul yourself are not earned
     // on miles someone else drove, and a surprise co-driver has a badge of
     // their own.
@@ -619,4 +648,35 @@ pub(crate) fn award_arrival_achievements(
         }
     }
     ctx.save_profile();
+}
+
+/// The road badges an empty run can earn (the Whittier tunnel, the Alaska
+/// Highway's legs), appended to the bobtail summary.
+pub(crate) fn award_bobtail_road_badges(
+    state: &mut ArrivalState,
+    ctx: &mut GameContext,
+    d: &DrivingState,
+) {
+    let dest = d.route.cities.last().cloned().unwrap_or_default();
+    let game_hours = profile_of(ctx).game_hours;
+    let end = DriveEnd {
+        route: &d.route,
+        destination: &dest,
+        bobtail: true,
+        team: false,
+        season: "",
+        spring_weight_limit: false,
+        border_yard_drop: false,
+        cattle: None,
+        carrier_key: "",
+        game_hours,
+    };
+    let world = ctx.world;
+    for badge in drive_end_badges(profile_mut_of(ctx), world, &end) {
+        if let Some(result) = ctx.award_achievement_with(badge, false, false) {
+            state
+                .summary_parts
+                .push(result.award.message.normal.clone());
+        }
+    }
 }

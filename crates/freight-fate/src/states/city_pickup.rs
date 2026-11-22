@@ -676,16 +676,17 @@ impl PickupFacilityState {
         let (title, message, status) = if plan.is_drop_hook() {
             (
                 "Hooking the loaded trailer",
+                // The doubles time was said at check-in and stays on the
+                // screen; the hook-up does not say it again.
                 format!(
                     "Dropping your empty at {facility} and hooking {}, loaded with {} tons \
-                     of {}.{}",
+                     of {}.",
                     plan.trailer
                         .as_ref()
                         .map(|t| t.spoken_name())
                         .unwrap_or_default(),
                     fmt_f(self.job.weight_tons, 0),
                     self.job.spoken_cargo_label(),
-                    self.doubles_clause()
                 ),
                 "Dropping and hooking.",
             )
@@ -693,10 +694,9 @@ impl PickupFacilityState {
             (
                 "Loading cargo",
                 format!(
-                    "Loading {} tons of {} at {facility}.{}",
+                    "Loading {} tons of {} at {facility}.",
                     fmt_f(self.job.weight_tons, 0),
                     self.job.spoken_cargo_label(),
-                    self.doubles_clause()
                 ),
                 "Loading cargo.",
             )

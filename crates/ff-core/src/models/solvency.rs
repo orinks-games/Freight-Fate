@@ -575,9 +575,10 @@ pub fn apply_repossession<P: SolvencyProfile + ?Sized>(profile: &mut P) -> Vec<S
     // catches that case.
     // The fallback rule picks one from the driver's home city (plan section
     // 5). Nobody fired this driver, so no carrier is ruled out.
-    let mut near = String::new();
+    // Read before any move, for the no-seat line: a driver who reached this
+    // with no carrier at all heard "hires near  can take you on".
+    let near = profile.let_go_near_phrase();
     if profile.career_reputation() < REPUTATION_TERMINATION {
-        near = profile.let_go_near_phrase();
         profile.take_fallback_carrier("");
     }
     let hiring = profile.carrier_name().to_string();
