@@ -25451,6 +25451,14 @@ msgstr "l'uscita {name}"
 msgid "the destination exit for {name}"
 msgstr "l'uscita di destinazione per {name}"
 
+#. placeholders: {speed_text}
+msgid " About {speed_text} over."
+msgstr " Circa {speed_text} oltre."
+
+#. placeholders: {limit_text}, {comparison}
+msgid "Speed limit {limit_text}.{comparison}"
+msgstr ""
+
 #. placeholders: {reason}
 msgid ", in a {reason} zone"
 msgstr ", in zona {reason}"
@@ -25459,10 +25467,6 @@ msgstr ", in zona {reason}"
 #. one clause of a longer line
 msgid "in a {reason} zone"
 msgstr "in una zona {reason}"
-
-#. placeholders: {speed_text}
-msgid " About {speed_text} over."
-msgstr " Circa {speed_text} oltre."
 
 #. placeholders: {state}
 msgid " {state} holds trucks to this."
@@ -34957,8 +34961,9 @@ msgstr "Il cruise control riprende a {floor}. I pedali sono tuoi."
 msgid "Pedals are yours."
 msgstr "I pedali sono tuoi."
 
-msgid "Cruise resuming."
-msgstr "Cruise control in ripresa."
+#. placeholders: {speed_value}
+msgid "Cruise resuming, {speed_value}."
+msgstr "Cruise control in ripresa, {speed_value}."
 
 msgid "turn"
 msgstr "turn"
@@ -46296,6 +46301,9 @@ msgstr ""
 "Tieni premuto il left bumper per un secondo livello di pulsanti. "
 "{pad_engine} controlla il motore, {pad_fuel} legge il carburante e "
 "{pad_speed_limit} legge il limite."
+
+#~ msgid "Cruise resuming."
+#~ msgstr "Cruise control in ripresa."
 
 #~ msgid "Slept 10 hours. It is {clock_text}, {time_of_day}."
 #~ msgstr "Hai dormito 10 ore. Sono le {clock_text}, {time_of_day}."
@@ -59751,9 +59759,6 @@ msgstr ""
 
 #~ msgid "Following gap {gap} seconds."
 #~ msgstr "Distanza di sicurezza {gap} secondi."
-
-#~ msgid "Cruise resuming, {speed_value}."
-#~ msgstr "Cruise control in ripresa, {speed_value}."
 
 #~ msgid "Adaptive cruise off. Press {key} to set it."
 #~ msgstr "Cruise control adattivo spento. Premi {key} per impostarlo."

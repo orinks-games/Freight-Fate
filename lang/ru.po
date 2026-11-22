@@ -25365,6 +25365,14 @@ msgstr "съезд {name}"
 msgid "the destination exit for {name}"
 msgstr "съезд к месту доставки, {name}"
 
+#. placeholders: {speed_text}
+msgid " About {speed_text} over."
+msgstr " Превышение примерно на {speed_text}."
+
+#. placeholders: {limit_text}, {comparison}
+msgid "Speed limit {limit_text}.{comparison}"
+msgstr ""
+
 #. placeholders: {reason}
 msgid ", in a {reason} zone"
 msgstr ", зона: {reason}"
@@ -25373,10 +25381,6 @@ msgstr ", зона: {reason}"
 #. one clause of a longer line
 msgid "in a {reason} zone"
 msgstr "в зоне: {reason}"
-
-#. placeholders: {speed_text}
-msgid " About {speed_text} over."
-msgstr " Превышение примерно на {speed_text}."
 
 #. placeholders: {state}
 msgid " {state} holds trucks to this."
@@ -35049,8 +35053,9 @@ msgstr "Круиз-контроль возобновится на {floor}. Пе�
 msgid "Pedals are yours."
 msgstr "Педали ваши."
 
-msgid "Cruise resuming."
-msgstr "Круиз-контроль продолжает."
+#. placeholders: {speed_value}
+msgid "Cruise resuming, {speed_value}."
+msgstr "Круиз-контроль возобновлён, {speed_value}."
 
 msgid "turn"
 msgstr "turn"
@@ -46344,6 +46349,9 @@ msgstr ""
 "Удерживайте left bumper для второго слоя кнопок. {pad_engine} управляет "
 "двигателем, {pad_fuel} называет топливо, а {pad_speed_limit} ограничение "
 "скорости."
+
+#~ msgid "Cruise resuming."
+#~ msgstr "Круиз-контроль продолжает."
 
 #~ msgid "Slept 10 hours. It is {clock_text}, {time_of_day}."
 #~ msgstr "Вы проспали 10 часов. Сейчас {clock_text}, {time_of_day}."
@@ -59633,9 +59641,6 @@ msgstr ""
 
 #~ msgid "Following gap {gap} seconds."
 #~ msgstr "Дистанция {gap} {gap:секунда|секунды|секунд}."
-
-#~ msgid "Cruise resuming, {speed_value}."
-#~ msgstr "Круиз-контроль возобновлён, {speed_value}."
 
 #~ msgid "Adaptive cruise off. Press {key} to set it."
 #~ msgstr ""

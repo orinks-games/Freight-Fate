@@ -25373,6 +25373,14 @@ msgstr "lối ra {name}"
 msgid "the destination exit for {name}"
 msgstr "lối ra điểm giao tới {name}"
 
+#. placeholders: {speed_text}
+msgid " About {speed_text} over."
+msgstr " Vượt khoảng {speed_text}."
+
+#. placeholders: {limit_text}, {comparison}
+msgid "Speed limit {limit_text}.{comparison}"
+msgstr ""
+
 #. placeholders: {reason}
 msgid ", in a {reason} zone"
 msgstr ", trong khu vực {reason}"
@@ -25381,10 +25389,6 @@ msgstr ", trong khu vực {reason}"
 #. one clause of a longer line
 msgid "in a {reason} zone"
 msgstr "trong khu vực {reason}"
-
-#. placeholders: {speed_text}
-msgid " About {speed_text} over."
-msgstr " Vượt khoảng {speed_text}."
 
 #. placeholders: {state}
 msgid " {state} holds trucks to this."
@@ -34760,8 +34764,9 @@ msgstr "Ga tự động khôi phục ở mức {floor}. Bạn tự điều khi�
 msgid "Pedals are yours."
 msgstr "Bạn tự điều khiển bàn đạp."
 
-msgid "Cruise resuming."
-msgstr "Đang khôi phục ga tự động."
+#. placeholders: {speed_value}
+msgid "Cruise resuming, {speed_value}."
+msgstr ""
 
 msgid "turn"
 msgstr "chuyển hướng"
@@ -45970,6 +45975,9 @@ msgid ""
 msgstr ""
 "Giữ nút vai trái để mở lớp nút thứ hai. {pad_engine} bật tắt động cơ, "
 "{pad_fuel} đọc nhiên liệu và {pad_speed_limit} đọc tốc độ giới hạn."
+
+#~ msgid "Cruise resuming."
+#~ msgstr "Đang khôi phục ga tự động."
 
 #~ msgid "Slept 10 hours. It is {clock_text}, {time_of_day}."
 #~ msgstr "Đã ngủ 10 giờ. Bây giờ là {clock_text}, {time_of_day}."

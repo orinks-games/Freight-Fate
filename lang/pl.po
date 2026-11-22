@@ -25342,6 +25342,14 @@ msgstr "zjazd {name}"
 msgid "the destination exit for {name}"
 msgstr "zjazd docelowy do {name}"
 
+#. placeholders: {speed_text}
+msgid " About {speed_text} over."
+msgstr " Około {speed_text} za szybko."
+
+#. placeholders: {limit_text}, {comparison}
+msgid "Speed limit {limit_text}.{comparison}"
+msgstr ""
+
 #. placeholders: {reason}
 msgid ", in a {reason} zone"
 msgstr ", w strefie: {reason}"
@@ -25350,10 +25358,6 @@ msgstr ", w strefie: {reason}"
 #. one clause of a longer line
 msgid "in a {reason} zone"
 msgstr "w strefie: {reason}"
-
-#. placeholders: {speed_text}
-msgid " About {speed_text} over."
-msgstr " Około {speed_text} za szybko."
 
 #. placeholders: {state}
 msgid " {state} holds trucks to this."
@@ -34913,8 +34917,9 @@ msgstr "Tempomat wznowi się przy {floor}. Pedały są twoje."
 msgid "Pedals are yours."
 msgstr "Pedały są twoje."
 
-msgid "Cruise resuming."
-msgstr "Tempomat się wznawia."
+#. placeholders: {speed_value}
+msgid "Cruise resuming, {speed_value}."
+msgstr "Tempomat wznowiony, {speed_value}."
 
 msgid "turn"
 msgstr "turn"
@@ -46197,6 +46202,9 @@ msgstr ""
 "Przytrzymaj left bumper, aby użyć drugiej warstwy przycisków. {pad_engine} "
 "steruje silnikiem, {pad_fuel} podaje paliwo, a {pad_speed_limit} "
 "ograniczenie prędkości."
+
+#~ msgid "Cruise resuming."
+#~ msgstr "Tempomat się wznawia."
 
 #~ msgid "Slept 10 hours. It is {clock_text}, {time_of_day}."
 #~ msgstr "Przespane 10 godzin. Jest {clock_text}, {time_of_day}."
@@ -59448,9 +59456,6 @@ msgstr ""
 
 #~ msgid "Following gap {gap} seconds."
 #~ msgstr "Odstęp {gap} {gap:sekunda|sekundy|sekund}."
-
-#~ msgid "Cruise resuming, {speed_value}."
-#~ msgstr "Tempomat wznowiony, {speed_value}."
 
 #~ msgid "Adaptive cruise off. Press {key} to set it."
 #~ msgstr "Aktywny tempomat wyłączony. Naciśnij {key}, żeby go ustawić."

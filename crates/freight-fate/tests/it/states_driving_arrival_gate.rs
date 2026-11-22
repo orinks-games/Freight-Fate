@@ -781,3 +781,27 @@ fn test_moving_in_automatic_marks_the_run_and_a_save_keeps_it() {
     });
     assert!(resumed);
 }
+
+#[test]
+fn test_s_off_the_destination_exit_reads_the_approach_not_the_interstate() {
+    // R1 review drive, Chicago to Gary, 2026-11-22: off exit 14A, S said
+    // "Truck limit 65 miles per hour." with the gate 0.1 miles ahead at 15.
+    let mut harness = a_drive("Approach Limit");
+    harness.with_drive(|drive, _| {
+        mark_destination_exit_taken(drive);
+        drive.ramp_mi = Some(1.5);
+        drive.truck_mut().velocity_mps = 30.0 / freight_fate::states::driving_core::MPH_PER_MPS;
+    });
+    harness.clear_speech();
+    harness.with_drive(|drive, ctx| drive.speak_speed_limit(ctx));
+    assert_eq!(last_main(&harness), "Speed limit 45 miles per hour.");
+
+    // Inside the gate's own half mile, the gate's 15 is the number.
+    harness.with_drive(|drive, _| drive.ramp_mi = Some(0.1));
+    harness.clear_speech();
+    harness.with_drive(|drive, ctx| drive.speak_speed_limit(ctx));
+    assert_eq!(
+        last_main(&harness),
+        "Speed limit 15 miles per hour. About 15 miles per hour over."
+    );
+}

@@ -25673,6 +25673,14 @@ msgstr "la sortie {name}"
 msgid "the destination exit for {name}"
 msgstr "la sortie de destination pour {name}"
 
+#. placeholders: {speed_text}
+msgid " About {speed_text} over."
+msgstr " Environ {speed_text} au-dessus."
+
+#. placeholders: {limit_text}, {comparison}
+msgid "Speed limit {limit_text}.{comparison}"
+msgstr ""
+
 #. placeholders: {reason}
 msgid ", in a {reason} zone"
 msgstr ", dans une zone {reason}"
@@ -25681,10 +25689,6 @@ msgstr ", dans une zone {reason}"
 #. one clause of a longer line
 msgid "in a {reason} zone"
 msgstr "dans une zone {reason}"
-
-#. placeholders: {speed_text}
-msgid " About {speed_text} over."
-msgstr " Environ {speed_text} au-dessus."
 
 #. placeholders: {state}
 msgid " {state} holds trucks to this."
@@ -35242,8 +35246,9 @@ msgstr "Le régulateur reprend à {floor}. Les pédales sont à vous."
 msgid "Pedals are yours."
 msgstr "Les pédales sont à vous."
 
-msgid "Cruise resuming."
-msgstr "Le régulateur reprend."
+#. placeholders: {speed_value}
+msgid "Cruise resuming, {speed_value}."
+msgstr "Régulateur repris, {speed_value}."
 
 msgid "turn"
 msgstr "turn"
@@ -46698,6 +46703,9 @@ msgstr ""
 "Maintenez le left bumper pour une deuxième couche de boutons. {pad_engine} "
 "commande le moteur, {pad_fuel} lit le carburant, et {pad_speed_limit} lit "
 "la limitation."
+
+#~ msgid "Cruise resuming."
+#~ msgstr "Le régulateur reprend."
 
 #~ msgid "Slept 10 hours. It is {clock_text}, {time_of_day}."
 #~ msgstr "Vous avez dormi 10 heures. Il est {clock_text}, {time_of_day}."
@@ -60304,9 +60312,6 @@ msgstr ""
 
 #~ msgid "Following gap {gap} seconds."
 #~ msgstr "Intervalle de suivi {gap} secondes."
-
-#~ msgid "Cruise resuming, {speed_value}."
-#~ msgstr "Régulateur repris, {speed_value}."
 
 #~ msgid "Adaptive cruise off. Press {key} to set it."
 #~ msgstr "Régulateur adaptatif désactivé. Appuyez sur {key} pour le régler."

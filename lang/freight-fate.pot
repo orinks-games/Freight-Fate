@@ -28746,6 +28746,16 @@ msgstr ""
 msgid "the destination exit for {name}"
 msgstr ""
 
+#. placeholders: {speed_text}
+#: crates/freight-fate/src/states/driving_controls/info.rs
+msgid " About {speed_text} over."
+msgstr ""
+
+#. placeholders: {limit_text}, {comparison}
+#: crates/freight-fate/src/states/driving_controls/info.rs
+msgid "Speed limit {limit_text}.{comparison}"
+msgstr ""
+
 #. placeholders: {reason}
 #: crates/freight-fate/src/states/driving_controls/info.rs
 msgid ", in a {reason} zone"
@@ -28755,11 +28765,6 @@ msgstr ""
 #. one clause of a longer line
 #: crates/freight-fate/src/states/driving_controls/info.rs
 msgid "in a {reason} zone"
-msgstr ""
-
-#. placeholders: {speed_text}
-#: crates/freight-fate/src/states/driving_controls/info.rs
-msgid " About {speed_text} over."
 msgstr ""
 
 #. placeholders: {state}
@@ -39461,8 +39466,9 @@ msgstr ""
 msgid "Pedals are yours."
 msgstr ""
 
+#. placeholders: {speed_value}
 #: crates/freight-fate/src/states/driving_speed_control.rs
-msgid "Cruise resuming."
+msgid "Cruise resuming, {speed_value}."
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_speed_control.rs

@@ -75,6 +75,57 @@ const CRUISE_REPLY_FRAMES: u32 = 30;
 /// minus); no target is ever this far from what K captured.
 const MAX_CRUISE_TAPS: i64 = 60;
 
+/// The taps that walk the cruise dial from `set` to `wanted` the way a
+/// player would, `true` for a Ctrl (one mile per hour) tap: a plain tap
+/// whenever the fives grid does not overshoot, Ctrl taps for the rest.
+/// Off the grid, 61 to 55 used to be six Ctrl taps and six spoken lines in
+/// the transcript (Whitehorse to Tok drive, 2026-11-22); a player taps
+/// twice, 60 then 55.
+fn dial_taps(set: f64, wanted: f64) -> Vec<bool> {
+    use crate::states::driving_core::cruise_step_target;
+    let wanted = wanted.round();
+    let direction: i32 = if wanted > set { 1 } else { -1 };
+    let mut taps = Vec::new();
+    let mut at = set;
+    while (wanted - at).abs() >= 0.5 && taps.len() < MAX_CRUISE_TAPS as usize {
+        let coarse = cruise_step_target(at, direction, false);
+        let fits = if direction > 0 {
+            coarse <= wanted + 0.01
+        } else {
+            coarse >= wanted - 0.01
+        };
+        let (fine, next) = if fits && (coarse - at).abs() > 0.01 {
+            (false, coarse)
+        } else {
+            (true, cruise_step_target(at, direction, true))
+        };
+        if (next - at).abs() < 0.01 {
+            break; // pinned at the dial's floor or ceiling
+        }
+        taps.push(fine);
+        at = next;
+    }
+    taps
+}
+
+#[cfg(test)]
+mod dial_tests {
+    use super::dial_taps;
+
+    #[test]
+    fn the_dial_walks_the_fives_first_like_a_player() {
+        // 61 to 55: 60, then 55.
+        assert_eq!(dial_taps(61.0, 55.0), vec![false, false]);
+        // 30 to 55: five plain taps.
+        assert_eq!(dial_taps(30.0, 55.0), vec![false; 5]);
+        // 55 to 58: three Ctrl taps, no overshoot to 60.
+        assert_eq!(dial_taps(55.0, 58.0), vec![true; 3]);
+        // 62 to 70: 65, 70.
+        assert_eq!(dial_taps(62.0, 70.0), vec![false, false]);
+        assert!(dial_taps(55.0, 55.0).is_empty());
+    }
+}
+
 mod bed_levels;
 mod ears;
 mod gestures;
@@ -517,32 +568,20 @@ impl AgentPolicy {
                     )));
                     return;
                 };
-                let steps =
-                    ((wanted - set).round() as i64).clamp(-MAX_CRUISE_TAPS, MAX_CRUISE_TAPS);
-                let (key, text) = if steps > 0 {
-                    (Key::Plus, Some('+'))
-                } else {
-                    (Key::Minus, Some('-'))
-                };
-                // A plain tap walks the fives grid and a Ctrl tap one mile
-                // per hour, so a set point already on the grid takes the
-                // fives first: 30 to 55 was twenty-five spoken steps on the
-                // first live use, and is five this way.
+                // Walk the dial the way a player would: a plain tap whenever
+                // the fives grid does not overshoot, Ctrl taps for the rest.
+                // Off the grid, 61 to 55 used to be six Ctrl taps and six
+                // spoken lines in the transcript (Whitehorse to Tok drive,
+                // 2026-11-22); a player taps twice, 60 then 55.
+                let key = if wanted > set { Key::Plus } else { Key::Minus };
+                let text = Some(if wanted > set { '+' } else { '-' });
                 let fine = Mods {
                     ctrl: true,
                     ..Mods::NONE
                 };
                 let mut taps = 0u32;
-                let mut left = steps.unsigned_abs();
-                if set.rem_euclid(5.0) < 0.01 {
-                    while left >= 5 {
-                        self.tap(key, text, Mods::NONE);
-                        left -= 5;
-                        taps += 1;
-                    }
-                }
-                for _ in 0..left {
-                    self.tap(key, text, fine);
+                for fine_tap in dial_taps(set, wanted) {
+                    self.tap(key, text, if fine_tap { fine } else { Mods::NONE });
                     taps += 1;
                 }
                 plan.stage = CruiseStage::Trim(taps * 2 + CRUISE_REPLY_FRAMES);
