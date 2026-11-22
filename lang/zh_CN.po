@@ -6308,57 +6308,6 @@ msgstr "沿线地点"
 msgid "toll point: {name}"
 msgstr "收费点：{name}"
 
-#. placeholders: {py_str_float}
-msgid "{py_str_float} meters"
-msgstr "{py_str_float}米"
-
-#. placeholders: {py_int}
-msgid "{py_int} tonnes"
-msgstr "{py_int}吨"
-
-#. placeholders: {py_str_float}
-msgid "{py_str_float} tonnes"
-msgstr "{py_str_float}吨"
-
-#. placeholders: {whole}, {inches}
-msgid "{whole} feet {inches} inches"
-msgstr "{whole}英尺{inches}英寸"
-
-#. placeholders: {whole}
-msgid "{whole} feet"
-msgstr "{whole}英尺"
-
-#. placeholders: {py_int}
-msgid "{py_int} tons"
-msgstr "{py_int}吨"
-
-#. placeholders: {py_str_float}
-msgid "{py_str_float} tons"
-msgstr "{py_str_float}吨"
-
-msgid "low bridge"
-msgstr "限高桥"
-
-msgid "weight limit"
-msgstr "限重"
-
-#. one sentence of a longer line
-msgid "Your route clears it"
-msgstr "你的路线可以通过"
-
-#. placeholders: {kind_label}, {value_text}
-#. one sentence of a longer line
-msgid "a {kind_label}, signed {value_text}."
-msgstr "一处{kind_label}，标示为{value_text}。"
-
-#. placeholders: {kind_label}, {value_text}
-msgid "a {kind_label}, signed {value_text}. Your route clears it"
-msgstr "一处{kind_label}，标示为{value_text}。你的路线可以通过"
-
-#. placeholders: {py_capitalize}, {value_text}
-msgid "{py_capitalize}, signed {value_text}."
-msgstr "{py_capitalize}，标示为{value_text}。"
-
 msgid "explosives"
 msgstr "爆炸品"
 
@@ -14046,10 +13995,6 @@ msgid "Toll point in {ahead_text}: {text}."
 msgstr "{ahead_text}后的收费点：{text}。"
 
 #. placeholders: {ahead_text}, {text}
-msgid "In {ahead_text}, {text}."
-msgstr "{ahead_text}后，{text}。"
-
-#. placeholders: {ahead_text}, {text}
 msgid "Next guidance in {ahead_text}: {text}."
 msgstr "{ahead_text}后的下一条引导：{text}。"
 
@@ -14181,9 +14126,6 @@ msgstr "收费{amount}元。"
 msgid "toll"
 msgstr "toll"
 
-msgid "restriction"
-msgstr "restriction"
-
 msgid "interchange"
 msgstr "interchange"
 
@@ -14258,6 +14200,10 @@ msgstr "计划取消。"
 #. placeholders: {ahead_text}, {text}, {speed}
 msgid "Traffic slowing in {ahead_text}, {text}{speed}."
 msgstr "{ahead_text}后车流减速，{text}{speed}。"
+
+#. placeholders: {ahead_text}, {text}
+msgid "In {ahead_text}, {text}."
+msgstr "{ahead_text}后，{text}。"
 
 #. placeholders: {distance}
 #. one sentence of a longer line
@@ -18628,14 +18574,13 @@ msgstr "调度板。{current}{hos_note}"
 
 msgid ""
 "Dispatch is sending you empty, with no pickup. After you accept, Route "
-"planning lists rest, fuel, tolls, weather and restrictions."
-msgstr "调度派你空车出发，没有提货。接受后，“路线规划”会列出休息、燃油、过路费、天气和限制。"
+"planning lists rest, fuel, tolls and weather."
+msgstr "调度派你空车出发，没有提货。接受后，“路线规划”会列出休息、燃油、过路费和天气。"
 
 msgid ""
 "Dispatch assigned this load. Accepting starts the empty drive to the "
-"pickup. After pickup, Route planning lists rest, fuel, tolls, weather and "
-"restrictions."
-msgstr "这单货是调度分配的。接受后先空车开往提货点。提货之后，“路线规划”会列出休息、加油、通行费、天气和限制。"
+"pickup. After pickup, Route planning lists rest, fuel, tolls and weather."
+msgstr "这单货是调度分配的。接受后先空车开往提货点。提货之后，“路线规划”会列出休息、加油、通行费和天气。"
 
 #. placeholders: {describe}
 msgid "Assigned load: {describe}"
@@ -18837,9 +18782,8 @@ msgstr "未解锁的任务 "
 
 #. one sentence of a longer line
 msgid ""
-"After you accept, Route planning lists rest, fuel, tolls, weather and "
-"restrictions."
-msgstr "接受后，“路线规划”会列出休息、燃油、过路费、天气和限制。"
+"After you accept, Route planning lists rest, fuel, tolls and weather."
+msgstr "接受后，“路线规划”会列出休息、燃油、过路费和天气。"
 
 #. placeholders: {destination}
 #. one sentence of a longer line
@@ -18849,14 +18793,12 @@ msgstr "调度派你空车开往{destination}。"
 #. placeholders: {destination}
 msgid ""
 "Dispatch is sending you empty to {destination}. After you accept, Route "
-"planning lists rest, fuel, tolls, weather and restrictions."
-msgstr "调度派你空车开往{destination}。接受后，“路线规划”会列出休息、燃油、过路费、天气和限制。"
+"planning lists rest, fuel, tolls and weather."
+msgstr "调度派你空车开往{destination}。接受后，“路线规划”会列出休息、燃油、过路费和天气。"
 
 #. one sentence of a longer line
-msgid ""
-"After pickup, Route planning lists rest, fuel, tolls, weather and "
-"restrictions."
-msgstr "提货后，“路线规划”会列出休息、燃油、过路费、天气和限制。"
+msgid "After pickup, Route planning lists rest, fuel, tolls and weather."
+msgstr "提货后，“路线规划”会列出休息、燃油、过路费和天气。"
 
 #. placeholders: {origin_facility_text}, {destination_facility_text}
 #. one sentence of a longer line
@@ -18867,11 +18809,10 @@ msgstr "货物报价，从{origin_facility_text}到{destination_facility_text}�
 #. placeholders: {origin_facility_text}, {destination_facility_text}
 msgid ""
 "Load offer from {origin_facility_text} to {destination_facility_text}. "
-"After pickup, Route planning lists rest, fuel, tolls, weather and "
-"restrictions."
+"After pickup, Route planning lists rest, fuel, tolls and weather."
 msgstr ""
 "从{origin_facility_text}到{destination_facility_text}的货物报价。提货后，“路线规划”会列出休息、燃油、"
-"过路费、天气和限制。"
+"过路费和天气。"
 
 #. placeholders: {hours}
 msgid ""
@@ -42204,6 +42145,82 @@ msgid ""
 "the engine, {pad_fuel} reads fuel, and {pad_speed_limit} reads the limit."
 msgstr ""
 "按住左肩键使用第二层按键。{pad_engine}控制发动机，{pad_fuel}读出燃油，{pad_speed_limit}读出限速。"
+
+#~ msgid "{py_str_float} meters"
+#~ msgstr "{py_str_float}米"
+
+#~ msgid "{py_int} tonnes"
+#~ msgstr "{py_int}吨"
+
+#~ msgid "{py_str_float} tonnes"
+#~ msgstr "{py_str_float}吨"
+
+#~ msgid "{whole} feet {inches} inches"
+#~ msgstr "{whole}英尺{inches}英寸"
+
+#~ msgid "{whole} feet"
+#~ msgstr "{whole}英尺"
+
+#~ msgid "{py_int} tons"
+#~ msgstr "{py_int}吨"
+
+#~ msgid "{py_str_float} tons"
+#~ msgstr "{py_str_float}吨"
+
+#~ msgid "low bridge"
+#~ msgstr "限高桥"
+
+#~ msgid "weight limit"
+#~ msgstr "限重"
+
+#~ msgid "Your route clears it"
+#~ msgstr "你的路线可以通过"
+
+#~ msgid "a {kind_label}, signed {value_text}."
+#~ msgstr "一处{kind_label}，标示为{value_text}。"
+
+#~ msgid "a {kind_label}, signed {value_text}. Your route clears it"
+#~ msgstr "一处{kind_label}，标示为{value_text}。你的路线可以通过"
+
+#~ msgid "{py_capitalize}, signed {value_text}."
+#~ msgstr "{py_capitalize}，标示为{value_text}。"
+
+#~ msgid "restriction"
+#~ msgstr "restriction"
+
+#~ msgid ""
+#~ "Dispatch is sending you empty, with no pickup. After you accept, Route "
+#~ "planning lists rest, fuel, tolls, weather and restrictions."
+#~ msgstr "调度派你空车出发，没有提货。接受后，“路线规划”会列出休息、燃油、过路费、天气和限制。"
+
+#~ msgid ""
+#~ "Dispatch assigned this load. Accepting starts the empty drive to the "
+#~ "pickup. After pickup, Route planning lists rest, fuel, tolls, weather and "
+#~ "restrictions."
+#~ msgstr "这单货是调度分配的。接受后先空车开往提货点。提货之后，“路线规划”会列出休息、加油、通行费、天气和限制。"
+
+#~ msgid ""
+#~ "After you accept, Route planning lists rest, fuel, tolls, weather and "
+#~ "restrictions."
+#~ msgstr "接受后，“路线规划”会列出休息、燃油、过路费、天气和限制。"
+
+#~ msgid ""
+#~ "Dispatch is sending you empty to {destination}. After you accept, Route "
+#~ "planning lists rest, fuel, tolls, weather and restrictions."
+#~ msgstr "调度派你空车开往{destination}。接受后，“路线规划”会列出休息、燃油、过路费、天气和限制。"
+
+#~ msgid ""
+#~ "After pickup, Route planning lists rest, fuel, tolls, weather and "
+#~ "restrictions."
+#~ msgstr "提货后，“路线规划”会列出休息、燃油、过路费、天气和限制。"
+
+#~ msgid ""
+#~ "Load offer from {origin_facility_text} to {destination_facility_text}. "
+#~ "After pickup, Route planning lists rest, fuel, tolls, weather and "
+#~ "restrictions."
+#~ msgstr ""
+#~ "从{origin_facility_text}到{destination_facility_text}的货物报价。提货后，“路线规划”会列出休息、燃油、"
+#~ "过路费、天气和限制。"
 
 #~ msgid ""
 #~ "Charges {grouped2}: tolls {grouped3}, extra charges {charge_summary}."

@@ -7236,61 +7236,6 @@ msgstr "lieu du corridor"
 msgid "toll point: {name}"
 msgstr "point de péage : {name}"
 
-#. placeholders: {py_str_float}
-msgid "{py_str_float} meters"
-msgstr "{py_str_float} mètres"
-
-# same as English
-#. placeholders: {py_int}
-msgid "{py_int} tonnes"
-msgstr "{py_int} tonnes"
-
-# same as English
-#. placeholders: {py_str_float}
-msgid "{py_str_float} tonnes"
-msgstr "{py_str_float} tonnes"
-
-#. placeholders: {whole}, {inches}
-msgid "{whole} feet {inches} inches"
-msgstr "{whole} pieds {inches} pouces"
-
-#. placeholders: {whole}
-msgid "{whole} feet"
-msgstr "{whole} pieds"
-
-#. placeholders: {py_int}
-msgid "{py_int} tons"
-msgstr "{py_int} tonnes"
-
-#. placeholders: {py_str_float}
-msgid "{py_str_float} tons"
-msgstr "{py_str_float} tonnes"
-
-msgid "low bridge"
-msgstr "pont bas"
-
-msgid "weight limit"
-msgstr "limite de poids"
-
-#. one sentence of a longer line
-msgid "Your route clears it"
-msgstr "Votre itinéraire passe sans problème"
-
-#. placeholders: {kind_label}, {value_text}
-#. one sentence of a longer line
-msgid "a {kind_label}, signed {value_text}."
-msgstr "un {kind_label}, signalé à {value_text}."
-
-#. placeholders: {kind_label}, {value_text}
-msgid "a {kind_label}, signed {value_text}. Your route clears it"
-msgstr ""
-"un {kind_label}, signalé à {value_text}. Votre itinéraire passe sans "
-"problème"
-
-#. placeholders: {py_capitalize}, {value_text}
-msgid "{py_capitalize}, signed {value_text}."
-msgstr "{py_capitalize}, signalé à {value_text}."
-
 msgid "explosives"
 msgstr "explosif"
 
@@ -15816,10 +15761,6 @@ msgid "Toll point in {ahead_text}: {text}."
 msgstr "Point de péage dans {ahead_text} : {text}."
 
 #. placeholders: {ahead_text}, {text}
-msgid "In {ahead_text}, {text}."
-msgstr "Dans {ahead_text}, {text}."
-
-#. placeholders: {ahead_text}, {text}
 msgid "Next guidance in {ahead_text}: {text}."
 msgstr "Prochaine indication dans {ahead_text} : {text}."
 
@@ -15951,9 +15892,6 @@ msgstr " Péage de {amount} dollars."
 msgid "toll"
 msgstr "péage"
 
-msgid "restriction"
-msgstr "restriction"
-
 msgid "interchange"
 msgstr "échangeur"
 
@@ -16031,6 +15969,10 @@ msgstr "Plan annulé."
 #. placeholders: {ahead_text}, {text}, {speed}
 msgid "Traffic slowing in {ahead_text}, {text}{speed}."
 msgstr "La circulation ralentit dans {ahead_text}, {text}{speed}."
+
+#. placeholders: {ahead_text}, {text}
+msgid "In {ahead_text}, {text}."
+msgstr "Dans {ahead_text}, {text}."
 
 #. placeholders: {distance}
 #. one sentence of a longer line
@@ -20929,20 +20871,19 @@ msgstr "Tableau des missions. {current}{hos_note}"
 
 msgid ""
 "Dispatch is sending you empty, with no pickup. After you accept, Route "
-"planning lists rest, fuel, tolls, weather and restrictions."
+"planning lists rest, fuel, tolls and weather."
 msgstr ""
 "Le dispatch vous envoie à vide, sans chargement à prendre. Après "
-"acceptation, Planification de l'itinéraire liste repos, carburant, péages, "
-"météo et restrictions."
+"acceptation, Planification de l'itinéraire liste repos, carburant, péages "
+"et météo."
 
 msgid ""
 "Dispatch assigned this load. Accepting starts the empty drive to the "
-"pickup. After pickup, Route planning lists rest, fuel, tolls, weather and "
-"restrictions."
+"pickup. After pickup, Route planning lists rest, fuel, tolls and weather."
 msgstr ""
 "Le dispatch a attribué ce chargement. L'accepter lance le trajet à vide "
 "jusqu'au point de chargement. Après le chargement, Planification de "
-"l'itinéraire liste repos, carburant, péages, météo et restrictions."
+"l'itinéraire liste repos, carburant, péages et météo."
 
 #. placeholders: {describe}
 msgid "Assigned load: {describe}"
@@ -21179,11 +21120,10 @@ msgstr "Mission verrouillée "
 
 #. one sentence of a longer line
 msgid ""
-"After you accept, Route planning lists rest, fuel, tolls, weather and "
-"restrictions."
+"After you accept, Route planning lists rest, fuel, tolls and weather."
 msgstr ""
 "Après acceptation, Planification de l'itinéraire liste repos, carburant, "
-"péages, météo et restrictions."
+"péages et météo."
 
 #. placeholders: {destination}
 #. one sentence of a longer line
@@ -21193,19 +21133,16 @@ msgstr "Le dispatch vous envoie à vide vers {destination}."
 #. placeholders: {destination}
 msgid ""
 "Dispatch is sending you empty to {destination}. After you accept, Route "
-"planning lists rest, fuel, tolls, weather and restrictions."
+"planning lists rest, fuel, tolls and weather."
 msgstr ""
 "Le dispatch vous envoie à vide vers {destination}. Après acceptation, "
-"Planification de l'itinéraire liste repos, carburant, péages, météo et "
-"restrictions."
+"Planification de l'itinéraire liste repos, carburant, péages et météo."
 
 #. one sentence of a longer line
-msgid ""
-"After pickup, Route planning lists rest, fuel, tolls, weather and "
-"restrictions."
+msgid "After pickup, Route planning lists rest, fuel, tolls and weather."
 msgstr ""
 "Après le chargement, Planification de l'itinéraire liste repos, carburant, "
-"péages, météo et restrictions."
+"péages et météo."
 
 #. placeholders: {origin_facility_text}, {destination_facility_text}
 #. one sentence of a longer line
@@ -21217,12 +21154,11 @@ msgstr ""
 #. placeholders: {origin_facility_text}, {destination_facility_text}
 msgid ""
 "Load offer from {origin_facility_text} to {destination_facility_text}. "
-"After pickup, Route planning lists rest, fuel, tolls, weather and "
-"restrictions."
+"After pickup, Route planning lists rest, fuel, tolls and weather."
 msgstr ""
 "Offre de chargement de {origin_facility_text} à "
 "{destination_facility_text}. Après le chargement, Planification de "
-"l'itinéraire liste repos, carburant, péages, météo et restrictions."
+"l'itinéraire liste repos, carburant, péages et météo."
 
 #. placeholders: {hours}
 msgid ""
@@ -48037,6 +47973,100 @@ msgstr ""
 "Maintenez le left bumper pour une deuxième couche de boutons. {pad_engine} "
 "commande le moteur, {pad_fuel} lit le carburant, et {pad_speed_limit} lit "
 "la limitation."
+
+#~ msgid "{py_str_float} meters"
+#~ msgstr "{py_str_float} mètres"
+
+# same as English
+#~ msgid "{py_int} tonnes"
+#~ msgstr "{py_int} tonnes"
+
+# same as English
+#~ msgid "{py_str_float} tonnes"
+#~ msgstr "{py_str_float} tonnes"
+
+#~ msgid "{whole} feet {inches} inches"
+#~ msgstr "{whole} pieds {inches} pouces"
+
+#~ msgid "{whole} feet"
+#~ msgstr "{whole} pieds"
+
+#~ msgid "{py_int} tons"
+#~ msgstr "{py_int} tonnes"
+
+#~ msgid "{py_str_float} tons"
+#~ msgstr "{py_str_float} tonnes"
+
+#~ msgid "low bridge"
+#~ msgstr "pont bas"
+
+#~ msgid "weight limit"
+#~ msgstr "limite de poids"
+
+#~ msgid "Your route clears it"
+#~ msgstr "Votre itinéraire passe sans problème"
+
+#~ msgid "a {kind_label}, signed {value_text}."
+#~ msgstr "un {kind_label}, signalé à {value_text}."
+
+#~ msgid "a {kind_label}, signed {value_text}. Your route clears it"
+#~ msgstr ""
+#~ "un {kind_label}, signalé à {value_text}. Votre itinéraire passe sans "
+#~ "problème"
+
+#~ msgid "{py_capitalize}, signed {value_text}."
+#~ msgstr "{py_capitalize}, signalé à {value_text}."
+
+#~ msgid "restriction"
+#~ msgstr "restriction"
+
+#~ msgid ""
+#~ "Dispatch is sending you empty, with no pickup. After you accept, Route "
+#~ "planning lists rest, fuel, tolls, weather and restrictions."
+#~ msgstr ""
+#~ "Le dispatch vous envoie à vide, sans chargement à prendre. Après "
+#~ "acceptation, Planification de l'itinéraire liste repos, carburant, péages, "
+#~ "météo et restrictions."
+
+#~ msgid ""
+#~ "Dispatch assigned this load. Accepting starts the empty drive to the "
+#~ "pickup. After pickup, Route planning lists rest, fuel, tolls, weather and "
+#~ "restrictions."
+#~ msgstr ""
+#~ "Le dispatch a attribué ce chargement. L'accepter lance le trajet à vide "
+#~ "jusqu'au point de chargement. Après le chargement, Planification de "
+#~ "l'itinéraire liste repos, carburant, péages, météo et restrictions."
+
+#~ msgid ""
+#~ "After you accept, Route planning lists rest, fuel, tolls, weather and "
+#~ "restrictions."
+#~ msgstr ""
+#~ "Après acceptation, Planification de l'itinéraire liste repos, carburant, "
+#~ "péages, météo et restrictions."
+
+#~ msgid ""
+#~ "Dispatch is sending you empty to {destination}. After you accept, Route "
+#~ "planning lists rest, fuel, tolls, weather and restrictions."
+#~ msgstr ""
+#~ "Le dispatch vous envoie à vide vers {destination}. Après acceptation, "
+#~ "Planification de l'itinéraire liste repos, carburant, péages, météo et "
+#~ "restrictions."
+
+#~ msgid ""
+#~ "After pickup, Route planning lists rest, fuel, tolls, weather and "
+#~ "restrictions."
+#~ msgstr ""
+#~ "Après le chargement, Planification de l'itinéraire liste repos, carburant, "
+#~ "péages, météo et restrictions."
+
+#~ msgid ""
+#~ "Load offer from {origin_facility_text} to {destination_facility_text}. "
+#~ "After pickup, Route planning lists rest, fuel, tolls, weather and "
+#~ "restrictions."
+#~ msgstr ""
+#~ "Offre de chargement de {origin_facility_text} à "
+#~ "{destination_facility_text}. Après le chargement, Planification de "
+#~ "l'itinéraire liste repos, carburant, péages, météo et restrictions."
 
 #~ msgid ""
 #~ "Charges {grouped2}: tolls {grouped3}, extra charges {charge_summary}."
