@@ -575,6 +575,19 @@ pub fn toll_line_name(name: &str) -> &str {
         .unwrap_or(name)
 }
 
+/// Marks a toll amount as Canadian dollars for [`toll_charged`]: the amount
+/// text carries it so every caller's signature stays the same.
+pub const CANADIAN: &str = " CAD";
+
+/// A booth's spoken amount: its Canadian price where it posts one, else the
+/// US dollar charge, whole dollars either way.
+pub fn toll_amount_text(toll: &crate::data::world_models::TollEvent) -> String {
+    match toll.canadian_amount() {
+        Some(cad) => format!("{}{CANADIAN}", crate::pyfmt::fmt_f(cad, 0)),
+        None => crate::pyfmt::fmt_f(toll.amount, 0),
+    }
+}
+
 /// The charged toll: what it cost always speaks (ROUTE, never dropped);
 /// terse keeps the cost and who pays, drops the bookkeeping prose.
 pub fn toll_charged(
@@ -585,6 +598,15 @@ pub fn toll_charged(
 ) -> SpokenMessage {
     let estimate = if estimated { "estimated " } else { "" };
     let name = toll_line_name(name);
+    if let Some(cad) = amount_text.strip_suffix(CANADIAN) {
+        // A Canadian booth says the Canadian price (Orinks, 2026-11-22).
+        return SpokenMessage::with_terse(
+            sentence_start(&format!(
+                "{method_label} toll at {name}, {estimate}{cad} Canadian dollars, billed to carrier settlement."
+            )),
+            format!("Toll, {cad} Canadian dollars, carrier."),
+        );
+    }
     SpokenMessage::with_terse(
         sentence_start(&format!(
             "{method_label} toll at {name}, {estimate}{amount_text} dollars, billed to carrier settlement."
@@ -1328,6 +1350,11 @@ mod tests {
                 " Toll 44 dollars."
             ),
             "Cash or card toll point, Gordie Howe International Bridge. Toll 44 dollars."
+        );
+        let cad = toll_charged("cash or card", "Blue Water Bridge toll", "35 CAD", false);
+        assert_eq!(
+            cad.normal,
+            "Cash or card toll at Blue Water Bridge, 35 Canadian dollars, billed to carrier settlement."
         );
         assert_eq!(toll_line_name("Tolland toll"), "Tolland");
         assert_eq!(toll_line_name("Tolland"), "Tolland");

@@ -13875,6 +13875,10 @@ msgstr "{highway}沿いの{place}{state}"
 msgid "Passing {place}{state}."
 msgstr "{place}{state}を通過します。"
 
+#. placeholders: {f}
+msgid " Toll {f} Canadian dollars."
+msgstr ""
+
 #. placeholders: {amount}
 msgid " Toll about {amount} dollars."
 msgstr "通行料は約{amount}ドル。"
@@ -15816,6 +15820,16 @@ msgstr "{terse} {exit_hint}でウインカーを出します。"
 
 msgid "estimated "
 msgstr "推定 "
+
+#. placeholders: {method_label}, {name}, {estimate}, {cad}
+msgid ""
+"{method_label} toll at {name}, {estimate}{cad} Canadian dollars, billed to "
+"carrier settlement."
+msgstr ""
+
+#. placeholders: {cad}
+msgid "Toll, {cad} Canadian dollars, carrier."
+msgstr ""
 
 #. placeholders: {method_label}, {name}, {estimate}, {amount_text}
 msgid ""
@@ -26462,6 +26476,10 @@ msgstr "加速車線"
 msgid " for the exit"
 msgstr " 出口に合わせて"
 
+#. placeholders: {speed_value}
+msgid " for the {speed_value} limit"
+msgstr " 制限速度{speed_value}に合わせて"
+
 msgid " through the construction zone"
 msgstr " 工事区間に合わせて"
 
@@ -26471,10 +26489,6 @@ msgstr " 渋滞に合わせて"
 #. placeholders: {speed_value}
 msgid " for the {speed_value} limit ahead"
 msgstr " この先の制限速度{speed_value}に合わせて"
-
-#. placeholders: {speed_value}
-msgid " for the {speed_value} limit"
-msgstr " 制限速度{speed_value}に合わせて"
 
 #. placeholders: {value}
 msgid " in the {value}"

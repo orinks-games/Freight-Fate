@@ -17446,6 +17446,11 @@ msgstr ""
 msgid "Passing {place}{state}."
 msgstr ""
 
+#. placeholders: {f}
+#: crates/ff-core/src/sim/trip/placement.rs
+msgid " Toll {f} Canadian dollars."
+msgstr ""
+
 #. placeholders: {amount}
 #: crates/ff-core/src/sim/trip/placement.rs
 msgid " Toll about {amount} dollars."
@@ -19809,6 +19814,18 @@ msgstr ""
 
 #: crates/ff-core/src/speech_text.rs
 msgid "estimated "
+msgstr ""
+
+#. placeholders: {method_label}, {name}, {estimate}, {cad}
+#: crates/ff-core/src/speech_text.rs
+msgid ""
+"{method_label} toll at {name}, {estimate}{cad} Canadian dollars, billed to "
+"carrier settlement."
+msgstr ""
+
+#. placeholders: {cad}
+#: crates/ff-core/src/speech_text.rs
+msgid "Toll, {cad} Canadian dollars, carrier."
 msgstr ""
 
 #. placeholders: {method_label}, {name}, {estimate}, {amount_text}
@@ -32737,6 +32754,11 @@ msgstr ""
 msgid " for the exit"
 msgstr ""
 
+#. placeholders: {speed_value}
+#: crates/freight-fate/src/states/driving_events/cruise.rs
+msgid " for the {speed_value} limit"
+msgstr ""
+
 #: crates/freight-fate/src/states/driving_events/cruise.rs
 msgid " through the construction zone"
 msgstr ""
@@ -32748,11 +32770,6 @@ msgstr ""
 #. placeholders: {speed_value}
 #: crates/freight-fate/src/states/driving_events/cruise.rs
 msgid " for the {speed_value} limit ahead"
-msgstr ""
-
-#. placeholders: {speed_value}
-#: crates/freight-fate/src/states/driving_events/cruise.rs
-msgid " for the {speed_value} limit"
 msgstr ""
 
 #. placeholders: {value}

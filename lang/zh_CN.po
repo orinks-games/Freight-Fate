@@ -13789,6 +13789,10 @@ msgstr "{highway}上的{place}{state}"
 msgid "Passing {place}{state}."
 msgstr "通过{place}{state}。"
 
+#. placeholders: {f}
+msgid " Toll {f} Canadian dollars."
+msgstr ""
+
 #. placeholders: {amount}
 msgid " Toll about {amount} dollars."
 msgstr "收费约{amount}元。"
@@ -15678,6 +15682,16 @@ msgstr "{terse} 按{exit_hint}打转向灯。"
 
 msgid "estimated "
 msgstr "预计"
+
+#. placeholders: {method_label}, {name}, {estimate}, {cad}
+msgid ""
+"{method_label} toll at {name}, {estimate}{cad} Canadian dollars, billed to "
+"carrier settlement."
+msgstr ""
+
+#. placeholders: {cad}
+msgid "Toll, {cad} Canadian dollars, carrier."
+msgstr ""
 
 #. placeholders: {method_label}, {name}, {estimate}, {amount_text}
 msgid ""
@@ -26198,6 +26212,10 @@ msgstr "加速车道"
 msgid " for the exit"
 msgstr " ，为出口"
 
+#. placeholders: {speed_value}
+msgid " for the {speed_value} limit"
+msgstr " 为{speed_value}的限速"
+
 msgid " through the construction zone"
 msgstr " ，通过施工区"
 
@@ -26207,10 +26225,6 @@ msgstr " ，穿过拥堵车流"
 #. placeholders: {speed_value}
 msgid " for the {speed_value} limit ahead"
 msgstr " 为前方{speed_value}的限速"
-
-#. placeholders: {speed_value}
-msgid " for the {speed_value} limit"
-msgstr " 为{speed_value}的限速"
 
 #. placeholders: {value}
 msgid " in the {value}"
