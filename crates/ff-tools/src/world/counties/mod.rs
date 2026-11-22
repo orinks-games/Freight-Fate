@@ -4,6 +4,7 @@
 //! ```text
 //! cargo tools census-counties --shp tl_2021_us_county.shp            # dry run
 //! cargo tools census-counties --shp tl_2021_us_county.shp --write    # write it
+//! cargo tools census-counties --shp ... --only a:b;c:d --write    # just these legs
 //! ```
 //!
 //! Input: the Census Bureau's TIGER/Line county file (`--shp`, with its
@@ -26,7 +27,7 @@
 
 pub mod shp;
 
-use std::collections::HashMap;
+use std::collections::{HashMap, HashSet};
 use std::path::PathBuf;
 
 use rayon::prelude::*;
@@ -38,7 +39,8 @@ use crate::pyjson::{Object, Value};
 use crate::util::Result;
 use shp::Polygon;
 
-const USAGE: &str = "usage: census-counties --shp tl_2021_us_county.shp [--write]";
+const USAGE: &str =
+    "usage: census-counties --shp tl_2021_us_county.shp [--only from:to;from:to] [--write]";
 
 /// The sampling step along a leg, in leg miles: the precision `at_mi` is
 /// stored at everywhere else in the corridor.
@@ -211,7 +213,7 @@ pub fn main(argv: &[String]) -> Result<i32> {
     let args = Args::parse(
         argv,
         &Spec {
-            values: &["shp"],
+            values: &["shp", "only"],
             flags: &["write"],
         },
     )
@@ -264,9 +266,21 @@ pub fn main(argv: &[String]) -> Result<i32> {
         .get_mut("legs")
         .and_then(Value::as_array_mut)
         .ok_or("world_source has no legs")?;
+    // `--only` keeps a run to the legs being built, so a regional build
+    // does not also rewrite legs it never touched (Canadian crossings whose
+    // US side was built without counties, 2026-11-22).
+    let only: Option<HashSet<String>> = args.value("only").map(|o| {
+        o.split(';')
+            .filter(|p| p.contains(':'))
+            .map(str::to_string)
+            .collect()
+    });
     let computed: Vec<Option<LegRuns>> = legs
         .par_iter()
         .map(|leg| {
+            if only.as_ref().is_some_and(|o| !o.contains(&leg_id(leg))) {
+                return None;
+            }
             let line = lines.get(&leg_id(leg))?;
             let miles = leg.get("miles").and_then(Value::as_f64)?;
             Some(leg_runs(line, miles, &lookup))
@@ -275,6 +289,9 @@ pub fn main(argv: &[String]) -> Result<i32> {
     let (mut changed, mut same, mut no_archive, mut no_county) = (0, 0, 0, 0);
     let (mut samples, mut missed, mut runs_total) = (0usize, 0usize, 0usize);
     for (leg, result) in legs.iter_mut().zip(computed) {
+        if only.as_ref().is_some_and(|o| !o.contains(&leg_id(leg))) {
+            continue;
+        }
         let Some((runs, leg_samples, leg_missed)) = result else {
             no_archive += 1;
             continue;

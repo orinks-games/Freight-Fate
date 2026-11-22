@@ -362,17 +362,23 @@ pub fn runs(route: &Route, at_mi: f64, heading: &str) -> bool {
 /// The stop records one leg gets from the list, in mile order.
 #[cfg(test)]
 pub fn place_on_leg(route: &Route, miles: f64, coarse: bool, list: &[Curated]) -> Vec<Object> {
-    placed_on_leg(route, miles, coarse, list)
+    placed_on_leg(route, miles, coarse, false, list)
         .into_iter()
         .map(|(_, r)| r)
         .collect()
 }
 
 /// [`place_on_leg`] with each record's index in the list.
+///
+/// `one_way` is a leg stored in one direction only, as lower-48 legs are:
+/// the game drives its road both ways, so a one-sided stop (`heading`) is
+/// placed on it either way, with `directions` saying which drive passes it.
+/// A leg whose reverse is stored too takes only the stops on its own side.
 fn placed_on_leg(
     route: &Route,
     miles: f64,
     coarse: bool,
+    one_way: bool,
     list: &[Curated],
 ) -> Vec<(usize, Object)> {
     let mut out: Vec<(usize, Object)> = Vec::new();
@@ -385,7 +391,8 @@ fn placed_on_leg(
         if off > c.reach_mi {
             continue;
         }
-        if c.heading.as_deref().is_some_and(|h| !runs(route, at, h)) {
+        let side = c.heading.as_deref().map(|h| runs(route, at, h));
+        if side == Some(false) && !one_way {
             continue;
         }
         // A stop at either end is in the end city, which the game serves
@@ -396,6 +403,10 @@ fn placed_on_leg(
         }
         let mut record = c.record.clone();
         record.insert("at_mi", Value::Float(at));
+        if let (Some(forward), true) = (side, one_way) {
+            let way = if forward { "forward" } else { "reverse" };
+            record.insert("directions", Value::Array(vec![Value::Str(way.into())]));
+        }
         if coarse {
             let source = record.get("source").map(Value::py_str).unwrap_or_default();
             record.insert(
@@ -421,6 +432,7 @@ fn place(args: &Args, run: &mut Run, only: &Only, path: &str) -> Result<i32> {
     let archive = std::mem::take(&mut run.archive);
     let (mut placed, mut changed) = (0, 0);
     let mut used = vec![false; list.len()];
+    let stored: std::collections::HashSet<String> = run.legs_mut()?.iter().map(leg_id).collect();
     for leg in run.legs_mut()?.iter_mut() {
         let id = leg_id(leg);
         if !only.wants(&id) {
@@ -431,7 +443,10 @@ fn place(args: &Args, run: &mut Run, only: &Only, path: &str) -> Result<i32> {
         };
         let miles = leg_miles(leg);
         let route = Route::new(&line, miles);
-        let found = placed_on_leg(&route, miles, coarse, &list);
+        let one_way = id
+            .split_once(':')
+            .is_some_and(|(from, to)| !stored.contains(&format!("{to}:{from}")));
+        let found = placed_on_leg(&route, miles, coarse, one_way, &list);
         for (k, _) in &found {
             used[*k] = true;
         }
@@ -618,6 +633,22 @@ mod tests {
         let south = Route::new(&LegLine::new(vec![(31.0, -97.0), (30.0, -97.0)]), 100.0);
         assert_eq!(place_on_leg(&north, 100.0, false, &one).len(), 1);
         assert!(place_on_leg(&south, 100.0, false, &one).is_empty());
+    }
+
+    #[test]
+    fn a_one_sided_stop_on_a_one_way_leg_says_which_drive_passes_it() {
+        let mut one = list();
+        one.truncate(1);
+        one[0].heading = Some("Northbound".into());
+        let north = Route::new(&LegLine::new(vec![(30.0, -97.0), (31.0, -97.0)]), 100.0);
+        let south = Route::new(&LegLine::new(vec![(31.0, -97.0), (30.0, -97.0)]), 100.0);
+        let way = |route: &Route| {
+            let placed = placed_on_leg(route, 100.0, false, true, &one);
+            assert_eq!(placed.len(), 1);
+            placed[0].1.get("directions").map(Value::py_str)
+        };
+        assert_eq!(way(&north).as_deref(), Some(r#"["forward"]"#));
+        assert_eq!(way(&south).as_deref(), Some(r#"["reverse"]"#));
     }
 
     #[test]
