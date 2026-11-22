@@ -1,6 +1,7 @@
-//! The `--find bridge` and `--find jointed` finders, from the pavement layer
-//! (`ff_core::data::pavement`): a bridge with joints at its ends, and a run
-//! of road with seams.
+//! The `--find bridge`, `--find jointed`, `--find grooved` and `--find
+//! grating` finders, from the pavement layer (`ff_core::data::pavement`): a
+//! bridge with joints at its ends, a run of road with seams, a run the tires
+//! whine on, and an open steel grating they hum on.
 //!
 //! The miles are the drive's own (`Trip::bridge_joint_spans`,
 //! `Trip::pavement_reading_at`), so the mile the tool promises is where the
@@ -8,11 +9,14 @@
 //! has: one bridge sounds like the next.
 
 use ff_core::sim::road_texture::joints::SpanOrigin;
+use ff_core::sim::road_texture::song::{grooves_origin, Underfoot};
 use ff_core::sim::road_texture::RoadSurface;
 use ff_core::sim::trip::Trip;
 
 use super::{Hit, DEFAULT_LEAD_MI, SCAN_STEP_MI};
 
+/// The song finders' scan step: a movable span is a few hundred feet.
+const SONG_STEP_MI: f64 = 0.01;
 /// The most hits one route offers for either feature.
 const PER_ROUTE: usize = 3;
 
@@ -80,6 +84,45 @@ pub fn jointed_hits(trip: &mut Trip, origin: &str, destination: &str) -> Vec<Hit
     }
     if let Some((from, name)) = open {
         found.push((from, total - from, format!("{name} {:.1} mi", total - from)));
+    }
+    longest(found)
+        .into_iter()
+        .map(|(at, run, label)| hit(trip, origin, destination, at, run, label))
+        .collect()
+}
+
+/// The route's runs of the tires' song: `grating` the open steel gratings
+/// at any length, otherwise the runs grooved across the lane.
+pub fn song_hits(trip: &mut Trip, origin: &str, destination: &str, grating: bool) -> Vec<Hit> {
+    let total = trip.total_miles();
+    let wanted = |u: Underfoot| match u {
+        Underfoot::Grating => grating,
+        Underfoot::Grooved(_) => !grating,
+        Underfoot::Plain => false,
+    };
+    let label = |u: Underfoot, run: f64| match u {
+        Underfoot::Grooved(g) => format!("grooved, {} {run:.2} mi", grooves_origin(g)),
+        _ => format!("grating {run:.2} mi"),
+    };
+    let mut found: Vec<(f64, f64, String)> = Vec::new();
+    let mut open: Option<(f64, Underfoot)> = None;
+    // A grating can be a movable span of a few hundred feet: scan finer.
+    let step = SONG_STEP_MI;
+    let mut at = 0.0;
+    while at <= total {
+        let under = Some(trip.underfoot_at(at)).filter(|u| wanted(*u));
+        match (open, under) {
+            (None, Some(u)) => open = Some((at, u)),
+            (Some((from, was)), now) if now != Some(was) => {
+                found.push((from, at - from, label(was, at - from)));
+                open = now.map(|u| (at, u));
+            }
+            _ => {}
+        }
+        at += step;
+    }
+    if let Some((from, was)) = open {
+        found.push((from, total - from, label(was, total - from)));
     }
     longest(found)
         .into_iter()

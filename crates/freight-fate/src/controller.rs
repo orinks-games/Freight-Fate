@@ -35,11 +35,8 @@ use std::collections::{HashSet, VecDeque};
 use std::rc::Rc;
 use std::time::{Duration, Instant};
 
-use ff_core::input_hints::{control_hint, CONTROLLER, KEYBOARD, TOUCH};
-
-/// The device hints name before the player touches anything: the screen on
-/// a phone or tablet, the keyboard everywhere else.
-const DEFAULT_DEVICE: &str = if cfg!(touch_screen) { TOUCH } else { KEYBOARD };
+use ff_core::input_device::{InputDevice, InputEvent as InputUse};
+use ff_core::input_hints::control_hint;
 use ff_core::rumble::{RumbleEngine, RumbleSink};
 
 use crate::states::base::InputEvent;
@@ -301,12 +298,10 @@ pub fn to_motor(level: f64) -> u16 {
 /// Owns the active controller and translates its events for the game.
 pub struct ControllerManager {
     slot: Rc<RefCell<PadSlot>>,
-    /// Which device the player last used (`active_device`).
-    pub active_device: &'static str,
-    /// Whether a hardware keyboard is there to name keys on. Always off
-    /// iOS; on iOS it follows GameController's connect and disconnect
-    /// notifications, and without one no hint names a key.
-    pub hardware_keyboard: bool,
+    /// Which input the prompts name: the last one used and what is
+    /// connected. On a phone the hardware keyboard follows the system's
+    /// connect and disconnect notices, and without one no hint names a key.
+    input: InputDevice,
     /// Set while a gesture is played as key presses, so those presses do
     /// not count as the keyboard being used.
     pub touch_keys: bool,
@@ -369,8 +364,7 @@ impl ControllerManager {
         }));
         let mut manager = Self {
             slot: Rc::clone(&slot),
-            active_device: DEFAULT_DEVICE,
-            hardware_keyboard: !cfg!(touch_screen),
+            input: InputDevice::new(crate::device::phone()),
             touch_keys: false,
             instance_id: None,
             name: String::new(),
@@ -500,8 +494,9 @@ impl ControllerManager {
         } else {
             self.teardown_subsystem(); // close handles + uninit while off
             self.reset_analog();
-            self.active_device = DEFAULT_DEVICE;
+            self.input.next(InputUse::ControllerOff);
         }
+        self.sync_pad();
     }
 
     pub fn set_haptics_enabled(&mut self, enabled: bool) {
@@ -530,6 +525,7 @@ impl ControllerManager {
         );
         let mapping = device.mapping();
         self.slot.borrow_mut().device = Some(device);
+        self.sync_pad();
         self.log_capabilities(mapping.as_deref());
     }
 
@@ -596,6 +592,7 @@ impl ControllerManager {
         self.instance_id = None;
         self.id_pending = false;
         self.buttons_down.clear();
+        self.sync_pad();
     }
 
     /// Whether the bound pad is still physically present.
@@ -661,25 +658,59 @@ impl ControllerManager {
     /// Record that the keyboard was just used, so hints name keys.
     pub fn note_keyboard(&mut self) {
         if !self.touch_keys {
-            self.active_device = KEYBOARD;
+            self.input.next(InputUse::KeyPress);
         }
     }
 
     /// Record that the touch screen was just used, so hints name gestures.
     pub fn note_touch(&mut self) {
-        self.active_device = TOUCH;
+        self.input.next(InputUse::Touch);
+    }
+
+    /// Record that the bound controller was just used, so hints name its
+    /// buttons.
+    pub fn note_controller(&mut self) {
+        self.input.next(InputUse::ControllerPress);
+    }
+
+    /// A hardware keyboard connected or went away.
+    pub fn set_hardware_keyboard(&mut self, connected: bool) {
+        self.input.next(if connected {
+            InputUse::KeyboardConnected
+        } else {
+            InputUse::KeyboardDisconnected
+        });
+    }
+
+    pub fn hardware_keyboard(&self) -> bool {
+        self.input.keyboard_connected()
+    }
+
+    /// The input machine, for the agent server's `status`.
+    pub fn input(&self) -> &InputDevice {
+        &self.input
+    }
+
+    /// Start the input machine over as a phone with no keyboard, or as a
+    /// desktop (the agent server's `phone`), keeping a bound controller.
+    pub fn restart_input(&mut self, phone: bool) {
+        self.input = InputDevice::new(phone);
+        self.sync_pad();
+    }
+
+    /// Tell the input machine whether a controller is bound and on.
+    fn sync_pad(&mut self) {
+        self.input.next(if self.active() {
+            InputUse::ControllerConnected
+        } else {
+            InputUse::ControllerDisconnected
+        });
     }
 
     /// `"controller"` when a pad is active and was used last, `"touch"`
-    /// when the screen was, else `"keyboard"`.
+    /// when the screen was or no keyboard is connected, else `"keyboard"`.
     pub fn device(&self) -> &'static str {
-        if self.active() && self.active_device == CONTROLLER {
-            CONTROLLER
-        } else if self.active_device == TOUCH || !self.hardware_keyboard {
-            TOUCH
-        } else {
-            KEYBOARD
-        }
+        self.input.device().key()
     }
 
     /// Control phrase for `action` naming whatever device is in use.
@@ -786,7 +817,7 @@ impl ControllerManager {
                     return false;
                 }
                 self.buttons_down.insert(*button);
-                self.active_device = CONTROLLER;
+                self.note_controller();
                 if let Some((held, until)) = self.swallowed {
                     if Instant::now() >= until {
                         self.swallowed = None;
@@ -817,19 +848,19 @@ impl ControllerManager {
             ControllerAxis::LeftX => {
                 self.steer_target = deadzone(value, STICK_DEADZONE);
                 if self.steer_target != 0.0 {
-                    self.active_device = CONTROLLER;
+                    self.note_controller();
                 }
             }
             ControllerAxis::TriggerRight => {
                 self.throttle_target = deadzone(value.max(0.0), TRIGGER_DEADZONE);
                 if self.throttle_target != 0.0 {
-                    self.active_device = CONTROLLER;
+                    self.note_controller();
                 }
             }
             ControllerAxis::TriggerLeft => {
                 self.brake_target = deadzone(value.max(0.0), TRIGGER_DEADZONE);
                 if self.brake_target != 0.0 {
-                    self.active_device = CONTROLLER;
+                    self.note_controller();
                 }
             }
             ControllerAxis::RightX => {

@@ -324,6 +324,19 @@ impl GameContext {
         self.say_with(text, Say::new());
     }
 
+    /// Say a result, then run `then` (popping back to a menu, usually) with
+    /// every line it speaks queued behind the result: "Settings saved."
+    /// first, then the revealed menu's title and row. Said after the pop,
+    /// the result landed once the row had been read; said before it, the
+    /// revealed title's interrupt cut it off.
+    pub fn say_result_then<R>(&mut self, result: &str, then: impl FnOnce(&mut Self) -> R) -> R {
+        self.say(result);
+        let previous = std::mem::replace(&mut self.result_leads, true);
+        let out = then(self);
+        self.result_leads = previous;
+        out
+    }
+
     /// `say(text, interrupt=..., review=..., category=...)`.
     pub fn say_with(&mut self, text: impl IntoSpoken, say: Say) {
         let spoken = text.into_spoken();
@@ -332,6 +345,9 @@ impl GameContext {
             review,
             category,
         } = say;
+        if self.result_leads {
+            interrupt = false;
+        }
         if self.co_driver_away && !self.speech_requested {
             if let Some(text) = self.render_spoken(&spoken) {
                 transcript!("[co-driver] quiet: {}", text);

@@ -603,7 +603,6 @@ fn test_the_speed_keeper_stops_for_a_stopped_car_without_draining_the_air() {
 /// brake.", not "Air ready. right bumper plus Y ...".
 #[test]
 fn on_a_controller_a_button_name_opening_a_sentence_takes_a_capital() {
-    use ff_core::input_hints::CONTROLLER;
     use freight_fate::controller::fakes::FakePad;
     let mut harness = a_drive("Air Pad Capitals");
     harness.app.ctx.settings.driving_hints = true;
@@ -611,7 +610,7 @@ fn on_a_controller_a_button_name_opening_a_sentence_takes_a_capital() {
     c.set_enabled(true);
     c.bind_device(Box::new(FakePad::new(0)), "test pad");
     c.set_id_pending(false);
-    c.active_device = CONTROLLER;
+    c.note_controller();
     let (air, cruise) = harness.with_drive(|drive, ctx| {
         drive.trip.truck.parking_brake = true;
         drive.trip.truck.set_air_pressure_psi(120.0);

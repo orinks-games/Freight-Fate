@@ -263,6 +263,7 @@ struct State {
     // career's "changed outside the game" mark.
     absolved: Vec<String>,
     status: String,
+    status_slot: Option<String>,
 }
 
 struct Inner {
@@ -585,6 +586,10 @@ impl CloudSaves {
             return "Cloud backup is off. Saves on this computer are not backed up.".to_string();
         }
         self.inner.state.lock().unwrap().status.clone()
+    }
+
+    pub(crate) fn restore_succeeded(&self, name: &str) {
+        self.inner.clear_slot_status(name);
     }
 
     /// Upload every due pending slot. `force` ignores the debounce and
