@@ -11103,6 +11103,9 @@ msgstr "对向车道"
 msgid "shoulder"
 msgstr "路肩"
 
+msgid "centred"
+msgstr ""
+
 msgid "quiet"
 msgstr "安静"
 
@@ -11734,6 +11737,27 @@ msgstr "轻载"
 
 msgid "bunk"
 msgstr "卧铺"
+
+msgid "Level set."
+msgstr ""
+
+msgid "This device has no motion sensor."
+msgstr ""
+
+msgid "No tilt reading. Swipe to steer."
+msgstr ""
+
+msgid "Tilt steering back."
+msgstr ""
+
+msgid "waiting"
+msgstr ""
+
+msgid "settling"
+msgstr ""
+
+msgid "live"
+msgstr "live"
 
 msgid "eastern"
 msgstr "eastern"
@@ -13073,9 +13097,6 @@ msgstr "这个速度挂不进倒挡。先把卡车停下。"
 
 msgid "simulated"
 msgstr "模拟"
-
-msgid "live"
-msgstr "live"
 
 msgid "loading"
 msgstr "加载中"
@@ -14628,11 +14649,25 @@ msgstr "Freight Fate按键探测"
 msgid "Hold each arrow key for a few seconds; it finishes by itself."
 msgstr "每个方向键都按住几秒钟；它会自动结束。"
 
+msgid "Portrait PortraitUpsideDown LandscapeLeft LandscapeRight"
+msgstr "Portrait PortraitUpsideDown LandscapeLeft LandscapeRight"
+
+#. placeholders: {count}
+msgid "{count} sensors, no accelerometer"
+msgstr ""
+
+msgid "Portrait"
+msgstr ""
+
 msgid "ff-rust-app"
 msgstr "ff-rust-app"
 
 msgid "recording"
 msgstr "recording"
+
+#. placeholders: {key}, {angle}, {angle2}
+msgid "tilt {key}; tilt_level {angle}; tilt_angle {angle2}"
+msgstr ""
 
 msgid "title"
 msgstr "title"
@@ -14954,6 +14989,9 @@ msgstr "暂停"
 
 msgid "Driving command list"
 msgstr "驾驶命令列表"
+
+msgid "Set tilt level"
+msgstr ""
 
 msgid "Nothing"
 msgstr "无"
@@ -20947,6 +20985,14 @@ msgid ""
 msgstr "向左或向右轻扫来换道，或者向左或向右滑动并按住来转向。 "
 
 msgid ""
+"Tilt the phone left or right to change one lane, and bring it back level "
+"before the next. "
+msgstr ""
+
+msgid "Tilt the phone left or right to steer. "
+msgstr ""
+
+msgid ""
 "Hold one finger still for half a second to straighten the wheel. With "
 "cruise off, flick up to turn it on. Double tap to take an exit, pull over, "
 "or confirm arrival at a gate. Tap with two fingers to stop speech. Turn two "
@@ -26275,13 +26321,16 @@ msgstr "工时与时钟"
 msgid "Driving commands"
 msgstr "驾驶命令"
 
+msgid "Tilt steering treats the way you hold the phone now as level."
+msgstr ""
+
 #. placeholders: {noun}
 msgid "At the wheel: {noun}."
 msgstr "驾驶操作：{noun}。"
 
-#. placeholders: {key_name}
-msgid "On the keyboard: {key_name}."
-msgstr "键盘：{key_name}。"
+#. placeholders: {key}
+msgid "On the keyboard: {key}."
+msgstr ""
 
 msgid "Back to driving"
 msgstr "回到驾驶"
@@ -33910,6 +33959,39 @@ msgid ""
 "swipe down. Right or Left arrow changes it."
 msgstr "向下滑动多远才会触发紧急制动，停车时则触发驻车制动。“练习手势”会读出每次下滑的长度。用Right或Left方向键更改。"
 
+msgid ""
+"On, tilting the phone left or right steers, and the screen stops turning "
+"with the phone while you drive. With lane keeping on full, a tilt changes "
+"one lane. Swipes and flicks still steer. Flick up or down to change it."
+msgstr ""
+
+msgid ""
+"On, tilting the phone left or right steers, and the screen stops turning "
+"with the phone while you drive. With lane keeping on full, a tilt changes "
+"one lane. Swipes and flicks still steer. D-pad Right or Left changes it."
+msgstr ""
+
+msgid ""
+"On, tilting the phone left or right steers, and the screen stops turning "
+"with the phone while you drive. With lane keeping on full, a tilt changes "
+"one lane. Swipes and flicks still steer. Right or Left arrow changes it."
+msgstr ""
+
+msgid ""
+"How far the phone tilts for full steering. A smaller number steers harder. "
+"Flick up or down to change it."
+msgstr ""
+
+msgid ""
+"How far the phone tilts for full steering. A smaller number steers harder. "
+"D-pad Right or Left changes it."
+msgstr ""
+
+msgid ""
+"How far the phone tilts for full steering. A smaller number steers harder. "
+"Right or Left arrow changes it."
+msgstr ""
+
 msgid "Every touch gesture is back to its default."
 msgstr "所有触摸手势都已恢复默认。"
 
@@ -33918,6 +34000,16 @@ msgstr "触摸震动反馈已启用。"
 
 msgid "Touch haptics disabled."
 msgstr "触摸震动反馈已禁用。"
+
+msgid "Tilt steering: On"
+msgstr ""
+
+msgid "Tilt steering: Off"
+msgstr ""
+
+#. placeholders: {touch_tilt_full}
+msgid "Tilt for full steering: {touch_tilt_full} degrees"
+msgstr ""
 
 msgid "Confirm, then choose the command this gesture runs while driving."
 msgstr "确认，然后选择这个手势在驾驶时执行的命令。"
@@ -33958,6 +34050,36 @@ msgstr "正在离开手势练习。"
 
 msgid "Again to leave practice."
 msgstr "再来一次即可离开练习。"
+
+#. one sentence of a longer line
+msgid "Steers left, or changes one lane with lane keeping on full."
+msgstr ""
+
+#. placeholders: {whole}
+#. one sentence of a longer line
+msgid "Tilt left, {whole} degrees."
+msgstr ""
+
+#. placeholders: {whole}
+msgid ""
+"Tilt left, {whole} degrees. Steers left, or changes one lane with lane "
+"keeping on full."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Steers right, or changes one lane with lane keeping on full."
+msgstr ""
+
+#. placeholders: {whole}
+#. one sentence of a longer line
+msgid "Tilt right, {whole} degrees."
+msgstr ""
+
+#. placeholders: {whole}
+msgid ""
+"Tilt right, {whole} degrees. Steers right, or changes one lane with lane "
+"keeping on full."
+msgstr ""
 
 #. one sentence of a longer line
 msgid "Deep swipe."
@@ -36151,6 +36273,13 @@ msgstr ""
 
 msgid "pad"
 msgstr "pad"
+
+msgid ""
+"Partial follows bends with gentle drift. Off leaves steering to you unless "
+"curve assistance is enabled. Hold a steering control across the lane line "
+"to change lanes. With Tilt steering on under Touch gestures, tilting the "
+"phone steers too, and with lane keeping on full a tilt changes one lane."
+msgstr ""
 
 msgid ""
 "The radio plays while the engine runs. A three-finger flick right tunes "
@@ -39203,6 +39332,9 @@ msgid ""
 "the engine, {pad_fuel} reads fuel, and {pad_speed_limit} reads the limit."
 msgstr ""
 "按住左肩键使用第二层按键。{pad_engine}控制发动机，{pad_fuel}读出燃油，{pad_speed_limit}读出限速。"
+
+#~ msgid "On the keyboard: {key_name}."
+#~ msgstr "键盘：{key_name}。"
 
 #~ msgid ""
 #~ "Resuming {drive_name}: {destination}. {progress} {hours_used} of "
@@ -51047,9 +51179,6 @@ msgstr ""
 
 #~ msgid "matches"
 #~ msgstr "结果"
-
-#~ msgid "Portrait PortraitUpsideDown LandscapeLeft LandscapeRight"
-#~ msgstr "Portrait PortraitUpsideDown LandscapeLeft LandscapeRight"
 
 #~ msgid "Reputation: {f} out of 100"
 #~ msgstr "声誉：{f}，满分100"
