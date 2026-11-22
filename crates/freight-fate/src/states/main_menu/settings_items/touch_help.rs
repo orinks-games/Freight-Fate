@@ -25,10 +25,9 @@ pub(super) const ASSISTS_WITH_TOUCH_HELP: [&str; 3] =
 /// A driving assist row's touch help, for the rows whose help names a key.
 pub(super) fn assist(field: &str, ctx: &GameContext) -> Option<String> {
     Some(match field {
-        "pedal_latch" => "Swipe down and hold for a moment, lift, then swipe down and hold \
-             again for half a second. A click means the brake now holds by itself. Swipe \
-             down and hold again to release it, or swipe up for gas. Gas never latches. \
-             Presets never change this."
+        "pedal_latch" => "Brake briefly, lift, then swipe down and hold again for half a \
+             second. A click means the brake now holds by itself. Brake again or accelerate \
+             to release it. The gas never latches. Presets never change this."
             .to_string(),
         "curve_callouts" => {
             let upcoming = ctx.touch_instruction(Action::Upcoming);

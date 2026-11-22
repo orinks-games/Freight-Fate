@@ -367,3 +367,17 @@ fn an_empty_name_starts_the_career_as_driver() {
         .expect("Career start opens");
     assert_eq!(start.driver_name, "Driver");
 }
+
+#[test]
+fn help_in_the_name_field_keeps_what_is_typed() {
+    let mut app = TestApp::new();
+    open_name_entry(&mut app);
+    type_text(&mut app, "Jo");
+    app.dispatch_to_state(&key_event(Key::F1));
+    assert_eq!(name(&app), "Jo");
+    app.dispatch_gesture(Gesture::KeyboardDisconnected);
+    app.clear_speech();
+    app.dispatch_gesture(Gesture::TwoFingerSwipeUp);
+    assert!(!app.main_lines().is_empty());
+    assert_eq!(name(&app), "Jo");
+}

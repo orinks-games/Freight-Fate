@@ -755,8 +755,8 @@ impl SettingsCategoryState {
                     }),
                     adjust(|s, ctx, d| s.toggle_crash_report_offer(ctx, d)),
                     if crate::device::phone() {
-                        "On, the main menu offers to send a report when the game stopped \
-                         while in use the last time, with that run's log attached."
+                        "On, the main menu offers to send a report if the game stopped while \
+                         you were playing last time, with that run's log attached."
                     } else {
                         "On, the main menu offers to send a report when the game closed \
                          without quitting the last time, with that run's log attached."
