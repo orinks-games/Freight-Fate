@@ -280,7 +280,7 @@ impl DrivingState {
         }
     }
 
-    /// The load readout: "Cattle settled. 9 hours aboard, 19 hours left."
+    /// The load readout after the Load row: "89 head. 9 hours aboard, 19 hours left."
     pub fn livestock_status_clause(&self) -> String {
         let Some(load) = self.livestock() else {
             return String::new();
@@ -292,11 +292,20 @@ impl DrivingState {
         } else {
             format!("{} left", hours_text(load.limit_left_min() / 60.0))
         };
-        format!(
-            "{}. {} head. {aboard_text} aboard, {limit}.",
-            load.footing.spoken(),
-            load.head
-        )
+        format!("{} head. {aboard_text} aboard, {limit}.", load.head)
+    }
+
+    /// The cattle's state for the Load row, in the words the events use,
+    /// then the condition figure: "Cattle restless, 12 percent". None with
+    /// no cattle aboard.
+    pub fn livestock_condition_clause(&self) -> Option<String> {
+        let load = self.livestock()?;
+        let condition = self.trip.truck.cargo_damage_pct;
+        Some(if condition < 1.0 {
+            load.footing.spoken().to_string()
+        } else {
+            format!("{}, {condition:.0} percent", load.footing.spoken())
+        })
     }
 }
 

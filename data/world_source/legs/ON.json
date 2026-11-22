@@ -1619,9 +1619,9 @@
               "Severn",
               "West Street"
             ],
-            "via": "County Road 11 EDR",
+            "via": "",
             "highway": "Hwy 11",
-            "source": "Exit ref, name and destination signs read from OpenStreetMap highway=motorway_junction nodes on a motorway or trunk way running along the leg's archived route, and the destination tags of this exit's own motorway_link ramps, OpenStreetMap planet file of 2026-11-16. at_mi derived: the mean of the exit's junction nodes (one per carriageway) projected onto that route, rescaled to the leg's miles: https://www.openstreetmap.org/ Road kind in via derived: each bare route number matched to the OpenStreetMap road route relation of that number nearest the exit (within 6 km), its network or name giving the kind of road, from the OpenStreetMap planet file of 2026-11-16; French cardinals in English.",
+            "source": "Exit ref, name and destination signs read from OpenStreetMap highway=motorway_junction nodes on a motorway or trunk way running along the leg's archived route, and the destination tags of this exit's own motorway_link ramps, OpenStreetMap planet file of 2026-11-16. at_mi derived: the mean of the exit's junction nodes (one per carriageway) projected onto that route, rescaled to the leg's miles: https://www.openstreetmap.org/ Road kind in via derived: each bare route number matched to the OpenStreetMap road route relation of that number nearest the exit (within 6 km), its network or name giving the kind of road, from the OpenStreetMap planet file of 2026-11-16; French cardinals in English. Emergency detour route refs (EDR) dropped: they mark a detour, not the road the exit leads to.",
             "ramp_control": "signal",
             "ramp_control_source": "OpenStreetMap highway=traffic_signals/highway=stop/highway=give_way node within 120 m of the walked terminal node where this exit's ramp chain ends (read; the walk supplies the node, the tag supplies the control), OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/",
             "ramp_far_end": "surface",
@@ -59653,9 +59653,9 @@
               "Severn",
               "West Street"
             ],
-            "via": "County Road 11 EDR",
+            "via": "",
             "highway": "Hwy 11",
-            "source": "Exit ref, name and destination signs read from OpenStreetMap highway=motorway_junction nodes on a motorway or trunk way running along the leg's archived route, and the destination tags of this exit's own motorway_link ramps, OpenStreetMap planet file of 2026-11-16. at_mi derived: the mean of the exit's junction nodes (one per carriageway) projected onto that route, rescaled to the leg's miles: https://www.openstreetmap.org/ Road kind in via derived: each bare route number matched to the OpenStreetMap road route relation of that number nearest the exit (within 6 km), its network or name giving the kind of road, from the OpenStreetMap planet file of 2026-11-16; French cardinals in English.",
+            "source": "Exit ref, name and destination signs read from OpenStreetMap highway=motorway_junction nodes on a motorway or trunk way running along the leg's archived route, and the destination tags of this exit's own motorway_link ramps, OpenStreetMap planet file of 2026-11-16. at_mi derived: the mean of the exit's junction nodes (one per carriageway) projected onto that route, rescaled to the leg's miles: https://www.openstreetmap.org/ Road kind in via derived: each bare route number matched to the OpenStreetMap road route relation of that number nearest the exit (within 6 km), its network or name giving the kind of road, from the OpenStreetMap planet file of 2026-11-16; French cardinals in English. Emergency detour route refs (EDR) dropped: they mark a detour, not the road the exit leads to.",
             "ramp_control": "signal",
             "ramp_control_source": "OpenStreetMap highway=traffic_signals/highway=stop/highway=give_way node within 120 m of the walked terminal node where this exit's ramp chain ends (read; the walk supplies the node, the tag supplies the control), OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/",
             "ramp_far_end": "surface",
@@ -86750,7 +86750,9 @@
             "amount": 25.04,
             "amount_plate": 25.04,
             "estimated": false,
-            "source": "https://bluewaterbridge.ca/toll-rates/ (US-bound commercial vehicles CAD 7.00 per axle; a five-axle rig pays CAD 35.00), accessed 2026-11-22. Amount derived: CAD 35.00 at 1.3978 CAD per USD, the rate the game uses for Canadian fines. Position read from the OpenStreetMap toll booth node 27079443 at the Sarnia plaza, projected on the leg's archived road."
+            "source": "https://bluewaterbridge.ca/toll-rates/ (US-bound commercial vehicles CAD 7.00 per axle; a five-axle rig pays CAD 35.00), accessed 2026-11-22. Amount derived: CAD 35.00 at 1.3978 CAD per USD, the rate the game uses for Canadian fines. Position read from the OpenStreetMap toll booth node 27079443 at the Sarnia plaza, projected on the leg's archived road. Canadian price read: CAD 35.00 posted at the Sarnia plaza.",
+            "amount_local": 35.0,
+            "currency": "CAD"
           }
         ]
       },
@@ -122617,9 +122619,9 @@
               "Ambassador Bridge",
               "USA"
             ],
-            "via": "Highway 3;Highway 401 EDR",
+            "via": "Highway 3",
             "highway": "Hwy 401 / I-75",
-            "source": "Exit ref, name and destination signs read from OpenStreetMap highway=motorway_junction nodes on a motorway or trunk way running along the leg's archived route, and the destination tags of this exit's own motorway_link ramps, OpenStreetMap planet file of 2026-11-16. at_mi derived: the mean of the exit's junction nodes (one per carriageway) projected onto that route, rescaled to the leg's miles: https://www.openstreetmap.org/ Road kind in via derived: each bare route number matched to the OpenStreetMap road route relation of that number nearest the exit (within 6 km), its network or name giving the kind of road, from the OpenStreetMap planet file of 2026-11-16; French cardinals in English.",
+            "source": "Exit ref, name and destination signs read from OpenStreetMap highway=motorway_junction nodes on a motorway or trunk way running along the leg's archived route, and the destination tags of this exit's own motorway_link ramps, OpenStreetMap planet file of 2026-11-16. at_mi derived: the mean of the exit's junction nodes (one per carriageway) projected onto that route, rescaled to the leg's miles: https://www.openstreetmap.org/ Road kind in via derived: each bare route number matched to the OpenStreetMap road route relation of that number nearest the exit (within 6 km), its network or name giving the kind of road, from the OpenStreetMap planet file of 2026-11-16; French cardinals in English. Emergency detour route refs (EDR) dropped: they mark a detour, not the road the exit leads to.",
             "ramp_control": "signal",
             "ramp_control_source": "OpenStreetMap highway=traffic_signals/highway=stop/highway=give_way node within 120 m of the walked terminal node where this exit's ramp chain ends (read; the walk supplies the node, the tag supplies the control), OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/",
             "ramp_far_end": "surface",
@@ -123215,7 +123217,9 @@
             "amount": 43.75,
             "amount_plate": 43.75,
             "estimated": false,
-            "source": "https://gordiehoweinternationalbridge.com/toll/toll-rates/ and https://gordiehoweinternationalbridge.com/toll/faq/ (commercial vehicles USD 8.75 or CAD 12.00 per axle, the same from either side; a five-axle rig pays USD 43.75), accessed 2026-11-22. Position read from the OpenStreetMap toll booth nodes at the Canadian port plaza (node 13897248738), where tolls are collected in both directions, projected on the leg's archived road."
+            "source": "https://gordiehoweinternationalbridge.com/toll/toll-rates/ and https://gordiehoweinternationalbridge.com/toll/faq/ (commercial vehicles USD 8.75 or CAD 12.00 per axle, the same from either side; a five-axle rig pays USD 43.75), accessed 2026-11-22. Position read from the OpenStreetMap toll booth nodes at the Canadian port plaza (node 13897248738), where tolls are collected in both directions, projected on the leg's archived road. Canadian price read: CAD 12.00 per axle, CAD 60.00 for five axles, at the toll plaza in the Canadian port of entry.",
+            "amount_local": 60.0,
+            "currency": "CAD"
           }
         ]
       },

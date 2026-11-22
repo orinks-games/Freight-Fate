@@ -34429,7 +34429,9 @@
             "amount": 34.0,
             "amount_plate": 34.0,
             "estimated": false,
-            "source": "https://www.niagarafallsbridges.com/crossing-info/toll-cost-vehicle-definitions, rates effective 2025-05-01 (commercial, five axles USD 34.00 or CAD 48.50; tolls are paid one way into Canada, at a booth in Canada), accessed 2026-11-22. Position read from the OpenStreetMap toll booth node 4358007540 at the Queenston plaza, projected on the leg's archived road."
+            "source": "https://www.niagarafallsbridges.com/crossing-info/toll-cost-vehicle-definitions, rates effective 2025-05-01 (commercial, five axles USD 34.00 or CAD 48.50; tolls are paid one way into Canada, at a booth in Canada), accessed 2026-11-22. Position read from the OpenStreetMap toll booth node 4358007540 at the Queenston plaza, projected on the leg's archived road. Canadian price read: CAD 48.50 at the booth in Canada.",
+            "amount_local": 48.5,
+            "currency": "CAD"
           }
         ]
       },

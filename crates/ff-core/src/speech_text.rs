@@ -566,6 +566,19 @@ pub fn stop_callout(parts: &StopCalloutParts<'_>) -> SpokenMessage {
 
 // -- money lines ---------------------------------------------------------------
 
+/// Marks a toll amount as Canadian dollars for [`toll_charged`]: the amount
+/// text carries it so every caller's signature stays the same.
+pub const CANADIAN: &str = " CAD";
+
+/// A booth's spoken amount: its Canadian price where it posts one, else the
+/// US dollar charge, whole dollars either way.
+pub fn toll_amount_text(toll: &crate::data::world_models::TollEvent) -> String {
+    match toll.canadian_amount() {
+        Some(cad) => format!("{}{CANADIAN}", crate::pyfmt::fmt_f(cad, 0)),
+        None => crate::pyfmt::fmt_f(toll.amount, 0),
+    }
+}
+
 /// The charged toll: what it cost always speaks (ROUTE, never dropped);
 /// terse keeps the cost and who pays, drops the bookkeeping prose.
 pub fn toll_charged(
@@ -575,6 +588,15 @@ pub fn toll_charged(
     estimated: bool,
 ) -> SpokenMessage {
     let estimate = if estimated { "estimated " } else { "" };
+    if let Some(cad) = amount_text.strip_suffix(CANADIAN) {
+        // A Canadian booth says the Canadian price (Orinks, 2026-11-22).
+        return SpokenMessage::with_terse(
+            format!(
+                "{method_label} toll at {name}, {estimate}{cad} Canadian dollars, billed to carrier settlement."
+            ),
+            format!("Toll, {cad} Canadian dollars, carrier."),
+        );
+    }
     SpokenMessage::with_terse(
         format!(
             "{method_label} toll at {name}, {estimate}{amount_text} dollars, billed to carrier settlement."

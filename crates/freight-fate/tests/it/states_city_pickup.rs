@@ -1399,6 +1399,95 @@ fn test_dispatch_departs_by_the_route_511_construction_recommends() {
     assert_eq!(driven, routes[routing.pick()].cities);
 }
 
+/// The board posts the first lane. When 511 construction sends a company
+/// driver the long way (Dodge City to Liberal: 83 miles on US-54 posted,
+/// 120 on US-50 and US-83 driven), pay and the credited miles follow the
+/// road, and the departure says so; the posted miles stay on the job.
+#[test]
+fn a_longer_road_from_dispatch_is_paid_by_the_mile() {
+    use std::sync::Arc;
+
+    use ff_core::data::world::get_world;
+    use ff_core::sim::real_traffic::{wall_time, RealTrafficProvider, TrafficData};
+    use ff_core::sim::real_traffic_parsers::TrafficEvent;
+    use ff_core::sim::route_roadwork::route_state_keys;
+
+    let world = get_world();
+    let (origin, destination) = ("dodge_city_ks_us", "liberal_ks_us");
+    let routes = world
+        .supported_route_options(origin, destination, 3)
+        .expect("routes to Liberal");
+    let posted = routes[0].miles();
+    let mut job = Job::new(
+        cargo_type("general").unwrap(),
+        12.0,
+        origin,
+        "Dodge City Cross-Dock",
+        destination,
+        posted,
+        800.0,
+        9.0,
+    );
+    job.origin_type = "mine_quarry".to_string();
+    job.origin_facility_id = "dodge-live-load".to_string();
+
+    let mut app = TestApp::new();
+    career(&mut app, "Long Way Dispatch", "Dodge City");
+    push_pickup(&mut app, job.clone(), PickupOptions::default());
+    key(&mut app, Key::Return); // check in
+    key(&mut app, Key::Return); // load cargo
+    finish_timed_state(&mut app);
+
+    // A short lane closure on the posted road: once dispatch sees any
+    // construction it ranks the lanes by time, and the long way is quicker.
+    let leg = &routes[0].legs[0];
+    let points = leg.route_points();
+    let point = &points[points.len() / 2];
+    let state = route_state_keys(&routes[0])
+        .first()
+        .cloned()
+        .expect("the first leg names its state");
+    let mut event = TrafficEvent::new("open", "construction", "low", "Roadwork", "Test");
+    event.latitude = Some(point.lat);
+    event.longitude = Some(point.lon);
+    event.closure = "one lane closed".to_string();
+    event.work_type = "construction".to_string();
+    let provider = Arc::new(RealTrafficProvider::offline());
+    let now = wall_time();
+    provider.seed_cache(
+        &format!("{state}:construction"),
+        TrafficData::new(&state, vec![event], now, now, "test"),
+    );
+    app.ctx.settings.real_traffic = true;
+    app.ctx.set_real_traffic_provider(Arc::clone(&provider));
+
+    app.clear_speech();
+    key(&mut app, Key::Return); // depart for destination
+    assert!(is::<DrivingState>(&app));
+    let departure = app
+        .main_lines()
+        .into_iter()
+        .rev()
+        .find(|text| text.contains("Dispatch routed you to"))
+        .expect("a departure line");
+    let (driven, credited, posted_kept, pay) = with_state::<DrivingState, _>(&app, |d, _| {
+        (
+            d.trip.route.miles(),
+            d.job.credited_mi(),
+            d.job.distance_mi,
+            d.job.pay,
+        )
+    });
+    assert!(
+        driven > posted + 0.5,
+        "dispatch took the long way: {departure}"
+    );
+    assert!((credited - driven).abs() < 0.1, "{credited} vs {driven}");
+    assert_eq!(posted_kept, posted);
+    assert!((pay - job.pay * credited / posted).abs() < 0.05, "{pay}");
+    assert!(departure.contains("The load now pays for "), "{departure}");
+}
+
 #[test]
 fn test_dispatch_departure_is_unchanged_with_real_traffic_off() {
     // No feeds, no construction talk, the shortest route: the day-one path.
