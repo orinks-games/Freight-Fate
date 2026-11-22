@@ -19,6 +19,7 @@
 - **Kilometers now reach fuel, weights and signs.** Fuel is in liters, loads in tonnes, weights in kilograms and low bridges in meters.
 - **The cruise dial steps in the units you hear.** In kilometers it walks 95, 100, 105.
 - **Seventeen new achievements.** Earn them in Alaska, on the Alaska Highway, at customs, on a restart, with a carrier, hauling cattle and at the Laredo yards.
+- **Nine new achievements in Canada.** Earn them in Alberta, Saskatoon, Sudbury, Nova Scotia and Quebec, on both coasts and in every province.
 - **Live cattle are a new freight class from level 5.** Haul feeder calves from sale barns to feed yards, and fed cattle to beef plants, on a livestock trailer.
 - **Cattle react to hard braking and sharp turns.** Too much and they lose their footing or go down. Stop and choose Check the cattle to get one up.
 - **Cattle loads must arrive within the 28-hour limit.** You hear when 2 hours, 1 hour and 30 minutes are left, and the receiver names the shrink.
@@ -55,6 +56,7 @@
 - **The clock now tells Atlantic Time in the Maritimes, and diesel there costs what it does there.**
 - **The map now reaches Thompson, Baie-Comeau, Sept-Îles and Chibougamau,** on Manitoba's Highway 6 and Quebec's Routes 113, 167, 172 and 138.
 - **The Gordie Howe, Blue Water, Lewiston-Queenston and Thousand Islands bridges charge their published truck tolls.**
+- **The map now reaches Fort McMurray, Yellowknife, Prince Rupert, Stewart and Dawson City.** The Deh Cho Bridge charges its toll, and trucks leaving Hyder clear customs at Stewart.
 - **The map now joins Winnipeg to Thunder Bay, Sault Ste. Marie, Timmins and North Bay** on Highways 17 and 11, with crossings at Pigeon River and the Sault Ste. Marie International Bridge, which charges its truck toll.
 - **A route between two US cities stays in the United States when a US road exists.** Alaska routes still run through Canada.
 - **Alaska roads now reach the Kenai Peninsula, Valdez and Deadhorse.** Seward, Valdez and Kenai offer only their real freight sites, and Deadhorse sells diesel.

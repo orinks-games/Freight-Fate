@@ -5645,7 +5645,7 @@ Honesty debts for this v1 slice (do not paper over):
       would give the synth mode a real band. genny is Python, so it is a port,
       not an embed.
 
-### Achievements for 2.0 (wave 1 built, wave 2 waits for Canada)
+### Achievements for 2.0 (waves 1 and 2 built)
 
 - [x] Seventeen badges (catalog 184 to 201): Alaska, Anchorage,
       Deadhorse, the Whittier tunnel, the whole Alaska Highway, Fairbanks in
@@ -5661,10 +5661,12 @@ Honesty debts for this v1 slice (do not paper over):
 - [ ] (Found along the way) Waiting out a CDL suspension at the terminal
       logs one 10-hour sleep on the hours clock however long the wait, so a
       multi-day wait does not restart the cycle.
-- [ ] Wave 2, Canada: nine badges (Across the Border, Alberta Bound,
-      Saskatoon, Sudbury, Halifax, Quebec in winter, Lake Superior in
-      November, both coasts, every province). Each waits for the
-      cross-border loads PR and for its city or road to exist on the map.
+- [x] Wave 2, Canada: nine achievements (catalog 201 to 210): Canada,
+      Alberta, Saskatoon, Sudbury on a Saturday evening, a load out of Nova
+      Scotia, Quebec in winter, Highway 17 along Lake Superior in November
+      (hidden), British Columbia and Atlantic Canada, and every province.
+      Every province is read off the map, so a new corridor adds to it.
+      Awarded from now on.
 
 ### November 22 freight review: doubles, Laredo, cattle, reefer, hazmat
 
@@ -6257,8 +6259,31 @@ a carrier slice (owner, 2026-10-26).
       areas from New Brunswick and Nova Scotia (no open list read yet),
       and a 10-hour stop on Woodstock to Bangor (132 miles, the Irving at
       Hogan Road the only placed stop).
-- [ ] The north: 63 to Fort McMurray, 16 to Prince Rupert, 37 to the
-      Yukon, 3 to Yellowknife, freight nodes only.
+- [x] The north: 63 to Fort McMurray, 16 to Prince Rupert, 37 to the
+      Yukon, 3 to Yellowknife, freight nodes only. Built in two halves,
+      west and east (below).
+- [x] The north, west half, first pass (2026-11-22): 19 towns (Fort
+      McMurray, Slave Lake, Peace River, High Level, Hay River, Yellowknife,
+      Smithers, Terrace, Kitimat, Prince Rupert, Stewart and Dawson City,
+      with Wandering River, Fort Providence, Vanderhoof, Meziadin Junction,
+      Dease Lake and Carmacks as fuel towns, and Hyder, Alaska, with no
+      freight) and 42 legs on 63, the Mackenzie (2, 35, 1 and 3), the
+      Yellowhead west of Prince George, 37 and 37A, and the North Klondike.
+      The Northwest Territories join the map on Mountain Time. Hyder to
+      Stewart stops at CBSA Stewart; going into Hyder has no inspection.
+      The Deh Cho Bridge charges its published northbound commercial toll.
+      Stops from `docs/stops/canada-north-west.json`. Report:
+      `career-2.0-alpha/corridor-5-west-report.md`.
+- [ ] (Found along the way) Two northern legs are thin: Slave Lake to
+      Peace River (166 miles) has fuel at High Prairie but no sleep stop,
+      and Fort Providence to Yellowknife (191 miles) has no fuel on the
+      road, as in life. Twenty-two of the 59 northern stops have truck
+      access assumed; the Alberta and NWT rest area pages would read them.
+- [ ] (Found along the way) Northern roads left for later: the Dempster
+      to Inuvik and the Top of the World Highway (both seasonal, both want
+      a seasonal road rule and the Yukon ferry at Dawson), the
+      Trans-Labrador Highway, the James Bay Road, and Newfoundland, which
+      needs the Marine Atlantic ferry.
 - [x] The north, east half, first pass (2026-11-22): Thompson on Highway 6
       from Winnipeg, with Ashern and Grand Rapids as fuel towns; Baie-Comeau
       and Sept-Îles on Route 138, reached from Saguenay on Route 172 so no

@@ -11413,6 +11413,752 @@
       "lat": 47.50579,
       "lon": -79.68533
     },
+    "wandering_river_ab_ca": {
+      "spoken_city": "Wandering River",
+      "state": "AB",
+      "country": "CA",
+      "region": "rockies",
+      "lat": 55.1933,
+      "lon": -112.47478,
+      "source_note": "Place read from the OpenStreetMap place node 51970620 for Wandering River (place=hamlet), OpenStreetMap planet file of 2026-11-16; the hamlet on Highway 63 about halfway between Edmonton and Fort McMurray. A fuel town with no freight: Edmonton to Fort McMurray is 277 miles with no other town of size on it.",
+      "locations": [
+        {
+          "name": "Petro-Canada Wandering River",
+          "type": "travel_center",
+          "lat": 55.1933,
+          "lon": -112.47478,
+          "source_note": "Petro-Canada station on Highway 63 at Wandering River, one of three stations at the hamlet. Name, kind and position read from OpenStreetMap way 539650530 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/539650530)."
+        }
+      ]
+    },
+    "fort_mcmurray_ab_ca": {
+      "spoken_city": "Fort McMurray",
+      "state": "AB",
+      "country": "CA",
+      "region": "rockies",
+      "lat": 56.66489,
+      "lon": -111.33405,
+      "locations": [
+        {
+          "name": "Mackenzie Industrial Park",
+          "type": "industrial_park",
+          "lat": 56.66489,
+          "lon": -111.33405,
+          "source_note": "Industrial park on Highway 63 at the south end of Fort McMurray. Name, kind and position read from OpenStreetMap way 201214569 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/201214569). Ships and receives set by hand from what the site does (2026-11-22).",
+          "ships": [
+            "bulk",
+            "construction"
+          ],
+          "receives": [
+            "bulk",
+            "machinery",
+            "construction",
+            "general"
+          ],
+          "cargo": [
+            "bulk",
+            "construction",
+            "machinery",
+            "general"
+          ]
+        },
+        {
+          "name": "Taiga Nova Eco-Industrial Park",
+          "type": "industrial_park",
+          "lat": 56.77401,
+          "lon": -111.41898,
+          "source_note": "Industrial park north of the Athabasca River. Name, kind and position read from OpenStreetMap way 628767259 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/628767259). Ships and receives set by hand from what the site does (2026-11-22).",
+          "ships": [
+            "bulk",
+            "construction"
+          ],
+          "receives": [
+            "bulk",
+            "machinery",
+            "construction",
+            "general"
+          ],
+          "cargo": [
+            "bulk",
+            "construction",
+            "machinery",
+            "general"
+          ]
+        },
+        {
+          "name": "Suncor Base Plant",
+          "type": "chemical_petroleum_terminal",
+          "cargo": [
+            "fuel_bulk",
+            "machinery",
+            "steel",
+            "chemicals"
+          ],
+          "lat": 57.00443,
+          "lon": -111.4806,
+          "source_note": "Suncor's oil sands mine and upgrader north of the city on Highway 63 (industrial=oil sands, product=petroleum). Name, kind and position read from OpenStreetMap way 631668208 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/631668208). Ships and receives set by hand from what the site does (2026-11-22).",
+          "ships": [
+            "fuel_bulk"
+          ],
+          "receives": [
+            "machinery",
+            "steel",
+            "chemicals",
+            "fuel_bulk"
+          ]
+        },
+        {
+          "name": "Syncrude Mildred Lake",
+          "type": "chemical_petroleum_terminal",
+          "cargo": [
+            "fuel_bulk",
+            "machinery",
+            "steel",
+            "chemicals"
+          ],
+          "lat": 57.04346,
+          "lon": -111.61864,
+          "source_note": "Syncrude oil sands plant at Mildred Lake (industrial=oil, description=refinery). Name, kind and position read from OpenStreetMap way 297377637 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/297377637). Ships and receives set by hand from what the site does (2026-11-22).",
+          "ships": [
+            "fuel_bulk"
+          ],
+          "receives": [
+            "machinery",
+            "steel",
+            "chemicals",
+            "fuel_bulk"
+          ]
+        }
+      ]
+    },
+    "slave_lake_ab_ca": {
+      "spoken_city": "Slave Lake",
+      "state": "AB",
+      "country": "CA",
+      "region": "rockies",
+      "lat": 55.26767,
+      "lon": -114.60831,
+      "locations": [
+        {
+          "name": "Slave Lake East Industrial Area",
+          "type": "industrial_park",
+          "lat": 55.26767,
+          "lon": -114.60831,
+          "source_note": "Industrial land on Highway 2 east of Slave Lake. Position read from OpenStreetMap way 687468393 (landuse=industrial, no name) in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/687468393); OpenStreetMap names no freight facility there, so the name is descriptive and the kind is assumed. Ships and receives set by hand from what the site does (2026-11-22).",
+          "ships": [
+            "bulk",
+            "construction"
+          ],
+          "receives": [
+            "bulk",
+            "machinery",
+            "construction",
+            "general"
+          ],
+          "cargo": [
+            "bulk",
+            "construction",
+            "machinery",
+            "general"
+          ]
+        }
+      ]
+    },
+    "peace_river_ab_ca": {
+      "spoken_city": "Peace River",
+      "state": "AB",
+      "country": "CA",
+      "region": "rockies",
+      "lat": 56.22977,
+      "lon": -117.41287,
+      "locations": [
+        {
+          "name": "West Hill Industrial Park",
+          "type": "industrial_park",
+          "lat": 56.22977,
+          "lon": -117.41287,
+          "source_note": "Industrial park on Highway 2 on the west hill above Peace River. Name, kind and position read from OpenStreetMap way 472251749 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/472251749). Ships and receives set by hand from what the site does (2026-11-22).",
+          "ships": [
+            "bulk",
+            "construction"
+          ],
+          "receives": [
+            "bulk",
+            "machinery",
+            "construction",
+            "general"
+          ],
+          "cargo": [
+            "bulk",
+            "construction",
+            "machinery",
+            "general"
+          ]
+        },
+        {
+          "name": "Daishowa Pulp Mill",
+          "type": "lumber_paper",
+          "cargo": [
+            "lumber_paper",
+            "chemicals",
+            "machinery",
+            "fuel_bulk"
+          ],
+          "lat": 56.37334,
+          "lon": -117.18487,
+          "source_note": "Pulp mill north of Peace River, now run by Mercer as Mercer Peace River. Name, kind and position read from OpenStreetMap way 406074627 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/406074627). Ships and receives set by hand from what the site does (2026-11-22).",
+          "ships": [
+            "lumber_paper"
+          ],
+          "receives": [
+            "chemicals",
+            "machinery",
+            "fuel_bulk"
+          ]
+        },
+        {
+          "name": "Viterra Grain Elevator",
+          "type": "farm_elevator",
+          "cargo": [
+            "grain",
+            "farm_inputs",
+            "fuel_bulk"
+          ],
+          "lat": 56.20594,
+          "lon": -117.60794,
+          "source_note": "Grain elevator at Grimshaw on Highway 2. Name, kind and position read from OpenStreetMap way 1131980658 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/1131980658). Ships and receives set by hand from what the site does (2026-11-22).",
+          "ships": [
+            "grain"
+          ],
+          "receives": [
+            "farm_inputs",
+            "fuel_bulk"
+          ]
+        }
+      ]
+    },
+    "high_level_ab_ca": {
+      "spoken_city": "High Level",
+      "state": "AB",
+      "country": "CA",
+      "region": "rockies",
+      "lat": 58.49769,
+      "lon": -117.13487,
+      "locations": [
+        {
+          "name": "Tolko Sawmill",
+          "type": "lumber_paper",
+          "cargo": [
+            "lumber_paper",
+            "machinery",
+            "fuel_bulk"
+          ],
+          "lat": 58.49769,
+          "lon": -117.13487,
+          "source_note": "Tolko lumber mill on the south side of High Level. Name, kind and position read from OpenStreetMap way 41383176 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/41383176). Ships and receives set by hand from what the site does (2026-11-22).",
+          "ships": [
+            "lumber_paper"
+          ],
+          "receives": [
+            "machinery",
+            "fuel_bulk"
+          ]
+        },
+        {
+          "name": "Richardson Pioneer Grain Elevator",
+          "type": "farm_elevator",
+          "cargo": [
+            "grain",
+            "farm_inputs",
+            "fuel_bulk"
+          ],
+          "lat": 58.52298,
+          "lon": -117.10579,
+          "source_note": "Grain elevator on the CN line (industrial=grain_elevator). Name, kind and position read from OpenStreetMap way 1011878021 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/1011878021). Ships and receives set by hand from what the site does (2026-11-22).",
+          "ships": [
+            "grain"
+          ],
+          "receives": [
+            "farm_inputs",
+            "fuel_bulk"
+          ]
+        },
+        {
+          "name": "West Fraser High Level",
+          "type": "lumber_paper",
+          "cargo": [
+            "lumber_paper",
+            "machinery",
+            "fuel_bulk"
+          ],
+          "lat": 58.44431,
+          "lon": -117.21074,
+          "source_note": "Oriented strand board mill south of town (operator Norbord, now West Fraser; product=wood). Name, kind and position read from OpenStreetMap way 1125498774 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/1125498774). Ships and receives set by hand from what the site does (2026-11-22).",
+          "ships": [
+            "lumber_paper"
+          ],
+          "receives": [
+            "machinery",
+            "fuel_bulk"
+          ]
+        }
+      ]
+    },
+    "hay_river_nt_ca": {
+      "spoken_city": "Hay River",
+      "state": "NT",
+      "country": "CA",
+      "region": "rockies",
+      "lat": 60.77853,
+      "lon": -115.84587,
+      "locations": [
+        {
+          "name": "Hay River Freight Terminal",
+          "type": "rail",
+          "cargo": [
+            "general",
+            "fuel_bulk",
+            "construction"
+          ],
+          "lat": 60.77853,
+          "lon": -115.84587,
+          "source_note": "Rail freight terminal at the northern end of the CN line into the Northwest Territories (railway=yard). Name, kind and position read from OpenStreetMap node 3438335595 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/node/3438335595). Ships and receives set by hand from what the site does (2026-11-22).",
+          "ships": [
+            "general",
+            "fuel_bulk",
+            "construction"
+          ],
+          "receives": [
+            "general",
+            "fuel_bulk",
+            "construction"
+          ]
+        }
+      ]
+    },
+    "fort_providence_nt_ca": {
+      "spoken_city": "Fort Providence",
+      "state": "NT",
+      "country": "CA",
+      "region": "rockies",
+      "lat": 61.30818,
+      "lon": -117.59897,
+      "source_note": "Named for the hamlet of Fort Providence, OpenStreetMap place node in the OpenStreetMap planet file of 2026-11-16; the pin is the Big River service stop where the Yellowknife Highway (Highway 3) leaves the Mackenzie Highway, a few miles from the hamlet. A fuel town with no freight: Hay River to Yellowknife is 299 miles and this is the only fuel on it.",
+      "locations": [
+        {
+          "name": "Big River Shell",
+          "type": "travel_center",
+          "lat": 61.30818,
+          "lon": -117.59897,
+          "source_note": "Shell station at the junction of Highways 1 and 3 near Fort Providence. Name, kind and position read from OpenStreetMap node 2130144288 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/node/2130144288)."
+        }
+      ]
+    },
+    "yellowknife_nt_ca": {
+      "spoken_city": "Yellowknife",
+      "state": "NT",
+      "country": "CA",
+      "region": "rockies",
+      "lat": 62.43051,
+      "lon": -114.41844,
+      "locations": [
+        {
+          "name": "Territorial Beverages",
+          "type": "distribution",
+          "cargo": [
+            "food",
+            "general"
+          ],
+          "lat": 62.43051,
+          "lon": -114.41844,
+          "source_note": "Beverage distributor in the Kam Lake industrial area (industrial=distributor). Name, kind and position read from OpenStreetMap way 1293710597 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/1293710597). Ships and receives set by hand from what the site does (2026-11-22).",
+          "ships": [
+            "food"
+          ],
+          "receives": [
+            "food",
+            "general"
+          ]
+        },
+        {
+          "name": "Matonabee Petroleum",
+          "type": "chemical_petroleum_terminal",
+          "cargo": [
+            "fuel_bulk"
+          ],
+          "lat": 62.42907,
+          "lon": -114.41758,
+          "source_note": "Fuel distributor's yard in the Kam Lake industrial area. Name, kind and position read from OpenStreetMap way 1088547813 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/1088547813). Ships and receives set by hand from what the site does (2026-11-22).",
+          "ships": [
+            "fuel_bulk"
+          ],
+          "receives": [
+            "fuel_bulk"
+          ]
+        },
+        {
+          "name": "Dickson's Trucking",
+          "type": "terminal",
+          "lat": 62.43016,
+          "lon": -114.42229,
+          "source_note": "Trucking depot in the Kam Lake industrial area (industrial=depot). Name, kind and position read from OpenStreetMap way 1293727880 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/1293727880). Ships and receives set by hand from what the site does (2026-11-22).",
+          "ships": [
+            "general",
+            "construction"
+          ],
+          "receives": [
+            "general",
+            "construction"
+          ],
+          "cargo": [
+            "general",
+            "construction"
+          ]
+        }
+      ]
+    },
+    "vanderhoof_bc_ca": {
+      "spoken_city": "Vanderhoof",
+      "state": "BC",
+      "country": "CA",
+      "region": "pacific_northwest",
+      "lat": 54.01426,
+      "lon": -124.01285,
+      "locations": [
+        {
+          "name": "Co-op Vanderhoof",
+          "type": "travel_center",
+          "lat": 54.01426,
+          "lon": -124.01285,
+          "source_note": "Co-op station on Highway 16 in Vanderhoof. Name, kind and position read from OpenStreetMap way 532101715 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/532101715)."
+        }
+      ]
+    },
+    "smithers_bc_ca": {
+      "spoken_city": "Smithers",
+      "state": "BC",
+      "country": "CA",
+      "region": "pacific_northwest",
+      "lat": 54.76136,
+      "lon": -127.14947,
+      "locations": [
+        {
+          "name": "Pacific Inland Resources",
+          "type": "lumber_paper",
+          "cargo": [
+            "lumber_paper",
+            "machinery",
+            "fuel_bulk"
+          ],
+          "lat": 54.76136,
+          "lon": -127.14947,
+          "source_note": "West Fraser sawmill on Highway 16 east of Smithers. Name, kind and position read from OpenStreetMap way 558082244 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/558082244). Ships and receives set by hand from what the site does (2026-11-22).",
+          "ships": [
+            "lumber_paper"
+          ],
+          "receives": [
+            "machinery",
+            "fuel_bulk"
+          ]
+        },
+        {
+          "name": "Chevron Commercial Cardlock Smithers",
+          "type": "travel_center",
+          "lat": 54.76831,
+          "lon": -127.14204,
+          "source_note": "Chevron commercial cardlock on Highway 16. Name, kind and position read from OpenStreetMap node 9165304293 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/node/9165304293)."
+        }
+      ]
+    },
+    "terrace_bc_ca": {
+      "spoken_city": "Terrace",
+      "state": "BC",
+      "country": "CA",
+      "region": "pacific_northwest",
+      "lat": 54.51978,
+      "lon": -128.63041,
+      "locations": [
+        {
+          "name": "Skeena Sawmills",
+          "type": "lumber_paper",
+          "cargo": [
+            "lumber_paper",
+            "machinery",
+            "fuel_bulk"
+          ],
+          "lat": 54.51978,
+          "lon": -128.63041,
+          "source_note": "Sawmill on the Yellowhead Highway in Terrace (industrial=timber). Name, kind and position read from OpenStreetMap way 192229517 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/192229517). Ships and receives set by hand from what the site does (2026-11-22).",
+          "ships": [
+            "lumber_paper"
+          ],
+          "receives": [
+            "machinery",
+            "fuel_bulk"
+          ]
+        },
+        {
+          "name": "Petro-Pass Truck Stop Terrace",
+          "type": "travel_center",
+          "lat": 54.51458,
+          "lon": -128.54169,
+          "source_note": "Petro-Canada Petro-Pass truck stop on Highway 16 east of Terrace (fuel:diesel=yes, opening_hours=24/7). Name, kind and position read from OpenStreetMap node 9162162155 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/node/9162162155)."
+        }
+      ]
+    },
+    "kitimat_bc_ca": {
+      "spoken_city": "Kitimat",
+      "state": "BC",
+      "country": "CA",
+      "region": "pacific_northwest",
+      "lat": 54.00992,
+      "lon": -128.69939,
+      "locations": [
+        {
+          "name": "Rio Tinto Kitimat Works",
+          "type": "steel_industrial",
+          "cargo": [
+            "steel",
+            "chemicals",
+            "machinery"
+          ],
+          "lat": 54.00992,
+          "lon": -128.69939,
+          "source_note": "Aluminum smelter at the head of Douglas Channel (operator Rio Tinto, up to 432,000 tonnes of ingots a year). Name, kind and position read from OpenStreetMap way 90760362 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/90760362). Ships and receives set by hand from what the site does (2026-11-22).",
+          "ships": [
+            "steel"
+          ],
+          "receives": [
+            "chemicals",
+            "machinery"
+          ]
+        },
+        {
+          "name": "LNG Canada",
+          "type": "chemical_petroleum_terminal",
+          "cargo": [
+            "machinery",
+            "steel",
+            "chemicals"
+          ],
+          "lat": 54.02603,
+          "lon": -128.69024,
+          "source_note": "Liquefied natural gas export plant (product=LNG). Name, kind and position read from OpenStreetMap relation 20055269 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/relation/20055269). Ships and receives set by hand from what the site does (2026-11-22).",
+          "ships": [],
+          "receives": [
+            "machinery",
+            "steel",
+            "chemicals"
+          ]
+        }
+      ]
+    },
+    "prince_rupert_bc_ca": {
+      "spoken_city": "Prince Rupert",
+      "state": "BC",
+      "country": "CA",
+      "region": "pacific_northwest",
+      "lat": 54.28385,
+      "lon": -130.35829,
+      "locations": [
+        {
+          "name": "Port of Prince Rupert Container Terminal",
+          "type": "port_terminal",
+          "cargo": [
+            "container",
+            "port_container"
+          ],
+          "lat": 54.28385,
+          "lon": -130.35829,
+          "source_note": "The Fairview container terminal (industrial=port, website rupertport.com). Name, kind and position read from OpenStreetMap way 169852754 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/169852754). Ships and receives set by hand from what the site does (2026-11-22).",
+          "ships": [
+            "container",
+            "port_container"
+          ],
+          "receives": [
+            "container",
+            "port_container"
+          ]
+        },
+        {
+          "name": "Pembina Prince Rupert Terminal",
+          "type": "chemical_petroleum_terminal",
+          "cargo": [
+            "fuel_bulk",
+            "chemicals"
+          ],
+          "lat": 54.2357,
+          "lon": -130.29119,
+          "source_note": "Propane export terminal on Ridley Island. Name, kind and position read from OpenStreetMap way 171009897 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/171009897). Ships and receives set by hand from what the site does (2026-11-22).",
+          "ships": [],
+          "receives": [
+            "fuel_bulk",
+            "chemicals"
+          ]
+        }
+      ]
+    },
+    "meziadin_junction_bc_ca": {
+      "spoken_city": "Meziadin Junction",
+      "state": "BC",
+      "country": "CA",
+      "region": "pacific_northwest",
+      "lat": 56.10011,
+      "lon": -129.30612,
+      "source_note": "Place read from the OpenStreetMap place node 315309110 for Meziadin Junction (place=hamlet), OpenStreetMap planet file of 2026-11-16; where Highway 37A to Stewart leaves the Stewart-Cassiar Highway. A fuel town with no freight.",
+      "locations": [
+        {
+          "name": "Petro-Canada Meziadin Junction",
+          "type": "travel_center",
+          "lat": 56.10011,
+          "lon": -129.30612,
+          "source_note": "Petro-Canada station at Meziadin Junction (fuel:diesel=yes). Name, kind and position read from OpenStreetMap way 532959636 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/532959636)."
+        }
+      ]
+    },
+    "dease_lake_bc_ca": {
+      "spoken_city": "Dease Lake",
+      "state": "BC",
+      "country": "CA",
+      "region": "pacific_northwest",
+      "lat": 58.43817,
+      "lon": -129.99034,
+      "source_note": "Place read from the OpenStreetMap place node 52555792 for Dease Lake (place=village, population 229 in 2021), OpenStreetMap planet file of 2026-11-16. A fuel town with no freight on the Stewart-Cassiar Highway.",
+      "locations": [
+        {
+          "name": "Petro-Canada Dease Lake",
+          "type": "travel_center",
+          "lat": 58.43817,
+          "lon": -129.99034,
+          "source_note": "Petro-Canada station on Highway 37 at Dease Lake (fuel:diesel=yes, checked 2026-07-14). Name, kind and position read from OpenStreetMap way 532543476 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/532543476)."
+        }
+      ]
+    },
+    "stewart_bc_ca": {
+      "spoken_city": "Stewart",
+      "state": "BC",
+      "country": "CA",
+      "region": "pacific_northwest",
+      "lat": 55.95509,
+      "lon": -129.97029,
+      "locations": [
+        {
+          "name": "Stewart Industrial Area",
+          "type": "industrial_park",
+          "lat": 55.95509,
+          "lon": -129.97029,
+          "source_note": "Industrial land beside Highway 37A on the Bear River north of Stewart. Position read from OpenStreetMap way 532973980 (landuse=industrial, no name) in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/532973980); OpenStreetMap names no freight facility there, so the name is descriptive and the kind is assumed. Ships and receives set by hand from what the site does (2026-11-22).",
+          "ships": [
+            "bulk",
+            "construction"
+          ],
+          "receives": [
+            "bulk",
+            "machinery",
+            "construction",
+            "general"
+          ],
+          "cargo": [
+            "bulk",
+            "construction",
+            "machinery",
+            "general"
+          ]
+        }
+      ]
+    },
+    "hyder_ak_us": {
+      "spoken_city": "Hyder",
+      "state": "AK",
+      "country": "US",
+      "region": "pacific_northwest",
+      "lat": 55.91709,
+      "lon": -130.02725,
+      "source_note": "Place read from the OpenStreetMap place node 7985211156 for Hyder (place=village), OpenStreetMap planet file of 2026-11-16. Hyder is reached by road only from Stewart, British Columbia; it has no freight facility in OpenStreetMap, so it has no facilities or generated jobs.",
+      "no_freight": true,
+      "locations": []
+    },
+    "carmacks_yt_ca": {
+      "spoken_city": "Carmacks",
+      "state": "YT",
+      "country": "CA",
+      "region": "pacific_northwest",
+      "lat": 62.08928,
+      "lon": -136.2816,
+      "source_note": "Place read from the OpenStreetMap boundary relation 9561047 for Carmacks (population 503), OpenStreetMap planet file of 2026-11-16; on the Klondike Highway at the Yukon River. A fuel town with no freight: Whitehorse to Dawson City is 331 miles.",
+      "locations": [
+        {
+          "name": "Hotel Carmacks Gas Bar",
+          "type": "travel_center",
+          "lat": 62.08928,
+          "lon": -136.2816,
+          "source_note": "Gas bar of the Hotel Carmacks on the Klondike Highway (fuel:diesel=yes, opening_hours 07:00-22:00, website hotelcarmacks.com). Name, kind and position read from OpenStreetMap node 2703608441 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/node/2703608441)."
+        }
+      ]
+    },
+    "dawson_city_yt_ca": {
+      "spoken_city": "Dawson City",
+      "state": "YT",
+      "country": "CA",
+      "region": "pacific_northwest",
+      "lat": 64.04287,
+      "lon": -139.41569,
+      "locations": [
+        {
+          "name": "Callison Industrial Area",
+          "type": "industrial_park",
+          "lat": 64.04287,
+          "lon": -139.41569,
+          "source_note": "Industrial land on the Klondike Highway at Callison, southeast of Dawson City. Position read from OpenStreetMap way 1274461097 (landuse=industrial, no name) in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/1274461097); OpenStreetMap names no freight facility there, so the name is descriptive and the kind is assumed. Ships and receives set by hand from what the site does (2026-11-22).",
+          "ships": [
+            "bulk",
+            "construction"
+          ],
+          "receives": [
+            "bulk",
+            "machinery",
+            "construction",
+            "general"
+          ],
+          "cargo": [
+            "bulk",
+            "construction",
+            "machinery",
+            "general"
+          ]
+        },
+        {
+          "name": "AFD Petroleum Dawson",
+          "type": "chemical_petroleum_terminal",
+          "cargo": [
+            "fuel_bulk"
+          ],
+          "lat": 64.04206,
+          "lon": -139.40368,
+          "source_note": "Fuel distributor at Callison on the Klondike Highway. Name, kind and position read from OpenStreetMap node 3058453503 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/node/3058453503). Ships and receives set by hand from what the site does (2026-11-22).",
+          "ships": [
+            "fuel_bulk"
+          ],
+          "receives": [
+            "fuel_bulk"
+          ]
+        },
+        {
+          "name": "Dawson Diesel Facility",
+          "type": "steel_industrial",
+          "cargo": [
+            "fuel_bulk"
+          ],
+          "lat": 64.05444,
+          "lon": -139.44013,
+          "source_note": "Yukon Energy Corporation's diesel power plant in Dawson City. Name, kind and position read from OpenStreetMap way 865952439 in the OpenStreetMap planet file of 2026-11-16 (https://www.openstreetmap.org/way/865952439). Ships and receives set by hand from what the site does (2026-11-22).",
+          "ships": [],
+          "receives": [
+            "fuel_bulk"
+          ]
+        }
+      ]
+    },
     "edmundston_nb_ca": {
       "spoken_city": "Edmundston",
       "state": "NB",

@@ -111,6 +111,9 @@ fn state_zone(state: &str) -> Option<TimeZone> {
         // Canada, on the same fixed standard offsets. Saskatchewan keeps
         // Central Standard Time all year, which is what a fixed offset says.
         "Alberta" | "AB" => MOUNTAIN,
+        // The Northwest Territories keep Mountain time (Hay River,
+        // Yellowknife); the road in comes from Alberta on the same clock.
+        "Northwest Territories" | "NT" => MOUNTAIN,
         "Saskatchewan" | "SK" | "Manitoba" | "MB" => CENTRAL,
         // Yukon keeps UTC-7 all year (since November 2020): plain Mountain.
         "Yukon" | "YT" => MOUNTAIN,
@@ -491,6 +494,17 @@ mod tests {
             ("Swift Current", 50.29, -107.79, "Saskatchewan", CENTRAL),
             ("Regina", 50.45, -104.61, "Saskatchewan", CENTRAL),
             ("Winnipeg", 49.9, -97.14, "Manitoba", CENTRAL),
+            ("Fort McMurray", 56.73, -111.38, "Alberta", MOUNTAIN),
+            (
+                "Hay River",
+                60.82,
+                -115.80,
+                "Northwest Territories",
+                MOUNTAIN,
+            ),
+            ("Yellowknife", 62.45, -114.37, "NT", MOUNTAIN),
+            ("Prince Rupert", 54.32, -130.32, "British Columbia", PACIFIC),
+            ("Dease Lake", 58.44, -129.99, "British Columbia", PACIFIC),
         ] {
             assert_eq!(zone_for(lat, lon, state), expected, "{place}");
         }

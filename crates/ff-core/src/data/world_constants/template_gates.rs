@@ -412,6 +412,17 @@ pub const CURATED_COMPLETE_MARKET_CITY_KEYS: &[&str] = &[
     "thompson_mb_ca",
     "baie_comeau_qc_ca",
     "sept_iles_qc_ca",
+    // The north, west half (corridor 5, 2026-11-22): towns with named sites.
+    "fort_mcmurray_ab_ca",
+    "peace_river_ab_ca",
+    "high_level_ab_ca",
+    "hay_river_nt_ca",
+    "yellowknife_nt_ca",
+    "smithers_bc_ca",
+    "terrace_bc_ca",
+    "kitimat_bc_ca",
+    "prince_rupert_bc_ca",
+    "dawson_city_yt_ca",
 ];
 
 /// Whether this city keeps only its authored freight locations. See
