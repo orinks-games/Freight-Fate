@@ -64,7 +64,7 @@
 
 ### Changed
 
-- **The recorded truck engine has stereo cab sound and follows rev changes more closely.** Gear changes use clacks recorded inside the cab.
+- **Hear the stereo cab recordings as the truck idles, pulls away, and accelerates.** Gear changes use clacks recorded inside the cab.
 - **The GPS no longer calls out low bridges and weight limits.** Your route already clears every one of them.
 - **The player manual now covers 2.0,** including Alaska and Canada, the border, units, carriers and the hours rules in each place.
 - **The new roads, loads and achievements are translated in all eleven languages.**

@@ -160,6 +160,19 @@ pub const STEREO_ENGINE_BANDS: [(&str, f64); 5] = [
     ("engine_stereo/high", 1988.0),
 ];
 
+/// Recorded under load with closer RPM spacing through the pullaway.
+/// Reuse the stereo idle and the 898 RPM cut from the same overlay.
+pub const ACCEL_ENGINE_BANDS: [(&str, f64); 8] = [
+    STEREO_ENGINE_BANDS[0],
+    ("engine_accel/launch", 758.0),
+    STEREO_ENGINE_BANDS[1],
+    ("engine_accel/low", 1000.0),
+    ("engine_accel/mid", 1234.0),
+    ("engine_accel/upper_mid", 1465.0),
+    ("engine_accel/upper", 1702.0),
+    ("engine_accel/high", 1986.0),
+];
+
 /// Whether `key` is one of the original five engine band cuts.
 pub fn is_engine_band_key(key: &str) -> bool {
     ENGINE_BANDS.iter().any(|(band, _native)| *band == key)

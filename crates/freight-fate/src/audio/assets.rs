@@ -18,7 +18,9 @@ use ff_core::cab_filter;
 use ff_core::data::data_resources::data_root;
 use once_cell::sync::Lazy;
 
-use super::{engine_band_keys, is_engine_band_key, AudioError, STEREO_ENGINE_BANDS};
+use super::{
+    engine_band_keys, is_engine_band_key, AudioError, ACCEL_ENGINE_BANDS, STEREO_ENGINE_BANDS,
+};
 
 /// The bytes behind a sound key and the extension they were found under.
 pub type AssetBytes = (Arc<[u8]>, String);
@@ -104,10 +106,10 @@ pub fn pack_carries_whole_ring(pack: &CombinedPack) -> bool {
 
 /// Stereo is a complete, calibrated ring of WAV cuts. Check membership
 /// before opening tracks so a missing overlay quietly uses the old ring.
-pub(super) fn stereo_engine_available() -> bool {
+pub(super) fn stereo_engine_available(bands: &[(&str, f64)]) -> bool {
     let pack = assets_pack::open_default();
     let roots = asset_roots();
-    STEREO_ENGINE_BANDS.iter().all(|(key, _)| {
+    bands.iter().all(|(key, _)| {
         generated_sound(key).is_some()
             || pack
                 .as_ref()
@@ -219,7 +221,11 @@ static LENGTHS: Lazy<Mutex<VersionedCache<f64>>> = Lazy::new(|| Mutex::new(Versi
 /// parameter tweaks. The classic voice's ogg keeps its old sound untouched,
 /// and non-engine keys pass straight through.
 pub fn playback_bytes(key: &str, extensions: &[&str]) -> Option<AssetBytes> {
-    if STEREO_ENGINE_BANDS.iter().any(|(band, _)| *band == key) {
+    if STEREO_ENGINE_BANDS
+        .iter()
+        .chain(&ACCEL_ENGINE_BANDS)
+        .any(|(band, _)| *band == key)
+    {
         // These loops were recorded inside the cab.
         return asset_bytes(key, &["wav"]);
     }
