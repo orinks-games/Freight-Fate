@@ -48,10 +48,10 @@ impl DrivingState {
     pub fn update_speeding(&mut self, ctx: &mut GameContext, dt: f64, accelerator_held: bool) {
         if self.ramp_mi.is_some() {
             // The ramp is off the highway and unpatrolled. The ramp to the
-            // destination still has a limit S gives, though, and the dash
-            // goes by it once the deceleration lane is behind: past the
-            // lane a truck at 40 in the gate's 15 heard nothing at all
-            // (R1 follow-up, 2026-11-22).
+            // destination still has the limit S gives, the approach's 45 to
+            // its end, and the dash goes by it once the deceleration lane is
+            // behind: on every ramp the dash used to say nothing at any
+            // speed (R1 follow-up, 2026-11-22).
             if let Some(limit) = self.after_exit_limit_mph {
                 if !self.in_deceleration_lane() && self.pull_over.is_none() {
                     self.update_overspeed_warning(ctx, dt, limit);

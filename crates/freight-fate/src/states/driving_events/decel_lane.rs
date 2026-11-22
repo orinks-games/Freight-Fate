@@ -51,9 +51,10 @@ impl DrivingState {
     /// no pieces to tell apart, so the exit speed holds throughout.
     ///
     /// Off the destination exit the ramp leads to the facility, and the
-    /// limit S gives there (the approach's, then the gate's) caps it too:
-    /// the assists held the ramp's design speed while S said 45, and 15
-    /// inside the gate's half mile (R1 follow-up, 2026-11-22).
+    /// limit S gives there caps it too: the destination approach's 45 (never
+    /// above the corridor's) to the ramp's end, where the assists had held
+    /// the ramp's design speed. The gate's 15 is on the map only once the
+    /// ramp ends (R1 follow-up, 2026-11-22).
     pub fn ramp_cap_here_mph(&self) -> f64 {
         let exit = self.armed_ramp_mph(None);
         let cap = match self.ramp_layout {
