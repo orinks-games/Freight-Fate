@@ -64,6 +64,7 @@
 
 ### Changed
 
+- **Freeway traffic, passing vehicles and ramp cross traffic now use real recordings.** Vehicles driving alongside hold a steady exterior sound by lane.
 - **The recorded truck engine has stereo cab sound and follows rev changes more closely.** Gear changes use clacks recorded inside the cab.
 - **The GPS no longer calls out low bridges and weight limits.** Your route already clears every one of them.
 - **The player manual now covers 2.0,** including Alaska and Canada, the border, units, carriers and the hours rules in each place.
