@@ -318,6 +318,10 @@ pub struct HosClock {
     /// consecutive off-duty/sleeper minutes toward the selected cycle restart;
     /// unlike `off_duty_min` this is never capped at `SLEEP_MIN`
     pub restart_off_min: f64,
+    /// Live cattle are aboard, so the 30-minute break does not apply
+    /// ([`Self::waive_break`]). Not saved: the drive sets it again on its
+    /// first frame, and the readouts stop naming a break that never comes.
+    pub break_waived: bool,
 }
 
 impl Default for HosClock {
@@ -341,6 +345,7 @@ impl Default for HosClock {
             cycle_clock_min: 0.0,
             cycle_entries: Vec::new(),
             restart_off_min: 0.0,
+            break_waived: false,
         }
     }
 }
@@ -398,7 +403,13 @@ impl HosClock {
     /// would call for one is held at zero.
     pub fn waive_break(&mut self) {
         self.since_break_min = 0.0;
+        self.break_waived = true;
         self.warned.retain(|w| !w.starts_with("break:"));
+    }
+
+    /// The cattle are off: the break counts again from zero.
+    pub fn restore_break(&mut self) {
+        self.break_waived = false;
     }
 
     /// Off-duty time. Short breaks do not extend the 14-hour window.
@@ -847,7 +858,7 @@ impl HosClock {
             return Vec::new();
         };
         if self.rules == HosRules::Us {
-            return vec![
+            let mut limits = vec![
                 HosLimit {
                     kind: "break",
                     remaining_min: break_after - self.since_break_min,
@@ -869,6 +880,10 @@ impl HosClock {
                     due: "your 70-hour cycle is used up. You need a 34-hour restart",
                 },
             ];
+            if self.break_waived {
+                limits.retain(|limit| limit.kind != "break");
+            }
+            return limits;
         }
 
         let rule_limits = self.non_us_limits().expect("non-US rules selected");
@@ -1078,7 +1093,7 @@ impl HosClock {
             limits(mode).expect("HOS mode is realistic or relaxed");
         let drive_left = py_max(0.0, drive_limit - self.driving_min) / 60.0;
         let duty_left = py_max(0.0, duty_limit - self.duty_min) / 60.0;
-        let break_left = py_max(0.0, break_after - self.since_break_min) / 60.0;
+        let break_left = self.break_left_h(break_after);
         if self.in_violation(mode) {
             let blown: Vec<&str> = self
                 .statuses(mode)
@@ -1265,8 +1280,17 @@ impl HosClock {
         (
             py_max(0.0, drive_limit - self.driving_min) / 60.0,
             py_max(0.0, duty_limit - self.duty_min) / 60.0,
-            py_max(0.0, break_after - self.since_break_min) / 60.0,
+            self.break_left_h(break_after),
         )
+    }
+
+    /// Hours until the 30-minute break, or infinity while it is waived.
+    fn break_left_h(&self, break_after: f64) -> f64 {
+        if self.break_waived {
+            f64::INFINITY
+        } else {
+            py_max(0.0, break_after - self.since_break_min) / 60.0
+        }
     }
 
     /// Which blown limit ended the shift, or None; the driving clock leads.
@@ -1377,6 +1401,9 @@ impl HosClock {
         }
         if limits(mode).is_none() {
             return format!("Break: none required. {ENFORCEMENT_OFF}");
+        }
+        if self.break_waived && self.shift_over_kind(mode).is_none() {
+            return "No 30-minute break is required with cattle aboard.".to_string();
         }
         let (_drive_left, duty_left, break_left) = self.hours_left(mode);
         let over = self.shift_over_kind(mode);
@@ -1583,7 +1610,7 @@ impl HosClock {
             ("duty", duty_left, "your duty window closes"),
             ("cycle", cycle_left, "your 70-hour cycle runs out"),
         ];
-        if duty_left > break_left {
+        if duty_left > break_left && !self.break_waived {
             candidates.push(("break", break_left, "your 30-minute break is due"));
         }
         let mut nearest = candidates[0];
@@ -1782,6 +1809,7 @@ impl HosClock {
             cycle_clock_min: py_float_or(obj.get("cycle_clock_min"), 0.0).unwrap_or(0.0),
             cycle_entries,
             restart_off_min: py_float_or(obj.get("restart_off_min"), 0.0).unwrap_or(0.0),
+            break_waived: false,
         })
     }
 }

@@ -12059,6 +12059,9 @@ msgstr ""
 msgid "No 30-minute break is required under Canadian hours rules."
 msgstr ""
 
+msgid "No 30-minute break is required with cattle aboard."
+msgstr ""
+
 msgid "Break overdue"
 msgstr "中途休息已逾期"
 
@@ -20694,10 +20697,10 @@ msgstr "装货前先停车。"
 msgid "Hooking the loaded trailer"
 msgstr "正在挂上装好货的挂车"
 
-#. placeholders: {facility}, {map}, {f}, {cargo_label}, {doubles_clause}
+#. placeholders: {facility}, {map}, {f}, {cargo_label}
 msgid ""
 "Dropping your empty at {facility} and hooking {map}, loaded with {f} tons "
-"of {cargo_label}.{doubles_clause}"
+"of {cargo_label}."
 msgstr ""
 
 msgid "Dropping and hooking."
@@ -20706,8 +20709,8 @@ msgstr "正在甩挂。"
 msgid "Loading cargo"
 msgstr "正在装货"
 
-#. placeholders: {f}, {cargo_label}, {facility}, {doubles_clause}
-msgid "Loading {f} tons of {cargo_label} at {facility}.{doubles_clause}"
+#. placeholders: {f}, {cargo_label}, {facility}
+msgid "Loading {f} tons of {cargo_label} at {facility}."
 msgstr ""
 
 msgid "Loading cargo."
@@ -28395,16 +28398,15 @@ msgid ""
 "Dropping the loaded trailer at {facility}, {f} tons of {cargo_label}."
 msgstr "正在{facility}甩下满载的挂车，{f}吨{cargo_label}。"
 
-#. placeholders: {facility}, {f}, {cargo_label}, {doubles}
+#. placeholders: {facility}, {f}, {cargo_label}
 msgid ""
 "Dropping the loaded trailer at {facility}, {f} tons of {cargo_label}. "
-"Hooking an empty.{doubles}"
-msgstr ""
+"Hooking an empty."
+msgstr "正在{facility}甩下满载的挂车，{f}吨{cargo_label}。正在挂上一节空挂车。"
 
-#. placeholders: {doubles}
 #. one sentence of a longer line
-msgid "Hooking an empty.{doubles}"
-msgstr ""
+msgid "Hooking an empty."
+msgstr "正在挂上一节空挂车。"
 
 msgid "Dropping the trailer."
 msgstr "正在甩挂车。"
@@ -28417,14 +28419,14 @@ msgstr "正在卸货"
 msgid "Docked at {facility}."
 msgstr "已靠上{facility}的装卸口。"
 
-#. placeholders: {facility}, {f}, {cargo_label}, {doubles}
-msgid "Docked at {facility}. Unloading {f} tons of {cargo_label}.{doubles}"
-msgstr ""
+#. placeholders: {facility}, {f}, {cargo_label}
+msgid "Docked at {facility}. Unloading {f} tons of {cargo_label}."
+msgstr "已靠上{facility}的装卸口。正在卸下{f}吨{cargo_label}。"
 
-#. placeholders: {f}, {cargo_label}, {doubles}
+#. placeholders: {f}, {cargo_label}
 #. one sentence of a longer line
-msgid "Unloading {f} tons of {cargo_label}.{doubles}"
-msgstr ""
+msgid "Unloading {f} tons of {cargo_label}."
+msgstr "正在卸下{f}吨{cargo_label}。"
 
 msgid "Unloading cargo."
 msgstr "正在卸货。"
@@ -30036,6 +30038,9 @@ msgid ""
 "Engine off while parked, no fuel burned. Required before the fuel island."
 msgstr "停车时关掉发动机，不耗油。去加油岛之前必须关掉。"
 
+msgid "The cattle pass the 28-hour limit while you sleep."
+msgstr ""
+
 msgid "the lot"
 msgstr "停车场"
 
@@ -30112,18 +30117,18 @@ msgstr "时钟前进{span}。"
 msgid "Sleep {span}{more} at {name}."
 msgstr "在 {name} 处睡眠 {span}{more}。"
 
-#. placeholders: {span}, {more}, {name}, {effect}, {legal}, {f}, {f2}, {deadline}, {pending}, {cost}
+#. placeholders: {span}, {more}, {name}, {effect}, {legal}, {f}, {f2}, {deadline}, {cattle}, {pending}, {cost}
 msgid ""
 "Sleep {span}{more} at {name}. {effect} {legal} Fatigue {f} to {f2}. Clock "
-"moves ahead {span}. {deadline}{pending}{cost} Select again to sleep."
+"moves ahead {span}. {deadline}{cattle}{pending}{cost} Select again to sleep."
 msgstr ""
 "在{name}睡{span}{more}。{effect} {legal} "
-"疲劳从{f}降到{f2}。时钟前进{span}。{deadline}{pending}{cost} 再选一次即可睡觉。"
+"疲劳从{f}降到{f2}。时钟前进{span}。{deadline}{cattle}{pending}{cost} 再选一次即可睡觉。"
 
-#. placeholders: {deadline}, {pending}, {cost}
+#. placeholders: {deadline}, {cattle}, {pending}, {cost}
 #. one sentence of a longer line
-msgid "{deadline}{pending}{cost} Select again to sleep."
-msgstr "{deadline}{pending}{cost} 再次选择睡眠。"
+msgid "{deadline}{cattle}{pending}{cost} Select again to sleep."
+msgstr "{deadline}{cattle}{pending}{cost} 再次选择睡眠。"
 
 #. placeholders: {effect}, {legal}, {f}, {f2}
 #. one sentence of a longer line
@@ -41319,6 +41324,16 @@ msgid ""
 msgstr ""
 "按住左肩键使用第二层按键。{pad_engine}控制发动机，{pad_fuel}读出燃油，{pad_speed_limit}读出限速。"
 
+#~ msgid ""
+#~ "Sleep {span}{more} at {name}. {effect} {legal} Fatigue {f} to {f2}. Clock "
+#~ "moves ahead {span}. {deadline}{pending}{cost} Select again to sleep."
+#~ msgstr ""
+#~ "在{name}睡{span}{more}。{effect} {legal} "
+#~ "疲劳从{f}降到{f2}。时钟前进{span}。{deadline}{pending}{cost} 再选一次即可睡觉。"
+
+#~ msgid "{deadline}{pending}{cost} Select again to sleep."
+#~ msgstr "{deadline}{pending}{cost} 再次选择睡眠。"
+
 #~ msgid ", which your carrier pays"
 #~ msgstr "，由你的承运公司支付"
 
@@ -41570,20 +41585,6 @@ msgstr ""
 
 #~ msgid "Parked at {name} in {city}."
 #~ msgstr "已停在{city}的{name}。"
-
-#~ msgid ""
-#~ "Dropping the loaded trailer at {facility}, {f} tons of {cargo_label}. "
-#~ "Hooking an empty."
-#~ msgstr "正在{facility}甩下满载的挂车，{f}吨{cargo_label}。正在挂上一节空挂车。"
-
-#~ msgid "Hooking an empty."
-#~ msgstr "正在挂上一节空挂车。"
-
-#~ msgid "Docked at {facility}. Unloading {f} tons of {cargo_label}."
-#~ msgstr "已靠上{facility}的装卸口。正在卸下{f}吨{cargo_label}。"
-
-#~ msgid "Unloading {f} tons of {cargo_label}."
-#~ msgstr "正在卸下{f}吨{cargo_label}。"
 
 #~ msgid ""
 #~ "At {facility}. {f} tons of {label}. Speed {speed_text}. {else}. Stop, then "

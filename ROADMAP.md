@@ -5548,6 +5548,57 @@ Honesty debts for this v1 slice (do not paper over):
       November, both coasts, every province). Each waits for the
       cross-border loads PR and for its city or road to exist on the map.
 
+### November 22 freight review: doubles, Laredo, cattle, reefer, hazmat
+
+Read the 2.0-only freight code and drove each kind on the agent server
+with Facility streets off (transcripts in the project's
+`career-2.0-alpha` folder).
+
+- [x] The delivery screen dropped the receiver's lines: the cattle count
+      ("2 could not walk off ...") and the cargo claim line were composed
+      but never reached the rows the player reads, because the screen reads
+      its own itemized list. Both rows now follow the Load row. The same
+      gap exists on dev (1.9.x) and needs the same fix there. (Found along
+      the way)
+- [x] A reefer box on the road ran its temperature and spoilage on real
+      seconds while the game clock ran at the pace, so a box with the unit
+      off warmed ten times slower driving than parked. Both clocks are now
+      game seconds. (Found along the way)
+- [x] A sleep's forecast now says when the cattle would pass the 28-hour
+      limit before the driver wakes. (Found along the way)
+- [x] With cattle aboard the hours readouts named a 30-minute break that
+      never comes due; Alt S now says no break is required with cattle
+      aboard, and the break drops out of the other readouts. (Found along
+      the way)
+- [x] A refused reverse with doubles played the gear-shift sound first;
+      the doubles hook-up and break-the-set times were each spoken twice in
+      a row. (Found along the way)
+- [ ] *(Found along the way)* The other lines `summary_parts` carries for
+      a loaded delivery (a preventable-damage deductible, on-the-spot
+      tickets, a balance a load could not cover) are not on the delivery
+      screen either; check each against the itemized rows.
+- [ ] *(Found along the way)* Past the 28-hour limit the game only says
+      "The cattle have been aboard 28 hours." and keeps costing condition;
+      there is no way to unload, feed and water for 5 hours as the law
+      requires. Decide whether a feed-and-water stop belongs in 2.0.
+- [ ] *(Found along the way)* The cattle condition line on the road
+      reuses the boxed-freight sentence ("The load has shifted hard and is
+      injured ... the carrier pays for what you broke"); cattle need their
+      own wording.
+- [ ] *(Found along the way)* Every cattle load on the board says "They
+      can ride 28 hours.", which never changes; a candidate for removal.
+- [ ] *(Found along the way)* A tunnel refusal reads the whole rule,
+      including the bulk-flammable clause, to a packaged poison-gas load
+      the clause does not concern.
+- [ ] *(Found along the way)* The doubles route lines say "National
+      Network", a regulation's name a player may not know.
+- [ ] *(Found along the way)* A cattle board load from Dodge City to
+      Liberal posted 83 miles, but dispatch routed it 120 miles around
+      construction; the settlement credits the posted 83.
+- [ ] *(Found along the way)* The agent server cannot stage a southbound
+      load to a Laredo transfer yard or a rear-trailer whip under partial
+      lane keeping; both were checked by tests only.
+
 ### The first 2.0 nightly
 
 Plumbing before the merge, none of it gameplay (agreed 2026-10-26; the

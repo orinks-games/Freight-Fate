@@ -232,6 +232,23 @@ impl DrivingState {
             self.direction_hold_s += dt;
             if self.direction_hold_s >= DIRECTION_CHANGE_HOLD_S {
                 self.direction_armed = String::new();
+                if want == "reverse" {
+                    if let Some(refusal) = self.trip.truck.doubles_reverse_refusal() {
+                        // A set of doubles cannot be backed: the gear stays
+                        // where it is and the driver hears why, with no
+                        // shift sound for a shift that did not happen.
+                        self.direction_hold_s = 0.0;
+                        ctx.audio.play("ui/error");
+                        self.set_status(refusal);
+                        ctx.say_event_with(
+                            refusal,
+                            SayEvent::queued()
+                                .priority(EventPriority::Important)
+                                .category(SpeechCategory::Safety),
+                        );
+                        return false;
+                    }
+                }
                 self.direction_hold_s = 0.0;
                 self.trip.truck.transmission.shift_timer = 0.0;
                 ctx.audio
@@ -249,19 +266,6 @@ impl DrivingState {
                         SayEvent::queued()
                             .priority(EventPriority::Important)
                             .category(SpeechCategory::Confirmation),
-                    );
-                    return false;
-                }
-                if let Some(refusal) = self.trip.truck.doubles_reverse_refusal() {
-                    // A set of doubles cannot be backed: the gear stays
-                    // where it is and the driver hears why.
-                    ctx.audio.play("ui/error");
-                    self.set_status(refusal);
-                    ctx.say_event_with(
-                        refusal,
-                        SayEvent::queued()
-                            .priority(EventPriority::Important)
-                            .category(SpeechCategory::Safety),
                     );
                     return false;
                 }
