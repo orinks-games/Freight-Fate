@@ -9,12 +9,12 @@ use ff_core::models::career_training::{
 };
 use ff_core::models::carrier_fleet::fleet_assignment_text;
 use ff_core::models::economy::{
-    canada_diesel_usd_per_gal, pay_advance_grant, pay_advance_unavailable_reason,
+    cad_per_litre, canada_diesel_usd_per_gal, pay_advance_grant, pay_advance_unavailable_reason,
 };
 use ff_core::models::enforcement;
 use ff_core::models::solvency;
 use ff_core::music::{select_menu_music_sequence, MenuMusicProfile};
-use ff_core::pyfmt::{fmt_grouped, round_py_n};
+use ff_core::pyfmt::{fmt_f, fmt_grouped, round_py_n};
 use ff_core::sim::alertness::Alertness;
 use ff_core::sim::hos::{self, clock_text, time_of_day};
 use ff_core::sim::roadside_inspection::walk_around;
@@ -203,10 +203,20 @@ impl CityMenuState {
             ""
         };
         let canadian = canada_diesel_usd_per_gal(&state_code).is_some();
-        format!(
-            "Garage: fuel {}{live}",
-            ctx.settings.diesel_price_text(price, canadian)
-        )
+        if !ctx.settings.imperial() {
+            return format!(
+                "Garage: fuel {}{live}",
+                ctx.settings.diesel_price_text(price, canadian)
+            );
+        }
+        if canadian {
+            return format!(
+                "Garage: fuel {} per gallon, {} Canadian dollars a liter{live}",
+                fmt_f(price, 2),
+                fmt_f(cad_per_litre(price), 2)
+            );
+        }
+        format!("Garage: fuel {} per gallon{live}", fmt_f(price, 2))
     }
 
     fn garage(&mut self, ctx: &mut GameContext) {

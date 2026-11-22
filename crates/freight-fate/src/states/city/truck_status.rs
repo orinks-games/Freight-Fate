@@ -117,12 +117,21 @@ impl TruckStatusState {
             format!("Engine wear: {} percent.", fmt_f(engine_wear, 0))
         };
         lines.extend([
-            format!(
-                "Fuel: {} percent, {} of {}.",
-                fmt_f(fuel_pct, 0),
-                ctx.settings.volume_value(p.truck_fuel_gal()),
-                ctx.settings.volume_text(specs.fuel_tank_gal),
-            ),
+            if ctx.settings.imperial() {
+                format!(
+                    "Fuel: {} percent, {} gallons of {}.",
+                    fmt_f(fuel_pct, 0),
+                    fmt_f(p.truck_fuel_gal(), 0),
+                    fmt_f(specs.fuel_tank_gal, 0),
+                )
+            } else {
+                format!(
+                    "Fuel: {} percent, {} of {}.",
+                    fmt_f(fuel_pct, 0),
+                    ctx.settings.volume_value(p.truck_fuel_gal()),
+                    ctx.settings.volume_text(specs.fuel_tank_gal),
+                )
+            },
             format!(
                 "Tractor condition: {condition}, {} percent damage.",
                 fmt_f(damage, 0)

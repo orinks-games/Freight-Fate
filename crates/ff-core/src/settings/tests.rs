@@ -314,7 +314,7 @@ fn the_file_text_is_what_json_dump_wrote() {
          \"touch_rotate_degrees\": 30.0,\n  \"touch_parking_brake_mph\": 1.0,\n  \
          \"steering_guide_inverted\": false,\n  \"assist_preset_chosen\": false,\n  \"facility_streets\": true,\n  \"language\": \"auto\",\n  \
          \"visual_display\": true,\n  \"achievement_sort\": \"earned\",\n  \"driving_hints\": true,\n  \
-         \"crash_report_offer\": true,\n  \"left_bumper_layer\": false,\n  \"steering_assist\": \"off\"\n}"
+         \"crash_report_offer\": true,\n  \"left_bumper_layer\": false,\n  \"steering_assist\": \"off\",\n  \"imperial_units\": true\n}"
     ));
     assert!(text.contains("\n  \"time_scale\": 10.0,\n"));
     assert!(text.contains("\n  \"radio_volume\": 0.25,\n"));

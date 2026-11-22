@@ -7374,20 +7374,20 @@ msgstr ""
 msgid "Your route clears it"
 msgstr ""
 
-#. placeholders: {kind_label}, {value_text_in}
+#. placeholders: {kind_label}, {value_text}
 #. one sentence of a longer line
 #: crates/ff-core/src/data/world_models.rs
-msgid "a {kind_label}, signed {value_text_in}."
+msgid "a {kind_label}, signed {value_text}."
 msgstr ""
 
-#. placeholders: {kind_label}, {value_text_in}
+#. placeholders: {kind_label}, {value_text}
 #: crates/ff-core/src/data/world_models.rs
-msgid "a {kind_label}, signed {value_text_in}. Your route clears it"
+msgid "a {kind_label}, signed {value_text}. Your route clears it"
 msgstr ""
 
-#. placeholders: {py_capitalize}, {value_text_in}
+#. placeholders: {py_capitalize}, {value_text}
 #: crates/ff-core/src/data/world_models.rs
-msgid "{py_capitalize}, signed {value_text_in}."
+msgid "{py_capitalize}, signed {value_text}."
 msgstr ""
 
 #: crates/ff-core/src/data/world_models/crossing.rs
@@ -11525,19 +11525,24 @@ msgstr ""
 msgid " Requires {credentials_clause}."
 msgstr ""
 
-#. placeholders: {f}
-#: crates/ff-core/src/models/jobs.rs crates/ff-core/src/settings/units.rs
-msgid "{f} tons"
+#. placeholders: {tonnes}, {cargo}, {origin}, {card}
+#: crates/ff-core/src/models/jobs.rs
+msgid "{tonnes} tonnes of {cargo} from {origin} {card}."
+msgstr ""
+
+#. placeholders: {tonnes}, {cargo}, {origin}, {destination}
+#: crates/ff-core/src/models/jobs.rs
+msgid "{tonnes} tonnes of {cargo} from {origin} to {destination}."
 msgstr ""
 
 #. placeholders: {tons}, {cargo}, {origin}, {card}
 #: crates/ff-core/src/models/jobs.rs
-msgid "{tons} of {cargo} from {origin} {card}."
+msgid "{tons} tons of {cargo} from {origin} {card}."
 msgstr ""
 
 #. placeholders: {tons}, {cargo}, {origin}, {destination}
 #: crates/ff-core/src/models/jobs.rs
-msgid "{tons} of {cargo} from {origin} to {destination}."
+msgid "{tons} tons of {cargo} from {origin} to {destination}."
 msgstr ""
 
 #. placeholders: {head_text}
@@ -12981,6 +12986,11 @@ msgid ""
 "repairs."
 msgstr ""
 
+#. placeholders: {miles}
+#: crates/ff-core/src/models/start_options.rs
+msgid "{miles} miles"
+msgstr ""
+
 #: crates/ff-core/src/models/trailer_yard.rs crates/freight-fate/src/states/city_pickup.rs
 msgid "in good shape"
 msgstr ""
@@ -14145,6 +14155,11 @@ msgstr ""
 #. placeholders: {grouped}
 #: crates/ff-core/src/settings/units.rs
 msgid "{grouped} kilograms"
+msgstr ""
+
+#. placeholders: {f}
+#: crates/ff-core/src/settings/units.rs
+msgid "{f} tons"
 msgstr ""
 
 #. placeholders: {f}
@@ -23186,6 +23201,12 @@ msgid ""
 "offer between these cities."
 msgstr ""
 
+#. placeholders: {grouped}
+#: crates/freight-fate/src/states/city/board/weight.rs
+msgid ""
+"Load weight: {grouped} pounds over the gross-weight limit with current fuel."
+msgstr ""
+
 #. placeholders: {weight_text}
 #: crates/freight-fate/src/states/city/board/weight.rs
 msgid ""
@@ -23561,6 +23582,16 @@ msgstr ""
 #. placeholders: {diesel_price_text}, {live}
 #: crates/freight-fate/src/states/city/terminal.rs
 msgid "Garage: fuel {diesel_price_text}{live}"
+msgstr ""
+
+#. placeholders: {f}, {f2}, {live}
+#: crates/freight-fate/src/states/city/terminal.rs
+msgid "Garage: fuel {f} per gallon, {f2} Canadian dollars a liter{live}"
+msgstr ""
+
+#. placeholders: {f}, {live}
+#: crates/freight-fate/src/states/city/terminal.rs
+msgid "Garage: fuel {f} per gallon{live}"
 msgstr ""
 
 #. placeholders: {owed}
@@ -24075,6 +24106,11 @@ msgstr ""
 #. placeholders: {f}
 #: crates/freight-fate/src/states/city/truck_status.rs
 msgid "Engine wear: {f} percent."
+msgstr ""
+
+#. placeholders: {f}, {f2}, {f3}
+#: crates/freight-fate/src/states/city/truck_status.rs
+msgid "Fuel: {f} percent, {f2} gallons of {f3}."
 msgstr ""
 
 #. placeholders: {f}, {volume_value}, {volume_text}
@@ -25099,9 +25135,38 @@ msgstr ""
 msgid "Fuel: tank is full"
 msgstr ""
 
+#. placeholders: {f}
+#: crates/freight-fate/src/states/city_garage.rs
+msgid "Refuel: {f} gallons"
+msgstr ""
+
 #. placeholders: {volume_text}
 #: crates/freight-fate/src/states/city_garage.rs
 msgid "Refuel: {volume_text}"
+msgstr ""
+
+#. placeholders: {f2}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/city_garage.rs
+msgid "Diesel here is {f2} Canadian dollars a liter."
+msgstr ""
+
+#. placeholders: {f}, {grouped}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/city_garage.rs
+msgid "Refuel {f} gallons for {grouped} dollars."
+msgstr ""
+
+#. placeholders: {f}, {grouped}, {f2}
+#: crates/freight-fate/src/states/city_garage.rs
+msgid ""
+"Refuel {f} gallons for {grouped} dollars. Diesel here is {f2} Canadian "
+"dollars a liter."
+msgstr ""
+
+#. placeholders: {f}, {grouped}
+#: crates/freight-fate/src/states/city_garage.rs
+msgid "Refuel {f} gallons for {grouped} dollars"
 msgstr ""
 
 #. placeholders: {diesel_price_text}
@@ -25624,7 +25689,24 @@ msgid "{grouped} dollars."
 msgstr ""
 
 #: crates/freight-fate/src/states/city_garage/fuel.rs
+msgid "Not enough money for one gallon of fuel."
+msgstr ""
+
+#: crates/freight-fate/src/states/city_garage/fuel.rs
 msgid "Not enough money for fuel."
+msgstr ""
+
+#. placeholders: {f}, {grouped}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/city_garage/fuel.rs
+msgid "Partial fuel: added {f} gallons for {grouped} dollars."
+msgstr ""
+
+#. placeholders: {f}, {grouped}, {grouped2}
+#: crates/freight-fate/src/states/city_garage/fuel.rs
+msgid ""
+"Partial fuel: added {f} gallons for {grouped} dollars. You have {grouped2} "
+"dollars left."
 msgstr ""
 
 #. placeholders: {volume_text}, {grouped}
@@ -25823,6 +25905,13 @@ msgstr ""
 msgid "Hooking the loaded trailer"
 msgstr ""
 
+#. placeholders: {facility}, {map}, {f}, {cargo_label}, {doubles_clause}
+#: crates/freight-fate/src/states/city_pickup.rs
+msgid ""
+"Dropping your empty at {facility} and hooking {map}, loaded with {f} tons "
+"of {cargo_label}.{doubles_clause}"
+msgstr ""
+
 #. placeholders: {facility}, {map}, {tons_text}, {cargo_label}, {doubles_clause}
 #: crates/freight-fate/src/states/city_pickup.rs
 msgid ""
@@ -25919,16 +26008,36 @@ msgstr ""
 msgid "Engine off"
 msgstr ""
 
-#. placeholders: {f}, {brake}, {speed_control_pause_text}
+#. placeholders: {f2}, {brake}, {speed_control_pause_text}
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/city_pickup.rs
-msgid "Air {f} psi, {brake}.{speed_control_pause_text}"
+msgid "Air {f2} psi, {brake}.{speed_control_pause_text}"
 msgstr ""
 
 #. placeholders: {facility}, {state}
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/city_pickup.rs
 msgid "Pickup {facility}: {state}."
+msgstr ""
+
+#. placeholders: {facility}, {state}, {f}, {cargo_label}, {destination_facility_text}, {speed_text}, {engine}, {f2}, {brake}, {speed_control_pause_text}
+#: crates/freight-fate/src/states/city_pickup.rs
+msgid ""
+"Pickup {facility}: {state}. {f} tons of {cargo_label} for "
+"{destination_facility_text}. {speed_text}. {engine}. Air {f2} psi, "
+"{brake}.{speed_control_pause_text}"
+msgstr ""
+
+#. placeholders: {f}, {cargo_label}, {destination_facility_text}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/city_pickup.rs
+msgid "{f} tons of {cargo_label} for {destination_facility_text}."
+msgstr ""
+
+#. placeholders: {f}, {brake}, {speed_control_pause_text}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/city_pickup.rs
+msgid "Air {f} psi, {brake}.{speed_control_pause_text}"
 msgstr ""
 
 #. placeholders: {facility}, {state}, {tons_text}, {cargo_label}, {destination_facility_text}, {speed_text}, {engine}, {f}, {brake}, {speed_control_pause_text}
@@ -25948,6 +26057,11 @@ msgstr ""
 #. placeholders: {f}
 #: crates/freight-fate/src/states/city_pickup.rs
 msgid " Idling here burned {f} gallons."
+msgstr ""
+
+#. placeholders: {f}
+#: crates/freight-fate/src/states/city_pickup.rs
+msgid " Idling here burned {f} liters."
 msgstr ""
 
 #: crates/freight-fate/src/states/city_pickup.rs
@@ -27513,8 +27627,20 @@ msgid ""
 "booth."
 msgstr ""
 
+#. placeholders: {short_distance_text}
+#. one sentence of a longer line
 #: crates/freight-fate/src/states/driving_border.rs
-msgid "Customs booth in half a mile. Stop at the booth."
+msgid "Customs booth in {short_distance_text}."
+msgstr ""
+
+#. placeholders: {short_distance_text}
+#: crates/freight-fate/src/states/driving_border.rs
+msgid "Customs booth in {short_distance_text}. Stop at the booth."
+msgstr ""
+
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_border.rs
+msgid "Stop at the booth."
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_border.rs
@@ -28882,6 +29008,24 @@ msgstr ""
 msgid "where the ramp ends at a roundabout"
 msgstr ""
 
+#. placeholders: {fraction}, {gallons}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_controls/info.rs
+msgid "Fuel {fraction} percent, {gallons} gallons."
+msgstr ""
+
+#. placeholders: {fraction}, {gallons}, {distance_text}
+#: crates/freight-fate/src/states/driving_controls/info.rs
+msgid ""
+"Fuel {fraction} percent, {gallons} gallons. Range about {distance_text}."
+msgstr ""
+
+#. placeholders: {distance_text}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_controls/info.rs
+msgid "Range about {distance_text}."
+msgstr ""
+
 #. placeholders: {fraction}, {volume}
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/driving_controls/info.rs
@@ -28891,12 +29035,6 @@ msgstr ""
 #. placeholders: {fraction}, {volume}, {distance_text}
 #: crates/freight-fate/src/states/driving_controls/info.rs
 msgid "Fuel {fraction} percent, {volume}. Range about {distance_text}."
-msgstr ""
-
-#. placeholders: {distance_text}
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/driving_controls/info.rs
-msgid "Range about {distance_text}."
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_controls/info.rs
@@ -31588,6 +31726,19 @@ msgstr ""
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/driving_events/arrival.rs
 msgid "Roadside rescue brought thirty gallons {billing}."
+msgstr ""
+
+#. placeholders: {rescue}, {billing}, {engine}
+#: crates/freight-fate/src/states/driving_events/arrival.rs
+msgid ""
+"Out of fuel. Roadside rescue brought {rescue} {billing}. Press {engine} to "
+"restart the engine."
+msgstr ""
+
+#. placeholders: {rescue}, {billing}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_events/arrival.rs
+msgid "Roadside rescue brought {rescue} {billing}."
 msgstr ""
 
 #. placeholders: {engine}
@@ -35354,6 +35505,26 @@ msgstr ""
 msgid "Dropping the trailer"
 msgstr ""
 
+#. placeholders: {facility}, {f}, {cargo_label}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_menu_states/facility_arrival.rs
+msgid ""
+"Dropping the loaded trailer at {facility}, {f} tons of {cargo_label}."
+msgstr ""
+
+#. placeholders: {facility}, {f}, {cargo_label}, {doubles}
+#: crates/freight-fate/src/states/driving_menu_states/facility_arrival.rs
+msgid ""
+"Dropping the loaded trailer at {facility}, {f} tons of {cargo_label}. "
+"Hooking an empty.{doubles}"
+msgstr ""
+
+#. placeholders: {doubles}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_menu_states/facility_arrival.rs
+msgid "Hooking an empty.{doubles}"
+msgstr ""
+
 #. placeholders: {facility}, {tons_text}, {cargo_label}
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/driving_menu_states/facility_arrival.rs
@@ -35366,12 +35537,6 @@ msgstr ""
 msgid ""
 "Dropping the loaded trailer at {facility}, {tons_text} of {cargo_label}. "
 "Hooking an empty.{doubles}"
-msgstr ""
-
-#. placeholders: {doubles}
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/driving_menu_states/facility_arrival.rs
-msgid "Hooking an empty.{doubles}"
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_menu_states/facility_arrival.rs
@@ -37106,6 +37271,11 @@ msgstr ""
 msgid "under"
 msgstr ""
 
+#. placeholders: {label}, {pounds}, {side}
+#: crates/freight-fate/src/states/driving_rest_states/fuel_pump.rs
+msgid "{label}: {pounds} pounds {side} the gross-weight limit"
+msgstr ""
+
 #. placeholders: {label}, {weight}, {side}
 #: crates/freight-fate/src/states/driving_rest_states/fuel_pump.rs
 msgid "{label}: {weight} {side} the gross-weight limit"
@@ -37113,6 +37283,17 @@ msgstr ""
 
 #: crates/freight-fate/src/states/driving_rest_states/fuel_pump.rs
 msgid "Full tank"
+msgstr ""
+
+#. placeholders: {f}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_rest_states/fuel_pump.rs
+msgid "Refuel {f} gallons on the carrier fuel card."
+msgstr ""
+
+#. placeholders: {f}, {margin}
+#: crates/freight-fate/src/states/driving_rest_states/fuel_pump.rs
+msgid "Refuel {f} gallons on the carrier fuel card. {margin}"
 msgstr ""
 
 #. placeholders: {volume_text}
@@ -37124,6 +37305,18 @@ msgstr ""
 #. placeholders: {volume_text}, {margin}
 #: crates/freight-fate/src/states/driving_rest_states/fuel_pump.rs
 msgid "Refuel {volume_text} on the carrier fuel card. {margin}"
+msgstr ""
+
+#. placeholders: {f}, {grouped}, {f2}, {margin}
+#: crates/freight-fate/src/states/driving_rest_states/fuel_pump.rs
+msgid ""
+"Refuel {f} gallons for {grouped} dollars. Diesel here is {f2} Canadian "
+"dollars a liter. {margin}"
+msgstr ""
+
+#. placeholders: {f}, {grouped}, {margin}
+#: crates/freight-fate/src/states/driving_rest_states/fuel_pump.rs
+msgid "Refuel {f} gallons for {grouped} dollars. {margin}"
 msgstr ""
 
 #. placeholders: {volume_text}, {grouped}, {diesel_price_text}, {margin}
@@ -37170,6 +37363,25 @@ msgstr ""
 msgid "Gross weight"
 msgstr ""
 
+#. placeholders: {f2}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_rest_states/fuel_pump.rs
+msgid "Fueling took {f2} minutes."
+msgstr ""
+
+#. placeholders: {f}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_rest_states/fuel_pump.rs
+msgid "Refueled {f} gallons on the carrier fuel card."
+msgstr ""
+
+#. placeholders: {f}, {f2}, {margin}, {loyalty_text}
+#: crates/freight-fate/src/states/driving_rest_states/fuel_pump.rs
+msgid ""
+"Refueled {f} gallons on the carrier fuel card. Fueling took {f2} minutes. "
+"{margin}. {loyalty_text}"
+msgstr ""
+
 #. placeholders: {f}
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/driving_rest_states/fuel_pump.rs
@@ -37187,6 +37399,19 @@ msgstr ""
 msgid ""
 "Refueled {volume_text} on the carrier fuel card. Fueling took {f} minutes. "
 "{margin}. {loyalty_text}"
+msgstr ""
+
+#. placeholders: {f}, {grouped}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_rest_states/fuel_pump.rs
+msgid "Refueled {f} gallons for {grouped} dollars."
+msgstr ""
+
+#. placeholders: {f}, {grouped}, {grouped2}, {f2}, {margin}, {loyalty_text}
+#: crates/freight-fate/src/states/driving_rest_states/fuel_pump.rs
+msgid ""
+"Refueled {f} gallons for {grouped} dollars. You have {grouped2} dollars. "
+"Fueling took {f2} minutes. {margin}. {loyalty_text}"
 msgstr ""
 
 #. placeholders: {volume_text}, {grouped}
@@ -40130,6 +40355,16 @@ msgstr ""
 #. placeholders: {name}, {gallons}, {place}
 #: crates/freight-fate/src/states/driving_team/stop_work.rs
 msgid "{name} fueled {gallons} gallons at {place}."
+msgstr ""
+
+#. placeholders: {name}, {volume_text}, {place}
+#: crates/freight-fate/src/states/driving_team/stop_work.rs
+msgid "{name} fueled {volume_text} and took a 30-minute break at {place}."
+msgstr ""
+
+#. placeholders: {name}, {volume_text}, {place}
+#: crates/freight-fate/src/states/driving_team/stop_work.rs
+msgid "{name} fueled {volume_text} at {place}."
 msgstr ""
 
 #. placeholders: {name}, {place}

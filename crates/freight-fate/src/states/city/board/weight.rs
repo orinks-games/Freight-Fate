@@ -5,8 +5,9 @@ use ff_core::data::seasonal_weight::seasonal_gvw_cap_kg;
 use ff_core::data::world::World;
 use ff_core::models::jobs::Job;
 use ff_core::models::profile::Profile;
+use ff_core::pyfmt::fmt_grouped;
 use ff_core::settings::Settings;
-use ff_core::sim::vehicle::{TrailerSet, TruckState, KG_PER_TON};
+use ff_core::sim::vehicle::{TrailerSet, TruckState, KG_PER_LB, KG_PER_TON};
 
 pub(super) fn load_weight_margin(
     world: &World,
@@ -36,10 +37,17 @@ pub(super) fn load_weight_margin(
     if margin_kg >= 0.0 {
         return String::new();
     }
-    let mut text = format!(
-        "Load weight: {} over the gross-weight limit with current fuel.",
-        settings.weight_text(margin_kg.abs())
-    );
+    let mut text = if settings.imperial() {
+        format!(
+            "Load weight: {} pounds over the gross-weight limit with current fuel.",
+            fmt_grouped(margin_kg.abs() / KG_PER_LB, 0)
+        )
+    } else {
+        format!(
+            "Load weight: {} over the gross-weight limit with current fuel.",
+            settings.weight_text(margin_kg.abs())
+        )
+    };
     if truck.trailer_set.is_doubles() {
         text.push_str(&format!(
             " The limit for this set of doubles on the lanes offered is {}, counting both \

@@ -6590,18 +6590,19 @@ msgstr "limite de peso"
 msgid "Your route clears it"
 msgstr "Sua rota passa sem problema"
 
-#. placeholders: {kind_label}, {value_text_in}
+#. placeholders: {kind_label}, {value_text}
 #. one sentence of a longer line
-msgid "a {kind_label}, signed {value_text_in}."
-msgstr ""
+msgid "a {kind_label}, signed {value_text}."
+msgstr "um {kind_label}, sinalizado com {value_text}."
 
-#. placeholders: {kind_label}, {value_text_in}
-msgid "a {kind_label}, signed {value_text_in}. Your route clears it"
+#. placeholders: {kind_label}, {value_text}
+msgid "a {kind_label}, signed {value_text}. Your route clears it"
 msgstr ""
+"um {kind_label}, sinalizado com {value_text}. Sua rota passa sem problema"
 
-#. placeholders: {py_capitalize}, {value_text_in}
-msgid "{py_capitalize}, signed {value_text_in}."
-msgstr ""
+#. placeholders: {py_capitalize}, {value_text}
+msgid "{py_capitalize}, signed {value_text}."
+msgstr "{py_capitalize}, sinalizado com {value_text}."
 
 msgid "explosives"
 msgstr ""
@@ -10225,17 +10226,21 @@ msgstr "Frete {index} de {unwrap_or_else}: "
 msgid " Requires {credentials_clause}."
 msgstr " Exige {credentials_clause}."
 
-#. placeholders: {f}
-msgid "{f} tons"
+#. placeholders: {tonnes}, {cargo}, {origin}, {card}
+msgid "{tonnes} tonnes of {cargo} from {origin} {card}."
+msgstr ""
+
+#. placeholders: {tonnes}, {cargo}, {origin}, {destination}
+msgid "{tonnes} tonnes of {cargo} from {origin} to {destination}."
 msgstr ""
 
 #. placeholders: {tons}, {cargo}, {origin}, {card}
-msgid "{tons} of {cargo} from {origin} {card}."
+msgid "{tons} tons of {cargo} from {origin} {card}."
 msgstr ""
 
 #. placeholders: {tons}, {cargo}, {origin}, {destination}
-msgid "{tons} of {cargo} from {origin} to {destination}."
-msgstr ""
+msgid "{tons} tons of {cargo} from {origin} to {destination}."
+msgstr "{tons} toneladas de {cargo} de {origin} para {destination}."
 
 #. placeholders: {head_text}
 msgid " {head_text}. They can ride 28 hours."
@@ -11545,6 +11550,10 @@ msgid ""
 "repairs."
 msgstr ""
 
+#. placeholders: {miles}
+msgid "{miles} miles"
+msgstr ""
+
 msgid "in good shape"
 msgstr "em bom estado"
 
@@ -12580,6 +12589,10 @@ msgstr "{grouped} libras"
 
 #. placeholders: {grouped}
 msgid "{grouped} kilograms"
+msgstr ""
+
+#. placeholders: {f}
+msgid "{f} tons"
 msgstr ""
 
 #. placeholders: {f}
@@ -20298,6 +20311,13 @@ msgid ""
 "offer between these cities."
 msgstr ""
 
+#. placeholders: {grouped}
+msgid ""
+"Load weight: {grouped} pounds over the gross-weight limit with current fuel."
+msgstr ""
+"Peso da carga: {grouped} libras acima do limite de peso bruto com o "
+"combustível atual."
+
 #. placeholders: {weight_text}
 msgid ""
 "Load weight: {weight_text} over the gross-weight limit with current fuel."
@@ -20624,6 +20644,15 @@ msgstr "o preço desta semana"
 #. placeholders: {diesel_price_text}, {live}
 msgid "Garage: fuel {diesel_price_text}{live}"
 msgstr ""
+
+#. placeholders: {f}, {f2}, {live}
+msgid "Garage: fuel {f} per gallon, {f2} Canadian dollars a liter{live}"
+msgstr ""
+"Oficina: combustível a {f} por galão, {f2} dólares canadenses o litro{live}"
+
+#. placeholders: {f}, {live}
+msgid "Garage: fuel {f} per gallon{live}"
+msgstr "Oficina: combustível a {f} por galão{live}"
 
 #. placeholders: {owed}
 msgid "Pay down what you owe: {owed} owed"
@@ -21085,6 +21114,10 @@ msgstr "Desgaste dos freios: {f} por cento."
 #. placeholders: {f}
 msgid "Engine wear: {f} percent."
 msgstr "Desgaste do motor: {f} por cento."
+
+#. placeholders: {f}, {f2}, {f3}
+msgid "Fuel: {f} percent, {f2} gallons of {f3}."
+msgstr "Combustível: {f} por cento, {f2} galões de {f3}."
 
 #. placeholders: {f}, {volume_value}, {volume_text}
 msgid "Fuel: {f} percent, {volume_value} of {volume_text}."
@@ -22022,9 +22055,35 @@ msgstr "Oficina"
 msgid "Fuel: tank is full"
 msgstr "Combustível: tanque cheio"
 
+#. placeholders: {f}
+msgid "Refuel: {f} gallons"
+msgstr "Abastecer: {f} galões"
+
 #. placeholders: {volume_text}
 msgid "Refuel: {volume_text}"
 msgstr ""
+
+#. placeholders: {f2}
+#. one sentence of a longer line
+msgid "Diesel here is {f2} Canadian dollars a liter."
+msgstr "Aqui o diesel custa {f2} dólares canadenses o litro."
+
+#. placeholders: {f}, {grouped}
+#. one sentence of a longer line
+msgid "Refuel {f} gallons for {grouped} dollars."
+msgstr "Abastecer {f} galões por {grouped} dólares."
+
+#. placeholders: {f}, {grouped}, {f2}
+msgid ""
+"Refuel {f} gallons for {grouped} dollars. Diesel here is {f2} Canadian "
+"dollars a liter."
+msgstr ""
+"Abastecer {f} galões por {grouped} dólares. Aqui o diesel custa {f2} "
+"dólares canadenses o litro."
+
+#. placeholders: {f}, {grouped}
+msgid "Refuel {f} gallons for {grouped} dollars"
+msgstr "Abastecer {f} galões por {grouped} dólares"
 
 #. placeholders: {diesel_price_text}
 #. one sentence of a longer line
@@ -22510,8 +22569,24 @@ msgstr "Tanque cheio. {grouped} dólares. Restam {grouped2} dólares."
 msgid "{grouped} dollars."
 msgstr "{grouped} dólares."
 
+msgid "Not enough money for one gallon of fuel."
+msgstr "Dinheiro insuficiente para um galão de combustível."
+
 msgid "Not enough money for fuel."
 msgstr ""
+
+#. placeholders: {f}, {grouped}
+#. one sentence of a longer line
+msgid "Partial fuel: added {f} gallons for {grouped} dollars."
+msgstr "Abastecimento parcial: {f} galões colocados por {grouped} dólares."
+
+#. placeholders: {f}, {grouped}, {grouped2}
+msgid ""
+"Partial fuel: added {f} gallons for {grouped} dollars. You have {grouped2} "
+"dollars left."
+msgstr ""
+"Abastecimento parcial: {f} galões colocados por {grouped} dólares. Restam "
+"{grouped2} dólares."
 
 #. placeholders: {volume_text}, {grouped}
 #. one sentence of a longer line
@@ -22686,6 +22761,12 @@ msgstr "Pare antes de carregar."
 msgid "Hooking the loaded trailer"
 msgstr "Engatando o reboque carregado"
 
+#. placeholders: {facility}, {map}, {f}, {cargo_label}, {doubles_clause}
+msgid ""
+"Dropping your empty at {facility} and hooking {map}, loaded with {f} tons "
+"of {cargo_label}.{doubles_clause}"
+msgstr ""
+
 #. placeholders: {facility}, {map}, {tons_text}, {cargo_label}, {doubles_clause}
 msgid ""
 "Dropping your empty at {facility} and hooking {map}, loaded with "
@@ -22760,15 +22841,32 @@ msgstr "Motor ligado"
 msgid "Engine off"
 msgstr "Motor desligado"
 
-#. placeholders: {f}, {brake}, {speed_control_pause_text}
+#. placeholders: {f2}, {brake}, {speed_control_pause_text}
 #. one sentence of a longer line
-msgid "Air {f} psi, {brake}.{speed_control_pause_text}"
-msgstr ""
+msgid "Air {f2} psi, {brake}.{speed_control_pause_text}"
+msgstr "Ar {f2} psi, {brake}.{speed_control_pause_text}"
 
 #. placeholders: {facility}, {state}
 #. one sentence of a longer line
 msgid "Pickup {facility}: {state}."
 msgstr "Coleta em {facility}: {state}."
+
+#. placeholders: {facility}, {state}, {f}, {cargo_label}, {destination_facility_text}, {speed_text}, {engine}, {f2}, {brake}, {speed_control_pause_text}
+msgid ""
+"Pickup {facility}: {state}. {f} tons of {cargo_label} for "
+"{destination_facility_text}. {speed_text}. {engine}. Air {f2} psi, "
+"{brake}.{speed_control_pause_text}"
+msgstr ""
+
+#. placeholders: {f}, {cargo_label}, {destination_facility_text}
+#. one sentence of a longer line
+msgid "{f} tons of {cargo_label} for {destination_facility_text}."
+msgstr ""
+
+#. placeholders: {f}, {brake}, {speed_control_pause_text}
+#. one sentence of a longer line
+msgid "Air {f} psi, {brake}.{speed_control_pause_text}"
+msgstr ""
 
 #. placeholders: {facility}, {state}, {tons_text}, {cargo_label}, {destination_facility_text}, {speed_text}, {engine}, {f}, {brake}, {speed_control_pause_text}
 msgid ""
@@ -22785,6 +22883,10 @@ msgstr ""
 #. placeholders: {f}
 msgid " Idling here burned {f} gallons."
 msgstr " A marcha lenta aqui queimou {f} galões."
+
+#. placeholders: {f}
+msgid " Idling here burned {f} liters."
+msgstr ""
 
 msgid "Saved. The pickup resumes here."
 msgstr "Salvo. A coleta continua daqui."
@@ -24165,7 +24267,17 @@ msgid ""
 "booth."
 msgstr ""
 
-msgid "Customs booth in half a mile. Stop at the booth."
+#. placeholders: {short_distance_text}
+#. one sentence of a longer line
+msgid "Customs booth in {short_distance_text}."
+msgstr ""
+
+#. placeholders: {short_distance_text}
+msgid "Customs booth in {short_distance_text}. Stop at the booth."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Stop at the booth."
 msgstr ""
 
 msgid ", which your carrier pays"
@@ -25438,6 +25550,23 @@ msgstr ", onde a saída termina numa rotatória"
 msgid "where the ramp ends at a roundabout"
 msgstr "onde a rampa termina numa rotatória"
 
+#. placeholders: {fraction}, {gallons}
+#. one sentence of a longer line
+msgid "Fuel {fraction} percent, {gallons} gallons."
+msgstr "Combustível {fraction} por cento, {gallons} galões."
+
+#. placeholders: {fraction}, {gallons}, {distance_text}
+msgid ""
+"Fuel {fraction} percent, {gallons} gallons. Range about {distance_text}."
+msgstr ""
+"Combustível {fraction} por cento, {gallons} galões. Autonomia de cerca de "
+"{distance_text}."
+
+#. placeholders: {distance_text}
+#. one sentence of a longer line
+msgid "Range about {distance_text}."
+msgstr "Autonomia de cerca de {distance_text}."
+
 #. placeholders: {fraction}, {volume}
 #. one sentence of a longer line
 msgid "Fuel {fraction} percent, {volume}."
@@ -25446,11 +25575,6 @@ msgstr ""
 #. placeholders: {fraction}, {volume}, {distance_text}
 msgid "Fuel {fraction} percent, {volume}. Range about {distance_text}."
 msgstr ""
-
-#. placeholders: {distance_text}
-#. one sentence of a longer line
-msgid "Range about {distance_text}."
-msgstr "Autonomia de cerca de {distance_text}."
 
 msgid " Reefer on."
 msgstr ""
@@ -27893,6 +28017,17 @@ msgstr ""
 #. one sentence of a longer line
 msgid "Roadside rescue brought thirty gallons {billing}."
 msgstr "O socorro de combustível trouxe trinta galões {billing}."
+
+#. placeholders: {rescue}, {billing}, {engine}
+msgid ""
+"Out of fuel. Roadside rescue brought {rescue} {billing}. Press {engine} to "
+"restart the engine."
+msgstr ""
+
+#. placeholders: {rescue}, {billing}
+#. one sentence of a longer line
+msgid "Roadside rescue brought {rescue} {billing}."
+msgstr ""
 
 #. placeholders: {engine}
 msgid "Press {engine} to restart the engine."
@@ -31071,6 +31206,24 @@ msgstr "Descarregado. Papelada da entrega assinada."
 msgid "Dropping the trailer"
 msgstr "Soltando o reboque"
 
+#. placeholders: {facility}, {f}, {cargo_label}
+#. one sentence of a longer line
+msgid ""
+"Dropping the loaded trailer at {facility}, {f} tons of {cargo_label}."
+msgstr ""
+"Soltando o reboque carregado em {facility}, {f} toneladas de {cargo_label}."
+
+#. placeholders: {facility}, {f}, {cargo_label}, {doubles}
+msgid ""
+"Dropping the loaded trailer at {facility}, {f} tons of {cargo_label}. "
+"Hooking an empty.{doubles}"
+msgstr ""
+
+#. placeholders: {doubles}
+#. one sentence of a longer line
+msgid "Hooking an empty.{doubles}"
+msgstr ""
+
 #. placeholders: {facility}, {tons_text}, {cargo_label}
 #. one sentence of a longer line
 msgid ""
@@ -31081,11 +31234,6 @@ msgstr ""
 msgid ""
 "Dropping the loaded trailer at {facility}, {tons_text} of {cargo_label}. "
 "Hooking an empty.{doubles}"
-msgstr ""
-
-#. placeholders: {doubles}
-#. one sentence of a longer line
-msgid "Hooking an empty.{doubles}"
 msgstr ""
 
 msgid "Dropping the trailer."
@@ -32634,12 +32782,26 @@ msgstr "você tinha passado do limite para a pausa de 30 minutos"
 msgid "under"
 msgstr "abaixo"
 
+#. placeholders: {label}, {pounds}, {side}
+msgid "{label}: {pounds} pounds {side} the gross-weight limit"
+msgstr "{label}: {pounds} libras {side} do limite de peso bruto"
+
 #. placeholders: {label}, {weight}, {side}
 msgid "{label}: {weight} {side} the gross-weight limit"
 msgstr ""
 
 msgid "Full tank"
 msgstr "Tanque cheio"
+
+#. placeholders: {f}
+#. one sentence of a longer line
+msgid "Refuel {f} gallons on the carrier fuel card."
+msgstr "Abastecer {f} galões no cartão de combustível da transportadora."
+
+#. placeholders: {f}, {margin}
+msgid "Refuel {f} gallons on the carrier fuel card. {margin}"
+msgstr ""
+"Abastecer {f} galões no cartão de combustível da transportadora. {margin}"
 
 #. placeholders: {volume_text}
 #. one sentence of a longer line
@@ -32649,6 +32811,18 @@ msgstr ""
 #. placeholders: {volume_text}, {margin}
 msgid "Refuel {volume_text} on the carrier fuel card. {margin}"
 msgstr ""
+
+#. placeholders: {f}, {grouped}, {f2}, {margin}
+msgid ""
+"Refuel {f} gallons for {grouped} dollars. Diesel here is {f2} Canadian "
+"dollars a liter. {margin}"
+msgstr ""
+"Abastecer {f} galões por {grouped} dólares. Aqui o diesel custa {f2} "
+"dólares canadenses o litro. {margin}"
+
+#. placeholders: {f}, {grouped}, {margin}
+msgid "Refuel {f} gallons for {grouped} dollars. {margin}"
+msgstr "Abastecer {f} galões por {grouped} dólares. {margin}"
 
 #. placeholders: {volume_text}, {grouped}, {diesel_price_text}, {margin}
 msgid ""
@@ -32691,6 +32865,24 @@ msgstr "Você não tem dinheiro para combustível aqui."
 msgid "Gross weight"
 msgstr "Peso bruto"
 
+#. placeholders: {f2}
+#. one sentence of a longer line
+msgid "Fueling took {f2} minutes."
+msgstr "O abastecimento levou {f2} minutos."
+
+#. placeholders: {f}
+#. one sentence of a longer line
+msgid "Refueled {f} gallons on the carrier fuel card."
+msgstr "Abasteceu {f} galões no cartão de combustível da transportadora."
+
+#. placeholders: {f}, {f2}, {margin}, {loyalty_text}
+msgid ""
+"Refueled {f} gallons on the carrier fuel card. Fueling took {f2} minutes. "
+"{margin}. {loyalty_text}"
+msgstr ""
+"Abasteceu {f} galões no cartão de combustível da transportadora. O "
+"abastecimento levou {f2} minutos. {margin}. {loyalty_text}"
+
 #. placeholders: {f}
 #. one sentence of a longer line
 msgid "Fueling took {f} minutes."
@@ -32706,6 +32898,19 @@ msgid ""
 "Refueled {volume_text} on the carrier fuel card. Fueling took {f} minutes. "
 "{margin}. {loyalty_text}"
 msgstr ""
+
+#. placeholders: {f}, {grouped}
+#. one sentence of a longer line
+msgid "Refueled {f} gallons for {grouped} dollars."
+msgstr "Abasteceu {f} galões por {grouped} dólares."
+
+#. placeholders: {f}, {grouped}, {grouped2}, {f2}, {margin}, {loyalty_text}
+msgid ""
+"Refueled {f} gallons for {grouped} dollars. You have {grouped2} dollars. "
+"Fueling took {f2} minutes. {margin}. {loyalty_text}"
+msgstr ""
+"Abasteceu {f} galões por {grouped} dólares. Você tem {grouped2} dólares. O "
+"abastecimento levou {f2} minutos. {margin}. {loyalty_text}"
 
 #. placeholders: {volume_text}, {grouped}
 #. one sentence of a longer line
@@ -35408,6 +35613,14 @@ msgstr ""
 #. placeholders: {name}, {gallons}, {place}
 msgid "{name} fueled {gallons} gallons at {place}."
 msgstr "{name} abasteceu {gallons} galões em {place}."
+
+#. placeholders: {name}, {volume_text}, {place}
+msgid "{name} fueled {volume_text} and took a 30-minute break at {place}."
+msgstr ""
+
+#. placeholders: {name}, {volume_text}, {place}
+msgid "{name} fueled {volume_text} at {place}."
+msgstr ""
 
 #. placeholders: {name}, {place}
 msgid "{name} took a 30-minute break at {place}."
@@ -45951,127 +46164,6 @@ msgstr ""
 "Segure o left bumper para uma segunda camada de botões. {pad_engine} "
 "controla o motor, {pad_fuel} lê o combustível e {pad_speed_limit} lê o "
 "limite."
-
-#~ msgid "a {kind_label}, signed {value_text}."
-#~ msgstr "um {kind_label}, sinalizado com {value_text}."
-
-#~ msgid "a {kind_label}, signed {value_text}. Your route clears it"
-#~ msgstr ""
-#~ "um {kind_label}, sinalizado com {value_text}. Sua rota passa sem problema"
-
-#~ msgid "{py_capitalize}, signed {value_text}."
-#~ msgstr "{py_capitalize}, sinalizado com {value_text}."
-
-#~ msgid "{tons} tons of {cargo} from {origin} to {destination}."
-#~ msgstr "{tons} toneladas de {cargo} de {origin} para {destination}."
-
-#~ msgid ""
-#~ "Load weight: {grouped} pounds over the gross-weight limit with current fuel."
-#~ msgstr ""
-#~ "Peso da carga: {grouped} libras acima do limite de peso bruto com o "
-#~ "combustível atual."
-
-#~ msgid "Garage: fuel {f} per gallon, {f2} Canadian dollars a liter{live}"
-#~ msgstr ""
-#~ "Oficina: combustível a {f} por galão, {f2} dólares canadenses o litro{live}"
-
-#~ msgid "Garage: fuel {f} per gallon{live}"
-#~ msgstr "Oficina: combustível a {f} por galão{live}"
-
-#~ msgid "Fuel: {f} percent, {f2} gallons of {f3}."
-#~ msgstr "Combustível: {f} por cento, {f2} galões de {f3}."
-
-#~ msgid "Refuel: {f} gallons"
-#~ msgstr "Abastecer: {f} galões"
-
-#~ msgid "Diesel here is {f2} Canadian dollars a liter."
-#~ msgstr "Aqui o diesel custa {f2} dólares canadenses o litro."
-
-#~ msgid "Refuel {f} gallons for {grouped} dollars."
-#~ msgstr "Abastecer {f} galões por {grouped} dólares."
-
-#~ msgid ""
-#~ "Refuel {f} gallons for {grouped} dollars. Diesel here is {f2} Canadian "
-#~ "dollars a liter."
-#~ msgstr ""
-#~ "Abastecer {f} galões por {grouped} dólares. Aqui o diesel custa {f2} "
-#~ "dólares canadenses o litro."
-
-#~ msgid "Refuel {f} gallons for {grouped} dollars"
-#~ msgstr "Abastecer {f} galões por {grouped} dólares"
-
-#~ msgid "Not enough money for one gallon of fuel."
-#~ msgstr "Dinheiro insuficiente para um galão de combustível."
-
-#~ msgid "Partial fuel: added {f} gallons for {grouped} dollars."
-#~ msgstr "Abastecimento parcial: {f} galões colocados por {grouped} dólares."
-
-#~ msgid ""
-#~ "Partial fuel: added {f} gallons for {grouped} dollars. You have {grouped2} "
-#~ "dollars left."
-#~ msgstr ""
-#~ "Abastecimento parcial: {f} galões colocados por {grouped} dólares. Restam "
-#~ "{grouped2} dólares."
-
-#~ msgid "Air {f2} psi, {brake}.{speed_control_pause_text}"
-#~ msgstr "Ar {f2} psi, {brake}.{speed_control_pause_text}"
-
-#~ msgid "Fuel {fraction} percent, {gallons} gallons."
-#~ msgstr "Combustível {fraction} por cento, {gallons} galões."
-
-#~ msgid ""
-#~ "Fuel {fraction} percent, {gallons} gallons. Range about {distance_text}."
-#~ msgstr ""
-#~ "Combustível {fraction} por cento, {gallons} galões. Autonomia de cerca de "
-#~ "{distance_text}."
-
-#~ msgid ""
-#~ "Dropping the loaded trailer at {facility}, {f} tons of {cargo_label}."
-#~ msgstr ""
-#~ "Soltando o reboque carregado em {facility}, {f} toneladas de {cargo_label}."
-
-#~ msgid "{label}: {pounds} pounds {side} the gross-weight limit"
-#~ msgstr "{label}: {pounds} libras {side} do limite de peso bruto"
-
-#~ msgid "Refuel {f} gallons on the carrier fuel card."
-#~ msgstr "Abastecer {f} galões no cartão de combustível da transportadora."
-
-#~ msgid "Refuel {f} gallons on the carrier fuel card. {margin}"
-#~ msgstr ""
-#~ "Abastecer {f} galões no cartão de combustível da transportadora. {margin}"
-
-#~ msgid ""
-#~ "Refuel {f} gallons for {grouped} dollars. Diesel here is {f2} Canadian "
-#~ "dollars a liter. {margin}"
-#~ msgstr ""
-#~ "Abastecer {f} galões por {grouped} dólares. Aqui o diesel custa {f2} "
-#~ "dólares canadenses o litro. {margin}"
-
-#~ msgid "Refuel {f} gallons for {grouped} dollars. {margin}"
-#~ msgstr "Abastecer {f} galões por {grouped} dólares. {margin}"
-
-#~ msgid "Fueling took {f2} minutes."
-#~ msgstr "O abastecimento levou {f2} minutos."
-
-#~ msgid "Refueled {f} gallons on the carrier fuel card."
-#~ msgstr "Abasteceu {f} galões no cartão de combustível da transportadora."
-
-#~ msgid ""
-#~ "Refueled {f} gallons on the carrier fuel card. Fueling took {f2} minutes. "
-#~ "{margin}. {loyalty_text}"
-#~ msgstr ""
-#~ "Abasteceu {f} galões no cartão de combustível da transportadora. O "
-#~ "abastecimento levou {f2} minutos. {margin}. {loyalty_text}"
-
-#~ msgid "Refueled {f} gallons for {grouped} dollars."
-#~ msgstr "Abasteceu {f} galões por {grouped} dólares."
-
-#~ msgid ""
-#~ "Refueled {f} gallons for {grouped} dollars. You have {grouped2} dollars. "
-#~ "Fueling took {f2} minutes. {margin}. {loyalty_text}"
-#~ msgstr ""
-#~ "Abasteceu {f} galões por {grouped} dólares. Você tem {grouped2} dólares. O "
-#~ "abastecimento levou {f2} minutos. {margin}. {loyalty_text}"
 
 #~ msgid "Units: {else}"
 #~ msgstr "Unidades: {else}"

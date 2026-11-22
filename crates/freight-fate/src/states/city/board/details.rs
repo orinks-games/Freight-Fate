@@ -67,7 +67,7 @@ pub fn describe_job(ctx: &GameContext, total: usize, job: &Job, index: Option<us
         distance_text: &distance,
         empty_first: &empty_first,
         extra: &weight,
-        weight_text: &ctx.settings.tons_text(job.weight_tons),
+        metric: !ctx.settings.imperial(),
     })
 }
 

@@ -148,7 +148,15 @@ impl DrivingState {
             self.co_driver_break(ctx, stop);
         }
         let place = stop.spoken_name();
+        let imperial = ctx.settings.imperial();
         let line = match (gallons > 0.0, took_break) {
+            (true, true) if imperial => format!(
+                "{name} fueled {} gallons and took a 30-minute break at {place}.",
+                gallons.round()
+            ),
+            (true, false) if imperial => {
+                format!("{name} fueled {} gallons at {place}.", gallons.round())
+            }
             (true, true) => format!(
                 "{name} fueled {} and took a 30-minute break at {place}.",
                 ctx.settings.volume_text(gallons)

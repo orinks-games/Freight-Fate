@@ -177,12 +177,9 @@ impl Menu for CareerStartState {
                 let starts = terminal
                     .map(|t| format!(" Truck starts at {t}."))
                     .unwrap_or_default();
+                let menu_summary = option.summary_in(&ctx.settings);
                 MenuItem::new(
-                    format!(
-                        "{}. {}{starts}",
-                        option.label,
-                        option.summary_in(&ctx.settings)
-                    ),
+                    format!("{}. {}{starts}", option.label, menu_summary),
                     move |s: &mut Self, ctx| s.pick(ctx, key),
                 )
                 .help(format!("{}{starts}", option.help_in(&ctx.settings)))

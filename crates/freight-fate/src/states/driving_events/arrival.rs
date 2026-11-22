@@ -187,11 +187,18 @@ impl DrivingState {
         let engine = ctx.control_hint("engine");
         let mut opts = SayEvent::queued().priority(EventPriority::Important);
         opts.category = Some(SpeechCategory::Safety);
-        let rescue = ctx.settings.volume_text(ROADSIDE_RESCUE_GAL);
-        let message = format!(
-            "Out of fuel. Roadside rescue brought {rescue} {billing}. Press {engine} to \
-             restart the engine."
-        );
+        let message = if ctx.settings.imperial() {
+            format!(
+                "Out of fuel. Roadside rescue brought thirty gallons {billing}. Press {engine} to \
+                 restart the engine."
+            )
+        } else {
+            let rescue = ctx.settings.volume_text(ROADSIDE_RESCUE_GAL);
+            format!(
+                "Out of fuel. Roadside rescue brought {rescue} {billing}. Press {engine} to \
+                 restart the engine."
+            )
+        };
         let restart = format!("Press {engine} to restart the engine.");
         let message = self.without_key_hint(ctx, message, &restart);
         let message = self.with_touch_sentence(

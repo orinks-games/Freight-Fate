@@ -6732,18 +6732,19 @@ msgstr "giới hạn tải trọng"
 msgid "Your route clears it"
 msgstr "Tuyến đường của bạn đi qua an toàn"
 
-#. placeholders: {kind_label}, {value_text_in}
+#. placeholders: {kind_label}, {value_text}
 #. one sentence of a longer line
-msgid "a {kind_label}, signed {value_text_in}."
-msgstr ""
+msgid "a {kind_label}, signed {value_text}."
+msgstr "{kind_label}, biển báo {value_text}."
 
-#. placeholders: {kind_label}, {value_text_in}
-msgid "a {kind_label}, signed {value_text_in}. Your route clears it"
+#. placeholders: {kind_label}, {value_text}
+msgid "a {kind_label}, signed {value_text}. Your route clears it"
 msgstr ""
+"{kind_label}, biển báo {value_text}. Tuyến đường của bạn đi qua an toàn"
 
-#. placeholders: {py_capitalize}, {value_text_in}
-msgid "{py_capitalize}, signed {value_text_in}."
-msgstr ""
+#. placeholders: {py_capitalize}, {value_text}
+msgid "{py_capitalize}, signed {value_text}."
+msgstr "{py_capitalize}, biển báo {value_text}."
 
 msgid "explosives"
 msgstr ""
@@ -10367,17 +10368,21 @@ msgstr "Đơn hàng {index} trên {unwrap_or_else}: "
 msgid " Requires {credentials_clause}."
 msgstr " Yêu cầu {credentials_clause}."
 
-#. placeholders: {f}
-msgid "{f} tons"
+#. placeholders: {tonnes}, {cargo}, {origin}, {card}
+msgid "{tonnes} tonnes of {cargo} from {origin} {card}."
+msgstr ""
+
+#. placeholders: {tonnes}, {cargo}, {origin}, {destination}
+msgid "{tonnes} tonnes of {cargo} from {origin} to {destination}."
 msgstr ""
 
 #. placeholders: {tons}, {cargo}, {origin}, {card}
-msgid "{tons} of {cargo} from {origin} {card}."
+msgid "{tons} tons of {cargo} from {origin} {card}."
 msgstr ""
 
 #. placeholders: {tons}, {cargo}, {origin}, {destination}
-msgid "{tons} of {cargo} from {origin} to {destination}."
-msgstr ""
+msgid "{tons} tons of {cargo} from {origin} to {destination}."
+msgstr "{tons} tấn {cargo} từ {origin} đến {destination}."
 
 #. placeholders: {head_text}
 msgid " {head_text}. They can ride 28 hours."
@@ -11684,6 +11689,10 @@ msgid ""
 "repairs."
 msgstr ""
 
+#. placeholders: {miles}
+msgid "{miles} miles"
+msgstr ""
+
 msgid "in good shape"
 msgstr "tình trạng tốt"
 
@@ -12716,6 +12725,10 @@ msgstr "{grouped} pound"
 
 #. placeholders: {grouped}
 msgid "{grouped} kilograms"
+msgstr ""
+
+#. placeholders: {f}
+msgid "{f} tons"
 msgstr ""
 
 #. placeholders: {f}
@@ -20393,6 +20406,13 @@ msgid ""
 "offer between these cities."
 msgstr ""
 
+#. placeholders: {grouped}
+msgid ""
+"Load weight: {grouped} pounds over the gross-weight limit with current fuel."
+msgstr ""
+"Trọng lượng lô hàng: vượt giới hạn tổng tải trọng {grouped} pound với lượng "
+"dầu hiện tại."
+
 #. placeholders: {weight_text}
 msgid ""
 "Load weight: {weight_text} over the gross-weight limit with current fuel."
@@ -20723,6 +20743,15 @@ msgstr "giá tuần này"
 #. placeholders: {diesel_price_text}, {live}
 msgid "Garage: fuel {diesel_price_text}{live}"
 msgstr ""
+
+#. placeholders: {f}, {f2}, {live}
+msgid "Garage: fuel {f} per gallon, {f2} Canadian dollars a liter{live}"
+msgstr ""
+"Xưởng sửa: nhiên liệu {f} mỗi gallon, {f2} đô la Canada mỗi lít{live}"
+
+#. placeholders: {f}, {live}
+msgid "Garage: fuel {f} per gallon{live}"
+msgstr "Xưởng sửa xe: dầu {f} mỗi gallon{live}"
 
 #. placeholders: {owed}
 msgid "Pay down what you owe: {owed} owed"
@@ -21178,6 +21207,10 @@ msgstr "Độ mòn phanh: {f} phần trăm."
 #. placeholders: {f}
 msgid "Engine wear: {f} percent."
 msgstr "Độ mòn động cơ: {f} phần trăm."
+
+#. placeholders: {f}, {f2}, {f3}
+msgid "Fuel: {f} percent, {f2} gallons of {f3}."
+msgstr "Nhiên liệu: {f} phần trăm, {f2} trên {f3} gallon."
 
 #. placeholders: {f}, {volume_value}, {volume_text}
 msgid "Fuel: {f} percent, {volume_value} of {volume_text}."
@@ -22106,9 +22139,35 @@ msgstr "Xưởng dịch vụ"
 msgid "Fuel: tank is full"
 msgstr "Nhiên liệu: bình đã đầy"
 
+#. placeholders: {f}
+msgid "Refuel: {f} gallons"
+msgstr "Tiếp dầu: {f} gallon"
+
 #. placeholders: {volume_text}
 msgid "Refuel: {volume_text}"
 msgstr ""
+
+#. placeholders: {f2}
+#. one sentence of a longer line
+msgid "Diesel here is {f2} Canadian dollars a liter."
+msgstr "Dầu diesel ở đây giá {f2} đô la Canada mỗi lít."
+
+#. placeholders: {f}, {grouped}
+#. one sentence of a longer line
+msgid "Refuel {f} gallons for {grouped} dollars."
+msgstr "Đổ {f} gallon dầu với giá {grouped} đô la."
+
+#. placeholders: {f}, {grouped}, {f2}
+msgid ""
+"Refuel {f} gallons for {grouped} dollars. Diesel here is {f2} Canadian "
+"dollars a liter."
+msgstr ""
+"Đổ {f} gallon với giá {grouped} đô la. Dầu diesel ở đây giá {f2} đô la "
+"Canada mỗi lít."
+
+#. placeholders: {f}, {grouped}
+msgid "Refuel {f} gallons for {grouped} dollars"
+msgstr "Tiếp {f} gallon dầu giá {grouped} đô la"
 
 #. placeholders: {diesel_price_text}
 #. one sentence of a longer line
@@ -22575,8 +22634,24 @@ msgstr "Đã đổ đầy bình. Hết {grouped} đô la. Bạn còn lại {grou
 msgid "{grouped} dollars."
 msgstr "{grouped} đô la."
 
+msgid "Not enough money for one gallon of fuel."
+msgstr "Không đủ tiền mua một gallon dầu."
+
 msgid "Not enough money for fuel."
 msgstr ""
+
+#. placeholders: {f}, {grouped}
+#. one sentence of a longer line
+msgid "Partial fuel: added {f} gallons for {grouped} dollars."
+msgstr "Đổ dầu một phần: đã thêm {f} gallon hết {grouped} đô la."
+
+#. placeholders: {f}, {grouped}, {grouped2}
+msgid ""
+"Partial fuel: added {f} gallons for {grouped} dollars. You have {grouped2} "
+"dollars left."
+msgstr ""
+"Đổ dầu một phần: đã thêm {f} gallon hết {grouped} đô la. Bạn còn lại "
+"{grouped2} đô la."
 
 #. placeholders: {volume_text}, {grouped}
 #. one sentence of a longer line
@@ -22753,6 +22828,12 @@ msgstr "Dừng hẳn xe trước khi chất hàng."
 msgid "Hooking the loaded trailer"
 msgstr "Đang móc rơ-moóc đã chất hàng"
 
+#. placeholders: {facility}, {map}, {f}, {cargo_label}, {doubles_clause}
+msgid ""
+"Dropping your empty at {facility} and hooking {map}, loaded with {f} tons "
+"of {cargo_label}.{doubles_clause}"
+msgstr ""
+
 #. placeholders: {facility}, {map}, {tons_text}, {cargo_label}, {doubles_clause}
 msgid ""
 "Dropping your empty at {facility} and hooking {map}, loaded with "
@@ -22827,15 +22908,32 @@ msgstr "Động cơ đang nổ máy"
 msgid "Engine off"
 msgstr "Động cơ đang tắt"
 
-#. placeholders: {f}, {brake}, {speed_control_pause_text}
+#. placeholders: {f2}, {brake}, {speed_control_pause_text}
 #. one sentence of a longer line
-msgid "Air {f} psi, {brake}.{speed_control_pause_text}"
-msgstr ""
+msgid "Air {f2} psi, {brake}.{speed_control_pause_text}"
+msgstr "Khí nén {f2} PSI, {brake}.{speed_control_pause_text}"
 
 #. placeholders: {facility}, {state}
 #. one sentence of a longer line
 msgid "Pickup {facility}: {state}."
 msgstr "Điểm nhận hàng {facility}: {state}."
+
+#. placeholders: {facility}, {state}, {f}, {cargo_label}, {destination_facility_text}, {speed_text}, {engine}, {f2}, {brake}, {speed_control_pause_text}
+msgid ""
+"Pickup {facility}: {state}. {f} tons of {cargo_label} for "
+"{destination_facility_text}. {speed_text}. {engine}. Air {f2} psi, "
+"{brake}.{speed_control_pause_text}"
+msgstr ""
+
+#. placeholders: {f}, {cargo_label}, {destination_facility_text}
+#. one sentence of a longer line
+msgid "{f} tons of {cargo_label} for {destination_facility_text}."
+msgstr ""
+
+#. placeholders: {f}, {brake}, {speed_control_pause_text}
+#. one sentence of a longer line
+msgid "Air {f} psi, {brake}.{speed_control_pause_text}"
+msgstr ""
 
 #. placeholders: {facility}, {state}, {tons_text}, {cargo_label}, {destination_facility_text}, {speed_text}, {engine}, {f}, {brake}, {speed_control_pause_text}
 msgid ""
@@ -22852,6 +22950,10 @@ msgstr ""
 #. placeholders: {f}
 msgid " Idling here burned {f} gallons."
 msgstr " Nổ máy chờ tại đây đã tiêu hao {f} gallon dầu."
+
+#. placeholders: {f}
+msgid " Idling here burned {f} liters."
+msgstr ""
 
 msgid "Saved. The pickup resumes here."
 msgstr "Đã lưu. Quá trình nhận hàng sẽ tiếp tục từ đây."
@@ -24223,7 +24325,17 @@ msgid ""
 "booth."
 msgstr ""
 
-msgid "Customs booth in half a mile. Stop at the booth."
+#. placeholders: {short_distance_text}
+#. one sentence of a longer line
+msgid "Customs booth in {short_distance_text}."
+msgstr ""
+
+#. placeholders: {short_distance_text}
+msgid "Customs booth in {short_distance_text}. Stop at the booth."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Stop at the booth."
 msgstr ""
 
 msgid ", which your carrier pays"
@@ -25484,6 +25596,23 @@ msgstr ", cuối đường dẫn có vòng xuyến"
 msgid "where the ramp ends at a roundabout"
 msgstr "cuối đường dẫn có vòng xuyến"
 
+#. placeholders: {fraction}, {gallons}
+#. one sentence of a longer line
+msgid "Fuel {fraction} percent, {gallons} gallons."
+msgstr "Dầu còn {fraction} phần trăm, {gallons} gallon."
+
+#. placeholders: {fraction}, {gallons}, {distance_text}
+msgid ""
+"Fuel {fraction} percent, {gallons} gallons. Range about {distance_text}."
+msgstr ""
+"Dầu còn {fraction} phần trăm, {gallons} gallon. Tầm chạy còn lại khoảng "
+"{distance_text}."
+
+#. placeholders: {distance_text}
+#. one sentence of a longer line
+msgid "Range about {distance_text}."
+msgstr "Tầm chạy còn lại khoảng {distance_text}."
+
 #. placeholders: {fraction}, {volume}
 #. one sentence of a longer line
 msgid "Fuel {fraction} percent, {volume}."
@@ -25492,11 +25621,6 @@ msgstr ""
 #. placeholders: {fraction}, {volume}, {distance_text}
 msgid "Fuel {fraction} percent, {volume}. Range about {distance_text}."
 msgstr ""
-
-#. placeholders: {distance_text}
-#. one sentence of a longer line
-msgid "Range about {distance_text}."
-msgstr "Tầm chạy còn lại khoảng {distance_text}."
 
 msgid " Reefer on."
 msgstr ""
@@ -27935,6 +28059,17 @@ msgstr ""
 #. one sentence of a longer line
 msgid "Roadside rescue brought thirty gallons {billing}."
 msgstr "Cứu hộ tiếp dầu đã mang tới ba mươi gallon dầu {billing}."
+
+#. placeholders: {rescue}, {billing}, {engine}
+msgid ""
+"Out of fuel. Roadside rescue brought {rescue} {billing}. Press {engine} to "
+"restart the engine."
+msgstr ""
+
+#. placeholders: {rescue}, {billing}
+#. one sentence of a longer line
+msgid "Roadside rescue brought {rescue} {billing}."
+msgstr ""
 
 #. placeholders: {engine}
 msgid "Press {engine} to restart the engine."
@@ -31086,6 +31221,23 @@ msgstr "Đã dỡ hàng xong. Đã ký giấy tờ giao nhận."
 msgid "Dropping the trailer"
 msgstr "Đang tháo rơ-moóc"
 
+#. placeholders: {facility}, {f}, {cargo_label}
+#. one sentence of a longer line
+msgid ""
+"Dropping the loaded trailer at {facility}, {f} tons of {cargo_label}."
+msgstr "Đang tháo rơ-moóc có hàng tại {facility}, {f} tấn {cargo_label}."
+
+#. placeholders: {facility}, {f}, {cargo_label}, {doubles}
+msgid ""
+"Dropping the loaded trailer at {facility}, {f} tons of {cargo_label}. "
+"Hooking an empty.{doubles}"
+msgstr ""
+
+#. placeholders: {doubles}
+#. one sentence of a longer line
+msgid "Hooking an empty.{doubles}"
+msgstr ""
+
 #. placeholders: {facility}, {tons_text}, {cargo_label}
 #. one sentence of a longer line
 msgid ""
@@ -31096,11 +31248,6 @@ msgstr ""
 msgid ""
 "Dropping the loaded trailer at {facility}, {tons_text} of {cargo_label}. "
 "Hooking an empty.{doubles}"
-msgstr ""
-
-#. placeholders: {doubles}
-#. one sentence of a longer line
-msgid "Hooking an empty.{doubles}"
 msgstr ""
 
 msgid "Dropping the trailer."
@@ -32645,12 +32792,25 @@ msgstr "bạn đã quá hạn nghỉ 30 phút"
 msgid "under"
 msgstr "dưới"
 
+#. placeholders: {label}, {pounds}, {side}
+msgid "{label}: {pounds} pounds {side} the gross-weight limit"
+msgstr "{label}: {side} giới hạn tổng tải trọng {pounds} pound"
+
 #. placeholders: {label}, {weight}, {side}
 msgid "{label}: {weight} {side} the gross-weight limit"
 msgstr ""
 
 msgid "Full tank"
 msgstr "Đầy bình"
+
+#. placeholders: {f}
+#. one sentence of a longer line
+msgid "Refuel {f} gallons on the carrier fuel card."
+msgstr "Đổ {f} gallon dầu bằng thẻ nhiên liệu của hãng."
+
+#. placeholders: {f}, {margin}
+msgid "Refuel {f} gallons on the carrier fuel card. {margin}"
+msgstr "Đổ {f} gallon dầu bằng thẻ nhiên liệu của hãng. {margin}"
 
 #. placeholders: {volume_text}
 #. one sentence of a longer line
@@ -32660,6 +32820,18 @@ msgstr ""
 #. placeholders: {volume_text}, {margin}
 msgid "Refuel {volume_text} on the carrier fuel card. {margin}"
 msgstr ""
+
+#. placeholders: {f}, {grouped}, {f2}, {margin}
+msgid ""
+"Refuel {f} gallons for {grouped} dollars. Diesel here is {f2} Canadian "
+"dollars a liter. {margin}"
+msgstr ""
+"Đổ {f} gallon với giá {grouped} đô la. Dầu diesel ở đây giá {f2} đô la "
+"Canada mỗi lít. {margin}"
+
+#. placeholders: {f}, {grouped}, {margin}
+msgid "Refuel {f} gallons for {grouped} dollars. {margin}"
+msgstr "Đổ {f} gallon dầu với giá {grouped} đô la. {margin}"
 
 #. placeholders: {volume_text}, {grouped}, {diesel_price_text}, {margin}
 msgid ""
@@ -32700,6 +32872,24 @@ msgstr "Bạn không đủ tiền đổ dầu tại đây."
 msgid "Gross weight"
 msgstr "Tổng tải trọng"
 
+#. placeholders: {f2}
+#. one sentence of a longer line
+msgid "Fueling took {f2} minutes."
+msgstr "Đổ dầu mất {f2} phút."
+
+#. placeholders: {f}
+#. one sentence of a longer line
+msgid "Refueled {f} gallons on the carrier fuel card."
+msgstr "Đã đổ {f} gallon dầu bằng thẻ nhiên liệu của hãng."
+
+#. placeholders: {f}, {f2}, {margin}, {loyalty_text}
+msgid ""
+"Refueled {f} gallons on the carrier fuel card. Fueling took {f2} minutes. "
+"{margin}. {loyalty_text}"
+msgstr ""
+"Đã đổ {f} gallon dầu bằng thẻ nhiên liệu của hãng. Đổ dầu mất {f2} phút. "
+"{margin}. {loyalty_text}"
+
 #. placeholders: {f}
 #. one sentence of a longer line
 msgid "Fueling took {f} minutes."
@@ -32715,6 +32905,19 @@ msgid ""
 "Refueled {volume_text} on the carrier fuel card. Fueling took {f} minutes. "
 "{margin}. {loyalty_text}"
 msgstr ""
+
+#. placeholders: {f}, {grouped}
+#. one sentence of a longer line
+msgid "Refueled {f} gallons for {grouped} dollars."
+msgstr "Đã đổ {f} gallon dầu hết {grouped} đô la."
+
+#. placeholders: {f}, {grouped}, {grouped2}, {f2}, {margin}, {loyalty_text}
+msgid ""
+"Refueled {f} gallons for {grouped} dollars. You have {grouped2} dollars. "
+"Fueling took {f2} minutes. {margin}. {loyalty_text}"
+msgstr ""
+"Đã đổ {f} gallon dầu hết {grouped} đô la. Bạn còn {grouped2} đô la. Đổ dầu "
+"mất {f2} phút. {margin}. {loyalty_text}"
 
 #. placeholders: {volume_text}, {grouped}
 #. one sentence of a longer line
@@ -35373,6 +35576,14 @@ msgstr ""
 #. placeholders: {name}, {gallons}, {place}
 msgid "{name} fueled {gallons} gallons at {place}."
 msgstr "{name} đã đổ {gallons} gallon dầu tại {place}."
+
+#. placeholders: {name}, {volume_text}, {place}
+msgid "{name} fueled {volume_text} and took a 30-minute break at {place}."
+msgstr ""
+
+#. placeholders: {name}, {volume_text}, {place}
+msgid "{name} fueled {volume_text} at {place}."
+msgstr ""
 
 #. placeholders: {name}, {place}
 msgid "{name} took a 30-minute break at {place}."
@@ -45853,125 +46064,6 @@ msgid ""
 msgstr ""
 "Giữ nút vai trái để mở lớp nút thứ hai. {pad_engine} bật tắt động cơ, "
 "{pad_fuel} đọc nhiên liệu và {pad_speed_limit} đọc tốc độ giới hạn."
-
-#~ msgid "a {kind_label}, signed {value_text}."
-#~ msgstr "{kind_label}, biển báo {value_text}."
-
-#~ msgid "a {kind_label}, signed {value_text}. Your route clears it"
-#~ msgstr ""
-#~ "{kind_label}, biển báo {value_text}. Tuyến đường của bạn đi qua an toàn"
-
-#~ msgid "{py_capitalize}, signed {value_text}."
-#~ msgstr "{py_capitalize}, biển báo {value_text}."
-
-#~ msgid "{tons} tons of {cargo} from {origin} to {destination}."
-#~ msgstr "{tons} tấn {cargo} từ {origin} đến {destination}."
-
-#~ msgid ""
-#~ "Load weight: {grouped} pounds over the gross-weight limit with current fuel."
-#~ msgstr ""
-#~ "Trọng lượng lô hàng: vượt giới hạn tổng tải trọng {grouped} pound với lượng "
-#~ "dầu hiện tại."
-
-#~ msgid "Garage: fuel {f} per gallon, {f2} Canadian dollars a liter{live}"
-#~ msgstr ""
-#~ "Xưởng sửa: nhiên liệu {f} mỗi gallon, {f2} đô la Canada mỗi lít{live}"
-
-#~ msgid "Garage: fuel {f} per gallon{live}"
-#~ msgstr "Xưởng sửa xe: dầu {f} mỗi gallon{live}"
-
-#~ msgid "Fuel: {f} percent, {f2} gallons of {f3}."
-#~ msgstr "Nhiên liệu: {f} phần trăm, {f2} trên {f3} gallon."
-
-#~ msgid "Refuel: {f} gallons"
-#~ msgstr "Tiếp dầu: {f} gallon"
-
-#~ msgid "Diesel here is {f2} Canadian dollars a liter."
-#~ msgstr "Dầu diesel ở đây giá {f2} đô la Canada mỗi lít."
-
-#~ msgid "Refuel {f} gallons for {grouped} dollars."
-#~ msgstr "Đổ {f} gallon dầu với giá {grouped} đô la."
-
-#~ msgid ""
-#~ "Refuel {f} gallons for {grouped} dollars. Diesel here is {f2} Canadian "
-#~ "dollars a liter."
-#~ msgstr ""
-#~ "Đổ {f} gallon với giá {grouped} đô la. Dầu diesel ở đây giá {f2} đô la "
-#~ "Canada mỗi lít."
-
-#~ msgid "Refuel {f} gallons for {grouped} dollars"
-#~ msgstr "Tiếp {f} gallon dầu giá {grouped} đô la"
-
-#~ msgid "Not enough money for one gallon of fuel."
-#~ msgstr "Không đủ tiền mua một gallon dầu."
-
-#~ msgid "Partial fuel: added {f} gallons for {grouped} dollars."
-#~ msgstr "Đổ dầu một phần: đã thêm {f} gallon hết {grouped} đô la."
-
-#~ msgid ""
-#~ "Partial fuel: added {f} gallons for {grouped} dollars. You have {grouped2} "
-#~ "dollars left."
-#~ msgstr ""
-#~ "Đổ dầu một phần: đã thêm {f} gallon hết {grouped} đô la. Bạn còn lại "
-#~ "{grouped2} đô la."
-
-#~ msgid "Air {f2} psi, {brake}.{speed_control_pause_text}"
-#~ msgstr "Khí nén {f2} PSI, {brake}.{speed_control_pause_text}"
-
-#~ msgid "Fuel {fraction} percent, {gallons} gallons."
-#~ msgstr "Dầu còn {fraction} phần trăm, {gallons} gallon."
-
-#~ msgid ""
-#~ "Fuel {fraction} percent, {gallons} gallons. Range about {distance_text}."
-#~ msgstr ""
-#~ "Dầu còn {fraction} phần trăm, {gallons} gallon. Tầm chạy còn lại khoảng "
-#~ "{distance_text}."
-
-#~ msgid ""
-#~ "Dropping the loaded trailer at {facility}, {f} tons of {cargo_label}."
-#~ msgstr "Đang tháo rơ-moóc có hàng tại {facility}, {f} tấn {cargo_label}."
-
-#~ msgid "{label}: {pounds} pounds {side} the gross-weight limit"
-#~ msgstr "{label}: {side} giới hạn tổng tải trọng {pounds} pound"
-
-#~ msgid "Refuel {f} gallons on the carrier fuel card."
-#~ msgstr "Đổ {f} gallon dầu bằng thẻ nhiên liệu của hãng."
-
-#~ msgid "Refuel {f} gallons on the carrier fuel card. {margin}"
-#~ msgstr "Đổ {f} gallon dầu bằng thẻ nhiên liệu của hãng. {margin}"
-
-#~ msgid ""
-#~ "Refuel {f} gallons for {grouped} dollars. Diesel here is {f2} Canadian "
-#~ "dollars a liter. {margin}"
-#~ msgstr ""
-#~ "Đổ {f} gallon với giá {grouped} đô la. Dầu diesel ở đây giá {f2} đô la "
-#~ "Canada mỗi lít. {margin}"
-
-#~ msgid "Refuel {f} gallons for {grouped} dollars. {margin}"
-#~ msgstr "Đổ {f} gallon dầu với giá {grouped} đô la. {margin}"
-
-#~ msgid "Fueling took {f2} minutes."
-#~ msgstr "Đổ dầu mất {f2} phút."
-
-#~ msgid "Refueled {f} gallons on the carrier fuel card."
-#~ msgstr "Đã đổ {f} gallon dầu bằng thẻ nhiên liệu của hãng."
-
-#~ msgid ""
-#~ "Refueled {f} gallons on the carrier fuel card. Fueling took {f2} minutes. "
-#~ "{margin}. {loyalty_text}"
-#~ msgstr ""
-#~ "Đã đổ {f} gallon dầu bằng thẻ nhiên liệu của hãng. Đổ dầu mất {f2} phút. "
-#~ "{margin}. {loyalty_text}"
-
-#~ msgid "Refueled {f} gallons for {grouped} dollars."
-#~ msgstr "Đã đổ {f} gallon dầu hết {grouped} đô la."
-
-#~ msgid ""
-#~ "Refueled {f} gallons for {grouped} dollars. You have {grouped2} dollars. "
-#~ "Fueling took {f2} minutes. {margin}. {loyalty_text}"
-#~ msgstr ""
-#~ "Đã đổ {f} gallon dầu hết {grouped} đô la. Bạn còn {grouped2} đô la. Đổ dầu "
-#~ "mất {f2} phút. {margin}. {loyalty_text}"
 
 #~ msgid "Units: {else}"
 #~ msgstr "Đơn vị đo: {else}"

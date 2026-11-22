@@ -5848,18 +5848,18 @@ msgstr "重量制限"
 msgid "Your route clears it"
 msgstr "このルートなら通れます"
 
-#. placeholders: {kind_label}, {value_text_in}
+#. placeholders: {kind_label}, {value_text}
 #. one sentence of a longer line
-msgid "a {kind_label}, signed {value_text_in}."
-msgstr ""
+msgid "a {kind_label}, signed {value_text}."
+msgstr "{kind_label}、表示は{value_text}です。"
 
-#. placeholders: {kind_label}, {value_text_in}
-msgid "a {kind_label}, signed {value_text_in}. Your route clears it"
-msgstr ""
+#. placeholders: {kind_label}, {value_text}
+msgid "a {kind_label}, signed {value_text}. Your route clears it"
+msgstr "{kind_label}、表示は{value_text}です。このルートなら通れます"
 
-#. placeholders: {py_capitalize}, {value_text_in}
-msgid "{py_capitalize}, signed {value_text_in}."
-msgstr ""
+#. placeholders: {py_capitalize}, {value_text}
+msgid "{py_capitalize}, signed {value_text}."
+msgstr "{py_capitalize}、表示は{value_text}です。"
 
 msgid "explosives"
 msgstr ""
@@ -9163,17 +9163,21 @@ msgstr "{unwrap_or_else}件中{index}件目： "
 msgid " Requires {credentials_clause}."
 msgstr " {credentials_clause}が必要です。"
 
-#. placeholders: {f}
-msgid "{f} tons"
+#. placeholders: {tonnes}, {cargo}, {origin}, {card}
+msgid "{tonnes} tonnes of {cargo} from {origin} {card}."
+msgstr ""
+
+#. placeholders: {tonnes}, {cargo}, {origin}, {destination}
+msgid "{tonnes} tonnes of {cargo} from {origin} to {destination}."
 msgstr ""
 
 #. placeholders: {tons}, {cargo}, {origin}, {card}
-msgid "{tons} of {cargo} from {origin} {card}."
+msgid "{tons} tons of {cargo} from {origin} {card}."
 msgstr ""
 
 #. placeholders: {tons}, {cargo}, {origin}, {destination}
-msgid "{tons} of {cargo} from {origin} to {destination}."
-msgstr ""
+msgid "{tons} tons of {cargo} from {origin} to {destination}."
+msgstr "{origin}から{destination}へ{cargo}{tons}トン。"
 
 #. placeholders: {head_text}
 msgid " {head_text}. They can ride 28 hours."
@@ -10370,6 +10374,10 @@ msgid ""
 "repairs."
 msgstr ""
 
+#. placeholders: {miles}
+msgid "{miles} miles"
+msgstr ""
+
 msgid "in good shape"
 msgstr "良好な状態"
 
@@ -11321,6 +11329,10 @@ msgstr "{grouped}ポンド"
 
 #. placeholders: {grouped}
 msgid "{grouped} kilograms"
+msgstr ""
+
+#. placeholders: {f}
+msgid "{f} tons"
 msgstr ""
 
 #. placeholders: {f}
@@ -18610,6 +18622,11 @@ msgid ""
 "offer between these cities."
 msgstr ""
 
+#. placeholders: {grouped}
+msgid ""
+"Load weight: {grouped} pounds over the gross-weight limit with current fuel."
+msgstr "積荷の重さ：今の燃料で、総重量の制限を{grouped}ポンド超えています。"
+
 #. placeholders: {weight_text}
 msgid ""
 "Load weight: {weight_text} over the gross-weight limit with current fuel."
@@ -18918,6 +18935,14 @@ msgstr "今週の価格"
 #. placeholders: {diesel_price_text}, {live}
 msgid "Garage: fuel {diesel_price_text}{live}"
 msgstr ""
+
+#. placeholders: {f}, {f2}, {live}
+msgid "Garage: fuel {f} per gallon, {f2} Canadian dollars a liter{live}"
+msgstr "整備工場：燃料は1ガロン{f}、1リットル{f2}カナダドル{live}"
+
+#. placeholders: {f}, {live}
+msgid "Garage: fuel {f} per gallon{live}"
+msgstr "ガレージ：燃料1ガロン{f}{live}"
 
 #. placeholders: {owed}
 msgid "Pay down what you owe: {owed} owed"
@@ -19334,6 +19359,10 @@ msgstr "ブレーキの摩耗：{f}パーセント。"
 #. placeholders: {f}
 msgid "Engine wear: {f} percent."
 msgstr "エンジンの摩耗：{f}パーセント。"
+
+#. placeholders: {f}, {f2}, {f3}
+msgid "Fuel: {f} percent, {f2} gallons of {f3}."
+msgstr "燃料：{f}パーセント、{f3}が{f2}ガロン。"
 
 #. placeholders: {f}, {volume_value}, {volume_text}
 msgid "Fuel: {f} percent, {volume_value} of {volume_text}."
@@ -20180,9 +20209,33 @@ msgstr "ガレージ"
 msgid "Fuel: tank is full"
 msgstr "燃料：満タンです"
 
+#. placeholders: {f}
+msgid "Refuel: {f} gallons"
+msgstr "給油：{f}ガロン"
+
 #. placeholders: {volume_text}
 msgid "Refuel: {volume_text}"
 msgstr ""
+
+#. placeholders: {f2}
+#. one sentence of a longer line
+msgid "Diesel here is {f2} Canadian dollars a liter."
+msgstr "ここの軽油は1リットル{f2}カナダドルです。"
+
+#. placeholders: {f}, {grouped}
+#. one sentence of a longer line
+msgid "Refuel {f} gallons for {grouped} dollars."
+msgstr "{grouped}ドルで{f}ガロン給油します。"
+
+#. placeholders: {f}, {grouped}, {f2}
+msgid ""
+"Refuel {f} gallons for {grouped} dollars. Diesel here is {f2} Canadian "
+"dollars a liter."
+msgstr "{f}ガロンを{grouped}ドルで給油。ここの軽油は1リットル{f2}カナダドルです。"
+
+#. placeholders: {f}, {grouped}
+msgid "Refuel {f} gallons for {grouped} dollars"
+msgstr "{f}ガロンを{grouped}ドルで給油"
 
 #. placeholders: {diesel_price_text}
 #. one sentence of a longer line
@@ -20606,8 +20659,22 @@ msgstr "満タンにしました。{grouped}ドル。残りは{grouped2}ドル�
 msgid "{grouped} dollars."
 msgstr "{grouped}ドル。"
 
+msgid "Not enough money for one gallon of fuel."
+msgstr "燃料1ガロン分のお金もありません。"
+
 msgid "Not enough money for fuel."
 msgstr ""
+
+#. placeholders: {f}, {grouped}
+#. one sentence of a longer line
+msgid "Partial fuel: added {f} gallons for {grouped} dollars."
+msgstr "一部給油：{f}ガロンを{grouped}ドルで入れました。"
+
+#. placeholders: {f}, {grouped}, {grouped2}
+msgid ""
+"Partial fuel: added {f} gallons for {grouped} dollars. You have {grouped2} "
+"dollars left."
+msgstr "一部給油：{f}ガロンを{grouped}ドルで入れました。残りは{grouped2}ドルです。"
 
 #. placeholders: {volume_text}, {grouped}
 #. one sentence of a longer line
@@ -20772,6 +20839,12 @@ msgstr "積み込みの前に停車してください。"
 msgid "Hooking the loaded trailer"
 msgstr "積荷の載ったトレーラーをつないでいます"
 
+#. placeholders: {facility}, {map}, {f}, {cargo_label}, {doubles_clause}
+msgid ""
+"Dropping your empty at {facility} and hooking {map}, loaded with {f} tons "
+"of {cargo_label}.{doubles_clause}"
+msgstr ""
+
 #. placeholders: {facility}, {map}, {tons_text}, {cargo_label}, {doubles_clause}
 msgid ""
 "Dropping your empty at {facility} and hooking {map}, loaded with "
@@ -20846,15 +20919,32 @@ msgstr "エンジンがかかっています"
 msgid "Engine off"
 msgstr "エンジンは止まっています"
 
-#. placeholders: {f}, {brake}, {speed_control_pause_text}
+#. placeholders: {f2}, {brake}, {speed_control_pause_text}
 #. one sentence of a longer line
-msgid "Air {f} psi, {brake}.{speed_control_pause_text}"
-msgstr ""
+msgid "Air {f2} psi, {brake}.{speed_control_pause_text}"
+msgstr "エア圧{f2} psi、{brake}。{speed_control_pause_text}"
 
 #. placeholders: {facility}, {state}
 #. one sentence of a longer line
 msgid "Pickup {facility}: {state}."
 msgstr "{facility}での積み込み：{state}。"
+
+#. placeholders: {facility}, {state}, {f}, {cargo_label}, {destination_facility_text}, {speed_text}, {engine}, {f2}, {brake}, {speed_control_pause_text}
+msgid ""
+"Pickup {facility}: {state}. {f} tons of {cargo_label} for "
+"{destination_facility_text}. {speed_text}. {engine}. Air {f2} psi, "
+"{brake}.{speed_control_pause_text}"
+msgstr ""
+
+#. placeholders: {f}, {cargo_label}, {destination_facility_text}
+#. one sentence of a longer line
+msgid "{f} tons of {cargo_label} for {destination_facility_text}."
+msgstr ""
+
+#. placeholders: {f}, {brake}, {speed_control_pause_text}
+#. one sentence of a longer line
+msgid "Air {f} psi, {brake}.{speed_control_pause_text}"
+msgstr ""
 
 #. placeholders: {facility}, {state}, {tons_text}, {cargo_label}, {destination_facility_text}, {speed_text}, {engine}, {f}, {brake}, {speed_control_pause_text}
 msgid ""
@@ -20871,6 +20961,10 @@ msgstr ""
 #. placeholders: {f}
 msgid " Idling here burned {f} gallons."
 msgstr " ここでのアイドリングで{f}ガロン消費しました。"
+
+#. placeholders: {f}
+msgid " Idling here burned {f} liters."
+msgstr ""
 
 msgid "Saved. The pickup resumes here."
 msgstr "保存しました。積み込みはここから再開します。"
@@ -22149,7 +22243,17 @@ msgid ""
 "booth."
 msgstr ""
 
-msgid "Customs booth in half a mile. Stop at the booth."
+#. placeholders: {short_distance_text}
+#. one sentence of a longer line
+msgid "Customs booth in {short_distance_text}."
+msgstr ""
+
+#. placeholders: {short_distance_text}
+msgid "Customs booth in {short_distance_text}. Stop at the booth."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Stop at the booth."
 msgstr ""
 
 msgid ", which your carrier pays"
@@ -23278,6 +23382,21 @@ msgstr "、ランプの終わりはラウンドアバウトです"
 msgid "where the ramp ends at a roundabout"
 msgstr "ランプがラウンドアバウトで終わるところ"
 
+#. placeholders: {fraction}, {gallons}
+#. one sentence of a longer line
+msgid "Fuel {fraction} percent, {gallons} gallons."
+msgstr "燃料{fraction}パーセント、{gallons}ガロン。"
+
+#. placeholders: {fraction}, {gallons}, {distance_text}
+msgid ""
+"Fuel {fraction} percent, {gallons} gallons. Range about {distance_text}."
+msgstr "燃料{fraction}パーセント、{gallons}ガロン。航続距離は約{distance_text}。"
+
+#. placeholders: {distance_text}
+#. one sentence of a longer line
+msgid "Range about {distance_text}."
+msgstr "航続距離は約{distance_text}。"
+
 #. placeholders: {fraction}, {volume}
 #. one sentence of a longer line
 msgid "Fuel {fraction} percent, {volume}."
@@ -23286,11 +23405,6 @@ msgstr ""
 #. placeholders: {fraction}, {volume}, {distance_text}
 msgid "Fuel {fraction} percent, {volume}. Range about {distance_text}."
 msgstr ""
-
-#. placeholders: {distance_text}
-#. one sentence of a longer line
-msgid "Range about {distance_text}."
-msgstr "航続距離は約{distance_text}。"
 
 msgid " Reefer on."
 msgstr ""
@@ -25545,6 +25659,17 @@ msgstr "燃料切れです。{billing}、出張給油が30ガロン届けてく�
 #. one sentence of a longer line
 msgid "Roadside rescue brought thirty gallons {billing}."
 msgstr "{billing}、出張給油が30ガロン届けてくれました。"
+
+#. placeholders: {rescue}, {billing}, {engine}
+msgid ""
+"Out of fuel. Roadside rescue brought {rescue} {billing}. Press {engine} to "
+"restart the engine."
+msgstr ""
+
+#. placeholders: {rescue}, {billing}
+#. one sentence of a longer line
+msgid "Roadside rescue brought {rescue} {billing}."
+msgstr ""
 
 #. placeholders: {engine}
 msgid "Press {engine} to restart the engine."
@@ -28554,6 +28679,23 @@ msgstr "荷降ろし完了。配達の書類にサインしました。"
 msgid "Dropping the trailer"
 msgstr "トレーラーを切り離しています"
 
+#. placeholders: {facility}, {f}, {cargo_label}
+#. one sentence of a longer line
+msgid ""
+"Dropping the loaded trailer at {facility}, {f} tons of {cargo_label}."
+msgstr "{facility}で積んだトレーラーを切り離しています。{cargo_label}{f}トンです。"
+
+#. placeholders: {facility}, {f}, {cargo_label}, {doubles}
+msgid ""
+"Dropping the loaded trailer at {facility}, {f} tons of {cargo_label}. "
+"Hooking an empty.{doubles}"
+msgstr ""
+
+#. placeholders: {doubles}
+#. one sentence of a longer line
+msgid "Hooking an empty.{doubles}"
+msgstr ""
+
 #. placeholders: {facility}, {tons_text}, {cargo_label}
 #. one sentence of a longer line
 msgid ""
@@ -28564,11 +28706,6 @@ msgstr ""
 msgid ""
 "Dropping the loaded trailer at {facility}, {tons_text} of {cargo_label}. "
 "Hooking an empty.{doubles}"
-msgstr ""
-
-#. placeholders: {doubles}
-#. one sentence of a longer line
-msgid "Hooking an empty.{doubles}"
 msgstr ""
 
 msgid "Dropping the trailer."
@@ -29975,12 +30112,25 @@ msgstr "あなたは30分休憩の義務を過ぎていました"
 msgid "under"
 msgstr "以内"
 
+#. placeholders: {label}, {pounds}, {side}
+msgid "{label}: {pounds} pounds {side} the gross-weight limit"
+msgstr "{label}：総重量制限を{pounds}ポンド{side}"
+
 #. placeholders: {label}, {weight}, {side}
 msgid "{label}: {weight} {side} the gross-weight limit"
 msgstr ""
 
 msgid "Full tank"
 msgstr "満タン"
+
+#. placeholders: {f}
+#. one sentence of a longer line
+msgid "Refuel {f} gallons on the carrier fuel card."
+msgstr "運送会社の燃料カードで{f}ガロン給油します。"
+
+#. placeholders: {f}, {margin}
+msgid "Refuel {f} gallons on the carrier fuel card. {margin}"
+msgstr "運送会社の燃料カードで{f}ガロン給油します。{margin}"
 
 #. placeholders: {volume_text}
 #. one sentence of a longer line
@@ -29990,6 +30140,16 @@ msgstr ""
 #. placeholders: {volume_text}, {margin}
 msgid "Refuel {volume_text} on the carrier fuel card. {margin}"
 msgstr ""
+
+#. placeholders: {f}, {grouped}, {f2}, {margin}
+msgid ""
+"Refuel {f} gallons for {grouped} dollars. Diesel here is {f2} Canadian "
+"dollars a liter. {margin}"
+msgstr "{f}ガロンを{grouped}ドルで給油。ここの軽油は1リットル{f2}カナダドルです。{margin}"
+
+#. placeholders: {f}, {grouped}, {margin}
+msgid "Refuel {f} gallons for {grouped} dollars. {margin}"
+msgstr "{grouped}ドルで{f}ガロン給油します。{margin}"
 
 #. placeholders: {volume_text}, {grouped}, {diesel_price_text}, {margin}
 msgid ""
@@ -30029,6 +30189,22 @@ msgstr "ここで燃料を買うお金がありません。"
 msgid "Gross weight"
 msgstr "総重量"
 
+#. placeholders: {f2}
+#. one sentence of a longer line
+msgid "Fueling took {f2} minutes."
+msgstr "給油に{f2}分かかりました。"
+
+#. placeholders: {f}
+#. one sentence of a longer line
+msgid "Refueled {f} gallons on the carrier fuel card."
+msgstr "運送会社の燃料カードで{f}ガロン給油しました。"
+
+#. placeholders: {f}, {f2}, {margin}, {loyalty_text}
+msgid ""
+"Refueled {f} gallons on the carrier fuel card. Fueling took {f2} minutes. "
+"{margin}. {loyalty_text}"
+msgstr "運送会社の燃料カードで{f}ガロン給油しました。給油に{f2}分かかりました。{margin}。{loyalty_text}"
+
 #. placeholders: {f}
 #. one sentence of a longer line
 msgid "Fueling took {f} minutes."
@@ -30044,6 +30220,19 @@ msgid ""
 "Refueled {volume_text} on the carrier fuel card. Fueling took {f} minutes. "
 "{margin}. {loyalty_text}"
 msgstr ""
+
+#. placeholders: {f}, {grouped}
+#. one sentence of a longer line
+msgid "Refueled {f} gallons for {grouped} dollars."
+msgstr "{grouped}ドルで{f}ガロン給油しました。"
+
+#. placeholders: {f}, {grouped}, {grouped2}, {f2}, {margin}, {loyalty_text}
+msgid ""
+"Refueled {f} gallons for {grouped} dollars. You have {grouped2} dollars. "
+"Fueling took {f2} minutes. {margin}. {loyalty_text}"
+msgstr ""
+"{grouped}ドルで{f}ガロン給油しました。所持金は{grouped2}ドルです。給油に{f2}分かかりました。{margin}。{loyalty"
+"_text}"
 
 #. placeholders: {volume_text}, {grouped}
 #. one sentence of a longer line
@@ -32499,6 +32688,14 @@ msgstr "{name}は{place}で{gallons}ガロン給油し、30分の休憩を取り
 #. placeholders: {name}, {gallons}, {place}
 msgid "{name} fueled {gallons} gallons at {place}."
 msgstr "{name}は{place}で{gallons}ガロン給油しました。"
+
+#. placeholders: {name}, {volume_text}, {place}
+msgid "{name} fueled {volume_text} and took a 30-minute break at {place}."
+msgstr ""
+
+#. placeholders: {name}, {volume_text}, {place}
+msgid "{name} fueled {volume_text} at {place}."
+msgstr ""
 
 #. placeholders: {name}, {place}
 msgid "{name} took a 30-minute break at {place}."
@@ -41862,111 +42059,6 @@ msgid ""
 msgstr ""
 "左バンパーを押したままにすると、ボタンの2段目を使えます。{pad_engine}でエンジンを操作し、{pad_fuel}で燃料を、{pad_speed"
 "_limit}で制限速度を読み上げます。"
-
-#~ msgid "a {kind_label}, signed {value_text}."
-#~ msgstr "{kind_label}、表示は{value_text}です。"
-
-#~ msgid "a {kind_label}, signed {value_text}. Your route clears it"
-#~ msgstr "{kind_label}、表示は{value_text}です。このルートなら通れます"
-
-#~ msgid "{py_capitalize}, signed {value_text}."
-#~ msgstr "{py_capitalize}、表示は{value_text}です。"
-
-#~ msgid "{tons} tons of {cargo} from {origin} to {destination}."
-#~ msgstr "{origin}から{destination}へ{cargo}{tons}トン。"
-
-#~ msgid ""
-#~ "Load weight: {grouped} pounds over the gross-weight limit with current fuel."
-#~ msgstr "積荷の重さ：今の燃料で、総重量の制限を{grouped}ポンド超えています。"
-
-#~ msgid "Garage: fuel {f} per gallon, {f2} Canadian dollars a liter{live}"
-#~ msgstr "整備工場：燃料は1ガロン{f}、1リットル{f2}カナダドル{live}"
-
-#~ msgid "Garage: fuel {f} per gallon{live}"
-#~ msgstr "ガレージ：燃料1ガロン{f}{live}"
-
-#~ msgid "Fuel: {f} percent, {f2} gallons of {f3}."
-#~ msgstr "燃料：{f}パーセント、{f3}が{f2}ガロン。"
-
-#~ msgid "Refuel: {f} gallons"
-#~ msgstr "給油：{f}ガロン"
-
-#~ msgid "Diesel here is {f2} Canadian dollars a liter."
-#~ msgstr "ここの軽油は1リットル{f2}カナダドルです。"
-
-#~ msgid "Refuel {f} gallons for {grouped} dollars."
-#~ msgstr "{grouped}ドルで{f}ガロン給油します。"
-
-#~ msgid ""
-#~ "Refuel {f} gallons for {grouped} dollars. Diesel here is {f2} Canadian "
-#~ "dollars a liter."
-#~ msgstr "{f}ガロンを{grouped}ドルで給油。ここの軽油は1リットル{f2}カナダドルです。"
-
-#~ msgid "Refuel {f} gallons for {grouped} dollars"
-#~ msgstr "{f}ガロンを{grouped}ドルで給油"
-
-#~ msgid "Not enough money for one gallon of fuel."
-#~ msgstr "燃料1ガロン分のお金もありません。"
-
-#~ msgid "Partial fuel: added {f} gallons for {grouped} dollars."
-#~ msgstr "一部給油：{f}ガロンを{grouped}ドルで入れました。"
-
-#~ msgid ""
-#~ "Partial fuel: added {f} gallons for {grouped} dollars. You have {grouped2} "
-#~ "dollars left."
-#~ msgstr "一部給油：{f}ガロンを{grouped}ドルで入れました。残りは{grouped2}ドルです。"
-
-#~ msgid "Air {f2} psi, {brake}.{speed_control_pause_text}"
-#~ msgstr "エア圧{f2} psi、{brake}。{speed_control_pause_text}"
-
-#~ msgid "Fuel {fraction} percent, {gallons} gallons."
-#~ msgstr "燃料{fraction}パーセント、{gallons}ガロン。"
-
-#~ msgid ""
-#~ "Fuel {fraction} percent, {gallons} gallons. Range about {distance_text}."
-#~ msgstr "燃料{fraction}パーセント、{gallons}ガロン。航続距離は約{distance_text}。"
-
-#~ msgid ""
-#~ "Dropping the loaded trailer at {facility}, {f} tons of {cargo_label}."
-#~ msgstr "{facility}で積んだトレーラーを切り離しています。{cargo_label}{f}トンです。"
-
-#~ msgid "{label}: {pounds} pounds {side} the gross-weight limit"
-#~ msgstr "{label}：総重量制限を{pounds}ポンド{side}"
-
-#~ msgid "Refuel {f} gallons on the carrier fuel card."
-#~ msgstr "運送会社の燃料カードで{f}ガロン給油します。"
-
-#~ msgid "Refuel {f} gallons on the carrier fuel card. {margin}"
-#~ msgstr "運送会社の燃料カードで{f}ガロン給油します。{margin}"
-
-#~ msgid ""
-#~ "Refuel {f} gallons for {grouped} dollars. Diesel here is {f2} Canadian "
-#~ "dollars a liter. {margin}"
-#~ msgstr "{f}ガロンを{grouped}ドルで給油。ここの軽油は1リットル{f2}カナダドルです。{margin}"
-
-#~ msgid "Refuel {f} gallons for {grouped} dollars. {margin}"
-#~ msgstr "{grouped}ドルで{f}ガロン給油します。{margin}"
-
-#~ msgid "Fueling took {f2} minutes."
-#~ msgstr "給油に{f2}分かかりました。"
-
-#~ msgid "Refueled {f} gallons on the carrier fuel card."
-#~ msgstr "運送会社の燃料カードで{f}ガロン給油しました。"
-
-#~ msgid ""
-#~ "Refueled {f} gallons on the carrier fuel card. Fueling took {f2} minutes. "
-#~ "{margin}. {loyalty_text}"
-#~ msgstr "運送会社の燃料カードで{f}ガロン給油しました。給油に{f2}分かかりました。{margin}。{loyalty_text}"
-
-#~ msgid "Refueled {f} gallons for {grouped} dollars."
-#~ msgstr "{grouped}ドルで{f}ガロン給油しました。"
-
-#~ msgid ""
-#~ "Refueled {f} gallons for {grouped} dollars. You have {grouped2} dollars. "
-#~ "Fueling took {f2} minutes. {margin}. {loyalty_text}"
-#~ msgstr ""
-#~ "{grouped}ドルで{f}ガロン給油しました。所持金は{grouped2}ドルです。給油に{f2}分かかりました。{margin}。{loyalty"
-#~ "_text}"
 
 #~ msgid "Units: {else}"
 #~ msgstr "単位：{else}"

@@ -5842,18 +5842,18 @@ msgstr "限重"
 msgid "Your route clears it"
 msgstr "你的路线可以通过"
 
-#. placeholders: {kind_label}, {value_text_in}
+#. placeholders: {kind_label}, {value_text}
 #. one sentence of a longer line
-msgid "a {kind_label}, signed {value_text_in}."
-msgstr ""
+msgid "a {kind_label}, signed {value_text}."
+msgstr "一处{kind_label}，标示为{value_text}。"
 
-#. placeholders: {kind_label}, {value_text_in}
-msgid "a {kind_label}, signed {value_text_in}. Your route clears it"
-msgstr ""
+#. placeholders: {kind_label}, {value_text}
+msgid "a {kind_label}, signed {value_text}. Your route clears it"
+msgstr "一处{kind_label}，标示为{value_text}。你的路线可以通过"
 
-#. placeholders: {py_capitalize}, {value_text_in}
-msgid "{py_capitalize}, signed {value_text_in}."
-msgstr ""
+#. placeholders: {py_capitalize}, {value_text}
+msgid "{py_capitalize}, signed {value_text}."
+msgstr "{py_capitalize}，标示为{value_text}。"
 
 msgid "explosives"
 msgstr ""
@@ -9130,17 +9130,21 @@ msgstr "第{index}个任务，共{unwrap_or_else}个： "
 msgid " Requires {credentials_clause}."
 msgstr " 需要{credentials_clause}。"
 
-#. placeholders: {f}
-msgid "{f} tons"
+#. placeholders: {tonnes}, {cargo}, {origin}, {card}
+msgid "{tonnes} tonnes of {cargo} from {origin} {card}."
+msgstr ""
+
+#. placeholders: {tonnes}, {cargo}, {origin}, {destination}
+msgid "{tonnes} tonnes of {cargo} from {origin} to {destination}."
 msgstr ""
 
 #. placeholders: {tons}, {cargo}, {origin}, {card}
-msgid "{tons} of {cargo} from {origin} {card}."
+msgid "{tons} tons of {cargo} from {origin} {card}."
 msgstr ""
 
 #. placeholders: {tons}, {cargo}, {origin}, {destination}
-msgid "{tons} of {cargo} from {origin} to {destination}."
-msgstr ""
+msgid "{tons} tons of {cargo} from {origin} to {destination}."
+msgstr "{tons}吨{cargo}，从{origin}到{destination}。"
 
 #. placeholders: {head_text}
 msgid " {head_text}. They can ride 28 hours."
@@ -10322,6 +10326,10 @@ msgid ""
 "repairs."
 msgstr ""
 
+#. placeholders: {miles}
+msgid "{miles} miles"
+msgstr ""
+
 msgid "in good shape"
 msgstr "状况良好"
 
@@ -11235,6 +11243,10 @@ msgstr "{grouped}磅"
 
 #. placeholders: {grouped}
 msgid "{grouped} kilograms"
+msgstr ""
+
+#. placeholders: {f}
+msgid "{f} tons"
 msgstr ""
 
 #. placeholders: {f}
@@ -18442,6 +18454,11 @@ msgid ""
 "offer between these cities."
 msgstr ""
 
+#. placeholders: {grouped}
+msgid ""
+"Load weight: {grouped} pounds over the gross-weight limit with current fuel."
+msgstr "货物重量：{grouped} 磅超过当前燃油的总重限制。"
+
 #. placeholders: {weight_text}
 msgid ""
 "Load weight: {weight_text} over the gross-weight limit with current fuel."
@@ -18747,6 +18764,14 @@ msgstr "本周价格"
 #. placeholders: {diesel_price_text}, {live}
 msgid "Garage: fuel {diesel_price_text}{live}"
 msgstr ""
+
+#. placeholders: {f}, {f2}, {live}
+msgid "Garage: fuel {f} per gallon, {f2} Canadian dollars a liter{live}"
+msgstr "修理厂：燃油每加仑 {f}，每升 {f2} 加元{live}"
+
+#. placeholders: {f}, {live}
+msgid "Garage: fuel {f} per gallon{live}"
+msgstr "修理厂：燃油每加仑{f}{live}"
 
 #. placeholders: {owed}
 msgid "Pay down what you owe: {owed} owed"
@@ -19161,6 +19186,10 @@ msgstr "刹车磨损：百分之{f}。"
 #. placeholders: {f}
 msgid "Engine wear: {f} percent."
 msgstr "发动机磨损：百分之{f}。"
+
+#. placeholders: {f}, {f2}, {f3}
+msgid "Fuel: {f} percent, {f2} gallons of {f3}."
+msgstr "燃油：百分之{f}，{f2}加仑，满箱{f3}加仑。"
 
 #. placeholders: {f}, {volume_value}, {volume_text}
 msgid "Fuel: {f} percent, {volume_value} of {volume_text}."
@@ -19994,9 +20023,33 @@ msgstr "修理厂"
 msgid "Fuel: tank is full"
 msgstr "燃油：油箱已满"
 
+#. placeholders: {f}
+msgid "Refuel: {f} gallons"
+msgstr "加油：{f} 加仑"
+
 #. placeholders: {volume_text}
 msgid "Refuel: {volume_text}"
 msgstr ""
+
+#. placeholders: {f2}
+#. one sentence of a longer line
+msgid "Diesel here is {f2} Canadian dollars a liter."
+msgstr "这里的柴油每升 {f2} 加元。"
+
+#. placeholders: {f}, {grouped}
+#. one sentence of a longer line
+msgid "Refuel {f} gallons for {grouped} dollars."
+msgstr "加{f}加仑，{grouped}美元。"
+
+#. placeholders: {f}, {grouped}, {f2}
+msgid ""
+"Refuel {f} gallons for {grouped} dollars. Diesel here is {f2} Canadian "
+"dollars a liter."
+msgstr "加 {f} 加仑油，花费 {grouped} 美元。这里的柴油每升 {f2} 加元。"
+
+#. placeholders: {f}, {grouped}
+msgid "Refuel {f} gallons for {grouped} dollars"
+msgstr "加油{f}加仑，{grouped}美元"
 
 #. placeholders: {diesel_price_text}
 #. one sentence of a longer line
@@ -20415,8 +20468,22 @@ msgstr "油箱已加满。{grouped}美元。你还剩{grouped2}美元。"
 msgid "{grouped} dollars."
 msgstr "{grouped}美元。"
 
+msgid "Not enough money for one gallon of fuel."
+msgstr "钱不够买一加仑燃油。"
+
 msgid "Not enough money for fuel."
 msgstr ""
+
+#. placeholders: {f}, {grouped}
+#. one sentence of a longer line
+msgid "Partial fuel: added {f} gallons for {grouped} dollars."
+msgstr "部分加油：加了{f}加仑，花费{grouped}美元。"
+
+#. placeholders: {f}, {grouped}, {grouped2}
+msgid ""
+"Partial fuel: added {f} gallons for {grouped} dollars. You have {grouped2} "
+"dollars left."
+msgstr "部分加油：加了{f}加仑，花费{grouped}美元。你还剩{grouped2}美元。"
 
 #. placeholders: {volume_text}, {grouped}
 #. one sentence of a longer line
@@ -20580,6 +20647,12 @@ msgstr "装货前先停车。"
 msgid "Hooking the loaded trailer"
 msgstr "正在挂上装好货的挂车"
 
+#. placeholders: {facility}, {map}, {f}, {cargo_label}, {doubles_clause}
+msgid ""
+"Dropping your empty at {facility} and hooking {map}, loaded with {f} tons "
+"of {cargo_label}.{doubles_clause}"
+msgstr ""
+
 #. placeholders: {facility}, {map}, {tons_text}, {cargo_label}, {doubles_clause}
 msgid ""
 "Dropping your empty at {facility} and hooking {map}, loaded with "
@@ -20654,15 +20727,32 @@ msgstr "发动机运转中"
 msgid "Engine off"
 msgstr "发动机已关闭"
 
-#. placeholders: {f}, {brake}, {speed_control_pause_text}
+#. placeholders: {f2}, {brake}, {speed_control_pause_text}
 #. one sentence of a longer line
-msgid "Air {f} psi, {brake}.{speed_control_pause_text}"
-msgstr ""
+msgid "Air {f2} psi, {brake}.{speed_control_pause_text}"
+msgstr "气压{f2} psi，{brake}。{speed_control_pause_text}"
 
 #. placeholders: {facility}, {state}
 #. one sentence of a longer line
 msgid "Pickup {facility}: {state}."
 msgstr "提货点{facility}：{state}。"
+
+#. placeholders: {facility}, {state}, {f}, {cargo_label}, {destination_facility_text}, {speed_text}, {engine}, {f2}, {brake}, {speed_control_pause_text}
+msgid ""
+"Pickup {facility}: {state}. {f} tons of {cargo_label} for "
+"{destination_facility_text}. {speed_text}. {engine}. Air {f2} psi, "
+"{brake}.{speed_control_pause_text}"
+msgstr ""
+
+#. placeholders: {f}, {cargo_label}, {destination_facility_text}
+#. one sentence of a longer line
+msgid "{f} tons of {cargo_label} for {destination_facility_text}."
+msgstr ""
+
+#. placeholders: {f}, {brake}, {speed_control_pause_text}
+#. one sentence of a longer line
+msgid "Air {f} psi, {brake}.{speed_control_pause_text}"
+msgstr ""
 
 #. placeholders: {facility}, {state}, {tons_text}, {cargo_label}, {destination_facility_text}, {speed_text}, {engine}, {f}, {brake}, {speed_control_pause_text}
 msgid ""
@@ -20679,6 +20769,10 @@ msgstr ""
 #. placeholders: {f}
 msgid " Idling here burned {f} gallons."
 msgstr " 在这里怠速烧了{f}加仑。"
+
+#. placeholders: {f}
+msgid " Idling here burned {f} liters."
+msgstr ""
 
 msgid "Saved. The pickup resumes here."
 msgstr "已保存。提货会从这里继续。"
@@ -21933,7 +22027,17 @@ msgid ""
 "booth."
 msgstr ""
 
-msgid "Customs booth in half a mile. Stop at the booth."
+#. placeholders: {short_distance_text}
+#. one sentence of a longer line
+msgid "Customs booth in {short_distance_text}."
+msgstr ""
+
+#. placeholders: {short_distance_text}
+msgid "Customs booth in {short_distance_text}. Stop at the booth."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Stop at the booth."
 msgstr ""
 
 msgid ", which your carrier pays"
@@ -23051,6 +23155,21 @@ msgstr "，匝道尽头是环岛"
 msgid "where the ramp ends at a roundabout"
 msgstr "匝道止于环岛处"
 
+#. placeholders: {fraction}, {gallons}
+#. one sentence of a longer line
+msgid "Fuel {fraction} percent, {gallons} gallons."
+msgstr "燃油百分之{fraction}，{gallons}加仑。"
+
+#. placeholders: {fraction}, {gallons}, {distance_text}
+msgid ""
+"Fuel {fraction} percent, {gallons} gallons. Range about {distance_text}."
+msgstr "燃油百分之{fraction}，{gallons}加仑。续航里程大约{distance_text}。"
+
+#. placeholders: {distance_text}
+#. one sentence of a longer line
+msgid "Range about {distance_text}."
+msgstr "续航里程大约{distance_text}。"
+
 #. placeholders: {fraction}, {volume}
 #. one sentence of a longer line
 msgid "Fuel {fraction} percent, {volume}."
@@ -23059,11 +23178,6 @@ msgstr ""
 #. placeholders: {fraction}, {volume}, {distance_text}
 msgid "Fuel {fraction} percent, {volume}. Range about {distance_text}."
 msgstr ""
-
-#. placeholders: {distance_text}
-#. one sentence of a longer line
-msgid "Range about {distance_text}."
-msgstr "续航里程大约{distance_text}。"
 
 msgid " Reefer on."
 msgstr ""
@@ -25284,6 +25398,17 @@ msgstr "燃油耗尽。路边送油送来了三十加仑，{billing}。按{engin
 #. one sentence of a longer line
 msgid "Roadside rescue brought thirty gallons {billing}."
 msgstr "路边送油送来了三十加仑，{billing}。"
+
+#. placeholders: {rescue}, {billing}, {engine}
+msgid ""
+"Out of fuel. Roadside rescue brought {rescue} {billing}. Press {engine} to "
+"restart the engine."
+msgstr ""
+
+#. placeholders: {rescue}, {billing}
+#. one sentence of a longer line
+msgid "Roadside rescue brought {rescue} {billing}."
+msgstr ""
 
 #. placeholders: {engine}
 msgid "Press {engine} to restart the engine."
@@ -28281,6 +28406,23 @@ msgstr "已卸货。送货文件已签。"
 msgid "Dropping the trailer"
 msgstr "正在甩挂车"
 
+#. placeholders: {facility}, {f}, {cargo_label}
+#. one sentence of a longer line
+msgid ""
+"Dropping the loaded trailer at {facility}, {f} tons of {cargo_label}."
+msgstr "正在{facility}甩下满载的挂车，{f}吨{cargo_label}。"
+
+#. placeholders: {facility}, {f}, {cargo_label}, {doubles}
+msgid ""
+"Dropping the loaded trailer at {facility}, {f} tons of {cargo_label}. "
+"Hooking an empty.{doubles}"
+msgstr ""
+
+#. placeholders: {doubles}
+#. one sentence of a longer line
+msgid "Hooking an empty.{doubles}"
+msgstr ""
+
 #. placeholders: {facility}, {tons_text}, {cargo_label}
 #. one sentence of a longer line
 msgid ""
@@ -28291,11 +28433,6 @@ msgstr ""
 msgid ""
 "Dropping the loaded trailer at {facility}, {tons_text} of {cargo_label}. "
 "Hooking an empty.{doubles}"
-msgstr ""
-
-#. placeholders: {doubles}
-#. one sentence of a longer line
-msgid "Hooking an empty.{doubles}"
 msgstr ""
 
 msgid "Dropping the trailer."
@@ -29693,12 +29830,25 @@ msgstr "你已超过30分钟"
 msgid "under"
 msgstr "低于"
 
+#. placeholders: {label}, {pounds}, {side}
+msgid "{label}: {pounds} pounds {side} the gross-weight limit"
+msgstr "{label}：{side}总重限制{pounds}磅"
+
 #. placeholders: {label}, {weight}, {side}
 msgid "{label}: {weight} {side} the gross-weight limit"
 msgstr ""
 
 msgid "Full tank"
 msgstr "加满油箱"
+
+#. placeholders: {f}
+#. one sentence of a longer line
+msgid "Refuel {f} gallons on the carrier fuel card."
+msgstr "用承运商加油卡加{f}加仑。"
+
+#. placeholders: {f}, {margin}
+msgid "Refuel {f} gallons on the carrier fuel card. {margin}"
+msgstr "用承运商加油卡加{f}加仑。{margin}"
 
 #. placeholders: {volume_text}
 #. one sentence of a longer line
@@ -29708,6 +29858,16 @@ msgstr ""
 #. placeholders: {volume_text}, {margin}
 msgid "Refuel {volume_text} on the carrier fuel card. {margin}"
 msgstr ""
+
+#. placeholders: {f}, {grouped}, {f2}, {margin}
+msgid ""
+"Refuel {f} gallons for {grouped} dollars. Diesel here is {f2} Canadian "
+"dollars a liter. {margin}"
+msgstr "加 {f} 加仑油，花费 {grouped} 美元。这里的柴油每升 {f2} 加元。{margin}"
+
+#. placeholders: {f}, {grouped}, {margin}
+msgid "Refuel {f} gallons for {grouped} dollars. {margin}"
+msgstr "加{f}加仑，{grouped}美元。{margin}"
 
 #. placeholders: {volume_text}, {grouped}, {diesel_price_text}, {margin}
 msgid ""
@@ -29745,6 +29905,22 @@ msgstr "你在这里买不起燃油。"
 msgid "Gross weight"
 msgstr "总重"
 
+#. placeholders: {f2}
+#. one sentence of a longer line
+msgid "Fueling took {f2} minutes."
+msgstr "加油用了{f2}分钟。"
+
+#. placeholders: {f}
+#. one sentence of a longer line
+msgid "Refueled {f} gallons on the carrier fuel card."
+msgstr "用承运商加油卡加了{f}加仑。"
+
+#. placeholders: {f}, {f2}, {margin}, {loyalty_text}
+msgid ""
+"Refueled {f} gallons on the carrier fuel card. Fueling took {f2} minutes. "
+"{margin}. {loyalty_text}"
+msgstr "用承运商加油卡加了{f}加仑。加油用了{f2}分钟。{margin}。{loyalty_text}"
+
 #. placeholders: {f}
 #. one sentence of a longer line
 msgid "Fueling took {f} minutes."
@@ -29760,6 +29936,18 @@ msgid ""
 "Refueled {volume_text} on the carrier fuel card. Fueling took {f} minutes. "
 "{margin}. {loyalty_text}"
 msgstr ""
+
+#. placeholders: {f}, {grouped}
+#. one sentence of a longer line
+msgid "Refueled {f} gallons for {grouped} dollars."
+msgstr "加了{f}加仑，花了{grouped}美元。"
+
+#. placeholders: {f}, {grouped}, {grouped2}, {f2}, {margin}, {loyalty_text}
+msgid ""
+"Refueled {f} gallons for {grouped} dollars. You have {grouped2} dollars. "
+"Fueling took {f2} minutes. {margin}. {loyalty_text}"
+msgstr ""
+"加了{f}加仑，花了{grouped}美元。你有{grouped2}美元。加油用了{f2}分钟。{margin}。{loyalty_text}"
 
 #. placeholders: {volume_text}, {grouped}
 #. one sentence of a longer line
@@ -32182,6 +32370,14 @@ msgstr "{name}在{place}加了{gallons}加仑油，并中途休息了30分钟。
 #. placeholders: {name}, {gallons}, {place}
 msgid "{name} fueled {gallons} gallons at {place}."
 msgstr "{name}在{place}加了{gallons}加仑油。"
+
+#. placeholders: {name}, {volume_text}, {place}
+msgid "{name} fueled {volume_text} and took a 30-minute break at {place}."
+msgstr ""
+
+#. placeholders: {name}, {volume_text}, {place}
+msgid "{name} fueled {volume_text} at {place}."
+msgstr ""
 
 #. placeholders: {name}, {place}
 msgid "{name} took a 30-minute break at {place}."
@@ -41229,110 +41425,6 @@ msgid ""
 "the engine, {pad_fuel} reads fuel, and {pad_speed_limit} reads the limit."
 msgstr ""
 "按住左肩键使用第二层按键。{pad_engine}控制发动机，{pad_fuel}读出燃油，{pad_speed_limit}读出限速。"
-
-#~ msgid "a {kind_label}, signed {value_text}."
-#~ msgstr "一处{kind_label}，标示为{value_text}。"
-
-#~ msgid "a {kind_label}, signed {value_text}. Your route clears it"
-#~ msgstr "一处{kind_label}，标示为{value_text}。你的路线可以通过"
-
-#~ msgid "{py_capitalize}, signed {value_text}."
-#~ msgstr "{py_capitalize}，标示为{value_text}。"
-
-#~ msgid "{tons} tons of {cargo} from {origin} to {destination}."
-#~ msgstr "{tons}吨{cargo}，从{origin}到{destination}。"
-
-#~ msgid ""
-#~ "Load weight: {grouped} pounds over the gross-weight limit with current fuel."
-#~ msgstr "货物重量：{grouped} 磅超过当前燃油的总重限制。"
-
-#~ msgid "Garage: fuel {f} per gallon, {f2} Canadian dollars a liter{live}"
-#~ msgstr "修理厂：燃油每加仑 {f}，每升 {f2} 加元{live}"
-
-#~ msgid "Garage: fuel {f} per gallon{live}"
-#~ msgstr "修理厂：燃油每加仑{f}{live}"
-
-#~ msgid "Fuel: {f} percent, {f2} gallons of {f3}."
-#~ msgstr "燃油：百分之{f}，{f2}加仑，满箱{f3}加仑。"
-
-#~ msgid "Refuel: {f} gallons"
-#~ msgstr "加油：{f} 加仑"
-
-#~ msgid "Diesel here is {f2} Canadian dollars a liter."
-#~ msgstr "这里的柴油每升 {f2} 加元。"
-
-#~ msgid "Refuel {f} gallons for {grouped} dollars."
-#~ msgstr "加{f}加仑，{grouped}美元。"
-
-#~ msgid ""
-#~ "Refuel {f} gallons for {grouped} dollars. Diesel here is {f2} Canadian "
-#~ "dollars a liter."
-#~ msgstr "加 {f} 加仑油，花费 {grouped} 美元。这里的柴油每升 {f2} 加元。"
-
-#~ msgid "Refuel {f} gallons for {grouped} dollars"
-#~ msgstr "加油{f}加仑，{grouped}美元"
-
-#~ msgid "Not enough money for one gallon of fuel."
-#~ msgstr "钱不够买一加仑燃油。"
-
-#~ msgid "Partial fuel: added {f} gallons for {grouped} dollars."
-#~ msgstr "部分加油：加了{f}加仑，花费{grouped}美元。"
-
-#~ msgid ""
-#~ "Partial fuel: added {f} gallons for {grouped} dollars. You have {grouped2} "
-#~ "dollars left."
-#~ msgstr "部分加油：加了{f}加仑，花费{grouped}美元。你还剩{grouped2}美元。"
-
-#~ msgid "Air {f2} psi, {brake}.{speed_control_pause_text}"
-#~ msgstr "气压{f2} psi，{brake}。{speed_control_pause_text}"
-
-#~ msgid "Fuel {fraction} percent, {gallons} gallons."
-#~ msgstr "燃油百分之{fraction}，{gallons}加仑。"
-
-#~ msgid ""
-#~ "Fuel {fraction} percent, {gallons} gallons. Range about {distance_text}."
-#~ msgstr "燃油百分之{fraction}，{gallons}加仑。续航里程大约{distance_text}。"
-
-#~ msgid ""
-#~ "Dropping the loaded trailer at {facility}, {f} tons of {cargo_label}."
-#~ msgstr "正在{facility}甩下满载的挂车，{f}吨{cargo_label}。"
-
-#~ msgid "{label}: {pounds} pounds {side} the gross-weight limit"
-#~ msgstr "{label}：{side}总重限制{pounds}磅"
-
-#~ msgid "Refuel {f} gallons on the carrier fuel card."
-#~ msgstr "用承运商加油卡加{f}加仑。"
-
-#~ msgid "Refuel {f} gallons on the carrier fuel card. {margin}"
-#~ msgstr "用承运商加油卡加{f}加仑。{margin}"
-
-#~ msgid ""
-#~ "Refuel {f} gallons for {grouped} dollars. Diesel here is {f2} Canadian "
-#~ "dollars a liter. {margin}"
-#~ msgstr "加 {f} 加仑油，花费 {grouped} 美元。这里的柴油每升 {f2} 加元。{margin}"
-
-#~ msgid "Refuel {f} gallons for {grouped} dollars. {margin}"
-#~ msgstr "加{f}加仑，{grouped}美元。{margin}"
-
-#~ msgid "Fueling took {f2} minutes."
-#~ msgstr "加油用了{f2}分钟。"
-
-#~ msgid "Refueled {f} gallons on the carrier fuel card."
-#~ msgstr "用承运商加油卡加了{f}加仑。"
-
-#~ msgid ""
-#~ "Refueled {f} gallons on the carrier fuel card. Fueling took {f2} minutes. "
-#~ "{margin}. {loyalty_text}"
-#~ msgstr "用承运商加油卡加了{f}加仑。加油用了{f2}分钟。{margin}。{loyalty_text}"
-
-#~ msgid "Refueled {f} gallons for {grouped} dollars."
-#~ msgstr "加了{f}加仑，花了{grouped}美元。"
-
-#~ msgid ""
-#~ "Refueled {f} gallons for {grouped} dollars. You have {grouped2} dollars. "
-#~ "Fueling took {f2} minutes. {margin}. {loyalty_text}"
-#~ msgstr ""
-#~ "加了{f}加仑，花了{grouped}美元。你有{grouped2}美元。加油用了{f2}分钟。{margin}。{loyalty_text}"
 
 #~ msgid "Units: {else}"
 #~ msgstr "单位：{else}"

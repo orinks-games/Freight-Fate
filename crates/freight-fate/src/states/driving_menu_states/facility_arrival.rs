@@ -237,11 +237,19 @@ impl FacilityArrivalState {
         let (title, message, status) = if drop_hook {
             (
                 "Dropping the trailer",
-                format!(
-                    "Dropping the loaded trailer at {facility}, {} of {cargo_label}. \
-                     Hooking an empty.{doubles}",
-                    ctx.settings.tons_text(weight_tons)
-                ),
+                if ctx.settings.imperial() {
+                    format!(
+                        "Dropping the loaded trailer at {facility}, {} tons of {cargo_label}. \
+                         Hooking an empty.{doubles}",
+                        fmt_f(weight_tons, 0)
+                    )
+                } else {
+                    format!(
+                        "Dropping the loaded trailer at {facility}, {} of {cargo_label}. \
+                         Hooking an empty.{doubles}",
+                        ctx.settings.tons_text(weight_tons)
+                    )
+                },
                 "Dropping the trailer.",
             )
         } else {

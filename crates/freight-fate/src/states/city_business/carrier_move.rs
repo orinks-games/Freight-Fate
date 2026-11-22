@@ -61,17 +61,16 @@ impl BusinessStatusState {
         self.return_armed = false;
         if self.move_armed != Some(option.key) {
             self.move_armed = Some(option.key);
+            let menu_summary = option.summary_in(&ctx.settings);
             if ctx.touch_hints() {
                 ctx.say(&format!(
                     "{}. {} Double tap again to move.",
-                    option.carrier_name,
-                    option.summary_in(&ctx.settings)
+                    option.carrier_name, menu_summary
                 ));
             } else {
                 ctx.say(&format!(
                     "{}. {} Press Enter again to move.",
-                    option.carrier_name,
-                    option.summary_in(&ctx.settings)
+                    option.carrier_name, menu_summary
                 ));
             }
             self.refresh(ctx, true);

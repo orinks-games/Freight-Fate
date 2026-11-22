@@ -972,6 +972,7 @@ impl RouteRestriction {
     }
 
     pub fn spoken_ahead_in(&self, imperial: bool) -> String {
+        let value_text = self.value_text_in(imperial);
         // The far call answers the only question a driver has about a sign
         // they cannot see: does it matter? Routing already refused anything
         // impassable (see the struct docs), so the honest answer is no, and
@@ -979,7 +980,7 @@ impl RouteRestriction {
         format!(
             "a {}, signed {}. Your route clears it",
             self.kind_label(),
-            self.value_text_in(imperial)
+            value_text
         )
     }
 
@@ -988,10 +989,11 @@ impl RouteRestriction {
     }
 
     pub fn spoken_near_in(&self, imperial: bool) -> String {
+        let value_text = self.value_text_in(imperial);
         format!(
             "{}, signed {}.",
             py_capitalize(self.kind_label()),
-            self.value_text_in(imperial)
+            value_text
         )
     }
 }

@@ -114,7 +114,7 @@ fn test_terminal_garage_price_names_canadian_dollars_only_in_canada() {
     let price = us.ctx.economy.fuel_price_at("pacific_northwest", "WA");
     assert_eq!(
         seattle,
-        format!("Garage: fuel {} dollars a gallon", fmt_f(price, 2))
+        format!("Garage: fuel {} per gallon", fmt_f(price, 2))
     );
 }
 

@@ -835,11 +835,19 @@ impl DrivingState {
     pub fn speak_fuel(&mut self, ctx: &mut GameContext) {
         let range_mi = self.fuel_range_mi();
         let fraction = self.trip.truck.fuel_fraction() * 100.0;
-        let volume = ctx.settings.volume_text(self.trip.truck.fuel_gal);
-        let mut line = format!(
-            "Fuel {fraction:.0} percent, {volume}. Range about {}.",
-            ctx.settings.distance_text(range_mi, false)
-        );
+        let gallons = self.trip.truck.fuel_gal;
+        let mut line = if ctx.settings.imperial() {
+            format!(
+                "Fuel {fraction:.0} percent, {gallons:.0} gallons. Range about {}.",
+                ctx.settings.distance_text(range_mi, false)
+            )
+        } else {
+            let volume = ctx.settings.volume_text(gallons);
+            format!(
+                "Fuel {fraction:.0} percent, {volume}. Range about {}.",
+                ctx.settings.distance_text(range_mi, false)
+            )
+        };
         if self.trip.truck.reefer_on {
             line.push_str(" Reefer on.");
         }
