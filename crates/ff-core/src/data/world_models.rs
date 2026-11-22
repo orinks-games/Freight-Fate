@@ -27,7 +27,8 @@ pub use crossing::{
     WindRule,
 };
 pub use interchange::{
-    destinations_without_via, format_route_ref, join_destinations, route_token, Interchange,
+    destinations_without_via, format_route_ref, join_destinations, name_provincial_routes,
+    route_token, Interchange,
 };
 pub use leg::{BillboardBan, CorridorBuilder, CorridorDetail, DetailSource, Leg, Route, NO_LEG_ID};
 pub use street::{Driveway, ExitChain, LocalGeometrySegment, StreetControl, StreetLimit};
