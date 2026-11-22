@@ -6259,9 +6259,9 @@ a carrier slice (owner, 2026-10-26).
       areas from New Brunswick and Nova Scotia (no open list read yet),
       and a 10-hour stop on Woodstock to Bangor (132 miles, the Irving at
       Hogan Road the only placed stop).
-- [ ] The north: 63 to Fort McMurray, 16 to Prince Rupert, 37 to the
-      Yukon, 3 to Yellowknife, freight nodes only. The west half is built
-      (below); the east half is its own pass.
+- [x] The north: 63 to Fort McMurray, 16 to Prince Rupert, 37 to the
+      Yukon, 3 to Yellowknife, freight nodes only. Built in two halves,
+      west and east (below).
 - [x] The north, west half, first pass (2026-11-22): 19 towns (Fort
       McMurray, Slave Lake, Peace River, High Level, Hay River, Yellowknife,
       Smithers, Terrace, Kitimat, Prince Rupert, Stewart and Dawson City,
@@ -6289,6 +6289,27 @@ a carrier slice (owner, 2026-10-26).
       a seasonal road rule and the Yukon ferry at Dawson), the
       Trans-Labrador Highway, the James Bay Road, and Newfoundland, which
       needs the Marine Atlantic ferry.
+- [x] The north, east half, first pass (2026-11-22): Thompson on Highway 6
+      from Winnipeg, with Ashern and Grand Rapids as fuel towns; Baie-Comeau
+      and Sept-Îles on Route 138, reached from Saguenay on Route 172 so no
+      leg rides the Tadoussac ferry; Chibougamau from Saguenay (170 and 167)
+      and from Val-d'Or (113). 6 cities, 14 legs. Stops from
+      `docs/stops/northern-manitoba-quebec.json`. Report:
+      `career-2.0-alpha/corridor-5-east-report.md`.
+- [ ] (Found along the way) Highway 6 has fuel but no 10-hour stop with a
+      source: Ashern to Grand Rapids (155 miles) and Grand Rapids to
+      Thompson (204) have only town stations, Ponton and the Wabowden
+      cardlock. Quebec's rest areas on 113, 167, 172 and 138 are the 10-hour
+      stops, with truck parking and overnight stays assumed. Every stop's
+      truck access on this corridor is assumed.
+- [ ] (Found along the way) Not built in the first pass: Route 138 east of
+      Sept-Îles to Havre-Saint-Pierre; Highway 10 to The Pas and Flin Flon
+      and Highway 39 to Thompson; Route 155 through La Tuque to Lac
+      Saint-Jean. Thompson has no named freight site in OpenStreetMap (its
+      pins are unnamed industrial land and the CN yard).
+- [ ] Held for a pass after the ferry work (director, 2026-11-22): Route
+      389 and the Trans-Labrador Highway, and the James Bay Road (Route 109
+      and the Billy Diamond Highway).
 - [x] Units: Automatic (miles in the United States, kilometers in Canada,
       one spoken line at the crossing), the 2.0 default; Imperial and Metric
       hold one unit everywhere. Fuel, weights, load tons, sign heights and

@@ -1,0 +1,469 @@
+{
+  "about": "Curated stops for the northern Canada corridor, east (Highway 6 in Manitoba, Routes 113, 167, 172 and 138 in Quebec), placed by cargo tools osm-stops --stops. lat, lon, reach_mi, season and heading steer placement; every other key is the stop as the game reads it. A stop whose season is not 'year round' is left out.",
+  "truck_access": {
+    "read": 0,
+    "assumed": 19,
+    "about": "Stops whose tractor-trailer access was read from a source, and those where it is assumed with the reason in source. These are town stations and provincial rest areas on long two-lane highways with no truck source either way."
+  },
+  "stops": [
+    {
+      "name": "Esso Senneterre",
+      "type": "fuel_station",
+      "lat": 48.39041,
+      "lon": -77.24256,
+      "reach_mi": 0.4,
+      "actions": [
+        "fuel"
+      ],
+      "services": [
+        "parking",
+        "gasoline",
+        "diesel",
+        "restrooms"
+      ],
+      "parking": "unknown",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "assumed",
+      "source": "Position, name and brand read from OSM node 7860165459, OpenStreetMap planet extract 2026-11-16, on Route 113 at Senneterre. Diesel read from its fuel:diesel=yes tag; year-round opening assumed, not read. Tractor-trailer access assumed: on this remote highway freight moves by tractor-trailer and these are its only diesel between the towns; parking capacity is not claimed, so the stop offers fuel only. Leg mile projected onto the leg's road."
+    },
+    {
+      "name": "Bartouille rest area",
+      "type": "public_rest_area",
+      "lat": 48.79116,
+      "lon": -77.11405,
+      "reach_mi": 0.4,
+      "actions": [
+        "park",
+        "save",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "parking",
+        "restrooms"
+      ],
+      "parking": "limited",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "assumed",
+      "source": "Position and name read from OSM node 1829906283 (highway=rest_area, toilets=yes), OpenStreetMap planet extract 2026-11-16, on Route 113 north of Senneterre (Halte de Bartouille). Year-round opening, truck parking and an overnight stay are assumed, not read, as at the Réservoir-Dozois rest area on Route 117. Truck parking assumed limited; capacity not read. Leg mile projected onto the leg's road."
+    },
+    {
+      "name": "Esso Waswanipi",
+      "type": "fuel_station",
+      "lat": 49.69435,
+      "lon": -75.96923,
+      "reach_mi": 0.4,
+      "actions": [
+        "fuel"
+      ],
+      "services": [
+        "parking",
+        "gasoline",
+        "diesel",
+        "restrooms"
+      ],
+      "parking": "unknown",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "assumed",
+      "source": "Position, name and brand read from OSM way 499357567, OpenStreetMap planet extract 2026-11-16, on Route 113 at Waswanipi. Diesel assumed, not read; year-round opening assumed, not read. Tractor-trailer access assumed: on this remote highway freight moves by tractor-trailer and these are its only diesel between the towns; parking capacity is not claimed, so the stop offers fuel only. Leg mile projected onto the leg's road."
+    },
+    {
+      "name": "Petro-Canada Chapais",
+      "type": "fuel_station",
+      "lat": 49.7835,
+      "lon": -74.85954,
+      "reach_mi": 0.4,
+      "actions": [
+        "fuel"
+      ],
+      "services": [
+        "parking",
+        "gasoline",
+        "diesel",
+        "restrooms"
+      ],
+      "parking": "unknown",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "assumed",
+      "source": "Position, name and brand read from OSM node 5305268282, OpenStreetMap planet extract 2026-11-16, on Route 113 at Chapais. Diesel assumed, not read; year-round opening assumed, not read. Tractor-trailer access assumed: on this remote highway freight moves by tractor-trailer and these are its only diesel between the towns; parking capacity is not claimed, so the stop offers fuel only. Leg mile projected onto the leg's road."
+    },
+    {
+      "name": "Esso Roberval",
+      "type": "fuel_station",
+      "lat": 48.51368,
+      "lon": -72.22459,
+      "reach_mi": 0.4,
+      "actions": [
+        "fuel"
+      ],
+      "services": [
+        "parking",
+        "gasoline",
+        "diesel",
+        "restrooms"
+      ],
+      "parking": "unknown",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "assumed",
+      "source": "Position, name and brand read from OSM node 5309142304, OpenStreetMap planet extract 2026-11-16, on Route 169 at Roberval. Diesel assumed, not read; year-round opening assumed, not read. Tractor-trailer access assumed: on this remote highway freight moves by tractor-trailer and these are its only diesel between the towns; parking capacity is not claimed, so the stop offers fuel only. Leg mile projected onto the leg's road."
+    },
+    {
+      "name": "Lac-Ashuapmushuan rest area",
+      "type": "public_rest_area",
+      "lat": 49.0807,
+      "lon": -73.47346,
+      "reach_mi": 0.4,
+      "actions": [
+        "park",
+        "save",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "parking",
+        "restrooms"
+      ],
+      "parking": "limited",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "assumed",
+      "source": "Position and name read from OSM node 5801373478 (highway=rest_area, toilets=yes), OpenStreetMap planet extract 2026-11-16, on Route 167 in the Ashuapmushuan wildlife reserve (Halte de Lac-Ashuapmushuan). Year-round opening, truck parking and an overnight stay are assumed, not read, as at the Réservoir-Dozois rest area on Route 117. Truck parking assumed limited; capacity not read. Leg mile projected onto the leg's road."
+    },
+    {
+      "name": "Sacré-Coeur rest area",
+      "type": "public_rest_area",
+      "lat": 48.25708,
+      "lon": -69.86653,
+      "reach_mi": 0.4,
+      "actions": [
+        "park",
+        "save",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "parking",
+        "restrooms"
+      ],
+      "parking": "limited",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "assumed",
+      "source": "Position and name read from OSM node 5041895863 (highway=rest_area, toilets=yes), OpenStreetMap planet extract 2026-11-16, on Route 172 at Sacré-Coeur. Year-round opening, truck parking and an overnight stay are assumed, not read, as at the Réservoir-Dozois rest area on Route 117. Truck parking assumed limited; capacity not read. Leg mile projected onto the leg's road. OpenStreetMap writes the name with a broken character (Halte de Sacré-C?ur); the village is Sacré-Coeur."
+    },
+    {
+      "name": "Esso Forestville",
+      "type": "fuel_station",
+      "lat": 48.74149,
+      "lon": -69.08632,
+      "reach_mi": 0.4,
+      "actions": [
+        "fuel"
+      ],
+      "services": [
+        "parking",
+        "gasoline",
+        "diesel",
+        "restrooms"
+      ],
+      "parking": "unknown",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "assumed",
+      "source": "Position, name and brand read from OSM node 5306737466, OpenStreetMap planet extract 2026-11-16, on Route 138 at Forestville. Diesel assumed, not read; year-round opening assumed, not read. Tractor-trailer access assumed: on this remote highway freight moves by tractor-trailer and these are its only diesel between the towns; parking capacity is not claimed, so the stop offers fuel only. Leg mile projected onto the leg's road."
+    },
+    {
+      "name": "Sault-au-Mouton rest area",
+      "type": "public_rest_area",
+      "lat": 48.53942,
+      "lon": -69.25522,
+      "reach_mi": 0.5,
+      "actions": [
+        "park",
+        "save",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "parking",
+        "restrooms"
+      ],
+      "parking": "limited",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "assumed",
+      "source": "Position and name read from OSM node 5845560633 (highway=rest_area, toilets=yes), OpenStreetMap planet extract 2026-11-16, on Route 138 at Longue-Rive (Halte de Sault-au-Mouton). Year-round opening, truck parking and an overnight stay are assumed, not read, as at the Réservoir-Dozois rest area on Route 117. Truck parking assumed limited; capacity not read. Leg mile projected onto the leg's road."
+    },
+    {
+      "name": "Petro-Canada Baie-Trinité",
+      "type": "fuel_station",
+      "lat": 49.42411,
+      "lon": -67.29107,
+      "reach_mi": 0.4,
+      "actions": [
+        "fuel"
+      ],
+      "services": [
+        "parking",
+        "gasoline",
+        "diesel",
+        "restrooms"
+      ],
+      "parking": "unknown",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "assumed",
+      "source": "Position, name and brand read from OSM node 2899379574, OpenStreetMap planet extract 2026-11-16, on Route 138 at Baie-Trinité (brand tag only). Diesel assumed, not read; year-round opening assumed, not read. Tractor-trailer access assumed: on this remote highway freight moves by tractor-trailer and these are its only diesel between the towns; parking capacity is not claimed, so the stop offers fuel only. Leg mile projected onto the leg's road."
+    },
+    {
+      "name": "Baie-Trinité rest area",
+      "type": "public_rest_area",
+      "lat": 49.4223,
+      "lon": -67.2994,
+      "reach_mi": 0.4,
+      "actions": [
+        "park",
+        "save",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "parking",
+        "restrooms"
+      ],
+      "parking": "limited",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "assumed",
+      "source": "Position and name read from OSM node 1844296641 (highway=rest_area, toilets=yes), OpenStreetMap planet extract 2026-11-16, on Route 138 at Baie-Trinité (Halte de Baie-Trinité). Year-round opening, truck parking and an overnight stay are assumed, not read, as at the Réservoir-Dozois rest area on Route 117. Truck parking assumed limited; capacity not read. Leg mile projected onto the leg's road."
+    },
+    {
+      "name": "Shell Port-Cartier",
+      "type": "fuel_station",
+      "lat": 50.02518,
+      "lon": -66.89449,
+      "reach_mi": 0.4,
+      "actions": [
+        "fuel"
+      ],
+      "services": [
+        "parking",
+        "gasoline",
+        "diesel",
+        "restrooms"
+      ],
+      "parking": "unknown",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "assumed",
+      "source": "Position, name and brand read from OSM way 1256338574, OpenStreetMap planet extract 2026-11-16, on Route 138 at Port-Cartier. Diesel read from its fuel:diesel=yes tag; year-round opening assumed, not read. Tractor-trailer access assumed: on this remote highway freight moves by tractor-trailer and these are its only diesel between the towns; parking capacity is not claimed, so the stop offers fuel only. Leg mile projected onto the leg's road."
+    },
+    {
+      "name": "William-Kennedy rest area",
+      "type": "public_rest_area",
+      "lat": 50.03158,
+      "lon": -66.87776,
+      "reach_mi": 0.4,
+      "actions": [
+        "park",
+        "save",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "parking",
+        "restrooms"
+      ],
+      "parking": "limited",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "assumed",
+      "source": "Position and name read from OSM node 1839122054 (highway=rest_area, toilets=yes), OpenStreetMap planet extract 2026-11-16, on Route 138 at Port-Cartier (Halte William-Kennedy). Year-round opening, truck parking and an overnight stay are assumed, not read, as at the Réservoir-Dozois rest area on Route 117. Truck parking assumed limited; capacity not read. Leg mile projected onto the leg's road."
+    },
+    {
+      "name": "Esso Lundar",
+      "type": "fuel_station",
+      "lat": 50.69521,
+      "lon": -98.04067,
+      "reach_mi": 0.4,
+      "actions": [
+        "fuel"
+      ],
+      "services": [
+        "parking",
+        "gasoline",
+        "diesel",
+        "restrooms"
+      ],
+      "parking": "unknown",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "assumed",
+      "source": "Position, name and brand read from OSM way 78258461, OpenStreetMap planet extract 2026-11-16, on Highway 6 at Lundar. Diesel assumed, not read; year-round opening assumed, not read. Tractor-trailer access assumed: on this remote highway freight moves by tractor-trailer and these are its only diesel between the towns; parking capacity is not claimed, so the stop offers fuel only. Leg mile projected onto the leg's road."
+    },
+    {
+      "name": "Esso Eriksdale",
+      "type": "fuel_station",
+      "lat": 50.8608,
+      "lon": -98.11247,
+      "reach_mi": 0.4,
+      "actions": [
+        "fuel"
+      ],
+      "services": [
+        "parking",
+        "gasoline",
+        "diesel",
+        "restrooms"
+      ],
+      "parking": "unknown",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "assumed",
+      "source": "Position, name and brand read from OSM way 534123021, OpenStreetMap planet extract 2026-11-16, on Highway 6 at Eriksdale. Diesel assumed, not read; year-round opening assumed, not read. Tractor-trailer access assumed: on this remote highway freight moves by tractor-trailer and these are its only diesel between the towns; parking capacity is not claimed, so the stop offers fuel only. Leg mile projected onto the leg's road."
+    },
+    {
+      "name": "Esso Fairford",
+      "type": "fuel_station",
+      "lat": 51.7132,
+      "lon": -98.7366,
+      "reach_mi": 0.4,
+      "actions": [
+        "fuel"
+      ],
+      "services": [
+        "parking",
+        "gasoline",
+        "diesel",
+        "restrooms"
+      ],
+      "parking": "unknown",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "assumed",
+      "source": "Position, name and brand read from OSM way 534058794, OpenStreetMap planet extract 2026-11-16, on Highway 6 near Fairford and St. Martin Junction. Diesel assumed, not read; year-round opening assumed, not read. Tractor-trailer access assumed: on this remote highway freight moves by tractor-trailer and these are its only diesel between the towns; parking capacity is not claimed, so the stop offers fuel only. Leg mile projected onto the leg's road."
+    },
+    {
+      "name": "Esso Easterville Junction",
+      "type": "fuel_station",
+      "lat": 52.91112,
+      "lon": -99.16566,
+      "reach_mi": 0.4,
+      "actions": [
+        "fuel"
+      ],
+      "services": [
+        "parking",
+        "gasoline",
+        "diesel",
+        "restrooms"
+      ],
+      "parking": "unknown",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "assumed",
+      "source": "Position, name and brand read from OSM node 13098721094, OpenStreetMap planet extract 2026-11-16, on Highway 6 about 20 miles south of Grand Rapids. Diesel assumed, not read; year-round opening assumed, not read. Tractor-trailer access assumed: on this remote highway freight moves by tractor-trailer and these are its only diesel between the towns; parking capacity is not claimed, so the stop offers fuel only. Leg mile projected onto the leg's road."
+    },
+    {
+      "name": "Ponton Service Station",
+      "type": "fuel_station",
+      "lat": 54.67267,
+      "lon": -99.15874,
+      "reach_mi": 0.4,
+      "actions": [
+        "fuel"
+      ],
+      "services": [
+        "parking",
+        "gasoline",
+        "diesel",
+        "restrooms"
+      ],
+      "parking": "unknown",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "assumed",
+      "source": "Position, name and brand read from OSM node 4401886901, OpenStreetMap planet extract 2026-11-16, on Highway 6 at Ponton, the junction with Highway 39. Diesel assumed, not read; year-round opening assumed, not read. Tractor-trailer access assumed: on this remote highway freight moves by tractor-trailer and these are its only diesel between the towns; parking capacity is not claimed, so the stop offers fuel only. Leg mile projected onto the leg's road."
+    },
+    {
+      "name": "Penner Oil Cardlock Wabowden",
+      "type": "fuel_station",
+      "lat": 54.928,
+      "lon": -98.66104,
+      "reach_mi": 0.4,
+      "actions": [
+        "fuel"
+      ],
+      "services": [
+        "diesel"
+      ],
+      "parking": "unknown",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "assumed",
+      "source": "Position, name and brand read from OSM way 533791306, OpenStreetMap planet extract 2026-11-16, on Highway 6 at Wabowden. A cardlock sells diesel to account holders only; diesel assumed, not read; year-round opening assumed, not read. Tractor-trailer access assumed: on this remote highway freight moves by tractor-trailer and these are its only diesel between the towns; parking capacity is not claimed, so the stop offers fuel only. Leg mile projected onto the leg's road."
+    }
+  ]
+}
