@@ -5929,6 +5929,9 @@ msgstr "trạm nhiên liệu"
 msgid "welcome center"
 msgstr "trung tâm chào mừng"
 
+msgid "cardlock"
+msgstr ""
+
 msgid "village"
 msgstr "làng"
 
@@ -15035,11 +15038,6 @@ msgstr "Hết khu vực {reason}."
 msgid "End of {reason} zone. Speed limit {speed_value}."
 msgstr "Hết khu vực {reason}. Giới hạn tốc độ {speed_value}."
 
-#. placeholders: {name}
-#. one sentence of a longer line
-msgid "Crossing into {name}."
-msgstr "Sang múi giờ {name}."
-
 #. placeholders: {name}, {clock_text}
 msgid "Crossing into {name}. It is now {clock_text}."
 msgstr "Sang múi giờ {name}. Bây giờ là {clock_text}."
@@ -15249,6 +15247,14 @@ msgstr "chuyển hướng"
 #. placeholders: {shield}
 msgid "keep right for {shield}"
 msgstr "giữ làn phải để đi {shield}"
+
+#. placeholders: {from_state}, {into_state}
+msgid "crossing from {from_state} into {into_state}"
+msgstr ""
+
+#. placeholders: {name}
+msgid "Crossing into {name}."
+msgstr "Sang múi giờ {name}."
 
 #. placeholders: {from_state}, {into_state}, {place}
 msgid "crossing from {from_state} into {into_state} near {place}"

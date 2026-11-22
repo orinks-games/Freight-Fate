@@ -171,6 +171,9 @@ fn shard_row(id: &str, s: &bake::Sample, source: &str) -> Value {
     match s.mph {
         Some(mph) => {
             row.insert("mph", Value::Int(i128::from(mph)));
+            if let Some(kmh) = s.kmh {
+                row.insert("kmh", Value::Int(i128::from(kmh)));
+            }
             row.insert("hgv", Value::Bool(s.hgv));
             let source = s.assumed.unwrap_or(source);
             row.insert("source", Value::Str(source.to_string()));

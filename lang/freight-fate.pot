@@ -6407,6 +6407,10 @@ msgid "welcome center"
 msgstr ""
 
 #: crates/ff-core/src/data/world_constants.rs
+msgid "cardlock"
+msgstr ""
+
+#: crates/ff-core/src/data/world_constants.rs
 msgid "village"
 msgstr ""
 
@@ -17124,12 +17128,6 @@ msgstr ""
 msgid "End of {reason} zone. Speed limit {speed_value}."
 msgstr ""
 
-#. placeholders: {name}
-#. one sentence of a longer line
-#: crates/ff-core/src/sim/trip/limits.rs
-msgid "Crossing into {name}."
-msgstr ""
-
 #. placeholders: {name}, {clock_text}
 #: crates/ff-core/src/sim/trip/limits.rs
 msgid "Crossing into {name}. It is now {clock_text}."
@@ -17392,6 +17390,16 @@ msgstr ""
 #. placeholders: {shield}
 #: crates/ff-core/src/sim/trip/placement.rs
 msgid "keep right for {shield}"
+msgstr ""
+
+#. placeholders: {from_state}, {into_state}
+#: crates/ff-core/src/sim/trip/placement.rs
+msgid "crossing from {from_state} into {into_state}"
+msgstr ""
+
+#. placeholders: {name}
+#: crates/ff-core/src/sim/trip/placement.rs
+msgid "Crossing into {name}."
 msgstr ""
 
 #. placeholders: {from_state}, {into_state}, {place}
