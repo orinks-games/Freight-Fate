@@ -15062,6 +15062,10 @@ msgstr "{place}{state} на {highway}"
 msgid "Passing {place}{state}."
 msgstr "Проезжаем {place}{state}."
 
+#. placeholders: {f}
+msgid " Toll {f} Canadian dollars."
+msgstr ""
+
 #. placeholders: {amount}
 msgid " Toll about {amount} dollars."
 msgstr " Проезд примерно {amount} {amount:доллар|доллара|долларов}."
@@ -17162,6 +17166,16 @@ msgstr "{terse} Нажмите {exit_hint}, чтобы включить сигн
 
 msgid "estimated "
 msgstr "примерно"
+
+#. placeholders: {method_label}, {name}, {estimate}, {cad}
+msgid ""
+"{method_label} toll at {name}, {estimate}{cad} Canadian dollars, billed to "
+"carrier settlement."
+msgstr ""
+
+#. placeholders: {cad}
+msgid "Toll, {cad} Canadian dollars, carrier."
+msgstr ""
 
 #. placeholders: {method_label}, {name}, {estimate}, {amount_text}
 msgid ""
@@ -29035,6 +29049,10 @@ msgstr "Полоса разгона"
 msgid " for the exit"
 msgstr " для съезда"
 
+#. placeholders: {speed_value}
+msgid " for the {speed_value} limit"
+msgstr " под ограничение {speed_value}"
+
 msgid " through the construction zone"
 msgstr " в зоне дорожных работ"
 
@@ -29044,10 +29062,6 @@ msgstr " в плотном движении"
 #. placeholders: {speed_value}
 msgid " for the {speed_value} limit ahead"
 msgstr " под ограничение {speed_value} впереди"
-
-#. placeholders: {speed_value}
-msgid " for the {speed_value} limit"
-msgstr " под ограничение {speed_value}"
 
 #. placeholders: {value}
 msgid " in the {value}"

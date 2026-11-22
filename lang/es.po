@@ -15258,6 +15258,10 @@ msgstr "{place}{state} en {highway}"
 msgid "Passing {place}{state}."
 msgstr "Pasando por {place}{state}."
 
+#. placeholders: {f}
+msgid " Toll {f} Canadian dollars."
+msgstr ""
+
 #. placeholders: {amount}
 msgid " Toll about {amount} dollars."
 msgstr " Peaje de unos {amount} dólares."
@@ -17377,6 +17381,16 @@ msgstr "{terse} Pulsa {exit_hint} para activar el intermitente."
 
 msgid "estimated "
 msgstr "unos "
+
+#. placeholders: {method_label}, {name}, {estimate}, {cad}
+msgid ""
+"{method_label} toll at {name}, {estimate}{cad} Canadian dollars, billed to "
+"carrier settlement."
+msgstr ""
+
+#. placeholders: {cad}
+msgid "Toll, {cad} Canadian dollars, carrier."
+msgstr ""
 
 #. placeholders: {method_label}, {name}, {estimate}, {amount_text}
 msgid ""
@@ -29045,6 +29059,10 @@ msgstr "Carril de aceleración"
 msgid " for the exit"
 msgstr " para la salida"
 
+#. placeholders: {speed_value}
+msgid " for the {speed_value} limit"
+msgstr " por el límite de {speed_value}"
+
 msgid " through the construction zone"
 msgstr " por la zona de obras"
 
@@ -29054,10 +29072,6 @@ msgstr " por el tráfico denso"
 #. placeholders: {speed_value}
 msgid " for the {speed_value} limit ahead"
 msgstr " por el límite de {speed_value} más adelante"
-
-#. placeholders: {speed_value}
-msgid " for the {speed_value} limit"
-msgstr " por el límite de {speed_value}"
 
 #. placeholders: {value}
 msgid " in the {value}"
