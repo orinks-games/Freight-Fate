@@ -43,6 +43,7 @@ use crate::states::driving_core::DRIVE_PHASE_DELIVERY;
 
 use super::MPH_PER_MPS;
 
+pub mod border;
 pub mod destination;
 pub mod pavement;
 pub mod river;
@@ -61,7 +62,7 @@ pub const RANDOM_SAMPLE: usize = 6;
 /// launched later. It does not choose a facility or corridor.
 const DEPARTURE_TRIP_SEED: i64 = 0;
 
-pub const FEATURES: [&str; 15] = [
+pub const FEATURES: [&str; 16] = [
     "downgrade",
     "upgrade",
     "zone",
@@ -77,6 +78,7 @@ pub const FEATURES: [&str; 15] = [
     "river",
     "bridge",
     "jointed",
+    "border",
 ];
 const SCAN_STEP_MI: f64 = 0.1;
 /// How far before the feature the SEARCH looks back to report a posted
@@ -605,6 +607,7 @@ pub fn find_feature(
             "river" => hits.extend(self::river::river_hits(&mut trip, origin, destination)),
             "bridge" => hits.extend(self::pavement::bridge_hits(&mut trip, origin, destination)),
             "jointed" => hits.extend(self::pavement::jointed_hits(&mut trip, origin, destination)),
+            "border" => hits.extend(self::border::border_hits(&mut trip, origin, destination)),
             _ => {}
         }
     }
@@ -1302,6 +1305,11 @@ pub fn build_driving(ctx: &mut GameContext, hit: &Hit, opts: &RoadOptions) -> (D
         profile.career.reputation = previous.career.reputation;
         profile.hos = previous.hos.clone();
         profile.fatigue = previous.fatigue;
+        // And the date a scenario put on the calendar: dated rules (spring
+        // weight limits, the Whittier tunnel's seasons) read it.
+        profile.calendar_offset_days = previous.calendar_offset_days;
+        profile.calendar_offset_hours = previous.calendar_offset_hours;
+        profile.live_calendar = previous.live_calendar;
         // A slip-seating driver's yard spares are drawn from the career's
         // own name, so this bench career's pool is not the scenario's: the
         // record the scenario set would sit under keys this drive never

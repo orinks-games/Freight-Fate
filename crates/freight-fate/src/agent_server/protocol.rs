@@ -85,6 +85,7 @@ fn scenario_properties() -> Value {
         "business": {"type": "string", "enum": ["company", "leased", "independent"]},
         "endorsements": {"type": "array", "items": {"type": "string"}},
         "hour": {"type": "number"},
+        "date": {"type": "string", "description": "the calendar date the career shows, MM-DD (05-01): dated rules such as spring weight limits and tunnel seasons read it; career time and hours do not move"},
         "fuel_pct": {"type": "number"},
         "window": {"type": "string", "enum": ["up", "down"]},
         "road_surface": {"type": "string", "enum": ["jointed", "smooth"]},
@@ -316,7 +317,8 @@ fn tools_list() -> Value {
              feature must be one of: downgrade, upgrade, zone, limit-drop, stop, \
              scale, curve, interchange, toll, chain-law, destination, departure, river, \
              bridge (one with joints, longest first), jointed (road with seams, longest \
-             first). \
+             first), border (a customs booth at a land crossing; pass origin and \
+             destination, e.g. bellingham_wa_us and surrey_bc_ca). \
              Same seed, same road. pick chooses among multiple matches (1-based). \
              unit plants a staffed enforcement unit unit_ahead_mi up the road (default \
              3) so an encounter can be staged on purpose; the road's own seeded posts \
