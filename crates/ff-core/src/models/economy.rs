@@ -24,9 +24,16 @@ use crate::pyrandom::PyRandom;
 /// - Saskatchewan, derived: the mean of Regina's (139.1) and Saskatoon's
 ///   (141.6) April to December 2025 averages, 140.4.
 /// - Manitoba, read: Winnipeg's April to December 2025 average, 144.8.
+/// - New Brunswick, read: Saint John's April to December 2025 average, 154.4
+///   (the table's only New Brunswick city).
+/// - Nova Scotia, read: Halifax's April to December 2025 average, 153.9 (the
+///   table's only Nova Scotia city).
+/// - Prince Edward Island, read: the April to December 2025 average of the
+///   table's Charlottetown and Summerside row, 160.2.
 ///
 /// Alberta, Saskatchewan and Manitoba read from the table's CSV as
-/// downloaded 2026-11-22 (data through October 2026).
+/// downloaded 2026-11-22 (data through October 2026); New Brunswick, Nova
+/// Scotia and Prince Edward Island from the same CSV, read 2026-11-22.
 pub const CANADA_DIESEL_CENTS_PER_L: &[(&str, &str, f64)] = &[
     ("BC", "British Columbia", 161.6),
     ("YT", "Yukon", 162.9),
@@ -35,6 +42,9 @@ pub const CANADA_DIESEL_CENTS_PER_L: &[(&str, &str, f64)] = &[
     ("MB", "Manitoba", 144.8),
     ("ON", "Ontario", 138.1),
     ("QC", "Quebec", 172.2),
+    ("NB", "New Brunswick", 154.4),
+    ("NS", "Nova Scotia", 153.9),
+    ("PE", "Prince Edward Island", 160.2),
 ];
 
 /// Litres in one US gallon.

@@ -1,0 +1,607 @@
+{
+  "about": "Curated stops for the New Brunswick, Nova Scotia and Prince Edward Island legs and their links to Rivière-du-Loup and Bangor, placed by cargo tools osm-stops --stops. lat, lon, reach_mi, season and heading steer placement; every other key is the stop as the game reads it. A stop whose season is not 'year round' is left out.",
+  "truck_access": {
+    "read": 11,
+    "assumed": 11,
+    "about": "Stops whose tractor-trailer access was read from a source, and those where it is assumed with the reason in source. The Irving Big Stops read it from the operator; the cardlocks from their names; Woodstock and Lancaster from OpenStreetMap truck tags. The town stations at the city ends have no source either way."
+  },
+  "stops": [
+    {
+      "name": "Grand Falls Big Stop",
+      "type": "travel_center",
+      "lat": 47.077278,
+      "lon": -67.768797,
+      "reach_mi": 0.4,
+      "actions": [
+        "park",
+        "save",
+        "fuel",
+        "food",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "parking",
+        "diesel",
+        "gasoline",
+        "food",
+        "restrooms",
+        "showers"
+      ],
+      "parking": "confirmed",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "read",
+      "source": "Position read from the operator page; Highway 2 exit 75, diesel pumps listed by the operator with DEF at the pump, driver lounge, showers and laundry (https://www.irvingoil.com/fr-CA/location/irving-oil-25801, read 2026-11-22). Overnight truck parking and showers at Big Stops read from Irving Oil's professional driver benefits sheet (https://www.irvingoil.com/sites/default/files/2026-06/FT25-016%20MC%20Email%20Lifecycle%20-%20Driver%20Benefits%20-%20PDF_0.pdf, read 2026-11-22). Open around the clock read from the page. Leg mile projected onto the leg's archived road."
+    },
+    {
+      "name": "Petro-Pass Grand Falls",
+      "type": "fuel_station",
+      "lat": 47.03772,
+      "lon": -67.77069,
+      "reach_mi": 0.3,
+      "actions": [
+        "fuel"
+      ],
+      "services": [
+        "diesel"
+      ],
+      "parking": "unknown",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "read",
+      "source": "Position read from OSM node 833420459 (Petro-Pass), OpenStreetMap planet extract 2026-11-16. Petro-Pass is Petro-Canada's commercial truck fuel network, so truck access is read from the name; a cardlock sells to account holders, so fuel is its only action. Open year round assumed. Leg mile projected onto the leg's archived road."
+    },
+    {
+      "name": "Woodstock Travel Stop",
+      "type": "fuel_station",
+      "lat": 46.12338,
+      "lon": -67.60596,
+      "reach_mi": 0.3,
+      "actions": [
+        "park",
+        "save",
+        "fuel",
+        "break"
+      ],
+      "services": [
+        "parking",
+        "diesel",
+        "gasoline"
+      ],
+      "parking": "limited",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "read",
+      "source": "Position read from OSM node 12676843992 (hgv=yes) on Beardsley Road, OpenStreetMap planet extract 2026-11-16. Truck access read from hgv=yes. The name and address (198 Beardsley Road) read from Irving Oil's Atlantic Canada RV friendly list (https://www.irvingoil.com/sites/default/files/2022-06/FT22-012-Update%20RV%20Friendly%20List%20-Website%20IOPage%20update-ATL%20CAN%20-%20ENG-HIGH%20PRIORITY%20V3.pdf, a 2022 list read 2026-11-22). Diesel and parking assumed; no overnight parking is read, so no sleep. Leg mile projected onto the leg's archived road."
+    },
+    {
+      "name": "Lincoln Big Stop",
+      "type": "travel_center",
+      "lat": 45.85064,
+      "lon": -66.561862,
+      "reach_mi": 0.4,
+      "actions": [
+        "park",
+        "save",
+        "fuel",
+        "food",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "parking",
+        "diesel",
+        "gasoline",
+        "food",
+        "restrooms",
+        "showers"
+      ],
+      "parking": "confirmed",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "read",
+      "source": "Position read from the operator page; 415 Nevers Road, Waasis, on the Trans-Canada at Lincoln; DEF at the pump, driver lounge, showers and laundry listed. Diesel is read from the DEF listing and the brand, not listed outright (https://irvingoil.com/fr-CA/location/irving-oil-25786, read 2026-11-22). Overnight truck parking and showers at Big Stops read from Irving Oil's professional driver benefits sheet (https://www.irvingoil.com/sites/default/files/2026-06/FT25-016%20MC%20Email%20Lifecycle%20-%20Driver%20Benefits%20-%20PDF_0.pdf, read 2026-11-22). Open around the clock read from the page. Leg mile projected onto the leg's archived road."
+    },
+    {
+      "name": "Salisbury Big Stop",
+      "type": "travel_center",
+      "lat": 46.051585,
+      "lon": -65.061515,
+      "reach_mi": 0.4,
+      "actions": [
+        "park",
+        "save",
+        "fuel",
+        "food",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "parking",
+        "diesel",
+        "gasoline",
+        "food",
+        "restrooms",
+        "showers"
+      ],
+      "parking": "confirmed",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "read",
+      "source": "Position read from the operator page; Highway 2 exit 433; diesel, DEF, CAT scales, driver lounge, showers and laundry listed (https://www.irvingoil.com/fr-CA/location/irving-oil-25796, read 2026-11-22). Overnight truck parking and showers at Big Stops read from Irving Oil's professional driver benefits sheet (https://www.irvingoil.com/sites/default/files/2026-06/FT25-016%20MC%20Email%20Lifecycle%20-%20Driver%20Benefits%20-%20PDF_0.pdf, read 2026-11-22). Open around the clock read from the page. Leg mile projected onto the leg's archived road."
+    },
+    {
+      "name": "Aulac Big Stop",
+      "type": "travel_center",
+      "lat": 45.871424,
+      "lon": -64.281908,
+      "reach_mi": 0.4,
+      "actions": [
+        "park",
+        "save",
+        "fuel",
+        "food",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "parking",
+        "diesel",
+        "gasoline",
+        "food",
+        "restrooms",
+        "showers"
+      ],
+      "parking": "confirmed",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "read",
+      "source": "Position read from the operator page; Highway 2 exit 513A; diesel, DEF, CAT scales, driver lounge, showers and laundry listed (https://www.irvingoil.com/fr-CA/location/irving-oil-26256, read 2026-11-22). Overnight truck parking and showers at Big Stops read from Irving Oil's professional driver benefits sheet (https://www.irvingoil.com/sites/default/files/2026-06/FT25-016%20MC%20Email%20Lifecycle%20-%20Driver%20Benefits%20-%20PDF_0.pdf, read 2026-11-22). Open around the clock read from the page. Leg mile projected onto the leg's archived road."
+    },
+    {
+      "name": "Enfield Big Stop",
+      "type": "travel_center",
+      "lat": 44.928516,
+      "lon": -63.53608,
+      "reach_mi": 0.4,
+      "actions": [
+        "park",
+        "save",
+        "fuel",
+        "food",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "parking",
+        "diesel",
+        "gasoline",
+        "food",
+        "restrooms",
+        "showers"
+      ],
+      "parking": "confirmed",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "read",
+      "source": "Position read from the operator page; Highway 102 exit 7; diesel, DEF, driver lounge, showers and laundry listed (https://www.irvingoil.com/node/26276, read 2026-11-22). Overnight truck parking and showers at Big Stops read from Irving Oil's professional driver benefits sheet (https://www.irvingoil.com/sites/default/files/2026-06/FT25-016%20MC%20Email%20Lifecycle%20-%20Driver%20Benefits%20-%20PDF_0.pdf, read 2026-11-22). Open around the clock read from the page. Leg mile projected onto the leg's archived road."
+    },
+    {
+      "name": "Truro Heights Big Stop",
+      "type": "travel_center",
+      "lat": 45.34964,
+      "lon": -63.31105,
+      "reach_mi": 0.4,
+      "actions": [
+        "park",
+        "save",
+        "fuel",
+        "food",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "parking",
+        "diesel",
+        "gasoline",
+        "food",
+        "restrooms",
+        "showers"
+      ],
+      "parking": "confirmed",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "read",
+      "source": "Position read from OSM way 445259574 on the Truro Heights Connector, OpenStreetMap planet extract 2026-11-16; named a Big Stop by the operator; diesel and showers follow from the brand and are not read for this site (Irving Oil's Atlantic Canada RV friendly list, 86 Connector Road, and its Nova Scotia Big Stop stories page https://irvingoil.com/en-US/node/31651, read 2026-11-22). Overnight truck parking and showers at Big Stops read from Irving Oil's professional driver benefits sheet (https://www.irvingoil.com/sites/default/files/2026-06/FT25-016%20MC%20Email%20Lifecycle%20-%20Driver%20Benefits%20-%20PDF_0.pdf, read 2026-11-22). Open around the clock read from the page. Leg mile projected onto the leg's archived road."
+    },
+    {
+      "name": "Aulds Cove Big Stop",
+      "type": "travel_center",
+      "lat": 45.64912,
+      "lon": -61.4391,
+      "reach_mi": 0.4,
+      "actions": [
+        "park",
+        "save",
+        "fuel",
+        "food",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "parking",
+        "diesel",
+        "gasoline",
+        "food",
+        "restrooms",
+        "showers"
+      ],
+      "parking": "confirmed",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "read",
+      "source": "Position read from OSM node 9943824435 (Irving, opening_hours 24/7), OpenStreetMap planet extract 2026-11-16; named a Big Stop by the operator at the Canso Causeway; diesel and showers follow from the brand and are not read for this site (Irving Oil's Atlantic Canada RV friendly list, 13239 Trans-Canada Highway, and its Nova Scotia Big Stop stories page https://irvingoil.com/en-US/node/31651, read 2026-11-22). Overnight truck parking and showers at Big Stops read from Irving Oil's professional driver benefits sheet (https://www.irvingoil.com/sites/default/files/2026-06/FT25-016%20MC%20Email%20Lifecycle%20-%20Driver%20Benefits%20-%20PDF_0.pdf, read 2026-11-22). Open around the clock read from the page. Leg mile projected onto the leg's archived road."
+    },
+    {
+      "name": "Oultons Cardlock",
+      "type": "fuel_station",
+      "lat": 44.9737,
+      "lon": -64.10367,
+      "reach_mi": 0.3,
+      "actions": [
+        "fuel"
+      ],
+      "services": [
+        "diesel"
+      ],
+      "parking": "unknown",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "read",
+      "source": "Position read from OSM node 5297460731 (Oultons Cardlock, Highway 14, Windsor), OpenStreetMap planet extract 2026-11-16. A cardlock sells commercial fuel to account holders, so truck access is read from the name and fuel is its only action. Open year round assumed. Leg mile projected onto the leg's archived road."
+    },
+    {
+      "name": "Irving Bridgewater",
+      "type": "fuel_station",
+      "lat": 44.39185,
+      "lon": -64.52771,
+      "reach_mi": 0.3,
+      "actions": [
+        "park",
+        "save",
+        "fuel",
+        "break"
+      ],
+      "services": [
+        "parking",
+        "diesel",
+        "gasoline"
+      ],
+      "parking": "limited",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "assumed",
+      "source": "Position read from OSM way 548239108 on North Street, OpenStreetMap planet extract 2026-11-16. The address, 463 North Street at exit 12, read from Irving Oil's Atlantic Canada RV friendly list (2022), which lists it as RV friendly. Tractor-trailer access is assumed, not read: no source says either way; it is the diesel on the leg's road at the city end. Open year round assumed. Leg mile projected onto the leg's archived road."
+    },
+    {
+      "name": "Irving Lancaster, Saint John",
+      "type": "fuel_station",
+      "lat": 45.25126,
+      "lon": -66.09978,
+      "reach_mi": 0.3,
+      "actions": [
+        "park",
+        "save",
+        "fuel",
+        "break"
+      ],
+      "services": [
+        "parking",
+        "diesel",
+        "gasoline"
+      ],
+      "parking": "limited",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "read",
+      "source": "Position read from OSM node 10740009837 (hgv=designated), OpenStreetMap planet extract 2026-11-16. Truck access read from hgv=designated. Diesel and open year round assumed. Leg mile projected onto the leg's archived road."
+    },
+    {
+      "name": "Irving St. Stephen",
+      "type": "fuel_station",
+      "lat": 45.20742,
+      "lon": -67.27063,
+      "reach_mi": 0.3,
+      "actions": [
+        "park",
+        "save",
+        "fuel",
+        "break"
+      ],
+      "services": [
+        "parking",
+        "diesel",
+        "gasoline"
+      ],
+      "parking": "limited",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "assumed",
+      "source": "Position read from OSM way 749289914 (Irving 24), OpenStreetMap planet extract 2026-11-16. St. Stephen Travel Stop on Irving Oil's RV friendly list may be this site; not confirmed. Tractor-trailer access is assumed, not read: no source says either way; it is the diesel on the leg's road at the city end. Open year round assumed. Leg mile projected onto the leg's archived road."
+    },
+    {
+      "name": "Irving Edmundston",
+      "type": "fuel_station",
+      "lat": 47.36947,
+      "lon": -68.32384,
+      "reach_mi": 0.3,
+      "actions": [
+        "park",
+        "save",
+        "fuel",
+        "break"
+      ],
+      "services": [
+        "parking",
+        "diesel",
+        "gasoline"
+      ],
+      "parking": "limited",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "assumed",
+      "source": "Position read from OSM node 14374758637 (diesel=yes) on Victoria Street, OpenStreetMap planet extract 2026-11-16. Diesel read from OSM. Tractor-trailer access is assumed, not read: no source says either way; it is the diesel on the leg's road at the city end. Open year round assumed. Leg mile projected onto the leg's archived road."
+    },
+    {
+      "name": "Irving Miramichi, King George Highway",
+      "type": "fuel_station",
+      "lat": 46.97391,
+      "lon": -65.5869,
+      "reach_mi": 0.3,
+      "actions": [
+        "park",
+        "save",
+        "fuel",
+        "break"
+      ],
+      "services": [
+        "parking",
+        "diesel",
+        "gasoline"
+      ],
+      "parking": "limited",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "assumed",
+      "source": "Position read from OSM node 5300908847 on King George Highway, OpenStreetMap planet extract 2026-11-16. Tractor-trailer access is assumed, not read: no source says either way; it is the diesel on the leg's road at the city end. Open year round assumed. Leg mile projected onto the leg's archived road."
+    },
+    {
+      "name": "Irving Miramichi, King Street",
+      "type": "fuel_station",
+      "lat": 47.01988,
+      "lon": -65.44483,
+      "reach_mi": 0.3,
+      "actions": [
+        "park",
+        "save",
+        "fuel",
+        "break"
+      ],
+      "services": [
+        "parking",
+        "diesel",
+        "gasoline"
+      ],
+      "parking": "limited",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "assumed",
+      "source": "Position read from OSM node 5300882194 on King Street, OpenStreetMap planet extract 2026-11-16. Tractor-trailer access is assumed, not read: no source says either way; it is the diesel on the leg's road at the city end. Open year round assumed. Leg mile projected onto the leg's archived road."
+    },
+    {
+      "name": "Petro-Canada Bathurst",
+      "type": "fuel_station",
+      "lat": 47.61164,
+      "lon": -65.64524,
+      "reach_mi": 0.3,
+      "actions": [
+        "park",
+        "save",
+        "fuel",
+        "break"
+      ],
+      "services": [
+        "parking",
+        "diesel",
+        "gasoline"
+      ],
+      "parking": "limited",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "assumed",
+      "source": "Position read from OSM node 8736759959, OpenStreetMap planet extract 2026-11-16. Tractor-trailer access is assumed, not read: no source says either way; it is the diesel on the leg's road at the city end. Open year round assumed. Leg mile projected onto the leg's archived road."
+    },
+    {
+      "name": "Ultramar Port Hawkesbury",
+      "type": "fuel_station",
+      "lat": 45.61451,
+      "lon": -61.35155,
+      "reach_mi": 0.3,
+      "actions": [
+        "park",
+        "save",
+        "fuel",
+        "break"
+      ],
+      "services": [
+        "parking",
+        "diesel",
+        "gasoline"
+      ],
+      "parking": "limited",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "assumed",
+      "source": "Position read from OSM node 5289767095 on Reeves Street, OpenStreetMap planet extract 2026-11-16. Tractor-trailer access is assumed, not read: no source says either way; it is the diesel on the leg's road at the city end. Open year round assumed. Leg mile projected onto the leg's archived road."
+    },
+    {
+      "name": "Irving New Glasgow",
+      "type": "fuel_station",
+      "lat": 45.56756,
+      "lon": -62.6446,
+      "reach_mi": 0.3,
+      "actions": [
+        "park",
+        "save",
+        "fuel",
+        "break"
+      ],
+      "services": [
+        "parking",
+        "diesel",
+        "gasoline"
+      ],
+      "parking": "limited",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "assumed",
+      "source": "Position read from OSM way 1420401292 on East River Road (opening_hours 24/7), OpenStreetMap planet extract 2026-11-16. Open around the clock read from OSM. Tractor-trailer access is assumed, not read: no source says either way; it is the diesel on the leg's road at the city end. Open year round assumed. Leg mile projected onto the leg's archived road."
+    },
+    {
+      "name": "Irving Charlottetown",
+      "type": "fuel_station",
+      "lat": 46.2632,
+      "lon": -63.14589,
+      "reach_mi": 0.3,
+      "actions": [
+        "park",
+        "save",
+        "fuel",
+        "break"
+      ],
+      "services": [
+        "parking",
+        "diesel",
+        "gasoline"
+      ],
+      "parking": "limited",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "assumed",
+      "source": "Position read from OSM way 255422644 on University Avenue, OpenStreetMap planet extract 2026-11-16. Tractor-trailer access is assumed, not read: no source says either way; it is the diesel on the leg's road at the city end. Open year round assumed. Leg mile projected onto the leg's archived road."
+    },
+    {
+      "name": "Irving Calais",
+      "type": "fuel_station",
+      "lat": 45.12322,
+      "lon": -67.34855,
+      "reach_mi": 0.3,
+      "actions": [
+        "park",
+        "save",
+        "fuel",
+        "break"
+      ],
+      "services": [
+        "parking",
+        "diesel",
+        "gasoline"
+      ],
+      "parking": "limited",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "assumed",
+      "source": "Position read from OSM node 2272599773 on US 1 (Houlton Road), Calais, OpenStreetMap planet extract 2026-11-16. Tractor-trailer access is assumed, not read: no source says either way; it is the diesel on the leg's road at the city end. Open year round assumed. Leg mile projected onto the leg's archived road."
+    },
+    {
+      "name": "Irving Bangor, Hogan Road",
+      "type": "fuel_station",
+      "lat": 44.83609,
+      "lon": -68.74213,
+      "reach_mi": 0.3,
+      "actions": [
+        "park",
+        "save",
+        "fuel",
+        "break"
+      ],
+      "services": [
+        "parking",
+        "diesel",
+        "gasoline"
+      ],
+      "parking": "limited",
+      "directions": [
+        "both"
+      ],
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "assumed",
+      "source": "Position read from OSM way 473275645 (diesel=yes) near I-95 exit 187, OpenStreetMap planet extract 2026-11-16. Diesel read from OSM. Tractor-trailer access is assumed, not read: no source says either way; it is the diesel on the leg's road at the city end. Open year round assumed. Leg mile projected onto the leg's archived road."
+    }
+  ]
+}
