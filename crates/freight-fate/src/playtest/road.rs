@@ -1434,6 +1434,11 @@ pub fn build_driving(ctx: &mut GameContext, hit: &Hit, opts: &RoadOptions) -> (D
     if let Some(career) = driving.trip.career_hours {
         driving.trip.career_hours = Some(staged_career_hours(career, driving.trip.start_hour));
     }
+    // The simulated sky's own clock too: its temperature follows the hour
+    // of day, so a drive staged at 2 PM read the morning's temperature.
+    if let Some(clock) = driving.trip.weather.game_hours {
+        driving.trip.weather.game_hours = Some(staged_career_hours(clock, driving.trip.start_hour));
+    }
 
     if let (Some(stage), Some(load)) = (&opts.cattle, driving.trip.truck.livestock.as_mut()) {
         load.stage(

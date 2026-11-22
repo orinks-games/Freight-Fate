@@ -153,13 +153,14 @@ impl DrivingState {
         let start_brake_wear = profile_of(ctx).brake_wear_pct();
         let start_engine_wear = profile_of(ctx).engine_wear_pct();
 
-        let region = ctx
+        let (region, climate) = ctx
             .world
             .city(&job.origin)
-            .map(|city| city.region.clone())
+            .map(|city| (city.region.clone(), city.climate().to_string()))
             .unwrap_or_default();
-        let mut weather = WeatherSystem::new(
+        let mut weather = WeatherSystem::with_climate(
             &region,
+            &climate,
             Some(trip_seed),
             live_weather_provider(ctx),
             Some(profile_of(ctx).calendar_game_hours()),
