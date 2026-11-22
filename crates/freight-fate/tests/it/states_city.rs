@@ -1325,11 +1325,12 @@ fn a_board_with_no_load_in_whitehorse_sends_the_truck_on_empty() {
     }
     open_freight_market(&mut app.ctx);
     let rows = labels::<JobBoardState>(&app);
+    // A level-1 driver's board is dispatch's assignment.
     assert!(
-        rows[0].starts_with("Job 1 of 1: Reposition, empty, to "),
+        rows[0]
+            .starts_with("Assigned load: Reposition, empty, to Skagway, Alaska, 110 miles. Pays "),
         "{rows:?}"
     );
-    assert!(rows[0].contains(" dollars."), "{rows:?}");
     let job = with_state::<JobBoardState, _>(&app, |b, _| b.jobs[0].clone());
     assert!(job.bobtail && job.assigned && job.pay > 0.0, "{job:?}");
 }
