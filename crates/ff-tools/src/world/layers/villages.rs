@@ -320,7 +320,10 @@ pub fn read_places(pbfs: &[std::path::PathBuf]) -> Result<Vec<Place>> {
         .into_iter()
         .map(|n| Place {
             id: n.id,
-            name: tag(&n.tags, "name").unwrap_or("").trim().to_string(),
+            name: crate::world::spoken_name::spoken_name(
+                tag(&n.tags, "name").unwrap_or(""),
+                tag(&n.tags, "name:en"),
+            ),
             rank: tag(&n.tags, "place").unwrap_or("").to_string(),
             lat: n.lat,
             lon: n.lon,

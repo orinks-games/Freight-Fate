@@ -1500,7 +1500,7 @@
             "category": "museum",
             "kind": "point",
             "at_mi": 23.8,
-            "spoken": "Children's Museum of Skagit County ahead"
+            "spoken": "Passing Children's Museum of Skagit County"
           },
           {
             "name": "Skagit River",
@@ -3753,7 +3753,7 @@
             "category": "museum",
             "kind": "point",
             "at_mi": 13.9,
-            "spoken": "Edmonds Historical Museum ahead"
+            "spoken": "Passing Edmonds Historical Museum"
           },
           {
             "name": "Edmonds",
@@ -5218,13 +5218,6 @@
             "lat": 45.5177,
             "lon": -122.66917,
             "source": "derived 2026-10-01: placed by tools/place_river_crossings.py at the crossing of OSM waterway way 164125011 (Willamette River) with the leg's archived dense route geometry; at_mi = cum[i-1] + t*(cum[i]-cum[i-1]) rescaled to leg miles, taking the crossing nearest the previous at_mi when the river crosses more than once. OpenStreetMap, Geofabrik us-latest extract 2026-09-30: https://www.openstreetmap.org/."
-          },
-          {
-            "name": "Sylvan Hill",
-            "category": "mountain_pass",
-            "kind": "point",
-            "at_mi": 57.0,
-            "spoken": "Approaching Sylvan Hill"
           },
           {
             "name": "Lake Oswego",
@@ -7780,7 +7773,7 @@
             "category": "museum",
             "kind": "point",
             "at_mi": 69.4,
-            "spoken": "Clymer Art Museum ahead"
+            "spoken": "Passing Clymer Art Museum"
           },
           {
             "name": "Thorp",
@@ -11578,7 +11571,7 @@
             "category": "museum",
             "kind": "point",
             "at_mi": 28.45,
-            "spoken": "Veteran\u2019s Memorial Museum ahead"
+            "spoken": "Passing Veteran\u2019s Memorial Museum"
           },
           {
             "name": "Chehalis",
@@ -14304,7 +14297,7 @@
             "category": "museum",
             "kind": "point",
             "at_mi": 24.34,
-            "spoken": "Museum ahead: Native Art Gallery"
+            "spoken": "Passing Native Art Gallery, a museum"
           },
           {
             "name": "Port Townsend",
@@ -16513,7 +16506,7 @@
             "category": "museum",
             "kind": "point",
             "at_mi": 53.05,
-            "spoken": "Of Sea and Shore Museum ahead"
+            "spoken": "Passing Of Sea and Shore Museum"
           },
           {
             "name": "Indianola",
@@ -17860,7 +17853,7 @@
             "category": "museum",
             "kind": "point",
             "at_mi": 12.5,
-            "spoken": "Interim Computer Museum ahead"
+            "spoken": "Passing Interim Computer Museum"
           },
           {
             "name": "SeaTac",
@@ -20482,25 +20475,11 @@
             "source": "derived 2026-10-01: placed by tools/place_river_crossings.py at the crossing of OSM waterway way 32506322 (South Fork Snoqualmie River) with the leg's archived dense route geometry; at_mi = cum[i-1] + t*(cum[i]-cum[i-1]) rescaled to leg miles, taking the crossing nearest the previous at_mi when the river crosses more than once. OpenStreetMap, Geofabrik us-latest extract 2026-09-30: https://www.openstreetmap.org/."
           },
           {
-            "name": "Windy Pass",
-            "category": "mountain_pass",
-            "kind": "point",
-            "at_mi": 59.8,
-            "spoken": "Approaching Windy Pass"
-          },
-          {
             "name": "Okanogan-Wenatchee National Forest",
             "category": "national_forest",
             "kind": "zone",
             "at_mi": 67.2,
             "spoken": "Entering Okanogan-Wenatchee National Forest"
-          },
-          {
-            "name": "Stampede Pass",
-            "category": "mountain_pass",
-            "kind": "point",
-            "at_mi": 67.6,
-            "spoken": "Approaching Stampede Pass"
           },
           {
             "name": "Roslyn",
@@ -20547,13 +20526,6 @@
             "kind": "point",
             "source": "OpenStreetMap place=village node 48661528, projected onto the leg's OpenRouteService driving-hgv route",
             "spoken": "Passing Thorp"
-          },
-          {
-            "name": "Old Blewett Pass",
-            "category": "mountain_pass",
-            "kind": "point",
-            "at_mi": 121.1,
-            "spoken": "Approaching Old Blewett Pass"
           },
           {
             "name": "The Bavarian Village",
@@ -24978,13 +24950,6 @@
             "kind": "point",
             "at_mi": 218.7,
             "spoken": "Approaching Deadman Pass"
-          },
-          {
-            "name": "Red Saddle",
-            "category": "mountain_pass",
-            "kind": "point",
-            "at_mi": 231.5,
-            "spoken": "Approaching Red Saddle"
           },
           {
             "name": "Grande Ronde River",
@@ -32381,7 +32346,7 @@
             "category": "museum",
             "kind": "point",
             "at_mi": 59.4,
-            "spoken": "Railroad Depot Museum ahead"
+            "spoken": "Passing Railroad Depot Museum"
           },
           {
             "name": "Lind",
@@ -37436,20 +37401,6 @@
             "spoken": "Approaching Snoqualmie Pass"
           },
           {
-            "name": "Windy Pass",
-            "category": "mountain_pass",
-            "kind": "point",
-            "at_mi": 230.8,
-            "spoken": "Approaching Windy Pass"
-          },
-          {
-            "name": "Hemlock Pass",
-            "category": "mountain_pass",
-            "kind": "point",
-            "at_mi": 233.0,
-            "spoken": "Approaching Hemlock Pass"
-          },
-          {
             "name": "South Fork Snoqualmie River",
             "category": "river",
             "kind": "point",
@@ -40000,7 +39951,7 @@
             "category": "museum",
             "kind": "point",
             "at_mi": 63.2,
-            "spoken": "Railroad Depot Museum ahead"
+            "spoken": "Passing Railroad Depot Museum"
           },
           {
             "name": "Lind",
@@ -41941,7 +41892,7 @@
             "category": "museum",
             "kind": "point",
             "at_mi": 15.1,
-            "spoken": "Children\u2019s Museum at JBLM ahead"
+            "spoken": "Passing Children\u2019s Museum at JBLM"
           },
           {
             "name": "Roy",
@@ -44307,20 +44258,6 @@
             "kind": "point",
             "source": "OpenStreetMap place=town node 6228462789, projected onto the leg's OpenRouteService driving-hgv route",
             "spoken": "Passing North Bend"
-          },
-          {
-            "name": "Windy Pass",
-            "category": "mountain_pass",
-            "kind": "point",
-            "at_mi": 61.0,
-            "spoken": "Approaching Windy Pass"
-          },
-          {
-            "name": "Stampede Pass",
-            "category": "mountain_pass",
-            "kind": "point",
-            "at_mi": 68.7,
-            "spoken": "Approaching Stampede Pass"
           },
           {
             "name": "Okanogan-Wenatchee National Forest",
@@ -49740,13 +49677,6 @@
             ]
           },
           {
-            "name": "Davies Pass",
-            "category": "mountain_pass",
-            "kind": "point",
-            "at_mi": 110.2,
-            "spoken": "Approaching Davies Pass"
-          },
-          {
             "name": "Rufus",
             "at_mi": 110.5,
             "off_mi": 0.11,
@@ -49806,7 +49736,7 @@
             "category": "museum",
             "kind": "point",
             "at_mi": 132.1,
-            "spoken": "National Neon Sign Museum ahead"
+            "spoken": "Passing National Neon Sign Museum"
           },
           {
             "name": "Lyle",
@@ -49989,13 +49919,6 @@
             "kind": "point",
             "source": "OpenStreetMap place=town node 150932828, projected onto the leg's OpenRouteService driving-hgv route",
             "spoken": "Passing Milwaukie"
-          },
-          {
-            "name": "Sylvan Hill",
-            "category": "mountain_pass",
-            "kind": "point",
-            "at_mi": 219.0,
-            "spoken": "Approaching Sylvan Hill"
           },
           {
             "name": "Lake Oswego",
@@ -54312,20 +54235,6 @@
             "spoken": "Approaching Snoqualmie Pass"
           },
           {
-            "name": "Windy Pass",
-            "category": "mountain_pass",
-            "kind": "point",
-            "at_mi": 172.0,
-            "spoken": "Approaching Windy Pass"
-          },
-          {
-            "name": "Hemlock Pass",
-            "category": "mountain_pass",
-            "kind": "point",
-            "at_mi": 174.3,
-            "spoken": "Approaching Hemlock Pass"
-          },
-          {
             "name": "South Fork Snoqualmie River",
             "category": "river",
             "kind": "point",
@@ -56733,7 +56642,7 @@
             "category": "museum",
             "kind": "point",
             "at_mi": 77.4,
-            "spoken": "Railroad Depot Museum ahead"
+            "spoken": "Passing Railroad Depot Museum"
           },
           {
             "name": "Cheney",
@@ -57455,7 +57364,7 @@
             "category": "museum",
             "kind": "point",
             "at_mi": 11.6,
-            "spoken": "Frazier Farmstead and Museum ahead"
+            "spoken": "Passing Frazier Farmstead and Museum"
           },
           {
             "name": "Weston",
@@ -64107,7 +64016,7 @@
             "at_mi": 40.5,
             "lat": 47.83071,
             "lon": -119.96987,
-            "spoken": "Lake Chelan Historical Society Museum ahead",
+            "spoken": "Passing Lake Chelan Historical Society Museum",
             "source": "derived: name and category read from the OpenStreetMap tags of node 4264009191 (Lake Chelan Historical Society Museum); placed at the nearest projection of it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           },
           {
@@ -65447,13 +65356,6 @@
             "spoken": "Entering Okanogan-Wenatchee National Forest"
           },
           {
-            "name": "Old Blewett Pass",
-            "category": "mountain_pass",
-            "kind": "point",
-            "at_mi": 31.7,
-            "spoken": "Approaching Old Blewett Pass"
-          },
-          {
             "name": "Cle Elum",
             "at_mi": 53.0,
             "off_mi": 10.91,
@@ -65485,7 +65387,7 @@
             "category": "museum",
             "kind": "point",
             "at_mi": 67.3,
-            "spoken": "Museum of Culture and Environment ahead"
+            "spoken": "Passing Museum of Culture and Environment"
           },
           {
             "name": "Kittitas",
@@ -69527,20 +69429,6 @@
             "spoken": "Approaching Snoqualmie Pass"
           },
           {
-            "name": "Windy Pass",
-            "category": "mountain_pass",
-            "kind": "point",
-            "at_mi": 90.3,
-            "spoken": "Approaching Windy Pass"
-          },
-          {
-            "name": "Hemlock Pass",
-            "category": "mountain_pass",
-            "kind": "point",
-            "at_mi": 92.7,
-            "spoken": "Approaching Hemlock Pass"
-          },
-          {
             "name": "South Fork Snoqualmie River",
             "category": "river",
             "kind": "point",
@@ -72312,7 +72200,7 @@
             "category": "museum",
             "kind": "point",
             "at_mi": 43.4,
-            "spoken": "R E Powell Museum ahead"
+            "spoken": "Passing R E Powell Museum"
           },
           {
             "name": "Prosser",

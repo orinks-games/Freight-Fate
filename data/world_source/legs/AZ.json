@@ -1877,7 +1877,7 @@
             "category": "museum",
             "kind": "point",
             "at_mi": 24.11,
-            "spoken": "Needles Regional Museum ahead"
+            "spoken": "Passing Needles Regional Museum"
           },
           {
             "name": "Oatman burros (from Bullhead City)",
@@ -9355,20 +9355,6 @@
             ]
           },
           {
-            "name": "Lone Pine Saddle",
-            "category": "mountain_pass",
-            "kind": "point",
-            "at_mi": 73.56,
-            "spoken": "Approaching Lone Pine Saddle"
-          },
-          {
-            "name": "Burro Gap",
-            "category": "mountain_pass",
-            "kind": "point",
-            "at_mi": 76.4,
-            "spoken": "Approaching Burro Gap"
-          },
-          {
             "name": "Benson",
             "at_mi": 79.44,
             "off_mi": 2.97,
@@ -11744,13 +11730,6 @@
             "kind": "point",
             "source": "OpenStreetMap place=village node 10832432940, projected onto the leg's OpenRouteService driving-hgv route",
             "spoken": "Passing Walnut Creek"
-          },
-          {
-            "name": "Coyote Pass",
-            "category": "mountain_pass",
-            "kind": "point",
-            "at_mi": 151.0,
-            "spoken": "Approaching Coyote Pass"
           }
         ],
         "speed_limits": [
@@ -14804,13 +14783,6 @@
             "spoken": "Passing Mountain View Ranches"
           },
           {
-            "name": "Fremont Saddle",
-            "category": "mountain_pass",
-            "kind": "point",
-            "at_mi": 8.1,
-            "spoken": "Approaching Fremont Saddle"
-          },
-          {
             "name": "Timberline-Fernwood",
             "at_mi": 11.4,
             "off_mi": 0.01,
@@ -14851,7 +14823,7 @@
             "category": "museum",
             "kind": "point",
             "at_mi": 52.0,
-            "spoken": "Museum ahead: old Cameron Trading Post"
+            "spoken": "Passing old Cameron Trading Post, a museum"
           },
           {
             "name": "Little Colorado River",
@@ -21430,7 +21402,7 @@
             "category": "museum",
             "kind": "point",
             "at_mi": 56.9,
-            "spoken": "Needles Regional Museum ahead"
+            "spoken": "Passing Needles Regional Museum"
           },
           {
             "name": "Arizona Village",
@@ -24077,13 +24049,6 @@
             "spoken": "Passing New Kingman-Butler"
           },
           {
-            "name": "Coyote Pass",
-            "category": "mountain_pass",
-            "kind": "point",
-            "at_mi": 0.1,
-            "spoken": "Approaching Coyote Pass"
-          },
-          {
             "name": "Golden Valley",
             "at_mi": 4.2,
             "off_mi": 8.94,
@@ -25452,7 +25417,7 @@
             "category": "museum",
             "kind": "point",
             "at_mi": 81.9,
-            "spoken": "Boulder City-Hoover Dam Museum ahead"
+            "spoken": "Passing Boulder City-Hoover Dam Museum"
           },
           {
             "name": "Railroad Pass",
@@ -34480,7 +34445,7 @@
             "category": "museum",
             "kind": "point",
             "at_mi": 16.3,
-            "spoken": "Mesa Contemporary Arts Museum ahead"
+            "spoken": "Passing Mesa Contemporary Arts Museum"
           },
           {
             "name": "Queen Creek",
@@ -38486,7 +38451,7 @@
             "category": "museum",
             "kind": "point",
             "at_mi": 151.1,
-            "spoken": "Palo Verde Historical Museum ahead"
+            "spoken": "Passing Palo Verde Historical Museum"
           },
           {
             "name": "Chuckwalla National Monument",
@@ -38732,13 +38697,6 @@
             "lat": 34.06508,
             "lon": -117.30206,
             "source": "derived 2026-10-01: placed by tools/place_river_crossings.py at the crossing of OSM waterway way 422097184 (Santa Ana River) with the leg's archived dense route geometry; at_mi = cum[i-1] + t*(cum[i]-cum[i-1]) rescaled to leg miles, taking the crossing nearest the previous at_mi when the river crosses more than once. OpenStreetMap, Geofabrik us-latest extract 2026-09-30: https://www.openstreetmap.org/."
-          },
-          {
-            "name": "Little Pigeon Pass",
-            "category": "mountain_pass",
-            "kind": "point",
-            "at_mi": 316.5,
-            "spoken": "Approaching Little Pigeon Pass"
           },
           {
             "name": "Grand Terrace",
@@ -41001,7 +40959,7 @@
             "category": "museum",
             "kind": "point",
             "at_mi": 27.8,
-            "spoken": "River Of Time Museum ahead"
+            "spoken": "Passing River Of Time Museum"
           },
           {
             "name": "Fountain Hills",
@@ -49727,27 +49685,6 @@
             "kind": "point",
             "source": "OpenStreetMap place=town node 150933986, projected onto the leg's OpenRouteService driving-hgv route",
             "spoken": "Passing Benson"
-          },
-          {
-            "name": "Burro Gap",
-            "category": "mountain_pass",
-            "kind": "point",
-            "at_mi": 48.53,
-            "spoken": "Approaching Burro Gap"
-          },
-          {
-            "name": "Cottonwood Saddle",
-            "category": "mountain_pass",
-            "kind": "point",
-            "at_mi": 49.83,
-            "spoken": "Approaching Cottonwood Saddle"
-          },
-          {
-            "name": "Lone Pine Saddle",
-            "category": "mountain_pass",
-            "kind": "point",
-            "at_mi": 51.57,
-            "spoken": "Approaching Lone Pine Saddle"
           },
           {
             "name": "Kartchner Caverns (from Sierra Vista)",

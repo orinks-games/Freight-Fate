@@ -3929,7 +3929,7 @@
             "category": "museum",
             "kind": "point",
             "at_mi": 80.7,
-            "spoken": "Carmichael Inn Museum ahead"
+            "spoken": "Passing Carmichael Inn Museum"
           },
           {
             "name": "Loudon",
@@ -6817,7 +6817,7 @@
             "category": "museum",
             "kind": "point",
             "at_mi": 23.0,
-            "spoken": "Lodge Museum of Cast Iron ahead"
+            "spoken": "Passing Lodge Museum of Cast Iron"
           },
           {
             "name": "Sequatchie River",
@@ -20060,25 +20060,11 @@
             "source": "derived 2026-10-01: placed by tools/place_river_crossings.py at the crossing of OSM waterway way 43775469 (Nolichucky River) with the leg's archived dense route geometry; at_mi = cum[i-1] + t*(cum[i]-cum[i-1]) rescaled to leg miles, taking the crossing nearest the previous at_mi when the river crosses more than once. OpenStreetMap, Geofabrik us-latest extract 2026-09-30: https://www.openstreetmap.org/."
           },
           {
-            "name": "Sugarloaf Gap",
-            "category": "mountain_pass",
-            "kind": "point",
-            "at_mi": 30.2,
-            "spoken": "Approaching Sugarloaf Gap"
-          },
-          {
-            "name": "Rice Gap",
-            "category": "mountain_pass",
-            "kind": "point",
-            "at_mi": 30.8,
-            "spoken": "Approaching Rice Gap"
-          },
-          {
             "name": "Rural Heritage Museum",
             "category": "museum",
             "kind": "point",
             "at_mi": 42.3,
-            "spoken": "Rural Heritage Museum ahead"
+            "spoken": "Passing Rural Heritage Museum"
           },
           {
             "name": "Mars Hill",
@@ -20097,13 +20083,6 @@
             "kind": "point",
             "source": "OpenStreetMap place=town node 154061305, projected onto the leg's OpenRouteService driving-hgv route",
             "spoken": "Passing Marshall"
-          },
-          {
-            "name": "Craven Gap",
-            "category": "mountain_pass",
-            "kind": "point",
-            "at_mi": 56.5,
-            "spoken": "Approaching Craven Gap"
           },
           {
             "name": "Candler",
@@ -29492,7 +29471,7 @@
             "category": "museum",
             "kind": "point",
             "at_mi": 110.2,
-            "spoken": "Museum ahead: Southern Railway Historical Assoc"
+            "spoken": "Passing Southern Railway Historical Assoc, a museum"
           },
           {
             "name": "Ringgold",
@@ -35139,7 +35118,7 @@
             "category": "museum",
             "kind": "point",
             "at_mi": 30.1,
-            "spoken": "Museum ahead: K-25 History Center"
+            "spoken": "Passing K-25 History Center, a museum"
           },
           {
             "name": "Clinch River",
@@ -53918,7 +53897,7 @@
             "category": "museum",
             "kind": "point",
             "at_mi": 40.4,
-            "spoken": "David Crockett Museum ahead"
+            "spoken": "Passing David Crockett Museum"
           },
           {
             "name": "Erwin",

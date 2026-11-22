@@ -566,6 +566,15 @@ pub fn stop_callout(parts: &StopCalloutParts<'_>) -> SpokenMessage {
 
 // -- money lines ---------------------------------------------------------------
 
+/// A toll point's name inside a toll line: the line already says "toll",
+/// so a name that ends in it ("Gordie Howe International Bridge toll")
+/// drops that word here. The data keeps the name whole.
+pub fn toll_line_name(name: &str) -> &str {
+    name.strip_suffix(" toll")
+        .or_else(|| name.strip_suffix(" Toll"))
+        .unwrap_or(name)
+}
+
 /// Marks a toll amount as Canadian dollars for [`toll_charged`]: the amount
 /// text carries it so every caller's signature stays the same.
 pub const CANADIAN: &str = " CAD";
@@ -588,21 +597,30 @@ pub fn toll_charged(
     estimated: bool,
 ) -> SpokenMessage {
     let estimate = if estimated { "estimated " } else { "" };
+    let name = toll_line_name(name);
     if let Some(cad) = amount_text.strip_suffix(CANADIAN) {
         // A Canadian booth says the Canadian price (Orinks, 2026-11-22).
         return SpokenMessage::with_terse(
-            format!(
+            sentence_start(&format!(
                 "{method_label} toll at {name}, {estimate}{cad} Canadian dollars, billed to carrier settlement."
-            ),
+            )),
             format!("Toll, {cad} Canadian dollars, carrier."),
         );
     }
     SpokenMessage::with_terse(
-        format!(
+        sentence_start(&format!(
             "{method_label} toll at {name}, {estimate}{amount_text} dollars, billed to carrier settlement."
-        ),
+        )),
         format!("Toll, {amount_text} dollars, carrier."),
     )
+}
+
+/// The toll point notice ahead of a plaza or entry: "Cash or card toll
+/// point, Gordie Howe International Bridge. Toll 44 dollars." `toll_text`
+/// is the amount sentence with its leading space, or empty for an entry.
+pub fn toll_point_notice(method_label: &str, name: &str, toll_text: &str) -> String {
+    let name = toll_line_name(name);
+    sentence_start(&format!("{method_label} toll point, {name}.{toll_text}"))
 }
 
 // -- speed and cruise ----------------------------------------------------------
@@ -1310,6 +1328,36 @@ mod tests {
             pair.terse.as_deref(),
             Some("The 115 Truck Stop, 2 miles. No fuel.")
         );
+    }
+
+    #[test]
+    fn a_toll_line_starts_with_a_capital_and_says_toll_once() {
+        let pair = toll_charged(
+            "cash or card",
+            "Gordie Howe International Bridge toll",
+            "44",
+            false,
+        );
+        assert_eq!(
+            pair.normal,
+            "Cash or card toll at Gordie Howe International Bridge, 44 dollars, billed to carrier settlement."
+        );
+        assert_eq!(pair.terse.as_deref(), Some("Toll, 44 dollars, carrier."));
+        assert_eq!(
+            toll_point_notice(
+                "cash or card",
+                "Gordie Howe International Bridge toll",
+                " Toll 44 dollars."
+            ),
+            "Cash or card toll point, Gordie Howe International Bridge. Toll 44 dollars."
+        );
+        let cad = toll_charged("cash or card", "Blue Water Bridge toll", "35 CAD", false);
+        assert_eq!(
+            cad.normal,
+            "Cash or card toll at Blue Water Bridge, 35 Canadian dollars, billed to carrier settlement."
+        );
+        assert_eq!(toll_line_name("Tolland toll"), "Tolland");
+        assert_eq!(toll_line_name("Tolland"), "Tolland");
     }
 
     #[test]

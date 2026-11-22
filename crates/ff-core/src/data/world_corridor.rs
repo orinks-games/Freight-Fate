@@ -26,7 +26,7 @@ use super::pavement::parse_pavement;
 use super::world_constants::{LIMIT_ARTIFACT_PLACE_CHECKPOINTS, LIMIT_EXPLAINING_CATEGORIES};
 use super::world_models::{CorridorDetail, DataError, TunnelData};
 use super::world_parsing::{
-    fold_limit_artifacts, list_field, parse_billboard_bans, parse_checkpoint,
+    fold_limit_artifacts, is_province, list_field, parse_billboard_bans, parse_checkpoint,
     parse_elevation_sample, parse_grade_segment, parse_hpms_terrain, parse_interchange,
     parse_landmarks, parse_lane_segments, parse_restrictions, parse_route_point,
     parse_speed_limits, parse_state_crossing, parse_state_mileage, parse_toll_event,
@@ -188,6 +188,11 @@ pub fn build_leg_corridor(
         leg_from,
         leg_to,
         &places,
+        &state_crossings
+            .iter()
+            .filter(|c| is_province(&c.from_state) != is_province(&c.state))
+            .map(|c| c.at_mi)
+            .collect::<Vec<_>>(),
     )?;
     // The fold's guard is wider than the dwell filter's: a town checkpoint is
     // as good a reason for a short posting as a village landmark.
