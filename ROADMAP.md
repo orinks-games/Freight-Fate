@@ -5884,6 +5884,15 @@ a carrier slice (owner, 2026-10-26).
       by tractor-trailer and these are its diesel between the towns). A
       loaded truck is now offered them; Fort Nelson to Watson Lake has
       Toad River, Northern Rockies and Liard Hot Springs.
+- [x] West corridor fuel stops say how their truck access was decided
+      (2026-11-22): 9 read and 74 assumed of the 83 placed, taken from
+      each stop's own source note. `osm-stops` no longer deletes a stop on
+      a leg its list does not cover just because it shares a listed name
+      (a run of the West list without `--only` was dropping US
+      Petro-Canada stops and others).
+- [ ] (Found along the way) Simonson Travel Center (Grand Forks) is in the
+      West list and within reach of two North Dakota legs it was never
+      placed on; a run without `--only` adds it there.
 - [ ] (Found along the way) Read truck access for the 24 assumed northern
       fuel stops: an operator answer or a listing per stop turns each into
       a reading (`osm-stops` prints the read to assumed count).
