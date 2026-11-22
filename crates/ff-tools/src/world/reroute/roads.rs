@@ -86,16 +86,20 @@ fn state_relations(block: &PrimitiveBlock) -> Vec<(String, Vec<i64>)> {
     let mut out = Vec::new();
     for group in block.groups() {
         for rel in group.relations() {
-            let (mut admin, mut level, mut name) = (false, false, None);
+            let (mut admin, mut level, mut name, mut english) = (false, false, None, None);
             for (k, v) in rel.tags() {
                 match k {
                     "boundary" => admin = v == "administrative",
                     "admin_level" => level = v == "4",
                     "name" => name = Some(v.to_string()),
+                    "name:en" => english = Some(v.to_string()),
                     _ => {}
                 }
             }
-            let Some(name) = name.filter(|_| admin && level) else {
+            // The English name where the relation has one: Quebec's own
+            // `name` is "Québec", and the game names provinces as geo.json
+            // spells them.
+            let Some(name) = english.or(name).filter(|_| admin && level) else {
                 continue;
             };
             let ways = rel

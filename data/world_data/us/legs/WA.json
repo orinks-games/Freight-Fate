@@ -2030,7 +2030,7 @@
     {
       "from": "blaine_wa_us",
       "to": "surrey_bc_ca",
-      "miles": 16,
+      "miles": 14,
       "highway": "Hwy 15 / Pacific Highway",
       "terrain": "hills",
       "divided": true,
@@ -2046,6 +2046,13 @@
         "mode": "through_freight",
         "cabotage": "forbidden"
       },
+      "route_via": [
+        {
+          "lat": 49.0025,
+          "lon": -122.7353,
+          "note": "Pacific Highway port of entry at the line, ref BC 15: the commercial crossing between Blaine and Surrey. Without this pin the truck router crosses elsewhere and runs about 40 miles."
+        }
+      ],
       "corridor": {
         "tollway_detected": false,
         "route_points": [
@@ -2055,27 +2062,7 @@
             "lon": -122.74334
           },
           {
-            "at_mi": 3.2,
-            "lat": 49.02555,
-            "lon": -122.73525
-          },
-          {
-            "at_mi": 6.4,
-            "lat": 49.06905,
-            "lon": -122.7355
-          },
-          {
-            "at_mi": 9.6,
-            "lat": 49.10613,
-            "lon": -122.73818
-          },
-          {
-            "at_mi": 12.8,
-            "lat": 49.147,
-            "lon": -122.73472
-          },
-          {
-            "at_mi": 16.0,
+            "at_mi": 14.0,
             "lat": 49.17699,
             "lon": -122.73002
           }
@@ -2083,83 +2070,35 @@
         "elevation_samples": [
           {
             "at_mi": 0.0,
-            "elevation_ft": 59.1,
-            "source": "Open-Meteo elevation API over public DEM at development time (https://api.open-meteo.com), sampled 2026-09-22."
+            "elevation_ft": 55.8,
+            "source": "Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
           },
           {
-            "at_mi": 3.2,
-            "elevation_ft": 52.5,
-            "source": "Open-Meteo elevation API over public DEM at development time (https://api.open-meteo.com), sampled 2026-09-22."
-          },
-          {
-            "at_mi": 6.4,
-            "elevation_ft": 6.6,
-            "source": "Open-Meteo elevation API over public DEM at development time (https://api.open-meteo.com), sampled 2026-09-22."
-          },
-          {
-            "at_mi": 9.6,
-            "elevation_ft": 13.1,
-            "source": "Open-Meteo elevation API over public DEM at development time (https://api.open-meteo.com), sampled 2026-09-22."
-          },
-          {
-            "at_mi": 12.8,
-            "elevation_ft": 3.3,
-            "source": "Open-Meteo elevation API over public DEM at development time (https://api.open-meteo.com), sampled 2026-09-22."
-          },
-          {
-            "at_mi": 16.0,
-            "elevation_ft": 223.1,
-            "source": "Open-Meteo elevation API over public DEM at development time (https://api.open-meteo.com), sampled 2026-09-22."
-          }
-        ],
-        "grade_segments": [
-          {
-            "start_mi": 0.0,
-            "end_mi": 16.0,
-            "avg_grade_pct": 0.05,
-            "terrain": "hills",
-            "source": "Coarse grade from Open-Meteo elevation samples along public Valhalla auto route geometry (development-time). Truck-class refine blocked on public FOSSGIS truck costing for this POE."
+            "at_mi": 14.0,
+            "elevation_ft": 216.5,
+            "source": "Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
           }
         ],
         "checkpoints": [
           {
-            "name": "Blaine Pacific Highway Port of Entry",
-            "at_mi": 1.3,
-            "type": "border",
-            "state": "Washington",
-            "highway": "Hwy 15 / Pacific Highway",
-            "lat": 49.0018762,
-            "lon": -122.738196,
-            "source": "U.S. Customs and Border Protection Blaine Pacific Highway commercial port of entry. Coordinates from the OSM commercial inspection booth node 8288274953 (\"Port of Entry - Blaine\", hgv/goods/hazmat designated), read through Overpass 2026-11-04. Locked Phase A port of entry; Sumas is alternate only. Prefer Hwy 15 / Pacific Highway label (not Hwy 99 / Peace Arch). Miles from public Valhalla auto routes over OpenStreetMap (valhalla1.openstreetmap.de) through the inspection booths, read 2026-11-04, measured from the Blaine end; the international boundary position (lat 49.00212 on Hwy 15) was read from OpenStreetMap through Nominatim reverse lookups the same day."
-          },
-          {
             "name": "Pacific Highway Port of Entry",
-            "at_mi": 1.5,
+            "at_mi": 1.4,
             "type": "border",
             "state": "British Columbia",
             "highway": "Hwy 15 / Pacific Highway",
             "lat": 49.0027824,
             "lon": -122.7337558,
-            "source": "Canada Border Services Agency Pacific Highway office (813), 28 176th Street, Surrey, BC. Commercial hours read as 24 hours, 7 days a week, and a dedicated FAST lane open 24 hours, from the CBSA Directory of Offices and Services page (https://www.cbsa-asfc.gc.ca/do-rb/offices-bureaux/398-eng.html, Internet Archive 2024 copy; the live page now points to the new cloud directory) and the CBSA FAST contact page (https://www.cbsa-asfc.gc.ca/prog/fast-expres/contact-eng.html, modified 2022-06-06), both read 2026-10-07. Coordinates read from the OSM facility way 144822144 center through Overpass 2026-11-04. Miles from public Valhalla auto routes over OpenStreetMap (valhalla1.openstreetmap.de) through the inspection booths, read 2026-11-04, measured from the Blaine end; the international boundary position (lat 49.00212 on Hwy 15) was read from OpenStreetMap through Nominatim reverse lookups the same day."
-          }
-        ],
-        "state_miles": [
-          {
-            "state": "Washington",
-            "miles": 1.4
+            "source": "Canada Border Services Agency Pacific Highway office (813), 28 176th Street, Surrey, BC. Commercial hours read as 24 hours, 7 days a week, and a dedicated FAST lane open 24 hours, from the CBSA Directory of Offices and Services page (https://www.cbsa-asfc.gc.ca/do-rb/offices-bureaux/398-eng.html, Internet Archive 2024 copy; the live page now points to the new cloud directory) and the CBSA FAST contact page (https://www.cbsa-asfc.gc.ca/prog/fast-expres/contact-eng.html, modified 2022-06-06), both read 2026-10-07. Coordinates read from the OSM facility way 144822144 center through Overpass 2026-11-04. Miles from public Valhalla auto routes over OpenStreetMap (valhalla1.openstreetmap.de) through the inspection booths, read 2026-11-04, measured from the Blaine end; the international boundary position (lat 49.00212 on Hwy 15) was read from OpenStreetMap through Nominatim reverse lookups the same day. Re-placed on the rerouted road by its own coordinates (0.00 mi off-route at closest approach)."
           },
           {
-            "state": "British Columbia",
-            "miles": 14.6
-          }
-        ],
-        "state_crossings": [
-          {
-            "at_mi": 1.4,
-            "from_state": "Washington",
-            "state": "British Columbia",
-            "place": "Washington\u2013British Columbia border on Hwy 15 at the Pacific Highway Port of Entry",
-            "source": "International border on the continuous Pacific Highway truck path. Miles from public Valhalla auto routes over OpenStreetMap (valhalla1.openstreetmap.de) through the inspection booths, read 2026-11-04, measured from the Blaine end; the international boundary position (lat 49.00212 on Hwy 15) was read from OpenStreetMap through Nominatim reverse lookups the same day."
+            "name": "Blaine Pacific Highway Port of Entry",
+            "at_mi": 1.5,
+            "type": "border",
+            "state": "Washington",
+            "highway": "Hwy 15 / Pacific Highway",
+            "lat": 49.0018762,
+            "lon": -122.738196,
+            "source": "U.S. Customs and Border Protection Blaine Pacific Highway commercial port of entry. Coordinates from the OSM commercial inspection booth node 8288274953 (\"Port of Entry - Blaine\", hgv/goods/hazmat designated), read through Overpass 2026-11-04. Locked Phase A port of entry; Sumas is alternate only. Prefer Hwy 15 / Pacific Highway label (not Hwy 99 / Peace Arch). Miles from public Valhalla auto routes over OpenStreetMap (valhalla1.openstreetmap.de) through the inspection booths, read 2026-11-04, measured from the Blaine end; the international boundary position (lat 49.00212 on Hwy 15) was read from OpenStreetMap through Nominatim reverse lookups the same day. Re-placed on the rerouted road by its own coordinates (0.19 mi off-route at closest approach)."
           }
         ],
         "border_crossing": {
@@ -2173,20 +2112,376 @@
           "cabotage": "forbidden"
         },
         "source": "Development-time public Valhalla auto-profile geometry over OpenStreetMap (valhalla1.openstreetmap.de), sampled 2026-09-22, along Hwy 15 / Pacific Highway. Paid miles kept at 16. Public FOSSGIS Valhalla truck costing is NOT adopted here: unconstrained truck returned ~40.5 mi (vs ~14\u201316 on the commercial Pacific Highway path). Named HGV honesty debt until a regional BC/WA truck bake (ask before Josh overnight).",
-        "landmarks": [],
-        "speed_limits": [
+        "landmarks": [
           {
-            "at_mi": 2.0,
-            "mph": 50,
-            "source": "Coarse Hwy 15 / Pacific Highway urban approach default; CA statutory truck caps still unresearched (named units debt). Not an OSM maxspeed:hgv harvest.",
-            "hgv": false
+            "name": "Birch Bay",
+            "at_mi": 0.0,
+            "off_mi": 4.66,
+            "category": "village",
+            "kind": "point",
+            "source": "OpenStreetMap place=village node 5300922972, projected onto the leg's checked-in route geometry",
+            "spoken": "Passing Birch Bay"
+          },
+          {
+            "name": "Ferndale",
+            "at_mi": 0.1,
+            "off_mi": 11.99,
+            "category": "village",
+            "kind": "point",
+            "source": "OpenStreetMap place=town node 141079809, projected onto the leg's checked-in route geometry",
+            "spoken": "Passing Ferndale"
+          },
+          {
+            "name": "Nicomekl River",
+            "category": "river",
+            "kind": "point",
+            "at_mi": 7.0,
+            "lat": 49.08591,
+            "lon": -122.73512,
+            "spoken": "Crossing the Nicomekl River",
+            "source": "derived: name and category read from the OpenStreetMap tags of way 72832972 (Nicomekl River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "name": "Langley City",
+            "at_mi": 8.7,
+            "off_mi": 3.54,
+            "category": "village",
+            "kind": "point",
+            "source": "OpenStreetMap place=city node 3627489932, projected onto the leg's checked-in route geometry",
+            "spoken": "Passing Langley City"
+          },
+          {
+            "name": "Langley Township",
+            "at_mi": 10.4,
+            "off_mi": 7.06,
+            "category": "village",
+            "kind": "point",
+            "source": "OpenStreetMap place=town node 52555902, projected onto the leg's checked-in route geometry",
+            "spoken": "Passing Langley Township"
+          },
+          {
+            "name": "Serpentine River",
+            "category": "river",
+            "kind": "point",
+            "at_mi": 10.9,
+            "lat": 49.14234,
+            "lon": -122.73471,
+            "spoken": "Crossing the Serpentine River",
+            "source": "derived: name and category read from the OpenStreetMap tags of way 72832949 (Serpentine River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "name": "New Westminster",
+            "at_mi": 13.1,
+            "off_mi": 8.24,
+            "category": "village",
+            "kind": "point",
+            "source": "OpenStreetMap place=city node 5319478193, projected onto the leg's checked-in route geometry",
+            "spoken": "Passing New Westminster"
+          },
+          {
+            "name": "Burnaby",
+            "at_mi": 13.1,
+            "off_mi": 11.71,
+            "category": "village",
+            "kind": "point",
+            "source": "OpenStreetMap place=city node 52553508, projected onto the leg's checked-in route geometry",
+            "spoken": "Passing Burnaby"
+          },
+          {
+            "name": "Port Coquitlam",
+            "at_mi": 13.2,
+            "off_mi": 6.3,
+            "category": "village",
+            "kind": "point",
+            "source": "OpenStreetMap place=city node 52556164, projected onto the leg's checked-in route geometry",
+            "spoken": "Passing Port Coquitlam"
+          },
+          {
+            "name": "Coquitlam",
+            "at_mi": 13.2,
+            "off_mi": 7.93,
+            "category": "village",
+            "kind": "point",
+            "source": "OpenStreetMap place=city node 1175773362, projected onto the leg's checked-in route geometry",
+            "spoken": "Passing Coquitlam"
+          },
+          {
+            "name": "Port Moody",
+            "at_mi": 13.2,
+            "off_mi": 8.49,
+            "category": "village",
+            "kind": "point",
+            "source": "OpenStreetMap place=city node 52556061, projected onto the leg's checked-in route geometry",
+            "spoken": "Passing Port Moody"
+          },
+          {
+            "name": "Anmore",
+            "at_mi": 13.2,
+            "off_mi": 11.02,
+            "category": "village",
+            "kind": "point",
+            "source": "OpenStreetMap place=village node 1100886085, projected onto the leg's checked-in route geometry",
+            "spoken": "Passing Anmore"
+          },
+          {
+            "name": "Maple Ridge",
+            "at_mi": 13.7,
+            "off_mi": 6.33,
+            "category": "village",
+            "kind": "point",
+            "source": "OpenStreetMap place=city node 5319478139, projected onto the leg's checked-in route geometry",
+            "spoken": "Passing Maple Ridge"
           }
         ],
         "interchanges": [],
         "restrictions": [],
-        "lane_segments": [],
-        "traffic_aadt": []
-      }
+        "lane_segments": [
+          {
+            "start_mi": 1.6,
+            "end_mi": 2.3,
+            "lanes": 1,
+            "oneway": true,
+            "source": "OpenStreetMap lanes tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; total per the OSM lanes semantics (directional on oneway carriageways). ODbL, (c) OpenStreetMap contributors."
+          },
+          {
+            "start_mi": 2.3,
+            "end_mi": 5.3,
+            "lanes": 5,
+            "oneway": true,
+            "source": "OpenStreetMap lanes tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; total per the OSM lanes semantics (directional on oneway carriageways). ODbL, (c) OpenStreetMap contributors."
+          },
+          {
+            "start_mi": 5.3,
+            "end_mi": 7.7,
+            "lanes": 5,
+            "lanes_forward": 2,
+            "lanes_backward": 3,
+            "source": "OpenStreetMap lanes tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; total per the OSM lanes semantics (directional on oneway carriageways). ODbL, (c) OpenStreetMap contributors."
+          },
+          {
+            "start_mi": 7.7,
+            "end_mi": 8.1,
+            "lanes": 3,
+            "oneway": true,
+            "source": "OpenStreetMap lanes tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; total per the OSM lanes semantics (directional on oneway carriageways). ODbL, (c) OpenStreetMap contributors."
+          },
+          {
+            "start_mi": 8.1,
+            "end_mi": 13.1,
+            "lanes": 2,
+            "oneway": true,
+            "source": "OpenStreetMap lanes tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; total per the OSM lanes semantics (directional on oneway carriageways). ODbL, (c) OpenStreetMap contributors."
+          }
+        ],
+        "traffic_aadt": [],
+        "grade_segments": [
+          {
+            "start_mi": 0.0,
+            "end_mi": 0.9,
+            "avg_grade_pct": 0.71,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 0.9,
+            "end_mi": 1.4,
+            "avg_grade_pct": -0.63,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 1.4,
+            "end_mi": 3.1,
+            "avg_grade_pct": 0.09,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 3.1,
+            "end_mi": 3.4,
+            "avg_grade_pct": 3.54,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 3.4,
+            "end_mi": 3.7,
+            "avg_grade_pct": 9.35,
+            "terrain": "mountain",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 3.7,
+            "end_mi": 4.0,
+            "avg_grade_pct": 2.09,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 4.0,
+            "end_mi": 4.3,
+            "avg_grade_pct": -1.04,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 4.3,
+            "end_mi": 4.6,
+            "avg_grade_pct": -3.13,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 4.6,
+            "end_mi": 5.2,
+            "avg_grade_pct": -6.14,
+            "terrain": "mountain",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 5.2,
+            "end_mi": 5.5,
+            "avg_grade_pct": -2.24,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 5.5,
+            "end_mi": 8.6,
+            "avg_grade_pct": -0.03,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 8.6,
+            "end_mi": 9.0,
+            "avg_grade_pct": 1.55,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 9.0,
+            "end_mi": 9.5,
+            "avg_grade_pct": 0.74,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 9.5,
+            "end_mi": 9.8,
+            "avg_grade_pct": -2.31,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 9.8,
+            "end_mi": 12.5,
+            "avg_grade_pct": 0.0,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 12.5,
+            "end_mi": 12.8,
+            "avg_grade_pct": 7.37,
+            "terrain": "mountain",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 12.8,
+            "end_mi": 13.1,
+            "avg_grade_pct": 4.41,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 13.1,
+            "end_mi": 13.3,
+            "avg_grade_pct": 0.48,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 13.3,
+            "end_mi": 14.0,
+            "avg_grade_pct": -0.67,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          }
+        ],
+        "state_miles": [
+          {
+            "state": "Washington",
+            "miles": 1.3,
+            "source": "derived 2026-11-05: the leg's archived route geometry intersected with OpenStreetMap state and province boundary relations (boundary=administrative, admin_level=4); at_mi = cumulative geometry distance at each boundary crossing, rescaled to leg miles; state miles = differences of those boundaries. OpenStreetMap, boundary relations read from the OpenStreetMap API on 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "state": "British Columbia",
+            "miles": 12.7,
+            "source": "derived 2026-11-05: the leg's archived route geometry intersected with OpenStreetMap state and province boundary relations (boundary=administrative, admin_level=4); at_mi = cumulative geometry distance at each boundary crossing, rescaled to leg miles; state miles = differences of those boundaries. OpenStreetMap, boundary relations read from the OpenStreetMap API on 2026-11-16: https://www.openstreetmap.org/."
+          }
+        ],
+        "state_crossings": [
+          {
+            "at_mi": 1.3,
+            "from_state": "Washington",
+            "state": "British Columbia",
+            "place": "Washington\u2013British Columbia border on Hwy 15 at the Pacific Highway Port of Entry",
+            "source": "derived 2026-11-05: the leg's archived route geometry intersected with OpenStreetMap state and province boundary relations (boundary=administrative, admin_level=4); at_mi = cumulative geometry distance at each boundary crossing, rescaled to leg miles; state miles = differences of those boundaries. OpenStreetMap, boundary relations read from the OpenStreetMap API on 2026-11-16: https://www.openstreetmap.org/."
+          }
+        ],
+        "speed_limits": [
+          {
+            "at_mi": 0.4,
+            "mph": 25,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 1.2,
+            "mph": 20,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 2.3,
+            "mph": 45,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 7.7,
+            "mph": 50,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 8.1,
+            "mph": 35,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 8.6,
+            "mph": 30,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 13.1,
+            "mph": 35,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          }
+        ],
+        "hpms_terrain": {
+          "type": 1,
+          "name": "level",
+          "sections": 0,
+          "source": "DERIVED, not read: Canada has no national inventory like HPMS, so the class is the terrain the leg's own grade profile spends the most miles in (the reroute-enrich rule: sustained grade of 5 percent, or 4 percent with 1,000 ft of relief within 5 miles, is mountain; 1.5 percent or 400 ft of relief is hills; else flat), mapped flat to level, hills to rolling and mountain to mountainous. It reads the same elevation as the grade, so it is no independent check on it."
+        }
+      },
+      "rerouted": true
     },
     {
       "from": "everett_wa_us",

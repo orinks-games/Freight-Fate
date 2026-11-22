@@ -18,6 +18,7 @@ mod sim_support;
 
 mod carrier_slice3;
 mod data_border_yards;
+mod data_canada;
 mod data_city_keys;
 mod data_counties;
 mod data_curve_management;

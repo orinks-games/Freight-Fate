@@ -65,10 +65,6 @@ const DEFAULT_SNAPSHOT: &str = "Geofabrik extract";
 /// so.
 const OSM_SOURCE_PREFIX: &str = "OpenStreetMap maxspeed tags";
 
-/// What this tool writes where Alaska posts nothing.
-const ALASKA_DEFAULT_SOURCE: &str = "Assumed 55 mph where no posted OpenStreetMap maxspeed way \
-     lies along the road in Alaska: the unposted default under 13 AAC 02.275.";
-
 /// Sources a re-read replaces: this tool's, the Python Alcan bake's (its
 /// read and its Alaska default), and the Alcan scaffold's placeholders,
 /// which all begin "Coarse". Anything else on a leg was set by hand.
@@ -176,11 +172,7 @@ fn shard_row(id: &str, s: &bake::Sample, source: &str) -> Value {
         Some(mph) => {
             row.insert("mph", Value::Int(i128::from(mph)));
             row.insert("hgv", Value::Bool(s.hgv));
-            let source = if s.assumed {
-                ALASKA_DEFAULT_SOURCE
-            } else {
-                source
-            };
+            let source = s.assumed.unwrap_or(source);
             row.insert("source", Value::Str(source.to_string()));
         }
         None => {
@@ -243,9 +235,9 @@ pub fn main(argv: &[String]) -> Result<i32> {
 
     let root = util::repo_root();
     let source = source_root();
-    let gameplay = root.join("data/world_data/us/gameplay");
+    let gameplay_dirs = super::country::gameplay_dirs();
     let mut world = load_world(&source)?;
-    let lines = geo::load_archive(&root.join("data/world_data/us/geometry"))?;
+    let lines = crate::world::country::load_archives()?;
     println!(
         "{} archived leg lines; reading {} extract(s) dated {date}",
         lines.len(),
@@ -302,7 +294,10 @@ pub fn main(argv: &[String]) -> Result<i32> {
     let note = world_source_note(&snapshot, &date, "the archived route");
     let valhalla_note = world_source_note(&snapshot, &date, route::SOURCE);
     let mut tally = Tally::default();
-    let mut full: BTreeMap<String, Vec<Value>> = shard_rows(&gameplay.join("speed_limits.jsonl"))?;
+    let mut full: BTreeMap<String, Vec<Value>> = BTreeMap::new();
+    for (_, dir) in &gameplay_dirs {
+        full.extend(shard_rows(&dir.join("speed_limits.jsonl"))?);
+    }
     let legs = world
         .get_mut("legs")
         .and_then(Value::as_array_mut)
@@ -357,8 +352,8 @@ pub fn main(argv: &[String]) -> Result<i32> {
         tally.postings += profile.iter().filter(|s| s.mph.is_some()).count();
         tally.gaps += profile.iter().filter(|s| s.mph.is_none()).count();
         tally.hgv += profile.iter().filter(|s| s.hgv).count();
-        tally.assumed += profile.iter().filter(|s| s.assumed).count();
-        let rows = Value::Array(bake::world_rows(&profile, note, ALASKA_DEFAULT_SOURCE));
+        tally.assumed += profile.iter().filter(|s| s.assumed.is_some()).count();
+        let rows = Value::Array(bake::world_rows(&profile, note));
         let corridor = leg
             .as_object_mut()
             .ok_or_else(|| format!("{id} is not an object"))?
@@ -383,7 +378,7 @@ pub fn main(argv: &[String]) -> Result<i32> {
         tally.no_archive
     );
     println!(
-        "New profiles: {} postings ({} from truck limits, {} Alaska's assumed default), {} \
+        "New profiles: {} postings ({} from truck limits, {} unposted defaults, assumed), {} \
          coverage gaps; the anchor repair dropped {}. {} legs read along the Valhalla route.",
         tally.postings, tally.hgv, tally.assumed, tally.gaps, tally.repaired, tally.from_valhalla
     );
@@ -451,22 +446,32 @@ pub fn main(argv: &[String]) -> Result<i32> {
             "speed_gap_mi" => bake::SPEED_GAP_MI,
         },
     };
-    // The meta names the extract the whole layer was read from; a partial
-    // run keeps it, and each of its rows names its own extract.
-    let speed_path = gameplay.join("speed_limits.jsonl");
-    let speed_meta = match (&only, existing_meta(&speed_path)) {
-        (Some(_), Some(meta)) => meta,
-        _ => speed_meta,
-    };
-    util::write_text(&speed_path, &jsonl(speed_meta, &all_rows))?;
+    // Each country's legs go in its own folder. The meta names the extract
+    // the whole layer was read from; a partial run keeps it, and each of its
+    // rows names its own extract.
+    for (folder, rows) in super::country::split_rows(&world, all_rows) {
+        let speed_path = super::country::gameplay_dir_of(&folder).join("speed_limits.jsonl");
+        if rows.is_empty() && !speed_path.is_file() {
+            continue;
+        }
+        let meta = match (&only, existing_meta(&speed_path)) {
+            (Some(_), Some(meta)) => meta,
+            _ => speed_meta.clone(),
+        };
+        util::write_text(&speed_path, &jsonl(meta, &rows))?;
+    }
 
+    let names = Value::Array(names);
     if let Some(o) = &only {
-        let path = gameplay.join("limit_artifacts.jsonl");
-        let mut rows: Vec<Value> = shard_rows(&path)?
-            .into_iter()
-            .filter(|(leg, _)| !o.contains(leg))
-            .flat_map(|(_, r)| r)
-            .collect();
+        let mut rows: Vec<Value> = Vec::new();
+        for (_, dir) in &gameplay_dirs {
+            rows.extend(
+                shard_rows(&dir.join("limit_artifacts.jsonl"))?
+                    .into_iter()
+                    .filter(|(leg, _)| !o.contains(leg))
+                    .flat_map(|(_, r)| r),
+            );
+        }
         rows.extend(artifacts.iter().cloned());
         rows.sort_by(|a, b| {
             let key = |r: &Value| {
@@ -478,14 +483,16 @@ pub fn main(argv: &[String]) -> Result<i32> {
             let (ka, kb) = (key(a), key(b));
             ka.0.cmp(&kb.0).then(ka.1.total_cmp(&kb.1))
         });
-        if let Some(mut meta) = existing_meta(&path) {
-            util::write_text(&path, &jsonl(meta.clone(), &rows))?;
-            // The counts describe the whole map. Named rows and folds are
-            // recounted from the file and the loader; the on-highway and mixed
-            // verdicts add this run's to the last full run's.
-            let world = ff_core::data::world::World::load_from_json(&root.join("data"))
+        // The counts describe the whole map. Named rows and folds are
+        // recounted from the files and the loader; the on-highway and mixed
+        // verdicts add this run's to the last full run's.
+        let us_meta = gameplay_dirs
+            .iter()
+            .find_map(|(_, dir)| existing_meta(&dir.join("limit_artifacts.jsonl")));
+        if let Some(mut meta) = us_meta {
+            let world_now = ff_core::data::world::World::load_from_json(&root.join("data"))
                 .map_err(|e| format!("reloading the world to count folds: {e}"))?;
-            let folds: usize = world
+            let folds: usize = world_now
                 .legs
                 .iter()
                 .map(|l| l.corridor().speed_limits_folded)
@@ -518,7 +525,22 @@ pub fn main(argv: &[String]) -> Result<i32> {
                     "fold_ratio" => fold_ratio,
                 }),
             );
-            util::write_text(&path, &jsonl(meta, &rows))?;
+            for (folder, rows) in super::country::split_rows(&world, rows) {
+                let path = super::country::gameplay_dir_of(&folder).join("limit_artifacts.jsonl");
+                if rows.is_empty() && !path.is_file() {
+                    continue;
+                }
+                let meta = existing_meta(&path).map_or_else(
+                    || meta.clone(),
+                    |mut own| {
+                        if let Some(counts) = meta.get("counts") {
+                            own.insert("counts", counts.clone());
+                        }
+                        own
+                    },
+                );
+                util::write_text(&path, &jsonl(meta, &rows))?;
+            }
             println!(
                 "Screen rows for the selected legs spliced into the whole-map screen: {named} \
                  named, {folds} fold at load."
@@ -550,7 +572,7 @@ pub fn main(argv: &[String]) -> Result<i32> {
                 "verdict_min" => screen::VERDICT_MIN,
                 "place_guard_mi" => ff_core::data::world_constants::LIMIT_ARTIFACT_PLACE_GUARD_MI,
             },
-            "inputs" => crate::pyobj! { "extracts" => Value::Array(names), "extract_date" => date.as_str() },
+            "inputs" => crate::pyobj! { "extracts" => names, "extract_date" => date.as_str() },
             "counts" => crate::pyobj! {
                 "candidates" => counts.candidates,
                 "on_highway" => counts.on_highway,
@@ -562,10 +584,13 @@ pub fn main(argv: &[String]) -> Result<i32> {
                 "fold_ratio" => fold_ratio,
             },
         };
-        util::write_text(
-            &gameplay.join("limit_artifacts.jsonl"),
-            &jsonl(meta, &artifacts),
-        )?;
+        for (folder, rows) in super::country::split_rows(&world, artifacts) {
+            let path = super::country::gameplay_dir_of(&folder).join("limit_artifacts.jsonl");
+            if rows.is_empty() && !path.is_file() {
+                continue;
+            }
+            util::write_text(&path, &jsonl(meta.clone(), &rows))?;
+        }
     }
     println!(
         "Wrote the world source, world_data/ and the gameplay layers. Re-bake world.ffdata next."

@@ -35,11 +35,15 @@ use ff_core::pyfmt::round_py_n;
 
 use super::super::osm::geo::{self, LegLine, M_PER_MI};
 use super::states::{self, Crossing};
-use super::{gameplay_dir, grades, leg_id, roads, shape, shard_path, valhalla};
+use super::{grades, leg_id, roads, shape, shard_path, valhalla};
 use crate::cli::{Args, Spec};
 use crate::pyjson::{self, Object, Value};
 use crate::util::{self, Result};
 use crate::world::{load_world, save_world, source_root};
+
+/// The `connector_source` of a curve flagged only for sitting in the first or
+/// last connector window of a leg, as the original positional bake wrote it.
+const WINDOW_SOURCE: &str = "sweep:window";
 
 const USAGE: &str = "usage: reroute-enrich (--leg from:to ... | --all-pending) --pbf FILE \
                      [--pbf FILE ...] [--extract-date YYYY-MM-DD] [--snapshot NAME] \
@@ -126,6 +130,8 @@ fn curve_rows(
             }
             if read {
                 row.insert("connector_source", Value::Str(reason.to_string()));
+            } else if window {
+                row.insert("connector_source", Value::Str(WINDOW_SOURCE.to_string()));
             }
             *why.entry(if read {
                 reason
@@ -224,37 +230,38 @@ fn ramp_rows(id: &str, p: &Picked) -> Result<Vec<Value>> {
         .collect())
 }
 
+/// The leg as the last commit has it in the source tree, if it was there.
+fn committed_leg(world: &Object, leg: &Value, id: &str) -> Option<Value> {
+    let shard = crate::world::shard_key(leg, world.get("cities").and_then(Value::as_object));
+    let spec = format!("HEAD:data/world_source/legs/{shard}.json");
+    let text = util::git(&util::repo_root(), &["show", &spec]).ok()?;
+    let old = pyjson::loads(&text).ok()?;
+    old.get("legs")?
+        .as_array()?
+        .iter()
+        .find(|l| leg_id(l) == id)
+        .cloned()
+}
+
 /// Layer sizes of the leg as committed, and its committed curve count.
 fn before(world: &Object, leg: &Value, id: &str) -> BTreeMap<String, usize> {
     let mut out = BTreeMap::new();
     let root = util::repo_root();
-    let shard = crate::world::shard_key(leg, world.get("cities").and_then(Value::as_object));
-    let spec = format!("HEAD:data/world_source/legs/{shard}.json");
-    if let Ok(text) = util::git(&root, &["show", &spec]) {
-        if let Ok(old) = pyjson::loads(&text) {
-            let legs = old
-                .get("legs")
-                .and_then(Value::as_array)
-                .cloned()
-                .unwrap_or_default();
-            if let Some(l) = legs.iter().find(|l| leg_id(l) == id) {
-                for (k, v) in l
-                    .get("corridor")
-                    .and_then(Value::as_object)
-                    .into_iter()
-                    .flat_map(Object::iter)
-                {
-                    if let Some(a) = v.as_array() {
-                        out.insert(k.clone(), a.len());
-                    }
-                }
+    if let Some(l) = committed_leg(world, leg, id) {
+        for (k, v) in l
+            .get("corridor")
+            .and_then(Value::as_object)
+            .into_iter()
+            .flat_map(Object::iter)
+        {
+            if let Some(a) = v.as_array() {
+                out.insert(k.clone(), a.len());
             }
         }
     }
-    if let Ok(text) = util::git(
-        &root,
-        &["show", "HEAD:data/world_data/us/gameplay/curves.jsonl"],
-    ) {
+    let folder = super::super::country::leg_folder(world, leg);
+    let spec = format!("HEAD:data/world_data/{folder}/gameplay/curves.jsonl");
+    if let Ok(text) = util::git(&root, &["show", &spec]) {
         let needle = format!("\"leg\": \"{id}\"");
         out.insert(
             "curves".into(),
@@ -276,22 +283,38 @@ fn sizes(leg: &Value, curves: usize) -> BTreeMap<String, usize> {
     out
 }
 
+/// The spoken name of a state, province or territory code. The codes of
+/// the countries in `geo.json` do not collide (BC is no US state), so every
+/// country is searched.
 fn state_name(world: &Object, code: &str) -> String {
     let geo_path = util::repo_root().join("data/world_data/geo.json");
-    pyjson::load_path(&geo_path)
-        .ok()
-        .and_then(|g| {
-            g.get("countries")?
-                .get("US")?
-                .get("states")?
-                .get(code)
-                .map(Value::py_str)
-        })
+    let geo = pyjson::load_path(&geo_path).ok();
+    let from_file = geo.as_ref().and_then(|g| {
+        g.get("countries")?
+            .as_object()?
+            .iter()
+            .find_map(|(_, country)| country.get("states")?.get(code).map(Value::py_str))
+    });
+    from_file
         .or_else(|| world.get("meta").map(|_| code.to_string()))
         .unwrap_or_else(|| code.to_string())
 }
 
-fn old_crossings(leg: &Value) -> Vec<Crossing> {
+/// The lines the leg carried before this run. `reroute-leg` drops a
+/// rerouted leg's crossings, whose miles no longer hold, so their names are
+/// read back from the last commit; a name such as a cited port of entry then
+/// outlives the reroute.
+fn old_crossings(world: &Object, leg: &Value, id: &str) -> Vec<Crossing> {
+    let own = crossings_of(leg);
+    if !own.is_empty() {
+        return own;
+    }
+    committed_leg(world, leg, id)
+        .map(|l| crossings_of(&l))
+        .unwrap_or_default()
+}
+
+fn crossings_of(leg: &Value) -> Vec<Crossing> {
     leg.get("corridor")
         .and_then(|c| c.get("state_crossings"))
         .and_then(Value::as_array)
@@ -407,7 +430,7 @@ pub fn main(argv: &[String]) -> Result<i32> {
 
     let boundary_note = format!(
         "derived 2026-11-05: the leg's archived route geometry intersected with OpenStreetMap \
-         U.S. state boundary relations (boundary=administrative, admin_level=4); at_mi = \
+         state and province boundary relations (boundary=administrative, admin_level=4); at_mi = \
          cumulative geometry distance at each boundary crossing, rescaled to leg miles; state \
          miles = differences of those boundaries. OpenStreetMap, {}: \
          https://www.openstreetmap.org/.",
@@ -480,7 +503,7 @@ pub fn main(argv: &[String]) -> Result<i32> {
             &state_name(&world, &code),
             &net,
             &highway,
-            &old_crossings(leg),
+            &old_crossings(&world, leg, id),
         );
         for c in &crossings {
             println!(
@@ -568,8 +591,11 @@ pub fn main(argv: &[String]) -> Result<i32> {
         osm_args.push("--write".into());
         save_world(&world, &source)?;
         for (id, curves, ramps) in &gameplay {
-            super::replace_leg_rows(&gameplay_dir().join("curves.jsonl"), id, curves.clone())?;
-            super::replace_leg_rows(&gameplay_dir().join("ramps.jsonl"), id, ramps.clone())?;
+            let dir = super::super::country::gameplay_dir_of(&super::super::country::id_folder(
+                &world, id,
+            ));
+            super::replace_leg_rows(&dir.join("curves.jsonl"), id, curves.clone())?;
+            super::replace_leg_rows(&dir.join("ramps.jsonl"), id, ramps.clone())?;
         }
     }
     println!("\n=== exits (osm-exits) ===");

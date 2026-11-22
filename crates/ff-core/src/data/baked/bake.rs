@@ -21,6 +21,7 @@ use super::{
     SECTION_LOCAL_APPROACHES, SECTION_LOCAL_GEOMETRY, TEXT_FILES,
 };
 use crate::data::curves;
+use crate::data::data_resources::country_folders_at;
 use crate::data::world::World;
 use crate::data::world_local_data::{
     load_city_service_data, load_facility_approaches, load_facility_endpoints,
@@ -209,8 +210,7 @@ fn dir_len(dir: &Path, extension: &str) -> u64 {
 /// byte comparison and a re-bake diffs as "unchanged".
 pub fn bake_bytes(data_dir: &Path) -> Result<(Vec<u8>, BakeReport), DataError> {
     let world_dir = data_dir.join("world_data");
-    let us_dir = world_dir.join("us");
-    let gameplay = us_dir.join("gameplay");
+    let folders = country_folders_at(data_dir);
 
     // Everything below runs the shipped loaders, never a private parser.
     let world = World::load_from_json(data_dir)?;
@@ -219,7 +219,10 @@ pub fn bake_bytes(data_dir: &Path) -> Result<(Vec<u8>, BakeReport), DataError> {
     // --- cities (eager) -----------------------------------------------
     let cities_json = file_len(&world_dir.join("index.json"))
         + file_len(&world_dir.join("geo.json"))
-        + file_len(&us_dir.join("cities.json"));
+        + folders
+            .iter()
+            .map(|f| file_len(&world_dir.join(f).join("cities.json")))
+            .sum::<u64>();
     let cities: Vec<(String, BakedCity)> = world
         .cities
         .iter()
@@ -228,7 +231,10 @@ pub fn bake_bytes(data_dir: &Path) -> Result<(Vec<u8>, BakeReport), DataError> {
     writer.push_value(SECTION_CITIES, &cities, BLOB_LEVEL, cities_json)?;
 
     // --- legs: eager fields, and one zstd frame per corridor ----------
-    let legs_json = dir_len(&us_dir.join("legs"), "json");
+    let legs_json: u64 = folders
+        .iter()
+        .map(|f| dir_len(&world_dir.join(f).join("legs"), "json"))
+        .sum();
     let mut corridor_region: Vec<u8> = Vec::with_capacity(24 << 20);
     let mut legs: Vec<BakedLeg> = Vec::with_capacity(world.legs.len());
     let mut with_corridor = 0usize;
@@ -291,11 +297,27 @@ pub fn bake_bytes(data_dir: &Path) -> Result<(Vec<u8>, BakeReport), DataError> {
     drop(corridor_region);
 
     // --- curves --------------------------------------------------------
-    let curves_path = gameplay.join("curves.jsonl");
-    let artifacts_path = gameplay.join("curve_artifacts.jsonl");
-    let curves_json = file_len(&curves_path) + file_len(&artifacts_path);
-    let curve_text = std::fs::read_to_string(&curves_path).unwrap_or_default();
-    let artifact_text = std::fs::read_to_string(&artifacts_path).unwrap_or_default();
+    // Every country's curve layer, read together: a leg's curves live in
+    // the folder of the country it starts in.
+    let mut curves_json = 0u64;
+    let mut curve_text = String::new();
+    let mut artifact_text = String::new();
+    for folder in &folders {
+        let gameplay = world_dir.join(folder).join("gameplay");
+        for (file, text) in [
+            ("curves.jsonl", &mut curve_text),
+            ("curve_artifacts.jsonl", &mut artifact_text),
+        ] {
+            let path = gameplay.join(file);
+            curves_json += file_len(&path);
+            if let Ok(read) = std::fs::read_to_string(&path) {
+                text.push_str(&read);
+                if !read.ends_with('\n') {
+                    text.push('\n');
+                }
+            }
+        }
+    }
     let screened = curves::build_from_sources(&curve_text, &artifact_text, &world);
     // `build_from_sources` answers with a hash map; sort so the bytes are the
     // same every run.

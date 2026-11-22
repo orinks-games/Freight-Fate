@@ -41,7 +41,7 @@ use super::osm::geo::{self, LegLine, M_PER_MI};
 use super::{load_world, save_world, source_root};
 use crate::cli::Args;
 use crate::pyjson::{Object, Value};
-use crate::util::{self, Result};
+use crate::util::Result;
 
 pub fn leg_id(leg: &Value) -> String {
     let end = |k| leg.get(k).map(Value::py_str).unwrap_or_default();
@@ -251,7 +251,7 @@ pub struct Run {
 impl Run {
     pub fn load() -> Result<Self> {
         let world = load_world(&source_root())?;
-        let archive = geo::load_archive(&util::repo_root().join("data/world_data/us/geometry"))?;
+        let archive = crate::world::country::load_archives()?;
         Ok(Self { world, archive })
     }
 

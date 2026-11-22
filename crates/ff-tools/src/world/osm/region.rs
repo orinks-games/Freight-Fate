@@ -24,6 +24,24 @@ use crate::pyjson::{Object, Value};
 pub const ALASKA: &str = "Alaska";
 /// The unposted default on Alaska's roads, for every vehicle.
 pub const ALASKA_DEFAULT_MPH: i64 = 55;
+/// Where no posted way lies along the road, the jurisdiction's statutory
+/// default, labelled assumed: `(spoken name, mph, source)`.
+///
+/// A province belongs here only once it is settled that an untagged way
+/// there is an unposted road. British Columbia is not listed although its
+/// Motor Vehicle Act (RSBC 1996 c. 318, s. 146(1)) sets 80 km/h outside a
+/// municipality and 50 inside one: the pilot read 100 miles of the Hart
+/// Highway north of Prince George with no `maxspeed` tag, a posted road
+/// OpenStreetMap is silent on, and the statute would have put it at 50 mph.
+/// Yukon sets no fixed rural default. Their untagged stretches stay explicit
+/// gaps, which the game fills from its highway heuristic.
+pub const UNPOSTED_DEFAULTS: &[(&str, i64, &str)] = &[(
+    ALASKA,
+    ALASKA_DEFAULT_MPH,
+    "Assumed 55 mph where no posted OpenStreetMap maxspeed way lies along the road in Alaska: \
+     the unposted default under 13 AAC 02.275.",
+)];
+
 /// Samples this close to a country border are not read: the way beside
 /// them may be the other country's, in the other country's unit.
 pub const BORDER_GUARD_MI: f64 = 0.1;
@@ -213,8 +231,14 @@ impl LegRegions {
         self.span_at(mile).is_some_and(|s| s.canada)
     }
 
-    pub fn in_alaska(&self, mile: f64) -> bool {
-        self.span_at(mile).is_some_and(|s| s.state == ALASKA)
+    /// The unposted default where the stretch at `mile` has one, with the
+    /// source the posting is written with: `(mph, source)`.
+    pub fn unposted_default(&self, mile: f64) -> Option<(i64, &'static str)> {
+        let state = &self.span_at(mile)?.state;
+        UNPOSTED_DEFAULTS
+            .iter()
+            .find(|(name, _, _)| name == state)
+            .map(|(_, mph, source)| (*mph, *source))
     }
 
     /// Whether `mile` is too close to a country border to read.
@@ -263,8 +287,10 @@ mod tests {
         let border = regions.borders[0].mile();
         let expected = 0.08 / 0.3 * 10.0;
         assert!((border - expected).abs() < 0.05, "{border} vs {expected}");
-        assert!(regions.in_alaska(1.0) && !regions.in_canada(1.0));
-        assert!(regions.in_canada(5.0) && !regions.in_alaska(5.0));
+        assert!(
+            regions.unposted_default(1.0).is_some_and(|d| d.0 == 55) && !regions.in_canada(1.0)
+        );
+        assert!(regions.in_canada(5.0));
         assert!(regions.near_border(border + 0.05));
         assert_eq!(regions.border_between(1.0, 5.0), Some(border));
     }
