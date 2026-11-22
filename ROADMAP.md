@@ -47,6 +47,7 @@ bookmarks usable.
 ## 1.9 in flight (`feat/career-1.9`)
 
 - [x] Manual cloud backup checks the current cloud revision before saying copies match; a stale local copy leaves the newer cloud career untouched and explains how to restore it.
+- [x] (Found along the way) A verified cloud restore could leave the old newer-copy warning in the parent Cloud backup menu; fixed 2026-11-22.
 - [x] Opt-in cloud resume (owner request): main-menu checks pick up clean, tracked careers from another device; changed local copies use the existing Cloud backup conflict choice. Off by default.
 - [x] Guest drivers (built 2026-11-07, merged to dev 2026-11-17): Drive online as a guest on the Online menu gets a word-list name from orinks.net and turns Profile sharing on; Guest name asks for a new one; guests are on the board only, so a profile, road journal, achievements and cloud backup stay account-only. An account with no driver yet takes the guest over when it connects. Needs the orinks.net guest routes live on the production site.
 - [x] Main voice (built 2026-11-17, owner request): Settings, Speech has a Main voice row above Driving event voice. Automatic stays the default; the player can pick any voice that can speak right now (a running screen reader, SAPI, Windows OneCore, Narrator while it runs, the built-in voice). The choice is saved as is and never rewritten: while the chosen voice cannot speak, the automatic pick speaks and the row says the voice is unavailable, and the health check binds it when it returns. When Driving event voice names the main voice, events go through the main voice and the event row reads "main voice"; the saved event voice is kept, so moving the main voice away brings the separate voice back. Hearken PR 74 (`main_backend_options`, the Narrator gate, the shared event voice).
@@ -4302,6 +4303,17 @@ holds the program's sound while it speaks. With the default device and the
 default communications device set to different devices, both voices played
 on the communications device before the patch and on the default device after
 it.
+
+### November 22 a verified restore clears its own cloud status (Found along the way)
+
+A native Nov 21 tester restored the newer cloud career successfully, then
+returned to the Cloud backup menu, which still said that a newer copy was
+pending. The stale status belonged to the cloud service rather than the
+individual slot screen.
+
+Fixed 2026-11-22: slot-specific statuses now retain their career name, and a
+verified restore clears only that career's status. A failed restore keeps its
+warning, and restoring another career does not erase an active conflict.
 
 ### November 21 a chain law follows the road (Found along the way)
 
