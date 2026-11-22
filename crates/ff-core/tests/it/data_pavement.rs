@@ -16,7 +16,8 @@ fn leg<'a>(legs: &'a [Arc<Leg>], a: &str, b: &str) -> &'a Leg {
 fn most_legs_have_a_layer_and_the_screens_drop_little() {
     let world = world();
     let (mut with, mut records, mut screened) = (0, 0, 0);
-    // HPMS covers only US roads, so a leg touching Canada has no layer.
+    // HPMS covers only US roads: a leg touching Canada has at most its US
+    // miles read, so the share counts the legs wholly in the US.
     let us_legs = world
         .legs
         .iter()
@@ -24,7 +25,9 @@ fn most_legs_have_a_layer_and_the_screens_drop_little() {
         .count();
     for leg in &world.legs {
         let Some(p) = leg.pavement() else { continue };
-        with += 1;
+        if !leg.a.ends_with("_ca") && !leg.b.ends_with("_ca") {
+            with += 1;
+        }
         records += p.surface.len() + p.structures.len() + p.screened;
         screened += p.screened;
         for (read, assumed) in [

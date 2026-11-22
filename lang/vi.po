@@ -5788,13 +5788,9 @@ msgstr "Mã cơ sở không xác định: {facility_id}"
 msgid "terminal"
 msgstr "terminal"
 
-#. placeholders: {start}
-msgid "Unknown city: {start}"
-msgstr "Thành phố không xác định: {start}"
-
-#. placeholders: {end}
-msgid "Unknown city: {end}"
-msgstr "Thành phố không xác định: {end}"
+#. placeholders: {missing}
+msgid "Unknown city: {missing}"
+msgstr ""
 
 #. placeholders: {city}
 msgid "{city} has no freight facilities"
@@ -9697,6 +9693,12 @@ msgstr ""
 
 msgid "Manitoba"
 msgstr ""
+
+msgid "Ontario"
+msgstr ""
+
+msgid "Quebec"
+msgstr "Quebec"
 
 msgid "Pay advance already taken for this load. Deliver it first."
 msgstr "Bạn đã ứng lương cho lô hàng này rồi. Hãy giao hàng xong trước."
@@ -19222,9 +19224,6 @@ msgstr "Oscar"
 
 msgid "Papa"
 msgstr "Papa"
-
-msgid "Quebec"
-msgstr "Quebec"
 
 msgid "Romeo"
 msgstr "Romeo"
@@ -46014,6 +46013,12 @@ msgid ""
 msgstr ""
 "Giữ nút vai trái để mở lớp nút thứ hai. {pad_engine} bật tắt động cơ, "
 "{pad_fuel} đọc nhiên liệu và {pad_speed_limit} đọc tốc độ giới hạn."
+
+#~ msgid "Unknown city: {start}"
+#~ msgstr "Thành phố không xác định: {start}"
+
+#~ msgid "Unknown city: {end}"
+#~ msgstr "Thành phố không xác định: {end}"
 
 #~ msgid "Cruise resuming."
 #~ msgstr "Đang khôi phục ga tự động."

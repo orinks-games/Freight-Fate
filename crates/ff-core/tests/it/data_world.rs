@@ -2791,8 +2791,17 @@ fn test_legs_are_sane_and_unique() {
         // Real metro-twin and drayage corridors (Newark-NYC ~11 mi, Norfolk-
         // Virginia Beach ~18, New Haven-Bridgeport ~21) are legitimate short
         // freight lanes; only ban truly trivial or cross-country single legs.
+        // Twin cities facing each other across a river and a state or
+        // province line (Port Huron and Sarnia, Ottawa and Gatineau) are a
+        // bridge apart, so they may sit closer.
+        let state = |key: &str| world.cities[key].state.as_str();
+        let floor = if state(&leg.a) != state(&leg.b) {
+            5.0
+        } else {
+            10.0
+        };
         assert!(
-            leg.highway == "Anton Anderson Memorial Tunnel" || (10.0..=800.0).contains(&leg.miles),
+            leg.highway == "Anton Anderson Memorial Tunnel" || (floor..=800.0).contains(&leg.miles),
             "absurd mileage: {leg:?}"
         );
         // Directed uniqueness: the graph may author both A→B and B→A (ALCAN
