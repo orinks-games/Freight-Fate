@@ -5476,13 +5476,9 @@ msgstr "Bilinmeyen tesis kimliği: {facility_id}"
 msgid "terminal"
 msgstr "terminal"
 
-#. placeholders: {start}
-msgid "Unknown city: {start}"
-msgstr "Bilinmeyen şehir: {start}"
-
-#. placeholders: {end}
-msgid "Unknown city: {end}"
-msgstr "Bilinmeyen şehir: {end}"
+#. placeholders: {missing}
+msgid "Unknown city: {missing}"
+msgstr ""
 
 #. placeholders: {city}
 msgid "{city} has no freight facilities"
@@ -9316,6 +9312,12 @@ msgstr ""
 
 msgid "Manitoba"
 msgstr ""
+
+msgid "Ontario"
+msgstr ""
+
+msgid "Quebec"
+msgstr "Quebec"
 
 msgid "Pay advance already taken for this load. Deliver it first."
 msgstr "Bu yük için ücret avansı zaten alındı. Önce yükü teslim edin."
@@ -18858,9 +18860,6 @@ msgstr "Oscar"
 
 msgid "Papa"
 msgstr "Papa"
-
-msgid "Quebec"
-msgstr "Quebec"
 
 msgid "Romeo"
 msgstr "Romeo"
@@ -45661,6 +45660,12 @@ msgstr ""
 
 #~ msgid "Distance and speed in miles or kilometers."
 #~ msgstr "Mesafe ve hız mil ya da kilometre olarak."
+
+#~ msgid "Unknown city: {start}"
+#~ msgstr "Bilinmeyen şehir: {start}"
+
+#~ msgid "Unknown city: {end}"
+#~ msgstr "Bilinmeyen şehir: {end}"
 
 #~ msgid "Cruise resuming."
 #~ msgstr "Hız sabitleyici devam ediyor."

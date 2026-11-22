@@ -102,6 +102,8 @@ fn state_zone(state: &str) -> Option<TimeZone> {
         // Central Standard Time all year, which is what a fixed offset says.
         "Alberta" | "AB" => MOUNTAIN,
         "Saskatchewan" | "SK" | "Manitoba" | "MB" => CENTRAL,
+        // Quebec west of the Lower North Shore, which is all the map reaches.
+        "Quebec" | "QC" => EASTERN,
         _ => return None,
     })
 }
@@ -240,9 +242,22 @@ fn british_columbia(lat: f64, lon: f64) -> TimeZone {
     PACIFIC
 }
 
+/// Ontario is Eastern except the northwest, where Kenora, Dryden and Ignace
+/// keep Central time; the line runs near the 90th meridian, between Upsala
+/// and Ignace on Highway 17, so Thunder Bay is Eastern. (Atikokan, west of
+/// it, keeps Eastern Standard Time all year; no city there is on the map.)
+fn ontario(_lat: f64, lon: f64) -> TimeZone {
+    if lon < -90.5 {
+        CENTRAL
+    } else {
+        EASTERN
+    }
+}
+
 fn split_state_zone(state: &str) -> Option<fn(f64, f64) -> TimeZone> {
     Some(match state {
         "British Columbia" | "BC" => british_columbia,
+        "Ontario" | "ON" => ontario,
         "Florida" => florida,
         "Indiana" => indiana,
         "Kentucky" => kentucky,
@@ -417,6 +432,11 @@ mod tests {
             ("Castlegar", 49.32, -117.66, "British Columbia", PACIFIC),
             ("Prince George", 53.92, -122.75, "British Columbia", PACIFIC),
             ("Dawson Creek", 55.76, -120.24, "British Columbia", MOUNTAIN),
+            ("Windsor", 42.31, -83.04, "Ontario", EASTERN),
+            ("Thunder Bay", 48.38, -89.25, "Ontario", EASTERN),
+            ("Kenora", 49.77, -94.49, "Ontario", CENTRAL),
+            ("Montreal", 45.50, -73.57, "Quebec", EASTERN),
+            ("Rouyn-Noranda", 48.24, -79.02, "Quebec", EASTERN),
             ("Chetwynd", 55.70, -121.63, "British Columbia", MOUNTAIN),
             ("Jasper", 52.88, -118.08, "Alberta", MOUNTAIN),
             ("Grande Prairie", 55.17, -118.8, "Alberta", MOUNTAIN),

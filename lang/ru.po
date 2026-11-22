@@ -5549,13 +5549,9 @@ msgstr "Неизвестный идентификатор объекта: {facil
 msgid "terminal"
 msgstr "terminal"
 
-#. placeholders: {start}
-msgid "Unknown city: {start}"
-msgstr "Неизвестный город: {start}"
-
-#. placeholders: {end}
-msgid "Unknown city: {end}"
-msgstr "Неизвестный город: {end}"
+#. placeholders: {missing}
+msgid "Unknown city: {missing}"
+msgstr ""
 
 #. placeholders: {city}
 msgid "{city} has no freight facilities"
@@ -9485,6 +9481,12 @@ msgstr ""
 
 msgid "Manitoba"
 msgstr ""
+
+msgid "Ontario"
+msgstr ""
+
+msgid "Quebec"
+msgstr "Квебек"
 
 msgid "Pay advance already taken for this load. Deliver it first."
 msgstr "Аванс за этот груз уже взят. Сначала доставьте его."
@@ -19129,9 +19131,6 @@ msgstr "Оскар"
 
 msgid "Papa"
 msgstr "Папа"
-
-msgid "Quebec"
-msgstr "Квебек"
 
 msgid "Romeo"
 msgstr "Ромео"
@@ -46719,6 +46718,12 @@ msgstr ""
 
 #~ msgid "Distance and speed in miles or kilometers."
 #~ msgstr "Расстояние и скорость в милях или километрах."
+
+#~ msgid "Unknown city: {start}"
+#~ msgstr "Неизвестный город: {start}"
+
+#~ msgid "Unknown city: {end}"
+#~ msgstr "Неизвестный город: {end}"
 
 #~ msgid "Cruise resuming."
 #~ msgstr "Круиз-контроль продолжает."

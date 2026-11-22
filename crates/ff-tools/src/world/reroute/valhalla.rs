@@ -290,6 +290,8 @@ pub fn shield_key(name: &str) -> Option<(&'static str, String)> {
         // of the same number.
         // Manitoba signs its primary roads Provincial Trunk Highways.
         "TCH" | "YH" | "PTH" => "STATE",
+        // Quebec's autoroutes ("A-20", "Autoroute 20").
+        "A" | "AUTOROUTE" => "STATE",
         "CR" | "COUNTY ROAD" | "COUNTY ROUTE" => "CR",
         p if p.ends_with(" ROUTE") || p.ends_with(" HIGHWAY") || p.ends_with(" ROAD") => "STATE",
         p if p.len() == 2 && p.chars().all(|c| c.is_ascii_alphabetic()) => "STATE",
@@ -311,15 +313,17 @@ pub fn matches_shield(name: &str, highway: &str) -> bool {
         .filter(|part| !part.is_empty())
         .any(|part| match (shield_key(part), shield_key(name)) {
             (Some(a), Some(b)) => a == b,
-            (None, _) => same_name(name, part),
+            // Ontario and Quebec routes carry a bare number as their ref
+            // ("401", "20"): a provincial route of that number.
             (Some((class, number)), None) => class == "STATE" && bare_number(name) == Some(number),
+            (None, _) => same_name(name, part),
         })
 }
 
-/// A road OpenStreetMap names by its bare number ("2", "16"), as the
-/// Prairie provinces' primary highways are: the number, so a provincial
-/// shield of that number matches. "16B" or "16A" (a business or alternate
-/// route) is not bare, so it matches nothing.
+/// A road OpenStreetMap names by its bare number ("2", "16", "401",
+/// "20"), as the Prairie provinces, Ontario and Quebec do: the number, so a
+/// provincial shield of that number matches. "16B" or "16A" (a business or
+/// alternate route) is not bare, so it matches nothing.
 fn bare_number(name: &str) -> Option<String> {
     let name = name.trim();
     (!name.is_empty() && name.chars().all(|c| c.is_ascii_digit())).then(|| name.to_string())
@@ -389,11 +393,17 @@ mod tests {
         assert!(matches_shield("I-5", "I-5 / US-97"));
         assert!(matches_shield("TCH 1 West", "Hwy 1 / Hwy 97"));
         assert!(matches_shield("YH 16", "Hwy 16"));
+        assert!(matches_shield("Highway 401", "Hwy 401"));
+        assert!(matches_shield("401", "Hwy 401"));
+        assert!(matches_shield("20", "A-20"));
+        assert!(matches_shield("Autoroute 40", "A-40"));
+        assert!(!matches_shield("20", "A-40"));
+        assert!(!matches_shield("94", "I-94"));
+        assert!(!matches_shield("Autoroute Jean-Lesage", "A-20"));
         assert!(matches_shield("16", "Hwy 16 / Yellowhead Highway"));
         assert!(matches_shield("2", "Hwy 2"));
         assert!(!matches_shield("16B", "Hwy 16"));
         assert!(!matches_shield("2", "Hwy 16"));
-        assert!(!matches_shield("94", "I-94"));
         assert!(matches_shield("PTH 1 West", "Hwy 1 / Trans-Canada Highway"));
     }
 }

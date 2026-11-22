@@ -5680,13 +5680,9 @@ msgstr "Id de instalación desconocido: {facility_id}"
 msgid "terminal"
 msgstr "terminal"
 
-#. placeholders: {start}
-msgid "Unknown city: {start}"
-msgstr "Ciudad desconocida: {start}"
-
-#. placeholders: {end}
-msgid "Unknown city: {end}"
-msgstr "Ciudad desconocida: {end}"
+#. placeholders: {missing}
+msgid "Unknown city: {missing}"
+msgstr ""
 
 #. placeholders: {city}
 msgid "{city} has no freight facilities"
@@ -9668,6 +9664,12 @@ msgstr ""
 
 msgid "Manitoba"
 msgstr ""
+
+msgid "Ontario"
+msgstr ""
+
+msgid "Quebec"
+msgstr "Quebec"
 
 msgid "Pay advance already taken for this load. Deliver it first."
 msgstr "Ya pediste un adelanto de pago para esta carga. Entrégala primero."
@@ -19345,9 +19347,6 @@ msgstr "Oscar"
 
 msgid "Papa"
 msgstr "Papa"
-
-msgid "Quebec"
-msgstr "Quebec"
 
 msgid "Romeo"
 msgstr "Romeo"
@@ -46767,6 +46766,12 @@ msgstr ""
 
 #~ msgid "Distance and speed in miles or kilometers."
 #~ msgstr "Distancia y velocidad en millas o kilómetros."
+
+#~ msgid "Unknown city: {start}"
+#~ msgstr "Ciudad desconocida: {start}"
+
+#~ msgid "Unknown city: {end}"
+#~ msgstr "Ciudad desconocida: {end}"
 
 #~ msgid "Cruise resuming."
 #~ msgstr "Crucero reanudándose."

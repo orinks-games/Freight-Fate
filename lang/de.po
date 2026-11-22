@@ -5696,13 +5696,9 @@ msgstr "Unbekannte Standort-ID: {facility_id}"
 msgid "terminal"
 msgstr "terminal"
 
-#. placeholders: {start}
-msgid "Unknown city: {start}"
-msgstr "Unbekannte Stadt: {start}"
-
-#. placeholders: {end}
-msgid "Unknown city: {end}"
-msgstr "Unbekannte Stadt: {end}"
+#. placeholders: {missing}
+msgid "Unknown city: {missing}"
+msgstr ""
 
 #. placeholders: {city}
 msgid "{city} has no freight facilities"
@@ -9651,6 +9647,12 @@ msgstr ""
 
 msgid "Manitoba"
 msgstr ""
+
+msgid "Ontario"
+msgstr ""
+
+msgid "Quebec"
+msgstr "Quebec"
 
 msgid "Pay advance already taken for this load. Deliver it first."
 msgstr ""
@@ -19343,9 +19345,6 @@ msgstr "Oscar"
 
 msgid "Papa"
 msgstr "Papa"
-
-msgid "Quebec"
-msgstr "Quebec"
 
 msgid "Romeo"
 msgstr "Romeo"
@@ -46742,6 +46741,12 @@ msgstr ""
 
 #~ msgid "Distance and speed in miles or kilometers."
 #~ msgstr "Entfernung und Tempo in Meilen oder Kilometern."
+
+#~ msgid "Unknown city: {start}"
+#~ msgstr "Unbekannte Stadt: {start}"
+
+#~ msgid "Unknown city: {end}"
+#~ msgstr "Unbekannte Stadt: {end}"
 
 #~ msgid "Cruise resuming."
 #~ msgstr "Tempomat läuft weiter."
