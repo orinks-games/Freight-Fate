@@ -206,6 +206,79 @@ fn a_placed_attraction_sign_is_read_even_right_after_a_joke_board() {
 }
 
 #[test]
+fn a_landmark_line_that_names_a_town_takes_the_town_slot() {
+    fn at(key: &str, mi: f64, category: &str, place: &str, spoken: &str) -> RoadsideCallout {
+        let mut c = RoadsideCallout::new(key, mi, category, spoken);
+        c.place = place.to_string();
+        c
+    }
+    // Gravenhurst explains no limit, so its town name is heard only at the
+    // loudest place tier; the Bethune line must replace it as a landmark,
+    // not be spaced away two miles behind it.
+    let towns = vec![
+        at("g", 109.9, "village", "Gravenhurst", "Passing Gravenhurst."),
+        {
+            let mut grimshaw = at("s", 150.0, "village", "Grimshaw", "Entering Grimshaw.");
+            grimshaw.explains_limit = true;
+            grimshaw
+        },
+    ];
+    let lines = vec![
+        at(
+            "b",
+            109.9,
+            "highway_marker",
+            "Gravenhurst",
+            "Passing Bethune Memorial House, in Gravenhurst.",
+        ),
+        at(
+            "m",
+            150.0,
+            "highway_marker",
+            "Grimshaw",
+            "Entering Grimshaw, mile zero of the Mackenzie Highway.",
+        ),
+        // A river a mile on is still spaced away behind the town.
+        at(
+            "r",
+            110.9,
+            "river",
+            "Muskoka River",
+            "Crossing the Muskoka River.",
+        ),
+        // Same name, another mile: not the town's line.
+        at(
+            "x",
+            105.0,
+            "highway_marker",
+            "Gravenhurst",
+            "Gravenhurst Wharf.",
+        ),
+    ];
+    let placed = Trip::space_landmarks(towns, lines);
+    let said: Vec<(&str, &str, bool)> = placed
+        .iter()
+        .map(|c| (c.spoken.as_str(), c.category.as_str(), c.explains_limit))
+        .collect();
+    assert_eq!(
+        said,
+        vec![
+            ("Gravenhurst Wharf.", "highway_marker", false),
+            (
+                "Passing Bethune Memorial House, in Gravenhurst.",
+                "highway_marker",
+                false
+            ),
+            (
+                "Entering Grimshaw, mile zero of the Mackenzie Highway.",
+                "village",
+                true
+            ),
+        ]
+    );
+}
+
+#[test]
 fn test_geo_callouts_fire_once_per_place_at_either_clock() {
     fn plant(trip: &mut Trip) {
         trip.landmarks = vec![

@@ -277,28 +277,6 @@ fn crowding(placed: &Placed, legs: &[Value], others: &[&Placed]) -> Vec<String> 
         .collect()
 }
 
-const SHEET_LINE_NOTE: &str = "spoken line from a billboard sign sheet, in place of the town's own";
-
-/// The village record a landmark line from a sheet takes over: same name,
-/// same milepost, and close enough to the road to be spoken. A village the
-/// drive never passes keeps its record and the sheet's line stands beside it.
-fn town_line_taken(landmarks: &[Value], record: &Object) -> Option<usize> {
-    if record.get("category").map(Value::py_str).as_deref() != Some("highway_marker") {
-        return None;
-    }
-    let name = record.get("name")?;
-    let at = record.get("at_mi").and_then(Value::as_f64)?;
-    landmarks.iter().position(|lm| {
-        lm.get("category").map(Value::py_str).as_deref() == Some("village")
-            && lm.get("name") == Some(name)
-            && lm
-                .get("at_mi")
-                .and_then(Value::as_f64)
-                .is_some_and(|m| (m - at).abs() < 0.05)
-            && can_speak(lm)
-    })
-}
-
 fn merge(leg: &mut Value, record: Object) -> Result<()> {
     let corridor = corridor_mut(leg)?;
     if !matches!(corridor.get("landmarks"), Some(Value::Array(_))) {
@@ -311,26 +289,6 @@ fn merge(leg: &mut Value, record: Object) -> Result<()> {
     let category = record.get("category").cloned();
     landmarks
         .retain(|lm| !(lm.get("name") == name.as_ref() && lm.get("category") == category.as_ref()));
-    if let Some(town) = town_line_taken(landmarks, &record) {
-        // The sheet's line takes the town's own: the village record keeps its
-        // place, its offset and its part in explaining a town's speed limit,
-        // and says the sheet's words. A second record at the same mile would
-        // only be thinned away behind the village.
-        let spoken = record.get("spoken").cloned().unwrap_or(Value::Null);
-        if let Value::Object(village) = &mut landmarks[town] {
-            village.insert("spoken", spoken);
-            let source = village.get("source").map(Value::py_str).unwrap_or_default();
-            if !source.contains(SHEET_LINE_NOTE) {
-                let joined = if source.is_empty() {
-                    SHEET_LINE_NOTE.to_string()
-                } else {
-                    format!("{source}; {SHEET_LINE_NOTE}")
-                };
-                village.insert("source", Value::Str(joined));
-            }
-        }
-        return Ok(());
-    }
     landmarks.push(Value::Object(record));
     landmarks.sort_by(|a, b| {
         let at = |v: &Value| v.get("at_mi").and_then(Value::as_f64).unwrap_or(0.0);
@@ -496,79 +454,6 @@ mod tests {
         assert!(
             can_speak(&Value::Object(no_off)),
             "a village with no offset is on the road"
-        );
-    }
-
-    fn village(name: &str, at: f64, off_mi: f64, spoken: &str) -> Value {
-        let mut o = Object::new();
-        o.insert("name", Value::Str(name.into()));
-        o.insert("at_mi", Value::Float(at));
-        o.insert("off_mi", Value::Float(off_mi));
-        o.insert("category", Value::Str("village".into()));
-        o.insert("spoken", Value::Str(spoken.into()));
-        Value::Object(o)
-    }
-
-    fn marker(name: &str, at: f64, spoken: &str) -> Object {
-        let mut o = Object::new();
-        o.insert("name", Value::Str(name.into()));
-        o.insert("category", Value::Str("highway_marker".into()));
-        o.insert("at_mi", Value::Float(at));
-        o.insert("spoken", Value::Str(spoken.into()));
-        o
-    }
-
-    fn landmarks_of(l: &Value) -> Vec<Value> {
-        l.get("corridor")
-            .and_then(|c| c.get("landmarks"))
-            .and_then(Value::as_array)
-            .cloned()
-            .unwrap_or_default()
-    }
-
-    #[test]
-    fn a_sheet_line_that_names_the_town_takes_the_town_line() {
-        let mut l = leg(&[("Alberta", 120.0)], &[]);
-        if let Value::Object(leg) = &mut l {
-            if let Some(Value::Object(c)) = leg.get_mut("corridor") {
-                c.insert(
-                    "landmarks",
-                    Value::Array(vec![village("Grimshaw", 109.7, 0.08, "Entering Grimshaw")]),
-                );
-            }
-        }
-        let line = "Entering Grimshaw, mile zero of the Mackenzie Highway.";
-        merge(&mut l, marker("Grimshaw", 109.7, line)).unwrap();
-        merge(&mut l, marker("Grimshaw", 109.7, line)).unwrap();
-        let marks = landmarks_of(&l);
-        assert_eq!(
-            marks.len(),
-            1,
-            "one record, the village, twice baked: {marks:?}"
-        );
-        assert_eq!(
-            marks[0].get("category").map(Value::py_str).as_deref(),
-            Some("village")
-        );
-        assert_eq!(
-            marks[0].get("spoken").map(Value::py_str).as_deref(),
-            Some(line)
-        );
-
-        let mut far = leg(&[("Saskatchewan", 86.0)], &[]);
-        if let Value::Object(leg) = &mut far {
-            if let Some(Value::Object(c)) = leg.get_mut("corridor") {
-                c.insert(
-                    "landmarks",
-                    Value::Array(vec![village("Batoche", 37.7, 5.4, "Passing Batoche")]),
-                );
-            }
-        }
-        merge(&mut far, marker("Batoche", 37.7, "Passing near Batoche.")).unwrap();
-        assert_eq!(
-            landmarks_of(&far).len(),
-            2,
-            "a village the drive never passes keeps its record; the sheet's line stands beside it"
         );
     }
 

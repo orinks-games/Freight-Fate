@@ -697,6 +697,9 @@ pub struct RoadsideCallout {
     pub spoken: String,
     /// True when this place name explains a speed limit change just ahead.
     pub explains_limit: bool,
+    /// The name of the place a map landmark stands for, so a line that names
+    /// a town can be matched to the town's own; empty for everything else.
+    pub place: String,
 }
 
 impl RoadsideCallout {
@@ -707,6 +710,7 @@ impl RoadsideCallout {
             category: category.to_string(),
             spoken: spoken.to_string(),
             explains_limit: false,
+            place: String::new(),
         }
     }
 
@@ -728,6 +732,9 @@ impl RoadsideCallout {
 }
 
 pub const LANDMARK_MIN_SPACING_MI: f64 = 2.0;
+/// How close a landmark line and a town's record must stand to be one place:
+/// the billboard baker writes both at the same milepost.
+pub const TOWN_LINE_SAME_MILE_MI: f64 = 0.05;
 pub const VILLAGE_PASS_OFF_MI: f64 = 1.5;
 pub const VILLAGE_MIN_SPACING_MI: f64 = LANDMARK_MIN_SPACING_MI;
 pub const VILLAGE_PAIR_WINDOW_MI: f64 = 1.5;

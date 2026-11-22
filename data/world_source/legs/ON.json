@@ -2760,8 +2760,18 @@
             "off_mi": 0.87,
             "category": "village",
             "kind": "point",
-            "source": "OpenStreetMap place=town node 1615046608, projected onto the leg's checked-in route geometry; spoken line from a billboard sign sheet, in place of the town's own",
-            "spoken": "Passing Bethune Memorial House, in Gravenhurst."
+            "source": "OpenStreetMap place=town node 1615046608, projected onto the leg's checked-in route geometry",
+            "spoken": "Passing Gravenhurst"
+          },
+          {
+            "name": "Gravenhurst",
+            "category": "highway_marker",
+            "kind": "point",
+            "at_mi": 46.5,
+            "spoken": "Passing Bethune Memorial House, in Gravenhurst.",
+            "directions": [
+              "forward"
+            ]
           },
           {
             "name": "South Branch Muskoka River",
@@ -60027,8 +60037,18 @@
             "off_mi": 0.84,
             "category": "village",
             "kind": "point",
-            "source": "OpenStreetMap place=town node 1615046608, projected onto the leg's checked-in route geometry; spoken line from a billboard sign sheet, in place of the town's own",
-            "spoken": "Passing Bethune Memorial House, in Gravenhurst."
+            "source": "OpenStreetMap place=town node 1615046608, projected onto the leg's checked-in route geometry",
+            "spoken": "Passing Gravenhurst"
+          },
+          {
+            "name": "Gravenhurst",
+            "category": "highway_marker",
+            "kind": "point",
+            "at_mi": 109.9,
+            "spoken": "Passing Bethune Memorial House, in Gravenhurst.",
+            "directions": [
+              "forward"
+            ]
           },
           {
             "name": "Severn River",
