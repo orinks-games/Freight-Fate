@@ -42688,6 +42688,10 @@ msgid ""
 "Home and End jump to the first or last option."
 msgstr ""
 
+#: crates/freight-fate/src/states/main_menu_help.rs crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid "Page Up and Page Down move ten options at a time."
+msgstr ""
+
 #: crates/freight-fate/src/states/main_menu_help.rs
 msgid ""
 "Type a letter to find an option starting with it. F1 explains the selected "
@@ -44793,10 +44797,6 @@ msgstr ""
 #. placeholders: {title}, {page}, {pages}
 #: crates/freight-fate/src/states/main_menu_help.rs
 msgid "How to play - {title} ({page}/{pages})"
-msgstr ""
-
-#: crates/freight-fate/src/states/main_menu_help_phone.rs
-msgid "Page Up and Page Down move ten options at a time."
 msgstr ""
 
 #: crates/freight-fate/src/states/main_menu_help_phone.rs
