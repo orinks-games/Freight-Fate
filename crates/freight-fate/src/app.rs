@@ -128,7 +128,7 @@ impl FrameClock {
 }
 
 /// The rest of the frame, asleep.
-#[cfg(not(target_os = "ios"))]
+#[cfg(not(any(target_os = "ios", target_os = "macos")))]
 fn wait_out_frame(rest: Duration) {
     std::thread::sleep(rest);
 }
@@ -139,7 +139,16 @@ fn wait_out_frame(rest: Duration) {
 /// main run loop runs. Sleeping made each of those questions wait for the
 /// next event pump, and a swipe's beep and line came about a quarter of a
 /// second late. Speech handed to the main thread waits on it the same way.
-#[cfg(target_os = "ios")]
+///
+/// A Mac is the same: AppKit answers VoiceOver's accessibility questions
+/// only while the main run loop runs, one per question. Asleep, each waited
+/// up to a frame (17.6 ms measured), and VoiceOver asks a couple of hundred
+/// of them when the player switches back to the game, so the game sat deaf
+/// to the keyboard for about three seconds after every Command-Tab.
+/// VoiceOver announcements are posted on the main queue and wait the same.
+/// Off the main thread (the tests) the run loop has nothing to run, and
+/// this sleeps as before.
+#[cfg(any(target_os = "ios", target_os = "macos"))]
 fn wait_out_frame(rest: Duration) {
     use std::ffi::c_void;
 

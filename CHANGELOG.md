@@ -10,6 +10,7 @@
 
 ### Fixed
 
+- **On a Mac with VoiceOver, the game answers keys right away after you switch back to it.** It used to ignore them for about three seconds.
 - **Chains no longer wear fast in the first 2 miles of bare road.** That leaves room to stop and take them off.
 - **Holding chain speed on cruise no longer wears the chains as if you were speeding.**
 - **Cruise now keeps the truck at chain speed downhill.** It used to drift over and wear the chains faster.
