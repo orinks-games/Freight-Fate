@@ -562,6 +562,7 @@ impl DrivingState {
                 || clamped == self.lane.lane
                 || !self.trip.truck.engine_on
                 || self.trip.truck.speed_mph() < LANE_MIN_MPH
+                || self.lane_keep_availability.is_dropped_out()
             {
                 self.assisted_lane_change = self
                     .assisted_lane_change

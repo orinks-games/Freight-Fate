@@ -370,7 +370,11 @@ impl DrivingState {
         //   yield), and glides smoothly once the lane opens.
         if let Some(blocked) = self.lane_blocked_text(target) {
             let side = ff_core::sim::lane_change_assist::BlindSpotSide::from_direction(direction);
-            let mode = ctx.settings.lane_keeping.as_str();
+            let mode = if self.lane_keep_availability.is_dropped_out() {
+                "off"
+            } else {
+                ctx.settings.lane_keeping.as_str()
+            };
             if let Some(side) = side {
                 if mode == "partial" || mode == "full" {
                     ctx.audio
