@@ -138,6 +138,9 @@ pub trait TextEntry: Sized + 'static {
                 ctx.pop_state();
             }
             Key::Return | Key::KpEnter => self.confirm(ctx),
+            // Help, a two-finger flick up on a phone: the field's opening
+            // line again, which says how it works.
+            Key::F1 => self.enter(ctx),
             Key::Backspace => self.backspace(ctx),
             Key::Left => self.move_cursor(ctx, -1),
             Key::Right => self.move_cursor(ctx, 1),
@@ -300,6 +303,10 @@ macro_rules! impl_state_for_text_entry {
     ($ty:ty) => {
         impl $crate::states::base::State for $ty {
             fn enter(&mut self, ctx: &mut $crate::app::GameContext) {
+                <Self as $crate::states::text_entry::TextEntry>::enter(self, ctx)
+            }
+            fn on_app_return(&mut self, ctx: &mut $crate::app::GameContext) {
+                // The field's own prompt, as it says on opening.
                 <Self as $crate::states::text_entry::TextEntry>::enter(self, ctx)
             }
             fn exit(&mut self, ctx: &mut $crate::app::GameContext) {

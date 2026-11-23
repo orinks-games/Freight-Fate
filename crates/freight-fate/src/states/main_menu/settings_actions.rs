@@ -5,9 +5,9 @@
 use ff_core::l10n;
 use ff_core::pyfmt::{py_str_float, round_py_n};
 use ff_core::settings::{
-    acc_gap_seconds, ScoreDisplay, Settings, ACC_GAP_CHOICES, ACC_GAP_DEFAULT,
-    BACKUP_ANNOUNCEMENT_MODES, DRIVING_ASSIST_FIELDS, DRIVING_ASSIST_PRESETS, LANE_KEEPING_MODES,
-    PLACE_CALLOUT_MODES, TIME_SCALES,
+    acc_gap_seconds, ScoreDisplay, Settings, SpeedAssistMode, SteeringAssistMode, ACC_GAP_CHOICES,
+    ACC_GAP_DEFAULT, BACKUP_ANNOUNCEMENT_MODES, DRIVING_ASSIST_FIELDS, DRIVING_ASSIST_PRESETS,
+    LANE_KEEPING_MODES, PLACE_CALLOUT_MODES, TIME_SCALES,
 };
 use ff_core::sim::hos::clock_text;
 use ff_core::sim::season::{date_text, real_clock_game_hours};
@@ -69,6 +69,25 @@ pub(super) fn assist_preset_label(s: &Settings) -> &'static str {
         "realistic" => "Realistic",
         "balanced" => "Balanced",
         "all" => "All assists",
+        _ => "Custom",
+    }
+}
+
+pub(super) fn steering_assist_label(s: &Settings) -> &'static str {
+    match s.steering_assist_mode.as_str() {
+        "manual" => "Manual",
+        "partial" => "Partial",
+        "full" => "Full",
+        _ => "Custom",
+    }
+}
+
+pub(super) fn speed_assist_label(s: &Settings) -> &'static str {
+    match s.speed_assist_mode.as_str() {
+        "manual" => "Manual",
+        "light" => "Light",
+        "standard" => "Standard",
+        "strong" => "Strong",
         _ => "Custom",
     }
 }
@@ -179,6 +198,24 @@ pub(super) fn update_channel(s: &Settings) -> String {
 }
 
 impl SettingsCategoryState {
+    pub(super) fn cycle_steering_assist(&mut self, ctx: &mut GameContext, direction: i64) {
+        let current = SteeringAssistMode::from_tag(&ctx.settings.steering_assist_mode)
+            .unwrap_or(SteeringAssistMode::Custom);
+        let next = current.next(direction);
+        ctx.settings.apply_steering_assist_mode(next.as_str());
+        self.announce(ctx);
+        save_settings(&ctx.settings);
+    }
+
+    pub(super) fn cycle_speed_assist(&mut self, ctx: &mut GameContext, direction: i64) {
+        let current = SpeedAssistMode::from_tag(&ctx.settings.speed_assist_mode)
+            .unwrap_or(SpeedAssistMode::Custom);
+        let next = current.next(direction);
+        ctx.settings.apply_speed_assist_mode(next.as_str());
+        self.announce(ctx);
+        save_settings(&ctx.settings);
+    }
+
     pub(super) fn cycle_assist_preset(&mut self, ctx: &mut GameContext, direction: i64) {
         let presets: Vec<&str> = DRIVING_ASSIST_PRESETS
             .iter()
@@ -198,7 +235,7 @@ impl SettingsCategoryState {
             let note = if ctx.settings.lane_is_automated()
                 && ctx.controller.device() == ff_core::input_hints::TOUCH
             {
-                "Lane keeping full: the truck holds the lane, swipe left or right to change lanes."
+                "Lane keeping full: the truck holds the lane, flick left or right to change lanes."
                     .to_string()
             } else if ctx.settings.lane_is_automated() {
                 format!(
@@ -332,6 +369,8 @@ impl SettingsCategoryState {
             "music_volume" => &mut s.music_volume,
             "radio_volume" => &mut s.radio_volume,
             "weather_volume" => &mut s.weather_volume,
+            "outside_volume" => &mut s.outside_volume,
+            "road_surface_volume" => &mut s.road_surface_volume,
             "engine_volume" => &mut s.engine_volume,
             "ui_volume" => &mut s.ui_volume,
             "speech_rate" => &mut s.speech_rate,

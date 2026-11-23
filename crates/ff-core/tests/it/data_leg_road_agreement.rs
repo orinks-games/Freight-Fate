@@ -8,9 +8,23 @@ use std::sync::OnceLock;
 use crate::data_support::data_dir;
 use serde_json::Value;
 
-const BUFFALO_NY_TO_NEW_YORK: &str = "buffalo_ny_us:new_york_ny_us";
-const ROCHESTER_NY_TO_NEW_YORK: &str = "rochester_ny_us:new_york_ny_us";
-const DALLAS_TX_TO_ST_LOUIS: &str = "dallas_tx_us:st_louis_mo_us";
+/// The Thruway west of Newburgh; Buffalo and Rochester to New York were split
+/// at Newburgh (Northeast roads, 2026-11-23) and these pieces keep the Thruway.
+const BUFFALO_NY_TO_NEW_YORK: &str = "buffalo_ny_us:newburgh_ny_us";
+const ROCHESTER_NY_TO_NEW_YORK: &str = "rochester_ny_us:newburgh_ny_us";
+/// Dallas to St. Louis was retired for a chain through Denton, Ardmore and
+/// the I-44 legs (missing roads brief 3, 2026-11-23); the chain is checked
+/// in its place.
+const DALLAS_TX_TO_ST_LOUIS_CHAIN: &[&str] = &[
+    "dallas_tx_us:denton_tx_us",
+    "denton_tx_us:ardmore_ok_us",
+    "oklahoma_city_ok_us:ardmore_ok_us",
+    "oklahoma_city_ok_us:tulsa_ok_us",
+    "joplin_mo_us:tulsa_ok_us",
+    "joplin_mo_us:springfield_mo_us",
+    "rolla_mo_us:springfield_mo_us",
+    "rolla_mo_us:st_louis_mo_us",
+];
 const WASHINGTON_DC_TO_CHARLOTTESVILLE: &str = "washington_dc_us:charlottesville_va_us";
 const HARRISBURG_PA_TO_WILMINGTON: &str = "harrisburg_pa_us:wilmington_de_us";
 const NORFOLK_VA_TO_PETERSBURG: &str = "norfolk_va_us:petersburg_va_us";
@@ -20,8 +34,15 @@ const INDIANAPOLIS_IN_TO_NASHVILLE: &str = "indianapolis_in_us:nashville_tn_us";
 const MEMPHIS_TN_TO_NASHVILLE: &str = "memphis_tn_us:nashville_tn_us";
 const MEMPHIS_TN_TO_JACKSON: &str = "memphis_tn_us:jackson_tn_us";
 const GALESBURG_IL_TO_DAVENPORT: &str = "galesburg_il_us:davenport_ia_us";
-const DES_MOINES_IA_TO_CHICAGO: &str = "des_moines_ia_us:chicago_il_us";
-const CHICAGO_IL_TO_ST_LOUIS: &str = "chicago_il_us:st_louis_mo_us";
+/// I-80 across the Mississippi; Des Moines to Chicago was split at Aurora
+/// (Upper Midwest roads, 2026-11-23), and this piece carries the river.
+const DES_MOINES_IA_TO_AURORA: &str = "des_moines_ia_us:aurora_il_us";
+/// I-55 into St. Louis; Chicago to St. Louis was split at Joliet, Bloomington
+/// and Springfield (Great Lakes roads, 2026-11-22), and this piece crosses the
+/// Mississippi.
+const SPRINGFIELD_IL_TO_ST_LOUIS: &str = "springfield_il_us:st_louis_mo_us";
+/// I-55 from Bloomington to Joliet, the piece with most of the old leg's rivers.
+const BLOOMINGTON_IL_TO_JOLIET: &str = "bloomington_il_us:joliet_il_us";
 const MINNEAPOLIS_MN_TO_DES_MOINES: &str = "minneapolis_mn_us:des_moines_ia_us";
 const MIAMI_FL_TO_KEY_WEST: &str = "miami_fl_us:key_west_fl_us";
 const DURANGO_CO_TO_MONTROSE: &str = "durango_co_us:montrose_co_us";
@@ -30,7 +51,6 @@ const DURANGO_CO_TO_MOAB: &str = "durango_co_us:moab_ut_us";
 const REPAIRED_LEGS: &[&str] = &[
     BUFFALO_NY_TO_NEW_YORK,
     ROCHESTER_NY_TO_NEW_YORK,
-    DALLAS_TX_TO_ST_LOUIS,
     WASHINGTON_DC_TO_CHARLOTTESVILLE,
     HARRISBURG_PA_TO_WILMINGTON,
     NORFOLK_VA_TO_PETERSBURG,
@@ -568,40 +588,40 @@ fn scenic_billboard_bans_are_complete_and_not_crossing_fragments() {
 /// The Dallas–St. Louis trip stays on I-44 through Oklahoma, not Arkansas.
 #[test]
 fn dallas_st_louis_rides_i44() {
-    let leg = leg(DALLAS_TX_TO_ST_LOUIS);
-    let states: Vec<&str> = corridor_records(leg, "state_miles")
-        .iter()
-        .filter_map(|record| text(record, "state"))
-        .collect();
-    assert_eq!(states, ["Texas", "Oklahoma", "Missouri"]);
+    let mut states = BTreeSet::new();
     let forbidden = ["Caddo Valley", "Malvern", "Arkadelphia", "Poplar Bluff"];
-    for interchange in corridor_records(leg, "interchanges") {
-        for destination in record_strings(interchange, "destinations") {
-            assert!(
-                !forbidden
-                    .iter()
-                    .any(|name| destination.to_lowercase().contains(&name.to_lowercase())),
-                "{DALLAS_TX_TO_ST_LOUIS}: forbidden destination {destination:?}"
-            );
+    let bad = |text: &str| {
+        forbidden
+            .iter()
+            .any(|name| text.to_lowercase().contains(&name.to_lowercase()))
+    };
+    for &id in DALLAS_TX_TO_ST_LOUIS_CHAIN {
+        let leg = leg(id);
+        for record in corridor_records(leg, "state_miles") {
+            if let Some(state) = text(record, "state") {
+                states.insert(state);
+            }
         }
-        for via in record_strings(interchange, "via") {
-            assert!(
-                !forbidden
-                    .iter()
-                    .any(|name| via.to_lowercase().contains(&name.to_lowercase())),
-                "{DALLAS_TX_TO_ST_LOUIS}: forbidden via {via:?}"
-            );
+        for interchange in corridor_records(leg, "interchanges") {
+            for destination in record_strings(interchange, "destinations") {
+                assert!(
+                    !bad(&destination),
+                    "{id}: forbidden destination {destination:?}"
+                );
+            }
+            for via in record_strings(interchange, "via") {
+                assert!(!bad(&via), "{id}: forbidden via {via:?}");
+            }
+        }
+        for stop in top_level_records(leg, "stops") {
+            let name = text(stop, "name").unwrap_or_default();
+            assert!(!bad(name), "{id}: forbidden stop {name:?}");
         }
     }
-    for stop in top_level_records(leg, "stops") {
-        let name = text(stop, "name").unwrap_or_default();
-        assert!(
-            !forbidden
-                .iter()
-                .any(|place| name.to_lowercase().contains(&place.to_lowercase())),
-            "{DALLAS_TX_TO_ST_LOUIS}: forbidden stop {name:?}"
-        );
-    }
+    assert_eq!(
+        states.into_iter().collect::<Vec<_>>(),
+        ["Missouri", "Oklahoma", "Texas"]
+    );
 }
 
 /// River callouts happen where the road crosses the river.
@@ -650,9 +670,10 @@ fn no_two_rivers_share_a_mile() {
     for id in [
         MEMPHIS_TN_TO_NASHVILLE,
         GALESBURG_IL_TO_DAVENPORT,
-        CHICAGO_IL_TO_ST_LOUIS,
+        BLOOMINGTON_IL_TO_JOLIET,
+        SPRINGFIELD_IL_TO_ST_LOUIS,
         INDIANAPOLIS_IN_TO_NASHVILLE,
-        DES_MOINES_IA_TO_CHICAGO,
+        DES_MOINES_IA_TO_AURORA,
     ] {
         let rivers: Vec<_> = corridor_records(leg(id), "landmarks")
             .iter()
@@ -754,8 +775,8 @@ fn ohio_river_is_the_state_line() {
 #[test]
 fn mississippi_callouts_where_the_bridge_is() {
     for id in [
-        CHICAGO_IL_TO_ST_LOUIS,
-        DES_MOINES_IA_TO_CHICAGO,
+        SPRINGFIELD_IL_TO_ST_LOUIS,
+        DES_MOINES_IA_TO_AURORA,
         GALESBURG_IL_TO_DAVENPORT,
     ] {
         let leg = leg(id);

@@ -60,7 +60,7 @@ fn destination_is_one_of_the_named_features() {
     assert!(FEATURES.contains(&"destination"));
     // The count is the list's own guard: a feature added to `find_feature`
     // and forgotten here is a feature no operator can discover.
-    assert_eq!(FEATURES.len(), 17);
+    assert_eq!(FEATURES.len(), 19);
 }
 
 #[test]
@@ -196,9 +196,10 @@ fn drive_the_finder(origin: &str, destination: &str) -> (PlaytestHarness, Hit, f
 fn a_staged_drive_does_not_replay_the_road_behind_it() {
     // Staged at mile 1175 of Aberdeen to Abilene, the first frame spoke every
     // state line from South Dakota on, charged a turnpike toll and earned two
-    // achievements for road nobody drove (agent drives, 2026-09-23).
+    // achievements for road nobody drove (agent drives, 2026-09-23). Named
+    // by key: Aberdeen, Washington joined the map (2026-11-23).
     let opts = destination_options();
-    let hit = find_one("Aberdeen", "Abilene").expect("the Abilene delivery exit");
+    let hit = find_one("aberdeen_sd_us", "abilene_tx_us").expect("the Abilene delivery exit");
     let mut harness = PlaytestHarness::new();
     let start_mi = harness.start_road_feature(&hit, &opts);
     assert!(start_mi > 1000.0, "staged at {start_mi:.0}");

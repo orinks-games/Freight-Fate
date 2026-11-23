@@ -40,11 +40,48 @@ impl Settings {
         self.touch_deep_swipe_factor = points as f64 / self.touch_flick_points_applied();
         self.touch_deep_swipe_points()
     }
+
+    /// How many degrees from level steer fully, as tilt steering applies
+    /// it: the row's range, on a whole step.
+    pub fn touch_tilt_full(&self) -> f64 {
+        use crate::sim::tilt_steering::{FULL_MAX_DEGREES, FULL_MIN_DEGREES, FULL_STEP_DEGREES};
+        let degrees = if self.touch_tilt_full_degrees.is_finite() {
+            self.touch_tilt_full_degrees
+        } else {
+            crate::sim::tilt_steering::FULL_DEFAULT_DEGREES
+        };
+        ((degrees / FULL_STEP_DEGREES).round() * FULL_STEP_DEGREES)
+            .clamp(FULL_MIN_DEGREES, FULL_MAX_DEGREES)
+    }
+
+    /// Move "Tilt for full steering" `steps` steps, within its range, and
+    /// return where it now is.
+    pub fn step_touch_tilt_full(&mut self, steps: i64) -> f64 {
+        use crate::sim::tilt_steering::{FULL_MAX_DEGREES, FULL_MIN_DEGREES, FULL_STEP_DEGREES};
+        self.touch_tilt_full_degrees = (self.touch_tilt_full() + steps as f64 * FULL_STEP_DEGREES)
+            .clamp(FULL_MIN_DEGREES, FULL_MAX_DEGREES);
+        self.touch_tilt_full()
+    }
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn tilt_for_full_steering_steps_in_fives_between_fifteen_and_forty_five() {
+        let mut s = Settings::default();
+        assert_eq!(s.touch_tilt_full(), 30.0);
+        assert_eq!(s.step_touch_tilt_full(1), 35.0);
+        assert_eq!(s.step_touch_tilt_full(5), 45.0);
+        assert_eq!(s.step_touch_tilt_full(-10), 15.0);
+        s.touch_tilt_full_degrees = 27.0;
+        assert_eq!(s.touch_tilt_full(), 25.0);
+        s.touch_tilt_full_degrees = f64::NAN;
+        assert_eq!(s.touch_tilt_full(), 30.0);
+        s.touch_tilt_full_degrees = 90.0;
+        assert_eq!(s.touch_tilt_full(), 45.0);
+    }
 
     #[test]
     fn the_default_deep_swipe_starts_at_ninety_points() {

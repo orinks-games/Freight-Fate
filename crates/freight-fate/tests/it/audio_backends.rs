@@ -497,7 +497,7 @@ fn test_hearken_engine_model_matches_available_cuts_on_the_facade() {
     let have_all_cuts = ENGINE_BANDS
         .iter()
         .all(|(key, _rpm)| asset_bytes(key, SFX_EXTENSIONS).is_some());
-    r.engine.engine_start();
+    r.engine.engine_start_with(false);
     assert!(r.engine.engine_running());
     let h = r.hearken();
     if have_all_cuts {
@@ -639,7 +639,7 @@ fn test_hearken_engine_falls_back_to_pitched_loop_without_cuts_on_the_facade() {
     r.hearken_mut().set_key_filter(Some(Box::new(|key: &str| {
         !(is_engine_band_key(key) && key != "engine/idle")
     })));
-    r.engine.engine_start();
+    r.engine.engine_start_with(false);
     assert!(r.engine.engine_running());
     assert!(r.hearken().engine_bands().is_empty());
     assert!(r.hearken().engine_sound().is_some());
@@ -666,7 +666,7 @@ fn test_silent_engine_start_skips_the_ignition_crank() {
 }
 
 #[test]
-fn test_deliberate_engine_start_plays_crank_and_arms_crossfade() {
+fn test_deliberate_engine_start_plays_only_the_crank() {
     let Some(mut r) = recordings_rig() else {
         return;
     };
@@ -674,27 +674,33 @@ fn test_deliberate_engine_start_plays_crank_and_arms_crossfade() {
     r.engine.engine_start(); // deliberate ignition
     let h = r.hearken();
     assert!(h.requested_keys().iter().any(|k| k == "engine/start"));
-    // A crank fade-out, the loop fade-in, and the post-handoff load
-    // settle are scheduled; the loop starts silent so the ignition is not
-    // drowned out, and its load is boosted to full so it meets the crank
-    // tail without a dip.
-    assert_eq!(h.fade_count(), 3);
-    assert_eq!(h.engine_intro_gain(), 0.0);
-    assert_eq!(h.engine_intro_load(), 1.0);
+    assert!(h.engine_bands().is_empty());
+    assert!(h.engine_sound().is_none());
+    assert!(r.engine.engine_starting());
     r.engine.engine_stop();
 }
 
 #[test]
-fn test_engine_start_crossfade_ramps_the_loop_up_over_time() {
+fn test_running_engine_starts_only_after_crank_finishes() {
     let Some(mut r) = recordings_rig() else {
         return;
     };
     r.engine.engine_start();
+    let crank = r.channel("engine/start");
     assert_eq!(r.hearken().engine_intro_gain(), 0.0);
-    // Advance well past the clip length plus the crossfade window.
-    for _ in 0..400 {
-        r.engine.update(0.05);
-    }
+    r.engine.update(10.0);
+    assert!(r.rec.is_playing(crank));
+    assert!(r.hearken().engine_bands().is_empty());
+    assert!(r.hearken().engine_sound().is_none());
+    r.rec.finish(crank);
+    let before = r.rec.calls().len();
+    r.engine.update(0.0);
+    assert!(!r.engine.engine_starting());
+    assert!(!r.hearken().engine_bands().is_empty() || r.hearken().engine_sound().is_some());
+    assert!(r.rec.calls()[before..].iter().any(|call| matches!(
+        call,
+        Call::SetMixRamped { mix, ramps, .. } if mix.gain > 0.0 && ramps.gain_ms == 10
+    )));
     let h = r.hearken();
     assert_eq!(h.engine_intro_gain(), 1.0);
     assert_eq!(h.fade_count(), 0); // finished fades are dropped
@@ -707,11 +713,9 @@ fn test_engine_starting_true_during_crank_then_clears() {
         return;
     };
     r.engine.engine_start(); // deliberate ignition
-    assert!(r.engine.engine_starting()); // loop has not taken over yet
-                                         // Advance past the clip length plus the crossfade window.
-    for _ in 0..400 {
-        r.engine.update(0.05);
-    }
+    assert!(r.engine.engine_starting());
+    r.rec.finish(r.channel("engine/start"));
+    r.engine.update(0.05);
     assert!(!r.engine.engine_starting()); // loop has taken over
     assert!(r.engine.engine_running());
     r.engine.engine_stop();
@@ -744,13 +748,15 @@ fn test_null_backend_is_never_engine_starting() {
 }
 
 #[test]
-fn test_engine_stop_clears_pending_fades() {
+fn test_engine_stop_clears_pending_ignition() {
     let Some(mut r) = recordings_rig() else {
         return;
     };
     r.engine.engine_start();
-    assert!(r.hearken().fade_count() > 0);
+    let crank = r.channel("engine/start");
+    assert!(r.rec.is_playing(crank));
     r.engine.engine_stop();
+    assert!(!r.rec.is_playing(crank));
     let h = r.hearken();
     assert_eq!(h.fade_count(), 0);
     assert_eq!(h.engine_intro_gain(), 1.0);
@@ -1012,6 +1018,22 @@ fn test_play_bank_falls_back_to_the_classic_cue() {
         *played.borrow(),
         vec![("vehicle/fallback".to_string(), 0.6)] // exact volume: no jitter on fallback
     );
+}
+
+#[test]
+fn test_truck_shift_prefers_the_cab_bank_and_keeps_the_existing_fallbacks() {
+    for (available, expected) in [
+        (
+            &["vehicle/shift_auto_01", "vehicle/shift_cab_01"][..],
+            "vehicle/shift_cab_01",
+        ),
+        (&["vehicle/shift_auto_01"][..], "vehicle/shift_auto_01"),
+        (&[][..], "vehicle/gear_shift"),
+    ] {
+        let (mut audio, played) = bank_facade(available);
+        audio.play_bank_with("vehicle/shift_auto", "vehicle/gear_shift", 0.4, 0.0);
+        assert_eq!(played.borrow()[0].0, expected);
+    }
 }
 
 #[test]

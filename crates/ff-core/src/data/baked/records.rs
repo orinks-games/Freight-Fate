@@ -18,7 +18,7 @@ use serde::{Deserialize, Serialize};
 use crate::data::bridges::{Bridges, NamedBridge};
 use crate::data::counties::CountyRun;
 use crate::data::curves::CurveRecord;
-use crate::data::pavement::{Pavement, Structure, StructureKind, Surface, SurfaceRun, Ways};
+use crate::data::pavement::{Deck, Pavement, Structure, StructureKind, Surface, SurfaceRun, Ways};
 use crate::data::world_local_data::CityServiceEntry;
 use crate::data::world_models::{
     BillboardBan, City, CorridorDetail, Driveway, ElevationSample, ExitChain, FacilityApproach,
@@ -144,6 +144,8 @@ pub struct BakedSurfaceRun {
     pub iri: Option<f64>,
     pub faulting: Option<f64>,
     pub inventory_side: bool,
+    pub built: Option<i64>,
+    pub improved: Option<i64>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -154,6 +156,9 @@ pub struct BakedStructure {
     pub ways: String,
     pub hpms_mi: Option<f64>,
     pub span_disagrees: bool,
+    pub deck: Option<String>,
+    pub nbi: Option<String>,
+    pub grate: Option<(f64, f64)>,
 }
 
 /// Holds runs and structures, so it is spelled out.
@@ -185,6 +190,8 @@ impl From<&Pavement> for BakedPavement {
                     iri: r.iri,
                     faulting: r.faulting,
                     inventory_side: r.inventory_side,
+                    built: r.built,
+                    improved: r.improved,
                 })
                 .collect(),
             structures: p
@@ -197,6 +204,9 @@ impl From<&Pavement> for BakedPavement {
                     ways: s.ways.name().to_string(),
                     hpms_mi: s.hpms_mi,
                     span_disagrees: s.span_disagrees,
+                    deck: s.deck.map(|d| d.name().to_string()),
+                    nbi: s.nbi.clone(),
+                    grate: s.grate,
                 })
                 .collect(),
             read_share_forward: p.read_share_forward,
@@ -228,6 +238,8 @@ impl From<BakedPavement> for Pavement {
                     iri: r.iri,
                     faulting: r.faulting,
                     inventory_side: r.inventory_side,
+                    built: r.built,
+                    improved: r.improved,
                 })
                 .collect(),
             structures: b
@@ -240,6 +252,12 @@ impl From<BakedPavement> for Pavement {
                     ways: Ways::from_name(&s.ways).unwrap_or_default(),
                     hpms_mi: s.hpms_mi,
                     span_disagrees: s.span_disagrees,
+                    deck: s
+                        .deck
+                        .as_deref()
+                        .map(|d| Deck::from_name(d).unwrap_or(Deck::Other)),
+                    nbi: s.nbi,
+                    grate: s.grate,
                 })
                 .collect(),
             read_share_forward: b.read_share_forward,

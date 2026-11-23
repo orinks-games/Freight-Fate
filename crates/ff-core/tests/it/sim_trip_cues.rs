@@ -1526,7 +1526,7 @@ fn test_city_events_announce_a_state_line_the_map_does_not_carry() {
 #[test]
 fn test_city_events_include_state_without_repeating_crossing() {
     let w = world();
-    let route = route_from_cities(w, &["New York", "Buffalo", "Cleveland"]);
+    let route = route_from_cities(w, &["Syracuse", "Buffalo", "Cleveland"]);
     let truck = TruckState::default();
     let weather = weather("northeast", 1);
     let mut trip = Trip::new(route.clone(), truck, weather, TripOptions::seeded(2));
@@ -1969,7 +1969,7 @@ fn published_tolls_carry_plate_rates_and_one_way_collection() {
     assert!(east.applies_to_direction(true) && !east.applies_to_direction(false));
     let west = bay("salisbury_md_us", "baltimore_md_us");
     assert!(!west.applies_to_direction(true) && west.applies_to_direction(false));
-    let gateway = tolls("pittsburgh_pa_us", "cleveland_oh_us")
+    let gateway = tolls("cranberry_township_pa_us", "cleveland_oh_us")
         .into_iter()
         .find(|toll| toll.name.contains("Gateway"))
         .expect("Gateway toll");
@@ -1986,7 +1986,7 @@ fn published_tolls_carry_plate_rates_and_one_way_collection() {
     assert!(thruway
         .iter()
         .all(|toll| !toll.estimated && toll.plate_amount() >= toll.amount));
-    let carquinez = tolls("sacramento_ca_us", "san_francisco_ca_us")
+    let carquinez = tolls("fairfield_ca_us", "san_francisco_ca_us")
         .into_iter()
         .find(|toll| toll.name == "Carquinez Bridge toll")
         .expect("Carquinez toll");
@@ -2019,7 +2019,7 @@ fn published_tolls_carry_plate_rates_and_one_way_collection() {
             "{from}: collected into New York only"
         );
     }
-    for from in ["los_angeles_ca_us", "sacramento_ca_us", "stockton_ca_us"] {
+    for from in ["los_angeles_ca_us", "fairfield_ca_us", "stockton_ca_us"] {
         let bay = named(
             from,
             "san_francisco_ca_us",

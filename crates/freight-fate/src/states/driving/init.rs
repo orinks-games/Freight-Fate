@@ -24,6 +24,7 @@ use ff_core::sim::lane_guidance::{HAIRPIN_ADVISORY_MPH, STRIP_LEAD_MI};
 use ff_core::sim::livestock::{CattleKind, LivestockLoad, LIVESTOCK_CARGO_KEY};
 use ff_core::sim::real_traffic::RealTrafficProvider;
 use ff_core::sim::real_weather::RealWeatherProvider;
+use ff_core::sim::road_texture::song::TireSong;
 use ff_core::sim::road_texture::RoadSurface;
 use ff_core::sim::season::real_clock_game_hours;
 use ff_core::sim::surge::{liquid_load_for, LiquidCargo};
@@ -80,6 +81,7 @@ impl DrivingState {
         // `_enforcement_init` opened with this; the synthesized signature has
         // to exist before the first enforcement cue can play.
         register_enforcement_sounds();
+        assist_cues::register_assist_cues();
 
         let mut truck = TruckState::new(profile_of(ctx).truck_specs());
         // Loaded delivery runs carry the job's payload; pickup deadheads and
@@ -317,7 +319,7 @@ impl DrivingState {
         }
         let community = load_community_stations(&crate::community_stations::cache_path());
         catalog.extend(new_community_stations(&catalog, community));
-        if crate::PERSONAL_PLAYLISTS {
+        if crate::device::personal_playlists() {
             catalog.extend(load_personal_playlists(&personal_playlists_dir()));
         }
         let radio = RadioState::from_settings(
@@ -354,8 +356,16 @@ impl DrivingState {
         if let Some(jointed) = ctx.playtest_road_jointed {
             road_surface = RoadSurface::held(jointed);
         }
-        let road_texture =
-            RoadTexture::new(road_surface, trip.bridge_joint_spans(), trip.position_mi);
+        let tire_song = match ctx.playtest_tire_song {
+            Some(held) => TireSong::Held(held),
+            None => TireSong::first(trip.underfoot_at(trip.position_mi)),
+        };
+        let road_texture = RoadTexture::new(
+            road_surface,
+            tire_song,
+            trip.bridge_joint_spans(),
+            trip.position_mi,
+        );
 
         let damage_band = trip.truck.damage_band();
         let engine_on = trip.truck.engine_on;
@@ -374,6 +384,22 @@ impl DrivingState {
         if let Some(down) = ctx.playtest_window_down {
             cab.set_window(down);
         }
+        if let Some(abs) = ctx.playtest_abs {
+            trip.truck.abs_state = abs;
+        }
+        if let Some(traction) = ctx.playtest_drive_traction {
+            trip.truck.drive_traction_state = traction;
+        }
+        if let Some(sway) = ctx.playtest_trailer_sway {
+            trip.truck.trailer_sway_state = sway;
+            if sway == ff_core::sim::vehicle::TrailerSwayState::Swaying {
+                trip.truck.trailer_sway_deg =
+                    ff_core::sim::vehicle::traction::TRAILER_SWAY_WARN_DEG;
+            }
+        }
+        let mirror_glance = ctx
+            .playtest_mirror_glance
+            .unwrap_or(ff_core::sim::mirror_glance::MirrorGlance::Forward);
 
         DrivingState {
             job,
@@ -389,6 +415,9 @@ impl DrivingState {
             start_engine_wear,
             rig_buffs: RigBuffs::new(),
             stop_visit: Default::default(),
+            road_tally: ff_core::sim::road_tally::RoadTally::starting_at(
+                crate::states::driving_updates::road_tally::career_inspections(ctx),
+            ),
             drove_automatic: false,
             weather_source_real: ctx.settings.real_weather,
             alerts_next_poll_mi: 0.0,
@@ -481,6 +510,10 @@ impl DrivingState {
             brake_squeal_cooldown_s: 0.0,
             hydro_active: false,
             jake_slip_active: false,
+            abs_active: false,
+            wheelspin_active: false,
+            trailer_sway_state: ff_core::sim::vehicle::TrailerSwayState::Steady,
+            mirror_glance,
             jake_selected_stage: JAKE_STAGES,
             chains_fast_active: false,
             chain_cap_cruise_mph: None,
@@ -532,6 +565,8 @@ impl DrivingState {
             record_events: Vec::new(),
             fatigue_events: 0,
             weigh_station_noticed: HashSet::new(),
+            scale_named_key: String::new(),
+            scale_named_s: 0.0,
             weigh_station_reminder_key: String::new(),
             weigh_station_reminder_age_s: 0.0,
             scale_reminder_held_by_game: HashSet::new(),
@@ -729,6 +764,17 @@ impl DrivingState {
             keeper_snub: 0.0,
             keeper_corner_braking: false,
             keeper_follow: Default::default(),
+            predictive_cruise: ctx.playtest_predictive_cruise.unwrap_or_default(),
+            assisted_lane_change: ctx.playtest_assisted_lane_change.unwrap_or_default(),
+            lane_keep_availability: ctx.playtest_lane_keep_availability.unwrap_or_else(|| {
+                if ctx.settings.lane_keeping == "off" {
+                    ff_core::sim::lane_keep_status::LaneKeepAvailability::Off
+                } else {
+                    ff_core::sim::lane_keep_status::LaneKeepAvailability::Active
+                }
+            }),
+            keeper_jake_stage: 0,
+            last_zone_was_work_zone: false,
             keeper_snub_target_mph: 0.0,
             keeper_droop_s: 0.0,
             keeper_droop_said: false,
@@ -774,7 +820,7 @@ impl DrivingState {
             overrev_s: 0.0,
             overrev_warn_due: OVERREV_GRACE_S,
             lane_change_target: None,
-            stick_lane_request: 0,
+            lane_push: ff_core::sim::lane_push::LanePush::Centred,
             lane_change_timer: 0.0,
             lane_signal_timer: 0.0,
             passing: None,

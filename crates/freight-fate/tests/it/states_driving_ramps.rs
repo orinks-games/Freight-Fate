@@ -1140,6 +1140,7 @@ fn a_car_in_the_crossroad() -> CrossTraffic {
         crossed: false,
         committed: false,
         sound_started: false,
+        release_delay_s: 0.0,
         id: 1,
     }];
     bubble
@@ -2357,10 +2358,13 @@ fn test_route_transition_assistance_brakes_for_a_yellow_on_the_all_assists_prese
 }
 
 #[test]
-fn test_route_transition_assistance_brakes_for_a_late_yellow_on_the_tyler_ramp() {
-    // Jessie's run on the real road: Dallas to Tyler Cross-Dock, exit 556,
-    // the all-assists preset, adaptive cruise set before the exit, facility
-    // stopping assistance and the speed keeper on.
+fn test_route_transition_assistance_brakes_for_a_late_yellow_on_the_destination_ramp() {
+    // Jessie's run: Dallas to Tyler Cross-Dock, exit 556, the all-assists
+    // preset, adaptive cruise set before the exit, facility stopping
+    // assistance and the speed keeper on. Dallas to Tyler now runs on down
+    // US-69 into Tyler (exit 556 is 11 miles out), so the same run is staged
+    // on I-65 exit 26 into Bowling Green: a quarter mile of ramp to a light,
+    // as at exit 556.
     use freight_fate::playtest::harness::RouteSetup;
     let mut harness = PlaytestHarness::new();
     assert!(harness
@@ -2372,10 +2376,10 @@ fn test_route_transition_assistance_brakes_for_a_late_yellow_on_the_tyler_ramp()
     harness.app.ctx.settings.speed_keeper = true;
     harness.app.ctx.settings.automatic_transmission = true;
     let mut route_setup = RouteSetup::seeded(4242)
-        .named("Tyler Ramp")
-        .destination_location("Tyler Cross-Dock");
+        .named("Bowling Green Ramp")
+        .destination_location("Bowling Green Cross-Dock");
     route_setup.tons = 7.0;
-    harness.start_route("dallas_tx_us", "tyler_tx_us", route_setup);
+    harness.start_route("elizabethtown_ky_us", "bowling_green_ky_us", route_setup);
     harness.with_drive(|d, ctx| {
         quiet(&mut d.trip);
         d.weather_mut().current = WeatherKind::Rain;

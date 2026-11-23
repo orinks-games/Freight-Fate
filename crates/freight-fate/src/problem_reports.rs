@@ -222,31 +222,13 @@ fn finish_with_budget(
     })
 }
 
-#[cfg(any(target_os = "ios", test))]
-fn resume_session(data_dir: &Path) {
+/// Track the run again after the app comes back from the background
+/// (`ff_core::app_lifecycle`), unless a session is already running.
+pub fn resume_session(data_dir: &Path) {
     let mut session = SESSION.lock().unwrap_or_else(|e| e.into_inner());
     if session.is_none() {
         *session = Some(Session::begin(&data_dir.join(SESSION_MARKER)));
     }
-}
-
-#[cfg(target_os = "ios")]
-pub fn observe_app_lifecycle() {
-    extern "C" {
-        fn ff_observe_app_lifecycle(foreground_changed: extern "C" fn(i32));
-    }
-
-    extern "C" fn foreground_changed(foreground: i32) {
-        if foreground == 0 {
-            end_session();
-        } else {
-            resume_session(&ff_core::settings::data_dir());
-        }
-    }
-
-    // SAFETY: UIKit retains the function pointer for the lifetime of this app.
-    // Both the registration and its callbacks run on the app's main thread.
-    unsafe { ff_observe_app_lifecycle(foreground_changed) };
 }
 
 /// Whether the last run crashed and nobody has been offered a report yet.

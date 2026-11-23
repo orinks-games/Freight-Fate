@@ -56,6 +56,7 @@ pub mod pending;
 pub mod radio;
 pub mod radio_channel3000;
 pub mod radio_synth;
+pub mod road_tally;
 pub mod road_texture;
 pub mod runaway;
 pub mod stops;
@@ -162,8 +163,9 @@ pub const SHIFT_LOAD_CAP: f64 = 0.45;
 // one-second downshift at that level was "the engine cuts out when it
 // shifts" (testers, 2026-09-03).
 pub const SHIFT_DISENGAGE_DUCK: f64 = 0.65;
-// The gear taking at the end of an auto shift: a soft pick from the shift
-// bank, quieter than the interrupt clunk (0.65) that opened the shift.
+// On an automatic shift, let the RPM drop carry the interruption and give
+// the engagement clunk more presence than the initial release.
+pub const AUTO_SHIFT_START_CLUNK_VOLUME: f64 = 0.22;
 pub const SHIFT_END_CLUNK_VOLUME: f64 = 0.4;
 // When the shift completes the cap eases from SHIFT_LOAD_CAP back to full over
 // this window. The curve (a key into audio_fades.CURVES) shapes the return: an
@@ -284,6 +286,7 @@ pub mod live {
         static HAZARD_ACTIVE: Cell<bool> = const { Cell::new(false) };
         static ARRIVAL_MENU_OPEN: Cell<bool> = const { Cell::new(false) };
         static PARKING_BRAKE_SET: Cell<bool> = const { Cell::new(false) };
+        static STOP_MENU_OPEN: Cell<bool> = const { Cell::new(false) };
         static GATE_STOP_PROMPTED: Cell<bool> = const { Cell::new(false) };
         static STOP_OFFER_OPEN: Cell<bool> = const { Cell::new(false) };
         static ON_RAMP: Cell<bool> = const { Cell::new(false) };
@@ -433,6 +436,17 @@ pub mod live {
 
     pub fn arrival_menu_open() -> bool {
         ARRIVAL_MENU_OPEN.with(|cell| cell.get())
+    }
+
+    /// Whether a road stop's menu is opening or open (a rest area, a truck
+    /// stop, a scale). Stamped where it opens, since the drive stops ticking
+    /// then, and cleared by the next frame of driving.
+    pub fn set_stop_menu_open(value: bool) {
+        STOP_MENU_OPEN.with(|cell| cell.set(value));
+    }
+
+    pub fn stop_menu_open() -> bool {
+        STOP_MENU_OPEN.with(|cell| cell.get())
     }
 
     /// Whether the gate's own "At <facility>. Stop..." line has been

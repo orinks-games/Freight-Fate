@@ -5,6 +5,7 @@ use super::Trip;
 use crate::data::pavement::StructureKind;
 use crate::sim::outside::RIVER_SPAN_MI;
 use crate::sim::road_texture::joints::JointSpan;
+use crate::sim::road_texture::song::Underfoot;
 use crate::sim::road_texture::Reading;
 use crate::sim::trip_route_helpers::stop_offset_for_direction;
 
@@ -44,6 +45,26 @@ impl Trip {
             surface: run.surface,
             faulting: run.faulting,
         })
+    }
+
+    /// What the tires roll on at route mile `mile`, for their song: a steel
+    /// grating, concrete grooved across the lane, or plain road. Plain on a
+    /// facility approach and wherever the layer says nothing.
+    pub fn underfoot_at(&self, mile: f64) -> Underfoot {
+        if self.route.legs.is_empty() || self.is_facility_approach_route() {
+            return Underfoot::Plain;
+        }
+        let (i, forward, offset) = self.native_at(mile);
+        let Some(pavement) = self.route.legs[i].pavement() else {
+            return Underfoot::Plain;
+        };
+        if pavement.on_grating(offset, forward) {
+            return Underfoot::Grating;
+        }
+        match pavement.cross_grooved_at(offset, forward, &self.state_at(Some(mile))) {
+            Some(grooves) => Underfoot::Grooved(grooves),
+            None => Underfoot::Plain,
+        }
     }
 
     /// The structure under route mile `mile`, with its length in miles.

@@ -27317,7 +27317,14 @@
           },
           "fast_lane": false,
           "source": "Canadian side: CBSA office Stewart, # 1 Highway 37A, Stewart, British Columbia, services HWY/B, EXPORT and EDI, US port given as 'No US Customs presence (Hyder AK)'; hours read from the CBSA Directory of Offices and Services open data (https://www.cbsa-asfc.gc.ca/data/offices-bureaux-en.csv, read 2026-11-22). US side: the same CBSA record says there is no US customs presence at Hyder, so a truck entering Alaska here is not inspected. Booth position read from OpenStreetMap (OpenStreetMap planet file of 2026-11-16)."
-        }
+        },
+        "counties": [
+          {
+            "at_mi": 0.0,
+            "name": "Prince of Wales-Hyder Census Area",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          }
+        ]
       },
       "rerouted": true,
       "border_crossing": {

@@ -162,6 +162,23 @@ fn rural_only_bonus(name: &str) -> f64 {
     }
 }
 
+/// Acceleration rate (mph/s) when launching from a stop, by vehicle class.
+pub fn cross_accel_mph_s(vehicle_class: &str) -> f64 {
+    match vehicle_class {
+        "motorcycle" => 7.0,
+        "car" => 5.5,
+        "pickup" | "box truck" => 4.5,
+        "semi" | "bus" => 2.8,
+        "tractor" => 2.2,
+        _ => 5.0,
+    }
+}
+
+/// Reaction delay (seconds) for the lead vehicle in a stopped cross-street
+/// queue when its light turns green, plus the stagger per vehicle behind it.
+pub const QUEUE_LEAD_REACT_S: f64 = 0.35;
+pub const QUEUE_WAVE_STEP_S: f64 = 0.45;
+
 /// One NPC on the crossroad, driving toward positive positions.
 #[derive(Clone, Debug, PartialEq)]
 pub struct CrossVehicle {
@@ -178,6 +195,10 @@ pub struct CrossVehicle {
     pub committed: bool,
     /// Its crossing cue has been triggered.
     pub sound_started: bool,
+    /// Remaining startup reaction delay (seconds) when releasing from a
+    /// stopped signal queue, so queued cars launch in a wave rather than as
+    /// one rigid block.
+    pub release_delay_s: f64,
     /// Stable for the vehicle's whole crossing, so the game can keep one
     /// sound on one vehicle while the list around it grows and shrinks.
     pub id: u64,
@@ -313,6 +334,7 @@ impl CrossTraffic {
             crossed: false,
             committed: false,
             sound_started: false,
+            release_delay_s: 0.0,
             id: self.next_id,
         });
         self.next_id += 1;
@@ -329,8 +351,26 @@ impl CrossTraffic {
                 vehicle.committed = vehicle.front_mi() >= CROSS_BAR_MI;
             }
         } else if !self.player_has_green {
-            for vehicle in &mut self.vehicles {
-                vehicle.committed = false;
+            let released = self.cross_street_was_stopped;
+            for side in SIDES {
+                let mut stopped_idx: Vec<usize> = (0..self.vehicles.len())
+                    .filter(|&i| self.vehicles[i].from_side == side)
+                    .collect();
+                stopped_idx.sort_by(|&a, &b| {
+                    let ka = -self.vehicles[a].position_mi;
+                    let kb = -self.vehicles[b].position_mi;
+                    ka.partial_cmp(&kb).expect("positions are finite")
+                });
+                let mut queue_pos = 0usize;
+                for i in stopped_idx {
+                    let v = &mut self.vehicles[i];
+                    v.committed = false;
+                    if released && v.position_mi < CROSS_BAR_MI && v.speed_mph < 3.0 {
+                        v.release_delay_s =
+                            QUEUE_LEAD_REACT_S + (queue_pos as f64) * QUEUE_WAVE_STEP_S;
+                        queue_pos += 1;
+                    }
+                }
             }
         }
         self.cross_street_was_stopped = self.player_has_green;
@@ -397,10 +437,19 @@ impl CrossTraffic {
                 // shortfall into the gap until it overlaps its leader. The 8
                 // here is the brake the SAFE_SPEED_K envelope assumes margin
                 // against.
+                if v.release_delay_s > 0.0 && !player_has_green {
+                    v.release_delay_s = (v.release_delay_s - dt).max(0.0);
+                    target = 0.0;
+                }
+                let accel = if v.committed {
+                    cross_accel_mph_s(v.vehicle_class).max(5.0)
+                } else {
+                    cross_accel_mph_s(v.vehicle_class)
+                };
                 if v.speed_mph > target {
                     v.speed_mph = (v.speed_mph - 8.0 * dt).max(target);
                 } else {
-                    v.speed_mph = (v.speed_mph + 5.0 * dt).min(target);
+                    v.speed_mph = (v.speed_mph + accel * dt).min(target);
                 }
                 v.speed_mph = v.speed_mph.max(0.0);
                 let before = v.position_mi;
@@ -761,6 +810,7 @@ mod tests {
             crossed: false,
             committed: false,
             sound_started: false,
+            release_delay_s: 0.0,
             id: 1,
         }];
         bubble
@@ -794,5 +844,90 @@ mod tests {
         // And already gone is never a conflict.
         let gone = one_car(-200.0, 45.0);
         assert!(gone.conflict_between(0.0, 60.0).is_none());
+    }
+
+    #[test]
+    fn test_stopped_queue_releases_in_staggered_wave_with_class_acceleration() {
+        let mut bubble = CrossTraffic::new(7, "signal", true);
+        bubble.vehicles = vec![
+            CrossVehicle {
+                position_mi: CROSS_BAR_MI - 30.0 / 5280.0,
+                speed_mph: 0.0,
+                target_mph: 32.0,
+                vehicle_class: "car",
+                length_mi: 15.0 / 5280.0,
+                from_side: "left",
+                crossed: false,
+                committed: false,
+                sound_started: false,
+                release_delay_s: 0.0,
+                id: 1,
+            },
+            CrossVehicle {
+                position_mi: CROSS_BAR_MI - 90.0 / 5280.0,
+                speed_mph: 0.0,
+                target_mph: 32.0,
+                vehicle_class: "semi",
+                length_mi: 65.0 / 5280.0,
+                from_side: "left",
+                crossed: false,
+                committed: false,
+                sound_started: false,
+                release_delay_s: 0.0,
+                id: 2,
+            },
+        ];
+        // Hold on player's green first, then switch to cross-street green.
+        bubble.player_has_green = true;
+        bubble.update(0.05);
+        bubble.player_has_green = false;
+        bubble.update(0.05);
+
+        let lead = bubble.vehicles.iter().find(|v| v.id == 1).unwrap();
+        let second = bubble.vehicles.iter().find(|v| v.id == 2).unwrap();
+        assert!(
+            lead.release_delay_s > 0.0 && lead.release_delay_s < QUEUE_LEAD_REACT_S,
+            "{}",
+            lead.release_delay_s
+        );
+        assert!(
+            second.release_delay_s > lead.release_delay_s,
+            "second queued vehicle should react later than lead"
+        );
+
+        // After 0.6s (12 frames of 0.05s), the lead car has started moving
+        // while the second vehicle is still waiting out its wave reaction delay.
+        for _ in 0..12 {
+            bubble.update(0.05);
+        }
+        let lead = bubble.vehicles.iter().find(|v| v.id == 1).unwrap();
+        let second = bubble.vehicles.iter().find(|v| v.id == 2).unwrap();
+        assert!(lead.speed_mph > 0.0, "lead car should have launched");
+        assert_eq!(
+            second.speed_mph, 0.0,
+            "second vehicle should still be waiting"
+        );
+
+        // After another 1.0s (20 frames of 0.05s), both are rolling and the
+        // lighter car accelerates faster than the heavy semi.
+        for _ in 0..20 {
+            bubble.update(0.05);
+        }
+        let lead = bubble.vehicles.iter().find(|v| v.id == 1).unwrap();
+        let second = bubble.vehicles.iter().find(|v| v.id == 2).unwrap();
+        assert!(
+            second.speed_mph > 0.0,
+            "second vehicle should now be moving"
+        );
+        assert!(
+            cross_accel_mph_s("car") > cross_accel_mph_s("semi"),
+            "car should accelerate faster than semi"
+        );
+        assert!(
+            lead.speed_mph > second.speed_mph,
+            "lead car ({:.1}) should be faster than trailing semi ({:.1})",
+            lead.speed_mph,
+            second.speed_mph
+        );
     }
 }

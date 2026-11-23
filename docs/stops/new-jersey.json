@@ -1,0 +1,492 @@
+{
+  "about": "Curated stops for the New Jersey legs and their links to Wilmington and Baltimore (missing roads brief 1, 2026-11-22), placed by cargo tools osm-stops --stops. lat, lon, reach_mi, season and heading steer placement; every other key is the stop as the game reads it. A stop with a heading lands on a leg stored the other way with directions reverse.",
+  "truck_access": {
+    "read": 15,
+    "assumed": 3,
+    "about": "Read: OpenStreetMap truck parking at the service area, FHWA's Jason's Law inventory, or the operator's page. Assumed: Turnpike service areas with no truck parking mapped, on a road that carries tractor-trailers its whole length."
+  },
+  "stops": [
+    {
+      "name": "Thomas Edison Service Area",
+      "type": "service_plaza",
+      "lat": 40.560058,
+      "lon": -74.264604,
+      "reach_mi": 0.15,
+      "actions": [
+        "park",
+        "save",
+        "fuel",
+        "food",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "diesel",
+        "food",
+        "parking"
+      ],
+      "parking": "confirmed",
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "read",
+      "source": "New Jersey Turnpike Authority service area list: Thomas Edison Service Area on the New Jersey Turnpike, milepost 92.9, on the southbound roadway; position from the same list (https://www.njta.gov/travel-resources/service-areas/, read 2026-11-22). Side derived: the nearest New Jersey Turnpike carriageway in OpenStreetMap (planet file of 2026-11-16) runs southbound there. Diesel assumed from the Sunoco station every Authority service area carries. Truck parking read from OpenStreetMap (way 204616293, hgv=designated) beside the area, planet file of 2026-11-16. Leg mile projected onto the leg's archived road.",
+      "heading": "Southbound",
+      "season": "year round"
+    },
+    {
+      "name": "Grover Cleveland Service Area",
+      "type": "service_plaza",
+      "lat": 40.557052,
+      "lon": -74.263191,
+      "reach_mi": 0.15,
+      "actions": [
+        "park",
+        "save",
+        "fuel",
+        "food",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "diesel",
+        "food",
+        "parking"
+      ],
+      "parking": "confirmed",
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "read",
+      "source": "New Jersey Turnpike Authority service area list: Grover Cleveland Service Area on the New Jersey Turnpike, milepost 92.9, on the northbound roadway; position from the same list (https://www.njta.gov/travel-resources/service-areas/, read 2026-11-22). Side derived: the nearest New Jersey Turnpike carriageway in OpenStreetMap (planet file of 2026-11-16) runs northbound there. Diesel assumed from the Sunoco station every Authority service area carries. Truck parking read from OpenStreetMap (way 204616293, hgv=designated) beside the area, planet file of 2026-11-16. Leg mile projected onto the leg's archived road.",
+      "heading": "Northbound",
+      "season": "year round"
+    },
+    {
+      "name": "Joyce Kilmer Service Area",
+      "type": "service_plaza",
+      "lat": 40.416736,
+      "lon": -74.443725,
+      "reach_mi": 0.15,
+      "actions": [
+        "park",
+        "save",
+        "fuel",
+        "food",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "diesel",
+        "food",
+        "parking"
+      ],
+      "parking": "confirmed",
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "read",
+      "source": "New Jersey Turnpike Authority service area list: Joyce Kilmer Service Area on the New Jersey Turnpike, milepost 78.7, on the northbound roadway; position from the same list (https://www.njta.gov/travel-resources/service-areas/, read 2026-11-22). Side derived: the nearest New Jersey Turnpike carriageway in OpenStreetMap (planet file of 2026-11-16) runs northbound there. Diesel assumed from the Sunoco station every Authority service area carries. Truck parking read from OpenStreetMap (way 204616408, hgv=designated) beside the area, planet file of 2026-11-16. Leg mile projected onto the leg's archived road.",
+      "heading": "Northbound",
+      "season": "year round"
+    },
+    {
+      "name": "Molly Pitcher Service Area",
+      "type": "service_plaza",
+      "lat": 40.321074,
+      "lon": -74.488303,
+      "reach_mi": 0.15,
+      "actions": [
+        "park",
+        "save",
+        "fuel",
+        "food",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "diesel",
+        "food",
+        "parking"
+      ],
+      "parking": "likely",
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "assumed",
+      "source": "New Jersey Turnpike Authority service area list: Molly Pitcher Service Area on the New Jersey Turnpike, milepost 71.7, on the southbound roadway; position from the same list (https://www.njta.gov/travel-resources/service-areas/, read 2026-11-22). Side derived: the nearest New Jersey Turnpike carriageway in OpenStreetMap (planet file of 2026-11-16) runs southbound there. Diesel assumed from the Sunoco station every Authority service area carries. Truck access assumed: OpenStreetMap maps no truck parking here and the Authority's list does not say; the area sits on a toll road that carries tractor-trailers its whole length, so it is kept open to them. Leg mile projected onto the leg's archived road.",
+      "heading": "Southbound",
+      "season": "year round"
+    },
+    {
+      "name": "Richard Stockton Service Area",
+      "type": "service_plaza",
+      "lat": 40.177825,
+      "lon": -74.631145,
+      "reach_mi": 0.15,
+      "actions": [
+        "park",
+        "save",
+        "fuel",
+        "food",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "diesel",
+        "food",
+        "parking"
+      ],
+      "parking": "confirmed",
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "read",
+      "source": "New Jersey Turnpike Authority service area list: Richard Stockton Service Area on the New Jersey Turnpike, milepost 58.7, on the southbound roadway; position from the same list (https://www.njta.gov/travel-resources/service-areas/, read 2026-11-22). Side derived: the nearest New Jersey Turnpike carriageway in OpenStreetMap (planet file of 2026-11-16) runs southbound there. Diesel assumed from the Sunoco station every Authority service area carries. Truck parking read: FHWA Jason's Law truck parking inventory (NTAD via BTS) lists Richard Stockton on I-95 SB in Hamilton, NJ with 42 truck parking spaces, mile post 58.7, accessed 2026-06-17: https://services.arcgis.com/xOi1kZaI0eWDREZv/arcgis/rest/services/NTAD_Truck_Stop_Parking/FeatureServer/0/ (as the earlier Newark to Philadelphia record cites). Leg mile projected onto the leg's archived road.",
+      "heading": "Southbound",
+      "season": "year round",
+      "parking_spaces": 42
+    },
+    {
+      "name": "Woodrow Wilson Service Area",
+      "type": "service_plaza",
+      "lat": 40.176228,
+      "lon": -74.62864,
+      "reach_mi": 0.15,
+      "actions": [
+        "park",
+        "save",
+        "fuel",
+        "food",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "diesel",
+        "food",
+        "parking"
+      ],
+      "parking": "likely",
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "assumed",
+      "source": "New Jersey Turnpike Authority service area list: Woodrow Wilson Service Area on the New Jersey Turnpike, milepost 58.7, on the northbound roadway; position from the same list (https://www.njta.gov/travel-resources/service-areas/, read 2026-11-22). Side derived: the nearest New Jersey Turnpike carriageway in OpenStreetMap (planet file of 2026-11-16) runs northbound there. Diesel assumed from the Sunoco station every Authority service area carries. Truck access assumed: OpenStreetMap maps no truck parking here and the Authority's list does not say; the area sits on a toll road that carries tractor-trailers its whole length, so it is kept open to them. Leg mile projected onto the leg's archived road.",
+      "heading": "Northbound",
+      "season": "year round"
+    },
+    {
+      "name": "James Fenimore Cooper Service Area",
+      "type": "service_plaza",
+      "lat": 39.980636,
+      "lon": -74.888399,
+      "reach_mi": 0.15,
+      "actions": [
+        "park",
+        "save",
+        "fuel",
+        "food",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "diesel",
+        "food",
+        "parking"
+      ],
+      "parking": "likely",
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "assumed",
+      "source": "New Jersey Turnpike Authority service area list: James Fenimore Cooper Service Area on the New Jersey Turnpike, milepost 39.4, on the northbound roadway; position from the same list (https://www.njta.gov/travel-resources/service-areas/, read 2026-11-22). Side derived: the nearest New Jersey Turnpike carriageway in OpenStreetMap (planet file of 2026-11-16) runs northbound there. Diesel assumed from the Sunoco station every Authority service area carries. Truck access assumed: OpenStreetMap maps no truck parking here and the Authority's list does not say; the area sits on a toll road that carries tractor-trailers its whole length, so it is kept open to them. Leg mile projected onto the leg's archived road.",
+      "heading": "Northbound",
+      "season": "year round"
+    },
+    {
+      "name": "Walt Whitman Service Area",
+      "type": "service_plaza",
+      "lat": 39.885918,
+      "lon": -75.002763,
+      "reach_mi": 0.1,
+      "actions": [
+        "park",
+        "save",
+        "fuel",
+        "food",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "diesel",
+        "food",
+        "parking"
+      ],
+      "parking": "confirmed",
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "read",
+      "source": "New Jersey Turnpike Authority service area list: Walt Whitman Service Area on the New Jersey Turnpike, milepost 30.2, on the southbound roadway; position from the same list (https://www.njta.gov/travel-resources/service-areas/, read 2026-11-22). Side derived: the nearest New Jersey Turnpike carriageway in OpenStreetMap (planet file of 2026-11-16) runs southbound there. Diesel assumed from the Sunoco station every Authority service area carries. Truck parking read from OpenStreetMap (way 424157009, hgv=designated) beside the area, planet file of 2026-11-16. Leg mile projected onto the leg's archived road. Reach held to 0.1 mile: I-295 runs about 0.2 mile west of the area, with no way across.",
+      "heading": "Southbound",
+      "season": "year round"
+    },
+    {
+      "name": "Clara Barton Service Area",
+      "type": "service_plaza",
+      "lat": 39.697931,
+      "lon": -75.396734,
+      "reach_mi": 0.15,
+      "actions": [
+        "park",
+        "save",
+        "fuel",
+        "food",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "diesel",
+        "food",
+        "parking"
+      ],
+      "parking": "confirmed",
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "read",
+      "source": "New Jersey Turnpike Authority service area list: Clara Barton Service Area on the New Jersey Turnpike, milepost 5.4, on the southbound roadway; position from the same list (https://www.njta.gov/travel-resources/service-areas/, read 2026-11-22). Side derived: the nearest New Jersey Turnpike carriageway in OpenStreetMap (planet file of 2026-11-16) runs southbound there. Diesel assumed from the Sunoco station every Authority service area carries. Truck parking read from OpenStreetMap (ways 1132094125 and 1132094131, hgv=designated) beside the area, planet file of 2026-11-16. Leg mile projected onto the leg's archived road.",
+      "heading": "Southbound",
+      "season": "year round"
+    },
+    {
+      "name": "John Fenwick Service Area",
+      "type": "service_plaza",
+      "lat": 39.6956731,
+      "lon": -75.3990205,
+      "reach_mi": 0.15,
+      "actions": [
+        "park",
+        "save",
+        "fuel",
+        "food",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "diesel",
+        "food",
+        "parking"
+      ],
+      "parking": "confirmed",
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "read",
+      "source": "New Jersey Turnpike Authority service area list: John Fenwick Service Area on the New Jersey Turnpike, milepost 5.4, on the northbound roadway; position from the same list (https://www.njta.gov/travel-resources/service-areas/, read 2026-11-22). Side derived: the nearest New Jersey Turnpike carriageway in OpenStreetMap (planet file of 2026-11-16) runs northbound there. Diesel assumed from the Sunoco station every Authority service area carries. Truck parking read from OpenStreetMap (ways 1132094125 and 1132094131, hgv=designated) beside the area, planet file of 2026-11-16. Leg mile projected onto the leg's archived road.",
+      "heading": "Northbound",
+      "season": "year round"
+    },
+    {
+      "name": "Frank Sinatra Service Area",
+      "type": "service_plaza",
+      "lat": 39.47088944,
+      "lon": -74.52883944,
+      "reach_mi": 0.15,
+      "actions": [
+        "park",
+        "save",
+        "fuel",
+        "food",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "diesel",
+        "food",
+        "parking"
+      ],
+      "parking": "confirmed",
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "read",
+      "source": "New Jersey Turnpike Authority service area list: Frank Sinatra Service Area on the Garden State Parkway, milepost 41.4, in the median, serving both directions; position from the same list (https://www.njta.gov/travel-resources/service-areas/, read 2026-11-22). Side derived: the nearest Garden State Parkway carriageway in OpenStreetMap (planet file of 2026-11-16) runs both ways past the median there. Diesel assumed from the Sunoco station every Authority service area carries. Truck parking read from OpenStreetMap (ways 46695358 and 46695359 (hgv=yes), hgv=designated) beside the area, planet file of 2026-11-16. Leg mile projected onto the leg's archived road.",
+      "season": "year round"
+    },
+    {
+      "name": "Bruce Willis Service Area",
+      "type": "service_plaza",
+      "lat": 39.1813325,
+      "lon": -74.72301639,
+      "reach_mi": 0.15,
+      "actions": [
+        "park",
+        "save",
+        "fuel",
+        "food",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "diesel",
+        "food",
+        "parking"
+      ],
+      "parking": "confirmed",
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "read",
+      "source": "New Jersey Turnpike Authority service area list: Bruce Willis Service Area on the Garden State Parkway, milepost 18.3, in the median, serving both directions; position from the same list (https://www.njta.gov/travel-resources/service-areas/, read 2026-11-22). Side derived: the nearest Garden State Parkway carriageway in OpenStreetMap (planet file of 2026-11-16) runs both ways past the median there. Diesel assumed from the Sunoco station every Authority service area carries. Truck parking read from OpenStreetMap (ways 1180583601 and 1180583602, hgv=designated) beside the area, planet file of 2026-11-16. The Authority says the area is open around the clock from Memorial Day to Labor Day and 6 a.m. to 10 p.m. the rest of the year; the game has no hours for a stop, so it is offered all year. Leg mile projected onto the leg's archived road.",
+      "season": "year round"
+    },
+    {
+      "name": "Petro Stopping Center Bordentown",
+      "type": "travel_center",
+      "lat": 40.1234,
+      "lon": -74.7131,
+      "reach_mi": 1.0,
+      "actions": [
+        "park",
+        "save",
+        "fuel",
+        "food",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "diesel",
+        "food",
+        "parking",
+        "scale"
+      ],
+      "parking": "confirmed",
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "read",
+      "source": "TravelCenters of America page for Petro Bordentown #0314, 402 Rising Sun Square Road, I-295 Exit 57 and New Jersey Turnpike Exit 7: diesel, truck parking with Reserve-It, a six-bay truck service shop open around the clock; position from the same page (https://ta-petro.com/location/nj/petro-bordentown, read 2026-11-22). CAT Scale read from OpenStreetMap. Leg mile projected onto the leg's archived road.",
+      "season": "year round"
+    },
+    {
+      "name": "TA Travel Center Paulsboro",
+      "type": "travel_center",
+      "lat": 39.819,
+      "lon": -75.2385,
+      "reach_mi": 1.0,
+      "actions": [
+        "park",
+        "save",
+        "fuel",
+        "food",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "diesel",
+        "food",
+        "parking"
+      ],
+      "parking": "confirmed",
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "read",
+      "source": "TravelCenters of America page for TA Paulsboro, 171 Berkley Road, I-295 Exit 18A (Mount Royal): open 24 hours, diesel, truck parking with Reserve-It, three-bay truck service; position from the same page (https://www.ta-petro.com/location/nj/ta-paulsboro, read 2026-11-22). Leg mile projected onto the leg's archived road.",
+      "season": "year round"
+    },
+    {
+      "name": "Flying J Travel Center Elkton",
+      "type": "travel_center",
+      "source": "OpenStreetMap/Overpass development-time corridor amenity query, accessed 2026-06-21; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Store identity read from OpenStreetMap (Geofabrik Maryland extract dated 2026-06-22, read 2026-09-17): Flying J store at Elkton; town read from the mapped site's branch name; matched by coordinate, 0.03 mi from the mapped site. CAT Scale read from OpenStreetMap (amenity=weighbridge, brand CAT Scale) within 0.25 mi of the store; Overpass snapshot 2026-09-24, tools/cat_scales.py.",
+      "parking": "likely",
+      "actions": [
+        "park",
+        "save",
+        "fuel",
+        "food",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "diesel",
+        "food",
+        "parking",
+        "scale"
+      ],
+      "lat": 39.63871,
+      "lon": -75.80719,
+      "vehicle_access": "tractor_trailer",
+      "reach_mi": 1.0,
+      "vehicle_access_basis": "read",
+      "season": "year round"
+    },
+    {
+      "name": "Flying J Travel Center North East",
+      "type": "travel_center",
+      "source": "Pilot Flying J official locator lists Flying J Travel Center store 784 in North East, MD with 185 public truck parking spaces; at_mi estimated by projecting source coordinates onto checked-in route geometry (0.2 mi from simplified corridor line), accessed 2026-06-17: https://locations.pilotflyingj.com/us/md/north-east/1-center-dr; Store coordinates read from OpenStreetMap (Geofabrik Maryland extract dated 2026-06-22, read 2026-09-17): Flying J store at North East; matched by name, the only Flying J the map has at North East within 40 mi of mile 91.9 of this leg (15.6 mi); coordinates read from the mapped site.; at_mi derived 2026-10-01: the stop's own coordinates projected onto the rerouted Valhalla truck geometry (nearest point, distance rescaled to leg miles)",
+      "actions": [
+        "park",
+        "save",
+        "fuel",
+        "food",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "diesel",
+        "food",
+        "restrooms",
+        "parking",
+        "scale"
+      ],
+      "parking": "confirmed",
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "lat": 39.625462,
+      "lon": -75.949579,
+      "reach_mi": 1.0,
+      "vehicle_access_basis": "read",
+      "season": "year round"
+    },
+    {
+      "name": "Chesapeake House Travel Plaza",
+      "type": "service_plaza",
+      "lat": 39.61136,
+      "lon": -76.01004,
+      "reach_mi": 0.2,
+      "actions": [
+        "park",
+        "save",
+        "fuel",
+        "food",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "diesel",
+        "food",
+        "parking"
+      ],
+      "parking": "confirmed",
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "read",
+      "source": "Chesapeake House, the median service plaza on I-95 (John F. Kennedy Memorial Highway) near North East, Maryland, serving both directions: position, the Sunoco station and truck parking (ways 129731447 and 599092279, hgv=designated) read from OpenStreetMap, planet file of 2026-11-16. Diesel assumed from the plaza's Sunoco. Leg mile projected onto the leg's archived road. Confirmed a service plaza (read): the Maryland Transportation Authority lists it among its I-95 travel plazas (https://mdta.maryland.gov/TravelPlazas, accessed 2026-06-16, as the Philadelphia to Baltimore record cites).",
+      "season": "year round"
+    },
+    {
+      "name": "Maryland House Travel Plaza",
+      "type": "service_plaza",
+      "lat": 39.49808,
+      "lon": -76.23127,
+      "reach_mi": 0.2,
+      "actions": [
+        "park",
+        "save",
+        "fuel",
+        "food",
+        "break",
+        "sleep"
+      ],
+      "services": [
+        "diesel",
+        "food",
+        "parking"
+      ],
+      "parking": "confirmed",
+      "curation": "curated",
+      "vehicle_access": "tractor_trailer",
+      "vehicle_access_basis": "read",
+      "source": "Maryland House, the median service area on I-95 near Aberdeen, Maryland, serving both directions: position, diesel (Sunoco, fuel:diesel=yes) and truck parking (ways 266955924 to 266955926, hgv=yes) read from OpenStreetMap, planet file of 2026-11-16. Leg mile projected onto the leg's archived road. Confirmed a service plaza (read): the Maryland Transportation Authority lists it among its I-95 travel plazas (https://mdta.maryland.gov/TravelPlazas, accessed 2026-06-16, as the Philadelphia to Baltimore record cites).",
+      "season": "year round"
+    }
+  ]
+}

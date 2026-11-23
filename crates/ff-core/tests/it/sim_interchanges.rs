@@ -358,7 +358,7 @@ fn test_next_exit_context_mentions_flavor_exit() {
     trip.position_mi = 40.0;
     assert_eq!(
         trip.next_navigation_context(true),
-        "Destination Indianapolis ahead."
+        "Destination Indianapolis."
     );
     assert_eq!(
         trip.next_exit_context(),
@@ -419,6 +419,21 @@ fn test_leg_heading_follows_route_numbering() {
     );
     assert_eq!(
         leg_heading(w, "I-80", "cleveland_oh_us", "chicago_il_us"),
+        "West"
+    );
+    // I-295 runs south over the Delaware Memorial Bridge, though
+    // Wilmington lies north of Carneys Point.
+    assert_eq!(
+        leg_heading(w, "I-295", "carneys_point_nj_us", "wilmington_de_us"),
+        "South"
+    );
+    assert_eq!(
+        leg_heading(w, "I-295", "wilmington_de_us", "carneys_point_nj_us"),
+        "North"
+    );
+    // I-195 is odd but signed east and west.
+    assert_eq!(
+        leg_heading(w, "I-195", "toms_river_nj_us", "trenton_nj_us"),
         "West"
     );
     // No route number -> no heading.

@@ -226,6 +226,8 @@ fn gameplay_subcategory_rows(category: &str) -> &'static [&'static str] {
     match category {
         "assistance" => &[
             "Driving assistance preset",
+            "Steering assist",
+            "Speed assist",
             "Automatic emergency braking",
             "Lane-departure warning",
             "Stop-and-go assistance",
@@ -690,6 +692,22 @@ fn test_settings_menu_f1_has_help_for_every_item() {
 }
 
 #[test]
+fn test_outside_and_road_surface_rows_step_their_own_volume() {
+    let mut app = TestApp::new();
+    open_settings_category(&mut app, "Audio");
+    move_to::<Cat>(&mut app, "Outside sounds volume");
+    key(&mut app, Key::Left);
+    assert_eq!(app.ctx.settings.outside_volume, 0.55);
+    move_to::<Cat>(&mut app, "Road surface volume");
+    key(&mut app, Key::Right);
+    assert_eq!(app.ctx.settings.road_surface_volume, 0.9);
+    // The volumes they split from stay where they were.
+    assert_eq!(app.ctx.settings.weather_volume, 0.65);
+    assert_eq!(app.ctx.settings.sfx_volume, 0.8);
+    assert_eq!(Settings::load().outside_volume, 0.55, "the change is saved");
+}
+
+#[test]
 fn test_haptics_help_explains_road_seam_feedback() {
     let mut app = TestApp::new();
     open_settings_category(&mut app, "Controls");
@@ -755,6 +773,8 @@ fn test_driving_assistance_preset_keyboard_path_and_custom_transition() {
     assert_eq!(app.ctx.settings.time_scale, 10.0);
     assert_eq!(app.ctx.settings.hos_mode, "realistic");
     key(&mut app, Key::Down);
+    key(&mut app, Key::Down);
+    key(&mut app, Key::Down);
     key(&mut app, Key::Return);
     assert_eq!(app.ctx.settings.driving_assistance_preset, "custom");
     assert_eq!(labels::<Cat>(&app)[0], "Driving assistance preset: Custom");
@@ -776,12 +796,14 @@ fn test_driving_assistance_preset_keyboard_path_and_custom_transition() {
     );
     key(&mut app, Key::Right);
     assert_eq!(app.ctx.settings.driving_assistance_preset, "realistic");
-    assert_eq!(original_index, 1);
+    assert_eq!(original_index, 3);
 
     // A toggle that lands on Custom queues the preset note after the
     // spoken on/off state instead of interrupting it, and later toggles
     // while already Custom do not repeat the note.
     app.clear_speech();
+    key(&mut app, Key::Down);
+    key(&mut app, Key::Down);
     key(&mut app, Key::Down);
     key(&mut app, Key::Return);
     assert_eq!(app.ctx.settings.driving_assistance_preset, "custom");
@@ -904,10 +926,10 @@ fn test_exactly_one_driving_assistance_preset_selector() {
 }
 
 #[test]
-fn test_settings_saved_is_heard_and_not_cancelled_by_the_main_menu_welcome() {
-    // Backing all the way out of Settings must not swallow "Settings saved.":
-    // it must be the last line spoken and the one that wins, not the one
-    // cut off.
+fn test_settings_saved_comes_first_then_the_main_menu_row() {
+    // Backing out of Settings says the result first and then where the
+    // player is, the row queued behind it: said after the pop, "Settings
+    // saved." landed once the row had already been read (phone walk S11).
     let mut app = TestApp::new();
     app.push_state(MainMenuState::new());
     select::<MainMenuState>(&mut app, "Settings");
@@ -916,12 +938,18 @@ fn test_settings_saved_is_heard_and_not_cancelled_by_the_main_menu_welcome() {
     key(&mut app, Key::Escape);
     let calls = app.main_calls();
     assert!(
-        !calls.is_empty(),
-        "nothing was spoken on the way out of Settings"
+        calls.len() >= 2,
+        "the result and the row on the way out of Settings: {calls:?}"
     );
-    let (text, interrupt) = calls.last().unwrap();
-    assert_eq!(text, "Settings saved.");
-    assert!(*interrupt);
+    assert_eq!(calls[0], ("Settings saved.".to_string(), true));
+    assert!(
+        calls[1..].iter().all(|(_, interrupt)| !interrupt),
+        "the revealed menu queues behind the result: {calls:?}"
+    );
+    assert!(
+        calls.last().unwrap().0.contains("Settings."),
+        "the row comes last: {calls:?}"
+    );
 }
 
 #[test]

@@ -23,6 +23,26 @@ pub fn stop_offset_for_direction(at_mi: f64, leg_miles: f64, forward: bool) -> f
     }
 }
 
+/// Legs whose road is signed against what its two ends say: `(highway,
+/// from, to, heading driven from -> to, heading driven back)`. I-295 is a
+/// north-south route, and Wilmington lies north of Carneys Point, but the
+/// leg between them runs I-295 South over the Delaware Memorial Bridge to
+/// its end at I-95 (read from OpenStreetMap's I-295 route relation and the
+/// bridge's signs, 2026-11-22).
+const SIGNED_AGAINST_ITS_ENDS: &[(&str, &str, &str, &str, &str)] = &[(
+    "I-295",
+    "carneys_point_nj_us",
+    "wilmington_de_us",
+    "South",
+    "North",
+)];
+
+/// Odd-numbered routes signed east and west, against the parity rule: a
+/// three-digit Interstate's first digit says spur or loop, not the axis.
+/// I-195 is signed east and west in New Jersey (Trenton to Wall) and in
+/// Rhode Island and Massachusetts (FHWA Route Log, Table 2).
+const ODD_BUT_EAST_WEST: &[&str] = &["I-195"];
+
 /// Signed heading for onramp/merge framing ("Merge onto I-95 South...").
 ///
 /// Uses the US route-numbering convention -- odd routes are signed
@@ -32,6 +52,14 @@ pub fn stop_offset_for_direction(at_mi: f64, leg_miles: f64, forward: bool) -> f
 /// Canada is signed by the axis it runs along instead. Empty when the
 /// highway has no number or a city lacks coordinates.
 pub fn leg_heading(world: &World, highway: &str, from_city: &str, to_city: &str) -> &'static str {
+    for &(road, a, b, forward, backward) in SIGNED_AGAINST_ITS_ENDS {
+        if road == highway && a == from_city && b == to_city {
+            return forward;
+        }
+        if road == highway && a == to_city && b == from_city {
+            return backward;
+        }
+    }
     let digits = Regex::new(r"\d+").expect("static regex");
     let Some(m) = digits.find(highway) else {
         return "";
@@ -65,7 +93,7 @@ pub fn leg_heading(world: &World, highway: &str, from_city: &str, to_city: &str)
     // Python `int(match.group()) % 2`: a very long digit run still parses
     // there; here a parse failure reads as even, which no real shield hits.
     let number: u128 = m.as_str().parse().unwrap_or(0);
-    if number % 2 == 1 {
+    if number % 2 == 1 && !ODD_BUT_EAST_WEST.contains(&highway) {
         // odd -> north/south route
         return if b.lat >= a.lat { "North" } else { "South" };
     }

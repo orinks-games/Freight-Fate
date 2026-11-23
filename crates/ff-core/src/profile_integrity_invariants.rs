@@ -136,6 +136,12 @@ pub struct CatalogInputs {
     pub level_xp: Vec<i64>,
     /// `MARKET_CARGO_KEYS`.
     pub market_cargo_keys: Vec<String>,
+    /// `CARGO_CATALOG`: every cargo key a job can carry, with its spoken
+    /// label. A delivery names its cargo by this key.
+    pub cargo_labels: Vec<(String, String)>,
+    /// `WeatherKind::ALL`: the key a delivery names a condition by, and the
+    /// spoken condition.
+    pub weather_labels: Vec<(String, String)>,
     /// `Profile.__dataclass_fields__` (the `version` key is added here).
     pub profile_fields: Vec<String>,
     /// `Career.__dataclass_fields__`.
@@ -174,7 +180,7 @@ impl CatalogInputs {
         use crate::models::carrier_fleet::FLEET_TIERS;
         use crate::models::credentials::CREDENTIALS;
         use crate::models::economy::PAY_ADVANCE_LIMIT;
-        use crate::models::jobs::{cargo_type, ASSIGNED_REPOSITION_PAY_FRACTION};
+        use crate::models::jobs::{cargo_type, ASSIGNED_REPOSITION_PAY_FRACTION, CARGO_CATALOG};
         use crate::models::market::MARKET_CARGO_KEYS;
         use crate::models::profile::{
             fresh_condition, PROFILE_FIELDS, SAVE_VERSION, STARTING_MONEY,
@@ -184,6 +190,7 @@ impl CatalogInputs {
         };
         use crate::models::trailers::TRAILER_CATALOG;
         use crate::models::trucks::{TRUCK_CATALOG, UPGRADE_CATALOG};
+        use crate::sim::weather::WeatherKind;
 
         // `sorted(Career.__dataclass_fields__)`. The Rust dataclass is the
         // serde shape of the same struct -- serialising the default is what
@@ -295,6 +302,14 @@ impl CatalogInputs {
             market_cargo_keys: MARKET_CARGO_KEYS
                 .iter()
                 .map(|key| key.to_string())
+                .collect(),
+            cargo_labels: CARGO_CATALOG
+                .values()
+                .map(|cargo| (cargo.key.to_string(), cargo.label.to_string()))
+                .collect(),
+            weather_labels: WeatherKind::ALL
+                .iter()
+                .map(|kind| (kind.key().to_string(), kind.value().to_string()))
                 .collect(),
             profile_fields: PROFILE_FIELDS
                 .iter()
@@ -655,6 +670,29 @@ pub fn invariant_data(data_root: &Path, inputs: &CatalogInputs) -> Result<Value,
     );
     out.insert("levelXp".into(), Value::from(inputs.level_xp.clone()));
     out.insert("marketCargoKeys".into(), Value::from(market_cargo_keys));
+    // What a version 2 delivery names its cargo and weather by. The site
+    // takes a delivery only when every key it sends is listed here, and
+    // prints the label, never text the game typed.
+    let labels_of = |rows: &[(String, String)]| -> Map<String, Value> {
+        rows.iter()
+            .map(|(key, label)| (key.clone(), Value::from(label.clone())))
+            .collect()
+    };
+    out.insert(
+        "cargoLabels".into(),
+        Value::Object(labels_of(&inputs.cargo_labels)),
+    );
+    let mut weather_keys: Vec<String> = inputs
+        .weather_labels
+        .iter()
+        .map(|(key, _)| key.clone())
+        .collect();
+    weather_keys.sort();
+    out.insert("weatherKeys".into(), Value::from(weather_keys));
+    out.insert(
+        "weatherLabels".into(),
+        Value::Object(labels_of(&inputs.weather_labels)),
+    );
     out.insert("profileFields".into(), Value::from(profile_fields(inputs)));
     out.insert("careerFields".into(), Value::from(career_fields));
     // Public-profile display data: orinks.net derives each driver's

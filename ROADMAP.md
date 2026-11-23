@@ -28,9 +28,9 @@
 > follows at release. Keep this file current: when a feature lands on the 1.9
 > line, check it off here in the same change.
 
-> Current stable: **1.9.6** (2026-11-13). Next release: **1.9.7**, a fix
-> release from dev; `feat/career-2.0` merges into dev after its tag and
-> becomes the beta channel. The gate for both is under
+> Current stable: **1.9.7** (2026-11-21). `feat/career-2.0` merges into
+> dev next and becomes the beta channel; a 1.9 fix after that ships as
+> 1.9.8 from a tag on main. What stands before the beta is under
 > [November 14](#november-14-the-road-to-197-and-the-20-beta-found-along-the-way).
 
 ## Reading this roadmap
@@ -48,6 +48,11 @@ bookmarks usable.
 ## 1.9 in flight (ships from `dev` and `main`)
 
 - [x] Manual cloud backup checks the current cloud revision before saying copies match; a stale local copy leaves the newer cloud career untouched and explains how to restore it.
+- [x] (Found along the way) A verified cloud restore could leave the old newer-copy warning in the parent Cloud backup menu; fixed 2026-11-22.
+- [x] Newspaper driver app (2026-11-22): Driver apps and the Online menu read the weekly driver paper from orinks.net (`GET /api/freight-fate/news`), a section at a time. Hidden until the site publishes an issue: no row, line or setting mentions it while the game holds none. The fetch, the saved copy and the held issue are `crate::newspaper` and `ff_core::newspaper::PaperState`; the agent server's `status` reports it and `scenario` stages one from a file.
+- [ ] (Found along the way) When the paper launches with the 2.0 alpha, add its changelog bullet, manual section and ontology row in one commit (written in the project files, `newspaper/n5-launch.md`).
+- [ ] (Found along the way) A game that is offline, or has Online services off, keeps the newspaper issue it saved until it next fetches, so it can keep naming a driver who has since turned Profile sharing off. Online, opening the app fetches again once the saved issue is five minutes old, the length of the site's cached read.
+- [x] No more low bridge and weight limit calls (owner, 2026-11-22: they spammed the player about bridges a truck never meets). Routing already avoids anything a legal truck cannot pass, so every call ended "Your route clears it"; Joplin to Tulsa spoke up to 122 of them. The `corridor.restrictions` layer, its parser and the bake stay for a route that weighs the truck's own height and weight. The dispatch board help no longer promises restrictions in Route planning, which never listed them.
 - [x] Opt-in cloud resume (owner request): main-menu checks pick up clean, tracked careers from another device; changed local copies use the existing Cloud backup conflict choice. Off by default.
 - [x] Guest drivers (built 2026-11-07, merged to dev 2026-11-17): Drive online as a guest on the Online menu gets a word-list name from orinks.net and turns Profile sharing on; Guest name asks for a new one; guests are on the board only, so a profile, road journal, achievements and cloud backup stay account-only. An account with no driver yet takes the guest over when it connects. Needs the orinks.net guest routes live on the production site.
 - [x] Main voice (built 2026-11-17, owner request): Settings, Speech has a Main voice row above Driving event voice. Automatic stays the default; the player can pick any voice that can speak right now (a running screen reader, SAPI, Windows OneCore, Narrator while it runs, the built-in voice). The choice is saved as is and never rewritten: while the chosen voice cannot speak, the automatic pick speaks and the row says the voice is unavailable, and the health check binds it when it returns. When Driving event voice names the main voice, events go through the main voice and the event row reads "main voice"; the saved event voice is kept, so moving the main voice away brings the separate voice back. Hearken PR 74 (`main_backend_options`, the Narrator gate, the shared event voice).
@@ -55,10 +60,16 @@ bookmarks usable.
 - [ ] (Found along the way) Outside ambience levels are first guesses for Orinks's ear: the beds' levels, the insects' window-up level at highway speed (about 4 dB over the road and engine at 65 mph in the 2 to 4 kHz band; Orinks heard it through the glass in a recording), and the river's level.
 - [x] Road seams (built 2026-11-19, Orinks asked the same evening; on the pavement layer 2026-11-20): a two-part thump at each seam, the steer axle and then the drive tandem a wheelbase (5.2 m, assumed) behind, so the gap widens as the truck slows. The layer decides where: full seams on jointed concrete, louder on fair and poor faulting, softer ones on asphalt over jointed concrete, none on asphalt or continuous concrete. Bridges and causeways from the layer have a heavier joint under all three axles, thinned for pacing. Where the layer reads nothing the stretches are still invented (`ff_core::sim::road_texture::RoadSurface::Invented`, drawn from the drive's road texture seed). Sounds are pitched cuts of the in-repo seam thump (`sound-test/road_seams.sh`). Detail: [November 20](#november-20-seams-and-joints-from-the-pavement-layer-found-along-the-way).
 - [ ] (Found along the way) Road seam levels (`SEAM_LEVEL`, `BRIDGE_JOINT_LEVEL`) are first guesses for Orinks's ear, and a recorded seam would replace the synthesized one if one turns up under a usable license. So are the faulting and overlay factors and the joint thinning numbers. The seam spacing is the real slab length, about 4.6 m (Orinks chose it by ear on 2026-11-20 over the first 14 to 18 m).
+- [x] Volume rows of their own (Orinks, 2026-11-22): Settings, Audio has Outside sounds volume (the birds, insects and rivers, which rode Weather sounds volume and still duck with it under speech) and Road surface volume (seams and bridge joints, which rode Gameplay cues volume and, like the cues, never duck). A settings file from before them starts each at the volume it split from.
+- [x] Tire whine and grate deck hum (Orinks, 2026-11-22): on concrete grooved across the lane the tires sing one note, and on an open steel grate bridge deck they hum, both pitched by speed (rate = speed over the loop's reference speed) on Road surface volume, never ducked, nothing spoken. Grate decks are read from the National Bridge Inventory; concrete decks of 0.05 mi or more are assumed grooved across the lane; concrete pavement is derived grooved from its HPMS build year; no reading means quiet. Route miles pass faster than the wheels turn, so the hum holds at least 3 real seconds and a concrete deck's whine at least 1.5 (both assumed for the ear). `ff_core::sim::road_texture::song::TireSong` is the state machine; the agent server's `status` reports it, `scenario` holds it with `tire_song`, and `start_at` finds `grooved` and `grating`. Sounds are synthesized in-repo (`sound-test/synth_road_song.py`).
+- [ ] (Found along the way) Whine and hum levels (`WHINE.level`, `HUM.level`), the holds (`HUM_MIN_S`, `DECK_WHINE_MIN_S`) and the pitch pick (whine b, 19 mm grooves; grate a, 5 inch bars, raised 4 dB) are first guesses for Orinks's ear.
+- [ ] (Found along the way) `start_at grating` stages at highway speed, so the Main Street Bridge, 0.9 mile from Jacksonville, cannot be reached at 30 or 45 mph; drives at those speeds use Cape Fear Memorial.
 - [ ] (Found along the way) The 0 and 10 degree lines for birds and insects are assumptions, not sourced; regional and seasonal bird variety, lakes and the passenger window are not covered.
 - [ ] (Found along the way) The Speech voice row sets one installed voice for whichever bound voice lists voices first (the main voice, then the event voice), so the event voice's own installed voice cannot be chosen when both have lists, and a voice does not remember its own installed voice when the main voice changes.
 - [ ] (Found along the way) Hearken's own settings screen still offers only a built-in voice toggle, not the full main voice choice.
 - [ ] (Found along the way) The agent server's `status` tool presses the readout keys, and inside a settings menu those keys change rows: one drive of 2026-11-18 changed the event voice and the language that way.
+- [x] Road journal deliveries name their catalog keys (built 2026-11-22, for the orinks.net driver newspaper): payload version 2 adds the cargo, origin and destination keys and the trip's road conditions (weather kinds driven through, a chain law in force, work zones, open scales, clean inspections), tallied in `ff_core::sim::road_tally` and kept in the active-trip snapshot. The catalog export lists `cargoLabels`, `weatherKeys` and `weatherLabels`. Version 2 waits for the site's version 2 check to be live on orinks.net main, because the live site refuses fields it does not know.
+- [ ] (Found along the way) The agent server's `start_at` finder found no open scale on the six corridors tried on 2026-11-22 and no construction zone on Indianapolis to Columbus, so neither can be staged for a drive; the road tally's scale and work-zone counts are covered by an integration test only.
 - [ ] (Found along the way) Where the saved event voice is not on the machine, the voice standing in for it can be the built-in voice (Linux with Speech Dispatcher, a Mac without VoiceOver), so road events default to the built-in voice there.
 - [x] (Found along the way) Cruise in a low-speed zone pumped the brakes behind a slower car and ran the air down to the spring brakes (issue 520, a 1.9.5 log: twice in two minutes in a Waco work zone, behind a car doing 21 with the zone held at 30). The low-speed half matched the car only while the gap was inside a window priced from the truck's speed now, so its own brake shrank the window back past the car, it let go, throttled up and braked again: 34 applications and 125 psi to 40 in fifteen seconds on a bench. Highway work zones moved to adaptive cruise in 1.9.6, which follows the same car on one application, so that zone no longer does it; streets, facility approaches and merge lanes still did. Fixed 2026-11-15: once it starts following a slower vehicle it keeps following it until that vehicle speeds up past the zone's number or stops being the lead (`ff_core::sim::keeper_follow`; the agent server's `observe` reports it as "following traffic"). Bench: one application, 124 psi held.
 - [x] (Found along the way) The line a resumed drive opens with stayed partly English in every translation but Vietnamese (found in the 1.9.7 release review, 2026-11-21; in 1.9.6 too): "Press E to start the engine.", the parking brake pointer and, on the short line, "parking brake set". The truck's state was two or three holes side by side at the end of the line, and a translated line split them mid-sentence. Fixed 2026-11-21: the state is one hole in both lines, every catalog carries the new lines, and a test says the whole line in all eleven languages. The sentence "Simulated weather: ..." also said fallback weather in ten languages; it now says simulated weather.
@@ -73,6 +84,8 @@ bookmarks usable.
 - [x] (Found along the way) A truck stopped at a facility gate could not dock with Facility stopping assistance off unless the parking brake was set (first player problem report, 2026-11-13, Fort Worth Cross-Dock: "I arrived at my destination, pressed enter but could not dock"). Enter did nothing there, though the manual says it accepts the arrival; the one line that names the parking brake was cut 4.5 seconds later by the "Still at" reminder; and a stopped truck heard nothing more. Fixed 2026-11-14: Enter or controller A accepts the arrival from a full stop at a delivery or pickup gate, a truck at rest with the brake off hears "Set the parking brake to dock" once per stop after 3 seconds of quiet (counted from the end of the stop line since the recorded drive of 2026-11-14, where a truck that stopped under that line heard the brake named twice back to back), the reminder waits its 10 seconds after the line that names the brake, and the speed limit key, the route key, the status screen and the pause menu's Trip status say what the gate is waiting for. The gate's stop is one state enum (`ff_core::sim::arrival_gate`), and the agent server's `status` reports it.
 - [x] (Found along the way) Three things left from issue 520 (2026-11-14). The brake fade badge went to the player 26 ms after they took the wheel back on drums the co-driver had heated; it is now earned only when the drums cross into fade with the player driving. A driver who switched the engine brake off for a town could not tell when the zone ended; a zone the driver was told about now says "End of no engine brake zone." on the way out, and what the driver has heard about a zone is one state enum (`ff_core::sim::jake_zone`) that the agent server's `status` reports. Taking the wheel back before a 10-hour rest is in starts the rest over, as the rule says it must be unbroken; the Take the wheel back help now says so.
 - [ ] (Found along the way) The dock at the end of an exit ramp, with Facility streets off, still opens on a full stop without going through the gate's state enum. Move it onto the enum so both arrivals share one rule.
+- [x] (Found along the way) Doubled and late lines the iPhone walk heard (2026-11-21), none phone only. Fixed 2026-11-22: "Air ready." is no longer followed at once by its own reminder, the engine start no longer says the air-ready step the first-run line says next, a line about reaching a rest area or scale is dropped once its menu opens, leaving Settings says "Settings saved." before the menu row, Not now on the online offer adds no line, Report a problem says "orinks.net could not be reached" in place of the raw error, and the agent sandbox's report goes nowhere instead of out through a proxy. The first-run walkthrough is one state enum (`ff_core::first_run`). The facility gate heads-up heard twice was an engine start cutting it mid-sentence and the cut line handed back, as the event voice is meant to do; left to finish, it is said once. Exit, planned stop, scale-first, gate, fuel range and live road report calls, the Navigation destination line and the stop details no longer end in "ahead".
+- [x] (Found along the way) An open scale was called three times in its first seconds: the stop callout ("I-84 Weigh Station in 4 miles. Open."), the scale notice with its earcon ("Open weigh station in 4.3 miles, ... All trucks must pull in.") and the exit signal ("Signal set for the I-84 Weigh Station exit, 4.3 miles."). Now the notice is the one call for an open scale (a planned scale keeps its callout, and a closed one keeps "Closed."), and a signal set within 15 seconds of a spoken notice says "Signal set for the scale exit." alone. On quiet and urgent only, where the notice is its earcon, the signal line stays whole.
 - [x] (Found along the way) Speed limits flip-flopped where the map has no posting (owner's Kenosha to Traverse City drive, 2026-11-04: 60, 70, 55 on the Tri-State in Lake County inside two minutes). An untagged stretch longer than four miles fell back to the open-road number, and 263 of them sat between two lower postings. Fixed 2026-11-05: a gap takes at most the higher posting around it when both are 55 or more, or both are 45 or more and the gap is at most 10 miles. Calibrated on the October profile itself: on tagged road between two postings of 55 or more, the stretch between was posted higher than both for most of its length 0.1% of the time over 5 miles and 1.9% over 40; with a 45 or 50 at one end, 5.1% over 10 miles and 13.4% over 40. A gap leaving a town limit under 45 still reads the open-road number. The state truck caps (California 55, Oregon 55, Arizona 65 and the rest) now bind in gaps and on legs with no profile; they used to apply to postings only.
 - [x] (Found along the way) Kenosha and Milwaukee to Chicago leave I-94 just past the state line and run about 25 miles down US-41 (Skokie Highway, with signals) to Lake Cook Road, while the game still calls the road I-94; checked against OpenStreetMap 2026-11-05. The 55, 45, 55 and 50 heard there are US-41's real limits. Re-route both legs onto the Tri-State and re-read their limits, then check which other legs leave their named interstate the same way (the limit-artifact screen's off-route verdicts are a start). Fixed 2026-11-05: both legs re-routed with `cargo tools reroute-leg` and rebuilt with `reroute-enrich` and the layer builders, from the OpenStreetMap planet of 2026-10-26; they now ride I-94 (the Tri-State, then the Edens and the Kennedy) into Chicago. The other legs that leave their named road are listed in the route audit of 2026-11-05.
 - [ ] (Found along the way) Toll events on the Tri-State: Kenosha and Milwaukee to Chicago now ride the Illinois Tollway and carry no toll events. Curate the plazas and truck rates.
@@ -82,9 +95,11 @@ bookmarks usable.
 - [ ] (Found along the way) An RV and a coach bus run at car speed and climb like one: neither has a governor band or climb numbers yet. Give them one with the realistic-traffic speed work.
 - [ ] (Found along the way) Resuming cruise to a remembered 85 on a 12 percent downgrade with the automatic and a 21-ton load peaks 7 rpm past the over-rev line (2,317 against 2,310), and charges the over-rev wear. The resume test was written against a 15.6-ton load, and the new Chicago career's first load grew when the Chicago legs were re-routed (2026-11-09); the test now pins the old load. Check whether the automatic should upshift or the cruise should brake sooner with a heavy trailer.
 - [x] (Found along the way) Gary and South Bend to Chicago left I-90 for Cline Avenue around the Chicago Skyway, and Philadelphia, Harrisburg and Baltimore to Pittsburgh left the Pennsylvania Turnpike for US-30 near Breezewood and Bedford: the old truck router avoided tolls (route audit of 2026-11-05). Re-routed 2026-11-05 onto the toll roads, every layer rebuilt from the planet file of 2026-11-03, and the toll booths re-placed: the Skyway's 5-axle toll is read from its operator's table, and Harrisburg's and Baltimore's Turnpike tolls are pro-rated by miles from Philadelphia's estimate.
-- [ ] (Found along the way) Four legs store a straight line across a stretch of their road: Newark to Trenton (38 miles between miles 8 and 46, where the New Jersey Turnpike is), Portland to Salt Lake City (28 miles near mile 166), Knoxville to Atlanta (17 miles near mile 44) and Springfield to St. Louis (12 miles near mile 49). Curves, limits and exits there are read off a line that is not the road. The truck router puts each back on its interstate (69 to 96% of the miles); re-route them the same way.
+- [ ] (Found along the way) Four legs store a straight line across a stretch of their road: Newark to Trenton (38 miles between miles 8 and 46, where the New Jersey Turnpike is; re-routed onto the Turnpike on `feat/career-2.0` 2026-11-22, the South Jersey roads), Portland to Salt Lake City (28 miles near mile 166), Knoxville to Atlanta (17 miles near mile 44) and Springfield to St. Louis (12 miles near mile 49; re-routed onto I-55 on `feat/career-2.0` 2026-11-22, the Great Lakes roads). Curves, limits and exits there are read off a line that is not the road. The truck router puts each back on its interstate (69 to 96% of the miles); re-route them the same way.
 - [ ] (Found along the way) Five legs ride other roads for 5 to 16 miles beside their interstate: Charlotte to Knoxville (US-321 and US-221 Business near Hickory and Marion), Erie to Meadville (PA-98), Rapid City to Sioux Falls (SD-50), Paducah to Clarksville (US-60 and US-62) and Sacramento to Portland (OR-99). The truck router keeps 77 to 97% of each on the interstate. Erie to Meadville reads 0% on I-79 in the router's own report, which needs a look before re-routing it.
-- [ ] (Found along the way) Six Florida legs named I-95 ride Florida's Turnpike for about 13 miles (West Palm Beach, Port St. Lucie, Coral Springs and Jacksonville to Miami and Palm Bay). The route is a reasonable truck choice; the label is what is wrong. Name the road the legs drive, or split the highway name where they change roads.
+- [ ] (Found along the way) Six Florida legs named I-95 ride Florida's Turnpike for about 13 miles (West Palm Beach, Port St. Lucie, Coral Springs and Jacksonville to Miami and Palm Bay). The route is a reasonable truck choice; the label is what is wrong. Name the road the legs drive, or split the highway name where they change roads. On `feat/career-2.0` (2026-11-22, Florida and Georgia roads) Port Saint Lucie to Coral Springs and to Miami are renamed Florida's Turnpike, and West Palm Beach to Palm Bay is split at Port Saint Lucie with its southern piece on the Turnpike.
+- [ ] (Found along the way) Florida and Georgia roads (2026-11-22): billboards for the new legs, four tolls still unpriced, and seventeen long legs with no stop a tractor-trailer can use. Detail under "Florida and Georgia roads".
+- [ ] (Found along the way) Alabama, Mississippi and South Carolina roads (2026-11-23): billboards for the new legs, Grenada to Oxford off MS 7 for two posted bridges, and long legs with no stop a tractor-trailer can use. Detail under "Alabama, Mississippi and South Carolina roads".
 - [ ] (Found along the way) A whole-map run of the new layer builders (2026-11-05, dry run) would change most legs: lane counts and landmarks mostly by their source notes, villages by about 160 places, and low clearances from 118 legs to 543, mostly real posted bridges under 16 feet in the Northeast. Decide whether to apply it. The low clearances need no listening pass: the GPS no longer speaks them (2026-11-22).
 - [ ] (Found along the way) The terrain class reads at most 800 HPMS sections per leg, so a long leg is judged on whichever 800 the server returns first: Harrisburg to Pittsburgh across the Alleghenies reads level. Count every section in the leg's own corridor instead.
 - [x] (Found along the way) What the road is made of, and where it leaves the ground, is on the map (2026-11-20; the owner asked whether pavement data could make the planned road seams accurate). `cargo tools hpms-pavement` reads FHWA HPMS surface type and bridges, tunnels and causeways along every leg's archived road, each way; the road seams and bridge joints use it. Coverage and method: [November 20](#november-20-pavement-and-structures-from-hpms-found-along-the-way).
@@ -93,6 +108,10 @@ bookmarks usable.
 - [ ] (Found along the way) Tunnels do not quiet the birds and insects. At standard pacing a one-mile tunnel passes in under three seconds, shorter than the outside bed's three-second fade, so the bed would only dip. It needs a faster fade for tunnels, or a muffle like the closed window's.
 - [ ] (Found along the way) The Allegheny Mountain Tunnel on the Pennsylvania Turnpike has no structure row in HPMS 2020 (Blue Mountain, Kittatinny and Tuscarora do), so the pavement layer has no tunnel there.
 - [ ] (Found along the way) HPMS reports bridge-sized culverts as bridges, so the pavement layer's bridges include some culverts. The National Bridge Inventory could tell them apart.
+- [x] (Found along the way) Bridge decks and concrete build years are on the map (2026-11-22, for the tire whine on grooved concrete and the hum of steel grate decks the owner asked for). `cargo tools nbi-decks` reads each bridge's deck from the National Bridge Inventory; `hpms-pavement` reads build and improvement years onto concrete runs; ff-core answers whether a mile is open grating or grooved across the lane. Coverage and method: [November 22](#november-22-bridge-decks-and-concrete-build-years-found-along-the-way).
+- [ ] (Found along the way) Texas bridges on Austin to San Antonio sit 0.1 to 0.35 mi early in the pavement layer against the National Bridge Inventory, so their joints play early. See [November 22](#november-22-bridge-decks-and-concrete-build-years-found-along-the-way).
+- [ ] (Found along the way) A long structure that the National Bridge Inventory splits into several records (the Atchafalaya Basin Bridge, the Hood Canal Bridge) gets no deck, since no single record fits its length. Reading it piece by piece was looked at and left (2026-11-22): the Hood Canal Bridge's four records (1.486 mi together against the structure's 1.455) do fit as a sum, but their points do not mark a consistent end (the west half and a draw span section share the west end), so where each piece sits would be a guess; and on I-10 over Bayou Grosse Tete each piece has a twin for the other carriageway that no field tells apart. Reopen it if a source gives each record's extent.
+- [ ] (Found along the way) A state survey of groove practice (NCHRP Report 634) would replace the national tining years; it was unreachable from the cloud on 2026-11-22. Canada has no National Bridge Inventory, so Canadian bridges have no deck.
 - [ ] (Found along the way) Harrisburg to Pittsburgh still leaves the Turnpike for US-30 between about miles 87 and 100, near Bedford, after the re-route of 2026-11-05. HPMS has no surface for that stretch of US-30.
 - [ ] (Found along the way) California 99 near Bakersfield (miles 25 to 28 of Bakersfield to Los Angeles) has HPMS sections with no surface type, so the pavement layer is silent there.
 - [x] (Found along the way) Towns that no longer exist (owner, 2026-11-09: "Knife River, Montana"). The town checkpoints were named from the USGS place list, which keeps retired census names at the spot of the town that replaced them: Knife River was the 2010 census name for Savage, and the drive said both at mile 65.6 of Williston to Glendive. Fixed 2026-11-09: all 3,002 town checkpoints were checked against the 2024 Census place list and the USGS list, and the 12,017 village nodes against current OpenStreetMap. Knife River and Ore'q (a former Yurok village at Orick) are gone, West Side Highway (a road) is Lexington, Washington, Picnic Point-North Lynnwood (split for 2020) is North Lynnwood, Lysander New Community (deleted from OpenStreetMap) is gone, and three doubled Lacy Lakeview calls and four doubled Tri City calls are one each. `osm-villages` now refuses nodes tagged abandoned, disused, a ghost town or population 0, and treats a hyphen as a space when it checks a name is already spoken.
@@ -1158,12 +1177,14 @@ Everything found before 2026-09-25 moved to
       to about 0.5 dB at the top settings.
 - [ ] (Found along the way) Hearken follow-ups from the M6 review: poll the
       default output device on macOS and swap the backend when it changes;
-      let the engine bands' gain go above 1.0 (or rescale them); set the
-      iOS `AVAudioSession` category to Playback before Kira opens (cpal
-      0.18 sets none, so under the default SoloAmbient the ring/silent
-      switch would mute the game; unverified on a device) and run
+      let the engine bands' gain go above 1.0 (or rescale them); run
       `ios-build.yml` on the ported tree; consider bundling `libasound` in
-      the AppImage.
+      the AppImage. The iOS `AVAudioSession` category is now set to
+      Playback by the game (`ios/ff_lifecycle.m`) before Kira opens; it
+      could move into Hearken with a call to reopen the device at once, so
+      the sound comes back after an interruption that cpal does not resume
+      itself (one with no "should resume") without waiting for the
+      device watcher's stall check, which can take up to 16 s.
 - [ ] (Found along the way) Before release, run
       `test_hearken_music_never_loops_catalog_tracks` with `music.pak`
       present: no M6 run had the pack, so no shipped catalog track has been
@@ -1266,9 +1287,13 @@ Everything found before 2026-09-25 moved to
 - [x] Thomas Edison sat on Toms River to Newark at mile 49.55, its place
       on the old line. It is a southbound plaza, so the service-plaza fix
       (#297) took it off this northbound leg, which now has no stops.
-- [ ] Toms River to Newark has no northbound Turnpike service plazas
+- [x] Toms River to Newark has no northbound Turnpike service plazas
       (Joyce Kilmer, Grover Cleveland) and no Turnpike toll event (the leg
-      is flagged as a tollway with none).
+      is flagged as a tollway with none). Fixed 2026-11-22 on
+      `feat/career-2.0` (South Jersey roads): Joyce Kilmer and Grover
+      Cleveland serve the northbound run, Molly Pitcher and Thomas Edison
+      the southbound one, and the Turnpike ticket from 7A to 13A is charged
+      at the exit booth each way.
 - [ ] Toms River to Newark keeps its curated top-level two lanes per
       direction; the Turnpike's dual roadways from Interchange 6 to 14 carry
       more (the baked lane segments hold OSM's counts).
@@ -1590,6 +1615,52 @@ Everything found before 2026-09-25 moved to
       swipe starts at 90.", "Deep swipe. Length 112."). Touch gestures has a
       "Deep swipe starts at" row, 60 to 180 points in tens; the settings
       file keeps `touch_deep_swipe_factor`. Nothing was tried on a phone.
+- [x] A cloud run can play as an iPhone (2026-11-22, the iPhone whole-game
+      pass, task 1): "this is a phone" is a run-time fact
+      (`freight_fate::device`), and the agent server's `scenario` takes
+      `phone: true`, so the phone's menus, rows and help can be walked
+      where no phone build compiles. The input prompts name (keyboard,
+      controller or touch) is one machine, `ff_core::input_device`, and
+      `status` reports it on an INPUT line. The walk's findings are in the
+      project's `ios-ui-pass/findings.md`.
+- [x] iPhone tilt steering (2026-11-22, the whole-game iPhone pass):
+      Touch gestures has a Tilt steering switch, off by default, and a "Tilt
+      for full steering" row (15 to 45 degrees in fives, 30 by default).
+      On, tilting the phone steers where the controller's left stick does:
+      one lane per tilt past half way with lane keeping on full, in
+      proportion with it off or partial, with a 4 degree dead zone. Level is
+      the pose when the drive starts or resumes, or when "Set tilt level"
+      (Truck group of the driving command list, any gesture slot) asks. The
+      screen stops rotating at the wheel while it is on. The accelerometer
+      comes through SDL's sensor API on iPhone and Android; the decisions
+      are two `ff-core` machines (`sim::tilt_steering`, `sim::lane_push`),
+      and the agent server's `tilt` tool stands in for the sensor. Driven
+      by agent only; nothing was tried on a phone.
+- [x] Settings, Online and the name field on a phone (2026-11-22, the
+      whole-game iPhone pass, brief 5): Controls lists the keyboard rows
+      only while a hardware keyboard is connected and the controller rows
+      only while a controller is (the Controller row stays while support is
+      off), puts Touch gestures first, and follows a keyboard or pad coming
+      and going with the focused row kept. Online has no Discord row on a
+      phone. Settings help that named keys has a touch sentence; help on a
+      phone says "this device", not "computer", and leaves out version 1.8
+      and the update channel. The Touch gestures command picker uses the
+      driving command list's groups, and its gesture rows share the
+      screen's help. Help in a name field reads its opening line again.
+      Driven by agent only; nothing was tried on a phone.
+- [ ] (Found along the way) A controller on a phone: the Controls rows
+      that need one could not be staged through the agent server, which
+      has no controller; a test covers them. Worth one pass with a real
+      pad on an iPhone.
+- [ ] (Found along the way) Tilt steering on a real iPhone: which way is
+      left, whether 30 degrees feels right, whether the screen stays put at
+      the wheel and turns again in menus (the lock goes through SDL's
+      orientation hint and `ios/ff_orientation.m`), and tilt with VoiceOver
+      on.
+- [ ] (Found along the way) Tilt steering on Android: the sensor path is
+      shared and compiles, but it was never run on a phone, and the screen
+      does not lock there (SDL reads its orientation hint only when the
+      window is made).
 - [x] Second layer bumper (2026-11-18, a player's request): Settings,
       Gameplay, Controls swaps the bumpers, so the left bumper holds the
       second layer and the right bumper is the clutch. The pad's presses
@@ -1602,12 +1673,17 @@ Everything found before 2026-09-25 moved to
       Second layer bumper on left, the instructions that name a bumper are
       new catalog entries (some in `lang/extra.pot`), spoken in English
       until each language translates them.
-- [ ] (Found along the way) iPhone gesture plan step 7: the stroke
-      recogniser moved into `ff-core`, and the default deep swipe set from
-      lengths measured on a phone. Android's recogniser
-      (`freight-fate/src/touch/recognizer.rs`) is already a Rust port of
-      `ff_touch.m` over raw finger events, tested on the desktop, and could
-      be the one both phones share.
+- [x] (Found along the way) iPhone gesture plan step 7: the gesture
+      recogniser moved into `ff-core` (`ff_core::touch`), and iPhone and
+      iPad can read raw fingers with it, the one Android uses, behind the
+      last row of Touch gestures, "New gesture reading", off by default
+      (2026-11-22). The agent server's `fingers` tool drives it, and the
+      differences found against `ff_touch.m` are in `docs/ios/README.md`.
+- [ ] (Found along the way) Once Orinks has played New gesture reading on
+      a phone: delete the native recognisers in `ff_touch.m` and the row,
+      so both phones read gestures one way.
+- [ ] (Found along the way) The default deep swipe still waits on swipe
+      lengths measured on a phone (Practice gestures reads them).
 - [x] Freight Fate builds for Android phones, Android 14 or newer
       (2026-11-18): the same Rust game under SDL2's Android backend, speech
       through Prism's Android text to speech, and the iPhone's gestures
@@ -1647,10 +1723,17 @@ Everything found before 2026-09-25 moved to
       category. The iPhone has one now; Android keeps it off until a
       report has been sent from a phone and the log screen suits a log in
       the app's private storage.
-- [ ] (Found along the way) Android: a drive in progress is lost back to
-      its last stop when Android ends the game in the background, which it
-      does without warning. Consider saving the drive as the game leaves
-      the foreground.
+- [x] Leaving a phone app at the wheel pauses the drive, and the
+      background saves the drive where it is, so the system ending the app
+      loses nothing (iPhone, 2026-11-22). Coming back reads the screen
+      again; a call, an alarm or headphones out pause the drive too.
+- [ ] (Found along the way) Android: the same save is in, but SDL2 holds
+      the game's thread while Android has it paused (its block-on-pause
+      default), so the four app events
+      reach the loop only on the way back, after the moment Android could
+      have ended the app. A real save on pause needs SDL's event filter
+      (which runs on Android's own thread) to hand the save to the loop and
+      wait for it, within Android's limit.
 - [ ] (Found along the way) Android: the TalkBack reminder is English only;
       it is sent from the activity, outside the game's translations.
 - [ ] (Found along the way) Android: strokes that start at a screen edge
@@ -1699,8 +1782,9 @@ Everything found before 2026-09-25 moved to
       module; it could not land here once speech moved (2026-10-20).
 - [ ] iOS runs from TestFlight on a real iPhone (2026-10-03) but still
       needs a real controller, Hearken sound on hardware (no iOS build of
-      the Hearken-based tree has run yet, and the audio session category
-      is still unset; see the M6 follow-ups), and VoiceOver's scrub and
+      the Hearken-based tree has run yet; the audio session category is
+      Playback since 2026-11-22 and wants the silent switch tried on a
+      device), and VoiceOver's scrub and
       on-screen-keyboard typing on hardware. For the App Store: a real app
       icon (TestFlight has a placeholder), a privacy manifest, and a title
       screen or review note for the blank game screen.
@@ -4260,6 +4344,17 @@ default communications device set to different devices, both voices played
 on the communications device before the patch and on the default device after
 it.
 
+### November 22 a verified restore clears its own cloud status (Found along the way)
+
+A native Nov 21 tester restored the newer cloud career successfully, then
+returned to the Cloud backup menu, which still said that a newer copy was
+pending. The stale status belonged to the cloud service rather than the
+individual slot screen.
+
+Fixed 2026-11-22: slot-specific statuses now retain their career name, and a
+verified restore clears only that career's status. A failed restore keeps its
+warning, and restoring another career does not erase an active conflict.
+
 ### November 21 a chain law follows the road (Found along the way)
 
 A player in a chain-law state was told to chain up while the weather read
@@ -4399,6 +4494,53 @@ What stays invented: the spread of the spacing, every level and factor, the
 thinning numbers, and the stretches where the layer reads nothing. `start_at` stages `bridge` and `jointed` from
 the layer.
 
+### November 22 bridge decks and concrete build years (Found along the way)
+
+The tire whine on concrete grooved across the lane and the hum of steel
+grate decks need to know, for any mile, what the tire is on. Neither HPMS
+nor the National Bridge Inventory records a surface's texture, so the
+answer is labelled by how it is known.
+
+- **Decks: READ.** `cargo tools nbi-decks` (run after `hpms-pavement`)
+  puts each National Bridge Inventory record carried on a structure onto
+  the pavement layer's structure when its point lies within 60 m of the
+  archived road, inside the structure or within 0.02 mi of its ends, and
+  its length within 0.05 mi of the structure's span; the best length fit
+  wins. Each tolerance is calibrated in `nbi/decks.rs`. Whole map:
+  21,611 of 26,770 structure crossings of 0.05 mi or more, counted each
+  way, have a deck (80.7 percent): concrete 15,595, asphalt 3,391, other
+  2,604, open grating 21. Seven open gratings are kept, each checked by
+  hand: the Main Street Bridge in Jacksonville, Brickell Avenue in Miami,
+  US-31 at Manistee and Charlevoix, Cape Fear Memorial, Bridge Street in
+  Newark and US 40 in Zanesville. On a movable bridge the grating is the
+  movable span, derived from the record's span count and longest span and
+  centred on the structure. The Mackinac Bridge stays as NBI codes it.
+- **Concrete build years: READ; grooves on pavement: DERIVED.** Exposed
+  concrete runs carry HPMS Year_Last_Construction and YEAR_LAST_IMPROVEMENT.
+  The rule (`data/pavement/grooves.rs`): built 1980 to 2005 (FHWA
+  T 5140.10 of 1979 to T 5040.36 of 2005), not improved since, never in
+  California; Michigan from 1975, Wisconsin from 1978. Whole map: 12,385
+  of 25,279 concrete miles carry a build year (49 percent) and 3,380 are
+  grooved by the rule (13.4 percent). Of the dated miles, 3,492 were built
+  after 2005, 668 before the start year and 4,645 improved since.
+- **Grooves on concrete decks: ASSUMED.** A concrete deck of 0.05 mi or
+  more is taken as grooved across the lane, except in Iowa, which cuts its
+  decks along the lane. That comes round about 5.5 times per 100 route
+  miles. A shorter deck, or a bridge no record matched, defers to the
+  pavement around it.
+- Load screens drop a grating span outside its bridge, a deck on a tunnel
+  and a year outside 1900 to the HPMS year; none fired on this write.
+- **Texas placement (Found along the way).** On Austin to San Antonio the
+  layer's bridges sit 0.1 to 0.35 mi before NBI records of the same length,
+  the gap growing along the leg (16 bridges, median 0.28 mi). The other
+  dry-run legs agree to within 0.01 mi. NBI's points sit on the archived
+  road, so the Texas HPMS section geometry is what is off. The match was
+  not widened to cover it; that leg's bridges mostly have no deck, and its
+  joints play early.
+- Dry run notes: `/mnt/project-files/ambience/whine/data-dry-run.md`. After
+  a `reroute-leg`, run `hpms-pavement --only from:to --write`, then
+  `nbi-decks --only from:to --write`.
+
 ### November 21 the dispatch board in posted order (Found along the way)
 
 The owner reported on 2026-11-21 that from about level 8 the last load
@@ -4516,12 +4658,17 @@ Release gate for 1.9.7:
 - [x] SAPI and OneCore speech play on the default sound device again
       (player problem report, 2026-11-20;
       [November 20](#november-20-speech-on-the-wrong-sound-device-release-gate)).
-- [ ] The Windows Defender detection a player reported on 2026-11-14.
+- [x] The Windows Defender detection a player reported on 2026-11-14.
       The Windows build is not code signed. Before the tag, the release
       candidate's Windows files are scanned and come back clean, or the
       detection is reported to Microsoft as a false positive and the
       downloads page says so. A code-signing certificate costs money and
-      is the owner's decision.
+      is the owner's decision. Scanned on 2026-11-22, after the tag: the
+      published 1.9.7 Windows zip (hash matching `checksums.txt`) and
+      its 24 extracted files came back with no threats on the owner's
+      PC, Defender signatures 1.463.411.0, real-time protection on. One
+      PC's scan does not rule out the cloud detection another player
+      saw; signing is still open.
 - [x] Cloud backup and restore of a sealed career. 1.9.6 was the first
       stable to seal saves, and nobody had restored one from the cloud
       since. An agent ran it on production with the desktop tester build
@@ -4542,11 +4689,15 @@ Release gate for 1.9.7:
       2026-11-09 (bullet under "1.9 in flight"; PR 631). The release build
       runs the tests, so a test that fails one run in some can fail the
       tag.
-- [ ] Release steps as for 1.9.6: the `## 1.9.7` notes with Highlights,
+- [x] Release steps as for 1.9.6: the `## 1.9.7` notes with Highlights,
       dev synced to main by PR, the final dev snapshot as the release
       candidate, the packaged save check from 1.9.6, orinks-net dev
       merged to main (it carries the reworded Five-by-Two badge), and the
-      tag pushed from the owner's PC on the owner's word.
+      tag pushed from the owner's PC on the owner's word. Done
+      2026-11-21: sync PR 712, tag `v1.9.7` on its merge commit. The
+      packaged 1.9.6 Linux build made a career and saved it mid-drive;
+      the packaged release candidate resumed that drive, saved the
+      career and opened it again.
 
 In 1.9.7 if they are ready, never holding it:
 
@@ -4660,6 +4811,10 @@ town at 15 to 23 mph. Design: the doc "Realistic traffic pass: design"
 
 ## 2.0 in progress (`feat/career-2.0`) -- the working week and home
 
+- [x] Driving assistance improvements (`ff_core::sim::predictive_cruise`, `lane_change_assist`, `lane_keep_status`, `keeper_follow`, `settings::assists`, `driving_core::assist_cues`): explicit `PredictiveCruiseState` with jake-first crest/downgrade anticipation for cruise and speed keeper plus smooth resume out of work zones and green lights; explicit `AssistedLaneChange` with directional blind-spot chirps on Balanced/All and signal-wait-glide lane changes on All wired to PR #789 courtesy yielding; independent Steering assist and Speed assist settings rows with preset sync and clean save migration; and non-verbal assist handoff earcons for keeper lock-on, curve servo engagement, and snow/ice lane-keep dropout (`LaneKeepAvailability`), all exposed in `DrivingObservation`, Agent MCP `status`, and `scenario`.
+- [x] Player truck behavior improvements (`ff_core::sim::vehicle::traction`, `shifting`, `mirror_glance`, `driving_lane_gap`, `driving_updates`): explicit `AbsState` braking modulation and `DriveTractionState` wheelspin on snow/ice with edge-triggered safety alerts; single-trailer `TrailerSwayState` for crosswind sway and tight-ramp off-tracking (leaving doubles to `trailer_set`); sustained-descent automatic gear-hold protection against shift hunting; and configurable `Action::MirrorLeft` / `Action::MirrorRight` (`Alt+Left` / `Alt+Right`) mirror glances that temporarily bias positional traffic audio to the checked side and speak terse lane/blind-spot status.
+- [x] Traffic behavior improvements (`ff_core::sim::traffic_manager`, `cross_traffic`, `driving_traffic_sounds`): continuous `visual_lane` slewing (~2.5s per lane) so lane-changing vehicles glide laterally in stereo; deterministic oncoming traffic on undivided two-lane highways (`oncoming.rs`) moving opposite the player with combined closing-speed Doppler; signal-aware courtesy yielding and merge-lane opening when the player signals (`player_signal_lane`); and staggered startup wave + class-based acceleration for queued cross traffic releasing from red lights.
+- [x] Stereo truck engine. Five cab loops use their measured RPMs, with shorter pitch slides through shifts and two in-cab shift cues. Automatic shifts start with a quieter clunk so the rev drop and engagement come through. The cab starter hands off to idle in the mixer, and the sound rises to fast idle while the tanks fill. The licensed overlay supplies the cab start and air-ready purge for the sound pack.
 - [x] No more low bridge and weight limit calls (owner, 2026-11-22: they spammed the player about bridges a truck never meets). Routing already avoids anything a legal truck cannot pass, so every call ended "Your route clears it"; Joplin to Tulsa spoke up to 122 of them, and Detroit to Windsor six in the eight miles before customs. The `corridor.restrictions` layer, its parser and the bake stay for a route that weighs the truck's own height and weight. The dispatch board help no longer promises restrictions in Route planning, which never listed them.
 - [x] Opt-in cloud resume: main-menu checks pick up clean, tracked careers from this release line's cloud slots; changed local copies use Cloud backup's conflict choice. Off by default; 1.9 backups stay separate.
 
@@ -5069,6 +5224,9 @@ branch. The older Phase A/B plan checklists are not a live completion list.
       Bear Valley round-trip toll.
 - [ ] **Ferries of any kind.** A verified freight need is required before a
       ferry becomes a driveable route.
+- [ ] **Cape May–Lewes ferry.** Cape May is on the map since 2026-11-22 and
+      the ferry carries trucks across Delaware Bay to Lewes; it waits for
+      ferries, and Lewes is not a city yet.
 - [ ] **Whittier–Valdez ferry.** No service or verified freight slice is modeled.
 - [ ] **Whittier tunnel special movements.** Permits for 10–11 foot loads and
       special Class E openings remain open.
@@ -6427,8 +6585,10 @@ a carrier slice (owner, 2026-10-26).
 - [x] Big bridges on the map by name (2026-11-22): `corridor.bridges`,
       built by `cargo tools osm-bridges` from the 2026-11-16 planet and the
       curated sheet in `docs/bridges/curated.json` (27 border, Canadian,
-      Alaska and Keys bridges with citations). 397 bridges on 263 legs,
-      370 over water. The truck says "Crossing the X Bridge." once as it
+      Alaska and Keys bridges with citations). The 2026-11-23 targeted
+      reconstruction leaves 353 bridge records on 239 legs, 332 marked as
+      over water (some inherited associations are not reverified). The truck
+      says "Crossing the X Bridge." once as it
       drives onto one (the rivers and bridges chatter switch), hears joints
       at each end and the river bed for the bridge's real length, and the
       river's own line gives way inside the span. One name per 5 route
@@ -6442,6 +6602,11 @@ a carrier slice (owner, 2026-10-26).
       pavement layer measured for less than half its length takes its own
       joints at its real ends; the I-90 floating bridges each name only
       the direction they carry.
+- (Found along the way, 2026-11-23) The current-base reroute check carries no
+  span for Peoria–Springfield / Murray Baker (the nearest OSM carrier vertex
+  is 317.6 m from the archive) or Lafayette–Baton Rouge / Atchafalaya Basin
+  (one vertex on each carrier is 80.2 m and 83.8 m away, beyond the unchanged
+  80 m gate). Verified spans on other routes remain.
 - [ ] (Found along the way) Water under a bridge is read from river,
       canal, tidal channel and coastline lines only, so a bridge over a
       lake or bay (Nisutlin Bay, the W. R. Bennett floating bridge) plays
@@ -6452,6 +6617,601 @@ a carrier slice (owner, 2026-10-26).
       Falls-Fort Frances, Ambassador, Peace, Alex Fraser or Angus L.
       Macdonald bridges, so they are not on the sheet; a leg over any of
       them gets its bridge from the next `osm-bridges` run.
+
+### South Jersey roads (missing roads brief 1, November 22)
+
+- [x] Carneys Point and Cape May are cities. Carneys Point has the
+      Chemours Chambers Works, McLane New Jersey and Amazon's Carneys Point
+      building, and two Pilot travel centers; Cape May has the Schellenger
+      Landing fishing docks and Lund's Fisheries. Both keep only those sites.
+- [x] Eight new legs, routed by the truck router over the OpenStreetMap
+      planet of 2026-11-16 and built with every layer: Newark to Carneys
+      Point (New Jersey Turnpike), Trenton to Carneys Point (I-295),
+      Carneys Point to Wilmington (I-295 and the Delaware Memorial Bridge),
+      Carneys Point to Baltimore (I-95), Carneys Point to Vineland (US-40),
+      Toms River to Trenton (I-195), Vineland to Cape May (NJ-55) and
+      Atlantic City to Cape May (Garden State Parkway). Newark to Trenton
+      re-routed onto the Turnpike.
+- [x] Atlantic City to Philadelphia is the Atlantic City Expressway (43 of
+      its 63 miles); Allentown to Trenton is PA-313, not US-22, which it
+      never touches (PA-313, PA-413 and PA-309 carry 30 of its 59 miles).
+- [x] New Jersey stops list (`docs/stops/new-jersey.json`): the Turnpike's
+      service areas on the side they serve, the Parkway's median plazas,
+      Petro Bordentown, TA Paulsboro, the two Flying Js and the I-95
+      Maryland plazas. On a leg stored one way, a one-sided stop is now
+      placed for the direction that passes it (`osm-stops`).
+- [x] Tolls: the Turnpike from the NJTA 2026 class 5 schedule, charged
+      once at the exit booth each way; the Parkway's Barnegat, New Gretna,
+      Great Egg and Cape May barriers; the Delaware Memorial Bridge
+      southbound only. A route's toll quote now counts a one-way booth only
+      in the direction it collects, as the drive charges it.
+- [ ] (Found along the way) Billboards on the eight new legs: a sheet
+      needs Orinks's approval.
+- [ ] (Found along the way) The Delaware Memorial Bridge is not named on
+      the road: the named bridges layer (`osm-bridges`) is not on this
+      branch yet.
+- [ ] (Found along the way) Tolls still missing: the Atlantic City
+      Expressway (its operator's site refuses automated reads), the Ben
+      Franklin Bridge on Atlantic City to Philadelphia, and Newark to
+      Philadelphia through the Turnpike's Pennsylvania extension.
+- [ ] (Found along the way) No truck stop is on Carneys Point to Vineland,
+      Toms River to Trenton, Vineland to Cape May or Carneys Point to
+      Wilmington; the leads found none a truck can use.
+- [ ] (Found along the way) Love's Bordentown (OpenStreetMap way
+      217783542) is an unverified lead near Turnpike Interchange 7; it is
+      not placed.
+- [ ] (Found along the way) About 24 Canadian border-crossing legs have
+      no counties on their US side. `census-counties` now takes `--only`;
+      run it for those legs on their own.
+- [ ] (Found along the way) An exit with no number cannot be the
+      destination exit. Toms River to Trenton leaves NJ 29 at the unnumbered
+      exit for NJ 129 into Trenton, but the call names I-295's exit 1A-B,
+      3.4 miles out, which the truck drives past.
+- [ ] (Found along the way) The speed limit screen folds a real posting
+      on a leg that rides several roads under one label: Vineland to Cape May
+      is labelled NJ-55 and loses NJ-47's 45 near Heislerville (1.3 miles).
+- [ ] (Found along the way) The merge and location lines take a road's
+      direction from its number's parity; I-195 (east and west) and I-295
+      over the Delaware Memorial Bridge are corrected by table, and other
+      three-digit Interstates have not been checked.
+- [ ] (Found along the way) orinks.net's Career 2.0 catalog export
+      (`data/freight-fate-profile-invariants-career-2.json`) lists 651
+      cities against the branch's 805; refresh it before 2.0 cloud saves.
+
+### Florida and Georgia roads (missing roads, Florida and Georgia region, November 22)
+
+- [x] Four new cities. Port Canaveral has the Canaveral Cargo Terminal,
+      Seaport Canaveral's fuel terminal, Heidelberg Materials and Morton
+      Salt; Gainesville, Georgia has Kubota's plant, Fieldale Farms and
+      Eskimo Cold Storage. Sebring and Crystal River take the template
+      market: no freight site there could be sourced yet.
+- [x] Fifty new legs, routed by the truck router over the OpenStreetMap
+      planet of 2026-11-16 and built with every layer, posted limits last.
+      West Palm Beach to Palm Bay split at Port Saint Lucie: the new piece
+      is West Palm Beach to Port Saint Lucie on Florida's Turnpike, the
+      other piece was already a leg, and a save on the old leg resumes on
+      the chain.
+- [x] Five legs re-routed and nineteen renamed to the road they ride, with
+      their checkpoints' roads.
+- [x] Florida and Georgia stops list (`docs/stops/florida-georgia.json`),
+      seeded from the stops the region's legs already carry, plus the
+      Brunswick truck stops, Love's at Evergreen and Mims, the Thomasville
+      Travel Center, Circle K at Waycross and the rest areas on I-65 and
+      I-85.
+- [x] Tolls from the authorities' 5-axle tables: the Suncoast Parkway,
+      the Turnpike from Wildwood to Orlando, Lantana and West Palm Beach to
+      Port Saint Lucie, the Sawgrass Expressway, the Beachline, GreeneWay
+      and East-West Expressway, and Alligator Alley, one plaza each way.
+- [ ] (Found along the way) Billboards on the region's new legs: a sheet
+      needs Orinks's approval.
+- [ ] (Found along the way) Tolls still missing: Lakeland to Tampa (the
+      Selmon Expressway ramp; the Tampa Hillsborough Expressway Authority
+      table was not read), Coral Springs to Miami (two ramp gantries no
+      table row matches), Augusta to Greenville on the Southern Connector
+      (only a rate study is published), and the Becker Road gantry on the
+      Turnpike near Port Saint Lucie (newer than the table). The express
+      lanes on I-4 and I-95 are left out: tractor-trailers may not use them.
+- [ ] (Found along the way) No tool writes the curve artifact list
+      (`curve_artifacts.jsonl`) since `screen_curve_artifacts.py` was
+      deleted, so a rename that moves a leg between the interstate and the
+      US-route curve screens needs a hand edit (Spring Hill to Ocala, renamed
+      I-75, lost its one flag on 2026-11-22). Port the screen to cargo tools.
+- [ ] (Found along the way) Sebring and Crystal River, Florida are on the
+      template market: they still need real freight sites with sources.
+- [ ] (Found along the way) Seventeen legs of 60 miles or more still have no
+      stop a tractor-trailer can use; the leads found none with a name or a
+      source: Crystal River to Gainesville, Daytona Beach and Palm Coast to
+      Ocala on SR-40, Fort Myers and Sebring to Port Saint Lucie on SR-70,
+      Orlando to Spring Hill, Panama City to Pensacola, Sebring to Fort
+      Myers and to Sarasota, West Palm Beach to Miami, Americus to Columbus
+      and to Troy, Augusta to Greenville, Hinesville to Brunswick and to
+      Tifton, LaGrange to Rome and Rome to Chattanooga.
+
+### California and the Southwest roads (missing roads brief 3, November 22)
+
+- [x] 35 new legs in California, Arizona and Nevada, routed by the truck
+      router over the OpenStreetMap planet of 2026-11-16 and built with
+      every layer, among them CA 46 from Bakersfield to San Luis Obispo,
+      CA 91 from Riverside to Santa Ana, US 395 to Ridgecrest, US 6 and US
+      95 into Tonopah, US 89 from Page to Saint George, AZ 95 along the
+      Colorado River, CA 20 and CA 36 across the northern Coast Ranges and
+      US 50 from Carson City. No new cities.
+- [x] 16 legs split at the cities on their road (decision 2), each with a
+      `RETIRED_LEGS` chain so a trip saved on it resumes on the chain: Los
+      Angeles to San Diego at Santa Ana and Oceanside, the Fairfield legs
+      (Sacramento, San Francisco, Santa Rosa, San Jose and Stockton), the
+      Valencia and Mojave legs, Redding to Klamath Falls at Mount Shasta,
+      Ridgecrest to Bishop at Lone Pine, Visalia to Santa Maria at San Luis
+      Obispo, Prescott to Flagstaff at Camp Verde and Yuma to Phoenix at
+      Buckeye. Stops, checkpoints, tolls (Carquinez and Bay Bridge) and
+      billboards moved by coordinate. Chains are within 4 miles of the old
+      leg except Yuma to Phoenix (7 over) and Prescott to Flagstaff (5 over).
+- [x] Re-routed onto their road: Prescott to Phoenix, El Centro to Yuma,
+      Sacramento to Portland, San Diego to Riverside, Visalia to
+      Bakersfield, Austin to Fallon, Elko to Wells, Ely to Tonopah, Fallon
+      to Fernley, Las Vegas to Alamo, West Wendover to Salt Lake City,
+      Winnemucca to Battle Mountain, and Payson to Winslow (now AZ 87, 90
+      miles; it ran AZ 260 through Holbrook, which the new Payson to Show
+      Low leg keeps).
+- [x] Renamed to the road they ride: Cottonwood to Sedona AZ-89A, Kingman
+      to Lake Havasu City I-40, Lake Havasu City to Yuma AZ-95, Tucson to
+      Sierra Vista I-10, Chico to Fairfield and Chico to Redding CA-99,
+      Riverside to Lancaster CA-138, Sacramento to Yuba City CA-70,
+      Valencia to Victorville CA-14, Alamo to Ely NV-318.
+- [x] Stops list `docs/stops/southwest-california.json`: the stops the
+      region's legs already carried, plus 39 travel centers and state rest
+      areas read from OpenStreetMap (23 with truck access read, 16 assumed).
+- [x] An exit nearer the city being left is never the destination exit:
+      Flagstaff to Sedona would have ended at I-17 exit 337, 24 miles short.
+      Dispatch is unchanged: Tonopah now relays from its new nearest towns
+      (Bishop, Austin, Mammoth Lakes) by the nearest-first rule, and its
+      test was re-pinned to that.
+- [ ] (Found along the way) Oak Creek Canyon (Flagstaff to Sedona on AZ
+      89A): Wikipedia's route description and AARoads say trucks over 50
+      feet were barred from the switchbacks (AARoads: the sign came down
+      after 2008). Both are unverified; ADOT's pages are silent and
+      OpenStreetMap carries no length, weight or truck tag there. A person
+      should drive it, and an ADOT source would settle the length limit.
+- [ ] (Found along the way) Still no stop a tractor-trailer can use on
+      Austin to Fallon, Eureka to Austin, Phoenix to Payson, Oxnard to Los
+      Angeles, Santa Rosa to Ukiah, Carson City to Fallon, Lancaster to Los
+      Angeles, Casa Grande to Globe, Payson to Show Low, Globe to Tucson,
+      Blythe to Bullhead City, Carson City to Sacramento, Payson to Winslow and Chico to
+      Fortuna; the leads found none.
+- [ ] (Found along the way) 16 state rest areas have truck access assumed,
+      not read; Caltrans, ADOT and NDOT rest area lists would settle them.
+- [ ] (Found along the way) Billboards on the new legs: a sheet needs
+      Orinks's approval.
+- [ ] (Found along the way) Bakersfield to Barstow (CA 58) passes 3.45
+      miles from the Mojave pin, so it was not split; it runs beside the
+      Mojave chain on the same road.
+- [ ] (Found along the way) CA 138 between Lancaster and Valencia (decision
+      10) is left undone: the leg would be 284 miles; a junction town on CA
+      138 would fix it.
+- [x] (Found along the way) A trip whose last leg leaves a freeway and runs
+      on a two-lane road to the town can end at the freeway exit, up to 25
+      miles short: the destination exit is the last exit within 25 miles of
+      the end. 120 of 3,558 single-leg trips end over 8 miles short (6 of
+      them new here: Casa Grande to Globe 24, Barstow and Blythe to Bullhead
+      City 23, Salinas to Merced 25, Yuma to Buckeye 16, Chico to Willits
+      14). Fixed: a signed exit is the destination exit only inside the last
+      8 miles of the trip; past that the trip runs on to town and leaves the
+      road a mile from the end, as routes on two-lane highways always did.
+      All 122 trips that ended over 8 miles short had open highway after the
+      exit (39 to 75 mph posted on average), none of it town streets. The
+      choice is one value now, `DestinationArrival` (exit or in town), which
+      the agent server's `status` reports as `arrival`.
+- [ ] (Found along the way) The destination exit's progress on a drive
+      (announced, answer window open, taken, missed) is still four fields on
+      the driving state; it could move into the `DestinationArrival` enum
+      with a `next(event)` and a transition table.
+- [ ] (Found along the way) 14 pairs within 150 miles are still well over
+      their road, mostly central Nevada around Austin, Eureka and Alamo
+      (their roads fail the road screen) and Payson to Globe and Holbrook.
+
+### Great Lakes roads (missing roads brief 3, November 22)
+
+- [x] Joliet, Alpena, Ashtabula and Sandusky are cities. Joliet has the
+      Union Pacific, BNSF and CN intermodal yards and the Pilot on Laraway
+      Road; Alpena the Amrize cement plant and Alro Steel; Ashtabula Pinney
+      Dock and R.W. Sidley; Sandusky LEWCO and Huron Cement. Each keeps only
+      those sites.
+- [x] 61 new legs between neighbours the map routed far around, routed by
+      the truck router over the OpenStreetMap planet of 2026-11-16 and built
+      with every layer. The detours that shrank most: Chillicothe to
+      Parkersburg (425 miles to 106), Columbus to Parkersburg (377 to 111)
+      and La Crosse to Waterloo (404 to 139).
+- [x] Five long legs split at a city they pass, with saves on the old leg
+      resuming on the pieces: Chicago to St. Louis through Joliet,
+      Bloomington and Springfield; Bloomington to Chicago at Joliet; Eau
+      Claire to Wausau at Chippewa Falls; Indianapolis to South Bend at
+      Kokomo; Ann Arbor to Fort Wayne at Jackson.
+- [x] Re-routed onto their roads: Kokomo to Lafayette, Peoria to
+      Springfield, Springfield to St. Louis (the straight line near mile 49
+      is gone) and Cleveland to Toledo. Fourteen legs renamed for the road
+      they ride, and their towns' roads read again.
+- [x] Great Lakes stops list (`docs/stops/great-lakes.json`), with Love's
+      Monmouth, the Superior rest area and Eagle Express on legs that had
+      no truck stop.
+- [x] Tolls: the Ohio Turnpike from its 2026 class 5 schedule on Mansfield
+      to Toledo and Cleveland to Toledo, charged at the exit booth each way;
+      the Mackinac Bridge on Alpena to Sault Ste. Marie and Escanaba to
+      Traverse City.
+- [ ] (Found along the way) Billboards on the new legs: a sheet needs
+      Orinks's approval.
+- [ ] (Found along the way) Tolls still missing: the Jane Addams Tollway
+      on Kenosha to Rockford, the Reagan Tollway (I-88) on Aurora to
+      Davenport and the Indiana Toll Road on Gary to Muskegon; the
+      tollways' sites refuse automated reads.
+- [ ] (Found along the way) The older Ohio Turnpike legs cite "class 6"
+      from the retired fare calculator; the 2026 schedule calls a high
+      five-axle truck class 5. Re-price them from the schedule.
+- [x] Youngstown to DuBois (I-80) is built in the Northeast roads below.
+- [ ] (Found along the way) Three through roads the list leaves undone,
+      each over 200 miles between cities with no junction town on it: US 36
+      from Springfield, Illinois to Kansas City (a town near Quincy would
+      fix it), US 250 from Charleston, West Virginia to Toledo (near Akron)
+      and US 27 from Richmond, Indiana to Kalamazoo (near Richmond).
+
+### Northeast roads (missing roads brief 3, November 23)
+
+- [x] Newburgh, Lancaster, Reading, Gloucester, DuBois, Elmira, Hanover,
+      Ithaca, Johnstown, Lexington Park, Pittsfield, Riverhead and Cranberry
+      Township are cities, each keeping only the plants, warehouses and
+      stores read from the map for it. Ithaca and Lexington Park show only
+      stores, so freight is delivered there and none starts there.
+- [x] 63 new legs between neighbours the map routed far around, Youngstown
+      to DuBois among them, routed by the truck router over the
+      OpenStreetMap planet of 2026-11-16 and built with every layer. The
+      detours that shrank most: Williamsport to Scranton (184 miles to 102),
+      Baltimore to Winchester (119 to 98) and Worcester to Portsmouth (102
+      to 89).
+- [x] Nine long legs split at a city they pass, with saves on the old leg
+      resuming on the pieces: New York to Albany, Buffalo to New York and
+      Rochester to New York at Newburgh; Allentown to Baltimore at Reading
+      and Lancaster; Newport to New Haven at New London; Albany to
+      Montpelier at Rutland; Meadville and Youngstown to Pittsburgh and
+      Pittsburgh to Cleveland at Cranberry Township.
+- [x] Legs renamed for the road they ride, among them Albany to Bridgeport
+      (CT-8), Burlington to Albany (VT-22A), Boston to Hartford (I-90) and
+      the Newburgh pieces of the Thruway.
+- [x] Northeast stops list (`docs/stops/northeast.json`), 368 stops.
+- [x] Tolls: the Pennsylvania Turnpike on the new Turnpike legs from its
+      2026 schedule; the Gateway and Eastgate plazas and the Ohio Turnpike
+      on the Cranberry Township legs; the Delaware Water Gap,
+      Newburgh-Beacon and Chesapeake Bay bridges, charged the way they
+      collect; Hampton on the roads into Portsmouth; the Garden State
+      Parkway on Toms River to Vineland. Thruway fares on the Newburgh
+      pieces are the old fare shared by Thruway miles, marked estimated.
+- [ ] (Found along the way) Tolls still unread: the Massachusetts Turnpike
+      on Pittsfield to Springfield, Hooksett on Manchester to St.
+      Johnsbury, the Throgs Neck Bridge on Riverhead to New York, the Tobin
+      Bridge, the Pell Bridge on Newport to New London, and a Thruway
+      reading for exit 17 to replace the estimated fares.
+- Two chains run longer than the legs they replaced, and they are right:
+      Allentown to Baltimore by 16 miles and New York to Albany by 14 (the
+      Thruway puts exit 17 at mile 60 and exit 24 at mile 148, before the
+      Bronx). The old legs were short; do not shorten the chains.
+- [ ] (Found along the way) Gaps of 52 to 65 miles with no truck stop:
+      Elmira to Jamestown, Newburgh to Binghamton, Altoona to Cumberland,
+      Plattsburgh to Watertown.
+- [ ] (Found along the way) Billboards on the new legs: a sheet needs
+      Orinks's approval.
+
+### Mountain and Northwest roads (missing roads brief 3, November 23)
+
+- [x] Aberdeen, Washington is a city, pinned where US 12 meets US 101,
+      with the Port of Grays Harbor's Terminal 4, AGP's soybean meal
+      export terminal, the Sierra Pacific sawmill, Olympic Gateway Plaza
+      and the Westport cold store. It keeps only those sites.
+- [x] 45 new legs between neighbours the map routed far around, routed by
+      the truck router over the OpenStreetMap planet of 2026-11-16 and built
+      with every layer, among them US 89 from Cedar City to Page, US 84 from
+      Pagosa Springs to Santa Fe over Chama, US 50 over Monarch Pass, US 12
+      over Lolo Pass, US 82 over Cloudcroft, US 287 into Lamar, US 85 and
+      US 18 through Lusk, US 20 from Bend to Corvallis and US 97 from Bend to
+      The Dalles. The detours that shrank most: Pagosa Springs to Santa Fe
+      (435 miles to 153), Carlsbad to Van Horn (380 to 119) and Burlington
+      to Lamar (375 to 119).
+- [x] Seven long legs split at a city they pass, with saves on the old leg
+      resuming on the pieces: Astoria to Olympia at Longview, Roswell to
+      Lubbock at Clovis, Denver to Albuquerque at Alamosa and Santa Fe,
+      Trinidad to Pueblo at Walsenburg, Burlington to Denver at Limon,
+      Billings to Cheyenne at Casper and Wheatland, and Eugene to
+      Tri-Cities at The Dalles. Each chain is within 4 miles of its old leg.
+      Their billboards moved onto the pieces by coordinate; the San Luis
+      Valley boards on CO 17 (UFO Watchtower, Colorado Gators, Great Sand
+      Dunes) came off, because US 285 does not pass them.
+- [x] Re-routed onto their roads: Carlsbad to Odessa (US 285 by Pecos),
+      Tri-Cities to Seattle, Corvallis to Eugene, Newberg to McMinnville,
+      Portland to Salt Lake City, Salem to Albany, Glasgow to Wolf Point,
+      Shelby to Havre, and Wenatchee to Everett, which now runs US 2 over
+      Stevens Pass (123 miles, was 169 by Blewett Pass and I-90) instead of
+      getting a second leg. Its Snoqualmie Falls billboard stays on the
+      other I-90 legs. 23 legs renamed for the road they ride, among them
+      Casper to Billings I-90 and McMinnville to Salem OR-99W, and their
+      towns' roads read again.
+- [x] Stops list `docs/stops/mountain-northwest.json`: the stops the
+      region's legs already carried, plus 46 travel centers and state rest
+      areas read from OpenStreetMap (18 with truck access read, 28 assumed),
+      among them Love's Madras, Pilot Orla, Pilot Lolo, ONE9 Tucumcari and
+      the Independence Rock, Mule Creek Junction and Kane Springs rest areas.
+- [ ] (Found along the way) Gillette to Hot Springs was left out: the truck
+      router's road is 173 miles (I-90 to Sundance, WY 585, US 85), not the
+      list's 144, so the game's 202 is under the cut.
+- [ ] (Found along the way) Still no stop a tractor-trailer can use on
+      Bend to Eugene, Coos Bay to Newport, Coos Bay to Roseburg, McMinnville
+      to Newport, Newport to Albany, Kalispell to Libby, Wolf Point to
+      Williston, Alamogordo to El Paso, Alamogordo to Roswell, Colorado
+      Springs to Limon, Denver to Silverthorne and back, Durango to Pagosa
+      Springs, Pagosa Springs to Santa Fe, Laramie to Wheatland and Port
+      Angeles to Olympia; the leads found only town fuel stations with no
+      truck tag.
+- [ ] (Found along the way) 28 rest areas have truck access assumed, not
+      read; eight of them have no name in OpenStreetMap and are named for the
+      nearest town (Poncha Springs, Cheraw, Sterling, Carrizozo, Capitan,
+      Moorcroft, Mule Creek Junction, Tampico). State DOT rest area lists
+      would settle both.
+- [ ] (Found along the way) Billboards on the new legs: a sheet needs
+      Orinks's approval.
+- [ ] (Found along the way) Screen Interstate mainline curve advisories
+      against the terrain's design speed (60 mph in hills, 50 in mountains).
+      30 sit under 50 mph today, the slowest 40 mph on Charlottesville to
+      Harrisonburg, Dallas to St. Louis (twice) and Johnson City to
+      Asheville; three 45s on Athens to Columbia look like town streets
+      under an I- label. The interstate slowdown test now counts flat
+      ground only. Measurements:
+      /mnt/project-files/missing-roads/mountain-northwest/interstate-curves-by-terrain.md
+- [ ] (Found along the way) Colorado Springs to Limon leaves town on East
+      Platte Avenue, which OpenStreetMap tags as closed to trucks over four
+      axles for its first miles; the router takes it, and the city start is
+      not judged.
+
+### Upper Midwest and Northern Plains roads (missing roads brief 3, November 23)
+
+- [x] 35 new legs between neighbours the map routed far around, in Iowa,
+      Minnesota, Nebraska, the Dakotas and across into Wisconsin, Illinois,
+      Missouri, Kansas and Wyoming, routed by the truck router over the
+      OpenStreetMap planet of 2026-11-16 and built with every layer. No new
+      cities. The detours that shrank most: Bemidji to St. Cloud (368 miles
+      to 159), Aberdeen to Jamestown (348 to 104), Fort Dodge to Sioux City
+      (322 to 118) and Burlington to Quincy (308 to 87).
+- [x] Three long legs split at a city they pass, with saves on the old leg
+      resuming on the pieces: Hibbing to Minneapolis at Grand Rapids,
+      Mankato to Rochester at Owatonna, Des Moines to Chicago at Aurora.
+      The chains run 2, 6 and 6 miles over the old legs, because Owatonna
+      and Aurora sit off the through road.
+- [x] Re-routed onto their roads: Aberdeen to Pierre, Rapid City to Sioux
+      Falls, Willmar to Watertown (US-12, 139 miles to 111) and Scottsbluff
+      to Sidney (US-385, 87 to 81). Twelve legs renamed for the road they
+      ride, and their towns' roads read again.
+- [x] Upper Midwest and Northern Plains stops list
+      (`docs/stops/upper-midwest-northern-plains.json`), 391 stops.
+- [ ] (Found along the way) Tolls still unread: the Reagan Tollway (I-88)
+      on Des Moines to Aurora and Aurora to Chicago; the Illinois Tollway's
+      site has no readable rate table.
+- [ ] (Found along the way) No station a tractor-trailer can use is on
+      Burlington to Quincy or Scottsbluff to Sidney. Gaps of 60 to 103
+      miles between fuel, counting town stations marked bobtail only, on
+      Aberdeen to Pierre, Fargo to Willmar, Rapid City to Sioux Falls,
+      Mankato to Willmar, Fort Dodge to Waterloo, Grand Island to Salina,
+      Fort Dodge to Mason City, Burlington to Ottumwa, Aberdeen to
+      Jamestown, Grand Rapids to Minneapolis, Iowa City to Quincy and
+      Brookings to Willmar. Many town stations there likely take trucks;
+      a source that says so would let them count.
+- [ ] (Found along the way) US 30 from Cedar Rapids to Joliet is left
+      undone: 224 router miles with no city between, over the 200 mile cap.
+      A town near Clinton or DeKalb would fix it.
+- [ ] (Found along the way) Billboards on the new legs: a sheet needs
+      Orinks's approval.
+- [ ] (Found along the way) Coming into Aberdeen from Jamestown, the
+      destination exit sits 0.8 miles out on US-281 inside town, where the
+      road drops from 45 to 30 and then a 15 mph street; cruise is down to
+      31 a mile before the exit, and the roll past the ramp's sign stops at
+      15. The exit tests now start from the city's longest leg. Check where
+      a destination exit belongs on a two-lane road into a town.
+- [ ] (Found along the way) The miles before a leg's first posted limit
+      read that first posting, even inside the town the leg leaves
+      (`posted_sample_at` takes the first sample for any mile before it,
+      and the urban 55 applies only where a leg has no posting at all).
+      440 of 1,624 US legs have no posting in their first 2 miles; on 314
+      the first posting is 55 or more, and 222 of those have a bend advised
+      25 or less in that stretch (counted at each leg's start only).
+      Marshalltown to Ottumwa reads 65 through two 20 mph turns a quarter
+      mile out of the yard: the keeper takes the truck to 42, "Sharp right,
+      a quarter mile. Advise 20 miles per hour. Cruise paused for the
+      bend." comes at mile 0.42 for a bend at 0.77, and cruise only coasts.
+      A firm brake on the call makes it; a one-second brake rolls the
+      truck.
+
+### Alabama, Mississippi and South Carolina roads (missing roads brief 3, November 23)
+
+- [x] Pascagoula and Beaufort are cities. Pascagoula has the Chevron
+      refinery, Ingalls Shipbuilding, Omega Protein's Moss Point plant and
+      the Walmart on Denny Avenue; Beaufort the Walmart and Lowe's on Robert
+      Smalls Parkway and Norman USA's distribution centre in the Commerce
+      Park. Each keeps only those sites.
+- [x] 25 new legs between neighbours the map routed far around, routed by
+      the truck router over the OpenStreetMap planet of 2026-11-16 and built
+      with every layer. The detours that shrank most: Florence, Alabama to
+      Jackson, Tennessee (284 miles to 116), Columbus to Grenada (248 to
+      108) and Clarksdale to Stuttgart (216 to 95).
+- [x] Jackson to Baton Rouge split at Hammond, where I-55 meets I-12; a
+      save on the old leg resumes on the chain (183 miles against 175).
+- [x] Re-routed: Columbus to Tupelo onto US 45, Tupelo to Memphis onto
+      I-22 and I-269. Renamed for the road they ride: Dothan to Albany
+      (GA-62), Dothan to Tallahassee (I-10), Florence to Tupelo (AL-24),
+      Oxford to Memphis (US-78), Sumter to Florence (I-95).
+- [x] Alabama, Mississippi and South Carolina stops list
+      (`docs/stops/alabama-mississippi-south-carolina.json`), with 23 truck
+      stops new to the map, among them Love's at Tuscumbia, Lucedale, Lake
+      Village and Pine Bluff, Pilot at Rising Fawn and ONE9 at Wildwood on
+      legs that had none.
+- [ ] (Found along the way) Billboards on the new legs: a sheet needs
+      Orinks's approval.
+- [ ] (Found along the way) Grenada to Oxford rides I-55 and MS 32: two
+      MS 7 bridges south of Water Valley are posted at 26 and 28 short tons
+      (31 and 32 for a tractor-trailer) in OpenStreetMap. If MDOT lifts the
+      postings, re-route it onto MS 7 (52 miles against 59).
+- [ ] (Found along the way) Legs of 60 miles or more still with no stop a
+      tractor-trailer can use; the leads found none with a name and truck
+      access: Florence to Tupelo, Clarksdale to Memphis, Greenville and
+      Grenada, Oxford to Clarksdale, Greenville and Natchez to Vicksburg,
+      Charleston to Myrtle Beach, and the new Florence to Tuscaloosa,
+      Gadsden to LaGrange and Huntsville, Columbus to Meridian, Hattiesburg
+      to Natchez, Clarksdale to Stuttgart and Beaufort to Charleston. The
+      welcome centres on US 231, I-10 and I-26 need their truck parking
+      read before they go on.
+- [ ] (Found along the way) Pascagoula's port terminals are not sites: the
+      port authority's and MDOT's pages refuse automated reads and
+      OpenStreetMap names none of them.
+- [x] Grenada to Oxford is labelled "I-55 / MS-7", as the Northeast did for
+      Newport to New London: it starts with 20 miles of I-55 and 15 of MS 32
+      before MS 7, so "Merge onto MS-7" was untrue for its first 35 miles.
+      Heard: "Merge onto I-55 / MS-7 North toward Oxford, then 59 miles on it."
+      osm-speed-limits now reads a combined label as an interstate only
+      where its interstate runs, so the 30 and 20 posted into Oxford stay.
+- [ ] (Found along the way) A leg labelled for an Interstate it rides for
+      only part of its miles (Tacoma to Yakima, Newberg to Woodburn) loses
+      real postings under 45 mph on its other miles and on the town streets
+      at its ends: osm-speed-limits treats the whole leg as an interstate.
+      HPMS traffic reads the label the same way (its own starts-with-"I-"
+      test). Both are left for the fix thread on false open-road limits
+      leaving town.
+
+### Texas and Louisiana roads (missing roads brief 3, November 23)
+
+- [x] 61 new legs in Texas and Louisiana, routed by the truck router over
+      the OpenStreetMap planet of 2026-11-16 and built with every layer,
+      among them US 87 from Dumas to Raton, US 281 from Stephenville to
+      Waco, US 190 from Killeen to Lampasas, US 277 from Del Rio to Ozona,
+      US 59 from Houston to Victoria and the Indian Nation Turnpike from
+      Paris to McAlester. Six new cities: Denton, Galveston, Freeport, Point
+      Comfort, Port Fourchon and Venice, each pinned where a truck arrives.
+- [x] Five legs retired for chains (decision 2), each with a
+      `RETIRED_LEGS` entry: Dallas to St. Louis now rides Denton, Ardmore
+      and the existing I-44 legs (713 miles against 720), Fort Worth to
+      Oklahoma City, Wichita Falls to McKinney and Ardmore to Dallas go
+      through Denton, McKinney to Waco through Dallas. Jacksboro to McKinney was not built: the road
+      runs through Denton and the two legs there are shorter.
+- [x] Re-routed onto their road: Houston to Lake Charles, Longview to
+      Shreveport, Midland to Odessa, Lafayette to Baton Rouge and Lafayette
+      to New Orleans. Renamed to the road they ride: thirteen legs, among
+      them College Station to Houston TX-249 and McKinney to Fort Worth
+      TX-121.
+- [x] Tolls from the authorities' five-axle tables: Indian Nation Turnpike
+      (estimated, 2024 table), LA 1 at Leeville, Chisholm Trail Parkway,
+      Sam Rayburn Tollway, SH 249 and the Tomball and Sam Houston tollways
+      (HCTRA's 2015 schedule, estimated), SH 45 Southeast.
+- [x] Stops list `docs/stops/texas-louisiana.json`: 266 stops the region's
+      legs carried, plus 76 read from OpenStreetMap (41 with truck access
+      read, 35 assumed). QuikTrip stores are left out: the stop access
+      rule screens them as convenience stations.
+- [ ] (Found along the way) Tolls still unpriced: SH 130 segment 5 on
+      Austin to Victoria (its operator posts rates by class and plaza name,
+      with no plaza locations), the Montgomery County stretch of SH 249 on
+      College Station to Houston (no five-axle table read), and a newer
+      HCTRA and OTA five-axle table to replace the estimates.
+- [ ] (Found along the way) Still no stop a tractor-trailer can use on
+      Laredo to McAllen, Corpus Christi to Laredo, Longview to Paris, Point
+      Comfort to Freeport, Port Fourchon to New Orleans, Alexandria to
+      Monroe, Victoria to Corpus Christi, Alexandria to Ruston, Point Comfort
+      to Corpus Christi, Ozona to San Angelo, Natchitoches to Ruston, Venice
+      to New Orleans, Alexandria to Natchez, Dumas to Pampa, Uvalde to Del
+      Rio and Port Fourchon to Houma; OpenStreetMap shows nothing truck
+      usable within half a mile.
+- [ ] (Found along the way) Pilot Joplin and Love's Strafford rode the
+      old Dallas to St. Louis leg with estimated miles and no coordinates;
+      no leg carries them now. For the chain truck stop pass.
+- [ ] (Found along the way) Billboards on the new legs: a sheet needs
+      Orinks's approval.
+- [ ] (Found along the way) The South Central region: Galena and the Big
+      Blue Whale billboards on the I-44 legs, and the Dallas to St. Louis
+      chain legs (Oklahoma City to Tulsa, Tulsa to Joplin, Joplin to
+      Springfield, Springfield to Rolla, Rolla to St. Louis, Oklahoma City to
+      Ardmore) are not to be split again.
+
+### Appalachia and Mid-South roads (missing roads brief 3, November 23)
+
+- [x] Morehead City, Pinehurst and Reedville are cities, each keeping only
+      the port, plants and stores read from the map for it.
+- [x] 61 new legs between neighbours the map routed far around, routed by
+      the truck router over the OpenStreetMap planet of 2026-11-16 and
+      built with every layer.
+- [x] Three long legs split at a city they pass, with saves on the old leg
+      resuming on the pieces: Johnson City to Pikeville at Kingsport,
+      Asheville to Winston-Salem at Hickory, and Charleston to Richmond at
+      Beckley, Staunton and Charlottesville.
+- [x] Four legs re-routed onto the truck router's road (Knoxville to
+      Atlanta, Charlotte to Greensboro, Charlotte to Knoxville, Paducah to
+      Clarksville) and seven renamed for the road they ride.
+- [x] Appalachia and Mid-South stops list
+      (`docs/stops/appalachia-mid-south.json`).
+- [x] The routing truck weighs 80,000 lb exactly; at 3 kg over, every
+      bridge posted at 40 short tons refused it.
+- Hazard to Morehead is not built: KY 205 is posted at 62,000 lb in
+      Kentucky's truck weight classes.
+- Bristol to Hickory rides US 421 over Holston and Iron Mountain (The
+      Snake, a 46 ft switchback at mile 24.7) and stays: checked 2026-11-23,
+      OpenStreetMap has no maxlength, maxweight or truck ban on its ways
+      (hgv=destination only on King Street in Boone, which the leg does not
+      ride), and TDOT's restrictions page and its one curve-road length
+      limit (30 ft on US 129, The Dragon, 2014) do not name US 421. The next
+      legal roads run 126 miles (via Elizabethton and Mountain City) and
+      142 (I-26 and US 19E) against 102. If TDOT or NCDOT posts a truck
+      length limit there, the leg comes out.
+- [ ] (Found along the way) Tolls still unread: the Monroe Expressway on
+      Charlotte to Florence (the only five-axle table found is a 2023 PDF)
+      and the Dominion Boulevard Veterans Bridge on Greenville to Norfolk.
+- [ ] (Found along the way) Gaps of 51 to 64 miles with no stop of any
+      kind: Memphis to Stuttgart, Dyersburg to Jonesboro, Chattanooga to
+      Cookeville, Cookeville to London, Pinehurst to Florence, Louisville
+      to Vincennes, Wilmington to Fayetteville, Elizabethtown to Owensboro.
+- [ ] (Found along the way) Billboards on the new legs: a sheet needs
+      Orinks's approval.
+
+### South Central roads (missing roads brief 3, November 23)
+
+- [x] Sikeston, Missouri is a city on I-55 at US 60, keeping only the
+      warehouse, plant and store read from the map for it.
+- [x] 50 new legs between Oklahoma, Kansas, Missouri and Arkansas towns the
+      map routed far around, five of them from Sikeston, routed by the truck
+      router over the OpenStreetMap planet of 2026-11-16 and built with
+      every layer. The detours that shrank most: Boise City to Raton (523
+      miles to 126), Garden City to Lamar (444 to 100) and Coffeyville to
+      Lawrence (400 to 148).
+- [x] Six long legs split at a city they pass, with saves on the old leg
+      resuming on the pieces: Altus to Wichita Falls at Vernon, El Dorado to
+      Monroe at Ruston, Garden City to Amarillo at Liberal, Stratford and
+      Dumas, Dodge City to Salina at Great Bend, Poplar Bluff to Cape
+      Girardeau at Sikeston, and Little Rock to Oklahoma City at Henryetta.
+- [x] Legs renamed for the road they ride, among them Tulsa to Muskogee
+      (OK-351), Enid to Wichita (I-35), Lawrence to Kansas City (the Kansas
+      Turnpike) and Jonesboro to Little Rock (US-63); Dodge City to Hays
+      re-routed onto US 183 (116 miles to 105).
+- [x] South Central stops list (`docs/stops/south-central.json`), 426
+      stops. QuikTrip and Buc-ee's are left out of it.
+- [x] Tolls: the Turner, Chickasaw, Cimarron, Indian Nation, Will Rogers
+      and Muskogee turnpikes on the legs that ride them, from the Oklahoma
+      Turnpike Authority's 2024 rates (marked estimated), and the Kansas
+      Turnpike from the per-mile rate the map already uses.
+- [ ] (Found along the way) Toll still unread: Stillwater to Oklahoma City
+      rides 4 miles of the Kilpatrick Turnpike on its stored road, and the
+      truck router no longer finds a toll there. A fresh OTA schedule would
+      also replace the estimated Oklahoma fares.
+- Dodge City to Salina runs 15 miles shorter over Great Bend than the leg
+      it replaced (182 to 167): the old leg went north to I-70. The
+      chain is right.
+- [ ] (Found along the way) Legs of 60 miles or more with no stop a
+      tractor-trailer can use (most have a fuel station now): Ada to Lawton,
+      Ada to Stillwater, Ada to McAlester, Coffeyville to Joplin and to
+      Wichita, El Dorado to Hot Springs, Hot Springs to Pine Bluff, Pine
+      Bluff, Little Rock and Texarkana to El Dorado, Conway and Fayetteville
+      to Harrison, Poplar Bluff to Rolla and to Jonesboro, Rolla to Sedalia,
+      Sedalia to Kansas City, Kirksville to Quincy, Columbia and Ottumwa,
+      St. Joseph to Topeka, Ponca City to Bartlesville, Great Bend to Hays.
+- [ ] (Found along the way) Billboards on the new legs: a sheet needs
+      Orinks's approval.
 
 ### Winter cab, wipers and ice roads (designed November 22)
 
@@ -6682,6 +7442,11 @@ truck do the wrong thing on a drive.
 Open work found during the 1.9 gate that does not cost the drive, moved
 here 2026-09-25. Details stay in the linked dated sections.
 
+- [ ] Bridge coverage: Peoria–Springfield / Murray Baker has no verified
+      projection (the current archive is at least 317.6 m from its OSM
+      carriers); Lafayette–Baton Rouge / Atchafalaya Basin fails the 80 m
+      alignment gate (one vertex on each carrier is 80.2 m and 83.8 m away)
+      ([named bridges](#named-bridges-november-22)).
 - [ ] Per-exit ramp grade: past the deceleration lane a ramp is assumed
       level ([September 24](#september-24-realistic-interstate-exit)).
 - [ ] A lane change is called a sideswipe when a vehicle in the new lane is
@@ -6785,6 +7550,37 @@ here 2026-09-25. Details stay in the linked dated sections.
       enum in `ff-core` (hired, on sufferance, unassigned, own authority)
       with one `next(event)` and a transition table, reported by the agent
       server's `status` (R1 review, 2026-11-22).
+      `BusinessStage` (below) now covers the ownership ladder; Employment
+      should sit beside it, not inside it.
+- [x] **The buy-in buys a tractor the driver chooses, at its price.** The
+      flat 35,000 dollar buy-in handed over whatever dispatch had assigned,
+      and first pick of the yard comes at level 17, so every driver up the
+      ladder bought a 176,000 to 216,000 dollar flagship for 35,000. The
+      buy-in now lists every priced sleeper, cheapest first (from 31,000),
+      at its catalog price with 10,000 working capital left over, and asks
+      twice. `buy_in_paid` records the price; a first tractor from a 1.9
+      buy-in (no `buy_in_paid`) keeps the 35,000 hand-back cap. Nobody's
+      equipment or money changes (2026-11-23).
+- [x] **The heavy hauler costs 78,000 dollars,** up from 52,000, in line
+      with the heavy sleepers around it; its stats are unchanged. Dealer and
+      buy-in rows read miles per gallon at a steady 60 mph with the reference
+      load (`TruckState::rated_mpg`), and the dealer lists the free standard
+      rig only to a driver who owns it (2026-11-23).
+- [x] **`BusinessStage` is the ownership ladder as one state machine**
+      (company driver, company by choice, leased on, leased on prepared, own
+      authority), stored in the three old profile fields so saves are
+      unchanged. `Profile::apply_business_event` is the only writer; the
+      agent server's `status` reports `business_stage` and `scenario` sets it
+      (2026-11-23).
+- [ ] (Found along the way) **Public profile net worth still counts a
+      tractor from a 1.9 buy-in at its full catalog price,** though it goes
+      back for 35,000 at most.
+- [ ] (Found along the way) **Dealer and buy-in rows stay in US units under
+      kilometers:** the tank reads gallons and economy miles per gallon while
+      fuel elsewhere reads liters.
+- [ ] (Found along the way) **`update_fuel`'s comment says it is calibrated
+      for about 6.5 to 7 mpg at 60 mph;** with the reference load on level
+      road the standard rig works out to about 7.3.
 - [x] (Found along the way) **The destination approach has a limit in
       force.** Off the destination exit the ramp to the facility goes by the
       number S speaks, the approach's 45 (never above the corridor's): the

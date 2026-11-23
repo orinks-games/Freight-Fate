@@ -45,7 +45,12 @@ fn truck_options(height_m: Option<f64>) -> serde_json::Value {
         "height": height_m.unwrap_or(4.11),
         "width": 2.59,
         "length": 21.64,
-        "weight": 36.29,
+        // 80,000 lb is 36.287 t, and a bridge tagged maxweight=40 st (40
+        // short tons, also 80,000 lb) is the same number. Rounded up to 36.29
+        // the truck was 3 kg over every such posting, so legal roads were
+        // refused (Charleston to Pikeville went 150 miles round instead of
+        // 108 on US 119).
+        "weight": 36.28,
         "axle_load": 15.42,
         "hazmat": false,
         "use_tolls": 1.0,
@@ -269,9 +274,19 @@ pub fn shield_key(name: &str) -> Option<(&'static str, String)> {
     const DIRECTIONS: &[&str] = &["N", "S", "E", "W", "NORTH", "SOUTH", "EAST", "WEST"];
     let text = name.replace('.', " ").replace('-', " - ");
     let mut words: Vec<&str> = text.split_whitespace().collect();
-    while words
-        .first()
-        .is_some_and(|w| DIRECTIONS.contains(&w.to_uppercase().as_str()))
+    // Nebraska signs its state highways with an N ("N 92", "N-2"), which
+    // reads as a direction word: a lone N straight before the number is
+    // the shield, not a heading.
+    let nebraska = words.len() >= 2
+        && words[0] == "N"
+        && words[1..]
+            .iter()
+            .find(|w| **w != "-")
+            .is_some_and(|w| w.chars().all(|c| c.is_ascii_digit()));
+    while !nebraska
+        && words
+            .first()
+            .is_some_and(|w| DIRECTIONS.contains(&w.to_uppercase().as_str()))
     {
         words.remove(0);
     }
@@ -304,6 +319,12 @@ pub fn shield_key(name: &str) -> Option<(&'static str, String)> {
         "TRUNK" => "STATE",
         // Quebec's autoroutes ("A-20", "Autoroute 20").
         "A" | "AUTOROUTE" => "STATE",
+        // Michigan signs its state trunklines with an M ("M 32", "M-115").
+        "M" => "STATE",
+        // Kansas signs its state highways with a K ("K 156", "K-61").
+        "K" => "STATE",
+        // Nebraska's state highways ("N 92", "N-71").
+        "N" => "STATE",
         "CR" | "COUNTY ROAD" | "COUNTY ROUTE" => "CR",
         p if p.ends_with(" ROUTE") || p.ends_with(" HIGHWAY") || p.ends_with(" ROAD") => "STATE",
         p if p.len() == 2 && p.chars().all(|c| c.is_ascii_alphabetic()) => "STATE",
@@ -425,6 +446,16 @@ mod tests {
         assert!(matches_shield("TX 6", "State Highway 6"));
         assert!(matches_shield("NC 16", "NC-16"));
         assert!(!matches_shield("Tri-State Tollway", "I-94"));
+        assert!(matches_shield("M 115 West", "M-115"));
+        assert!(matches_shield("M 32", "M-32"));
+        assert!(!matches_shield("M 32", "US-23"));
+        assert!(matches_shield("K 156", "K-156"));
+        assert!(matches_shield("KS 156", "K-156"));
+        assert!(!matches_shield("K 156", "US-156"));
+        assert!(matches_shield("N 92", "N-92"));
+        assert!(matches_shield("N-2 East", "N-2"));
+        assert!(!matches_shield("N 92", "US-77"));
+        assert!(matches_shield("N US 81", "US-81"));
     }
 
     #[test]

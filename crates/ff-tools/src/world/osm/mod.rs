@@ -493,6 +493,17 @@ pub fn main(argv: &[String]) -> Result<i32> {
             .iter()
             .find_map(|(_, dir)| existing_meta(&dir.join("limit_artifacts.jsonl")));
         if let Some(mut meta) = us_meta {
+            // The loader folds from the screen files, so the spliced rows go
+            // on disk before the reload that counts the folds; the meta is
+            // rewritten with the new counts below.
+            for (folder, rows) in super::country::split_rows(&world, rows.clone()) {
+                let path = super::country::gameplay_dir_of(&folder).join("limit_artifacts.jsonl");
+                if rows.is_empty() && !path.is_file() {
+                    continue;
+                }
+                let own = existing_meta(&path).unwrap_or_else(|| meta.clone());
+                util::write_text(&path, &jsonl(own, &rows))?;
+            }
             let world_now = ff_core::data::world::World::load_from_json(&root.join("data"))
                 .map_err(|e| format!("reloading the world to count folds: {e}"))?;
             let folds: usize = world_now

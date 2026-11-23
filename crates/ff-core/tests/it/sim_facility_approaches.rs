@@ -50,7 +50,7 @@ fn test_facility_approach_status_names_the_dock_not_the_town() {
     );
     assert!(!status.contains("toward Camp Verde,"), "{status}");
     assert!(
-        status.contains("Destination dry warehouse Camp Verde Dry Warehouse ahead."),
+        status.contains("Destination dry warehouse Camp Verde Dry Warehouse."),
         "{status}"
     );
 }

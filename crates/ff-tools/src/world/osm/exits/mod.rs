@@ -60,11 +60,28 @@ use ramps::RampCounts;
 use record::{Carry, Sources};
 
 const USAGE: &str = "usage: osm-exits --pbf FILE [--pbf FILE ...] [--only from:to;from:to] \
-                     [--extract-date YYYY-MM-DD] [--snapshot NAME] [--write]";
+                     [--extract-date YYYY-MM-DD] [--snapshot NAME] [--any-label] [--write]";
 
 const DEFAULT_SNAPSHOT: &str = "Geofabrik extract";
 
 static INTERSTATE: LazyLock<Regex> = LazyLock::new(|| Regex::new(r"^I-\d+$").unwrap());
+/// A leg labelled for a named freeway (the New Jersey Turnpike, the Garden
+/// State Parkway, the Atlantic City Expressway) has numbered exits as an
+/// Interstate does.
+static NAMED_FREEWAY: LazyLock<Regex> =
+    LazyLock::new(|| Regex::new(r"(?i)\b(turnpike|parkway|expressway|thruway|freeway)\b").unwrap());
+
+/// Whether a leg is read for exits. An Interstate, a named freeway, a leg
+/// that already carries exits, and a Canadian leg are; `--any-label` reads
+/// every leg in `--only` (a US or state highway that is a freeway for part
+/// of its length, as NJ 55 is), and exits appear only where it is one.
+fn reads_exits(highway: &str, has_exits: bool, canadian: bool, any_label: bool) -> bool {
+    INTERSTATE.is_match(highway)
+        || NAMED_FREEWAY.is_match(highway)
+        || has_exits
+        || canadian
+        || any_label
+}
 
 fn leg_id(leg: &Value) -> String {
     let end = |k| leg.get(k).map(Value::py_str).unwrap_or_default();
@@ -136,10 +153,11 @@ pub fn main(argv: &[String]) -> Result<i32> {
         argv,
         &Spec {
             values: &["pbf", "only", "extract-date", "snapshot"],
-            flags: &["write"],
+            flags: &["write", "any-label"],
         },
     )
     .map_err(|e| format!("{e}\n{USAGE}"))?;
+    let any_label = args.flag("any-label");
     let pbfs: Vec<PathBuf> = args.all("pbf").iter().map(PathBuf::from).collect();
     if pbfs.is_empty() {
         return Err(format!("--pbf is required\n{USAGE}"));
@@ -217,7 +235,12 @@ pub fn main(argv: &[String]) -> Result<i32> {
         // Mainland, the 401) are provincial routes, so a Canadian leg is
         // read whatever its label, and finds exits only where it is one.
         let canadian = crate::world::country::leg_touches(&world_view, leg, "CA");
-        if !INTERSTATE.is_match(&highway) && old.is_empty() && !canadian {
+        if !reads_exits(
+            &highway,
+            !old.is_empty(),
+            canadian,
+            any_label && only.is_some(),
+        ) {
             tally.not_eligible += 1;
             continue;
         }
@@ -388,4 +411,20 @@ fn report(t: &Tally, found: &DiscoverCounts, r: &RampCounts) {
          (their exit is gone).",
         t.stops_moved, t.stops_kept, t.stops_unlinked
     );
+}
+
+#[cfg(test)]
+mod tests {
+    use super::reads_exits;
+
+    #[test]
+    fn interstates_and_named_freeways_are_read_for_exits() {
+        assert!(reads_exits("I-295", false, false, false));
+        assert!(reads_exits("New Jersey Turnpike", false, false, false));
+        assert!(reads_exits("Garden State Parkway", false, false, false));
+        assert!(reads_exits("Atlantic City Expressway", false, false, false));
+        assert!(!reads_exits("US-40", false, false, false));
+        assert!(reads_exits("NJ-55", false, false, true));
+        assert!(reads_exits("US-40", true, false, false));
+    }
 }

@@ -1,0 +1,4006 @@
+{
+ "about": "Curated stops for the Alabama, Mississippi and South Carolina legs (missing roads, 2026-11-23), placed by cargo tools osm-stops --stops. Seeded from the stops the region's existing legs already carry, so a stop on a shared road lands on the new leg too. lat, lon, reach_mi, season and heading steer placement; every other key is the stop as the game reads it. A stop with a heading lands on a leg stored the other way with directions reverse.",
+ "truck_access": {
+  "read": 23,
+  "carried": 155,
+  "about": "Read: OpenStreetMap truck parking or an hgv tag at the site, or the operator's page. Carried: the stop as the region's existing legs already carry it, with the truck access recorded there."
+ },
+ "stops": [
+  {
+   "name": "Valley Country Store",
+   "type": "fuel_station",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "break"
+   ],
+   "services": [
+    "diesel",
+    "parking"
+   ],
+   "parking": "limited",
+   "vehicle_access": "bobtail_only",
+   "source": "OpenStreetMap/Overpass development-time corridor amenity query, accessed 2026-06-21; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Truck access: No verified truck access: OpenStreetMap records no hgv allowance, truck parking, or truck-stop classification at this location (checked 2026-07-19). Generic fuel stations default to bobtail_only per the truck-accessibility policy.",
+   "lat": 33.81872,
+   "lon": -86.37443,
+   "season": "year round"
+  },
+  {
+   "name": "Love's Travel Stop Steele",
+   "type": "travel_center",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "food",
+    "break",
+    "sleep"
+   ],
+   "services": [
+    "diesel",
+    "food",
+    "parking",
+    "scale"
+   ],
+   "parking": "likely",
+   "vehicle_access": "tractor_trailer",
+   "source": "OpenStreetMap/Overpass development-time corridor amenity query, accessed 2026-06-21; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Store identity read from OpenStreetMap (Geofabrik Alabama extract dated 2026-06-22, read 2026-09-17): Love's store 304 at Steele; town DERIVED, not read: the nearest mapped place, 0.8 mi away; matched by coordinate, 0.02 mi from the mapped site. CAT Scale read from OpenStreetMap (amenity=weighbridge, brand CAT Scale) within 0.25 mi of the store; Overpass snapshot 2026-09-24, tools/cat_scales.py.",
+   "lat": 33.93349,
+   "lon": -86.19071,
+   "season": "year round"
+  },
+  {
+   "name": "Petro Stopping Center Hanceville",
+   "type": "travel_center",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "food",
+    "break",
+    "sleep"
+   ],
+   "services": [
+    "diesel",
+    "food",
+    "parking",
+    "scale"
+   ],
+   "parking": "likely",
+   "vehicle_access": "tractor_trailer",
+   "source": "OpenStreetMap/Overpass development-time corridor amenity query, accessed 2026-06-21; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Opposite-direction copy onto overlapping same-highway partner; curated 2026-09-16. Store identity read from OpenStreetMap (Geofabrik Alabama extract dated 2026-06-22, read 2026-09-17): Petro store 0485 at Hanceville; town read from the mapped site's address; matched by coordinate, 0.05 mi from the mapped site. CAT Scale read from OpenStreetMap (amenity=weighbridge, brand CAT Scale) within 0.25 mi of the store; Overpass snapshot 2026-09-24, tools/cat_scales.py.",
+   "lat": 34.05216,
+   "lon": -86.87235,
+   "season": "year round"
+  },
+  {
+   "name": "Love's Travel Stop Falkville",
+   "type": "travel_center",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "food",
+    "break",
+    "sleep"
+   ],
+   "services": [
+    "diesel",
+    "food",
+    "parking",
+    "scale"
+   ],
+   "parking": "likely",
+   "vehicle_access": "tractor_trailer",
+   "source": "OpenStreetMap/Overpass development-time corridor amenity query, accessed 2026-06-21; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Opposite-direction copy onto overlapping same-highway partner; curated 2026-09-16. Store identity read from OpenStreetMap (Geofabrik Alabama extract dated 2026-06-22, read 2026-09-17): Love's store 381 at Falkville; town read from the mapped site's address; matched by coordinate, 0.01 mi from the mapped site. CAT Scale read from OpenStreetMap (amenity=weighbridge, brand CAT Scale) within 0.25 mi of the store; Overpass snapshot 2026-09-24, tools/cat_scales.py.",
+   "lat": 34.36672,
+   "lon": -86.89344,
+   "season": "year round"
+  },
+  {
+   "name": "Pilot Travel Center Priceville",
+   "type": "travel_center",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "food",
+    "break",
+    "sleep"
+   ],
+   "services": [
+    "diesel",
+    "food",
+    "parking",
+    "scale"
+   ],
+   "parking": "likely",
+   "vehicle_access": "tractor_trailer",
+   "source": "OpenStreetMap/Overpass development-time corridor amenity query, accessed 2026-06-21; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Opposite-direction copy onto overlapping same-highway partner; curated 2026-09-16. Store identity read from OpenStreetMap (Geofabrik Alabama extract dated 2026-06-22, read 2026-09-17): Pilot store at Priceville; town read from the mapped site's address; matched by coordinate, 0.01 mi from the mapped site. CAT Scale read from OpenStreetMap (amenity=weighbridge, brand CAT Scale) within 0.25 mi of the store; Overpass snapshot 2026-09-24, tools/cat_scales.py.",
+   "lat": 34.53808,
+   "lon": -86.91097,
+   "season": "year round"
+  },
+  {
+   "name": "Pilot Travel Center Cornersville",
+   "type": "travel_center",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "food",
+    "break",
+    "sleep"
+   ],
+   "services": [
+    "diesel",
+    "food",
+    "restrooms",
+    "parking",
+    "scale"
+   ],
+   "parking": "confirmed",
+   "vehicle_access": "tractor_trailer",
+   "curation": "curated",
+   "source": "Pilot Flying J official locator lists Pilot Travel Center store 406 in Cornersville, TN with 20 public truck parking spaces; at_mi estimated by projecting source coordinates onto checked-in route geometry (0.6 mi from simplified corridor line), accessed 2026-06-17: https://locations.pilotflyingj.com/us/tn/cornersville/9211-lewisburg-hwy; Store coordinates read from OpenStreetMap (Geofabrik Tennessee extract dated 2026-06-22, read 2026-09-17): Pilot store at Cornersville; matched by name, the only Pilot the map has at Cornersville within 40 mi of mile 122.6 of this leg (6.6 mi); coordinates read from the mapped site.",
+   "lat": 35.304752,
+   "lon": -86.884601,
+   "season": "year round"
+  },
+  {
+   "name": "Petro Stopping Center McCalla",
+   "type": "travel_center",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "food",
+    "break",
+    "sleep"
+   ],
+   "services": [
+    "diesel",
+    "food",
+    "parking",
+    "scale"
+   ],
+   "parking": "likely",
+   "vehicle_access": "tractor_trailer",
+   "source": "OpenStreetMap/Overpass development-time corridor amenity query, accessed 2026-06-21; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Store identity read from OpenStreetMap (Geofabrik Alabama extract dated 2026-06-22, read 2026-09-17): Petro store 0319 at McCalla; town read from the mapped site's address; matched by coordinate, 0.02 mi from the mapped site. CAT Scale read from OpenStreetMap (amenity=weighbridge, brand CAT Scale) within 0.25 mi of the store; Overpass snapshot 2026-09-24, tools/cat_scales.py.",
+   "lat": 33.28055,
+   "lon": -87.09074,
+   "season": "year round"
+  },
+  {
+   "name": "TA Travel Center Meridian",
+   "type": "travel_center",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "food",
+    "break",
+    "sleep"
+   ],
+   "services": [
+    "diesel",
+    "food",
+    "parking",
+    "scale"
+   ],
+   "parking": "likely",
+   "vehicle_access": "tractor_trailer",
+   "source": "OpenStreetMap/Overpass dense in-gap corridor amenity query, accessed 2026-07-19; added to close a stretch with no truck-accessible service after the truck-accessibility sweep. Curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Store identity read from OpenStreetMap (Geofabrik Mississippi extract dated 2026-06-22, read 2026-09-17): TA store 0047 at Meridian; town read from the mapped site's branch name; matched by coordinate, 0.02 mi from the mapped site. CAT Scale read from OpenStreetMap (amenity=weighbridge, brand CAT Scale) within 0.25 mi of the store; Overpass snapshot 2026-09-24, tools/cat_scales.py.",
+   "lat": 32.3963301,
+   "lon": -88.5828626,
+   "season": "year round"
+  },
+  {
+   "name": "Pilot Travel Center Meridian",
+   "type": "travel_center",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "food",
+    "break",
+    "sleep"
+   ],
+   "services": [
+    "diesel",
+    "food",
+    "parking",
+    "scale"
+   ],
+   "parking": "likely",
+   "vehicle_access": "tractor_trailer",
+   "source": "OpenStreetMap/Overpass dense in-gap corridor amenity query, accessed 2026-07-19; added to close a stretch with no truck-accessible service after the truck-accessibility sweep. Curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Store identity read from OpenStreetMap (Geofabrik Mississippi extract dated 2026-06-22, read 2026-09-17): Pilot store 388 at Meridian; town read from the mapped site's address; matched by coordinate, 0.02 mi from the mapped site. CAT Scale read from OpenStreetMap (amenity=weighbridge, brand CAT Scale) within 0.25 mi of the store; Overpass snapshot 2026-09-24, tools/cat_scales.py.",
+   "lat": 32.3463385,
+   "lon": -88.7282307,
+   "season": "year round"
+  },
+  {
+   "name": "Love's Travel Stop Poplarville",
+   "type": "travel_center",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "food",
+    "break",
+    "sleep"
+   ],
+   "services": [
+    "diesel",
+    "food",
+    "parking",
+    "restrooms",
+    "scale"
+   ],
+   "parking": "likely",
+   "vehicle_access": "tractor_trailer",
+   "curation": "curated",
+   "source": "Love's official store feed lists store 619 in Poplarville, MS on I-59, exit 29; at_mi estimated by projecting source coordinates onto checked-in route geometry (1.1 mi from simplified corridor line), accessed 2026-06-17: https://www.loves.com/api/fetch_stores; Store coordinates read from OpenStreetMap (Geofabrik Mississippi extract dated 2026-06-22, read 2026-09-17): Love's store 619 at Poplarville; matched by name, the only Love's the map has at Poplarville within 40 mi of mile 251.2 of this leg (16.7 mi); coordinates read from the mapped site. CAT Scale read from OpenStreetMap (amenity=weighbridge, brand CAT Scale) within 0.25 mi of the store; Overpass snapshot 2026-09-24, tools/cat_scales.py.",
+   "lat": 30.845744,
+   "lon": -89.497662,
+   "season": "year round"
+  },
+  {
+   "name": "TA Travel Center Slidell",
+   "type": "travel_center",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "food",
+    "break",
+    "sleep"
+   ],
+   "services": [
+    "diesel",
+    "food",
+    "parking",
+    "scale"
+   ],
+   "parking": "likely",
+   "vehicle_access": "tractor_trailer",
+   "source": "OpenStreetMap/Overpass development-time corridor amenity query, accessed 2026-06-21; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Store identity read from OpenStreetMap (Geofabrik Louisiana extract dated 2026-06-22, read 2026-09-17): TA store 0180 at Slidell; town read from the store page the mapped site links to; matched by coordinate, 0.03 mi from the mapped site. CAT Scale read from OpenStreetMap (amenity=weighbridge, brand CAT Scale) within 0.25 mi of the store; Overpass snapshot 2026-09-24, tools/cat_scales.py.",
+   "lat": 30.28672,
+   "lon": -89.75046,
+   "season": "year round"
+  },
+  {
+   "name": "Kangaroo Express",
+   "type": "fuel_station",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "break"
+   ],
+   "services": [
+    "diesel",
+    "parking"
+   ],
+   "parking": "limited",
+   "vehicle_access": "tractor_trailer",
+   "source": "OpenStreetMap/Overpass development-time amenity query centered on the birmingham_al_us endpoint city's own coordinates; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs.",
+   "lat": 33.55167,
+   "lon": -86.78346,
+   "season": "year round"
+  },
+  {
+   "name": "Circle K",
+   "type": "fuel_station",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "break"
+   ],
+   "services": [
+    "diesel",
+    "parking"
+   ],
+   "parking": "limited",
+   "vehicle_access": "bobtail_only",
+   "source": "OpenStreetMap/Overpass dense in-gap corridor amenity query, accessed 2026-09-16; added to close a stretch with no truck-accessible service after the truck-accessibility sweep. Curated into a gameplay POI (clean name, normalized category) without raw OSM IDs.",
+   "lat": 33.4624216,
+   "lon": -86.731096,
+   "season": "year round"
+  },
+  {
+   "name": "BP",
+   "type": "fuel_station",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "break"
+   ],
+   "services": [
+    "diesel",
+    "parking"
+   ],
+   "parking": "limited",
+   "vehicle_access": "bobtail_only",
+   "source": "OpenStreetMap/Overpass development-time corridor amenity query, accessed 2026-06-21; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Truck access: No verified truck access: OpenStreetMap records no hgv allowance, truck parking, or truck-stop classification at this location (checked 2026-07-19). Generic fuel stations default to bobtail_only per the truck-accessibility policy.",
+   "lat": 33.37211,
+   "lon": -86.4199,
+   "season": "year round"
+  },
+  {
+   "name": "Love's Travel Stop Hamilton",
+   "type": "travel_center",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "food",
+    "break",
+    "sleep"
+   ],
+   "services": [
+    "diesel",
+    "food",
+    "parking",
+    "scale"
+   ],
+   "parking": "likely",
+   "vehicle_access": "tractor_trailer",
+   "source": "OpenStreetMap/Overpass development-time corridor amenity query, accessed 2026-06-21; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Store identity read from OpenStreetMap (Geofabrik Alabama extract dated 2026-06-22, read 2026-09-17): Love's store 814 at Hamilton; town read from the mapped site's address; matched by coordinate, 0.00 mi from the mapped site. CAT Scale read from OpenStreetMap (amenity=weighbridge, brand CAT Scale) within 0.25 mi of the store; Overpass snapshot 2026-09-24, tools/cat_scales.py.",
+   "lat": 34.09337,
+   "lon": -88.00521,
+   "season": "year round"
+  },
+  {
+   "name": "Murphy USA",
+   "type": "fuel_station",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "break"
+   ],
+   "services": [
+    "diesel",
+    "parking"
+   ],
+   "parking": "limited",
+   "vehicle_access": "bobtail_only",
+   "source": "OpenStreetMap/Overpass development-time corridor amenity query, accessed 2026-06-21; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Truck access: No verified truck access: OpenStreetMap records no hgv allowance, truck parking, or truck-stop classification at this location (checked 2026-07-19). Generic fuel stations default to bobtail_only per the truck-accessibility policy.",
+   "lat": 34.24235,
+   "lon": -88.39869,
+   "season": "year round"
+  },
+  {
+   "name": "20/59 Travel Center",
+   "type": "travel_center",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "food",
+    "break",
+    "sleep"
+   ],
+   "services": [
+    "diesel",
+    "food",
+    "parking"
+   ],
+   "parking": "likely",
+   "vehicle_access": "tractor_trailer",
+   "source": "OpenStreetMap/Overpass development-time corridor amenity query, accessed 2026-06-21; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs.",
+   "lat": 33.42692,
+   "lon": -86.95256,
+   "season": "year round"
+  },
+  {
+   "name": "Bike Repair",
+   "type": "public_rest_area",
+   "actions": [
+    "park",
+    "save",
+    "break",
+    "sleep"
+   ],
+   "services": [
+    "parking",
+    "restrooms"
+   ],
+   "parking": "limited",
+   "vehicle_access": "tractor_trailer",
+   "source": "OpenStreetMap/Overpass development-time corridor amenity query, accessed 2026-06-21; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs.",
+   "lat": 33.63106,
+   "lon": -86.8783,
+   "season": "year round"
+  },
+  {
+   "name": "Flying J Travel Center Dothan",
+   "type": "travel_center",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "food",
+    "break",
+    "sleep"
+   ],
+   "services": [
+    "diesel",
+    "food",
+    "parking",
+    "scale"
+   ],
+   "parking": "likely",
+   "vehicle_access": "tractor_trailer",
+   "source": "OpenStreetMap/Overpass development-time amenity query centered on the dothan_al_us endpoint city's own coordinates; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Store identity read from OpenStreetMap (Geofabrik Alabama extract dated 2026-06-22, read 2026-09-17): Flying J store at Dothan; town read from the mapped site's branch name; matched by coordinate, 0.02 mi from the mapped site. CAT Scale read from OpenStreetMap (amenity=weighbridge, brand CAT Scale) within 0.25 mi of the store; Overpass snapshot 2026-09-24, tools/cat_scales.py.",
+   "lat": 31.19184,
+   "lon": -85.39989,
+   "season": "year round"
+  },
+  {
+   "name": "Marathon",
+   "type": "fuel_station",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "break"
+   ],
+   "services": [
+    "diesel",
+    "parking"
+   ],
+   "parking": "limited",
+   "vehicle_access": "bobtail_only",
+   "source": "OpenStreetMap/Overpass development-time corridor amenity query, accessed 2026-06-21; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Truck access: No verified truck access: OpenStreetMap records no hgv allowance, truck parking, or truck-stop classification at this location (checked 2026-07-19). Generic fuel stations default to bobtail_only per the truck-accessibility policy.",
+   "lat": 31.29241,
+   "lon": -85.10825,
+   "season": "year round"
+  },
+  {
+   "name": "Love's Travel Stop",
+   "type": "travel_center",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "food",
+    "break",
+    "sleep"
+   ],
+   "services": [
+    "diesel",
+    "food",
+    "parking",
+    "scale"
+   ],
+   "parking": "likely",
+   "vehicle_access": "tractor_trailer",
+   "source": "OpenStreetMap/Overpass development-time amenity query centered on the albany_ga_us endpoint city's own coordinates; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Store identity read from OpenStreetMap (Geofabrik Georgia extract dated 2026-06-22, read 2026-09-17): Love's store 808; no town is mapped for it, so the record keeps the chain's name; matched by coordinate, 0.00 mi from the mapped site. CAT Scale read from OpenStreetMap (amenity=weighbridge, brand CAT Scale) within 0.25 mi of the store; Overpass snapshot 2026-09-24, tools/cat_scales.py.",
+   "lat": 31.58075,
+   "lon": -84.10747,
+   "season": "year round"
+  },
+  {
+   "name": "Shell",
+   "type": "fuel_station",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "break"
+   ],
+   "services": [
+    "diesel",
+    "parking"
+   ],
+   "parking": "limited",
+   "vehicle_access": "bobtail_only",
+   "source": "OpenStreetMap/Overpass development-time corridor amenity query, accessed 2026-06-21; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Truck access: No verified truck access: OpenStreetMap records no hgv allowance, truck parking, or truck-stop classification at this location (checked 2026-07-19). Generic fuel stations default to bobtail_only per the truck-accessibility policy.",
+   "lat": 30.79263,
+   "lon": -85.37625,
+   "season": "year round"
+  },
+  {
+   "name": "Pilot Travel Center Marianna",
+   "type": "travel_center",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "food",
+    "break",
+    "sleep"
+   ],
+   "services": [
+    "diesel",
+    "food",
+    "parking",
+    "scale"
+   ],
+   "parking": "likely",
+   "vehicle_access": "tractor_trailer",
+   "source": "OpenStreetMap/Overpass dense in-gap corridor amenity query, accessed 2026-07-19; added to close a stretch with no truck-accessible service after the truck-accessibility sweep. Curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Store identity read from OpenStreetMap (Geofabrik Florida extract dated 2026-06-22, read 2026-09-17): Pilot store at Marianna; town read from the store page the mapped site links to; matched by coordinate, 0.01 mi from the mapped site. CAT Scale read from OpenStreetMap (amenity=weighbridge, brand CAT Scale) within 0.25 mi of the store; Overpass snapshot 2026-09-24, tools/cat_scales.py.",
+   "lat": 30.7258742,
+   "lon": -85.1870854,
+   "season": "year round"
+  },
+  {
+   "name": "Blondies Food and Fuel",
+   "type": "fuel_station",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "break"
+   ],
+   "services": [
+    "diesel",
+    "parking"
+   ],
+   "parking": "limited",
+   "vehicle_access": "bobtail_only",
+   "source": "OpenStreetMap/Overpass development-time corridor amenity query, accessed 2026-06-21; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Truck access: No verified truck access: OpenStreetMap records no hgv allowance, truck parking, or truck-stop classification at this location (checked 2026-07-19). Generic fuel stations default to bobtail_only per the truck-accessibility policy.",
+   "lat": 30.71873,
+   "lon": -85.0197,
+   "season": "year round"
+  },
+  {
+   "name": "Flying J Travel Center Quincy",
+   "type": "travel_center",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "food",
+    "break",
+    "sleep"
+   ],
+   "services": [
+    "diesel",
+    "food",
+    "parking",
+    "scale"
+   ],
+   "parking": "likely",
+   "vehicle_access": "tractor_trailer",
+   "source": "OpenStreetMap/Overpass dense in-gap corridor amenity query, accessed 2026-07-19; added to close a stretch with no truck-accessible service after the truck-accessibility sweep. Curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Store identity read from OpenStreetMap (Geofabrik Florida extract dated 2026-06-22, read 2026-09-17): Flying J store at Quincy; town read from the mapped site's branch name; matched by coordinate, 0.00 mi from the mapped site. CAT Scale read from OpenStreetMap (amenity=weighbridge, brand CAT Scale) within 0.25 mi of the store; Overpass snapshot 2026-09-24, tools/cat_scales.py.",
+   "lat": 30.4930848,
+   "lon": -84.4296585,
+   "season": "year round"
+  },
+  {
+   "name": "Sunoco",
+   "type": "fuel_station",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "break"
+   ],
+   "services": [
+    "diesel",
+    "parking"
+   ],
+   "parking": "limited",
+   "vehicle_access": "bobtail_only",
+   "source": "OpenStreetMap/Overpass development-time amenity query centered on the florence_al_us endpoint city's own coordinates; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Truck access: No verified truck access: OpenStreetMap records no hgv allowance, truck parking, or truck-stop classification at this location (checked 2026-07-19). Generic fuel stations default to bobtail_only per the truck-accessibility policy.",
+   "lat": 34.82336,
+   "lon": -87.62614,
+   "season": "year round"
+  },
+  {
+   "name": "Fuel City",
+   "type": "fuel_station",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "break"
+   ],
+   "services": [
+    "diesel",
+    "parking"
+   ],
+   "parking": "limited",
+   "vehicle_access": "bobtail_only",
+   "source": "OpenStreetMap/Overpass development-time corridor amenity query, accessed 2026-06-21; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Truck access: No verified truck access: OpenStreetMap records no hgv allowance, truck parking, or truck-stop classification at this location (checked 2026-07-19). Generic fuel stations default to bobtail_only per the truck-accessibility policy.",
+   "lat": 34.63613,
+   "lon": -86.84449,
+   "season": "year round"
+  },
+  {
+   "name": "Chevron",
+   "type": "fuel_station",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "break"
+   ],
+   "services": [
+    "diesel",
+    "parking"
+   ],
+   "parking": "limited",
+   "vehicle_access": "bobtail_only",
+   "source": "OpenStreetMap/Overpass development-time corridor amenity query, accessed 2026-06-21; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Truck access: No verified truck access: OpenStreetMap records no hgv allowance, truck parking, or truck-stop classification at this location (checked 2026-07-19). Generic fuel stations default to bobtail_only per the truck-accessibility policy.",
+   "lat": 34.49136,
+   "lon": -87.72865,
+   "season": "year round"
+  },
+  {
+   "name": "Texaco",
+   "type": "fuel_station",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "break"
+   ],
+   "services": [
+    "diesel",
+    "parking"
+   ],
+   "parking": "limited",
+   "vehicle_access": "bobtail_only",
+   "source": "OpenStreetMap/Overpass development-time corridor amenity query, accessed 2026-06-21; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Truck access: No verified truck access: OpenStreetMap records no hgv allowance, truck parking, or truck-stop classification at this location (checked 2026-07-19). Generic fuel stations default to bobtail_only per the truck-accessibility policy.",
+   "lat": 34.24573,
+   "lon": -88.40204,
+   "season": "year round"
+  },
+  {
+   "name": "Texaco",
+   "type": "fuel_station",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "break"
+   ],
+   "services": [
+    "diesel",
+    "parking"
+   ],
+   "parking": "limited",
+   "vehicle_access": "bobtail_only",
+   "source": "OpenStreetMap/Overpass development-time amenity query centered on the gadsden_al_us endpoint city's own coordinates; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Truck access: No verified truck access: OpenStreetMap records no hgv allowance, truck parking, or truck-stop classification at this location (checked 2026-07-19). Generic fuel stations default to bobtail_only per the truck-accessibility policy.",
+   "lat": 34.02341,
+   "lon": -86.02211,
+   "season": "year round"
+  },
+  {
+   "name": "BP",
+   "type": "fuel_station",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "break"
+   ],
+   "services": [
+    "diesel",
+    "parking"
+   ],
+   "parking": "limited",
+   "vehicle_access": "bobtail_only",
+   "source": "OpenStreetMap/Overpass development-time corridor amenity query, accessed 2026-06-21; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Truck access: No verified truck access: OpenStreetMap records no hgv allowance, truck parking, or truck-stop classification at this location (checked 2026-07-19). Generic fuel stations default to bobtail_only per the truck-accessibility policy.",
+   "lat": 34.27609,
+   "lon": -85.88022,
+   "season": "year round"
+  },
+  {
+   "name": "Chevron",
+   "type": "fuel_station",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "break"
+   ],
+   "services": [
+    "diesel",
+    "parking"
+   ],
+   "parking": "limited",
+   "vehicle_access": "bobtail_only",
+   "source": "OpenStreetMap/Overpass development-time corridor amenity query, accessed 2026-06-21; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Truck access: No verified truck access: OpenStreetMap records no hgv allowance, truck parking, or truck-stop classification at this location (checked 2026-07-19). Generic fuel stations default to bobtail_only per the truck-accessibility policy.",
+   "lat": 34.86988,
+   "lon": -85.51424,
+   "season": "year round"
+  },
+  {
+   "name": "Texaco",
+   "type": "fuel_station",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "break"
+   ],
+   "services": [
+    "diesel",
+    "parking"
+   ],
+   "parking": "limited",
+   "vehicle_access": "tractor_trailer",
+   "source": "OpenStreetMap/Overpass development-time corridor amenity query, accessed 2026-06-21; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs.",
+   "lat": 34.77538,
+   "lon": -85.89327,
+   "season": "year round"
+  },
+  {
+   "name": "Love's Travel Stop",
+   "type": "travel_center",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "food",
+    "break",
+    "sleep"
+   ],
+   "services": [
+    "diesel",
+    "food",
+    "parking",
+    "scale"
+   ],
+   "parking": "likely",
+   "vehicle_access": "tractor_trailer",
+   "source": "OpenStreetMap/Overpass development-time corridor amenity query, accessed 2026-06-21; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Store identity read from OpenStreetMap (Geofabrik Tennessee extract dated 2026-06-22, read 2026-09-17): Love's store 490; no town is mapped for it, so the record keeps the chain's name; matched by coordinate, 0.01 mi from the mapped site. CAT Scale read from OpenStreetMap (amenity=weighbridge, brand CAT Scale) within 0.25 mi of the store; Overpass snapshot 2026-09-24, tools/cat_scales.py.",
+   "lat": 35.03712,
+   "lon": -85.58306,
+   "season": "year round"
+  },
+  {
+   "name": "Pilot Travel Center Decatur",
+   "type": "travel_center",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "food",
+    "break",
+    "sleep"
+   ],
+   "services": [
+    "diesel",
+    "food",
+    "restrooms",
+    "parking",
+    "scale"
+   ],
+   "parking": "confirmed",
+   "vehicle_access": "tractor_trailer",
+   "curation": "curated",
+   "source": "Pilot Flying J official locator lists Pilot Travel Center store 441 in Decatur, AL with 70 public truck parking spaces; at_mi estimated by projecting source coordinates onto checked-in route geometry (2.0 mi from simplified corridor line), accessed 2026-06-17: https://locations.pilotflyingj.com/us/al/decatur/3240-point-mallard-parkway Opposite-direction copy onto overlapping same-highway partner; curated 2026-09-16.",
+   "lat": 34.43776576815557,
+   "lon": -86.90062020884857,
+   "season": "year round"
+  },
+  {
+   "name": "Shell",
+   "type": "fuel_station",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "break"
+   ],
+   "services": [
+    "diesel",
+    "parking"
+   ],
+   "parking": "limited",
+   "vehicle_access": "bobtail_only",
+   "source": "OpenStreetMap/Overpass development-time amenity query centered on the mobile_al_us endpoint city's own coordinates; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Truck access: No verified truck access: OpenStreetMap records no hgv allowance, truck parking, or truck-stop classification at this location (checked 2026-07-19). Generic fuel stations default to bobtail_only per the truck-accessibility policy.",
+   "lat": 30.65349,
+   "lon": -88.07437,
+   "season": "year round"
+  },
+  {
+   "name": "Valero",
+   "type": "fuel_station",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "break"
+   ],
+   "services": [
+    "diesel",
+    "parking"
+   ],
+   "parking": "limited",
+   "vehicle_access": "bobtail_only",
+   "source": "OpenStreetMap/Overpass development-time amenity query centered on the hattiesburg_ms_us endpoint city's own coordinates; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Truck access: No verified truck access: OpenStreetMap records no hgv allowance, truck parking, or truck-stop classification at this location (checked 2026-07-19). Generic fuel stations default to bobtail_only per the truck-accessibility policy.",
+   "lat": 31.32444,
+   "lon": -89.34821,
+   "season": "year round"
+  },
+  {
+   "name": "Love's Travel Stop Prichard",
+   "type": "travel_center",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "food",
+    "break",
+    "sleep"
+   ],
+   "services": [
+    "diesel",
+    "food",
+    "parking",
+    "scale"
+   ],
+   "parking": "likely",
+   "vehicle_access": "tractor_trailer",
+   "source": "OpenStreetMap/Overpass dense in-gap corridor amenity query, accessed 2026-07-19; added to close a stretch with no truck-accessible service after the truck-accessibility sweep. Curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Store identity read from OpenStreetMap (Geofabrik Alabama extract dated 2026-06-22, read 2026-09-17): Love's store 624 at Prichard; town DERIVED, not read: the nearest mapped place, 1.9 mi away; matched by coordinate, 0.03 mi from the mapped site. CAT Scale read from OpenStreetMap (amenity=weighbridge, brand CAT Scale) within 0.25 mi of the store; Overpass snapshot 2026-09-24, tools/cat_scales.py.",
+   "lat": 30.7411386,
+   "lon": -88.1111368,
+   "season": "year round"
+  },
+  {
+   "name": "Circle K",
+   "type": "fuel_station",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "break"
+   ],
+   "services": [
+    "diesel",
+    "parking"
+   ],
+   "parking": "limited",
+   "vehicle_access": "bobtail_only",
+   "source": "OpenStreetMap/Overpass dense in-gap corridor amenity query, accessed 2026-09-16; added to close a stretch with no truck-accessible service after the truck-accessibility sweep. Curated into a gameplay POI (clean name, normalized category) without raw OSM IDs.",
+   "lat": 30.8300984,
+   "lon": -88.0931165,
+   "season": "year round"
+  },
+  {
+   "name": "Murphy USA",
+   "type": "fuel_station",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "break"
+   ],
+   "services": [
+    "diesel",
+    "parking"
+   ],
+   "parking": "limited",
+   "vehicle_access": "bobtail_only",
+   "source": "OpenStreetMap/Overpass development-time corridor amenity query, accessed 2026-06-21; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Truck access: No verified truck access: OpenStreetMap records no hgv allowance, truck parking, or truck-stop classification at this location (checked 2026-07-19). Generic fuel stations default to bobtail_only per the truck-accessibility policy.",
+   "lat": 31.68806,
+   "lon": -88.63178,
+   "season": "year round"
+  },
+  {
+   "name": "Midway Service Center",
+   "type": "travel_center",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "food",
+    "break",
+    "sleep"
+   ],
+   "services": [
+    "diesel",
+    "food",
+    "parking"
+   ],
+   "parking": "likely",
+   "vehicle_access": "tractor_trailer",
+   "source": "OpenStreetMap/Overpass dense in-gap corridor amenity query, accessed 2026-09-16; added to close a stretch with no truck-accessible service after the truck-accessibility sweep. Curated into a gameplay POI (clean name, normalized category) without raw OSM IDs.",
+   "lat": 31.8929433,
+   "lon": -88.7144876,
+   "season": "year round"
+  },
+  {
+   "name": "Love's Travel Stop Evergreen",
+   "type": "travel_center",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "food",
+    "break",
+    "sleep"
+   ],
+   "services": [
+    "diesel",
+    "food",
+    "parking",
+    "restrooms",
+    "scale"
+   ],
+   "parking": "likely",
+   "vehicle_access": "tractor_trailer",
+   "curation": "curated",
+   "source": "Love's official store feed lists store 225 in Evergreen, AL on I-65, exit 93; at_mi estimated by projecting source coordinates onto checked-in route geometry (0.2 mi from simplified corridor line), accessed 2026-06-17: https://www.loves.com/api/fetch_stores; Store coordinates read from OpenStreetMap (Geofabrik Alabama extract dated 2026-06-22, read 2026-09-17): Love's store 225 at Evergreen; matched by position, the only Love's within 5 mi of mile 87.7 of this leg (0.9 mi); coordinates read from the mapped site. CAT Scale read from OpenStreetMap (amenity=weighbridge, brand CAT Scale) within 0.25 mi of the store; Overpass snapshot 2026-09-24, tools/cat_scales.py.",
+   "lat": 31.420586,
+   "lon": -87.007808,
+   "season": "year round"
+  },
+  {
+   "name": "Flying J Travel Center Hope Hull",
+   "type": "travel_center",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "food",
+    "break",
+    "sleep"
+   ],
+   "services": [
+    "diesel",
+    "food",
+    "restrooms",
+    "parking",
+    "scale"
+   ],
+   "parking": "confirmed",
+   "vehicle_access": "tractor_trailer",
+   "curation": "curated",
+   "source": "Pilot Flying J official locator lists Flying J Travel Center store 604 in Hope Hull, AL with 145 public truck parking spaces; at_mi estimated by projecting source coordinates onto checked-in route geometry (0.6 mi from simplified corridor line), accessed 2026-06-17: https://locations.pilotflyingj.com/us/al/hope-hull/900-tyson-rd; Store coordinates read from OpenStreetMap (Geofabrik Alabama extract dated 2026-06-22, read 2026-09-17): Flying J store at Hope Hull; matched by position, the only Flying J within 5 mi of mile 153.5 of this leg (0.4 mi); coordinates read from the mapped site.",
+   "lat": 32.194328,
+   "lon": -86.420009,
+   "season": "year round"
+  },
+  {
+   "name": "Love's Travel Stop",
+   "type": "travel_center",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "food",
+    "break",
+    "sleep"
+   ],
+   "services": [
+    "diesel",
+    "food",
+    "parking",
+    "scale"
+   ],
+   "parking": "likely",
+   "vehicle_access": "tractor_trailer",
+   "source": "OpenStreetMap/Overpass development-time corridor amenity query, accessed 2026-06-21; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Opposite-direction copy onto overlapping same-highway partner; curated 2026-09-16. Store identity read from OpenStreetMap (Geofabrik Alabama extract dated 2026-06-22, read 2026-09-17): Love's store 846; no town is mapped for it, so the record keeps the chain's name; matched by coordinate, 0.01 mi from the mapped site. CAT Scale read from OpenStreetMap (amenity=weighbridge, brand CAT Scale) within 0.25 mi of the store; Overpass snapshot 2026-09-24, tools/cat_scales.py.",
+   "lat": 30.53179,
+   "lon": -88.23869,
+   "season": "year round"
+  },
+  {
+   "name": "Pilot Travel Center Moss Point",
+   "type": "travel_center",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "food",
+    "break",
+    "sleep"
+   ],
+   "services": [
+    "diesel",
+    "food",
+    "parking",
+    "scale"
+   ],
+   "parking": "likely",
+   "vehicle_access": "tractor_trailer",
+   "source": "OpenStreetMap/Overpass development-time corridor amenity query, accessed 2026-06-21; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Opposite-direction copy onto overlapping same-highway partner; curated 2026-09-16. Store identity read from OpenStreetMap (Geofabrik Mississippi extract dated 2026-06-22, read 2026-09-17): Pilot store at Moss Point; town read from the mapped site's address; matched by coordinate, 0.00 mi from the mapped site. CAT Scale read from OpenStreetMap (amenity=weighbridge, brand CAT Scale) within 0.25 mi of the store; Overpass snapshot 2026-09-24, tools/cat_scales.py.",
+   "lat": 30.43833,
+   "lon": -88.52925,
+   "season": "year round"
+  },
+  {
+   "name": "Flying J Travel Center Gulfport",
+   "type": "travel_center",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "food",
+    "break",
+    "sleep"
+   ],
+   "services": [
+    "diesel",
+    "food",
+    "restrooms",
+    "parking",
+    "scale"
+   ],
+   "parking": "confirmed",
+   "vehicle_access": "tractor_trailer",
+   "curation": "curated",
+   "source": "Pilot Flying J official locator lists Flying J Travel Center store 676 in Gulfport, MS with 165 public truck parking spaces; at_mi estimated by projecting source coordinates onto checked-in route geometry (0.5 mi from simplified corridor line), accessed 2026-06-17: https://locations.pilotflyingj.com/us/ms/gulfport/9351-canal-rd; Store coordinates read from OpenStreetMap (Geofabrik Mississippi extract dated 2026-06-22, read 2026-09-17): Flying J store at Gulfport; matched by position, the only Flying J within 5 mi of mile 72.3 of this leg (0.6 mi); coordinates read from the mapped site. CAT Scale read from OpenStreetMap (amenity=weighbridge, brand CAT Scale) within 0.25 mi of the store; Overpass snapshot 2026-09-24, tools/cat_scales.py.",
+   "lat": 30.421206,
+   "lon": -89.138187,
+   "season": "year round"
+  },
+  {
+   "name": "Love's Travel Stop Clanton",
+   "type": "travel_center",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "food",
+    "break",
+    "sleep"
+   ],
+   "services": [
+    "diesel",
+    "food",
+    "parking",
+    "restrooms",
+    "scale"
+   ],
+   "parking": "likely",
+   "vehicle_access": "tractor_trailer",
+   "curation": "curated",
+   "source": "Love's official store feed lists store 368 in Clanton, AL on I-65, exit 208; at_mi estimated by projecting source coordinates onto checked-in route geometry (0.9 mi from simplified corridor line), accessed 2026-06-17: https://www.loves.com/api/fetch_stores; Store coordinates read from OpenStreetMap (Geofabrik Alabama extract dated 2026-06-22, read 2026-09-17): Love's store 368 at Clanton; matched by position, the only Love's within 5 mi of mile 38.3 of this leg (0.3 mi); coordinates read from the mapped site. CAT Scale read from OpenStreetMap (amenity=weighbridge, brand CAT Scale) within 0.25 mi of the store; Overpass snapshot 2026-09-24, tools/cat_scales.py.",
+   "lat": 32.84482,
+   "lon": -86.591782,
+   "season": "year round"
+  },
+  {
+   "name": "Chevron",
+   "type": "fuel_station",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "break"
+   ],
+   "services": [
+    "diesel",
+    "parking"
+   ],
+   "parking": "limited",
+   "vehicle_access": "bobtail_only",
+   "source": "OpenStreetMap/Overpass development-time amenity query centered on the montgomery_al_us endpoint city's own coordinates; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Truck access: No verified truck access: OpenStreetMap records no hgv allowance, truck parking, or truck-stop classification at this location (checked 2026-07-19). Generic fuel stations default to bobtail_only per the truck-accessibility policy.",
+   "lat": 32.3281,
+   "lon": -86.33741,
+   "season": "year round"
+  },
+  {
+   "name": "BP",
+   "type": "fuel_station",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "break"
+   ],
+   "services": [
+    "diesel",
+    "parking"
+   ],
+   "parking": "limited",
+   "vehicle_access": "bobtail_only",
+   "source": "OpenStreetMap/Overpass development-time corridor amenity query, accessed 2026-06-21; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Truck access: No verified truck access: OpenStreetMap records no hgv allowance, truck parking, or truck-stop classification at this location (checked 2026-07-19). Generic fuel stations default to bobtail_only per the truck-accessibility policy.",
+   "lat": 32.44176,
+   "lon": -85.79231,
+   "season": "year round"
+  },
+  {
+   "name": "Macon County Rest Area North Bound",
+   "type": "public_rest_area",
+   "actions": [
+    "park",
+    "save",
+    "break",
+    "sleep"
+   ],
+   "services": [
+    "parking",
+    "restrooms"
+   ],
+   "parking": "limited",
+   "vehicle_access": "tractor_trailer",
+   "source": "OpenStreetMap/Overpass development-time corridor amenity query, accessed 2026-06-21; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs.",
+   "lat": 32.49869,
+   "lon": -85.61497,
+   "season": "year round"
+  },
+  {
+   "name": "Propane & Air Gas Supply",
+   "type": "fuel_station",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "break"
+   ],
+   "services": [
+    "diesel",
+    "parking"
+   ],
+   "parking": "limited",
+   "vehicle_access": "bobtail_only",
+   "source": "OpenStreetMap/Overpass development-time corridor amenity query, accessed 2026-06-21; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Truck access: No verified truck access: OpenStreetMap records no hgv allowance, truck parking, or truck-stop classification at this location (checked 2026-07-19). Generic fuel stations default to bobtail_only per the truck-accessibility policy.",
+   "lat": 32.29282,
+   "lon": -86.45487,
+   "season": "year round"
+  },
+  {
+   "name": "BP",
+   "type": "fuel_station",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "break"
+   ],
+   "services": [
+    "diesel",
+    "parking"
+   ],
+   "parking": "limited",
+   "vehicle_access": "bobtail_only",
+   "source": "OpenStreetMap/Overpass development-time corridor amenity query, accessed 2026-06-21; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Truck access: No verified truck access: OpenStreetMap records no hgv allowance, truck parking, or truck-stop classification at this location (checked 2026-07-19). Generic fuel stations default to bobtail_only per the truck-accessibility policy.",
+   "lat": 32.26623,
+   "lon": -86.60747,
+   "season": "year round"
+  },
+  {
+   "name": "BP",
+   "type": "fuel_station",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "break"
+   ],
+   "services": [
+    "diesel",
+    "parking"
+   ],
+   "parking": "limited",
+   "vehicle_access": "bobtail_only",
+   "source": "OpenStreetMap/Overpass development-time amenity query centered on the montgomery_al_us endpoint city's own coordinates; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Truck access: No verified truck access: OpenStreetMap records no hgv allowance, truck parking, or truck-stop classification at this location (checked 2026-07-19). Generic fuel stations default to bobtail_only per the truck-accessibility policy.",
+   "lat": 32.32612,
+   "lon": -86.3309,
+   "season": "year round"
+  },
+  {
+   "name": "Speedway",
+   "type": "travel_center",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "food",
+    "break",
+    "sleep"
+   ],
+   "services": [
+    "diesel",
+    "food",
+    "parking"
+   ],
+   "parking": "likely",
+   "vehicle_access": "bobtail_only",
+   "source": "OpenStreetMap/Overpass development-time corridor amenity query, accessed 2026-06-21; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs.",
+   "lat": 32.29835,
+   "lon": -86.19711,
+   "season": "year round"
+  },
+  {
+   "name": "Chevron",
+   "type": "fuel_station",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "break"
+   ],
+   "services": [
+    "diesel",
+    "parking"
+   ],
+   "parking": "limited",
+   "vehicle_access": "bobtail_only",
+   "source": "OpenStreetMap/Overpass development-time amenity query centered on the opelika_al_us endpoint city's own coordinates; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Truck access: No verified truck access: OpenStreetMap records no hgv allowance, truck parking, or truck-stop classification at this location (checked 2026-07-19). Generic fuel stations default to bobtail_only per the truck-accessibility policy.",
+   "lat": 32.6433,
+   "lon": -85.35125,
+   "season": "year round"
+  },
+  {
+   "name": "Love's Travel Stop Smiths Station",
+   "type": "travel_center",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "food",
+    "break",
+    "sleep"
+   ],
+   "services": [
+    "diesel",
+    "food",
+    "parking",
+    "scale"
+   ],
+   "parking": "likely",
+   "vehicle_access": "tractor_trailer",
+   "source": "OpenStreetMap/Overpass development-time corridor amenity query, accessed 2026-06-21; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Store identity read from OpenStreetMap (Geofabrik Alabama extract dated 2026-06-22, read 2026-09-17): Love's store 774 at Smiths Station; town DERIVED, not read: the nearest mapped place, 1.0 mi away; matched by coordinate, 0.01 mi from the mapped site. CAT Scale read from OpenStreetMap (amenity=weighbridge, brand CAT Scale) within 0.25 mi of the store; Overpass snapshot 2026-09-24, tools/cat_scales.py.",
+   "lat": 32.53654,
+   "lon": -85.08217,
+   "season": "year round"
+  },
+  {
+   "name": "Love's Travel Stop",
+   "type": "travel_center",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "food",
+    "break",
+    "sleep"
+   ],
+   "services": [
+    "diesel",
+    "food",
+    "parking",
+    "scale"
+   ],
+   "parking": "likely",
+   "vehicle_access": "tractor_trailer",
+   "source": "OpenStreetMap/Overpass development-time corridor amenity query, accessed 2026-06-21; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Store identity read from OpenStreetMap (Geofabrik Georgia extract dated 2026-06-22, read 2026-09-17): Love's store 771; no town is mapped for it, so the record keeps the chain's name; matched by coordinate, 0.03 mi from the mapped site. CAT Scale read from OpenStreetMap (amenity=weighbridge, brand CAT Scale) within 0.25 mi of the store; Overpass snapshot 2026-09-24, tools/cat_scales.py.",
+   "lat": 32.8784,
+   "lon": -85.14795,
+   "season": "year round"
+  },
+  {
+   "name": "Chevron",
+   "type": "fuel_station",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "break"
+   ],
+   "services": [
+    "diesel",
+    "parking"
+   ],
+   "parking": "limited",
+   "vehicle_access": "bobtail_only",
+   "source": "OpenStreetMap/Overpass development-time corridor amenity query, accessed 2026-06-21; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Truck access: No verified truck access: OpenStreetMap records no hgv allowance, truck parking, or truck-stop classification at this location (checked 2026-07-19). Generic fuel stations default to bobtail_only per the truck-accessibility policy.",
+   "lat": 32.49253,
+   "lon": -87.85696,
+   "season": "year round"
+  },
+  {
+   "name": "Citgo",
+   "type": "fuel_station",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "break"
+   ],
+   "services": [
+    "diesel",
+    "parking"
+   ],
+   "parking": "limited",
+   "vehicle_access": "bobtail_only",
+   "source": "OpenStreetMap/Overpass development-time corridor amenity query, accessed 2026-06-21; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Truck access: No verified truck access: OpenStreetMap records no hgv allowance, truck parking, or truck-stop classification at this location (checked 2026-07-19). Generic fuel stations default to bobtail_only per the truck-accessibility policy.",
+   "lat": 32.48882,
+   "lon": -88.2983,
+   "season": "year round"
+  },
+  {
+   "name": "Love's Travel Stop Toomsuba",
+   "type": "travel_center",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "food",
+    "break",
+    "sleep"
+   ],
+   "services": [
+    "diesel",
+    "food",
+    "parking",
+    "scale"
+   ],
+   "parking": "likely",
+   "vehicle_access": "tractor_trailer",
+   "source": "OpenStreetMap/Overpass dense in-gap corridor amenity query, accessed 2026-07-19; added to close a stretch with no truck-accessible service after the truck-accessibility sweep. Curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Store identity read from OpenStreetMap (Geofabrik Mississippi extract dated 2026-06-22, read 2026-09-17): Love's store 343 at Toomsuba; town read from the mapped site's address; matched by coordinate, 0.00 mi from the mapped site. CAT Scale read from OpenStreetMap (amenity=weighbridge, brand CAT Scale) within 0.25 mi of the store; Overpass snapshot 2026-09-24, tools/cat_scales.py.",
+   "lat": 32.4116637,
+   "lon": -88.5055275,
+   "season": "year round"
+  },
+  {
+   "name": "BP",
+   "type": "fuel_station",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "break"
+   ],
+   "services": [
+    "diesel",
+    "parking"
+   ],
+   "parking": "limited",
+   "vehicle_access": "bobtail_only",
+   "source": "OpenStreetMap/Overpass development-time amenity query centered on the troy_al_us endpoint city's own coordinates; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Truck access: No verified truck access: OpenStreetMap records no hgv allowance, truck parking, or truck-stop classification at this location (checked 2026-07-19). Generic fuel stations default to bobtail_only per the truck-accessibility policy.",
+   "lat": 31.79048,
+   "lon": -85.97586,
+   "season": "year round"
+  },
+  {
+   "name": "Citgo",
+   "type": "fuel_station",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "break"
+   ],
+   "services": [
+    "diesel",
+    "parking"
+   ],
+   "parking": "limited",
+   "vehicle_access": "bobtail_only",
+   "source": "OpenStreetMap/Overpass development-time corridor amenity query, accessed 2026-06-21; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Truck access: No verified truck access: OpenStreetMap records no hgv allowance, truck parking, or truck-stop classification at this location (checked 2026-07-19). Generic fuel stations default to bobtail_only per the truck-accessibility policy.",
+   "lat": 31.72103,
+   "lon": -85.83007,
+   "season": "year round"
+  },
+  {
+   "name": "Marathon",
+   "type": "travel_center",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "food",
+    "break",
+    "sleep"
+   ],
+   "services": [
+    "diesel",
+    "food",
+    "parking"
+   ],
+   "parking": "likely",
+   "vehicle_access": "tractor_trailer",
+   "source": "OpenStreetMap/Overpass development-time corridor amenity query, accessed 2026-06-21; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs.",
+   "lat": 31.37632,
+   "lon": -85.56843,
+   "season": "year round"
+  },
+  {
+   "name": "Pilot Travel Center Tuscaloosa",
+   "type": "travel_center",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "food",
+    "break",
+    "sleep"
+   ],
+   "services": [
+    "diesel",
+    "food",
+    "parking",
+    "scale"
+   ],
+   "parking": "likely",
+   "vehicle_access": "tractor_trailer",
+   "source": "OpenStreetMap/Overpass dense in-gap corridor amenity query, accessed 2026-07-19; added to close a stretch with no truck-accessible service after the truck-accessibility sweep. Curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Store identity read from OpenStreetMap (Geofabrik Alabama extract dated 2026-06-22, read 2026-09-17): Pilot store at Tuscaloosa; town read from the store page the mapped site links to; matched by coordinate, 0.02 mi from the mapped site. CAT Scale read from OpenStreetMap (amenity=weighbridge, brand CAT Scale) within 0.25 mi of the store; Overpass snapshot 2026-09-24, tools/cat_scales.py.",
+   "lat": 33.1730671,
+   "lon": -87.478841,
+   "season": "year round"
+  },
+  {
+   "name": "Double Quick Gas Station",
+   "type": "fuel_station",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "break"
+   ],
+   "services": [
+    "diesel",
+    "parking"
+   ],
+   "parking": "limited",
+   "vehicle_access": "bobtail_only",
+   "source": "OpenStreetMap/Overpass development-time corridor amenity query, accessed 2026-06-21; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Truck access: No verified truck access: OpenStreetMap records no hgv allowance, truck parking, or truck-stop classification at this location (checked 2026-07-19). Generic fuel stations default to bobtail_only per the truck-accessibility policy.",
+   "lat": 33.9467,
+   "lon": -90.76771,
+   "season": "year round"
+  },
+  {
+   "name": "Double Quick",
+   "type": "fuel_station",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "break"
+   ],
+   "services": [
+    "diesel",
+    "parking"
+   ],
+   "parking": "limited",
+   "vehicle_access": "bobtail_only",
+   "source": "OpenStreetMap/Overpass development-time corridor amenity query, accessed 2026-06-21; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Truck access: No verified truck access: OpenStreetMap records no hgv allowance, truck parking, or truck-stop classification at this location (checked 2026-07-19). Generic fuel stations default to bobtail_only per the truck-accessibility policy.",
+   "lat": 33.73269,
+   "lon": -90.71653,
+   "season": "year round"
+  },
+  {
+   "name": "Murphy USA",
+   "type": "fuel_station",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "break"
+   ],
+   "services": [
+    "diesel",
+    "parking"
+   ],
+   "parking": "limited",
+   "vehicle_access": "bobtail_only",
+   "source": "OpenStreetMap/Overpass development-time amenity query centered on the clarksdale_ms_us endpoint city's own coordinates; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Truck access: No verified truck access: OpenStreetMap records no hgv allowance, truck parking, or truck-stop classification at this location (checked 2026-07-19). Generic fuel stations default to bobtail_only per the truck-accessibility policy.",
+   "lat": 34.1827,
+   "lon": -90.59143,
+   "season": "year round"
+  },
+  {
+   "name": "Double Quick",
+   "type": "fuel_station",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "break"
+   ],
+   "services": [
+    "diesel",
+    "parking"
+   ],
+   "parking": "limited",
+   "vehicle_access": "bobtail_only",
+   "source": "OpenStreetMap/Overpass development-time corridor amenity query, accessed 2026-06-21; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Truck access: No verified truck access: OpenStreetMap records no hgv allowance, truck parking, or truck-stop classification at this location (checked 2026-07-19). Generic fuel stations default to bobtail_only per the truck-accessibility policy.",
+   "lat": 34.01506,
+   "lon": -90.42779,
+   "season": "year round"
+  },
+  {
+   "name": "QuikTrip",
+   "type": "travel_center",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "food",
+    "break",
+    "sleep"
+   ],
+   "services": [
+    "diesel",
+    "food",
+    "parking"
+   ],
+   "parking": "likely",
+   "vehicle_access": "bobtail_only",
+   "source": "OpenStreetMap/Overpass development-time amenity query centered on the grenada_ms_us endpoint city's own coordinates; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs.",
+   "lat": 33.7852,
+   "lon": -89.8334,
+   "season": "year round"
+  },
+  {
+   "name": "Citgo",
+   "type": "fuel_station",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "break"
+   ],
+   "services": [
+    "diesel",
+    "parking"
+   ],
+   "parking": "limited",
+   "vehicle_access": "bobtail_only",
+   "source": "OpenStreetMap/Overpass development-time corridor amenity query, accessed 2026-06-21; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Truck access: No verified truck access: OpenStreetMap records no hgv allowance, truck parking, or truck-stop classification at this location (checked 2026-07-19). Generic fuel stations default to bobtail_only per the truck-accessibility policy.",
+   "lat": 34.45011,
+   "lon": -90.49083,
+   "season": "year round"
+  },
+  {
+   "name": "Shell",
+   "type": "fuel_station",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "break"
+   ],
+   "services": [
+    "diesel",
+    "parking"
+   ],
+   "parking": "limited",
+   "vehicle_access": "bobtail_only",
+   "source": "OpenStreetMap/Overpass development-time corridor amenity query, accessed 2026-06-21; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Truck access: No verified truck access: OpenStreetMap records no hgv allowance, truck parking, or truck-stop classification at this location (checked 2026-07-19). Generic fuel stations default to bobtail_only per the truck-accessibility policy.",
+   "lat": 34.90368,
+   "lon": -90.19667,
+   "season": "year round"
+  },
+  {
+   "name": "BP",
+   "type": "fuel_station",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "break"
+   ],
+   "services": [
+    "diesel",
+    "parking"
+   ],
+   "parking": "limited",
+   "vehicle_access": "bobtail_only",
+   "source": "OpenStreetMap/Overpass development-time amenity query centered on the memphis_tn_us endpoint city's own coordinates; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Truck access: No verified truck access: OpenStreetMap records no hgv allowance, truck parking, or truck-stop classification at this location (checked 2026-07-19). Generic fuel stations default to bobtail_only per the truck-accessibility policy.",
+   "lat": 35.14426,
+   "lon": -90.01596,
+   "season": "year round"
+  },
+  {
+   "name": "Exxon",
+   "type": "fuel_station",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "break"
+   ],
+   "services": [
+    "diesel",
+    "parking"
+   ],
+   "parking": "limited",
+   "vehicle_access": "bobtail_only",
+   "source": "OpenStreetMap/Overpass development-time amenity query centered on the columbus_ms_us endpoint city's own coordinates; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Truck access: No verified truck access: OpenStreetMap records no hgv allowance, truck parking, or truck-stop classification at this location (checked 2026-07-19). Generic fuel stations default to bobtail_only per the truck-accessibility policy.",
+   "lat": 33.44553,
+   "lon": -88.36579,
+   "season": "year round"
+  },
+  {
+   "name": "Love's Travel Stop West Point",
+   "type": "travel_center",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "food",
+    "break",
+    "sleep"
+   ],
+   "services": [
+    "diesel",
+    "food",
+    "parking",
+    "scale"
+   ],
+   "parking": "likely",
+   "vehicle_access": "tractor_trailer",
+   "source": "OpenStreetMap/Overpass development-time corridor amenity query, accessed 2026-06-21; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Store identity read from OpenStreetMap (Geofabrik Mississippi extract dated 2026-06-22, read 2026-09-17): Love's store 677 at West Point; town DERIVED, not read: the nearest mapped place, 1.7 mi away; matched by coordinate, 0.02 mi from the mapped site. CAT Scale read from OpenStreetMap (amenity=weighbridge, brand CAT Scale) within 0.25 mi of the store; Overpass snapshot 2026-09-24, tools/cat_scales.py.",
+   "lat": 33.58376,
+   "lon": -88.65755,
+   "season": "year round"
+  },
+  {
+   "name": "BP",
+   "type": "fuel_station",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "break"
+   ],
+   "services": [
+    "diesel",
+    "parking"
+   ],
+   "parking": "limited",
+   "vehicle_access": "bobtail_only",
+   "source": "OpenStreetMap/Overpass development-time amenity query centered on the tupelo_ms_us endpoint city's own coordinates; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Truck access: No verified truck access: OpenStreetMap records no hgv allowance, truck parking, or truck-stop classification at this location (checked 2026-07-19). Generic fuel stations default to bobtail_only per the truck-accessibility policy.",
+   "lat": 34.30849,
+   "lon": -88.70684,
+   "season": "year round"
+  },
+  {
+   "name": "Love's Travel Stop",
+   "type": "travel_center",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "food",
+    "break",
+    "sleep"
+   ],
+   "services": [
+    "diesel",
+    "food",
+    "parking",
+    "scale"
+   ],
+   "parking": "likely",
+   "vehicle_access": "tractor_trailer",
+   "source": "OpenStreetMap/Overpass development-time amenity query centered on the columbus_ms_us endpoint city's own coordinates; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Store identity read from OpenStreetMap (Geofabrik Mississippi extract dated 2026-06-22, read 2026-09-17): Love's store 564; no town is mapped for it, so the record keeps the chain's name; matched by coordinate, 0.00 mi from the mapped site. CAT Scale read from OpenStreetMap (amenity=weighbridge, brand CAT Scale) within 0.25 mi of the store; Overpass snapshot 2026-09-24, tools/cat_scales.py.",
+   "lat": 33.5186,
+   "lon": -88.37694,
+   "season": "year round"
+  },
+  {
+   "name": "BP",
+   "type": "fuel_station",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "break"
+   ],
+   "services": [
+    "diesel",
+    "parking"
+   ],
+   "parking": "limited",
+   "vehicle_access": "bobtail_only",
+   "source": "OpenStreetMap/Overpass development-time corridor amenity query, accessed 2026-06-21; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Truck access: No verified truck access: OpenStreetMap records no hgv allowance, truck parking, or truck-stop classification at this location (checked 2026-07-19). Generic fuel stations default to bobtail_only per the truck-accessibility policy.",
+   "lat": 33.27933,
+   "lon": -87.77797,
+   "season": "year round"
+  },
+  {
+   "name": "Buddy's Food Mart",
+   "type": "fuel_station",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "break"
+   ],
+   "services": [
+    "diesel",
+    "parking"
+   ],
+   "parking": "limited",
+   "vehicle_access": "bobtail_only",
+   "source": "OpenStreetMap/Overpass development-time amenity query centered on the tuscaloosa_al_us endpoint city's own coordinates; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Truck access: No verified truck access: OpenStreetMap records no hgv allowance, truck parking, or truck-stop classification at this location (checked 2026-07-19). Generic fuel stations default to bobtail_only per the truck-accessibility policy.",
+   "lat": 33.22815,
+   "lon": -87.53236,
+   "season": "year round"
+  },
+  {
+   "name": "Alon",
+   "type": "fuel_station",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "break"
+   ],
+   "services": [
+    "diesel",
+    "parking"
+   ],
+   "parking": "limited",
+   "vehicle_access": "bobtail_only",
+   "source": "OpenStreetMap/Overpass development-time amenity query centered on the greenville_ms_us endpoint city's own coordinates; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Truck access: No verified truck access: OpenStreetMap records no hgv allowance, truck parking, or truck-stop classification at this location (checked 2026-07-19). Generic fuel stations default to bobtail_only per the truck-accessibility policy.",
+   "lat": 33.39968,
+   "lon": -91.01922,
+   "season": "year round"
+  },
+  {
+   "name": "Love's Travel Stop Indianola",
+   "type": "travel_center",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "food",
+    "break",
+    "sleep"
+   ],
+   "services": [
+    "diesel",
+    "food",
+    "parking",
+    "scale"
+   ],
+   "parking": "likely",
+   "vehicle_access": "tractor_trailer",
+   "source": "OpenStreetMap/Overpass development-time corridor amenity query, accessed 2026-06-21; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Store identity read from OpenStreetMap (Geofabrik Mississippi extract dated 2026-06-22, read 2026-09-17): Love's store 559 at Indianola; town DERIVED, not read: the nearest mapped place, 1.4 mi away; matched by coordinate, 0.02 mi from the mapped site. CAT Scale read from OpenStreetMap (amenity=weighbridge, brand CAT Scale) within 0.25 mi of the store; Overpass snapshot 2026-09-24, tools/cat_scales.py.",
+   "lat": 33.45693,
+   "lon": -90.6307,
+   "season": "year round"
+  },
+  {
+   "name": "Exxon",
+   "type": "fuel_station",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "break"
+   ],
+   "services": [
+    "diesel",
+    "parking"
+   ],
+   "parking": "limited",
+   "vehicle_access": "bobtail_only",
+   "source": "OpenStreetMap/Overpass development-time corridor amenity query, accessed 2026-06-21; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Truck access: No verified truck access: OpenStreetMap records no hgv allowance, truck parking, or truck-stop classification at this location (checked 2026-07-19). Generic fuel stations default to bobtail_only per the truck-accessibility policy.",
+   "lat": 33.5093,
+   "lon": -90.3368,
+   "season": "year round"
+  },
+  {
+   "name": "Double Quick",
+   "type": "fuel_station",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "break"
+   ],
+   "services": [
+    "diesel",
+    "parking"
+   ],
+   "parking": "limited",
+   "vehicle_access": "bobtail_only",
+   "source": "OpenStreetMap/Overpass development-time amenity query centered on the greenville_ms_us endpoint city's own coordinates; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Truck access: No verified truck access: OpenStreetMap records no hgv allowance, truck parking, or truck-stop classification at this location (checked 2026-07-19). Generic fuel stations default to bobtail_only per the truck-accessibility policy.",
+   "lat": 33.37225,
+   "lon": -91.07532,
+   "season": "year round"
+  },
+  {
+   "name": "Speedway",
+   "type": "fuel_station",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "break"
+   ],
+   "services": [
+    "diesel",
+    "parking"
+   ],
+   "parking": "limited",
+   "vehicle_access": "bobtail_only",
+   "source": "OpenStreetMap/Overpass development-time amenity query centered on the pine_bluff_ar_us endpoint city's own coordinates; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Truck access: No verified truck access: OpenStreetMap records no hgv allowance, truck parking, or truck-stop classification at this location (checked 2026-07-19). Generic fuel stations default to bobtail_only per the truck-accessibility policy.",
+   "lat": 34.21314,
+   "lon": -91.98969,
+   "season": "year round"
+  },
+  {
+   "name": "C and S Fuels",
+   "type": "fuel_station",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "break"
+   ],
+   "services": [
+    "diesel",
+    "parking"
+   ],
+   "parking": "limited",
+   "vehicle_access": "bobtail_only",
+   "source": "OpenStreetMap/Overpass development-time corridor amenity query, accessed 2026-06-21; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Truck access: No verified truck access: OpenStreetMap records no hgv allowance, truck parking, or truck-stop classification at this location (checked 2026-07-19). Generic fuel stations default to bobtail_only per the truck-accessibility policy.",
+   "lat": 32.90113,
+   "lon": -90.87302,
+   "season": "year round"
+  },
+  {
+   "name": "Circle K",
+   "type": "fuel_station",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "break"
+   ],
+   "services": [
+    "diesel",
+    "parking"
+   ],
+   "parking": "limited",
+   "vehicle_access": "bobtail_only",
+   "source": "OpenStreetMap/Overpass development-time amenity query centered on the vicksburg_ms_us endpoint city's own coordinates; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Truck access: No verified truck access: OpenStreetMap records no hgv allowance, truck parking, or truck-stop classification at this location (checked 2026-07-19). Generic fuel stations default to bobtail_only per the truck-accessibility policy.",
+   "lat": 32.34382,
+   "lon": -90.82951,
+   "season": "year round"
+  },
+  {
+   "name": "Love's Travel Stop Canton",
+   "type": "fuel_station",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "break"
+   ],
+   "services": [
+    "diesel",
+    "parking"
+   ],
+   "parking": "limited",
+   "vehicle_access": "tractor_trailer",
+   "source": "OpenStreetMap/Overpass development-time corridor amenity query, accessed 2026-06-21; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Store identity read from OpenStreetMap (Geofabrik Mississippi extract dated 2026-06-22, read 2026-09-17): Love's store 208 at Canton; town read from the mapped site's branch name; matched by coordinate, 0.00 mi from the mapped site.",
+   "lat": 32.60382,
+   "lon": -90.07245,
+   "season": "year round"
+  },
+  {
+   "name": "Love's Travel Stop Flowood",
+   "type": "travel_center",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "food",
+    "break",
+    "sleep"
+   ],
+   "services": [
+    "diesel",
+    "food",
+    "parking",
+    "scale"
+   ],
+   "parking": "likely",
+   "vehicle_access": "tractor_trailer",
+   "source": "OpenStreetMap/Overpass development-time amenity query centered on the jackson_ms_us endpoint city's own coordinates; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Store identity read from OpenStreetMap (Geofabrik Mississippi extract dated 2026-06-22, read 2026-09-17): Love's store 420 at Flowood; town read from the mapped site's branch name; matched by coordinate, 0.03 mi from the mapped site. CAT Scale read from OpenStreetMap (amenity=weighbridge, brand CAT Scale) within 0.25 mi of the store; Overpass snapshot 2026-09-24, tools/cat_scales.py.",
+   "lat": 32.27966,
+   "lon": -90.15441,
+   "season": "year round"
+  },
+  {
+   "name": "Dizzy Dean Rest Area",
+   "type": "public_rest_area",
+   "actions": [
+    "park",
+    "save",
+    "break",
+    "sleep"
+   ],
+   "services": [
+    "parking",
+    "restrooms"
+   ],
+   "parking": "confirmed",
+   "parking_spaces": 8,
+   "vehicle_access": "tractor_trailer",
+   "source": "OpenStreetMap/Overpass development-time corridor amenity query, accessed 2026-06-21; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Truck parking confirmed by the FHWA Jason's Law inventory (USDOT BTS NTAD Truck Stop Parking, compiled 2019), which lists NHS Rest Area Dizzy Dean Rest Area with 8 truck parking spaces on this corridor, accessed 2026-07-17: https://geodata.bts.gov/datasets/usdot::truck-stop-parking/about",
+   "lat": 30.86632,
+   "lon": -89.16592,
+   "season": "year round"
+  },
+  {
+   "name": "Circle K",
+   "type": "travel_center",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "food",
+    "break",
+    "sleep"
+   ],
+   "services": [
+    "diesel",
+    "food",
+    "parking"
+   ],
+   "parking": "likely",
+   "vehicle_access": "bobtail_only",
+   "source": "OpenStreetMap/Overpass development-time corridor amenity query, accessed 2026-06-21; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs.",
+   "lat": 31.37891,
+   "lon": -89.36492,
+   "season": "year round"
+  },
+  {
+   "name": "Love's Travel Stop Magee",
+   "type": "travel_center",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "food",
+    "break",
+    "sleep"
+   ],
+   "services": [
+    "diesel",
+    "food",
+    "parking",
+    "scale"
+   ],
+   "parking": "likely",
+   "vehicle_access": "tractor_trailer",
+   "source": "OpenStreetMap/Overpass development-time corridor amenity query, accessed 2026-06-21; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Opposite-direction copy onto overlapping same-highway partner; curated 2026-09-16. Store identity read from OpenStreetMap (Geofabrik Mississippi extract dated 2026-06-22, read 2026-09-17): Love's store 699 at Magee; town DERIVED, not read: the nearest mapped place, 1.4 mi away; matched by coordinate, 0.05 mi from the mapped site. CAT Scale read from OpenStreetMap (amenity=weighbridge, brand CAT Scale) within 0.25 mi of the store; Overpass snapshot 2026-09-24, tools/cat_scales.py.",
+   "lat": 31.87552,
+   "lon": -89.75558,
+   "season": "year round"
+  },
+  {
+   "name": "Petro Stopping Center Jackson",
+   "type": "travel_center",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "food",
+    "break",
+    "sleep"
+   ],
+   "services": [
+    "diesel",
+    "food",
+    "parking",
+    "scale"
+   ],
+   "parking": "likely",
+   "vehicle_access": "tractor_trailer",
+   "source": "OpenStreetMap/Overpass development-time amenity query centered on the jackson_ms_us endpoint city's own coordinates; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Store identity read from OpenStreetMap (Geofabrik Mississippi extract dated 2026-06-22, read 2026-09-17): Petro store 0328 at Jackson; town read from the mapped site's branch name; matched by coordinate, 0.04 mi from the mapped site. CAT Scale read from OpenStreetMap (amenity=weighbridge, brand CAT Scale) within 0.25 mi of the store; Overpass snapshot 2026-09-24, tools/cat_scales.py.",
+   "lat": 32.27951,
+   "lon": -90.19802,
+   "season": "year round"
+  },
+  {
+   "name": "Mississippi Welcome Center",
+   "type": "public_rest_area",
+   "actions": [
+    "park",
+    "save",
+    "break",
+    "sleep"
+   ],
+   "services": [
+    "parking",
+    "restrooms"
+   ],
+   "parking": "limited",
+   "vehicle_access": "tractor_trailer",
+   "source": "OpenStreetMap/Overpass development-time corridor amenity query, accessed 2026-06-21; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Opposite-direction copy onto overlapping same-highway partner; curated 2026-09-16.",
+   "lat": 30.465569744651464,
+   "lon": -88.42233234311587,
+   "season": "year round"
+  },
+  {
+   "name": "Shell",
+   "type": "fuel_station",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "break"
+   ],
+   "services": [
+    "diesel",
+    "parking"
+   ],
+   "parking": "limited",
+   "vehicle_access": "bobtail_only",
+   "source": "OpenStreetMap/Overpass development-time corridor amenity query, accessed 2026-06-21; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Truck access: No verified truck access: OpenStreetMap records no hgv allowance, truck parking, or truck-stop classification at this location (checked 2026-07-19). Generic fuel stations default to bobtail_only per the truck-accessibility policy.",
+   "lat": 31.00135,
+   "lon": -89.45276,
+   "season": "year round"
+  },
+  {
+   "name": "Marathon",
+   "type": "fuel_station",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "break"
+   ],
+   "services": [
+    "diesel",
+    "parking"
+   ],
+   "parking": "limited",
+   "vehicle_access": "bobtail_only",
+   "source": "OpenStreetMap/Overpass development-time corridor amenity query, accessed 2026-06-21; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Truck access: No verified truck access: OpenStreetMap records no hgv allowance, truck parking, or truck-stop classification at this location (checked 2026-07-19). Generic fuel stations default to bobtail_only per the truck-accessibility policy.",
+   "lat": 30.60126,
+   "lon": -89.61951,
+   "season": "year round"
+  },
+  {
+   "name": "Love's Travel Stop McComb",
+   "type": "travel_center",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "food",
+    "break",
+    "sleep"
+   ],
+   "services": [
+    "diesel",
+    "food",
+    "parking",
+    "restrooms",
+    "scale"
+   ],
+   "parking": "likely",
+   "vehicle_access": "tractor_trailer",
+   "curation": "curated",
+   "source": "Love's official store feed lists store 393 in McComb, MS on I-55, exit 13; at_mi estimated by projecting source coordinates onto checked-in route geometry (0.0 mi from simplified corridor line), accessed 2026-06-17: https://www.loves.com/api/fetch_stores; Store coordinates read from OpenStreetMap (Geofabrik Mississippi extract dated 2026-06-22, read 2026-09-17): Love's store 393 at McComb; matched by position, the only Love's within 5 mi of mile 81.5 of this leg (0.1 mi); coordinates read from the mapped site. CAT Scale read from OpenStreetMap (amenity=weighbridge, brand CAT Scale) within 0.25 mi of the store; Overpass snapshot 2026-09-24, tools/cat_scales.py.",
+   "lat": 31.190454,
+   "lon": -90.486334,
+   "season": "year round"
+  },
+  {
+   "name": "Port Allen Truck Stop",
+   "type": "travel_center",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "food",
+    "break",
+    "sleep"
+   ],
+   "services": [
+    "diesel",
+    "food",
+    "parking"
+   ],
+   "parking": "likely",
+   "vehicle_access": "tractor_trailer",
+   "source": "OpenStreetMap/Overpass development-time amenity query centered on the baton_rouge_la_us endpoint city's own coordinates; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs.",
+   "lat": 30.45286,
+   "lon": -91.24747,
+   "season": "year round"
+  },
+  {
+   "name": "Shell",
+   "type": "fuel_station",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "break"
+   ],
+   "services": [
+    "diesel",
+    "parking"
+   ],
+   "parking": "limited",
+   "vehicle_access": "bobtail_only",
+   "source": "OpenStreetMap/Overpass development-time corridor amenity query, accessed 2026-06-21; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Truck access: No verified truck access: OpenStreetMap records no hgv allowance, truck parking, or truck-stop classification at this location (checked 2026-07-19). Generic fuel stations default to bobtail_only per the truck-accessibility policy.",
+   "lat": 31.55974,
+   "lon": -89.5111,
+   "season": "year round"
+  },
+  {
+   "name": "Flying J Travel Center Pearl",
+   "type": "travel_center",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "food",
+    "break",
+    "sleep"
+   ],
+   "services": [
+    "diesel",
+    "food",
+    "restrooms",
+    "parking",
+    "scale"
+   ],
+   "parking": "confirmed",
+   "vehicle_access": "tractor_trailer",
+   "curation": "curated",
+   "source": "Pilot Flying J official locator lists Flying J Travel Center store 678 in Pearl, MS with 175 public truck parking spaces; at_mi estimated by projecting source coordinates onto checked-in route geometry (9.9 mi from simplified corridor line), accessed 2026-06-17: https://locations.pilotflyingj.com/us/ms/pearl/685-us-80 Opposite-direction copy onto overlapping same-highway partner; curated 2026-09-16. Store coordinates read from OpenStreetMap (Geofabrik Mississippi extract dated 2026-06-22, read 2026-09-17): Flying J store at Pearl; matched by position, the only Flying J within 5 mi of mile 7.2 of this leg (3.2 mi); coordinates read from the mapped site. CAT Scale read from OpenStreetMap (amenity=weighbridge, brand CAT Scale) within 0.25 mi of the store; Overpass snapshot 2026-09-24, tools/cat_scales.py.",
+   "lat": 32.276675,
+   "lon": -90.159995,
+   "season": "year round"
+  },
+  {
+   "name": "Scott County Rest Area",
+   "type": "public_rest_area",
+   "actions": [
+    "park",
+    "save",
+    "break",
+    "sleep"
+   ],
+   "services": [
+    "parking",
+    "restrooms"
+   ],
+   "parking": "confirmed",
+   "parking_spaces": 16,
+   "vehicle_access": "tractor_trailer",
+   "source": "OpenStreetMap/Overpass development-time corridor amenity query, accessed 2026-06-21; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Truck parking confirmed by the FHWA Jason's Law inventory (USDOT BTS NTAD Truck Stop Parking, compiled 2019), which lists NHS Rest Area Scott County I-20 EB with 16 truck parking spaces on this corridor, accessed 2026-07-17: https://geodata.bts.gov/datasets/usdot::truck-stop-parking/about",
+   "lat": 32.32391,
+   "lon": -89.44137,
+   "season": "year round"
+  },
+  {
+   "name": "Love's Travel Stop Lake",
+   "type": "travel_center",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "food",
+    "break",
+    "sleep"
+   ],
+   "services": [
+    "diesel",
+    "food",
+    "parking",
+    "scale"
+   ],
+   "parking": "likely",
+   "vehicle_access": "tractor_trailer",
+   "source": "OpenStreetMap/Overpass development-time corridor amenity query, accessed 2026-06-21; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Opposite-direction copy onto overlapping same-highway partner; curated 2026-09-16. Opposite-direction copy onto overlapping same-highway partner; curated 2026-09-16. Store identity read from OpenStreetMap (Geofabrik Mississippi extract dated 2026-06-22, read 2026-09-17): Love's store 639 at Lake; town DERIVED, not read: the nearest mapped place, 1.9 mi away; matched by position, the only Love's within 5 mi of mile 53.3 of this leg (0.2 mi); coordinates read from the mapped site. CAT Scale read from OpenStreetMap (amenity=weighbridge, brand CAT Scale) within 0.25 mi of the store; Overpass snapshot 2026-09-24, tools/cat_scales.py.",
+   "lat": 32.321908,
+   "lon": -89.34381,
+   "season": "year round"
+  },
+  {
+   "name": "Mr. Fuel Travel Center",
+   "type": "travel_center",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "food",
+    "break",
+    "sleep"
+   ],
+   "services": [
+    "diesel",
+    "food",
+    "parking",
+    "scale"
+   ],
+   "parking": "likely",
+   "vehicle_access": "tractor_trailer",
+   "source": "OpenStreetMap/Overpass dense in-gap corridor amenity query, accessed 2026-07-19; added to close a stretch with no truck-accessible service after the truck-accessibility sweep. Curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Opposite-direction copy onto overlapping same-highway partner; curated 2026-09-16. Type corrected from service_plaza to travel_center (read): the OpenStreetMap feature at the record's coordinate carries hgv=yes on the services area; amenity=fuel with HGV lanes or HGV diesel; amenity=parking for HGVs; a truck scale (amenity=weighbridge). Geofabrik extract, accessed 2026-09-17. CAT Scale read from OpenStreetMap (amenity=weighbridge, brand CAT Scale) within 0.25 mi of the store; Overpass snapshot 2026-09-24, tools/cat_scales.py.",
+   "lat": 32.3438569,
+   "lon": -88.7985616,
+   "season": "year round"
+  },
+  {
+   "name": "Pilot Travel Center Hammond",
+   "type": "travel_center",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "food",
+    "break",
+    "sleep"
+   ],
+   "services": [
+    "diesel",
+    "food",
+    "parking",
+    "scale"
+   ],
+   "parking": "likely",
+   "vehicle_access": "tractor_trailer",
+   "source": "OpenStreetMap/Overpass dense in-gap corridor amenity query, accessed 2026-07-19; added to close a stretch with no truck-accessible service after the truck-accessibility sweep. Curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Store identity read from OpenStreetMap (Geofabrik Louisiana extract dated 2026-06-22, read 2026-09-17): Pilot store at Hammond; town read from the mapped site's branch name; matched by coordinate, 0.01 mi from the mapped site. CAT Scale read from OpenStreetMap (amenity=weighbridge, brand CAT Scale) within 0.25 mi of the store; Overpass snapshot 2026-09-24, tools/cat_scales.py.",
+   "lat": 30.477707,
+   "lon": -90.4559515,
+   "season": "year round"
+  },
+  {
+   "name": "TA Express Laplace",
+   "type": "travel_center",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "food",
+    "break",
+    "sleep"
+   ],
+   "services": [
+    "diesel",
+    "food",
+    "parking",
+    "scale"
+   ],
+   "parking": "likely",
+   "vehicle_access": "tractor_trailer",
+   "source": "OpenStreetMap/Overpass development-time corridor amenity query, accessed 2026-06-21; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Store identity read from OpenStreetMap (Geofabrik Louisiana extract dated 2026-06-22, read 2026-09-17): TA Express store 0479 at Laplace; town read from the mapped site's branch name; matched by position, the only TA Express within 5 mi of mile 159.5 of this leg (1.1 mi); coordinates read from the mapped site. CAT Scale read from OpenStreetMap (amenity=weighbridge, brand CAT Scale) within 0.25 mi of the store; Overpass snapshot 2026-09-24, tools/cat_scales.py.",
+   "lat": 30.085641,
+   "lon": -90.444747,
+   "season": "year round"
+  },
+  {
+   "name": "Sumter Welcome Center",
+   "type": "public_rest_area",
+   "actions": [
+    "park",
+    "save",
+    "break",
+    "sleep"
+   ],
+   "services": [
+    "parking",
+    "restrooms"
+   ],
+   "parking": "limited",
+   "vehicle_access": "tractor_trailer",
+   "source": "OpenStreetMap/Overpass development-time corridor amenity query, accessed 2026-06-21; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Opposite-direction copy onto overlapping same-highway partner; curated 2026-09-16. Opposite-direction copy onto overlapping same-highway partner; curated 2026-09-16.",
+   "lat": 32.44987,
+   "lon": -88.39685,
+   "season": "year round"
+  },
+  {
+   "name": "Parking area",
+   "type": "public_rest_area",
+   "actions": [
+    "park",
+    "save",
+    "break",
+    "sleep"
+   ],
+   "services": [
+    "parking",
+    "restrooms"
+   ],
+   "parking": "limited",
+   "vehicle_access": "tractor_trailer",
+   "source": "OpenStreetMap/Overpass development-time corridor amenity query, accessed 2026-06-21; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs.",
+   "lat": 31.85089,
+   "lon": -89.04992,
+   "season": "year round"
+  },
+  {
+   "name": "Marathon",
+   "type": "fuel_station",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "break"
+   ],
+   "services": [
+    "diesel",
+    "parking"
+   ],
+   "parking": "limited",
+   "vehicle_access": "bobtail_only",
+   "source": "OpenStreetMap/Overpass development-time corridor amenity query, accessed 2026-06-21; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Truck access: No verified truck access: OpenStreetMap records no hgv allowance, truck parking, or truck-stop classification at this location (checked 2026-07-19). Generic fuel stations default to bobtail_only per the truck-accessibility policy.",
+   "lat": 31.63175,
+   "lon": -89.18071,
+   "season": "year round"
+  },
+  {
+   "name": "Exxon",
+   "type": "fuel_station",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "break"
+   ],
+   "services": [
+    "diesel",
+    "parking"
+   ],
+   "parking": "limited",
+   "vehicle_access": "bobtail_only",
+   "source": "OpenStreetMap/Overpass development-time amenity query centered on the natchez_ms_us endpoint city's own coordinates; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Truck access: No verified truck access: OpenStreetMap records no hgv allowance, truck parking, or truck-stop classification at this location (checked 2026-07-19). Generic fuel stations default to bobtail_only per the truck-accessibility policy.",
+   "lat": 31.53997,
+   "lon": -91.39703,
+   "season": "year round"
+  },
+  {
+   "name": "Fred's State Line - Casino and Truck Stop",
+   "type": "service_plaza",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "food",
+    "break",
+    "sleep"
+   ],
+   "services": [
+    "diesel",
+    "food",
+    "parking"
+   ],
+   "parking": "likely",
+   "vehicle_access": "tractor_trailer",
+   "source": "OpenStreetMap/Overpass development-time corridor amenity query, accessed 2026-06-21; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs.",
+   "lat": 30.9932,
+   "lon": -91.34799,
+   "season": "year round"
+  },
+  {
+   "name": "Chevron",
+   "type": "fuel_station",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "break"
+   ],
+   "services": [
+    "diesel",
+    "parking"
+   ],
+   "parking": "limited",
+   "vehicle_access": "bobtail_only",
+   "source": "OpenStreetMap/Overpass development-time corridor amenity query, accessed 2026-06-21; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Truck access: No verified truck access: OpenStreetMap records no hgv allowance, truck parking, or truck-stop classification at this location (checked 2026-07-19). Generic fuel stations default to bobtail_only per the truck-accessibility policy.",
+   "lat": 30.74847,
+   "lon": -91.29389,
+   "season": "year round"
+  },
+  {
+   "name": "Love's Travel Stop",
+   "type": "travel_center",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "food",
+    "break",
+    "sleep"
+   ],
+   "services": [
+    "diesel",
+    "food",
+    "parking",
+    "scale"
+   ],
+   "parking": "likely",
+   "vehicle_access": "tractor_trailer",
+   "source": "OpenStreetMap/Overpass development-time amenity query centered on the baton_rouge_la_us endpoint city's own coordinates; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Store identity read from OpenStreetMap (Geofabrik Louisiana extract dated 2026-06-22, read 2026-09-17): Love's store 240; no town is mapped for it, so the record keeps the chain's name; matched by coordinate, 0.02 mi from the mapped site. CAT Scale read from OpenStreetMap (amenity=weighbridge, brand CAT Scale) within 0.25 mi of the store; Overpass snapshot 2026-09-24, tools/cat_scales.py.",
+   "lat": 30.4455,
+   "lon": -91.24251,
+   "season": "year round"
+  },
+  {
+   "name": "Shell",
+   "type": "fuel_station",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "break"
+   ],
+   "services": [
+    "diesel",
+    "parking"
+   ],
+   "parking": "limited",
+   "vehicle_access": "bobtail_only",
+   "source": "OpenStreetMap/Overpass development-time corridor amenity query, accessed 2026-06-21; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Truck access: No verified truck access: OpenStreetMap records no hgv allowance, truck parking, or truck-stop classification at this location (checked 2026-07-19). Generic fuel stations default to bobtail_only per the truck-accessibility policy.",
+   "lat": 31.93394,
+   "lon": -90.99286,
+   "season": "year round"
+  },
+  {
+   "name": "Mobil",
+   "type": "fuel_station",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "break"
+   ],
+   "services": [
+    "diesel",
+    "parking"
+   ],
+   "parking": "limited",
+   "vehicle_access": "bobtail_only",
+   "source": "OpenStreetMap/Overpass development-time amenity query centered on the oxford_ms_us endpoint city's own coordinates; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Truck access: No verified truck access: OpenStreetMap records no hgv allowance, truck parking, or truck-stop classification at this location (checked 2026-07-19). Generic fuel stations default to bobtail_only per the truck-accessibility policy.",
+   "lat": 34.36253,
+   "lon": -89.51072,
+   "season": "year round"
+  },
+  {
+   "name": "Chevron",
+   "type": "fuel_station",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "break"
+   ],
+   "services": [
+    "diesel",
+    "parking"
+   ],
+   "parking": "limited",
+   "vehicle_access": "bobtail_only",
+   "source": "OpenStreetMap/Overpass development-time corridor amenity query, accessed 2026-06-21; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Truck access: No verified truck access: OpenStreetMap records no hgv allowance, truck parking, or truck-stop classification at this location (checked 2026-07-19). Generic fuel stations default to bobtail_only per the truck-accessibility policy.",
+   "lat": 34.34103,
+   "lon": -89.74555,
+   "season": "year round"
+  },
+  {
+   "name": "Exxon",
+   "type": "fuel_station",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "break"
+   ],
+   "services": [
+    "diesel",
+    "parking"
+   ],
+   "parking": "limited",
+   "vehicle_access": "bobtail_only",
+   "source": "OpenStreetMap/Overpass development-time corridor amenity query, accessed 2026-06-21; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Truck access: No verified truck access: OpenStreetMap records no hgv allowance, truck parking, or truck-stop classification at this location (checked 2026-07-19). Generic fuel stations default to bobtail_only per the truck-accessibility policy.",
+   "lat": 34.25915,
+   "lon": -90.27389,
+   "season": "year round"
+  },
+  {
+   "name": "Flying J Travel Center Olive Branch",
+   "type": "travel_center",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "food",
+    "break",
+    "sleep"
+   ],
+   "services": [
+    "diesel",
+    "food",
+    "parking",
+    "scale"
+   ],
+   "parking": "likely",
+   "vehicle_access": "tractor_trailer",
+   "source": "OpenStreetMap/Overpass development-time corridor amenity query, accessed 2026-06-21; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Store identity read from OpenStreetMap (Geofabrik Mississippi extract dated 2026-06-22, read 2026-09-17): Flying J store at Olive Branch; town read from the mapped site's address; matched by coordinate, 0.01 mi from the mapped site. CAT Scale read from OpenStreetMap (amenity=weighbridge, brand CAT Scale) within 0.25 mi of the store; Overpass snapshot 2026-09-24, tools/cat_scales.py.",
+   "lat": 34.9283,
+   "lon": -89.79356,
+   "season": "year round"
+  },
+  {
+   "name": "Chevron",
+   "type": "fuel_station",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "break"
+   ],
+   "services": [
+    "diesel",
+    "parking"
+   ],
+   "parking": "limited",
+   "vehicle_access": "bobtail_only",
+   "source": "OpenStreetMap/Overpass development-time amenity query centered on the oxford_ms_us endpoint city's own coordinates; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Truck access: No verified truck access: OpenStreetMap records no hgv allowance, truck parking, or truck-stop classification at this location (checked 2026-07-19). Generic fuel stations default to bobtail_only per the truck-accessibility policy.",
+   "lat": 34.35999,
+   "lon": -89.58119,
+   "season": "year round"
+  },
+  {
+   "name": "Exxon",
+   "type": "travel_center",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "food",
+    "break",
+    "sleep"
+   ],
+   "services": [
+    "diesel",
+    "food",
+    "parking"
+   ],
+   "parking": "likely",
+   "vehicle_access": "bobtail_only",
+   "source": "OpenStreetMap/Overpass development-time corridor amenity query, accessed 2026-06-21; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs.",
+   "lat": 34.29608,
+   "lon": -88.96878,
+   "season": "year round"
+  },
+  {
+   "name": "Pilot Travel Center New Albany",
+   "type": "travel_center",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "food",
+    "break",
+    "sleep"
+   ],
+   "services": [
+    "diesel",
+    "food",
+    "parking",
+    "scale"
+   ],
+   "parking": "likely",
+   "vehicle_access": "tractor_trailer",
+   "source": "OpenStreetMap/Overpass development-time corridor amenity query, accessed 2026-06-21; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Store identity read from OpenStreetMap (Geofabrik Mississippi extract dated 2026-06-22, read 2026-09-17): Pilot store at New Albany; town read from the mapped site's address; matched by coordinate, 0.01 mi from the mapped site. CAT Scale read from OpenStreetMap (amenity=weighbridge, brand CAT Scale) within 0.25 mi of the store; Overpass snapshot 2026-09-24, tools/cat_scales.py.",
+   "lat": 34.46774,
+   "lon": -89.00594,
+   "season": "year round"
+  },
+  {
+   "name": "Love's",
+   "type": "fuel_station",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "break"
+   ],
+   "services": [
+    "diesel",
+    "parking"
+   ],
+   "parking": "limited",
+   "vehicle_access": "tractor_trailer",
+   "source": "OpenStreetMap/Overpass development-time corridor amenity query, accessed 2026-06-21; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Store identity read from OpenStreetMap (Geofabrik Mississippi extract dated 2026-06-22, read 2026-09-17): Love's store 776; no town is mapped for it, so the record keeps the chain's name; matched by coordinate, 0.00 mi from the mapped site.",
+   "lat": 32.36275,
+   "lon": -90.66737,
+   "season": "year round"
+  },
+  {
+   "name": "Circle K",
+   "type": "fuel_station",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "break"
+   ],
+   "services": [
+    "diesel",
+    "parking"
+   ],
+   "parking": "limited",
+   "vehicle_access": "bobtail_only",
+   "source": "OpenStreetMap/Overpass development-time corridor amenity query, accessed 2026-06-21; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Truck access: No verified truck access: OpenStreetMap records no hgv allowance, truck parking, or truck-stop classification at this location (checked 2026-07-19). Generic fuel stations default to bobtail_only per the truck-accessibility policy.",
+   "lat": 33.09147,
+   "lon": -80.03067,
+   "season": "year round"
+  },
+  {
+   "name": "Pilot Travel Center Florence",
+   "type": "travel_center",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "food",
+    "break",
+    "sleep"
+   ],
+   "services": [
+    "diesel",
+    "food",
+    "parking",
+    "scale"
+   ],
+   "parking": "likely",
+   "vehicle_access": "tractor_trailer",
+   "source": "OpenStreetMap/Overpass development-time amenity query centered on the florence_sc_us endpoint city's own coordinates; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Store identity read from OpenStreetMap (Geofabrik South Carolina extract dated 2026-06-22, read 2026-09-17): Pilot store at Florence; town read from the mapped site's address; matched by coordinate, 0.02 mi from the mapped site. CAT Scale read from OpenStreetMap (amenity=weighbridge, brand CAT Scale) within 0.25 mi of the store; Overpass snapshot 2026-09-24, tools/cat_scales.py.",
+   "lat": 34.23317,
+   "lon": -79.80173,
+   "season": "year round"
+  },
+  {
+   "name": "Circle K",
+   "type": "fuel_station",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "break"
+   ],
+   "services": [
+    "diesel",
+    "parking"
+   ],
+   "parking": "limited",
+   "vehicle_access": "bobtail_only",
+   "source": "OpenStreetMap/Overpass development-time amenity query centered on the charleston_sc_us endpoint city's own coordinates; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Truck access: No verified truck access: OpenStreetMap records no hgv allowance, truck parking, or truck-stop classification at this location (checked 2026-07-19). Generic fuel stations default to bobtail_only per the truck-accessibility policy.",
+   "lat": 32.7975,
+   "lon": -79.89753,
+   "season": "year round"
+  },
+  {
+   "name": "BP",
+   "type": "fuel_station",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "break"
+   ],
+   "services": [
+    "diesel",
+    "parking"
+   ],
+   "parking": "limited",
+   "vehicle_access": "bobtail_only",
+   "source": "OpenStreetMap/Overpass development-time corridor amenity query, accessed 2026-06-21; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Truck access: No verified truck access: OpenStreetMap records no hgv allowance, truck parking, or truck-stop classification at this location (checked 2026-07-19). Generic fuel stations default to bobtail_only per the truck-accessibility policy.",
+   "lat": 33.43868,
+   "lon": -79.12798,
+   "season": "year round"
+  },
+  {
+   "name": "Circle C express",
+   "type": "fuel_station",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "break"
+   ],
+   "services": [
+    "diesel",
+    "parking"
+   ],
+   "parking": "limited",
+   "vehicle_access": "bobtail_only",
+   "source": "OpenStreetMap/Overpass development-time corridor amenity query, accessed 2026-06-21; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Truck access: No verified truck access: OpenStreetMap records no hgv allowance, truck parking, or truck-stop classification at this location (checked 2026-07-19). Generic fuel stations default to bobtail_only per the truck-accessibility policy.",
+   "lat": 32.60123,
+   "lon": -80.79278,
+   "season": "year round"
+  },
+  {
+   "name": "Pilot Travel Center Hardeeville",
+   "type": "travel_center",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "food",
+    "break",
+    "sleep"
+   ],
+   "services": [
+    "diesel",
+    "food",
+    "parking",
+    "scale"
+   ],
+   "parking": "likely",
+   "vehicle_access": "tractor_trailer",
+   "source": "OpenStreetMap/Overpass dense in-gap corridor amenity query, accessed 2026-07-19; added to close a stretch with no truck-accessible service after the truck-accessibility sweep. Curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Store identity read from OpenStreetMap (Geofabrik South Carolina extract dated 2026-06-22, read 2026-09-17): Pilot store at Hardeeville; town read from the store page the mapped site links to; matched by coordinate, 0.01 mi from the mapped site. CAT Scale read from OpenStreetMap (amenity=weighbridge, brand CAT Scale) within 0.25 mi of the store; Overpass snapshot 2026-09-24, tools/cat_scales.py.",
+   "lat": 32.269011,
+   "lon": -81.0818929,
+   "season": "year round"
+  },
+  {
+   "name": "Pilot Travel Center St. Matthews",
+   "type": "travel_center",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "food",
+    "break",
+    "sleep"
+   ],
+   "services": [
+    "diesel",
+    "food",
+    "parking",
+    "scale"
+   ],
+   "parking": "likely",
+   "vehicle_access": "tractor_trailer",
+   "source": "OpenStreetMap/Overpass development-time corridor amenity query, accessed 2026-06-21; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Store identity read from OpenStreetMap (Geofabrik South Carolina extract dated 2026-06-22, read 2026-09-17): Pilot store at St. Matthews; town read from the store page the mapped site links to; matched by coordinate, 0.00 mi from the mapped site. CAT Scale read from OpenStreetMap (amenity=weighbridge, brand CAT Scale) within 0.25 mi of the store; Overpass snapshot 2026-09-24, tools/cat_scales.py.",
+   "lat": 33.63291,
+   "lon": -80.87934,
+   "season": "year round"
+  },
+  {
+   "name": "Pilot Travel Center Winnsboro",
+   "type": "travel_center",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "food",
+    "break",
+    "sleep"
+   ],
+   "services": [
+    "diesel",
+    "food",
+    "restrooms",
+    "parking",
+    "scale"
+   ],
+   "parking": "confirmed",
+   "vehicle_access": "tractor_trailer",
+   "curation": "curated",
+   "source": "Pilot Flying J official locator lists Pilot Travel Center store 4578 in Winnsboro, SC with 100 public truck parking spaces; at_mi estimated by projecting source coordinates onto checked-in route geometry (2.5 mi from simplified corridor line), accessed 2026-06-17: https://locations.pilotflyingj.com/us/sc/winnsboro/10959-sc-200 Mile carried across proportionally when the leg was rerouted. Opposite-direction copy onto overlapping same-highway partner; curated 2026-09-16. Store coordinates read from OpenStreetMap (Geofabrik South Carolina extract dated 2026-06-22, read 2026-09-17): Pilot store at Winnsboro; matched by name, the only Pilot the map has at Winnsboro within 40 mi of mile 46.2 of this leg (7.6 mi); coordinates read from the mapped site.",
+   "lat": 34.508275,
+   "lon": -81.001115,
+   "season": "year round"
+  },
+  {
+   "name": "Flying J Travel Center Rock Hill",
+   "type": "travel_center",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "food",
+    "break",
+    "sleep"
+   ],
+   "services": [
+    "diesel",
+    "food",
+    "parking",
+    "scale"
+   ],
+   "parking": "likely",
+   "vehicle_access": "tractor_trailer",
+   "source": "OpenStreetMap/Overpass development-time corridor amenity query, accessed 2026-06-21; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Mile carried across proportionally when the leg was rerouted. Opposite-direction copy onto overlapping same-highway partner; curated 2026-09-16. Store identity read from OpenStreetMap (Geofabrik South Carolina extract dated 2026-06-22, read 2026-09-17): Flying J store at Rock Hill; town read from the mapped site's branch name; matched by coordinate, 0.02 mi from the mapped site. CAT Scale read from OpenStreetMap (amenity=weighbridge, brand CAT Scale) within 0.25 mi of the store; Overpass snapshot 2026-09-24, tools/cat_scales.py.",
+   "lat": 34.85678,
+   "lon": -81.00595,
+   "season": "year round"
+  },
+  {
+   "name": "ONE9 Travel Center Rock Hill",
+   "type": "travel_center",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "food",
+    "break",
+    "sleep"
+   ],
+   "services": [
+    "diesel",
+    "food",
+    "parking"
+   ],
+   "parking": "likely",
+   "vehicle_access": "tractor_trailer",
+   "source": "OpenStreetMap/Overpass development-time corridor amenity query, accessed 2026-06-21; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Store identity read from OpenStreetMap (Geofabrik South Carolina extract dated 2026-06-22, read 2026-09-17): ONE9 store at Rock Hill; town read from the store page the mapped site links to; matched by position, the only ONE9 within 5 mi of mile 69.8 of this leg (2.2 mi); coordinates read from the mapped site.",
+   "lat": 34.913263,
+   "lon": -80.979568,
+   "season": "year round"
+  },
+  {
+   "name": "Pilot",
+   "type": "fuel_station",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "break"
+   ],
+   "services": [
+    "diesel",
+    "parking"
+   ],
+   "parking": "limited",
+   "vehicle_access": "tractor_trailer",
+   "source": "OpenStreetMap/Overpass development-time amenity query centered on the charlotte_nc_us endpoint city's own coordinates; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs.",
+   "lat": 35.27041,
+   "lon": -80.83784,
+   "season": "year round"
+  },
+  {
+   "name": "Pilot Travel Center Cayce",
+   "type": "travel_center",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "food",
+    "break",
+    "sleep"
+   ],
+   "services": [
+    "diesel",
+    "food",
+    "parking",
+    "scale"
+   ],
+   "parking": "likely",
+   "vehicle_access": "tractor_trailer",
+   "source": "OpenStreetMap/Overpass dense in-gap corridor amenity query, accessed 2026-07-19; added to close a stretch with no truck-accessible service after the truck-accessibility sweep. Curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Store identity read from OpenStreetMap (Geofabrik South Carolina extract dated 2026-06-22, read 2026-09-17): Pilot store at Cayce; town read from the mapped site's branch name; matched by coordinate, 0.01 mi from the mapped site. CAT Scale read from OpenStreetMap (amenity=weighbridge, brand CAT Scale) within 0.25 mi of the store; Overpass snapshot 2026-09-24, tools/cat_scales.py.",
+   "lat": 33.9298379,
+   "lon": -81.0785276,
+   "season": "year round"
+  },
+  {
+   "name": "Interstate 26 East Rest Area",
+   "type": "public_rest_area",
+   "actions": [
+    "park",
+    "save",
+    "break",
+    "sleep"
+   ],
+   "services": [
+    "parking",
+    "restrooms"
+   ],
+   "parking": "limited",
+   "vehicle_access": "tractor_trailer",
+   "source": "OpenStreetMap/Overpass dense in-gap corridor amenity query, accessed 2026-07-19; added to close a stretch with no truck-accessible service after the truck-accessibility sweep. Curated into a gameplay POI (clean name, normalized category) without raw OSM IDs.",
+   "lat": 33.8387724,
+   "lon": -81.0235887,
+   "season": "year round"
+  },
+  {
+   "name": "BP",
+   "type": "fuel_station",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "break"
+   ],
+   "services": [
+    "diesel",
+    "parking"
+   ],
+   "parking": "limited",
+   "vehicle_access": "bobtail_only",
+   "source": "OpenStreetMap/Overpass development-time amenity query centered on the columbia_sc_us endpoint city's own coordinates; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Truck access: No verified truck access: OpenStreetMap records no hgv allowance, truck parking, or truck-stop classification at this location (checked 2026-07-19). Generic fuel stations default to bobtail_only per the truck-accessibility policy.",
+   "lat": 34.00852,
+   "lon": -80.98019,
+   "season": "year round"
+  },
+  {
+   "name": "Mr. J's",
+   "type": "fuel_station",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "break"
+   ],
+   "services": [
+    "diesel",
+    "parking"
+   ],
+   "parking": "limited",
+   "vehicle_access": "bobtail_only",
+   "source": "OpenStreetMap/Overpass development-time corridor amenity query, accessed 2026-06-21; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Truck access: No verified truck access: OpenStreetMap records no hgv allowance, truck parking, or truck-stop classification at this location (checked 2026-07-19). Generic fuel stations default to bobtail_only per the truck-accessibility policy.",
+   "lat": 34.17485,
+   "lon": -81.36846,
+   "season": "year round"
+  },
+  {
+   "name": "Pilot Travel Center Prosperity",
+   "type": "travel_center",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "food",
+    "break",
+    "sleep"
+   ],
+   "services": [
+    "diesel",
+    "food",
+    "parking",
+    "scale"
+   ],
+   "parking": "likely",
+   "vehicle_access": "tractor_trailer",
+   "source": "OpenStreetMap/Overpass dense in-gap corridor amenity query, accessed 2026-07-19; added to close a stretch with no truck-accessible service after the truck-accessibility sweep. Curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Opposite-direction copy onto overlapping same-highway partner; curated 2026-09-16. Store identity read from OpenStreetMap (Geofabrik South Carolina extract dated 2026-06-22, read 2026-09-17): Pilot store at Prosperity; town read from the store page the mapped site links to; matched by coordinate, 0.01 mi from the mapped site. CAT Scale read from OpenStreetMap (amenity=weighbridge, brand CAT Scale) within 0.25 mi of the store; Overpass snapshot 2026-09-24, tools/cat_scales.py.",
+   "lat": 34.2405493,
+   "lon": -81.4599377,
+   "season": "year round"
+  },
+  {
+   "name": "Love's Travel Stop Newberry",
+   "type": "travel_center",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "food",
+    "break",
+    "sleep"
+   ],
+   "services": [
+    "diesel",
+    "food",
+    "parking",
+    "scale"
+   ],
+   "parking": "likely",
+   "vehicle_access": "tractor_trailer",
+   "source": "OpenStreetMap/Overpass dense in-gap corridor amenity query, accessed 2026-07-19; added to close a stretch with no truck-accessible service after the truck-accessibility sweep. Curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Opposite-direction copy onto overlapping same-highway partner; curated 2026-09-16. Store identity read from OpenStreetMap (Geofabrik South Carolina extract dated 2026-06-22, read 2026-09-17): Love's store 396 at Newberry; town read from the mapped site's branch name; matched by coordinate, 0.01 mi from the mapped site. CAT Scale read from OpenStreetMap (amenity=weighbridge, brand CAT Scale) within 0.25 mi of the store; Overpass snapshot 2026-09-24, tools/cat_scales.py.",
+   "lat": 34.2968099,
+   "lon": -81.5437407,
+   "season": "year round"
+  },
+  {
+   "name": "NEWBERRY REST AREA",
+   "type": "public_rest_area",
+   "actions": [
+    "park",
+    "save",
+    "break",
+    "sleep"
+   ],
+   "services": [
+    "parking",
+    "restrooms"
+   ],
+   "parking": "confirmed",
+   "parking_spaces": 47,
+   "vehicle_access": "tractor_trailer",
+   "curation": "curated",
+   "source": "FHWA Jason's Law truck parking inventory (NTAD via BTS) lists NEWBERRY REST AREA on I-26E in Kinards, SC with 45 truck parking spaces, mile post 63; at_mi estimated by projecting source coordinates onto checked-in route geometry (0.1 mi from simplified corridor line), accessed 2026-06-17: https://services.arcgis.com/xOi1kZaI0eWDREZv/arcgis/rest/services/NTAD_Truck_Stop_Parking/FeatureServer/0/query Opposite-direction copy onto overlapping same-highway partner; curated 2026-09-16.",
+   "lat": 34.42126436183933,
+   "lon": -81.71664521039185,
+   "season": "year round"
+  },
+  {
+   "name": "ONE9 Travel Center Clinton",
+   "type": "travel_center",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "food",
+    "break",
+    "sleep"
+   ],
+   "services": [
+    "diesel",
+    "food",
+    "parking",
+    "scale"
+   ],
+   "parking": "likely",
+   "vehicle_access": "tractor_trailer",
+   "source": "OpenStreetMap/Overpass dense in-gap corridor amenity query, accessed 2026-07-19; added to close a stretch with no truck-accessible service after the truck-accessibility sweep. Curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Opposite-direction copy onto overlapping same-highway partner; curated 2026-09-16. Store identity read from OpenStreetMap (Geofabrik South Carolina extract dated 2026-06-22, read 2026-09-17): ONE9 store at Clinton; town read from the store page the mapped site links to; matched by coordinate, 0.00 mi from the mapped site. CAT Scale read from OpenStreetMap (amenity=weighbridge, brand CAT Scale) within 0.25 mi of the store; Overpass snapshot 2026-09-24, tools/cat_scales.py.",
+   "lat": 34.5089329,
+   "lon": -81.8580219,
+   "season": "year round"
+  },
+  {
+   "name": "Love's Travel Stop Elgin",
+   "type": "travel_center",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "food",
+    "break",
+    "sleep"
+   ],
+   "services": [
+    "diesel",
+    "food",
+    "parking",
+    "scale"
+   ],
+   "parking": "likely",
+   "vehicle_access": "tractor_trailer",
+   "source": "OpenStreetMap/Overpass development-time corridor amenity query, accessed 2026-06-21; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Store identity read from OpenStreetMap (Geofabrik South Carolina extract dated 2026-06-22, read 2026-09-17): Love's store 751 at Elgin; town read from the mapped site's address; matched by coordinate, 0.00 mi from the mapped site. CAT Scale read from OpenStreetMap (amenity=weighbridge, brand CAT Scale) within 0.25 mi of the store; Overpass snapshot 2026-09-24, tools/cat_scales.py.",
+   "lat": 34.13972,
+   "lon": -80.74892,
+   "season": "year round"
+  },
+  {
+   "name": "Love's Travel Stop Dillon",
+   "type": "travel_center",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "food",
+    "break",
+    "sleep"
+   ],
+   "services": [
+    "diesel",
+    "food",
+    "parking",
+    "scale"
+   ],
+   "parking": "likely",
+   "vehicle_access": "tractor_trailer",
+   "source": "OpenStreetMap/Overpass development-time corridor amenity query, accessed 2026-06-21; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Store identity read from OpenStreetMap (Geofabrik South Carolina extract dated 2026-06-22, read 2026-09-17): Love's store 371 at Dillon; town read from the mapped site's address; matched by coordinate, 0.01 mi from the mapped site. CAT Scale read from OpenStreetMap (amenity=weighbridge, brand CAT Scale) within 0.25 mi of the store; Overpass snapshot 2026-09-24, tools/cat_scales.py.",
+   "lat": 34.41885,
+   "lon": -79.41595,
+   "season": "year round"
+  },
+  {
+   "name": "North Carolina Welcome Center",
+   "type": "public_rest_area",
+   "actions": [
+    "park",
+    "save",
+    "break",
+    "sleep"
+   ],
+   "services": [
+    "parking",
+    "restrooms"
+   ],
+   "parking": "limited",
+   "vehicle_access": "tractor_trailer",
+   "source": "OpenStreetMap/Overpass development-time corridor amenity query, accessed 2026-06-21; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs.",
+   "lat": 34.5374,
+   "lon": -79.23561,
+   "season": "year round"
+  },
+  {
+   "name": "Love's Travel Stop",
+   "type": "travel_center",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "food",
+    "break",
+    "sleep"
+   ],
+   "services": [
+    "diesel",
+    "food",
+    "parking",
+    "scale"
+   ],
+   "parking": "likely",
+   "vehicle_access": "tractor_trailer",
+   "source": "OpenStreetMap/Overpass dense in-gap corridor amenity query, accessed 2026-07-19; added to close a stretch with no truck-accessible service after the truck-accessibility sweep. Curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Store identity read from OpenStreetMap (Geofabrik South Carolina extract dated 2026-06-22, read 2026-09-17): Love's store 387; no town is mapped for it, so the record keeps the chain's name; matched by coordinate, 0.00 mi from the mapped site. CAT Scale read from OpenStreetMap (amenity=weighbridge, brand CAT Scale) within 0.25 mi of the store; Overpass snapshot 2026-09-24, tools/cat_scales.py.",
+   "lat": 34.5046726,
+   "lon": -82.9607542,
+   "season": "year round"
+  },
+  {
+   "name": "Pilot Travel Center Carnesville",
+   "type": "travel_center",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "food",
+    "break",
+    "sleep"
+   ],
+   "services": [
+    "diesel",
+    "food",
+    "parking",
+    "scale"
+   ],
+   "parking": "likely",
+   "vehicle_access": "tractor_trailer",
+   "source": "OpenStreetMap/Overpass dense in-gap corridor amenity query, accessed 2026-07-19; added to close a stretch with no truck-accessible service after the truck-accessibility sweep. Curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Store identity read from OpenStreetMap (Geofabrik Georgia extract dated 2026-06-22, read 2026-09-17): Pilot store at Carnesville; town read from the store page the mapped site links to; matched by coordinate, 0.04 mi from the mapped site. CAT Scale read from OpenStreetMap (amenity=weighbridge, brand CAT Scale) within 0.25 mi of the store; Overpass snapshot 2026-09-24, tools/cat_scales.py.",
+   "lat": 34.3892707,
+   "lon": -83.2267463,
+   "season": "year round"
+  },
+  {
+   "name": "Flying J Travel Center Carnesville",
+   "type": "travel_center",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "food",
+    "break",
+    "sleep"
+   ],
+   "services": [
+    "diesel",
+    "food",
+    "parking",
+    "scale"
+   ],
+   "parking": "likely",
+   "vehicle_access": "tractor_trailer",
+   "source": "OpenStreetMap/Overpass dense in-gap corridor amenity query, accessed 2026-07-19; added to close a stretch with no truck-accessible service after the truck-accessibility sweep. Curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Store identity read from OpenStreetMap (Geofabrik Georgia extract dated 2026-06-22, read 2026-09-17): Flying J store at Carnesville; town read from the mapped site's branch name; matched by coordinate, 0.02 mi from the mapped site. CAT Scale read from OpenStreetMap (amenity=weighbridge, brand CAT Scale) within 0.25 mi of the store; Overpass snapshot 2026-09-24, tools/cat_scales.py.",
+   "lat": 34.3474336,
+   "lon": -83.3222952,
+   "season": "year round"
+  },
+  {
+   "name": "Speedway",
+   "type": "fuel_station",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "break"
+   ],
+   "services": [
+    "diesel",
+    "parking"
+   ],
+   "parking": "limited",
+   "vehicle_access": "bobtail_only",
+   "source": "OpenStreetMap/Overpass development-time corridor amenity query, accessed 2026-06-21; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Truck access: No verified truck access: OpenStreetMap records no hgv allowance, truck parking, or truck-stop classification at this location (checked 2026-07-19). Generic fuel stations default to bobtail_only per the truck-accessibility policy.",
+   "lat": 33.80809,
+   "lon": -79.01907,
+   "season": "year round"
+  },
+  {
+   "name": "Sunoco",
+   "type": "fuel_station",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "break"
+   ],
+   "services": [
+    "diesel",
+    "parking"
+   ],
+   "parking": "limited",
+   "vehicle_access": "bobtail_only",
+   "source": "OpenStreetMap/Overpass development-time corridor amenity query, accessed 2026-06-21; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Truck access: No verified truck access: OpenStreetMap records no hgv allowance, truck parking, or truck-stop classification at this location (checked 2026-07-19). Generic fuel stations default to bobtail_only per the truck-accessibility policy.",
+   "lat": 34.05636,
+   "lon": -79.24597,
+   "season": "year round"
+  },
+  {
+   "name": "South Carolina Welcome Center",
+   "type": "public_rest_area",
+   "actions": [
+    "park",
+    "save",
+    "break",
+    "sleep"
+   ],
+   "services": [
+    "parking",
+    "restrooms"
+   ],
+   "parking": "limited",
+   "vehicle_access": "tractor_trailer",
+   "source": "OpenStreetMap/Overpass development-time corridor amenity query, accessed 2026-06-21; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Type corrected from service_plaza to public_rest_area (derived): the name says so and the OpenStreetMap feature at the record's coordinate maps no fuel within it. Geofabrik extract, accessed 2026-09-17. Services, actions and parking are the import's assumptions for that type.",
+   "lat": 33.88474,
+   "lon": -78.60013,
+   "season": "year round"
+  },
+  {
+   "name": "Scotchman Shell",
+   "type": "fuel_station",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "break"
+   ],
+   "services": [
+    "diesel",
+    "parking"
+   ],
+   "parking": "limited",
+   "vehicle_access": "bobtail_only",
+   "source": "OpenStreetMap/Overpass development-time corridor amenity query, accessed 2026-06-21; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Truck access: No verified truck access: OpenStreetMap records no hgv allowance, truck parking, or truck-stop classification at this location (checked 2026-07-19). Generic fuel stations default to bobtail_only per the truck-accessibility policy.",
+   "lat": 33.97096,
+   "lon": -78.38809,
+   "season": "year round"
+  },
+  {
+   "name": "Pilot Travel Center Duncan",
+   "type": "travel_center",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "food",
+    "break",
+    "sleep"
+   ],
+   "services": [
+    "diesel",
+    "food",
+    "parking",
+    "scale"
+   ],
+   "parking": "likely",
+   "vehicle_access": "tractor_trailer",
+   "source": "OpenStreetMap/Overpass development-time corridor amenity query, accessed 2026-06-21; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Store identity read from OpenStreetMap (Geofabrik South Carolina extract dated 2026-06-22, read 2026-09-17): Pilot store at Duncan; town read from the store page the mapped site links to; matched by coordinate, 0.02 mi from the mapped site. CAT Scale read from OpenStreetMap (amenity=weighbridge, brand CAT Scale) within 0.25 mi of the store; Overpass snapshot 2026-09-24, tools/cat_scales.py.",
+   "lat": 34.91568,
+   "lon": -82.10756,
+   "season": "year round"
+  },
+  {
+   "name": "BP",
+   "type": "fuel_station",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "break"
+   ],
+   "services": [
+    "diesel",
+    "parking"
+   ],
+   "parking": "limited",
+   "vehicle_access": "bobtail_only",
+   "source": "OpenStreetMap/Overpass development-time corridor amenity query, accessed 2026-06-21; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Truck access: No verified truck access: OpenStreetMap records no hgv allowance, truck parking, or truck-stop classification at this location (checked 2026-07-19). Generic fuel stations default to bobtail_only per the truck-accessibility policy.",
+   "lat": 33.95124,
+   "lon": -80.49684,
+   "season": "year round"
+  },
+  {
+   "name": "Sunoco",
+   "type": "fuel_station",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "break"
+   ],
+   "services": [
+    "diesel",
+    "parking"
+   ],
+   "parking": "limited",
+   "vehicle_access": "bobtail_only",
+   "source": "OpenStreetMap/Overpass development-time corridor amenity query, accessed 2026-06-21; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Truck access: No verified truck access: OpenStreetMap records no hgv allowance, truck parking, or truck-stop classification at this location (checked 2026-07-19). Generic fuel stations default to bobtail_only per the truck-accessibility policy.",
+   "lat": 33.95015,
+   "lon": -80.82161,
+   "season": "year round"
+  },
+  {
+   "name": "Exxon",
+   "type": "fuel_station",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "break"
+   ],
+   "services": [
+    "diesel",
+    "parking"
+   ],
+   "parking": "limited",
+   "vehicle_access": "bobtail_only",
+   "source": "OpenStreetMap/Overpass development-time corridor amenity query, accessed 2026-06-21; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Truck access: No verified truck access: OpenStreetMap records no hgv allowance, truck parking, or truck-stop classification at this location (checked 2026-07-19). Generic fuel stations default to bobtail_only per the truck-accessibility policy.",
+   "lat": 33.90319,
+   "lon": -80.09637,
+   "season": "year round"
+  },
+  {
+   "name": "Love's Travel Stop Tuscumbia",
+   "type": "travel_center",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "food",
+    "break",
+    "sleep"
+   ],
+   "services": [
+    "diesel",
+    "food",
+    "parking",
+    "restrooms"
+   ],
+   "parking": "likely",
+   "vehicle_access": "tractor_trailer",
+   "vehicle_access_basis": "read",
+   "curation": "curated",
+   "source": "Read: OpenStreetMap way 569367248 (hgv=yes, amenity services or fuel), OpenStreetMap planet file of 2026-11-16, read 2026-11-23; the map's website tag names the operator's page https://www.loves.com/locations/al/tuscumbia/loves-travel-stop-tuscumbia-580. Truck access read from the hgv tag; services assumed for a truck travel centre. Leg mile projected onto the leg's archived road.",
+   "lat": 34.69707,
+   "lon": -87.63599,
+   "season": "year round"
+  },
+  {
+   "name": "Love's Travel Stop Ramer",
+   "type": "travel_center",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "food",
+    "break",
+    "sleep"
+   ],
+   "services": [
+    "diesel",
+    "food",
+    "parking",
+    "restrooms"
+   ],
+   "parking": "likely",
+   "vehicle_access": "tractor_trailer",
+   "vehicle_access_basis": "read",
+   "curation": "curated",
+   "source": "Read: OpenStreetMap way 1323593920 (hgv=yes, amenity services or fuel), OpenStreetMap planet file of 2026-11-16, read 2026-11-23; the map's website tag names the operator's page https://www.loves.com/locations/tn/ramer/loves-travel-stop-ramer-694. Truck access read from the hgv tag; services assumed for a truck travel centre. Leg mile projected onto the leg's archived road.",
+   "lat": 35.07625,
+   "lon": -88.54459,
+   "season": "year round"
+  },
+  {
+   "name": "Love's Travel Stop Walnut",
+   "type": "travel_center",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "food",
+    "break",
+    "sleep"
+   ],
+   "services": [
+    "diesel",
+    "food",
+    "parking",
+    "restrooms"
+   ],
+   "parking": "likely",
+   "vehicle_access": "tractor_trailer",
+   "vehicle_access_basis": "read",
+   "curation": "curated",
+   "source": "Read: OpenStreetMap way 1172586865 (hgv=yes, amenity services or fuel), OpenStreetMap planet file of 2026-11-16, read 2026-11-23; the map's website tag names the operator's page https://www.loves.com/locations/ms/walnut/loves-travel-stop-walnut-799. Truck access read from the hgv tag; services assumed for a truck travel centre. Leg mile projected onto the leg's archived road.",
+   "lat": 34.95204,
+   "lon": -88.91029,
+   "season": "year round"
+  },
+  {
+   "name": "Love's Travel Stop Memphis",
+   "type": "travel_center",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "food",
+    "break",
+    "sleep"
+   ],
+   "services": [
+    "diesel",
+    "food",
+    "parking",
+    "restrooms"
+   ],
+   "parking": "likely",
+   "vehicle_access": "tractor_trailer",
+   "vehicle_access_basis": "read",
+   "curation": "curated",
+   "source": "Read: OpenStreetMap way 226611756 (hgv=yes, amenity services or fuel), OpenStreetMap planet file of 2026-11-16, read 2026-11-23; the map's website tag names the operator's page https://www.loves.com/locations/tn/memphis/loves-travel-stop-memphis-344. Truck access read from the hgv tag; services assumed for a truck travel centre. Leg mile projected onto the leg's archived road.",
+   "lat": 35.07508,
+   "lon": -89.95103,
+   "season": "year round"
+  },
+  {
+   "name": "Dolly's Tennessean Travel Stop Cornersville",
+   "type": "travel_center",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "food",
+    "break",
+    "sleep"
+   ],
+   "services": [
+    "diesel",
+    "food",
+    "parking",
+    "restrooms"
+   ],
+   "parking": "likely",
+   "vehicle_access": "tractor_trailer",
+   "vehicle_access_basis": "read",
+   "curation": "curated",
+   "source": "Read: OpenStreetMap way 1365582915 (hgv=yes, amenity services or fuel), OpenStreetMap planet file of 2026-11-16, read 2026-11-23; the map's website tag names the operator's page https://dollystravelstops.com/. Truck access read from the hgv tag; services assumed for a truck travel centre. Leg mile projected onto the leg's archived road.",
+   "lat": 35.31085,
+   "lon": -86.88079,
+   "season": "year round"
+  },
+  {
+   "name": "Love's Travel Stop Columbia",
+   "type": "travel_center",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "food",
+    "break",
+    "sleep"
+   ],
+   "services": [
+    "diesel",
+    "food",
+    "parking",
+    "restrooms"
+   ],
+   "parking": "likely",
+   "vehicle_access": "tractor_trailer",
+   "vehicle_access_basis": "read",
+   "curation": "curated",
+   "source": "Read: OpenStreetMap way 226610046 (hgv=yes, amenity services or fuel), OpenStreetMap planet file of 2026-11-16, read 2026-11-23; the map's website tag names the operator's page https://www.loves.com/locations/tn/columbia/loves-travel-stop-columbia-346. Truck access read from the hgv tag; services assumed for a truck travel centre. Leg mile projected onto the leg's archived road.",
+   "lat": 35.64428,
+   "lon": -86.89166,
+   "season": "year round"
+  },
+  {
+   "name": "TA Travel Center Franklin",
+   "type": "travel_center",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "food",
+    "break",
+    "sleep"
+   ],
+   "services": [
+    "diesel",
+    "food",
+    "parking",
+    "restrooms"
+   ],
+   "parking": "likely",
+   "vehicle_access": "tractor_trailer",
+   "vehicle_access_basis": "read",
+   "curation": "curated",
+   "source": "Read: OpenStreetMap way 229591086 (hgv=yes, amenity services or fuel), OpenStreetMap planet file of 2026-11-16, read 2026-11-23; the map's website tag names the operator's page https://www.ta-petro.com/location/tn/ta-franklin/. Truck access read from the hgv tag; services assumed for a truck travel centre. Leg mile projected onto the leg's archived road.",
+   "lat": 35.8604,
+   "lon": -86.82947,
+   "season": "year round"
+  },
+  {
+   "name": "Pilot Travel Center Rising Fawn",
+   "type": "travel_center",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "food",
+    "break",
+    "sleep"
+   ],
+   "services": [
+    "diesel",
+    "food",
+    "parking",
+    "restrooms"
+   ],
+   "parking": "likely",
+   "vehicle_access": "tractor_trailer",
+   "vehicle_access_basis": "read",
+   "curation": "curated",
+   "source": "Read: OpenStreetMap way 236500667 (hgv=yes, amenity services or fuel), OpenStreetMap planet file of 2026-11-16, read 2026-11-23; the map's website tag names the operator's page https://locations.pilotflyingj.com/us/ga/rising-fawn/319-deer-head-cove-rd. Truck access read from the hgv tag; services assumed for a truck travel centre. Leg mile projected onto the leg's archived road.",
+   "lat": 34.77039,
+   "lon": -85.54226,
+   "season": "year round"
+  },
+  {
+   "name": "ONE9 Travel Center Wildwood",
+   "type": "travel_center",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "food",
+    "break",
+    "sleep"
+   ],
+   "services": [
+    "diesel",
+    "food",
+    "parking",
+    "restrooms"
+   ],
+   "parking": "likely",
+   "vehicle_access": "tractor_trailer",
+   "vehicle_access_basis": "read",
+   "curation": "curated",
+   "source": "Read: OpenStreetMap way 236503076 (hgv=yes, amenity services or fuel), OpenStreetMap planet file of 2026-11-16, read 2026-11-23; the map's website tag names the operator's page https://locations.pilotflyingj.com/us/ga/wildwood/650-highway-299. Truck access read from the hgv tag; services assumed for a truck travel centre. Leg mile projected onto the leg's archived road.",
+   "lat": 34.97859,
+   "lon": -85.41364,
+   "season": "year round"
+  },
+  {
+   "name": "Love's Travel Stop Lucedale",
+   "type": "travel_center",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "food",
+    "break",
+    "sleep"
+   ],
+   "services": [
+    "diesel",
+    "food",
+    "parking",
+    "restrooms"
+   ],
+   "parking": "likely",
+   "vehicle_access": "tractor_trailer",
+   "vehicle_access_basis": "read",
+   "curation": "curated",
+   "source": "Read: OpenStreetMap way 1258801510 (hgv=yes, amenity services or fuel), OpenStreetMap planet file of 2026-11-16, read 2026-11-23; the map's website tag names the operator's page https://www.loves.com/locations/ms/lucedale/loves-travel-stop-lucedale-864. Truck access read from the hgv tag; services assumed for a truck travel centre. Leg mile projected onto the leg's archived road.",
+   "lat": 30.92323,
+   "lon": -88.51432,
+   "season": "year round"
+  },
+  {
+   "name": "Dan's Truck Stop",
+   "type": "travel_center",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "food",
+    "break",
+    "sleep"
+   ],
+   "services": [
+    "diesel",
+    "food",
+    "parking",
+    "restrooms"
+   ],
+   "parking": "likely",
+   "vehicle_access": "tractor_trailer",
+   "vehicle_access_basis": "read",
+   "curation": "curated",
+   "source": "Read: OpenStreetMap way 339825071 (hgv=yes, amenity services or fuel), OpenStreetMap planet file of 2026-11-16, read 2026-11-23; operator tag Dan's Truck Stop & Cafe, brand Texaco, fuel:diesel=yes. Truck access read from the hgv tag; services assumed for a truck travel centre. Leg mile projected onto the leg's archived road.",
+   "lat": 31.24892,
+   "lon": -89.27675,
+   "season": "year round"
+  },
+  {
+   "name": "Pilot Travel Center Winona",
+   "type": "travel_center",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "food",
+    "break",
+    "sleep"
+   ],
+   "services": [
+    "diesel",
+    "food",
+    "parking",
+    "restrooms"
+   ],
+   "parking": "likely",
+   "vehicle_access": "tractor_trailer",
+   "vehicle_access_basis": "read",
+   "curation": "curated",
+   "source": "Read: OpenStreetMap way 236753597 (hgv=yes, amenity services or fuel), OpenStreetMap planet file of 2026-11-16, read 2026-11-23; the map's website tag names the operator's page https://locations.pilotflyingj.com/us/ms/winona/403-sw-frontage-rd. Truck access read from the hgv tag; services assumed for a truck travel centre. Leg mile projected onto the leg's archived road.",
+   "lat": 33.48528,
+   "lon": -89.76976,
+   "season": "year round"
+  },
+  {
+   "name": "Love's Travel Stop Lake Village",
+   "type": "travel_center",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "food",
+    "break",
+    "sleep"
+   ],
+   "services": [
+    "diesel",
+    "food",
+    "parking",
+    "restrooms"
+   ],
+   "parking": "likely",
+   "vehicle_access": "tractor_trailer",
+   "vehicle_access_basis": "read",
+   "curation": "curated",
+   "source": "Read: OpenStreetMap way 1201131544 (hgv=yes, amenity services or fuel), OpenStreetMap planet file of 2026-11-16, read 2026-11-23; the map's website tag names the operator's page https://www.loves.com/locations/ar/lake-village/loves-travel-stop-lake-village-689. Truck access read from the hgv tag; services assumed for a truck travel centre. Leg mile projected onto the leg's archived road.",
+   "lat": 33.33109,
+   "lon": -91.29325,
+   "season": "year round"
+  },
+  {
+   "name": "Love's Travel Stop Pine Bluff",
+   "type": "travel_center",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "food",
+    "break",
+    "sleep"
+   ],
+   "services": [
+    "diesel",
+    "food",
+    "parking",
+    "restrooms"
+   ],
+   "parking": "likely",
+   "vehicle_access": "tractor_trailer",
+   "vehicle_access_basis": "read",
+   "curation": "curated",
+   "source": "Read: OpenStreetMap way 1201244721 (hgv=yes, amenity services or fuel), OpenStreetMap planet file of 2026-11-16, read 2026-11-23; the map's website tag names the operator's page https://www.loves.com/locations/ar/pine-bluff/loves-travel-stop-pine-bluff-661. Truck access read from the hgv tag; services assumed for a truck travel centre. Leg mile projected onto the leg's archived road.",
+   "lat": 34.19407,
+   "lon": -91.92072,
+   "season": "year round"
+  },
+  {
+   "name": "Love's Travel Stop Gulfport",
+   "type": "travel_center",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "food",
+    "break",
+    "sleep"
+   ],
+   "services": [
+    "diesel",
+    "food",
+    "parking",
+    "restrooms"
+   ],
+   "parking": "likely",
+   "vehicle_access": "tractor_trailer",
+   "vehicle_access_basis": "read",
+   "curation": "curated",
+   "source": "Read: OpenStreetMap way 1163017114 (hgv=yes, amenity services or fuel), OpenStreetMap planet file of 2026-11-16, read 2026-11-23; the map's website tag names the operator's page https://www.loves.com/locations/ms/gulfport/loves-travel-stop-gulfport-595. Truck access read from the hgv tag; services assumed for a truck travel centre. Leg mile projected onto the leg's archived road.",
+   "lat": 30.41861,
+   "lon": -89.18913,
+   "season": "year round"
+  },
+  {
+   "name": "Pilot Travel Center Jackson",
+   "type": "travel_center",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "food",
+    "break",
+    "sleep"
+   ],
+   "services": [
+    "diesel",
+    "food",
+    "parking",
+    "restrooms"
+   ],
+   "parking": "likely",
+   "vehicle_access": "tractor_trailer",
+   "vehicle_access_basis": "read",
+   "curation": "curated",
+   "source": "Read: OpenStreetMap way 220036049 (hgv=yes, amenity services or fuel), OpenStreetMap planet file of 2026-11-16, read 2026-11-23; the map's website tag names the operator's page https://locations.pilotflyingj.com/us/ms/jackson/2520-s-gallatin-st. Truck access read from the hgv tag; services assumed for a truck travel centre. Leg mile projected onto the leg's archived road.",
+   "lat": 32.2734,
+   "lon": -90.19242,
+   "season": "year round"
+  },
+  {
+   "name": "Love's Travel Stop Biloxi",
+   "type": "travel_center",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "food",
+    "break",
+    "sleep"
+   ],
+   "services": [
+    "diesel",
+    "food",
+    "parking",
+    "restrooms"
+   ],
+   "parking": "likely",
+   "vehicle_access": "tractor_trailer",
+   "vehicle_access_basis": "read",
+   "curation": "curated",
+   "source": "Read: OpenStreetMap way 225872933 (hgv=yes, amenity services or fuel), OpenStreetMap planet file of 2026-11-16, read 2026-11-23; the map's website tag names the operator's page https://www.loves.com/locations/ms/biloxi/loves-travel-stop-biloxi-402. Truck access read from the hgv tag; services assumed for a truck travel centre. Leg mile projected onto the leg's archived road.",
+   "lat": 30.45208,
+   "lon": -88.93327,
+   "season": "year round"
+  },
+  {
+   "name": "TA Travel Center Mobile",
+   "type": "travel_center",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "food",
+    "break",
+    "sleep"
+   ],
+   "services": [
+    "diesel",
+    "food",
+    "parking",
+    "restrooms"
+   ],
+   "parking": "likely",
+   "vehicle_access": "tractor_trailer",
+   "vehicle_access_basis": "read",
+   "curation": "curated",
+   "source": "Read: OpenStreetMap way 226614213 (hgv=yes, amenity services or fuel), OpenStreetMap planet file of 2026-11-16, read 2026-11-23; the map's website tag names the operator's page https://www.ta-petro.com/location/al/ta-mobile/. Truck access read from the hgv tag; services assumed for a truck travel centre. Leg mile projected onto the leg's archived road.",
+   "lat": 30.49848,
+   "lon": -88.3338,
+   "season": "year round"
+  },
+  {
+   "name": "Pilot Travel Center Theodore",
+   "type": "travel_center",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "food",
+    "break",
+    "sleep"
+   ],
+   "services": [
+    "diesel",
+    "food",
+    "parking",
+    "restrooms"
+   ],
+   "parking": "likely",
+   "vehicle_access": "tractor_trailer",
+   "vehicle_access_basis": "read",
+   "curation": "curated",
+   "source": "Read: OpenStreetMap way 1311861335 (hgv=yes, amenity services or fuel), OpenStreetMap planet file of 2026-11-16, read 2026-11-23; the map's website tag names the operator's page https://locations.pilotflyingj.com/us/al/theodore/6955-theodore-dawes-rd. Truck access read from the hgv tag; services assumed for a truck travel centre. Leg mile projected onto the leg's archived road.",
+   "lat": 30.55931,
+   "lon": -88.20537,
+   "season": "year round"
+  },
+  {
+   "name": "Love's Travel Stop Tupelo",
+   "type": "travel_center",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "food",
+    "break",
+    "sleep"
+   ],
+   "services": [
+    "diesel",
+    "food",
+    "parking",
+    "restrooms"
+   ],
+   "parking": "likely",
+   "vehicle_access": "tractor_trailer",
+   "vehicle_access_basis": "read",
+   "curation": "curated",
+   "source": "Read: OpenStreetMap way 225873587 (hgv=yes, amenity services or fuel), OpenStreetMap planet file of 2026-11-16, read 2026-11-23; the map's website tag names the operator's page https://www.loves.com/locations/ms/tupelo/loves-travel-stop-tupelo-398. Truck access read from the hgv tag; services assumed for a truck travel centre. Leg mile projected onto the leg's archived road.",
+   "lat": 34.31607,
+   "lon": -88.79157,
+   "season": "year round"
+  },
+  {
+   "name": "Love's Travel Stop Holly Springs",
+   "type": "travel_center",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "food",
+    "break",
+    "sleep"
+   ],
+   "services": [
+    "diesel",
+    "food",
+    "parking",
+    "restrooms"
+   ],
+   "parking": "likely",
+   "vehicle_access": "tractor_trailer",
+   "vehicle_access_basis": "read",
+   "curation": "curated",
+   "source": "Read: OpenStreetMap way 1323593378 (hgv=yes, amenity services or fuel), OpenStreetMap planet file of 2026-11-16, read 2026-11-23; the map's website tag names the operator's page https://www.loves.com/locations/ms/holly-springs/loves-travel-stop-holly-springs-889. Truck access read from the hgv tag; services assumed for a truck travel centre. Leg mile projected onto the leg's archived road.",
+   "lat": 34.74472,
+   "lon": -89.45375,
+   "season": "year round"
+  },
+  {
+   "name": "Mr. Fuel Travel Center Summerville",
+   "type": "travel_center",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "food",
+    "break",
+    "sleep"
+   ],
+   "services": [
+    "diesel",
+    "food",
+    "parking",
+    "restrooms"
+   ],
+   "parking": "likely",
+   "vehicle_access": "tractor_trailer",
+   "vehicle_access_basis": "read",
+   "curation": "curated",
+   "source": "Read: OpenStreetMap way 236636284 (hgv=yes, amenity services or fuel), OpenStreetMap planet file of 2026-11-16, read 2026-11-23; the map's website tag names the operator's page https://locations.pilotflyingj.com/us/sc/summerville/1521-north-main-street. Truck access read from the hgv tag; services assumed for a truck travel centre. Leg mile projected onto the leg's archived road.",
+   "lat": 33.03878,
+   "lon": -80.14255,
+   "season": "year round"
+  },
+  {
+   "name": "Flying J Travel Center Summerville",
+   "type": "travel_center",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "food",
+    "break",
+    "sleep"
+   ],
+   "services": [
+    "diesel",
+    "food",
+    "parking",
+    "restrooms"
+   ],
+   "parking": "likely",
+   "vehicle_access": "tractor_trailer",
+   "vehicle_access_basis": "read",
+   "curation": "curated",
+   "source": "Read: OpenStreetMap way 1314144169 (hgv=yes, amenity services or fuel), OpenStreetMap planet file of 2026-11-16, read 2026-11-23; the map's website tag names the operator's page https://locations.pilotflyingj.com/us/sc/summerville/799-jedburg-rd. Truck access read from the hgv tag; services assumed for a truck travel centre. Leg mile projected onto the leg's archived road.",
+   "lat": 33.08101,
+   "lon": -80.21032,
+   "season": "year round"
+  },
+  {
+   "name": "Love's Travel Stop Summerton",
+   "type": "travel_center",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "food",
+    "break",
+    "sleep"
+   ],
+   "services": [
+    "diesel",
+    "food",
+    "parking",
+    "scale"
+   ],
+   "parking": "likely",
+   "vehicle_access": "tractor_trailer",
+   "source": "OpenStreetMap/Overpass dense in-gap corridor amenity query, accessed 2026-07-19; added to close a stretch with no truck-accessible service after the truck-accessibility sweep. Curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Store identity read from OpenStreetMap (Geofabrik South Carolina extract dated 2026-06-22, read 2026-09-17): Love's store 790 at Summerton; town read from the mapped site's address; matched by coordinate, 0.00 mi from the mapped site. CAT Scale read from OpenStreetMap (amenity=weighbridge, brand CAT Scale) within 0.25 mi of the store; Overpass snapshot 2026-09-24, tools/cat_scales.py.",
+   "lat": 33.5919067,
+   "lon": -80.3550046,
+   "season": "year round"
+  },
+  {
+   "name": "TA Travel Center Manning",
+   "type": "travel_center",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "food",
+    "break",
+    "sleep"
+   ],
+   "services": [
+    "diesel",
+    "food",
+    "parking",
+    "scale"
+   ],
+   "parking": "likely",
+   "vehicle_access": "tractor_trailer",
+   "source": "OpenStreetMap/Overpass dense in-gap corridor amenity query, accessed 2026-07-19; added to close a stretch with no truck-accessible service after the truck-accessibility sweep. Curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Store identity read from OpenStreetMap (Geofabrik South Carolina extract dated 2026-06-22, read 2026-09-17): TA store 0179 at Manning; town read from the mapped site's branch name; matched by coordinate, 0.02 mi from the mapped site. CAT Scale read from OpenStreetMap (amenity=weighbridge, brand CAT Scale) within 0.25 mi of the store; Overpass snapshot 2026-09-24, tools/cat_scales.py.",
+   "lat": 33.7047188,
+   "lon": -80.2416543,
+   "season": "year round"
+  },
+  {
+   "name": "Love's Travel Stop",
+   "type": "travel_center",
+   "actions": [
+    "park",
+    "save",
+    "fuel",
+    "food",
+    "break",
+    "sleep"
+   ],
+   "services": [
+    "diesel",
+    "food",
+    "parking",
+    "scale"
+   ],
+   "parking": "likely",
+   "vehicle_access": "tractor_trailer",
+   "source": "OpenStreetMap/Overpass development-time corridor amenity query, accessed 2026-06-21; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Store identity read from OpenStreetMap (Geofabrik Florida extract dated 2026-06-22, read 2026-09-17): Love's store 453; no town is mapped for it, so the record keeps the chain's name; matched by coordinate, 0.03 mi from the mapped site. CAT Scale read from OpenStreetMap (amenity=weighbridge, brand CAT Scale) within 0.25 mi of the store; Overpass snapshot 2026-09-24, tools/cat_scales.py.",
+   "lat": 30.74955,
+   "lon": -85.38211,
+   "season": "year round"
+  }
+ ]
+}

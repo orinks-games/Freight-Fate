@@ -348,6 +348,24 @@ fn the_two_finger_scrub_goes_back() {
     assert_eq!(s.take(), vec![Escape]);
 }
 
+/// The scrub's second is timed from the second finger, as UIKit's is: a
+/// first finger that rested a moment before its partner landed does not
+/// use the scrub's time up (parity with `ios/ff_touch.m`, 2026-11-22).
+#[test]
+fn the_scrub_is_timed_from_the_second_finger() {
+    let mut s = Script::new();
+    let (a, b) = ((300.0, 300.0), (300.0, 400.0));
+    s.down(1, a.0, a.1).wait(0.3).down(2, b.0, b.1);
+    for (from, to) in [(300.0, 340.0), (340.0, 290.0), (290.0, 340.0)] {
+        s.drag(
+            &[(1, (from, a.1), (to, a.1)), (2, (from, b.1), (to, b.1))],
+            0.28,
+        );
+    }
+    s.up(1, 340.0, a.1).up(2, 340.0, b.1);
+    assert_eq!(s.take(), vec![Escape]);
+}
+
 #[test]
 fn a_slow_two_finger_side_drag_is_not_a_scrub() {
     let mut s = Script::new();
@@ -488,4 +506,50 @@ fn tuning_is_clamped_like_the_ios_layer() {
         Tuning::default(),
         Tuning::new(30.0, 150.0, 3.0, 500.0, 30.0)
     );
+}
+
+#[test]
+fn the_phase_reads_where_the_sequence_stands() {
+    let mut s = Script::new();
+    assert_eq!(s.r.phase_key(), "idle");
+    s.down(1, 200.0, 400.0);
+    assert_eq!(s.r.phase_key(), "deciding");
+    s.drag(&[(1, (200.0, 400.0), (200.0, 440.0))], 0.08)
+        .wait(0.3);
+    assert_eq!(s.r.phase_key(), "brake");
+    s.down(2, 300.0, 300.0);
+    assert_eq!(s.r.phase_key(), "brake", "a second finger rides the pedal");
+    s.up(1, 200.0, 440.0);
+    assert_eq!(s.r.phase_key(), "spent");
+    s.up(2, 300.0, 300.0);
+    assert_eq!(s.r.phase_key(), "idle");
+    s.down(1, 100.0, 100.0).down(2, 100.0, 200.0);
+    assert_eq!(s.r.phase_key(), "two_fingers");
+    s.wait(0.4);
+    assert_eq!(s.r.phase_key(), "horn");
+    s.up(1, 100.0, 100.0).up(2, 100.0, 200.0);
+    s.down(1, 100.0, 100.0).wait(0.6);
+    assert_eq!(s.r.phase_key(), "still_hold");
+}
+
+#[test]
+fn feeding_events_is_the_same_as_calling_down_move_and_up() {
+    use crate::touch::{FingerEvent, FingerKind};
+    let mut r = Recognizer::default();
+    let at = |kind, y: f32, t| FingerEvent {
+        finger: 3,
+        kind,
+        x: 200.0,
+        y,
+        t,
+    };
+    r.feed(at(FingerKind::Down, 400.0, 1.0));
+    r.feed(at(FingerKind::Move, 360.0, 1.05));
+    r.feed(at(FingerKind::Up, 340.0, 1.08));
+    assert_eq!(r.drain(), vec![SwipeUp]);
+    r.feed(at(FingerKind::Down, 400.0, 2.0));
+    r.feed(at(FingerKind::Move, 440.0, 2.05));
+    r.tick(2.4);
+    r.feed(at(FingerKind::Cancel, 0.0, 2.5));
+    assert_eq!(r.drain(), vec![HoldLowerBegan, HoldEnded]);
 }

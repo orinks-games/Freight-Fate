@@ -274,6 +274,12 @@ impl DrivingState {
             Action::CopyLastSpoken => crate::states::base::copy_last_spoken(ctx),
             Action::Grade => self.speak_grade(ctx),
             Action::LaneLocator => self.toggle_lane_locator(ctx),
+            Action::MirrorLeft => {
+                self.glance_mirror(ctx, ff_core::sim::mirror_glance::MirrorSide::Left)
+            }
+            Action::MirrorRight => {
+                self.glance_mirror(ctx, ff_core::sim::mirror_glance::MirrorSide::Right)
+            }
             Action::Upcoming => self.speak_upcoming(ctx, 15.0),
             Action::Radio => self.toggle_radio(ctx),
             Action::RadioFavorite => self.toggle_radio_favorite(ctx),
@@ -300,6 +306,21 @@ impl DrivingState {
         }
         if self.ramp_mi.is_some() {
             ctx.say("On the exit ramp. No lanes to change.");
+            return;
+        }
+        if let Some((waiting_target, _)) = self.assisted_lane_change.waiting_target() {
+            let waiting_dir = (waiting_target - self.lane.lane).signum();
+            if waiting_dir != 0 && direction != waiting_dir {
+                self.assisted_lane_change = self
+                    .assisted_lane_change
+                    .next(ff_core::sim::lane_change_assist::LaneChangeAssistEvent::Cancel);
+                if !self.exit_blinker_on() {
+                    ctx.audio.release_cue("vehicle/turn_signal");
+                }
+                ctx.say("Lane change canceled.");
+                return;
+            }
+            ctx.say("Already waiting for a gap.");
             return;
         }
         if self.lane_change_target.is_some() {
@@ -343,13 +364,55 @@ impl DrivingState {
             return;
         }
         // Lane keeping on full makes the move, so it checks the lane first,
-        // the same reading the L key gives. A tap back right while lane
-        // keeping was still passing a trooper put the truck into its side
-        // (issue #356); the move waits for the lane to open instead.
+        // the same reading the L key gives. When an adjacent lane is occupied:
+        // - Balanced/All play a directional non-verbal blind-spot chirp.
+        // - All signals, waits for a safe gap (letting PR #789 courtesy traffic
+        //   yield), and glides smoothly once the lane opens.
         if let Some(blocked) = self.lane_blocked_text(target) {
+            let side = ff_core::sim::lane_change_assist::BlindSpotSide::from_direction(direction);
+            let mode = if self.lane_keep_availability.is_dropped_out() {
+                "off"
+            } else {
+                ctx.settings.lane_keeping.as_str()
+            };
+            if let Some(side) = side {
+                if mode == "partial" || mode == "full" {
+                    ctx.audio
+                        .play_with(assist_cues::BLIND_SPOT_CHIRP_KEY, 0.85, side.pan());
+                }
+                if mode == "full" {
+                    self.assisted_lane_change = self.assisted_lane_change.next(
+                        ff_core::sim::lane_change_assist::LaneChangeAssistEvent::TapWaitForGap {
+                            target_lane: target,
+                            side,
+                        },
+                    );
+                    self.lane_signal_timer = 0.0;
+                    let pan = if direction > 0 { -0.6 } else { 0.6 };
+                    if !self.exit_blinker_on() {
+                        ctx.audio.play_if_idle("vehicle/turn_signal", 0.8, pan);
+                    }
+                    let side_word = if direction > 0 { "left" } else { "right" };
+                    let prefix = blocked.trim_end_matches('.');
+                    ctx.say(&format!(
+                        "{prefix}. Signaling {side_word}, waiting for a gap."
+                    ));
+                    return;
+                }
+            }
             ctx.audio.play("ui/error");
             ctx.say(&blocked);
             return;
+        }
+        if let Some(side) =
+            ff_core::sim::lane_change_assist::BlindSpotSide::from_direction(direction)
+        {
+            self.assisted_lane_change = self.assisted_lane_change.next(
+                ff_core::sim::lane_change_assist::LaneChangeAssistEvent::TapGlideNow {
+                    target_lane: target,
+                    side,
+                },
+            );
         }
         self.lane_change_target = Some(target);
         self.pass_returning = false; // the driver's own move now
