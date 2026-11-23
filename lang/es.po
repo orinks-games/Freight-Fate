@@ -16860,6 +16860,18 @@ msgstr "{temp_c} grados Celsius"
 msgid "Reefer running at {cargo_temp_degrees}."
 msgstr "El equipo de frío funciona a {cargo_temp_degrees}."
 
+msgid "modulating"
+msgstr ""
+
+msgid "grip"
+msgstr ""
+
+msgid "spinning"
+msgstr ""
+
+msgid "swaying"
+msgstr ""
+
 msgid "simulated"
 msgstr "simulado"
 
@@ -18897,6 +18909,12 @@ msgstr "Tiempo meteorológico"
 
 msgid "Lane position"
 msgstr "Posición en el carril"
+
+msgid "Check left mirror"
+msgstr "Mirar espejo izquierdo"
+
+msgid "Check right mirror"
+msgstr "Mirar espejo derecho"
 
 msgid "Grade"
 msgstr "Pendiente"
@@ -26071,6 +26089,14 @@ msgstr ""
 "cada compás, panoramizado según dónde vas en tu carril, con el "
 "mantenimiento de carril en parcial o desactivado."
 
+#. placeholders: {mirror_left}, {mirror_right}
+msgid ""
+"{mirror_left} and {mirror_right} check the left or right mirror and blind "
+"spot, briefly focusing traffic audio on that side."
+msgstr ""
+"{mirror_left} y {mirror_right} miran el espejo y el punto ciego izquierdo o "
+"derecho, enfocando brevemente el sonido del tráfico en ese lado."
+
 #. placeholders: {last_announcement}
 msgid "{last_announcement} repeats the last driving announcement."
 msgstr "{last_announcement} repite el último aviso de conducción."
@@ -31329,6 +31355,43 @@ msgstr ""
 msgid "Missed the facility gate. Use the next safe turnaround."
 msgstr ""
 "Te pasaste la entrada de la instalación. Usa el próximo retorno seguro."
+
+msgid "Looking forward."
+msgstr "Mirando al frente."
+
+msgid "Left"
+msgstr "Izquierda"
+
+msgid "Right"
+msgstr "Derecha"
+
+#. placeholders: {side_word}
+msgid "{side_word} shoulder."
+msgstr "Arcén de la {side_word}."
+
+#. placeholders: {side_word}
+msgid "{side_word} lane closed."
+msgstr "Carril de la {side_word} cerrado."
+
+#. placeholders: {kind_cap}, {side_lower}
+msgid "{kind_cap} beside {side_lower}."
+msgstr "{kind_cap} al lado, a la {side_lower}."
+
+#. placeholders: {kind_cap}, {side_lower}
+msgid "{kind_cap} closing {side_lower}."
+msgstr "{kind_cap} acercándose por la {side_lower}."
+
+#. placeholders: {kind_cap}, {side_lower}
+msgid "{kind_cap} behind {side_lower}."
+msgstr "{kind_cap} detrás a la {side_lower}."
+
+#. placeholders: {kind_cap}, {side_lower}
+msgid "{kind_cap} ahead {side_lower}."
+msgstr "{kind_cap} delante a la {side_lower}."
+
+#. placeholders: {side_word}
+msgid "{side_word} clear."
+msgstr "{side_word} despejada."
 
 #. placeholders: {capitalized}
 msgid "{capitalized} lane open."
@@ -37333,6 +37396,12 @@ msgstr "Aquaplaning. La dirección se ha quedado ligera."
 msgid "The drive wheels are sliding under the engine brake."
 msgstr "Las ruedas motrices patinan con el freno motor."
 
+msgid "ABS pulsing. Hold steady on the brake."
+msgstr "ABS pulsando. Mantén firme el freno."
+
+msgid "Drive wheels spinning. Ease off the throttle."
+msgstr "Las ruedas motrices patinan. Suelta un poco el acelerador."
+
 msgid ""
 "A tire chain broke and is flailing. Slow down and pull over to check it."
 msgstr ""
@@ -38335,6 +38404,14 @@ msgstr ""
 
 msgid "Traffic is stacking up and passing you on the right."
 msgstr "El tráfico se está acumulando y te adelanta por la derecha."
+
+msgid "Trailer off-tracking tight on the inside. Give the curve more room."
+msgstr ""
+"El remolque se cierra demasiado por el interior. Dale más espacio a la "
+"curva."
+
+msgid "Trailer swaying in the wind. Ease off your speed."
+msgstr "El remolque se balancea con el viento. Reduce la velocidad."
 
 #. placeholders: {fresh}
 msgid "Weather alert: {fresh}."

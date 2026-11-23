@@ -255,6 +255,8 @@ impl Group {
                 Run(Action::Grade),
                 Run(Action::Lane),
                 Run(Action::LaneLocator),
+                Run(Action::MirrorLeft),
+                Run(Action::MirrorRight),
                 Run(Action::LastAnnouncement),
             ],
             Group::Place => &[

@@ -16659,6 +16659,18 @@ msgstr "{temp_c} {temp_c:градус|градуса|градусов} по Це
 msgid "Reefer running at {cargo_temp_degrees}."
 msgstr "Рефрижератор работает при {cargo_temp_degrees}."
 
+msgid "modulating"
+msgstr ""
+
+msgid "grip"
+msgstr ""
+
+msgid "spinning"
+msgstr ""
+
+msgid "swaying"
+msgstr ""
+
 msgid "simulated"
 msgstr "смоделированная"
 
@@ -18690,6 +18702,12 @@ msgstr "Погода"
 
 msgid "Lane position"
 msgstr "Положение в полосе"
+
+msgid "Check left mirror"
+msgstr ""
+
+msgid "Check right mirror"
+msgstr ""
 
 msgid "Grade"
 msgstr "Уклон"
@@ -25960,6 +25978,12 @@ msgstr ""
 "такт, панорамированный туда, где вы находитесь в полосе, при частичном или "
 "выключенном удержании полосы."
 
+#. placeholders: {mirror_left}, {mirror_right}
+msgid ""
+"{mirror_left} and {mirror_right} check the left or right mirror and blind "
+"spot, briefly focusing traffic audio on that side."
+msgstr ""
+
 #. placeholders: {last_announcement}
 msgid "{last_announcement} repeats the last driving announcement."
 msgstr "{last_announcement} повторяет последнее объявление о вождении."
@@ -31323,6 +31347,43 @@ msgstr ""
 
 msgid "Missed the facility gate. Use the next safe turnaround."
 msgstr "Ворота пропущены. Воспользуйтесь ближайшим безопасным разворотом."
+
+msgid "Looking forward."
+msgstr ""
+
+msgid "Left"
+msgstr ""
+
+msgid "Right"
+msgstr ""
+
+#. placeholders: {side_word}
+msgid "{side_word} shoulder."
+msgstr ""
+
+#. placeholders: {side_word}
+msgid "{side_word} lane closed."
+msgstr ""
+
+#. placeholders: {kind_cap}, {side_lower}
+msgid "{kind_cap} beside {side_lower}."
+msgstr ""
+
+#. placeholders: {kind_cap}, {side_lower}
+msgid "{kind_cap} closing {side_lower}."
+msgstr ""
+
+#. placeholders: {kind_cap}, {side_lower}
+msgid "{kind_cap} behind {side_lower}."
+msgstr ""
+
+#. placeholders: {kind_cap}, {side_lower}
+msgid "{kind_cap} ahead {side_lower}."
+msgstr ""
+
+#. placeholders: {side_word}
+msgid "{side_word} clear."
+msgstr ""
 
 #. placeholders: {capitalized}
 msgid "{capitalized} lane open."
@@ -37358,6 +37419,12 @@ msgstr "Аквапланирование. Руль стал лёгким."
 msgid "The drive wheels are sliding under the engine brake."
 msgstr "Ведущие колёса скользят под моторным тормозом."
 
+msgid "ABS pulsing. Hold steady on the brake."
+msgstr ""
+
+msgid "Drive wheels spinning. Ease off the throttle."
+msgstr ""
+
 msgid ""
 "A tire chain broke and is flailing. Slow down and pull over to check it."
 msgstr ""
@@ -38355,6 +38422,12 @@ msgstr ""
 
 msgid "Traffic is stacking up and passing you on the right."
 msgstr "За вами скапливается поток, и вас обгоняют справа."
+
+msgid "Trailer off-tracking tight on the inside. Give the curve more room."
+msgstr ""
+
+msgid "Trailer swaying in the wind. Ease off your speed."
+msgstr ""
 
 #. placeholders: {fresh}
 msgid "Weather alert: {fresh}."

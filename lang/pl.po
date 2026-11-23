@@ -16706,6 +16706,18 @@ msgstr "{temp_c} {temp_c:stopień|stopnie|stopni} Celsjusza"
 msgid "Reefer running at {cargo_temp_degrees}."
 msgstr "Agregat chłodniczy pracuje przy {cargo_temp_degrees}."
 
+msgid "modulating"
+msgstr ""
+
+msgid "grip"
+msgstr ""
+
+msgid "spinning"
+msgstr ""
+
+msgid "swaying"
+msgstr ""
+
 msgid "simulated"
 msgstr "symulowany"
 
@@ -18720,6 +18732,12 @@ msgstr "Pogoda"
 
 msgid "Lane position"
 msgstr "Pozycja na pasie"
+
+msgid "Check left mirror"
+msgstr ""
+
+msgid "Check right mirror"
+msgstr ""
 
 msgid "Grade"
 msgstr "Nachylenie"
@@ -25955,6 +25973,12 @@ msgstr ""
 "rozmieszczony tam, gdzie jesteś na pasie, przy częściowym lub wyłączonym "
 "utrzymaniu pasa."
 
+#. placeholders: {mirror_left}, {mirror_right}
+msgid ""
+"{mirror_left} and {mirror_right} check the left or right mirror and blind "
+"spot, briefly focusing traffic audio on that side."
+msgstr ""
+
 #. placeholders: {last_announcement}
 msgid "{last_announcement} repeats the last driving announcement."
 msgstr "{last_announcement} powtarza ostatni komunikat jazdy."
@@ -31221,6 +31245,43 @@ msgid "Missed the facility gate. Use the next safe turnaround."
 msgstr ""
 "Brama zakładu przegapiona. Skorzystaj z najbliższego bezpiecznego "
 "zawrócenia."
+
+msgid "Looking forward."
+msgstr ""
+
+msgid "Left"
+msgstr ""
+
+msgid "Right"
+msgstr ""
+
+#. placeholders: {side_word}
+msgid "{side_word} shoulder."
+msgstr ""
+
+#. placeholders: {side_word}
+msgid "{side_word} lane closed."
+msgstr ""
+
+#. placeholders: {kind_cap}, {side_lower}
+msgid "{kind_cap} beside {side_lower}."
+msgstr ""
+
+#. placeholders: {kind_cap}, {side_lower}
+msgid "{kind_cap} closing {side_lower}."
+msgstr ""
+
+#. placeholders: {kind_cap}, {side_lower}
+msgid "{kind_cap} behind {side_lower}."
+msgstr ""
+
+#. placeholders: {kind_cap}, {side_lower}
+msgid "{kind_cap} ahead {side_lower}."
+msgstr ""
+
+#. placeholders: {side_word}
+msgid "{side_word} clear."
+msgstr ""
 
 #. placeholders: {capitalized}
 msgid "{capitalized} lane open."
@@ -37236,6 +37297,12 @@ msgstr "Aquaplaning. Kierownica zrobiła się lekka."
 msgid "The drive wheels are sliding under the engine brake."
 msgstr "Koła napędowe ślizgają się pod hamulcem silnikowym."
 
+msgid "ABS pulsing. Hold steady on the brake."
+msgstr ""
+
+msgid "Drive wheels spinning. Ease off the throttle."
+msgstr ""
+
 msgid ""
 "A tire chain broke and is flailing. Slow down and pull over to check it."
 msgstr ""
@@ -38237,6 +38304,12 @@ msgstr ""
 
 msgid "Traffic is stacking up and passing you on the right."
 msgstr "Za tobą robi się korek i auta wyprzedzają cię z prawej."
+
+msgid "Trailer off-tracking tight on the inside. Give the curve more room."
+msgstr ""
+
+msgid "Trailer swaying in the wind. Ease off your speed."
+msgstr ""
 
 #. placeholders: {fresh}
 msgid "Weather alert: {fresh}."

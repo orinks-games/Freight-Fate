@@ -16,6 +16,7 @@ pub mod lane_guidance;
 pub mod lane_push;
 pub mod limit_gaps;
 pub mod livestock;
+pub mod mirror_glance;
 pub mod outside;
 pub mod pedal_latch;
 pub mod real_fuel_price;

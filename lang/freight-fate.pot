@@ -2770,7 +2770,7 @@ msgstr ""
 msgid "active"
 msgstr ""
 
-#: crates/ff-core/src/app_lifecycle.rs
+#: crates/ff-core/src/app_lifecycle.rs crates/ff-core/src/sim/vehicle/traction.rs
 msgid "inactive"
 msgstr ""
 
@@ -5714,7 +5714,7 @@ msgstr ""
 msgid "both"
 msgstr ""
 
-#: crates/ff-core/src/data/pavement.rs crates/ff-core/src/data/world_constants.rs crates/ff-core/src/data/world_models.rs crates/freight-fate/src/states/driving_updates/air.rs
+#: crates/ff-core/src/data/pavement.rs crates/ff-core/src/data/world_constants.rs crates/ff-core/src/data/world_models.rs crates/ff-core/src/sim/mirror_glance.rs
 msgid "forward"
 msgstr ""
 
@@ -8218,7 +8218,7 @@ msgstr ""
 msgid "ahead"
 msgstr ""
 
-#: crates/ff-core/src/data/world_services.rs crates/ff-core/src/sim/cross_traffic.rs crates/ff-core/src/sim/lane.rs crates/ff-core/src/sim/trip/limits.rs
+#: crates/ff-core/src/data/world_services.rs crates/ff-core/src/sim/cross_traffic.rs crates/ff-core/src/sim/lane.rs crates/ff-core/src/sim/mirror_glance.rs
 msgid "right"
 msgstr ""
 
@@ -12816,7 +12816,7 @@ msgstr ""
 msgid "loose"
 msgstr ""
 
-#: crates/ff-core/src/models/market.rs
+#: crates/ff-core/src/models/market.rs crates/ff-core/src/sim/vehicle/traction.rs
 msgid "steady"
 msgstr ""
 
@@ -19128,6 +19128,22 @@ msgstr ""
 msgid "Reefer running at {cargo_temp_degrees}."
 msgstr ""
 
+#: crates/ff-core/src/sim/vehicle/traction.rs
+msgid "modulating"
+msgstr ""
+
+#: crates/ff-core/src/sim/vehicle/traction.rs
+msgid "grip"
+msgstr ""
+
+#: crates/ff-core/src/sim/vehicle/traction.rs
+msgid "spinning"
+msgstr ""
+
+#: crates/ff-core/src/sim/vehicle/traction.rs
+msgid "swaying"
+msgstr ""
+
 #: crates/ff-core/src/sim/weather.rs crates/freight-fate/src/states/main_menu/settings_items.rs
 msgid "simulated"
 msgstr ""
@@ -21329,6 +21345,14 @@ msgstr ""
 
 #: crates/freight-fate/src/bindings.rs
 msgid "Lane position"
+msgstr ""
+
+#: crates/freight-fate/src/bindings.rs
+msgid "Check left mirror"
+msgstr ""
+
+#: crates/freight-fate/src/bindings.rs
+msgid "Check right mirror"
 msgstr ""
 
 #: crates/freight-fate/src/bindings.rs
@@ -29160,6 +29184,13 @@ msgid ""
 "panned to where you sit in your lane, on lane keeping partial or off."
 msgstr ""
 
+#. placeholders: {mirror_left}, {mirror_right}
+#: crates/freight-fate/src/states/driving_controls/help.rs
+msgid ""
+"{mirror_left} and {mirror_right} check the left or right mirror and blind "
+"spot, briefly focusing traffic audio on that side."
+msgstr ""
+
 #. placeholders: {last_announcement}
 #: crates/freight-fate/src/states/driving_controls/help.rs
 msgid "{last_announcement} repeats the last driving announcement."
@@ -35065,6 +35096,53 @@ msgstr ""
 
 #: crates/freight-fate/src/states/driving_facility_gate.rs
 msgid "Missed the facility gate. Use the next safe turnaround."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_lane_gap.rs
+msgid "Looking forward."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_lane_gap.rs
+msgid "Left"
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_lane_gap.rs
+msgid "Right"
+msgstr ""
+
+#. placeholders: {side_word}
+#: crates/freight-fate/src/states/driving_lane_gap.rs
+msgid "{side_word} shoulder."
+msgstr ""
+
+#. placeholders: {side_word}
+#: crates/freight-fate/src/states/driving_lane_gap.rs
+msgid "{side_word} lane closed."
+msgstr ""
+
+#. placeholders: {kind_cap}, {side_lower}
+#: crates/freight-fate/src/states/driving_lane_gap.rs
+msgid "{kind_cap} beside {side_lower}."
+msgstr ""
+
+#. placeholders: {kind_cap}, {side_lower}
+#: crates/freight-fate/src/states/driving_lane_gap.rs
+msgid "{kind_cap} closing {side_lower}."
+msgstr ""
+
+#. placeholders: {kind_cap}, {side_lower}
+#: crates/freight-fate/src/states/driving_lane_gap.rs
+msgid "{kind_cap} behind {side_lower}."
+msgstr ""
+
+#. placeholders: {kind_cap}, {side_lower}
+#: crates/freight-fate/src/states/driving_lane_gap.rs
+msgid "{kind_cap} ahead {side_lower}."
+msgstr ""
+
+#. placeholders: {side_word}
+#: crates/freight-fate/src/states/driving_lane_gap.rs
+msgid "{side_word} clear."
 msgstr ""
 
 #. placeholders: {capitalized}
@@ -41642,6 +41720,14 @@ msgid "The drive wheels are sliding under the engine brake."
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_updates/conditions.rs
+msgid "ABS pulsing. Hold steady on the brake."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_updates/conditions.rs
+msgid "Drive wheels spinning. Ease off the throttle."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_updates/conditions.rs
 msgid ""
 "A tire chain broke and is flailing. Slow down and pull over to check it."
 msgstr ""
@@ -42678,6 +42764,14 @@ msgstr ""
 
 #: crates/freight-fate/src/states/driving_updates/lanes.rs
 msgid "Traffic is stacking up and passing you on the right."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_updates/lanes.rs
+msgid "Trailer off-tracking tight on the inside. Give the curve more room."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_updates/lanes.rs
+msgid "Trailer swaying in the wind. Ease off your speed."
 msgstr ""
 
 #. placeholders: {fresh}
