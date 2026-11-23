@@ -262,6 +262,10 @@ pub struct DrivingObservation {
     pub rest_call: Option<ff_core::sim::fatigue_costs::RestCall>,
     /// The stop at the facility gate, while the trip has ended at one.
     pub gate: Option<ff_core::sim::arrival_gate::GateStop>,
+    /// Where the delivery leaves the road, while the drive is still on the
+    /// highway toward it.
+    /// Its kind (`DestinationArrival::key`) and route mile.
+    pub arrival: Option<(&'static str, f64)>,
     /// What the driver has been told about the no engine brake zone ahead
     /// or under the truck.
     pub jake_zone: &'static str,
@@ -1004,6 +1008,9 @@ impl App {
                 }),
             rest_call: drive.rest_call_state(),
             gate: drive.arrival_gate_query_text(&self.ctx).map(|_| drive.gate),
+            arrival: drive
+                .destination_arrival_ahead(&self.ctx)
+                .map(|arrival| (arrival.key(), arrival.at_mi())),
             jake_zone: drive.jake_zone_notice.key(),
             road_offer: drive.road_offer(&self.ctx),
             touch_clutch: drive.touch_clutch,

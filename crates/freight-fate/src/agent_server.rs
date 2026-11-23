@@ -331,6 +331,10 @@ fn fatigue_state_line(o: &crate::app::DrivingObservation, mode: crate::touch::To
     let gate = o
         .gate
         .map_or(String::new(), |gate| format!("; gate {}", gate.key()));
+    // Where the delivery leaves the road, while the highway still leads there.
+    let arrival = o.arrival.map_or(String::new(), |(kind, at_mi)| {
+        format!("; arrival {kind} at {at_mi:.1} mi")
+    });
     // On a load with a co-driver: their shift and their minutes left.
     let co_driver = o.co_driver.map_or(String::new(), |(shift, left)| {
         let left = left.map_or("hours off".to_string(), |min| format!("{min:.0} min"));
@@ -338,7 +342,7 @@ fn fatigue_state_line(o: &crate::app::DrivingObservation, mode: crate::touch::To
     });
     format!(
         "STATE: alertness {}; nod {} ({timer:.2} {unit}); nod_misses {}; lift_owed {lift}; \
-         rest_call {rest_call}; runaway {}{gate}{co_driver}; jake_zone {}; touch_mode {}; road_offer {}; \
+         rest_call {rest_call}; runaway {}{gate}{arrival}{co_driver}; jake_zone {}; touch_mode {}; road_offer {}; \
          touch_clutch {}; window {}; outside {} ({}, {}); water {}; road_surface {}, {}; structure {}; chain_control {}; chains {}.",
         o.alertness.key(),
         o.nod.key(),
