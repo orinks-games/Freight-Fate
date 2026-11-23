@@ -96,7 +96,7 @@ impl DrivingState {
         ahead_mi: f64,
         purpose: StopPurpose,
     ) {
-        let Some(name) = self.co_driver_at_wheel_name() else {
+        let Some(co_driver_name) = self.co_driver_at_wheel_name() else {
             return;
         };
         let why = match purpose {
@@ -108,7 +108,7 @@ impl DrivingState {
             StopPurpose::ShiftEnd => "to park for the end of their shift",
         };
         let distance = ctx.settings.short_distance_text(ahead_mi.max(0.0));
-        let line = format!("{name} plans to stop at {place} in {distance}, {why}.");
+        let line = format!("{co_driver_name} plans to stop at {place} in {distance}, {why}.");
         self.co_driver_note(ctx, line, NoteWeight::Passing);
     }
 
@@ -137,11 +137,11 @@ impl DrivingState {
     /// The work is theirs, so their hours carry it and the player's fatigue
     /// does not (`do_install_chains`).
     pub fn co_driver_chain_up(&mut self, ctx: &mut GameContext) {
-        let Some(name) = self.co_driver_at_wheel_name() else {
+        let Some(co_driver_name) = self.co_driver_at_wheel_name() else {
             return;
         };
         if self.do_install_chains(ctx).is_some() {
-            let line = format!("{name} put the chains on at the chain control.");
+            let line = format!("{co_driver_name} put the chains on at the chain control.");
             self.co_driver_note(ctx, line, NoteWeight::Wake);
         }
     }
@@ -154,22 +154,22 @@ impl DrivingState {
         kind: ChainStopKind,
         on_grade: bool,
     ) {
-        let Some(name) = self.co_driver_at_wheel_name() else {
+        let Some(co_driver_name) = self.co_driver_at_wheel_name() else {
             return;
         };
         let line = match kind {
             ChainStopKind::Install if on_grade => {
-                format!("{name} put the chains on when the chain law posted.")
+                format!("{co_driver_name} put the chains on when the chain law posted.")
             }
             ChainStopKind::Install => {
-                format!("{name} put the chains on before the chain control.")
+                format!("{co_driver_name} put the chains on before the chain control.")
             }
-            ChainStopKind::Remove => format!("{name} took the chains off on bare road."),
-            ChainStopKind::Tighten => format!("{name} tightened a slapping chain."),
+            ChainStopKind::Remove => format!("{co_driver_name} took the chains off on bare road."),
+            ChainStopKind::Tighten => format!("{co_driver_name} tightened a slapping chain."),
             ChainStopKind::Repair => {
                 self.co_driver_saw_damage();
                 format!(
-                    "{name} fixed a broken chain with a spare link. Damage {:.0} percent.",
+                    "{co_driver_name} fixed a broken chain with a spare link. Damage {:.0} percent.",
                     self.trip.truck.damage_pct
                 )
             }
@@ -203,13 +203,13 @@ impl DrivingState {
     /// a reason to stop. The co-driver drives on unless the damage is more
     /// than a strike does.
     pub fn co_driver_animal_strike(&mut self, ctx: &mut GameContext, animal: &str) {
-        let Some(name) = self.co_driver_at_wheel_name() else {
+        let Some(co_driver_name) = self.co_driver_at_wheel_name() else {
             return;
         };
         self.co_driver_saw_damage();
         let damage = self.trip.truck.damage_pct;
         let line =
-            format!("{name} drove on after a collision with {animal}. Damage {damage:.0} percent.");
+            format!("{co_driver_name} drove on after a collision with {animal}. Damage {damage:.0} percent.");
         self.co_driver_note(ctx, line, NoteWeight::Wake);
     }
 }
