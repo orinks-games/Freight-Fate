@@ -558,7 +558,11 @@ impl DrivingState {
         // glide smoothly into the target lane as soon as it clears.
         if let Some((wait_target, _)) = self.assisted_lane_change.waiting_target() {
             let clamped = wait_target.min(self.lane.lane_count - 1);
-            if self.ramp_mi.is_some() || clamped == self.lane.lane {
+            if self.ramp_mi.is_some()
+                || clamped == self.lane.lane
+                || !self.trip.truck.engine_on
+                || self.trip.truck.speed_mph() < LANE_MIN_MPH
+            {
                 self.assisted_lane_change = self
                     .assisted_lane_change
                     .next(ff_core::sim::lane_change_assist::LaneChangeAssistEvent::Cancel);
