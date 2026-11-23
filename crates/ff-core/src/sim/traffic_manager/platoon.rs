@@ -189,10 +189,27 @@ impl TrafficManager {
         index: usize,
         vehicle: &mut TrafficVehicle,
         lanes_here: i64,
+        position_mi: f64,
     ) -> Option<Follow<'a>> {
         vehicle.holding_behind = None;
         if vehicle.lane < 0 {
             return None;
+        }
+        // Courteous driver in the lane the player is signaling into: if there
+        // is an open lane further left, glide over to open the merge lane.
+        let player_gap = vehicle.position_mi - position_mi;
+        if self.player_signal_lane == Some(vehicle.lane)
+            && (-0.22..=-0.015).contains(&player_gap)
+            && super::courteous_to_signal(&vehicle.key)
+        {
+            let left = vehicle.lane + 1;
+            if left < lanes_here && self.lane_has_room(road, index, vehicle, left) {
+                if vehicle.home_lane.is_none() {
+                    vehicle.home_lane = Some(vehicle.lane);
+                }
+                vehicle.lane = left;
+                return None;
+            }
         }
         if let Some(home) = vehicle.home_lane {
             if home >= vehicle.lane {
