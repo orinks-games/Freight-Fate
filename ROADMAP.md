@@ -6557,6 +6557,55 @@ a carrier slice (owner, 2026-10-26).
       their road, mostly central Nevada around Austin, Eureka and Alamo
       (their roads fail the road screen) and Payson to Globe and Holbrook.
 
+### Texas and Louisiana roads (missing roads brief 3, November 23)
+
+- [x] 61 new legs in Texas and Louisiana, routed by the truck router over
+      the OpenStreetMap planet of 2026-11-16 and built with every layer,
+      among them US 87 from Dumas to Raton, US 281 from Stephenville to
+      Waco, US 190 from Killeen to Lampasas, US 277 from Del Rio to Ozona,
+      US 59 from Houston to Victoria and the Indian Nation Turnpike from
+      Paris to McAlester. Six new cities: Denton, Galveston, Freeport, Point
+      Comfort, Port Fourchon and Venice, each pinned where a truck arrives.
+- [x] Four legs retired for chains (decision 2), each with a
+      `RETIRED_LEGS` entry: Dallas to St. Louis now rides Denton, Ardmore
+      and the existing I-44 legs (713 miles against 720), Fort Worth to
+      Oklahoma City and Wichita Falls to McKinney go through Denton, McKinney
+      to Waco through Dallas. Jacksboro to McKinney was not built: the road
+      runs through Denton and the two legs there are shorter.
+- [x] Re-routed onto their road: Houston to Lake Charles, Longview to
+      Shreveport, Midland to Odessa, Lafayette to Baton Rouge and Lafayette
+      to New Orleans. Renamed to the road they ride: thirteen legs, among
+      them College Station to Houston TX-249 and McKinney to Fort Worth
+      TX-121.
+- [x] Tolls from the authorities' five-axle tables: Indian Nation Turnpike
+      (estimated, 2024 table), LA 1 at Leeville, Chisholm Trail Parkway,
+      Sam Rayburn Tollway, SH 249 and the Tomball and Sam Houston tollways
+      (HCTRA's 2015 schedule, estimated), SH 45 Southeast.
+- [x] Stops list `docs/stops/texas-louisiana.json`: 266 stops the region's
+      legs carried, plus 76 read from OpenStreetMap (41 with truck access
+      read, 35 assumed). QuikTrip stores are left out: the stop access
+      rule screens them as convenience stations.
+- [ ] (Found along the way) Tolls still unpriced: SH 130 segment 5 on
+      Austin to Victoria (its operator posts rates by class and plaza name,
+      with no plaza locations), the Montgomery County stretch of SH 249 on
+      College Station to Houston (no five-axle table read), and a newer
+      HCTRA and OTA five-axle table to replace the estimates.
+- [ ] (Found along the way) Still no stop a tractor-trailer can use on
+      Laredo to McAllen, Corpus Christi to Laredo, Longview to Paris, Point
+      Comfort to Freeport, Port Fourchon to New Orleans, Alexandria to
+      Monroe, Victoria to Corpus Christi, Alexandria to Ruston, Point Comfort
+      to Corpus Christi, Ozona to San Angelo, Natchitoches to Ruston, Venice
+      to New Orleans, Alexandria to Natchez, Dumas to Pampa, Uvalde to Del
+      Rio and Port Fourchon to Houma; OpenStreetMap shows nothing truck
+      usable within half a mile.
+- [ ] (Found along the way) Billboards on the new legs: a sheet needs
+      Orinks's approval.
+- [ ] (Found along the way) The South Central region: Galena and the Big
+      Blue Whale billboards on the I-44 legs, and the Dallas to St. Louis
+      chain legs (Oklahoma City to Tulsa, Tulsa to Joplin, Joplin to
+      Springfield, Springfield to Rolla, Rolla to St. Louis, Oklahoma City to
+      Ardmore) are not to be split again.
+
 ### Winter cab, wipers and ice roads (designed November 22)
 
 The owner asked for heat and air that do something (frost with the heat
