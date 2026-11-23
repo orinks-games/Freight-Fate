@@ -6578,6 +6578,36 @@ a carrier slice (owner, 2026-10-26).
 - [ ] (Found along the way) Billboards on the new legs: a sheet needs
       Orinks's approval.
 
+### Appalachia and Mid-South roads (missing roads brief 3, November 23)
+
+- [x] Morehead City, Pinehurst and Reedville are cities, each keeping only
+      the port, plants and stores read from the map for it.
+- [x] 61 new legs between neighbours the map routed far around, routed by
+      the truck router over the OpenStreetMap planet of 2026-11-16 and
+      built with every layer.
+- [x] Three long legs split at a city they pass, with saves on the old leg
+      resuming on the pieces: Johnson City to Pikeville at Kingsport,
+      Asheville to Winston-Salem at Hickory, and Charleston to Richmond at
+      Beckley, Staunton and Charlottesville.
+- [x] Four legs re-routed onto the truck router's road (Knoxville to
+      Atlanta, Charlotte to Greensboro, Charlotte to Knoxville, Paducah to
+      Clarksville) and seven renamed for the road they ride.
+- [x] Appalachia and Mid-South stops list
+      (`docs/stops/appalachia-mid-south.json`).
+- [x] The routing truck weighs 80,000 lb exactly; at 3 kg over, every
+      bridge posted at 40 short tons refused it.
+- Hazard to Morehead is not built: KY 205 is posted at 62,000 lb in
+      Kentucky's truck weight classes.
+- [ ] (Found along the way) Tolls still unread: the Monroe Expressway on
+      Charlotte to Florence (the only five-axle table found is a 2023 PDF)
+      and the Dominion Boulevard Veterans Bridge on Greenville to Norfolk.
+- [ ] (Found along the way) Gaps of 51 to 64 miles with no stop of any
+      kind: Memphis to Stuttgart, Dyersburg to Jonesboro, Chattanooga to
+      Cookeville, Cookeville to London, Pinehurst to Florence, Louisville
+      to Vincennes, Wilmington to Fayetteville, Elizabethtown to Owensboro.
+- [ ] (Found along the way) Billboards on the new legs: a sheet needs
+      Orinks's approval.
+
 ### Winter cab, wipers and ice roads (designed November 22)
 
 The owner asked for heat and air that do something (frost with the heat

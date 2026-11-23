@@ -31,6 +31,7 @@
 - **South Jersey has new roads.** Drive the Turnpike or I-295 to Carneys Point, cross the Delaware Memorial Bridge, or haul to Cape May.
 - **The Great Lakes states have 61 new roads.** Joliet, Alpena, Ashtabula and Sandusky join the map.
 - **The Northeast has 63 new roads.** Thirteen towns join the map, among them Lancaster, Reading, Newburgh and Johnstown.
+- **Appalachia and the Mid-South have 61 new roads.** Morehead City, Pinehurst and Reedville join the map.
 - **Units has a new Automatic choice, the default in 2.0:** miles in the United States, kilometers in Canada, said once at the border.
 - **Kilometers now reach fuel, weights and signs.** Fuel is in liters, loads in tonnes, weights in kilograms and low bridges in meters.
 - **The cruise dial steps in the units you hear.** In kilometers it walks 95, 100, 105.
