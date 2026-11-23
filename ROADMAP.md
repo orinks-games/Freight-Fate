@@ -6927,6 +6927,63 @@ a carrier slice (owner, 2026-10-26).
       axles for its first miles; the router takes it, and the city start is
       not judged.
 
+### Upper Midwest and Northern Plains roads (missing roads brief 3, November 23)
+
+- [x] 35 new legs between neighbours the map routed far around, in Iowa,
+      Minnesota, Nebraska, the Dakotas and across into Wisconsin, Illinois,
+      Missouri, Kansas and Wyoming, routed by the truck router over the
+      OpenStreetMap planet of 2026-11-16 and built with every layer. No new
+      cities. The detours that shrank most: Bemidji to St. Cloud (368 miles
+      to 159), Aberdeen to Jamestown (348 to 104), Fort Dodge to Sioux City
+      (322 to 118) and Burlington to Quincy (308 to 87).
+- [x] Three long legs split at a city they pass, with saves on the old leg
+      resuming on the pieces: Hibbing to Minneapolis at Grand Rapids,
+      Mankato to Rochester at Owatonna, Des Moines to Chicago at Aurora.
+      The chains run 2, 6 and 6 miles over the old legs, because Owatonna
+      and Aurora sit off the through road.
+- [x] Re-routed onto their roads: Aberdeen to Pierre, Rapid City to Sioux
+      Falls, Willmar to Watertown (US-12, 139 miles to 111) and Scottsbluff
+      to Sidney (US-385, 87 to 81). Twelve legs renamed for the road they
+      ride, and their towns' roads read again.
+- [x] Upper Midwest and Northern Plains stops list
+      (`docs/stops/upper-midwest-northern-plains.json`), 391 stops.
+- [ ] (Found along the way) Tolls still unread: the Reagan Tollway (I-88)
+      on Des Moines to Aurora and Aurora to Chicago; the Illinois Tollway's
+      site has no readable rate table.
+- [ ] (Found along the way) No station a tractor-trailer can use is on
+      Burlington to Quincy or Scottsbluff to Sidney. Gaps of 60 to 103
+      miles between fuel, counting town stations marked bobtail only, on
+      Aberdeen to Pierre, Fargo to Willmar, Rapid City to Sioux Falls,
+      Mankato to Willmar, Fort Dodge to Waterloo, Grand Island to Salina,
+      Fort Dodge to Mason City, Burlington to Ottumwa, Aberdeen to
+      Jamestown, Grand Rapids to Minneapolis, Iowa City to Quincy and
+      Brookings to Willmar. Many town stations there likely take trucks;
+      a source that says so would let them count.
+- [ ] (Found along the way) US 30 from Cedar Rapids to Joliet is left
+      undone: 224 router miles with no city between, over the 200 mile cap.
+      A town near Clinton or DeKalb would fix it.
+- [ ] (Found along the way) Billboards on the new legs: a sheet needs
+      Orinks's approval.
+- [ ] (Found along the way) Coming into Aberdeen from Jamestown, the
+      destination exit sits 0.8 miles out on US-281 inside town, where the
+      road drops from 45 to 30 and then a 15 mph street; cruise is down to
+      31 a mile before the exit, and the roll past the ramp's sign stops at
+      15. The exit tests now start from the city's longest leg. Check where
+      a destination exit belongs on a two-lane road into a town.
+- [ ] (Found along the way) The miles before a leg's first posted limit
+      read that first posting, even inside the town the leg leaves
+      (`posted_sample_at` takes the first sample for any mile before it,
+      and the urban 55 applies only where a leg has no posting at all).
+      440 of 1,624 US legs have no posting in their first 2 miles; on 314
+      the first posting is 55 or more, and 222 of those have a bend advised
+      25 or less in that stretch (counted at each leg's start only).
+      Marshalltown to Ottumwa reads 65 through two 20 mph turns a quarter
+      mile out of the yard: the keeper takes the truck to 42, "Sharp right,
+      a quarter mile. Advise 20 miles per hour. Cruise paused for the
+      bend." comes at mile 0.42 for a bend at 0.77, and cruise only coasts.
+      A firm brake on the call makes it; a one-second brake rolls the
+      truck.
+
 ### Winter cab, wipers and ice roads (designed November 22)
 
 The owner asked for heat and air that do something (frost with the heat

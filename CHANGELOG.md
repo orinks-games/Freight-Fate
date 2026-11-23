@@ -34,6 +34,7 @@
 - **The Great Lakes states have 61 new roads.** Joliet, Alpena, Ashtabula and Sandusky join the map.
 - **The Northeast has 63 new roads.** Thirteen towns join the map, among them Lancaster, Reading, Newburgh and Johnstown.
 - **The Mountain West and Northwest have 45 new roads.** Aberdeen, Washington joins the map, and Pagosa Springs to Santa Fe drops 282 miles.
+- **The Upper Midwest and Northern Plains have 35 new roads.** Aberdeen to Jamestown is now 104 miles, down from 348.
 - **Units has a new Automatic choice, the default in 2.0:** miles in the United States, kilometers in Canada, said once at the border.
 - **Kilometers now reach fuel, weights and signs.** Fuel is in liters, loads in tonnes, weights in kilograms and low bridges in meters.
 - **The cruise dial steps in the units you hear.** In kilometers it walks 95, 100, 105.
