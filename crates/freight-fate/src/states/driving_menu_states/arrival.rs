@@ -35,9 +35,8 @@ use crate::states::city::CityMenuState;
 use crate::states::driving::DrivingState;
 use crate::states::driving_core::{
     carrier_accessorial_charges, charge_summary, charge_total, clock_text,
-    has_weigh_station_transponder, is_owner_operator, log_driving_until, pay_label, profile_mut_of,
-    profile_of, reputation_pay_bonus, unique_consecutive, wallet_delta, xp_class_multiplier,
-    xp_streak_bonus,
+    has_weigh_station_transponder, is_owner_operator, pay_label, profile_mut_of, profile_of,
+    reputation_pay_bonus, unique_consecutive, wallet_delta, xp_class_multiplier, xp_streak_bonus,
 };
 use crate::states::driving_damage::{damage_summary_line, preventable_damage_charge};
 use crate::states::driving_menu_states::badges::award_arrival_achievements;

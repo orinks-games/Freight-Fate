@@ -171,6 +171,50 @@ impl DutyLog {
         self.prune(end);
     }
 
+    /// Record a classified interval without filling gaps in earlier rows.
+    /// Adjacent rows with identical details coalesce so frame updates stay O(1).
+    pub fn record_exact(
+        &mut self,
+        status: &str,
+        start_hour: f64,
+        end_hour: f64,
+        location: &str,
+        note: &str,
+    ) {
+        if !is_duty_status(status) {
+            return;
+        }
+        let mut start = py_max(0.0, start_hour);
+        let end = py_max(start, end_hour);
+        if !start.is_finite() || !end.is_finite() || end == start {
+            return;
+        }
+        let location = if location.is_empty() {
+            "unknown location"
+        } else {
+            location
+        };
+        if let Some(last) = self.segments.last_mut() {
+            if start < last.end_hour {
+                if end <= last.end_hour {
+                    return;
+                }
+                start = last.end_hour;
+            }
+            if last.status == status
+                && last.location == location
+                && last.note == note
+                && (last.end_hour - start).abs() <= 1e-9
+            {
+                last.end_hour = end;
+                return;
+            }
+        }
+        self.segments
+            .push(DutySegment::new(status, start, end, location, note));
+        self.prune(end);
+    }
+
     /// Drop rows older than the RODS window (`prune(now_hour)` in Python).
     pub fn prune(&mut self, now_hour: f64) {
         self.prune_keeping(now_hour, RODS_WINDOW_HOURS);

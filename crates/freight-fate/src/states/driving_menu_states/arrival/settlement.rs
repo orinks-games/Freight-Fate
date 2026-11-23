@@ -193,9 +193,7 @@ impl ArrivalState {
         arrival_hours: f64,
     ) {
         let job = d.job.clone();
-        let trip_start = profile_of(ctx).game_hours;
         let elapsed_hours = settlement_hours(d);
-        log_driving_until(d, ctx, trip_start + arrival_hours);
         let trip_damage = (d.trip.truck.damage_pct - d.start_damage).max(0.0);
         if job.bobtail {
             self.settle_bobtail(ctx, d, elapsed_hours, trip_damage);
@@ -205,14 +203,6 @@ impl ArrivalState {
         // The post-check-in clock still advances below so unloading remains
         // real calendar, market, HOS, idle-fuel, and player-visible time.
         let hours = arrival_hours;
-        let destination = d.destination_facility_text(ctx);
-        profile_mut_of(ctx).duty_log.record(
-            "on_duty_not_driving",
-            trip_start + hours,
-            trip_start + elapsed_hours,
-            &destination,
-            "receiver unloading",
-        );
         let on_time = hours <= job.deadline_game_h;
         // A rest call traded the bonus for the moved appointment: the load
         // pays its base rate, with no on-time bonus, and no late penalty for

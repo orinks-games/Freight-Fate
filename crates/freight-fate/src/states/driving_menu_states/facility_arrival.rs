@@ -20,7 +20,7 @@ use crate::states::base::{Menu, MenuCore, MenuItem, TimedMessageState};
 use crate::states::city_pickup::sync_facility_engine_audio;
 use crate::states::driving::DrivingState;
 use crate::states::driving_core::{
-    advance_on_duty_clock, carrier_accessorial_charges, has_weigh_station_transponder,
+    advance_on_duty_clock_at, carrier_accessorial_charges, has_weigh_station_transponder,
     is_owner_operator, profile_of, wallet_delta, FacilityEngine, DOCKING_MAX_MPH, UNLOADING_WAIT_S,
 };
 use crate::states::driving_menu_states::{keep_rows, settlement_hours, DriveRef};
@@ -191,7 +191,8 @@ impl FacilityArrivalState {
                 // The rest clock burns the dock wait's idle fuel. The
                 // settlement already reports the tank, so this one is felt
                 // rather than announced.
-                advance_on_duty_clock(d, ctx, minutes, None, "");
+                let location = d.destination_facility_text(ctx);
+                advance_on_duty_clock_at(d, ctx, minutes, None, "receiver unloading", &location);
                 d.set_status(if drop_hook {
                     "Trailer dropped. Hooked to an empty, paperwork signed."
                 } else {
