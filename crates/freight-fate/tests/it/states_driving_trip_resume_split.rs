@@ -4,7 +4,8 @@
 //! The missing roads pass (2026-11-22) split Los Angeles to San Diego at
 //! Santa Ana and Oceanside, and Sacramento to San Francisco at Fairfield.
 //! A save names the old two cities; the resume path swaps the hop for its
-//! chain and keeps the mile count.
+//! chain and keeps the mile count. Texas and Louisiana (2026-11-23) retired
+//! Dallas to St. Louis and Wichita Falls to McKinney the same way.
 
 use ff_core::models::profile::Profile;
 use freight_fate::app::testing::TestApp;
@@ -84,4 +85,51 @@ fn a_save_past_the_bay_bridge_resumes_on_the_fairfield_chain_without_paying_it_a
         "the Bay Bridge booth sits before mile 86 on the chain: {:?}",
         drive.trip.charged_tolls
     );
+}
+
+/// Texas and Louisiana (2026-11-23): Dallas to St. Louis retired for a chain
+/// over Denton, Ardmore and the I-44 legs. A save past Tulsa resumes there.
+#[test]
+fn a_save_on_the_old_dallas_to_st_louis_leg_resumes_on_the_i44_chain() {
+    let app = resume("Dallas", "St. Louis", 713.0, 360.0);
+    let state = app.state().expect("a state");
+    let state = state.borrow();
+    let drive = state
+        .as_any()
+        .downcast_ref::<DrivingState>()
+        .expect("the save resumes at the wheel");
+    assert!(drive.resumed);
+    assert_eq!(
+        drive.route.cities,
+        [
+            "dallas_tx_us",
+            "denton_tx_us",
+            "ardmore_ok_us",
+            "oklahoma_city_ok_us",
+            "tulsa_ok_us",
+            "joplin_mo_us",
+            "springfield_mo_us",
+            "rolla_mo_us",
+            "st_louis_mo_us"
+        ]
+    );
+    assert_eq!(drive.trip.position_mi, 360.0);
+}
+
+/// Wichita Falls to McKinney retired for a chain through Denton.
+#[test]
+fn a_save_on_the_old_wichita_falls_to_mckinney_leg_resumes_through_denton() {
+    let app = resume("Wichita Falls", "McKinney", 133.0, 110.0);
+    let state = app.state().expect("a state");
+    let state = state.borrow();
+    let drive = state
+        .as_any()
+        .downcast_ref::<DrivingState>()
+        .expect("the save resumes at the wheel");
+    assert!(drive.resumed);
+    assert_eq!(
+        drive.route.cities,
+        ["wichita_falls_tx_us", "denton_tx_us", "mckinney_tx_us"]
+    );
+    assert_eq!(drive.trip.position_mi, 110.0);
 }
