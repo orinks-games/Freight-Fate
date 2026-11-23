@@ -698,6 +698,108 @@ For the 16 pilot legs together: routing 1 to 4 seconds a leg, enrich about
 (one read of each cut per tool). The cut, about 25 minutes, is the long
 pole.
 
+## Building a new lower-48 leg or city
+
+Proven on the South Jersey roads (2 cities, 8 new legs, Newark to Trenton
+re-routed) on 2026-11-22. Lower-48 legs are stored ONE way, filed in the
+shard of the state they start in; the game drives the reverse. Every step
+below is a `cargo tools` command except the hand edits named.
+
+### The cut
+
+The same planet stream as the Canadian cut, with a bbox around the legs
+plus a margin (South Jersey: `-77.0,38.6,-73.8,41.1`). `osmium extract -s
+smart` cannot read standard input; use `-s simple`. Cut `roads.osm.pbf`
+and the boundaries from it as above, keep the raw cut, and fetch every state
+relation the legs touch from the OSM API if the cut lacks it (South Jersey
+merged r224951, r162110, r162109, r162112 and r61320). The planet date is
+`D` on every tool, because the cut carries no header date.
+
+### Cities and the leg scaffold (by hand)
+
+- A city: slug, `spoken_city`, two-letter `state`, `country: "US"`,
+  `region`, pin and its real freight sites, each with a source. A city whose
+  sites are all authored goes in `CURATED_COMPLETE_MARKET_CITY_KEYS`
+  (`crates/ff-core/src/data/world_constants/template_gates.rs`), or template
+  warehouses are stamped there.
+- A leg: `from`, `to`, the label it is known by, `miles` as a placeholder,
+  a two-point `route_points`, empty `stops` and `checkpoints`, and a
+  `source`. Do not write `divided` or `lanes` yet (see the hand step below).
+
+### Per batch of legs, in order
+
+`L` is the legs as `from:to;from:to`, one direction each, as stored.
+
+```
+cargo tools reroute-leg --leg <from:to> --write          # once per leg, about 20 s
+cargo tools reroute-enrich --leg "$L" --pbf roads.osm.pbf --extract-date D \
+    --snapshot "OpenStreetMap planet file" \
+    --boundaries boundaries.osm.pbf --boundaries-read D --write
+cargo tools osm-lanes        --pbf roads.osm.pbf --only "$L" --extract-date D --write
+cargo tools osm-restrictions --pbf roads.osm.pbf --only "$L" --extract-date D --write
+cargo tools osm-landmarks    --pbf raw.osm.pbf --only "$L" --extract-date D --write
+cargo tools osm-villages     --pbf raw.osm.pbf --only "$L" --extract-date D \
+    --boundaries boundaries.osm.pbf --write
+cargo tools osm-exits        --pbf roads.osm.pbf --only "$L" --extract-date D \
+    --snapshot "OpenStreetMap planet file" --any-label --write
+cargo tools osm-exit-routes  --pbf raw.osm.pbf --only "$L" --extract-date D --write
+cargo tools hpms-terrain     --only "$L" --write
+cargo tools hpms-traffic     --only "$L" --write
+cargo tools hpms-pavement    --only "$L" --write
+cargo tools osm-stops        --pbf raw.osm.pbf --only "$L"           # leads only
+cargo tools osm-stops        --stops docs/stops/<region>.json --only "$L" --write
+cargo tools census-counties  --shp tl_2021_us_county.shp --only "$L" --write
+cargo tools osm-speed-limits --pbf roads.osm.pbf --only "$L" --extract-date D \
+    --snapshot "OpenStreetMap planet file" --write          # LAST
+cargo tools index-world && cargo tools index-world --check
+cargo run -p ff-core --bin ff-bake -- --data-dir data --out /tmp/world.ffdata
+```
+
+What each of those needs to be told:
+
+- `osm-exits` needs `--extract-date` on an osmium cut, and `--any-label`
+  so a US or state highway that is a freeway for part of its length (NJ 55)
+  is read. Interstates and named freeways (Turnpike, Parkway, Expressway,
+  Thruway, Freeway) are read without it. It drops any exit within a mile of
+  a leg's end: when the road leaves the motorway there for the city, add
+  that exit by hand with a source that is not the tool's (the tool keeps a
+  hand-set record). Carneys Point to Wilmington's exit 6 is the example.
+- `osm-stops --stops`: a stop with a `heading` on a one-way stored leg is
+  placed for the drive that passes it, with `directions` forward or
+  reverse. Copy the readings from a record the stop already has elsewhere
+  (Jason's Law counts, "Confirmed a service plaza") into the stops list, or
+  the placed record replaces them and the stop tests fail.
+- `census-counties` without `--only` rewrites every leg it can, Canadian
+  crossings included.
+- `osm-speed-limits` writes a fold count the loader is tested against, so
+  run it after every other layer or the count goes stale.
+
+### By hand, after the tools
+
+- `divided`: no tool writes it. From `corridor.lane_segments`, the share of
+  miles that are one-way carriageways: 0.8 or more is `true`, 0.2 or less
+  `false`, anything between left out (the runtime infers from road class).
+- `crossings` (tunnel and bridge rules): copy the record from a leg whose
+  road runs through the same structure, and say so in its `basis`.
+- Toll events: price them from the authority's schedule; a booth that
+  collects one way carries `directions`. A ticket road is one event per
+  direction, at the exit booth that collects it.
+- The merge line's direction ("Merge onto I-295 South") comes from the
+  route number's parity and the two cities' latitudes. Where a leg's road
+  bends against that (I-295 over the Delaware Memorial Bridge), add the leg
+  to `SIGNED_AGAINST_ITS_ENDS` in `crates/ff-core/src/sim/trip_route_helpers.rs`.
+- Check each leg's label against the roads it rides (the label with the
+  most miles), and name its checkpoints' roads the same way.
+
+### What it costs a save
+
+A saved trip names its route by its city slugs (`route_cities`) and a
+position in miles; the legs are looked up again on load. Adding a city or a
+leg, or re-routing a leg with its miles kept, leaves every save valid.
+Removing or splitting a leg needs a `RETIRED_LEGS` entry
+(`crates/ff-core/src/data/retired_legs.rs`) so a save on the old leg still
+resolves.
+
 ## Spidering the network (finding new legs and cities)
 
 Distinct from enriching existing legs: this fills GAPS in the graph where a

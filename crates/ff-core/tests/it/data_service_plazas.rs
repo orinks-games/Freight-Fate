@@ -45,23 +45,24 @@ fn test_southbound_turnpike_plazas_serve_only_the_southbound_run() {
 }
 
 #[test]
-fn test_northbound_only_joyce_kilmer_is_off_the_southbound_turnpike_leg() {
-    // Joyce Kilmer sits on the northbound roadway only, and no leg runs the
-    // Turnpike northbound past it, so the Newark -> Trenton leg drops it.
+fn test_northbound_only_joyce_kilmer_serves_only_the_northbound_run() {
+    // Joyce Kilmer sits on the northbound roadway only. Newark -> Trenton is
+    // stored southbound, and the game drives it back north, so the plaza is
+    // on the leg for that run alone (it used to be left off, 2026-11-22).
     let to_trenton = leg("newark_nj_us", "trenton_nj_us");
-    assert!(!to_trenton
-        .stops
-        .iter()
-        .any(|stop| stop.name.contains("Joyce Kilmer")));
+    assert!(offered(to_trenton, false).contains(&"Joyce Kilmer Service Area"));
+    assert!(!offered(to_trenton, true).contains(&"Joyce Kilmer Service Area"));
 }
 
 #[test]
-fn test_thomas_edison_is_off_the_garden_state_parkway() {
-    let parkway = leg("toms_river_nj_us", "newark_nj_us");
-    assert!(!parkway
-        .stops
-        .iter()
-        .any(|stop| stop.name.contains("Thomas Edison")));
+fn test_thomas_edison_serves_only_the_southbound_turnpike_from_toms_river() {
+    // Toms River -> Newark used to ride the Garden State Parkway, where no
+    // Thomas Edison stands; it now finishes on the Turnpike from 7A, and
+    // the southbound plaza is offered only to the drive back south.
+    let turnpike = leg("toms_river_nj_us", "newark_nj_us");
+    assert!(!offered(turnpike, true).contains(&"Thomas Edison Service Area"));
+    assert!(offered(turnpike, false).contains(&"Thomas Edison Service Area"));
+    assert!(offered(turnpike, true).contains(&"Joyce Kilmer Service Area"));
 }
 
 #[test]

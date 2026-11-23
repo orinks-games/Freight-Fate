@@ -32,6 +32,8 @@
 - **Trucks now stop for customs at every border crossing, both ways.** Driving past the booth brings a penalty, which a company driver's carrier pays.
 - **Dispatch now offers loads into Canada and back,** with customs time in the deadline. A US carrier may not haul between Canadian towns.
 - **A route between two US cities stays in the United States when a US road exists.** Alaska routes still run through Canada.
+- **More than 500 new roads link nearby cities across the lower 48.** Thirty-six towns join the map, including Cape May, Galveston and Joliet.
+- **Towns a short drive apart no longer need a long detour.** Boise City to Raton is now 126 miles, down from 523.
 - **Units has a new Automatic choice, the default in 2.0:** miles in the United States, kilometers in Canada, said once at the border.
 - **Kilometers now reach fuel, weights and signs.** Fuel is in liters, loads in tonnes, weights in kilograms and low bridges in meters.
 - **The cruise dial steps in the units you hear.** In kilometers it walks 95, 100, 105.
@@ -102,6 +104,12 @@
 
 ### Fixed
 
+- **Alligator Alley now charges one toll per trip.** It was charging for both plazas.
+- **The Ohio Turnpike toll between Cleveland and Toledo is now the 2026 five-axle fare.** It drops from $28.00 to $17.50.
+- **Boston to Portsmouth now charges the Hampton toll.** Only the trip back charged it before.
+- **Twelve trips that rode toll roads free now charge the toll.** Tulsa to Muskogee and College Station to Houston are among them.
+- **Deliveries no longer end at a freeway exit miles short of town.** Dallas to Tyler now drives US 69 into Tyler.
+- **Toll estimates no longer charge a one-way bridge in both directions.** The estimate now matches what the drive charges.
 - **The truck dealer no longer offers the standard rig for nothing.** It is listed only if you own it.
 - **The truck's starter gives way to a brief idle before the engine revs up to build air.**
 - **Automatic gear changes start with a softer clunk so the drop in revs is easier to hear.**

@@ -12,9 +12,12 @@
 //! far side shorter than [`MIN_WEAVE_STAY_MI`] is dropped together with its
 //! return. A leg that crosses a line once or twice is untouched, so a true
 //! in-and-out (the 40 miles of British Columbia between Watson Lake and
-//! Whitehorse) stays, and so does every US leg.
+//! Whitehorse) stays, and so does every US leg but two: US 119 crosses the
+//! Tug Fork three times at Williamson on Charleston to Pikeville, and Atoka
+//! to Texarkana reaches downtown on State Line Avenue, in and out of Arkansas
+//! within a mile, and is heard as one crossing into Arkansas.
 //!
-//! The threshold is calibrated on the only weave in the map: its short stays
+//! The threshold is calibrated on the first weave in the map: its short stays
 //! are 1.3 to 4.8 miles, and the next real stays on the same legs are 27.7
 //! and 40 miles, so 5 miles separates them with room on both sides. It is a
 //! screen at load, never an edit of the data.

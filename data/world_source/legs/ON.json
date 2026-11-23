@@ -87221,7 +87221,14 @@
           "name": "level",
           "sections": 0,
           "source": "DERIVED, not read: Canada has no national inventory like HPMS, so the class is the terrain the leg's own grade profile spends the most miles in (the reroute-enrich rule: sustained grade of 5 percent, or 4 percent with 1,000 ft of relief within 5 miles, is mountain; 1.5 percent or 400 ft of relief is hills; else flat), mapped flat to level, hills to rolling and mountain to mountainous. It reads the same elevation as the grade, so it is no independent check on it."
-        }
+        },
+        "counties": [
+          {
+            "at_mi": 0.0,
+            "name": "Chippewa County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          }
+        ]
       },
       "route_via": [
         {
@@ -106332,6 +106339,23 @@
             "to_mi": 186.0,
             "name": "North Shore Scenic Drive",
             "source": "read: MnDOT North Shore Scenic Drive corridor management plan and the FHWA byways map (Minnesota Highway 61, an All-American Road since 2000, Duluth to the Canadian border at Grand Portage), read 2026-11-22; span derived as the leg's Minnesota stretch on its archived route; national scenic byways ban boards as in the West (director's ruling, 2026-11-22)"
+          }
+        ],
+        "counties": [
+          {
+            "at_mi": 0.0,
+            "name": "Cook County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 113.9,
+            "name": "Lake County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 166.7,
+            "name": "St. Louis County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
           }
         ]
       },

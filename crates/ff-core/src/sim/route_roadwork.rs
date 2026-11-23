@@ -813,8 +813,9 @@ mod tests {
         let routes = world
             .supported_route_options("Dayton", "Cleveland", 3)
             .expect("Dayton to Cleveland routes");
-        // Route 0 goes Columbus, Mansfield, Cleveland; route 1 goes Columbus,
-        // Akron, Cleveland. Mansfield is on the shortest route only.
+        // Route 0 goes Columbus, Mansfield, Cleveland; route 1 goes by Lima
+        // since the Great Lakes roads (2026-11-22) joined it to its
+        // neighbours. Mansfield is on the shortest route only.
         let mansfield = routes[0]
             .cities
             .iter()
@@ -841,14 +842,14 @@ mod tests {
         assert_eq!(routing.pick(), 1, "{:?}", routing.order);
         let line = dispatch_route_line(&routes, &routing, world, &Settings::default());
         assert!(
-            line.starts_with("A Tornado Warning covers the road near Mansfield. Dispatch is routing you around it by way of Columbus."),
+            line.starts_with("A Tornado Warning covers the road near Mansfield. Dispatch is routing you around it by way of Lima."),
             "{line}"
         );
         assert!(line.contains("This way adds "), "{line}");
         let note = route_planning_note(&routes, &routing, world);
         assert_eq!(
             note,
-            "A Tornado Warning covers the road near Mansfield. Route 1 goes around it by way of Columbus."
+            "A Tornado Warning covers the road near Mansfield. Route 1 goes around it by way of Lima."
         );
     }
 

@@ -421,6 +421,21 @@ fn test_leg_heading_follows_route_numbering() {
         leg_heading(w, "I-80", "cleveland_oh_us", "chicago_il_us"),
         "West"
     );
+    // I-295 runs south over the Delaware Memorial Bridge, though
+    // Wilmington lies north of Carneys Point.
+    assert_eq!(
+        leg_heading(w, "I-295", "carneys_point_nj_us", "wilmington_de_us"),
+        "South"
+    );
+    assert_eq!(
+        leg_heading(w, "I-295", "wilmington_de_us", "carneys_point_nj_us"),
+        "North"
+    );
+    // I-195 is odd but signed east and west.
+    assert_eq!(
+        leg_heading(w, "I-195", "toms_river_nj_us", "trenton_nj_us"),
+        "West"
+    );
     // No route number -> no heading.
     assert_eq!(
         leg_heading(w, "Local Road", "chicago_il_us", "cleveland_oh_us"),

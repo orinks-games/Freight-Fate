@@ -319,7 +319,19 @@ pub const EXIT_COMMIT_WINDOW_MI: f64 = 0.4;
 /// Wisconsin, 1,158 miles from the Montana receiver, and taking it settled the
 /// load from there (transcripts, 2026-07-16). Past the window the synthetic
 /// end-of-route exit takes over.
-pub const DESTINATION_EXIT_SCAN_WINDOW_MI: f64 = 25.0;
+///
+/// Eight miles, not the 25 it was: past the last freeway exit a leg runs on to
+/// its city on the road it is named for, and a trip that ended at that exit
+/// paid for miles nobody drove. Casa Grande to Globe ended at US-60 exit 227,
+/// 24 miles short, where the freeway ends at Superior and US-60 carries on as
+/// a two-lane road to Globe (missing roads pass, 2026-11-22). Calibrated on
+/// the 1,929 single-leg trips that end at a signed exit: 1,807 end within 8
+/// miles of the city; the other 122 all have open highway after the exit
+/// (39 to 75 mph posted on average, none of it town streets), so past 8 miles
+/// the trip ends in town instead ([`DestinationArrival::InTown`]).
+///
+/// [`DestinationArrival::InTown`]: crate::sim::trip::destination_exit::DestinationArrival::InTown
+pub const DESTINATION_EXIT_SCAN_WINDOW_MI: f64 = 8.0;
 
 // -- How a loaded truck sheds speed for something ahead ----------------------
 pub const APPROACH_DECEL_MPS2: f64 = 0.4;

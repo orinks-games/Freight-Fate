@@ -10,7 +10,7 @@ use ff_core::sim::lane_keep_status::{LaneKeepAvailability, LaneKeepDropoutReason
 use ff_core::sim::predictive_cruise::{PredictiveCruiseEvent, PredictiveCruiseState};
 use ff_core::sim::traffic_manager::TrafficVehicle;
 use ff_core::sim::weather::WeatherKind;
-use freight_fate::playtest::harness::{PlaytestHarness, StartDelivery};
+use freight_fate::playtest::harness::{PlaytestHarness, RouteSetup};
 use freight_fate::states::base::Key;
 use freight_fate::states::driving_core::assist_cues::{
     BLIND_SPOT_CHIRP_KEY, CURVE_SERVO_KEY, LANE_KEEP_DROPOUT_KEY,
@@ -19,8 +19,14 @@ use freight_fate::states::driving_core::assist_cues::{
 use crate::transcript_cruise_support::{frame, DT};
 
 fn open_highway_drive(name: &str, preset: &str) -> PlaytestHarness {
+    // A fixed freeway, not the dispatch board's first job: the board's pick
+    // moves whenever the map gains a road (Chicago to Joliet, 2026-11-23).
     let mut harness = PlaytestHarness::new();
-    harness.start_delivery(StartDelivery::named(name));
+    harness.start_route(
+        "chicago_il_us",
+        "madison_wi_us",
+        RouteSetup::default().named(name),
+    );
     harness.prepare_for_driving(60.0);
     harness
         .app

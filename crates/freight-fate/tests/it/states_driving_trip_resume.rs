@@ -676,11 +676,16 @@ fn test_old_map_snapshot_still_resumes() {
         .downcast_ref::<DrivingState>()
         .expect("the old save resumes at the wheel");
     assert!(drive.resumed);
-    // the old display names canonicalize to the stable slug keys...
+    // the old display names canonicalize to the stable slug keys, and the
+    // Chicago to St. Louis hop, split at Joliet, Bloomington and Springfield
+    // by the Great Lakes roads (2026-11-22), resumes on its pieces...
     assert_eq!(
         drive.route.cities,
         vec![
             "chicago_il_us".to_string(),
+            "joliet_il_us".to_string(),
+            "bloomington_il_us".to_string(),
+            "springfield_il_us".to_string(),
             "st_louis_mo_us".to_string(),
             "kansas_city_mo_us".to_string(),
             "denver_co_us".to_string(),

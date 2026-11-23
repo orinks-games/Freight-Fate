@@ -390,9 +390,7 @@ pub fn signs(topo: &Topo, exit: &ExitNodes) -> (Vec<String>, String) {
             }
             let link = &topo.links[way as usize];
             for place in split_destinations(&link.destination) {
-                if !dests.contains(&place) {
-                    dests.push(place);
-                }
+                add_place(&mut dests, place);
             }
             if via.is_empty()
                 && !link.destination_ref.is_empty()
@@ -404,6 +402,41 @@ pub fn signs(topo: &Topo, exit: &ExitNodes) -> (Vec<String>, String) {
     }
     dests.truncate(MAX_DESTINATIONS);
     (dests, via)
+}
+
+/// Add a sign's place once. One ramp's misspelling of a place another ramp
+/// at the same exit spells right ("Delware Memorial Bridge" beside
+/// "Delaware Memorial Bridge" at Delaware's I-95 exit 5C) is the same
+/// place: two names one letter apart keep the longer, since a slip on a
+/// sign tag drops a letter far more often than it adds one.
+fn add_place(dests: &mut Vec<String>, place: String) {
+    if let Some(i) = dests.iter().position(|d| one_letter_apart(d, &place)) {
+        if place.chars().count() > dests[i].chars().count() {
+            dests[i] = place;
+        }
+        return;
+    }
+    if !dests.contains(&place) {
+        dests.push(place);
+    }
+}
+
+/// Equal, or one letter added, dropped or changed, in names long enough
+/// (8 letters) that a one-letter difference is not two real places.
+fn one_letter_apart(a: &str, b: &str) -> bool {
+    let a: Vec<char> = a.to_lowercase().chars().collect();
+    let b: Vec<char> = b.to_lowercase().chars().collect();
+    if a.len().min(b.len()) < 8 || a.len().abs_diff(b.len()) > 1 {
+        return false;
+    }
+    let prefix = a.iter().zip(&b).take_while(|(x, y)| x == y).count();
+    let suffix = a[prefix..]
+        .iter()
+        .rev()
+        .zip(b[prefix..].iter().rev())
+        .take_while(|(x, y)| x == y)
+        .count();
+    a.len().max(b.len()) - prefix - suffix <= 1
 }
 
 /// Greedily keep the richest exits (an exit number, then the most signs),
@@ -460,6 +493,23 @@ mod tests {
             split_destinations("Dallas;Fort Worth;Dallas;Cars Only"),
             vec!["Dallas", "Fort Worth"]
         );
+        let mut dests = Vec::new();
+        for place in [
+            "New Castle",
+            "Delaware Memorial Bridge",
+            "Delware Memorial Bridge",
+            "Newark",
+        ] {
+            add_place(&mut dests, place.to_string());
+        }
+        assert_eq!(dests, ["New Castle", "Delaware Memorial Bridge", "Newark"]);
+        // Short names one letter apart are different places.
+        assert!(!one_letter_apart("Salem", "Salen"));
+        assert!(one_letter_apart(
+            "Delware Memorial Bridge",
+            "Delaware Memorial Bridge"
+        ));
+        assert!(!one_letter_apart("Port Norris", "Port Morris Bay"));
     }
 
     fn junction(id: i64, lat: f64, exit_ref: &str) -> Junction {

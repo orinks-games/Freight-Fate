@@ -194,18 +194,47 @@ fn the_weave_screen_changes_no_us_leg() {
             let us = [a, b]
                 .iter()
                 .all(|s| world.cities.get(*s).is_some_and(|c| c.country == "US"));
-            if !us {
+            // US 119 weaves across the Tug Fork at Williamson (below).
+            if !us || (a, b) == ("charleston_wv_us", "pikeville_ky_us") {
                 continue;
             }
             let stored = raw["corridor"]["state_crossings"]
                 .as_array()
                 .map_or(0, Vec::len);
             let leg = world.legs.iter().find(|l| l.a == a && l.b == b).unwrap();
+            if (a, b) == ("atoka_ok_us", "texarkana_ar_us") {
+                // State Line Avenue into downtown Texarkana: Texas, 0.6 mi
+                // of Arkansas, 0.9 mi of Texas, then Arkansas for good.
+                assert_eq!(stored, 4);
+                let kept: Vec<&str> = leg
+                    .state_crossings()
+                    .iter()
+                    .map(|c| c.state.as_str())
+                    .collect();
+                assert_eq!(kept, ["Texas", "Arkansas"]);
+                checked += 1;
+                continue;
+            }
             assert_eq!(leg.state_crossings().len(), stored, "{a} to {b}");
             checked += 1;
         }
     }
     assert!(checked > 1000, "only {checked} US legs checked");
+}
+
+#[test]
+fn us_119_at_williamson_reads_as_one_entry_into_kentucky() {
+    // Charleston to Pikeville (2026-11-23) crosses the Tug Fork three times
+    // at Williamson: 0.8 miles of Kentucky, 2 of West Virginia, then
+    // Kentucky for good. The short stay and its return are screened out.
+    let weave = leg("charleston_wv_us:pikeville_ky_us");
+    let lines: Vec<&str> = weave
+        .state_crossings()
+        .iter()
+        .map(|c| c.state.as_str())
+        .collect();
+    assert_eq!(lines, vec!["Kentucky"]);
+    assert_eq!(weave.state_miles().len(), 2);
 }
 
 #[test]

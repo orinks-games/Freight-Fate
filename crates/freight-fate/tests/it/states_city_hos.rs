@@ -545,9 +545,15 @@ fn warn_sleep_and_reopen(app: &mut TestApp, xp: f64) -> (Job, i64, i64) {
 
     open_freight_market(&mut app.ctx);
     app.ctx.run_deferred();
-    let count = with_state::<JobBoardState, _>(app, |b, _| b.jobs.len());
+    // Only a load posted on the tired clock draws the warning; any other
+    // is taken on Enter and leaves the board.
+    let mut order: Vec<usize> = with_state::<JobBoardState, _>(app, |b, _| {
+        (0..b.jobs.len())
+            .filter(|i| b.jobs[*i].deadline_covers_rest)
+            .collect()
+    });
     let mut warned = None;
-    for index in 0..count {
+    for index in order.drain(..) {
         app.clear_speech();
         with_state_mut::<JobBoardState, _>(app, |b, ctx| b.accept(ctx, index));
         app.ctx.run_deferred();

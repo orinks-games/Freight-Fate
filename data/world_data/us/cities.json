@@ -8735,6 +8735,1872 @@
       "source_note": "Place read from the OpenStreetMap place node 7985211156 for Hyder (place=village), OpenStreetMap planet file of 2026-11-16. Hyder is reached by road only from Stewart, British Columbia; it has no freight facility in OpenStreetMap, so it has no facilities or generated jobs.",
       "no_freight": true,
       "locations": []
+    },
+    "carneys_point_nj_us": {
+      "spoken_city": "Carneys Point",
+      "state": "NJ",
+      "country": "US",
+      "region": "northeast",
+      "lat": 39.684,
+      "lon": -75.4851,
+      "source_note": "Pin at the truck stops where the New Jersey Turnpike (Interchange 1), I-295 (Exit 2), US 40 and the Delaware Memorial Bridge meet in Carneys Point Township, Salem County, so a through trip can use the bridge without a detour to a town centre. Position read from Pilot Company's page for Pilot Travel Center #688, 326 Slapes Corner Road, I-295 Exit 2C (https://locations.pilotflyingj.com/us/nj/carneys-point/326-slapes-corner-rd, read 2026-11-22). The director approved this city inside 30 miles of Wilmington by name (missing roads brief 1, 2026-11-22); region northeast.",
+      "locations": [
+        {
+          "name": "Chemours Chambers Works",
+          "type": "chemical_petroleum_terminal",
+          "lat": 39.69324,
+          "lon": -75.49643,
+          "ships": [
+            "chemicals"
+          ],
+          "receives": [
+            "chemicals",
+            "bulk"
+          ],
+          "source_note": "Read: Chemours says it continues to manufacture fluoropolymers and finished products at Chambers Works, Deepwater, Salem County, on the eastern shore of the Delaware River, with two tenants operating processes there (Form 10-K for 2025, https://www.sec.gov/Archives/edgar/data/1627223/000119312526065201/cc-20251231.htm, read 2026-11-22). Position derived: the centre of the riverside industrial area at Deepwater in OpenStreetMap way 40320925 (landuse=industrial, NJ 2002 land use), OpenStreetMap planet file of 2026-11-16; OpenStreetMap does not name the works. Roles derived: a chemical plant ships chemicals and receives chemicals and bulk feedstock."
+        },
+        {
+          "name": "McLane New Jersey",
+          "type": "grocery_retail_dc",
+          "lat": 39.68531,
+          "lon": -75.43724,
+          "ships": [
+            "food",
+            "refrigerated",
+            "retail"
+          ],
+          "receives": [
+            "food",
+            "refrigerated",
+            "retail"
+          ],
+          "source_note": "Read: OpenStreetMap way 955365416 (building=warehouse, name McLane New Jersey) east of the I-295 and Turnpike junction, OpenStreetMap planet file of 2026-11-16; McLane, a grocery and foodservice distributor to convenience stores, hires warehouse and transportation staff at Carneys Point (job listings at careerbuilder.com and ability.usnlx.com for Carneys Point, NJ, read 2026-11-22). Roles derived: a grocery distribution centre receives food, chilled food and store goods by the truckload and ships them out to stores."
+        },
+        {
+          "name": "Amazon Carneys Point",
+          "type": "retail_distribution",
+          "lat": 39.686,
+          "lon": -75.42899,
+          "ships": [
+            "retail",
+            "general"
+          ],
+          "receives": [
+            "retail",
+            "general",
+            "electronics"
+          ],
+          "source_note": "Read: OpenStreetMap way 1167557701 (building=warehouse, operator Amazon, name Amazon Fulfillment Center TEB4, 747 Courses Landing Road), OpenStreetMap planet file of 2026-11-16; Amazon announced a fulfillment center in Carneys Point, Salem County (Real Estate NJ, https://re-nj.com/amazon-announces-newest-south-jersey-fulfillment-center/, read 2026-11-22). Roles derived: a fulfillment centre receives store goods by the trailer load and ships orders out."
+        },
+        {
+          "name": "Pilot Travel Center Slapes Corner",
+          "type": "travel_center",
+          "lat": 39.684,
+          "lon": -75.4851,
+          "source_note": "Read: Pilot Company's page for Pilot Travel Center #688, 326 Slapes Corner Road, I-295 Exit 2C: 12 diesel lanes, 16 showers, 213 truck parking spaces, CAT Scale (https://locations.pilotflyingj.com/us/nj/carneys-point/326-slapes-corner-rd, read 2026-11-22); OpenStreetMap way 1107452401 still tags it Flying J."
+        },
+        {
+          "name": "Pilot Travel Center Pennsville-Auburn Road",
+          "type": "travel_center",
+          "lat": 39.68073,
+          "lon": -75.47952,
+          "source_note": "Read: Pilot Company's page for Pilot Travel Center #253, 600 Pennsville Auburn Road, I-295 Exit 2B: 7 diesel lanes, 2 showers, 25 truck parking spaces (https://locations.pilotflyingj.com/us/nj/carneys-point/600-pennsville-auburn-rd, read 2026-11-22)."
+        }
+      ]
+    },
+    "cape_may_nj_us": {
+      "spoken_city": "Cape May",
+      "state": "NJ",
+      "country": "US",
+      "region": "northeast",
+      "lat": 38.94873,
+      "lon": -74.90558,
+      "source_note": "Pin at Schellenger Landing on Cape May Harbor, where NJ 109 from the end of the Garden State Parkway meets Ocean Drive and the fish docks, read from the OpenStreetMap place node 158821092, OpenStreetMap planet file of 2026-11-16; the City of Cape May's own place node (158863250) is 1.3 miles southwest, in the resort town. Cape May-Wildwood is the 17th US port by commercial landings, 58.0 million pounds in 2023 (NOAA Fisheries, Fisheries of the United States 2023, Table 2, https://s3.amazonaws.com/media.fisheries.noaa.gov/2026-02/FUS-2023-web.pdf, read 2026-11-22). Region northeast.",
+      "locations": [
+        {
+          "name": "Lund's Fisheries",
+          "type": "food_processor",
+          "lat": 38.95544,
+          "lon": -74.89069,
+          "ships": [
+            "refrigerated",
+            "food"
+          ],
+          "receives": [
+            "general"
+          ],
+          "source_note": "Read: Lund's Fisheries says it runs one of the largest seafood processing plants on the eastern seaboard in Cape May, with over 1,200 feet of waterfront where at least 15 vessels a day land, and sells fresh, land-frozen and sea-frozen product (https://lundsfish.com/lunds-on-shore/, read 2026-11-22). The street address, 997 Ocean Drive, is from business directory listings; position derived: OpenStreetMap's address for 997 Ocean Drive (way 263265781, found through Nominatim on 2026-11-22). Roles derived: a seafood plant ships chilled and frozen product and receives general supplies."
+        }
+      ]
+    },
+    "sebring_fl_us": {
+      "spoken_city": "Sebring",
+      "state": "FL",
+      "country": "US",
+      "region": "florida",
+      "lat": 27.49775,
+      "lon": -81.48846,
+      "source_note": "Pin on US 27 and US 98 (US Highway 27 North) at the Lakeshore Mall, the truck road through Sebring, read from the OpenStreetMap way there (OpenStreetMap planet file of 2026-11-16); the Census 2020 urban area point (2023 Gazetteer, 27.53543, -81.48274) is 2.6 miles north in a subdivision. Sebring stands for the Sebring and Avon Park urban area (63,297 people), approved as an unreached urban area (missing roads decision 9, 2026-11-22). No freight site was surveyed in reasonable time (OpenStreetMap names no industrial site in Sebring), so the city keeps the template market. Region florida.",
+      "locations": []
+    },
+    "port_canaveral_fl_us": {
+      "spoken_city": "Port Canaveral",
+      "state": "FL",
+      "country": "US",
+      "region": "florida",
+      "lat": 28.41867,
+      "lon": -80.62928,
+      "source_note": "Pin on SR 401, the road into the port's north cargo berths from SR 528, read from the OpenStreetMap way there (OpenStreetMap planet file of 2026-11-16). Port Canaveral is a principal port (4,066,610 short tons, US Army Corps of Engineers principal ports list) with more than 6.1 million tons of dry and liquid bulk a year and a 20-acre container terminal (Canaveral Port Authority cargo facilities page, https://www.portcanaveral.com/cargo/cargo-facilities, read 2026-11-22). Approved by name inside 30 miles of Palm Bay (missing roads decision 9, 2026-11-22). Region florida.",
+      "locations": [
+        {
+          "name": "Canaveral Cargo Terminal",
+          "type": "port_terminal",
+          "lat": 28.41431,
+          "lon": -80.61969,
+          "ships": [
+            "container",
+            "general",
+            "refrigerated"
+          ],
+          "receives": [
+            "container",
+            "general",
+            "refrigerated",
+            "machinery"
+          ],
+          "source_note": "Read: OpenStreetMap way 1220632416 (landuse=industrial, industrial=port, name Canaveral Cargo Terminal), OpenStreetMap planet file of 2026-11-16. The Canaveral Port Authority says its 20-acre container terminal has three mobile harbor cranes and has handled steel, boats, frozen juice concentrate, lumber, perishables, automobiles and heavy equipment (cargo facilities page, read 2026-11-22), and that GT USA operates it as Canaveral Cargo Terminal, with a bi-monthly container service to Mexico and the Northeast (news release of 2026-07-27, https://www.portcanaveral.com/media-center/latest-news/blog/2026/07/27/port-canaveral-expands-cargo-business-with-new-international-container-service, read 2026-11-22). Roles derived: a container and breakbulk terminal ships and receives general cargo, store goods and chilled cargo, and receives machinery."
+        },
+        {
+          "name": "Seaport Canaveral",
+          "type": "chemical_petroleum_terminal",
+          "lat": 28.41692,
+          "lon": -80.6139,
+          "ships": [
+            "fuel_bulk"
+          ],
+          "receives": [
+            "fuel_bulk"
+          ],
+          "source_note": "Read: OpenStreetMap way 1227712212 (industrial=fuel_depot, operator VTTI, name Seaport Canaveral), OpenStreetMap planet file of 2026-11-16; VTTI lists Seaport Canaveral as a 454,000 cubic metre storage terminal for gasoline, jet fuel, diesel and fuel oil with road access (https://www.vtti.com/terminal/seaport-canaveral-usa/, read 2026-11-22). Roles derived: a fuel terminal loads tank trucks with fuel and takes fuel in."
+        },
+        {
+          "name": "Heidelberg Materials Port Canaveral",
+          "type": "construction_materials_yard",
+          "lat": 28.41297,
+          "lon": -80.61479,
+          "ships": [
+            "construction",
+            "bulk"
+          ],
+          "receives": [
+            "bulk"
+          ],
+          "source_note": "Read: OpenStreetMap way 1227712221 (landuse=industrial, name Heidelberg Materials), OpenStreetMap planet file of 2026-11-16; the Canaveral Port Authority reports Heidelberg Materials' 24 million dollar expansion of its slag cement plant and terminal at the port (news release of 2023-06-05, https://portcanaveral.com/media-center/latest-news/blog/2023/06/05/heidelberg-materials-completes--24-million-expansion-of-port-canaveral-facility, read 2026-11-22). Roles derived: a slag cement plant ships cement and receives bulk slag by sea."
+        },
+        {
+          "name": "Morton Salt Port Canaveral",
+          "type": "port",
+          "lat": 28.41429,
+          "lon": -80.6137,
+          "ships": [
+            "bulk"
+          ],
+          "receives": [
+            "bulk"
+          ],
+          "source_note": "Read: OpenStreetMap way 1227712218 (industrial=factory, name Morton Salt), OpenStreetMap planet file of 2026-11-16; the Canaveral Port Authority lists salt among the dry bulk cargoes it handles (cargo facilities page, read 2026-11-22). Roles derived: a salt terminal takes salt in by ship and ships it out by truck."
+        }
+      ]
+    },
+    "crystal_river_fl_us": {
+      "spoken_city": "Crystal River",
+      "state": "FL",
+      "country": "US",
+      "region": "florida",
+      "lat": 28.89821,
+      "lon": -82.58646,
+      "source_note": "Pin on US 19 at State Road 44, the OpenStreetMap node the two ways share (OpenStreetMap planet file of 2026-11-16), as missing roads decision 9 (2026-11-22) set it. Crystal River stands for the Homosassa Springs, Beverly Hills and Citrus Springs urban area (96,729 people); US 19 is where the trucks are. No freight site was surveyed in reasonable time, so the city keeps the template market. Region florida.",
+      "locations": []
+    },
+    "gainesville_ga_us": {
+      "spoken_city": "Gainesville",
+      "state": "GA",
+      "country": "US",
+      "region": "atlantic_southeast",
+      "lat": 34.29856,
+      "lon": -83.8228,
+      "source_note": "Pin on Jesse Jewell Parkway (GA 369 and US 129 Business) where it meets E. E. Butler Parkway downtown, read from the OpenStreetMap way there (OpenStreetMap planet file of 2026-11-16); the Census 2020 urban area point (2023 Gazetteer, 34.23374, -83.86262) is 4.6 miles south in Oakwood. Approved as an unreached urban area of 164,365 people (missing roads decision 9, 2026-11-22). Region atlantic_southeast.",
+      "locations": [
+        {
+          "name": "Kubota Manufacturing of America",
+          "type": "manufacturing_plant",
+          "lat": 34.34867,
+          "lon": -83.78073,
+          "ships": [
+            "machinery"
+          ],
+          "receives": [
+            "steel",
+            "general"
+          ],
+          "source_note": "Read: OpenStreetMap way 595918959 (man_made=works, name Kubota Manufacturing of America), OpenStreetMap planet file of 2026-11-16; Kubota Manufacturing of America builds compact tractors and utility vehicles at its Gainesville, Hall County campus (Kubota news release of 2017-04-11, https://www.kubota.com/news/2017/20170411.html, read 2026-11-22). Roles derived: a tractor plant ships machinery and receives parts and steel."
+        },
+        {
+          "name": "Fieldale Farms Gainesville",
+          "type": "food_processor",
+          "lat": 34.28641,
+          "lon": -83.79998,
+          "ships": [
+            "refrigerated",
+            "food"
+          ],
+          "receives": [
+            "refrigerated",
+            "food"
+          ],
+          "source_note": "Read: OpenStreetMap way 682309058 (man_made=works, name Fieldale Farms), OpenStreetMap planet file of 2026-11-16; Fieldale Farms runs a USDA-inspected poultry establishment in Gainesville (FSIS inspected establishments listing, https://www.fsis.usda.gov/inspection/fsis-inspected-establishments/fieldale-farms-corporation-1, read 2026-11-22). Roles derived: a poultry plant ships chilled and packed food and takes in packaging and chilled product."
+        },
+        {
+          "name": "Eskimo Cold Storage",
+          "type": "cold_storage",
+          "lat": 34.23812,
+          "lon": -83.75762,
+          "ships": [
+            "refrigerated",
+            "food"
+          ],
+          "receives": [
+            "refrigerated",
+            "food"
+          ],
+          "source_note": "Read: OpenStreetMap way 34770301 (industrial=refrigerated_warehouse, operator Eskimo Cold Storage, LLC), OpenStreetMap planet file of 2026-11-16; Eskimo Cold Storage is a USDA-inspected cold storage establishment in Gainesville and opened a new freezer building there (FSIS listing https://www.fsis.usda.gov/inspection/fsis-inspected-establishments/eskimo-cold-storage and Carroll Daniel Construction, https://www.carrolldaniel.com/eskimo-cold-storage-ribbon-cutting/, read 2026-11-22). Roles derived: a public freezer warehouse receives and ships frozen and chilled food."
+        }
+      ]
+    },
+    "joliet_il_us": {
+      "spoken_city": "Joliet",
+      "state": "IL",
+      "country": "US",
+      "region": "corn_belt",
+      "lat": 41.495,
+      "lon": -88.1688,
+      "source_note": "Pin on Houbolt Road just north of I-80 exit 127, where a truck can turn onto I-80 either way and reach I-55 two miles west; Houbolt Road runs south over the Des Plaines River to the CenterPoint intermodal yards. Position derived from the exit 127 motorway_junction nodes and the Houbolt Road way in the OpenStreetMap planet file of 2026-11-16. The director approved Joliet by name (missing roads decision 3: I-80 meets I-55, the intermodal yards) and set junction pins on the surface road beside the interchange (decision 12); region corn_belt, as the region classifier places it.",
+      "locations": [
+        {
+          "name": "Union Pacific Joliet Intermodal Terminal",
+          "type": "intermodal",
+          "lat": 41.46941,
+          "lon": -88.11188,
+          "ships": [
+            "container",
+            "general"
+          ],
+          "receives": [
+            "container",
+            "general"
+          ],
+          "source_note": "Read: Mid-America Freight Coalition network inventory, UP Global IV, gate entrance 3000 Centerpoint Way, Joliet, IL 60436, a 550-acre intermodal terminal opened in 2010 inside the CenterPoint Intermodal Center (https://midamericafreight.org/?p=4541, read 2026-11-22). Position read from OpenStreetMap relation 14935582 (railway=container_terminal, name UP Joliet Intermodal Terminal), OpenStreetMap planet file of 2026-11-16. Roles derived: an intermodal ramp ships and receives containers and trailers."
+        },
+        {
+          "name": "BNSF Logistics Park Chicago",
+          "type": "intermodal",
+          "lat": 41.39083,
+          "lon": -88.15284,
+          "ships": [
+            "container",
+            "general"
+          ],
+          "receives": [
+            "container",
+            "general"
+          ],
+          "source_note": "Read: Mid-America Freight Coalition network inventory, BNSF Logistics Park Chicago, gate entrance Baseline Road at Walter Strawn Drive, Elwood, IL 60421, reached from I-55 or from I-80 by IL 53 (https://midamericafreight.org/?p=4433, read 2026-11-22). Position read from OpenStreetMap node 9384643901 (railway=yard, name Logistics Park Chicago), OpenStreetMap planet file of 2026-11-16. Roles derived as for any intermodal ramp."
+        },
+        {
+          "name": "CN Joliet Intermodal Terminal",
+          "type": "intermodal",
+          "lat": 41.53745,
+          "lon": -88.05805,
+          "ships": [
+            "container",
+            "general"
+          ],
+          "receives": [
+            "container",
+            "general"
+          ],
+          "source_note": "Read: OpenStreetMap relation 14935530 (railway=container_terminal, name CN Joliet Intermodal Terminal) on East Jackson Street, Joliet, OpenStreetMap planet file of 2026-11-16. Operation not confirmed from a second source; roles derived as for any intermodal ramp."
+        },
+        {
+          "name": "Pilot Travel Center Laraway Road",
+          "type": "travel_center",
+          "lat": 41.48,
+          "lon": -88.07889,
+          "source_note": "Read: Pilot Company's page for Pilot Travel Center #1024, 40 E Laraway Rd, Joliet, IL 60433: open 24 hours, diesel, 22 Prime Parking truck spaces and 30 general parking spaces (https://locations.pilotflyingj.com/us/il/joliet/40-e-laraway-rd, read 2026-11-22). Position read from OpenStreetMap way 681391752 (highway=services), OpenStreetMap planet file of 2026-11-16."
+        }
+      ]
+    },
+    "alpena_mi_us": {
+      "spoken_city": "Alpena",
+      "state": "MI",
+      "country": "US",
+      "region": "great_lakes",
+      "lat": 45.06163,
+      "lon": -83.43262,
+      "source_note": "Pin downtown on US 23 (East Chisholm Street) where M-32 ends at it, so the legs south and north on US 23 and west on M-32 leave from one corner. Position read from the US 23 way in the OpenStreetMap planet file of 2026-11-16. The director approved Alpena by name for the Port of Alpena (missing roads decision 4); region great_lakes.",
+      "locations": [
+        {
+          "name": "Amrize Alpena Cement Plant",
+          "type": "construction_materials_yard",
+          "lat": 45.06906,
+          "lon": -83.40518,
+          "ships": [
+            "construction",
+            "bulk"
+          ],
+          "receives": [
+            "fuel_bulk",
+            "machinery"
+          ],
+          "source_note": "Read: Amrize named its Alpena, Michigan manufacturing site among the cement plants carrying its Made in America label (The Alpena News, 2026-04-16, https://www.thealpenanews.com/news/2026/04/amrize-expands-made-in-america-label-to-nine-u-s-plants-including-alpena/, read 2026-11-22); the plant and its limestone quarry sit on the Lake Huron shore east of downtown (Center for Land Use Interpretation, https://clui.org/ludb/site/alpena-cement-mine-and-plant, read 2026-11-22). Position read from OpenStreetMap way 545265373 (landuse=industrial, name Amrize), OpenStreetMap planet file of 2026-11-16. Roles derived: a cement plant ships cement and bulk product and receives fuel and plant parts."
+        },
+        {
+          "name": "Alro Steel Alpena",
+          "type": "steel_industrial",
+          "lat": 45.07873,
+          "lon": -83.43012,
+          "ships": [
+            "steel"
+          ],
+          "receives": [
+            "steel"
+          ],
+          "source_note": "Read: OpenStreetMap way 1243245090 at 901 Commerce Drive, Alpena (industrial=manufacturing, name Alro Steel), OpenStreetMap planet file of 2026-11-16. Alro Steel is a metals service centre chain; this branch is not confirmed from a second source. Roles derived: a service centre receives steel and ships cut steel."
+        },
+        {
+          "name": "Thunder Bay Shopping Center",
+          "type": "shopping_mall",
+          "lat": 45.04389,
+          "lon": -83.45406,
+          "ships": [],
+          "receives": [
+            "retail",
+            "general",
+            "food",
+            "refrigerated"
+          ],
+          "source_note": "Read: OpenStreetMap way 1525526827 (landuse=retail, name Thunder Bay Shopping Center) on US 23 South beside the Gordon Food Service Store at 2400 US 23 South (way 1447553284), OpenStreetMap planet file of 2026-11-16; pin is the centroid of that outline. Roles derived: store deliveries of dry and chilled freight, as the mall type receives; it ships nothing."
+        }
+      ]
+    },
+    "ashtabula_oh_us": {
+      "spoken_city": "Ashtabula",
+      "state": "OH",
+      "country": "US",
+      "region": "great_lakes",
+      "lat": 41.901,
+      "lon": -80.7815,
+      "source_note": "Pin at the north end of the SR 11 freeway at East Fifth Street, the street the Pinney Dock terminal gives as its address, so every leg leaves on SR 11 from the harbor. Position read from the SR 11 and East 5th Street ways in the OpenStreetMap planet file of 2026-11-16. Approved under its class (missing roads decision 4: an unreached principal port, 3.9 million tons); region great_lakes.",
+      "locations": [
+        {
+          "name": "Kinder Morgan Pinney Dock",
+          "type": "port",
+          "lat": 41.90733,
+          "lon": -80.78869,
+          "ships": [
+            "bulk",
+            "steel"
+          ],
+          "receives": [
+            "bulk",
+            "steel",
+            "farm_inputs"
+          ],
+          "source_note": "Read: Kinder Morgan's terminal sheet for Pinney Dock, 1149 East Fifth Street, Ashtabula, OH: 310 acres on Lake Erie, loading and unloading by vessel, truck and railcar, three truck scales, iron ore, limestone, salt, fertilizer, pig iron and steel, highway access from SR 11, I-90 and the Ohio Turnpike (https://www.kindermorgan.com/WWWKM/media/Terminals-Bulk/Midwest-Pinney-Dock.pdf, read 2026-11-22); Ohio DOT's Ashtabula Harbor profile names it among the harbor's private dock owners (https://dam.assets.ohio.gov/image/upload/transportation.ohio.gov/statewide-planning/maritime/Ashtabula_040825.pdf, read 2026-11-22). Position read from OpenStreetMap way 1315824931 (landuse=industrial, name Kinder Morgan Pinney Dock), OpenStreetMap planet file of 2026-11-16."
+        },
+        {
+          "name": "R.W. Sidley Ashtabula",
+          "type": "construction_materials_yard",
+          "lat": 41.90146,
+          "lon": -80.79703,
+          "ships": [
+            "construction"
+          ],
+          "receives": [
+            "construction",
+            "bulk"
+          ],
+          "source_note": "Read: OpenStreetMap way 894940626 at 508 Front Street, Ashtabula harbor (landuse=industrial, name R.W. Sidley, Inc.), OpenStreetMap planet file of 2026-11-16. R.W. Sidley is a northeast Ohio aggregates and ready-mix company; this yard is not confirmed from a second source. Roles derived: a materials yard by the docks receives stone and sand and ships aggregate."
+        },
+        {
+          "name": "Marketplace Shopping Center",
+          "type": "shopping_mall",
+          "lat": 41.88031,
+          "lon": -80.7461,
+          "ships": [],
+          "receives": [
+            "retail",
+            "general",
+            "food",
+            "refrigerated"
+          ],
+          "source_note": "Read: OpenStreetMap way 876255970 (landuse=retail, name Marketplace Shopping Center) off North Ridge Road East, with The Home Depot at 3200 Market Place Drive (node 8155419893) and the Walmart Supercenter at 3551 North Ridge Road East (way 818184054) beside it, OpenStreetMap planet file of 2026-11-16; pin is the centroid of that outline. Roles derived: store deliveries of dry and chilled freight, as the mall type receives; it ships nothing."
+        }
+      ]
+    },
+    "sandusky_oh_us": {
+      "spoken_city": "Sandusky",
+      "state": "OH",
+      "country": "US",
+      "region": "great_lakes",
+      "lat": 41.45634,
+      "lon": -82.7112,
+      "source_note": "Pin downtown on East Market Street by SR 4 (Hayes Avenue) and US 6, moved from the Census urban area point on the Marblehead peninsula; SR 4, US 6 and US 250 lead out to SR 2 and the Ohio Turnpike. Position read from the East Market Street way in the OpenStreetMap planet file of 2026-11-16. Approved under its class (missing roads decision 4: an unreached urban area of 61,743 people, also the Port of Sandusky); region great_lakes.",
+      "locations": [
+        {
+          "name": "LEWCO Sandusky",
+          "type": "manufacturing_plant",
+          "lat": 41.45133,
+          "lon": -82.68995,
+          "ships": [
+            "machinery"
+          ],
+          "receives": [
+            "steel",
+            "machinery"
+          ],
+          "source_note": "Read: LEWCO, a maker of industrial ovens and conveyors, has its headquarters and industrial oven plant in Sandusky and announced an expansion there (Regional Growth Partnership and JobsOhio release, 2025-12-15, https://rgp.org/lewco-and-logistiq-announce-plans-to-create-more-than-200-jobs-in-port-clinton-and-sandusky/, read 2026-11-22). Position read from OpenStreetMap way 459261136 (name LEWCO, 706 Lane Street), OpenStreetMap planet file of 2026-11-16. Roles derived: a machinery plant receives steel and parts and ships finished equipment."
+        },
+        {
+          "name": "Huron Cement Building Supplies",
+          "type": "construction_materials_yard",
+          "lat": 41.44119,
+          "lon": -82.73976,
+          "ships": [],
+          "receives": [
+            "construction",
+            "steel"
+          ],
+          "source_note": "Read: OpenStreetMap way 487758514 at 2925 Venice Road, Sandusky (landuse=industrial, name Huron Cement Building Supplies), OpenStreetMap planet file of 2026-11-16. Not confirmed from a second source. Roles derived: a building supply yard receives construction material."
+        },
+        {
+          "name": "Sandusky Mall",
+          "type": "shopping_mall",
+          "lat": 41.41849,
+          "lon": -82.66935,
+          "ships": [],
+          "receives": [
+            "retail",
+            "general",
+            "food",
+            "refrigerated"
+          ],
+          "source_note": "Read: OpenStreetMap way 297170658 at 4314 Milan Road (shop=mall, name Sandusky Mall, operator Cafaro Company), OpenStreetMap planet file of 2026-11-16; pin is the centroid of that outline. Roles derived: store deliveries of dry and chilled freight, as the mall type receives; it ships nothing."
+        }
+      ]
+    },
+    "newburgh_ny_us": {
+      "spoken_city": "Newburgh",
+      "state": "NY",
+      "country": "US",
+      "region": "northeast",
+      "lat": 41.50369,
+      "lon": -74.06963,
+      "source_note": "Pin on NY 300 (Union Avenue) at NY 17K, beside New York State Thruway exit 17 and Interstate 84 exit 36 in the Town of Newburgh, where a truck can turn onto either road. Position read from OpenStreetMap way 1394089277 (ref NY 300), OpenStreetMap API, read 2026-11-23. The director approved Newburgh by name for the I-84 and I-87 junction; it stands for Newburgh and Poughkeepsie (missing roads decisions 4 and 9).",
+      "locations": [
+        {
+          "name": "Tesla Distribution Center",
+          "type": "dry_warehouse",
+          "lat": 41.51641,
+          "lon": -74.06095,
+          "ships": [
+            "general",
+            "automotive"
+          ],
+          "receives": [
+            "general",
+            "automotive"
+          ],
+          "source_note": "Read: OpenStreetMap way 1137350494 (building=warehouse, name Tesla Distribution Center, 4 Matrix Drive, Town of Newburgh), OpenStreetMap planet file of 2026-11-16; pin is the centroid of that outline. Operation not confirmed from a second source. Roles derived: a parts warehouse ships and receives general freight and vehicle parts."
+        },
+        {
+          "name": "Anheuser-Busch Can Plant",
+          "type": "manufacturing_plant",
+          "lat": 41.48767,
+          "lon": -74.09615,
+          "ships": [
+            "general"
+          ],
+          "receives": [
+            "steel",
+            "general"
+          ],
+          "source_note": "Read: OpenStreetMap way 605052586 (building=industrial, product=cans, name Anheuser Busch Can Plant, 130 Breunig Road), OpenStreetMap planet file of 2026-11-16; pin is the centroid of that outline. Operation not confirmed from a second source. Roles derived: a can plant receives metal coil and ships empty cans as general freight."
+        },
+        {
+          "name": "Amazon Newburgh Fulfillment Center",
+          "type": "distribution",
+          "lat": 41.48511,
+          "lon": -74.10376,
+          "ships": [
+            "general",
+            "retail",
+            "parcel"
+          ],
+          "receives": [
+            "general",
+            "retail",
+            "parcel"
+          ],
+          "source_note": "Read: OpenStreetMap way 486868848 (building=warehouse, name Amazon DYO1), OpenStreetMap planet file of 2026-11-16; pin is the centroid of that outline. Operation not confirmed from a second source. Roles derived: a fulfilment centre ships and receives general, store and parcel freight."
+        }
+      ]
+    },
+    "lancaster_pa_us": {
+      "spoken_city": "Lancaster",
+      "state": "PA",
+      "country": "US",
+      "region": "northeast",
+      "lat": 40.04165,
+      "lon": -76.30196,
+      "source_note": "Pin downtown on US 222 and PA 272 (North Lime Street) at East Chestnut Street. Position read from OpenStreetMap way 710055631, OpenStreetMap API, read 2026-11-23; the Census Bureau 2023 Gazetteer place point is 0.06 miles away. Approved by name (missing roads decision 4).",
+      "locations": [
+        {
+          "name": "Armstrong World Industries",
+          "type": "manufacturing_plant",
+          "lat": 40.05986,
+          "lon": -76.32323,
+          "ships": [
+            "construction"
+          ],
+          "receives": [
+            "general",
+            "bulk"
+          ],
+          "source_note": "Read: OpenStreetMap way 769525298 (building=warehouse, name Armstrong World Industries), OpenStreetMap planet file of 2026-11-16; pin is the centroid of that outline. Operation not confirmed from a second source. Roles derived: a building products plant ships construction materials and receives raw materials."
+        },
+        {
+          "name": "High Steel Service Center",
+          "type": "steel_industrial",
+          "lat": 40.06509,
+          "lon": -76.32263,
+          "ships": [
+            "steel"
+          ],
+          "receives": [
+            "steel"
+          ],
+          "source_note": "Read: OpenStreetMap way 468705650 (landuse=industrial, name High Steel Service Center), OpenStreetMap planet file of 2026-11-16; pin is the centroid of that outline. Operation not confirmed from a second source. Roles derived: a steel service centre receives steel and ships cut steel."
+        },
+        {
+          "name": "Lancaster Shopping Center",
+          "type": "shopping_mall",
+          "lat": 40.06486,
+          "lon": -76.30591,
+          "ships": [],
+          "receives": [
+            "retail",
+            "general",
+            "food",
+            "refrigerated"
+          ],
+          "source_note": "Read: OpenStreetMap way 39277282 (landuse=retail, shop=mall, name Lancaster Shopping Center, 1625 Lititz Pike), OpenStreetMap planet file of 2026-11-16; pin is the centroid of that outline. Operation not confirmed from a second source. Roles derived: store deliveries of dry and chilled freight, as the mall type receives; it ships nothing."
+        }
+      ]
+    },
+    "reading_pa_us": {
+      "spoken_city": "Reading",
+      "state": "PA",
+      "country": "US",
+      "region": "northeast",
+      "lat": 40.33934,
+      "lon": -75.92777,
+      "source_note": "Pin downtown on US 222 Business (North 5th Street) at Walnut Street. Position read from OpenStreetMap way 127868356, OpenStreetMap API, read 2026-11-23; the Census Bureau 2023 Gazetteer place point is 0.08 miles away. Approved by name (missing roads decision 4).",
+      "locations": [
+        {
+          "name": "Sealed Air",
+          "type": "manufacturing_plant",
+          "lat": 40.3274,
+          "lon": -75.9331,
+          "ships": [
+            "general"
+          ],
+          "receives": [
+            "chemicals",
+            "general"
+          ],
+          "source_note": "Read: OpenStreetMap way 260789948 (building=industrial, name Sealed Air), OpenStreetMap planet file of 2026-11-16; pin is the centroid of that outline. Operation not confirmed from a second source. Roles derived: a packaging plant receives resin and ships packaging as general freight."
+        },
+        {
+          "name": "Russell Plywood",
+          "type": "lumber_paper",
+          "lat": 40.32864,
+          "lon": -75.9395,
+          "ships": [
+            "lumber_paper"
+          ],
+          "receives": [
+            "lumber_paper"
+          ],
+          "source_note": "Read: OpenStreetMap way 339671732 (building=industrial, industrial=timber, name Russell Plywood Inc., 401 Old Wyomissing Road), OpenStreetMap planet file of 2026-11-16; pin is the centroid of that outline. Operation not confirmed from a second source. Roles derived: a plywood distributor receives and ships lumber."
+        },
+        {
+          "name": "The Shoppes at Wyomissing",
+          "type": "shopping_mall",
+          "lat": 40.35025,
+          "lon": -75.96531,
+          "ships": [],
+          "receives": [
+            "retail",
+            "general",
+            "food",
+            "refrigerated"
+          ],
+          "source_note": "Read: OpenStreetMap way 260797642 (building=commercial, shop=mall, name The Shoppes at Wyomissing), OpenStreetMap planet file of 2026-11-16; pin is the centroid of that outline. Operation not confirmed from a second source. Roles derived: store deliveries of dry and chilled freight, as the mall type receives; it ships nothing."
+        }
+      ]
+    },
+    "gloucester_ma_us": {
+      "spoken_city": "Gloucester",
+      "state": "MA",
+      "country": "US",
+      "region": "northeast",
+      "lat": 42.61217,
+      "lon": -70.66107,
+      "source_note": "Pin on MA 127 (Rogers Street) by the State Fish Pier on the inner harbor, where the fish trucks load. Position read from OpenStreetMap way 51867135, OpenStreetMap API, read 2026-11-23. Approved by name as a fishing port (missing roads decision 4).",
+      "locations": [
+        {
+          "name": "Gorton's Seafood",
+          "type": "food_processor",
+          "lat": 42.61505,
+          "lon": -70.65607,
+          "ships": [
+            "refrigerated",
+            "food"
+          ],
+          "receives": [
+            "refrigerated",
+            "general"
+          ],
+          "source_note": "Read: OpenStreetMap node 6325686438 (man_made=works, product=food, name Gorton's Seafood), OpenStreetMap planet file of 2026-11-16; pin is that node. Operation not confirmed from a second source. Roles derived: a seafood plant ships chilled and frozen product and receives raw fish and general supplies."
+        },
+        {
+          "name": "Mortillaro's Lobster",
+          "type": "food_processor",
+          "lat": 42.61001,
+          "lon": -70.6644,
+          "ships": [
+            "refrigerated"
+          ],
+          "receives": [
+            "general"
+          ],
+          "source_note": "Read: OpenStreetMap way 675041438 (building=industrial, name Mortillaro's Lobster), OpenStreetMap planet file of 2026-11-16; pin is the centroid of that outline. Operation not confirmed from a second source. Roles derived: a lobster dealer ships chilled product and receives general supplies."
+        },
+        {
+          "name": "Market Basket Gloucester Crossing",
+          "type": "shopping_mall",
+          "lat": 42.62134,
+          "lon": -70.65677,
+          "ships": [],
+          "receives": [
+            "retail",
+            "general",
+            "food",
+            "refrigerated"
+          ],
+          "source_note": "Read: OpenStreetMap way 213327223 (shop=supermarket, brand Market Basket, 101 Gloucester Crossing), OpenStreetMap planet file of 2026-11-16; pin is the centroid of that outline. Operation not confirmed from a second source. Roles derived: store deliveries of dry and chilled freight, as the mall type receives; it ships nothing."
+        }
+      ]
+    },
+    "dubois_pa_us": {
+      "spoken_city": "DuBois",
+      "state": "PA",
+      "country": "US",
+      "region": "appalachia",
+      "lat": 41.12722,
+      "lon": -78.71205,
+      "source_note": "Pin on PA 255 (Bee Line Highway) beside Interstate 80 exit 101 in Sandy Township, so the legs on I-80 and PA 255 leave from one road. Position read from OpenStreetMap way 804498372, OpenStreetMap API, read 2026-11-23. Approved as the I-80 junction city (missing roads decisions 4 and 9).",
+      "locations": [
+        {
+          "name": "DuBois Logistics Warehouse",
+          "type": "dry_warehouse",
+          "lat": 41.12215,
+          "lon": -78.7317,
+          "ships": [
+            "general",
+            "retail"
+          ],
+          "receives": [
+            "general",
+            "retail"
+          ],
+          "source_note": "Read: OpenStreetMap way 648291217 (building=warehouse, name DuBois Logistics, Non-Persihable Warehouse), OpenStreetMap planet file of 2026-11-16; pin is the centroid of that outline. Operation not confirmed from a second source. Roles derived: a dry warehouse ships and receives general and store freight."
+        },
+        {
+          "name": "DuBois Logistics Cold Storage",
+          "type": "cold_storage",
+          "lat": 41.12297,
+          "lon": -78.73688,
+          "ships": [
+            "food",
+            "refrigerated"
+          ],
+          "receives": [
+            "food",
+            "refrigerated"
+          ],
+          "source_note": "Read: OpenStreetMap way 648291216 (building=warehouse, name DuBois Logistics, Redridgerated Warehouse), OpenStreetMap planet file of 2026-11-16; pin is the centroid of that outline. Operation not confirmed from a second source. Roles derived: a refrigerated warehouse ships and receives chilled food."
+        },
+        {
+          "name": "Danone Yogurt Plant",
+          "type": "food_processor",
+          "lat": 41.10645,
+          "lon": -78.73104,
+          "ships": [
+            "refrigerated",
+            "food"
+          ],
+          "receives": [
+            "food",
+            "general"
+          ],
+          "source_note": "Read: OpenStreetMap way 658161801 (building=industrial, man_made=works, product=yougurt, name Danone), OpenStreetMap planet file of 2026-11-16; pin is the centroid of that outline. Operation not confirmed from a second source. Roles derived: a dairy plant ships chilled product and receives ingredients."
+        },
+        {
+          "name": "DuBois Mall",
+          "type": "shopping_mall",
+          "lat": 41.1203,
+          "lon": -78.72617,
+          "ships": [],
+          "receives": [
+            "retail",
+            "general",
+            "food",
+            "refrigerated"
+          ],
+          "source_note": "Read: OpenStreetMap way 539274585 (shop=mall, name DuBois Mall), OpenStreetMap planet file of 2026-11-16; pin is the centroid of that outline. Operation not confirmed from a second source. Roles derived: store deliveries of dry and chilled freight, as the mall type receives; it ships nothing."
+        }
+      ]
+    },
+    "elmira_ny_us": {
+      "spoken_city": "Elmira",
+      "state": "NY",
+      "country": "US",
+      "region": "northeast",
+      "lat": 42.08988,
+      "lon": -76.80814,
+      "source_note": "Pin downtown on NY 352 (West Church Street) at North Main Street, a mile north of the Southern Tier Expressway. Position read from OpenStreetMap way 20053434, OpenStreetMap API, read 2026-11-23. Approved as an unreached urban area of 62,468 people (missing roads decision 9).",
+      "locations": [
+        {
+          "name": "CAF USA Railcar Plant",
+          "type": "manufacturing_plant",
+          "lat": 42.13347,
+          "lon": -76.82333,
+          "ships": [
+            "machinery"
+          ],
+          "receives": [
+            "steel",
+            "machinery",
+            "electronics"
+          ],
+          "source_note": "Read: OpenStreetMap way 705859999 (landuse=industrial, industrial=railway, name CAF USA, Incorporated), OpenStreetMap planet file of 2026-11-16; pin is the centroid of that outline. Operation not confirmed from a second source. Roles derived: a railcar plant receives steel and parts and ships machinery."
+        },
+        {
+          "name": "Motor Components",
+          "type": "manufacturing_plant",
+          "lat": 42.13302,
+          "lon": -76.82871,
+          "ships": [
+            "automotive",
+            "general"
+          ],
+          "receives": [
+            "steel",
+            "general"
+          ],
+          "source_note": "Read: OpenStreetMap way 1207482358 (building=warehouse, name Motor Components, LLC), OpenStreetMap planet file of 2026-11-16; pin is the centroid of that outline. Operation not confirmed from a second source. Roles derived: a parts plant receives steel and ships vehicle parts."
+        },
+        {
+          "name": "Wegmans Elmira",
+          "type": "shopping_mall",
+          "lat": 42.10572,
+          "lon": -76.80903,
+          "ships": [],
+          "receives": [
+            "retail",
+            "general",
+            "food",
+            "refrigerated"
+          ],
+          "source_note": "Read: OpenStreetMap node 8796811935 (shop=supermarket, brand Wegmans, 1100 Clemens Center Parkway), OpenStreetMap planet file of 2026-11-16; pin is that node. Operation not confirmed from a second source. Roles derived: store deliveries of dry and chilled freight, as the mall type receives; it ships nothing."
+        }
+      ]
+    },
+    "hanover_pa_us": {
+      "spoken_city": "Hanover",
+      "state": "PA",
+      "country": "US",
+      "region": "northeast",
+      "lat": 39.80048,
+      "lon": -76.98327,
+      "source_note": "Pin on Center Square, where PA 94 (Carlisle and Baltimore Streets) meets PA 116. Position read from OpenStreetMap way 6703564, OpenStreetMap API, read 2026-11-23. Approved as an unreached urban area of 56,712 people (missing roads decision 9).",
+      "locations": [
+        {
+          "name": "Utz Quality Foods",
+          "type": "food_processor",
+          "lat": 39.80995,
+          "lon": -77.00648,
+          "ships": [
+            "food"
+          ],
+          "receives": [
+            "food",
+            "general"
+          ],
+          "source_note": "Read: OpenStreetMap way 37890799 (building=warehouse, name Utz Quality Foods), OpenStreetMap planet file of 2026-11-16; pin is the centroid of that outline. Operation not confirmed from a second source. Roles derived: a snack plant ships packaged food and receives ingredients."
+        },
+        {
+          "name": "Snyder's of Hanover",
+          "type": "food_processor",
+          "lat": 39.80614,
+          "lon": -76.95163,
+          "ships": [
+            "food"
+          ],
+          "receives": [
+            "food",
+            "general"
+          ],
+          "source_note": "Read: OpenStreetMap way 175366450 (man_made=works, product=food, name Snyder's of Hanover, 1350 York Street), OpenStreetMap planet file of 2026-11-16; pin is the centroid of that outline. Operation not confirmed from a second source. Roles derived: a snack plant ships packaged food and receives ingredients."
+        },
+        {
+          "name": "Hanover Terminal",
+          "type": "dry_warehouse",
+          "lat": 39.80562,
+          "lon": -76.96356,
+          "ships": [
+            "general",
+            "retail"
+          ],
+          "receives": [
+            "general",
+            "retail"
+          ],
+          "source_note": "Read: OpenStreetMap way 539322252 (building=warehouse, name Hanover Terminal, 201 Center Street), OpenStreetMap planet file of 2026-11-16; pin is the centroid of that outline. Operation not confirmed from a second source. Roles derived: a warehouse ships and receives general and store freight."
+        },
+        {
+          "name": "North Hanover Mall",
+          "type": "shopping_mall",
+          "lat": 39.82184,
+          "lon": -76.99408,
+          "ships": [],
+          "receives": [
+            "retail",
+            "general",
+            "food",
+            "refrigerated"
+          ],
+          "source_note": "Read: OpenStreetMap way 420919921 (shop=mall, name North Hanover Mall), OpenStreetMap planet file of 2026-11-16; pin is the centroid of that outline. Operation not confirmed from a second source. Roles derived: store deliveries of dry and chilled freight, as the mall type receives; it ships nothing."
+        }
+      ]
+    },
+    "ithaca_ny_us": {
+      "spoken_city": "Ithaca",
+      "state": "NY",
+      "country": "US",
+      "region": "northeast",
+      "lat": 42.43844,
+      "lon": -76.5051,
+      "source_note": "Pin downtown on NY 79 (West Green Street) by NY 13. Position read from OpenStreetMap way 603889675, OpenStreetMap API, read 2026-11-23. Approved as an unreached urban area of 59,102 people (missing roads decision 9).",
+      "locations": [
+        {
+          "name": "Wegmans Ithaca",
+          "type": "shopping_mall",
+          "lat": 42.43584,
+          "lon": -76.51047,
+          "ships": [],
+          "receives": [
+            "retail",
+            "general",
+            "food",
+            "refrigerated"
+          ],
+          "source_note": "Read: OpenStreetMap way 91019970 (shop=supermarket, brand Wegmans, 500 South Meadow Street), OpenStreetMap planet file of 2026-11-16; pin is the centroid of that outline. Operation not confirmed from a second source. Roles derived: store deliveries of dry and chilled freight, as the mall type receives; it ships nothing."
+        },
+        {
+          "name": "Ithaca Shopping Plaza",
+          "type": "shopping_mall",
+          "lat": 42.42997,
+          "lon": -76.50696,
+          "ships": [],
+          "receives": [
+            "retail",
+            "general",
+            "food",
+            "refrigerated"
+          ],
+          "source_note": "Read: OpenStreetMap way 107649600 (shop=mall, name Ithaca Shopping Plaza, 222 Elmira Road), OpenStreetMap planet file of 2026-11-16; pin is the centroid of that outline. Operation not confirmed from a second source. Roles derived: store deliveries of dry and chilled freight, as the mall type receives; it ships nothing."
+        }
+      ]
+    },
+    "johnstown_pa_us": {
+      "spoken_city": "Johnstown",
+      "state": "PA",
+      "country": "US",
+      "region": "appalachia",
+      "lat": 40.32615,
+      "lon": -78.92487,
+      "source_note": "Pin downtown on PA 56 and PA 403 (Johns Street). Position read from OpenStreetMap way 55907724, OpenStreetMap API, read 2026-11-23. Approved as an unreached urban area of 61,521 people (missing roads decision 9).",
+      "locations": [
+        {
+          "name": "Johnstown Wire Technologies",
+          "type": "steel_industrial",
+          "lat": 40.34979,
+          "lon": -78.94113,
+          "ships": [
+            "steel"
+          ],
+          "receives": [
+            "steel"
+          ],
+          "source_note": "Read: OpenStreetMap node 6767458172 (man_made=works, name Johnstown Wire Technologies), OpenStreetMap planet file of 2026-11-16; pin is that node. Operation not confirmed from a second source. Roles derived: a wire mill receives steel rod and ships wire as steel freight."
+        },
+        {
+          "name": "Johnstown Specialty Castings",
+          "type": "steel_industrial",
+          "lat": 40.29861,
+          "lon": -78.91249,
+          "ships": [
+            "steel",
+            "machinery"
+          ],
+          "receives": [
+            "steel",
+            "bulk"
+          ],
+          "source_note": "Read: OpenStreetMap node 6778447381 (man_made=works, name Johnstown Specialty Castings), OpenStreetMap planet file of 2026-11-16; pin is that node. Operation not confirmed from a second source. Roles derived: a foundry receives scrap and ships castings."
+        },
+        {
+          "name": "Bel Air Plaza",
+          "type": "shopping_mall",
+          "lat": 40.28591,
+          "lon": -78.86682,
+          "ships": [],
+          "receives": [
+            "retail",
+            "general",
+            "food",
+            "refrigerated"
+          ],
+          "source_note": "Read: OpenStreetMap way 856223063 (landuse=retail, name Bel Air Plaza), OpenStreetMap planet file of 2026-11-16; pin is the centroid of that outline. Operation not confirmed from a second source. Roles derived: store deliveries of dry and chilled freight, as the mall type receives; it ships nothing."
+        }
+      ]
+    },
+    "lexington_park_md_us": {
+      "spoken_city": "Lexington Park",
+      "state": "MD",
+      "country": "US",
+      "region": "northeast",
+      "lat": 38.26584,
+      "lon": -76.45228,
+      "source_note": "Pin on MD 235 (Three Notch Road) at MD 246 (Great Mills Road), the main road through Lexington Park outside Naval Air Station Patuxent River. Position read from OpenStreetMap way 1531559415, OpenStreetMap API, read 2026-11-23. Approved as an unreached urban area of 62,352 people (missing roads decision 9).",
+      "locations": [
+        {
+          "name": "St. Mary's Square",
+          "type": "shopping_mall",
+          "lat": 38.25923,
+          "lon": -76.4652,
+          "ships": [],
+          "receives": [
+            "retail",
+            "general",
+            "food",
+            "refrigerated"
+          ],
+          "source_note": "Read: OpenStreetMap way 48255479 (landuse=retail, name St Marys Square), OpenStreetMap planet file of 2026-11-16; pin is the centroid of that outline. Operation not confirmed from a second source. Roles derived: store deliveries of dry and chilled freight, as the mall type receives; it ships nothing."
+        },
+        {
+          "name": "Walmart Supercenter",
+          "type": "shopping_mall",
+          "lat": 38.29292,
+          "lon": -76.5031,
+          "ships": [],
+          "receives": [
+            "retail",
+            "general",
+            "food",
+            "refrigerated"
+          ],
+          "source_note": "Read: OpenStreetMap way 47916363 (shop=supermarket, brand Walmart, 45485 Miramar Way), OpenStreetMap planet file of 2026-11-16; pin is the centroid of that outline. Operation not confirmed from a second source. Roles derived: store deliveries of dry and chilled freight, as the mall type receives; it ships nothing."
+        }
+      ]
+    },
+    "pittsfield_ma_us": {
+      "spoken_city": "Pittsfield",
+      "state": "MA",
+      "country": "US",
+      "region": "northeast",
+      "lat": 42.44983,
+      "lon": -73.25362,
+      "source_note": "Pin downtown on North Street at Depot Street, by Park Square where US 7 and US 20 cross. Position read from OpenStreetMap way 1384015750, OpenStreetMap API, read 2026-11-23. Approved as an unreached urban area of 50,720 people (missing roads decision 9).",
+      "locations": [
+        {
+          "name": "General Dynamics Pittsfield",
+          "type": "manufacturing_plant",
+          "lat": 42.45805,
+          "lon": -73.21372,
+          "ships": [
+            "electronics",
+            "machinery"
+          ],
+          "receives": [
+            "electronics",
+            "steel",
+            "general"
+          ],
+          "source_note": "Read: OpenStreetMap way 707255000 (landuse=industrial, name General Dynamics), OpenStreetMap planet file of 2026-11-16; pin is the centroid of that outline. Operation not confirmed from a second source. Roles derived: a defence electronics plant receives parts and ships electronics and machinery."
+        },
+        {
+          "name": "Big Y Pittsfield",
+          "type": "shopping_mall",
+          "lat": 42.44857,
+          "lon": -73.25975,
+          "ships": [],
+          "receives": [
+            "retail",
+            "general",
+            "food",
+            "refrigerated"
+          ],
+          "source_note": "Read: OpenStreetMap way 215700883 (shop=supermarket, brand Big Y, 200 West Street), OpenStreetMap planet file of 2026-11-16; pin is the centroid of that outline. Operation not confirmed from a second source. Roles derived: store deliveries of dry and chilled freight, as the mall type receives; it ships nothing."
+        },
+        {
+          "name": "The Shops at Unkamet Brook",
+          "type": "shopping_mall",
+          "lat": 42.46574,
+          "lon": -73.20567,
+          "ships": [],
+          "receives": [
+            "retail",
+            "general",
+            "food",
+            "refrigerated"
+          ],
+          "source_note": "Read: OpenStreetMap way 30632569 (landuse=retail, name The Shops at Unkamet Brook), OpenStreetMap planet file of 2026-11-16; pin is the centroid of that outline. Operation not confirmed from a second source. Roles derived: store deliveries of dry and chilled freight, as the mall type receives; it ships nothing."
+        }
+      ]
+    },
+    "riverhead_ny_us": {
+      "spoken_city": "Riverhead",
+      "state": "NY",
+      "country": "US",
+      "region": "northeast",
+      "lat": 40.92624,
+      "lon": -72.69159,
+      "source_note": "Pin on County Road 58 (Old Country Road), the truck route from the east end of the Long Island Expressway into Riverhead. Position read from OpenStreetMap way 1308939755, OpenStreetMap API, read 2026-11-23. Approved as an unreached urban area of 51,120 people (missing roads decision 9).",
+      "locations": [
+        {
+          "name": "Frito-Lay Riverhead",
+          "type": "distribution",
+          "lat": 40.92149,
+          "lon": -72.68117,
+          "ships": [
+            "food"
+          ],
+          "receives": [
+            "food"
+          ],
+          "source_note": "Read: OpenStreetMap way 463001644 (building=warehouse, name FritoLay, 82 Columbus Avenue), OpenStreetMap planet file of 2026-11-16; pin is the centroid of that outline. Operation not confirmed from a second source. Roles derived: a snack distribution warehouse receives and ships packaged food."
+        },
+        {
+          "name": "Berry Specialty Tapes",
+          "type": "manufacturing_plant",
+          "lat": 40.92607,
+          "lon": -72.70976,
+          "ships": [
+            "general"
+          ],
+          "receives": [
+            "chemicals",
+            "general"
+          ],
+          "source_note": "Read: OpenStreetMap way 463326688 (building=industrial, name Berry Specialty Tapes, 1852 Old Country Road), OpenStreetMap planet file of 2026-11-16; pin is the centroid of that outline. Operation not confirmed from a second source. Roles derived: a tape plant receives resin and adhesives and ships general freight."
+        },
+        {
+          "name": "Suffolk Precast",
+          "type": "construction_materials_yard",
+          "lat": 40.92519,
+          "lon": -72.72378,
+          "ships": [
+            "construction"
+          ],
+          "receives": [
+            "construction",
+            "bulk",
+            "steel"
+          ],
+          "source_note": "Read: OpenStreetMap way 463327431 (building=industrial, name Suffolk Precast, 1813 Middle Road), OpenStreetMap planet file of 2026-11-16; pin is the centroid of that outline. Operation not confirmed from a second source. Roles derived: a precast yard receives cement, aggregate and rebar and ships concrete products."
+        },
+        {
+          "name": "Riverhead Centre",
+          "type": "shopping_mall",
+          "lat": 40.92737,
+          "lon": -72.69436,
+          "ships": [],
+          "receives": [
+            "retail",
+            "general",
+            "food",
+            "refrigerated"
+          ],
+          "source_note": "Read: OpenStreetMap way 190405158 (landuse=retail, name Riverhead Centre), OpenStreetMap planet file of 2026-11-16; pin is the centroid of that outline. Operation not confirmed from a second source. Roles derived: store deliveries of dry and chilled freight, as the mall type receives; it ships nothing."
+        }
+      ]
+    },
+    "cranberry_township_pa_us": {
+      "spoken_city": "Cranberry Township",
+      "state": "PA",
+      "country": "US",
+      "region": "appalachia",
+      "lat": 40.68269,
+      "lon": -80.10085,
+      "source_note": "Pin on US 19 (Perry Highway) beside Pennsylvania Turnpike exit 28, two miles from Interstate 79 exit 76, so a truck turns onto either road. Position read from OpenStreetMap way 1034098034, OpenStreetMap API, read 2026-11-23. Approved by name as the junction for the Ohio and Pennsylvania Turnpikes west of Pittsburgh (missing roads decision 9).",
+      "locations": [
+        {
+          "name": "United Stationers Cranberry",
+          "type": "distribution",
+          "lat": 40.67641,
+          "lon": -80.10818,
+          "ships": [
+            "general",
+            "retail"
+          ],
+          "receives": [
+            "general",
+            "retail"
+          ],
+          "source_note": "Read: OpenStreetMap way 185617858 (building=industrial, name United Stationers Supply), OpenStreetMap planet file of 2026-11-16; pin is the centroid of that outline. Operation not confirmed from a second source. Roles derived: an office supply distribution centre ships and receives general and store freight."
+        },
+        {
+          "name": "Cardinal Health Cranberry",
+          "type": "distribution",
+          "lat": 40.67108,
+          "lon": -80.10798,
+          "ships": [
+            "general",
+            "refrigerated"
+          ],
+          "receives": [
+            "general",
+            "refrigerated"
+          ],
+          "source_note": "Read: OpenStreetMap way 272969316 (building=industrial, name Cardinal Health), OpenStreetMap planet file of 2026-11-16; pin is the centroid of that outline. Operation not confirmed from a second source. Roles derived: a medical supply distribution centre ships and receives general and chilled freight."
+        },
+        {
+          "name": "Cranberry Mall",
+          "type": "shopping_mall",
+          "lat": 40.68374,
+          "lon": -80.10403,
+          "ships": [],
+          "receives": [
+            "retail",
+            "general",
+            "food",
+            "refrigerated"
+          ],
+          "source_note": "Read: OpenStreetMap relation 7276490 (landuse=retail, name Cranberry Mall), OpenStreetMap planet file of 2026-11-16; pin is the centroid of that outline. Operation not confirmed from a second source. Roles derived: store deliveries of dry and chilled freight, as the mall type receives; it ships nothing."
+        }
+      ]
+    },
+    "pascagoula_ms_us": {
+      "spoken_city": "Pascagoula",
+      "state": "MS",
+      "country": "US",
+      "region": "gulf_coast",
+      "lat": 30.37083,
+      "lon": -88.54927,
+      "source_note": "Pin on US 90 (Denny Avenue, hgv=designated) at Market Street, the road down to the Pascagoula River harbor and Ingalls Shipbuilding, read from OpenStreetMap way 840525623 (OpenStreetMap planet file of 2026-11-16); the Census Bureau 2023 Gazetteer place point (30.36007, -88.55633) is 0.8 miles south in a neighbourhood. Pascagoula stands for the Port of Pascagoula (26.6 million tons, US Army Corps of Engineers principal ports list), approved by name (missing roads decision 9, 2026-11-22). Region gulf_coast, as Gulfport and Mobile.",
+      "locations": [
+        {
+          "name": "Chevron Pascagoula Refinery",
+          "type": "chemical_petroleum_terminal",
+          "lat": 30.34112,
+          "lon": -88.48873,
+          "ships": [
+            "fuel_bulk",
+            "chemicals"
+          ],
+          "receives": [
+            "chemicals",
+            "machinery"
+          ],
+          "source_note": "Read: OpenStreetMap way 25486964 (landuse=industrial, industrial=refinery, operator Chevron, name Pascagoula Refinery), OpenStreetMap planet file of 2026-11-16. Chevron's 2024 refinery fact sheet gives 250 Industrial Road, Pascagoula, and about 369,000 barrels a day of crude made into gasoline, jet fuel and diesel, with base oils and chemicals (https://pascagoula.chevron.com/-/media/pascagoula/home-page/documents/cpr-factsheet-2024.pdf, dated 5/24, read 2026-11-23). Roles derived: a refinery loads fuel and chemical tankers and takes in process chemicals and plant parts."
+        },
+        {
+          "name": "Ingalls Shipbuilding",
+          "type": "manufacturing_plant",
+          "lat": 30.35928,
+          "lon": -88.57045,
+          "ships": [
+            "machinery"
+          ],
+          "receives": [
+            "steel",
+            "machinery",
+            "general"
+          ],
+          "source_note": "Read: OpenStreetMap way 244343830 (landuse=industrial, industrial=shipyard, operator Huntington Ingalls Industries, name Ingalls Shipbuilding), OpenStreetMap planet file of 2026-11-16. Huntington Ingalls Industries' Ingalls fact sheet says the yard builds Navy destroyers and amphibious ships and Coast Guard cutters and employs more than 11,000 people (https://hii.com/ingalls-fact-sheet, read 2026-11-23). Roles derived: a shipyard takes in steel plate, machinery and stores, and sends out machinery for repair and outfitting."
+        },
+        {
+          "name": "Omega Protein Moss Point",
+          "type": "food_processor",
+          "lat": 30.43012,
+          "lon": -88.51176,
+          "ships": [
+            "food",
+            "bulk"
+          ],
+          "receives": [
+            "general"
+          ],
+          "source_note": "Read: OpenStreetMap way 910632541 (man_made=works, industrial=food_industry, product animal_nutrition, name Omega Protein Processing), OpenStreetMap planet file of 2026-11-16; The Outlaw Ocean Project lists the Omega Protein Moss Point plant at 5735 Elder Ferry Road, Moss Point, as a fishmeal factory (https://baittoplate.theoutlawocean.com/plants/omega-protein-inc-moss-point-plant/e197b937-372a-493f-b140-34d3266431ce, read 2026-11-23). Roles derived: a menhaden plant ships fish meal in bulk and fish oil as food product, and takes in packaging and supplies."
+        },
+        {
+          "name": "Walmart Supercenter Pascagoula",
+          "type": "shopping_mall",
+          "lat": 30.38677,
+          "lon": -88.51866,
+          "ships": [],
+          "receives": [
+            "retail",
+            "general",
+            "food",
+            "refrigerated"
+          ],
+          "source_note": "Read: OpenStreetMap way 139198227 (brand Walmart, 4253 Denny Avenue, Pascagoula), on US 90, OpenStreetMap planet file of 2026-11-16; pin is the centroid of that outline. Roles derived: store deliveries of dry and chilled freight, as the store type receives; it ships nothing."
+        }
+      ]
+    },
+    "beaufort_sc_us": {
+      "spoken_city": "Beaufort",
+      "state": "SC",
+      "country": "US",
+      "region": "atlantic_southeast",
+      "lat": 32.42751,
+      "lon": -80.72712,
+      "source_note": "Pin on US 21 (Parris Island Gateway) where SC 170 (Robert Smalls Parkway) leaves it for Savannah, beside the town's shopping centres, read from OpenStreetMap way 1353006085 (OpenStreetMap planet file of 2026-11-16); the Census 2020 urban area point (2023 Gazetteer, 32.43055, -80.71465) is 0.8 miles east in a neighbourhood. Approved as an unreached urban area of 52,515 people (missing roads decision 9, 2026-11-22). Region atlantic_southeast, as Charleston and Savannah.",
+      "locations": [
+        {
+          "name": "Walmart Supercenter Beaufort",
+          "type": "shopping_mall",
+          "lat": 32.4253,
+          "lon": -80.73418,
+          "ships": [],
+          "receives": [
+            "retail",
+            "general",
+            "food",
+            "refrigerated"
+          ],
+          "source_note": "Read: OpenStreetMap way 1144989223 (brand Walmart, 350 Robert Smalls Parkway, Beaufort), OpenStreetMap planet file of 2026-11-16; pin is the centroid of that outline. Roles derived: store deliveries of dry and chilled freight, as the store type receives; it ships nothing."
+        },
+        {
+          "name": "Lowe's Beaufort",
+          "type": "shopping_mall",
+          "lat": 32.42795,
+          "lon": -80.71776,
+          "ships": [],
+          "receives": [
+            "construction",
+            "lumber_paper",
+            "general"
+          ],
+          "source_note": "Read: OpenStreetMap node 365789101 (brand Lowe's, 207 Robert Smalls Parkway, Beaufort), OpenStreetMap planet file of 2026-11-16. Roles derived: a home improvement store takes in building materials, lumber and general goods; it ships nothing."
+        },
+        {
+          "name": "Norman USA Beaufort",
+          "type": "distribution",
+          "lat": 32.46306,
+          "lon": -80.76734,
+          "ships": [
+            "general",
+            "retail"
+          ],
+          "receives": [
+            "general",
+            "retail"
+          ],
+          "source_note": "Read: Norman USA, a maker and distributor of window treatments, leases half of the spec building at 74 Schein Loop in the Beaufort Commerce Park for its first East Coast distribution site (The Island Packet, via AOL News, https://www.aol.com/news/2-companies-moving-beaufort-commerce-191524381.html, undated, read 2026-11-23); the park is at US 21 and SC 116 (SouthernCarolina Alliance, https://southerncarolina.org/properties/details/beaufort-commerce-park, read 2026-11-23). Pin derived: a vertex of Schein Loop, OpenStreetMap way 12126480 (OpenStreetMap planet file of 2026-11-16); the building itself is not mapped. Roles derived: a distribution centre takes in and ships packaged goods."
+        }
+      ]
+    },
+    "denton_tx_us": {
+      "spoken_city": "Denton",
+      "state": "TX",
+      "country": "US",
+      "region": "southern_plains",
+      "lat": 33.21546,
+      "lon": -97.16868,
+      "source_note": "Pin on West Oak Street where it crosses the Interstate 35 frontage road beside the interchange where I-35 splits into I-35E and I-35W (the two motorways meet at 33.21431, -97.16838), so legs south on either branch, north on I-35 and east and west on US 380 leave from one corner. Position read from the West Oak Street way, OpenStreetMap planet file of 2026-11-16. Approved by name for the I-35E and I-35W junction (missing roads decision 4); region southern_plains.",
+      "locations": [
+        {
+          "name": "Peterbilt Motors Denton Plant",
+          "type": "automotive_plant",
+          "lat": 33.20248,
+          "lon": -97.17526,
+          "ships": [
+            "machinery"
+          ],
+          "receives": [
+            "steel",
+            "machinery",
+            "general"
+          ],
+          "source_note": "Read: Peterbilt assembles trucks at its Denton, Texas plant and marked its 750,000th truck built there (Fleet Equipment, https://www.fleetequipmentmag.com/peterbilt-marks-750000-trucks-assembled-at-denton-facility/, listed 2026-11-23). Position read from OpenStreetMap way 524256053 (Peterbilt Motors Co Manufacturing, 3200 Airport Road), OpenStreetMap planet file of 2026-11-16. Roles derived: a truck plant ships finished trucks and parts and receives steel, components and supplies."
+        },
+        {
+          "name": "Tetra Pak Denton",
+          "type": "manufacturing_plant",
+          "lat": 33.20265,
+          "lon": -97.18115,
+          "ships": [
+            "general"
+          ],
+          "receives": [
+            "lumber_paper",
+            "chemicals"
+          ],
+          "source_note": "Read: OpenStreetMap way 524256387 (building=industrial, name Tetra Pak Inc, 3300 Airport Road, Denton), OpenStreetMap planet file of 2026-11-16; not confirmed from a second source. Roles derived: a carton packaging plant receives paperboard and polymer and ships packaging material."
+        },
+        {
+          "name": "Golden Triangle Mall",
+          "type": "shopping_mall",
+          "lat": 33.19047,
+          "lon": -97.10845,
+          "ships": [],
+          "receives": [
+            "food",
+            "retail",
+            "refrigerated",
+            "general"
+          ],
+          "source_note": "Read: OpenStreetMap way 491346393 (landuse=retail, name Golden Triangle Mall, 2201 South Interstate 35E, Denton), OpenStreetMap planet file of 2026-11-16; pin is the centroid of that outline. Roles derived: store deliveries of dry and chilled freight, as the mall type receives; it ships nothing."
+        }
+      ]
+    },
+    "galveston_tx_us": {
+      "spoken_city": "Galveston",
+      "state": "TX",
+      "country": "US",
+      "region": "gulf_coast",
+      "lat": 29.30191,
+      "lon": -94.81359,
+      "source_note": "Pin on Harborside Drive (TX 275) at the Port of Galveston, where I-45 traffic reaches the wharves; position read from OpenStreetMap way 61343958, OpenStreetMap planet file of 2026-11-16. The list's port point (NOAA principal ports) is 0.6 mi east on the water; the Census place point is 15 mi away on the west end of the island. Approved by name for the Port of Galveston, standing for Texas City (missing roads decisions 4 and 9); region gulf_coast.",
+      "locations": [
+        {
+          "name": "Port of Galveston",
+          "type": "port",
+          "lat": 29.30666,
+          "lon": -94.8117,
+          "ships": [
+            "general",
+            "bulk",
+            "refrigerated"
+          ],
+          "receives": [
+            "general",
+            "bulk",
+            "machinery"
+          ],
+          "source_note": "Read: OpenStreetMap way 277043291 (landuse=harbour, name Port of Galveston), OpenStreetMap planet file of 2026-11-16; Galveston is a US Army Corps of Engineers principal port (NOAA Office for Coastal Management principal ports layer). Roles derived: a general cargo port ships and receives general, bulk and chilled cargo across its wharves on Harborside Drive."
+        },
+        {
+          "name": "Walmart Supercenter Galveston",
+          "type": "retail_distribution",
+          "lat": 29.26475,
+          "lon": -94.83328,
+          "ships": [],
+          "receives": [
+            "food",
+            "retail",
+            "refrigerated",
+            "general"
+          ],
+          "source_note": "Read: OpenStreetMap way 353307233 (shop=supermarket, operator Walmart, store 504, 6702 Seawall Boulevard, Galveston), OpenStreetMap planet file of 2026-11-16. Roles derived: a big box store receives dry and chilled freight and ships nothing."
+        }
+      ]
+    },
+    "freeport_tx_us": {
+      "spoken_city": "Freeport",
+      "state": "TX",
+      "country": "US",
+      "region": "gulf_coast",
+      "lat": 28.94745,
+      "lon": -95.34516,
+      "source_note": "Pin on FM 1495 (Pine Street) at the TX 36 and TX 288 approach to Port Freeport's Velasco terminal; position read from OpenStreetMap way 20733437, OpenStreetMap planet file of 2026-11-16. Approved by name for Port Freeport, standing for Lake Jackson (missing roads decision 4); region gulf_coast.",
+      "locations": [
+        {
+          "name": "Port Freeport",
+          "type": "port",
+          "lat": 28.94542,
+          "lon": -95.33441,
+          "ships": [
+            "container",
+            "general"
+          ],
+          "receives": [
+            "container",
+            "general",
+            "machinery",
+            "steel"
+          ],
+          "source_note": "Read: OpenStreetMap area 2204635108 (landuse=industrial, industrial=port, name Port of Freeport), OpenStreetMap planet file of 2026-11-16; Port Freeport is a US Army Corps of Engineers principal port (21.1 million tons, missing roads region list). Roles derived: a container and general cargo port ships and receives boxes, general cargo and project steel."
+        },
+        {
+          "name": "Chiquita Fruit Terminal Freeport",
+          "type": "food_terminal",
+          "lat": 28.94212,
+          "lon": -95.33829,
+          "ships": [
+            "refrigerated",
+            "food"
+          ],
+          "receives": [
+            "general"
+          ],
+          "source_note": "Read: OpenStreetMap area 2204635104 (landuse=industrial, name Chiquita Fruit Terminal) inside Port Freeport, OpenStreetMap planet file of 2026-11-16; not confirmed from a second source. Roles derived: a fruit import terminal ships chilled produce and receives general supplies."
+        },
+        {
+          "name": "Dow Freeport Plant A",
+          "type": "chemical_petroleum_terminal",
+          "lat": 28.94293,
+          "lon": -95.324,
+          "ships": [
+            "chemicals"
+          ],
+          "receives": [
+            "chemicals",
+            "machinery"
+          ],
+          "source_note": "Read: OpenStreetMap area 2178702724 (landuse=industrial, industrial=chemical, name DOW Plant A), OpenStreetMap planet file of 2026-11-16. Roles derived: a chemical plant ships packaged and bulk chemicals and receives feedstock chemicals and plant parts."
+        },
+        {
+          "name": "Kroger Lake Jackson",
+          "type": "retail_distribution",
+          "lat": 29.03826,
+          "lon": -95.42111,
+          "ships": [],
+          "receives": [
+            "food",
+            "retail",
+            "refrigerated",
+            "general"
+          ],
+          "source_note": "Read: OpenStreetMap area 1088042034 (shop=supermarket, brand Kroger) in Lake Jackson, 7.6 mi from the pin, OpenStreetMap planet file of 2026-11-16. Freeport stands for Lake Jackson. Roles derived: a supermarket receives dry and chilled freight and ships nothing."
+        }
+      ]
+    },
+    "port_fourchon_la_us": {
+      "spoken_city": "Port Fourchon",
+      "state": "LA",
+      "country": "US",
+      "region": "gulf_coast",
+      "lat": 29.12528,
+      "lon": -90.20664,
+      "source_note": "Pin on N.J. Theriot Road in Port Fourchon, the port's through road at the end of LA 3090; position read from OpenStreetMap way 12667091, OpenStreetMap planet file of 2026-11-16. Approved by name for Port Fourchon, the Gulf oil service port (missing roads decision 4); region gulf_coast.",
+      "locations": [
+        {
+          "name": "C-Port 1 Port Fourchon",
+          "type": "port_terminal",
+          "lat": 29.13001,
+          "lon": -90.21644,
+          "ships": [
+            "general",
+            "machinery"
+          ],
+          "receives": [
+            "general",
+            "machinery",
+            "steel",
+            "food"
+          ],
+          "source_note": "Read: OpenStreetMap area 645084032 (landuse=industrial, name C-Port 1), Port Fourchon, OpenStreetMap planet file of 2026-11-16; not confirmed from a second source. Roles derived: an offshore supply base receives the general freight, groceries, pipe and equipment that boats carry out to the rigs, and ships returned equipment."
+        },
+        {
+          "name": "Halliburton Port Fourchon",
+          "type": "chemical_petroleum_terminal",
+          "lat": 29.12548,
+          "lon": -90.21472,
+          "ships": [],
+          "receives": [
+            "chemicals",
+            "machinery",
+            "bulk"
+          ],
+          "source_note": "Read: OpenStreetMap way 322541772 (landuse=industrial, name Halliburton), Port Fourchon, OpenStreetMap planet file of 2026-11-16; not confirmed from a second source. Roles derived: an oilfield service yard receives drilling chemicals, bulk material and equipment."
+        }
+      ]
+    },
+    "point_comfort_tx_us": {
+      "spoken_city": "Point Comfort",
+      "state": "TX",
+      "country": "US",
+      "region": "gulf_coast",
+      "lat": 28.67478,
+      "lon": -96.55862,
+      "source_note": "Pin on TX 35 at Point Comfort, between the Lavaca Bay causeway from Port Lavaca and FM 1593 to the Formosa Plastics plant and the port docks; position read from OpenStreetMap way 109212533, OpenStreetMap planet file of 2026-11-16. The list's port point sits in Lavaca Bay. Approved by name (missing roads decision 9) for the Port of Port Lavaca-Point Comfort, a principal port (11,821,386 tons); region gulf_coast.",
+      "locations": [
+        {
+          "name": "Formosa Plastics Point Comfort",
+          "type": "chemical_petroleum_terminal",
+          "lat": 28.701,
+          "lon": -96.53655,
+          "ships": [
+            "chemicals"
+          ],
+          "receives": [
+            "chemicals",
+            "machinery"
+          ],
+          "source_note": "Read: OpenStreetMap way 1094110478 (landuse=industrial, industrial=chemical, name Formosa Plastics), OpenStreetMap planet file of 2026-11-16, with the Formosa cogeneration plant (way 515589171) beside it. Roles derived: a plastics plant ships resin and chemicals and receives feedstock chemicals and plant parts."
+        },
+        {
+          "name": "Walmart Supercenter Port Lavaca",
+          "type": "retail_distribution",
+          "lat": 28.63227,
+          "lon": -96.62759,
+          "ships": [],
+          "receives": [
+            "food",
+            "retail",
+            "refrigerated",
+            "general"
+          ],
+          "source_note": "Read: OpenStreetMap area 1247910318 (shop=supermarket, operator Walmart, store 1098) in Port Lavaca across the causeway, 4.6 mi from the pin, OpenStreetMap planet file of 2026-11-16. Roles derived: a big box store receives dry and chilled freight and ships nothing."
+        }
+      ]
+    },
+    "venice_la_us": {
+      "spoken_city": "Venice",
+      "state": "LA",
+      "country": "US",
+      "region": "gulf_coast",
+      "lat": 29.27952,
+      "lon": -89.35954,
+      "source_note": "Pin on LA 23 in Venice, near the end of the highway at the Venice fishing and oil service docks; position read from OpenStreetMap way 52870658, OpenStreetMap planet file of 2026-11-16. The list's point (NOAA Empire-Venice fishing port) is at Empire, 18 mi up LA 23; the director approved pinning Venice itself (2026-11-23). Approved under its class as an unreached top-20 fishing port (NOAA Fisheries of the United States 2023); region gulf_coast.",
+      "locations": [
+        {
+          "name": "Curlew Midstream Venice Terminal",
+          "type": "port_terminal",
+          "lat": 29.28723,
+          "lon": -89.36503,
+          "ships": [
+            "fuel_bulk"
+          ],
+          "receives": [
+            "general",
+            "machinery"
+          ],
+          "source_note": "Read: OpenStreetMap area 36582185 (landuse=industrial, industrial=port, name Curlew Midstream Terminal), Venice, OpenStreetMap planet file of 2026-11-16; not confirmed from a second source. Roles derived: a river terminal ships bulk liquids and receives general supplies and equipment."
+        },
+        {
+          "name": "Halliburton Venice",
+          "type": "chemical_petroleum_terminal",
+          "lat": 29.25376,
+          "lon": -89.35784,
+          "ships": [],
+          "receives": [
+            "chemicals",
+            "machinery",
+            "bulk"
+          ],
+          "source_note": "Read: OpenStreetMap way 1334286486 (landuse=industrial, name Halliburton), Venice, OpenStreetMap planet file of 2026-11-16; not confirmed from a second source. Roles derived: an oilfield service yard receives drilling chemicals, bulk material and equipment."
+        },
+        {
+          "name": "Dollar General Venice",
+          "type": "retail_distribution",
+          "lat": 29.27913,
+          "lon": -89.36045,
+          "ships": [],
+          "receives": [
+            "retail",
+            "general",
+            "food"
+          ],
+          "source_note": "Read: OpenStreetMap way 1016640451 (shop=variety_store, brand Dollar General, Georges Lane, Venice), OpenStreetMap planet file of 2026-11-16. Roles derived: a variety store receives dry freight and ships nothing."
+        }
+      ]
+    },
+    "morehead_city_nc_us": {
+      "spoken_city": "Morehead City",
+      "state": "NC",
+      "country": "US",
+      "region": "atlantic_southeast",
+      "lat": 34.72081,
+      "lon": -76.70149,
+      "source_note": "Pin on US 70 (Arendell Street) at Port Terminal Road, the gate road of the Port of Morehead City, so the legs west on US 70 and NC 24 leave from where the port's trucks join the highway. Position read from OpenStreetMap way 51640892 (US 70, hgv=designated), OpenStreetMap planet file of 2026-11-16. The director approved Morehead City by name for the Port of Morehead City (missing roads decision 4); region atlantic_southeast.",
+      "locations": [
+        {
+          "name": "Port of Morehead City",
+          "type": "port",
+          "lat": 34.72108,
+          "lon": -76.70006,
+          "source_note": "Read: OpenStreetMap way 318522813 (landuse=industrial, industrial=port, operator North Carolina Ports, 113 Arendell Street), OpenStreetMap planet file of 2026-11-16; pin is the centroid of that outline. North Carolina Ports runs it as a breakbulk and bulk port. Roles: the port type's own."
+        },
+        {
+          "name": "Walmart Supercenter",
+          "type": "shopping_mall",
+          "lat": 34.73509,
+          "lon": -76.81135,
+          "ships": [],
+          "receives": [
+            "retail",
+            "general",
+            "food",
+            "refrigerated"
+          ],
+          "source_note": "Read: OpenStreetMap way 440546066 (shop=supermarket, brand Walmart, 300 NC Highway 24); pin is the centroid of that outline, OpenStreetMap planet file of 2026-11-16. Operation not confirmed from a second source. Roles derived: store deliveries of dry and chilled freight, as the mall type receives; it ships nothing."
+        }
+      ]
+    },
+    "pinehurst_nc_us": {
+      "spoken_city": "Pinehurst",
+      "state": "NC",
+      "country": "US",
+      "region": "atlantic_southeast",
+      "lat": 35.20131,
+      "lon": -79.45128,
+      "source_note": "Pin on the Pinehurst Traffic Circle, where US 15 and US 501, NC 211, NC 2 and NC 5 meet at the edge of the village, so the legs on US 15-501, NC 211 and toward US 1 leave from one place. Position read from OpenStreetMap way 307739529 (junction=roundabout, ref US 15;US 501;NC 211), OpenStreetMap planet file of 2026-11-16. The town stands for the Pinehurst and Southern Pines urban area (50,319 people, Census 2020), approved under its class (missing roads decision 4); region atlantic_southeast.",
+      "locations": [
+        {
+          "name": "Fletcher Industries",
+          "type": "manufacturing_plant",
+          "lat": 35.21635,
+          "lon": -79.39358,
+          "source_note": "Read: OpenStreetMap way 1540166989 (building=industrial, name Fletcher Industries, 1485 Central Drive, Southern Pines), OpenStreetMap planet file of 2026-11-16; pin on that outline. Operation not confirmed from a second source. Roles: the manufacturing plant type's own."
+        },
+        {
+          "name": "BJ's Wholesale Club",
+          "type": "shopping_mall",
+          "lat": 35.17039,
+          "lon": -79.41764,
+          "ships": [],
+          "receives": [
+            "retail",
+            "general",
+            "food",
+            "refrigerated"
+          ],
+          "source_note": "Read: OpenStreetMap node 14345451619 (shop=wholesale, brand BJ's Wholesale Club, 205 Carolina Green Parkway, Southern Pines), OpenStreetMap planet file of 2026-11-16. Operation not confirmed from a second source. Roles derived: store deliveries of dry and chilled freight, as the mall type receives; it ships nothing."
+        },
+        {
+          "name": "Walmart Supercenter",
+          "type": "shopping_mall",
+          "lat": 35.1604,
+          "lon": -79.4248,
+          "ships": [],
+          "receives": [
+            "retail",
+            "general",
+            "food",
+            "refrigerated"
+          ],
+          "source_note": "Read: OpenStreetMap way 429381798 (shop=supermarket, brand Walmart, 250 Turner Street, Aberdeen); pin is the centroid of that outline, OpenStreetMap planet file of 2026-11-16. Operation not confirmed from a second source. Roles derived: store deliveries of dry and chilled freight, as the mall type receives; it ships nothing."
+        }
+      ]
+    },
+    "reedville_va_us": {
+      "spoken_city": "Reedville",
+      "state": "VA",
+      "country": "US",
+      "region": "atlantic_southeast",
+      "lat": 37.84732,
+      "lon": -76.27364,
+      "source_note": "Pin on US 360 (Main Street) at the north end of the village, where the road from the menhaden plant and the crab houses joins it. Position read from OpenStreetMap way 51323174 (US 360, hgv=designated, Virginia DOT truck network), OpenStreetMap planet file of 2026-11-16. Reedville is among the top 20 US ports by commercial landings (NOAA Fisheries, Fisheries of the United States 2023, as the missing roads survey read it), approved under its class as an unreached fishing port (missing roads decisions 4 and 9); region atlantic_southeast.",
+      "locations": [
+        {
+          "name": "Omega Protein",
+          "type": "food_processor",
+          "lat": 37.8302,
+          "lon": -76.27879,
+          "ships": [
+            "food",
+            "bulk"
+          ],
+          "receives": [
+            "general",
+            "fuel_bulk"
+          ],
+          "source_note": "Read: OpenStreetMap way 910635272 (man_made=works, industrial=seafood_processing, product=fish_oil_&_meal, name Omega Protein), OpenStreetMap planet file of 2026-11-16; pin is the centroid of that outline. Operation not confirmed from a second source. Roles derived: a menhaden plant ships fish oil and meal and receives supplies and fuel."
+        },
+        {
+          "name": "Smith Point Seafood",
+          "type": "food_processor",
+          "lat": 37.83736,
+          "lon": -76.27425,
+          "ships": [
+            "refrigerated",
+            "food"
+          ],
+          "receives": [
+            "general"
+          ],
+          "source_note": "Read: OpenStreetMap way 1234572831 (man_made=works, industrial=seafood_processing, product=blue_crab_processing, operator Smith Point Seafood, Inc.), OpenStreetMap planet file of 2026-11-16; pin is the centroid of that outline. Operation not confirmed from a second source. Roles derived: a crab house ships chilled product and receives general supplies."
+        },
+        {
+          "name": "Dollar General",
+          "type": "shopping_mall",
+          "lat": 37.88066,
+          "lon": -76.33613,
+          "ships": [],
+          "receives": [
+            "retail",
+            "general",
+            "food",
+            "refrigerated"
+          ],
+          "source_note": "Read: OpenStreetMap node 8263140694 (shop=variety_store, brand Dollar General, 15645 Northumberland Highway, Burgess), on US 360 five miles up the road from Reedville, OpenStreetMap planet file of 2026-11-16. Operation not confirmed from a second source. Roles derived: store deliveries of dry and chilled freight, as the mall type receives; it ships nothing."
+        }
+      ]
+    },
+    "aberdeen_wa_us": {
+      "spoken_city": "Aberdeen",
+      "state": "WA",
+      "country": "US",
+      "region": "pacific_northwest",
+      "lat": 46.97526,
+      "lon": -123.81352,
+      "source_note": "Pin on East Heron Street where US 12 meets US 101 (South G Street) downtown, the OpenStreetMap node the two ways share (OpenStreetMap planet file of 2026-11-16), where a truck coming in on US 12 turns onto US 101 either way; the Census 2023 Gazetteer place point (46.97521, -123.81137) is 0.1 mile east. Aberdeen stands for the Port of Grays Harbor and the Westport fishing fleet, approved by name (missing roads decision 3, 2026-11-22). Region pacific_northwest, as the region's other Washington coast cities are.",
+      "locations": [
+        {
+          "name": "Port of Grays Harbor Terminal 4",
+          "type": "port",
+          "lat": 46.96192,
+          "lon": -123.84093,
+          "ships": [
+            "general",
+            "machinery",
+            "lumber_paper"
+          ],
+          "receives": [
+            "general",
+            "machinery",
+            "lumber_paper"
+          ],
+          "source_note": "Read: Port of Grays Harbor terminal page (https://www.portofgraysharbor.com/terminal-info, read 2026-11-23): Terminal 4 is the Port's main general cargo terminal, taking breakbulk, Ro/Ro and project cargo; Pasha Automotive Services lists its vehicle processing there at 1620 East Terminal Way, Aberdeen, WA 98520 (https://www.pashagroup.com/node/275, read 2026-11-23); SSA Marine lists its Aberdeen operation with forest products and Ro/Ro at Terminal 4 (https://ssamarine.com/locations/aberdeen-washington, read 2026-11-23). Position read from SSA's published coordinates, 46\u00b057'42.84\" N, 123\u00b050'27.35\" W. Roles derived from the cargo the Port and SSA list: general and project cargo, vehicles and forest products both ways."
+        },
+        {
+          "name": "AGP Grays Harbor Export Terminal",
+          "type": "port",
+          "lat": 46.96435,
+          "lon": -123.83345,
+          "ships": [
+            "bulk"
+          ],
+          "receives": [
+            "bulk",
+            "grain"
+          ],
+          "source_note": "Read: AGP (Ag Processing Inc) location page for its Aberdeen, WA export terminal, shipping address 111 S Wooding, Aberdeen, WA 98520 (https://www.agp.com/locations/aberdeen-wa/, read 2026-11-23), and AGP's release on the Terminal 4 export facility's opening on 2026-07-31, where soybean products arrive by rail and load onto ships (https://www.agp.com/press_release/agp-and-port-of-grays-harbor-celebrate-grand-opening-of-terminal-4-export-facility/, read 2026-11-23). Position derived: the centroid of OpenStreetMap way 583592077 (industrial=port, name Port of Grays Harbor) at the east end of the Terminal 4 lands (OpenStreetMap planet file of 2026-11-16); AGP's own outline is not mapped. Roles derived: an export elevator receives grain and soybean meal and ships it as bulk."
+        },
+        {
+          "name": "Sierra Pacific Industries Aberdeen Sawmill",
+          "type": "lumber_paper",
+          "lat": 46.97257,
+          "lon": -123.77597,
+          "ships": [
+            "lumber_paper"
+          ],
+          "receives": [
+            "bulk"
+          ],
+          "source_note": "Read: Sierra Pacific Industries sawmill list, Aberdeen, WA, 301 Hagara Street, Douglas fir and hem-fir lumber, with chips and bark as by-products (https://www.spi-ind.com/Operations/SawmillOperations, read 2026-11-23). Position read from OpenStreetMap way 558124931 (industrial=sawmill, name Sierra Pacific Industries, 301 Hagara Street; OpenStreetMap planet file of 2026-11-16). Roles derived: a sawmill ships lumber and takes in logs, carried as bulk."
+        },
+        {
+          "name": "Olympic Gateway Plaza",
+          "type": "shopping_mall",
+          "lat": 46.97596,
+          "lon": -123.80354,
+          "ships": [],
+          "receives": [
+            "retail",
+            "general",
+            "food",
+            "refrigerated"
+          ],
+          "source_note": "Read: OpenStreetMap way 573333606 (landuse=retail, name Olympic Gateway Plaza) on US 12 (East Wishkah Street), holding the Walmart Supercenter at 909 East Wishkah Street (way 184629895, store 2037) and Ross and Marshalls (OpenStreetMap planet file of 2026-11-16); pin is the centroid of that outline. Roles derived: store deliveries of dry and chilled freight, as the mall type receives; it ships nothing."
+        },
+        {
+          "name": "Ocean Cold Westport",
+          "type": "cold_storage",
+          "lat": 46.90219,
+          "lon": -124.10494,
+          "ships": [
+            "refrigerated",
+            "food"
+          ],
+          "receives": [
+            "refrigerated"
+          ],
+          "source_note": "Read: OpenStreetMap way 560033498 (landuse=industrial, name Ocean Cold, 1601 Yearout Drive, Westport, WA 98595) at the Westport marina, the fishing port Aberdeen stands for (OpenStreetMap planet file of 2026-11-16). Operation not confirmed from an operator page. Roles assumed from a cold store at a fishing port: frozen seafood out, chilled loads in."
+        }
+      ]
+    },
+    "sikeston_mo_us": {
+      "spoken_city": "Sikeston",
+      "state": "MO",
+      "country": "US",
+      "region": "heartland",
+      "lat": 36.87225,
+      "lon": -89.53772,
+      "source_note": "Pin on Route AA (MO AA) where the exit 66B ramp from Interstate 55 meets it, beside the interchange where I-57 and US 60 leave I-55 for Charleston and US 60 turns west for Poplar Bluff, so legs north and south on I-55, east on I-57 and west on US 60 leave from one corner. Position read from the MO AA way and the exit 66B ramp, OpenStreetMap planet file of 2026-11-16. Approved by name as the I-55 and US 60 junction city (missing roads decision 9); region heartland, as Cape Girardeau.",
+      "locations": [
+        {
+          "name": "Do it Best Sikeston Retail Service Center",
+          "type": "distribution",
+          "lat": 36.93237,
+          "lon": -89.62427,
+          "ships": [
+            "general",
+            "retail"
+          ],
+          "receives": [
+            "general",
+            "retail"
+          ],
+          "source_note": "Read: OpenStreetMap building=warehouse named Do-It-Best Corporation Sikeston Retail Service Center, 2600 Rose Parkway, Sikeston, OpenStreetMap planet file of 2026-11-16; not confirmed from a second source. Roles derived: a hardware cooperative's distribution warehouse receives and ships store goods."
+        },
+        {
+          "name": "Carlisle Construction Materials Sikeston",
+          "type": "manufacturing_plant",
+          "lat": 36.84743,
+          "lon": -89.58984,
+          "ships": [
+            "construction"
+          ],
+          "receives": [
+            "chemicals",
+            "general"
+          ],
+          "source_note": "Read: Carlisle Construction Materials opened a nearly 500,000 square foot plant in Sikeston in June 2023 that makes insulation products (Missouri Department of Economic Development, https://ded.mo.gov/press-room/carlisle-construction-materials-opens-new-manufacturing-facility-sikeston, read 2026-11-23). Position read from the OpenStreetMap landuse=industrial area named Carlisle Construction Materials, OpenStreetMap planet file of 2026-11-16. Roles derived: an insulation plant ships building materials and receives chemicals and supplies."
+        },
+        {
+          "name": "Walmart Supercenter Sikeston",
+          "type": "shopping_mall",
+          "lat": 36.85704,
+          "lon": -89.58665,
+          "ships": [],
+          "receives": [
+            "food",
+            "retail",
+            "refrigerated",
+            "general"
+          ],
+          "source_note": "Read: OpenStreetMap building tagged shop=supermarket, brand Walmart, Walmart Supercenter, 1303 South Main Street, Sikeston, OpenStreetMap planet file of 2026-11-16. Roles derived: store deliveries of dry and chilled freight, as the store type receives; it ships nothing."
+        }
+      ]
     }
   }
 }

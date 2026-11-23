@@ -218,6 +218,8 @@ mod states_driving_tired_work;
 mod states_driving_traffic_rate;
 mod states_driving_traffic_sounds;
 mod states_driving_trip_resume;
+mod states_driving_trip_resume_rerouted;
+mod states_driving_trip_resume_split;
 mod states_driving_troopers;
 mod states_driving_turns;
 mod states_driving_updates;

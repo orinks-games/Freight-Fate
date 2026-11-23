@@ -423,6 +423,67 @@ pub const CURATED_COMPLETE_MARKET_CITY_KEYS: &[&str] = &[
     "kitimat_bc_ca",
     "prince_rupert_bc_ca",
     "dawson_city_yt_ca",
+    // South Jersey (missing roads brief 1, 2026-11-22): each carries only the
+    // sites authored for it, the Chambers Works and two distribution centres
+    // at Carneys Point and the Cape May fishing docks.
+    "carneys_point_nj_us",
+    "cape_may_nj_us",
+    // Florida and Georgia (missing roads, 2026-11-22): the port's cargo,
+    // fuel, cement and salt terminals, and Gainesville's tractor plant,
+    // poultry plant and freezer warehouse. Sebring and Crystal River keep
+    // the template market.
+    "port_canaveral_fl_us",
+    "gainesville_ga_us",
+    // Great Lakes (missing roads, 2026-11-22): the Joliet intermodal yards,
+    // the Alpena cement plant, Pinney Dock at Ashtabula and Sandusky's
+    // plants, each surveyed.
+    "joliet_il_us",
+    "alpena_mi_us",
+    "ashtabula_oh_us",
+    "sandusky_oh_us",
+    // Northeast (missing roads, 2026-11-23): each new town keeps the plants,
+    // warehouses and stores read from the map for it. Ithaca and Lexington
+    // Park show only stores on the map, so freight is delivered there and
+    // none starts there.
+    "newburgh_ny_us",
+    "lancaster_pa_us",
+    "reading_pa_us",
+    "gloucester_ma_us",
+    "dubois_pa_us",
+    "elmira_ny_us",
+    "hanover_pa_us",
+    "johnstown_pa_us",
+    "pittsfield_ma_us",
+    "riverhead_ny_us",
+    "cranberry_township_pa_us",
+    "ithaca_ny_us",
+    "lexington_park_md_us",
+    // South Central (missing roads, 2026-11-23): Sikeston keeps the
+    // warehouse, plant and store read from the map for it.
+    "sikeston_mo_us",
+    // Alabama, Mississippi and South Carolina (missing roads, 2026-11-23):
+    // the Pascagoula refinery, shipyard and fish plant, and Beaufort's
+    // stores and its Commerce Park distribution centre, each surveyed.
+    "pascagoula_ms_us",
+    "beaufort_sc_us",
+    // Texas and Louisiana (missing roads brief 3, 2026-11-23): the Denton
+    // truck plant and mall, the Galveston, Freeport, Point Comfort, Port
+    // Fourchon and Venice port sites, each with a store that takes dry freight.
+    "denton_tx_us",
+    "galveston_tx_us",
+    "freeport_tx_us",
+    "point_comfort_tx_us",
+    "port_fourchon_la_us",
+    "venice_la_us",
+    // Appalachia and Mid-South (missing roads, 2026-11-23): each new town
+    // keeps the port, plants and stores read from the map for it.
+    "morehead_city_nc_us",
+    "pinehurst_nc_us",
+    "reedville_va_us",
+    // Mountain and Northwest (missing roads, 2026-11-23): the Port of Grays
+    // Harbor's Terminal 4 and AGP's export terminal, the Sierra Pacific
+    // sawmill, a shopping centre and a Westport cold store, each surveyed.
+    "aberdeen_wa_us",
 ];
 
 /// Whether this city keeps only its authored freight locations. See

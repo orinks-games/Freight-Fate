@@ -270,6 +270,9 @@ fn a_touch_drive_hears_double_tap_in_the_exit_callout_and_a_keyboard_brings_keys
         let first = first.expect("the assigned route carries en-route stops");
         drive.trip.position_mi = (first - 1.2).max(0.0);
     });
+    // Heard from the tap on: the stop is inside the five-mile call range at
+    // once, so its call can land on the very next frame.
+    harness.clear_speech();
     harness.app.dispatch_gesture(Gesture::KeyboardDisconnected);
     harness.app.dispatch_gesture(Gesture::Tap);
     harness.advance_frame_clock();
@@ -278,7 +281,6 @@ fn a_touch_drive_hears_double_tap_in_the_exit_callout_and_a_keyboard_brings_keys
         harness.read_drive(|drive| drive.trip.exit_hint.clone()),
         ff_core::speech_text::TOUCH_EXIT_HINT
     );
-    harness.clear_speech();
     let mut heard = false;
     for _ in 0..60 * 90 {
         harness.advance_frame_clock();
