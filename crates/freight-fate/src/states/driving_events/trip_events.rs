@@ -70,6 +70,9 @@ impl DrivingState {
         if self.corner_already_called(event) {
             return;
         }
+        if self.scale_notice_covers(ctx, event) {
+            return;
+        }
         if self.limit_change_of_road_left(ctx, event) {
             return;
         }

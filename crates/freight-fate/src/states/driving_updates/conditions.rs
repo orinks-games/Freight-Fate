@@ -604,6 +604,28 @@ impl DrivingState {
             );
         }
         self.jake_slip_active = slipping;
+        if let Some(abs) = ctx.playtest_abs {
+            self.trip.truck.abs_state = abs;
+        }
+        let abs = self.trip.truck.abs_active();
+        if abs && !self.abs_active {
+            ctx.say_event_with(
+                "ABS pulsing. Hold steady on the brake.",
+                SayEvent::new().category(SpeechCategory::Safety),
+            );
+        }
+        self.abs_active = abs;
+        if let Some(traction) = ctx.playtest_drive_traction {
+            self.trip.truck.drive_traction_state = traction;
+        }
+        let spinning = self.trip.truck.drive_wheels_spinning();
+        if spinning && !self.wheelspin_active {
+            ctx.say_event_with(
+                "Drive wheels spinning. Ease off the throttle.",
+                SayEvent::new().category(SpeechCategory::Safety),
+            );
+        }
+        self.wheelspin_active = spinning;
         if self.trip.truck.chains_just_snapped {
             self.trip.truck.chains_just_snapped = false;
             self.chain_assist_snapped = true;

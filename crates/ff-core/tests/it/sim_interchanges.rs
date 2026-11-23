@@ -358,7 +358,7 @@ fn test_next_exit_context_mentions_flavor_exit() {
     trip.position_mi = 40.0;
     assert_eq!(
         trip.next_navigation_context(true),
-        "Destination Indianapolis ahead."
+        "Destination Indianapolis."
     );
     assert_eq!(
         trip.next_exit_context(),

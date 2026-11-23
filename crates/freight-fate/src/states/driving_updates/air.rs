@@ -149,7 +149,13 @@ impl DrivingState {
             // a stop on arrival), a dip back across the threshold must not
             // re-announce it.
             self.air_ready_said = true;
-            ctx.audio.play_with("vehicle/air_dryer_purge", 0.65, 0.0);
+            let cab_purge = "vehicle/air_dryer_purge_cab";
+            let purge = if ctx.audio.has_asset(cab_purge) {
+                cab_purge
+            } else {
+                "vehicle/air_dryer_purge"
+            };
+            ctx.audio.play_with(purge, 0.65, 0.0);
             let status = if self.driving_hints(ctx) && ctx.touch_hints() {
                 "Air ready. Swipe up and hold to release the parking brake and drive.".to_string()
             } else if self.driving_hints(ctx) {
@@ -170,6 +176,9 @@ impl DrivingState {
                     .priority(EventPriority::Important)
                     .category(SpeechCategory::Status),
             );
+            if let Some(tutorial) = self.tutorial.as_mut() {
+                tutorial.on_air_ready();
+            }
             // air_ready is retired as an award (folded into "first_day" at
             // pickup completion, see city_pickup.py); the catalog entry and
             // id stay so the cloud validator's allow-list never sees a

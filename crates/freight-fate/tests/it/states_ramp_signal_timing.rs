@@ -248,6 +248,7 @@ fn red_clearance_empties_the_conflict_window_before_green() {
                 crossed: false,
                 committed: false,
                 sound_started: false,
+                release_delay_s: 0.0,
                 id: 1,
             });
             drive.cross_bubble = Some(bubble);

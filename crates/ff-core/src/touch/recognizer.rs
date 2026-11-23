@@ -1,16 +1,21 @@
-//! The gesture recognizer for touch screens without UIKit (Android).
+//! The gesture recognizer over raw finger events: Android's, and the
+//! iPhone's and iPad's with Touch gestures, New gesture reading on.
 //!
-//! iOS recognizes gestures with UIKit's recognizers (`ios/ff_touch.m`); this
-//! is the same set, rule for rule, over raw finger events, so an Android
-//! player meets the iPhone's gestures exactly: the core rule (a flick is one
-//! step, a swipe and hold is continuous), the deep swipe, the still hold,
-//! the second finger while a pedal is held, the two- and three-finger taps
-//! and flicks, the two-finger scrub, the horn hold and the key turn. The
-//! thresholds are the iOS ones and the same settings tune them.
+//! The iPhone first recognized gestures with UIKit's recognizers
+//! (`ios/ff_touch.m`, still there behind the setting); this is the same set,
+//! rule for rule, so both phones meet the same gestures: the core rule (a
+//! flick is one step, a swipe and hold is continuous), the deep swipe, the
+//! still hold, the second finger while a pedal is held, the two- and
+//! three-finger taps and flicks, the two-finger scrub, the horn hold and the
+//! key turn. The thresholds are the iOS ones and the same settings tune
+//! them. Where the two differed, the iPhone's behaviour was kept
+//! (`docs/ios/README.md`).
 //!
 //! Positions are in points (density-independent pixels on Android: 1/160 of
-//! an inch, near enough an iPhone point), times in seconds on one clock.
-//! Nothing here touches a platform, so every rule is tested on the desktop.
+//! an inch, near enough an iPhone point), times in seconds on one clock: on
+//! iPhone each event carries its own `UITouch.timestamp`, so a slow frame
+//! cannot turn a flick into a hold. Nothing here touches a platform, so
+//! every rule is tested on the desktop.
 //!
 //! One touch sequence, from the first finger down to the last finger up, is
 //! one [`Phase`] machine. UIKit decides between recognizers by having one
@@ -20,7 +25,7 @@
 
 use std::collections::BTreeMap;
 
-use super::{Gesture, MAX_TRAVEL_POINTS};
+use super::{FingerEvent, FingerKind, Gesture, MAX_TRAVEL_POINTS};
 
 mod geometry;
 use geometry::{along, centroid, direction, pair_angle, wrap_degrees, Direction, Point};
@@ -41,8 +46,8 @@ const FLICK_MOVING_FRACTION: f32 = 0.4;
 /// ...for up to this many more half windows.
 const FLICK_EXTENSIONS: u8 = 3;
 /// The two-finger scrub: this many turns of the fingers' sideways travel,
-/// each leg at least `SCRUB_LEG` long, all within `SCRUB_S` of the first
-/// touch; a turn counts once the fingers come back `SCRUB_TURN` from the
+/// each leg at least `SCRUB_LEG` long, all within `SCRUB_S` of the second
+/// finger landing; a turn counts once the fingers come back `SCRUB_TURN` from the
 /// leg's furthest point. Decided when the fingers lift.
 const SCRUB_REVERSALS: u8 = 2;
 const SCRUB_LEG: f32 = 20.0;
@@ -360,6 +365,43 @@ impl Recognizer {
     /// The gestures recognized since the last call, oldest first.
     pub fn drain(&mut self) -> Vec<Gesture> {
         std::mem::take(&mut self.out)
+    }
+
+    /// Hand over one finger event, at its own time.
+    pub fn feed(&mut self, event: FingerEvent) {
+        let FingerEvent {
+            finger, x, y, t, ..
+        } = event;
+        match event.kind {
+            FingerKind::Down => self.down(finger, x, y, t),
+            FingerKind::Move => self.moved(finger, x, y, t),
+            FingerKind::Up => self.up(finger, x, y, t),
+            FingerKind::Cancel => self.cancel(),
+        }
+    }
+
+    /// Where the touch sequence stands, as the agent server's `status`
+    /// reports it: idle, deciding (one finger, nothing decided), a hold
+    /// (gas, brake, steer_left, steer_right, deep_swipe, still_hold),
+    /// two_fingers, three_fingers, horn, or spent (decided, waiting for
+    /// every finger to lift).
+    pub fn phase_key(&self) -> &'static str {
+        match &self.phase {
+            Phase::Idle => "idle",
+            Phase::One { .. } => "deciding",
+            Phase::Holding { hold, .. } => match hold {
+                Hold::Gas => "gas",
+                Hold::Brake => "brake",
+                Hold::Left => "steer_left",
+                Hold::Right => "steer_right",
+                Hold::Deep => "deep_swipe",
+                Hold::Still => "still_hold",
+            },
+            Phase::Multi(multi) if multi.horn && !multi.horn_cancelled => "horn",
+            Phase::Multi(multi) if multi.fingers >= 3 => "three_fingers",
+            Phase::Multi(_) => "two_fingers",
+            Phase::Spent => "spent",
+        }
     }
 
     /// Whether a timer is waiting, so the caller knows to keep ticking.
@@ -738,7 +780,8 @@ impl Recognizer {
                 && multi
                     .scrub
                     .is_some_and(|scrub| scrub.reversals >= SCRUB_REVERSALS)
-                && t - multi.began <= SCRUB_S;
+                // Timed from the second finger, as UIKit's scrub is.
+                && t - multi.settled <= SCRUB_S;
             if scrubbed {
                 self.flush_pending_tap();
                 self.emit(Gesture::Escape);

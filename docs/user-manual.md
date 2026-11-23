@@ -201,7 +201,7 @@ A menu gives its title, the selected option, and the option's position in the li
 
 ### Menu navigation
 
-Use Up and Down to find the option you want, then Enter or Space to select it. Escape usually takes you back. On a long list, Home and End reach its ends, and a letter or number jumps to a matching choice.
+Use Up and Down to find the option you want, then Enter or Space to select it. Escape usually takes you back. On a long list, Home and End reach its ends, Page Up and Page Down move ten choices at a time, and a letter or number jumps to a matching choice.
 
 | Key | Action |
 | --- | --- |
@@ -209,6 +209,7 @@ Use Up and Down to find the option you want, then Enter or Space to select it. E
 | Enter or Space | Activate the selected choice. |
 | Escape | Go back, cancel, or repeat a status message when leaving is not useful. |
 | Home or End | Jump to the first or last choice. |
+| Page Up or Page Down | Move ten choices back or forward, stopping at the first or last. |
 | Letter or number | Jump to the next choice starting with that character. |
 | F1 | Show help for the current item. |
 | Comma | Review earlier speech, except while typing text. |
@@ -307,6 +308,8 @@ Open Truck status before another load if you need to check fuel, damage, tire we
 
 Garage offers fuel, repairs, tire service, brake service, engine work, snow chains, and a wash. A company supplies your equipment and handles its routine costs. As an owner, you'll pay those bills yourself, so keep enough cash for service and fuel between settlements.
 
+The truck dealer reads each tractor's torque, tank size and miles per gallon at a steady 60 miles per hour.
+
 Owners can also choose tire compounds and buy upgrades for torque, drag, tank capacity, and braking. Think about the work you want to haul: more fuel capacity can help on a long run, while stronger brakes matter on a descent. Review your truck and business status before spending the money you'll need for the next trip.
 
 ### Choosing equipment and work
@@ -341,11 +344,13 @@ As a company driver, you're paid wages and bonuses from what the carrier earns. 
 | Bulk trailer program | Opens grain, farm inputs, and loose bulk cargo for owner-operators. |
 | Owned trailer | Own-authority drivers can buy dry van, reefer, flatbed, or bulk trailers. Matching direct freight uses an owned-trailer reserve at settlement. |
 
-There are 30 career levels. If you're driving for a company and want to buy in as an owner, the option opens at level 18. You'll also need 35 deliveries, reputation of 80, no outstanding advance, and enough money to pay 35,000 dollars while keeping 10,000 dollars in working capital. Business status tells you which requirements you still need to meet.
+There are 30 career levels. If you're driving for a company and want to buy in as an owner, the option opens at level 18. You'll also need 35 deliveries, reputation of 80, no outstanding advance, and enough money for the cheapest sleeper tractor, 31,000 dollars, while keeping 10,000 dollars in working capital. Business status tells you which requirements you still need to meet.
+
+The buy-in lists every sleeper tractor at its dealer price, cheapest first, and marks the one you drive now. Press Enter on a tractor to hear its price and what you would have left, then press Enter again to buy it.
 
 You can stay with company driving if ownership doesn't suit you. Stay a company driver changes your goals and rank titles to that career path without closing the buy-in option. Reopen the owner-operator plan brings the ownership goals back.
 
-An owner who chooses Go back to company driving gets two confirmations before anything is sold. The game buys your tractors and trailers at the stated values, then assigns carrier equipment. The buy-in tractor returns its purchase price; later purchases use their used values. Your driving record stays with you.
+An owner who chooses Go back to company driving gets two confirmations before anything is sold. The carrier buys your tractors and trailers back at their used values, then assigns carrier equipment. A tractor from a buy-in made before version 2.0 goes back for no more than 35,000 dollars. Your driving record stays with you.
 
 Owning the truck means paying for fuel, repairs, maintenance and insurance reserves, trailer costs, truck reserves, and fees. A larger gross payment isn't all take-home money.
 
@@ -1072,6 +1077,8 @@ If one sound is covering another, adjust that sound's volume rather than lowerin
 | Steering guide | Which way to steer when the engine sound moves to one side. Steer toward the engine, the default, or steer away from the engine, for drivers used to that from audio racing games. |
 | Lane guide sound | What leans toward the side to steer: the engine, the default, or a soft tone panned the same way, for setups where the engine is hard to place. |
 | Weather sounds volume | Rain, wind, thunder, snow, and fog sounds. |
+| Outside sounds volume | Birds by day, insects at night, and the rivers you pass. Raising the driver window muffles them. |
+| Road surface volume | The thump of pavement seams and bridge joints under the wheels, and the tires whining on grooved concrete and humming on steel grate decks. |
 | Engine sounds volume | Engine start, shutdown, and running engine sounds. |
 | Engine sound | Real plays the engine recorded from a working truck cab, following the RPM through its range. Classic keeps the original engine sound. Changes apply immediately, even while driving. |
 | Engine brake sound | Recorded, the default, plays the real engine brake growl. Classic plays the synthesized growl from earlier versions. Changes apply at once, even while driving. |
@@ -1081,7 +1088,7 @@ If one sound is covering another, adjust that sound's volume rather than lowerin
 | In-cab radio volume | Driving radio music volume. It defaults lower than speech and safety cues. |
 | Radio streamer-safe mode | Limit the radio to built-in safe stations while streaming or recording. Off by default. See [Choosing music for your drive](#choosing-music-for-your-drive) for how it works with Synthesized music. |
 | Shuffle personal playlists | Play your music in a random order. Off by default; see [Playing your own music](#playing-your-own-music). |
-| Lower game sounds during speech | Off by default. On, the engine, weather, and radio drop to half volume while the road voice speaks, then come back. |
+| Lower game sounds during speech | Off by default. On, the engine, weather, outside sounds, and radio drop to half volume while the road voice speaks, then come back. |
 | Menu and UI sounds volume | Menu movement, selection, warning, and cash sounds. |
 
 ### Speech settings

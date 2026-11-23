@@ -7,6 +7,8 @@ use crate::states::base::{InputEvent, Key, State};
 use crate::states::main_menu::ShortcutDevice;
 use crate::touch::Gesture;
 
+use super::main_menu_help_phone::{touch_page, PHONE_LINES};
+
 /// Control names in the page text are `{{id}}` placeholders (`{{engine}}`,
 /// `{{pad:fuel}}`, `{{key:horn}}`) resolved at render time against the
 /// player's own shortcuts. A bare id follows the device in use: the pad
@@ -45,6 +47,7 @@ pub static HELP_PAGES: &[(&str, &[&str])] = &[
         "Menus and message review",
         &[
             "Up and Down choose an option. Enter or Space selects it. Escape goes back. Home and End jump to the first or last option.",
+            "Page Up and Page Down move ten options at a time.",
             "Type a letter to find an option starting with it. F1 explains the selected option.",
             "Comma repeats the latest message, then steps backward. Period moves forward. Control with either jumps to the oldest or newest message.",
             "The brackets choose all, general, or driving messages. Control C copies the selected message. Control Shift C copies the last thing the game said. Review keys type normally inside text fields.",
@@ -327,9 +330,23 @@ pub fn render_help_line(ctx: &GameContext, template: &str) -> String {
         let (device, id) = match token.split_once(':') {
             Some(("pad", id)) => (Some(ShortcutDevice::Controller), id),
             Some(("key", id)) => (Some(ShortcutDevice::Keyboard), id),
+            Some(("do", id)) => (None, id),
             _ => (None, token),
         };
+        // `do:` is a touch line's instruction: the gesture that runs the
+        // command, as a verb ("Tap", "Flick up with three fingers").
+        let instruction = token.starts_with("do:");
         let name = match Action::from_id(id) {
+            Some(action) if instruction && ctx.touch_hints() => {
+                // A sentence start takes the capital: the line's start, or
+                // after a full stop or question mark.
+                let opens = out.trim_end().is_empty() || out.trim_end().ends_with(['.', '?', '!']);
+                if opens {
+                    ctx.touch_instruction(action)
+                } else {
+                    ctx.touch_instruction_mid(action)
+                }
+            }
             Some(action) => match device {
                 Some(ShortcutDevice::Controller) => ctx.pad_name(action),
                 Some(ShortcutDevice::Keyboard) => ctx.bindings.spoken(action),
@@ -354,57 +371,18 @@ pub fn render_help_line(ctx: &GameContext, template: &str) -> String {
     out
 }
 
-/// Lines a phone or tablet build reads differently: `(desktop line, with a
-/// keyboard, by touch)`, `None` leaving the line out. Phones have no
-/// personal playlists (their Playlists folder is out of the player's reach),
-/// and a touch player tunes with three-finger flicks, not the Page keys.
-#[cfg_attr(not(touch_screen), allow(dead_code))]
-static PHONE_LINES: &[(&str, Option<&str>, Option<&str>)] = &[
-    (
-        "With the engine running, {{radio}} switches the radio on or off. Page Down or apostrophe tunes forward. Page Up or semicolon tunes backward.",
-        Some("With the engine running, {{radio}} switches the radio on or off. Page Down or apostrophe tunes forward. Page Up or semicolon tunes backward."),
-        Some("The radio plays while the engine runs. A three-finger flick right tunes forward, and a three-finger flick left tunes backward."),
-    ),
-    (
-        "Hold Control with a tune key to jump between categories, including route music, Freight Fate stations, your playlists, favorites, and broadcast or web stations.",
-        Some("Hold Control with a tune key to jump between categories, including route music, Freight Fate stations, favorites, and broadcast or web stations."),
-        Some("Radio and CB on the three-finger tap list turns the radio on or off, saves favorites, and changes the radio volume and category. Categories include route music, Freight Fate stations, favorites, and broadcast or web stations."),
-    ),
-    (
-        "Hold Shift to change volume in ten percent steps: Page Up or semicolon raises it, Page Down or apostrophe lowers it.",
-        Some("Hold Shift to change volume in ten percent steps: Page Up or semicolon raises it, Page Down or apostrophe lowers it."),
-        None,
-    ),
-    (
-        "{{radio_favorite}} saves or removes a favorite. {{radio_status}} reads station, reception, volume, and streamer-safe status. {{radio_now_playing}} reads available song information.",
-        Some("{{radio_favorite}} saves or removes a favorite. {{radio_status}} reads station, reception, volume, and streamer-safe status. {{radio_now_playing}} reads available song information."),
-        Some("Radio status reads station, reception, volume, and streamer-safe status. What the radio is playing reads available song information. Both are under Radio and CB."),
-    ),
-    (
-        "Put M3U, M3U8, or PLS playlists in the Playlists folder inside your saves folder. Radio status gives the folder location and reloads the playlists when opened. Entries can be audio files, network paths, or stream addresses.",
-        None,
-        None,
-    ),
-    (
-        "Personal playlists normally play in order and resume where you left them. Shuffle plays every track once in a random order, then chooses a new order. Unreadable entries are skipped.",
-        None,
-        None,
-    ),
-    (
-        "Original uses the licensed menu and Roadhouse tracks. Synthesized plays music the game composes plus the three original tracks, and takes Freight Fate's regional stations and voiced breaks off the dial. Real streams and personal playlists remain unless streamer-safe mode hides them.",
-        Some("Original uses the licensed menu and Roadhouse tracks. Synthesized plays music the game composes plus the three original tracks, and takes Freight Fate's regional stations and voiced breaks off the dial. Real streams remain unless streamer-safe mode hides them."),
-        Some("Original uses the licensed menu and Roadhouse tracks. Synthesized plays music the game composes plus the three original tracks, and takes Freight Fate's regional stations and voiced breaks off the dial. Real streams remain unless streamer-safe mode hides them."),
-    ),
-    (
-        "How do I change stations or play my own music? With the engine running, {{radio}} switches the radio on, and Page Up or Page Down tunes. Put playlist files in the Playlists folder inside your saves folder. Radio status gives its location.",
-        Some("How do I change stations? With the engine running, {{radio}} switches the radio on, and Page Up or Page Down tunes."),
-        Some("How do I change stations? With the engine running, a three-finger flick right or left tunes. Radio on or off is under Radio and CB on the three-finger tap list."),
-    ),
-];
-
-/// A page title as this build reads it: phones have no playlists.
-fn page_title_text(title: &'static str) -> &'static str {
-    if cfg!(touch_screen) && title == "Radio and playlists" {
+/// A page title as this build reads it: phones have no playlists, and a
+/// touch page may carry its own title.
+fn page_title_text(ctx: &GameContext, title: &'static str) -> &'static str {
+    if !crate::device::phone() {
+        return title;
+    }
+    if ctx.touch_hints() {
+        if let Some((touch, _)) = touch_page(title) {
+            return touch;
+        }
+    }
+    if title == "Radio and playlists" {
         "Radio"
     } else {
         title
@@ -413,11 +391,20 @@ fn page_title_text(title: &'static str) -> &'static str {
 
 /// The page's lines as this build and device read them, before control
 /// names are filled in.
-fn page_lines(ctx: &GameContext, lines: &'static [&'static str]) -> Vec<&'static str> {
-    if !cfg!(touch_screen) {
+fn page_lines(
+    ctx: &GameContext,
+    title: &'static str,
+    lines: &'static [&'static str],
+) -> Vec<&'static str> {
+    if !crate::device::phone() {
         return lines.to_vec();
     }
     let touch = ctx.touch_hints();
+    if touch {
+        if let Some((_, touch_lines)) = touch_page(title) {
+            return touch_lines.to_vec();
+        }
+    }
     lines
         .iter()
         .filter_map(
@@ -435,21 +422,34 @@ fn page_lines(ctx: &GameContext, lines: &'static [&'static str]) -> Vec<&'static
         .collect()
 }
 
+/// The pages this player can turn to, as indexes into [`HELP_PAGES`]. On a
+/// phone the Controller page is listed only while a controller is
+/// connected.
+pub fn visible_pages(ctx: &GameContext) -> Vec<usize> {
+    let controller = !crate::device::phone() || ctx.controller.input().controller_connected();
+    (0..HELP_PAGES.len())
+        .filter(|&i| controller || HELP_PAGES[i].0 != "Controller")
+        .collect()
+}
+
 /// One page, rendered: its title and lines.
 pub fn help_page(ctx: &GameContext, page: usize) -> (&'static str, Vec<String>) {
     let (title, lines) = HELP_PAGES[page.min(HELP_PAGES.len() - 1)];
     (
-        page_title_text(title),
-        page_lines(ctx, lines)
+        page_title_text(ctx, title),
+        page_lines(ctx, title, lines)
             .into_iter()
             .map(|line| render_help_line(ctx, line))
             .collect(),
     )
 }
 
-/// Every page, rendered.
+/// Every page this player can turn to, rendered.
 pub fn help_pages(ctx: &GameContext) -> Vec<(&'static str, Vec<String>)> {
-    (0..HELP_PAGES.len()).map(|i| help_page(ctx, i)).collect()
+    visible_pages(ctx)
+        .into_iter()
+        .map(|i| help_page(ctx, i))
+        .collect()
 }
 
 /// Index of the driving-keys page, so callers can open help straight to it.
@@ -481,10 +481,38 @@ impl HelpState {
         }
     }
 
-    fn page_title(&self) -> String {
-        let title = page_title_text(HELP_PAGES[self.page].0);
-        format!("Page {} of {}: {title}.", self.page + 1, HELP_PAGES.len())
+    fn page_title(&self, ctx: &GameContext) -> String {
+        let title = page_title_text(ctx, HELP_PAGES[self.page].0);
+        let pages = visible_pages(ctx);
+        let page = pages.iter().position(|&p| p == self.page).unwrap_or(0);
+        format!("Page {} of {}: {title}.", page + 1, pages.len())
     }
+
+    /// Turn to the next or previous visible page, wrapping, or to the first
+    /// or last one.
+    fn turn(&mut self, ctx: &mut GameContext, to: Turn) {
+        let pages = visible_pages(ctx);
+        let count = pages.len().max(1);
+        let at = pages.iter().position(|&p| p == self.page).unwrap_or(0);
+        let next = match to {
+            Turn::Next => (at + 1) % count,
+            Turn::Previous => (at + count - 1) % count,
+            Turn::First => 0,
+            Turn::Last => count - 1,
+        };
+        self.page = pages.get(next).copied().unwrap_or(0);
+        self.line = -1;
+        ctx.audio.play("ui/menu_move");
+        ctx.say(&self.page_title(ctx));
+    }
+}
+
+#[derive(Clone, Copy)]
+enum Turn {
+    Next,
+    Previous,
+    First,
+    Last,
 }
 
 impl Default for HelpState {
@@ -500,7 +528,13 @@ impl State for HelpState {
             ff_core::input_hints::CONTROLLER => "D-pad Left and Right change pages, Up and Down read one line at a time. A reads the whole page, Back stops speech, and B goes back.",
             _ => "Left and Right arrows or Page Up and Page Down change pages. Up and Down read one line at a time. Enter or Space reads the whole page, either Control or F1 stops speech, and Escape goes back.",
         };
-        ctx.say(&format!("How to play. {controls} {}", self.page_title()));
+        let page_title = self.page_title(ctx);
+        ctx.say(&format!("How to play. {controls} {page_title}"));
+    }
+
+    /// The opening line again: the controls and the page.
+    fn on_app_return(&mut self, ctx: &mut GameContext) {
+        self.enter(ctx);
     }
 
     fn handle_event(&mut self, ctx: &mut GameContext, event: &InputEvent) {
@@ -514,18 +548,10 @@ impl State for HelpState {
                 ctx.pop_state();
             }
             Key::LCtrl | Key::RCtrl | Key::F1 => ctx.stop_speech(),
-            Key::Right | Key::PageDown => {
-                self.page = (self.page + 1) % HELP_PAGES.len();
-                self.line = -1;
-                ctx.audio.play("ui/menu_move");
-                ctx.say(&self.page_title());
-            }
-            Key::Left | Key::PageUp => {
-                self.page = (self.page + HELP_PAGES.len() - 1) % HELP_PAGES.len();
-                self.line = -1;
-                ctx.audio.play("ui/menu_move");
-                ctx.say(&self.page_title());
-            }
+            Key::Right | Key::PageDown => self.turn(ctx, Turn::Next),
+            Key::Left | Key::PageUp => self.turn(ctx, Turn::Previous),
+            Key::Home => self.turn(ctx, Turn::First),
+            Key::End => self.turn(ctx, Turn::Last),
             Key::Down => {
                 self.line = (self.line + 1).min(lines.len() as i64 - 1);
                 ctx.say(&lines[self.line as usize]);
@@ -549,19 +575,20 @@ impl State for HelpState {
         let (_, lines) = help_page(ctx, self.page);
         match usize::try_from(self.line).ok().and_then(|i| lines.get(i)) {
             Some(line) => ctx.say(line),
-            None => ctx.say(&self.page_title()),
+            None => {
+                let title = self.page_title(ctx);
+                ctx.say(&title);
+            }
         }
         true
     }
 
     fn lines(&self, ctx: &GameContext) -> Vec<String> {
         let (title, lines) = help_page(ctx, self.page);
+        let pages = visible_pages(ctx);
+        let page = pages.iter().position(|&p| p == self.page).unwrap_or(0);
         let mut out = vec![
-            format!(
-                "How to play - {title} ({}/{})",
-                self.page + 1,
-                HELP_PAGES.len()
-            ),
+            format!("How to play - {title} ({}/{})", page + 1, pages.len()),
             String::new(),
         ];
         for (i, text) in lines.iter().enumerate() {
@@ -585,6 +612,67 @@ mod tests {
                 HELP_PAGES.iter().any(|(_, lines)| lines.contains(desktop)),
                 "no manual line reads: {desktop}"
             );
+        }
+    }
+
+    /// The ten-option jump is said once on each page that teaches menus: the
+    /// Page keys on the desktop page, the three-finger flick on the touch
+    /// page, which replaces the desktop page whole.
+    #[test]
+    fn the_ten_option_jump_is_taught_once() {
+        let desktop = HELP_PAGES
+            .iter()
+            .find(|(title, _)| *title == "Menus and message review")
+            .map(|(_, lines)| *lines)
+            .expect("the menus page");
+        let page_keys = "Page Up and Page Down move ten options at a time.";
+        assert_eq!(desktop.iter().filter(|line| **line == page_keys).count(), 1);
+        let (_, touch) = touch_page("Menus and message review").expect("the touch menus page");
+        let flick = "Flick left or right with three fingers to move ten options back or forward.";
+        assert_eq!(touch.iter().filter(|line| **line == flick).count(), 1);
+    }
+
+    /// A touch page keyed on a title the manual no longer has would quietly
+    /// put the keyboard page back on the phone.
+    #[test]
+    fn every_touch_page_matches_a_manual_page() {
+        for (desktop, _, _) in super::super::main_menu_help_phone::TOUCH_PAGES {
+            assert!(
+                HELP_PAGES.iter().any(|(title, _)| title == desktop),
+                "no manual page is titled: {desktop}"
+            );
+        }
+    }
+
+    /// Spoken touch text keeps to the gesture words: no key names, no
+    /// symbols a screen reader reads aloud.
+    #[test]
+    fn touch_pages_name_no_keys() {
+        let keys = [
+            "Enter",
+            "Escape",
+            "F1",
+            "F2",
+            "Page Up",
+            "Page Down",
+            "Control ",
+            "Shift ",
+            "arrow",
+            "Comma",
+            "Period",
+            "press ",
+            "Press ",
+            "key",
+            "(",
+            ")",
+            " - ",
+        ];
+        for (_, title, lines) in super::super::main_menu_help_phone::TOUCH_PAGES {
+            for line in lines.iter() {
+                for word in keys {
+                    assert!(!line.contains(word), "{title}: {word:?} in {line}");
+                }
+            }
         }
     }
 }

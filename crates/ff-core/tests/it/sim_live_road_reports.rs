@@ -114,7 +114,7 @@ fn a_report_on_the_trucks_road_ahead_is_spoken_with_its_distance() {
     let mut trip = trip_with(vec![report("a", "I-71", 3.0, 0.0, "Crash.")]);
     assert_eq!(
         reports_at(&mut trip, 0.0),
-        vec!["Live road report, 3 miles ahead: Crash."]
+        vec!["Live road report, 3 miles: Crash."]
     );
     // Once only.
     assert!(reports_at(&mut trip, 1.0).is_empty());
@@ -136,7 +136,7 @@ fn a_report_for_the_other_direction_stays_quiet() {
     let mut trip = trip_with(vec![north, south]);
     assert_eq!(
         reports_at(&mut trip, 0.0),
-        vec!["Live road report, 4 miles ahead: Stalled truck."]
+        vec!["Live road report, 4 miles: Stalled truck."]
     );
 }
 
@@ -147,7 +147,7 @@ fn a_report_with_no_road_name_must_sit_on_the_road() {
     let mut trip = trip_with(vec![off, on]);
     assert_eq!(
         reports_at(&mut trip, 0.0),
-        vec!["Live road report, 5 miles ahead: Debris."]
+        vec!["Live road report, 5 miles: Debris."]
     );
 }
 
@@ -162,7 +162,7 @@ fn a_far_report_waits_until_it_is_close_and_one_behind_is_dropped() {
         .all(|r| !r.contains("Crash")));
     assert_eq!(
         reports_at(&mut trip, 22.0),
-        vec!["Live road report, 8 miles ahead: Crash."]
+        vec!["Live road report, 8 miles: Crash."]
     );
 }
 
@@ -177,7 +177,7 @@ fn a_cars_title_on_the_trucks_road_drops_its_road_and_mile_points() {
     )]);
     assert_eq!(
         reports_at(&mut trip, 0.0),
-        vec!["Live road report, 3 miles ahead: Right lane closed."]
+        vec!["Live road report, 3 miles: Right lane closed."]
     );
 }
 

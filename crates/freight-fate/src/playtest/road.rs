@@ -63,7 +63,7 @@ pub const RANDOM_SAMPLE: usize = 6;
 /// launched later. It does not choose a facility or corridor.
 const DEPARTURE_TRIP_SEED: i64 = 0;
 
-pub const FEATURES: [&str; 17] = [
+pub const FEATURES: [&str; 19] = [
     "downgrade",
     "upgrade",
     "zone",
@@ -81,6 +81,8 @@ pub const FEATURES: [&str; 17] = [
     "jointed",
     "border",
     "state-line",
+    "grooved",
+    "grating",
 ];
 const SCAN_STEP_MI: f64 = 0.1;
 /// How far before the feature the SEARCH looks back to report a posted
@@ -614,6 +616,12 @@ pub fn find_feature(
                 &mut trip,
                 origin,
                 destination,
+            )),
+            "grooved" | "grating" => hits.extend(self::pavement::song_hits(
+                &mut trip,
+                origin,
+                destination,
+                feature == "grating",
             )),
             _ => {}
         }
@@ -1317,6 +1325,15 @@ pub fn build_driving(ctx: &mut GameContext, hit: &Hit, opts: &RoadOptions) -> (D
         profile.calendar_offset_days = previous.calendar_offset_days;
         profile.calendar_offset_hours = previous.calendar_offset_hours;
         profile.live_calendar = previous.live_calendar;
+        // And where the scenario put the career on the ownership ladder, with
+        // what it owns, so a staged owner-operator delivery settles as one.
+        profile.set_business_stage(previous.business_stage());
+        profile.owned_trucks = previous.owned_trucks.clone();
+        profile.owned_trailers = previous.owned_trailers.clone();
+        profile.trailer_programs = previous.trailer_programs.clone();
+        profile.buy_in_paid = previous.buy_in_paid;
+        profile.carrier_key = previous.carrier_key.clone();
+        profile.carrier_name = previous.carrier_name.clone();
         // A slip-seating driver's yard spares are drawn from the career's
         // own name, so this bench career's pool is not the scenario's: the
         // record the scenario set would sit under keys this drive never

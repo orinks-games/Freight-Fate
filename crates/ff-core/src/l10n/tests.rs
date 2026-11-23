@@ -63,6 +63,9 @@ msgstr "Nueces. Las vendemos. Próxima salida."
 msgid "Billboard"
 msgstr "Valla"
 
+msgid "Paper section"
+msgstr "Sección del periódico"
+
 msgid "Multi"
 "line."
 msgstr "Varias "
@@ -159,6 +162,29 @@ fn unknown_lines_pass_through_and_are_logged() {
     assert_eq!(tr.translate("62"), "62");
     let logged = std::fs::read_to_string(path).expect("miss log written");
     assert_eq!(logged, "Nothing here.\n");
+}
+
+/// The newspaper's lines come from the site in English: kept as they are,
+/// with or without the final full stop a menu row adds, and never logged as
+/// a miss. Emptying the set translates them again.
+#[test]
+fn lines_kept_verbatim_are_spoken_as_they_arrive() {
+    let dir = tempfile::tempdir().expect("temp dir");
+    let path = dir.path().join("misses.txt");
+    let tr = spanish().log_misses_to(path.clone());
+    assert_eq!(tr.translate("Paper section"), "Sección del periódico");
+    tr.keep_verbatim(["Paper section".to_string(), "Paper line kept.".to_string()]);
+    assert_eq!(tr.translate("Paper section."), "Paper section.");
+    assert_eq!(tr.translate("Paper line kept."), "Paper line kept.");
+    assert_eq!(
+        tr.translate("Paper line kept. 3 of 9."),
+        "Paper line kept. 3 de 9."
+    );
+    tr.keep_verbatim(Vec::new());
+    assert_eq!(tr.translate("Paper section"), "Sección del periódico");
+    assert!(std::fs::read_to_string(&path)
+        .unwrap_or_default()
+        .is_empty());
 }
 
 #[test]

@@ -10,10 +10,11 @@ use ff_core::models::business::{
     AUTHORITY_ACTIVATION_DELIVERIES, AUTHORITY_ACTIVATION_LEVEL, AUTHORITY_ACTIVATION_REPUTATION,
     AUTHORITY_ACTIVATION_WORKING_CAPITAL, AUTHORITY_READY_DELIVERIES, AUTHORITY_READY_LEVEL,
     AUTHORITY_READY_REPUTATION, AUTHORITY_READY_RESERVE, AUTHORITY_READY_WORKING_CAPITAL,
-    COMPANY_DRIVER, INDEPENDENT_AUTHORITY, LEASED_OWNER_OPERATOR, OWNER_OPERATOR_BUY_IN,
-    OWNER_OPERATOR_DELIVERIES, OWNER_OPERATOR_LEVEL, OWNER_OPERATOR_REPUTATION,
-    OWNER_OPERATOR_WORKING_CAPITAL, WEIGH_STATION_TRANSPONDER_SIGNUP_FEE,
+    COMPANY_DRIVER, INDEPENDENT_AUTHORITY, LEASED_OWNER_OPERATOR, OWNER_OPERATOR_DELIVERIES,
+    OWNER_OPERATOR_LEVEL, OWNER_OPERATOR_REPUTATION, OWNER_OPERATOR_WORKING_CAPITAL,
+    WEIGH_STATION_TRANSPONDER_SIGNUP_FEE,
 };
+use ff_core::models::buy_in::{buy_in_cash_needed, cheapest_buy_in_price};
 use ff_core::models::career::LEVEL_XP;
 use ff_core::models::carrier_fleet::assigned_truck_key;
 use ff_core::models::profile::Profile;
@@ -23,8 +24,8 @@ use ff_core::sim::hos;
 use freight_fate::app::testing::TestApp;
 use freight_fate::states::base::Key;
 use freight_fate::states::city::{
-    BusinessStatusState, CityMenuState, EndorsementCourseState, GarageState, TrailerProgramState,
-    TruckShopState, UpgradeShopState,
+    BusinessStatusState, BuyInState, CityMenuState, EndorsementCourseState, GarageState,
+    TrailerProgramState, TruckShopState, UpgradeShopState,
 };
 
 fn approx(a: f64, b: f64) {
@@ -42,7 +43,7 @@ fn test_business_status_menu_unlocks_owner_operator_when_qualified() {
         p.career.xp = LEVEL_XP[(OWNER_OPERATOR_LEVEL - 1) as usize];
         p.career.deliveries = OWNER_OPERATOR_DELIVERIES;
         p.career.reputation = OWNER_OPERATOR_REPUTATION;
-        p.set_money(OWNER_OPERATOR_BUY_IN + OWNER_OPERATOR_WORKING_CAPITAL + 500.0);
+        p.set_money(buy_in_cash_needed(cheapest_buy_in_price()) + 500.0);
     }
 
     app.push_state(BusinessStatusState::new());
@@ -50,7 +51,7 @@ fn test_business_status_menu_unlocks_owner_operator_when_qualified() {
     assert!(rows.iter().any(|t| t.contains("Owner-operator buy-in")));
     assert!(rows.iter().any(|t| t.contains("Carrier and rank")));
     assert!(rows.iter().any(|t| t.contains("Next business unlock")));
-    select::<BusinessStatusState>(&mut app, "Owner-operator buy-in");
+    buy_in_cheapest(&mut app);
 
     assert_eq!(profile(&app).business_status, LEASED_OWNER_OPERATOR);
     approx(
@@ -69,25 +70,151 @@ fn test_owner_operator_buy_in_records_first_owned_tractor() {
         p.career.xp = LEVEL_XP[(OWNER_OPERATOR_LEVEL - 1) as usize];
         p.career.deliveries = OWNER_OPERATOR_DELIVERIES;
         p.career.reputation = OWNER_OPERATOR_REPUTATION;
-        p.set_money(OWNER_OPERATOR_BUY_IN + OWNER_OPERATOR_WORKING_CAPITAL);
+        p.set_money(buy_in_cash_needed(cheapest_buy_in_price()));
     }
 
     app.push_state(BusinessStatusState::new());
-    select::<BusinessStatusState>(&mut app, "Owner-operator buy-in");
-
-    assert_eq!(profile(&app).business_status, LEASED_OWNER_OPERATOR);
-    // The buy-in takes over the tractor dispatch had you in: at the
-    // level-18 gate that is a first-pick fleet unit, not the starter rig.
     let assigned =
         assigned_truck_key::<Profile, ff_core::models::carrier_fleet::NoJob>(profile(&app), None);
-    assert_eq!(profile(&app).truck, assigned);
-    assert_eq!(profile(&app).visible_owned_trucks(), vec![assigned]);
+    buy_in_cheapest(&mut app);
+
+    assert_eq!(profile(&app).business_status, LEASED_OWNER_OPERATOR);
+    // The buy-in buys the tractor picked, not the one dispatch assigned: at
+    // the level-18 gate that is a first-pick fleet unit, which goes back to
+    // the yard.
+    let cheapest = ff_core::models::buy_in::buy_in_tractors()[0];
+    assert_ne!(cheapest.key, assigned);
+    assert_eq!(profile(&app).truck, cheapest.key);
+    assert_eq!(
+        profile(&app).visible_owned_trucks(),
+        vec![cheapest.key.to_string()]
+    );
+    assert_eq!(profile(&app).buy_in_paid, cheapest.price);
+    approx(profile(&app).money(), OWNER_OPERATOR_WORKING_CAPITAL);
+    // Fresh off the lot: a full tank of its own.
+    approx(profile(&app).truck_fuel_gal(), cheapest.specs.fuel_tank_gal);
     assert_eq!(
         profile(&app).active_trailer_programs(),
         DEFAULT_TRAILER_PROGRAMS
             .iter()
             .map(|s| s.to_string())
             .collect::<Vec<_>>()
+    );
+}
+
+#[test]
+fn test_buying_in_on_the_assigned_tractor_keeps_its_condition() {
+    let mut app = TestApp::new();
+    career(&mut app, "Buy In Assigned", "Chicago");
+    {
+        let p = profile_mut(&mut app);
+        p.career.xp = LEVEL_XP[(OWNER_OPERATOR_LEVEL - 1) as usize];
+        p.career.deliveries = OWNER_OPERATOR_DELIVERIES;
+        p.career.reputation = OWNER_OPERATOR_REPUTATION;
+    }
+    let assigned =
+        assigned_truck_key::<Profile, ff_core::models::carrier_fleet::NoJob>(profile(&app), None);
+    let model = truck_model_or_panic(assigned);
+    {
+        let p = profile_mut(&mut app);
+        p.set_money(buy_in_cash_needed(model.price));
+        p.set_truck_fuel_gal(40.0);
+    }
+    app.push_state(BusinessStatusState::new());
+    select::<BusinessStatusState>(&mut app, "Owner-operator buy-in");
+    let row = format!(
+        "{}, the tractor you drive now",
+        ff_core::data::world_models::py_capitalize(model.label)
+    );
+    app.clear_speech();
+    select::<BuyInState>(&mut app, &row);
+    let said = app.main_lines().join(" ");
+    assert!(
+        said.contains("You would have 10,000 dollars left."),
+        "{said}"
+    );
+    // Moving off the row and back asks again.
+    key(&mut app, Key::Down);
+    key(&mut app, Key::Up);
+    assert_eq!(profile(&app).business_status, COMPANY_DRIVER);
+    select::<BuyInState>(&mut app, &row);
+    assert_eq!(profile(&app).business_status, COMPANY_DRIVER);
+    select::<BuyInState>(&mut app, &row);
+    assert_eq!(profile(&app).business_status, LEASED_OWNER_OPERATOR);
+    assert_eq!(profile(&app).truck, assigned);
+    assert_eq!(profile(&app).buy_in_paid, model.price);
+    approx(profile(&app).truck_fuel_gal(), 40.0);
+}
+
+#[test]
+fn test_buy_in_refuses_a_tractor_without_the_working_capital() {
+    let mut app = TestApp::new();
+    career(&mut app, "Buy In Short", "Chicago");
+    {
+        let p = profile_mut(&mut app);
+        p.career.xp = LEVEL_XP[(OWNER_OPERATOR_LEVEL - 1) as usize];
+        p.career.deliveries = OWNER_OPERATOR_DELIVERIES;
+        p.career.reputation = OWNER_OPERATOR_REPUTATION;
+        p.set_money(60_000.0);
+    }
+    app.push_state(BusinessStatusState::new());
+    select::<BusinessStatusState>(&mut app, "Owner-operator buy-in");
+    let rows = labels::<BuyInState>(&app);
+    assert!(
+        rows.iter()
+            .any(|r| r.starts_with("Heavy hauler: ") && r.contains("78,000 dollars")),
+        "{rows:?}"
+    );
+    assert!(
+        !rows.iter().any(|r| r.starts_with("Standard rig")),
+        "{rows:?}"
+    );
+    app.clear_speech();
+    select::<BuyInState>(&mut app, "Heavy hauler");
+    select::<BuyInState>(&mut app, "Heavy hauler");
+    let said = app.main_lines().join(" ");
+    assert!(
+        said.contains(
+            "Not enough money. The heavy hauler costs 78,000 dollars, and 10,000 dollars stays \
+             in the bank as working capital. You have 60,000."
+        ),
+        "{said}"
+    );
+    assert_eq!(profile(&app).business_status, COMPANY_DRIVER);
+    approx(profile(&app).money(), 60_000.0);
+}
+
+#[test]
+fn test_truck_dealer_lists_the_standard_rig_only_to_its_owner() {
+    let mut app = TestApp::new();
+    career(&mut app, "Dealer Rig", "Chicago");
+    {
+        let p = profile_mut(&mut app);
+        p.business_status = LEASED_OWNER_OPERATOR.to_string();
+        p.owned_trucks = vec!["plain_jane_conventional".to_string()];
+        p.truck = "plain_jane_conventional".to_string();
+    }
+    app.push_state(TruckShopState::new(false));
+    let rows = labels::<TruckShopState>(&app);
+    assert!(
+        !rows.iter().any(|r| r.starts_with("Standard rig")),
+        "{rows:?}"
+    );
+    let heavy = rows
+        .iter()
+        .find(|r| r.starts_with("Heavy hauler"))
+        .expect("heavy hauler row");
+    assert!(
+        heavy.contains("miles per gallon, buy for 78,000 dollars"),
+        "{heavy}"
+    );
+    app.pop_state();
+    profile_mut(&mut app).owned_trucks.push("rig".to_string());
+    app.push_state(TruckShopState::new(false));
+    let rows = labels::<TruckShopState>(&app);
+    assert!(
+        rows.iter().any(|r| r.starts_with("Standard rig: owned")),
+        "{rows:?}"
     );
 }
 
@@ -287,7 +414,7 @@ fn test_owner_operator_can_buy_switch_and_upgrade_owned_equipment() {
         .visible_owned_trucks()
         .iter()
         .any(|k| k == "heavy_hauler"));
-    approx(profile(&app).money(), money_after_upgrade - 52_000.0);
+    approx(profile(&app).money(), money_after_upgrade - 78_000.0);
 
     let money_before_switch = profile(&app).money();
     select::<TruckShopState>(&mut app, "Standard rig");
@@ -358,7 +485,7 @@ fn test_bought_truck_starts_fresh_and_each_keeps_its_own_condition() {
         let p = profile_mut(&mut app);
         p.business_status = LEASED_OWNER_OPERATOR.to_string();
         p.owned_trucks = vec!["rig".to_string()];
-        p.set_money(60_000.0);
+        p.set_money(90_000.0);
         p.set_truck_fuel_gal(40.0);
         p.set_truck_damage_pct(30.0);
         p.set_tire_wear_pct(12.0);
@@ -826,7 +953,7 @@ fn test_staying_with_no_carrier_stays_on_the_path_not_in_a_seat() {
         p.career.xp = LEVEL_XP[(OWNER_OPERATOR_LEVEL - 1) as usize];
         p.career.deliveries = OWNER_OPERATOR_DELIVERIES;
         p.career.reputation = OWNER_OPERATOR_REPUTATION;
-        p.set_money(OWNER_OPERATOR_BUY_IN + OWNER_OPERATOR_WORKING_CAPITAL + 500.0);
+        p.set_money(buy_in_cash_needed(cheapest_buy_in_price()) + 500.0);
     }
     // The row is offered only with a carrier; the carrier goes while the
     // screen is open, so the choice is made with none.
@@ -858,7 +985,7 @@ fn test_business_status_lets_a_qualified_driver_stay_a_company_driver() {
         p.career.xp = LEVEL_XP[(OWNER_OPERATOR_LEVEL - 1) as usize];
         p.career.deliveries = OWNER_OPERATOR_DELIVERIES;
         p.career.reputation = OWNER_OPERATOR_REPUTATION;
-        p.set_money(OWNER_OPERATOR_BUY_IN + OWNER_OPERATOR_WORKING_CAPITAL + 500.0);
+        p.set_money(buy_in_cash_needed(cheapest_buy_in_price()) + 500.0);
     }
 
     app.push_state(BusinessStatusState::new());
@@ -910,7 +1037,7 @@ fn test_business_status_lets_a_qualified_driver_stay_a_company_driver() {
 
     // And buying in after all clears the choice with the status.
     select::<BusinessStatusState>(&mut app, "Stay a company driver");
-    select::<BusinessStatusState>(&mut app, "Owner-operator buy-in");
+    buy_in_cheapest(&mut app);
     assert_eq!(profile(&app).business_status, LEASED_OWNER_OPERATOR);
     assert!(!profile(&app).owner_operator_declined);
 }
@@ -924,17 +1051,17 @@ fn test_business_status_lets_an_owner_operator_go_back_to_company_driving() {
         p.career.xp = LEVEL_XP[(OWNER_OPERATOR_LEVEL - 1) as usize];
         p.career.deliveries = OWNER_OPERATOR_DELIVERIES;
         p.career.reputation = OWNER_OPERATOR_REPUTATION;
-        p.set_money(OWNER_OPERATOR_BUY_IN + OWNER_OPERATOR_WORKING_CAPITAL);
+        p.set_money(buy_in_cash_needed(cheapest_buy_in_price()));
     }
     app.push_state(BusinessStatusState::new());
-    select::<BusinessStatusState>(&mut app, "Owner-operator buy-in");
+    buy_in_cheapest(&mut app);
     assert_eq!(profile(&app).business_status, LEASED_OWNER_OPERATOR);
     let owned = profile(&app).owned_trucks.clone();
     assert_eq!(owned.len(), 1);
     let money_after_buy_in = profile(&app).money();
-    let expected_back = (truck_model_or_panic(&owned[0]).price
-        * ff_core::models::solvency::REPOSSESSION_EQUITY_SHARE)
-        .min(OWNER_OPERATOR_BUY_IN);
+    // Bought at its price, so it goes back at the used share of it.
+    let expected_back = truck_model_or_panic(&owned[0]).price
+        * ff_core::models::solvency::REPOSSESSION_EQUITY_SHARE;
 
     // One press explains and asks again; nothing moves.
     app.clear_speech();
@@ -970,8 +1097,10 @@ fn test_business_status_lets_an_owner_operator_go_back_to_company_driving() {
             .any(|t| t.contains("Go back to company driving")),
         "{rows:?}"
     );
+    // The hand-back pays the used share, so the cash for another buy-in may
+    // not be there yet; the owner-operator path is still on the screen.
     assert!(
-        rows.iter().any(|t| t.contains("Owner-operator buy-in")),
+        rows.iter().any(|t| t.contains("Owner-operator")),
         "{rows:?}"
     );
 }

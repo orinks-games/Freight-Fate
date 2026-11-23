@@ -63,7 +63,6 @@ fn test_control_stops_speech_in_the_help_reader() {
 
 #[test]
 fn test_help_reader_announces_controller_controls_and_stops_speech() {
-    use ff_core::input_hints::CONTROLLER;
     let mut app = TestApp::new();
     app.ctx.controller.set_enabled(true);
     app.ctx.controller.bind_device(
@@ -71,7 +70,7 @@ fn test_help_reader_announces_controller_controls_and_stops_speech() {
         "test pad",
     );
     app.ctx.controller.set_id_pending(false);
-    app.ctx.controller.active_device = CONTROLLER;
+    app.ctx.controller.note_controller();
     let mut state = HelpState::new();
     state.enter(&mut app.ctx);
     assert!(app.main_lines().join(" ").contains("Back stops speech"));

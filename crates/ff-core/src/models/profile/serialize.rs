@@ -167,6 +167,7 @@ impl Profile {
             "owner_operator_declined".into(),
             Value::from(self.owner_operator_declined),
         );
+        d.insert("buy_in_paid".into(), Value::from(self.buy_in_paid));
         d.insert("career".into(), {
             let mut career = serde_json::to_value(&self.career).expect("a career serialises");
             // The number the public profile shows, computed here rather
@@ -379,6 +380,9 @@ impl Profile {
             // Missing on every save written before the notice existed.
             turnpike_program_notice_seen: b("turnpike_program_notice_seen", false),
             owner_operator_declined: b("owner_operator_declined", false),
+            // Missing on every save from 1.9 and earlier: their first tractor
+            // keeps the old buy-in's hand-back cap.
+            buy_in_paid: f("buy_in_paid", 0.0).max(0.0),
             career,
             driving_record,
             selection_score: f("selection_score", SAFETY_RECORD_BASELINE),

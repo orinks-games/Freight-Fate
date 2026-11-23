@@ -39,9 +39,20 @@ fn supported(job: &Job) -> Option<Route> {
 }
 
 /// The honest hours a load needs: a team load changes drivers where a
-/// solo driver sleeps.
+/// solo driver sleeps, and a cattle run is planned under the livestock
+/// rules (no 30-minute break with cattle aboard, hours not counted near
+/// either end), never with a 10-hour break.
 fn required(job: &Job) -> f64 {
     let route = supported(job);
+    if job.cargo.key == crate::sim::livestock::LIVESTOCK_CARGO_KEY {
+        let drive_h = route_drive_hours(route.as_ref(), 0.0, Some(world()));
+        return crate::sim::livestock::cattle_run(
+            crate::sim::livestock::CattleKind::FeederCalves,
+            drive_h,
+            0.0,
+        )
+        .total_h;
+    }
     if job.team {
         return team_required_hours(job.distance_mi, route.as_ref(), Some(world()));
     }

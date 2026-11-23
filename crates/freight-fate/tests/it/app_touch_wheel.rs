@@ -181,7 +181,7 @@ fn double_tap_takes_a_called_exit_as_the_exit_key_does() {
     let signal = |lines: &[String]| -> Vec<String> {
         lines
             .iter()
-            .map(|line| line.split(" ahead.").next().unwrap_or(line).to_string())
+            .map(|line| line.split(" Ramp ends").next().unwrap_or(line).to_string())
             .collect()
     };
     assert_eq!(signal(&harness.transcript()), signal(&expected));

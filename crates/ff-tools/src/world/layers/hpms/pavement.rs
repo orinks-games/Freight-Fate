@@ -35,7 +35,8 @@ const BOX_SPAN_MI: f64 = 20.0;
 const BOX_PAD_M: f64 = 400.0;
 const PAGE_SIZE: usize = 2000;
 const FIELDS: &str = "OBJECTID,Route_ID,F_SYSTEM,FACILITY_TYPE,SURFACE_TYPE,STRUCTURE_TYPE,IRI,\
-                      Faulting,Year_Record,Begin_Point,End_Point";
+                      Faulting,Year_Record,Year_Last_Construction,YEAR_LAST_IMPROVEMENT,\
+                      Begin_Point,End_Point";
 const WHERE: &str = "F_SYSTEM<=5 AND FACILITY_TYPE IN (1,2,6)";
 /// A stretch this long changing class this often is flagged in the report.
 const FLICKER_MI: f64 = 2.0;
@@ -56,11 +57,20 @@ pub fn source(accessed: &str) -> String {
          much of the leg). A structure's hpms_mi is READ: the milepoint length of the HPMS \
          sections behind it, each once. mile_scale is leg miles per measured mile of the archived \
          road. Each surface entry reads 'from_mi to_mi class', then forward or reverse when it \
-         holds one way only, then iri=, faulting= and inventory_side where they apply; each \
+         holds one way only, then iri=, faulting= and inventory_side where they apply, and on exposed concrete \
+         built= and improved= (HPMS Year_Last_Construction and YEAR_LAST_IMPROVEMENT, READ, the \
+         year of each date; a run splits where either changes); each \
          structure reads 'from_mi to_mi kind', the way, then hpms= (its HPMS length). iri (inches per mile) and faulting (inches) are DERIVED: the \
          mean of the section readings inside the run. Where HPMS has no reading nothing is \
          written. HPMS reports bridge-sized culverts as bridges."
     )
+}
+
+/// The year of an HPMS date field (epoch milliseconds, UTC).
+fn year_of(v: Option<&serde_json::Value>) -> Option<i64> {
+    use chrono::Datelike;
+    let ms = v?.as_f64()?;
+    chrono::DateTime::from_timestamp_millis(ms as i64).map(|d| i64::from(d.year()))
 }
 
 fn query_box(client: &Client, b: (f64, f64, f64, f64)) -> Result<Vec<(i64, Section)>> {
@@ -115,6 +125,8 @@ fn query_box(client: &Client, b: (f64, f64, f64, f64)) -> Result<Vec<(i64, Secti
                     iri: attr("IRI").and_then(|x| x.as_f64()),
                     faulting: attr("Faulting").and_then(|x| x.as_f64()),
                     year: int("Year_Record"),
+                    built: year_of(attr("Year_Last_Construction")),
+                    improved: year_of(attr("YEAR_LAST_IMPROVEMENT")),
                     begin_mi: attr("Begin_Point").and_then(|x| x.as_f64()),
                     end_mi: attr("End_Point").and_then(|x| x.as_f64()),
                     paths,
@@ -182,6 +194,12 @@ pub fn to_value(p: &LegPavement, scale: f64, note: &str) -> Value {
             }
             if r.inventory_side {
                 line.push_str(" inventory_side");
+            }
+            if let Some(y) = r.built {
+                line.push_str(&format!(" built={y}"));
+            }
+            if let Some(y) = r.improved {
+                line.push_str(&format!(" improved={y}"));
             }
             Some(Value::Str(line))
         })

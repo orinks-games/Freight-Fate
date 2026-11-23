@@ -8,6 +8,7 @@
 use std::collections::HashMap;
 
 use crate::models::business_constants::{is_owner_operator, COMPANY_DRIVER, INDEPENDENT_AUTHORITY};
+use crate::models::business_stage::BusinessStage;
 use crate::models::career::{Career, CareerProfile, JobView};
 use crate::models::career_ladder::STARTER_CARRIER_NAME;
 use crate::models::carrier_fleet::{assigned_truck_key, slip_seat_pool, slip_seats};
@@ -23,9 +24,8 @@ use crate::models::business::{
     AUTHORITY_ACTIVATION_COST, AUTHORITY_ACTIVATION_DELIVERIES, AUTHORITY_ACTIVATION_LEVEL,
     AUTHORITY_ACTIVATION_REPUTATION, AUTHORITY_ACTIVATION_WORKING_CAPITAL,
     AUTHORITY_READY_DELIVERIES, AUTHORITY_READY_LEVEL, AUTHORITY_READY_REPUTATION,
-    AUTHORITY_READY_RESERVE, AUTHORITY_READY_WORKING_CAPITAL, OWNER_OPERATOR_BUY_IN,
-    OWNER_OPERATOR_DELIVERIES, OWNER_OPERATOR_LEVEL, OWNER_OPERATOR_REPUTATION,
-    OWNER_OPERATOR_WORKING_CAPITAL,
+    AUTHORITY_READY_RESERVE, AUTHORITY_READY_WORKING_CAPITAL, OWNER_OPERATOR_DELIVERIES,
+    OWNER_OPERATOR_LEVEL, OWNER_OPERATOR_REPUTATION,
 };
 
 #[derive(Debug, Clone, PartialEq)]
@@ -192,7 +192,10 @@ impl FakeProfile {
         self.career.level() >= OWNER_OPERATOR_LEVEL
             && self.career.deliveries >= OWNER_OPERATOR_DELIVERIES
             && self.career.reputation >= OWNER_OPERATOR_REPUTATION
-            && self.money >= OWNER_OPERATOR_BUY_IN + OWNER_OPERATOR_WORKING_CAPITAL
+            && self.money
+                >= crate::models::buy_in::buy_in_cash_needed(
+                    crate::models::buy_in::cheapest_buy_in_price(),
+                )
             && self.pay_advance < 1.0
     }
 
@@ -349,8 +352,13 @@ impl StartProfile for FakeProfile {
     fn set_money(&mut self, money: f64) {
         self.money = money;
     }
-    fn set_business_status(&mut self, status: &str) {
-        self.business_status = status.to_string();
+    fn set_business_stage(&mut self, stage: BusinessStage) {
+        crate::models::business_stage::write_stage_to_fields(
+            &mut self.business_status,
+            &mut self.authority_readiness,
+            &mut self.owner_operator_declined,
+            stage,
+        );
     }
     fn set_truck(&mut self, key: &str) {
         self.truck = key.to_string();

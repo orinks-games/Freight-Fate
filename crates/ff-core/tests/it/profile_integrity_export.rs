@@ -266,3 +266,89 @@ fn a_fixture_input_is_not_the_live_export() {
         invariant_data(&root, &live).unwrap()
     );
 }
+
+/// orinks.net refuses a version 2 delivery whose cargo key it cannot find
+/// in `cargoLabels`, so every cargo a job can carry has to be there.
+///
+/// A job's cargo is a `&'static CargoType`, and the catalog is the only
+/// static that holds one, so the catalog walk is the whole set; the world's
+/// facilities and the carriers' favored freight are walked as well, because
+/// the board picks a cargo by those keys.
+#[test]
+fn every_cargo_a_job_can_carry_is_in_the_export() {
+    use ff_core::data::world::World;
+    use ff_core::data::world_constants::FACILITY_CARGO_ROLES;
+    use ff_core::models::jobs::CARGO_CATALOG;
+    use ff_core::models::start_options::company_start_options;
+
+    let data = ff_core::profile_integrity_invariants::current_invariant_data()
+        .expect("the shipped catalogs render");
+    let labels = data["cargoLabels"]
+        .as_object()
+        .expect("the export carries cargoLabels");
+    let mut keys: Vec<String> = CARGO_CATALOG.keys().map(|key| key.to_string()).collect();
+    for (_, ships, receives) in FACILITY_CARGO_ROLES {
+        keys.extend(
+            ships
+                .iter()
+                .chain(receives.iter())
+                .map(|key| key.to_string()),
+        );
+    }
+    for option in company_start_options() {
+        keys.extend(
+            option
+                .cargo_weight_bonus
+                .iter()
+                .map(|(key, _)| key.to_string()),
+        );
+    }
+    let world = World::load_from(&crate::data_support::data_dir()).expect("the world loads");
+    for city in world.cities.values() {
+        for location in &city.locations {
+            keys.extend(location.cargo.iter().cloned());
+            keys.extend(location.ships.iter().cloned());
+            keys.extend(location.receives.iter().cloned());
+        }
+    }
+    keys.sort();
+    keys.dedup();
+    let missing: Vec<&String> = keys
+        .iter()
+        .filter(|key| !labels.contains_key(*key))
+        .collect();
+    assert!(
+        missing.is_empty(),
+        "cargo keys a job can carry but the export lacks: {missing:?}"
+    );
+    for (key, cargo) in CARGO_CATALOG.iter() {
+        assert_eq!(labels[*key], cargo.label, "the export's label for {key}");
+    }
+}
+
+/// Every weather key a delivery can send is listed, and fits the site's
+/// pattern for one.
+#[test]
+fn every_weather_key_is_in_the_export() {
+    use ff_core::sim::weather::WeatherKind;
+    let data = ff_core::profile_integrity_invariants::current_invariant_data()
+        .expect("the shipped catalogs render");
+    let keys: Vec<&str> = data["weatherKeys"]
+        .as_array()
+        .expect("the export carries weatherKeys")
+        .iter()
+        .filter_map(Value::as_str)
+        .collect();
+    assert_eq!(keys.len(), WeatherKind::ALL.len());
+    for kind in WeatherKind::ALL {
+        let key = kind.key();
+        assert!(keys.contains(&key), "{key} is not in weatherKeys");
+        assert!(
+            !key.is_empty()
+                && key.len() <= 24
+                && key.chars().all(|ch| ch.is_ascii_lowercase() || ch == '_'),
+            "{key} does not fit the site's weather key pattern"
+        );
+        assert_eq!(data["weatherLabels"][key], kind.value());
+    }
+}
