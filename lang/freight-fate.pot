@@ -6163,15 +6163,15 @@ msgstr ""
 msgid "inspect"
 msgstr ""
 
-#: crates/ff-core/src/data/world_constants.rs crates/freight-fate/src/states/driving_core/constants.rs
+#: crates/ff-core/src/data/world_constants.rs crates/ff-core/src/sim/stop_lot.rs crates/freight-fate/src/states/driving_core/constants.rs
 msgid "park"
 msgstr ""
 
-#: crates/ff-core/src/data/world_constants.rs crates/freight-fate/src/states/driving_core/constants.rs crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
+#: crates/ff-core/src/data/world_constants.rs crates/freight-fate/src/states/driving_core/constants.rs crates/freight-fate/src/states/driving_rest_states/parking_full.rs crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
 msgid "save"
 msgstr ""
 
-#: crates/ff-core/src/data/world_constants.rs crates/ff-core/src/models/jobs/deadline.rs crates/ff-core/src/models/jobs/hos_stops.rs crates/freight-fate/src/states/driving_controls/clock.rs
+#: crates/ff-core/src/data/world_constants.rs crates/ff-core/src/models/jobs/deadline.rs crates/ff-core/src/models/jobs/hos_stops.rs crates/ff-core/src/sim/stop_lot.rs
 msgid "sleep"
 msgstr ""
 
@@ -27452,7 +27452,7 @@ msgstr ""
 msgid "save point"
 msgstr ""
 
-#: crates/freight-fate/src/states/driving_core/constants.rs crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
+#: crates/freight-fate/src/states/driving_core/constants.rs crates/freight-fate/src/states/driving_rest_states/short_stay.rs
 msgid "food and coffee"
 msgstr ""
 
@@ -35292,14 +35292,6 @@ msgid ""
 "sleep move the clock and the deadline."
 msgstr ""
 
-#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs crates/freight-fate/src/states/driving_team/overlay.rs
-msgid "Take a 30-minute break"
-msgstr ""
-
-#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
-msgid "Food and coffee break"
-msgstr ""
-
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
 msgid "You are already rested."
@@ -35325,19 +35317,6 @@ msgstr ""
 
 #: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
 msgid "Loyalty points, shower credits, and rewards."
-msgstr ""
-
-#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
-msgid ""
-"Fifteen minutes off duty. Coffee eases fatigue a little, but the lift wears "
-"off in two hours, and a second coffee before then adds nothing. Does not "
-"satisfy the 30-minute break rule."
-msgstr ""
-
-#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
-msgid ""
-"Satisfies the 30-minute break rule and eases fatigue. Clock and deadline "
-"advance half an hour."
 msgstr ""
 
 #. placeholders: {hours}
@@ -35483,14 +35462,6 @@ msgid ""
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
-msgid "Save at this stop"
-msgstr ""
-
-#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
-msgid "Saves the drive at this stop."
-msgstr ""
-
-#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
 msgid "Cash against this load, repaid from the delivery settlement."
 msgstr ""
 
@@ -35514,57 +35485,6 @@ msgstr ""
 msgid ""
 "Advance {grouped} dollars on the {destination} load, due at delivery. You "
 "have {grouped2}, owe {grouped3}."
-msgstr ""
-
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
-msgid "Break requirement reset."
-msgstr ""
-
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
-msgid "You took a 30-minute break."
-msgstr ""
-
-#. placeholders: {clock_text}, {deadline_text}
-#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
-msgid ""
-"You took a 30-minute break. It is {clock_text}. Break requirement reset. "
-"{deadline_text}"
-msgstr ""
-
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
-msgid "Coffee break."
-msgstr ""
-
-#. placeholders: {clock_text}, {deadline_text}
-#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
-msgid ""
-"Coffee break. {clock_text}. Eases fatigue. Does not count as your 30-minute "
-"break. {deadline_text}"
-msgstr ""
-
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
-msgid "Does not count as your 30-minute break."
-msgstr ""
-
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
-msgid "Eases fatigue."
-msgstr ""
-
-#. placeholders: {clock_text}, {deadline_text}
-#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
-msgid ""
-"Coffee break. {clock_text}. No lift while the last coffee lasts. Does not "
-"count as your 30-minute break. {deadline_text}"
-msgstr ""
-
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
-msgid "No lift while the last coffee lasts."
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
@@ -36517,6 +36437,86 @@ msgstr ""
 
 #: crates/freight-fate/src/states/driving_rest_states/roadside.rs
 msgid "Continue from the city terminal."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_rest_states/short_stay.rs crates/freight-fate/src/states/driving_team/overlay.rs
+msgid "Take a 30-minute break"
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_rest_states/short_stay.rs
+msgid "Food and coffee break"
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_rest_states/short_stay.rs
+msgid "Save at this stop"
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_rest_states/short_stay.rs
+msgid ""
+"Satisfies the 30-minute break rule and eases fatigue. Clock and deadline "
+"advance half an hour."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_rest_states/short_stay.rs
+msgid ""
+"Fifteen minutes off duty. Coffee eases fatigue a little, but the lift wears "
+"off in two hours, and a second coffee before then adds nothing. Does not "
+"satisfy the 30-minute break rule."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_rest_states/short_stay.rs
+msgid "Saves the drive at this stop."
+msgstr ""
+
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_rest_states/short_stay.rs
+msgid "Break requirement reset."
+msgstr ""
+
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_rest_states/short_stay.rs
+msgid "You took a 30-minute break."
+msgstr ""
+
+#. placeholders: {clock_text}, {deadline_text}
+#: crates/freight-fate/src/states/driving_rest_states/short_stay.rs
+msgid ""
+"You took a 30-minute break. It is {clock_text}. Break requirement reset. "
+"{deadline_text}"
+msgstr ""
+
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_rest_states/short_stay.rs
+msgid "Coffee break."
+msgstr ""
+
+#. placeholders: {clock_text}, {deadline_text}
+#: crates/freight-fate/src/states/driving_rest_states/short_stay.rs
+msgid ""
+"Coffee break. {clock_text}. Eases fatigue. Does not count as your 30-minute "
+"break. {deadline_text}"
+msgstr ""
+
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_rest_states/short_stay.rs
+msgid "Does not count as your 30-minute break."
+msgstr ""
+
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_rest_states/short_stay.rs
+msgid "Eases fatigue."
+msgstr ""
+
+#. placeholders: {clock_text}, {deadline_text}
+#: crates/freight-fate/src/states/driving_rest_states/short_stay.rs
+msgid ""
+"Coffee break. {clock_text}. No lift while the last coffee lasts. Does not "
+"count as your 30-minute break. {deadline_text}"
+msgstr ""
+
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_rest_states/short_stay.rs
+msgid "No lift while the last coffee lasts."
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_rest_states/shoulder.rs

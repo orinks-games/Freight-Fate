@@ -11,7 +11,7 @@
 //! the merge onto the highway and the receiver's exit, streets and gate.
 
 use ff_core::models::co_driver;
-use ff_core::sim::hos::{self, HosClock};
+use ff_core::sim::hos::HosClock;
 use ff_core::sim::team_shift::TeamShiftEvent;
 use ff_core::sim::trip_models::RoadStop;
 
@@ -295,13 +295,7 @@ impl DrivingState {
 
     /// Whether the lot at `stop` is full when the truck gets there.
     pub(crate) fn lot_full_now(&self, stop: &RoadStop) -> bool {
-        stop.actions.iter().any(|action| action == "sleep")
-            && hos::parking_is_full(
-                self.trip_seed,
-                stop.at_mi,
-                self.trip.local_hour(),
-                stop.parking_spaces,
-            )
+        self.lot_at(stop).is_full()
     }
 
     /// The stop the co-driver makes for, short of `limit`. The shift's end,

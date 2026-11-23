@@ -28572,12 +28572,6 @@ msgid ""
 "sleep move the clock and the deadline."
 msgstr "項目を選んでください。睡眠は先に予測を読み上げます。もう一度選ぶと眠ります。休憩と睡眠で時刻と期限が進みます。"
 
-msgid "Take a 30-minute break"
-msgstr "30分休憩をとる"
-
-msgid "Food and coffee break"
-msgstr "食事とコーヒーの休憩"
-
 #. one sentence of a longer line
 msgid "You are already rested."
 msgstr "もう十分休んでいます。"
@@ -28598,19 +28592,6 @@ msgstr "ポイントプログラム：{summary}"
 
 msgid "Loyalty points, shower credits, and rewards."
 msgstr "ポイント、シャワー券、特典です。"
-
-msgid ""
-"Fifteen minutes off duty. Coffee eases fatigue a little, but the lift wears "
-"off in two hours, and a second coffee before then adds nothing. Does not "
-"satisfy the 30-minute break rule."
-msgstr ""
-"15分の勤務外の時間です。コーヒーで疲労が少し和らぎますが、効き目は2時間で切れ、それまでに2杯目を飲んでも効果はありません。30分の休憩の規則は満たし"
-"ません。"
-
-msgid ""
-"Satisfies the 30-minute break rule and eases fatigue. Clock and deadline "
-"advance half an hour."
-msgstr "30分休憩の規則を満たし、疲れが和らぎます。時刻と期限が30分進みます。"
 
 #. placeholders: {hours}
 msgid "Sleep {hours} hours in sleeper berth"
@@ -28732,12 +28713,6 @@ msgid ""
 "trailer. {f} minutes on duty."
 msgstr "運行前の見回り点検：検査官がトラクターとトレーラーで見つけそうなもの。勤務時間{f}分。"
 
-msgid "Save at this stop"
-msgstr "この停車地で保存"
-
-msgid "Saves the drive at this stop."
-msgstr "この停車地で運転を保存します。"
-
 msgid "Cash against this load, repaid from the delivery settlement."
 msgstr "この積荷を担保にした現金で、配達の精算から返済します。"
 
@@ -28760,49 +28735,6 @@ msgid ""
 msgstr ""
 "{destination}行きの積荷に対して{grouped}ドルの前払い、配達時に返済します。手持ちは{grouped2}、借りは{grouped3}"
 "です。"
-
-#. one sentence of a longer line
-msgid "Break requirement reset."
-msgstr "休憩の条件がリセットされました。"
-
-#. one sentence of a longer line
-msgid "You took a 30-minute break."
-msgstr "30分休憩をとりました。"
-
-#. placeholders: {clock_text}, {deadline_text}
-msgid ""
-"You took a 30-minute break. It is {clock_text}. Break requirement reset. "
-"{deadline_text}"
-msgstr "30分休憩をとりました。今は{clock_text}です。休憩の条件がリセットされました。{deadline_text}"
-
-#. one sentence of a longer line
-msgid "Coffee break."
-msgstr "コーヒー休憩。"
-
-#. placeholders: {clock_text}, {deadline_text}
-msgid ""
-"Coffee break. {clock_text}. Eases fatigue. Does not count as your 30-minute "
-"break. {deadline_text}"
-msgstr "コーヒー休憩。{clock_text}。疲れが和らぎます。30分の休憩には数えられません。{deadline_text}"
-
-#. one sentence of a longer line
-msgid "Does not count as your 30-minute break."
-msgstr "30分の休憩には数えられません。"
-
-#. one sentence of a longer line
-msgid "Eases fatigue."
-msgstr "疲れが和らぎます。"
-
-#. placeholders: {clock_text}, {deadline_text}
-msgid ""
-"Coffee break. {clock_text}. No lift while the last coffee lasts. Does not "
-"count as your 30-minute break. {deadline_text}"
-msgstr ""
-"コーヒー休憩。{clock_text}。前のコーヒーが効いている間は、効果がありません。30分の休憩には数えられません。{deadline_text}"
-
-#. one sentence of a longer line
-msgid "No lift while the last coffee lasts."
-msgstr "前のコーヒーが効いている間は、効果がありません。"
 
 msgid "Driving and duty clocks reset. "
 msgstr "運転と勤務の時計がリセットされました。"
@@ -29613,6 +29545,74 @@ msgstr "{load_text}{terminal}に戻されます。"
 
 msgid "Continue from the city terminal."
 msgstr "都市のターミナルから続けます。"
+
+msgid "Take a 30-minute break"
+msgstr "30分休憩をとる"
+
+msgid "Food and coffee break"
+msgstr "食事とコーヒーの休憩"
+
+msgid "Save at this stop"
+msgstr "この停車地で保存"
+
+msgid ""
+"Satisfies the 30-minute break rule and eases fatigue. Clock and deadline "
+"advance half an hour."
+msgstr "30分休憩の規則を満たし、疲れが和らぎます。時刻と期限が30分進みます。"
+
+msgid ""
+"Fifteen minutes off duty. Coffee eases fatigue a little, but the lift wears "
+"off in two hours, and a second coffee before then adds nothing. Does not "
+"satisfy the 30-minute break rule."
+msgstr ""
+"15分の勤務外の時間です。コーヒーで疲労が少し和らぎますが、効き目は2時間で切れ、それまでに2杯目を飲んでも効果はありません。30分の休憩の規則は満たし"
+"ません。"
+
+msgid "Saves the drive at this stop."
+msgstr "この停車地で運転を保存します。"
+
+#. one sentence of a longer line
+msgid "Break requirement reset."
+msgstr "休憩の条件がリセットされました。"
+
+#. one sentence of a longer line
+msgid "You took a 30-minute break."
+msgstr "30分休憩をとりました。"
+
+#. placeholders: {clock_text}, {deadline_text}
+msgid ""
+"You took a 30-minute break. It is {clock_text}. Break requirement reset. "
+"{deadline_text}"
+msgstr "30分休憩をとりました。今は{clock_text}です。休憩の条件がリセットされました。{deadline_text}"
+
+#. one sentence of a longer line
+msgid "Coffee break."
+msgstr "コーヒー休憩。"
+
+#. placeholders: {clock_text}, {deadline_text}
+msgid ""
+"Coffee break. {clock_text}. Eases fatigue. Does not count as your 30-minute "
+"break. {deadline_text}"
+msgstr "コーヒー休憩。{clock_text}。疲れが和らぎます。30分の休憩には数えられません。{deadline_text}"
+
+#. one sentence of a longer line
+msgid "Does not count as your 30-minute break."
+msgstr "30分の休憩には数えられません。"
+
+#. one sentence of a longer line
+msgid "Eases fatigue."
+msgstr "疲れが和らぎます。"
+
+#. placeholders: {clock_text}, {deadline_text}
+msgid ""
+"Coffee break. {clock_text}. No lift while the last coffee lasts. Does not "
+"count as your 30-minute break. {deadline_text}"
+msgstr ""
+"コーヒー休憩。{clock_text}。前のコーヒーが効いている間は、効果がありません。30分の休憩には数えられません。{deadline_text}"
+
+#. one sentence of a longer line
+msgid "No lift while the last coffee lasts."
+msgstr "前のコーヒーが効いている間は、効果がありません。"
 
 msgid "Held at the chain control."
 msgstr "チェーンの検問所で足止めされています。"
