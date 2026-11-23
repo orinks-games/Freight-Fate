@@ -54,6 +54,7 @@ fn roll_the_yield_with_a_car(car_after_clear_s: f64) -> String {
             crossed: false,
             committed: false,
             sound_started: false,
+            release_delay_s: 0.0,
             id: 1,
         }];
         d.cross_bubble = Some(bubble);

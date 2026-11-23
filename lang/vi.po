@@ -7897,11 +7897,9 @@ msgstr "Hoàn thành {OWNER_OPERATOR_DELIVERIES} chuyến giao hàng."
 
 #. placeholders: {grouped}, {grouped2}, {grouped3}
 msgid ""
-"Save {grouped} dollars: {grouped2} for the truck buy-in and {grouped3} for "
-"working capital."
+"Save {grouped} dollars: {grouped2} for the cheapest sleeper tractor and "
+"{grouped3} for working capital."
 msgstr ""
-"Tiết kiệm đủ {grouped} đô la: {grouped2} để mua xe đầu kéo và {grouped3} "
-"làm vốn lưu động."
 
 #. placeholders: {NO_CARRIER_STATUS}, {level}, {title}
 #. one sentence of a longer line
@@ -7968,11 +7966,9 @@ msgid "Company driver by choice. {company_ladder_next}"
 msgstr "Tài xế hãng theo lựa chọn. {company_ladder_next}"
 
 msgid ""
-"Next: the owner-operator buy-in under Business status, where you buy the "
-"truck you drive."
+"Next: the owner-operator buy-in under Business status, where you buy a "
+"tractor of your own."
 msgstr ""
-"Tiếp theo: bước mua xe chuyển sang tài xế chủ xe trong mục Tình trạng kinh "
-"doanh, nơi bạn mua lại chính chiếc xe mình đang lái."
 
 #. placeholders: {join}
 msgid "Owner-operator gate locked: {join}"
@@ -8100,11 +8096,9 @@ msgstr ""
 #. placeholders: {grouped}, {grouped2}
 #. one sentence of a longer line
 msgid ""
-"The buy-in costs {grouped} dollars and keeps {grouped2} dollars of working "
-"capital in the bank."
+"Tractors start at {grouped} dollars, and {grouped2} dollars stays in the "
+"bank as working capital."
 msgstr ""
-"Khoản mua xe tốn {grouped} đô la và giữ lại {grouped2} đô la vốn lưu động "
-"trong tài khoản."
 
 #. placeholders: {carrier_name}, {level}, {title}
 #. one sentence of a longer line
@@ -8114,25 +8108,17 @@ msgstr "Bạn đang là tài xế hãng cho {carrier_name}, cấp {level}: {titl
 #. placeholders: {carrier_name}, {level}, {title}, {grouped}, {grouped2}
 msgid ""
 "You are a company driver for {carrier_name}, level {level} {title}. You "
-"qualify for the owner-operator buy-in: you buy the truck you drive and keep "
-"hauling for the carrier as a leased-on owner-operator. The buy-in costs "
-"{grouped} dollars and keeps {grouped2} dollars of working capital in the "
-"bank."
+"qualify for the owner-operator buy-in: you buy a tractor of your own and "
+"keep hauling for the carrier as a leased-on owner-operator. Tractors start "
+"at {grouped} dollars, and {grouped2} dollars stays in the bank as working "
+"capital."
 msgstr ""
-"Bạn đang là tài xế hãng cho {carrier_name}, cấp {level}: {title}. Bạn đã đủ "
-"điều kiện mua xe chuyển sang tài xế chủ xe: mua lại chính chiếc xe đang lái "
-"và tiếp tục kéo hàng cho hãng với tư cách chủ xe hợp đồng cho hãng. Khoản "
-"mua xe tốn {grouped} đô la và giữ lại {grouped2} đô la vốn lưu động trong "
-"tài khoản."
 
 #. one sentence of a longer line
 msgid ""
-"You qualify for the owner-operator buy-in: you buy the truck you drive and "
-"keep hauling for the carrier as a leased-on owner-operator."
+"You qualify for the owner-operator buy-in: you buy a tractor of your own "
+"and keep hauling for the carrier as a leased-on owner-operator."
 msgstr ""
-"Bạn đã đủ điều kiện mua xe chuyển sang tài xế chủ xe: mua lại chính chiếc "
-"xe đang lái và tiếp tục kéo hàng cho hãng với tư cách chủ xe hợp đồng cho "
-"hãng."
 
 #. placeholders: {carrier_name}
 #. one sentence of a longer line
@@ -8536,13 +8522,9 @@ msgstr "Tài xế chủ xe"
 
 msgid ""
 "The owner-operator buy-in opens once its other requirements are met: you "
-"buy the truck you drive and haul for the carrier as a leased-on "
+"buy a tractor of your own and haul for the carrier as a leased-on "
 "owner-operator. TWIC port card enrollment opens under Licenses and training."
 msgstr ""
-"Bước mua xe chuyển sang tài xế chủ xe sẽ mở khi đáp ứng đủ các điều kiện "
-"còn lại: bạn mua lại chiếc xe mình đang lái và kéo hàng cho hãng với tư "
-"cách chủ xe hợp đồng cho hãng. Mục đăng ký thẻ cảng TWIC cũng đã mở trong "
-"Giấy phép và đào tạo."
 
 msgid "Eligible to buy your own truck and pay its operating costs."
 msgstr "Đủ điều kiện mua xe đầu kéo riêng và tự chi trả chi phí vận hành."
@@ -12208,6 +12190,9 @@ msgstr "northstar"
 msgid "your home in Buffalo"
 msgstr "nhà bạn ở Buffalo"
 
+msgid "Hand Back"
+msgstr ""
+
 #. placeholders: {f}, {f2}, {f3}, {f4}
 msgid ""
 "{f} percent pay share, {f2} dollars per mile floor, {f3} dollar stop pay, "
@@ -12609,6 +12594,11 @@ msgstr "nhẹ"
 
 msgid "heavy"
 msgstr "nặng"
+
+#. placeholders: {f}, {f2}, {f3}
+msgid ""
+"{f} thousand newton meters torque, {f2} gallon tank, {f3} miles per gallon"
+msgstr ""
 
 msgid ""
 "The dependable tractor you started with: better fuel economy and a calmer "
@@ -15458,6 +15448,10 @@ msgid "traffic ahead"
 msgstr "xe cộ phía trước"
 
 #. placeholders: {class}
+msgid "Oncoming {class}"
+msgstr ""
+
+#. placeholders: {class}
 msgid "Merging {class} on the right ramp"
 msgstr "{class} đang nhập làn từ nhánh bên phải"
 
@@ -16873,6 +16867,18 @@ msgstr "{temp_c} độ C"
 msgid "Reefer running at {cargo_temp_degrees}."
 msgstr "Rơ-moóc lạnh đang chạy ở {cargo_temp_degrees}."
 
+msgid "modulating"
+msgstr ""
+
+msgid "grip"
+msgstr ""
+
+msgid "spinning"
+msgstr ""
+
+msgid "swaying"
+msgstr ""
+
 msgid "simulated"
 msgstr "mô phỏng"
 
@@ -18260,6 +18266,10 @@ msgstr ""
 msgid "You take the wheel {start_mi} miles up the road."
 msgstr "Bạn cầm lái từ {start_mi} dặm phía trước."
 
+#. placeholders: {key}, {buy_in_paid}
+msgid "business_stage {key}; buy_in_paid {buy_in_paid}"
+msgstr ""
+
 #. placeholders: {i}
 msgid "job {i}"
 msgstr "đơn hàng {i}"
@@ -18887,6 +18897,12 @@ msgstr "Thời tiết"
 
 msgid "Lane position"
 msgstr "Vị trí làn đường"
+
+msgid "Check left mirror"
+msgstr ""
+
+msgid "Check right mirror"
+msgstr ""
 
 msgid "Grade"
 msgstr "Độ dốc"
@@ -22281,11 +22297,9 @@ msgid "{source} in {city_name}: {desc}."
 msgstr "{source} tại {city_name}: {desc}."
 
 msgid ""
-"Enter repeats a line, or buys in when qualified. Escape returns to the "
-"terminal."
+"Enter repeats a line, or opens the buy-in when qualified. Escape returns to "
+"the terminal."
 msgstr ""
-"Enter để nghe lại dòng, hoặc mua suất đầu tư khi đủ điều kiện. Escape quay "
-"lại trạm chính."
 
 #. placeholders: {status_label}
 msgid "Current status: {status_label}"
@@ -22342,35 +22356,6 @@ msgid "Weigh station transponder. {body}"
 msgstr "Thiết bị qua trạm tự động. {body}"
 
 #. one sentence of a longer line
-msgid "Owner-operator path locked."
-msgstr "Lộ trình tài xế chủ xe đang bị khóa."
-
-#. placeholders: {join}
-msgid "Owner-operator path locked. {join}"
-msgstr "Lộ trình tài xế chủ xe đang bị khóa. {join}"
-
-#. one sentence of a longer line
-msgid "Leased-on owner-operator status unlocked."
-msgstr "Đã mở khóa tư cách chủ xe hợp đồng cho hãng."
-
-#. placeholders: {grouped}, {grouped2}
-msgid ""
-"Leased-on owner-operator status unlocked. Paid {grouped} dollars toward "
-"your first tractor, {grouped2} dollars working capital left."
-msgstr ""
-"Đã mở khóa tư cách chủ xe hợp đồng cho hãng. Đã trả {grouped} đô la cho "
-"chiếc xe đầu kéo đầu tiên, còn lại {grouped2} đô la vốn lưu động."
-
-#. placeholders: {grouped}, {grouped2}
-#. one sentence of a longer line
-msgid ""
-"Paid {grouped} dollars toward your first tractor, {grouped2} dollars "
-"working capital left."
-msgstr ""
-"Đã trả {grouped} đô la cho chiếc xe đầu kéo đầu tiên, còn lại {grouped2} đô "
-"la vốn lưu động."
-
-#. one sentence of a longer line
 msgid "Authority prep locked."
 msgstr "Mục chuẩn bị giấy phép vận tải riêng đang bị khóa."
 
@@ -22400,11 +22385,6 @@ msgid ""
 msgstr ""
 "Giấy phép vận tải riêng sẽ mở khóa sau khi bạn đạt đủ điều kiện về số "
 "chuyến giao hàng, uy tín, chương trình rơ-moóc và tiền mặt."
-
-#. placeholders: {grouped2}
-#. one sentence of a longer line
-msgid "You have {grouped2} dollars left."
-msgstr "Bạn còn {grouped2} đô la."
 
 #. one sentence of a longer line
 msgid "Transponder subscription locked."
@@ -22489,14 +22469,13 @@ msgstr "Mốc mở khóa kinh doanh tiếp theo"
 msgid "The next career or business unlock."
 msgstr "Mốc mở khóa sự nghiệp hoặc kinh doanh tiếp theo."
 
-#. placeholders: {grouped}
-msgid "Owner-operator buy-in: {grouped} dollars"
-msgstr "Mua suất tài xế chủ xe: {grouped} đô la"
-
-msgid "Higher revenue, but your business pays operating costs."
+msgid "Owner-operator buy-in: choose a tractor"
 msgstr ""
-"Doanh thu cao hơn, nhưng doanh nghiệp của bạn tự chi trả các chi phí vận "
-"hành."
+
+msgid ""
+"You buy a tractor of your own. Loads pay more, and your business pays the "
+"operating costs."
+msgstr ""
 
 msgid "Reopen the owner-operator plan"
 msgstr "Mở lại kế hoạch lên tài xế chủ xe"
@@ -22609,213 +22588,6 @@ msgstr "Thiết bị qua trạm tự động đang bị khóa"
 
 msgid "What the transponder still needs."
 msgstr "Những điều kiện còn thiếu để dùng thiết bị qua trạm tự động."
-
-msgid "Upgrades"
-msgstr "Nâng cấp xe"
-
-msgid ""
-"Upgrades apply to every tractor you own. Enter buys the next tier, F1 is "
-"details. Escape returns to the garage."
-msgstr ""
-"Các nâng cấp áp dụng cho mọi xe đầu kéo bạn sở hữu. Enter để mua cấp tiếp "
-"theo, F1 xem chi tiết. Escape quay lại xưởng sửa xe."
-
-msgid ""
-"Upgrades unlock with the owner-operator buy-in, from level 18 under "
-"Business status."
-msgstr ""
-"Mục nâng cấp mở khóa khi bạn lên tài xế chủ xe, từ cấp 18 trong mục Tình "
-"trạng kinh doanh."
-
-#. placeholders: {owned}, {max_tier}
-msgid ", tier {owned} of {max_tier}"
-msgstr ", cấp {owned} trên {max_tier}"
-
-#. placeholders: {owned}, {max_tier}
-#. one clause of a longer line
-msgid "tier {owned} of {max_tier}"
-msgstr "cấp {owned} trên {max_tier}"
-
-#. placeholders: {label}, {tiers}
-msgid "{label}: owned{tiers}"
-msgstr "{label}: đã sở hữu{tiers}"
-
-#. placeholders: {owned}
-msgid ", tier {owned} owned"
-msgstr ", đã sở hữu cấp {owned}"
-
-#. placeholders: {owned}
-#. one clause of a longer line
-msgid "tier {owned} owned"
-msgstr "đã sở hữu cấp {owned}"
-
-#. placeholders: {label}, {owned}, {max_tier}, {grouped}, {owned_part}
-msgid "{label}, tier {owned} of {max_tier}: {grouped} dollars{owned_part}"
-msgstr "{label}, cấp {owned} trên {max_tier}: {grouped} đô la{owned_part}"
-
-#. placeholders: {label}, {grouped}
-msgid "{label}: {grouped} dollars"
-msgstr "{label}: {grouped} đô la"
-
-#. placeholders: {label}
-msgid "{label} is already fully installed."
-msgstr "{label} đã được lắp đặt đầy đủ."
-
-#. one sentence of a longer line
-msgid "Not enough money."
-msgstr "Không đủ tiền."
-
-#. placeholders: {label}, {grouped}, {grouped2}
-msgid ""
-"Not enough money. {label} costs {grouped} dollars and you have {grouped2}."
-msgstr ""
-"Không đủ tiền. {label} có giá {grouped} đô la nhưng bạn chỉ có {grouped2} "
-"đô la."
-
-#. placeholders: {label}, {grouped}, {grouped2}
-#. one sentence of a longer line
-msgid "{label} costs {grouped} dollars and you have {grouped2}."
-msgstr "{label} có giá {grouped} đô la, bạn đang có {grouped2}."
-
-#. placeholders: {owned}
-msgid " tier {owned}"
-msgstr " bậc {owned}"
-
-#. placeholders: {label}, {tier_part}, {grouped}
-#. one sentence of a longer line
-msgid ""
-"{label}{tier_part} installed across your fleet for {grouped} dollars."
-msgstr "Đã lắp {label}{tier_part} cho toàn đội xe với giá {grouped} đô la."
-
-#. placeholders: {label}, {tier_part}, {grouped}, {grouped2}
-msgid ""
-"{label}{tier_part} installed across your fleet for {grouped} dollars. You "
-"have {grouped2} dollars left."
-msgstr ""
-"Đã lắp {label}{tier_part} cho toàn đội xe với giá {grouped} đô la. Bạn còn "
-"lại {grouped2} đô la."
-
-#. one sentence of a longer line
-msgid "Fleet upgrades, for every tractor you own."
-msgstr "Nâng cấp đội xe, áp dụng cho mọi xe đầu kéo bạn sở hữu."
-
-#. placeholders: {grouped}, {current}
-msgid ""
-"Fleet upgrades, for every tractor you own. You have {grouped} dollars. "
-"{current}"
-msgstr ""
-"Nâng cấp đội xe, áp dụng cho mọi xe đầu kéo bạn sở hữu. Bạn đang có "
-"{grouped} đô la. {current}"
-
-#. one sentence of a longer line
-msgid "Upgrades."
-msgstr "Nâng cấp."
-
-#. placeholders: {grouped}, {current}
-msgid "Upgrades. You have {grouped} dollars. {current}"
-msgstr "Nâng cấp. Bạn đang có {grouped} đô la. {current}"
-
-msgid "Upgrades locked: carrier-assigned tractor"
-msgstr "Nâng cấp đang khóa: xe đầu kéo do hãng giao"
-
-msgid ""
-"Truck ownership starts with the leased-on owner-operator buy-in, and that "
-"needs a carrier to lease to. Apply to a carrier first."
-msgstr ""
-"Muốn sở hữu xe thì bắt đầu bằng việc mua xe làm chủ xe hợp đồng cho hãng, "
-"và việc đó cần một hãng để hợp đồng. Hãy nộp đơn vào hãng vận tải trước."
-
-msgid "Trucks"
-msgstr "Xe đầu kéo"
-
-msgid ""
-"Owner-operators buy tractors or switch among those they own. Upgrades "
-"follow whichever tractor you drive."
-msgstr ""
-"Tài xế chủ xe có thể mua xe đầu kéo hoặc chuyển đổi giữa các xe mình sở "
-"hữu. Mọi nâng cấp đều đi theo chiếc xe bạn đang lái."
-
-msgid ""
-"Company drivers use the carrier's trucks. Buying trucks unlocks with the "
-"owner-operator buy-in, from level 18 under Business status."
-msgstr ""
-"Tài xế hãng chạy xe do hãng vận tải cấp. Quyền mua xe đầu kéo mở khi góp "
-"vốn lên tài xế chủ xe, từ cấp 18 trong mục Tình trạng kinh doanh."
-
-#. placeholders: {f}, {f2}
-msgid "{f} thousand newton meters torque, {f2} gallon tank"
-msgstr "mô-men xoắn {f} nghìn Nm, bình dầu {f2} gallon"
-
-#. placeholders: {name}, {traits}
-msgid "{name}: currently driving, {traits}"
-msgstr "{name}: đang lái, {traits}"
-
-#. placeholders: {name}, {traits}
-msgid "{name}: owned, {traits}, switch to it"
-msgstr "{name}: đã sở hữu, {traits}, chuyển sang lái xe này"
-
-#. placeholders: {name}, {traits}, {grouped}
-msgid "{name}: {traits}, buy for {grouped} dollars"
-msgstr "{name}: {traits}, mua giá {grouped} đô la"
-
-#. placeholders: {label}
-msgid "You are already driving the {label}."
-msgstr "Bạn đang lái chiếc {label} rồi."
-
-#. placeholders: {label}, {grouped}, {grouped2}
-msgid ""
-"Not enough money. The {label} costs {grouped} dollars and you have "
-"{grouped2}."
-msgstr ""
-"Không đủ tiền. Chiếc {label} giá {grouped} đô la, bạn đang có {grouped2}."
-
-#. placeholders: {label}, {grouped}, {grouped2}
-#. one sentence of a longer line
-msgid "The {label} costs {grouped} dollars and you have {grouped2}."
-msgstr "Chiếc {label} giá {grouped} đô la, bạn đang có {grouped2}."
-
-#. placeholders: {label}, {grouped}
-#. one sentence of a longer line
-msgid "You bought the {label} for {grouped} dollars, now your tractor."
-msgstr ""
-"Bạn đã mua chiếc {label} với giá {grouped} đô la, nay là xe đầu kéo của bạn."
-
-#. placeholders: {label}, {grouped}, {grouped2}
-msgid ""
-"You bought the {label} for {grouped} dollars, now your tractor. You have "
-"{grouped2} dollars left."
-msgstr ""
-"Bạn đã mua chiếc {label} với giá {grouped} đô la, nay là xe đầu kéo của "
-"bạn. Bạn còn lại {grouped2} đô la."
-
-#. placeholders: {label}
-msgid "You are now driving the {label}."
-msgstr "Hiện tại bạn đang lái chiếc {label}."
-
-#. placeholders: {name}
-msgid "Inside {name}. "
-msgstr "Bên trong {name}. "
-
-#. placeholders: {dealer}
-#. one sentence of a longer line
-msgid "{dealer}Trucks."
-msgstr "{dealer}Xe đầu kéo."
-
-#. placeholders: {dealer}, {grouped}, {current}
-msgid "{dealer}Trucks. You have {grouped} dollars. {current}"
-msgstr "{dealer}Xe đầu kéo. Bạn đang có {grouped} đô la. {current}"
-
-msgid "Truck ownership locked: no carrier"
-msgstr "Chưa mở quyền sở hữu xe: chưa có hãng vận tải"
-
-msgid "Truck ownership locked: carrier-assigned tractor"
-msgstr "Quyền sở hữu xe đang khóa: xe đầu kéo do hãng giao"
-
-msgid ""
-"Unlocks with the owner-operator buy-in, from level 18 under Business status."
-msgstr ""
-"Mở khóa khi góp vốn lên tài xế chủ xe, từ cấp 18 trong mục Tình trạng kinh "
-"doanh."
 
 msgid "Trailers"
 msgstr "Rơ-moóc"
@@ -23091,6 +22863,101 @@ msgstr ""
 msgid "Return to the terminal menu."
 msgstr "Quay lại bảng điều khiển trạm chính."
 
+msgid "Owner-operator buy-in"
+msgstr ""
+
+#. placeholders: {name}, {traits}, {price}
+msgid "{name}, the tractor you drive now: {traits}, {price} dollars"
+msgstr ""
+
+#. placeholders: {name}, {traits}, {price}
+msgid "{name}: {traits}, {price} dollars"
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Owner-operator path locked."
+msgstr "Lộ trình tài xế chủ xe đang bị khóa."
+
+#. placeholders: {join}
+msgid "Owner-operator path locked. {join}"
+msgstr "Lộ trình tài xế chủ xe đang bị khóa. {join}"
+
+#. one sentence of a longer line
+msgid "Not enough money."
+msgstr "Không đủ tiền."
+
+#. placeholders: {label}, {grouped}, {capital}, {grouped2}
+msgid ""
+"Not enough money. The {label} costs {grouped} dollars, and {capital} "
+"dollars stays in the bank as working capital. You have {grouped2}."
+msgstr ""
+
+#. placeholders: {label}, {grouped}, {capital}
+#. one sentence of a longer line
+msgid ""
+"The {label} costs {grouped} dollars, and {capital} dollars stays in the "
+"bank as working capital."
+msgstr ""
+
+#. placeholders: {grouped2}
+#. one sentence of a longer line
+msgid "You have {grouped2}."
+msgstr ""
+
+msgid "Double tap again to buy it."
+msgstr ""
+
+msgid "Press Enter again to buy it."
+msgstr ""
+
+#. placeholders: {grouped2}
+#. one sentence of a longer line
+msgid "You would have {grouped2} dollars left."
+msgstr ""
+
+#. placeholders: {py_capitalize}, {grouped}
+#. one sentence of a longer line
+msgid "{py_capitalize}, {grouped} dollars."
+msgstr ""
+
+#. placeholders: {py_capitalize}, {grouped}, {grouped2}, {again}
+msgid ""
+"{py_capitalize}, {grouped} dollars. You would have {grouped2} dollars left. "
+"{again}"
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Leased-on owner-operator status unlocked."
+msgstr "Đã mở khóa tư cách chủ xe hợp đồng cho hãng."
+
+#. placeholders: {label}, {grouped}, {grouped2}
+msgid ""
+"Leased-on owner-operator status unlocked. You bought the {label} for "
+"{grouped} dollars and have {grouped2} dollars left."
+msgstr ""
+
+#. placeholders: {label}, {grouped}, {grouped2}
+#. one sentence of a longer line
+msgid ""
+"You bought the {label} for {grouped} dollars and have {grouped2} dollars "
+"left."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Owner-operator buy-in."
+msgstr ""
+
+#. placeholders: {grouped}, {capital}, {current}
+msgid ""
+"Owner-operator buy-in. You have {grouped} dollars. {capital} dollars stays "
+"in the bank as working capital. {current}"
+msgstr ""
+
+#. placeholders: {capital}
+#. one sentence of a longer line
+msgid "{capital} dollars stays in the bank as working capital."
+msgstr ""
+
 msgid "Move to another carrier: locked"
 msgstr "Chuyển sang hãng vận tải khác: đang khóa"
 
@@ -23141,6 +23008,210 @@ msgstr ""
 #. one sentence of a longer line
 msgid "{menu_summary}{starts} Press Enter again to move."
 msgstr "{menu_summary}{starts} Nhấn Enter lần nữa để di chuyển."
+
+msgid "Upgrades"
+msgstr "Nâng cấp xe"
+
+msgid ""
+"Upgrades apply to every tractor you own. Enter buys the next tier, F1 is "
+"details. Escape returns to the garage."
+msgstr ""
+"Các nâng cấp áp dụng cho mọi xe đầu kéo bạn sở hữu. Enter để mua cấp tiếp "
+"theo, F1 xem chi tiết. Escape quay lại xưởng sửa xe."
+
+msgid ""
+"Upgrades unlock with the owner-operator buy-in, from level 18 under "
+"Business status."
+msgstr ""
+"Mục nâng cấp mở khóa khi bạn lên tài xế chủ xe, từ cấp 18 trong mục Tình "
+"trạng kinh doanh."
+
+#. placeholders: {owned}, {max_tier}
+msgid ", tier {owned} of {max_tier}"
+msgstr ", cấp {owned} trên {max_tier}"
+
+#. placeholders: {owned}, {max_tier}
+#. one clause of a longer line
+msgid "tier {owned} of {max_tier}"
+msgstr "cấp {owned} trên {max_tier}"
+
+#. placeholders: {label}, {tiers}
+msgid "{label}: owned{tiers}"
+msgstr "{label}: đã sở hữu{tiers}"
+
+#. placeholders: {owned}
+msgid ", tier {owned} owned"
+msgstr ", đã sở hữu cấp {owned}"
+
+#. placeholders: {owned}
+#. one clause of a longer line
+msgid "tier {owned} owned"
+msgstr "đã sở hữu cấp {owned}"
+
+#. placeholders: {label}, {owned}, {max_tier}, {grouped}, {owned_part}
+msgid "{label}, tier {owned} of {max_tier}: {grouped} dollars{owned_part}"
+msgstr "{label}, cấp {owned} trên {max_tier}: {grouped} đô la{owned_part}"
+
+#. placeholders: {label}, {grouped}
+msgid "{label}: {grouped} dollars"
+msgstr "{label}: {grouped} đô la"
+
+#. placeholders: {label}
+msgid "{label} is already fully installed."
+msgstr "{label} đã được lắp đặt đầy đủ."
+
+#. placeholders: {label}, {grouped}, {grouped2}
+msgid ""
+"Not enough money. {label} costs {grouped} dollars and you have {grouped2}."
+msgstr ""
+"Không đủ tiền. {label} có giá {grouped} đô la nhưng bạn chỉ có {grouped2} "
+"đô la."
+
+#. placeholders: {label}, {grouped}, {grouped2}
+#. one sentence of a longer line
+msgid "{label} costs {grouped} dollars and you have {grouped2}."
+msgstr "{label} có giá {grouped} đô la, bạn đang có {grouped2}."
+
+#. placeholders: {owned}
+msgid " tier {owned}"
+msgstr " bậc {owned}"
+
+#. placeholders: {grouped2}
+#. one sentence of a longer line
+msgid "You have {grouped2} dollars left."
+msgstr "Bạn còn {grouped2} đô la."
+
+#. placeholders: {label}, {tier_part}, {grouped}
+#. one sentence of a longer line
+msgid ""
+"{label}{tier_part} installed across your fleet for {grouped} dollars."
+msgstr "Đã lắp {label}{tier_part} cho toàn đội xe với giá {grouped} đô la."
+
+#. placeholders: {label}, {tier_part}, {grouped}, {grouped2}
+msgid ""
+"{label}{tier_part} installed across your fleet for {grouped} dollars. You "
+"have {grouped2} dollars left."
+msgstr ""
+"Đã lắp {label}{tier_part} cho toàn đội xe với giá {grouped} đô la. Bạn còn "
+"lại {grouped2} đô la."
+
+#. one sentence of a longer line
+msgid "Fleet upgrades, for every tractor you own."
+msgstr "Nâng cấp đội xe, áp dụng cho mọi xe đầu kéo bạn sở hữu."
+
+#. placeholders: {grouped}, {current}
+msgid ""
+"Fleet upgrades, for every tractor you own. You have {grouped} dollars. "
+"{current}"
+msgstr ""
+"Nâng cấp đội xe, áp dụng cho mọi xe đầu kéo bạn sở hữu. Bạn đang có "
+"{grouped} đô la. {current}"
+
+#. one sentence of a longer line
+msgid "Upgrades."
+msgstr "Nâng cấp."
+
+#. placeholders: {grouped}, {current}
+msgid "Upgrades. You have {grouped} dollars. {current}"
+msgstr "Nâng cấp. Bạn đang có {grouped} đô la. {current}"
+
+msgid "Upgrades locked: carrier-assigned tractor"
+msgstr "Nâng cấp đang khóa: xe đầu kéo do hãng giao"
+
+msgid ""
+"Truck ownership starts with the leased-on owner-operator buy-in, and that "
+"needs a carrier to lease to. Apply to a carrier first."
+msgstr ""
+"Muốn sở hữu xe thì bắt đầu bằng việc mua xe làm chủ xe hợp đồng cho hãng, "
+"và việc đó cần một hãng để hợp đồng. Hãy nộp đơn vào hãng vận tải trước."
+
+msgid "Trucks"
+msgstr "Xe đầu kéo"
+
+msgid ""
+"Owner-operators buy tractors or switch among those they own. Upgrades "
+"follow whichever tractor you drive."
+msgstr ""
+"Tài xế chủ xe có thể mua xe đầu kéo hoặc chuyển đổi giữa các xe mình sở "
+"hữu. Mọi nâng cấp đều đi theo chiếc xe bạn đang lái."
+
+msgid ""
+"Company drivers use the carrier's trucks. Buying trucks unlocks with the "
+"owner-operator buy-in, from level 18 under Business status."
+msgstr ""
+"Tài xế hãng chạy xe do hãng vận tải cấp. Quyền mua xe đầu kéo mở khi góp "
+"vốn lên tài xế chủ xe, từ cấp 18 trong mục Tình trạng kinh doanh."
+
+#. placeholders: {name}, {traits}
+msgid "{name}: currently driving, {traits}"
+msgstr "{name}: đang lái, {traits}"
+
+#. placeholders: {name}, {traits}
+msgid "{name}: owned, {traits}, switch to it"
+msgstr "{name}: đã sở hữu, {traits}, chuyển sang lái xe này"
+
+#. placeholders: {name}, {traits}, {grouped}
+msgid "{name}: {traits}, buy for {grouped} dollars"
+msgstr "{name}: {traits}, mua giá {grouped} đô la"
+
+#. placeholders: {label}
+msgid "You are already driving the {label}."
+msgstr "Bạn đang lái chiếc {label} rồi."
+
+#. placeholders: {label}, {grouped}, {grouped2}
+msgid ""
+"Not enough money. The {label} costs {grouped} dollars and you have "
+"{grouped2}."
+msgstr ""
+"Không đủ tiền. Chiếc {label} giá {grouped} đô la, bạn đang có {grouped2}."
+
+#. placeholders: {label}, {grouped}, {grouped2}
+#. one sentence of a longer line
+msgid "The {label} costs {grouped} dollars and you have {grouped2}."
+msgstr "Chiếc {label} giá {grouped} đô la, bạn đang có {grouped2}."
+
+#. placeholders: {label}, {grouped}
+#. one sentence of a longer line
+msgid "You bought the {label} for {grouped} dollars, now your tractor."
+msgstr ""
+"Bạn đã mua chiếc {label} với giá {grouped} đô la, nay là xe đầu kéo của bạn."
+
+#. placeholders: {label}, {grouped}, {grouped2}
+msgid ""
+"You bought the {label} for {grouped} dollars, now your tractor. You have "
+"{grouped2} dollars left."
+msgstr ""
+"Bạn đã mua chiếc {label} với giá {grouped} đô la, nay là xe đầu kéo của "
+"bạn. Bạn còn lại {grouped2} đô la."
+
+#. placeholders: {label}
+msgid "You are now driving the {label}."
+msgstr "Hiện tại bạn đang lái chiếc {label}."
+
+#. placeholders: {name}
+msgid "Inside {name}. "
+msgstr "Bên trong {name}. "
+
+#. placeholders: {dealer}
+#. one sentence of a longer line
+msgid "{dealer}Trucks."
+msgstr "{dealer}Xe đầu kéo."
+
+#. placeholders: {dealer}, {grouped}, {current}
+msgid "{dealer}Trucks. You have {grouped} dollars. {current}"
+msgstr "{dealer}Xe đầu kéo. Bạn đang có {grouped} đô la. {current}"
+
+msgid "Truck ownership locked: no carrier"
+msgstr "Chưa mở quyền sở hữu xe: chưa có hãng vận tải"
+
+msgid "Truck ownership locked: carrier-assigned tractor"
+msgstr "Quyền sở hữu xe đang khóa: xe đầu kéo do hãng giao"
+
+msgid ""
+"Unlocks with the owner-operator buy-in, from level 18 under Business status."
+msgstr ""
+"Mở khóa khi góp vốn lên tài xế chủ xe, từ cấp 18 trong mục Tình trạng kinh "
+"doanh."
 
 msgid "carrier shop repair"
 msgstr "sửa chữa tại xưởng hãng"
@@ -25938,6 +26009,12 @@ msgstr ""
 "{lane_locator} bật hoặc tắt âm báo vị trí làn: tiếng gõ nhẹ theo nhịp, "
 "nghiêng trái phải theo vị trí xe trong làn khi giữ làn ở mức một phần hoặc "
 "tắt."
+
+#. placeholders: {mirror_left}, {mirror_right}
+msgid ""
+"{mirror_left} and {mirror_right} check the left or right mirror and blind "
+"spot, briefly focusing traffic audio on that side."
+msgstr ""
 
 #. placeholders: {last_announcement}
 msgid "{last_announcement} repeats the last driving announcement."
@@ -31123,6 +31200,43 @@ msgstr ""
 
 msgid "Missed the facility gate. Use the next safe turnaround."
 msgstr "Đã lỡ cổng cơ sở. Dùng vòng quay đầu an toàn tiếp theo."
+
+msgid "Looking forward."
+msgstr ""
+
+msgid "Left"
+msgstr ""
+
+msgid "Right"
+msgstr ""
+
+#. placeholders: {side_word}
+msgid "{side_word} shoulder."
+msgstr ""
+
+#. placeholders: {side_word}
+msgid "{side_word} lane closed."
+msgstr ""
+
+#. placeholders: {kind_cap}, {side_lower}
+msgid "{kind_cap} beside {side_lower}."
+msgstr ""
+
+#. placeholders: {kind_cap}, {side_lower}
+msgid "{kind_cap} closing {side_lower}."
+msgstr ""
+
+#. placeholders: {kind_cap}, {side_lower}
+msgid "{kind_cap} behind {side_lower}."
+msgstr ""
+
+#. placeholders: {kind_cap}, {side_lower}
+msgid "{kind_cap} ahead {side_lower}."
+msgstr ""
+
+#. placeholders: {side_word}
+msgid "{side_word} clear."
+msgstr ""
 
 #. placeholders: {capitalized}
 msgid "{capitalized} lane open."
@@ -37003,6 +37117,12 @@ msgstr "Xe bị trượt nước. Tay lái đang nhẹ hẫng."
 msgid "The drive wheels are sliding under the engine brake."
 msgstr "Bánh chủ động đang bị trượt do phanh động cơ."
 
+msgid "ABS pulsing. Hold steady on the brake."
+msgstr ""
+
+msgid "Drive wheels spinning. Ease off the throttle."
+msgstr ""
+
 msgid ""
 "A tire chain broke and is flailing. Slow down and pull over to check it."
 msgstr ""
@@ -37990,6 +38110,12 @@ msgstr ""
 
 msgid "Traffic is stacking up and passing you on the right."
 msgstr "Xe phía sau đang dồn ứ và vượt bạn ở bên phải."
+
+msgid "Trailer off-tracking tight on the inside. Give the curve more room."
+msgstr ""
+
+msgid "Trailer swaying in the wind. Ease off your speed."
+msgstr ""
 
 #. placeholders: {fresh}
 msgid "Weather alert: {fresh}."
@@ -48289,6 +48415,90 @@ msgid ""
 msgstr ""
 "Giữ nút vai trái để mở lớp nút thứ hai. {pad_engine} bật tắt động cơ, "
 "{pad_fuel} đọc nhiên liệu và {pad_speed_limit} đọc tốc độ giới hạn."
+
+#~ msgid ""
+#~ "Save {grouped} dollars: {grouped2} for the truck buy-in and {grouped3} for "
+#~ "working capital."
+#~ msgstr ""
+#~ "Tiết kiệm đủ {grouped} đô la: {grouped2} để mua xe đầu kéo và {grouped3} "
+#~ "làm vốn lưu động."
+
+#~ msgid ""
+#~ "Next: the owner-operator buy-in under Business status, where you buy the "
+#~ "truck you drive."
+#~ msgstr ""
+#~ "Tiếp theo: bước mua xe chuyển sang tài xế chủ xe trong mục Tình trạng kinh "
+#~ "doanh, nơi bạn mua lại chính chiếc xe mình đang lái."
+
+#~ msgid ""
+#~ "The buy-in costs {grouped} dollars and keeps {grouped2} dollars of working "
+#~ "capital in the bank."
+#~ msgstr ""
+#~ "Khoản mua xe tốn {grouped} đô la và giữ lại {grouped2} đô la vốn lưu động "
+#~ "trong tài khoản."
+
+#~ msgid ""
+#~ "You are a company driver for {carrier_name}, level {level} {title}. You "
+#~ "qualify for the owner-operator buy-in: you buy the truck you drive and keep "
+#~ "hauling for the carrier as a leased-on owner-operator. The buy-in costs "
+#~ "{grouped} dollars and keeps {grouped2} dollars of working capital in the "
+#~ "bank."
+#~ msgstr ""
+#~ "Bạn đang là tài xế hãng cho {carrier_name}, cấp {level}: {title}. Bạn đã đủ "
+#~ "điều kiện mua xe chuyển sang tài xế chủ xe: mua lại chính chiếc xe đang lái "
+#~ "và tiếp tục kéo hàng cho hãng với tư cách chủ xe hợp đồng cho hãng. Khoản "
+#~ "mua xe tốn {grouped} đô la và giữ lại {grouped2} đô la vốn lưu động trong "
+#~ "tài khoản."
+
+#~ msgid ""
+#~ "You qualify for the owner-operator buy-in: you buy the truck you drive and "
+#~ "keep hauling for the carrier as a leased-on owner-operator."
+#~ msgstr ""
+#~ "Bạn đã đủ điều kiện mua xe chuyển sang tài xế chủ xe: mua lại chính chiếc "
+#~ "xe đang lái và tiếp tục kéo hàng cho hãng với tư cách chủ xe hợp đồng cho "
+#~ "hãng."
+
+#~ msgid ""
+#~ "The owner-operator buy-in opens once its other requirements are met: you "
+#~ "buy the truck you drive and haul for the carrier as a leased-on "
+#~ "owner-operator. TWIC port card enrollment opens under Licenses and training."
+#~ msgstr ""
+#~ "Bước mua xe chuyển sang tài xế chủ xe sẽ mở khi đáp ứng đủ các điều kiện "
+#~ "còn lại: bạn mua lại chiếc xe mình đang lái và kéo hàng cho hãng với tư "
+#~ "cách chủ xe hợp đồng cho hãng. Mục đăng ký thẻ cảng TWIC cũng đã mở trong "
+#~ "Giấy phép và đào tạo."
+
+#~ msgid ""
+#~ "Enter repeats a line, or buys in when qualified. Escape returns to the "
+#~ "terminal."
+#~ msgstr ""
+#~ "Enter để nghe lại dòng, hoặc mua suất đầu tư khi đủ điều kiện. Escape quay "
+#~ "lại trạm chính."
+
+#~ msgid ""
+#~ "Leased-on owner-operator status unlocked. Paid {grouped} dollars toward "
+#~ "your first tractor, {grouped2} dollars working capital left."
+#~ msgstr ""
+#~ "Đã mở khóa tư cách chủ xe hợp đồng cho hãng. Đã trả {grouped} đô la cho "
+#~ "chiếc xe đầu kéo đầu tiên, còn lại {grouped2} đô la vốn lưu động."
+
+#~ msgid ""
+#~ "Paid {grouped} dollars toward your first tractor, {grouped2} dollars "
+#~ "working capital left."
+#~ msgstr ""
+#~ "Đã trả {grouped} đô la cho chiếc xe đầu kéo đầu tiên, còn lại {grouped2} đô "
+#~ "la vốn lưu động."
+
+#~ msgid "Owner-operator buy-in: {grouped} dollars"
+#~ msgstr "Mua suất tài xế chủ xe: {grouped} đô la"
+
+#~ msgid "Higher revenue, but your business pays operating costs."
+#~ msgstr ""
+#~ "Doanh thu cao hơn, nhưng doanh nghiệp của bạn tự chi trả các chi phí vận "
+#~ "hành."
+
+#~ msgid "{f} thousand newton meters torque, {f2} gallon tank"
+#~ msgstr "mô-men xoắn {f} nghìn Nm, bình dầu {f2} gallon"
 
 #~ msgid "Destination {destination_label} ahead."
 #~ msgstr "Điểm đến {destination_label} ở phía trước."

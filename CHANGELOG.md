@@ -68,9 +68,15 @@
 - **Settings, Audio now has Outside sounds volume and Road surface volume.** Birds, insects, rivers, seams and bridge joints no longer share a volume with weather or gameplay cues.
 - **Page Up and Page Down now move ten options at a time in every menu.**
 - **Tires whine on grooved concrete and hum on steel grate bridge decks.** The pitch rises and falls with your speed.
+- **Alt+Left and Alt+Right check your left or right mirror.** You hear whether that lane is clear while traffic audio focuses on that side.
 
 ### Changed
 
+- **Slick roads, high crosswinds, and tight ramps now trigger ABS, wheelspin, trailer sway, and off-tracking.** Automatic shifts also hold lower gears longer on downgrades.
+- **The owner-operator buy-in now buys a tractor you choose, at its dealer price.** Tractors you already own stay yours.
+- **The heavy hauler costs 78,000 dollars.** One you already own is not affected.
+- **Truck dealer rows give each tractor's miles per gallon.**
+- **Traffic glides smoothly between lanes, passes on two-lane highways, yields to your turn signal, and launches in waves from red lights.**
 - **Freeway traffic, passing vehicles and ramp cross traffic now use real recordings.** Vehicles driving alongside hold a steady exterior sound by lane.
 - **The recorded truck engine has stereo cab sound and follows rev changes more closely.** Gear changes use clacks recorded inside the cab.
 - **The GPS no longer calls out low bridges and weight limits.** Your route already clears every one of them.
@@ -100,6 +106,7 @@
 - **The Ohio Turnpike toll between Cleveland and Toledo is now the 2026 five-axle fare.** It drops from $28.00 to $17.50.
 - **Deliveries no longer end at a freeway exit miles short of town.** Dallas to Tyler now drives US 69 into Tyler.
 - **Toll estimates no longer charge a one-way bridge in both directions.** The estimate now matches what the drive charges.
+- **The truck dealer no longer offers the standard rig for nothing.** It is listed only if you own it.
 - **The truck's starter gives way to a brief idle before the engine revs up to build air.**
 - **Automatic gear changes start with a softer clunk so the drop in revs is easier to hear.**
 - **Left curve calls say "left" again in every language.** They are spoken in English for now.

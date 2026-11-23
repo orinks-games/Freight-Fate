@@ -83,6 +83,8 @@ fn scenario_properties() -> Value {
         "money": {"type": "number"},
         "reputation": {"type": "number"},
         "business": {"type": "string", "enum": ["company", "leased", "independent"]},
+        "business_stage": {"type": "string", "enum": ["company_driver", "company_by_choice", "leased_on", "leased_on_prepared", "own_authority"], "description": "the ownership ladder stage; wins over business"},
+        "owned_trucks": {"type": "array", "items": {"type": "string"}, "description": "truck catalog keys the career owns, replacing what it held; the first is driven"},
         "endorsements": {"type": "array", "items": {"type": "string"}},
         "hour": {"type": "number"},
         "date": {"type": "string", "description": "the calendar date the career shows, MM-DD (05-01): dated rules such as spring weight limits and tunnel seasons read it; career time and hours do not move"},
@@ -122,6 +124,11 @@ fn scenario_properties() -> Value {
     ] {
         properties[key] = json!({"type": "number"});
     }
+    properties["abs"] = json!({"type": "string", "enum": ["inactive", "modulating"]});
+    properties["drive_traction"] = json!({"type": "string", "enum": ["grip", "spinning"]});
+    properties["trailer_sway"] =
+        json!({"type": "string", "enum": ["steady", "swaying", "off_tracking"]});
+    properties["mirror_glance"] = json!({"type": "string", "enum": ["forward", "left", "right"]});
     properties
 }
 
@@ -342,7 +349,10 @@ fn tools_list() -> Value {
              no keys, since they are menu keys. A SPEECH line follows it \
              everywhere: main_backend (the saved Main voice choice, automatic \
              when none), main (the voice bound now) and event (the event \
-             voice bound now, or main voice when events share it). An INPUT line \
+             voice bound now, or main voice when events share it). A BUSINESS line \
+             gives business_stage (company_driver, company_by_choice, leased_on, \
+             leased_on_prepared or own_authority) and buy_in_paid (what the buy-in \
+             paid for the first tractor, 0 when none is on record). An INPUT line \
              ends it: phone (whether this run plays as a phone), device (keyboard, \
              controller or touch: the input prompts name), last_used, and keyboard \
              and controller (connected or none).",
@@ -435,7 +445,10 @@ fn tools_list() -> Value {
             "Put the sandbox career in any situation and reopen the terminal on it. \
              Every field is optional: city (any world city, the career moves there \
              with no miles driven), level (1 to 30), deliveries, money, reputation, \
-             business (company, leased or independent), endorsements (a list of \
+             business (company, leased or independent) or business_stage \
+             (company_driver, company_by_choice, leased_on, leased_on_prepared or \
+             own_authority; wins over business), owned_trucks (truck keys owned, the \
+             first driven, with fresh wear and a full tank), endorsements (a list of \
              credential keys bought outright, replacing what was held), hour (local \
              clock 0 to 24, moved forward to), fuel_pct, damage_pct, tire_wear_pct and \
              brake_wear_pct (0 to 100, what a roadside inspection reads), citations and \
@@ -463,7 +476,9 @@ fn tools_list() -> Value {
              the driver window there), road_surface (jointed or smooth: every \
              drive from here on keeps that surface the whole way, over what the \
              pavement layer reads), tire_song (quiet, whine or hum: every drive \
-             from here on holds that song the whole way), and name (the career created when none is \
+             from here on holds that song the whole way), abs (inactive or modulating), \
+             drive_traction (grip or spinning), trailer_sway (steady, swaying or off_tracking), \
+             mirror_glance (forward, left or right), and name (the career created when none is \
              loaded; default Playtest). Nothing is refused for being unreasonable: this is the \
              audited sandbox. Listen afterwards for the terminal.",
             scenario_properties(),

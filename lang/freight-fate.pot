@@ -2770,7 +2770,7 @@ msgstr ""
 msgid "active"
 msgstr ""
 
-#: crates/ff-core/src/app_lifecycle.rs
+#: crates/ff-core/src/app_lifecycle.rs crates/ff-core/src/sim/vehicle/traction.rs
 msgid "inactive"
 msgstr ""
 
@@ -5714,7 +5714,7 @@ msgstr ""
 msgid "both"
 msgstr ""
 
-#: crates/ff-core/src/data/pavement.rs crates/ff-core/src/data/world_constants.rs crates/ff-core/src/data/world_models.rs crates/freight-fate/src/states/driving_updates/air.rs
+#: crates/ff-core/src/data/pavement.rs crates/ff-core/src/data/world_constants.rs crates/ff-core/src/data/world_models.rs crates/ff-core/src/sim/mirror_glance.rs
 msgid "forward"
 msgstr ""
 
@@ -8218,7 +8218,7 @@ msgstr ""
 msgid "ahead"
 msgstr ""
 
-#: crates/ff-core/src/data/world_services.rs crates/ff-core/src/sim/cross_traffic.rs crates/ff-core/src/sim/lane.rs crates/ff-core/src/sim/trip/limits.rs
+#: crates/ff-core/src/data/world_services.rs crates/ff-core/src/sim/cross_traffic.rs crates/ff-core/src/sim/lane.rs crates/ff-core/src/sim/mirror_glance.rs
 msgid "right"
 msgstr ""
 
@@ -8698,8 +8698,8 @@ msgstr ""
 #. placeholders: {grouped}, {grouped2}, {grouped3}
 #: crates/ff-core/src/models/business.rs
 msgid ""
-"Save {grouped} dollars: {grouped2} for the truck buy-in and {grouped3} for "
-"working capital."
+"Save {grouped} dollars: {grouped2} for the cheapest sleeper tractor and "
+"{grouped3} for working capital."
 msgstr ""
 
 #. placeholders: {NO_CARRIER_STATUS}, {level}, {title}
@@ -8775,8 +8775,8 @@ msgstr ""
 
 #: crates/ff-core/src/models/business.rs
 msgid ""
-"Next: the owner-operator buy-in under Business status, where you buy the "
-"truck you drive."
+"Next: the owner-operator buy-in under Business status, where you buy a "
+"tractor of your own."
 msgstr ""
 
 #. placeholders: {join}
@@ -8903,8 +8903,8 @@ msgstr ""
 #. one sentence of a longer line
 #: crates/ff-core/src/models/business.rs
 msgid ""
-"The buy-in costs {grouped} dollars and keeps {grouped2} dollars of working "
-"capital in the bank."
+"Tractors start at {grouped} dollars, and {grouped2} dollars stays in the "
+"bank as working capital."
 msgstr ""
 
 #. placeholders: {carrier_name}, {level}, {title}
@@ -8917,17 +8917,17 @@ msgstr ""
 #: crates/ff-core/src/models/business.rs
 msgid ""
 "You are a company driver for {carrier_name}, level {level} {title}. You "
-"qualify for the owner-operator buy-in: you buy the truck you drive and keep "
-"hauling for the carrier as a leased-on owner-operator. The buy-in costs "
-"{grouped} dollars and keeps {grouped2} dollars of working capital in the "
-"bank."
+"qualify for the owner-operator buy-in: you buy a tractor of your own and "
+"keep hauling for the carrier as a leased-on owner-operator. Tractors start "
+"at {grouped} dollars, and {grouped2} dollars stays in the bank as working "
+"capital."
 msgstr ""
 
 #. one sentence of a longer line
 #: crates/ff-core/src/models/business.rs
 msgid ""
-"You qualify for the owner-operator buy-in: you buy the truck you drive and "
-"keep hauling for the carrier as a leased-on owner-operator."
+"You qualify for the owner-operator buy-in: you buy a tractor of your own "
+"and keep hauling for the carrier as a leased-on owner-operator."
 msgstr ""
 
 #. placeholders: {carrier_name}
@@ -9377,7 +9377,7 @@ msgstr ""
 #: crates/ff-core/src/models/career_ladder.rs
 msgid ""
 "The owner-operator buy-in opens once its other requirements are met: you "
-"buy the truck you drive and haul for the carrier as a leased-on "
+"buy a tractor of your own and haul for the carrier as a leased-on "
 "owner-operator. TWIC port card enrollment opens under Licenses and training."
 msgstr ""
 
@@ -12816,7 +12816,7 @@ msgstr ""
 msgid "loose"
 msgstr ""
 
-#: crates/ff-core/src/models/market.rs
+#: crates/ff-core/src/models/market.rs crates/ff-core/src/sim/vehicle/traction.rs
 msgid "steady"
 msgstr ""
 
@@ -13456,6 +13456,10 @@ msgstr ""
 msgid "your home in Buffalo"
 msgstr ""
 
+#: crates/ff-core/src/models/solvency/tests_buy_in.rs
+msgid "Hand Back"
+msgstr ""
+
 #. placeholders: {f}, {f2}, {f3}, {f4}
 #: crates/ff-core/src/models/start_options.rs
 msgid ""
@@ -13889,6 +13893,12 @@ msgstr ""
 
 #: crates/ff-core/src/models/trucks.rs
 msgid "heavy"
+msgstr ""
+
+#. placeholders: {f}, {f2}, {f3}
+#: crates/ff-core/src/models/trucks.rs
+msgid ""
+"{f} thousand newton meters torque, {f2} gallon tank, {f3} miles per gallon"
 msgstr ""
 
 #: crates/ff-core/src/models/trucks.rs
@@ -16157,7 +16167,7 @@ msgstr ""
 msgid "median"
 msgstr ""
 
-#: crates/ff-core/src/sim/lane_guidance.rs
+#: crates/ff-core/src/sim/lane_guidance.rs crates/ff-core/src/sim/traffic_manager/oncoming.rs
 msgid "oncoming"
 msgstr ""
 
@@ -17371,6 +17381,11 @@ msgstr ""
 
 #: crates/ff-core/src/sim/traffic_manager/vehicle.rs crates/ff-core/src/sim/trip_models.rs
 msgid "traffic ahead"
+msgstr ""
+
+#. placeholders: {class}
+#: crates/ff-core/src/sim/traffic_manager/vehicle.rs
+msgid "Oncoming {class}"
 msgstr ""
 
 #. placeholders: {class}
@@ -19123,6 +19138,22 @@ msgstr ""
 msgid "Reefer running at {cargo_temp_degrees}."
 msgstr ""
 
+#: crates/ff-core/src/sim/vehicle/traction.rs
+msgid "modulating"
+msgstr ""
+
+#: crates/ff-core/src/sim/vehicle/traction.rs
+msgid "grip"
+msgstr ""
+
+#: crates/ff-core/src/sim/vehicle/traction.rs
+msgid "spinning"
+msgstr ""
+
+#: crates/ff-core/src/sim/vehicle/traction.rs
+msgid "swaying"
+msgstr ""
+
 #: crates/ff-core/src/sim/weather.rs crates/freight-fate/src/states/main_menu/settings_items.rs
 msgid "simulated"
 msgstr ""
@@ -20590,6 +20621,11 @@ msgstr ""
 msgid "You take the wheel {start_mi} miles up the road."
 msgstr ""
 
+#. placeholders: {key}, {buy_in_paid}
+#: crates/freight-fate/src/app.rs
+msgid "business_stage {key}; buy_in_paid {buy_in_paid}"
+msgstr ""
+
 #. placeholders: {i}
 #: crates/freight-fate/src/app.rs
 msgid "job {i}"
@@ -21324,6 +21360,14 @@ msgstr ""
 
 #: crates/freight-fate/src/bindings.rs
 msgid "Lane position"
+msgstr ""
+
+#: crates/freight-fate/src/bindings.rs
+msgid "Check left mirror"
+msgstr ""
+
+#: crates/freight-fate/src/bindings.rs
+msgid "Check right mirror"
 msgstr ""
 
 #: crates/freight-fate/src/bindings.rs
@@ -25105,8 +25149,8 @@ msgstr ""
 
 #: crates/freight-fate/src/states/city_business.rs
 msgid ""
-"Enter repeats a line, or buys in when qualified. Escape returns to the "
-"terminal."
+"Enter repeats a line, or opens the buy-in when qualified. Escape returns to "
+"the terminal."
 msgstr ""
 
 #. placeholders: {status_label}
@@ -25170,36 +25214,6 @@ msgstr ""
 
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/city_business.rs
-msgid "Owner-operator path locked."
-msgstr ""
-
-#. placeholders: {join}
-#: crates/freight-fate/src/states/city_business.rs
-msgid "Owner-operator path locked. {join}"
-msgstr ""
-
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/city_business.rs
-msgid "Leased-on owner-operator status unlocked."
-msgstr ""
-
-#. placeholders: {grouped}, {grouped2}
-#: crates/freight-fate/src/states/city_business.rs
-msgid ""
-"Leased-on owner-operator status unlocked. Paid {grouped} dollars toward "
-"your first tractor, {grouped2} dollars working capital left."
-msgstr ""
-
-#. placeholders: {grouped}, {grouped2}
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/city_business.rs
-msgid ""
-"Paid {grouped} dollars toward your first tractor, {grouped2} dollars "
-"working capital left."
-msgstr ""
-
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/city_business.rs
 msgid "Authority prep locked."
 msgstr ""
 
@@ -25227,12 +25241,6 @@ msgstr ""
 msgid ""
 "Own authority unlocks after you meet the delivery, reputation, trailer "
 "program and cash requirements."
-msgstr ""
-
-#. placeholders: {grouped2}
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/city_business.rs
-msgid "You have {grouped2} dollars left."
 msgstr ""
 
 #. one sentence of a longer line
@@ -25328,13 +25336,14 @@ msgstr ""
 msgid "The next career or business unlock."
 msgstr ""
 
-#. placeholders: {grouped}
 #: crates/freight-fate/src/states/city_business.rs
-msgid "Owner-operator buy-in: {grouped} dollars"
+msgid "Owner-operator buy-in: choose a tractor"
 msgstr ""
 
 #: crates/freight-fate/src/states/city_business.rs
-msgid "Higher revenue, but your business pays operating costs."
+msgid ""
+"You buy a tractor of your own. Loads pay more, and your business pays the "
+"operating costs."
 msgstr ""
 
 #: crates/freight-fate/src/states/city_business.rs
@@ -25460,233 +25469,6 @@ msgstr ""
 
 #: crates/freight-fate/src/states/city_business.rs
 msgid "What the transponder still needs."
-msgstr ""
-
-#: crates/freight-fate/src/states/city_business.rs crates/freight-fate/src/states/city_garage.rs
-msgid "Upgrades"
-msgstr ""
-
-#: crates/freight-fate/src/states/city_business.rs
-msgid ""
-"Upgrades apply to every tractor you own. Enter buys the next tier, F1 is "
-"details. Escape returns to the garage."
-msgstr ""
-
-#: crates/freight-fate/src/states/city_business.rs
-msgid ""
-"Upgrades unlock with the owner-operator buy-in, from level 18 under "
-"Business status."
-msgstr ""
-
-#. placeholders: {owned}, {max_tier}
-#: crates/freight-fate/src/states/city_business.rs
-msgid ", tier {owned} of {max_tier}"
-msgstr ""
-
-#. placeholders: {owned}, {max_tier}
-#. one clause of a longer line
-#: crates/freight-fate/src/states/city_business.rs
-msgid "tier {owned} of {max_tier}"
-msgstr ""
-
-#. placeholders: {label}, {tiers}
-#: crates/freight-fate/src/states/city_business.rs
-msgid "{label}: owned{tiers}"
-msgstr ""
-
-#. placeholders: {owned}
-#: crates/freight-fate/src/states/city_business.rs
-msgid ", tier {owned} owned"
-msgstr ""
-
-#. placeholders: {owned}
-#. one clause of a longer line
-#: crates/freight-fate/src/states/city_business.rs
-msgid "tier {owned} owned"
-msgstr ""
-
-#. placeholders: {label}, {owned}, {max_tier}, {grouped}, {owned_part}
-#: crates/freight-fate/src/states/city_business.rs
-msgid "{label}, tier {owned} of {max_tier}: {grouped} dollars{owned_part}"
-msgstr ""
-
-#. placeholders: {label}, {grouped}
-#: crates/freight-fate/src/states/city_business.rs
-msgid "{label}: {grouped} dollars"
-msgstr ""
-
-#. placeholders: {label}
-#: crates/freight-fate/src/states/city_business.rs
-msgid "{label} is already fully installed."
-msgstr ""
-
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/city_business.rs
-msgid "Not enough money."
-msgstr ""
-
-#. placeholders: {label}, {grouped}, {grouped2}
-#: crates/freight-fate/src/states/city_business.rs
-msgid ""
-"Not enough money. {label} costs {grouped} dollars and you have {grouped2}."
-msgstr ""
-
-#. placeholders: {label}, {grouped}, {grouped2}
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/city_business.rs
-msgid "{label} costs {grouped} dollars and you have {grouped2}."
-msgstr ""
-
-#. placeholders: {owned}
-#: crates/freight-fate/src/states/city_business.rs
-msgid " tier {owned}"
-msgstr ""
-
-#. placeholders: {label}, {tier_part}, {grouped}
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/city_business.rs
-msgid ""
-"{label}{tier_part} installed across your fleet for {grouped} dollars."
-msgstr ""
-
-#. placeholders: {label}, {tier_part}, {grouped}, {grouped2}
-#: crates/freight-fate/src/states/city_business.rs
-msgid ""
-"{label}{tier_part} installed across your fleet for {grouped} dollars. You "
-"have {grouped2} dollars left."
-msgstr ""
-
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/city_business.rs
-msgid "Fleet upgrades, for every tractor you own."
-msgstr ""
-
-#. placeholders: {grouped}, {current}
-#: crates/freight-fate/src/states/city_business.rs
-msgid ""
-"Fleet upgrades, for every tractor you own. You have {grouped} dollars. "
-"{current}"
-msgstr ""
-
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/city_business.rs
-msgid "Upgrades."
-msgstr ""
-
-#. placeholders: {grouped}, {current}
-#: crates/freight-fate/src/states/city_business.rs
-msgid "Upgrades. You have {grouped} dollars. {current}"
-msgstr ""
-
-#: crates/freight-fate/src/states/city_business.rs
-msgid "Upgrades locked: carrier-assigned tractor"
-msgstr ""
-
-#: crates/freight-fate/src/states/city_business.rs
-msgid ""
-"Truck ownership starts with the leased-on owner-operator buy-in, and that "
-"needs a carrier to lease to. Apply to a carrier first."
-msgstr ""
-
-#: crates/freight-fate/src/states/city_business.rs crates/freight-fate/src/states/city_garage.rs
-msgid "Trucks"
-msgstr ""
-
-#: crates/freight-fate/src/states/city_business.rs
-msgid ""
-"Owner-operators buy tractors or switch among those they own. Upgrades "
-"follow whichever tractor you drive."
-msgstr ""
-
-#: crates/freight-fate/src/states/city_business.rs
-msgid ""
-"Company drivers use the carrier's trucks. Buying trucks unlocks with the "
-"owner-operator buy-in, from level 18 under Business status."
-msgstr ""
-
-#. placeholders: {f}, {f2}
-#: crates/freight-fate/src/states/city_business.rs
-msgid "{f} thousand newton meters torque, {f2} gallon tank"
-msgstr ""
-
-#. placeholders: {name}, {traits}
-#: crates/freight-fate/src/states/city_business.rs
-msgid "{name}: currently driving, {traits}"
-msgstr ""
-
-#. placeholders: {name}, {traits}
-#: crates/freight-fate/src/states/city_business.rs
-msgid "{name}: owned, {traits}, switch to it"
-msgstr ""
-
-#. placeholders: {name}, {traits}, {grouped}
-#: crates/freight-fate/src/states/city_business.rs
-msgid "{name}: {traits}, buy for {grouped} dollars"
-msgstr ""
-
-#. placeholders: {label}
-#: crates/freight-fate/src/states/city_business.rs
-msgid "You are already driving the {label}."
-msgstr ""
-
-#. placeholders: {label}, {grouped}, {grouped2}
-#: crates/freight-fate/src/states/city_business.rs
-msgid ""
-"Not enough money. The {label} costs {grouped} dollars and you have "
-"{grouped2}."
-msgstr ""
-
-#. placeholders: {label}, {grouped}, {grouped2}
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/city_business.rs
-msgid "The {label} costs {grouped} dollars and you have {grouped2}."
-msgstr ""
-
-#. placeholders: {label}, {grouped}
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/city_business.rs
-msgid "You bought the {label} for {grouped} dollars, now your tractor."
-msgstr ""
-
-#. placeholders: {label}, {grouped}, {grouped2}
-#: crates/freight-fate/src/states/city_business.rs
-msgid ""
-"You bought the {label} for {grouped} dollars, now your tractor. You have "
-"{grouped2} dollars left."
-msgstr ""
-
-#. placeholders: {label}
-#: crates/freight-fate/src/states/city_business.rs
-msgid "You are now driving the {label}."
-msgstr ""
-
-#. placeholders: {name}
-#: crates/freight-fate/src/states/city_business.rs
-msgid "Inside {name}. "
-msgstr ""
-
-#. placeholders: {dealer}
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/city_business.rs
-msgid "{dealer}Trucks."
-msgstr ""
-
-#. placeholders: {dealer}, {grouped}, {current}
-#: crates/freight-fate/src/states/city_business.rs
-msgid "{dealer}Trucks. You have {grouped} dollars. {current}"
-msgstr ""
-
-#: crates/freight-fate/src/states/city_business.rs
-msgid "Truck ownership locked: no carrier"
-msgstr ""
-
-#: crates/freight-fate/src/states/city_business.rs
-msgid "Truck ownership locked: carrier-assigned tractor"
-msgstr ""
-
-#: crates/freight-fate/src/states/city_business.rs
-msgid ""
-"Unlocks with the owner-operator buy-in, from level 18 under Business status."
 msgstr ""
 
 #: crates/freight-fate/src/states/city_business.rs
@@ -25978,6 +25760,121 @@ msgstr ""
 msgid "Return to the terminal menu."
 msgstr ""
 
+#: crates/freight-fate/src/states/city_business/buy_in.rs
+msgid "Owner-operator buy-in"
+msgstr ""
+
+#. placeholders: {name}, {traits}, {price}
+#: crates/freight-fate/src/states/city_business/buy_in.rs
+msgid "{name}, the tractor you drive now: {traits}, {price} dollars"
+msgstr ""
+
+#. placeholders: {name}, {traits}, {price}
+#: crates/freight-fate/src/states/city_business/buy_in.rs
+msgid "{name}: {traits}, {price} dollars"
+msgstr ""
+
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/city_business/buy_in.rs
+msgid "Owner-operator path locked."
+msgstr ""
+
+#. placeholders: {join}
+#: crates/freight-fate/src/states/city_business/buy_in.rs crates/freight-fate/src/states/city_business.rs
+msgid "Owner-operator path locked. {join}"
+msgstr ""
+
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/city_business/buy_in.rs
+msgid "Not enough money."
+msgstr ""
+
+#. placeholders: {label}, {grouped}, {capital}, {grouped2}
+#: crates/freight-fate/src/states/city_business/buy_in.rs
+msgid ""
+"Not enough money. The {label} costs {grouped} dollars, and {capital} "
+"dollars stays in the bank as working capital. You have {grouped2}."
+msgstr ""
+
+#. placeholders: {label}, {grouped}, {capital}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/city_business/buy_in.rs
+msgid ""
+"The {label} costs {grouped} dollars, and {capital} dollars stays in the "
+"bank as working capital."
+msgstr ""
+
+#. placeholders: {grouped2}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/city_business/buy_in.rs
+msgid "You have {grouped2}."
+msgstr ""
+
+#: crates/freight-fate/src/states/city_business/buy_in.rs
+msgid "Double tap again to buy it."
+msgstr ""
+
+#: crates/freight-fate/src/states/city_business/buy_in.rs
+msgid "Press Enter again to buy it."
+msgstr ""
+
+#. placeholders: {grouped2}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/city_business/buy_in.rs
+msgid "You would have {grouped2} dollars left."
+msgstr ""
+
+#. placeholders: {py_capitalize}, {grouped}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/city_business/buy_in.rs
+msgid "{py_capitalize}, {grouped} dollars."
+msgstr ""
+
+#. placeholders: {py_capitalize}, {grouped}, {grouped2}, {again}
+#: crates/freight-fate/src/states/city_business/buy_in.rs
+msgid ""
+"{py_capitalize}, {grouped} dollars. You would have {grouped2} dollars left. "
+"{again}"
+msgstr ""
+
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/city_business/buy_in.rs
+msgid "Leased-on owner-operator status unlocked."
+msgstr ""
+
+#. placeholders: {label}, {grouped}, {grouped2}
+#: crates/freight-fate/src/states/city_business/buy_in.rs
+msgid ""
+"Leased-on owner-operator status unlocked. You bought the {label} for "
+"{grouped} dollars and have {grouped2} dollars left."
+msgstr ""
+
+#. placeholders: {label}, {grouped}, {grouped2}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/city_business/buy_in.rs
+msgid ""
+"You bought the {label} for {grouped} dollars and have {grouped2} dollars "
+"left."
+msgstr ""
+
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/city_business/buy_in.rs
+msgid "Owner-operator buy-in."
+msgstr ""
+
+#. placeholders: {grouped}, {capital}, {current}
+#: crates/freight-fate/src/states/city_business/buy_in.rs
+msgid ""
+"Owner-operator buy-in. You have {grouped} dollars. {capital} dollars stays "
+"in the bank as working capital. {current}"
+msgstr ""
+
+#. placeholders: {capital}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/city_business/buy_in.rs
+msgid "{capital} dollars stays in the bank as working capital."
+msgstr ""
+
 #: crates/freight-fate/src/states/city_business/carrier_move.rs
 msgid "Move to another carrier: locked"
 msgstr ""
@@ -26036,6 +25933,229 @@ msgstr ""
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/city_business/carrier_move.rs
 msgid "{menu_summary}{starts} Press Enter again to move."
+msgstr ""
+
+#: crates/freight-fate/src/states/city_business/equipment.rs crates/freight-fate/src/states/city_garage.rs
+msgid "Upgrades"
+msgstr ""
+
+#: crates/freight-fate/src/states/city_business/equipment.rs
+msgid ""
+"Upgrades apply to every tractor you own. Enter buys the next tier, F1 is "
+"details. Escape returns to the garage."
+msgstr ""
+
+#: crates/freight-fate/src/states/city_business/equipment.rs
+msgid ""
+"Upgrades unlock with the owner-operator buy-in, from level 18 under "
+"Business status."
+msgstr ""
+
+#. placeholders: {owned}, {max_tier}
+#: crates/freight-fate/src/states/city_business/equipment.rs
+msgid ", tier {owned} of {max_tier}"
+msgstr ""
+
+#. placeholders: {owned}, {max_tier}
+#. one clause of a longer line
+#: crates/freight-fate/src/states/city_business/equipment.rs
+msgid "tier {owned} of {max_tier}"
+msgstr ""
+
+#. placeholders: {label}, {tiers}
+#: crates/freight-fate/src/states/city_business/equipment.rs
+msgid "{label}: owned{tiers}"
+msgstr ""
+
+#. placeholders: {owned}
+#: crates/freight-fate/src/states/city_business/equipment.rs
+msgid ", tier {owned} owned"
+msgstr ""
+
+#. placeholders: {owned}
+#. one clause of a longer line
+#: crates/freight-fate/src/states/city_business/equipment.rs
+msgid "tier {owned} owned"
+msgstr ""
+
+#. placeholders: {label}, {owned}, {max_tier}, {grouped}, {owned_part}
+#: crates/freight-fate/src/states/city_business/equipment.rs
+msgid "{label}, tier {owned} of {max_tier}: {grouped} dollars{owned_part}"
+msgstr ""
+
+#. placeholders: {label}, {grouped}
+#: crates/freight-fate/src/states/city_business/equipment.rs
+msgid "{label}: {grouped} dollars"
+msgstr ""
+
+#. placeholders: {label}
+#: crates/freight-fate/src/states/city_business/equipment.rs
+msgid "{label} is already fully installed."
+msgstr ""
+
+#. placeholders: {label}, {grouped}, {grouped2}
+#: crates/freight-fate/src/states/city_business/equipment.rs
+msgid ""
+"Not enough money. {label} costs {grouped} dollars and you have {grouped2}."
+msgstr ""
+
+#. placeholders: {label}, {grouped}, {grouped2}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/city_business/equipment.rs
+msgid "{label} costs {grouped} dollars and you have {grouped2}."
+msgstr ""
+
+#. placeholders: {owned}
+#: crates/freight-fate/src/states/city_business/equipment.rs
+msgid " tier {owned}"
+msgstr ""
+
+#. placeholders: {grouped2}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/city_business/equipment.rs
+msgid "You have {grouped2} dollars left."
+msgstr ""
+
+#. placeholders: {label}, {tier_part}, {grouped}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/city_business/equipment.rs
+msgid ""
+"{label}{tier_part} installed across your fleet for {grouped} dollars."
+msgstr ""
+
+#. placeholders: {label}, {tier_part}, {grouped}, {grouped2}
+#: crates/freight-fate/src/states/city_business/equipment.rs
+msgid ""
+"{label}{tier_part} installed across your fleet for {grouped} dollars. You "
+"have {grouped2} dollars left."
+msgstr ""
+
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/city_business/equipment.rs
+msgid "Fleet upgrades, for every tractor you own."
+msgstr ""
+
+#. placeholders: {grouped}, {current}
+#: crates/freight-fate/src/states/city_business/equipment.rs
+msgid ""
+"Fleet upgrades, for every tractor you own. You have {grouped} dollars. "
+"{current}"
+msgstr ""
+
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/city_business/equipment.rs
+msgid "Upgrades."
+msgstr ""
+
+#. placeholders: {grouped}, {current}
+#: crates/freight-fate/src/states/city_business/equipment.rs
+msgid "Upgrades. You have {grouped} dollars. {current}"
+msgstr ""
+
+#: crates/freight-fate/src/states/city_business/equipment.rs
+msgid "Upgrades locked: carrier-assigned tractor"
+msgstr ""
+
+#: crates/freight-fate/src/states/city_business/equipment.rs
+msgid ""
+"Truck ownership starts with the leased-on owner-operator buy-in, and that "
+"needs a carrier to lease to. Apply to a carrier first."
+msgstr ""
+
+#: crates/freight-fate/src/states/city_business/equipment.rs crates/freight-fate/src/states/city_garage.rs
+msgid "Trucks"
+msgstr ""
+
+#: crates/freight-fate/src/states/city_business/equipment.rs
+msgid ""
+"Owner-operators buy tractors or switch among those they own. Upgrades "
+"follow whichever tractor you drive."
+msgstr ""
+
+#: crates/freight-fate/src/states/city_business/equipment.rs
+msgid ""
+"Company drivers use the carrier's trucks. Buying trucks unlocks with the "
+"owner-operator buy-in, from level 18 under Business status."
+msgstr ""
+
+#. placeholders: {name}, {traits}
+#: crates/freight-fate/src/states/city_business/equipment.rs
+msgid "{name}: currently driving, {traits}"
+msgstr ""
+
+#. placeholders: {name}, {traits}
+#: crates/freight-fate/src/states/city_business/equipment.rs
+msgid "{name}: owned, {traits}, switch to it"
+msgstr ""
+
+#. placeholders: {name}, {traits}, {grouped}
+#: crates/freight-fate/src/states/city_business/equipment.rs
+msgid "{name}: {traits}, buy for {grouped} dollars"
+msgstr ""
+
+#. placeholders: {label}
+#: crates/freight-fate/src/states/city_business/equipment.rs
+msgid "You are already driving the {label}."
+msgstr ""
+
+#. placeholders: {label}, {grouped}, {grouped2}
+#: crates/freight-fate/src/states/city_business/equipment.rs
+msgid ""
+"Not enough money. The {label} costs {grouped} dollars and you have "
+"{grouped2}."
+msgstr ""
+
+#. placeholders: {label}, {grouped}, {grouped2}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/city_business/equipment.rs
+msgid "The {label} costs {grouped} dollars and you have {grouped2}."
+msgstr ""
+
+#. placeholders: {label}, {grouped}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/city_business/equipment.rs
+msgid "You bought the {label} for {grouped} dollars, now your tractor."
+msgstr ""
+
+#. placeholders: {label}, {grouped}, {grouped2}
+#: crates/freight-fate/src/states/city_business/equipment.rs
+msgid ""
+"You bought the {label} for {grouped} dollars, now your tractor. You have "
+"{grouped2} dollars left."
+msgstr ""
+
+#. placeholders: {label}
+#: crates/freight-fate/src/states/city_business/equipment.rs
+msgid "You are now driving the {label}."
+msgstr ""
+
+#. placeholders: {name}
+#: crates/freight-fate/src/states/city_business/equipment.rs
+msgid "Inside {name}. "
+msgstr ""
+
+#. placeholders: {dealer}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/city_business/equipment.rs
+msgid "{dealer}Trucks."
+msgstr ""
+
+#. placeholders: {dealer}, {grouped}, {current}
+#: crates/freight-fate/src/states/city_business/equipment.rs
+msgid "{dealer}Trucks. You have {grouped} dollars. {current}"
+msgstr ""
+
+#: crates/freight-fate/src/states/city_business/equipment.rs
+msgid "Truck ownership locked: no carrier"
+msgstr ""
+
+#: crates/freight-fate/src/states/city_business/equipment.rs
+msgid "Truck ownership locked: carrier-assigned tractor"
+msgstr ""
+
+#: crates/freight-fate/src/states/city_business/equipment.rs
+msgid ""
+"Unlocks with the owner-operator buy-in, from level 18 under Business status."
 msgstr ""
 
 #: crates/freight-fate/src/states/city_garage.rs
@@ -29153,6 +29273,13 @@ msgstr ""
 msgid ""
 "{lane_locator} turns the lane locator on and off: a soft tock once a beat, "
 "panned to where you sit in your lane, on lane keeping partial or off."
+msgstr ""
+
+#. placeholders: {mirror_left}, {mirror_right}
+#: crates/freight-fate/src/states/driving_controls/help.rs
+msgid ""
+"{mirror_left} and {mirror_right} check the left or right mirror and blind "
+"spot, briefly focusing traffic audio on that side."
 msgstr ""
 
 #. placeholders: {last_announcement}
@@ -35060,6 +35187,53 @@ msgstr ""
 
 #: crates/freight-fate/src/states/driving_facility_gate.rs
 msgid "Missed the facility gate. Use the next safe turnaround."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_lane_gap.rs
+msgid "Looking forward."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_lane_gap.rs
+msgid "Left"
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_lane_gap.rs
+msgid "Right"
+msgstr ""
+
+#. placeholders: {side_word}
+#: crates/freight-fate/src/states/driving_lane_gap.rs
+msgid "{side_word} shoulder."
+msgstr ""
+
+#. placeholders: {side_word}
+#: crates/freight-fate/src/states/driving_lane_gap.rs
+msgid "{side_word} lane closed."
+msgstr ""
+
+#. placeholders: {kind_cap}, {side_lower}
+#: crates/freight-fate/src/states/driving_lane_gap.rs
+msgid "{kind_cap} beside {side_lower}."
+msgstr ""
+
+#. placeholders: {kind_cap}, {side_lower}
+#: crates/freight-fate/src/states/driving_lane_gap.rs
+msgid "{kind_cap} closing {side_lower}."
+msgstr ""
+
+#. placeholders: {kind_cap}, {side_lower}
+#: crates/freight-fate/src/states/driving_lane_gap.rs
+msgid "{kind_cap} behind {side_lower}."
+msgstr ""
+
+#. placeholders: {kind_cap}, {side_lower}
+#: crates/freight-fate/src/states/driving_lane_gap.rs
+msgid "{kind_cap} ahead {side_lower}."
+msgstr ""
+
+#. placeholders: {side_word}
+#: crates/freight-fate/src/states/driving_lane_gap.rs
+msgid "{side_word} clear."
 msgstr ""
 
 #. placeholders: {capitalized}
@@ -41637,6 +41811,14 @@ msgid "The drive wheels are sliding under the engine brake."
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_updates/conditions.rs
+msgid "ABS pulsing. Hold steady on the brake."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_updates/conditions.rs
+msgid "Drive wheels spinning. Ease off the throttle."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_updates/conditions.rs
 msgid ""
 "A tire chain broke and is flailing. Slow down and pull over to check it."
 msgstr ""
@@ -42673,6 +42855,14 @@ msgstr ""
 
 #: crates/freight-fate/src/states/driving_updates/lanes.rs
 msgid "Traffic is stacking up and passing you on the right."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_updates/lanes.rs
+msgid "Trailer off-tracking tight on the inside. Give the curve more room."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_updates/lanes.rs
+msgid "Trailer swaying in the wind. Ease off your speed."
 msgstr ""
 
 #. placeholders: {fresh}

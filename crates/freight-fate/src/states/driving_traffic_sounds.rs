@@ -240,16 +240,21 @@ impl DrivingState {
             // it: the freeway falls away faster than the gentle in-traffic
             // law, as a road the cab is leaving does.
             let mut diverged = 1.0;
-            let (across, closing_mph) = if on_ramp {
+            let (across, closing_mph) = if vehicle.oncoming {
+                // Oncoming two-lane traffic passes one lane to the left of
+                // lane 0 at the combined closing speed of both vehicles.
+                let lanes = 1.0 - player_lane as f64;
+                (-lanes * LANE_WIDTH_FT, -vehicle.speed_mph - truck_mph)
+            } else if on_ramp {
                 // The odometer holds on the ramp: the mainline streams past a
                 // standing point at its own speed, off to the left and
                 // farther each foot the truck rolls down the ramp.
-                let at_gore = (vehicle.lane.max(0) as f64 + 0.5) * LANE_WIDTH_FT + RAMP_SPLIT_FT;
+                let at_gore = (vehicle.visual_lane.max(0.0) + 0.5) * LANE_WIDTH_FT + RAMP_SPLIT_FT;
                 let over = at_gore + self.traffic_ramp_rolled_ft * RAMP_DIVERGENCE;
                 diverged = (at_gore.hypot(along) / over.hypot(along)).sqrt();
                 (-over, vehicle.speed_mph)
             } else {
-                let lanes = (vehicle.lane - player_lane) as f64;
+                let lanes = vehicle.visual_lane - player_lane as f64;
                 (-lanes * LANE_WIDTH_FT, vehicle.speed_mph - truck_mph)
             };
             let distance = along.hypot(across);
@@ -322,6 +327,9 @@ impl DrivingState {
     /// vehicle is. Runs after the trip has stepped the bubble, so the
     /// positions are this frame's.
     pub fn update_traffic_sounds(&mut self, ctx: &mut GameContext, dt: f64) {
+        self.mirror_glance = self
+            .mirror_glance
+            .next(ff_core::sim::mirror_glance::MirrorGlanceEvent::Tick(dt));
         if self.ramp_mi.is_some() {
             self.traffic_ramp_rolled_ft += self.trip.truck.velocity_mps.abs() * dt * 3.28084;
         } else {
@@ -358,8 +366,9 @@ impl DrivingState {
             let channel = CH_TRAFFIC_SOUNDS[index];
             // start_loop dedupes on a running key, so this is also the level
             // update, and it restarts the loop if anything stopped it.
-            ctx.audio
-                .start_loop_with(channel, vehicle.key, vehicle.volume, 150);
+            let glance_gain = self.mirror_glance.audio_gain_for_pan(vehicle.pan);
+            let volume = (vehicle.volume * glance_gain).clamp(0.0, 1.0);
+            ctx.audio.start_loop_with(channel, vehicle.key, volume, 150);
             ctx.audio.set_loop_pan(channel, vehicle.pan);
             ctx.audio.set_loop_rate(channel, vehicle.rate);
             if let Some(id) = vehicle.id.strip_prefix("cross:") {

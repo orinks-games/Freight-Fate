@@ -256,6 +256,7 @@ fn a_crossing(position_ft: f64, from_side: &'static str) -> CrossTraffic {
         crossed: false,
         committed: false,
         sound_started: false,
+        release_delay_s: 0.0,
         id: 7,
     }];
     bubble
@@ -388,4 +389,50 @@ fn test_a_vehicle_keeps_one_take_and_a_string_of_cars_uses_them_all() {
         .collect();
     assert_eq!(heard.len(), traffic_sound_takes("car").len(), "{heard:?}");
     assert_eq!(traffic_sound_key_for("tanker", "x"), "traffic/tanker_loop");
+}
+
+#[test]
+fn test_oncoming_vehicle_pans_left_with_combined_closing_speed() {
+    let mut app = TestApp::new();
+    let (mut drive, log) = a_freeway_drive(&mut app);
+    let oncoming = TrafficVehicle::new(
+        "oncoming:1",
+        drive.trip.position_mi + 150.0 / 5280.0,
+        55.0,
+        55.0,
+        -1,
+        "cruising",
+        "car",
+    )
+    .with_oncoming(true);
+    drive.trip.traffic_manager.vehicles = vec![oncoming];
+    drive.update_traffic_sounds(&mut app.ctx, FRAME);
+    let live = sounds(&log);
+    assert_eq!(live.len(), 1, "{live:?}");
+    assert!(live[0].pan < -0.1, "expected left pan, got {}", live[0].pan);
+    assert!(
+        live[0].rate > 1.02,
+        "expected Doppler pitch lift on closing oncoming car, got {}",
+        live[0].rate
+    );
+}
+
+#[test]
+fn test_visual_lane_glides_pan_during_lane_change() {
+    let mut app = TestApp::new();
+    let (mut drive, log) = a_freeway_drive(&mut app);
+    let mut vehicle = car("probe:glide", 10.0, 65.0, 1, "car", &drive);
+    vehicle.visual_lane = 0.25;
+    drive.trip.traffic_manager.vehicles = vec![vehicle];
+    drive.update_traffic_sounds(&mut app.ctx, FRAME);
+    let early_pan = sounds(&log)[0].pan;
+
+    drive.trip.traffic_manager.vehicles[0].visual_lane = 1.0;
+    drive.update_traffic_sounds(&mut app.ctx, FRAME);
+    let final_pan = sounds(&log)[0].pan;
+
+    assert!(
+        early_pan > final_pan,
+        "pan should glide farther left as visual_lane moves 0.25 -> 1.0 ({early_pan} -> {final_pan})"
+    );
 }

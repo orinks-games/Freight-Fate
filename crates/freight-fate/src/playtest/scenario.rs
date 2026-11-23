@@ -13,13 +13,12 @@
 use serde_json::{Map, Value};
 
 use ff_core::data::world::World;
-use ff_core::models::business_constants::{
-    COMPANY_DRIVER, INDEPENDENT_AUTHORITY, LEASED_OWNER_OPERATOR,
-};
+use ff_core::models::business_stage::BusinessStage;
 use ff_core::models::career::LEVEL_XP;
 use ff_core::models::career_ladder::MAX_CAREER_LEVEL;
 use ff_core::models::credentials::credential_keys;
 use ff_core::models::profile::Profile;
+use ff_core::models::trucks::truck_model;
 use ff_core::playtest_levers::{apply_city, apply_clock, resolve_city_forgiving};
 use ff_core::pyfmt::fmt_grouped;
 use ff_core::sim::alertness::Alertness;
@@ -86,8 +85,12 @@ pub struct Scenario {
     pub deliveries: Option<i64>,
     pub money: Option<f64>,
     pub reputation: Option<f64>,
-    /// "company", "leased" or "independent" (or the exact status key).
-    pub business: Option<String>,
+    /// Where the career stands on the ownership ladder: `business_stage`
+    /// by its key, or the older `business` (company, leased, independent).
+    pub business: Option<BusinessStage>,
+    /// Tractors the career owns, replacing what it held; the first is the
+    /// one driven. Wear and fuel are fresh. `buy_in_paid` is left alone.
+    pub owned_trucks: Option<Vec<String>>,
     /// Credential keys bought outright, replacing what the career held.
     pub endorsements: Option<Vec<String>>,
     /// Local clock, 0 to 24, moved forward to.
@@ -156,6 +159,12 @@ pub struct Scenario {
     /// The simulated sky every drive from here on starts under:
     /// `Some(Some(kind))` forced, `Some(None)` free (`parse_weather`).
     pub weather: Option<Option<WeatherKind>>,
+    /// Initial ABS, drive-traction, single-trailer sway, and mirror-glance
+    /// states staged onto each new drive.
+    pub abs: Option<ff_core::sim::vehicle::AbsState>,
+    pub drive_traction: Option<ff_core::sim::vehicle::DriveTractionState>,
+    pub trailer_sway: Option<ff_core::sim::vehicle::TrailerSwayState>,
+    pub mirror_glance: Option<ff_core::sim::mirror_glance::MirrorGlance>,
     /// The calendar date the career shows, as (month, day): what dated
     /// rules read (spring weight limits, the Whittier tunnel's seasons).
     /// Career time, deadlines and hours of service do not move.
@@ -295,6 +304,50 @@ impl Scenario {
         let weather = text(args, "weather")?
             .map(|value| parse_weather(&value))
             .transpose()?;
+        let abs = match text(args, "abs")?.as_deref() {
+            None => None,
+            Some("inactive") => Some(ff_core::sim::vehicle::AbsState::Inactive),
+            Some("modulating") => {
+                Some(ff_core::sim::vehicle::AbsState::Modulating { phase_s: 0.0 })
+            }
+            Some(other) => return Err(format!("abs must be inactive or modulating, not {other}")),
+        };
+        let drive_traction = match text(args, "drive_traction")?.as_deref() {
+            None => None,
+            Some("grip") => Some(ff_core::sim::vehicle::DriveTractionState::Grip),
+            Some("spinning") => Some(ff_core::sim::vehicle::DriveTractionState::Spinning),
+            Some(other) => {
+                return Err(format!(
+                    "drive_traction must be grip or spinning, not {other}"
+                ))
+            }
+        };
+        let trailer_sway = match text(args, "trailer_sway")?.as_deref() {
+            None => None,
+            Some("steady") => Some(ff_core::sim::vehicle::TrailerSwayState::Steady),
+            Some("swaying") => Some(ff_core::sim::vehicle::TrailerSwayState::Swaying),
+            Some("off_tracking") => Some(ff_core::sim::vehicle::TrailerSwayState::OffTracking),
+            Some(other) => {
+                return Err(format!(
+                    "trailer_sway must be steady, swaying or off_tracking, not {other}"
+                ))
+            }
+        };
+        let mirror_glance = match text(args, "mirror_glance")?.as_deref() {
+            None => None,
+            Some("forward") => Some(ff_core::sim::mirror_glance::MirrorGlance::Forward),
+            Some("left") => Some(ff_core::sim::mirror_glance::MirrorGlance::Left {
+                remaining_s: ff_core::sim::mirror_glance::MIRROR_GLANCE_DURATION_S,
+            }),
+            Some("right") => Some(ff_core::sim::mirror_glance::MirrorGlance::Right {
+                remaining_s: ff_core::sim::mirror_glance::MIRROR_GLANCE_DURATION_S,
+            }),
+            Some(other) => {
+                return Err(format!(
+                    "mirror_glance must be forward, left or right, not {other}"
+                ))
+            }
+        };
         let settings = match args.get("settings") {
             None | Some(Value::Null) => Map::new(),
             Some(Value::Object(map)) => map.clone(),
@@ -348,13 +401,13 @@ impl Scenario {
                 }
             }
         }
-        let business = match text(args, "business")? {
+        let mut business = match text(args, "business")? {
             None => None,
             Some(word) => Some(match word.to_lowercase().as_str() {
-                "company" | "company_driver" => COMPANY_DRIVER.to_string(),
-                "leased" | "leased_owner_operator" => LEASED_OWNER_OPERATOR.to_string(),
+                "company" | "company_driver" => BusinessStage::CompanyDriver,
+                "leased" | "leased_owner_operator" => BusinessStage::LeasedOn,
                 "independent" | "independent_authority" | "authority" => {
-                    INDEPENDENT_AUTHORITY.to_string()
+                    BusinessStage::OwnAuthority
                 }
                 other => {
                     return Err(format!(
@@ -362,6 +415,31 @@ impl Scenario {
                     ))
                 }
             }),
+        };
+        if let Some(key) = text(args, "business_stage")? {
+            business = Some(BusinessStage::from_key(&key.to_lowercase()).ok_or_else(|| {
+                format!(
+                    "business_stage must be company_driver, company_by_choice, leased_on, \
+                     leased_on_prepared or own_authority, not {key}"
+                )
+            })?);
+        }
+        let owned_trucks = match args.get("owned_trucks") {
+            None | Some(Value::Null) => None,
+            Some(Value::Array(items)) => {
+                let mut keys = Vec::new();
+                for item in items {
+                    let key = item
+                        .as_str()
+                        .ok_or("owned_trucks must be a list of truck keys")?;
+                    if truck_model(key).is_none() {
+                        return Err(format!("unknown truck {key}"));
+                    }
+                    keys.push(key.to_string());
+                }
+                Some(keys)
+            }
+            Some(_) => return Err("owned_trucks must be a list of truck keys".to_string()),
         };
         Ok(Scenario {
             name: text(args, "name")?,
@@ -371,6 +449,7 @@ impl Scenario {
             money: number(args, "money")?,
             reputation: number(args, "reputation")?,
             business,
+            owned_trucks,
             endorsements,
             hour,
             fuel_pct: number(args, "fuel_pct")?,
@@ -414,6 +493,10 @@ impl Scenario {
             road_jointed,
             tire_song,
             weather,
+            abs,
+            drive_traction,
+            trailer_sway,
+            mirror_glance,
             date: text(args, "date")?
                 .map(|value| parse_date(&value))
                 .transpose()?,
@@ -520,9 +603,25 @@ pub fn apply(ctx: &mut GameContext, scenario: &Scenario) -> Result<Vec<String>, 
             p.career.reputation = reputation;
             notes.push(format!("Reputation {reputation}."));
         }
-        if let Some(business) = &scenario.business {
-            p.business_status = business.clone();
-            notes.push(format!("Business status {business}."));
+        if let Some(stage) = scenario.business {
+            p.set_business_stage(stage);
+            notes.push(format!("Business stage {}.", stage.key()));
+        }
+        if let Some(trucks) = &scenario.owned_trucks {
+            p.owned_trucks = trucks.clone();
+            for key in trucks {
+                if let Some(model) = truck_model(key) {
+                    p.provision_truck_condition(key, Some(model.specs.fuel_tank_gal));
+                }
+            }
+            if let Some(first) = trucks.first() {
+                p.truck = first.clone();
+            }
+            notes.push(if trucks.is_empty() {
+                "No tractors owned.".to_string()
+            } else {
+                format!("Tractors owned: {}.", trucks.join(", "))
+            });
         }
         if let Some(endorsements) = &scenario.endorsements {
             p.career.purchased_endorsements = endorsements.clone();
@@ -692,6 +791,28 @@ pub fn apply(ctx: &mut GameContext, scenario: &Scenario) -> Result<Vec<String>, 
             None => "Drives start under a free sky.".to_string(),
         });
     }
+    if let Some(abs) = scenario.abs {
+        ctx.playtest_abs = Some(abs);
+        notes.push(format!("Drives start with ABS {}.", abs.label()));
+    }
+    if let Some(traction) = scenario.drive_traction {
+        ctx.playtest_drive_traction = Some(traction);
+        notes.push(format!(
+            "Drives start with drive traction {}.",
+            traction.label()
+        ));
+    }
+    if let Some(sway) = scenario.trailer_sway {
+        ctx.playtest_trailer_sway = Some(sway);
+        notes.push(format!("Drives start with trailer sway {}.", sway.label()));
+    }
+    if let Some(glance) = scenario.mirror_glance {
+        ctx.playtest_mirror_glance = Some(glance);
+        notes.push(format!(
+            "Drives start with mirror glance {}.",
+            glance.label()
+        ));
+    }
     if let Some(jointed) = scenario.road_jointed {
         ctx.playtest_road_jointed = Some(jointed);
         notes.push(if jointed {
@@ -772,6 +893,8 @@ mod tests {
         assert!(bad(r#"{"fatigue": -1}"#).contains("fatigue"));
         assert!(bad(r#"{"hos_since_break_min": -1}"#).contains("hos_since_break_min"));
         assert!(bad(r#"{"business": "owner"}"#).contains("business"));
+        assert!(bad(r#"{"business_stage": "leased"}"#).contains("business_stage"));
+        assert!(bad(r#"{"owned_trucks": ["spaceship"]}"#).contains("unknown truck"));
         assert!(bad(r#"{"endorsements": ["rocket"]}"#).contains("unknown endorsement"));
         assert!(bad(r#"{"settings": 3}"#).contains("settings"));
         assert!(bad(r#"{"date": "02-29"}"#).contains("date"));
@@ -785,8 +908,36 @@ mod tests {
         let scenario = Scenario::from_json(&args).unwrap();
         assert_eq!(scenario.city.as_deref(), Some("Tonopah"));
         assert_eq!(scenario.level, Some(5));
-        assert_eq!(scenario.business.as_deref(), Some(LEASED_OWNER_OPERATOR));
+        assert_eq!(scenario.business, Some(BusinessStage::LeasedOn));
         assert_eq!(scenario.endorsements, Some(vec!["hazmat".to_string()]));
+        assert!(bad(r#"{"abs": "pulsing"}"#).contains("abs"));
+        assert!(bad(r#"{"drive_traction": "slip"}"#).contains("drive_traction"));
+        assert!(bad(r#"{"trailer_sway": "jackknife"}"#).contains("trailer_sway"));
+        assert!(bad(r#"{"mirror_glance": "rear"}"#).contains("mirror_glance"));
+        let args: Map<String, Value> = serde_json::from_str(
+            r#"{"abs": "modulating", "drive_traction": "spinning",
+                "trailer_sway": "off_tracking", "mirror_glance": "left"}"#,
+        )
+        .unwrap();
+        let staged = Scenario::from_json(&args).unwrap();
+        assert_eq!(
+            staged.abs,
+            Some(ff_core::sim::vehicle::AbsState::Modulating { phase_s: 0.0 })
+        );
+        assert_eq!(
+            staged.drive_traction,
+            Some(ff_core::sim::vehicle::DriveTractionState::Spinning)
+        );
+        assert_eq!(
+            staged.trailer_sway,
+            Some(ff_core::sim::vehicle::TrailerSwayState::OffTracking)
+        );
+        assert_eq!(
+            staged.mirror_glance,
+            Some(ff_core::sim::mirror_glance::MirrorGlance::Left {
+                remaining_s: ff_core::sim::mirror_glance::MIRROR_GLANCE_DURATION_S,
+            })
+        );
         assert!(scenario.rested);
         assert_eq!(scenario.fatigue, Some(64.0));
         assert_eq!(

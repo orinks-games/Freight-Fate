@@ -4810,6 +4810,8 @@ town at 15 to 23 mph. Design: the doc "Realistic traffic pass: design"
 
 ## 2.0 in progress (`feat/career-2.0`) -- the working week and home
 
+- [x] Player truck behavior improvements (`ff_core::sim::vehicle::traction`, `shifting`, `mirror_glance`, `driving_lane_gap`, `driving_updates`): explicit `AbsState` braking modulation and `DriveTractionState` wheelspin on snow/ice with edge-triggered safety alerts; single-trailer `TrailerSwayState` for crosswind sway and tight-ramp off-tracking (leaving doubles to `trailer_set`); sustained-descent automatic gear-hold protection against shift hunting; and configurable `Action::MirrorLeft` / `Action::MirrorRight` (`Alt+Left` / `Alt+Right`) mirror glances that temporarily bias positional traffic audio to the checked side and speak terse lane/blind-spot status.
+- [x] Traffic behavior improvements (`ff_core::sim::traffic_manager`, `cross_traffic`, `driving_traffic_sounds`): continuous `visual_lane` slewing (~2.5s per lane) so lane-changing vehicles glide laterally in stereo; deterministic oncoming traffic on undivided two-lane highways (`oncoming.rs`) moving opposite the player with combined closing-speed Doppler; signal-aware courtesy yielding and merge-lane opening when the player signals (`player_signal_lane`); and staggered startup wave + class-based acceleration for queued cross traffic releasing from red lights.
 - [x] Stereo truck engine. Five cab loops use their measured RPMs, with shorter pitch slides through shifts and two in-cab shift cues. Automatic shifts start with a quieter clunk so the rev drop and engagement come through. The cab starter hands off to idle in the mixer, and the sound rises to fast idle while the tanks fill. The licensed overlay supplies the cab start and air-ready purge for the sound pack.
 - [x] No more low bridge and weight limit calls (owner, 2026-11-22: they spammed the player about bridges a truck never meets). Routing already avoids anything a legal truck cannot pass, so every call ended "Your route clears it"; Joplin to Tulsa spoke up to 122 of them, and Detroit to Windsor six in the eight miles before customs. The `corridor.restrictions` layer, its parser and the bake stay for a route that weighs the truck's own height and weight. The dispatch board help no longer promises restrictions in Route planning, which never listed them.
 - [x] Opt-in cloud resume: main-menu checks pick up clean, tracked careers from this release line's cloud slots; changed local copies use Cloud backup's conflict choice. Off by default; 1.9 backups stay separate.
@@ -7144,6 +7146,37 @@ here 2026-09-25. Details stay in the linked dated sections.
       enum in `ff-core` (hired, on sufferance, unassigned, own authority)
       with one `next(event)` and a transition table, reported by the agent
       server's `status` (R1 review, 2026-11-22).
+      `BusinessStage` (below) now covers the ownership ladder; Employment
+      should sit beside it, not inside it.
+- [x] **The buy-in buys a tractor the driver chooses, at its price.** The
+      flat 35,000 dollar buy-in handed over whatever dispatch had assigned,
+      and first pick of the yard comes at level 17, so every driver up the
+      ladder bought a 176,000 to 216,000 dollar flagship for 35,000. The
+      buy-in now lists every priced sleeper, cheapest first (from 31,000),
+      at its catalog price with 10,000 working capital left over, and asks
+      twice. `buy_in_paid` records the price; a first tractor from a 1.9
+      buy-in (no `buy_in_paid`) keeps the 35,000 hand-back cap. Nobody's
+      equipment or money changes (2026-11-23).
+- [x] **The heavy hauler costs 78,000 dollars,** up from 52,000, in line
+      with the heavy sleepers around it; its stats are unchanged. Dealer and
+      buy-in rows read miles per gallon at a steady 60 mph with the reference
+      load (`TruckState::rated_mpg`), and the dealer lists the free standard
+      rig only to a driver who owns it (2026-11-23).
+- [x] **`BusinessStage` is the ownership ladder as one state machine**
+      (company driver, company by choice, leased on, leased on prepared, own
+      authority), stored in the three old profile fields so saves are
+      unchanged. `Profile::apply_business_event` is the only writer; the
+      agent server's `status` reports `business_stage` and `scenario` sets it
+      (2026-11-23).
+- [ ] (Found along the way) **Public profile net worth still counts a
+      tractor from a 1.9 buy-in at its full catalog price,** though it goes
+      back for 35,000 at most.
+- [ ] (Found along the way) **Dealer and buy-in rows stay in US units under
+      kilometers:** the tank reads gallons and economy miles per gallon while
+      fuel elsewhere reads liters.
+- [ ] (Found along the way) **`update_fuel`'s comment says it is calibrated
+      for about 6.5 to 7 mpg at 60 mph;** with the reference load on level
+      road the standard rig works out to about 7.3.
 - [x] (Found along the way) **The destination approach has a limit in
       force.** Off the destination exit the ramp to the facility goes by the
       number S speaks, the approach's 45 (never above the corridor's): the

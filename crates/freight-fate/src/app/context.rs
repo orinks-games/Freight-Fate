@@ -171,6 +171,12 @@ pub struct GameContext {
     /// `Some(Some(kind))` forces that condition (`WeatherSystem::forced`),
     /// `Some(None)` leaves it free. `None` in the shipped game.
     pub playtest_weather: Option<Option<ff_core::sim::weather::WeatherKind>>,
+    /// Staged initial states for the ABS, drive-traction, single-trailer sway,
+    /// and mirror-glance state machines when starting a playtest drive.
+    pub playtest_abs: Option<ff_core::sim::vehicle::AbsState>,
+    pub playtest_drive_traction: Option<ff_core::sim::vehicle::DriveTractionState>,
+    pub playtest_trailer_sway: Option<ff_core::sim::vehicle::TrailerSwayState>,
+    pub playtest_mirror_glance: Option<ff_core::sim::mirror_glance::MirrorGlance>,
     /// The co-driver's logbook counters a sandbox scenario asked for, put
     /// on the next co-driver paired for a load. `None` in the shipped game.
     pub playtest_co_driver_hos: Option<crate::playtest::scenario::CoDriverHos>,
@@ -324,6 +330,10 @@ impl GameContext {
             playtest_road_jointed: None,
             playtest_tire_song: None,
             playtest_weather: None,
+            playtest_abs: None,
+            playtest_drive_traction: None,
+            playtest_trailer_sway: None,
+            playtest_mirror_glance: None,
             playtest_co_driver_hos: None,
             crash_offer_pending: crate::problem_reports::take_crash_offer(),
             dispatch_board_seed: None,

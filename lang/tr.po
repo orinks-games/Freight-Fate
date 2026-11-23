@@ -7545,11 +7545,9 @@ msgstr "{OWNER_OPERATOR_DELIVERIES} teslimat tamamlayın."
 
 #. placeholders: {grouped}, {grouped2}, {grouped3}
 msgid ""
-"Save {grouped} dollars: {grouped2} for the truck buy-in and {grouped3} for "
-"working capital."
+"Save {grouped} dollars: {grouped2} for the cheapest sleeper tractor and "
+"{grouped3} for working capital."
 msgstr ""
-"{grouped} dolar biriktirin: tır payı için {grouped2}, işletme sermayesi "
-"için {grouped3}."
 
 #. placeholders: {NO_CARRIER_STATUS}, {level}, {title}
 #. one sentence of a longer line
@@ -7614,11 +7612,9 @@ msgid "Company driver by choice. {company_ladder_next}"
 msgstr "Kendi tercihinizle firma şoförü. {company_ladder_next}"
 
 msgid ""
-"Next: the owner-operator buy-in under Business status, where you buy the "
-"truck you drive."
+"Next: the owner-operator buy-in under Business status, where you buy a "
+"tractor of your own."
 msgstr ""
-"Sıradaki: İşletme durumu menüsünde, kullandığınız tırı satın aldığınız "
-"kendi tırının sahibi şoför geçişi."
 
 #. placeholders: {join}
 msgid "Owner-operator gate locked: {join}"
@@ -7748,11 +7744,9 @@ msgstr ""
 #. placeholders: {grouped}, {grouped2}
 #. one sentence of a longer line
 msgid ""
-"The buy-in costs {grouped} dollars and keeps {grouped2} dollars of working "
-"capital in the bank."
+"Tractors start at {grouped} dollars, and {grouped2} dollars stays in the "
+"bank as working capital."
 msgstr ""
-"Geçiş {grouped} dolar tutar ve bankada {grouped2} dolar işletme sermayesi "
-"bırakır."
 
 #. placeholders: {carrier_name}, {level}, {title}
 #. one sentence of a longer line
@@ -7762,24 +7756,17 @@ msgstr "{carrier_name} firma şoförüsünüz, seviye {level} {title}."
 #. placeholders: {carrier_name}, {level}, {title}, {grouped}, {grouped2}
 msgid ""
 "You are a company driver for {carrier_name}, level {level} {title}. You "
-"qualify for the owner-operator buy-in: you buy the truck you drive and keep "
-"hauling for the carrier as a leased-on owner-operator. The buy-in costs "
-"{grouped} dollars and keeps {grouped2} dollars of working capital in the "
-"bank."
+"qualify for the owner-operator buy-in: you buy a tractor of your own and "
+"keep hauling for the carrier as a leased-on owner-operator. Tractors start "
+"at {grouped} dollars, and {grouped2} dollars stays in the bank as working "
+"capital."
 msgstr ""
-"{carrier_name} firma şoförüsünüz, seviye {level} {title}. Kendi tırının "
-"sahibi şoför geçişine hak kazandınız: kullandığınız tırı satın alır, bir "
-"taşıyıcıya bağlı olarak aynı firmaya yük taşımaya devam edersiniz. Geçiş "
-"{grouped} dolar tutar ve bankada {grouped2} dolar işletme sermayesi bırakır."
 
 #. one sentence of a longer line
 msgid ""
-"You qualify for the owner-operator buy-in: you buy the truck you drive and "
-"keep hauling for the carrier as a leased-on owner-operator."
+"You qualify for the owner-operator buy-in: you buy a tractor of your own "
+"and keep hauling for the carrier as a leased-on owner-operator."
 msgstr ""
-"Kendi tırının sahibi şoför geçişine hak kazandınız: kullandığınız tırı "
-"satın alır, bir taşıyıcıya bağlı olarak aynı firmaya yük taşımaya devam "
-"edersiniz."
 
 #. placeholders: {carrier_name}
 #. one sentence of a longer line
@@ -8171,13 +8158,9 @@ msgstr "Kendi tırının sahibi şoför"
 
 msgid ""
 "The owner-operator buy-in opens once its other requirements are met: you "
-"buy the truck you drive and haul for the carrier as a leased-on "
+"buy a tractor of your own and haul for the carrier as a leased-on "
 "owner-operator. TWIC port card enrollment opens under Licenses and training."
 msgstr ""
-"Diğer koşullar sağlanınca kendi tırının sahibi şoför geçişi açılır: "
-"kullandığınız tırı satın alır, bir taşıyıcıya bağlı olarak o firmaya yük "
-"taşırsınız. TWIC liman kartı başvurusu Ehliyetler ve eğitim bölümünde "
-"açılır."
 
 msgid "Eligible to buy your own truck and pay its operating costs."
 msgstr "Kendi tırınızı satın almaya ve giderlerini ödemeye hak kazandınız."
@@ -11762,6 +11745,9 @@ msgstr "northstar"
 msgid "your home in Buffalo"
 msgstr "Buffalo'daki eviniz"
 
+msgid "Hand Back"
+msgstr ""
+
 #. placeholders: {f}, {f2}, {f3}, {f4}
 msgid ""
 "{f} percent pay share, {f2} dollars per mile floor, {f3} dollar stop pay, "
@@ -12154,6 +12140,11 @@ msgstr "hafif"
 
 msgid "heavy"
 msgstr "ağır"
+
+#. placeholders: {f}, {f2}, {f3}
+msgid ""
+"{f} thousand newton meters torque, {f2} gallon tank, {f3} miles per gallon"
+msgstr ""
 
 msgid ""
 "The dependable tractor you started with: better fuel economy and a calmer "
@@ -15005,6 +14996,10 @@ msgid "traffic ahead"
 msgstr "ileride trafik"
 
 #. placeholders: {class}
+msgid "Oncoming {class}"
+msgstr ""
+
+#. placeholders: {class}
 msgid "Merging {class} on the right ramp"
 msgstr "Sağ rampadan katılan {class}"
 
@@ -16411,6 +16406,18 @@ msgstr "{temp_c} derece Celsius"
 msgid "Reefer running at {cargo_temp_degrees}."
 msgstr "Frigo {cargo_temp_degrees} değerinde çalışıyor."
 
+msgid "modulating"
+msgstr ""
+
+msgid "grip"
+msgstr ""
+
+msgid "spinning"
+msgstr ""
+
+msgid "swaying"
+msgstr ""
+
 msgid "simulated"
 msgstr "simüle"
 
@@ -17782,6 +17789,10 @@ msgstr ""
 msgid "You take the wheel {start_mi} miles up the road."
 msgstr "Direksiyona yolun {start_mi} mil ilerisinde geçiyorsunuz."
 
+#. placeholders: {key}, {buy_in_paid}
+msgid "business_stage {key}; buy_in_paid {buy_in_paid}"
+msgstr ""
+
 #. placeholders: {i}
 msgid "job {i}"
 msgstr "iş {i}"
@@ -18400,6 +18411,12 @@ msgstr "Hava durumu"
 
 msgid "Lane position"
 msgstr "Şerit konumu"
+
+msgid "Check left mirror"
+msgstr ""
+
+msgid "Check right mirror"
+msgstr ""
 
 msgid "Grade"
 msgstr "Eğim"
@@ -21763,11 +21780,9 @@ msgid "{source} in {city_name}: {desc}."
 msgstr "{city_name} için {source}: {desc}."
 
 msgid ""
-"Enter repeats a line, or buys in when qualified. Escape returns to the "
-"terminal."
+"Enter repeats a line, or opens the buy-in when qualified. Escape returns to "
+"the terminal."
 msgstr ""
-"Enter bir satırı tekrarlar ya da şartları sağladığınızda satın alır. Escape "
-"terminale döner."
 
 #. placeholders: {status_label}
 msgid "Current status: {status_label}"
@@ -21825,36 +21840,6 @@ msgid "Weigh station transponder. {body}"
 msgstr "Kantar cihazı. {body}"
 
 #. one sentence of a longer line
-msgid "Owner-operator path locked."
-msgstr "Kendi tırının sahibi şoför yolu kilitli."
-
-#. placeholders: {join}
-msgid "Owner-operator path locked. {join}"
-msgstr "Kendi tırının sahibi şoför yolu kilitli. {join}"
-
-#. one sentence of a longer line
-msgid "Leased-on owner-operator status unlocked."
-msgstr "Bir taşıyıcıya bağlı, kendi tırının sahibi şoför durumu açıldı."
-
-#. placeholders: {grouped}, {grouped2}
-msgid ""
-"Leased-on owner-operator status unlocked. Paid {grouped} dollars toward "
-"your first tractor, {grouped2} dollars working capital left."
-msgstr ""
-"Bir taşıyıcıya bağlı, kendi tırının sahibi şoför durumu açıldı. İlk "
-"çekiciniz için {grouped} dolar ödendi, {grouped2} dolar işletme sermayesi "
-"kaldı."
-
-#. placeholders: {grouped}, {grouped2}
-#. one sentence of a longer line
-msgid ""
-"Paid {grouped} dollars toward your first tractor, {grouped2} dollars "
-"working capital left."
-msgstr ""
-"İlk çekiciniz için {grouped} dolar ödendi, {grouped2} dolar işletme "
-"sermayesi kaldı."
-
-#. one sentence of a longer line
 msgid "Authority prep locked."
 msgstr "Yetki belgesi hazırlığı kilitli."
 
@@ -21884,11 +21869,6 @@ msgid ""
 msgstr ""
 "Kendi yetki belgesi; teslimat, itibar, dorse programı ve nakit şartlarını "
 "karşıladığınızda açılır."
-
-#. placeholders: {grouped2}
-#. one sentence of a longer line
-msgid "You have {grouped2} dollars left."
-msgstr "{grouped2} dolarınız kaldı."
 
 #. one sentence of a longer line
 msgid "Transponder subscription locked."
@@ -21970,12 +21950,13 @@ msgstr "Sıradaki işletme kilidi"
 msgid "The next career or business unlock."
 msgstr "Sıradaki kariyer ya da işletme kilidi."
 
-#. placeholders: {grouped}
-msgid "Owner-operator buy-in: {grouped} dollars"
-msgstr "Kendi tırının sahibi şoför girişi: {grouped} dolar"
+msgid "Owner-operator buy-in: choose a tractor"
+msgstr ""
 
-msgid "Higher revenue, but your business pays operating costs."
-msgstr "Gelir daha yüksek, ama işletme giderlerini işletmeniz öder."
+msgid ""
+"You buy a tractor of your own. Loads pay more, and your business pays the "
+"operating costs."
+msgstr ""
 
 msgid "Reopen the owner-operator plan"
 msgstr "Kendi tırının sahibi şoför planını yeniden aç"
@@ -22085,213 +22066,6 @@ msgstr "Kantar transponderi kilitli"
 
 msgid "What the transponder still needs."
 msgstr "Transponder için hâlâ gerekenler."
-
-msgid "Upgrades"
-msgstr "Yükseltmeler"
-
-msgid ""
-"Upgrades apply to every tractor you own. Enter buys the next tier, F1 is "
-"details. Escape returns to the garage."
-msgstr ""
-"Yükseltmeler sahip olduğunuz her çekiciye uygulanır. Enter sonraki kademeyi "
-"satın alır, F1 ayrıntıları verir. Escape garaja döner."
-
-msgid ""
-"Upgrades unlock with the owner-operator buy-in, from level 18 under "
-"Business status."
-msgstr ""
-"Yükseltmeler, İşletme durumu altında 18. seviyeden itibaren kendi tırının "
-"sahibi şoför olunca açılır."
-
-#. placeholders: {owned}, {max_tier}
-msgid ", tier {owned} of {max_tier}"
-msgstr ", kademe {owned} / {max_tier}"
-
-#. placeholders: {owned}, {max_tier}
-#. one clause of a longer line
-msgid "tier {owned} of {max_tier}"
-msgstr "kademe {owned} / {max_tier}"
-
-#. placeholders: {label}, {tiers}
-msgid "{label}: owned{tiers}"
-msgstr "{label}: sizde{tiers}"
-
-#. placeholders: {owned}
-msgid ", tier {owned} owned"
-msgstr ", kademe {owned} sizde"
-
-#. placeholders: {owned}
-#. one clause of a longer line
-msgid "tier {owned} owned"
-msgstr "kademe {owned} sizde"
-
-#. placeholders: {label}, {owned}, {max_tier}, {grouped}, {owned_part}
-msgid "{label}, tier {owned} of {max_tier}: {grouped} dollars{owned_part}"
-msgstr "{label}, kademe {owned} / {max_tier}: {grouped} dolar{owned_part}"
-
-#. placeholders: {label}, {grouped}
-msgid "{label}: {grouped} dollars"
-msgstr "{label}: {grouped} dolar"
-
-#. placeholders: {label}
-msgid "{label} is already fully installed."
-msgstr "{label} zaten tam takılı."
-
-#. one sentence of a longer line
-msgid "Not enough money."
-msgstr "Yeterli paranız yok."
-
-#. placeholders: {label}, {grouped}, {grouped2}
-msgid ""
-"Not enough money. {label} costs {grouped} dollars and you have {grouped2}."
-msgstr ""
-"Yeterli paranız yok. {label} fiyatı {grouped} dolar, sizde {grouped2} var."
-
-#. placeholders: {label}, {grouped}, {grouped2}
-#. one sentence of a longer line
-msgid "{label} costs {grouped} dollars and you have {grouped2}."
-msgstr "{label} fiyatı {grouped} dolar, sizde {grouped2} var."
-
-#. placeholders: {owned}
-msgid " tier {owned}"
-msgstr " kademe {owned}"
-
-#. placeholders: {label}, {tier_part}, {grouped}
-#. one sentence of a longer line
-msgid ""
-"{label}{tier_part} installed across your fleet for {grouped} dollars."
-msgstr "{label}{tier_part} tüm filonuza {grouped} dolara takıldı."
-
-#. placeholders: {label}, {tier_part}, {grouped}, {grouped2}
-msgid ""
-"{label}{tier_part} installed across your fleet for {grouped} dollars. You "
-"have {grouped2} dollars left."
-msgstr ""
-"{label}{tier_part} tüm filonuza {grouped} dolara takıldı. {grouped2} "
-"dolarınız kaldı."
-
-#. one sentence of a longer line
-msgid "Fleet upgrades, for every tractor you own."
-msgstr "Filo yükseltmeleri, sahip olduğunuz her tır için."
-
-#. placeholders: {grouped}, {current}
-msgid ""
-"Fleet upgrades, for every tractor you own. You have {grouped} dollars. "
-"{current}"
-msgstr ""
-"Filo yükseltmeleri, sahip olduğunuz her tır için. {grouped} dolarınız var. "
-"{current}"
-
-#. one sentence of a longer line
-msgid "Upgrades."
-msgstr "Yükseltmeler."
-
-#. placeholders: {grouped}, {current}
-msgid "Upgrades. You have {grouped} dollars. {current}"
-msgstr "Yükseltmeler. {grouped} dolarınız var. {current}"
-
-msgid "Upgrades locked: carrier-assigned tractor"
-msgstr "Yükseltmeler kilitli: tır taşıyıcı firmanın"
-
-msgid ""
-"Truck ownership starts with the leased-on owner-operator buy-in, and that "
-"needs a carrier to lease to. Apply to a carrier first."
-msgstr ""
-"Tır sahipliği, bir taşıyıcıya bağlı kendi tırının sahibi şoför geçişiyle "
-"başlar ve bunun için kiralayacağınız bir taşıyıcı firma gerekir. Önce bir "
-"taşıyıcı firmaya başvurun."
-
-msgid "Trucks"
-msgstr "Tırlar"
-
-msgid ""
-"Owner-operators buy tractors or switch among those they own. Upgrades "
-"follow whichever tractor you drive."
-msgstr ""
-"Kendi tırının sahibi şoförler tır satın alır ya da sahip oldukları tırlar "
-"arasında geçiş yapar. Yükseltmeler sürdüğünüz tırla birlikte gelir."
-
-msgid ""
-"Company drivers use the carrier's trucks. Buying trucks unlocks with the "
-"owner-operator buy-in, from level 18 under Business status."
-msgstr ""
-"Firma şoförleri taşıyıcı firmanın tırlarını kullanır. Tır satın almak, "
-"İşletme durumu altında 18. seviyeden itibaren kendi tırının sahibi şoför "
-"olunca açılır."
-
-#. placeholders: {f}, {f2}
-msgid "{f} thousand newton meters torque, {f2} gallon tank"
-msgstr "{f} bin newton metre tork, {f2} galon depo"
-
-#. placeholders: {name}, {traits}
-msgid "{name}: currently driving, {traits}"
-msgstr "{name}: şu an sürdüğünüz tır, {traits}"
-
-#. placeholders: {name}, {traits}
-msgid "{name}: owned, {traits}, switch to it"
-msgstr "{name}: sizin, {traits}, bu tıra geç"
-
-#. placeholders: {name}, {traits}, {grouped}
-msgid "{name}: {traits}, buy for {grouped} dollars"
-msgstr "{name}: {traits}, {grouped} dolara satın al"
-
-#. placeholders: {label}
-msgid "You are already driving the {label}."
-msgstr "Zaten bu tırı sürüyorsunuz: {label}."
-
-#. placeholders: {label}, {grouped}, {grouped2}
-msgid ""
-"Not enough money. The {label} costs {grouped} dollars and you have "
-"{grouped2}."
-msgstr ""
-"Yeterli paranız yok. {label} fiyatı {grouped} dolar, sizde {grouped2} var."
-
-#. placeholders: {label}, {grouped}, {grouped2}
-#. one sentence of a longer line
-msgid "The {label} costs {grouped} dollars and you have {grouped2}."
-msgstr "{label} fiyatı {grouped} dolar, sizde {grouped2} var."
-
-#. placeholders: {label}, {grouped}
-#. one sentence of a longer line
-msgid "You bought the {label} for {grouped} dollars, now your tractor."
-msgstr "{label} satın alındı, {grouped} dolar. Artık sizin tırınız."
-
-#. placeholders: {label}, {grouped}, {grouped2}
-msgid ""
-"You bought the {label} for {grouped} dollars, now your tractor. You have "
-"{grouped2} dollars left."
-msgstr ""
-"{label} satın alındı, {grouped} dolar. Artık sizin tırınız. {grouped2} "
-"dolarınız kaldı."
-
-#. placeholders: {label}
-msgid "You are now driving the {label}."
-msgstr "Artık bu tırı sürüyorsunuz: {label}."
-
-#. placeholders: {name}
-msgid "Inside {name}. "
-msgstr "Konum: {name}. "
-
-#. placeholders: {dealer}
-#. one sentence of a longer line
-msgid "{dealer}Trucks."
-msgstr "{dealer}Tırlar."
-
-#. placeholders: {dealer}, {grouped}, {current}
-msgid "{dealer}Trucks. You have {grouped} dollars. {current}"
-msgstr "{dealer}Tırlar. {grouped} dolarınız var. {current}"
-
-msgid "Truck ownership locked: no carrier"
-msgstr "Tır sahipliği kilitli: taşıyıcı firma yok"
-
-msgid "Truck ownership locked: carrier-assigned tractor"
-msgstr "Tır sahipliği kilitli: tır taşıyıcı firmanın"
-
-msgid ""
-"Unlocks with the owner-operator buy-in, from level 18 under Business status."
-msgstr ""
-"İşletme durumu altında 18. seviyeden itibaren kendi tırının sahibi şoför "
-"olunca açılır."
 
 msgid "Trailers"
 msgstr "Dorseler"
@@ -22558,6 +22332,101 @@ msgstr ""
 msgid "Return to the terminal menu."
 msgstr "Terminal menüsüne dön."
 
+msgid "Owner-operator buy-in"
+msgstr ""
+
+#. placeholders: {name}, {traits}, {price}
+msgid "{name}, the tractor you drive now: {traits}, {price} dollars"
+msgstr ""
+
+#. placeholders: {name}, {traits}, {price}
+msgid "{name}: {traits}, {price} dollars"
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Owner-operator path locked."
+msgstr "Kendi tırının sahibi şoför yolu kilitli."
+
+#. placeholders: {join}
+msgid "Owner-operator path locked. {join}"
+msgstr "Kendi tırının sahibi şoför yolu kilitli. {join}"
+
+#. one sentence of a longer line
+msgid "Not enough money."
+msgstr "Yeterli paranız yok."
+
+#. placeholders: {label}, {grouped}, {capital}, {grouped2}
+msgid ""
+"Not enough money. The {label} costs {grouped} dollars, and {capital} "
+"dollars stays in the bank as working capital. You have {grouped2}."
+msgstr ""
+
+#. placeholders: {label}, {grouped}, {capital}
+#. one sentence of a longer line
+msgid ""
+"The {label} costs {grouped} dollars, and {capital} dollars stays in the "
+"bank as working capital."
+msgstr ""
+
+#. placeholders: {grouped2}
+#. one sentence of a longer line
+msgid "You have {grouped2}."
+msgstr ""
+
+msgid "Double tap again to buy it."
+msgstr ""
+
+msgid "Press Enter again to buy it."
+msgstr ""
+
+#. placeholders: {grouped2}
+#. one sentence of a longer line
+msgid "You would have {grouped2} dollars left."
+msgstr ""
+
+#. placeholders: {py_capitalize}, {grouped}
+#. one sentence of a longer line
+msgid "{py_capitalize}, {grouped} dollars."
+msgstr ""
+
+#. placeholders: {py_capitalize}, {grouped}, {grouped2}, {again}
+msgid ""
+"{py_capitalize}, {grouped} dollars. You would have {grouped2} dollars left. "
+"{again}"
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Leased-on owner-operator status unlocked."
+msgstr "Bir taşıyıcıya bağlı, kendi tırının sahibi şoför durumu açıldı."
+
+#. placeholders: {label}, {grouped}, {grouped2}
+msgid ""
+"Leased-on owner-operator status unlocked. You bought the {label} for "
+"{grouped} dollars and have {grouped2} dollars left."
+msgstr ""
+
+#. placeholders: {label}, {grouped}, {grouped2}
+#. one sentence of a longer line
+msgid ""
+"You bought the {label} for {grouped} dollars and have {grouped2} dollars "
+"left."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Owner-operator buy-in."
+msgstr ""
+
+#. placeholders: {grouped}, {capital}, {current}
+msgid ""
+"Owner-operator buy-in. You have {grouped} dollars. {capital} dollars stays "
+"in the bank as working capital. {current}"
+msgstr ""
+
+#. placeholders: {capital}
+#. one sentence of a longer line
+msgid "{capital} dollars stays in the bank as working capital."
+msgstr ""
+
 msgid "Move to another carrier: locked"
 msgstr "Başka taşıyıcı firmaya geç: kilitli"
 
@@ -22610,6 +22479,210 @@ msgstr ""
 #. one sentence of a longer line
 msgid "{menu_summary}{starts} Press Enter again to move."
 msgstr "{menu_summary}{starts} Geçmek için tekrar Enter tuşuna basın."
+
+msgid "Upgrades"
+msgstr "Yükseltmeler"
+
+msgid ""
+"Upgrades apply to every tractor you own. Enter buys the next tier, F1 is "
+"details. Escape returns to the garage."
+msgstr ""
+"Yükseltmeler sahip olduğunuz her çekiciye uygulanır. Enter sonraki kademeyi "
+"satın alır, F1 ayrıntıları verir. Escape garaja döner."
+
+msgid ""
+"Upgrades unlock with the owner-operator buy-in, from level 18 under "
+"Business status."
+msgstr ""
+"Yükseltmeler, İşletme durumu altında 18. seviyeden itibaren kendi tırının "
+"sahibi şoför olunca açılır."
+
+#. placeholders: {owned}, {max_tier}
+msgid ", tier {owned} of {max_tier}"
+msgstr ", kademe {owned} / {max_tier}"
+
+#. placeholders: {owned}, {max_tier}
+#. one clause of a longer line
+msgid "tier {owned} of {max_tier}"
+msgstr "kademe {owned} / {max_tier}"
+
+#. placeholders: {label}, {tiers}
+msgid "{label}: owned{tiers}"
+msgstr "{label}: sizde{tiers}"
+
+#. placeholders: {owned}
+msgid ", tier {owned} owned"
+msgstr ", kademe {owned} sizde"
+
+#. placeholders: {owned}
+#. one clause of a longer line
+msgid "tier {owned} owned"
+msgstr "kademe {owned} sizde"
+
+#. placeholders: {label}, {owned}, {max_tier}, {grouped}, {owned_part}
+msgid "{label}, tier {owned} of {max_tier}: {grouped} dollars{owned_part}"
+msgstr "{label}, kademe {owned} / {max_tier}: {grouped} dolar{owned_part}"
+
+#. placeholders: {label}, {grouped}
+msgid "{label}: {grouped} dollars"
+msgstr "{label}: {grouped} dolar"
+
+#. placeholders: {label}
+msgid "{label} is already fully installed."
+msgstr "{label} zaten tam takılı."
+
+#. placeholders: {label}, {grouped}, {grouped2}
+msgid ""
+"Not enough money. {label} costs {grouped} dollars and you have {grouped2}."
+msgstr ""
+"Yeterli paranız yok. {label} fiyatı {grouped} dolar, sizde {grouped2} var."
+
+#. placeholders: {label}, {grouped}, {grouped2}
+#. one sentence of a longer line
+msgid "{label} costs {grouped} dollars and you have {grouped2}."
+msgstr "{label} fiyatı {grouped} dolar, sizde {grouped2} var."
+
+#. placeholders: {owned}
+msgid " tier {owned}"
+msgstr " kademe {owned}"
+
+#. placeholders: {grouped2}
+#. one sentence of a longer line
+msgid "You have {grouped2} dollars left."
+msgstr "{grouped2} dolarınız kaldı."
+
+#. placeholders: {label}, {tier_part}, {grouped}
+#. one sentence of a longer line
+msgid ""
+"{label}{tier_part} installed across your fleet for {grouped} dollars."
+msgstr "{label}{tier_part} tüm filonuza {grouped} dolara takıldı."
+
+#. placeholders: {label}, {tier_part}, {grouped}, {grouped2}
+msgid ""
+"{label}{tier_part} installed across your fleet for {grouped} dollars. You "
+"have {grouped2} dollars left."
+msgstr ""
+"{label}{tier_part} tüm filonuza {grouped} dolara takıldı. {grouped2} "
+"dolarınız kaldı."
+
+#. one sentence of a longer line
+msgid "Fleet upgrades, for every tractor you own."
+msgstr "Filo yükseltmeleri, sahip olduğunuz her tır için."
+
+#. placeholders: {grouped}, {current}
+msgid ""
+"Fleet upgrades, for every tractor you own. You have {grouped} dollars. "
+"{current}"
+msgstr ""
+"Filo yükseltmeleri, sahip olduğunuz her tır için. {grouped} dolarınız var. "
+"{current}"
+
+#. one sentence of a longer line
+msgid "Upgrades."
+msgstr "Yükseltmeler."
+
+#. placeholders: {grouped}, {current}
+msgid "Upgrades. You have {grouped} dollars. {current}"
+msgstr "Yükseltmeler. {grouped} dolarınız var. {current}"
+
+msgid "Upgrades locked: carrier-assigned tractor"
+msgstr "Yükseltmeler kilitli: tır taşıyıcı firmanın"
+
+msgid ""
+"Truck ownership starts with the leased-on owner-operator buy-in, and that "
+"needs a carrier to lease to. Apply to a carrier first."
+msgstr ""
+"Tır sahipliği, bir taşıyıcıya bağlı kendi tırının sahibi şoför geçişiyle "
+"başlar ve bunun için kiralayacağınız bir taşıyıcı firma gerekir. Önce bir "
+"taşıyıcı firmaya başvurun."
+
+msgid "Trucks"
+msgstr "Tırlar"
+
+msgid ""
+"Owner-operators buy tractors or switch among those they own. Upgrades "
+"follow whichever tractor you drive."
+msgstr ""
+"Kendi tırının sahibi şoförler tır satın alır ya da sahip oldukları tırlar "
+"arasında geçiş yapar. Yükseltmeler sürdüğünüz tırla birlikte gelir."
+
+msgid ""
+"Company drivers use the carrier's trucks. Buying trucks unlocks with the "
+"owner-operator buy-in, from level 18 under Business status."
+msgstr ""
+"Firma şoförleri taşıyıcı firmanın tırlarını kullanır. Tır satın almak, "
+"İşletme durumu altında 18. seviyeden itibaren kendi tırının sahibi şoför "
+"olunca açılır."
+
+#. placeholders: {name}, {traits}
+msgid "{name}: currently driving, {traits}"
+msgstr "{name}: şu an sürdüğünüz tır, {traits}"
+
+#. placeholders: {name}, {traits}
+msgid "{name}: owned, {traits}, switch to it"
+msgstr "{name}: sizin, {traits}, bu tıra geç"
+
+#. placeholders: {name}, {traits}, {grouped}
+msgid "{name}: {traits}, buy for {grouped} dollars"
+msgstr "{name}: {traits}, {grouped} dolara satın al"
+
+#. placeholders: {label}
+msgid "You are already driving the {label}."
+msgstr "Zaten bu tırı sürüyorsunuz: {label}."
+
+#. placeholders: {label}, {grouped}, {grouped2}
+msgid ""
+"Not enough money. The {label} costs {grouped} dollars and you have "
+"{grouped2}."
+msgstr ""
+"Yeterli paranız yok. {label} fiyatı {grouped} dolar, sizde {grouped2} var."
+
+#. placeholders: {label}, {grouped}, {grouped2}
+#. one sentence of a longer line
+msgid "The {label} costs {grouped} dollars and you have {grouped2}."
+msgstr "{label} fiyatı {grouped} dolar, sizde {grouped2} var."
+
+#. placeholders: {label}, {grouped}
+#. one sentence of a longer line
+msgid "You bought the {label} for {grouped} dollars, now your tractor."
+msgstr "{label} satın alındı, {grouped} dolar. Artık sizin tırınız."
+
+#. placeholders: {label}, {grouped}, {grouped2}
+msgid ""
+"You bought the {label} for {grouped} dollars, now your tractor. You have "
+"{grouped2} dollars left."
+msgstr ""
+"{label} satın alındı, {grouped} dolar. Artık sizin tırınız. {grouped2} "
+"dolarınız kaldı."
+
+#. placeholders: {label}
+msgid "You are now driving the {label}."
+msgstr "Artık bu tırı sürüyorsunuz: {label}."
+
+#. placeholders: {name}
+msgid "Inside {name}. "
+msgstr "Konum: {name}. "
+
+#. placeholders: {dealer}
+#. one sentence of a longer line
+msgid "{dealer}Trucks."
+msgstr "{dealer}Tırlar."
+
+#. placeholders: {dealer}, {grouped}, {current}
+msgid "{dealer}Trucks. You have {grouped} dollars. {current}"
+msgstr "{dealer}Tırlar. {grouped} dolarınız var. {current}"
+
+msgid "Truck ownership locked: no carrier"
+msgstr "Tır sahipliği kilitli: taşıyıcı firma yok"
+
+msgid "Truck ownership locked: carrier-assigned tractor"
+msgstr "Tır sahipliği kilitli: tır taşıyıcı firmanın"
+
+msgid ""
+"Unlocks with the owner-operator buy-in, from level 18 under Business status."
+msgstr ""
+"İşletme durumu altında 18. seviyeden itibaren kendi tırının sahibi şoför "
+"olunca açılır."
 
 msgid "carrier shop repair"
 msgstr "taşıyıcı firma atölyesinde onarım"
@@ -25396,6 +25469,12 @@ msgstr ""
 "{lane_locator} şerit bulucuyu açıp kapatır: şerit takibi kısmi ya da "
 "kapalıyken, her vuruşta bir yumuşak tık, şeritte durduğunuz yere göre sağa "
 "ya da sola verilir."
+
+#. placeholders: {mirror_left}, {mirror_right}
+msgid ""
+"{mirror_left} and {mirror_right} check the left or right mirror and blind "
+"spot, briefly focusing traffic audio on that side."
+msgstr ""
 
 #. placeholders: {last_announcement}
 msgid "{last_announcement} repeats the last driving announcement."
@@ -30549,6 +30628,43 @@ msgstr ""
 
 msgid "Missed the facility gate. Use the next safe turnaround."
 msgstr "Tesis kapısı kaçtı. Bir sonraki güvenli dönüş yerini kullanın."
+
+msgid "Looking forward."
+msgstr ""
+
+msgid "Left"
+msgstr ""
+
+msgid "Right"
+msgstr ""
+
+#. placeholders: {side_word}
+msgid "{side_word} shoulder."
+msgstr ""
+
+#. placeholders: {side_word}
+msgid "{side_word} lane closed."
+msgstr ""
+
+#. placeholders: {kind_cap}, {side_lower}
+msgid "{kind_cap} beside {side_lower}."
+msgstr ""
+
+#. placeholders: {kind_cap}, {side_lower}
+msgid "{kind_cap} closing {side_lower}."
+msgstr ""
+
+#. placeholders: {kind_cap}, {side_lower}
+msgid "{kind_cap} behind {side_lower}."
+msgstr ""
+
+#. placeholders: {kind_cap}, {side_lower}
+msgid "{kind_cap} ahead {side_lower}."
+msgstr ""
+
+#. placeholders: {side_word}
+msgid "{side_word} clear."
+msgstr ""
 
 #. placeholders: {capitalized}
 msgid "{capitalized} lane open."
@@ -36379,6 +36495,12 @@ msgstr "Su kayması. Direksiyon hafifledi."
 msgid "The drive wheels are sliding under the engine brake."
 msgstr "Motor freni altında çeker tekerlekler kayıyor."
 
+msgid "ABS pulsing. Hold steady on the brake."
+msgstr ""
+
+msgid "Drive wheels spinning. Ease off the throttle."
+msgstr ""
+
 msgid ""
 "A tire chain broke and is flailing. Slow down and pull over to check it."
 msgstr ""
@@ -37367,6 +37489,12 @@ msgstr "Bir süredir sol şeritte gidiyorsunuz. Sollama dışında sağda kalın
 
 msgid "Traffic is stacking up and passing you on the right."
 msgstr "Arkanızda trafik birikiyor ve sizi sağdan geçiyor."
+
+msgid "Trailer off-tracking tight on the inside. Give the curve more room."
+msgstr ""
+
+msgid "Trailer swaying in the wind. Ease off your speed."
+msgstr ""
 
 #. placeholders: {fresh}
 msgid "Weather alert: {fresh}."
@@ -47585,6 +47713,88 @@ msgstr ""
 "İkinci bir düğme katmanı için sol omuz tuşunu basılı tutun. {pad_engine} "
 "motoru kontrol eder, {pad_fuel} yakıtı okur ve {pad_speed_limit} hız "
 "sınırını okur."
+
+#~ msgid ""
+#~ "Save {grouped} dollars: {grouped2} for the truck buy-in and {grouped3} for "
+#~ "working capital."
+#~ msgstr ""
+#~ "{grouped} dolar biriktirin: tır payı için {grouped2}, işletme sermayesi "
+#~ "için {grouped3}."
+
+#~ msgid ""
+#~ "Next: the owner-operator buy-in under Business status, where you buy the "
+#~ "truck you drive."
+#~ msgstr ""
+#~ "Sıradaki: İşletme durumu menüsünde, kullandığınız tırı satın aldığınız "
+#~ "kendi tırının sahibi şoför geçişi."
+
+#~ msgid ""
+#~ "The buy-in costs {grouped} dollars and keeps {grouped2} dollars of working "
+#~ "capital in the bank."
+#~ msgstr ""
+#~ "Geçiş {grouped} dolar tutar ve bankada {grouped2} dolar işletme sermayesi "
+#~ "bırakır."
+
+#~ msgid ""
+#~ "You are a company driver for {carrier_name}, level {level} {title}. You "
+#~ "qualify for the owner-operator buy-in: you buy the truck you drive and keep "
+#~ "hauling for the carrier as a leased-on owner-operator. The buy-in costs "
+#~ "{grouped} dollars and keeps {grouped2} dollars of working capital in the "
+#~ "bank."
+#~ msgstr ""
+#~ "{carrier_name} firma şoförüsünüz, seviye {level} {title}. Kendi tırının "
+#~ "sahibi şoför geçişine hak kazandınız: kullandığınız tırı satın alır, bir "
+#~ "taşıyıcıya bağlı olarak aynı firmaya yük taşımaya devam edersiniz. Geçiş "
+#~ "{grouped} dolar tutar ve bankada {grouped2} dolar işletme sermayesi bırakır."
+
+#~ msgid ""
+#~ "You qualify for the owner-operator buy-in: you buy the truck you drive and "
+#~ "keep hauling for the carrier as a leased-on owner-operator."
+#~ msgstr ""
+#~ "Kendi tırının sahibi şoför geçişine hak kazandınız: kullandığınız tırı "
+#~ "satın alır, bir taşıyıcıya bağlı olarak aynı firmaya yük taşımaya devam "
+#~ "edersiniz."
+
+#~ msgid ""
+#~ "The owner-operator buy-in opens once its other requirements are met: you "
+#~ "buy the truck you drive and haul for the carrier as a leased-on "
+#~ "owner-operator. TWIC port card enrollment opens under Licenses and training."
+#~ msgstr ""
+#~ "Diğer koşullar sağlanınca kendi tırının sahibi şoför geçişi açılır: "
+#~ "kullandığınız tırı satın alır, bir taşıyıcıya bağlı olarak o firmaya yük "
+#~ "taşırsınız. TWIC liman kartı başvurusu Ehliyetler ve eğitim bölümünde "
+#~ "açılır."
+
+#~ msgid ""
+#~ "Enter repeats a line, or buys in when qualified. Escape returns to the "
+#~ "terminal."
+#~ msgstr ""
+#~ "Enter bir satırı tekrarlar ya da şartları sağladığınızda satın alır. Escape "
+#~ "terminale döner."
+
+#~ msgid ""
+#~ "Leased-on owner-operator status unlocked. Paid {grouped} dollars toward "
+#~ "your first tractor, {grouped2} dollars working capital left."
+#~ msgstr ""
+#~ "Bir taşıyıcıya bağlı, kendi tırının sahibi şoför durumu açıldı. İlk "
+#~ "çekiciniz için {grouped} dolar ödendi, {grouped2} dolar işletme sermayesi "
+#~ "kaldı."
+
+#~ msgid ""
+#~ "Paid {grouped} dollars toward your first tractor, {grouped2} dollars "
+#~ "working capital left."
+#~ msgstr ""
+#~ "İlk çekiciniz için {grouped} dolar ödendi, {grouped2} dolar işletme "
+#~ "sermayesi kaldı."
+
+#~ msgid "Owner-operator buy-in: {grouped} dollars"
+#~ msgstr "Kendi tırının sahibi şoför girişi: {grouped} dolar"
+
+#~ msgid "Higher revenue, but your business pays operating costs."
+#~ msgstr "Gelir daha yüksek, ama işletme giderlerini işletmeniz öder."
+
+#~ msgid "{f} thousand newton meters torque, {f2} gallon tank"
+#~ msgstr "{f} bin newton metre tork, {f2} galon depo"
 
 #~ msgid "Destination {destination_label} ahead."
 #~ msgstr "İleride varış noktası: {destination_label}."
