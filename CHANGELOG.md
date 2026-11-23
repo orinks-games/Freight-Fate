@@ -22,6 +22,7 @@
 - **Chain work your co-driver does no longer adds to your fatigue.** You get one note per job when you wake.
 - **A chain control no longer cites a truck that was already on the grade when the snow began.**
 - **The chain law call no longer says "ahead".**
+- **A stop with a full lot at night still offers the 30-minute break and Save at this stop.** Only sleeping there is turned away.
 
 ### Changed
 

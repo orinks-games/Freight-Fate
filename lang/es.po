@@ -31519,12 +31519,6 @@ msgstr ""
 "Selecciona una opción. Dormir lee primero un avance. Selecciona otra vez "
 "para dormir. Las pausas y el sueño mueven el reloj y el plazo de entrega."
 
-msgid "Take a 30-minute break"
-msgstr "Hacer una pausa de 30 minutos"
-
-msgid "Food and coffee break"
-msgstr "Pausa para comer y tomar café"
-
 #. one sentence of a longer line
 msgid "You are already rested."
 msgstr "Ya estás descansado."
@@ -31545,22 +31539,6 @@ msgstr "Programa de fidelidad: {summary}"
 
 msgid "Loyalty points, shower credits, and rewards."
 msgstr "Puntos de fidelidad, créditos de ducha y recompensas."
-
-msgid ""
-"Fifteen minutes off duty. Coffee eases fatigue a little, but the lift wears "
-"off in two hours, and a second coffee before then adds nothing. Does not "
-"satisfy the 30-minute break rule."
-msgstr ""
-"Quince minutos fuera de servicio. El café reduce un poco la fatiga, pero el "
-"efecto dura dos horas y otro café antes de eso no ayuda. No cuenta como la "
-"pausa obligatoria de 30 minutos."
-
-msgid ""
-"Satisfies the 30-minute break rule and eases fatigue. Clock and deadline "
-"advance half an hour."
-msgstr ""
-"Cumple la norma de la pausa de 30 minutos y alivia el cansancio. El reloj y "
-"el plazo de entrega avanzan media hora."
 
 #. placeholders: {hours}
 msgid "Sleep {hours} hours in sleeper berth"
@@ -31704,12 +31682,6 @@ msgstr ""
 "Inspección visual antes del viaje: lo que encontraría un inspector en la "
 "unidad tractora y el remolque. {f} minutos de servicio."
 
-msgid "Save at this stop"
-msgstr "Guardar en esta parada"
-
-msgid "Saves the drive at this stop."
-msgstr "Guarda la conducción en esta parada."
-
 msgid "Cash against this load, repaid from the delivery settlement."
 msgstr ""
 "Dinero a cuenta de esta carga, devuelto de la liquidación de la entrega."
@@ -31735,54 +31707,6 @@ msgid ""
 msgstr ""
 "Adelanto de {grouped} dólares a cuenta de la carga a {destination}, se "
 "devuelve en la entrega. Tienes {grouped2}, debes {grouped3}."
-
-#. one sentence of a longer line
-msgid "Break requirement reset."
-msgstr "Requisito de pausa reiniciado."
-
-#. one sentence of a longer line
-msgid "You took a 30-minute break."
-msgstr "Hiciste una pausa de 30 minutos."
-
-#. placeholders: {clock_text}, {deadline_text}
-msgid ""
-"You took a 30-minute break. It is {clock_text}. Break requirement reset. "
-"{deadline_text}"
-msgstr ""
-"Hiciste una pausa de 30 minutos. Son las {clock_text}. Requisito de pausa "
-"reiniciado. {deadline_text}"
-
-#. one sentence of a longer line
-msgid "Coffee break."
-msgstr "Pausa para café."
-
-#. placeholders: {clock_text}, {deadline_text}
-msgid ""
-"Coffee break. {clock_text}. Eases fatigue. Does not count as your 30-minute "
-"break. {deadline_text}"
-msgstr ""
-"Pausa para café. {clock_text}. Alivia la fatiga. No cuenta como tu pausa de "
-"30 minutos. {deadline_text}"
-
-#. one sentence of a longer line
-msgid "Does not count as your 30-minute break."
-msgstr "No cuenta como tu pausa de 30 minutos."
-
-#. one sentence of a longer line
-msgid "Eases fatigue."
-msgstr "Alivia la fatiga."
-
-#. placeholders: {clock_text}, {deadline_text}
-msgid ""
-"Coffee break. {clock_text}. No lift while the last coffee lasts. Does not "
-"count as your 30-minute break. {deadline_text}"
-msgstr ""
-"Pausa para tomar café. {clock_text}. Otro café no ayuda mientras dure el "
-"efecto del anterior. No cuenta como tu pausa de 30 minutos. {deadline_text}"
-
-#. one sentence of a longer line
-msgid "No lift while the last coffee lasts."
-msgstr "Otro café no ayuda mientras dure el efecto del anterior."
 
 msgid "Driving and duty clocks reset. "
 msgstr "Relojes de conducción y de servicio reiniciados. "
@@ -32690,6 +32614,82 @@ msgstr "{load_text} Quedas libre para volver a {terminal}."
 
 msgid "Continue from the city terminal."
 msgstr "Continúa desde la terminal de la ciudad."
+
+msgid "Take a 30-minute break"
+msgstr "Hacer una pausa de 30 minutos"
+
+msgid "Food and coffee break"
+msgstr "Pausa para comer y tomar café"
+
+msgid "Save at this stop"
+msgstr "Guardar en esta parada"
+
+msgid ""
+"Satisfies the 30-minute break rule and eases fatigue. Clock and deadline "
+"advance half an hour."
+msgstr ""
+"Cumple la norma de la pausa de 30 minutos y alivia el cansancio. El reloj y "
+"el plazo de entrega avanzan media hora."
+
+msgid ""
+"Fifteen minutes off duty. Coffee eases fatigue a little, but the lift wears "
+"off in two hours, and a second coffee before then adds nothing. Does not "
+"satisfy the 30-minute break rule."
+msgstr ""
+"Quince minutos fuera de servicio. El café reduce un poco la fatiga, pero el "
+"efecto dura dos horas y otro café antes de eso no ayuda. No cuenta como la "
+"pausa obligatoria de 30 minutos."
+
+msgid "Saves the drive at this stop."
+msgstr "Guarda la conducción en esta parada."
+
+#. one sentence of a longer line
+msgid "Break requirement reset."
+msgstr "Requisito de pausa reiniciado."
+
+#. one sentence of a longer line
+msgid "You took a 30-minute break."
+msgstr "Hiciste una pausa de 30 minutos."
+
+#. placeholders: {clock_text}, {deadline_text}
+msgid ""
+"You took a 30-minute break. It is {clock_text}. Break requirement reset. "
+"{deadline_text}"
+msgstr ""
+"Hiciste una pausa de 30 minutos. Son las {clock_text}. Requisito de pausa "
+"reiniciado. {deadline_text}"
+
+#. one sentence of a longer line
+msgid "Coffee break."
+msgstr "Pausa para café."
+
+#. placeholders: {clock_text}, {deadline_text}
+msgid ""
+"Coffee break. {clock_text}. Eases fatigue. Does not count as your 30-minute "
+"break. {deadline_text}"
+msgstr ""
+"Pausa para café. {clock_text}. Alivia la fatiga. No cuenta como tu pausa de "
+"30 minutos. {deadline_text}"
+
+#. one sentence of a longer line
+msgid "Does not count as your 30-minute break."
+msgstr "No cuenta como tu pausa de 30 minutos."
+
+#. one sentence of a longer line
+msgid "Eases fatigue."
+msgstr "Alivia la fatiga."
+
+#. placeholders: {clock_text}, {deadline_text}
+msgid ""
+"Coffee break. {clock_text}. No lift while the last coffee lasts. Does not "
+"count as your 30-minute break. {deadline_text}"
+msgstr ""
+"Pausa para tomar café. {clock_text}. Otro café no ayuda mientras dure el "
+"efecto del anterior. No cuenta como tu pausa de 30 minutos. {deadline_text}"
+
+#. one sentence of a longer line
+msgid "No lift while the last coffee lasts."
+msgstr "Otro café no ayuda mientras dure el efecto del anterior."
 
 msgid "Held at the chain control."
 msgstr "Retenido en el control de cadenas."

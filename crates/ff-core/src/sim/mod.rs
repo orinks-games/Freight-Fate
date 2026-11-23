@@ -32,6 +32,7 @@ pub mod route_roadwork;
 pub mod runaway;
 pub mod season;
 pub mod stimulant;
+pub mod stop_lot;
 pub mod surge;
 pub mod team_shift;
 pub mod tilt_sensor;
