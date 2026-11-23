@@ -1,11 +1,9 @@
 //! The gesture translator, the route table and the agent names.
 use super::*;
 
-impl Gesture {
-    fn hold_events_output(self) -> TouchOutput {
-        TouchOutput {
-            events: self.hold_events(),
-        }
+fn hold_events_output(gesture: Gesture) -> TouchOutput {
+    TouchOutput {
+        events: gesture.hold_events(),
     }
 }
 
@@ -479,7 +477,7 @@ fn holds_keep_the_pedal_down_until_the_finger_lifts() {
         vec![InputEvent::Gesture(Gesture::HoldUpperBegan)]
     );
     assert_eq!(
-        pressed(&Gesture::HoldUpperBegan.hold_events_output()),
+        pressed(&hold_events_output(Gesture::HoldUpperBegan)),
         vec![Key::Up]
     );
     assert_eq!(touch.held(), Some(Key::Up));

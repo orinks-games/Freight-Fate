@@ -214,6 +214,101 @@ fn slot_with_local_save(
     (push(app, state), guard)
 }
 
+fn stale_slot_under_parent(app: &mut TestApp) -> (SharedState, SharedState, IdentityGuard) {
+    let slot_name = cloud_slot_name("Road Star");
+    let guard = install_identity(app, Some(&identity()));
+    install_cloud(
+        app,
+        FakeTransport::replying(json!({
+            "saves": [
+                {"saveName": slot_name, "revision": 2, "createdAt": wall_time() * 1000.0},
+                {"saveName": cloud_slot_name("Night Runs"), "revision": 1, "createdAt": wall_time() * 1000.0},
+            ],
+            "publicSaveName": null,
+        })),
+        true,
+    );
+    let mut parent = CloudBackupState::new(&mut app.ctx);
+    parent.threaded = false;
+    let parent = push(app, parent);
+    assert!(with_state::<CloudBackupState, _>(&parent, |s| s.fetched()));
+    with_state::<CloudBackupState, _>(&parent, |s| s.update(&mut app.ctx, 0.0));
+
+    let mut profile = ff_core::models::profile::Profile::named("Road Star");
+    profile.set_money(4500.0);
+    profile.save().unwrap();
+    let profile = ff_core::models::profile::Profile::load(&profile.path()).unwrap();
+    let snapshot = Value::Object(profile.to_dict());
+    let (_, hash) = freight_fate::cloud_saves::cloud_content(&snapshot);
+    app.ctx
+        .cloud_saves_service()
+        .sync_state()
+        .record_synced_for_driver(&slot_name, 1, &hash, &identity().driver_id);
+
+    let mut slot = CloudSlotState::new(
+        &mut app.ctx,
+        &slot_name,
+        vec![json!({
+            "saveName": slot_name,
+            "revision": 2,
+            "summary": "Road Star, level 1, 4,000 dollars"
+        })],
+        None,
+        Some(parent.clone()),
+    );
+    slot.threaded = false;
+    let slot = push(app, slot);
+    with_state::<CloudSlotState, _>(&slot, |s| s.start_backup_now(&mut app.ctx));
+    settle(app, &slot);
+    assert_eq!(
+        app.ctx.cloud_saves_service().status(),
+        freight_fate::cloud_saves::STALE_BACKUP_STATUS
+    );
+    (parent, slot, guard)
+}
+
+fn parent_status(app: &mut TestApp, parent: &SharedState) -> String {
+    labels::<CloudBackupState>(parent, &app.ctx)
+        .into_iter()
+        .find(|row| row.starts_with("Status:"))
+        .unwrap()
+}
+
+#[test]
+fn test_verified_restore_clears_stale_status_when_returning_to_parent_menu() {
+    let mut app = TestApp::new();
+    let (parent, slot, _guard) = stale_slot_under_parent(&mut app);
+
+    // The restore worker posts this only after the downloaded save verifies and installs.
+    with_state::<CloudSlotState, _>(&slot, |s| s.outcome.post("restored".to_string()));
+    settle(&mut app, &slot);
+    press(&mut app, Key::Escape);
+
+    let current = app.state().unwrap();
+    assert!(is_state::<CloudBackupState>(&current));
+    assert_eq!(
+        parent_status(&mut app, &parent),
+        "Status: Cloud backup is ready."
+    );
+}
+
+#[test]
+fn test_failed_restore_keeps_stale_status_when_returning_to_parent_menu() {
+    let mut app = TestApp::new();
+    let (parent, slot, _guard) = stale_slot_under_parent(&mut app);
+
+    with_state::<CloudSlotState, _>(&slot, |s| s.outcome.post("download_failed".to_string()));
+    settle(&mut app, &slot);
+    press(&mut app, Key::Escape);
+
+    let current = app.state().unwrap();
+    assert!(is_state::<CloudBackupState>(&current));
+    assert_eq!(
+        parent_status(&mut app, &parent),
+        format!("Status: {}", freight_fate::cloud_saves::STALE_BACKUP_STATUS)
+    );
+}
+
 /// Brandon (armstrong445), 2026-08-15. A career could only travel upward
 /// through the queue after a save, or through the conflict screen's "Keep
 /// this computer's save" -- which vanished with the conflict that summoned

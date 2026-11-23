@@ -70,8 +70,9 @@ fn test_every_lower_48_city_is_hired_into() {
     let cities = lower_48_cities(world);
     // 626 before Plattsburgh, New York and St. Johnsbury, Vermont joined with
     // the Quebec crossings; 630 with Carneys Point and Cape May, New Jersey;
-    // 634 with Sebring, Port Canaveral, Crystal River and Gainesville, Georgia.
-    assert_eq!(cities.len(), 634, "the lower-48 map city count moved");
+    // 634 with Sebring, Port Canaveral, Crystal River and Gainesville, Georgia;
+    // 638 with Joliet, Alpena, Ashtabula and Sandusky (Great Lakes roads).
+    assert_eq!(cities.len(), 638, "the lower-48 map city count moved");
     let mut by_any = 0;
     let mut by_regional = 0;
     let mut missing_regional = Vec::new();

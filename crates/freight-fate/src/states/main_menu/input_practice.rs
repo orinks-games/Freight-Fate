@@ -341,6 +341,11 @@ impl State for InputPracticeState {
         TouchMode::Practice
     }
 
+    /// The opening line again: how to practise and how to leave.
+    fn on_app_return(&mut self, ctx: &mut GameContext) {
+        self.enter(ctx);
+    }
+
     fn handle_gesture(&mut self, ctx: &mut GameContext, gesture: Gesture) -> bool {
         if !matches!(
             gesture,
@@ -379,6 +384,7 @@ impl State for InputPracticeState {
     fn update(&mut self, ctx: &mut GameContext, dt: f64) {
         ctx.update_music_rotation(dt);
         self.poll_analog(ctx);
+        self.gestures.poll_tilt(ctx);
     }
 
     /// Every key is practiced here, the review keys included.

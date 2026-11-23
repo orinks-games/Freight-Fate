@@ -63,7 +63,7 @@ pub const RANDOM_SAMPLE: usize = 6;
 /// launched later. It does not choose a facility or corridor.
 const DEPARTURE_TRIP_SEED: i64 = 0;
 
-pub const FEATURES: [&str; 17] = [
+pub const FEATURES: [&str; 19] = [
     "downgrade",
     "upgrade",
     "zone",
@@ -81,6 +81,8 @@ pub const FEATURES: [&str; 17] = [
     "jointed",
     "border",
     "state-line",
+    "grooved",
+    "grating",
 ];
 const SCAN_STEP_MI: f64 = 0.1;
 /// How far before the feature the SEARCH looks back to report a posted
@@ -614,6 +616,12 @@ pub fn find_feature(
                 &mut trip,
                 origin,
                 destination,
+            )),
+            "grooved" | "grating" => hits.extend(self::pavement::song_hits(
+                &mut trip,
+                origin,
+                destination,
+                feature == "grating",
             )),
             _ => {}
         }

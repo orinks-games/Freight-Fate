@@ -21,7 +21,12 @@ const MEMPHIS_TN_TO_NASHVILLE: &str = "memphis_tn_us:nashville_tn_us";
 const MEMPHIS_TN_TO_JACKSON: &str = "memphis_tn_us:jackson_tn_us";
 const GALESBURG_IL_TO_DAVENPORT: &str = "galesburg_il_us:davenport_ia_us";
 const DES_MOINES_IA_TO_CHICAGO: &str = "des_moines_ia_us:chicago_il_us";
-const CHICAGO_IL_TO_ST_LOUIS: &str = "chicago_il_us:st_louis_mo_us";
+/// I-55 into St. Louis; Chicago to St. Louis was split at Joliet, Bloomington
+/// and Springfield (Great Lakes roads, 2026-11-22), and this piece crosses the
+/// Mississippi.
+const SPRINGFIELD_IL_TO_ST_LOUIS: &str = "springfield_il_us:st_louis_mo_us";
+/// I-55 from Bloomington to Joliet, the piece with most of the old leg's rivers.
+const BLOOMINGTON_IL_TO_JOLIET: &str = "bloomington_il_us:joliet_il_us";
 const MINNEAPOLIS_MN_TO_DES_MOINES: &str = "minneapolis_mn_us:des_moines_ia_us";
 const MIAMI_FL_TO_KEY_WEST: &str = "miami_fl_us:key_west_fl_us";
 const DURANGO_CO_TO_MONTROSE: &str = "durango_co_us:montrose_co_us";
@@ -650,7 +655,8 @@ fn no_two_rivers_share_a_mile() {
     for id in [
         MEMPHIS_TN_TO_NASHVILLE,
         GALESBURG_IL_TO_DAVENPORT,
-        CHICAGO_IL_TO_ST_LOUIS,
+        BLOOMINGTON_IL_TO_JOLIET,
+        SPRINGFIELD_IL_TO_ST_LOUIS,
         INDIANAPOLIS_IN_TO_NASHVILLE,
         DES_MOINES_IA_TO_CHICAGO,
     ] {
@@ -754,7 +760,7 @@ fn ohio_river_is_the_state_line() {
 #[test]
 fn mississippi_callouts_where_the_bridge_is() {
     for id in [
-        CHICAGO_IL_TO_ST_LOUIS,
+        SPRINGFIELD_IL_TO_ST_LOUIS,
         DES_MOINES_IA_TO_CHICAGO,
         GALESBURG_IL_TO_DAVENPORT,
     ] {

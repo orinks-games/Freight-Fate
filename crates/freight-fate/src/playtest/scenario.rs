@@ -24,6 +24,7 @@ use ff_core::playtest_levers::{apply_city, apply_clock, resolve_city_forgiving};
 use ff_core::pyfmt::fmt_grouped;
 use ff_core::sim::alertness::Alertness;
 use ff_core::sim::hos::HosClock;
+use ff_core::sim::road_texture::song::HeldSong;
 use ff_core::sim::vehicle::TruckState;
 use ff_core::sim::weather::WeatherKind;
 
@@ -109,6 +110,13 @@ pub struct Scenario {
     /// Open Touch gestures over the terminal: the iPhone and iPad settings
     /// screen, which a desktop build's Controls list leaves out.
     pub touch_gestures: bool,
+    /// Tilt steering on or off (Touch gestures, Tilt steering). The agent
+    /// server's `tilt` tool is the phone's motion sensor.
+    pub tilt_steering: Option<bool>,
+    /// Play as an iPhone (true) or as this desktop again (false): the phone's
+    /// menus, rows and help, starting with no hardware keyboard, so prompts
+    /// name gestures. Applied before anything else in the scenario.
+    pub phone: Option<bool>,
     /// The fatigue number, 0 to 100, set after `rested`.
     pub fatigue: Option<f64>,
     /// Sandbox HOS counters for a near-limit road start. These are staged
@@ -142,6 +150,9 @@ pub struct Scenario {
     /// The road surface every drive from here on keeps: `Some(true)` jointed
     /// the whole way, `Some(false)` smooth.
     pub road_jointed: Option<bool>,
+    /// The tires' song every drive from here on holds, over what the layer
+    /// reads.
+    pub tire_song: Option<HeldSong>,
     /// The simulated sky every drive from here on starts under:
     /// `Some(Some(kind))` forced, `Some(None)` free (`parse_weather`).
     pub weather: Option<Option<WeatherKind>>,
@@ -149,6 +160,9 @@ pub struct Scenario {
     /// rules read (spring weight limits, the Whittier tunnel's seasons).
     /// Career time, deadlines and hours of service do not move.
     pub date: Option<(u32, u32)>,
+    /// The driver newspaper: `Some(Some(path))` holds the issue in that file
+    /// (the site's body, version 1), `Some(None)` holds none.
+    pub newspaper: Option<Option<String>>,
 }
 
 /// A `date` field: "MM-DD", such as "05-01".
@@ -271,6 +285,13 @@ impl Scenario {
                 ))
             }
         };
+        let tire_song = match text(args, "tire_song")?.as_deref() {
+            None => None,
+            Some(name) => Some(
+                HeldSong::from_name(name)
+                    .ok_or_else(|| format!("tire_song must be quiet, whine or hum, not {name}"))?,
+            ),
+        };
         let weather = text(args, "weather")?
             .map(|value| parse_weather(&value))
             .transpose()?;
@@ -367,6 +388,8 @@ impl Scenario {
                 .get("touch_gestures")
                 .and_then(Value::as_bool)
                 .unwrap_or(false),
+            tilt_steering: args.get("tilt_steering").and_then(Value::as_bool),
+            phone: args.get("phone").and_then(Value::as_bool),
             fatigue: number(args, "fatigue")?,
             hos_driving_min: number(args, "hos_driving_min")?,
             hos_duty_min: number(args, "hos_duty_min")?,
@@ -389,10 +412,15 @@ impl Scenario {
             settings,
             window_down,
             road_jointed,
+            tire_song,
             weather,
             date: text(args, "date")?
                 .map(|value| parse_date(&value))
                 .transpose()?,
+            newspaper: text(args, "newspaper")?.map(|value| match value.as_str() {
+                "none" => None,
+                _ => Some(value),
+            }),
         })
     }
 
@@ -653,6 +681,10 @@ pub fn apply(ctx: &mut GameContext, scenario: &Scenario) -> Result<Vec<String>, 
             "Drives start with the driver window up.".to_string()
         });
     }
+    if let Some(song) = scenario.tire_song {
+        ctx.playtest_tire_song = Some(song);
+        notes.push(format!("Drives hold the tire song {}.", song.name()));
+    }
     if let Some(weather) = scenario.weather {
         ctx.playtest_weather = Some(weather);
         notes.push(match weather {
@@ -680,6 +712,10 @@ pub fn apply(ctx: &mut GameContext, scenario: &Scenario) -> Result<Vec<String>, 
         ctx.playtest_board_load_to = Some(to.clone());
         notes.push(format!("Dispatch boards add a load to {to}."));
     }
+    if let Some(on) = scenario.tilt_steering {
+        ctx.settings.touch_tilt_steering = on;
+        notes.push(format!("Tilt steering {}.", if on { "on" } else { "off" }));
+    }
     for (name, value) in &scenario.settings {
         if !ctx.settings.set_field(name, value) {
             return Err(format!(
@@ -687,6 +723,19 @@ pub fn apply(ctx: &mut GameContext, scenario: &Scenario) -> Result<Vec<String>, 
             ));
         }
         notes.push(format!("Setting {name} is now {value}."));
+    }
+    if let Some(paper) = &scenario.newspaper {
+        match paper {
+            Some(path) => {
+                let issue = crate::newspaper::issue_from_file(std::path::Path::new(path))?;
+                notes.push(format!("The game holds newspaper issue {}.", issue.issue));
+                ctx.services.newspaper.stage(Some(issue));
+            }
+            None => {
+                ctx.services.newspaper.stage(None);
+                notes.push("The game holds no newspaper.".to_string());
+            }
+        }
     }
     ctx.save_profile();
     Ok(notes)

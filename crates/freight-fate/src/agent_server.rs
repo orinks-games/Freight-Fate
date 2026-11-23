@@ -66,6 +66,8 @@ const MAX_PEDAL_SECONDS: f64 = 30.0;
 const PEDAL_SETTLE_SECONDS: f64 = 0.5;
 /// How long `status` waits for the readouts it asked for before replying.
 const STATUS_SETTLE_SECONDS: f64 = 3.0;
+/// Long enough for a screen read again on return to be heard.
+const APP_EVENT_SETTLE_SECONDS: f64 = 2.0;
 /// Frames between a K tap and reading what cruise captured, and after the
 /// last dial tap before the reply: a tap is two frames, the drive answers
 /// on the next.
@@ -139,10 +141,12 @@ mod dial_tests {
 
 mod bed_levels;
 mod ears;
+mod fingers;
 mod gestures;
 mod holder;
 mod lifeline;
 mod protocol;
+mod tilt;
 
 pub use ears::{install_ears, Ears, SharedEars};
 pub use holder::{judge, HolderRecord, HolderVerdict};
@@ -222,6 +226,19 @@ pub enum Command {
         /// way the phone does while Practice gestures is open.
         length: Option<u16>,
     },
+    /// Raw finger events through the shared recognizer, each at its time
+    /// from the call's start.
+    Fingers {
+        events: Vec<fingers::ScriptedFinger>,
+    },
+    /// Hold the phone at `degrees` from flat for `seconds`, or send no
+    /// samples (`None`), then hold it at `then`, or where it was. It stands
+    /// in for the motion sensor, as `gesture` stands in for the screen.
+    Tilt {
+        degrees: Option<f64>,
+        seconds: f64,
+        then: Option<f64>,
+    },
     /// Run until a line carrying `text` is heard, or a menu opens, or the
     /// clock runs out -- whichever first. Replies with what was heard.
     WaitFor {
@@ -237,6 +254,11 @@ pub enum Command {
     /// limit, or off -- K and the Ctrl plus/minus taps a player would use.
     Cruise {
         target: CruiseTarget,
+    },
+    /// A phone app's lifecycle notification (`ff_core::app_lifecycle`),
+    /// with the window focus change SDL sends beside it on iOS.
+    AppEvent {
+        event: ff_core::app_lifecycle::AppEvent,
     },
     /// The wheel's readouts in one call: speed, limit, grade, what is ahead,
     /// the route, the clock, fuel.
@@ -319,8 +341,25 @@ struct Waiting {
     reply: Reply,
 }
 
+/// What the phone delivers for one app notification: on iOS SDL sends the
+/// window's focus change beside the resign and the return, lost before the
+/// app event and gained after it.
+fn app_event_inputs(event: ff_core::app_lifecycle::AppEvent) -> Vec<InputEvent> {
+    use ff_core::app_lifecycle::AppEvent;
+    match event {
+        AppEvent::WillResignActive => vec![InputEvent::WindowFocusLost, InputEvent::App(event)],
+        AppEvent::DidBecomeActive => vec![InputEvent::App(event), InputEvent::WindowFocusGained],
+        _ => vec![InputEvent::App(event)],
+    }
+}
+
 /// The fatigue machines as `status` reports them, by their field names.
-fn fatigue_state_line(o: &crate::app::DrivingObservation, mode: crate::touch::TouchMode) -> String {
+fn fatigue_state_line(
+    o: &crate::app::DrivingObservation,
+    mode: crate::touch::TouchMode,
+    recognizer: &str,
+    place: ff_core::app_lifecycle::AppLifecycle,
+) -> String {
     let (timer, unit) = o.nod.timer();
     let lift = match o.lift_owed {
         Some((amount, due_in_h)) => format!("{amount:.1} due in {due_in_h:.2} h"),
@@ -338,8 +377,8 @@ fn fatigue_state_line(o: &crate::app::DrivingObservation, mode: crate::touch::To
     });
     format!(
         "STATE: alertness {}; nod {} ({timer:.2} {unit}); nod_misses {}; lift_owed {lift}; \
-         rest_call {rest_call}; runaway {}{gate}{co_driver}; jake_zone {}; touch_mode {}; road_offer {}; \
-         touch_clutch {}; window {}; outside {} ({}, {}); water {}; road_surface {}, {}; structure {}; chain_control {}; chains {}.",
+         rest_call {rest_call}; runaway {}{gate}{co_driver}; jake_zone {}; touch_mode {}; recognizer {recognizer}; road_offer {}; \
+         touch_clutch {}; lane {}; lane_push {}; window {}; outside {} ({}, {}); water {}; road_surface {}, {}; tire song {}; structure {}; chain_control {}; chains {}; app {}.",
         o.alertness.key(),
         o.nod.key(),
         o.nod.misses,
@@ -348,6 +387,8 @@ fn fatigue_state_line(o: &crate::app::DrivingObservation, mode: crate::touch::To
         mode.key(),
         o.road_offer.key(),
         o.touch_clutch.name(),
+        o.lane,
+        o.lane_push.key(),
         o.window.name(),
         o.outside.name(),
         o.outside_bed,
@@ -356,10 +397,12 @@ fn fatigue_state_line(o: &crate::app::DrivingObservation, mode: crate::touch::To
         o.water.name(),
         o.road_surface.name(),
         o.road_surface.origin(),
+        o.tire_song.describe(),
         o.structure
             .map_or("none".to_string(), |(kind, mi)| format!("{} {mi:.2} mi", kind.name())),
         o.chain_control.key(),
-        o.chains.key()
+        o.chains.key(),
+        place.key()
     )
 }
 
@@ -459,6 +502,10 @@ pub struct AgentPolicy {
     /// A timed `gesture` hold: what lifts it, the real seconds left, and
     /// the length it reports as it lifts.
     gesture_lift: Option<(crate::touch::Gesture, f64, Option<u16>)>,
+    /// A timed `tilt`: the real seconds left, and the pose after.
+    tilt_hold: Option<(f64, f64)>,
+    /// The `fingers` tool's recognizer, clock and events still to come.
+    fingers: fingers::FingerPlay,
     /// Key events scripted frame by frame, front first. A tap is two
     /// frames -- down, then up -- because the held-key tracker reads a
     /// press and release inside ONE frame as a screen reader's re-injected
@@ -646,6 +693,9 @@ impl AgentPolicy {
             input.assert_held(*key);
         }
         self.advance_touch(input, dt);
+        self.advance_fingers(input, dt);
+        self.hold_phone(input);
+        self.advance_tilt(input, dt);
         if let Some((key, remaining)) = self.timed_hold.take() {
             let remaining = remaining - dt;
             if remaining > 0.0 {
@@ -701,14 +751,23 @@ impl AgentPolicy {
             if waiting.fatigue_state {
                 text.push('\n');
                 let mode = input.touch_mode();
+                let place = input.app_lifecycle();
                 match input.driving_observation() {
-                    Some(o) => text.push_str(&fatigue_state_line(&o, mode)),
+                    Some(o) => text.push_str(&fatigue_state_line(
+                        &o,
+                        mode,
+                        self.fingers.phase_key(),
+                        place,
+                    )),
                     None => text.push_str(&format!(
-                        "STATE: touch_mode {}{}.",
+                        "STATE: touch_mode {}; recognizer {}{}; app {}.",
                         mode.key(),
-                        input.dispatch_board_state().unwrap_or_default()
+                        self.fingers.phase_key(),
+                        input.dispatch_board_state().unwrap_or_default(),
+                        place.key()
                     )),
                 }
+                text.push_str(&format!("\nTILT: {}.", input.tilt_status()));
                 let (choice, main, event) = input.speech_state();
                 text.push_str(&format!(
                     "\nCLOUD RESUME: {:?}.",
@@ -718,6 +777,8 @@ impl AgentPolicy {
                     "\nSPEECH: main_backend {choice}; main {main}; event {event}."
                 ));
                 text.push_str(&format!("\nUNITS: {}.", input.units_state()));
+                text.push_str(&format!("\nINPUT: {}.", input.input_state()));
+                text.push_str(&format!("\nNEWSPAPER: {}.", input.newspaper_state()));
             }
             let _ = waiting.reply.send(Ok(text));
         }
@@ -841,6 +902,20 @@ impl AgentPolicy {
                         break;
                     }
                 }
+                Command::Fingers { events } => {
+                    if self.send_fingers(events, reply) {
+                        break;
+                    }
+                }
+                Command::Tilt {
+                    degrees,
+                    seconds,
+                    then,
+                } => {
+                    if self.send_tilt(input, degrees, seconds, then, reply) {
+                        break;
+                    }
+                }
                 Command::WaitFor {
                     text,
                     menu,
@@ -903,6 +978,13 @@ impl AgentPolicy {
                         stage: CruiseStage::Engage,
                         reply,
                     });
+                    break;
+                }
+                Command::AppEvent { event } => {
+                    for queued in app_event_inputs(event) {
+                        input.queue_player_input(queued);
+                    }
+                    self.wait_until(APP_EVENT_SETTLE_SECONDS, Until::Elapsed, false, reply);
                     break;
                 }
                 Command::Status => {
@@ -990,7 +1072,12 @@ impl AgentPolicy {
                                 o.off_pavement,
                                 o.truck_damage_pct,
                                 o.cargo_damage_pct,
-                                fatigue_state_line(&o, input.touch_mode()),
+                                fatigue_state_line(
+                                    &o,
+                                    input.touch_mode(),
+                                    self.fingers.phase_key(),
+                                    input.app_lifecycle()
+                                ),
                             )
                         }
                         None => {
@@ -1054,6 +1141,8 @@ impl AgentPolicy {
         let working = self.waiting.is_some()
             || self.timed_hold.is_some()
             || self.gesture_lift.is_some()
+            || self.tilt_hold.is_some()
+            || self.fingers.playing()
             || self.cruise_plan.is_some()
             || !self.scripted.is_empty();
         if self.lockstep && !working {
@@ -1099,11 +1188,45 @@ pub fn policy_with_lifeline(
         cruise_plan: None,
         touch: crate::touch::TouchInput::new(),
         gesture_lift: None,
+        tilt_hold: None,
+        fingers: fingers::FingerPlay::default(),
         scripted: std::collections::VecDeque::new(),
         lockstep: false,
         quit: false,
         lifeline,
     }
+}
+
+/// Where the sandbox's road journal keeps what it queued, for an agent to
+/// read a delivery's payload after a drive.
+pub const JOURNAL_CAPTURE_FILE: &str = "journal-capture.json";
+
+/// The road journal in the sandbox: events are queued as a signed-in game
+/// queues them, so a drive can be checked against the payload, and nothing
+/// is ever sent. The identity is a placeholder no site knows, and the
+/// transport refuses every call before anything reaches the network.
+fn journal_capture(dir: &std::path::Path) -> crate::online_journal::JournalOutbox {
+    use crate::net::{NetError, SharedTransport};
+    let never_sends: SharedTransport = std::sync::Arc::new(crate::net::testing::ClosureTransport(
+        |_url: &str,
+         _payload: Option<&serde_json::Value>,
+         _headers: &[(String, String)],
+         _method: Option<&str>| {
+            Err(NetError::Connection(
+                "the agent sandbox never posts".to_string(),
+            ))
+        },
+    ));
+    crate::online_journal::JournalOutbox::with(
+        Some(crate::online_presence::OnlineIdentity::new(
+            "agent-sandbox",
+            "ffd_agent_sandbox_placeholder",
+        )),
+        true,
+        &dir.join(JOURNAL_CAPTURE_FILE),
+        never_sends,
+        ff_core::sim::real_traffic::wall_clock(),
+    )
 }
 
 /// The whole `--agent-server` mode: sandbox, real game, MCP on stdio.
@@ -1332,7 +1455,12 @@ fn boot(
     }
     sandbox::open_session(&dir, &log_path);
     match App::new() {
-        Ok(app) => Ok((app, guard)),
+        Ok(mut app) => {
+            if !staging {
+                app.ctx.services.journal = journal_capture(&dir);
+            }
+            Ok((app, guard))
+        }
         Err(e) => {
             guard.release();
             sandbox::close_session();

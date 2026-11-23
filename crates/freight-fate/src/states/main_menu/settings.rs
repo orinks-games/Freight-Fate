@@ -16,6 +16,7 @@ use crate::app::{active_log_path, GameContext, Say};
 use crate::impl_state_for_menu;
 use crate::states::base::{InputEvent, Key, Menu, MenuCore, MenuItem};
 
+use super::settings_items::{row_key, ControlsHardware};
 use super::speech_voices::{rows_signature, RowsAction, RowsEvent, RowsSignature, RowsWait};
 
 /// Top-level settings: a category picker that opens per-category submenus.
@@ -80,11 +81,11 @@ impl Menu for SettingsState {
             .filter(|(_, key)| *key != "reports" || !cfg!(target_os = "android"))
             // AG Now updates the game itself, so the update channel and the
             // manual check have nothing to do there either.
-            .filter(|(_, key)| *key != "updates" || crate::updater::self_updates())
-            .map(|(label, key)| {
-                MenuItem::new(*label, move |s: &mut Self, ctx| s.open(ctx, key))
-                    .help(format!("Open {} settings.", label.to_lowercase()))
-            })
+            .filter(|(_, key)| *key != "updates" || updates_category())
+            // No row help: the help key reads a row without one back, and
+            // "Open gameplay settings." said no more than that (phone walk
+            // S10).
+            .map(|(label, key)| MenuItem::new(*label, move |s: &mut Self, ctx| s.open(ctx, key)))
             .collect();
         items.push(MenuItem::new("Back", |s: &mut Self, ctx| s.go_back(ctx)));
         items
@@ -93,15 +94,30 @@ impl Menu for SettingsState {
     fn go_back(&mut self, ctx: &mut GameContext) {
         save_settings(&ctx.settings);
         ctx.audio.play("ui/menu_back");
-        // Popping first lets the revealed menu's own entry announcement play,
-        // then "Settings saved." interrupts and wins -- said after the pop,
-        // not before it, so it is not the one left cancelled by the other.
-        ctx.pop_state();
-        ctx.say("Settings saved.");
+        // The result first, then the revealed menu's own entry line queued
+        // behind it (phone walk S11: said after the pop, it landed once the
+        // row had been read).
+        ctx.say_result_then("Settings saved.", |ctx| ctx.pop_state());
     }
 }
 
 impl_state_for_menu!(SettingsState);
+
+/// The Settings row's help on the terminal and the pause menu.
+pub fn settings_help() -> &'static str {
+    if updates_category() {
+        "Units, transmission, volumes, weather, voices, update channel, and pacing."
+    } else {
+        "Units, transmission, volumes, weather, voices, and pacing."
+    }
+}
+
+/// Whether Settings lists Updates, so the help that sums Settings up names
+/// the update channel only where there is one. AG Now and the iPhone update
+/// the game themselves.
+pub fn updates_category() -> bool {
+    crate::updater::self_updates() && !crate::device::iphone()
+}
 
 pub(super) fn save_settings(settings: &Settings) {
     if let Err(e) = settings.save() {
@@ -246,6 +262,8 @@ pub struct SettingsCategoryState {
     rows_wait: RowsWait,
     /// Speech only: what decided the rows at the last rebuild.
     rows_signature: Option<RowsSignature>,
+    /// Controls only: the keyboard and controller the rows were built for.
+    controls_hardware: Option<ControlsHardware>,
 }
 
 impl SettingsCategoryState {
@@ -274,6 +292,7 @@ impl SettingsCategoryState {
             category: category.to_string(),
             rows_wait: RowsWait::Idle,
             rows_signature: None,
+            controls_hardware: None,
         }
     }
 
@@ -419,6 +438,36 @@ impl SettingsCategoryState {
         }
     }
 
+    /// A keyboard or controller connected or went away while Controls is
+    /// open on a phone: the rows that need it come or go, silently, and the
+    /// focused row stays focused. Only a focused row that went away is
+    /// spoken, on the row the cursor lands on.
+    fn follow_hardware_change(&mut self, ctx: &mut GameContext) {
+        if self.category != "controls"
+            || self
+                .controls_hardware
+                .is_none_or(|built| built == ControlsHardware::now(ctx))
+        {
+            return;
+        }
+        let focused = self
+            .menu
+            .items
+            .get(self.menu.index)
+            .map(|item| row_key(&item.text(self, ctx)).to_string());
+        self.refresh(ctx, true);
+        let found = focused.and_then(|key| {
+            self.menu
+                .items
+                .iter()
+                .position(|item| row_key(&item.text(self, ctx)) == key)
+        });
+        match found {
+            Some(index) => self.menu.index = index,
+            None => self.speak_current(ctx),
+        }
+    }
+
     pub(super) fn announce_speech_preview(&mut self, ctx: &mut GameContext, setting: &str) {
         self.refresh(ctx, true);
         save_settings(&ctx.settings);
@@ -491,6 +540,9 @@ impl Menu for SettingsCategoryState {
         if self.category == "speech" {
             self.rows_signature = Some(rows_signature(ctx.speech.as_ref()));
         }
+        if self.category == "controls" {
+            self.controls_hardware = Some(ControlsHardware::now(ctx));
+        }
         self.category_items(ctx)
     }
 
@@ -502,6 +554,7 @@ impl Menu for SettingsCategoryState {
             return;
         }
         self.follow_outside_voice_change(ctx);
+        self.follow_hardware_change(ctx);
     }
 
     fn handle_event(&mut self, ctx: &mut GameContext, event: &InputEvent) {
@@ -561,7 +614,7 @@ impl Menu for SettingsCategoryState {
             let marker = if i == core.index { "> " } else { "  " };
             out.push(format!("{marker}{}", item.text(self, ctx)));
         }
-        if self.category == "reports" && !cfg!(target_os = "ios") {
+        if self.category == "reports" && !crate::device::iphone() {
             out.push(String::new());
             out.extend(self.log_location_lines());
         }

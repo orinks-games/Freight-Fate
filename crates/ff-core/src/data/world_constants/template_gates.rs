@@ -434,6 +434,13 @@ pub const CURATED_COMPLETE_MARKET_CITY_KEYS: &[&str] = &[
     // the template market.
     "port_canaveral_fl_us",
     "gainesville_ga_us",
+    // Great Lakes (missing roads, 2026-11-22): the Joliet intermodal yards,
+    // the Alpena cement plant, Pinney Dock at Ashtabula and Sandusky's
+    // plants, each surveyed.
+    "joliet_il_us",
+    "alpena_mi_us",
+    "ashtabula_oh_us",
+    "sandusky_oh_us",
 ];
 
 /// Whether this city keeps only its authored freight locations. See

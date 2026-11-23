@@ -76,13 +76,23 @@ impl Menu for SaveModifiedNoticeState {
     }
 
     fn announce_entry(&mut self, ctx: &mut GameContext) {
-        let text = format!(
-            "This save was changed outside the game, or copied from another \
-             computer, so it is marked as modified. Your career still works on \
-             this computer, but profile sharing may not accept a modified \
-             profile. {}",
-            self.current_text(ctx)
-        );
+        let text = if crate::device::phone() {
+            format!(
+                "This save was changed outside the game, or copied from another \
+                 device, so it is marked as modified. Your career still works on \
+                 this device, but profile sharing may not accept a modified \
+                 profile. {}",
+                self.current_text(ctx)
+            )
+        } else {
+            format!(
+                "This save was changed outside the game, or copied from another \
+                 computer, so it is marked as modified. Your career still works on \
+                 this computer, but profile sharing may not accept a modified \
+                 profile. {}",
+                self.current_text(ctx)
+            )
+        };
         ctx.say(&text);
     }
 
@@ -141,15 +151,27 @@ impl Menu for LegacyCareerNoticeState {
     }
 
     fn announce_entry(&mut self, ctx: &mut GameContext) {
-        let text = format!(
-            "{} was made in an earlier version of Freight Fate. Version 1.9 \
-             rebalances the whole career, from pay to trucks to levels, so \
-             every driver starts fresh. Nothing was lost: the save is still \
-             on this computer, untouched, and it still works in Freight Fate \
-             1.8. {}",
-            self.driver_name,
-            self.current_text(ctx)
-        );
+        // There was never a 1.8 on a phone to go back to.
+        let text = if crate::device::phone() {
+            format!(
+                "{} was made in an earlier version of Freight Fate. Version 1.9 \
+                 rebalances the whole career, from pay to trucks to levels, so \
+                 every driver starts fresh. Nothing was lost: the save is still \
+                 on this device, untouched. {}",
+                self.driver_name,
+                self.current_text(ctx)
+            )
+        } else {
+            format!(
+                "{} was made in an earlier version of Freight Fate. Version 1.9 \
+                 rebalances the whole career, from pay to trucks to levels, so \
+                 every driver starts fresh. Nothing was lost: the save is still \
+                 on this computer, untouched, and it still works in Freight Fate \
+                 1.8. {}",
+                self.driver_name,
+                self.current_text(ctx)
+            )
+        };
         ctx.say(&text);
     }
 

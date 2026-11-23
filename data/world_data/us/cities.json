@@ -8833,147 +8833,225 @@
         }
       ]
     },
-    "sebring_fl_us": {
-      "spoken_city": "Sebring",
-      "state": "FL",
+    "joliet_il_us": {
+      "spoken_city": "Joliet",
+      "state": "IL",
       "country": "US",
-      "region": "florida",
-      "lat": 27.49775,
-      "lon": -81.48846,
-      "source_note": "Pin on US 27 and US 98 (US Highway 27 North) at the Lakeshore Mall, the truck road through Sebring, read from the OpenStreetMap way there (OpenStreetMap planet file of 2026-11-16); the Census 2020 urban area point (2023 Gazetteer, 27.53543, -81.48274) is 2.6 miles north in a subdivision. Sebring stands for the Sebring and Avon Park urban area (63,297 people), approved as an unreached urban area (missing roads decision 9, 2026-11-22). No freight site was surveyed in reasonable time (OpenStreetMap names no industrial site in Sebring), so the city keeps the template market. Region florida.",
-      "locations": []
-    },
-    "port_canaveral_fl_us": {
-      "spoken_city": "Port Canaveral",
-      "state": "FL",
-      "country": "US",
-      "region": "florida",
-      "lat": 28.41867,
-      "lon": -80.62928,
-      "source_note": "Pin on SR 401, the road into the port's north cargo berths from SR 528, read from the OpenStreetMap way there (OpenStreetMap planet file of 2026-11-16). Port Canaveral is a principal port (4,066,610 short tons, US Army Corps of Engineers principal ports list) with more than 6.1 million tons of dry and liquid bulk a year and a 20-acre container terminal (Canaveral Port Authority cargo facilities page, https://www.portcanaveral.com/cargo/cargo-facilities, read 2026-11-22). Approved by name inside 30 miles of Palm Bay (missing roads decision 9, 2026-11-22). Region florida.",
+      "region": "corn_belt",
+      "lat": 41.495,
+      "lon": -88.1688,
+      "source_note": "Pin on Houbolt Road just north of I-80 exit 127, where a truck can turn onto I-80 either way and reach I-55 two miles west; Houbolt Road runs south over the Des Plaines River to the CenterPoint intermodal yards. Position derived from the exit 127 motorway_junction nodes and the Houbolt Road way in the OpenStreetMap planet file of 2026-11-16. The director approved Joliet by name (missing roads decision 3: I-80 meets I-55, the intermodal yards) and set junction pins on the surface road beside the interchange (decision 12); region corn_belt, as the region classifier places it.",
       "locations": [
         {
-          "name": "Canaveral Cargo Terminal",
-          "type": "port_terminal",
-          "lat": 28.41431,
-          "lon": -80.61969,
+          "name": "Union Pacific Joliet Intermodal Terminal",
+          "type": "intermodal",
+          "lat": 41.46941,
+          "lon": -88.11188,
           "ships": [
             "container",
-            "general",
-            "refrigerated"
+            "general"
           ],
           "receives": [
             "container",
-            "general",
-            "refrigerated",
-            "machinery"
+            "general"
           ],
-          "source_note": "Read: OpenStreetMap way 1220632416 (landuse=industrial, industrial=port, name Canaveral Cargo Terminal), OpenStreetMap planet file of 2026-11-16. The Canaveral Port Authority says its 20-acre container terminal has three mobile harbor cranes and has handled steel, boats, frozen juice concentrate, lumber, perishables, automobiles and heavy equipment (cargo facilities page, read 2026-11-22), and that GT USA operates it as Canaveral Cargo Terminal, with a bi-monthly container service to Mexico and the Northeast (news release of 2026-07-27, https://www.portcanaveral.com/media-center/latest-news/blog/2026/07/27/port-canaveral-expands-cargo-business-with-new-international-container-service, read 2026-11-22). Roles derived: a container and breakbulk terminal ships and receives general cargo, store goods and chilled cargo, and receives machinery."
+          "source_note": "Read: Mid-America Freight Coalition network inventory, UP Global IV, gate entrance 3000 Centerpoint Way, Joliet, IL 60436, a 550-acre intermodal terminal opened in 2010 inside the CenterPoint Intermodal Center (https://midamericafreight.org/?p=4541, read 2026-11-22). Position read from OpenStreetMap relation 14935582 (railway=container_terminal, name UP Joliet Intermodal Terminal), OpenStreetMap planet file of 2026-11-16. Roles derived: an intermodal ramp ships and receives containers and trailers."
         },
         {
-          "name": "Seaport Canaveral",
-          "type": "chemical_petroleum_terminal",
-          "lat": 28.41692,
-          "lon": -80.6139,
+          "name": "BNSF Logistics Park Chicago",
+          "type": "intermodal",
+          "lat": 41.39083,
+          "lon": -88.15284,
           "ships": [
-            "fuel_bulk"
+            "container",
+            "general"
           ],
           "receives": [
-            "fuel_bulk"
+            "container",
+            "general"
           ],
-          "source_note": "Read: OpenStreetMap way 1227712212 (industrial=fuel_depot, operator VTTI, name Seaport Canaveral), OpenStreetMap planet file of 2026-11-16; VTTI lists Seaport Canaveral as a 454,000 cubic metre storage terminal for gasoline, jet fuel, diesel and fuel oil with road access (https://www.vtti.com/terminal/seaport-canaveral-usa/, read 2026-11-22). Roles derived: a fuel terminal loads tank trucks with fuel and takes fuel in."
+          "source_note": "Read: Mid-America Freight Coalition network inventory, BNSF Logistics Park Chicago, gate entrance Baseline Road at Walter Strawn Drive, Elwood, IL 60421, reached from I-55 or from I-80 by IL 53 (https://midamericafreight.org/?p=4433, read 2026-11-22). Position read from OpenStreetMap node 9384643901 (railway=yard, name Logistics Park Chicago), OpenStreetMap planet file of 2026-11-16. Roles derived as for any intermodal ramp."
         },
         {
-          "name": "Heidelberg Materials Port Canaveral",
+          "name": "CN Joliet Intermodal Terminal",
+          "type": "intermodal",
+          "lat": 41.53745,
+          "lon": -88.05805,
+          "ships": [
+            "container",
+            "general"
+          ],
+          "receives": [
+            "container",
+            "general"
+          ],
+          "source_note": "Read: OpenStreetMap relation 14935530 (railway=container_terminal, name CN Joliet Intermodal Terminal) on East Jackson Street, Joliet, OpenStreetMap planet file of 2026-11-16. Operation not confirmed from a second source; roles derived as for any intermodal ramp."
+        },
+        {
+          "name": "Pilot Travel Center Laraway Road",
+          "type": "travel_center",
+          "lat": 41.48,
+          "lon": -88.07889,
+          "source_note": "Read: Pilot Company's page for Pilot Travel Center #1024, 40 E Laraway Rd, Joliet, IL 60433: open 24 hours, diesel, 22 Prime Parking truck spaces and 30 general parking spaces (https://locations.pilotflyingj.com/us/il/joliet/40-e-laraway-rd, read 2026-11-22). Position read from OpenStreetMap way 681391752 (highway=services), OpenStreetMap planet file of 2026-11-16."
+        }
+      ]
+    },
+    "alpena_mi_us": {
+      "spoken_city": "Alpena",
+      "state": "MI",
+      "country": "US",
+      "region": "great_lakes",
+      "lat": 45.06163,
+      "lon": -83.43262,
+      "source_note": "Pin downtown on US 23 (East Chisholm Street) where M-32 ends at it, so the legs south and north on US 23 and west on M-32 leave from one corner. Position read from the US 23 way in the OpenStreetMap planet file of 2026-11-16. The director approved Alpena by name for the Port of Alpena (missing roads decision 4); region great_lakes.",
+      "locations": [
+        {
+          "name": "Amrize Alpena Cement Plant",
           "type": "construction_materials_yard",
-          "lat": 28.41297,
-          "lon": -80.61479,
+          "lat": 45.06906,
+          "lon": -83.40518,
           "ships": [
             "construction",
             "bulk"
           ],
           "receives": [
-            "bulk"
+            "fuel_bulk",
+            "machinery"
           ],
-          "source_note": "Read: OpenStreetMap way 1227712221 (landuse=industrial, name Heidelberg Materials), OpenStreetMap planet file of 2026-11-16; the Canaveral Port Authority reports Heidelberg Materials' 24 million dollar expansion of its slag cement plant and terminal at the port (news release of 2023-06-05, https://portcanaveral.com/media-center/latest-news/blog/2023/06/05/heidelberg-materials-completes--24-million-expansion-of-port-canaveral-facility, read 2026-11-22). Roles derived: a slag cement plant ships cement and receives bulk slag by sea."
+          "source_note": "Read: Amrize named its Alpena, Michigan manufacturing site among the cement plants carrying its Made in America label (The Alpena News, 2026-04-16, https://www.thealpenanews.com/news/2026/04/amrize-expands-made-in-america-label-to-nine-u-s-plants-including-alpena/, read 2026-11-22); the plant and its limestone quarry sit on the Lake Huron shore east of downtown (Center for Land Use Interpretation, https://clui.org/ludb/site/alpena-cement-mine-and-plant, read 2026-11-22). Position read from OpenStreetMap way 545265373 (landuse=industrial, name Amrize), OpenStreetMap planet file of 2026-11-16. Roles derived: a cement plant ships cement and bulk product and receives fuel and plant parts."
         },
         {
-          "name": "Morton Salt Port Canaveral",
-          "type": "port",
-          "lat": 28.41429,
-          "lon": -80.6137,
+          "name": "Alro Steel Alpena",
+          "type": "steel_industrial",
+          "lat": 45.07873,
+          "lon": -83.43012,
           "ships": [
-            "bulk"
+            "steel"
           ],
           "receives": [
-            "bulk"
+            "steel"
           ],
-          "source_note": "Read: OpenStreetMap way 1227712218 (industrial=factory, name Morton Salt), OpenStreetMap planet file of 2026-11-16; the Canaveral Port Authority lists salt among the dry bulk cargoes it handles (cargo facilities page, read 2026-11-22). Roles derived: a salt terminal takes salt in by ship and ships it out by truck."
+          "source_note": "Read: OpenStreetMap way 1243245090 at 901 Commerce Drive, Alpena (industrial=manufacturing, name Alro Steel), OpenStreetMap planet file of 2026-11-16. Alro Steel is a metals service centre chain; this branch is not confirmed from a second source. Roles derived: a service centre receives steel and ships cut steel."
+        },
+        {
+          "name": "Thunder Bay Shopping Center",
+          "type": "shopping_mall",
+          "lat": 45.04389,
+          "lon": -83.45406,
+          "ships": [],
+          "receives": [
+            "retail",
+            "general",
+            "food",
+            "refrigerated"
+          ],
+          "source_note": "Read: OpenStreetMap way 1525526827 (landuse=retail, name Thunder Bay Shopping Center) on US 23 South beside the Gordon Food Service Store at 2400 US 23 South (way 1447553284), OpenStreetMap planet file of 2026-11-16; pin is the centroid of that outline. Roles derived: store deliveries of dry and chilled freight, as the mall type receives; it ships nothing."
         }
       ]
     },
-    "crystal_river_fl_us": {
-      "spoken_city": "Crystal River",
-      "state": "FL",
+    "ashtabula_oh_us": {
+      "spoken_city": "Ashtabula",
+      "state": "OH",
       "country": "US",
-      "region": "florida",
-      "lat": 28.89821,
-      "lon": -82.58646,
-      "source_note": "Pin on US 19 at State Road 44, the OpenStreetMap node the two ways share (OpenStreetMap planet file of 2026-11-16), as missing roads decision 9 (2026-11-22) set it. Crystal River stands for the Homosassa Springs, Beverly Hills and Citrus Springs urban area (96,729 people); US 19 is where the trucks are. No freight site was surveyed in reasonable time, so the city keeps the template market. Region florida.",
-      "locations": []
-    },
-    "gainesville_ga_us": {
-      "spoken_city": "Gainesville",
-      "state": "GA",
-      "country": "US",
-      "region": "atlantic_southeast",
-      "lat": 34.29856,
-      "lon": -83.8228,
-      "source_note": "Pin on Jesse Jewell Parkway (GA 369 and US 129 Business) where it meets E. E. Butler Parkway downtown, read from the OpenStreetMap way there (OpenStreetMap planet file of 2026-11-16); the Census 2020 urban area point (2023 Gazetteer, 34.23374, -83.86262) is 4.6 miles south in Oakwood. Approved as an unreached urban area of 164,365 people (missing roads decision 9, 2026-11-22). Region atlantic_southeast.",
+      "region": "great_lakes",
+      "lat": 41.901,
+      "lon": -80.7815,
+      "source_note": "Pin at the north end of the SR 11 freeway at East Fifth Street, the street the Pinney Dock terminal gives as its address, so every leg leaves on SR 11 from the harbor. Position read from the SR 11 and East 5th Street ways in the OpenStreetMap planet file of 2026-11-16. Approved under its class (missing roads decision 4: an unreached principal port, 3.9 million tons); region great_lakes.",
       "locations": [
         {
-          "name": "Kubota Manufacturing of America",
+          "name": "Kinder Morgan Pinney Dock",
+          "type": "port",
+          "lat": 41.90733,
+          "lon": -80.78869,
+          "ships": [
+            "bulk",
+            "steel"
+          ],
+          "receives": [
+            "bulk",
+            "steel",
+            "farm_inputs"
+          ],
+          "source_note": "Read: Kinder Morgan's terminal sheet for Pinney Dock, 1149 East Fifth Street, Ashtabula, OH: 310 acres on Lake Erie, loading and unloading by vessel, truck and railcar, three truck scales, iron ore, limestone, salt, fertilizer, pig iron and steel, highway access from SR 11, I-90 and the Ohio Turnpike (https://www.kindermorgan.com/WWWKM/media/Terminals-Bulk/Midwest-Pinney-Dock.pdf, read 2026-11-22); Ohio DOT's Ashtabula Harbor profile names it among the harbor's private dock owners (https://dam.assets.ohio.gov/image/upload/transportation.ohio.gov/statewide-planning/maritime/Ashtabula_040825.pdf, read 2026-11-22). Position read from OpenStreetMap way 1315824931 (landuse=industrial, name Kinder Morgan Pinney Dock), OpenStreetMap planet file of 2026-11-16."
+        },
+        {
+          "name": "R.W. Sidley Ashtabula",
+          "type": "construction_materials_yard",
+          "lat": 41.90146,
+          "lon": -80.79703,
+          "ships": [
+            "construction"
+          ],
+          "receives": [
+            "construction",
+            "bulk"
+          ],
+          "source_note": "Read: OpenStreetMap way 894940626 at 508 Front Street, Ashtabula harbor (landuse=industrial, name R.W. Sidley, Inc.), OpenStreetMap planet file of 2026-11-16. R.W. Sidley is a northeast Ohio aggregates and ready-mix company; this yard is not confirmed from a second source. Roles derived: a materials yard by the docks receives stone and sand and ships aggregate."
+        },
+        {
+          "name": "Marketplace Shopping Center",
+          "type": "shopping_mall",
+          "lat": 41.88031,
+          "lon": -80.7461,
+          "ships": [],
+          "receives": [
+            "retail",
+            "general",
+            "food",
+            "refrigerated"
+          ],
+          "source_note": "Read: OpenStreetMap way 876255970 (landuse=retail, name Marketplace Shopping Center) off North Ridge Road East, with The Home Depot at 3200 Market Place Drive (node 8155419893) and the Walmart Supercenter at 3551 North Ridge Road East (way 818184054) beside it, OpenStreetMap planet file of 2026-11-16; pin is the centroid of that outline. Roles derived: store deliveries of dry and chilled freight, as the mall type receives; it ships nothing."
+        }
+      ]
+    },
+    "sandusky_oh_us": {
+      "spoken_city": "Sandusky",
+      "state": "OH",
+      "country": "US",
+      "region": "great_lakes",
+      "lat": 41.45634,
+      "lon": -82.7112,
+      "source_note": "Pin downtown on East Market Street by SR 4 (Hayes Avenue) and US 6, moved from the Census urban area point on the Marblehead peninsula; SR 4, US 6 and US 250 lead out to SR 2 and the Ohio Turnpike. Position read from the East Market Street way in the OpenStreetMap planet file of 2026-11-16. Approved under its class (missing roads decision 4: an unreached urban area of 61,743 people, also the Port of Sandusky); region great_lakes.",
+      "locations": [
+        {
+          "name": "LEWCO Sandusky",
           "type": "manufacturing_plant",
-          "lat": 34.34867,
-          "lon": -83.78073,
+          "lat": 41.45133,
+          "lon": -82.68995,
           "ships": [
             "machinery"
           ],
           "receives": [
             "steel",
-            "general"
+            "machinery"
           ],
-          "source_note": "Read: OpenStreetMap way 595918959 (man_made=works, name Kubota Manufacturing of America), OpenStreetMap planet file of 2026-11-16; Kubota Manufacturing of America builds compact tractors and utility vehicles at its Gainesville, Hall County campus (Kubota news release of 2017-04-11, https://www.kubota.com/news/2017/20170411.html, read 2026-11-22). Roles derived: a tractor plant ships machinery and receives parts and steel."
+          "source_note": "Read: LEWCO, a maker of industrial ovens and conveyors, has its headquarters and industrial oven plant in Sandusky and announced an expansion there (Regional Growth Partnership and JobsOhio release, 2025-12-15, https://rgp.org/lewco-and-logistiq-announce-plans-to-create-more-than-200-jobs-in-port-clinton-and-sandusky/, read 2026-11-22). Position read from OpenStreetMap way 459261136 (name LEWCO, 706 Lane Street), OpenStreetMap planet file of 2026-11-16. Roles derived: a machinery plant receives steel and parts and ships finished equipment."
         },
         {
-          "name": "Fieldale Farms Gainesville",
-          "type": "food_processor",
-          "lat": 34.28641,
-          "lon": -83.79998,
-          "ships": [
-            "refrigerated",
-            "food"
-          ],
+          "name": "Huron Cement Building Supplies",
+          "type": "construction_materials_yard",
+          "lat": 41.44119,
+          "lon": -82.73976,
+          "ships": [],
           "receives": [
-            "refrigerated",
-            "food"
+            "construction",
+            "steel"
           ],
-          "source_note": "Read: OpenStreetMap way 682309058 (man_made=works, name Fieldale Farms), OpenStreetMap planet file of 2026-11-16; Fieldale Farms runs a USDA-inspected poultry establishment in Gainesville (FSIS inspected establishments listing, https://www.fsis.usda.gov/inspection/fsis-inspected-establishments/fieldale-farms-corporation-1, read 2026-11-22). Roles derived: a poultry plant ships chilled and packed food and takes in packaging and chilled product."
+          "source_note": "Read: OpenStreetMap way 487758514 at 2925 Venice Road, Sandusky (landuse=industrial, name Huron Cement Building Supplies), OpenStreetMap planet file of 2026-11-16. Not confirmed from a second source. Roles derived: a building supply yard receives construction material."
         },
         {
-          "name": "Eskimo Cold Storage",
-          "type": "cold_storage",
-          "lat": 34.23812,
-          "lon": -83.75762,
-          "ships": [
-            "refrigerated",
-            "food"
-          ],
+          "name": "Sandusky Mall",
+          "type": "shopping_mall",
+          "lat": 41.41849,
+          "lon": -82.66935,
+          "ships": [],
           "receives": [
-            "refrigerated",
-            "food"
+            "retail",
+            "general",
+            "food",
+            "refrigerated"
           ],
-          "source_note": "Read: OpenStreetMap way 34770301 (industrial=refrigerated_warehouse, operator Eskimo Cold Storage, LLC), OpenStreetMap planet file of 2026-11-16; Eskimo Cold Storage is a USDA-inspected cold storage establishment in Gainesville and opened a new freezer building there (FSIS listing https://www.fsis.usda.gov/inspection/fsis-inspected-establishments/eskimo-cold-storage and Carroll Daniel Construction, https://www.carrolldaniel.com/eskimo-cold-storage-ribbon-cutting/, read 2026-11-22). Roles derived: a public freezer warehouse receives and ships frozen and chilled food."
+          "source_note": "Read: OpenStreetMap way 297170658 at 4314 Milan Road (shop=mall, name Sandusky Mall, operator Cafaro Company), OpenStreetMap planet file of 2026-11-16; pin is the centroid of that outline. Roles derived: store deliveries of dry and chilled freight, as the mall type receives; it ships nothing."
         }
       ]
     }

@@ -13,7 +13,7 @@ use crate::states::base::Key;
 use crate::states::driving::DrivingState;
 use crate::states::driving_core::*;
 use crate::states::driving_pacenotes::PACENOTE_MARGIN_MPH;
-use crate::states::driving_updates::{live, PAD_EMERGENCY_BRAKE};
+use crate::states::driving_updates::{live, AUTO_SHIFT_START_CLUNK_VOLUME, PAD_EMERGENCY_BRAKE};
 
 impl DrivingState {
     /// Re-speak a safety call the player silenced before it finished.
@@ -152,6 +152,7 @@ impl DrivingState {
             self.ladder_leg_index = leg;
             ctx.reset_ladder_leg_memory();
         }
+        self.scale_named_s = (self.scale_named_s - dt).max(0.0);
         if self.destination_exit_response_s > 0.0 {
             self.destination_exit_response_s = (self.destination_exit_response_s - dt).max(0.0);
             if self.destination_exit_response_s == 0.0 && self.exit_stop.is_none() {
@@ -538,8 +539,12 @@ impl DrivingState {
         if self.trip.truck.transmission.automatic && self.trip.truck.engine_on {
             let new_gear = self.trip.truck.auto_shift();
             if new_gear.is_some() {
-                ctx.audio
-                    .play_bank_with("vehicle/shift_auto", "vehicle/gear_shift", 0.65, 0.0);
+                ctx.audio.play_bank_with(
+                    "vehicle/shift_auto",
+                    "vehicle/gear_shift",
+                    AUTO_SHIFT_START_CLUNK_VOLUME,
+                    0.0,
+                );
             }
         }
 
@@ -628,6 +633,7 @@ impl DrivingState {
         self.trip.set_imperial(ctx.settings.imperial());
         self.check_border_approach(ctx);
         let pos_before = self.trip.position_mi;
+        let generation_before = self.trip_generation;
         // Tell the trip model which stop's exit is signaled or on the ramp so its
         // plan-cancelled warning can tell a driver who is taking the exit from one
         // who blew past it. Set before trip.update (which runs check_stops) and
@@ -654,6 +660,9 @@ impl DrivingState {
         // this frame's trip events, so the crossing call is said first and
         // the units line after it.
         self.follow_units(ctx);
+        if self.trip_generation == generation_before {
+            self.note_road_tally(pos_before);
+        }
         if self.selected_stop_key.is_some()
             && self.trip.planned_stop_key != self.selected_stop_key
             && self.ramp_stop.is_none()
@@ -815,6 +824,7 @@ impl DrivingState {
         });
         live::set_arrival_menu_open(self.arrival_menu_open);
         live::set_parking_brake_set(self.trip.truck.parking_brake);
+        live::set_stop_menu_open(false);
         live::set_gate_stop_prompted(self.gate.stop_prompted());
         live::set_on_ramp(self.ramp_mi.is_some());
         live::set_posted_limit_mph(

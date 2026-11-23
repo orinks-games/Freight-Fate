@@ -1,10 +1,16 @@
-//! A mid-trip save on a leg the map has since split at a city resumes on
-//! the halves.
+//! A mid-trip save on a leg the map has since split at a city on its road
+//! resumes on the chain that replaced it.
 //!
-//! West Palm Beach -> Palm Bay (110 miles) passed Port Saint Lucie 1.2
-//! miles off until the Florida and Georgia roads (2026-11-22) split it
-//! there: 51 miles on Florida's Turnpike, then the existing 65-mile leg on
-//! I-95. A save 80 miles in lands 29 miles past Port Saint Lucie.
+//! The missing roads pass (2026-11-22) split Los Angeles to San Diego at
+//! Santa Ana and Oceanside, and Sacramento to San Francisco at Fairfield.
+//! The Great Lakes roads (2026-11-22) split Chicago to St. Louis, one
+//! 298-mile I-55 leg, at Joliet, Bloomington and Springfield. A save names
+//! the old two cities; the resume path swaps the hop for its chain and keeps
+//! the mile count.
+//!
+//! The Florida and Georgia roads (2026-11-22) split West Palm Beach to Palm
+//! Bay (110 miles), which passed Port Saint Lucie 1.2 miles off: 51 miles on
+//! Florida's Turnpike, then the existing 65-mile leg on I-95.
 
 use ff_core::models::profile::Profile;
 use freight_fate::app::testing::TestApp;
@@ -12,32 +18,107 @@ use freight_fate::states::driving::DrivingState;
 use freight_fate::states::main_menu::enter_world;
 use serde_json::json;
 
-#[test]
-fn a_save_on_the_retired_leg_resumes_on_its_halves() {
+fn resume(origin: &str, destination: &str, miles: f64, position_mi: f64) -> TestApp {
     let mut app = TestApp::new();
     let mut p = Profile::named("Split Save");
     p.active_trip = Some(json!({
         "job": {
             "cargo": "general",
             "weight_tons": 14.0,
-            "origin": "West Palm Beach",
-            "origin_location": "West Palm Beach freight market",
-            "destination": "Palm Bay",
-            "distance_mi": 110.0,
-            "pay": 700.0,
+            "origin": origin,
+            "origin_location": format!("{origin} freight market"),
+            "destination": destination,
+            "distance_mi": miles,
+            "pay": 900.0,
             "deadline_game_h": 8.0,
             "market_mult": 1.0,
         },
-        "route_cities": ["West Palm Beach", "Palm Bay"],
-        "trip_seed": 1234,
-        "position_mi": 80.0,
+        "route_cities": [origin, destination],
+        "trip_seed": 4321,
+        "position_mi": position_mi,
         "game_minutes": 90.0,
         "start_damage": 0.0,
     }));
     app.ctx.profile = Some(p);
-
     enter_world(&mut app.ctx, false);
+    app
+}
 
+#[test]
+fn a_save_on_the_old_i5_leg_resumes_on_the_santa_ana_and_oceanside_chain() {
+    let app = resume("Los Angeles", "San Diego", 121.0, 70.0);
+    let state = app.state().expect("a state");
+    let state = state.borrow();
+    let drive = state
+        .as_any()
+        .downcast_ref::<DrivingState>()
+        .expect("the save resumes at the wheel");
+    assert!(drive.resumed);
+    assert_eq!(
+        drive.route.cities,
+        [
+            "los_angeles_ca_us",
+            "santa_ana_ca_us",
+            "oceanside_ca_us",
+            "san_diego_ca_us"
+        ]
+    );
+    assert_eq!(drive.trip.position_mi, 70.0);
+}
+
+#[test]
+fn a_save_past_the_bay_bridge_resumes_on_the_fairfield_chain_without_paying_it_again() {
+    let app = resume("Sacramento", "San Francisco", 88.0, 86.0);
+    let state = app.state().expect("a state");
+    let state = state.borrow();
+    let drive = state
+        .as_any()
+        .downcast_ref::<DrivingState>()
+        .expect("the save resumes at the wheel");
+    assert!(drive.resumed);
+    assert_eq!(
+        drive.route.cities,
+        ["sacramento_ca_us", "fairfield_ca_us", "san_francisco_ca_us"]
+    );
+    assert_eq!(drive.trip.position_mi, 86.0);
+    assert!(
+        drive
+            .trip
+            .charged_tolls
+            .iter()
+            .any(|key| key.contains("Bay Bridge")),
+        "the Bay Bridge booth sits before mile 86 on the chain: {:?}",
+        drive.trip.charged_tolls
+    );
+}
+
+#[test]
+fn a_save_on_the_old_chicago_to_st_louis_leg_resumes_on_its_pieces() {
+    let app = resume("Chicago", "St. Louis", 298.0, 150.0);
+    let state = app.state().expect("a state");
+    let state = state.borrow();
+    let drive = state
+        .as_any()
+        .downcast_ref::<DrivingState>()
+        .expect("the save resumes at the wheel");
+    assert!(drive.resumed);
+    assert_eq!(
+        drive.route.cities,
+        [
+            "chicago_il_us",
+            "joliet_il_us",
+            "bloomington_il_us",
+            "springfield_il_us",
+            "st_louis_mo_us",
+        ]
+    );
+    assert_eq!(drive.trip.position_mi, 150.0);
+}
+
+#[test]
+fn a_save_on_the_old_west_palm_beach_leg_resumes_on_the_port_saint_lucie_chain() {
+    // 80 miles in lands 29 miles past Port Saint Lucie.
+    let app = resume("West Palm Beach", "Palm Bay", 110.0, 80.0);
     let state = app.state().expect("a state");
     let state = state.borrow();
     let drive = state
