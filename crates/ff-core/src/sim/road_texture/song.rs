@@ -101,11 +101,21 @@ pub const HUM_MIN_S: f64 = 3.0;
 /// thump, whine, thump and a long one still ends on its far joint. Pavement
 /// whine has no hold. Assumed for the ear.
 pub const DECK_WHINE_MIN_S: f64 = 1.5;
+/// Once a concrete deck's whine ends, the next deck stays quiet for this
+/// many real seconds. Route miles pass 10 to 20 times faster than the
+/// wheels turn, so a city's overpasses, a few tenths of a mile apart, would
+/// otherwise whine every two or three seconds and sound like a fault (a
+/// player's report, 2026-11-23). Grooved pavement and gratings are not
+/// held off. Assumed for the ear.
+pub const DECK_WHINE_REST_S: f64 = 10.0;
 
 /// What the tires are singing.
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub enum TireSong {
     Quiet,
+    /// Quiet after a concrete deck's whine: another deck stays quiet for
+    /// these real seconds ([`DECK_WHINE_REST_S`]).
+    Rest(f64),
     Whine(Grooves, Hold),
     Hum(Hold),
     /// A staged scenario holds one song; it wins over the layer.
@@ -167,12 +177,14 @@ impl TireSong {
 
     /// The only place the song moves. A hold never moves; a grating wins
     /// over grooves, and a hum still holding wins over a whine; a song whose
-    /// surface is behind the truck sounds out its hold, then goes quiet.
+    /// surface is behind the truck sounds out its hold, then goes quiet; a
+    /// deck's whine is followed by a rest in which another deck is quiet.
     pub fn next(self, event: SongEvent) -> TireSong {
         let SongEvent::Under { under, dt } = event;
+        let dt = dt.max(0.0);
         let hold = match self {
             TireSong::Held(_) => return self,
-            TireSong::Quiet => None,
+            TireSong::Quiet | TireSong::Rest(_) => None,
             TireSong::Whine(_, h) | TireSong::Hum(h) => Some(h),
         };
         match (self, under) {
@@ -182,9 +194,14 @@ impl TireSong {
             (TireSong::Whine(was, h), Underfoot::Grooved(g)) if was == g => {
                 TireSong::Whine(g, h.after(dt, false))
             }
+            (TireSong::Rest(left), Underfoot::Grooved(Grooves::AssumedDeck)) if left > dt => {
+                TireSong::Rest(left - dt)
+            }
             (_, Underfoot::Grooved(g)) => TireSong::Whine(g, Hold::fresh(whine_hold(g))),
             (_, Underfoot::Plain) => match (self, hold.map(|h| h.after(dt, true))) {
                 (TireSong::Whine(g, _), Some(h)) if h.holds() => TireSong::Whine(g, h),
+                (TireSong::Whine(Grooves::AssumedDeck, _), _) => TireSong::Rest(DECK_WHINE_REST_S),
+                (TireSong::Rest(left), _) if left > dt => TireSong::Rest(left - dt),
                 _ => TireSong::Quiet,
             },
         }
@@ -193,7 +210,7 @@ impl TireSong {
     /// The loop this song plays, if any.
     pub fn sound(self) -> Option<SongLoop> {
         match self {
-            TireSong::Quiet | TireSong::Held(HeldSong::Quiet) => None,
+            TireSong::Quiet | TireSong::Rest(_) | TireSong::Held(HeldSong::Quiet) => None,
             TireSong::Whine(..) | TireSong::Held(HeldSong::Whine) => Some(WHINE),
             TireSong::Hum(_) | TireSong::Held(HeldSong::Hum) => Some(HUM),
         }
@@ -204,6 +221,7 @@ impl TireSong {
         let holding = |h: Hold| if h.past { ", holding" } else { "" };
         match self {
             TireSong::Quiet => "quiet".to_string(),
+            TireSong::Rest(_) => "quiet (resting after a deck)".to_string(),
             TireSong::Whine(g, h) => format!("whine ({}{})", grooves_origin(g), holding(h)),
             TireSong::Hum(h) if h.past => "hum (holding)".to_string(),
             TireSong::Hum(_) => "hum".to_string(),

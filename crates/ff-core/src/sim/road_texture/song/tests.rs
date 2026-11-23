@@ -46,7 +46,11 @@ fn test_the_song_transition_table() {
         ),
         (S::Hum(on(2.0)), U::Plain, S::Hum(past(1.9))),
         // Past it with the hold spent: quiet.
-        (S::Whine(AssumedDeck, past(0.05)), U::Plain, S::Quiet),
+        (
+            S::Whine(AssumedDeck, past(0.05)),
+            U::Plain,
+            S::Rest(DECK_WHINE_REST_S),
+        ),
         (S::Whine(DerivedFromBuildYear, on(0.0)), U::Plain, S::Quiet),
         (S::Hum(past(0.05)), U::Plain, S::Quiet),
         // A grating during a whine's hold: the hum, with a fresh hold.
@@ -69,6 +73,20 @@ fn test_the_song_transition_table() {
             pave,
             S::Whine(DerivedFromBuildYear, on(0.0)),
         ),
+        // After a deck's whine: the next deck is quiet until the rest ends.
+        (S::Rest(5.0), U::Plain, S::Rest(4.9)),
+        (S::Rest(0.05), U::Plain, S::Quiet),
+        (S::Rest(5.0), deck, S::Rest(4.9)),
+        (
+            S::Rest(0.05),
+            deck,
+            S::Whine(AssumedDeck, on(DECK_WHINE_MIN_S)),
+        ),
+        // Grooved pavement and a grating are never held off.
+        (S::Rest(5.0), pave, S::Whine(DerivedFromBuildYear, on(0.0))),
+        (S::Rest(5.0), U::Grating, S::Hum(on(HUM_MIN_S))),
+        // Off a deck onto grooved pavement, then off that: no rest.
+        (S::Whine(DerivedFromBuildYear, on(0.0)), U::Plain, S::Quiet),
         // A whine's hold that ran out on its deck lasts to the deck's end.
         (
             S::Whine(AssumedDeck, on(0.0)),
@@ -97,6 +115,7 @@ fn same(a: TireSong, b: TireSong) -> bool {
     match (a, b) {
         (TireSong::Whine(g, h), TireSong::Whine(k, j)) => g == k && near(h, j),
         (TireSong::Hum(h), TireSong::Hum(j)) => near(h, j),
+        (TireSong::Rest(l), TireSong::Rest(m)) => (l - m).abs() < 1e-9,
         _ => a == b,
     }
 }
@@ -140,6 +159,7 @@ fn test_a_short_deck_whines_its_hold_and_a_grating_hums_three_seconds() {
 fn test_one_loop_change_per_transition() {
     let whine = TireSong::Whine(Grooves::AssumedDeck, on(0.0));
     assert_eq!(TireSong::Quiet.sound(), None);
+    assert_eq!(TireSong::Rest(5.0).sound(), None);
     assert_eq!(whine.sound(), Some(WHINE));
     assert_eq!(TireSong::Hum(on(0.0)).sound(), Some(HUM));
     // How the game knows the grooves never changes the sound.
@@ -178,6 +198,10 @@ fn test_the_mix_follows_speed() {
 fn test_status_names() {
     assert_eq!(TireSong::Quiet.describe(), "quiet");
     assert_eq!(
+        TireSong::Rest(3.0).describe(),
+        "quiet (resting after a deck)"
+    );
+    assert_eq!(
         TireSong::Whine(Grooves::DerivedFromBuildYear, on(0.0)).describe(),
         "whine (derived from build year)"
     );
@@ -196,4 +220,28 @@ fn test_status_names() {
         assert_eq!(HeldSong::from_name(h).map(HeldSong::name), Some(h));
     }
     assert_eq!(HeldSong::from_name("loud"), None);
+}
+
+#[test]
+fn test_overpasses_a_few_seconds_apart_whine_once_per_rest() {
+    // A city stretch at route pacing: a 0.08 mile deck passes in a third of
+    // a second, then three seconds of plain road, again and again.
+    let deck = Underfoot::Grooved(Grooves::AssumedDeck);
+    let mut song = TireSong::Quiet;
+    let mut starts = 0;
+    let mut was = None;
+    let dt = 0.05;
+    for _ in 0..10 {
+        for (under, secs) in [(deck, 0.35), (Underfoot::Plain, 3.0)] {
+            for _ in 0..(secs / dt) as usize {
+                song = song.next(SongEvent::Under { under, dt });
+                if song.sound() == Some(WHINE) && was.is_none() {
+                    starts += 1;
+                }
+                was = song.sound();
+            }
+        }
+    }
+    // 33.5 seconds: a whine every 1.5 + 10 seconds or so, not ten.
+    assert_eq!(starts, 3, "{starts}");
 }

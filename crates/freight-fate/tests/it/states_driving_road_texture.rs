@@ -410,5 +410,5 @@ fn the_main_street_bridge_grating_hums_and_the_road_past_it_is_quiet() {
     }
     assert!(drive.trip.position_mi > 1.05);
     assert!((hummed_s - HUM_MIN_S).abs() < 0.1, "hummed {hummed_s} s");
-    assert_eq!(drive.road_texture.song, TireSong::Quiet);
+    assert_eq!(drive.road_texture.song.sound(), None);
 }
