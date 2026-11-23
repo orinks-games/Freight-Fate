@@ -311,6 +311,8 @@ pub fn shield_key(name: &str) -> Option<(&'static str, String)> {
         "A" | "AUTOROUTE" => "STATE",
         // Michigan signs its state trunklines with an M ("M 32", "M-115").
         "M" => "STATE",
+        // Kansas signs its state highways with a K ("K 156", "K-61").
+        "K" => "STATE",
         "CR" | "COUNTY ROAD" | "COUNTY ROUTE" => "CR",
         p if p.ends_with(" ROUTE") || p.ends_with(" HIGHWAY") || p.ends_with(" ROAD") => "STATE",
         p if p.len() == 2 && p.chars().all(|c| c.is_ascii_alphabetic()) => "STATE",
@@ -435,6 +437,9 @@ mod tests {
         assert!(matches_shield("M 115 West", "M-115"));
         assert!(matches_shield("M 32", "M-32"));
         assert!(!matches_shield("M 32", "US-23"));
+        assert!(matches_shield("K 156", "K-156"));
+        assert!(matches_shield("KS 156", "K-156"));
+        assert!(!matches_shield("K 156", "US-156"));
     }
 
     #[test]
