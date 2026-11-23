@@ -4,9 +4,65 @@
 //! off the lane the destination exit is taken from (`Trip::exit_windows`).
 
 use crate::data::world::World;
-use crate::sim::trip_models::DESTINATION_EXIT_SCAN_WINDOW_MI;
+use crate::sim::trip_models::{DESTINATION_EXIT_SCAN_WINDOW_MI, DESTINATION_LOCAL_APPROACH_MI};
 
 use super::Trip;
+
+/// Where a delivery leaves the road, decided off the trip and the world.
+///
+/// One answer, read by the drive (which exit it announces and takes), by the
+/// work zones (which lane stays open) and by the agent server's `status`. It
+/// moves only as the truck passes the exit it names: with that exit behind,
+/// the next one inside the window wins, and with none left the trip ends in
+/// town.
+#[derive(Debug, Clone, PartialEq)]
+pub enum DestinationArrival {
+    /// A signed exit inside the last [`DESTINATION_EXIT_SCAN_WINDOW_MI`] of
+    /// the trip: the delivery leaves the road at its gore.
+    Exit {
+        at_mi: f64,
+        label: String,
+        phrase: String,
+    },
+    /// No signed exit that close: the trip runs on to town and leaves the
+    /// road [`DESTINATION_LOCAL_APPROACH_MI`] before its end, the way every
+    /// route that finishes on a two-lane highway does.
+    InTown { at_mi: f64 },
+}
+
+impl DestinationArrival {
+    /// The route mile the delivery leaves the road at.
+    pub fn at_mi(&self) -> f64 {
+        match self {
+            DestinationArrival::Exit { at_mi, .. } | DestinationArrival::InTown { at_mi } => *at_mi,
+        }
+    }
+
+    /// The name `status` reports it by.
+    pub fn key(&self) -> &'static str {
+        match self {
+            DestinationArrival::Exit { .. } => "exit",
+            DestinationArrival::InTown { .. } => "in_town",
+        }
+    }
+}
+
+/// Where this trip's delivery leaves the road (see [`DestinationArrival`]).
+///
+/// `include_past` keeps an exit the truck has passed in the running, for the
+/// questions that are about the trip as planned rather than the road ahead.
+pub fn destination_arrival(world: &World, trip: &Trip, include_past: bool) -> DestinationArrival {
+    match scan_destination_exit(world, trip, include_past) {
+        Some((at_mi, label, phrase)) => DestinationArrival::Exit {
+            at_mi,
+            label,
+            phrase,
+        },
+        None => DestinationArrival::InTown {
+            at_mi: (trip.total_miles() - DESTINATION_LOCAL_APPROACH_MI).max(0.0),
+        },
+    }
+}
 
 /// The winning destination exit on a trip, off the trip alone.
 ///

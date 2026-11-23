@@ -7,7 +7,7 @@ use crate::sim::trip_models::*;
 use crate::sim::trip_route_helpers::zone_key;
 use crate::speech_text::SpokenMessage;
 
-use super::destination_exit::scan_destination_exit;
+use super::destination_exit::destination_arrival;
 use super::Trip;
 
 /// Keep only the simulated work zones clear of `spans`, by the open-road rule.
@@ -188,13 +188,10 @@ impl Trip {
     /// Every placed stop counts: truck stops, travel centers, fuel stations,
     /// rest areas, service plazas, truck parking and scales are all taken by
     /// signaling for the exit. So does the destination exit, which the drive
-    /// finds the same way ([`scan_destination_exit`]), or the synthetic one
-    /// the drive falls back to near the end of the route.
+    /// finds the same way ([`destination_arrival`]): a signed exit near the end,
+    /// or the end-of-route one where the trip ends in town.
     pub fn exit_windows(&self) -> Vec<(f64, f64)> {
-        let destination = scan_destination_exit(self.world, self, true).map_or(
-            (self.total_miles() - DESTINATION_LOCAL_APPROACH_MI).max(0.0),
-            |(at_mi, _, _)| at_mi,
-        );
+        let destination = destination_arrival(self.world, self, true).at_mi();
         self.stops
             .iter()
             .map(|stop| stop.at_mi)

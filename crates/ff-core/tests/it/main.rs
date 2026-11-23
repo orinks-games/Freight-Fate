@@ -59,6 +59,7 @@ mod sim_billboard_placement;
 mod sim_border_destination_exit;
 mod sim_chain_law;
 mod sim_congestion;
+mod sim_destination_arrival;
 mod sim_enforcement_presence;
 mod sim_enforcement_vocabulary;
 mod sim_exit_decompression;
