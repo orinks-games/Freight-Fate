@@ -6870,6 +6870,14 @@ a carrier slice (owner, 2026-10-26).
       would settle both.
 - [ ] (Found along the way) Billboards on the new legs: a sheet needs
       Orinks's approval.
+- [ ] (Found along the way) Screen Interstate mainline curve advisories
+      against the terrain's design speed (60 mph in hills, 50 in mountains).
+      30 sit under 50 mph today, the slowest 40 mph on Charlottesville to
+      Harrisonburg, Dallas to St. Louis (twice) and Johnson City to
+      Asheville; three 45s on Athens to Columbia look like town streets
+      under an I- label. The interstate slowdown test now counts flat
+      ground only. Measurements:
+      /mnt/project-files/missing-roads/mountain-northwest/interstate-curves-by-terrain.md
 - [ ] (Found along the way) Colorado Springs to Limon leaves town on East
       Platte Avenue, which OpenStreetMap tags as closed to trucks over four
       axles for its first miles; the router takes it, and the city start is
