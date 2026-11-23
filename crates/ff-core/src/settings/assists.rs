@@ -189,6 +189,7 @@ impl Settings {
                 self.set_assist_value(field, *value);
             }
         }
+        self.refresh_assist_modes();
         self.co_driver_stash = Some(Box::new(AssistStash {
             own,
             lent: self.assist_snapshot(),
@@ -220,16 +221,21 @@ impl Settings {
         if now.preset == stash.lent.preset {
             self.driving_assistance_preset = stash.own.preset;
         }
-        if now.steering_assist_mode == stash.lent.steering_assist_mode {
+        if now.steering_assist_mode != stash.lent.steering_assist_mode {
+            let _ = self.apply_steering_assist_mode(&now.steering_assist_mode);
+        } else {
             self.steering_assist_mode = stash.own.steering_assist_mode;
         }
-        if now.speed_assist_mode == stash.lent.speed_assist_mode {
+        if now.speed_assist_mode != stash.lent.speed_assist_mode {
+            let _ = self.apply_speed_assist_mode(&now.speed_assist_mode);
+        } else {
             self.speed_assist_mode = stash.own.speed_assist_mode;
         }
         if now.values != stash.lent.values {
             // Some of the player's own changes stand: name the preset the
             // fields now make up.
             self.refresh_driving_assistance_preset();
+            self.refresh_assist_modes();
         }
     }
 
