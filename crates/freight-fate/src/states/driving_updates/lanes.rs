@@ -449,7 +449,7 @@ impl DrivingState {
         self.lane.turn_in_play = self.hold_turn_side();
         let off_road_event = self.lane.update(dt, speed_mps, road, &mode, takes_the_bend);
         self.rear_trailer_whip(ctx, dt);
-        self.single_trailer_stability(ctx, dt, curve, wind);
+        self.single_trailer_stability(ctx, dt, road.curvature, wind);
         if off_road_event {
             // The shoulder costs the truck whether or not anything warns about
             // it, and a charge is never silent: the rumble and the line play
