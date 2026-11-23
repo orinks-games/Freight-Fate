@@ -1,9 +1,11 @@
 //! Touch gestures: the iOS game's input surface.
 //!
 //! The iPhone and iPad game is the desktop game, spoken through Prism and
-//! driven by the same states. `ios/ff_touch.m` recognizes the gestures (with
-//! VoiceOver on, through a direct-interaction element) and queues a code for
-//! each; [`TouchInput`] turns the codes into [`InputEvent`]s. A flick is one
+//! driven by the same states. The gestures come from `ios/ff_touch.m`'s
+//! native recognizers (with VoiceOver on, through a direct-interaction
+//! element), or, with New gesture reading on and always on Android, from
+//! [`ff_core::touch::recognizer`] over raw fingers ([`fingers`]);
+//! [`TouchInput`] turns them into [`InputEvent`]s. A flick is one
 //! step, a swipe and hold is continuous: a stroke held in a direction is a
 //! held key (gas, brake, steering) until it lifts. Every other gesture
 //! arrives as [`InputEvent::Gesture`], and [`route`] says what the app does
@@ -13,166 +15,35 @@
 //! binding, gets the key a keyboard player would press. Nothing here touches
 //! UIKit, so the whole mapping is tested on every platform.
 
-pub mod recognizer;
+pub mod fingers;
+
+/// The recognizer moved to `ff_core::touch`; this path keeps working.
+pub mod recognizer {
+    pub use ff_core::touch::recognizer::*;
+}
 
 use crate::bindings::Action;
 use crate::states::base::{InputEvent, Key, Mods};
+pub use ff_core::touch::{
+    FingerEvent, FingerKind, Gesture, Haptic, MAX_TRAVEL_POINTS, TRAVEL_CODE_BASE,
+};
 pub use ff_core::touch_mode::{RoadOffer, TouchMode};
 
-/// A gesture recognized by the native touch surface.
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
-pub enum Gesture {
-    Tap,
-    DoubleTap,
-    SwipeUp,
-    SwipeDown,
-    SwipeLeft,
-    SwipeRight,
-    TwoFingerTap,
-    TwoFingerSwipeUp,
-    TwoFingerSwipeDown,
-    TwoFingerSwipeLeft,
-    TwoFingerSwipeRight,
-    ThreeFingerSwipeUp,
-    ThreeFingerSwipeDown,
-    ThreeFingerSwipeLeft,
-    ThreeFingerSwipeRight,
-    /// Opens the driving command list, and reads a name field back.
-    ThreeFingerTap,
-    /// A swipe up and hold anywhere on the screen (gas).
-    HoldUpperBegan,
-    /// A swipe down and hold anywhere on the screen (brake).
-    HoldLowerBegan,
-    HoldEnded,
-    /// The two-finger scrub: the touch surface's own recogniser, or
-    /// VoiceOver's escape action with direct touch off.
-    Escape,
-    /// VoiceOver's two-finger double tap.
-    MagicTap,
-    /// VoiceOver's double tap, when direct touch is not active.
-    Activate,
-    /// VoiceOver's swipe up on the adjustable element.
-    Increment,
-    /// VoiceOver's swipe down on the adjustable element.
-    Decrement,
-    /// A second finger's tap while gas is held.
-    UpperHoldTap,
-    UpperHoldDoubleTap,
-    UpperHoldSwipeUp,
-    UpperHoldSwipeDown,
-    UpperHoldSwipeLeft,
-    UpperHoldSwipeRight,
-    /// A second finger's tap while brake is held.
-    LowerHoldTap,
-    LowerHoldDoubleTap,
-    LowerHoldSwipeUp,
-    LowerHoldSwipeDown,
-    LowerHoldSwipeLeft,
-    LowerHoldSwipeRight,
-    /// The old two-finger emergency brake hold; the native side no longer
-    /// sends it, and the deep swipe took its place.
-    EmergencyBrakeHoldBegan,
-    /// Two fingers held anywhere (horn).
-    HornHoldBegan,
-    /// A swipe left and hold (steer left).
-    HoldLeftBegan,
-    /// A swipe right and hold (steer right).
-    HoldRightBegan,
-    /// A swipe down about three flicks deep: the emergency brake while
-    /// moving, the parking brake when stopped.
-    DeepSwipeDownBegan,
-    /// One finger held still (straighten the wheel).
-    StillHoldBegan,
-    /// A second finger's swipe left and hold while a pedal is held.
-    SecondSteerLeftBegan,
-    SecondSteerRightBegan,
-    /// The second finger's steering lifted, the pedal still held.
-    SecondSteerEnded,
-    /// Two fingers turned right like a key (start the engine).
-    RotateRight,
-    /// Two fingers turned left (stop the engine).
-    RotateLeft,
-    /// A hardware keyboard connected or went away.
-    KeyboardConnected,
-    KeyboardDisconnected,
-    /// How far a one-finger hold travelled along its direction, in whole
-    /// points, sent as it lifts while Practice gestures is open.
-    Travel(u16),
+/// What a gesture means as keys: the game's side of [`Gesture`], which
+/// lives in `ff-core` with the recognizer and knows nothing of keys.
+pub trait GestureKeys: Copy {
+    fn key(self) -> Option<Key>;
+    fn held_key(self) -> Option<Key>;
+    fn hold_events(self) -> Vec<InputEvent>;
+    fn key_events(self) -> Vec<InputEvent>;
 }
 
-/// The first code of the swipe lengths: [`TRAVEL_CODE_BASE`] plus the points.
-pub const TRAVEL_CODE_BASE: i32 = 1000;
-/// The longest swipe length a code carries; a longer one reads as this.
-pub const MAX_TRAVEL_POINTS: u16 = 999;
-
-impl Gesture {
-    /// The code `ios/ff_touch.m` queues for this gesture.
-    pub fn from_code(code: i32) -> Option<Gesture> {
-        Some(match code {
-            0 => Gesture::Tap,
-            1 => Gesture::DoubleTap,
-            2 => Gesture::SwipeUp,
-            3 => Gesture::SwipeDown,
-            4 => Gesture::SwipeLeft,
-            5 => Gesture::SwipeRight,
-            6 => Gesture::TwoFingerTap,
-            7 => Gesture::TwoFingerSwipeUp,
-            8 => Gesture::TwoFingerSwipeDown,
-            9 => Gesture::TwoFingerSwipeLeft,
-            10 => Gesture::TwoFingerSwipeRight,
-            11 => Gesture::ThreeFingerSwipeUp,
-            12 => Gesture::ThreeFingerSwipeDown,
-            14 => Gesture::HoldUpperBegan,
-            15 => Gesture::HoldLowerBegan,
-            16 => Gesture::HoldEnded,
-            17 => Gesture::Escape,
-            18 => Gesture::MagicTap,
-            19 => Gesture::Activate,
-            20 => Gesture::Increment,
-            21 => Gesture::Decrement,
-            22 => Gesture::ThreeFingerSwipeLeft,
-            23 => Gesture::ThreeFingerSwipeRight,
-            24 => Gesture::ThreeFingerTap,
-            25 => Gesture::UpperHoldTap,
-            26 => Gesture::UpperHoldDoubleTap,
-            27 => Gesture::UpperHoldSwipeUp,
-            28 => Gesture::UpperHoldSwipeDown,
-            29 => Gesture::UpperHoldSwipeLeft,
-            30 => Gesture::UpperHoldSwipeRight,
-            31 => Gesture::LowerHoldTap,
-            32 => Gesture::LowerHoldDoubleTap,
-            33 => Gesture::LowerHoldSwipeUp,
-            34 => Gesture::LowerHoldSwipeDown,
-            35 => Gesture::LowerHoldSwipeLeft,
-            36 => Gesture::LowerHoldSwipeRight,
-            37 => Gesture::EmergencyBrakeHoldBegan,
-            38 => Gesture::HornHoldBegan,
-            39 => Gesture::HoldLeftBegan,
-            40 => Gesture::HoldRightBegan,
-            41 => Gesture::DeepSwipeDownBegan,
-            42 => Gesture::StillHoldBegan,
-            43 => Gesture::SecondSteerLeftBegan,
-            44 => Gesture::SecondSteerRightBegan,
-            45 => Gesture::SecondSteerEnded,
-            46 => Gesture::RotateRight,
-            47 => Gesture::RotateLeft,
-            48 => Gesture::KeyboardConnected,
-            49 => Gesture::KeyboardDisconnected,
-            travel
-                if (TRAVEL_CODE_BASE..=TRAVEL_CODE_BASE + i32::from(MAX_TRAVEL_POINTS))
-                    .contains(&travel) =>
-            {
-                Gesture::Travel(u16::try_from(travel - TRAVEL_CODE_BASE).ok()?)
-            }
-            _ => return None,
-        })
-    }
-
+impl GestureKeys for Gesture {
     /// The key a single press of this gesture stands for, if it is a press.
     /// A second finger during a hold is a driving command and nothing else.
     /// [`route`] has the keys that differ by screen: menus move on the other
     /// axis, the way VoiceOver does.
-    pub fn key(self) -> Option<Key> {
+    fn key(self) -> Option<Key> {
         Some(match self {
             Gesture::Tap => Key::Comma,
             Gesture::DoubleTap | Gesture::Activate => Key::Return,
@@ -227,7 +98,7 @@ impl Gesture {
     }
 
     /// The fixed key a hold keeps down: the pedals and the wheel.
-    pub fn held_key(self) -> Option<Key> {
+    fn held_key(self) -> Option<Key> {
         match self {
             Gesture::HoldUpperBegan => Some(Key::Up),
             Gesture::HoldLowerBegan => Some(Key::Down),
@@ -237,103 +108,17 @@ impl Gesture {
         }
     }
 
-    /// A hold that steers, which full lane keeping leaves to the flicks.
-    pub fn steers(self) -> bool {
-        matches!(
-            self,
-            Gesture::HoldLeftBegan
-                | Gesture::HoldRightBegan
-                | Gesture::SecondSteerLeftBegan
-                | Gesture::SecondSteerRightBegan
-        )
-    }
-
     /// The press that starts [`Self::held_key`].
-    pub fn hold_events(self) -> Vec<InputEvent> {
+    fn hold_events(self) -> Vec<InputEvent> {
         self.held_key().map(key_down).into_iter().collect()
     }
 
     /// The press and release of [`Self::key`], for a screen that did not
     /// take the gesture itself.
-    pub fn key_events(self) -> Vec<InputEvent> {
+    fn key_events(self) -> Vec<InputEvent> {
         self.key().map(key_press).unwrap_or_default()
     }
-
-    /// The name the agent server's `gesture` tool takes.
-    pub fn name(self) -> &'static str {
-        NAMES
-            .iter()
-            .find(|(gesture, _)| *gesture == self)
-            .map_or("", |(_, name)| name)
-    }
-
-    /// The gesture an agent names.
-    pub fn from_name(name: &str) -> Option<Gesture> {
-        NAMES
-            .iter()
-            .find(|(_, n)| *n == name)
-            .map(|(gesture, _)| *gesture)
-    }
-
-    /// Every gesture the agent server can send, by name.
-    pub fn names() -> impl Iterator<Item = &'static str> {
-        NAMES.iter().map(|(_, name)| *name)
-    }
 }
-
-/// The agent server's names, one per gesture the screen can send, plus the
-/// keyboard notices, so a session can put spoken hints on gestures.
-const NAMES: &[(Gesture, &str)] = &[
-    (Gesture::KeyboardDisconnected, "keyboard_disconnected"),
-    (Gesture::KeyboardConnected, "keyboard_connected"),
-    (Gesture::Tap, "tap"),
-    (Gesture::DoubleTap, "double_tap"),
-    (Gesture::SwipeUp, "flick_up"),
-    (Gesture::SwipeDown, "flick_down"),
-    (Gesture::SwipeLeft, "flick_left"),
-    (Gesture::SwipeRight, "flick_right"),
-    (Gesture::TwoFingerTap, "two_finger_tap"),
-    (Gesture::MagicTap, "two_finger_double_tap"),
-    (Gesture::Escape, "two_finger_scrub"),
-    (Gesture::TwoFingerSwipeUp, "two_finger_flick_up"),
-    (Gesture::TwoFingerSwipeDown, "two_finger_flick_down"),
-    (Gesture::TwoFingerSwipeLeft, "two_finger_flick_left"),
-    (Gesture::TwoFingerSwipeRight, "two_finger_flick_right"),
-    (Gesture::HornHoldBegan, "two_finger_hold"),
-    (Gesture::RotateRight, "two_finger_turn_right"),
-    (Gesture::RotateLeft, "two_finger_turn_left"),
-    (Gesture::ThreeFingerTap, "three_finger_tap"),
-    (Gesture::ThreeFingerSwipeUp, "three_finger_flick_up"),
-    (Gesture::ThreeFingerSwipeDown, "three_finger_flick_down"),
-    (Gesture::ThreeFingerSwipeLeft, "three_finger_flick_left"),
-    (Gesture::ThreeFingerSwipeRight, "three_finger_flick_right"),
-    (Gesture::HoldUpperBegan, "gas_hold"),
-    (Gesture::HoldLowerBegan, "brake_hold"),
-    (Gesture::HoldLeftBegan, "steer_left_hold"),
-    (Gesture::HoldRightBegan, "steer_right_hold"),
-    (Gesture::DeepSwipeDownBegan, "deep_swipe"),
-    (Gesture::StillHoldBegan, "still_hold"),
-    (Gesture::HoldEnded, "lift"),
-    (Gesture::UpperHoldTap, "gas_hold_tap"),
-    (Gesture::UpperHoldDoubleTap, "gas_hold_double_tap"),
-    (Gesture::UpperHoldSwipeUp, "gas_hold_flick_up"),
-    (Gesture::UpperHoldSwipeDown, "gas_hold_flick_down"),
-    (Gesture::UpperHoldSwipeLeft, "gas_hold_flick_left"),
-    (Gesture::UpperHoldSwipeRight, "gas_hold_flick_right"),
-    (Gesture::LowerHoldTap, "brake_hold_tap"),
-    (Gesture::LowerHoldDoubleTap, "brake_hold_double_tap"),
-    (Gesture::LowerHoldSwipeUp, "brake_hold_flick_up"),
-    (Gesture::LowerHoldSwipeDown, "brake_hold_flick_down"),
-    (Gesture::LowerHoldSwipeLeft, "brake_hold_flick_left"),
-    (Gesture::LowerHoldSwipeRight, "brake_hold_flick_right"),
-    (Gesture::SecondSteerLeftBegan, "second_finger_steer_left"),
-    (Gesture::SecondSteerRightBegan, "second_finger_steer_right"),
-    (Gesture::SecondSteerEnded, "second_finger_lift"),
-    (Gesture::EmergencyBrakeHoldBegan, "emergency_brake_hold"),
-    (Gesture::Activate, "voiceover_double_tap"),
-    (Gesture::Increment, "voiceover_swipe_up"),
-    (Gesture::Decrement, "voiceover_swipe_down"),
-];
 
 /// What the app does with one gesture on one kind of screen.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]

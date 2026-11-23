@@ -420,9 +420,12 @@ mod tests {
 
     #[test]
     fn test_a_small_town_beside_a_big_market_relays_even_off_a_full_board() {
-        // Tonopah, Nevada: five shippers on the map, with Reno's and Las
-        // Vegas's markets of twice that within a day's deadhead. A full,
-        // well-paid local board does not keep a carrier's truck there.
+        // Tonopah, Nevada: a thin town with Reno's and Las Vegas's markets
+        // within a day's deadhead. A full, well-paid local board does not
+        // keep a carrier's truck there. The load comes from the nearest
+        // towns, nearest first: since the roads to Bishop and Austin were
+        // built (2026-11-22) those are Bishop, Austin and Mammoth Lakes,
+        // not the market that made the board thin.
         let world = get_world();
         let endorsements: [&str; 0] = [];
         // A seasoned driver: Reno and Las Vegas are over 200 miles out.
@@ -436,8 +439,10 @@ mod tests {
         let local = vec![rich.clone(), rich.clone(), rich.clone(), rich];
         let chosen = relay_load(world, &request, &local, &nearby).expect("Tonopah relays");
         assert!(
-            freight_density(world, &chosen.job.origin)
-                >= freight_density(world, &world.resolve_city_key("Tonopah")) * THIN_MARKET_RATIO
+            ["bishop_ca_us", "austin_nv_us", "mammoth_lakes_ca_us"]
+                .contains(&chosen.job.origin.as_str()),
+            "relayed from {}",
+            chosen.job.origin
         );
         // Chicago is nobody's thin market: the same full board stays put.
         let chicago = self::request("Chicago", &endorsements);

@@ -404,7 +404,7 @@ from the words, and synonyms cost them a re-read.
 | The share of every settlement that always reaches the driver | take-home | net after collection, what is left, remainder | `solvency.TAKE_HOME_SHARE` |
 | The carrier ending a company driver's employment | ended your employment | terminated, fired, let go, sacked, dropped | `solvency.apply_company_termination` |
 | The lender taking an owner-operator's tractor back | took the truck back; repossessed | seized, foreclosed, repo, impounded | `solvency.apply_repossession` |
-| The level-18 step from company driver to leased-on owner-operator | the owner-operator buy-in; buy in | lease, lease-purchase, upgrade, promotion | `BusinessStatusState::become_owner_operator`, `OWNER_OPERATOR_BUY_IN` |
+| The level-18 step from company driver to leased-on owner-operator | the owner-operator buy-in; buy in | lease, lease-purchase, upgrade, promotion | `BuyInState`, `BusinessStage`, `buy_in_tractors` |
 | Choosing the company seat with the buy-in open | stay a company driver; company driver by choice | decline, opt out, refuse, skip the lease | `Profile.owner_operator_declined`, `BusinessStatusState::stay_company_driver` |
 | An owner-operator handing the equipment back for a company seat | go back to company driving | quit the lease, sell out, downgrade, revert | `solvency.apply_return_to_company_driving` |
 | A company driver at the training fleet taking a seat at another carrier | move to another carrier; hires you away | transfer, switch carriers, quit, change jobs, graduate | `carrier_move.apply_carrier_move`, `MOVE_UP_LEVEL` |
@@ -456,6 +456,8 @@ from the words, and synonyms cost them a re-read.
 | The parking brake engaging: a hard mechanical clunk of air dumping | Parking brake set | brake set, park brake on | `vehicle/brake_set` |
 | The parking brake releasing, freeing the truck to roll | Parking brake released | brake release, park brake off | `vehicle/brake_release` |
 | The driver's side window, lowered or raised by its motor; with it down the wind rushes in and the outside sounds louder; with it up the birds, insects and rivers outside are muffled | driver window; "Driver window down." / "Driver window up." | window (alone: "window" is also the duty window), cab window, open/closed | `sim/cab.rs CabState` and `Window`, `cab/window_motor`, `cab/wind` |
+| The thumps of pavement seams and bridge joints under the wheels, the tires' whine on grooved concrete and hum on steel grate decks, and their volume row | road surface; "Road surface volume" | road texture, road joints, road bumps | `vehicle/seam_steer`, `vehicle/seam_drive`, `vehicle/bridge_joint`, `vehicle/tined_whine`, `vehicle/grate_hum`, `Category::Road` |
+| The birds, insects and rivers heard outside the truck, and their volume row | outside sounds; "Outside sounds volume" | nature sounds, ambience, outdoor ambience | `CH_OUTSIDE`, `Category::Outside` |
 | The cab blower, off, low, medium or high | fan; "Fan low." | blower, vent, climate fan | `sim/cab.rs FanSpeed`, `cab/fan` |
 | Warm or cold air from the fan | heat; air conditioning | A/C, AC, cooling, climate mode, HVAC | `sim/cab.rs ClimateMode`, `cab/ac_clutch` |
 | The hardest stop the truck has, for a hazard that cannot otherwise be missed | Emergency brake | e-brake (bare abbreviation), panic stop | `vehicle/ebrake` (fallback `vehicle/brake_air`) |

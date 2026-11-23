@@ -18,6 +18,7 @@ use crate::states::account_achievements::AccountAchievementsState;
 use crate::states::base::default_handle_event;
 use crate::states::base::{InputEvent, Key, Label, Menu, MenuCore, MenuItem};
 use crate::states::cloud_save_states::{CloudBackupConsentState, CloudBackupState};
+use crate::states::newspaper::{NewspaperState, OpenedFrom, NEWSPAPER_HELP, NEWSPAPER_LABEL};
 use crate::states::online_states::{
     current_guest, load_identity, open_url, DriverDirectoryState, DriverProfileState,
     DriversOnlineState, GuestNameState, GuestSetupState, OnlineSetupState, ProfileSharingSyncState,
@@ -25,18 +26,26 @@ use crate::states::online_states::{
 
 pub struct OnlineHubState {
     pub menu: MenuCore<Self>,
+    /// Whether the last build put the Newspaper row in, at
+    /// [`Self::NEWSPAPER_ROW`]. Read by `adjust_row`, so the toggles below it
+    /// answer from their own rows whether it is there or not.
+    newspaper_row: bool,
 }
 
 impl Default for OnlineHubState {
     fn default() -> Self {
         Self {
             menu: MenuCore::new(Self::TITLE).with_intro_help(Self::INTRO_HELP),
+            newspaper_row: false,
         }
     }
 }
 
 impl OnlineHubState {
     pub const TITLE: &'static str = "Online";
+    /// The Newspaper row's place: with the other things to read that share
+    /// nothing, after the duty notice that belongs to the list above it.
+    const NEWSPAPER_ROW: usize = 3;
     pub const INTRO_HELP: &'static str =
         "Enter opens an item or changes a setting to its next value. Right also moves it \
          forward, Left backward. Escape goes back. Drivers on duty, the Driver directory, the duty \
@@ -64,13 +73,21 @@ impl OnlineHubState {
         // positional: a row added to build_items has to be added here at the
         // same index, or every toggle below it starts answering for its
         // neighbour.
-        match self.menu.index {
+        let index = match self.menu.index {
+            index if self.newspaper_row && index == Self::NEWSPAPER_ROW => return,
+            index if self.newspaper_row && index > Self::NEWSPAPER_ROW => index - 1,
+            index => index,
+        };
+        match index {
             2 => self.toggle_duty_notifications(ctx, direction),
             5 => self.toggle_online_services(ctx, direction),
             9 => self.toggle_online_presence(ctx, direction),
             10 => self.toggle_cloud_saves(ctx, direction),
             11 if ctx.settings.cloud_saves => self.toggle_cloud_resume(ctx),
-            index if index == 12 + usize::from(ctx.settings.cloud_saves) => {
+            index
+                if index == 12 + usize::from(ctx.settings.cloud_saves)
+                    && !crate::device::phone() =>
+            {
                 self.toggle_discord_presence(ctx, direction)
             }
             _ => {}
@@ -144,6 +161,7 @@ impl OnlineHubState {
         ctx.apply_online_presence();
         ctx.apply_duty_notifications();
         ctx.apply_cloud_saves();
+        ctx.apply_newspaper();
         self.announce(ctx);
     }
 
@@ -290,8 +308,13 @@ impl OnlineHubState {
     }
 
     fn cloud_backup_help(ctx: &GameContext) -> String {
-        let base = "The careers backed up to your orinks.net account, to bring one onto this \
-                    computer.";
+        let base = if crate::device::phone() {
+            "The careers backed up to your orinks.net account, to bring one onto this \
+             device."
+        } else {
+            "The careers backed up to your orinks.net account, to bring one onto this \
+             computer."
+        };
         if Self::waiting_conflicts(ctx).is_empty() {
             return base.to_string();
         }
@@ -299,6 +322,14 @@ impl OnlineHubState {
         // row named "Restore" when you want to keep your own save is that
         // nothing backs up until you do, and that is what a player needs to
         // hear to override the name.
+        if crate::device::phone() {
+            return format!(
+                "Open this to choose which copy to keep. A career here changed on \
+                 another device, and it is not backing up until you \
+                 pick. Choosing this device's save keeps what you have played \
+                 and sends it up. Nothing is overwritten until you choose. {base}"
+            );
+        }
         format!(
             "Open this to choose which copy to keep. A career here changed on \
              another computer, and it is not backing up until you \
@@ -348,6 +379,11 @@ impl Menu for OnlineHubState {
                 "Every driver with a public profile, on duty or not, and when each was \
                      last on duty. Enter on a driver reads their profile. Viewing it shares \
                      nothing about you.",
+            )
+            .touch_help(
+                "Every driver with a public profile, on duty or not, and when each was \
+                 last on duty. Double tap a driver to read their profile. Viewing it shares \
+                 nothing about you.",
             ),
             // Right under the list it watches. Off by default: a line that
             // arrives unasked while the player is driving is theirs to turn
@@ -370,10 +406,13 @@ impl Menu for OnlineHubState {
             MenuItem::new("Account achievements", |s: &mut Self, ctx| {
                 s.account_achievements(ctx)
             })
-            .help(
+            .help(if crate::device::phone() {
+                "Achievements earned across every career on this device. The main \
+                 menu's Achievements is per career."
+            } else {
                 "Achievements earned across every career on this installation. The main \
-                 menu's Achievements is per career.",
-            ),
+                 menu's Achievements is per career."
+            }),
             MenuItem::new("Your profile", |s: &mut Self, ctx| s.your_profile(ctx)).help(
                 "Your public driver profile, read the way any player hears it from the \
                  drivers list. Needs your orinks.net account and Profile sharing on.",
@@ -390,12 +429,17 @@ impl Menu for OnlineHubState {
                 }),
                 |s: &mut Self, ctx| s.toggle_online_services(ctx, 1),
             )
-            .help(
+            .help(if crate::device::phone() {
+                "Master switch for the orinks.net and sharing services. Off stops the drivers \
+                 list, profile sharing, cloud backup and station suggestions without losing \
+                 their settings. Live weather, traffic, and parking have their own toggles \
+                 under Settings."
+            } else {
                 "Master switch for the orinks.net and sharing services. Off stops the drivers \
                  list, profile sharing, cloud backup, station suggestions, and Discord \
                  presence without losing their settings. Live weather, traffic, and parking have their \
-                 own toggles under Settings.",
-            ),
+                 own toggles under Settings."
+            }),
             MenuItem::new(
                 Label::dynamic(|_: &Self, _| {
                     if current_guest().is_some() {
@@ -408,11 +452,15 @@ impl Menu for OnlineHubState {
                 }),
                 |s: &mut Self, ctx| s.online_account_setup(ctx),
             )
-            .help(
+            .help(if crate::device::phone() {
                 "Connects the game to your orinks.net account, which turns Profile sharing on \
                  and starts backing your careers up. Each has its own item on this menu. \
-                 Driver name and signed-in computers are on Open my driver setup page.",
-            ),
+                 Driver name and signed-in devices are on Open my driver setup page."
+            } else {
+                "Connects the game to your orinks.net account, which turns Profile sharing on \
+                 and starts backing your careers up. Each has its own item on this menu. \
+                 Driver name and signed-in computers are on Open my driver setup page."
+            }),
             // Always here, so the rows below keep their places (adjust_row).
             MenuItem::new(Label::dynamic(|_: &Self, _| Self::guest_label()), |s: &mut Self, ctx| {
                 s.guest_row(ctx)
@@ -436,10 +484,13 @@ impl Menu for OnlineHubState {
             MenuItem::new("Open my driver setup page", |s: &mut Self, ctx| {
                 s.open_setup_page(ctx)
             })
-            .help(
+            .help(if crate::device::phone() {
                 "Opens your orinks.net driver setup page in a browser, for your driver name, \
-                 profile sharing, and the computers signed in to your account.",
-            ),
+                 profile sharing, and the devices signed in to your account."
+            } else {
+                "Opens your orinks.net driver setup page in a browser, for your driver name, \
+                 profile sharing, and the computers signed in to your account."
+            }),
             MenuItem::new(
                 // The identity check lives INSIDE the label so it is
                 // fresh on every read: a captured build-time value went
@@ -479,12 +530,17 @@ impl Menu for OnlineHubState {
                 }),
                 |s: &mut Self, ctx| s.toggle_cloud_saves(ctx, 1),
             )
-            .help(
+            .help(if crate::device::phone() {
+                "Uploads each saved career to your orinks.net account, to restore on another \
+                 device. Backups are private and never public downloads. Comes on when you \
+                 connect the account. Public profile statistics are read from these backups, \
+                 so turning this off empties them."
+            } else {
                 "Uploads each saved career to your orinks.net account, to restore on another \
                  computer. Backups are private and never public downloads. Comes on when you \
                  connect the account. Public profile statistics are read from these backups, \
-                 so turning this off empties them.",
-            ),
+                 so turning this off empties them."
+            }),
             MenuItem::new(
                 // Dynamic, because a career stops backing up entirely until
                 // someone picks which copy wins, and this row is the only
@@ -500,26 +556,44 @@ impl Menu for OnlineHubState {
                 |s: &mut Self, ctx| s.cloud_backup_menu(ctx),
             )
             .help(Label::dynamic(|_: &Self, ctx| Self::cloud_backup_help(ctx))),
-            MenuItem::new(
-                Label::dynamic(|_: &Self, ctx| {
-                    format!(
-                        "Discord presence: {}",
-                        Self::on_off(ctx.settings.discord_presence)
-                    )
-                }),
-                |s: &mut Self, ctx| s.toggle_discord_presence(ctx, 1),
-            )
-            .help(
-                "Shows broad activity in Discord, like driving or resting, never saves or \
-                 personal details. Needs Discord running, no driver profile needed.",
-            ),
-            MenuItem::new("Back", |s: &mut Self, ctx| s.go_back(ctx)),
         ];
+        // Discord has no presence to set on a phone.
+        if !crate::device::phone() {
+            items.push(
+                MenuItem::new(
+                    Label::dynamic(|_: &Self, ctx| {
+                        format!(
+                            "Discord presence: {}",
+                            Self::on_off(ctx.settings.discord_presence)
+                        )
+                    }),
+                    |s: &mut Self, ctx| s.toggle_discord_presence(ctx, 1),
+                )
+                .help(
+                    "Shows broad activity in Discord, like driving or resting, never saves or \
+                     personal details. Needs Discord running, no driver profile needed.",
+                ),
+            );
+        }
+        items.push(MenuItem::new("Back", |s: &mut Self, ctx| s.go_back(ctx)));
         if ctx.settings.cloud_saves {
             items.insert(11, MenuItem::new(
                 Label::dynamic(|_: &Self, ctx| format!("Resume careers from other devices: {}", Self::on_off(ctx.settings.cloud_resume))),
                 |s: &mut Self, ctx| s.toggle_cloud_resume(ctx),
             ).help("Checks for newer progress when you return to the main menu. Restore each career here once first; conflicting saves need your choice in Cloud backup."));
+        }
+        // Only while the game holds an issue the site published.
+        self.newspaper_row = ctx.services.newspaper.holding();
+        if self.newspaper_row {
+            items.insert(
+                Self::NEWSPAPER_ROW,
+                MenuItem::new(NEWSPAPER_LABEL, |_s: &mut Self, ctx: &mut GameContext| {
+                    if let Some(state) = NewspaperState::open(ctx, OpenedFrom::OnlineMenu) {
+                        ctx.push_state(state);
+                    }
+                })
+                .help(NEWSPAPER_HELP),
+            );
         }
         items
     }

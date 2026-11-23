@@ -13,6 +13,7 @@ use ff_core::units::spoken_feet_or_meters;
 use crate::app::{GameContext, SayEvent};
 use crate::states::driving::DrivingState;
 use crate::states::driving_core::*;
+use crate::states::driving_updates::live;
 
 /// Whether a road stop's streets from its exit ramp to its lot are driven.
 /// OFF for 1.9 (owner decision, 2026-09-24): most exits have a ramp end
@@ -371,7 +372,7 @@ impl DrivingState {
             } else {
                 format!("At {place}. Come to a stop.")
             };
-            let mut opts = SayEvent::new();
+            let mut opts = SayEvent::new().valid(|| !live::stop_menu_open());
             opts.category = Some(SpeechCategory::Navigation);
             ctx.say_event_with(message, opts);
         }

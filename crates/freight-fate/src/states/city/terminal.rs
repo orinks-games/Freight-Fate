@@ -1001,7 +1001,7 @@ impl Menu for CityMenuState {
         );
         items.push(
             MenuItem::new("Settings", |s: &mut Self, ctx| s.settings(ctx))
-                .help("Units, transmission, volumes, weather, voices, update channel, and pacing."),
+                .help(crate::states::main_menu::settings_help()),
         );
         items.push(
             MenuItem::new("Quit to main menu", |s: &mut Self, ctx| {

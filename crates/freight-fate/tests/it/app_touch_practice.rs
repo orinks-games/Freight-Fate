@@ -36,7 +36,7 @@ fn a_drive(name: &str) -> PlaytestHarness {
 fn touch_main_menu() -> PlaytestHarness {
     let mut harness = PlaytestHarness::new();
     harness.app.ctx.controller.note_touch();
-    harness.app.ctx.controller.hardware_keyboard = false;
+    harness.app.ctx.controller.set_hardware_keyboard(false);
     harness.app.push_state(MainMenuState::new());
     harness
 }
@@ -113,7 +113,7 @@ fn key_practice_names_gestures_too() {
 fn leaving_practice_by_touch_takes_two_back_gestures_in_a_row() {
     let mut harness = PlaytestHarness::new();
     harness.app.ctx.controller.note_touch();
-    harness.app.ctx.controller.hardware_keyboard = false;
+    harness.app.ctx.controller.set_hardware_keyboard(false);
     harness.app.push_state(InputPracticeState::gestures());
 
     harness.clear_speech();
@@ -139,7 +139,7 @@ fn leaving_practice_by_touch_takes_two_back_gestures_in_a_row() {
 #[test]
 fn the_pause_menu_on_touch_opens_the_command_list_second() {
     let mut harness = a_drive("Touch Pause Commands");
-    harness.app.ctx.controller.hardware_keyboard = false;
+    harness.app.ctx.controller.set_hardware_keyboard(false);
     harness.app.dispatch_gesture(Gesture::MagicTap);
     assert!(harness.state_is::<PauseMenuState>());
     let labels = harness.menu_labels();

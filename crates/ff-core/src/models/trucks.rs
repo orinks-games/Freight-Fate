@@ -177,6 +177,23 @@ fn specs(
     }
 }
 
+/// A catalog tractor's miles per gallon at a steady 60 mph on level road
+/// with the reference cargo in a dry van (`TruckState::rated_mpg`), as the dealer reads it.
+pub fn rated_mpg(model: &TruckModel) -> f64 {
+    crate::sim::vehicle::TruckState::rated_mpg(&model.specs)
+}
+
+/// What a dealer or buy-in row says about a tractor: torque, tank and miles
+/// per gallon. US units, as the row has always read.
+pub fn truck_traits(model: &TruckModel) -> String {
+    format!(
+        "{} thousand newton meters torque, {} gallon tank, {} miles per gallon",
+        crate::pyfmt::fmt_f(model.specs.max_torque_nm / 1000.0, 1),
+        crate::pyfmt::fmt_f(model.specs.fuel_tank_gal, 0),
+        crate::pyfmt::fmt_f(rated_mpg(model), 1)
+    )
+}
+
 /// `TRUCK_CATALOG`, in the Python dict's order. Look entries up with
 /// [`truck_model`].
 pub static TRUCK_CATALOG: Lazy<IndexMap<&'static str, TruckModel>> = Lazy::new(|| {
@@ -195,7 +212,7 @@ pub static TRUCK_CATALOG: Lazy<IndexMap<&'static str, TruckModel>> = Lazy::new(|
         model(
             "heavy_hauler",
             "heavy hauler",
-            52_000.0,
+            78_000.0,
             "A brute for heavy loads and long stretches: a quarter more torque \
              and a two hundred gallon tank, but blunt aerodynamics and a \
              thirstier engine.",

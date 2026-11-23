@@ -71,9 +71,12 @@
 pub(crate) mod test_profile;
 #[cfg(test)]
 mod tests;
+#[cfg(test)]
+mod tests_buy_in;
 
-use crate::models::business::OWNER_OPERATOR_BUY_IN;
-use crate::models::business_constants::{is_owner_operator, COMPANY_DRIVER};
+use crate::models::business::OLD_BUY_IN_PRICE;
+use crate::models::business_constants::is_owner_operator;
+use crate::models::business_stage::{BusinessEvent, BusinessStage};
 use crate::models::enforcement::{
     DrivingRecord, StandingProfile, LAST_CHANCE_CARRIER_KEY, LAST_CHANCE_CARRIER_NAME,
     REPUTATION_TERMINATION,
@@ -143,14 +146,18 @@ pub trait SolvencyProfile: StandingProfile {
     fn clear_dispatch_board_cache(&mut self);
     fn set_owned_trucks(&mut self, trucks: Vec<String>);
     fn set_owned_trailers(&mut self, trailers: Vec<String>);
-    fn set_business_status(&mut self, status: &str);
-    fn set_authority_readiness(&mut self, ready: bool);
+    /// Move along the ownership ladder (`Profile::apply_business_event`):
+    /// the one writer of the business status fields.
+    fn apply_business_event(&mut self, event: BusinessEvent) -> Option<BusinessStage>;
     /// `profile.weigh_station_transponder = on` (the owner-operator
     /// subscription; a company driver's is the fleet's).
     fn set_weigh_station_transponder(&mut self, on: bool);
     fn set_truck(&mut self, key: &str);
     /// `profile.owned_trucks`.
     fn owned_trucks(&self) -> Vec<String>;
+    /// `profile.buy_in_paid`: what the buy-in paid for the first owned
+    /// tractor, 0 when it predates 2.0 or there was none.
+    fn buy_in_paid(&self) -> f64;
     /// `profile.owned_trailers`.
     fn owned_trailers(&self) -> Vec<String>;
     /// `profile.active_truck_key()`: the tractor being driven right now.
@@ -565,8 +572,7 @@ pub fn apply_repossession<P: SolvencyProfile + ?Sized>(profile: &mut P) -> Vec<S
     profile.driving_record_mut().repossessions += 1;
     profile.set_owned_trucks(Vec::new());
     profile.set_owned_trailers(Vec::new());
-    profile.set_business_status(COMPANY_DRIVER);
-    profile.set_authority_readiness(false);
+    profile.apply_business_event(BusinessEvent::Repossessed);
     profile.set_pay_advance(0.0);
     profile.set_pay_advance_used_for_load(false);
     // A driver whose reputation is already at the floor cannot be handed to a
@@ -621,19 +627,19 @@ pub fn apply_repossession<P: SolvencyProfile + ?Sized>(profile: &mut P) -> Vec<S
 /// What the carrier pays to take an owner-operator's equipment back when the
 /// driver chooses a company seat again.
 ///
-/// The tractor the buy-in bought goes back for the used-sale share of its
-/// catalog price, capped at the buy-in itself: the same figure both ways, so
-/// leaving is neither a sale nor a loss on a carrier tractor worth far more
-/// than the buy-in. Anything bought at the dealer since -- tractors and
-/// trailers alike -- goes at the used-sale share, the ratio the lender's sale
-/// already uses. Nothing here is a penalty; the difference between catalog
-/// and used is what the equipment was worth.
+/// Every tractor and trailer goes back at the used-sale share of its catalog
+/// price, the ratio the lender's sale already uses. Nothing here is a
+/// penalty; the difference between catalog and used is what the equipment
+/// was worth. The one exception is a first tractor from a buy-in before 2.0
+/// (no `buy_in_paid`): that buy-in handed over a carrier tractor for
+/// `OLD_BUY_IN_PRICE`, so it goes back for no more than that, and leaving is
+/// not a sale of a tractor worth far more than was paid.
 pub fn company_return_buy_back<P: SolvencyProfile + ?Sized>(profile: &P) -> f64 {
     let mut total = 0.0;
     for (i, key) in profile.owned_trucks().iter().enumerate() {
         let used = profile.truck_catalog_price(key) * REPOSSESSION_EQUITY_SHARE;
-        total += if i == 0 {
-            used.min(OWNER_OPERATOR_BUY_IN)
+        total += if i == 0 && profile.buy_in_paid() <= 0.0 {
+            used.min(OLD_BUY_IN_PRICE)
         } else {
             used
         };
@@ -660,8 +666,9 @@ pub fn apply_return_to_company_driving<P: SolvencyProfile + ?Sized>(
     profile.set_money(round_py_n(profile.money() + buy_back, 2));
     profile.set_owned_trucks(Vec::new());
     profile.set_owned_trailers(Vec::new());
-    profile.set_business_status(COMPANY_DRIVER);
-    profile.set_authority_readiness(false);
+    // Going back by choice is the same choice as "Stay a company driver":
+    // titles and goals follow the company ladder; the buy-in stays open.
+    profile.apply_business_event(BusinessEvent::ReturnToCompany);
     profile.set_weigh_station_transponder(false);
     let carrier = match profile.carrier_name() {
         "" => "your carrier".to_string(),

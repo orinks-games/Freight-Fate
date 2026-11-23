@@ -28,6 +28,123 @@ pub const RETIRED_LEGS: &[(&str, &str, &[&str])] = &[
             "prince_george_bc_ca",
         ],
     ),
+    // The Florida and Georgia missing roads (2026-11-22) split West Palm
+    // Beach to Palm Bay at Port Saint Lucie, which it passed 1.2 miles off.
+    // The chain is 51 plus 65 miles against the old leg's 110.
+    (
+        "west_palm_beach_fl_us",
+        "palm_bay_fl_us",
+        &[
+            "west_palm_beach_fl_us",
+            "port_saint_lucie_fl_us",
+            "palm_bay_fl_us",
+        ],
+    ),
+    // I-5, 121 mi: missing roads pass, 2026-11-22.
+    (
+        "los_angeles_ca_us",
+        "san_diego_ca_us",
+        &[
+            "los_angeles_ca_us",
+            "santa_ana_ca_us",
+            "oceanside_ca_us",
+            "san_diego_ca_us",
+        ],
+    ),
+    // CA-12, 106 mi: missing roads pass, 2026-11-22.
+    (
+        "santa_rosa_ca_us",
+        "stockton_ca_us",
+        &["santa_rosa_ca_us", "fairfield_ca_us", "stockton_ca_us"],
+    ),
+    // US-97, 141 mi: missing roads pass, 2026-11-22.
+    (
+        "redding_ca_us",
+        "klamath_falls_or_us",
+        &["redding_ca_us", "mount_shasta_ca_us", "klamath_falls_or_us"],
+    ),
+    // I-5, 94 mi: missing roads pass, 2026-11-22.
+    (
+        "oxnard_ca_us",
+        "santa_ana_ca_us",
+        &["oxnard_ca_us", "los_angeles_ca_us", "santa_ana_ca_us"],
+    ),
+    // CA-99, 220 mi: missing roads pass, 2026-11-22.
+    (
+        "los_angeles_ca_us",
+        "fresno_ca_us",
+        &["los_angeles_ca_us", "valencia_ca_us", "fresno_ca_us"],
+    ),
+    // US-89A, 98 mi: missing roads pass, 2026-11-22.
+    (
+        "prescott_az_us",
+        "flagstaff_az_us",
+        &["prescott_az_us", "camp_verde_az_us", "flagstaff_az_us"],
+    ),
+    // I-680, 117 mi: missing roads pass, 2026-11-22.
+    (
+        "san_jose_ca_us",
+        "sacramento_ca_us",
+        &["san_jose_ca_us", "fairfield_ca_us", "sacramento_ca_us"],
+    ),
+    // I-80, 88 mi: missing roads pass, 2026-11-22.
+    (
+        "sacramento_ca_us",
+        "san_francisco_ca_us",
+        &["sacramento_ca_us", "fairfield_ca_us", "san_francisco_ca_us"],
+    ),
+    // I-5, 84 mi: missing roads pass, 2026-11-22.
+    (
+        "oceanside_ca_us",
+        "los_angeles_ca_us",
+        &["oceanside_ca_us", "santa_ana_ca_us", "los_angeles_ca_us"],
+    ),
+    // I-80, 95 mi: missing roads pass, 2026-11-22.
+    (
+        "santa_rosa_ca_us",
+        "sacramento_ca_us",
+        &["santa_rosa_ca_us", "fairfield_ca_us", "sacramento_ca_us"],
+    ),
+    // CA-14, 103 mi: missing roads pass, 2026-11-22.
+    (
+        "oxnard_ca_us",
+        "lancaster_ca_us",
+        &["oxnard_ca_us", "valencia_ca_us", "lancaster_ca_us"],
+    ),
+    // CA-58, 89 mi: missing roads pass, 2026-11-22.
+    (
+        "lancaster_ca_us",
+        "bakersfield_ca_us",
+        &["lancaster_ca_us", "mojave_ca_us", "bakersfield_ca_us"],
+    ),
+    // CA-58, 95 mi: missing roads pass, 2026-11-22.
+    (
+        "lancaster_ca_us",
+        "barstow_ca_us",
+        &["lancaster_ca_us", "mojave_ca_us", "barstow_ca_us"],
+    ),
+    // US-395, 137.0 mi: missing roads pass, 2026-11-22.
+    (
+        "ridgecrest_ca_us",
+        "bishop_ca_us",
+        &["ridgecrest_ca_us", "lone_pine_ca_us", "bishop_ca_us"],
+    ),
+    // CA-41, 167 mi: missing roads pass, 2026-11-22.
+    (
+        "visalia_ca_us",
+        "santa_maria_ca_us",
+        &[
+            "visalia_ca_us",
+            "san_luis_obispo_ca_us",
+            "santa_maria_ca_us",
+        ],
+    ),
+    // I-8, 186 mi: missing roads pass, 2026-11-22.
+    (
+        "yuma_az_us",
+        "phoenix_az_us",
+        &["yuma_az_us", "buckeye_az_us", "phoenix_az_us"],
+    ),
     // Great Lakes missing roads (2026-11-22): legs split at a city they pass.
     (
         "bloomington_il_us",

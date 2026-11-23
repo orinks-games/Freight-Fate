@@ -10,6 +10,7 @@ use crate::models::business::{
     authority_activation_eligibility, authority_readiness_eligibility, owner_operator_eligibility,
     BusinessProfile,
 };
+use crate::models::business_stage::{BusinessEvent, BusinessStage};
 use crate::models::career::{Career, CareerProfile};
 use crate::models::carrier_fleet::{assigned_truck_key, equipment_hold_clause};
 use crate::models::enforcement::{DrivingRecord, StandingProfile};
@@ -113,11 +114,8 @@ impl SolvencyProfile for Profile {
     fn set_owned_trailers(&mut self, trailers: Vec<String>) {
         self.owned_trailers = trailers;
     }
-    fn set_business_status(&mut self, status: &str) {
-        self.business_status = status.to_string();
-    }
-    fn set_authority_readiness(&mut self, ready: bool) {
-        self.authority_readiness = ready;
+    fn apply_business_event(&mut self, event: BusinessEvent) -> Option<BusinessStage> {
+        Profile::apply_business_event(self, event)
     }
     fn set_weigh_station_transponder(&mut self, on: bool) {
         self.weigh_station_transponder = on;
@@ -127,6 +125,9 @@ impl SolvencyProfile for Profile {
     }
     fn owned_trucks(&self) -> Vec<String> {
         self.owned_trucks.clone()
+    }
+    fn buy_in_paid(&self) -> f64 {
+        self.buy_in_paid
     }
     fn owned_trailers(&self) -> Vec<String> {
         self.owned_trailers.clone()
@@ -267,8 +268,8 @@ impl StartProfile for Profile {
         self.money = money;
         self.money_guard.resync(money);
     }
-    fn set_business_status(&mut self, status: &str) {
-        self.business_status = status.to_string();
+    fn set_business_stage(&mut self, stage: BusinessStage) {
+        Profile::set_business_stage(self, stage);
     }
     fn set_truck(&mut self, key: &str) {
         self.truck = key.to_string();

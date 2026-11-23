@@ -165,10 +165,9 @@ impl DrivingState {
             return "Cruise paused. ".to_string();
         }
         if ctx.touch_hints() {
-            return format!(
-                "Cruise paused. {} to cancel it. ",
-                ctx.touch_instruction(crate::bindings::Action::Cruise)
-            );
+            let touch_instruction =
+                ctx.touch_instruction_while_pedal(crate::bindings::Action::Cruise);
+            return format!("Cruise paused. {touch_instruction} to cancel it. ");
         }
         let control_hint = ff_core::speech_text::sentence_start(&ctx.control_hint("cruise_set"));
         format!("Cruise paused. {control_hint} cancels it. ")

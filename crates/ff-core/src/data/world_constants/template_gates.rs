@@ -428,6 +428,12 @@ pub const CURATED_COMPLETE_MARKET_CITY_KEYS: &[&str] = &[
     // at Carneys Point and the Cape May fishing docks.
     "carneys_point_nj_us",
     "cape_may_nj_us",
+    // Florida and Georgia (missing roads, 2026-11-22): the port's cargo,
+    // fuel, cement and salt terminals, and Gainesville's tractor plant,
+    // poultry plant and freezer warehouse. Sebring and Crystal River keep
+    // the template market.
+    "port_canaveral_fl_us",
+    "gainesville_ga_us",
     // Great Lakes (missing roads, 2026-11-22): the Joliet intermodal yards,
     // the Alpena cement plant, Pinney Dock at Ashtabula and Sandusky's
     // plants, each surveyed.

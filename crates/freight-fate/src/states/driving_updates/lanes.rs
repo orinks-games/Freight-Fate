@@ -31,11 +31,17 @@ impl DrivingState {
         if self.held(ctx, Action::SteerRight) {
             key_dir += 1;
         }
-        // The left stick provides analog steering when the keys are idle.
-        let stick = if self.pad_live(ctx) {
+        // The left stick provides analog steering when the keys are idle,
+        // and a tilt of the phone when the stick is idle too.
+        let pad = if self.pad_live(ctx) {
             ctx.controller.steering()
         } else {
             0.0
+        };
+        let stick = if pad != 0.0 || self.co_driver_driving() {
+            pad
+        } else {
+            ctx.tilt.steering(ctx.settings.touch_tilt_full())
         };
         self.lane.steer_input(key_dir, stick);
         if ctx.settings.lane_is_automated() {
@@ -443,6 +449,7 @@ impl DrivingState {
         self.lane.turn_in_play = self.hold_turn_side();
         let off_road_event = self.lane.update(dt, speed_mps, road, &mode, takes_the_bend);
         self.rear_trailer_whip(ctx, dt);
+        self.single_trailer_stability(ctx, dt, road.curvature, wind);
         if off_road_event {
             // The shoulder costs the truck whether or not anything warns about
             // it, and a charge is never silent: the rumble and the line play
@@ -1026,6 +1033,47 @@ impl DrivingState {
             let mut opts = SayEvent::queued().priority(EventPriority::Important);
             opts.category = Some(SpeechCategory::Safety);
             ctx.say_event_with(text, opts);
+        }
+    }
+
+    /// Single-trailer crosswind sway and tight-ramp off-tracking.
+    ///
+    /// Speaks once on transition into swaying or off-tracking so the driver
+    /// hears when crosswind is pushing an empty/light box or when the trailer
+    /// tandems are cutting inside on a tight ramp curve. Doubles use
+    /// `rear_trailer_whip` instead.
+    fn single_trailer_stability(&mut self, ctx: &mut GameContext, dt: f64, curve: f64, wind: f64) {
+        use ff_core::sim::vehicle::{crosswind_lateral_g, TrailerSwayState};
+
+        let state = if let Some(held) = ctx.playtest_trailer_sway {
+            self.trip.truck.trailer_sway_state = held;
+            held
+        } else {
+            let wind_g = crosswind_lateral_g(wind, self.lane.wind_lateral_g);
+            self.trip
+                .truck
+                .update_single_trailer_stability(dt, wind_g, curve, self.lane.offset)
+        };
+        if state != self.trailer_sway_state {
+            match state {
+                TrailerSwayState::OffTracking => {
+                    let text =
+                        "Trailer off-tracking tight on the inside. Give the curve more room.";
+                    self.set_status(text);
+                    let mut opts = SayEvent::queued().priority(EventPriority::Important);
+                    opts.category = Some(SpeechCategory::Safety);
+                    ctx.say_event_with(text, opts);
+                }
+                TrailerSwayState::Swaying => {
+                    let text = "Trailer swaying in the wind. Ease off your speed.";
+                    self.set_status(text);
+                    let mut opts = SayEvent::queued().priority(EventPriority::Important);
+                    opts.category = Some(SpeechCategory::Safety);
+                    ctx.say_event_with(text, opts);
+                }
+                TrailerSwayState::Steady => {}
+            }
+            self.trailer_sway_state = state;
         }
     }
 }

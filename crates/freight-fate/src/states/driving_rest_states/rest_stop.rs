@@ -1352,6 +1352,7 @@ impl RestStopState {
         let stop = self.stop.clone();
         let result = self.driving.clone().with(ctx, |d, ctx| {
             d.stop_visit(&stop).inspected = true;
+            d.note_road_tally_scale(&stop);
             ctx.audio.play("ui/notify");
             // A valid decal is waved through on sight (CVSA Operational
             // Policy 5), unless the record is targeted.

@@ -8833,6 +8833,150 @@
         }
       ]
     },
+    "sebring_fl_us": {
+      "spoken_city": "Sebring",
+      "state": "FL",
+      "country": "US",
+      "region": "florida",
+      "lat": 27.49775,
+      "lon": -81.48846,
+      "source_note": "Pin on US 27 and US 98 (US Highway 27 North) at the Lakeshore Mall, the truck road through Sebring, read from the OpenStreetMap way there (OpenStreetMap planet file of 2026-11-16); the Census 2020 urban area point (2023 Gazetteer, 27.53543, -81.48274) is 2.6 miles north in a subdivision. Sebring stands for the Sebring and Avon Park urban area (63,297 people), approved as an unreached urban area (missing roads decision 9, 2026-11-22). No freight site was surveyed in reasonable time (OpenStreetMap names no industrial site in Sebring), so the city keeps the template market. Region florida.",
+      "locations": []
+    },
+    "port_canaveral_fl_us": {
+      "spoken_city": "Port Canaveral",
+      "state": "FL",
+      "country": "US",
+      "region": "florida",
+      "lat": 28.41867,
+      "lon": -80.62928,
+      "source_note": "Pin on SR 401, the road into the port's north cargo berths from SR 528, read from the OpenStreetMap way there (OpenStreetMap planet file of 2026-11-16). Port Canaveral is a principal port (4,066,610 short tons, US Army Corps of Engineers principal ports list) with more than 6.1 million tons of dry and liquid bulk a year and a 20-acre container terminal (Canaveral Port Authority cargo facilities page, https://www.portcanaveral.com/cargo/cargo-facilities, read 2026-11-22). Approved by name inside 30 miles of Palm Bay (missing roads decision 9, 2026-11-22). Region florida.",
+      "locations": [
+        {
+          "name": "Canaveral Cargo Terminal",
+          "type": "port_terminal",
+          "lat": 28.41431,
+          "lon": -80.61969,
+          "ships": [
+            "container",
+            "general",
+            "refrigerated"
+          ],
+          "receives": [
+            "container",
+            "general",
+            "refrigerated",
+            "machinery"
+          ],
+          "source_note": "Read: OpenStreetMap way 1220632416 (landuse=industrial, industrial=port, name Canaveral Cargo Terminal), OpenStreetMap planet file of 2026-11-16. The Canaveral Port Authority says its 20-acre container terminal has three mobile harbor cranes and has handled steel, boats, frozen juice concentrate, lumber, perishables, automobiles and heavy equipment (cargo facilities page, read 2026-11-22), and that GT USA operates it as Canaveral Cargo Terminal, with a bi-monthly container service to Mexico and the Northeast (news release of 2026-07-27, https://www.portcanaveral.com/media-center/latest-news/blog/2026/07/27/port-canaveral-expands-cargo-business-with-new-international-container-service, read 2026-11-22). Roles derived: a container and breakbulk terminal ships and receives general cargo, store goods and chilled cargo, and receives machinery."
+        },
+        {
+          "name": "Seaport Canaveral",
+          "type": "chemical_petroleum_terminal",
+          "lat": 28.41692,
+          "lon": -80.6139,
+          "ships": [
+            "fuel_bulk"
+          ],
+          "receives": [
+            "fuel_bulk"
+          ],
+          "source_note": "Read: OpenStreetMap way 1227712212 (industrial=fuel_depot, operator VTTI, name Seaport Canaveral), OpenStreetMap planet file of 2026-11-16; VTTI lists Seaport Canaveral as a 454,000 cubic metre storage terminal for gasoline, jet fuel, diesel and fuel oil with road access (https://www.vtti.com/terminal/seaport-canaveral-usa/, read 2026-11-22). Roles derived: a fuel terminal loads tank trucks with fuel and takes fuel in."
+        },
+        {
+          "name": "Heidelberg Materials Port Canaveral",
+          "type": "construction_materials_yard",
+          "lat": 28.41297,
+          "lon": -80.61479,
+          "ships": [
+            "construction",
+            "bulk"
+          ],
+          "receives": [
+            "bulk"
+          ],
+          "source_note": "Read: OpenStreetMap way 1227712221 (landuse=industrial, name Heidelberg Materials), OpenStreetMap planet file of 2026-11-16; the Canaveral Port Authority reports Heidelberg Materials' 24 million dollar expansion of its slag cement plant and terminal at the port (news release of 2023-06-05, https://portcanaveral.com/media-center/latest-news/blog/2023/06/05/heidelberg-materials-completes--24-million-expansion-of-port-canaveral-facility, read 2026-11-22). Roles derived: a slag cement plant ships cement and receives bulk slag by sea."
+        },
+        {
+          "name": "Morton Salt Port Canaveral",
+          "type": "port",
+          "lat": 28.41429,
+          "lon": -80.6137,
+          "ships": [
+            "bulk"
+          ],
+          "receives": [
+            "bulk"
+          ],
+          "source_note": "Read: OpenStreetMap way 1227712218 (industrial=factory, name Morton Salt), OpenStreetMap planet file of 2026-11-16; the Canaveral Port Authority lists salt among the dry bulk cargoes it handles (cargo facilities page, read 2026-11-22). Roles derived: a salt terminal takes salt in by ship and ships it out by truck."
+        }
+      ]
+    },
+    "crystal_river_fl_us": {
+      "spoken_city": "Crystal River",
+      "state": "FL",
+      "country": "US",
+      "region": "florida",
+      "lat": 28.89821,
+      "lon": -82.58646,
+      "source_note": "Pin on US 19 at State Road 44, the OpenStreetMap node the two ways share (OpenStreetMap planet file of 2026-11-16), as missing roads decision 9 (2026-11-22) set it. Crystal River stands for the Homosassa Springs, Beverly Hills and Citrus Springs urban area (96,729 people); US 19 is where the trucks are. No freight site was surveyed in reasonable time, so the city keeps the template market. Region florida.",
+      "locations": []
+    },
+    "gainesville_ga_us": {
+      "spoken_city": "Gainesville",
+      "state": "GA",
+      "country": "US",
+      "region": "atlantic_southeast",
+      "lat": 34.29856,
+      "lon": -83.8228,
+      "source_note": "Pin on Jesse Jewell Parkway (GA 369 and US 129 Business) where it meets E. E. Butler Parkway downtown, read from the OpenStreetMap way there (OpenStreetMap planet file of 2026-11-16); the Census 2020 urban area point (2023 Gazetteer, 34.23374, -83.86262) is 4.6 miles south in Oakwood. Approved as an unreached urban area of 164,365 people (missing roads decision 9, 2026-11-22). Region atlantic_southeast.",
+      "locations": [
+        {
+          "name": "Kubota Manufacturing of America",
+          "type": "manufacturing_plant",
+          "lat": 34.34867,
+          "lon": -83.78073,
+          "ships": [
+            "machinery"
+          ],
+          "receives": [
+            "steel",
+            "general"
+          ],
+          "source_note": "Read: OpenStreetMap way 595918959 (man_made=works, name Kubota Manufacturing of America), OpenStreetMap planet file of 2026-11-16; Kubota Manufacturing of America builds compact tractors and utility vehicles at its Gainesville, Hall County campus (Kubota news release of 2017-04-11, https://www.kubota.com/news/2017/20170411.html, read 2026-11-22). Roles derived: a tractor plant ships machinery and receives parts and steel."
+        },
+        {
+          "name": "Fieldale Farms Gainesville",
+          "type": "food_processor",
+          "lat": 34.28641,
+          "lon": -83.79998,
+          "ships": [
+            "refrigerated",
+            "food"
+          ],
+          "receives": [
+            "refrigerated",
+            "food"
+          ],
+          "source_note": "Read: OpenStreetMap way 682309058 (man_made=works, name Fieldale Farms), OpenStreetMap planet file of 2026-11-16; Fieldale Farms runs a USDA-inspected poultry establishment in Gainesville (FSIS inspected establishments listing, https://www.fsis.usda.gov/inspection/fsis-inspected-establishments/fieldale-farms-corporation-1, read 2026-11-22). Roles derived: a poultry plant ships chilled and packed food and takes in packaging and chilled product."
+        },
+        {
+          "name": "Eskimo Cold Storage",
+          "type": "cold_storage",
+          "lat": 34.23812,
+          "lon": -83.75762,
+          "ships": [
+            "refrigerated",
+            "food"
+          ],
+          "receives": [
+            "refrigerated",
+            "food"
+          ],
+          "source_note": "Read: OpenStreetMap way 34770301 (industrial=refrigerated_warehouse, operator Eskimo Cold Storage, LLC), OpenStreetMap planet file of 2026-11-16; Eskimo Cold Storage is a USDA-inspected cold storage establishment in Gainesville and opened a new freezer building there (FSIS listing https://www.fsis.usda.gov/inspection/fsis-inspected-establishments/eskimo-cold-storage and Carroll Daniel Construction, https://www.carrolldaniel.com/eskimo-cold-storage-ribbon-cutting/, read 2026-11-22). Roles derived: a public freezer warehouse receives and ships frozen and chilled food."
+        }
+      ]
+    },
     "joliet_il_us": {
       "spoken_city": "Joliet",
       "state": "IL",
@@ -9153,13 +9297,13 @@
           "type": "shopping_mall",
           "lat": 40.06486,
           "lon": -76.30591,
-          "ships": [
+          "ships": [],
+          "receives": [
             "retail",
             "general",
             "food",
             "refrigerated"
           ],
-          "receives": [],
           "source_note": "Read: OpenStreetMap way 39277282 (landuse=retail, shop=mall, name Lancaster Shopping Center, 1625 Lititz Pike), OpenStreetMap planet file of 2026-11-16; pin is the centroid of that outline. Operation not confirmed from a second source. Roles derived: store deliveries of dry and chilled freight, as the mall type receives; it ships nothing."
         }
       ]
@@ -9205,13 +9349,13 @@
           "type": "shopping_mall",
           "lat": 40.35025,
           "lon": -75.96531,
-          "ships": [
+          "ships": [],
+          "receives": [
             "retail",
             "general",
             "food",
             "refrigerated"
           ],
-          "receives": [],
           "source_note": "Read: OpenStreetMap way 260797642 (building=commercial, shop=mall, name The Shoppes at Wyomissing), OpenStreetMap planet file of 2026-11-16; pin is the centroid of that outline. Operation not confirmed from a second source. Roles derived: store deliveries of dry and chilled freight, as the mall type receives; it ships nothing."
         }
       ]
@@ -9258,13 +9402,13 @@
           "type": "shopping_mall",
           "lat": 42.62134,
           "lon": -70.65677,
-          "ships": [
+          "ships": [],
+          "receives": [
             "retail",
             "general",
             "food",
             "refrigerated"
           ],
-          "receives": [],
           "source_note": "Read: OpenStreetMap way 213327223 (shop=supermarket, brand Market Basket, 101 Gloucester Crossing), OpenStreetMap planet file of 2026-11-16; pin is the centroid of that outline. Operation not confirmed from a second source. Roles derived: store deliveries of dry and chilled freight, as the mall type receives; it ships nothing."
         }
       ]
@@ -9328,13 +9472,13 @@
           "type": "shopping_mall",
           "lat": 41.1203,
           "lon": -78.72617,
-          "ships": [
+          "ships": [],
+          "receives": [
             "retail",
             "general",
             "food",
             "refrigerated"
           ],
-          "receives": [],
           "source_note": "Read: OpenStreetMap way 539274585 (shop=mall, name DuBois Mall), OpenStreetMap planet file of 2026-11-16; pin is the centroid of that outline. Operation not confirmed from a second source. Roles derived: store deliveries of dry and chilled freight, as the mall type receives; it ships nothing."
         }
       ]
@@ -9383,13 +9527,13 @@
           "type": "shopping_mall",
           "lat": 42.10572,
           "lon": -76.80903,
-          "ships": [
+          "ships": [],
+          "receives": [
             "retail",
             "general",
             "food",
             "refrigerated"
           ],
-          "receives": [],
           "source_note": "Read: OpenStreetMap node 8796811935 (shop=supermarket, brand Wegmans, 1100 Clemens Center Parkway), OpenStreetMap planet file of 2026-11-16; pin is that node. Operation not confirmed from a second source. Roles derived: store deliveries of dry and chilled freight, as the mall type receives; it ships nothing."
         }
       ]
@@ -9451,13 +9595,13 @@
           "type": "shopping_mall",
           "lat": 39.82184,
           "lon": -76.99408,
-          "ships": [
+          "ships": [],
+          "receives": [
             "retail",
             "general",
             "food",
             "refrigerated"
           ],
-          "receives": [],
           "source_note": "Read: OpenStreetMap way 420919921 (shop=mall, name North Hanover Mall), OpenStreetMap planet file of 2026-11-16; pin is the centroid of that outline. Operation not confirmed from a second source. Roles derived: store deliveries of dry and chilled freight, as the mall type receives; it ships nothing."
         }
       ]
@@ -9476,13 +9620,13 @@
           "type": "shopping_mall",
           "lat": 42.43584,
           "lon": -76.51047,
-          "ships": [
+          "ships": [],
+          "receives": [
             "retail",
             "general",
             "food",
             "refrigerated"
           ],
-          "receives": [],
           "source_note": "Read: OpenStreetMap way 91019970 (shop=supermarket, brand Wegmans, 500 South Meadow Street), OpenStreetMap planet file of 2026-11-16; pin is the centroid of that outline. Operation not confirmed from a second source. Roles derived: store deliveries of dry and chilled freight, as the mall type receives; it ships nothing."
         },
         {
@@ -9490,13 +9634,13 @@
           "type": "shopping_mall",
           "lat": 42.42997,
           "lon": -76.50696,
-          "ships": [
+          "ships": [],
+          "receives": [
             "retail",
             "general",
             "food",
             "refrigerated"
           ],
-          "receives": [],
           "source_note": "Read: OpenStreetMap way 107649600 (shop=mall, name Ithaca Shopping Plaza, 222 Elmira Road), OpenStreetMap planet file of 2026-11-16; pin is the centroid of that outline. Operation not confirmed from a second source. Roles derived: store deliveries of dry and chilled freight, as the mall type receives; it ships nothing."
         }
       ]
@@ -9543,13 +9687,13 @@
           "type": "shopping_mall",
           "lat": 40.28591,
           "lon": -78.86682,
-          "ships": [
+          "ships": [],
+          "receives": [
             "retail",
             "general",
             "food",
             "refrigerated"
           ],
-          "receives": [],
           "source_note": "Read: OpenStreetMap way 856223063 (landuse=retail, name Bel Air Plaza), OpenStreetMap planet file of 2026-11-16; pin is the centroid of that outline. Operation not confirmed from a second source. Roles derived: store deliveries of dry and chilled freight, as the mall type receives; it ships nothing."
         }
       ]
@@ -9568,13 +9712,13 @@
           "type": "shopping_mall",
           "lat": 38.25923,
           "lon": -76.4652,
-          "ships": [
+          "ships": [],
+          "receives": [
             "retail",
             "general",
             "food",
             "refrigerated"
           ],
-          "receives": [],
           "source_note": "Read: OpenStreetMap way 48255479 (landuse=retail, name St Marys Square), OpenStreetMap planet file of 2026-11-16; pin is the centroid of that outline. Operation not confirmed from a second source. Roles derived: store deliveries of dry and chilled freight, as the mall type receives; it ships nothing."
         },
         {
@@ -9582,13 +9726,13 @@
           "type": "shopping_mall",
           "lat": 38.29292,
           "lon": -76.5031,
-          "ships": [
+          "ships": [],
+          "receives": [
             "retail",
             "general",
             "food",
             "refrigerated"
           ],
-          "receives": [],
           "source_note": "Read: OpenStreetMap way 47916363 (shop=supermarket, brand Walmart, 45485 Miramar Way), OpenStreetMap planet file of 2026-11-16; pin is the centroid of that outline. Operation not confirmed from a second source. Roles derived: store deliveries of dry and chilled freight, as the mall type receives; it ships nothing."
         }
       ]
@@ -9623,13 +9767,13 @@
           "type": "shopping_mall",
           "lat": 42.44857,
           "lon": -73.25975,
-          "ships": [
+          "ships": [],
+          "receives": [
             "retail",
             "general",
             "food",
             "refrigerated"
           ],
-          "receives": [],
           "source_note": "Read: OpenStreetMap way 215700883 (shop=supermarket, brand Big Y, 200 West Street), OpenStreetMap planet file of 2026-11-16; pin is the centroid of that outline. Operation not confirmed from a second source. Roles derived: store deliveries of dry and chilled freight, as the mall type receives; it ships nothing."
         },
         {
@@ -9637,13 +9781,13 @@
           "type": "shopping_mall",
           "lat": 42.46574,
           "lon": -73.20567,
-          "ships": [
+          "ships": [],
+          "receives": [
             "retail",
             "general",
             "food",
             "refrigerated"
           ],
-          "receives": [],
           "source_note": "Read: OpenStreetMap way 30632569 (landuse=retail, name The Shops at Unkamet Brook), OpenStreetMap planet file of 2026-11-16; pin is the centroid of that outline. Operation not confirmed from a second source. Roles derived: store deliveries of dry and chilled freight, as the mall type receives; it ships nothing."
         }
       ]
@@ -9704,13 +9848,13 @@
           "type": "shopping_mall",
           "lat": 40.92737,
           "lon": -72.69436,
-          "ships": [
+          "ships": [],
+          "receives": [
             "retail",
             "general",
             "food",
             "refrigerated"
           ],
-          "receives": [],
           "source_note": "Read: OpenStreetMap way 190405158 (landuse=retail, name Riverhead Centre), OpenStreetMap planet file of 2026-11-16; pin is the centroid of that outline. Operation not confirmed from a second source. Roles derived: store deliveries of dry and chilled freight, as the mall type receives; it ships nothing."
         }
       ]
@@ -9759,13 +9903,13 @@
           "type": "shopping_mall",
           "lat": 40.68374,
           "lon": -80.10403,
-          "ships": [
+          "ships": [],
+          "receives": [
             "retail",
             "general",
             "food",
             "refrigerated"
           ],
-          "receives": [],
           "source_note": "Read: OpenStreetMap relation 7276490 (landuse=retail, name Cranberry Mall), OpenStreetMap planet file of 2026-11-16; pin is the centroid of that outline. Operation not confirmed from a second source. Roles derived: store deliveries of dry and chilled freight, as the mall type receives; it ships nothing."
         }
       ]

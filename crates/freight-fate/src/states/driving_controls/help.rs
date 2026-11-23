@@ -72,6 +72,8 @@ impl DrivingState {
         let weather = n(Action::Weather);
         let lane = n(Action::Lane);
         let lane_locator = n(Action::LaneLocator);
+        let mirror_left = n(Action::MirrorLeft);
+        let mirror_right = n(Action::MirrorRight);
         let last_announcement = n(Action::LastAnnouncement);
         let cb = n(Action::Cb);
         let copy_last = n(Action::CopyLastSpoken);
@@ -242,6 +244,10 @@ impl DrivingState {
         lines.push(format!(
             "{lane_locator} turns the lane locator on and off: a soft tock once a beat, \
              panned to where you sit in your lane, on lane keeping partial or off."
+        ));
+        lines.push(format!(
+            "{mirror_left} and {mirror_right} check the left or right mirror and blind spot, \
+             briefly focusing traffic audio on that side."
         ));
         lines.push(format!(
             "{last_announcement} repeats the last driving announcement."
@@ -503,17 +509,32 @@ impl DrivingState {
              brake. Swipe down three times as deep for the emergency brake. Stopped, that \
              sets the parking brake, and gas releases it. ",
         );
-        text.push_str(if ctx.settings.lane_is_automated() {
-            "Flick left or right to change lanes. With lane keeping on full, flicks are the \
-             only lane control. "
-        } else {
-            "Flick left or right to change lanes, or swipe left or right and hold to steer. "
+        let lane_full = ctx.settings.lane_is_automated();
+        let tilt = crate::app::tilt::wanted(&ctx.settings);
+        // With tilt on, the flicks are not the only lane control any more.
+        text.push_str(match (lane_full, tilt) {
+            (true, false) => {
+                "Flick left or right to change lanes. With lane keeping on full, flicks are the \
+                 only lane control. "
+            }
+            (true, true) => "Flick left or right to change lanes. ",
+            (false, _) => {
+                "Flick left or right to change lanes, or swipe left or right and hold to steer. "
+            }
         });
+        if tilt {
+            text.push_str(if lane_full {
+                "Tilt the phone left or right to change one lane, and bring it back level \
+                 before the next. "
+            } else {
+                "Tilt the phone left or right to steer. "
+            });
+        }
         text.push_str(
             "Hold one finger still for half a second to straighten the wheel. With cruise \
              off, flick up to turn it on. Double tap to take an exit, pull over, or confirm \
              arrival at a gate. Tap with two fingers to stop speech. Turn two fingers right \
-             like a key to start the engine, and left to stop it once the truck has stopped. \
+             to start the engine, and left to stop it once the truck has stopped. \
              Hold two fingers for the horn. While holding a pedal, a second finger's flicks \
              and holds work the same way. ",
         );
@@ -524,7 +545,21 @@ impl DrivingState {
             ) else {
                 continue;
             };
-            if command != crate::bindings::TouchCommand::Nothing {
+            use crate::bindings::{Action, TouchCommand};
+            // An automatic picks its own gears, and with lane keeping on
+            // full the flicks above are the lane control, so neither has
+            // its second-finger rows read here.
+            let skip = match command {
+                TouchCommand::Nothing => true,
+                TouchCommand::Action(Action::ShiftUp | Action::ShiftDown) => {
+                    self.trip.truck.transmission.automatic
+                }
+                TouchCommand::Action(Action::SteerLeft | Action::SteerRight) => {
+                    lane_full && crate::bindings::touch_second_finger(gesture)
+                }
+                _ => false,
+            };
+            if !skip {
                 text.push_str(&format!("{name}: {}. ", command.label()));
             }
         }

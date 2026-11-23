@@ -20,7 +20,7 @@
 //!
 //! Split over four files: this one (construction, one-shots, loops, the
 //! sustain loop, volumes, shutdown, inspection), `hearken_engine` (the
-//! engine ring, the ignition crossfade, `update`), `hearken_music` (music
+//! engine ring, ignition, `update`), `hearken_music` (music
 //! tracks and playlist files) and `hearken_radio` (live stations).
 
 use std::cell::Cell;
@@ -105,6 +105,8 @@ pub(super) fn bus_of(category: Category) -> Bus {
     match category {
         Category::Engine => Bus("engine"),
         Category::Weather => Bus("weather"),
+        Category::Outside => Bus("outside"),
+        Category::Road => Bus("road"),
         Category::Ui => Bus::UI,
         Category::Siren => Bus("siren"),
         Category::Sfx => Bus::EFFECTS,
@@ -207,17 +209,11 @@ pub struct HearkenBackend {
     /// The legacy single pitched loop, when that model is running.
     pub(super) engine_sound: Option<Sound>,
     pub(super) engine_bands: Vec<EngineBand>,
+    pub(super) engine_stereo_ring: bool,
     pub(super) engine_voice_classic: bool,
-    /// The ignition one-shot, its level before the crossfade, and the
-    /// crossfade multiplier the fade writes.
-    pub(super) engine_intro_sound: Option<Sound>,
-    pub(super) crank_base: f32,
-    pub(super) crank_gain: Rc<Cell<f64>>,
-    pub(super) crank_applied: f64,
+    pub(super) engine_ignition: ff_core::engine_audio::IgnitionPlayback<Sound>,
     pub(super) engine_intro_gain: Rc<Cell<f64>>,
-    pub(super) engine_intro_load: Rc<Cell<f64>>,
-    pub(super) engine_starting: Rc<Cell<bool>>,
-    pub(super) intro_applied: (f64, f64),
+    pub(super) intro_applied: f64,
     pub(super) engine_last_rpm: f64,
     pub(super) engine_last_throttle: f64,
     /// The driver window's lift on the tire loop, 1.0 with it up.
@@ -315,15 +311,11 @@ impl HearkenBackend {
             engine_running: false,
             engine_sound: None,
             engine_bands: Vec::new(),
+            engine_stereo_ring: false,
             engine_voice_classic: false,
-            engine_intro_sound: None,
-            crank_base: 0.0,
-            crank_gain: Rc::new(Cell::new(1.0)),
-            crank_applied: 1.0,
+            engine_ignition: ff_core::engine_audio::IgnitionPlayback::Inactive,
             engine_intro_gain: Rc::new(Cell::new(1.0)),
-            engine_intro_load: Rc::new(Cell::new(0.0)),
-            engine_starting: Rc::new(Cell::new(false)),
-            intro_applied: (1.0, 0.0),
+            intro_applied: 1.0,
             engine_last_rpm: ENGINE_RPM_IDLE,
             engine_last_throttle: 0.0,
             road_lift: 1.0,
@@ -755,7 +747,7 @@ impl HearkenBackend {
         self.exclusive_cues.get(key).copied()
     }
 
-    /// Fades still running (the ignition crossfade schedules three).
+    /// Fades still running on the game thread.
     pub fn fade_count(&self) -> usize {
         self.fades.len()
     }
@@ -779,10 +771,6 @@ impl HearkenBackend {
 
     pub fn engine_intro_gain(&self) -> f64 {
         self.engine_intro_gain.get()
-    }
-
-    pub fn engine_intro_load(&self) -> f64 {
-        self.engine_intro_load.get()
     }
 
     /// The per-band `[rate walk, gain walk]` pairs.

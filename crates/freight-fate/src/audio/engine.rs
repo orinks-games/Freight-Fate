@@ -12,8 +12,8 @@ use super::{
     asset_bytes, Audio, AudioBackend, AudioError, Buses, HearkenBackend, KeyProbe, NullBackend,
     RadioVoicing, SustainLoopSpec, VolumeUpdate, ALERT_HOLD_TIMEOUT_S, CH_AIR, CH_ALERT,
     CH_AMBIENT, CH_CAB_FAN, CH_CAB_WIND, CH_EDGE, CH_HORN, CH_JAKE, CH_LANE_GUIDE, CH_OUTSIDE,
-    CH_RADIO_FX, CH_ROAD, CH_SCALE, CH_SURGE, CH_TRAFFIC_BED, CH_TRAFFIC_SOUNDS, CH_WEATHER,
-    CH_WEATHER_B, CUE_HOLD_TIMEOUT_S, HORN_LOOP, JAKE_BAND_PREFIX, JAKE_CLASSIC_KEY,
+    CH_RADIO_FX, CH_ROAD, CH_ROAD_SONG, CH_SCALE, CH_SURGE, CH_TRAFFIC_BED, CH_TRAFFIC_SOUNDS,
+    CH_WEATHER, CH_WEATHER_B, CUE_HOLD_TIMEOUT_S, HORN_LOOP, JAKE_BAND_PREFIX, JAKE_CLASSIC_KEY,
     JAKE_RECORDED_KEY, SFX_EXTENSIONS,
 };
 
@@ -21,6 +21,9 @@ use super::{
 /// identically (about ±1.4 dB). A caller keeping a hit at or under 1.0
 /// asks for no more than `1.0 / BANK_JITTER.1`.
 pub const BANK_JITTER: (f64, f64) = (0.85, 1.17);
+
+const SHIFT_AUTO_BANK: &str = "vehicle/shift_auto";
+const SHIFT_CAB_BANK: &str = "vehicle/shift_cab";
 
 /// Facade over the active backend; the rest of the game talks only to this.
 pub struct AudioEngine {
@@ -347,6 +350,11 @@ impl Audio for AudioEngine {
         if self.cues_muted && crate::audio::is_game_cue(base) {
             return;
         }
+        let base = if base == SHIFT_AUTO_BANK && !self.bank_keys(SHIFT_CAB_BANK).is_empty() {
+            SHIFT_CAB_BANK
+        } else {
+            base
+        };
         let keys = self.bank_keys(base);
         if keys.is_empty() {
             self.play_with(fallback, volume, pan);
@@ -707,6 +715,8 @@ impl Audio for AudioEngine {
             CH_OUTSIDE[1],
             CH_OUTSIDE[2],
             CH_OUTSIDE[3],
+            // The tires' song, set every frame at the wheel.
+            CH_ROAD_SONG,
         ] {
             self.stop_loop_with(ch, 400);
         }
