@@ -40,11 +40,13 @@ use std::collections::BTreeMap;
 
 use ff_core::data::curves::RouteCurve;
 use ff_core::data::world_models::{CorridorDetail, GradeSegment, Leg, Route, SpeedLimitSample};
+use ff_core::sim::predictive_cruise::{PredictiveCruiseState, JAKE_ANTICIPATE_GRADE_MIN};
 use ff_core::sim::trip::{Trip, TripOptions};
 use ff_core::sim::trip_models::Zone;
 use ff_core::sim::weather::{WeatherKind, WeatherSystem};
 
 use freight_fate::states::driving::DrivingState;
+use freight_fate::states::driving_core::{PCC_PREVIEW_MI, PCC_PREVIEW_STEP_MI};
 
 use crate::transcript_cruise_support::{
     frame, quiet, release_keys, start_drive, BENCH_MILES, DT, MPS_PER_MPH, START_MI,
@@ -224,6 +226,35 @@ struct Sample {
     /// percent grade held for ten miles is a different road from three percent
     /// for a furlong, even though the slope reads the same.
     descent_len_mi: f64,
+    decision: DecisionFrame,
+    selected_predictive: PredictiveCruiseState,
+}
+
+#[derive(Clone, Copy, Debug)]
+struct DecisionFrame {
+    grade_pct: f64,
+    preview_grade: Option<(f64, f64)>,
+    actual_descent_ahead: Option<(f64, f64)>,
+}
+
+impl DecisionFrame {
+    fn capture(d: &DrivingState) -> Self {
+        let mile = d.trip.position_mi;
+        let grade_samples = d.grade_samples(PCC_PREVIEW_MI);
+        let actual_descent_ahead = grade_samples
+            .iter()
+            .enumerate()
+            .find(|(_, grade)| **grade <= -JAKE_ANTICIPATE_GRADE_MIN)
+            .map(|(index, grade)| (*grade * 100.0, (index + 1) as f64 * PCC_PREVIEW_STEP_MI));
+
+        Self {
+            grade_pct: d.trip.grade_at(mile) * 100.0,
+            preview_grade: d
+                .preview_grade_ahead()
+                .map(|(grade, ahead_mi)| (grade * 100.0, ahead_mi)),
+            actual_descent_ahead,
+        }
+    }
 }
 
 impl Sample {
@@ -288,15 +319,12 @@ impl Trace {
     /// moves, so the frame a grade ends is read back one pass late by
     /// construction. Anything past [`RELEASE_GRACE_FRAMES`] is a retarder
     /// that stayed up, not a retarder being handed back.
-    fn since_descent(&self, index: usize) -> usize {
-        let mut back = 0;
-        while back <= index {
-            if self.road_class[index - back] == Road::Descent {
-                return back;
-            }
-            back += 1;
-        }
-        index + 1
+    /// Returns `None` before the trace has crossed its first descent.
+    fn since_descent(&self, index: usize) -> Option<usize> {
+        self.road_class[..=index]
+            .iter()
+            .rposition(|road| *road == Road::Descent)
+            .map(|last| index - last)
     }
 }
 
@@ -630,14 +658,14 @@ fn roads() -> Vec<Bench> {
 
 // -- driving one road ------------------------------------------------------------------
 
-fn drive_road(road: &Bench) -> Trace {
+fn drive_road(road: &Bench, predictive_cruise: bool) -> Trace {
     let mut harness = start_drive(road.name);
     harness.app.ctx.settings.time_scale = SWEEP_TIME_SCALE;
     harness.app.ctx.settings.automatic_transmission = true;
-    // Every assist in its shipped default: this is the truck the owner drives.
     harness.app.ctx.settings.curve_speed_assist = true;
     harness.app.ctx.settings.descent_speed_control = "realistic".to_string();
     harness.app.ctx.settings.speed_keeper = true;
+    harness.app.ctx.settings.predictive_cruise = predictive_cruise;
     release_keys(&mut harness);
 
     let grades = road.grades.clone();
@@ -685,6 +713,7 @@ fn drive_road(road: &Bench) -> Trace {
     let mut track_grade = Vec::with_capacity(total);
     let mut previous_stage = harness.read_drive(|d| d.truck().engine_brake_stage);
     for index in 0..total {
+        let decision = harness.read_drive(DecisionFrame::capture);
         frame(&mut harness, DT);
         let (mile, mph, grade_pct) = harness.read_drive(|d| {
             (
@@ -696,7 +725,7 @@ fn drive_road(road: &Bench) -> Trace {
         track.push((mile, mph));
         track_grade.push(grade_pct);
         road_class.push(Road::of(grade_pct));
-        match harness.with_drive(|d, _| sample_frame(d, road.name, index)) {
+        match harness.with_drive(|d, _| sample_frame(d, road.name, index, decision)) {
             Some(sample) => {
                 if sample.stage > previous_stage {
                     rises.push(sample.clone());
@@ -719,7 +748,12 @@ fn drive_road(road: &Bench) -> Trace {
 }
 
 /// The retarder's state this frame, and everything that could have asked for it.
-fn sample_frame(d: &mut DrivingState, road_name: &'static str, index: usize) -> Option<Sample> {
+fn sample_frame(
+    d: &mut DrivingState,
+    road_name: &'static str,
+    index: usize,
+    decision: DecisionFrame,
+) -> Option<Sample> {
     let stage = d.truck().engine_brake_stage;
     if stage <= 0 {
         return None;
@@ -771,6 +805,8 @@ fn sample_frame(d: &mut DrivingState, road_name: &'static str, index: usize) -> 
         curve_cap: d.cruise_curve_mph,
         zone,
         descent_len_mi: descent_length_mi(d, mile),
+        decision,
+        selected_predictive: d.predictive_cruise,
     })
 }
 
@@ -1010,7 +1046,11 @@ fn print_tables(traces: &[Trace]) {
 
 /// Every frame where something retarded off a downgrade, past the pass the
 /// controller needs to notice the grade ended.
-fn off_grade(traces: &[Trace], causes: &[Cause], barking_only: bool) -> Vec<String> {
+fn off_grade_samples<'a>(
+    traces: &'a [Trace],
+    causes: &[Cause],
+    barking_only: bool,
+) -> Vec<(&'a Trace, &'a Sample, Option<usize>)> {
     let mut out = Vec::new();
     for trace in traces {
         for sample in &trace.retarding {
@@ -1023,21 +1063,143 @@ fn off_grade(traces: &[Trace], causes: &[Cause], barking_only: bool) -> Vec<Stri
             if sample.road() == Road::Descent {
                 continue;
             }
-            if trace.since_descent(sample.index) <= RELEASE_GRACE_FRAMES {
+            let since_descent = trace.since_descent(sample.index);
+            if since_descent.is_some_and(|frames| frames <= RELEASE_GRACE_FRAMES) {
                 continue;
             }
-            out.push(format!(
-                "{} at mile {:.2}, grade {:+.2}% [{}], {} frames past the grade: {}",
-                sample.road_name,
-                sample.mile,
-                sample.grade_pct,
-                sample.road().label(),
-                trace.since_descent(sample.index),
-                sample.cause_line()
-            ));
+            out.push((trace, sample, since_descent));
         }
     }
     out
+}
+
+fn off_grade_description(sample: &Sample, since_descent: Option<usize>) -> String {
+    let timing = since_descent.map_or_else(
+        || "before the first descent (no prior descent)".to_string(),
+        |frames| format!("{frames} frames since the last descent"),
+    );
+    format!(
+        "{} at mile {:.2}, grade {:+.2}% [{}], {timing}: {}",
+        sample.road_name,
+        sample.mile,
+        sample.grade_pct,
+        sample.road().label(),
+        sample.cause_line()
+    )
+}
+
+fn off_grade(traces: &[Trace], causes: &[Cause], barking_only: bool) -> Vec<String> {
+    off_grade_samples(traces, causes, barking_only)
+        .into_iter()
+        .map(|(_, sample, since_descent)| off_grade_description(sample, since_descent))
+        .collect()
+}
+
+#[derive(Clone, Copy, Debug)]
+struct PredictiveEvidence {
+    cause: Cause,
+    state: PredictiveCruiseState,
+    current_road: Road,
+    stage: i32,
+    preview_grade: Option<(f64, f64)>,
+    actual_descent_ahead: Option<(f64, f64)>,
+}
+
+fn predictive_evidence(sample: &Sample) -> PredictiveEvidence {
+    PredictiveEvidence {
+        cause: sample.cause,
+        state: sample.selected_predictive,
+        current_road: Road::of(sample.decision.grade_pct),
+        stage: sample.stage,
+        preview_grade: sample.decision.preview_grade,
+        actual_descent_ahead: sample.decision.actual_descent_ahead,
+    }
+}
+
+fn valid_predictive_anticipation(evidence: PredictiveEvidence) -> bool {
+    let PredictiveCruiseState::JakeAnticipating { target_stage } = evidence.state else {
+        return false;
+    };
+    let qualifying_downhill = |grade_distance: Option<(f64, f64)>| {
+        grade_distance.is_some_and(|(grade_pct, ahead_mi)| {
+            grade_pct <= -JAKE_ANTICIPATE_GRADE_MIN * 100.0
+                && ahead_mi > 0.0
+                && ahead_mi <= PCC_PREVIEW_MI
+        })
+    };
+
+    evidence.cause == Cause::Cruise
+        && evidence.current_road != Road::Climb
+        && evidence.stage > 0
+        && evidence.stage <= target_stage
+        && qualifying_downhill(evidence.preview_grade)
+        && qualifying_downhill(evidence.actual_descent_ahead)
+}
+
+fn verified_anticipation_evidence() -> PredictiveEvidence {
+    PredictiveEvidence {
+        cause: Cause::Cruise,
+        state: PredictiveCruiseState::JakeAnticipating { target_stage: 2 },
+        current_road: Road::Level,
+        stage: 2,
+        preview_grade: Some((-6.0, 0.8)),
+        actual_descent_ahead: Some((-6.0, 1.0)),
+    }
+}
+
+#[test]
+fn jake_sweep_since_descent_distinguishes_before_and_after() {
+    let trace = Trace {
+        name: "release oracle",
+        frames: 3,
+        track: Vec::new(),
+        track_grade: Vec::new(),
+        road_class: vec![Road::Level, Road::Descent, Road::Level],
+        retarding: Vec::new(),
+        rises: Vec::new(),
+    };
+
+    assert_eq!(trace.since_descent(0), None);
+    assert_eq!(trace.since_descent(1), Some(0));
+    assert_eq!(trace.since_descent(2), Some(1));
+}
+
+#[test]
+fn jake_sweep_anticipation_oracle_accepts_verified_anticipation() {
+    assert!(valid_predictive_anticipation(
+        verified_anticipation_evidence()
+    ));
+}
+
+#[test]
+fn jake_sweep_anticipation_oracle_rejects_stale_and_post_grade_stages() {
+    let valid = verified_anticipation_evidence();
+    assert!(!valid_predictive_anticipation(PredictiveEvidence {
+        actual_descent_ahead: None,
+        ..valid
+    }));
+    assert!(!valid_predictive_anticipation(PredictiveEvidence {
+        preview_grade: None,
+        actual_descent_ahead: None,
+        ..valid
+    }));
+}
+
+#[test]
+fn jake_sweep_anticipation_oracle_rejects_wrong_cause_stage_and_climb() {
+    let valid = verified_anticipation_evidence();
+    assert!(!valid_predictive_anticipation(PredictiveEvidence {
+        cause: Cause::CurveAssist,
+        ..valid
+    }));
+    assert!(!valid_predictive_anticipation(PredictiveEvidence {
+        stage: 3,
+        ..valid
+    }));
+    assert!(!valid_predictive_anticipation(PredictiveEvidence {
+        current_road: Road::Climb,
+        ..valid
+    }));
 }
 
 // -- the sweep -------------------------------------------------------------------------
@@ -1048,7 +1210,7 @@ fn off_grade(traces: &[Trace], causes: &[Cause], barking_only: bool) -> Vec<Stri
     ignore = "sweep: every bench road driven end to end"
 )]
 fn test_the_retarder_only_ever_answers_a_grade() {
-    let traces: Vec<Trace> = roads().iter().map(drive_road).collect();
+    let traces: Vec<Trace> = roads().iter().map(|road| drive_road(road, false)).collect();
     print_tables(&traces);
 
     // The control: a sustained descent HAS to reach for the retarder, or the
@@ -1096,5 +1258,74 @@ fn test_the_retarder_only_ever_answers_a_grade() {
 {:#?}",
         all.len(),
         shown
+    );
+}
+
+#[test]
+#[cfg_attr(
+    not(feature = "slow-tests"),
+    ignore = "sweep: every bench road driven end to end"
+)]
+fn predictive_jake_anticipation_requires_a_qualifying_downgrade() {
+    let traces: Vec<Trace> = roads().iter().map(|road| drive_road(road, true)).collect();
+    let long_descent = traces
+        .iter()
+        .find(|trace| trace.name == "long descent")
+        .expect("the long descent road");
+    assert!(
+        long_descent
+            .retarding
+            .iter()
+            .any(|sample| sample.road() == Road::Descent),
+        "no retarder at all on a sustained six percent descent"
+    );
+
+    let causes = [
+        Cause::Cruise,
+        Cause::CurveAssist,
+        Cause::AutoMode,
+        Cause::Driver,
+    ];
+    let off_grade = off_grade_samples(&traces, &causes, false);
+    let unexpected: Vec<String> = off_grade
+        .iter()
+        .filter(|(_, sample, _)| !valid_predictive_anticipation(predictive_evidence(sample)))
+        .map(|(_, sample, since_descent)| off_grade_description(sample, *since_descent))
+        .collect();
+    let shown: Vec<&String> = unexpected.iter().take(12).collect();
+    assert!(
+        unexpected.is_empty(),
+        "{} off-grade retarder frames lacked verified cruise anticipation; first few: {:#?}",
+        unexpected.len(),
+        shown
+    );
+
+    assert!(
+        long_descent.retarding.iter().any(|sample| {
+            long_descent.since_descent(sample.index).is_none()
+                && valid_predictive_anticipation(predictive_evidence(sample))
+        }),
+        "the long-descent trace never anticipated a qualifying downgrade before the first descent"
+    );
+
+    let last_descent = long_descent
+        .road_class
+        .iter()
+        .rposition(|road| *road == Road::Descent)
+        .expect("the long-descent trace reaches its downgrade");
+    let post_descent_flat = (last_descent + 1..long_descent.frames)
+        .find(|index| {
+            long_descent.road_class[*index] == Road::Level
+                && long_descent
+                    .since_descent(*index)
+                    .is_some_and(|frames| frames > RELEASE_GRACE_FRAMES)
+        })
+        .expect("the long-descent trace reaches a post-descent flat beyond the release grace");
+    assert!(
+        !long_descent
+            .retarding
+            .iter()
+            .any(|sample| sample.index >= post_descent_flat),
+        "the retarder remained raised on the post-descent flat beyond the release grace"
     );
 }
