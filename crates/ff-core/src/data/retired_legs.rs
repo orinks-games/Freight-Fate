@@ -177,6 +177,57 @@ pub const RETIRED_LEGS: &[(&str, &str, &[&str])] = &[
         "fort_wayne_in_us",
         &["ann_arbor_mi_us", "jackson_mi_us", "fort_wayne_in_us"],
     ),
+    // Mountain and Northwest missing roads, 2026-11-23: each leg split at
+    // the city it passes. Each chain is within 4 miles of its old leg:
+    // Astoria to Olympia 122 against 119, Roswell to Lubbock 209 against
+    // 211, Denver to Albuquerque 420 against 423, Trinidad to Pueblo 85
+    // against 86, Burlington to Denver 167 against 168, Billings to
+    // Cheyenne 453 against 457, Eugene to Tri-Cities 327 against 329.
+    (
+        "astoria_or_us",
+        "olympia_wa_us",
+        &["astoria_or_us", "longview_wa_us", "olympia_wa_us"],
+    ),
+    (
+        "roswell_nm_us",
+        "lubbock_tx_us",
+        &["roswell_nm_us", "clovis_nm_us", "lubbock_tx_us"],
+    ),
+    (
+        "denver_co_us",
+        "albuquerque_nm_us",
+        &[
+            "denver_co_us",
+            "alamosa_co_us",
+            "santa_fe_nm_us",
+            "albuquerque_nm_us",
+        ],
+    ),
+    (
+        "trinidad_co_us",
+        "pueblo_co_us",
+        &["trinidad_co_us", "walsenburg_co_us", "pueblo_co_us"],
+    ),
+    (
+        "burlington_co_us",
+        "denver_co_us",
+        &["burlington_co_us", "limon_co_us", "denver_co_us"],
+    ),
+    (
+        "billings_mt_us",
+        "cheyenne_wy_us",
+        &[
+            "billings_mt_us",
+            "casper_wy_us",
+            "wheatland_wy_us",
+            "cheyenne_wy_us",
+        ],
+    ),
+    (
+        "eugene_or_us",
+        "tri_cities_wa_us",
+        &["eugene_or_us", "the_dalles_or_us", "tri_cities_wa_us"],
+    ),
 ];
 
 /// The replacement chain for a retired hop `a` to `b`, in travel order.
