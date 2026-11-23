@@ -235,18 +235,15 @@ fn a_spread_of_legs_has_identical_corridor_detail() {
 #[ignore = "bake: rebuilds the whole baked container (~12s); run with --ignored -- see the module note"]
 fn baked_curves_match_the_screened_jsonl_table() {
     let json = json_world();
-    let curves_text = std::fs::read_to_string(
-        fixture()
-            .json_dir
-            .join("world_data/us/gameplay/curves.jsonl"),
-    )
-    .expect("curves.jsonl");
-    let artifacts_text = std::fs::read_to_string(
-        fixture()
-            .json_dir
-            .join("world_data/us/gameplay/curve_artifacts.jsonl"),
-    )
-    .expect("curve_artifacts.jsonl");
+    // Every country's table, joined as the loader joins them: the container
+    // carries Canada's curves too.
+    let json_dir = &fixture().json_dir;
+    let curves_text =
+        ff_core::data::data_resources::country_gameplay_text_at(json_dir, "curves.jsonl")
+            .expect("curves.jsonl");
+    let artifacts_text =
+        ff_core::data::data_resources::country_gameplay_text_at(json_dir, "curve_artifacts.jsonl")
+            .expect("curve_artifacts.jsonl");
     let want: HashMap<String, Vec<CurveRecord>> =
         curves::build_from_sources(&curves_text, &artifacts_text, &json);
     let got = curves::load();

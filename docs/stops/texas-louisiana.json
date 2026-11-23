@@ -1,7 +1,7 @@
 {
  "about": "Curated stops for the Texas and Louisiana legs (missing roads brief 3, 2026-11-23), placed by cargo tools osm-stops --stops. Started from every stop the region's legs already carried with coordinates and a source, including the legs retired for chains, copied as they were (their readings and sources kept; the leg mile, exit and approach fields belong to one leg's drive and are left to the placing tool), then added to for the new legs from the OpenStreetMap planet file. lat, lon, reach_mi, season and heading steer placement; every other key is the stop as the game reads it.",
  "truck_access": {
-  "read": 49,
+  "read": 41,
   "assumed": 35,
   "carried": 266,
   "about": "Counts for the stops added in the missing roads pass. Read: OpenStreetMap hgv=yes on the chain's services area. Assumed: a state rest area or roadside park on a numbered highway that carries tractor-trailers, with no truck parking tagged. Carried: stops the region's legs already had, copied with their own sources."
@@ -6059,32 +6059,6 @@
    "season": "year round"
   },
   {
-   "name": "QuikTrip Abilene",
-   "type": "travel_center",
-   "lat": 32.48952,
-   "lon": -99.74589,
-   "reach_mi": 0.5,
-   "actions": [
-    "park",
-    "save",
-    "fuel",
-    "food",
-    "break",
-    "sleep"
-   ],
-   "services": [
-    "diesel",
-    "food",
-    "parking"
-   ],
-   "parking": "confirmed",
-   "curation": "curated",
-   "vehicle_access": "tractor_trailer",
-   "vehicle_access_basis": "read",
-   "source": "OpenStreetMap highway=services, name \"QuikTrip\", brand QuikTrip, hgv=yes: position, brand and truck access read from the OpenStreetMap planet file of 2026-11-16. QuikTrip runs it as a truck stop. Diesel and food assumed from the chain's travel center format. Open all year assumed. Leg mile projected onto the leg's archived road (missing roads pass, 2026-11-23). Town in the name: the nearest OpenStreetMap place.",
-   "season": "year round"
-  },
-  {
    "name": "Callahan County Eastbound Rest Area",
    "type": "public_rest_area",
    "lat": 32.42766,
@@ -6601,32 +6575,6 @@
    "season": "year round"
   },
   {
-   "name": "QuikTrip Rowlett",
-   "type": "travel_center",
-   "lat": 32.84998,
-   "lon": -96.56783,
-   "reach_mi": 0.5,
-   "actions": [
-    "park",
-    "save",
-    "fuel",
-    "food",
-    "break",
-    "sleep"
-   ],
-   "services": [
-    "diesel",
-    "food",
-    "parking"
-   ],
-   "parking": "confirmed",
-   "curation": "curated",
-   "vehicle_access": "tractor_trailer",
-   "vehicle_access_basis": "read",
-   "source": "OpenStreetMap highway=services, name \"QuikTrip\", brand QuikTrip, hgv=yes: position, brand and truck access read from the OpenStreetMap planet file of 2026-11-16. QuikTrip runs it as a truck stop. Diesel and food assumed from the chain's travel center format. Open all year assumed. Leg mile projected onto the leg's archived road (missing roads pass, 2026-11-23). Town in the name: the nearest OpenStreetMap place.",
-   "season": "year round"
-  },
-  {
    "name": "TA Rockwall",
    "type": "travel_center",
    "lat": 32.90652,
@@ -6705,32 +6653,6 @@
    "season": "year round"
   },
   {
-   "name": "QuikTrip Greenville",
-   "type": "travel_center",
-   "lat": 33.11602,
-   "lon": -96.09645,
-   "reach_mi": 0.5,
-   "actions": [
-    "park",
-    "save",
-    "fuel",
-    "food",
-    "break",
-    "sleep"
-   ],
-   "services": [
-    "diesel",
-    "food",
-    "parking"
-   ],
-   "parking": "confirmed",
-   "curation": "curated",
-   "vehicle_access": "tractor_trailer",
-   "vehicle_access_basis": "read",
-   "source": "OpenStreetMap highway=services, name \"QuikTrip\", brand QuikTrip, hgv=yes: position, brand and truck access read from the OpenStreetMap planet file of 2026-11-16. QuikTrip runs it as a truck stop. Diesel and food assumed from the chain's travel center format. Open all year assumed. Leg mile projected onto the leg's archived road (missing roads pass, 2026-11-23). Town in the name: the nearest OpenStreetMap place.",
-   "season": "year round"
-  },
-  {
    "name": "Sutton County Westbound Rest Area",
    "type": "public_rest_area",
    "lat": 30.61598,
@@ -6774,32 +6696,6 @@
    "vehicle_access": "tractor_trailer",
    "vehicle_access_basis": "assumed",
    "source": "OpenStreetMap highway=rest_area, name 'Sutton County Eastbound Rest Area', operator Texas Department of Transportation: position read from the OpenStreetMap planet file of 2026-11-16; restrooms read (toilets=yes); truck access assumed: a state rest area on a numbered highway that carries tractor-trailers, with no truck parking tagged in OpenStreetMap. Open all year assumed. Leg mile projected onto the leg's archived road (missing roads pass, 2026-11-23).",
-   "season": "year round"
-  },
-  {
-   "name": "QuikTrip Decatur",
-   "type": "travel_center",
-   "lat": 33.22729,
-   "lon": -97.59194,
-   "reach_mi": 0.5,
-   "actions": [
-    "park",
-    "save",
-    "fuel",
-    "food",
-    "break",
-    "sleep"
-   ],
-   "services": [
-    "diesel",
-    "food",
-    "parking"
-   ],
-   "parking": "confirmed",
-   "curation": "curated",
-   "vehicle_access": "tractor_trailer",
-   "vehicle_access_basis": "read",
-   "source": "OpenStreetMap highway=services, name \"QuikTrip\", brand QuikTrip, hgv=yes: position, brand and truck access read from the OpenStreetMap planet file of 2026-11-16. QuikTrip runs it as a truck stop. Diesel and food assumed from the chain's travel center format. Open all year assumed. Leg mile projected onto the leg's archived road (missing roads pass, 2026-11-23). Town in the name: the nearest OpenStreetMap place.",
    "season": "year round"
   },
   {
@@ -7086,32 +6982,6 @@
    "season": "year round"
   },
   {
-   "name": "QuikTrip Weatherford",
-   "type": "travel_center",
-   "lat": 32.72948,
-   "lon": -97.81958,
-   "reach_mi": 0.5,
-   "actions": [
-    "park",
-    "save",
-    "fuel",
-    "food",
-    "break",
-    "sleep"
-   ],
-   "services": [
-    "diesel",
-    "food",
-    "parking"
-   ],
-   "parking": "confirmed",
-   "curation": "curated",
-   "vehicle_access": "tractor_trailer",
-   "vehicle_access_basis": "read",
-   "source": "OpenStreetMap highway=services, name \"QuikTrip\", brand QuikTrip, hgv=yes: position, brand and truck access read from the OpenStreetMap planet file of 2026-11-16. QuikTrip runs it as a truck stop. Diesel and food assumed from the chain's travel center format. Open all year assumed. Leg mile projected onto the leg's archived road (missing roads pass, 2026-11-23). Town in the name: the nearest OpenStreetMap place.",
-   "season": "year round"
-  },
-  {
    "name": "Love's Travel Stop Angleton",
    "type": "travel_center",
    "lat": 29.19572,
@@ -7302,32 +7172,6 @@
    "season": "year round"
   },
   {
-   "name": "QuikTrip Aldine",
-   "type": "travel_center",
-   "lat": 29.92994,
-   "lon": -95.2979,
-   "reach_mi": 0.5,
-   "actions": [
-    "park",
-    "save",
-    "fuel",
-    "food",
-    "break",
-    "sleep"
-   ],
-   "services": [
-    "diesel",
-    "food",
-    "parking"
-   ],
-   "parking": "confirmed",
-   "curation": "curated",
-   "vehicle_access": "tractor_trailer",
-   "vehicle_access_basis": "read",
-   "source": "OpenStreetMap highway=services, name \"QuikTrip\", brand QuikTrip, hgv=yes: position, brand and truck access read from the OpenStreetMap planet file of 2026-11-16. QuikTrip runs it as a truck stop. Diesel and food assumed from the chain's travel center format. Open all year assumed. Leg mile projected onto the leg's archived road (missing roads pass, 2026-11-23). Town in the name: the nearest OpenStreetMap place.",
-   "season": "year round"
-  },
-  {
    "name": "Flying J Travel Center Woodbranch",
    "type": "travel_center",
    "lat": 30.19264,
@@ -7351,32 +7195,6 @@
    "vehicle_access": "tractor_trailer",
    "vehicle_access_basis": "read",
    "source": "OpenStreetMap highway=services, name \"Flying J Travel Center\", brand Flying J, hgv=yes: position, brand and truck access read from the OpenStreetMap planet file of 2026-11-16. Pilot Flying J runs it as a truck stop. Diesel and food assumed from the chain's travel center format. Open all year assumed. Leg mile projected onto the leg's archived road (missing roads pass, 2026-11-23). Town in the name: the nearest OpenStreetMap place.",
-   "season": "year round"
-  },
-  {
-   "name": "QuikTrip Cleveland",
-   "type": "travel_center",
-   "lat": 30.35115,
-   "lon": -95.08939,
-   "reach_mi": 0.5,
-   "actions": [
-    "park",
-    "save",
-    "fuel",
-    "food",
-    "break",
-    "sleep"
-   ],
-   "services": [
-    "diesel",
-    "food",
-    "parking"
-   ],
-   "parking": "confirmed",
-   "curation": "curated",
-   "vehicle_access": "tractor_trailer",
-   "vehicle_access_basis": "read",
-   "source": "OpenStreetMap highway=services, name \"QuikTrip\", brand QuikTrip, hgv=yes: position, brand and truck access read from the OpenStreetMap planet file of 2026-11-16. QuikTrip runs it as a truck stop. Diesel and food assumed from the chain's travel center format. Open all year assumed. Leg mile projected onto the leg's archived road (missing roads pass, 2026-11-23). Town in the name: the nearest OpenStreetMap place.",
    "season": "year round"
   },
   {
@@ -7960,32 +7778,6 @@
    "vehicle_access": "tractor_trailer",
    "vehicle_access_basis": "assumed",
    "source": "OpenStreetMap highway=rest_area, name 'Picnic Area', operator Texas Department of Transportation, opening_hours 24/7: position read from the OpenStreetMap planet file of 2026-11-16. Name derived: a picnic area named for the nearest OpenStreetMap place. Truck access assumed: a state picnic area on a numbered highway that carries tractor-trailers, with no truck parking tagged in OpenStreetMap. Open all year assumed. Leg mile projected onto the leg's archived road (missing roads pass, 2026-11-23).",
-   "season": "year round"
-  },
-  {
-   "name": "QuikTrip Gainesville",
-   "type": "travel_center",
-   "lat": 33.63955,
-   "lon": -97.15422,
-   "reach_mi": 0.5,
-   "actions": [
-    "park",
-    "save",
-    "fuel",
-    "food",
-    "break",
-    "sleep"
-   ],
-   "services": [
-    "diesel",
-    "food",
-    "parking"
-   ],
-   "parking": "confirmed",
-   "curation": "curated",
-   "vehicle_access": "tractor_trailer",
-   "vehicle_access_basis": "read",
-   "source": "OpenStreetMap highway=services, name \"QuikTrip\", brand QuikTrip, hgv=yes: position, brand and truck access read from the OpenStreetMap planet file of 2026-11-16. QuikTrip runs it as a truck stop. Diesel and food assumed from the chain's travel center format. Open all year assumed. Leg mile projected onto the leg's archived road (missing roads pass, 2026-11-23). Town in the name: the nearest OpenStreetMap place.",
    "season": "year round"
   },
   {

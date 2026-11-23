@@ -167,3 +167,32 @@ fn a_new_leg_ends_past_its_halfway_mark() {
         }
     }
 }
+
+/// The toll roads these legs ride are charged, at the authorities' five-axle
+/// rates: College Station to Houston and McKinney to Fort Worth rode their
+/// tollways for free before.
+#[test]
+fn the_region_toll_roads_are_charged() {
+    let world = world();
+    let cases: &[(&str, &str, f64)] = &[
+        ("paris_tx_us", "mcalester_ok_us", 12.35),
+        ("port_fourchon_la_us", "houma_la_us", 21.00),
+        ("port_fourchon_la_us", "new_orleans_la_us", 21.00),
+        ("fort_worth_tx_us", "stephenville_tx_us", 7.12),
+        ("mckinney_tx_us", "fort_worth_tx_us", 21.16),
+        ("college_station_tx_us", "houston_tx_us", 32.72),
+        ("austin_tx_us", "victoria_tx_us", 5.36),
+    ];
+    for &(a, b, total) in cases {
+        let leg = world
+            .legs
+            .iter()
+            .find(|leg| leg.a == a && leg.b == b)
+            .unwrap_or_else(|| panic!("{a} -> {b} is not on the map"));
+        let charged: f64 = leg.toll_events().iter().map(|t| t.amount).sum();
+        assert!(
+            (charged - total).abs() < 0.005,
+            "{a} -> {b} charges {charged}, not {total}"
+        );
+    }
+}

@@ -132,7 +132,8 @@ pub const RETIRED_LEGS: &[(&str, &str, &[&str])] = &[
         "yuma_az_us",
         "phoenix_az_us",
         &["yuma_az_us", "buckeye_az_us", "phoenix_az_us"],
-    ),    // I-44, 713 mi: missing roads pass (Texas and Louisiana), 2026-11-23.
+    ),
+    // I-44, 713 mi: missing roads pass (Texas and Louisiana), 2026-11-23.
     // The chain runs over the I-35 and I-44 legs already on the map.
     (
         "dallas_tx_us",

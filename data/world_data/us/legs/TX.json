@@ -40334,6 +40334,19 @@
             "name": "Victoria County",
             "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
           }
+        ],
+        "toll_events": [
+          {
+            "name": "SH 45 Southeast plaza",
+            "at_mi": 15.5,
+            "road": "SH 45 Southeast",
+            "authority": "Texas Department of Transportation",
+            "method": "transponder",
+            "amount": 5.36,
+            "amount_plate": 8.04,
+            "estimated": false,
+            "source": "TxDOT Central Texas Turnpike System toll rates effective 2026-01-01, SH 45 SE Mainlane Plaza between N. Turnersville and Palmer roads (S45-SELMP), 5+ axle: 5.36 TxTag, 8.04 non-tag, read 2026-11-23: https://www.txdot.gov/discover/toll-roads-managed-lanes/txdot-toll-roads/central-texas-turnpike-system-toll-rates.html . Gantry position read from OpenStreetMap (the TX-45 gantry between those roads), leg mile projected onto the leg's archived road (missing roads pass, 2026-11-23). The leg then rides SH 130 segment 5 toward Lockhart, which is not priced here: its operator posts rates by vehicle class and plaza names with no plaza locations."
+          }
         ]
       },
       "rerouted": true,
@@ -69406,7 +69419,53 @@
             "mile_scale": 1.0051,
             "source": "FHWA Highway Performance Monitoring System (HPMS) Surface_Type (Item 49) and Structure_Type (Item 4), codes per the HPMS Field Manual, Chapter 4 (https://www.fhwa.dot.gov/policyinformation/hpms/fieldmanual/page06.cfm and page04.cfm), read from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view), accessed 2026-11-20. The class and the structure are READ. Mileage is DERIVED: each section's longest geometry piece projected onto the archived leg road and rescaled to the leg's miles, read in 0.005-mile bins, the highest functional class nearest the road winning where rows overlap. A run marked inventory_side is ASSUMED: the leg drives the non-inventory carriageway there, which HPMS gives no surface of its own, and the inventory carriageway's reading within 250 m is applied to it (meta inventory_share_* gives how much of the leg). A structure's hpms_mi is READ: the milepoint length of the HPMS sections behind it, each once. mile_scale is leg miles per measured mile of the archived road. Each surface entry reads 'from_mi to_mi class', then forward or reverse when it holds one way only, then iri=, faulting= and inventory_side where they apply; each structure reads 'from_mi to_mi kind', the way, then hpms= (its HPMS length). iri (inches per mile) and faulting (inches) are DERIVED: the mean of the section readings inside the run. Where HPMS has no reading nothing is written. HPMS reports bridge-sized culverts as bridges."
           }
-        }
+        },
+        "toll_events": [
+          {
+            "name": "SH 249 Tollway, FM 1774 gantry",
+            "at_mi": 44.9,
+            "road": "SH 249 Tollway",
+            "authority": "Texas Department of Transportation",
+            "method": "transponder",
+            "amount": 10.6,
+            "amount_plate": 15.92,
+            "estimated": false,
+            "source": "TxDOT SH 249 Project toll rates effective 2026-01-01, 5+ axle, mainlane gantry north of CR 115 (249-174ML, Section 1B): 10.60 TxTag, 15.92 non-tag, read 2026-11-23: https://www.txdot.gov/discover/toll-roads-managed-lanes/txdot-toll-roads/sh249-project-toll-rates.html . Gantry matched by its statement code to the OpenStreetMap gantry FM 1774 MLG (derived), leg mile projected onto the leg's archived road (missing roads pass, 2026-11-23)."
+          },
+          {
+            "name": "SH 249 Tollway, FM 1486 gantry",
+            "at_mi": 53.8,
+            "road": "SH 249 Tollway",
+            "authority": "Texas Department of Transportation",
+            "method": "transponder",
+            "amount": 8.12,
+            "amount_plate": 12.2,
+            "estimated": false,
+            "source": "TxDOT SH 249 Project toll rates effective 2026-01-01, 5+ axle, mainlane gantry north of FM 149 (249-148ML, Section 1A): 8.12 TxTag, 12.20 non-tag, read 2026-11-23: https://www.txdot.gov/discover/toll-roads-managed-lanes/txdot-toll-roads/sh249-project-toll-rates.html . Gantry matched by its statement code to the OpenStreetMap gantry FM 1486 MLG (derived), leg mile projected onto the leg's archived road (missing roads pass, 2026-11-23). The Montgomery County stretch of SH 249 (Decker Prairie gantry, mile 58.3) is not priced: no five-axle table for it was read."
+          },
+          {
+            "name": "Tomball Tollway, Tomball gantry",
+            "at_mi": 66.1,
+            "road": "Tomball Tollway",
+            "authority": "Harris County Toll Road Authority",
+            "method": "transponder",
+            "amount": 7.0,
+            "amount_plate": 7.0,
+            "estimated": true,
+            "source": "Harris County Toll Road Authority rate schedule 'Rates Effective September 12, 2015', five-axle column, Tomball Tollway Mainlane: 7.00 EZ TAG, read 2026-11-23: https://www.hctra.org/-/media/10B739D9B3574853AE8E3D86C100D951 . The schedule prints no five-axle pay-by-mail rate, so the plate amount is the tag amount (assumed). Estimated: the schedule is from 2015 and no newer five-axle table was read. Gantry position read from OpenStreetMap (Tomball MLG), leg mile projected onto the leg's archived road (missing roads pass, 2026-11-23)."
+          },
+          {
+            "name": "Sam Houston Tollway, North plaza",
+            "at_mi": 78.1,
+            "road": "Sam Houston Tollway",
+            "authority": "Harris County Toll Road Authority",
+            "method": "transponder",
+            "amount": 7.0,
+            "amount_plate": 7.0,
+            "estimated": true,
+            "source": "Harris County Toll Road Authority rate schedule 'Rates Effective September 12, 2015', five-axle column, Sam Houston North Plaza: 7.00 EZ TAG, read 2026-11-23: https://www.hctra.org/-/media/10B739D9B3574853AE8E3D86C100D951 . The schedule prints no five-axle pay-by-mail rate, so the plate amount is the tag amount (assumed). Estimated: the schedule is from 2015 and no newer five-axle table was read. Gantry position read from OpenStreetMap (Sam Houston Tollway Gantry), leg mile projected onto the leg's archived road (missing roads pass, 2026-11-23)."
+          }
+        ]
       },
       "terrain": "flat",
       "divided": true,
@@ -93187,29 +93246,6 @@
       "terrain": "flat",
       "stops": [
         {
-          "name": "QuikTrip Rowlett",
-          "type": "travel_center",
-          "actions": [
-            "park",
-            "save",
-            "fuel",
-            "food",
-            "break",
-            "sleep"
-          ],
-          "services": [
-            "diesel",
-            "food",
-            "parking"
-          ],
-          "parking": "confirmed",
-          "curation": "curated",
-          "vehicle_access": "tractor_trailer",
-          "vehicle_access_basis": "read",
-          "source": "OpenStreetMap highway=services, name \"QuikTrip\", brand QuikTrip, hgv=yes: position, brand and truck access read from the OpenStreetMap planet file of 2026-11-16. QuikTrip runs it as a truck stop. Diesel and food assumed from the chain's travel center format. Open all year assumed. Leg mile projected onto the leg's archived road (missing roads pass, 2026-11-23). Town in the name: the nearest OpenStreetMap place.",
-          "at_mi": 15.2
-        },
-        {
           "name": "TA Rockwall",
           "type": "travel_center",
           "actions": [
@@ -93277,29 +93313,6 @@
           "vehicle_access_basis": "read",
           "source": "OpenStreetMap highway=services, name \"Pilot Travel Center\", brand Pilot, hgv=yes: position, brand and truck access read from the OpenStreetMap planet file of 2026-11-16. Pilot runs it as a truck stop. Diesel and food assumed from the chain's travel center format. Open all year assumed. Leg mile projected onto the leg's archived road (missing roads pass, 2026-11-23). Town in the name: the nearest OpenStreetMap place.",
           "at_mi": 42.2
-        },
-        {
-          "name": "QuikTrip Greenville",
-          "type": "travel_center",
-          "actions": [
-            "park",
-            "save",
-            "fuel",
-            "food",
-            "break",
-            "sleep"
-          ],
-          "services": [
-            "diesel",
-            "food",
-            "parking"
-          ],
-          "parking": "confirmed",
-          "curation": "curated",
-          "vehicle_access": "tractor_trailer",
-          "vehicle_access_basis": "read",
-          "source": "OpenStreetMap highway=services, name \"QuikTrip\", brand QuikTrip, hgv=yes: position, brand and truck access read from the OpenStreetMap planet file of 2026-11-16. QuikTrip runs it as a truck stop. Diesel and food assumed from the chain's travel center format. Open all year assumed. Leg mile projected onto the leg's archived road (missing roads pass, 2026-11-23). Town in the name: the nearest OpenStreetMap place.",
-          "at_mi": 49.2
         }
       ],
       "corridor": {
@@ -103981,29 +103994,6 @@
         ]
       },
       "stops": [
-        {
-          "name": "QuikTrip Gainesville",
-          "type": "travel_center",
-          "actions": [
-            "park",
-            "save",
-            "fuel",
-            "food",
-            "break",
-            "sleep"
-          ],
-          "services": [
-            "diesel",
-            "food",
-            "parking"
-          ],
-          "parking": "confirmed",
-          "curation": "curated",
-          "vehicle_access": "tractor_trailer",
-          "vehicle_access_basis": "read",
-          "source": "OpenStreetMap highway=services, name \"QuikTrip\", brand QuikTrip, hgv=yes: position, brand and truck access read from the OpenStreetMap planet file of 2026-11-16. QuikTrip runs it as a truck stop. Diesel and food assumed from the chain's travel center format. Open all year assumed. Leg mile projected onto the leg's archived road (missing roads pass, 2026-11-23). Town in the name: the nearest OpenStreetMap place.",
-          "at_mi": 29.9
-        },
         {
           "name": "Love's Travel Stop Big Cabin",
           "type": "travel_center",
@@ -130643,29 +130633,6 @@
           "at_mi": 29.0
         },
         {
-          "name": "QuikTrip Weatherford",
-          "type": "travel_center",
-          "actions": [
-            "park",
-            "save",
-            "fuel",
-            "food",
-            "break",
-            "sleep"
-          ],
-          "services": [
-            "diesel",
-            "food",
-            "parking"
-          ],
-          "parking": "confirmed",
-          "curation": "curated",
-          "vehicle_access": "tractor_trailer",
-          "vehicle_access_basis": "read",
-          "source": "OpenStreetMap highway=services, name \"QuikTrip\", brand QuikTrip, hgv=yes: position, brand and truck access read from the OpenStreetMap planet file of 2026-11-16. QuikTrip runs it as a truck stop. Diesel and food assumed from the chain's travel center format. Open all year assumed. Leg mile projected onto the leg's archived road (missing roads pass, 2026-11-23). Town in the name: the nearest OpenStreetMap place.",
-          "at_mi": 32.4
-        },
-        {
           "name": "Pilot Travel Center Weatherford",
           "type": "travel_center",
           "source": "OpenStreetMap/Overpass dense in-gap corridor amenity query, accessed 2026-07-19; added to close a stretch with no truck-accessible service after the truck-accessibility sweep. Curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Store identity read from OpenStreetMap (Geofabrik Texas extract dated 2026-06-22, read 2026-09-17): Pilot store at Weatherford; town read from the mapped site's branch name; matched by coordinate, 0.02 mi from the mapped site. CAT Scale read from OpenStreetMap (amenity=weighbridge, brand CAT Scale) within 0.25 mi of the store; Overpass snapshot 2026-09-24, tools/cat_scales.py.",
@@ -133943,7 +133910,7 @@
         "toll_events": [
           {
             "name": "Chisholm Trail Parkway, Montgomery gantry",
-            "at_mi": 5.9,
+            "at_mi": 5.8,
             "road": "Chisholm Trail Parkway",
             "authority": "North Texas Tollway Authority",
             "method": "transponder",
@@ -148246,29 +148213,6 @@
       "terrain": "flat",
       "stops": [
         {
-          "name": "QuikTrip Aldine",
-          "type": "travel_center",
-          "actions": [
-            "park",
-            "save",
-            "fuel",
-            "food",
-            "break",
-            "sleep"
-          ],
-          "services": [
-            "diesel",
-            "food",
-            "parking"
-          ],
-          "parking": "confirmed",
-          "curation": "curated",
-          "vehicle_access": "tractor_trailer",
-          "vehicle_access_basis": "read",
-          "source": "OpenStreetMap highway=services, name \"QuikTrip\", brand QuikTrip, hgv=yes: position, brand and truck access read from the OpenStreetMap planet file of 2026-11-16. QuikTrip runs it as a truck stop. Diesel and food assumed from the chain's travel center format. Open all year assumed. Leg mile projected onto the leg's archived road (missing roads pass, 2026-11-23). Town in the name: the nearest OpenStreetMap place.",
-          "at_mi": 14.1
-        },
-        {
           "name": "Flying J Travel Center Woodbranch",
           "type": "travel_center",
           "actions": [
@@ -148290,29 +148234,6 @@
           "vehicle_access_basis": "read",
           "source": "OpenStreetMap highway=services, name \"Flying J Travel Center\", brand Flying J, hgv=yes: position, brand and truck access read from the OpenStreetMap planet file of 2026-11-16. Pilot Flying J runs it as a truck stop. Diesel and food assumed from the chain's travel center format. Open all year assumed. Leg mile projected onto the leg's archived road (missing roads pass, 2026-11-23). Town in the name: the nearest OpenStreetMap place.",
           "at_mi": 33.4
-        },
-        {
-          "name": "QuikTrip Cleveland",
-          "type": "travel_center",
-          "actions": [
-            "park",
-            "save",
-            "fuel",
-            "food",
-            "break",
-            "sleep"
-          ],
-          "services": [
-            "diesel",
-            "food",
-            "parking"
-          ],
-          "parking": "confirmed",
-          "curation": "curated",
-          "vehicle_access": "tractor_trailer",
-          "vehicle_access_basis": "read",
-          "source": "OpenStreetMap highway=services, name \"QuikTrip\", brand QuikTrip, hgv=yes: position, brand and truck access read from the OpenStreetMap planet file of 2026-11-16. QuikTrip runs it as a truck stop. Diesel and food assumed from the chain's travel center format. Open all year assumed. Leg mile projected onto the leg's archived road (missing roads pass, 2026-11-23). Town in the name: the nearest OpenStreetMap place.",
-          "at_mi": 46.2
         },
         {
           "name": "Love's Travel Stop North Cleveland",
@@ -204404,7 +204325,42 @@
             "mile_scale": 1.0011,
             "source": "FHWA Highway Performance Monitoring System (HPMS) Surface_Type (Item 49) and Structure_Type (Item 4), codes per the HPMS Field Manual, Chapter 4 (https://www.fhwa.dot.gov/policyinformation/hpms/fieldmanual/page06.cfm and page04.cfm), read from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view), accessed 2026-11-20. The class and the structure are READ. Mileage is DERIVED: each section's longest geometry piece projected onto the archived leg road and rescaled to the leg's miles, read in 0.005-mile bins, the highest functional class nearest the road winning where rows overlap. A run marked inventory_side is ASSUMED: the leg drives the non-inventory carriageway there, which HPMS gives no surface of its own, and the inventory carriageway's reading within 250 m is applied to it (meta inventory_share_* gives how much of the leg). A structure's hpms_mi is READ: the milepoint length of the HPMS sections behind it, each once. mile_scale is leg miles per measured mile of the archived road. Each surface entry reads 'from_mi to_mi class', then forward or reverse when it holds one way only, then iri=, faulting= and inventory_side where they apply; each structure reads 'from_mi to_mi kind', the way, then hpms= (its HPMS length). iri (inches per mile) and faulting (inches) are DERIVED: the mean of the section readings inside the run. Where HPMS has no reading nothing is written. HPMS reports bridge-sized culverts as bridges."
           }
-        }
+        },
+        "toll_events": [
+          {
+            "name": "Sam Rayburn Tollway, Custer gantry",
+            "at_mi": 9.3,
+            "road": "Sam Rayburn Tollway",
+            "authority": "North Texas Tollway Authority",
+            "method": "transponder",
+            "amount": 10.56,
+            "amount_plate": 21.12,
+            "estimated": false,
+            "source": "North Texas Tollway Authority toll rate tables effective 2025-07-01 to 2027-06-30, Sam Rayburn Tollway, five-axle vehicle, Custer Main Lane Gantry (MLG3): 10.56 TollTag, 21.12 ZipCash, read 2026-11-23: https://www.ntta.org/sites/default/files/2025-06/NTTAS_2025-2027_Toll%20Rate%20Tables.pdf . Gantry position read from OpenStreetMap (Custer Main Lane Gantry), leg mile projected onto the leg's archived road (missing roads pass, 2026-11-23)."
+          },
+          {
+            "name": "Sam Rayburn Tollway, Josey gantry",
+            "at_mi": 19.9,
+            "road": "Sam Rayburn Tollway",
+            "authority": "North Texas Tollway Authority",
+            "method": "transponder",
+            "amount": 7.64,
+            "amount_plate": 15.28,
+            "estimated": false,
+            "source": "North Texas Tollway Authority toll rate tables effective 2025-07-01 to 2027-06-30, Sam Rayburn Tollway, five-axle vehicle, Josey Main Lane Gantry (MLG2): 7.64 TollTag, 15.28 ZipCash, read 2026-11-23: https://www.ntta.org/sites/default/files/2025-06/NTTAS_2025-2027_Toll%20Rate%20Tables.pdf . Gantry position read from OpenStreetMap (Josey Main Lane Gantry), leg mile projected onto the leg's archived road (missing roads pass, 2026-11-23)."
+          },
+          {
+            "name": "Sam Rayburn Tollway, Denton Tap gantry",
+            "at_mi": 27.4,
+            "road": "Sam Rayburn Tollway",
+            "authority": "North Texas Tollway Authority",
+            "method": "transponder",
+            "amount": 2.96,
+            "amount_plate": 5.92,
+            "estimated": false,
+            "source": "North Texas Tollway Authority toll rate tables effective 2025-07-01 to 2027-06-30, Sam Rayburn Tollway, five-axle vehicle, Denton Tap Main Lane Gantry (MLG1): 2.96 TollTag, 5.92 ZipCash, read 2026-11-23: https://www.ntta.org/sites/default/files/2025-06/NTTAS_2025-2027_Toll%20Rate%20Tables.pdf . Gantry position read from OpenStreetMap (Denton Tap Main Lane Gantry), leg mile projected onto the leg's archived road (missing roads pass, 2026-11-23)."
+          }
+        ]
       },
       "terrain": "flat",
       "divided": true,
@@ -250591,29 +250547,6 @@
       "highway": "US-82",
       "terrain": "flat",
       "stops": [
-        {
-          "name": "QuikTrip Gainesville",
-          "type": "travel_center",
-          "actions": [
-            "park",
-            "save",
-            "fuel",
-            "food",
-            "break",
-            "sleep"
-          ],
-          "services": [
-            "diesel",
-            "food",
-            "parking"
-          ],
-          "parking": "confirmed",
-          "curation": "curated",
-          "vehicle_access": "tractor_trailer",
-          "vehicle_access_basis": "read",
-          "source": "OpenStreetMap highway=services, name \"QuikTrip\", brand QuikTrip, hgv=yes: position, brand and truck access read from the OpenStreetMap planet file of 2026-11-16. QuikTrip runs it as a truck stop. Diesel and food assumed from the chain's travel center format. Open all year assumed. Leg mile projected onto the leg's archived road (missing roads pass, 2026-11-23). Town in the name: the nearest OpenStreetMap place.",
-          "at_mi": 35.8
-        },
         {
           "name": "Love's Travel Stop Wichita Falls",
           "type": "travel_center",
