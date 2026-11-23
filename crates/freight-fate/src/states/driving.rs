@@ -338,8 +338,13 @@ pub struct DrivingState {
     pub chain_bare_cue_pending: bool,
     /// The slap tighten was offered once since the chains went on.
     pub chain_assist_tighten_tried: bool,
-    /// A chain broke this drive and the assist hasn't answered it yet.
+    /// A chain broke this drive and the assist or the co-driver hasn't
+    /// answered it yet.
     pub chain_assist_snapped: bool,
+    /// The chain-law areas the truck rolled into under a posted law: the
+    /// only ones the chain control and the patrol cite in. Not saved: the
+    /// first look after a resume rebuilds it.
+    pub chain_area_entry: ff_core::sim::chain_work::ChainAreaEntry,
     // Curve management: the curve the too-fast warning has been spoken for
     // (its start milepost; the ramp curve has its own id), `driving_rollover`.
     pub curve_warned_mi: Option<f64>,

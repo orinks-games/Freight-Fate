@@ -16,6 +16,10 @@
 - **An open weigh station is announced once, then its exit signal.** The stop callout that repeated it is gone.
 - **Report a problem now says plainly when orinks.net cannot be reached.** It used to read the error text aloud.
 - **A successful cloud restore no longer leaves the newer-copy warning in the Cloud backup menu.**
+- **A co-driver braking downhill no longer cancels their own chain stop.** Chains stayed on bare road and broke.
+- **Chain work your co-driver does no longer adds to your fatigue.** You get one note per job when you wake.
+- **A chain control no longer cites a truck that was already on the grade when the snow began.**
+- **The chain law call no longer says "ahead".**
 
 ### Changed
 

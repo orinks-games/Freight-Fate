@@ -604,29 +604,37 @@ impl DrivingState {
             );
         }
         self.jake_slip_active = slipping;
+        // The co-driver's chain work speaks through their notes; the snap's
+        // damage is theirs to note, not a reason to hand back.
+        let warns = self.chain_worker(ctx).speaks();
         if self.trip.truck.chains_just_snapped {
             self.trip.truck.chains_just_snapped = false;
             self.chain_assist_snapped = true;
+            self.co_driver_saw_damage();
             // The snap is a damage charge, so the line ends with the truck's
             // damage the way a collision's does (issue 533). The warning
             // stays its own literal so its translations still match it.
             let snapped =
                 "A tire chain broke and is flailing. Slow down and pull over to check it.";
             let damage = self.trip.truck.damage_pct;
-            ctx.say_event_with(
-                format!("{snapped} Damage {damage:.0} percent."),
-                SayEvent::new().category(SpeechCategory::Safety),
-            );
+            if warns {
+                ctx.say_event_with(
+                    format!("{snapped} Damage {damage:.0} percent."),
+                    SayEvent::new().category(SpeechCategory::Safety),
+                );
+            }
         }
         if self.trip.truck.chains_on
             && self.trip.truck.chain_wear_pct >= CHAIN_SLAP_WARN_PCT
             && !self.chain_slap_said
         {
             self.chain_slap_said = true;
-            ctx.say_event_with(
-                "A chain is slapping the fender. Stop soon and tighten it.",
-                SayEvent::new().category(SpeechCategory::Safety),
-            );
+            if warns {
+                ctx.say_event_with(
+                    "A chain is slapping the fender. Stop soon and tighten it.",
+                    SayEvent::new().category(SpeechCategory::Safety),
+                );
+            }
         }
         let chains_fast =
             self.trip.truck.chains_on && self.trip.truck.speed_mph() > CHAIN_SAFE_MPH + 2.0;
@@ -682,13 +690,18 @@ impl DrivingState {
     /// the midpoint of an active control out of compliance and the checkpoint
     /// at the bottom of the grade may have your number. One citation per area
     /// per level; the roll is seeded, so a reload does not re-roll the dice.
+    ///
+    /// Only a truck that rolled into the area under a posted law is warned,
+    /// held or cited there (`ChainAreaEntry`): one let onto the grade on a
+    /// bare road meets the snow, not a ticket (owner report, 2026-11-22).
     pub fn update_chain_law(&mut self, ctx: &mut GameContext) {
         let level = self.trip.chain_law_level();
+        let here_area = self.observe_chain_area();
         // The assist pulling in to chain up is not rolling in without chains.
         if level == 0 || self.trip.truck.speed_mph() < 3.0 || self.chain_up_pending() {
             return;
         }
-        let Some(area) = self.trip.chain_law_area_at(self.trip.position_mi) else {
+        let Some(area) = here_area.filter(|area| self.chain_area_entry.under_law(*area)) else {
             return;
         };
         // Winter tires never excuse a semi, except at Wyoming Level 1;
@@ -794,6 +807,17 @@ impl DrivingState {
                 .priority(EventPriority::Important)
                 .category(SpeechCategory::Money),
         );
+    }
+
+    /// Look at the chain-law area the truck is in under the law as it
+    /// stands (`ChainAreaEntry::observe`), and return that area. The
+    /// checkpoint and the patrol both look first; a second look in a frame
+    /// changes nothing.
+    pub fn observe_chain_area(&mut self) -> Option<usize> {
+        let area = self.trip.chain_law_area_at(self.trip.position_mi);
+        self.chain_area_entry
+            .observe(area, self.trip.chain_law_level());
+        area
     }
 
     /// Stop the truck at the chain control with the parking brake set.

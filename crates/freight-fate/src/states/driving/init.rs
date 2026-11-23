@@ -445,6 +445,7 @@ impl DrivingState {
             chain_bare_cue_pending: false,
             chain_assist_tighten_tried: false,
             chain_assist_snapped: false,
+            chain_area_entry: Default::default(),
             curve_warned_mi: None,
             speeding_tickets: 0,
             ticket_fines_paid: 0.0,

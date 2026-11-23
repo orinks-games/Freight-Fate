@@ -93,6 +93,9 @@ fn scenario_properties() -> Value {
         "damage_pct": {"type": "number"},
         "tire_wear_pct": {"type": "number"},
         "brake_wear_pct": {"type": "number"},
+        "chains": {"type": "boolean"},
+        "chain_wear_pct": {"type": "number"},
+        "chain_repair_links": {"type": "integer"},
         "citations": {"type": "integer"},
         "out_of_service_events": {"type": "integer"},
         "rested": {"type": "boolean"},
@@ -326,7 +329,10 @@ fn tools_list() -> Value {
              lugging in a tall gear: the clutch a touch shift works in a manual \
              truck), chain_control (clear, level_1 or level_2: the chain law posted \
              at the truck, which follows snow or ice on the road) and chains \
-             (stowed, on_snow, on_bare or broken), and app (active, inactive or \
+             (stowed, on_snow, on_bare or broken), chain_worker (driver, assist \
+             or co_driver: who does the chain work, whoever holds the wheel) and \
+             chain_stop (none, install, remove, tighten or repair: the roadside \
+             chain stop the assist or the co-driver is making), and app (active, inactive or \
              background: where a phone app is, moved by app_event, with \
              sound_taken after it while an interruption holds the sound). \
              Off the wheel the \
@@ -424,7 +430,10 @@ fn tools_list() -> Value {
              business (company, leased or independent), endorsements (a list of \
              credential keys bought outright, replacing what was held), hour (local \
              clock 0 to 24, moved forward to), fuel_pct, damage_pct, tire_wear_pct and \
-             brake_wear_pct (0 to 100, what a roadside inspection reads), citations and \
+             brake_wear_pct (0 to 100, what a roadside inspection reads), chains (true \
+             puts a set of snow chains aboard, false takes them away), chain_wear_pct \
+             (0 to 100, how worn the set is; near 100 a set snaps soon) and \
+             chain_repair_links (spare links for a broken chain), citations and \
              out_of_service_events (counts on the record, dated now; with damage they set the \
              safety band that decides who is pulled into the inspection lane), \
              rested (true takes a full sleep), first_run (true teaches the first-run \
