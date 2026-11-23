@@ -27,6 +27,7 @@ mod data_domestic_routes;
 mod data_facility_approaches;
 mod data_facility_endpoints;
 mod data_florida_georgia;
+mod data_gameplay_layer_meta;
 mod data_great_lakes;
 mod data_interchanges;
 mod data_lane_data;
