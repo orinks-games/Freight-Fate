@@ -1,22 +1,25 @@
-//! Who does the chain work, and which chain-law areas the truck entered
-//! under a posted law.
+//! Who does the chain work, and which chain-law level the truck entered
+//! each area under.
 //!
-//! With a co-driver at the wheel the chains went on at the control, then
-//! wore out on dry road while the player slept, and the co-driver woke them
-//! with "The truck took damage." (owner report, 2026-11-22). Roadside chain
-//! work had two parties, the player and Facility stopping assistance, and a
-//! co-driver fell between them. The rule is now one table: whoever holds
-//! the wheel does the chain work.
+//! An owner report (2026-11-22) had chains wearing out on dry road with the
+//! co-driver at the wheel. The drive on dev showed assists are lent to the
+//! co-driver, so Facility stopping assistance already did their chain work;
+//! but it spoke the assist's lines to a sleeping player, added the work to
+//! the player's fatigue, and the co-driver's own brake on a descent counted
+//! as driver input and cancelled their stop. This table exists so the
+//! co-driver's work gets their own notes and logbook, and no cancel from
+//! their own pedals.
 //!
 //! - [`ChainWorker`] is who answers a [`ChainCue`]: the driver, the assist,
 //!   or the co-driver at the wheel. [`ChainWorker::answer`] is the only
 //!   place that decides whether a cue is a line for the driver or a stop.
-//! - [`ChainAreaEntry`] records, per chain-law area, whether a law was
-//!   posted when the truck crossed into it. The chain control and the
-//!   patrol cite only a truck that rolled in under a law: one let onto the
-//!   grade on a bare road is not cited there when the snow begins.
+//! - [`ChainAreaEntry`] records, per chain-law area, the level posted when
+//!   the truck crossed into it. The chain control and the patrol hold a
+//!   truck only to a law at or below that level: one let onto the grade on
+//!   a bare road, or legally at a lower level, is not cited there when the
+//!   snow begins or the level is raised.
 
-use std::collections::BTreeSet;
+use std::collections::BTreeMap;
 
 /// The roadside step a chain stop pulls over for.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -124,24 +127,26 @@ impl ChainWorker {
     }
 }
 
-/// Which chain-law areas the truck rolled into under a posted law.
+/// The chain-law level posted when the truck rolled into each area.
 #[derive(Debug, Clone, Default, PartialEq, Eq)]
 pub struct ChainAreaEntry {
     /// The area the truck was in at the last look; `None` before the first.
     inside: Option<Option<usize>>,
-    under_law: BTreeSet<usize>,
+    /// Area index to the level posted as the truck crossed in.
+    entry_level: BTreeMap<usize, i64>,
 }
 
 impl ChainAreaEntry {
     /// One look at the truck: the area it is in now, and the law's level.
     ///
-    /// Crossing into an area with a law posted marks it. The first look
-    /// counts as a crossing, so a resumed save inside an area under a law
-    /// is held to it, as before. A law that comes down forgets every mark:
+    /// Crossing into an area with a law posted records its level. The
+    /// first look counts as a crossing, so a resumed save inside an area
+    /// under a law is held to it, as before. A raise or a lowering after
+    /// entry changes nothing. A law that comes down forgets every mark:
     /// one posted again later posts onto a truck already on the grade.
     pub fn observe(&mut self, area: Option<usize>, level: i64) {
         if level <= 0 {
-            self.under_law.clear();
+            self.entry_level.clear();
         }
         let entered = match self.inside {
             None => area,
@@ -149,14 +154,15 @@ impl ChainAreaEntry {
             Some(_) => None,
         };
         if let Some(area) = entered.filter(|_| level > 0) {
-            self.under_law.insert(area);
+            self.entry_level.insert(area, level);
         }
         self.inside = Some(area);
     }
 
-    /// Whether the truck rolled into `area` under a posted law.
-    pub fn under_law(&self, area: usize) -> bool {
-        self.under_law.contains(&area)
+    /// Whether the truck rolled into `area` under a law at `level` or
+    /// higher, so `level` binds it there.
+    pub fn under_law(&self, area: usize, level: i64) -> bool {
+        level > 0 && self.entry_level.get(&area).is_some_and(|&at| at >= level)
     }
 }
 
@@ -210,7 +216,8 @@ mod tests {
 
     #[test]
     fn area_entry_transition_table() {
-        // (looks so far: area, level), then the area asked about and the answer.
+        // (looks so far: area, level), then the area asked about and the
+        // answer at the level of the last look.
         type Looks = &'static [(Option<usize>, i64)];
         let cases: &[(Looks, usize, bool)] = &[
             // Rolled in under a law.
@@ -227,8 +234,20 @@ mod tests {
                 0,
                 false,
             ),
-            // Raised from 1 to 2 on the grade: still the law it rolled in under.
-            (&[(None, 1), (Some(0), 1), (Some(0), 2)], 0, true),
+            // Raised from 1 to 2 on the grade: posted after entry, not held.
+            (&[(None, 1), (Some(0), 1), (Some(0), 2)], 0, false),
+            // Rolled in at 2, lowered to 1: still held.
+            (&[(None, 2), (Some(0), 2), (Some(0), 1)], 0, true),
+            // Raised to 3, then back to the entry level 2: held again.
+            (
+                &[(None, 2), (Some(0), 2), (Some(0), 3), (Some(0), 2)],
+                0,
+                true,
+            ),
+            // First look inside at 1, raised to 2: held only to 1.
+            (&[(Some(0), 1), (Some(0), 2)], 0, false),
+            // Into the next area at the raised level: held there.
+            (&[(None, 1), (Some(0), 1), (None, 2), (Some(1), 2)], 1, true),
             // Out of one area and into the next under a law.
             (&[(Some(0), 0), (None, 1), (Some(1), 1)], 1, true),
             (&[(Some(0), 0), (None, 1), (Some(1), 1)], 0, false),
@@ -240,7 +259,12 @@ mod tests {
             for &(at, level) in looks {
                 entry.observe(at, level);
             }
-            assert_eq!(entry.under_law(area), want, "{looks:?} asking {area}");
+            let level = looks.last().map_or(0, |&(_, level)| level);
+            assert_eq!(
+                entry.under_law(area, level),
+                want,
+                "{looks:?} asking {area}"
+            );
         }
     }
 }

@@ -692,8 +692,10 @@ impl DrivingState {
     /// per level; the roll is seeded, so a reload does not re-roll the dice.
     ///
     /// Only a truck that rolled into the area under a posted law is warned,
-    /// held or cited there (`ChainAreaEntry`): one let onto the grade on a
-    /// bare road meets the snow, not a ticket (owner report, 2026-11-22).
+    /// held or cited there, and only to a level no higher than the one at
+    /// entry (`ChainAreaEntry`): one let onto the grade on a bare road, or
+    /// legally at a lower level, meets the snow, not a ticket (owner report,
+    /// 2026-11-22).
     pub fn update_chain_law(&mut self, ctx: &mut GameContext) {
         let level = self.trip.chain_law_level();
         let here_area = self.observe_chain_area();
@@ -701,7 +703,8 @@ impl DrivingState {
         if level == 0 || self.trip.truck.speed_mph() < 3.0 || self.chain_up_pending() {
             return;
         }
-        let Some(area) = here_area.filter(|area| self.chain_area_entry.under_law(*area)) else {
+        let Some(area) = here_area.filter(|area| self.chain_area_entry.under_law(*area, level))
+        else {
             return;
         };
         // Winter tires never excuse a semi, except at Wyoming Level 1;

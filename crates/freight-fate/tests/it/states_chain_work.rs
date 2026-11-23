@@ -393,6 +393,38 @@ fn a_law_that_posts_on_the_grade_is_not_cited_there() {
 }
 
 #[test]
+fn a_law_raised_on_the_grade_is_not_cited_there() {
+    // Colorado Level 1 leaves this tandem-drive truck unchained, so it rolls
+    // in legally; ice raises the law to Level 2 past the midpoint.
+    let mut app = TestApp::new();
+    let drive = chain_drive(&mut app, WeatherKind::Snow, false, 1.0, vec![(2.0, 10.0)]);
+    for mile in [1.5, 2.5, 7.0] {
+        with_drive(&drive, |d| d.trip.position_mi = mile);
+        law(&mut app, &drive);
+    }
+    assert_eq!(with_drive(&drive, |d| d.trip.chain_law_level()), 1);
+    assert!(with_drive(&drive, |d| d.trip.rig_compliant_at(7.0)));
+    with_drive(&drive, |d| d.trip.weather.current = WeatherKind::Ice);
+    app.clear_speech();
+    for _ in 0..3 {
+        law(&mut app, &drive);
+    }
+    assert_eq!(with_drive(&drive, |d| d.trip.chain_law_level()), 2);
+    assert!(!with_drive(&drive, |d| d.chain_checkpoint_hold));
+    assert!(with_drive(&drive, |d| d.chain_law_cited.is_empty()));
+    let said = app.event_lines();
+    assert!(
+        !said.iter().any(|l| l.starts_with("Rolling into")),
+        "{said:?}"
+    );
+    let sample = with_drive(&drive, |d| {
+        let post = d.trip.chain_posts().remove(0);
+        d.road_sample(&post)
+    });
+    assert!(!sample.chains_required, "{sample:?}");
+}
+
+#[test]
 fn the_assist_and_the_co_driver_chain_up_on_the_grade_when_the_law_posts() {
     let mut app = TestApp::new();
     let drive = snow_on_the_grade(&mut app, true);

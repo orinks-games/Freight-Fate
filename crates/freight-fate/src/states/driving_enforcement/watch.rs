@@ -70,11 +70,14 @@ impl DrivingState {
         // (the checkpoint's own rule, `update_chain_law`).
         // A truck braking into the chain-up area to chain up is complying,
         // and one that rolled onto the grade before the law posted is not
-        // held to it there (`ChainAreaEntry`).
+        // held to it there, nor to a level raised after it rolled in
+        // (`ChainAreaEntry`).
         let chain_level = match self.observe_chain_area() {
             Some(area)
                 if !self.chain_up_pending()
-                    && self.chain_area_entry.under_law(area)
+                    && self
+                        .chain_area_entry
+                        .under_law(area, self.trip.chain_law_level())
                     && !self.trip.rig_compliant_at(position)
                     && !self
                         .chain_law_cited
