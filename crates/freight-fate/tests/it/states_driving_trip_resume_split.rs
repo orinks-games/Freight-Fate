@@ -3,7 +3,9 @@
 //!
 //! Chicago -> St. Louis was one 298-mile I-55 leg; it is now Chicago,
 //! Joliet, Bloomington, Springfield and St. Louis, about 302 miles of the
-//! same road.
+//! same road. The Northeast roads (2026-11-23) did the same to Buffalo ->
+//! New York, a 468-mile Thruway leg that is now Buffalo, Newburgh and New
+//! York, about 465 miles.
 
 use ff_core::models::profile::Profile;
 use freight_fate::app::testing::TestApp;
@@ -55,4 +57,44 @@ fn a_save_on_the_old_chicago_to_st_louis_leg_resumes_on_its_pieces() {
         ]
     );
     assert_eq!(drive.trip.position_mi, 150.0);
+}
+
+#[test]
+fn a_save_on_the_old_buffalo_to_new_york_leg_resumes_on_its_pieces() {
+    let mut app = TestApp::new();
+    let mut p = Profile::named("Thruway Save");
+    p.active_trip = Some(json!({
+        "job": {
+            "cargo": "general",
+            "weight_tons": 14.0,
+            "origin": "Buffalo",
+            "origin_location": "Buffalo freight market",
+            "destination": "New York",
+            "distance_mi": 468.0,
+            "pay": 1800.0,
+            "deadline_game_h": 16.0,
+            "market_mult": 1.0,
+        },
+        "route_cities": ["Buffalo", "New York"],
+        "trip_seed": 4321,
+        "position_mi": 300.0,
+        "game_minutes": 300.0,
+        "start_damage": 0.0,
+    }));
+    app.ctx.profile = Some(p);
+
+    enter_world(&mut app.ctx, false);
+
+    let state = app.state().expect("a state");
+    let state = state.borrow();
+    let drive = state
+        .as_any()
+        .downcast_ref::<DrivingState>()
+        .expect("the save resumes at the wheel");
+    assert!(drive.resumed);
+    assert_eq!(
+        drive.route.cities,
+        ["buffalo_ny_us", "newburgh_ny_us", "new_york_ny_us"]
+    );
+    assert_eq!(drive.trip.position_mi, 300.0);
 }
