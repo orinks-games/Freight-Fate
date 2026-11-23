@@ -6859,6 +6859,75 @@ a carrier slice (owner, 2026-10-26).
 - [ ] (Found along the way) Billboards on the new legs: a sheet needs
       Orinks's approval.
 
+### Mountain and Northwest roads (missing roads brief 3, November 23)
+
+- [x] Aberdeen, Washington is a city, pinned where US 12 meets US 101,
+      with the Port of Grays Harbor's Terminal 4, AGP's soybean meal
+      export terminal, the Sierra Pacific sawmill, Olympic Gateway Plaza
+      and the Westport cold store. It keeps only those sites.
+- [x] 45 new legs between neighbours the map routed far around, routed by
+      the truck router over the OpenStreetMap planet of 2026-11-16 and built
+      with every layer, among them US 89 from Cedar City to Page, US 84 from
+      Pagosa Springs to Santa Fe over Chama, US 50 over Monarch Pass, US 12
+      over Lolo Pass, US 82 over Cloudcroft, US 287 into Lamar, US 85 and
+      US 18 through Lusk, US 20 from Bend to Corvallis and US 97 from Bend to
+      The Dalles. The detours that shrank most: Pagosa Springs to Santa Fe
+      (435 miles to 153), Carlsbad to Van Horn (380 to 119) and Burlington
+      to Lamar (375 to 119).
+- [x] Seven long legs split at a city they pass, with saves on the old leg
+      resuming on the pieces: Astoria to Olympia at Longview, Roswell to
+      Lubbock at Clovis, Denver to Albuquerque at Alamosa and Santa Fe,
+      Trinidad to Pueblo at Walsenburg, Burlington to Denver at Limon,
+      Billings to Cheyenne at Casper and Wheatland, and Eugene to
+      Tri-Cities at The Dalles. Each chain is within 4 miles of its old leg.
+      Their billboards moved onto the pieces by coordinate; the San Luis
+      Valley boards on CO 17 (UFO Watchtower, Colorado Gators, Great Sand
+      Dunes) came off, because US 285 does not pass them.
+- [x] Re-routed onto their roads: Carlsbad to Odessa (US 285 by Pecos),
+      Tri-Cities to Seattle, Corvallis to Eugene, Newberg to McMinnville,
+      Portland to Salt Lake City, Salem to Albany, Glasgow to Wolf Point,
+      Shelby to Havre, and Wenatchee to Everett, which now runs US 2 over
+      Stevens Pass (123 miles, was 169 by Blewett Pass and I-90) instead of
+      getting a second leg. Its Snoqualmie Falls billboard stays on the
+      other I-90 legs. 23 legs renamed for the road they ride, among them
+      Casper to Billings I-90 and McMinnville to Salem OR-99W, and their
+      towns' roads read again.
+- [x] Stops list `docs/stops/mountain-northwest.json`: the stops the
+      region's legs already carried, plus 46 travel centers and state rest
+      areas read from OpenStreetMap (18 with truck access read, 28 assumed),
+      among them Love's Madras, Pilot Orla, Pilot Lolo, ONE9 Tucumcari and
+      the Independence Rock, Mule Creek Junction and Kane Springs rest areas.
+- [ ] (Found along the way) Gillette to Hot Springs was left out: the truck
+      router's road is 173 miles (I-90 to Sundance, WY 585, US 85), not the
+      list's 144, so the game's 202 is under the cut.
+- [ ] (Found along the way) Still no stop a tractor-trailer can use on
+      Bend to Eugene, Coos Bay to Newport, Coos Bay to Roseburg, McMinnville
+      to Newport, Newport to Albany, Kalispell to Libby, Wolf Point to
+      Williston, Alamogordo to El Paso, Alamogordo to Roswell, Colorado
+      Springs to Limon, Denver to Silverthorne and back, Durango to Pagosa
+      Springs, Pagosa Springs to Santa Fe, Laramie to Wheatland and Port
+      Angeles to Olympia; the leads found only town fuel stations with no
+      truck tag.
+- [ ] (Found along the way) 28 rest areas have truck access assumed, not
+      read; eight of them have no name in OpenStreetMap and are named for the
+      nearest town (Poncha Springs, Cheraw, Sterling, Carrizozo, Capitan,
+      Moorcroft, Mule Creek Junction, Tampico). State DOT rest area lists
+      would settle both.
+- [ ] (Found along the way) Billboards on the new legs: a sheet needs
+      Orinks's approval.
+- [ ] (Found along the way) Screen Interstate mainline curve advisories
+      against the terrain's design speed (60 mph in hills, 50 in mountains).
+      30 sit under 50 mph today, the slowest 40 mph on Charlottesville to
+      Harrisonburg, Dallas to St. Louis (twice) and Johnson City to
+      Asheville; three 45s on Athens to Columbia look like town streets
+      under an I- label. The interstate slowdown test now counts flat
+      ground only. Measurements:
+      /mnt/project-files/missing-roads/mountain-northwest/interstate-curves-by-terrain.md
+- [ ] (Found along the way) Colorado Springs to Limon leaves town on East
+      Platte Avenue, which OpenStreetMap tags as closed to trucks over four
+      axles for its first miles; the router takes it, and the city start is
+      not judged.
+
 ### Upper Midwest and Northern Plains roads (missing roads brief 3, November 23)
 
 - [x] 35 new legs between neighbours the map routed far around, in Iowa,

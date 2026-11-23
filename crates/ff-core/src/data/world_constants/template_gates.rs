@@ -477,6 +477,10 @@ pub const CURATED_COMPLETE_MARKET_CITY_KEYS: &[&str] = &[
     "morehead_city_nc_us",
     "pinehurst_nc_us",
     "reedville_va_us",
+    // Mountain and Northwest (missing roads, 2026-11-23): the Port of Grays
+    // Harbor's Terminal 4 and AGP's export terminal, the Sierra Pacific
+    // sawmill, a shopping centre and a Westport cold store, each surveyed.
+    "aberdeen_wa_us",
 ];
 
 /// Whether this city keeps only its authored freight locations. See

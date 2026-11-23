@@ -33,6 +33,7 @@
 - **California and the Southwest have 35 new roads.** Page to Saint George is now 155 miles on US 89, down from 513.
 - **The Great Lakes states have 61 new roads.** Joliet, Alpena, Ashtabula and Sandusky join the map.
 - **The Northeast has 63 new roads.** Thirteen towns join the map, among them Lancaster, Reading, Newburgh and Johnstown.
+- **The Mountain West and Northwest have 45 new roads.** Aberdeen, Washington joins the map, and Pagosa Springs to Santa Fe drops 282 miles.
 - **The Upper Midwest and Northern Plains have 35 new roads.** Aberdeen to Jamestown is now 104 miles, down from 348.
 - **Alabama, Mississippi and South Carolina have 25 new roads.** Pascagoula and Beaufort join the map.
 - **Texas and Louisiana have 61 new roads.** Denton, Galveston, Freeport, Point Comfort, Port Fourchon and Venice, Louisiana join the map.

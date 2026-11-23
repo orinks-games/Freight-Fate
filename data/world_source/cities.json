@@ -14660,6 +14660,89 @@
           "source_note": "Read: OpenStreetMap node 8263140694 (shop=variety_store, brand Dollar General, 15645 Northumberland Highway, Burgess), on US 360 five miles up the road from Reedville, OpenStreetMap planet file of 2026-11-16. Operation not confirmed from a second source. Roles derived: store deliveries of dry and chilled freight, as the mall type receives; it ships nothing."
         }
       ]
+    },
+    "aberdeen_wa_us": {
+      "spoken_city": "Aberdeen",
+      "state": "WA",
+      "country": "US",
+      "region": "pacific_northwest",
+      "lat": 46.97526,
+      "lon": -123.81352,
+      "source_note": "Pin on East Heron Street where US 12 meets US 101 (South G Street) downtown, the OpenStreetMap node the two ways share (OpenStreetMap planet file of 2026-11-16), where a truck coming in on US 12 turns onto US 101 either way; the Census 2023 Gazetteer place point (46.97521, -123.81137) is 0.1 mile east. Aberdeen stands for the Port of Grays Harbor and the Westport fishing fleet, approved by name (missing roads decision 3, 2026-11-22). Region pacific_northwest, as the region's other Washington coast cities are.",
+      "locations": [
+        {
+          "name": "Port of Grays Harbor Terminal 4",
+          "type": "port",
+          "lat": 46.96192,
+          "lon": -123.84093,
+          "ships": [
+            "general",
+            "machinery",
+            "lumber_paper"
+          ],
+          "receives": [
+            "general",
+            "machinery",
+            "lumber_paper"
+          ],
+          "source_note": "Read: Port of Grays Harbor terminal page (https://www.portofgraysharbor.com/terminal-info, read 2026-11-23): Terminal 4 is the Port's main general cargo terminal, taking breakbulk, Ro/Ro and project cargo; Pasha Automotive Services lists its vehicle processing there at 1620 East Terminal Way, Aberdeen, WA 98520 (https://www.pashagroup.com/node/275, read 2026-11-23); SSA Marine lists its Aberdeen operation with forest products and Ro/Ro at Terminal 4 (https://ssamarine.com/locations/aberdeen-washington, read 2026-11-23). Position read from SSA's published coordinates, 46\u00b057'42.84\" N, 123\u00b050'27.35\" W. Roles derived from the cargo the Port and SSA list: general and project cargo, vehicles and forest products both ways."
+        },
+        {
+          "name": "AGP Grays Harbor Export Terminal",
+          "type": "port",
+          "lat": 46.96435,
+          "lon": -123.83345,
+          "ships": [
+            "bulk"
+          ],
+          "receives": [
+            "bulk",
+            "grain"
+          ],
+          "source_note": "Read: AGP (Ag Processing Inc) location page for its Aberdeen, WA export terminal, shipping address 111 S Wooding, Aberdeen, WA 98520 (https://www.agp.com/locations/aberdeen-wa/, read 2026-11-23), and AGP's release on the Terminal 4 export facility's opening on 2026-07-31, where soybean products arrive by rail and load onto ships (https://www.agp.com/press_release/agp-and-port-of-grays-harbor-celebrate-grand-opening-of-terminal-4-export-facility/, read 2026-11-23). Position derived: the centroid of OpenStreetMap way 583592077 (industrial=port, name Port of Grays Harbor) at the east end of the Terminal 4 lands (OpenStreetMap planet file of 2026-11-16); AGP's own outline is not mapped. Roles derived: an export elevator receives grain and soybean meal and ships it as bulk."
+        },
+        {
+          "name": "Sierra Pacific Industries Aberdeen Sawmill",
+          "type": "lumber_paper",
+          "lat": 46.97257,
+          "lon": -123.77597,
+          "ships": [
+            "lumber_paper"
+          ],
+          "receives": [
+            "bulk"
+          ],
+          "source_note": "Read: Sierra Pacific Industries sawmill list, Aberdeen, WA, 301 Hagara Street, Douglas fir and hem-fir lumber, with chips and bark as by-products (https://www.spi-ind.com/Operations/SawmillOperations, read 2026-11-23). Position read from OpenStreetMap way 558124931 (industrial=sawmill, name Sierra Pacific Industries, 301 Hagara Street; OpenStreetMap planet file of 2026-11-16). Roles derived: a sawmill ships lumber and takes in logs, carried as bulk."
+        },
+        {
+          "name": "Olympic Gateway Plaza",
+          "type": "shopping_mall",
+          "lat": 46.97596,
+          "lon": -123.80354,
+          "ships": [],
+          "receives": [
+            "retail",
+            "general",
+            "food",
+            "refrigerated"
+          ],
+          "source_note": "Read: OpenStreetMap way 573333606 (landuse=retail, name Olympic Gateway Plaza) on US 12 (East Wishkah Street), holding the Walmart Supercenter at 909 East Wishkah Street (way 184629895, store 2037) and Ross and Marshalls (OpenStreetMap planet file of 2026-11-16); pin is the centroid of that outline. Roles derived: store deliveries of dry and chilled freight, as the mall type receives; it ships nothing."
+        },
+        {
+          "name": "Ocean Cold Westport",
+          "type": "cold_storage",
+          "lat": 46.90219,
+          "lon": -124.10494,
+          "ships": [
+            "refrigerated",
+            "food"
+          ],
+          "receives": [
+            "refrigerated"
+          ],
+          "source_note": "Read: OpenStreetMap way 560033498 (landuse=industrial, name Ocean Cold, 1601 Yearout Drive, Westport, WA 98595) at the Westport marina, the fishing port Aberdeen stands for (OpenStreetMap planet file of 2026-11-16). Operation not confirmed from an operator page. Roles assumed from a cold store at a fishing port: frozen seafood out, chilled loads in."
+        }
+      ]
     }
   }
 }
