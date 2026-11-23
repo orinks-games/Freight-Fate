@@ -33165,6 +33165,26 @@
       },
       "stops": [
         {
+          "type": "fuel_station",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "break"
+          ],
+          "services": [
+            "diesel",
+            "parking"
+          ],
+          "parking": "limited",
+          "vehicle_access": "bobtail_only",
+          "vehicle_access_basis": "assumed",
+          "source": "Read: OpenStreetMap node 12158227480 (fuel, name Circle K, brand=Circle K, fuel:diesel=yes), OpenStreetMap planet file of 2026-11-16. Type and services derived from those tags; truck access assumed. Leg mile projected onto the leg's archived road.",
+          "name": "Circle K",
+          "curation": "curated",
+          "at_mi": 1.1
+        },
+        {
           "name": "Pilot Travel Center West Monroe",
           "type": "travel_center",
           "at_mi": 25.55,
