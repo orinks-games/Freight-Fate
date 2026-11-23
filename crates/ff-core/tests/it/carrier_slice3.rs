@@ -70,9 +70,10 @@ fn test_every_lower_48_city_is_hired_into() {
     let cities = lower_48_cities(world);
     // 626 before Plattsburgh, New York and St. Johnsbury, Vermont joined with
     // the Quebec crossings; 630 with Carneys Point and Cape May, New Jersey;
-    // 634 with Joliet, Alpena, Ashtabula and Sandusky (Great Lakes roads);
-    // 647 with the thirteen Northeast towns.
-    assert_eq!(cities.len(), 647, "the lower-48 map city count moved");
+    // 634 with Sebring, Port Canaveral, Crystal River and Gainesville, Georgia;
+    // 638 with Joliet, Alpena, Ashtabula and Sandusky (Great Lakes roads);
+    // 651 with the thirteen Northeast towns.
+    assert_eq!(cities.len(), 651, "the lower-48 map city count moved");
     let mut by_any = 0;
     let mut by_regional = 0;
     let mut missing_regional = Vec::new();
@@ -91,9 +92,9 @@ fn test_every_lower_48_city_is_hired_into() {
             missing_regional.push(city.clone());
         }
     }
-    assert_eq!(by_any, 647);
+    assert_eq!(by_any, 651);
     assert_eq!(
-        by_regional, 647,
+        by_regional, 651,
         "no regional hires in {missing_regional:?}"
     );
 }

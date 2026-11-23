@@ -5,7 +5,7 @@
 
 use super::test_profile::FakeProfile;
 use super::*;
-use crate::models::business_constants::LEASED_OWNER_OPERATOR;
+use crate::models::business_constants::{COMPANY_DRIVER, LEASED_OWNER_OPERATOR};
 use crate::models::enforcement::{
     self, board_offers_for_reputation, dispatch_trust_line, TRUST_FULL,
 };
@@ -575,12 +575,15 @@ fn test_going_back_to_company_driving_returns_the_equipment_for_the_buy_in() {
     p.money = 4_000.0;
     // A tractor worth 82,000 would bring 49,200 used; the carrier's price for
     // the one the buy-in bought is the buy-in itself.
-    assert_eq!(company_return_buy_back(&p), OWNER_OPERATOR_BUY_IN);
+    assert_eq!(
+        company_return_buy_back(&p),
+        crate::models::business::OLD_BUY_IN_PRICE
+    );
 
     let lines = apply_return_to_company_driving(&mut p);
     let joined = lines.join(" ");
     assert_eq!(p.business_status, COMPANY_DRIVER);
-    assert_eq!(p.money, 4_000.0 + OWNER_OPERATOR_BUY_IN);
+    assert_eq!(p.money, 4_000.0 + crate::models::business::OLD_BUY_IN_PRICE);
     assert!(p.owned_trucks.is_empty());
     assert!(p.owned_trailers.is_empty());
     assert!(!p.authority_readiness);
@@ -607,7 +610,7 @@ fn test_a_second_tractor_goes_back_at_the_used_share() {
     let mut p = owner_operator("hand_me_down_sleeper");
     p.owned_trucks.push("presidential_sleeper".to_string());
     let expected = round_py_n(
-        (31_000.0 * REPOSSESSION_EQUITY_SHARE).min(OWNER_OPERATOR_BUY_IN)
+        (31_000.0 * REPOSSESSION_EQUITY_SHARE).min(crate::models::business::OLD_BUY_IN_PRICE)
             + 185_000.0 * REPOSSESSION_EQUITY_SHARE,
         2,
     );

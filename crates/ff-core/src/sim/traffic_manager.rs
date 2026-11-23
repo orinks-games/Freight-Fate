@@ -27,6 +27,7 @@ use crate::sim::weather::{effects, WeatherEffects, WeatherKind};
 use crate::speech_text::{brake_lights_cue, merging_traffic_cue, slow_lead_cue};
 
 mod beside;
+mod oncoming;
 mod platoon;
 mod vehicle;
 mod work_zone;
@@ -117,6 +118,23 @@ const MERGE_SAFE_HEADWAY_S: f64 = 4.0;
 /// vehicle: nobody shares a whole corridor with you.
 pub const EXIT_AFTER_MIN_MI: f64 = 2.5;
 pub const EXIT_AFTER_MAX_MI: f64 = 11.0;
+
+/// How far behind the truck a courteous driver in the signaled lane keeps
+/// yielding (or shifting left) so the player's `vehicle_in_lane` clearance
+/// check opens cleanly rather than getting re-blocked by early re-acceleration.
+pub const SIGNAL_COURTESY_BEHIND_MI: f64 = 0.45;
+
+/// Deterministic courtesy trait for a bubble vehicle key (~75% of drivers
+/// yield or change lanes when the player signals into their lane; ~25% hold
+/// steady so merging still requires checking mirrors).
+pub fn courteous_to_signal(key: &str) -> bool {
+    let mut hash: u64 = 0xcbf29ce484222325;
+    for byte in key.as_bytes() {
+        hash ^= *byte as u64;
+        hash = hash.wrapping_mul(0x100000001b3);
+    }
+    !hash.is_multiple_of(4)
+}
 
 /// What each intent is doing, as a share of the road's posted limit.
 ///
@@ -349,6 +367,9 @@ pub struct TrafficManager {
     pub player_lane: i64,
     /// The lane a tap-change is moving INTO, or None the rest of the time.
     pub player_lane_target: Option<i64>,
+    /// The lane the player is signaling or steering toward, so courteous
+    /// vehicles behind in that lane can ease off to open a merge gap.
+    pub player_signal_lane: Option<i64>,
     /// The lane roadwork has coned off where the truck is, in the truck's
     /// lane numbering, mirrored by the trip each frame (`work_zone.rs`).
     pub closed_lane: Option<i64>,
@@ -389,6 +410,7 @@ impl TrafficManager {
             braking_zones: Vec::new(),
             player_lane: 0,
             player_lane_target: None,
+            player_signal_lane: None,
             closed_lane: None,
             empty_real_time_s: 0.0,
             real_time_arrival_seq: 0,
@@ -797,7 +819,7 @@ impl TrafficManager {
         let mut nearest: Option<&TrafficVehicle> = None;
         let mut nearest_gap = f64::INFINITY;
         for vehicle in &self.vehicles {
-            if vehicle.lane != lane {
+            if vehicle.oncoming || vehicle.lane != lane {
                 continue;
             }
             let gap = vehicle.position_mi - position_mi;
@@ -824,7 +846,7 @@ impl TrafficManager {
     ) -> i64 {
         let mut count = 0;
         for vehicle in &self.vehicles {
-            if vehicle.vehicle_class == "state trooper" {
+            if vehicle.oncoming || vehicle.vehicle_class == "state trooper" {
                 continue;
             }
             if (vehicle.position_mi - position_mi).abs() > radius_mi {
@@ -1183,6 +1205,13 @@ impl TrafficManager {
             // this cell of it is carrying somebody.
             let density = self.leg_density(leg, night, Some(mile));
             if rng.random() > density {
+                if self.vehicles.len() < MAX_BUBBLE_VEHICLES {
+                    if let Some(oncoming) =
+                        self.oncoming_for_cell(cell, density, position_mi, &mut rng)
+                    {
+                        self.vehicles.push(oncoming);
+                    }
+                }
                 continue;
             }
             let behind = mile < position_mi;
@@ -1242,6 +1271,12 @@ impl TrafficManager {
                     break;
                 }
                 self.vehicles.push(vehicle);
+            }
+            if self.vehicles.len() < MAX_BUBBLE_VEHICLES {
+                if let Some(oncoming) = self.oncoming_for_cell(cell, density, position_mi, &mut rng)
+                {
+                    self.vehicles.push(oncoming);
+                }
             }
         }
     }
@@ -1384,6 +1419,18 @@ impl TrafficManager {
                 Some((leg, offset, forward)) => Self::grade_pct_on(leg, offset, forward),
                 None => 0.0,
             };
+            if vehicle.oncoming {
+                vehicle.position_mi -= vehicle.speed_mph.max(0.0) * game_hours;
+                vehicle.lane = -1;
+                vehicle.visual_lane = 1.0;
+                vehicle.relative_lane = -1;
+                let still_two_lane = self.is_undivided_two_lane_at(vehicle.position_mi);
+                let rel_mi = vehicle.position_mi - position_mi;
+                if rel_mi >= -1.0 && (still_two_lane || rel_mi < 0.3) {
+                    kept.push(vehicle);
+                }
+                continue;
+            }
             // Any vehicle still on the ramp, not only one labelled merging: a
             // merger that reached road speed while yielding is relabelled
             // cruising below, and under the old test it then rode the ramp
@@ -1529,10 +1576,23 @@ impl TrafficManager {
             // What is ahead in this lane, and whether to go round it or sit
             // behind it (`platoon.rs`): decided on the road as the frame
             // found it, before this vehicle moves.
-            let follow = self.see_the_road(&company, index, &mut vehicle, lanes_here);
+            let follow = self.see_the_road(&company, index, &mut vehicle, lanes_here, position_mi);
+            vehicle.slew_visual_lane(dt);
             vehicle.relative_lane = self.player_lane - vehicle.lane;
             let pace = follow.as_ref().map_or(f64::INFINITY, |f| f.pace_mph);
-            let target = vehicle.target_speed_mph.min(climb).min(pace);
+            let signal_yield_mph = if self.player_signal_lane == Some(vehicle.lane)
+                && (-SIGNAL_COURTESY_BEHIND_MI..=-0.015).contains(&gap)
+                && courteous_to_signal(&vehicle.key)
+            {
+                (self.truck_speed_mph.abs() * 0.85).max(25.0)
+            } else {
+                f64::INFINITY
+            };
+            let target = vehicle
+                .target_speed_mph
+                .min(climb)
+                .min(pace)
+                .min(signal_yield_mph);
             let delta = target - vehicle.speed_mph;
             vehicle.speed_mph += (-6.0 * dt).max((4.0 * dt).min(delta));
             vehicle.position_mi += vehicle.speed_mph.max(0.0) * game_hours;

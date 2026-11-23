@@ -298,25 +298,43 @@ fn the_status_menu_opens_the_list_in_its_own_place() {
 /// is kept for the keyboard, where those keys exist.
 #[test]
 fn clock_on_a_controller_does_not_point_at_the_keyboard_hours_keys() {
-    use ff_core::input_hints::CONTROLLER;
     use freight_fate::controller::fakes::FakePad;
     let mut harness = a_drive("Command Clock Pad");
     let c = &mut harness.app.ctx.controller;
     c.set_enabled(true);
     c.bind_device(Box::new(FakePad::new(0)), "test pad");
     c.set_id_pending(false);
-    c.active_device = CONTROLLER;
+    c.note_controller();
     harness.press_key(Key::C, None);
     assert!(
         !last_main(&harness).contains("Hours of service moved"),
         "{}",
         last_main(&harness)
     );
-    harness.app.ctx.controller.active_device = ff_core::input_hints::KEYBOARD;
+    harness.app.ctx.controller.note_keyboard();
     harness.press_key(Key::C, None);
     assert!(
         last_main(&harness).contains("Hours of service moved"),
         "{}",
         last_main(&harness)
     );
+}
+
+#[test]
+fn every_group_ends_with_back_on_a_touch_screen() {
+    let mut harness = a_drive("Command Back Rows");
+    harness
+        .app
+        .dispatch_gesture(freight_fate::touch::Gesture::KeyboardDisconnected);
+    press(&mut harness, Key::F2);
+    for group in &TOP[1..8] {
+        open_group(&mut harness, group);
+        let labels = harness.menu_labels();
+        assert_eq!(
+            labels.last().map(String::as_str),
+            Some("Back"),
+            "{group}: {labels:#?}"
+        );
+        press(&mut harness, Key::Escape);
+    }
 }

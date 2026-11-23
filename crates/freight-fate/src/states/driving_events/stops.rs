@@ -11,6 +11,7 @@ use crate::states::base::TimedMessageState;
 use crate::states::driving::{DrivingState, StopVisit};
 use crate::states::driving_core::*;
 use crate::states::driving_rest_states::RestFocus;
+use crate::states::driving_updates::live;
 
 use super::stop_plan::StopPlanPurpose;
 use super::with_drive;
@@ -334,7 +335,7 @@ impl DrivingState {
             String::new()
         };
         let message = format!(
-            "{prefix}, {}, {distance} ahead{exit_text}.{note}{next_step}{assist}",
+            "{prefix}, {}{exit_text}, {distance}.{note}{next_step}{assist}",
             stop.spoken_name()
         );
         self.set_status(message.clone());
@@ -402,6 +403,9 @@ impl DrivingState {
             return;
         }
 
+        // A line about reaching the stop is spent once its menu opens: held
+        // or cut off, it was said again over the menu (phone walk E2).
+        live::set_stop_menu_open(true);
         if settle {
             // A POI stop that pulls in through this wait is a menu-driven
             // stop like a roadside inspection: the frame loop that eases

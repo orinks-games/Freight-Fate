@@ -34,7 +34,11 @@ pub struct OnlineOfferState {
 impl Default for OnlineOfferState {
     fn default() -> Self {
         Self {
-            menu: MenuCore::new(Self::TITLE).with_intro_help(Self::INTRO_HELP),
+            menu: MenuCore::new(Self::TITLE).with_intro_help(if crate::device::phone() {
+                Self::INTRO_HELP_PHONE
+            } else {
+                Self::INTRO_HELP
+            }),
         }
     }
 }
@@ -43,6 +47,8 @@ impl OnlineOfferState {
     pub const TITLE: &'static str = "Connect to orinks.net";
     pub const INTRO_HELP: &'static str =
         "Choose Set up now to connect this computer, or Not now to start driving.";
+    pub const INTRO_HELP_PHONE: &'static str =
+        "Choose Set up now to connect this device, or Not now to start driving.";
 
     /// `OnlineOfferState(ctx)`.
     pub fn new(_ctx: &mut GameContext) -> Self {
@@ -56,19 +62,17 @@ impl OnlineOfferState {
         }
     }
 
-    fn enter_world(&mut self, ctx: &mut GameContext) {
-        // The city menu queues its own announcement, so a line spoken on the
-        // way out of here -- "Online on the main menu connects any time" -- is
-        // heard in full instead of being cut off by the terminal's own line.
-        let city = CityMenuState::new(ctx, true);
+    fn enter_world(&mut self, ctx: &mut GameContext, queue_entry: bool) {
+        let city = CityMenuState::new(ctx, queue_entry);
         ctx.replace_state(city);
     }
 
     /// `_decline`: Not now.
     pub fn decline(&mut self, ctx: &mut GameContext) {
+        // No parting line: the offer's own help already said Online connects
+        // later, and the terminal speaks at once (phone walk N4).
         self.spend_the_offer(ctx);
-        ctx.say("Online on the main menu connects any time.");
-        self.enter_world(ctx);
+        self.enter_world(ctx, false);
     }
 
     /// `_accept`: Set up now.
@@ -79,7 +83,7 @@ impl OnlineOfferState {
         // city menu goes underneath (replace, not push) so that backing out
         // of setup lands the player in the world, not back on this offer.
         self.spend_the_offer(ctx);
-        self.enter_world(ctx);
+        self.enter_world(ctx, true);
         let setup = OnlineSetupState::with_autostart(ctx, true);
         ctx.push_state(setup);
     }
@@ -104,6 +108,21 @@ impl Menu for OnlineOfferState {
         // immediately before pushing this state, and the player has to hear
         // where they are and what they own before being asked anything.
         let current = self.current_text(ctx);
+        if crate::device::phone() {
+            ctx.say_with(
+                format!(
+                    "Before you set off. You can connect this device to an \
+                     orinks.net account. That backs your career up so you can bring \
+                     it to another device, and puts your driver profile and on-duty \
+                     activity on the public site. You can turn either of those off \
+                     afterwards from Online on the main menu. It takes a code and \
+                     your browser, and you can do it any time instead. \
+                     {current}"
+                ),
+                Say::queued(),
+            );
+            return;
+        }
         ctx.say_with(
             format!(
                 "Before you set off. You can connect this computer to an \
@@ -125,8 +144,13 @@ impl Menu for OnlineOfferState {
             MenuItem::new("Not now", |s: &mut Self, ctx| s.decline(ctx))
                 .help("Start driving. You can connect later from Online."),
             MenuItem::new("Set up now", |s: &mut Self, ctx| s.accept(ctx)).help(
-                "Connect this computer to an orinks.net account, which turns on \
-                 cloud backup and your public driver profile.",
+                if crate::device::phone() {
+                    "Connect this device to an orinks.net account, which turns on \
+                     cloud backup and your public driver profile."
+                } else {
+                    "Connect this computer to an orinks.net account, which turns on \
+                     cloud backup and your public driver profile."
+                },
             ),
         ]
     }

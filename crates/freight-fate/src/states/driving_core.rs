@@ -22,6 +22,7 @@
 pub mod constants;
 pub mod siren;
 mod state_helpers;
+mod tutorial;
 
 use std::collections::BTreeMap;
 use std::rc::Rc;
@@ -49,7 +50,7 @@ use ff_core::sim::vehicle::TruckState;
 use ff_core::speech_pacing::SpeechCategory;
 use ff_core::units::MILES_TO_KM;
 
-use crate::app::{GameContext, Say};
+use crate::app::GameContext;
 use crate::audio::{youtube, RADIO_TUNE_FADE_MS};
 use crate::states::base::{Menu, MenuItem};
 use crate::states::driving::DrivingState;
@@ -61,6 +62,7 @@ pub use siren::{
     SIREN_HOLD_TIMEOUT_S, SIREN_RISE_S, SIREN_START_LEVEL,
 };
 pub use state_helpers::*;
+pub use tutorial::{Instructor, Tutorial};
 
 // -- the names `from .driving_core import *` carried ---------------------------------
 //
@@ -566,206 +568,6 @@ pub type RigBuffs = BTreeMap<String, RigBuff>;
 
 /// `_pending_sounds` entry: `(delay_s, key, volume, pan)`.
 pub type PendingSound = (f64, String, f64, f64);
-
-// -- the first-run tutorial and the instructor hook -----------------------------------------
-
-/// What a drive calls on its instructor, if it has one: the first-run
-/// [`Tutorial`], or a driving-school lesson that duck-typed it in Python.
-pub trait Instructor {
-    fn begin(&mut self, ctx: &mut GameContext);
-    fn on_engine_started(&mut self, ctx: &mut GameContext);
-    /// True when the instructor spoke its own release line, which then
-    /// stands in for the plain confirmation.
-    fn on_parking_brake_released(&mut self, ctx: &mut GameContext) -> bool;
-    fn on_gear_engaged(&mut self, ctx: &mut GameContext);
-    fn update(&mut self, ctx: &mut GameContext, dt: f64, truck: &TruckState);
-}
-
-/// First-drive guidance, spoken step by step as the player succeeds.
-///
-/// Deliberately verbosity-blind (research doc, R15): terse speech is a
-/// filter on running commentary, and first-run teaching is not commentary.
-/// A brand-new player who picks terse before their first drive -- exactly
-/// the player who hates chatty games -- must still be told the status,
-/// help, and hazard keys exist, or they can never pull information they
-/// were never told about. The gate is `tutorial_done` itself: this type
-/// is only constructed while the walkthrough is unfinished, and finishing
-/// it then flipping terse on resurrects nothing.
-#[derive(Debug, Default)]
-pub struct Tutorial {
-    pub stage: i32,
-    timer: f64,
-    hinted: bool,
-}
-
-impl Tutorial {
-    pub fn new() -> Self {
-        Self::default()
-    }
-}
-
-impl Instructor for Tutorial {
-    fn begin(&mut self, ctx: &mut GameContext) {
-        let text = if ctx.touch_hints() {
-            "Your first run. Turn two fingers right to start the engine.".to_string()
-        } else {
-            format!(
-                "Your first run. Press {} to start the engine.",
-                ctx.control_hint("engine")
-            )
-        };
-        ctx.say_with(text, Say::queued());
-    }
-
-    fn on_engine_started(&mut self, ctx: &mut GameContext) {
-        if self.stage == 0 {
-            self.stage = 1;
-            self.timer = 0.0;
-            self.hinted = false;
-            // On touch, gas releases the parking brake and drives, and a
-            // shift works its own clutch.
-            let text = if ctx.touch_hints() && ctx.settings.automatic_transmission {
-                "At air ready, swipe up and hold to release the parking brake and drive."
-                    .to_string()
-            } else if ctx.touch_hints() {
-                "At air ready, swipe up and hold to release the parking brake, then flick up with \
-                 a second finger for first gear."
-                    .to_string()
-            } else if ctx.settings.automatic_transmission {
-                format!(
-                    "At air ready, press {} to release the parking brake, then hold {} to \
-                     accelerate.",
-                    ctx.control_hint("parking_brake"),
-                    ctx.control_hint("accelerate")
-                )
-            } else {
-                format!(
-                    "At air ready, press {} to release the parking brake, then hold {}, select \
-                     {} for first gear, and release the clutch.",
-                    ctx.control_hint("parking_brake"),
-                    ctx.control_hint("clutch"),
-                    ctx.control_hint("gear_first")
-                )
-            };
-            ctx.say_with(text, Say::queued());
-        }
-    }
-
-    fn on_parking_brake_released(&mut self, ctx: &mut GameContext) -> bool {
-        if self.stage == 1 && ctx.settings.automatic_transmission {
-            self.stage = 2;
-            self.timer = 0.0;
-            self.hinted = false;
-            // On touch the gas that released it is already held.
-            let text = if ctx.touch_hints() {
-                "Parking brake released.".to_string()
-            } else {
-                format!(
-                    "Parking brake released. Hold {} to accelerate.",
-                    ctx.control_hint("accelerate")
-                )
-            };
-            ctx.say_with(text, Say::queued());
-            true
-        } else if self.stage == 1 {
-            self.timer = 0.0;
-            self.hinted = false;
-            ctx.say_with(
-                "Parking brake released. Shift into first gear.",
-                Say::queued(),
-            );
-            true
-        } else {
-            false
-        }
-    }
-
-    fn on_gear_engaged(&mut self, ctx: &mut GameContext) {
-        if self.stage == 1 {
-            self.stage = 2;
-            self.timer = 0.0;
-            self.hinted = false;
-            let text = if ctx.touch_hints() {
-                "In gear. Swipe up and hold to accelerate.".to_string()
-            } else {
-                format!(
-                    "In gear. Hold {} to accelerate.",
-                    ctx.control_hint("accelerate")
-                )
-            };
-            ctx.say_with(text, Say::queued());
-        }
-    }
-
-    fn update(&mut self, ctx: &mut GameContext, dt: f64, truck: &TruckState) {
-        self.timer += dt;
-        if self.stage == 2 && truck.speed_mph() > 20.0 {
-            self.stage = 3;
-            let text = if ctx.touch_hints() {
-                format!(
-                    "Rolling. {} for your speed. Tap with three fingers, then double tap, for a \
-                     full report. Flick up with two fingers for all the controls. Brake hard at \
-                     a hazard warning. Swipe down deep and hold to stop fast.",
-                    ctx.touch_instruction(crate::bindings::Action::Speed)
-                )
-            } else {
-                format!(
-                "Rolling. {} for your speed, {} for a full report, {} for all the controls. Brake \
-                 hard at a hazard warning. {} stops fast.",
-                ctx.control_hint("speed"),
-                ctx.control_hint("status_menu"),
-                ctx.control_hint("help"),
-                ctx.control_hint("emergency_brake")
-            )
-            };
-            ctx.say_with(text, Say::queued());
-            profile_mut_of(ctx).tutorial_done = true;
-            ctx.save_profile();
-        } else if (self.stage == 0 || self.stage == 1) && self.timer > 25.0 && !self.hinted {
-            self.hinted = true;
-            let touch = ctx.touch_hints();
-            let text = if self.stage == 0 && touch {
-                "Reminder: turn two fingers right to start the engine.".to_string()
-            } else if self.stage == 0 {
-                format!(
-                    "Reminder: press {} to start the engine.",
-                    ctx.control_hint("engine")
-                )
-            } else if truck.parking_brake && truck.air_ready() && touch {
-                "Reminder: air is ready. Swipe up and hold to release the parking brake and drive."
-                    .to_string()
-            } else if truck.parking_brake && truck.air_ready() {
-                // The timer does not know the compressor finished: "wait for
-                // air" right after "Air ready" contradicted the truck (agent
-                // drive, 2026-09-01). Air is up, so the only step left is P.
-                format!(
-                    "Reminder: air is ready. Press {} to release the parking brake.",
-                    ctx.control_hint("parking_brake")
-                )
-            } else if truck.parking_brake && touch {
-                "Reminder: wait for air pressure to reach 100 psi, then swipe up and hold to \
-                 release the parking brake and drive."
-                    .to_string()
-            } else if truck.parking_brake {
-                format!(
-                    "Reminder: wait for air pressure to reach 100 psi, then press {} to release \
-                     the parking brake.",
-                    ctx.control_hint("parking_brake")
-                )
-            } else if touch {
-                "Reminder: hold a pedal and flick up with a second finger for first gear."
-                    .to_string()
-            } else {
-                format!(
-                    "Reminder: hold {}, select {}, then release the clutch.",
-                    ctx.control_hint("clutch"),
-                    ctx.control_hint("gear_first")
-                )
-            };
-            ctx.say_with(text, Say::queued());
-        }
-    }
-}
 
 // -- the radio playback adapter ---------------------------------------------------------
 

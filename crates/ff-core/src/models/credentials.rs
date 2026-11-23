@@ -428,6 +428,17 @@ pub fn course_help_text(cred: &Credential) -> String {
     text
 }
 
+/// [`course_help_text`] on a touch screen: a double tap books it.
+pub fn course_touch_help_text(cred: &Credential) -> String {
+    let text = course_help_text(cred);
+    let mut touch = text
+        .strip_suffix(" Enter books it.")
+        .unwrap_or(&text)
+        .to_string();
+    touch.push_str(" Double tap books it.");
+    touch
+}
+
 /// The one-line menu row for a course: cost, and what makes it activate.
 pub fn course_offer_text(cred: &Credential) -> String {
     let mut text = if cred.course_cost <= 0.0 {

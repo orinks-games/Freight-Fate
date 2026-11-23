@@ -36,6 +36,7 @@ use crate::states::main_menu::{
     opens_input_practice, opens_input_practice_pad, ConfirmQuitState, InputPracticeState,
 };
 use crate::touch::Gesture;
+use crate::touch::GestureKeys;
 
 mod ambient;
 #[cfg(target_os = "android")]
@@ -49,12 +50,14 @@ mod crash_log;
 pub mod held_keys;
 pub mod key_probe;
 pub mod language;
+mod lifecycle;
 pub mod logging;
 pub mod loop_watch;
 pub mod sdl_shell;
 pub mod speech_delivery;
 pub mod synth_music;
 pub mod testing;
+pub mod tilt;
 #[cfg(any(windows, test))]
 mod win_keys;
 
@@ -213,6 +216,11 @@ pub struct App {
     /// The watch that logs a frame part holding the loop (see
     /// `app::loop_watch`); only the windowed loop starts one.
     loop_watch: Option<loop_watch::LoopWatch>,
+    /// Where a phone app is (`ff_core::app_lifecycle`); moved only by
+    /// `handle_app_event`.
+    app_lifecycle: ff_core::app_lifecycle::AppLifecycle,
+    /// The drive saved as the app reached the background, until it returns.
+    background_save: Option<lifecycle::BackgroundSave>,
 }
 
 /// Read-only driving facts available to a normal-input policy.
@@ -262,6 +270,10 @@ pub struct DrivingObservation {
     pub rest_call: Option<ff_core::sim::fatigue_costs::RestCall>,
     /// The stop at the facility gate, while the trip has ended at one.
     pub gate: Option<ff_core::sim::arrival_gate::GateStop>,
+    /// Where the delivery leaves the road, while the drive is still on the
+    /// highway toward it.
+    /// Its kind (`DestinationArrival::key`) and route mile.
+    pub arrival: Option<(&'static str, f64)>,
     /// What the driver has been told about the no engine brake zone ahead
     /// or under the truck.
     pub jake_zone: &'static str,
@@ -285,12 +297,24 @@ pub struct DrivingObservation {
     /// Jointed (seams heard) or smooth road under the wheels, and how the
     /// game knows.
     pub road_surface: ff_core::sim::road_texture::RoadSurface,
+    /// What the tires are singing, and how the game knows.
+    pub tire_song: ff_core::sim::road_texture::song::TireSong,
     /// The structure the pavement layer puts under the truck, with its
     /// length in miles.
     pub structure: Option<(ff_core::data::pavement::StructureKind, f64)>,
     /// The chain law posted at the truck, and the chains against the road.
     pub chain_control: ff_core::sim::chain_control::ChainControl,
     pub chains: ff_core::sim::chain_control::ChainSet,
+    /// The lane the truck is in, by its spoken name, and whether a stick or
+    /// a tilt has asked for one lane and not come back yet.
+    pub lane: &'static str,
+    pub lane_push: ff_core::sim::lane_push::LanePush,
+    /// Slick-surface ABS modulation, drive-axle traction, single-trailer
+    /// stability, and mirror-glance state machines.
+    pub abs: ff_core::sim::vehicle::AbsState,
+    pub drive_traction: ff_core::sim::vehicle::DriveTractionState,
+    pub trailer_sway: ff_core::sim::vehicle::TrailerSwayState,
+    pub mirror_glance: ff_core::sim::mirror_glance::MirrorGlance,
 }
 
 /// The state of a cattle load, for the agent server's inspector.
@@ -319,6 +343,24 @@ fn staged_road_handoff(description: &str, start_mi: f64) -> String {
 }
 
 impl PlayerInputFrame<'_> {
+    /// The driver newspaper's state: "no_issue" or "holding issue N".
+    pub fn newspaper_state(&self) -> String {
+        self.app.ctx.services.newspaper.status()
+    }
+
+    /// The ownership ladder as `status` reports it: the stage key and what
+    /// the buy-in paid, or "no_career" before a career is loaded.
+    pub fn business_state(&self) -> String {
+        match self.app.ctx.profile.as_ref() {
+            Some(p) => format!(
+                "business_stage {}; buy_in_paid {:.0}",
+                p.business_stage().key(),
+                p.buy_in_paid
+            ),
+            None => "no_career".to_string(),
+        }
+    }
+
     pub fn cloud_resume_state(&self) -> ff_core::cloud_resume::CheckState {
         self.app.ctx.cloud_saves_service().resume_state()
     }
@@ -330,6 +372,17 @@ impl PlayerInputFrame<'_> {
     /// How a touch gesture is read on the screen on top.
     pub fn touch_mode(&self) -> crate::touch::TouchMode {
         self.app.touch_mode()
+    }
+
+    /// The gesture thresholds from the Touch gestures settings.
+    pub fn touch_tuning(&self) -> crate::touch::recognizer::Tuning {
+        crate::touch::fingers::tuning(&self.app.ctx.settings)
+    }
+
+    /// Where a phone app is, and whether its sound is taken
+    /// (`ff_core::app_lifecycle`).
+    pub fn app_lifecycle(&self) -> ff_core::app_lifecycle::AppLifecycle {
+        self.app.app_lifecycle()
     }
 
     /// The dispatch board's state for `status`, when the board is on top:
@@ -360,6 +413,28 @@ impl PlayerInputFrame<'_> {
     /// The voices as `status` reports them: the saved main voice choice
     /// ("automatic" when empty), the bound main voice, and the bound event
     /// voice ("main voice" when events share it).
+    /// The input machine as `status` reports it: whether this run is a
+    /// phone, the input the prompts name, and what is connected.
+    pub fn input_state(&self) -> String {
+        let input = self.app.ctx.controller.input();
+        format!(
+            "phone {}; device {}; last_used {}; keyboard {}; controller {}",
+            crate::device::phone(),
+            input.device().key(),
+            input.last_used().key(),
+            if input.keyboard_connected() {
+                "connected"
+            } else {
+                "none"
+            },
+            if input.controller_connected() {
+                "connected"
+            } else {
+                "none"
+            },
+        )
+    }
+
     pub fn speech_state(&self) -> (String, String, String) {
         let ctx = &self.app.ctx;
         let choice = match ctx.settings.main_backend.as_str() {
@@ -392,6 +467,22 @@ impl PlayerInputFrame<'_> {
 
     /// The player's own shortcut table, for a tool call that names a
     /// control rather than a key.
+    /// Tilt steering's state, level and last angle, as `status` reports it.
+    pub fn tilt_status(&self) -> String {
+        self.app.ctx.tilt.status_line()
+    }
+
+    /// The agent server holds the phone at this angle from flat, or sends
+    /// no samples for `None` (it stands in for the motion sensor).
+    pub fn set_tilt_pose(&mut self, degrees: Option<f64>) {
+        self.app.ctx.tilt.set_agent_pose(degrees);
+    }
+
+    /// The pose the agent server holds the phone in, once it holds one.
+    pub fn tilt_pose(&self) -> Option<Option<f64>> {
+        self.app.ctx.tilt.agent_pose()
+    }
+
     pub fn bindings(&self) -> &crate::bindings::KeyBindings {
         &self.app.ctx.bindings
     }
@@ -575,6 +666,13 @@ impl PlayerInputFrame<'_> {
         scenario: &crate::playtest::scenario::Scenario,
     ) -> Result<String, String> {
         use crate::states::city::CityMenuState;
+        if let Some(phone) = scenario.phone {
+            crate::device::force_phone(phone);
+            self.app
+                .ctx
+                .controller
+                .restart_input(crate::device::phone());
+        }
         let notes = crate::playtest::scenario::apply(&mut self.app.ctx, scenario)?;
         // Down to the title screen, never past it: an empty stack is how the
         // loop knows the game is over, and the first live scenario quit the
@@ -783,6 +881,11 @@ impl App {
                 backup.queue_backup(&profile.name, serde_json::Value::Object(profile.to_dict()));
             },
         )));
+        let newspaper = crate::newspaper::Newspaper::new(crate::newspaper::NewspaperOptions {
+            enabled: settings.online_services,
+            cache_path: Some(data_dir.join(ff_core::newspaper::PAPER_FILE)),
+            ..Default::default()
+        });
         boot_timing::mark("online services");
         let pads_allowed = crate::controller::pads_allowed(
             settings.controller_enabled,
@@ -820,6 +923,7 @@ impl App {
                 jaws_script: JawsScript::new(),
                 cloud,
                 journal,
+                newspaper,
             },
         });
         // The windowed game speaks the player's language. Headless runs (the
@@ -848,6 +952,8 @@ impl App {
             touch_bound_hold: None,
             co_driver: co_driver::CoDriverHands::default(),
             loop_watch: None,
+            app_lifecycle: Default::default(),
+            background_save: None,
         }
     }
 
@@ -1004,6 +1110,9 @@ impl App {
                 }),
             rest_call: drive.rest_call_state(),
             gate: drive.arrival_gate_query_text(&self.ctx).map(|_| drive.gate),
+            arrival: drive
+                .destination_arrival_ahead(&self.ctx)
+                .map(|arrival| (arrival.key(), arrival.at_mi())),
             jake_zone: drive.jake_zone_notice.key(),
             road_offer: drive.road_offer(&self.ctx),
             touch_clutch: drive.touch_clutch,
@@ -1020,9 +1129,16 @@ impl App {
             outside_temperature_c: drive.outside.temperature_c(),
             water: drive.outside.water,
             road_surface: drive.road_texture.surface,
+            tire_song: drive.road_texture.song,
             structure: drive.trip.structure_at_mile(drive.trip.position_mi),
             chain_control: drive.trip.chain_control,
             chains: drive.chain_set,
+            lane: drive.lane.lane_name(),
+            lane_push: drive.lane_push,
+            abs: drive.trip.truck.abs_state,
+            drive_traction: drive.trip.truck.drive_traction_state,
+            trailer_sway: drive.trip.truck.trailer_sway_state,
+            mirror_glance: drive.mirror_glance,
         })
     }
 
@@ -1164,7 +1280,9 @@ impl App {
         let mode = self.touch_mode();
         let route = crate::touch::route(mode, gesture);
         if route == Route::Keyboard {
-            self.ctx.controller.hardware_keyboard = gesture == Gesture::KeyboardConnected;
+            self.ctx
+                .controller
+                .set_hardware_keyboard(gesture == Gesture::KeyboardConnected);
             return;
         }
         self.ctx.controller.note_touch();
@@ -1290,7 +1408,7 @@ impl App {
     pub fn handle_close_request(&mut self) {
         #[cfg(windows)]
         log::info!("Window close requested");
-        if cfg!(touch_screen) {
+        if crate::device::phone() {
             crate::problem_reports::end_session();
             self.ctx.running = false;
             return;
@@ -1351,6 +1469,7 @@ impl App {
                 self.dispatch_to_state(event);
             }
             InputEvent::Quit => self.handle_close_request(),
+            InputEvent::App(event) => self.handle_app_event(*event),
             InputEvent::Gesture(gesture) => self.dispatch_gesture(*gesture),
             InputEvent::KeyDown { key, mods, .. } => {
                 self.ctx.input.press(*key, *mods);
@@ -1588,6 +1707,7 @@ impl App {
             probe.end_frame(&self.ctx.input);
         }
         self.mark(loop_watch::Phase::Update);
+        self.update_tilt(dt);
         self.tick(dt);
         self.co_driver_fast_forward();
         self.sync_text_field();
@@ -1608,8 +1728,10 @@ impl App {
         });
         shell.set_text_field(open);
         let practice = self.touch_mode() == crate::touch::TouchMode::Practice;
+        let shared = self.ctx.settings.touch_shared_recogniser;
         if let Some(shell) = self.shell.as_mut() {
             shell.set_report_travel(practice);
+            shell.set_shared_recogniser(shared);
         }
     }
 
@@ -1639,6 +1761,7 @@ impl App {
         self.ctx.services.online.start(); // opt-in drivers board; dormant unless confirmed
         self.ctx.services.duty.start(); // opt-in on/off duty notices; dormant unless on
         self.ctx.services.cloud.start(); // opt-in save backup; dormant unless confirmed
+        self.ctx.services.newspaper.start(); // one read; holds nothing until the site publishes
         boot_timing::mark("background services started");
         self.loop_watch = loop_watch::LoopWatch::start();
         let mut frames = 0u32;
@@ -1710,6 +1833,7 @@ impl App {
         let online = self.ctx.services.online.clone();
         let duty = self.ctx.services.duty.clone();
         let cloud = self.ctx.services.cloud.clone();
+        let newspaper = self.ctx.services.newspaper.clone();
         run_while_pumping(
             move || {
                 let started = Instant::now();
@@ -1730,6 +1854,9 @@ impl App {
                 let started = Instant::now();
                 cloud.shutdown(); // flushes the final save's backup, bounded
                 log::info!("quit: cloud backup in {} ms", started.elapsed().as_millis());
+                let started = Instant::now();
+                newspaper.shutdown();
+                log::info!("quit: newspaper in {} ms", started.elapsed().as_millis());
             },
             &mut pump,
         );
@@ -1889,8 +2016,10 @@ pub fn main_with(options: CliOptions) -> i32 {
     // The crash marker: set now, cleared on the way out, so a run that
     // ends any other way is offered as a report next time.
     crate::problem_reports::begin_session(&ff_core::settings::data_dir());
+    // Before the audio engine opens: the sound session plays through the
+    // silent switch, and its interruptions reach the loop.
     #[cfg(target_os = "ios")]
-    crate::problem_reports::observe_app_lifecycle();
+    lifecycle::native::install();
     let code = run_game(&options);
     crate::problem_reports::end_session();
     guard.release();

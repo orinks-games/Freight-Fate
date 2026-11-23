@@ -67,6 +67,9 @@ const SKIP_PATH_PARTS: &[&str] = &[
     "/updater", "/online_presence", "discord_presence", "single_instance", "/app/logging",
     "/app/boot_timing", "/app/loop_watch", "/audio/youtube", "/src/android.rs",
     "/controller/bumpers.rs",
+    // The road journal's payload and the tally it reports: JSON keys sent to
+    // orinks.net, never spoken.
+    "/online_journal.rs", "/sim/road_tally.rs",
     // Load-time map screens: record fields and patterns, never spoken.
     "/data/stop_bounds",
     // The sign-law table: jurisdiction names and statute citations, never spoken.
@@ -94,7 +97,7 @@ static PATHISH: LazyLock<Regex> = LazyLock::new(|| {
     )
 });
 static HELP_TOKEN_RE: LazyLock<Regex> =
-    LazyLock::new(|| re(r"\{\{(?:(pad|key):)?([a-z_][a-z0-9_]*)\}\}"));
+    LazyLock::new(|| re(r"\{\{(?:(pad|key|do):)?([a-z_][a-z0-9_]*)\}\}"));
 
 #[derive(Clone, Copy, PartialEq, Eq, Debug)]
 enum Kind {

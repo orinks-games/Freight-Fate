@@ -236,6 +236,12 @@ const COMMANDS: &[(&str, &str, Command)] = &[
     ),
     #[cfg(feature = "world")]
     (
+        "nbi-decks",
+        "read every bridge's deck from the National Bridge Inventory (after hpms-pavement)",
+        world::layers::nbi::main,
+    ),
+    #[cfg(feature = "world")]
+    (
         "reroute-leg",
         "put a leg on the road a loaded truck takes, from the Valhalla truck router",
         world::reroute::leg_main,

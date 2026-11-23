@@ -320,7 +320,9 @@ fn continue_uses_the_most_recent_remote_career_after_multiple_pickups() {
             &hash,
             &identity().driver_id,
         );
-        fs::File::open(&path)
+        fs::File::options()
+            .write(true)
+            .open(&path)
             .unwrap()
             .set_times(
                 fs::FileTimes::new()

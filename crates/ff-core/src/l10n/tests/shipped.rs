@@ -493,7 +493,6 @@ fn every_shipped_language_says_the_whole_resume_line() {
         }
     }
 }
-
 #[test]
 fn shipped_catalogs_keep_loose_frames_off_whole_lines() {
     // Loose frames like "{chain_repair_links} left." and "{city} Travel

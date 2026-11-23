@@ -166,7 +166,7 @@ pub const CAREER_RANKS: [CareerRank; 30] = [
         "Leased-On Owner-Operator",
         "Owner-operator",
         "The owner-operator buy-in opens once its other requirements are met: \
-         you buy the truck you drive and haul for the carrier as a leased-on \
+         you buy a tractor of your own and haul for the carrier as a leased-on \
          owner-operator. TWIC port card enrollment opens under Licenses and \
          training.",
         "Eligible to buy your own truck and pay its operating costs.",

@@ -67,7 +67,7 @@ pub use truck_status::TruckStatusState;
 // `from .city_pickup import ...` / `from .city_business import ...`: the
 // Python module re-exported these, and the tests import them from here.
 pub use crate::states::city_business::{
-    BusinessStatusState, EndorsementCourseState, TrailerProgramState, TruckShopState,
+    BusinessStatusState, BuyInState, EndorsementCourseState, TrailerProgramState, TruckShopState,
     UpgradeShopState,
 };
 pub use crate::states::city_garage::GarageState;

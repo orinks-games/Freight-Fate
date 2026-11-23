@@ -365,3 +365,16 @@ fn test_truck_condition_defaults_fresh_and_from_dict() {
         ["fuel_gal", "damage_pct", "tire_wear_pct", "grime_pct"]
     );
 }
+
+#[test]
+fn rated_mpg_orders_the_heavy_hauler_rig_and_aero_flagship() {
+    let mpg = |key: &str| rated_mpg(truck_model(key).expect("catalog tractor"));
+    let rig = mpg("rig");
+    let heavy = mpg("heavy_hauler");
+    let aero = mpg("night_flag_aero");
+    assert!((6.0..=7.5).contains(&rig), "standard rig {rig}");
+    assert!(
+        heavy < rig && rig < aero,
+        "heavy {heavy}, rig {rig}, aero {aero}"
+    );
+}

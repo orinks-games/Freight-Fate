@@ -285,6 +285,26 @@ fn test_only_hospitality_and_parking_stops_earn_the_truck_stop_achievement() {
     }
 }
 
+/// Opening a stop spends every line about reaching it: "At Summit Rest
+/// Area. Come to a stop." was held, then said over the stop's own menu
+/// (phone walk E2). The arrival line is valid only while this is false.
+#[test]
+fn test_opening_a_stop_spends_the_line_about_reaching_it() {
+    use freight_fate::states::driving_updates::live;
+    let mut app = TestApp::new();
+    let drive = a_wear_drive(&mut app, COMPANY_DRIVER);
+    let at = with_drive(&drive, |d| {
+        d.trip.truck.velocity_mps = 0.0;
+        d.trip.position_mi
+    });
+    let stop = travel_center("Summit Rest Area", at);
+    live::set_stop_menu_open(false);
+    drive_and_ctx(&drive, &mut app, |driving, ctx| {
+        driving.open_poi_stop(ctx, &stop, true, None);
+    });
+    assert!(live::stop_menu_open());
+}
+
 #[test]
 fn test_a_motel_bed_is_not_five_by_two() {
     // The badge is ten hours in the bunk; a motel room is the night you

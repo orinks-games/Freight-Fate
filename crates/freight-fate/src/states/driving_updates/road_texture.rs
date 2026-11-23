@@ -2,16 +2,19 @@
 //! on jointed road each seam is two thumps, the steer axle and then the
 //! drives a wheelbase later, as hard as the surface and its faulting say,
 //! and each end of a bridge the truck hears is a heavier joint under all
-//! three axles. Pure ambience: nothing here is spoken.
+//! three axles. On concrete grooved across the lane the tires whine, and on
+//! an open steel grating they hum, at a pitch that follows the speed. Pure
+//! ambience: nothing here is spoken.
 
 use ff_core::sim::road_texture::joints::{joints_heard, JointSpan};
+use ff_core::sim::road_texture::song::{SongEvent, TireSong, SONG_FADE_MS};
 use ff_core::sim::road_texture::{
     Axle, AxleHits, Crossing, Hit, RoadSurface, RoadSurfaceEvent, SEAM_MIN_SPEED_MPS,
     SEAM_SPACING_M,
 };
 
 use crate::app::GameContext;
-use crate::audio::BANK_JITTER;
+use crate::audio::{BANK_JITTER, CH_ROAD_SONG};
 use crate::states::driving::DrivingState;
 
 /// A seam under the steer axle on good jointed concrete at 30 m/s and
@@ -47,6 +50,8 @@ const FALLBACK: &str = "vehicle/road_joint";
 #[derive(Clone, Debug)]
 pub struct RoadTexture {
     pub surface: RoadSurface,
+    /// What the tires are singing.
+    pub song: TireSong,
     pub hits: AxleHits,
     /// The route's jointed spans (`Trip::bridge_joint_spans`).
     pub spans: Vec<JointSpan>,
@@ -59,9 +64,15 @@ pub struct RoadTexture {
 }
 
 impl RoadTexture {
-    pub fn new(surface: RoadSurface, spans: Vec<JointSpan>, position_mi: f64) -> RoadTexture {
+    pub fn new(
+        surface: RoadSurface,
+        song: TireSong,
+        spans: Vec<JointSpan>,
+        position_mi: f64,
+    ) -> RoadTexture {
         RoadTexture {
             surface,
+            song,
             hits: AxleHits::default(),
             spans,
             since_joint_s: f64::INFINITY,
@@ -121,6 +132,8 @@ impl DrivingState {
             }
         }
 
+        self.update_tire_song(ctx, speed, dt);
+
         self.road_texture.since_seam_rumble_s += dt;
         for hit in landed {
             play_hit(ctx, hit, severity);
@@ -130,6 +143,29 @@ impl DrivingState {
                     self.road_texture.since_seam_rumble_s = 0.0;
                 }
             }
+        }
+    }
+}
+
+impl DrivingState {
+    /// The whine or the hum, one loop on the Road surface volume. Ramps are
+    /// outside the highway soundscape, as for the seams. `dt` is real
+    /// seconds, which the song's holds count.
+    fn update_tire_song(&mut self, ctx: &mut GameContext, speed: f64, dt: f64) {
+        let under = if self.trip.on_ramp {
+            ff_core::sim::road_texture::song::Underfoot::Plain
+        } else {
+            self.trip.underfoot_at(self.trip.position_mi)
+        };
+        let song = self.road_texture.song.next(SongEvent::Under { under, dt });
+        self.road_texture.song = song;
+        match song.mix(speed) {
+            Some((sound, rate, level)) => {
+                ctx.audio
+                    .start_loop_with(CH_ROAD_SONG, sound.key, level, SONG_FADE_MS);
+                ctx.audio.set_loop_rate(CH_ROAD_SONG, rate);
+            }
+            None => ctx.audio.stop_loop_with(CH_ROAD_SONG, SONG_FADE_MS),
         }
     }
 }
