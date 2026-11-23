@@ -626,6 +626,18 @@ impl DrivingState {
             self.engage_departure_cruise(ctx, target_mph);
             return;
         }
+        if let ff_core::sim::predictive_cruise::PredictiveCruiseState::ResumingSmooth {
+            ramp_mph_per_s,
+            ..
+        } = self.predictive_cruise
+        {
+            let floor = self
+                .cruise_working_mph
+                .unwrap_or_else(|| self.trip.truck.speed_mph());
+            let ramped = (floor + ramp_mph_per_s * dt).min(target_mph);
+            self.cruise_working_mph = Some(ramped);
+            target_mph = target_mph.min(ramped);
+        }
         let error = target_mph - self.trip.truck.speed_mph();
         // Feed-forward first, exactly as adaptive cruise does: the truck's own
         // physics already knows which pedal balances the road under the
