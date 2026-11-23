@@ -6826,9 +6826,9 @@ a carrier slice (owner, 2026-10-26).
       Pagosa Springs to Santa Fe over Chama, US 50 over Monarch Pass, US 12
       over Lolo Pass, US 82 over Cloudcroft, US 287 into Lamar, US 85 and
       US 18 through Lusk, US 20 from Bend to Corvallis and US 97 from Bend to
-      The Dalles. The detours that shrank most: Cedar City to Page (566
-      miles to 154), Pagosa Springs to Santa Fe (435 to 153) and Carlsbad to
-      Van Horn (380 to 119).
+      The Dalles. The detours that shrank most: Pagosa Springs to Santa Fe
+      (435 miles to 153), Carlsbad to Van Horn (380 to 119) and Burlington
+      to Lamar (375 to 119).
 - [x] Seven long legs split at a city they pass, with saves on the old leg
       resuming on the pieces: Astoria to Olympia at Longview, Roswell to
       Lubbock at Clovis, Denver to Albuquerque at Alamosa and Santa Fe,

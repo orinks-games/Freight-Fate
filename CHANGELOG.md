@@ -32,6 +32,7 @@
 - **Florida and Georgia have 50 new roads.** Sebring, Port Canaveral, Crystal River and Gainesville, Georgia join the map.
 - **California and the Southwest have 35 new roads.** Page to Saint George is now 155 miles on US 89, down from 513.
 - **The Great Lakes states have 61 new roads.** Joliet, Alpena, Ashtabula and Sandusky join the map.
+- **The Mountain West and Northwest have 45 new roads.** Aberdeen, Washington joins the map, and Pagosa Springs to Santa Fe drops 282 miles.
 - **Units has a new Automatic choice, the default in 2.0:** miles in the United States, kilometers in Canada, said once at the border.
 - **Kilometers now reach fuel, weights and signs.** Fuel is in liters, loads in tonnes, weights in kilograms and low bridges in meters.
 - **The cruise dial steps in the units you hear.** In kilometers it walks 95, 100, 105.
