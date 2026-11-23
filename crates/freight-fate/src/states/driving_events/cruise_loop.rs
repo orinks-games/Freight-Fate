@@ -722,7 +722,10 @@ impl DrivingState {
             self.acc_weather_cap_said = None;
         }
         // Smoothly resume out of highway work zones instead of surging to set speed.
-        let in_work_zone = self.trip.lowered_limit_reason() == "work zone";
+        let in_work_zone = self
+            .trip
+            .active_zone_at(self.trip.position_mi)
+            .is_some_and(|z| z.reason == "construction" || z.reason == "construction merge");
         if self.last_zone_was_work_zone && !in_work_zone {
             self.predictive_cruise = self.predictive_cruise.next(
                 ff_core::sim::predictive_cruise::PredictiveCruiseEvent::TriggerSmoothResume {
