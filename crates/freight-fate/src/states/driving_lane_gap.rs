@@ -573,7 +573,7 @@ impl DrivingState {
             .traffic_manager
             .vehicles
             .iter()
-            .filter(|v| v.lane == lane || (lane == 0 && v.lane == -1))
+            .filter(|v| !v.oncoming && (v.lane == lane || (lane == 0 && v.lane == -1)))
             .find(|v| {
                 let rear = v.position_mi - self.trip.position_mi;
                 let front = rear + real_length_mi(&v.vehicle_class);

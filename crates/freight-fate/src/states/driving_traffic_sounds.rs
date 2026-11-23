@@ -240,16 +240,21 @@ impl DrivingState {
             // it: the freeway falls away faster than the gentle in-traffic
             // law, as a road the cab is leaving does.
             let mut diverged = 1.0;
-            let (across, closing_mph) = if on_ramp {
+            let (across, closing_mph) = if vehicle.oncoming {
+                // Oncoming two-lane traffic passes one lane to the left of
+                // lane 0 at the combined closing speed of both vehicles.
+                let lanes = 1.0 - player_lane as f64;
+                (-lanes * LANE_WIDTH_FT, -vehicle.speed_mph - truck_mph)
+            } else if on_ramp {
                 // The odometer holds on the ramp: the mainline streams past a
                 // standing point at its own speed, off to the left and
                 // farther each foot the truck rolls down the ramp.
-                let at_gore = (vehicle.lane.max(0) as f64 + 0.5) * LANE_WIDTH_FT + RAMP_SPLIT_FT;
+                let at_gore = (vehicle.visual_lane.max(0.0) + 0.5) * LANE_WIDTH_FT + RAMP_SPLIT_FT;
                 let over = at_gore + self.traffic_ramp_rolled_ft * RAMP_DIVERGENCE;
                 diverged = (at_gore.hypot(along) / over.hypot(along)).sqrt();
                 (-over, vehicle.speed_mph)
             } else {
-                let lanes = (vehicle.lane - player_lane) as f64;
+                let lanes = vehicle.visual_lane - player_lane as f64;
                 (-lanes * LANE_WIDTH_FT, vehicle.speed_mph - truck_mph)
             };
             let distance = along.hypot(across);

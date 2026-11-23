@@ -1140,6 +1140,7 @@ fn a_car_in_the_crossroad() -> CrossTraffic {
         crossed: false,
         committed: false,
         sound_started: false,
+        release_delay_s: 0.0,
         id: 1,
     }];
     bubble

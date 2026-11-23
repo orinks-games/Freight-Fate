@@ -502,6 +502,18 @@ impl DrivingState {
         // retain their explicit destination intent below.
         self.trip.traffic_manager.player_lane = self.lane.lane;
         self.trip.traffic_manager.player_lane_target = self.lane_change_target;
+        self.trip.traffic_manager.player_signal_lane = if let Some(target) = self.lane_change_target
+        {
+            Some(target)
+        } else if self.exit_blinker_on() && self.lane.lane > 0 {
+            Some(self.lane.lane - 1)
+        } else if self.lane.steering < -0.25 && self.lane.lane + 1 < self.lane.lane_count {
+            Some(self.lane.lane + 1)
+        } else if self.lane.steering > 0.25 && self.lane.lane > 0 {
+            Some(self.lane.lane - 1)
+        } else {
+            None
+        };
         self.update_exit_preparation(ctx, dt);
         self.resume_speed_control_if_ready(ctx, braking);
         self.apply_chain_speed_cap(ctx);
