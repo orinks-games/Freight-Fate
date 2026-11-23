@@ -384,17 +384,38 @@ fn test_leaving_a_mountain_town_keeps_the_road_and_drops_the_town() {
 fn test_a_mountain_town_keeps_the_road_out_of_it() {
     // Same property on the remaining Pikeville mountain approach.
     //
-    // Originally Charleston->Pikeville (US-119 Corridor G). That edge was
-    // retired with the refuse leftovers. Johnson City->Pikeville on US-23
-    // still climbs into Pikeville: town geometry at the start reads as
-    // connectors, and the trunk bends inside the first three miles stay.
-    let recs = leg_curves("johnson_city_tn_us:pikeville_ky_us", true);
-    let near: Vec<_> = recs.iter().filter(|r| r.apex_mi < 3.0).collect();
+    // Originally Charleston->Pikeville (US-119 Corridor G), then Johnson
+    // City->Pikeville on US-23, split at Kingsport on 2026-11-23. The
+    // Kingsport piece still climbs into Pikeville on US-23: town geometry
+    // at the end reads as connectors, and the trunk bends inside the last
+    // three miles stay.
+    let key = "kingsport_tn_us:pikeville_ky_us";
+    let miles = world()
+        .legs
+        .iter()
+        .find(|l| format!("{}:{}", l.a, l.b) == key)
+        .expect("the Kingsport to Pikeville leg")
+        .miles;
+    let recs = leg_curves(key, true);
+    let near: Vec<_> = recs.iter().filter(|r| r.apex_mi > miles - 3.0).collect();
     assert!(
         !near.is_empty(),
         "US-23's own bends toward Pikeville must survive"
     );
     assert!(near.iter().all(|r| r.min_radius_ft >= 50));
+}
+
+/// Switchbacks read tighter than the floor, each checked against the map.
+///
+/// US 421 over Iron Mountain (The Snake, between Shady Valley and Mountain
+/// City) turns 190 degrees at mile 24.7 of Bristol to Hickory (2026-11-23).
+/// OpenStreetMap draws its hairpins with nodes 20 to 30 ft apart, so the
+/// 46 ft radius is the drawn road, not a stray vertex. It is the road the
+/// truck router takes, and OpenStreetMap carries no truck restriction on it.
+fn is_read_switchback(leg_key: &str, rec: &CurveRecord) -> bool {
+    leg_key == "bristol_tn_us:hickory_nc_us"
+        && (24.5..25.0).contains(&rec.apex_mi)
+        && rec.min_radius_ft >= 40
 }
 
 #[test]
@@ -409,6 +430,7 @@ fn test_no_surviving_curve_is_tighter_than_a_road_can_bend() {
         .iter()
         .flat_map(|(leg_key, recs)| recs.iter().map(move |rec| (leg_key, rec)))
         .filter(|(_, rec)| !rec.connector && rec.min_radius_ft < 50)
+        .filter(|(leg_key, rec)| !is_read_switchback(leg_key, rec))
         .collect();
     assert!(
         offenders.is_empty(),

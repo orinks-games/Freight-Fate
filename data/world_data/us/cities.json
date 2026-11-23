@@ -10332,6 +10332,138 @@
           "source_note": "Read: OpenStreetMap way 1016640451 (shop=variety_store, brand Dollar General, Georges Lane, Venice), OpenStreetMap planet file of 2026-11-16. Roles derived: a variety store receives dry freight and ships nothing."
         }
       ]
+    },
+    "morehead_city_nc_us": {
+      "spoken_city": "Morehead City",
+      "state": "NC",
+      "country": "US",
+      "region": "atlantic_southeast",
+      "lat": 34.72081,
+      "lon": -76.70149,
+      "source_note": "Pin on US 70 (Arendell Street) at Port Terminal Road, the gate road of the Port of Morehead City, so the legs west on US 70 and NC 24 leave from where the port's trucks join the highway. Position read from OpenStreetMap way 51640892 (US 70, hgv=designated), OpenStreetMap planet file of 2026-11-16. The director approved Morehead City by name for the Port of Morehead City (missing roads decision 4); region atlantic_southeast.",
+      "locations": [
+        {
+          "name": "Port of Morehead City",
+          "type": "port",
+          "lat": 34.72108,
+          "lon": -76.70006,
+          "source_note": "Read: OpenStreetMap way 318522813 (landuse=industrial, industrial=port, operator North Carolina Ports, 113 Arendell Street), OpenStreetMap planet file of 2026-11-16; pin is the centroid of that outline. North Carolina Ports runs it as a breakbulk and bulk port. Roles: the port type's own."
+        },
+        {
+          "name": "Walmart Supercenter",
+          "type": "shopping_mall",
+          "lat": 34.73509,
+          "lon": -76.81135,
+          "ships": [],
+          "receives": [
+            "retail",
+            "general",
+            "food",
+            "refrigerated"
+          ],
+          "source_note": "Read: OpenStreetMap way 440546066 (shop=supermarket, brand Walmart, 300 NC Highway 24); pin is the centroid of that outline, OpenStreetMap planet file of 2026-11-16. Operation not confirmed from a second source. Roles derived: store deliveries of dry and chilled freight, as the mall type receives; it ships nothing."
+        }
+      ]
+    },
+    "pinehurst_nc_us": {
+      "spoken_city": "Pinehurst",
+      "state": "NC",
+      "country": "US",
+      "region": "atlantic_southeast",
+      "lat": 35.20131,
+      "lon": -79.45128,
+      "source_note": "Pin on the Pinehurst Traffic Circle, where US 15 and US 501, NC 211, NC 2 and NC 5 meet at the edge of the village, so the legs on US 15-501, NC 211 and toward US 1 leave from one place. Position read from OpenStreetMap way 307739529 (junction=roundabout, ref US 15;US 501;NC 211), OpenStreetMap planet file of 2026-11-16. The town stands for the Pinehurst and Southern Pines urban area (50,319 people, Census 2020), approved under its class (missing roads decision 4); region atlantic_southeast.",
+      "locations": [
+        {
+          "name": "Fletcher Industries",
+          "type": "manufacturing_plant",
+          "lat": 35.21635,
+          "lon": -79.39358,
+          "source_note": "Read: OpenStreetMap way 1540166989 (building=industrial, name Fletcher Industries, 1485 Central Drive, Southern Pines), OpenStreetMap planet file of 2026-11-16; pin on that outline. Operation not confirmed from a second source. Roles: the manufacturing plant type's own."
+        },
+        {
+          "name": "BJ's Wholesale Club",
+          "type": "shopping_mall",
+          "lat": 35.17039,
+          "lon": -79.41764,
+          "ships": [],
+          "receives": [
+            "retail",
+            "general",
+            "food",
+            "refrigerated"
+          ],
+          "source_note": "Read: OpenStreetMap node 14345451619 (shop=wholesale, brand BJ's Wholesale Club, 205 Carolina Green Parkway, Southern Pines), OpenStreetMap planet file of 2026-11-16. Operation not confirmed from a second source. Roles derived: store deliveries of dry and chilled freight, as the mall type receives; it ships nothing."
+        },
+        {
+          "name": "Walmart Supercenter",
+          "type": "shopping_mall",
+          "lat": 35.1604,
+          "lon": -79.4248,
+          "ships": [],
+          "receives": [
+            "retail",
+            "general",
+            "food",
+            "refrigerated"
+          ],
+          "source_note": "Read: OpenStreetMap way 429381798 (shop=supermarket, brand Walmart, 250 Turner Street, Aberdeen); pin is the centroid of that outline, OpenStreetMap planet file of 2026-11-16. Operation not confirmed from a second source. Roles derived: store deliveries of dry and chilled freight, as the mall type receives; it ships nothing."
+        }
+      ]
+    },
+    "reedville_va_us": {
+      "spoken_city": "Reedville",
+      "state": "VA",
+      "country": "US",
+      "region": "atlantic_southeast",
+      "lat": 37.84732,
+      "lon": -76.27364,
+      "source_note": "Pin on US 360 (Main Street) at the north end of the village, where the road from the menhaden plant and the crab houses joins it. Position read from OpenStreetMap way 51323174 (US 360, hgv=designated, Virginia DOT truck network), OpenStreetMap planet file of 2026-11-16. Reedville is among the top 20 US ports by commercial landings (NOAA Fisheries, Fisheries of the United States 2023, as the missing roads survey read it), approved under its class as an unreached fishing port (missing roads decisions 4 and 9); region atlantic_southeast.",
+      "locations": [
+        {
+          "name": "Omega Protein",
+          "type": "food_processor",
+          "lat": 37.8302,
+          "lon": -76.27879,
+          "ships": [
+            "food",
+            "bulk"
+          ],
+          "receives": [
+            "general",
+            "fuel_bulk"
+          ],
+          "source_note": "Read: OpenStreetMap way 910635272 (man_made=works, industrial=seafood_processing, product=fish_oil_&_meal, name Omega Protein), OpenStreetMap planet file of 2026-11-16; pin is the centroid of that outline. Operation not confirmed from a second source. Roles derived: a menhaden plant ships fish oil and meal and receives supplies and fuel."
+        },
+        {
+          "name": "Smith Point Seafood",
+          "type": "food_processor",
+          "lat": 37.83736,
+          "lon": -76.27425,
+          "ships": [
+            "refrigerated",
+            "food"
+          ],
+          "receives": [
+            "general"
+          ],
+          "source_note": "Read: OpenStreetMap way 1234572831 (man_made=works, industrial=seafood_processing, product=blue_crab_processing, operator Smith Point Seafood, Inc.), OpenStreetMap planet file of 2026-11-16; pin is the centroid of that outline. Operation not confirmed from a second source. Roles derived: a crab house ships chilled product and receives general supplies."
+        },
+        {
+          "name": "Dollar General",
+          "type": "shopping_mall",
+          "lat": 37.88066,
+          "lon": -76.33613,
+          "ships": [],
+          "receives": [
+            "retail",
+            "general",
+            "food",
+            "refrigerated"
+          ],
+          "source_note": "Read: OpenStreetMap node 8263140694 (shop=variety_store, brand Dollar General, 15645 Northumberland Highway, Burgess), on US 360 five miles up the road from Reedville, OpenStreetMap planet file of 2026-11-16. Operation not confirmed from a second source. Roles derived: store deliveries of dry and chilled freight, as the mall type receives; it ships nothing."
+        }
+      ]
     }
   }
 }

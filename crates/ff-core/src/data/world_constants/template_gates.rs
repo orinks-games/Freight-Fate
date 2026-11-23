@@ -472,6 +472,11 @@ pub const CURATED_COMPLETE_MARKET_CITY_KEYS: &[&str] = &[
     "point_comfort_tx_us",
     "port_fourchon_la_us",
     "venice_la_us",
+    // Appalachia and Mid-South (missing roads, 2026-11-23): each new town
+    // keeps the port, plants and stores read from the map for it.
+    "morehead_city_nc_us",
+    "pinehurst_nc_us",
+    "reedville_va_us",
 ];
 
 /// Whether this city keeps only its authored freight locations. See
