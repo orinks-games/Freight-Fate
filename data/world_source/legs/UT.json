@@ -1712,6 +1712,12 @@
         ],
         "speed_limits": [
           {
+            "at_mi": 1.0,
+            "mph": 35,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
             "at_mi": 2.0,
             "mph": 75,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
@@ -1738,6 +1744,12 @@
           {
             "at_mi": 97.0,
             "mph": 80,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 114.0,
+            "mph": 40,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           }
@@ -3069,6 +3081,12 @@
           {
             "at_mi": 47.0,
             "mph": 70,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 52.7,
+            "mph": 30,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           }
@@ -11555,6 +11573,12 @@
         ],
         "speed_limits": [
           {
+            "at_mi": 0.8,
+            "mph": 35,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
             "at_mi": 1.1,
             "mph": 80,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
@@ -11569,6 +11593,18 @@
           {
             "at_mi": 32.2,
             "mph": 70,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 39.5,
+            "mph": 35,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 40.9,
+            "mph": 15,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           }
@@ -13546,6 +13582,12 @@
           }
         ],
         "speed_limits": [
+          {
+            "at_mi": 0.0,
+            "mph": 20,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
           {
             "at_mi": 1.7,
             "mph": 45,
@@ -20914,6 +20956,12 @@
         ],
         "speed_limits": [
           {
+            "at_mi": 0.0,
+            "mph": 15,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
             "at_mi": 1.5,
             "mph": 70,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
@@ -20976,6 +21024,30 @@
           {
             "at_mi": 380.5,
             "mph": 45,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 381.9,
+            "mph": 35,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 382.9,
+            "mph": 35,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": true
+          },
+          {
+            "at_mi": 383.2,
+            "mph": 35,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 384.0,
+            "mph": 25,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           }
@@ -24075,6 +24147,18 @@
         ],
         "speed_limits": [
           {
+            "at_mi": 0.0,
+            "mph": 15,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 0.4,
+            "mph": 35,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
             "at_mi": 2.3,
             "mph": 70,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
@@ -24131,6 +24215,12 @@
           {
             "at_mi": 203.5,
             "mph": 75,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 206.7,
+            "mph": 35,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           }
@@ -33143,6 +33233,24 @@
         ],
         "speed_limits": [
           {
+            "at_mi": 0.0,
+            "mph": 15,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 0.3,
+            "mph": 35,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 2.0,
+            "mph": 40,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
             "at_mi": 3.6,
             "mph": 45,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
@@ -33259,8 +33367,38 @@
             "hgv": false
           },
           {
+            "at_mi": 466.4,
+            "mph": 40,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
             "at_mi": 467.4,
             "mph": 45,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 468.4,
+            "mph": 40,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 470.1,
+            "mph": 35,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 470.5,
+            "mph": 25,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 470.8,
+            "mph": 30,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           }
@@ -42640,6 +42778,18 @@
         ],
         "speed_limits": [
           {
+            "at_mi": 0.0,
+            "mph": 15,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 0.6,
+            "mph": 35,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
             "at_mi": 2.5,
             "mph": 70,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
@@ -42750,6 +42900,12 @@
           {
             "at_mi": 367.2,
             "mph": 65,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 376.7,
+            "mph": 30,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           }
@@ -44745,8 +44901,32 @@
         ],
         "speed_limits": [
           {
+            "at_mi": 0.0,
+            "mph": 15,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
             "at_mi": 1.9,
             "mph": 70,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 43.9,
+            "mph": 40,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 44.4,
+            "mph": 35,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 44.7,
+            "mph": 30,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           }
@@ -46361,6 +46541,12 @@
         ],
         "speed_limits": [
           {
+            "at_mi": 0.0,
+            "mph": 40,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
             "at_mi": 1.0,
             "mph": 45,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
@@ -46417,6 +46603,12 @@
           {
             "at_mi": 54.8,
             "mph": 80,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 79.1,
+            "mph": 35,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           }
@@ -48179,6 +48371,12 @@
         ],
         "speed_limits": [
           {
+            "at_mi": 0.0,
+            "mph": 30,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
             "at_mi": 0.9,
             "mph": 45,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
@@ -48211,6 +48409,12 @@
           {
             "at_mi": 109.9,
             "mph": 65,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 119.9,
+            "mph": 30,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           }
@@ -55159,6 +55363,30 @@
         "tollway_detected": false,
         "speed_limits": [
           {
+            "at_mi": 0.0,
+            "mph": 30,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 0.3,
+            "mph": 20,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 0.6,
+            "mph": 30,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 1.6,
+            "mph": 40,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
             "at_mi": 1.8,
             "mph": 70,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
@@ -55269,6 +55497,12 @@
           {
             "at_mi": 410.2,
             "mph": 65,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 419.7,
+            "mph": 30,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           }
@@ -58361,6 +58595,12 @@
         ],
         "speed_limits": [
           {
+            "at_mi": 0.0,
+            "mph": 30,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
             "at_mi": 1.7,
             "mph": 70,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
@@ -58387,6 +58627,12 @@
           {
             "at_mi": 36.1,
             "mph": 70,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 40.0,
+            "mph": 20,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           }
