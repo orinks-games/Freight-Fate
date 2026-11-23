@@ -819,7 +819,7 @@ impl TrafficManager {
         let mut nearest: Option<&TrafficVehicle> = None;
         let mut nearest_gap = f64::INFINITY;
         for vehicle in &self.vehicles {
-            if vehicle.lane != lane {
+            if vehicle.oncoming || vehicle.lane != lane {
                 continue;
             }
             let gap = vehicle.position_mi - position_mi;
