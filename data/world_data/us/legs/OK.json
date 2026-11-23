@@ -29757,6 +29757,16 @@
             ]
           },
           {
+            "name": "National Cowboy Museum (from Fort Worth)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 9.0,
+            "spoken": "Billboard: The National Cowboy and Western Heritage Museum, ahead in Oklahoma City, with twenty-eight thousand pieces of the West and a whole cow town indoors.",
+            "directions": [
+              "forward"
+            ]
+          },
+          {
             "name": "Newcastle",
             "at_mi": 17.0,
             "off_mi": 6.44,
@@ -29963,6 +29973,16 @@
             "kind": "point",
             "source": "OpenStreetMap place=village node 151951992, projected onto the leg's OpenRouteService driving-hgv route",
             "spoken": "Passing Gene Autry"
+          },
+          {
+            "name": "Turner Falls Park (from Fort Worth)",
+            "category": "billboard_sign",
+            "kind": "point",
+            "at_mi": 89.3,
+            "spoken": "Billboard: Turner Falls Park, ahead near Davis, a seventy-seven-foot waterfall in the Arbuckle Mountains, and a stone castle a professor built for his summers.",
+            "directions": [
+              "forward"
+            ]
           },
           {
             "name": "Turner Falls Park (from Ardmore)",
@@ -31274,8 +31294,7 @@
         {
           "name": "Love's Travel Stop Norman",
           "type": "travel_center",
-          "at_mi": 24.8,
-          "source": "OpenStreetMap/Overpass development-time corridor amenity query, accessed 2026-06-21; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Store identity read from OpenStreetMap (Geofabrik Oklahoma extract dated 2026-06-22, read 2026-09-17): Love's store 260 at Norman; town read from the mapped site's address; matched by coordinate, 0.02 mi from the mapped site.",
+          "source": "OpenStreetMap/Overpass development-time corridor amenity query, accessed 2026-06-21; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Opposite-direction copy onto overlapping same-highway partner; curated 2026-09-16. Store identity read from OpenStreetMap (Geofabrik Oklahoma extract dated 2026-06-22, read 2026-09-17): Love's store 260 at Norman; town read from the mapped site's address; matched by coordinate, 0.02 mi from the mapped site.",
           "parking": "likely",
           "actions": [
             "park",
@@ -31290,11 +31309,8 @@
             "food",
             "parking"
           ],
-          "lat": 35.18394,
-          "lon": -97.4993,
           "vehicle_access": "tractor_trailer",
-          "exit_ref": "106",
-          "exit_source": "exit_ref read: ref tag of the nearest OpenStreetMap highway=motorway_junction node on I35, 0.41 mi from the stop's read coordinates (derived snap, cut 0.6 mi), local Geofabrik extract accessed 2026-09-17; this leg has no interchange record with that number."
+          "at_mi": 21.8
         },
         {
           "name": "Phillips 66",
@@ -31442,8 +31458,7 @@
         {
           "name": "Flying J Travel Center Ardmore",
           "type": "travel_center",
-          "at_mi": 98.0,
-          "source": "OpenStreetMap/Overpass development-time amenity query centered on the ardmore_ok_us endpoint city's own coordinates; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Store identity read from OpenStreetMap (Geofabrik Oklahoma extract dated 2026-06-22, read 2026-09-17): Flying J store at Ardmore; town read from the mapped site's branch name; matched by coordinate, 0.02 mi from the mapped site. CAT Scale read from OpenStreetMap (amenity=weighbridge, brand CAT Scale) within 0.25 mi of the store; Overpass snapshot 2026-09-24, tools/cat_scales.py.",
+          "source": "OpenStreetMap/Overpass development-time amenity query centered on the ardmore_ok_us endpoint city's own coordinates; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Opposite-direction copy onto overlapping same-highway partner; curated 2026-09-16. Store identity read from OpenStreetMap (Geofabrik Oklahoma extract dated 2026-06-22, read 2026-09-17): Flying J store at Ardmore; town read from the mapped site's branch name; matched by coordinate, 0.02 mi from the mapped site. CAT Scale read from OpenStreetMap (amenity=weighbridge, brand CAT Scale) within 0.25 mi of the store; Overpass snapshot 2026-09-24, tools/cat_scales.py.",
           "parking": "likely",
           "actions": [
             "park",
@@ -31459,11 +31474,31 @@
             "parking",
             "scale"
           ],
-          "lat": 34.2006,
-          "lon": -97.16679,
           "vehicle_access": "tractor_trailer",
-          "exit_ref": "33",
-          "exit_source": "exit_ref read: ref tag of the nearest OpenStreetMap highway=motorway_junction node on I35, 0.23 mi from the stop's read coordinates (derived snap, cut 0.6 mi), local Geofabrik extract accessed 2026-09-17; this leg has no interchange record with that number."
+          "at_mi": 95.3
+        },
+        {
+          "name": "Love's Travel Stop Ardmore",
+          "type": "travel_center",
+          "source": "Love's official Ardmore, Oklahoma store 266 page lists truck parking, accessed 2026-06-18: https://www.loves.com/locations/ok/ardmore/loves-travel-stop-ardmore-266; OpenStreetMap way 226284943 (Love's Travel Stop, branch=Ardmore, ref=266, hgv=yes) provides the service-area center coordinates; CAT Scale node 11670365985 (ref=267) is next to the stop, from the 2026-09-29 corridor extract; at_mi derived 2026-10-01: the stop's own coordinates projected onto the rerouted Valhalla truck geometry (nearest point, distance rescaled to adopted leg miles).",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "food",
+            "break",
+            "sleep"
+          ],
+          "services": [
+            "diesel",
+            "food",
+            "parking",
+            "scale"
+          ],
+          "parking": "confirmed",
+          "curation": "curated",
+          "vehicle_access": "tractor_trailer",
+          "at_mi": 96.3
         }
       ],
       "divided": true,
@@ -33500,6 +33535,28 @@
         }
       },
       "stops": [
+        {
+          "name": "Love's Travel Stop",
+          "type": "travel_center",
+          "source": "OpenStreetMap/Overpass dense in-gap corridor amenity query, accessed 2026-07-19; added to close a stretch with no truck-accessible service after the truck-accessibility sweep. Curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Store identity read from OpenStreetMap (Geofabrik Oklahoma extract dated 2026-06-22, read 2026-09-17): Love's store 205; no town is mapped for it, so the record keeps the chain's name; matched by coordinate, 0.01 mi from the mapped site. CAT Scale read from OpenStreetMap (amenity=weighbridge, brand CAT Scale) within 0.25 mi of the store; Overpass snapshot 2026-09-24, tools/cat_scales.py.; at_mi derived 2026-10-01: the stop's own coordinates projected onto the rerouted Valhalla truck geometry (nearest point, distance rescaled to leg miles); at_mi derived 2026-10-01: the stop's own coordinates projected onto the rerouted Valhalla truck geometry (nearest point, distance rescaled to leg miles)",
+          "parking": "likely",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "food",
+            "break",
+            "sleep"
+          ],
+          "services": [
+            "diesel",
+            "food",
+            "parking",
+            "scale"
+          ],
+          "vehicle_access": "tractor_trailer",
+          "at_mi": 12.3
+        },
         {
           "name": "Love's Travel Stop Stroud",
           "type": "travel_center",

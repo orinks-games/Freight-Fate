@@ -8832,6 +8832,303 @@
           "source_note": "Read: Lund's Fisheries says it runs one of the largest seafood processing plants on the eastern seaboard in Cape May, with over 1,200 feet of waterfront where at least 15 vessels a day land, and sells fresh, land-frozen and sea-frozen product (https://lundsfish.com/lunds-on-shore/, read 2026-11-22). The street address, 997 Ocean Drive, is from business directory listings; position derived: OpenStreetMap's address for 997 Ocean Drive (way 263265781, found through Nominatim on 2026-11-22). Roles derived: a seafood plant ships chilled and frozen product and receives general supplies."
         }
       ]
+    },
+    "denton_tx_us": {
+      "spoken_city": "Denton",
+      "state": "TX",
+      "country": "US",
+      "region": "southern_plains",
+      "lat": 33.21546,
+      "lon": -97.16868,
+      "source_note": "Pin on West Oak Street where it crosses the Interstate 35 frontage road beside the interchange where I-35 splits into I-35E and I-35W (the two motorways meet at 33.21431, -97.16838), so legs south on either branch, north on I-35 and east and west on US 380 leave from one corner. Position read from the West Oak Street way, OpenStreetMap planet file of 2026-11-16. Approved by name for the I-35E and I-35W junction (missing roads decision 4); region southern_plains.",
+      "locations": [
+        {
+          "name": "Peterbilt Motors Denton Plant",
+          "type": "automotive_plant",
+          "lat": 33.20248,
+          "lon": -97.17526,
+          "ships": [
+            "machinery"
+          ],
+          "receives": [
+            "steel",
+            "machinery",
+            "general"
+          ],
+          "source_note": "Read: Peterbilt assembles trucks at its Denton, Texas plant and marked its 750,000th truck built there (Fleet Equipment, https://www.fleetequipmentmag.com/peterbilt-marks-750000-trucks-assembled-at-denton-facility/, listed 2026-11-23). Position read from OpenStreetMap way 524256053 (Peterbilt Motors Co Manufacturing, 3200 Airport Road), OpenStreetMap planet file of 2026-11-16. Roles derived: a truck plant ships finished trucks and parts and receives steel, components and supplies."
+        },
+        {
+          "name": "Tetra Pak Denton",
+          "type": "manufacturing_plant",
+          "lat": 33.20265,
+          "lon": -97.18115,
+          "ships": [
+            "general"
+          ],
+          "receives": [
+            "lumber_paper",
+            "chemicals"
+          ],
+          "source_note": "Read: OpenStreetMap way 524256387 (building=industrial, name Tetra Pak Inc, 3300 Airport Road, Denton), OpenStreetMap planet file of 2026-11-16; not confirmed from a second source. Roles derived: a carton packaging plant receives paperboard and polymer and ships packaging material."
+        },
+        {
+          "name": "Golden Triangle Mall",
+          "type": "shopping_mall",
+          "lat": 33.19047,
+          "lon": -97.10845,
+          "ships": [],
+          "receives": [
+            "food",
+            "retail",
+            "refrigerated",
+            "general"
+          ],
+          "source_note": "Read: OpenStreetMap way 491346393 (landuse=retail, name Golden Triangle Mall, 2201 South Interstate 35E, Denton), OpenStreetMap planet file of 2026-11-16; pin is the centroid of that outline. Roles derived: store deliveries of dry and chilled freight, as the mall type receives; it ships nothing."
+        }
+      ]
+    },
+    "galveston_tx_us": {
+      "spoken_city": "Galveston",
+      "state": "TX",
+      "country": "US",
+      "region": "gulf_coast",
+      "lat": 29.30191,
+      "lon": -94.81359,
+      "source_note": "Pin on Harborside Drive (TX 275) at the Port of Galveston, where I-45 traffic reaches the wharves; position read from OpenStreetMap way 61343958, OpenStreetMap planet file of 2026-11-16. The list's port point (NOAA principal ports) is 0.6 mi east on the water; the Census place point is 15 mi away on the west end of the island. Approved by name for the Port of Galveston, standing for Texas City (missing roads decisions 4 and 9); region gulf_coast.",
+      "locations": [
+        {
+          "name": "Port of Galveston",
+          "type": "port",
+          "lat": 29.30666,
+          "lon": -94.8117,
+          "ships": [
+            "general",
+            "bulk",
+            "refrigerated"
+          ],
+          "receives": [
+            "general",
+            "bulk",
+            "machinery"
+          ],
+          "source_note": "Read: OpenStreetMap way 277043291 (landuse=harbour, name Port of Galveston), OpenStreetMap planet file of 2026-11-16; Galveston is a US Army Corps of Engineers principal port (NOAA Office for Coastal Management principal ports layer). Roles derived: a general cargo port ships and receives general, bulk and chilled cargo across its wharves on Harborside Drive."
+        },
+        {
+          "name": "Walmart Supercenter Galveston",
+          "type": "retail_distribution",
+          "lat": 29.26475,
+          "lon": -94.83328,
+          "ships": [],
+          "receives": [
+            "food",
+            "retail",
+            "refrigerated",
+            "general"
+          ],
+          "source_note": "Read: OpenStreetMap way 353307233 (shop=supermarket, operator Walmart, store 504, 6702 Seawall Boulevard, Galveston), OpenStreetMap planet file of 2026-11-16. Roles derived: a big box store receives dry and chilled freight and ships nothing."
+        }
+      ]
+    },
+    "freeport_tx_us": {
+      "spoken_city": "Freeport",
+      "state": "TX",
+      "country": "US",
+      "region": "gulf_coast",
+      "lat": 28.94745,
+      "lon": -95.34516,
+      "source_note": "Pin on FM 1495 (Pine Street) at the TX 36 and TX 288 approach to Port Freeport's Velasco terminal; position read from OpenStreetMap way 20733437, OpenStreetMap planet file of 2026-11-16. Approved by name for Port Freeport, standing for Lake Jackson (missing roads decision 4); region gulf_coast.",
+      "locations": [
+        {
+          "name": "Port Freeport",
+          "type": "port",
+          "lat": 28.94542,
+          "lon": -95.33441,
+          "ships": [
+            "container",
+            "general"
+          ],
+          "receives": [
+            "container",
+            "general",
+            "machinery",
+            "steel"
+          ],
+          "source_note": "Read: OpenStreetMap area 2204635108 (landuse=industrial, industrial=port, name Port of Freeport), OpenStreetMap planet file of 2026-11-16; Port Freeport is a US Army Corps of Engineers principal port (21.1 million tons, missing roads region list). Roles derived: a container and general cargo port ships and receives boxes, general cargo and project steel."
+        },
+        {
+          "name": "Chiquita Fruit Terminal Freeport",
+          "type": "food_terminal",
+          "lat": 28.94212,
+          "lon": -95.33829,
+          "ships": [
+            "refrigerated",
+            "food"
+          ],
+          "receives": [
+            "general"
+          ],
+          "source_note": "Read: OpenStreetMap area 2204635104 (landuse=industrial, name Chiquita Fruit Terminal) inside Port Freeport, OpenStreetMap planet file of 2026-11-16; not confirmed from a second source. Roles derived: a fruit import terminal ships chilled produce and receives general supplies."
+        },
+        {
+          "name": "Dow Freeport Plant A",
+          "type": "chemical_petroleum_terminal",
+          "lat": 28.94293,
+          "lon": -95.324,
+          "ships": [
+            "chemicals"
+          ],
+          "receives": [
+            "chemicals",
+            "machinery"
+          ],
+          "source_note": "Read: OpenStreetMap area 2178702724 (landuse=industrial, industrial=chemical, name DOW Plant A), OpenStreetMap planet file of 2026-11-16. Roles derived: a chemical plant ships packaged and bulk chemicals and receives feedstock chemicals and plant parts."
+        },
+        {
+          "name": "Kroger Lake Jackson",
+          "type": "retail_distribution",
+          "lat": 29.03826,
+          "lon": -95.42111,
+          "ships": [],
+          "receives": [
+            "food",
+            "retail",
+            "refrigerated",
+            "general"
+          ],
+          "source_note": "Read: OpenStreetMap area 1088042034 (shop=supermarket, brand Kroger) in Lake Jackson, 7.6 mi from the pin, OpenStreetMap planet file of 2026-11-16. Freeport stands for Lake Jackson. Roles derived: a supermarket receives dry and chilled freight and ships nothing."
+        }
+      ]
+    },
+    "port_fourchon_la_us": {
+      "spoken_city": "Port Fourchon",
+      "state": "LA",
+      "country": "US",
+      "region": "gulf_coast",
+      "lat": 29.12528,
+      "lon": -90.20664,
+      "source_note": "Pin on N.J. Theriot Road in Port Fourchon, the port's through road at the end of LA 3090; position read from OpenStreetMap way 12667091, OpenStreetMap planet file of 2026-11-16. Approved by name for Port Fourchon, the Gulf oil service port (missing roads decision 4); region gulf_coast.",
+      "locations": [
+        {
+          "name": "C-Port 1 Port Fourchon",
+          "type": "port_terminal",
+          "lat": 29.13001,
+          "lon": -90.21644,
+          "ships": [
+            "general",
+            "machinery"
+          ],
+          "receives": [
+            "general",
+            "machinery",
+            "steel",
+            "food"
+          ],
+          "source_note": "Read: OpenStreetMap area 645084032 (landuse=industrial, name C-Port 1), Port Fourchon, OpenStreetMap planet file of 2026-11-16; not confirmed from a second source. Roles derived: an offshore supply base receives the general freight, groceries, pipe and equipment that boats carry out to the rigs, and ships returned equipment."
+        },
+        {
+          "name": "Halliburton Port Fourchon",
+          "type": "chemical_petroleum_terminal",
+          "lat": 29.12548,
+          "lon": -90.21472,
+          "ships": [],
+          "receives": [
+            "chemicals",
+            "machinery",
+            "bulk"
+          ],
+          "source_note": "Read: OpenStreetMap way 322541772 (landuse=industrial, name Halliburton), Port Fourchon, OpenStreetMap planet file of 2026-11-16; not confirmed from a second source. Roles derived: an oilfield service yard receives drilling chemicals, bulk material and equipment."
+        }
+      ]
+    },
+    "point_comfort_tx_us": {
+      "spoken_city": "Point Comfort",
+      "state": "TX",
+      "country": "US",
+      "region": "gulf_coast",
+      "lat": 28.67478,
+      "lon": -96.55862,
+      "source_note": "Pin on TX 35 at Point Comfort, between the Lavaca Bay causeway from Port Lavaca and FM 1593 to the Formosa Plastics plant and the port docks; position read from OpenStreetMap way 109212533, OpenStreetMap planet file of 2026-11-16. The list's port point sits in Lavaca Bay. Approved by name (missing roads decision 9) for the Port of Port Lavaca-Point Comfort, a principal port (11,821,386 tons); region gulf_coast.",
+      "locations": [
+        {
+          "name": "Formosa Plastics Point Comfort",
+          "type": "chemical_petroleum_terminal",
+          "lat": 28.701,
+          "lon": -96.53655,
+          "ships": [
+            "chemicals"
+          ],
+          "receives": [
+            "chemicals",
+            "machinery"
+          ],
+          "source_note": "Read: OpenStreetMap way 1094110478 (landuse=industrial, industrial=chemical, name Formosa Plastics), OpenStreetMap planet file of 2026-11-16, with the Formosa cogeneration plant (way 515589171) beside it. Roles derived: a plastics plant ships resin and chemicals and receives feedstock chemicals and plant parts."
+        },
+        {
+          "name": "Walmart Supercenter Port Lavaca",
+          "type": "retail_distribution",
+          "lat": 28.63227,
+          "lon": -96.62759,
+          "ships": [],
+          "receives": [
+            "food",
+            "retail",
+            "refrigerated",
+            "general"
+          ],
+          "source_note": "Read: OpenStreetMap area 1247910318 (shop=supermarket, operator Walmart, store 1098) in Port Lavaca across the causeway, 4.6 mi from the pin, OpenStreetMap planet file of 2026-11-16. Roles derived: a big box store receives dry and chilled freight and ships nothing."
+        }
+      ]
+    },
+    "venice_la_us": {
+      "spoken_city": "Venice",
+      "state": "LA",
+      "country": "US",
+      "region": "gulf_coast",
+      "lat": 29.27952,
+      "lon": -89.35954,
+      "source_note": "Pin on LA 23 in Venice, near the end of the highway at the Venice fishing and oil service docks; position read from OpenStreetMap way 52870658, OpenStreetMap planet file of 2026-11-16. The list's point (NOAA Empire-Venice fishing port) is at Empire, 18 mi up LA 23; the director approved pinning Venice itself (2026-11-23). Approved under its class as an unreached top-20 fishing port (NOAA Fisheries of the United States 2023); region gulf_coast.",
+      "locations": [
+        {
+          "name": "Curlew Midstream Venice Terminal",
+          "type": "port_terminal",
+          "lat": 29.28723,
+          "lon": -89.36503,
+          "ships": [
+            "fuel_bulk"
+          ],
+          "receives": [
+            "general",
+            "machinery"
+          ],
+          "source_note": "Read: OpenStreetMap area 36582185 (landuse=industrial, industrial=port, name Curlew Midstream Terminal), Venice, OpenStreetMap planet file of 2026-11-16; not confirmed from a second source. Roles derived: a river terminal ships bulk liquids and receives general supplies and equipment."
+        },
+        {
+          "name": "Halliburton Venice",
+          "type": "chemical_petroleum_terminal",
+          "lat": 29.25376,
+          "lon": -89.35784,
+          "ships": [],
+          "receives": [
+            "chemicals",
+            "machinery",
+            "bulk"
+          ],
+          "source_note": "Read: OpenStreetMap way 1334286486 (landuse=industrial, name Halliburton), Venice, OpenStreetMap planet file of 2026-11-16; not confirmed from a second source. Roles derived: an oilfield service yard receives drilling chemicals, bulk material and equipment."
+        },
+        {
+          "name": "Dollar General Venice",
+          "type": "retail_distribution",
+          "lat": 29.27913,
+          "lon": -89.36045,
+          "ships": [],
+          "receives": [
+            "retail",
+            "general",
+            "food"
+          ],
+          "source_note": "Read: OpenStreetMap way 1016640451 (shop=variety_store, brand Dollar General, Georges Lane, Venice), OpenStreetMap planet file of 2026-11-16. Roles derived: a variety store receives dry freight and ships nothing."
+        }
+      ]
     }
   }
 }
