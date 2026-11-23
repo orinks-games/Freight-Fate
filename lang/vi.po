@@ -17865,15 +17865,6 @@ msgstr "Tiếng đề nổ máy, vang lên ngay sau khi bạn khởi động đ�
 msgid "An engine stopping, immediately after you stopped it."
 msgstr "Tiếng tắt máy, vang lên ngay sau khi bạn tắt động cơ."
 
-msgid ""
-"The classic jake sound: the same three staged entries play it when "
-"Settings, Audio has Engine brake sound set to classic, through the same "
-"key-resolution routing the drive uses. Not a second cue."
-msgstr ""
-"Âm phanh động cơ cổ điển: cả ba mục mức phanh ở trên đều phát âm này khi "
-"mục Âm phanh động cơ trong Cài đặt, Âm thanh chọn là cổ điển, đi qua đúng "
-"cơ chế chọn âm khi lái. Không phải tín hiệu thứ hai."
-
 msgid "Rain, wind, snow and thunder name themselves."
 msgstr "Tiếng mưa, gió, tuyết và sấm tự nghe là nhận ra ngay."
 
@@ -40577,22 +40568,6 @@ msgstr ""
 "theo vòng tua máy. Cổ điển là âm thanh động cơ nguyên bản. Thay đổi có tác "
 "dụng ngay lập tức, kể cả khi đang lái."
 
-#. placeholders: {else}
-msgid "Engine brake sound: {else}"
-msgstr "Âm thanh phanh động cơ: {else}"
-
-msgid "recorded"
-msgstr "thu âm thật"
-
-msgid ""
-"Recorded is the real engine brake growl, the jake. Classic is the "
-"synthesized growl from earlier versions. Changes apply at once, even while "
-"driving."
-msgstr ""
-"Thu âm thật là tiếng gầm phanh động cơ thật ngoài đời. Cổ điển là tiếng gầm "
-"tổng hợp từ các phiên bản trước. Thay đổi có tác dụng ngay lập tức, kể cả "
-"khi đang lái."
-
 #. placeholders: {pct}
 msgid "Music volume: {pct} percent"
 msgstr "Âm lượng nhạc nền: {pct} phần trăm"
@@ -48527,6 +48502,30 @@ msgid ""
 msgstr ""
 "Giữ nút vai trái để mở lớp nút thứ hai. {pad_engine} bật tắt động cơ, "
 "{pad_fuel} đọc nhiên liệu và {pad_speed_limit} đọc tốc độ giới hạn."
+
+#~ msgid ""
+#~ "The classic jake sound: the same three staged entries play it when "
+#~ "Settings, Audio has Engine brake sound set to classic, through the same "
+#~ "key-resolution routing the drive uses. Not a second cue."
+#~ msgstr ""
+#~ "Âm phanh động cơ cổ điển: cả ba mục mức phanh ở trên đều phát âm này khi "
+#~ "mục Âm phanh động cơ trong Cài đặt, Âm thanh chọn là cổ điển, đi qua đúng "
+#~ "cơ chế chọn âm khi lái. Không phải tín hiệu thứ hai."
+
+#~ msgid "Engine brake sound: {else}"
+#~ msgstr "Âm thanh phanh động cơ: {else}"
+
+#~ msgid "recorded"
+#~ msgstr "thu âm thật"
+
+#~ msgid ""
+#~ "Recorded is the real engine brake growl, the jake. Classic is the "
+#~ "synthesized growl from earlier versions. Changes apply at once, even while "
+#~ "driving."
+#~ msgstr ""
+#~ "Thu âm thật là tiếng gầm phanh động cơ thật ngoài đời. Cổ điển là tiếng gầm "
+#~ "tổng hợp từ các phiên bản trước. Thay đổi có tác dụng ngay lập tức, kể cả "
+#~ "khi đang lái."
 
 #~ msgid ""
 #~ "Save {grouped} dollars: {grouped2} for the truck buy-in and {grouped3} for "

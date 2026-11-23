@@ -16004,13 +16004,6 @@ msgstr "一台发动机启动，就在你启动它之后。"
 msgid "An engine stopping, immediately after you stopped it."
 msgstr "一台发动机熄火，就在你关掉它之后。"
 
-msgid ""
-"The classic jake sound: the same three staged entries play it when "
-"Settings, Audio has Engine brake sound set to classic, through the same "
-"key-resolution routing the drive uses. Not a second cue."
-msgstr ""
-"经典的jake声音：当设置的音频中把发动机制动声音设为经典时，同样这三个分档条目会播放它，走的是行驶中使用的同一套按键解析路径。不是第二个提示音。"
-
 msgid "Rain, wind, snow and thunder name themselves."
 msgstr "雨、风、雪和雷声一听就知道是什么。"
 
@@ -36657,19 +36650,6 @@ msgid ""
 "driving."
 msgstr "“真实”是从一辆正在工作的卡车驾驶室里录下的发动机声音，随转速变化。“经典”是原来的发动机声音。更改立即生效，驾驶中也一样。"
 
-#. placeholders: {else}
-msgid "Engine brake sound: {else}"
-msgstr "发动机制动声音：{else}"
-
-msgid "recorded"
-msgstr "录音"
-
-msgid ""
-"Recorded is the real engine brake growl, the jake. Classic is the "
-"synthesized growl from earlier versions. Changes apply at once, even while "
-"driving."
-msgstr "“录音”是真实的发动机制动轰鸣声，也就是jake。“经典”是早期版本中合成的轰鸣声。更改立即生效，驾驶中也一样。"
-
 #. placeholders: {pct}
 msgid "Music volume: {pct} percent"
 msgstr "音乐音量：百分之{pct}"
@@ -43571,6 +43551,25 @@ msgid ""
 "the engine, {pad_fuel} reads fuel, and {pad_speed_limit} reads the limit."
 msgstr ""
 "按住左肩键使用第二层按键。{pad_engine}控制发动机，{pad_fuel}读出燃油，{pad_speed_limit}读出限速。"
+
+#~ msgid ""
+#~ "The classic jake sound: the same three staged entries play it when "
+#~ "Settings, Audio has Engine brake sound set to classic, through the same "
+#~ "key-resolution routing the drive uses. Not a second cue."
+#~ msgstr ""
+#~ "经典的jake声音：当设置的音频中把发动机制动声音设为经典时，同样这三个分档条目会播放它，走的是行驶中使用的同一套按键解析路径。不是第二个提示音。"
+
+#~ msgid "Engine brake sound: {else}"
+#~ msgstr "发动机制动声音：{else}"
+
+#~ msgid "recorded"
+#~ msgstr "录音"
+
+#~ msgid ""
+#~ "Recorded is the real engine brake growl, the jake. Classic is the "
+#~ "synthesized growl from earlier versions. Changes apply at once, even while "
+#~ "driving."
+#~ msgstr "“录音”是真实的发动机制动轰鸣声，也就是jake。“经典”是早期版本中合成的轰鸣声。更改立即生效，驾驶中也一样。"
 
 #~ msgid ""
 #~ "Save {grouped} dollars: {grouped2} for the truck buy-in and {grouped3} for "

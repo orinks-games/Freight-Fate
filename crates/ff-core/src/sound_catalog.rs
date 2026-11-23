@@ -786,12 +786,6 @@ pub const SELF_EXPLANATORY: &[(&str, &str)] = &[
         "engine/shutdown",
         "An engine stopping, immediately after you stopped it.",
     ),
-    (
-        "engine/jake_1600_synth",
-        "The classic jake sound: the same three staged entries play it when \
-         Settings, Audio has Engine brake sound set to classic, through the \
-         same key-resolution routing the drive uses. Not a second cue.",
-    ),
     ("weather/*", "Rain, wind, snow and thunder name themselves."),
     ("ambient/*", "Scene, not a cue: no decision attached."),
     ("music/*", "Songs."),

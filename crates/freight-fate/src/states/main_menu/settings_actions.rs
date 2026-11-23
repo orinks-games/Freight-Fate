@@ -473,18 +473,6 @@ impl SettingsCategoryState {
         self.announce(ctx);
     }
 
-    /// Flip between the recorded jake and the classic synth, live.
-    pub(super) fn toggle_jake_voice(&mut self, ctx: &mut GameContext, _d: i64) {
-        let s = &mut ctx.settings;
-        s.jake_voice = if s.jake_voice == "real" {
-            "classic".to_string()
-        } else {
-            "real".to_string()
-        };
-        ctx.apply_volumes(); // re-voices a sounding jake growl in place
-        self.announce(ctx);
-    }
-
     /// Flip between the full soundtrack and the synthesized, no-AI music.
     pub(super) fn toggle_music_source(&mut self, ctx: &mut GameContext, _d: i64) {
         ctx.settings.synth_music = !ctx.settings.synth_music;

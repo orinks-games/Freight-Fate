@@ -502,6 +502,9 @@ fn test_invalid_automatic_direction_setting_falls_back_to_simple() {
 #[test]
 fn test_invalid_jake_voice_setting_falls_back_to_real() {
     with_data_dir(|_| {
+        assert_eq!(Settings::default().jake_voice, "real");
+        write_settings_file(r#"{"jake_voice": "classic"}"#);
+        assert_eq!(Settings::load().jake_voice, "real");
         write_settings_file(r#"{"jake_voice": "mystery"}"#);
         assert_eq!(Settings::load().jake_voice, "real");
     });

@@ -183,7 +183,6 @@ pub fn engine_band_keys() -> Vec<&'static str> {
 // is the one representative cut kept from the original synthesized jake, not
 // a full second ring -- so this is a single key swap, not a per-band table.
 pub const JAKE_RECORDED_KEY: &str = "engine/jake_1600";
-pub const JAKE_CLASSIC_KEY: &str = "engine/jake_1600_synth";
 /// Every recorded jake cut is `engine/jake_<rpm band>`; the classic voice is
 /// the one synthesized cut that stands in for all of them. Derived from
 /// [`JAKE_RECORDED_KEY`] rather than written out: a bare prefix literal
@@ -610,7 +609,6 @@ pub trait Audio {
     fn set_engine_duck(&mut self, duck: f64);
     fn set_speech_duck(&mut self, duck: f64);
     fn set_engine_voice(&mut self, classic: bool);
-    fn set_jake_voice(&mut self, classic: bool);
     /// Whether a sound key resolves (pack, licensed overlay, or loose).
     fn has_asset(&mut self, key: &str) -> bool;
     fn start_loop_with(&mut self, channel: u32, key: &str, volume: f64, fade_ms: u32);

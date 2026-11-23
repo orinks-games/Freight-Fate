@@ -10,9 +10,7 @@ use crate::states_driving_menus_support as drive_support;
 use crate::states_main_menu_support::*;
 use ff_core::sound_catalog::{Cue, SoundCategory, SoundEntry, CATALOG};
 use freight_fate::app::testing::TestApp;
-use freight_fate::audio::{
-    Audio, AudioError, SustainLoopSpec, VolumeUpdate, JAKE_CLASSIC_KEY, JAKE_RECORDED_KEY,
-};
+use freight_fate::audio::{Audio, AudioError, SustainLoopSpec, VolumeUpdate, JAKE_RECORDED_KEY};
 use freight_fate::states::base::{Key, Menu, State};
 use freight_fate::states::driving_core::siren::SIGNATURE_KEY;
 use freight_fate::states::driving_menu_states::DriveRef;
@@ -93,7 +91,6 @@ impl Audio for DemoAudio {
     fn set_engine_duck(&mut self, _duck: f64) {}
     fn set_speech_duck(&mut self, _duck: f64) {}
     fn set_engine_voice(&mut self, _classic: bool) {}
-    fn set_jake_voice(&mut self, _classic: bool) {}
     fn has_asset(&mut self, key: &str) -> bool {
         !(key.starts_with("missing/") || key.starts_with("nothing/"))
     }
@@ -462,10 +459,7 @@ fn test_jake_stage_demo_resolves_through_the_jake_voice_setting() {
         })
         .copied()
         .expect("the engine brake category");
-    for (setting, heard, not_heard) in [
-        ("classic", JAKE_CLASSIC_KEY, JAKE_RECORDED_KEY),
-        ("real", JAKE_RECORDED_KEY, JAKE_CLASSIC_KEY),
-    ] {
+    for setting in ["classic", "real"] {
         let Some(HearkenRig { engine, rec }) = recordings_rig() else {
             return;
         };
@@ -481,12 +475,12 @@ fn test_jake_stage_demo_resolves_through_the_jake_voice_setting() {
         });
         assert!(demo_running(&app), "{setting}");
         assert!(
-            rec.channel_of(heard).is_some(),
+            rec.channel_of(JAKE_RECORDED_KEY).is_some(),
             "{setting}: {:?}",
             rec.played()
         );
         assert!(
-            rec.channel_of(not_heard).is_none(),
+            rec.channel_of("engine/jake_1600_synth").is_none(),
             "{setting}: {:?}",
             rec.played()
         );

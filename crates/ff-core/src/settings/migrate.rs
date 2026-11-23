@@ -508,7 +508,9 @@ impl Settings {
         if !["simple", "deliberate"].contains(&s.automatic_direction_changes.as_str()) {
             s.automatic_direction_changes = "simple".to_string();
         }
-        if !["real", "classic"].contains(&s.jake_voice.as_str()) {
+        // The synthesized classic engine brake was removed; map any saved
+        // classic or unknown jake_voice value to recorded playback.
+        if s.jake_voice != "real" {
             s.jake_voice = "real".to_string();
         }
         if !ACC_GAP_CHOICES

@@ -526,7 +526,6 @@ impl Audio for RecordingAudio {
         self.log.borrow_mut().ducks.push(duck);
     }
     fn set_engine_voice(&mut self, _classic: bool) {}
-    fn set_jake_voice(&mut self, _classic: bool) {}
     fn has_asset(&mut self, _key: &str) -> bool {
         true
     }

@@ -548,61 +548,37 @@ fn test_both_1600_jake_cuts_ship() {
         return;
     }
     assert!(asset_bytes(JAKE_RECORDED_KEY, SFX_EXTENSIONS).is_some());
-    assert!(asset_bytes(JAKE_CLASSIC_KEY, SFX_EXTENSIONS).is_some());
+    for removed in [
+        "engine/jake_1600_synth",
+        "engine/jake_1200",
+        "engine/jake_1400",
+        "engine/jake_1800",
+        "engine/jake_2000",
+        "engine/jake_2200",
+    ] {
+        assert!(
+            asset_bytes(removed, SFX_EXTENSIONS).is_none(),
+            "synthesized jake asset {removed} should be removed from shipped sounds"
+        );
+    }
 }
 
 #[test]
-fn test_jake_voice_setting_routes_the_synth_key_and_applies_live() {
+fn test_jake_bands_always_route_to_recorded_jake() {
     let Some(mut r) = recordings_rig() else {
         return;
     };
-    // has_asset resolves the key the player-facing catalog and the real
-    // drive both use -- the routing must be invisible to callers.
     assert!(r.engine.has_asset(JAKE_RECORDED_KEY));
-    r.engine.set_jake_voice(true); // classic, before anything is sounding
-    assert!(r.engine.has_asset(JAKE_RECORDED_KEY));
-
-    r.engine.set_jake_voice(false); // real again
-    r.engine
-        .start_loop_with(CH_JAKE, JAKE_RECORDED_KEY, 0.5, 300);
-    let entry = r.engine.backend().loop_entry(CH_JAKE).unwrap();
-    assert_eq!(entry.0, JAKE_RECORDED_KEY);
-
-    r.engine.set_jake_voice(true); // classic, live, mid-growl
-    let entry = r.engine.backend().loop_entry(CH_JAKE).unwrap();
-    assert_eq!(entry.0, JAKE_CLASSIC_KEY);
-    assert_eq!(entry.1, 0.5); // the level carries across the re-voice
-
-    r.engine.set_jake_voice(false); // back to real, live
-    let entry = r.engine.backend().loop_entry(CH_JAKE).unwrap();
-    assert_eq!(entry.0, JAKE_RECORDED_KEY);
-
-    r.engine.stop_loop(CH_JAKE);
-}
-
-#[test]
-fn test_the_jake_toggle_re_voices_whatever_band_is_sounding() {
-    // A loop on a NON-jake channel is none of this toggle's business;
-    // every jake band is (see the Python docstring's history).
-    let Some(mut r) = recordings_rig() else {
-        return;
-    };
-    r.engine.set_jake_voice(false);
-    // Asking for the 1800 band on "real" sounds the one recording -- that
-    // is the routing. What this pins is that the toggle re-voices it.
-    r.engine
-        .start_loop_with(CH_JAKE, "engine/jake_1800", 0.4, 300);
-    assert_eq!(
-        r.engine.backend().loop_entry(CH_JAKE).unwrap().0,
-        JAKE_RECORDED_KEY
-    );
-    r.engine.set_jake_voice(true);
-    let entry = r.engine.backend().loop_entry(CH_JAKE).unwrap();
-    assert_eq!(
-        entry.0, JAKE_CLASSIC_KEY,
-        "the 1800 band kept the old voice"
-    );
-    assert_eq!(entry.1, 0.4);
+    for key in [
+        JAKE_RECORDED_KEY,
+        "engine/jake_1800",
+        "engine/jake_1600_synth",
+    ] {
+        r.engine.start_loop_with(CH_JAKE, key, 0.5, 300);
+        let entry = r.engine.backend().loop_entry(CH_JAKE).unwrap();
+        assert_eq!(entry.0, JAKE_RECORDED_KEY);
+        assert_eq!(entry.1, 0.5);
+    }
     r.engine.stop_loop(CH_JAKE);
 }
 

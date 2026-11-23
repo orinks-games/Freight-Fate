@@ -20133,13 +20133,6 @@ msgid "An engine stopping, immediately after you stopped it."
 msgstr ""
 
 #: crates/ff-core/src/sound_catalog.rs
-msgid ""
-"The classic jake sound: the same three staged entries play it when "
-"Settings, Audio has Engine brake sound set to classic, through the same "
-"key-resolution routing the drive uses. Not a second cue."
-msgstr ""
-
-#: crates/ff-core/src/sound_catalog.rs
 msgid "Rain, wind, snow and thunder name themselves."
 msgstr ""
 
@@ -44639,7 +44632,7 @@ msgstr ""
 msgid "Clock aligned to {date_text}, {clock_text}."
 msgstr ""
 
-#: crates/freight-fate/src/states/main_menu/settings_actions.rs crates/freight-fate/src/states/main_menu/settings_items.rs
+#: crates/freight-fate/src/states/main_menu/settings_actions.rs
 msgid "classic"
 msgstr ""
 
@@ -45469,22 +45462,6 @@ msgstr ""
 msgid ""
 "Real is the engine recorded from a working truck cab, following the rpm. "
 "Classic is the original engine sound. Changes apply at once, even while "
-"driving."
-msgstr ""
-
-#. placeholders: {else}
-#: crates/freight-fate/src/states/main_menu/settings_items.rs
-msgid "Engine brake sound: {else}"
-msgstr ""
-
-#: crates/freight-fate/src/states/main_menu/settings_items.rs
-msgid "recorded"
-msgstr ""
-
-#: crates/freight-fate/src/states/main_menu/settings_items.rs
-msgid ""
-"Recorded is the real engine brake growl, the jake. Classic is the "
-"synthesized growl from earlier versions. Changes apply at once, even while "
 "driving."
 msgstr ""
 

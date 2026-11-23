@@ -73,7 +73,7 @@ current idle, start, and shutdown cues.
 | Tire screech | `vehicle/tire_screech.ogg` | ElevenLabs-generated emergency-braking skid for microsleep forced stops |
 | Brake squeal | `vehicle/brake_squeal.ogg` | ElevenLabs-generated overheated-brake squeal past the fade temperature |
 | Air pressurization fill | `vehicle/air_pressurize.ogg` | Original parametric DSP loop (seeded frequency-domain synthesis, `sound-test/air_fallback.py`); superseded by the Career 1.9 sound-pack version |
-| Jake brake growl | `engine/jake_1200.ogg` ... `engine/jake_2200.ogg` | Original synthesized engine-brake loops at six rpm points (deterministic pulse-train DSP, `sound-test/jake_v2.py` family; approved by ear 2026-07-18) |
+| Jake brake growl | `engine/jake_1600.wav` | Recorded engine-brake growl used across all RPM bands (the earlier synthesized `jake_1200..2200` and `jake_1600_synth` cuts were removed) |
 | Edge-boundary ladder | `vehicle/edge_clip.wav`, `vehicle/edge_strip.wav`, `vehicle/edge_shoulder.wav` | Original synthesized boundary loops (deterministic pulse-train DSP from the `sound-test/edge_nav.py` audition machinery, baked by `sound-test/edge_ladder.py`); intermittent / periodic / aperiodic structural states |
 | Turn-signal tone | `vehicle/signal_tone.wav` | Original synthesized indicator tick-tone (`sound-test/signal_tone.py`), the designed modern-cab indicator sound; supersedes the relay click for signaling (the click remains for a future vintage-equipment option) |
 | Dead-man's-curve strips | `vehicle/transverse_strips.wav` | Original synthesized transverse rumble-bar crossing (`sound-test/transverse_strips.py`): three grouped bar sets under all axles, the real DOT hairpin warning |

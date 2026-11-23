@@ -828,8 +828,6 @@ impl GameContext {
         self.audio.set_volumes(&update);
         self.audio
             .set_engine_voice(self.settings.engine_voice == "classic");
-        self.audio
-            .set_jake_voice(self.settings.jake_voice == "classic");
     }
 
     /// Reflect the Discord presence setting (e.g. after a settings change).

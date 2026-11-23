@@ -17867,16 +17867,6 @@ msgstr "Un motor arrancando, justo después de que lo arrancaras."
 msgid "An engine stopping, immediately after you stopped it."
 msgstr "Un motor parándose, justo después de que lo pararas."
 
-msgid ""
-"The classic jake sound: the same three staged entries play it when "
-"Settings, Audio has Engine brake sound set to classic, through the same "
-"key-resolution routing the drive uses. Not a second cue."
-msgstr ""
-"El sonido clásico del jake: las mismas tres entradas por niveles lo "
-"reproducen cuando en Ajustes, Audio, Sonido del freno motor está en "
-"clásico, por la misma asignación de teclas que usa la conducción. No es una "
-"segunda señal."
-
 msgid "Rain, wind, snow and thunder name themselves."
 msgstr "La lluvia, el viento, la nieve y los truenos se explican solos."
 
@@ -40938,22 +40928,6 @@ msgstr ""
 "las RPM. Clásico es el sonido de motor original. Los cambios se aplican al "
 "instante, incluso conduciendo."
 
-#. placeholders: {else}
-msgid "Engine brake sound: {else}"
-msgstr "Sonido del freno motor: {else}"
-
-msgid "recorded"
-msgstr "grabado"
-
-msgid ""
-"Recorded is the real engine brake growl, the jake. Classic is the "
-"synthesized growl from earlier versions. Changes apply at once, even while "
-"driving."
-msgstr ""
-"Grabado es el rugido real del freno motor, el jake. Clásico es el rugido "
-"sintetizado de versiones anteriores. Los cambios se aplican al instante, "
-"incluso conduciendo."
-
 #. placeholders: {pct}
 msgid "Music volume: {pct} percent"
 msgstr "Volumen de la música: {pct} por ciento"
@@ -49009,6 +48983,31 @@ msgstr ""
 "Mantén el botón superior izquierdo para una segunda capa de botones. "
 "{pad_engine} controla el motor, {pad_fuel} lee el combustible y "
 "{pad_speed_limit} lee el límite."
+
+#~ msgid ""
+#~ "The classic jake sound: the same three staged entries play it when "
+#~ "Settings, Audio has Engine brake sound set to classic, through the same "
+#~ "key-resolution routing the drive uses. Not a second cue."
+#~ msgstr ""
+#~ "El sonido clásico del jake: las mismas tres entradas por niveles lo "
+#~ "reproducen cuando en Ajustes, Audio, Sonido del freno motor está en "
+#~ "clásico, por la misma asignación de teclas que usa la conducción. No es una "
+#~ "segunda señal."
+
+#~ msgid "Engine brake sound: {else}"
+#~ msgstr "Sonido del freno motor: {else}"
+
+#~ msgid "recorded"
+#~ msgstr "grabado"
+
+#~ msgid ""
+#~ "Recorded is the real engine brake growl, the jake. Classic is the "
+#~ "synthesized growl from earlier versions. Changes apply at once, even while "
+#~ "driving."
+#~ msgstr ""
+#~ "Grabado es el rugido real del freno motor, el jake. Clásico es el rugido "
+#~ "sintetizado de versiones anteriores. Los cambios se aplican al instante, "
+#~ "incluso conduciendo."
 
 #~ msgid ""
 #~ "Save {grouped} dollars: {grouped2} for the truck buy-in and {grouped3} for "

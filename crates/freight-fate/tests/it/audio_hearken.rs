@@ -466,30 +466,18 @@ fn test_hearken_stop_world_drops_the_surge_scale_and_lane_guide() {
 }
 
 #[test]
-fn test_hearken_jake_voice_routes_and_applies_live() {
+fn test_hearken_jake_routes_to_recorded_cut() {
     if !shipped_sounds() {
         return;
     }
     let mut r = hearken_rig();
-    r.engine.set_jake_voice(false);
     r.engine
         .start_loop_with(CH_JAKE, "engine/jake_1400", 0.5, 300);
     assert_eq!(
-        r.engine.backend().loop_entry(CH_JAKE).unwrap().0,
-        JAKE_RECORDED_KEY
+        r.engine.backend().loop_entry(CH_JAKE).unwrap(),
+        (JAKE_RECORDED_KEY.to_string(), 0.5)
     );
-    r.engine.set_jake_voice(true);
-    let entry = r.engine.backend().loop_entry(CH_JAKE).unwrap();
-    assert_eq!(entry, (JAKE_CLASSIC_KEY.to_string(), 0.5));
-    assert!(r.rec.channel_of(JAKE_CLASSIC_KEY).is_some());
-    r.engine.set_jake_voice(false);
-    assert!(r
-        .engine
-        .backend()
-        .loop_entry(CH_JAKE)
-        .unwrap()
-        .0
-        .starts_with(JAKE_BAND_PREFIX));
+    assert!(r.rec.channel_of(JAKE_RECORDED_KEY).is_some());
     r.engine.stop_loop(CH_JAKE);
     assert!(r.engine.backend().loop_entry(CH_JAKE).is_none());
 }
