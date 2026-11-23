@@ -441,6 +441,11 @@ pub const CURATED_COMPLETE_MARKET_CITY_KEYS: &[&str] = &[
     "alpena_mi_us",
     "ashtabula_oh_us",
     "sandusky_oh_us",
+    // Alabama, Mississippi and South Carolina (missing roads, 2026-11-23):
+    // the Pascagoula refinery, shipyard and fish plant, and Beaufort's
+    // stores and its Commerce Park distribution centre, each surveyed.
+    "pascagoula_ms_us",
+    "beaufort_sc_us",
 ];
 
 /// Whether this city keeps only its authored freight locations. See

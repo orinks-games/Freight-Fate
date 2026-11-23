@@ -9198,6 +9198,128 @@
           "source_note": "Read: OpenStreetMap way 297170658 at 4314 Milan Road (shop=mall, name Sandusky Mall, operator Cafaro Company), OpenStreetMap planet file of 2026-11-16; pin is the centroid of that outline. Roles derived: store deliveries of dry and chilled freight, as the mall type receives; it ships nothing."
         }
       ]
+    },
+    "pascagoula_ms_us": {
+      "spoken_city": "Pascagoula",
+      "state": "MS",
+      "country": "US",
+      "region": "gulf_coast",
+      "lat": 30.37083,
+      "lon": -88.54927,
+      "source_note": "Pin on US 90 (Denny Avenue, hgv=designated) at Market Street, the road down to the Pascagoula River harbor and Ingalls Shipbuilding, read from OpenStreetMap way 840525623 (OpenStreetMap planet file of 2026-11-16); the Census Bureau 2023 Gazetteer place point (30.36007, -88.55633) is 0.8 miles south in a neighbourhood. Pascagoula stands for the Port of Pascagoula (26.6 million tons, US Army Corps of Engineers principal ports list), approved by name (missing roads decision 9, 2026-11-22). Region gulf_coast, as Gulfport and Mobile.",
+      "locations": [
+        {
+          "name": "Chevron Pascagoula Refinery",
+          "type": "chemical_petroleum_terminal",
+          "lat": 30.34112,
+          "lon": -88.48873,
+          "ships": [
+            "fuel_bulk",
+            "chemicals"
+          ],
+          "receives": [
+            "chemicals",
+            "machinery"
+          ],
+          "source_note": "Read: OpenStreetMap way 25486964 (landuse=industrial, industrial=refinery, operator Chevron, name Pascagoula Refinery), OpenStreetMap planet file of 2026-11-16. Chevron's 2024 refinery fact sheet gives 250 Industrial Road, Pascagoula, and about 369,000 barrels a day of crude made into gasoline, jet fuel and diesel, with base oils and chemicals (https://pascagoula.chevron.com/-/media/pascagoula/home-page/documents/cpr-factsheet-2024.pdf, dated 5/24, read 2026-11-23). Roles derived: a refinery loads fuel and chemical tankers and takes in process chemicals and plant parts."
+        },
+        {
+          "name": "Ingalls Shipbuilding",
+          "type": "manufacturing_plant",
+          "lat": 30.35928,
+          "lon": -88.57045,
+          "ships": [
+            "machinery"
+          ],
+          "receives": [
+            "steel",
+            "machinery",
+            "general"
+          ],
+          "source_note": "Read: OpenStreetMap way 244343830 (landuse=industrial, industrial=shipyard, operator Huntington Ingalls Industries, name Ingalls Shipbuilding), OpenStreetMap planet file of 2026-11-16. Huntington Ingalls Industries' Ingalls fact sheet says the yard builds Navy destroyers and amphibious ships and Coast Guard cutters and employs more than 11,000 people (https://hii.com/ingalls-fact-sheet, read 2026-11-23). Roles derived: a shipyard takes in steel plate, machinery and stores, and sends out machinery for repair and outfitting."
+        },
+        {
+          "name": "Omega Protein Moss Point",
+          "type": "food_processor",
+          "lat": 30.43012,
+          "lon": -88.51176,
+          "ships": [
+            "food",
+            "bulk"
+          ],
+          "receives": [
+            "general"
+          ],
+          "source_note": "Read: OpenStreetMap way 910632541 (man_made=works, industrial=food_industry, product animal_nutrition, name Omega Protein Processing), OpenStreetMap planet file of 2026-11-16; The Outlaw Ocean Project lists the Omega Protein Moss Point plant at 5735 Elder Ferry Road, Moss Point, as a fishmeal factory (https://baittoplate.theoutlawocean.com/plants/omega-protein-inc-moss-point-plant/e197b937-372a-493f-b140-34d3266431ce, read 2026-11-23). Roles derived: a menhaden plant ships fish meal in bulk and fish oil as food product, and takes in packaging and supplies."
+        },
+        {
+          "name": "Walmart Supercenter Pascagoula",
+          "type": "shopping_mall",
+          "lat": 30.38677,
+          "lon": -88.51866,
+          "ships": [],
+          "receives": [
+            "retail",
+            "general",
+            "food",
+            "refrigerated"
+          ],
+          "source_note": "Read: OpenStreetMap way 139198227 (brand Walmart, 4253 Denny Avenue, Pascagoula), on US 90, OpenStreetMap planet file of 2026-11-16; pin is the centroid of that outline. Roles derived: store deliveries of dry and chilled freight, as the store type receives; it ships nothing."
+        }
+      ]
+    },
+    "beaufort_sc_us": {
+      "spoken_city": "Beaufort",
+      "state": "SC",
+      "country": "US",
+      "region": "atlantic_southeast",
+      "lat": 32.42751,
+      "lon": -80.72712,
+      "source_note": "Pin on US 21 (Parris Island Gateway) where SC 170 (Robert Smalls Parkway) leaves it for Savannah, beside the town's shopping centres, read from OpenStreetMap way 1353006085 (OpenStreetMap planet file of 2026-11-16); the Census 2020 urban area point (2023 Gazetteer, 32.43055, -80.71465) is 0.8 miles east in a neighbourhood. Approved as an unreached urban area of 52,515 people (missing roads decision 9, 2026-11-22). Region atlantic_southeast, as Charleston and Savannah.",
+      "locations": [
+        {
+          "name": "Walmart Supercenter Beaufort",
+          "type": "shopping_mall",
+          "lat": 32.4253,
+          "lon": -80.73418,
+          "ships": [],
+          "receives": [
+            "retail",
+            "general",
+            "food",
+            "refrigerated"
+          ],
+          "source_note": "Read: OpenStreetMap way 1144989223 (brand Walmart, 350 Robert Smalls Parkway, Beaufort), OpenStreetMap planet file of 2026-11-16; pin is the centroid of that outline. Roles derived: store deliveries of dry and chilled freight, as the store type receives; it ships nothing."
+        },
+        {
+          "name": "Lowe's Beaufort",
+          "type": "shopping_mall",
+          "lat": 32.42795,
+          "lon": -80.71776,
+          "ships": [],
+          "receives": [
+            "construction",
+            "lumber_paper",
+            "general"
+          ],
+          "source_note": "Read: OpenStreetMap node 365789101 (brand Lowe's, 207 Robert Smalls Parkway, Beaufort), OpenStreetMap planet file of 2026-11-16. Roles derived: a home improvement store takes in building materials, lumber and general goods; it ships nothing."
+        },
+        {
+          "name": "Norman USA Beaufort",
+          "type": "distribution",
+          "lat": 32.46306,
+          "lon": -80.76734,
+          "ships": [
+            "general",
+            "retail"
+          ],
+          "receives": [
+            "general",
+            "retail"
+          ],
+          "source_note": "Read: Norman USA, a maker and distributor of window treatments, leases half of the spec building at 74 Schein Loop in the Beaufort Commerce Park for its first East Coast distribution site (The Island Packet, via AOL News, https://www.aol.com/news/2-companies-moving-beaufort-commerce-191524381.html, undated, read 2026-11-23); the park is at US 21 and SC 116 (SouthernCarolina Alliance, https://southerncarolina.org/properties/details/beaufort-commerce-park, read 2026-11-23). Pin derived: a vertex of Schein Loop, OpenStreetMap way 12126480 (OpenStreetMap planet file of 2026-11-16); the building itself is not mapped. Roles derived: a distribution centre takes in and ships packaged goods."
+        }
+      ]
     }
   }
 }
