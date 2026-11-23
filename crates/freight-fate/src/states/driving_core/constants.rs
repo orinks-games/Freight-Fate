@@ -597,6 +597,9 @@ pub const DESCENT_RPM_GUARD: f64 = 50.0;
 // 2026-07-25: 6 percent down, a tenth of brake held steady, 125 psi to 74 in
 // twenty-two seconds, spring brakes on, an emergency stop on a downhill).
 pub const CRUISE_BRAKE_OVER_MPH: f64 = 2.5; // retarder maxed and still this far over: snub
+/// Held to chain speed, this far over snubs whatever the retarder is doing:
+/// it keeps the truck under `CHAIN_OVERSPEED_MPH` (chain speed plus 2).
+pub const CRUISE_CHAIN_BRAKE_OVER_MPH: f64 = 1.0;
 pub const CRUISE_SNUB_UNDER_MPH: f64 = 0.5; // snub runs until this far back under the target
 pub const CRUISE_SNUB_BRAKE: f64 = 0.3; // a real application, not a drag
                                         // Interactive descent control's ceiling while a grade lasts. A cap on the
