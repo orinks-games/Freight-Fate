@@ -39,6 +39,7 @@ pub mod tilt_sensor;
 pub mod tilt_steering;
 pub mod timezones;
 pub mod touch_clutch;
+pub mod town_limits;
 pub mod traffic_manager;
 pub mod transmission;
 pub mod trip;

@@ -7,7 +7,9 @@ use crate::data::regions::classify_region;
 use crate::data::street_limits::load_street_limits;
 use crate::data::world_models::{lane_word, py_capitalize, Interchange, Leg, Stop};
 use crate::pyfmt::{fmt_f, round_py_int};
-use crate::sim::limit_gaps::{is_unposted, unposted_limit, unposted_truck_cap};
+use crate::sim::limit_gaps::{
+    before_first_posting, is_unposted, unposted_limit, unposted_truck_cap, GAP_HOLD_HIGHWAY_MPH,
+};
 use crate::sim::traffic_manager::{
     TrafficVehicle, DODGE_CLEARANCE_AHEAD_MI, DODGE_CLEARANCE_BEHIND_MI, LANE_GAP_ACT_REAL_S,
     LANE_GAP_MARGIN_MI,
@@ -15,6 +17,14 @@ use crate::sim::traffic_manager::{
 use crate::sim::trip_models::*;
 use crate::sim::trip_route_helpers::{fallback_grade, stop_offset_for_direction};
 use crate::units::{distance_unit, spoken_distance, to_distance};
+
+/// How far from a leg's start a departure reads through town postings for
+/// the highway limit cruise should build to. Measured 2026-11-23 on the dev
+/// tree over the 1,027 legs that start under 55 and reach a posting of 55
+/// or more: that posting is within 6 miles on 85% and within 15 on 96%
+/// (Washington to Philadelphia, 8.7). Past 15 the slow miles are a road
+/// posted 45 or 50 for its length, where cruise keeps the posted number.
+pub const TOWN_DEPARTURE_SCAN_MI: f64 = 15.0;
 
 use super::{Trip, ETA_MIN_MPH, LANE_RUN_MIN_MI};
 
@@ -279,6 +289,16 @@ impl Trip {
         } else {
             leg.miles - route_offset
         };
+        if let Some(town) = self
+            .town_ends
+            .get(leg_i)
+            .and_then(|t| t.stretch_at(leg_offset))
+        {
+            if town.mph <= self.corridor_limit_at(mile) {
+                // The district limit holds every vehicle alike.
+                return (false, None);
+            }
+        }
         if is_unposted(leg, leg_offset) {
             // No posting here: the state's cap is the truck limit wherever it
             // holds the rig under the number a car would be given.
@@ -371,6 +391,11 @@ impl Trip {
     }
 
     pub fn corridor_limit_at(&self, mile: f64) -> f64 {
+        if let Some((until_mi, highway)) = self.town_streets_driven {
+            if mile < until_mi {
+                return highway;
+            }
+        }
         let (leg_i, leg_start) = self.leg_at_mile(mile);
         let leg = &self.route.legs[leg_i];
         let forward = self.route.cities[leg_i] == leg.a;
@@ -380,14 +405,113 @@ impl Trip {
         } else {
             leg.miles - route_offset
         };
-        if let Some(baked) = truck_capped_speed_limit(leg, leg_offset) {
-            return baked;
+        let towns = self.town_ends.get(leg_i);
+        let in_town = |limit: f64| towns.map_or(limit, |t| t.cap(leg_offset, limit));
+        let baked = truck_capped_speed_limit(leg, leg_offset);
+        if let Some(baked) = baked.filter(|_| !before_first_posting(leg, leg_offset)) {
+            return in_town(baked);
         }
         let limit = self.unposted_heuristic_at(mile, leg, leg_offset);
-        match unposted_truck_cap(leg, leg_offset) {
+        let limit = match unposted_truck_cap(leg, leg_offset) {
             Some((cap, _)) => limit.min(cap),
             None => limit,
+        };
+        // Short of the first posting nothing was read, so the road out of
+        // town never runs faster than the first number it does post.
+        in_town(baked.map_or(limit, |first| limit.min(first)))
+    }
+
+    /// The limit just past the town the truck is in, in travel order: past
+    /// an assumed town stretch, or past the posted town streets it is
+    /// leaving. None on the open road.
+    pub fn limit_past_town(&self, mile: f64) -> Option<f64> {
+        let (leg_i, leg_start) = self.leg_at_mile(mile);
+        let leg = &self.route.legs[leg_i];
+        let forward = self.route.cities[leg_i] == leg.a;
+        let offset = if forward {
+            mile - leg_start
+        } else {
+            leg.miles - (mile - leg_start)
+        };
+        let leaving = self
+            .highway_limit_leaving_town(mile, leg_start)
+            .map(|(_, limit)| limit);
+        let Some(stretch) = self.town_ends.get(leg_i).and_then(|e| e.stretch_at(offset)) else {
+            return leaving;
+        };
+        if leaving.is_some() {
+            return leaving;
         }
+        // Past the town and, leaving it, past the unposted miles before the
+        // first posting: the number cruise should build to.
+        let first_posting = leg.speed_limits().first().map_or(0.0, |s| s.at_mi);
+        let past = if forward {
+            leg_start
+                + stretch
+                    .to_mi
+                    .max(first_posting.min(stretch.to_mi + URBAN_RADIUS_MI))
+                + 0.05
+        } else {
+            leg_start + (leg.miles - stretch.from_mi) + 0.05
+        };
+        (past < self.total_miles()).then(|| self.corridor_limit_at(past))
+    }
+
+    /// Leaving town, within the urban radius of the leg's start and under a
+    /// town limit (posted or assumed): the first highway-speed limit ahead,
+    /// read through the town postings for at most
+    /// [`TOWN_DEPARTURE_SCAN_MI`] from the start, so cruise handed over on
+    /// the streets builds to the highway once the town ends. None on the
+    /// open road or when no highway limit comes within the scan.
+    fn highway_limit_leaving_town(&self, mile: f64, leg_start: f64) -> Option<(f64, f64)> {
+        if mile - leg_start > URBAN_RADIUS_MI
+            || self.corridor_limit_at(mile) >= GAP_HOLD_HIGHWAY_MPH
+        {
+            return None;
+        }
+        let reach = (leg_start + TOWN_DEPARTURE_SCAN_MI).min(self.total_miles());
+        let mut at = mile;
+        while at < reach {
+            at += 0.1;
+            let limit = self.corridor_limit_at(at);
+            if limit >= GAP_HOLD_HIGHWAY_MPH {
+                return Some((at, limit));
+            }
+        }
+        None
+    }
+
+    /// The truck drove the origin's own streets to the on-ramp (the facility
+    /// street chain), so the town miles at the start of this trip's first
+    /// leg are behind it: from here they read the highway limit the ramp
+    /// joins, the first highway-speed one within [`TOWN_DEPARTURE_SCAN_MI`].
+    /// Nothing changes where the trip already starts at a highway limit.
+    pub fn join_highway_after_streets(&mut self) {
+        self.town_streets_driven = None;
+        self.town_streets_driven = self.highway_limit_leaving_town(0.0, 0.0);
+    }
+
+    /// The assumed town limit's source where the truck is in a town stretch
+    /// at a leg end, or None. Diagnostic: the agent server's inspector.
+    pub fn town_limit_source_at(&self, mile: f64) -> Option<String> {
+        if self
+            .town_streets_driven
+            .is_some_and(|(until_mi, _)| mile < until_mi)
+        {
+            return None;
+        }
+        let (leg_i, leg_start) = self.leg_at_mile(mile);
+        let leg = &self.route.legs[leg_i];
+        let forward = self.route.cities[leg_i] == leg.a;
+        let offset = if forward {
+            mile - leg_start
+        } else {
+            leg.miles - (mile - leg_start)
+        };
+        self.town_ends
+            .get(leg_i)?
+            .stretch_at(offset)
+            .map(|s| format!("{} mph, {}", s.mph, s.source))
     }
 
     /// The limit a car would be given where the leg has no posting: the

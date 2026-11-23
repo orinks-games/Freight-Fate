@@ -676,6 +676,20 @@ impl Trip {
 
     // -- curves ---------------------------------------------------------------------
 
+    /// Each leg's town stretches, from its profile and its bends (connector
+    /// arcs included: they are what marks the town streets).
+    pub fn place_town_ends(&self) -> Vec<crate::sim::town_limits::TownEnds> {
+        self.route
+            .legs
+            .iter()
+            .map(|leg| {
+                let curves =
+                    crate::data::curves::leg_curves(&format!("{}:{}", leg.a, leg.b), false);
+                crate::sim::town_limits::town_ends(leg, &curves)
+            })
+            .collect()
+    }
+
     /// Every baked curve on the route in trip-mile coordinates. Connector
     /// ramps stay in the list for curve physics but are filtered from the
     /// spoken layers.

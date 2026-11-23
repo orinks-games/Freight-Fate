@@ -57,6 +57,8 @@ fn a_relaxed_departure(app: &mut TestApp) -> DrivingState {
     d.trip.truck.trailer_attached = true;
     d.weather_mut().current = WeatherKind::Clear;
     d.trip.truck.start_engine();
+    // Staged at the end of the facility streets, on the on-ramp.
+    d.trip.join_highway_after_streets();
     d.departure_ramp_mi = Some(0.05);
     assert_eq!(d.trip.time_scale, RELAXED);
     d

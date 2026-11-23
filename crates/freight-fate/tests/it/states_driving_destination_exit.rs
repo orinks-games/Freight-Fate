@@ -694,8 +694,9 @@ fn test_taking_the_announced_exit_does_not_repeat_the_ramp_cap() {
             .expect("a delivery run has a destination exit");
         drive.trip.position_mi = stop.at_mi - 3.0;
         drive.truck_mut().start_engine();
-        // At road speed, so the exit floor sits under it.
-        let (road, _) = drive.trip.speed_limit_at(stop.at_mi);
+        // At road speed, so the exit floor sits under it: the highway's,
+        // where the callout comes, not the town street the exit lands on.
+        let (road, _) = drive.trip.speed_limit_at(drive.trip.position_mi);
         drive.truck_mut().velocity_mps = road / MPH_PER_MPS;
         drive.engage_cruise(ctx, road, false);
     });

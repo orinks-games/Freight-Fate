@@ -530,6 +530,10 @@ impl DrivingState {
         // a measured run, which is the "came to a stop" a tester reported
         // (Brandon, 2026-08-21). Now the lane exists, sized from the highway
         // it feeds, and the truck has room to build speed on it.
+        // The streets just driven replace the town miles the leg's own road
+        // starts with (Carlisle's 25 and 35 before I-76): the ramp joins the
+        // highway, so the lane is sized from the highway's limit.
+        self.trip.join_highway_after_streets();
         let (highway_mph, _) = self.trip.speed_limit_at(0.0);
         let grade = self.trip.grade_at(0.0);
         let lane_mi = acceleration_lane_mi(highway_mph, grade * 100.0);

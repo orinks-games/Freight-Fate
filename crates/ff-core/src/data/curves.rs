@@ -514,7 +514,8 @@ pub fn leg_is_level(leg: &Leg) -> bool {
 /// road instead of a guess about its class. The fastest posting on the leg
 /// is the one that matters: a curve has to be safe at the speed the road
 /// lets a truck reach. Legs with no baked limit fall back to the class
-/// default the runtime already uses elsewhere.
+/// default the runtime already uses elsewhere, and so does a leg whose only
+/// postings are town figures beside a coverage gap.
 pub fn leg_design_speed(leg: &Leg) -> f64 {
     // A sample can carry a null mph (a posting the sweep found but could not
     // read); those say nothing about design speed and must not be compared.
@@ -525,16 +526,27 @@ pub fn leg_design_speed(leg: &Leg) -> f64 {
         .fold(None, |best: Option<f64>, mph| {
             Some(best.map_or(mph, |b| b.max(mph)))
         });
-    if let Some(limit) = fastest {
-        return limit;
-    }
     let highway = leg.highway.to_uppercase();
-    if highway.starts_with("I-") {
+    let class_default = if highway.starts_with("I-") {
         70.0
     } else if highway.starts_with("US") {
         55.0
     } else {
         45.0
+    };
+    match fastest {
+        // Town streets and a coverage gap say nothing about the road between
+        // them: Midland to Odessa reads 40 for its first 0.3 miles in Midland
+        // and nothing for the 20 miles of I-20 after, which is not a road
+        // built for 40.
+        Some(limit)
+            if limit <= crate::data::street_limits::MAX_PLAUSIBLE_MPH
+                && leg.speed_limits().iter().any(|s| s.mph.is_none()) =>
+        {
+            limit.max(class_default)
+        }
+        Some(limit) => limit,
+        None => class_default,
     }
 }
 
