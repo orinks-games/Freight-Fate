@@ -1045,11 +1045,15 @@ impl DrivingState {
     fn single_trailer_stability(&mut self, ctx: &mut GameContext, dt: f64, curve: f64, wind: f64) {
         use ff_core::sim::vehicle::{crosswind_lateral_g, TrailerSwayState};
 
-        let wind_g = crosswind_lateral_g(wind, self.lane.wind_lateral_g);
-        let state =
+        let state = if let Some(held) = ctx.playtest_trailer_sway {
+            self.trip.truck.trailer_sway_state = held;
+            held
+        } else {
+            let wind_g = crosswind_lateral_g(wind, self.lane.wind_lateral_g);
             self.trip
                 .truck
-                .update_single_trailer_stability(dt, wind_g, curve, self.lane.offset);
+                .update_single_trailer_stability(dt, wind_g, curve, self.lane.offset)
+        };
         if state != self.trailer_sway_state {
             match state {
                 TrailerSwayState::OffTracking => {

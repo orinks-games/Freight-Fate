@@ -604,6 +604,9 @@ impl DrivingState {
             );
         }
         self.jake_slip_active = slipping;
+        if let Some(abs) = ctx.playtest_abs {
+            self.trip.truck.abs_state = abs;
+        }
         let abs = self.trip.truck.abs_active();
         if abs && !self.abs_active {
             ctx.say_event_with(
@@ -612,6 +615,9 @@ impl DrivingState {
             );
         }
         self.abs_active = abs;
+        if let Some(traction) = ctx.playtest_drive_traction {
+            self.trip.truck.drive_traction_state = traction;
+        }
         let spinning = self.trip.truck.drive_wheels_spinning();
         if spinning && !self.wheelspin_active {
             ctx.say_event_with(
