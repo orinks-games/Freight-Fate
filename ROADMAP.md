@@ -6807,13 +6807,114 @@ a carrier slice (owner, 2026-10-26).
 - [ ] (Found along the way) The older Ohio Turnpike legs cite "class 6"
       from the retired fare calculator; the 2026 schedule calls a high
       five-axle truck class 5. Re-price them from the schedule.
-- [ ] (Found along the way) Youngstown to DuBois (I-80) waits for the
-      Northeast build, where DuBois becomes a city.
+- [x] Youngstown to DuBois (I-80) is built in the Northeast roads below.
 - [ ] (Found along the way) Three through roads the list leaves undone,
       each over 200 miles between cities with no junction town on it: US 36
       from Springfield, Illinois to Kansas City (a town near Quincy would
       fix it), US 250 from Charleston, West Virginia to Toledo (near Akron)
       and US 27 from Richmond, Indiana to Kalamazoo (near Richmond).
+
+### Northeast roads (missing roads brief 3, November 23)
+
+- [x] Newburgh, Lancaster, Reading, Gloucester, DuBois, Elmira, Hanover,
+      Ithaca, Johnstown, Lexington Park, Pittsfield, Riverhead and Cranberry
+      Township are cities, each keeping only the plants, warehouses and
+      stores read from the map for it. Ithaca and Lexington Park show only
+      stores, so freight is delivered there and none starts there.
+- [x] 63 new legs between neighbours the map routed far around, Youngstown
+      to DuBois among them, routed by the truck router over the
+      OpenStreetMap planet of 2026-11-16 and built with every layer. The
+      detours that shrank most: Williamsport to Scranton (184 miles to 102),
+      Baltimore to Winchester (119 to 98) and Worcester to Portsmouth (102
+      to 89).
+- [x] Nine long legs split at a city they pass, with saves on the old leg
+      resuming on the pieces: New York to Albany, Buffalo to New York and
+      Rochester to New York at Newburgh; Allentown to Baltimore at Reading
+      and Lancaster; Newport to New Haven at New London; Albany to
+      Montpelier at Rutland; Meadville and Youngstown to Pittsburgh and
+      Pittsburgh to Cleveland at Cranberry Township.
+- [x] Legs renamed for the road they ride, among them Albany to Bridgeport
+      (CT-8), Burlington to Albany (VT-22A), Boston to Hartford (I-90) and
+      the Newburgh pieces of the Thruway.
+- [x] Northeast stops list (`docs/stops/northeast.json`), 368 stops.
+- [x] Tolls: the Pennsylvania Turnpike on the new Turnpike legs from its
+      2026 schedule; the Gateway and Eastgate plazas and the Ohio Turnpike
+      on the Cranberry Township legs; the Delaware Water Gap,
+      Newburgh-Beacon and Chesapeake Bay bridges, charged the way they
+      collect; Hampton on the roads into Portsmouth; the Garden State
+      Parkway on Toms River to Vineland. Thruway fares on the Newburgh
+      pieces are the old fare shared by Thruway miles, marked estimated.
+- [ ] (Found along the way) Tolls still unread: the Massachusetts Turnpike
+      on Pittsfield to Springfield, Hooksett on Manchester to St.
+      Johnsbury, the Throgs Neck Bridge on Riverhead to New York, the Tobin
+      Bridge, the Pell Bridge on Newport to New London, and a Thruway
+      reading for exit 17 to replace the estimated fares.
+- Two chains run longer than the legs they replaced, and they are right:
+      Allentown to Baltimore by 16 miles and New York to Albany by 14 (the
+      Thruway puts exit 17 at mile 60 and exit 24 at mile 148, before the
+      Bronx). The old legs were short; do not shorten the chains.
+- [ ] (Found along the way) Gaps of 52 to 65 miles with no truck stop:
+      Elmira to Jamestown, Newburgh to Binghamton, Altoona to Cumberland,
+      Plattsburgh to Watertown.
+- [ ] (Found along the way) Billboards on the new legs: a sheet needs
+      Orinks's approval.
+
+### Upper Midwest and Northern Plains roads (missing roads brief 3, November 23)
+
+- [x] 35 new legs between neighbours the map routed far around, in Iowa,
+      Minnesota, Nebraska, the Dakotas and across into Wisconsin, Illinois,
+      Missouri, Kansas and Wyoming, routed by the truck router over the
+      OpenStreetMap planet of 2026-11-16 and built with every layer. No new
+      cities. The detours that shrank most: Bemidji to St. Cloud (368 miles
+      to 159), Aberdeen to Jamestown (348 to 104), Fort Dodge to Sioux City
+      (322 to 118) and Burlington to Quincy (308 to 87).
+- [x] Three long legs split at a city they pass, with saves on the old leg
+      resuming on the pieces: Hibbing to Minneapolis at Grand Rapids,
+      Mankato to Rochester at Owatonna, Des Moines to Chicago at Aurora.
+      The chains run 2, 6 and 6 miles over the old legs, because Owatonna
+      and Aurora sit off the through road.
+- [x] Re-routed onto their roads: Aberdeen to Pierre, Rapid City to Sioux
+      Falls, Willmar to Watertown (US-12, 139 miles to 111) and Scottsbluff
+      to Sidney (US-385, 87 to 81). Twelve legs renamed for the road they
+      ride, and their towns' roads read again.
+- [x] Upper Midwest and Northern Plains stops list
+      (`docs/stops/upper-midwest-northern-plains.json`), 391 stops.
+- [ ] (Found along the way) Tolls still unread: the Reagan Tollway (I-88)
+      on Des Moines to Aurora and Aurora to Chicago; the Illinois Tollway's
+      site has no readable rate table.
+- [ ] (Found along the way) No station a tractor-trailer can use is on
+      Burlington to Quincy or Scottsbluff to Sidney. Gaps of 60 to 103
+      miles between fuel, counting town stations marked bobtail only, on
+      Aberdeen to Pierre, Fargo to Willmar, Rapid City to Sioux Falls,
+      Mankato to Willmar, Fort Dodge to Waterloo, Grand Island to Salina,
+      Fort Dodge to Mason City, Burlington to Ottumwa, Aberdeen to
+      Jamestown, Grand Rapids to Minneapolis, Iowa City to Quincy and
+      Brookings to Willmar. Many town stations there likely take trucks;
+      a source that says so would let them count.
+- [ ] (Found along the way) US 30 from Cedar Rapids to Joliet is left
+      undone: 224 router miles with no city between, over the 200 mile cap.
+      A town near Clinton or DeKalb would fix it.
+- [ ] (Found along the way) Billboards on the new legs: a sheet needs
+      Orinks's approval.
+- [ ] (Found along the way) Coming into Aberdeen from Jamestown, the
+      destination exit sits 0.8 miles out on US-281 inside town, where the
+      road drops from 45 to 30 and then a 15 mph street; cruise is down to
+      31 a mile before the exit, and the roll past the ramp's sign stops at
+      15. The exit tests now start from the city's longest leg. Check where
+      a destination exit belongs on a two-lane road into a town.
+- [ ] (Found along the way) The miles before a leg's first posted limit
+      read that first posting, even inside the town the leg leaves
+      (`posted_sample_at` takes the first sample for any mile before it,
+      and the urban 55 applies only where a leg has no posting at all).
+      440 of 1,624 US legs have no posting in their first 2 miles; on 314
+      the first posting is 55 or more, and 222 of those have a bend advised
+      25 or less in that stretch (counted at each leg's start only).
+      Marshalltown to Ottumwa reads 65 through two 20 mph turns a quarter
+      mile out of the yard: the keeper takes the truck to 42, "Sharp right,
+      a quarter mile. Advise 20 miles per hour. Cruise paused for the
+      bend." comes at mile 0.42 for a bend at 0.77, and cruise only coasts.
+      A firm brake on the call makes it; a one-second brake rolls the
+      truck.
 
 ### Alabama, Mississippi and South Carolina roads (missing roads brief 3, November 23)
 

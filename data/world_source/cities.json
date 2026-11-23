@@ -13395,6 +13395,721 @@
         }
       ]
     },
+    "newburgh_ny_us": {
+      "spoken_city": "Newburgh",
+      "state": "NY",
+      "country": "US",
+      "region": "northeast",
+      "lat": 41.50369,
+      "lon": -74.06963,
+      "source_note": "Pin on NY 300 (Union Avenue) at NY 17K, beside New York State Thruway exit 17 and Interstate 84 exit 36 in the Town of Newburgh, where a truck can turn onto either road. Position read from OpenStreetMap way 1394089277 (ref NY 300), OpenStreetMap API, read 2026-11-23. The director approved Newburgh by name for the I-84 and I-87 junction; it stands for Newburgh and Poughkeepsie (missing roads decisions 4 and 9).",
+      "locations": [
+        {
+          "name": "Tesla Distribution Center",
+          "type": "dry_warehouse",
+          "lat": 41.51641,
+          "lon": -74.06095,
+          "ships": [
+            "general",
+            "automotive"
+          ],
+          "receives": [
+            "general",
+            "automotive"
+          ],
+          "source_note": "Read: OpenStreetMap way 1137350494 (building=warehouse, name Tesla Distribution Center, 4 Matrix Drive, Town of Newburgh), OpenStreetMap planet file of 2026-11-16; pin is the centroid of that outline. Operation not confirmed from a second source. Roles derived: a parts warehouse ships and receives general freight and vehicle parts."
+        },
+        {
+          "name": "Anheuser-Busch Can Plant",
+          "type": "manufacturing_plant",
+          "lat": 41.48767,
+          "lon": -74.09615,
+          "ships": [
+            "general"
+          ],
+          "receives": [
+            "steel",
+            "general"
+          ],
+          "source_note": "Read: OpenStreetMap way 605052586 (building=industrial, product=cans, name Anheuser Busch Can Plant, 130 Breunig Road), OpenStreetMap planet file of 2026-11-16; pin is the centroid of that outline. Operation not confirmed from a second source. Roles derived: a can plant receives metal coil and ships empty cans as general freight."
+        },
+        {
+          "name": "Amazon Newburgh Fulfillment Center",
+          "type": "distribution",
+          "lat": 41.48511,
+          "lon": -74.10376,
+          "ships": [
+            "general",
+            "retail",
+            "parcel"
+          ],
+          "receives": [
+            "general",
+            "retail",
+            "parcel"
+          ],
+          "source_note": "Read: OpenStreetMap way 486868848 (building=warehouse, name Amazon DYO1), OpenStreetMap planet file of 2026-11-16; pin is the centroid of that outline. Operation not confirmed from a second source. Roles derived: a fulfilment centre ships and receives general, store and parcel freight."
+        }
+      ]
+    },
+    "lancaster_pa_us": {
+      "spoken_city": "Lancaster",
+      "state": "PA",
+      "country": "US",
+      "region": "northeast",
+      "lat": 40.04165,
+      "lon": -76.30196,
+      "source_note": "Pin downtown on US 222 and PA 272 (North Lime Street) at East Chestnut Street. Position read from OpenStreetMap way 710055631, OpenStreetMap API, read 2026-11-23; the Census Bureau 2023 Gazetteer place point is 0.06 miles away. Approved by name (missing roads decision 4).",
+      "locations": [
+        {
+          "name": "Armstrong World Industries",
+          "type": "manufacturing_plant",
+          "lat": 40.05986,
+          "lon": -76.32323,
+          "ships": [
+            "construction"
+          ],
+          "receives": [
+            "general",
+            "bulk"
+          ],
+          "source_note": "Read: OpenStreetMap way 769525298 (building=warehouse, name Armstrong World Industries), OpenStreetMap planet file of 2026-11-16; pin is the centroid of that outline. Operation not confirmed from a second source. Roles derived: a building products plant ships construction materials and receives raw materials."
+        },
+        {
+          "name": "High Steel Service Center",
+          "type": "steel_industrial",
+          "lat": 40.06509,
+          "lon": -76.32263,
+          "ships": [
+            "steel"
+          ],
+          "receives": [
+            "steel"
+          ],
+          "source_note": "Read: OpenStreetMap way 468705650 (landuse=industrial, name High Steel Service Center), OpenStreetMap planet file of 2026-11-16; pin is the centroid of that outline. Operation not confirmed from a second source. Roles derived: a steel service centre receives steel and ships cut steel."
+        },
+        {
+          "name": "Lancaster Shopping Center",
+          "type": "shopping_mall",
+          "lat": 40.06486,
+          "lon": -76.30591,
+          "ships": [],
+          "receives": [
+            "retail",
+            "general",
+            "food",
+            "refrigerated"
+          ],
+          "source_note": "Read: OpenStreetMap way 39277282 (landuse=retail, shop=mall, name Lancaster Shopping Center, 1625 Lititz Pike), OpenStreetMap planet file of 2026-11-16; pin is the centroid of that outline. Operation not confirmed from a second source. Roles derived: store deliveries of dry and chilled freight, as the mall type receives; it ships nothing."
+        }
+      ]
+    },
+    "reading_pa_us": {
+      "spoken_city": "Reading",
+      "state": "PA",
+      "country": "US",
+      "region": "northeast",
+      "lat": 40.33934,
+      "lon": -75.92777,
+      "source_note": "Pin downtown on US 222 Business (North 5th Street) at Walnut Street. Position read from OpenStreetMap way 127868356, OpenStreetMap API, read 2026-11-23; the Census Bureau 2023 Gazetteer place point is 0.08 miles away. Approved by name (missing roads decision 4).",
+      "locations": [
+        {
+          "name": "Sealed Air",
+          "type": "manufacturing_plant",
+          "lat": 40.3274,
+          "lon": -75.9331,
+          "ships": [
+            "general"
+          ],
+          "receives": [
+            "chemicals",
+            "general"
+          ],
+          "source_note": "Read: OpenStreetMap way 260789948 (building=industrial, name Sealed Air), OpenStreetMap planet file of 2026-11-16; pin is the centroid of that outline. Operation not confirmed from a second source. Roles derived: a packaging plant receives resin and ships packaging as general freight."
+        },
+        {
+          "name": "Russell Plywood",
+          "type": "lumber_paper",
+          "lat": 40.32864,
+          "lon": -75.9395,
+          "ships": [
+            "lumber_paper"
+          ],
+          "receives": [
+            "lumber_paper"
+          ],
+          "source_note": "Read: OpenStreetMap way 339671732 (building=industrial, industrial=timber, name Russell Plywood Inc., 401 Old Wyomissing Road), OpenStreetMap planet file of 2026-11-16; pin is the centroid of that outline. Operation not confirmed from a second source. Roles derived: a plywood distributor receives and ships lumber."
+        },
+        {
+          "name": "The Shoppes at Wyomissing",
+          "type": "shopping_mall",
+          "lat": 40.35025,
+          "lon": -75.96531,
+          "ships": [],
+          "receives": [
+            "retail",
+            "general",
+            "food",
+            "refrigerated"
+          ],
+          "source_note": "Read: OpenStreetMap way 260797642 (building=commercial, shop=mall, name The Shoppes at Wyomissing), OpenStreetMap planet file of 2026-11-16; pin is the centroid of that outline. Operation not confirmed from a second source. Roles derived: store deliveries of dry and chilled freight, as the mall type receives; it ships nothing."
+        }
+      ]
+    },
+    "gloucester_ma_us": {
+      "spoken_city": "Gloucester",
+      "state": "MA",
+      "country": "US",
+      "region": "northeast",
+      "lat": 42.61217,
+      "lon": -70.66107,
+      "source_note": "Pin on MA 127 (Rogers Street) by the State Fish Pier on the inner harbor, where the fish trucks load. Position read from OpenStreetMap way 51867135, OpenStreetMap API, read 2026-11-23. Approved by name as a fishing port (missing roads decision 4).",
+      "locations": [
+        {
+          "name": "Gorton's Seafood",
+          "type": "food_processor",
+          "lat": 42.61505,
+          "lon": -70.65607,
+          "ships": [
+            "refrigerated",
+            "food"
+          ],
+          "receives": [
+            "refrigerated",
+            "general"
+          ],
+          "source_note": "Read: OpenStreetMap node 6325686438 (man_made=works, product=food, name Gorton's Seafood), OpenStreetMap planet file of 2026-11-16; pin is that node. Operation not confirmed from a second source. Roles derived: a seafood plant ships chilled and frozen product and receives raw fish and general supplies."
+        },
+        {
+          "name": "Mortillaro's Lobster",
+          "type": "food_processor",
+          "lat": 42.61001,
+          "lon": -70.6644,
+          "ships": [
+            "refrigerated"
+          ],
+          "receives": [
+            "general"
+          ],
+          "source_note": "Read: OpenStreetMap way 675041438 (building=industrial, name Mortillaro's Lobster), OpenStreetMap planet file of 2026-11-16; pin is the centroid of that outline. Operation not confirmed from a second source. Roles derived: a lobster dealer ships chilled product and receives general supplies."
+        },
+        {
+          "name": "Market Basket Gloucester Crossing",
+          "type": "shopping_mall",
+          "lat": 42.62134,
+          "lon": -70.65677,
+          "ships": [],
+          "receives": [
+            "retail",
+            "general",
+            "food",
+            "refrigerated"
+          ],
+          "source_note": "Read: OpenStreetMap way 213327223 (shop=supermarket, brand Market Basket, 101 Gloucester Crossing), OpenStreetMap planet file of 2026-11-16; pin is the centroid of that outline. Operation not confirmed from a second source. Roles derived: store deliveries of dry and chilled freight, as the mall type receives; it ships nothing."
+        }
+      ]
+    },
+    "dubois_pa_us": {
+      "spoken_city": "DuBois",
+      "state": "PA",
+      "country": "US",
+      "region": "appalachia",
+      "lat": 41.12722,
+      "lon": -78.71205,
+      "source_note": "Pin on PA 255 (Bee Line Highway) beside Interstate 80 exit 101 in Sandy Township, so the legs on I-80 and PA 255 leave from one road. Position read from OpenStreetMap way 804498372, OpenStreetMap API, read 2026-11-23. Approved as the I-80 junction city (missing roads decisions 4 and 9).",
+      "locations": [
+        {
+          "name": "DuBois Logistics Warehouse",
+          "type": "dry_warehouse",
+          "lat": 41.12215,
+          "lon": -78.7317,
+          "ships": [
+            "general",
+            "retail"
+          ],
+          "receives": [
+            "general",
+            "retail"
+          ],
+          "source_note": "Read: OpenStreetMap way 648291217 (building=warehouse, name DuBois Logistics, Non-Persihable Warehouse), OpenStreetMap planet file of 2026-11-16; pin is the centroid of that outline. Operation not confirmed from a second source. Roles derived: a dry warehouse ships and receives general and store freight."
+        },
+        {
+          "name": "DuBois Logistics Cold Storage",
+          "type": "cold_storage",
+          "lat": 41.12297,
+          "lon": -78.73688,
+          "ships": [
+            "food",
+            "refrigerated"
+          ],
+          "receives": [
+            "food",
+            "refrigerated"
+          ],
+          "source_note": "Read: OpenStreetMap way 648291216 (building=warehouse, name DuBois Logistics, Redridgerated Warehouse), OpenStreetMap planet file of 2026-11-16; pin is the centroid of that outline. Operation not confirmed from a second source. Roles derived: a refrigerated warehouse ships and receives chilled food."
+        },
+        {
+          "name": "Danone Yogurt Plant",
+          "type": "food_processor",
+          "lat": 41.10645,
+          "lon": -78.73104,
+          "ships": [
+            "refrigerated",
+            "food"
+          ],
+          "receives": [
+            "food",
+            "general"
+          ],
+          "source_note": "Read: OpenStreetMap way 658161801 (building=industrial, man_made=works, product=yougurt, name Danone), OpenStreetMap planet file of 2026-11-16; pin is the centroid of that outline. Operation not confirmed from a second source. Roles derived: a dairy plant ships chilled product and receives ingredients."
+        },
+        {
+          "name": "DuBois Mall",
+          "type": "shopping_mall",
+          "lat": 41.1203,
+          "lon": -78.72617,
+          "ships": [],
+          "receives": [
+            "retail",
+            "general",
+            "food",
+            "refrigerated"
+          ],
+          "source_note": "Read: OpenStreetMap way 539274585 (shop=mall, name DuBois Mall), OpenStreetMap planet file of 2026-11-16; pin is the centroid of that outline. Operation not confirmed from a second source. Roles derived: store deliveries of dry and chilled freight, as the mall type receives; it ships nothing."
+        }
+      ]
+    },
+    "elmira_ny_us": {
+      "spoken_city": "Elmira",
+      "state": "NY",
+      "country": "US",
+      "region": "northeast",
+      "lat": 42.08988,
+      "lon": -76.80814,
+      "source_note": "Pin downtown on NY 352 (West Church Street) at North Main Street, a mile north of the Southern Tier Expressway. Position read from OpenStreetMap way 20053434, OpenStreetMap API, read 2026-11-23. Approved as an unreached urban area of 62,468 people (missing roads decision 9).",
+      "locations": [
+        {
+          "name": "CAF USA Railcar Plant",
+          "type": "manufacturing_plant",
+          "lat": 42.13347,
+          "lon": -76.82333,
+          "ships": [
+            "machinery"
+          ],
+          "receives": [
+            "steel",
+            "machinery",
+            "electronics"
+          ],
+          "source_note": "Read: OpenStreetMap way 705859999 (landuse=industrial, industrial=railway, name CAF USA, Incorporated), OpenStreetMap planet file of 2026-11-16; pin is the centroid of that outline. Operation not confirmed from a second source. Roles derived: a railcar plant receives steel and parts and ships machinery."
+        },
+        {
+          "name": "Motor Components",
+          "type": "manufacturing_plant",
+          "lat": 42.13302,
+          "lon": -76.82871,
+          "ships": [
+            "automotive",
+            "general"
+          ],
+          "receives": [
+            "steel",
+            "general"
+          ],
+          "source_note": "Read: OpenStreetMap way 1207482358 (building=warehouse, name Motor Components, LLC), OpenStreetMap planet file of 2026-11-16; pin is the centroid of that outline. Operation not confirmed from a second source. Roles derived: a parts plant receives steel and ships vehicle parts."
+        },
+        {
+          "name": "Wegmans Elmira",
+          "type": "shopping_mall",
+          "lat": 42.10572,
+          "lon": -76.80903,
+          "ships": [],
+          "receives": [
+            "retail",
+            "general",
+            "food",
+            "refrigerated"
+          ],
+          "source_note": "Read: OpenStreetMap node 8796811935 (shop=supermarket, brand Wegmans, 1100 Clemens Center Parkway), OpenStreetMap planet file of 2026-11-16; pin is that node. Operation not confirmed from a second source. Roles derived: store deliveries of dry and chilled freight, as the mall type receives; it ships nothing."
+        }
+      ]
+    },
+    "hanover_pa_us": {
+      "spoken_city": "Hanover",
+      "state": "PA",
+      "country": "US",
+      "region": "northeast",
+      "lat": 39.80048,
+      "lon": -76.98327,
+      "source_note": "Pin on Center Square, where PA 94 (Carlisle and Baltimore Streets) meets PA 116. Position read from OpenStreetMap way 6703564, OpenStreetMap API, read 2026-11-23. Approved as an unreached urban area of 56,712 people (missing roads decision 9).",
+      "locations": [
+        {
+          "name": "Utz Quality Foods",
+          "type": "food_processor",
+          "lat": 39.80995,
+          "lon": -77.00648,
+          "ships": [
+            "food"
+          ],
+          "receives": [
+            "food",
+            "general"
+          ],
+          "source_note": "Read: OpenStreetMap way 37890799 (building=warehouse, name Utz Quality Foods), OpenStreetMap planet file of 2026-11-16; pin is the centroid of that outline. Operation not confirmed from a second source. Roles derived: a snack plant ships packaged food and receives ingredients."
+        },
+        {
+          "name": "Snyder's of Hanover",
+          "type": "food_processor",
+          "lat": 39.80614,
+          "lon": -76.95163,
+          "ships": [
+            "food"
+          ],
+          "receives": [
+            "food",
+            "general"
+          ],
+          "source_note": "Read: OpenStreetMap way 175366450 (man_made=works, product=food, name Snyder's of Hanover, 1350 York Street), OpenStreetMap planet file of 2026-11-16; pin is the centroid of that outline. Operation not confirmed from a second source. Roles derived: a snack plant ships packaged food and receives ingredients."
+        },
+        {
+          "name": "Hanover Terminal",
+          "type": "dry_warehouse",
+          "lat": 39.80562,
+          "lon": -76.96356,
+          "ships": [
+            "general",
+            "retail"
+          ],
+          "receives": [
+            "general",
+            "retail"
+          ],
+          "source_note": "Read: OpenStreetMap way 539322252 (building=warehouse, name Hanover Terminal, 201 Center Street), OpenStreetMap planet file of 2026-11-16; pin is the centroid of that outline. Operation not confirmed from a second source. Roles derived: a warehouse ships and receives general and store freight."
+        },
+        {
+          "name": "North Hanover Mall",
+          "type": "shopping_mall",
+          "lat": 39.82184,
+          "lon": -76.99408,
+          "ships": [],
+          "receives": [
+            "retail",
+            "general",
+            "food",
+            "refrigerated"
+          ],
+          "source_note": "Read: OpenStreetMap way 420919921 (shop=mall, name North Hanover Mall), OpenStreetMap planet file of 2026-11-16; pin is the centroid of that outline. Operation not confirmed from a second source. Roles derived: store deliveries of dry and chilled freight, as the mall type receives; it ships nothing."
+        }
+      ]
+    },
+    "ithaca_ny_us": {
+      "spoken_city": "Ithaca",
+      "state": "NY",
+      "country": "US",
+      "region": "northeast",
+      "lat": 42.43844,
+      "lon": -76.5051,
+      "source_note": "Pin downtown on NY 79 (West Green Street) by NY 13. Position read from OpenStreetMap way 603889675, OpenStreetMap API, read 2026-11-23. Approved as an unreached urban area of 59,102 people (missing roads decision 9).",
+      "locations": [
+        {
+          "name": "Wegmans Ithaca",
+          "type": "shopping_mall",
+          "lat": 42.43584,
+          "lon": -76.51047,
+          "ships": [],
+          "receives": [
+            "retail",
+            "general",
+            "food",
+            "refrigerated"
+          ],
+          "source_note": "Read: OpenStreetMap way 91019970 (shop=supermarket, brand Wegmans, 500 South Meadow Street), OpenStreetMap planet file of 2026-11-16; pin is the centroid of that outline. Operation not confirmed from a second source. Roles derived: store deliveries of dry and chilled freight, as the mall type receives; it ships nothing."
+        },
+        {
+          "name": "Ithaca Shopping Plaza",
+          "type": "shopping_mall",
+          "lat": 42.42997,
+          "lon": -76.50696,
+          "ships": [],
+          "receives": [
+            "retail",
+            "general",
+            "food",
+            "refrigerated"
+          ],
+          "source_note": "Read: OpenStreetMap way 107649600 (shop=mall, name Ithaca Shopping Plaza, 222 Elmira Road), OpenStreetMap planet file of 2026-11-16; pin is the centroid of that outline. Operation not confirmed from a second source. Roles derived: store deliveries of dry and chilled freight, as the mall type receives; it ships nothing."
+        }
+      ]
+    },
+    "johnstown_pa_us": {
+      "spoken_city": "Johnstown",
+      "state": "PA",
+      "country": "US",
+      "region": "appalachia",
+      "lat": 40.32615,
+      "lon": -78.92487,
+      "source_note": "Pin downtown on PA 56 and PA 403 (Johns Street). Position read from OpenStreetMap way 55907724, OpenStreetMap API, read 2026-11-23. Approved as an unreached urban area of 61,521 people (missing roads decision 9).",
+      "locations": [
+        {
+          "name": "Johnstown Wire Technologies",
+          "type": "steel_industrial",
+          "lat": 40.34979,
+          "lon": -78.94113,
+          "ships": [
+            "steel"
+          ],
+          "receives": [
+            "steel"
+          ],
+          "source_note": "Read: OpenStreetMap node 6767458172 (man_made=works, name Johnstown Wire Technologies), OpenStreetMap planet file of 2026-11-16; pin is that node. Operation not confirmed from a second source. Roles derived: a wire mill receives steel rod and ships wire as steel freight."
+        },
+        {
+          "name": "Johnstown Specialty Castings",
+          "type": "steel_industrial",
+          "lat": 40.29861,
+          "lon": -78.91249,
+          "ships": [
+            "steel",
+            "machinery"
+          ],
+          "receives": [
+            "steel",
+            "bulk"
+          ],
+          "source_note": "Read: OpenStreetMap node 6778447381 (man_made=works, name Johnstown Specialty Castings), OpenStreetMap planet file of 2026-11-16; pin is that node. Operation not confirmed from a second source. Roles derived: a foundry receives scrap and ships castings."
+        },
+        {
+          "name": "Bel Air Plaza",
+          "type": "shopping_mall",
+          "lat": 40.28591,
+          "lon": -78.86682,
+          "ships": [],
+          "receives": [
+            "retail",
+            "general",
+            "food",
+            "refrigerated"
+          ],
+          "source_note": "Read: OpenStreetMap way 856223063 (landuse=retail, name Bel Air Plaza), OpenStreetMap planet file of 2026-11-16; pin is the centroid of that outline. Operation not confirmed from a second source. Roles derived: store deliveries of dry and chilled freight, as the mall type receives; it ships nothing."
+        }
+      ]
+    },
+    "lexington_park_md_us": {
+      "spoken_city": "Lexington Park",
+      "state": "MD",
+      "country": "US",
+      "region": "northeast",
+      "lat": 38.26584,
+      "lon": -76.45228,
+      "source_note": "Pin on MD 235 (Three Notch Road) at MD 246 (Great Mills Road), the main road through Lexington Park outside Naval Air Station Patuxent River. Position read from OpenStreetMap way 1531559415, OpenStreetMap API, read 2026-11-23. Approved as an unreached urban area of 62,352 people (missing roads decision 9).",
+      "locations": [
+        {
+          "name": "St. Mary's Square",
+          "type": "shopping_mall",
+          "lat": 38.25923,
+          "lon": -76.4652,
+          "ships": [],
+          "receives": [
+            "retail",
+            "general",
+            "food",
+            "refrigerated"
+          ],
+          "source_note": "Read: OpenStreetMap way 48255479 (landuse=retail, name St Marys Square), OpenStreetMap planet file of 2026-11-16; pin is the centroid of that outline. Operation not confirmed from a second source. Roles derived: store deliveries of dry and chilled freight, as the mall type receives; it ships nothing."
+        },
+        {
+          "name": "Walmart Supercenter",
+          "type": "shopping_mall",
+          "lat": 38.29292,
+          "lon": -76.5031,
+          "ships": [],
+          "receives": [
+            "retail",
+            "general",
+            "food",
+            "refrigerated"
+          ],
+          "source_note": "Read: OpenStreetMap way 47916363 (shop=supermarket, brand Walmart, 45485 Miramar Way), OpenStreetMap planet file of 2026-11-16; pin is the centroid of that outline. Operation not confirmed from a second source. Roles derived: store deliveries of dry and chilled freight, as the mall type receives; it ships nothing."
+        }
+      ]
+    },
+    "pittsfield_ma_us": {
+      "spoken_city": "Pittsfield",
+      "state": "MA",
+      "country": "US",
+      "region": "northeast",
+      "lat": 42.44983,
+      "lon": -73.25362,
+      "source_note": "Pin downtown on North Street at Depot Street, by Park Square where US 7 and US 20 cross. Position read from OpenStreetMap way 1384015750, OpenStreetMap API, read 2026-11-23. Approved as an unreached urban area of 50,720 people (missing roads decision 9).",
+      "locations": [
+        {
+          "name": "General Dynamics Pittsfield",
+          "type": "manufacturing_plant",
+          "lat": 42.45805,
+          "lon": -73.21372,
+          "ships": [
+            "electronics",
+            "machinery"
+          ],
+          "receives": [
+            "electronics",
+            "steel",
+            "general"
+          ],
+          "source_note": "Read: OpenStreetMap way 707255000 (landuse=industrial, name General Dynamics), OpenStreetMap planet file of 2026-11-16; pin is the centroid of that outline. Operation not confirmed from a second source. Roles derived: a defence electronics plant receives parts and ships electronics and machinery."
+        },
+        {
+          "name": "Big Y Pittsfield",
+          "type": "shopping_mall",
+          "lat": 42.44857,
+          "lon": -73.25975,
+          "ships": [],
+          "receives": [
+            "retail",
+            "general",
+            "food",
+            "refrigerated"
+          ],
+          "source_note": "Read: OpenStreetMap way 215700883 (shop=supermarket, brand Big Y, 200 West Street), OpenStreetMap planet file of 2026-11-16; pin is the centroid of that outline. Operation not confirmed from a second source. Roles derived: store deliveries of dry and chilled freight, as the mall type receives; it ships nothing."
+        },
+        {
+          "name": "The Shops at Unkamet Brook",
+          "type": "shopping_mall",
+          "lat": 42.46574,
+          "lon": -73.20567,
+          "ships": [],
+          "receives": [
+            "retail",
+            "general",
+            "food",
+            "refrigerated"
+          ],
+          "source_note": "Read: OpenStreetMap way 30632569 (landuse=retail, name The Shops at Unkamet Brook), OpenStreetMap planet file of 2026-11-16; pin is the centroid of that outline. Operation not confirmed from a second source. Roles derived: store deliveries of dry and chilled freight, as the mall type receives; it ships nothing."
+        }
+      ]
+    },
+    "riverhead_ny_us": {
+      "spoken_city": "Riverhead",
+      "state": "NY",
+      "country": "US",
+      "region": "northeast",
+      "lat": 40.92624,
+      "lon": -72.69159,
+      "source_note": "Pin on County Road 58 (Old Country Road), the truck route from the east end of the Long Island Expressway into Riverhead. Position read from OpenStreetMap way 1308939755, OpenStreetMap API, read 2026-11-23. Approved as an unreached urban area of 51,120 people (missing roads decision 9).",
+      "locations": [
+        {
+          "name": "Frito-Lay Riverhead",
+          "type": "distribution",
+          "lat": 40.92149,
+          "lon": -72.68117,
+          "ships": [
+            "food"
+          ],
+          "receives": [
+            "food"
+          ],
+          "source_note": "Read: OpenStreetMap way 463001644 (building=warehouse, name FritoLay, 82 Columbus Avenue), OpenStreetMap planet file of 2026-11-16; pin is the centroid of that outline. Operation not confirmed from a second source. Roles derived: a snack distribution warehouse receives and ships packaged food."
+        },
+        {
+          "name": "Berry Specialty Tapes",
+          "type": "manufacturing_plant",
+          "lat": 40.92607,
+          "lon": -72.70976,
+          "ships": [
+            "general"
+          ],
+          "receives": [
+            "chemicals",
+            "general"
+          ],
+          "source_note": "Read: OpenStreetMap way 463326688 (building=industrial, name Berry Specialty Tapes, 1852 Old Country Road), OpenStreetMap planet file of 2026-11-16; pin is the centroid of that outline. Operation not confirmed from a second source. Roles derived: a tape plant receives resin and adhesives and ships general freight."
+        },
+        {
+          "name": "Suffolk Precast",
+          "type": "construction_materials_yard",
+          "lat": 40.92519,
+          "lon": -72.72378,
+          "ships": [
+            "construction"
+          ],
+          "receives": [
+            "construction",
+            "bulk",
+            "steel"
+          ],
+          "source_note": "Read: OpenStreetMap way 463327431 (building=industrial, name Suffolk Precast, 1813 Middle Road), OpenStreetMap planet file of 2026-11-16; pin is the centroid of that outline. Operation not confirmed from a second source. Roles derived: a precast yard receives cement, aggregate and rebar and ships concrete products."
+        },
+        {
+          "name": "Riverhead Centre",
+          "type": "shopping_mall",
+          "lat": 40.92737,
+          "lon": -72.69436,
+          "ships": [],
+          "receives": [
+            "retail",
+            "general",
+            "food",
+            "refrigerated"
+          ],
+          "source_note": "Read: OpenStreetMap way 190405158 (landuse=retail, name Riverhead Centre), OpenStreetMap planet file of 2026-11-16; pin is the centroid of that outline. Operation not confirmed from a second source. Roles derived: store deliveries of dry and chilled freight, as the mall type receives; it ships nothing."
+        }
+      ]
+    },
+    "cranberry_township_pa_us": {
+      "spoken_city": "Cranberry Township",
+      "state": "PA",
+      "country": "US",
+      "region": "appalachia",
+      "lat": 40.68269,
+      "lon": -80.10085,
+      "source_note": "Pin on US 19 (Perry Highway) beside Pennsylvania Turnpike exit 28, two miles from Interstate 79 exit 76, so a truck turns onto either road. Position read from OpenStreetMap way 1034098034, OpenStreetMap API, read 2026-11-23. Approved by name as the junction for the Ohio and Pennsylvania Turnpikes west of Pittsburgh (missing roads decision 9).",
+      "locations": [
+        {
+          "name": "United Stationers Cranberry",
+          "type": "distribution",
+          "lat": 40.67641,
+          "lon": -80.10818,
+          "ships": [
+            "general",
+            "retail"
+          ],
+          "receives": [
+            "general",
+            "retail"
+          ],
+          "source_note": "Read: OpenStreetMap way 185617858 (building=industrial, name United Stationers Supply), OpenStreetMap planet file of 2026-11-16; pin is the centroid of that outline. Operation not confirmed from a second source. Roles derived: an office supply distribution centre ships and receives general and store freight."
+        },
+        {
+          "name": "Cardinal Health Cranberry",
+          "type": "distribution",
+          "lat": 40.67108,
+          "lon": -80.10798,
+          "ships": [
+            "general",
+            "refrigerated"
+          ],
+          "receives": [
+            "general",
+            "refrigerated"
+          ],
+          "source_note": "Read: OpenStreetMap way 272969316 (building=industrial, name Cardinal Health), OpenStreetMap planet file of 2026-11-16; pin is the centroid of that outline. Operation not confirmed from a second source. Roles derived: a medical supply distribution centre ships and receives general and chilled freight."
+        },
+        {
+          "name": "Cranberry Mall",
+          "type": "shopping_mall",
+          "lat": 40.68374,
+          "lon": -80.10403,
+          "ships": [],
+          "receives": [
+            "retail",
+            "general",
+            "food",
+            "refrigerated"
+          ],
+          "source_note": "Read: OpenStreetMap relation 7276490 (landuse=retail, name Cranberry Mall), OpenStreetMap planet file of 2026-11-16; pin is the centroid of that outline. Operation not confirmed from a second source. Roles derived: store deliveries of dry and chilled freight, as the mall type receives; it ships nothing."
+        }
+      ]
+    },
     "pascagoula_ms_us": {
       "spoken_city": "Pascagoula",
       "state": "MS",

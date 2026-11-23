@@ -72,8 +72,9 @@ fn test_every_lower_48_city_is_hired_into() {
     // the Quebec crossings; 630 with Carneys Point and Cape May, New Jersey;
     // 634 with Sebring, Port Canaveral, Crystal River and Gainesville, Georgia;
     // 638 with Joliet, Alpena, Ashtabula and Sandusky (Great Lakes roads);
-    // 640 with Pascagoula, Mississippi and Beaufort, South Carolina.
-    assert_eq!(cities.len(), 640, "the lower-48 map city count moved");
+    // 651 with the thirteen Northeast towns; 653 with Pascagoula,
+    // Mississippi and Beaufort, South Carolina.
+    assert_eq!(cities.len(), 653, "the lower-48 map city count moved");
     let mut by_any = 0;
     let mut by_regional = 0;
     let mut missing_regional = Vec::new();
@@ -92,9 +93,9 @@ fn test_every_lower_48_city_is_hired_into() {
             missing_regional.push(city.clone());
         }
     }
-    assert_eq!(by_any, 640);
+    assert_eq!(by_any, 653);
     assert_eq!(
-        by_regional, 640,
+        by_regional, 653,
         "no regional hires in {missing_regional:?}"
     );
 }

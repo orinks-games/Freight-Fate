@@ -12,6 +12,12 @@
 //! Bay (110 miles), which passed Port Saint Lucie 1.2 miles off: 51 miles on
 //! Florida's Turnpike, then the existing 65-mile leg on I-95.
 //!
+//! The Northeast roads (2026-11-23) split Buffalo to New York, a 468-mile
+//! Thruway leg, at Newburgh: about 465 miles of the same road.
+//!
+//! The Upper Midwest roads (2026-11-23) split Des Moines to Chicago, a
+//! 334-mile I-80 and I-88 leg, at Aurora.
+//!
 //! The Alabama, Mississippi and South Carolina roads (2026-11-23) split
 //! Jackson to Baton Rouge (175 miles of I-55 and I-12) at Hammond: 133 miles
 //! on I-55, then the existing 50-mile leg on I-12.
@@ -139,6 +145,64 @@ fn a_save_on_the_old_west_palm_beach_leg_resumes_on_the_port_saint_lucie_chain()
         ]
     );
     assert_eq!(drive.trip.position_mi, 80.0);
+}
+
+#[test]
+fn a_save_on_the_old_buffalo_to_new_york_leg_resumes_on_its_pieces() {
+    // 300 miles in lands on the Thruway, short of Newburgh.
+    let app = resume("Buffalo", "New York", 468.0, 300.0);
+    let state = app.state().expect("a state");
+    let state = state.borrow();
+    let drive = state
+        .as_any()
+        .downcast_ref::<DrivingState>()
+        .expect("the save resumes at the wheel");
+    assert!(drive.resumed);
+    assert_eq!(
+        drive.route.cities,
+        ["buffalo_ny_us", "newburgh_ny_us", "new_york_ny_us"]
+    );
+    assert_eq!(drive.trip.position_mi, 300.0);
+}
+
+#[test]
+fn a_save_on_the_old_des_moines_to_chicago_leg_resumes_on_its_pieces() {
+    let mut app = TestApp::new();
+    let mut p = Profile::named("Interstate Save");
+    p.active_trip = Some(json!({
+        "job": {
+            "cargo": "general",
+            "weight_tons": 14.0,
+            "origin": "Des Moines",
+            "origin_location": "Des Moines freight market",
+            "destination": "Chicago",
+            "distance_mi": 334.0,
+            "pay": 1300.0,
+            "deadline_game_h": 12.0,
+            "market_mult": 1.0,
+        },
+        "route_cities": ["Des Moines", "Chicago"],
+        "trip_seed": 2468,
+        "position_mi": 200.0,
+        "game_minutes": 240.0,
+        "start_damage": 0.0,
+    }));
+    app.ctx.profile = Some(p);
+
+    enter_world(&mut app.ctx, false);
+
+    let state = app.state().expect("a state");
+    let state = state.borrow();
+    let drive = state
+        .as_any()
+        .downcast_ref::<DrivingState>()
+        .expect("the save resumes at the wheel");
+    assert!(drive.resumed);
+    assert_eq!(
+        drive.route.cities,
+        ["des_moines_ia_us", "aurora_il_us", "chicago_il_us"]
+    );
+    assert_eq!(drive.trip.position_mi, 200.0);
 }
 
 #[test]

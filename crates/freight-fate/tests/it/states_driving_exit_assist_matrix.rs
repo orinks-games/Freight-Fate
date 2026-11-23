@@ -47,7 +47,7 @@ use freight_fate::states::driving_core::{
 use freight_fate::states::driving_menu_states::FacilityArrivalState;
 use freight_fate::states::driving_rest_states::RestStopState;
 
-use crate::states_driving_approach_sweep::{destinations, driver_target_mph};
+use crate::states_driving_approach_sweep::{approach_origin, destinations, driver_target_mph};
 use crate::transcript_cruise_support::{quiet, MPS_PER_MPH};
 
 pub(crate) const DT: f64 = 1.0 / 30.0;
@@ -309,9 +309,7 @@ pub(crate) fn start(preset: Preset, kind: Kind) -> PlaytestHarness {
         let world = get_world();
         let (chain, _) = destinations(world, 1);
         let destination = chain.first().expect("a chain facility").clone();
-        let origin = world.neighbors(&destination.city)[0]
-            .other(&destination.city)
-            .to_string();
+        let origin = approach_origin(world, &destination.city);
         preset.apply(&mut harness.app.ctx.settings);
         harness.start_route(
             &origin,

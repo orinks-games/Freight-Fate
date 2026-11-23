@@ -185,6 +185,86 @@ pub const RETIRED_LEGS: &[(&str, &str, &[&str])] = &[
         "fort_wayne_in_us",
         &["ann_arbor_mi_us", "jackson_mi_us", "fort_wayne_in_us"],
     ),
+    // Northeast missing roads (2026-11-23): legs split at a city they pass.
+    (
+        "newport_ri_us",
+        "new_haven_ct_us",
+        &["newport_ri_us", "new_london_ct_us", "new_haven_ct_us"],
+    ),
+    (
+        "allentown_pa_us",
+        "baltimore_md_us",
+        &[
+            "allentown_pa_us",
+            "reading_pa_us",
+            "lancaster_pa_us",
+            "baltimore_md_us",
+        ],
+    ),
+    (
+        "albany_ny_us",
+        "montpelier_vt_us",
+        &["albany_ny_us", "rutland_vt_us", "montpelier_vt_us"],
+    ),
+    (
+        "new_york_ny_us",
+        "albany_ny_us",
+        &["new_york_ny_us", "newburgh_ny_us", "albany_ny_us"],
+    ),
+    (
+        "buffalo_ny_us",
+        "new_york_ny_us",
+        &["buffalo_ny_us", "newburgh_ny_us", "new_york_ny_us"],
+    ),
+    (
+        "rochester_ny_us",
+        "new_york_ny_us",
+        &["rochester_ny_us", "newburgh_ny_us", "new_york_ny_us"],
+    ),
+    (
+        "meadville_pa_us",
+        "pittsburgh_pa_us",
+        &[
+            "meadville_pa_us",
+            "cranberry_township_pa_us",
+            "pittsburgh_pa_us",
+        ],
+    ),
+    (
+        "youngstown_oh_us",
+        "pittsburgh_pa_us",
+        &[
+            "youngstown_oh_us",
+            "cranberry_township_pa_us",
+            "pittsburgh_pa_us",
+        ],
+    ),
+    (
+        "pittsburgh_pa_us",
+        "cleveland_oh_us",
+        &[
+            "pittsburgh_pa_us",
+            "cranberry_township_pa_us",
+            "cleveland_oh_us",
+        ],
+    ),
+    // Upper Midwest and Northern Plains missing roads (2026-11-23): legs
+    // split at a city they pass.
+    (
+        "hibbing_mn_us",
+        "minneapolis_mn_us",
+        &["hibbing_mn_us", "grand_rapids_mn_us", "minneapolis_mn_us"],
+    ),
+    (
+        "mankato_mn_us",
+        "rochester_mn_us",
+        &["mankato_mn_us", "owatonna_mn_us", "rochester_mn_us"],
+    ),
+    (
+        "des_moines_ia_us",
+        "chicago_il_us",
+        &["des_moines_ia_us", "aurora_il_us", "chicago_il_us"],
+    ),
 ];
 
 /// The replacement chain for a retired hop `a` to `b`, in travel order.
