@@ -391,6 +391,11 @@ impl Trip {
     }
 
     pub fn corridor_limit_at(&self, mile: f64) -> f64 {
+        if let Some((until_mi, highway)) = self.town_streets_driven {
+            if mile < until_mi {
+                return highway;
+            }
+        }
         let (leg_i, leg_start) = self.leg_at_mile(mile);
         let leg = &self.route.legs[leg_i];
         let forward = self.route.cities[leg_i] == leg.a;
@@ -428,7 +433,9 @@ impl Trip {
         } else {
             leg.miles - (mile - leg_start)
         };
-        let leaving = self.highway_limit_leaving_town(mile, leg_start);
+        let leaving = self
+            .highway_limit_leaving_town(mile, leg_start)
+            .map(|(_, limit)| limit);
         let Some(stretch) = self.town_ends.get(leg_i).and_then(|e| e.stretch_at(offset)) else {
             return leaving;
         };
@@ -456,7 +463,7 @@ impl Trip {
     /// [`TOWN_DEPARTURE_SCAN_MI`] from the start, so cruise handed over on
     /// the streets builds to the highway once the town ends. None on the
     /// open road or when no highway limit comes within the scan.
-    fn highway_limit_leaving_town(&self, mile: f64, leg_start: f64) -> Option<f64> {
+    fn highway_limit_leaving_town(&self, mile: f64, leg_start: f64) -> Option<(f64, f64)> {
         if mile - leg_start > URBAN_RADIUS_MI
             || self.corridor_limit_at(mile) >= GAP_HOLD_HIGHWAY_MPH
         {
@@ -468,15 +475,31 @@ impl Trip {
             at += 0.1;
             let limit = self.corridor_limit_at(at);
             if limit >= GAP_HOLD_HIGHWAY_MPH {
-                return Some(limit);
+                return Some((at, limit));
             }
         }
         None
     }
 
+    /// The truck drove the origin's own streets to the on-ramp (the facility
+    /// street chain), so the town miles at the start of this trip's first
+    /// leg are behind it: from here they read the highway limit the ramp
+    /// joins, the first highway-speed one within [`TOWN_DEPARTURE_SCAN_MI`].
+    /// Nothing changes where the trip already starts at a highway limit.
+    pub fn join_highway_after_streets(&mut self) {
+        self.town_streets_driven = None;
+        self.town_streets_driven = self.highway_limit_leaving_town(0.0, 0.0);
+    }
+
     /// The assumed town limit's source where the truck is in a town stretch
     /// at a leg end, or None. Diagnostic: the agent server's inspector.
     pub fn town_limit_source_at(&self, mile: f64) -> Option<String> {
+        if self
+            .town_streets_driven
+            .is_some_and(|(until_mi, _)| mile < until_mi)
+        {
+            return None;
+        }
         let (leg_i, leg_start) = self.leg_at_mile(mile);
         let leg = &self.route.legs[leg_i];
         let forward = self.route.cities[leg_i] == leg.a;

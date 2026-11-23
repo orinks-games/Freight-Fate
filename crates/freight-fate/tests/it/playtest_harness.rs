@@ -193,6 +193,8 @@ fn test_playtest_harness_neutralizes_random_traffic_by_default() {
 fn test_playtest_harness_can_exercise_npc_traffic() {
     let mut harness = PlaytestHarness::new();
     harness.start_route("Buffalo", "Rochester", RouteSetup::default());
+    // Out on I-90, past Buffalo's 30 mph streets.
+    harness.with_drive(|drive, _| drive.trip.position_mi = 5.0);
     harness.prepare_for_driving(55.0);
     harness.add_npc_traffic_ahead("merging_vehicle", 0.8, 42.0, 1);
 
