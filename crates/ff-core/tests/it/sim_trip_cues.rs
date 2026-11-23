@@ -106,6 +106,53 @@ fn whittier_tunnel_gate_runs_in_the_trip_and_toll_is_one_way() {
     );
 }
 
+#[test]
+fn golden_gate_bridge_cue_respects_toll_direction() {
+    let drive = |forward: bool| {
+        let world = world();
+        let leg = world
+            .legs
+            .iter()
+            .find(|leg| leg.a == "san_francisco_ca_us" && leg.b == "santa_rosa_ca_us")
+            .expect("Golden Gate leg")
+            .as_ref()
+            .clone();
+        let cities = if forward {
+            vec!["san_francisco_ca_us".into(), "santa_rosa_ca_us".into()]
+        } else {
+            vec!["santa_rosa_ca_us".into(), "san_francisco_ca_us".into()]
+        };
+        let trip = Trip::new(
+            Route::from_legs(cities, vec![leg]),
+            TruckState::default(),
+            default_weather(),
+            TripOptions {
+                world: Some(world),
+                ..TripOptions::seeded(93)
+            },
+        );
+        trip.place_bridges()
+    };
+
+    let northbound = drive(true);
+    let northbound_bridge = northbound
+        .iter()
+        .find(|bridge| bridge.name == "Golden Gate Bridge")
+        .expect("northbound bridge span");
+    assert!(northbound_bridge
+        .line
+        .as_deref()
+        .is_some_and(|line| line.contains("Golden Gate Bridge")));
+
+    let southbound = drive(false);
+    let southbound_bridge = southbound
+        .iter()
+        .find(|bridge| bridge.name == "Golden Gate Bridge")
+        .expect("southbound bridge span");
+    assert!(southbound_bridge.line.is_none());
+    assert_eq!(northbound_bridge.name, southbound_bridge.name);
+}
+
 fn hazmat_load() -> CrossingLoad {
     CrossingLoad::standard_rig(true).with_cargo("hazardous", false, 30_000)
 }

@@ -712,8 +712,16 @@ The cut needs the bridge tags a roads-only filter drops:
 osmium tags-filter na.osm.pbf w/bridge w/man_made=bridge r/type=bridge \
   w/waterway=river,canal,tidal_channel w/natural=coastline -o bridges.osm.pbf
 cargo tools osm-bridges --pbf bridges.osm.pbf --extract-date 2026-11-16          # dry run
-cargo tools osm-bridges --pbf bridges.osm.pbf --extract-date 2026-11-16 --write  # north legs
+cargo tools osm-bridges --pbf bridges.osm.pbf --extract-date 2026-11-16 \
+  --scope all --only 'san_francisco_ca_us:santa_rosa_ca_us' --write  # one complete route
 ```
+
+Every write requires a nonempty `--only` list of complete route identities.
+The list is an operator assertion that the extract covers each whole route;
+the tool does not infer coverage from PBF bounds or `--scope`. Scope intersects
+the selected routes, and a selected route with no placements removes its old
+bridge rows. Do not select a route the extract only partly covers. Dry runs
+and `--survey` discovery may omit `--only`.
 
 - A bridge is named by its own `bridge:name`, the `type=bridge` relation it
   belongs to, or the `man_made=bridge` outline around it. A carrier way's
@@ -727,8 +735,9 @@ cargo tools osm-bridges --pbf bridges.osm.pbf --extract-date 2026-11-16 --write 
   was set). The dry run prints the counts by length band, how often the
   game's five-mile spacing guard would silence one, and the sheet entries
   no leg crosses. Add a bridge to the sheet rather than lowering the bar.
-- `--scope north` (the default) writes legs touching Canada or Alaska;
-  `--scope all` the whole map.
+- `--scope north` (the default) intersects `--only` with legs touching Canada
+  or Alaska; `--scope all` allows every selected leg. Scope does not establish
+  extract coverage.
 - The span is derived by projecting the bridge's ways onto the leg's
   archived road (every vertex within 80 m, and running along it). After a
   reroute, re-run it with `--only from:to`.

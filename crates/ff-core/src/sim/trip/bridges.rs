@@ -35,6 +35,9 @@ impl Trip {
                 });
             }
             for toll in leg.toll_events() {
+                if !toll.applies_to_direction(forward) {
+                    continue;
+                }
                 tolls.push((route(toll.at_mi), toll.name.clone()));
             }
         }

@@ -4,9 +4,8 @@
 //! What it reads from the extract: bridge-tagged road ways (`bridge=*` with
 //! a road `highway=*`), `man_made=bridge` outlines, `type=bridge`
 //! relations, and rivers, canals, tidal channels and coastline for the
-//! water. A bridge is named by its own `bridge:name`, the bridge relation
-//! it belongs to, or the outline around it; never by the way's `name`,
-//! which is usually the road's. Spoken names go through
+//! water. A bridge is named by its own `bridge:name`, a bridge relation,
+//! an outline, or a way name that reads as the bridge's. Spoken names go through
 //! `world::spoken_name` (`name:en` only for script a voice cannot read).
 //!
 //! A bridge is written when it is on the curated sheet (`docs/bridges/`,
@@ -22,8 +21,10 @@
 //! `--survey` also lists unnamed bridge runs by the way's own name and id
 //! (to find a curated bridge's ways) and writes nothing.
 //!
-//! `--scope north` (the default) writes the legs that touch Canada or
-//! Alaska; `all` takes every leg. The dry run prints every placed bridge
+//! Writes require `--only` to list complete routes covered by the extract.
+//! `--scope` intersects the list; it does not assert extract coverage.
+//! `--scope north` (the default) selects legs touching Canada or Alaska;
+//! `all` selects every leg. The dry run prints every placed bridge
 //! for `--only`, and for every run the counts by length band and country,
 //! how often the five-mile spacing guard would fire, and the sheet's
 //! entries no leg crosses.
@@ -31,11 +32,11 @@
 mod place;
 mod sheet;
 
-use std::collections::BTreeMap;
+use std::collections::{BTreeMap, HashSet};
 use std::path::PathBuf;
 
 use super::features::{self, Select};
-use super::{corridor_mut, leg_id, leg_miles, pbf_paths, Only, Route, Run};
+use super::{corridor_mut, leg_id, leg_miles, pbf_paths, Route, Run};
 use crate::cli::{Args, Spec};
 use crate::pyjson::Value;
 use crate::util::Result;
@@ -44,7 +45,7 @@ use sheet::Sheet;
 
 const USAGE: &str = "usage: osm-bridges --pbf FILE [--pbf FILE ...] [--only from:to;from:to] \
                      [--scope north|all] [--bar-ft N] [--sheet DIR] [--extract-date YYYY-MM-DD] \
-                     [--snapshot NAME] [--survey] [--write]";
+                     [--snapshot NAME] [--survey] [--write (requires --only)]";
 
 /// The real length an uncurated bridge needs to be written, in feet.
 ///
@@ -85,9 +86,82 @@ fn is_north(id: &str) -> bool {
         .any(|slug| slug.ends_with("_ca") || slug.ends_with("_ak_us"))
 }
 
+fn parse_covered_legs(value: Option<&str>, require: bool) -> Result<Option<Vec<String>>> {
+    let Some(value) = value else {
+        return if require {
+            Err("--write requires --only with complete from:to routes".to_string())
+        } else {
+            Ok(None)
+        };
+    };
+    let mut legs = Vec::new();
+    for leg in value.split(';') {
+        let leg = leg.trim();
+        let Some((from, to)) = leg.split_once(':') else {
+            return Err(format!("invalid --only leg {leg:?}; expected from:to"));
+        };
+        let (from, to) = (from.trim(), to.trim());
+        if from.is_empty() || to.is_empty() || to.contains(':') {
+            return Err(format!("invalid --only leg {leg:?}; expected from:to"));
+        }
+        legs.push(format!("{from}:{to}"));
+    }
+    if legs.is_empty() {
+        return Err("--only must select at least one complete from:to route".to_string());
+    }
+    Ok(Some(legs))
+}
+
+fn requires_covered_selection(write: bool, survey: bool) -> bool {
+    write && !survey
+}
+
+fn validate_covered_legs(
+    selected: &[String],
+    leg_ids: &HashSet<String>,
+    archive_ids: &HashSet<String>,
+    scope: &str,
+) -> Result<()> {
+    for leg in selected {
+        let reverse = leg
+            .split_once(':')
+            .map(|(from, to)| format!("{to}:{from}"))
+            .unwrap_or_default();
+        let known = if leg_ids.contains(leg) {
+            leg
+        } else if leg_ids.contains(&reverse) {
+            &reverse
+        } else {
+            return Err(format!("--only references unknown leg {leg:?}"));
+        };
+        if (scope == "all" || is_north(known)) && !archive_ids.contains(known) {
+            return Err(format!("--only leg {known:?} has no archived road"));
+        }
+    }
+    Ok(())
+}
+
+fn selected_leg(id: &str, selected: Option<&[String]>) -> bool {
+    let Some(selected) = selected else {
+        return true;
+    };
+    let reverse = id
+        .split_once(':')
+        .map(|(from, to)| format!("{to}:{from}"))
+        .unwrap_or_default();
+    selected.iter().any(|leg| leg == id || leg == &reverse)
+}
+
+fn selected_for_write(id: &str, selected: Option<&[String]>, scope: &str) -> bool {
+    selected_leg(id, selected) && (scope == "all" || is_north(id))
+}
+
 /// Replace a leg's bridges; drop the hand-written `highway_marker` lines
 /// that name a bridge it now writes, so one bridge has one line.
 fn merge(corridor: &mut crate::pyjson::Object, placed: &[place::Placed]) -> bool {
+    if placed.iter().any(|p| p.survey_only) {
+        return false;
+    }
     let rows = Value::Array(placed.iter().map(place::Placed::row).collect());
     let mut changed = false;
     if placed.is_empty() {
@@ -125,6 +199,12 @@ pub fn main(argv: &[String]) -> Result<i32> {
         },
     )
     .map_err(|e| format!("{e}\n{USAGE}"))?;
+    let survey = args.flag("survey");
+    let selection = parse_covered_legs(
+        args.value("only"),
+        requires_covered_selection(args.flag("write"), survey),
+    )
+    .map_err(|e| format!("{e}\n{USAGE}"))?;
     let pbfs = pbf_paths(&args, USAGE)?;
     let date = super::extract_date(&args, &pbfs)?;
     let snapshot = args.string("snapshot", "OpenStreetMap planet file");
@@ -135,8 +215,12 @@ pub fn main(argv: &[String]) -> Result<i32> {
     }
     let sheet_dir = PathBuf::from(args.string("sheet", "docs/bridges"));
     let mut sheet = Sheet::load(&sheet_dir)?;
-    let only = Only::parse(&args);
     let mut run = Run::load()?;
+    if let Some(selected) = &selection {
+        let leg_ids: HashSet<String> = run.legs_mut()?.iter().map(leg_id).collect();
+        let archive_ids: HashSet<String> = run.archive.keys().cloned().collect();
+        validate_covered_legs(selected, &leg_ids, &archive_ids, &scope)?;
+    }
 
     let way =
         |t: &[(&str, &str)]| place::is_carrier(t) || place::is_outline(t) || place::is_water(t);
@@ -179,10 +263,9 @@ pub fn main(argv: &[String]) -> Result<i32> {
     let mut placed_names: Vec<String> = Vec::new();
     let mut placed_on: Vec<String> = Vec::new();
     let (mut total, mut legs_with, mut guarded, mut water_n) = (0usize, 0usize, 0usize, 0usize);
-    let write_scope = |id: &str| scope == "all" || is_north(id);
     for leg in run.legs_mut()?.iter_mut() {
         let id = leg_id(leg);
-        if !only.wants(&id) {
+        if !selected_leg(&id, selection.as_deref()) {
             continue;
         }
         let Some(line) = archive.get(&id) else {
@@ -190,7 +273,6 @@ pub fn main(argv: &[String]) -> Result<i32> {
             continue;
         };
         let route = Route::new(line, leg_miles(leg));
-        let survey = args.flag("survey");
         let placed = place::bake(&catalog, &sheet, &route, bar_ft, &note, survey);
         let country = if is_north(&id) { "north" } else { "us" };
         for p in &placed {
@@ -213,7 +295,7 @@ pub fn main(argv: &[String]) -> Result<i32> {
         }
         total += placed.len();
         legs_with += usize::from(!placed.is_empty());
-        if only.is_some() {
+        if selection.is_some() {
             let list: Vec<String> = placed
                 .iter()
                 .map(|p| {
@@ -239,7 +321,7 @@ pub fn main(argv: &[String]) -> Result<i32> {
                 .collect();
             println!("  {id}: {}", list.join("; "));
         }
-        if survey || !write_scope(&id) {
+        if survey || !selected_for_write(&id, selection.as_deref(), &scope) {
             continue;
         }
         if merge(corridor_mut(leg)?, &placed) {
@@ -249,7 +331,14 @@ pub fn main(argv: &[String]) -> Result<i32> {
         }
     }
     run.archive = archive;
-    println!("{total} named bridges placed on {legs_with} legs ({water_n} over water).");
+    println!(
+        "{total} {} placed on {legs_with} legs ({water_n} over water).",
+        if survey {
+            "bridge candidates"
+        } else {
+            "named bridges"
+        }
+    );
     println!("By length band (north = legs touching Canada or Alaska):");
     for ((country, band), n) in &bands {
         println!("  {country:5} {band:20} {n}");
@@ -271,7 +360,7 @@ pub fn main(argv: &[String]) -> Result<i32> {
         for leg in &b.legs {
             let (a, z) = leg.split_once(':').unwrap_or((leg, ""));
             let here = |id: &str| placed_on.contains(&format!("{id}|{}", b.name));
-            if only.wants(leg) && !here(leg) && !here(&format!("{z}:{a}")) {
+            if selected_leg(leg, selection.as_deref()) && !here(leg) && !here(&format!("{z}:{a}")) {
                 println!("  expected on {leg} but not placed: {}", b.name);
             }
         }
@@ -280,12 +369,92 @@ pub fn main(argv: &[String]) -> Result<i32> {
         "{changed} legs changed, {same} the same in scope {scope}, {no_archive} with no archived \
          road."
     );
-    run.finish(args.flag("write"))
+    run.finish(args.flag("write") && !survey)
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn writes_require_nonempty_valid_only_selection() {
+        assert!(parse_covered_legs(None, true).is_err());
+        assert!(parse_covered_legs(Some(""), true).is_err());
+        assert!(parse_covered_legs(Some("a:b;not-a-route"), true).is_err());
+        assert!(parse_covered_legs(Some("a:b;:d"), true).is_err());
+        assert!(parse_covered_legs(Some("a:b;c:d"), true).is_ok());
+        assert!(requires_covered_selection(true, false));
+        assert!(!requires_covered_selection(false, false));
+        assert!(!requires_covered_selection(true, true));
+        assert_eq!(parse_covered_legs(None, false).unwrap(), None);
+        assert_eq!(
+            parse_covered_legs(None, requires_covered_selection(true, true)).unwrap(),
+            None
+        );
+    }
+
+    #[test]
+    fn covered_routes_must_exist_and_have_archived_geometry() {
+        let selected = vec!["b:a".to_string()];
+        let leg_ids = ["a:b".to_string()].into_iter().collect();
+        let archive_ids = ["a:b".to_string()].into_iter().collect();
+        assert!(validate_covered_legs(&selected, &leg_ids, &archive_ids, "all").is_ok());
+        assert!(validate_covered_legs(&["a:c".into()], &leg_ids, &archive_ids, "all").is_err());
+        assert!(validate_covered_legs(&["a:b".into()], &leg_ids, &HashSet::new(), "all").is_err());
+        assert!(validate_covered_legs(&["a:b".into()], &leg_ids, &HashSet::new(), "north").is_ok());
+    }
+
+    #[test]
+    fn writes_intersect_scope_and_selection_preserving_unselected_legs() {
+        let selection = Some(vec!["seattle_wa_us:portland_or_us".to_string()]);
+        let selected_id = "seattle_wa_us:portland_or_us";
+        let unselected_id = "vancouver_bc_ca:seattle_wa_us";
+        assert!(!selected_for_write(
+            selected_id,
+            selection.as_deref(),
+            "north"
+        ));
+        assert!(selected_for_write(selected_id, selection.as_deref(), "all"));
+        let north = Some(vec!["detroit_mi_us:windsor_on_ca".to_string()]);
+        assert!(selected_for_write(
+            "detroit_mi_us:windsor_on_ca",
+            north.as_deref(),
+            "north"
+        ));
+
+        let stale = Value::Array(Vec::new());
+        let mut selected = crate::pyjson::Object::new();
+        selected.insert("bridges", stale.clone());
+        let mut unselected = crate::pyjson::Object::new();
+        unselected.insert("bridges", stale.clone());
+        if selected_for_write(selected_id, selection.as_deref(), "all") {
+            merge(&mut selected, &[]);
+        }
+        if selected_for_write(unselected_id, selection.as_deref(), "all") {
+            merge(&mut unselected, &[]);
+        }
+        assert!(selected.get("bridges").is_none());
+        assert_eq!(unselected.get("bridges"), Some(&stale));
+
+        let survey_only = place::Placed {
+            from_mi: 1.0,
+            to_mi: 1.1,
+            name: "? US 1 (way 1)".to_string(),
+            over: String::new(),
+            water: false,
+            ways: "both",
+            curated: false,
+            osm: "way/1".to_string(),
+            length_ft: 528.0,
+            source: "survey-only candidate".to_string(),
+            survey_only: true,
+            found_on: 0,
+        };
+        let mut no_survey_publish = crate::pyjson::Object::new();
+        no_survey_publish.insert("bridges", stale.clone());
+        assert!(!merge(&mut no_survey_publish, &[survey_only]));
+        assert_eq!(no_survey_publish.get("bridges"), Some(&stale));
+    }
 
     #[test]
     fn the_north_scope_is_canada_and_alaska() {

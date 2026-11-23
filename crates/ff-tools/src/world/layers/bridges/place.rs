@@ -371,6 +371,13 @@ struct Piece {
     way: i64,
 }
 
+struct BridgeGroup<'a> {
+    curated: Option<&'a SheetBridge>,
+    how: String,
+    pieces: Vec<Piece>,
+    survey_only: bool,
+}
+
 /// A named bridge placed on one leg.
 #[derive(Debug, Clone)]
 pub struct Placed {
@@ -385,6 +392,8 @@ pub struct Placed {
     /// Real length in feet (leg miles back to measured).
     pub length_ft: f64,
     pub source: String,
+    /// An unnamed carrier shown only to help identify ways during a survey.
+    pub survey_only: bool,
     /// The one carriageway it was found on when that side stands for
     /// both (1 forward, -1 reverse), else 0.
     pub found_on: i8,
@@ -449,20 +458,24 @@ pub fn bake(
     } else {
         1.0
     };
-    // (name, curated entry) -> pieces
-    let mut groups: BTreeMap<String, (Option<&SheetBridge>, String, Vec<Piece>)> = BTreeMap::new();
+    let mut groups: BTreeMap<String, BridgeGroup<'_>> = BTreeMap::new();
     for i in catalog.carrier_grid.along(&route.points, 1) {
         let c = &catalog.carriers[i as usize];
         let curated = sheet.entry_for_way(c.id);
-        let (name, how) = match (curated, &c.name) {
+        let (name, how, survey_only) = match (curated, &c.name) {
             (Some(entry), _) => (
                 entry.name.clone(),
                 format!("read from the curated sheet ({})", entry.citation),
+                false,
             ),
-            (None, Some((n, how))) if !labels_a_ramp(n) => (n.clone(), how.clone()),
+            (None, Some((n, how))) if !labels_a_ramp(n) => (n.clone(), how.clone(), false),
             // The survey lists unnamed bridges by the way's own name, to
             // find a curated bridge's ways; never written.
-            (None, None) if survey => (format!("? {} (way {})", c.road_name, c.id), String::new()),
+            (None, None) if survey => (
+                format!("? {} (way {})", c.road_name, c.id),
+                format!("synthetic survey label for unnamed way {}", c.id),
+                true,
+            ),
             (None, _) => continue,
         };
         let mut ats = Vec::with_capacity(c.coords.len());
@@ -492,13 +505,17 @@ pub fn bake(
             -1 if !runs_forward => 1,
             _ => -1,
         };
-        let entry = groups
-            .entry(name)
-            .or_insert_with(|| (curated, how, Vec::new()));
-        if entry.0.is_none() && curated.is_some() {
-            entry.0 = curated;
+        let group = groups.entry(name).or_insert_with(|| BridgeGroup {
+            curated,
+            how,
+            pieces: Vec::new(),
+            survey_only,
+        });
+        if group.curated.is_none() && curated.is_some() {
+            group.curated = curated;
         }
-        entry.2.push(Piece {
+        group.survey_only &= survey_only;
+        group.pieces.push(Piece {
             from_mi: lo,
             to_mi: hi,
             dir,
@@ -506,7 +523,13 @@ pub fn bake(
         });
     }
     let mut out = Vec::new();
-    for (name, (curated, how, pieces)) in groups {
+    for (name, group) in groups {
+        let BridgeGroup {
+            curated,
+            how,
+            pieces,
+            survey_only,
+        } = group;
         let side = |want: i8| -> Vec<(f64, f64)> {
             union(
                 pieces
@@ -544,7 +567,7 @@ pub fn bake(
         };
         for ((from, to), ways) in records {
             let length_ft = (to - from) / scale * 5280.0;
-            if curated.is_none() && length_ft < bar_ft {
+            if curated.is_none() && !survey_only && length_ft < bar_ft {
                 continue;
             }
             let mut way_ids: Vec<i64> = pieces
@@ -584,7 +607,9 @@ pub fn bake(
                 .map(|id| format!("way/{id}"))
                 .collect::<Vec<_>>()
                 .join(" ");
-            let kind = if curated.is_some() {
+            let kind = if survey_only {
+                "survey-only candidate, not published"
+            } else if curated.is_some() {
                 "curated"
             } else {
                 "over the length bar"
@@ -602,6 +627,7 @@ pub fn bake(
                      archived road, rescaled to leg miles ({kind}, {:.0} ft); {over_how}. {note}",
                     length_ft
                 ),
+                survey_only,
                 osm,
                 name: name.clone(),
                 found_on,
@@ -708,5 +734,61 @@ mod tests {
         let c = [(2.0, 2.0), (3.0, 3.0)];
         assert!(crosses(&a, &b));
         assert!(!crosses(&a, &c));
+    }
+
+    #[test]
+    fn survey_keeps_short_unnamed_candidates_but_not_as_publications() {
+        let route = Route {
+            points: vec![(0.0, 0.0), (0.0, 0.01)],
+            cum_mi: vec![0.0, 1.0],
+        };
+        let catalog = |name: &str| {
+            Catalog::new(Features {
+                ways: vec![super::super::super::features::Way {
+                    id: 1,
+                    tags: vec![
+                        ("bridge".into(), "yes".into()),
+                        ("highway".into(), "primary".into()),
+                        ("name".into(), name.into()),
+                    ],
+                    coords: vec![(0.0, 0.002), (0.0, 0.0025)],
+                }],
+                ..Features::default()
+            })
+        };
+        let sheet = Sheet::default();
+        let survey = bake(
+            &catalog("US 1"),
+            &sheet,
+            &route,
+            3_000.0,
+            "test source",
+            true,
+        );
+        assert_eq!(survey.len(), 1);
+        assert!(survey[0].survey_only);
+        assert!(survey[0].length_ft < 3_000.0);
+        assert!(survey[0]
+            .source
+            .contains("survey-only candidate, not published"));
+        assert!(!survey[0].source.contains("over the length bar"));
+        assert!(bake(
+            &catalog("US 1"),
+            &sheet,
+            &route,
+            3_000.0,
+            "test source",
+            false,
+        )
+        .is_empty());
+        assert!(bake(
+            &catalog("Blue Water Bridge"),
+            &sheet,
+            &route,
+            3_000.0,
+            "test source",
+            true,
+        )
+        .is_empty());
     }
 }
