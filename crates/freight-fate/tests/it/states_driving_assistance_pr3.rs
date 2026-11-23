@@ -152,12 +152,15 @@ fn independent_steering_and_speed_assist_pairings_work_and_migrate() {
     assert_eq!(settings.speed_assist_mode, "manual");
     assert_eq!(settings.driving_assistance_preset, "custom");
 
-    // Strong adaptive speed paired with manual steering.
+    // Strong adaptive speed paired with manual steering keeps curve braking
+    // active while suppressing bend steering.
     settings.apply_steering_assist_mode("manual");
     settings.apply_speed_assist_mode("strong");
     assert_eq!(settings.lane_keeping, "off");
     assert_eq!(settings.descent_speed_control, "interactive");
     assert!(settings.automatic_emergency_braking);
+    assert!(settings.curve_speed_assist);
+    assert!(!settings.road_steers_the_bend());
     assert_eq!(settings.steering_assist_mode, "manual");
     assert_eq!(settings.speed_assist_mode, "strong");
     assert_eq!(settings.driving_assistance_preset, "custom");
@@ -167,6 +170,7 @@ fn independent_steering_and_speed_assist_pairings_work_and_migrate() {
     assert_eq!(settings.driving_assistance_preset, "balanced");
     assert_eq!(settings.steering_assist_mode, "partial");
     assert_eq!(settings.speed_assist_mode, "standard");
+    assert!(settings.road_steers_the_bend());
 
     // Legacy settings migration infers independent modes cleanly.
     let mut legacy = Settings::default();

@@ -854,14 +854,13 @@ impl Settings {
     }
 
     /// Whether something supplies the wheel a bend asks for, so the truck
-    /// follows the road's curve without the driver steering it: curve
-    /// assistance, or partial lane keeping, which steers through the road's
-    /// curve the same way while lane changes and speed stay the driver's
-    /// (owner ruling, 2026-09-24). Lane keeping off adds nothing, so with
-    /// curve assistance off too the bend is the driver's own wheel; full
-    /// holds the lane outright.
+    /// follows the road's curve without the driver steering it: partial lane
+    /// keeping, or curve assistance when steering assist is not explicitly
+    /// Manual. Pairing Manual steering with Standard/Strong speed assist keeps
+    /// curve braking active while leaving bend steering to the driver.
     pub fn road_steers_the_bend(&self) -> bool {
-        self.curve_speed_assist || self.lane_keeping == "partial"
+        self.lane_keeping == "partial"
+            || (self.curve_speed_assist && self.steering_assist_mode != "manual")
     }
 
     /// The spoken value with the clause that says what it costs you.
