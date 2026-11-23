@@ -1022,7 +1022,7 @@ If one sound is stepping on another, dial back that single slider instead of tur
 | Lane guide sound | What leans toward the side to steer: **the engine** (default) or **a soft tone** panned the same way, helpful if the engine is hard to place on your setup. |
 | Weather sounds volume | Rain, wind, thunder, snow, and fog. |
 | Outside sounds volume | Daytime birds, nighttime insects, and rivers you cross. Rolling up the window muffles them. |
-| Road surface volume | Pavement seams and bridge joints thumping under the tires, and the tires whining on grooved concrete and humming on steel grate decks. |
+| Road surface volume | Pavement seams and bridge joints thumping under the tires. |
 | Engine sounds volume | Engine start, shutdown, idle, and running sound. |
 | Engine sound | **Real** plays recordings from a working truck cab that track RPM; **Classic** uses the original engine sound. Applies immediately, even mid-drive. |
 | Engine brake sound | **Recorded** (default) plays a real engine brake growl; **Classic** uses the synthesized growl from earlier versions. Applies immediately. |
