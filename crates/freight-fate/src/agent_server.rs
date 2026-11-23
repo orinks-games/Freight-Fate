@@ -338,6 +338,9 @@ struct Waiting {
     reports_timeout: bool,
     /// True for `status`: the reply ends with the fatigue machines' state.
     fatigue_state: bool,
+    /// Mirror glance active when `status` was called, before its 3 s readout
+    /// settle window ticks past `MIRROR_GLANCE_DURATION_S` (2.5 s).
+    initial_mirror_glance: Option<ff_core::sim::mirror_glance::MirrorGlance>,
     reply: Reply,
 }
 
@@ -563,6 +566,7 @@ impl AgentPolicy {
             scanned: 0,
             reports_timeout,
             fatigue_state: false,
+            initial_mirror_glance: None,
             reply,
         });
     }
@@ -757,12 +761,22 @@ impl AgentPolicy {
                 let mode = input.touch_mode();
                 let place = input.app_lifecycle();
                 match input.driving_observation() {
-                    Some(o) => text.push_str(&fatigue_state_line(
-                        &o,
-                        mode,
-                        self.fingers.phase_key(),
-                        place,
-                    )),
+                    Some(mut o) => {
+                        if let Some(glance) = waiting.initial_mirror_glance {
+                            if matches!(
+                                o.mirror_glance,
+                                ff_core::sim::mirror_glance::MirrorGlance::Forward
+                            ) {
+                                o.mirror_glance = glance;
+                            }
+                        }
+                        text.push_str(&fatigue_state_line(
+                            &o,
+                            mode,
+                            self.fingers.phase_key(),
+                            place,
+                        ));
+                    }
                     None => text.push_str(&format!(
                         "STATE: touch_mode {}; recognizer {}{}; app {}.",
                         mode.key(),
@@ -1011,9 +1025,16 @@ impl AgentPolicy {
                     for &(key, text) in keys {
                         self.tap(key, text, Mods::NONE);
                     }
+                    let initial_mirror_glance = input
+                        .driving_observation()
+                        .map(|o| o.mirror_glance)
+                        .filter(|g| {
+                            !matches!(g, ff_core::sim::mirror_glance::MirrorGlance::Forward)
+                        });
                     self.wait_until(STATUS_SETTLE_SECONDS, Until::Elapsed, false, reply);
                     if let Some(waiting) = self.waiting.as_mut() {
                         waiting.fatigue_state = true;
+                        waiting.initial_mirror_glance = initial_mirror_glance;
                     }
                     break;
                 }
