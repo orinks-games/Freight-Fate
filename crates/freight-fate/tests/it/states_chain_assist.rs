@@ -70,7 +70,7 @@ fn remind(app: &mut TestApp, drive: &SharedState) {
 fn reminders(app: &TestApp) -> Vec<String> {
     app.event_lines()
         .into_iter()
-        .filter(|s| s.starts_with("Chain law ahead"))
+        .filter(|s| s.starts_with("Chain law on"))
         .collect()
 }
 
@@ -298,13 +298,13 @@ fn test_the_road_reminder_plays_once_per_corridor_and_never_spends() {
     let said = reminders(&app);
     assert_eq!(said.len(), 1, "{said:?}");
     assert!(
-        said[0].starts_with("Chain law ahead on I-70 at exit 254."),
+        said[0].starts_with("Chain law on I-70 at exit 254."),
         "{said:?}"
     );
     // No store: no garage is open between here and the delivery.
     assert_eq!(
         said[0],
-        "Chain law ahead on I-70 at exit 254. You have no chains."
+        "Chain law on I-70 at exit 254. You have no chains."
     );
     // Ticking on through the approach doesn't repeat it.
     for at in [6.0, 10.0, 15.0, 19.0] {
@@ -320,7 +320,7 @@ fn test_the_road_reminder_plays_once_per_corridor_and_never_spends() {
     let said = reminders(&app);
     assert_eq!(said.len(), 1, "{said:?}");
     assert!(
-        said[0].starts_with("Chain law ahead on I-70 at exit 234."),
+        said[0].starts_with("Chain law on I-70 at exit 234."),
         "{said:?}"
     );
     assert!((money(&app) - 1000.0).abs() < 0.01);
@@ -340,7 +340,7 @@ fn test_the_road_reminder_plays_once_per_corridor_and_never_spends() {
     let said = reminders(&app);
     assert_eq!(said.len(), 1, "{said:?}");
     assert!(!said[0].contains("exit"), "{said:?}");
-    assert_eq!(said[0], "Chain law ahead on I-70. You have no chains.");
+    assert_eq!(said[0], "Chain law on I-70. You have no chains.");
 }
 
 #[test]

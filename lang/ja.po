@@ -10717,6 +10717,21 @@ msgstr "収納済み"
 msgid "broken"
 msgstr "切れた"
 
+msgid "install"
+msgstr ""
+
+msgid "remove"
+msgstr ""
+
+msgid "tighten"
+msgstr ""
+
+msgid "driver"
+msgstr "driver"
+
+msgid "assist"
+msgstr ""
+
 msgid "yield"
 msgstr "譲る"
 
@@ -12715,12 +12730,9 @@ msgstr "チェーン規制が解除されました。"
 msgid " Chain-up area on the right."
 msgstr "右にチェーン装着場があります。"
 
-msgid " ahead"
-msgstr " 、前方"
-
-#. placeholders: {where_}, {rule}, {pullout}
-msgid "Chain law{where_}, {rule}.{pullout}"
-msgstr "チェーン規制{where_}、{rule}。{pullout}"
+#. placeholders: {rule}, {pullout}
+msgid "Chain law, {rule}.{pullout}"
+msgstr "チェーン規制、{rule}。{pullout}"
 
 msgid "default"
 msgstr "default"
@@ -14412,6 +14424,9 @@ msgstr "進入中： "
 
 msgid "Passing "
 msgstr "通過中： "
+
+msgid " ahead"
+msgstr " 、前方"
 
 msgid "tap"
 msgstr "タップ"
@@ -24222,6 +24237,19 @@ msgstr "チェーンがバタついています。路肩に寄せて締め直し
 msgid "Pulling over to tighten, about {f} minutes on duty."
 msgstr "路肩に寄せて締め直します。勤務時間で約{f}分です。"
 
+#. one sentence of a longer line
+msgid "Bare road."
+msgstr "路面の雪が消えました。"
+
+#. placeholders: {f}
+msgid "Bare road. Taking chains off, about {f} minutes on duty."
+msgstr "路面の雪が消えました。チェーンを外します。勤務時間で約{f}分です。"
+
+#. placeholders: {f}
+#. one sentence of a longer line
+msgid "Taking chains off, about {f} minutes on duty."
+msgstr "チェーンを外します。勤務時間で約{f}分です。"
+
 msgid "No chains aboard. Facility stopping can't chain you up."
 msgstr "チェーンを積んでいません。施設停車アシストではチェーンを付けられません。"
 
@@ -24240,6 +24268,10 @@ msgstr "チェーンの装着には約{f}分かかり、14時間の勤務枠は�
 msgid "Find a place to stop."
 msgstr "停まれる場所を探してください。"
 
+#. placeholders: {f}
+msgid "Stopping to put chains on, about {f} minutes on duty."
+msgstr "停車してチェーンを付けます。勤務時間で約{f}分です。"
+
 #. one sentence of a longer line
 msgid "Chain-up area."
 msgstr "チェーン装着場。"
@@ -24247,24 +24279,6 @@ msgstr "チェーン装着場。"
 #. placeholders: {f}
 msgid "Chain-up area. Stopping to put chains on, about {f} minutes on duty."
 msgstr "チェーン装着場。停車してチェーンを付けます。勤務時間で約{f}分です。"
-
-#. placeholders: {f}
-#. one sentence of a longer line
-msgid "Stopping to put chains on, about {f} minutes on duty."
-msgstr "停車してチェーンを付けます。勤務時間で約{f}分です。"
-
-#. one sentence of a longer line
-msgid "Bare road."
-msgstr "路面の雪が消えました。"
-
-#. placeholders: {f}
-msgid "Bare road. Taking chains off, about {f} minutes on duty."
-msgstr "路面の雪が消えました。チェーンを外します。勤務時間で約{f}分です。"
-
-#. placeholders: {f}
-#. one sentence of a longer line
-msgid "Taking chains off, about {f} minutes on duty."
-msgstr "チェーンを外します。勤務時間で約{f}分です。"
 
 msgid "Chain stop canceled. Chains are yours."
 msgstr "チェーンのための停車を取り消しました。チェーンは自分で扱ってください。"
@@ -26904,9 +26918,6 @@ msgstr "配達の精算の前に停車が必要です。"
 
 msgid "Route"
 msgstr "ルート"
-
-msgid "driver"
-msgstr "driver"
 
 msgid "Map"
 msgstr "マップ"
@@ -30474,6 +30485,41 @@ msgstr "{capitalize}がトラックの前を横切りました。"
 msgid "{name} put the chains on at the chain control."
 msgstr "{name}がチェーン規制の検問でチェーンを装着しました。"
 
+#. placeholders: {name}
+msgid "{name} put the chains on when the chain law posted."
+msgstr ""
+
+#. placeholders: {name}
+msgid "{name} put the chains on before the chain control."
+msgstr ""
+
+#. placeholders: {name}
+msgid "{name} took the chains off on bare road."
+msgstr ""
+
+#. placeholders: {name}
+msgid "{name} tightened a slapping chain."
+msgstr ""
+
+#. placeholders: {name}
+#. one sentence of a longer line
+msgid "{name} fixed a broken chain with a spare link."
+msgstr ""
+
+#. placeholders: {name}, {damage_pct}
+msgid ""
+"{name} fixed a broken chain with a spare link. Damage {damage_pct} percent."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "A chain broke and there is no spare link."
+msgstr ""
+
+#. placeholders: {damage_pct}
+msgid ""
+"A chain broke and there is no spare link. Damage {damage_pct} percent."
+msgstr ""
+
 #. placeholders: {name}, {animal}
 #. one sentence of a longer line
 msgid "{name} drove on after a collision with {animal}."
@@ -30848,21 +30894,21 @@ msgstr "チェーンを付けているのに速すぎます。{speed_text}未満
 
 #. placeholders: {highway}
 #. one sentence of a longer line
-msgid "Chain law ahead on {highway}."
-msgstr "この先の{highway}でチェーン規制が出ています。"
+msgid "Chain law on {highway}."
+msgstr "{highway}でチェーン規制が出ています。"
 
 #. placeholders: {highway}
-msgid "Chain law ahead on {highway}. You have no chains."
-msgstr "この先の{highway}でチェーン規制が出ています。チェーンを持っていません。"
+msgid "Chain law on {highway}. You have no chains."
+msgstr "{highway}でチェーン規制が出ています。チェーンを持っていません。"
 
 #. placeholders: {highway}, {exit}
 #. one sentence of a longer line
-msgid "Chain law ahead on {highway} at {exit}."
-msgstr "この先の{highway}の{exit}でチェーン規制が出ています。"
+msgid "Chain law on {highway} at {exit}."
+msgstr "{highway}の{exit}でチェーン規制が出ています。"
 
 #. placeholders: {highway}, {exit}
-msgid "Chain law ahead on {highway} at {exit}. You have no chains."
-msgstr "この先の{highway}の{exit}でチェーン規制が出ています。チェーンを持っていません。"
+msgid "Chain law on {highway} at {exit}. You have no chains."
+msgstr "{highway}の{exit}でチェーン規制が出ています。チェーンを持っていません。"
 
 #. placeholders: {need}
 msgid "Rolling into an active chain law without {need}."

@@ -12088,6 +12088,21 @@ msgstr "guardadas"
 msgid "broken"
 msgstr "rotas"
 
+msgid "install"
+msgstr ""
+
+msgid "remove"
+msgstr ""
+
+msgid "tighten"
+msgstr ""
+
+msgid "driver"
+msgstr "driver"
+
+msgid "assist"
+msgstr ""
+
 msgid "yield"
 msgstr "ceda el paso"
 
@@ -14116,12 +14131,9 @@ msgstr "Se levanta la obligación de cadenas."
 msgid " Chain-up area on the right."
 msgstr " Zona para poner cadenas a la derecha."
 
-msgid " ahead"
-msgstr " más adelante"
-
-#. placeholders: {where_}, {rule}, {pullout}
-msgid "Chain law{where_}, {rule}.{pullout}"
-msgstr "Obligación de cadenas{where_}, {rule}.{pullout}"
+#. placeholders: {rule}, {pullout}
+msgid "Chain law, {rule}.{pullout}"
+msgstr "Obligación de cadenas, {rule}.{pullout}"
 
 msgid "default"
 msgstr "default"
@@ -15985,6 +15997,9 @@ msgstr "Entrando en "
 
 msgid "Passing "
 msgstr "Pasando por "
+
+msgid " ahead"
+msgstr " más adelante"
 
 msgid "tap"
 msgstr "toque"
@@ -26801,6 +26816,21 @@ msgid "Pulling over to tighten, about {f} minutes on duty."
 msgstr ""
 "Te detienes en el arcén para tensarla, unos {f} minutos de servicio."
 
+#. one sentence of a longer line
+msgid "Bare road."
+msgstr "Carretera despejada."
+
+#. placeholders: {f}
+msgid "Bare road. Taking chains off, about {f} minutes on duty."
+msgstr ""
+"Carretera despejada. Te detienes para quitarlas, unos {f} minutos de "
+"servicio."
+
+#. placeholders: {f}
+#. one sentence of a longer line
+msgid "Taking chains off, about {f} minutes on duty."
+msgstr "Te detienes para quitarlas, unos {f} minutos de servicio."
+
 msgid "No chains aboard. Facility stopping can't chain you up."
 msgstr "No llevas cadenas. La asistencia de parada no puede ponértelas."
 
@@ -26823,6 +26853,10 @@ msgstr ""
 msgid "Find a place to stop."
 msgstr "Busca un sitio para parar."
 
+#. placeholders: {f}
+msgid "Stopping to put chains on, about {f} minutes on duty."
+msgstr "Te detienes para ponerlas, unos {f} minutos de servicio."
+
 #. one sentence of a longer line
 msgid "Chain-up area."
 msgstr "Zona para poner cadenas."
@@ -26832,26 +26866,6 @@ msgid "Chain-up area. Stopping to put chains on, about {f} minutes on duty."
 msgstr ""
 "Zona para poner cadenas. Te detienes para ponerlas, unos {f} minutos de "
 "servicio."
-
-#. placeholders: {f}
-#. one sentence of a longer line
-msgid "Stopping to put chains on, about {f} minutes on duty."
-msgstr "Te detienes para ponerlas, unos {f} minutos de servicio."
-
-#. one sentence of a longer line
-msgid "Bare road."
-msgstr "Carretera despejada."
-
-#. placeholders: {f}
-msgid "Bare road. Taking chains off, about {f} minutes on duty."
-msgstr ""
-"Carretera despejada. Te detienes para quitarlas, unos {f} minutos de "
-"servicio."
-
-#. placeholders: {f}
-#. one sentence of a longer line
-msgid "Taking chains off, about {f} minutes on duty."
-msgstr "Te detienes para quitarlas, unos {f} minutos de servicio."
 
 msgid "Chain stop canceled. Chains are yours."
 msgstr "Parada para cadenas cancelada. Las cadenas quedan en tus manos."
@@ -29642,9 +29656,6 @@ msgstr "Hay que detenerse antes de liquidar la entrega."
 
 msgid "Route"
 msgstr "Ruta"
-
-msgid "driver"
-msgstr "driver"
 
 msgid "Map"
 msgstr "Mapa"
@@ -33655,6 +33666,41 @@ msgstr "{capitalize} cruzó por delante del camión."
 msgid "{name} put the chains on at the chain control."
 msgstr "{name} puso las cadenas en el control de cadenas."
 
+#. placeholders: {name}
+msgid "{name} put the chains on when the chain law posted."
+msgstr ""
+
+#. placeholders: {name}
+msgid "{name} put the chains on before the chain control."
+msgstr ""
+
+#. placeholders: {name}
+msgid "{name} took the chains off on bare road."
+msgstr ""
+
+#. placeholders: {name}
+msgid "{name} tightened a slapping chain."
+msgstr ""
+
+#. placeholders: {name}
+#. one sentence of a longer line
+msgid "{name} fixed a broken chain with a spare link."
+msgstr ""
+
+#. placeholders: {name}, {damage_pct}
+msgid ""
+"{name} fixed a broken chain with a spare link. Damage {damage_pct} percent."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "A chain broke and there is no spare link."
+msgstr ""
+
+#. placeholders: {damage_pct}
+msgid ""
+"A chain broke and there is no spare link. Damage {damage_pct} percent."
+msgstr ""
+
 #. placeholders: {name}, {animal}
 #. one sentence of a longer line
 msgid "{name} drove on after a collision with {animal}."
@@ -34053,20 +34099,20 @@ msgstr "Vas demasiado rápido para llevar cadenas. No pases de {speed_text}."
 
 #. placeholders: {highway}
 #. one sentence of a longer line
-msgid "Chain law ahead on {highway}."
-msgstr "Ley de cadenas más adelante en la {highway}."
+msgid "Chain law on {highway}."
+msgstr "Ley de cadenas en la {highway}."
 
 #. placeholders: {highway}
-msgid "Chain law ahead on {highway}. You have no chains."
-msgstr "Ley de cadenas más adelante en la {highway}. No llevas cadenas."
+msgid "Chain law on {highway}. You have no chains."
+msgstr "Ley de cadenas en la {highway}. No llevas cadenas."
 
 #. placeholders: {highway}, {exit}
 #. one sentence of a longer line
-msgid "Chain law ahead on {highway} at {exit}."
-msgstr "Ley de cadenas más adelante en la {highway}, en la {exit}."
+msgid "Chain law on {highway} at {exit}."
+msgstr "Ley de cadenas en la {highway}, en la {exit}."
 
 #. placeholders: {highway}, {exit}
-msgid "Chain law ahead on {highway} at {exit}. You have no chains."
+msgid "Chain law on {highway} at {exit}. You have no chains."
 msgstr ""
 "Ley de cadenas más adelante en la {highway}, en la {exit}. No llevas "
 "cadenas."

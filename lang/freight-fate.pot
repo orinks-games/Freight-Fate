@@ -2601,7 +2601,7 @@ msgstr ""
 msgid "a truck repair shop"
 msgstr ""
 
-#: crates/ff-core/src/data/amenities.rs crates/ff-core/src/data/world_constants.rs crates/freight-fate/src/states/driving_core/constants.rs crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
+#: crates/ff-core/src/data/amenities.rs crates/ff-core/src/data/world_constants.rs crates/ff-core/src/sim/chain_work.rs crates/freight-fate/src/states/driving_core/constants.rs
 msgid "repair"
 msgstr ""
 
@@ -13383,6 +13383,26 @@ msgstr ""
 msgid "broken"
 msgstr ""
 
+#: crates/ff-core/src/sim/chain_work.rs
+msgid "install"
+msgstr ""
+
+#: crates/ff-core/src/sim/chain_work.rs
+msgid "remove"
+msgstr ""
+
+#: crates/ff-core/src/sim/chain_work.rs
+msgid "tighten"
+msgstr ""
+
+#: crates/ff-core/src/sim/chain_work.rs crates/freight-fate/src/states/driving_menu_states/status.rs
+msgid "driver"
+msgstr ""
+
+#: crates/ff-core/src/sim/chain_work.rs
+msgid "assist"
+msgstr ""
+
 #: crates/ff-core/src/sim/cross_traffic.rs crates/freight-fate/src/states/driving_events/ramp_crossing.rs crates/freight-fate/src/states/driving_events/ramp_terminal.rs crates/freight-fate/src/states/driving_events/street_controls.rs
 msgid "yield"
 msgstr ""
@@ -15952,13 +15972,9 @@ msgstr ""
 msgid " Chain-up area on the right."
 msgstr ""
 
-#: crates/ff-core/src/sim/trip/zones.rs crates/ff-core/src/speech_text.rs
-msgid " ahead"
-msgstr ""
-
-#. placeholders: {where_}, {rule}, {pullout}
+#. placeholders: {rule}, {pullout}
 #: crates/ff-core/src/sim/trip/zones.rs
-msgid "Chain law{where_}, {rule}.{pullout}"
+msgid "Chain law, {rule}.{pullout}"
 msgstr ""
 
 #: crates/ff-core/src/sim/trip_models.rs crates/freight-fate/src/states/main_menu/settings_items/voice_groups.rs crates/freight-fate/src/states/main_menu/settings_items.rs crates/freight-fate/src/states/main_menu/speech_voices.rs
@@ -18013,6 +18029,10 @@ msgstr ""
 
 #: crates/ff-core/src/speech_text.rs
 msgid "Passing "
+msgstr ""
+
+#: crates/ff-core/src/speech_text.rs
+msgid " ahead"
 msgstr ""
 
 #: crates/ff-core/src/touch.rs crates/freight-fate/src/bindings/touch.rs
@@ -29899,6 +29919,22 @@ msgstr ""
 msgid "Pulling over to tighten, about {f} minutes on duty."
 msgstr ""
 
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_events/chain_stop.rs
+msgid "Bare road."
+msgstr ""
+
+#. placeholders: {f}
+#: crates/freight-fate/src/states/driving_events/chain_stop.rs
+msgid "Bare road. Taking chains off, about {f} minutes on duty."
+msgstr ""
+
+#. placeholders: {f}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_events/chain_stop.rs
+msgid "Taking chains off, about {f} minutes on duty."
+msgstr ""
+
 #: crates/freight-fate/src/states/driving_events/chain_stop.rs
 msgid "No chains aboard. Facility stopping can't chain you up."
 msgstr ""
@@ -29921,6 +29957,11 @@ msgstr ""
 msgid "Find a place to stop."
 msgstr ""
 
+#. placeholders: {f}
+#: crates/freight-fate/src/states/driving_events/chain_stop.rs
+msgid "Stopping to put chains on, about {f} minutes on duty."
+msgstr ""
+
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/driving_events/chain_stop.rs
 msgid "Chain-up area."
@@ -29929,28 +29970,6 @@ msgstr ""
 #. placeholders: {f}
 #: crates/freight-fate/src/states/driving_events/chain_stop.rs
 msgid "Chain-up area. Stopping to put chains on, about {f} minutes on duty."
-msgstr ""
-
-#. placeholders: {f}
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/driving_events/chain_stop.rs
-msgid "Stopping to put chains on, about {f} minutes on duty."
-msgstr ""
-
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/driving_events/chain_stop.rs
-msgid "Bare road."
-msgstr ""
-
-#. placeholders: {f}
-#: crates/freight-fate/src/states/driving_events/chain_stop.rs
-msgid "Bare road. Taking chains off, about {f} minutes on duty."
-msgstr ""
-
-#. placeholders: {f}
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/driving_events/chain_stop.rs
-msgid "Taking chains off, about {f} minutes on duty."
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_events/chain_stop.rs
@@ -33244,10 +33263,6 @@ msgstr ""
 
 #: crates/freight-fate/src/states/driving_menu_states/status.rs
 msgid "Route"
-msgstr ""
-
-#: crates/freight-fate/src/states/driving_menu_states/status.rs
-msgid "driver"
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_menu_states/status.rs
@@ -37549,6 +37564,49 @@ msgstr ""
 msgid "{name} put the chains on at the chain control."
 msgstr ""
 
+#. placeholders: {name}
+#: crates/freight-fate/src/states/driving_team/notes.rs
+msgid "{name} put the chains on when the chain law posted."
+msgstr ""
+
+#. placeholders: {name}
+#: crates/freight-fate/src/states/driving_team/notes.rs
+msgid "{name} put the chains on before the chain control."
+msgstr ""
+
+#. placeholders: {name}
+#: crates/freight-fate/src/states/driving_team/notes.rs
+msgid "{name} took the chains off on bare road."
+msgstr ""
+
+#. placeholders: {name}
+#: crates/freight-fate/src/states/driving_team/notes.rs
+msgid "{name} tightened a slapping chain."
+msgstr ""
+
+#. placeholders: {name}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_team/notes.rs
+msgid "{name} fixed a broken chain with a spare link."
+msgstr ""
+
+#. placeholders: {name}, {damage_pct}
+#: crates/freight-fate/src/states/driving_team/notes.rs
+msgid ""
+"{name} fixed a broken chain with a spare link. Damage {damage_pct} percent."
+msgstr ""
+
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_team/notes.rs
+msgid "A chain broke and there is no spare link."
+msgstr ""
+
+#. placeholders: {damage_pct}
+#: crates/freight-fate/src/states/driving_team/notes.rs
+msgid ""
+"A chain broke and there is no spare link. Damage {damage_pct} percent."
+msgstr ""
+
 #. placeholders: {name}, {animal}
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/driving_team/notes.rs
@@ -38017,23 +38075,23 @@ msgstr ""
 #. placeholders: {highway}
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/driving_updates/conditions.rs
-msgid "Chain law ahead on {highway}."
+msgid "Chain law on {highway}."
 msgstr ""
 
 #. placeholders: {highway}
 #: crates/freight-fate/src/states/driving_updates/conditions.rs
-msgid "Chain law ahead on {highway}. You have no chains."
+msgid "Chain law on {highway}. You have no chains."
 msgstr ""
 
 #. placeholders: {highway}, {exit}
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/driving_updates/conditions.rs
-msgid "Chain law ahead on {highway} at {exit}."
+msgid "Chain law on {highway} at {exit}."
 msgstr ""
 
 #. placeholders: {highway}, {exit}
 #: crates/freight-fate/src/states/driving_updates/conditions.rs
-msgid "Chain law ahead on {highway} at {exit}. You have no chains."
+msgid "Chain law on {highway} at {exit}. You have no chains."
 msgstr ""
 
 #. placeholders: {need}

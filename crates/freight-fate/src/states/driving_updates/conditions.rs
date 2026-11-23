@@ -671,10 +671,10 @@ impl DrivingState {
         }
         let highway = ahead.highway;
         let line = if ahead.exit_label.is_empty() {
-            format!("Chain law ahead on {highway}. You have no chains.")
+            format!("Chain law on {highway}. You have no chains.")
         } else {
             let exit = ahead.exit_label;
-            format!("Chain law ahead on {highway} at {exit}. You have no chains.")
+            format!("Chain law on {highway} at {exit}. You have no chains.")
         };
         // Advice, not a warning: queued behind whatever is speaking.
         ctx.say_event_with(
