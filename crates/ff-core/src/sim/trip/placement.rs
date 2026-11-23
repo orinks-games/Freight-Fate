@@ -570,6 +570,11 @@ impl Trip {
                 {
                     continue;
                 }
+                // One line per crossing: the bridge's name is the line, and
+                // the river's sound still plays under it.
+                if landmark.category == "river" && self.bridge_at_mile(at_mi).is_some() {
+                    continue;
+                }
                 let mut callout = RoadsideCallout::new(
                     &format!(
                         "landmark:{i}:{}:{}",

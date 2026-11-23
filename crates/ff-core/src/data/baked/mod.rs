@@ -138,7 +138,9 @@ pub const MAGIC: &[u8; 8] = b"FFDATA\0\0";
 ///
 /// 18: a pavement run carries its HPMS build and improvement years, and a
 /// structure its National Bridge Inventory deck, record and grating span.
-pub const FORMAT_VERSION: u32 = 18;
+///
+/// 19: a corridor carries its named bridges (`bridges`).
+pub const FORMAT_VERSION: u32 = 19;
 
 const HEADER_LEN: usize = 32;
 

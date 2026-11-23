@@ -544,7 +544,19 @@
           "name": "level",
           "sections": 0,
           "source": "DERIVED, not read: Canada has no national inventory like HPMS, so the class is the terrain the leg's own grade profile spends the most miles in (the reroute-enrich rule: sustained grade of 5 percent, or 4 percent with 1,000 ft of relief within 5 miles, is mountain; 1.5 percent or 400 ft of relief is hills; else flat), mapped flat to level, hills to rolling and mountain to mountainous. It reads the same elevation as the grade, so it is no independent check on it."
-        }
+        },
+        "bridges": [
+          {
+            "from_mi": 3.926,
+            "to_mi": 4.59,
+            "name": "Deh Cho Bridge",
+            "over": "Mackenzie River",
+            "water": true,
+            "curated": true,
+            "osm": "way/144053103",
+            "source": "Name read from the curated sheet (Government of the Northwest Territories, Infrastructure, Deh Cho Bridge (1,045 m)); span derived by projecting its ways (way/144053103) onto the leg's archived road, rescaled to leg miles (curated, 3494 ft); what it spans read from the curated sheet. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          }
+        ]
       },
       "rerouted": true
     },
@@ -1534,6 +1546,18 @@
             "currency": "CAD",
             "source": "https://www.idmv.inf.gov.nt.ca/Commercial/Deh-Cho-Bridge-Tolls (read 2026-11-22; the page carries no effective date): commercial vehicles over 4,500 kg pay northbound only; 5 or 6 axles CAD 168 on the monthly remittance account (an approved transponder in each truck) and CAD 186 as a single-use permit bought before the crossing. The carrier rate is the remittance one: CAD 168 at 1.3978 CAD per USD (the rate the game uses for Canadian fines) is USD 120.19, the single-use permit CAD 186 is USD 133.07 (derived). Canadian price read: CAD 168. Position: the bridge's midpoint on OpenStreetMap way with bridge:name Deh Cho Bridge (toll:hgv=yes), NWT Highway 3, projected on the leg's archived road; there is no booth, the toll is charged on crossing (derived).",
             "at_mi": 99.8
+          }
+        ],
+        "bridges": [
+          {
+            "from_mi": 99.408,
+            "to_mi": 100.072,
+            "name": "Deh Cho Bridge",
+            "over": "Mackenzie River",
+            "water": true,
+            "curated": true,
+            "osm": "way/144053103",
+            "source": "Name read from the curated sheet (Government of the Northwest Territories, Infrastructure, Deh Cho Bridge (1,045 m)); span derived by projecting its ways (way/144053103) onto the leg's archived road, rescaled to leg miles (curated, 3494 ft); what it spans read from the curated sheet. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           }
         ]
       },

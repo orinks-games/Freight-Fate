@@ -68,6 +68,11 @@ pub struct BakeReport {
     pub pavement_screened: usize,
     pub structures: usize,
     pub structures_flagged: usize,
+    /// Legs with named bridges, the bridges, and the records the bridge
+    /// screens dropped.
+    pub bridge_legs: usize,
+    pub bridges: usize,
+    pub bridges_screened: usize,
 }
 
 impl BakeReport {
@@ -248,6 +253,11 @@ pub fn bake_bytes(data_dir: &Path) -> Result<(Vec<u8>, BakeReport), DataError> {
             writer.report.structures_flagged +=
                 p.structures.iter().filter(|s| s.span_disagrees).count();
         }
+        if !detail.bridges.bridges.is_empty() {
+            writer.report.bridge_legs += 1;
+        }
+        writer.report.bridges += detail.bridges.bridges.len();
+        writer.report.bridges_screened += detail.bridges.screened;
         let baked = BakedCorridor::from(detail);
         let plain = encode(&baked)?;
         // An empty corridor is the common case for a fixture-shaped leg and

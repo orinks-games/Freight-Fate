@@ -5106,6 +5106,24 @@ msgstr "travel stop"
 msgid "truck"
 msgstr "truck"
 
+#. placeholders: {from_city}, {to_city}
+msgid "{from_city} to {to_city} bridges must be a list"
+msgstr ""
+
+#. placeholders: {from_city}, {to_city}, {item}, {e}
+msgid "{from_city} to {to_city} bridge {item}: {e}"
+msgstr ""
+
+#. placeholders: {from_city}, {to_city}, {name}, {w}
+msgid ""
+"{from_city} to {to_city} bridge {name} holds for {w}, not both, forward or "
+"reverse"
+msgstr ""
+
+#. placeholders: {from_city}, {to_city}, {from_mi}
+msgid "{from_city} to {to_city} bridge at {from_mi} has no name"
+msgstr ""
+
 msgid "engine"
 msgstr "moteur"
 
@@ -13627,6 +13645,14 @@ msgstr "stopped"
 
 msgid "holding"
 msgstr "holding"
+
+#. placeholders: {name}
+msgid "Crossing {name}."
+msgstr ""
+
+#. placeholders: {name}
+msgid "Crossing the {name}."
+msgstr ""
 
 msgid "up"
 msgstr "up"
@@ -40677,11 +40703,11 @@ msgstr ""
 "terrain public protégé."
 
 #. placeholders: {on_off}
-msgid "Speak river crossings: {on_off}"
-msgstr "Annoncer les traversées de rivières : {on_off}"
+msgid "Speak rivers and bridges: {on_off}"
+msgstr "Annoncer les rivières et les ponts : {on_off}"
 
-msgid "Callouts crossing a named river."
-msgstr "Annonces au passage d'une rivière qui a un nom."
+msgid "Callouts crossing a named river or a big bridge."
+msgstr "Annonces au passage d'une rivière qui a un nom ou d'un grand pont."
 
 #. placeholders: {on_off}
 msgid "Speak mountain passes: {on_off}"

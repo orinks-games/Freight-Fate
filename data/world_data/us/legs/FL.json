@@ -1752,7 +1752,18 @@
             "deck_read_share": 1.0,
             "deck_source": "National Bridge Inventory, NTAD feature service (Bureau of Transportation Statistics, https://services.arcgis.com/xOi1kZaI0eWDREZv/arcgis/rest/services/NTAD_National_Bridge_Inventory/FeatureServer/0), accessed 2026-11-22; codes per the FHWA Recording and Coding Guide for the Structure Inventory and Appraisal of the Nation's Bridges (1995, https://www.fhwa.dot.gov/bridge/mtguide.pdf): Item 5A record type (page 2), Item 43B structure type (page 24), Items 45, 48 and 49 spans and lengths (pages 26 to 28), Item 107 deck structure type and Item 108A wearing surface (page 70). A structure's deck= is READ: open_grating is Item 107 code 3; concrete is 107 code 1 or 2 under 108A 0 to 4; asphalt is 108A code 6; other is anything else. Which record belongs to which structure is DERIVED: a record carried on the structure whose point projects within 60 m of the archived road, inside the structure or within 0.02 mi of its ends, with an Item 49 length within 0.05 mi of the structure's measured span; the best length fit wins, then the nearer point. nbi= is the record's state FIPS and structure number. grate=from:to on a movable open grating (43B 15, 16 or 17) is DERIVED: Item 45 spans times Item 48, centred on the structure (NBI's point may be the bridge's beginning, Item 16, page 8), clipped to it. A structure with no tag matched no record."
           }
-        }
+        },
+        "bridges": [
+          {
+            "from_mi": 1.12,
+            "to_mi": 1.762,
+            "name": "Cape Coral Bridge",
+            "over": "Caloosahatchee River",
+            "water": true,
+            "osm": "way/48393677 way/48393690",
+            "source": "Name read from the name of bridge relation 9860454; span derived by projecting its ways (way/48393677 way/48393690) onto the leg's archived road, rescaled to leg miles (over the length bar, 3401 ft); water derived from a waterway or coastline the bridge ways cross. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          }
+        ]
       },
       "terrain": "flat",
       "divided": true,
@@ -10146,7 +10157,18 @@
             "deck_read_share": 1.0,
             "deck_source": "National Bridge Inventory, NTAD feature service (Bureau of Transportation Statistics, https://services.arcgis.com/xOi1kZaI0eWDREZv/arcgis/rest/services/NTAD_National_Bridge_Inventory/FeatureServer/0), accessed 2026-11-22; codes per the FHWA Recording and Coding Guide for the Structure Inventory and Appraisal of the Nation's Bridges (1995, https://www.fhwa.dot.gov/bridge/mtguide.pdf): Item 5A record type (page 2), Item 43B structure type (page 24), Items 45, 48 and 49 spans and lengths (pages 26 to 28), Item 107 deck structure type and Item 108A wearing surface (page 70). A structure's deck= is READ: open_grating is Item 107 code 3; concrete is 107 code 1 or 2 under 108A 0 to 4; asphalt is 108A code 6; other is anything else. Which record belongs to which structure is DERIVED: a record carried on the structure whose point projects within 60 m of the archived road, inside the structure or within 0.02 mi of its ends, with an Item 49 length within 0.05 mi of the structure's measured span; the best length fit wins, then the nearer point. nbi= is the record's state FIPS and structure number. grate=from:to on a movable open grating (43B 15, 16 or 17) is DERIVED: Item 45 spans times Item 48, centred on the structure (NBI's point may be the bridge's beginning, Item 16, page 8), clipped to it. A structure with no tag matched no record."
           }
-        }
+        },
+        "bridges": [
+          {
+            "from_mi": 68.308,
+            "to_mi": 68.875,
+            "name": "Thomas B. Manuel Bridge",
+            "over": "Saint Lucie Canal",
+            "water": true,
+            "osm": "way/42224235 way/42224300",
+            "source": "Name read from the bridge:name tag of way 42224235; span derived by projecting its ways (way/42224235 way/42224300) onto the leg's archived road, rescaled to leg miles (over the length bar, 3000 ft); water derived from a waterway or coastline the bridge ways cross. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          }
+        ]
       },
       "terrain": "flat",
       "divided": true,
@@ -13482,7 +13504,27 @@
             "deck_read_share": 0.714,
             "deck_source": "National Bridge Inventory, NTAD feature service (Bureau of Transportation Statistics, https://services.arcgis.com/xOi1kZaI0eWDREZv/arcgis/rest/services/NTAD_National_Bridge_Inventory/FeatureServer/0), accessed 2026-11-22; codes per the FHWA Recording and Coding Guide for the Structure Inventory and Appraisal of the Nation's Bridges (1995, https://www.fhwa.dot.gov/bridge/mtguide.pdf): Item 5A record type (page 2), Item 43B structure type (page 24), Items 45, 48 and 49 spans and lengths (pages 26 to 28), Item 107 deck structure type and Item 108A wearing surface (page 70). A structure's deck= is READ: open_grating is Item 107 code 3; concrete is 107 code 1 or 2 under 108A 0 to 4; asphalt is 108A code 6; other is anything else. Which record belongs to which structure is DERIVED: a record carried on the structure whose point projects within 60 m of the archived road, inside the structure or within 0.02 mi of its ends, with an Item 49 length within 0.05 mi of the structure's measured span; the best length fit wins, then the nearer point. nbi= is the record's state FIPS and structure number. grate=from:to on a movable open grating (43B 15, 16 or 17) is DERIVED: Item 45 spans times Item 48, centred on the structure (NBI's point may be the bridge's beginning, Item 16, page 8), clipped to it. A structure with no tag matched no record."
           }
-        }
+        },
+        "bridges": [
+          {
+            "from_mi": 39.461,
+            "to_mi": 42.043,
+            "name": "Escambia Bay Bridge",
+            "water": true,
+            "ways": "forward",
+            "osm": "way/6228221 way/11309802 way/159273275 way/538674468 way/702692266 way/1060145478",
+            "source": "Name read from the name of way 6228221, a bridge's name; span derived by projecting its ways (way/6228221 way/11309802 way/159273275 way/538674468 way/702692266 way/1060145478) onto the leg's archived road, rescaled to leg miles (over the length bar, 13732 ft); water derived from a waterway or coastline the bridge ways cross. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "from_mi": 39.535,
+            "to_mi": 42.041,
+            "name": "Escambia Bay Bridge",
+            "water": true,
+            "ways": "reverse",
+            "osm": "way/6228221 way/11309802 way/159273275 way/538674468 way/702692266 way/1060145478",
+            "source": "Name read from the name of way 6228221, a bridge's name; span derived by projecting its ways (way/6228221 way/11309802 way/159273275 way/538674468 way/702692266 way/1060145478) onto the leg's archived road, rescaled to leg miles (over the length bar, 13329 ft); water derived from a waterway or coastline the bridge ways cross. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          }
+        ]
       },
       "stops": [
         {
@@ -33401,7 +33443,18 @@
             "deck_read_share": 0.913,
             "deck_source": "National Bridge Inventory, NTAD feature service (Bureau of Transportation Statistics, https://services.arcgis.com/xOi1kZaI0eWDREZv/arcgis/rest/services/NTAD_National_Bridge_Inventory/FeatureServer/0), accessed 2026-11-22; codes per the FHWA Recording and Coding Guide for the Structure Inventory and Appraisal of the Nation's Bridges (1995, https://www.fhwa.dot.gov/bridge/mtguide.pdf): Item 5A record type (page 2), Item 43B structure type (page 24), Items 45, 48 and 49 spans and lengths (pages 26 to 28), Item 107 deck structure type and Item 108A wearing surface (page 70). A structure's deck= is READ: open_grating is Item 107 code 3; concrete is 107 code 1 or 2 under 108A 0 to 4; asphalt is 108A code 6; other is anything else. Which record belongs to which structure is DERIVED: a record carried on the structure whose point projects within 60 m of the archived road, inside the structure or within 0.02 mi of its ends, with an Item 49 length within 0.05 mi of the structure's measured span; the best length fit wins, then the nearer point. nbi= is the record's state FIPS and structure number. grate=from:to on a movable open grating (43B 15, 16 or 17) is DERIVED: Item 45 spans times Item 48, centred on the structure (NBI's point may be the bridge's beginning, Item 16, page 8), clipped to it. A structure with no tag matched no record."
           }
-        }
+        },
+        "bridges": [
+          {
+            "from_mi": 64.812,
+            "to_mi": 66.284,
+            "name": "Sidney Lanier Bridge",
+            "over": "Brunswick River",
+            "water": true,
+            "osm": "way/146372739 way/146372752",
+            "source": "Name read from the name of way 146372739, a bridge's name; span derived by projecting its ways (way/146372739 way/146372752) onto the leg's archived road, rescaled to leg miles (over the length bar, 7803 ft); water derived from a waterway or coastline the bridge ways cross. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          }
+        ]
       },
       "stops": [
         {
@@ -39106,7 +39159,18 @@
             "deck_read_share": 0.839,
             "deck_source": "National Bridge Inventory, NTAD feature service (Bureau of Transportation Statistics, https://services.arcgis.com/xOi1kZaI0eWDREZv/arcgis/rest/services/NTAD_National_Bridge_Inventory/FeatureServer/0), accessed 2026-11-22; codes per the FHWA Recording and Coding Guide for the Structure Inventory and Appraisal of the Nation's Bridges (1995, https://www.fhwa.dot.gov/bridge/mtguide.pdf): Item 5A record type (page 2), Item 43B structure type (page 24), Items 45, 48 and 49 spans and lengths (pages 26 to 28), Item 107 deck structure type and Item 108A wearing surface (page 70). A structure's deck= is READ: open_grating is Item 107 code 3; concrete is 107 code 1 or 2 under 108A 0 to 4; asphalt is 108A code 6; other is anything else. Which record belongs to which structure is DERIVED: a record carried on the structure whose point projects within 60 m of the archived road, inside the structure or within 0.02 mi of its ends, with an Item 49 length within 0.05 mi of the structure's measured span; the best length fit wins, then the nearer point. nbi= is the record's state FIPS and structure number. grate=from:to on a movable open grating (43B 15, 16 or 17) is DERIVED: Item 45 spans times Item 48, centred on the structure (NBI's point may be the bridge's beginning, Item 16, page 8), clipped to it. A structure with no tag matched no record."
           }
-        }
+        },
+        "bridges": [
+          {
+            "from_mi": 246.117,
+            "to_mi": 246.686,
+            "name": "Thomas B. Manuel Bridge",
+            "over": "Saint Lucie Canal",
+            "water": true,
+            "osm": "way/42224235 way/42224300",
+            "source": "Name read from the bridge:name tag of way 42224235; span derived by projecting its ways (way/42224235 way/42224300) onto the leg's archived road, rescaled to leg miles (over the length bar, 3001 ft); water derived from a waterway or coastline the bridge ways cross. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          }
+        ]
       },
       "stops": [
         {
@@ -47520,29 +47584,6 @@
             "spoken": "Passing Crane Point Museum"
           },
           {
-            "name": "Seven Mile Bridge",
-            "category": "highway_marker",
-            "kind": "point",
-            "at_mi": 111.2,
-            "spoken": "Seven Mile Bridge is ahead. For seven miles, you get nothing but water on both sides, while the old bridge runs alongside, open again to walkers and bikes as far as Pigeon Key.",
-            "directions": [
-              "forward"
-            ],
-            "lat": 24.70634,
-            "lon": -81.12845,
-            "source": "Coordinates read 2026-10-01 from OpenStreetMap east end of way 996764821 via Nominatim; derived: at_mi = 114.2 (projection onto the leg's archived dense route geometry, 0.0 mi off the road) - 3.0 mi assumed lead for a forward-only 'is ahead' callout."
-          },
-          {
-            "name": "Crossing the Seven Mile Bridge",
-            "category": "highway_marker",
-            "kind": "point",
-            "at_mi": 114.2,
-            "spoken": "Crossing the Seven Mile Bridge",
-            "lat": 24.70634,
-            "lon": -81.12845,
-            "source": "Coordinates read 2026-10-01 from OpenStreetMap east end of way 996764821 via Nominatim; derived: at_mi = its projection onto the leg's archived dense route geometry (0.0 mi off the road)."
-          },
-          {
             "name": "Bahia Honda",
             "category": "highway_marker",
             "kind": "point",
@@ -48229,7 +48270,51 @@
             "deck_read_share": 0.784,
             "deck_source": "National Bridge Inventory, NTAD feature service (Bureau of Transportation Statistics, https://services.arcgis.com/xOi1kZaI0eWDREZv/arcgis/rest/services/NTAD_National_Bridge_Inventory/FeatureServer/0), accessed 2026-11-22; codes per the FHWA Recording and Coding Guide for the Structure Inventory and Appraisal of the Nation's Bridges (1995, https://www.fhwa.dot.gov/bridge/mtguide.pdf): Item 5A record type (page 2), Item 43B structure type (page 24), Items 45, 48 and 49 spans and lengths (pages 26 to 28), Item 107 deck structure type and Item 108A wearing surface (page 70). A structure's deck= is READ: open_grating is Item 107 code 3; concrete is 107 code 1 or 2 under 108A 0 to 4; asphalt is 108A code 6; other is anything else. Which record belongs to which structure is DERIVED: a record carried on the structure whose point projects within 60 m of the archived road, inside the structure or within 0.02 mi of its ends, with an Item 49 length within 0.05 mi of the structure's measured span; the best length fit wins, then the nearer point. nbi= is the record's state FIPS and structure number. grate=from:to on a movable open grating (43B 15, 16 or 17) is DERIVED: Item 45 spans times Item 48, centred on the structure (NBI's point may be the bridge's beginning, Item 16, page 8), clipped to it. A structure with no tag matched no record."
           }
-        }
+        },
+        "bridges": [
+          {
+            "from_mi": 52.7,
+            "to_mi": 54.121,
+            "name": "Jewfish Creek Bridge",
+            "water": true,
+            "osm": "way/119973069 way/119973075 way/119973127 way/119973128 way/119973129 way/119973133 way/980185661 way/980185662 way/980185663 way/980185664 way/980185665 way/980185666 way/980237127 way/980237128 way/980237129",
+            "source": "Name read from the name of bridge outline way 996764860; span derived by projecting its ways (way/119973069 way/119973075 way/119973127 way/119973128 way/119973129 way/119973133 way/980185661 way/980185662 way/980185663 way/980185664 way/980185665 way/980185666 way/980237127 way/980237128 way/980237129) onto the leg's archived road, rescaled to leg miles (over the length bar, 7508 ft); water derived from a waterway or coastline the bridge ways cross. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "from_mi": 89.12,
+            "to_mi": 90.052,
+            "name": "Channel 5 Bridge",
+            "water": true,
+            "osm": "way/53191864",
+            "source": "Name read from the name of bridge outline way 996764841; span derived by projecting its ways (way/53191864) onto the leg's archived road, rescaled to leg miles (over the length bar, 4922 ft); water derived from a waterway or coastline the bridge ways cross. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "from_mi": 113.934,
+            "to_mi": 120.713,
+            "name": "Seven Mile Bridge",
+            "over": "Florida Bay",
+            "water": true,
+            "curated": true,
+            "osm": "way/11118808 way/128504323",
+            "source": "Name read from the curated sheet (Florida DOT, Seven Mile Bridge (US 1, Overseas Highway; OpenStreetMap names it New Seven Mile Bridge); was a hand-written roadside line); span derived by projecting its ways (way/11118808 way/128504323) onto the leg's archived road, rescaled to leg miles (curated, 35805 ft); what it spans read from the curated sheet. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "from_mi": 126.929,
+            "to_mi": 127.591,
+            "name": "Spanish Harbor Bridge",
+            "water": true,
+            "osm": "way/92987117",
+            "source": "Name read from the name of bridge outline way 996764807; span derived by projecting its ways (way/92987117) onto the leg's archived road, rescaled to leg miles (over the length bar, 3496 ft); water derived from a waterway or coastline the bridge ways cross. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "from_mi": 134.406,
+            "to_mi": 135.268,
+            "name": "Nile Channel Bridge",
+            "water": true,
+            "osm": "way/83133444",
+            "source": "Name read from the name of bridge outline way 996764870; span derived by projecting its ways (way/83133444) onto the leg's archived road, rescaled to leg miles (over the length bar, 4555 ft); water derived from a waterway or coastline the bridge ways cross. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          }
+        ]
       },
       "stops": [
         {
@@ -67158,7 +67243,18 @@
             "deck_read_share": 0.833,
             "deck_source": "National Bridge Inventory, NTAD feature service (Bureau of Transportation Statistics, https://services.arcgis.com/xOi1kZaI0eWDREZv/arcgis/rest/services/NTAD_National_Bridge_Inventory/FeatureServer/0), accessed 2026-11-22; codes per the FHWA Recording and Coding Guide for the Structure Inventory and Appraisal of the Nation's Bridges (1995, https://www.fhwa.dot.gov/bridge/mtguide.pdf): Item 5A record type (page 2), Item 43B structure type (page 24), Items 45, 48 and 49 spans and lengths (pages 26 to 28), Item 107 deck structure type and Item 108A wearing surface (page 70). A structure's deck= is READ: open_grating is Item 107 code 3; concrete is 107 code 1 or 2 under 108A 0 to 4; asphalt is 108A code 6; other is anything else. Which record belongs to which structure is DERIVED: a record carried on the structure whose point projects within 60 m of the archived road, inside the structure or within 0.02 mi of its ends, with an Item 49 length within 0.05 mi of the structure's measured span; the best length fit wins, then the nearer point. nbi= is the record's state FIPS and structure number. grate=from:to on a movable open grating (43B 15, 16 or 17) is DERIVED: Item 45 spans times Item 48, centred on the structure (NBI's point may be the bridge's beginning, Item 16, page 8), clipped to it. A structure with no tag matched no record."
           }
-        }
+        },
+        "bridges": [
+          {
+            "from_mi": 6.939,
+            "to_mi": 7.655,
+            "name": "Hathaway Bridge",
+            "over": "Gulf Intracoastal Waterway",
+            "water": true,
+            "osm": "way/10758948 way/289769001",
+            "source": "Name read from the name of way 10758948, a bridge's name; span derived by projecting its ways (way/10758948 way/289769001) onto the leg's archived road, rescaled to leg miles (over the length bar, 3799 ft); water derived from a waterway or coastline the bridge ways cross. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          }
+        ]
       },
       "stops": [
         {
@@ -78240,7 +78336,18 @@
             "deck_read_share": 1.0,
             "deck_source": "National Bridge Inventory, NTAD feature service (Bureau of Transportation Statistics, https://services.arcgis.com/xOi1kZaI0eWDREZv/arcgis/rest/services/NTAD_National_Bridge_Inventory/FeatureServer/0), accessed 2026-11-22; codes per the FHWA Recording and Coding Guide for the Structure Inventory and Appraisal of the Nation's Bridges (1995, https://www.fhwa.dot.gov/bridge/mtguide.pdf): Item 5A record type (page 2), Item 43B structure type (page 24), Items 45, 48 and 49 spans and lengths (pages 26 to 28), Item 107 deck structure type and Item 108A wearing surface (page 70). A structure's deck= is READ: open_grating is Item 107 code 3; concrete is 107 code 1 or 2 under 108A 0 to 4; asphalt is 108A code 6; other is anything else. Which record belongs to which structure is DERIVED: a record carried on the structure whose point projects within 60 m of the archived road, inside the structure or within 0.02 mi of its ends, with an Item 49 length within 0.05 mi of the structure's measured span; the best length fit wins, then the nearer point. nbi= is the record's state FIPS and structure number. grate=from:to on a movable open grating (43B 15, 16 or 17) is DERIVED: Item 45 spans times Item 48, centred on the structure (NBI's point may be the bridge's beginning, Item 16, page 8), clipped to it. A structure with no tag matched no record."
           }
-        }
+        },
+        "bridges": [
+          {
+            "from_mi": 15.053,
+            "to_mi": 15.619,
+            "name": "Thomas B. Manuel Bridge",
+            "over": "Saint Lucie Canal",
+            "water": true,
+            "osm": "way/42224235 way/42224300",
+            "source": "Name read from the bridge:name tag of way 42224235; span derived by projecting its ways (way/42224235 way/42224300) onto the leg's archived road, rescaled to leg miles (over the length bar, 3000 ft); water derived from a waterway or coastline the bridge ways cross. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          }
+        ]
       },
       "terrain": "flat",
       "divided": true,
@@ -80241,7 +80348,18 @@
             "deck_read_share": 0.889,
             "deck_source": "National Bridge Inventory, NTAD feature service (Bureau of Transportation Statistics, https://services.arcgis.com/xOi1kZaI0eWDREZv/arcgis/rest/services/NTAD_National_Bridge_Inventory/FeatureServer/0), accessed 2026-11-22; codes per the FHWA Recording and Coding Guide for the Structure Inventory and Appraisal of the Nation's Bridges (1995, https://www.fhwa.dot.gov/bridge/mtguide.pdf): Item 5A record type (page 2), Item 43B structure type (page 24), Items 45, 48 and 49 spans and lengths (pages 26 to 28), Item 107 deck structure type and Item 108A wearing surface (page 70). A structure's deck= is READ: open_grating is Item 107 code 3; concrete is 107 code 1 or 2 under 108A 0 to 4; asphalt is 108A code 6; other is anything else. Which record belongs to which structure is DERIVED: a record carried on the structure whose point projects within 60 m of the archived road, inside the structure or within 0.02 mi of its ends, with an Item 49 length within 0.05 mi of the structure's measured span; the best length fit wins, then the nearer point. nbi= is the record's state FIPS and structure number. grate=from:to on a movable open grating (43B 15, 16 or 17) is DERIVED: Item 45 spans times Item 48, centred on the structure (NBI's point may be the bridge's beginning, Item 16, page 8), clipped to it. A structure with no tag matched no record."
           }
-        }
+        },
+        "bridges": [
+          {
+            "from_mi": 15.144,
+            "to_mi": 15.713,
+            "name": "Thomas B. Manuel Bridge",
+            "over": "Saint Lucie Canal",
+            "water": true,
+            "osm": "way/42224235 way/42224300",
+            "source": "Name read from the bridge:name tag of way 42224235; span derived by projecting its ways (way/42224235 way/42224300) onto the leg's archived road, rescaled to leg miles (over the length bar, 3000 ft); water derived from a waterway or coastline the bridge ways cross. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          }
+        ]
       },
       "terrain": "flat",
       "divided": true,
@@ -101810,7 +101928,18 @@
             "deck_read_share": 0.923,
             "deck_source": "National Bridge Inventory, NTAD feature service (Bureau of Transportation Statistics, https://services.arcgis.com/xOi1kZaI0eWDREZv/arcgis/rest/services/NTAD_National_Bridge_Inventory/FeatureServer/0), accessed 2026-11-22; codes per the FHWA Recording and Coding Guide for the Structure Inventory and Appraisal of the Nation's Bridges (1995, https://www.fhwa.dot.gov/bridge/mtguide.pdf): Item 5A record type (page 2), Item 43B structure type (page 24), Items 45, 48 and 49 spans and lengths (pages 26 to 28), Item 107 deck structure type and Item 108A wearing surface (page 70). A structure's deck= is READ: open_grating is Item 107 code 3; concrete is 107 code 1 or 2 under 108A 0 to 4; asphalt is 108A code 6; other is anything else. Which record belongs to which structure is DERIVED: a record carried on the structure whose point projects within 60 m of the archived road, inside the structure or within 0.02 mi of its ends, with an Item 49 length within 0.05 mi of the structure's measured span; the best length fit wins, then the nearer point. nbi= is the record's state FIPS and structure number. grate=from:to on a movable open grating (43B 15, 16 or 17) is DERIVED: Item 45 spans times Item 48, centred on the structure (NBI's point may be the bridge's beginning, Item 16, page 8), clipped to it. A structure with no tag matched no record."
           }
-        }
+        },
+        "bridges": [
+          {
+            "from_mi": 131.383,
+            "to_mi": 132.753,
+            "name": "Midpoint Memorial Bridge",
+            "over": "Caloosahatchee River",
+            "water": true,
+            "osm": "way/11013890 way/11013893",
+            "source": "Name read from the bridge:name tag of way 11013890; span derived by projecting its ways (way/11013890 way/11013893) onto the leg's archived road, rescaled to leg miles (over the length bar, 7221 ft); water derived from a waterway or coastline the bridge ways cross. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          }
+        ]
       },
       "terrain": "flat",
       "divided": true,

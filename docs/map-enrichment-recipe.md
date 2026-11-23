@@ -698,6 +698,76 @@ For the 16 pilot legs together: routing 1 to 4 seconds a leg, enrich about
 (one read of each cut per tool). The cut, about 25 minutes, is the long
 pole.
 
+## Named bridges (`corridor.bridges`)
+
+The big bridges a leg drives over, by name, with their real span. The game
+puts a bridge joint at each end of the span (where the pavement layer has no
+structure there already), plays the river bed for the whole span when it is
+over water, and says "Crossing the Confederation Bridge." once as the truck
+drives onto it, under the rivers chatter switch.
+
+The cut needs the bridge tags a roads-only filter drops:
+
+```sh
+osmium tags-filter na.osm.pbf w/bridge w/man_made=bridge r/type=bridge \
+  w/waterway=river,canal,tidal_channel w/natural=coastline -o bridges.osm.pbf
+cargo tools osm-bridges --pbf bridges.osm.pbf --extract-date 2026-11-16          # dry run
+cargo tools osm-bridges --pbf bridges.osm.pbf --extract-date 2026-11-16 \
+  --scope all --only 'san_francisco_ca_us:santa_rosa_ca_us' --write  # one complete route
+```
+
+Every write requires a nonempty `--only` list of complete route identities.
+The list is an operator assertion that the extract covers each whole route;
+the tool does not infer coverage from PBF bounds or `--scope`. Scope intersects
+the selected routes, and a selected route with no placements removes its old
+bridge rows. Do not select a route the extract only partly covers. Dry runs
+and `--survey` discovery may omit `--only`.
+
+- A bridge is named by its own `bridge:name`, the `type=bridge` relation it
+  belongs to, or the `man_made=bridge` outline around it. A carrier way's
+  `name` is accepted only when it contains a recognized bridge word (`Bridge`,
+  `Skyway`, `Causeway`, `Viaduct` or `Pont`) and is not an excluded road or
+  ramp label; a road name alone is not treated as the bridge's name.
+- It is written when it is on the curated sheet, `docs/bridges/*.json`
+  (name, what it spans, its OpenStreetMap ways, relation or outline, the
+  legs expected to cross it, a citation), or when its real length reaches
+  the bar (`--bar-ft`, default in `world/layers/bridges/mod.rs`, with how it
+  was set). The dry run prints the counts by length band, how often the
+  game's five-mile spacing guard would silence one, and the sheet entries
+  no leg crosses. Add a bridge to the sheet rather than lowering the bar.
+- `--scope north` (the default) intersects `--only` with legs touching Canada
+  or Alaska; `--scope all` allows every selected leg. Scope does not establish
+  extract coverage.
+- The span is derived by projecting the bridge's ways onto the leg's
+  archived road (every vertex within 80 m, and running along it). After a
+  reroute, re-run it with `--only from:to`.
+- It removes the leg's hand-written `highway_marker` line that names a
+  bridge it writes, so one bridge has one line.
+- Re-bake and `ff-bake --check` afterwards.
+
+#### Targeted reroute verification (2026-11-23)
+
+Only the seven bridge-bearing legs whose archived routes changed were
+reprojected. OSM tags, names and coordinates were read for the known way and
+relation IDs through exact API requests, with bridge-local water queries; this
+was not a regional refresh. New spans are derived by the existing builder from
+those features and the current archived road, rescaled to the leg's source
+miles. The 80 m per-vertex rule was not changed. No span is carried for Murray
+Baker on Peoria–Springfield (its nearest OSM carrier vertex is 317.6 m from the
+current route) or Atchafalaya Basin on Lafayette–Baton Rouge (one vertex on
+each carrier is 80.2 m and 83.8 m away, so both fail the 80 m gate). Verified
+instances on other legs remain.
+
+Water associations not confirmed by the current bridge-local query remain
+inherited from the prior OSM planet source and are not newly verified; the
+affected source records say so. Do not change `over` or `water` by inference.
+On Tri-Cities–Seattle, unnamed `way/23615723` passes the geometry tests but has
+no current name, relation, outline or curated association, so the builder
+omits it before projection. The named Hadley span is still supported by its
+named carrier ways; this unnamed link adds no independent named span. The
+PR's earlier source listed it from the 2026-11-16 planet, but that extract is
+unavailable, so the prior association cannot be independently verified.
+
 ## Building a new lower-48 leg or city
 
 Proven on the South Jersey roads (2 cities, 8 new legs, Newark to Trenton

@@ -1721,6 +1721,18 @@
             "name": "Cape Jourimain National Wildlife Area",
             "source": "derived 2026-11-22: OpenStreetMap relation 21602238 (Cape Jourimain National Wildlife Area) boundary from the Atlantic cut of the planet extract of 2026-11-16; the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
           }
+        ],
+        "bridges": [
+          {
+            "from_mi": 34.904,
+            "to_mi": 42.919,
+            "name": "Confederation Bridge",
+            "over": "Northumberland Strait",
+            "water": true,
+            "curated": true,
+            "osm": "way/4233040 way/646650186",
+            "source": "Name read from the curated sheet (Strait Crossing Bridge Limited, confederationbridge.com (12.9 km)); span derived by projecting its ways (way/4233040 way/646650186) onto the leg's archived road, rescaled to leg miles (curated, 42415 ft); what it spans read from the curated sheet. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          }
         ]
       },
       "rerouted": true
@@ -5141,6 +5153,18 @@
             "to_mi": 27.3,
             "name": "Cape Jourimain National Wildlife Area",
             "source": "derived 2026-11-22: OpenStreetMap relation 21602238 (Cape Jourimain National Wildlife Area) boundary from the Atlantic cut of the planet extract of 2026-11-16; the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
+          }
+        ],
+        "bridges": [
+          {
+            "from_mi": 16.778,
+            "to_mi": 24.807,
+            "name": "Confederation Bridge",
+            "over": "Northumberland Strait",
+            "water": true,
+            "curated": true,
+            "osm": "way/4233040 way/646650186",
+            "source": "Name read from the curated sheet (Strait Crossing Bridge Limited, confederationbridge.com (12.9 km)); span derived by projecting its ways (way/4233040 way/646650186) onto the leg's archived road, rescaled to leg miles (curated, 42415 ft); what it spans read from the curated sheet. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           }
         ]
       },

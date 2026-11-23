@@ -98,12 +98,15 @@ pub const SETTINGS_VERSION: i64 = 3;
 /// town and village names are not chatter. They are governed by the
 /// place_callouts ladder instead, because the name that explains a speed
 /// limit drop must survive a player turning the ambient colour off.
-pub const CHATTER_CATEGORY_FIELDS: [(&str, &str); 10] = [
+pub const CHATTER_CATEGORY_FIELDS: [(&str, &str); 11] = [
     ("national_park", "chatter_parks"),
     ("national_forest", "chatter_parks"),
     ("wilderness", "chatter_parks"),
     ("protected_area", "chatter_parks"),
     ("river", "chatter_rivers"),
+    // A named bridge ("Crossing the Confederation Bridge.") is the same
+    // kind of line as a river's, often over the same water.
+    ("bridge", "chatter_rivers"),
     ("mountain_pass", "chatter_passes"),
     ("highway_marker", "chatter_passes"),
     ("museum", "chatter_museums"),

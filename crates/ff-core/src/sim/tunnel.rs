@@ -284,6 +284,8 @@ impl Trip {
         let (navigation_cues, border_booths) = self.build_navigation_cues_and_border_booths();
         self.navigation_cues = navigation_cues;
         self.border_booths = border_booths;
+        self.bridges = self.place_bridges();
+        self.bridge = Default::default();
         self.landmarks = self.place_landmarks();
         self.billboards = self.place_billboards();
         self.chain_law_areas = self.place_chain_law_areas();

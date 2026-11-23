@@ -9724,7 +9724,19 @@
           "name": "level",
           "sections": 0,
           "source": "DERIVED, not read: Canada has no national inventory like HPMS, so the class is the terrain the leg's own grade profile spends the most miles in (the reroute-enrich rule: sustained grade of 5 percent, or 4 percent with 1,000 ft of relief within 5 miles, is mountain; 1.5 percent or 400 ft of relief is hills; else flat), mapped flat to level, hills to rolling and mountain to mountainous. It reads the same elevation as the grade, so it is no independent check on it."
-        }
+        },
+        "bridges": [
+          {
+            "from_mi": 65.515,
+            "to_mi": 67.664,
+            "name": "Pont Samuel-De Champlain",
+            "over": "St. Lawrence River",
+            "water": true,
+            "curated": true,
+            "osm": "way/646417293 way/646417301 way/646417307 way/646417311 way/881166613 way/881166614 way/1074359238 way/1074359239 way/1074359240 way/1074359241 way/1074359242 way/1074359243 way/1074359244 way/1074359245 way/1074363142 way/1074363150 way/1117629584 way/1167537371 way/1167537372 way/1364137850",
+            "source": "Name read from the curated sheet (Infrastructure Canada and Jacques Cartier and Champlain Bridges Inc., Pont Samuel-De Champlain (signed name, as Quebec names are spoken)); span derived by projecting its ways (way/646417293 way/646417301 way/646417307 way/646417311 way/881166613 way/881166614 way/1074359238 way/1074359239 way/1074359240 way/1074359241 way/1074359242 way/1074359243 way/1074359244 way/1074359245 way/1074363142 way/1074363150 way/1117629584 way/1167537371 way/1167537372 way/1364137850) onto the leg's archived road, rescaled to leg miles (curated, 11374 ft); what it spans read from the curated sheet. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          }
+        ]
       },
       "rerouted": true
     },
@@ -11370,7 +11382,19 @@
           "name": "level",
           "sections": 0,
           "source": "DERIVED, not read: Canada has no national inventory like HPMS, so the class is the terrain the leg's own grade profile spends the most miles in (the reroute-enrich rule: sustained grade of 5 percent, or 4 percent with 1,000 ft of relief within 5 miles, is mountain; 1.5 percent or 400 ft of relief is hills; else flat), mapped flat to level, hills to rolling and mountain to mountainous. It reads the same elevation as the grade, so it is no independent check on it."
-        }
+        },
+        "bridges": [
+          {
+            "from_mi": 85.935,
+            "to_mi": 86.642,
+            "name": "Pont Pierre-Laporte",
+            "over": "St. Lawrence River",
+            "water": true,
+            "curated": true,
+            "osm": "way/157685069 way/157685071",
+            "source": "Name read from the curated sheet (Minist\u00e8re des Transports du Qu\u00e9bec, pont Pierre-Laporte); span derived by projecting its ways (way/157685069 way/157685071) onto the leg's archived road, rescaled to leg miles (curated, 3724 ft); what it spans read from the curated sheet. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          }
+        ]
       },
       "rerouted": true
     },
@@ -13583,7 +13607,19 @@
           "name": "level",
           "sections": 0,
           "source": "DERIVED, not read: Canada has no national inventory like HPMS, so the class is the terrain the leg's own grade profile spends the most miles in (the reroute-enrich rule: sustained grade of 5 percent, or 4 percent with 1,000 ft of relief within 5 miles, is mountain; 1.5 percent or 400 ft of relief is hills; else flat), mapped flat to level, hills to rolling and mountain to mountainous. It reads the same elevation as the grade, so it is no independent check on it."
-        }
+        },
+        "bridges": [
+          {
+            "from_mi": 40.784,
+            "to_mi": 42.456,
+            "name": "Pont Laviolette",
+            "over": "St. Lawrence River",
+            "water": true,
+            "curated": true,
+            "osm": "way/84720759 way/84720761",
+            "source": "Name read from the curated sheet (Minist\u00e8re des Transports du Qu\u00e9bec, pont Laviolette); span derived by projecting its ways (way/84720759 way/84720761) onto the leg's archived road, rescaled to leg miles (curated, 8881 ft); what it spans read from the curated sheet. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          }
+        ]
       },
       "rerouted": true
     },
@@ -24070,7 +24106,19 @@
           "name": "level",
           "sections": 0,
           "source": "DERIVED, not read: Canada has no national inventory like HPMS, so the class is the terrain the leg's own grade profile spends the most miles in (the reroute-enrich rule: sustained grade of 5 percent, or 4 percent with 1,000 ft of relief within 5 miles, is mountain; 1.5 percent or 400 ft of relief is hills; else flat), mapped flat to level, hills to rolling and mountain to mountainous. It reads the same elevation as the grade, so it is no independent check on it."
-        }
+        },
+        "bridges": [
+          {
+            "from_mi": 3.564,
+            "to_mi": 5.73,
+            "name": "Pont Samuel-De Champlain",
+            "over": "St. Lawrence River",
+            "water": true,
+            "curated": true,
+            "osm": "way/646417293 way/646417301 way/646417307 way/646417311 way/881166613 way/881166614 way/1074359238 way/1074359239 way/1074359240 way/1074359241 way/1074359242 way/1074359243 way/1074359244 way/1074359245 way/1074363142 way/1074363150 way/1117629584 way/1167537371 way/1167537372 way/1364137850",
+            "source": "Name read from the curated sheet (Infrastructure Canada and Jacques Cartier and Champlain Bridges Inc., Pont Samuel-De Champlain (signed name, as Quebec names are spoken)); span derived by projecting its ways (way/646417293 way/646417301 way/646417307 way/646417311 way/881166613 way/881166614 way/1074359238 way/1074359239 way/1074359240 way/1074359241 way/1074359242 way/1074359243 way/1074359244 way/1074359245 way/1074363142 way/1074363150 way/1117629584 way/1167537371 way/1167537372 way/1364137850) onto the leg's archived road, rescaled to leg miles (curated, 11382 ft); what it spans read from the curated sheet. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          }
+        ]
       },
       "rerouted": true
     },
@@ -26617,7 +26665,18 @@
           "name": "level",
           "sections": 0,
           "source": "DERIVED, not read: Canada has no national inventory like HPMS, so the class is the terrain the leg's own grade profile spends the most miles in (the reroute-enrich rule: sustained grade of 5 percent, or 4 percent with 1,000 ft of relief within 5 miles, is mountain; 1.5 percent or 400 ft of relief is hills; else flat), mapped flat to level, hills to rolling and mountain to mountainous. It reads the same elevation as the grade, so it is no independent check on it."
-        }
+        },
+        "bridges": [
+          {
+            "from_mi": 19.279,
+            "to_mi": 19.899,
+            "name": "Pont G\u00e9d\u00e9on Ouimet",
+            "over": "Rivi\u00e8re des Mille \u00celes",
+            "water": true,
+            "osm": "way/23348391 way/936532420",
+            "source": "Name read from the bridge:name tag of way 23348391; span derived by projecting its ways (way/23348391 way/936532420) onto the leg's archived road, rescaled to leg miles (over the length bar, 3277 ft); water derived from a waterway or coastline the bridge ways cross. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          }
+        ]
       },
       "rerouted": true
     },
@@ -28988,7 +29047,18 @@
           "name": "level",
           "sections": 0,
           "source": "DERIVED, not read: Canada has no national inventory like HPMS, so the class is the terrain the leg's own grade profile spends the most miles in (the reroute-enrich rule: sustained grade of 5 percent, or 4 percent with 1,000 ft of relief within 5 miles, is mountain; 1.5 percent or 400 ft of relief is hills; else flat), mapped flat to level, hills to rolling and mountain to mountainous. It reads the same elevation as the grade, so it is no independent check on it."
-        }
+        },
+        "bridges": [
+          {
+            "from_mi": 19.327,
+            "to_mi": 19.949,
+            "name": "Pont G\u00e9d\u00e9on Ouimet",
+            "over": "Rivi\u00e8re des Mille \u00celes",
+            "water": true,
+            "osm": "way/23348391 way/936532420",
+            "source": "Name read from the bridge:name tag of way 23348391; span derived by projecting its ways (way/23348391 way/936532420) onto the leg's archived road, rescaled to leg miles (over the length bar, 3277 ft); water derived from a waterway or coastline the bridge ways cross. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          }
+        ]
       },
       "rerouted": true
     },
@@ -30960,6 +31030,17 @@
             "place": "Quebec-Ontario line on Hwy 417 / A-40",
             "source": "derived 2026-11-05: the leg's archived route geometry intersected with OpenStreetMap state and province boundary relations (boundary=administrative, admin_level=4); at_mi = cumulative geometry distance at each boundary crossing, rescaled to leg miles; state miles = differences of those boundaries. OpenStreetMap, boundary relations read from the OpenStreetMap API on 2026-11-16: https://www.openstreetmap.org/."
           }
+        ],
+        "bridges": [
+          {
+            "from_mi": 23.58,
+            "to_mi": 24.792,
+            "name": "Pont de l'\u00cele-aux-Tourtes",
+            "over": "Rivi\u00e8re des Outaouais",
+            "water": true,
+            "osm": "way/20944955 way/627193937",
+            "source": "Name read from the bridge:name tag of way 20944955; span derived by projecting its ways (way/20944955 way/627193937) onto the leg's archived road, rescaled to leg miles (over the length bar, 6402 ft); water derived from a waterway or coastline the bridge ways cross. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          }
         ]
       },
       "rerouted": true
@@ -31772,7 +31853,19 @@
           "name": "level",
           "sections": 0,
           "source": "DERIVED, not read: Canada has no national inventory like HPMS, so the class is the terrain the leg's own grade profile spends the most miles in (the reroute-enrich rule: sustained grade of 5 percent, or 4 percent with 1,000 ft of relief within 5 miles, is mountain; 1.5 percent or 400 ft of relief is hills; else flat), mapped flat to level, hills to rolling and mountain to mountainous. It reads the same elevation as the grade, so it is no independent check on it."
-        }
+        },
+        "bridges": [
+          {
+            "from_mi": 3.594,
+            "to_mi": 5.777,
+            "name": "Pont Samuel-De Champlain",
+            "over": "St. Lawrence River",
+            "water": true,
+            "curated": true,
+            "osm": "way/646417293 way/646417301 way/646417307 way/646417311 way/881166613 way/881166614 way/1074359238 way/1074359239 way/1074359240 way/1074359241 way/1074359242 way/1074359243 way/1074359244 way/1074359245 way/1074363142 way/1074363150 way/1117629584 way/1167537371 way/1167537372 way/1364137850",
+            "source": "Name read from the curated sheet (Infrastructure Canada and Jacques Cartier and Champlain Bridges Inc., Pont Samuel-De Champlain (signed name, as Quebec names are spoken)); span derived by projecting its ways (way/646417293 way/646417301 way/646417307 way/646417311 way/881166613 way/881166614 way/1074359238 way/1074359239 way/1074359240 way/1074359241 way/1074359242 way/1074359243 way/1074359244 way/1074359245 way/1074363142 way/1074363150 way/1117629584 way/1167537371 way/1167537372 way/1364137850) onto the leg's archived road, rescaled to leg miles (curated, 11382 ft); what it spans read from the curated sheet. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          }
+        ]
       },
       "rerouted": true
     },
@@ -33583,7 +33676,19 @@
           "name": "level",
           "sections": 0,
           "source": "DERIVED, not read: Canada has no national inventory like HPMS, so the class is the terrain the leg's own grade profile spends the most miles in (the reroute-enrich rule: sustained grade of 5 percent, or 4 percent with 1,000 ft of relief within 5 miles, is mountain; 1.5 percent or 400 ft of relief is hills; else flat), mapped flat to level, hills to rolling and mountain to mountainous. It reads the same elevation as the grade, so it is no independent check on it."
-        }
+        },
+        "bridges": [
+          {
+            "from_mi": 3.549,
+            "to_mi": 5.706,
+            "name": "Pont Samuel-De Champlain",
+            "over": "St. Lawrence River",
+            "water": true,
+            "curated": true,
+            "osm": "way/646417293 way/646417301 way/646417307 way/646417311 way/881166613 way/881166614 way/1074359238 way/1074359239 way/1074359240 way/1074359241 way/1074359242 way/1074359243 way/1074359244 way/1074359245 way/1074363142 way/1074363150 way/1117629584 way/1167537371 way/1167537372 way/1364137850",
+            "source": "Name read from the curated sheet (Infrastructure Canada and Jacques Cartier and Champlain Bridges Inc., Pont Samuel-De Champlain (signed name, as Quebec names are spoken)); span derived by projecting its ways (way/646417293 way/646417301 way/646417307 way/646417311 way/881166613 way/881166614 way/1074359238 way/1074359239 way/1074359240 way/1074359241 way/1074359242 way/1074359243 way/1074359244 way/1074359245 way/1074363142 way/1074363150 way/1117629584 way/1167537371 way/1167537372 way/1364137850) onto the leg's archived road, rescaled to leg miles (curated, 11382 ft); what it spans read from the curated sheet. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          }
+        ]
       },
       "rerouted": true,
       "route_via": [
@@ -35186,7 +35291,40 @@
           "name": "level",
           "sections": 0,
           "source": "DERIVED, not read: Canada has no national inventory like HPMS, so the class is the terrain the leg's own grade profile spends the most miles in (the reroute-enrich rule: sustained grade of 5 percent, or 4 percent with 1,000 ft of relief within 5 miles, is mountain; 1.5 percent or 400 ft of relief is hills; else flat), mapped flat to level, hills to rolling and mountain to mountainous. It reads the same elevation as the grade, so it is no independent check on it."
-        }
+        },
+        "bridges": [
+          {
+            "from_mi": 3.562,
+            "to_mi": 6.434,
+            "name": "Pont Samuel-De Champlain",
+            "over": "St. Lawrence River",
+            "water": true,
+            "ways": "reverse",
+            "curated": true,
+            "osm": "way/646417293 way/646417301 way/646417307 way/646417311 way/881166613 way/881166614 way/1074359238 way/1074359239 way/1074359240 way/1074359241 way/1074359242 way/1074359243 way/1074359244 way/1074359245 way/1074363142 way/1074363150 way/1117629584 way/1167537371 way/1167537372 way/1364137850",
+            "source": "Name read from the curated sheet (Infrastructure Canada and Jacques Cartier and Champlain Bridges Inc., Pont Samuel-De Champlain (signed name, as Quebec names are spoken)); span derived by projecting its ways (way/646417293 way/646417301 way/646417307 way/646417311 way/881166613 way/881166614 way/1074359238 way/1074359239 way/1074359240 way/1074359241 way/1074359242 way/1074359243 way/1074359244 way/1074359245 way/1074363142 way/1074363150 way/1117629584 way/1167537371 way/1167537372 way/1364137850) onto the leg's archived road, rescaled to leg miles (curated, 15101 ft); what it spans read from the curated sheet. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "from_mi": 3.563,
+            "to_mi": 5.724,
+            "name": "Pont Samuel-De Champlain",
+            "over": "St. Lawrence River",
+            "water": true,
+            "ways": "forward",
+            "curated": true,
+            "osm": "way/646417293 way/646417301 way/646417307 way/646417311 way/881166613 way/881166614 way/1074359238 way/1074359239 way/1074359240 way/1074359241 way/1074359242 way/1074359243 way/1074359244 way/1074359245 way/1074363142 way/1074363150 way/1117629584 way/1167537371 way/1167537372 way/1364137850",
+            "source": "Name read from the curated sheet (Infrastructure Canada and Jacques Cartier and Champlain Bridges Inc., Pont Samuel-De Champlain (signed name, as Quebec names are spoken)); span derived by projecting its ways (way/646417293 way/646417301 way/646417307 way/646417311 way/881166613 way/881166614 way/1074359238 way/1074359239 way/1074359240 way/1074359241 way/1074359242 way/1074359243 way/1074359244 way/1074359245 way/1074363142 way/1074363150 way/1117629584 way/1167537371 way/1167537372 way/1364137850) onto the leg's archived road, rescaled to leg miles (curated, 11365 ft); what it spans read from the curated sheet. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "from_mi": 27.643,
+            "to_mi": 28.275,
+            "name": "Pont Charles-De-Gaulle",
+            "over": "Rivi\u00e8re des Prairies",
+            "water": true,
+            "osm": "way/20944661 way/20944678",
+            "source": "Name read from the bridge:name tag of way 20944661; span derived by projecting its ways (way/20944661 way/20944678) onto the leg's archived road, rescaled to leg miles (over the length bar, 3320 ft); water derived from a waterway or coastline the bridge ways cross. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          }
+        ]
       },
       "rerouted": true
     },
@@ -36674,7 +36812,19 @@
           "name": "level",
           "sections": 0,
           "source": "DERIVED, not read: Canada has no national inventory like HPMS, so the class is the terrain the leg's own grade profile spends the most miles in (the reroute-enrich rule: sustained grade of 5 percent, or 4 percent with 1,000 ft of relief within 5 miles, is mountain; 1.5 percent or 400 ft of relief is hills; else flat), mapped flat to level, hills to rolling and mountain to mountainous. It reads the same elevation as the grade, so it is no independent check on it."
-        }
+        },
+        "bridges": [
+          {
+            "from_mi": 6.669,
+            "to_mi": 7.369,
+            "name": "Pont Pierre-Laporte",
+            "over": "St. Lawrence River",
+            "water": true,
+            "curated": true,
+            "osm": "way/157685069 way/157685071",
+            "source": "Name read from the curated sheet (Minist\u00e8re des Transports du Qu\u00e9bec, pont Pierre-Laporte); span derived by projecting its ways (way/157685069 way/157685071) onto the leg's archived road, rescaled to leg miles (curated, 3678 ft); what it spans read from the curated sheet. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          }
+        ]
       },
       "rerouted": true
     },
@@ -38420,7 +38570,19 @@
           "name": "level",
           "sections": 0,
           "source": "DERIVED, not read: Canada has no national inventory like HPMS, so the class is the terrain the leg's own grade profile spends the most miles in (the reroute-enrich rule: sustained grade of 5 percent, or 4 percent with 1,000 ft of relief within 5 miles, is mountain; 1.5 percent or 400 ft of relief is hills; else flat), mapped flat to level, hills to rolling and mountain to mountainous. It reads the same elevation as the grade, so it is no independent check on it."
-        }
+        },
+        "bridges": [
+          {
+            "from_mi": 6.629,
+            "to_mi": 7.326,
+            "name": "Pont Pierre-Laporte",
+            "over": "St. Lawrence River",
+            "water": true,
+            "curated": true,
+            "osm": "way/157685069 way/157685071",
+            "source": "Name read from the curated sheet (Minist\u00e8re des Transports du Qu\u00e9bec, pont Pierre-Laporte); span derived by projecting its ways (way/157685069 way/157685071) onto the leg's archived road, rescaled to leg miles (curated, 3678 ft); what it spans read from the curated sheet. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          }
+        ]
       },
       "rerouted": true
     },
@@ -44840,7 +45002,19 @@
           "name": "level",
           "sections": 0,
           "source": "DERIVED, not read: Canada has no national inventory like HPMS, so the class is the terrain the leg's own grade profile spends the most miles in (the reroute-enrich rule: sustained grade of 5 percent, or 4 percent with 1,000 ft of relief within 5 miles, is mountain; 1.5 percent or 400 ft of relief is hills; else flat), mapped flat to level, hills to rolling and mountain to mountainous. It reads the same elevation as the grade, so it is no independent check on it."
-        }
+        },
+        "bridges": [
+          {
+            "from_mi": 120.92,
+            "to_mi": 121.628,
+            "name": "Pont Pierre-Laporte",
+            "over": "St. Lawrence River",
+            "water": true,
+            "curated": true,
+            "osm": "way/157685069 way/157685071",
+            "source": "Name read from the curated sheet (Minist\u00e8re des Transports du Qu\u00e9bec, pont Pierre-Laporte); span derived by projecting its ways (way/157685069 way/157685071) onto the leg's archived road, rescaled to leg miles (curated, 3724 ft); what it spans read from the curated sheet. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          }
+        ]
       },
       "rerouted": true
     },
@@ -48638,6 +48812,17 @@
             "to_mi": 55.5,
             "name": "R\u00e9serve \u00e9cologique Marcelle-Gauvreau",
             "source": "derived 2026-11-22: OpenStreetMap protected-area polygon (R\u00e9serve \u00e9cologique Marcelle-Gauvreau) boundary from the planet extract of 2026-11-16 (corridor-5-east-places.md); the stretch of the leg's archived route inside the park or protected area or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on); widened to the one-mile minimum"
+          }
+        ],
+        "bridges": [
+          {
+            "from_mi": 0.394,
+            "to_mi": 1.181,
+            "name": "Pont Dubuc",
+            "over": "Rivi\u00e8re Saguenay",
+            "water": true,
+            "osm": "way/49549867 way/49827422 way/252486247 way/252486249 way/1387995413 way/1387995420 way/1387995465",
+            "source": "Name read from the name of way 49549867, a bridge's name; span derived by projecting its ways (way/49549867 way/49827422 way/252486247 way/252486249 way/1387995413 way/1387995420 way/1387995465) onto the leg's archived road, rescaled to leg miles (over the length bar, 4144 ft); water derived from a waterway or coastline the bridge ways cross. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           }
         ]
       },
@@ -55180,7 +55365,19 @@
           "name": "level",
           "sections": 0,
           "source": "DERIVED, not read: Canada has no national inventory like HPMS, so the class is the terrain the leg's own grade profile spends the most miles in (the reroute-enrich rule: sustained grade of 5 percent, or 4 percent with 1,000 ft of relief within 5 miles, is mountain; 1.5 percent or 400 ft of relief is hills; else flat), mapped flat to level, hills to rolling and mountain to mountainous. It reads the same elevation as the grade, so it is no independent check on it."
-        }
+        },
+        "bridges": [
+          {
+            "from_mi": 22.573,
+            "to_mi": 24.699,
+            "name": "Pont Samuel-De Champlain",
+            "over": "St. Lawrence River",
+            "water": true,
+            "curated": true,
+            "osm": "way/646417293 way/646417301 way/646417307 way/646417311 way/881166613 way/881166614 way/1074359238 way/1074359239 way/1074359240 way/1074359241 way/1074359242 way/1074359243 way/1074359244 way/1074359245 way/1074363142 way/1074363150 way/1117629584 way/1167537371 way/1167537372 way/1364137850",
+            "source": "Name read from the curated sheet (Infrastructure Canada and Jacques Cartier and Champlain Bridges Inc., Pont Samuel-De Champlain (signed name, as Quebec names are spoken)); span derived by projecting its ways (way/646417293 way/646417301 way/646417307 way/646417311 way/881166613 way/881166614 way/1074359238 way/1074359239 way/1074359240 way/1074359241 way/1074359242 way/1074359243 way/1074359244 way/1074359245 way/1074363142 way/1074363150 way/1117629584 way/1167537371 way/1167537372 way/1364137850) onto the leg's archived road, rescaled to leg miles (curated, 11374 ft); what it spans read from the curated sheet. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          }
+        ]
       },
       "rerouted": true
     },
@@ -60529,7 +60726,19 @@
           "name": "level",
           "sections": 0,
           "source": "DERIVED, not read: Canada has no national inventory like HPMS, so the class is the terrain the leg's own grade profile spends the most miles in (the reroute-enrich rule: sustained grade of 5 percent, or 4 percent with 1,000 ft of relief within 5 miles, is mountain; 1.5 percent or 400 ft of relief is hills; else flat), mapped flat to level, hills to rolling and mountain to mountainous. It reads the same elevation as the grade, so it is no independent check on it."
-        }
+        },
+        "bridges": [
+          {
+            "from_mi": 91.494,
+            "to_mi": 93.651,
+            "name": "Pont Samuel-De Champlain",
+            "over": "St. Lawrence River",
+            "water": true,
+            "curated": true,
+            "osm": "way/646417293 way/646417301 way/646417307 way/646417311 way/881166613 way/881166614 way/1074359238 way/1074359239 way/1074359240 way/1074359241 way/1074359242 way/1074359243 way/1074359244 way/1074359245 way/1074363142 way/1074363150 way/1117629584 way/1167537371 way/1167537372 way/1364137850",
+            "source": "Name read from the curated sheet (Infrastructure Canada and Jacques Cartier and Champlain Bridges Inc., Pont Samuel-De Champlain (signed name, as Quebec names are spoken)); span derived by projecting its ways (way/646417293 way/646417301 way/646417307 way/646417311 way/881166613 way/881166614 way/1074359238 way/1074359239 way/1074359240 way/1074359241 way/1074359242 way/1074359243 way/1074359244 way/1074359245 way/1074363142 way/1074363150 way/1117629584 way/1167537371 way/1167537372 way/1364137850) onto the leg's archived road, rescaled to leg miles (curated, 11374 ft); what it spans read from the curated sheet. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          }
+        ]
       },
       "route_via": [
         {
@@ -63595,7 +63804,19 @@
           "name": "level",
           "sections": 0,
           "source": "DERIVED, not read: Canada has no national inventory like HPMS, so the class is the terrain the leg's own grade profile spends the most miles in (the reroute-enrich rule: sustained grade of 5 percent, or 4 percent with 1,000 ft of relief within 5 miles, is mountain; 1.5 percent or 400 ft of relief is hills; else flat), mapped flat to level, hills to rolling and mountain to mountainous. It reads the same elevation as the grade, so it is no independent check on it."
-        }
+        },
+        "bridges": [
+          {
+            "from_mi": 4.521,
+            "to_mi": 6.212,
+            "name": "Pont Laviolette",
+            "over": "St. Lawrence River",
+            "water": true,
+            "curated": true,
+            "osm": "way/84720759 way/84720761",
+            "source": "Name read from the curated sheet (Minist\u00e8re des Transports du Qu\u00e9bec, pont Laviolette); span derived by projecting its ways (way/84720759 way/84720761) onto the leg's archived road, rescaled to leg miles (curated, 8886 ft); what it spans read from the curated sheet. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          }
+        ]
       },
       "rerouted": true
     },
@@ -65180,7 +65401,36 @@
           "name": "level",
           "sections": 0,
           "source": "DERIVED, not read: Canada has no national inventory like HPMS, so the class is the terrain the leg's own grade profile spends the most miles in (the reroute-enrich rule: sustained grade of 5 percent, or 4 percent with 1,000 ft of relief within 5 miles, is mountain; 1.5 percent or 400 ft of relief is hills; else flat), mapped flat to level, hills to rolling and mountain to mountainous. It reads the same elevation as the grade, so it is no independent check on it."
-        }
+        },
+        "bridges": [
+          {
+            "from_mi": 69.866,
+            "to_mi": 70.493,
+            "name": "Pont Charles-De-Gaulle",
+            "over": "Rivi\u00e8re des Prairies",
+            "water": true,
+            "osm": "way/20944661 way/20944678",
+            "source": "Name read from the bridge:name tag of way 20944661; span derived by projecting its ways (way/20944661 way/20944678) onto the leg's archived road, rescaled to leg miles (over the length bar, 3320 ft); water derived from a waterway or coastline the bridge ways cross. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "from_mi": 82.065,
+            "to_mi": 83.054,
+            "name": "Pont-Tunnel Louis-Hippolyte-Lafontaine",
+            "water": true,
+            "osm": "way/40500244 way/40553918 way/1201804747 way/1201809691 way/1201810995 way/1381465396 way/1384816060 way/1384816062",
+            "source": "Name read from the bridge:name tag of way 40500244; span derived by projecting its ways (way/40500244 way/40553918 way/1201804747 way/1201809691 way/1201810995 way/1381465396 way/1384816060 way/1384816062) onto the leg's archived road, rescaled to leg miles (over the length bar, 5234 ft); water derived from a waterway or coastline the bridge ways cross. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "from_mi": 92.513,
+            "to_mi": 94.664,
+            "name": "Pont Samuel-De Champlain",
+            "over": "St. Lawrence River",
+            "water": true,
+            "curated": true,
+            "osm": "way/646417293 way/646417301 way/646417307 way/646417311 way/881166613 way/881166614 way/1074359238 way/1074359239 way/1074359240 way/1074359241 way/1074359242 way/1074359243 way/1074359244 way/1074359245 way/1074363142 way/1074363150 way/1117629584 way/1167537371 way/1167537372 way/1364137850",
+            "source": "Name read from the curated sheet (Infrastructure Canada and Jacques Cartier and Champlain Bridges Inc., Pont Samuel-De Champlain (signed name, as Quebec names are spoken)); span derived by projecting its ways (way/646417293 way/646417301 way/646417307 way/646417311 way/881166613 way/881166614 way/1074359238 way/1074359239 way/1074359240 way/1074359241 way/1074359242 way/1074359243 way/1074359244 way/1074359245 way/1074363142 way/1074363150 way/1117629584 way/1167537371 way/1167537372 way/1364137850) onto the leg's archived road, rescaled to leg miles (curated, 11379 ft); what it spans read from the curated sheet. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          }
+        ]
       },
       "rerouted": true
     },

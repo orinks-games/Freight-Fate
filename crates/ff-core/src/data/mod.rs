@@ -7,6 +7,7 @@ pub mod billboards;
 pub mod billboards_dynamic;
 pub mod border_yards;
 pub mod branded_plazas;
+pub mod bridges;
 pub mod buffs;
 pub mod climate;
 pub mod corners;

@@ -32276,13 +32276,6 @@
             ]
           },
           {
-            "name": "Entering the Chesapeake Bay Bridge-Tunnel",
-            "category": "highway_marker",
-            "kind": "point",
-            "at_mi": 10.5,
-            "spoken": "Entering the Chesapeake Bay Bridge-Tunnel"
-          },
-          {
             "name": "Passing Sea Gull Island, the only pull-off on the crossing",
             "category": "highway_marker",
             "kind": "point",
@@ -32607,7 +32600,47 @@
             "deck_read_share": 0.842,
             "deck_source": "National Bridge Inventory, NTAD feature service (Bureau of Transportation Statistics, https://services.arcgis.com/xOi1kZaI0eWDREZv/arcgis/rest/services/NTAD_National_Bridge_Inventory/FeatureServer/0), accessed 2026-11-22; codes per the FHWA Recording and Coding Guide for the Structure Inventory and Appraisal of the Nation's Bridges (1995, https://www.fhwa.dot.gov/bridge/mtguide.pdf): Item 5A record type (page 2), Item 43B structure type (page 24), Items 45, 48 and 49 spans and lengths (pages 26 to 28), Item 107 deck structure type and Item 108A wearing surface (page 70). A structure's deck= is READ: open_grating is Item 107 code 3; concrete is 107 code 1 or 2 under 108A 0 to 4; asphalt is 108A code 6; other is anything else. Which record belongs to which structure is DERIVED: a record carried on the structure whose point projects within 60 m of the archived road, inside the structure or within 0.02 mi of its ends, with an Item 49 length within 0.05 mi of the structure's measured span; the best length fit wins, then the nearer point. nbi= is the record's state FIPS and structure number. grate=from:to on a movable open grating (43B 15, 16 or 17) is DERIVED: Item 45 spans times Item 48, centred on the structure (NBI's point may be the bridge's beginning, Item 16, page 8), clipped to it. A structure with no tag matched no record."
           }
-        }
+        },
+        "bridges": [
+          {
+            "from_mi": 12.413,
+            "to_mi": 15.714,
+            "name": "Chesapeake Bay Bridge-Tunnel",
+            "water": true,
+            "ways": "forward",
+            "osm": "way/20663127 way/228132354 way/1257303450 way/1257303451 way/1257303453 way/1257303454 way/1257303457",
+            "source": "Name read from the name of way 20663127, a bridge's name; span derived by projecting its ways (way/20663127 way/228132354 way/1257303450 way/1257303451 way/1257303453 way/1257303454 way/1257303457) onto the leg's archived road, rescaled to leg miles (over the length bar, 17625 ft); water derived from a waterway or coastline the bridge ways cross. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "from_mi": 17.249,
+            "to_mi": 17.892,
+            "name": "Chesapeake Bay Bridge-Tunnel",
+            "over": "North Thimble Island",
+            "water": true,
+            "ways": "reverse",
+            "osm": "way/90583874 way/228132355 way/228132357 way/1257303446 way/1257303447 way/1257303448 way/1257303449",
+            "source": "Name read from the name of way 20663127, a bridge's name; span derived by projecting its ways (way/90583874 way/228132355 way/228132357 way/1257303446 way/1257303447 way/1257303448 way/1257303449) onto the leg's archived road, rescaled to leg miles (over the length bar, 3436 ft); water derived from a waterway or coastline the bridge ways cross. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "from_mi": 17.25,
+            "to_mi": 20.958,
+            "name": "Chesapeake Bay Bridge-Tunnel",
+            "over": "North Thimble Island",
+            "water": true,
+            "ways": "forward",
+            "osm": "way/90583874 way/228132355 way/228132357 way/228132361 way/1257303444 way/1257303446 way/1257303447 way/1257303448 way/1257303449",
+            "source": "Name read from the name of way 20663127, a bridge's name; span derived by projecting its ways (way/90583874 way/228132355 way/228132357 way/228132361 way/1257303444 way/1257303446 way/1257303447 way/1257303448 way/1257303449) onto the leg's archived road, rescaled to leg miles (over the length bar, 19797 ft); water derived from a waterway or coastline the bridge ways cross. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "from_mi": 22.537,
+            "to_mi": 27.919,
+            "name": "North Channel Bridge",
+            "water": true,
+            "ways": "forward",
+            "osm": "way/228132363 way/228132364 way/1257303436 way/1257303437 way/1257303438 way/1257303439 way/1257303440 way/1257303441 way/1257303442",
+            "source": "Name read from the bridge:name tag of way 228132363; span derived by projecting its ways (way/228132363 way/228132364 way/1257303436 way/1257303437 way/1257303438 way/1257303439 way/1257303440 way/1257303441 way/1257303442) onto the leg's archived road, rescaled to leg miles (over the length bar, 28741 ft); water derived from a waterway or coastline the bridge ways cross. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          }
+        ]
       },
       "stops": [
         {
@@ -55901,7 +55934,16 @@
             "deck_read_share": 0.979,
             "deck_source": "National Bridge Inventory, NTAD feature service (Bureau of Transportation Statistics, https://services.arcgis.com/xOi1kZaI0eWDREZv/arcgis/rest/services/NTAD_National_Bridge_Inventory/FeatureServer/0), accessed 2026-11-22; codes per the FHWA Recording and Coding Guide for the Structure Inventory and Appraisal of the Nation's Bridges (1995, https://www.fhwa.dot.gov/bridge/mtguide.pdf): Item 5A record type (page 2), Item 43B structure type (page 24), Items 45, 48 and 49 spans and lengths (pages 26 to 28), Item 107 deck structure type and Item 108A wearing surface (page 70). A structure's deck= is READ: open_grating is Item 107 code 3; concrete is 107 code 1 or 2 under 108A 0 to 4; asphalt is 108A code 6; other is anything else. Which record belongs to which structure is DERIVED: a record carried on the structure whose point projects within 60 m of the archived road, inside the structure or within 0.02 mi of its ends, with an Item 49 length within 0.05 mi of the structure's measured span; the best length fit wins, then the nearer point. nbi= is the record's state FIPS and structure number. grate=from:to on a movable open grating (43B 15, 16 or 17) is DERIVED: Item 45 spans times Item 48, centred on the structure (NBI's point may be the bridge's beginning, Item 16, page 8), clipped to it. A structure with no tag matched no record."
           }
-        }
+        },
+        "bridges": [
+          {
+            "from_mi": 80.624,
+            "to_mi": 81.757,
+            "name": "Hampton Roads Bridge-Tunnel",
+            "osm": "way/20608634 way/38241453 way/38241454",
+            "source": "Name read from the bridge:name tag of way 20608634; span derived by projecting its ways (way/20608634 way/38241453 way/38241454) onto the leg's archived road, rescaled to leg miles (over the length bar, 5983 ft); no waterway or coastline found under it (assumed dry). OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          }
+        ]
       },
       "stops": [
         {

@@ -1794,7 +1794,19 @@
           "name": "rolling",
           "sections": 0,
           "source": "DERIVED, not read: Canada has no national inventory like HPMS, so the class is the terrain the leg's own grade profile spends the most miles in (the reroute-enrich rule: sustained grade of 5 percent, or 4 percent with 1,000 ft of relief within 5 miles, is mountain; 1.5 percent or 400 ft of relief is hills; else flat), mapped flat to level, hills to rolling and mountain to mountainous. It reads the same elevation as the grade, so it is no independent check on it."
-        }
+        },
+        "bridges": [
+          {
+            "from_mi": 0.514,
+            "to_mi": 0.653,
+            "name": "Yukon River Bridge",
+            "over": "Yukon River",
+            "water": true,
+            "curated": true,
+            "osm": "way/264403924",
+            "source": "Name read from the curated sheet (Yukon Highways and Public Works, Yukon River bridge at Carmacks (North Klondike Highway); the way carries no bridge name in OpenStreetMap); span derived by projecting its ways (way/264403924) onto the leg's archived road, rescaled to leg miles (curated, 730 ft); what it spans read from the curated sheet. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          }
+        ]
       },
       "rerouted": true
     },
@@ -4788,7 +4800,19 @@
           "name": "rolling",
           "sections": 0,
           "source": "DERIVED, not read: Canada has no national inventory like HPMS, so the class is the terrain the leg's own grade profile spends the most miles in (the reroute-enrich rule: sustained grade of 5 percent, or 4 percent with 1,000 ft of relief within 5 miles, is mountain; 1.5 percent or 400 ft of relief is hills; else flat), mapped flat to level, hills to rolling and mountain to mountainous. It reads the same elevation as the grade, so it is no independent check on it."
-        }
+        },
+        "bridges": [
+          {
+            "from_mi": 218.347,
+            "to_mi": 218.486,
+            "name": "Yukon River Bridge",
+            "over": "Yukon River",
+            "water": true,
+            "curated": true,
+            "osm": "way/264403924",
+            "source": "Name read from the curated sheet (Yukon Highways and Public Works, Yukon River bridge at Carmacks (North Klondike Highway); the way carries no bridge name in OpenStreetMap); span derived by projecting its ways (way/264403924) onto the leg's archived road, rescaled to leg miles (curated, 730 ft); what it spans read from the curated sheet. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          }
+        ]
       },
       "rerouted": true
     },
@@ -14764,6 +14788,18 @@
             "to_mi": 246.0,
             "name": "Northern Rocky Mountains Protected Area",
             "source": "derived 2026-11-22: OpenStreetMap relation 2226565 (Northern Rocky Mountains Protected Area) boundary from the OSM API; the stretch of the leg's archived route inside the park or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
+          }
+        ],
+        "bridges": [
+          {
+            "from_mi": 130.2,
+            "to_mi": 130.415,
+            "name": "Liard River Bridge",
+            "over": "Liard River",
+            "water": true,
+            "curated": true,
+            "osm": "way/28808309",
+            "source": "Name read from the curated sheet (BC Ministry of Transportation and Infrastructure, Liard River suspension bridge (Alaska Highway, km 765); the way carries no bridge name in OpenStreetMap); span derived by projecting its ways (way/28808309) onto the leg's archived road, rescaled to leg miles (curated, 1127 ft); what it spans read from the curated sheet. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           }
         ]
       },

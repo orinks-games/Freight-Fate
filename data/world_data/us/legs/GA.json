@@ -42803,7 +42803,18 @@
             "deck_read_share": 0.831,
             "deck_source": "National Bridge Inventory, NTAD feature service (Bureau of Transportation Statistics, https://services.arcgis.com/xOi1kZaI0eWDREZv/arcgis/rest/services/NTAD_National_Bridge_Inventory/FeatureServer/0), accessed 2026-11-22; codes per the FHWA Recording and Coding Guide for the Structure Inventory and Appraisal of the Nation's Bridges (1995, https://www.fhwa.dot.gov/bridge/mtguide.pdf): Item 5A record type (page 2), Item 43B structure type (page 24), Items 45, 48 and 49 spans and lengths (pages 26 to 28), Item 107 deck structure type and Item 108A wearing surface (page 70). A structure's deck= is READ: open_grating is Item 107 code 3; concrete is 107 code 1 or 2 under 108A 0 to 4; asphalt is 108A code 6; other is anything else. Which record belongs to which structure is DERIVED: a record carried on the structure whose point projects within 60 m of the archived road, inside the structure or within 0.02 mi of its ends, with an Item 49 length within 0.05 mi of the structure's measured span; the best length fit wins, then the nearer point. nbi= is the record's state FIPS and structure number. grate=from:to on a movable open grating (43B 15, 16 or 17) is DERIVED: Item 45 spans times Item 48, centred on the structure (NBI's point may be the bridge's beginning, Item 16, page 8), clipped to it. A structure with no tag matched no record."
           }
-        }
+        },
+        "bridges": [
+          {
+            "from_mi": 427.109,
+            "to_mi": 427.808,
+            "name": "Vicksburg Bridge",
+            "over": "Mississippi River",
+            "water": true,
+            "osm": "way/27884167 way/118154057 way/172808840 way/172808841",
+            "source": "Name read from the name of way 27884167, a bridge's name; span derived by projecting its ways (way/27884167 way/118154057 way/172808840 way/172808841) onto the leg's archived road, rescaled to leg miles (over the length bar, 3706 ft); water derived from a waterway or coastline the bridge ways cross. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          }
+        ]
       },
       "stops": [
         {
@@ -116424,7 +116435,36 @@
             "deck_read_share": 0.533,
             "deck_source": "National Bridge Inventory, NTAD feature service (Bureau of Transportation Statistics, https://services.arcgis.com/xOi1kZaI0eWDREZv/arcgis/rest/services/NTAD_National_Bridge_Inventory/FeatureServer/0), accessed 2026-11-22; codes per the FHWA Recording and Coding Guide for the Structure Inventory and Appraisal of the Nation's Bridges (1995, https://www.fhwa.dot.gov/bridge/mtguide.pdf): Item 5A record type (page 2), Item 43B structure type (page 24), Items 45, 48 and 49 spans and lengths (pages 26 to 28), Item 107 deck structure type and Item 108A wearing surface (page 70). A structure's deck= is READ: open_grating is Item 107 code 3; concrete is 107 code 1 or 2 under 108A 0 to 4; asphalt is 108A code 6; other is anything else. Which record belongs to which structure is DERIVED: a record carried on the structure whose point projects within 60 m of the archived road, inside the structure or within 0.02 mi of its ends, with an Item 49 length within 0.05 mi of the structure's measured span; the best length fit wins, then the nearer point. nbi= is the record's state FIPS and structure number. grate=from:to on a movable open grating (43B 15, 16 or 17) is DERIVED: Item 45 spans times Item 48, centred on the structure (NBI's point may be the bridge's beginning, Item 16, page 8), clipped to it. A structure with no tag matched no record."
           }
-        }
+        },
+        "bridges": [
+          {
+            "from_mi": 1.111,
+            "to_mi": 2.064,
+            "name": "Talmadge Memorial Bridge",
+            "over": "Savannah River",
+            "water": true,
+            "osm": "way/539942018 way/817934532",
+            "source": "Name read from the bridge:name tag of way 539942018; span derived by projecting its ways (way/539942018 way/817934532) onto the leg's archived road, rescaled to leg miles (over the length bar, 5043 ft); water derived from a waterway or coastline the bridge ways cross. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "from_mi": 2.394,
+            "to_mi": 3.021,
+            "name": "Eugene Talmadge Memorial Bridge",
+            "over": "Little Back River",
+            "water": true,
+            "osm": "way/430114713 way/1524924981",
+            "source": "Name read from the name of way 430114713, a bridge's name; span derived by projecting its ways (way/430114713 way/1524924981) onto the leg's archived road, rescaled to leg miles (over the length bar, 3316 ft); water derived from a waterway or coastline the bridge ways cross. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "from_mi": 110.248,
+            "to_mi": 111.106,
+            "name": "William James Gooding Bridge",
+            "over": "Santee River",
+            "water": true,
+            "osm": "way/157635757 way/172255814",
+            "source": "Name read from the name of bridge outline way 1272141289; span derived by projecting its ways (way/157635757 way/172255814) onto the leg's archived road, rescaled to leg miles (over the length bar, 4541 ft); water derived from a waterway or coastline the bridge ways cross. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          }
+        ]
       },
       "stops": [
         {

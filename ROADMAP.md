@@ -101,6 +101,7 @@ bookmarks usable.
 - [ ] (Found along the way) Florida and Georgia roads (2026-11-22): billboards for the new legs, four tolls still unpriced, and seventeen long legs with no stop a tractor-trailer can use. Detail under "Florida and Georgia roads".
 - [ ] (Found along the way) Alabama, Mississippi and South Carolina roads (2026-11-23): billboards for the new legs, Grenada to Oxford off MS 7 for two posted bridges, and long legs with no stop a tractor-trailer can use. Detail under "Alabama, Mississippi and South Carolina roads".
 - [ ] (Found along the way) A whole-map run of the new layer builders (2026-11-05, dry run) would change most legs: lane counts and landmarks mostly by their source notes, villages by about 160 places, and low clearances from 118 legs to 543, mostly real posted bridges under 16 feet in the Northeast. Decide whether to apply it. The low clearances need no listening pass: the GPS no longer speaks them (2026-11-22).
+- [ ] (Found along the way, 2026-11-23) Cape Charles to Norfolk lacks bridge water sound across most of the Chesapeake crossing: the reverse leg has only a short Chesapeake Bay Bridge-Tunnel span, while the remaining catalogued spans are forward-only. Verify reverse spans from a current source before adding positions; do not copy forward offsets.
 - [ ] (Found along the way) The terrain class reads at most 800 HPMS sections per leg, so a long leg is judged on whichever 800 the server returns first: Harrisburg to Pittsburgh across the Alleghenies reads level. Count every section in the leg's own corridor instead.
 - [x] (Found along the way) What the road is made of, and where it leaves the ground, is on the map (2026-11-20; the owner asked whether pavement data could make the planned road seams accurate). `cargo tools hpms-pavement` reads FHWA HPMS surface type and bridges, tunnels and causeways along every leg's archived road, each way; the road seams and bridge joints use it. Coverage and method: [November 20](#november-20-pavement-and-structures-from-hpms-found-along-the-way).
 - [x] (Found along the way) The road seams follow the pavement layer (2026-11-20): seams on jointed concrete by faulting class, softer ones on asphalt over jointed concrete, bridge joints at the ends of bridges and causeways of 0.05 mile and more, and the made-up stretches only where a leg has no reading. Detail: [November 20](#november-20-seams-and-joints-from-the-pavement-layer-found-along-the-way).
@@ -6580,6 +6581,44 @@ a carrier slice (owner, 2026-10-26).
       highways; its ordinary highways license commercial boards. A per-leg
       law would let a pool line stand on those.
 
+### Named bridges (November 22)
+
+- [x] Big bridges on the map by name (2026-11-22): `corridor.bridges`,
+      built by `cargo tools osm-bridges` from the 2026-11-16 planet and the
+      curated sheet in `docs/bridges/curated.json` (27 border, Canadian,
+      Alaska and Keys bridges with citations). The 2026-11-23 targeted
+      reconstruction leaves 353 bridge records on 239 legs, 332 marked as
+      over water (some inherited associations are not reverified). The truck
+      says "Crossing the X Bridge." once as it
+      drives onto one (the rivers and bridges chatter switch), hears joints
+      at each end and the river bed for the bridge's real length, and the
+      river's own line gives way inside the span. One name per 5 route
+      miles, the longer bridge keeping it; a toll that names the bridge
+      within 3 miles before (or on it, or a mile past) speaks for it, so
+      the tolled border bridges and the Confederation Bridge leaving the
+      island are named by their toll. The bar for an uncurated bridge is
+      3,000 feet, calibrated on the sheet (no US or Canadian standard
+      defines a major bridge by total length). The Seven Mile Bridge and
+      Alexandra Bridge landmark lines moved into the layer. A bridge the
+      pavement layer measured for less than half its length takes its own
+      joints at its real ends; the I-90 floating bridges each name only
+      the direction they carry.
+- (Found along the way, 2026-11-23) The current-base reroute check carries no
+  span for Peoria–Springfield / Murray Baker (the nearest OSM carrier vertex
+  is 317.6 m from the archive) or Lafayette–Baton Rouge / Atchafalaya Basin
+  (one vertex on each carrier is 80.2 m and 83.8 m away, beyond the unchanged
+  80 m gate). Verified spans on other routes remain.
+- [ ] (Found along the way) Water under a bridge is read from river,
+      canal, tidal channel and coastline lines only, so a bridge over a
+      lake or bay (Nisutlin Bay, the W. R. Bennett floating bridge) plays
+      no water unless the sheet says so. Reading `natural=water` areas
+      would catch them.
+- [ ] (Found along the way) No leg drives the Seaway International,
+      Ogdensburg-Prescott, Baudette-Rainy River, International
+      Falls-Fort Frances, Ambassador, Peace, Alex Fraser or Angus L.
+      Macdonald bridges, so they are not on the sheet; a leg over any of
+      them gets its bridge from the next `osm-bridges` run.
+
 ### South Jersey roads (missing roads brief 1, November 22)
 
 - [x] Carneys Point and Cape May are cities. Carneys Point has the
@@ -7404,6 +7443,11 @@ truck do the wrong thing on a drive.
 Open work found during the 1.9 gate that does not cost the drive, moved
 here 2026-09-25. Details stay in the linked dated sections.
 
+- [ ] Bridge coverage: Peoria–Springfield / Murray Baker has no verified
+      projection (the current archive is at least 317.6 m from its OSM
+      carriers); Lafayette–Baton Rouge / Atchafalaya Basin fails the 80 m
+      alignment gate (one vertex on each carrier is 80.2 m and 83.8 m away)
+      ([named bridges](#named-bridges-november-22)).
 - [ ] Per-exit ramp grade: past the deceleration lane a ramp is assumed
       level ([September 24](#september-24-realistic-interstate-exit)).
 - [ ] A lane change is called a sideswipe when a vehicle in the new lane is

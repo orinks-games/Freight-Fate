@@ -3330,7 +3330,19 @@
           "name": "level",
           "sections": 0,
           "source": "DERIVED, not read: Canada has no national inventory like HPMS, so the class is the terrain the leg's own grade profile spends the most miles in (the reroute-enrich rule: sustained grade of 5 percent, or 4 percent with 1,000 ft of relief within 5 miles, is mountain; 1.5 percent or 400 ft of relief is hills; else flat), mapped flat to level, hills to rolling and mountain to mountainous. It reads the same elevation as the grade, so it is no independent check on it."
-        }
+        },
+        "bridges": [
+          {
+            "from_mi": 28.231,
+            "to_mi": 29.521,
+            "name": "Port Mann Bridge",
+            "over": "Fraser River",
+            "water": true,
+            "curated": true,
+            "osm": "way/190721968 way/191165108 way/270786062 way/270786069 way/467057285 way/567004145",
+            "source": "Name read from the curated sheet (BC Ministry of Transportation and Infrastructure, Port Mann Bridge (Highway 1)); span derived by projecting its ways (way/190721968 way/191165108 way/270786062 way/270786069 way/467057285 way/567004145) onto the leg's archived road, rescaled to leg miles (curated, 6761 ft); what it spans read from the curated sheet. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          }
+        ]
       },
       "source": "Career 2.0 western Canada corridor (canada-network.md corridor 1), first pass built 2026-11-22 with cargo tools over the OpenStreetMap planet file of 2026-11-16.",
       "rerouted": true
@@ -5037,6 +5049,18 @@
             "to_mi": 109.55,
             "name": "Emory Creek Provincial Park",
             "source": "derived 2026-11-22: OpenStreetMap relation 14990252 (Emory Creek Provincial Park) boundary from the OSM API; the stretch of the leg's archived route inside the park or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on); widened to the one-mile minimum"
+          }
+        ],
+        "bridges": [
+          {
+            "from_mi": 92.418,
+            "to_mi": 92.721,
+            "name": "Alexandra Bridge",
+            "over": "Fraser River",
+            "water": true,
+            "curated": true,
+            "osm": "way/30689318",
+            "source": "Name read from the curated sheet (BC Ministry of Transportation and Infrastructure, Alexandra Bridge (Trans-Canada Highway, 1962); was a hand-written roadside line); span derived by projecting its ways (way/30689318) onto the leg's archived road, rescaled to leg miles (curated, 1593 ft); what it spans read from the curated sheet. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           }
         ]
       },
@@ -20051,7 +20075,19 @@
           "name": "rolling",
           "sections": 0,
           "source": "DERIVED, not read: Canada has no national inventory like HPMS, so the class is the terrain the leg's own grade profile spends the most miles in (the reroute-enrich rule: sustained grade of 5 percent, or 4 percent with 1,000 ft of relief within 5 miles, is mountain; 1.5 percent or 400 ft of relief is hills; else flat), mapped flat to level, hills to rolling and mountain to mountainous. It reads the same elevation as the grade, so it is no independent check on it."
-        }
+        },
+        "bridges": [
+          {
+            "from_mi": 33.996,
+            "to_mi": 34.437,
+            "name": "Peace River Bridge",
+            "over": "Peace River",
+            "water": true,
+            "curated": true,
+            "osm": "way/28807775",
+            "source": "Name read from the curated sheet (BC Ministry of Transportation and Infrastructure, Peace River Bridge at Taylor (Alaska Highway)); span derived by projecting its ways (way/28807775) onto the leg's archived road, rescaled to leg miles (curated, 2334 ft); what it spans read from the curated sheet. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          }
+        ]
       },
       "rerouted": true
     },
@@ -32189,6 +32225,18 @@
             "name": "Portage Brule Rapids Protected Area",
             "source": "derived 2026-11-22: OpenStreetMap relation 2226680 (Portage Brule Rapids Protected Area) boundary from the OSM API; the stretch of the leg's archived route inside the park or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
           }
+        ],
+        "bridges": [
+          {
+            "from_mi": 188.565,
+            "to_mi": 188.779,
+            "name": "Liard River Bridge",
+            "over": "Liard River",
+            "water": true,
+            "curated": true,
+            "osm": "way/28808309",
+            "source": "Name read from the curated sheet (BC Ministry of Transportation and Infrastructure, Liard River suspension bridge (Alaska Highway, km 765); the way carries no bridge name in OpenStreetMap); span derived by projecting its ways (way/28808309) onto the leg's archived road, rescaled to leg miles (curated, 1127 ft); what it spans read from the curated sheet. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          }
         ]
       },
       "rerouted": true
@@ -32696,7 +32744,19 @@
           "name": "rolling",
           "sections": 0,
           "source": "DERIVED, not read: Canada has no national inventory like HPMS, so the class is the terrain the leg's own grade profile spends the most miles in (the reroute-enrich rule: sustained grade of 5 percent, or 4 percent with 1,000 ft of relief within 5 miles, is mountain; 1.5 percent or 400 ft of relief is hills; else flat), mapped flat to level, hills to rolling and mountain to mountainous. It reads the same elevation as the grade, so it is no independent check on it."
-        }
+        },
+        "bridges": [
+          {
+            "from_mi": 10.578,
+            "to_mi": 11.019,
+            "name": "Peace River Bridge",
+            "over": "Peace River",
+            "water": true,
+            "curated": true,
+            "osm": "way/28807775",
+            "source": "Name read from the curated sheet (BC Ministry of Transportation and Infrastructure, Peace River Bridge at Taylor (Alaska Highway)); span derived by projecting its ways (way/28807775) onto the leg's archived road, rescaled to leg miles (curated, 2334 ft); what it spans read from the curated sheet. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          }
+        ]
       },
       "rerouted": true
     },
@@ -41325,16 +41385,6 @@
             ]
           },
           {
-            "name": "Alexandra Bridge (Hope to Cache Creek)",
-            "category": "highway_marker",
-            "kind": "point",
-            "at_mi": 29.5,
-            "spoken": "Passing the old Alexandra Bridge.",
-            "directions": [
-              "forward"
-            ]
-          },
-          {
             "name": "Anderson River",
             "category": "river",
             "kind": "point",
@@ -41451,6 +41501,18 @@
             "to_mi": 105.05,
             "name": "Epsom Provincial Park",
             "source": "derived 2026-11-22: OpenStreetMap relation 2230703 (Epsom Provincial Park) boundary from the OSM API; the stretch of the leg's archived route inside the park or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on); widened to the one-mile minimum"
+          }
+        ],
+        "bridges": [
+          {
+            "from_mi": 29.349,
+            "to_mi": 29.651,
+            "name": "Alexandra Bridge",
+            "over": "Fraser River",
+            "water": true,
+            "curated": true,
+            "osm": "way/30689318",
+            "source": "Name read from the curated sheet (BC Ministry of Transportation and Infrastructure, Alexandra Bridge (Trans-Canada Highway, 1962); was a hand-written roadside line); span derived by projecting its ways (way/30689318) onto the leg's archived road, rescaled to leg miles (curated, 1593 ft); what it spans read from the curated sheet. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           }
         ]
       },
@@ -52282,6 +52344,15 @@
             "name": "Pennask Creek Provincial Park",
             "source": "derived 2026-11-22: OpenStreetMap relation 2230657 (Pennask Creek Provincial Park) boundary from the OSM API; the stretch of the leg's archived route inside the park or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
           }
+        ],
+        "bridges": [
+          {
+            "from_mi": 0.749,
+            "to_mi": 1.409,
+            "name": "William R. Bennett Bridge",
+            "osm": "way/5011652 way/100604760",
+            "source": "Name read from the name of way 5011652, a bridge's name; span derived by projecting its ways (way/5011652 way/100604760) onto the leg's archived road, rescaled to leg miles (over the length bar, 3488 ft); no waterway or coastline found under it (assumed dry). OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          }
         ]
       },
       "source": "Career 2.0 western Canada corridor (canada-network.md corridor 1), first pass built 2026-11-22 with cargo tools over the OpenStreetMap planet file of 2026-11-16.",
@@ -53035,6 +53106,15 @@
             "to_mi": 33.15,
             "name": "Sun-Oka Beach Provincial Park",
             "source": "derived 2026-11-22: OpenStreetMap relation 2229886 (Sun-Oka Beach Provincial Park) boundary from the OSM API; the stretch of the leg's archived route inside the park or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on); widened to the one-mile minimum"
+          }
+        ],
+        "bridges": [
+          {
+            "from_mi": 0.755,
+            "to_mi": 1.42,
+            "name": "William R. Bennett Bridge",
+            "osm": "way/5011652 way/100604760",
+            "source": "Name read from the name of way 5011652, a bridge's name; span derived by projecting its ways (way/5011652 way/100604760) onto the leg's archived road, rescaled to leg miles (over the length bar, 3488 ft); no waterway or coastline found under it (assumed dry). OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           }
         ]
       },
@@ -59706,6 +59786,15 @@
             "to_mi": 45.9,
             "name": "Pennask Creek Provincial Park",
             "source": "derived 2026-11-22: OpenStreetMap relation 2230657 (Pennask Creek Provincial Park) boundary from the OSM API; the stretch of the leg's archived route inside the park or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
+          }
+        ],
+        "bridges": [
+          {
+            "from_mi": 78.587,
+            "to_mi": 79.249,
+            "name": "William R. Bennett Bridge",
+            "osm": "way/5011652 way/100604760",
+            "source": "Name read from the name of way 5011652, a bridge's name; span derived by projecting its ways (way/5011652 way/100604760) onto the leg's archived road, rescaled to leg miles (over the length bar, 3489 ft); no waterway or coastline found under it (assumed dry). OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           }
         ]
       },
@@ -69007,6 +69096,15 @@
             "to_mi": 17.0,
             "name": "Okanagan Lake Provincial Park",
             "source": "derived 2026-11-22: OpenStreetMap relation 2229880 (Okanagan Lake Provincial Park) boundary from the OSM API; the stretch of the leg's archived route inside the park or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
+          }
+        ],
+        "bridges": [
+          {
+            "from_mi": 37.583,
+            "to_mi": 38.247,
+            "name": "William R. Bennett Bridge",
+            "osm": "way/5011652 way/100604760",
+            "source": "Name read from the name of way 5011652, a bridge's name; span derived by projecting its ways (way/5011652 way/100604760) onto the leg's archived road, rescaled to leg miles (over the length bar, 3489 ft); no waterway or coastline found under it (assumed dry). OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
           }
         ]
       },
@@ -90671,7 +90769,19 @@
           "name": "level",
           "sections": 0,
           "source": "DERIVED, not read: Canada has no national inventory like HPMS, so the class is the terrain the leg's own grade profile spends the most miles in (the reroute-enrich rule: sustained grade of 5 percent, or 4 percent with 1,000 ft of relief within 5 miles, is mountain; 1.5 percent or 400 ft of relief is hills; else flat), mapped flat to level, hills to rolling and mountain to mountainous. It reads the same elevation as the grade, so it is no independent check on it."
-        }
+        },
+        "bridges": [
+          {
+            "from_mi": 4.983,
+            "to_mi": 6.29,
+            "name": "Port Mann Bridge",
+            "over": "Fraser River",
+            "water": true,
+            "curated": true,
+            "osm": "way/190721968 way/191165108 way/270786062 way/270786069 way/467057285 way/567004145",
+            "source": "Name read from the curated sheet (BC Ministry of Transportation and Infrastructure, Port Mann Bridge (Highway 1)); span derived by projecting its ways (way/190721968 way/191165108 way/270786062 way/270786069 way/467057285 way/567004145) onto the leg's archived road, rescaled to leg miles (curated, 6761 ft); what it spans read from the curated sheet. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          }
+        ]
       },
       "source": "Career 2.0 western Canada corridor (canada-network.md corridor 1), first pass built 2026-11-22 with cargo tools over the OpenStreetMap planet file of 2026-11-16.",
       "rerouted": true
@@ -99858,7 +99968,19 @@
           "name": "level",
           "sections": 0,
           "source": "DERIVED, not read: Canada has no national inventory like HPMS, so the class is the terrain the leg's own grade profile spends the most miles in (the reroute-enrich rule: sustained grade of 5 percent, or 4 percent with 1,000 ft of relief within 5 miles, is mountain; 1.5 percent or 400 ft of relief is hills; else flat), mapped flat to level, hills to rolling and mountain to mountainous. It reads the same elevation as the grade, so it is no independent check on it."
-        }
+        },
+        "bridges": [
+          {
+            "from_mi": 16.501,
+            "to_mi": 17.784,
+            "name": "Port Mann Bridge",
+            "over": "Fraser River",
+            "water": true,
+            "curated": true,
+            "osm": "way/190721968 way/191165108 way/270786062 way/270786069 way/467057285 way/567004145",
+            "source": "Name read from the curated sheet (BC Ministry of Transportation and Infrastructure, Port Mann Bridge (Highway 1)); span derived by projecting its ways (way/190721968 way/191165108 way/270786062 way/270786069 way/467057285 way/567004145) onto the leg's archived road, rescaled to leg miles (curated, 6773 ft); what it spans read from the curated sheet. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          }
+        ]
       },
       "source": "Career 2.0 western Canada corridor (canada-network.md corridor 1), first pass built 2026-11-22 with cargo tools over the OpenStreetMap planet file of 2026-11-16.",
       "rerouted": true
@@ -100567,7 +100689,19 @@
           "name": "level",
           "sections": 0,
           "source": "DERIVED, not read: Canada has no national inventory like HPMS, so the class is the terrain the leg's own grade profile spends the most miles in (the reroute-enrich rule: sustained grade of 5 percent, or 4 percent with 1,000 ft of relief within 5 miles, is mountain; 1.5 percent or 400 ft of relief is hills; else flat), mapped flat to level, hills to rolling and mountain to mountainous. It reads the same elevation as the grade, so it is no independent check on it."
-        }
+        },
+        "bridges": [
+          {
+            "from_mi": 16.475,
+            "to_mi": 17.755,
+            "name": "Port Mann Bridge",
+            "over": "Fraser River",
+            "water": true,
+            "curated": true,
+            "osm": "way/190721968 way/191165108 way/270786062 way/270786069 way/467057285 way/567004145",
+            "source": "Name read from the curated sheet (BC Ministry of Transportation and Infrastructure, Port Mann Bridge (Highway 1)); span derived by projecting its ways (way/190721968 way/191165108 way/270786062 way/270786069 way/467057285 way/567004145) onto the leg's archived road, rescaled to leg miles (curated, 6773 ft); what it spans read from the curated sheet. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          }
+        ]
       },
       "source": "Career 2.0 western Canada corridor (canada-network.md corridor 1), first pass built 2026-11-22 with cargo tools over the OpenStreetMap planet file of 2026-11-16.",
       "rerouted": true

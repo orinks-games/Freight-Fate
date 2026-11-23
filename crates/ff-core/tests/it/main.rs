@@ -14,6 +14,7 @@
 //! binary each, which is what process-global state costs.
 
 mod data_support;
+mod sim_named_bridges;
 mod sim_support;
 
 mod carrier_slice3;

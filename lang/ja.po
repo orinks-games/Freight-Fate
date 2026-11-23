@@ -4405,6 +4405,24 @@ msgstr "トラベルストップ"
 msgid "truck"
 msgstr "トラック"
 
+#. placeholders: {from_city}, {to_city}
+msgid "{from_city} to {to_city} bridges must be a list"
+msgstr ""
+
+#. placeholders: {from_city}, {to_city}, {item}, {e}
+msgid "{from_city} to {to_city} bridge {item}: {e}"
+msgstr ""
+
+#. placeholders: {from_city}, {to_city}, {name}, {w}
+msgid ""
+"{from_city} to {to_city} bridge {name} holds for {w}, not both, forward or "
+"reverse"
+msgstr ""
+
+#. placeholders: {from_city}, {to_city}, {from_mi}
+msgid "{from_city} to {to_city} bridge at {from_mi} has no name"
+msgstr ""
+
 msgid "engine"
 msgstr "エンジン"
 
@@ -12047,6 +12065,14 @@ msgstr "停止中"
 
 msgid "holding"
 msgstr "holding"
+
+#. placeholders: {name}
+msgid "Crossing {name}."
+msgstr ""
+
+#. placeholders: {name}
+msgid "Crossing the {name}."
+msgstr ""
 
 msgid "up"
 msgstr "解放"
@@ -36569,11 +36595,11 @@ msgid ""
 msgstr "国立公園、国有林、その他の保護された公有地に入るときの案内です。"
 
 #. placeholders: {on_off}
-msgid "Speak river crossings: {on_off}"
-msgstr "川の横断を読み上げる：{on_off}"
+msgid "Speak rivers and bridges: {on_off}"
+msgstr "川と橋を読み上げる：{on_off}"
 
-msgid "Callouts crossing a named river."
-msgstr "名前のある川を渡るときの案内です。"
+msgid "Callouts crossing a named river or a big bridge."
+msgstr "名前のある川や大きな橋を渡るときの案内です。"
 
 #. placeholders: {on_off}
 msgid "Speak mountain passes: {on_off}"

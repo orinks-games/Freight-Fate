@@ -1467,7 +1467,17 @@
             "deck_read_share": 0.45,
             "deck_source": "National Bridge Inventory, NTAD feature service (Bureau of Transportation Statistics, https://services.arcgis.com/xOi1kZaI0eWDREZv/arcgis/rest/services/NTAD_National_Bridge_Inventory/FeatureServer/0), accessed 2026-11-22; codes per the FHWA Recording and Coding Guide for the Structure Inventory and Appraisal of the Nation's Bridges (1995, https://www.fhwa.dot.gov/bridge/mtguide.pdf): Item 5A record type (page 2), Item 43B structure type (page 24), Items 45, 48 and 49 spans and lengths (pages 26 to 28), Item 107 deck structure type and Item 108A wearing surface (page 70). A structure's deck= is READ: open_grating is Item 107 code 3; concrete is 107 code 1 or 2 under 108A 0 to 4; asphalt is 108A code 6; other is anything else. Which record belongs to which structure is DERIVED: a record carried on the structure whose point projects within 60 m of the archived road, inside the structure or within 0.02 mi of its ends, with an Item 49 length within 0.05 mi of the structure's measured span; the best length fit wins, then the nearer point. nbi= is the record's state FIPS and structure number. grate=from:to on a movable open grating (43B 15, 16 or 17) is DERIVED: Item 45 spans times Item 48, centred on the structure (NBI's point may be the bridge's beginning, Item 16, page 8), clipped to it. A structure with no tag matched no record."
           }
-        }
+        },
+        "bridges": [
+          {
+            "from_mi": 30.603,
+            "to_mi": 34.624,
+            "name": "Chesapeake Bay Bridge",
+            "water": true,
+            "osm": "way/27164663",
+            "source": "Name read from the bridge:name tag of way 27164663; span derived by projecting its ways (way/27164663) onto the leg's archived road, rescaled to leg miles (over the length bar, 21256 ft); water derived from a waterway or coastline the bridge ways cross. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          }
+        ]
       },
       "stops": [
         {
@@ -15393,6 +15403,24 @@
             "name": "New Castle County",
             "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
           }
+        ],
+        "bridges": [
+          {
+            "from_mi": 48.003,
+            "to_mi": 48.969,
+            "name": "Millard E. Tydings Memorial Bridge",
+            "over": "Susquehanna River",
+            "water": true,
+            "osm": "way/41401238 way/50276532",
+            "source": "Name read from the bridge:name tag of way 41401238; span derived by projecting its ways (way/41401238 way/50276532) onto the leg's archived road, rescaled to leg miles (over the length bar, 5076 ft); water derived from a waterway or coastline the bridge ways cross. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "from_mi": 80.931,
+            "to_mi": 81.971,
+            "name": "South Wilmington Viaduct",
+            "osm": "way/38742895 way/43532346 way/71359317 way/628168531 way/628713987 way/1169524853 way/1169524854 way/1169524855 way/1217779398",
+            "source": "Name read from the name of bridge outline way 1238892083; span derived by projecting its ways (way/38742895 way/43532346 way/71359317 way/628168531 way/628713987 way/1169524853 way/1169524854 way/1169524855 way/1217779398) onto the leg's archived road, rescaled to leg miles (over the length bar, 5469 ft); no waterway or coastline found under it (assumed dry). OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          }
         ]
       },
       "stops": [
@@ -26081,7 +26109,18 @@
             "deck_read_share": 0.846,
             "deck_source": "National Bridge Inventory, NTAD feature service (Bureau of Transportation Statistics, https://services.arcgis.com/xOi1kZaI0eWDREZv/arcgis/rest/services/NTAD_National_Bridge_Inventory/FeatureServer/0), accessed 2026-11-22; codes per the FHWA Recording and Coding Guide for the Structure Inventory and Appraisal of the Nation's Bridges (1995, https://www.fhwa.dot.gov/bridge/mtguide.pdf): Item 5A record type (page 2), Item 43B structure type (page 24), Items 45, 48 and 49 spans and lengths (pages 26 to 28), Item 107 deck structure type and Item 108A wearing surface (page 70). A structure's deck= is READ: open_grating is Item 107 code 3; concrete is 107 code 1 or 2 under 108A 0 to 4; asphalt is 108A code 6; other is anything else. Which record belongs to which structure is DERIVED: a record carried on the structure whose point projects within 60 m of the archived road, inside the structure or within 0.02 mi of its ends, with an Item 49 length within 0.05 mi of the structure's measured span; the best length fit wins, then the nearer point. nbi= is the record's state FIPS and structure number. grate=from:to on a movable open grating (43B 15, 16 or 17) is DERIVED: Item 45 spans times Item 48, centred on the structure (NBI's point may be the bridge's beginning, Item 16, page 8), clipped to it. A structure with no tag matched no record."
           }
-        }
+        },
+        "bridges": [
+          {
+            "from_mi": 72.122,
+            "to_mi": 73.125,
+            "name": "George N. Wade Memorial Bridge",
+            "over": "Susquehanna River",
+            "water": true,
+            "osm": "way/4796223 way/4796227 way/8160523 way/10268054 way/12278180 way/38676285 way/43049758 way/43129069 way/43129070 way/43129074 way/475996592 way/878109968 way/1465624817 way/1465627703 way/1466015999",
+            "source": "Name read from the name of way 4796223, a bridge's name; span derived by projecting its ways (way/4796223 way/4796227 way/8160523 way/10268054 way/12278180 way/38676285 way/43049758 way/43129069 way/43129070 way/43129074 way/475996592 way/878109968 way/1465624817 way/1465627703 way/1466015999) onto the leg's archived road, rescaled to leg miles (over the length bar, 5277 ft); water derived from a waterway or coastline the bridge ways cross. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          }
+        ]
       },
       "stops": [
         {
@@ -32463,7 +32502,25 @@
             "deck_read_share": 0.483,
             "deck_source": "National Bridge Inventory, NTAD feature service (Bureau of Transportation Statistics, https://services.arcgis.com/xOi1kZaI0eWDREZv/arcgis/rest/services/NTAD_National_Bridge_Inventory/FeatureServer/0), accessed 2026-11-22; codes per the FHWA Recording and Coding Guide for the Structure Inventory and Appraisal of the Nation's Bridges (1995, https://www.fhwa.dot.gov/bridge/mtguide.pdf): Item 5A record type (page 2), Item 43B structure type (page 24), Items 45, 48 and 49 spans and lengths (pages 26 to 28), Item 107 deck structure type and Item 108A wearing surface (page 70). A structure's deck= is READ: open_grating is Item 107 code 3; concrete is 107 code 1 or 2 under 108A 0 to 4; asphalt is 108A code 6; other is anything else. Which record belongs to which structure is DERIVED: a record carried on the structure whose point projects within 60 m of the archived road, inside the structure or within 0.02 mi of its ends, with an Item 49 length within 0.05 mi of the structure's measured span; the best length fit wins, then the nearer point. nbi= is the record's state FIPS and structure number. grate=from:to on a movable open grating (43B 15, 16 or 17) is DERIVED: Item 45 spans times Item 48, centred on the structure (NBI's point may be the bridge's beginning, Item 16, page 8), clipped to it. A structure with no tag matched no record."
           }
-        }
+        },
+        "bridges": [
+          {
+            "from_mi": 32.203,
+            "to_mi": 33.837,
+            "name": "Senator Malkus Junior Bridge",
+            "water": true,
+            "osm": "way/45782238 way/45782313 way/934688010 way/934688012",
+            "source": "Name read from the name of way 45782238, a bridge's name; span derived by projecting its ways (way/45782238 way/45782313 way/934688010 way/934688012) onto the leg's archived road, rescaled to leg miles (over the length bar, 8655 ft); water derived from a waterway or coastline the bridge ways cross. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "from_mi": 75.065,
+            "to_mi": 79.036,
+            "name": "Chesapeake Bay Bridge",
+            "water": true,
+            "osm": "way/27164664",
+            "source": "Name read from the name of way 27164664, a bridge's name; span derived by projecting its ways (way/27164664) onto the leg's archived road, rescaled to leg miles (over the length bar, 21034 ft); water derived from a waterway or coastline the bridge ways cross. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          }
+        ]
       },
       "stops": [
         {

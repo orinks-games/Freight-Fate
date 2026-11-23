@@ -257,6 +257,8 @@ fn test_the_route_joints_only_its_real_bridges_and_each_river_once() {
                 assert!(s.to_mi - s.from_mi >= MIN_SPAN_MI - 1e-9, "{s:?}");
             }
             SpanOrigin::RiverAssumed => {}
+            // A named bridge spans its own length, never a sliver.
+            SpanOrigin::NamedBridge => assert!(s.to_mi > s.from_mi, "{s:?}"),
         }
     }
     // No river is jointed twice: an assumed span never sits on a structure.

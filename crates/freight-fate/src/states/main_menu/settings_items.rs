@@ -297,10 +297,10 @@ impl SettingsCategoryState {
             },
             SpeechSpec {
                 label: dyn_label(|s| {
-                    format!("Speak river crossings: {}", on_off(s.chatter_rivers))
+                    format!("Speak rivers and bridges: {}", on_off(s.chatter_rivers))
                 }),
                 action: adjust(|s, ctx, _d| s.toggle_chatter(ctx, "chatter_rivers")),
-                help: "Callouts crossing a named river.",
+                help: "Callouts crossing a named river or a big bridge.",
             },
             SpeechSpec {
                 label: dyn_label(|s| {

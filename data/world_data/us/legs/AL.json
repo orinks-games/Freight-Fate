@@ -12664,7 +12664,26 @@
             "deck_read_share": 0.821,
             "deck_source": "National Bridge Inventory, NTAD feature service (Bureau of Transportation Statistics, https://services.arcgis.com/xOi1kZaI0eWDREZv/arcgis/rest/services/NTAD_National_Bridge_Inventory/FeatureServer/0), accessed 2026-11-22; codes per the FHWA Recording and Coding Guide for the Structure Inventory and Appraisal of the Nation's Bridges (1995, https://www.fhwa.dot.gov/bridge/mtguide.pdf): Item 5A record type (page 2), Item 43B structure type (page 24), Items 45, 48 and 49 spans and lengths (pages 26 to 28), Item 107 deck structure type and Item 108A wearing surface (page 70). A structure's deck= is READ: open_grating is Item 107 code 3; concrete is 107 code 1 or 2 under 108A 0 to 4; asphalt is 108A code 6; other is anything else. Which record belongs to which structure is DERIVED: a record carried on the structure whose point projects within 60 m of the archived road, inside the structure or within 0.02 mi of its ends, with an Item 49 length within 0.05 mi of the structure's measured span; the best length fit wins, then the nearer point. nbi= is the record's state FIPS and structure number. grate=from:to on a movable open grating (43B 15, 16 or 17) is DERIVED: Item 45 spans times Item 48, centred on the structure (NBI's point may be the bridge's beginning, Item 16, page 8), clipped to it. A structure with no tag matched no record."
           }
-        }
+        },
+        "bridges": [
+          {
+            "from_mi": 316.372,
+            "to_mi": 321.936,
+            "name": "Frank Davis \"Naturally N'Awlins\" Memorial Bridge",
+            "water": true,
+            "osm": "way/13504153 way/25746169 way/1080004051 way/1090673593",
+            "source": "Name read from the name of way 13504153, a bridge's name; span derived by projecting its ways (way/13504153 way/25746169 way/1080004051 way/1090673593) onto the leg's archived road, rescaled to leg miles (over the length bar, 29376 ft); water derived from a waterway or coastline the bridge ways cross. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "from_mi": 336.59,
+            "to_mi": 337.863,
+            "name": "High Rise Bridge",
+            "over": "Inner Harbor Navigation Canal",
+            "water": true,
+            "osm": "way/12699508 way/27920809 way/1077973236 way/1077973237 way/1079773083 way/1079773084",
+            "source": "Name read from the bridge:name tag of way 12699508; span derived by projecting its ways (way/12699508 way/27920809 way/1077973236 way/1077973237 way/1079773083 way/1079773084) onto the leg's archived road, rescaled to leg miles (over the length bar, 6720 ft); water derived from a waterway or coastline the bridge ways cross. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          }
+        ]
       },
       "stops": [
         {
@@ -60285,7 +60304,18 @@
             "deck_read_share": 0.881,
             "deck_source": "National Bridge Inventory, NTAD feature service (Bureau of Transportation Statistics, https://services.arcgis.com/xOi1kZaI0eWDREZv/arcgis/rest/services/NTAD_National_Bridge_Inventory/FeatureServer/0), accessed 2026-11-22; codes per the FHWA Recording and Coding Guide for the Structure Inventory and Appraisal of the Nation's Bridges (1995, https://www.fhwa.dot.gov/bridge/mtguide.pdf): Item 5A record type (page 2), Item 43B structure type (page 24), Items 45, 48 and 49 spans and lengths (pages 26 to 28), Item 107 deck structure type and Item 108A wearing surface (page 70). A structure's deck= is READ: open_grating is Item 107 code 3; concrete is 107 code 1 or 2 under 108A 0 to 4; asphalt is 108A code 6; other is anything else. Which record belongs to which structure is DERIVED: a record carried on the structure whose point projects within 60 m of the archived road, inside the structure or within 0.02 mi of its ends, with an Item 49 length within 0.05 mi of the structure's measured span; the best length fit wins, then the nearer point. nbi= is the record's state FIPS and structure number. grate=from:to on a movable open grating (43B 15, 16 or 17) is DERIVED: Item 45 spans times Item 48, centred on the structure (NBI's point may be the bridge's beginning, Item 16, page 8), clipped to it. A structure with no tag matched no record."
           }
-        }
+        },
+        "bridges": [
+          {
+            "from_mi": 19.893,
+            "to_mi": 25.969,
+            "name": "General W.K. Wilson Jr. Bridge",
+            "over": "Big Lizard Creek",
+            "water": true,
+            "osm": "way/108053203 way/108053208",
+            "source": "Name read from the name of bridge relation 17995183; span derived by projecting its ways (way/108053203 way/108053208) onto the leg's archived road, rescaled to leg miles (over the length bar, 32095 ft); water derived from a waterway or coastline the bridge ways cross. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          }
+        ]
       },
       "stops": [
         {
@@ -63040,7 +63070,26 @@
             "deck_read_share": 0.871,
             "deck_source": "National Bridge Inventory, NTAD feature service (Bureau of Transportation Statistics, https://services.arcgis.com/xOi1kZaI0eWDREZv/arcgis/rest/services/NTAD_National_Bridge_Inventory/FeatureServer/0), accessed 2026-11-22; codes per the FHWA Recording and Coding Guide for the Structure Inventory and Appraisal of the Nation's Bridges (1995, https://www.fhwa.dot.gov/bridge/mtguide.pdf): Item 5A record type (page 2), Item 43B structure type (page 24), Items 45, 48 and 49 spans and lengths (pages 26 to 28), Item 107 deck structure type and Item 108A wearing surface (page 70). A structure's deck= is READ: open_grating is Item 107 code 3; concrete is 107 code 1 or 2 under 108A 0 to 4; asphalt is 108A code 6; other is anything else. Which record belongs to which structure is DERIVED: a record carried on the structure whose point projects within 60 m of the archived road, inside the structure or within 0.02 mi of its ends, with an Item 49 length within 0.05 mi of the structure's measured span; the best length fit wins, then the nearer point. nbi= is the record's state FIPS and structure number. grate=from:to on a movable open grating (43B 15, 16 or 17) is DERIVED: Item 45 spans times Item 48, centred on the structure (NBI's point may be the bridge's beginning, Item 16, page 8), clipped to it. A structure with no tag matched no record."
           }
-        }
+        },
+        "bridges": [
+          {
+            "from_mi": 117.411,
+            "to_mi": 122.966,
+            "name": "Frank Davis \"Naturally N'Awlins\" Memorial Bridge",
+            "water": true,
+            "osm": "way/13504153 way/25746169 way/1080004051 way/1090673593",
+            "source": "Name read from the name of way 13504153, a bridge's name; span derived by projecting its ways (way/13504153 way/25746169 way/1080004051 way/1090673593) onto the leg's archived road, rescaled to leg miles (over the length bar, 29376 ft); water derived from a waterway or coastline the bridge ways cross. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "from_mi": 137.599,
+            "to_mi": 138.87,
+            "name": "High Rise Bridge",
+            "over": "Inner Harbor Navigation Canal",
+            "water": true,
+            "osm": "way/12699508 way/27920809 way/1077973236 way/1077973237 way/1079773083 way/1079773084",
+            "source": "Name read from the bridge:name tag of way 12699508; span derived by projecting its ways (way/12699508 way/27920809 way/1077973236 way/1077973237 way/1079773083 way/1079773084) onto the leg's archived road, rescaled to leg miles (over the length bar, 6720 ft); water derived from a waterway or coastline the bridge ways cross. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          }
+        ]
       },
       "stops": [
         {

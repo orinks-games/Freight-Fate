@@ -29,6 +29,7 @@
 - **The map now reaches Ontario and Quebec,** from Windsor and Sarnia through Toronto, Ottawa and Montreal to Quebec City.
 - **The map now reaches Thompson, Baie-Comeau, Sept-Îles and Chibougamau,** on Manitoba's Highway 6 and Quebec's northern routes.
 - **The map now reaches New Brunswick, Nova Scotia and Prince Edward Island,** through Houlton and Calais, with the Cobequid Pass and Confederation Bridge tolls.
+- **Big bridges are on the map by name.** You hear the bridge under the wheels for its whole length, and its name as you drive onto it.
 - **Trucks now stop for customs at every border crossing, both ways.** Driving past the booth brings a penalty, which a company driver's carrier pays.
 - **Dispatch now offers loads into Canada and back,** with customs time in the deadline. A US carrier may not haul between Canadian towns.
 - **A route between two US cities stays in the United States when a US road exists.** Alaska routes still run through Canada.
@@ -104,6 +105,7 @@
 
 ### Fixed
 
+- **The Golden Gate Bridge is now named on northbound trips.**
 - **Alligator Alley now charges one toll per trip.** It was charging for both plazas.
 - **The Ohio Turnpike toll between Cleveland and Toledo is now the 2026 five-axle fare.** It drops from $28.00 to $17.50.
 - **Boston to Portsmouth now charges the Hampton toll.** Only the trip back charged it before.
